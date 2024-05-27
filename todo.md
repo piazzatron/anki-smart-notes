@@ -12,10 +12,23 @@
 
   - [ ] Language selection
   - [ ] Example difficulty selection
+  - [ ] regenerate field
+  - [ ] mapping custom field names
+  - [ ] license etc
 
 - 3
+
   - [ ] Support custom fields using templating
+
+- ???
+- [ ] Image creation support for mmemonics??
 
 ## Musings
 
 - Should it fill the entire card, or a single field?
+
+## Work
+
+2024_27_5
+
+- [ ] Setup python env
