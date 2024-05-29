@@ -10,6 +10,7 @@
 
 - 2
 
+  - [ ] Background thread OpenAI
   - [ ] Language selection
   - [ ] Example difficulty selection
   - [ ] regenerate field
@@ -26,9 +27,12 @@
 ## Musings
 
 - Should it fill the entire card, or a single field?
+- It could automatically fill out chosen fields on edit AND on note review, if they're empty
+- Each field could have an option to map to a prompt
 
 ## Work
 
 2024_27_5
 
-- [ ] Setup python env
+- [x] Setup python env
+-
