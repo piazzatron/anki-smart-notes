@@ -1,5 +1,6 @@
-from typing import List
+from typing import List, Callable
 from aqt import gui_hooks, editor, mw
+from aqt.operations import QueryOp
 from anki.cards import Card
 import requests
 
@@ -30,6 +31,19 @@ class OpenAIClient:
         msg = resp["choices"][0]["message"]["content"]
         return msg
 
+def get_chat_response_in_background(prompt: str, on_success: Callable):
+    if not mw:
+        print("Error: mw not found")
+        return
+
+    op = QueryOp(
+        parent=mw,
+        op=lambda _: client.get_chat_response(prompt),
+        success=on_success,
+    )
+
+    op.run_in_background()
+
 
 client = OpenAIClient(OPEN_AI_KEY)
 
@@ -44,13 +58,14 @@ def on_editor(buttons: List[str], e: editor.Editor):
             return
 
         expression = note["Expression"]
+        prompt = make_prompt(expression)
 
-        msg = client.get_chat_response(
-            make_prompt(expression)
-        )
+        def on_success(msg: str):
+            note["Example"] = msg
+            editor.loadNote()
+            print("RAN THE THING IN BAC KGROUND")
 
-        note["Example"] = msg
-        editor.loadNote()
+        get_chat_response_in_background(prompt, on_success)
 
     button = e.addButton(cmd="Fill out stuff", func=fn, icon="!")
     buttons.append(button)
@@ -60,19 +75,21 @@ def on_review(card: Card):
     note = card.note()
     example = note["Example"]
     if not example:
-        example = client.get_chat_response(
-            make_prompt(note["Expression"])
-        )
-        note["Example"] = example
-        note["ExampleTTS"] = ""
+        prompt =  make_prompt(note["Expression"])
 
-        if not mw:
-            print("Error: mw not found")
-            return
+        def on_success(msg: str):
+            note["Example"] = msg
+            note["ExampleTTS"] = ""
 
-        mw.col.update_note(note)
-        card.load()
-        print("Updated example sentence")
+            if not mw:
+                print("Error: mw not found")
+                return
+
+            mw.col.update_note(note)
+            card.load()
+            print("Updated example sentence")
+
+        get_chat_response_in_background(prompt, on_success)
     else:
         print("Example sentence already exists")
 
