@@ -70,8 +70,6 @@ def get_chat_response_in_background(prompt: str, field: str, on_success: Callabl
 
     op.run_in_background()
 
-
-
 def get_prompt_fields_lower(prompt: str):
     pattern = r"\{\{(.+?)\}\}"
     fields = re.findall(pattern, prompt)
@@ -128,6 +126,11 @@ def async_process_note(note: Note, on_success: Callable, overwrite_fields=False)
     # TODO: should run in parallel for cards that have multiple fields needing prompting.
     # Needs to be in a threadpool exec but kinda painful. Later.
     for (field, prompt) in field_prompts["fields"].items():
+        # Don't overwrite fields that already exist
+        if (not overwrite_fields) and note[field]:
+            print(f"Skipping field: {field}")
+            continue
+
         print(f"Processing field: {field}, prompt: {prompt}")
 
         prompt = interpolate_prompt(prompt, note)
@@ -147,7 +150,7 @@ def on_editor(buttons: List[str], e: editor.Editor):
             print("Error: no note found")
             return
 
-        async_process_note(note=note, on_success=lambda: editor.loadNote())
+        async_process_note(note=note, on_success=lambda: editor.loadNote(), overwrite_fields=True)
 
     button = e.addButton(cmd="Fill out stuff", func=fn, icon="!")
     buttons.append(button)
@@ -155,34 +158,22 @@ def on_editor(buttons: List[str], e: editor.Editor):
 def on_review(card: Card):
     print("Reviewing...")
     note = card.note()
-    # TODO: need to handle field value already existing
-    example = note["Example"]
 
-    if not example:
-        def update_note():
-            if not mw:
-                print("Error: mw not found")
-                return
+    def update_note():
+        if not mw:
+            print("Error: mw not found")
+            return
 
-            mw.col.update_note(note)
-            card.load()
-            print("Updated on review")
+        mw.col.update_note(note)
+        card.load()
+        print("Updated on review")
 
-        async_process_note(note=note, on_success=update_note)
-    else:
-        print("Example sentence already exists")
+    async_process_note(note=note, on_success=update_note, overwrite_fields=False)
 
-# TODO: make nothing here blocks the main thread
 def on_main_window():
-    models = mw.col.models.all()
-    for model in models:
-        # Need [name] on fields
-        # print(model["flds"])
-        print(model["name"])
-
+    print("Loaded")
 
 gui_hooks.editor_did_init_buttons.append(on_editor)
-
 # TODO: I think this should be 'card did show'?
 gui_hooks.reviewer_did_show_question.append(on_review)
 gui_hooks.main_window_did_init.append(on_main_window)
