@@ -1,4 +1,4 @@
-from typing import List, Callable
+from typing import List, Callable, TypedDict, Dict
 import re
 from aqt import gui_hooks, editor, mw
 from aqt.operations import QueryOp
@@ -12,9 +12,30 @@ import requests
 # print(packages_dir)
 # sys.path.append(packages_dir)
 
+class NoteTypeMap(TypedDict):
+    fields: Dict[str, str]
 
-config = mw.addonManager.getConfig(__name__)
-OPEN_AI_KEY = config.get("openai_api_key")
+class PromptMap(TypedDict):
+    note_types: Dict[str, NoteTypeMap]
+
+class Config:
+    # Keys
+    @property
+    def api_key(self):
+        return self._config.get("openai_api_key")
+
+    @property
+    def prompts_map(self) -> PromptMap:
+        return self._config.get("prompts_map")
+
+    # Helper
+
+    @property
+    def _config(self):
+        return mw.addonManager.getConfig(__name__)
+
+
+config = Config()
 
 # Create an OpenAPI Client
 class OpenAIClient:
@@ -34,7 +55,9 @@ class OpenAIClient:
         msg = resp["choices"][0]["message"]["content"]
         return msg
 
-def get_chat_response_in_background(prompt: str, on_success: Callable):
+client = OpenAIClient(config.api_key)
+
+def get_chat_response_in_background(prompt: str, field: str, on_success: Callable):
     if not mw:
         print("Error: mw not found")
         return
@@ -42,20 +65,20 @@ def get_chat_response_in_background(prompt: str, on_success: Callable):
     op = QueryOp(
         parent=mw,
         op=lambda _: client.get_chat_response(prompt),
-        success=on_success,
+        success=lambda msg: on_success(msg, field),
     )
 
     op.run_in_background()
 
 
-client = OpenAIClient(OPEN_AI_KEY)
 
 def get_prompt_fields_lower(prompt: str):
     pattern = r"\{\{(.+?)\}\}"
     fields = re.findall(pattern, prompt)
     return [field.lower() for field in fields]
 
-def validate_prompt(prompt: str, note: None):
+# TODO: need to use this
+def validate_prompt(prompt: str, note: Note):
     prompt_fields = get_prompt_fields_lower(prompt)
 
     all_note_fields = {field.lower(): value for field, value in note.items()}
@@ -67,7 +90,7 @@ def validate_prompt(prompt: str, note: None):
     return True
 
 
-def generate_prompt(prompt: str, note: Note):
+def interpolate_prompt(prompt: str, note: Note):
     # Bunch of extra logic to make this whole process case insensitive
 
     # Regex to pull out any words enclosed in double curly braces
@@ -80,6 +103,7 @@ def generate_prompt(prompt: str, note: Note):
     # Lowercase the characters inside {{}} in the prompt
     prompt = re.sub(pattern, lambda x: "{{" + x.group(1).lower() + "}}", prompt)
 
+    # Sub values in prompt
     for field in fields:
         value = all_note_fields.get(field, "")
         prompt = prompt.replace("{{" + field + "}}", value)
@@ -88,19 +112,33 @@ def generate_prompt(prompt: str, note: Note):
     return prompt
 
 def async_process_note(note: Note, on_success: Callable, overwrite_fields=False):
-    prompt = generate_prompt(make_prompt(), note)
+    note_type = note.note_type()
 
-    def wrapped_on_success(msg: str):
-        note["Example"] = msg
-        # Perform UI side effects
-        on_success()
-        print("Successfully ran in background")
+    if not note_type:
+        print("Error: no note type")
+        return
 
-    get_chat_response_in_background(prompt, wrapped_on_success)
+    note_type_name = note_type["name"]
+    field_prompts = config.prompts_map.get("note_types", {}).get(note_type_name, None)
 
-# TODO: deleteme
-def make_prompt():
-    return "You are to provide an example sentence in Japanese for the word {{expression}}. Use only simple (N5) vocab and grammar.  Respond only with the Japanese example sentence followed by the english translation in paranthesis, nothing else."
+    if not field_prompts:
+        print("Error: no prompts found for note type")
+        return
+
+    # TODO: should run in parallel for cards that have multiple fields needing prompting.
+    # Needs to be in a threadpool exec but kinda painful. Later.
+    for (field, prompt) in field_prompts["fields"].items():
+        print(f"Processing field: {field}, prompt: {prompt}")
+
+        prompt = interpolate_prompt(prompt, note)
+
+        def wrapped_on_success(msg: str, target_field: str):
+            note[target_field] = msg
+            # Perform UI side effects
+            on_success()
+            print("Successfully ran in background")
+
+        get_chat_response_in_background(prompt, field, wrapped_on_success)
 
 def on_editor(buttons: List[str], e: editor.Editor):
     def fn(editor: editor.Editor):
@@ -134,8 +172,17 @@ def on_review(card: Card):
     else:
         print("Example sentence already exists")
 
+# TODO: make nothing here blocks the main thread
+def on_main_window():
+    models = mw.col.models.all()
+    for model in models:
+        # Need [name] on fields
+        # print(model["flds"])
+        print(model["name"])
+
 
 gui_hooks.editor_did_init_buttons.append(on_editor)
 
 # TODO: I think this should be 'card did show'?
 gui_hooks.reviewer_did_show_question.append(on_review)
+gui_hooks.main_window_did_init.append(on_main_window)

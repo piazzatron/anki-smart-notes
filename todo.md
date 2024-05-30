@@ -26,6 +26,7 @@
     - Should link to GH
     - For feature requests/bugs, go to GH
     - if u like it give it a thumb so more ppl can find it
+    - Note that it works in lowercase field names
   - [ ] Make GH repo public
   - [ ] Supported anki versions
 
