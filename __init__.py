@@ -16,7 +16,10 @@ from aqt.qt import (
     QFormLayout,
     QPushButton,
     QHBoxLayout,
-    QComboBox
+    QComboBox,
+    QTextEdit,
+    QTextOption
+
 )
 from PyQt6.QtCore import Qt
 import requests
@@ -245,6 +248,7 @@ class AIFieldsOptionsDialog(QDialog):
         add_button.clicked.connect(self.on_add)
         self.remove_button = QPushButton("-")
         table_buttons.addWidget(self.remove_button)
+        self.remove_button.clicked.connect(self.on_remove)
         table_buttons.addWidget(add_button)
 
         standard_buttons = QDialogButtonBox(
@@ -323,6 +327,16 @@ class AIFieldsOptionsDialog(QDialog):
         if result == QDialog.DialogCode.Accepted:
             self.update_table()
 
+    def on_remove(self):
+        if self.selected_row is None:
+            # Should never happen
+            return
+        card_type = self.table.item(self.selected_row, 0).text()
+        field = self.table.item(self.selected_row, 1).text()
+        print(f"Removing {card_type}, {field}")
+        self.prompts_map["note_types"][card_type]["fields"].pop(field)
+        self.update_table()
+
     def on_accept(self):
         self.config.openai_api_key = self.api_key_edit.text()
         self.config.prompts_map = self.prompts_map
@@ -384,11 +398,14 @@ class QPromptDialog(QDialog):
         standard_buttons.rejected.connect(self.on_reject)
 
         prompt_label = QLabel("Prompt")
-        self.prompt_text_box = QLineEdit()
+        self.prompt_text_box = QTextEdit()
         self.prompt_text_box.textChanged.connect(self.on_text_changed)
         self.prompt_text_box.setMinimumHeight(150)
         self.prompt_text_box.setAlignment(Qt.AlignmentFlag.AlignTop)
-
+        self.prompt_text_box.setLineWrapMode(QTextEdit.LineWrapMode.WidgetWidth)
+        self.prompt_text_box.setWordWrapMode(QTextOption.WrapMode.WrapAtWordBoundaryOrAnywhere)
+        # TODO: why isn't placeholder showing up?
+        self.prompt_text_box.placeholderText = "Create an example sentence in Japanese for the word {{expression}}. Use only simple grammar and vocab. Respond only with the Japanese example sentence."
         self.setLayout(layout)
         layout.addWidget(prompt_label)
         layout.addWidget(self.prompt_text_box)
@@ -439,8 +456,8 @@ class QPromptDialog(QDialog):
         prompt = self.prompts_map.get("note_types", {}).get(self.card_type, {}).get("fields", {}).get(self.field, "")
         self.prompt_text_box.setText(prompt)
 
-    def on_text_changed(self, text: str):
-        self.prompt = text
+    def on_text_changed(self):
+        self.prompt = self.prompt_text_box.toPlainText()
 
     def on_accept(self):
         if self.card_type and self.field and self.prompt:

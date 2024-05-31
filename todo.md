@@ -9,12 +9,16 @@
   - [x] Background thread OpenAI
   - [ ] regenerate field button
   - [ ] Config menu:
+
     - [x] Model selection
     - [x] mapping custom field names
+    - [ ] Placeholder isn't showing up for prompt box...
     - [ ] validatate every prompt...
     - [ ] UI polish, this table looks bad
-    - [ ] Deleting prompts
-    - [ ] Adding prompts
+    - [x] Deleting prompts
+    - [x] Adding prompts
+    - [x] Editing prompts
+
   - [ ] Add card flow will need something...
   - [ ] Batch processing
   - [ ] Crash handling (what if openAI 500s, etc). Need to display some errors
