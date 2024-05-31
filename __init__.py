@@ -313,6 +313,14 @@ class AIFieldsOptionsDialog(QDialog):
 
     def on_row_double_clicked(self, item):
         print(f"Double clicked: {item.row()}")
+        card_type = self.table.item(self.selected_row, 0).text()
+        field = self.table.item(self.selected_row, 1).text()
+        prompt = self.table.item(self.selected_row, 2).text()
+        print(f"Editing {card_type}, {field}")
+        prompt_dialog = QPromptDialog(self.prompts_map, self.on_update_prompts, card_type=card_type, field=field, prompt=prompt)
+
+        if prompt_dialog.exec() == QDialog.DialogCode.Accepted:
+            self.update_table()
 
     def update_buttons(self):
         if self.selected_row is not None:
@@ -323,8 +331,7 @@ class AIFieldsOptionsDialog(QDialog):
     def on_add(self, row):
         print(row)
         prompt_dialog = QPromptDialog(self.prompts_map, self.on_update_prompts)
-        result = prompt_dialog.exec()
-        if result == QDialog.DialogCode.Accepted:
+        if prompt_dialog.exec() == QDialog.DialogCode.Accepted:
             self.update_table()
 
     def on_remove(self):
@@ -362,11 +369,15 @@ class QPromptDialog(QDialog):
         self.config = config
         self.on_accept_callback = on_accept_callback
         self.prompts_map = prompts_map
-        self.card_type = card_type
-        self.field = field
+
+        self.card_types = self.get_card_types()
+        self.selected_card_type = card_type or self.card_types[0]
+
+        self.fields = self.get_fields(self.selected_card_type)
+        self.selected_field = field or self.get_fields(self.selected_card_type)[0]
+
         self.prompt = prompt
-        self.card_types: List[str] = []
-        self.fields_for_card: List[str] = []
+        self.prompt_text_box = None
         self.field_combo_box = None
 
         self.setup_ui()
@@ -374,14 +385,13 @@ class QPromptDialog(QDialog):
 
     def setup_ui(self):
         self.setWindowTitle("Set Prompt")
-        self.card_types = self.get_card_types()
         card_combo_box = QComboBox()
+
         self.field_combo_box = QComboBox()
-        self.field_combo_box.currentTextChanged.connect(self.on_field_selected)
 
         card_combo_box.addItems(self.card_types)
 
-        card_combo_box.setCurrentText(self.card_type)
+        card_combo_box.setCurrentText(self.selected_card_type)
         card_combo_box.currentTextChanged.connect(self.on_card_type_selected)
 
         label = QLabel("Card Type")
@@ -406,10 +416,19 @@ class QPromptDialog(QDialog):
         self.prompt_text_box.setWordWrapMode(QTextOption.WrapMode.WrapAtWordBoundaryOrAnywhere)
         # TODO: why isn't placeholder showing up?
         self.prompt_text_box.placeholderText = "Create an example sentence in Japanese for the word {{expression}}. Use only simple grammar and vocab. Respond only with the Japanese example sentence."
+        self.update_prompt()
         self.setLayout(layout)
         layout.addWidget(prompt_label)
         layout.addWidget(self.prompt_text_box)
         layout.addWidget(standard_buttons)
+
+        # This needs to be called at the end
+        # once the widgets are set up
+        self.update_fields()
+        # Very brittle; this needs to be called after update_fields
+        # because otherwise update_fields will clear out the field combo box,
+        # causing it to default select the first field in the list
+        self.field_combo_box.currentTextChanged.connect(self.on_field_selected)
 
 
     def get_card_types(self):
@@ -427,45 +446,49 @@ class QPromptDialog(QDialog):
         return [field["name"] for field in model["flds"]]
 
     def on_field_selected(self, field: str):
+        print(f"Field selected: {field}")
         if not field:
             return
-        self.field = field
+        self.selected_field = field
         self.update_prompt()
 
     def on_card_type_selected(self, card_type: str):
         if not card_type:
             return
-        self.card_type = card_type
+        self.selected_card_type = card_type
 
         self.update_fields()
         self.update_prompt()
 
     def update_fields(self):
-        if not self.card_type:
+        if not self.selected_card_type:
             return
-        self.fields = self.get_fields(self.card_type)
+
+        self.fields = self.get_fields(self.selected_card_type)
 
         self.field_combo_box.clear()
         self.field_combo_box.addItems(self.fields)
+        print(f"Attempting to set field to {self.selected_field}")
+        self.field_combo_box.setCurrentText(self.selected_field)
 
     def update_prompt(self):
-        if not self.field or not self.card_type:
+        if not self.selected_field or not self.selected_card_type:
             self.prompt_text_box.setText("")
             return
 
-        prompt = self.prompts_map.get("note_types", {}).get(self.card_type, {}).get("fields", {}).get(self.field, "")
+        prompt = self.prompts_map.get("note_types", {}).get(self.selected_card_type, {}).get("fields", {}).get(self.selected_field, "")
         self.prompt_text_box.setText(prompt)
 
     def on_text_changed(self):
         self.prompt = self.prompt_text_box.toPlainText()
 
     def on_accept(self):
-        if self.card_type and self.field and self.prompt:
+        if self.selected_card_type and self.selected_field and self.prompt:
             # IDK if this is gonna work on the config object? I think not...
-            print(f"Trying to set prompt for {self.card_type}, {self.field}, {self.prompt}")
-            if not self.prompts_map["note_types"].get(self.card_type):
-                self.prompts_map["note_types"][self.card_type] = {"fields": {}}
-            self.prompts_map["note_types"][self.card_type]["fields"][self.field] = self.prompt
+            print(f"Trying to set prompt for {self.selected_card_type}, {self.selected_field}, {self.prompt}")
+            if not self.prompts_map["note_types"].get(self.selected_card_type):
+                self.prompts_map["note_types"][self.selected_card_type] = {"fields": {}}
+            self.prompts_map["note_types"][self.selected_card_type]["fields"][self.selected_field] = self.prompt
             self.on_accept_callback(self.prompts_map)
         self.accept()
 
