@@ -9,11 +9,15 @@
   - [x] Background thread OpenAI
   - [ ] regenerate field button
   - [ ] Config menu:
-    - [ ] Model selection
-    - [ ] mapping custom field names
+    - [x] Model selection
+    - [x] mapping custom field names
+    - [ ] validatate every prompt...
+    - [ ] UI polish, this table looks bad
+    - [ ] Deleting prompts
+    - [ ] Adding prompts
   - [ ] Add card flow will need something...
   - [ ] Batch processing
-  - Crash handling (what if openAI 500s, etc). Need to display some errors
+  - [ ] Crash handling (what if openAI 500s, etc). Need to display some errors
 
   - [ ] Needs to have some sort of nice UI to indicate that a card has been updated in the background. Flash a border or something?
   - [ ] Need an icon for the options window and editor button (robot emoji?)

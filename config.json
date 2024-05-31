@@ -1,6 +1,6 @@
 {
   "openai_api_key": "",
-  "open_ai_model": "gpt-4",
+  "openai_model": "gpt-4",
   "prompts_map": {
     "note_types": {
       "Japanese (recognition) (japanese support)": {
