@@ -4,6 +4,7 @@ from aqt import gui_hooks, editor, mw
 from aqt.operations import QueryOp
 from anki.cards import Card
 from anki.notes import Note
+from aqt.qt import QAction, QDialog, QLabel, QGridLayout, QLineEdit, QDialogButtonBox
 import requests
 
 # TODO: sort imports...
@@ -19,28 +20,35 @@ class PromptMap(TypedDict):
     note_types: Dict[str, NoteTypeMap]
 
 class Config:
-    # Keys
-    @property
-    def api_key(self):
-        return self._config.get("openai_api_key")
+    openai_api_key: str
+    prompts_map: PromptMap
+    openai_model: str # TODO: type this
 
-    @property
-    def prompts_map(self) -> PromptMap:
-        return self._config.get("prompts_map")
 
-    # Helper
+    def __getattr__(self, key: str) -> object:
+        if not mw:
+            raise Exception("Error: mw not found")
 
-    @property
-    def _config(self):
-        return mw.addonManager.getConfig(__name__)
+        return mw.addonManager.getConfig(__name__).get(key)
+
+    def __setattr__(self, name: str, value: object) -> None:
+        if not mw:
+            raise Exception("Error: mw not found")
+
+        old_config = mw.addonManager.getConfig(__name__)
+        if not old_config:
+            raise Exception("Error: no config found")
+
+        old_config[name] = value
+        mw.addonManager.writeConfig(__name__, old_config)
 
 
 config = Config()
 
 # Create an OpenAPI Client
 class OpenAIClient:
-    def __init__(self, api_key):
-        self.api_key = api_key
+    def __init__(self, config: Config):
+        self.api_key = config.openai_api_key
 
     def get_chat_response(self, prompt: str):
         r = requests.post(
@@ -48,14 +56,14 @@ class OpenAIClient:
             headers={
                 "Authorization": f"Bearer {self.api_key}",
             },
-            json={"model": "gpt-4", "messages": [{"role": "user", "content": prompt}]},
+            json={"model": config.openai_model, "messages": [{"role": "user", "content": prompt}]},
         )
 
         resp = r.json()
         msg = resp["choices"][0]["message"]["content"]
         return msg
 
-client = OpenAIClient(config.api_key)
+client = OpenAIClient(config)
 
 def get_chat_response_in_background(prompt: str, field: str, on_success: Callable):
     if not mw:
@@ -170,7 +178,63 @@ def on_review(card: Card):
 
     async_process_note(note=note, on_success=update_note, overwrite_fields=False)
 
+class AIFieldsOptionsDialog(QDialog):
+    def __init__(self, config: Config):
+        super().__init__()
+        self.api_key_edit = None
+        self.config = config
+
+        self.setup_ui()
+
+
+    def setup_ui(self):
+        self.setWindowTitle("AI Fields Options")
+
+        # Setup Widgets
+
+        # API Key
+        api_key_label = QLabel("OpenAI API Key")
+        api_key_label.setToolTip("Get your API key from https://platform.openai.com/account/api-keys")
+        self.api_key_edit = QLineEdit()
+        self.api_key_edit.setText(config.openai_api_key)
+        self.api_key_edit.setPlaceholderText("12345....")
+
+        # Buttons Button
+        # Need a restore defaults button
+        buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Cancel | QDialogButtonBox.StandardButton.Ok)
+        buttons.accepted.connect(self.on_accept)
+        buttons.rejected.connect(self.on_reject)
+
+        # Setup Layout
+
+        # TODO: god knows if this is the right approach...
+        grid = QGridLayout()
+        grid.addWidget(api_key_label, 0, 0)
+        grid.addWidget(self.api_key_edit, 0, 1)
+        grid.addWidget(buttons, 1, 0, 1, 2)
+        self.setLayout(grid)
+
+    def on_accept(self):
+        self.config.openai_api_key = self.api_key_edit.text()
+        self.accept()
+
+    def on_reject(self):
+        self.reject()
+
+
+
+def on_options():
+    dialog = AIFieldsOptionsDialog(config)
+    dialog.show()
+    dialog.exec()
+
 def on_main_window():
+    # Add options to Anki Menu
+    options_action = QAction("AI Fields Options...", mw)
+    options_action.triggered.connect(on_options)
+    mw.form.menuTools.addAction(options_action)
+
+    # TODO: do I need a profile_will_close thing here?
     print("Loaded")
 
 gui_hooks.editor_did_init_buttons.append(on_editor)

@@ -16,6 +16,9 @@
   - Crash handling (what if openAI 500s, etc). Need to display some errors
 
   - [ ] Needs to have some sort of nice UI to indicate that a card has been updated in the background. Flash a border or something?
+  - [ ] Need an icon for the options window and editor button (robot emoji?)
+  - [ ] Decide on a name... AI Field Options kinda bland decent SEO tho
+  - [ ] Should use QSpinbox...
 
 - Distribution
 
