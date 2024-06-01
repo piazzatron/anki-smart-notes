@@ -14,7 +14,6 @@
     - [x] mapping custom field names
     - [ ] Placeholder isn't showing up for prompt box...
     - [ ] validatate every prompt...
-    - [ ] UI polish, this table looks bad
     - [x] Deleting prompts
     - [x] Adding prompts
     - [x] Editing prompts
@@ -26,7 +25,12 @@
   - [ ] Needs to have some sort of nice UI to indicate that a card has been updated in the background. Flash a border or something?
   - [ ] Need an icon for the options window and editor button (robot emoji?)
   - [ ] Decide on a name... AI Field Options kinda bland decent SEO tho
+  - [ ] Should have a way to test the prompts... oy
   - [ ] Should use QSpinbox...
+
+- PRODUCT POLISH
+
+  - [ ] Config menu looks like crap
 
 - Distribution
 
@@ -49,11 +53,13 @@
 
 - [ ] Beta Test with Evan
 
+  - Is edit functionality discoverable?
   - Ask for feedback on documentation etc
 
 - LATER
 
   - [ ] Image creation support for mmemonics??
+  - [ ] Project writeup, while it's fresh. Challenges, inspirations etc. Further notes in Obsidian
 
 - NICE TO HAVE
   - [ ] Some build script

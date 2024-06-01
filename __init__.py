@@ -1,6 +1,8 @@
 from typing import List, Callable, TypedDict, Dict, Union
 import re
-from aqt import gui_hooks, editor, mw
+import sys
+import os
+from aqt import gui_hooks, editor, mw, browser
 from aqt.operations import QueryOp
 from anki.cards import Card
 from anki.notes import Note
@@ -18,17 +20,24 @@ from aqt.qt import (
     QHBoxLayout,
     QComboBox,
     QTextEdit,
-    QTextOption
-
+    QTextOption,
+    QMenu,
 )
 from PyQt6.QtCore import Qt
 import requests
 
 # TODO: sort imports...
 
-# packages_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "env/lib/python3.11/site-packages")
-# print(packages_dir)
-# sys.path.append(packages_dir)
+# Nonsense to allow importing from site-packages
+# TODO: need to explicitly vendor here...
+packages_dir = os.path.join(
+    os.path.dirname(os.path.realpath(__file__)), "env/lib/python3.11/site-packages"
+)
+print(packages_dir)
+sys.path.append(packages_dir)
+
+import aiohttp
+import asyncio
 
 
 class NoteTypeMap(TypedDict):
@@ -70,38 +79,24 @@ class OpenAIClient:
     def __init__(self, config: Config):
         self.api_key = config.openai_api_key
 
-    def get_chat_response(self, prompt: str):
-        r = requests.post(
-            "https://api.openai.com/v1/chat/completions",
-            headers={
-                "Authorization": f"Bearer {self.api_key}",
-            },
-            json={
-                "model": config.openai_model,
-                "messages": [{"role": "user", "content": prompt}],
-            },
-        )
-
-        resp = r.json()
-        msg = resp["choices"][0]["message"]["content"]
-        return msg
+    async def async_get_chat_response(self, prompt: str):
+        async with aiohttp.ClientSession() as session:
+            async with session.post(
+                "https://api.openai.com/v1/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {self.api_key}",
+                },
+                json={
+                    "model": config.openai_model,
+                    "messages": [{"role": "user", "content": prompt}],
+                },
+            ) as response:
+                resp = await response.json()
+                msg = resp["choices"][0]["message"]["content"]
+                return msg
 
 
 client = OpenAIClient(config)
-
-
-def get_chat_response_in_background(prompt: str, field: str, on_success: Callable):
-    if not mw:
-        print("Error: mw not found")
-        return
-
-    op = QueryOp(
-        parent=mw,
-        op=lambda _: client.get_chat_response(prompt),
-        success=lambda msg: on_success(msg, field),
-    )
-
-    op.run_in_background()
 
 
 def get_prompt_fields_lower(prompt: str):
@@ -145,7 +140,8 @@ def interpolate_prompt(prompt: str, note: Note):
     return prompt
 
 
-def async_process_note(note: Note, on_success: Callable, overwrite_fields=False):
+async def async_process_note_2(note: Note, overwrite_fields=False):
+    print("ASYNC PROCESS 2")
     note_type = note.note_type()
 
     if not note_type:
@@ -161,7 +157,10 @@ def async_process_note(note: Note, on_success: Callable, overwrite_fields=False)
 
     # TODO: should run in parallel for cards that have multiple fields needing prompting.
     # Needs to be in a threadpool exec but kinda painful. Later.
-    for field, prompt in field_prompts["fields"].items():
+    tasks = []
+
+    field_prompt_items = list(field_prompts["fields"].items())
+    for field, prompt in field_prompt_items:
         # Don't overwrite fields that already exist
         if (not overwrite_fields) and note[field]:
             print(f"Skipping field: {field}")
@@ -171,13 +170,19 @@ def async_process_note(note: Note, on_success: Callable, overwrite_fields=False)
 
         prompt = interpolate_prompt(prompt, note)
 
-        def wrapped_on_success(msg: str, target_field: str):
-            note[target_field] = msg
-            # Perform UI side effects
-            on_success()
-            print("Successfully ran in background")
+        task = client.async_get_chat_response(prompt)
+        tasks.append(task)
 
-        get_chat_response_in_background(prompt, field, wrapped_on_success)
+    # Maybe filled out already, if so return early
+    if not tasks:
+        return
+
+    # TODO: handle exceptions here
+    responses = await asyncio.gather(*tasks)
+    print("Responses: ", responses)
+    for i, response in enumerate(responses):
+        target_field = field_prompt_items[i][0]
+        note[target_field] = response
 
 
 def on_editor(buttons: List[str], e: editor.Editor):
@@ -187,9 +192,18 @@ def on_editor(buttons: List[str], e: editor.Editor):
             print("Error: no note found")
             return
 
-        async_process_note(
-            note=note, on_success=lambda: editor.loadNote(), overwrite_fields=True
+        if not mw:
+            return
+
+        op = QueryOp(
+            parent=mw,
+            op=lambda _: asyncio.run(
+                async_process_note_2(note=note, overwrite_fields=True)
+            ),
+            success=lambda _: editor.loadNote(),
         )
+
+        op.run_in_background()
 
     button = e.addButton(cmd="Fill out stuff", func=fn, icon="!")
     buttons.append(button)
@@ -208,7 +222,14 @@ def on_review(card: Card):
         card.load()
         print("Updated on review")
 
-    async_process_note(note=note, on_success=update_note, overwrite_fields=False)
+    op = QueryOp(
+        parent=mw,
+        op=lambda _: asyncio.run(
+            async_process_note_2(note=note, overwrite_fields=False)
+        ),
+        success=lambda _: update_note(),
+    )
+    op.run_in_background()
 
 
 class AIFieldsOptionsDialog(QDialog):
@@ -303,7 +324,6 @@ class AIFieldsOptionsDialog(QDialog):
                     self.table.setItem(row, i, item)
                 row += 1
 
-
     def on_row_selected(self, current):
         if not current:
             self.selected_row = None
@@ -317,7 +337,13 @@ class AIFieldsOptionsDialog(QDialog):
         field = self.table.item(self.selected_row, 1).text()
         prompt = self.table.item(self.selected_row, 2).text()
         print(f"Editing {card_type}, {field}")
-        prompt_dialog = QPromptDialog(self.prompts_map, self.on_update_prompts, card_type=card_type, field=field, prompt=prompt)
+        prompt_dialog = QPromptDialog(
+            self.prompts_map,
+            self.on_update_prompts,
+            card_type=card_type,
+            field=field,
+            prompt=prompt,
+        )
 
         if prompt_dialog.exec() == QDialog.DialogCode.Accepted:
             self.update_table()
@@ -382,7 +408,6 @@ class QPromptDialog(QDialog):
 
         self.setup_ui()
 
-
     def setup_ui(self):
         self.setWindowTitle("Set Prompt")
         card_combo_box = QComboBox()
@@ -401,7 +426,8 @@ class QPromptDialog(QDialog):
         layout.addWidget(self.field_combo_box)
 
         standard_buttons = QDialogButtonBox(
-            QDialogButtonBox.StandardButton.Cancel | QDialogButtonBox.StandardButton.Save
+            QDialogButtonBox.StandardButton.Cancel
+            | QDialogButtonBox.StandardButton.Save
         )
 
         standard_buttons.accepted.connect(self.on_accept)
@@ -413,7 +439,9 @@ class QPromptDialog(QDialog):
         self.prompt_text_box.setMinimumHeight(150)
         self.prompt_text_box.setAlignment(Qt.AlignmentFlag.AlignTop)
         self.prompt_text_box.setLineWrapMode(QTextEdit.LineWrapMode.WidgetWidth)
-        self.prompt_text_box.setWordWrapMode(QTextOption.WrapMode.WrapAtWordBoundaryOrAnywhere)
+        self.prompt_text_box.setWordWrapMode(
+            QTextOption.WrapMode.WrapAtWordBoundaryOrAnywhere
+        )
         # TODO: why isn't placeholder showing up?
         self.prompt_text_box.placeholderText = "Create an example sentence in Japanese for the word {{expression}}. Use only simple grammar and vocab. Respond only with the Japanese example sentence."
         self.update_prompt()
@@ -429,7 +457,6 @@ class QPromptDialog(QDialog):
         # because otherwise update_fields will clear out the field combo box,
         # causing it to default select the first field in the list
         self.field_combo_box.currentTextChanged.connect(self.on_field_selected)
-
 
     def get_card_types(self):
         # Including this function in a little UI
@@ -476,7 +503,12 @@ class QPromptDialog(QDialog):
             self.prompt_text_box.setText("")
             return
 
-        prompt = self.prompts_map.get("note_types", {}).get(self.selected_card_type, {}).get("fields", {}).get(self.selected_field, "")
+        prompt = (
+            self.prompts_map.get("note_types", {})
+            .get(self.selected_card_type, {})
+            .get("fields", {})
+            .get(self.selected_field, "")
+        )
         self.prompt_text_box.setText(prompt)
 
     def on_text_changed(self):
@@ -485,10 +517,14 @@ class QPromptDialog(QDialog):
     def on_accept(self):
         if self.selected_card_type and self.selected_field and self.prompt:
             # IDK if this is gonna work on the config object? I think not...
-            print(f"Trying to set prompt for {self.selected_card_type}, {self.selected_field}, {self.prompt}")
+            print(
+                f"Trying to set prompt for {self.selected_card_type}, {self.selected_field}, {self.prompt}"
+            )
             if not self.prompts_map["note_types"].get(self.selected_card_type):
                 self.prompts_map["note_types"][self.selected_card_type] = {"fields": {}}
-            self.prompts_map["note_types"][self.selected_card_type]["fields"][self.selected_field] = self.prompt
+            self.prompts_map["note_types"][self.selected_card_type]["fields"][
+                self.selected_field
+            ] = self.prompt
             self.on_accept_callback(self.prompts_map)
         self.accept()
 
@@ -496,10 +532,16 @@ class QPromptDialog(QDialog):
         self.reject()
 
 
-
 def on_options():
     dialog = AIFieldsOptionsDialog(config)
     dialog.exec()
+
+
+def on_context_menu(browser: browser.Browser, menu: QMenu):
+    item = QAction("Process AI Fields", menu)
+    menu.addAction(item)
+    selected_notes = browser.selected_notes()
+    print(selected_notes)
 
 
 def on_main_window():
@@ -512,6 +554,7 @@ def on_main_window():
     print("Loaded")
 
 
+gui_hooks.browser_will_show_context_menu.append(on_context_menu)
 gui_hooks.editor_did_init_buttons.append(on_editor)
 # TODO: I think this should be 'card did show'?
 gui_hooks.reviewer_did_show_question.append(on_review)
