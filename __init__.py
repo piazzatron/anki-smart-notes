@@ -3,9 +3,10 @@ import re
 import sys
 import os
 from aqt import gui_hooks, editor, mw, browser
-from aqt.operations import QueryOp
+from aqt.operations import QueryOp, CollectionOp
 from anki.cards import Card
 from anki.notes import Note
+from anki.collection import OpChanges
 from aqt.qt import (
     QAction,
     QDialog,
@@ -139,8 +140,31 @@ def interpolate_prompt(prompt: str, note: Note):
     print("Processed prompt: ", prompt)
     return prompt
 
+async def process_notes(notes: List[Note]):
+    tasks = []
+    for note in notes:
+        tasks.append(process_note(note))
+    await asyncio.gather(*tasks)
 
-async def async_process_note_2(note: Note, overwrite_fields=False):
+def process_notes_with_progress(note_ids: List[int]):
+
+    def wrapped_process_notes():
+        notes = [mw.col.get_note(note_id) for note_id in note_ids]
+        asyncio.run(process_notes(notes))
+        changes = OpChanges()
+        changes.note = True
+        mw.col.update_notes(notes)
+        return changes
+
+    op = CollectionOp(
+        parent=mw,
+        op=lambda _: wrapped_process_notes(),
+    )
+
+    op.run_in_background()
+
+
+async def process_note(note: Note, overwrite_fields=False):
     print("ASYNC PROCESS 2")
     note_type = note.note_type()
 
@@ -188,6 +212,7 @@ async def async_process_note_2(note: Note, overwrite_fields=False):
 def on_editor(buttons: List[str], e: editor.Editor):
     def fn(editor: editor.Editor):
         note = editor.note
+
         if not note:
             print("Error: no note found")
             return
@@ -195,12 +220,17 @@ def on_editor(buttons: List[str], e: editor.Editor):
         if not mw:
             return
 
+        def on_success():
+            mw.col.update_note(note)
+            editor.loadNote()
+
+        # TODO: can refactor some of this query op stuff out
         op = QueryOp(
             parent=mw,
             op=lambda _: asyncio.run(
-                async_process_note_2(note=note, overwrite_fields=True)
+                process_note(note=note, overwrite_fields=True)
             ),
-            success=lambda _: editor.loadNote(),
+            success=lambda _: on_success()
         )
 
         op.run_in_background()
@@ -213,7 +243,7 @@ def on_review(card: Card):
     print("Reviewing...")
     note = card.note()
 
-    def update_note():
+    def on_success():
         if not mw:
             print("Error: mw not found")
             return
@@ -225,9 +255,9 @@ def on_review(card: Card):
     op = QueryOp(
         parent=mw,
         op=lambda _: asyncio.run(
-            async_process_note_2(note=note, overwrite_fields=False)
+            process_note(note=note, overwrite_fields=False)
         ),
-        success=lambda _: update_note(),
+        success=lambda _: on_success(),
     )
     op.run_in_background()
 
@@ -540,8 +570,7 @@ def on_options():
 def on_context_menu(browser: browser.Browser, menu: QMenu):
     item = QAction("Process AI Fields", menu)
     menu.addAction(item)
-    selected_notes = browser.selected_notes()
-    print(selected_notes)
+    item.triggered.connect(lambda: process_notes_with_progress(browser.selected_notes()))
 
 
 def on_main_window():

@@ -19,7 +19,8 @@
     - [x] Editing prompts
 
   - [ ] Add card flow will need something...
-  - [ ] Batch processing
+  - [x] Batch processing
+    - [x] Need to be able to undo a batch... and undo in general?
   - [ ] Crash handling (what if openAI 500s, etc). Need to display some errors
 
   - [ ] Needs to have some sort of nice UI to indicate that a card has been updated in the background. Flash a border or something?
@@ -31,6 +32,8 @@
 - PRODUCT POLISH
 
   - [ ] Config menu looks like crap
+  - [ ] Need some warnings around API rate limit when batching
+  - [ ] Look up API tier to figure out batch limit
 
 - Distribution
 
@@ -42,6 +45,7 @@
     - For feature requests/bugs, go to GH
     - if u like it give it a thumb so more ppl can find it
     - Note that it works in lowercase field names
+    - Intelligently batch cards by your API tier
   - [ ] Make GH repo public
   - [ ] Supported anki versions
 
