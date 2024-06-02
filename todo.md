@@ -60,8 +60,12 @@
   - Is edit functionality discoverable?
   - Ask for feedback on documentation etc
 
-- LATER
+- V2
+  - Better batching support, esp for low tier API
+  - Auto fill after losing focus on origin prompts
 
+- LATER / V3
+  - [ ] AI fields referencing other AI fields, generate in a particular order
   - [ ] Image creation support for mmemonics??
   - [ ] Project writeup, while it's fresh. Challenges, inspirations etc. Further notes in Obsidian
 
