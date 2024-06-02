@@ -40,6 +40,19 @@ sys.path.append(packages_dir)
 import aiohttp
 import asyncio
 
+def run_async_in_background(op: Callable, on_success: Callable):
+    "Runs an async operation in the background and calls on_success when done."
+
+    if not mw:
+        raise Exception("Error: mw not found in run_async_in_background")
+
+    query_op = QueryOp(
+        parent=mw,
+        op=lambda _: asyncio.run(op()),
+        success=on_success,
+    )
+
+    query_op.run_in_background()
 
 class NoteTypeMap(TypedDict):
     fields: Dict[str, str]
@@ -80,6 +93,7 @@ def check_for_api_key(show_box=True):
             message = "No OpenAI API key found. Please enter your API key in the options menu."
             show_message_box(message)
         return False
+    return True
 
 # Create an OpenAPI Client
 class OpenAIClient:
@@ -112,14 +126,25 @@ def get_prompt_fields_lower(prompt: str):
     return [field.lower() for field in fields]
 
 
-# TODO: need to use this
-def validate_prompt(prompt: str, note: Note):
+def get_fields(note_type: str):
+    if not mw or not mw.col:
+        return []
+
+    if not note_type:
+        return []
+
+    model = mw.col.models.by_name(note_type)
+    if not model:
+        return []
+
+    return [field["name"] for field in model["flds"]]
+
+def validate_prompt(prompt: str, note_type: str):
+    fields = {field.lower() for field in get_fields(note_type)}
     prompt_fields = get_prompt_fields_lower(prompt)
 
-    all_note_fields = {field.lower(): value for field, value in note.items()}
-
     for prompt_field in prompt_fields:
-        if prompt_field not in all_note_fields:
+        if prompt_field not in fields:
             return False
 
     return True
@@ -154,7 +179,11 @@ async def process_notes(notes: List[Note]):
     await asyncio.gather(*tasks)
 
 def process_notes_with_progress(note_ids: List[int]):
+    print("Processing notes...")
     if not check_for_api_key():
+        return
+
+    if not mw:
         return
 
     def wrapped_process_notes():
@@ -174,6 +203,7 @@ def process_notes_with_progress(note_ids: List[int]):
 
 
 async def process_note(note: Note, overwrite_fields=False):
+    print(f"Processing note")
     note_type = note.note_type()
 
     if not note_type:
@@ -235,16 +265,7 @@ def on_editor(buttons: List[str], e: editor.Editor):
             mw.col.update_note(note)
             editor.loadNote()
 
-        # TODO: can refactor some of this query op stuff out
-        op = QueryOp(
-            parent=mw,
-            op=lambda _: asyncio.run(
-                process_note(note=note, overwrite_fields=True)
-            ),
-            success=lambda _: on_success()
-        )
-
-        op.run_in_background()
+        run_async_in_background(lambda: process_note(note, overwrite_fields=True), lambda _:on_success)
 
     button = e.addButton(cmd="Fill out stuff", func=fn, icon="!")
     buttons.append(button)
@@ -265,14 +286,10 @@ def on_review(card: Card):
         card.load()
         print("Updated on review")
 
-    op = QueryOp(
-        parent=mw,
-        op=lambda _: asyncio.run(
-            process_note(note=note, overwrite_fields=False)
-        ),
-        success=lambda _: on_success(),
+    run_async_in_background(
+        lambda: process_note(note, overwrite_fields=True),
+        on_success=lambda x: on_success()
     )
-    op.run_in_background()
 
 
 def show_message_box(message: str, details: Union[str, None] = None, custom_ok: Union[str, None] = None, show_cancel: bool = False):
@@ -285,7 +302,7 @@ def show_message_box(message: str, details: Union[str, None] = None, custom_ok: 
     # TODO: this custom_ok is getting put in the wrong position (left most), idk why
     ok_button = None
     if custom_ok:
-        ok_button = QPushButton(custom_ok) 
+        ok_button = QPushButton(custom_ok)
         msg.addButton(ok_button, QMessageBox.ButtonRole.ActionRole)
 
     else:
@@ -304,6 +321,8 @@ openai_models = [
     "gpt-4"
 ]
 
+OPTIONS_MIN_WIDTH = 750
+
 class AIFieldsOptionsDialog(QDialog):
     def __init__(self, config: Config):
         super().__init__()
@@ -320,7 +339,7 @@ class AIFieldsOptionsDialog(QDialog):
 
     def setup_ui(self):
         self.setWindowTitle("🤖 AI Fields Options")
-        self.setMinimumWidth(600)
+        self.setMinimumWidth(OPTIONS_MIN_WIDTH)
 
         # Setup Widgets
 
@@ -380,8 +399,14 @@ class AIFieldsOptionsDialog(QDialog):
     def create_table(self):
         table = QTableWidget(0, 3)
         table.setHorizontalHeaderLabels(["Note Type", "Field", "Prompt"])
+
+        # Selection
         table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
         table.setSelectionMode(QTableWidget.SelectionMode.SingleSelection)
+
+        # Styling
+        table.horizontalHeader().setStretchLastSection(True)
+        table.verticalHeader().setVisible(False)
 
         # Wire up slots
         table.currentItemChanged.connect(self.on_row_selected)
@@ -499,12 +524,14 @@ class QPromptDialog(QDialog):
         self.card_types = self.get_card_types()
         self.selected_card_type = card_type or self.card_types[0]
 
-        self.fields = self.get_fields(self.selected_card_type)
-        self.selected_field = field or self.get_fields(self.selected_card_type)[0]
+        self.fields = get_fields(self.selected_card_type)
+        self.selected_field = field or get_fields(self.selected_card_type)[0]
 
         self.prompt = prompt
         self.prompt_text_box = None
+        self.is_loading_prompt = False
         self.field_combo_box = None
+        self.test_button = None
 
         self.setup_ui()
 
@@ -530,6 +557,8 @@ class QPromptDialog(QDialog):
             | QDialogButtonBox.StandardButton.Save
         )
 
+        self.test_button = QPushButton("Test Prompt 🤖")
+        self.test_button.clicked.connect(self.on_test)
         standard_buttons.accepted.connect(self.on_accept)
         standard_buttons.rejected.connect(self.on_reject)
 
@@ -548,8 +577,10 @@ class QPromptDialog(QDialog):
         self.setLayout(layout)
         layout.addWidget(prompt_label)
         layout.addWidget(self.prompt_text_box)
+        layout.addWidget(self.test_button)
         layout.addWidget(standard_buttons)
 
+        self.update_test_button()
         # This needs to be called at the end
         # once the widgets are set up
         self.update_fields()
@@ -566,11 +597,6 @@ class QPromptDialog(QDialog):
         models = mw.col.models.all()
         return [model["name"] for model in models]
 
-    def get_fields(self, card_type: str):
-        if not card_type:
-            return []
-        model = mw.col.models.byName(card_type)
-        return [field["name"] for field in model["flds"]]
 
     def on_field_selected(self, field: str):
         print(f"Field selected: {field}")
@@ -591,12 +617,20 @@ class QPromptDialog(QDialog):
         if not self.selected_card_type:
             return
 
-        self.fields = self.get_fields(self.selected_card_type)
+        self.fields = get_fields(self.selected_card_type)
 
         self.field_combo_box.clear()
         self.field_combo_box.addItems(self.fields)
         print(f"Attempting to set field to {self.selected_field}")
         self.field_combo_box.setCurrentText(self.selected_field)
+
+    def update_test_button(self):
+        is_enabled = bool(self.selected_card_type and self.selected_field and self.prompt) and not self.is_loading_prompt
+        self.test_button.setEnabled(is_enabled)
+        if self.is_loading_prompt:
+            self.test_button.setText("Loading...")
+        else :
+            self.test_button.setText("Test Prompt 🤖")
 
     def update_prompt(self):
         if not self.selected_field or not self.selected_card_type:
@@ -613,9 +647,49 @@ class QPromptDialog(QDialog):
 
     def on_text_changed(self):
         self.prompt = self.prompt_text_box.toPlainText()
+        self.update_test_button()
+
+    def on_test(self):
+        if self.selected_card_type and self.selected_field and self.prompt:
+            if not validate_prompt(self.prompt, self.selected_card_type):
+                show_message_box("Invalid prompt. Please ensure all fields are valid.")
+                return
+
+        sample_note_ids = mw.col.find_notes(f"note:\"{self.selected_card_type}\"")
+
+        if not sample_note_ids:
+            show_message_box("No cards found for this note type.")
+            return
+
+        sample_note = mw.col.get_note(sample_note_ids[0])
+        prompt = interpolate_prompt(self.prompt, sample_note)
+        self.is_loading_prompt = True
+        self.update_test_button()
+
+        def on_success(arg):
+            self.is_loading_prompt = False
+            self.update_test_button()
+
+            prompt_fields = get_prompt_fields_lower(self.prompt)
+
+            # clumsy stuff to make it work with lowercase fields...
+            fields = {k.lower(): v for (k, v) in sample_note.items()}
+            field_map = {prompt_field: fields[prompt_field] for prompt_field in prompt_fields}
+
+            stringified_vals = "\n".join([f"{k}: {v}" for k, v in field_map.items()])
+            msg = f"Ran with fields: \n{stringified_vals}.\n\n Response: {arg}"
+
+            show_message_box(msg, custom_ok="Close")
+
+        run_async_in_background(lambda: client.async_get_chat_response(prompt), on_success)
+
 
     def on_accept(self):
         if self.selected_card_type and self.selected_field and self.prompt:
+            if not validate_prompt(self.prompt, self.selected_card_type):
+                show_message_box("Invalid prompt. Please ensure all fields are valid.")
+                return
+
             # IDK if this is gonna work on the config object? I think not...
             print(
                 f"Trying to set prompt for {self.selected_card_type}, {self.selected_field}, {self.prompt}"

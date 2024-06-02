@@ -13,7 +13,7 @@
     - [x] Model selection
     - [x] mapping custom field names
     - [ ] Placeholder isn't showing up for prompt box...
-    - [ ] validatate every prompt...
+    - [x] validatate every prompt...
     - [x] Deleting prompts
     - [x] Adding prompts
     - [x] Editing prompts
@@ -27,7 +27,6 @@
   - [ ] Need an icon for the options window and editor button (robot emoji?)
   - [ ] Decide on a name... AI Field Options kinda bland decent SEO tho
   - [ ] Should have a way to test the prompts... oy
-  - [ ] Should use QSpinbox...
 
 - PRODUCT POLISH
 
