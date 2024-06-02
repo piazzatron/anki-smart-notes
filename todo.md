@@ -18,6 +18,7 @@
     - [x] Adding prompts
     - [x] Editing prompts
 
+  - [ ] Per field regeneration
   - [ ] Add card flow will need something...
   - [x] Batch processing
     - [x] Need to be able to undo a batch... and undo in general?
@@ -26,13 +27,14 @@
   - [ ] Needs to have some sort of nice UI to indicate that a card has been updated in the background. Flash a border or something?
   - [ ] Need an icon for the options window and editor button (robot emoji?)
   - [ ] Decide on a name... AI Field Options kinda bland decent SEO tho
-  - [ ] Should have a way to test the prompts... oy
+  - [x] Should have a way to test the prompts... oy
 
 - PRODUCT POLISH
 
   - [ ] Config menu looks like crap
   - [ ] Need some warnings around API rate limit when batching
   - [ ] Look up API tier to figure out batch limit
+  - [ ] List out example fields when editing a card
 
 - Distribution
 
@@ -53,6 +55,7 @@
   - [ ] Python linting/formatting etc
   - [ ] std err
   - [ ] Debug logs
+  - [ ] Pull out the one massive file elsewhere
 
 - [ ] Beta Test with Evan
 

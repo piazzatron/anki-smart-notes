@@ -265,7 +265,7 @@ def on_editor(buttons: List[str], e: editor.Editor):
             mw.col.update_note(note)
             editor.loadNote()
 
-        run_async_in_background(lambda: process_note(note, overwrite_fields=True), lambda _:on_success)
+        run_async_in_background(lambda: process_note(note, overwrite_fields=True), lambda _:on_success())
 
     button = e.addButton(cmd="Fill out stuff", func=fn, icon="!")
     buttons.append(button)
