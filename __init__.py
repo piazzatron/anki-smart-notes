@@ -23,9 +23,9 @@ from aqt.qt import (
     QTextEdit,
     QTextOption,
     QMenu,
+    QMessageBox
 )
 from PyQt6.QtCore import Qt
-import requests
 
 # TODO: sort imports...
 
@@ -132,6 +132,7 @@ def interpolate_prompt(prompt: str, note: Note):
     # Lowercase the characters inside {{}} in the prompt
     prompt = re.sub(pattern, lambda x: "{{" + x.group(1).lower() + "}}", prompt)
 
+
     # Sub values in prompt
     for field in fields:
         value = all_note_fields.get(field, "")
@@ -165,7 +166,6 @@ def process_notes_with_progress(note_ids: List[int]):
 
 
 async def process_note(note: Note, overwrite_fields=False):
-    print("ASYNC PROCESS 2")
     note_type = note.note_type()
 
     if not note_type:
@@ -262,15 +262,46 @@ def on_review(card: Card):
     op.run_in_background()
 
 
+def show_message_box(message: str, details: Union[str, None] = None, custom_ok: Union[str, None] = None, show_cancel: bool = False):
+    msg = QMessageBox()
+    msg.setText(message)
+
+    if details:
+        msg.setInformativeText(details)
+
+    # TODO: this custom_ok is getting put in the wrong position (left most), idk why
+    ok_button = None
+    if custom_ok:
+        ok_button = QPushButton(custom_ok) 
+        msg.addButton(ok_button, QMessageBox.ButtonRole.ActionRole)
+
+    else:
+        msg.addButton(QMessageBox.StandardButton.Ok)
+
+    if show_cancel:
+        msg.addButton(QMessageBox.StandardButton.Cancel)
+
+    val = msg.exec()
+    return msg.clickedButton() == ok_button or val == QMessageBox.StandardButton.Ok
+
+openai_models = [
+    "gpt-3.5-turbo",
+    "gpt-4o",
+    "gpt-4-turbo",
+    "gpt-4"
+]
+
 class AIFieldsOptionsDialog(QDialog):
     def __init__(self, config: Config):
         super().__init__()
         self.api_key_edit = None
         self.prompts_map = config.prompts_map
+        self.openai_model = config.openai_model
         self.remove_button = None
         self.table = None
         self.config = config
         self.selected_row = None
+        self.model_combo_box = None
 
         self.setup_ui()
 
@@ -289,8 +320,17 @@ class AIFieldsOptionsDialog(QDialog):
         self.api_key_edit = QLineEdit()
         self.api_key_edit.setText(config.openai_api_key)
         self.api_key_edit.setPlaceholderText("12345....")
+
+        # Select model
+        model_label = QLabel("OpenAI Model")
+        self.models_combo_box = QComboBox()
+        self.models_combo_box.addItems(openai_models)
+        self.models_combo_box.setCurrentText(self.openai_model)
+        self.models_combo_box.currentTextChanged.connect(self.on_change_model)
+
         form = QFormLayout()
         form.addRow(api_key_label, self.api_key_edit)
+        form.addRow(model_label, self.models_combo_box)
 
         # Buttons
         # TODO: Need a restore defaults button
@@ -400,9 +440,26 @@ class AIFieldsOptionsDialog(QDialog):
         self.prompts_map["note_types"][card_type]["fields"].pop(field)
         self.update_table()
 
+    def on_change_model(self, text: str):
+        if self.openai_model == "gpt-3.5-turbo" and text and text != self.openai_model:
+            warning = f"Continue with {text}?"
+            informative = "Only paid API tiers can use models other than gpt-3.5-turbo."
+
+            should_continue = show_message_box(warning, details=informative, show_cancel=True)
+
+            if should_continue:
+                self.openai_model = text
+            else:
+                # Otherwise, reset the combo box
+                self.models_combo_box.setCurrentText(self.openai_model)
+
+        else:
+            self.openai_model = text
+
     def on_accept(self):
         self.config.openai_api_key = self.api_key_edit.text()
         self.config.prompts_map = self.prompts_map
+        self.config.openai_model = self.openai_model
         self.accept()
 
     def on_reject(self):
