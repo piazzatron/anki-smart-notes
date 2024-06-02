@@ -74,6 +74,12 @@ class Config:
 
 config = Config()
 
+def check_for_api_key(show_box=True):
+    if not config.openai_api_key:
+        if show_box:
+            message = "No OpenAI API key found. Please enter your API key in the options menu."
+            show_message_box(message)
+        return False
 
 # Create an OpenAPI Client
 class OpenAIClient:
@@ -148,6 +154,8 @@ async def process_notes(notes: List[Note]):
     await asyncio.gather(*tasks)
 
 def process_notes_with_progress(note_ids: List[int]):
+    if not check_for_api_key():
+        return
 
     def wrapped_process_notes():
         notes = [mw.col.get_note(note_id) for note_id in note_ids]
@@ -211,6 +219,9 @@ async def process_note(note: Note, overwrite_fields=False):
 
 def on_editor(buttons: List[str], e: editor.Editor):
     def fn(editor: editor.Editor):
+        if not check_for_api_key():
+            return
+
         note = editor.note
 
         if not note:
@@ -241,6 +252,8 @@ def on_editor(buttons: List[str], e: editor.Editor):
 
 def on_review(card: Card):
     print("Reviewing...")
+    if not check_for_api_key(show_box=False):
+        return
     note = card.note()
 
     def on_success():
@@ -319,7 +332,7 @@ class AIFieldsOptionsDialog(QDialog):
 
         self.api_key_edit = QLineEdit()
         self.api_key_edit.setText(config.openai_api_key)
-        self.api_key_edit.setPlaceholderText("12345....")
+        self.api_key_edit.setPlaceholderText("sk-proj-1234...")
 
         # Select model
         model_label = QLabel("OpenAI Model")
