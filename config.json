@@ -2,13 +2,6 @@
   "openai_api_key": "",
   "openai_model": "gpt-3.5-turbo",
   "prompts_map": {
-    "note_types": {
-      "Japanese (recognition) (japanese support)": {
-        "fields": {
-          "Example": "You are to provide an example sentence in Japanese for the word {{expression}}. Use only simple (N5) vocab and grammar.  Respond only with the Japanese example sentence followed by the english translation in paranthesis, nothing else.",
-          "Mmemonic": "You are to provide a mnemonic for the word {{expression}}. A mnemonic is a memory aid that helps you remember information. Respond only with the mnemonic, nothing else."
-        }
-      }
-    }
+    "note_types": {}
   }
 }
