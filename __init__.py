@@ -23,7 +23,7 @@ from aqt.qt import (
     QTextEdit,
     QTextOption,
     QMenu,
-    QMessageBox
+    QMessageBox,
 )
 from PyQt6.QtCore import Qt
 
@@ -40,6 +40,7 @@ sys.path.append(packages_dir)
 import aiohttp
 import asyncio
 
+
 def run_async_in_background(op: Callable, on_success: Callable):
     "Runs an async operation in the background and calls on_success when done."
 
@@ -53,6 +54,7 @@ def run_async_in_background(op: Callable, on_success: Callable):
     )
 
     query_op.run_in_background()
+
 
 class NoteTypeMap(TypedDict):
     fields: Dict[str, str]
@@ -87,6 +89,7 @@ class Config:
 
 config = Config()
 
+
 def check_for_api_key(show_box=True):
     if not config.openai_api_key:
         if show_box:
@@ -94,6 +97,7 @@ def check_for_api_key(show_box=True):
             show_message_box(message)
         return False
     return True
+
 
 # Create an OpenAPI Client
 class OpenAIClient:
@@ -139,6 +143,7 @@ def get_fields(note_type: str):
 
     return [field["name"] for field in model["flds"]]
 
+
 def validate_prompt(prompt: str, note_type: str):
     fields = {field.lower() for field in get_fields(note_type)}
     prompt_fields = get_prompt_fields_lower(prompt)
@@ -163,7 +168,6 @@ def interpolate_prompt(prompt: str, note: Note):
     # Lowercase the characters inside {{}} in the prompt
     prompt = re.sub(pattern, lambda x: "{{" + x.group(1).lower() + "}}", prompt)
 
-
     # Sub values in prompt
     for field in fields:
         value = all_note_fields.get(field, "")
@@ -172,11 +176,13 @@ def interpolate_prompt(prompt: str, note: Note):
     print("Processed prompt: ", prompt)
     return prompt
 
+
 async def process_notes(notes: List[Note]):
     tasks = []
     for note in notes:
         tasks.append(process_note(note))
     await asyncio.gather(*tasks)
+
 
 def process_notes_with_progress(note_ids: List[int]):
     print("Processing notes...")
@@ -265,7 +271,9 @@ def on_editor(buttons: List[str], e: editor.Editor):
             mw.col.update_note(note)
             editor.loadNote()
 
-        run_async_in_background(lambda: process_note(note, overwrite_fields=True), lambda _:on_success())
+        run_async_in_background(
+            lambda: process_note(note, overwrite_fields=True), lambda _: on_success()
+        )
 
     button = e.addButton(cmd="Fill out stuff", func=fn, icon="!")
     buttons.append(button)
@@ -288,11 +296,16 @@ def on_review(card: Card):
 
     run_async_in_background(
         lambda: process_note(note, overwrite_fields=True),
-        on_success=lambda x: on_success()
+        on_success=lambda x: on_success(),
     )
 
 
-def show_message_box(message: str, details: Union[str, None] = None, custom_ok: Union[str, None] = None, show_cancel: bool = False):
+def show_message_box(
+    message: str,
+    details: Union[str, None] = None,
+    custom_ok: Union[str, None] = None,
+    show_cancel: bool = False,
+):
     msg = QMessageBox()
     msg.setText(message)
 
@@ -314,14 +327,11 @@ def show_message_box(message: str, details: Union[str, None] = None, custom_ok: 
     val = msg.exec()
     return msg.clickedButton() == ok_button or val == QMessageBox.StandardButton.Ok
 
-openai_models = [
-    "gpt-3.5-turbo",
-    "gpt-4o",
-    "gpt-4-turbo",
-    "gpt-4"
-]
+
+openai_models = ["gpt-3.5-turbo", "gpt-4o", "gpt-4-turbo", "gpt-4"]
 
 OPTIONS_MIN_WIDTH = 750
+
 
 class AIFieldsOptionsDialog(QDialog):
     def __init__(self, config: Config):
@@ -483,7 +493,9 @@ class AIFieldsOptionsDialog(QDialog):
             warning = f"Continue with {text}?"
             informative = "Only paid API tiers can use models other than gpt-3.5-turbo."
 
-            should_continue = show_message_box(warning, details=informative, show_cancel=True)
+            should_continue = show_message_box(
+                warning, details=informative, show_cancel=True
+            )
 
             if should_continue:
                 self.openai_model = text
@@ -597,7 +609,6 @@ class QPromptDialog(QDialog):
         models = mw.col.models.all()
         return [model["name"] for model in models]
 
-
     def on_field_selected(self, field: str):
         print(f"Field selected: {field}")
         if not field:
@@ -625,11 +636,14 @@ class QPromptDialog(QDialog):
         self.field_combo_box.setCurrentText(self.selected_field)
 
     def update_test_button(self):
-        is_enabled = bool(self.selected_card_type and self.selected_field and self.prompt) and not self.is_loading_prompt
+        is_enabled = (
+            bool(self.selected_card_type and self.selected_field and self.prompt)
+            and not self.is_loading_prompt
+        )
         self.test_button.setEnabled(is_enabled)
         if self.is_loading_prompt:
             self.test_button.setText("Loading...")
-        else :
+        else:
             self.test_button.setText("Test Prompt 🤖")
 
     def update_prompt(self):
@@ -655,7 +669,7 @@ class QPromptDialog(QDialog):
                 show_message_box("Invalid prompt. Please ensure all fields are valid.")
                 return
 
-        sample_note_ids = mw.col.find_notes(f"note:\"{self.selected_card_type}\"")
+        sample_note_ids = mw.col.find_notes(f'note:"{self.selected_card_type}"')
 
         if not sample_note_ids:
             show_message_box("No cards found for this note type.")
@@ -674,15 +688,18 @@ class QPromptDialog(QDialog):
 
             # clumsy stuff to make it work with lowercase fields...
             fields = {k.lower(): v for (k, v) in sample_note.items()}
-            field_map = {prompt_field: fields[prompt_field] for prompt_field in prompt_fields}
+            field_map = {
+                prompt_field: fields[prompt_field] for prompt_field in prompt_fields
+            }
 
             stringified_vals = "\n".join([f"{k}: {v}" for k, v in field_map.items()])
             msg = f"Ran with fields: \n{stringified_vals}.\n\n Response: {arg}"
 
             show_message_box(msg, custom_ok="Close")
 
-        run_async_in_background(lambda: client.async_get_chat_response(prompt), on_success)
-
+        run_async_in_background(
+            lambda: client.async_get_chat_response(prompt), on_success
+        )
 
     def on_accept(self):
         if self.selected_card_type and self.selected_field and self.prompt:
@@ -714,7 +731,9 @@ def on_options():
 def on_context_menu(browser: browser.Browser, menu: QMenu):
     item = QAction("Process AI Fields", menu)
     menu.addAction(item)
-    item.triggered.connect(lambda: process_notes_with_progress(browser.selected_notes()))
+    item.triggered.connect(
+        lambda: process_notes_with_progress(browser.selected_notes())
+    )
 
 
 def on_main_window():
