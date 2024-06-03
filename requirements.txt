@@ -8,6 +8,7 @@ aqt==24.4.1
 async-timeout==4.0.3
 attrs==23.2.0
 beautifulsoup4==4.12.3
+black==24.4.2
 blinker==1.8.2
 certifi==2024.2.2
 charset-normalizer==3.3.2
@@ -32,7 +33,10 @@ mypy==1.10.0
 mypy-extensions==1.0.0
 openai==1.30.3
 orjson==3.10.3
+packaging==24.0
+pathspec==0.12.1
 pip-system-certs==4.0
+platformdirs==4.2.2
 protobuf==5.27.0
 pydantic==2.7.1
 pydantic_core==2.18.2

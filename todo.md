@@ -7,18 +7,18 @@
 - 2
 
   - [x] Background thread OpenAI
-  - [ ] regenerate field button
-  - [ ] Config menu:
+  - [x] regenerate field button
+  - [x] Config menu:
 
     - [x] Model selection
     - [x] mapping custom field names
-    - [ ] Placeholder isn't showing up for prompt box...
+    - [x] Placerolder isn't showing up for prompt box...
     - [x] validatate every prompt...
     - [x] Deleting prompts
     - [x] Adding prompts
     - [x] Editing prompts
 
-  - [ ] Per field regeneration
+  - [x] Per field regeneration
   - [ ] Add card flow will need something...
   - [x] Batch processing
     - [x] Need to be able to undo a batch... and undo in general?
@@ -29,6 +29,9 @@
   - [ ] Decide on a name... AI Field Options kinda bland decent SEO tho
   - [x] Should have a way to test the prompts... oy
 
+- BUGS
+- [ ]Don't update on review if the fields are filled!!
+
 - PRODUCT POLISH
 
   - [ ] Config menu looks like crap
@@ -38,6 +41,7 @@
 
 - Distribution
 
+  - [ ] Figure out what to vendor
   - [ ] license etc
   - ANKI Readme:
     - Inspired by intelliFiller, unmaintained etc

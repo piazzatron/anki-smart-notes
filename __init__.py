@@ -1,4 +1,4 @@
-from typing import List, Callable, TypedDict, Dict, Union
+from typing import List, Callable, TypedDict, Dict, Union, Any
 import re
 import sys
 import os
@@ -86,6 +86,14 @@ class Config:
         old_config[name] = value
         mw.addonManager.writeConfig(__name__, old_config)
 
+    def get_prompt(self, note_type: str, field: str):
+        return (
+            self.prompts_map.get("note_types", {})
+            .get(note_type, {"fields": {}})
+            .get("fields", {})
+            .get(field, None)
+        )
+
 
 config = Config()
 
@@ -144,13 +152,18 @@ def get_fields(note_type: str):
     return [field["name"] for field in model["flds"]]
 
 
-def validate_prompt(prompt: str, note_type: str):
+def validate_prompt(prompt: str, note_type: str, target_field: Union[str, None] = None):
     fields = {field.lower() for field in get_fields(note_type)}
     prompt_fields = get_prompt_fields_lower(prompt)
 
+    # Check for fields that aren't in the card
     for prompt_field in prompt_fields:
         if prompt_field not in fields:
             return False
+
+    # Can't reference itself
+    if target_field and target_field.lower() in prompt_fields:
+        return False
 
     return True
 
@@ -163,7 +176,7 @@ def interpolate_prompt(prompt: str, note: Note):
     pattern = r"\{\{(.+?)\}\}"
 
     # field.lower() -> value map
-    all_note_fields = {field.lower(): value for field, value in note.items()}
+    all_note_fields = to_lowercase_dict(note)
 
     # Lowercase the characters inside {{}} in the prompt
     prompt = re.sub(pattern, lambda x: "{{" + x.group(1).lower() + "}}", prompt)
@@ -185,6 +198,7 @@ async def process_notes(notes: List[Note]):
 
 
 def process_notes_with_progress(note_ids: List[int]):
+    """Processes notes in the background with a progress bar, batching into a single undo op"""
     print("Processing notes...")
     if not check_for_api_key():
         return
@@ -223,8 +237,6 @@ async def process_note(note: Note, overwrite_fields=False):
         print("Error: no prompts found for note type")
         return
 
-    # TODO: should run in parallel for cards that have multiple fields needing prompting.
-    # Needs to be in a threadpool exec but kinda painful. Later.
     tasks = []
 
     field_prompt_items = list(field_prompts["fields"].items())
@@ -253,7 +265,7 @@ async def process_note(note: Note, overwrite_fields=False):
         note[target_field] = response
 
 
-def on_editor(buttons: List[str], e: editor.Editor):
+def add_editor_top_button(buttons: List[str], e: editor.Editor):
     def fn(editor: editor.Editor):
         if not check_for_api_key():
             return
@@ -275,7 +287,14 @@ def on_editor(buttons: List[str], e: editor.Editor):
             lambda: process_note(note, overwrite_fields=True), lambda _: on_success()
         )
 
-    button = e.addButton(cmd="Fill out stuff", func=fn, icon="!")
+    button = e.addButton(
+        cmd="AI Generate Fields",
+        label="✨",
+        func=fn,
+        icon=None,
+        tip="AI Generate Fields",
+    )
+
     buttons.append(button)
 
 
@@ -558,10 +577,12 @@ class QPromptDialog(QDialog):
         card_combo_box.setCurrentText(self.selected_card_type)
         card_combo_box.currentTextChanged.connect(self.on_card_type_selected)
 
-        label = QLabel("Card Type")
+        card_label = QLabel("Card Type")
+        field_label = QLabel("Target Field")
         layout = QVBoxLayout()
-        layout.addWidget(label)
+        layout.addWidget(card_label)
         layout.addWidget(card_combo_box)
+        layout.addWidget(field_label)
         layout.addWidget(self.field_combo_box)
 
         standard_buttons = QDialogButtonBox(
@@ -584,7 +605,10 @@ class QPromptDialog(QDialog):
             QTextOption.WrapMode.WrapAtWordBoundaryOrAnywhere
         )
         # TODO: why isn't placeholder showing up?
-        self.prompt_text_box.placeholderText = "Create an example sentence in Japanese for the word {{expression}}. Use only simple grammar and vocab. Respond only with the Japanese example sentence."
+        self.prompt_text_box.setPlaceholderText(
+            "Create an example sentence in Japanese for the word {{expression}}. Use only simple grammar and vocab. Respond only with the Japanese example sentence."
+        )
+
         self.update_prompt()
         self.setLayout(layout)
         layout.addWidget(prompt_label)
@@ -687,7 +711,7 @@ class QPromptDialog(QDialog):
             prompt_fields = get_prompt_fields_lower(self.prompt)
 
             # clumsy stuff to make it work with lowercase fields...
-            fields = {k.lower(): v for (k, v) in sample_note.items()}
+            fields = to_lowercase_dict(sample_note)
             field_map = {
                 prompt_field: fields[prompt_field] for prompt_field in prompt_fields
             }
@@ -703,8 +727,12 @@ class QPromptDialog(QDialog):
 
     def on_accept(self):
         if self.selected_card_type and self.selected_field and self.prompt:
-            if not validate_prompt(self.prompt, self.selected_card_type):
-                show_message_box("Invalid prompt. Please ensure all fields are valid.")
+            if not validate_prompt(
+                self.prompt, self.selected_card_type, self.selected_field
+            ):
+                show_message_box(
+                    "Invalid prompt. Please ensure all fields are valid and do not reference the target field."
+                )
                 return
 
             # IDK if this is gonna work on the config object? I think not...
@@ -728,12 +756,86 @@ def on_options():
     dialog.exec()
 
 
-def on_context_menu(browser: browser.Browser, menu: QMenu):
+def on_browser_context(browser: browser.Browser, menu: QMenu):
     item = QAction("Process AI Fields", menu)
     menu.addAction(item)
     item.triggered.connect(
         lambda: process_notes_with_progress(browser.selected_notes())
     )
+
+
+def to_lowercase_dict(d: Dict[str, Any]):
+    """Converts a dictionary to lowercase keys"""
+    return {k.lower(): v for k, v in d.items()}
+
+
+def is_ai_field(current_field_num: int, note: Note):
+    """Helper to determine if the current field is an AI field. Returns the non-lowercased field name if it is."""
+    if not note:
+        return None
+    note_type = note.note_type()
+    # Sort dem fields and get their names
+    sorted_fields = [
+        field["name"] for field in sorted(note_type["flds"], key=lambda x: x["ord"])
+    ]
+    sorted_fields_lower = [field.lower() for field in sorted_fields]
+
+    if not note_type or not current_field_num:
+        return None
+
+    current_field = sorted_fields_lower[current_field_num]
+    print(current_field)
+
+    prompts = config.prompts_map
+    print(prompts)
+
+    # TODO: some methods to work with this stupid note_types map
+    prompts_for_card = to_lowercase_dict(
+        (prompts["note_types"].get(note_type["name"], {"fields": {}}).get("fields", {}))
+    )
+
+    print(prompts_for_card)
+
+    is_ai = bool(prompts_for_card.get(current_field, None))
+    return sorted_fields[current_field_num] if is_ai else None
+
+
+async def async_process_single_field(note: Note, target_field_name: str):
+    print("IN PROCESS SINGLE FIELD")
+    prompt = config.get_prompt(note.note_type()["name"], target_field_name)
+    prompt = interpolate_prompt(prompt, note)
+    response = await client.async_get_chat_response(prompt)
+    note[target_field_name] = response
+
+
+def process_single_field(note: Note, target_field_name: str, editor: editor.Editor):
+    def on_success():
+        mw.col.update_note(note)
+        editor.loadNote()
+
+    run_async_in_background(
+        lambda: async_process_single_field(note, target_field_name),
+        lambda _: on_success(),
+    )
+
+
+def on_editor_context(editor_web_view: editor.EditorWebView, menu: QMenu):
+    editor = editor_web_view.editor
+    note = editor.note
+    if not note:
+        return
+
+    current_field_num = editor.currentField
+    if current_field_num is None:
+        return
+
+    ai_field = is_ai_field(current_field_num, note)
+    print(ai_field)
+    if not ai_field:
+        return
+    item = QAction("✨ Generate AI Field", menu)
+    item.triggered.connect(lambda: process_single_field(note, ai_field, editor))
+    menu.addAction(item)
 
 
 def on_main_window():
@@ -743,11 +845,11 @@ def on_main_window():
     mw.form.menuTools.addAction(options_action)
 
     # TODO: do I need a profile_will_close thing here?
-    print("Loaded")
 
 
-gui_hooks.browser_will_show_context_menu.append(on_context_menu)
-gui_hooks.editor_did_init_buttons.append(on_editor)
+gui_hooks.browser_will_show_context_menu.append(on_browser_context)
+gui_hooks.editor_did_init_buttons.append(add_editor_top_button)
+gui_hooks.editor_will_show_context_menu.append(on_editor_context)
 # TODO: I think this should be 'card did show'?
 gui_hooks.reviewer_did_show_question.append(on_review)
 gui_hooks.main_window_did_init.append(on_main_window)
