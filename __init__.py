@@ -314,7 +314,7 @@ def on_review(card: Card):
         print("Updated on review")
 
     run_async_in_background(
-        lambda: process_note(note, overwrite_fields=True),
+        lambda: process_note(note, overwrite_fields=False),
         on_success=lambda x: on_success(),
     )
 
