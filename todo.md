@@ -39,6 +39,7 @@
 - BUGS
 - [x] Don't update on review if the fields are filled!!
 - [ ] AI fields shouldn't be able to reference other AI fields
+- [ ] Shouldn't be able to perform any AI ops on a card while one is in progress
 
 - PRODUCT POLISH
 
@@ -68,10 +69,12 @@
 
   - [x] Python formatting
   - [ ] Mypy on save or smth?
+  - [ ] turn on mypy strict (it's rough...)
 
   - [ ] std err
   - [ ] Debug logs
-  - [ ] Pull out the one massive file elsewhere
+  - [ ] Refactor: Pull out the one massive file elsewhere
+    - [ ] Should make config a singleton, review where i'm DI-ing it
 
 - [ ] Beta Test with Evan
 
