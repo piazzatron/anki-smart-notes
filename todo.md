@@ -17,20 +17,28 @@
     - [x] Deleting prompts
     - [x] Adding prompts
     - [x] Editing prompts
+    - [ ] Button for generate empty fields at edit time
+    - [ ] Link to get OpenAI token
 
   - [x] Per field regeneration
-  - [ ] Add card flow will need something...
+  - [x] Add card flow will need something... v buggy
   - [x] Batch processing
     - [x] Need to be able to undo a batch... and undo in general?
   - [ ] Crash handling (what if openAI 500s, etc). Need to display some errors
+  - [ ] Addon config should bring up GUI
+  - [ ] Get to 0 mypy errors so it's useful
 
   - [ ] Needs to have some sort of nice UI to indicate that a card has been updated in the background. Flash a border or something?
   - [ ] Need an icon for the options window and editor button (robot emoji?)
   - [ ] Decide on a name... AI Field Options kinda bland decent SEO tho
+  - [ ] Setuptools distribution stuff...
+    - [ ] Should run mypy prior to building...
+    - Emoji in the title?
   - [x] Should have a way to test the prompts... oy
 
 - BUGS
-- [ ]Don't update on review if the fields are filled!!
+- [x] Don't update on review if the fields are filled!!
+- [ ] AI fields shouldn't be able to reference other AI fields
 
 - PRODUCT POLISH
 
@@ -38,9 +46,11 @@
   - [ ] Need some warnings around API rate limit when batching
   - [ ] Look up API tier to figure out batch limit
   - [ ] List out example fields when editing a card
+  - [ ] Periodic reminder to rate
 
 - Distribution
 
+  - [ ] GH releases, etc
   - [ ] Figure out what to vendor
   - [ ] license etc
   - ANKI Readme:
@@ -71,6 +81,7 @@
 - V2
 
   - Better batching support, esp for low tier API
+  - Edit entire deck
   - Auto fill after losing focus on origin prompts
 
 - LATER / V3

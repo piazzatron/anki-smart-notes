@@ -280,7 +280,13 @@ def add_editor_top_button(buttons: List[str], e: editor.Editor):
             return
 
         def on_success():
-            mw.col.update_note(note)
+            print("ON SUCCESS ID")
+            print(note.id)
+
+            # New notes have note id 0
+            if note.id:
+                # Only update note if it's already in the database
+                mw.col.update_note(note)
             editor.loadNote()
 
         run_async_in_background(
@@ -810,7 +816,9 @@ async def async_process_single_field(note: Note, target_field_name: str):
 
 def process_single_field(note: Note, target_field_name: str, editor: editor.Editor):
     def on_success():
-        mw.col.update_note(note)
+        # Only update note if it's already in the database
+        if note.id:
+            mw.col.update_note(note)
         editor.loadNote()
 
     run_async_in_background(
