@@ -1,4 +1,4 @@
-from typing import List, Callable, TypedDict, Dict, Union, Any
+from typing import List, Callable, TypedDict, Dict, Union, Any, Sequence
 import re
 import sys
 import os
@@ -73,7 +73,7 @@ class Config:
         if not mw:
             raise Exception("Error: mw not found")
 
-        return mw.addonManager.getConfig(__name__).get(key)
+        return mw.addonManager.getConfig(__name__).get(key)  # type: ignore[union-attr]
 
     def __setattr__(self, name: str, value: object) -> None:
         if not mw:
@@ -176,7 +176,7 @@ def interpolate_prompt(prompt: str, note: Note):
     pattern = r"\{\{(.+?)\}\}"
 
     # field.lower() -> value map
-    all_note_fields = to_lowercase_dict(note)
+    all_note_fields = to_lowercase_dict(note)  # type: ignore[arg-type]
 
     # Lowercase the characters inside {{}} in the prompt
     prompt = re.sub(pattern, lambda x: "{{" + x.group(1).lower() + "}}", prompt)
@@ -190,14 +190,14 @@ def interpolate_prompt(prompt: str, note: Note):
     return prompt
 
 
-async def process_notes(notes: List[Note]):
+async def process_notes(notes: Sequence[Note]):
     tasks = []
     for note in notes:
         tasks.append(process_note(note))
     await asyncio.gather(*tasks)
 
 
-def process_notes_with_progress(note_ids: List[int]):
+def process_notes_with_progress(note_ids: Sequence[int]):
     """Processes notes in the background with a progress bar, batching into a single undo op"""
     print("Processing notes...")
     if not check_for_api_key():
@@ -782,7 +782,7 @@ def is_ai_field(current_field_num: int, note: Note):
     note_type = note.note_type()
     # Sort dem fields and get their names
     sorted_fields = [
-        field["name"] for field in sorted(note_type["flds"], key=lambda x: x["ord"])
+        field["name"] for field in sorted(note_type["flds"], key=lambda x: x["ord"])  # type: ignore[index]
     ]
     sorted_fields_lower = [field.lower() for field in sorted_fields]
 
@@ -808,7 +808,7 @@ def is_ai_field(current_field_num: int, note: Note):
 
 async def async_process_single_field(note: Note, target_field_name: str):
     print("IN PROCESS SINGLE FIELD")
-    prompt = config.get_prompt(note.note_type()["name"], target_field_name)
+    prompt = config.get_prompt(note.note_type()["name"], target_field_name)  # type: ignore[index]
     prompt = interpolate_prompt(prompt, note)
     response = await client.async_get_chat_response(prompt)
     note[target_field_name] = response

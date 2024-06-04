@@ -26,7 +26,7 @@
     - [x] Need to be able to undo a batch... and undo in general?
   - [ ] Crash handling (what if openAI 500s, etc). Need to display some errors
   - [ ] Addon config should bring up GUI
-  - [ ] Get to 0 mypy errors so it's useful
+  - [x] Get to 0 mypy errors so it's useful
 
   - [ ] Needs to have some sort of nice UI to indicate that a card has been updated in the background. Flash a border or something?
   - [ ] Need an icon for the options window and editor button (robot emoji?)
