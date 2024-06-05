@@ -50,7 +50,7 @@ class PromptDialog(QDialog):
         self.setup_ui()
 
     def setup_ui(self) -> None:
-        self.setWindowTitle("Set Prompt")
+        self.setWindowTitle("New Smart Field")
         card_combo_box = QComboBox()
 
         self.field_combo_box = QComboBox()
@@ -87,7 +87,6 @@ class PromptDialog(QDialog):
         self.prompt_text_box.setWordWrapMode(
             QTextOption.WrapMode.WrapAtWordBoundaryOrAnywhere
         )
-        # TODO: why isn't placeholder showing up?
         self.prompt_text_box.setPlaceholderText(
             "Create an example sentence in Japanese for the word {{expression}}. Use only simple grammar and vocab. Respond only with the Japanese example sentence."
         )

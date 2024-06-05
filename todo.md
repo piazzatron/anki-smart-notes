@@ -18,7 +18,9 @@
     - [x] Adding prompts
     - [x] Editing prompts
     - [ ] Button for generate empty fields at edit time
-    - [ ] Link to get OpenAI token
+    - [x] Link to get OpenAI token
+    - [ ] Link to rate the addon
+    - [ ] Wire up restore defaults button
 
   - [x] Per field regeneration
   - [x] Add card flow will need something... v buggy
@@ -45,6 +47,7 @@
 
   - [ ] Config menu looks like crap
   - [ ] Need some warnings around API rate limit when batching
+  - [ ] Need to pull in version somewhere
   - [ ] Look up API tier to figure out batch limit
   - [ ] List out example fields when editing a card
   - [ ] Periodic reminder to rate
@@ -73,7 +76,7 @@
 
   - [ ] std err
   - [ ] Debug logs
-  - [ ] Refactor: Pull out the one massive file elsewhere
+  - [x] Refactor: Pull out the one massive file elsewhere
     - [ ] Should make config a singleton, review where i'm DI-ing it
 
 - [ ] Beta Test with Evan

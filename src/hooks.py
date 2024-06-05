@@ -71,7 +71,7 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
 
 @with_processor  # type: ignore
 def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMenu):  # type: ignore
-    item = QAction("Process AI Fields", menu)
+    item = QAction("Process Smart Fields", menu)
     menu.addAction(item)
     item.triggered.connect(
         lambda: processor.process_notes_with_progress(browser.selected_notes())
@@ -84,7 +84,7 @@ def on_main_window(processor: Processor):
         return
 
     # Add options to Anki Menu
-    options_action = QAction("AI Fields Options...", mw)
+    options_action = QAction("Smart Fields ✨", mw)
     options_action.triggered.connect(on_options(processor))
     mw.form.menuTools.addAction(options_action)
 

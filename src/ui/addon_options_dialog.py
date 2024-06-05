@@ -1,4 +1,6 @@
 from aqt import (
+    QTabWidget,
+    QGroupBox,
     QComboBox,
     QDialog,
     QDialogButtonBox,
@@ -7,9 +9,11 @@ from aqt import (
     QLineEdit,
     QFormLayout,
     QPushButton,
+    QSizePolicy,
     QTableWidget,
     QTableWidgetItem,
     QVBoxLayout,
+    QWidget,
 )
 from PyQt6.QtCore import Qt
 
@@ -30,6 +34,8 @@ class AddonOptionsDialog(QDialog):
     table_buttons: QHBoxLayout
     remove_button: QPushButton
     table: QTableWidget
+    restore_defaults: QPushButton
+    edit_button: QPushButton
 
     def __init__(self, config: Config, processor: Processor):
         super().__init__()
@@ -42,45 +48,74 @@ class AddonOptionsDialog(QDialog):
         self.setup_ui()
 
     def setup_ui(self) -> None:
-        self.setWindowTitle("🤖 AI Fields Options")
+        self.setWindowTitle("✨ Smart Fields")
         self.setMinimumWidth(OPTIONS_MIN_WIDTH)
 
-        # Setup Widgets
+        title_box = QWidget()
+        title_box_layout = QHBoxLayout()
+        title_box.setLayout(title_box_layout)
+        title = QLabel("<h2>Smart Fields</h2>")
+        subtitle = QLabel("v0.1.0")  # TODO: reference the version somewhere
+        title_box_layout.addWidget(title)
+        title_box_layout.addWidget(subtitle)
 
         # Form
-        api_key_label = QLabel("OpenAI API Key")
-        api_key_label.setToolTip(
-            "Get your API key from https://platform.openai.com/account/api-keys"
+        get_api_key_label = QLabel(
+            "<a href='https://platform.openai.com/account/api-keys/'>Get an API key</a>"
         )
+        font = get_api_key_label.font()
+        font.setPointSize(10)
+        get_api_key_label.setOpenExternalLinks(True)
+        get_api_key_label.setFont(font)
 
         self.api_key_edit = QLineEdit()
         self.api_key_edit.setText(self.config.openai_api_key)
         self.api_key_edit.setPlaceholderText("sk-proj-1234...")
+        self.api_key_edit.setMinimumWidth(500)
+        self.api_key_edit.setSizePolicy(
+            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred
+        )
+        learn_more_about_models = QLabel(
+            '<a href="https://platform.openai.com/docs/guides/selecting-the-right-model">Learn more about models</a>'
+        )
+        learn_more_about_models.setOpenExternalLinks(True)
+        learn_more_about_models.setFont(font)
 
         # Select model
-        model_label = QLabel("OpenAI Model")
         self.models_combo_box = QComboBox()
         self.models_combo_box.addItems(openai_models)
         self.models_combo_box.setCurrentText(self.openai_model)
         self.models_combo_box.currentTextChanged.connect(self.on_change_model)
 
         form = QFormLayout()
-        form.addRow(api_key_label, self.api_key_edit)
-        form.addRow(model_label, self.models_combo_box)
+        form.setVerticalSpacing(4)
+        form.addRow("<b>OpenAI API Key:</b>", self.api_key_edit)
+        form.addRow(get_api_key_label)
+
+        group_box = QGroupBox("API Key")
+        group_box.setLayout(form)
 
         # Buttons
         # TODO: Need a restore defaults button
         table_buttons = QHBoxLayout()
-        add_button = QPushButton("+")
+        add_button = QPushButton("New Smart Field")
         add_button.clicked.connect(self.on_add)
-        self.remove_button = QPushButton("-")
-        table_buttons.addWidget(self.remove_button)
+        self.remove_button = QPushButton("Remove")
+        self.edit_button = QPushButton("Edit")
+        self.edit_button.clicked.connect(self.on_edit)
+        table_buttons.addWidget(self.remove_button, 1)
+        table_buttons.addWidget(self.edit_button, 1)
         self.remove_button.clicked.connect(self.on_remove)
-        table_buttons.addWidget(add_button)
+        table_buttons.addWidget(add_button, 2, Qt.AlignmentFlag.AlignRight)
 
         standard_buttons = QDialogButtonBox(
             QDialogButtonBox.StandardButton.Cancel | QDialogButtonBox.StandardButton.Ok
         )
+        self.restore_defaults = QPushButton("Restore Defaults")
+        standard_buttons.addButton(
+            self.restore_defaults, QDialogButtonBox.ButtonRole.ResetRole
+        )
+        self.restore_defaults.clicked.connect(self.on_restore_defaults)
 
         standard_buttons.accepted.connect(self.on_accept)
         standard_buttons.rejected.connect(self.on_reject)
@@ -91,18 +126,44 @@ class AddonOptionsDialog(QDialog):
 
         # Set up layout
 
+        tabs = QTabWidget()
+
+        explanation = QLabel(
+            "Configure the generated fields for each note type. Reference any field by enclosing it in {{double curly braces}}."
+        )
+        explanation.setFont(font)
         layout = QVBoxLayout()
-        layout.addLayout(form)
+        layout.addWidget(group_box)
+        layout.addSpacing(24)
+        layout.addWidget(QLabel("<h3>Fields</h3>"))
+        layout.addWidget(explanation)
         layout.addWidget(self.table)
         layout.addLayout(table_buttons)
-        layout.addWidget(standard_buttons)
+
+        tab1 = QWidget()
+        tab1.setLayout(layout)
+        tabs.addTab(tab1, "General")
+
+        tab2 = QWidget()
+        tab2_layout = QFormLayout()
+        tab2_layout.addRow("OpenAI Model:", self.models_combo_box)
+        tab2_layout.addRow(learn_more_about_models)
+        tab2.setLayout(tab2_layout)
+        tabs.addTab(tab2, "Advanced")
+
+        tab_layout = QVBoxLayout()
+        tab_layout.addWidget(title_box)
+        tab_layout.addWidget(tabs)
+        tab_layout.addSpacing(24)
+
+        tab_layout.addWidget(standard_buttons)
 
         self.update_buttons()
-        self.setLayout(layout)
+        self.setLayout(tab_layout)
 
     def create_table(self) -> QTableWidget:
         table = QTableWidget(0, 3)
-        table.setHorizontalHeaderLabels(["Note Type", "Field", "Prompt"])
+        table.setHorizontalHeaderLabels(["Note Type", "Target Field", "Prompt"])
 
         # Selection
         table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
@@ -114,7 +175,7 @@ class AddonOptionsDialog(QDialog):
 
         # Wire up slots
         table.currentItemChanged.connect(self.on_row_selected)
-        table.itemDoubleClicked.connect(self.on_row_double_clicked)
+        table.itemDoubleClicked.connect(self.on_edit)
 
         return table
 
@@ -143,8 +204,7 @@ class AddonOptionsDialog(QDialog):
             self.selected_row = current.row()
         self.update_buttons()
 
-    def on_row_double_clicked(self, item: QTableWidgetItem) -> None:
-        print(f"Double clicked: {item.row()}")
+    def on_edit(self, _) -> None:
         if self.selected_row is None:
             return
 
@@ -167,10 +227,9 @@ class AddonOptionsDialog(QDialog):
             self.update_table()
 
     def update_buttons(self) -> None:
-        if self.selected_row is not None:
-            self.remove_button.setEnabled(True)
-        else:
-            self.remove_button.setEnabled(False)
+        is_enabled = self.selected_row is not None
+        self.remove_button.setEnabled(is_enabled)
+        self.edit_button.setEnabled(is_enabled)
 
     def on_add(self, _: int) -> None:
         # TODO: this is WRONG now, whhy isn't mypy catching it??!
@@ -210,14 +269,17 @@ class AddonOptionsDialog(QDialog):
         else:
             self.openai_model = text
 
-    def on_accept(self):
+    def on_accept(self) -> None:
         self.config.openai_api_key = self.api_key_edit.text()
         self.config.prompts_map = self.prompts_map
         self.config.openai_model = self.openai_model
         self.accept()
 
-    def on_reject(self):
+    def on_reject(self) -> None:
         self.reject()
 
-    def on_update_prompts(self, prompts_map: PromptMap):
+    def on_update_prompts(self, prompts_map: PromptMap) -> None:
         self.prompts_map = prompts_map
+
+    def on_restore_defaults(self) -> None:
+        pass
