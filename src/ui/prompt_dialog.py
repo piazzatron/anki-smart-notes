@@ -88,7 +88,7 @@ class PromptDialog(QDialog):
             QTextOption.WrapMode.WrapAtWordBoundaryOrAnywhere
         )
         self.prompt_text_box.setPlaceholderText(
-            "Create an example sentence in Japanese for the word {{expression}}. Use only simple grammar and vocab. Respond only with the Japanese example sentence."
+            "Write a simple sentence in Japanese for the word {{expression}}."
         )
 
         self.update_prompt()

@@ -48,20 +48,20 @@ class AddonOptionsDialog(QDialog):
         self.setup_ui()
 
     def setup_ui(self) -> None:
-        self.setWindowTitle("✨ Smart Fields")
+        self.setWindowTitle("Smart Notes")
         self.setMinimumWidth(OPTIONS_MIN_WIDTH)
 
         title_box = QWidget()
         title_box_layout = QHBoxLayout()
         title_box.setLayout(title_box_layout)
-        title = QLabel("<h2>Smart Fields</h2>")
+        title = QLabel("<h2>Smart Notes</h2>")
         subtitle = QLabel("v0.1.0")  # TODO: reference the version somewhere
         title_box_layout.addWidget(title)
         title_box_layout.addWidget(subtitle)
 
         # Form
         get_api_key_label = QLabel(
-            "<a href='https://platform.openai.com/account/api-keys/'>Get an API key</a>"
+            "An API key is required. Free tier use is limited to three requests per minute. <a href='https://platform.openai.com/account/api-keys/'>Get an API key.</a>"
         )
         font = get_api_key_label.font()
         font.setPointSize(10)
@@ -76,7 +76,7 @@ class AddonOptionsDialog(QDialog):
             QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred
         )
         learn_more_about_models = QLabel(
-            '<a href="https://platform.openai.com/docs/guides/selecting-the-right-model">Learn more about models</a>'
+            'Free tier can only access gpt-3.5-turbo. Newer models may perfrom better with lower rate limits and higher cost. <a href="https://platform.openai.com/docs/models/">Learn more.</a>'
         )
         learn_more_about_models.setOpenExternalLinks(True)
         learn_more_about_models.setFont(font)
@@ -88,8 +88,8 @@ class AddonOptionsDialog(QDialog):
         self.models_combo_box.currentTextChanged.connect(self.on_change_model)
 
         form = QFormLayout()
-        form.setVerticalSpacing(4)
-        form.addRow("<b>OpenAI API Key:</b>", self.api_key_edit)
+        form.setVerticalSpacing(12)
+        form.addRow("<b>🔑 OpenAI API Key:</b>", self.api_key_edit)
         form.addRow(get_api_key_label)
 
         group_box = QGroupBox("API Key")
@@ -98,7 +98,7 @@ class AddonOptionsDialog(QDialog):
         # Buttons
         # TODO: Need a restore defaults button
         table_buttons = QHBoxLayout()
-        add_button = QPushButton("New Smart Field")
+        add_button = QPushButton("Add")
         add_button.clicked.connect(self.on_add)
         self.remove_button = QPushButton("Remove")
         self.edit_button = QPushButton("Edit")
@@ -129,14 +129,15 @@ class AddonOptionsDialog(QDialog):
         tabs = QTabWidget()
 
         explanation = QLabel(
-            "Configure the generated fields for each note type. Reference any field by enclosing it in {{double curly braces}}."
+            "Automatically generate fields per note type. Reference any existing field in your prompt with {{double curly braces}}."
         )
         explanation.setFont(font)
         layout = QVBoxLayout()
         layout.addWidget(group_box)
         layout.addSpacing(24)
-        layout.addWidget(QLabel("<h3>Fields</h3>"))
+        layout.addWidget(QLabel("<h3>✨ Smart Fields</h3>"))
         layout.addWidget(explanation)
+        layout.addSpacing(16)
         layout.addWidget(self.table)
         layout.addLayout(table_buttons)
 
