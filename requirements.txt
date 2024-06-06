@@ -36,6 +36,7 @@ orjson==3.10.3
 packaging==24.0
 pathspec==0.12.1
 pip-system-certs==4.0
+pipdeptree==2.22.0
 platformdirs==4.2.2
 protobuf==5.27.0
 pydantic==2.7.1
@@ -46,6 +47,7 @@ PyQt6-sip==13.6.0
 PyQt6-WebEngine==6.7.0
 PyQt6-WebEngine-Qt6==6.7.0
 PySocks==1.7.1
+python-dotenv==1.0.1
 referencing==0.35.1
 requests==2.32.2
 rpds-py==0.18.1

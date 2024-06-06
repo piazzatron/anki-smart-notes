@@ -21,6 +21,7 @@
     - [x] Link to get OpenAI token
     - [ ] Link to rate the addon
     - [ ] Wire up restore defaults button
+    - [x] Switch model button should have some text about the batch limitations, and link to rate limits.
 
   - [x] Per field regeneration
   - [x] Add card flow will need something... v buggy
@@ -31,9 +32,9 @@
   - [x] Get to 0 mypy errors so it's useful
 
   - [ ] Needs to have some sort of nice UI to indicate that a card has been updated in the background. Flash a border or something?
-  - [ ] Need an icon for the options window and editor button (robot emoji?)
+  - [x] Need an icon for the options window and editor button (robot emoji?)
   - [ ] Decide on a name... AI Field Options kinda bland decent SEO tho
-  - [ ] Setuptools distribution stuff...
+  - [ ] Setuptools distribution stuff... (just zip for now)
     - [ ] Should run mypy prior to building...
     - Emoji in the title?
   - [x] Should have a way to test the prompts... oy
@@ -45,10 +46,10 @@
 
 - PRODUCT POLISH
 
-  - [ ] Config menu looks like crap
+  - [x] Config menu looks like crap
   - [ ] Need some warnings around API rate limit when batching
   - [ ] Need to pull in version somewhere
-  - [ ] Look up API tier to figure out batch limit
+  - [x] Look up API tier to figure out batch limit
   - [ ] List out example fields when editing a card
   - [ ] Periodic reminder to rate
 
@@ -105,3 +106,8 @@
 - Should it fill the entire card, or a single field?
 - It could automatically fill out chosen fields on edit AND on note review, if they're empty
 - Each field could have an option to map to a prompt
+
+## Log
+
+- 6/5/24
+- Should set up zip/distro & docs & then send it out

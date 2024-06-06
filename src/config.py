@@ -24,7 +24,10 @@ class Config:
         if not mw:
             raise Exception("Error: mw not found")
 
-        return mw.addonManager.getConfig(__name__).get(key)  # type: ignore[union-attr]
+        config = mw.addonManager.getConfig(__name__)
+        if not config:
+            return None
+        return config.get(key)  # type: ignore[union-attr]
 
     def __setattr__(self, name: str, value: object) -> None:
         if not mw:
