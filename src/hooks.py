@@ -2,9 +2,12 @@
 Setup the hooks for the Anki plugin
 """
 
-from typing import List, Callable, Any
-from aqt import QAction, QMenu, gui_hooks, editor, mw, browser
+from typing import List, Any
+from aqt import QAction, QMenu, gui_hooks, editor, mw, browser, webview
 from anki.cards import Card
+
+from .ui.ui_utils import show_message_box
+from .ui.sparkle import Sparkle
 from .processor import Processor
 
 from .prompts import is_ai_field
@@ -59,11 +62,12 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
         processor.process_note(note, overwrite_fields=True, on_success=on_success)
 
     button = e.addButton(
-        cmd="AI Generate Fields",
+        cmd="Generate Smart Fields",
         label="✨",
         func=fn,
         icon=None,
-        tip="AI Generate Fields",
+        tip="Generate Smart Fields",
+        disables=True,
     )
 
     buttons.append(button)
@@ -71,10 +75,17 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
 
 @with_processor  # type: ignore
 def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMenu):  # type: ignore
-    item = QAction("Process Smart Fields", menu)
+    item = QAction("Generate Smart Fields", menu)
     menu.addAction(item)
+
+    # TODO: should show # succeess and failed
+    notes = browser.selected_notes()
+
+    def on_success() -> None:
+        show_message_box(f"Processed {len(notes)} notes successfully.")
+
     item.triggered.connect(
-        lambda: processor.process_notes_with_progress(browser.selected_notes())
+        lambda: processor.process_notes_with_progress(notes, on_success)
     )
 
 
@@ -84,11 +95,12 @@ def on_main_window(processor: Processor):
         return
 
     # Add options to Anki Menu
-    options_action = QAction("Smart Fields ✨", mw)
+    options_action = QAction("Smart Notes", mw)
     options_action.triggered.connect(on_options(processor))
     mw.form.menuTools.addAction(options_action)
 
-    # TODO: do I need a profile_will_close thing here?
+
+# TODO: do I need a profile_will_close thing here?
 
 
 @with_processor  # type: ignore
@@ -121,14 +133,22 @@ def on_review(processor: Processor, card: Card):
         return
     note = card.note()
 
-    def on_success():
+    def on_success(did_change: bool):
+        if not did_change:
+            return
+
         if not mw:
             print("Error: mw not found")
             return
 
+        print("Did update card on review...")
+
         mw.col.update_note(note)
         card.load()
-        print("Updated on review")
+
+        Sparkle()
+
+    print("Trying to set up web...")
 
     processor.process_note(note, overwrite_fields=False, on_success=on_success)
 
