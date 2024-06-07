@@ -73,7 +73,7 @@ class PromptDialog(QDialog):
             | QDialogButtonBox.StandardButton.Save
         )
 
-        self.test_button = QPushButton("Test Prompt 🤖")
+        self.test_button = QPushButton("Test Prompt ✨")
         self.test_button.clicked.connect(self.on_test)
         standard_buttons.accepted.connect(self.on_accept)
         standard_buttons.rejected.connect(self.on_reject)
@@ -153,7 +153,7 @@ class PromptDialog(QDialog):
         if self.is_loading_prompt:
             self.test_button.setText("Loading...")
         else:
-            self.test_button.setText("Test Prompt 🤖")
+            self.test_button.setText("Test Prompt ✨")
 
     def update_prompt(self) -> None:
         if not self.selected_field or not self.selected_card_type:

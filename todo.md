@@ -32,11 +32,12 @@
   - [x] Get to 0 mypy errors so it's useful
 
   - [ ] Needs to have some sort of nice UI to indicate that a card has been updated in the background. Flash a border or something?
+  - [ ] Editor button should disable while things are happening
   - [x] Need an icon for the options window and editor button (robot emoji?)
-  - [ ] Decide on a name... AI Field Options kinda bland decent SEO tho
-  - [ ] Setuptools distribution stuff... (just zip for now)
+  - [x] Decide on a name... AI Field Options kinda bland decent SEO tho
+  - [x] Setuptools distribution stuff... (just zip for now)
     - [ ] Should run mypy prior to building...
-    - Emoji in the title?
+    - [x] Emoji in the title?
   - [x] Should have a way to test the prompts... oy
 
 - BUGS
@@ -48,6 +49,7 @@
 
   - [x] Config menu looks like crap
   - [ ] Need some warnings around API rate limit when batching
+  - [ ] Batch popup should be nicer, tell u # succeeed and failed
   - [ ] Need to pull in version somewhere
   - [x] Look up API tier to figure out batch limit
   - [ ] List out example fields when editing a card

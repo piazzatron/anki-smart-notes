@@ -48,7 +48,7 @@ class AddonOptionsDialog(QDialog):
         self.setup_ui()
 
     def setup_ui(self) -> None:
-        self.setWindowTitle("Smart Notes")
+        self.setWindowTitle("Smart Notes ✨")
         self.setMinimumWidth(OPTIONS_MIN_WIDTH)
 
         title_box = QWidget()
@@ -153,7 +153,8 @@ class AddonOptionsDialog(QDialog):
         tabs.addTab(tab2, "Advanced")
 
         tab_layout = QVBoxLayout()
-        tab_layout.addWidget(title_box)
+        # TODO: add back
+        # tab_layout.addWidget(title_box)
         tab_layout.addWidget(tabs)
         tab_layout.addSpacing(24)
 
