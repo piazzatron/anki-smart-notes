@@ -25,8 +25,12 @@ TODO: Needs something about how the templating works.
 
 1. **Automatically at review time**. A sparkle emoji will briefly shimmer. (We love sparkle).
 2. (Re)Generate entire card at add/edit time with the ✨ button.
-3. Right click to (re)generate individual fields in the editor.
+   ![Generate Card](https://github.com/piazzatron/anki-smart-notes/blob/readme/resources/screenshots/editor_button.png?raw=true)
+3. Right click to (re)generate individual fields.
+   ![Generate Fields](https://github.com/piazzatron/anki-smart-notes/blob/readme/resources/screenshots/per_field.png?raw=true)
+
 4. Process multiple notes with lightning fast batch processing. _Whole deck processing coming soon._
+   ![Generate Fields](https://github.com/piazzatron/anki-smart-notes/blob/readme/resources/screenshots/batch.png?raw=true)
 
 **Use any OpenAI model**
 From the newest gpt-4o to cheapest 3.5-turbo

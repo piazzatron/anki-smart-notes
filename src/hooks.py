@@ -77,7 +77,7 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
 
 @with_processor  # type: ignore
 def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMenu):  # type: ignore
-    item = QAction("Generate Smart Fields", menu)
+    item = QAction("✨ Generate Smart Fields", menu)
     menu.addAction(item)
 
     # TODO: should show # succeess and failed
@@ -121,7 +121,7 @@ def on_editor_context(
     ai_field = is_ai_field(current_field_num, note)
     if not ai_field:
         return
-    item = QAction("✨ Generate AI Field", menu)
+    item = QAction("✨ Generate Smart Field", menu)
     item.triggered.connect(
         lambda: processor.process_single_field(note, ai_field, editor)
     )
