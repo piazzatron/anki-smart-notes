@@ -1,15 +1,15 @@
 # **Smart Notes** - supercharge Anki with AI generated fields ✨
 
-Use AI / ChatGPT to automatically & flexibly generate fields with {{templated}} prompting.
+Use AI / ChatGPT to automatically & flexibly generate fields with `{{templated}}` prompts.
 
 ## Usage
 
 1.  **Tools > Smart Notes:** set your <a href="https://platform.openai.com/api-keys">OpenAI API Key.</a>
 2.  **Add Smart Fields** (AI generated fields).
 
-    Set a note type, target card, and prompt.
+    Set a note type, target field, and prompt.
 
-    Prompts can reference any other field on the card with {{double curly braces}}.
+    Prompts can reference any other field on the card with `{{double curly braces}}.`
 
     ![Create Field](https://github.com/piazzatron/anki-smart-notes/blob/readme/resources/screenshots/create_field.gif?raw=true)
 
@@ -23,10 +23,12 @@ Use AI / ChatGPT to automatically & flexibly generate fields with {{templated}} 
 
 **Multiple ways to generate cards:**
 
-1. **Automatically at review:** A sparkle emoji will briefly shimmer. (We love sparkle).
-   This mode is particularly nice if you import notes via AnkiConnect (Yomichan, etc.) - no effort required.
+1. **Automatically at review:**
 
-   <img src="https://github.com/piazzatron/anki-smart-notes/blob/readme/resources/screenshots/sparkle.gif?raw=true" />
+This mode is particularly nice if you import notes via AnkiConnect (Yomichan, etc.) - no effort required.
+A sparkle emoji will briefly show to indicate the note was generated in the background (we love sparkle).
+
+ <img src="https://github.com/piazzatron/anki-smart-notes/blob/readme/resources/screenshots/sparkle.gif?raw=true" />
 
 2. **Add/Edit:** (Re)Generate entire card with the ✨ button.
 
@@ -48,8 +50,6 @@ Tools > Smart Notes > Advanced. Select from the newest gpt-4o to cheapest 3.5-tu
 
 Smart fields can reference as many other fields on your card as you like. Smart fields can't reference other smart fields – yet.
 
-_Smart Notes was initially inspired by <a href="https://ankiweb.net/shared/info/1416178071">Intellifiller</a>, which is sadly no longer supported in current Anki versions._
-
 ## Use Cases
 
 - Generate example sentence for language study
@@ -58,6 +58,8 @@ _Smart Notes was initially inspired by <a href="https://ankiweb.net/shared/info/
 - ... so many more!
 
 ## Additional Info
+
+_Smart Notes was initially inspired by <a href="https://ankiweb.net/shared/info/1416178071">Intellifiller</a>, which is sadly no longer supported in current Anki versions._
 
 **Installation**
 Restart Anki once you've installed the add-on. You will need an <a href="https://platform.openai.com/api-keys">OpenAI API key.</a>
