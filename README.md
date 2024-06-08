@@ -1,18 +1,23 @@
 # **Smart Notes** - supercharge Anki with AI generated fields ✨
 
-Use AI / ChatGPT to automatically & flexibly generate fields via templated prompting.
-
-TODO: Needs something about how the templating works.
+Use AI / ChatGPT to automatically & flexibly generate fields with {{templated}} prompting.
 
 ## Usage
 
-1. **Tools > Smart Notes:** set your <a href="https://platform.openai.com/api-keys">OpenAI API Key.</a>
-2. **Add Smart Fields** (AI generated fields).
-   Set a note type, target card, and prompt. Prompts can reference any other field on the card by enclosing it in double {{curly braces}}.
-   ![Create Field](https://github.com/piazzatron/anki-smart-notes/blob/readme/resources/screenshots/create_field.gif?raw=true)
+1.  **Tools > Smart Notes:** set your <a href="https://platform.openai.com/api-keys">OpenAI API Key.</a>
+2.  **Add Smart Fields** (AI generated fields).
 
-3. Sit back. 😎 Generate fields automatically during review, in edit/add, or batched in the browser.
-   ![Generate Field](https://github.com/piazzatron/anki-smart-notes/blob/readme/resources/screenshots/generate_prompt.gif?raw=true)
+    Set a note type, target card, and prompt.
+
+    Prompts can reference any other field on the card with {{double curly braces}}.
+
+    ![Create Field](https://github.com/piazzatron/anki-smart-notes/blob/readme/resources/screenshots/create_field.gif?raw=true)
+
+3.  **Sit back** 😎
+
+    Generate fields automatically during review, in edit/add, or batched in the card browser.
+
+    ![Generate Field](https://github.com/piazzatron/anki-smart-notes/blob/readme/resources/screenshots/generate_prompt.gif?raw=true)
 
 ## Features
 
@@ -20,6 +25,9 @@ TODO: Needs something about how the templating works.
 
 1. **Automatically at review:** A sparkle emoji will briefly shimmer. (We love sparkle).
    This mode is particularly nice if you import notes via AnkiConnect (Yomichan, etc.) - no effort required.
+
+   <img src="https://github.com/piazzatron/anki-smart-notes/blob/readme/resources/screenshots/sparkle.gif?raw=true" />
+
 2. **Add/Edit:** (Re)Generate entire card with the ✨ button.
 
    <img src="https://github.com/piazzatron/anki-smart-notes/blob/readme/resources/screenshots/editor_button.png?raw=true" height="200px" />
@@ -54,9 +62,9 @@ _Smart Notes was initially inspired by <a href="https://ankiweb.net/shared/info/
 **Installation**
 Restart Anki once you've installed the add-on. You will need an <a href="https://platform.openai.com/api-keys">OpenAI API key.</a>
 
-**Cost** (to OpenAI, not to me)
+**Cost** (to OpenAI, not to me 😢)
 
-Free users can use gpt-3.5-turbo but are limited to 3 requests/min.
+Free users can use gpt-3.5-turbo but are <a href="https://platform.openai.com/docs/guides/rate-limits/usage-tiers">limited to 3 requests/min.</a>
 
 For paid users, <a href="https://openai.com/api/pricing/">prices are per token</a> - expect to pay a few tenths of a penny per call, but YMMV.
 
