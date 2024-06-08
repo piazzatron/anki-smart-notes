@@ -8,9 +8,9 @@ TODO: Needs something about how the templating works.
 
 1. Set your <a href="https://platform.openai.com/api-keys">OpenAI API Key.</a> in **Tools > Smart Notes**.
 2. Add smart fields (AI generated fields).
+   ![Create Field](https://github.com/piazzatron/anki-smart-notes/blob/readme/resources/screenshots/create_field.gif?raw=true)
 3. Sit back. 😎 Generate fields when adding notes, automatically during review, batched in the browser, or whenever you want.
-
-![Create Field](https://github.com/piazzatron/anki-smart-notes/blob/readme/resources/screenshots/create_field.gif?raw=true)
+   ![Generate Field](https://github.com/piazzatron/anki-smart-notes/blob/readme/resources/screenshots/generate_prompt.gif?raw=true)
 
 ## Uses
 
