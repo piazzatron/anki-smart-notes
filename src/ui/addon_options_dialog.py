@@ -234,7 +234,8 @@ class AddonOptionsDialog(QDialog):
         self.edit_button.setEnabled(is_enabled)
 
     def on_add(self, _: int) -> None:
-        # TODO: this is WRONG now, whhy isn't mypy catching it??!
+        # Save out the API key in case it's been updated this run
+        self.config.openai_api_key = self.api_key_edit.text()
 
         prompt_dialog = PromptDialog(
             self.prompts_map, self.processor, self.on_update_prompts

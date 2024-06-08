@@ -8,14 +8,13 @@ class OpenAIClient:
 
     def __init__(self, config: Config):
         self.config = config
-        self.api_key = config.openai_api_key
 
     async def async_get_chat_response(self, prompt: str):
         async with aiohttp.ClientSession() as session:
             async with session.post(
                 "https://api.openai.com/v1/chat/completions",
                 headers={
-                    "Authorization": f"Bearer {self.api_key}",
+                    "Authorization": f"Bearer {self.config.openai_api_key}",
                 },
                 json={
                     "model": self.config.openai_model,

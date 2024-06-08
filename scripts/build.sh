@@ -2,12 +2,14 @@
 
 build () {
   echo "Building..."
+  rm -rf dist
   mkdir -p dist/vendor
 
   cp *.py dist/
   cp manifest.json dist/
   cp config.json dist/
   cp -r src dist/
+  cp license dist/
   echo "environment = \"PROD\"" > dist/env.py
 
   # Nuke any pycache
@@ -24,7 +26,9 @@ build () {
   cp -r env/lib/python3.11/site-packages/idna dist/vendor/
 
   # Zip it
-  zip -r dist/smart-notes.ankiaddon dist/*
+  cd dist
+  zip -r smart-notes.ankiaddon *
+  cd ..
 }
 
 clean () {
