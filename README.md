@@ -1,6 +1,6 @@
 # **Smart Notes** - supercharge Anki with AI generated fields ✨
 
-Use AI / ChatGPT to automatically & flexibly generate fields with `{{templated}}` prompts.
+Use AI / ChatGPT to automatically & flexibly generate fields with `{{templated}}` <a href="https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-the-openai-api">prompts.</a>
 
 ## Usage
 
@@ -44,7 +44,9 @@ A sparkle emoji will briefly show to indicate the note was generated in the back
 
 **Use any OpenAI model**
 
-Tools > Smart Notes > Advanced. Select from the newest gpt-4o to cheapest 3.5-turbo
+Tools > Smart Notes > Advanced. Select from the newest `gpt-4o` to cheapest `gpt-3.5-turbo` (default).
+
+_At this time, free API tier users only have access to `gpt-3.5-turbo`._
 
 **Create complex prompts**
 
