@@ -10,10 +10,7 @@ TODO: Needs something about how the templating works.
 2. Add smart fields (AI generated fields).
 3. Sit back. 😎 Generate fields when adding notes, automatically during review, batched in the browser, or whenever you want.
 
-<video height="320" width="320">
-  <source src="/Users/michaelpiazza/Desktop/final_trimmed.mov" type="video/mp4">
-</video>
-[video of adding prompt goes here]
+![Create Field](https://github.com/piazzatron/anki-smart-notes/blob/readme/resources/screenshots/create_field.gif?raw=true)
 
 ## Uses
 
