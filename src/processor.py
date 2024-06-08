@@ -84,7 +84,7 @@ class Processor:
         self,
         note: Note,
         overwrite_fields: bool = False,
-        on_success: Callable[[bool], None] = lambda: None,
+        on_success: Callable[[bool], None] = lambda _: None,
     ):
         """Process a single note, filling in fields with prompts from the user"""
         run_async_in_background(

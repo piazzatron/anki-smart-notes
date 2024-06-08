@@ -51,7 +51,9 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
         if not mw:
             return
 
-        def on_success():
+        def on_success(did_change: bool):
+            if not did_change:
+                return
 
             # New notes have note id 0
             if note.id:
