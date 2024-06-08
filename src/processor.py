@@ -42,7 +42,9 @@ class Processor:
             lambda _: on_success(),
         )
 
-    def process_notes_with_progress(self, note_ids: Sequence[NoteId]) -> None:
+    def process_notes_with_progress(
+        self, note_ids: Sequence[NoteId], on_success: Union[Callable[[], None], None]
+    ) -> None:
         """Processes notes in the background with a progress bar, batching into a single undo op"""
 
         async def process_notes(notes: Sequence[Note]):
@@ -72,6 +74,9 @@ class Processor:
             op=lambda _: wrapped_process_notes(),
         )
 
+        if on_success:
+            op.success(lambda _: on_success())
+
         op.run_in_background()
 
     # TODO: do I even need this method or can I just use the batch one?
@@ -79,21 +84,22 @@ class Processor:
         self,
         note: Note,
         overwrite_fields: bool = False,
-        on_success: Callable[[], None] = lambda: None,
+        on_success: Callable[[bool], None] = lambda _: None,
     ):
         """Process a single note, filling in fields with prompts from the user"""
         run_async_in_background(
             lambda: self._process_note(note, overwrite_fields=overwrite_fields),
-            lambda _: on_success(),
+            on_success,
         )
 
-    async def _process_note(self, note: Note, overwrite_fields=False):
+    async def _process_note(self, note: Note, overwrite_fields=False) -> bool:
+        """Process a single note, returns whether any fields were updated"""
         print(f"Processing note")
         note_type = note.note_type()
 
         if not note_type:
             print("Error: no note type")
-            return
+            return False
 
         note_type_name = note_type["name"]
         field_prompts = self.config.prompts_map.get("note_types", {}).get(
@@ -102,7 +108,7 @@ class Processor:
 
         if not field_prompts:
             print("Error: no prompts found for note type")
-            return
+            return False
 
         tasks = []
 
@@ -122,7 +128,7 @@ class Processor:
 
         # Maybe filled out already, if so return early
         if not tasks:
-            return
+            return False
 
         # TODO: handle exceptions here
         responses = await asyncio.gather(*tasks)
@@ -130,6 +136,8 @@ class Processor:
         for i, response in enumerate(responses):
             target_field = field_prompt_items[i][0]
             note[target_field] = response
+
+        return True
 
     def get_chat_response(self, prompt: str, on_success: Callable[[str], None]):
 

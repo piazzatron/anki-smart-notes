@@ -27,7 +27,7 @@ class Config:
         config = mw.addonManager.getConfig(__name__)
         if not config:
             return None
-        return config.get(key)  # type: ignore[union-attr]
+        return config.get(key)
 
     def __setattr__(self, name: str, value: object) -> None:
         if not mw:
