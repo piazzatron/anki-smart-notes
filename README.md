@@ -25,17 +25,22 @@ TODO: Needs something about how the templating works.
 
 1. **Automatically at review:** A sparkle emoji will briefly shimmer. (We love sparkle).
 2. **Add/Edit:** (Re)Generate entire card with the ✨ button.
-   <img src="https://github.com/piazzatron/anki-smart-notes/blob/readme/resources/screenshots/editor_button.png?raw=true" />
-3. **Individual Fields: **Right click to (re)generate individual fields.
-   <img src="https://github.com/piazzatron/anki-smart-notes/blob/readme/resources/screenshots/per_field.png?raw=true" />
-4. **Batch process notges:**: Process multiple notes with lightning fast batch processing (shift + right click). _Whole deck processing coming soon._
-   <img src="https://github.com/piazzatron/anki-smart-notes/blob/readme/resources/screenshots/batch.png?raw=true" />
+
+   <img src="https://github.com/piazzatron/anki-smart-notes/blob/readme/resources/screenshots/editor_button.png?raw=true" height="200px" />
+
+3. **Individual Fields:** Right click to (re)generate individual fields.
+
+   <img src="https://github.com/piazzatron/anki-smart-notes/blob/readme/resources/screenshots/per_field.png?raw=true" height="300px" />
+
+4. **Batch process:**: Process multiple notes with lightning fast batch processing (shift + right click). _Whole deck processing soon :)_
+
+   <img src="https://github.com/piazzatron/anki-smart-notes/blob/readme/resources/screenshots/batch.png?raw=true" height="250px" />
 
 **Use any OpenAI model**
-From the newest gpt-4o to cheapest 3.5-turbo
+Tools > Smart Notes > Advanced. Select from the newest gpt-4o to cheapest 3.5-turbo
 
 **Create complex prompts**
-Smart fields can reference as many other fields on your card as you like.
+Smart fields can reference as many other fields on your card as you like. Smart fields can't reference other smart fields – yet.
 
 _Smart Notes was initially inspired by <a href="https://ankiweb.net/shared/info/1416178071">Intellifiller</a>, which is sadly no longer supported in current Anki versions._
 
