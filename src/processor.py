@@ -5,6 +5,8 @@ from anki.notes import Note, NoteId
 from aqt import editor, mw
 from aqt.operations import CollectionOp
 from anki.collection import OpChanges
+
+from .ui.ui_utils import show_message_box
 from .prompts import interpolate_prompt
 from .utils import run_async_in_background, check_for_api_key
 from .open_ai_client import OpenAIClient
@@ -63,8 +65,25 @@ class Processor:
 
         def wrapped_process_notes() -> OpChanges:
             notes = [mw.col.get_note(note_id) for note_id in note_ids]
-            asyncio.run(process_notes(notes))
+
             changes = OpChanges()
+
+            # Sanity check that we actually have prompts for these note types
+            has_prompts = True
+            for note in notes:
+                note_type = note.note_type()
+                if not note_type:
+                    print("Error: no note type")
+                    return OpChanges()
+                note_type_name = note_type["name"]
+                if note_type_name not in self.config.prompts_map.get("note_types", {}):
+                    print("Error: no prompts found for note type")
+                    has_prompts = False
+
+            if not has_prompts:
+                raise Exception("Not all selected note types have smart fields.")
+
+            asyncio.run(process_notes(notes))
             changes.note = True
             mw.col.update_notes(notes)
             return changes
@@ -77,6 +96,7 @@ class Processor:
         if on_success:
             op.success(lambda _: on_success())
 
+        op.failure(lambda e: show_message_box(f"Error: {e}"))
         op.run_in_background()
 
     # TODO: do I even need this method or can I just use the batch one?
