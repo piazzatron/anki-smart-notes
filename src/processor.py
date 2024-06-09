@@ -109,6 +109,7 @@ class Processor:
         note: Note,
         overwrite_fields: bool = False,
         on_success: Callable[[bool], None] = lambda _: None,
+        on_failure: Union[Callable[[Exception], None], None] = None,
     ):
         """Process a single note, filling in fields with prompts from the user"""
         # NOTE: for some reason i can't run bump_usage_counter in this hook without causing a
@@ -116,6 +117,7 @@ class Processor:
         run_async_in_background(
             lambda: self._process_note(note, overwrite_fields=overwrite_fields),
             on_success,
+            on_failure,
         )
 
     async def _process_note(self, note: Note, overwrite_fields=False) -> bool:

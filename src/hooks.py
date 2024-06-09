@@ -51,7 +51,41 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
         if not mw:
             return
 
+        # Imperatively set the button styling and disabled state 🤦‍♂️
+        # y u do dis, anki
+
+        def set_button_disabled() -> None:
+            if not e or not e.web:
+                return
+            e.web.eval(
+                """
+                    (() => {
+                        const button = document.querySelector("#generate_smart_fields")
+                        button.disabled = true
+                        button.style.opacity = 0.25
+                    })()
+                """
+            )
+
+        def set_button_enabled() -> None:
+            if not e or not e.web:
+                return
+
+            e.web.eval(
+                """
+                    (() => {
+                        const button = document.querySelector("#generate_smart_fields")
+                        button.disabled = false
+                        button.style.opacity = 1.0
+                    })()
+                """
+            )
+
+        set_button_disabled()
+
         def on_success(did_change: bool):
+            set_button_enabled()
+
             if not did_change:
                 return
 
@@ -61,7 +95,12 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
                 mw.col.update_note(note)
             editor.loadNote()
 
-        processor.process_note(note, overwrite_fields=True, on_success=on_success)
+        processor.process_note(
+            note,
+            overwrite_fields=True,
+            on_success=on_success,
+            on_failure=lambda _: set_button_enabled(),
+        )
 
     button = e.addButton(
         cmd="Generate Smart Fields",
@@ -69,7 +108,7 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
         func=fn,
         icon=None,
         tip="Generate Smart Fields",
-        disables=True,
+        id="generate_smart_fields",
     )
 
     buttons.append(button)

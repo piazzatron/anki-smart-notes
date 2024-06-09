@@ -13,7 +13,7 @@
   - [ ] Crash handling (what if openAI 500s, etc). Need to display some errors
   - [ ] Addon config should bring up GUI
 
-  - [ ] Editor button should disable while things are happening
+  - [x] Editor button should disable while things are happening
 
 - BUGS
 - [ ] AI fields shouldn't be able to reference other AI fields
