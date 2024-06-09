@@ -1,8 +1,9 @@
 from typing import Callable, Dict, Any
-from aqt import mw
+from aqt import mw, QDialog, QLabel
 from aqt.operations import QueryOp
 from .config import config
 
+from .ui.rate_dialog import RateDialog
 from .ui.ui_utils import show_message_box
 import asyncio
 
@@ -49,3 +50,16 @@ def check_for_api_key(show_box=True) -> bool:
             show_message_box(message)
         return False
     return True
+
+
+USES_BEFORE_RATE_DIALOG = 5
+
+
+def bump_usage_counter() -> None:
+    config.times_used += 1
+    print("Times used: ", config.times_used)
+    print("Last rate dialog: ", config.last_show_rate_dialog)
+    if config.times_used > USES_BEFORE_RATE_DIALOG and not config.did_show_rate_dialog:
+        config.did_show_rate_dialog = True
+        dialog = RateDialog()
+        dialog.exec()

@@ -8,7 +8,7 @@ from anki.collection import OpChanges
 
 from .ui.ui_utils import show_message_box
 from .prompts import interpolate_prompt
-from .utils import run_async_in_background, check_for_api_key
+from .utils import bump_usage_counter, run_async_in_background, check_for_api_key
 from .open_ai_client import OpenAIClient
 from .config import Config
 
@@ -23,6 +23,8 @@ class Processor:
     def process_single_field(
         self, note: Note, target_field_name: str, editor: editor.Editor
     ) -> None:
+
+        bump_usage_counter()
 
         async def async_process_single_field(
             note: Note, target_field_name: str
@@ -48,6 +50,8 @@ class Processor:
         self, note_ids: Sequence[NoteId], on_success: Union[Callable[[], None], None]
     ) -> None:
         """Processes notes in the background with a progress bar, batching into a single undo op"""
+
+        bump_usage_counter()
 
         async def process_notes(notes: Sequence[Note]):
             tasks = []
@@ -107,6 +111,8 @@ class Processor:
         on_success: Callable[[bool], None] = lambda _: None,
     ):
         """Process a single note, filling in fields with prompts from the user"""
+        # NOTE: for some reason i can't run bump_usage_counter in this hook without causing a
+        # an PyQT crash, so I'm running it in the on_success callback instead
         run_async_in_background(
             lambda: self._process_note(note, overwrite_fields=overwrite_fields),
             on_success,

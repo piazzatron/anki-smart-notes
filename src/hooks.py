@@ -3,7 +3,7 @@ Setup the hooks for the Anki plugin
 """
 
 from typing import List, Any
-from aqt import QAction, QMenu, gui_hooks, editor, mw, browser, webview
+from aqt import QAction, QMenu, QMessageBox, gui_hooks, editor, mw, browser, webview, Qt
 from anki.cards import Card
 
 from .ui.ui_utils import show_message_box
@@ -13,7 +13,7 @@ from .processor import Processor
 from .prompts import is_ai_field
 from .ui.addon_options_dialog import AddonOptionsDialog
 
-from .utils import check_for_api_key
+from .utils import bump_usage_counter, check_for_api_key
 from .config import config
 
 
@@ -100,6 +100,8 @@ def on_main_window(processor: Processor):
     options_action = QAction("Smart Notes", mw)
     options_action.triggered.connect(on_options(processor))
     mw.form.menuTools.addAction(options_action)
+    # TODO: not working for some reason
+    mw.addonManager.setConfigAction(__name__, on_options(processor))
 
 
 # TODO: do I need a profile_will_close thing here?
@@ -147,8 +149,11 @@ def on_review(processor: Processor, card: Card):
 
         mw.col.update_note(note)
         card.load()
-
         Sparkle()
+
+        # NOTE: Calling this inside processor causes a crash with
+        # Suppressing invocation of -[NSApplication runModalSession:]. -[NSApplication runModalSession:] cannot run inside a transaction begin/commit pair, or inside a transaction commit. Consider switching to an asynchronous equivalent.
+        bump_usage_counter()
 
     print("Trying to set up web...")
 
@@ -159,7 +164,6 @@ def setup_hooks(processor: Processor):
     gui_hooks.browser_will_show_context_menu.append(on_browser_context(processor))
     gui_hooks.editor_did_init_buttons.append(add_editor_top_button(processor))
     gui_hooks.editor_will_show_context_menu.append(on_editor_context(processor))
-    # TODO: I think this should be 'card did show'?
     gui_hooks.reviewer_did_show_question.append(on_review(processor))
 
     gui_hooks.main_window_did_init.append(on_main_window(processor))

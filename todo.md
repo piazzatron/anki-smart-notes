@@ -2,6 +2,7 @@
 
 - 2
 
+  - [x] fix mypy running in loop lol
   - [ ] Set min anki version
   - [x] Config menu:
 
@@ -21,11 +22,15 @@
 
 - PRODUCT POLISH
 
+  - [ ] docs should link to GH at the top & the version
+    - Should have my name somewhere i suppose...
+    - kofi link?...
+  - [ ] Manifest should include the anki plugin ID etc
   - [ ] Need top lvl event handler for exceptions, which links to GH
   - [ ] Need some warnings around API rate limit when batching
   - [ ] Batch popup should be nicer, tell u # succeeed and failed
   - [ ] Need to pull in version somewhere
-  - [ ] Periodic reminder to rate
+  - [x] Periodic reminder to rate
 
 - Distribution
 
@@ -56,6 +61,7 @@
 
 - V2
 
+  - [ ] What's new popup..
   - Better batching support, esp for low tier API
   - Edit entire deck
   - Auto fill after losing focus on origin prompts
@@ -68,12 +74,30 @@
 
 - NICE TO HAVE
   - [ ] Contributing guidelines (lolz)
+  - [ ] Could pre-empt the prompt with reply only with the answer.
+
+## Beta test notes
+
+- [x] Step 1: Install smart notes
+
+- [x] Prompt Placeholder text was confusing. Need some sort of explanation about how to use the thing.
+- [x] Would be nice to see all the fields in the add prompt menu
+- [x] Need to double check that the prompt isn’t empty
+- [ ] Auto generate doesn’t work on review time in mobile
+
+- [x] Investigate batch processing work:
 
 ## Musings
 
 - Should it fill the entire card, or a single field?
 - It could automatically fill out chosen fields on edit AND on note review, if they're empty
 - Each field could have an option to map to a prompt
+
+## Bernie's feedback:
+
+- docs are confusing, feels like it's for power users and not for me.
+  - my take: maybe I need one sentence at the top of the todo list showing how you'd want to do this for an example.
+  - error message when you do a prompt wrong is hard
 
 ## DONE
 
