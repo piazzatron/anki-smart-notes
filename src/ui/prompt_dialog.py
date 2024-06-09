@@ -16,13 +16,15 @@ from aqt import (
 from ..config import PromptMap
 from ..prompts import get_prompt_fields_lower, interpolate_prompt, validate_prompt
 from .ui_utils import show_message_box
-from ..utils import get_fields, run_async_in_background, to_lowercase_dict
+from ..utils import get_fields, to_lowercase_dict
 
 
 class PromptDialog(QDialog):
     prompt_text_box: QTextEdit
     is_loading_prompt: bool
     test_button: QPushButton
+    valid_fields: QLabel
+    prompts_map: PromptMap
 
     def __init__(
         self,
@@ -68,15 +70,15 @@ class PromptDialog(QDialog):
         layout.addWidget(field_label)
         layout.addWidget(self.field_combo_box)
 
-        standard_buttons = QDialogButtonBox(
+        self.standard_buttons = QDialogButtonBox(
             QDialogButtonBox.StandardButton.Cancel
             | QDialogButtonBox.StandardButton.Save
         )
 
         self.test_button = QPushButton("Test Prompt ✨")
         self.test_button.clicked.connect(self.on_test)
-        standard_buttons.accepted.connect(self.on_accept)
-        standard_buttons.rejected.connect(self.on_reject)
+        self.standard_buttons.accepted.connect(self.on_accept)
+        self.standard_buttons.rejected.connect(self.on_reject)
 
         prompt_label = QLabel("Prompt")
         self.prompt_text_box = QTextEdit()
@@ -90,15 +92,21 @@ class PromptDialog(QDialog):
         self.prompt_text_box.setPlaceholderText(
             "Write a simple sentence in Japanese for the word {{expression}}."
         )
-
+        self.valid_fields = QLabel("")
+        font = self.valid_fields.font()
+        font.setPointSize(10)
+        self.valid_fields.setFont(font)
+        self.update_valid_fields()
         self.update_prompt()
+
         self.setLayout(layout)
         layout.addWidget(prompt_label)
         layout.addWidget(self.prompt_text_box)
+        layout.addWidget(self.valid_fields)
         layout.addWidget(self.test_button)
-        layout.addWidget(standard_buttons)
+        layout.addWidget(self.standard_buttons)
 
-        self.update_test_button()
+        self.update_buttons()
         # This needs to be called at the end
         # once the widgets are set up
         self.update_fields()
@@ -124,6 +132,7 @@ class PromptDialog(QDialog):
             return
         self.selected_field = field
         self.update_prompt()
+        self.update_valid_fields()
 
     def on_card_type_selected(self, card_type: str):
         if not card_type:
@@ -132,6 +141,7 @@ class PromptDialog(QDialog):
 
         self.update_fields()
         self.update_prompt()
+        self.update_valid_fields()
 
     def update_fields(self) -> None:
         if not self.selected_card_type:
@@ -144,12 +154,16 @@ class PromptDialog(QDialog):
         print(f"Attempting to set field to {self.selected_field}")
         self.field_combo_box.setCurrentText(self.selected_field)
 
-    def update_test_button(self) -> None:
+    def update_buttons(self) -> None:
         is_enabled = (
             bool(self.selected_card_type and self.selected_field and self.prompt)
             and not self.is_loading_prompt
         )
         self.test_button.setEnabled(is_enabled)
+        self.standard_buttons.button(QDialogButtonBox.StandardButton.Save).setEnabled(
+            is_enabled
+        )
+
         if self.is_loading_prompt:
             self.test_button.setText("Loading...")
         else:
@@ -170,7 +184,7 @@ class PromptDialog(QDialog):
 
     def on_text_changed(self):
         self.prompt = self.prompt_text_box.toPlainText()
-        self.update_test_button()
+        self.update_buttons()
 
     def on_test(self):
         if not mw or not self.prompt:
@@ -190,14 +204,14 @@ class PromptDialog(QDialog):
         sample_note = mw.col.get_note(sample_note_ids[0])
         prompt = interpolate_prompt(self.prompt, sample_note)
         self.is_loading_prompt = True
-        self.update_test_button()
+        self.update_buttons()
 
         def on_success(arg):
             if not self.prompt:
                 return
 
             self.is_loading_prompt = False
-            self.update_test_button()
+            self.update_buttons()
 
             prompt_fields = get_prompt_fields_lower(self.prompt)
 
@@ -213,6 +227,30 @@ class PromptDialog(QDialog):
             show_message_box(msg, custom_ok="Close")
 
         self.processor.get_chat_response(prompt, on_success)
+
+    def update_valid_fields(self) -> None:
+        fields = self.get_valid_fields()
+        fields = [f"{{{field}}}" for field in fields]
+        text = f"Valid fields for prompt: {', '.join(fields)}"
+        self.valid_fields.setText(text)
+
+    def get_valid_fields(self) -> List[str]:
+        if not (self.selected_card_type and self.selected_field):
+            return []
+
+        fields = get_fields(self.selected_card_type)
+        existing_prompts = set(
+            self.prompts_map.get("note_types", {})
+            .get(self.selected_card_type, {"fields": {}})
+            .get("fields", {})
+            .keys()
+        )
+        existing_prompts.add(self.selected_field)
+
+        print(existing_prompts)
+        not_ai_fields = [field for field in fields if field not in existing_prompts]
+        print(not_ai_fields)
+        return not_ai_fields
 
     def on_accept(self):
         if self.selected_card_type and self.selected_field and self.prompt:
@@ -234,7 +272,7 @@ class PromptDialog(QDialog):
                 self.selected_field
             ] = self.prompt
             self.on_accept_callback(self.prompts_map)
-        self.accept()
+            self.accept()
 
     def on_reject(self):
         self.reject()
