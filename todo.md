@@ -1,8 +1,13 @@
 ## Milestones
 
+Before launch:
+
+- one last pass on copy: do I definitely want to have the
+
 - 2
 
   - [ ] warning on batch
+  - [ ] remake the add prompt vid
   - [ ] Set min anki version
   - [ ] Link to rate the addon
   - [ ] Addon config should bring up GUI
@@ -42,6 +47,7 @@
 
 - V2
 
+  - [ ] Pregenerated prompts for common use cases...
   - [ ] What's new popup..
   - Better batching support, esp for low tier API
   - Edit entire deck

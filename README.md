@@ -2,66 +2,126 @@
 
 </br>
 
-## Use AI / ChatGPT to automatically & flexibly generate fields with `{{templated}}` prompts.
+## Use AI / ChatGPT to automatically generate any field in your notes.
+
+For example, pretend you're a language learner who uses ChatGPT to generate example sentences for new vocab. This plugin brings that whole process into Anki: set it up once, and every new piece of vocab added will automatically receive an AI generated example sentence.
+
+**Write a prompt, associate it with a card type and field, and Smart Notes will automatically generate that field for you at review time – or generate groups of notes with a single click.**
+
+<img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/create_field.gif" />
+</br>
+
+<img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/generate_prompt.gif" />
+
+</br>
+
+Language learning, summarization, you name it – automate the busywork of card creation so you have more time for studying!
 
 </br>
 
 # Usage
 
-1.  **Tools > Smart Notes:** set your <a href="https://platform.openai.com/api-keys">OpenAI API Key.</a>
-2.  **Add Smart Fields** (AI generated fields):
+</br>
 
-- Set a note type, target field, and prompt.
-- Prompts can reference any other field on the card with `{{double curly braces}}.`
+## 1. **Installation**:
 
-  <img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/create_field.gif" />
+Tools > Addons > Get Addon, paste in plugin id `1531888719`. Restart Anki.
 
-3.  **Generate your cards** 😎
+## 2. **Set your OpenAI API Key:**
 
-    Generate fields automatically during review, in edit/add, or batched in the card browser.
+This plugin requires an OpenAI API key: <a href="https://platform.openai.com/api-keys">get one here.</a>
 
-    <img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/generate_prompt.gif" />
+Tools > Smart Notes > API key.
+
+## 3. **Add Smart Fields** (AI generated fields):
 
 </br>
 
-# Features
+**Smart fields are AI generated fields associated with a particular card type.**
+They may reference other fields, and you can have as many smart fields as you like.
 
 </br>
 
-### **Multiple ways to generate cards:**
+1. Click Tools > Smart Notes > Add
 
-1. **Automatically at review:**
-   Seamlessly generate fields in the background at review time.
+2. Pick the `card type` and `target field` you want to automatically generate.
 
-   Nice if you import notes via AnkiConnect (Yomichan, etc.) - no effort required.
+3. Then, write the `prompt` that will be automatically sent to OpenAI/ChatGPT to generate the `target field`.
 
-   A sparkle emoji will briefly show (we love sparkle).
+</br>
+
+### Writing a Prompt
+
+A prompt may reference any other field on the card via enclosing it in `{{double curly braces}}`.
+
+For example, if you're studying a language and want to generate a mmemonic to aid in memorization, you might make a prompt like this (assuming you have a field called "vocab"):
+
+```
+Create a simple, memorable mmemonic in Japanese for the word {{vocab}}. Reply with only the mmemonic.
+```
+
+It's often useful to tell language model to "only reply" with the phrase you care about.
+
+_You can't reference the target field, or other smart fields – but the addon will validate your prompt, so don't worry!_
+
+</br>
+
+## 4. **Automatically generate notes** 😎
+
+Generate smart notes during review, in edit or add flows, or batched in the card browser.
+
+</br>
+
+</br>
+
+### **Generate during review**
+
+Smart fields are automatically generated in the background at review time.
+
+This is approach is super useful if you import notes via AnkiConnect (Yomichan, etc) - simply set up your smart fields and no further effort required.
 
  <img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/sparkle.gif?raw=true" />
+
+_A sparkle emoji will briefly show (we love sparkle)._
+
+Note that you can turn automatic generation off in _Smart Notes > Advanced_.
+
+</br>
+</br>
+
+### **Generate when adding or editing cards**
+
+Smart fields can also be generated prior to review. To (re)generate all smart fields on a note, simply click the ✨ button in the editor:
+
+<img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/editor_button.png?raw=true" height="200px" />
+
 </br>
 </br>
 
-2. **Add/Edit:** (Re)Generate entire card with the ✨ button.
+Alternatively, to generate a single smart field and leave the rest of the note untouched, right click an individual field in the editor and click "Generate Smart Field":
 
-   <img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/editor_button.png?raw=true" height="200px" />
+<img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/per_field.png?raw=true" height="300px" />
+
+</br>
+</br>
+
+### **Generating Multiple Notes**
+
+<img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/batch.png?raw=true" height="250px" />
+
+In the notes browser, select as many cards as you'd like and then **right click > generate smart fields** to generate multiple notes with speedy batch processing (it's v fast)!
+
+**Note: You'll need a paid OpenAI key to batch edit – unpaid keys are limited to 3 requests/min.**
+
+_Whole deck processing soon :)_
 
 </br>
 
-3. **Individual Fields:** Right click on a field to (re)generate individual fields.
-
-   <img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/per_field.png?raw=true" height="300px" />
-
-</br>
-
-4. **Batch process:** Browser shift + right click to process multiple notes with lightning fast batch processing (it's seriously fast). _Whole deck processing soon :)_
-
-   <img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/batch.png?raw=true" height="250px" />
-
-</br>
+# Additional Features
 
 ### **Use any OpenAI model**
 
-Tools > Smart Notes > Advanced. Select from the newest `gpt-4o` to cheapest `gpt-3.5-turbo` (default).
+**Tools > Smart Notes > Advanced:** Select from the newest `gpt-4o` to cheapest `gpt-3.5-turbo` (default).
 
 _At this time, free API tier users only have access to `gpt-3.5-turbo`._
 
@@ -69,16 +129,7 @@ _At this time, free API tier users only have access to `gpt-3.5-turbo`._
 
 ### **Create complex prompts**
 
-Smart fields can reference as many other fields on your card as you like. Smart fields can't reference other smart fields – yet.
-
-</br>
-
-# Use Cases
-
-- Generate example sentence for language study
-- Generate memorable mmemonics
-- Break down & summarize complicated sentences
-- ... so many more!
+Smart fields can reference as many other fields on your card as you like.
 
 </br>
 
@@ -86,18 +137,10 @@ Smart fields can reference as many other fields on your card as you like. Smart 
 
 _Smart Notes owes a debt of gratitude for inspiration to <a href="https://ankiweb.net/shared/info/1416178071">Intellifiller.</a>_
 
-**Installation**
-
-Restart Anki once you've installed the add-on.
-
 **Cost** (to OpenAI, not to me 😢)
 
 - Free users can use gpt-3.5-turbo but are <a href="https://platform.openai.com/docs/guides/rate-limits/usage-tiers">limited to 3 requests/min.</a>
 - For paid users, <a href="https://openai.com/api/pricing/">prices are per token</a> - expect to pay a few tenths of a penny per call, but YMMV.
-
-**Prompts**
-
-OpenAI has some <a href="https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-the-openai-api">nice guides to writing effective prompts.</a>
 
 </br>
 
@@ -105,4 +148,4 @@ OpenAI has some <a href="https://help.openai.com/en/articles/6654000-best-practi
 
 Found a bug or want to request a feature? File an <a href="https://github.com/piazzatron/anki-smart-notes/issues"> issue on Github </a>.
 
-Enjoying this addon? Please rate it 👍.
+Enjoying this addon? <a href="https://ankiweb.net/shared/info/1531888719">Please rate it to help others find it.👍</a>
