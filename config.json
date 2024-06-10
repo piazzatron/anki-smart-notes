@@ -3,6 +3,7 @@
   "openai_model": "gpt-3.5-turbo",
   "times_used": 0,
   "did_show_rate_dialog": false,
+  "generate_at_review": true,
   "prompts_map": {
     "note_types": {}
   }

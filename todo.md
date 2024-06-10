@@ -6,11 +6,11 @@
   - [ ] Set min anki version
   - [x] Config menu:
 
-    - [ ] Button for generate empty fields at edit time
+    - [x] Button for generate empty fields at edit time
     - [ ] Link to rate the addon
-    - [ ] Wire up restore defaults button
+    - [x] Wire up restore defaults button
 
-  - [ ] Crash handling (what if openAI 500s, etc). Need to display some errors
+  - [x] Crash handling (what if openAI 500s, etc). Need to display some errors
   - [ ] Addon config should bring up GUI
 
   - [x] Editor button should disable while things are happening
@@ -25,10 +25,10 @@
   - [ ] docs should link to GH at the top & the version
     - Should have my name somewhere i suppose...
     - kofi link?...
-  - [ ] Manifest should include the anki plugin ID etc
+  - [x] Manifest should include the anki plugin ID etc
   - [ ] Need top lvl event handler for exceptions, which links to GH
   - [ ] Need some warnings around API rate limit when batching
-  - [ ] Batch popup should be nicer, tell u # succeeed and failed
+  - [x] Batch popup should be nicer, tell u # succeeed and failed
   - [ ] Need to pull in version somewhere
   - [x] Periodic reminder to rate
 

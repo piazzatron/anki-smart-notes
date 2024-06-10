@@ -182,6 +182,10 @@ def on_review(processor: Processor, card: Card):
     print("Reviewing...")
     if not check_for_api_key(show_box=False):
         return
+
+    if not config.generate_at_review:
+        return
+
     note = card.note()
 
     def on_success(did_change: bool):

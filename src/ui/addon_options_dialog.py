@@ -1,4 +1,5 @@
 from aqt import (
+    QCheckBox,
     QTabWidget,
     QGroupBox,
     QComboBox,
@@ -36,12 +37,14 @@ class AddonOptionsDialog(QDialog):
     table: QTableWidget
     restore_defaults: QPushButton
     edit_button: QPushButton
+    generate_at_review: bool
 
     def __init__(self, config: Config, processor: Processor):
         super().__init__()
         self.processor = processor
         self.prompts_map = config.prompts_map
         self.openai_model = config.openai_model
+        self.generate_at_review = config.generate_at_review
         self.config = config
         self.selected_row = None
 
@@ -69,28 +72,22 @@ class AddonOptionsDialog(QDialog):
         get_api_key_label.setFont(font)
 
         self.api_key_edit = QLineEdit()
-        self.api_key_edit.setText(self.config.openai_api_key)
         self.api_key_edit.setPlaceholderText("sk-proj-1234...")
         self.api_key_edit.setMinimumWidth(500)
         self.api_key_edit.setSizePolicy(
             QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred
         )
-        learn_more_about_models = QLabel(
-            'Free tier can only access gpt-3.5-turbo. Newer models may perfrom better with lower rate limits and higher cost. <a href="https://platform.openai.com/docs/models/">Learn more.</a>'
-        )
-        learn_more_about_models.setOpenExternalLinks(True)
-        learn_more_about_models.setFont(font)
 
         # Select model
         self.models_combo_box = QComboBox()
         self.models_combo_box.addItems(openai_models)
-        self.models_combo_box.setCurrentText(self.openai_model)
         self.models_combo_box.currentTextChanged.connect(self.on_change_model)
 
         form = QFormLayout()
         form.setVerticalSpacing(12)
         form.addRow("<b>🔑 OpenAI API Key:</b>", self.api_key_edit)
         form.addRow(get_api_key_label)
+        form.setLabelAlignment(Qt.AlignmentFlag.AlignLeft)
 
         group_box = QGroupBox("API Key")
         group_box.setLayout(form)
@@ -145,10 +142,32 @@ class AddonOptionsDialog(QDialog):
         tab1.setLayout(layout)
         tabs.addTab(tab1, "General")
 
+        # Tab2
+
+        learn_more_about_models = QLabel(
+            'Free tier can only access gpt-3.5-turbo. Newer models may perfrom better with lower rate limits and higher cost. <a href="https://platform.openai.com/docs/models/">Learn more.</a>'
+        )
+        learn_more_about_models.setOpenExternalLinks(True)
+        learn_more_about_models.setFont(font)
         tab2 = QWidget()
         tab2_layout = QFormLayout()
+        tab2_layout.setLabelAlignment(Qt.AlignmentFlag.AlignLeft)
+        tab2_layout.setFormAlignment(Qt.AlignmentFlag.AlignLeft)
         tab2_layout.addRow("OpenAI Model:", self.models_combo_box)
         tab2_layout.addRow(learn_more_about_models)
+        # Add spacer row
+        tab2_layout.addRow("", QLabel(""))
+
+        self.generate_at_review_button = QCheckBox()
+
+        def set_generate_at_review(checked: int):
+            self.generate_at_review = checked == 2
+
+        self.generate_at_review_button.stateChanged.connect(set_generate_at_review)
+        tab2_layout.addRow(
+            "Auto-generate fields at review time:", self.generate_at_review_button
+        )
+
         tab2.setLayout(tab2_layout)
         tabs.addTab(tab2, "Advanced")
 
@@ -162,6 +181,13 @@ class AddonOptionsDialog(QDialog):
 
         self.update_buttons()
         self.setLayout(tab_layout)
+        self.update_ui()
+
+    def update_ui(self) -> None:
+        self.api_key_edit.setText(self.config.openai_api_key)
+        self.models_combo_box.setCurrentText(self.openai_model)
+        self.generate_at_review_button.setChecked(self.generate_at_review)
+        self.update_table()
 
     def create_table(self) -> QTableWidget:
         table = QTableWidget(0, 3)
@@ -276,6 +302,7 @@ class AddonOptionsDialog(QDialog):
         self.config.openai_api_key = self.api_key_edit.text()
         self.config.prompts_map = self.prompts_map
         self.config.openai_model = self.openai_model
+        self.config.generate_at_review = self.generate_at_review
         self.accept()
 
     def on_reject(self) -> None:
@@ -285,4 +312,9 @@ class AddonOptionsDialog(QDialog):
         self.prompts_map = prompts_map
 
     def on_restore_defaults(self) -> None:
-        pass
+        # TODO: this is so brittle
+        self.config.restore_defaults()
+        self.prompts_map = self.config.prompts_map
+        self.openai_model = self.config.openai_model
+        self.generate_at_review = self.config.generate_at_review
+        self.update_ui()

@@ -1,5 +1,5 @@
-from typing import Dict, TypedDict, Literal
-from aqt import mw
+from typing import Dict, TypedDict, Literal, Any, Union
+from aqt import mw, addons
 
 
 class NoteTypeMap(TypedDict):
@@ -19,6 +19,9 @@ class Config:
     openai_api_key: str
     prompts_map: PromptMap
     openai_model: OpenAIModels
+    generate_at_review: bool
+    times_used: int
+    did_show_rate_dialog: bool
 
     def __getattr__(self, key: str) -> object:
         if not mw:
@@ -47,6 +50,22 @@ class Config:
             .get("fields", {})
             .get(field, None)
         )
+
+    def restore_defaults(self) -> None:
+        defaults = self._defaults()
+        if not defaults:
+            return
+
+        for key, value in defaults.items():
+            setattr(self, key, value)
+
+    def _defaults(self) -> Union[Dict[str, Any], None]:
+        if not mw:
+            return {}
+
+        mgr = addons.AddonManager(mw)
+        defaults = mgr.addonConfigDefaults("smart-notes")
+        return defaults
 
 
 config = Config()
