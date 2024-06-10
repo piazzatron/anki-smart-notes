@@ -4,10 +4,18 @@ from .config import config
 import re
 from .utils import get_fields, to_lowercase_dict
 from anki.notes import Note
-from typing import Union
+from typing import Union, Dict, Any
 
 
-def is_ai_field(current_field_num: int, note: Note):
+def get_prompts() -> Dict[str, Dict[str, str]]:
+    """Gets the prompts map. Does not lowercase anything."""
+    return {
+        note_type: {k: v for k, v in m["fields"].items()}
+        for note_type, m in config.prompts_map["note_types"].items()
+    }
+
+
+def is_ai_field(current_field_num: int, note: Note) -> Union[Any, None]:
     """Helper to determine if the current field is an AI field. Returns the non-lowercased field name if it is."""
     if not note:
         return None
@@ -18,21 +26,15 @@ def is_ai_field(current_field_num: int, note: Note):
     ]
     sorted_fields_lower = [field.lower() for field in sorted_fields]
 
-    if not note_type or not current_field_num:
+    # SNEAKY: current_field_num can be 0
+    if not note_type or current_field_num is None:
         return None
 
+    note_name = note_type["name"] if note_type else None
+
     current_field = sorted_fields_lower[current_field_num]
-    print(current_field)
 
-    prompts = config.prompts_map
-    print(prompts)
-
-    # TODO: some methods to work with this stupid note_types map
-    prompts_for_card = to_lowercase_dict(
-        (prompts["note_types"].get(note_type["name"], {"fields": {}}).get("fields", {}))
-    )
-
-    print(prompts_for_card)
+    prompts_for_card = to_lowercase_dict(get_prompts().get(note_name, {}))
 
     is_ai = bool(prompts_for_card.get(current_field, None))
     return sorted_fields[current_field_num] if is_ai else None
@@ -44,20 +46,26 @@ def get_prompt_fields_lower(prompt: str):
     return [field.lower() for field in fields]
 
 
-def validate_prompt(prompt: str, note_type: str, target_field: Union[str, None] = None):
-    fields = {field.lower() for field in get_fields(note_type)}
+def prompt_has_error(
+    prompt: str, note_type: str, target_field: Union[str, None] = None
+) -> Union[str, None]:
+    """Checks if a prompt has an error. Returns the error message if there is one."""
+    note_fields = {field.lower() for field in get_fields(note_type)}
     prompt_fields = get_prompt_fields_lower(prompt)
+    existing_fields = to_lowercase_dict(get_prompts().get(note_type, {}))
 
     # Check for fields that aren't in the card
     for prompt_field in prompt_fields:
-        if prompt_field not in fields:
-            return False
+        if prompt_field not in note_fields:
+            return f"Invalid field in prompt: {prompt_field}"
+        if prompt_field in existing_fields:
+            return f"Can't reference other smart fields ({prompt_field}) in the prompt. (...yet 😈)"
 
     # Can't reference itself
     if target_field and target_field.lower() in prompt_fields:
-        return False
+        return "Cannot reference the target field in the prompt."
 
-    return True
+    return None
 
 
 def interpolate_prompt(prompt: str, note: Note):

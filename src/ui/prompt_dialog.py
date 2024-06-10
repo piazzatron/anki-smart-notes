@@ -14,9 +14,16 @@ from aqt import (
     mw,
 )
 from ..config import PromptMap
-from ..prompts import get_prompt_fields_lower, interpolate_prompt, validate_prompt
+from ..prompts import get_prompt_fields_lower, interpolate_prompt, prompt_has_error
 from .ui_utils import show_message_box
 from ..utils import get_fields, to_lowercase_dict
+
+placeholder_explanation = """Write a "prompt" to send to ChatGPT; it's response will become the value of the target field set above.
+
+The prompt can include any other field in the card wrapped in {{double curly braces}} (excluding the target field and other smart fields).
+
+You can test out your prompt with the test prompt button below.
+"""
 
 
 class PromptDialog(QDialog):
@@ -80,7 +87,7 @@ class PromptDialog(QDialog):
         self.standard_buttons.accepted.connect(self.on_accept)
         self.standard_buttons.rejected.connect(self.on_reject)
 
-        prompt_label = QLabel("Prompt")
+        prompt_label = QLabel("ChatGPT Prompt")
         self.prompt_text_box = QTextEdit()
         self.prompt_text_box.textChanged.connect(self.on_text_changed)
         self.prompt_text_box.setMinimumHeight(150)
@@ -89,9 +96,7 @@ class PromptDialog(QDialog):
         self.prompt_text_box.setWordWrapMode(
             QTextOption.WrapMode.WrapAtWordBoundaryOrAnywhere
         )
-        self.prompt_text_box.setPlaceholderText(
-            "Write a simple sentence in Japanese for the word {{expression}}."
-        )
+        self.prompt_text_box.setPlaceholderText(placeholder_explanation)
         self.valid_fields = QLabel("")
         font = self.valid_fields.font()
         font.setPointSize(10)
@@ -191,8 +196,11 @@ class PromptDialog(QDialog):
             return
 
         if self.selected_card_type and self.selected_field and self.prompt:
-            if not validate_prompt(self.prompt, self.selected_card_type):
-                show_message_box("Invalid prompt. Please ensure all fields are valid.")
+            error = prompt_has_error(
+                self.prompt, self.selected_card_type, self.selected_field
+            )
+            if error:
+                show_message_box(f"Invalid prompt: {error}")
                 return
 
         sample_note_ids = mw.col.find_notes(f'note:"{self.selected_card_type}"')
@@ -226,12 +234,19 @@ class PromptDialog(QDialog):
 
             show_message_box(msg, custom_ok="Close")
 
-        self.processor.get_chat_response(prompt, on_success)
+        def on_failure(e: Exception) -> None:
+            self.is_loading_prompt = False
+            self.update_buttons()
+            show_message_box(f"Error: {e}")
+
+        self.processor.get_chat_response(
+            prompt, on_success=on_success, on_failure=on_failure
+        )
 
     def update_valid_fields(self) -> None:
         fields = self.get_valid_fields()
-        fields = [f"{{{field}}}" for field in fields]
-        text = f"Valid fields for prompt: {', '.join(fields)}"
+        fields = ["{{" + field + "}}" for field in fields]
+        text = f"Valid fields: {', '.join(fields)}"
         self.valid_fields.setText(text)
 
     def get_valid_fields(self) -> List[str]:
@@ -254,12 +269,12 @@ class PromptDialog(QDialog):
 
     def on_accept(self):
         if self.selected_card_type and self.selected_field and self.prompt:
-            if not validate_prompt(
+            err = prompt_has_error(
                 self.prompt, self.selected_card_type, self.selected_field
-            ):
-                show_message_box(
-                    "Invalid prompt. Please ensure all fields are valid and do not reference the target field."
-                )
+            )
+
+            if err:
+                show_message_box(f"Invalid prompt: {err}")
                 return
 
             # IDK if this is gonna work on the config object? I think not...

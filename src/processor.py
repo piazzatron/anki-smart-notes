@@ -230,8 +230,13 @@ class Processor:
             else:
                 show_message_box(f"Smart Notes Error: Unknown error from OpenAI - {e}")
 
-    def get_chat_response(self, prompt: str, on_success: Callable[[str], None]):
+    def get_chat_response(
+        self,
+        prompt: str,
+        on_success: Callable[[str], None],
+        on_failure: Union[Callable[[Exception], None], None] = None,
+    ):
 
         run_async_in_background(
-            lambda: self.client.async_get_chat_response(prompt), on_success
+            lambda: self.client.async_get_chat_response(prompt), on_success, on_failure
         )

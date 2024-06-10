@@ -16,8 +16,10 @@
   - [x] Editor button should disable while things are happening
 
 - BUGS
-- [ ] AI fields shouldn't be able to reference other AI fields
-- [ ] smart field can't target itself
+- [x] AI fields shouldn't be able to reference other AI fields
+- [x] loading state can get stuck when testing if err
+  - [x] prompt test doesn't take latest API key?
+- [x] smart field can't target itself
 - [x] Shouldn't be able to perform any AI ops on a card while one is in progress
 
 - PRODUCT POLISH

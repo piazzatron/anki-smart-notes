@@ -241,7 +241,9 @@ class AddonOptionsDialog(QDialog):
         prompt = self.table.item(self.selected_row, 2).text()
         print(f"Editing {card_type}, {field}")
 
-        # TODO: mypy didn't catch the lack of processor here... dodesn't seem this like method's getting typechecked at all
+        # Save out API key jic
+        self.config.openai_api_key = self.api_key_edit.text()
+
         prompt_dialog = PromptDialog(
             self.prompts_map,
             self.processor,

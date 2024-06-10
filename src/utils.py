@@ -31,7 +31,7 @@ def get_fields(note_type: str):
 def run_async_in_background(
     op: Callable[[], Any],
     on_success: Callable[[Any], None],
-    failure: Union[Callable[[Exception], None], None] = None,
+    on_failure: Union[Callable[[Exception], None], None] = None,
     with_progress: bool = False,
 ):
     "Runs an async operation in the background and calls on_success when done."
@@ -45,8 +45,8 @@ def run_async_in_background(
         success=on_success,
     )
 
-    if failure:
-        query_op.failure(failure)
+    if on_failure:
+        query_op.failure(on_failure)
 
     if with_progress:
         query_op = query_op.with_progress()
