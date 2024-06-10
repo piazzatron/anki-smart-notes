@@ -15,6 +15,7 @@ For example, ChatGPT is very powerful for language learners, who might use it to
 <img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/generate_prompt.gif" />
 
 </br>
+</br>
 
 Language learning, summarization, you name it – automate the busywork of card creation so you have more time for studying!
 
