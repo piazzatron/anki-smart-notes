@@ -1,3 +1,4 @@
+import aiohttp
 from aqt import editor
 from typing import Sequence, Callable, Union
 
@@ -31,7 +32,7 @@ class Processor:
         self.req_in_progress = True
         return True
 
-    def reqlinquish_req_in_progress(self) -> None:
+    def _reqlinquish_req_in_progress(self) -> None:
         self.req_in_progress = False
 
     def process_single_field(
@@ -39,6 +40,7 @@ class Processor:
     ) -> None:
 
         bump_usage_counter()
+
         if not self.ensure_no_req_in_progress():
             return
 
@@ -53,15 +55,19 @@ class Processor:
 
         def on_success() -> None:
             # Only update note if it's already in the database
-            self.reqlinquish_req_in_progress()
+            self._reqlinquish_req_in_progress()
             if note.id and mw:
                 mw.col.update_note(note)
             editor.loadNote()
 
+        def on_failure(e: Exception) -> None:
+            self._handle_failure(e)
+            self._reqlinquish_req_in_progress()
+
         run_async_in_background(
             lambda: async_process_single_field(note, target_field_name),
             lambda _: on_success(),
-            lambda _: self.reqlinquish_req_in_progress(),
+            on_failure,
         )
 
     def process_notes_with_progress(
@@ -78,7 +84,8 @@ class Processor:
             tasks = []
             for note in notes:
                 tasks.append(self._process_note(note))
-            await asyncio.gather(*tasks)
+            results = await asyncio.gather(*tasks, return_exceptions=True)
+            return results
 
         print("Processing notes...")
 
@@ -114,12 +121,12 @@ class Processor:
             return changes
 
         def wrapped_on_success(_: OpChanges) -> None:
-            self.reqlinquish_req_in_progress()
+            self._reqlinquish_req_in_progress()
             if on_success:
                 on_success()
 
         def on_failure(e: Exception) -> None:
-            self.reqlinquish_req_in_progress()
+            self._reqlinquish_req_in_progress()
             show_message_box(f"Error: {e}")
 
         op = CollectionOp(
@@ -144,11 +151,12 @@ class Processor:
             return
 
         def wrapped_on_success(updated: bool) -> None:
-            self.reqlinquish_req_in_progress()
+            self._reqlinquish_req_in_progress()
             on_success(updated)
 
         def wrapped_failure(e: Exception) -> None:
-            self.reqlinquish_req_in_progress()
+            self._handle_failure(e)
+            self._reqlinquish_req_in_progress()
             if on_failure:
                 on_failure(e)
 
@@ -161,7 +169,7 @@ class Processor:
         )
 
     async def _process_note(self, note: Note, overwrite_fields=False) -> bool:
-        """Process a single note, returns whether any fields were updated"""
+        """Process a single note, returns whether any fields were updated. Caller responsible for handling any exceptions."""
         print(f"Processing note")
         note_type = note.note_type()
 
@@ -198,7 +206,6 @@ class Processor:
         if not tasks:
             return False
 
-        # TODO: handle exceptions here
         responses = await asyncio.gather(*tasks)
         print("Responses: ", responses)
         for i, response in enumerate(responses):
@@ -206,6 +213,19 @@ class Processor:
             note[target_field] = response
 
         return True
+
+    def _handle_failure(self, e: Exception) -> None:
+        if isinstance(e, aiohttp.ClientResponseError):
+            if e.status == 401:
+                show_message_box(
+                    "Smart Notes Error: OpenAI returned 401, meaning there's an issue with your API key."
+                )
+            elif e.status == 429:
+                show_message_box(
+                    "Smart Notes error: OpenAI rate limit exceeded. Wait a few minutes and try again."
+                )
+            else:
+                show_message_box(f"Smart Notes Error: Unknown error from OpenAI - {e}")
 
     def get_chat_response(self, prompt: str, on_success: Callable[[str], None]):
 

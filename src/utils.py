@@ -64,8 +64,6 @@ USES_BEFORE_RATE_DIALOG = 5
 
 def bump_usage_counter() -> None:
     config.times_used += 1
-    print("Times used: ", config.times_used)
-    print("Last rate dialog: ", config.last_show_rate_dialog)
     if config.times_used > USES_BEFORE_RATE_DIALOG and not config.did_show_rate_dialog:
         config.did_show_rate_dialog = True
         dialog = RateDialog()
