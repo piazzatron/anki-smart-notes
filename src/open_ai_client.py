@@ -15,7 +15,7 @@ class OpenAIClient:
             async with session.post(
                 "https://api.openai.com/v1/chat/completions",
                 headers={
-                    "Authorization": f"Bearer self.config.openai_api_key",
+                    "Authorization": f"Bearer {self.config.openai_api_key}",
                 },
                 json={
                     "model": self.config.openai_model,

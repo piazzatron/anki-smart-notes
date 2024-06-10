@@ -4,6 +4,7 @@ Setup the hooks for the Anki plugin
 
 from typing import List, Any
 from aqt import QAction, QMenu, QMessageBox, gui_hooks, editor, mw, browser, webview, Qt
+from anki.notes import Note
 from anki.cards import Card
 
 from .ui.ui_utils import show_message_box
@@ -122,8 +123,15 @@ def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMe
     # TODO: should show # succeess and failed
     notes = browser.selected_notes()
 
-    def on_success() -> None:
-        show_message_box(f"Processed {len(notes)} notes successfully.")
+    def on_success(updated: List[Note], errors: List[Note]) -> None:
+        if not len(updated) and len(errors):
+            show_message_box("All notes failed. Most likely hit OpenAI rate limit.")
+        elif len(errors):
+            show_message_box(
+                f"Processed {len(updated)} notes successfully. {len(errors)} notes failed. Most likely hit a rate limit."
+            )
+        else:
+            show_message_box(f"Processed {len(updated)} notes successfully.")
 
     item.triggered.connect(
         lambda: processor.process_notes_with_progress(notes, on_success)

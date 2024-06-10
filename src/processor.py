@@ -1,6 +1,6 @@
 import aiohttp
 from aqt import editor
-from typing import Sequence, Callable, Union
+from typing import Sequence, Callable, Union, List, Tuple
 
 from anki.notes import Note, NoteId
 from aqt import editor, mw
@@ -71,7 +71,9 @@ class Processor:
         )
 
     def process_notes_with_progress(
-        self, note_ids: Sequence[NoteId], on_success: Union[Callable[[], None], None]
+        self,
+        note_ids: Sequence[NoteId],
+        on_success: Union[Callable[[List[Note], List[Note]], None], None],
     ) -> None:
         """Processes notes in the background with a progress bar, batching into a single undo op"""
 
@@ -79,13 +81,6 @@ class Processor:
 
         if not self.ensure_no_req_in_progress():
             return
-
-        async def process_notes(notes: Sequence[Note]):
-            tasks = []
-            for note in notes:
-                tasks.append(self._process_note(note))
-            results = await asyncio.gather(*tasks, return_exceptions=True)
-            return results
 
         print("Processing notes...")
 
@@ -95,48 +90,56 @@ class Processor:
         if not mw:
             return
 
-        def wrapped_process_notes() -> OpChanges:
+        async def wrapped_process_notes() -> Tuple[List[Note], List[Note]]:
             notes = [mw.col.get_note(note_id) for note_id in note_ids]
-
-            changes = OpChanges()
 
             # Sanity check that we actually have prompts for these note types
             has_prompts = True
             for note in notes:
                 note_type = note.note_type()
                 if not note_type:
-                    print("Error: no note type")
-                    return OpChanges()
+                    # Should never happen
+                    raise Exception("Error: no note type")
+
                 note_type_name = note_type["name"]
                 if note_type_name not in self.config.prompts_map.get("note_types", {}):
                     print("Error: no prompts found for note type")
                     has_prompts = False
-
             if not has_prompts:
                 raise Exception("Not all selected note types have smart fields.")
 
-            asyncio.run(process_notes(notes))
-            changes.note = True
-            mw.col.update_notes(notes)
-            return changes
+            # Run them all in parallel
+            tasks = []
+            for note in notes:
+                tasks.append(self._process_note(note))
+            results = await asyncio.gather(*tasks, return_exceptions=True)
 
-        def wrapped_on_success(_: OpChanges) -> None:
+            # Process errors
+            notes_to_update = []
+            failed = []
+            for i, result in enumerate(results):
+                if isinstance(result, Exception):
+                    print(f"Error processing note {note_ids[i]}: {result}")
+                    failed.append(notes[i])
+                else:
+                    notes_to_update.append(notes[i])
+
+            return (notes_to_update, failed)
+
+        def wrapped_on_success(res: Tuple[List[Note], List[Note]]) -> None:
+            updated, failed = res
+            mw.col.update_notes(updated)
             self._reqlinquish_req_in_progress()
             if on_success:
-                on_success()
+                on_success(updated, failed)
 
         def on_failure(e: Exception) -> None:
             self._reqlinquish_req_in_progress()
             show_message_box(f"Error: {e}")
 
-        op = CollectionOp(
-            parent=mw,
-            op=lambda _: wrapped_process_notes(),
+        run_async_in_background(
+            wrapped_process_notes, wrapped_on_success, on_failure, with_progress=True
         )
-
-        op.success(wrapped_on_success)
-        op.failure(on_failure)
-        op.run_in_background()
 
     # TODO: do I even need this method or can I just use the batch one?
     def process_note(
