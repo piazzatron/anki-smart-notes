@@ -63,7 +63,7 @@ def check_for_api_key(show_box=True) -> bool:
     return True
 
 
-USES_BEFORE_RATE_DIALOG = 5
+USES_BEFORE_RATE_DIALOG = 10
 
 
 def bump_usage_counter() -> None:
