@@ -1,14 +1,15 @@
-# **Smart Notes** - supercharge Anki with AI generated fields ✨
+# **Smart Notes** - Anki + AI generated fields ✨
 
 </br>
 
 ## Use AI / ChatGPT to automatically generate any field in your notes.
 
-For example, pretend you're a language learner who uses ChatGPT to generate example sentences for new vocab. This plugin brings that whole process into Anki: set it up once, and every new piece of vocab added will automatically receive an AI generated example sentence.
+For example, ChatGPT is very powerful for language learners, who might use it to generate example sentences for new vocab. This plugin brings that whole process into Anki: set it up once, and every new piece of vocab will automatically receive an AI generated example sentence.
 
-**Write a prompt, associate it with a card type and field, and Smart Notes will automatically generate that field for you at review time – or generate groups of notes with a single click.**
+**Write a prompt, associate it with a note type and field, and Smart Notes will automatically generate that field for you at review time – or generate groups of notes with a single click.**
 
 <img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/create_field.gif" />
+</br>
 </br>
 
 <img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/generate_prompt.gif" />
@@ -52,7 +53,7 @@ They may reference other fields, and you can have as many smart fields as you li
 
 ### Writing a Prompt
 
-A prompt may reference any other field on the card via enclosing it in `{{double curly braces}}`.
+A prompt may reference any other field on the card via `{{double curly braces}}`.
 
 For example, if you're studying a language and want to generate a mmemonic to aid in memorization, you might make a prompt like this (assuming you have a field called "vocab"):
 

@@ -18,11 +18,12 @@ from ..prompts import get_prompt_fields_lower, interpolate_prompt, prompt_has_er
 from .ui_utils import show_message_box
 from ..utils import get_fields, to_lowercase_dict
 
-placeholder_explanation = """Write a "prompt" for ChatGPT; it's response will become the value of the target field.
 
-The prompt can reference any other field in the card wrapped in {{double curly braces}}, excluding the target field and other smart fields.
+explanation = """Write a "prompt" to help ChatGPT generate your target smart field.
 
-You can test out your prompt with the test prompt button below.
+You may reference any other field via enclosing it in {{double curly braces}}. Valid fields are listed below for convenience.
+
+Test out your prompt with the test button before saving it!
 """
 
 
@@ -82,7 +83,7 @@ class PromptDialog(QDialog):
             | QDialogButtonBox.StandardButton.Save
         )
 
-        self.test_button = QPushButton("Test Prompt ✨")
+        self.test_button = QPushButton("Test ✨")
         self.test_button.clicked.connect(self.on_test)
         self.standard_buttons.accepted.connect(self.on_accept)
         self.standard_buttons.rejected.connect(self.on_reject)
@@ -96,7 +97,7 @@ class PromptDialog(QDialog):
         self.prompt_text_box.setWordWrapMode(
             QTextOption.WrapMode.WrapAtWordBoundaryOrAnywhere
         )
-        self.prompt_text_box.setPlaceholderText(placeholder_explanation)
+        self.prompt_text_box.setPlaceholderText(explanation)
         self.valid_fields = QLabel("")
         font = self.valid_fields.font()
         font.setPointSize(10)
@@ -165,7 +166,7 @@ class PromptDialog(QDialog):
             and not self.is_loading_prompt
         )
         self.test_button.setEnabled(is_enabled)
-        self.standard_buttons.button(QDialogButtonBox.StandardButton.Save).setEnabled(
+        self.standard_buttons.button(QDialogButtonBox.StandardButton.Save).setEnabled(  # type: ignore
             is_enabled
         )
 
@@ -246,7 +247,7 @@ class PromptDialog(QDialog):
     def update_valid_fields(self) -> None:
         fields = self.get_valid_fields()
         fields = ["{{" + field + "}}" for field in fields]
-        text = f"Valid fields: {', '.join(fields)}"
+        text = f"Fields: {', '.join(fields)}"
         self.valid_fields.setText(text)
 
     def get_valid_fields(self) -> List[str]:

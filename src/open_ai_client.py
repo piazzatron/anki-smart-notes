@@ -24,5 +24,5 @@ class OpenAIClient:
             ) as response:
                 response.raise_for_status()
                 resp = await response.json()
-                msg = resp["choices"][0]["message"]["content"]
+                msg: str = resp["choices"][0]["message"]["content"]
                 return msg
