@@ -2,37 +2,21 @@
 
 - 2
 
-  - [x] fix mypy running in loop lol
+  - [ ] warning on batch
   - [ ] Set min anki version
-  - [x] Config menu:
-
-    - [x] Button for generate empty fields at edit time
-    - [ ] Link to rate the addon
-    - [x] Wire up restore defaults button
-
-  - [x] Crash handling (what if openAI 500s, etc). Need to display some errors
+  - [ ] Link to rate the addon
   - [ ] Addon config should bring up GUI
 
-  - [x] Editor button should disable while things are happening
-
 - BUGS
-- [x] AI fields shouldn't be able to reference other AI fields
-- [x] loading state can get stuck when testing if err
-  - [x] prompt test doesn't take latest API key?
-- [x] smart field can't target itself
-- [x] Shouldn't be able to perform any AI ops on a card while one is in progress
 
 - PRODUCT POLISH
 
   - [ ] docs should link to GH at the top & the version
     - Should have my name somewhere i suppose...
     - kofi link?...
-  - [x] Manifest should include the anki plugin ID etc
   - [ ] Need top lvl event handler for exceptions, which links to GH
   - [ ] Need some warnings around API rate limit when batching
-  - [x] Batch popup should be nicer, tell u # succeeed and failed
   - [ ] Need to pull in version somewhere
-  - [x] Periodic reminder to rate
 
 - Distribution
 
@@ -55,11 +39,6 @@
   - [ ] turn on mypy strict (it's rough...)
   - [ ] std err
   - [ ] Debug logs
-
-- [ ] Beta Test with Evan
-
-  - Is edit functionality discoverable?
-  - Ask for feedback on documentation etc
 
 - V2
 
@@ -140,6 +119,21 @@
 - [x] Editing prompts
 - [x] Background thread OpenAI
 - [x] regenerate field button
+  - [x] Config menu:
+  - [x] fix mypy running in loop lol
+    - [x] Button for generate empty fields at edit time
+    - [x] Wire up restore defaults button
+  - [x] Crash handling (what if openAI 500s, etc). Need to display some errors
+  - [x] Editor button should disable while things are happening
+- [x] AI fields shouldn't be able to reference other AI fields
+- [x] loading state can get stuck when testing if err
+  - [x] prompt test doesn't take latest API key?
+- [x] smart field can't target itself
+- [x] Shouldn't be able to perform any AI ops on a card while one is in progress
+
+  - [x] Manifest should include the anki plugin ID etc
+  - [x] Batch popup should be nicer, tell u # succeeed and failed
+  - [x] Periodic reminder to rate
 
 - 6/5/24
 - Should set up zip/distro & docs & then send it out

@@ -18,9 +18,9 @@ from ..prompts import get_prompt_fields_lower, interpolate_prompt, prompt_has_er
 from .ui_utils import show_message_box
 from ..utils import get_fields, to_lowercase_dict
 
-placeholder_explanation = """Write a "prompt" to send to ChatGPT; it's response will become the value of the target field set above.
+placeholder_explanation = """Write a "prompt" for ChatGPT; it's response will become the value of the target field.
 
-The prompt can include any other field in the card wrapped in {{double curly braces}} (excluding the target field and other smart fields).
+The prompt can reference any other field in the card wrapped in {{double curly braces}}, excluding the target field and other smart fields.
 
 You can test out your prompt with the test prompt button below.
 """
