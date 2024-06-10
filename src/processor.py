@@ -19,12 +19,28 @@ class Processor:
     def __init__(self, client: OpenAIClient, config: Config):
         self.client = client
         self.config = config
+        self.req_in_progress = False
+
+    def ensure_no_req_in_progress(self) -> bool:
+        if self.req_in_progress:
+            show_message_box(
+                "A request is already in progress. Please wait for the prior request to finish before creating a new one."
+            )
+            return False
+
+        self.req_in_progress = True
+        return True
+
+    def reqlinquish_req_in_progress(self) -> None:
+        self.req_in_progress = False
 
     def process_single_field(
         self, note: Note, target_field_name: str, editor: editor.Editor
     ) -> None:
 
         bump_usage_counter()
+        if not self.ensure_no_req_in_progress():
+            return
 
         async def async_process_single_field(
             note: Note, target_field_name: str
@@ -37,6 +53,7 @@ class Processor:
 
         def on_success() -> None:
             # Only update note if it's already in the database
+            self.reqlinquish_req_in_progress()
             if note.id and mw:
                 mw.col.update_note(note)
             editor.loadNote()
@@ -44,6 +61,7 @@ class Processor:
         run_async_in_background(
             lambda: async_process_single_field(note, target_field_name),
             lambda _: on_success(),
+            lambda _: self.reqlinquish_req_in_progress(),
         )
 
     def process_notes_with_progress(
@@ -52,6 +70,9 @@ class Processor:
         """Processes notes in the background with a progress bar, batching into a single undo op"""
 
         bump_usage_counter()
+
+        if not self.ensure_no_req_in_progress():
+            return
 
         async def process_notes(notes: Sequence[Note]):
             tasks = []
@@ -92,15 +113,22 @@ class Processor:
             mw.col.update_notes(notes)
             return changes
 
+        def wrapped_on_success(_: OpChanges) -> None:
+            self.reqlinquish_req_in_progress()
+            if on_success:
+                on_success()
+
+        def on_failure(e: Exception) -> None:
+            self.reqlinquish_req_in_progress()
+            show_message_box(f"Error: {e}")
+
         op = CollectionOp(
             parent=mw,
             op=lambda _: wrapped_process_notes(),
         )
 
-        if on_success:
-            op.success(lambda _: on_success())
-
-        op.failure(lambda e: show_message_box(f"Error: {e}"))
+        op.success(wrapped_on_success)
+        op.failure(on_failure)
         op.run_in_background()
 
     # TODO: do I even need this method or can I just use the batch one?
@@ -112,12 +140,24 @@ class Processor:
         on_failure: Union[Callable[[Exception], None], None] = None,
     ):
         """Process a single note, filling in fields with prompts from the user"""
+        if not self.ensure_no_req_in_progress():
+            return
+
+        def wrapped_on_success(updated: bool) -> None:
+            self.reqlinquish_req_in_progress()
+            on_success(updated)
+
+        def wrapped_failure(e: Exception) -> None:
+            self.reqlinquish_req_in_progress()
+            if on_failure:
+                on_failure(e)
+
         # NOTE: for some reason i can't run bump_usage_counter in this hook without causing a
         # an PyQT crash, so I'm running it in the on_success callback instead
         run_async_in_background(
             lambda: self._process_note(note, overwrite_fields=overwrite_fields),
-            on_success,
-            on_failure,
+            wrapped_on_success,
+            wrapped_failure,
         )
 
     async def _process_note(self, note: Note, overwrite_fields=False) -> bool:

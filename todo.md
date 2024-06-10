@@ -18,7 +18,7 @@
 - BUGS
 - [ ] AI fields shouldn't be able to reference other AI fields
 - [ ] smart field can't target itself
-- [ ] Shouldn't be able to perform any AI ops on a card while one is in progress
+- [x] Shouldn't be able to perform any AI ops on a card while one is in progress
 
 - PRODUCT POLISH
 

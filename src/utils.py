@@ -1,4 +1,4 @@
-from typing import Callable, Dict, Any
+from typing import Callable, Dict, Any, Union
 from aqt import mw, QDialog, QLabel
 from aqt.operations import QueryOp
 from .config import config
@@ -28,7 +28,11 @@ def get_fields(note_type: str):
     return [field["name"] for field in model["flds"]]
 
 
-def run_async_in_background(op: Callable[[], Any], on_success: Callable[[Any], None]):
+def run_async_in_background(
+    op: Callable[[], Any],
+    on_success: Callable[[Any], None],
+    failure: Union[Callable[[Exception], None], None] = None,
+):
     "Runs an async operation in the background and calls on_success when done."
 
     if not mw:
@@ -39,6 +43,9 @@ def run_async_in_background(op: Callable[[], Any], on_success: Callable[[Any], N
         op=lambda _: asyncio.run(op()),
         success=on_success,
     )
+
+    if failure:
+        query_op.failure(failure)
 
     query_op.run_in_background()
 
