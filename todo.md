@@ -1,63 +1,40 @@
-## Milestones
+- [ ] Hotkey to generate
+- [ ] Telemetry
+- [ ] What's new popup..
 
-Before launch:
+---
 
-- one last pass on copy: do I definitely want to have the
-
-- 2
-
-  - [ ] warning on batch
-  - [ ] remake the add prompt vid
-  - [ ] Set min anki version
-  - [ ] Link to rate the addon
-  - [ ] Addon config should bring up GUI
+- [ ] Prebaked prompts
+- [ ] Investigate how to make this better w/o paying / OAuth?
+- [ ] warning on batch
+- [ ] Link to rate the addon
+- [ ] Addon config should bring up GUI
 
 - BUGS
 
-- PRODUCT POLISH
+- QoL
 
   - [ ] docs should link to GH at the top & the version
     - Should have my name somewhere i suppose...
     - kofi link?...
-  - [ ] Need top lvl event handler for exceptions, which links to GH
-  - [ ] Need some warnings around API rate limit when batching
   - [ ] Need to pull in version somewhere
-
-- Distribution
-
-  - [ ] GH releases, etc
+  - [ ] Need top lvl event handler for exceptions, which links to GH
   - [ ] license etc
-  - [ ] Fewer logs...
-  - ANKI Readme:
-    - Inspired by intelliFiller, unmaintained etc
-    - Should have example usage (For example sentences, mmemonics, etc)
-    - Should link to GH
-    - For feature requests/bugs, go to GH
-    - if u like it give it a thumb so more ppl can find it
-    - Note that it works in lowercase field names
-    - Intelligently batch cards by your API tier
-  - [ ] Supported anki versions
+  - [x] GH releases, etc
 
 - DEV POLISH
 
   - [ ] mypy on build
   - [ ] turn on mypy strict (it's rough...)
-  - [ ] std err
-  - [ ] Debug logs
 
-- V2
+- Features
 
   - [ ] Pregenerated prompts for common use cases...
-  - [ ] What's new popup..
   - Better batching support, esp for low tier API
   - Edit entire deck
   - Auto fill after losing focus on origin prompts
-
-- LATER / V3
-
-  - [ ] AI fields referencing other AI fields, generate in a particular order
-  - [ ] Image creation support for mmemonics??
-  - [ ] Project writeup, while it's fresh. Challenges, inspirations etc. Further notes in Obsidian
+  - AI fields referencing other AI fields, generate in a particular order
+  - Image creation support for mmemonics??
 
 - NICE TO HAVE
   - [ ] Contributing guidelines (lolz)
@@ -73,18 +50,6 @@ Before launch:
 - [ ] Auto generate doesn’t work on review time in mobile
 
 - [x] Investigate batch processing work:
-
-## Musings
-
-- Should it fill the entire card, or a single field?
-- It could automatically fill out chosen fields on edit AND on note review, if they're empty
-- Each field could have an option to map to a prompt
-
-## Bernie's feedback:
-
-- docs are confusing, feels like it's for power users and not for me.
-  - my take: maybe I need one sentence at the top of the todo list showing how you'd want to do this for an example.
-  - error message when you do a prompt wrong is hard
 
 ## DONE
 
@@ -140,6 +105,11 @@ Before launch:
   - [x] Manifest should include the anki plugin ID etc
   - [x] Batch popup should be nicer, tell u # succeeed and failed
   - [x] Periodic reminder to rate
+
+- [x] remake the add prompt vid
+- [x] Set min anki version
+
+  - [x] Supported anki versions
 
 - 6/5/24
 - Should set up zip/distro & docs & then send it out
