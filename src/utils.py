@@ -21,6 +21,7 @@ from typing import Callable, Dict, Any, Union
 from aqt import mw
 from aqt.operations import QueryOp
 from .config import config
+import os
 
 from .ui.rate_dialog import RateDialog
 from .ui.ui_utils import show_message_box
@@ -91,3 +92,14 @@ def bump_usage_counter() -> None:
         config.did_show_rate_dialog = True
         dialog = RateDialog()
         dialog.exec()
+
+
+def load_file(file: str) -> str:
+    dir = os.getcwd()
+    file_path = os.path.join(dir, file)
+
+    print(f"Loading from: {file_path}")
+    with open(file_path, "r") as f:
+        content = f.read()
+
+    return content

@@ -41,6 +41,7 @@ class Config:
     generate_at_review: bool
     times_used: int
     did_show_rate_dialog: bool
+    last_seen_version: Union[str, None]
 
     def __getattr__(self, key: str) -> object:
         if not mw:

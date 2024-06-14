@@ -1,9 +1,11 @@
 - [ ] Hotkey to generate
 - [ ] Telemetry
-- [ ] What's new popup..
+- [x] What's new popup..
 
 ---
 
+- [ ] Bug: deleting smart fields doesn't propagate to the dialog, so you get the smart field target error
+- [ ] Per deck options (generate at review vs not)
 - [ ] Prebaked prompts
 - [ ] Investigate how to make this better w/o paying / OAuth?
 - [ ] warning on batch
@@ -19,8 +21,6 @@
     - kofi link?...
   - [ ] Need to pull in version somewhere
   - [ ] Need top lvl event handler for exceptions, which links to GH
-  - [ ] license etc
-  - [x] GH releases, etc
 
 - DEV POLISH
 
@@ -110,6 +110,9 @@
 - [x] Set min anki version
 
   - [x] Supported anki versions
+
+- [x] license etc
+- [x] GH releases, etc
 
 - 6/5/24
 - Should set up zip/distro & docs & then send it out

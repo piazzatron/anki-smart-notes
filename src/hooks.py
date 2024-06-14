@@ -22,9 +22,13 @@ Setup the hooks for the Anki plugin
 """
 
 from typing import List, Any
-from aqt import QAction, QMenu, QMessageBox, gui_hooks, editor, mw, browser, webview, Qt
+from aqt import QAction, QMenu, gui_hooks, editor, mw, browser
 from anki.notes import Note
 from anki.cards import Card
+
+from .ui.changelog import (
+    perform_update_check,
+)
 
 from .ui.ui_utils import show_message_box
 from .ui.sparkle import Sparkle
@@ -168,6 +172,7 @@ def on_main_window(processor: Processor):
     mw.form.menuTools.addAction(options_action)
     # TODO: not working for some reason
     mw.addonManager.setConfigAction(__name__, on_options(processor))
+    perform_update_check()
 
 
 # TODO: do I need a profile_will_close thing here?

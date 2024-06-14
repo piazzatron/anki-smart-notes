@@ -6,5 +6,6 @@
   "generate_at_review": true,
   "prompts_map": {
     "note_types": {}
-  }
+  },
+  "last_seen_version": null
 }

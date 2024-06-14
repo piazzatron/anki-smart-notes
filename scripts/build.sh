@@ -29,6 +29,7 @@ build () {
   cp config.json dist/
   cp -r src dist/
   cp license dist/
+  cp changelog.md dist/
   echo "environment = \"PROD\"" > dist/env.py
 
   # Nuke any pycache
