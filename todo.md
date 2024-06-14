@@ -1,6 +1,7 @@
-- [ ] Hotkey to generate
+- [x] Hotkey to generate
 - [ ] Telemetry
 - [x] What's new popup..
+  - [ ] Make sure it's not showing anything dumb for v1.0.0 in the dialog
 
 ---
 

@@ -21,8 +21,17 @@
 Setup the hooks for the Anki plugin
 """
 
-from typing import List, Any
-from aqt import QAction, QMenu, gui_hooks, editor, mw, browser
+from typing import List, Any, Tuple
+from aqt import (
+    QAction,
+    QKeySequence,
+    QMenu,
+    gui_hooks,
+    editor,
+    mw,
+    browser,
+    QKeySequence,
+)
 from anki.notes import Note
 from anki.cards import Card
 
@@ -131,8 +140,9 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
         label="✨",
         func=fn,
         icon=None,
-        tip="Generate Smart Fields",
+        tip="Ctrl+Shift+G: Generate Smart Fields",
         id="generate_smart_fields",
+        keys="Ctrl+Shift+G",
     )
 
     buttons.append(button)
@@ -141,6 +151,12 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
 @with_processor  # type: ignore
 def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMenu):  # type: ignore
     item = QAction("✨ Generate Smart Fields", menu)
+
+    # TODO: for some reason this isn't working to trigger the shortcut :(
+    # item.setShortcut("Ctrl+Shift+G")
+    # item.setShortcutVisibleInContextMenu(True)
+
+    menu.addSeparator()
     menu.addAction(item)
 
     # TODO: should show # succeess and failed
@@ -240,5 +256,4 @@ def setup_hooks(processor: Processor):
     gui_hooks.editor_did_init_buttons.append(add_editor_top_button(processor))
     gui_hooks.editor_will_show_context_menu.append(on_editor_context(processor))
     gui_hooks.reviewer_did_show_question.append(on_review(processor))
-
     gui_hooks.main_window_did_init.append(on_main_window(processor))
