@@ -118,6 +118,8 @@ class PromptDialog(QDialog):
         )
         self.prompt_text_box.setPlaceholderText(explanation)
         self.valid_fields = QLabel("")
+        self.valid_fields.setMaximumWidth(300)
+        self.valid_fields.setWordWrap(True)
         font = self.valid_fields.font()
         font.setPointSize(10)
         self.valid_fields.setFont(font)
