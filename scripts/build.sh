@@ -61,12 +61,19 @@ dev () {
   ln -s $(pwd) ~/Library/Application\ Support/Anki2/addons21/smart-notes
 }
 
+# Tests a production build by symlinking dist folder
+test-build () {
+  ln -s $(pwd)/dist ~/Library/Application\ Support/Anki2/addons21/smart-notes
+}
+
 if [ "$1" == "build" ]; then
   build
 elif [ "$1" == "clean" ]; then
   clean
 elif [ "$1" == "dev" ]; then
   dev
+elif [ "$1" == "test-build" ]; then
+  test-build
 else
   echo "Invalid argument: $1"
 fi

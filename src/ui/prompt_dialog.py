@@ -265,7 +265,6 @@ class PromptDialog(QDialog):
         def on_failure(e: Exception) -> None:
             self.is_loading_prompt = False
             self.update_buttons()
-            show_message_box(f"Error: {e}")
 
         self.processor.get_chat_response(
             prompt, on_success=on_success, on_failure=on_failure

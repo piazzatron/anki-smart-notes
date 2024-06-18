@@ -256,6 +256,21 @@ class Processor:
         on_failure: Union[Callable[[Exception], None], None] = None,
     ):
 
+        if not self.ensure_no_req_in_progress():
+            return
+
+        def wrapped_on_success(response: str) -> None:
+            self._reqlinquish_req_in_progress()
+            on_success(response)
+
+        def wrapped_on_failure(e: Exception) -> None:
+            self._handle_failure(e)
+            self._reqlinquish_req_in_progress()
+            if on_failure:
+                on_failure(e)
+
         run_async_in_background(
-            lambda: self.client.async_get_chat_response(prompt), on_success, on_failure
+            lambda: self.client.async_get_chat_response(prompt),
+            wrapped_on_success,
+            wrapped_on_failure,
         )
