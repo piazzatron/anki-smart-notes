@@ -26,6 +26,7 @@ from aqt import (
     QDialogButtonBox,
     QLabel,
     QPushButton,
+    QSizePolicy,
     QTextEdit,
     QTextOption,
     QVBoxLayout,
@@ -118,7 +119,12 @@ class PromptDialog(QDialog):
         )
         self.prompt_text_box.setPlaceholderText(explanation)
         self.valid_fields = QLabel("")
-        self.valid_fields.setMaximumWidth(300)
+        self.valid_fields.setMinimumWidth(300)
+        size_policy = QSizePolicy(
+            QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred
+        )
+        size_policy.setHorizontalStretch(1)
+        self.valid_fields.setSizePolicy(size_policy)
         self.valid_fields.setWordWrap(True)
         font = self.valid_fields.font()
         font.setPointSize(10)

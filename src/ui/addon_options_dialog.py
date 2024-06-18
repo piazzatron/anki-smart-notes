@@ -100,7 +100,9 @@ class AddonOptionsDialog(QDialog):
         # Select model
         self.models_combo_box = QComboBox()
         self.models_combo_box.addItems(openai_models)
-        self.models_combo_box.currentTextChanged.connect(self.on_change_model)
+        self.models_combo_box.currentTextChanged.connect(
+            lambda text: setattr(self, "openai_model", text)
+        )
 
         form = QFormLayout()
         form.setVerticalSpacing(12)
@@ -164,7 +166,7 @@ class AddonOptionsDialog(QDialog):
         # Tab2
 
         learn_more_about_models = QLabel(
-            'Free tier can only access gpt-3.5-turbo. Newer models may perfrom better with lower rate limits and higher cost. <a href="https://platform.openai.com/docs/models/">Learn more.</a>'
+            'Newer models (GPT-4o, etc) will perform better with lower rate limits and higher cost. <a href="https://platform.openai.com/docs/models/">Learn more.</a>'
         )
         learn_more_about_models.setOpenExternalLinks(True)
         learn_more_about_models.setFont(font)
@@ -300,24 +302,6 @@ class AddonOptionsDialog(QDialog):
         print(f"Removing {card_type}, {field}")
         self.prompts_map["note_types"][card_type]["fields"].pop(field)
         self.update_table()
-
-    def on_change_model(self, text: OpenAIModels):
-        if self.openai_model == "gpt-3.5-turbo" and text and text != self.openai_model:
-            warning = f"Continue with {text}?"
-            informative = "Only paid API tiers can use models other than gpt-3.5-turbo."
-
-            should_continue = show_message_box(
-                warning, details=informative, show_cancel=True
-            )
-
-            if should_continue:
-                self.openai_model = text
-            else:
-                # Otherwise, reset the combo box
-                self.models_combo_box.setCurrentText(self.openai_model)
-
-        else:
-            self.openai_model = text
 
     def on_accept(self) -> None:
         self.config.openai_api_key = self.api_key_edit.text()
