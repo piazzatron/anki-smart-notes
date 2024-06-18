@@ -6,7 +6,7 @@
 
 For example, ChatGPT is very powerful for language learners, who might use it to generate example sentences for new vocab. This plugin brings that whole process into Anki: set it up once, and every new piece of vocab will automatically receive an AI generated example sentence.
 
-**Write a prompt, associate it with a note type and field, and Smart Notes will automatically generate that field for you at review time – or generate groups of notes with a single click.**
+**Write a prompt, associate it with a note type and field, and Smart Notes will automatically generate that field for you at review time – or generate groups of notes with a single click**
 
 <img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/create_field.gif" />
 </br>
@@ -31,7 +31,7 @@ Tools > Addons > Get Addon, paste in plugin id `1531888719`. Restart Anki.
 
 ## 2. **Set your OpenAI API Key:**
 
-This plugin requires an OpenAI API key: <a href="https://platform.openai.com/api-keys">get one here.</a>
+This plugin requires a **paid** OpenAI API key: <a href="https://platform.openai.com/api-keys">get one here.</a>
 
 Tools > Smart Notes > API key.
 
@@ -93,7 +93,7 @@ Note that you can turn automatic generation off in _Smart Notes > Advanced_.
 
 ### **Generate when adding or editing cards**
 
-Smart fields can also be generated prior to review. To (re)generate all smart fields on a note, simply click the ✨ button in the editor:
+Smart fields can also be generated prior to review. To (re)generate all smart fields on a note, press `ctrl+shift+g` (on Mac: `cmd+shift+g`) or click the ✨ button in the editor:
 
 <img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/editor_button.png?raw=true" height="200px" />
 
@@ -111,9 +111,7 @@ Alternatively, to generate a single smart field and leave the rest of the note u
 
 <img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/batch.png?raw=true" height="250px" />
 
-In the notes browser, select as many cards as you'd like and then **right click > generate smart fields** to generate multiple notes with speedy batch processing (it's v fast)!
-
-**Note: You'll need a paid OpenAI key to batch edit – unpaid keys are limited to 3 requests/min.**
+In the notes browser, select a group of notes and then **right click > generate smart fields** to generate multiple notes with speedy batch processing (it's v fast)!
 
 _Whole deck processing soon :)_
 
@@ -124,8 +122,6 @@ _Whole deck processing soon :)_
 ### **Use any OpenAI model**
 
 **Tools > Smart Notes > Advanced:** Select from the newest `gpt-4o` to cheapest `gpt-3.5-turbo` (default).
-
-_At this time, free API tier users only have access to `gpt-3.5-turbo`._
 
 </br>
 
@@ -141,10 +137,17 @@ _Smart Notes owes a debt of gratitude for inspiration to <a href="https://ankiwe
 
 **Cost** (to OpenAI, not to me 😢)
 
-- Free users can use gpt-3.5-turbo but are <a href="https://platform.openai.com/docs/guides/rate-limits/usage-tiers">limited to 3 requests/min.</a>
-- For paid users, <a href="https://openai.com/api/pricing/">prices are per token</a> - expect to pay a few tenths of a penny per call, but YMMV.
+<a href="https://openai.com/api/pricing/">Prices are per token</a> - expect to pay a few tenths of a penny per call, but YMMV.
 
 </br>
+
+# Changelog
+
+## v1.1.0
+
+- Add `ctrl+shift+g`(`cmd+shift+g`) hotkey to generate fields in the editor.
+- Clarify that this add-on requires a paid OpenAI API key (no free tier 🥺).
+- Fix bugs.
 
 ## Help and Support
 
