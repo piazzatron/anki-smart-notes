@@ -244,7 +244,7 @@ class Processor:
                 )
             elif e.status == 429:
                 show_message_box(
-                    "Smart Notes error: OpenAI rate limit exceeded. Wait a few minutes and try again."
+                    "Smart Notes error: OpenAI rate limit exceeded. Ensure you have a paid API key (this plugin will not work with free API tier). Wait a few minutes and try again."
                 )
             else:
                 show_message_box(f"Smart Notes Error: Unknown error from OpenAI - {e}")
