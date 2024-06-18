@@ -49,6 +49,8 @@ from .ui.addon_options_dialog import AddonOptionsDialog
 from .utils import bump_usage_counter, check_for_api_key
 from .config import config
 
+from . import sentry
+
 
 def with_processor(fn):
     # Too annoying to type this thing

@@ -42,6 +42,7 @@ class Config:
     times_used: int
     did_show_rate_dialog: bool
     last_seen_version: Union[str, None]
+    uuid: Union[str, None]
 
     def __getattr__(self, key: str) -> object:
         if not mw:

@@ -25,6 +25,7 @@ build () {
   mkdir -p dist/vendor
 
   cp *.py dist/
+  cp .env dist/
   cp manifest.json dist/
   cp config.json dist/
   cp -r src dist/

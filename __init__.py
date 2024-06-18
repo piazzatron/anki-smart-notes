@@ -38,6 +38,9 @@ def update_path() -> None:
 
 
 update_path()
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def setup_platform_specific_functionality() -> None:
