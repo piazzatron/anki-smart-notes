@@ -95,8 +95,9 @@ def bump_usage_counter() -> None:
 
 
 def load_file(file: str) -> str:
-    dir = os.getcwd()
-    file_path = os.path.join(dir, file)
+    path = mw.pm.addonFolder()  # type: ignore
+    module = __name__.split(".")[0]
+    file_path = os.path.join(path, module, file)
 
     print(f"Loading from: {file_path}")
     with open(file_path, "r") as f:

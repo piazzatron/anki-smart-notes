@@ -59,21 +59,24 @@ def parse_changelog() -> List[Tuple[str, List[str]]]:
 
 def perform_update_check() -> None:
     """Checks if the version has changed and shows a dialog if it has. Also updates the last seen version in config."""
-    current_version = get_version()
-    prior_version = config.last_seen_version
-    is_first_use = config.times_used == 0
+    try:
+        current_version = get_version()
+        prior_version = config.last_seen_version
+        is_first_use = config.times_used == 0
 
-    # Always update the last seen version
-    config.last_seen_version = current_version
+        # Always update the last seen version
+        config.last_seen_version = current_version
 
-    print(
-        f"SmartNotes version check: current version: {current_version}, prior version: {prior_version}, is first use: {is_first_use}"
-    )
+        print(
+            f"SmartNotes version check: current version: {current_version}, prior version: {prior_version}, is first use: {is_first_use}"
+        )
 
-    # Only show a dialog if the version has changed and it's not the first use
-    if current_version != prior_version and not is_first_use:
-        dialog = ChangeLogDialog(prior_version)
-        dialog.exec()
+        # Only show a dialog if the version has changed and it's not the first use
+        if current_version != prior_version and not is_first_use:
+            dialog = ChangeLogDialog(prior_version)
+            dialog.exec()
+    except Exception as e:
+        print(f"Error checking for updates: {e}")
 
 
 class ChangeLogDialog(QDialog):
