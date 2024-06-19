@@ -57,10 +57,17 @@ def parse_changelog() -> List[Tuple[str, List[str]]]:
         return []
 
 
+def is_new_major_or_minor_version(v1: str, v2: str):
+    (major1, minor1, _) = v1.split(".")
+    (major2, minor2, _) = v2.split(".")
+    return major1 != major2 or minor1 != minor2
+
+
 def perform_update_check() -> None:
     """Checks if the version has changed and shows a dialog if it has. Also updates the last seen version in config."""
     try:
         current_version = get_version()
+        # prior_version can be None if this is version 1.1.0 which introduces this config field or if this is a first run
         prior_version = config.last_seen_version
         is_first_use = config.times_used == 0
 
@@ -71,8 +78,11 @@ def perform_update_check() -> None:
             f"SmartNotes version check: current version: {current_version}, prior version: {prior_version}, is first use: {is_first_use}"
         )
 
-        # Only show a dialog if the version has changed and it's not the first use
-        if current_version != prior_version and not is_first_use:
+        # Only show a dialog if (the major or minor has changed OR it's possibly an upgrade to v1.1.0) and it's not the first use
+        if (
+            not prior_version
+            or is_new_major_or_minor_version(current_version, prior_version)
+        ) and not is_first_use:
             dialog = ChangeLogDialog(prior_version)
             dialog.exec()
     except Exception as e:
