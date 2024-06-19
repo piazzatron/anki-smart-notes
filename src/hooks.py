@@ -64,7 +64,7 @@ def with_processor(fn):
 
 
 @with_processor  # type: ignore
-def on_options(processor: Processor, second: Any):
+def on_options(processor: Processor):
     dialog = AddonOptionsDialog(config, processor)
     dialog.exec()
 
@@ -184,7 +184,8 @@ def on_main_window(processor: Processor):
 
     # Add options to Anki Menu
     options_action = QAction("Smart Notes", mw)
-    options_action.triggered.connect(on_options(processor))
+    # Triggered passes a bool, so we need to use a lambda to pass the processor
+    options_action.triggered.connect(lambda _: on_options(processor)())
     mw.form.menuTools.addAction(options_action)
     # TODO: not working for some reason
     mw.addonManager.setConfigAction(__name__, on_options(processor))
