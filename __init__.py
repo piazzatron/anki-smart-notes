@@ -39,4 +39,18 @@ def update_path() -> None:
 
 update_path()
 
+
+def setup_platform_specific_functionality() -> None:
+    import platform
+    import asyncio
+
+    # https://stackoverflow.com/questions/45600579/asyncio-event-loop-is-closed-when-getting-loop
+    # https://github.com/piazzatron/anki-smart-notes/issues/5
+    if platform.system() == "Windows":
+        print("Running in windows environment, setting event loop to selector policy")
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())  # type: ignore
+
+
+setup_platform_specific_functionality()
+
 from .src import main
