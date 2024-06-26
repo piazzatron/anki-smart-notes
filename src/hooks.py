@@ -49,7 +49,7 @@ from .ui.addon_options_dialog import AddonOptionsDialog
 from .utils import bump_usage_counter, check_for_api_key
 from .config import config
 
-from . import sentry
+from .sentry import sentry
 
 
 def with_processor(fn):
@@ -193,6 +193,9 @@ def on_main_window(processor: Processor):
     mw.addonManager.setConfigAction(__name__, on_options(processor))
     perform_update_check()
 
+    if sentry:
+        sentry.configure_scope()
+
 
 # TODO: do I need a profile_will_close thing here?
 
@@ -254,9 +257,15 @@ def on_review(processor: Processor, card: Card):
     processor.process_note(note, overwrite_fields=False, on_success=on_success)
 
 
+def cleanup() -> None:
+    if sentry:
+        sentry.end_session()
+
+
 def setup_hooks(processor: Processor):
     gui_hooks.browser_will_show_context_menu.append(on_browser_context(processor))
     gui_hooks.editor_did_init_buttons.append(add_editor_top_button(processor))
     gui_hooks.editor_will_show_context_menu.append(on_editor_context(processor))
     gui_hooks.reviewer_did_show_question.append(on_review(processor))
     gui_hooks.main_window_did_init.append(on_main_window(processor))
+    gui_hooks.profile_will_close.append(cleanup)

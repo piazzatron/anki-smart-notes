@@ -19,10 +19,9 @@
 
 import os
 import sentry_sdk
+from sentry_sdk.session import Session
 import random
-
-from sentry_sdk.integrations.asyncio import AsyncioIntegration
-from sentry_sdk.integrations.aiohttp import AioHttpIntegration
+from typing import Union, Callable, Any, Coroutine
 
 from .ui.changelog import get_version
 from .. import env
@@ -39,50 +38,96 @@ def make_uuid() -> str:
     return "".join(uuid)
 
 
-print(make_uuid())
+# Based on
+# https://github.com/wandb/wandb/blob/2ff422b6e5f594c1e15ee03b60baba2e8a163f80/wandb/analytics/sentry.py
+class Sentry:
+    # For some reason, I need to not list hub here as an instance var for typechecking to work? idk
+
+    uuid: str
+
+    def __init__(self, dsn: str, release: str, uuid: str, env: str) -> None:
+        print("Initializing sentry...")
+        print(f"DSN: {dsn}, release: {release}, uuid: {uuid}, env: {env}")
+        client = sentry_sdk.Client(
+            dsn=dsn,
+            release=release,
+            default_integrations=False,
+            environment="development" if env == "DEV" else "production",
+        )
+        hub = sentry_sdk.Hub(client)
+        self.hub = hub
+        self.uuid = uuid
+        print("Sentry initialized...")
+
+    def configure_scope(self) -> None:
+        with self.hub.configure_scope() as scope:
+            scope.user = {"id": self.uuid}
+            self._start_session()
+
+    def end_session(self) -> None:
+        print("Sentry: ending session")
+        client, scope = self.hub._stack[-1]
+        session = scope._session
+
+        if session is not None and client is not None:
+            self.hub.end_session()
+            client.flush()
+
+    def capture_exception(self, e: Exception) -> None:
+        client, scope = self.hub._stack[-1]
+        if scope and client:
+            scope.capture_exception(e)
+            if scope._session:
+                scope._session.update(status="crashed")
+                client.flush()
+
+    def wrap_async(
+        self, fn: Callable[..., Any]
+    ) -> Callable[[], Coroutine[Any, Any, Any]]:
+        async def wrapped(*args, **kwargs):
+            try:
+                return await fn(*args, **kwargs)
+            except Exception as e:
+                print(f"Sentry: capturing exception {e}")
+                self.capture_exception(e)
+                raise e
+
+        return wrapped
+
+    def wrap(self, fn: Callable[..., Any]) -> Any:
+        def wrapped(*args, **kwargs):
+            try:
+                return fn(*args, **kwargs)
+            except Exception as e:
+                print(f"Sentry: capturing exception {e}")
+                self.capture_exception(e)
+                raise e
+
+        return wrapped
+
+    def _get_session(self) -> Union[Session, None]:
+        _, scope = self.hub._stack[-1]
+        return scope._session
+
+    def _start_session(self) -> None:
+        session = self._get_session()
+        if session is not None:
+            self.hub.start_session()
 
 
-def init_sentry() -> None:
-    # if env.environment != "PROD":
-    #     return
-
+def init_sentry() -> Union[Sentry, None]:
     dsn = os.getenv("SENTRY_DSN")
     release = get_version()
-    print(release)
-    print(dsn)
     if not dsn or not release:
-        print("No sentry DSN or release")
-        return
-
-    client = sentry_sdk.Client(dsn=dsn, release=release, default_integrations=False)
-    hub = sentry_sdk.Hub(client)
-    # sentry_sdk.init(
-    #     dsn=dsn,
-    #     release=release,
-    #     integrations=[AsyncioIntegration(), AioHttpIntegration()],
-    #     traces_sample_rate=1.0,
-    #     # Set profiles_sample_rate to 1.0 to profile 100%
-    #     # of sampled transactions.
-    #     # We recommend adjusting this value in production.
-    #     profiles_sample_rate=1.0,
-    # )
+        print("Sentry: no sentry DSN or release")
+        return None
 
     if not config.uuid:
         config.uuid = make_uuid()
 
-    sentry_sdk.set_user({"id": config.uuid})
-    hub.start_session()
+    sentry = Sentry(dsn, release, config.uuid, env.environment)
 
-    print("Sentry initialized")
-
-    # try:
-    #     # Your code here
-    #     1 / 0
-    # except Exception as e:
-    #     print("CAPTURING EXCEPTION")
-    #     hub.capture_exception(e)
-    hub.end_session()
-    hub.client.flush()
+    return sentry
 
 
-init_sentry()
+sentry = init_sentry()
