@@ -45,6 +45,13 @@ build () {
   cp -r env/lib/python3.11/site-packages/multidict dist/vendor/
   cp -r env/lib/python3.11/site-packages/yarl dist/vendor/
   cp -r env/lib/python3.11/site-packages/idna dist/vendor/
+  ## Sentry
+  cp -r env/lib/python3.11/site-packages/sentry-sdk dist/vendor/
+  cp -r env/lib/python3.11/site-packages/certifi dist/vendor/
+  cp -r env/lib/python3.11/site-packages/urllib3 dist/vendor/
+  # Dotenv
+  cp -r env/lib/python3.11/site-packages/dotenv dist/vendor/
+
 
   # Zip it
   cd dist
