@@ -62,7 +62,11 @@ class Sentry:
     def configure_scope(self) -> None:
         with self.hub.configure_scope() as scope:
             scope.user = {"id": self.uuid}
-            self._start_session()
+
+        client, _ = self.hub._stack[-1]
+        self._start_session()
+        if client:
+            client.flush()
 
     def end_session(self) -> None:
         print("Sentry: ending session")
@@ -111,7 +115,7 @@ class Sentry:
 
     def _start_session(self) -> None:
         session = self._get_session()
-        if session is not None:
+        if session is None:
             self.hub.start_session()
 
 
