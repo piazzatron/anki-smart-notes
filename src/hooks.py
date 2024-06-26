@@ -49,7 +49,7 @@ from .ui.addon_options_dialog import AddonOptionsDialog
 from .utils import bump_usage_counter, check_for_api_key
 from .config import config
 
-from .sentry import sentry
+from .sentry import sentry, with_sentry
 
 
 def with_processor(fn):
@@ -65,12 +65,14 @@ def with_processor(fn):
     return wrapper
 
 
+@with_sentry
 @with_processor  # type: ignore
 def on_options(processor: Processor):
     dialog = AddonOptionsDialog(config, processor)
     dialog.exec()
 
 
+@with_sentry
 @with_processor  # type: ignore
 def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Editor):
     def fn(editor: editor.Editor):
@@ -150,6 +152,7 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
     buttons.append(button)
 
 
+@with_sentry
 @with_processor  # type: ignore
 def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMenu):  # type: ignore
     item = QAction("✨ Generate Smart Fields", menu)
@@ -179,6 +182,7 @@ def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMe
     )
 
 
+@with_sentry
 @with_processor  # type: ignore
 def on_main_window(processor: Processor):
     if not mw:
@@ -200,6 +204,7 @@ def on_main_window(processor: Processor):
 # TODO: do I need a profile_will_close thing here?
 
 
+@with_sentry
 @with_processor  # type: ignore
 def on_editor_context(
     processor: Processor, editor_web_view: editor.EditorWebView, menu: QMenu
@@ -223,6 +228,7 @@ def on_editor_context(
     menu.addAction(item)
 
 
+@with_sentry
 @with_processor  # type: ignore
 def on_review(processor: Processor, card: Card):
     print("Reviewing...")
@@ -257,11 +263,13 @@ def on_review(processor: Processor, card: Card):
     processor.process_note(note, overwrite_fields=False, on_success=on_success)
 
 
+@with_sentry
 def cleanup() -> None:
     if sentry:
         sentry.end_session()
 
 
+@with_sentry
 def setup_hooks(processor: Processor):
     gui_hooks.browser_will_show_context_menu.append(on_browser_context(processor))
     gui_hooks.editor_did_init_buttons.append(add_editor_top_button(processor))

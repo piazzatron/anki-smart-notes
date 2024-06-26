@@ -130,4 +130,13 @@ def init_sentry() -> Union[Sentry, None]:
     return sentry
 
 
+def with_sentry(fn: Callable[..., Any]) -> Callable[..., Any]:
+    def wrapper(*args, **kwargs):
+        if not sentry:
+            return fn(*args, **kwargs)
+        return sentry.wrap(fn)(*args, **kwargs)
+
+    return wrapper
+
+
 sentry = init_sentry()
