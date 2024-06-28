@@ -21,6 +21,7 @@ import sys
 import os
 
 from . import env
+from .src.logger import logger
 
 
 def update_path() -> None:
@@ -50,7 +51,9 @@ def setup_platform_specific_functionality() -> None:
     # https://stackoverflow.com/questions/45600579/asyncio-event-loop-is-closed-when-getting-loop
     # https://github.com/piazzatron/anki-smart-notes/issues/5
     if platform.system() == "Windows":
-        print("Running in windows environment, setting event loop to selector policy")
+        logger.debug(
+            "Running in windows environment, setting event loop to selector policy"
+        )
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())  # type: ignore
 
 

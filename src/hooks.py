@@ -22,6 +22,7 @@ Setup the hooks for the Anki plugin
 """
 
 import logging
+from .logger import logger
 from typing import List, Any, Tuple
 from aqt import (
     QAction,
@@ -58,6 +59,7 @@ def with_processor(fn):
     """Decorator to pass the processor to the function."""
 
     def wrapper(processor: Processor):
+        @with_sentry
         def inner(*args, **kwargs):
             return fn(processor, *args, **kwargs)
 
@@ -66,16 +68,16 @@ def with_processor(fn):
     return wrapper
 
 
-@with_sentry
 @with_processor  # type: ignore
 def on_options(processor: Processor):
     dialog = AddonOptionsDialog(config, processor)
     dialog.exec()
 
 
-@with_sentry
 @with_processor  # type: ignore
 def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Editor):
+
+    @with_sentry
     def fn(editor: editor.Editor):
         if not check_for_api_key():
             return
@@ -83,7 +85,7 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
         note = editor.note
 
         if not note:
-            print("Error: no note found")
+            logger.error("no note found")
             return
 
         if not mw:
@@ -153,7 +155,6 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
     buttons.append(button)
 
 
-@with_sentry
 @with_processor  # type: ignore
 def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMenu):  # type: ignore
     item = QAction("✨ Generate Smart Fields", menu)
@@ -183,7 +184,6 @@ def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMe
     )
 
 
-@with_sentry
 @with_processor  # type: ignore
 def on_main_window(processor: Processor):
     if not mw:
@@ -202,10 +202,6 @@ def on_main_window(processor: Processor):
         sentry.configure_scope()
 
 
-# TODO: do I need a profile_will_close thing here?
-
-
-@with_sentry
 @with_processor  # type: ignore
 def on_editor_context(
     processor: Processor, editor_web_view: editor.EditorWebView, menu: QMenu
@@ -229,10 +225,9 @@ def on_editor_context(
     menu.addAction(item)
 
 
-@with_sentry
 @with_processor  # type: ignore
 def on_review(processor: Processor, card: Card):
-    print("Reviewing...")
+    logger.debug("Reviewing...")
     if not check_for_api_key(show_box=False):
         return
 
@@ -246,10 +241,10 @@ def on_review(processor: Processor, card: Card):
             return
 
         if not mw:
-            print("Error: mw not found")
+            logger.error("Error: mw not found")
             return
 
-        print("Did update card on review...")
+        logger.debug("Did update card on review...")
 
         mw.col.update_note(note)
         card.load()
@@ -259,14 +254,12 @@ def on_review(processor: Processor, card: Card):
         # Suppressing invocation of -[NSApplication runModalSession:]. -[NSApplication runModalSession:] cannot run inside a transaction begin/commit pair, or inside a transaction commit. Consider switching to an asynchronous equivalent.
         bump_usage_counter()
 
-    print("Trying to set up web...")
-
     processor.process_note(note, overwrite_fields=False, on_success=on_success)
 
 
 @with_sentry
 def cleanup() -> None:
-    print("Shutting down loggers")
+    logger.debug("Shutting down loggers")
     # Ridiculous hack to fix this sentry logger error:
     # I don't quite understand it but the stream handler setup in sentry_sdk
     # isn't torn down correctly.
@@ -275,7 +268,8 @@ def cleanup() -> None:
     #   File "logging", line 1066, in flush
     # RuntimeError: wrapped C/C++ object of type ErrorHandler has been deleted
 
-    logger = logging.getLogger("sentry_sdk.errors")
+    sentry_logger = logging.getLogger("sentry_sdk.errors")
+    sentry_logger.handlers.clear()
     logger.handlers.clear()
 
 

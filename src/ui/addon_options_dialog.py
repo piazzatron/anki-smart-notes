@@ -37,6 +37,8 @@ from aqt import (
 )
 from PyQt6.QtCore import Qt
 
+from ..logger import logger
+
 from ..processor import Processor
 
 from ..config import Config, OpenAIModels, PromptMap
@@ -234,7 +236,6 @@ class AddonOptionsDialog(QDialog):
         row = 0
         for note_type, field_prompts in self.prompts_map["note_types"].items():
             for field, prompt in field_prompts["fields"].items():
-                print(field, prompt)
                 self.table.insertRow(self.table.rowCount())
                 items = [
                     QTableWidgetItem(note_type),
@@ -260,7 +261,7 @@ class AddonOptionsDialog(QDialog):
         card_type = self.table.item(self.selected_row, 0).text()
         field = self.table.item(self.selected_row, 1).text()
         prompt = self.table.item(self.selected_row, 2).text()
-        print(f"Editing {card_type}, {field}")
+        logger.debug(f"Editing {card_type}, {field}")
 
         # Save out API key jic
         self.config.openai_api_key = self.api_key_edit.text()
@@ -299,7 +300,7 @@ class AddonOptionsDialog(QDialog):
             return
         card_type = self.table.item(self.selected_row, 0).text()
         field = self.table.item(self.selected_row, 1).text()
-        print(f"Removing {card_type}, {field}")
+        logger.debug(f"Removing {card_type}, {field}")
         self.prompts_map["note_types"][card_type]["fields"].pop(field)
         self.update_table()
 

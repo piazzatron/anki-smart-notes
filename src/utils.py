@@ -24,6 +24,7 @@ import os
 
 from .ui.rate_dialog import RateDialog
 from .ui.ui_utils import show_message_box
+from .logger import logger
 
 
 def to_lowercase_dict(d: Dict[str, Any]) -> Dict[str, Any]:
@@ -71,7 +72,7 @@ def load_file(file: str) -> str:
     module = __name__.split(".")[0]
     file_path = os.path.join(path, module, file)
 
-    print(f"Loading from: {file_path}")
+    logger.debug(f"Loading from: {file_path}")
     with open(file_path, "r") as f:
         content = f.read()
 

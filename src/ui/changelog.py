@@ -19,6 +19,7 @@
 
 from aqt import QDialog, QLabel, QVBoxLayout, QFont, QDialogButtonBox
 from typing import List, Tuple, Union
+from ..logger import logger
 import json
 
 from ..utils import load_file
@@ -53,7 +54,7 @@ def parse_changelog() -> List[Tuple[str, List[str]]]:
     # TODO: we shouldn't really need a try/catch here since this is programmer
     # error if the changelog is unparseable, but this code is still a bit brittle so better safe than sorry
     except Exception as e:
-        print(f"Error parsing changelog: {e}")
+        logger.error(f"Error parsing changelog: {e}")
         return []
 
 
@@ -74,8 +75,8 @@ def perform_update_check() -> None:
         # Always update the last seen version
         config.last_seen_version = current_version
 
-        print(
-            f"SmartNotes version check: current version: {current_version}, prior version: {prior_version}, is first use: {is_first_use}"
+        logger.info(
+            f"current version: {current_version}, prior version: {prior_version}, is first use: {is_first_use}"
         )
 
         # Only show a dialog if (the major or minor has changed OR it's possibly an upgrade to v1.1.0) and it's not the first use
@@ -86,7 +87,7 @@ def perform_update_check() -> None:
             dialog = ChangeLogDialog(prior_version)
             dialog.exec()
     except Exception as e:
-        print(f"Error checking for updates: {e}")
+        logger.error(f"Error checking for updates: {e}")
 
 
 class ChangeLogDialog(QDialog):

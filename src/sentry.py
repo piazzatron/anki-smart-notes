@@ -18,17 +18,20 @@
 """
 
 import os
+import logging
 from aqt import mw
 import sentry_sdk
 from sentry_sdk.session import Session
 import random
 from typing import Union, Callable, Any, Coroutine
+from sentry_sdk.integrations.logging import LoggingIntegration
 
 from .ui.ui_utils import show_message_box
 
 from .ui.changelog import get_version
 from .. import env
 from .config import config
+from .logger import logger
 
 dsn = os.getenv("SENTRY_DSN")
 
@@ -49,18 +52,19 @@ class Sentry:
     uuid: str
 
     def __init__(self, dsn: str, release: str, uuid: str, env: str) -> None:
-        print("Initializing sentry...")
-        print(f"DSN: {dsn}, release: {release}, uuid: {uuid}, env: {env}")
+        logger.debug("Initializing sentry...")
+        logger.debug(f"DSN: {dsn}, release: {release}, uuid: {uuid}, env: {env}")
         client = sentry_sdk.Client(
             dsn=dsn,
             release=release,
             default_integrations=False,
             environment="development" if env == "DEV" else "production",
+            integrations=[LoggingIntegration(level=logging.DEBUG)],
         )
         hub = sentry_sdk.Hub(client)
         self.hub = hub
         self.uuid = uuid
-        print("Sentry initialized...")
+        logger.debug("Sentry initialized...")
 
     def configure_scope(self) -> None:
         with self.hub.configure_scope() as scope:
@@ -72,7 +76,7 @@ class Sentry:
             client.flush()
 
     def end_session(self) -> None:
-        print("Sentry: ending session")
+        logger.debug("Sentry: ending session")
         client, scope = self.hub._stack[-1]
         session = scope._session
 
@@ -95,7 +99,7 @@ class Sentry:
             try:
                 return await fn(*args, **kwargs)
             except Exception as e:
-                print(f"Sentry: capturing exception {e}")
+                logger.debug(f"Sentry: capturing exception {e}")
                 self.capture_exception(e)
                 self._show_error_message(e)
 
@@ -106,7 +110,7 @@ class Sentry:
             try:
                 return fn(*args, **kwargs)
             except Exception as e:
-                print(f"Sentry: capturing exception {e}")
+                logger.debug(f"Sentry: capturing exception {e}")
                 self.capture_exception(e)
                 self._show_error_message(e)
 
@@ -134,7 +138,7 @@ def init_sentry() -> Union[Sentry, None]:
     dsn = os.getenv("SENTRY_DSN")
     release = get_version()
     if not dsn or not release:
-        print("Sentry: no sentry DSN or release")
+        logger.error("Sentry: no sentry DSN or release")
         return None
 
     if not config.uuid:

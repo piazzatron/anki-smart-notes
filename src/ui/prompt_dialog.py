@@ -19,6 +19,7 @@
 
 from typing import Callable, List, Union
 from ..processor import Processor
+from ..logger import logger
 
 from aqt import (
     QComboBox,
@@ -160,7 +161,7 @@ class PromptDialog(QDialog):
         return [model["name"] for model in models]
 
     def on_field_selected(self, field: str):
-        print(f"Field selected: {field}")
+        logger.debug(f"Field selected: {field}")
         if not field:
             return
         self.selected_field = field
@@ -184,7 +185,7 @@ class PromptDialog(QDialog):
 
         self.field_combo_box.clear()
         self.field_combo_box.addItems(self.fields)
-        print(f"Attempting to set field to {self.selected_field}")
+        logger.debug(f"Attempting to set field to {self.selected_field}")
         self.field_combo_box.setCurrentText(self.selected_field)
 
     def update_buttons(self) -> None:
@@ -289,9 +290,7 @@ class PromptDialog(QDialog):
         )
         existing_prompts.add(self.selected_field)
 
-        print(existing_prompts)
         not_ai_fields = [field for field in fields if field not in existing_prompts]
-        print(not_ai_fields)
         return not_ai_fields
 
     def on_accept(self):
@@ -304,8 +303,7 @@ class PromptDialog(QDialog):
                 show_message_box(f"Invalid prompt: {err}")
                 return
 
-            # IDK if this is gonna work on the config object? I think not...
-            print(
+            logger.debug(
                 f"Trying to set prompt for {self.selected_card_type}, {self.selected_field}, {self.prompt}"
             )
             if not self.prompts_map["note_types"].get(self.selected_card_type):
