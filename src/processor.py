@@ -37,7 +37,7 @@ from .utils import bump_usage_counter, check_for_api_key, run_on_main
 LARGE_BATCH_SIZE_CUTOFF = 5
 
 # OPEN_AI rate limits
-NEW_OPEN_AI_MODEL_REQ_PER_MIN = 3  # TODO: 500
+NEW_OPEN_AI_MODEL_REQ_PER_MIN = 500  # TODO: 500
 OLD_OPEN_AI_MODEL_REQ_PER_MIN = 3500
 
 # TODO: move process single field to an existing fn
@@ -105,6 +105,9 @@ class Processor:
     ) -> None:
         """Processes notes in the background with a progress bar, batching into a single undo op"""
 
+        if not mw:
+            return
+
         bump_usage_counter()
 
         if not self._ensure_no_req_in_progress():
@@ -128,49 +131,34 @@ class Processor:
             self._reqlinquish_req_in_progress()
             show_message_box(f"Error: {e}")
 
-        # Small batch
-        if len(note_ids) <= LARGE_BATCH_SIZE_CUTOFF:
-            logger.debug("Running a small batch")
+        # TODO: should have something about, please do not close anki
 
-            async def op():
-                return await self._process_notes_batch(note_ids)
+        model = self.config.openai_model
+        limit = (
+            OLD_OPEN_AI_MODEL_REQ_PER_MIN
+            if model == "gpt-3.5-turbo"
+            else NEW_OPEN_AI_MODEL_REQ_PER_MIN
+        )
+        is_large_batch = len(note_ids) >= limit
+        logger.debug(f"Rate limit: {limit}")
 
-            run_async_in_background(
-                op,
-                wrapped_on_success,
-                on_failure,
-                with_progress=True,
-            )
-
-        else:
-            # TODO: should have something about, please do not close anki
-            logger.debug("Running a large batch")
-
-            model = self.config.openai_model
-            limit = (
-                OLD_OPEN_AI_MODEL_REQ_PER_MIN
-                if model == "gpt-3.5-turbo"
-                else NEW_OPEN_AI_MODEL_REQ_PER_MIN
-            )
-            logger.debug(f"Rate limit: {limit}")
-            if not mw:
-                return
-
-            max = len(note_ids)
-            print(f"max: {max}")
+        # Only show fancy progress meter for large batches
+        if is_large_batch:
             mw.progress.start(
                 label=f"Processing (0/{len(note_ids)}) notes",
                 min=0,
                 max=len(note_ids),
             )
 
-            def on_update(
-                updated: List[Note], processed_count: int, finished: bool
-            ) -> None:
-                if not mw:
-                    return
-                print("UPDATINGGG!!!")
-                mw.col.update_notes(updated)
+        def on_update(
+            updated: List[Note], processed_count: int, finished: bool
+        ) -> None:
+            if not mw:
+                return
+
+            mw.col.update_notes(updated)
+
+            if is_large_batch:
                 if not finished:
                     mw.progress.update(
                         label=f"Processing ({processed_count}/{len(note_ids)}) notes",
@@ -180,39 +168,38 @@ class Processor:
                 else:
                     mw.progress.finish()
 
-            async def op():
-                total_updated = []
-                total_failed = []
-                to_process_ids = note_ids[:]
-                while len(to_process_ids) > 0:
-                    logger.debug("Processing batch...")
-                    batch = to_process_ids[:limit]
-                    to_process_ids = to_process_ids[limit:]
-                    updated, failed = await self._process_notes_batch(batch)
-                    total_updated.extend(updated)
-                    total_failed.extend(failed)
+        async def op():
+            total_updated = []
+            total_failed = []
+            to_process_ids = note_ids[:]
+            while len(to_process_ids) > 0:
+                logger.debug("Processing batch...")
+                batch = to_process_ids[:limit]
+                to_process_ids = to_process_ids[limit:]
+                updated, failed = await self._process_notes_batch(batch)
+                total_updated.extend(updated)
+                total_failed.extend(failed)
 
-                    # Update the notes in the main thread
-                    run_on_main(
-                        lambda: on_update(
-                            updated,
-                            len(total_updated) + len(total_failed),
-                            len(to_process_ids) == 0,
-                        )
+                # Update the notes in the main thread
+                run_on_main(
+                    lambda: on_update(
+                        updated,
+                        len(total_updated) + len(total_failed),
+                        len(to_process_ids) == 0,
                     )
-                    if not to_process_ids:
-                        break
+                )
+                if not to_process_ids:
+                    break
 
-                    logger.debug("Sleeping for 60s until next batch")
+                logger.debug("Sleeping for 60s until next batch")
 
-                    # TODO: change this back to 60s
-                    await asyncio.sleep(2)
+                await asyncio.sleep(60)
 
-                return total_updated, total_failed
+            return total_updated, total_failed
 
-            run_async_in_background(
-                op, wrapped_on_success, on_failure, with_progress=False
-            )
+        run_async_in_background(
+            op, wrapped_on_success, on_failure, with_progress=(not is_large_batch)
+        )
 
     async def _process_notes_batch(
         self, note_ids: Sequence[NoteId]
