@@ -31,7 +31,16 @@ from .open_ai_client import OpenAIClient
 from .prompts import interpolate_prompt
 from .sentry import sentry
 from .ui.ui_utils import show_message_box
-from .utils import bump_usage_counter, check_for_api_key
+from .utils import bump_usage_counter, check_for_api_key, run_on_main
+
+# TODO: increase this
+LARGE_BATCH_SIZE_CUTOFF = 5
+
+# OPEN_AI rate limits
+NEW_OPEN_AI_MODEL_REQ_PER_MIN = 3  # TODO: 500
+OLD_OPEN_AI_MODEL_REQ_PER_MIN = 3500
+
+# TODO: move process single field to an existing fn
 
 
 class Processor:
@@ -106,47 +115,10 @@ class Processor:
         if not check_for_api_key(self.config):
             return
 
-        if not mw:
-            return
-
-        async def wrapped_process_notes() -> Tuple[List[Note], List[Note]]:
-            notes = [mw.col.get_note(note_id) for note_id in note_ids]
-
-            # Sanity check that we actually have prompts for these note types
-            has_prompts = True
-            for note in notes:
-                note_type = note.note_type()
-                if not note_type:
-                    # Should never happen
-                    raise Exception("Error: no note type")
-
-                note_type_name = note_type["name"]
-                if note_type_name not in self.config.prompts_map.get("note_types", {}):
-                    logger.error("Error: no prompts found for note type")
-                    has_prompts = False
-            if not has_prompts:
-                raise Exception("Not all selected note types have smart fields.")
-
-            # Run them all in parallel
-            tasks = []
-            for note in notes:
-                tasks.append(self._process_note(note))
-            results = await asyncio.gather(*tasks, return_exceptions=True)
-
-            # Process errors
-            notes_to_update = []
-            failed = []
-            for i, result in enumerate(results):
-                if isinstance(result, Exception):
-                    logger.error(f"Error processing note {note_ids[i]}: {result}")
-                    failed.append(notes[i])
-                else:
-                    notes_to_update.append(notes[i])
-
-            return (notes_to_update, failed)
-
         def wrapped_on_success(res: Tuple[List[Note], List[Note]]) -> None:
             updated, failed = res
+            if not mw:
+                return
             mw.col.update_notes(updated)
             self._reqlinquish_req_in_progress()
             if on_success:
@@ -156,9 +128,137 @@ class Processor:
             self._reqlinquish_req_in_progress()
             show_message_box(f"Error: {e}")
 
-        run_async_in_background(
-            wrapped_process_notes, wrapped_on_success, on_failure, with_progress=True
-        )
+        # Small batch
+        if len(note_ids) <= LARGE_BATCH_SIZE_CUTOFF:
+            logger.debug("Running a small batch")
+
+            async def op():
+                return await self._process_notes_batch(note_ids)
+
+            run_async_in_background(
+                op,
+                wrapped_on_success,
+                on_failure,
+                with_progress=True,
+            )
+
+        else:
+            # TODO: should have something about, please do not close anki
+            logger.debug("Running a large batch")
+
+            model = self.config.openai_model
+            limit = (
+                OLD_OPEN_AI_MODEL_REQ_PER_MIN
+                if model == "gpt-3.5-turbo"
+                else NEW_OPEN_AI_MODEL_REQ_PER_MIN
+            )
+            logger.debug(f"Rate limit: {limit}")
+            if not mw:
+                return
+
+            max = len(note_ids)
+            print(f"max: {max}")
+            mw.progress.start(
+                label=f"Processing (0/{len(note_ids)}) notes",
+                min=0,
+                max=len(note_ids),
+            )
+
+            def on_update(
+                updated: List[Note], processed_count: int, finished: bool
+            ) -> None:
+                if not mw:
+                    return
+                print("UPDATINGGG!!!")
+                mw.col.update_notes(updated)
+                if not finished:
+                    mw.progress.update(
+                        label=f"Processing ({processed_count}/{len(note_ids)}) notes",
+                        value=processed_count,
+                        max=len(note_ids),
+                    )
+                else:
+                    mw.progress.finish()
+
+            async def op():
+                total_updated = []
+                total_failed = []
+                to_process_ids = note_ids[:]
+                while len(to_process_ids) > 0:
+                    logger.debug("Processing batch...")
+                    batch = to_process_ids[:limit]
+                    to_process_ids = to_process_ids[limit:]
+                    updated, failed = await self._process_notes_batch(batch)
+                    total_updated.extend(updated)
+                    total_failed.extend(failed)
+
+                    # Update the notes in the main thread
+                    run_on_main(
+                        lambda: on_update(
+                            updated,
+                            len(total_updated) + len(total_failed),
+                            len(to_process_ids) == 0,
+                        )
+                    )
+                    if not to_process_ids:
+                        break
+
+                    logger.debug("Sleeping for 60s until next batch")
+
+                    # TODO: change this back to 60s
+                    await asyncio.sleep(2)
+
+                return total_updated, total_failed
+
+            run_async_in_background(
+                op, wrapped_on_success, on_failure, with_progress=False
+            )
+
+    async def _process_notes_batch(
+        self, note_ids: Sequence[NoteId]
+    ) -> Tuple[List[Note], List[Note]]:
+        if not mw:
+            logger.error("No mw!")
+            return ([], [])
+
+        notes = [mw.col.get_note(note_id) for note_id in note_ids]
+
+        # Only process notes that have prompts
+        to_process = []
+        for note in notes:
+            note_type = note.note_type()
+            if not note_type:
+                # Should never happen
+                raise Exception("Error: no note type")
+
+            note_type_name = note_type["name"]
+            if note_type_name not in self.config.prompts_map.get("note_types", {}):
+                logger.debug("Error: no prompts found for note type")
+            else:
+                to_process.append(note)
+
+        if not to_process:
+            logger.debug("No notes to process")
+            return (notes, [])
+
+        # Run them all in parallel
+        tasks = []
+        for note in to_process:
+            tasks.append(self._process_note(note))
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+
+        # Process errors
+        notes_to_update = []
+        failed = []
+        for i, result in enumerate(results):
+            if isinstance(result, Exception):
+                logger.error(f"Error processing note {note_ids[i]}: {result}")
+                failed.append(to_process[i])
+            else:
+                notes_to_update.append(to_process[i])
+
+        print(notes_to_update)
+        return (notes_to_update, failed)
 
     # TODO: do I even need this method or can I just use the batch one?
     def process_note(
@@ -224,8 +324,17 @@ class Processor:
                 logger.debug(f"Skipping empty prompt for field: {field}")
                 continue
 
-            task = self.client.async_get_chat_response(interpolated_prompt)
-            tasks.append(task)
+            # Need to return both the chat response + the target field, since we're skiping
+            # fields potentially here. Default arg to avoid stale closure
+            async def get_response(
+                field=field, interpolated_prompt=interpolated_prompt
+            ) -> Tuple[str, str]:
+                response = await self.client.async_get_chat_response(
+                    interpolated_prompt
+                )
+                return (field, response)
+
+            tasks.append(get_response())
 
         # Maybe filled out already, if so return early
         if not tasks:
@@ -233,8 +342,7 @@ class Processor:
 
         responses = await asyncio.gather(*tasks)
         logger.debug(f"Responses {responses}")
-        for i, response in enumerate(responses):
-            target_field = field_prompt_items[i][0]
+        for target_field, response in responses:
             note[target_field] = response
 
         return True

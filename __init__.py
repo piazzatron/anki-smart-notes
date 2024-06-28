@@ -20,15 +20,15 @@
 import os
 import sys
 
-from . import env
 from .src.logger import logger
+from .src.utils import is_production
 
 
 def update_path() -> None:
 
     # Local and prod builds have different package directories
     relative_packages_dir = (
-        "vendor" if env.environment == "PROD" else "env/lib/python3.11/site-packages"
+        "vendor" if is_production() else "env/lib/python3.11/site-packages"
     )
 
     packages_dir = os.path.join(
