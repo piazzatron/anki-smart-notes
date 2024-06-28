@@ -19,18 +19,18 @@
 
 import aiohttp
 from aqt import editor
-from typing import Sequence, Callable, Union, List, Tuple
+from typing import Sequence, Callable, Union, List, Tuple, Any
 
 from anki.notes import Note, NoteId
 from aqt import editor, mw
-from aqt.operations import CollectionOp
-from anki.collection import OpChanges
+from aqt.operations import QueryOp
 
 from .ui.ui_utils import show_message_box
 from .prompts import interpolate_prompt
-from .utils import bump_usage_counter, run_async_in_background, check_for_api_key
+from .utils import bump_usage_counter, check_for_api_key
 from .open_ai_client import OpenAIClient
 from .config import Config
+from .sentry import sentry
 
 import asyncio
 
@@ -274,3 +274,36 @@ class Processor:
             wrapped_on_success,
             wrapped_on_failure,
         )
+
+
+def run_async_in_background(
+    op: Callable[[], Any],
+    on_success: Callable[[Any], None],
+    on_failure: Union[Callable[[Exception], None], None] = None,
+    with_progress: bool = False,
+):
+    "Runs an async operation in the background and calls on_success when done."
+
+    if not mw:
+        raise Exception("Error: mw not found in run_async_in_background")
+
+    # Wrap for sentry error reporting
+    if sentry:
+        op = sentry.wrap_async(op)
+        on_success = sentry.wrap(on_success)
+        if on_failure:
+            on_failure = sentry.wrap(on_failure)
+
+    query_op = QueryOp(
+        parent=mw,
+        op=lambda _: asyncio.run(op()),
+        success=on_success,
+    )
+
+    if on_failure:
+        query_op.failure(on_failure)
+
+    if with_progress:
+        query_op = query_op.with_progress()
+
+    query_op.run_in_background()

@@ -17,15 +17,13 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Callable, Dict, Any, Union
+from typing import Dict, Any
 from aqt import mw
-from aqt.operations import QueryOp
 from .config import config
 import os
 
 from .ui.rate_dialog import RateDialog
 from .ui.ui_utils import show_message_box
-import asyncio
 
 
 def to_lowercase_dict(d: Dict[str, Any]) -> Dict[str, Any]:
@@ -46,32 +44,6 @@ def get_fields(note_type: str):
         return []
 
     return [field["name"] for field in model["flds"]]
-
-
-def run_async_in_background(
-    op: Callable[[], Any],
-    on_success: Callable[[Any], None],
-    on_failure: Union[Callable[[Exception], None], None] = None,
-    with_progress: bool = False,
-):
-    "Runs an async operation in the background and calls on_success when done."
-
-    if not mw:
-        raise Exception("Error: mw not found in run_async_in_background")
-
-    query_op = QueryOp(
-        parent=mw,
-        op=lambda _: asyncio.run(op()),
-        success=on_success,
-    )
-
-    if on_failure:
-        query_op.failure(on_failure)
-
-    if with_progress:
-        query_op = query_op.with_progress()
-
-    query_op.run_in_background()
 
 
 def check_for_api_key(show_box=True) -> bool:

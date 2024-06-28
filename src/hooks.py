@@ -21,6 +21,7 @@
 Setup the hooks for the Anki plugin
 """
 
+import logging
 from typing import List, Any, Tuple
 from aqt import (
     QAction,
@@ -49,6 +50,8 @@ from .ui.addon_options_dialog import AddonOptionsDialog
 from .utils import bump_usage_counter, check_for_api_key
 from .config import config
 
+from .sentry import sentry, with_sentry
+
 
 def with_processor(fn):
     # Too annoying to type this thing
@@ -63,12 +66,14 @@ def with_processor(fn):
     return wrapper
 
 
+@with_sentry
 @with_processor  # type: ignore
 def on_options(processor: Processor):
     dialog = AddonOptionsDialog(config, processor)
     dialog.exec()
 
 
+@with_sentry
 @with_processor  # type: ignore
 def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Editor):
     def fn(editor: editor.Editor):
@@ -148,6 +153,7 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
     buttons.append(button)
 
 
+@with_sentry
 @with_processor  # type: ignore
 def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMenu):  # type: ignore
     item = QAction("✨ Generate Smart Fields", menu)
@@ -177,6 +183,7 @@ def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMe
     )
 
 
+@with_sentry
 @with_processor  # type: ignore
 def on_main_window(processor: Processor):
     if not mw:
@@ -191,10 +198,14 @@ def on_main_window(processor: Processor):
     mw.addonManager.setConfigAction(__name__, on_options(processor))
     perform_update_check()
 
+    if sentry:
+        sentry.configure_scope()
+
 
 # TODO: do I need a profile_will_close thing here?
 
 
+@with_sentry
 @with_processor  # type: ignore
 def on_editor_context(
     processor: Processor, editor_web_view: editor.EditorWebView, menu: QMenu
@@ -218,6 +229,7 @@ def on_editor_context(
     menu.addAction(item)
 
 
+@with_sentry
 @with_processor  # type: ignore
 def on_review(processor: Processor, card: Card):
     print("Reviewing...")
@@ -252,9 +264,26 @@ def on_review(processor: Processor, card: Card):
     processor.process_note(note, overwrite_fields=False, on_success=on_success)
 
 
+@with_sentry
+def cleanup() -> None:
+    print("Shutting down loggers")
+    # Ridiculous hack to fix this sentry logger error:
+    # I don't quite understand it but the stream handler setup in sentry_sdk
+    # isn't torn down correctly.
+    #   Traceback (most recent call last):
+    #   File "logging", line 2141, in shutdown
+    #   File "logging", line 1066, in flush
+    # RuntimeError: wrapped C/C++ object of type ErrorHandler has been deleted
+
+    logger = logging.getLogger("sentry_sdk.errors")
+    logger.handlers.clear()
+
+
+@with_sentry
 def setup_hooks(processor: Processor):
     gui_hooks.browser_will_show_context_menu.append(on_browser_context(processor))
     gui_hooks.editor_did_init_buttons.append(add_editor_top_button(processor))
     gui_hooks.editor_will_show_context_menu.append(on_editor_context(processor))
     gui_hooks.reviewer_did_show_question.append(on_review(processor))
     gui_hooks.main_window_did_init.append(on_main_window(processor))
+    gui_hooks.profile_will_close.append(cleanup)

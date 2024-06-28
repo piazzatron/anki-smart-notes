@@ -25,6 +25,7 @@ build () {
   mkdir -p dist/vendor
 
   cp *.py dist/
+  cp .env dist/
   cp manifest.json dist/
   cp config.json dist/
   cp -r src dist/
@@ -44,6 +45,13 @@ build () {
   cp -r env/lib/python3.11/site-packages/multidict dist/vendor/
   cp -r env/lib/python3.11/site-packages/yarl dist/vendor/
   cp -r env/lib/python3.11/site-packages/idna dist/vendor/
+  ## Sentry
+  cp -r env/lib/python3.11/site-packages/sentry_sdk dist/vendor/
+  cp -r env/lib/python3.11/site-packages/certifi dist/vendor/
+  cp -r env/lib/python3.11/site-packages/urllib3 dist/vendor/
+  # Dotenv
+  cp -r env/lib/python3.11/site-packages/dotenv dist/vendor/
+
 
   # Zip it
   cd dist
@@ -57,21 +65,38 @@ clean () {
   unlink ~/Library/Application\ Support/Anki2/addons21/smart-notes
 }
 
-dev () {
+link-dev () {
   ln -s $(pwd) ~/Library/Application\ Support/Anki2/addons21/smart-notes
 }
 
 # Tests a production build by symlinking dist folder
-test-build () {
+link-dist () {
   ln -s $(pwd)/dist ~/Library/Application\ Support/Anki2/addons21/smart-notes
+}
+
+anki () {
+   /Applications/Anki.app/Contents/MacOS/anki
+}
+
+test-dev () {
+  clean
+  link-dev
+  anki
+}
+
+test-build () {
+  clean
+  build
+  link-dist
+  anki
 }
 
 if [ "$1" == "build" ]; then
   build
 elif [ "$1" == "clean" ]; then
   clean
-elif [ "$1" == "dev" ]; then
-  dev
+elif [ "$1" == "test-dev" ]; then
+  test-dev
 elif [ "$1" == "test-build" ]; then
   test-build
 else

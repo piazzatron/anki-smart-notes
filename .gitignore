@@ -166,4 +166,4 @@ cython_debug/
 # Anki overwriting config
 meta.json
 
-todo.md
+todo*.md
