@@ -17,7 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from aqt import QDialog, QLabel, QVBoxLayout, Qt, QFont, QDialogButtonBox
+from aqt import QDialog, QDialogButtonBox, QFont, QLabel, Qt, QVBoxLayout
 
 
 class RateDialog(QDialog):

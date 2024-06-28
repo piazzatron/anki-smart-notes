@@ -17,8 +17,8 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import sys
 import os
+import sys
 
 from . import env
 from .src.logger import logger
@@ -45,8 +45,8 @@ load_dotenv()
 
 
 def setup_platform_specific_functionality() -> None:
-    import platform
     import asyncio
+    import platform
 
     # https://stackoverflow.com/questions/45600579/asyncio-event-loop-is-closed-when-getting-loop
     # https://github.com/piazzatron/anki-smart-notes/issues/5
@@ -59,4 +59,7 @@ def setup_platform_specific_functionality() -> None:
 
 setup_platform_specific_functionality()
 
-from .src import main
+# Import this after setting the correct path
+from .src.main import main
+
+main()

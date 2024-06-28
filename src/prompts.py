@@ -19,11 +19,13 @@
 
 """Helpful functions for working with prompts and cards"""
 
-from .config import config
 import re
-from .utils import get_fields, to_lowercase_dict
+from typing import Any, Dict, Union
+
 from anki.notes import Note
-from typing import Union, Dict, Any
+
+from .config import config
+from .utils import get_fields, to_lowercase_dict
 
 
 def get_prompts() -> Dict[str, Dict[str, str]]:

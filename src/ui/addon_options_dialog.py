@@ -17,34 +17,17 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from aqt import (
-    QCheckBox,
-    QTabWidget,
-    QGroupBox,
-    QComboBox,
-    QDialog,
-    QDialogButtonBox,
-    QHBoxLayout,
-    QLabel,
-    QLineEdit,
-    QFormLayout,
-    QPushButton,
-    QSizePolicy,
-    QTableWidget,
-    QTableWidgetItem,
-    QVBoxLayout,
-    QWidget,
-)
+from aqt import (QCheckBox, QComboBox, QDialog, QDialogButtonBox, QFormLayout,
+                 QGroupBox, QHBoxLayout, QLabel, QLineEdit, QPushButton,
+                 QSizePolicy, QTableWidget, QTableWidgetItem, QTabWidget,
+                 QVBoxLayout, QWidget)
 from PyQt6.QtCore import Qt
 
-from ..logger import logger
-
-from ..processor import Processor
-
 from ..config import Config, OpenAIModels, PromptMap
+from ..logger import logger
+from ..processor import Processor
 from .prompt_dialog import PromptDialog
 from .ui_utils import show_message_box
-
 
 OPTIONS_MIN_WIDTH = 750
 

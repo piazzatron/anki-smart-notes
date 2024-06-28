@@ -17,15 +17,15 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from aqt import QDialog, QLabel, QVBoxLayout, QFont, QDialogButtonBox
-from typing import List, Tuple, Union
-from ..logger import logger
 import json
+from typing import List, Tuple, Union
 
-from ..utils import load_file
+from aqt import QDialog, QDialogButtonBox, QFont, QLabel, QVBoxLayout
 
-from .ui_utils import show_message_box
 from ..config import config
+from ..logger import logger
+from ..utils import load_file
+from .ui_utils import show_message_box
 
 
 def get_version() -> str:

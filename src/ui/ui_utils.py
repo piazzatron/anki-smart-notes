@@ -18,7 +18,8 @@
 """
 
 from typing import Union
-from aqt import QPushButton, QMessageBox
+
+from aqt import QMessageBox, QPushButton
 
 
 def show_message_box(

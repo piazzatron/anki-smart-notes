@@ -17,9 +17,9 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from .config import Config
-
 import aiohttp
+
+from .config import Config
 
 
 class OpenAIClient:

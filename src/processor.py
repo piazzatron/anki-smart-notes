@@ -17,23 +17,21 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import aiohttp
-from aqt import editor
-from typing import Sequence, Callable, Union, List, Tuple, Any
+import asyncio
+from typing import Any, Callable, List, Sequence, Tuple, Union
 
+import aiohttp
 from anki.notes import Note, NoteId
 from aqt import editor, mw
 from aqt.operations import QueryOp
 
-from .ui.ui_utils import show_message_box
-from .prompts import interpolate_prompt
-from .utils import bump_usage_counter, check_for_api_key
-from .open_ai_client import OpenAIClient
 from .config import Config
-from .sentry import sentry
 from .logger import logger
-
-import asyncio
+from .open_ai_client import OpenAIClient
+from .prompts import interpolate_prompt
+from .sentry import sentry
+from .ui.ui_utils import show_message_box
+from .utils import bump_usage_counter, check_for_api_key
 
 
 class Processor:

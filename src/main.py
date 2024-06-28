@@ -17,17 +17,14 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from .config import Config
-
+from .config import config
+from .hooks import setup_hooks
 from .open_ai_client import OpenAIClient
 from .processor import Processor
-from .hooks import setup_hooks
-
-# TODO: sort imports...
 
 
-config = Config()
-client = OpenAIClient(config)
-processor = Processor(client, config)
+def main() -> None:
+    client = OpenAIClient(config)
+    processor = Processor(client, config)
 
-setup_hooks(processor)
+    setup_hooks(processor)

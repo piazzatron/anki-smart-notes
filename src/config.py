@@ -17,8 +17,9 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Dict, TypedDict, Literal, Any, Union
-from aqt import mw, addons
+from typing import Any, Dict, Literal, TypedDict, Union
+
+from aqt import addons, mw
 
 
 class NoteTypeMap(TypedDict):

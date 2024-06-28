@@ -21,37 +21,24 @@
 Setup the hooks for the Anki plugin
 """
 
+
 import logging
-from .logger import logger
-from typing import List, Any, Tuple
-from aqt import (
-    QAction,
-    QKeySequence,
-    QMenu,
-    gui_hooks,
-    editor,
-    mw,
-    browser,
-    QKeySequence,
-)
-from anki.notes import Note
+from typing import List
+
 from anki.cards import Card
+from anki.notes import Note
+from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
 
-from .ui.changelog import (
-    perform_update_check,
-)
-
-from .ui.ui_utils import show_message_box
-from .ui.sparkle import Sparkle
-from .processor import Processor
-
-from .prompts import is_ai_field
-from .ui.addon_options_dialog import AddonOptionsDialog
-
-from .utils import bump_usage_counter, check_for_api_key
 from .config import config
-
+from .logger import logger
+from .processor import Processor
+from .prompts import is_ai_field
 from .sentry import sentry, with_sentry
+from .ui.addon_options_dialog import AddonOptionsDialog
+from .ui.changelog import perform_update_check
+from .ui.sparkle import Sparkle
+from .ui.ui_utils import show_message_box
+from .utils import bump_usage_counter, check_for_api_key
 
 
 def with_processor(fn):

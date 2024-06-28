@@ -18,27 +18,17 @@
 """
 
 from typing import Callable, List, Union
-from ..processor import Processor
-from ..logger import logger
 
-from aqt import (
-    QComboBox,
-    QDialog,
-    QDialogButtonBox,
-    QLabel,
-    QPushButton,
-    QSizePolicy,
-    QTextEdit,
-    QTextOption,
-    QVBoxLayout,
-    Qt,
-    mw,
-)
+from aqt import (QComboBox, QDialog, QDialogButtonBox, QLabel, QPushButton,
+                 QSizePolicy, Qt, QTextEdit, QTextOption, QVBoxLayout, mw)
+
 from ..config import PromptMap
-from ..prompts import get_prompt_fields_lower, interpolate_prompt, prompt_has_error
-from .ui_utils import show_message_box
+from ..logger import logger
+from ..processor import Processor
+from ..prompts import (get_prompt_fields_lower, interpolate_prompt,
+                       prompt_has_error)
 from ..utils import get_fields, to_lowercase_dict
-
+from .ui_utils import show_message_box
 
 explanation = """Write a "prompt" to help ChatGPT generate your target smart field.
 

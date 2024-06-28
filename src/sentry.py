@@ -17,21 +17,21 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import os
 import logging
-from aqt import mw
-import sentry_sdk
-from sentry_sdk.session import Session
+import os
 import random
-from typing import Union, Callable, Any, Coroutine
+from typing import Any, Callable, Coroutine, Union
+
+import sentry_sdk
+from aqt import mw
 from sentry_sdk.integrations.logging import LoggingIntegration
+from sentry_sdk.session import Session
 
-from .ui.ui_utils import show_message_box
-
-from .ui.changelog import get_version
 from .. import env
 from .config import config
 from .logger import logger
+from .ui.changelog import get_version
+from .ui.ui_utils import show_message_box
 
 dsn = os.getenv("SENTRY_DSN")
 

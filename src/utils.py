@@ -17,14 +17,15 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Dict, Any
-from aqt import mw
-from .config import config
 import os
+from typing import Any, Dict
 
+from aqt import mw
+
+from .config import config
+from .logger import logger
 from .ui.rate_dialog import RateDialog
 from .ui.ui_utils import show_message_box
-from .logger import logger
 
 
 def to_lowercase_dict(d: Dict[str, Any]) -> Dict[str, Any]:
