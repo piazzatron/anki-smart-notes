@@ -210,7 +210,7 @@ class PromptDialog(QDialog):
         self.prompt = self.prompt_text_box.toPlainText()
         self.update_buttons()
 
-    def on_test(self):
+    def on_test(self) -> None:
         if not mw or not self.prompt:
             return
 
@@ -230,6 +230,9 @@ class PromptDialog(QDialog):
 
         sample_note = mw.col.get_note(sample_note_ids[0])
         prompt = interpolate_prompt(self.prompt, sample_note)
+        if not prompt:
+            return
+
         self.is_loading_prompt = True
         self.update_buttons()
 

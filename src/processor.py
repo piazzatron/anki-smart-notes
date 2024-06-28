@@ -40,7 +40,7 @@ class Processor:
         self.config = config
         self.req_in_progress = False
 
-    def ensure_no_req_in_progress(self) -> bool:
+    def _ensure_no_req_in_progress(self) -> bool:
         if self.req_in_progress:
             show_message_box(
                 "A request is already in progress. Please wait for the prior request to finish before creating a new one."
@@ -59,7 +59,7 @@ class Processor:
 
         bump_usage_counter()
 
-        if not self.ensure_no_req_in_progress():
+        if not self._ensure_no_req_in_progress():
             return
 
         async def async_process_single_field(
@@ -67,6 +67,8 @@ class Processor:
         ) -> None:
             prompt = self.config.get_prompt(note.note_type()["name"], target_field_name)  # type: ignore[index]
             prompt = interpolate_prompt(prompt, note)
+            if not prompt:
+                return
             response = await self.client.async_get_chat_response(prompt)
             note[target_field_name] = response
 
@@ -96,7 +98,7 @@ class Processor:
 
         bump_usage_counter()
 
-        if not self.ensure_no_req_in_progress():
+        if not self._ensure_no_req_in_progress():
             return
 
         logger.debug("Processing notes...")
@@ -167,7 +169,7 @@ class Processor:
         on_failure: Union[Callable[[Exception], None], None] = None,
     ):
         """Process a single note, filling in fields with prompts from the user"""
-        if not self.ensure_no_req_in_progress():
+        if not self._ensure_no_req_in_progress():
             return
 
         def wrapped_on_success(updated: bool) -> None:
@@ -212,14 +214,17 @@ class Processor:
         for field, prompt in field_prompt_items:
             # Don't overwrite fields that already exist
             if (not overwrite_fields) and note[field]:
-                logger.debug(f"Skipping field: {field}")
+                logger.debug(f"Skipping already generated field: {field}")
                 continue
 
             logger.debug(f"Processing field: {field}, prompt: {prompt}")
 
-            prompt = interpolate_prompt(prompt, note)
+            interpolated_prompt = interpolate_prompt(prompt, note)
+            if not interpolated_prompt:
+                logger.debug(f"Skipping empty prompt for field: {field}")
+                continue
 
-            task = self.client.async_get_chat_response(prompt)
+            task = self.client.async_get_chat_response(interpolated_prompt)
             tasks.append(task)
 
         # Maybe filled out already, if so return early
@@ -227,7 +232,7 @@ class Processor:
             return False
 
         responses = await asyncio.gather(*tasks)
-        logger.debug("Responses: ", responses)
+        logger.debug(f"Responses {responses}")
         for i, response in enumerate(responses):
             target_field = field_prompt_items[i][0]
             note[target_field] = response
@@ -254,7 +259,7 @@ class Processor:
         on_failure: Union[Callable[[Exception], None], None] = None,
     ):
 
-        if not self.ensure_no_req_in_progress():
+        if not self._ensure_no_req_in_progress():
             return
 
         def wrapped_on_success(response: str) -> None:

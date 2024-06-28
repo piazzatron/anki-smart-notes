@@ -89,7 +89,8 @@ def prompt_has_error(
     return None
 
 
-def interpolate_prompt(prompt: str, note: Note):
+def interpolate_prompt(prompt: str, note: Note) -> Union[str, None]:
+    """Interpolates a prompt. Returns none if a source field is empty."""
     # Bunch of extra logic to make this whole process case insensitive
 
     # Regex to pull out any words enclosed in double curly braces
@@ -105,6 +106,8 @@ def interpolate_prompt(prompt: str, note: Note):
     # Sub values in prompt
     for field in fields:
         value = all_note_fields.get(field, "")
+        if not value:
+            return None
         prompt = prompt.replace("{{" + field + "}}", value)
 
     return prompt
