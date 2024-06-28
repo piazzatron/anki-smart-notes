@@ -21,6 +21,7 @@
 Setup the hooks for the Anki plugin
 """
 
+import logging
 from typing import List, Any, Tuple
 from aqt import (
     QAction,
@@ -265,8 +266,17 @@ def on_review(processor: Processor, card: Card):
 
 @with_sentry
 def cleanup() -> None:
-    if sentry:
-        sentry.end_session()
+    print("Shutting down loggers")
+    # Ridiculous hack to fix this sentry logger error:
+    # I don't quite understand it but the stream handler setup in sentry_sdk
+    # isn't torn down correctly.
+    #   Traceback (most recent call last):
+    #   File "logging", line 2141, in shutdown
+    #   File "logging", line 1066, in flush
+    # RuntimeError: wrapped C/C++ object of type ErrorHandler has been deleted
+
+    logger = logging.getLogger("sentry_sdk.errors")
+    logger.handlers.clear()
 
 
 @with_sentry
