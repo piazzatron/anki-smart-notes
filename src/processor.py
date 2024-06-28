@@ -31,6 +31,7 @@ from .utils import bump_usage_counter, check_for_api_key
 from .open_ai_client import OpenAIClient
 from .config import Config
 from .sentry import sentry
+from .logger import logger
 
 import asyncio
 
@@ -66,7 +67,6 @@ class Processor:
         async def async_process_single_field(
             note: Note, target_field_name: str
         ) -> None:
-            print("IN PROCESS SINGLE FIELD")
             prompt = self.config.get_prompt(note.note_type()["name"], target_field_name)  # type: ignore[index]
             prompt = interpolate_prompt(prompt, note)
             response = await self.client.async_get_chat_response(prompt)
@@ -101,7 +101,7 @@ class Processor:
         if not self.ensure_no_req_in_progress():
             return
 
-        print("Processing notes...")
+        logger.debug("Processing notes...")
 
         if not check_for_api_key(self.config):
             return
@@ -122,7 +122,7 @@ class Processor:
 
                 note_type_name = note_type["name"]
                 if note_type_name not in self.config.prompts_map.get("note_types", {}):
-                    print("Error: no prompts found for note type")
+                    logger.error("Error: no prompts found for note type")
                     has_prompts = False
             if not has_prompts:
                 raise Exception("Not all selected note types have smart fields.")
@@ -138,7 +138,7 @@ class Processor:
             failed = []
             for i, result in enumerate(results):
                 if isinstance(result, Exception):
-                    print(f"Error processing note {note_ids[i]}: {result}")
+                    logger.error(f"Error processing note {note_ids[i]}: {result}")
                     failed.append(notes[i])
                 else:
                     notes_to_update.append(notes[i])
@@ -192,11 +192,11 @@ class Processor:
 
     async def _process_note(self, note: Note, overwrite_fields=False) -> bool:
         """Process a single note, returns whether any fields were updated. Caller responsible for handling any exceptions."""
-        print(f"Processing note")
+        logger.debug(f"Processing note")
         note_type = note.note_type()
 
         if not note_type:
-            print("Error: no note type")
+            logger.error("no note type")
             return False
 
         note_type_name = note_type["name"]
@@ -205,7 +205,7 @@ class Processor:
         )
 
         if not field_prompts:
-            print("Error: no prompts found for note type")
+            logger.error("no prompts found for note type")
             return False
 
         tasks = []
@@ -214,10 +214,10 @@ class Processor:
         for field, prompt in field_prompt_items:
             # Don't overwrite fields that already exist
             if (not overwrite_fields) and note[field]:
-                print(f"Skipping field: {field}")
+                logger.debug(f"Skipping field: {field}")
                 continue
 
-            print(f"Processing field: {field}, prompt: {prompt}")
+            logger.debug(f"Processing field: {field}, prompt: {prompt}")
 
             prompt = interpolate_prompt(prompt, note)
 
@@ -229,7 +229,7 @@ class Processor:
             return False
 
         responses = await asyncio.gather(*tasks)
-        print("Responses: ", responses)
+        logger.debug("Responses: ", responses)
         for i, response in enumerate(responses):
             target_field = field_prompt_items[i][0]
             note[target_field] = response

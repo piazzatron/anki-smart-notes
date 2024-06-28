@@ -105,5 +105,4 @@ def interpolate_prompt(prompt: str, note: Note):
         value = all_note_fields.get(field, "")
         prompt = prompt.replace("{{" + field + "}}", value)
 
-    print("Processed prompt: ", prompt)
     return prompt
