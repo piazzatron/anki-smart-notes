@@ -18,10 +18,13 @@
 """
 
 import os
+from aqt import mw
 import sentry_sdk
 from sentry_sdk.session import Session
 import random
 from typing import Union, Callable, Any, Coroutine
+
+from .ui.ui_utils import show_message_box
 
 from .ui.changelog import get_version
 from .. import env
@@ -94,7 +97,7 @@ class Sentry:
             except Exception as e:
                 print(f"Sentry: capturing exception {e}")
                 self.capture_exception(e)
-                raise e
+                self._show_error_message(e)
 
         return wrapped
 
@@ -105,7 +108,7 @@ class Sentry:
             except Exception as e:
                 print(f"Sentry: capturing exception {e}")
                 self.capture_exception(e)
-                raise e
+                self._show_error_message(e)
 
         return wrapped
 
@@ -117,6 +120,14 @@ class Sentry:
         session = self._get_session()
         if session is None:
             self.hub.start_session()
+
+    def _show_error_message(self, e: Exception) -> None:
+        if not mw:
+            return
+        # Show the error message on the main thread
+        mw.taskman.run_on_main(
+            lambda: show_message_box("Smart Notes has encountered an error", str(e))
+        )
 
 
 def init_sentry() -> Union[Sentry, None]:
