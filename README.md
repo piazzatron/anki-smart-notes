@@ -109,11 +109,12 @@ Alternatively, to generate a single smart field and leave the rest of the note u
 
 ### **Generating Multiple Notes**
 
-<img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/batch.png?raw=true" height="250px" />
-
 In the notes browser, select a group of notes and then **right click > generate smart fields** to generate multiple notes with speedy batch processing (it's v fast)!
 
-_Whole deck processing soon :)_
+<img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/batch.png?raw=true" height="250px" />
+
+**Generate an entire deck** or note type by right clicking it in the browser.
+<img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/edit_deck.png?raw=true" height="250px" />
 
 </br>
 
@@ -141,7 +142,17 @@ _Smart Notes owes a debt of gratitude for inspiration to <a href="https://ankiwe
 
 </br>
 
+**Crash Reporting**
+
+Smart Notes uses <a href="https://sentry.io/">Sentry</a> as a crash reporter to help me improve the software. No personally identifying information is collected by myself or by Sentry.
+
 # Changelog
+
+## v1.2.0
+
+- Support batch processing huge decks.
+- Right click on a deck or note type in the browser and generate all notes.
+- Fix bugs.
 
 ## v1.1.0
 
