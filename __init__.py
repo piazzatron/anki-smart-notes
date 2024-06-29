@@ -17,18 +17,17 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import os
-import sys
-
-from .src.logger import logger
-from .src.utils import is_production
-
 
 def update_path() -> None:
+    import os
+    import sys
+
+    from .env import environment
 
     # Local and prod builds have different package directories
+    # Can't use `is_production` b/c utils requires dotenv to load, and this has to run before we import an deps
     relative_packages_dir = (
-        "vendor" if is_production() else "env/lib/python3.11/site-packages"
+        "vendor" if environment == "PROD" else "env/lib/python3.11/site-packages"
     )
 
     packages_dir = os.path.join(
@@ -39,9 +38,12 @@ def update_path() -> None:
 
 
 update_path()
+
 from dotenv import load_dotenv
 
 load_dotenv()
+
+from .src.logger import logger
 
 
 def setup_platform_specific_functionality() -> None:
