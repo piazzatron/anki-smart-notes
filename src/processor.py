@@ -33,11 +33,8 @@ from .sentry import sentry
 from .ui.ui_utils import show_message_box
 from .utils import bump_usage_counter, check_for_api_key, run_on_main
 
-# TODO: increase this
-LARGE_BATCH_SIZE_CUTOFF = 5
-
 # OPEN_AI rate limits
-NEW_OPEN_AI_MODEL_REQ_PER_MIN = 500  # TODO: 500
+NEW_OPEN_AI_MODEL_REQ_PER_MIN = 500
 OLD_OPEN_AI_MODEL_REQ_PER_MIN = 3500
 
 # TODO: move process single field to an existing fn
@@ -247,13 +244,13 @@ class Processor:
         print(notes_to_update)
         return (notes_to_update, failed)
 
-    # TODO: do I even need this method or can I just use the batch one?
     def process_note(
         self,
         note: Note,
         overwrite_fields: bool = False,
         on_success: Callable[[bool], None] = lambda _: None,
         on_failure: Union[Callable[[Exception], None], None] = None,
+        target_fields: List[str] = [],
     ):
         """Process a single note, filling in fields with prompts from the user"""
         if not self._ensure_no_req_in_progress():
@@ -272,13 +269,17 @@ class Processor:
         # NOTE: for some reason i can't run bump_usage_counter in this hook without causing a
         # an PyQT crash, so I'm running it in the on_success callback instead
         run_async_in_background(
-            lambda: self._process_note(note, overwrite_fields=overwrite_fields),
+            lambda: self._process_note(
+                note, overwrite_fields=overwrite_fields, target_fields=target_fields
+            ),
             wrapped_on_success,
             wrapped_failure,
         )
 
-    async def _process_note(self, note: Note, overwrite_fields=False) -> bool:
-        """Process a single note, returns whether any fields were updated. Caller responsible for handling any exceptions."""
+    async def _process_note(
+        self, note: Note, overwrite_fields: bool = False, target_fields: List[str] = []
+    ) -> bool:
+        """Process a single note, returns whether any fields were updated. Optionally can target specific fields.Caller responsible for handling any exceptions."""
         logger.debug(f"Processing note")
         note_type = note.note_type()
 
@@ -298,6 +299,13 @@ class Processor:
         tasks = []
 
         field_prompt_items = list(field_prompts["fields"].items())
+
+        # If targetting specific fields, filter out the ones we don't want
+        if target_fields:
+            field_prompt_items = [
+                item for item in field_prompt_items if item[0] in target_fields
+            ]
+
         for field, prompt in field_prompt_items:
             # Don't overwrite fields that already exist
             if (not overwrite_fields) and note[field]:

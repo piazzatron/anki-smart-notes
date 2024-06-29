@@ -79,7 +79,7 @@ def load_file(file: str) -> str:
     return content
 
 
-def run_on_main(work: Callable):
+def run_on_main(work: Callable[[], None]):
     if not mw:
         return
     mw.taskman.run_on_main(work)
