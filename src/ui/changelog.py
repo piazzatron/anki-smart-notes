@@ -25,7 +25,6 @@ from aqt import QDialog, QDialogButtonBox, QFont, QLabel, QVBoxLayout
 from ..config import config
 from ..logger import logger
 from ..utils import load_file
-from .ui_utils import show_message_box
 
 
 def get_version() -> str:
@@ -79,6 +78,7 @@ def perform_update_check() -> None:
             f"current version: {current_version}, prior version: {prior_version}, is first use: {is_first_use}"
         )
 
+        # Have to keep this crap around forever because v1 didn't have last_seen_version
         # Only show a dialog if (the major or minor has changed OR it's possibly an upgrade to v1.1.0) and it's not the first use
         if (
             not prior_version
@@ -118,13 +118,18 @@ class ChangeLogDialog(QDialog):
         self.setWindowTitle(f"Smart Notes Changelog")
 
         layout.addWidget(header)
-        layout.addWidget(
-            QLabel("We've added shiny new features since you were last here.")
+        cta = QLabel(
+            '<a href="https://ankiweb.net/shared/info/1531888719">Help others find Smart Notes by rating it on AnkiWeb<👍a👍>'
         )
+        cta.setFont(bold_font)
+        cta.setOpenExternalLinks(True)
+        layout.addWidget(cta)
         layout.addWidget(QLabel(""))
 
         for i, (version, changes) in enumerate(change_log):
-            if version == self.prior_version:
+            if self.prior_version and not is_new_major_or_minor_version(
+                version, self.prior_version
+            ):
                 break
             version_label = QLabel(f"New in Version {version}:")
             version_label.setFont(bold_font)
@@ -134,16 +139,6 @@ class ChangeLogDialog(QDialog):
             layout.addWidget(version_label)
             for change in changes:
                 layout.addWidget(QLabel(f"• {change}"))
-
-        cta = QLabel(
-            'Thanks for using this add-on! <a href="https://ankiweb.net/shared/info/1531888719">Help others find Smart Notes by rating it on AnkiWeb! 🌟</a>'
-        )
-        cta.setFont(bold_font)
-        cta.setOpenExternalLinks(True)
-
-        layout.addWidget(QLabel(""))
-        layout.addWidget(cta)
-        layout.addWidget(QLabel(""))
 
         # Add standard OK button
         standard_buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok)
