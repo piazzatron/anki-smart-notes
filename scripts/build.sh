@@ -91,6 +91,13 @@ test-build () {
   anki
 }
 
+sentry-release () {
+  # Write some jq
+  version=$(jq '.human_version' manifest.json)
+  echo $version
+  # sentry-cli releases --org michael-piazza new --finalize ${version}
+}
+
 if [ "$1" == "build" ]; then
   build
 elif [ "$1" == "clean" ]; then
@@ -99,6 +106,8 @@ elif [ "$1" == "test-dev" ]; then
   test-dev
 elif [ "$1" == "test-build" ]; then
   test-build
+elif [ "$1" == "sentry-release" ]; then
+  sentry-release
 else
   echo "Invalid argument: $1"
 fi
