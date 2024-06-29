@@ -364,9 +364,7 @@ class Processor:
 
     def _ensure_no_req_in_progress(self) -> bool:
         if self.req_in_progress:
-            show_message_box(
-                "A request is already in progress. Please wait for the prior request to finish before creating a new one."
-            )
+            logger.info("A request is already in progress.")
             return False
 
         self.req_in_progress = True
