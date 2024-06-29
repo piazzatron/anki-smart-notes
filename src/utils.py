@@ -86,4 +86,4 @@ def run_on_main(work: Callable[[], None]):
 
 
 def is_production() -> bool:
-    return environment == "production"
+    return environment == "PROD"
