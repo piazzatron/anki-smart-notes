@@ -349,15 +349,16 @@ class Processor:
         return True
 
     def _handle_failure(self, e: Exception) -> None:
+
+        failure_map = {
+            401: "Smart Notes Error: OpenAI returned 401, meaning there's an issue with your API key.",
+            404: "Smart Notes Error: OpenAI returned 404 - did you pay for an API key? Paying for ChatGPT premium alone will not work (this is an OpenAI limitation).",
+            429: "Smart Notes error: OpenAI rate limit exceeded. Ensure you have a paid API key (this plugin will not work with free API tier). Wait a few minutes and try again.",
+        }
+
         if isinstance(e, aiohttp.ClientResponseError):
-            if e.status == 401:
-                show_message_box(
-                    "Smart Notes Error: OpenAI returned 401, meaning there's an issue with your API key."
-                )
-            elif e.status == 429:
-                show_message_box(
-                    "Smart Notes error: OpenAI rate limit exceeded. Ensure you have a paid API key (this plugin will not work with free API tier). Wait a few minutes and try again."
-                )
+            if e.status in failure_map:
+                show_message_box(failure_map[e.status])
             else:
                 show_message_box(f"Smart Notes Error: Unknown error from OpenAI - {e}")
 
