@@ -20,18 +20,18 @@
 import logging
 import sys
 
-from .. import env
+from .utils import is_production
 
 
 def _setup_logger() -> logging.Logger:
     logger = logging.getLogger("smart_notes")
 
-    if env.environment == "DEV":
-        logger.setLevel(logging.DEBUG)
-        logger.debug("Running in development environment")
-    else:
+    if is_production():
         logger.setLevel(logging.ERROR)
         logger.debug("Running in production environment")
+    else:
+        logger.setLevel(logging.DEBUG)
+        logger.debug("Running in development environment")
 
     formatter = logging.Formatter("%(name)s/%(filename)s: [%(levelname)s] %(message)s")
     stream_handler = logging.StreamHandler(sys.stdout)

@@ -18,12 +18,12 @@
 """
 
 import os
-from typing import Any, Dict
+from typing import Any, Callable, Dict
 
 from aqt import mw
 
+from ..env import environment
 from .config import config
-from .logger import logger
 from .ui.rate_dialog import RateDialog
 from .ui.ui_utils import show_message_box
 
@@ -73,8 +73,17 @@ def load_file(file: str) -> str:
     module = __name__.split(".")[0]
     file_path = os.path.join(path, module, file)
 
-    logger.debug(f"Loading from: {file_path}")
     with open(file_path, "r") as f:
         content = f.read()
 
     return content
+
+
+def run_on_main(work: Callable[[], None]):
+    if not mw:
+        return
+    mw.taskman.run_on_main(work)
+
+
+def is_production() -> bool:
+    return environment == "production"

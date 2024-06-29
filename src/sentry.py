@@ -32,6 +32,7 @@ from .config import config
 from .logger import logger
 from .ui.changelog import get_version
 from .ui.ui_utils import show_message_box
+from .utils import is_production
 
 dsn = os.getenv("SENTRY_DSN")
 
@@ -58,7 +59,7 @@ class Sentry:
             dsn=dsn,
             release=release,
             default_integrations=False,
-            environment="development" if env == "DEV" else "production",
+            environment="production" if is_production() else "development",
             integrations=[LoggingIntegration(level=logging.DEBUG)],
         )
         hub = sentry_sdk.Hub(client)
@@ -99,9 +100,13 @@ class Sentry:
             try:
                 return await fn(*args, **kwargs)
             except Exception as e:
-                logger.debug(f"Sentry: capturing exception {e}")
-                self.capture_exception(e)
-                self._show_error_message(e)
+                if is_production():
+                    logger.debug(f"Sentry: capturing exception {e}")
+
+                    self.capture_exception(e)
+                    self._show_error_message(e)
+                else:
+                    raise e
 
         return wrapped
 
@@ -110,9 +115,12 @@ class Sentry:
             try:
                 return fn(*args, **kwargs)
             except Exception as e:
-                logger.debug(f"Sentry: capturing exception {e}")
-                self.capture_exception(e)
-                self._show_error_message(e)
+                if is_production():
+                    logger.debug(f"Sentry: capturing exception {e}")
+                    self.capture_exception(e)
+                    self._show_error_message(e)
+                else:
+                    raise e
 
         return wrapped
 

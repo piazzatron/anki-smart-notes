@@ -17,9 +17,15 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import asyncio
+
 import aiohttp
 
 from .config import Config
+from .logger import logger
+
+RETRY_BASE_SECONDS = 5
+MAX_RETRIES = 5
 
 
 class OpenAIClient:
@@ -28,7 +34,7 @@ class OpenAIClient:
     def __init__(self, config: Config):
         self.config = config
 
-    async def async_get_chat_response(self, prompt: str) -> str:
+    async def async_get_chat_response(self, prompt: str, retry_count=0) -> str:
         """Gets a chat response from OpenAI's chat API. This method can throw; the caller should handle with care."""
         async with aiohttp.ClientSession() as session:
             async with session.post(
@@ -41,6 +47,19 @@ class OpenAIClient:
                     "messages": [{"role": "user", "content": prompt}],
                 },
             ) as response:
+                if response.status == 429:
+                    logger.debug("Got a 429 from OpenAI")
+                    if retry_count < MAX_RETRIES:
+                        wait_time = (2**retry_count) * RETRY_BASE_SECONDS
+                        logger.debug(
+                            f"Retry: {retry_count} Waiting {wait_time} seconds before retrying"
+                        )
+                        await asyncio.sleep(wait_time)
+
+                        return await self.async_get_chat_response(
+                            prompt, retry_count + 1
+                        )
+
                 response.raise_for_status()
                 resp = await response.json()
                 msg: str = resp["choices"][0]["message"]["content"]

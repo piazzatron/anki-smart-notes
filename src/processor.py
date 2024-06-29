@@ -31,26 +31,17 @@ from .open_ai_client import OpenAIClient
 from .prompts import interpolate_prompt
 from .sentry import sentry
 from .ui.ui_utils import show_message_box
-from .utils import bump_usage_counter, check_for_api_key
+from .utils import bump_usage_counter, check_for_api_key, run_on_main
+
+# OPEN_AI rate limits
+NEW_OPEN_AI_MODEL_REQ_PER_MIN = 500
+OLD_OPEN_AI_MODEL_REQ_PER_MIN = 3500
 
 
 class Processor:
     def __init__(self, client: OpenAIClient, config: Config):
         self.client = client
         self.config = config
-        self.req_in_progress = False
-
-    def _ensure_no_req_in_progress(self) -> bool:
-        if self.req_in_progress:
-            show_message_box(
-                "A request is already in progress. Please wait for the prior request to finish before creating a new one."
-            )
-            return False
-
-        self.req_in_progress = True
-        return True
-
-    def _reqlinquish_req_in_progress(self) -> None:
         self.req_in_progress = False
 
     def process_single_field(
@@ -96,6 +87,9 @@ class Processor:
     ) -> None:
         """Processes notes in the background with a progress bar, batching into a single undo op"""
 
+        if not mw:
+            return
+
         bump_usage_counter()
 
         if not self._ensure_no_req_in_progress():
@@ -106,47 +100,10 @@ class Processor:
         if not check_for_api_key(self.config):
             return
 
-        if not mw:
-            return
-
-        async def wrapped_process_notes() -> Tuple[List[Note], List[Note]]:
-            notes = [mw.col.get_note(note_id) for note_id in note_ids]
-
-            # Sanity check that we actually have prompts for these note types
-            has_prompts = True
-            for note in notes:
-                note_type = note.note_type()
-                if not note_type:
-                    # Should never happen
-                    raise Exception("Error: no note type")
-
-                note_type_name = note_type["name"]
-                if note_type_name not in self.config.prompts_map.get("note_types", {}):
-                    logger.error("Error: no prompts found for note type")
-                    has_prompts = False
-            if not has_prompts:
-                raise Exception("Not all selected note types have smart fields.")
-
-            # Run them all in parallel
-            tasks = []
-            for note in notes:
-                tasks.append(self._process_note(note))
-            results = await asyncio.gather(*tasks, return_exceptions=True)
-
-            # Process errors
-            notes_to_update = []
-            failed = []
-            for i, result in enumerate(results):
-                if isinstance(result, Exception):
-                    logger.error(f"Error processing note {note_ids[i]}: {result}")
-                    failed.append(notes[i])
-                else:
-                    notes_to_update.append(notes[i])
-
-            return (notes_to_update, failed)
-
         def wrapped_on_success(res: Tuple[List[Note], List[Note]]) -> None:
             updated, failed = res
+            if not mw:
+                return
             mw.col.update_notes(updated)
             self._reqlinquish_req_in_progress()
             if on_success:
@@ -156,17 +113,150 @@ class Processor:
             self._reqlinquish_req_in_progress()
             show_message_box(f"Error: {e}")
 
+        model = self.config.openai_model
+        limit = (
+            OLD_OPEN_AI_MODEL_REQ_PER_MIN
+            if model == "gpt-3.5-turbo"
+            else NEW_OPEN_AI_MODEL_REQ_PER_MIN
+        )
+        is_large_batch = len(note_ids) >= limit
+        logger.debug(f"Rate limit: {limit}")
+
+        # Only show fancy progress meter for large batches
+        if is_large_batch:
+            mw.progress.start(
+                label=f"(0/{len(note_ids)})...",
+                min=0,
+                max=len(note_ids),
+                immediate=True,
+            )
+
+        def on_update(
+            updated: List[Note], processed_count: int, finished: bool
+        ) -> None:
+            if not mw:
+                return
+
+            mw.col.update_notes(updated)
+
+            if is_large_batch:
+                if not finished:
+                    mw.progress.update(
+                        label=f"({processed_count}/{len(note_ids)})... waiting 60s for rate limit.",
+                        value=processed_count,
+                        max=len(note_ids),
+                    )
+                else:
+                    mw.progress.finish()
+
+        async def op():
+            total_updated = []
+            total_failed = []
+            to_process_ids = note_ids[:]
+
+            # Manually track processed count since sometimes we may
+            # process a note without actually calling OpenAI
+            processed_count = 0
+
+            while len(to_process_ids) > 0:
+                logger.debug("Processing batch...")
+                batch = to_process_ids[:limit]
+                to_process_ids = to_process_ids[limit:]
+                updated, failed, skipped = await self._process_notes_batch(batch)
+
+                processed_count += len(updated) + len(failed)
+
+                total_updated.extend(updated)
+                total_updated.extend(skipped)
+                total_failed.extend(failed)
+
+                # Update the notes in the main thread
+                run_on_main(
+                    lambda: on_update(
+                        updated,
+                        len(total_updated) + len(total_failed),
+                        len(to_process_ids) == 0,
+                    )
+                )
+
+                if not to_process_ids:
+                    break
+
+                if (
+                    processed_count >= limit - 5
+                ):  # Make it a little fuzzy in case we've used some reqs already
+                    logger.debug("Sleeping for 60s until next batch")
+                    processed_count = 0
+                    await asyncio.sleep(60)
+
+            return total_updated, total_failed
+
         run_async_in_background(
-            wrapped_process_notes, wrapped_on_success, on_failure, with_progress=True
+            op, wrapped_on_success, on_failure, with_progress=(not is_large_batch)
         )
 
-    # TODO: do I even need this method or can I just use the batch one?
+    async def _process_notes_batch(
+        self, note_ids: Sequence[NoteId]
+    ) -> Tuple[List[Note], List[Note], List[Note]]:
+        """Returns updated, failed, skipped notes"""
+        logger.debug(f"Processing {len(note_ids)} notes...")
+        if not mw:
+            logger.error("No mw!")
+            return ([], [], [])
+
+        notes = [mw.col.get_note(note_id) for note_id in note_ids]
+
+        # Only process notes that have prompts
+        to_process = []
+        skipped = []
+        for note in notes:
+            note_type = note.note_type()
+            if not note_type:
+                # Should never happen
+                raise Exception("Error: no note type")
+
+            note_type_name = note_type["name"]
+            if note_type_name not in self.config.prompts_map.get("note_types", {}):
+                logger.debug("Error: no prompts found for note type")
+                skipped.append(note)
+            else:
+                to_process.append(note)
+        if not to_process:
+            logger.debug("No notes to process")
+            return ([], [], [])
+
+        # Run them all in parallel
+        tasks = []
+        for note in to_process:
+            tasks.append(self._process_note(note))
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+
+        # Process errors
+        notes_to_update = []
+        failed = []
+        for i, result in enumerate(results):
+            note = to_process[i]
+            if isinstance(result, Exception):
+                logger.error(f"Error processing note {note_ids[i]}: {result}")
+                failed.append(note)
+            elif result:
+                notes_to_update.append(note)
+            else:
+                skipped.append(note)
+
+        logger.debug(
+            f"Updated: {len(notes_to_update)}, Failed: {len(failed)}, Skipped: {len(skipped)}"
+        )
+
+        return (notes_to_update, failed, skipped)
+
     def process_note(
         self,
         note: Note,
         overwrite_fields: bool = False,
         on_success: Callable[[bool], None] = lambda _: None,
         on_failure: Union[Callable[[Exception], None], None] = None,
+        target_fields: List[str] = [],
     ):
         """Process a single note, filling in fields with prompts from the user"""
         if not self._ensure_no_req_in_progress():
@@ -185,14 +275,18 @@ class Processor:
         # NOTE: for some reason i can't run bump_usage_counter in this hook without causing a
         # an PyQT crash, so I'm running it in the on_success callback instead
         run_async_in_background(
-            lambda: self._process_note(note, overwrite_fields=overwrite_fields),
+            lambda: self._process_note(
+                note, overwrite_fields=overwrite_fields, target_fields=target_fields
+            ),
             wrapped_on_success,
             wrapped_failure,
         )
 
-    async def _process_note(self, note: Note, overwrite_fields=False) -> bool:
-        """Process a single note, returns whether any fields were updated. Caller responsible for handling any exceptions."""
-        logger.debug(f"Processing note")
+    async def _process_note(
+        self, note: Note, overwrite_fields: bool = False, target_fields: List[str] = []
+    ) -> bool:
+        """Process a single note, returns whether any fields were updated. Optionally can target specific fields. Caller responsible for handling any exceptions."""
+        # logger.debug(f"Processing note")
         note_type = note.note_type()
 
         if not note_type:
@@ -211,30 +305,45 @@ class Processor:
         tasks = []
 
         field_prompt_items = list(field_prompts["fields"].items())
+
+        # If targetting specific fields, filter out the ones we don't want
+        if target_fields:
+            field_prompt_items = [
+                item for item in field_prompt_items if item[0] in target_fields
+            ]
+
         for field, prompt in field_prompt_items:
             # Don't overwrite fields that already exist
             if (not overwrite_fields) and note[field]:
-                logger.debug(f"Skipping already generated field: {field}")
+                # logger.debug(f"Skipping already generated field: {field}")
                 continue
 
-            logger.debug(f"Processing field: {field}, prompt: {prompt}")
+            # logger.debug(f"Processing field: {field}, prompt: {prompt}")
 
             interpolated_prompt = interpolate_prompt(prompt, note)
             if not interpolated_prompt:
-                logger.debug(f"Skipping empty prompt for field: {field}")
+                # logger.debug(f"Skipping empty prompt for field: {field}")
                 continue
 
-            task = self.client.async_get_chat_response(interpolated_prompt)
-            tasks.append(task)
+            # Need to return both the chat response + the target field, since we're skiping
+            # fields potentially here. Default arg to avoid stale closure
+            async def get_response(
+                field=field, interpolated_prompt=interpolated_prompt
+            ) -> Tuple[str, str]:
+                response = await self.client.async_get_chat_response(
+                    interpolated_prompt
+                )
+                return (field, response)
+
+            tasks.append(get_response())
 
         # Maybe filled out already, if so return early
         if not tasks:
             return False
 
         responses = await asyncio.gather(*tasks)
-        logger.debug(f"Responses {responses}")
-        for i, response in enumerate(responses):
-            target_field = field_prompt_items[i][0]
+        # logger.debug(f"Responses {responses}")
+        for target_field, response in responses:
             note[target_field] = response
 
         return True
@@ -251,6 +360,19 @@ class Processor:
                 )
             else:
                 show_message_box(f"Smart Notes Error: Unknown error from OpenAI - {e}")
+
+    def _ensure_no_req_in_progress(self) -> bool:
+        if self.req_in_progress:
+            show_message_box(
+                "A request is already in progress. Please wait for the prior request to finish before creating a new one."
+            )
+            return False
+
+        self.req_in_progress = True
+        return True
+
+    def _reqlinquish_req_in_progress(self) -> None:
+        self.req_in_progress = False
 
     def get_chat_response(
         self,

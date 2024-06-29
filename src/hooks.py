@@ -23,11 +23,12 @@ Setup the hooks for the Anki plugin
 
 
 import logging
-from typing import List
+from typing import List, Sequence
 
 from anki.cards import Card
-from anki.notes import Note
+from anki.notes import Note, NoteId
 from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
+from aqt.browser import SidebarItemType  # type: ignore
 
 from .config import config
 from .logger import logger
@@ -142,32 +143,29 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
     buttons.append(button)
 
 
+def on_batch_success(updated: List[Note], errors: List[Note]) -> None:
+    if not len(updated) and len(errors):
+        show_message_box("All notes failed. Most likely hit OpenAI rate limit.")
+    elif len(errors):
+        show_message_box(
+            f"Processed {len(updated)} notes successfully. {len(errors)} notes failed. Most likely hit a rate limit."
+        )
+    else:
+        show_message_box(f"Processed {len(updated)} notes successfully.")
+
+
 @with_processor  # type: ignore
 def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMenu):  # type: ignore
     item = QAction("✨ Generate Smart Fields", menu)
-
-    # TODO: for some reason this isn't working to trigger the shortcut :(
-    # item.setShortcut("Ctrl+Shift+G")
-    # item.setShortcutVisibleInContextMenu(True)
-
     menu.addSeparator()
     menu.addAction(item)
 
-    # TODO: should show # succeess and failed
     notes = browser.selected_notes()
 
-    def on_success(updated: List[Note], errors: List[Note]) -> None:
-        if not len(updated) and len(errors):
-            show_message_box("All notes failed. Most likely hit OpenAI rate limit.")
-        elif len(errors):
-            show_message_box(
-                f"Processed {len(updated)} notes successfully. {len(errors)} notes failed. Most likely hit a rate limit."
-            )
-        else:
-            show_message_box(f"Processed {len(updated)} notes successfully.")
-
     item.triggered.connect(
-        lambda: processor.process_notes_with_progress(notes, on_success)
+        lambda: processor.process_notes_with_progress(
+            notes, on_success=on_batch_success
+        )
     )
 
 
@@ -206,8 +204,14 @@ def on_editor_context(
     if not ai_field:
         return
     item = QAction("✨ Generate Smart Field", menu)
+
+    def on_success(_: bool):
+        editor.loadNote()
+
     item.triggered.connect(
-        lambda: processor.process_single_field(note, ai_field, editor)
+        lambda: processor.process_note(
+            note, overwrite_fields=True, target_fields=[ai_field], on_success=on_success
+        )
     )
     menu.addAction(item)
 
@@ -244,6 +248,36 @@ def on_review(processor: Processor, card: Card):
     processor.process_note(note, overwrite_fields=False, on_success=on_success)
 
 
+@with_processor  # type: ignore
+def add_deck_option(
+    processor: Processor,
+    tree_view,
+    menu: QMenu,
+    sidebar_item: browser.SidebarItem,
+    model_index,
+) -> None:
+    if not mw:
+        return
+    notes: Sequence[NoteId] = []
+
+    if sidebar_item.item_type == SidebarItemType.NOTETYPE:
+        notes = mw.col.find_notes(f'"note:{sidebar_item.name}"')
+    elif sidebar_item.item_type in [SidebarItemType.DECK, SidebarItemType.DECK_CURRENT]:
+        notes = mw.col.find_notes(f'"deck:{sidebar_item.name}"')
+    else:
+        return
+
+    item = QAction("✨ Generate Smart Fields", menu)
+    menu.addSeparator()
+    menu.addAction(item)
+
+    item.triggered.connect(
+        lambda: processor.process_notes_with_progress(
+            notes, on_success=on_batch_success
+        )
+    )
+
+
 @with_sentry
 def cleanup() -> None:
     logger.debug("Shutting down loggers")
@@ -263,6 +297,7 @@ def cleanup() -> None:
 @with_sentry
 def setup_hooks(processor: Processor):
     gui_hooks.browser_will_show_context_menu.append(on_browser_context(processor))
+    gui_hooks.browser_sidebar_will_show_context_menu.append(add_deck_option(processor))
     gui_hooks.editor_did_init_buttons.append(add_editor_top_button(processor))
     gui_hooks.editor_will_show_context_menu.append(on_editor_context(processor))
     gui_hooks.reviewer_did_show_question.append(on_review(processor))

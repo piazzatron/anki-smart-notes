@@ -20,7 +20,7 @@
 """Helpful functions for working with prompts and cards"""
 
 import re
-from typing import Any, Dict, Union
+from typing import Dict, Union
 
 from anki.notes import Note
 
@@ -36,7 +36,7 @@ def get_prompts() -> Dict[str, Dict[str, str]]:
     }
 
 
-def is_ai_field(current_field_num: int, note: Note) -> Union[Any, None]:
+def is_ai_field(current_field_num: int, note: Note) -> Union[str, None]:
     """Helper to determine if the current field is an AI field. Returns the non-lowercased field name if it is."""
     if not note:
         return None
