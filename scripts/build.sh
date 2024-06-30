@@ -55,7 +55,7 @@ build () {
 
   # Zip it
   cd dist
-  zip -r smart-notes.ankiaddon *
+  zip -9 -r smart-notes.ankiaddon .
   cd ..
 }
 
@@ -99,6 +99,7 @@ sentry-release () {
 }
 
 if [ "$1" == "build" ]; then
+  clean
   build
 elif [ "$1" == "clean" ]; then
   clean
