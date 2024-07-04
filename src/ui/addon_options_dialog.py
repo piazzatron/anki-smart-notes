@@ -109,6 +109,9 @@ class AddonOptionsDialog(QDialog):
         self.api_key_edit.setSizePolicy(
             QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred
         )
+        self.api_key_edit.textChanged.connect(
+            lambda text: self.set_state({"openai_api_key": text})
+        )
 
         # Select model
         self.models_combo_box = QComboBox()
@@ -340,7 +343,7 @@ class AddonOptionsDialog(QDialog):
         self.set_state({"prompts_map": prompts_map, "selected_row": None})
 
     def on_accept(self) -> None:
-        self.config.openai_api_key = self.api_key_edit.text()
+        self.config.openai_api_key = self.state["openai_api_key"]
         self.config.prompts_map = self.state["prompts_map"]
         self.config.openai_model = self.state["openai_model"]
         self.config.generate_at_review = self.state["generate_at_review"]

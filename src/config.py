@@ -36,7 +36,7 @@ OpenAIModels = Literal["gpt-3.5-turbo", "gpt-4o", "gpt-4-turbo", "gpt-4"]
 class Config:
     """Fancy config class that uses the Anki addon manager to store config values."""
 
-    openai_api_key: str
+    openai_api_key: Union[str, None]
     prompts_map: PromptMap
     openai_model: OpenAIModels
     generate_at_review: bool
