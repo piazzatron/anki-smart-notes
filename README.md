@@ -93,14 +93,16 @@ Note that you can turn automatic generation off in _Smart Notes > Advanced_.
 
 ### **Generate when adding or editing cards**
 
-Smart fields can also be generated prior to review. To (re)generate all smart fields on a note, press `ctrl+shift+g` (on Mac: `cmd+shift+g`) or click the ✨ button in the editor:
+Smart fields can also be generated prior to review. To generate all smart fields on a note, press `ctrl+shift+g` (on Mac: `cmd+shift+g`) or click the ✨ button in the editor:
 
 <img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/editor_button.png?raw=true" height="200px" />
 
+Clicking ✨ a single time will generate only empty smart fields. Click it a second time to regenerate the entire note.
+
 </br>
 </br>
 
-Alternatively, to generate a single smart field and leave the rest of the note untouched, right click an individual field in the editor and click "Generate Smart Field":
+Alternatively, to (re)generate just a single smart field, right click an individual field in the editor and click "Generate Smart Field":
 
 <img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/per_field.png?raw=true" height="300px" />
 
@@ -147,6 +149,12 @@ _Smart Notes owes a debt of gratitude for inspiration to <a href="https://ankiwe
 Smart Notes uses <a href="https://sentry.io/">Sentry</a> as a crash reporter to help me improve the software. No personally identifying information is collected by myself or by Sentry.
 
 # Changelog
+
+## v1.3.0
+
+- Improved regenerating smart field behavior:
+- 1. For partially filled notes, the editor ✨ button will now only generate empty fields. Click ✨ a second time to regenerate the card from scratch.
+- 2. Batch processing will now only generate empty fields by default. Configurable via Settings -> Advanced to regenerate the entire note.
 
 ## v1.2.0
 
