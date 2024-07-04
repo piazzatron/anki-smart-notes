@@ -45,9 +45,7 @@ def get_fields(note_type: str) -> List[str]:
     if not model:
         return []
 
-    return [
-        field["name"] for field in sorted(model["flds"], key=lambda x: x["ord"])  # type: ignore[index]
-    ]
+    return [field["name"] for field in sorted(model["flds"], key=lambda x: x["ord"])]
 
 
 def check_for_api_key(show_box=True) -> bool:

@@ -29,7 +29,7 @@ from .config import Config
 from .logger import logger
 from .notes import get_note_type
 from .open_ai_client import OpenAIClient
-from .prompts import interpolate_prompt
+from .prompts import get_prompts, interpolate_prompt
 from .sentry import sentry
 from .ui.ui_utils import show_message_box
 from .utils import bump_usage_counter, check_for_api_key, run_on_main
@@ -57,7 +57,10 @@ class Processor:
         async def async_process_single_field(
             note: Note, target_field_name: str
         ) -> None:
-            prompt = self.config.get_prompt(get_note_type(note), target_field_name)
+            prompt = get_prompts().get(get_note_type(note), {}).get(target_field_name)
+            if not prompt:
+                return
+
             prompt = interpolate_prompt(prompt, note)
             if not prompt:
                 return
@@ -209,6 +212,7 @@ class Processor:
             return ([], [], [])
 
         notes = [mw.col.get_note(note_id) for note_id in note_ids]
+        prompts = get_prompts()
 
         # Only process notes that have prompts
         to_process = []
@@ -216,7 +220,7 @@ class Processor:
         for note in notes:
 
             note_type = get_note_type(note)
-            if note_type not in self.config.prompts_map.get("note_types", {}):
+            if note_type not in prompts:
                 logger.debug("Error: no prompts found for note type")
                 skipped.append(note)
             else:
@@ -291,9 +295,7 @@ class Processor:
         """Process a single note, returns whether any fields were updated. Optionally can target specific fields. Caller responsible for handling any exceptions."""
 
         note_type = get_note_type(note)
-        field_prompts = self.config.prompts_map.get("note_types", {}).get(
-            note_type, None
-        )
+        field_prompts = get_prompts().get(note_type, None)
 
         if not field_prompts:
             logger.error("no prompts found for note type")
@@ -301,7 +303,7 @@ class Processor:
 
         tasks = []
 
-        field_prompt_items = list(field_prompts["fields"].items())
+        field_prompt_items = list(field_prompts.items())
 
         # If targetting specific fields, filter out the ones we don't want
         if target_fields:

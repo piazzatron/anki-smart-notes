@@ -66,14 +66,6 @@ class Config:
         old_config[name] = value
         mw.addonManager.writeConfig(__name__, old_config)
 
-    def get_prompt(self, note_type: str, field: str):
-        return (
-            self.prompts_map.get("note_types", {})
-            .get(note_type, {"fields": {}})
-            .get("fields", {})
-            .get(field, None)
-        )
-
     def restore_defaults(self) -> None:
         defaults = self._defaults()
         if not defaults:
