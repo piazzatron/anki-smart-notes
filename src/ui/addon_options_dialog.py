@@ -214,7 +214,7 @@ class AddonOptionsDialog(QDialog):
         # Add spacer row
         tab2_layout.addRow("", QLabel(""))
         tab2_layout.addRow(
-            "Regenerate smart fields when batch processing:",
+            "Regenerate all smart fields when batch processing:",
             self.regenerate_when_batching,
         )
         regenerate_info = QLabel(
