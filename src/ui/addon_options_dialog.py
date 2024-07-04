@@ -40,7 +40,7 @@ from aqt import (
 )
 from PyQt6.QtCore import Qt
 
-from ..config import Config, OpenAIModels, PromptMap
+from ..config import OpenAIModels, PromptMap, config
 from ..logger import logger
 from ..processor import Processor
 from .prompt_dialog import PromptDialog
@@ -56,6 +56,17 @@ class State(TypedDict):
     openai_model: OpenAIModels
     selected_row: Union[int, None]
     generate_at_review: bool
+    regenerate_when_batching: bool
+
+
+initial_state: State = {
+    "openai_api_key": config.openai_api_key,
+    "prompts_map": config.prompts_map,
+    "openai_model": config.openai_model,
+    "selected_row": None,
+    "generate_at_review": config.generate_at_review,
+    "regenerate_when_batching": config.regenerate_notes_when_batching,
+}
 
 
 class AddonOptionsDialog(QDialog):
@@ -67,18 +78,10 @@ class AddonOptionsDialog(QDialog):
     edit_button: QPushButton
     state: State
 
-    def __init__(self, config: Config, processor: Processor):
+    def __init__(self, processor: Processor):
         super().__init__()
         self.processor = processor
-        self.config = config
-
-        self.state = {
-            "openai_api_key": config.openai_api_key,
-            "prompts_map": config.prompts_map,
-            "openai_model": config.openai_model,
-            "selected_row": None,
-            "generate_at_review": config.generate_at_review,
-        }
+        self.state = self.make_initial_state()
 
         self.setup_ui()
 
@@ -98,10 +101,10 @@ class AddonOptionsDialog(QDialog):
         get_api_key_label = QLabel(
             "An API key is required. Free tier use is limited to three requests per minute. <a href='https://platform.openai.com/account/api-keys/'>Get an API key.</a>"
         )
-        font = get_api_key_label.font()
-        font.setPointSize(10)
+        font_small = get_api_key_label.font()
+        font_small.setPointSize(10)
         get_api_key_label.setOpenExternalLinks(True)
-        get_api_key_label.setFont(font)
+        get_api_key_label.setFont(font_small)
 
         self.api_key_edit = QLineEdit()
         self.api_key_edit.setPlaceholderText("sk-proj-1234...")
@@ -164,7 +167,7 @@ class AddonOptionsDialog(QDialog):
         explanation = QLabel(
             "Automatically generate fields per note type. Reference any existing field in your prompt with {{double curly braces}}."
         )
-        explanation.setFont(font)
+        explanation.setFont(font_small)
         layout = QVBoxLayout()
         layout.addWidget(group_box)
         layout.addSpacing(24)
@@ -184,7 +187,7 @@ class AddonOptionsDialog(QDialog):
             'Newer models (GPT-4o, etc) will perform better with lower rate limits and higher cost. <a href="https://platform.openai.com/docs/models/">Learn more.</a>'
         )
         learn_more_about_models.setOpenExternalLinks(True)
-        learn_more_about_models.setFont(font)
+        learn_more_about_models.setFont(font_small)
         tab2 = QWidget()
         tab2_layout = QFormLayout()
         tab2_layout.setLabelAlignment(Qt.AlignmentFlag.AlignLeft)
@@ -194,15 +197,31 @@ class AddonOptionsDialog(QDialog):
         # Add spacer row
         tab2_layout.addRow("", QLabel(""))
 
+        # Generate at review
         self.generate_at_review_button = QCheckBox()
-
-        def set_generate_at_review(checked: int):
-            self.set_state({"generate_at_review": checked == 2})
-
-        self.generate_at_review_button.stateChanged.connect(set_generate_at_review)
+        self.generate_at_review_button.stateChanged.connect(
+            lambda checked: self.set_state({"generate_at_review": checked == 2})
+        )
         tab2_layout.addRow(
             "Auto-generate fields at review time:", self.generate_at_review_button
         )
+
+        # Regenerate when during
+        self.regenerate_when_batching = QCheckBox()
+        self.regenerate_when_batching.stateChanged.connect(
+            lambda checked: self.set_state({"regenerate_when_batching": checked == 2})
+        )
+        # Add spacer row
+        tab2_layout.addRow("", QLabel(""))
+        tab2_layout.addRow(
+            "Regenerate smart fields when batch processing:",
+            self.regenerate_when_batching,
+        )
+        regenerate_info = QLabel(
+            "When batch processing a group of notes, whether to regenerate all smart fields from scratch, or only generate empty ones."
+        )
+        regenerate_info.setFont(font_small)
+        tab2_layout.addRow(regenerate_info)
 
         tab2.setLayout(tab2_layout)
         tabs.addTab(tab2, "Advanced")
@@ -231,29 +250,15 @@ class AddonOptionsDialog(QDialog):
             self.render_ui()
 
     def render_ui(self) -> None:
+        self.render_table()
+        self.render_buttons()
+        self.render_fields()
+
+    def render_fields(self) -> None:
         self.api_key_edit.setText(self.state["openai_api_key"])
         self.models_combo_box.setCurrentText(self.state["openai_model"])
         self.generate_at_review_button.setChecked(self.state["generate_at_review"])
-        self.render_table()
-        self.render_buttons()
-
-    def create_table(self) -> QTableWidget:
-        table = QTableWidget(0, 3)
-        table.setHorizontalHeaderLabels(["Note Type", "Target Field", "Prompt"])
-
-        # Selection
-        table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
-        table.setSelectionMode(QTableWidget.SelectionMode.SingleSelection)
-
-        # Styling
-        table.horizontalHeader().setStretchLastSection(True)  # type: ignore
-        table.verticalHeader().setVisible(False)  # type: ignore
-
-        # Wire up slots
-        table.currentItemChanged.connect(self.on_row_selected)
-        table.itemDoubleClicked.connect(self.on_edit)
-
-        return table
+        self.regenerate_when_batching.setChecked(self.state["regenerate_when_batching"])
 
     def render_table(self) -> None:
         self.table.setRowCount(0)
@@ -278,6 +283,24 @@ class AddonOptionsDialog(QDialog):
         if selected_row is not None and selected_row < self.table.rowCount():
             self.table.selectRow(selected_row)
 
+    def create_table(self) -> QTableWidget:
+        table = QTableWidget(0, 3)
+        table.setHorizontalHeaderLabels(["Note Type", "Target Field", "Prompt"])
+
+        # Selection
+        table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
+        table.setSelectionMode(QTableWidget.SelectionMode.SingleSelection)
+
+        # Styling
+        table.horizontalHeader().setStretchLastSection(True)  # type: ignore
+        table.verticalHeader().setVisible(False)  # type: ignore
+
+        # Wire up slots
+        table.currentItemChanged.connect(self.on_row_selected)
+        table.itemDoubleClicked.connect(self.on_edit)
+
+        return table
+
     def on_row_selected(self, current) -> None:
         if current:
             self.set_state({"selected_row": current.row()})
@@ -293,7 +316,7 @@ class AddonOptionsDialog(QDialog):
         logger.debug(f"Editing {card_type}, {field}")
 
         # Save out API key jic
-        self.config.openai_api_key = self.api_key_edit.text()
+        config.openai_api_key = self.api_key_edit.text()
 
         prompt_dialog = PromptDialog(
             self.state["prompts_map"],
@@ -314,7 +337,7 @@ class AddonOptionsDialog(QDialog):
 
     def on_add(self, _: int) -> None:
         # Save out the API key in case it's been updated this run
-        self.config.openai_api_key = self.api_key_edit.text()
+        config.openai_api_key = self.api_key_edit.text()
 
         prompt_dialog = PromptDialog(
             self.state["prompts_map"], self.processor, self.on_update_prompts
@@ -343,10 +366,12 @@ class AddonOptionsDialog(QDialog):
         self.set_state({"prompts_map": prompts_map, "selected_row": None})
 
     def on_accept(self) -> None:
-        self.config.openai_api_key = self.state["openai_api_key"]
-        self.config.prompts_map = self.state["prompts_map"]
-        self.config.openai_model = self.state["openai_model"]
-        self.config.generate_at_review = self.state["generate_at_review"]
+        # TODO: should abstract this
+        config.openai_api_key = self.state["openai_api_key"]
+        config.prompts_map = self.state["prompts_map"]
+        config.openai_model = self.state["openai_model"]
+        config.generate_at_review = self.state["generate_at_review"]
+        config.regenerate_notes_when_batching = self.state["regenerate_when_batching"]
         self.accept()
 
     def on_reject(self) -> None:
@@ -355,16 +380,16 @@ class AddonOptionsDialog(QDialog):
     def on_update_prompts(self, prompts_map: PromptMap) -> None:
         self.set_state({"prompts_map": prompts_map})
 
-    def on_restore_defaults(self) -> None:
-        self.config.restore_defaults()
+    def make_initial_state(self) -> State:
+        return {
+            "openai_api_key": config.openai_api_key,
+            "prompts_map": config.prompts_map,
+            "openai_model": config.openai_model,
+            "selected_row": None,
+            "generate_at_review": config.generate_at_review,
+            "regenerate_when_batching": config.regenerate_notes_when_batching,
+        }
 
-        self.set_state(
-            {
-                "openai_api_key": None,
-                "prompts_map": self.config.prompts_map,
-                "openai_model": self.config.openai_model,
-                "selected_row": None,
-                "generate_at_review": self.config.generate_at_review,
-            }
-        )
-        self.render_ui()
+    def on_restore_defaults(self) -> None:
+        config.restore_defaults()
+        self.set_state(self.make_initial_state())  # type: ignore

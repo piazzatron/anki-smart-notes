@@ -58,7 +58,7 @@ def with_processor(fn):
 
 @with_processor  # type: ignore
 def on_options(processor: Processor):
-    dialog = AddonOptionsDialog(config, processor)
+    dialog = AddonOptionsDialog(processor)
     dialog.exec()
 
 
