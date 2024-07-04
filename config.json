@@ -8,5 +8,6 @@
     "note_types": {}
   },
   "last_seen_version": null,
-  "uuid": null
+  "uuid": null,
+  "regenerate_notes_when_batching": false
 }

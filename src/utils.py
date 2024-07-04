@@ -18,7 +18,7 @@
 """
 
 import os
-from typing import Any, Callable, Dict
+from typing import Any, Callable, Dict, List
 
 from aqt import mw
 
@@ -33,8 +33,8 @@ def to_lowercase_dict(d: Dict[str, Any]) -> Dict[str, Any]:
     return {k.lower(): v for k, v in d.items()}
 
 
-def get_fields(note_type: str):
-    """Gets the fields of a note type."""
+def get_fields(note_type: str) -> List[str]:
+    """Gets the fields of a note type. Returns them sorted in their order on the card"""
     if not mw or not mw.col:
         return []
 
@@ -45,7 +45,7 @@ def get_fields(note_type: str):
     if not model:
         return []
 
-    return [field["name"] for field in model["flds"]]
+    return [field["name"] for field in sorted(model["flds"], key=lambda x: x["ord"])]
 
 
 def check_for_api_key(show_box=True) -> bool:

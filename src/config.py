@@ -36,7 +36,7 @@ OpenAIModels = Literal["gpt-3.5-turbo", "gpt-4o", "gpt-4-turbo", "gpt-4"]
 class Config:
     """Fancy config class that uses the Anki addon manager to store config values."""
 
-    openai_api_key: str
+    openai_api_key: Union[str, None]
     prompts_map: PromptMap
     openai_model: OpenAIModels
     generate_at_review: bool
@@ -44,6 +44,7 @@ class Config:
     did_show_rate_dialog: bool
     last_seen_version: Union[str, None]
     uuid: Union[str, None]
+    regenerate_notes_when_batching: bool
 
     def __getattr__(self, key: str) -> object:
         if not mw:
@@ -64,14 +65,6 @@ class Config:
 
         old_config[name] = value
         mw.addonManager.writeConfig(__name__, old_config)
-
-    def get_prompt(self, note_type: str, field: str):
-        return (
-            self.prompts_map.get("note_types", {})
-            .get(note_type, {"fields": {}})
-            .get("fields", {})
-            .get(field, None)
-        )
 
     def restore_defaults(self) -> None:
         defaults = self._defaults()

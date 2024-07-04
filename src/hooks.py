@@ -28,12 +28,12 @@ from typing import List, Sequence
 from anki.cards import Card
 from anki.notes import Note, NoteId
 from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
-from aqt.browser import SidebarItemType  # type: ignore
+from aqt.browser import SidebarItemType
 
 from .config import config
 from .logger import logger
+from .notes import is_ai_field, is_note_fully_processed
 from .processor import Processor
-from .prompts import is_ai_field
 from .sentry import sentry, with_sentry
 from .ui.addon_options_dialog import AddonOptionsDialog
 from .ui.changelog import perform_update_check
@@ -58,7 +58,7 @@ def with_processor(fn):
 
 @with_processor  # type: ignore
 def on_options(processor: Processor):
-    dialog = AddonOptionsDialog(config, processor)
+    dialog = AddonOptionsDialog(processor)
     dialog.exec()
 
 
@@ -123,9 +123,10 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
                 mw.col.update_note(note)
             editor.loadNote()
 
+        is_fully_processed = is_note_fully_processed(note)
         processor.process_note(
             note,
-            overwrite_fields=True,
+            overwrite_fields=is_fully_processed,
             on_success=on_success,
             on_failure=lambda _: set_button_enabled(),
         )
@@ -164,7 +165,9 @@ def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMe
 
     item.triggered.connect(
         lambda: processor.process_notes_with_progress(
-            notes, on_success=on_batch_success
+            notes,
+            on_success=on_batch_success,
+            overwrite_fields=config.regenerate_notes_when_batching,
         )
     )
 
