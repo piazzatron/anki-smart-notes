@@ -47,8 +47,7 @@ def is_note_fully_processed(note: Note) -> bool:
         return True
 
     for field in prompts.keys():
-        # TODO: is this safe?
-        if not note[field]:
+        if not (field in note) and note[field]:
             return False
 
     return True
