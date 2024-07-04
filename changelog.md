@@ -1,3 +1,9 @@
+# v1.3.0
+
+- Improved regenerating smart field behavior:
+- 1. For partially filled notes, the editor ✨ button will now only generate empty fields. Click ✨ a second time to regenerate the card from scratch.
+- 2. Batch processing will now only generate empty fields by default. Configurable via Settings -> Advanced to regenerate the entire note.
+
 # v1.2.0
 
 - Support batch processing huge decks.
