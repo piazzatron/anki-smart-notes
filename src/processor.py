@@ -27,6 +27,7 @@ from aqt.operations import QueryOp
 
 from .config import Config
 from .logger import logger
+from .notes import get_note_type
 from .open_ai_client import OpenAIClient
 from .prompts import interpolate_prompt
 from .sentry import sentry
@@ -56,7 +57,7 @@ class Processor:
         async def async_process_single_field(
             note: Note, target_field_name: str
         ) -> None:
-            prompt = self.config.get_prompt(note.note_type()["name"], target_field_name)  # type: ignore[index]
+            prompt = self.config.get_prompt(get_note_type(note), target_field_name)
             prompt = interpolate_prompt(prompt, note)
             if not prompt:
                 return
@@ -84,6 +85,7 @@ class Processor:
         self,
         note_ids: Sequence[NoteId],
         on_success: Union[Callable[[List[Note], List[Note]], None], None],
+        overwrite_fields: bool = False,
     ) -> None:
         """Processes notes in the background with a progress bar, batching into a single undo op"""
 
@@ -162,7 +164,9 @@ class Processor:
                 logger.debug("Processing batch...")
                 batch = to_process_ids[:limit]
                 to_process_ids = to_process_ids[limit:]
-                updated, failed, skipped = await self._process_notes_batch(batch)
+                updated, failed, skipped = await self._process_notes_batch(
+                    batch, overwrite_fields=overwrite_fields
+                )
 
                 processed_count += len(updated) + len(failed)
 
@@ -196,7 +200,7 @@ class Processor:
         )
 
     async def _process_notes_batch(
-        self, note_ids: Sequence[NoteId]
+        self, note_ids: Sequence[NoteId], overwrite_fields: bool
     ) -> Tuple[List[Note], List[Note], List[Note]]:
         """Returns updated, failed, skipped notes"""
         logger.debug(f"Processing {len(note_ids)} notes...")
@@ -210,13 +214,9 @@ class Processor:
         to_process = []
         skipped = []
         for note in notes:
-            note_type = note.note_type()
-            if not note_type:
-                # Should never happen
-                raise Exception("Error: no note type")
 
-            note_type_name = note_type["name"]
-            if note_type_name not in self.config.prompts_map.get("note_types", {}):
+            note_type = get_note_type(note)
+            if note_type not in self.config.prompts_map.get("note_types", {}):
                 logger.debug("Error: no prompts found for note type")
                 skipped.append(note)
             else:
@@ -228,7 +228,7 @@ class Processor:
         # Run them all in parallel
         tasks = []
         for note in to_process:
-            tasks.append(self._process_note(note))
+            tasks.append(self._process_note(note, overwrite_fields=overwrite_fields))
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
         # Process errors
@@ -283,19 +283,16 @@ class Processor:
         )
 
     async def _process_note(
-        self, note: Note, overwrite_fields: bool = False, target_fields: List[str] = []
+        self,
+        note: Note,
+        overwrite_fields: bool = False,
+        target_fields: List[str] = [],
     ) -> bool:
         """Process a single note, returns whether any fields were updated. Optionally can target specific fields. Caller responsible for handling any exceptions."""
-        # logger.debug(f"Processing note")
-        note_type = note.note_type()
 
-        if not note_type:
-            logger.error("no note type")
-            return False
-
-        note_type_name = note_type["name"]
+        note_type = get_note_type(note)
         field_prompts = self.config.prompts_map.get("note_types", {}).get(
-            note_type_name, None
+            note_type, None
         )
 
         if not field_prompts:

@@ -36,31 +36,6 @@ def get_prompts() -> Dict[str, Dict[str, str]]:
     }
 
 
-def is_ai_field(current_field_num: int, note: Note) -> Union[str, None]:
-    """Helper to determine if the current field is an AI field. Returns the non-lowercased field name if it is."""
-    if not note:
-        return None
-    note_type = note.note_type()
-    # Sort dem fields and get their names
-    sorted_fields = [
-        field["name"] for field in sorted(note_type["flds"], key=lambda x: x["ord"])  # type: ignore[index]
-    ]
-    sorted_fields_lower = [field.lower() for field in sorted_fields]
-
-    # SNEAKY: current_field_num can be 0
-    if not note_type or current_field_num is None:
-        return None
-
-    note_name = note_type["name"] if note_type else None
-
-    current_field = sorted_fields_lower[current_field_num]
-
-    prompts_for_card = to_lowercase_dict(get_prompts().get(note_name, {}))
-
-    is_ai = bool(prompts_for_card.get(current_field, None))
-    return sorted_fields[current_field_num] if is_ai else None
-
-
 def get_prompt_fields_lower(prompt: str):
     pattern = r"\{\{(.+?)\}\}"
     fields = re.findall(pattern, prompt)
