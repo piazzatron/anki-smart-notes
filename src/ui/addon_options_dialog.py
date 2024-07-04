@@ -17,21 +17,45 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from aqt import (QCheckBox, QComboBox, QDialog, QDialogButtonBox, QFormLayout,
-                 QGroupBox, QHBoxLayout, QLabel, QLineEdit, QPushButton,
-                 QSizePolicy, QTableWidget, QTableWidgetItem, QTabWidget,
-                 QVBoxLayout, QWidget)
+import copy
+from typing import Any, Dict, TypedDict, Union
+
+from aqt import (
+    QCheckBox,
+    QComboBox,
+    QDialog,
+    QDialogButtonBox,
+    QFormLayout,
+    QGroupBox,
+    QHBoxLayout,
+    QLabel,
+    QLineEdit,
+    QPushButton,
+    QSizePolicy,
+    QTableWidget,
+    QTableWidgetItem,
+    QTabWidget,
+    QVBoxLayout,
+    QWidget,
+)
 from PyQt6.QtCore import Qt
 
 from ..config import Config, OpenAIModels, PromptMap
 from ..logger import logger
 from ..processor import Processor
 from .prompt_dialog import PromptDialog
-from .ui_utils import show_message_box
 
 OPTIONS_MIN_WIDTH = 750
 
 openai_models = ["gpt-3.5-turbo", "gpt-4o", "gpt-4-turbo", "gpt-4"]
+
+
+class State(TypedDict):
+    openai_api_key: Union[str, None]
+    prompts_map: PromptMap
+    openai_model: OpenAIModels
+    selected_row: Union[int, None]
+    generate_at_review: bool
 
 
 class AddonOptionsDialog(QDialog):
@@ -41,16 +65,20 @@ class AddonOptionsDialog(QDialog):
     table: QTableWidget
     restore_defaults: QPushButton
     edit_button: QPushButton
-    generate_at_review: bool
+    state: State
 
     def __init__(self, config: Config, processor: Processor):
         super().__init__()
         self.processor = processor
-        self.prompts_map = config.prompts_map
-        self.openai_model = config.openai_model
-        self.generate_at_review = config.generate_at_review
         self.config = config
-        self.selected_row = None
+
+        self.state = {
+            "openai_api_key": config.openai_api_key,
+            "prompts_map": config.prompts_map,
+            "openai_model": config.openai_model,
+            "selected_row": None,
+            "generate_at_review": config.generate_at_review,
+        }
 
         self.setup_ui()
 
@@ -86,7 +114,7 @@ class AddonOptionsDialog(QDialog):
         self.models_combo_box = QComboBox()
         self.models_combo_box.addItems(openai_models)
         self.models_combo_box.currentTextChanged.connect(
-            lambda text: setattr(self, "openai_model", text)
+            lambda text: self.set_state({"openai_model": text})
         )
 
         form = QFormLayout()
@@ -125,7 +153,6 @@ class AddonOptionsDialog(QDialog):
 
         # Table
         self.table = self.create_table()
-        self.update_table()
 
         # Set up layout
 
@@ -167,7 +194,7 @@ class AddonOptionsDialog(QDialog):
         self.generate_at_review_button = QCheckBox()
 
         def set_generate_at_review(checked: int):
-            self.generate_at_review = checked == 2
+            self.set_state({"generate_at_review": checked == 2})
 
         self.generate_at_review_button.stateChanged.connect(set_generate_at_review)
         tab2_layout.addRow(
@@ -185,15 +212,27 @@ class AddonOptionsDialog(QDialog):
 
         tab_layout.addWidget(standard_buttons)
 
-        self.update_buttons()
         self.setLayout(tab_layout)
-        self.update_ui()
+        self.render_ui()
 
-    def update_ui(self) -> None:
-        self.api_key_edit.setText(self.config.openai_api_key)
-        self.models_combo_box.setCurrentText(self.openai_model)
-        self.generate_at_review_button.setChecked(self.generate_at_review)
-        self.update_table()
+    # TODO: type the updates dict
+    def set_state(self, updates: Dict[str, Any]) -> None:
+        new_state: State = dict(self.state)  # type: ignore
+
+        for key, value in updates.items():
+            assert key in new_state
+            new_state[key] = value  # type: ignore
+
+        if new_state != self.state:
+            self.state = new_state
+            self.render_ui()
+
+    def render_ui(self) -> None:
+        self.api_key_edit.setText(self.state["openai_api_key"])
+        self.models_combo_box.setCurrentText(self.state["openai_model"])
+        self.generate_at_review_button.setChecked(self.state["generate_at_review"])
+        self.render_table()
+        self.render_buttons()
 
     def create_table(self) -> QTableWidget:
         table = QTableWidget(0, 3)
@@ -213,11 +252,11 @@ class AddonOptionsDialog(QDialog):
 
         return table
 
-    def update_table(self) -> None:
+    def render_table(self) -> None:
         self.table.setRowCount(0)
 
         row = 0
-        for note_type, field_prompts in self.prompts_map["note_types"].items():
+        for note_type, field_prompts in self.state["prompts_map"]["note_types"].items():
             for field, prompt in field_prompts["fields"].items():
                 self.table.insertRow(self.table.rowCount())
                 items = [
@@ -230,27 +269,31 @@ class AddonOptionsDialog(QDialog):
                     self.table.setItem(row, i, item)
                 row += 1
 
-    def on_row_selected(self, current):
-        if not current:
-            self.selected_row = None
-        else:
-            self.selected_row = current.row()
-        self.update_buttons()
+        # Ensure the correct row is always selected
+        # shouldn't need the second and condition, but defensive
+        selected_row = self.state["selected_row"]
+        if selected_row is not None and selected_row < self.table.rowCount():
+            self.table.selectRow(selected_row)
+
+    def on_row_selected(self, current) -> None:
+        if current:
+            self.set_state({"selected_row": current.row()})
 
     def on_edit(self, _) -> None:
-        if self.selected_row is None:
+        row = self.state["selected_row"]
+        if row is None:
             return
 
-        card_type = self.table.item(self.selected_row, 0).text()
-        field = self.table.item(self.selected_row, 1).text()
-        prompt = self.table.item(self.selected_row, 2).text()
+        card_type = self.table.item(row, 0).text()  # type: ignore
+        field = self.table.item(row, 1).text()  # type: ignore
+        prompt = self.table.item(row, 2).text()  # type: ignore
         logger.debug(f"Editing {card_type}, {field}")
 
         # Save out API key jic
         self.config.openai_api_key = self.api_key_edit.text()
 
         prompt_dialog = PromptDialog(
-            self.prompts_map,
+            self.state["prompts_map"],
             self.processor,
             self.on_update_prompts,
             card_type=card_type,
@@ -259,10 +302,10 @@ class AddonOptionsDialog(QDialog):
         )
 
         if prompt_dialog.exec() == QDialog.DialogCode.Accepted:
-            self.update_table()
+            self.render_table()
 
-    def update_buttons(self) -> None:
-        is_enabled = self.selected_row is not None
+    def render_buttons(self) -> None:
+        is_enabled = self.state["selected_row"] is not None
         self.remove_button.setEnabled(is_enabled)
         self.edit_button.setEnabled(is_enabled)
 
@@ -271,39 +314,54 @@ class AddonOptionsDialog(QDialog):
         self.config.openai_api_key = self.api_key_edit.text()
 
         prompt_dialog = PromptDialog(
-            self.prompts_map, self.processor, self.on_update_prompts
+            self.state["prompts_map"], self.processor, self.on_update_prompts
         )
 
         if prompt_dialog.exec() == QDialog.DialogCode.Accepted:
-            self.update_table()
+            self.render_table()
 
     def on_remove(self):
-        if self.selected_row is None:
+        row = self.state["selected_row"]
+        if row is None:
             # Should never happen
             return
-        card_type = self.table.item(self.selected_row, 0).text()
-        field = self.table.item(self.selected_row, 1).text()
+
+        card_type = self.table.item(row, 0).text()  # type: ignore
+        field = self.table.item(row, 1).text()  # type: ignore
         logger.debug(f"Removing {card_type}, {field}")
-        self.prompts_map["note_types"][card_type]["fields"].pop(field)
-        self.update_table()
+        # Deep copy bc we need the subdicts to not be mutated
+        prompts_map = copy.deepcopy(self.state["prompts_map"])
+
+        prompts_map["note_types"][card_type]["fields"].pop(field)
+        # If there are no more fields for this card type, remove the card type
+        if not prompts_map["note_types"][card_type]["fields"]:
+            prompts_map["note_types"].pop(card_type)
+
+        self.set_state({"prompts_map": prompts_map, "selected_row": None})
 
     def on_accept(self) -> None:
         self.config.openai_api_key = self.api_key_edit.text()
-        self.config.prompts_map = self.prompts_map
-        self.config.openai_model = self.openai_model
-        self.config.generate_at_review = self.generate_at_review
+        self.config.prompts_map = self.state["prompts_map"]
+        self.config.openai_model = self.state["openai_model"]
+        self.config.generate_at_review = self.state["generate_at_review"]
         self.accept()
 
     def on_reject(self) -> None:
         self.reject()
 
     def on_update_prompts(self, prompts_map: PromptMap) -> None:
-        self.prompts_map = prompts_map
+        self.set_state({"prompts_map": prompts_map})
 
     def on_restore_defaults(self) -> None:
-        # TODO: this is so brittle
         self.config.restore_defaults()
-        self.prompts_map = self.config.prompts_map
-        self.openai_model = self.config.openai_model
-        self.generate_at_review = self.config.generate_at_review
-        self.update_ui()
+
+        self.set_state(
+            {
+                "openai_api_key": None,
+                "prompts_map": self.config.prompts_map,
+                "openai_model": self.config.openai_model,
+                "selected_row": None,
+                "generate_at_review": self.config.generate_at_review,
+            }
+        )
+        self.render_ui()
