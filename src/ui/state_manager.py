@@ -22,8 +22,6 @@ from typing import Any, Dict, Generic, TypeVar
 
 from aqt import QObject, pyqtSignal
 
-from ..logger import logger
-
 T = TypeVar("T")
 
 
@@ -48,8 +46,6 @@ class StateManager(QObject, Generic[T]):
         # Avoid recursive calls to update, i.e. from components
         # that are re-configuring themselves as a response to
         # a state change, which itself calls update(...)
-        print("UPDATE!!!")
-        logger.debug(f"Updating state: {updates}")
         if self.updating:
             return
         self.updating = True

@@ -201,12 +201,13 @@ class PromptDialog(QDialog):
             {
                 "prompt": prompt,
                 "selected_note_type": card_type,
+                "selected_note_field": selected_field,
                 "note_fields": fields,
             }
         )
 
     def on_field_changed(self, field: Union[str, None]) -> None:
-        # Field can be none because we reset the combo box in render. Make sure not to update state to None
+        # This shouldn't happen
         if not field:
             return
 
@@ -308,7 +309,7 @@ class PromptDialog(QDialog):
 
     def on_accept(self):
         prompt = self.state.s["prompt"]
-        prompts_map = self.state["prompts_map"]
+        prompts_map = self.prompts_map
         selected_card_type = self.state.s["selected_note_type"]
         selected_field = self.state.s["selected_note_field"]
 
@@ -326,11 +327,12 @@ class PromptDialog(QDialog):
         )
 
         # Add the prompt to the prompts map
-        if not prompts_map.get(selected_card_type):
+        if not prompts_map["note_types"].get(selected_card_type):
             prompts_map["note_types"][selected_card_type] = {"fields": {}, "extra": {}}
 
         prompts_map["note_types"][selected_card_type]["fields"][selected_field] = prompt
         self.on_accept_callback(prompts_map)
+        print(prompts_map)
         self.accept()
 
     def on_reject(self):
