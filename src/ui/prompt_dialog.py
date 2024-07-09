@@ -17,7 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, Callable, Dict, List, TypedDict, Union
+from typing import Callable, List, TypedDict, Union
 
 from aqt import (
     QComboBox,
@@ -43,6 +43,9 @@ from ..prompts import (
     prompt_has_error,
 )
 from ..utils import get_fields, to_lowercase_dict
+from .reactive_combo_box import ReactiveComboBox
+from .reactive_edit_text import ReactiveEditText
+from .state_manager import StateManager
 from .ui_utils import show_message_box
 
 explanation = """Write a "prompt" to help ChatGPT generate your target smart field.
@@ -53,12 +56,17 @@ Test out your prompt with the test button before saving it!
 """
 
 
-class State(TypedDict):
+class StateType(TypedDict):
     prompts_map: PromptMap
-    is_loading_prompt: bool
+
+
+class ReactiveState(TypedDict):
     prompt: str
-    selected_field: str
-    selected_card_type: str
+    note_types: List[str]
+    selected_note_type: str
+    note_fields: List[str]
+    selected_note_field: str
+    is_loading_prompt: bool
 
 
 class PromptDialog(QDialog):
@@ -66,8 +74,8 @@ class PromptDialog(QDialog):
     test_button: QPushButton
     valid_fields: QLabel
     card_combo_box: QComboBox
-    state: State
-    rendering: bool
+    state: StateManager[ReactiveState]
+    prompts_map: PromptMap
 
     def __init__(
         self,
@@ -81,43 +89,34 @@ class PromptDialog(QDialog):
         super().__init__()
         self.processor = processor
         self.on_accept_callback = on_accept_callback
-        self.rendering = False
+        self.prompts_map = prompts_map
 
-        card_types = self.get_card_types()
-        selected_card_type = card_type or card_types[0]
-        self.state = {
-            "prompt": prompt or "",
-            "is_loading_prompt": False,
-            "selected_field": field or get_fields(selected_card_type)[0],
-            "selected_card_type": selected_card_type,
-            "prompts_map": prompts_map,
-        }
+        note_types = self.get_note_types()
+        selected_card_type = card_type or note_types[0]
+        note_fields = get_fields(selected_card_type)
+
+        self.state = StateManager[ReactiveState](
+            {
+                "prompt": prompt or "",
+                "note_types": note_types,
+                "selected_note_type": selected_card_type,
+                "note_fields": note_fields,
+                "selected_note_field": field or note_fields[0],
+                "is_loading_prompt": False,
+            }
+        )
 
         self.setup_ui()
 
-    def set_state(self, updates: Dict[str, Any]) -> None:
-        if self.rendering:
-            return
-
-        new_state: State = dict(self.state)  # type: ignore
-
-        for key, value in updates.items():
-            assert key in new_state
-            new_state[key] = value  # type: ignore
-
-        if new_state != self.state:
-            print("STATE UPDATE")
-            print(self.state)
-            print(new_state)
-            self.state = new_state
-            self.render_ui()
-
     def setup_ui(self) -> None:
         self.setWindowTitle("New Smart Field")
-        self.card_combo_box = QComboBox()
-        self.card_combo_box.addItems(self.get_card_types())
+        self.card_combo_box = ReactiveComboBox(
+            self.state, "note_types", "selected_note_type"
+        )
 
-        self.field_combo_box = QComboBox()
+        self.field_combo_box = ReactiveComboBox(
+            self.state, "note_fields", "selected_note_field"
+        )
 
         card_label = QLabel("Card Type")
         field_label = QLabel("Target Field")
@@ -135,7 +134,7 @@ class PromptDialog(QDialog):
         self.test_button = QPushButton("Test ✨")
 
         prompt_label = QLabel("ChatGPT Prompt")
-        self.prompt_text_box = QTextEdit()
+        self.prompt_text_box = ReactiveEditText(self.state, "prompt")
         self.prompt_text_box.setMinimumHeight(150)
         self.prompt_text_box.setAlignment(Qt.AlignmentFlag.AlignTop)
         self.prompt_text_box.setLineWrapMode(QTextEdit.LineWrapMode.WidgetWidth)
@@ -162,11 +161,13 @@ class PromptDialog(QDialog):
         layout.addWidget(self.test_button)
         layout.addWidget(self.standard_buttons)
 
-        self.card_combo_box.currentTextChanged.connect(self.on_card_type_selected)
-        self.prompt_text_box.textChanged.connect(
-            lambda: self.set_state({"prompt": self.prompt_text_box.toPlainText()})
+        self.state.state_changed.connect(self.render_ui)
+        self.card_combo_box.onChange.connect(self.on_card_type_selected)
+        self.field_combo_box.onChange.connect(self.on_field_changed)
+        self.prompt_text_box.onChange.connect(
+            lambda text: self.state.update({"prompt": text})
         )
-        self.field_combo_box.currentTextChanged.connect(self.on_field_changed)
+
         self.test_button.clicked.connect(self.on_test)
         self.standard_buttons.accepted.connect(self.on_accept)
         self.standard_buttons.rejected.connect(self.on_reject)
@@ -174,15 +175,10 @@ class PromptDialog(QDialog):
         self.render_ui()
 
     def render_ui(self) -> None:
-        self.rendering = True
-        self.render_card_types()
-        self.render_fields()
         self.render_buttons()
-        self.render_prompt()
         self.render_valid_fields()
-        self.rendering = False
 
-    def get_card_types(self) -> List[str]:
+    def get_note_types(self) -> List[str]:
         if not mw:
             return []
 
@@ -194,79 +190,65 @@ class PromptDialog(QDialog):
         return [model["name"] for model in models]
 
     def on_card_type_selected(self, card_type: str):
-        selected_field = get_fields(card_type)[0]
+        if card_type == self.state.s["selected_note_type"]:
+            return
+
+        fields = get_fields(card_type)
+        selected_field = fields[0]
         prompt = get_prompts().get(card_type, {}).get(selected_field, "")
-        self.set_state(
+
+        self.state.update(
             {
-                "selected_card_type": card_type,
-                "selected_field": selected_field,
                 "prompt": prompt,
+                "selected_note_type": card_type,
+                "note_fields": fields,
             }
         )
 
     def on_field_changed(self, field: Union[str, None]) -> None:
         # Field can be none because we reset the combo box in render. Make sure not to update state to None
-        print("FIELD CHANGED")
         if not field:
             return
 
-        prompt = get_prompts().get(self.state["selected_card_type"], {}).get(field, "")
-        self.set_state({"selected_field": field, "prompt": prompt})
+        prompt = (
+            get_prompts().get(self.state.s["selected_note_type"], {}).get(field, "")
+        )
 
-    def render_card_types(self) -> None:
-        self.card_combo_box.setCurrentText(self.state["selected_card_type"])
-        self.field_combo_box.clear()
-        self.field_combo_box.addItems(get_fields(self.state["selected_card_type"]))
-
-    def render_fields(self) -> None:
-        # Need to make sure that this render doesn't trigger a state update
-        try:
-            self.field_combo_box.currentTextChanged.disconnect(self.on_field_changed)
-        except Exception:
-            pass
-
-        self.field_combo_box.clear()
-        self.field_combo_box.addItems(get_fields(self.state["selected_card_type"]))
-        self.field_combo_box.setCurrentText(self.state["selected_field"])
-
-        self.field_combo_box.currentTextChanged.connect(self.on_field_changed)
+        self.state.update({"prompt": prompt, "selected_note_field": field})
 
     def render_buttons(self) -> None:
-        is_enabled = bool(self.state["prompt"]) and not self.state["is_loading_prompt"]
+        is_enabled = (
+            bool(self.state.s["prompt"]) and not self.state.s["is_loading_prompt"]
+        )
+
         self.test_button.setEnabled(is_enabled)
         self.standard_buttons.button(QDialogButtonBox.StandardButton.Save).setEnabled(  # type: ignore
             is_enabled
         )
 
-        if self.state["is_loading_prompt"]:
+        if self.state.s["is_loading_prompt"]:
             self.test_button.setText("Loading...")
         else:
             self.test_button.setText("Test Prompt ✨")
 
-    def render_prompt(self) -> None:
-        # Need to store cursor
-        cursor = self.prompt_text_box.cursor()
-        self.prompt_text_box.setText(self.state["prompt"])
-        self.prompt_text_box.setTextCursor(cursor)
-
     def on_test(self) -> None:
-        prompt = self.state["prompt"]
+        prompt = self.state.s["prompt"]
 
         if not mw or not prompt:
             return
 
+        selected_note_type = self.state.s["selected_note_type"]
         error = prompt_has_error(
             prompt,
-            self.state["selected_card_type"],
-            self.state["selected_field"],
+            selected_note_type,
+            self.state.s["selected_note_field"],
         )
 
         if error:
             show_message_box(f"Invalid prompt: {error}")
             return
 
-        selected_card_type = self.state["selected_card_type"]
-        sample_note_ids = mw.col.find_notes(f'note:"{selected_card_type}"')
+        sample_note_ids = mw.col.find_notes(f'note:"{selected_note_type}"')
 
         if not sample_note_ids:
             show_message_box("No cards found for this note type.")
@@ -274,15 +256,16 @@ class PromptDialog(QDialog):
 
         sample_note = mw.col.get_note(sample_note_ids[0])
 
-        # TODO
+        # TODO: BUG HERE!
         prompt = interpolate_prompt(prompt, sample_note)
         if not prompt:
             return
 
-        self.set_state({"is_loading_prompt": True})
+        self.state["is_loading_prompt"] = True
 
         def on_success(arg):
-            prompt = self.state["prompt"]
+
+            prompt = self.state.s["prompt"]
             if not prompt:
                 return
 
@@ -297,11 +280,11 @@ class PromptDialog(QDialog):
             stringified_vals = "\n".join([f"{k}: {v}" for k, v in field_map.items()])
             msg = f"Ran with fields: \n{stringified_vals}.\n\n Response: {arg}"
 
-            self.set_state({"is_loading_prompt": False})
+            self.state["is_loading_prompt"] = False
             show_message_box(msg, custom_ok="Close")
 
         def on_failure(e: Exception) -> None:
-            self.set_state({"is_loading_prompt": False})
+            self.state["is_loading_prompt"] = False
 
         self.processor.get_chat_response(
             prompt, on_success=on_success, on_failure=on_failure
@@ -314,20 +297,20 @@ class PromptDialog(QDialog):
         self.valid_fields.setText(text)
 
     def get_valid_fields(self) -> List[str]:
-        fields = get_fields(self.state["selected_card_type"])
-        existing_prompts = set(
-            get_prompts().get(self.state["selected_card_type"], {}).keys()
-        )
-        existing_prompts.add(self.state["selected_field"])
+        selected_note_type = self.state.s["selected_note_type"]
+        selected_field = self.state.s["selected_note_field"]
+        fields = get_fields(selected_note_type)
+        existing_prompts = set(get_prompts().get(selected_note_type, {}).keys())
+        existing_prompts.add(selected_field)
 
         not_ai_fields = [field for field in fields if field not in existing_prompts]
         return not_ai_fields
 
     def on_accept(self):
-        prompt = self.state["prompt"]
+        prompt = self.state.s["prompt"]
         prompts_map = self.state["prompts_map"]
-        selected_card_type = self.state["selected_card_type"]
-        selected_field = self.state["selected_field"]
+        selected_card_type = self.state.s["selected_note_type"]
+        selected_field = self.state.s["selected_note_field"]
 
         if not prompt:
             return
