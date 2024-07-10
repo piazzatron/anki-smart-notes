@@ -159,7 +159,7 @@ class PromptDialog(QDialog):
         font = self.valid_fields.font()
         font.setPointSize(10)
         self.valid_fields.setFont(font)
-        self.automatic_box = QCheckBox("Generate Automatically")
+        self.automatic_box = QCheckBox("Always Generate Smart Field")
 
         self.setLayout(layout)
         layout.addWidget(prompt_label)
