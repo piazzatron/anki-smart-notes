@@ -29,7 +29,7 @@ from .config import Config
 from .logger import logger
 from .notes import get_note_type
 from .open_ai_client import OpenAIClient
-from .prompts import get_prompts, interpolate_prompt
+from .prompts import get_generate_automatically, get_prompts, interpolate_prompt
 from .sentry import sentry
 from .ui.ui_utils import show_message_box
 from .utils import bump_usage_counter, check_for_api_key, run_on_main
@@ -315,6 +315,13 @@ class Processor:
             # Don't overwrite fields that already exist
             if (not overwrite_fields) and note[field]:
                 # logger.debug(f"Skipping already generated field: {field}")
+                continue
+
+            # Skip the field if it's not generated automatically and not
+            # specifically asked to generate
+            should_generate_automatically = get_generate_automatically(note_type, field)
+            is_single_target = len(target_fields) == 1 and target_fields[0] == field
+            if not (should_generate_automatically or is_single_target):
                 continue
 
             # logger.debug(f"Processing field: {field}, prompt: {prompt}")

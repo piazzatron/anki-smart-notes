@@ -20,6 +20,7 @@
 from typing import Callable, List, TypedDict, Union
 
 from aqt import (
+    QCheckBox,
     QComboBox,
     QDialog,
     QDialogButtonBox,
@@ -37,6 +38,7 @@ from ..config import PromptMap
 from ..logger import logger
 from ..processor import Processor
 from ..prompts import (
+    get_generate_automatically,
     get_prompt_fields_lower,
     get_prompts,
     interpolate_prompt,
@@ -67,6 +69,7 @@ class ReactiveState(TypedDict):
     note_fields: List[str]
     selected_note_field: str
     is_loading_prompt: bool
+    generate_automatically: bool
 
 
 class PromptDialog(QDialog):
@@ -94,6 +97,8 @@ class PromptDialog(QDialog):
         note_types = self.get_note_types()
         selected_card_type = card_type or note_types[0]
         note_fields = get_fields(selected_card_type)
+        selected_field = field or note_fields[0]
+        automatic = get_generate_automatically(selected_card_type, selected_field)
 
         self.state = StateManager[ReactiveState](
             {
@@ -101,8 +106,9 @@ class PromptDialog(QDialog):
                 "note_types": note_types,
                 "selected_note_type": selected_card_type,
                 "note_fields": note_fields,
-                "selected_note_field": field or note_fields[0],
+                "selected_note_field": selected_field,
                 "is_loading_prompt": False,
+                "generate_automatically": automatic,
             }
         )
 
@@ -153,12 +159,14 @@ class PromptDialog(QDialog):
         font = self.valid_fields.font()
         font.setPointSize(10)
         self.valid_fields.setFont(font)
+        self.automatic_box = QCheckBox("Generate Automatically")
 
         self.setLayout(layout)
         layout.addWidget(prompt_label)
         layout.addWidget(self.prompt_text_box)
         layout.addWidget(self.valid_fields)
         layout.addWidget(self.test_button)
+        layout.addWidget(self.automatic_box)
         layout.addWidget(self.standard_buttons)
 
         self.state.state_changed.connect(self.render_ui)
@@ -171,12 +179,16 @@ class PromptDialog(QDialog):
         self.test_button.clicked.connect(self.on_test)
         self.standard_buttons.accepted.connect(self.on_accept)
         self.standard_buttons.rejected.connect(self.on_reject)
+        self.automatic_box.stateChanged.connect(
+            lambda state: self.state.update({"generate_automatically": bool(state)})
+        )
 
         self.render_ui()
 
     def render_ui(self) -> None:
         self.render_buttons()
         self.render_valid_fields()
+        self.render_automatic_button()
 
     def get_note_types(self) -> List[str]:
         if not mw:
@@ -297,6 +309,9 @@ class PromptDialog(QDialog):
         text = f"Fields: {', '.join(fields)}"
         self.valid_fields.setText(text)
 
+    def render_automatic_button(self) -> None:
+        self.automatic_box.setChecked(self.state.s["generate_automatically"])
+
     def get_valid_fields(self) -> List[str]:
         selected_note_type = self.state.s["selected_note_type"]
         selected_field = self.state.s["selected_note_field"]
@@ -326,11 +341,28 @@ class PromptDialog(QDialog):
             f"Trying to set prompt for {selected_card_type}, {selected_field}, {prompt}"
         )
 
+        is_automatic = self.state.s["generate_automatically"]
+
         # Add the prompt to the prompts map
         if not prompts_map["note_types"].get(selected_card_type):
-            prompts_map["note_types"][selected_card_type] = {"fields": {}, "extra": {}}
+            prompts_map["note_types"][selected_card_type] = {
+                "fields": {},
+                "extra": {},  # type: ignore
+            }
 
         prompts_map["note_types"][selected_card_type]["fields"][selected_field] = prompt
+
+        # Write out extras
+        extras = prompts_map["note_types"][selected_card_type].get("extras")
+        if not extras:
+            extras = {}
+            prompts_map["note_types"][selected_card_type]["extras"] = extras
+
+        if not extras.get(selected_field):
+            extras[selected_field] = {}  # type: ignore
+
+        extras[selected_field]["automatic"] = is_automatic
+
         self.on_accept_callback(prompts_map)
         print(prompts_map)
         self.accept()

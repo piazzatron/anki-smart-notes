@@ -23,12 +23,12 @@ from aqt import addons, mw
 
 
 class FieldExtras(TypedDict):
-    is_optional: Union[bool, None]
+    automatic: Union[bool, None]
 
 
 class NoteTypeMap(TypedDict):
     fields: Dict[str, str]
-    extra: Union[Dict[str, str], None]
+    extras: Union[Dict[str, FieldExtras], None]  # maps from field name -> extras
 
 
 class PromptMap(TypedDict):
