@@ -21,7 +21,7 @@ from typing import Union
 
 from anki.notes import Note
 
-from .prompts import get_prompts
+from .prompts import get_generate_automatically, get_prompts
 from .utils import get_fields, to_lowercase_dict
 
 """Helpful functions for working with notes"""
@@ -47,7 +47,9 @@ def is_note_fully_processed(note: Note) -> bool:
         return True
 
     for field in prompts.keys():
-        if not (field in note and note[field]):
+        field_exists = field in note and note[field]
+        is_automatic = get_generate_automatically(note_type, field)
+        if (not field_exists) and is_automatic:
             return False
 
     return True

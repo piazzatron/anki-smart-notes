@@ -24,8 +24,10 @@ from typing import Dict, Union
 
 from anki.notes import Note
 
-from .config import config
+from .config import FieldExtras, config
 from .utils import get_fields, to_lowercase_dict
+
+EXTRAS_DEFAULT_AUTOMATIC = True
 
 
 def get_prompts() -> Dict[str, Dict[str, str]]:
@@ -34,6 +36,24 @@ def get_prompts() -> Dict[str, Dict[str, str]]:
         note_type: {k: v for k, v in m["fields"].items()}
         for note_type, m in config.prompts_map["note_types"].items()
     }
+
+
+def get_extras(note_type: str, note_field: str) -> FieldExtras:
+    extras = (
+        config.prompts_map["note_types"]
+        .get(note_type, {"extras": {}})
+        .get("extras", {})
+    )
+
+    if not extras:
+        return {"automatic": EXTRAS_DEFAULT_AUTOMATIC}
+
+    return extras.get(note_field, {"automatic": EXTRAS_DEFAULT_AUTOMATIC})
+
+
+def get_generate_automatically(note_type: str, note_field: str) -> bool:
+    extras = get_extras(note_type, note_field)
+    return bool(extras.get("automatic", EXTRAS_DEFAULT_AUTOMATIC))
 
 
 def get_prompt_fields_lower(prompt: str):
