@@ -20,7 +20,6 @@
 from typing import Callable, List, TypedDict, Union
 
 from aqt import (
-    QCheckBox,
     QComboBox,
     QDialog,
     QDialogButtonBox,
@@ -45,6 +44,7 @@ from ..prompts import (
     prompt_has_error,
 )
 from ..utils import get_fields, to_lowercase_dict
+from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_edit_text import ReactiveEditText
 from .state_manager import StateManager
@@ -98,7 +98,9 @@ class PromptDialog(QDialog):
         selected_card_type = card_type or note_types[0]
         note_fields = get_fields(selected_card_type)
         selected_field = field or note_fields[0]
-        automatic = get_generate_automatically(selected_card_type, selected_field)
+        automatic = get_generate_automatically(
+            selected_card_type, selected_field, prompts_map
+        )
 
         self.state = StateManager[ReactiveState](
             {
@@ -159,7 +161,9 @@ class PromptDialog(QDialog):
         font = self.valid_fields.font()
         font.setPointSize(10)
         self.valid_fields.setFont(font)
-        self.automatic_box = QCheckBox("Always Generate Smart Field")
+        self.automatic_box = ReactiveCheckBox(
+            self.state, "generate_automatically", text="Always Generate Smart Field"
+        )
 
         self.setLayout(layout)
         layout.addWidget(prompt_label)
@@ -179,8 +183,8 @@ class PromptDialog(QDialog):
         self.test_button.clicked.connect(self.on_test)
         self.standard_buttons.accepted.connect(self.on_accept)
         self.standard_buttons.rejected.connect(self.on_reject)
-        self.automatic_box.stateChanged.connect(
-            lambda state: self.state.update({"generate_automatically": bool(state)})
+        self.automatic_box.onChange.connect(
+            lambda checked: self.state.update({"generate_automatically": checked})
         )
 
         self.render_ui()
