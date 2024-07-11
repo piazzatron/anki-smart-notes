@@ -25,6 +25,7 @@ from aqt import (
     QDialog,
     QDialogButtonBox,
     QFormLayout,
+    QGraphicsOpacityEffect,
     QGroupBox,
     QHBoxLayout,
     QLabel,
@@ -83,14 +84,6 @@ class AddonOptionsDialog(QDialog):
     def setup_ui(self) -> None:
         self.setWindowTitle("Smart Notes ✨")
         self.setMinimumWidth(OPTIONS_MIN_WIDTH)
-
-        title_box = QWidget()
-        title_box_layout = QHBoxLayout()
-        title_box.setLayout(title_box_layout)
-        title = QLabel("<h2>Smart Notes</h2>")
-        subtitle = QLabel(get_version())  # TODO: reference the version somewhere
-        title_box_layout.addWidget(title)
-        title_box_layout.addWidget(subtitle)
 
         # Form
         get_api_key_label = QLabel(
@@ -258,10 +251,25 @@ class AddonOptionsDialog(QDialog):
         tabs.addTab(tab2, "Advanced")
 
         tab_layout = QVBoxLayout()
-        # TODO: add back
-        # tab_layout.addWidget(title_box)
         tab_layout.addWidget(tabs)
-        tab_layout.addSpacing(24)
+
+        # Version Box
+
+        version_box = QWidget()
+        version_box_layout = QHBoxLayout()
+        version_box_layout.setContentsMargins(0, 0, 12, 0)
+        version_box.setLayout(version_box_layout)
+        version_label = QLabel(f"Smart Notes v{get_version()}")
+        subtitle_font = version_label.font()
+        subtitle_font.setPointSize(9)
+        version_label.setFont(subtitle_font)
+        version_box_layout.addStretch()
+        version_box_layout.addWidget(version_label)
+        opacity_effect = QGraphicsOpacityEffect()
+        opacity_effect.setOpacity(0.3)
+        version_box.setGraphicsEffect(opacity_effect)
+
+        tab_layout.addWidget(version_box)
 
         tab_layout.addWidget(standard_buttons)
 
