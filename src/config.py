@@ -49,6 +49,7 @@ class Config:
     did_show_rate_dialog: bool
     last_seen_version: Union[str, None]
     uuid: Union[str, None]
+    openai_endpoint: Union[str, None]
     regenerate_notes_when_batching: bool
 
     def __getattr__(self, key: str) -> object:

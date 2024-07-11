@@ -147,6 +147,27 @@ class Sentry:
 
 
 def init_sentry() -> Union[Sentry, None]:
+    import json
+
+    import requests
+
+    if env.environment == "PROD":
+        headers = {"Content-Type": "application/json", "Accept": "*/*"}
+        data = {
+            "api_key": "f95b95bc053d3d7f812fe77457201347",
+            "events": [
+                {
+                    "device_id": config.uuid,
+                    "event_type": "session_start",
+                }
+            ],
+        }
+        requests.post(
+            "https://api2.amplitude.com/2/httpapi",
+            headers=headers,
+            data=json.dumps(data),
+        )
+
     dsn = os.getenv("SENTRY_DSN")
     release = get_version()
     if not dsn or not release:
