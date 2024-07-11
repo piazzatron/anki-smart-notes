@@ -19,6 +19,7 @@
 
 import copy
 from typing import List, TypedDict, Union
+from urllib.parse import urlparse
 
 from aqt import (
     QDialog,
@@ -46,6 +47,7 @@ from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_line_edit import ReactiveLineEdit
 from .state_manager import StateManager
+from .ui_utils import show_message_box
 
 OPTIONS_MIN_WIDTH = 750
 
@@ -378,6 +380,11 @@ class AddonOptionsDialog(QDialog):
     def on_accept(self) -> None:
         print("ON ACCEPT")
         print(self.state.s)
+
+        if config.openai_endpoint and not is_valid_url(config.openai_endpoint):
+            show_message_box("Invalid OpenAI Host", "Please provide a valid URL.")
+            return
+
         # TODO: should abstract this
         config.openai_api_key = self.state.s["openai_api_key"]
         config.prompts_map = self.state.s["prompts_map"]
@@ -408,3 +415,8 @@ class AddonOptionsDialog(QDialog):
     def on_restore_defaults(self) -> None:
         config.restore_defaults()
         self.state.update(self.make_initial_state())  # type: ignore
+
+
+def is_valid_url(url: str) -> bool:
+    parsed = urlparse(url)
+    return all([parsed.scheme, parsed.netloc])
