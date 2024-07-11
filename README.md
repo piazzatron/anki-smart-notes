@@ -154,6 +154,11 @@ Smart Notes uses <a href="https://sentry.io/">Sentry</a> as a crash reporter to 
 
 # Changelog
 
+## v1.4.0
+
+- Manual fields: uncheck "Always Generate Smart Field" when creating a field to leave it empty by default. Editor > Right Click to generate it.
+- Set a custom OpenAI endpoint via Settings > Advanced. Supports users who are unable to access the official OpenAI API.
+
 ## v1.3.0
 
 - Improved regenerating smart field behavior:
