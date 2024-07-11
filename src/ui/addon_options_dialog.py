@@ -378,9 +378,6 @@ class AddonOptionsDialog(QDialog):
         self.state.update({"prompts_map": prompts_map, "selected_row": None})
 
     def on_accept(self) -> None:
-        print("ON ACCEPT")
-        print(self.state.s)
-
         if config.openai_endpoint and not is_valid_url(config.openai_endpoint):
             show_message_box("Invalid OpenAI Host", "Please provide a valid URL.")
             return

@@ -364,7 +364,6 @@ class PromptDialog(QDialog):
         extras[selected_field]["automatic"] = is_automatic
 
         self.on_accept_callback(prompts_map)
-        print(prompts_map)
         self.accept()
 
     def on_reject(self):
