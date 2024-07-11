@@ -1,6 +1,7 @@
 {
   "openai_api_key": "",
   "openai_model": "gpt-3.5-turbo",
+  "openai_endpoint": null,
   "times_used": 0,
   "did_show_rate_dialog": false,
   "generate_at_review": true,

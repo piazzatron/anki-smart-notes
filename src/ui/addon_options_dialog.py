@@ -40,6 +40,7 @@ from PyQt6.QtCore import Qt
 from ..config import OpenAIModels, PromptMap, config
 from ..logger import logger
 from ..processor import Processor
+from .changelog import get_version
 from .prompt_dialog import PromptDialog
 from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
@@ -59,6 +60,7 @@ class State(TypedDict):
     selected_row: Union[int, None]
     generate_at_review: bool
     regenerate_when_batching: bool
+    openai_endpoint: Union[str, None]
 
 
 class AddonOptionsDialog(QDialog):
@@ -84,7 +86,7 @@ class AddonOptionsDialog(QDialog):
         title_box_layout = QHBoxLayout()
         title_box.setLayout(title_box_layout)
         title = QLabel("<h2>Smart Notes</h2>")
-        subtitle = QLabel("v0.1.0")  # TODO: reference the version somewhere
+        subtitle = QLabel(get_version())  # TODO: reference the version somewhere
         title_box_layout.addWidget(title)
         title_box_layout.addWidget(subtitle)
 
@@ -172,19 +174,42 @@ class AddonOptionsDialog(QDialog):
 
         # Tab2
 
+        # Models form
+
+        models_group_box = QGroupBox("🤖 Model Settings")
+        models_form = QFormLayout()
+        models_form.setVerticalSpacing(12)
+        models_form.setLabelAlignment(Qt.AlignmentFlag.AlignLeft)
+        models_form.setFormAlignment(Qt.AlignmentFlag.AlignLeft)
+        models_form.addRow("OpenAI Model:", self.models_combo_box)
+
         learn_more_about_models = QLabel(
             'Newer models (GPT-4o, etc) will perform better with lower rate limits and higher cost. <a href="https://platform.openai.com/docs/models/">Learn more.</a>'
         )
         learn_more_about_models.setOpenExternalLinks(True)
         learn_more_about_models.setFont(font_small)
-        tab2 = QWidget()
-        tab2_layout = QFormLayout()
-        tab2_layout.setLabelAlignment(Qt.AlignmentFlag.AlignLeft)
-        tab2_layout.setFormAlignment(Qt.AlignmentFlag.AlignLeft)
-        tab2_layout.addRow("OpenAI Model:", self.models_combo_box)
-        tab2_layout.addRow(learn_more_about_models)
-        # Add spacer row
-        tab2_layout.addRow("", QLabel(""))
+        models_form.addRow(learn_more_about_models)
+        models_form.addRow("", QLabel(""))
+
+        self.openai_endpoint_edit = ReactiveLineEdit(self.state, "openai_endpoint")
+        self.openai_endpoint_edit.setPlaceholderText("https://api.openai.com")
+        self.openai_endpoint_edit.setMinimumWidth(400)
+        self.openai_endpoint_edit.onChange.connect(
+            lambda text: self.state.update({"openai_endpoint": text})
+        )
+        endpoint_info = QLabel("Provide an alternative endpoint to the OpenAI API.")
+        endpoint_info.setFont(font_small)
+        models_form.addRow("OpenAI Host:", self.openai_endpoint_edit)
+        models_form.addRow(endpoint_info)
+
+        models_group_box.setLayout(models_form)
+
+        plugin_box = QGroupBox("✨Smart Field Generation")
+        plugin_form = QFormLayout()
+        plugin_form.setVerticalSpacing(12)
+        plugin_form.setLabelAlignment(Qt.AlignmentFlag.AlignLeft)
+        plugin_form.setFormAlignment(Qt.AlignmentFlag.AlignLeft)
+        plugin_box.setLayout(plugin_form)
 
         # Generate at review
         self.generate_at_review_button = ReactiveCheckBox(
@@ -193,8 +218,9 @@ class AddonOptionsDialog(QDialog):
         self.generate_at_review_button.onChange.connect(
             lambda checked: self.state.update({"generate_at_review": checked})
         )
-        tab2_layout.addRow(
-            "Auto-generate fields at review time:", self.generate_at_review_button
+
+        plugin_form.addRow(
+            "Generate fields during review:", self.generate_at_review_button
         )
 
         # Regenerate when during
@@ -204,9 +230,7 @@ class AddonOptionsDialog(QDialog):
         self.regenerate_when_batching.onChange.connect(
             lambda checked: self.state.update({"regenerate_when_batching": checked})
         )
-        # Add spacer row
-        tab2_layout.addRow("", QLabel(""))
-        tab2_layout.addRow(
+        plugin_form.addRow(
             "Regenerate all smart fields when batch processing:",
             self.regenerate_when_batching,
         )
@@ -214,7 +238,16 @@ class AddonOptionsDialog(QDialog):
             "When batch processing a group of notes, whether to regenerate all smart fields from scratch, or only generate empty ones."
         )
         regenerate_info.setFont(font_small)
-        tab2_layout.addRow(regenerate_info)
+        plugin_form.addRow(regenerate_info)
+
+        tab2 = QWidget()
+        tab2_layout = QFormLayout()
+        tab2_layout.setLabelAlignment(Qt.AlignmentFlag.AlignLeft)
+        tab2_layout.setFormAlignment(Qt.AlignmentFlag.AlignLeft)
+
+        tab2_layout.addRow(models_group_box)
+        tab2_layout.addRow(QLabel(""))
+        tab2_layout.addRow(plugin_box)
 
         tab2.setLayout(tab2_layout)
         tabs.addTab(tab2, "Advanced")
@@ -351,6 +384,7 @@ class AddonOptionsDialog(QDialog):
         config.openai_model = self.state.s["openai_model"]
         config.generate_at_review = self.state.s["generate_at_review"]
         config.regenerate_notes_when_batching = self.state.s["regenerate_when_batching"]
+        config.openai_endpoint = self.state.s["openai_endpoint"]
         self.accept()
 
     def on_reject(self) -> None:
@@ -367,6 +401,7 @@ class AddonOptionsDialog(QDialog):
             "selected_row": None,
             "generate_at_review": config.generate_at_review,
             "regenerate_when_batching": config.regenerate_notes_when_batching,
+            "openai_endpoint": config.openai_endpoint,
             "openai_models": openai_models,
         }
 

@@ -21,29 +21,29 @@ import asyncio
 
 import aiohttp
 
-from .config import Config
+from .config import config
 from .logger import logger
 
 RETRY_BASE_SECONDS = 5
 MAX_RETRIES = 5
 
+OPENAI_ENDPOINT = "https://api.openai.com"
+
 
 class OpenAIClient:
     """Client for OpenAI's chat API."""
 
-    def __init__(self, config: Config):
-        self.config = config
-
     async def async_get_chat_response(self, prompt: str, retry_count=0) -> str:
         """Gets a chat response from OpenAI's chat API. This method can throw; the caller should handle with care."""
+        endpoint = f"{config.openai_endpoint or OPENAI_ENDPOINT}/v1/chat/completions"
         async with aiohttp.ClientSession() as session:
             async with session.post(
-                "https://api.openai.com/v1/chat/completions",
+                endpoint,
                 headers={
-                    "Authorization": f"Bearer {self.config.openai_api_key}",
+                    "Authorization": f"Bearer {config.openai_api_key}",
                 },
                 json={
-                    "model": self.config.openai_model,
+                    "model": config.openai_model,
                     "messages": [{"role": "user", "content": prompt}],
                 },
             ) as response:

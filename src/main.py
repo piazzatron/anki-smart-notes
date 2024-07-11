@@ -24,7 +24,7 @@ from .processor import Processor
 
 
 def main() -> None:
-    client = OpenAIClient(config)
+    client = OpenAIClient()
     processor = Processor(client, config)
 
     setup_hooks(processor)
