@@ -301,6 +301,7 @@ class PromptDialog(QDialog):
             show_message_box(msg, custom_ok="Close")
 
         def on_failure(e: Exception) -> None:
+            show_message_box(f"Failed to get response: {e}")
             self.state["is_loading_prompt"] = False
 
         self.processor.get_chat_response(

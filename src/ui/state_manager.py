@@ -18,7 +18,6 @@
 """
 
 from copy import deepcopy
-from pprint import pformat
 from typing import Any, Dict, Generic, TypeVar
 
 from aqt import QObject, pyqtSignal
@@ -58,8 +57,8 @@ class StateManager(QObject, Generic[T]):
         if new_state != self._state:
             if not is_production():
                 logger.debug("State transition")
-                logger.debug(pformat(self._state))
-                logger.debug(pformat(new_state))
+                logger.debug(self._state)
+                logger.debug(new_state)
             self._state = new_state
             self.state_changed.emit(new_state)
 
