@@ -18,18 +18,15 @@
 """
 
 import copy
-from typing import Any, Dict, TypedDict, Union
+from typing import List, TypedDict, Union
 
 from aqt import (
-    QCheckBox,
-    QComboBox,
     QDialog,
     QDialogButtonBox,
     QFormLayout,
     QGroupBox,
     QHBoxLayout,
     QLabel,
-    QLineEdit,
     QPushButton,
     QSizePolicy,
     QTableWidget,
@@ -44,45 +41,39 @@ from ..config import OpenAIModels, PromptMap, config
 from ..logger import logger
 from ..processor import Processor
 from .prompt_dialog import PromptDialog
+from .reactive_check_box import ReactiveCheckBox
+from .reactive_combo_box import ReactiveComboBox
+from .reactive_line_edit import ReactiveLineEdit
+from .state_manager import StateManager
 
 OPTIONS_MIN_WIDTH = 750
 
-openai_models = ["gpt-3.5-turbo", "gpt-4o", "gpt-4-turbo", "gpt-4"]
+openai_models: List[OpenAIModels] = ["gpt-3.5-turbo", "gpt-4o", "gpt-4-turbo", "gpt-4"]
 
 
 class State(TypedDict):
     openai_api_key: Union[str, None]
     prompts_map: PromptMap
     openai_model: OpenAIModels
+    openai_models: List[OpenAIModels]
     selected_row: Union[int, None]
     generate_at_review: bool
     regenerate_when_batching: bool
 
 
-initial_state: State = {
-    "openai_api_key": config.openai_api_key,
-    "prompts_map": config.prompts_map,
-    "openai_model": config.openai_model,
-    "selected_row": None,
-    "generate_at_review": config.generate_at_review,
-    "regenerate_when_batching": config.regenerate_notes_when_batching,
-}
-
-
 class AddonOptionsDialog(QDialog):
-    api_key_edit: QLineEdit
+    api_key_edit: ReactiveLineEdit[State]
     table_buttons: QHBoxLayout
     remove_button: QPushButton
     table: QTableWidget
     restore_defaults: QPushButton
     edit_button: QPushButton
-    state: State
+    state: StateManager[State]
 
     def __init__(self, processor: Processor):
         super().__init__()
         self.processor = processor
-        self.state = self.make_initial_state()
-
+        self.state = StateManager[State](self.make_initial_state())
         self.setup_ui()
 
     def setup_ui(self) -> None:
@@ -106,21 +97,19 @@ class AddonOptionsDialog(QDialog):
         get_api_key_label.setOpenExternalLinks(True)
         get_api_key_label.setFont(font_small)
 
-        self.api_key_edit = QLineEdit()
+        self.api_key_edit = ReactiveLineEdit(self.state, "openai_api_key")
         self.api_key_edit.setPlaceholderText("sk-proj-1234...")
         self.api_key_edit.setMinimumWidth(500)
         self.api_key_edit.setSizePolicy(
             QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred
         )
-        self.api_key_edit.textChanged.connect(
-            lambda text: self.set_state({"openai_api_key": text})
-        )
 
         # Select model
-        self.models_combo_box = QComboBox()
-        self.models_combo_box.addItems(openai_models)
-        self.models_combo_box.currentTextChanged.connect(
-            lambda text: self.set_state({"openai_model": text})
+        self.models_combo_box = ReactiveComboBox(
+            self.state, "openai_models", "openai_model"
+        )
+        self.models_combo_box.onChange.connect(
+            lambda text: self.state.update({"openai_model": text})
         )
 
         form = QFormLayout()
@@ -198,18 +187,22 @@ class AddonOptionsDialog(QDialog):
         tab2_layout.addRow("", QLabel(""))
 
         # Generate at review
-        self.generate_at_review_button = QCheckBox()
-        self.generate_at_review_button.stateChanged.connect(
-            lambda checked: self.set_state({"generate_at_review": checked == 2})
+        self.generate_at_review_button = ReactiveCheckBox(
+            self.state, "generate_at_review"
+        )
+        self.generate_at_review_button.onChange.connect(
+            lambda checked: self.state.update({"generate_at_review": checked})
         )
         tab2_layout.addRow(
             "Auto-generate fields at review time:", self.generate_at_review_button
         )
 
         # Regenerate when during
-        self.regenerate_when_batching = QCheckBox()
-        self.regenerate_when_batching.stateChanged.connect(
-            lambda checked: self.set_state({"regenerate_when_batching": checked == 2})
+        self.regenerate_when_batching = ReactiveCheckBox(
+            self.state, "regenerate_when_batching"
+        )
+        self.regenerate_when_batching.onChange.connect(
+            lambda checked: self.state.update({"regenerate_when_batching": checked})
         )
         # Add spacer row
         tab2_layout.addRow("", QLabel(""))
@@ -235,36 +228,20 @@ class AddonOptionsDialog(QDialog):
         tab_layout.addWidget(standard_buttons)
 
         self.setLayout(tab_layout)
+        self.state.state_changed.connect(self.render_ui)
         self.render_ui()
-
-    # TODO: type the updates dict
-    def set_state(self, updates: Dict[str, Any]) -> None:
-        new_state: State = dict(self.state)  # type: ignore
-
-        for key, value in updates.items():
-            assert key in new_state
-            new_state[key] = value  # type: ignore
-
-        if new_state != self.state:
-            self.state = new_state
-            self.render_ui()
 
     def render_ui(self) -> None:
         self.render_table()
         self.render_buttons()
-        self.render_fields()
-
-    def render_fields(self) -> None:
-        self.api_key_edit.setText(self.state["openai_api_key"])
-        self.models_combo_box.setCurrentText(self.state["openai_model"])
-        self.generate_at_review_button.setChecked(self.state["generate_at_review"])
-        self.regenerate_when_batching.setChecked(self.state["regenerate_when_batching"])
 
     def render_table(self) -> None:
         self.table.setRowCount(0)
 
         row = 0
-        for note_type, field_prompts in self.state["prompts_map"]["note_types"].items():
+        for note_type, field_prompts in self.state.s["prompts_map"][
+            "note_types"
+        ].items():
             for field, prompt in field_prompts["fields"].items():
                 self.table.insertRow(self.table.rowCount())
                 items = [
@@ -279,7 +256,7 @@ class AddonOptionsDialog(QDialog):
 
         # Ensure the correct row is always selected
         # shouldn't need the second and condition, but defensive
-        selected_row = self.state["selected_row"]
+        selected_row = self.state.s["selected_row"]
         if selected_row is not None and selected_row < self.table.rowCount():
             self.table.selectRow(selected_row)
 
@@ -303,10 +280,10 @@ class AddonOptionsDialog(QDialog):
 
     def on_row_selected(self, current) -> None:
         if current:
-            self.set_state({"selected_row": current.row()})
+            self.state.update({"selected_row": current.row()})
 
     def on_edit(self, _) -> None:
-        row = self.state["selected_row"]
+        row = self.state.s["selected_row"]
         if row is None:
             return
 
@@ -319,7 +296,7 @@ class AddonOptionsDialog(QDialog):
         config.openai_api_key = self.api_key_edit.text()
 
         prompt_dialog = PromptDialog(
-            self.state["prompts_map"],
+            self.state.s["prompts_map"],
             self.processor,
             self.on_update_prompts,
             card_type=card_type,
@@ -331,7 +308,7 @@ class AddonOptionsDialog(QDialog):
             self.render_table()
 
     def render_buttons(self) -> None:
-        is_enabled = self.state["selected_row"] is not None
+        is_enabled = self.state.s["selected_row"] is not None
         self.remove_button.setEnabled(is_enabled)
         self.edit_button.setEnabled(is_enabled)
 
@@ -340,14 +317,14 @@ class AddonOptionsDialog(QDialog):
         config.openai_api_key = self.api_key_edit.text()
 
         prompt_dialog = PromptDialog(
-            self.state["prompts_map"], self.processor, self.on_update_prompts
+            self.state.s["prompts_map"], self.processor, self.on_update_prompts
         )
 
         if prompt_dialog.exec() == QDialog.DialogCode.Accepted:
             self.render_table()
 
     def on_remove(self):
-        row = self.state["selected_row"]
+        row = self.state.s["selected_row"]
         if row is None:
             # Should never happen
             return
@@ -356,29 +333,31 @@ class AddonOptionsDialog(QDialog):
         field = self.table.item(row, 1).text()  # type: ignore
         logger.debug(f"Removing {card_type}, {field}")
         # Deep copy bc we need the subdicts to not be mutated
-        prompts_map = copy.deepcopy(self.state["prompts_map"])
+        prompts_map = copy.deepcopy(self.state.s["prompts_map"])
 
         prompts_map["note_types"][card_type]["fields"].pop(field)
         # If there are no more fields for this card type, remove the card type
         if not prompts_map["note_types"][card_type]["fields"]:
             prompts_map["note_types"].pop(card_type)
 
-        self.set_state({"prompts_map": prompts_map, "selected_row": None})
+        self.state.update({"prompts_map": prompts_map, "selected_row": None})
 
     def on_accept(self) -> None:
+        print("ON ACCEPT")
+        print(self.state.s)
         # TODO: should abstract this
-        config.openai_api_key = self.state["openai_api_key"]
-        config.prompts_map = self.state["prompts_map"]
-        config.openai_model = self.state["openai_model"]
-        config.generate_at_review = self.state["generate_at_review"]
-        config.regenerate_notes_when_batching = self.state["regenerate_when_batching"]
+        config.openai_api_key = self.state.s["openai_api_key"]
+        config.prompts_map = self.state.s["prompts_map"]
+        config.openai_model = self.state.s["openai_model"]
+        config.generate_at_review = self.state.s["generate_at_review"]
+        config.regenerate_notes_when_batching = self.state.s["regenerate_when_batching"]
         self.accept()
 
     def on_reject(self) -> None:
         self.reject()
 
     def on_update_prompts(self, prompts_map: PromptMap) -> None:
-        self.set_state({"prompts_map": prompts_map})
+        self.state.update({"prompts_map": prompts_map})
 
     def make_initial_state(self) -> State:
         return {
@@ -388,8 +367,9 @@ class AddonOptionsDialog(QDialog):
             "selected_row": None,
             "generate_at_review": config.generate_at_review,
             "regenerate_when_batching": config.regenerate_notes_when_batching,
+            "openai_models": openai_models,
         }
 
     def on_restore_defaults(self) -> None:
         config.restore_defaults()
-        self.set_state(self.make_initial_state())  # type: ignore
+        self.state.update(self.make_initial_state())  # type: ignore

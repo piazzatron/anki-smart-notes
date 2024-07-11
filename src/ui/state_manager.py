@@ -18,14 +18,15 @@
 """
 
 from copy import deepcopy
+from pprint import pformat
 from typing import Any, Dict, Generic, TypeVar
 
 from aqt import QObject, pyqtSignal
 
+from ..logger import logger
+from ..utils import is_production
+
 T = TypeVar("T")
-
-
-from .reactive_widget import ReactiveWidget
 
 
 class StateManager(QObject, Generic[T]):
@@ -55,12 +56,18 @@ class StateManager(QObject, Generic[T]):
             new_state[key] = value  # type: ignore
 
         if new_state != self._state:
+            if not is_production():
+                logger.debug("State transition")
+                logger.debug(pformat(self._state))
+                logger.debug(pformat(new_state))
             self._state = new_state
             self.state_changed.emit(new_state)
 
         self.updating = False
 
-    def bind(self, widget: ReactiveWidget):
+    def bind(
+        self, widget: Any
+    ):  # TODO: should be ReactiveWidget but circular import that I'm too lazy to fix rn
         self.state_changed.connect(widget.update_from_state)
         self.state_changed.emit(self._state)
 

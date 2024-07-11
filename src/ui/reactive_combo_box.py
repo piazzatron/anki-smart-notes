@@ -19,7 +19,7 @@
 
 from typing import Any, Dict, Generic, List, TypeVar
 
-from aqt import QComboBox, pyqtSignal
+from aqt import QComboBox
 
 from .reactive_widget import ReactiveWidget
 from .state_manager import StateManager
@@ -27,19 +27,20 @@ from .state_manager import StateManager
 T = TypeVar("T")
 
 
-class ReactiveComboBox(QComboBox, ReactiveWidget, Generic[T]):
+class ReactiveComboBox(ReactiveWidget[T], QComboBox, Generic[T]):
     _fields_key: str
     _selected_key: str
-    _state: StateManager[T]
-    onChange = pyqtSignal(str)
 
-    def __init__(self, state: StateManager[T], fields_key: str, selected_key: str):
-        super().__init__()
+    def __init__(
+        self, state: StateManager[T], fields_key: str, selected_key: str, **kwargs: Any
+    ):
+        super().__init__(state, **kwargs)
         self._fields_key = fields_key
         self._selected_key = selected_key
-        self._state = state
-        self.currentTextChanged.connect(self.on_current_text_changed)
+
         state.bind(self)
+
+        self.currentTextChanged.connect(self._on_current_text_changed)
 
     def update_from_state(self, updates: Dict[str, Any]) -> None:
         fields: List[str] = updates[self._fields_key]
@@ -50,7 +51,7 @@ class ReactiveComboBox(QComboBox, ReactiveWidget, Generic[T]):
         self.addItems(fields)
         self.setCurrentText(selected)
 
-    def on_current_text_changed(self, text: str) -> None:
+    def _on_current_text_changed(self, text: str) -> None:
         if self._state.updating:
             return
 

@@ -19,7 +19,7 @@
 
 from typing import Any, Dict, Generic, TypeVar
 
-from aqt import QTextCursor, QTextEdit
+from aqt import QLineEdit
 
 from .reactive_widget import ReactiveWidget
 from .state_manager import StateManager
@@ -27,10 +27,7 @@ from .state_manager import StateManager
 T = TypeVar("T")
 
 
-class ReactiveEditText(ReactiveWidget[T], QTextEdit, Generic[T]):
-    _key: str
-    _state: StateManager[T]
-
+class ReactiveLineEdit(ReactiveWidget[T], QLineEdit, Generic[T]):
     def __init__(self, state: StateManager[T], key: str, **kwargs):
         super().__init__(state, **kwargs)
         self._key = key
@@ -40,23 +37,10 @@ class ReactiveEditText(ReactiveWidget[T], QTextEdit, Generic[T]):
         self.textChanged.connect(self._on_text_changed)
 
     def update_from_state(self, updates: Dict[str, Any]) -> None:
-        cursor = self.textCursor()
-        position = cursor.position()
-        scroll_bar = self.verticalScrollBar()
-        if scroll_bar:
-            scroll = scroll_bar.value()
-
         self.setText(updates[self._key])
 
-        cursor.setPosition(position, QTextCursor.MoveMode.MoveAnchor)
-        self.setTextCursor(cursor)
-
-        scroll_bar = self.verticalScrollBar()
-        if scroll_bar:
-            scroll_bar.setValue(scroll)
-
-    def _on_text_changed(self) -> None:
+    def _on_text_changed(self, text) -> None:
         if self._state.updating:
             return
 
-        self.onChange.emit(self.toPlainText())
+        self.onChange.emit(text)

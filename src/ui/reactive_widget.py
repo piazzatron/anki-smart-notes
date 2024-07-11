@@ -17,17 +17,22 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from abc import ABCMeta, abstractmethod
-from typing import Any, Dict
+from typing import Any, Dict, Generic, TypeVar
 
-from aqt import QWidget
+from aqt import pyqtSignal
+
+from .state_manager import StateManager
+
+T = TypeVar("T")
 
 
-class MetaQWidget(type(QWidget), ABCMeta):  # type: ignore
-    pass
+class ReactiveWidget(Generic[T]):
+    onChange = pyqtSignal(str)
+    _state: StateManager[T]
 
+    def __init__(self, state: StateManager[T], **kwargs: Any):
+        super().__init__(**kwargs)
+        self._state = state
 
-class ReactiveWidget(QWidget, metaclass=MetaQWidget):
-    @abstractmethod
     def update_from_state(self, new_state: Dict[str, Any]) -> None:
-        pass
+        raise NotImplementedError()
