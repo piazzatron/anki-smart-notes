@@ -35,4 +35,9 @@ class ReactiveWidget(Generic[T]):
         self._state = state
 
     def update_from_state(self, new_state: Dict[str, Any]) -> None:
+        self.blockSignals(True)  # type:ignore
+        self._update_from_state(new_state)
+        self.blockSignals(False)  # type: ignore
+
+    def _update_from_state(self, new_state: Dict[str, Any]) -> None:
         raise NotImplementedError()

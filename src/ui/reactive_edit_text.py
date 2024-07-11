@@ -39,7 +39,7 @@ class ReactiveEditText(ReactiveWidget[T], QTextEdit, Generic[T]):
 
         self.textChanged.connect(self._on_text_changed)
 
-    def update_from_state(self, updates: Dict[str, Any]) -> None:
+    def _update_from_state(self, updates: Dict[str, Any]) -> None:
         cursor = self.textCursor()
         position = cursor.position()
         scroll_bar = self.verticalScrollBar()

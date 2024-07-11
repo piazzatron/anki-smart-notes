@@ -36,7 +36,7 @@ class ReactiveLineEdit(ReactiveWidget[T], QLineEdit, Generic[T]):
 
         self.textChanged.connect(self._on_text_changed)
 
-    def update_from_state(self, updates: Dict[str, Any]) -> None:
+    def _update_from_state(self, updates: Dict[str, Any]) -> None:
         self.setText(updates[self._key])
 
     def _on_text_changed(self, text) -> None:

@@ -42,7 +42,7 @@ class ReactiveComboBox(ReactiveWidget[T], QComboBox, Generic[T]):
 
         self.currentTextChanged.connect(self._on_current_text_changed)
 
-    def update_from_state(self, updates: Dict[str, Any]) -> None:
+    def _update_from_state(self, updates: Dict[str, Any]) -> None:
         fields: List[str] = updates[self._fields_key]
         selected: str = updates[self._selected_key]
         assert fields and selected
