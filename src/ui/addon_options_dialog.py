@@ -107,6 +107,9 @@ class AddonOptionsDialog(QDialog):
         self.api_key_edit.setSizePolicy(
             QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred
         )
+        self.api_key_edit.onChange.connect(
+            lambda text: self.state.update({"openai_api_key": text})
+        )
 
         # Select model
         self.models_combo_box = ReactiveComboBox(
