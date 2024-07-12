@@ -32,7 +32,7 @@ from .config import config
 from .logger import logger
 from .ui.changelog import get_version
 from .ui.ui_utils import show_message_box
-from .utils import is_production
+from .utils import is_production, run_in_background
 
 dsn = os.getenv("SENTRY_DSN")
 
@@ -146,28 +146,25 @@ class Sentry:
         )
 
 
-def init_sentry() -> Union[Sentry, None]:
-    import json
+def ping() -> None:
 
     import requests
 
-    if env.environment == "PROD":
-        headers = {"Content-Type": "application/json", "Accept": "*/*"}
-        data = {
-            "api_key": "f95b95bc053d3d7f812fe77457201347",
-            "events": [
-                {
-                    "device_id": config.uuid,
-                    "event_type": "session_start",
-                }
-            ],
-        }
-        requests.post(
-            "https://api2.amplitude.com/2/httpapi",
-            headers=headers,
-            data=json.dumps(data),
+    try:
+        ping_url = (
+            "https://anki-smart-notes-server.vercel.app"
+            if env.environment == "PROD"
+            else "http://localhost:3000"
         )
 
+        ping_url = f"{ping_url}/api/ping"
+        requests.get(ping_url, params={"version": get_version(), "uuid": config.uuid})
+    except Exception as e:
+        logger.error(f"Error pinging server: {e}")
+
+
+def init_sentry() -> Union[Sentry, None]:
+    run_in_background(ping)
     dsn = os.getenv("SENTRY_DSN")
     release = get_version()
     if not dsn or not release:
