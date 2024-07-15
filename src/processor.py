@@ -18,19 +18,18 @@
 """
 
 import asyncio
-from typing import Any, Callable, List, Sequence, Tuple, Union
+from typing import Callable, List, Sequence, Tuple, Union
 
 import aiohttp
 from anki.notes import Note, NoteId
 from aqt import editor, mw
-from aqt.operations import QueryOp
 
 from .config import Config
 from .logger import logger
 from .notes import get_note_type
 from .open_ai_client import OpenAIClient
 from .prompts import get_generate_automatically, get_prompts, interpolate_prompt
-from .sentry import sentry
+from .sentry import run_async_in_background_with_sentry
 from .ui.ui_utils import show_message_box
 from .utils import bump_usage_counter, check_for_api_key, run_on_main
 
@@ -78,7 +77,7 @@ class Processor:
             self._handle_failure(e)
             self._reqlinquish_req_in_progress()
 
-        run_async_in_background(
+        run_async_in_background_with_sentry(
             lambda: async_process_single_field(note, target_field_name),
             lambda _: on_success(),
             on_failure,
@@ -198,7 +197,7 @@ class Processor:
 
             return total_updated, total_failed
 
-        run_async_in_background(
+        run_async_in_background_with_sentry(
             op, wrapped_on_success, on_failure, with_progress=(not is_large_batch)
         )
 
@@ -278,7 +277,7 @@ class Processor:
 
         # NOTE: for some reason i can't run bump_usage_counter in this hook without causing a
         # an PyQT crash, so I'm running it in the on_success callback instead
-        run_async_in_background(
+        run_async_in_background_with_sentry(
             lambda: self._process_note(
                 note, overwrite_fields=overwrite_fields, target_fields=target_fields
             ),
@@ -399,41 +398,8 @@ class Processor:
             if on_failure:
                 on_failure(e)
 
-        run_async_in_background(
+        run_async_in_background_with_sentry(
             lambda: self.client.async_get_chat_response(prompt),
             wrapped_on_success,
             wrapped_on_failure,
         )
-
-
-def run_async_in_background(
-    op: Callable[[], Any],
-    on_success: Callable[[Any], None],
-    on_failure: Union[Callable[[Exception], None], None] = None,
-    with_progress: bool = False,
-):
-    "Runs an async operation in the background and calls on_success when done."
-
-    if not mw:
-        raise Exception("Error: mw not found in run_async_in_background")
-
-    # Wrap for sentry error reporting
-    if sentry:
-        op = sentry.wrap_async(op)
-        on_success = sentry.wrap(on_success)
-        if on_failure:
-            on_failure = sentry.wrap(on_failure)
-
-    query_op = QueryOp(
-        parent=mw,
-        op=lambda _: asyncio.run(op()),
-        success=on_success,
-    )
-
-    if on_failure:
-        query_op.failure(on_failure)
-
-    if with_progress:
-        query_op = query_op.with_progress()
-
-    query_op.run_in_background()

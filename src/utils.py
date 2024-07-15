@@ -17,10 +17,12 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import asyncio
 import os
-from typing import Any, Callable, Dict, List
+from typing import Any, Callable, Dict, List, Union
 
 from aqt import mw
+from aqt.operations import QueryOp
 
 from ..env import environment
 from .config import config
@@ -85,12 +87,31 @@ def run_on_main(work: Callable[[], None]) -> None:
     mw.taskman.run_on_main(work)
 
 
-def run_in_background(work: Callable[[], None]) -> None:
-    if not mw:
-        return
-
-    mw.taskman.run_in_background(work)
-
-
 def is_production() -> bool:
     return environment == "PROD"
+
+
+def run_async_in_background(
+    op: Callable[[], Any],
+    on_success: Callable[[Any], None] = lambda _: None,
+    on_failure: Union[Callable[[Exception], None], None] = None,
+    with_progress: bool = False,
+):
+    "Runs an async operation in the background and calls on_success when done."
+
+    if not mw:
+        raise Exception("Error: mw not found in run_async_in_background")
+
+    query_op = QueryOp(
+        parent=mw,
+        op=lambda _: asyncio.run(op()),
+        success=on_success,
+    )
+
+    if on_failure:
+        query_op.failure(on_failure)
+
+    if with_progress:
+        query_op = query_op.with_progress()
+
+    query_op.run_in_background()

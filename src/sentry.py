@@ -22,6 +22,7 @@ import os
 import random
 from typing import Any, Callable, Coroutine, Union
 
+import aiohttp
 import sentry_sdk
 from aqt import mw
 from sentry_sdk.integrations.logging import LoggingIntegration
@@ -32,7 +33,7 @@ from .config import config
 from .logger import logger
 from .ui.changelog import get_version
 from .ui.ui_utils import show_message_box
-from .utils import is_production, run_in_background
+from .utils import is_production, run_async_in_background
 
 dsn = os.getenv("SENTRY_DSN")
 
@@ -146,25 +147,24 @@ class Sentry:
         )
 
 
-def ping() -> None:
+SERVER_URL = "https://anki-smart-notes-server-production.up.railway.app"
 
-    import requests
 
+async def ping() -> None:
     try:
-        ping_url = (
-            "https://anki-smart-notes-server.vercel.app"
-            if env.environment == "PROD"
-            else "http://localhost:3000"
-        )
-
-        ping_url = f"{ping_url}/api/ping"
-        requests.get(ping_url, params={"version": get_version(), "uuid": config.uuid})
+        ping_url = f"{(SERVER_URL if env.environment == 'PROD' else 'http://localhost:3000')}/ping"
+        params = {"version": get_version(), "uuid": config.uuid}
+        async with aiohttp.ClientSession() as session:
+            async with session.get(ping_url, params=params) as response:
+                if response.status != 200:
+                    logger.error(f"Error pinging server: {response.status}")
+                else:
+                    logger.debug("Successfully pinged server")
     except Exception as e:
         logger.error(f"Error pinging server: {e}")
 
 
 def init_sentry() -> Union[Sentry, None]:
-    run_in_background(ping)
     dsn = os.getenv("SENTRY_DSN")
     release = get_version()
     if not dsn or not release:
@@ -189,3 +189,24 @@ def with_sentry(fn: Callable[..., Any]) -> Callable[..., Any]:
 
 
 sentry = init_sentry()
+
+
+def run_async_in_background_with_sentry(
+    op: Callable[[], Any],
+    on_success: Callable[[Any], None],
+    on_failure: Union[Callable[[Exception], None], None] = None,
+    with_progress: bool = False,
+):
+    "Runs an async operation in the background and calls on_success when done."
+
+    if not mw:
+        raise Exception("Error: mw not found in run_async_in_background")
+
+    # Wrap for sentry error reporting
+    if sentry:
+        op = sentry.wrap_async(op)
+        on_success = sentry.wrap(on_success)
+        if on_failure:
+            on_failure = sentry.wrap(on_failure)
+
+    run_async_in_background(op, on_success, on_failure, with_progress)

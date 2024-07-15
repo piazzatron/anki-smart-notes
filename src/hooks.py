@@ -34,12 +34,12 @@ from .config import config
 from .logger import logger
 from .notes import is_ai_field, is_note_fully_processed
 from .processor import Processor
-from .sentry import sentry, with_sentry
+from .sentry import ping, sentry, with_sentry
 from .ui.addon_options_dialog import AddonOptionsDialog
 from .ui.changelog import perform_update_check
 from .ui.sparkle import Sparkle
 from .ui.ui_utils import show_message_box
-from .utils import bump_usage_counter, check_for_api_key
+from .utils import bump_usage_counter, check_for_api_key, run_async_in_background
 
 
 def with_processor(fn):
@@ -186,6 +186,7 @@ def on_main_window(processor: Processor):
     mw.addonManager.setConfigAction(__name__, on_options(processor))
     perform_update_check()
 
+    run_async_in_background(ping)
     if sentry:
         sentry.configure_scope()
 
