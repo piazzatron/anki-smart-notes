@@ -10,5 +10,6 @@
   },
   "last_seen_version": null,
   "uuid": null,
-  "regenerate_notes_when_batching": false
+  "regenerate_notes_when_batching": false,
+  "allow_empty_fields": true
 }

@@ -25,6 +25,7 @@ from typing import Dict, Union
 from anki.notes import Note
 
 from .config import FieldExtras, PromptMap, config
+from .logger import logger
 from .utils import get_fields, to_lowercase_dict
 
 EXTRAS_DEFAULT_AUTOMATIC = True
@@ -90,7 +91,7 @@ def prompt_has_error(
 
 
 def interpolate_prompt(prompt: str, note: Note) -> Union[str, None]:
-    """Interpolates a prompt. Returns none if a source field is empty."""
+    """Interpolates a prompt. Returns none if all source field are empty, or if some are empty and we're not allowing empty fields."""
     # Bunch of extra logic to make this whole process case insensitive
 
     # Regex to pull out any words enclosed in double curly braces
@@ -103,11 +104,15 @@ def interpolate_prompt(prompt: str, note: Note) -> Union[str, None]:
     # Lowercase the characters inside {{}} in the prompt
     prompt = re.sub(pattern, lambda x: "{{" + x.group(1).lower() + "}}", prompt)
 
-    # Sub values in prompt
-    for field in fields:
-        value = all_note_fields.get(field, "")
-        if not value:
-            return None
-        prompt = prompt.replace("{{" + field + "}}", value)
+    allow_empty = config.allow_empty_fields
 
-    return prompt
+    # Sub values in prompt
+    values = [all_note_fields.get(field, "") for field in fields]
+
+    if any(values) and (allow_empty or all(values)):
+        for field, value in zip(fields, values):
+            prompt = prompt.replace("{{" + field + "}}", value)
+        return prompt
+
+    logger.debug("Prompt has empty fields")
+    return None

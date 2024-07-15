@@ -64,6 +64,7 @@ class State(TypedDict):
     generate_at_review: bool
     regenerate_when_batching: bool
     openai_endpoint: Union[str, None]
+    allow_empty_fields: bool
 
 
 class AddonOptionsDialog(QDialog):
@@ -220,6 +221,7 @@ class AddonOptionsDialog(QDialog):
         plugin_form.addRow(
             "Generate fields during review:", self.generate_at_review_button
         )
+        plugin_form.addRow("", QLabel(""))
 
         # Regenerate when during
         self.regenerate_when_batching = ReactiveCheckBox(
@@ -237,6 +239,20 @@ class AddonOptionsDialog(QDialog):
         )
         regenerate_info.setFont(font_small)
         plugin_form.addRow(regenerate_info)
+        plugin_form.addRow("", QLabel(""))
+
+        self.allow_empty_fields_box = ReactiveCheckBox(self.state, "allow_empty_fields")
+        self.allow_empty_fields_box.onChange.connect(
+            lambda checked: self.state.update({"allow_empty_fields": checked})
+        )
+        plugin_form.addRow(
+            "Generate prompts with some blank fields:", self.allow_empty_fields_box
+        )
+        empty_fields_info = QLabel(
+            "Generate even if the prompt references some blank fields. Prompts referencing *only* blank fields are never generated."
+        )
+        empty_fields_info.setFont(font_small)
+        plugin_form.addRow(empty_fields_info)
 
         tab2 = QWidget()
         tab2_layout = QFormLayout()
@@ -400,6 +416,7 @@ class AddonOptionsDialog(QDialog):
         config.generate_at_review = self.state.s["generate_at_review"]
         config.regenerate_notes_when_batching = self.state.s["regenerate_when_batching"]
         config.openai_endpoint = self.state.s["openai_endpoint"]
+        config.allow_empty_fields = self.state.s["allow_empty_fields"]
         self.accept()
 
     def on_reject(self) -> None:
@@ -418,6 +435,7 @@ class AddonOptionsDialog(QDialog):
             "regenerate_when_batching": config.regenerate_notes_when_batching,
             "openai_endpoint": config.openai_endpoint,
             "openai_models": openai_models,
+            "allow_empty_fields": config.allow_empty_fields,
         }
 
     def on_restore_defaults(self) -> None:

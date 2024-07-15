@@ -51,6 +51,7 @@ class Config:
     uuid: Union[str, None]
     openai_endpoint: Union[str, None]
     regenerate_notes_when_batching: bool
+    allow_empty_fields: bool
 
     def __getattr__(self, key: str) -> object:
         if not mw:
