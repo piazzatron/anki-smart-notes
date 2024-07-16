@@ -1,3 +1,7 @@
+# v1.5.0
+
+- Prompts can now reference empty fields. Control this behavior in settings > advanced.
+
 # v1.4.0
 
 - Manual fields: uncheck "Always Generate Smart Field" when creating a field to leave it empty by default. Editor > Right Click to generate it.
