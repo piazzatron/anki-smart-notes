@@ -30,6 +30,7 @@ from sentry_sdk.session import Session
 
 from .. import env
 from .config import config
+from .constants import get_server_url
 from .logger import logger
 from .ui.changelog import get_version
 from .ui.ui_utils import show_message_box
@@ -147,12 +148,9 @@ class Sentry:
         )
 
 
-SERVER_URL = "https://anki-smart-notes-server-production.up.railway.app"
-
-
 async def ping() -> None:
     try:
-        ping_url = f"{(SERVER_URL if env.environment == 'PROD' else 'http://localhost:3000')}/ping"
+        ping_url = f"{get_server_url()}/ping"
         params = {"version": get_version(), "uuid": config.uuid}
         async with aiohttp.ClientSession() as session:
             async with session.get(ping_url, params=params) as response:
