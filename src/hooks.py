@@ -32,6 +32,7 @@ from aqt.browser import SidebarItemType
 
 from .config import config
 from .logger import logger
+from .message_polling import start_polling_for_messages
 from .notes import is_ai_field, is_note_fully_processed
 from .processor import Processor
 from .sentry import sentry, with_sentry
@@ -188,6 +189,8 @@ def on_main_window(processor: Processor):
 
     if sentry:
         sentry.configure_scope()
+
+    start_polling_for_messages()
 
 
 @with_processor  # type: ignore
