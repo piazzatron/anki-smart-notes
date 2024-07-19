@@ -70,10 +70,14 @@ def bump_usage_counter() -> None:
         dialog.exec()
 
 
-def load_file(file: str) -> str:
+def get_file_path(file: str) -> str:
     path = mw.pm.addonFolder()  # type: ignore
     module = __name__.split(".")[0]
-    file_path = os.path.join(path, module, file)
+    return os.path.join(path, module, file)
+
+
+def load_file(file: str) -> str:
+    file_path = get_file_path(file)
 
     with open(file_path, "r") as f:
         content = f.read()
