@@ -87,6 +87,12 @@ def run_on_main(work: Callable[[], None]) -> None:
     mw.taskman.run_on_main(work)
 
 
+def run_in_background(work: Callable[[], None]) -> None:
+    if not mw:
+        return
+    mw.taskman.run_in_background(work)
+
+
 def is_production() -> bool:
     return environment == "PROD"
 

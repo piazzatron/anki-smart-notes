@@ -52,6 +52,7 @@ class Config:
     openai_endpoint: Union[str, None]
     regenerate_notes_when_batching: bool
     allow_empty_fields: bool
+    last_message_id: int
 
     def __getattr__(self, key: str) -> object:
         if not mw:
