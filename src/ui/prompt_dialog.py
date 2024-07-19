@@ -69,7 +69,7 @@ class ReactiveState(TypedDict):
     note_fields: List[str]
     selected_note_field: str
     is_loading_prompt: bool
-    generate_automatically: bool
+    generate_manually: bool
 
 
 class PromptDialog(QDialog):
@@ -110,7 +110,7 @@ class PromptDialog(QDialog):
                 "note_fields": note_fields,
                 "selected_note_field": selected_field,
                 "is_loading_prompt": False,
-                "generate_automatically": automatic,
+                "generate_manually": not automatic,
             }
         )
 
@@ -158,11 +158,13 @@ class PromptDialog(QDialog):
         size_policy.setHorizontalStretch(1)
         self.valid_fields.setSizePolicy(size_policy)
         self.valid_fields.setWordWrap(True)
-        font = self.valid_fields.font()
-        font.setPointSize(10)
-        self.valid_fields.setFont(font)
-        self.automatic_box = ReactiveCheckBox(
-            self.state, "generate_automatically", text="Always Generate Smart Field"
+        small_font = self.valid_fields.font()
+        small_font.setPointSize(10)
+        self.valid_fields.setFont(small_font)
+        self.manual_box = ReactiveCheckBox(
+            self.state,
+            "generate_manually",
+            text="Manually generated only",
         )
 
         self.setLayout(layout)
@@ -170,7 +172,12 @@ class PromptDialog(QDialog):
         layout.addWidget(self.prompt_text_box)
         layout.addWidget(self.valid_fields)
         layout.addWidget(self.test_button)
-        layout.addWidget(self.automatic_box)
+
+        layout.addWidget(QLabel(""))
+        layout.addWidget(self.manual_box)
+        manual_explanation = QLabel("Via editor right click -> generate")
+        manual_explanation.setFont(small_font)
+        layout.addWidget(manual_explanation)
         layout.addWidget(self.standard_buttons)
 
         self.state.state_changed.connect(self.render_ui)
@@ -183,8 +190,8 @@ class PromptDialog(QDialog):
         self.test_button.clicked.connect(self.on_test)
         self.standard_buttons.accepted.connect(self.on_accept)
         self.standard_buttons.rejected.connect(self.on_reject)
-        self.automatic_box.onChange.connect(
-            lambda checked: self.state.update({"generate_automatically": checked})
+        self.manual_box.onChange.connect(
+            lambda checked: self.state.update({"generate_manually": checked})
         )
 
         self.render_ui()
@@ -315,7 +322,7 @@ class PromptDialog(QDialog):
         self.valid_fields.setText(text)
 
     def render_automatic_button(self) -> None:
-        self.automatic_box.setChecked(self.state.s["generate_automatically"])
+        self.manual_box.setChecked(self.state.s["generate_manually"])
 
     def get_valid_fields(self) -> List[str]:
         selected_note_type = self.state.s["selected_note_type"]
@@ -346,7 +353,7 @@ class PromptDialog(QDialog):
             f"Trying to set prompt for {selected_card_type}, {selected_field}, {prompt}"
         )
 
-        is_automatic = self.state.s["generate_automatically"]
+        is_automatic = not self.state.s["generate_manually"]
 
         # Add the prompt to the prompts map
         if not prompts_map["note_types"].get(selected_card_type):
