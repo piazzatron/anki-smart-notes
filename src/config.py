@@ -53,6 +53,7 @@ class Config:
     regenerate_notes_when_batching: bool
     allow_empty_fields: bool
     last_message_id: int
+    debug: bool
 
     def __getattr__(self, key: str) -> object:
         if not mw:

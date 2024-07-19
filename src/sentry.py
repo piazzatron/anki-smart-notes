@@ -56,7 +56,7 @@ class Sentry:
 
     def __init__(self, dsn: str, release: str, uuid: str, env: str) -> None:
         logger.debug("Initializing sentry...")
-        logger.debug(f"DSN: {dsn}, release: {release}, uuid: {uuid}, env: {env}")
+        logger.debug(f"release: {release}, uuid: {uuid}, env: {env}")
         client = sentry_sdk.Client(
             dsn=dsn,
             release=release,

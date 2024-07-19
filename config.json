@@ -12,5 +12,6 @@
   "uuid": null,
   "regenerate_notes_when_batching": false,
   "allow_empty_fields": true,
-  "last_message_id": 0
+  "last_message_id": 0,
+  "debug": false
 }

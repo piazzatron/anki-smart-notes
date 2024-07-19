@@ -62,9 +62,13 @@ class State(TypedDict):
     openai_models: List[OpenAIModels]
     selected_row: Union[int, None]
     generate_at_review: bool
-    regenerate_when_batching: bool
+    regenerate_notes_when_batching: bool
     openai_endpoint: Union[str, None]
     allow_empty_fields: bool
+    debug: bool
+
+
+excluded_config_map_fields = ["selected_row", "openai_models"]
 
 
 class AddonOptionsDialog(QDialog):
@@ -224,15 +228,17 @@ class AddonOptionsDialog(QDialog):
         plugin_form.addRow("", QLabel(""))
 
         # Regenerate when during
-        self.regenerate_when_batching = ReactiveCheckBox(
-            self.state, "regenerate_when_batching"
+        self.regenerate_notes_when_batching = ReactiveCheckBox(
+            self.state, "regenerate_notes_when_batching"
         )
-        self.regenerate_when_batching.onChange.connect(
-            lambda checked: self.state.update({"regenerate_when_batching": checked})
+        self.regenerate_notes_when_batching.onChange.connect(
+            lambda checked: self.state.update(
+                {"regenerate_notes_when_batching": checked}
+            )
         )
         plugin_form.addRow(
             "Regenerate all smart fields when batch processing:",
-            self.regenerate_when_batching,
+            self.regenerate_notes_when_batching,
         )
         regenerate_info = QLabel(
             "When batch processing a group of notes, whether to regenerate all smart fields from scratch, or only generate empty ones."
@@ -262,6 +268,13 @@ class AddonOptionsDialog(QDialog):
         tab2_layout.addRow(models_group_box)
         tab2_layout.addRow(QLabel(""))
         tab2_layout.addRow(plugin_box)
+
+        self.debug_checkbox = ReactiveCheckBox(self.state, "debug")
+        self.debug_checkbox.onChange.connect(
+            (lambda checked: self.state.update({"debug": checked}))
+        )
+        tab2_layout.addRow(QLabel(""))
+        tab2_layout.addRow("Debug mode", self.debug_checkbox)
 
         tab2.setLayout(tab2_layout)
         tabs.addTab(tab2, "Advanced")
@@ -409,14 +422,18 @@ class AddonOptionsDialog(QDialog):
             show_message_box("Invalid OpenAI Host", "Please provide a valid URL.")
             return
 
-        # TODO: should abstract this
-        config.openai_api_key = self.state.s["openai_api_key"]
-        config.prompts_map = self.state.s["prompts_map"]
-        config.openai_model = self.state.s["openai_model"]
-        config.generate_at_review = self.state.s["generate_at_review"]
-        config.regenerate_notes_when_batching = self.state.s["regenerate_when_batching"]
-        config.openai_endpoint = self.state.s["openai_endpoint"]
-        config.allow_empty_fields = self.state.s["allow_empty_fields"]
+        old_debug = config.debug
+        for k, v in [
+            item
+            for item in self.state.s.items()
+            if item[0] not in excluded_config_map_fields
+        ]:
+            config.__setattr__(k, v)
+            logger.debug(f"Setting {k} to {v}")
+
+        if not old_debug and self.state.s["debug"]:
+            show_message_box("Debug mode enabled. Please restart Anki.")
+
         self.accept()
 
     def on_reject(self) -> None:
@@ -432,10 +449,11 @@ class AddonOptionsDialog(QDialog):
             "openai_model": config.openai_model,
             "selected_row": None,
             "generate_at_review": config.generate_at_review,
-            "regenerate_when_batching": config.regenerate_notes_when_batching,
+            "regenerate_notes_when_batching": config.regenerate_notes_when_batching,
             "openai_endpoint": config.openai_endpoint,
             "openai_models": openai_models,
             "allow_empty_fields": config.allow_empty_fields,
+            "debug": config.debug,
         }
 
     def on_restore_defaults(self) -> None:
