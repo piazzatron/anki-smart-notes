@@ -29,6 +29,10 @@ MAX_RETRIES = 5
 
 OPENAI_ENDPOINT = "https://api.openai.com"
 
+TIMEOUT_SEC = 10
+
+timeout = aiohttp.ClientTimeout(total=TIMEOUT_SEC)
+
 
 class OpenAIClient:
     """Client for OpenAI's chat API."""
@@ -39,7 +43,7 @@ class OpenAIClient:
         logger.debug(
             f"OpenAI: hitting {endpoint} model: {config.openai_model} retries {retry_count} for prompt: {prompt}"
         )
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(timeout=timeout) as session:
             async with session.post(
                 endpoint,
                 headers={
