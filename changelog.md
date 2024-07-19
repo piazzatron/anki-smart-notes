@@ -1,6 +1,11 @@
+# v1.6.0
+
+- Add support for new `gpt-4o-mini` model, removing the old `gpt-3.5-turbo`. Users on `gpt-3.5-turbo` are automatically migrated to `4o-mini`.
+- Stability & UX improvements.
+
 # v1.5.0
 
-- Prompts can now reference empty fields. Control this behavior in settings > advanced.
+- Prompts may now reference empty fields. Control this behavior in settings > advanced.
 
 # v1.4.0
 
