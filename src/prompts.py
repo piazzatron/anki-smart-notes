@@ -96,6 +96,9 @@ def interpolate_prompt(prompt: str, note: Note) -> Union[str, None]:
 
     # Regex to pull out any words enclosed in double curly braces
     fields = get_prompt_fields_lower(prompt)
+    # For some reason, the user is using a prompt with no fields
+    if not fields:
+        return prompt
     pattern = r"\{\{(.+?)\}\}"
 
     # field.lower() -> value map
