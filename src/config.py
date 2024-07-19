@@ -35,7 +35,7 @@ class PromptMap(TypedDict):
     note_types: Dict[str, NoteTypeMap]
 
 
-OpenAIModels = Literal["gpt-3.5-turbo", "gpt-4o", "gpt-4-turbo", "gpt-4"]
+OpenAIModels = Literal["gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4"]
 
 
 class Config:

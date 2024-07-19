@@ -36,6 +36,9 @@ class OpenAIClient:
     async def async_get_chat_response(self, prompt: str, retry_count=0) -> str:
         """Gets a chat response from OpenAI's chat API. This method can throw; the caller should handle with care."""
         endpoint = f"{config.openai_endpoint or OPENAI_ENDPOINT}/v1/chat/completions"
+        logger.debug(
+            f"OpenAI: hitting {endpoint} model: {config.openai_model} retries {retry_count} for prompt: {prompt}"
+        )
         async with aiohttp.ClientSession() as session:
             async with session.post(
                 endpoint,

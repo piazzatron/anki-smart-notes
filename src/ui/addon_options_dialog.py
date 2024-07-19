@@ -52,7 +52,7 @@ from .ui_utils import show_message_box
 
 OPTIONS_MIN_WIDTH = 750
 
-openai_models: List[OpenAIModels] = ["gpt-3.5-turbo", "gpt-4o", "gpt-4-turbo", "gpt-4"]
+openai_models: List[OpenAIModels] = ["gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4"]
 
 
 class State(TypedDict):

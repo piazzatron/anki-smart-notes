@@ -172,6 +172,21 @@ def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMe
     )
 
 
+def migrate_models() -> None:
+    if config.openai_model == "gpt-3.5-turbo":  # type:ignore
+        logger.debug(f"migrate_models: old 3.5-turbo model seen, migrating to 4o-mini")
+        config.openai_model = "gpt-4o-mini"
+
+
+def on_start_actions() -> None:
+    run_async_in_background(ping)
+    perform_update_check()
+    migrate_models()
+
+    if sentry:
+        sentry.configure_scope()
+
+
 @with_processor  # type: ignore
 def on_main_window(processor: Processor):
     if not mw:
@@ -184,11 +199,7 @@ def on_main_window(processor: Processor):
     mw.form.menuTools.addAction(options_action)
     # TODO: not working for some reason
     mw.addonManager.setConfigAction(__name__, on_options(processor))
-    perform_update_check()
-
-    run_async_in_background(ping)
-    if sentry:
-        sentry.configure_scope()
+    on_start_actions()
 
 
 @with_processor  # type: ignore

@@ -120,7 +120,7 @@ class Processor:
         model = self.config.openai_model
         limit = (
             OLD_OPEN_AI_MODEL_REQ_PER_MIN
-            if model == "gpt-3.5-turbo"
+            if model == "gpt-4o-mini"
             else NEW_OPEN_AI_MODEL_REQ_PER_MIN
         )
         is_large_batch = len(note_ids) >= limit
