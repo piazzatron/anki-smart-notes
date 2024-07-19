@@ -128,7 +128,7 @@ In the notes browser, select a group of notes and then **right click > generate 
 
 ### **Use any OpenAI model**
 
-**Tools > Smart Notes > Advanced:** Select from the newest `gpt-4o` to cheapest `gpt-3.5-turbo` (default).
+**Tools > Smart Notes > Advanced:** Select from the smarter `gpt-4o` to cheapest `gpt-4o-mini` (default).
 
 </br>
 
