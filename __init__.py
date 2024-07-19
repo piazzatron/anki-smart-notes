@@ -39,9 +39,13 @@ def update_path() -> None:
 
 update_path()
 
+
 from dotenv import load_dotenv
 
-load_dotenv()
+from .src.utils import get_file_path
+
+load_dotenv(dotenv_path=get_file_path(".env"))
+
 
 from .src.logger import logger
 
