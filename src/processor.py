@@ -240,7 +240,7 @@ class Processor:
         for i, result in enumerate(results):
             note = to_process[i]
             if isinstance(result, Exception):
-                logger.error(f"Error processing note {note_ids[i]}: {result}")
+                logger.debug(f"Error processing note {note_ids[i]}: {result}")
                 failed.append(note)
             elif result:
                 notes_to_update.append(note)
@@ -297,7 +297,7 @@ class Processor:
         field_prompts = get_prompts().get(note_type, None)
 
         if not field_prompts:
-            logger.error("no prompts found for note type")
+            logger.debug("no prompts found for note type")
             return False
 
         tasks = []
