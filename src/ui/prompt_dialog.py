@@ -164,7 +164,7 @@ class PromptDialog(QDialog):
         self.manual_box = ReactiveCheckBox(
             self.state,
             "generate_manually",
-            text="Manually generated only",
+            text="Manually generate only",
         )
 
         self.setLayout(layout)
@@ -328,11 +328,11 @@ class PromptDialog(QDialog):
         selected_note_type = self.state.s["selected_note_type"]
         selected_field = self.state.s["selected_note_field"]
         fields = get_fields(selected_note_type)
-        existing_prompts = set(get_prompts().get(selected_note_type, {}).keys())
-        existing_prompts.add(selected_field)
+        # existing_prompts = set(get_prompts().get(selected_note_type, {}).keys())
+        # existing_prompts.add(selected_field)
 
-        not_ai_fields = [field for field in fields if field not in existing_prompts]
-        return not_ai_fields
+        # not_ai_fields = [field for field in fields if field not in existing_prompts]
+        return fields
 
     def on_accept(self):
         prompt = self.state.s["prompt"]

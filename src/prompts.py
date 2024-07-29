@@ -31,12 +31,15 @@ from .utils import get_fields, to_lowercase_dict
 EXTRAS_DEFAULT_AUTOMATIC = True
 
 
-def get_prompts() -> Dict[str, Dict[str, str]]:
-    """Gets the prompts map. Does not lowercase anything."""
-    return {
+def get_prompts(to_lower: bool = False) -> Dict[str, Dict[str, str]]:
+    """Gets the prompts map."""
+    prompts_map = {
         note_type: {k: v for k, v in m["fields"].items()}
         for note_type, m in config.prompts_map["note_types"].items()
     }
+    if to_lower:
+        prompts_map = {k: to_lowercase_dict(v) for k, v in prompts_map.items()}
+    return prompts_map
 
 
 def get_extras(
@@ -80,8 +83,6 @@ def prompt_has_error(
     for prompt_field in prompt_fields:
         if prompt_field not in note_fields:
             return f"Invalid field in prompt: {prompt_field}"
-        if prompt_field in existing_fields:
-            return f"Can't reference other smart fields ({prompt_field}) in the prompt. (...yet 😈)"
 
     # Can't reference itself
     if target_field and target_field.lower() in prompt_fields:

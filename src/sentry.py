@@ -163,6 +163,9 @@ async def ping() -> None:
 
 
 def init_sentry() -> Union[Sentry, None]:
+    if os.getenv("IS_TEST"):
+        return None
+
     dsn = os.getenv("SENTRY_DSN")
     release = get_version()
     if not dsn or not release:

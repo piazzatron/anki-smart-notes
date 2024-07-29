@@ -21,7 +21,7 @@ from typing import Union
 
 from anki.notes import Note
 
-from .prompts import get_generate_automatically, get_prompts
+from .prompts import get_generate_automatically, get_prompt_fields_lower, get_prompts
 from .utils import get_fields, to_lowercase_dict
 
 """Helpful functions for working with notes"""
@@ -75,3 +75,21 @@ def is_ai_field(current_field_num: int, note: Note) -> Union[str, None]:
 
     is_ai = bool(prompts_for_card.get(current_field, None))
     return sorted_fields[current_field_num] if is_ai else None
+
+
+def has_chained_ai_fields(note: Note) -> bool:
+    """Check if a note has any AI fields that depend on other AI fields."""
+    note_type = get_note_type(note)
+    prompts = get_prompts(to_lower=True).get(note_type, None)
+
+    if not prompts:
+        return False
+
+    for field, prompt in prompts.items():
+        other_fields = prompts.keys() - {field.lower()}
+        refers_to = get_prompt_fields_lower(prompt)
+
+        if any(field in other_fields for field in refers_to):
+            return True
+
+    return False

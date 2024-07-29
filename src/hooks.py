@@ -227,7 +227,7 @@ def on_editor_context(
 
     item.triggered.connect(
         lambda: processor.process_note(
-            note, overwrite_fields=True, target_fields=[ai_field], on_success=on_success
+            note, overwrite_fields=True, target_field=ai_field, on_success=on_success
         )
     )
     menu.addAction(item)
