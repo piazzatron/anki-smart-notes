@@ -124,12 +124,16 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
                 mw.col.update_note(note)
             editor.loadNote()
 
+        def on_field() -> None:
+            editor.loadNote()
+
         is_fully_processed = is_note_fully_processed(note)
         processor.process_note(
             note,
             overwrite_fields=is_fully_processed,
             on_success=on_success,
             on_failure=lambda _: set_button_enabled(),
+            on_field_update=on_field,
         )
 
     button = e.addButton(

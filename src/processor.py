@@ -27,7 +27,7 @@ from attr import dataclass
 
 from .config import Config
 from .logger import logger
-from .notes import get_note_type, has_chained_ai_fields
+from .notes import get_note_type
 from .open_ai_client import OpenAIClient
 from .prompts import (
     get_generate_automatically,
@@ -37,11 +37,59 @@ from .prompts import (
 )
 from .sentry import run_async_in_background_with_sentry
 from .ui.ui_utils import show_message_box
-from .utils import bump_usage_counter, check_for_api_key, run_on_main
+from .utils import bump_usage_counter, check_for_api_key, get_fields, run_on_main
 
 # OPEN_AI rate limits
 NEW_OPEN_AI_MODEL_REQ_PER_MIN = 500
 OLD_OPEN_AI_MODEL_REQ_PER_MIN = 3500
+
+
+@dataclass(repr=False)
+class PromptNode:
+    field: str
+    field_upper: str
+    prompt: str
+    existing_value: Union[str, None]
+    out_nodes: List["PromptNode"]
+    in_nodes: List["PromptNode"]
+    client: OpenAIClient
+    manual: bool
+    overwrite: bool
+    is_target: bool = False
+    generate_despite_manual: bool = False  # Used if it's pre a target field
+    did_update: bool = False
+
+    abort = False
+
+    async def get_response(self, note: Note) -> Union[str, None]:
+        if self.abort:
+            return None
+
+        value = note[self.field_upper]
+
+        # If not target and manual, skip
+        if self.manual and not (self.is_target or self.generate_despite_manual):
+            self.abort = True
+            return None
+
+        # Skip it if there's a value and we don't want to overwrite
+        if value and not (self.is_target or self.overwrite):
+            return value
+
+        interpolated_prompt = interpolate_prompt(self.prompt, note)
+
+        if not interpolated_prompt:
+            logger.debug(f"Skipping empty prompt for field: {self.field}")
+            return None
+
+        self.did_update = True
+
+        return await self.client.async_get_chat_response(interpolated_prompt)
+
+    def __str__(self):
+        return f"Node(field={self.field}, in_nodes={[n.field for n in self.in_nodes]}, out_nodes={[n.field for n in self.out_nodes]})"
+
+    __repr__ = __str__
 
 
 class Processor:
@@ -266,6 +314,7 @@ class Processor:
         on_success: Callable[[bool], None] = lambda _: None,
         on_failure: Union[Callable[[Exception], None], None] = None,
         target_field: Union[str, None] = None,
+        on_field_update: Union[Callable[[], None], None] = None,
     ):
         """Process a single note, filling in fields with prompts from the user"""
         if not self._ensure_no_req_in_progress():
@@ -285,17 +334,25 @@ class Processor:
         # an PyQT crash, so I'm running it in the on_success callback instead
         run_async_in_background_with_sentry(
             lambda: self._process_note(
-                note, overwrite_fields=overwrite_fields, target_field=target_field
+                note,
+                overwrite_fields=overwrite_fields,
+                target_field=target_field,
+                on_field_update=on_field_update,
             ),
             wrapped_on_success,
             wrapped_failure,
         )
 
+    # Note: one quirk is that if overwrite_fields = True AND there's a target field,
+    # it will regenerate any fields up until the target field. A bit weird but
+    # this combination of values doesn't really make sense anyways so it's probably fine.
+    # Would be better modeled with some mode switch or something.
     async def _process_note(
         self,
         note: Note,
         overwrite_fields: bool = False,
         target_field: Union[str, None] = None,
+        on_field_update: Union[Callable[[], None], None] = None,
     ) -> bool:
         """Process a single note, returns whether any fields were updated. Optionally can target specific fields. Caller responsible for handling any exceptions."""
 
@@ -306,94 +363,41 @@ class Processor:
             logger.error("no prompts found for note type")
             return False
 
-        tasks = []
-
-        has_chained = has_chained_ai_fields(note)
-
         # Topsort + parallel process the DAG
-        if has_chained:
-            print("has_chained", has_chained)
-            dag = generate_fields_dag(note)
-            # # TODO: need some sort of "prune" operation here
-            # print(dag)
+        dag = self.generate_fields_dag(
+            note, target_field=target_field, overwrite_fields=overwrite_fields
+        )
 
-            # while len(dag):
-            #     next_batch: List[PromptNode] = [
-            #         node for node in dag.values() if not node.in_nodes
-            #     ]
+        did_update = False
 
-            #     # TODO: but what if it *needs* it to regenerate some later field? YIKES
-            #     # Don't overwrite fields that already exist
-            #     next_batch = [
-            #         node
-            #         for node in nodes
-            #         if overwrite_fields or not note[node.field_upper]
-            #     ]
-
-            #     # TODO: some stuff about generating automatically, from below
-
-            #     batch_tasks = {
-            #         node.field: node.get_response(note) for node in next_batch
-            #     }
-
-            #     responses = await asyncio.gather(*batch_tasks.values())
-
-            # TODO: pick up here. Gotta remove them from the dag and update the note
-
-        field_prompt_items = list(field_prompts.items())
-
-        # If targetting specific fields, filter out the ones we don't want
-        if target_field:
-            field_prompt_items = [
-                item for item in field_prompt_items if item[0] == target_field
+        while len(dag):
+            next_batch: List[PromptNode] = [
+                node for node in dag.values() if not node.in_nodes
             ]
-        print(field_prompt_items)
+            batch_tasks = {node.field: node.get_response(note) for node in next_batch}
 
-        for field, prompt in field_prompt_items:
-            # Don't overwrite fields that already exist
-            should_generate_automatically = get_generate_automatically(note_type, field)
-            is_target_field = target_field == field
-            no_overwrite_and_empty = bool(not (overwrite_fields) and note[field])
+            responses = await asyncio.gather(*batch_tasks.values())
 
-            if not is_target_field and (
-                not should_generate_automatically or no_overwrite_and_empty
-            ):
-                continue
+            for field, response in zip(batch_tasks.keys(), responses):
+                node = dag[field]
+                if response:
+                    note[node.field_upper] = response
 
-            # TODO:
-            # Need to incorporate this into the DAG algorithm
-            # Skip the field if it's not generated automatically and not
-            # specifically asked to generate
+                if node.abort:
+                    for out_node in node.out_nodes:
+                        out_node.abort = True
 
-            # logger.debug(f"Processing field: {field}, prompt: {prompt}")
+                for out_node in node.out_nodes:
+                    out_node.in_nodes.remove(node)
 
-            interpolated_prompt = interpolate_prompt(prompt, note)
-            if not interpolated_prompt:
-                # logger.debug(f"Skipping empty prompt for field: {field}")
-                continue
+                if node.did_update:
+                    did_update = True
 
-            # Need to return both the chat response + the target field, since we're skiping
-            # fields potentially here. Default arg to avoid stale closure
-            async def get_response(
-                field=field, interpolated_prompt=interpolated_prompt
-            ) -> Tuple[str, str]:
-                response = await self.client.async_get_chat_response(
-                    interpolated_prompt
-                )
-                return (field, response)
+                dag.pop(field)
+                if on_field_update:
+                    run_on_main(on_field_update)
 
-            tasks.append(get_response())
-
-        # Maybe filled out already, if so return early
-        if not tasks:
-            return False
-
-        responses = await asyncio.gather(*tasks)
-        # logger.debug(f"Responses {responses}")
-        for target_field, response in responses:
-            note[target_field] = response
-
-        return True
+        return did_update
 
     def _handle_failure(self, e: Exception) -> None:
 
@@ -446,59 +450,79 @@ class Processor:
             wrapped_on_failure,
         )
 
+    def generate_fields_dag(
+        self, note: Note, overwrite_fields: bool, target_field: Union[str, None] = None
+    ) -> Dict[str, PromptNode]:
+        """Generates a directed acyclic graph of prompts for a note, or a subset of that graph if a target_fields list is passed. Returns a mapping of field -> PromptNode"""
+        note_type = get_note_type(note)
+        prompts = get_prompts(to_lower=True).get(note_type, None)
+        if not prompts:
+            logger.error("generate_fields_dag: no prompts found for note type")
+            return {}
 
-@dataclass
-class PromptNode:
-    field: str
-    field_upper: str
-    prompt: str
-    out_nodes: List["PromptNode"]
-    in_nodes: List["PromptNode"]
+        dag: Dict[str, PromptNode] = {}
+        fields = get_fields(note_type)
 
-    async def get_response(self, note: Note) -> Union[str, None]:
-        # TODO: if the note field is already filled out and we're not overwriting fields, SKIP this one / return existing response
-        interpolated_prompt = interpolate_prompt(self.prompt, note)
+        # Have to iterate over fields to get the canonical capitalization lol
+        for field in fields:
+            field_lower = field.lower()
+            prompt = prompts.get(field_lower)
+            if not prompt:
+                continue
 
-        if not interpolated_prompt:
-            logger.debug(f"Skipping empty prompt for field: {self.field}")
-            return None
+            should_generate_automatically = get_generate_automatically(note_type, field)
+            dag[field_lower] = PromptNode(
+                field=field_lower,
+                field_upper=field,
+                prompt=prompt,
+                out_nodes=[],
+                in_nodes=[],
+                existing_value=note[field],
+                overwrite=overwrite_fields,
+                manual=not should_generate_automatically,
+                is_target=bool(target_field and field_lower == target_field.lower()),
+                client=self.client,
+            )
 
-        return await OpenAIClient().async_get_chat_response(interpolated_prompt)
+        for field, prompt in prompts.items():
+            in_fields = get_prompt_fields_lower(prompt)
 
+            for in_field in in_fields:
+                if in_field in dag:
+                    this_node = dag[field]
+                    depends_on = dag[in_field]
+                    this_node.in_nodes.append(depends_on)
+                    depends_on.out_nodes.append(this_node)
 
-def generate_fields_dag(
-    note: Note, target_fields: List[str] = []
-) -> Dict[str, PromptNode]:
-    """Generates a directed acyclic graph of prompts for a note, or a subset of that graph if a target_fields list is passed. Returns a mapping of field -> PromptNode"""
-    note_type = get_note_type(note)
-    prompts = get_prompts(to_lower=True).get(note_type, None)
-    if not prompts:
-        logger.error("generate_fields_dag: no prompts found for note type")
-        return {}
+        # If there's a target field, trim
+        # the dag to only input and output
+        if target_field:
+            target_node = dag[target_field.lower()]
+            trimmed: Dict[str, PromptNode] = {target_field.lower(): target_node}
 
-    # TODO: left off, building a trimmed dag
-    # Build a DAG of prompts
-    target_fields = target_fields or list(prompts.keys())
+            # Add pre
+            explore = target_node.in_nodes.copy()
+            while len(explore):
+                cur = explore.pop()
+                cur.generate_despite_manual = True
+                trimmed[cur.field] = cur
+                explore.extend(cur.in_nodes.copy())
 
-    print(target_fields)
-    ai_fields = {}
-    for field, prompt in prompts.items():
-        ai_fields[field.lower()] = PromptNode(
-            field=field.lower(),
-            field_upper=field,
-            prompt=prompt,
-            out_nodes=[],
-            in_nodes=[],
-        )
+            return trimmed
 
-    for field, prompt in prompts.items():
-        in_fields = get_prompt_fields_lower(prompt)
+        return dag
 
-        for in_field in in_fields:
-            if in_field in ai_fields:
-                this_node = ai_fields[field]
-                depends_on = ai_fields[in_field]
-                this_node.in_nodes.append(depends_on)
-                depends_on.out_nodes.append(this_node)
+    def has_cycle(self, dag: Dict[str, PromptNode]) -> bool:
+        """Tests for cycles in a DAG. Returns True if there are cycles, False if there are not."""
+        dag = dag.copy()
+        for start in dag.values():
+            seen = set()
+            explore = [start]
+            while len(explore):
+                cur = explore.pop()
+                if cur.field in seen:
+                    return True
+                seen.add(cur.field)
+                explore.extend(cur.out_nodes.copy())
 
-    return ai_fields
+        return False
