@@ -52,10 +52,17 @@ def get_extras(
         .get("extras", {})
     )
 
-    if not extras:
-        return {"automatic": EXTRAS_DEFAULT_AUTOMATIC}
+    default_extras = {
+        "automatic": EXTRAS_DEFAULT_AUTOMATIC,
+        "chat_provider": config.chat_provider,
+        "chat_model": config.chat_model,
+    }
 
-    return extras.get(note_field, {"automatic": EXTRAS_DEFAULT_AUTOMATIC})
+    # Base extras field might not exist at all
+    if not extras:
+        return default_extras
+
+    return extras.get(note_field, default_extras)
 
 
 def get_generate_automatically(

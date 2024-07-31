@@ -18,12 +18,15 @@
 """
 
 from .. import env
+from .config import ChatModels, ChatProviders
 
 SERVER_URL_PROD = "https://anki-smart-notes-server-production.up.railway.app"
 SERVER_URL_DEV = "http://localhost:3000"
 CHAT_RETRY_BASE_SECONDS = 5
 CHAT_MAX_RETRIES = 10
 CHAT_CLIENT_TIMEOUT_SEC = 10
+DEFAULT_CHAT_MODEL: ChatModels = "gpt-4o-mini"
+DEFAULT_CHAT_PROVIDER: ChatProviders = "openai"
 
 
 def get_server_url() -> str:

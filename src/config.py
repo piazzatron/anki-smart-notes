@@ -17,13 +17,21 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, Dict, Literal, TypedDict, Union
+from typing import Any, Dict, Literal, Optional, TypedDict, Union
 
 from aqt import addons, mw
 
+# TODO: these should be moved
+OpenAIModels = Literal["gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4"]
+AnthropicModels = Literal["claude-3-opus", "claude-3-haiku", "claude-3-5-sonnet"]
+ChatModels = Union[OpenAIModels, AnthropicModels]
+ChatProviders = Literal["openai", "anthropic"]
+
 
 class FieldExtras(TypedDict):
-    automatic: Union[bool, None]
+    automatic: Optional[bool]
+    chat_model: Optional[ChatModels]
+    chat_provider: Optional[ChatProviders]
 
 
 class NoteTypeMap(TypedDict):
@@ -33,14 +41,6 @@ class NoteTypeMap(TypedDict):
 
 class PromptMap(TypedDict):
     note_types: Dict[str, NoteTypeMap]
-
-
-# TODO: these should be moved
-OpenAIModels = Literal["gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4"]
-AnthropicModels = Literal["claude-3-opus", "claude-3-haiku", "claude-3-5-sonnet"]
-ChatModels = Union[OpenAIModels, AnthropicModels]
-
-ChatProviders = Literal["openai", "anthropic"]
 
 
 class Config:

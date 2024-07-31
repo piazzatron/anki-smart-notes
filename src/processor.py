@@ -31,7 +31,8 @@ from .logger import logger
 from .notes import get_note_type
 from .open_ai_client import OpenAIClient
 from .prompts import (
-    get_generate_automatically,
+    EXTRAS_DEFAULT_AUTOMATIC,
+    get_extras,
     get_prompt_fields_lower,
     get_prompts,
     interpolate_prompt,
@@ -55,6 +56,8 @@ class PromptNode:
     in_nodes: List["PromptNode"]
     manual: bool
     overwrite: bool
+    provider: ChatProviders
+    model: ChatModels
     is_target: bool = False
     generate_despite_manual: bool = False  # Used if it's pre a target field
     did_update: bool = False
@@ -426,69 +429,91 @@ class Processor:
         # TODO: support this with a mode selector type deal
 
         return await self.chat_provider.async_get_chat_response(
-            interpolated_prompt, model="gpt-4o", provider="openai", retry_count=0
+            interpolated_prompt, model=node.model, provider=node.provider, retry_count=0
         )
 
     def generate_fields_dag(
         self, note: Note, overwrite_fields: bool, target_field: Union[str, None] = None
     ) -> Dict[str, PromptNode]:
         """Generates a directed acyclic graph of prompts for a note, or a subset of that graph if a target_fields list is passed. Returns a mapping of field -> PromptNode"""
-        note_type = get_note_type(note)
-        prompts = get_prompts(to_lower=True).get(note_type, None)
-        if not prompts:
-            logger.error("generate_fields_dag: no prompts found for note type")
+        try:
+            logger.debug("Generating dag...")
+            note_type = get_note_type(note)
+            prompts = get_prompts(to_lower=True).get(note_type, None)
+            if not prompts:
+                logger.error("generate_fields_dag: no prompts found for note type")
+                return {}
+
+            dag: Dict[str, PromptNode] = {}
+            fields = get_fields(note_type)
+
+            # Have to iterate over fields to get the canonical capitalization lol
+            for field in fields:
+
+                field_lower = field.lower()
+                prompt = prompts.get(field_lower)
+                if not prompt:
+                    continue
+
+                extras = get_extras(note_type, field)
+
+                model = extras.get("chat_model", self.config.chat_model)
+                provider = extras.get("chat_provider", self.config.chat_provider)
+                should_generate_automatically = extras.get(
+                    "automatic", EXTRAS_DEFAULT_AUTOMATIC
+                )
+                dag[field_lower] = PromptNode(
+                    field=field_lower,
+                    field_upper=field,
+                    prompt=prompt,
+                    out_nodes=[],
+                    in_nodes=[],
+                    existing_value=note[field],
+                    overwrite=overwrite_fields,
+                    manual=not should_generate_automatically,
+                    is_target=bool(
+                        target_field and field_lower == target_field.lower()
+                    ),
+                    model=model,
+                    provider=provider,
+                )
+
+            if not len(dag):
+                logger.debug("Unexpectedly empty dag!")
+                return dag
+
+            for field, prompt in prompts.items():
+                in_fields = get_prompt_fields_lower(prompt)
+
+                for in_field in in_fields:
+                    if in_field in dag:
+                        this_node = dag[field]
+                        depends_on = dag[in_field]
+                        this_node.in_nodes.append(depends_on)
+                        depends_on.out_nodes.append(this_node)
+
+            # If there's a target field, trim
+            # the dag to only input and output
+            if target_field:
+                target_node = dag[target_field.lower()]
+                trimmed: Dict[str, PromptNode] = {target_field.lower(): target_node}
+
+                # Add pre
+                explore = target_node.in_nodes.copy()
+                while len(explore):
+                    cur = explore.pop()
+                    cur.generate_despite_manual = True
+                    trimmed[cur.field] = cur
+                    explore.extend(cur.in_nodes.copy())
+
+                logger.debug("Generated target fields dag")
+                return trimmed
+
+            logger.debug("Generated dag")
+            return dag
+        except Exception as e:
+            logger.error(f"Error creating dag: {e}")
             return {}
-
-        dag: Dict[str, PromptNode] = {}
-        fields = get_fields(note_type)
-
-        # Have to iterate over fields to get the canonical capitalization lol
-        for field in fields:
-            field_lower = field.lower()
-            prompt = prompts.get(field_lower)
-            if not prompt:
-                continue
-
-            should_generate_automatically = get_generate_automatically(note_type, field)
-            dag[field_lower] = PromptNode(
-                field=field_lower,
-                field_upper=field,
-                prompt=prompt,
-                out_nodes=[],
-                in_nodes=[],
-                existing_value=note[field],
-                overwrite=overwrite_fields,
-                manual=not should_generate_automatically,
-                is_target=bool(target_field and field_lower == target_field.lower()),
-            )
-
-        for field, prompt in prompts.items():
-            in_fields = get_prompt_fields_lower(prompt)
-
-            for in_field in in_fields:
-                if in_field in dag:
-                    this_node = dag[field]
-                    depends_on = dag[in_field]
-                    this_node.in_nodes.append(depends_on)
-                    depends_on.out_nodes.append(this_node)
-
-        # If there's a target field, trim
-        # the dag to only input and output
-        if target_field:
-            target_node = dag[target_field.lower()]
-            trimmed: Dict[str, PromptNode] = {target_field.lower(): target_node}
-
-            # Add pre
-            explore = target_node.in_nodes.copy()
-            while len(explore):
-                cur = explore.pop()
-                cur.generate_despite_manual = True
-                trimmed[cur.field] = cur
-                explore.extend(cur.in_nodes.copy())
-
-            return trimmed
-
-        return dag
 
     def has_cycle(self, dag: Dict[str, PromptNode]) -> bool:
         """Tests for cycles in a DAG. Returns True if there are cycles, False if there are not."""
