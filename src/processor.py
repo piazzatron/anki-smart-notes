@@ -58,6 +58,7 @@ class PromptNode:
     overwrite: bool
     provider: ChatProviders
     model: ChatModels
+    temperature: int
     is_target: bool = False
     generate_despite_manual: bool = False  # Used if it's pre a target field
     did_update: bool = False
@@ -429,7 +430,11 @@ class Processor:
         # TODO: support this with a mode selector type deal
 
         return await self.chat_provider.async_get_chat_response(
-            interpolated_prompt, model=node.model, provider=node.provider, retry_count=0
+            interpolated_prompt,
+            model=node.model,
+            provider=node.provider,
+            temperature=node.temperature,
+            retry_count=0,
         )
 
     def generate_fields_dag(
@@ -459,6 +464,9 @@ class Processor:
 
                 model = extras.get("chat_model", self.config.chat_model)
                 provider = extras.get("chat_provider", self.config.chat_provider)
+                temperature = extras.get(
+                    "chat_temperature", self.config.chat_temperature
+                )
                 should_generate_automatically = extras.get(
                     "automatic", EXTRAS_DEFAULT_AUTOMATIC
                 )
@@ -476,6 +484,7 @@ class Processor:
                     ),
                     model=model,
                     provider=provider,
+                    temperature=temperature,
                 )
 
             if not len(dag):

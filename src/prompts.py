@@ -56,6 +56,7 @@ def get_extras(
         "automatic": EXTRAS_DEFAULT_AUTOMATIC,
         "chat_provider": config.chat_provider,
         "chat_model": config.chat_model,
+        "chat_temperature": config.chat_temperature,
     }
 
     # Base extras field might not exist at all

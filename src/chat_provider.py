@@ -36,7 +36,12 @@ timeout = aiohttp.ClientTimeout(total=CHAT_CLIENT_TIMEOUT_SEC)
 class ChatProvider:
 
     async def async_get_chat_response(
-        self, prompt: str, model: ChatModels, provider: ChatProviders, retry_count=0
+        self,
+        prompt: str,
+        model: ChatModels,
+        provider: ChatProviders,
+        temperature=0,
+        retry_count=0,
     ) -> str:
         endpoint = f"{get_server_url()}/api/chat"
         jwt = config.auth_token
@@ -45,7 +50,7 @@ class ChatProvider:
             ## TODO: raise here
 
         logger.debug(
-            f"Making chat request with model {model} provider: {provider} prompt {prompt}"
+            f"Making chat request with model {model} provider: {provider} prompt {prompt} temperature {temperature}"
         )
 
         async with aiohttp.ClientSession(timeout=timeout) as session:
@@ -57,8 +62,8 @@ class ChatProvider:
                 json={
                     "provider": provider,
                     "model": model,
+                    "temperature": temperature,
                     "message": prompt,
-                    # TODO: temperature
                 },
             ) as response:
 

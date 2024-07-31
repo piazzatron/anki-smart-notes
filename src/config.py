@@ -32,6 +32,7 @@ class FieldExtras(TypedDict):
     automatic: Optional[bool]
     chat_model: Optional[ChatModels]
     chat_provider: Optional[ChatProviders]
+    chat_temperature: Optional[int]
 
 
 class NoteTypeMap(TypedDict):
@@ -60,6 +61,7 @@ class Config:
     debug: bool
     chat_provider: ChatProviders
     chat_model: ChatModels
+    chat_temperature: int
     auth_token: Union[str, None]
 
     # Deprecated fields:

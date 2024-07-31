@@ -2,6 +2,7 @@
   "openai_api_key": "",
   "chat_provider": "openai",
   "chat_model": "gpt-4o-mini",
+  "chat_temperature": 0,
   "openai_endpoint": null,
   "times_used": 0,
   "did_show_rate_dialog": false,
