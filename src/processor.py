@@ -22,10 +22,11 @@ from typing import Callable, Dict, List, Sequence, Tuple, Union
 
 import aiohttp
 from anki.notes import Note, NoteId
-from aqt import editor, mw
+from aqt import mw
 from attr import dataclass
 
-from .config import Config
+from .chat_provider import ChatProvider
+from .config import ChatModels, ChatProviders, Config
 from .logger import logger
 from .notes import get_note_type
 from .open_ai_client import OpenAIClient
@@ -52,7 +53,6 @@ class PromptNode:
     existing_value: Union[str, None]
     out_nodes: List["PromptNode"]
     in_nodes: List["PromptNode"]
-    client: OpenAIClient
     manual: bool
     overwrite: bool
     is_target: bool = False
@@ -61,31 +61,6 @@ class PromptNode:
 
     abort = False
 
-    async def get_response(self, note: Note) -> Union[str, None]:
-        if self.abort:
-            return None
-
-        value = note[self.field_upper]
-
-        # If not target and manual, skip
-        if self.manual and not (self.is_target or self.generate_despite_manual):
-            self.abort = True
-            return None
-
-        # Skip it if there's a value and we don't want to overwrite
-        if value and not (self.is_target or self.overwrite):
-            return value
-
-        interpolated_prompt = interpolate_prompt(self.prompt, note)
-
-        if not interpolated_prompt:
-            logger.debug(f"Skipping empty prompt for field: {self.field}")
-            return None
-
-        self.did_update = True
-
-        return await self.client.async_get_chat_response(interpolated_prompt)
-
     def __str__(self):
         return f"Node(field={self.field}, in_nodes={[n.field for n in self.in_nodes]}, out_nodes={[n.field for n in self.out_nodes]})"
 
@@ -93,49 +68,13 @@ class PromptNode:
 
 
 class Processor:
-    def __init__(self, client: OpenAIClient, config: Config):
-        self.client = client
+    def __init__(
+        self, openai_provider: OpenAIClient, chat_provider: ChatProvider, config: Config
+    ):
+        self.openai_client = openai_provider
+        self.chat_provider = chat_provider
         self.config = config
         self.req_in_progress = False
-
-    def process_single_field(
-        self, note: Note, target_field_name: str, editor: editor.Editor
-    ) -> None:
-
-        bump_usage_counter()
-
-        if not self._ensure_no_req_in_progress():
-            return
-
-        async def async_process_single_field(
-            note: Note, target_field_name: str
-        ) -> None:
-            prompt = get_prompts().get(get_note_type(note), {}).get(target_field_name)
-            if not prompt:
-                return
-
-            prompt = interpolate_prompt(prompt, note)
-            if not prompt:
-                return
-            response = await self.client.async_get_chat_response(prompt)
-            note[target_field_name] = response
-
-        def on_success() -> None:
-            # Only update note if it's already in the database
-            self._reqlinquish_req_in_progress()
-            if note.id and mw:
-                mw.col.update_note(note)
-            editor.loadNote()
-
-        def on_failure(e: Exception) -> None:
-            self._handle_failure(e)
-            self._reqlinquish_req_in_progress()
-
-        run_async_in_background_with_sentry(
-            lambda: async_process_single_field(note, target_field_name),
-            lambda _: on_success(),
-            on_failure,
-        )
 
     def process_notes_with_progress(
         self,
@@ -374,7 +313,9 @@ class Processor:
             next_batch: List[PromptNode] = [
                 node for node in dag.values() if not node.in_nodes
             ]
-            batch_tasks = {node.field: node.get_response(note) for node in next_batch}
+            batch_tasks = {
+                node.field: self._process_node(node, note) for node in next_batch
+            }
 
             responses = await asyncio.gather(*batch_tasks.values())
 
@@ -427,9 +368,12 @@ class Processor:
     def get_chat_response(
         self,
         prompt: str,
+        provider: ChatProviders,
+        model: ChatModels,
         on_success: Callable[[str], None],
         on_failure: Union[Callable[[Exception], None], None] = None,
     ):
+        # TODO: model + provider
 
         if not self._ensure_no_req_in_progress():
             return
@@ -444,10 +388,45 @@ class Processor:
             if on_failure:
                 on_failure(e)
 
+        chat_fn = lambda: self.chat_provider.async_get_chat_response(
+            prompt, model=model, provider=provider, retry_count=0
+        )
+
+        # TODO: support this with a mode selector type deal
+        # lambda: self.openai_client.async_get_chat_response(prompt),
         run_async_in_background_with_sentry(
-            lambda: self.client.async_get_chat_response(prompt),
+            chat_fn,
             wrapped_on_success,
             wrapped_on_failure,
+        )
+
+    async def _process_node(self, node: PromptNode, note: Note) -> Union[str, None]:
+        if node.abort:
+            return None
+
+        value = note[node.field_upper]
+
+        # If not target and manual, skip
+        if node.manual and not (node.is_target or node.generate_despite_manual):
+            node.abort = True
+            return None
+
+        # Skip it if there's a value and we don't want to overwrite
+        if value and not (node.is_target or node.overwrite):
+            return value
+
+        interpolated_prompt = interpolate_prompt(node.prompt, note)
+
+        if not interpolated_prompt:
+            logger.debug(f"Skipping empty prompt for field: {node.field}")
+            return None
+
+        node.did_update = True
+
+        # TODO: support this with a mode selector type deal
+
+        return await self.chat_provider.async_get_chat_response(
+            interpolated_prompt, model="gpt-4o", provider="openai", retry_count=0
         )
 
     def generate_fields_dag(
@@ -481,7 +460,6 @@ class Processor:
                 overwrite=overwrite_fields,
                 manual=not should_generate_automatically,
                 is_target=bool(target_field and field_lower == target_field.lower()),
-                client=self.client,
             )
 
         for field, prompt in prompts.items():

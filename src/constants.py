@@ -21,6 +21,9 @@ from .. import env
 
 SERVER_URL_PROD = "https://anki-smart-notes-server-production.up.railway.app"
 SERVER_URL_DEV = "http://localhost:3000"
+CHAT_RETRY_BASE_SECONDS = 5
+CHAT_MAX_RETRIES = 10
+CHAT_CLIENT_TIMEOUT_SEC = 10
 
 
 def get_server_url() -> str:

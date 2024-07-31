@@ -35,7 +35,12 @@ class PromptMap(TypedDict):
     note_types: Dict[str, NoteTypeMap]
 
 
+# TODO: these should be moved
 OpenAIModels = Literal["gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4"]
+AnthropicModels = Literal["claude-3-opus", "claude-3-haiku", "claude-3-5-sonnet"]
+ChatModels = Union[OpenAIModels, AnthropicModels]
+
+ChatProviders = Literal["openai", "anthropic"]
 
 
 class Config:
@@ -43,7 +48,6 @@ class Config:
 
     openai_api_key: Union[str, None]
     prompts_map: PromptMap
-    openai_model: OpenAIModels
     generate_at_review: bool
     times_used: int
     did_show_rate_dialog: bool
@@ -54,6 +58,26 @@ class Config:
     allow_empty_fields: bool
     last_message_id: int
     debug: bool
+    chat_provider: ChatProviders
+    chat_model: ChatModels
+    auth_token: Union[str, None]
+
+    # Deprecated fields:
+    # openai_model: OpenAIModels
+
+    def __init__(self):
+        self._perform_cleanup()
+
+    def _perform_cleanup(self) -> None:
+        print("Cleaning up config")
+        try:
+            old_openai_model = self.__getattr__("openai_model")
+            if old_openai_model:
+                print(f"Migration: old_openai_model={old_openai_model}")
+                self.chat_model = old_openai_model  # type: ignore
+                self.__setattr__("openai_model", None)
+        except Exception as e:
+            print(f"Error: Unexepctedly caught exception cleaning up config {e}")
 
     def __getattr__(self, key: str) -> object:
         if not mw:
@@ -92,4 +116,4 @@ class Config:
         return defaults
 
 
-config = Config()
+config = Config()  # type: ignore

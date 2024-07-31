@@ -34,12 +34,15 @@ from aqt import (
     QTableWidget,
     QTableWidgetItem,
     QTabWidget,
+    QUrl,
+    QUrlQuery,
     QVBoxLayout,
+    QWebEngineView,
     QWidget,
 )
 from PyQt6.QtCore import Qt
 
-from ..config import OpenAIModels, PromptMap, config
+from ..config import ChatModels, OpenAIModels, PromptMap, config
 from ..logger import logger
 from ..processor import Processor
 from .changelog import get_version
@@ -52,7 +55,7 @@ from .ui_utils import show_message_box
 
 OPTIONS_MIN_WIDTH = 750
 
-openai_models: List[OpenAIModels] = ["gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4"]
+openai_models: List[ChatModels] = ["gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4"]
 
 
 class State(TypedDict):
@@ -301,10 +304,26 @@ class AddonOptionsDialog(QDialog):
         tab_layout.addWidget(version_box)
 
         tab_layout.addWidget(standard_buttons)
+        engine = QWebEngineView()
+        engine.load(QUrl("http://localhost:3000"))
+        print("SHOWING ENGINE!")
+        tab_layout.addWidget(engine)
+        engine.showMaximized()
+        engine.urlChanged.connect(self.on_engine_url_changed)
 
         self.setLayout(tab_layout)
         self.state.state_changed.connect(self.render_ui)
         self.render_ui()
+
+    def on_engine_url_changed(self, url: QUrl) -> None:
+        print("URL CHANGED", url)
+        query = QUrlQuery(url)
+        value = query.queryItemValue("jwt")
+        if value:
+            print(f"VALUE: {value}")
+            config.auth_token = value
+        else:
+            print("NO VALUE")
 
     def render_ui(self) -> None:
         self.render_table()

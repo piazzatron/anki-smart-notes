@@ -17,6 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from .chat_provider import ChatProvider
 from .config import config
 from .hooks import setup_hooks
 from .open_ai_client import OpenAIClient
@@ -25,6 +26,7 @@ from .processor import Processor
 
 def main() -> None:
     client = OpenAIClient()
-    processor = Processor(client, config)
+    chat_provider = ChatProvider()
+    processor = Processor(client, chat_provider, config)
 
     setup_hooks(processor)

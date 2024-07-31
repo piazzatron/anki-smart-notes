@@ -21,42 +21,49 @@ import asyncio
 
 import aiohttp
 
-from .config import config
+from .config import ChatModels, ChatProviders, config
 from .constants import (
     CHAT_CLIENT_TIMEOUT_SEC,
     CHAT_MAX_RETRIES,
     CHAT_RETRY_BASE_SECONDS,
+    get_server_url,
 )
 from .logger import logger
-
-OPENAI_ENDPOINT = "https://api.openai.com"
-
 
 timeout = aiohttp.ClientTimeout(total=CHAT_CLIENT_TIMEOUT_SEC)
 
 
-class OpenAIClient:
-    """Client for OpenAI's chat API."""
+class ChatProvider:
 
-    async def async_get_chat_response(self, prompt: str, retry_count=0) -> str:
-        """Gets a chat response from OpenAI's chat API. This method can throw; the caller should handle with care."""
-        endpoint = f"{config.openai_endpoint or OPENAI_ENDPOINT}/v1/chat/completions"
+    async def async_get_chat_response(
+        self, prompt: str, model: ChatModels, provider: ChatProviders, retry_count=0
+    ) -> str:
+        endpoint = f"{get_server_url()}/api/chat"
+        jwt = config.auth_token
+        if not jwt:
+            logger.error("ChatProvider: unexpectedly no JWT")
+            ## TODO: raise here
+
         logger.debug(
-            f"OpenAI: hitting {endpoint} model: {config.openai_model} retries {retry_count} for prompt: {prompt}"
+            f"Making chat request with model {model} provider: {provider} prompt {prompt}"
         )
+
         async with aiohttp.ClientSession(timeout=timeout) as session:
             async with session.post(
                 endpoint,
                 headers={
-                    "Authorization": f"Bearer {config.openai_api_key}",
+                    "Authorization": f"Bearer {jwt}",
                 },
                 json={
-                    "model": config.openai_model,
-                    "messages": [{"role": "user", "content": prompt}],
+                    "provider": provider,
+                    "model": model,
+                    "message": prompt,
+                    # TODO: temperature
                 },
             ) as response:
+
                 if response.status == 429:
-                    logger.debug("Got a 429 from OpenAI")
+                    logger.warning("Got a 429 from server")
                     if retry_count < CHAT_MAX_RETRIES:
                         wait_time = (2**retry_count) * CHAT_RETRY_BASE_SECONDS
                         logger.debug(
@@ -65,10 +72,13 @@ class OpenAIClient:
                         await asyncio.sleep(wait_time)
 
                         return await self.async_get_chat_response(
-                            prompt, retry_count + 1
+                            prompt,
+                            model=model,
+                            provider=provider,
+                            retry_count=retry_count + 1,
                         )
 
                 response.raise_for_status()
                 resp = await response.json()
-                msg: str = resp["choices"][0]["message"]["content"]
+                msg: str = resp["messages"][0]
                 return msg
