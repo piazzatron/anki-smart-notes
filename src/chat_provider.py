@@ -17,22 +17,31 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from .. import env
+from .api_client import api
+from .constants import CHAT_CLIENT_TIMEOUT_SEC, DEFAULT_TEMPERATURE
 from .models import ChatModels, ChatProviders
 
-SERVER_URL_PROD = "https://anki-smart-notes-server-production.up.railway.app"
-SERVER_URL_DEV = "http://localhost:3000"
 
-RETRY_BASE_SECONDS = 5
-MAX_RETRIES = 10
-CHAT_CLIENT_TIMEOUT_SEC = 10
-TTS_PROVIDER_TIMEOUT_SEC = 20
+class ChatProvider:
 
-DEFAULT_CHAT_MODEL: ChatModels = "gpt-4o-mini"
-DEFAULT_CHAT_PROVIDER: ChatProviders = "openai"
+    async def async_get_chat_response(
+        self,
+        prompt: str,
+        model: ChatModels,
+        provider: ChatProviders,
+        temperature=DEFAULT_TEMPERATURE,
+    ) -> str:
+        response = await api.get_api_response(
+            path="chat",
+            args={
+                "provider": provider,
+                "model": model,
+                "message": prompt,
+                "temperature": temperature,
+            },
+            timeout_sec=CHAT_CLIENT_TIMEOUT_SEC,
+        )
 
-DEFAULT_TEMPERATURE = 0
-
-
-def get_server_url() -> str:
-    return SERVER_URL_PROD if env.environment == "PROD" else SERVER_URL_DEV
+        resp = await response.json()
+        msg: str = resp["messages"][0]
+        return msg

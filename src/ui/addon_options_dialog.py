@@ -18,13 +18,12 @@
 """
 
 import copy
-from typing import List, TypedDict, Union
+from typing import List, Union
 from urllib.parse import urlparse
 
 from aqt import (
     QDialog,
     QDialogButtonBox,
-    QFormLayout,
     QGraphicsOpacityEffect,
     QGroupBox,
     QHBoxLayout,
@@ -34,28 +33,39 @@ from aqt import (
     QTableWidget,
     QTableWidgetItem,
     QTabWidget,
+    QUrl,
+    QUrlQuery,
     QVBoxLayout,
+    QWebEngineView,
     QWidget,
 )
 from PyQt6.QtCore import Qt
 
-from ..config import OpenAIModels, PromptMap, config
+from ..config import PromptMap, config
 from ..logger import logger
+from ..models import ChatModels, OpenAIModels, openai_chat_models
 from ..processor import Processor
+from ..prompts import get_extras
 from .changelog import get_version
+from .chat_options import (
+    ChatOptions,
+    ReadableChatProvider,
+    chat_provider_to_ui_map,
+    chat_ui_to_provider_map,
+    provider_model_map,
+)
 from .prompt_dialog import PromptDialog
 from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_line_edit import ReactiveLineEdit
 from .state_manager import StateManager
-from .ui_utils import show_message_box
+from .tts_options import TTSOptions, TTSState, languages, providers
+from .ui_utils import default_form_layout, font_small, show_message_box
 
 OPTIONS_MIN_WIDTH = 750
 
-openai_models: List[OpenAIModels] = ["gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4"]
 
-
-class State(TypedDict):
+class State(TTSState):
     openai_api_key: Union[str, None]
     prompts_map: PromptMap
     openai_model: OpenAIModels
@@ -67,8 +77,17 @@ class State(TypedDict):
     allow_empty_fields: bool
     debug: bool
 
+    # Chat Options
+    chat_provider: ReadableChatProvider
+    chat_providers: List[ReadableChatProvider]
+    chat_models: List[ChatModels]
+    chat_model: ChatModels
+    chat_temperature: int
 
-excluded_config_map_fields = ["selected_row", "openai_models"]
+
+config_transforms = {
+    "chat_provider": lambda x: chat_ui_to_provider_map[x],
+}
 
 
 class AddonOptionsDialog(QDialog):
@@ -94,8 +113,6 @@ class AddonOptionsDialog(QDialog):
         get_api_key_label = QLabel(
             "An API key is required. Free tier use is limited to three requests per minute. <a href='https://platform.openai.com/account/api-keys/'>Get an API key.</a>"
         )
-        font_small = get_api_key_label.font()
-        font_small.setPointSize(10)
         get_api_key_label.setOpenExternalLinks(True)
         get_api_key_label.setFont(font_small)
 
@@ -113,24 +130,19 @@ class AddonOptionsDialog(QDialog):
         self.models_combo_box = ReactiveComboBox(
             self.state, "openai_models", "openai_model"
         )
-        self.models_combo_box.onChange.connect(
-            lambda text: self.state.update({"openai_model": text})
-        )
-
-        form = QFormLayout()
-        form.setVerticalSpacing(12)
+        form = default_form_layout()
         form.addRow("<b>🔑 OpenAI API Key:</b>", self.api_key_edit)
         form.addRow(get_api_key_label)
-        form.setLabelAlignment(Qt.AlignmentFlag.AlignLeft)
 
         group_box = QGroupBox("API Key")
         group_box.setLayout(form)
 
         # Buttons
-        # TODO: Need a restore defaults button
         table_buttons = QHBoxLayout()
-        add_button = QPushButton("Add")
-        add_button.clicked.connect(self.on_add)
+        add_button = QPushButton("Add Text Field")
+        add_button.clicked.connect(lambda _: self.on_add(False))
+        voice_button = QPushButton("Add Voice Field")
+        voice_button.clicked.connect(lambda _: self.on_add(True))
         self.remove_button = QPushButton("Remove")
         self.edit_button = QPushButton("Edit")
         self.edit_button.clicked.connect(self.on_edit)
@@ -138,6 +150,7 @@ class AddonOptionsDialog(QDialog):
         table_buttons.addWidget(self.edit_button, 1)
         self.remove_button.clicked.connect(self.on_remove)
         table_buttons.addWidget(add_button, 2, Qt.AlignmentFlag.AlignRight)
+        table_buttons.addWidget(voice_button, 2, Qt.AlignmentFlag.AlignRight)
 
         standard_buttons = QDialogButtonBox(
             QDialogButtonBox.StandardButton.Cancel | QDialogButtonBox.StandardButton.Ok
@@ -158,9 +171,7 @@ class AddonOptionsDialog(QDialog):
 
         tabs = QTabWidget()
 
-        explanation = QLabel(
-            "Automatically generate fields per note type. Reference any existing field in your prompt with {{double curly braces}}."
-        )
+        explanation = QLabel("Automatically generate text and voice fields.")
         explanation.setFont(font_small)
         layout = QVBoxLayout()
         layout.addWidget(group_box)
@@ -171,19 +182,88 @@ class AddonOptionsDialog(QDialog):
         layout.addWidget(self.table)
         layout.addLayout(table_buttons)
 
-        tab1 = QWidget()
-        tab1.setLayout(layout)
-        tabs.addTab(tab1, "General")
+        general_tab = QWidget()
+        general_tab.setLayout(layout)
+        tabs.addTab(general_tab, "General")
+        tabs.addTab(self.render_chat_tab(), "Chat Models")
+        tabs.addTab(self.render_tts_tab(), "TTS Settings")
+        tabs.addTab(self.render_plugin_tab(), "Advanced")
 
-        # Tab2
+        tab_layout = QVBoxLayout()
+        tab_layout.addWidget(tabs)
 
-        # Models form
+        # Version Box
 
-        models_group_box = QGroupBox("🤖 Model Settings")
-        models_form = QFormLayout()
-        models_form.setVerticalSpacing(12)
-        models_form.setLabelAlignment(Qt.AlignmentFlag.AlignLeft)
-        models_form.setFormAlignment(Qt.AlignmentFlag.AlignLeft)
+        version_box = QWidget()
+        version_box_layout = QHBoxLayout()
+        version_box_layout.setContentsMargins(0, 0, 12, 0)
+        version_box.setLayout(version_box_layout)
+        version_label = QLabel(f"Smart Notes v{get_version()}")
+        subtitle_font = version_label.font()
+        subtitle_font.setPointSize(9)
+        version_label.setFont(subtitle_font)
+        version_box_layout.addStretch()
+        version_box_layout.addWidget(version_label)
+        opacity_effect = QGraphicsOpacityEffect()
+        opacity_effect.setOpacity(0.3)
+        version_box.setGraphicsEffect(opacity_effect)
+
+        tab_layout.addWidget(version_box)
+
+        tab_layout.addWidget(standard_buttons)
+        engine = QWebEngineView()
+        engine.load(QUrl("http://localhost:3000"))
+        print("SHOWING ENGINE!")
+        tab_layout.addWidget(engine)
+        engine.showMaximized()
+        engine.urlChanged.connect(self.on_engine_url_changed)
+
+        self.setLayout(tab_layout)
+        self.state.state_changed.connect(self.render_ui)
+        self.render_ui()
+
+    def on_engine_url_changed(self, url: QUrl) -> None:
+        print("URL CHANGED", url)
+        query = QUrlQuery(url)
+        value = query.queryItemValue("jwt")
+        if value:
+            print(f"VALUE: {value}")
+            config.auth_token = value
+        else:
+            print("NO VALUE")
+
+    def render_ui(self) -> None:
+        self.render_table()
+        self.render_buttons()
+
+    def render_table(self) -> None:
+        self.table.setRowCount(0)
+
+        row = 0
+        for note_type, field_prompts in self.state.s["prompts_map"][
+            "note_types"
+        ].items():
+            for field, prompt in field_prompts["fields"].items():
+                self.table.insertRow(self.table.rowCount())
+                items = [
+                    QTableWidgetItem(note_type),
+                    QTableWidgetItem(field),
+                    QTableWidgetItem(prompt),
+                ]
+                for i, item in enumerate(items):
+                    item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsEditable)
+                    self.table.setItem(row, i, item)
+                row += 1
+
+        # Ensure the correct row is always selected
+        # shouldn't need the second and condition, but defensive
+        selected_row = self.state.s["selected_row"]
+        if selected_row is not None and selected_row < self.table.rowCount():
+            self.table.selectRow(selected_row)
+
+    def render_legacy_options(self) -> QGroupBox:
+        models_group_box = QGroupBox("Legacy OpenAI Settings")
+        models_form = default_form_layout()
         models_form.addRow("OpenAI Model:", self.models_combo_box)
 
         learn_more_about_models = QLabel(
@@ -206,12 +286,11 @@ class AddonOptionsDialog(QDialog):
         models_form.addRow(endpoint_info)
 
         models_group_box.setLayout(models_form)
+        return models_group_box
 
+    def render_plugin_tab(self) -> QWidget:
         plugin_box = QGroupBox("✨Smart Field Generation")
-        plugin_form = QFormLayout()
-        plugin_form.setVerticalSpacing(12)
-        plugin_form.setLabelAlignment(Qt.AlignmentFlag.AlignLeft)
-        plugin_form.setFormAlignment(Qt.AlignmentFlag.AlignLeft)
+        plugin_form = default_form_layout()
         plugin_box.setLayout(plugin_form)
 
         # Generate at review
@@ -260,80 +339,30 @@ class AddonOptionsDialog(QDialog):
         empty_fields_info.setFont(font_small)
         plugin_form.addRow(empty_fields_info)
 
-        tab2 = QWidget()
-        tab2_layout = QFormLayout()
-        tab2_layout.setLabelAlignment(Qt.AlignmentFlag.AlignLeft)
-        tab2_layout.setFormAlignment(Qt.AlignmentFlag.AlignLeft)
+        plugin_tab_layout = default_form_layout()
+        plugin_tab_layout.addRow(plugin_box)
 
-        tab2_layout.addRow(models_group_box)
-        tab2_layout.addRow(QLabel(""))
-        tab2_layout.addRow(plugin_box)
+        if config.legacy_support:
+            plugin_tab_layout.addRow(QLabel(""))
+            plugin_tab_layout.addRow(self.render_legacy_options())
 
         self.debug_checkbox = ReactiveCheckBox(self.state, "debug")
         self.debug_checkbox.onChange.connect(
             (lambda checked: self.state.update({"debug": checked}))
         )
-        tab2_layout.addRow(QLabel(""))
-        tab2_layout.addRow("Debug mode", self.debug_checkbox)
+        plugin_tab_layout.addRow(QLabel(""))
+        plugin_tab_layout.addRow("Debug mode", self.debug_checkbox)
 
-        tab2.setLayout(tab2_layout)
-        tabs.addTab(tab2, "Advanced")
+        plugin_settings_tab = QWidget()
+        plugin_settings_tab.setLayout(plugin_tab_layout)
 
-        tab_layout = QVBoxLayout()
-        tab_layout.addWidget(tabs)
+        return plugin_settings_tab
 
-        # Version Box
+    def render_chat_tab(self) -> QWidget:
+        return ChatOptions(self.state)  # type: ignore
 
-        version_box = QWidget()
-        version_box_layout = QHBoxLayout()
-        version_box_layout.setContentsMargins(0, 0, 12, 0)
-        version_box.setLayout(version_box_layout)
-        version_label = QLabel(f"Smart Notes v{get_version()}")
-        subtitle_font = version_label.font()
-        subtitle_font.setPointSize(9)
-        version_label.setFont(subtitle_font)
-        version_box_layout.addStretch()
-        version_box_layout.addWidget(version_label)
-        opacity_effect = QGraphicsOpacityEffect()
-        opacity_effect.setOpacity(0.3)
-        version_box.setGraphicsEffect(opacity_effect)
-
-        tab_layout.addWidget(version_box)
-
-        tab_layout.addWidget(standard_buttons)
-
-        self.setLayout(tab_layout)
-        self.state.state_changed.connect(self.render_ui)
-        self.render_ui()
-
-    def render_ui(self) -> None:
-        self.render_table()
-        self.render_buttons()
-
-    def render_table(self) -> None:
-        self.table.setRowCount(0)
-
-        row = 0
-        for note_type, field_prompts in self.state.s["prompts_map"][
-            "note_types"
-        ].items():
-            for field, prompt in field_prompts["fields"].items():
-                self.table.insertRow(self.table.rowCount())
-                items = [
-                    QTableWidgetItem(note_type),
-                    QTableWidgetItem(field),
-                    QTableWidgetItem(prompt),
-                ]
-                for i, item in enumerate(items):
-                    item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsEditable)
-                    self.table.setItem(row, i, item)
-                row += 1
-
-        # Ensure the correct row is always selected
-        # shouldn't need the second and condition, but defensive
-        selected_row = self.state.s["selected_row"]
-        if selected_row is not None and selected_row < self.table.rowCount():
-            self.table.selectRow(selected_row)
+    def render_tts_tab(self) -> QWidget:
+        return TTSOptions()  # type: ignore
 
     def create_table(self) -> QTableWidget:
         table = QTableWidget(0, 3)
@@ -362,21 +391,25 @@ class AddonOptionsDialog(QDialog):
         if row is None:
             return
 
-        card_type = self.table.item(row, 0).text()  # type: ignore
+        note_type = self.table.item(row, 0).text()  # type: ignore
         field = self.table.item(row, 1).text()  # type: ignore
         prompt = self.table.item(row, 2).text()  # type: ignore
-        logger.debug(f"Editing {card_type}, {field}")
+        logger.debug(f"Editing {note_type}, {field}")
 
         # Save out API key jic
         config.openai_api_key = self.api_key_edit.text()
+
+        # Get type
+        field_type = get_extras(note_type, field)["type"]
 
         prompt_dialog = PromptDialog(
             self.state.s["prompts_map"],
             self.processor,
             self.on_update_prompts,
-            card_type=card_type,
+            card_type=note_type,
             field=field,
             prompt=prompt,
+            field_type=field_type,
         )
 
         if prompt_dialog.exec() == QDialog.DialogCode.Accepted:
@@ -387,12 +420,15 @@ class AddonOptionsDialog(QDialog):
         self.remove_button.setEnabled(is_enabled)
         self.edit_button.setEnabled(is_enabled)
 
-    def on_add(self, _: int) -> None:
+    def on_add(self, is_tts: bool) -> None:
         # Save out the API key in case it's been updated this run
         config.openai_api_key = self.api_key_edit.text()
 
         prompt_dialog = PromptDialog(
-            self.state.s["prompts_map"], self.processor, self.on_update_prompts
+            self.state.s["prompts_map"],
+            self.processor,
+            self.on_update_prompts,
+            field_type="tts" if is_tts else "chat",
         )
 
         if prompt_dialog.exec() == QDialog.DialogCode.Accepted:
@@ -422,12 +458,15 @@ class AddonOptionsDialog(QDialog):
             show_message_box("Invalid OpenAI Host", "Please provide a valid URL.")
             return
 
+        valid_config_attrs = config.__annotations__.keys()
+
         old_debug = config.debug
         for k, v in [
-            item
-            for item in self.state.s.items()
-            if item[0] not in excluded_config_map_fields
+            item for item in self.state.s.items() if item[0] in valid_config_attrs
         ]:
+            transform = config_transforms.get(k)
+            if transform:
+                v = transform(v)  # type: ignore
             config.__setattr__(k, v)
             logger.debug(f"Setting {k} to {v}")
 
@@ -451,9 +490,27 @@ class AddonOptionsDialog(QDialog):
             "generate_at_review": config.generate_at_review,
             "regenerate_notes_when_batching": config.regenerate_notes_when_batching,
             "openai_endpoint": config.openai_endpoint,
-            "openai_models": openai_models,
+            "openai_models": openai_chat_models,
             "allow_empty_fields": config.allow_empty_fields,
             "debug": config.debug,
+            # Chat
+            "chat_provider": chat_provider_to_ui_map[config.chat_provider],
+            "chat_providers": ["ChatGPT", "Claude"],
+            "chat_model": config.chat_model,
+            "chat_models": provider_model_map[config.chat_provider],
+            "chat_temperature": config.chat_temperature,
+            # TTS
+            "providers": providers,
+            "selected_provider": "all",
+            "voice": config.tts_voice,
+            "genders": ["all", "male", "female"],
+            "selected_gender": "all",
+            "languages": languages,
+            "selected_language": "all",
+            "test_text": "",
+            "test_enabled": True,
+            "tts_provider": config.tts_provider,
+            "tts_voice": config.tts_voice,
         }
 
     def on_restore_defaults(self) -> None:

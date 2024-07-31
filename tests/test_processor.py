@@ -54,6 +54,10 @@ class MockNote:
 class MockConfig:
     prompts_map: Any
     allow_empty_fields: bool
+    chat_provider = "openai"
+    chat_model = "gpt-4o-mini"
+    chat_temperature = 0
+
     debug: bool = True
 
 
@@ -61,12 +65,59 @@ def p(str) -> str:
     return f"p_{str}"
 
 
-class MockChatClient:
+class MockOpenAIClient:
     async def async_get_chat_response(self, prompt: str):
         return p(prompt)
 
 
+class MockChatClient:
+    async def async_get_chat_response(
+        self,
+        prompt: str,
+        model: str,
+        provider: str,
+        temperature: int = 0,
+        retry_count: int = 0,
+    ) -> str:
+        return p(prompt)
+
+
 NOTE_TYPE_NAME = "note_type_1"
+
+
+def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
+    # Make mocks
+    import anki_smart_notes
+    from anki_smart_notes.src.field_resolver import FieldResolver
+    from anki_smart_notes.src.processor import Processor
+
+    openai = MockOpenAIClient()
+    chat = MockChatClient()
+
+    extras = {
+        k: {"automatic": not options[k]["manual"]}
+        for k in prompts_map.keys()
+        if k in options
+    }
+
+    prompts_map = {
+        "note_types": {NOTE_TYPE_NAME: {"fields": prompts_map, "extras": extras}}  # type: ignore
+    }
+
+    c = MockConfig(prompts_map=prompts_map, allow_empty_fields=allow_empty_fields)
+    f = FieldResolver(openai_provider=openai, chat_provider=chat, tts_provider=chat)  # type: ignore
+    p = Processor(field_resolver=f, config=c)
+
+    monkeypatch.setattr(anki_smart_notes.src.prompts, "config", c)
+
+    monkeypatch.setattr(
+        anki_smart_notes.src.processor, "get_fields", lambda _: note.fields()  # type: ignore
+    )
+    monkeypatch.setattr(
+        anki_smart_notes.src.field_resolver, "is_legacy_open_ai", lambda: False
+    )
+
+    return p
 
 
 @pytest.mark.asyncio
@@ -188,7 +239,7 @@ NOTE_TYPE_NAME = "note_type_1"
             "target only updates target",
             {"f1": "1", "f2": "2", "f3": "", "f4": ""},
             {"f3": "{{f1}}", "f4": "{{f2}}"},
-            {"f3": p("1"), "f4": ""},
+            {"f3": p("1"), "f4": "", "f1": "1"},
             {
                 "target_field": "f3",
             },
@@ -344,40 +395,23 @@ NOTE_TYPE_NAME = "note_type_1"
     ],
 )
 async def test_processor_1(name, note, prompts_map, expected, options, monkeypatch):
-    import anki_smart_notes
-    from anki_smart_notes.src.processor import Processor
-
-    # Make options
 
     overwrite_fields = bool(options.get("overwrite"))
     target_field = options.get("target_field")
     allow_empty_fields = bool(options.get("allow_empty"))
 
-    # Make mocks
-
     n = MockNote(note_type=NOTE_TYPE_NAME, data=note)
-    p = Processor(client=MockChatClient(), config=None)  # type: ignore
-    extras = {
-        k: {"automatic": not options[k]["manual"]}
-        for k in prompts_map.keys()
-        if k in options
-    }
-
-    prompts_map = {
-        "note_types": {NOTE_TYPE_NAME: {"fields": prompts_map, "extras": extras}}
-    }
-
-    monkeypatch.setattr(
-        anki_smart_notes.src.prompts,
-        "config",
-        MockConfig(prompts_map=prompts_map, allow_empty_fields=allow_empty_fields),
+    p = setup_data(  # type: ignore
+        monkeypatch=monkeypatch,
+        note=n,
+        prompts_map=prompts_map,
+        options=options,
+        allow_empty_fields=allow_empty_fields,
     )
 
-    monkeypatch.setattr(
-        anki_smart_notes.src.processor, "get_fields", lambda _: n.fields()  # type: ignore
+    await p._process_note(
+        n, overwrite_fields=overwrite_fields, target_field=target_field
     )
-
-    await p._process_note(n, overwrite_fields=overwrite_fields, target_field=target_field)  # type: ignore
 
     for k, v in expected.items():
         assert n[k] == v, f"{name}: Field {k} is {n[k]}, expected {v}"
@@ -404,22 +438,13 @@ async def test_processor_1(name, note, prompts_map, expected, options, monkeypat
     ],
 )
 async def test_cycle(note, prompts_map, expected, monkeypatch):
-    import anki_smart_notes
-    from anki_smart_notes.src.processor import Processor
-
     n = MockNote(note_type=NOTE_TYPE_NAME, data=note)
-    p = Processor(client=MockChatClient(), config=None)  # type: ignore
-
-    prompts_map = {"note_types": {NOTE_TYPE_NAME: {"fields": prompts_map}}}
-
-    monkeypatch.setattr(
-        anki_smart_notes.src.prompts,
-        "config",
-        MockConfig(prompts_map=prompts_map, allow_empty_fields=True),
-    )
-
-    monkeypatch.setattr(
-        anki_smart_notes.src.processor, "get_fields", lambda _: n.fields()  # type: ignore
+    p = setup_data(  # type: ignore
+        monkeypatch=monkeypatch,
+        note=n,
+        prompts_map=prompts_map,
+        options={},
+        allow_empty_fields=False,
     )
 
     dag = p.generate_fields_dag(n, overwrite_fields=True)
@@ -444,22 +469,13 @@ async def test_cycle(note, prompts_map, expected, monkeypatch):
     ],
 )
 async def test_returns_if_updated(note, prompts_map, expected, monkeypatch):
-    import anki_smart_notes
-    from anki_smart_notes.src.processor import Processor
-
     n = MockNote(note_type=NOTE_TYPE_NAME, data=note)
-    p = Processor(client=MockChatClient(), config=None)  # type: ignore
-
-    prompts_map = {"note_types": {NOTE_TYPE_NAME: {"fields": prompts_map}}}
-
-    monkeypatch.setattr(
-        anki_smart_notes.src.prompts,
-        "config",
-        MockConfig(prompts_map=prompts_map, allow_empty_fields=True),
-    )
-
-    monkeypatch.setattr(
-        anki_smart_notes.src.processor, "get_fields", lambda _: n.fields()  # type: ignore
+    p = setup_data(  # type: ignore
+        monkeypatch=monkeypatch,
+        note=n,
+        prompts_map=prompts_map,
+        options={},
+        allow_empty_fields=False,
     )
 
     res = await p._process_note(n, overwrite_fields=False, target_field=None)  # type: ignore

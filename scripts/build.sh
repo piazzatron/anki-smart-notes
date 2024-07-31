@@ -39,6 +39,7 @@ build () {
   # Copy deps
   cp -r env/lib/python3.11/site-packages/aiohttp dist/vendor/
   cp -r env/lib/python3.11/site-packages/aiosignal dist/vendor/
+  cp -r env/lib/python3.11/site-packages/aiofiles dist/vendor/
   cp -r env/lib/python3.11/site-packages/async_timeout dist/vendor/
   cp -r env/lib/python3.11/site-packages/frozenlist dist/vendor/
   cp -r env/lib/python3.11/site-packages/attrs dist/vendor/

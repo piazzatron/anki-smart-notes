@@ -17,11 +17,12 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Union
+from typing import List, Union
 
 from anki.notes import Note
+from aqt import mw
 
-from .prompts import get_generate_automatically, get_prompt_fields_lower, get_prompts
+from .prompts import get_generate_automatically, get_prompt_fields, get_prompts
 from .utils import get_fields, to_lowercase_dict
 
 """Helpful functions for working with notes"""
@@ -33,6 +34,13 @@ def get_note_type(note: Note) -> str:
     if not t:
         raise Exception("Note type not found")
     return t["name"]  # type: ignore
+
+
+def get_note_types() -> List[str]:
+    if not mw or not mw.col:
+        return []
+    models = mw.col.models.all()
+    return [model["name"] for model in models]
 
 
 def is_note_fully_processed(note: Note) -> bool:
@@ -87,7 +95,7 @@ def has_chained_ai_fields(note: Note) -> bool:
 
     for field, prompt in prompts.items():
         other_fields = prompts.keys() - {field.lower()}
-        refers_to = get_prompt_fields_lower(prompt)
+        refers_to = get_prompt_fields(prompt)
 
         if any(field in other_fields for field in refers_to):
             return True

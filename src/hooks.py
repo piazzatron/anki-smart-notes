@@ -36,11 +36,12 @@ from .message_polling import start_polling_for_messages
 from .notes import is_ai_field, is_note_fully_processed
 from .processor import Processor
 from .sentry import ping, sentry, with_sentry
+from .tasks import run_async_in_background
 from .ui.addon_options_dialog import AddonOptionsDialog
 from .ui.changelog import perform_update_check
 from .ui.sparkle import Sparkle
 from .ui.ui_utils import show_message_box
-from .utils import bump_usage_counter, check_for_api_key, run_async_in_background
+from .utils import bump_usage_counter, check_for_api_key
 
 
 def with_processor(fn):
@@ -177,8 +178,9 @@ def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMe
     )
 
 
+# TODO: where does this go now?
 def migrate_models() -> None:
-    if config.openai_model == "gpt-3.5-turbo":  # type:ignore
+    if config.openai_model == "gpt-3.5-turbo":
         logger.debug(f"migrate_models: old 3.5-turbo model seen, migrating to 4o-mini")
         config.openai_model = "gpt-4o-mini"
 
@@ -203,7 +205,6 @@ def on_main_window(processor: Processor):
     # Triggered passes a bool, so we need to use a lambda to pass the processor
     options_action.triggered.connect(lambda _: on_options(processor)())
     mw.form.menuTools.addAction(options_action)
-    # TODO: not working for some reason
     mw.addonManager.setConfigAction(__name__, on_options(processor))
     on_start_actions()
 
@@ -231,7 +232,7 @@ def on_editor_context(
 
     item.triggered.connect(
         lambda: processor.process_note(
-            note, overwrite_fields=True, target_field=ai_field, on_success=on_success
+            note, overwrite_fields=False, target_field=ai_field, on_success=on_success
         )
     )
     menu.addAction(item)

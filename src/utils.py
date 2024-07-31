@@ -17,12 +17,10 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import asyncio
 import os
-from typing import Any, Callable, Dict, List, Union
+from typing import Any, Callable, Dict, List
 
 from aqt import mw
-from aqt.operations import QueryOp
 
 from ..env import environment
 from .config import config
@@ -33,6 +31,13 @@ from .ui.ui_utils import show_message_box
 def to_lowercase_dict(d: Dict[str, Any]) -> Dict[str, Any]:
     """Converts a dictionary to lowercase keys"""
     return {k.lower(): v for k, v in d.items()}
+
+
+def get_note_types() -> List[str]:
+    if not mw or not mw.col:
+        return []
+    models = mw.col.models.all()
+    return [model["name"] for model in models]
 
 
 def get_fields(note_type: str) -> List[str]:
@@ -101,27 +106,11 @@ def is_production() -> bool:
     return environment == "PROD"
 
 
-def run_async_in_background(
-    op: Callable[[], Any],
-    on_success: Callable[[Any], None] = lambda _: None,
-    on_failure: Union[Callable[[Exception], None], None] = None,
-    with_progress: bool = False,
-):
-    "Runs an async operation in the background and calls on_success when done."
+# Modes
 
-    if not mw:
-        raise Exception("Error: mw not found in run_async_in_background")
+# TODO:
+# Need some payment stuff (free tier, paid, expired, etc)
 
-    query_op = QueryOp(
-        parent=mw,
-        op=lambda _: asyncio.run(op()),
-        success=on_success,
-    )
 
-    if on_failure:
-        query_op.failure(on_failure)
-
-    if with_progress:
-        query_op = query_op.with_progress()
-
-    query_op.run_in_background()
+def is_legacy_open_ai() -> bool:
+    return bool(config.openai_api_key and not config.auth_token)
