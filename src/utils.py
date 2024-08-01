@@ -125,3 +125,13 @@ def run_async_in_background(
         query_op = query_op.with_progress()
 
     query_op.run_in_background()
+
+
+# Modes
+
+# TODO:
+# Need some payment stuff (free tier, paid, expired, etc)
+
+
+def is_legacy_open_ai() -> bool:
+    return config.openai_api_key and not config.auth_token

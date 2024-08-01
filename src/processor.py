@@ -39,7 +39,13 @@ from .prompts import (
 )
 from .sentry import run_async_in_background_with_sentry
 from .ui.ui_utils import show_message_box
-from .utils import bump_usage_counter, check_for_api_key, get_fields, run_on_main
+from .utils import (
+    bump_usage_counter,
+    check_for_api_key,
+    get_fields,
+    is_legacy_open_ai,
+    run_on_main,
+)
 
 # OPEN_AI rate limits
 NEW_OPEN_AI_MODEL_REQ_PER_MIN = 500
@@ -392,12 +398,10 @@ class Processor:
             if on_failure:
                 on_failure(e)
 
-        chat_fn = lambda: self.chat_provider.async_get_chat_response(
-            prompt, model=model, provider=provider, retry_count=0
+        chat_fn = lambda: self._get_chat_response(
+            interpolated_prompt=prompt, model=model, provider=provider, retry_count=0
         )
 
-        # TODO: support this with a mode selector type deal
-        # lambda: self.openai_client.async_get_chat_response(prompt),
         run_async_in_background_with_sentry(
             chat_fn,
             wrapped_on_success,
@@ -426,14 +430,32 @@ class Processor:
             return None
 
         node.did_update = True
-
-        # TODO: support this with a mode selector type deal
-
-        return await self.chat_provider.async_get_chat_response(
-            interpolated_prompt,
+        return await self._get_chat_response(
+            interpolated_prompt=interpolate_prompt,
             model=node.model,
             provider=node.provider,
             temperature=node.temperature,
+        )
+
+    # TODO: this could probably leave processor, it's dangerously close to becoming a god class
+    async def _get_chat_response(
+        self,
+        interpolated_prompt: str,
+        model: ChatModels,
+        provider: ChatProviders,
+        temperature: int,
+    ):
+
+        if is_legacy_open_ai():
+            return await self.openai_client.async_get_chat_response(
+                interpolated_prompt, temperature=0, retry_count=0
+            )
+
+        return await self.chat_provider.async_get_chat_response(
+            interpolated_prompt,
+            model=model,
+            provider=provider,
+            temperature=temperature,
             retry_count=0,
         )
 
