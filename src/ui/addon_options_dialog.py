@@ -42,8 +42,9 @@ from aqt import (
 )
 from PyQt6.QtCore import Qt
 
-from ..config import ChatModels, OpenAIModels, PromptMap, config
+from ..config import PromptMap, config
 from ..logger import logger
+from ..models import ChatModels, OpenAIModels
 from ..processor import Processor
 from .changelog import get_version
 from .prompt_dialog import PromptDialog

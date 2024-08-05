@@ -134,4 +134,4 @@ def run_async_in_background(
 
 
 def is_legacy_open_ai() -> bool:
-    return config.openai_api_key and not config.auth_token
+    return bool(config.openai_api_key and not config.auth_token)

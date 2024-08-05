@@ -24,8 +24,9 @@ import aiohttp
 from .config import config
 from .constants import (
     CHAT_CLIENT_TIMEOUT_SEC,
-    CHAT_MAX_RETRIES,
-    CHAT_RETRY_BASE_SECONDS,
+    DEFAULT_TEMPERATURE,
+    MAX_RETRIES,
+    RETRY_BASE_SECONDS,
 )
 from .logger import logger
 
@@ -39,7 +40,7 @@ class OpenAIClient:
     """Client for OpenAI's chat API."""
 
     async def async_get_chat_response(
-        self, prompt: str, temperature=0, retry_count=0
+        self, prompt: str, temperature=DEFAULT_TEMPERATURE, retry_count=0
     ) -> str:
         """Gets a chat response from OpenAI's chat API. This method can throw; the caller should handle with care."""
         endpoint = f"{config.openai_endpoint or OPENAI_ENDPOINT}/v1/chat/completions"
@@ -60,8 +61,8 @@ class OpenAIClient:
             ) as response:
                 if response.status == 429:
                     logger.debug("Got a 429 from OpenAI")
-                    if retry_count < CHAT_MAX_RETRIES:
-                        wait_time = (2**retry_count) * CHAT_RETRY_BASE_SECONDS
+                    if retry_count < MAX_RETRIES:
+                        wait_time = (2**retry_count) * RETRY_BASE_SECONDS
                         logger.debug(
                             f"Retry: {retry_count} Waiting {wait_time} seconds before retrying"
                         )

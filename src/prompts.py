@@ -52,7 +52,7 @@ def get_extras(
         .get("extras", {})
     )
 
-    default_extras = {
+    default_extras: FieldExtras = {
         "automatic": EXTRAS_DEFAULT_AUTOMATIC,
         "chat_provider": config.chat_provider,
         "chat_model": config.chat_model,

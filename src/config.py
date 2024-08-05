@@ -17,15 +17,11 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, Dict, Literal, Optional, TypedDict, Union
+from typing import Any, Dict, Optional, TypedDict, Union
 
 from aqt import addons, mw
 
-# TODO: these should be moved
-OpenAIModels = Literal["gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4"]
-AnthropicModels = Literal["claude-3-opus", "claude-3-haiku", "claude-3-5-sonnet"]
-ChatModels = Union[OpenAIModels, AnthropicModels]
-ChatProviders = Literal["openai", "anthropic"]
+from .models import ChatModels, ChatProviders
 
 
 class FieldExtras(TypedDict):

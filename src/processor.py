@@ -23,66 +23,31 @@ from typing import Callable, Dict, List, Sequence, Tuple, Union
 import aiohttp
 from anki.notes import Note, NoteId
 from aqt import mw
-from attr import dataclass
 
-from .chat_provider import ChatProvider
-from .config import ChatModels, ChatProviders, Config
+from .config import Config
+from .field_resolver import FieldResolver
 from .logger import logger
+from .models import ChatModels, ChatProviders
+from .nodes import ChatPayload, FieldNode
 from .notes import get_note_type
-from .open_ai_client import OpenAIClient
 from .prompts import (
     EXTRAS_DEFAULT_AUTOMATIC,
     get_extras,
     get_prompt_fields_lower,
     get_prompts,
-    interpolate_prompt,
 )
 from .sentry import run_async_in_background_with_sentry
 from .ui.ui_utils import show_message_box
-from .utils import (
-    bump_usage_counter,
-    check_for_api_key,
-    get_fields,
-    is_legacy_open_ai,
-    run_on_main,
-)
+from .utils import bump_usage_counter, check_for_api_key, get_fields, run_on_main
 
 # OPEN_AI rate limits
 NEW_OPEN_AI_MODEL_REQ_PER_MIN = 500
 OLD_OPEN_AI_MODEL_REQ_PER_MIN = 3500
 
 
-@dataclass(repr=False)
-class PromptNode:
-    field: str
-    field_upper: str
-    prompt: str
-    existing_value: Union[str, None]
-    out_nodes: List["PromptNode"]
-    in_nodes: List["PromptNode"]
-    manual: bool
-    overwrite: bool
-    provider: ChatProviders
-    model: ChatModels
-    temperature: int
-    is_target: bool = False
-    generate_despite_manual: bool = False  # Used if it's pre a target field
-    did_update: bool = False
-
-    abort = False
-
-    def __str__(self):
-        return f"Node(field={self.field}, in_nodes={[n.field for n in self.in_nodes]}, out_nodes={[n.field for n in self.out_nodes]})"
-
-    __repr__ = __str__
-
-
 class Processor:
-    def __init__(
-        self, openai_provider: OpenAIClient, chat_provider: ChatProvider, config: Config
-    ):
-        self.openai_client = openai_provider
-        self.chat_provider = chat_provider
+    def __init__(self, field_resolver: FieldResolver, config: Config):
+        self.field_resolver = field_resolver
         self.config = config
         self.req_in_progress = False
 
@@ -320,7 +285,7 @@ class Processor:
         did_update = False
 
         while len(dag):
-            next_batch: List[PromptNode] = [
+            next_batch: List[FieldNode] = [
                 node for node in dag.values() if not node.in_nodes
             ]
             batch_tasks = {
@@ -378,12 +343,12 @@ class Processor:
     def get_chat_response(
         self,
         prompt: str,
+        note: Note,
         provider: ChatProviders,
         model: ChatModels,
         on_success: Callable[[str], None],
         on_failure: Union[Callable[[Exception], None], None] = None,
     ):
-        # TODO: model + provider
 
         if not self._ensure_no_req_in_progress():
             return
@@ -398,8 +363,8 @@ class Processor:
             if on_failure:
                 on_failure(e)
 
-        chat_fn = lambda: self._get_chat_response(
-            interpolated_prompt=prompt, model=model, provider=provider, retry_count=0
+        chat_fn = lambda: self.field_resolver.get_chat_response(
+            prompt=prompt, note=note, model=model, provider=provider
         )
 
         run_async_in_background_with_sentry(
@@ -408,7 +373,7 @@ class Processor:
             wrapped_on_failure,
         )
 
-    async def _process_node(self, node: PromptNode, note: Note) -> Union[str, None]:
+    async def _process_node(self, node: FieldNode, note: Note) -> Union[str, None]:
         if node.abort:
             return None
 
@@ -423,45 +388,15 @@ class Processor:
         if value and not (node.is_target or node.overwrite):
             return value
 
-        interpolated_prompt = interpolate_prompt(node.prompt, note)
+        new_value = await self.field_resolver.resolve(node, note)
+        if new_value:
+            node.did_update = True
 
-        if not interpolated_prompt:
-            logger.debug(f"Skipping empty prompt for field: {node.field}")
-            return None
-
-        node.did_update = True
-        return await self._get_chat_response(
-            interpolated_prompt=interpolate_prompt,
-            model=node.model,
-            provider=node.provider,
-            temperature=node.temperature,
-        )
-
-    # TODO: this could probably leave processor, it's dangerously close to becoming a god class
-    async def _get_chat_response(
-        self,
-        interpolated_prompt: str,
-        model: ChatModels,
-        provider: ChatProviders,
-        temperature: int,
-    ):
-
-        if is_legacy_open_ai():
-            return await self.openai_client.async_get_chat_response(
-                interpolated_prompt, temperature=0, retry_count=0
-            )
-
-        return await self.chat_provider.async_get_chat_response(
-            interpolated_prompt,
-            model=model,
-            provider=provider,
-            temperature=temperature,
-            retry_count=0,
-        )
+        return new_value
 
     def generate_fields_dag(
         self, note: Note, overwrite_fields: bool, target_field: Union[str, None] = None
-    ) -> Dict[str, PromptNode]:
+    ) -> Dict[str, FieldNode]:
         """Generates a directed acyclic graph of prompts for a note, or a subset of that graph if a target_fields list is passed. Returns a mapping of field -> PromptNode"""
         try:
             logger.debug("Generating dag...")
@@ -471,7 +406,7 @@ class Processor:
                 logger.error("generate_fields_dag: no prompts found for note type")
                 return {}
 
-            dag: Dict[str, PromptNode] = {}
+            dag: Dict[str, FieldNode] = {}
             fields = get_fields(note_type)
 
             # Have to iterate over fields to get the canonical capitalization lol
@@ -484,18 +419,25 @@ class Processor:
 
                 extras = get_extras(note_type, field)
 
-                model = extras.get("chat_model", self.config.chat_model)
-                provider = extras.get("chat_provider", self.config.chat_provider)
-                temperature = extras.get(
-                    "chat_temperature", self.config.chat_temperature
+                model = extras.get("chat_model") or self.config.chat_model
+                provider = extras.get("chat_provider") or self.config.chat_provider
+                temperature = (
+                    extras.get("chat_temperature") or self.config.chat_temperature
                 )
                 should_generate_automatically = extras.get(
                     "automatic", EXTRAS_DEFAULT_AUTOMATIC
                 )
-                dag[field_lower] = PromptNode(
+
+                # TODO: branch on which type of payload it is
+                payload = ChatPayload(
+                    provider=provider,
+                    model=model,
+                    temperature=temperature,
+                    prompt=prompt,
+                )
+                dag[field_lower] = FieldNode(
                     field=field_lower,
                     field_upper=field,
-                    prompt=prompt,
                     out_nodes=[],
                     in_nodes=[],
                     existing_value=note[field],
@@ -504,9 +446,7 @@ class Processor:
                     is_target=bool(
                         target_field and field_lower == target_field.lower()
                     ),
-                    model=model,
-                    provider=provider,
-                    temperature=temperature,
+                    payload=payload,
                 )
 
             if not len(dag):
@@ -527,7 +467,7 @@ class Processor:
             # the dag to only input and output
             if target_field:
                 target_node = dag[target_field.lower()]
-                trimmed: Dict[str, PromptNode] = {target_field.lower(): target_node}
+                trimmed: Dict[str, FieldNode] = {target_field.lower(): target_node}
 
                 # Add pre
                 explore = target_node.in_nodes.copy()
@@ -546,7 +486,7 @@ class Processor:
             logger.error(f"Error creating dag: {e}")
             return {}
 
-    def has_cycle(self, dag: Dict[str, PromptNode]) -> bool:
+    def has_cycle(self, dag: Dict[str, FieldNode]) -> bool:
         """Tests for cycles in a DAG. Returns True if there are cycles, False if there are not."""
         dag = dag.copy()
         for start in dag.values():

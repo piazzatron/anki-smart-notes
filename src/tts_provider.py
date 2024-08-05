@@ -18,41 +18,44 @@
 """
 
 import asyncio
+from typing import Any
 
 import aiohttp
 
 from .config import config
 from .constants import (
-    CHAT_CLIENT_TIMEOUT_SEC,
-    DEFAULT_TEMPERATURE,
     MAX_RETRIES,
     RETRY_BASE_SECONDS,
+    TTS_PROVIDER_TIMEOUT_SEC,
     get_server_url,
 )
 from .logger import logger
-from .models import ChatModels, ChatProviders
+from .models import TTSModels, TTSProviders, TTSVoices
 
-timeout = aiohttp.ClientTimeout(total=CHAT_CLIENT_TIMEOUT_SEC)
+timeout = aiohttp.ClientTimeout(total=TTS_PROVIDER_TIMEOUT_SEC)
 
 
-class ChatProvider:
-
-    async def async_get_chat_response(
+class TTSProvider:
+    async def async_get_tts_response(
         self,
-        prompt: str,
-        model: ChatModels,
-        provider: ChatProviders,
-        temperature=DEFAULT_TEMPERATURE,
+        input: str,
+        model: TTSModels,
+        provider: TTSProviders,
+        voice: TTSVoices,
+        options: Any = {},
         retry_count=0,
-    ) -> str:
-        endpoint = f"{get_server_url()}/api/chat"
+    ):
+
+        # TODO: should probably extract this again so not duplicating logic between
+        # chat provider
+        endpoint = f"{get_server_url()}/api/tts"
         jwt = config.auth_token
         if not jwt:
             logger.error("ChatProvider: unexpectedly no JWT")
             ## TODO: raise here
 
         logger.debug(
-            f"Making chat request with model {model} provider: {provider} prompt {prompt} temperature {temperature}"
+            f"Making TTS request with model {model} provider: {provider} input {input} options {options}"
         )
 
         async with aiohttp.ClientSession(timeout=timeout) as session:
@@ -64,8 +67,8 @@ class ChatProvider:
                 json={
                     "provider": provider,
                     "model": model,
-                    "temperature": temperature,
-                    "message": prompt,
+                    "message": input,
+                    "voice": voice,
                 },
             ) as response:
 
@@ -78,14 +81,17 @@ class ChatProvider:
                         )
                         await asyncio.sleep(wait_time)
 
-                        return await self.async_get_chat_response(
-                            prompt,
+                        return await self.async_get_tts_response(
+                            input=input,
                             model=model,
                             provider=provider,
+                            voice=voice,
+                            options=options,
                             retry_count=retry_count + 1,
                         )
 
                 response.raise_for_status()
-                resp = await response.json()
-                msg: str = resp["messages"][0]
-                return msg
+
+                # TODO: write it directly to a temp cache file so they're not all going into memory
+
+                return await response.read()

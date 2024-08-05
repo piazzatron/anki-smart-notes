@@ -19,14 +19,24 @@
 
 from .chat_provider import ChatProvider
 from .config import config
+from .field_resolver import FieldResolver
 from .hooks import setup_hooks
 from .open_ai_client import OpenAIClient
 from .processor import Processor
+from .tts_provider import TTSProvider
 
 
 def main() -> None:
-    client = OpenAIClient()
+    openai_provider = OpenAIClient()
     chat_provider = ChatProvider()
-    processor = Processor(client, chat_provider, config)
+    tts_provider = TTSProvider()
+
+    field_resolver = FieldResolver(
+        openai_provider=openai_provider,
+        chat_provider=chat_provider,
+        tts_provider=tts_provider,
+    )
+
+    processor = Processor(field_resolver=field_resolver, config=config)
 
     setup_hooks(processor)

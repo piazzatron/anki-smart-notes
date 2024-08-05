@@ -40,7 +40,6 @@ from ..prompts import (
     get_generate_automatically,
     get_prompt_fields_lower,
     get_prompts,
-    interpolate_prompt,
     prompt_has_error,
 )
 from ..utils import get_fields, to_lowercase_dict
@@ -279,12 +278,6 @@ class PromptDialog(QDialog):
             return
 
         sample_note = mw.col.get_note(sample_note_ids[0])
-
-        # TODO: BUG HERE!
-        prompt = interpolate_prompt(prompt, sample_note)
-        if not prompt:
-            return
-
         self.state["is_loading_prompt"] = True
 
         def on_success(arg):
@@ -312,7 +305,10 @@ class PromptDialog(QDialog):
             self.state["is_loading_prompt"] = False
 
         self.processor.get_chat_response(
-            prompt, on_success=on_success, on_failure=on_failure
+            prompt=prompt,
+            note=sample_note,
+            on_success=on_success,
+            on_failure=on_failure,
         )
 
     def render_valid_fields(self) -> None:

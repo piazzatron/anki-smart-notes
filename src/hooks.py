@@ -179,7 +179,7 @@ def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMe
 
 # TODO: where does this go now?
 def migrate_models() -> None:
-    if config.openai_model == "gpt-3.5-turbo":  # type:ignore
+    if config.openai_model == "gpt-3.5-turbo":
         logger.debug(f"migrate_models: old 3.5-turbo model seen, migrating to 4o-mini")
         config.openai_model = "gpt-4o-mini"
 

@@ -17,22 +17,32 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from .. import env
-from .models import ChatModels, ChatProviders
+from typing import Literal, Union
 
-SERVER_URL_PROD = "https://anki-smart-notes-server-production.up.railway.app"
-SERVER_URL_DEV = "http://localhost:3000"
+# Providers
 
-RETRY_BASE_SECONDS = 5
-MAX_RETRIES = 10
-CHAT_CLIENT_TIMEOUT_SEC = 10
-TTS_PROVIDER_TIMEOUT_SEC = 20
+TTSProviders = Literal["openai", "elevenLabs"]
+ChatProviders = Literal["openai", "anthropic"]
 
-DEFAULT_CHAT_MODEL: ChatModels = "gpt-4o-mini"
-DEFAULT_CHAT_PROVIDER: ChatProviders = "openai"
+# Chat Models
 
-DEFAULT_TEMPERATURE = 0
+OpenAIModels = Literal["gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4"]
+AnthropicModels = Literal["claude-3-opus", "claude-3-haiku", "claude-3-5-sonnet"]
+ChatModels = Union[OpenAIModels, AnthropicModels]
 
+# TTS Models
 
-def get_server_url() -> str:
-    return SERVER_URL_PROD if env.environment == "PROD" else SERVER_URL_DEV
+OpenAITTSModels = Literal["tts", "tts-hd"]
+TTSModels = Union[OpenAIModels]
+
+# TTS Voices
+
+OpenAIVoices = Literal[
+    "alloy",
+    "echo",
+    "fable",
+    "onyx",
+    "nova",
+    "shimmer",
+]
+TTSVoices = Union[OpenAIVoices]
