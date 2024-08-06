@@ -32,7 +32,7 @@ ChatModels = Union[OpenAIModels, AnthropicModels]
 
 # TTS Models
 
-OpenAITTSModels = Literal["tts-1", "tts-1-hd"]
+OpenAITTSModels = Literal["tts-1"]
 TTSModels = Union[OpenAITTSModels]
 
 # TTS Voices

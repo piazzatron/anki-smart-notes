@@ -204,7 +204,6 @@ def on_main_window(processor: Processor):
     # Triggered passes a bool, so we need to use a lambda to pass the processor
     options_action.triggered.connect(lambda _: on_options(processor)())
     mw.form.menuTools.addAction(options_action)
-    # TODO: not working for some reason
     mw.addonManager.setConfigAction(__name__, on_options(processor))
     on_start_actions()
 
