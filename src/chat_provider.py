@@ -85,6 +85,11 @@ class ChatProvider:
                             retry_count=retry_count + 1,
                         )
 
+                if response.status == 400:
+                    json = await response.json()
+                    print(json)
+                    raise Exception(f"Validation error: {json['error']}")
+
                 response.raise_for_status()
                 resp = await response.json()
                 msg: str = resp["messages"][0]

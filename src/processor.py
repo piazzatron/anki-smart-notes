@@ -28,7 +28,7 @@ from .config import Config
 from .field_resolver import FieldResolver
 from .logger import logger
 from .models import ChatModels, ChatProviders
-from .nodes import ChatPayload, FieldNode
+from .nodes import ChatPayload, FieldNode, TTSPayload
 from .notes import get_note_type
 from .prompts import (
     EXTRAS_DEFAULT_AUTOMATIC,
@@ -326,8 +326,8 @@ class Processor:
         if isinstance(e, aiohttp.ClientResponseError):
             if e.status in failure_map:
                 show_message_box(failure_map[e.status])
-            else:
-                show_message_box(f"Smart Notes Error: Unknown error from OpenAI - {e}")
+        else:
+            show_message_box(f"Smart Notes Error: Unknown error: {e}")
 
     def _ensure_no_req_in_progress(self) -> bool:
         if self.req_in_progress:
@@ -421,6 +421,7 @@ class Processor:
 
                 model = extras.get("chat_model") or self.config.chat_model
                 provider = extras.get("chat_provider") or self.config.chat_provider
+                type = extras.get("type") or "chat"
                 temperature = (
                     extras.get("chat_temperature") or self.config.chat_temperature
                 )
@@ -428,13 +429,23 @@ class Processor:
                     "automatic", EXTRAS_DEFAULT_AUTOMATIC
                 )
 
-                # TODO: branch on which type of payload it is
-                payload = ChatPayload(
-                    provider=provider,
-                    model=model,
-                    temperature=temperature,
-                    prompt=prompt,
-                )
+                payload: Union[ChatPayload, TTSPayload]
+                if type == "chat":
+                    payload = ChatPayload(
+                        provider=provider,
+                        model=model,
+                        temperature=temperature,
+                        prompt=prompt,
+                    )
+                elif type == "tts":
+                    payload = TTSPayload(
+                        provider="openai",
+                        model="tts-1",
+                        voice="alloy",
+                        input=prompt,
+                        options={},
+                    )
+
                 dag[field_lower] = FieldNode(
                     field=field_lower,
                     field_upper=field,

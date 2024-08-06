@@ -20,12 +20,14 @@
 from typing import Any, Union
 
 from anki.notes import Note
+from aqt import mw
 
 from .chat_provider import ChatProvider
 from .constants import DEFAULT_TEMPERATURE
 from .logger import logger
 from .models import ChatModels, ChatProviders, TTSModels, TTSProviders, TTSVoices
 from .nodes import ChatPayload, FieldNode, TTSPayload
+from .notes import get_note_type
 from .open_ai_client import OpenAIClient
 from .prompts import interpolate_prompt
 from .tts_provider import TTSProvider
@@ -47,15 +49,27 @@ class FieldResolver:
         payload = node.payload
 
         if isinstance(payload, TTSPayload):
+            if not mw:
+                return None
+            media = mw.col.media
+            if not media:
+                logger.error("No media")
+                return None
 
             tts_response = await self.get_tts_response(
+                note=note,
                 input_text=payload.input,
                 model=payload.model,
                 voice=payload.voice,
                 provider=payload.provider,
                 options=payload.options,
             )
-            return "GOT DA TTS RESP"
+
+            note_type = get_note_type(note)
+            file_name = f"{note_type}-{node.field}-{note.id}.mp3"
+            path = media.write_data(file_name, tts_response)
+
+            return f"[sound:{path}]"
 
         elif isinstance(node.payload, ChatPayload):
             return await self.get_chat_response(
@@ -99,14 +113,23 @@ class FieldResolver:
 
     async def get_tts_response(
         self,
+        note: Note,
         input_text: str,
         model: TTSModels,
         provider: TTSProviders,
         voice: TTSVoices,
         options: Any,
     ):
+
+        interpolated_prompt = interpolate_prompt(input_text, note)
+
+        if not interpolated_prompt:
+            return None
+
+        logger.debug(f"Resolving: {interpolated_prompt}")
+
         return await self.tts_provider.async_get_tts_response(
-            input=input_text,
+            input=interpolated_prompt,
             model=model,
             provider=provider,
             options=options,

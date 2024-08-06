@@ -23,12 +23,8 @@ from typing import Any
 import aiohttp
 
 from .config import config
-from .constants import (
-    MAX_RETRIES,
-    RETRY_BASE_SECONDS,
-    TTS_PROVIDER_TIMEOUT_SEC,
-    get_server_url,
-)
+from .constants import (MAX_RETRIES, RETRY_BASE_SECONDS,
+                        TTS_PROVIDER_TIMEOUT_SEC, get_server_url)
 from .logger import logger
 from .models import TTSModels, TTSProviders, TTSVoices
 
@@ -44,7 +40,7 @@ class TTSProvider:
         voice: TTSVoices,
         options: Any = {},
         retry_count=0,
-    ):
+    ) -> bytes:
 
         # TODO: should probably extract this again so not duplicating logic between
         # chat provider
@@ -63,6 +59,7 @@ class TTSProvider:
                 endpoint,
                 headers={
                     "Authorization": f"Bearer {jwt}",
+                    "Content-Type": "application/json",
                 },
                 json={
                     "provider": provider,
@@ -89,6 +86,12 @@ class TTSProvider:
                             options=options,
                             retry_count=retry_count + 1,
                         )
+
+                # TODO: put this in chat provider too
+                if response.status == 400:
+                    json = await response.json()
+                    print(json)
+                    raise Exception(f"Validation error: {json['error']}")
 
                 response.raise_for_status()
 

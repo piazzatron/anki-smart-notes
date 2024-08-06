@@ -17,7 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, Dict, Optional, TypedDict, Union
+from typing import Any, Dict, Literal, Optional, TypedDict, Union
 
 from aqt import addons, mw
 
@@ -29,6 +29,7 @@ class FieldExtras(TypedDict):
     chat_model: Optional[ChatModels]
     chat_provider: Optional[ChatProviders]
     chat_temperature: Optional[int]
+    type: Optional[Literal["chat", "tts"]]
 
 
 class NoteTypeMap(TypedDict):
