@@ -60,6 +60,6 @@ class FieldNode:
     abort = False
 
     def __str__(self):
-        return f"Node(field={self.field}, in_nodes={[n.field for n in self.in_nodes]}, out_nodes={[n.field for n in self.out_nodes]})"
+        return f"Node(field={self.field}, in_nodes={[n.field for n in self.in_nodes]}, out_nodes={[n.field for n in self.out_nodes]}, manual={self.manual}, overwrite={self.overwrite}, generate_despite_manual={self.generate_despite_manual}, is_target={self.is_target}, did_update={self.did_update}"
 
     __repr__ = __str__

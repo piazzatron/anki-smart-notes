@@ -475,7 +475,7 @@ class Processor:
                         depends_on.out_nodes.append(this_node)
 
             # If there's a target field, trim
-            # the dag to only input and output
+            # the dag to only the input of the target field
             if target_field:
                 target_node = dag[target_field.lower()]
                 trimmed: Dict[str, FieldNode] = {target_field.lower(): target_node}
@@ -489,6 +489,7 @@ class Processor:
                     explore.extend(cur.in_nodes.copy())
 
                 logger.debug("Generated target fields dag")
+                logger.debug(trimmed)
                 return trimmed
 
             logger.debug("Generated dag")

@@ -239,7 +239,7 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
             "target only updates target",
             {"f1": "1", "f2": "2", "f3": "", "f4": ""},
             {"f3": "{{f1}}", "f4": "{{f2}}"},
-            {"f3": p("1"), "f4": ""},
+            {"f3": p("1"), "f4": "", "f1": "1"},
             {
                 "target_field": "f3",
             },
