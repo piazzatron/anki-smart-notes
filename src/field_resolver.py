@@ -35,6 +35,7 @@ from .utils import is_legacy_open_ai
 
 
 class FieldResolver:
+
     def __init__(
         self,
         openai_provider: OpenAIClient,
@@ -108,7 +109,6 @@ class FieldResolver:
             model=model,
             provider=provider,
             temperature=temperature,
-            retry_count=0,
         )
 
     async def get_tts_response(
@@ -127,7 +127,6 @@ class FieldResolver:
             return None
 
         logger.debug(f"Resolving: {interpolated_prompt}")
-
         return await self.tts_provider.async_get_tts_response(
             input=interpolated_prompt,
             model=model,

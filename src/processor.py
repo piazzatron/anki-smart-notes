@@ -46,6 +46,7 @@ OLD_OPEN_AI_MODEL_REQ_PER_MIN = 3500
 
 
 class Processor:
+
     def __init__(self, field_resolver: FieldResolver, config: Config):
         self.field_resolver = field_resolver
         self.config = config
@@ -316,7 +317,6 @@ class Processor:
         return did_update
 
     def _handle_failure(self, e: Exception) -> None:
-
         failure_map = {
             401: "Smart Notes Error: OpenAI returned 401, meaning there's an issue with your API key.",
             404: "Smart Notes Error: OpenAI returned 404 - did you pay for an API key? Paying for ChatGPT premium alone will not work (this is an OpenAI limitation).",
@@ -327,6 +327,7 @@ class Processor:
             if e.status in failure_map:
                 show_message_box(failure_map[e.status])
         else:
+            logger.error(e)
             show_message_box(f"Smart Notes Error: Unknown error: {e}")
 
     def _ensure_no_req_in_progress(self) -> bool:

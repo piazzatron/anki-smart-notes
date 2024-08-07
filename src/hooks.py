@@ -36,11 +36,12 @@ from .message_polling import start_polling_for_messages
 from .notes import is_ai_field, is_note_fully_processed
 from .processor import Processor
 from .sentry import ping, sentry, with_sentry
+from .tasks import run_async_in_background
 from .ui.addon_options_dialog import AddonOptionsDialog
 from .ui.changelog import perform_update_check
 from .ui.sparkle import Sparkle
 from .ui.ui_utils import show_message_box
-from .utils import bump_usage_counter, check_for_api_key, run_async_in_background
+from .utils import bump_usage_counter, check_for_api_key
 
 
 def with_processor(fn):

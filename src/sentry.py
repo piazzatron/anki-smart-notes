@@ -32,9 +32,10 @@ from .. import env
 from .config import config
 from .constants import get_server_url
 from .logger import logger
+from .tasks import run_async_in_background
 from .ui.changelog import get_version
 from .ui.ui_utils import show_message_box
-from .utils import is_production, run_async_in_background
+from .utils import is_production
 
 dsn = os.getenv("SENTRY_DSN")
 
