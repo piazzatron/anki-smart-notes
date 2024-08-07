@@ -30,12 +30,7 @@ from .logger import logger
 from .models import ChatModels, ChatProviders
 from .nodes import ChatPayload, FieldNode, TTSPayload
 from .notes import get_note_type
-from .prompts import (
-    EXTRAS_DEFAULT_AUTOMATIC,
-    get_extras,
-    get_prompt_fields_lower,
-    get_prompts,
-)
+from .prompts import get_extras, get_prompt_fields_lower, get_prompts
 from .sentry import run_async_in_background_with_sentry
 from .ui.ui_utils import show_message_box
 from .utils import bump_usage_counter, check_for_api_key, get_fields, run_on_main
@@ -419,30 +414,22 @@ class Processor:
                     continue
 
                 extras = get_extras(note_type, field)
-
-                model = extras.get("chat_model") or self.config.chat_model
-                provider = extras.get("chat_provider") or self.config.chat_provider
-                type = extras.get("type") or "chat"
-                temperature = (
-                    extras.get("chat_temperature") or self.config.chat_temperature
-                )
-                should_generate_automatically = extras.get(
-                    "automatic", EXTRAS_DEFAULT_AUTOMATIC
-                )
+                type = extras["type"]
+                should_generate_automatically = extras["automatic"]
 
                 payload: Union[ChatPayload, TTSPayload]
                 if type == "chat":
                     payload = ChatPayload(
-                        provider=provider,
-                        model=model,
-                        temperature=temperature,
+                        provider=extras["chat_provider"],
+                        model=extras["chat_model"],
+                        temperature=extras["chat_temperature"],
                         prompt=prompt,
                     )
                 elif type == "tts":
                     payload = TTSPayload(
-                        provider="openai",
-                        model="tts-1",
-                        voice="alloy",
+                        provider=extras["tts_provider"],
+                        model=extras["tts_model"],
+                        voice=extras["tts_voice"],
                         input=prompt,
                         options={},
                     )

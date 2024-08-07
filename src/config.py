@@ -21,15 +21,33 @@ from typing import Any, Dict, Literal, Optional, TypedDict, Union
 
 from aqt import addons, mw
 
-from .models import ChatModels, ChatProviders
+from .models import ChatModels, ChatProviders, TTSModels, TTSProviders, TTSVoices
 
 
 class FieldExtras(TypedDict):
     automatic: Optional[bool]
+    type: Optional[Literal["chat", "tts"]]
+    # Chat
     chat_model: Optional[ChatModels]
     chat_provider: Optional[ChatProviders]
     chat_temperature: Optional[int]
-    type: Optional[Literal["chat", "tts"]]
+    # TTS
+    tts_provider: Optional[TTSProviders]
+    tts_model: Optional[TTSModels]
+    tts_voice: Optional[TTSVoices]
+
+
+class FieldExtrasWithDefaults(TypedDict):
+    automatic: bool
+    type: Literal["chat", "tts"]
+    # Chat
+    chat_model: ChatModels
+    chat_provider: ChatProviders
+    chat_temperature: int
+    # TTS
+    tts_provider: TTSProviders
+    tts_model: TTSModels
+    tts_voice: TTSVoices
 
 
 class NoteTypeMap(TypedDict):
@@ -56,10 +74,15 @@ class Config:
     allow_empty_fields: bool
     last_message_id: int
     debug: bool
+    auth_token: Union[str, None]
+    # Chat
     chat_provider: ChatProviders
     chat_model: ChatModels
     chat_temperature: int
-    auth_token: Union[str, None]
+    # TTS
+    tts_provider: TTSProviders
+    tts_model: TTSModels
+    tts_voice: TTSVoices
 
     # Deprecated fields:
     # openai_model: OpenAIModels

@@ -24,7 +24,7 @@ from typing import Dict, Union
 
 from anki.notes import Note
 
-from .config import FieldExtras, PromptMap, config
+from .config import FieldExtrasWithDefaults, PromptMap, config
 from .logger import logger
 from .utils import get_fields, to_lowercase_dict
 
@@ -44,7 +44,7 @@ def get_prompts(to_lower: bool = False) -> Dict[str, Dict[str, str]]:
 
 def get_extras(
     note_type: str, note_field: str, prompts_map: Union[PromptMap, None] = None
-) -> FieldExtras:
+) -> FieldExtrasWithDefaults:
 
     extras = (
         (prompts_map or config.prompts_map)["note_types"]
@@ -52,19 +52,28 @@ def get_extras(
         .get("extras", {})
     )
 
-    default_extras: FieldExtras = {
+    default_extras: FieldExtrasWithDefaults = {
         "automatic": EXTRAS_DEFAULT_AUTOMATIC,
         "chat_provider": config.chat_provider,
         "chat_model": config.chat_model,
         "chat_temperature": config.chat_temperature,
         "type": "chat",
+        "tts_model": config.tts_model,
+        "tts_provider": config.tts_provider,
+        "tts_voice": config.tts_voice,
     }
 
     # Base extras field might not exist at all
     if not extras:
         return default_extras
 
-    return extras.get(note_field, default_extras)
+    field_extras = extras.get(note_field, default_extras)
+
+    # Populate missing fields with defaults
+    for k, v in default_extras.items():
+        if k not in field_extras or field_extras[k] is None:
+            field_extras[k] = v  # type: ignore
+    return field_extras  # type: ignore
 
 
 def get_generate_automatically(
