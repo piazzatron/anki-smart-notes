@@ -18,7 +18,7 @@
 """
 
 import copy
-from typing import List, TypedDict, Union
+from typing import Dict, List, Literal, TypedDict, Union
 from urllib.parse import urlparse
 
 from aqt import (
@@ -43,20 +43,40 @@ from aqt import (
 from PyQt6.QtCore import Qt
 
 from ..config import PromptMap, config
+from ..constants import font_small
 from ..logger import logger
-from ..models import ChatModels, OpenAIModels
+from ..models import ChatModels, ChatProviders, OpenAIModels
 from ..processor import Processor
 from .changelog import get_version
 from .prompt_dialog import PromptDialog
 from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_line_edit import ReactiveLineEdit
+from .reactive_spin_box import ReactiveDoubleSpinBox
 from .state_manager import StateManager
 from .ui_utils import show_message_box
 
 OPTIONS_MIN_WIDTH = 750
 
-openai_models: List[ChatModels] = ["gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4"]
+openai_chat_models: List[ChatModels] = ["gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4"]
+anthropic_chat_models: List[ChatModels] = [
+    "claude-3-5-sonnet",
+    "claude-3-opus",
+    "claude-3-haiku",
+]
+
+
+ReadableChatProvider = Literal["ChatGPT", "Claude"]
+ReadableChatProviders: List[ReadableChatProvider] = ["ChatGPT", "Claude"]
+
+chat_provider_to_ui_map: Dict[ChatProviders, ReadableChatProvider] = {
+    "openai": "ChatGPT",
+    "anthropic": "Claude",
+}
+# Reversed
+chat_ui_to_provider_map: Dict[ReadableChatProvider, ChatProviders] = {
+    v: k for k, v in chat_provider_to_ui_map.items()
+}
 
 
 class State(TypedDict):
@@ -70,9 +90,80 @@ class State(TypedDict):
     openai_endpoint: Union[str, None]
     allow_empty_fields: bool
     debug: bool
+    chat_provider: ReadableChatProvider
+    chat_providers: List[ReadableChatProvider]
+    chat_models: List[ChatModels]
+    chat_model: ChatModels
+    chat_temperature: int
 
 
-excluded_config_map_fields = ["selected_row", "openai_models"]
+class ChatOptionsState(TypedDict):
+    chat_provider: ReadableChatProvider
+    chat_providers: List[ReadableChatProvider]
+    chat_models: List[ChatModels]
+    chat_model: ChatModels
+    chat_temperature: int
+
+
+excluded_config_map_fields = [
+    "selected_row",
+    "openai_models",
+    "chat_providers",
+]
+
+config_transforms = {
+    "chat_provider": lambda x: chat_ui_to_provider_map[x],
+}
+
+provider_model_map: Dict[ChatProviders, List[ChatModels]] = {
+    "openai": openai_chat_models,
+    "anthropic": anthropic_chat_models,
+}
+
+
+class ChatOptions(QWidget):
+    def __init__(self, state: StateManager[ChatOptionsState]):
+        super().__init__()
+        self.state = state
+        self.setup_ui()
+
+    def setup_ui(self) -> None:
+        self.chat_provider = ReactiveComboBox(
+            self.state, "chat_providers", "chat_provider"
+        )
+        self.chat_provider.onChange.connect(
+            lambda text: self.state.update(
+                {
+                    "chat_provider": text,
+                    "chat_models": provider_model_map[chat_ui_to_provider_map[text]],
+                    "chat_model": provider_model_map[chat_ui_to_provider_map[text]][0],
+                }
+            )
+        )
+        self.temperature = ReactiveDoubleSpinBox(self.state, "chat_temperature")
+        self.temperature.setRange(0, 1)
+        self.temperature.setSingleStep(0.1)
+        self.temperature.onChange.connect(
+            lambda temp: self.state.update({"chat_temperature": temp})
+        )
+        self.chat_model = ReactiveComboBox(self.state, "chat_models", "chat_model")
+        chat_box = QGroupBox("✨ Default Chat Settings")
+        chat_form = default_form_layout()
+        chat_form.addRow("Provider:", self.chat_provider)
+        chat_form.addRow("Model:", self.chat_model)
+
+        advanced = QGroupBox("⚙️ Advanced Settings")
+        advanced_layout = default_form_layout()
+        advanced.setLayout(advanced_layout)
+        advanced_layout.addRow("Temperature:", self.temperature)
+        # TODO: description of temp
+
+        chat_box.setLayout(chat_form)
+        chat_layout = default_form_layout()
+        chat_layout.addRow(chat_box)
+        chat_layout.addRow(advanced)
+
+        self.setLayout(chat_layout)
 
 
 class AddonOptionsDialog(QDialog):
@@ -98,8 +189,6 @@ class AddonOptionsDialog(QDialog):
         get_api_key_label = QLabel(
             "An API key is required. Free tier use is limited to three requests per minute. <a href='https://platform.openai.com/account/api-keys/'>Get an API key.</a>"
         )
-        font_small = get_api_key_label.font()
-        font_small.setPointSize(10)
         get_api_key_label.setOpenExternalLinks(True)
         get_api_key_label.setFont(font_small)
 
@@ -121,11 +210,9 @@ class AddonOptionsDialog(QDialog):
             lambda text: self.state.update({"openai_model": text})
         )
 
-        form = QFormLayout()
-        form.setVerticalSpacing(12)
+        form = default_form_layout()
         form.addRow("<b>🔑 OpenAI API Key:</b>", self.api_key_edit)
         form.addRow(get_api_key_label)
-        form.setLabelAlignment(Qt.AlignmentFlag.AlignLeft)
 
         group_box = QGroupBox("API Key")
         group_box.setLayout(form)
@@ -175,113 +262,12 @@ class AddonOptionsDialog(QDialog):
         layout.addWidget(self.table)
         layout.addLayout(table_buttons)
 
-        tab1 = QWidget()
-        tab1.setLayout(layout)
-        tabs.addTab(tab1, "General")
-
-        # Tab2
-
-        # Models form
-
-        models_group_box = QGroupBox("🤖 Model Settings")
-        models_form = QFormLayout()
-        models_form.setVerticalSpacing(12)
-        models_form.setLabelAlignment(Qt.AlignmentFlag.AlignLeft)
-        models_form.setFormAlignment(Qt.AlignmentFlag.AlignLeft)
-        models_form.addRow("OpenAI Model:", self.models_combo_box)
-
-        learn_more_about_models = QLabel(
-            'Newer models (GPT-4o, etc) will perform better with lower rate limits and higher cost. <a href="https://platform.openai.com/docs/models/">Learn more.</a>'
-        )
-        learn_more_about_models.setOpenExternalLinks(True)
-        learn_more_about_models.setFont(font_small)
-        models_form.addRow(learn_more_about_models)
-        models_form.addRow("", QLabel(""))
-
-        self.openai_endpoint_edit = ReactiveLineEdit(self.state, "openai_endpoint")
-        self.openai_endpoint_edit.setPlaceholderText("https://api.openai.com")
-        self.openai_endpoint_edit.setMinimumWidth(400)
-        self.openai_endpoint_edit.onChange.connect(
-            lambda text: self.state.update({"openai_endpoint": text})
-        )
-        endpoint_info = QLabel("Provide an alternative endpoint to the OpenAI API.")
-        endpoint_info.setFont(font_small)
-        models_form.addRow("OpenAI Host:", self.openai_endpoint_edit)
-        models_form.addRow(endpoint_info)
-
-        models_group_box.setLayout(models_form)
-
-        plugin_box = QGroupBox("✨Smart Field Generation")
-        plugin_form = QFormLayout()
-        plugin_form.setVerticalSpacing(12)
-        plugin_form.setLabelAlignment(Qt.AlignmentFlag.AlignLeft)
-        plugin_form.setFormAlignment(Qt.AlignmentFlag.AlignLeft)
-        plugin_box.setLayout(plugin_form)
-
-        # Generate at review
-        self.generate_at_review_button = ReactiveCheckBox(
-            self.state, "generate_at_review"
-        )
-        self.generate_at_review_button.onChange.connect(
-            lambda checked: self.state.update({"generate_at_review": checked})
-        )
-
-        plugin_form.addRow(
-            "Generate fields during review:", self.generate_at_review_button
-        )
-        plugin_form.addRow("", QLabel(""))
-
-        # Regenerate when during
-        self.regenerate_notes_when_batching = ReactiveCheckBox(
-            self.state, "regenerate_notes_when_batching"
-        )
-        self.regenerate_notes_when_batching.onChange.connect(
-            lambda checked: self.state.update(
-                {"regenerate_notes_when_batching": checked}
-            )
-        )
-        plugin_form.addRow(
-            "Regenerate all smart fields when batch processing:",
-            self.regenerate_notes_when_batching,
-        )
-        regenerate_info = QLabel(
-            "When batch processing a group of notes, whether to regenerate all smart fields from scratch, or only generate empty ones."
-        )
-        regenerate_info.setFont(font_small)
-        plugin_form.addRow(regenerate_info)
-        plugin_form.addRow("", QLabel(""))
-
-        self.allow_empty_fields_box = ReactiveCheckBox(self.state, "allow_empty_fields")
-        self.allow_empty_fields_box.onChange.connect(
-            lambda checked: self.state.update({"allow_empty_fields": checked})
-        )
-        plugin_form.addRow(
-            "Generate prompts with some blank fields:", self.allow_empty_fields_box
-        )
-        empty_fields_info = QLabel(
-            "Generate even if the prompt references some blank fields. Prompts referencing *only* blank fields are never generated."
-        )
-        empty_fields_info.setFont(font_small)
-        plugin_form.addRow(empty_fields_info)
-
-        tab2 = QWidget()
-        tab2_layout = QFormLayout()
-        tab2_layout.setLabelAlignment(Qt.AlignmentFlag.AlignLeft)
-        tab2_layout.setFormAlignment(Qt.AlignmentFlag.AlignLeft)
-
-        tab2_layout.addRow(models_group_box)
-        tab2_layout.addRow(QLabel(""))
-        tab2_layout.addRow(plugin_box)
-
-        self.debug_checkbox = ReactiveCheckBox(self.state, "debug")
-        self.debug_checkbox.onChange.connect(
-            (lambda checked: self.state.update({"debug": checked}))
-        )
-        tab2_layout.addRow(QLabel(""))
-        tab2_layout.addRow("Debug mode", self.debug_checkbox)
-
-        tab2.setLayout(tab2_layout)
-        tabs.addTab(tab2, "Advanced")
+        general_tab = QWidget()
+        general_tab.setLayout(layout)
+        tabs.addTab(general_tab, "General")
+        tabs.addTab(self.render_chat_tab(), "Text Fields")
+        tabs.addTab(self.render_voices_tab(), "Voice Fields")
+        tabs.addTab(self.render_plugin_tab(), "Advanced")
 
         tab_layout = QVBoxLayout()
         tab_layout.addWidget(tabs)
@@ -354,6 +340,110 @@ class AddonOptionsDialog(QDialog):
         selected_row = self.state.s["selected_row"]
         if selected_row is not None and selected_row < self.table.rowCount():
             self.table.selectRow(selected_row)
+
+    def render_legacy_options(self) -> QGroupBox:
+        models_group_box = QGroupBox("Legacy OpenAI Settings")
+        models_form = default_form_layout()
+        models_form.addRow("OpenAI Model:", self.models_combo_box)
+
+        learn_more_about_models = QLabel(
+            'Newer models (GPT-4o, etc) will perform better with lower rate limits and higher cost. <a href="https://platform.openai.com/docs/models/">Learn more.</a>'
+        )
+        learn_more_about_models.setOpenExternalLinks(True)
+        learn_more_about_models.setFont(font_small)
+        models_form.addRow(learn_more_about_models)
+        models_form.addRow("", QLabel(""))
+
+        self.openai_endpoint_edit = ReactiveLineEdit(self.state, "openai_endpoint")
+        self.openai_endpoint_edit.setPlaceholderText("https://api.openai.com")
+        self.openai_endpoint_edit.setMinimumWidth(400)
+        self.openai_endpoint_edit.onChange.connect(
+            lambda text: self.state.update({"openai_endpoint": text})
+        )
+        endpoint_info = QLabel("Provide an alternative endpoint to the OpenAI API.")
+        endpoint_info.setFont(font_small)
+        models_form.addRow("OpenAI Host:", self.openai_endpoint_edit)
+        models_form.addRow(endpoint_info)
+
+        models_group_box.setLayout(models_form)
+        return models_group_box
+
+    def render_plugin_tab(self) -> QWidget:
+        plugin_box = QGroupBox("✨Smart Field Generation")
+        plugin_form = default_form_layout()
+        plugin_box.setLayout(plugin_form)
+
+        # Generate at review
+        self.generate_at_review_button = ReactiveCheckBox(
+            self.state, "generate_at_review"
+        )
+        self.generate_at_review_button.onChange.connect(
+            lambda checked: self.state.update({"generate_at_review": checked})
+        )
+
+        plugin_form.addRow(
+            "Generate fields during review:", self.generate_at_review_button
+        )
+        plugin_form.addRow("", QLabel(""))
+
+        # Regenerate when during
+        self.regenerate_notes_when_batching = ReactiveCheckBox(
+            self.state, "regenerate_notes_when_batching"
+        )
+        self.regenerate_notes_when_batching.onChange.connect(
+            lambda checked: self.state.update(
+                {"regenerate_notes_when_batching": checked}
+            )
+        )
+        plugin_form.addRow(
+            "Regenerate all smart fields when batch processing:",
+            self.regenerate_notes_when_batching,
+        )
+        regenerate_info = QLabel(
+            "When batch processing a group of notes, whether to regenerate all smart fields from scratch, or only generate empty ones."
+        )
+        regenerate_info.setFont(font_small)
+        plugin_form.addRow(regenerate_info)
+        plugin_form.addRow("", QLabel(""))
+
+        self.allow_empty_fields_box = ReactiveCheckBox(self.state, "allow_empty_fields")
+        self.allow_empty_fields_box.onChange.connect(
+            lambda checked: self.state.update({"allow_empty_fields": checked})
+        )
+        plugin_form.addRow(
+            "Generate prompts with some blank fields:", self.allow_empty_fields_box
+        )
+        empty_fields_info = QLabel(
+            "Generate even if the prompt references some blank fields. Prompts referencing *only* blank fields are never generated."
+        )
+        empty_fields_info.setFont(font_small)
+        plugin_form.addRow(empty_fields_info)
+
+        plugin_tab_layout = default_form_layout()
+        plugin_tab_layout.addRow(plugin_box)
+
+        if config.legacy_support:
+            plugin_tab_layout.addRow(QLabel(""))
+            plugin_tab_layout.addRow(self.render_legacy_options())
+
+        self.debug_checkbox = ReactiveCheckBox(self.state, "debug")
+        self.debug_checkbox.onChange.connect(
+            (lambda checked: self.state.update({"debug": checked}))
+        )
+        plugin_tab_layout.addRow(QLabel(""))
+        plugin_tab_layout.addRow("Debug mode", self.debug_checkbox)
+
+        plugin_settings_tab = QWidget()
+        plugin_settings_tab.setLayout(plugin_tab_layout)
+
+        return plugin_settings_tab
+
+    def render_chat_tab(self) -> QWidget:
+        return ChatOptions(self.state)  # type: ignore
+
+    def render_voices_tab(self) -> QWidget:
+        tab = QWidget()
+        return tab
 
     def create_table(self) -> QTableWidget:
         table = QTableWidget(0, 3)
@@ -448,6 +538,9 @@ class AddonOptionsDialog(QDialog):
             for item in self.state.s.items()
             if item[0] not in excluded_config_map_fields
         ]:
+            transform = config_transforms.get(k)
+            if transform:
+                v = transform(v)  # type: ignore
             config.__setattr__(k, v)
             logger.debug(f"Setting {k} to {v}")
 
@@ -471,14 +564,27 @@ class AddonOptionsDialog(QDialog):
             "generate_at_review": config.generate_at_review,
             "regenerate_notes_when_batching": config.regenerate_notes_when_batching,
             "openai_endpoint": config.openai_endpoint,
-            "openai_models": openai_models,
+            "openai_models": openai_chat_models,
             "allow_empty_fields": config.allow_empty_fields,
             "debug": config.debug,
+            "chat_provider": chat_provider_to_ui_map[config.chat_provider],
+            "chat_providers": ["ChatGPT", "Claude"],
+            "chat_model": config.chat_model,
+            "chat_models": provider_model_map[config.chat_provider],
+            "chat_temperature": config.chat_temperature,
         }
 
     def on_restore_defaults(self) -> None:
         config.restore_defaults()
         self.state.update(self.make_initial_state())  # type: ignore
+
+
+def default_form_layout() -> QFormLayout:
+    form = QFormLayout()
+    form.setVerticalSpacing(12)
+    form.setLabelAlignment(Qt.AlignmentFlag.AlignLeft)
+    form.setFormAlignment(Qt.AlignmentFlag.AlignLeft)
+    return form
 
 
 def is_valid_url(url: str) -> bool:

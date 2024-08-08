@@ -19,5 +19,6 @@
   "allow_empty_fields": true,
   "last_message_id": 0,
   "debug": false,
-  "auth_token": null
+  "auth_token": null,
+  "legacy_support": null
 }

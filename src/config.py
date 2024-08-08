@@ -75,6 +75,7 @@ class Config:
     last_message_id: int
     debug: bool
     auth_token: Union[str, None]
+    legacy_support: Union[bool, None]
     # Chat
     chat_provider: ChatProviders
     chat_model: ChatModels
@@ -98,6 +99,10 @@ class Config:
                 print(f"Migration: old_openai_model={old_openai_model}")
                 self.chat_model = old_openai_model  # type: ignore
                 self.__setattr__("openai_model", None)
+            if self.__getattr__("legacy_support") is None:
+                is_legacy = bool(self.openai_api_key)
+                print(f"Setting legacy_support to {is_legacy}")
+                self.__setattr__("legacy_support", is_legacy)
         except Exception as e:
             print(f"Error: Unexepctedly caught exception cleaning up config {e}")
 
