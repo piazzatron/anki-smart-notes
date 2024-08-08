@@ -18,13 +18,12 @@
 """
 
 import copy
-from typing import Dict, List, Literal, TypedDict, Union
+from typing import List, TypedDict, Union
 from urllib.parse import urlparse
 
 from aqt import (
     QDialog,
     QDialogButtonBox,
-    QFormLayout,
     QGraphicsOpacityEffect,
     QGroupBox,
     QHBoxLayout,
@@ -43,40 +42,25 @@ from aqt import (
 from PyQt6.QtCore import Qt
 
 from ..config import PromptMap, config
-from ..constants import font_small
 from ..logger import logger
-from ..models import ChatModels, ChatProviders, OpenAIModels
+from ..models import ChatModels, OpenAIModels, openai_chat_models
 from ..processor import Processor
 from .changelog import get_version
+from .chat_options import (
+    ChatOptions,
+    ReadableChatProvider,
+    chat_provider_to_ui_map,
+    chat_ui_to_provider_map,
+    provider_model_map,
+)
 from .prompt_dialog import PromptDialog
 from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_line_edit import ReactiveLineEdit
-from .reactive_spin_box import ReactiveDoubleSpinBox
 from .state_manager import StateManager
-from .ui_utils import show_message_box
+from .ui_utils import default_form_layout, font_small, show_message_box
 
 OPTIONS_MIN_WIDTH = 750
-
-openai_chat_models: List[ChatModels] = ["gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4"]
-anthropic_chat_models: List[ChatModels] = [
-    "claude-3-5-sonnet",
-    "claude-3-opus",
-    "claude-3-haiku",
-]
-
-
-ReadableChatProvider = Literal["ChatGPT", "Claude"]
-ReadableChatProviders: List[ReadableChatProvider] = ["ChatGPT", "Claude"]
-
-chat_provider_to_ui_map: Dict[ChatProviders, ReadableChatProvider] = {
-    "openai": "ChatGPT",
-    "anthropic": "Claude",
-}
-# Reversed
-chat_ui_to_provider_map: Dict[ReadableChatProvider, ChatProviders] = {
-    v: k for k, v in chat_provider_to_ui_map.items()
-}
 
 
 class State(TypedDict):
@@ -97,73 +81,16 @@ class State(TypedDict):
     chat_temperature: int
 
 
-class ChatOptionsState(TypedDict):
-    chat_provider: ReadableChatProvider
-    chat_providers: List[ReadableChatProvider]
-    chat_models: List[ChatModels]
-    chat_model: ChatModels
-    chat_temperature: int
-
-
 excluded_config_map_fields = [
     "selected_row",
     "openai_models",
     "chat_providers",
+    "chat_models",
 ]
 
 config_transforms = {
     "chat_provider": lambda x: chat_ui_to_provider_map[x],
 }
-
-provider_model_map: Dict[ChatProviders, List[ChatModels]] = {
-    "openai": openai_chat_models,
-    "anthropic": anthropic_chat_models,
-}
-
-
-class ChatOptions(QWidget):
-    def __init__(self, state: StateManager[ChatOptionsState]):
-        super().__init__()
-        self.state = state
-        self.setup_ui()
-
-    def setup_ui(self) -> None:
-        self.chat_provider = ReactiveComboBox(
-            self.state, "chat_providers", "chat_provider"
-        )
-        self.chat_provider.onChange.connect(
-            lambda text: self.state.update(
-                {
-                    "chat_provider": text,
-                    "chat_models": provider_model_map[chat_ui_to_provider_map[text]],
-                    "chat_model": provider_model_map[chat_ui_to_provider_map[text]][0],
-                }
-            )
-        )
-        self.temperature = ReactiveDoubleSpinBox(self.state, "chat_temperature")
-        self.temperature.setRange(0, 1)
-        self.temperature.setSingleStep(0.1)
-        self.temperature.onChange.connect(
-            lambda temp: self.state.update({"chat_temperature": temp})
-        )
-        self.chat_model = ReactiveComboBox(self.state, "chat_models", "chat_model")
-        chat_box = QGroupBox("✨ Default Chat Settings")
-        chat_form = default_form_layout()
-        chat_form.addRow("Provider:", self.chat_provider)
-        chat_form.addRow("Model:", self.chat_model)
-
-        advanced = QGroupBox("⚙️ Advanced Settings")
-        advanced_layout = default_form_layout()
-        advanced.setLayout(advanced_layout)
-        advanced_layout.addRow("Temperature:", self.temperature)
-        # TODO: description of temp
-
-        chat_box.setLayout(chat_form)
-        chat_layout = default_form_layout()
-        chat_layout.addRow(chat_box)
-        chat_layout.addRow(advanced)
-
-        self.setLayout(chat_layout)
 
 
 class AddonOptionsDialog(QDialog):
@@ -265,7 +192,7 @@ class AddonOptionsDialog(QDialog):
         general_tab = QWidget()
         general_tab.setLayout(layout)
         tabs.addTab(general_tab, "General")
-        tabs.addTab(self.render_chat_tab(), "Text Fields")
+        tabs.addTab(self.render_chat_tab(), "Chat Models")
         tabs.addTab(self.render_voices_tab(), "Voice Fields")
         tabs.addTab(self.render_plugin_tab(), "Advanced")
 
@@ -577,14 +504,6 @@ class AddonOptionsDialog(QDialog):
     def on_restore_defaults(self) -> None:
         config.restore_defaults()
         self.state.update(self.make_initial_state())  # type: ignore
-
-
-def default_form_layout() -> QFormLayout:
-    form = QFormLayout()
-    form.setVerticalSpacing(12)
-    form.setLabelAlignment(Qt.AlignmentFlag.AlignLeft)
-    form.setFormAlignment(Qt.AlignmentFlag.AlignLeft)
-    return form
 
 
 def is_valid_url(url: str) -> bool:

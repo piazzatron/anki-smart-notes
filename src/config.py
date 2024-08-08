@@ -25,8 +25,11 @@ from .models import ChatModels, ChatProviders, TTSModels, TTSProviders, TTSVoice
 
 
 class FieldExtras(TypedDict):
+    """Should be only used internally by config"""
+
     automatic: Optional[bool]
     type: Optional[Literal["chat", "tts"]]
+    use_custom_model: Optional[bool]
     # Chat
     chat_model: Optional[ChatModels]
     chat_provider: Optional[ChatProviders]
@@ -38,16 +41,19 @@ class FieldExtras(TypedDict):
 
 
 class FieldExtrasWithDefaults(TypedDict):
+    """This is the type returned by get_extras, that the actual app should deal with"""
+
     automatic: bool
+    use_custom_model: bool
     type: Literal["chat", "tts"]
     # Chat
-    chat_model: ChatModels
-    chat_provider: ChatProviders
-    chat_temperature: int
+    chat_model: Optional[ChatModels]
+    chat_provider: Optional[ChatProviders]
+    chat_temperature: Optional[int]
     # TTS
-    tts_provider: TTSProviders
-    tts_model: TTSModels
-    tts_voice: TTSVoices
+    tts_provider: Optional[TTSProviders]
+    tts_model: Optional[TTSModels]
+    tts_voice: Optional[TTSVoices]
 
 
 class NoteTypeMap(TypedDict):

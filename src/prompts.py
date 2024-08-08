@@ -57,6 +57,7 @@ def get_extras(
         "chat_provider": config.chat_provider,
         "chat_model": config.chat_model,
         "chat_temperature": config.chat_temperature,
+        "use_custom_model": False,
         "type": "chat",
         "tts_model": config.tts_model,
         "tts_provider": config.tts_provider,

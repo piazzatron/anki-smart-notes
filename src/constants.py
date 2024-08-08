@@ -17,8 +17,6 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from aqt import QFont
-
 from .. import env
 from .models import ChatModels, ChatProviders
 
@@ -38,8 +36,3 @@ DEFAULT_TEMPERATURE = 0
 
 def get_server_url() -> str:
     return SERVER_URL_PROD if env.environment == "PROD" else SERVER_URL_DEV
-
-
-# UI constants
-font_small = QFont()
-font_small.setPointSize(10)

@@ -23,33 +23,47 @@ from aqt import (
     QComboBox,
     QDialog,
     QDialogButtonBox,
+    QGroupBox,
     QLabel,
     QPushButton,
     QSizePolicy,
     Qt,
+    QTabWidget,
     QTextEdit,
     QTextOption,
     QVBoxLayout,
+    QWidget,
     mw,
 )
+from PyQt6.QtCore import Qt
 
-from ..config import PromptMap
+from ..config import FieldExtras, PromptMap, config
 from ..logger import logger
+from ..models import ChatModels
 from ..processor import Processor
 from ..prompts import (
+    get_extras,
     get_generate_automatically,
     get_prompt_fields_lower,
     get_prompts,
     prompt_has_error,
 )
 from ..utils import get_fields, to_lowercase_dict
+from .chat_options import (
+    ChatOptions,
+    ReadableChatProvider,
+    chat_provider_to_ui_map,
+    chat_ui_to_provider_map,
+    default_form_layout,
+    provider_model_map,
+)
 from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_edit_text import ReactiveEditText
 from .state_manager import StateManager
-from .ui_utils import show_message_box
+from .ui_utils import font_small, show_message_box
 
-explanation = """Write a "prompt" to help ChatGPT generate your target smart field.
+explanation = """Write a "prompt" to help the chat model generate your target smart field.
 
 You may reference any other field via enclosing it in {{double curly braces}}. Valid fields are listed below for convenience.
 
@@ -57,11 +71,7 @@ Test out your prompt with the test button before saving it!
 """
 
 
-class StateType(TypedDict):
-    prompts_map: PromptMap
-
-
-class ReactiveState(TypedDict):
+class State(TypedDict):
     prompt: str
     note_types: List[str]
     selected_note_type: str
@@ -69,6 +79,12 @@ class ReactiveState(TypedDict):
     selected_note_field: str
     is_loading_prompt: bool
     generate_manually: bool
+    chat_provider: ReadableChatProvider
+    chat_providers: List[ReadableChatProvider]
+    chat_models: List[ChatModels]
+    chat_model: ChatModels
+    chat_temperature: int
+    use_custom_model: bool
 
 
 class PromptDialog(QDialog):
@@ -76,7 +92,7 @@ class PromptDialog(QDialog):
     test_button: QPushButton
     valid_fields: QLabel
     card_combo_box: QComboBox
-    state: StateManager[ReactiveState]
+    state: StateManager[State]
     prompts_map: PromptMap
 
     def __init__(
@@ -101,21 +117,65 @@ class PromptDialog(QDialog):
             selected_card_type, selected_field, prompts_map
         )
 
-        self.state = StateManager[ReactiveState](
-            {
-                "prompt": prompt or "",
-                "note_types": note_types,
-                "selected_note_type": selected_card_type,
-                "note_fields": note_fields,
-                "selected_note_field": selected_field,
-                "is_loading_prompt": False,
-                "generate_manually": not automatic,
-            }
+        per_field_settings = self.get_per_field_settings(
+            selected_card_type, selected_field
+        )
+        initial_state: State = {
+            "prompt": prompt or "",
+            "note_types": note_types,
+            "selected_note_type": selected_card_type,
+            "note_fields": note_fields,
+            "selected_note_field": selected_field,
+            "is_loading_prompt": False,
+            "generate_manually": not automatic,
+            "chat_providers": ["ChatGPT", "Claude"],
+            "chat_models": provider_model_map[
+                chat_ui_to_provider_map[per_field_settings["chat_provider"]]
+                or config.chat_provider
+            ],
+            **per_field_settings,
+        }
+        self.state = StateManager[State](initial_state)
+
+        self.manual_box = ReactiveCheckBox(
+            self.state,
+            "generate_manually",
+            text="Manually generate only",
+        )
+        self.manual_box.onChange.connect(
+            lambda checked: self.state.update({"generate_manually": checked})
         )
 
+        tabs = QTabWidget()
+        tabs.addTab(self.render_main_tab(), "Main")
+        tabs.addTab(self.render_options_tab(), "Options")
+
+        container = QVBoxLayout()
+        container.addWidget(tabs)
+        self.setLayout(container)
         self.setup_ui()
 
+    def get_per_field_settings(self, selected_card_type: str, selected_field: str):
+        extras = get_extras(selected_card_type, selected_field, self.prompts_map)
+        return {
+            "chat_provider": chat_provider_to_ui_map[
+                extras.get("chat_provider") or config.chat_provider
+            ],
+            "chat_model": extras.get("chat_model") or config.chat_model,
+            "chat_temperature": extras.get("chat_temperature")
+            or config.chat_temperature,
+            "use_custom_model": extras["use_custom_model"],
+        }
+
     def setup_ui(self) -> None:
+        self.render_ui()
+
+    def render_ui(self) -> None:
+        self.render_buttons()
+        self.render_valid_fields()
+        self.render_automatic_button()
+
+    def render_main_tab(self) -> QWidget:
         self.setWindowTitle("New Smart Field")
         self.card_combo_box = ReactiveComboBox(
             self.state, "note_types", "selected_note_type"
@@ -140,7 +200,7 @@ class PromptDialog(QDialog):
 
         self.test_button = QPushButton("Test ✨")
 
-        prompt_label = QLabel("ChatGPT Prompt")
+        prompt_label = QLabel("Prompt")
         self.prompt_text_box = ReactiveEditText(self.state, "prompt")
         self.prompt_text_box.setMinimumHeight(150)
         self.prompt_text_box.setAlignment(Qt.AlignmentFlag.AlignTop)
@@ -150,7 +210,7 @@ class PromptDialog(QDialog):
         )
         self.prompt_text_box.setPlaceholderText(explanation)
         self.valid_fields = QLabel("")
-        self.valid_fields.setMinimumWidth(300)
+        self.valid_fields.setMinimumWidth(500)
         size_policy = QSizePolicy(
             QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred
         )
@@ -160,11 +220,6 @@ class PromptDialog(QDialog):
         small_font = self.valid_fields.font()
         small_font.setPointSize(10)
         self.valid_fields.setFont(small_font)
-        self.manual_box = ReactiveCheckBox(
-            self.state,
-            "generate_manually",
-            text="Manually generate only",
-        )
 
         self.setLayout(layout)
         layout.addWidget(prompt_label)
@@ -172,11 +227,6 @@ class PromptDialog(QDialog):
         layout.addWidget(self.valid_fields)
         layout.addWidget(self.test_button)
 
-        layout.addWidget(QLabel(""))
-        layout.addWidget(self.manual_box)
-        manual_explanation = QLabel("Via editor right click -> generate")
-        manual_explanation.setFont(small_font)
-        layout.addWidget(manual_explanation)
         layout.addWidget(self.standard_buttons)
 
         self.state.state_changed.connect(self.render_ui)
@@ -189,16 +239,41 @@ class PromptDialog(QDialog):
         self.test_button.clicked.connect(self.on_test)
         self.standard_buttons.accepted.connect(self.on_accept)
         self.standard_buttons.rejected.connect(self.on_reject)
-        self.manual_box.onChange.connect(
-            lambda checked: self.state.update({"generate_manually": checked})
+        container = QWidget()
+        container.setLayout(layout)
+        return container
+
+    def render_options_tab(self) -> QWidget:
+        models_layout = default_form_layout()
+        self.model_options = ChatOptions(self.state)  # type: ignore
+        self.custom_model = ReactiveCheckBox(self.state, "use_custom_model")
+        self.custom_model.onChange.connect(
+            lambda checked: self.state.update({"use_custom_model": checked})
         )
+        self.state.state_changed.connect(self.on_state_update)
+        models_layout.addRow("Use Custom Model", self.custom_model)
+        models_layout.addWidget(self.model_options)
+        model_box = QGroupBox("⚙️ Custom Model Settings")
+        model_box.setLayout(models_layout)
 
-        self.render_ui()
+        behavior_box = QGroupBox("Field Behavior")
+        behavior_layout = default_form_layout()
+        behavior_box.setLayout(behavior_layout)
 
-    def render_ui(self) -> None:
-        self.render_buttons()
-        self.render_valid_fields()
-        self.render_automatic_button()
+        manual_explanation = QLabel("Via editor right click -> generate")
+        manual_explanation.setFont(font_small)
+        behavior_layout.addRow(self.manual_box)
+        behavior_layout.addRow(manual_explanation)
+
+        container_layout = default_form_layout()
+        container_layout.addRow(behavior_box)
+        container_layout.addRow(model_box)
+        container = QWidget()
+        container.setLayout(container_layout)
+        return container
+
+    def on_state_update(self):
+        self.model_options.setEnabled(self.state.s["use_custom_model"])
 
     def get_note_types(self) -> List[str]:
         if not mw:
@@ -237,7 +312,15 @@ class PromptDialog(QDialog):
             get_prompts().get(self.state.s["selected_note_type"], {}).get(field, "")
         )
 
-        self.state.update({"prompt": prompt, "selected_note_field": field})
+        self.state.update(
+            {
+                "prompt": prompt,
+                "selected_note_field": field,
+                **self.get_per_field_settings(
+                    self.state.s["selected_note_type"], field
+                ),
+            }
+        )
 
     def render_buttons(self) -> None:
         is_enabled = (
@@ -314,7 +397,7 @@ class PromptDialog(QDialog):
     def render_valid_fields(self) -> None:
         fields = self.get_valid_fields()
         fields = ["{{" + field + "}}" for field in fields]
-        text = f"Fields: {', '.join(fields)}"
+        text = f"Valid Fields: {', '.join(fields)}"
         self.valid_fields.setText(text)
 
     def render_automatic_button(self) -> None:
@@ -366,11 +449,30 @@ class PromptDialog(QDialog):
             extras = {}
             prompts_map["note_types"][selected_card_type]["extras"] = extras
 
-        if not extras.get(selected_field):
-            extras[selected_field] = {}  # type: ignore
+        # Actually populate extras for this field
+        selected_field_extras: FieldExtras = extras.get(selected_field, {})
 
-        extras[selected_field]["automatic"] = is_automatic
+        selected_field_extras["type"] = "chat"
+        selected_field_extras["automatic"] = is_automatic
+        is_custom = self.state.s["use_custom_model"]
+        selected_field_extras["use_custom_model"] = is_custom
 
+        # Need to delete any custom config if it's not being used
+        if is_custom:
+            print("TRYING TO SET CHAT_MODEL")
+            print(self.state.s["chat_model"])
+            selected_field_extras["chat_model"] = self.state.s["chat_model"]
+            selected_field_extras["chat_provider"] = chat_ui_to_provider_map[
+                self.state.s["chat_provider"]
+            ]
+            selected_field_extras["chat_temperature"] = self.state.s["chat_temperature"]
+        else:
+            selected_field_extras.pop("chat_model", None)
+            selected_field_extras.pop("chat_provider", None)
+            selected_field_extras.pop("chat_temperature", None)
+
+        # Write em out
+        extras[selected_field] = selected_field_extras
         self.on_accept_callback(prompts_map)
         self.accept()
 

@@ -17,7 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Literal, Union
+from typing import List, Literal, Union
 
 # Providers
 
@@ -29,6 +29,13 @@ ChatProviders = Literal["openai", "anthropic"]
 OpenAIModels = Literal["gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4"]
 AnthropicModels = Literal["claude-3-opus", "claude-3-haiku", "claude-3-5-sonnet"]
 ChatModels = Union[OpenAIModels, AnthropicModels]
+
+openai_chat_models: List[ChatModels] = ["gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4"]
+anthropic_chat_models: List[ChatModels] = [
+    "claude-3-5-sonnet",
+    "claude-3-opus",
+    "claude-3-haiku",
+]
 
 # TTS Models
 
