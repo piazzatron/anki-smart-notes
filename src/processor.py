@@ -284,6 +284,7 @@ class Processor:
             next_batch: List[FieldNode] = [
                 node for node in dag.values() if not node.in_nodes
             ]
+            logger.debug(f"Processing next nodes: {next_batch}")
             batch_tasks = {
                 node.field: self._process_node(node, note) for node in next_batch
             }
@@ -293,6 +294,7 @@ class Processor:
             for field, response in zip(batch_tasks.keys(), responses):
                 node = dag[field]
                 if response:
+                    logger.debug(f"Updating field {field} with response")
                     note[node.field_upper] = response
 
                 if node.abort:
@@ -378,6 +380,7 @@ class Processor:
         # If not target and manual, skip
         if node.manual and not (node.is_target or node.generate_despite_manual):
             node.abort = True
+            logger.debug(f"Skipping field {node.field}")
             return None
 
         # Skip it if there's a value and we don't want to overwrite
@@ -481,6 +484,7 @@ class Processor:
                 return trimmed
 
             logger.debug("Generated dag")
+            logger.debug(dag)
             return dag
         except Exception as e:
             logger.error(f"Error creating dag: {e}")

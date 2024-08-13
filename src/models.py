@@ -53,3 +53,4 @@ OpenAIVoices = Literal[
     "shimmer",
 ]
 TTSVoices = Union[OpenAIVoices]
+Languages = Literal["english", "japanese"]

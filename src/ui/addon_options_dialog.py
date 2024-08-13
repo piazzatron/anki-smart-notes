@@ -18,7 +18,7 @@
 """
 
 import copy
-from typing import List, TypedDict, Union
+from typing import List, Literal, TypedDict, Union
 from urllib.parse import urlparse
 
 from aqt import (
@@ -43,7 +43,14 @@ from PyQt6.QtCore import Qt
 
 from ..config import PromptMap, config
 from ..logger import logger
-from ..models import ChatModels, OpenAIModels, openai_chat_models
+from ..models import (
+    ChatModels,
+    Languages,
+    OpenAIModels,
+    TTSProviders,
+    TTSVoices,
+    openai_chat_models,
+)
 from ..processor import Processor
 from .changelog import get_version
 from .chat_options import (
@@ -58,6 +65,7 @@ from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_line_edit import ReactiveLineEdit
 from .state_manager import StateManager
+from .tts_settings import TTSSettings, languages
 from .ui_utils import default_form_layout, font_small, show_message_box
 
 OPTIONS_MIN_WIDTH = 750
@@ -74,11 +82,21 @@ class State(TypedDict):
     openai_endpoint: Union[str, None]
     allow_empty_fields: bool
     debug: bool
+
+    # Chat Options
     chat_provider: ReadableChatProvider
     chat_providers: List[ReadableChatProvider]
     chat_models: List[ChatModels]
     chat_model: ChatModels
     chat_temperature: int
+
+    # TTS Options
+
+    tts_provider: TTSProviders
+    voice: TTSVoices
+    gender: Literal["all", "male", "female"]
+    languages: List[Languages]
+    selected_language: Languages
 
 
 excluded_config_map_fields = [
@@ -193,7 +211,7 @@ class AddonOptionsDialog(QDialog):
         general_tab.setLayout(layout)
         tabs.addTab(general_tab, "General")
         tabs.addTab(self.render_chat_tab(), "Chat Models")
-        tabs.addTab(self.render_voices_tab(), "Voice Fields")
+        tabs.addTab(self.render_tts_tab(), "TTS Settings")
         tabs.addTab(self.render_plugin_tab(), "Advanced")
 
         tab_layout = QVBoxLayout()
@@ -368,9 +386,8 @@ class AddonOptionsDialog(QDialog):
     def render_chat_tab(self) -> QWidget:
         return ChatOptions(self.state)  # type: ignore
 
-    def render_voices_tab(self) -> QWidget:
-        tab = QWidget()
-        return tab
+    def render_tts_tab(self) -> QWidget:
+        return TTSSettings(self.state)  # type: ignore
 
     def create_table(self) -> QTableWidget:
         table = QTableWidget(0, 3)
@@ -494,11 +511,20 @@ class AddonOptionsDialog(QDialog):
             "openai_models": openai_chat_models,
             "allow_empty_fields": config.allow_empty_fields,
             "debug": config.debug,
+            # Chat
             "chat_provider": chat_provider_to_ui_map[config.chat_provider],
             "chat_providers": ["ChatGPT", "Claude"],
             "chat_model": config.chat_model,
             "chat_models": provider_model_map[config.chat_provider],
             "chat_temperature": config.chat_temperature,
+            # TTS
+            "tts_provider": config.tts_provider,
+            "voice": config.tts_voice,
+            "gender": "all",
+            "languages": languages,
+            "selected_language": "all",
+            "test_text": "",
+            "test_enabled": True,
         }
 
     def on_restore_defaults(self) -> None:
