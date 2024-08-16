@@ -86,6 +86,7 @@ class Config:
     chat_provider: ChatProviders
     chat_model: ChatModels
     chat_temperature: int
+
     # TTS
     tts_provider: TTSProviders
     tts_model: TTSModels

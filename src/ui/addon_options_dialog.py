@@ -84,13 +84,6 @@ class State(TTSState):
     chat_temperature: int
 
 
-excluded_config_map_fields = [
-    "selected_row",
-    "openai_models",
-    "chat_providers",
-    "chat_models",
-]
-
 config_transforms = {
     "chat_provider": lambda x: chat_ui_to_provider_map[x],
 }
@@ -457,11 +450,11 @@ class AddonOptionsDialog(QDialog):
             show_message_box("Invalid OpenAI Host", "Please provide a valid URL.")
             return
 
+        valid_config_attrs = config.__annotations__.keys()
+
         old_debug = config.debug
         for k, v in [
-            item
-            for item in self.state.s.items()
-            if item[0] not in excluded_config_map_fields
+            item for item in self.state.s.items() if item[0] in valid_config_attrs
         ]:
             transform = config_transforms.get(k)
             if transform:
@@ -498,8 +491,6 @@ class AddonOptionsDialog(QDialog):
             "chat_model": config.chat_model,
             "chat_models": provider_model_map[config.chat_provider],
             "chat_temperature": config.chat_temperature,
-            # TODO: need some way to get the current state of the TTS settings
-            # "selected_provider": config.tts_provider,
             # TTS
             "providers": providers,
             "selected_provider": "all",
@@ -510,7 +501,8 @@ class AddonOptionsDialog(QDialog):
             "selected_language": "all",
             "test_text": "",
             "test_enabled": True,
-            "tts_meta": None,
+            "tts_provider": config.tts_provider,
+            "tts_voice": config.tts_voice,
         }
 
     def on_restore_defaults(self) -> None:

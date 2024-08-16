@@ -67,8 +67,10 @@ class TTSState(TypedDict):
     selected_language: AllLanguages
 
     voice: Union[Literal["all"], TTSVoices]
-    # This field is sorta dumb, but it's voice/tts_provider/gender without 'all'
-    tts_meta: Union[TTSMeta, None]
+
+    # These are the actual values read from and written to config
+    tts_provider: Union[TTSProviders, None]
+    tts_voice: Union[TTSVoices, None]
 
     test_text: str
     test_enabled: bool
@@ -194,7 +196,7 @@ class TTSSettings(QWidget):
     def setup_ui(self) -> None:
 
         self.voices_list = QListView()
-        self.voices_models = CustomListModel(self.get_voices())
+        self.voices_models = CustomListModel(self.get_visible_voice_filters())
         self.voices_list.setModel(self.voices_models)
 
         layout = default_form_layout()
@@ -222,7 +224,7 @@ class TTSSettings(QWidget):
 
     def render_voices_list(self) -> QWidget:
         self.voices_list = QListView()
-        self.voices_models = CustomListModel(self.get_voices())
+        self.voices_models = CustomListModel(self.get_visible_voice_filters())
         self.voices_list.setModel(self.voices_models)
         selection_model = self.voices_list.selectionModel()
         if selection_model:
@@ -239,7 +241,7 @@ class TTSSettings(QWidget):
                 {
                     "voice": selected_voice["voice"],
                     "tts_provider": selected_voice["tts_provider"],
-                    "tts_meta": selected_voice,
+                    "tts_voice": selected_voice["voice"],
                 }
             )
             # TODO: do I need to call this?
@@ -252,17 +254,27 @@ class TTSSettings(QWidget):
     def update_list_ui(self) -> None:
         """Handle updating the list and preserving selection"""
         # Store the selection state
+        voice = self.state.s.get("tts_voice")
+        provider = self.state.s.get("tts_provider")
+        if not (voice and provider):
+            return
 
         selection_model = self.voices_list.selectionModel()
         if not selection_model:
             return
-        selected_indexes = selection_model.selectedIndexes()
-        selected_index = selected_indexes[0] if selected_indexes else None
-        selected_voice = (
-            self.voices_models._data[selected_index.row()] if selected_index else None
-        )
 
-        self.voices_models.update_data(self.get_voices())
+        selected_voice = next(
+            (
+                v
+                for v in voices
+                if v["voice"] == voice and v["tts_provider"] == provider
+            ),
+            None,
+        )
+        if not selected_voice:
+            return
+
+        self.voices_models.update_data(self.get_visible_voice_filters())
 
         # Get the new location after updating
         voice_location = (
@@ -272,7 +284,8 @@ class TTSSettings(QWidget):
         )
 
         # Restore selection
-        if voice_location:
+        # Sneaky: it can be 0
+        if voice_location is not None:
             selection_model.select(
                 self.voices_models.index(voice_location, 0, QModelIndex()),
                 QItemSelectionModel.SelectionFlag.Select,
@@ -308,25 +321,26 @@ class TTSSettings(QWidget):
 
         # TODO: add on failure
 
-        meta = self.state.s["tts_meta"]
-        if not meta:
+        provider = self.state.s["tts_provider"]
+        voice = self.state.s["tts_voice"]
+        if not (provider and voice):
             return
 
         async def _async_play_audio() -> bytes:
 
-            provider = TTSProvider()
-            resp = await provider.async_get_tts_response(
+            tts_provider = TTSProvider()
+            resp = await tts_provider.async_get_tts_response(
                 input=self.state.s["test_text"],
-                model=model_map[meta["tts_provider"]],
-                provider=meta["tts_provider"],
-                voice=meta["voice"],
+                model=model_map[provider],
+                provider=provider,
+                voice=voice,
             )
             return resp
 
         self.state.update({"test_enabled": False})
         run_async_in_background_with_sentry(_async_play_audio, on_success=on_success)
 
-    def get_voices(self) -> List[TTSMeta]:
+    def get_visible_voice_filters(self) -> List[TTSMeta]:
         filtered = []
         for voice in voices:
             matches_provider = (
