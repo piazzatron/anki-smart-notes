@@ -17,7 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import List, Literal, Union
+from typing import Dict, List, Literal, Union
 
 # Providers
 
@@ -42,6 +42,12 @@ anthropic_chat_models: List[ChatModels] = [
 OpenAITTSModels = Literal["tts-1"]
 ElevenTTSModels = Literal["eleven_multilingual_v2"]
 TTSModels = Union[OpenAITTSModels, ElevenTTSModels]
+
+default_tts_models_map: Dict[TTSProviders, TTSModels] = {
+    "openai": "tts-1",
+    "elevenLabs": "eleven_multilingual_v2",
+}
+
 
 # TTS Voices
 

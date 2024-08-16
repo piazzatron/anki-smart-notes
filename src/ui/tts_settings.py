@@ -17,7 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Dict, List, Literal, TypedDict, Union
+from typing import List, Literal, TypedDict, Union
 
 from anki.sound import play  # type: ignore
 from aqt import (
@@ -34,7 +34,7 @@ from aqt import (
 )
 
 from ..logger import logger
-from ..models import Languages, TTSModels, TTSProviders, TTSVoices
+from ..models import Languages, TTSProviders, TTSVoices, default_tts_models_map
 from ..sentry import run_async_in_background_with_sentry
 from ..tts_provider import TTSProvider
 from .reactive_combo_box import ReactiveComboBox
@@ -151,11 +151,6 @@ eleven_voices: List[TTSMeta] = [
         "language": "all",
     },
 ]
-
-model_map: Dict[TTSProviders, TTSModels] = {
-    "openai": "tts-1",
-    "elevenLabs": "eleven_multilingual_v2",
-}
 
 # Combine all voices
 voices = openai_voices + eleven_voices
@@ -331,7 +326,7 @@ class TTSSettings(QWidget):
             tts_provider = TTSProvider()
             resp = await tts_provider.async_get_tts_response(
                 input=self.state.s["test_text"],
-                model=model_map[provider],
+                model=default_tts_models_map[provider],
                 provider=provider,
                 voice=voice,
             )
