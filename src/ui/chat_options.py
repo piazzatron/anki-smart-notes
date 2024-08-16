@@ -85,9 +85,6 @@ class ChatOptions(QWidget):
             lambda temp: self.state.update({"chat_temperature": temp})
         )
         self.chat_model = ReactiveComboBox(self.state, "chat_models", "chat_model")
-        self.chat_model.onChange.connect(
-            lambda model: self.state.update({"chat_model": model})
-        )
         chat_box = QGroupBox("✨ Default Chat Settings")
         chat_form = default_form_layout()
         chat_form.addRow("Provider:", self.chat_provider)

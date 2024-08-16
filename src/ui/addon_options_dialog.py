@@ -18,7 +18,7 @@
 """
 
 import copy
-from typing import List, Literal, TypedDict, Union
+from typing import List, Union
 from urllib.parse import urlparse
 
 from aqt import (
@@ -43,14 +43,7 @@ from PyQt6.QtCore import Qt
 
 from ..config import PromptMap, config
 from ..logger import logger
-from ..models import (
-    ChatModels,
-    Languages,
-    OpenAIModels,
-    TTSProviders,
-    TTSVoices,
-    openai_chat_models,
-)
+from ..models import ChatModels, OpenAIModels, openai_chat_models
 from ..processor import Processor
 from .changelog import get_version
 from .chat_options import (
@@ -65,13 +58,13 @@ from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_line_edit import ReactiveLineEdit
 from .state_manager import StateManager
-from .tts_settings import TTSSettings, languages
+from .tts_settings import TTSSettings, TTSState, languages, providers
 from .ui_utils import default_form_layout, font_small, show_message_box
 
 OPTIONS_MIN_WIDTH = 750
 
 
-class State(TypedDict):
+class State(TTSState):
     openai_api_key: Union[str, None]
     prompts_map: PromptMap
     openai_model: OpenAIModels
@@ -89,14 +82,6 @@ class State(TypedDict):
     chat_models: List[ChatModels]
     chat_model: ChatModels
     chat_temperature: int
-
-    # TTS Options
-
-    tts_provider: TTSProviders
-    voice: TTSVoices
-    gender: Literal["all", "male", "female"]
-    languages: List[Languages]
-    selected_language: Languages
 
 
 excluded_config_map_fields = [
@@ -151,10 +136,6 @@ class AddonOptionsDialog(QDialog):
         self.models_combo_box = ReactiveComboBox(
             self.state, "openai_models", "openai_model"
         )
-        self.models_combo_box.onChange.connect(
-            lambda text: self.state.update({"openai_model": text})
-        )
-
         form = default_form_layout()
         form.addRow("<b>🔑 OpenAI API Key:</b>", self.api_key_edit)
         form.addRow(get_api_key_label)
@@ -517,14 +498,19 @@ class AddonOptionsDialog(QDialog):
             "chat_model": config.chat_model,
             "chat_models": provider_model_map[config.chat_provider],
             "chat_temperature": config.chat_temperature,
+            # TODO: need some way to get the current state of the TTS settings
+            # "selected_provider": config.tts_provider,
             # TTS
-            "tts_provider": config.tts_provider,
+            "providers": providers,
+            "selected_provider": "all",
             "voice": config.tts_voice,
-            "gender": "all",
+            "genders": ["all", "male", "female"],
+            "selected_gender": "all",
             "languages": languages,
             "selected_language": "all",
             "test_text": "",
             "test_enabled": True,
+            "tts_meta": None,
         }
 
     def on_restore_defaults(self) -> None:

@@ -40,7 +40,8 @@ anthropic_chat_models: List[ChatModels] = [
 # TTS Models
 
 OpenAITTSModels = Literal["tts-1"]
-TTSModels = Union[OpenAITTSModels]
+ElevenTTSModels = Literal["eleven_multilingual_v2"]
+TTSModels = Union[OpenAITTSModels, ElevenTTSModels]
 
 # TTS Voices
 
@@ -52,5 +53,8 @@ OpenAIVoices = Literal[
     "nova",
     "shimmer",
 ]
-TTSVoices = Union[OpenAIVoices]
+
+ElevenVoices = Literal["male-1", "male-2", "female-1", "female-2"]
+
+TTSVoices = Union[OpenAIVoices, ElevenVoices]
 Languages = Literal["english", "japanese"]

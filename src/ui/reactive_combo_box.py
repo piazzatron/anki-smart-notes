@@ -38,9 +38,15 @@ class ReactiveComboBox(ReactiveWidget[T], QComboBox, Generic[T]):
         self._fields_key = fields_key
         self._selected_key = selected_key
 
+        # Bind from state change to view
         state.bind(self)
 
         self.currentTextChanged.connect(self._on_current_text_changed)
+
+        # Bind from view change to state
+        self.onChange.connect(
+            lambda new_value: state.update({self._selected_key: new_value})
+        )
 
     def _update_from_state(self, updates: Dict[str, Any]) -> None:
         fields: List[str] = updates[self._fields_key]
