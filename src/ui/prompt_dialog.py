@@ -17,7 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Callable, List, TypedDict, Union
+from typing import Callable, List, Literal, TypedDict, Union
 
 from aqt import (
     QComboBox,
@@ -61,6 +61,7 @@ from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_edit_text import ReactiveEditText
 from .state_manager import StateManager
+from .tts_options import TTSOptions
 from .ui_utils import font_small, show_message_box
 
 explanation = """Write a "prompt" to help the chat model generate your target smart field.
@@ -76,6 +77,8 @@ class State(TypedDict):
     note_types: List[str]
     selected_note_type: str
     note_fields: List[str]
+    source_fields: List[str]
+    selected_source_field: str
     selected_note_field: str
     is_loading_prompt: bool
     generate_manually: bool
@@ -85,6 +88,7 @@ class State(TypedDict):
     chat_model: ChatModels
     chat_temperature: int
     use_custom_model: bool
+    type: Literal["chat", "tts"]
 
 
 class PromptDialog(QDialog):
@@ -94,6 +98,8 @@ class PromptDialog(QDialog):
     card_combo_box: QComboBox
     state: StateManager[State]
     prompts_map: PromptMap
+    chat_options: ChatOptions
+    tts_options: TTSOptions
 
     def __init__(
         self,
@@ -120,11 +126,14 @@ class PromptDialog(QDialog):
         per_field_settings = self.get_per_field_settings(
             selected_card_type, selected_field
         )
+
         initial_state: State = {
             "prompt": prompt or "",
             "note_types": note_types,
             "selected_note_type": selected_card_type,
             "note_fields": note_fields,
+            "source_fields": note_fields,
+            "selected_source_field": note_fields[0],  # TODO: this should work properly
             "selected_note_field": selected_field,
             "is_loading_prompt": False,
             "generate_manually": not automatic,
@@ -165,6 +174,7 @@ class PromptDialog(QDialog):
             "chat_temperature": extras.get("chat_temperature")
             or config.chat_temperature,
             "use_custom_model": extras["use_custom_model"],
+            "type": extras["type"],
         }
 
     def setup_ui(self) -> None:
@@ -176,20 +186,35 @@ class PromptDialog(QDialog):
         self.render_automatic_button()
 
     def render_main_tab(self) -> QWidget:
-        self.setWindowTitle("New Smart Field")
+        layout = QVBoxLayout()
+
+        text = (
+            "New Text Field"
+            if self.state.s["type"] == "chat"
+            else "New Text to Speech Field"
+        )
+        self.setWindowTitle(text)
+
         self.card_combo_box = ReactiveComboBox(
             self.state, "note_types", "selected_note_type"
         )
+        card_label = QLabel("Card Type")
+        layout.addWidget(card_label)
+        layout.addWidget(self.card_combo_box)
+
+        if self.state.s["type"] == "tts":
+            self.source_combo_box = ReactiveComboBox(
+                self.state, "source_fields", "selected_source_field"
+            )
+            self.source_combo_box.onChange.connect(self.on_source_changed)
+            source_label = QLabel("Source Field")
+            layout.addWidget(source_label)
+            layout.addWidget(self.source_combo_box)
 
         self.field_combo_box = ReactiveComboBox(
             self.state, "note_fields", "selected_note_field"
         )
-
-        card_label = QLabel("Card Type")
         field_label = QLabel("Target Field")
-        layout = QVBoxLayout()
-        layout.addWidget(card_label)
-        layout.addWidget(self.card_combo_box)
         layout.addWidget(field_label)
         layout.addWidget(self.field_combo_box)
 
@@ -245,15 +270,16 @@ class PromptDialog(QDialog):
 
     def render_options_tab(self) -> QWidget:
         models_layout = default_form_layout()
-        self.model_options = ChatOptions(self.state)  # type: ignore
+        self.model_options = self.render_custom_model()
+        self.model_options.setEnabled(self.state.s["use_custom_model"])
         self.custom_model = ReactiveCheckBox(self.state, "use_custom_model")
         self.custom_model.onChange.connect(
             lambda checked: self.state.update({"use_custom_model": checked})
         )
         self.state.state_changed.connect(self.on_state_update)
-        models_layout.addRow("Use Custom Model", self.custom_model)
+        models_layout.addRow("Override Default Model", self.custom_model)
         models_layout.addWidget(self.model_options)
-        model_box = QGroupBox("⚙️ Custom Model Settings")
+        model_box = QGroupBox("⚙️ Model Settings")
         model_box.setLayout(models_layout)
 
         behavior_box = QGroupBox("Field Behavior")
@@ -271,6 +297,12 @@ class PromptDialog(QDialog):
         container = QWidget()
         container.setLayout(container_layout)
         return container
+
+    def render_custom_model(self) -> QWidget:
+        # TODO: encapsulate this ChatOptions state
+        self.chat_options = ChatOptions(self.state)  # type: ignore
+        self.tts_options = TTSOptions()
+        return self.chat_options if self.state.s["type"] == "chat" else self.tts_options
 
     def on_state_update(self):
         self.model_options.setEnabled(self.state.s["use_custom_model"])
@@ -302,6 +334,9 @@ class PromptDialog(QDialog):
                 "note_fields": fields,
             }
         )
+
+    def on_source_changed(self, source: Union[str, None]) -> None:
+        self.state.update({"prompt": f"{{{{{source}}}}}"})
 
     def on_field_changed(self, field: Union[str, None]) -> None:
         # This shouldn't happen
@@ -452,24 +487,41 @@ class PromptDialog(QDialog):
         # Actually populate extras for this field
         selected_field_extras: FieldExtras = extras.get(selected_field, {})
 
-        selected_field_extras["type"] = "chat"
+        type = self.state.s["type"]
+        selected_field_extras["type"] = type
         selected_field_extras["automatic"] = is_automatic
         is_custom = self.state.s["use_custom_model"]
         selected_field_extras["use_custom_model"] = is_custom
 
         # Need to delete any custom config if it's not being used
         if is_custom:
-            print("TRYING TO SET CHAT_MODEL")
-            print(self.state.s["chat_model"])
-            selected_field_extras["chat_model"] = self.state.s["chat_model"]
-            selected_field_extras["chat_provider"] = chat_ui_to_provider_map[
-                self.state.s["chat_provider"]
-            ]
-            selected_field_extras["chat_temperature"] = self.state.s["chat_temperature"]
+            if type == "tts":
+                selected_field_extras["tts_provider"] = self.tts_options.state.s[
+                    "tts_provider"
+                ]
+                selected_field_extras["tts_voice"] = self.tts_options.state.s[
+                    "tts_voice"
+                ]
+            elif type == "chat":
+                selected_field_extras["chat_model"] = self.state.s["chat_model"]
+                selected_field_extras["chat_provider"] = chat_ui_to_provider_map[
+                    self.state.s["chat_provider"]
+                ]
+                selected_field_extras["chat_temperature"] = self.state.s[
+                    "chat_temperature"
+                ]
         else:
-            selected_field_extras.pop("chat_model", None)
-            selected_field_extras.pop("chat_provider", None)
-            selected_field_extras.pop("chat_temperature", None)
+            to_pop = [
+                "chat_model",
+                "chat_provider",
+                "chat_temperature",
+                "tts_model",
+                "tts_provider",
+                "tts_voice",
+            ]
+            for extra in to_pop:
+                # TODO: fix this type ignore; can we just set them to None?
+                selected_field_extras.pop(extra, None)  # type: ignore
 
         # Write em out
         extras[selected_field] = selected_field_extras

@@ -33,6 +33,7 @@ from aqt import (
     mw,
 )
 
+from ..config import config
 from ..logger import logger
 from ..models import Languages, TTSProviders, TTSVoices, default_tts_models_map
 from ..sentry import run_async_in_background_with_sentry
@@ -181,11 +182,13 @@ class CustomListModel(QAbstractListModel):
         self.endResetModel()
 
 
-class TTSSettings(QWidget):
-    def __init__(self, state: StateManager[TTSState]):
+class TTSOptions(QWidget):
+    def __init__(self, state: Union[StateManager[TTSState], None] = None):
         super().__init__()
 
-        self.state = state
+        self.state = (
+            state if state else StateManager[TTSState](self.get_initial_state())
+        )
         self.setup_ui()
 
     def setup_ui(self) -> None:
@@ -355,3 +358,18 @@ class TTSSettings(QWidget):
             if matches_provider and matches_gender and matches_language:
                 filtered.append(voice)
         return filtered
+
+    def get_initial_state(self) -> TTSState:
+        return {
+            "providers": providers,
+            "selected_provider": "all",
+            "voice": config.tts_voice,
+            "genders": ["all", "male", "female"],
+            "selected_gender": "all",
+            "languages": languages,
+            "selected_language": "all",
+            "test_text": "",
+            "test_enabled": True,
+            "tts_provider": config.tts_provider,
+            "tts_voice": config.tts_voice,
+        }

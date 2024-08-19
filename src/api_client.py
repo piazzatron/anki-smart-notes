@@ -103,7 +103,7 @@ class APIClient:
         exc_val: Optional[BaseException],
         exc_tb: Optional[TracebackType],
     ) -> Optional[bool]:
-        await self.close()  # type: ignore
+        await self.close()
         return None
 
 

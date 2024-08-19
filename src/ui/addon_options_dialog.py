@@ -58,7 +58,7 @@ from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_line_edit import ReactiveLineEdit
 from .state_manager import StateManager
-from .tts_settings import TTSSettings, TTSState, languages, providers
+from .tts_options import TTSOptions, TTSState, languages, providers
 from .ui_utils import default_form_layout, font_small, show_message_box
 
 OPTIONS_MIN_WIDTH = 750
@@ -361,7 +361,7 @@ class AddonOptionsDialog(QDialog):
         return ChatOptions(self.state)  # type: ignore
 
     def render_tts_tab(self) -> QWidget:
-        return TTSSettings(self.state)  # type: ignore
+        return TTSOptions()  # type: ignore
 
     def create_table(self) -> QTableWidget:
         table = QTableWidget(0, 3)
