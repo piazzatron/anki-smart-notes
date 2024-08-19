@@ -77,8 +77,8 @@ class State(TypedDict):
     note_types: List[str]
     selected_note_type: str
     note_fields: List[str]
-    source_fields: List[str]
-    selected_source_field: str
+    tts_source_fields: List[str]
+    selected_tts_source_field: str
     selected_note_field: str
     is_loading_prompt: bool
     generate_manually: bool
@@ -100,6 +100,7 @@ class PromptDialog(QDialog):
     prompts_map: PromptMap
     chat_options: ChatOptions
     tts_options: TTSOptions
+    mode: Literal["new", "edit"]
 
     def __init__(
         self,
@@ -116,24 +117,34 @@ class PromptDialog(QDialog):
         self.prompts_map = prompts_map
 
         note_types = self.get_note_types()
-        selected_card_type = card_type or note_types[0]
-        note_fields = get_fields(selected_card_type)
+        selected_note_type = card_type or note_types[0]
+        self.mode = "edit" if card_type else "new"
+        note_fields = get_fields(selected_note_type)
         selected_field = field or note_fields[0]
+        print(f"Selected field: {selected_field}")
         automatic = get_generate_automatically(
-            selected_card_type, selected_field, prompts_map
+            selected_note_type, selected_field, prompts_map
         )
 
         per_field_settings = self.get_per_field_settings(
-            selected_card_type, selected_field
+            selected_note_type, selected_field
         )
 
         initial_state: State = {
             "prompt": prompt or "",
             "note_types": note_types,
-            "selected_note_type": selected_card_type,
-            "note_fields": note_fields,
-            "source_fields": note_fields,
-            "selected_source_field": note_fields[0],  # TODO: this should work properly
+            "selected_note_type": selected_note_type,
+            "tts_source_fields": note_fields,
+            "selected_tts_source_field": note_fields[
+                0
+            ],  # TODO: this should work properly
+            # Only show the trimmed version if it's add; if it's edit, we don't want
+            # to trim out the existing self target
+            "note_fields": (
+                self.get_valid_target_fields(selected_note_type, selected_field)
+                if self.mode == "new"
+                else note_fields
+            ),
             "selected_note_field": selected_field,
             "is_loading_prompt": False,
             "generate_manually": not automatic,
@@ -203,14 +214,16 @@ class PromptDialog(QDialog):
         layout.addWidget(self.card_combo_box)
 
         if self.state.s["type"] == "tts":
-            self.source_combo_box = ReactiveComboBox(
-                self.state, "source_fields", "selected_source_field"
+            self.tts_source_combo_box = ReactiveComboBox(
+                self.state, "tts_source_fields", "selected_tts_source_field"
             )
-            self.source_combo_box.onChange.connect(self.on_source_changed)
+            self.tts_source_combo_box.onChange.connect(self.on_source_changed)
             source_label = QLabel("Source Field")
             layout.addWidget(source_label)
-            layout.addWidget(self.source_combo_box)
+            layout.addWidget(self.tts_source_combo_box)
 
+        print("MAKIN field COMBO")
+        print(self.state.s["selected_note_field"])
         self.field_combo_box = ReactiveComboBox(
             self.state, "note_fields", "selected_note_field"
         )
@@ -266,6 +279,13 @@ class PromptDialog(QDialog):
         self.standard_buttons.rejected.connect(self.on_reject)
         container = QWidget()
         container.setLayout(layout)
+
+        # Control visibility depending on mode
+        if self.mode == "edit":
+            self.card_combo_box.setEnabled(False)
+            self.field_combo_box.setEnabled(False)
+            if hasattr(self, "tts_source_combo_box"):
+                self.tts_source_combo_box.setEnabled(False)
         return container
 
     def render_options_tab(self) -> QWidget:
@@ -319,10 +339,9 @@ class PromptDialog(QDialog):
         return [model["name"] for model in models]
 
     def on_card_type_selected(self, card_type: str):
-        if card_type == self.state.s["selected_note_type"]:
-            return
+        print("NEW CARD TYPE SELECTED, GONNA SET IT TO THE FIRST FIELD")
 
-        fields = get_fields(card_type)
+        fields = self.get_valid_target_fields(card_type)
         selected_field = fields[0]
         prompt = get_prompts().get(card_type, {}).get(selected_field, "")
 
@@ -429,24 +448,33 @@ class PromptDialog(QDialog):
             on_failure=on_failure,
         )
 
+    def render_automatic_button(self) -> None:
+        self.manual_box.setChecked(self.state.s["generate_manually"])
+
     def render_valid_fields(self) -> None:
-        fields = self.get_valid_fields()
+        fields = self.get_valid_fields_for_prompt(
+            self.state.s["selected_note_type"], self.state.s["selected_note_field"]
+        )
         fields = ["{{" + field + "}}" for field in fields]
         text = f"Valid Fields: {', '.join(fields)}"
         self.valid_fields.setText(text)
 
-    def render_automatic_button(self) -> None:
-        self.manual_box.setChecked(self.state.s["generate_manually"])
-
-    def get_valid_fields(self) -> List[str]:
-        selected_note_type = self.state.s["selected_note_type"]
-        selected_field = self.state.s["selected_note_field"]
+    def get_valid_fields_for_prompt(
+        self, selected_note_type: str, selected_note_field: Union[str, None] = None
+    ) -> List[str]:
+        """Gets all fields excluding the selected one, if one is selected"""
         fields = get_fields(selected_note_type)
-        # existing_prompts = set(get_prompts().get(selected_note_type, {}).keys())
-        # existing_prompts.add(selected_field)
+        return [field for field in fields if field != selected_note_field]
 
-        # not_ai_fields = [field for field in fields if field not in existing_prompts]
-        return fields
+    def get_valid_target_fields(
+        self, selected_note_type: str, selected_note_field: Union[str, None] = None
+    ) -> List[str]:
+        """Gets all fields excluding selected and existing prompts"""
+        all_valid_fields = self.get_valid_fields_for_prompt(
+            selected_note_type, selected_note_field
+        )
+        existing_prompts = set(get_prompts().get(selected_note_type, {}).keys())
+        return [field for field in all_valid_fields if field not in existing_prompts]
 
     def on_accept(self):
         prompt = self.state.s["prompt"]

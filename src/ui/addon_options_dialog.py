@@ -168,9 +168,7 @@ class AddonOptionsDialog(QDialog):
 
         tabs = QTabWidget()
 
-        explanation = QLabel(
-            "Automatically generate fields per note type. Reference any existing field in your prompt with {{double curly braces}}."
-        )
+        explanation = QLabel("Automatically generate text and voice fields.")
         explanation.setFont(font_small)
         layout = QVBoxLayout()
         layout.addWidget(group_box)
