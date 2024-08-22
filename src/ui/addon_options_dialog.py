@@ -45,6 +45,7 @@ from ..config import PromptMap, config
 from ..logger import logger
 from ..models import ChatModels, OpenAIModels, openai_chat_models
 from ..processor import Processor
+from ..prompts import get_extras
 from .changelog import get_version
 from .chat_options import (
     ChatOptions,
@@ -137,10 +138,11 @@ class AddonOptionsDialog(QDialog):
         group_box.setLayout(form)
 
         # Buttons
-        # TODO: Need a restore defaults button
         table_buttons = QHBoxLayout()
-        add_button = QPushButton("Add")
-        add_button.clicked.connect(self.on_add)
+        add_button = QPushButton("Add Text Field")
+        add_button.clicked.connect(lambda _: self.on_add(False))
+        voice_button = QPushButton("Add Voice Field")
+        voice_button.clicked.connect(lambda _: self.on_add(True))
         self.remove_button = QPushButton("Remove")
         self.edit_button = QPushButton("Edit")
         self.edit_button.clicked.connect(self.on_edit)
@@ -148,6 +150,7 @@ class AddonOptionsDialog(QDialog):
         table_buttons.addWidget(self.edit_button, 1)
         self.remove_button.clicked.connect(self.on_remove)
         table_buttons.addWidget(add_button, 2, Qt.AlignmentFlag.AlignRight)
+        table_buttons.addWidget(voice_button, 2, Qt.AlignmentFlag.AlignRight)
 
         standard_buttons = QDialogButtonBox(
             QDialogButtonBox.StandardButton.Cancel | QDialogButtonBox.StandardButton.Ok
@@ -388,21 +391,25 @@ class AddonOptionsDialog(QDialog):
         if row is None:
             return
 
-        card_type = self.table.item(row, 0).text()  # type: ignore
+        note_type = self.table.item(row, 0).text()  # type: ignore
         field = self.table.item(row, 1).text()  # type: ignore
         prompt = self.table.item(row, 2).text()  # type: ignore
-        logger.debug(f"Editing {card_type}, {field}")
+        logger.debug(f"Editing {note_type}, {field}")
 
         # Save out API key jic
         config.openai_api_key = self.api_key_edit.text()
+
+        # Get type
+        field_type = get_extras(note_type, field)["type"]
 
         prompt_dialog = PromptDialog(
             self.state.s["prompts_map"],
             self.processor,
             self.on_update_prompts,
-            card_type=card_type,
+            card_type=note_type,
             field=field,
             prompt=prompt,
+            field_type=field_type,
         )
 
         if prompt_dialog.exec() == QDialog.DialogCode.Accepted:
@@ -413,12 +420,15 @@ class AddonOptionsDialog(QDialog):
         self.remove_button.setEnabled(is_enabled)
         self.edit_button.setEnabled(is_enabled)
 
-    def on_add(self, _: int) -> None:
+    def on_add(self, is_tts: bool) -> None:
         # Save out the API key in case it's been updated this run
         config.openai_api_key = self.api_key_edit.text()
 
         prompt_dialog = PromptDialog(
-            self.state.s["prompts_map"], self.processor, self.on_update_prompts
+            self.state.s["prompts_map"],
+            self.processor,
+            self.on_update_prompts,
+            field_type="tts" if is_tts else "chat",
         )
 
         if prompt_dialog.exec() == QDialog.DialogCode.Accepted:

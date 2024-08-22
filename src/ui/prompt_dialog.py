@@ -31,6 +31,7 @@ from aqt import (
     QTabWidget,
     QTextEdit,
     QTextOption,
+    QTimer,
     QVBoxLayout,
     QWidget,
     mw,
@@ -40,11 +41,12 @@ from PyQt6.QtCore import Qt
 from ..config import FieldExtras, PromptMap, config
 from ..logger import logger
 from ..models import ChatModels
+from ..notes import get_note_types
 from ..processor import Processor
 from ..prompts import (
     get_extras,
     get_generate_automatically,
-    get_prompt_fields_lower,
+    get_prompt_fields,
     get_prompts,
     prompt_has_error,
 )
@@ -91,6 +93,14 @@ class State(TypedDict):
     type: Literal["chat", "tts"]
 
 
+class PartialState(TypedDict):
+    prompt: str
+    target_fields: List[str]
+    target_field: str
+    source_fields: List[str]
+    source_field: str
+
+
 class PromptDialog(QDialog):
     prompt_text_box: QTextEdit
     test_button: QPushButton
@@ -101,51 +111,76 @@ class PromptDialog(QDialog):
     chat_options: ChatOptions
     tts_options: TTSOptions
     mode: Literal["new", "edit"]
+    field_type: Literal["chat", "tts"]
 
     def __init__(
         self,
         prompts_map: PromptMap,
         processor: Processor,
         on_accept_callback: Callable[[PromptMap], None],
+        field_type: Literal["chat", "tts"],
         card_type: Union[str, None] = None,
         field: Union[str, None] = None,
         prompt: Union[str, None] = None,
     ):
         super().__init__()
+
         self.processor = processor
         self.on_accept_callback = on_accept_callback
         self.prompts_map = prompts_map
-
-        note_types = self.get_note_types()
-        selected_note_type = card_type or note_types[0]
         self.mode = "edit" if card_type else "new"
-        note_fields = get_fields(selected_note_type)
-        selected_field = field or note_fields[0]
-        print(f"Selected field: {selected_field}")
+        self.field_type = field_type
+        note_types = self._get_note_types()
+        selected_note_type = card_type or note_types[0]
+
+        # Ensure there are valid fields to select
+        if not len(note_types):
+            show_message_box(
+                "No valid note types left. Edit or delete some fields to continue!"
+            )
+            QTimer.singleShot(0, self.close)
+            return
+
+        default_note_state = self._state_for_new_card_type(
+            selected_note_type, field_type
+        )
+        selected_target_field = field or default_note_state["target_field"]
+
         automatic = get_generate_automatically(
-            selected_note_type, selected_field, prompts_map
+            selected_note_type, selected_target_field, prompts_map
         )
 
         per_field_settings = self.get_per_field_settings(
-            selected_note_type, selected_field
+            selected_note_type,
+            selected_target_field,
+        )
+
+        # Only if it's a new card, we need to get the fields for the selected card type
+        target_fields = (
+            default_note_state["target_fields"]
+            if self.mode == "new"
+            else get_fields(selected_note_type)
+        )
+
+        # If it's an edit, we need to get the source field from the prompt
+        selected_tts_source_field = (
+            (self._attempt_to_parse_source_field(prompt) or "")
+            if prompt
+            else default_note_state["source_field"]
         )
 
         initial_state: State = {
-            "prompt": prompt or "",
-            "note_types": note_types,
+            "prompt": prompt or default_note_state["prompt"],
+            # Note types
             "selected_note_type": selected_note_type,
-            "tts_source_fields": note_fields,
-            "selected_tts_source_field": note_fields[
-                0
-            ],  # TODO: this should work properly
-            # Only show the trimmed version if it's add; if it's edit, we don't want
-            # to trim out the existing self target
-            "note_fields": (
-                self.get_valid_target_fields(selected_note_type, selected_field)
-                if self.mode == "new"
-                else note_fields
-            ),
-            "selected_note_field": selected_field,
+            "note_types": note_types,
+            # tts
+            "tts_source_fields": default_note_state["source_fields"],
+            "selected_tts_source_field": selected_tts_source_field,
+            # target fields
+            "note_fields": target_fields,
+            "selected_note_field": selected_target_field,
+            # other
             "is_loading_prompt": False,
             "generate_manually": not automatic,
             "chat_providers": ["ChatGPT", "Claude"],
@@ -175,8 +210,14 @@ class PromptDialog(QDialog):
         self.setLayout(container)
         self.setup_ui()
 
-    def get_per_field_settings(self, selected_card_type: str, selected_field: str):
-        extras = get_extras(selected_card_type, selected_field, self.prompts_map)
+    def get_per_field_settings(
+        self, selected_card_type: str, selected_field: str
+    ) -> FieldExtras:
+        extras = get_extras(
+            selected_card_type, selected_field, self.prompts_map, type=self.field_type
+        )
+
+        # TODO: fix broken type
         return {
             "chat_provider": chat_provider_to_ui_map[
                 extras.get("chat_provider") or config.chat_provider
@@ -222,8 +263,6 @@ class PromptDialog(QDialog):
             layout.addWidget(source_label)
             layout.addWidget(self.tts_source_combo_box)
 
-        print("MAKIN field COMBO")
-        print(self.state.s["selected_note_field"])
         self.field_combo_box = ReactiveComboBox(
             self.state, "note_fields", "selected_note_field"
         )
@@ -268,8 +307,8 @@ class PromptDialog(QDialog):
         layout.addWidget(self.standard_buttons)
 
         self.state.state_changed.connect(self.render_ui)
-        self.card_combo_box.onChange.connect(self.on_card_type_selected)
-        self.field_combo_box.onChange.connect(self.on_field_changed)
+        self.card_combo_box.onChange.connect(self._on_new_card_type_selected)
+        self.field_combo_box.onChange.connect(self.on_target_field_changed)
         self.prompt_text_box.onChange.connect(
             lambda text: self.state.update({"prompt": text})
         )
@@ -327,49 +366,73 @@ class PromptDialog(QDialog):
     def on_state_update(self):
         self.model_options.setEnabled(self.state.s["use_custom_model"])
 
-    def get_note_types(self) -> List[str]:
-        if not mw:
-            return []
+    def _get_note_types(self) -> List[str]:
+        """Returns note types for which there are valid target fields remaining"""
+        note_types = get_note_types()
+        # Need to find a note type where there are valid field
+        return [
+            note_type
+            for note_type in note_types
+            if self._valid_fields_remain(note_type)
+        ]
 
-        # Including this function in a little UI
-        # class is a horrible violation of separation of concerns
-        # but I won't tell anybody if you don't
+    def _valid_fields_remain(self, note_type: str) -> bool:
+        target_fields = self._get_valid_target_fields(note_type)
+        return len(target_fields) > 0
 
-        models = mw.col.models.all()
-        return [model["name"] for model in models]
+    def _state_for_new_card_type(
+        self, note_type: str, type: Literal["chat", "tts"]
+    ) -> PartialState:
 
-    def on_card_type_selected(self, card_type: str):
-        print("NEW CARD TYPE SELECTED, GONNA SET IT TO THE FIRST FIELD")
+        target_fields = self._get_valid_target_fields(note_type)
+        target_field = target_fields[0] if len(target_fields) else "None"
 
-        fields = self.get_valid_target_fields(card_type)
-        selected_field = fields[0]
-        prompt = get_prompts().get(card_type, {}).get(selected_field, "")
+        source_fields = get_fields(note_type)
+        source_field = self._get_initial_source_field(note_type)
+        prompt = self.get_tts_prompt(source_field) if type == "tts" else ""
+        return {
+            "prompt": prompt,
+            "target_fields": target_fields,
+            "target_field": target_field,
+            "source_fields": source_fields,
+            "source_field": source_field,
+        }
 
+    def _on_new_card_type_selected(self, note_type: str):
+        new_state = self._state_for_new_card_type(note_type, self.state.s["type"])
         self.state.update(
             {
-                "prompt": prompt,
-                "selected_note_type": card_type,
-                "selected_note_field": selected_field,
-                "note_fields": fields,
+                "prompt": new_state["prompt"],
+                "selected_note_type": note_type,
+                "selected_note_field": new_state["target_field"],
+                "note_fields": new_state["target_fields"],
+                "tts_source_fields": new_state["source_fields"],
+                "selected_tts_source_field": new_state["source_field"],
             }
         )
 
     def on_source_changed(self, source: Union[str, None]) -> None:
-        self.state.update({"prompt": f"{{{{{source}}}}}"})
+        self.state.update({"prompt": self.get_tts_prompt(source)})
 
-    def on_field_changed(self, field: Union[str, None]) -> None:
+    def get_tts_prompt(self, source: str) -> str:
+        return f"{{{{{source}}}}}"
+
+    def on_target_field_changed(self, field: Union[str, None]) -> None:
         # This shouldn't happen
         if not field:
             return
 
         prompt = (
-            get_prompts().get(self.state.s["selected_note_type"], {}).get(field, "")
+            self.get_tts_prompt(self.state.s["selected_tts_source_field"])
+            if self.state.s["type"] == "tts"
+            else ""
         )
 
         self.state.update(
             {
                 "prompt": prompt,
                 "selected_note_field": field,
+                # TODO: do I still need this if editing is not allowed?
                 **self.get_per_field_settings(
                     self.state.s["selected_note_type"], field
                 ),
@@ -423,7 +486,7 @@ class PromptDialog(QDialog):
             if not prompt:
                 return
 
-            prompt_fields = get_prompt_fields_lower(prompt)
+            prompt_fields = get_prompt_fields(prompt)
 
             # clumsy stuff to make it work with lowercase fields...
             fields = to_lowercase_dict(sample_note)  # type: ignore
@@ -466,15 +529,36 @@ class PromptDialog(QDialog):
         fields = get_fields(selected_note_type)
         return [field for field in fields if field != selected_note_field]
 
-    def get_valid_target_fields(
+    def _get_valid_target_fields(
         self, selected_note_type: str, selected_note_field: Union[str, None] = None
     ) -> List[str]:
         """Gets all fields excluding selected and existing prompts"""
         all_valid_fields = self.get_valid_fields_for_prompt(
             selected_note_type, selected_note_field
         )
-        existing_prompts = set(get_prompts().get(selected_note_type, {}).keys())
+        existing_prompts = set(
+            get_prompts(override_prompts_map=self.prompts_map)
+            .get(selected_note_type, {})
+            .keys()
+        )
         return [field for field in all_valid_fields if field not in existing_prompts]
+
+    def _get_initial_source_field(self, note_type: str) -> str:
+        """Get the first valid source field for a note type by finding the first field that isn't the default target field"""
+        fields = get_fields(note_type)
+        valid_target_fields = self._get_valid_target_fields(note_type)
+        default_target_field = (
+            valid_target_fields[0] if len(valid_target_fields) > 0 else None
+        )
+        return next(f for f in fields if f != default_target_field)
+
+    def _attempt_to_parse_source_field(self, prompt: str) -> Union[str, None]:
+        fields = get_prompt_fields(prompt, lower=False)
+
+        if len(fields) != 1:
+            return None
+
+        return fields[0]
 
     def on_accept(self):
         prompt = self.state.s["prompt"]

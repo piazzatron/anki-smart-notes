@@ -30,7 +30,7 @@ from .logger import logger
 from .models import ChatModels, ChatProviders
 from .nodes import ChatPayload, FieldNode, TTSPayload
 from .notes import get_note_type
-from .prompts import get_extras, get_prompt_fields_lower, get_prompts
+from .prompts import get_extras, get_prompt_fields, get_prompts
 from .sentry import run_async_in_background_with_sentry
 from .ui.ui_utils import show_message_box
 from .utils import bump_usage_counter, check_for_api_key, get_fields, run_on_main
@@ -456,7 +456,7 @@ class Processor:
                 return dag
 
             for field, prompt in prompts.items():
-                in_fields = get_prompt_fields_lower(prompt)
+                in_fields = get_prompt_fields(prompt)
 
                 for in_field in in_fields:
                     if in_field in dag:

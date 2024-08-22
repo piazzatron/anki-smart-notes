@@ -89,7 +89,6 @@ class Config:
 
     # TTS
     tts_provider: TTSProviders
-    tts_model: TTSModels
     tts_voice: TTSVoices
 
     # Deprecated fields:
