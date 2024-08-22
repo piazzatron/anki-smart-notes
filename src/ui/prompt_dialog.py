@@ -101,6 +101,14 @@ class PartialState(TypedDict):
     source_field: str
 
 
+class PerFieldSettings(TypedDict):
+    chat_provider: ReadableChatProvider
+    chat_model: ChatModels
+    chat_temperature: int
+    use_custom_model: bool
+    type: Literal["chat", "tts"]
+
+
 class PromptDialog(QDialog):
     prompt_text_box: QTextEdit
     test_button: QPushButton
@@ -212,12 +220,11 @@ class PromptDialog(QDialog):
 
     def get_per_field_settings(
         self, selected_card_type: str, selected_field: str
-    ) -> FieldExtras:
+    ) -> PerFieldSettings:
         extras = get_extras(
             selected_card_type, selected_field, self.prompts_map, type=self.field_type
         )
 
-        # TODO: fix broken type
         return {
             "chat_provider": chat_provider_to_ui_map[
                 extras.get("chat_provider") or config.chat_provider
@@ -411,7 +418,7 @@ class PromptDialog(QDialog):
             }
         )
 
-    def on_source_changed(self, source: Union[str, None]) -> None:
+    def on_source_changed(self, source: str) -> None:
         self.state.update({"prompt": self.get_tts_prompt(source)})
 
     def get_tts_prompt(self, source: str) -> str:
