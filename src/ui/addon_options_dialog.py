@@ -60,7 +60,7 @@ from .subscription_box import SubscriptionBox
 from .tts_options import TTSOptions, TTSState, languages, providers
 from .ui_utils import default_form_layout, font_small, show_message_box
 
-OPTIONS_MIN_WIDTH = 750
+OPTIONS_MIN_WIDTH = 875
 
 
 class State(TTSState):

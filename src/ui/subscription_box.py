@@ -20,6 +20,7 @@
 from typing import Literal, TypedDict
 
 from aqt import (
+    QComboBox,
     QGroupBox,
     QHBoxLayout,
     QLabel,
@@ -28,13 +29,13 @@ from aqt import (
     QVBoxLayout,
     QWidget,
     Union,
+    pyqtSignal,
 )
 
 from ..app_state import AppState, app_state
 from ..constants import get_site_url
 from ..subscription_provider import SubscriptionState
-from .state_manager import StateManager
-from .ui_utils import font_bold
+from .ui_utils import font_bold, font_small
 from .webview_dialog import WebviewDialog
 
 
@@ -89,33 +90,106 @@ upgrade_now_style = """
         """
 
 
+class ClickableLabel(QLabel):
+    clicked = pyqtSignal()
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+
+    def mousePressEvent(self, event) -> None:
+        if event.button() == Qt.MouseButton.LeftButton:
+            self.clicked.emit()
+        super().mousePressEvent(event)
+
+
 class SubscriptionBox(QWidget):
-    _state: StateManager[State]
 
     def __init__(self) -> None:
         super().__init__()
-        self._state = StateManager[State]({"subscription": "Loading"})
+
+        self.ui_map = {
+            "Loading": self._render_loading(),
+            "UNAUTHENTICATED": self._render_start_trial(),
+            "NO_SUBSCRIPTION": self._render_start_trial(),
+            "FREE_TRIAL_ACTIVE": self._render_free_trial_active(),
+            "FREE_TRIAL_EXPIRED": self._render_upgrade_trial(),
+            "FREE_TRIAL_CAPACITY": self._render_upgrade_trial(),
+            "PAID_PLAN_ACTIVE": self._render_active(),
+            "PAID_PLAN_CAPACITY": self._render_paid_capacity(),
+            "PAID_PLAN_EXPIRED": self._render_paid_lapsed(),
+        }
+
         self._setup_ui()
 
     def _setup_ui(self) -> None:
         self.container = QGroupBox("Subscription")
 
-        # Free Trial active
-        self.trial_label = QLabel("Status: ✅ Free trial active")
-        self.upgrade_now_button = QPushButton("Upgrade Now")
-        self.upgrade_now_button.setStyleSheet(upgrade_now_style)
-        self.upgrade_now_button.setFixedHeight(50)
+        layout = QVBoxLayout()
+        layout.addWidget(self.container)
+        layout.setContentsMargins(0, 0, 0, 0)
+        self.group_box_layout = QVBoxLayout()
+        self.container.setLayout(self.group_box_layout)
+        self.group_box_layout.setContentsMargins(0, 0, 0, 0)
+        self.setLayout(layout)
 
-        self.upgrade_now_button.clicked.connect(self.upgrade_now_clicked)
-        self.free_trial_active_layout = QHBoxLayout()
-        self.free_trial_active_layout.addWidget(
-            self.trial_label, alignment=Qt.AlignmentFlag.AlignLeft
-        )
-        self.free_trial_active_layout.addWidget(
-            self.upgrade_now_button, alignment=Qt.AlignmentFlag.AlignRight
-        )
+        for v in self.ui_map.values():
+            self.group_box_layout.addWidget(v)
+            v.hide()
 
-        # Free trial CTA
+        # Helpful combo picker to try out different states
+        combo_picker = QComboBox()
+        combo_picker.addItems(
+            [
+                "Loading",
+                "UNAUTHENTICATED",
+                "NO_SUBSCRIPTION",
+                "FREE_TRIAL_ACTIVE",
+                "FREE_TRIAL_EXPIRED",
+                "FREE_TRIAL_CAPACITY",
+                "PAID_PLAN_ACTIVE",
+                "PAID_PLAN_CAPACITY",
+                "PAID_PLAN_EXPIRED",
+            ]
+        )
+        combo_picker.currentIndexChanged.connect(
+            lambda _: app_state._state.update(
+                {"subscription": combo_picker.currentText()}
+            )
+        )
+        layout.addWidget(combo_picker)
+        app_state._state.bind(self)
+
+    def start_free_trial_clicked(self) -> None:
+        webview = WebviewDialog(self)
+        webview.show()
+
+    def upgrade_now_clicked(self) -> None:
+        webview = WebviewDialog(self, "/upgrade")
+        webview.show()
+
+    def login_clicked(self) -> None:
+        webview = WebviewDialog(self, "/login")
+        webview.show()
+
+    def update_from_state(self, state: AppState) -> None:
+        for k, v in self.ui_map.items():
+            self.group_box_layout.addWidget(v)
+            if k == state["subscription"]:
+                v.show()
+            else:
+                v.hide()
+
+    def _render_loading(self) -> QWidget:
+        print("rendering loading")
+        layout = QVBoxLayout()
+        label = QLabel("Loading...")
+        layout.addWidget(label)
+
+        container = QWidget()
+        container.setLayout(layout)
+        return container
+
+    def _render_start_trial(self) -> QWidget:
         self.start_trial_button = QPushButton("✨ Start Free Trial ✨")
         self.start_trial_button.setStyleSheet(start_trial_style)
         self.start_trial_button.setFont(font_bold)
@@ -127,66 +201,36 @@ class SubscriptionBox(QWidget):
         )
         self.trial_description.setFont(font_bold)
 
-        self.free_trial_layout = QVBoxLayout()
-        self.free_trial_layout.addWidget(self.start_trial_button)
-        self.free_trial_layout.addWidget(self.trial_description)
+        login_link = f"{get_site_url()}/login"
+        login = ClickableLabel(
+            f"<a href={login_link}>Already have an account? Sign in.</>"
+        )
+        login.clicked.connect(self.login_clicked)
+        login.setFont(font_small)
 
-        layout = QVBoxLayout()
-        layout.addWidget(self.container)
-        self.setLayout(layout)
+        free_trial_layout = QVBoxLayout()
+        free_trial_layout.addWidget(self.start_trial_button)
+        free_trial_layout.addWidget(self.trial_description)
+        free_trial_layout.addWidget(login)
+        free_trial_layout.setContentsMargins(24, 24, 24, 24)
+        container = QWidget()
+        container.setLayout(free_trial_layout)
+        return container
 
-        app_state._state.bind(self)
+    def _render_free_trial_active(self) -> QWidget:
+        self.trial_label = QLabel("Status: ✅ Free trial active")
 
-    # Remove widgets on each state update
-    def _teardown_ui(self) -> None:
-        pass
-        # self.substate.hide()
-        # self.start_trial_button.hide()
+        layout = QHBoxLayout()
+        layout.addWidget(self.trial_label, alignment=Qt.AlignmentFlag.AlignLeft)
+        layout.addWidget(
+            self._render_upgrade_now_button(), alignment=Qt.AlignmentFlag.AlignRight
+        )
 
-    def start_free_trial_clicked(self) -> None:
-        webview = WebviewDialog(self)
-        webview.show()
+        container = QWidget()
+        container.setLayout(layout)
+        return container
 
-    def upgrade_now_clicked(self) -> None:
-        webview = WebviewDialog(self, "/upgrade")
-        webview.show()
-
-    def update_from_state(self, state: AppState) -> None:
-        self._teardown_ui()
-        fn_map = {
-            "Loading": self._render_loading,
-            "UNAUTHENTICATED": self._render_start_trial,
-            "NO_SUBSCRIPTION": self._render_start_trial,
-            "FREE_TRIAL_ACTIVE": self._render_free_trial_active,
-            "FREE_TRIAL_EXPIRED": self._render_upgrade_trial,
-            "FREE_TRIAL_CAPACITY": self._render_upgrade_trial,
-            "PAID_PLAN_ACTIVE": self._render_active,
-            "PAID_PLAN_CAPACITY": self._render_paid_capacity,
-            "PAID_PLAN_EXPIRED": self._render_paid_lapsed,
-        }
-        render_fn = fn_map.get(state["subscription"])
-        # Shouldn't happen
-        if not render_fn:
-            return
-        render_fn()
-
-    def _render_loading(self) -> None:
-        print("rendering loading")
-        layout = QVBoxLayout()
-        label = QLabel("Loading...")
-        layout.addWidget(label)
-        self.container.setLayout(layout)
-
-    def _render_start_trial(self) -> None:
-        print("rendering free trial")
-        self.container.setLayout(self.free_trial_layout)
-        # self.start_trial_button.show()
-
-    def _render_free_trial_active(self) -> None:
-        print("rendering free trial active")
-        self.container.setLayout(self.free_trial_active_layout)
-
-    def _render_active(self) -> None:
+    def _render_active(self) -> QWidget:
         layout = QHBoxLayout()
         label = QLabel("✅ Subscription Active")
         manage_link = f"{get_site_url()}/account"
@@ -194,30 +238,49 @@ class SubscriptionBox(QWidget):
         manage_label.setOpenExternalLinks(True)
         layout.addWidget(label, alignment=Qt.AlignmentFlag.AlignLeft)
         layout.addWidget(manage_label, alignment=Qt.AlignmentFlag.AlignRight)
-        # Add spacer
-        self.container.setLayout(layout)
 
-    def _render_upgrade_trial(self) -> None:
+        container = QWidget()
+        container.setLayout(layout)
+
+        return container
+
+    def _render_upgrade_now_button(self) -> QWidget:
+        # Shared by a bunch of the states
+        upgrade_now_button = QPushButton("Upgrade Now")
+        upgrade_now_button.setStyleSheet(upgrade_now_style)
+        upgrade_now_button.setFixedHeight(50)
+        upgrade_now_button.clicked.connect(self.upgrade_now_clicked)
+
+        return upgrade_now_button
+
+    def _render_upgrade_trial(self) -> QWidget:
         layout = QHBoxLayout()
         label = QLabel("🚨 Trial Expired!")
         label.setFont(font_bold)
+
         layout.addWidget(label, alignment=Qt.AlignmentFlag.AlignLeft)
-        layout.addWidget(self.upgrade_now_button, alignment=Qt.AlignmentFlag.AlignRight)
+        layout.addWidget(
+            self._render_upgrade_now_button(), alignment=Qt.AlignmentFlag.AlignRight
+        )
 
-        # Add spacer
-        self.container.setLayout(layout)
+        container = QWidget()
+        container.setLayout(layout)
+        return container
 
-    def _render_paid_capacity(self) -> None:
+    def _render_paid_capacity(self) -> QWidget:
         layout = QHBoxLayout()
         label = QLabel("🚨 You've used up your plan for this month!")
         label.setFont(font_bold)
         layout.addWidget(label, alignment=Qt.AlignmentFlag.AlignLeft)
-        layout.addWidget(self.upgrade_now_button, alignment=Qt.AlignmentFlag.AlignRight)
+        layout.addWidget(
+            self._render_upgrade_now_button(), alignment=Qt.AlignmentFlag.AlignRight
+        )
 
-        # Add spacer
-        self.container.setLayout(layout)
+        container = QWidget()
+        container.setLayout(layout)
+        return container
 
-    def _render_paid_lapsed(self) -> None:
+    def _render_paid_lapsed(self) -> QWidget:
         layout = QHBoxLayout()
         label = QLabel("🚨 There's something wrong with your subscription!")
         label.setFont(font_bold)
@@ -228,4 +291,7 @@ class SubscriptionBox(QWidget):
         layout.addWidget(label, alignment=Qt.AlignmentFlag.AlignLeft)
         layout.addWidget(manage_label, alignment=Qt.AlignmentFlag.AlignRight)
         # Add spacer
-        self.container.setLayout(layout)
+
+        container = QWidget()
+        container.setLayout(layout)
+        return container
