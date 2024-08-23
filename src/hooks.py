@@ -30,6 +30,7 @@ from anki.notes import Note, NoteId
 from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
 from aqt.browser import SidebarItemType
 
+from .app_state import app_state
 from .config import config
 from .logger import logger
 from .message_polling import start_polling_for_messages
@@ -60,6 +61,7 @@ def with_processor(fn):
 
 @with_processor  # type: ignore
 def on_options(processor: Processor):
+    app_state.update_subscription_state()
     dialog = AddonOptionsDialog(processor)
     dialog.exec()
 
@@ -191,6 +193,7 @@ def on_start_actions() -> None:
     migrate_models()
     start_polling_for_messages()
 
+    app_state.update_subscription_state()
     if sentry:
         sentry.configure_scope()
 

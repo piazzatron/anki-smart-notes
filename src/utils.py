@@ -33,13 +33,6 @@ def to_lowercase_dict(d: Dict[str, Any]) -> Dict[str, Any]:
     return {k.lower(): v for k, v in d.items()}
 
 
-def get_note_types() -> List[str]:
-    if not mw or not mw.col:
-        return []
-    models = mw.col.models.all()
-    return [model["name"] for model in models]
-
-
 def get_fields(note_type: str) -> List[str]:
     """Gets the fields of a note type. Returns them sorted in their order on the card"""
     if not mw or not mw.col:

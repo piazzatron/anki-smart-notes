@@ -23,6 +23,9 @@ from .models import ChatModels, ChatProviders
 SERVER_URL_PROD = "https://anki-smart-notes-server-production.up.railway.app"
 SERVER_URL_DEV = "http://localhost:3000"
 
+SITE_URL_PROD = "https://google.com"  # TOOD
+SITE_URL_DEV = "http://localhost:3001"
+
 RETRY_BASE_SECONDS = 5
 MAX_RETRIES = 10
 CHAT_CLIENT_TIMEOUT_SEC = 10
@@ -36,3 +39,7 @@ DEFAULT_TEMPERATURE = 0
 
 def get_server_url() -> str:
     return SERVER_URL_PROD if env.environment == "PROD" else SERVER_URL_DEV
+
+
+def get_site_url() -> str:
+    return SITE_URL_PROD if env.environment == "PROD" else SITE_URL_DEV

@@ -61,3 +61,7 @@ def default_form_layout() -> QFormLayout:
 # UI constants
 font_small = QFont()
 font_small.setPointSize(10)
+
+font_bold = QFont()
+font_bold.setBold(True)
+font_bold.setPointSize(12)
