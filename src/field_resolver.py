@@ -109,6 +109,7 @@ class FieldResolver:
             model=model,
             provider=provider,
             temperature=temperature,
+            note_id=note.id,
         )
 
     async def get_tts_response(
@@ -133,4 +134,5 @@ class FieldResolver:
             provider=provider,
             options=options,
             voice=voice,
+            note_id=note.id,
         )

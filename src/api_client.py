@@ -38,7 +38,7 @@ class APIClient:
         args: Dict[str, Any] = {},
         timeout_sec: Union[int, None] = None,
         retry_count: int = 0,
-        note_id: Union[str, None] = None,
+        note_id: Union[int, None] = None,
         method: Literal["GET", "POST"] = "POST",
     ) -> ClientResponse:
         endpoint = f"{get_server_url()}/api/{path}"
@@ -58,8 +58,8 @@ class APIClient:
 
         headers = {"Authorization": f"Bearer {jwt}", "Content-Type": "application/json"}
 
-        if note_id:
-            headers["Note-ID"] = note_id
+        if note_id is not None:
+            headers["Note-ID"] = f"{note_id}"
 
         fn = self._session.get if method == "GET" else self._session.post
         async with fn(

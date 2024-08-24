@@ -43,6 +43,7 @@ from ..logger import logger
 from ..models import ChatModels, OpenAIModels, openai_chat_models
 from ..processor import Processor
 from ..prompts import get_extras
+from .account_options import AccountOptions
 from .changelog import get_version
 from .chat_options import (
     ChatOptions,
@@ -168,6 +169,7 @@ class AddonOptionsDialog(QDialog):
         tabs.addTab(self.render_chat_tab(), "Chat Models")
         tabs.addTab(self.render_tts_tab(), "TTS Settings")
         tabs.addTab(self.render_plugin_tab(), "Advanced")
+        tabs.addTab(self.render_account_tab(), "Account")
 
         tab_layout = QVBoxLayout()
         tab_layout.addWidget(tabs)
@@ -349,7 +351,11 @@ class AddonOptionsDialog(QDialog):
 
         return plugin_settings_tab
 
+    def render_account_tab(self) -> QWidget:
+        return AccountOptions()
+
     def render_chat_tab(self) -> QWidget:
+        # TODO: this shouldn't depend on self state
         return ChatOptions(self.state)  # type: ignore
 
     def render_tts_tab(self) -> QWidget:

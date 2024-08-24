@@ -32,6 +32,7 @@ class TTSProvider:
         provider: TTSProviders,
         voice: TTSVoices,
         options: Any = {},
+        note_id: int = -1,
     ) -> bytes:
 
         response = await api.get_api_response(
@@ -42,6 +43,7 @@ class TTSProvider:
                 "message": input,
                 "voice": voice,
             },
+            note_id=note_id,
             timeout_sec=TTS_PROVIDER_TIMEOUT_SEC,
         )
         # TODO: write it directly to a temp cache file so they're not all going into memory

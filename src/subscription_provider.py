@@ -17,7 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Literal, TypedDict
+from typing import Literal, TypedDict, Union
 
 from .api_client import api
 
@@ -33,23 +33,31 @@ SubscriptionState = Literal[
 ]
 
 
-# TODO: awfully named lol
-class SubscriptionStatus(TypedDict):
+class PlanInfo(TypedDict):
+    planId: str
+    planName: str
+    notesUsed: Union[int, None]
+    notesLimit: Union[int, None]
+    daysLeft: int
+    tokensUsed: int
+    tokenCapacity: int
+
+
+class UserStatus(TypedDict):
     subscriptionState: SubscriptionState
+    plan: Union[PlanInfo, None]
 
 
-class SubscriptionProvider:
-    async def get_subscription_status(self) -> SubscriptionStatus:
+class UserInfoProvider:
+    async def get_subscription_status(self) -> UserStatus:
         print("makin req")
         response = await api.get_api_response(
             path="user",
             method="GET",
         )
-        print(response)
-        status: SubscriptionStatus = await response.json()
-        print(status)
+        status: UserStatus = await response.json()
 
         return status
 
 
-subscription_provider = SubscriptionProvider()
+subscription_provider = UserInfoProvider()
