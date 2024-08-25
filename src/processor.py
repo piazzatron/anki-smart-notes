@@ -453,6 +453,7 @@ class Processor:
         if new_value:
             node.did_update = True
 
+        print("HI")
         return new_value
 
     def generate_fields_dag(

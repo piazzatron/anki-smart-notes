@@ -19,7 +19,7 @@
 
 from typing import Dict, List, Literal, TypedDict
 
-from aqt import QGroupBox, QWidget
+from aqt import QGroupBox, QLabel, QSpacerItem, QWidget
 
 from ..models import (
     ChatModels,
@@ -30,7 +30,7 @@ from ..models import (
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_spin_box import ReactiveDoubleSpinBox
 from .state_manager import StateManager
-from .ui_utils import default_form_layout
+from .ui_utils import default_form_layout, font_small
 
 ReadableChatProvider = Literal["ChatGPT", "Claude"]
 ReadableChatProviders: List[ReadableChatProvider] = ["ChatGPT", "Claude"]
@@ -94,11 +94,16 @@ class ChatOptions(QWidget):
         advanced_layout = default_form_layout()
         advanced.setLayout(advanced_layout)
         advanced_layout.addRow("Temperature:", self.temperature)
-        # TODO: description of temp
+        temp_desc = QLabel(
+            "Temperature controls the randomness of the chat responses. A higher temperature will result in more creative responses."
+        )
+        temp_desc.setFont(font_small)
+        advanced_layout.addRow(temp_desc)
 
         chat_box.setLayout(chat_form)
         chat_layout = default_form_layout()
         chat_layout.addRow(chat_box)
+        chat_layout.addItem(QSpacerItem(0, 12))
         chat_layout.addRow(advanced)
 
         self.setLayout(chat_layout)
