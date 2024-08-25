@@ -85,19 +85,26 @@ def is_ai_field(current_field_num: int, note: Note) -> Union[str, None]:
     return sorted_fields[current_field_num] if is_ai else None
 
 
-def has_chained_ai_fields(note: Note) -> bool:
+def has_chained_ai_fields(note_type: str) -> bool:
     """Check if a note has any AI fields that depend on other AI fields."""
-    note_type = get_note_type(note)
+    return bool(get_chained_ai_fields(note_type))
+
+
+def get_chained_ai_fields(note_type: str) -> set[str]:
+    """Check if a note has any AI fields that depend on other AI fields."""
+    res: set[str] = set()
     prompts = get_prompts(to_lower=True).get(note_type, None)
 
     if not prompts:
-        return False
+        return res
 
     for field, prompt in prompts.items():
-        other_fields = prompts.keys() - {field.lower()}
-        refers_to = get_prompt_fields(prompt)
+        smart_fields = prompts.keys() - {field.lower()}
+        input_fields = get_prompt_fields(prompt)
 
-        if any(field in other_fields for field in refers_to):
-            return True
+        for input_field in input_fields:
+            if input_field in smart_fields:
+                res.add(field)
+                break
 
-    return False
+    return res

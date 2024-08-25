@@ -86,11 +86,11 @@ class APIClient:
                         method=method,
                     )
 
+            logger.debug(f"Got response from {path}: {response.status}")
             if response.status == 400:
                 json = await response.json()
                 logger.error(json)
                 raise Exception(f"Validation error: {json['error']}")
-
             response.raise_for_status()
 
             # Read it all into memory

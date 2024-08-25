@@ -30,7 +30,7 @@ from anki.notes import Note, NoteId
 from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
 from aqt.browser import SidebarItemType
 
-from .app_state import app_state
+from .app_state import app_state, is_app_unlocked_or_legacy
 from .config import config
 from .logger import logger
 from .message_polling import start_polling_for_messages
@@ -42,7 +42,7 @@ from .ui.addon_options_dialog import AddonOptionsDialog
 from .ui.changelog import perform_update_check
 from .ui.sparkle import Sparkle
 from .ui.ui_utils import show_message_box
-from .utils import bump_usage_counter, check_for_api_key
+from .utils import bump_usage_counter
 
 
 def with_processor(fn):
@@ -71,7 +71,7 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
 
     @with_sentry
     def fn(editor: editor.Editor):
-        if not check_for_api_key():
+        if not is_app_unlocked_or_legacy(show_box=True):
             return
 
         note = editor.note
@@ -171,13 +171,17 @@ def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMe
 
     notes = browser.selected_notes()
 
-    item.triggered.connect(
-        lambda: processor.process_notes_with_progress(
+    def wrapped():
+        if not is_app_unlocked_or_legacy(show_box=True):
+            return
+
+        processor.process_notes_with_progress(
             notes,
             on_success=on_batch_success,
             overwrite_fields=config.regenerate_notes_when_batching,
         )
-    )
+
+    item.triggered.connect(wrapped)
 
 
 # TODO: where does this go now?
@@ -233,18 +237,22 @@ def on_editor_context(
     def on_success(_: bool):
         editor.loadNote()
 
-    item.triggered.connect(
-        lambda: processor.process_note(
+    def wrapped():
+        if not is_app_unlocked_or_legacy(show_box=True):
+            return
+
+        processor.process_note(
             note, overwrite_fields=False, target_field=ai_field, on_success=on_success
         )
-    )
+
+    item.triggered.connect(wrapped)
     menu.addAction(item)
 
 
 @with_processor  # type: ignore
 def on_review(processor: Processor, card: Card):
     logger.debug("Reviewing...")
-    if not check_for_api_key(show_box=False):
+    if not is_app_unlocked_or_legacy(show_box=False):
         return
 
     if not config.generate_at_review:
@@ -296,11 +304,16 @@ def add_deck_option(
     menu.addSeparator()
     menu.addAction(item)
 
-    item.triggered.connect(
-        lambda: processor.process_notes_with_progress(
-            notes, on_success=on_batch_success
+    def wrapped():
+        if not is_app_unlocked_or_legacy(show_box=True):
+            return
+
+        processor.process_notes_with_progress(
+            notes,
+            on_success=on_batch_success,
         )
-    )
+
+    item.triggered.connect(wrapped)
 
 
 @with_sentry

@@ -72,7 +72,6 @@ class Config:
     prompts_map: PromptMap
     generate_at_review: bool
     times_used: int
-    did_show_rate_dialog: bool
     last_seen_version: Union[str, None]
     uuid: Union[str, None]
     openai_endpoint: Union[str, None]
@@ -82,6 +81,7 @@ class Config:
     debug: bool
     auth_token: Union[str, None]
     legacy_support: Union[bool, None]
+
     # Chat
     chat_provider: ChatProviders
     chat_model: ChatModels
@@ -90,6 +90,10 @@ class Config:
     # TTS
     tts_provider: TTSProviders
     tts_voice: TTSVoices
+
+    # Dialogs
+    did_show_chained_error_dialog: bool
+    did_show_rate_dialog: bool
 
     # Deprecated fields:
     # openai_model: OpenAIModels

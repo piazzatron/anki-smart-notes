@@ -19,5 +19,6 @@
   "last_message_id": 0,
   "debug": false,
   "auth_token": null,
-  "legacy_support": null
+  "legacy_support": null,
+  "did_show_chained_error_dialog": false
 }

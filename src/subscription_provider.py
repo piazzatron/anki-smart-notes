@@ -22,6 +22,7 @@ from typing import Literal, TypedDict, Union
 from .api_client import api
 
 SubscriptionState = Literal[
+    "LOADING",
     "UNAUTHENTICATED",  # This is not returned, jic there's no JWT
     "NO_SUBSCRIPTION",
     "FREE_TRIAL_ACTIVE",
@@ -50,7 +51,6 @@ class UserStatus(TypedDict):
 
 class UserInfoProvider:
     async def get_subscription_status(self) -> UserStatus:
-        print("makin req")
         response = await api.get_api_response(
             path="user",
             method="GET",

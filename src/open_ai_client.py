@@ -29,6 +29,7 @@ from .constants import (
     RETRY_BASE_SECONDS,
 )
 from .logger import logger
+from .models import openai_chat_models
 
 OPENAI_ENDPOINT = "https://api.openai.com"
 
@@ -44,8 +45,15 @@ class OpenAIClient:
     ) -> str:
         """Gets a chat response from OpenAI's chat API. This method can throw; the caller should handle with care."""
         endpoint = f"{config.openai_endpoint or OPENAI_ENDPOINT}/v1/chat/completions"
+
+        # Extra defensive: ensure that the chat model is valid
+        chat_model = config.chat_model
+        if chat_model not in openai_chat_models:
+            logger.error(f"Unexpected non-openAI chat model: {chat_model}")
+            chat_model = "gpt-4o-mini"
+
         logger.debug(
-            f"OpenAI: hitting {endpoint} model: {config.openai_model} retries {retry_count} for prompt: {prompt}"
+            f"OpenAI: hitting {endpoint} model: {chat_model} retries {retry_count} for prompt: {prompt}"
         )
         async with aiohttp.ClientSession(timeout=timeout) as session:
             async with session.post(
@@ -54,7 +62,7 @@ class OpenAIClient:
                     "Authorization": f"Bearer {config.openai_api_key}",
                 },
                 json={
-                    "model": config.openai_model,
+                    "model": chat_model,
                     "messages": [{"role": "user", "content": prompt}],
                     "temperature": temperature,
                 },
@@ -75,4 +83,5 @@ class OpenAIClient:
                 response.raise_for_status()
                 resp = await response.json()
                 msg: str = resp["choices"][0]["message"]["content"]
+                logger.debug(f"Got response from OpenAI: {msg}")
                 return msg

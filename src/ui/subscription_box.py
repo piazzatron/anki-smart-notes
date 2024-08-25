@@ -20,6 +20,7 @@
 from typing import Literal, TypedDict
 
 from aqt import (
+    QComboBox,
     QGroupBox,
     QHBoxLayout,
     QLabel,
@@ -136,26 +137,26 @@ class SubscriptionBox(QWidget):
             v.hide()
 
         # Helpful combo picker to try out different states
-        # combo_picker = QComboBox()
-        # combo_picker.addItems(
-        #     [
-        #         "Loading",
-        #         "UNAUTHENTICATED",
-        #         "NO_SUBSCRIPTION",
-        #         "FREE_TRIAL_ACTIVE",
-        #         "FREE_TRIAL_EXPIRED",
-        #         "FREE_TRIAL_CAPACITY",
-        #         "PAID_PLAN_ACTIVE",
-        #         "PAID_PLAN_CAPACITY",
-        #         "PAID_PLAN_EXPIRED",
-        #     ]
-        # )
-        # combo_picker.currentIndexChanged.connect(
-        #     lambda _: app_state._state.update(
-        #         {"subscription": combo_picker.currentText()}
-        #     )
-        # )
-        # layout.addWidget(combo_picker)
+        combo_picker = QComboBox()
+        combo_picker.addItems(
+            [
+                "Loading",
+                "UNAUTHENTICATED",
+                "NO_SUBSCRIPTION",
+                "FREE_TRIAL_ACTIVE",
+                "FREE_TRIAL_EXPIRED",
+                "FREE_TRIAL_CAPACITY",
+                "PAID_PLAN_ACTIVE",
+                "PAID_PLAN_CAPACITY",
+                "PAID_PLAN_EXPIRED",
+            ]
+        )
+        combo_picker.currentIndexChanged.connect(
+            lambda _: app_state._state.update(
+                {"subscription": combo_picker.currentText()}
+            )
+        )
+        layout.addWidget(combo_picker)
         app_state._state.bind(self)
 
     def start_free_trial_clicked(self) -> None:
@@ -179,7 +180,6 @@ class SubscriptionBox(QWidget):
                 v.hide()
 
     def _render_loading(self) -> QWidget:
-        print("rendering loading")
         layout = QVBoxLayout()
         label = QLabel("Loading...")
         layout.addWidget(label)

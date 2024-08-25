@@ -24,16 +24,23 @@ import aiohttp
 from anki.notes import Note, NoteId
 from aqt import mw
 
+from .app_state import (
+    app_state,
+    has_api_key,
+    is_app_unlocked,
+    is_app_unlocked_or_legacy,
+)
 from .config import Config
+from .constants import CHAINED_FIELDS_SKIPPED_ERROR
 from .field_resolver import FieldResolver
 from .logger import logger
 from .models import ChatModels, ChatProviders
 from .nodes import ChatPayload, FieldNode, TTSPayload
-from .notes import get_note_type
+from .notes import get_note_type, get_note_types, has_chained_ai_fields
 from .prompts import get_extras, get_prompt_fields, get_prompts
 from .sentry import run_async_in_background_with_sentry
 from .ui.ui_utils import show_message_box
-from .utils import bump_usage_counter, check_for_api_key, get_fields, run_on_main
+from .utils import bump_usage_counter, get_fields, run_on_main
 
 # OPEN_AI rate limits
 NEW_OPEN_AI_MODEL_REQ_PER_MIN = 500
@@ -60,12 +67,12 @@ class Processor:
 
         bump_usage_counter()
 
-        if not self._ensure_no_req_in_progress():
+        if not self._assert_preconditions():
             return
 
         logger.debug("Processing notes...")
 
-        if not check_for_api_key(self.config):
+        if not is_app_unlocked_or_legacy(show_box=False):
             return
 
         def wrapped_on_success(res: Tuple[List[Note], List[Note]]) -> None:
@@ -73,15 +80,16 @@ class Processor:
             if not mw:
                 return
             mw.col.update_notes(updated)
-            self._reqlinquish_req_in_progress()
+            self._reqlinquish_req_in_process()
             if on_success:
                 on_success(updated, failed)
 
         def on_failure(e: Exception) -> None:
-            self._reqlinquish_req_in_progress()
+            self._reqlinquish_req_in_process()
             show_message_box(f"Error: {e}")
 
-        model = self.config.openai_model
+        # TODO: no longer works
+        model = self.config.chat_model
         limit = (
             OLD_OPEN_AI_MODEL_REQ_PER_MIN
             if model == "gpt-4o-mini"
@@ -227,16 +235,16 @@ class Processor:
         on_field_update: Union[Callable[[], None], None] = None,
     ):
         """Process a single note, filling in fields with prompts from the user"""
-        if not self._ensure_no_req_in_progress():
+        if not self._assert_preconditions():
             return
 
         def wrapped_on_success(updated: bool) -> None:
-            self._reqlinquish_req_in_progress()
+            self._reqlinquish_req_in_process()
             on_success(updated)
 
         def wrapped_failure(e: Exception) -> None:
             self._handle_failure(e)
-            self._reqlinquish_req_in_progress()
+            self._reqlinquish_req_in_process()
             if on_failure:
                 on_failure(e)
 
@@ -314,20 +322,53 @@ class Processor:
         return did_update
 
     def _handle_failure(self, e: Exception) -> None:
-        failure_map = {
+        logger.debug("Handling failure")
+
+        openai_failure_map = {
             401: "Smart Notes Error: OpenAI returned 401, meaning there's an issue with your API key.",
             404: "Smart Notes Error: OpenAI returned 404 - did you pay for an API key? Paying for ChatGPT premium alone will not work (this is an OpenAI limitation).",
             429: "Smart Notes error: OpenAI rate limit exceeded. Ensure you have a paid API key (this plugin will not work with free API tier). Wait a few minutes and try again.",
         }
 
         if isinstance(e, aiohttp.ClientResponseError):
-            if e.status in failure_map:
-                show_message_box(failure_map[e.status])
+            status = e.status
+            logger.debug(f"Got status: {status}")
+            unknown_error = f"Smart Notes Error: Unknown error: {e}"
+
+            # First time we see a 4xx error, update subscription state
+            if is_app_unlocked():
+                logger.debug(f"Got API error: {e}")
+                if status >= 400 and status < 500:
+                    logger.debug(
+                        "Saw 4xx error, something wrong with some subscription"
+                    )
+                    app_state.update_subscription_state()
+                    return
+                else:
+                    logger.error(f"Got 500 error: {e}")
+                    show_message_box(unknown_error)
+            elif has_api_key():
+                if status in openai_failure_map:
+                    show_message_box(openai_failure_map[status])
+                else:
+                    show_message_box(unknown_error)
+            else:
+                # Shouldn't get here
+                logger.error(f"Got 4xx error but app is locked & no API key")
+                show_message_box(unknown_error)
         else:
-            logger.error(e)
+            logger.error(f"Got non-HTTP error: {e}")
             show_message_box(f"Smart Notes Error: Unknown error: {e}")
 
-    def _ensure_no_req_in_progress(self) -> bool:
+    def _assert_preconditions(self) -> bool:
+        valid_app_mode = self._assert_valid_app_mode()
+        if not valid_app_mode:
+            logger.error("Invalid app mode")
+            return False
+        no_existing_req = self.assert_no_req_in_process()
+        return no_existing_req
+
+    def assert_no_req_in_process(self) -> bool:
         if self.req_in_progress:
             logger.info("A request is already in progress.")
             return False
@@ -335,8 +376,28 @@ class Processor:
         self.req_in_progress = True
         return True
 
-    def _reqlinquish_req_in_progress(self) -> None:
+    def _reqlinquish_req_in_process(self) -> None:
         self.req_in_progress = False
+
+    def _assert_valid_app_mode(self) -> bool:
+        """For now, checks that if the app is locked, there are no chained smart fields"""
+        # This should be blocked before here, but JIC
+        if is_app_unlocked():
+            return True
+
+        # Check for chained smart fields
+        if has_api_key():
+            all_note_types = get_note_types()
+            has_chained_fields = any(
+                has_chained_ai_fields(note_type) for note_type in all_note_types
+            )
+            logger.debug(f"Has chained fields: {has_chained_fields}")
+            if has_chained_fields and not self.config.did_show_chained_error_dialog:
+                show_message_box(CHAINED_FIELDS_SKIPPED_ERROR)
+                self.config.did_show_chained_error_dialog = True
+            return True
+
+        return False
 
     def get_chat_response(
         self,
@@ -348,19 +409,20 @@ class Processor:
         on_failure: Union[Callable[[Exception], None], None] = None,
     ):
 
-        if not self._ensure_no_req_in_progress():
+        if not self._assert_preconditions():
             return
 
         def wrapped_on_success(response: str) -> None:
-            self._reqlinquish_req_in_progress()
+            self._reqlinquish_req_in_process()
             on_success(response)
 
         def wrapped_on_failure(e: Exception) -> None:
             self._handle_failure(e)
-            self._reqlinquish_req_in_progress()
+            self._reqlinquish_req_in_process()
             if on_failure:
                 on_failure(e)
 
+        # TODO: needs field_upper
         chat_fn = lambda: self.field_resolver.get_chat_response(
             prompt=prompt, note=note, model=model, provider=provider
         )
