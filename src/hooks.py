@@ -241,7 +241,7 @@ def on_editor_context(
         if not is_app_unlocked_or_legacy(show_box=True):
             return
 
-        lambda: processor.process_note(
+        processor.process_note(
             note, overwrite_fields=False, target_field=ai_field, on_success=on_success
         )
 
