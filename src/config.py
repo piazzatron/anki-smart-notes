@@ -81,6 +81,7 @@ class Config:
     debug: bool
     auth_token: Union[str, None]
     legacy_support: Union[bool, None]
+
     # Chat
     chat_provider: ChatProviders
     chat_model: ChatModels
