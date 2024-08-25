@@ -43,18 +43,12 @@ from ..app_state import AppState, app_state, is_app_unlocked
 from ..config import PromptMap, config
 from ..constants import UNPAID_PROVIDER_ERROR
 from ..logger import logger
-from ..models import ChatModels, OpenAIModels, openai_chat_models
+from ..models import ChatModels, ChatProviders, OpenAIModels, openai_chat_models
 from ..processor import Processor
 from ..prompts import get_extras
 from .account_options import AccountOptions
 from .changelog import get_version
-from .chat_options import (
-    ChatOptions,
-    ReadableChatProvider,
-    chat_provider_to_ui_map,
-    chat_ui_to_provider_map,
-    provider_model_map,
-)
+from .chat_options import ChatOptions, provider_model_map
 from .prompt_dialog import PromptDialog
 from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
@@ -80,16 +74,11 @@ class State(TTSState):
     debug: bool
 
     # Chat Options
-    chat_provider: ReadableChatProvider
-    chat_providers: List[ReadableChatProvider]
+    chat_provider: ChatProviders
+    chat_providers: List[ChatProviders]
     chat_models: List[ChatModels]
     chat_model: ChatModels
     chat_temperature: int
-
-
-config_transforms = {
-    "chat_provider": lambda x: chat_ui_to_provider_map[x],
-}
 
 
 class AddonOptionsDialog(QDialog):
@@ -477,7 +466,7 @@ class AddonOptionsDialog(QDialog):
         is_unlocked = is_app_unlocked()
 
         if not is_unlocked:
-            if self.state.s["chat_provider"] != "ChatGPT":
+            if self.state.s["chat_provider"] != "openai":
                 show_message_box(UNPAID_PROVIDER_ERROR)
                 return
 
@@ -487,9 +476,6 @@ class AddonOptionsDialog(QDialog):
         for k, v in [
             item for item in self.state.s.items() if item[0] in valid_config_attrs
         ]:
-            transform = config_transforms.get(k)
-            if transform:
-                v = transform(v)  # type: ignore
             config.__setattr__(k, v)
             logger.debug(f"Setting {k} to {v}")
 
@@ -517,7 +503,7 @@ class AddonOptionsDialog(QDialog):
             "allow_empty_fields": config.allow_empty_fields,
             "debug": config.debug,
             # Chat
-            "chat_provider": chat_provider_to_ui_map[config.chat_provider],
+            "chat_provider": config.chat_provider,
             "chat_providers": ["ChatGPT", "Claude"],
             "chat_model": config.chat_model,
             "chat_models": provider_model_map[config.chat_provider],

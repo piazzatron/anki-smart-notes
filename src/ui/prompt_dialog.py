@@ -42,7 +42,7 @@ from ..app_state import is_app_unlocked
 from ..config import FieldExtras, PromptMap, config
 from ..constants import UNPAID_PROVIDER_ERROR
 from ..logger import logger
-from ..models import ChatModels
+from ..models import ChatModels, ChatProviders
 from ..notes import get_note_types
 from ..processor import Processor
 from ..prompts import (
@@ -53,14 +53,7 @@ from ..prompts import (
     prompt_has_error,
 )
 from ..utils import get_fields, to_lowercase_dict
-from .chat_options import (
-    ChatOptions,
-    ReadableChatProvider,
-    chat_provider_to_ui_map,
-    chat_ui_to_provider_map,
-    default_form_layout,
-    provider_model_map,
-)
+from .chat_options import ChatOptions, default_form_layout, provider_model_map
 from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_edit_text import ReactiveEditText
@@ -86,8 +79,8 @@ class State(TypedDict):
     selected_note_field: str
     is_loading_prompt: bool
     generate_manually: bool
-    chat_provider: ReadableChatProvider
-    chat_providers: List[ReadableChatProvider]
+    chat_provider: ChatProviders
+    chat_providers: List[ChatProviders]
     chat_models: List[ChatModels]
     chat_model: ChatModels
     chat_temperature: int
@@ -104,7 +97,7 @@ class PartialState(TypedDict):
 
 
 class PerFieldSettings(TypedDict):
-    chat_provider: ReadableChatProvider
+    chat_provider: ChatProviders
     chat_model: ChatModels
     chat_temperature: int
     use_custom_model: bool
@@ -193,11 +186,12 @@ class PromptDialog(QDialog):
             # other
             "is_loading_prompt": False,
             "generate_manually": not automatic,
-            "chat_providers": ["ChatGPT", "Claude"],
-            "chat_models": provider_model_map[
-                chat_ui_to_provider_map[per_field_settings["chat_provider"]]
-                or config.chat_provider
-            ],
+            "chat_providers": ["openai", "anthropic"],
+            "chat_models": (
+                provider_model_map[
+                    per_field_settings["chat_provider"] or config.chat_provider
+                ]
+            ),
             **per_field_settings,
         }
         self.state = StateManager[State](initial_state)
@@ -228,9 +222,7 @@ class PromptDialog(QDialog):
         )
 
         return {
-            "chat_provider": chat_provider_to_ui_map[
-                extras.get("chat_provider") or config.chat_provider
-            ],
+            "chat_provider": extras.get("chat_provider") or config.chat_provider,
             "chat_model": extras.get("chat_model") or config.chat_model,
             "chat_temperature": extras.get("chat_temperature")
             or config.chat_temperature,
