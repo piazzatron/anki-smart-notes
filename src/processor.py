@@ -83,7 +83,8 @@ class Processor:
             self._reqlinquish_req_in_process()
             show_message_box(f"Error: {e}")
 
-        model = self.config.openai_model
+        # TODO: no longer works
+        model = self.config.chat_model
         limit = (
             OLD_OPEN_AI_MODEL_REQ_PER_MIN
             if model == "gpt-4o-mini"
@@ -358,8 +359,9 @@ class Processor:
                 has_chained_ai_fields(note_type) for note_type in all_note_types
             )
             logger.debug(f"Has chained fields: {has_chained_fields}")
-            if has_chained_fields:
+            if has_chained_fields and not self.config.did_show_chained_error_dialog:
                 show_message_box(CHAINED_FIELDS_SKIPPED_ERROR)
+                self.config.did_show_chained_error_dialog = True
             return True
 
         return False

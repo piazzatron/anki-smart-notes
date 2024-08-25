@@ -134,6 +134,13 @@ class AppStateManager:
         error_message = (
             error_map.get(plan_type, {}).get(is_capacity, {}).get(is_api_key, None)
         )
+
+        if config.chat_provider == "anthropic":
+            logger.debug("Migrating ot OpenAI chat provider")
+            config.chat_provider = "openai"
+            config.chat_model = "gpt-4o-mini"
+
+        # TODO: need to migrate you from claude to chatgpt if necessary
         if not error_message:
             logger.error(
                 f"Unexpectedly couldnt find error for {plan_type}, {is_capacity}, {is_api_key}"
