@@ -75,4 +75,5 @@ class OpenAIClient:
                 response.raise_for_status()
                 resp = await response.json()
                 msg: str = resp["choices"][0]["message"]["content"]
+                logger.debug(f"Got response from OpenAI: {msg}")
                 return msg

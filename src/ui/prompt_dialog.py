@@ -38,7 +38,9 @@ from aqt import (
 )
 from PyQt6.QtCore import Qt
 
+from ..app_state import is_app_unlocked
 from ..config import FieldExtras, PromptMap, config
+from ..constants import UNPAID_PROVIDER_ERROR
 from ..logger import logger
 from ..models import ChatModels
 from ..notes import get_note_types
@@ -585,6 +587,14 @@ class PromptDialog(QDialog):
         logger.debug(
             f"Trying to set prompt for {selected_card_type}, {selected_field}, {prompt}"
         )
+
+        if not is_app_unlocked():
+            if (
+                self.state.s["use_custom_model"]
+                and self.state.s["chat_provider"] != "ChatGPT"
+            ):
+                show_message_box(UNPAID_PROVIDER_ERROR)
+                return
 
         is_automatic = not self.state.s["generate_manually"]
 

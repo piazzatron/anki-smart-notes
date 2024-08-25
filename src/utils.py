@@ -25,7 +25,6 @@ from aqt import mw
 from ..env import environment
 from .config import config
 from .ui.rate_dialog import RateDialog
-from .ui.ui_utils import show_message_box
 
 
 def to_lowercase_dict(d: Dict[str, Any]) -> Dict[str, Any]:
@@ -46,15 +45,6 @@ def get_fields(note_type: str) -> List[str]:
         return []
 
     return [field["name"] for field in sorted(model["flds"], key=lambda x: x["ord"])]
-
-
-def check_for_api_key(show_box=True) -> bool:
-    if not config.openai_api_key:
-        if show_box:
-            message = "No OpenAI API key found. Please enter your API key in the options menu."
-            show_message_box(message)
-        return False
-    return True
 
 
 USES_BEFORE_RATE_DIALOG = 10
@@ -97,13 +87,3 @@ def run_in_background(work: Callable[[], None]) -> None:
 
 def is_production() -> bool:
     return environment == "PROD"
-
-
-# Modes
-
-# TODO:
-# Need some payment stuff (free tier, paid, expired, etc)
-
-
-def is_legacy_open_ai() -> bool:
-    return bool(config.openai_api_key and not config.auth_token)

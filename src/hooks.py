@@ -30,7 +30,7 @@ from anki.notes import Note, NoteId
 from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
 from aqt.browser import SidebarItemType
 
-from .app_state import app_state
+from .app_state import app_state, is_app_unlocked_or_legacy
 from .config import config
 from .logger import logger
 from .message_polling import start_polling_for_messages
@@ -42,7 +42,7 @@ from .ui.addon_options_dialog import AddonOptionsDialog
 from .ui.changelog import perform_update_check
 from .ui.sparkle import Sparkle
 from .ui.ui_utils import show_message_box
-from .utils import bump_usage_counter, check_for_api_key
+from .utils import bump_usage_counter
 
 
 def with_processor(fn):
@@ -71,7 +71,7 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
 
     @with_sentry
     def fn(editor: editor.Editor):
-        if not check_for_api_key():
+        if not is_app_unlocked_or_legacy(show_box=True):
             return
 
         note = editor.note
@@ -244,7 +244,7 @@ def on_editor_context(
 @with_processor  # type: ignore
 def on_review(processor: Processor, card: Card):
     logger.debug("Reviewing...")
-    if not check_for_api_key(show_box=False):
+    if not is_app_unlocked_or_legacy(show_box=False):
         return
 
     if not config.generate_at_review:

@@ -22,16 +22,16 @@ from typing import Any, Union
 from anki.notes import Note
 from aqt import mw
 
+from .app_state import has_api_key, is_app_unlocked
 from .chat_provider import ChatProvider
 from .constants import DEFAULT_TEMPERATURE
 from .logger import logger
 from .models import ChatModels, ChatProviders, TTSModels, TTSProviders, TTSVoices
 from .nodes import ChatPayload, FieldNode, TTSPayload
-from .notes import get_note_type
+from .notes import get_chained_ai_fields, get_note_type
 from .open_ai_client import OpenAIClient
 from .prompts import interpolate_prompt
 from .tts_provider import TTSProvider
-from .utils import is_legacy_open_ai
 
 
 class FieldResolver:
@@ -50,6 +50,10 @@ class FieldResolver:
         payload = node.payload
 
         if isinstance(payload, TTSPayload):
+            if not is_app_unlocked():
+                logger.debug("Skipping TTS field for locked app")
+                return None
+
             if not mw:
                 return None
             media = mw.col.media
@@ -79,6 +83,7 @@ class FieldResolver:
                 model=payload.model,
                 provider=payload.provider,
                 temperature=payload.temperature,
+                field_lower=node.field,
             )
 
         else:
@@ -91,6 +96,7 @@ class FieldResolver:
         prompt: str,
         model: ChatModels,
         provider: ChatProviders,
+        field_lower: str,
         temperature: int = DEFAULT_TEMPERATURE,
     ) -> Union[str, None]:
 
@@ -99,18 +105,28 @@ class FieldResolver:
         if not interpolated_prompt:
             return None
 
-        if is_legacy_open_ai():
+        if is_app_unlocked():
+            return await self.chat_provider.async_get_chat_response(
+                interpolated_prompt,
+                model=model,
+                provider=provider,
+                temperature=temperature,
+                note_id=note.id,
+            )
+        elif has_api_key():
+            logger.debug("On legacy path....")
+            # Check that this isn't a chained smart field
+            chained_fields = get_chained_ai_fields(get_note_type(note))
+            logger.debug(f"Chained fields: {chained_fields}")
+            if field_lower in chained_fields:
+                logger.debug(f"Skipping chained field: ${field_lower}")
+                return None
+
             return await self.openai_provider.async_get_chat_response(
                 interpolated_prompt, temperature=temperature, retry_count=0
             )
 
-        return await self.chat_provider.async_get_chat_response(
-            interpolated_prompt,
-            model=model,
-            provider=provider,
-            temperature=temperature,
-            note_id=note.id,
-        )
+        return None
 
     async def get_tts_response(
         self,

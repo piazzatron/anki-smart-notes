@@ -38,7 +38,9 @@ from aqt import (
 )
 from PyQt6.QtCore import Qt
 
+from ..app_state import AppState, app_state, is_app_unlocked
 from ..config import PromptMap, config
+from ..constants import UNPAID_PROVIDER_ERROR
 from ..logger import logger
 from ..models import ChatModels, OpenAIModels, openai_chat_models
 from ..processor import Processor
@@ -103,6 +105,7 @@ class AddonOptionsDialog(QDialog):
         self.processor = processor
         self.state = StateManager[State](self.make_initial_state())
         self.setup_ui()
+        app_state._state.bind(self)
 
     def setup_ui(self) -> None:
         self.setWindowTitle("Smart Notes ✨")
@@ -119,8 +122,8 @@ class AddonOptionsDialog(QDialog):
         table_buttons = QHBoxLayout()
         add_button = QPushButton("Add Text Field")
         add_button.clicked.connect(lambda _: self.on_add(False))
-        voice_button = QPushButton("Add Voice Field")
-        voice_button.clicked.connect(lambda _: self.on_add(True))
+        self.voice_button = QPushButton("Add Voice Field")
+        self.voice_button.clicked.connect(lambda _: self.on_add(True))
         self.remove_button = QPushButton("Remove")
         self.edit_button = QPushButton("Edit")
         self.edit_button.clicked.connect(self.on_edit)
@@ -128,7 +131,7 @@ class AddonOptionsDialog(QDialog):
         table_buttons.addWidget(self.edit_button, 1)
         self.remove_button.clicked.connect(self.on_remove)
         table_buttons.addWidget(add_button, 2, Qt.AlignmentFlag.AlignRight)
-        table_buttons.addWidget(voice_button, 2, Qt.AlignmentFlag.AlignRight)
+        table_buttons.addWidget(self.voice_button, 2, Qt.AlignmentFlag.AlignRight)
 
         standard_buttons = QDialogButtonBox(
             QDialogButtonBox.StandardButton.Cancel | QDialogButtonBox.StandardButton.Ok
@@ -167,7 +170,9 @@ class AddonOptionsDialog(QDialog):
         general_tab.setLayout(layout)
         tabs.addTab(general_tab, "General")
         tabs.addTab(self.render_chat_tab(), "Chat Models")
-        tabs.addTab(self.render_tts_tab(), "TTS Settings")
+        # Store a ref so we can enable/disable it
+        self.tts_tab = self.render_tts_tab()
+        tabs.addTab(self.tts_tab, "TTS Settings")
         tabs.addTab(self.render_plugin_tab(), "Advanced")
         tabs.addTab(self.render_account_tab(), "Account")
 
@@ -431,6 +436,13 @@ class AddonOptionsDialog(QDialog):
         if prompt_dialog.exec() == QDialog.DialogCode.Accepted:
             self.render_table()
 
+    # When appstate updates
+    def update_from_state(self, _: AppState) -> None:
+        logger.debug("Updating with new AppState")
+        is_unlocked = is_app_unlocked()
+        self.voice_button.setEnabled(is_unlocked)
+        self.tts_tab.setEnabled(is_unlocked)
+
     def on_remove(self):
         row = self.state.s["selected_row"]
         if row is None:
@@ -454,6 +466,13 @@ class AddonOptionsDialog(QDialog):
         if config.openai_endpoint and not is_valid_url(config.openai_endpoint):
             show_message_box("Invalid OpenAI Host", "Please provide a valid URL.")
             return
+
+        is_unlocked = is_app_unlocked()
+
+        if not is_unlocked:
+            if self.state.s["chat_provider"] != "ChatGPT":
+                show_message_box(UNPAID_PROVIDER_ERROR)
+                return
 
         valid_config_attrs = config.__annotations__.keys()
 

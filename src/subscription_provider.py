@@ -22,6 +22,7 @@ from typing import Literal, TypedDict, Union
 from .api_client import api
 
 SubscriptionState = Literal[
+    "LOADING",
     "UNAUTHENTICATED",  # This is not returned, jic there's no JWT
     "NO_SUBSCRIPTION",
     "FREE_TRIAL_ACTIVE",
