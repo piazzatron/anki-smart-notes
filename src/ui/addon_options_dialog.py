@@ -164,7 +164,7 @@ class AddonOptionsDialog(QDialog):
         general_tab = QWidget()
         general_tab.setLayout(layout)
         tabs.addTab(general_tab, "General")
-        tabs.addTab(self.render_chat_tab(), "Text Fields")
+        tabs.addTab(self.render_chat_tab(), "Language Model")
         # Store a ref so we can enable/disable it
         self.tts_tab = self.render_tts_tab()
         tabs.addTab(self.tts_tab, "TTS Fields")
@@ -359,7 +359,9 @@ class AddonOptionsDialog(QDialog):
 
     def render_chat_tab(self) -> QWidget:
         # TODO: this shouldn't depend on self state
-        return ChatOptions(self.state)  # type: ignore
+        options = ChatOptions(self.state)  # type: ignore
+        options.setContentsMargins(24, 24, 24, 24)
+        return options
 
     def render_tts_tab(self) -> QWidget:
         return TTSOptions()  # type: ignore

@@ -24,6 +24,7 @@ from aqt import (
     QDialog,
     QDialogButtonBox,
     QGroupBox,
+    QHBoxLayout,
     QLabel,
     QPushButton,
     QSizePolicy,
@@ -59,7 +60,7 @@ from .reactive_combo_box import ReactiveComboBox
 from .reactive_edit_text import ReactiveEditText
 from .state_manager import StateManager
 from .tts_options import TTSOptions
-from .ui_utils import font_small, show_message_box
+from .ui_utils import font_bold, font_small, show_message_box
 
 explanation = """Write a "prompt" to help the chat model generate your target smart field.
 
@@ -252,6 +253,7 @@ class PromptDialog(QDialog):
             self.state, "note_types", "selected_note_type"
         )
         card_label = QLabel("Card Type")
+        card_label.setFont(font_bold)
         layout.addWidget(card_label)
         layout.addWidget(self.card_combo_box)
 
@@ -261,6 +263,7 @@ class PromptDialog(QDialog):
             )
             self.tts_source_combo_box.onChange.connect(self.on_source_changed)
             source_label = QLabel("Source Field")
+            source_label.setFont(font_bold)
             layout.addWidget(source_label)
             layout.addWidget(self.tts_source_combo_box)
 
@@ -268,6 +271,7 @@ class PromptDialog(QDialog):
             self.state, "note_fields", "selected_note_field"
         )
         field_label = QLabel("Target Field")
+        field_label.setFont(font_bold)
         layout.addWidget(field_label)
         layout.addWidget(self.field_combo_box)
 
@@ -337,10 +341,17 @@ class PromptDialog(QDialog):
             lambda checked: self.state.update({"use_custom_model": checked})
         )
         self.state.state_changed.connect(self.on_state_update)
-        models_layout.addRow("Override Default Model", self.custom_model)
+        override_box = QWidget()
+        override_layout = QHBoxLayout()
+        override_layout.setContentsMargins(0, 0, 0, 0)
+        override_box.setLayout(override_layout)
+        override_layout.addWidget(QLabel("Override Default Model"))
+        override_layout.addWidget(self.custom_model)
+        models_layout.addWidget(override_box)
         models_layout.addWidget(self.model_options)
         model_box = QGroupBox("⚙️ Model Settings")
         model_box.setLayout(models_layout)
+        model_box.setContentsMargins(0, 24, 0, 24)
 
         behavior_box = QGroupBox("Field Behavior")
         behavior_layout = default_form_layout()
@@ -353,6 +364,7 @@ class PromptDialog(QDialog):
 
         container_layout = default_form_layout()
         container_layout.addRow(behavior_box)
+        container_layout.addRow(QLabel(""), None)
         container_layout.addRow(model_box)
         container = QWidget()
         container.setLayout(container_layout)

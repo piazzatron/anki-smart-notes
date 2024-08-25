@@ -88,7 +88,7 @@ class ChatOptions(QWidget):
             self.state, "chat_models", "chat_model", models_map
         )
         self.chat_model.setMinimumWidth(350)
-        chat_box = QGroupBox("✨ Default Chat Settings")
+        chat_box = QGroupBox("✨ Language Model Settings")
         chat_form = default_form_layout()
         chat_form.addRow("Provider:", self.chat_provider)
         chat_form.addRow("Model:", self.chat_model)
@@ -108,5 +108,6 @@ class ChatOptions(QWidget):
         chat_layout.addRow(chat_box)
         chat_layout.addItem(QSpacerItem(0, 12))
         chat_layout.addRow(advanced)
+        chat_layout.setContentsMargins(0, 0, 0, 0)
 
         self.setLayout(chat_layout)
