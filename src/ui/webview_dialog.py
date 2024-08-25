@@ -17,11 +17,24 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from aqt import QDialog, QHBoxLayout, QUrl, QUrlQuery, QWebEngineView, QWidget
+import time
+
+from aqt import (
+    QDateTime,
+    QDialog,
+    QHBoxLayout,
+    QUrl,
+    QUrlQuery,
+    QWebEngineView,
+    QWidget,
+)
+from PyQt6.QtNetwork import QNetworkCookie
 
 from ..app_state import app_state
 from ..config import config
 from ..constants import get_site_url
+
+CLERK_DEV_JWT = "dvb_2jUh8kOg9bIN8jQzywLdD3E5bMl"
 
 
 class WebviewDialog(QDialog):
@@ -40,6 +53,45 @@ class WebviewDialog(QDialog):
         layout.addWidget(engine)
         engine.showMaximized()
         layout.setContentsMargins(0, 0, 0, 0)  # Remove padding
+
+        self.add_session_cookie(engine)
+
+    def add_session_cookie(self, engine: QWebEngineView) -> None:
+        jwt = config.auth_token
+        if not jwt:
+            return
+        page = engine.page()
+        if not page:
+            return
+        profile = page.profile()
+        if profile is None:
+            return
+        cookie_store = profile.cookieStore()
+        if not cookie_store:
+            return
+
+        # Add cookies to automatically auth the user
+        seconds_since_epoch = str(int(time.time()))
+        c1 = self.make_cookie(b"__session", jwt.encode())
+        c2 = self.make_cookie(b"__client_uat", seconds_since_epoch.encode())
+        c3 = self.make_cookie(b"__clerk_db_jwt", CLERK_DEV_JWT.encode())
+
+        url = QUrl(get_site_url())
+        cookie_store.setCookie(c1, url)
+        cookie_store.setCookie(c2, url)
+        cookie_store.setCookie(c3, url)
+
+        cookie_store
+
+    def make_cookie(self, name: bytes, value: bytes):
+        cookie = QNetworkCookie()
+        cookie.setName(name)
+        cookie.setValue(value)
+        cookie.setDomain(get_site_url().replace("https://", "").replace("http://", ""))
+        cookie.setPath("/")
+        cookie.setSecure(False)
+        cookie.setExpirationDate(QDateTime.currentDateTime().addDays(1))
+        return cookie
 
     def on_engine_url_changed(self, url: QUrl) -> None:
         query = QUrlQuery(url)
