@@ -434,30 +434,26 @@ class Processor:
         )
 
     async def _process_node(self, node: FieldNode, note: Note) -> Union[str, None]:
-        try:
-            if node.abort:
-                return None
+        if node.abort:
+            return None
 
-            value = note[node.field_upper]
+        value = note[node.field_upper]
 
-            # If not target and manual, skip
-            if node.manual and not (node.is_target or node.generate_despite_manual):
-                node.abort = True
-                logger.debug(f"Skipping field {node.field}")
-                return None
+        # If not target and manual, skip
+        if node.manual and not (node.is_target or node.generate_despite_manual):
+            node.abort = True
+            logger.debug(f"Skipping field {node.field}")
+            return None
 
-            # Skip it if there's a value and we don't want to overwrite
-            if value and not (node.is_target or node.overwrite):
-                return value
+        # Skip it if there's a value and we don't want to overwrite
+        if value and not (node.is_target or node.overwrite):
+            return value
 
-            new_value = await self.field_resolver.resolve(node, note)
-            if new_value:
-                node.did_update = True
+        new_value = await self.field_resolver.resolve(node, note)
+        if new_value:
+            node.did_update = True
 
-            return new_value
-        except Exception as e:
-            print("GOT ERROR IN PROCESS NODE!!!!")
-            raise e
+        return new_value
 
     def generate_fields_dag(
         self, note: Note, overwrite_fields: bool, target_field: Union[str, None] = None
