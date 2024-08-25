@@ -30,6 +30,7 @@ from aqt import (
     QLabel,
     QPushButton,
     QSizePolicy,
+    QSpacerItem,
     QTableWidget,
     QTableWidgetItem,
     QTabWidget,
@@ -120,18 +121,23 @@ class AddonOptionsDialog(QDialog):
 
         # Buttons
         table_buttons = QHBoxLayout()
-        add_button = QPushButton("Add Text Field")
+        add_button = QPushButton("💬 New Text Field")
         add_button.clicked.connect(lambda _: self.on_add(False))
-        self.voice_button = QPushButton("Add Voice Field")
+        self.voice_button = QPushButton("🔈 New TTS Field")
         self.voice_button.clicked.connect(lambda _: self.on_add(True))
         self.remove_button = QPushButton("Remove")
+        self.remove_button.setFixedWidth(75)
         self.edit_button = QPushButton("Edit")
+        self.edit_button.setFixedWidth(75)
         self.edit_button.clicked.connect(self.on_edit)
         table_buttons.addWidget(self.remove_button, 1)
         table_buttons.addWidget(self.edit_button, 1)
         self.remove_button.clicked.connect(self.on_remove)
-        table_buttons.addWidget(add_button, 2, Qt.AlignmentFlag.AlignRight)
-        table_buttons.addWidget(self.voice_button, 2, Qt.AlignmentFlag.AlignRight)
+        table_buttons.addSpacerItem(QSpacerItem(0, 0, QSizePolicy.Policy.Expanding))
+        table_buttons.addWidget(self.voice_button, Qt.AlignmentFlag.AlignRight)
+        self.voice_button.setFixedWidth(150)
+        add_button.setFixedWidth(150)
+        table_buttons.addWidget(add_button, Qt.AlignmentFlag.AlignRight)
 
         standard_buttons = QDialogButtonBox(
             QDialogButtonBox.StandardButton.Cancel | QDialogButtonBox.StandardButton.Ok
@@ -169,10 +175,10 @@ class AddonOptionsDialog(QDialog):
         general_tab = QWidget()
         general_tab.setLayout(layout)
         tabs.addTab(general_tab, "General")
-        tabs.addTab(self.render_chat_tab(), "Chat Models")
+        tabs.addTab(self.render_chat_tab(), "Text Fields")
         # Store a ref so we can enable/disable it
         self.tts_tab = self.render_tts_tab()
-        tabs.addTab(self.tts_tab, "TTS Settings")
+        tabs.addTab(self.tts_tab, "TTS Fields")
         tabs.addTab(self.render_plugin_tab(), "Advanced")
         tabs.addTab(self.render_account_tab(), "Account")
 
@@ -241,11 +247,14 @@ class AddonOptionsDialog(QDialog):
             "note_types"
         ].items():
             for field, prompt in field_prompts["fields"].items():
+                extras = get_extras(note_type, field)
+                type = extras["type"]
                 self.table.insertRow(self.table.rowCount())
                 items = [
                     QTableWidgetItem(note_type),
                     QTableWidgetItem(field),
-                    QTableWidgetItem(prompt),
+                    QTableWidgetItem("text" if type == "chat" else "tts"),
+                    QTableWidgetItem(prompt if type == "chat" else "🔈"),
                 ]
                 for i, item in enumerate(items):
                     item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsEditable)
@@ -367,8 +376,8 @@ class AddonOptionsDialog(QDialog):
         return TTSOptions()  # type: ignore
 
     def create_table(self) -> QTableWidget:
-        table = QTableWidget(0, 3)
-        table.setHorizontalHeaderLabels(["Note Type", "Target Field", "Prompt"])
+        table = QTableWidget(0, 4)
+        table.setHorizontalHeaderLabels(["Note Type", "Target Field", "Type", "Prompt"])
 
         # Selection
         table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
@@ -395,7 +404,6 @@ class AddonOptionsDialog(QDialog):
 
         note_type = self.table.item(row, 0).text()  # type: ignore
         field = self.table.item(row, 1).text()  # type: ignore
-        prompt = self.table.item(row, 2).text()  # type: ignore
         logger.debug(f"Editing {note_type}, {field}")
 
         # Save out API key jic
@@ -410,7 +418,6 @@ class AddonOptionsDialog(QDialog):
             self.on_update_prompts,
             card_type=note_type,
             field=field,
-            prompt=prompt,
             field_type=field_type,
         )
 
