@@ -42,7 +42,7 @@ UNPAID_PROVIDER_ERROR = (
 )
 
 APP_LOCKED_ERROR = (
-    "Smart Notes: this option cannot be completed while Smart Notes is unauthenticated."
+    "Smart Notes: this option cannot be completed without a subscription or trial."
 )
 
 CHAINED_FIELDS_SKIPPED_ERROR = "Smart Notes: Looks like you have some chained smart fields, which require a subscription. Any chained fields will be skipped. This message will not show again."

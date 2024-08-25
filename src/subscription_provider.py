@@ -51,7 +51,6 @@ class UserStatus(TypedDict):
 
 class UserInfoProvider:
     async def get_subscription_status(self) -> UserStatus:
-        print("makin req")
         response = await api.get_api_response(
             path="user",
             method="GET",

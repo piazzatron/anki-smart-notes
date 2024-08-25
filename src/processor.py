@@ -24,7 +24,12 @@ import aiohttp
 from anki.notes import Note, NoteId
 from aqt import mw
 
-from .app_state import has_api_key, is_app_unlocked, is_app_unlocked_or_legacy
+from .app_state import (
+    app_state,
+    has_api_key,
+    is_app_unlocked,
+    is_app_unlocked_or_legacy,
+)
 from .config import Config
 from .constants import CHAINED_FIELDS_SKIPPED_ERROR
 from .field_resolver import FieldResolver
@@ -317,23 +322,51 @@ class Processor:
         return did_update
 
     def _handle_failure(self, e: Exception) -> None:
-        failure_map = {
+        logger.debug("Handling failure")
+
+        openai_failure_map = {
             401: "Smart Notes Error: OpenAI returned 401, meaning there's an issue with your API key.",
             404: "Smart Notes Error: OpenAI returned 404 - did you pay for an API key? Paying for ChatGPT premium alone will not work (this is an OpenAI limitation).",
             429: "Smart Notes error: OpenAI rate limit exceeded. Ensure you have a paid API key (this plugin will not work with free API tier). Wait a few minutes and try again.",
         }
 
         if isinstance(e, aiohttp.ClientResponseError):
-            if e.status in failure_map:
-                show_message_box(failure_map[e.status])
+            status = e.status
+            logger.debug(f"Got status: {status}")
+            unknown_error = f"Smart Notes Error: Unknown error: {e}"
+
+            # First time we see a 4xx error, update subscription state
+            if is_app_unlocked():
+                logger.debug(f"Got API error: {e}")
+                if status >= 400 and status < 500:
+                    logger.debug(
+                        "Saw 4xx error, something wrong with some subscription"
+                    )
+                    app_state.update_subscription_state()
+                    return
+                else:
+                    logger.error(f"Got 500 error: {e}")
+                    show_message_box(unknown_error)
+            elif has_api_key():
+                if status in openai_failure_map:
+                    show_message_box(openai_failure_map[status])
+                else:
+                    show_message_box(unknown_error)
+            else:
+                # Shouldn't get here
+                logger.error(f"Got 4xx error but app is locked & no API key")
+                show_message_box(unknown_error)
         else:
-            logger.error(e)
+            logger.error(f"Got non-HTTP error: {e}")
             show_message_box(f"Smart Notes Error: Unknown error: {e}")
 
     def _assert_preconditions(self) -> bool:
-        no_existing_req = self.assert_no_req_in_process()
         valid_app_mode = self._assert_valid_app_mode()
-        return no_existing_req and valid_app_mode
+        if not valid_app_mode:
+            logger.error("Invalid app mode")
+            return False
+        no_existing_req = self.assert_no_req_in_process()
+        return no_existing_req
 
     def assert_no_req_in_process(self) -> bool:
         if self.req_in_progress:
@@ -401,26 +434,30 @@ class Processor:
         )
 
     async def _process_node(self, node: FieldNode, note: Note) -> Union[str, None]:
-        if node.abort:
-            return None
+        try:
+            if node.abort:
+                return None
 
-        value = note[node.field_upper]
+            value = note[node.field_upper]
 
-        # If not target and manual, skip
-        if node.manual and not (node.is_target or node.generate_despite_manual):
-            node.abort = True
-            logger.debug(f"Skipping field {node.field}")
-            return None
+            # If not target and manual, skip
+            if node.manual and not (node.is_target or node.generate_despite_manual):
+                node.abort = True
+                logger.debug(f"Skipping field {node.field}")
+                return None
 
-        # Skip it if there's a value and we don't want to overwrite
-        if value and not (node.is_target or node.overwrite):
-            return value
+            # Skip it if there's a value and we don't want to overwrite
+            if value and not (node.is_target or node.overwrite):
+                return value
 
-        new_value = await self.field_resolver.resolve(node, note)
-        if new_value:
-            node.did_update = True
+            new_value = await self.field_resolver.resolve(node, note)
+            if new_value:
+                node.did_update = True
 
-        return new_value
+            return new_value
+        except Exception as e:
+            print("GOT ERROR IN PROCESS NODE!!!!")
+            raise e
 
     def generate_fields_dag(
         self, note: Note, overwrite_fields: bool, target_field: Union[str, None] = None

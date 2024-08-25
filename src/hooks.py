@@ -171,13 +171,17 @@ def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMe
 
     notes = browser.selected_notes()
 
-    item.triggered.connect(
-        lambda: processor.process_notes_with_progress(
+    def wrapped():
+        if not is_app_unlocked_or_legacy(show_box=True):
+            return
+
+        processor.process_notes_with_progress(
             notes,
             on_success=on_batch_success,
             overwrite_fields=config.regenerate_notes_when_batching,
         )
-    )
+
+    item.triggered.connect(wrapped)
 
 
 # TODO: where does this go now?
@@ -233,11 +237,15 @@ def on_editor_context(
     def on_success(_: bool):
         editor.loadNote()
 
-    item.triggered.connect(
+    def wrapped():
+        if not is_app_unlocked_or_legacy(show_box=True):
+            return
+
         lambda: processor.process_note(
             note, overwrite_fields=False, target_field=ai_field, on_success=on_success
         )
-    )
+
+    item.triggered.connect(wrapped)
     menu.addAction(item)
 
 
@@ -296,11 +304,16 @@ def add_deck_option(
     menu.addSeparator()
     menu.addAction(item)
 
-    item.triggered.connect(
-        lambda: processor.process_notes_with_progress(
-            notes, on_success=on_batch_success
+    def wrapped():
+        if not is_app_unlocked_or_legacy(show_box=True):
+            return
+
+        processor.process_notes_with_progress(
+            notes,
+            on_success=on_batch_success,
         )
-    )
+
+    item.triggered.connect(wrapped)
 
 
 @with_sentry

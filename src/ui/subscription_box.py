@@ -180,7 +180,6 @@ class SubscriptionBox(QWidget):
                 v.hide()
 
     def _render_loading(self) -> QWidget:
-        print("rendering loading")
         layout = QVBoxLayout()
         label = QLabel("Loading...")
         layout.addWidget(label)
