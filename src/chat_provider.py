@@ -29,6 +29,7 @@ class ChatProvider:
         prompt: str,
         model: ChatModels,
         provider: ChatProviders,
+        note_id: int,
         temperature=DEFAULT_TEMPERATURE,
     ) -> str:
         response = await api.get_api_response(
@@ -39,6 +40,7 @@ class ChatProvider:
                 "message": prompt,
                 "temperature": temperature,
             },
+            note_id=note_id,
             timeout_sec=CHAT_CLIENT_TIMEOUT_SEC,
         )
 

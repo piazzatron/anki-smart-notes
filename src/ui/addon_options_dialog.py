@@ -33,10 +33,7 @@ from aqt import (
     QTableWidget,
     QTableWidgetItem,
     QTabWidget,
-    QUrl,
-    QUrlQuery,
     QVBoxLayout,
-    QWebEngineView,
     QWidget,
 )
 from PyQt6.QtCore import Qt
@@ -46,6 +43,7 @@ from ..logger import logger
 from ..models import ChatModels, OpenAIModels, openai_chat_models
 from ..processor import Processor
 from ..prompts import get_extras
+from .account_options import AccountOptions
 from .changelog import get_version
 from .chat_options import (
     ChatOptions,
@@ -59,10 +57,11 @@ from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_line_edit import ReactiveLineEdit
 from .state_manager import StateManager
+from .subscription_box import SubscriptionBox
 from .tts_options import TTSOptions, TTSState, languages, providers
 from .ui_utils import default_form_layout, font_small, show_message_box
 
-OPTIONS_MIN_WIDTH = 750
+OPTIONS_MIN_WIDTH = 875
 
 
 class State(TTSState):
@@ -110,32 +109,11 @@ class AddonOptionsDialog(QDialog):
         self.setMinimumWidth(OPTIONS_MIN_WIDTH)
 
         # Form
-        get_api_key_label = QLabel(
-            "An API key is required. Free tier use is limited to three requests per minute. <a href='https://platform.openai.com/account/api-keys/'>Get an API key.</a>"
-        )
-        get_api_key_label.setOpenExternalLinks(True)
-        get_api_key_label.setFont(font_small)
-
-        self.api_key_edit = ReactiveLineEdit(self.state, "openai_api_key")
-        self.api_key_edit.setPlaceholderText("sk-proj-1234...")
-        self.api_key_edit.setMinimumWidth(500)
-        self.api_key_edit.setSizePolicy(
-            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred
-        )
-        self.api_key_edit.onChange.connect(
-            lambda text: self.state.update({"openai_api_key": text})
-        )
 
         # Select model
         self.models_combo_box = ReactiveComboBox(
             self.state, "openai_models", "openai_model"
         )
-        form = default_form_layout()
-        form.addRow("<b>🔑 OpenAI API Key:</b>", self.api_key_edit)
-        form.addRow(get_api_key_label)
-
-        group_box = QGroupBox("API Key")
-        group_box.setLayout(form)
 
         # Buttons
         table_buttons = QHBoxLayout()
@@ -174,7 +152,10 @@ class AddonOptionsDialog(QDialog):
         explanation = QLabel("Automatically generate text and voice fields.")
         explanation.setFont(font_small)
         layout = QVBoxLayout()
-        layout.addWidget(group_box)
+
+        subscription_box = SubscriptionBox()
+
+        layout.addWidget(subscription_box)
         layout.addSpacing(24)
         layout.addWidget(QLabel("<h3>✨ Smart Fields</h3>"))
         layout.addWidget(explanation)
@@ -188,6 +169,7 @@ class AddonOptionsDialog(QDialog):
         tabs.addTab(self.render_chat_tab(), "Chat Models")
         tabs.addTab(self.render_tts_tab(), "TTS Settings")
         tabs.addTab(self.render_plugin_tab(), "Advanced")
+        tabs.addTab(self.render_account_tab(), "Account")
 
         tab_layout = QVBoxLayout()
         tab_layout.addWidget(tabs)
@@ -211,26 +193,36 @@ class AddonOptionsDialog(QDialog):
         tab_layout.addWidget(version_box)
 
         tab_layout.addWidget(standard_buttons)
-        engine = QWebEngineView()
-        engine.load(QUrl("http://localhost:3000"))
-        print("SHOWING ENGINE!")
-        tab_layout.addWidget(engine)
-        engine.showMaximized()
-        engine.urlChanged.connect(self.on_engine_url_changed)
 
         self.setLayout(tab_layout)
         self.state.state_changed.connect(self.render_ui)
         self.render_ui()
 
-    def on_engine_url_changed(self, url: QUrl) -> None:
-        print("URL CHANGED", url)
-        query = QUrlQuery(url)
-        value = query.queryItemValue("jwt")
-        if value:
-            print(f"VALUE: {value}")
-            config.auth_token = value
-        else:
-            print("NO VALUE")
+    def render_openai_api_key_box(self) -> QWidget:
+        get_api_key_label = QLabel(
+            "A paid OpenAI API key is required. <a href='https://platform.openai.com/account/api-keys/'>Get an API key.</a>"
+        )
+        get_api_key_label.setOpenExternalLinks(True)
+        get_api_key_label.setFont(font_small)
+
+        self.api_key_edit = ReactiveLineEdit(self.state, "openai_api_key")
+        self.api_key_edit.setPlaceholderText("sk-proj-1234...")
+        self.api_key_edit.setMinimumWidth(500)
+        self.api_key_edit.setSizePolicy(
+            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred
+        )
+        self.api_key_edit.onChange.connect(
+            lambda text: self.state.update({"openai_api_key": text})
+        )
+
+        form = default_form_layout()
+        form.addRow("<b>🔑 OpenAI API Key:</b>", self.api_key_edit)
+        form.addRow(get_api_key_label)
+
+        group_box = QGroupBox()
+        group_box.setLayout(form)
+
+        return group_box
 
     def render_ui(self) -> None:
         self.render_table()
@@ -264,6 +256,7 @@ class AddonOptionsDialog(QDialog):
     def render_legacy_options(self) -> QGroupBox:
         models_group_box = QGroupBox("Legacy OpenAI Settings")
         models_form = default_form_layout()
+        models_form.addRow(self.render_openai_api_key_box())
         models_form.addRow("OpenAI Model:", self.models_combo_box)
 
         learn_more_about_models = QLabel(
@@ -358,7 +351,11 @@ class AddonOptionsDialog(QDialog):
 
         return plugin_settings_tab
 
+    def render_account_tab(self) -> QWidget:
+        return AccountOptions()
+
     def render_chat_tab(self) -> QWidget:
+        # TODO: this shouldn't depend on self state
         return ChatOptions(self.state)  # type: ignore
 
     def render_tts_tab(self) -> QWidget:

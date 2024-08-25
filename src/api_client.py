@@ -19,8 +19,9 @@
 
 import asyncio
 from types import TracebackType
-from typing import Any, Dict, Optional, Type, Union
+from typing import Any, Dict, Literal, Optional, Type, Union
 
+import aiohttp
 from aiohttp import ClientResponse, ClientSession
 
 from .config import config
@@ -32,7 +33,13 @@ class APIClient:
     _session: Union[ClientSession, None] = None
 
     async def get_api_response(
-        self, path: str, args: Dict[str, Any], timeout_sec: int, retry_count: int = 0
+        self,
+        path: str,
+        args: Dict[str, Any] = {},
+        timeout_sec: Union[int, None] = None,
+        retry_count: int = 0,
+        note_id: Union[int, None] = None,
+        method: Literal["GET", "POST"] = "POST",
     ) -> ClientResponse:
         endpoint = f"{get_server_url()}/api/{path}"
         jwt = config.auth_token
@@ -42,20 +49,24 @@ class APIClient:
 
         logger.debug(f"Making request to {path} with args {args}")
 
-        # if timeout_sec:
-        #     timeout = aiohttp.ClientTimeout(total=timeout_sec)
-        # else:
-        #     timeout = aiohttp.ClientTimeout(total=10)
+        if timeout_sec:
+            timeout = aiohttp.ClientTimeout(total=timeout_sec)
+        else:
+            timeout = aiohttp.ClientTimeout(total=10)
         if not self._session:
             raise Exception("Called get_api_response without initializing session")
 
-        async with self._session.post(
+        headers = {"Authorization": f"Bearer {jwt}", "Content-Type": "application/json"}
+
+        if note_id is not None:
+            headers["Note-ID"] = f"{note_id}"
+
+        fn = self._session.get if method == "GET" else self._session.post
+        async with fn(
             endpoint,
-            headers={
-                "Authorization": f"Bearer {jwt}",
-                "Content-Type": "application/json",
-            },
+            headers=headers,
             json=args,
+            timeout=timeout,
         ) as response:
             if response.status == 429:
                 logger.warning("Got a 429 from server")
@@ -71,6 +82,8 @@ class APIClient:
                         args=args,
                         timeout_sec=timeout_sec,
                         retry_count=retry_count + 1,
+                        note_id=note_id,
+                        method=method,
                     )
 
             if response.status == 400:
