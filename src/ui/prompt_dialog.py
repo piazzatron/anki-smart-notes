@@ -205,6 +205,7 @@ class PromptDialog(QDialog):
         self.manual_box.onChange.connect(
             lambda checked: self.state.update({"generate_manually": checked})
         )
+        self.standard_buttons = self.create_buttons()
 
         tabs = QTabWidget()
         tabs.addTab(self.render_main_tab(), "Main")
@@ -212,6 +213,7 @@ class PromptDialog(QDialog):
 
         container = QVBoxLayout()
         container.addWidget(tabs)
+        container.addWidget(self.standard_buttons)
         self.setLayout(container)
         self.setup_ui()
 
@@ -275,11 +277,6 @@ class PromptDialog(QDialog):
         layout.addWidget(field_label)
         layout.addWidget(self.field_combo_box)
 
-        self.standard_buttons = QDialogButtonBox(
-            QDialogButtonBox.StandardButton.Cancel
-            | QDialogButtonBox.StandardButton.Save
-        )
-
         self.test_button = QPushButton("Test ✨")
 
         prompt_label = QLabel("Prompt")
@@ -309,8 +306,6 @@ class PromptDialog(QDialog):
         layout.addWidget(self.valid_fields)
         layout.addWidget(self.test_button)
 
-        layout.addWidget(self.standard_buttons)
-
         self.state.state_changed.connect(self.render_ui)
         self.card_combo_box.onChange.connect(self._on_new_card_type_selected)
         self.field_combo_box.onChange.connect(self.on_target_field_changed)
@@ -319,8 +314,6 @@ class PromptDialog(QDialog):
         )
 
         self.test_button.clicked.connect(self.on_test)
-        self.standard_buttons.accepted.connect(self.on_accept)
-        self.standard_buttons.rejected.connect(self.on_reject)
         container = QWidget()
         container.setLayout(layout)
 
@@ -369,6 +362,16 @@ class PromptDialog(QDialog):
         container = QWidget()
         container.setLayout(container_layout)
         return container
+
+    def create_buttons(self) -> QWidget:
+        standard_buttons = QDialogButtonBox(
+            QDialogButtonBox.StandardButton.Cancel
+            | QDialogButtonBox.StandardButton.Save
+        )
+
+        standard_buttons.accepted.connect(self.on_accept)
+        standard_buttons.rejected.connect(self.on_reject)
+        return standard_buttons
 
     def render_custom_model(self) -> QWidget:
         # TODO: encapsulate this ChatOptions state

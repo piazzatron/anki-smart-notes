@@ -45,7 +45,7 @@ from ..constants import UNPAID_PROVIDER_ERROR
 from ..logger import logger
 from ..models import ChatModels, ChatProviders, OpenAIModels, openai_chat_models
 from ..processor import Processor
-from ..prompts import get_extras
+from ..prompts import get_extras, get_prompts
 from .account_options import AccountOptions
 from .changelog import get_version
 from .chat_options import ChatOptions, provider_model_map
@@ -410,6 +410,7 @@ class AddonOptionsDialog(QDialog):
             card_type=note_type,
             field=field,
             field_type=field_type,
+            prompt=get_prompts(to_lower=True)[note_type][field.lower()],
         )
 
         if prompt_dialog.exec() == QDialog.DialogCode.Accepted:
