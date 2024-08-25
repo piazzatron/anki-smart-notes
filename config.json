@@ -20,5 +20,5 @@
   "debug": false,
   "auth_token": null,
   "legacy_support": null,
-  "did_show_chained_error": false
+  "did_show_chained_error_dialog": false
 }
