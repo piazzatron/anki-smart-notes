@@ -27,7 +27,7 @@ from anki.notes import Note
 from .config import FieldExtrasWithDefaults, PromptMap, config
 from .logger import logger
 from .models import default_tts_models_map
-from .utils import get_fields, to_lowercase_dict
+from .utils import to_lowercase_dict
 
 EXTRAS_DEFAULT_AUTOMATIC = True
 
@@ -66,7 +66,7 @@ def get_extras(
         "chat_model": config.chat_model,
         "chat_temperature": config.chat_temperature,
         "use_custom_model": False,
-        "type": "chat",
+        "type": type or "chat",
         "tts_model": default_tts_models_map[config.tts_provider],
         "tts_provider": config.tts_provider,
         "tts_voice": config.tts_voice,
@@ -96,26 +96,6 @@ def get_prompt_fields(prompt: str, lower: bool = True) -> List[str]:
     pattern = r"\{\{(.+?)\}\}"
     fields = re.findall(pattern, prompt)
     return [(field.lower() if lower else field) for field in fields]
-
-
-def prompt_has_error(
-    prompt: str, note_type: str, target_field: Union[str, None] = None
-) -> Union[str, None]:
-    """Checks if a prompt has an error. Returns the error message if there is one."""
-    note_fields = {field.lower() for field in get_fields(note_type)}
-    prompt_fields = get_prompt_fields(prompt)
-    existing_fields = to_lowercase_dict(get_prompts().get(note_type, {}))
-
-    # Check for fields that aren't in the card
-    for prompt_field in prompt_fields:
-        if prompt_field not in note_fields:
-            return f"Invalid field in prompt: {prompt_field}"
-
-    # Can't reference itself
-    if target_field and target_field.lower() in prompt_fields:
-        return "Cannot reference the target field in the prompt."
-
-    return None
 
 
 def interpolate_prompt(prompt: str, note: Note) -> Union[str, None]:

@@ -17,7 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Literal, TypedDict
+from typing import Literal, TypedDict, Union
 
 from aqt import (
     QComboBox,
@@ -28,7 +28,6 @@ from aqt import (
     Qt,
     QVBoxLayout,
     QWidget,
-    Union,
     pyqtSignal,
 )
 

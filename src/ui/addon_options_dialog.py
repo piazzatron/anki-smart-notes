@@ -30,6 +30,7 @@ from aqt import (
     QLabel,
     QPushButton,
     QSizePolicy,
+    QSpacerItem,
     QTableWidget,
     QTableWidgetItem,
     QTabWidget,
@@ -42,18 +43,12 @@ from ..app_state import AppState, app_state, is_app_unlocked
 from ..config import PromptMap, config
 from ..constants import UNPAID_PROVIDER_ERROR
 from ..logger import logger
-from ..models import ChatModels, OpenAIModels, openai_chat_models
+from ..models import ChatModels, ChatProviders, OpenAIModels, openai_chat_models
 from ..processor import Processor
-from ..prompts import get_extras
+from ..prompts import get_extras, get_prompts
 from .account_options import AccountOptions
 from .changelog import get_version
-from .chat_options import (
-    ChatOptions,
-    ReadableChatProvider,
-    chat_provider_to_ui_map,
-    chat_ui_to_provider_map,
-    provider_model_map,
-)
+from .chat_options import ChatOptions, provider_model_map
 from .prompt_dialog import PromptDialog
 from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
@@ -61,7 +56,7 @@ from .reactive_line_edit import ReactiveLineEdit
 from .state_manager import StateManager
 from .subscription_box import SubscriptionBox
 from .tts_options import TTSOptions, TTSState, languages, providers
-from .ui_utils import default_form_layout, font_small, show_message_box
+from .ui_utils import default_form_layout, font_large, font_small, show_message_box
 
 OPTIONS_MIN_WIDTH = 875
 
@@ -79,16 +74,11 @@ class State(TTSState):
     debug: bool
 
     # Chat Options
-    chat_provider: ReadableChatProvider
-    chat_providers: List[ReadableChatProvider]
+    chat_provider: ChatProviders
+    chat_providers: List[ChatProviders]
     chat_models: List[ChatModels]
     chat_model: ChatModels
     chat_temperature: int
-
-
-config_transforms = {
-    "chat_provider": lambda x: chat_ui_to_provider_map[x],
-}
 
 
 class AddonOptionsDialog(QDialog):
@@ -120,18 +110,23 @@ class AddonOptionsDialog(QDialog):
 
         # Buttons
         table_buttons = QHBoxLayout()
-        add_button = QPushButton("Add Text Field")
+        add_button = QPushButton("💬 New Text Field")
         add_button.clicked.connect(lambda _: self.on_add(False))
-        self.voice_button = QPushButton("Add Voice Field")
+        self.voice_button = QPushButton("🔈 New TTS Field")
         self.voice_button.clicked.connect(lambda _: self.on_add(True))
         self.remove_button = QPushButton("Remove")
+        self.remove_button.setFixedWidth(75)
         self.edit_button = QPushButton("Edit")
+        self.edit_button.setFixedWidth(75)
         self.edit_button.clicked.connect(self.on_edit)
         table_buttons.addWidget(self.remove_button, 1)
         table_buttons.addWidget(self.edit_button, 1)
         self.remove_button.clicked.connect(self.on_remove)
-        table_buttons.addWidget(add_button, 2, Qt.AlignmentFlag.AlignRight)
-        table_buttons.addWidget(self.voice_button, 2, Qt.AlignmentFlag.AlignRight)
+        table_buttons.addSpacerItem(QSpacerItem(0, 0, QSizePolicy.Policy.Expanding))
+        table_buttons.addWidget(self.voice_button, Qt.AlignmentFlag.AlignRight)
+        self.voice_button.setFixedWidth(150)
+        add_button.setFixedWidth(150)
+        table_buttons.addWidget(add_button, Qt.AlignmentFlag.AlignRight)
 
         standard_buttons = QDialogButtonBox(
             QDialogButtonBox.StandardButton.Cancel | QDialogButtonBox.StandardButton.Ok
@@ -169,10 +164,10 @@ class AddonOptionsDialog(QDialog):
         general_tab = QWidget()
         general_tab.setLayout(layout)
         tabs.addTab(general_tab, "General")
-        tabs.addTab(self.render_chat_tab(), "Chat Models")
+        tabs.addTab(self.render_chat_tab(), "Language Model")
         # Store a ref so we can enable/disable it
         self.tts_tab = self.render_tts_tab()
-        tabs.addTab(self.tts_tab, "TTS Settings")
+        tabs.addTab(self.tts_tab, "TTS")
         tabs.addTab(self.render_plugin_tab(), "Advanced")
         tabs.addTab(self.render_account_tab(), "Account")
 
@@ -241,11 +236,14 @@ class AddonOptionsDialog(QDialog):
             "note_types"
         ].items():
             for field, prompt in field_prompts["fields"].items():
+                extras = get_extras(note_type, field)
+                type = extras["type"]
                 self.table.insertRow(self.table.rowCount())
                 items = [
                     QTableWidgetItem(note_type),
                     QTableWidgetItem(field),
-                    QTableWidgetItem(prompt),
+                    QTableWidgetItem("text" if type == "chat" else "tts"),
+                    QTableWidgetItem(prompt if type == "chat" else "🔈"),
                 ]
                 for i, item in enumerate(items):
                     item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsEditable)
@@ -360,15 +358,48 @@ class AddonOptionsDialog(QDialog):
         return AccountOptions()
 
     def render_chat_tab(self) -> QWidget:
+        container = QWidget()
+        layout = QVBoxLayout()
+        container.setLayout(layout)
+        layout.setContentsMargins(24, 24, 24, 24)
         # TODO: this shouldn't depend on self state
-        return ChatOptions(self.state)  # type: ignore
+        options = ChatOptions(self.state)  # type: ignore
+        options.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Expanding)
+        expl = QLabel("Configure default language model settings")
+        subExpl = QLabel("These settings can be overridden on a per-field basis.")
+        expl.setFont(font_large)
+        subExpl.setFont(font_small)
+        layout.addWidget(expl)
+        layout.addWidget(subExpl)
+        layout.addItem(
+            QSpacerItem(0, 24, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        )
+        layout.addWidget(options)
+        return container
 
     def render_tts_tab(self) -> QWidget:
-        return TTSOptions()  # type: ignore
+        container = QWidget()
+        layout = QVBoxLayout()
+        container.setLayout(layout)
+        layout.setContentsMargins(24, 24, 24, 24)
+        options = TTSOptions()
+        options.setContentsMargins(0, 0, 0, 0)
+
+        expl = QLabel("Configure default voice settings for TTS.")
+        subExpl = QLabel("These settings can be overridden on a per-field basis.")
+        expl.setFont(font_large)
+        subExpl.setFont(font_small)
+        layout.addWidget(expl)
+        layout.addWidget(subExpl)
+        layout.addItem(
+            QSpacerItem(0, 24, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        )
+        layout.addWidget(options)
+        return container
 
     def create_table(self) -> QTableWidget:
-        table = QTableWidget(0, 3)
-        table.setHorizontalHeaderLabels(["Note Type", "Target Field", "Prompt"])
+        table = QTableWidget(0, 4)
+        table.setHorizontalHeaderLabels(["Note Type", "Target Field", "Type", "Prompt"])
 
         # Selection
         table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
@@ -395,7 +426,6 @@ class AddonOptionsDialog(QDialog):
 
         note_type = self.table.item(row, 0).text()  # type: ignore
         field = self.table.item(row, 1).text()  # type: ignore
-        prompt = self.table.item(row, 2).text()  # type: ignore
         logger.debug(f"Editing {note_type}, {field}")
 
         # Save out API key jic
@@ -410,8 +440,8 @@ class AddonOptionsDialog(QDialog):
             self.on_update_prompts,
             card_type=note_type,
             field=field,
-            prompt=prompt,
             field_type=field_type,
+            prompt=get_prompts(to_lower=True)[note_type][field.lower()],
         )
 
         if prompt_dialog.exec() == QDialog.DialogCode.Accepted:
@@ -470,7 +500,7 @@ class AddonOptionsDialog(QDialog):
         is_unlocked = is_app_unlocked()
 
         if not is_unlocked:
-            if self.state.s["chat_provider"] != "ChatGPT":
+            if self.state.s["chat_provider"] != "openai":
                 show_message_box(UNPAID_PROVIDER_ERROR)
                 return
 
@@ -480,9 +510,6 @@ class AddonOptionsDialog(QDialog):
         for k, v in [
             item for item in self.state.s.items() if item[0] in valid_config_attrs
         ]:
-            transform = config_transforms.get(k)
-            if transform:
-                v = transform(v)  # type: ignore
             config.__setattr__(k, v)
             logger.debug(f"Setting {k} to {v}")
 
@@ -510,7 +537,7 @@ class AddonOptionsDialog(QDialog):
             "allow_empty_fields": config.allow_empty_fields,
             "debug": config.debug,
             # Chat
-            "chat_provider": chat_provider_to_ui_map[config.chat_provider],
+            "chat_provider": config.chat_provider,
             "chat_providers": ["ChatGPT", "Claude"],
             "chat_model": config.chat_model,
             "chat_models": provider_model_map[config.chat_provider],

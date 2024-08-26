@@ -32,9 +32,9 @@ ChatModels = Union[OpenAIModels, AnthropicModels]
 
 openai_chat_models: List[ChatModels] = ["gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4"]
 anthropic_chat_models: List[ChatModels] = [
+    "claude-3-haiku",
     "claude-3-5-sonnet",
     "claude-3-opus",
-    "claude-3-haiku",
 ]
 
 # TTS Models

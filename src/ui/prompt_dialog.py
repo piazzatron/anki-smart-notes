@@ -17,6 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from copy import deepcopy
 from typing import Callable, List, Literal, TypedDict, Union
 
 from aqt import (
@@ -24,9 +25,11 @@ from aqt import (
     QDialog,
     QDialogButtonBox,
     QGroupBox,
+    QHBoxLayout,
     QLabel,
     QPushButton,
     QSizePolicy,
+    QSpacerItem,
     Qt,
     QTabWidget,
     QTextEdit,
@@ -38,35 +41,30 @@ from aqt import (
 )
 from PyQt6.QtCore import Qt
 
-from ..app_state import is_app_unlocked
+from ..app_state import is_app_unlocked, is_app_unlocked_or_legacy
 from ..config import FieldExtras, PromptMap, config
 from ..constants import UNPAID_PROVIDER_ERROR
+from ..dag import prompt_has_error
 from ..logger import logger
-from ..models import ChatModels
-from ..notes import get_note_types
+from ..models import ChatModels, ChatProviders, default_tts_models_map
+from ..notes import get_note_types, get_random_note
 from ..processor import Processor
 from ..prompts import (
     get_extras,
     get_generate_automatically,
     get_prompt_fields,
     get_prompts,
-    prompt_has_error,
 )
+from ..sentry import run_async_in_background_with_sentry
+from ..tts_utils import play_audio
 from ..utils import get_fields, to_lowercase_dict
-from .chat_options import (
-    ChatOptions,
-    ReadableChatProvider,
-    chat_provider_to_ui_map,
-    chat_ui_to_provider_map,
-    default_form_layout,
-    provider_model_map,
-)
+from .chat_options import ChatOptions, provider_model_map
 from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_edit_text import ReactiveEditText
 from .state_manager import StateManager
 from .tts_options import TTSOptions
-from .ui_utils import font_small, show_message_box
+from .ui_utils import default_form_layout, font_bold, font_small, show_message_box
 
 explanation = """Write a "prompt" to help the chat model generate your target smart field.
 
@@ -86,8 +84,8 @@ class State(TypedDict):
     selected_note_field: str
     is_loading_prompt: bool
     generate_manually: bool
-    chat_provider: ReadableChatProvider
-    chat_providers: List[ReadableChatProvider]
+    chat_provider: ChatProviders
+    chat_providers: List[ChatProviders]
     chat_models: List[ChatModels]
     chat_model: ChatModels
     chat_temperature: int
@@ -104,7 +102,7 @@ class PartialState(TypedDict):
 
 
 class PerFieldSettings(TypedDict):
-    chat_provider: ReadableChatProvider
+    chat_provider: ChatProviders
     chat_model: ChatModels
     chat_temperature: int
     use_custom_model: bool
@@ -193,11 +191,12 @@ class PromptDialog(QDialog):
             # other
             "is_loading_prompt": False,
             "generate_manually": not automatic,
-            "chat_providers": ["ChatGPT", "Claude"],
-            "chat_models": provider_model_map[
-                chat_ui_to_provider_map[per_field_settings["chat_provider"]]
-                or config.chat_provider
-            ],
+            "chat_providers": ["openai", "anthropic"],
+            "chat_models": (
+                provider_model_map[
+                    per_field_settings["chat_provider"] or config.chat_provider
+                ]
+            ),
             **per_field_settings,
         }
         self.state = StateManager[State](initial_state)
@@ -210,6 +209,7 @@ class PromptDialog(QDialog):
         self.manual_box.onChange.connect(
             lambda checked: self.state.update({"generate_manually": checked})
         )
+        self.standard_buttons = self.create_buttons()
 
         tabs = QTabWidget()
         tabs.addTab(self.render_main_tab(), "Main")
@@ -217,6 +217,7 @@ class PromptDialog(QDialog):
 
         container = QVBoxLayout()
         container.addWidget(tabs)
+        container.addWidget(self.standard_buttons)
         self.setLayout(container)
         self.setup_ui()
 
@@ -228,9 +229,7 @@ class PromptDialog(QDialog):
         )
 
         return {
-            "chat_provider": chat_provider_to_ui_map[
-                extras.get("chat_provider") or config.chat_provider
-            ],
+            "chat_provider": extras.get("chat_provider") or config.chat_provider,
             "chat_model": extras.get("chat_model") or config.chat_model,
             "chat_temperature": extras.get("chat_temperature")
             or config.chat_temperature,
@@ -260,6 +259,7 @@ class PromptDialog(QDialog):
             self.state, "note_types", "selected_note_type"
         )
         card_label = QLabel("Card Type")
+        card_label.setFont(font_bold)
         layout.addWidget(card_label)
         layout.addWidget(self.card_combo_box)
 
@@ -269,6 +269,7 @@ class PromptDialog(QDialog):
             )
             self.tts_source_combo_box.onChange.connect(self.on_source_changed)
             source_label = QLabel("Source Field")
+            source_label.setFont(font_bold)
             layout.addWidget(source_label)
             layout.addWidget(self.tts_source_combo_box)
 
@@ -276,16 +277,17 @@ class PromptDialog(QDialog):
             self.state, "note_fields", "selected_note_field"
         )
         field_label = QLabel("Target Field")
+        field_label.setFont(font_bold)
         layout.addWidget(field_label)
         layout.addWidget(self.field_combo_box)
 
-        self.standard_buttons = QDialogButtonBox(
-            QDialogButtonBox.StandardButton.Cancel
-            | QDialogButtonBox.StandardButton.Save
-        )
-
         self.test_button = QPushButton("Test ✨")
 
+        text_only_container = QWidget()
+        text_only_layout = QVBoxLayout()
+        text_only_container.setLayout(text_only_layout)
+        text_only_layout.setContentsMargins(0, 0, 0, 0)
+        text_only_container.setHidden(self.state.s["type"] == "tts")
         prompt_label = QLabel("Prompt")
         self.prompt_text_box = ReactiveEditText(self.state, "prompt")
         self.prompt_text_box.setMinimumHeight(150)
@@ -308,12 +310,17 @@ class PromptDialog(QDialog):
         self.valid_fields.setFont(small_font)
 
         self.setLayout(layout)
-        layout.addWidget(prompt_label)
-        layout.addWidget(self.prompt_text_box)
-        layout.addWidget(self.valid_fields)
+        text_only_layout.addWidget(prompt_label)
+        text_only_layout.addWidget(self.prompt_text_box)
+        text_only_layout.addWidget(self.valid_fields)
+        layout.addWidget(text_only_container)
+        layout.addSpacerItem(QSpacerItem(0, 12))
         layout.addWidget(self.test_button)
-
-        layout.addWidget(self.standard_buttons)
+        layout.addSpacerItem(
+            QSpacerItem(
+                0, 0, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding
+            )
+        )
 
         self.state.state_changed.connect(self.render_ui)
         self.card_combo_box.onChange.connect(self._on_new_card_type_selected)
@@ -323,8 +330,6 @@ class PromptDialog(QDialog):
         )
 
         self.test_button.clicked.connect(self.on_test)
-        self.standard_buttons.accepted.connect(self.on_accept)
-        self.standard_buttons.rejected.connect(self.on_reject)
         container = QWidget()
         container.setLayout(layout)
 
@@ -345,10 +350,17 @@ class PromptDialog(QDialog):
             lambda checked: self.state.update({"use_custom_model": checked})
         )
         self.state.state_changed.connect(self.on_state_update)
-        models_layout.addRow("Override Default Model", self.custom_model)
+        override_box = QWidget()
+        override_layout = QHBoxLayout()
+        override_layout.setContentsMargins(0, 0, 0, 0)
+        override_box.setLayout(override_layout)
+        override_layout.addWidget(QLabel("Override Default Model"))
+        override_layout.addWidget(self.custom_model)
+        models_layout.addWidget(override_box)
         models_layout.addWidget(self.model_options)
         model_box = QGroupBox("⚙️ Model Settings")
         model_box.setLayout(models_layout)
+        model_box.setContentsMargins(0, 24, 0, 24)
 
         behavior_box = QGroupBox("Field Behavior")
         behavior_layout = default_form_layout()
@@ -361,10 +373,21 @@ class PromptDialog(QDialog):
 
         container_layout = default_form_layout()
         container_layout.addRow(behavior_box)
+        container_layout.addRow(QLabel(""), None)
         container_layout.addRow(model_box)
         container = QWidget()
         container.setLayout(container_layout)
         return container
+
+    def create_buttons(self) -> QWidget:
+        standard_buttons = QDialogButtonBox(
+            QDialogButtonBox.StandardButton.Cancel
+            | QDialogButtonBox.StandardButton.Save
+        )
+
+        standard_buttons.accepted.connect(self.on_accept)
+        standard_buttons.rejected.connect(self.on_reject)
+        return standard_buttons
 
     def render_custom_model(self) -> QWidget:
         # TODO: encapsulate this ChatOptions state
@@ -461,33 +484,69 @@ class PromptDialog(QDialog):
         if self.state.s["is_loading_prompt"]:
             self.test_button.setText("Loading...")
         else:
-            self.test_button.setText("Test Prompt ✨")
+            self.test_button.setText("Test ✨")
 
     def on_test(self) -> None:
+        if self.state.s["type"] == "chat":
+            if not is_app_unlocked_or_legacy(True):
+                return
+        else:
+            if not is_app_unlocked(True):
+                return
+
         prompt = self.state.s["prompt"]
 
         if not mw or not prompt:
             return
 
         selected_note_type = self.state.s["selected_note_type"]
+        sample_note = get_random_note(selected_note_type)
+
+        if not sample_note:
+            show_message_box("Smart Notes: need at least one note of this note type!")
+            return
+        new_prompts_map = self._add_prompt_to_prompts_map(
+            self.prompts_map,
+            prompt=prompt,
+            note_type=self.state.s["selected_note_type"],
+            field=self.state.s["selected_note_field"],
+        )
+
         error = prompt_has_error(
             prompt,
-            selected_note_type,
-            self.state.s["selected_note_field"],
+            note=sample_note,
+            target_field=self.state.s["selected_note_field"],
+            prompts_map=new_prompts_map,
         )
 
         if error:
             show_message_box(f"Invalid prompt: {error}")
             return
 
-        sample_note_ids = mw.col.find_notes(f'note:"{selected_note_type}"')
-
-        if not sample_note_ids:
-            show_message_box("No cards found for this note type.")
-            return
-
-        sample_note = mw.col.get_note(sample_note_ids[0])
         self.state["is_loading_prompt"] = True
+
+        chat_provider = (
+            self.state.s["chat_provider"]
+            if self.state.s["use_custom_model"]
+            else config.chat_provider
+        )
+        chat_model = (
+            self.state.s["chat_model"]
+            if self.state.s["use_custom_model"]
+            else config.chat_model
+        )
+
+        tts_provider = (
+            self.tts_options.state.s["tts_provider"]
+            if self.state.s["use_custom_model"]
+            else config.tts_provider
+        ) or config.tts_provider
+
+        tts_voice = (
+            self.tts_options.state.s["tts_voice"]
+            if self.state.s["use_custom_model"]
+            else config.tts_voice
+        ) or config.tts_voice
 
         def on_success(arg):
 
@@ -504,21 +563,44 @@ class PromptDialog(QDialog):
             }
 
             stringified_vals = "\n".join([f"{k}: {v}" for k, v in field_map.items()])
-            msg = f"Ran with fields: \n{stringified_vals}.\n\n Response: {arg}"
-
             self.state["is_loading_prompt"] = False
-            show_message_box(msg, custom_ok="Close")
+            if self.state.s["type"] == "chat":
+                msg = f"Ran with fields: \n{stringified_vals}.\n Model: {chat_model}\n\n Response: {arg}"
+                show_message_box(msg, custom_ok="Close")
+            else:
+                msg = f"Ran with fields: \n{stringified_vals}.\n Voice: {tts_provider} - {tts_voice}\n\n"
+                play_audio(arg)
+                show_message_box(msg, custom_ok="Close")
 
         def on_failure(e: Exception) -> None:
             show_message_box(f"Failed to get response: {e}")
             self.state["is_loading_prompt"] = False
 
-        self.processor.get_chat_response(
-            prompt=prompt,
-            note=sample_note,
-            on_success=on_success,
-            on_failure=on_failure,
-        )
+        if self.state.s["type"] == "chat":
+
+            # TODO: lose this fn, just call it on field resolver
+            self.processor.get_chat_response(
+                prompt=prompt,
+                note=sample_note,
+                provider=chat_provider,
+                model=chat_model,
+                field_lower=self.state.s["selected_note_field"].lower(),
+                on_success=on_success,
+                on_failure=on_failure,
+            )
+        else:
+            fn = lambda: (
+                self.processor.field_resolver.get_tts_response(
+                    input_text=prompt,
+                    note=sample_note,
+                    provider=tts_provider,
+                    model=default_tts_models_map[tts_provider],
+                    voice=tts_voice,
+                    options={},
+                )
+            )
+
+            run_async_in_background_with_sentry(fn, on_success, on_failure)
 
     def render_automatic_button(self) -> None:
         self.manual_box.setChecked(self.state.s["generate_manually"])
@@ -571,50 +653,76 @@ class PromptDialog(QDialog):
 
     def on_accept(self):
         prompt = self.state.s["prompt"]
-        prompts_map = self.prompts_map
         selected_card_type = self.state.s["selected_note_type"]
         selected_field = self.state.s["selected_note_field"]
 
         if not prompt:
             return
 
-        err = prompt_has_error(prompt, selected_card_type, selected_field)
+        new_prompts_map = self._add_prompt_to_prompts_map(
+            self.prompts_map, selected_card_type, selected_field, prompt
+        )
+
+        sample_note = get_random_note(selected_card_type)
+        if not sample_note:
+            show_message_box("Smart Notes: need at least one note of this note type!")
+            return
+
+        err = prompt_has_error(
+            prompt,
+            note=sample_note,
+            target_field=selected_field,
+            prompts_map=new_prompts_map,
+        )
 
         if err:
             show_message_box(f"Invalid prompt: {err}")
             return
 
-        logger.debug(
-            f"Trying to set prompt for {selected_card_type}, {selected_field}, {prompt}"
-        )
-
+        # Ensure only openai for legacy
         if not is_app_unlocked():
             if (
                 self.state.s["use_custom_model"]
-                and self.state.s["chat_provider"] != "ChatGPT"
+                and self.state.s["chat_provider"] != "openai"
             ):
                 show_message_box(UNPAID_PROVIDER_ERROR)
                 return
 
+        self.on_accept_callback(new_prompts_map)
+        self.accept()
+
+    def on_reject(self):
+        self.reject()
+
+    def _add_prompt_to_prompts_map(
+        self, prompts_map: PromptMap, note_type: str, field: str, prompt: str
+    ) -> PromptMap:
+        # Just creates a new prompts map with the prompt included
+        # TODO: doesn't need to live in this file
+
+        new_prompts_map = deepcopy(prompts_map)
+
+        logger.debug(f"Trying to set prompt for {note_type}, {field}, {prompt}")
+
         is_automatic = not self.state.s["generate_manually"]
 
         # Add the prompt to the prompts map
-        if not prompts_map["note_types"].get(selected_card_type):
-            prompts_map["note_types"][selected_card_type] = {
+        if not new_prompts_map["note_types"].get(note_type):
+            new_prompts_map["note_types"][note_type] = {
                 "fields": {},
                 "extra": {},  # type: ignore
             }
 
-        prompts_map["note_types"][selected_card_type]["fields"][selected_field] = prompt
+        new_prompts_map["note_types"][note_type]["fields"][field] = prompt
 
         # Write out extras
-        extras = prompts_map["note_types"][selected_card_type].get("extras")
+        extras = new_prompts_map["note_types"][note_type].get("extras")
         if not extras:
             extras = {}
-            prompts_map["note_types"][selected_card_type]["extras"] = extras
+            new_prompts_map["note_types"][note_type]["extras"] = extras
 
         # Actually populate extras for this field
-        selected_field_extras: FieldExtras = extras.get(selected_field, {})
+        selected_field_extras: FieldExtras = extras.get(field, {})
 
         type = self.state.s["type"]
         selected_field_extras["type"] = type
@@ -633,9 +741,7 @@ class PromptDialog(QDialog):
                 ]
             elif type == "chat":
                 selected_field_extras["chat_model"] = self.state.s["chat_model"]
-                selected_field_extras["chat_provider"] = chat_ui_to_provider_map[
-                    self.state.s["chat_provider"]
-                ]
+                selected_field_extras["chat_provider"] = self.state.s["chat_provider"]
                 selected_field_extras["chat_temperature"] = self.state.s[
                     "chat_temperature"
                 ]
@@ -650,12 +756,8 @@ class PromptDialog(QDialog):
             ]
             for extra in to_pop:
                 # TODO: fix this type ignore; can we just set them to None?
-                selected_field_extras.pop(extra, None)  # type: ignore
+                selected_field_extras.pop(extra, None)
 
         # Write em out
-        extras[selected_field] = selected_field_extras
-        self.on_accept_callback(prompts_map)
-        self.accept()
-
-    def on_reject(self):
-        self.reject()
+        extras[field] = selected_field_extras
+        return new_prompts_map

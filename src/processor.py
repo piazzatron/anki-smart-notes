@@ -18,7 +18,7 @@
 """
 
 import asyncio
-from typing import Callable, Dict, List, Sequence, Tuple, Union
+from typing import Callable, List, Sequence, Tuple, Union
 
 import aiohttp
 from anki.notes import Note, NoteId
@@ -32,15 +32,16 @@ from .app_state import (
 )
 from .config import Config
 from .constants import CHAINED_FIELDS_SKIPPED_ERROR
+from .dag import generate_fields_dag
 from .field_resolver import FieldResolver
 from .logger import logger
 from .models import ChatModels, ChatProviders
-from .nodes import ChatPayload, FieldNode, TTSPayload
+from .nodes import FieldNode
 from .notes import get_note_type, get_note_types, has_chained_ai_fields
-from .prompts import get_extras, get_prompt_fields, get_prompts
+from .prompts import get_prompts
 from .sentry import run_async_in_background_with_sentry
 from .ui.ui_utils import show_message_box
-from .utils import bump_usage_counter, get_fields, run_on_main
+from .utils import bump_usage_counter, run_on_main
 
 # OPEN_AI rate limits
 NEW_OPEN_AI_MODEL_REQ_PER_MIN = 500
@@ -282,7 +283,7 @@ class Processor:
             return False
 
         # Topsort + parallel process the DAG
-        dag = self.generate_fields_dag(
+        dag = generate_fields_dag(
             note, target_field=target_field, overwrite_fields=overwrite_fields
         )
 
@@ -405,6 +406,7 @@ class Processor:
         note: Note,
         provider: ChatProviders,
         model: ChatModels,
+        field_lower: str,
         on_success: Callable[[str], None],
         on_failure: Union[Callable[[Exception], None], None] = None,
     ):
@@ -424,7 +426,11 @@ class Processor:
 
         # TODO: needs field_upper
         chat_fn = lambda: self.field_resolver.get_chat_response(
-            prompt=prompt, note=note, model=model, provider=provider
+            prompt=prompt,
+            note=note,
+            model=model,
+            provider=provider,
+            field_lower=field_lower,
         )
 
         run_async_in_background_with_sentry(
@@ -453,116 +459,5 @@ class Processor:
         if new_value:
             node.did_update = True
 
+        print("HI")
         return new_value
-
-    def generate_fields_dag(
-        self, note: Note, overwrite_fields: bool, target_field: Union[str, None] = None
-    ) -> Dict[str, FieldNode]:
-        """Generates a directed acyclic graph of prompts for a note, or a subset of that graph if a target_fields list is passed. Returns a mapping of field -> PromptNode"""
-        try:
-            logger.debug("Generating dag...")
-            note_type = get_note_type(note)
-            prompts = get_prompts(to_lower=True).get(note_type, None)
-            if not prompts:
-                logger.error("generate_fields_dag: no prompts found for note type")
-                return {}
-
-            dag: Dict[str, FieldNode] = {}
-            fields = get_fields(note_type)
-
-            # Have to iterate over fields to get the canonical capitalization lol
-            for field in fields:
-
-                field_lower = field.lower()
-                prompt = prompts.get(field_lower)
-                if not prompt:
-                    continue
-
-                extras = get_extras(note_type, field)
-                type = extras["type"]
-                should_generate_automatically = extras["automatic"]
-
-                payload: Union[ChatPayload, TTSPayload]
-                if type == "chat":
-                    payload = ChatPayload(
-                        provider=extras["chat_provider"],
-                        model=extras["chat_model"],
-                        temperature=extras["chat_temperature"],
-                        prompt=prompt,
-                    )
-                elif type == "tts":
-                    payload = TTSPayload(
-                        provider=extras["tts_provider"],
-                        model=extras["tts_model"],
-                        voice=extras["tts_voice"],
-                        input=prompt,
-                        options={},
-                    )
-
-                dag[field_lower] = FieldNode(
-                    field=field_lower,
-                    field_upper=field,
-                    out_nodes=[],
-                    in_nodes=[],
-                    existing_value=note[field],
-                    overwrite=overwrite_fields,
-                    manual=not should_generate_automatically,
-                    is_target=bool(
-                        target_field and field_lower == target_field.lower()
-                    ),
-                    payload=payload,
-                )
-
-            if not len(dag):
-                logger.debug("Unexpectedly empty dag!")
-                return dag
-
-            for field, prompt in prompts.items():
-                in_fields = get_prompt_fields(prompt)
-
-                for in_field in in_fields:
-                    if in_field in dag:
-                        this_node = dag[field]
-                        depends_on = dag[in_field]
-                        this_node.in_nodes.append(depends_on)
-                        depends_on.out_nodes.append(this_node)
-
-            # If there's a target field, trim
-            # the dag to only the input of the target field
-            if target_field:
-                target_node = dag[target_field.lower()]
-                trimmed: Dict[str, FieldNode] = {target_field.lower(): target_node}
-
-                # Add pre
-                explore = target_node.in_nodes.copy()
-                while len(explore):
-                    cur = explore.pop()
-                    cur.generate_despite_manual = True
-                    trimmed[cur.field] = cur
-                    explore.extend(cur.in_nodes.copy())
-
-                logger.debug("Generated target fields dag")
-                logger.debug(trimmed)
-                return trimmed
-
-            logger.debug("Generated dag")
-            logger.debug(dag)
-            return dag
-        except Exception as e:
-            logger.error(f"Error creating dag: {e}")
-            return {}
-
-    def has_cycle(self, dag: Dict[str, FieldNode]) -> bool:
-        """Tests for cycles in a DAG. Returns True if there are cycles, False if there are not."""
-        dag = dag.copy()
-        for start in dag.values():
-            seen = set()
-            explore = [start]
-            while len(explore):
-                cur = explore.pop()
-                if cur.field in seen:
-                    return True
-                seen.add(cur.field)
-                explore.extend(cur.out_nodes.copy())
-
-        return False

@@ -17,9 +17,9 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Dict, List, Literal, TypedDict
+from typing import Dict, List, TypedDict
 
-from aqt import QGroupBox, QWidget
+from aqt import QGroupBox, QLabel, QSpacerItem, QWidget
 
 from ..models import (
     ChatModels,
@@ -30,33 +30,33 @@ from ..models import (
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_spin_box import ReactiveDoubleSpinBox
 from .state_manager import StateManager
-from .ui_utils import default_form_layout
-
-ReadableChatProvider = Literal["ChatGPT", "Claude"]
-ReadableChatProviders: List[ReadableChatProvider] = ["ChatGPT", "Claude"]
+from .ui_utils import default_form_layout, font_small
 
 
 class ChatOptionsState(TypedDict):
-    chat_provider: ReadableChatProvider
-    chat_providers: List[ReadableChatProvider]
+    chat_provider: ChatProviders
+    chat_providers: List[ChatProviders]
     chat_models: List[ChatModels]
     chat_model: ChatModels
     chat_temperature: int
 
 
-chat_provider_to_ui_map: Dict[ChatProviders, ReadableChatProvider] = {
-    "openai": "ChatGPT",
-    "anthropic": "Claude",
-}
-# Reversed
-chat_ui_to_provider_map: Dict[ReadableChatProvider, ChatProviders] = {
-    v: k for k, v in chat_provider_to_ui_map.items()
-}
-
 provider_model_map: Dict[ChatProviders, List[ChatModels]] = {
     "openai": openai_chat_models,
     "anthropic": anthropic_chat_models,
 }
+
+
+models_map: Dict[str, str] = {
+    "gpt-4o-mini": "GPT-4o Mini (Cheap, Fast)",
+    "gpt-4o": "GPT-4o (Smartest, Balanced Cost)",
+    "gpt-4-turbo": "GPT-4 Turbo (Smartest, Most Expensive)",
+    "claude-3-5-sonnet": "Claude 3.5 Sonnet (Smartest, Balanced Cost)",
+    "claude-3-opus": "Claude 3 Opus (Smart, Most Expensive)",
+    "claude-3-haiku": "Claude 3 Haiku (Cheap, Fast)",
+}
+
+providers_map = {"openai": "ChatGPT", "anthropic": "Claude"}
 
 
 class ChatOptions(QWidget):
@@ -67,14 +67,14 @@ class ChatOptions(QWidget):
 
     def setup_ui(self) -> None:
         self.chat_provider = ReactiveComboBox(
-            self.state, "chat_providers", "chat_provider"
+            self.state, "chat_providers", "chat_provider", providers_map
         )
         self.chat_provider.onChange.connect(
             lambda text: self.state.update(
                 {
                     "chat_provider": text,
-                    "chat_models": provider_model_map[chat_ui_to_provider_map[text]],
-                    "chat_model": provider_model_map[chat_ui_to_provider_map[text]][0],
+                    "chat_models": provider_model_map[text],
+                    "chat_model": provider_model_map[text][0],
                 }
             )
         )
@@ -84,21 +84,30 @@ class ChatOptions(QWidget):
         self.temperature.onChange.connect(
             lambda temp: self.state.update({"chat_temperature": temp})
         )
-        self.chat_model = ReactiveComboBox(self.state, "chat_models", "chat_model")
-        chat_box = QGroupBox("✨ Default Chat Settings")
+        self.chat_model = ReactiveComboBox(
+            self.state, "chat_models", "chat_model", models_map
+        )
+        self.chat_model.setMinimumWidth(350)
+        chat_box = QGroupBox("✨ Language Model")
         chat_form = default_form_layout()
         chat_form.addRow("Provider:", self.chat_provider)
         chat_form.addRow("Model:", self.chat_model)
 
-        advanced = QGroupBox("⚙️ Advanced Settings")
+        advanced = QGroupBox("⚙️ Advanced")
         advanced_layout = default_form_layout()
         advanced.setLayout(advanced_layout)
         advanced_layout.addRow("Temperature:", self.temperature)
-        # TODO: description of temp
+        temp_desc = QLabel(
+            "Temperature controls the randomness of responses. A higher temperature results in more creative responses."
+        )
+        temp_desc.setFont(font_small)
+        advanced_layout.addRow(temp_desc)
 
         chat_box.setLayout(chat_form)
         chat_layout = default_form_layout()
         chat_layout.addRow(chat_box)
+        chat_layout.addItem(QSpacerItem(0, 12))
         chat_layout.addRow(advanced)
+        chat_layout.setContentsMargins(0, 0, 0, 0)
 
         self.setLayout(chat_layout)
