@@ -88,17 +88,17 @@ class ChatOptions(QWidget):
             self.state, "chat_models", "chat_model", models_map
         )
         self.chat_model.setMinimumWidth(350)
-        chat_box = QGroupBox("✨ Language Model Settings")
+        chat_box = QGroupBox("✨ Language Model")
         chat_form = default_form_layout()
         chat_form.addRow("Provider:", self.chat_provider)
         chat_form.addRow("Model:", self.chat_model)
 
-        advanced = QGroupBox("⚙️ Advanced Settings")
+        advanced = QGroupBox("⚙️ Advanced")
         advanced_layout = default_form_layout()
         advanced.setLayout(advanced_layout)
         advanced_layout.addRow("Temperature:", self.temperature)
         temp_desc = QLabel(
-            "Temperature controls the randomness of the chat responses. A higher temperature will result in more creative responses."
+            "Temperature controls the randomness of responses. A higher temperature results in more creative responses."
         )
         temp_desc.setFont(font_small)
         advanced_layout.addRow(temp_desc)

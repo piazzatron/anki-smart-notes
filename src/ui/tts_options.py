@@ -17,18 +17,22 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import List, Literal, TypedDict, Union
+from typing import Dict, List, Literal, TypedDict, Union
 
 from anki.sound import play  # type: ignore
 from aqt import (
     QAbstractListModel,
     QGroupBox,
+    QHBoxLayout,
     QItemSelection,
     QItemSelectionModel,
     QListView,
     QModelIndex,
     QPushButton,
+    QSizePolicy,
+    QSpacerItem,
     Qt,
+    QVBoxLayout,
     QWidget,
     mw,
 )
@@ -47,6 +51,10 @@ AllLanguages = Union[Literal["all"], Languages]
 AllTTSProviders = Union[Literal["all"], TTSProviders]
 
 Gender = Literal["all", "male", "female"]
+default_texts: Dict[AllLanguages, str] = {
+    "all": "I'm sorry Dave, I'm afraid I can't do that.",
+    "english": "Blah blah blah",
+}
 
 
 class TTSMeta(TypedDict):
@@ -197,20 +205,32 @@ class TTSOptions(QWidget):
         self.voices_models = CustomListModel(self.get_visible_voice_filters())
         self.voices_list.setModel(self.voices_models)
 
-        layout = default_form_layout()
-        layout.addRow(self.render_filters())
-        layout.addRow(self.render_voices_list())
-        layout.addRow(self.render_test_voice())
+        layout = QVBoxLayout()
+        top_row = QWidget()
+        top_row_layout = QHBoxLayout()
+        top_row_layout.setContentsMargins(0, 0, 0, 0)
+        top_row.setLayout(top_row_layout)
+        top_row_layout.addWidget(self.render_filters())
+        top_row_layout.addWidget(self.render_voices_list())
+        layout.addWidget(top_row)
+        layout.addSpacerItem(QSpacerItem(0, 12))
+        layout.addWidget(self.render_test_voice())
         self.state.state_changed.connect(self.update_ui)
 
+        layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
 
     def render_filters(self) -> QWidget:
-        filters_box = QGroupBox("TTS Filters")
+        filters_box = QGroupBox("Filter Voice List")
         filters_layout = default_form_layout()
         filters_box.setLayout(filters_layout)
 
         language = ReactiveComboBox(self.state, "languages", "selected_language")
+        language.onChange.connect(
+            lambda langauge: self.state.update(
+                {"test_text": default_texts.get(langauge, default_texts["all"])}
+            )
+        )
         gender = ReactiveComboBox(self.state, "genders", "selected_gender")
         provider = ReactiveComboBox(self.state, "providers", "selected_provider")
 
@@ -221,13 +241,18 @@ class TTSOptions(QWidget):
         return filters_box
 
     def render_voices_list(self) -> QWidget:
+        voice_box = QGroupBox("Voices")
+        voice_box_layout = QVBoxLayout()
+        voice_box.setLayout(voice_box_layout)
+        voice_box_layout.setContentsMargins(0, 0, 0, 0)
         self.voices_list = QListView()
         self.voices_models = CustomListModel(self.get_visible_voice_filters())
         self.voices_list.setModel(self.voices_models)
         selection_model = self.voices_list.selectionModel()
         if selection_model:
             selection_model.selectionChanged.connect(self.voice_did_change)
-        return self.voices_list
+        voice_box_layout.addWidget(self.voices_list)
+        return voice_box
 
     def voice_did_change(self, selected: QItemSelection):
         indexes = selected.indexes()
@@ -290,15 +315,17 @@ class TTSOptions(QWidget):
             )
 
     def render_test_voice(self) -> QWidget:
-        box = QGroupBox("Voice Testing")
-        layout = default_form_layout()
+        box = QGroupBox()
+        layout = QHBoxLayout()
         edit_text = ReactiveEditText(self.state, "test_text")
+        edit_text.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        edit_text.setFixedHeight(26)
         edit_text.onChange.connect(lambda text: self.state.update({"test_text": text}))
-        self.test_button = QPushButton("Test")
+        self.test_button = QPushButton("Test Voice 🔈")
         self.test_button.clicked.connect(self.play_audio)
+        layout.addWidget(edit_text)
+        layout.addWidget(self.test_button)
 
-        layout.addRow("Text to test:", edit_text)
-        layout.addRow(self.test_button)
         box.setLayout(layout)
 
         return box
@@ -368,7 +395,7 @@ class TTSOptions(QWidget):
             "selected_gender": "all",
             "languages": languages,
             "selected_language": "all",
-            "test_text": "",
+            "test_text": default_texts["all"],
             "test_enabled": True,
             "tts_provider": config.tts_provider,
             "tts_voice": config.tts_voice,

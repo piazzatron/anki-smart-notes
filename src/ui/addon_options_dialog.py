@@ -56,7 +56,7 @@ from .reactive_line_edit import ReactiveLineEdit
 from .state_manager import StateManager
 from .subscription_box import SubscriptionBox
 from .tts_options import TTSOptions, TTSState, languages, providers
-from .ui_utils import default_form_layout, font_small, show_message_box
+from .ui_utils import default_form_layout, font_large, font_small, show_message_box
 
 OPTIONS_MIN_WIDTH = 875
 
@@ -167,7 +167,7 @@ class AddonOptionsDialog(QDialog):
         tabs.addTab(self.render_chat_tab(), "Language Model")
         # Store a ref so we can enable/disable it
         self.tts_tab = self.render_tts_tab()
-        tabs.addTab(self.tts_tab, "TTS Fields")
+        tabs.addTab(self.tts_tab, "TTS")
         tabs.addTab(self.render_plugin_tab(), "Advanced")
         tabs.addTab(self.render_account_tab(), "Account")
 
@@ -358,13 +358,44 @@ class AddonOptionsDialog(QDialog):
         return AccountOptions()
 
     def render_chat_tab(self) -> QWidget:
+        container = QWidget()
+        layout = QVBoxLayout()
+        container.setLayout(layout)
+        layout.setContentsMargins(24, 24, 24, 24)
         # TODO: this shouldn't depend on self state
         options = ChatOptions(self.state)  # type: ignore
-        options.setContentsMargins(24, 24, 24, 24)
-        return options
+        options.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Expanding)
+        expl = QLabel("Configure default language model settings")
+        subExpl = QLabel("These settings can be overridden on a per-field basis.")
+        expl.setFont(font_large)
+        subExpl.setFont(font_small)
+        layout.addWidget(expl)
+        layout.addWidget(subExpl)
+        layout.addItem(
+            QSpacerItem(0, 24, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        )
+        layout.addWidget(options)
+        return container
 
     def render_tts_tab(self) -> QWidget:
-        return TTSOptions()
+        container = QWidget()
+        layout = QVBoxLayout()
+        container.setLayout(layout)
+        layout.setContentsMargins(24, 24, 24, 24)
+        options = TTSOptions()
+        options.setContentsMargins(0, 0, 0, 0)
+
+        expl = QLabel("Configure default voice settings for TTS.")
+        subExpl = QLabel("These settings can be overridden on a per-field basis.")
+        expl.setFont(font_large)
+        subExpl.setFont(font_small)
+        layout.addWidget(expl)
+        layout.addWidget(subExpl)
+        layout.addItem(
+            QSpacerItem(0, 24, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        )
+        layout.addWidget(options)
+        return container
 
     def create_table(self) -> QTableWidget:
         table = QTableWidget(0, 4)
