@@ -406,6 +406,7 @@ class Processor:
         note: Note,
         provider: ChatProviders,
         model: ChatModels,
+        field_lower: str,
         on_success: Callable[[str], None],
         on_failure: Union[Callable[[Exception], None], None] = None,
     ):
@@ -425,7 +426,11 @@ class Processor:
 
         # TODO: needs field_upper
         chat_fn = lambda: self.field_resolver.get_chat_response(
-            prompt=prompt, note=note, model=model, provider=provider
+            prompt=prompt,
+            note=note,
+            model=model,
+            provider=provider,
+            field_lower=field_lower,
         )
 
         run_async_in_background_with_sentry(

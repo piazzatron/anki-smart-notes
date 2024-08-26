@@ -516,6 +516,17 @@ class PromptDialog(QDialog):
 
         self.state["is_loading_prompt"] = True
 
+        chat_provider = (
+            self.state.s["chat_provider"]
+            if self.state.s["use_custom_model"]
+            else config.chat_provider
+        )
+        chat_model = (
+            self.state.s["chat_model"]
+            if self.state.s["use_custom_model"]
+            else config.chat_model
+        )
+
         def on_success(arg):
 
             prompt = self.state.s["prompt"]
@@ -531,7 +542,7 @@ class PromptDialog(QDialog):
             }
 
             stringified_vals = "\n".join([f"{k}: {v}" for k, v in field_map.items()])
-            msg = f"Ran with fields: \n{stringified_vals}.\n\n Response: {arg}"
+            msg = f"Ran with fields: \n{stringified_vals}.\n Model: {chat_model}\n\n Response: {arg}"
 
             self.state["is_loading_prompt"] = False
             show_message_box(msg, custom_ok="Close")
@@ -543,6 +554,9 @@ class PromptDialog(QDialog):
         self.processor.get_chat_response(
             prompt=prompt,
             note=sample_note,
+            provider=chat_provider,
+            model=chat_model,
+            field_lower=self.state.s["selected_note_field"].lower(),
             on_success=on_success,
             on_failure=on_failure,
         )
