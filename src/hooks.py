@@ -28,7 +28,7 @@ from typing import List, Sequence
 from anki.cards import Card
 from anki.notes import Note, NoteId
 from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
-from aqt.browser import SidebarItemType
+from aqt.browser import SidebarItemType  # type: ignore
 
 from .app_state import app_state, is_app_unlocked_or_legacy
 from .config import config
@@ -286,7 +286,7 @@ def add_deck_option(
     processor: Processor,
     tree_view,
     menu: QMenu,
-    sidebar_item: browser.SidebarItem,
+    sidebar_item: browser.SidebarItem,  # type: ignore
     model_index,
 ) -> None:
     if not mw:

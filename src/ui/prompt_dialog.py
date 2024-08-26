@@ -17,6 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from copy import deepcopy
 from typing import Callable, List, Literal, TypedDict, Union
 
 from aqt import (
@@ -42,25 +43,25 @@ from PyQt6.QtCore import Qt
 from ..app_state import is_app_unlocked
 from ..config import FieldExtras, PromptMap, config
 from ..constants import UNPAID_PROVIDER_ERROR
+from ..dag import prompt_has_error
 from ..logger import logger
 from ..models import ChatModels, ChatProviders
-from ..notes import get_note_types
+from ..notes import get_note_types, get_random_note
 from ..processor import Processor
 from ..prompts import (
     get_extras,
     get_generate_automatically,
     get_prompt_fields,
     get_prompts,
-    prompt_has_error,
 )
 from ..utils import get_fields, to_lowercase_dict
-from .chat_options import ChatOptions, default_form_layout, provider_model_map
+from .chat_options import ChatOptions, provider_model_map
 from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_edit_text import ReactiveEditText
 from .state_manager import StateManager
 from .tts_options import TTSOptions
-from .ui_utils import font_bold, font_small, show_message_box
+from .ui_utils import default_form_layout, font_bold, font_small, show_message_box
 
 explanation = """Write a "prompt" to help the chat model generate your target smart field.
 
@@ -477,23 +478,29 @@ class PromptDialog(QDialog):
             return
 
         selected_note_type = self.state.s["selected_note_type"]
+        sample_note = get_random_note(selected_note_type)
+
+        if not sample_note:
+            show_message_box("Smart Notes: need at least one note of this note type!")
+            return
+        new_prompts_map = self._add_prompt_to_prompts_map(
+            self.prompts_map,
+            prompt=prompt,
+            note_type=self.state.s["selected_note_type"],
+            field=self.state.s["selected_note_field"],
+        )
+
         error = prompt_has_error(
             prompt,
-            selected_note_type,
-            self.state.s["selected_note_field"],
+            note=sample_note,
+            target_field=self.state.s["selected_note_field"],
+            prompts_map=new_prompts_map,
         )
 
         if error:
             show_message_box(f"Invalid prompt: {error}")
             return
 
-        sample_note_ids = mw.col.find_notes(f'note:"{selected_note_type}"')
-
-        if not sample_note_ids:
-            show_message_box("No cards found for this note type.")
-            return
-
-        sample_note = mw.col.get_note(sample_note_ids[0])
         self.state["is_loading_prompt"] = True
 
         def on_success(arg):
@@ -578,50 +585,76 @@ class PromptDialog(QDialog):
 
     def on_accept(self):
         prompt = self.state.s["prompt"]
-        prompts_map = self.prompts_map
         selected_card_type = self.state.s["selected_note_type"]
         selected_field = self.state.s["selected_note_field"]
 
         if not prompt:
             return
 
-        err = prompt_has_error(prompt, selected_card_type, selected_field)
+        new_prompts_map = self._add_prompt_to_prompts_map(
+            self.prompts_map, selected_card_type, selected_field, prompt
+        )
+
+        sample_note = get_random_note(selected_card_type)
+        if not sample_note:
+            show_message_box("Smart Notes: need at least one note of this note type!")
+            return
+
+        err = prompt_has_error(
+            prompt,
+            note=sample_note,
+            target_field=selected_field,
+            prompts_map=new_prompts_map,
+        )
 
         if err:
             show_message_box(f"Invalid prompt: {err}")
             return
 
-        logger.debug(
-            f"Trying to set prompt for {selected_card_type}, {selected_field}, {prompt}"
-        )
-
+        # Ensure only openai for legacy
         if not is_app_unlocked():
             if (
                 self.state.s["use_custom_model"]
-                and self.state.s["chat_provider"] != "ChatGPT"
+                and self.state.s["chat_provider"] != "openai"
             ):
                 show_message_box(UNPAID_PROVIDER_ERROR)
                 return
 
+        self.on_accept_callback(new_prompts_map)
+        self.accept()
+
+    def on_reject(self):
+        self.reject()
+
+    def _add_prompt_to_prompts_map(
+        self, prompts_map: PromptMap, note_type: str, field: str, prompt: str
+    ) -> PromptMap:
+        # Just creates a new prompts map with the prompt included
+        # TODO: doesn't need to live in this file
+
+        new_prompts_map = deepcopy(prompts_map)
+
+        logger.debug(f"Trying to set prompt for {note_type}, {field}, {prompt}")
+
         is_automatic = not self.state.s["generate_manually"]
 
         # Add the prompt to the prompts map
-        if not prompts_map["note_types"].get(selected_card_type):
-            prompts_map["note_types"][selected_card_type] = {
+        if not new_prompts_map["note_types"].get(note_type):
+            new_prompts_map["note_types"][note_type] = {
                 "fields": {},
                 "extra": {},  # type: ignore
             }
 
-        prompts_map["note_types"][selected_card_type]["fields"][selected_field] = prompt
+        new_prompts_map["note_types"][note_type]["fields"][field] = prompt
 
         # Write out extras
-        extras = prompts_map["note_types"][selected_card_type].get("extras")
+        extras = new_prompts_map["note_types"][note_type].get("extras")
         if not extras:
             extras = {}
-            prompts_map["note_types"][selected_card_type]["extras"] = extras
+            new_prompts_map["note_types"][note_type]["extras"] = extras
 
         # Actually populate extras for this field
-        selected_field_extras: FieldExtras = extras.get(selected_field, {})
+        selected_field_extras: FieldExtras = extras.get(field, {})
 
         type = self.state.s["type"]
         selected_field_extras["type"] = type
@@ -640,9 +673,7 @@ class PromptDialog(QDialog):
                 ]
             elif type == "chat":
                 selected_field_extras["chat_model"] = self.state.s["chat_model"]
-                selected_field_extras["chat_provider"] = chat_ui_to_provider_map[
-                    self.state.s["chat_provider"]
-                ]
+                selected_field_extras["chat_provider"] = self.state.s["chat_provider"]
                 selected_field_extras["chat_temperature"] = self.state.s[
                     "chat_temperature"
                 ]
@@ -657,12 +688,8 @@ class PromptDialog(QDialog):
             ]
             for extra in to_pop:
                 # TODO: fix this type ignore; can we just set them to None?
-                selected_field_extras.pop(extra, None)  # type: ignore
+                selected_field_extras.pop(extra, None)
 
         # Write em out
-        extras[selected_field] = selected_field_extras
-        self.on_accept_callback(prompts_map)
-        self.accept()
-
-    def on_reject(self):
-        self.reject()
+        extras[field] = selected_field_extras
+        return new_prompts_map

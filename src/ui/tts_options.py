@@ -165,11 +165,11 @@ class CustomListModel(QAbstractListModel):
         super().__init__()
         self._data = data
 
-    def data(self, index, role):
+    def data(self, index, role):  # type: ignore
         if role == Qt.ItemDataRole.DisplayRole:
             return self.create_str(index.row())
 
-    def rowCount(self, index):
+    def rowCount(self, _: QModelIndex) -> int:  # type: ignore
         return len(self._data)
 
     def create_str(self, row: int) -> str:

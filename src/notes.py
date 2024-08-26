@@ -23,6 +23,7 @@ from anki.notes import Note
 from aqt import mw
 
 from .prompts import get_generate_automatically, get_prompt_fields, get_prompts
+from .ui.ui_utils import show_message_box
 from .utils import get_fields, to_lowercase_dict
 
 """Helpful functions for working with notes"""
@@ -108,3 +109,16 @@ def get_chained_ai_fields(note_type: str) -> set[str]:
                 break
 
     return res
+
+
+def get_random_note(note_type: str) -> Union[Note, None]:
+    if not mw or not mw.col:
+        return None
+
+    sample_note_ids = mw.col.find_notes(f'note:"{note_type}"')
+
+    if not sample_note_ids:
+        show_message_box("No cards found for this note type.")
+        return None
+
+    return mw.col.get_note(sample_note_ids[0])

@@ -364,7 +364,7 @@ class AddonOptionsDialog(QDialog):
         return options
 
     def render_tts_tab(self) -> QWidget:
-        return TTSOptions()  # type: ignore
+        return TTSOptions()
 
     def create_table(self) -> QTableWidget:
         table = QTableWidget(0, 4)
