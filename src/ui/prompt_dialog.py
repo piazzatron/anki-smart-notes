@@ -29,6 +29,7 @@ from aqt import (
     QLabel,
     QPushButton,
     QSizePolicy,
+    QSpacerItem,
     Qt,
     QTabWidget,
     QTextEdit,
@@ -280,6 +281,11 @@ class PromptDialog(QDialog):
 
         self.test_button = QPushButton("Test ✨")
 
+        text_only_container = QWidget()
+        text_only_layout = QVBoxLayout()
+        text_only_container.setLayout(text_only_layout)
+        text_only_layout.setContentsMargins(0, 0, 0, 0)
+        text_only_container.setHidden(self.state.s["type"] == "tts")
         prompt_label = QLabel("Prompt")
         self.prompt_text_box = ReactiveEditText(self.state, "prompt")
         self.prompt_text_box.setMinimumHeight(150)
@@ -302,10 +308,17 @@ class PromptDialog(QDialog):
         self.valid_fields.setFont(small_font)
 
         self.setLayout(layout)
-        layout.addWidget(prompt_label)
-        layout.addWidget(self.prompt_text_box)
-        layout.addWidget(self.valid_fields)
+        text_only_layout.addWidget(prompt_label)
+        text_only_layout.addWidget(self.prompt_text_box)
+        text_only_layout.addWidget(self.valid_fields)
+        layout.addWidget(text_only_container)
+        layout.addSpacerItem(QSpacerItem(0, 12))
         layout.addWidget(self.test_button)
+        layout.addSpacerItem(
+            QSpacerItem(
+                0, 0, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding
+            )
+        )
 
         self.state.state_changed.connect(self.render_ui)
         self.card_combo_box.onChange.connect(self._on_new_card_type_selected)
@@ -469,7 +482,7 @@ class PromptDialog(QDialog):
         if self.state.s["is_loading_prompt"]:
             self.test_button.setText("Loading...")
         else:
-            self.test_button.setText("Test Prompt ✨")
+            self.test_button.setText("Test ✨")
 
     def on_test(self) -> None:
         prompt = self.state.s["prompt"]
