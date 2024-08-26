@@ -41,12 +41,12 @@ from aqt import (
 )
 from PyQt6.QtCore import Qt
 
-from ..app_state import is_app_unlocked
+from ..app_state import is_app_unlocked, is_app_unlocked_or_legacy
 from ..config import FieldExtras, PromptMap, config
 from ..constants import UNPAID_PROVIDER_ERROR
 from ..dag import prompt_has_error
 from ..logger import logger
-from ..models import ChatModels, ChatProviders
+from ..models import ChatModels, ChatProviders, default_tts_models_map
 from ..notes import get_note_types, get_random_note
 from ..processor import Processor
 from ..prompts import (
@@ -55,6 +55,8 @@ from ..prompts import (
     get_prompt_fields,
     get_prompts,
 )
+from ..sentry import run_async_in_background_with_sentry
+from ..tts_utils import play_audio
 from ..utils import get_fields, to_lowercase_dict
 from .chat_options import ChatOptions, provider_model_map
 from .reactive_check_box import ReactiveCheckBox
@@ -485,6 +487,13 @@ class PromptDialog(QDialog):
             self.test_button.setText("Test ✨")
 
     def on_test(self) -> None:
+        if self.state.s["type"] == "chat":
+            if not is_app_unlocked_or_legacy(True):
+                return
+        else:
+            if not is_app_unlocked(True):
+                return
+
         prompt = self.state.s["prompt"]
 
         if not mw or not prompt:
@@ -527,6 +536,18 @@ class PromptDialog(QDialog):
             else config.chat_model
         )
 
+        tts_provider = (
+            self.tts_options.state.s["tts_provider"]
+            if self.state.s["use_custom_model"]
+            else config.tts_provider
+        ) or config.tts_provider
+
+        tts_voice = (
+            self.tts_options.state.s["tts_voice"]
+            if self.state.s["use_custom_model"]
+            else config.tts_voice
+        ) or config.tts_voice
+
         def on_success(arg):
 
             prompt = self.state.s["prompt"]
@@ -542,24 +563,44 @@ class PromptDialog(QDialog):
             }
 
             stringified_vals = "\n".join([f"{k}: {v}" for k, v in field_map.items()])
-            msg = f"Ran with fields: \n{stringified_vals}.\n Model: {chat_model}\n\n Response: {arg}"
-
             self.state["is_loading_prompt"] = False
-            show_message_box(msg, custom_ok="Close")
+            if self.state.s["type"] == "chat":
+                msg = f"Ran with fields: \n{stringified_vals}.\n Model: {chat_model}\n\n Response: {arg}"
+                show_message_box(msg, custom_ok="Close")
+            else:
+                msg = f"Ran with fields: \n{stringified_vals}.\n Voice: {tts_provider} - {tts_voice}\n\n"
+                play_audio(arg)
+                show_message_box(msg, custom_ok="Close")
 
         def on_failure(e: Exception) -> None:
             show_message_box(f"Failed to get response: {e}")
             self.state["is_loading_prompt"] = False
 
-        self.processor.get_chat_response(
-            prompt=prompt,
-            note=sample_note,
-            provider=chat_provider,
-            model=chat_model,
-            field_lower=self.state.s["selected_note_field"].lower(),
-            on_success=on_success,
-            on_failure=on_failure,
-        )
+        if self.state.s["type"] == "chat":
+
+            # TODO: lose this fn, just call it on field resolver
+            self.processor.get_chat_response(
+                prompt=prompt,
+                note=sample_note,
+                provider=chat_provider,
+                model=chat_model,
+                field_lower=self.state.s["selected_note_field"].lower(),
+                on_success=on_success,
+                on_failure=on_failure,
+            )
+        else:
+            fn = lambda: (
+                self.processor.field_resolver.get_tts_response(
+                    input_text=prompt,
+                    note=sample_note,
+                    provider=tts_provider,
+                    model=default_tts_models_map[tts_provider],
+                    voice=tts_voice,
+                    options={},
+                )
+            )
+
+            run_async_in_background_with_sentry(fn, on_success, on_failure)
 
     def render_automatic_button(self) -> None:
         self.manual_box.setChecked(self.state.s["generate_manually"])

@@ -19,7 +19,6 @@
 
 from typing import Dict, List, Literal, TypedDict, Union
 
-from anki.sound import play  # type: ignore
 from aqt import (
     QAbstractListModel,
     QGroupBox,
@@ -34,7 +33,6 @@ from aqt import (
     Qt,
     QVBoxLayout,
     QWidget,
-    mw,
 )
 
 from ..config import config
@@ -42,10 +40,11 @@ from ..logger import logger
 from ..models import Languages, TTSProviders, TTSVoices, default_tts_models_map
 from ..sentry import run_async_in_background_with_sentry
 from ..tts_provider import TTSProvider
+from ..tts_utils import play_audio
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_edit_text import ReactiveEditText
 from .state_manager import StateManager
-from .ui_utils import default_form_layout
+from .ui_utils import default_form_layout, show_message_box
 
 AllLanguages = Union[Literal["all"], Languages]
 AllTTSProviders = Union[Literal["all"], TTSProviders]
@@ -322,7 +321,7 @@ class TTSOptions(QWidget):
         edit_text.setFixedHeight(26)
         edit_text.onChange.connect(lambda text: self.state.update({"test_text": text}))
         self.test_button = QPushButton("Test Voice 🔈")
-        self.test_button.clicked.connect(self.play_audio)
+        self.test_button.clicked.connect(self.test_and_play)
         layout.addWidget(edit_text)
         layout.addWidget(self.test_button)
 
@@ -330,29 +329,22 @@ class TTSOptions(QWidget):
 
         return box
 
-    def play_audio(self) -> None:
+    def test_and_play(self) -> None:
 
         def on_success(audio: bytes):
-            logger.debug("Successfully got audio!")
-            if not mw or not mw.col.media:
-                logger.error("No mw")
-                return
-            path = mw.col.media.write_data("smart-notes-test", audio)
-            play(path)
-
-            # Cleanup
-            mw.col.media.trash_files([path])
+            play_audio(audio)
             self.state.update({"test_enabled": True})
-
-        # TODO: add on failure
 
         provider = self.state.s["tts_provider"]
         voice = self.state.s["tts_voice"]
         if not (provider and voice):
             return
 
-        async def _async_play_audio() -> bytes:
+        def on_failure(err):
+            show_message_box(f"Something went wrong testing audio: {err}")
+            self.state.update({"test_enabled": True})
 
+        async def fetch_audio() -> bytes:
             tts_provider = TTSProvider()
             resp = await tts_provider.async_get_tts_response(
                 input=self.state.s["test_text"],
@@ -363,7 +355,9 @@ class TTSOptions(QWidget):
             return resp
 
         self.state.update({"test_enabled": False})
-        run_async_in_background_with_sentry(_async_play_audio, on_success=on_success)
+        run_async_in_background_with_sentry(
+            fetch_audio, on_success=on_success, on_failure=on_failure
+        )
 
     def get_visible_voice_filters(self) -> List[TTSMeta]:
         filtered = []

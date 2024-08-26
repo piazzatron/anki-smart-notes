@@ -155,9 +155,12 @@ app_state = AppStateManager()
 # Mode selection stuff
 
 
-def is_app_unlocked() -> bool:
+def is_app_unlocked(show_box=False) -> bool:
     state = app_state._state.s["subscription"]
-    return state in ["FREE_TRIAL_ACTIVE", "PAID_PLAN_ACTIVE"]
+    unlocked = state in ["FREE_TRIAL_ACTIVE", "PAID_PLAN_ACTIVE"]
+    if not unlocked and show_box:
+        show_message_box(APP_LOCKED_ERROR)
+    return unlocked
 
 
 def has_api_key() -> bool:
