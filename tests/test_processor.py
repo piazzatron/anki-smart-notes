@@ -31,6 +31,8 @@ class MockNote:
     _note_type: str
     _data: dict[str, Any]
 
+    id = 1
+
     def note_type(self):
         return {"name": self._note_type}
 
@@ -57,6 +59,8 @@ class MockConfig:
     chat_provider = "openai"
     chat_model = "gpt-4o-mini"
     chat_temperature = 0
+    tts_provider = "openai"
+    tts_voice = "alloy"
 
     debug: bool = True
 
@@ -76,6 +80,7 @@ class MockChatClient:
         prompt: str,
         model: str,
         provider: str,
+        note_id: int,
         temperature: int = 0,
         retry_count: int = 0,
     ) -> str:
@@ -108,14 +113,18 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     f = FieldResolver(openai_provider=openai, chat_provider=chat, tts_provider=chat)  # type: ignore
     p = Processor(field_resolver=f, config=c)
 
-    monkeypatch.setattr(anki_smart_notes.src.prompts, "config", c)
+    monkeypatch.setattr(
+        anki_smart_notes.src.dag, "get_fields", lambda _: note.fields()  # type: ignore
+    )
 
     monkeypatch.setattr(
-        anki_smart_notes.src.processor, "get_fields", lambda _: note.fields()  # type: ignore
+        anki_smart_notes.src.field_resolver, "is_app_unlocked", lambda: True
     )
     monkeypatch.setattr(
-        anki_smart_notes.src.field_resolver, "is_legacy_open_ai", lambda: False
+        anki_smart_notes.src.field_resolver, "has_api_key", lambda: False
     )
+
+    monkeypatch.setattr(anki_smart_notes.src.prompts, "config", c)
 
     return p
 
@@ -438,18 +447,12 @@ async def test_processor_1(name, note, prompts_map, expected, options, monkeypat
     ],
 )
 async def test_cycle(note, prompts_map, expected, monkeypatch):
-    n = MockNote(note_type=NOTE_TYPE_NAME, data=note)
-    p = setup_data(  # type: ignore
-        monkeypatch=monkeypatch,
-        note=n,
-        prompts_map=prompts_map,
-        options={},
-        allow_empty_fields=False,
-    )
+    from anki_smart_notes.src.dag import generate_fields_dag, has_cycle
 
-    dag = p.generate_fields_dag(n, overwrite_fields=True)
-    has_cycle = p.has_cycle(dag)
-    assert has_cycle == expected
+    n = MockNote(note_type=NOTE_TYPE_NAME, data=note)
+    dag = generate_fields_dag(n, overwrite_fields=True)
+    cycle = has_cycle(dag)
+    assert cycle == expected
 
 
 @pytest.mark.asyncio

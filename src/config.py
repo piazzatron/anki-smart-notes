@@ -17,6 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import os
 from typing import Any, Dict, Literal, Optional, TypedDict, Union
 
 from aqt import addons, mw
@@ -114,7 +115,8 @@ class Config:
                 print(f"Setting legacy_support to {is_legacy}")
                 self.__setattr__("legacy_support", is_legacy)
         except Exception as e:
-            print(f"Error: Unexepctedly caught exception cleaning up config {e}")
+            if not os.getenv("IS_TEST"):
+                print(f"Error: Unexepctedly caught exception cleaning up config {e}")
 
     def __getattr__(self, key: str) -> object:
         if not mw:
