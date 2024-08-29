@@ -29,6 +29,7 @@ from aqt import (
 
 from ..app_state import AppState, app_state
 from ..config import config
+from .manage_subscription import manage_subscription
 from .ui_utils import default_form_layout
 
 
@@ -51,11 +52,11 @@ class AccountOptions(QWidget):
 
         sub_box_layout = default_form_layout()
         sub_box_layout.addRow("Subscription Type:", self.sub_type)
-        # TODO: credits
-        sub_box_layout.addRow("Tokens Usage:", self.tokens_used)
+        sub_box_layout.addRow("Credits Used:", self.tokens_used)
         sub_box_layout.addRow("Days Remaining:", self.days_remaining)
-        # TODO: how to handle this one
-        sub_box_layout.addRow("Note Usage:", self.cards_remaining)
+        sub_box_layout.addRow("Notes Used:", self.cards_remaining)
+        sub_box_layout.addItem(QSpacerItem(0, 12))
+        sub_box_layout.addRow(manage_subscription, QLabel(""))
 
         self.no_sub = QLabel("Nothing to see here...")
         layout.addWidget(self.sub_box)

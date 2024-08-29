@@ -34,6 +34,7 @@ from aqt import (
 from ..app_state import AppState, app_state
 from ..constants import get_site_url
 from ..subscription_provider import SubscriptionState
+from .manage_subscription import manage_subscription
 from .ui_utils import font_bold, font_small
 from .webview_dialog import WebviewDialog
 
@@ -228,9 +229,7 @@ class SubscriptionBox(QWidget):
     def _render_active(self) -> QWidget:
         layout = QHBoxLayout()
         label = QLabel("✅ Subscription Active")
-        manage_link = f"{get_site_url()}/account"
-        manage_label = QLabel(f"<a href={manage_link}>Manage Subscription</a>")
-        manage_label.setOpenExternalLinks(True)
+        manage_label = manage_subscription
         layout.addWidget(label, alignment=Qt.AlignmentFlag.AlignLeft)
         layout.addWidget(manage_label, alignment=Qt.AlignmentFlag.AlignRight)
 

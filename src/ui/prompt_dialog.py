@@ -212,7 +212,7 @@ class PromptDialog(QDialog):
         self.standard_buttons = self.create_buttons()
 
         tabs = QTabWidget()
-        tabs.addTab(self.render_main_tab(), "Main")
+        tabs.addTab(self.render_main_tab(), "General")
         tabs.addTab(self.render_options_tab(), "Options")
 
         container = QVBoxLayout()
