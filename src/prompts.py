@@ -54,8 +54,9 @@ def get_extras(
     type: Union[Literal["chat", "tts"], None] = None,
 ) -> FieldExtrasWithDefaults:
 
-    extras = (
-        (prompts_map or config.prompts_map)["note_types"]
+    # Lowercase the field names
+    extras = to_lowercase_dict(
+        (prompts_map or config.prompts_map)["note_types"]  # type: ignore
         .get(note_type, {"extras": {}})
         .get("extras", {})
     )
@@ -76,7 +77,7 @@ def get_extras(
     if not extras:
         return default_extras
 
-    field_extras = extras.get(note_field, default_extras)
+    field_extras = extras.get(note_field.lower(), default_extras)
 
     # Populate missing fields with defaults
     for k, v in default_extras.items():

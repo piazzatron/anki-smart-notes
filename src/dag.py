@@ -163,10 +163,14 @@ def prompt_has_error(
     note_fields = {field.lower() for field in get_fields(note_type)}
     prompt_fields = get_prompt_fields(prompt)
 
-    # Check for fields that aren't in the card
+    # Check for referencing invalid fields
     for prompt_field in prompt_fields:
+        # Doesn't exist
         if prompt_field not in note_fields:
             return f"Invalid field in prompt: {prompt_field}"
+        # Is TTS
+        elif get_extras(note_type, prompt_field, prompts_map)["type"] == "tts":
+            return "Cannot reference TTS fields in prompts"
 
     # Can't reference itself
     if target_field and target_field.lower() in prompt_fields:

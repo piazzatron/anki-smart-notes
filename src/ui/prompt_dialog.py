@@ -419,7 +419,7 @@ class PromptDialog(QDialog):
         target_fields = self._get_valid_target_fields(note_type)
         target_field = target_fields[0] if len(target_fields) else "None"
 
-        source_fields = get_fields(note_type)
+        source_fields = self.get_valid_fields_for_prompt(note_type)
         source_field = self._get_initial_source_field(note_type)
         prompt = self.get_tts_prompt(source_field) if type == "tts" else ""
         return {
@@ -618,7 +618,13 @@ class PromptDialog(QDialog):
     ) -> List[str]:
         """Gets all fields excluding the selected one, if one is selected"""
         fields = get_fields(selected_note_type)
-        return [field for field in fields if field != selected_note_field]
+        return [
+            field
+            for field in fields
+            if field != selected_note_field
+            and get_extras(selected_note_type, field, self.prompts_map)["type"]
+            == "chat"
+        ]
 
     def _get_valid_target_fields(
         self, selected_note_type: str, selected_note_field: Union[str, None] = None
@@ -632,6 +638,7 @@ class PromptDialog(QDialog):
             .get(selected_note_type, {})
             .keys()
         )
+
         return [field for field in all_valid_fields if field not in existing_prompts]
 
     def _get_initial_source_field(self, note_type: str) -> str:
