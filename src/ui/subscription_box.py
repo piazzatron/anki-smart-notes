@@ -159,7 +159,7 @@ class SubscriptionBox(QWidget):
         app_state._state.bind(self)
 
     def start_free_trial_clicked(self) -> None:
-        webview = WebviewDialog(self)
+        webview = WebviewDialog(self, "/trial")
         webview.show()
 
     def upgrade_now_clicked(self) -> None:
@@ -167,7 +167,7 @@ class SubscriptionBox(QWidget):
         webview.show()
 
     def login_clicked(self) -> None:
-        webview = WebviewDialog(self, "/login")
+        webview = WebviewDialog(self, "/sign-in")
         webview.show()
 
     def update_from_state(self, state: AppState) -> None:
@@ -199,10 +199,7 @@ class SubscriptionBox(QWidget):
         )
         self.trial_description.setFont(font_bold)
 
-        login_link = f"{get_site_url()}/login"
-        login = ClickableLabel(
-            f"<a href={login_link}>Already have an account? Sign in.</>"
-        )
+        login = ClickableLabel(f"<a href>Already have an account? Sign in.</>")
         login.clicked.connect(self.login_clicked)
         login.setFont(font_small)
 
