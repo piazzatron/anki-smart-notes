@@ -18,7 +18,7 @@
 """
 
 import copy
-from typing import List, Union
+from typing import List, TypedDict, Union
 from urllib.parse import urlparse
 
 from aqt import (
@@ -43,7 +43,13 @@ from ..app_state import AppState, app_state, is_app_unlocked
 from ..config import PromptMap, config
 from ..constants import UNPAID_PROVIDER_ERROR
 from ..logger import logger
-from ..models import ChatModels, ChatProviders, OpenAIModels, openai_chat_models
+from ..models import (
+    ChatModels,
+    ChatProviders,
+    OpenAIModels,
+    TTSProviders,
+    openai_chat_models,
+)
 from ..processor import Processor
 from ..prompts import get_extras, get_prompts
 from .account_options import AccountOptions
@@ -55,13 +61,13 @@ from .reactive_combo_box import ReactiveComboBox
 from .reactive_line_edit import ReactiveLineEdit
 from .state_manager import StateManager
 from .subscription_box import SubscriptionBox
-from .tts_options import TTSOptions, TTSState, languages, providers
+from .tts_options import TTSOptions, TTSState
 from .ui_utils import default_form_layout, font_large, font_small, show_message_box
 
 OPTIONS_MIN_WIDTH = 875
 
 
-class State(TTSState):
+class State(TypedDict):
     openai_api_key: Union[str, None]
     prompts_map: PromptMap
     openai_model: OpenAIModels
@@ -79,6 +85,10 @@ class State(TTSState):
     chat_models: List[ChatModels]
     chat_model: ChatModels
     chat_temperature: int
+
+    # TTS
+    tts_provider: Union[TTSProviders, None]
+    tts_voice: Union[str, None]
 
 
 class AddonOptionsDialog(QDialog):
@@ -383,6 +393,7 @@ class AddonOptionsDialog(QDialog):
         container.setLayout(layout)
         layout.setContentsMargins(24, 24, 24, 24)
         options = TTSOptions()
+        options.state.state_changed.connect(self.tts_state_changed)
         options.setContentsMargins(0, 0, 0, 0)
 
         expl = QLabel("Configure default voice settings for TTS.")
@@ -396,6 +407,11 @@ class AddonOptionsDialog(QDialog):
         )
         layout.addWidget(options)
         return container
+
+    def tts_state_changed(self, state: TTSState) -> None:
+        self.state.update(
+            {"tts_provider": state["tts_provider"], "tts_voice": state["tts_voice"]}
+        )
 
     def create_table(self) -> QTableWidget:
         table = QTableWidget(0, 4)
@@ -543,15 +559,6 @@ class AddonOptionsDialog(QDialog):
             "chat_models": provider_model_map[config.chat_provider],
             "chat_temperature": config.chat_temperature,
             # TTS
-            "providers": providers,
-            "selected_provider": "all",
-            "voice": config.tts_voice,
-            "genders": ["all", "male", "female"],
-            "selected_gender": "all",
-            "languages": languages,
-            "selected_language": "all",
-            "test_text": "",
-            "test_enabled": True,
             "tts_provider": config.tts_provider,
             "tts_voice": config.tts_voice,
         }

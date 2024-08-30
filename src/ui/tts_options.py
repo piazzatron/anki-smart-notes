@@ -42,12 +42,13 @@ from ..models import TTSProviders, default_tts_models_map
 from ..sentry import run_async_in_background_with_sentry
 from ..tts_provider import TTSProvider
 from ..tts_utils import play_audio
+from ..utils import load_file
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_edit_text import ReactiveEditText
 from .state_manager import StateManager
 from .ui_utils import default_form_layout, show_message_box
 
-ALL = "All"
+ALL: Literal["All"] = "All"
 
 AllTTSProviders = Union[Literal["All"], TTSProviders]
 
@@ -182,33 +183,54 @@ class GoogleVoice(TypedDict):
 
 
 def get_google_voices() -> List[TTSMeta]:
-    with open("google_voices.json") as f:
-        google_voices: List[GoogleVoice] = json.load(f)
-        print(google_voices)
-        voices: List[TTSMeta] = []
-        tiers = {"Standard": "cheap", "Wavenet": "standard", "Neural": "standard"}
-        for voice in google_voices:
-            if not voice.get("language"):
-                print("NO LANG")
-                print(voice)
-            voices.append(
-                {
-                    "tts_provider": "google",
-                    "language": voice["language"],
-                    "gender": voice["gender"],
-                    "voice": voice["name"],
-                    "friendly_voice": f'{voice["language"]} - {voice["gender"]}',
-                    "price_tier": tiers[voice["type"]],  # type: ignore
-                }
-            )
-        return voices
+    s = load_file("google_voices.json")
+    google_voices: List[GoogleVoice] = json.loads(s)
+    print(google_voices)
+    voices: List[TTSMeta] = []
+    tiers = {"Standard": "cheap", "Wavenet": "standard", "Neural": "standard"}
+    for voice in google_voices:
+        if not voice.get("language"):
+            print("NO LANG")
+            print(voice)
+        voices.append(
+            {
+                "tts_provider": "google",
+                "language": voice["language"],
+                "gender": voice["gender"],
+                "voice": voice["name"],
+                "friendly_voice": f'{voice["language"]} - {voice["gender"]}',
+                "price_tier": tiers[voice["type"]],  # type: ignore
+            }
+        )
+    return voices
+
+
+def get_eleven_voices() -> List[TTSMeta]:
+    s = load_file("eleven_voices.json")
+    eleven_voices = json.loads(s)
+    voices: List[TTSMeta] = []
+    for voice in eleven_voices:
+        voices.append(
+            {
+                "tts_provider": "elevenLabs",
+                "language": voice["language"],
+                "voice": voice["voice_id"],
+                "friendly_voice": f'{voice["language"]} - {voice["gender"]}',
+                "gender": voice["gender"],
+                "price_tier": "premium",
+            }
+        )
+
+    return voices
 
 
 # Combine all voices
-voices = openai_voices + eleven_voices + get_google_voices()
+voices = openai_voices + get_eleven_voices() + get_google_voices()
 
-languages: List[str] = sorted(list(set([voice["language"] for voice in voices])))
-providers: List[AllTTSProviders] = ["All", "google", "openai", "elevenLabs"]
+languages: List[str] = [ALL] + sorted(
+    list(set([voice["language"] for voice in voices]) - {ALL})
+)
+providers: List[AllTTSProviders] = [ALL, "google", "openai", "elevenLabs"]
 
 
 class CustomListModel(QAbstractListModel):
