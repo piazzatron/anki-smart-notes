@@ -21,7 +21,7 @@ from typing import Any
 
 from .api_client import api
 from .constants import TTS_PROVIDER_TIMEOUT_SEC
-from .models import TTSModels, TTSProviders, TTSVoices
+from .models import TTSModels, TTSProviders
 
 
 class TTSProvider:
@@ -30,7 +30,7 @@ class TTSProvider:
         input: str,
         model: TTSModels,
         provider: TTSProviders,
-        voice: TTSVoices,
+        voice: str,
         options: Any = {},
         note_id: int = -1,
     ) -> bytes:

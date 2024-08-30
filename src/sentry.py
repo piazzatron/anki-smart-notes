@@ -164,21 +164,25 @@ async def ping() -> None:
 
 
 def init_sentry() -> Union[Sentry, None]:
-    if os.getenv("IS_TEST"):
+    try:
+        if os.getenv("IS_TEST"):
+            return None
+
+        dsn = os.getenv("SENTRY_DSN")
+        release = get_version()
+        if not dsn or not release:
+            logger.error("Sentry: no sentry DSN or release")
+            return None
+
+        if not config.uuid:
+            config.uuid = make_uuid()
+
+        sentry = Sentry(dsn, release, config.uuid, env.environment)
+
+        return sentry
+    except Exception as e:
+        logger.error(f"Error initializing sentry: {e}")
         return None
-
-    dsn = os.getenv("SENTRY_DSN")
-    release = get_version()
-    if not dsn or not release:
-        logger.error("Sentry: no sentry DSN or release")
-        return None
-
-    if not config.uuid:
-        config.uuid = make_uuid()
-
-    sentry = Sentry(dsn, release, config.uuid, env.environment)
-
-    return sentry
 
 
 def with_sentry(fn: Callable[..., Any]) -> Callable[..., Any]:

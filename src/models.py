@@ -21,7 +21,7 @@ from typing import Dict, List, Literal, Union
 
 # Providers
 
-TTSProviders = Literal["openai", "elevenLabs"]
+TTSProviders = Literal["openai", "elevenLabs", "google"]
 ChatProviders = Literal["openai", "anthropic"]
 
 # Chat Models
@@ -46,6 +46,7 @@ TTSModels = Union[OpenAITTSModels, ElevenTTSModels]
 default_tts_models_map: Dict[TTSProviders, TTSModels] = {
     "openai": "tts-1",
     "elevenLabs": "eleven_multilingual_v2",
+    "google": "",  # Irrelevant
 }
 
 
@@ -61,6 +62,3 @@ OpenAIVoices = Literal[
 ]
 
 ElevenVoices = Literal["male-1", "male-2", "female-1", "female-2"]
-
-TTSVoices = Union[OpenAIVoices, ElevenVoices]
-Languages = Literal["english", "japanese"]
