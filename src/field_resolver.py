@@ -26,7 +26,7 @@ from .app_state import has_api_key, is_app_unlocked
 from .chat_provider import ChatProvider
 from .constants import DEFAULT_TEMPERATURE
 from .logger import logger
-from .models import ChatModels, ChatProviders, TTSModels, TTSProviders, TTSVoices
+from .models import ChatModels, ChatProviders, TTSModels, TTSProviders
 from .nodes import ChatPayload, FieldNode, TTSPayload
 from .notes import get_chained_ai_fields, get_note_type
 from .open_ai_client import OpenAIClient
@@ -134,7 +134,7 @@ class FieldResolver:
         input_text: str,
         model: TTSModels,
         provider: TTSProviders,
-        voice: TTSVoices,
+        voice: str,
         options: Any,
     ):
 

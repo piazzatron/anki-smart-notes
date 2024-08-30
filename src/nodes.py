@@ -21,7 +21,7 @@ from typing import Any, List, Union
 
 from attr import dataclass
 
-from .models import ChatModels, ChatProviders, TTSModels, TTSProviders, TTSVoices
+from .models import ChatModels, ChatProviders, TTSModels, TTSProviders
 
 # Had to put this in a separate field to resolve circular import btwn processor + field_resolver
 
@@ -39,7 +39,7 @@ class TTSPayload:
     provider: TTSProviders
     input: str
     model: TTSModels
-    voice: TTSVoices
+    voice: str
     options: Any  # TODO:
 
 

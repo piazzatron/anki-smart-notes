@@ -22,7 +22,7 @@ from typing import Any, Dict, Literal, Optional, TypedDict, Union
 
 from aqt import addons, mw
 
-from .models import ChatModels, ChatProviders, TTSModels, TTSProviders, TTSVoices
+from .models import ChatModels, ChatProviders, TTSProviders
 
 
 class FieldExtras(TypedDict):
@@ -37,8 +37,8 @@ class FieldExtras(TypedDict):
     chat_temperature: Optional[int]
     # TTS
     tts_provider: Optional[TTSProviders]
-    tts_model: Optional[TTSModels]
-    tts_voice: Optional[TTSVoices]
+    tts_model: Optional[str]
+    tts_voice: Optional[str]
 
 
 class FieldExtrasWithDefaults(TypedDict):
@@ -53,8 +53,8 @@ class FieldExtrasWithDefaults(TypedDict):
     chat_temperature: Optional[int]
     # TTS
     tts_provider: Optional[TTSProviders]
-    tts_model: Optional[TTSModels]
-    tts_voice: Optional[TTSVoices]
+    tts_model: Optional[str]
+    tts_voice: Optional[str]
 
 
 class NoteTypeMap(TypedDict):
@@ -90,7 +90,7 @@ class Config:
 
     # TTS
     tts_provider: TTSProviders
-    tts_voice: TTSVoices
+    tts_voice: str
 
     # Dialogs
     did_show_chained_error_dialog: bool
