@@ -48,7 +48,7 @@ from ..models import (
     ChatProviders,
     OpenAIModels,
     TTSProviders,
-    openai_chat_models,
+    legacy_openai_chat_models,
 )
 from ..processor import Processor
 from ..prompts import get_extras, get_prompts
@@ -89,6 +89,7 @@ class State(TypedDict):
     # TTS
     tts_provider: Union[TTSProviders, None]
     tts_voice: Union[str, None]
+    tts_model: Union[str, None]
 
 
 class AddonOptionsDialog(QDialog):
@@ -113,9 +114,8 @@ class AddonOptionsDialog(QDialog):
 
         # Form
 
-        # Select model
-        self.models_combo_box = ReactiveComboBox(
-            self.state, "openai_models", "openai_model"
+        self.openai_legacy_combo_box = ReactiveComboBox(
+            self.state, "legacy_openai_models", "legacy_openai_model"
         )
 
         # Buttons
@@ -190,18 +190,28 @@ class AddonOptionsDialog(QDialog):
         version_box_layout = QHBoxLayout()
         version_box_layout.setContentsMargins(0, 0, 12, 0)
         version_box.setLayout(version_box_layout)
+        support_label = QLabel(
+            "Found a bug or have a feature request? <a href='https://github.com/piazzatron/anki-smart-notes/issues'>Create an issue on Github</a> or email <a href='mailto:support@smart-notes.xyz'>support@smart-notes.xyz</a>."
+        )
+        support_label.setFont(font_small)
+        support_label.setOpenExternalLinks(True)
         version_label = QLabel(f"Smart Notes v{get_version()}")
-        subtitle_font = version_label.font()
-        subtitle_font.setPointSize(9)
-        version_label.setFont(subtitle_font)
+        version_label.setFont(font_small)
+        version_box_layout.addWidget(support_label)
         version_box_layout.addStretch()
         version_box_layout.addWidget(version_label)
+
         opacity_effect = QGraphicsOpacityEffect()
         opacity_effect.setOpacity(0.3)
-        version_box.setGraphicsEffect(opacity_effect)
+        opacity_effect2 = QGraphicsOpacityEffect()
+        opacity_effect2.setOpacity(0.7)
+
+        version_label.setGraphicsEffect(opacity_effect)
+        support_label.setGraphicsEffect(opacity_effect2)
 
         tab_layout.addWidget(version_box)
 
+        tab_layout.addSpacing(12)
         tab_layout.addWidget(standard_buttons)
 
         self.setLayout(tab_layout)
@@ -270,7 +280,7 @@ class AddonOptionsDialog(QDialog):
         models_group_box = QGroupBox("Legacy OpenAI Settings")
         models_form = default_form_layout()
         models_form.addRow(self.render_openai_api_key_box())
-        models_form.addRow("OpenAI Model:", self.models_combo_box)
+        models_form.addRow("OpenAI Model:", self.openai_legacy_combo_box)
 
         learn_more_about_models = QLabel(
             'Newer models (GPT-4o, etc) will perform better with lower rate limits and higher cost. <a href="https://platform.openai.com/docs/models/">Learn more.</a>'
@@ -410,7 +420,11 @@ class AddonOptionsDialog(QDialog):
 
     def tts_state_changed(self, state: TTSState) -> None:
         self.state.update(
-            {"tts_provider": state["tts_provider"], "tts_voice": state["tts_voice"]}
+            {
+                "tts_provider": state["tts_provider"],
+                "tts_voice": state["tts_voice"],
+                "tts_model": state["tts_model"],
+            }
         )
 
     def create_table(self) -> QTableWidget:
@@ -502,6 +516,9 @@ class AddonOptionsDialog(QDialog):
         prompts_map = copy.deepcopy(self.state.s["prompts_map"])
 
         prompts_map["note_types"][card_type]["fields"].pop(field)
+        extras = prompts_map["note_types"][card_type]["extras"]
+        if extras:
+            extras.pop(field, None)
         # If there are no more fields for this card type, remove the card type
         if not prompts_map["note_types"][card_type]["fields"]:
             prompts_map["note_types"].pop(card_type)
@@ -512,6 +529,17 @@ class AddonOptionsDialog(QDialog):
         if config.openai_endpoint and not is_valid_url(config.openai_endpoint):
             show_message_box("Invalid OpenAI Host", "Please provide a valid URL.")
             return
+
+        if (
+            self.state.s["tts_provider"] == "elevenLabs"
+            and not config.tts_provider == "elevenLabs"
+        ):
+            did_click_ok = show_message_box(
+                "Are you sure you want to set your default voice provider to a premium model? These voices may consume your plan quickly.",
+                show_cancel=True,
+            )
+            if not did_click_ok:
+                return
 
         is_unlocked = is_app_unlocked()
 
@@ -544,12 +572,12 @@ class AddonOptionsDialog(QDialog):
         return {
             "openai_api_key": config.openai_api_key,
             "prompts_map": config.prompts_map,
-            "openai_model": config.openai_model,
+            "legacy_openai_model": config.openai_model,
             "selected_row": None,
             "generate_at_review": config.generate_at_review,
             "regenerate_notes_when_batching": config.regenerate_notes_when_batching,
             "openai_endpoint": config.openai_endpoint,
-            "openai_models": openai_chat_models,
+            "legacy_openai_models": legacy_openai_chat_models,
             "allow_empty_fields": config.allow_empty_fields,
             "debug": config.debug,
             # Chat
@@ -561,6 +589,7 @@ class AddonOptionsDialog(QDialog):
             # TTS
             "tts_provider": config.tts_provider,
             "tts_voice": config.tts_voice,
+            "tts_model": config.tts_model,
         }
 
     def on_restore_defaults(self) -> None:

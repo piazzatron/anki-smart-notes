@@ -22,7 +22,7 @@ from typing import Any, Dict, Literal, Optional, TypedDict, Union
 
 from aqt import addons, mw
 
-from .models import ChatModels, ChatProviders, TTSProviders
+from .models import ChatModels, ChatProviders, TTSModels, TTSProviders
 
 
 class FieldExtras(TypedDict):
@@ -48,13 +48,14 @@ class FieldExtrasWithDefaults(TypedDict):
     use_custom_model: bool
     type: Literal["chat", "tts"]
     # Chat
-    chat_model: Optional[ChatModels]
-    chat_provider: Optional[ChatProviders]
-    chat_temperature: Optional[int]
+    chat_model: ChatModels
+    chat_provider: ChatProviders
+    chat_temperature: int
+
     # TTS
-    tts_provider: Optional[TTSProviders]
-    tts_model: Optional[str]
-    tts_voice: Optional[str]
+    tts_provider: TTSProviders
+    tts_model: TTSModels
+    tts_voice: str
 
 
 class NoteTypeMap(TypedDict):
@@ -91,10 +92,12 @@ class Config:
     # TTS
     tts_provider: TTSProviders
     tts_voice: str
+    tts_model: TTSModels
 
     # Dialogs
     did_show_chained_error_dialog: bool
     did_show_rate_dialog: bool
+    did_show_premium_tts_dialog: bool
 
     # Deprecated fields:
     # openai_model: OpenAIModels
@@ -110,6 +113,9 @@ class Config:
                 print(f"Migration: old_openai_model={old_openai_model}")
                 self.chat_model = old_openai_model  # type: ignore
                 self.__setattr__("openai_model", None)
+
+            # If we've never set the legacy_support flag
+            # set it to whether or not we have an openai key
             if self.__getattr__("legacy_support") is None:
                 is_legacy = bool(self.openai_api_key)
                 print(f"Setting legacy_support to {is_legacy}")

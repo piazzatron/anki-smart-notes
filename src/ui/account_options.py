@@ -29,7 +29,7 @@ from aqt import (
 
 from ..app_state import AppState, app_state
 from ..config import config
-from .manage_subscription import manage_subscription
+from .manage_subscription import ManageSubscription
 from .ui_utils import default_form_layout
 
 
@@ -46,17 +46,19 @@ class AccountOptions(QWidget):
 
         self.sub_box = QGroupBox("Subscription Info")
         self.sub_type = QLabel()
-        self.tokens_used = QLabel()
+        self.text_credits_used = QLabel()
+        self.voice_credits_used = QLabel()
         self.days_remaining = QLabel()
         self.cards_remaining = QLabel()
 
         sub_box_layout = default_form_layout()
         sub_box_layout.addRow("Subscription Type:", self.sub_type)
-        sub_box_layout.addRow("Credits Used:", self.tokens_used)
+        sub_box_layout.addRow("Text Credits Used:", self.text_credits_used)
+        sub_box_layout.addRow("Voice Credits Used:", self.voice_credits_used)
         sub_box_layout.addRow("Days Remaining:", self.days_remaining)
         sub_box_layout.addRow("Notes Used:", self.cards_remaining)
         sub_box_layout.addItem(QSpacerItem(0, 12))
-        sub_box_layout.addRow(manage_subscription, QLabel(""))
+        sub_box_layout.addRow(ManageSubscription(), QLabel(""))
 
         self.no_sub = QLabel("Nothing to see here...")
         layout.addWidget(self.sub_box)
@@ -85,9 +87,8 @@ class AccountOptions(QWidget):
             self.logoutButton.setEnabled(True)
 
             sub_type = state["plan"]["planName"]
-            tokens_used = (
-                f'{state["plan"]["tokensUsed"]} / {state["plan"]["tokenCapacity"]}'
-            )
+            text_capacity = f'{(100 * float(state["plan"]["textCreditsUsed"]) / float(state["plan"]["textCreditsCapacity"])):.2f}%.'
+            voice_capacity = f'{(100 * float(state["plan"]["voiceCreditsUsed"]) / float(state["plan"]["voiceCreditsCapacity"])):.2f}%.'
             days = state["plan"]["daysLeft"]
             days_remaining = f'{days} day{"s" if days > 1 else ""} left {"in cycle" if state["plan"]["planId"] == "free" else ""}.'
 
@@ -99,7 +100,8 @@ class AccountOptions(QWidget):
                 notes_limit = "Unlimited"
             self.cards_remaining.setText(notes_limit)
             self.sub_type.setText(sub_type)
-            self.tokens_used.setText(tokens_used)
+            self.text_credits_used.setText(text_capacity)
+            self.voice_credits_used.setText(voice_capacity)
             self.days_remaining.setText(days_remaining)
 
     def logout(self):

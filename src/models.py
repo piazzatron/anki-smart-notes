@@ -17,7 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Dict, List, Literal, Union
+from typing import List, Literal, Union
 
 # Providers
 
@@ -27,28 +27,27 @@ ChatProviders = Literal["openai", "anthropic"]
 # Chat Models
 
 OpenAIModels = Literal["gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4"]
-AnthropicModels = Literal["claude-3-opus", "claude-3-haiku", "claude-3-5-sonnet"]
+AnthropicModels = Literal["claude-3-haiku", "claude-3-5-sonnet"]
 ChatModels = Union[OpenAIModels, AnthropicModels]
 
-openai_chat_models: List[ChatModels] = ["gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4"]
+legacy_openai_chat_models: List[ChatModels] = [
+    "gpt-4o-mini",
+    "gpt-4o",
+    "gpt-4-turbo",
+    "gpt-4",
+]
+openai_chat_models: List[ChatModels] = ["gpt-4o", "gpt-4o-mini"]
 anthropic_chat_models: List[ChatModels] = [
-    "claude-3-haiku",
     "claude-3-5-sonnet",
-    "claude-3-opus",
+    "claude-3-haiku",
 ]
 
 # TTS Models
 
 OpenAITTSModels = Literal["tts-1"]
 ElevenTTSModels = Literal["eleven_multilingual_v2"]
-TTSModels = Union[OpenAITTSModels, ElevenTTSModels]
-
-default_tts_models_map: Dict[TTSProviders, TTSModels] = {
-    "openai": "tts-1",
-    "elevenLabs": "eleven_multilingual_v2",
-    "google": "",  # Irrelevant
-}
-
+GoogleModels = Literal["standard", "wavenet", "neural"]
+TTSModels = Union[OpenAITTSModels, ElevenTTSModels, GoogleModels]
 
 # TTS Voices
 

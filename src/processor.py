@@ -31,7 +31,7 @@ from .app_state import (
     is_app_unlocked_or_legacy,
 )
 from .config import Config
-from .constants import CHAINED_FIELDS_SKIPPED_ERROR
+from .constants import CHAINED_FIELDS_SKIPPED_ERROR, STANDARD_BATCH_LIMIT
 from .dag import generate_fields_dag
 from .field_resolver import FieldResolver
 from .logger import logger
@@ -89,14 +89,16 @@ class Processor:
             self._reqlinquish_req_in_process()
             show_message_box(f"Error: {e}")
 
-        # TODO: no longer works
-        model = self.config.chat_model
-        limit = (
-            OLD_OPEN_AI_MODEL_REQ_PER_MIN
-            if model == "gpt-4o-mini"
-            else NEW_OPEN_AI_MODEL_REQ_PER_MIN
-        )
-        is_large_batch = len(note_ids) >= limit
+        if is_app_unlocked():
+            limit = STANDARD_BATCH_LIMIT
+        else:
+            model = self.config.chat_model
+            limit = (
+                OLD_OPEN_AI_MODEL_REQ_PER_MIN
+                if model == "gpt-4o-mini"
+                else NEW_OPEN_AI_MODEL_REQ_PER_MIN
+            )
+        is_large_batch = len(note_ids) >= 3
         logger.debug(f"Rate limit: {limit}")
 
         # Only show fancy progress meter for large batches
@@ -119,7 +121,7 @@ class Processor:
             if is_large_batch:
                 if not finished:
                     mw.progress.update(
-                        label=f"({processed_count}/{len(note_ids)})... waiting 60s for rate limit.",
+                        label=f"({processed_count}/{len(note_ids)})",
                         value=processed_count,
                         max=len(note_ids),
                     )
@@ -164,9 +166,7 @@ class Processor:
                 if (
                     processed_count >= limit - 5
                 ):  # Make it a little fuzzy in case we've used some reqs already
-                    logger.debug("Sleeping for 60s until next batch")
                     processed_count = 0
-                    await asyncio.sleep(60)
 
             return total_updated, total_failed
 
@@ -279,7 +279,7 @@ class Processor:
         field_prompts = get_prompts().get(note_type, None)
 
         if not field_prompts:
-            logger.error("no prompts found for note type")
+            logger.debug("no prompts found for note type")
             return False
 
         # Topsort + parallel process the DAG
@@ -459,5 +459,4 @@ class Processor:
         if new_value:
             node.did_update = True
 
-        print("HI")
         return new_value

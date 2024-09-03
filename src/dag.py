@@ -21,7 +21,7 @@ from typing import Dict, Union
 
 from anki.notes import Note
 
-from .config import PromptMap
+from .config import PromptMap, config
 from .logger import logger
 from .nodes import ChatPayload, FieldNode, TTSPayload
 from .notes import get_note_type
@@ -48,7 +48,7 @@ def generate_fields_dag(
             to_lower=True, override_prompts_map=override_prompts_map
         ).get(note_type, None)
         if not prompts:
-            logger.error("generate_fields_dag: no prompts found for note type")
+            logger.debug("generate_fields_dag: no prompts found for note type")
             return {}
 
         dag: Dict[str, FieldNode] = {}
@@ -63,22 +63,32 @@ def generate_fields_dag(
                 continue
 
             extras = get_extras(note_type, field)
+            is_custom = extras["use_custom_model"]
             type = extras["type"]
             should_generate_automatically = extras["automatic"]
 
             payload: Union[ChatPayload, TTSPayload]
             if type == "chat":
+
                 payload = ChatPayload(
-                    provider=extras["chat_provider"],
-                    model=extras["chat_model"],
-                    temperature=extras["chat_temperature"],
+                    provider=(
+                        extras["chat_provider"] if is_custom else config.chat_provider
+                    ),
+                    model=extras["chat_model"] if is_custom else config.chat_model,
+                    temperature=(
+                        extras["chat_temperature"]
+                        if is_custom
+                        else config.chat_temperature
+                    ),
                     prompt=prompt,
                 )
             elif type == "tts":
                 payload = TTSPayload(
-                    provider=extras["tts_provider"],
-                    model=extras["tts_model"],
-                    voice=extras["tts_voice"],
+                    provider=(
+                        extras["tts_provider"] if is_custom else config.tts_provider
+                    ),
+                    model=extras["tts_model"] if is_custom else config.tts_model,
+                    voice=extras["tts_voice"] if is_custom else config.tts_voice,
                     input=prompt,
                     options={},
                 )

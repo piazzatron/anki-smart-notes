@@ -19,7 +19,6 @@
 
 from aqt import QWidget
 
-from ..config import config
 from ..sentry import pinger
 from ..tasks import run_async_in_background
 from .webview_dialog import WebviewDialog
@@ -27,6 +26,6 @@ from .webview_dialog import WebviewDialog
 
 class V2CTA(WebviewDialog):
     def __init__(self, parent: QWidget) -> None:
-        super().__init__(parent, f"/v2?uuid={config.uuid}")
+        super().__init__(parent, "/v2")
         run_async_in_background(pinger("show_trial_cta"))
         self.setMinimumHeight(1000)

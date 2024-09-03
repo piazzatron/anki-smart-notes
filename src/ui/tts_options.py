@@ -38,7 +38,7 @@ from aqt import (
 
 from ..config import config
 from ..logger import logger
-from ..models import TTSProviders, default_tts_models_map
+from ..models import TTSProviders
 from ..sentry import run_async_in_background_with_sentry
 from ..tts_provider import TTSProvider
 from ..tts_utils import play_audio
@@ -57,14 +57,22 @@ default_texts: Dict[str, str] = {
     ALL: "I'm sorry Dave, I'm afraid I can't do that.",
 }
 
+price_tier_copy = {
+    "standard": "Standard Quality",
+    "best": "Good Quality",
+    "premium": "Premium Quality",
+    "ultra-premium": "Ultra Premium Quality",
+}
+
 
 class TTSMeta(TypedDict):
     tts_provider: TTSProviders
     voice: str
+    model: str
     friendly_voice: str
     gender: Literal["Male", "Female", "All"]
     language: str
-    price_tier: Literal["cheap", "standard", "premium", "ultra-premium"]
+    price_tier: Literal["standard", "best", "premium", "ultra-premium"]
 
 
 class TTSState(TypedDict):
@@ -82,6 +90,7 @@ class TTSState(TypedDict):
     # These are the actual values read from and written to config
     tts_provider: Union[TTSProviders, None]
     tts_voice: Union[str, None]
+    tts_model: Union[str, None]
 
     test_text: str
     test_enabled: bool
@@ -91,85 +100,56 @@ openai_voices: List[TTSMeta] = [
     {
         "tts_provider": "openai",
         "voice": "alloy",
+        "model": "tts-1",
         "friendly_voice": "alloy",
         "gender": "Female",
         "language": ALL,
-        "price_tier": "standard",
+        "price_tier": "best",
     },
     {
         "tts_provider": "openai",
         "voice": "echo",
+        "model": "tts-1",
         "friendly_voice": "echo",
         "gender": "Male",
         "language": ALL,
-        "price_tier": "standard",
+        "price_tier": "best",
     },
     {
         "tts_provider": "openai",
         "voice": "fable",
+        "model": "tts-1",
         "friendly_voice": "fable",
         "gender": "Female",
         "language": ALL,
-        "price_tier": "standard",
+        "price_tier": "best",
     },
     {
         "tts_provider": "openai",
         "voice": "onyx",
+        "model": "tts-1",
         "friendly_voice": "onyx",
         "gender": "Male",
         "language": ALL,
-        "price_tier": "standard",
+        "price_tier": "best",
     },
     {
         "tts_provider": "openai",
         "voice": "nova",
+        "model": "tts-1",
         "friendly_voice": "nova",
         "gender": "Female",
         "language": ALL,
-        "price_tier": "standard",
+        "price_tier": "best",
     },
     {
         "tts_provider": "openai",
         "voice": "shimmer",
+        "model": "tts-1",
         "friendly_voice": "shimmer",
         "gender": "Female",
         "language": ALL,
-        "price_tier": "standard",
-    },
-]
-
-eleven_voices: List[TTSMeta] = [
-    {
-        "tts_provider": "elevenLabs",
-        "voice": "male-1",
-        "friendly_voice": "male #1",
-        "gender": "Male",
-        "language": ALL,
-        "price_tier": "premium",
-    },
-    {
-        "tts_provider": "elevenLabs",
-        "voice": "male-2",
-        "friendly_voice": "male #2",
-        "gender": "Male",
-        "language": ALL,
-        "price_tier": "premium",
-    },
-    {
-        "tts_provider": "elevenLabs",
-        "voice": "female-1",
-        "friendly_voice": "female #1",
-        "gender": "Female",
-        "language": ALL,
-        "price_tier": "premium",
-    },
-    {
-        "tts_provider": "elevenLabs",
-        "voice": "female-2",
-        "friendly_voice": "female #2",
-        "gender": "Female",
-        "language": ALL,
-        "price_tier": "premium",
+        "price_tier": "best",
     },
 ]
 
@@ -185,20 +165,17 @@ class GoogleVoice(TypedDict):
 def get_google_voices() -> List[TTSMeta]:
     s = load_file("google_voices.json")
     google_voices: List[GoogleVoice] = json.loads(s)
-    print(google_voices)
     voices: List[TTSMeta] = []
-    tiers = {"Standard": "cheap", "Wavenet": "standard", "Neural": "standard"}
+    tiers = {"Standard": "standard", "Wavenet": "best", "Neural": "best"}
     for voice in google_voices:
-        if not voice.get("language"):
-            print("NO LANG")
-            print(voice)
         voices.append(
             {
                 "tts_provider": "google",
                 "language": voice["language"],
                 "gender": voice["gender"],
                 "voice": voice["name"],
-                "friendly_voice": f'{voice["language"]} - {voice["gender"]}',
+                "model": voice["type"].lower(),
+                "friendly_voice": f'{voice["language"].capitalize()} - {voice["gender"].capitalize()}',
                 "price_tier": tiers[voice["type"]],  # type: ignore
             }
         )
@@ -210,22 +187,25 @@ def get_eleven_voices() -> List[TTSMeta]:
     eleven_voices = json.loads(s)
     voices: List[TTSMeta] = []
     for voice in eleven_voices:
-        voices.append(
-            {
-                "tts_provider": "elevenLabs",
-                "language": voice["language"],
-                "voice": voice["voice_id"],
-                "friendly_voice": f'{voice["language"]} - {voice["gender"]}',
-                "gender": voice["gender"],
-                "price_tier": "premium",
-            }
-        )
+        premium: TTSMeta = {
+            "tts_provider": "elevenLabs",
+            "language": voice["language"],
+            "voice": voice["voice_id"],
+            "model": "eleven_turbo_v2_5",
+            "friendly_voice": f'{voice["language"].capitalize()} - {voice["gender"].capitalize()} - {voice["name"].capitalize()}',
+            "gender": voice["gender"],
+            "price_tier": "premium",
+        }
+        ultra_premium = premium.copy()
+        ultra_premium["model"] = "eleven_multilingual_v2"
+        ultra_premium["price_tier"] = "ultra-premium"
+        voices.extend([premium, ultra_premium])
 
     return voices
 
 
 # Combine all voices
-voices = openai_voices + get_eleven_voices() + get_google_voices()
+voices = get_google_voices() + openai_voices + get_eleven_voices()
 
 languages: List[str] = [ALL] + sorted(
     list(set([voice["language"] for voice in voices]) - {ALL})
@@ -247,7 +227,7 @@ class CustomListModel(QAbstractListModel):
 
     def create_str(self, row: int) -> str:
         data = self._data[row]
-        return f'{data["tts_provider"].capitalize()} - {data["friendly_voice"].capitalize()} ({data["price_tier"]})'
+        return f'{data["tts_provider"].capitalize()} - {data["friendly_voice"].capitalize()} ({price_tier_copy[data["price_tier"]]})'
 
     def update_data(self, new_data: List[TTSMeta]):
         self.beginResetModel()
@@ -331,6 +311,7 @@ class TTSOptions(QWidget):
                     "voice": selected_voice["voice"],
                     "tts_provider": selected_voice["tts_provider"],
                     "tts_voice": selected_voice["voice"],
+                    "tts_model": selected_voice["model"],
                 }
             )
             # TODO: do I need to call this?
@@ -342,10 +323,10 @@ class TTSOptions(QWidget):
 
     def update_list_ui(self) -> None:
         """Handle updating the list and preserving selection"""
-        print("UPDATING LIST!")
         # Store the selection state
         voice = self.state.s.get("tts_voice")
         provider = self.state.s.get("tts_provider")
+        model = self.state.s.get("tts_model")
         if not (voice and provider):
             return
 
@@ -357,11 +338,12 @@ class TTSOptions(QWidget):
             (
                 v
                 for v in voices
-                if v["voice"] == voice and v["tts_provider"] == provider
+                if v["voice"] == voice
+                and v["tts_provider"] == provider
+                and v["model"] == model
             ),
             None,
         )
-        print(selected_voice)
         if not selected_voice:
             return
 
@@ -381,6 +363,12 @@ class TTSOptions(QWidget):
                 self.voices_models.index(voice_location, 0, QModelIndex()),
                 QItemSelectionModel.SelectionFlag.Select,
             )
+
+        if provider == "elevenLabs" and not config.did_show_premium_tts_dialog:
+            show_message_box(
+                "Heads up: you've selected a premium voice. These voices are extremely high quality and can exhaust a small plan extremely quickly!"
+            )
+            config.did_show_premium_tts_dialog = True
 
     def render_test_voice(self) -> QWidget:
         box = QGroupBox("Test Voice 🔈")
@@ -406,6 +394,7 @@ class TTSOptions(QWidget):
 
         provider = self.state.s["tts_provider"]
         voice = self.state.s["tts_voice"]
+        model = self.state.s["tts_model"]
         if not (provider and voice):
             return
 
@@ -417,7 +406,7 @@ class TTSOptions(QWidget):
             tts_provider = TTSProvider()
             resp = await tts_provider.async_get_tts_response(
                 input=self.state.s["test_text"],
-                model=default_tts_models_map[provider],
+                model=model,
                 provider=provider,
                 voice=voice,
             )
@@ -462,4 +451,5 @@ class TTSOptions(QWidget):
             "test_enabled": True,
             "tts_provider": config.tts_provider,
             "tts_voice": config.tts_voice,
+            "tts_model": config.tts_model,
         }

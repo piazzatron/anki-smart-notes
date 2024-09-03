@@ -18,6 +18,8 @@
 """
 
 import time
+from typing import Dict
+from urllib.parse import urlencode
 
 from aqt import (
     QDateTime,
@@ -33,21 +35,31 @@ from PyQt6.QtNetwork import QNetworkCookie
 from ..app_state import app_state
 from ..config import config
 from ..constants import get_site_url
+from ..logger import logger
 
 CLERK_DEV_JWT = "dvb_2jUh8kOg9bIN8jQzywLdD3E5bMl"
 
 
 class WebviewDialog(QDialog):
-    def __init__(self, parent: QWidget, path: str = "") -> None:
+    def __init__(
+        self, parent: QWidget, path: str = "", query_params: Dict[str, str] = {}
+    ) -> None:
         super().__init__(parent)
-        self._setup_ui(path)
+        self._setup_ui(path, query_params)
 
-    def _setup_ui(self, path: str) -> None:
+    def _setup_ui(self, path: str, query_params: Dict[str, str]) -> None:
+        query_params["anki"] = "true"
+        query_params["uuid"] = config.uuid or ""
+        if config.legacy_support:
+            query_params["isLegacy"] = "true"
+
         engine = QWebEngineView()
-        engine.load(QUrl(f"{get_site_url()}/{path}"))
+        encoded = urlencode(query_params)
+        url = f"{get_site_url()}{path}?{encoded}"
+        engine.load(QUrl(url))
         engine.urlChanged.connect(self.on_engine_url_changed)
         layout = QHBoxLayout()
-        self.setMinimumHeight(800)
+        self.setMinimumHeight(1000)
         self.setMinimumWidth(1200)
         self.setLayout(layout)
         layout.addWidget(engine)
@@ -74,6 +86,7 @@ class WebviewDialog(QDialog):
         seconds_since_epoch = str(int(time.time()))
         c1 = self.make_cookie(b"__session", jwt.encode())
         c2 = self.make_cookie(b"__client_uat", seconds_since_epoch.encode())
+        # Just a dev cookie
         c3 = self.make_cookie(b"__clerk_db_jwt", CLERK_DEV_JWT.encode())
 
         url = QUrl(get_site_url())
@@ -97,11 +110,9 @@ class WebviewDialog(QDialog):
         query = QUrlQuery(url)
         value = query.queryItemValue("jwt")
         if value:
-            print(f"Got token! value: {value}")
+            logger.debug(f"Got JWT! Adding to config")
             config.auth_token = value
             app_state.update_subscription_state()
-        else:
-            print("NO VALUE")
 
     def closeEvent(self, event) -> None:
         app_state.update_subscription_state()

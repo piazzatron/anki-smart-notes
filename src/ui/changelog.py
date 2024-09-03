@@ -17,19 +17,14 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import json
 from typing import List, Tuple, Union
 
-from aqt import QDialog, QDialogButtonBox, QFont, QLabel, QVBoxLayout
+from aqt import QDialog, QDialogButtonBox, QFont, QLabel, QVBoxLayout, mw
 
 from ..config import config
 from ..logger import logger
-from ..utils import load_file
-
-
-def get_version() -> str:
-    manifest = load_file("manifest.json")
-    return json.loads(manifest)["human_version"]  # type: ignore
+from ..utils import get_version, load_file
+from .v2_cta import V2CTA
 
 
 def parse_changelog() -> List[Tuple[str, List[str]]]:
@@ -57,6 +52,12 @@ def parse_changelog() -> List[Tuple[str, List[str]]]:
         return []
 
 
+def get_versions(v: str) -> Tuple[int, int]:
+    major = v.split(".")[0]
+    minor = v.split(".")[1]
+    return (int(major), int(minor))
+
+
 def is_new_major_or_minor_version(v1: str, v2: str):
     (major1, minor1, _) = v1.split(".")
     (major2, minor2, _) = v2.split(".")
@@ -80,11 +81,20 @@ def perform_update_check() -> None:
 
         # Have to keep this crap around forever because v1 didn't have last_seen_version
         # Only show a dialog if (the major or minor has changed OR it's possibly an upgrade to v1.1.0) and it's not the first use
+
         if (
             not prior_version
             or is_new_major_or_minor_version(current_version, prior_version)
         ) and not is_first_use:
-            dialog = ChangeLogDialog(prior_version)
+            dialog: QDialog
+            # Check about showing special v2 changelog
+            if (
+                not prior_version or get_versions(prior_version)[0] == 1
+            ) and get_versions(current_version)[0] == 2:
+                if mw:
+                    dialog = V2CTA(mw)
+            else:
+                dialog = ChangeLogDialog(prior_version)
             dialog.exec()
     except Exception as e:
         logger.error(f"Error checking for updates: {e}")

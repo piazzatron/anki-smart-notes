@@ -19,6 +19,7 @@
 
 from .api_client import api
 from .constants import CHAT_CLIENT_TIMEOUT_SEC, DEFAULT_TEMPERATURE
+from .logger import logger
 from .models import ChatModels, ChatProviders
 
 
@@ -45,5 +46,7 @@ class ChatProvider:
         )
 
         resp = await response.json()
-        msg: str = resp["messages"][0]
-        return msg
+        if not len(resp["messages"]):
+            logger.debug(f"Empty response from chat provider {provider}")
+            return ""
+        return resp["messages"][0]  # type: ignore

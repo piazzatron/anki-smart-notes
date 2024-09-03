@@ -41,12 +41,12 @@ from aqt import (
 )
 from PyQt6.QtCore import Qt
 
-from ..app_state import is_app_unlocked, is_app_unlocked_or_legacy
+from ..app_state import is_app_legacy, is_app_unlocked, is_app_unlocked_or_legacy
 from ..config import FieldExtras, PromptMap, config
 from ..constants import UNPAID_PROVIDER_ERROR
 from ..dag import prompt_has_error
 from ..logger import logger
-from ..models import ChatModels, ChatProviders, default_tts_models_map
+from ..models import ChatModels, ChatProviders
 from ..notes import get_note_types, get_random_note
 from ..processor import Processor
 from ..prompts import (
@@ -359,6 +359,13 @@ class PromptDialog(QDialog):
         models_layout.addWidget(override_box)
         models_layout.addWidget(self.model_options)
         model_box = QGroupBox("⚙️ Model Settings")
+        is_legacy = is_app_legacy()
+        model_box.setEnabled(not is_legacy)
+        if is_legacy:
+            model_box.setToolTip(
+                "Model settings are only available in the full version."
+            )
+
         model_box.setLayout(models_layout)
         model_box.setContentsMargins(0, 24, 0, 24)
 
@@ -548,6 +555,12 @@ class PromptDialog(QDialog):
             else config.tts_voice
         ) or config.tts_voice
 
+        tts_model = (
+            self.tts_options.state.s["tts_model"]
+            if self.state.s["use_custom_model"]
+            else config.tts_model
+        ) or config.tts_model
+
         def on_success(arg):
 
             prompt = self.state.s["prompt"]
@@ -594,7 +607,7 @@ class PromptDialog(QDialog):
                     input_text=prompt,
                     note=sample_note,
                     provider=tts_provider,
-                    model=default_tts_models_map[tts_provider],
+                    model=tts_model,
                     voice=tts_voice,
                     options={},
                 )
@@ -745,6 +758,9 @@ class PromptDialog(QDialog):
                 ]
                 selected_field_extras["tts_voice"] = self.tts_options.state.s[
                     "tts_voice"
+                ]
+                selected_field_extras["tts_model"] = self.tts_options.state.s[
+                    "tts_model"
                 ]
             elif type == "chat":
                 selected_field_extras["chat_model"] = self.state.s["chat_model"]

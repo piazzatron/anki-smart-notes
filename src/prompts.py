@@ -26,7 +26,6 @@ from anki.notes import Note
 
 from .config import FieldExtrasWithDefaults, PromptMap, config
 from .logger import logger
-from .models import default_tts_models_map
 from .utils import to_lowercase_dict
 
 EXTRAS_DEFAULT_AUTOMATIC = True
@@ -68,7 +67,7 @@ def get_extras(
         "chat_temperature": config.chat_temperature,
         "use_custom_model": False,
         "type": type or "chat",
-        "tts_model": default_tts_models_map[config.tts_provider],
+        "tts_model": config.tts_model,
         "tts_provider": config.tts_provider,
         "tts_voice": config.tts_voice,
     }

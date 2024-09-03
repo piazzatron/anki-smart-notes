@@ -22,7 +22,12 @@ from typing import Any, Union
 from anki.notes import Note
 from aqt import mw
 
-from .app_state import has_api_key, is_app_unlocked
+from .app_state import (
+    has_api_key,
+    is_app_unlocked,
+    is_at_text_capacity,
+    is_at_voice_capacity,
+)
 from .chat_provider import ChatProvider
 from .constants import DEFAULT_TEMPERATURE
 from .logger import logger
@@ -70,6 +75,9 @@ class FieldResolver:
                 options=payload.options,
             )
 
+            if not tts_response:
+                return None
+
             note_type = get_note_type(note)
             file_name = f"{note_type}-{node.field}-{note.id}.mp3"
             path = media.write_data(file_name, tts_response)
@@ -105,7 +113,7 @@ class FieldResolver:
         if not interpolated_prompt:
             return None
 
-        if is_app_unlocked():
+        if is_app_unlocked() and not is_at_text_capacity():
             return await self.chat_provider.async_get_chat_response(
                 interpolated_prompt,
                 model=model,
@@ -144,6 +152,10 @@ class FieldResolver:
             return None
 
         logger.debug(f"Resolving: {interpolated_prompt}")
+        if is_at_voice_capacity():
+            logger.debug("App at voice capacity, returning early")
+            return None
+
         return await self.tts_provider.async_get_tts_response(
             input=interpolated_prompt,
             model=model,

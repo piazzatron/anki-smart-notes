@@ -17,6 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import json
 import os
 from typing import Any, Callable, Dict, List
 
@@ -87,3 +88,8 @@ def run_in_background(work: Callable[[], None]) -> None:
 
 def is_production() -> bool:
     return environment == "PROD"
+
+
+def get_version() -> str:
+    manifest = load_file("manifest.json")
+    return json.loads(manifest)["human_version"]  # type: ignore

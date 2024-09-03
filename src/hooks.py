@@ -28,7 +28,7 @@ from typing import List, Sequence
 from anki.cards import Card
 from anki.notes import Note, NoteId
 from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
-from aqt.browser import SidebarItemType  # type: ignore
+from aqt.browser import SidebarItemType
 
 from .app_state import app_state, is_app_unlocked_or_legacy
 from .config import config
@@ -36,7 +36,7 @@ from .logger import logger
 from .message_polling import start_polling_for_messages
 from .notes import is_ai_field, is_note_fully_processed
 from .processor import Processor
-from .sentry import ping, sentry, with_sentry
+from .sentry import pinger, sentry, with_sentry
 from .tasks import run_async_in_background
 from .ui.addon_options_dialog import AddonOptionsDialog
 from .ui.changelog import perform_update_check
@@ -154,10 +154,10 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
 
 def on_batch_success(updated: List[Note], errors: List[Note]) -> None:
     if not len(updated) and len(errors):
-        show_message_box("All notes failed. Most likely hit OpenAI rate limit.")
+        show_message_box("All notes failed. Try again soon.")
     elif len(errors):
         show_message_box(
-            f"Processed {len(updated)} notes successfully. {len(errors)} notes failed. Most likely hit a rate limit."
+            f"Processed {len(updated)} notes successfully. {len(errors)} notes failed."
         )
     else:
         show_message_box(f"Processed {len(updated)} notes successfully.")
@@ -173,6 +173,9 @@ def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMe
 
     def wrapped():
         if not is_app_unlocked_or_legacy(show_box=True):
+            return
+
+        if not prevent_batches_on_free_trial(notes):
             return
 
         processor.process_notes_with_progress(
@@ -192,7 +195,7 @@ def migrate_models() -> None:
 
 
 def on_start_actions() -> None:
-    run_async_in_background(ping)
+    run_async_in_background(pinger())
     perform_update_check()
     migrate_models()
     start_polling_for_messages()
@@ -307,6 +310,8 @@ def add_deck_option(
     def wrapped():
         if not is_app_unlocked_or_legacy(show_box=True):
             return
+        if not prevent_batches_on_free_trial(notes):
+            return
 
         processor.process_notes_with_progress(
             notes,
@@ -330,6 +335,16 @@ def cleanup() -> None:
     sentry_logger = logging.getLogger("sentry_sdk.errors")
     sentry_logger.handlers.clear()
     logger.handlers.clear()
+
+
+def prevent_batches_on_free_trial(notes) -> bool:
+    if app_state.is_free_trial() and len(notes) > 50:
+        did_accept: bool = show_message_box(
+            "Warning: your free trial is limited to 500 cards. Continue?",
+            show_cancel=True,
+        )
+        return did_accept
+    return True
 
 
 @with_sentry

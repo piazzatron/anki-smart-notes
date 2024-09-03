@@ -17,10 +17,9 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Literal, TypedDict, Union
+from typing import Dict, Literal, TypedDict, Union
 
 from aqt import (
-    QComboBox,
     QGroupBox,
     QHBoxLayout,
     QLabel,
@@ -33,8 +32,10 @@ from aqt import (
 
 from ..app_state import AppState, app_state
 from ..constants import get_site_url
+from ..sentry import pinger
 from ..subscription_provider import SubscriptionState
-from .manage_subscription import manage_subscription
+from ..tasks import run_async_in_background
+from .manage_subscription import ManageSubscription
 from .ui_utils import font_bold, font_small
 from .webview_dialog import WebviewDialog
 
@@ -102,20 +103,38 @@ class ClickableLabel(QLabel):
         super().mousePressEvent(event)
 
 
+class StartFreeTrialButton(QPushButton):
+    def __init__(self) -> None:
+        super().__init__("✨ Start Free Trial ✨")
+        self.setStyleSheet(start_trial_style)
+        self.setFont(font_bold)
+        self.clicked.connect(self.start_free_trial_clicked)
+        self.setFixedHeight(100)
+
+    def start_free_trial_clicked(self) -> None:
+        run_async_in_background(pinger("click_trial_cta"))
+        webview = WebviewDialog(self, f"/trial")
+        webview.show()
+
+
 class SubscriptionBox(QWidget):
 
     def __init__(self) -> None:
         super().__init__()
 
-        self.ui_map = {
-            "Loading": self._render_loading(),
+        self.ui_map: Dict[Union[SubscriptionState, Literal["Loading"]], QWidget] = {
+            "LOADING": self._render_loading(),
             "UNAUTHENTICATED": self._render_start_trial(),
             "NO_SUBSCRIPTION": self._render_start_trial(),
             "FREE_TRIAL_ACTIVE": self._render_free_trial_active(),
-            "FREE_TRIAL_EXPIRED": self._render_upgrade_trial(),
-            "FREE_TRIAL_CAPACITY": self._render_upgrade_trial(),
+            "FREE_TRIAL_EXPIRED": self._render_upgrade_trial("expired"),
+            "FREE_TRIAL_CAPACITY": self._render_upgrade_trial("expired"),
+            "FREE_TRIAL_TEXT_CAPACITY": self._render_upgrade_trial("text"),
+            "FREE_TRIAL_VOICE_CAPACITY": self._render_upgrade_trial("voice"),
             "PAID_PLAN_ACTIVE": self._render_active(),
-            "PAID_PLAN_CAPACITY": self._render_paid_capacity(),
+            "PAID_PLAN_CAPACITY": self._render_paid_capacity("expired"),
+            "PAID_PLAN_TEXT_CAPACITY": self._render_paid_capacity("text"),
+            "PAID_PLAN_VOICE_CAPACITY": self._render_paid_capacity("voice"),
             "PAID_PLAN_EXPIRED": self._render_paid_lapsed(),
         }
 
@@ -137,34 +156,34 @@ class SubscriptionBox(QWidget):
             v.hide()
 
         # Helpful combo picker to try out different states
-        combo_picker = QComboBox()
-        combo_picker.addItems(
-            [
-                "Loading",
-                "UNAUTHENTICATED",
-                "NO_SUBSCRIPTION",
-                "FREE_TRIAL_ACTIVE",
-                "FREE_TRIAL_EXPIRED",
-                "FREE_TRIAL_CAPACITY",
-                "PAID_PLAN_ACTIVE",
-                "PAID_PLAN_CAPACITY",
-                "PAID_PLAN_EXPIRED",
-            ]
-        )
-        combo_picker.currentIndexChanged.connect(
-            lambda _: app_state._state.update(
-                {"subscription": combo_picker.currentText()}
-            )
-        )
-        layout.addWidget(combo_picker)
+        # combo_picker = QComboBox()
+        # combo_picker.addItems(
+        #     [
+        #         "LOADING",
+        #         "UNAUTHENTICATED",
+        #         "NO_SUBSCRIPTION",
+        #         "FREE_TRIAL_ACTIVE",
+        #         "FREE_TRIAL_EXPIRED",
+        #         "FREE_TRIAL_CAPACITY",
+        #         "FREE_TRIAL_TEXT_CAPACITY",
+        #         "FREE_TRIAL_VOICE_CAPACITY",
+        #         "PAID_PLAN_ACTIVE",
+        #         "PAID_PLAN_CAPACITY",
+        #         "PAID_PLAN_TEXT_CAPACITY",
+        #         "PAID_PLAN_VOICE_CAPACITY",
+        #         "PAID_PLAN_EXPIRED",
+        #     ]
+        # )
+        # combo_picker.currentIndexChanged.connect(
+        #     lambda _: app_state._state.update(
+        #         {"subscription": combo_picker.currentText()}
+        #     )
+        # )
+        # layout.addWidget(combo_picker
         app_state._state.bind(self)
 
-    def start_free_trial_clicked(self) -> None:
-        webview = WebviewDialog(self, "/trial")
-        webview.show()
-
     def upgrade_now_clicked(self) -> None:
-        webview = WebviewDialog(self, "/upgrade")
+        webview = WebviewDialog(self, "/upgrade/sign-in")
         webview.show()
 
     def login_clicked(self) -> None:
@@ -180,20 +199,16 @@ class SubscriptionBox(QWidget):
                 v.hide()
 
     def _render_loading(self) -> QWidget:
-        layout = QVBoxLayout()
-        label = QLabel("Loading...")
-        layout.addWidget(label)
+        layout = QHBoxLayout()
+        label = QLabel("🤔 Loading... something may have gone wrong on our end.")
+        layout.addWidget(label, alignment=Qt.AlignmentFlag.AlignLeft)
 
         container = QWidget()
         container.setLayout(layout)
         return container
 
     def _render_start_trial(self) -> QWidget:
-        self.start_trial_button = QPushButton("✨ Start Free Trial ✨")
-        self.start_trial_button.setStyleSheet(start_trial_style)
-        self.start_trial_button.setFont(font_bold)
-        self.start_trial_button.clicked.connect(self.start_free_trial_clicked)
-        self.start_trial_button.setFixedHeight(100)
+        self.start_trial_button = StartFreeTrialButton()
 
         self.trial_description = QLabel(
             "👉 Access all features, including Claude, advanced text-to-speech, and chained smart fields. No credit card required!"
@@ -229,7 +244,7 @@ class SubscriptionBox(QWidget):
     def _render_active(self) -> QWidget:
         layout = QHBoxLayout()
         label = QLabel("✅ Subscription Active")
-        manage_label = manage_subscription
+        manage_label = ManageSubscription()
         layout.addWidget(label, alignment=Qt.AlignmentFlag.AlignLeft)
         layout.addWidget(manage_label, alignment=Qt.AlignmentFlag.AlignRight)
 
@@ -247,9 +262,16 @@ class SubscriptionBox(QWidget):
 
         return upgrade_now_button
 
-    def _render_upgrade_trial(self) -> QWidget:
+    def _render_upgrade_trial(
+        self, type: Literal["expired", "voice", "text"]
+    ) -> QWidget:
         layout = QHBoxLayout()
-        label = QLabel("🚨 Trial Expired!")
+        labels = {
+            "expired": "🚨 Trial Expired!",
+            "voice": "⚠️ Voice Capacity Reached!",
+            "text": "⚠️ Text Capacity Reached!",
+        }
+        label = QLabel(labels[type])
         label.setFont(font_bold)
 
         layout.addWidget(label, alignment=Qt.AlignmentFlag.AlignLeft)
@@ -261,9 +283,16 @@ class SubscriptionBox(QWidget):
         container.setLayout(layout)
         return container
 
-    def _render_paid_capacity(self) -> QWidget:
+    def _render_paid_capacity(
+        self, type: Literal["expired", "voice", "text"]
+    ) -> QWidget:
         layout = QHBoxLayout()
-        label = QLabel("🚨 You've used up your plan for this month!")
+        labels = {
+            "expired": "🚨 Plan capacity reached!",
+            "voice": "⚠️ Voice Capacity Reached!",
+            "text": "⚠️ Text Capacity Reached!",
+        }
+        label = QLabel(labels[type])
         label.setFont(font_bold)
         layout.addWidget(label, alignment=Qt.AlignmentFlag.AlignLeft)
         layout.addWidget(
