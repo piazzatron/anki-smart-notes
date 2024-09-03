@@ -32,15 +32,28 @@ class ReactiveComboBox(ReactiveWidget[T], QComboBox, Generic[T]):
     _selected_key: str
 
     def __init__(
-        self, state: StateManager[T], fields_key: str, selected_key: str, **kwargs: Any
+        self,
+        state: StateManager[T],
+        fields_key: str,
+        selected_key: str,
+        render_map: Dict[str, str] = {},
+        **kwargs: Any
     ):
         super().__init__(state, **kwargs)
         self._fields_key = fields_key
         self._selected_key = selected_key
+        self.state_to_ui = render_map
+        self.ui_to_state = {v: k for k, v in render_map.items()}
 
+        # Bind from state change to view
         state.bind(self)
 
         self.currentTextChanged.connect(self._on_current_text_changed)
+
+        # Bind from view change to state
+        self.onChange.connect(
+            lambda new_value: state.update({self._selected_key: new_value})
+        )
 
     def _update_from_state(self, updates: Dict[str, Any]) -> None:
         fields: List[str] = updates[self._fields_key]
@@ -48,11 +61,11 @@ class ReactiveComboBox(ReactiveWidget[T], QComboBox, Generic[T]):
         assert fields and selected
 
         self.clear()
-        self.addItems(fields)
-        self.setCurrentText(selected)
+        self.addItems([self.state_to_ui.get(field, field) for field in fields])
+        self.setCurrentText(self.state_to_ui.get(selected, selected))
 
     def _on_current_text_changed(self, text: str) -> None:
         if self._state.updating:
             return
 
-        self.onChange.emit(text)
+        self.onChange.emit(self.ui_to_state.get(text, text))

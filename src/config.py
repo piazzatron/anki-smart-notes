@@ -17,13 +17,45 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, Dict, Literal, TypedDict, Union
+import os
+from typing import Any, Dict, Literal, Optional, TypedDict, Union
 
 from aqt import addons, mw
 
+from .models import ChatModels, ChatProviders, TTSModels, TTSProviders
+
 
 class FieldExtras(TypedDict):
-    automatic: Union[bool, None]
+    """Should be only used internally by config"""
+
+    automatic: Optional[bool]
+    type: Optional[Literal["chat", "tts"]]
+    use_custom_model: Optional[bool]
+    # Chat
+    chat_model: Optional[ChatModels]
+    chat_provider: Optional[ChatProviders]
+    chat_temperature: Optional[int]
+    # TTS
+    tts_provider: Optional[TTSProviders]
+    tts_model: Optional[str]
+    tts_voice: Optional[str]
+
+
+class FieldExtrasWithDefaults(TypedDict):
+    """This is the type returned by get_extras, that the actual app should deal with"""
+
+    automatic: bool
+    use_custom_model: bool
+    type: Literal["chat", "tts"]
+    # Chat
+    chat_model: ChatModels
+    chat_provider: ChatProviders
+    chat_temperature: int
+
+    # TTS
+    tts_provider: TTSProviders
+    tts_model: TTSModels
+    tts_voice: str
 
 
 class NoteTypeMap(TypedDict):
@@ -35,18 +67,13 @@ class PromptMap(TypedDict):
     note_types: Dict[str, NoteTypeMap]
 
 
-OpenAIModels = Literal["gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4"]
-
-
 class Config:
     """Fancy config class that uses the Anki addon manager to store config values."""
 
     openai_api_key: Union[str, None]
     prompts_map: PromptMap
-    openai_model: OpenAIModels
     generate_at_review: bool
     times_used: int
-    did_show_rate_dialog: bool
     last_seen_version: Union[str, None]
     uuid: Union[str, None]
     openai_endpoint: Union[str, None]
@@ -54,6 +81,48 @@ class Config:
     allow_empty_fields: bool
     last_message_id: int
     debug: bool
+    auth_token: Union[str, None]
+    legacy_support: Union[bool, None]
+
+    # Chat
+    chat_provider: ChatProviders
+    chat_model: ChatModels
+    chat_temperature: int
+
+    # TTS
+    tts_provider: TTSProviders
+    tts_voice: str
+    tts_model: TTSModels
+
+    # Dialogs
+    did_show_chained_error_dialog: bool
+    did_show_rate_dialog: bool
+    did_show_premium_tts_dialog: bool
+
+    # Deprecated fields:
+    # openai_model: OpenAIModels
+
+    def __init__(self):
+        self._perform_cleanup()
+
+    def _perform_cleanup(self) -> None:
+        print("Cleaning up config")
+        try:
+            old_openai_model = self.__getattr__("openai_model")
+            if old_openai_model:
+                print(f"Migration: old_openai_model={old_openai_model}")
+                self.chat_model = old_openai_model  # type: ignore
+                self.__setattr__("openai_model", None)
+
+            # If we've never set the legacy_support flag
+            # set it to whether or not we have an openai key
+            if self.__getattr__("legacy_support") is None:
+                is_legacy = bool(self.openai_api_key)
+                print(f"Setting legacy_support to {is_legacy}")
+                self.__setattr__("legacy_support", is_legacy)
+        except Exception as e:
+            if not os.getenv("IS_TEST"):
+                print(f"Error: Unexepctedly caught exception cleaning up config {e}")
 
     def __getattr__(self, key: str) -> object:
         if not mw:
@@ -92,4 +161,4 @@ class Config:
         return defaults
 
 
-config = Config()
+config = Config()  # type: ignore

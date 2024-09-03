@@ -37,21 +37,30 @@ build () {
   rm -rf dist/__pycache__
 
   # Copy deps
-  cp -r env/lib/python3.11/site-packages/aiohttp dist/vendor/
-  cp -r env/lib/python3.11/site-packages/aiosignal dist/vendor/
-  cp -r env/lib/python3.11/site-packages/async_timeout dist/vendor/
-  cp -r env/lib/python3.11/site-packages/frozenlist dist/vendor/
-  cp -r env/lib/python3.11/site-packages/attrs dist/vendor/
-  cp -r env/lib/python3.11/site-packages/multidict dist/vendor/
-  cp -r env/lib/python3.11/site-packages/yarl dist/vendor/
-  cp -r env/lib/python3.11/site-packages/idna dist/vendor/
-  ## Sentry
-  cp -r env/lib/python3.11/site-packages/sentry_sdk dist/vendor/
-  cp -r env/lib/python3.11/site-packages/certifi dist/vendor/
-  cp -r env/lib/python3.11/site-packages/urllib3 dist/vendor/
-  # Dotenv
-  cp -r env/lib/python3.11/site-packages/dotenv dist/vendor/
+  vendored=(
+    "aiohttp"
+    "aiosignal"
+    "aiofiles"
+    "async_timeout"
+    "frozenlist"
+    "attrs"
+    "multidict"
+    "yarl"
+    "idna"
+    "sentry_sdk"
+    "certifi"
+    "urllib3"
+    "dotenv"
+  )
 
+  # copy them in a loop
+  for dep in "${vendored[@]}"; do
+    cp -r "env/lib/python3.11/site-packages/$dep" dist/vendor/
+  done
+
+  # Voices
+  cp -r eleven_voices.json dist/
+  cp -r google_voices.json dist/
 
   # Zip it
   cd dist
@@ -88,6 +97,10 @@ test-build () {
   clean
   build
   link-dist
+  rm -rf dist/meta.json
+  cp meta.json dist/
+  # copy the current meta to make testing easier
+  # jq '.config.auth_token = null' dist/meta.json > dist/temp.json && mv dist/temp.json dist/meta.json
   anki
 }
 

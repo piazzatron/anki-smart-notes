@@ -3,5 +3,6 @@
   "licenser.useSingleLineStyle": false,
   "licenser.projectName": "Smart Notes",
   "python.analysis.autoImportCompletions": true,
-  "python.analysis.exclude": ["**/dist", "**/env"]
+  "python.analysis.exclude": ["**/dist", "**/env"],
+  "python.analysis.importFormat": "relative"
 }

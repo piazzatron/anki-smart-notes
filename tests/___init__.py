@@ -16,27 +16,3 @@
  You should have received a copy of the GNU General Public License
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
-
-from .chat_provider import ChatProvider
-from .config import config
-from .field_resolver import FieldResolver
-from .hooks import setup_hooks
-from .open_ai_client import OpenAIClient
-from .processor import Processor
-from .tts_provider import TTSProvider
-
-
-def main() -> None:
-    openai_provider = OpenAIClient()
-    chat_provider = ChatProvider()
-    tts_provider = TTSProvider()
-
-    field_resolver = FieldResolver(
-        openai_provider=openai_provider,
-        chat_provider=chat_provider,
-        tts_provider=tts_provider,
-    )
-
-    processor = Processor(field_resolver=field_resolver, config=config)
-
-    setup_hooks(processor)

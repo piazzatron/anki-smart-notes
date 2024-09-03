@@ -1,0 +1,122 @@
+[
+  {
+    "voice_id": "EXAVITQu4vr4xnSDxMaL",
+    "name": "Sarah",
+    "gender": "female",
+    "country": "en",
+    "preview_url": "https://storage.googleapis.com/eleven-public-prod/premade/voices/EXAVITQu4vr4xnSDxMaL/01a3e33c-6e99-4ee7-8543-ff2216a32186.mp3",
+    "language": "English (United States)"
+  },
+  {
+    "voice_id": "IKne3meq5aSn9XLyUdCD",
+    "name": "Charlie",
+    "gender": "male",
+    "country": "en",
+    "preview_url": "https://storage.googleapis.com/eleven-public-prod/premade/voices/IKne3meq5aSn9XLyUdCD/102de6f2-22ed-43e0-a1f1-111fa75c5481.mp3",
+    "language": "English (United States)"
+  },
+  {
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+    "name": "George",
+    "gender": "male",
+    "country": "en",
+    "preview_url": "https://storage.googleapis.com/eleven-public-prod/premade/voices/JBFqnCBsd6RMkjVDRZzb/e6206d1a-0721-4787-aafb-06a6e705cac5.mp3",
+    "language": "English (United States)"
+  },
+  {
+    "voice_id": "XrExE9yKIg1WjnnlVkGX",
+    "name": "Matilda",
+    "gender": "female",
+    "country": "en",
+    "preview_url": "https://storage.googleapis.com/eleven-public-prod/premade/voices/XrExE9yKIg1WjnnlVkGX/b930e18d-6b4d-466e-bab2-0ae97c6d8535.mp3",
+    "language": "English (United States)"
+  },
+  {
+    "voice_id": "pFZP5JQG7iQjIQuC4Bku",
+    "name": "Lily",
+    "gender": "female",
+    "country": "en",
+    "preview_url": "https://storage.googleapis.com/eleven-public-prod/premade/voices/pFZP5JQG7iQjIQuC4Bku/89b68b35-b3dd-4348-a84a-a3c13a3c2b30.mp3",
+    "language": "English (United States)"
+  },
+  {
+    "voice_id": "ByhETIclHirOlWnWKhHc",
+    "name": "ShanShan",
+    "gender": "female",
+    "country": "zh",
+    "preview_url": "https://storage.googleapis.com/eleven-public-prod/custom/voices/ByhETIclHirOlWnWKhHc/WueuyXkB5LAjxrfqv4nL.mp3",
+    "language": "Chinese (Mandarin)"
+  },
+  {
+    "voice_id": "ohItIVrXTBI80RrUECOD",
+    "name": "Guillaume",
+    "gender": "male",
+    "country": "fr",
+    "preview_url": "https://storage.googleapis.com/eleven-public-prod/custom/voices/ohItIVrXTBI80RrUECOD/9mwgJwmYqekI6JTMJTcv.mp3",
+    "language": "French"
+  },
+  {
+    "voice_id": "bAFkvitDGeDMmqo9gJzO",
+    "name": "Niander Wallace",
+    "gender": "male",
+    "country": "de",
+    "preview_url": "https://storage.googleapis.com/eleven-public-prod/DenEfRCYd2gmgixVNnPbJHl0OVS2/voices/bAFkvitDGeDMmqo9gJzO/ebe7900c-4450-4400-b0d5-37e031bf860d.mp3",
+    "language": "German"
+  },
+  {
+    "voice_id": "j210dv0vWm7fCknyQpbA",
+    "name": "Hinata",
+    "gender": "male",
+    "country": "ja",
+    "preview_url": "https://storage.googleapis.com/eleven-public-prod/custom/voices/j210dv0vWm7fCknyQpbA/Bek5CWu0oLhcBJoGa1tS.mp3",
+    "language": "Japanese"
+  },
+  {
+    "voice_id": "blxHPCXhpXOsc7mCKk0P",
+    "name": "Artem Kesso",
+    "gender": "male",
+    "country": "ru",
+    "preview_url": "https://storage.googleapis.com/eleven-public-prod/qHdA4clyn2aKp3g0imUeHdbka1c2/voices/blxHPCXhpXOsc7mCKk0P/14a83ca9-9c2b-4736-b292-46f194ec1bd0.mp3",
+    "language": "Russian"
+  },
+  {
+    "voice_id": "9F4C8ztpNUmXkdDDbz3J",
+    "name": "Dan Dan",
+    "gender": "male",
+    "country": "es",
+    "preview_url": "https://storage.googleapis.com/eleven-public-prod/oDQDaQK0SGT9AtdG8VDe17L4KjX2/voices/9F4C8ztpNUmXkdDDbz3J/4d3e2bc3-b9f8-4bf0-84b2-22e0c15102f6.mp3",
+    "language": "Spanish"
+  },
+  {
+    "voice_id": "A9ATTqUUQ6GHu0coCz8t",
+    "name": "Hamid",
+    "gender": "male",
+    "country": "ar",
+    "preview_url": "https://storage.googleapis.com/eleven-public-prod/custom/voices/A9ATTqUUQ6GHu0coCz8t/52WpzlQwppmSVSQXa65L.mp3",
+    "language": "Arabic"
+  },
+  {
+    "voice_id": "JfjzwHPmCw6p6fdGVt4Y",
+    "name": "Luca Brasi Intimo",
+    "gender": "male",
+    "country": "it",
+    "preview_url": "https://storage.googleapis.com/eleven-public-prod/custom/voices/JfjzwHPmCw6p6fdGVt4Y/8cEiEVkJFPvE72FiZriD.mp3",
+    "language": "Italian"
+  },
+  {
+    "voice_id": "ZJCNdZEjYwkOElxugmW2",
+    "name": "HYUK ",
+    "gender": "male",
+    "country": "ko",
+    "preview_url": "https://storage.googleapis.com/eleven-public-prod/hSWXaUomcSNh92DBdVimNedwBFB2/voices/ZJCNdZEjYwkOElxugmW2/a5a5dec0-45ab-4b01-95a8-75fe95cbba0c.mp3",
+    "language": "Korean"
+  },
+  {
+    "voice_id": "x0u3EW21dbrORJzOq1m9",
+    "name": "Adam Composer Stockholm",
+    "gender": "male",
+    "country": "sv",
+    "preview_url": "https://storage.googleapis.com/eleven-public-prod/Clk6kdJ10yNzb14pOOqXKi1y5qW2/voices/x0u3EW21dbrORJzOq1m9/ffda0752-26f1-4341-8f31-161771679941.mp3",
+    "language": "Swedish"
+  }
+]

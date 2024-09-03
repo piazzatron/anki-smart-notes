@@ -17,11 +17,13 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Union
+from typing import List, Union
 
 from anki.notes import Note
+from aqt import mw
 
-from .prompts import get_generate_automatically, get_prompts
+from .prompts import get_generate_automatically, get_prompt_fields, get_prompts
+from .ui.ui_utils import show_message_box
 from .utils import get_fields, to_lowercase_dict
 
 """Helpful functions for working with notes"""
@@ -33,6 +35,13 @@ def get_note_type(note: Note) -> str:
     if not t:
         raise Exception("Note type not found")
     return t["name"]  # type: ignore
+
+
+def get_note_types() -> List[str]:
+    if not mw or not mw.col:
+        return []
+    models = mw.col.models.all()
+    return [model["name"] for model in models]
 
 
 def is_note_fully_processed(note: Note) -> bool:
@@ -75,3 +84,41 @@ def is_ai_field(current_field_num: int, note: Note) -> Union[str, None]:
 
     is_ai = bool(prompts_for_card.get(current_field, None))
     return sorted_fields[current_field_num] if is_ai else None
+
+
+def has_chained_ai_fields(note_type: str) -> bool:
+    """Check if a note has any AI fields that depend on other AI fields."""
+    return bool(get_chained_ai_fields(note_type))
+
+
+def get_chained_ai_fields(note_type: str) -> set[str]:
+    """Check if a note has any AI fields that depend on other AI fields."""
+    res: set[str] = set()
+    prompts = get_prompts(to_lower=True).get(note_type, None)
+
+    if not prompts:
+        return res
+
+    for field, prompt in prompts.items():
+        smart_fields = prompts.keys() - {field.lower()}
+        input_fields = get_prompt_fields(prompt)
+
+        for input_field in input_fields:
+            if input_field in smart_fields:
+                res.add(field)
+                break
+
+    return res
+
+
+def get_random_note(note_type: str) -> Union[Note, None]:
+    if not mw or not mw.col:
+        return None
+
+    sample_note_ids = mw.col.find_notes(f'note:"{note_type}"')
+
+    if not sample_note_ids:
+        show_message_box("No cards found for this note type.")
+        return None
+
+    return mw.col.get_note(sample_note_ids[0])

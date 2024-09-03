@@ -1,0 +1,1556 @@
+[
+  {
+    "gender": "Female",
+    "languageCode": "af-ZA",
+    "language": "Afrikaans",
+    "name": "af-ZA-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "am-ET",
+    "language": "Amharic",
+    "name": "am-ET-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "am-ET",
+    "language": "Amharic",
+    "name": "am-ET-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "am-ET",
+    "language": "Amharic",
+    "name": "am-ET-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "am-ET",
+    "language": "Amharic",
+    "name": "am-ET-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ar-XA",
+    "language": "Arabic",
+    "name": "ar-XA-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ar-XA",
+    "language": "Arabic",
+    "name": "ar-XA-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ar-XA",
+    "language": "Arabic",
+    "name": "ar-XA-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ar-XA",
+    "language": "Arabic",
+    "name": "ar-XA-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "bg-BG",
+    "language": "Bulgarian",
+    "name": "bg-BG-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "bn-IN",
+    "language": "Bengali",
+    "name": "bn-IN-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "bn-IN",
+    "language": "Bengali",
+    "name": "bn-IN-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "bn-IN",
+    "language": "Bengali",
+    "name": "bn-IN-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "bn-IN",
+    "language": "Bengali",
+    "name": "bn-IN-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ca-ES",
+    "language": "Catalan",
+    "name": "ca-ES-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "cmn-CN",
+    "language": "Mandarin (Chinese)",
+    "name": "cmn-CN-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "cmn-CN",
+    "language": "Mandarin (Chinese)",
+    "name": "cmn-CN-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "cmn-CN",
+    "language": "Mandarin (Chinese)",
+    "name": "cmn-CN-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "cmn-CN",
+    "language": "Mandarin (Chinese)",
+    "name": "cmn-CN-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "cmn-TW",
+    "language": "Mandarin (Taiwanese)",
+    "name": "cmn-TW-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "cmn-TW",
+    "language": "Mandarin (Taiwanese)",
+    "name": "cmn-TW-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "cmn-TW",
+    "language": "Mandarin (Taiwanese)",
+    "name": "cmn-TW-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "cmn-TW",
+    "language": "Mandarin (Taiwanese)",
+    "name": "cmn-TW-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "cs-CZ",
+    "language": "Czech",
+    "name": "cs-CZ-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "cs-CZ",
+    "language": "Czech",
+    "name": "cs-CZ-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "da-DK",
+    "language": "Danish",
+    "name": "da-DK-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "da-DK",
+    "language": "Danish",
+    "name": "da-DK-Wavenet-C",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "da-DK",
+    "language": "Danish",
+    "name": "da-DK-Neural2-D",
+    "type": "Neural"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "da-DK",
+    "language": "Danish",
+    "name": "da-DK-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "da-DK",
+    "language": "Danish",
+    "name": "da-DK-Standard-C",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "de-DE",
+    "language": "German",
+    "name": "de-DE-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "de-DE",
+    "language": "German",
+    "name": "de-DE-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "de-DE",
+    "language": "German",
+    "name": "de-DE-Neural2-A",
+    "type": "Neural"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "de-DE",
+    "language": "German",
+    "name": "de-DE-Neural2-B",
+    "type": "Neural"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "de-DE",
+    "language": "German",
+    "name": "de-DE-Polyglot-1",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "de-DE",
+    "language": "German",
+    "name": "de-DE-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "el-GR",
+    "language": "Greek",
+    "name": "el-GR-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "el-GR",
+    "language": "Greek",
+    "name": "el-GR-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "en-AU",
+    "language": "English (Australia)",
+    "name": "en-AU-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "en-AU",
+    "language": "English (Australia)",
+    "name": "en-AU-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "en-AU",
+    "language": "English (Australia)",
+    "name": "en-AU-Neural2-A",
+    "type": "Neural"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "en-AU",
+    "language": "English (Australia)",
+    "name": "en-AU-Neural2-B",
+    "type": "Neural"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "en-AU",
+    "language": "English (Australia)",
+    "name": "en-AU-News-E",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "en-AU",
+    "language": "English (Australia)",
+    "name": "en-AU-News-G",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "en-GB",
+    "language": "English (United Kingdom)",
+    "name": "en-GB-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "en-GB",
+    "language": "English (United Kingdom)",
+    "name": "en-GB-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "en-GB",
+    "language": "English (United Kingdom)",
+    "name": "en-GB-Neural2-A",
+    "type": "Neural"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "en-GB",
+    "language": "English (United Kingdom)",
+    "name": "en-GB-Neural2-B",
+    "type": "Neural"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "en-GB",
+    "language": "English (United Kingdom)",
+    "name": "en-GB-News-G",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "en-GB",
+    "language": "English (United Kingdom)",
+    "name": "en-GB-News-J",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "en-IN",
+    "language": "English (India)",
+    "name": "en-IN-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "en-IN",
+    "language": "English (India)",
+    "name": "en-IN-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "en-IN",
+    "language": "English (India)",
+    "name": "en-IN-Neural2-A",
+    "type": "Neural"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "en-IN",
+    "language": "English (India)",
+    "name": "en-IN-Neural2-B",
+    "type": "Neural"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "en-IN",
+    "language": "English (India)",
+    "name": "en-IN-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "en-IN",
+    "language": "English (India)",
+    "name": "en-IN-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "en-US",
+    "language": "English (United States)",
+    "name": "en-US-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "en-US",
+    "language": "English (United States)",
+    "name": "en-US-Wavenet-C",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "en-US",
+    "language": "English (United States)",
+    "name": "en-US-Neural2-A",
+    "type": "Neural"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "en-US",
+    "language": "English (United States)",
+    "name": "en-US-Neural2-C",
+    "type": "Neural"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "en-US",
+    "language": "English (United States)",
+    "name": "en-US-Casual-K",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "en-US",
+    "language": "English (United States)",
+    "name": "en-US-Journey-F",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "es-ES",
+    "language": "Spanish (Spain)",
+    "name": "es-ES-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "es-ES",
+    "language": "Spanish (Spain)",
+    "name": "es-ES-Wavenet-C",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "es-ES",
+    "language": "Spanish (Spain)",
+    "name": "es-ES-Neural2-A",
+    "type": "Neural"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "es-ES",
+    "language": "Spanish (Spain)",
+    "name": "es-ES-Neural2-B",
+    "type": "Neural"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "es-ES",
+    "language": "Spanish (Spain)",
+    "name": "es-ES-Polyglot-1",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "es-ES",
+    "language": "Spanish (Spain)",
+    "name": "es-ES-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "es-US",
+    "language": "Spanish (United States)",
+    "name": "es-US-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "es-US",
+    "language": "Spanish (United States)",
+    "name": "es-US-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "es-US",
+    "language": "Spanish (United States)",
+    "name": "es-US-Neural2-A",
+    "type": "Neural"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "es-US",
+    "language": "Spanish (United States)",
+    "name": "es-US-Neural2-B",
+    "type": "Neural"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "es-US",
+    "language": "Spanish (United States)",
+    "name": "es-US-News-D",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "es-US",
+    "language": "Spanish (United States)",
+    "name": "es-US-News-F",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "eu-ES",
+    "language": "Basque",
+    "name": "eu-ES-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "fi-FI",
+    "language": "Finnish",
+    "name": "fi-FI-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "fi-FI",
+    "language": "Finnish",
+    "name": "fi-FI-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "fil-PH",
+    "language": "Filipino",
+    "name": "fil-PH-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "fil-PH",
+    "language": "Filipino",
+    "name": "fil-PH-Wavenet-C",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "fil-PH",
+    "language": "Filipino",
+    "name": "fil-ph-Neural2-A",
+    "type": "Neural"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "fil-PH",
+    "language": "Filipino",
+    "name": "fil-ph-Neural2-D",
+    "type": "Neural"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "fil-PH",
+    "language": "Filipino",
+    "name": "fil-PH-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "fil-PH",
+    "language": "Filipino",
+    "name": "fil-PH-Standard-C",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "fr-CA",
+    "language": "French (Canada)",
+    "name": "fr-CA-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "fr-CA",
+    "language": "French (Canada)",
+    "name": "fr-CA-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "fr-CA",
+    "language": "French (Canada)",
+    "name": "fr-CA-Neural2-A",
+    "type": "Neural"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "fr-CA",
+    "language": "French (Canada)",
+    "name": "fr-CA-Neural2-B",
+    "type": "Neural"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "fr-CA",
+    "language": "French (Canada)",
+    "name": "fr-CA-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "fr-CA",
+    "language": "French (Canada)",
+    "name": "fr-CA-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "fr-FR",
+    "language": "French (France)",
+    "name": "fr-FR-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "fr-FR",
+    "language": "French (France)",
+    "name": "fr-FR-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "fr-FR",
+    "language": "French (France)",
+    "name": "fr-FR-Neural2-A",
+    "type": "Neural"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "fr-FR",
+    "language": "French (France)",
+    "name": "fr-FR-Neural2-B",
+    "type": "Neural"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "fr-FR",
+    "language": "French (France)",
+    "name": "fr-FR-Polyglot-1",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "fr-FR",
+    "language": "French (France)",
+    "name": "fr-FR-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "gl-ES",
+    "language": "Galician",
+    "name": "gl-ES-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "gu-IN",
+    "language": "Gujarati",
+    "name": "gu-IN-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "gu-IN",
+    "language": "Gujarati",
+    "name": "gu-IN-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "gu-IN",
+    "language": "Gujarati",
+    "name": "gu-IN-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "gu-IN",
+    "language": "Gujarati",
+    "name": "gu-IN-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "he-IL",
+    "language": "Hebrew",
+    "name": "he-IL-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "he-IL",
+    "language": "Hebrew",
+    "name": "he-IL-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "he-IL",
+    "language": "Hebrew",
+    "name": "he-IL-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "he-IL",
+    "language": "Hebrew",
+    "name": "he-IL-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "hi-IN",
+    "language": "Hindi",
+    "name": "hi-IN-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "hi-IN",
+    "language": "Hindi",
+    "name": "hi-IN-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "hi-IN",
+    "language": "Hindi",
+    "name": "hi-IN-Neural2-A",
+    "type": "Neural"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "hi-IN",
+    "language": "Hindi",
+    "name": "hi-IN-Neural2-B",
+    "type": "Neural"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "hi-IN",
+    "language": "Hindi",
+    "name": "hi-IN-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "hi-IN",
+    "language": "Hindi",
+    "name": "hi-IN-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "hu-HU",
+    "language": "Hungarian",
+    "name": "hu-HU-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "hu-HU",
+    "language": "Hungarian",
+    "name": "hu-HU-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "id-ID",
+    "language": "Indonesian",
+    "name": "id-ID-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "id-ID",
+    "language": "Indonesian",
+    "name": "id-ID-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "id-ID",
+    "language": "Indonesian",
+    "name": "id-ID-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "id-ID",
+    "language": "Indonesian",
+    "name": "id-ID-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "is-IS",
+    "language": "Icelandic",
+    "name": "is-IS-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "it-IT",
+    "language": "Italian",
+    "name": "it-IT-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "it-IT",
+    "language": "Italian",
+    "name": "it-IT-Wavenet-C",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "it-IT",
+    "language": "Italian",
+    "name": "it-IT-Neural2-A",
+    "type": "Neural"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "it-IT",
+    "language": "Italian",
+    "name": "it-IT-Neural2-C",
+    "type": "Neural"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "it-IT",
+    "language": "Italian",
+    "name": "it-IT-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "it-IT",
+    "language": "Italian",
+    "name": "it-IT-Standard-C",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ja-JP",
+    "language": "Japanese",
+    "name": "ja-JP-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ja-JP",
+    "language": "Japanese",
+    "name": "ja-JP-Wavenet-C",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ja-JP",
+    "language": "Japanese",
+    "name": "ja-JP-Neural2-B",
+    "type": "Neural"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ja-JP",
+    "language": "Japanese",
+    "name": "ja-JP-Neural2-C",
+    "type": "Neural"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ja-JP",
+    "language": "Japanese",
+    "name": "ja-JP-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ja-JP",
+    "language": "Japanese",
+    "name": "ja-JP-Standard-C",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "kn-IN",
+    "language": "Kannada",
+    "name": "kn-IN-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "kn-IN",
+    "language": "Kannada",
+    "name": "kn-IN-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "kn-IN",
+    "language": "Kannada",
+    "name": "kn-IN-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "kn-IN",
+    "language": "Kannada",
+    "name": "kn-IN-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ko-KR",
+    "language": "Korean",
+    "name": "ko-KR-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ko-KR",
+    "language": "Korean",
+    "name": "ko-KR-Wavenet-C",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ko-KR",
+    "language": "Korean",
+    "name": "ko-KR-Neural2-A",
+    "type": "Neural"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ko-KR",
+    "language": "Korean",
+    "name": "ko-KR-Neural2-C",
+    "type": "Neural"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ko-KR",
+    "language": "Korean",
+    "name": "ko-KR-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ko-KR",
+    "language": "Korean",
+    "name": "ko-KR-Standard-C",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "lt-LT",
+    "language": "Lithuanian",
+    "name": "lt-LT-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "lv-LV",
+    "language": "Latvian",
+    "name": "lv-LV-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ml-IN",
+    "language": "Malayalam",
+    "name": "ml-IN-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ml-IN",
+    "language": "Malayalam",
+    "name": "ml-IN-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ml-IN",
+    "language": "Malayalam",
+    "name": "ml-IN-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ml-IN",
+    "language": "Malayalam",
+    "name": "ml-IN-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "mr-IN",
+    "language": "Marathi",
+    "name": "mr-IN-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "mr-IN",
+    "language": "Marathi",
+    "name": "mr-IN-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "mr-IN",
+    "language": "Marathi",
+    "name": "mr-IN-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "mr-IN",
+    "language": "Marathi",
+    "name": "mr-IN-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ms-MY",
+    "language": "Malay",
+    "name": "ms-MY-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ms-MY",
+    "language": "Malay",
+    "name": "ms-MY-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ms-MY",
+    "language": "Malay",
+    "name": "ms-MY-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ms-MY",
+    "language": "Malay",
+    "name": "ms-MY-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "nb-NO",
+    "language": "Norwegian",
+    "name": "nb-NO-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "nb-NO",
+    "language": "Norwegian",
+    "name": "nb-NO-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "nb-NO",
+    "language": "Norwegian",
+    "name": "nb-NO-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "nb-NO",
+    "language": "Norwegian",
+    "name": "nb-NO-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "nl-BE",
+    "language": "Dutch (Belgium)",
+    "name": "nl-BE-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "nl-BE",
+    "language": "Dutch (Belgium)",
+    "name": "nl-BE-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "nl-BE",
+    "language": "Dutch (Belgium)",
+    "name": "nl-BE-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "nl-BE",
+    "language": "Dutch (Belgium)",
+    "name": "nl-BE-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "nl-NL",
+    "language": "Dutch (Netherlands)",
+    "name": "nl-NL-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "nl-NL",
+    "language": "Dutch (Netherlands)",
+    "name": "nl-NL-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "nl-NL",
+    "language": "Dutch (Netherlands)",
+    "name": "nl-NL-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "nl-NL",
+    "language": "Dutch (Netherlands)",
+    "name": "nl-NL-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "pa-IN",
+    "language": "Punjabi",
+    "name": "pa-IN-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "pa-IN",
+    "language": "Punjabi",
+    "name": "pa-IN-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "pa-IN",
+    "language": "Punjabi",
+    "name": "pa-IN-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "pa-IN",
+    "language": "Punjabi",
+    "name": "pa-IN-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "pl-PL",
+    "language": "Polish",
+    "name": "pl-PL-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "pl-PL",
+    "language": "Polish",
+    "name": "pl-PL-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "pl-PL",
+    "language": "Polish",
+    "name": "pl-PL-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "pl-PL",
+    "language": "Polish",
+    "name": "pl-PL-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "name": "pt-BR-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "name": "pt-BR-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "name": "pt-BR-Neural2-A",
+    "type": "Neural"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "name": "pt-BR-Neural2-B",
+    "type": "Neural"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "name": "pt-BR-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "name": "pt-BR-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "pt-PT",
+    "language": "Portuguese (Portugal)",
+    "name": "pt-PT-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "pt-PT",
+    "language": "Portuguese (Portugal)",
+    "name": "pt-PT-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "pt-PT",
+    "language": "Portuguese (Portugal)",
+    "name": "pt-PT-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "pt-PT",
+    "language": "Portuguese (Portugal)",
+    "name": "pt-PT-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ro-RO",
+    "language": "Romanian",
+    "name": "ro-RO-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ro-RO",
+    "language": "Romanian",
+    "name": "ro-RO-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ru-RU",
+    "language": "Russian",
+    "name": "ru-RU-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ru-RU",
+    "language": "Russian",
+    "name": "ru-RU-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ru-RU",
+    "language": "Russian",
+    "name": "ru-RU-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ru-RU",
+    "language": "Russian",
+    "name": "ru-RU-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "sk-SK",
+    "language": "Slovak",
+    "name": "sk-SK-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "sk-SK",
+    "language": "Slovak",
+    "name": "sk-SK-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "sr-RS",
+    "language": "Serbian",
+    "name": "sr-RS-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "sv-SE",
+    "language": "Swedish",
+    "name": "sv-SE-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "sv-SE",
+    "language": "Swedish",
+    "name": "sv-SE-Wavenet-C",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "sv-SE",
+    "language": "Swedish",
+    "name": "sv-SE-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "sv-SE",
+    "language": "Swedish",
+    "name": "sv-SE-Standard-D",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ta-IN",
+    "language": "Tamil",
+    "name": "ta-IN-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ta-IN",
+    "language": "Tamil",
+    "name": "ta-IN-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ta-IN",
+    "language": "Tamil",
+    "name": "ta-IN-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ta-IN",
+    "language": "Tamil",
+    "name": "ta-IN-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "te-IN",
+    "language": "Telugu",
+    "name": "te-IN-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "te-IN",
+    "language": "Telugu",
+    "name": "te-IN-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "th-TH",
+    "language": "Thai",
+    "name": "th-TH-Neural2-C",
+    "type": "Neural"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "th-TH",
+    "language": "Thai",
+    "name": "th-TH-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "tr-TR",
+    "language": "Turkish",
+    "name": "tr-TR-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "tr-TR",
+    "language": "Turkish",
+    "name": "tr-TR-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "tr-TR",
+    "language": "Turkish",
+    "name": "tr-TR-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "tr-TR",
+    "language": "Turkish",
+    "name": "tr-TR-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "uk-UA",
+    "language": "Ukrainian",
+    "name": "uk-UA-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "uk-UA",
+    "language": "Ukrainian",
+    "name": "uk-UA-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ur-IN",
+    "language": "Urdu",
+    "name": "ur-IN-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ur-IN",
+    "language": "Urdu",
+    "name": "ur-IN-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ur-IN",
+    "language": "Urdu",
+    "name": "ur-IN-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ur-IN",
+    "language": "Urdu",
+    "name": "ur-IN-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "vi-VN",
+    "language": "Vietnamese",
+    "name": "vi-VN-Wavenet-A",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "vi-VN",
+    "language": "Vietnamese",
+    "name": "vi-VN-Wavenet-B",
+    "type": "Wavenet"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "vi-VN",
+    "language": "Vietnamese",
+    "name": "vi-VN-Neural2-A",
+    "type": "Neural"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "vi-VN",
+    "language": "Vietnamese",
+    "name": "vi-VN-Neural2-D",
+    "type": "Neural"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "vi-VN",
+    "language": "Vietnamese",
+    "name": "vi-VN-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "vi-VN",
+    "language": "Vietnamese",
+    "name": "vi-VN-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "yue-HK",
+    "language": "Chinese (Cantonese)",
+    "name": "yue-HK-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "yue-HK",
+    "language": "Chinese (Cantonese)",
+    "name": "yue-HK-Standard-B",
+    "type": "Standard"
+  }
+]

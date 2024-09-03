@@ -32,9 +32,9 @@ from .. import env
 from .config import config
 from .constants import get_server_url
 from .logger import logger
-from .ui.changelog import get_version
+from .tasks import run_async_in_background
 from .ui.ui_utils import show_message_box
-from .utils import is_production, run_async_in_background
+from .utils import get_version, is_production
 
 dsn = os.getenv("SENTRY_DSN")
 
@@ -148,33 +148,43 @@ class Sentry:
         )
 
 
-async def ping() -> None:
-    try:
-        ping_url = f"{get_server_url()}/ping"
-        params = {"version": get_version(), "uuid": config.uuid}
-        async with aiohttp.ClientSession() as session:
-            async with session.get(ping_url, params=params) as response:
-                if response.status != 200:
-                    logger.error(f"Error pinging server: {response.status}")
-                else:
-                    logger.debug("Successfully pinged server")
-    except Exception as e:
-        logger.error(f"Error pinging server: {e}")
+def pinger(event: Union[str, None] = None) -> Callable[[], Coroutine[Any, Any, None]]:
+    async def ping() -> None:
+        try:
+            ping_url = f"{get_server_url()}/ping{'?event=' + event if event else ''}"
+            params = {"version": get_version(), "uuid": config.uuid}
+            async with aiohttp.ClientSession() as session:
+                async with session.get(ping_url, params=params) as response:
+                    if response.status != 200:
+                        logger.error(f"Error pinging server: {response.status}")
+                    else:
+                        logger.debug("Successfully pinged server")
+        except Exception as e:
+            logger.error(f"Error pinging server: {e}")
+
+    return ping
 
 
 def init_sentry() -> Union[Sentry, None]:
-    dsn = os.getenv("SENTRY_DSN")
-    release = get_version()
-    if not dsn or not release:
-        logger.error("Sentry: no sentry DSN or release")
+    try:
+        if os.getenv("IS_TEST"):
+            return None
+
+        dsn = os.getenv("SENTRY_DSN")
+        release = get_version()
+        if not dsn or not release:
+            logger.error("Sentry: no sentry DSN or release")
+            return None
+
+        if not config.uuid:
+            config.uuid = make_uuid()
+
+        sentry = Sentry(dsn, release, config.uuid, env.environment)
+
+        return sentry
+    except Exception as e:
+        logger.error(f"Error initializing sentry: {e}")
         return None
-
-    if not config.uuid:
-        config.uuid = make_uuid()
-
-    sentry = Sentry(dsn, release, config.uuid, env.environment)
-
-    return sentry
 
 
 def with_sentry(fn: Callable[..., Any]) -> Callable[..., Any]:

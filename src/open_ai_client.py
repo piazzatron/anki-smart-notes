@@ -22,26 +22,38 @@ import asyncio
 import aiohttp
 
 from .config import config
+from .constants import (
+    CHAT_CLIENT_TIMEOUT_SEC,
+    DEFAULT_TEMPERATURE,
+    MAX_RETRIES,
+    RETRY_BASE_SECONDS,
+)
 from .logger import logger
-
-RETRY_BASE_SECONDS = 5
-MAX_RETRIES = 5
+from .models import openai_chat_models
 
 OPENAI_ENDPOINT = "https://api.openai.com"
 
-TIMEOUT_SEC = 10
 
-timeout = aiohttp.ClientTimeout(total=TIMEOUT_SEC)
+timeout = aiohttp.ClientTimeout(total=CHAT_CLIENT_TIMEOUT_SEC)
 
 
 class OpenAIClient:
     """Client for OpenAI's chat API."""
 
-    async def async_get_chat_response(self, prompt: str, retry_count=0) -> str:
+    async def async_get_chat_response(
+        self, prompt: str, temperature=DEFAULT_TEMPERATURE, retry_count=0
+    ) -> str:
         """Gets a chat response from OpenAI's chat API. This method can throw; the caller should handle with care."""
         endpoint = f"{config.openai_endpoint or OPENAI_ENDPOINT}/v1/chat/completions"
+
+        # Extra defensive: ensure that the chat model is valid
+        chat_model = config.chat_model
+        if chat_model not in openai_chat_models:
+            logger.error(f"Unexpected non-openAI chat model: {chat_model}")
+            chat_model = "gpt-4o-mini"
+
         logger.debug(
-            f"OpenAI: hitting {endpoint} model: {config.openai_model} retries {retry_count} for prompt: {prompt}"
+            f"OpenAI: hitting {endpoint} model: {chat_model} retries {retry_count} for prompt: {prompt}"
         )
         async with aiohttp.ClientSession(timeout=timeout) as session:
             async with session.post(
@@ -50,8 +62,9 @@ class OpenAIClient:
                     "Authorization": f"Bearer {config.openai_api_key}",
                 },
                 json={
-                    "model": config.openai_model,
+                    "model": chat_model,
                     "messages": [{"role": "user", "content": prompt}],
+                    "temperature": temperature,
                 },
             ) as response:
                 if response.status == 429:
@@ -70,4 +83,5 @@ class OpenAIClient:
                 response.raise_for_status()
                 resp = await response.json()
                 msg: str = resp["choices"][0]["message"]["content"]
+                logger.debug(f"Got response from OpenAI: {msg}")
                 return msg

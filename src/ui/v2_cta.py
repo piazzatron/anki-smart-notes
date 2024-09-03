@@ -17,26 +17,15 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from .chat_provider import ChatProvider
-from .config import config
-from .field_resolver import FieldResolver
-from .hooks import setup_hooks
-from .open_ai_client import OpenAIClient
-from .processor import Processor
-from .tts_provider import TTSProvider
+from aqt import QWidget
+
+from ..sentry import pinger
+from ..tasks import run_async_in_background
+from .webview_dialog import WebviewDialog
 
 
-def main() -> None:
-    openai_provider = OpenAIClient()
-    chat_provider = ChatProvider()
-    tts_provider = TTSProvider()
-
-    field_resolver = FieldResolver(
-        openai_provider=openai_provider,
-        chat_provider=chat_provider,
-        tts_provider=tts_provider,
-    )
-
-    processor = Processor(field_resolver=field_resolver, config=config)
-
-    setup_hooks(processor)
+class V2CTA(WebviewDialog):
+    def __init__(self, parent: QWidget) -> None:
+        super().__init__(parent, "/v2")
+        run_async_in_background(pinger("show_trial_cta"))
+        self.setMinimumHeight(1000)

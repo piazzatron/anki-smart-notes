@@ -17,26 +17,14 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from .chat_provider import ChatProvider
-from .config import config
-from .field_resolver import FieldResolver
-from .hooks import setup_hooks
-from .open_ai_client import OpenAIClient
-from .processor import Processor
-from .tts_provider import TTSProvider
+from aqt import QLabel
+
+from ..constants import get_site_url
 
 
-def main() -> None:
-    openai_provider = OpenAIClient()
-    chat_provider = ChatProvider()
-    tts_provider = TTSProvider()
-
-    field_resolver = FieldResolver(
-        openai_provider=openai_provider,
-        chat_provider=chat_provider,
-        tts_provider=tts_provider,
-    )
-
-    processor = Processor(field_resolver=field_resolver, config=config)
-
-    setup_hooks(processor)
+class ManageSubscription(QLabel):
+    def __init__(self) -> None:
+        super().__init__()
+        manage_link = f"{get_site_url()}/account"
+        self.setText(f"<a href={manage_link}>Manage Subscription</a>")
+        self.setOpenExternalLinks(True)

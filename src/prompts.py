@@ -20,39 +20,69 @@
 """Helpful functions for working with prompts and cards"""
 
 import re
-from typing import Dict, Union
+from typing import Dict, List, Literal, Union
 
 from anki.notes import Note
 
-from .config import FieldExtras, PromptMap, config
+from .config import FieldExtrasWithDefaults, PromptMap, config
 from .logger import logger
-from .utils import get_fields, to_lowercase_dict
+from .utils import to_lowercase_dict
 
 EXTRAS_DEFAULT_AUTOMATIC = True
 
 
-def get_prompts() -> Dict[str, Dict[str, str]]:
-    """Gets the prompts map. Does not lowercase anything."""
-    return {
+def get_prompts(
+    to_lower: bool = False, override_prompts_map: Union[PromptMap, None] = None
+) -> Dict[str, Dict[str, str]]:
+    """Gets the prompts map. Maps note_type -> {field -> prompt}"""
+    prompts_map = {
         note_type: {k: v for k, v in m["fields"].items()}
-        for note_type, m in config.prompts_map["note_types"].items()
+        for note_type, m in (override_prompts_map or config.prompts_map)[
+            "note_types"
+        ].items()
     }
+    if to_lower:
+        prompts_map = {k: to_lowercase_dict(v) for k, v in prompts_map.items()}
+    return prompts_map
 
 
 def get_extras(
-    note_type: str, note_field: str, prompts_map: Union[PromptMap, None] = None
-) -> FieldExtras:
+    note_type: str,
+    note_field: str,
+    prompts_map: Union[PromptMap, None] = None,
+    type: Union[Literal["chat", "tts"], None] = None,
+) -> FieldExtrasWithDefaults:
 
-    extras = (
-        (prompts_map or config.prompts_map)["note_types"]
+    # Lowercase the field names
+    extras = to_lowercase_dict(
+        (prompts_map or config.prompts_map)["note_types"]  # type: ignore
         .get(note_type, {"extras": {}})
         .get("extras", {})
     )
 
-    if not extras:
-        return {"automatic": EXTRAS_DEFAULT_AUTOMATIC}
+    default_extras: FieldExtrasWithDefaults = {
+        "automatic": EXTRAS_DEFAULT_AUTOMATIC,
+        "chat_provider": config.chat_provider,
+        "chat_model": config.chat_model,
+        "chat_temperature": config.chat_temperature,
+        "use_custom_model": False,
+        "type": type or "chat",
+        "tts_model": config.tts_model,
+        "tts_provider": config.tts_provider,
+        "tts_voice": config.tts_voice,
+    }
 
-    return extras.get(note_field, {"automatic": EXTRAS_DEFAULT_AUTOMATIC})
+    # Base extras field might not exist at all
+    if not extras:
+        return default_extras
+
+    field_extras = extras.get(note_field.lower(), default_extras)
+
+    # Populate missing fields with defaults
+    for k, v in default_extras.items():
+        if k not in field_extras or field_extras[k] is None:
+            field_extras[k] = v  # type: ignore
+    return field_extras  # type: ignore
 
 
 def get_generate_automatically(
@@ -62,32 +92,10 @@ def get_generate_automatically(
     return bool(extras.get("automatic", EXTRAS_DEFAULT_AUTOMATIC))
 
 
-def get_prompt_fields_lower(prompt: str):
+def get_prompt_fields(prompt: str, lower: bool = True) -> List[str]:
     pattern = r"\{\{(.+?)\}\}"
     fields = re.findall(pattern, prompt)
-    return [field.lower() for field in fields]
-
-
-def prompt_has_error(
-    prompt: str, note_type: str, target_field: Union[str, None] = None
-) -> Union[str, None]:
-    """Checks if a prompt has an error. Returns the error message if there is one."""
-    note_fields = {field.lower() for field in get_fields(note_type)}
-    prompt_fields = get_prompt_fields_lower(prompt)
-    existing_fields = to_lowercase_dict(get_prompts().get(note_type, {}))
-
-    # Check for fields that aren't in the card
-    for prompt_field in prompt_fields:
-        if prompt_field not in note_fields:
-            return f"Invalid field in prompt: {prompt_field}"
-        if prompt_field in existing_fields:
-            return f"Can't reference other smart fields ({prompt_field}) in the prompt. (...yet 😈)"
-
-    # Can't reference itself
-    if target_field and target_field.lower() in prompt_fields:
-        return "Cannot reference the target field in the prompt."
-
-    return None
+    return [(field.lower() if lower else field) for field in fields]
 
 
 def interpolate_prompt(prompt: str, note: Note) -> Union[str, None]:
@@ -95,7 +103,7 @@ def interpolate_prompt(prompt: str, note: Note) -> Union[str, None]:
     # Bunch of extra logic to make this whole process case insensitive
 
     # Regex to pull out any words enclosed in double curly braces
-    fields = get_prompt_fields_lower(prompt)
+    fields = get_prompt_fields(prompt)
     # For some reason, the user is using a prompt with no fields
     if not fields:
         return prompt

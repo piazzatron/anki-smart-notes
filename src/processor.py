@@ -22,16 +22,26 @@ from typing import Callable, List, Sequence, Tuple, Union
 
 import aiohttp
 from anki.notes import Note, NoteId
-from aqt import editor, mw
+from aqt import mw
 
+from .app_state import (
+    app_state,
+    has_api_key,
+    is_app_unlocked,
+    is_app_unlocked_or_legacy,
+)
 from .config import Config
+from .constants import CHAINED_FIELDS_SKIPPED_ERROR, STANDARD_BATCH_LIMIT
+from .dag import generate_fields_dag
+from .field_resolver import FieldResolver
 from .logger import logger
-from .notes import get_note_type
-from .open_ai_client import OpenAIClient
-from .prompts import get_generate_automatically, get_prompts, interpolate_prompt
+from .models import ChatModels, ChatProviders
+from .nodes import FieldNode
+from .notes import get_note_type, get_note_types, has_chained_ai_fields
+from .prompts import get_prompts
 from .sentry import run_async_in_background_with_sentry
 from .ui.ui_utils import show_message_box
-from .utils import bump_usage_counter, check_for_api_key, run_on_main
+from .utils import bump_usage_counter, run_on_main
 
 # OPEN_AI rate limits
 NEW_OPEN_AI_MODEL_REQ_PER_MIN = 500
@@ -39,49 +49,11 @@ OLD_OPEN_AI_MODEL_REQ_PER_MIN = 3500
 
 
 class Processor:
-    def __init__(self, client: OpenAIClient, config: Config):
-        self.client = client
+
+    def __init__(self, field_resolver: FieldResolver, config: Config):
+        self.field_resolver = field_resolver
         self.config = config
         self.req_in_progress = False
-
-    def process_single_field(
-        self, note: Note, target_field_name: str, editor: editor.Editor
-    ) -> None:
-
-        bump_usage_counter()
-
-        if not self._ensure_no_req_in_progress():
-            return
-
-        async def async_process_single_field(
-            note: Note, target_field_name: str
-        ) -> None:
-            prompt = get_prompts().get(get_note_type(note), {}).get(target_field_name)
-            if not prompt:
-                return
-
-            prompt = interpolate_prompt(prompt, note)
-            if not prompt:
-                return
-            response = await self.client.async_get_chat_response(prompt)
-            note[target_field_name] = response
-
-        def on_success() -> None:
-            # Only update note if it's already in the database
-            self._reqlinquish_req_in_progress()
-            if note.id and mw:
-                mw.col.update_note(note)
-            editor.loadNote()
-
-        def on_failure(e: Exception) -> None:
-            self._handle_failure(e)
-            self._reqlinquish_req_in_progress()
-
-        run_async_in_background_with_sentry(
-            lambda: async_process_single_field(note, target_field_name),
-            lambda _: on_success(),
-            on_failure,
-        )
 
     def process_notes_with_progress(
         self,
@@ -96,12 +68,12 @@ class Processor:
 
         bump_usage_counter()
 
-        if not self._ensure_no_req_in_progress():
+        if not self._assert_preconditions():
             return
 
         logger.debug("Processing notes...")
 
-        if not check_for_api_key(self.config):
+        if not is_app_unlocked_or_legacy(show_box=False):
             return
 
         def wrapped_on_success(res: Tuple[List[Note], List[Note]]) -> None:
@@ -109,21 +81,24 @@ class Processor:
             if not mw:
                 return
             mw.col.update_notes(updated)
-            self._reqlinquish_req_in_progress()
+            self._reqlinquish_req_in_process()
             if on_success:
                 on_success(updated, failed)
 
         def on_failure(e: Exception) -> None:
-            self._reqlinquish_req_in_progress()
+            self._reqlinquish_req_in_process()
             show_message_box(f"Error: {e}")
 
-        model = self.config.openai_model
-        limit = (
-            OLD_OPEN_AI_MODEL_REQ_PER_MIN
-            if model == "gpt-4o-mini"
-            else NEW_OPEN_AI_MODEL_REQ_PER_MIN
-        )
-        is_large_batch = len(note_ids) >= limit
+        if is_app_unlocked():
+            limit = STANDARD_BATCH_LIMIT
+        else:
+            model = self.config.chat_model
+            limit = (
+                OLD_OPEN_AI_MODEL_REQ_PER_MIN
+                if model == "gpt-4o-mini"
+                else NEW_OPEN_AI_MODEL_REQ_PER_MIN
+            )
+        is_large_batch = len(note_ids) >= 3
         logger.debug(f"Rate limit: {limit}")
 
         # Only show fancy progress meter for large batches
@@ -146,7 +121,7 @@ class Processor:
             if is_large_batch:
                 if not finished:
                     mw.progress.update(
-                        label=f"({processed_count}/{len(note_ids)})... waiting 60s for rate limit.",
+                        label=f"({processed_count}/{len(note_ids)})",
                         value=processed_count,
                         max=len(note_ids),
                     )
@@ -191,9 +166,7 @@ class Processor:
                 if (
                     processed_count >= limit - 5
                 ):  # Make it a little fuzzy in case we've used some reqs already
-                    logger.debug("Sleeping for 60s until next batch")
                     processed_count = 0
-                    await asyncio.sleep(60)
 
             return total_updated, total_failed
 
@@ -259,19 +232,20 @@ class Processor:
         overwrite_fields: bool = False,
         on_success: Callable[[bool], None] = lambda _: None,
         on_failure: Union[Callable[[Exception], None], None] = None,
-        target_fields: List[str] = [],
+        target_field: Union[str, None] = None,
+        on_field_update: Union[Callable[[], None], None] = None,
     ):
         """Process a single note, filling in fields with prompts from the user"""
-        if not self._ensure_no_req_in_progress():
+        if not self._assert_preconditions():
             return
 
         def wrapped_on_success(updated: bool) -> None:
-            self._reqlinquish_req_in_progress()
+            self._reqlinquish_req_in_process()
             on_success(updated)
 
         def wrapped_failure(e: Exception) -> None:
             self._handle_failure(e)
-            self._reqlinquish_req_in_progress()
+            self._reqlinquish_req_in_process()
             if on_failure:
                 on_failure(e)
 
@@ -279,17 +253,25 @@ class Processor:
         # an PyQT crash, so I'm running it in the on_success callback instead
         run_async_in_background_with_sentry(
             lambda: self._process_note(
-                note, overwrite_fields=overwrite_fields, target_fields=target_fields
+                note,
+                overwrite_fields=overwrite_fields,
+                target_field=target_field,
+                on_field_update=on_field_update,
             ),
             wrapped_on_success,
             wrapped_failure,
         )
 
+    # Note: one quirk is that if overwrite_fields = True AND there's a target field,
+    # it will regenerate any fields up until the target field. A bit weird but
+    # this combination of values doesn't really make sense anyways so it's probably fine.
+    # Would be better modeled with some mode switch or something.
     async def _process_note(
         self,
         note: Note,
         overwrite_fields: bool = False,
-        target_fields: List[str] = [],
+        target_field: Union[str, None] = None,
+        on_field_update: Union[Callable[[], None], None] = None,
     ) -> bool:
         """Process a single note, returns whether any fields were updated. Optionally can target specific fields. Caller responsible for handling any exceptions."""
 
@@ -300,74 +282,94 @@ class Processor:
             logger.debug("no prompts found for note type")
             return False
 
-        tasks = []
+        # Topsort + parallel process the DAG
+        dag = generate_fields_dag(
+            note, target_field=target_field, overwrite_fields=overwrite_fields
+        )
 
-        field_prompt_items = list(field_prompts.items())
+        did_update = False
 
-        # If targetting specific fields, filter out the ones we don't want
-        if target_fields:
-            field_prompt_items = [
-                item for item in field_prompt_items if item[0] in target_fields
+        while len(dag):
+            next_batch: List[FieldNode] = [
+                node for node in dag.values() if not node.in_nodes
             ]
+            logger.debug(f"Processing next nodes: {next_batch}")
+            batch_tasks = {
+                node.field: self._process_node(node, note) for node in next_batch
+            }
 
-        for field, prompt in field_prompt_items:
-            # Don't overwrite fields that already exist
-            if (not overwrite_fields) and note[field]:
-                # logger.debug(f"Skipping already generated field: {field}")
-                continue
+            responses = await asyncio.gather(*batch_tasks.values())
 
-            # Skip the field if it's not generated automatically and not
-            # specifically asked to generate
-            should_generate_automatically = get_generate_automatically(note_type, field)
-            is_single_target = len(target_fields) == 1 and target_fields[0] == field
-            if not (should_generate_automatically or is_single_target):
-                continue
+            for field, response in zip(batch_tasks.keys(), responses):
+                node = dag[field]
+                if response:
+                    logger.debug(f"Updating field {field} with response")
+                    note[node.field_upper] = response
 
-            # logger.debug(f"Processing field: {field}, prompt: {prompt}")
+                if node.abort:
+                    for out_node in node.out_nodes:
+                        out_node.abort = True
 
-            interpolated_prompt = interpolate_prompt(prompt, note)
-            if not interpolated_prompt:
-                # logger.debug(f"Skipping empty prompt for field: {field}")
-                continue
+                for out_node in node.out_nodes:
+                    out_node.in_nodes.remove(node)
 
-            # Need to return both the chat response + the target field, since we're skiping
-            # fields potentially here. Default arg to avoid stale closure
-            async def get_response(
-                field=field, interpolated_prompt=interpolated_prompt
-            ) -> Tuple[str, str]:
-                response = await self.client.async_get_chat_response(
-                    interpolated_prompt
-                )
-                return (field, response)
+                if node.did_update:
+                    did_update = True
 
-            tasks.append(get_response())
+                dag.pop(field)
+                if on_field_update:
+                    run_on_main(on_field_update)
 
-        # Maybe filled out already, if so return early
-        if not tasks:
-            return False
-
-        responses = await asyncio.gather(*tasks)
-        # logger.debug(f"Responses {responses}")
-        for target_field, response in responses:
-            note[target_field] = response
-
-        return True
+        return did_update
 
     def _handle_failure(self, e: Exception) -> None:
+        logger.debug("Handling failure")
 
-        failure_map = {
+        openai_failure_map = {
             401: "Smart Notes Error: OpenAI returned 401, meaning there's an issue with your API key.",
             404: "Smart Notes Error: OpenAI returned 404 - did you pay for an API key? Paying for ChatGPT premium alone will not work (this is an OpenAI limitation).",
             429: "Smart Notes error: OpenAI rate limit exceeded. Ensure you have a paid API key (this plugin will not work with free API tier). Wait a few minutes and try again.",
         }
 
         if isinstance(e, aiohttp.ClientResponseError):
-            if e.status in failure_map:
-                show_message_box(failure_map[e.status])
-            else:
-                show_message_box(f"Smart Notes Error: Unknown error from OpenAI - {e}")
+            status = e.status
+            logger.debug(f"Got status: {status}")
+            unknown_error = f"Smart Notes Error: Unknown error: {e}"
 
-    def _ensure_no_req_in_progress(self) -> bool:
+            # First time we see a 4xx error, update subscription state
+            if is_app_unlocked():
+                logger.debug(f"Got API error: {e}")
+                if status >= 400 and status < 500:
+                    logger.debug(
+                        "Saw 4xx error, something wrong with some subscription"
+                    )
+                    app_state.update_subscription_state()
+                    return
+                else:
+                    logger.error(f"Got 500 error: {e}")
+                    show_message_box(unknown_error)
+            elif has_api_key():
+                if status in openai_failure_map:
+                    show_message_box(openai_failure_map[status])
+                else:
+                    show_message_box(unknown_error)
+            else:
+                # Shouldn't get here
+                logger.error(f"Got 4xx error but app is locked & no API key")
+                show_message_box(unknown_error)
+        else:
+            logger.error(f"Got non-HTTP error: {e}")
+            show_message_box(f"Smart Notes Error: Unknown error: {e}")
+
+    def _assert_preconditions(self) -> bool:
+        valid_app_mode = self._assert_valid_app_mode()
+        if not valid_app_mode:
+            logger.error("Invalid app mode")
+            return False
+        no_existing_req = self.assert_no_req_in_process()
+        return no_existing_req
+
+    def assert_no_req_in_process(self) -> bool:
         if self.req_in_progress:
             logger.info("A request is already in progress.")
             return False
@@ -375,31 +377,86 @@ class Processor:
         self.req_in_progress = True
         return True
 
-    def _reqlinquish_req_in_progress(self) -> None:
+    def _reqlinquish_req_in_process(self) -> None:
         self.req_in_progress = False
+
+    def _assert_valid_app_mode(self) -> bool:
+        """For now, checks that if the app is locked, there are no chained smart fields"""
+        # This should be blocked before here, but JIC
+        if is_app_unlocked():
+            return True
+
+        # Check for chained smart fields
+        if has_api_key():
+            all_note_types = get_note_types()
+            has_chained_fields = any(
+                has_chained_ai_fields(note_type) for note_type in all_note_types
+            )
+            logger.debug(f"Has chained fields: {has_chained_fields}")
+            if has_chained_fields and not self.config.did_show_chained_error_dialog:
+                show_message_box(CHAINED_FIELDS_SKIPPED_ERROR)
+                self.config.did_show_chained_error_dialog = True
+            return True
+
+        return False
 
     def get_chat_response(
         self,
         prompt: str,
+        note: Note,
+        provider: ChatProviders,
+        model: ChatModels,
+        field_lower: str,
         on_success: Callable[[str], None],
         on_failure: Union[Callable[[Exception], None], None] = None,
     ):
 
-        if not self._ensure_no_req_in_progress():
+        if not self._assert_preconditions():
             return
 
         def wrapped_on_success(response: str) -> None:
-            self._reqlinquish_req_in_progress()
+            self._reqlinquish_req_in_process()
             on_success(response)
 
         def wrapped_on_failure(e: Exception) -> None:
             self._handle_failure(e)
-            self._reqlinquish_req_in_progress()
+            self._reqlinquish_req_in_process()
             if on_failure:
                 on_failure(e)
 
+        # TODO: needs field_upper
+        chat_fn = lambda: self.field_resolver.get_chat_response(
+            prompt=prompt,
+            note=note,
+            model=model,
+            provider=provider,
+            field_lower=field_lower,
+        )
+
         run_async_in_background_with_sentry(
-            lambda: self.client.async_get_chat_response(prompt),
+            chat_fn,
             wrapped_on_success,
             wrapped_on_failure,
         )
+
+    async def _process_node(self, node: FieldNode, note: Note) -> Union[str, None]:
+        if node.abort:
+            return None
+
+        value = note[node.field_upper]
+
+        # If not target and manual, skip
+        if node.manual and not (node.is_target or node.generate_despite_manual):
+            node.abort = True
+            logger.debug(f"Skipping field {node.field}")
+            return None
+
+        # Skip it if there's a value and we don't want to overwrite
+        if value and not (node.is_target or node.overwrite):
+            return value
+
+        new_value = await self.field_resolver.resolve(node, note)
+        if new_value:
+            node.did_update = True
+
+        return new_value

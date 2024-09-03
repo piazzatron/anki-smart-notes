@@ -19,7 +19,7 @@
 
 from typing import Union
 
-from aqt import QMessageBox, QPushButton
+from aqt import QFont, QFormLayout, QMessageBox, QPushButton, Qt
 
 
 def show_message_box(
@@ -48,3 +48,24 @@ def show_message_box(
 
     val = msg.exec()
     return msg.clickedButton() == ok_button or val == QMessageBox.StandardButton.Ok
+
+
+def default_form_layout() -> QFormLayout:
+    form = QFormLayout()
+    form.setVerticalSpacing(12)
+    form.setLabelAlignment(Qt.AlignmentFlag.AlignLeft)
+    form.setFormAlignment(Qt.AlignmentFlag.AlignLeft)
+    return form
+
+
+# UI constants
+font_small = QFont()
+font_small.setPointSize(10)
+
+font_large = QFont()
+font_large.setPointSize(16)
+font_large.setBold(True)
+
+font_bold = QFont()
+font_bold.setBold(True)
+font_bold.setPointSize(12)
