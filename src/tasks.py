@@ -23,8 +23,6 @@ from typing import Any, Callable, Union
 from aqt import mw
 from aqt.operations import QueryOp
 
-from .api_client import api
-
 
 def run_async_in_background(
     op: Callable[[], Any],
@@ -37,16 +35,9 @@ def run_async_in_background(
     if not mw:
         raise Exception("Error: mw not found in run_async_in_background")
 
-    async def wrapped_op() -> Any:
-        # Need a new aiohttp session per event loop
-        # I hate this
-        await api.refresh_session()
-        # TODO: does this need to return? Probs not...
-        return await op()
-
     query_op = QueryOp(
         parent=mw,
-        op=lambda _: asyncio.run(wrapped_op()),
+        op=lambda _: asyncio.run(op()),
         success=on_success,
     )
 

@@ -18,11 +18,10 @@
 """
 
 import asyncio
-from types import TracebackType
-from typing import Any, Dict, Literal, Optional, Type, Union
+from typing import Any, Dict, Literal, Union
 
 import aiohttp
-from aiohttp import ClientResponse, ClientSession
+from aiohttp import ClientResponse
 
 from .config import config
 from .constants import MAX_RETRIES, RETRY_BASE_SECONDS, get_server_url
@@ -30,7 +29,6 @@ from .logger import logger
 
 
 class APIClient:
-    _session: Union[ClientSession, None] = None
 
     async def get_api_response(
         self,
@@ -53,71 +51,49 @@ class APIClient:
             timeout = aiohttp.ClientTimeout(total=timeout_sec)
         else:
             timeout = aiohttp.ClientTimeout(total=10)
-        if not self._session:
-            raise Exception("Called get_api_response without initializing session")
 
         headers = {"Authorization": f"Bearer {jwt}", "Content-Type": "application/json"}
 
         if note_id is not None:
             headers["Note-ID"] = f"{note_id}"
 
-        fn = self._session.get if method == "GET" else self._session.post
-        async with fn(
-            endpoint,
-            headers=headers,
-            json=args,
-            timeout=timeout,
-        ) as response:
-            if response.status == 429:
-                logger.warning("Got a 429 from server")
-                if retry_count < MAX_RETRIES:
-                    wait_time = (2**retry_count) * RETRY_BASE_SECONDS
-                    logger.debug(
-                        f"Retry: {retry_count} Waiting {wait_time} seconds before retrying"
-                    )
-                    await asyncio.sleep(wait_time)
+        async with aiohttp.ClientSession() as session:
+            # fn = session.get if method == "GET" else session.post
+            async with (session.get if method == "GET" else session.post)(
+                endpoint,
+                headers=headers,
+                json=args,
+                timeout=timeout,
+            ) as response:
+                if response.status == 429:
+                    logger.warning("Got a 429 from server")
+                    if retry_count < MAX_RETRIES:
+                        wait_time = (2**retry_count) * RETRY_BASE_SECONDS
+                        logger.debug(
+                            f"Retry: {retry_count} Waiting {wait_time} seconds before retrying"
+                        )
+                        await asyncio.sleep(wait_time)
 
-                    return await self.get_api_response(
-                        path=path,
-                        args=args,
-                        timeout_sec=timeout_sec,
-                        retry_count=retry_count + 1,
-                        note_id=note_id,
-                        method=method,
-                    )
+                        return await self.get_api_response(
+                            path=path,
+                            args=args,
+                            timeout_sec=timeout_sec,
+                            retry_count=retry_count + 1,
+                            note_id=note_id,
+                            method=method,
+                        )
 
-            logger.debug(f"Got response from {path}: {response.status}")
-            if response.status == 400:
-                json = await response.json()
-                logger.error(json)
-                raise Exception(f"Validation error: {json['error']}")
-            response.raise_for_status()
+                logger.debug(f"Got response from {path}: {response.status}")
+                if response.status == 400:
+                    json = await response.json()
+                    logger.error(json)
+                    raise Exception(f"Validation error: {json['error']}")
+                response.raise_for_status()
 
-            # Read it all into memory
-            await response.read()
+                # Read it all into memory
+                await response.read()
 
-            return response
-
-    async def refresh_session(self) -> None:
-        """One session per event loop, so need to recreate it each time"""
-        await self.close()
-        self._session = ClientSession()
-
-    async def close(self) -> None:
-        if self._session:
-            return await self._session.close()
-
-    async def __aenter__(self):
-        return self
-
-    async def __aexit__(
-        self,
-        exc_type: Optional[Type[BaseException]],
-        exc_val: Optional[BaseException],
-        exc_tb: Optional[TracebackType],
-    ) -> Optional[bool]:
-        await self.close()
-        return None
+                return response
 
 
 api = APIClient()
