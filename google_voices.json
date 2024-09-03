@@ -107,56 +107,56 @@
   {
     "gender": "Female",
     "languageCode": "cmn-CN",
-    "language": "Mandarin (Chinese)",
+    "language": "Chinese (Mandarin)",
     "name": "cmn-CN-Wavenet-A",
     "type": "Wavenet"
   },
   {
     "gender": "Male",
     "languageCode": "cmn-CN",
-    "language": "Mandarin (Chinese)",
+    "language": "Chinese (Mandarin)",
     "name": "cmn-CN-Wavenet-B",
     "type": "Wavenet"
   },
   {
     "gender": "Female",
     "languageCode": "cmn-CN",
-    "language": "Mandarin (Chinese)",
+    "language": "Chinese (Mandarin)",
     "name": "cmn-CN-Standard-A",
     "type": "Standard"
   },
   {
     "gender": "Male",
     "languageCode": "cmn-CN",
-    "language": "Mandarin (Chinese)",
+    "language": "Chinese (Mandarin)",
     "name": "cmn-CN-Standard-B",
     "type": "Standard"
   },
   {
     "gender": "Female",
     "languageCode": "cmn-TW",
-    "language": "Mandarin (Taiwanese)",
+    "language": "Taiwanese (Mandarin)",
     "name": "cmn-TW-Wavenet-A",
     "type": "Wavenet"
   },
   {
     "gender": "Male",
     "languageCode": "cmn-TW",
-    "language": "Mandarin (Taiwanese)",
+    "language": "Taiwanese (Mandarin)",
     "name": "cmn-TW-Wavenet-B",
     "type": "Wavenet"
   },
   {
     "gender": "Female",
     "languageCode": "cmn-TW",
-    "language": "Mandarin (Taiwanese)",
+    "language": "Taiwanese (Mandarin)",
     "name": "cmn-TW-Standard-A",
     "type": "Standard"
   },
   {
     "gender": "Male",
     "languageCode": "cmn-TW",
-    "language": "Mandarin (Taiwanese)",
+    "language": "Taiwanese (Mandarin)",
     "name": "cmn-TW-Standard-B",
     "type": "Standard"
   },
