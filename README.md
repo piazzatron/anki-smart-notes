@@ -1,10 +1,33 @@
 # **Smart Notes** - Anki + AI generated fields ✨
+</br>
+
+## 💬 Use AI (ChatGPT & Claude) to automatically generate any field in your notes.
+
+For example, use Smart Notes to automatically generate example sentences for every new vocab cards in nearly any language.
+</br>
+</br>
+
+## 🗣️ Speak your notes with Text to Speech (TTS) from Google, OpenAI, and ElevenLabs.
+
+Smart Notes supports 250+ voices in 50+ languages.
+</br>
+</br>
+
+## 💳 Smart Notes is a paid add-on (with a free trial)
+
+Set up your trial in Anki after downloading Smart Notes. `Tools > Smart Notes`
+
+👉 Smart Notes only supports Anki Qt6.
 
 </br>
 
-## Use AI / ChatGPT to automatically generate any field in your notes.
+# Usage
 
-For example, ChatGPT is very powerful for language learners, who might use it to generate example sentences for new vocab. This plugin brings that whole process into Anki: set it up once, and every new piece of vocab will automatically receive an AI generated example sentence.
+</br>
+
+### 🚧 These docs are under construction / outdated since v2.0 🚧
+
+(New docs soon)
 
 **Write a prompt, associate it with a note type and field, and Smart Notes will automatically generate that field for you at review time – or generate groups of notes with a single click**
 
@@ -17,25 +40,15 @@ For example, ChatGPT is very powerful for language learners, who might use it to
 </br>
 </br>
 
-Language learning, summarization, you name it – automate the busywork of card creation so you have more time for studying!
-
-</br>
-
-# Usage
-
-</br>
-
 ## 1. **Installation**:
 
 Tools > Addons > Get Addon, paste in plugin id `1531888719`. Restart Anki.
 
-## 2. **Set your OpenAI API Key:**
+## 2. **Start your free trial:**
 
-This plugin requires a **paid** OpenAI API key: <a href="https://platform.openai.com/api-keys">get one here.</a>
+Tools > Smart Notes.
 
-Tools > Smart Notes > API key.
-
-## 3. **Add Smart Fields** (AI generated fields):
+## 3. **Add Smart Fields**
 
 </br>
 
@@ -44,11 +57,11 @@ They may reference other fields, and you can have as many smart fields as you li
 
 </br>
 
-1. Click Tools > Smart Notes > Add
+1. Click Tools > Smart Notes.
 
 2. Pick the `card type` and `target field` you want to automatically generate.
 
-3. Then, write the `prompt` that will be automatically sent to OpenAI/ChatGPT to generate the `target field`.
+3. Then, write the `prompt` that will be automatically sent to Claude/ChatGPT to generate the `target field`.
 
 </br>
 
@@ -115,7 +128,7 @@ To (re)generate a single smart field, right click it in the editor and click **"
 
 ### **Generating Multiple Notes**
 
-In the notes browser, select a group of notes and then **right click > generate smart fields** to generate multiple notes with speedy batch processing (it's v fast)!
+In the notes browser, select a group of notes and then **right click > generate smart fields** to generate multiple notes.
 
 <img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/batch.png?raw=true" height="250px" />
 
@@ -126,33 +139,48 @@ In the notes browser, select a group of notes and then **right click > generate 
 
 # Additional Features
 
-### **Use any OpenAI model**
+### **Select New Models**
 
-**Tools > Smart Notes > Advanced:** Select from the smarter `gpt-4o` to cheapest `gpt-4o-mini` (default).
+- **Tools > Smart Notes > Language Models:** to select a different language model
+- **Tools > Smart Notes > TTS:** to select a different TTS model.
 
 </br>
 
 ### **Create complex prompts**
 
-Smart fields can reference as many other fields on your card as you like.
+Smart fields can reference as many other fields on your card as you like, including other smart fields. Set up complex pipelines!
 
 </br>
 
-# Additional Info
+# Help and Support
 
-_Smart Notes owes a debt of gratitude for inspiration to <a href="https://ankiweb.net/shared/info/1416178071">Intellifiller.</a>_
+Found a bug or want to request a feature? File an <a href="https://github.com/piazzatron/anki-smart-notes/issues"> issue on Github</a> or email <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a>
 
-**Cost** (to OpenAI, not to me 😢)
-
-<a href="https://openai.com/api/pricing/">Prices are per token</a> - expect to pay a few tenths of a penny per call, but YMMV.
+Enjoying this addon? <a href="https://ankiweb.net/shared/info/1531888719">Please rate it to help others find it.👍</a>
 
 </br>
 
-**Crash Reporting**
+# Cost
 
-Smart Notes uses <a href="https://sentry.io/">Sentry</a> as a crash reporter to help me improve the software. No personally identifying information is collected by myself or by Sentry.
+Using OpenAI, Anthropic, and TTS models all cost money, so Smart Notes is a paid plugin.
+
+<a href="https://smart-notes.xyz/prices/">Learn More about Smart Notes Plans.</a>
+
+</br>
 
 # Changelog
+
+## V2.0
+
+- Add Text to Speech from Google, ElevenLabs, and OpenAI
+- Add Anthropic models: Claude 3.5 Sonnet, Claude 3.0 Haiku
+- Add chained smart fields
+- Move to subscription model
+
+## v1.6.0
+
+- Add support for new gpt-4o-mini model, removing the old gpt-3.5-turbo. Users on gpt-3.5-turbo are automatically migrated to 4o-mini.
+- Stability & UX improvements.
 
 ## v1.5.0
 
@@ -181,8 +209,8 @@ Smart Notes uses <a href="https://sentry.io/">Sentry</a> as a crash reporter to 
 - Clarify that this add-on requires a paid OpenAI API key (no free tier 🥺).
 - Fix bugs.
 
-## Help and Support
+## </br>
 
-Found a bug or want to request a feature? File an <a href="https://github.com/piazzatron/anki-smart-notes/issues"> issue on Github </a>.
+</br>
 
-Enjoying this addon? <a href="https://ankiweb.net/shared/info/1531888719">Please rate it to help others find it.👍</a>
+_Smart Notes owes a debt of gratitude for inspiration to <a href="https://ankiweb.net/shared/info/1416178071">Intellifiller.</a>_
