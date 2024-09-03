@@ -17,7 +17,6 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import asyncio
 from typing import List, TypedDict
 
 import aiohttp
@@ -27,7 +26,7 @@ from .config import config
 from .constants import get_server_url
 from .logger import logger
 from .ui.ui_utils import show_message_box
-from .utils import run_in_background, run_on_main
+from .utils import run_on_main
 
 SLEEP_DURATION_MINS = 30
 
@@ -69,9 +68,9 @@ def start_polling_for_messages() -> None:
     if not mw:
         return
 
-    mw.progress.timer(
-        SLEEP_DURATION_MINS * 60 * 1000,
-        lambda: run_in_background(asyncio.run(show_latest_message())),  # type: ignore
-        repeat=True,
-        requiresCollection=False,
-    )
+    # mw.progress.timer(
+    #     SLEEP_DURATION_MINS * 60 * 1000,
+    #     lambda: run_in_background(asyncio.run(show_latest_message())),  # type: ignore
+    #     repeat=True,
+    #     requiresCollection=False,
+    # )

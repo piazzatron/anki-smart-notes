@@ -90,7 +90,7 @@ class AccountOptions(QWidget):
             text_capacity = f'{(100 * float(state["plan"]["textCreditsUsed"]) / float(state["plan"]["textCreditsCapacity"])):.2f}%.'
             voice_capacity = f'{(100 * float(state["plan"]["voiceCreditsUsed"]) / float(state["plan"]["voiceCreditsCapacity"])):.2f}%.'
             days = state["plan"]["daysLeft"]
-            days_remaining = f'{days} day{"s" if days > 1 else ""} left {"in cycle" if state["plan"]["planId"] == "free" else ""}.'
+            days_remaining = f'{days} day{"s" if days > 1 else ""} left{" in cycle" if state["plan"]["planId"] == "free" else ""}.'
 
             if state["plan"]["notesLimit"]:
                 notes_limit = (
