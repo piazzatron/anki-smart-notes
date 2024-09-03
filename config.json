@@ -1,11 +1,6 @@
 {
   "openai_api_key": "",
-  "chat_provider": "openai",
-  "chat_model": "gpt-4o",
-  "chat_temperature": 0,
-  "tts_provider": "openai",
-  "tts_voice": "alloy",
-  "tts_model": "tts-1",
+  "openai_model": "gpt-3.5-turbo",
   "openai_endpoint": null,
   "times_used": 0,
   "did_show_rate_dialog": false,
@@ -18,9 +13,5 @@
   "regenerate_notes_when_batching": false,
   "allow_empty_fields": true,
   "last_message_id": 0,
-  "debug": false,
-  "auth_token": null,
-  "legacy_support": null,
-  "did_show_chained_error_dialog": false,
-  "did_show_premium_tts_dialog": false
+  "debug": false
 }

@@ -40,14 +40,11 @@ def update_path() -> None:
 update_path()
 
 
-import os
-
 from dotenv import load_dotenv
 
 from .src.utils import get_file_path
 
-if not os.getenv("IS_TEST"):
-    load_dotenv(dotenv_path=get_file_path(".env"))
+load_dotenv(dotenv_path=get_file_path(".env"))
 
 
 from .src.logger import logger

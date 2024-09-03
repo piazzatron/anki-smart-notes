@@ -30,19 +30,17 @@ from anki.notes import Note, NoteId
 from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
 from aqt.browser import SidebarItemType
 
-from .app_state import app_state, is_app_unlocked_or_legacy
 from .config import config
 from .logger import logger
 from .message_polling import start_polling_for_messages
 from .notes import is_ai_field, is_note_fully_processed
 from .processor import Processor
-from .sentry import pinger, sentry, with_sentry
-from .tasks import run_async_in_background
+from .sentry import ping, sentry, with_sentry
 from .ui.addon_options_dialog import AddonOptionsDialog
 from .ui.changelog import perform_update_check
 from .ui.sparkle import Sparkle
 from .ui.ui_utils import show_message_box
-from .utils import bump_usage_counter
+from .utils import bump_usage_counter, check_for_api_key, run_async_in_background
 
 
 def with_processor(fn):
@@ -61,7 +59,6 @@ def with_processor(fn):
 
 @with_processor  # type: ignore
 def on_options(processor: Processor):
-    app_state.update_subscription_state()
     dialog = AddonOptionsDialog(processor)
     dialog.exec()
 
@@ -71,7 +68,7 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
 
     @with_sentry
     def fn(editor: editor.Editor):
-        if not is_app_unlocked_or_legacy(show_box=True):
+        if not check_for_api_key():
             return
 
         note = editor.note
@@ -127,16 +124,12 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
                 mw.col.update_note(note)
             editor.loadNote()
 
-        def on_field() -> None:
-            editor.loadNote()
-
         is_fully_processed = is_note_fully_processed(note)
         processor.process_note(
             note,
             overwrite_fields=is_fully_processed,
             on_success=on_success,
             on_failure=lambda _: set_button_enabled(),
-            on_field_update=on_field,
         )
 
     button = e.addButton(
@@ -154,10 +147,10 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
 
 def on_batch_success(updated: List[Note], errors: List[Note]) -> None:
     if not len(updated) and len(errors):
-        show_message_box("All notes failed. Try again soon.")
+        show_message_box("All notes failed. Most likely hit OpenAI rate limit.")
     elif len(errors):
         show_message_box(
-            f"Processed {len(updated)} notes successfully. {len(errors)} notes failed."
+            f"Processed {len(updated)} notes successfully. {len(errors)} notes failed. Most likely hit a rate limit."
         )
     else:
         show_message_box(f"Processed {len(updated)} notes successfully.")
@@ -171,36 +164,27 @@ def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMe
 
     notes = browser.selected_notes()
 
-    def wrapped():
-        if not is_app_unlocked_or_legacy(show_box=True):
-            return
-
-        if not prevent_batches_on_free_trial(notes):
-            return
-
-        processor.process_notes_with_progress(
+    item.triggered.connect(
+        lambda: processor.process_notes_with_progress(
             notes,
             on_success=on_batch_success,
             overwrite_fields=config.regenerate_notes_when_batching,
         )
+    )
 
-    item.triggered.connect(wrapped)
 
-
-# TODO: where does this go now?
 def migrate_models() -> None:
-    if config.openai_model == "gpt-3.5-turbo":
+    if config.openai_model == "gpt-3.5-turbo":  # type:ignore
         logger.debug(f"migrate_models: old 3.5-turbo model seen, migrating to 4o-mini")
         config.openai_model = "gpt-4o-mini"
 
 
 def on_start_actions() -> None:
-    run_async_in_background(pinger())
+    run_async_in_background(ping)
     perform_update_check()
     migrate_models()
     start_polling_for_messages()
 
-    app_state.update_subscription_state()
     if sentry:
         sentry.configure_scope()
 
@@ -215,6 +199,7 @@ def on_main_window(processor: Processor):
     # Triggered passes a bool, so we need to use a lambda to pass the processor
     options_action.triggered.connect(lambda _: on_options(processor)())
     mw.form.menuTools.addAction(options_action)
+    # TODO: not working for some reason
     mw.addonManager.setConfigAction(__name__, on_options(processor))
     on_start_actions()
 
@@ -240,22 +225,18 @@ def on_editor_context(
     def on_success(_: bool):
         editor.loadNote()
 
-    def wrapped():
-        if not is_app_unlocked_or_legacy(show_box=True):
-            return
-
-        processor.process_note(
-            note, overwrite_fields=False, target_field=ai_field, on_success=on_success
+    item.triggered.connect(
+        lambda: processor.process_note(
+            note, overwrite_fields=True, target_fields=[ai_field], on_success=on_success
         )
-
-    item.triggered.connect(wrapped)
+    )
     menu.addAction(item)
 
 
 @with_processor  # type: ignore
 def on_review(processor: Processor, card: Card):
     logger.debug("Reviewing...")
-    if not is_app_unlocked_or_legacy(show_box=False):
+    if not check_for_api_key(show_box=False):
         return
 
     if not config.generate_at_review:
@@ -289,7 +270,7 @@ def add_deck_option(
     processor: Processor,
     tree_view,
     menu: QMenu,
-    sidebar_item: browser.SidebarItem,  # type: ignore
+    sidebar_item: browser.SidebarItem,
     model_index,
 ) -> None:
     if not mw:
@@ -307,18 +288,11 @@ def add_deck_option(
     menu.addSeparator()
     menu.addAction(item)
 
-    def wrapped():
-        if not is_app_unlocked_or_legacy(show_box=True):
-            return
-        if not prevent_batches_on_free_trial(notes):
-            return
-
-        processor.process_notes_with_progress(
-            notes,
-            on_success=on_batch_success,
+    item.triggered.connect(
+        lambda: processor.process_notes_with_progress(
+            notes, on_success=on_batch_success
         )
-
-    item.triggered.connect(wrapped)
+    )
 
 
 @with_sentry
@@ -335,16 +309,6 @@ def cleanup() -> None:
     sentry_logger = logging.getLogger("sentry_sdk.errors")
     sentry_logger.handlers.clear()
     logger.handlers.clear()
-
-
-def prevent_batches_on_free_trial(notes) -> bool:
-    if app_state.is_free_trial() and len(notes) > 50:
-        did_accept: bool = show_message_box(
-            "Warning: your free trial is limited to 500 cards. Continue?",
-            show_cancel=True,
-        )
-        return did_accept
-    return True
 
 
 @with_sentry

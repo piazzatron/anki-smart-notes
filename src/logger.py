@@ -18,7 +18,6 @@
 """
 
 import logging
-import os
 import sys
 
 from .config import config
@@ -35,18 +34,15 @@ def _setup_logger() -> logging.Logger:
         logger.setLevel(logging.ERROR)
     else:
         logger.setLevel(logging.DEBUG)
-
-        if not os.getenv("IS_TEST"):
-            file_handler = logging.FileHandler(
-                get_file_path("smart-notes.log"), mode="w", encoding="utf-8"
-            )
-            file_handler.setFormatter(formatter)
-            logger.addHandler(file_handler)
-
-            if config.debug:
-                logger.debug("Starting app in debug mode")
+        file_handler = logging.FileHandler(
+            get_file_path("smart-notes.log"), mode="w", encoding="utf-8"
+        )
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
 
     logger.addHandler(stream_handler)
+    if config.debug:
+        logger.debug("Starting app in debug mode")
     return logger
 
 
