@@ -58,7 +58,6 @@ class APIClient:
             headers["Note-ID"] = f"{note_id}"
 
         async with aiohttp.ClientSession() as session:
-            # fn = session.get if method == "GET" else session.post
             async with (session.get if method == "GET" else session.post)(
                 endpoint,
                 headers=headers,
