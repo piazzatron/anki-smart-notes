@@ -526,9 +526,17 @@ class AddonOptionsDialog(QDialog):
         self.state.update({"prompts_map": prompts_map, "selected_row": None})
 
     def on_accept(self) -> None:
+        self.write_config()
+        self.accept()
+
+    def on_reject(self) -> None:
+        self.reject()
+
+    def write_config(self) -> bool:
+        logger.debug("Writing config")
         if config.openai_endpoint and not is_valid_url(config.openai_endpoint):
             show_message_box("Invalid OpenAI Host", "Please provide a valid URL.")
-            return
+            return False
 
         if (
             self.state.s["tts_provider"] == "elevenLabs"
@@ -539,14 +547,14 @@ class AddonOptionsDialog(QDialog):
                 show_cancel=True,
             )
             if not did_click_ok:
-                return
+                return False
 
         is_unlocked = is_app_unlocked()
 
         if not is_unlocked:
             if self.state.s["chat_provider"] != "openai":
                 show_message_box(UNPAID_PROVIDER_ERROR)
-                return
+                return False
 
         valid_config_attrs = config.__annotations__.keys()
 
@@ -560,13 +568,11 @@ class AddonOptionsDialog(QDialog):
         if not old_debug and self.state.s["debug"]:
             show_message_box("Debug mode enabled. Please restart Anki.")
 
-        self.accept()
-
-    def on_reject(self) -> None:
-        self.reject()
+        return True
 
     def on_update_prompts(self, prompts_map: PromptMap) -> None:
         self.state.update({"prompts_map": prompts_map})
+        self.write_config()
 
     def make_initial_state(self) -> State:
         return {
