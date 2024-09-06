@@ -276,7 +276,7 @@ class PromptDialog(QDialog):
         self.field_combo_box = ReactiveComboBox(
             self.state, "note_fields", "selected_note_field"
         )
-        field_label = QLabel("Target Field")
+        field_label = QLabel("Destination Field")
         field_label.setFont(font_bold)
         layout.addWidget(field_label)
         layout.addWidget(self.field_combo_box)
