@@ -19,6 +19,7 @@
 
 import json
 import os
+import random
 from typing import Any, Callable, Dict, List
 
 from aqt import mw
@@ -93,3 +94,11 @@ def is_production() -> bool:
 def get_version() -> str:
     manifest = load_file("manifest.json")
     return json.loads(manifest)["human_version"]  # type: ignore
+
+
+def make_uuid() -> str:
+    letters = "abcdefghijklmnopqrstuvwxyz1234567890"
+    uuid = []
+    for _ in range(16):
+        uuid.append(random.choice(letters))
+    return "".join(uuid)

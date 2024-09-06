@@ -115,5 +115,6 @@ class WebviewDialog(QDialog):
             app_state.update_subscription_state()
 
     def closeEvent(self, event) -> None:
+        logger.debug("Webview dialog closed, updating subscription state")
         app_state.update_subscription_state()
         super().closeEvent(event)

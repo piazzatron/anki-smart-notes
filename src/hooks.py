@@ -42,7 +42,7 @@ from .ui.addon_options_dialog import AddonOptionsDialog
 from .ui.changelog import perform_update_check
 from .ui.sparkle import Sparkle
 from .ui.ui_utils import show_message_box
-from .utils import bump_usage_counter
+from .utils import bump_usage_counter, make_uuid
 
 
 def with_processor(fn):
@@ -195,6 +195,9 @@ def migrate_models() -> None:
 
 
 def on_start_actions() -> None:
+    if not config.uuid:
+        config.uuid = make_uuid()
+
     run_async_in_background(pinger())
     perform_update_check()
     migrate_models()
