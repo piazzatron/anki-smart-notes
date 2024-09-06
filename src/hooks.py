@@ -23,7 +23,7 @@ Setup the hooks for the Anki plugin
 
 
 import logging
-from typing import List, Sequence
+from typing import Callable, List, Sequence
 
 from anki.cards import Card
 from anki.notes import Note, NoteId
@@ -152,15 +152,22 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
     buttons.append(button)
 
 
-def on_batch_success(updated: List[Note], errors: List[Note]) -> None:
-    if not len(updated) and len(errors):
-        show_message_box("All notes failed. Try again soon.")
-    elif len(errors):
-        show_message_box(
-            f"Processed {len(updated)} notes successfully. {len(errors)} notes failed."
-        )
-    else:
-        show_message_box(f"Processed {len(updated)} notes successfully.")
+def make_on_batch_success(
+    browser: browser.Browser,
+) -> Callable[[List[Note], List[Note]], None]:
+    def wrapped_on_batch_success(updated: List[Note], errors: List[Note]):
+        browser.on_all_or_selected_rows_changed()
+
+        if not len(updated) and len(errors):
+            show_message_box("All notes failed. Try again soon.")
+        elif len(errors):
+            show_message_box(
+                f"Processed {len(updated)} notes successfully. {len(errors)} notes failed."
+            )
+        else:
+            show_message_box(f"Processed {len(updated)} notes successfully.")
+
+    return wrapped_on_batch_success
 
 
 @with_processor  # type: ignore
@@ -180,7 +187,7 @@ def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMe
 
         processor.process_notes_with_progress(
             notes,
-            on_success=on_batch_success,
+            on_success=make_on_batch_success(browser),
             overwrite_fields=config.regenerate_notes_when_batching,
         )
 
@@ -290,10 +297,10 @@ def on_review(processor: Processor, card: Card):
 @with_processor  # type: ignore
 def add_deck_option(
     processor: Processor,
-    tree_view,
+    tree_view: browser.sidebar.SidebarTreeView,  # type: ignore
     menu: QMenu,
     sidebar_item: browser.SidebarItem,  # type: ignore
-    model_index,
+    _,
 ) -> None:
     if not mw:
         return
@@ -318,7 +325,7 @@ def add_deck_option(
 
         processor.process_notes_with_progress(
             notes,
-            on_success=on_batch_success,
+            on_success=make_on_batch_success(tree_view.browser),
         )
 
     item.triggered.connect(wrapped)
