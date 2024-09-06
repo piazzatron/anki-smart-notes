@@ -19,7 +19,6 @@
 
 import logging
 import os
-import random
 from typing import Any, Callable, Coroutine, Union
 
 import aiohttp
@@ -37,14 +36,6 @@ from .ui.ui_utils import show_message_box
 from .utils import get_version, is_production
 
 dsn = os.getenv("SENTRY_DSN")
-
-
-def make_uuid() -> str:
-    letters = "abcdefghijklmnopqrstuvwxyz1234567890"
-    uuid = []
-    for _ in range(16):
-        uuid.append(random.choice(letters))
-    return "".join(uuid)
 
 
 # Based on
@@ -150,9 +141,19 @@ class Sentry:
 
 def pinger(event: Union[str, None] = None) -> Callable[[], Coroutine[Any, Any, None]]:
     async def ping() -> None:
+        user_state = (
+            "subscriber"
+            if config.auth_token
+            else ("legacy" if config.openai_api_key else "inactive")
+        )
         try:
-            ping_url = f"{get_server_url()}/ping{'?event=' + event if event else ''}"
-            params = {"version": get_version(), "uuid": config.uuid}
+            ping_url = f"{get_server_url()}/ping"
+            params = {
+                "version": get_version(),
+                "uuid": config.uuid,
+                "event": event,
+                "userState": user_state,
+            }
             async with aiohttp.ClientSession() as session:
                 async with session.get(ping_url, params=params) as response:
                     if response.status != 200:
@@ -175,9 +176,6 @@ def init_sentry() -> Union[Sentry, None]:
         if not dsn or not release:
             logger.error("Sentry: no sentry DSN or release")
             return None
-
-        if not config.uuid:
-            config.uuid = make_uuid()
 
         sentry = Sentry(dsn, release, config.uuid, env.environment)
 

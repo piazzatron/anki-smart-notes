@@ -205,7 +205,7 @@ def on_start_actions() -> None:
     if not config.uuid:
         config.uuid = make_uuid()
 
-    run_async_in_background(pinger())
+    run_async_in_background(pinger("session_start"))
     perform_update_check()
     migrate_models()
     start_polling_for_messages()
