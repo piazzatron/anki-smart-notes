@@ -202,6 +202,7 @@ def migrate_models() -> None:
 
 
 def on_start_actions() -> None:
+    # Make UUID if necessary
     if not config.uuid:
         config.uuid = make_uuid()
 

@@ -1,3 +1,10 @@
+# v2.0.0
+
+- Add TTS support
+- Add Claude support
+- Add chained smart fields
+- Add new subscription model
+
 # v1.6.0
 
 - Add support for new `gpt-4o-mini` model, removing the old `gpt-3.5-turbo`. Users on `gpt-3.5-turbo` are automatically migrated to `4o-mini`.

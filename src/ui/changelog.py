@@ -23,8 +23,11 @@ from aqt import QDialog, QDialogButtonBox, QFont, QLabel, QVBoxLayout, mw
 
 from ..config import config
 from ..logger import logger
+from ..sentry import pinger
+from ..tasks import run_async_in_background
 from ..utils import get_version, load_file
 from .v2_cta import V2CTA
+from .webview_dialog import WebviewDialog
 
 
 def parse_changelog() -> List[Tuple[str, List[str]]]:
@@ -70,32 +73,41 @@ def perform_update_check() -> None:
         current_version = get_version()
         # prior_version can be None if this is version 1.1.0 which introduces this config field or if this is a first run
         prior_version = config.last_seen_version
-        is_first_use = config.times_used == 0
 
         # Always update the last seen version
         config.last_seen_version = current_version
 
         logger.info(
-            f"current version: {current_version}, prior version: {prior_version}, is first use: {is_first_use}"
+            f"current version: {current_version}, prior version: {prior_version}, is first use: {not prior_version}"
         )
 
         # Have to keep this crap around forever because v1 didn't have last_seen_version
         # Only show a dialog if (the major or minor has changed OR it's possibly an upgrade to v1.1.0) and it's not the first use
 
-        if (
-            not prior_version
-            or is_new_major_or_minor_version(current_version, prior_version)
-        ) and not is_first_use:
+        if not mw:
+            return
+
+        # FIRST RUN
+        if not prior_version:
+            trial_cta = WebviewDialog(mw, "/trial")
+            trial_cta.show()
+            run_async_in_background(pinger("show_first_start_cta"))
+            return
+
+        if is_new_major_or_minor_version(current_version, prior_version):
             dialog: QDialog
             # Check about showing special v2 changelog
+            # Only show the V2 CTA if the prior version was 1.x and the current version is 2.x
+            # Don't show it if no prior version bc shouldn't show it on first run
             if (
-                not prior_version or get_versions(prior_version)[0] == 1
-            ) and get_versions(current_version)[0] == 2:
-                if mw:
-                    dialog = V2CTA(mw)
+                get_versions(prior_version)[0] == 1
+                and get_versions(current_version)[0] == 2
+            ):
+                dialog = V2CTA(mw)
+                dialog.show()
             else:
                 dialog = ChangeLogDialog(prior_version)
-            dialog.exec()
+                dialog.exec()
     except Exception as e:
         logger.error(f"Error checking for updates: {e}")
 
