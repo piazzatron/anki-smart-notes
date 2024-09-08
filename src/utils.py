@@ -69,7 +69,7 @@ def get_file_path(file: str) -> str:
 def load_file(file: str) -> str:
     file_path = get_file_path(file)
 
-    with open(file_path, "r") as f:
+    with open(file_path, "r", encoding="utf-8") as f:
         content = f.read()
 
     return content
