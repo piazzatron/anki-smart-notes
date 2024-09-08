@@ -459,7 +459,8 @@ class AddonOptionsDialog(QDialog):
         logger.debug(f"Editing {note_type}, {field}")
 
         # Save out API key jic
-        config.openai_api_key = self.api_key_edit.text()
+        if hasattr(self, "api_key_edit"):
+            config.openai_api_key = self.api_key_edit.text()
 
         # Get type
         field_type = get_extras(note_type, field)["type"]
@@ -484,7 +485,8 @@ class AddonOptionsDialog(QDialog):
 
     def on_add(self, is_tts: bool) -> None:
         # Save out the API key in case it's been updated this run
-        config.openai_api_key = self.api_key_edit.text()
+        if hasattr(self, "api_key_edit"):
+            config.openai_api_key = self.api_key_edit.text()
 
         prompt_dialog = PromptDialog(
             self.state.s["prompts_map"],
