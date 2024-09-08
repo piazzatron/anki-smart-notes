@@ -1,3 +1,7 @@
+# v2.1.0
+
+- Fix bug affecting new text fields for some users 😓. Free Trials for all new users have been extended. 
+
 # v2.0.0
 
 - Add TTS support
