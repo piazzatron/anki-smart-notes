@@ -19,6 +19,8 @@
 
 import logging
 import os
+import sys
+import traceback
 from typing import Any, Callable, Coroutine, Union
 
 import aiohttp
@@ -61,11 +63,27 @@ class Sentry:
         logger.debug("Sentry initialized...")
 
     def configure_scope(self) -> None:
+        self._monekypatch_sys_excepthook()
         logger.debug("Configuring scope")
         with self.hub.configure_scope() as scope:
             scope.user = {"id": self.uuid}
 
         self._start_session()
+
+    def _monekypatch_sys_excepthook(self) -> None:
+        try:
+            old_hook = sys.excepthook
+
+            def new_hook(exc_type, exc_value, exc_traceback) -> None:
+                try:
+                    self.capture_exception(exc_value)
+                except Exception as e:
+                    logger.error(f"Error in excepthook: {e}")
+                old_hook(exc_type, exc_value, exc_traceback)
+
+            sys.excepthook = new_hook
+        except Exception as e:
+            logger.error(f"Error getting sys.excepthook: {e}")
 
     def end_session(self) -> None:
         logger.debug("Sentry: ending session")
@@ -79,10 +97,24 @@ class Sentry:
     def capture_exception(self, e: Exception) -> None:
         client, scope = self.hub._stack[-1]
         if scope and client:
+            if not self._is_smartnotes_exception(e):
+                logger.debug(f"Sentry: not capturing exception {e}")
+                return
+
+            logger.debug(f"Sentry: capturing exception {e}")
             scope.capture_exception(e)
             if scope._session:
                 scope._session.update(status="crashed")
                 client.flush()
+
+    def _is_smartnotes_exception(self, e: Exception) -> bool:
+        tb_str = "".join(traceback.format_exception(None, e, e.__traceback__))
+        return (
+            "1531888719" in tb_str
+            or "smart-notes" in tb_str
+            or "1531888719" in str(e)
+            or "smart-notes" in str(e)
+        )
 
     def wrap_async(
         self, fn: Callable[..., Any]
