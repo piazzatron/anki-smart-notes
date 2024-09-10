@@ -17,9 +17,19 @@ Smart Notes supports 250+ voices in 50+ languages.
 
 Set up your trial in Anki after downloading Smart Notes. `Tools > Smart Notes`
 
-👉 Smart Notes only supports Anki Qt6.
+
 
 </br>
+
+
+> ### 💡 Check out the  [Roadmap](https://github.com/piazzatron/anki-smart-notes/issues/30) to see where we're headed.
+> And leave feedback to help steer development!
+</br>
+
+> ### ⚠️ Smart Notes only supports Anki Qt6.
+
+</br>
+
 
 # Usage
 
