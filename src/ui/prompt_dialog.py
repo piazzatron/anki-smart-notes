@@ -512,7 +512,7 @@ class PromptDialog(QDialog):
         if not sample_note:
             show_message_box("Smart Notes: need at least one note of this note type!")
             return
-        new_prompts_map = self._add_prompt_to_prompts_map(
+        new_prompts_map = self._add_or_update_prompts_map(
             self.prompts_map,
             prompt=prompt,
             note_type=self.state.s["selected_note_type"],
@@ -679,7 +679,7 @@ class PromptDialog(QDialog):
         if not prompt:
             return
 
-        new_prompts_map = self._add_prompt_to_prompts_map(
+        new_prompts_map = self._add_or_update_prompts_map(
             self.prompts_map, selected_card_type, selected_field, prompt
         )
 
@@ -714,7 +714,7 @@ class PromptDialog(QDialog):
     def on_reject(self):
         self.reject()
 
-    def _add_prompt_to_prompts_map(
+    def _add_or_update_prompts_map(
         self, prompts_map: PromptMap, note_type: str, field: str, prompt: str
     ) -> PromptMap:
         # Just creates a new prompts map with the prompt included
@@ -742,16 +742,30 @@ class PromptDialog(QDialog):
             new_prompts_map["note_types"][note_type]["extras"] = extras
 
         # Actually populate extras for this field
-        selected_field_extras: FieldExtras = extras.get(field, {})
+        selected_field_extras: Union[FieldExtras] = extras.get(
+            field,
+            {
+                "automatic": None,
+                "use_custom_model": None,
+                "type": None,
+                "chat_model": None,
+                "chat_provider": None,
+                "chat_temperature": None,
+                "tts_model": None,
+                "tts_provider": None,
+                "tts_voice": None,
+            },
+        )
 
         type = self.state.s["type"]
+        is_custom_model = self.state.s["use_custom_model"]
+
+        # Set common fields
         selected_field_extras["type"] = type
         selected_field_extras["automatic"] = is_automatic
-        is_custom = self.state.s["use_custom_model"]
-        selected_field_extras["use_custom_model"] = is_custom
+        selected_field_extras["use_custom_model"] = is_custom_model
 
-        # Need to delete any custom config if it's not being used
-        if is_custom:
+        if is_custom_model:
             if type == "tts":
                 selected_field_extras["tts_provider"] = self.tts_options.state.s[
                     "tts_provider"
@@ -768,6 +782,7 @@ class PromptDialog(QDialog):
                 selected_field_extras["chat_temperature"] = self.state.s[
                     "chat_temperature"
                 ]
+        # Need to delete any custom config if it's not being used
         else:
             to_pop = [
                 "chat_model",
@@ -778,8 +793,8 @@ class PromptDialog(QDialog):
                 "tts_voice",
             ]
             for extra in to_pop:
-                # TODO: fix this type ignore; can we just set them to None?
-                selected_field_extras.pop(extra, None)
+                if extra in selected_field_extras:
+                    selected_field_extras[extra] = None  # type: ignore
 
         # Write em out
         extras[field] = selected_field_extras

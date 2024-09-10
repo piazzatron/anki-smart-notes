@@ -66,7 +66,10 @@ def get_file_path(file: str) -> str:
     return os.path.join(path, module, file)
 
 
-def load_file(file: str) -> str:
+def load_file(file: str, test_override: str = "") -> str:
+    if os.getenv("IS_TEST"):
+        return test_override
+
     file_path = get_file_path(file)
 
     with open(file_path, "r", encoding="utf-8") as f:

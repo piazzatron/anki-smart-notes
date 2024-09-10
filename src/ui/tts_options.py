@@ -38,7 +38,7 @@ from aqt import (
 
 from ..config import config
 from ..logger import logger
-from ..models import TTSProviders
+from ..models import TTSModels, TTSProviders
 from ..sentry import run_async_in_background_with_sentry
 from ..tts_provider import TTSProvider
 from ..tts_utils import play_audio
@@ -90,7 +90,7 @@ class TTSState(TypedDict):
     # These are the actual values read from and written to config
     tts_provider: Union[TTSProviders, None]
     tts_voice: Union[str, None]
-    tts_model: Union[str, None]
+    tts_model: Union[TTSModels, None]
 
     test_text: str
     test_enabled: bool
@@ -163,7 +163,7 @@ class GoogleVoice(TypedDict):
 
 
 def get_google_voices() -> List[TTSMeta]:
-    s = load_file("google_voices.json")
+    s = load_file("google_voices.json", test_override="[]")
     google_voices: List[GoogleVoice] = json.loads(s)
     voices: List[TTSMeta] = []
     tiers = {"Standard": "standard", "Wavenet": "best", "Neural": "best"}
@@ -183,7 +183,7 @@ def get_google_voices() -> List[TTSMeta]:
 
 
 def get_eleven_voices() -> List[TTSMeta]:
-    s = load_file("eleven_voices.json")
+    s = load_file("eleven_voices.json", test_override="[]")
     eleven_voices = json.loads(s)
     voices: List[TTSMeta] = []
     for voice in eleven_voices:
@@ -395,7 +395,7 @@ class TTSOptions(QWidget):
         provider = self.state.s["tts_provider"]
         voice = self.state.s["tts_voice"]
         model = self.state.s["tts_model"]
-        if not (provider and voice):
+        if not (provider and voice and model):
             return
 
         def on_failure(err):

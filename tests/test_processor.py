@@ -1,3 +1,5 @@
+# type: ignore
+
 """
  Copyright (C) 2024 Michael Piazza
 
@@ -61,6 +63,7 @@ class MockConfig:
     chat_temperature = 0
     tts_provider = "openai"
     tts_voice = "alloy"
+    tts_model = "tts-1"
 
     debug: bool = True
 
@@ -106,7 +109,7 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     }
 
     prompts_map = {
-        "note_types": {NOTE_TYPE_NAME: {"fields": prompts_map, "extras": extras}}  # type: ignore
+        "note_types": {NOTE_TYPE_NAME: {"fields": prompts_map, "extras": extras}}
     }
 
     c = MockConfig(prompts_map=prompts_map, allow_empty_fields=allow_empty_fields)
@@ -125,6 +128,12 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     )
 
     monkeypatch.setattr(anki_smart_notes.src.prompts, "config", c)
+    monkeypatch.setattr(anki_smart_notes.src.dag, "config", c)
+    monkeypatch.setattr(
+        anki_smart_notes.src.dag,
+        "get_prompts",
+        lambda to_lower, override_prompts_map: prompts_map,
+    )
 
     return p
 

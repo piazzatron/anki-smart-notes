@@ -22,7 +22,7 @@ from typing import Any, Dict, Literal, Optional, TypedDict, Union
 
 from aqt import addons, mw
 
-from .models import ChatModels, ChatProviders, TTSModels, TTSProviders
+from .models import ChatModels, ChatProviders, OpenAIModels, TTSModels, TTSProviders
 
 
 class FieldExtras(TypedDict):
@@ -75,7 +75,7 @@ class Config:
     generate_at_review: bool
     times_used: int
     last_seen_version: Union[str, None]
-    uuid: Union[str, None]
+    uuid: str
     openai_endpoint: Union[str, None]
     regenerate_notes_when_batching: bool
     allow_empty_fields: bool
@@ -100,7 +100,7 @@ class Config:
     did_show_premium_tts_dialog: bool
 
     # Deprecated fields:
-    # openai_model: OpenAIModels
+    legacy_openai_model: OpenAIModels
 
     def __init__(self):
         self._perform_cleanup()
@@ -108,10 +108,11 @@ class Config:
     def _perform_cleanup(self) -> None:
         print("Cleaning up config")
         try:
+            # First, migrate away from openai_model -> legacy_openai_model
             old_openai_model = self.__getattr__("openai_model")
             if old_openai_model:
                 print(f"Migration: old_openai_model={old_openai_model}")
-                self.chat_model = old_openai_model  # type: ignore
+                self.legacy_openai_model = old_openai_model  # type: ignore
                 self.__setattr__("openai_model", None)
 
             # If we've never set the legacy_support flag
@@ -120,6 +121,13 @@ class Config:
                 is_legacy = bool(self.openai_api_key)
                 print(f"Setting legacy_support to {is_legacy}")
                 self.__setattr__("legacy_support", is_legacy)
+
+            # Double check that we don't support 3.5 turbo anywhere
+
+            if self.legacy_openai_model == "gpt-3.5-turbo":  # type: ignore
+                print(f"migrate_models: old 3.5-turbo model seen, migrating to 4o-mini")
+                config.legacy_openai_model = "gpt-4o-mini"
+
         except Exception as e:
             if not os.getenv("IS_TEST"):
                 print(f"Error: Unexepctedly caught exception cleaning up config {e}")

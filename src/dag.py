@@ -17,6 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import traceback
 from typing import Dict, Union
 
 from anki.notes import Note
@@ -142,6 +143,7 @@ def generate_fields_dag(
         return dag
     except Exception as e:
         logger.error(f"Error creating dag: {e}")
+        logger.error(traceback.format_exc())
         return {}
 
 

@@ -81,7 +81,7 @@ def get_extras(
     # Populate missing fields with defaults
     for k, v in default_extras.items():
         if k not in field_extras or field_extras[k] is None:
-            field_extras[k] = v  # type: ignore
+            field_extras[k] = v
     return field_extras  # type: ignore
 
 

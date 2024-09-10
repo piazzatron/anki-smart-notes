@@ -52,8 +52,8 @@ from ..models import (
 )
 from ..processor import Processor
 from ..prompts import get_extras, get_prompts
+from ..utils import get_version
 from .account_options import AccountOptions
-from .changelog import get_version
 from .chat_options import ChatOptions, provider_model_map
 from .prompt_dialog import PromptDialog
 from .reactive_check_box import ReactiveCheckBox
@@ -68,10 +68,7 @@ OPTIONS_MIN_WIDTH = 875
 
 
 class State(TypedDict):
-    openai_api_key: Union[str, None]
     prompts_map: PromptMap
-    openai_model: OpenAIModels
-    openai_models: List[OpenAIModels]
     selected_row: Union[int, None]
     generate_at_review: bool
     regenerate_notes_when_batching: bool
@@ -90,6 +87,11 @@ class State(TypedDict):
     tts_provider: Union[TTSProviders, None]
     tts_voice: Union[str, None]
     tts_model: Union[str, None]
+
+    # Legacy OpenAI
+    openai_api_key: Union[str, None]
+    legacy_openai_model: OpenAIModels
+    legacy_openai_models: List[OpenAIModels]
 
 
 class AddonOptionsDialog(QDialog):
@@ -580,17 +582,15 @@ class AddonOptionsDialog(QDialog):
         return {
             "openai_api_key": config.openai_api_key,
             "prompts_map": config.prompts_map,
-            "legacy_openai_model": config.openai_model,
             "selected_row": None,
             "generate_at_review": config.generate_at_review,
             "regenerate_notes_when_batching": config.regenerate_notes_when_batching,
             "openai_endpoint": config.openai_endpoint,
-            "legacy_openai_models": legacy_openai_chat_models,
             "allow_empty_fields": config.allow_empty_fields,
             "debug": config.debug,
             # Chat
             "chat_provider": config.chat_provider,
-            "chat_providers": ["ChatGPT", "Claude"],
+            "chat_providers": ["openai", "anthropic"],
             "chat_model": config.chat_model,
             "chat_models": provider_model_map[config.chat_provider],
             "chat_temperature": config.chat_temperature,
@@ -598,6 +598,9 @@ class AddonOptionsDialog(QDialog):
             "tts_provider": config.tts_provider,
             "tts_voice": config.tts_voice,
             "tts_model": config.tts_model,
+            # Legacy OpenAI
+            "legacy_openai_model": config.legacy_openai_model,
+            "legacy_openai_models": legacy_openai_chat_models,
         }
 
     def on_restore_defaults(self) -> None:

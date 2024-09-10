@@ -28,7 +28,7 @@ from typing import Callable, List, Sequence
 from anki.cards import Card
 from anki.notes import Note, NoteId
 from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
-from aqt.browser import SidebarItemType
+from aqt.browser import SidebarItemType  # type: ignore
 
 from .app_state import app_state, is_app_unlocked_or_legacy
 from .config import config
@@ -153,7 +153,7 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
 
 
 def make_on_batch_success(
-    browser: browser.Browser,
+    browser: browser.Browser,  # type: ignore
 ) -> Callable[[List[Note], List[Note]], None]:
     def wrapped_on_batch_success(updated: List[Note], errors: List[Note]):
         browser.on_all_or_selected_rows_changed()
@@ -194,13 +194,6 @@ def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMe
     item.triggered.connect(wrapped)
 
 
-# TODO: where does this go now?
-def migrate_models() -> None:
-    if config.openai_model == "gpt-3.5-turbo":
-        logger.debug(f"migrate_models: old 3.5-turbo model seen, migrating to 4o-mini")
-        config.openai_model = "gpt-4o-mini"
-
-
 def on_start_actions() -> None:
     # Make UUID if necessary
     if not config.uuid:
@@ -208,7 +201,6 @@ def on_start_actions() -> None:
 
     run_async_in_background(pinger("session_start"))
     perform_update_check()
-    migrate_models()
     start_polling_for_messages()
 
     app_state.update_subscription_state()

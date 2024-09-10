@@ -30,7 +30,7 @@ OpenAIModels = Literal["gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4"]
 AnthropicModels = Literal["claude-3-haiku", "claude-3-5-sonnet"]
 ChatModels = Union[OpenAIModels, AnthropicModels]
 
-legacy_openai_chat_models: List[ChatModels] = [
+legacy_openai_chat_models: List[OpenAIModels] = [
     "gpt-4o-mini",
     "gpt-4o",
     "gpt-4-turbo",
