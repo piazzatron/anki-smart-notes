@@ -1,9 +1,9 @@
 # **Smart Notes** - Anki + AI generated fields ✨
 </br>
 
-## 💬 Use AI (ChatGPT & Claude) to automatically generate any field in your notes.
+## 💬 Use AI to automatically generate any field.
 
-For example, use Smart Notes to automatically generate example sentences for every new vocab cards in nearly any language.
+For example, use ChatGPT or Claude to automatically generate example sentences for vocab cards in nearly any language in **bulk**.
 </br>
 </br>
 
@@ -15,9 +15,9 @@ Smart Notes supports 250+ voices in 50+ languages.
 
 ## 💳 Smart Notes is a paid add-on (with a free trial)
 
-Set up your trial in Anki after downloading Smart Notes. `Tools > Smart Notes`
+Set up your trial inside Anki. 
 
-
+*If you are unable to afford Smart Notes due to financial hardship, please get in touch at <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a>.*
 
 </br>
 
