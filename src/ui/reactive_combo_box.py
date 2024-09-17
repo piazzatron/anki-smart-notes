@@ -58,7 +58,6 @@ class ReactiveComboBox(ReactiveWidget[T], QComboBox, Generic[T]):
     def _update_from_state(self, updates: Dict[str, Any]) -> None:
         fields: List[str] = updates[self._fields_key]
         selected: str = updates[self._selected_key]
-        assert fields and selected
 
         self.clear()
         self.addItems([self.state_to_ui.get(field, field) for field in fields])
