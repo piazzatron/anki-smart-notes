@@ -36,7 +36,7 @@ def get_prompts(
 ) -> Dict[str, Dict[str, str]]:
     """Gets the prompts map. Maps note_type -> {field -> prompt}"""
     prompts_map = {
-        note_type: {k: v for k, v in m["fields"].items()}
+        note_type: {k: v for k, v in m.get("fields", {}).items()}
         for note_type, m in (override_prompts_map or config.prompts_map)[
             "note_types"
         ].items()
