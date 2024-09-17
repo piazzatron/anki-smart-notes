@@ -73,8 +73,16 @@ class AppStateManager:
             self._state.update({"subscription": "UNAUTHENTICATED", "plan": None})
             return
 
-        def on_new_status(status: UserStatus) -> None:
+        def on_failure(_) -> None:
+            self._state.update({"subscription": "LOADING", "plan": None})
+
+        def on_new_status(status: Union[UserStatus, None]) -> None:
             logger.debug(f"Got new subscription status: {status}")
+
+            if not status:
+                on_failure(None)
+                return
+
             old_state = self._state.s.copy()
 
             new_sub_state = self._make_subscription_state(status["plan"])
@@ -86,9 +94,6 @@ class AppStateManager:
 
             if sub_did_end:
                 self._handle_subscription_did_end(new_sub_state)
-
-        def on_failure(_) -> None:
-            self._state.update({"subscription": "LOADING", "plan": None})
 
         run_async_in_background_with_sentry(
             subscription_provider.get_subscription_status, on_new_status, on_failure
