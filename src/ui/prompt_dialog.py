@@ -657,6 +657,11 @@ class PromptDialog(QDialog):
     def _get_initial_source_field(self, note_type: str) -> str:
         """Get the first valid source field for a note type by finding the first field that isn't the default target field"""
         fields = get_fields(note_type)
+        # Strange case of cards with a single field
+        if (len(fields)) == 1:
+            logger.debug(f"Note type {note_type} has no valid fields")
+            return fields[0]
+
         valid_target_fields = self._get_valid_target_fields(note_type)
         default_target_field = (
             valid_target_fields[0] if len(valid_target_fields) > 0 else None
