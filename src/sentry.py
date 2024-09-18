@@ -182,7 +182,7 @@ class Sentry:
         )
 
 
-def pinger(event: Union[str, None] = None) -> Callable[[], Coroutine[Any, Any, None]]:
+def pinger(event: str) -> Callable[[], Coroutine[Any, Any, None]]:
     async def ping() -> None:
         user_state = (
             "subscriber"
