@@ -22,7 +22,14 @@ from typing import Any, Dict, Literal, Optional, TypedDict, Union
 
 from aqt import addons, mw
 
-from .models import ChatModels, ChatProviders, OpenAIModels, TTSModels, TTSProviders
+from .models import (
+    ChatModels,
+    ChatProviders,
+    OpenAIModels,
+    TTSModels,
+    TTSProviders,
+    legacy_openai_chat_models,
+)
 
 
 class FieldExtras(TypedDict):
@@ -114,6 +121,17 @@ class Config:
                 print(f"Migration: old_openai_model={old_openai_model}")
                 self.legacy_openai_model = old_openai_model  # type: ignore
                 self.__setattr__("openai_model", None)
+
+            # We previously migrated openai_model -> chat_model, which wasn't great. So we'll migrate that to legacy_openai_model
+            if self.legacy_openai_model is None:
+                old_chat_model = self.chat_model
+
+                # This could possibly be a claude model, and if so, default it to gpt-4o
+                if old_chat_model not in legacy_openai_chat_models:
+                    old_chat_model = "gpt-4o"
+
+                print(f"Migration: legacy_openai_model={old_chat_model}")
+                self.legacy_openai_model = old_chat_model
 
             # If we've never set the legacy_support flag
             # set it to whether or not we have an openai key

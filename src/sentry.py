@@ -71,7 +71,6 @@ class Sentry:
         self.hub = hub
         self.uuid = uuid
         logger.debug("Sentry initialized...")
-        logger.error("3Sentry: error message!")
 
     def configure_scope(self) -> None:
         self._monekypatch_sys_excepthook()
