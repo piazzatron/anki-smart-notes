@@ -96,9 +96,9 @@ test-dev () {
 test-build () {
   clean
   build
-  link-dist
   rm -rf dist/meta.json
-  cp meta.json dist/
+  link-dist
+  # cp meta.json dist/
   # copy the current meta to make testing easier
   # jq '.config.auth_token = null' dist/meta.json > dist/temp.json && mv dist/temp.json dist/meta.json
   anki

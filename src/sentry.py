@@ -21,13 +21,14 @@ import logging
 import os
 import sys
 import traceback
-from typing import Any, Callable, Coroutine, Union
+from typing import Any, Callable, Coroutine, Dict, Union
 
 import aiohttp
 import sentry_sdk
 from aqt import mw
 from sentry_sdk.integrations.logging import LoggingIntegration
 from sentry_sdk.session import Session
+from sentry_sdk.types import Event
 
 from .. import env
 from .config import config
@@ -50,17 +51,27 @@ class Sentry:
     def __init__(self, dsn: str, release: str, uuid: str, env: str) -> None:
         logger.debug("Initializing sentry...")
         logger.debug(f"release: {release}, uuid: {uuid}, env: {env}")
+
+        def before_send(event: Event, hints: Dict[str, Any]) -> Union[Event, None]:
+            if "logger" in event and event["logger"] != "smart_notes":
+                logger.debug("Not sending event to sentry")
+                return None
+            logger.debug("Sending event to sentry...")
+            return event
+
         client = sentry_sdk.Client(
             dsn=dsn,
             release=release,
             default_integrations=False,
             environment="production" if is_production() else "development",
             integrations=[LoggingIntegration(level=logging.DEBUG)],
+            before_send=before_send,
         )
         hub = sentry_sdk.Hub(client)
         self.hub = hub
         self.uuid = uuid
         logger.debug("Sentry initialized...")
+        logger.error("3Sentry: error message!")
 
     def configure_scope(self) -> None:
         self._monekypatch_sys_excepthook()

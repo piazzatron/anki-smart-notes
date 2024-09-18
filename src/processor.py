@@ -18,6 +18,7 @@
 """
 
 import asyncio
+import traceback
 from typing import Callable, List, Sequence, Tuple, Union
 
 import aiohttp
@@ -213,7 +214,9 @@ class Processor:
         for i, result in enumerate(results):
             note = to_process[i]
             if isinstance(result, Exception):
-                logger.debug(f"Error processing note {note_ids[i]}: {result}")
+                logger.error(
+                    f"Error processing note {note_ids[i]}: {result}, {''.join(traceback.format_exception(type(result), result, result.__traceback__))}"
+                )
                 failed.append(note)
             elif result:
                 notes_to_update.append(note)
