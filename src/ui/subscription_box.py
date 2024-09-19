@@ -112,7 +112,7 @@ class StartFreeTrialButton(QPushButton):
         self.setFixedHeight(100)
 
     def start_free_trial_clicked(self) -> None:
-        run_async_in_background(pinger("click_trial_cta"))
+        run_async_in_background(pinger("click_trial_cta"), use_collection=False)
         webview = WebviewDialog(self, "/trial")
         webview.show()
 

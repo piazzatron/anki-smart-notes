@@ -96,7 +96,10 @@ class AppStateManager:
                 self._handle_subscription_did_end(new_sub_state)
 
         run_async_in_background_with_sentry(
-            subscription_provider.get_subscription_status, on_new_status, on_failure
+            subscription_provider.get_subscription_status,
+            on_new_status,
+            on_failure,
+            use_collection=False,
         )
 
     def _make_subscription_state(self, sub: Union[PlanInfo, None]) -> SubscriptionState:

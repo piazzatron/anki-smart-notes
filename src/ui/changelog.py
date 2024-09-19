@@ -91,7 +91,9 @@ def perform_update_check() -> None:
         if not prior_version:
             trial_cta = WebviewDialog(mw, "/trial")
             trial_cta.show()
-            run_async_in_background(pinger("show_first_start_cta"))
+            run_async_in_background(
+                pinger("show_first_start_cta"), use_collection=False
+            )
             return
 
         if is_new_major_or_minor_version(current_version, prior_version):

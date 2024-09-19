@@ -27,5 +27,5 @@ from .webview_dialog import WebviewDialog
 class V2CTA(WebviewDialog):
     def __init__(self, parent: QWidget) -> None:
         super().__init__(parent, "/v2")
-        run_async_in_background(pinger("show_trial_cta"))
+        run_async_in_background(pinger("show_trial_cta"), use_collection=False)
         self.setMinimumHeight(1000)

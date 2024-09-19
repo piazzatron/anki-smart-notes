@@ -182,21 +182,25 @@ class Sentry:
 
 
 def pinger(event: str) -> Callable[[], Coroutine[Any, Any, None]]:
+    user_state = (
+        "subscriber"
+        if config.auth_token
+        else ("legacy" if config.openai_api_key else "inactive")
+    )
+    ping_url = f"{get_server_url()}/ping"
+    params = {
+        "version": get_version(),
+        "uuid": config.uuid,
+        "event": event,
+        "userState": user_state,
+    }
+
     async def ping() -> None:
-        user_state = (
-            "subscriber"
-            if config.auth_token
-            else ("legacy" if config.openai_api_key else "inactive")
-        )
         try:
-            ping_url = f"{get_server_url()}/ping"
-            params = {
-                "version": get_version(),
-                "uuid": config.uuid,
-                "event": event,
-                "userState": user_state,
-            }
-            async with aiohttp.ClientSession() as session:
+            # 10s timeout for users who can't connect for some reason (china/vpn etc)
+            async with aiohttp.ClientSession(
+                timeout=aiohttp.ClientTimeout(total=10)
+            ) as session:
                 async with session.get(ping_url, params=params) as response:
                     if response.status != 200:
                         logger.error(f"Error pinging server: {response.status}")
@@ -244,6 +248,7 @@ def run_async_in_background_with_sentry(
     on_success: Callable[[Any], None],
     on_failure: Union[Callable[[Exception], None], None] = None,
     with_progress: bool = False,
+    use_collection: bool = True,
 ):
     "Runs an async operation in the background and calls on_success when done."
 
@@ -257,4 +262,6 @@ def run_async_in_background_with_sentry(
         if on_failure:
             on_failure = sentry.wrap(on_failure)
 
-    run_async_in_background(op, on_success, on_failure, with_progress)
+    run_async_in_background(
+        op, on_success, on_failure, with_progress, use_collection=use_collection
+    )

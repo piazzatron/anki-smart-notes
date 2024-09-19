@@ -29,6 +29,7 @@ def run_async_in_background(
     on_success: Callable[[Any], None] = lambda _: None,
     on_failure: Union[Callable[[Exception], None], None] = None,
     with_progress: bool = False,
+    use_collection: bool = True,
 ):
     "Runs an async operation in the background and calls on_success when done."
 
@@ -46,5 +47,8 @@ def run_async_in_background(
 
     if with_progress:
         query_op = query_op.with_progress()
+
+    if not use_collection:
+        query_op = query_op.without_collection()
 
     query_op.run_in_background()
