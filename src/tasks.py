@@ -45,7 +45,9 @@ def run_async_in_background(
     if on_failure:
         query_op.failure(on_failure)
 
-    if with_progress:
+    # Not all versions of Anki support with_progress :(
+    # https://github.com/ankitects/anki/commit/055d66397081067a5d4cc6f1e3b370168e907119
+    if with_progress and hasattr(query_op, "with_progress"):
         query_op = query_op.with_progress()
 
     if not use_collection:
