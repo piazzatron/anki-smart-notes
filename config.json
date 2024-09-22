@@ -23,5 +23,6 @@
   "legacy_support": null,
   "legacy_openai_model": null,
   "did_show_chained_error_dialog": false,
-  "did_show_premium_tts_dialog": false
+  "did_show_premium_tts_dialog": false,
+  "did_deck_filter_migration": false
 }

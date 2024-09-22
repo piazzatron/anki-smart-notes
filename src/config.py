@@ -18,8 +18,9 @@
 """
 
 import os
-from typing import Any, Dict, Literal, Optional, TypedDict, Union
+from typing import Any, Dict, Literal, Optional, TypedDict, Union, cast
 
+from anki.decks import DeckId
 from aqt import addons, mw
 
 from .models import (
@@ -30,6 +31,8 @@ from .models import (
     TTSProviders,
     legacy_openai_chat_models,
 )
+
+GLOBAL_DECK: DeckId = cast(DeckId, -1)
 
 
 class FieldExtras(TypedDict):
@@ -71,7 +74,7 @@ class NoteTypeMap(TypedDict):
 
 
 class PromptMap(TypedDict):
-    note_types: Dict[str, NoteTypeMap]
+    note_types: Dict[str, Dict[DeckId, NoteTypeMap]]
 
 
 class Config:
@@ -101,10 +104,11 @@ class Config:
     tts_voice: str
     tts_model: TTSModels
 
-    # Dialogs
+    # Dialogs / Migrations
     did_show_chained_error_dialog: bool
     did_show_rate_dialog: bool
     did_show_premium_tts_dialog: bool
+    did_deck_filter_migration: bool
 
     # Deprecated fields:
     legacy_openai_model: OpenAIModels
@@ -146,6 +150,10 @@ class Config:
                 print(f"migrate_models: old 3.5-turbo model seen, migrating to 4o-mini")
                 config.legacy_openai_model = "gpt-4o-mini"
 
+            if not self.did_deck_filter_migration:
+                do_deck_filter_migration()
+                self.did_deck_filter_migration = True
+
         except Exception as e:
             if not os.getenv("IS_TEST"):
                 print(f"Error: Unexepctedly caught exception cleaning up config {e}")
@@ -185,6 +193,26 @@ class Config:
         mgr = addons.AddonManager(mw)
         defaults = mgr.addonConfigDefaults("smart-notes")
         return defaults
+
+
+class OldPromptsMap(TypedDict):
+    note_types: Dict[str, NoteTypeMap]
+
+
+def do_deck_filter_migration() -> None:
+    # This should never get called twice but just in case:
+    if config.did_deck_filter_migration:
+        return
+    old_prompts_map: OldPromptsMap = cast(OldPromptsMap, config.prompts_map)
+    new_prompts_map: PromptMap = {"note_types": {}}
+
+    for note_type, note_map in old_prompts_map["note_types"].items():
+        new_note_map: NoteTypeMap = {
+            "fields": note_map["fields"],
+            "extras": None,
+        }
+        new_prompts_map["note_types"][note_type] = {GLOBAL_DECK: new_note_map}
+        config.prompts_map = new_prompts_map
 
 
 config = Config()  # type: ignore

@@ -19,10 +19,11 @@
 
 from typing import List, Union
 
+from anki.cards import Card
 from anki.notes import Note
 from aqt import mw
 
-from .prompts import get_generate_automatically, get_prompt_fields, get_prompts
+from .prompts import get_generate_automatically, get_prompt_fields, get_prompts_for_note
 from .ui.ui_utils import show_message_box
 from .utils import get_fields, to_lowercase_dict
 
@@ -44,20 +45,20 @@ def get_note_types() -> List[str]:
     return [model["name"] for model in models]
 
 
-def is_note_fully_processed(note: Note) -> bool:
+def is_card_fully_processed(card: Card) -> bool:
+    note = card.note()
     note_type = get_note_type(note)
     if not note_type:
         return True
 
-    all_prompts = get_prompts()
-    prompts = all_prompts.get(note_type, None)
+    prompts = get_prompts_for_note(note_type, card.did)
 
     if not prompts:
         return True
 
     for field in prompts.keys():
         field_exists = field in note and note[field]
-        is_automatic = get_generate_automatically(note_type, field)
+        is_automatic = get_generate_automatically(note_type, field, deck_id=card.did)
         if (not field_exists) and is_automatic:
             return False
 

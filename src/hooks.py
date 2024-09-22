@@ -26,7 +26,7 @@ import logging
 from typing import Callable, List, Sequence
 
 from anki.cards import Card
-from anki.notes import Note, NoteId
+from anki.notes import Note
 from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
 from aqt.browser import SidebarItemType  # type: ignore
 
@@ -34,7 +34,7 @@ from .app_state import app_state, is_app_unlocked_or_legacy
 from .config import config
 from .logger import logger
 from .message_polling import start_polling_for_messages
-from .notes import is_ai_field, is_note_fully_processed
+from .notes import is_ai_field
 from .processor import Processor
 from .sentry import pinger, sentry, with_sentry
 from .tasks import run_async_in_background
@@ -74,9 +74,9 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
         if not is_app_unlocked_or_legacy(show_box=True):
             return
 
-        note = editor.note
+        card = editor.card
 
-        if not note:
+        if not card:
             logger.error("no note found")
             return
 
@@ -121,18 +121,18 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
             if not did_change:
                 return
 
-            # New notes have note id 0
-            if note.id:
-                # Only update note if it's already in the database
-                mw.col.update_note(note)
+            # New card have note id 0
+            if card.id:
+                # Only update card if it's already in the database
+                mw.col.update_card(card)
             editor.loadNote()
 
         def on_field() -> None:
             editor.loadNote()
 
-        is_fully_processed = is_note_fully_processed(note)
-        processor.process_note(
-            note,
+        is_fully_processed = is_card_fully_processed(card)
+        processor.process_card(
+            card,
             overwrite_fields=is_fully_processed,
             on_success=on_success,
             on_failure=lambda _: set_button_enabled(),
@@ -176,17 +176,18 @@ def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMe
     menu.addSeparator()
     menu.addAction(item)
 
-    notes = browser.selected_notes()
+    cards = browser.selected_cards()
+    print(cards)
 
     def wrapped():
         if not is_app_unlocked_or_legacy(show_box=True):
             return
 
-        if not prevent_batches_on_free_trial(notes):
+        if not prevent_batches_on_free_trial(cards):
             return
 
-        processor.process_notes_with_progress(
-            notes,
+        processor.process_cards_with_progress(
+            cards,
             on_success=make_on_batch_success(browser),
             overwrite_fields=config.regenerate_notes_when_batching,
         )
@@ -247,8 +248,8 @@ def on_editor_context(
         if not is_app_unlocked_or_legacy(show_box=True):
             return
 
-        processor.process_note(
-            note, overwrite_fields=False, target_field=ai_field, on_success=on_success
+        processor.process_card(
+            card, overwrite_fields=False, target_field=ai_field, on_success=on_success
         )
 
     item.triggered.connect(wrapped)
@@ -284,7 +285,7 @@ def on_review(processor: Processor, card: Card):
         # Suppressing invocation of -[NSApplication runModalSession:]. -[NSApplication runModalSession:] cannot run inside a transaction begin/commit pair, or inside a transaction commit. Consider switching to an asynchronous equivalent.
         bump_usage_counter()
 
-    processor.process_note(note, overwrite_fields=False, on_success=on_success)
+    processor.process_card(note, overwrite_fields=False, on_success=on_success)
 
 
 @with_processor  # type: ignore
@@ -297,12 +298,12 @@ def add_deck_option(
 ) -> None:
     if not mw:
         return
-    notes: Sequence[NoteId] = []
+    cards: Sequence[int] = []
 
     if sidebar_item.item_type == SidebarItemType.NOTETYPE:
-        notes = mw.col.find_notes(f'"note:{sidebar_item.name}"')
+        cards = mw.col.find_cards(f'"note:{sidebar_item.name}"')
     elif sidebar_item.item_type in [SidebarItemType.DECK, SidebarItemType.DECK_CURRENT]:
-        notes = mw.col.find_notes(f'"deck:{sidebar_item.name}"')
+        cards = mw.col.find_cards(f'"deck:{sidebar_item.name}"')
     else:
         return
 
@@ -313,11 +314,11 @@ def add_deck_option(
     def wrapped():
         if not is_app_unlocked_or_legacy(show_box=True):
             return
-        if not prevent_batches_on_free_trial(notes):
+        if not prevent_batches_on_free_trial(cards):
             return
 
-        processor.process_notes_with_progress(
-            notes,
+        processor.process_cards_with_progress(
+            cards,
             on_success=make_on_batch_success(tree_view.browser),
         )
 

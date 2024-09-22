@@ -53,7 +53,7 @@ from ..prompts import (
     get_extras,
     get_generate_automatically,
     get_prompt_fields,
-    get_prompts,
+    get_prompts_for_note,
 )
 from ..sentry import run_async_in_background_with_sentry
 from ..tts_utils import play_audio
@@ -647,9 +647,12 @@ class PromptDialog(QDialog):
             selected_note_type, selected_note_field
         )
         existing_prompts = set(
-            get_prompts(override_prompts_map=self.prompts_map)
-            .get(selected_note_type, {})
-            .keys()
+            (
+                get_prompts_for_note(
+                    note_type=selected_note_type, override_prompts_map=self.prompts_map
+                )
+                or {}
+            ).keys()
         )
 
         return [field for field in all_valid_fields if field not in existing_prompts]

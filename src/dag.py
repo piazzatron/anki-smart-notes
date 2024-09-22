@@ -20,19 +20,21 @@
 import traceback
 from typing import Dict, Union
 
+from anki.decks import DeckId
 from anki.notes import Note
 
 from .config import PromptMap, config
 from .logger import logger
 from .nodes import ChatPayload, FieldNode, TTSPayload
 from .notes import get_note_type
-from .prompts import get_extras, get_prompt_fields, get_prompts
+from .prompts import get_extras, get_prompt_fields, get_prompts_for_note
 from .utils import get_fields
 
 
 def generate_fields_dag(
     note: Note,
     overwrite_fields: bool,
+    deck_id: DeckId,
     target_field: Union[str, None] = None,
     override_prompts_map: Union[PromptMap, None] = None,
 ) -> Dict[str, FieldNode]:
@@ -45,9 +47,13 @@ def generate_fields_dag(
         logger.debug("Generating dag...")
         note_type = get_note_type(note)
 
-        prompts = get_prompts(
-            to_lower=True, override_prompts_map=override_prompts_map
-        ).get(note_type, None)
+        prompts = get_prompts_for_note(
+            note_type=note_type,
+            to_lower=True,
+            override_prompts_map=override_prompts_map,
+            deck_id=deck_id,
+        )
+
         if not prompts:
             logger.debug("generate_fields_dag: no prompts found for note type")
             return {}
@@ -63,7 +69,7 @@ def generate_fields_dag(
             if not prompt:
                 continue
 
-            extras = get_extras(note_type, field)
+            extras = get_extras(note_type, field, deck_id=deck_id)
             is_custom = extras["use_custom_model"]
             type = extras["type"]
             should_generate_automatically = extras["automatic"]

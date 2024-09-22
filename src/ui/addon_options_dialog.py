@@ -51,7 +51,7 @@ from ..models import (
     legacy_openai_chat_models,
 )
 from ..processor import Processor
-from ..prompts import get_extras, get_prompts
+from ..prompts import get_extras, get_prompts_for_note
 from ..utils import get_version
 from .account_options import AccountOptions
 from .chat_options import ChatOptions, provider_model_map
@@ -474,7 +474,9 @@ class AddonOptionsDialog(QDialog):
             card_type=note_type,
             field=field,
             field_type=field_type,
-            prompt=get_prompts(to_lower=True)[note_type][field.lower()],
+            prompt=get_prompts_for_note(note_type=note_type, to_lower=True)[
+                field.lower()
+            ],
         )
 
         if prompt_dialog.exec() == QDialog.DialogCode.Accepted:

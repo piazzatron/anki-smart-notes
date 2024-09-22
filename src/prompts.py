@@ -22,41 +22,68 @@
 import re
 from typing import Dict, List, Literal, Union
 
+from anki.decks import DeckId
 from anki.notes import Note
 
-from .config import FieldExtrasWithDefaults, PromptMap, config
+from .config import GLOBAL_DECK, FieldExtrasWithDefaults, PromptMap, config
 from .logger import logger
 from .utils import to_lowercase_dict
 
 EXTRAS_DEFAULT_AUTOMATIC = True
 
 
-def get_prompts(
+def get_prompts_for_note(
+    note_type: str,
+    deck_id: DeckId,
+    to_lower: bool = False,
+    override_prompts_map: Union[PromptMap, None] = None,
+) -> Union[Dict[str, str], None]:
+    all_prompts = _get_prompts(to_lower, override_prompts_map)
+    deck_prompts = all_prompts.get(note_type, {})
+    return deck_prompts.get(deck_id) or deck_prompts.get(GLOBAL_DECK)
+
+
+def _get_prompts(
     to_lower: bool = False, override_prompts_map: Union[PromptMap, None] = None
-) -> Dict[str, Dict[str, str]]:
-    """Gets the prompts map. Maps note_type -> {field -> prompt}"""
+) -> Dict[str, Dict[DeckId, Dict[str, str]]]:
+    """Gets the prompts map. Maps note_type -> deck -> {field -> prompt}"""
     prompts_map = {
-        note_type: {k: v for k, v in m.get("fields", {}).items()}
-        for note_type, m in (override_prompts_map or config.prompts_map)[
+        note_type: {
+            deck: {
+                field: prompt
+                for field, prompt in note_type_map.get("fields", {}).items()
+            }
+            for deck, note_type_map in decks_dict.items()
+        }
+        for note_type, decks_dict in (override_prompts_map or config.prompts_map)[
             "note_types"
         ].items()
     }
+
+    # Lowercase just the field names
     if to_lower:
-        prompts_map = {k: to_lowercase_dict(v) for k, v in prompts_map.items()}
+        prompts_map = {
+            note_type: {
+                deck: to_lowercase_dict(fields) for deck, fields in deck.items()
+            }
+            for note_type, deck in prompts_map.items()
+        }
     return prompts_map
 
 
 def get_extras(
-    note_type: str,
-    note_field: str,
-    prompts_map: Union[PromptMap, None] = None,
+    note: str,
+    field: str,
+    deck_id: DeckId,
+    prompts: Union[PromptMap, None] = None,
     type: Union[Literal["chat", "tts"], None] = None,
 ) -> FieldExtrasWithDefaults:
 
     # Lowercase the field names
     extras = to_lowercase_dict(
-        (prompts_map or config.prompts_map)["note_types"]  # type: ignore
-        .get(note_type, {"extras": {}})
+        (prompts or config.prompts_map)["note_types"]  # type: ignore
+        .get(note, {})
+        .get(deck_id, {})
         .get("extras", {})
     )
 
@@ -76,7 +103,7 @@ def get_extras(
     if not extras:
         return default_extras
 
-    field_extras = extras.get(note_field.lower(), default_extras)
+    field_extras = extras.get(field.lower(), default_extras)
 
     # Populate missing fields with defaults
     for k, v in default_extras.items():
@@ -86,9 +113,12 @@ def get_extras(
 
 
 def get_generate_automatically(
-    note_type: str, note_field: str, prompts_map: Union[PromptMap, None] = None
+    note: str,
+    field: str,
+    deck_id: DeckId,
+    prompts: Union[PromptMap, None] = None,
 ) -> bool:
-    extras = get_extras(note_type, note_field, prompts_map)
+    extras = get_extras(note=note, field=field, deck_id=deck_id, prompts=prompts)
     return bool(extras.get("automatic", EXTRAS_DEFAULT_AUTOMATIC))
 
 

@@ -19,9 +19,11 @@
 
 import asyncio
 import traceback
-from typing import Callable, List, Sequence, Tuple, Union
+from typing import Callable, Dict, List, Sequence, Tuple, Union
 
 import aiohttp
+from anki.cards import Card
+from anki.decks import DeckId
 from anki.notes import Note, NoteId
 from aqt import mw
 
@@ -56,9 +58,9 @@ class Processor:
         self.config = config
         self.req_in_progress = False
 
-    def process_notes_with_progress(
+    def process_cards_with_progress(
         self,
-        note_ids: Sequence[NoteId],
+        card_ids: Sequence[NoteId],
         on_success: Union[Callable[[List[Note], List[Note]], None], None],
         overwrite_fields: bool = False,
     ) -> None:
@@ -68,6 +70,9 @@ class Processor:
             return
 
         bump_usage_counter()
+        cards = [mw.col.get_card(card_in) for card_in in card_ids]
+        note_ids = [card.nid for card in cards]
+        did_map = {card.nid: card.did for card in cards}
 
         if not self._assert_preconditions():
             return
@@ -176,7 +181,10 @@ class Processor:
         )
 
     async def _process_notes_batch(
-        self, note_ids: Sequence[NoteId], overwrite_fields: bool
+        self,
+        note_ids: Sequence[NoteId],
+        overwrite_fields: bool,
+        did_map: Dict[NoteId, DeckId],
     ) -> Tuple[List[Note], List[Note], List[Note]]:
         """Returns updated, failed, skipped notes"""
         logger.debug(f"Processing {len(note_ids)} notes...")
@@ -188,8 +196,8 @@ class Processor:
         prompts = get_prompts()
 
         # Only process notes that have prompts
-        to_process = []
-        skipped = []
+        to_process: List[Note] = []
+        skipped: List[Note] = []
         for note in notes:
 
             note_type = get_note_type(note)
@@ -205,7 +213,11 @@ class Processor:
         # Run them all in parallel
         tasks = []
         for note in to_process:
-            tasks.append(self._process_note(note, overwrite_fields=overwrite_fields))
+            tasks.append(
+                self._process_note(
+                    note, overwrite_fields=overwrite_fields, deck_id=did_map[note.id]
+                )
+            )
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
         # Process errors
@@ -229,9 +241,9 @@ class Processor:
 
         return (notes_to_update, failed, skipped)
 
-    def process_note(
+    def process_card(
         self,
-        note: Note,
+        card: Card,
         overwrite_fields: bool = False,
         on_success: Callable[[bool], None] = lambda _: None,
         on_failure: Union[Callable[[Exception], None], None] = None,
@@ -241,6 +253,8 @@ class Processor:
         """Process a single note, filling in fields with prompts from the user"""
         if not self._assert_preconditions():
             return
+
+        note = card.note()
 
         def wrapped_on_success(updated: bool) -> None:
             self._reqlinquish_req_in_process()
@@ -258,6 +272,7 @@ class Processor:
             lambda: self._process_note(
                 note,
                 overwrite_fields=overwrite_fields,
+                deck_id=card.did,
                 target_field=target_field,
                 on_field_update=on_field_update,
             ),
@@ -272,6 +287,7 @@ class Processor:
     async def _process_note(
         self,
         note: Note,
+        deck_id: DeckId,
         overwrite_fields: bool = False,
         target_field: Union[str, None] = None,
         on_field_update: Union[Callable[[], None], None] = None,
@@ -287,7 +303,10 @@ class Processor:
 
         # Topsort + parallel process the DAG
         dag = generate_fields_dag(
-            note, target_field=target_field, overwrite_fields=overwrite_fields
+            note,
+            target_field=target_field,
+            overwrite_fields=overwrite_fields,
+            deck_id=deck_id,
         )
 
         did_update = False
