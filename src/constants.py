@@ -17,6 +17,10 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from typing import cast
+
+from anki.decks import DeckId
+
 from .. import env
 from .models import ChatModels, ChatProviders
 
@@ -72,3 +76,7 @@ def get_server_url() -> str:
 
 def get_site_url() -> str:
     return SITE_URL_PROD if env.environment == "PROD" else SITE_URL_DEV
+
+
+GLOBAL_DECK_ID: DeckId = cast(DeckId, -1)
+GLOBAL_DECK_NAME = "All Decks"

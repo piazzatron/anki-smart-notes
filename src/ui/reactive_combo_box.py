@@ -37,6 +37,9 @@ class ReactiveComboBox(ReactiveWidget[T], QComboBox, Generic[T]):
         fields_key: str,
         selected_key: str,
         render_map: Dict[str, str] = {},
+        # Internally can't use int bc huge ints will cause overflow (thx insane anki deck ids), but
+        # pretend to outside consumers
+        int_keys: bool = False,
         **kwargs: Any
     ):
         super().__init__(state, **kwargs)
@@ -52,12 +55,14 @@ class ReactiveComboBox(ReactiveWidget[T], QComboBox, Generic[T]):
 
         # Bind from view change to state
         self.onChange.connect(
-            lambda new_value: state.update({self._selected_key: new_value})
+            lambda new_value: state.update(
+                {self._selected_key: int(new_value) if int_keys else new_value}
+            )
         )
 
     def _update_from_state(self, updates: Dict[str, Any]) -> None:
-        fields: List[str] = updates[self._fields_key]
-        selected: str = updates[self._selected_key]
+        fields: List[str] = [str(e) for e in updates[self._fields_key]]
+        selected: str = str(updates[self._selected_key])
 
         self.clear()
         self.addItems([self.state_to_ui.get(field, field) for field in fields])
@@ -67,4 +72,5 @@ class ReactiveComboBox(ReactiveWidget[T], QComboBox, Generic[T]):
         if self._state.updating:
             return
 
-        self.onChange.emit(self.ui_to_state.get(text, text))
+        new_state = self.ui_to_state.get(text, text)
+        self.onChange.emit(str(new_state))

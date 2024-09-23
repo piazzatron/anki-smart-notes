@@ -70,20 +70,29 @@ def generate_fields_dag(
                 continue
 
             extras = get_extras(note_type, field, deck_id=deck_id)
+            if not extras:
+                logger.error("Unexpetedly no extras!")
+                continue
+
             is_custom = extras["use_custom_model"]
             type = extras["type"]
             should_generate_automatically = extras["automatic"]
 
             payload: Union[ChatPayload, TTSPayload]
             if type == "chat":
-
                 payload = ChatPayload(
                     provider=(
-                        extras["chat_provider"] if is_custom else config.chat_provider
+                        (extras.get("chat_provider") or config.chat_provider)
+                        if is_custom
+                        else config.chat_provider
                     ),
-                    model=extras["chat_model"] if is_custom else config.chat_model,
+                    model=(
+                        (extras.get("chat_model") or config.chat_model)
+                        if is_custom
+                        else config.chat_model
+                    ),
                     temperature=(
-                        extras["chat_temperature"]
+                        (extras.get("chat_temperature") or config.chat_temperature)
                         if is_custom
                         else config.chat_temperature
                     ),
@@ -92,10 +101,20 @@ def generate_fields_dag(
             elif type == "tts":
                 payload = TTSPayload(
                     provider=(
-                        extras["tts_provider"] if is_custom else config.tts_provider
+                        (extras.get("tts_provider") or config.tts_provider)
+                        if is_custom
+                        else config.tts_provider
                     ),
-                    model=extras["tts_model"] if is_custom else config.tts_model,
-                    voice=extras["tts_voice"] if is_custom else config.tts_voice,
+                    model=(
+                        (extras.get("tts_model") or config.tts_model)
+                        if is_custom
+                        else config.tts_model
+                    ),
+                    voice=(
+                        (extras.get("tts_voice") or config.tts_voice)
+                        if is_custom
+                        else config.tts_voice
+                    ),
                     input=prompt,
                     options={},
                 )
@@ -186,10 +205,17 @@ def prompt_has_error(
     # Check for referencing invalid fields
     for prompt_field in prompt_fields:
         # Doesn't exist
+        extras = get_extras(note_type, prompt_field, deck_id, prompts_map)
+
+        if not extras:
+            logger.error("prompt_has_error: No extras!")
+            return "An unknown error has occured."
+
         if prompt_field not in note_fields:
             return f"Invalid field in prompt: {prompt_field}"
+
         # Is TTS
-        elif get_extras(note_type, prompt_field, deck_id, prompts_map)["type"] == "tts":
+        elif extras["type"] == "tts":
             return "Cannot reference TTS fields in prompts"
 
     # Can't reference itself

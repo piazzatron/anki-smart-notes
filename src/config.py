@@ -18,11 +18,13 @@
 """
 
 import os
+from copy import deepcopy
 from typing import Any, Dict, Literal, Optional, TypedDict, Union, cast
 
 from anki.decks import DeckId
 from aqt import addons, mw
 
+from .constants import GLOBAL_DECK_ID
 from .models import (
     ChatModels,
     ChatProviders,
@@ -32,45 +34,27 @@ from .models import (
     legacy_openai_chat_models,
 )
 
-GLOBAL_DECK: DeckId = cast(DeckId, -1)
-
 
 class FieldExtras(TypedDict):
-    """Should be only used internally by config"""
 
-    automatic: Optional[bool]
-    type: Optional[Literal["chat", "tts"]]
-    use_custom_model: Optional[bool]
+    automatic: bool
+    type: Literal["chat", "tts"]
+    use_custom_model: bool
+
     # Chat
     chat_model: Optional[ChatModels]
     chat_provider: Optional[ChatProviders]
     chat_temperature: Optional[int]
+
     # TTS
     tts_provider: Optional[TTSProviders]
-    tts_model: Optional[str]
+    tts_model: Optional[TTSModels]
     tts_voice: Optional[str]
-
-
-class FieldExtrasWithDefaults(TypedDict):
-    """This is the type returned by get_extras, that the actual app should deal with"""
-
-    automatic: bool
-    use_custom_model: bool
-    type: Literal["chat", "tts"]
-    # Chat
-    chat_model: ChatModels
-    chat_provider: ChatProviders
-    chat_temperature: int
-
-    # TTS
-    tts_provider: TTSProviders
-    tts_model: TTSModels
-    tts_voice: str
 
 
 class NoteTypeMap(TypedDict):
     fields: Dict[str, str]
-    extras: Union[Dict[str, FieldExtras], None]  # maps from field name -> extras
+    extras: Dict[str, FieldExtras]
 
 
 class PromptMap(TypedDict):
@@ -109,6 +93,7 @@ class Config:
     did_show_rate_dialog: bool
     did_show_premium_tts_dialog: bool
     did_deck_filter_migration: bool
+    did_cleanup_config_defaults: bool
 
     # Deprecated fields:
     legacy_openai_model: OpenAIModels
@@ -150,9 +135,8 @@ class Config:
                 print(f"migrate_models: old 3.5-turbo model seen, migrating to 4o-mini")
                 config.legacy_openai_model = "gpt-4o-mini"
 
-            if not self.did_deck_filter_migration:
-                self.perform_deck_filter_migration()
-                self.did_deck_filter_migration = True
+            self.perform_deck_filter_migration()
+            self.perform_extras_cleanup()
 
         except Exception as e:
             if not os.getenv("IS_TEST"):
@@ -194,19 +178,54 @@ class Config:
         defaults = mgr.addonConfigDefaults("smart-notes")
         return defaults
 
+    # Migrations
+
     def perform_deck_filter_migration(self) -> None:
-        print("Performing prompts map migration for per-deck prompts")
-        # This should never get called twice but just in case:
         if self.did_deck_filter_migration:
             return
+
+        print("Migration: prompts map migration for per-deck prompts")
         old_prompts_map: OldPromptsMap = cast(OldPromptsMap, self.prompts_map)
         new_prompts_map: PromptMap = {"note_types": {}}
 
         for note_type, fields_and_extras in old_prompts_map["note_types"].items():
             new_prompts_map["note_types"][note_type] = {
-                GLOBAL_DECK: fields_and_extras.copy()
+                GLOBAL_DECK_ID: fields_and_extras.copy()
             }
         self.prompts_map = new_prompts_map
+
+        self.did_deck_filter_migration = True
+
+    def perform_extras_cleanup(self) -> None:
+        """Old extras might not have had some values or even existed at all. Rather than accomodate that in the data model, make it right."""
+        if self.did_cleanup_config_defaults:
+            return
+
+        print("Migration: writing sane defaults for prompt extras")
+        prompts_map = deepcopy(self.prompts_map)
+
+        for decks_map in prompts_map["note_types"].values():
+            for extras_and_fields in decks_map.values():
+                # Theoretically extras might not exist at all. Make it
+                if not extras_and_fields.get("extras"):
+                    extras_and_fields["extras"] = {}
+
+                # Make sure extras exists for every prompt field
+                for field in extras_and_fields["fields"].keys():
+                    if not extras_and_fields["extras"].get(field):
+                        extras_and_fields["extras"][field] = {}  # type: ignore
+
+                # Fill out some fields that could have been optional before
+                for extras in extras_and_fields["extras"].values():
+                    if not "automatic" in extras:
+                        extras["automatic"] = True
+                    if not "type" in extras:
+                        extras["type"] = "chat"
+                    if not "use_custom_model" in extras:
+                        extras["use_custom_model"] = False
+
+        self.prompts_map = prompts_map
+        self.did_cleanup_config_defaults = True
 
 
 class OldPromptsMap(TypedDict):

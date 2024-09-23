@@ -20,13 +20,17 @@
 """Helpful functions for working with prompts and cards"""
 
 import re
-from typing import Dict, List, Literal, Union, cast
+from copy import deepcopy
+from typing import Dict, List, Literal, Optional, Union, cast
 
 from anki.decks import DeckId
 from anki.notes import Note
 
-from .config import GLOBAL_DECK, FieldExtrasWithDefaults, PromptMap, config
+from .config import FieldExtras, PromptMap, config
+from .constants import GLOBAL_DECK_ID
+from .decks import deck_id_to_name_map
 from .logger import logger
+from .models import ChatModels, ChatProviders, TTSModels, TTSProviders
 from .utils import to_lowercase_dict
 
 EXTRAS_DEFAULT_AUTOMATIC = True
@@ -38,11 +42,11 @@ def get_prompts_for_note(
     to_lower: bool = False,
     override_prompts_map: Union[PromptMap, None] = None,
 ) -> Union[Dict[str, str], None]:
-    print(deck_id)
+    logger.debug(f"studying deck: {deck_id}")
     all_prompts = get_all_prompts(to_lower, override_prompts_map)
     prompts_for_note_type = all_prompts.get(note_type, {})
     deck_prompts = prompts_for_note_type.get(deck_id, {}).copy()
-    global_prompts = prompts_for_note_type.get(GLOBAL_DECK, {}).copy()
+    global_prompts = prompts_for_note_type.get(GLOBAL_DECK_ID, {}).copy()
 
     # Add any missing global prompts
     for field, prompt in global_prompts.items():
@@ -50,6 +54,25 @@ def get_prompts_for_note(
             deck_prompts[field] = prompt
 
     return deck_prompts
+
+
+# If for some reason extras don't exist for this note type, return None
+def get_extras(
+    note_type: str,
+    field: str,
+    deck_id: DeckId,
+    prompts: Union[PromptMap, None] = None,
+) -> Optional[FieldExtras]:
+
+    # Lowercase the field names
+    extras = to_lowercase_dict(
+        (prompts or config.prompts_map)["note_types"]  # type: ignore
+        .get(note_type, {})
+        .get(str(deck_id), {})
+        .get("extras", {})
+    )
+
+    return extras.get(field.lower())
 
 
 def get_all_prompts(
@@ -82,47 +105,6 @@ def get_all_prompts(
     return prompts_map
 
 
-def get_extras(
-    note_type: str,
-    field: str,
-    deck_id: DeckId,
-    prompts: Union[PromptMap, None] = None,
-    type: Union[Literal["chat", "tts"], None] = None,
-) -> FieldExtrasWithDefaults:
-
-    # Lowercase the field names
-    extras = to_lowercase_dict(
-        (prompts or config.prompts_map)["note_types"]  # type: ignore
-        .get(note_type, {})
-        .get(deck_id, {})
-        .get("extras", {})
-    )
-
-    default_extras: FieldExtrasWithDefaults = {
-        "automatic": EXTRAS_DEFAULT_AUTOMATIC,
-        "chat_provider": config.chat_provider,
-        "chat_model": config.chat_model,
-        "chat_temperature": config.chat_temperature,
-        "use_custom_model": False,
-        "type": type or "chat",
-        "tts_model": config.tts_model,
-        "tts_provider": config.tts_provider,
-        "tts_voice": config.tts_voice,
-    }
-
-    # Base extras field might not exist at all
-    if not extras:
-        return default_extras
-
-    field_extras = extras.get(field.lower(), default_extras)
-
-    # Populate missing fields with defaults
-    for k, v in default_extras.items():
-        if k not in field_extras or field_extras[k] is None:
-            field_extras[k] = v
-    return field_extras  # type: ignore
-
-
 def get_generate_automatically(
     note: str,
     field: str,
@@ -130,7 +112,12 @@ def get_generate_automatically(
     prompts: Union[PromptMap, None] = None,
 ) -> bool:
     extras = get_extras(note_type=note, field=field, deck_id=deck_id, prompts=prompts)
-    return bool(extras.get("automatic", EXTRAS_DEFAULT_AUTOMATIC))
+
+    if not extras:
+        logger.error("get_generate_automatically: no extras!")
+        return True
+
+    return extras["automatic"]
 
 
 def get_prompt_fields(prompt: str, lower: bool = True) -> List[str]:
@@ -168,3 +155,103 @@ def interpolate_prompt(prompt: str, note: Note) -> Union[str, None]:
 
     logger.debug("Prompt has empty fields")
     return None
+
+
+DEFAULT_EXTRAS: FieldExtras = cast(
+    FieldExtras,
+    {"automatic": True, "type": "chat", "use_custom_model": False},
+)
+
+
+def add_or_update_prompts(
+    prompts_map: PromptMap,
+    note_type: str,
+    deck_id: DeckId,
+    field: str,
+    prompt: str,
+    is_automatic: bool,
+    is_custom_model: bool,
+    type: Literal["chat", "tts"],
+    tts_provider: Optional[TTSProviders],
+    tts_model: Optional[TTSModels],
+    tts_voice: Optional[str],
+    chat_model: Optional[ChatModels],
+    chat_provider: Optional[ChatProviders],
+    chat_temperature: Optional[int],
+) -> PromptMap:
+    new_prompts_map = deepcopy(prompts_map)
+
+    logger.debug(f"Trying to set prompt for {note_type}, {field}, {prompt}")
+
+    # If note type does not exist, add
+    if not new_prompts_map["note_types"].get(note_type):
+        new_prompts_map["note_types"][note_type] = {}
+
+    # If deck type does not exist within the note type, add
+    if not new_prompts_map["note_types"][note_type].get(deck_id):
+        new_prompts_map["note_types"][note_type][deck_id] = {
+            "fields": {},
+            "extras": {},
+        }
+
+    new_prompts_map["note_types"][note_type][deck_id]["fields"][field] = prompt
+
+    # Write out extras
+    extras = (
+        get_extras(
+            prompts=new_prompts_map,
+            note_type=note_type,
+            field=field,
+            deck_id=deck_id,
+        )
+        or DEFAULT_EXTRAS
+    )
+
+    # Set common fields
+    extras["type"] = type
+    extras["automatic"] = is_automatic
+    extras["use_custom_model"] = is_custom_model
+
+    if is_custom_model:
+        if type == "tts":
+            extras["tts_provider"] = tts_provider or extras["tts_provider"]
+            extras["tts_voice"] = tts_voice or extras["tts_voice"]
+            extras["tts_model"] = tts_model or extras["tts_model"]
+        elif type == "chat":
+            extras["chat_model"] = chat_model or extras["chat_model"]
+            extras["chat_provider"] = chat_provider or extras["chat_provider"]
+            extras["chat_temperature"] = chat_temperature or extras["chat_temperature"]
+
+    # Otherwise need to delete any custom config if it's not being used
+    else:
+        extras["chat_model"] = None
+        extras["chat_provider"] = None
+        extras["chat_temperature"] = None
+        extras["tts_model"] = None
+        extras["tts_provider"] = None
+        extras["tts_voice"] = None
+
+    # Write em out
+    new_prompts_map["note_types"][note_type][deck_id]["extras"][field] = extras
+    return new_prompts_map
+
+
+def remove_prompt(
+    prompts_map: PromptMap, note_type: str, deck_id: DeckId, field: str
+) -> PromptMap:
+    removed_map = deepcopy(prompts_map)
+
+    logger.debug(f"Removing {note_type}, {field}, {deck_id_to_name_map()[deck_id]}")
+
+    removed_map["note_types"][note_type][str(deck_id)]["fields"].pop(field)
+    removed_map["note_types"][note_type][str(deck_id)]["extras"].pop(field)
+
+    # If there are no more fields for this deck, pop the deck
+    if not len(removed_map["note_types"][note_type][str(deck_id)]["fields"]):
+        removed_map["note_types"][note_type].pop(str(deck_id))
+
+    # If no more decks for this note, pop the note
+    if not len(removed_map["note_types"][note_type]):
+        removed_map["note_types"].pop(note_type)
+
+    return removed_map

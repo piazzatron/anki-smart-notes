@@ -52,6 +52,9 @@ class Sentry:
         logger.debug(f"release: {release}, uuid: {uuid}, env: {env}")
 
         def before_send(event: Any, _: Dict[str, Any]) -> Union[Any, None]:
+            if not is_production():
+                return None
+
             if "logger" in event and event["logger"] != "smart_notes":
                 logger.debug("Not sending event to sentry")
                 return None
@@ -85,7 +88,8 @@ class Sentry:
 
             def new_hook(exc_type, exc_value, exc_traceback) -> None:
                 try:
-                    self.capture_exception(exc_value)
+                    if is_production():
+                        self.capture_exception(exc_value)
                 except Exception as e:
                     logger.error(f"Error in excepthook: {e}")
                 old_hook(exc_type, exc_value, exc_traceback)

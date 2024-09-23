@@ -32,6 +32,7 @@ from aqt.browser import SidebarItemType  # type: ignore
 
 from .app_state import app_state, is_app_unlocked_or_legacy
 from .config import config
+from .decks import deck_id_to_name_map
 from .logger import logger
 from .message_polling import start_polling_for_messages
 from .notes import is_ai_field, is_card_fully_processed
@@ -207,6 +208,11 @@ def on_start_actions() -> None:
     app_state.update_subscription_state()
     if sentry:
         sentry.configure_scope()
+
+    async def cache_leaf_decks_map():
+        deck_id_to_name_map()
+
+    run_async_in_background(cache_leaf_decks_map)
 
 
 @with_processor  # type: ignore
