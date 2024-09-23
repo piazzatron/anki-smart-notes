@@ -41,6 +41,7 @@ def get_prompts_for_note(
     deck_id: DeckId,
     to_lower: bool = False,
     override_prompts_map: Union[PromptMap, None] = None,
+    merge_deck_types=True,
 ) -> Union[Dict[str, str], None]:
     logger.debug(f"studying deck: {deck_id}")
     all_prompts = get_all_prompts(to_lower, override_prompts_map)
@@ -49,9 +50,10 @@ def get_prompts_for_note(
     global_prompts = prompts_for_note_type.get(GLOBAL_DECK_ID, {}).copy()
 
     # Add any missing global prompts
-    for field, prompt in global_prompts.items():
-        if not field in deck_prompts:
-            deck_prompts[field] = prompt
+    if merge_deck_types:
+        for field, prompt in global_prompts.items():
+            if not field in deck_prompts:
+                deck_prompts[field] = prompt
 
     return deck_prompts
 
@@ -65,14 +67,21 @@ def get_extras(
 ) -> Optional[FieldExtras]:
 
     # Lowercase the field names
-    extras = to_lowercase_dict(
+    deck_extras = to_lowercase_dict(
         (prompts or config.prompts_map)["note_types"]  # type: ignore
         .get(note_type, {})
         .get(str(deck_id), {})
         .get("extras", {})
     )
 
-    return extras.get(field.lower())
+    global_extras = to_lowercase_dict(
+        (prompts or config.prompts_map)["note_types"]  # type: ignore
+        .get(note_type, {})
+        .get(str(GLOBAL_DECK_ID), {})
+        .get("extras", {})
+    )
+
+    return deck_extras.get(field.lower()) or global_extras.get(field.lower())
 
 
 def get_all_prompts(
@@ -188,13 +197,13 @@ def add_or_update_prompts(
         new_prompts_map["note_types"][note_type] = {}
 
     # If deck type does not exist within the note type, add
-    if not new_prompts_map["note_types"][note_type].get(deck_id):
-        new_prompts_map["note_types"][note_type][deck_id] = {
+    if not new_prompts_map["note_types"][note_type].get(str(deck_id)):
+        new_prompts_map["note_types"][note_type][str(deck_id)] = {
             "fields": {},
             "extras": {},
         }
 
-    new_prompts_map["note_types"][note_type][deck_id]["fields"][field] = prompt
+    new_prompts_map["note_types"][note_type][str(deck_id)]["fields"][field] = prompt
 
     # Write out extras
     extras = (
@@ -232,7 +241,7 @@ def add_or_update_prompts(
         extras["tts_voice"] = None
 
     # Write em out
-    new_prompts_map["note_types"][note_type][deck_id]["extras"][field] = extras
+    new_prompts_map["note_types"][note_type][str(deck_id)]["extras"][field] = extras
     return new_prompts_map
 
 

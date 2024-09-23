@@ -24,6 +24,8 @@ from anki.decks import DeckId
 from anki.notes import Note
 from aqt import mw
 
+from .constants import GLOBAL_DECK_ID
+from .decks import deck_id_to_name_map
 from .prompts import get_generate_automatically, get_prompt_fields, get_prompts_for_note
 from .ui.ui_utils import show_message_box
 from .utils import get_fields
@@ -116,11 +118,14 @@ def get_chained_ai_fields(note_type: str, deck_id: DeckId) -> set[str]:
     return res
 
 
-def get_random_note(note_type: str) -> Union[Note, None]:
+def get_random_note(note_type: str, deck_id: DeckId) -> Union[Note, None]:
     if not mw or not mw.col:
         return None
 
-    sample_note_ids = mw.col.find_notes(f'note:"{note_type}"')
+    query = f'note:"{note_type}"'
+    if deck_id != GLOBAL_DECK_ID:
+        query += f" deck:*::{deck_id_to_name_map()[deck_id]}"
+    sample_note_ids = mw.col.find_notes(query)
 
     if not sample_note_ids:
         show_message_box("No cards found for this note type.")

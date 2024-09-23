@@ -20,6 +20,7 @@
 from typing import Callable, List, Literal, TypedDict, Union
 
 from anki.decks import DeckId
+from anki.notes import Note
 from aqt import (
     QComboBox,
     QDialog,
@@ -161,12 +162,16 @@ class PromptDialog(QDialog):
         )
         selected_target_field = field or default_note_state["target_field"]
 
-        automatic = get_generate_automatically(
-            note=selected_note_type,
-            field=selected_target_field,
-            deck_id=deck_id or GLOBAL_DECK_ID,
-            prompts=prompts_map,
-        )
+        automatic = (
+            get_generate_automatically(
+                note=selected_note_type,
+                field=selected_target_field,
+                deck_id=deck_id or GLOBAL_DECK_ID,
+                prompts=prompts_map,
+            )
+            if self.mode == "edit"
+            else True
+        )  # Default new cards to automatic always
 
         per_field_settings = self.get_per_field_settings(
             selected_note_type, selected_target_field, deck_id=deck_id or GLOBAL_DECK_ID
@@ -370,6 +375,7 @@ class PromptDialog(QDialog):
         self.state.state_changed.connect(self.render_ui)
         self.note_combo_box.onChange.connect(self._on_new_card_type_selected)
         self.field_combo_box.onChange.connect(self.on_target_field_changed)
+        self.deck_combo_box.onChange.connect(self.on_deck_selected)
         self.prompt_text_box.onChange.connect(
             lambda text: self.state.update({"prompt": text})
         )
@@ -482,15 +488,34 @@ class PromptDialog(QDialog):
             "source_field": source_field,
         }
 
-    def _on_new_card_type_selected(self, note_type: str):
+    def _on_new_card_type_selected(self, note_type: str) -> None:
         new_state = self._state_for_new_card_type(
-            note_type, self.state.s["type"], deck_id=self.state.s["selected_deck"]
+            note_type=note_type, type=self.state.s["type"], deck_id=GLOBAL_DECK_ID
         )
         self.state.update(
             {
                 "prompt": new_state["prompt"],
                 "selected_note_type": note_type,
                 "selected_note_field": new_state["target_field"],
+                "selected_deck": GLOBAL_DECK_ID,
+                "note_fields": new_state["target_fields"],
+                "tts_source_fields": new_state["source_fields"],
+                "selected_tts_source_field": new_state["source_field"],
+            }
+        )
+
+    def on_deck_selected(self, deck: DeckId) -> None:
+        note_type = self.state.s["selected_note_type"]
+        new_state = self._state_for_new_card_type(
+            note_type=note_type, type=self.state.s["type"], deck_id=deck
+        )
+
+        self.state.update(
+            {
+                "prompt": new_state["prompt"],
+                "selected_note_type": note_type,
+                "selected_note_field": new_state["target_field"],
+                "selected_deck": deck,
                 "note_fields": new_state["target_fields"],
                 "tts_source_fields": new_state["source_fields"],
                 "selected_tts_source_field": new_state["source_field"],
@@ -556,7 +581,9 @@ class PromptDialog(QDialog):
             return
 
         selected_note_type = self.state.s["selected_note_type"]
-        sample_note = get_random_note(selected_note_type)
+        sample_note = get_random_note(
+            selected_note_type, deck_id=self.state.s["selected_deck"]
+        )
 
         if not sample_note:
             show_message_box("Smart Notes: need at least one note of this note type!")
@@ -716,10 +743,15 @@ class PromptDialog(QDialog):
                     note_type=selected_note_type,
                     override_prompts_map=self.prompts_map,
                     deck_id=deck_id,
+                    merge_deck_types=False,
                 )
                 or {}
             ).keys()
         )
+        print("GETTING VALID PROMPTS")
+        print(deck_id)
+        print(all_valid_fields)
+        print(existing_prompts)
 
         return [field for field in all_valid_fields if field not in existing_prompts]
 
@@ -746,6 +778,9 @@ class PromptDialog(QDialog):
         return fields[0]
 
     def on_accept(self):
+        if not mw:
+            return
+
         prompt = self.state.s["prompt"]
         selected_card_type = self.state.s["selected_note_type"]
         selected_field = self.state.s["selected_note_field"]
@@ -755,10 +790,11 @@ class PromptDialog(QDialog):
 
         new_prompts_map = self._create_new_prompts_map()
 
-        sample_note = get_random_note(selected_card_type)
-        if not sample_note:
-            show_message_box("Smart Notes: need at least one note of this note type!")
-            return
+        # Make an ephemeral note
+        note_type = next(
+            e for e in mw.col.models.all() if e["name"] == selected_card_type
+        )
+        sample_note = Note(mw.col, note_type)
 
         err = prompt_has_error(
             prompt,

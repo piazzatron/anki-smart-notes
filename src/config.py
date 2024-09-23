@@ -21,7 +21,6 @@ import os
 from copy import deepcopy
 from typing import Any, Dict, Literal, Optional, TypedDict, Union, cast
 
-from anki.decks import DeckId
 from aqt import addons, mw
 
 from .constants import GLOBAL_DECK_ID
@@ -58,7 +57,7 @@ class NoteTypeMap(TypedDict):
 
 
 class PromptMap(TypedDict):
-    note_types: Dict[str, Dict[DeckId, NoteTypeMap]]
+    note_types: Dict[str, Dict[str, NoteTypeMap]]
 
 
 class Config:
@@ -190,7 +189,7 @@ class Config:
 
         for note_type, fields_and_extras in old_prompts_map["note_types"].items():
             new_prompts_map["note_types"][note_type] = {
-                GLOBAL_DECK_ID: fields_and_extras.copy()
+                str(GLOBAL_DECK_ID): fields_and_extras.copy()
             }
         self.prompts_map = new_prompts_map
 
