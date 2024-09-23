@@ -151,7 +151,7 @@ class Config:
                 config.legacy_openai_model = "gpt-4o-mini"
 
             if not self.did_deck_filter_migration:
-                do_deck_filter_migration()
+                self.perform_deck_filter_migration()
                 self.did_deck_filter_migration = True
 
         except Exception as e:
@@ -194,25 +194,23 @@ class Config:
         defaults = mgr.addonConfigDefaults("smart-notes")
         return defaults
 
+    def perform_deck_filter_migration(self) -> None:
+        print("Performing prompts map migration for per-deck prompts")
+        # This should never get called twice but just in case:
+        if self.did_deck_filter_migration:
+            return
+        old_prompts_map: OldPromptsMap = cast(OldPromptsMap, self.prompts_map)
+        new_prompts_map: PromptMap = {"note_types": {}}
+
+        for note_type, fields_and_extras in old_prompts_map["note_types"].items():
+            new_prompts_map["note_types"][note_type] = {
+                GLOBAL_DECK: fields_and_extras.copy()
+            }
+        self.prompts_map = new_prompts_map
+
 
 class OldPromptsMap(TypedDict):
     note_types: Dict[str, NoteTypeMap]
-
-
-def do_deck_filter_migration() -> None:
-    # This should never get called twice but just in case:
-    if config.did_deck_filter_migration:
-        return
-    old_prompts_map: OldPromptsMap = cast(OldPromptsMap, config.prompts_map)
-    new_prompts_map: PromptMap = {"note_types": {}}
-
-    for note_type, note_map in old_prompts_map["note_types"].items():
-        new_note_map: NoteTypeMap = {
-            "fields": note_map["fields"],
-            "extras": None,
-        }
-        new_prompts_map["note_types"][note_type] = {GLOBAL_DECK: new_note_map}
-        config.prompts_map = new_prompts_map
 
 
 config = Config()  # type: ignore

@@ -110,6 +110,7 @@ def generate_fields_dag(
                 manual=not should_generate_automatically,
                 is_target=bool(target_field and field_lower == target_field.lower()),
                 payload=payload,
+                deck_id=deck_id,
             )
 
         if not len(dag):
@@ -173,6 +174,7 @@ def has_cycle(dag: Dict[str, FieldNode]) -> bool:
 def prompt_has_error(
     prompt: str,
     note: Note,
+    deck_id: DeckId,
     target_field: Union[str, None] = None,
     prompts_map: Union[PromptMap, None] = None,
 ) -> Union[str, None]:
@@ -187,7 +189,7 @@ def prompt_has_error(
         if prompt_field not in note_fields:
             return f"Invalid field in prompt: {prompt_field}"
         # Is TTS
-        elif get_extras(note_type, prompt_field, prompts_map)["type"] == "tts":
+        elif get_extras(note_type, prompt_field, deck_id, prompts_map)["type"] == "tts":
             return "Cannot reference TTS fields in prompts"
 
     # Can't reference itself
@@ -195,7 +197,7 @@ def prompt_has_error(
         return "Cannot reference the target field in the prompt."
 
     dag = generate_fields_dag(
-        note, overwrite_fields=False, override_prompts_map=prompts_map
+        note, overwrite_fields=False, deck_id=deck_id, override_prompts_map=prompts_map
     )
 
     if has_cycle(dag):

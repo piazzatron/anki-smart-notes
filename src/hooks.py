@@ -34,7 +34,7 @@ from .app_state import app_state, is_app_unlocked_or_legacy
 from .config import config
 from .logger import logger
 from .message_polling import start_polling_for_messages
-from .notes import is_ai_field
+from .notes import is_ai_field, is_card_fully_processed
 from .processor import Processor
 from .sentry import pinger, sentry, with_sentry
 from .tasks import run_async_in_background
@@ -228,15 +228,15 @@ def on_editor_context(
     processor: Processor, editor_web_view: editor.EditorWebView, menu: QMenu
 ):
     editor = editor_web_view.editor
-    note = editor.note
-    if not note:
+    card = editor.card
+    if not card:
         return
 
     current_field_num = editor.currentField
     if current_field_num is None:
         return
 
-    ai_field = is_ai_field(current_field_num, note)
+    ai_field = is_ai_field(current_field_num, card)
     if not ai_field:
         return
     item = QAction("✨ Generate Smart Field", menu)
@@ -285,7 +285,7 @@ def on_review(processor: Processor, card: Card):
         # Suppressing invocation of -[NSApplication runModalSession:]. -[NSApplication runModalSession:] cannot run inside a transaction begin/commit pair, or inside a transaction commit. Consider switching to an asynchronous equivalent.
         bump_usage_counter()
 
-    processor.process_card(note, overwrite_fields=False, on_success=on_success)
+    processor.process_card(card, overwrite_fields=False, on_success=on_success)
 
 
 @with_processor  # type: ignore

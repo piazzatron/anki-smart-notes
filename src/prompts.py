@@ -20,7 +20,7 @@
 """Helpful functions for working with prompts and cards"""
 
 import re
-from typing import Dict, List, Literal, Union
+from typing import Dict, List, Literal, Union, cast
 
 from anki.decks import DeckId
 from anki.notes import Note
@@ -38,18 +38,28 @@ def get_prompts_for_note(
     to_lower: bool = False,
     override_prompts_map: Union[PromptMap, None] = None,
 ) -> Union[Dict[str, str], None]:
-    all_prompts = _get_prompts(to_lower, override_prompts_map)
-    deck_prompts = all_prompts.get(note_type, {})
-    return deck_prompts.get(deck_id) or deck_prompts.get(GLOBAL_DECK)
+    print(deck_id)
+    all_prompts = get_all_prompts(to_lower, override_prompts_map)
+    prompts_for_note_type = all_prompts.get(note_type, {})
+    deck_prompts = prompts_for_note_type.get(deck_id, {}).copy()
+    global_prompts = prompts_for_note_type.get(GLOBAL_DECK, {}).copy()
+
+    # Add any missing global prompts
+    for field, prompt in global_prompts.items():
+        if not field in deck_prompts:
+            deck_prompts[field] = prompt
+
+    return deck_prompts
 
 
-def _get_prompts(
+def get_all_prompts(
     to_lower: bool = False, override_prompts_map: Union[PromptMap, None] = None
 ) -> Dict[str, Dict[DeckId, Dict[str, str]]]:
     """Gets the prompts map. Maps note_type -> deck -> {field -> prompt}"""
     prompts_map = {
         note_type: {
-            deck: {
+            # Tricky str -> int convert here
+            cast(DeckId, int(deck)): {
                 field: prompt
                 for field, prompt in note_type_map.get("fields", {}).items()
             }
@@ -68,11 +78,12 @@ def _get_prompts(
             }
             for note_type, deck in prompts_map.items()
         }
+
     return prompts_map
 
 
 def get_extras(
-    note: str,
+    note_type: str,
     field: str,
     deck_id: DeckId,
     prompts: Union[PromptMap, None] = None,
@@ -82,7 +93,7 @@ def get_extras(
     # Lowercase the field names
     extras = to_lowercase_dict(
         (prompts or config.prompts_map)["note_types"]  # type: ignore
-        .get(note, {})
+        .get(note_type, {})
         .get(deck_id, {})
         .get("extras", {})
     )
@@ -118,7 +129,7 @@ def get_generate_automatically(
     deck_id: DeckId,
     prompts: Union[PromptMap, None] = None,
 ) -> bool:
-    extras = get_extras(note=note, field=field, deck_id=deck_id, prompts=prompts)
+    extras = get_extras(note_type=note, field=field, deck_id=deck_id, prompts=prompts)
     return bool(extras.get("automatic", EXTRAS_DEFAULT_AUTOMATIC))
 
 

@@ -51,7 +51,7 @@ from ..models import (
     legacy_openai_chat_models,
 )
 from ..processor import Processor
-from ..prompts import get_extras, get_prompts_for_note
+from ..prompts import get_all_prompts, get_extras, get_prompts_for_note
 from ..utils import get_version
 from .account_options import AccountOptions
 from .chat_options import ChatOptions, provider_model_map
@@ -254,23 +254,26 @@ class AddonOptionsDialog(QDialog):
         self.table.setRowCount(0)
 
         row = 0
-        for note_type, field_prompts in self.state.s["prompts_map"][
-            "note_types"
-        ].items():
-            for field, prompt in field_prompts["fields"].items():
-                extras = get_extras(note_type, field)
-                type = extras["type"]
-                self.table.insertRow(self.table.rowCount())
-                items = [
-                    QTableWidgetItem(note_type),
-                    QTableWidgetItem(field),
-                    QTableWidgetItem("text" if type == "chat" else "tts"),
-                    QTableWidgetItem(prompt if type == "chat" else "🔈"),
-                ]
-                for i, item in enumerate(items):
-                    item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsEditable)
-                    self.table.setItem(row, i, item)
-                row += 1
+        all_prompts = get_all_prompts(override_prompts_map=self.state.s["prompts_map"])
+        for note_type, deck_prompts in all_prompts.items():
+            for deck_id, field_prompts in deck_prompts.items():
+                for field, prompt in field_prompts.items():
+                    # TODO: show deck col
+                    extras = get_extras(
+                        note_type=note_type, field=field, deck_id=deck_id
+                    )
+                    type = extras["type"]
+                    self.table.insertRow(self.table.rowCount())
+                    items = [
+                        QTableWidgetItem(note_type),
+                        QTableWidgetItem(field),
+                        QTableWidgetItem("text" if type == "chat" else "tts"),
+                        QTableWidgetItem(prompt if type == "chat" else "🔈"),
+                    ]
+                    for i, item in enumerate(items):
+                        item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsEditable)
+                        self.table.setItem(row, i, item)
+                    row += 1
 
         # Ensure the correct row is always selected
         # shouldn't need the second and condition, but defensive

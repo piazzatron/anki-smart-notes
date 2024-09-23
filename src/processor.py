@@ -34,14 +34,14 @@ from .app_state import (
     is_app_unlocked_or_legacy,
 )
 from .config import Config
-from .constants import CHAINED_FIELDS_SKIPPED_ERROR, STANDARD_BATCH_LIMIT
+from .constants import STANDARD_BATCH_LIMIT
 from .dag import generate_fields_dag
 from .field_resolver import FieldResolver
 from .logger import logger
 from .models import ChatModels, ChatProviders
 from .nodes import FieldNode
-from .notes import get_note_type, get_note_types, has_chained_ai_fields
-from .prompts import get_prompts
+from .notes import get_note_type
+from .prompts import get_prompts_for_note
 from .sentry import run_async_in_background_with_sentry
 from .ui.ui_utils import show_message_box
 from .utils import bump_usage_counter, run_on_main
@@ -148,7 +148,7 @@ class Processor:
                 batch = to_process_ids[:limit]
                 to_process_ids = to_process_ids[limit:]
                 updated, failed, skipped = await self._process_notes_batch(
-                    batch, overwrite_fields=overwrite_fields
+                    batch, overwrite_fields=overwrite_fields, did_map=did_map
                 )
 
                 processed_count += len(updated) + len(failed)
@@ -193,7 +193,6 @@ class Processor:
             return ([], [], [])
 
         notes = [mw.col.get_note(note_id) for note_id in note_ids]
-        prompts = get_prompts()
 
         # Only process notes that have prompts
         to_process: List[Note] = []
@@ -201,7 +200,8 @@ class Processor:
         for note in notes:
 
             note_type = get_note_type(note)
-            if note_type not in prompts:
+            prompts = get_prompts_for_note(note_type, did_map[note.id])
+            if not prompts:
                 logger.debug("Error: no prompts found for note type")
                 skipped.append(note)
             else:
@@ -295,9 +295,9 @@ class Processor:
         """Process a single note, returns whether any fields were updated. Optionally can target specific fields. Caller responsible for handling any exceptions."""
 
         note_type = get_note_type(note)
-        field_prompts = get_prompts().get(note_type, None)
+        prompts_for_note = get_prompts_for_note(note_type, deck_id)
 
-        if not field_prompts:
+        if not prompts_for_note:
             logger.debug("no prompts found for note type")
             return False
 
@@ -403,29 +403,13 @@ class Processor:
         self.req_in_progress = False
 
     def _assert_valid_app_mode(self) -> bool:
-        """For now, checks that if the app is locked, there are no chained smart fields"""
-        # This should be blocked before here, but JIC
-        if is_app_unlocked():
-            return True
-
-        # Check for chained smart fields
-        if has_api_key():
-            all_note_types = get_note_types()
-            has_chained_fields = any(
-                has_chained_ai_fields(note_type) for note_type in all_note_types
-            )
-            logger.debug(f"Has chained fields: {has_chained_fields}")
-            if has_chained_fields and not self.config.did_show_chained_error_dialog:
-                show_message_box(CHAINED_FIELDS_SKIPPED_ERROR)
-                self.config.did_show_chained_error_dialog = True
-            return True
-
-        return False
+        return is_app_unlocked() or has_api_key()
 
     def get_chat_response(
         self,
         prompt: str,
         note: Note,
+        deck_id: DeckId,
         provider: ChatProviders,
         model: ChatModels,
         field_lower: str,
@@ -450,6 +434,7 @@ class Processor:
         chat_fn = lambda: self.field_resolver.get_chat_response(
             prompt=prompt,
             note=note,
+            deck_id=deck_id,
             model=model,
             provider=provider,
             field_lower=field_lower,
