@@ -204,18 +204,14 @@ def prompt_has_error(
 
     # Check for referencing invalid fields
     for prompt_field in prompt_fields:
-        # Doesn't exist
-        extras = get_extras(note_type, prompt_field, deck_id, prompts_map)
-
-        if not extras:
-            logger.error("prompt_has_error: No extras!")
-            return "An unknown error has occured."
 
         if prompt_field not in note_fields:
             return f"Invalid field in prompt: {prompt_field}"
 
+        extras = get_extras(note_type, prompt_field, deck_id, prompts_map)
+
         # Is TTS
-        elif extras["type"] == "tts":
+        if extras and extras["type"] == "tts":
             return "Cannot reference TTS fields in prompts"
 
     # Can't reference itself
