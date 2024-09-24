@@ -28,7 +28,6 @@ import sentry_sdk
 from aqt import mw
 from sentry_sdk.integrations.logging import LoggingIntegration
 from sentry_sdk.session import Session
-from sentry_sdk.types import Event
 
 from .. import env
 from .config import config
@@ -52,7 +51,7 @@ class Sentry:
         logger.debug("Initializing sentry...")
         logger.debug(f"release: {release}, uuid: {uuid}, env: {env}")
 
-        def before_send(event: Event, hints: Dict[str, Any]) -> Union[Event, None]:
+        def before_send(event: Any, _: Dict[str, Any]) -> Union[Any, None]:
             if "logger" in event and event["logger"] != "smart_notes":
                 logger.debug("Not sending event to sentry")
                 return None
