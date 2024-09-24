@@ -287,14 +287,14 @@ class PromptDialog(QDialog):
         layout.addWidget(card_label)
         layout.addWidget(self.note_combo_box)
         layout.addWidget(card_explanation)
-        layout.addSpacerItem(QSpacerItem(0, 12))
+        layout.addSpacerItem(QSpacerItem(0, 16))
 
         deck_label = QLabel("Deck")
         deck_label.setFont(font_bold)
-        deck_subtitle = QLabel(
-            "To which decks this Smart Field applies. Can only apply to decks without children."
+        self.deck_subtitle = QLabel(
+            "Optionally apply a Smart Field to a specific deck (can only apply to decks without children decks)."
         )
-        deck_subtitle.setFont(font_small)
+        self.deck_subtitle.setFont(font_small)
         self.deck_combo_box = ReactiveComboBox(
             self.state,
             "decks",
@@ -304,8 +304,8 @@ class PromptDialog(QDialog):
         )
         layout.addWidget(deck_label)
         layout.addWidget(self.deck_combo_box)
-        layout.addWidget(deck_subtitle)
-        layout.addSpacerItem(QSpacerItem(0, 12))
+        layout.addWidget(self.deck_subtitle)
+        layout.addSpacerItem(QSpacerItem(0, 16))
 
         if self.state.s["type"] == "tts":
             self.tts_source_combo_box = ReactiveComboBox(
@@ -329,7 +329,7 @@ class PromptDialog(QDialog):
         layout.addWidget(field_label)
         layout.addWidget(self.field_combo_box)
         layout.addWidget(field_explanation)
-        layout.addSpacerItem(QSpacerItem(0, 12))
+        layout.addSpacerItem(QSpacerItem(0, 16))
 
         self.test_button = QPushButton("✨ Test Smart Field ✨")
 
@@ -339,6 +339,7 @@ class PromptDialog(QDialog):
         text_only_layout.setContentsMargins(0, 0, 0, 0)
         text_only_container.setHidden(self.state.s["type"] == "tts")
         prompt_label = QLabel("Prompt")
+        prompt_label.setFont(font_bold)
         self.prompt_text_box = ReactiveEditText(self.state, "prompt")
         self.prompt_text_box.setMinimumHeight(150)
         self.prompt_text_box.setAlignment(Qt.AlignmentFlag.AlignTop)
@@ -388,8 +389,14 @@ class PromptDialog(QDialog):
         if self.mode == "edit":
             self.note_combo_box.setEnabled(False)
             self.field_combo_box.setEnabled(False)
+            self.deck_combo_box.setEnabled(False)
             if hasattr(self, "tts_source_combo_box"):
                 self.tts_source_combo_box.setEnabled(False)
+        if is_app_legacy():
+            self.deck_combo_box.setEnabled(False)
+            self.deck_subtitle.setText(
+                "🔒 Deck based Smart Fields are only available on paid plans!"
+            )
         return container
 
     def render_options_tab(self) -> QWidget:
@@ -748,7 +755,7 @@ class PromptDialog(QDialog):
                 or {}
             ).keys()
         )
-        print("GETTING VALID PROMPTS")
+        print("GOT VALID PROMPTS")
         print(deck_id)
         print(all_valid_fields)
         print(existing_prompts)
