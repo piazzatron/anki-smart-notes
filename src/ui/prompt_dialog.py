@@ -212,7 +212,7 @@ class PromptDialog(QDialog):
                 ]
             ),
             "decks": get_all_deck_ids(),
-            "selected_deck": GLOBAL_DECK_ID,
+            "selected_deck": deck_id,
             **per_field_settings,
         }
         self.state = StateManager[State](initial_state)
@@ -310,12 +310,14 @@ class PromptDialog(QDialog):
         self.field_combo_box = ReactiveComboBox(
             self.state, "note_fields", "selected_note_field"
         )
-        field_label = QLabel("Destination Field")
+        field_label = QLabel(
+            "Destination Field" if self.field_type == "tts" else "Field"
+        )
         field_label.setFont(font_bold)
         field_explanation = QLabel(
-            "The field that will be AI generated."
+            "The AI generated Smart Field."
             if self.field_type == "chat"
-            else "The field that will store the audio file from TTS."
+            else "The field that will store and play the audio file."
         )
         field_explanation.setFont(font_small)
         layout.addWidget(field_label)
@@ -326,7 +328,7 @@ class PromptDialog(QDialog):
         deck_label = QLabel("Deck")
         deck_label.setFont(font_bold)
         self.deck_subtitle = QLabel(
-            f"Optionally restrict this {'Smart Field' if self.field_type == 'chat' else 'TTS Field'} to a specific deck (useful for sharing note types between decks)."
+            f"Optionally apply this {'Smart Field' if self.field_type == 'chat' else 'TTS Field'} to a specific deck (useful for sharing note types between decks)."
         )
         self.deck_subtitle.setMaximumWidth(500)
         self.deck_subtitle.setFont(font_small)
