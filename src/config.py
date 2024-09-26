@@ -17,13 +17,14 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import json
 import os
 from copy import deepcopy
 from typing import Any, Dict, Literal, Optional, TypedDict, Union, cast
 
 from aqt import addons, mw
 
-from .constants import GLOBAL_DECK_ID
+from .constants import DEFAULT_TEMPERATURE, GLOBAL_DECK_ID
 from .models import (
     ChatModels,
     ChatProviders,
@@ -32,6 +33,8 @@ from .models import (
     TTSProviders,
     legacy_openai_chat_models,
 )
+from .ui.rate_dialog import RateDialog
+from .utils import USES_BEFORE_RATE_DIALOG, get_file_path
 
 
 class FieldExtras(TypedDict):
@@ -183,6 +186,8 @@ class Config:
         if self.did_deck_filter_migration:
             return
 
+        self._backup_config()
+
         print("Migration: prompts map migration for per-deck prompts")
         old_prompts_map: OldPromptsMap = cast(OldPromptsMap, self.prompts_map)
         new_prompts_map: PromptMap = {"note_types": {}}
@@ -199,6 +204,9 @@ class Config:
         """Old extras might not have had some values or even existed at all. Rather than accomodate that in the data model, make it right."""
         if self.did_cleanup_config_defaults:
             return
+
+        # Also deal w chat_temperature default
+        self.chat_temperature = DEFAULT_TEMPERATURE
 
         print("Migration: writing sane defaults for prompt extras")
         prompts_map = deepcopy(self.prompts_map)
@@ -223,8 +231,25 @@ class Config:
                     if not "use_custom_model" in extras:
                         extras["use_custom_model"] = False
 
+                    # Lastly, write out better temperature
+                    if extras["chat_temperature"] is not None:
+                        extras["chat_temperature"] = DEFAULT_TEMPERATURE
+
         self.prompts_map = prompts_map
         self.did_cleanup_config_defaults = True
+
+    def _backup_config(self) -> None:
+        try:
+            if not mw:
+                return
+            config = mw.addonManager.getConfig(__name__)
+            if config:
+                json_config = json.dumps(config)
+                file_path = get_file_path("config_backup.json")
+                with open(file_path, "w", encoding="utf-8") as f:
+                    f.write(json_config)
+        except Exception as e:
+            print(f"Could not backup config due to error: {e}")
 
 
 class OldPromptsMap(TypedDict):
@@ -232,3 +257,11 @@ class OldPromptsMap(TypedDict):
 
 
 config = Config()  # type: ignore
+
+
+def bump_usage_counter() -> None:
+    config.times_used += 1
+    if config.times_used > USES_BEFORE_RATE_DIALOG and not config.did_show_rate_dialog:
+        config.did_show_rate_dialog = True
+        dialog = RateDialog()
+        dialog.exec()

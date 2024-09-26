@@ -77,7 +77,7 @@ class ChatOptions(QWidget):
             )
         )
         self.temperature = ReactiveDoubleSpinBox(self.state, "chat_temperature")
-        self.temperature.setRange(0, 1)
+        self.temperature.setRange(0, 2)
         self.temperature.setSingleStep(0.1)
         self.temperature.onChange.connect(
             lambda temp: self.state.update({"chat_temperature": temp})

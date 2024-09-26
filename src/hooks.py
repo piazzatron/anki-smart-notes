@@ -32,7 +32,7 @@ from aqt.addcards import AddCards
 from aqt.browser import SidebarItemType  # type: ignore
 
 from .app_state import app_state, is_app_unlocked_or_legacy
-from .config import config
+from .config import bump_usage_counter, config
 from .decks import deck_id_to_name_map
 from .logger import logger
 from .message_polling import start_polling_for_messages
@@ -44,7 +44,7 @@ from .ui.addon_options_dialog import AddonOptionsDialog
 from .ui.changelog import perform_update_check
 from .ui.sparkle import Sparkle
 from .ui.ui_utils import show_message_box
-from .utils import bump_usage_counter, make_uuid
+from .utils import make_uuid
 
 
 def with_processor(fn):

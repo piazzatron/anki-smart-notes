@@ -2,7 +2,7 @@
   "openai_api_key": "",
   "chat_provider": "openai",
   "chat_model": "gpt-4o-mini",
-  "chat_temperature": 0,
+  "chat_temperature": 1,
   "tts_provider": "openai",
   "tts_voice": "alloy",
   "tts_model": "tts-1",

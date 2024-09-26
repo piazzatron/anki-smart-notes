@@ -33,7 +33,7 @@ from .app_state import (
     is_app_unlocked,
     is_app_unlocked_or_legacy,
 )
-from .config import Config
+from .config import Config, bump_usage_counter
 from .constants import STANDARD_BATCH_LIMIT
 from .dag import generate_fields_dag
 from .field_resolver import FieldResolver
@@ -44,7 +44,7 @@ from .notes import get_note_type
 from .prompts import get_prompts_for_note
 from .sentry import run_async_in_background_with_sentry
 from .ui.ui_utils import show_message_box
-from .utils import bump_usage_counter, run_on_main
+from .utils import run_on_main
 
 # OPEN_AI rate limits
 NEW_OPEN_AI_MODEL_REQ_PER_MIN = 500
