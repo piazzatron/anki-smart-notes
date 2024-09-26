@@ -41,7 +41,7 @@ def get_prompts_for_note(
     deck_id: DeckId,
     to_lower: bool = False,
     override_prompts_map: Union[PromptMap, None] = None,
-    merge_deck_types=True,
+    fallback_to_global_deck=True,
 ) -> Union[Dict[str, str], None]:
     all_prompts = get_all_prompts(to_lower, override_prompts_map)
     prompts_for_note_type = all_prompts.get(note_type, {})
@@ -49,7 +49,7 @@ def get_prompts_for_note(
     global_prompts = deepcopy(prompts_for_note_type.get(GLOBAL_DECK_ID, {}))
 
     # Add any missing global prompts
-    if merge_deck_types:
+    if fallback_to_global_deck:
         for field, prompt in global_prompts.items():
             if not field in deck_prompts:
                 deck_prompts[field] = prompt
@@ -63,6 +63,7 @@ def get_extras(
     field: str,
     deck_id: DeckId,
     prompts: Union[PromptMap, None] = None,
+    fallback_to_global_deck: bool = True,
 ) -> Optional[FieldExtras]:
 
     # Lowercase the field names
@@ -80,7 +81,9 @@ def get_extras(
         .get("extras", {})
     )
 
-    return deck_extras.get(field.lower()) or global_extras.get(field.lower())
+    return deck_extras.get(field.lower()) or (
+        global_extras.get(field.lower()) if fallback_to_global_deck else None
+    )
 
 
 def get_all_prompts(
@@ -211,6 +214,7 @@ def add_or_update_prompts(
             note_type=note_type,
             field=field,
             deck_id=deck_id,
+            fallback_to_global_deck=False,
         )
         or DEFAULT_EXTRAS
     )

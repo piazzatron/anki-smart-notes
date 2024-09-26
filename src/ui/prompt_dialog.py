@@ -17,7 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Callable, List, Literal, TypedDict, Union
+from typing import Any, Callable, Dict, List, Literal, TypedDict, Union, cast
 
 from anki.decks import DeckId
 from anki.notes import Note
@@ -102,10 +102,12 @@ class State(TypedDict):
 
 class PartialState(TypedDict):
     prompt: str
-    target_fields: List[str]
-    target_field: str
-    source_fields: List[str]
-    source_field: str
+    note_fields: List[str]
+    selected_note_field: str
+    tts_source_fields: List[str]
+    selected_tts_source_field: str
+    selected_note_type: str
+    selected_deck: DeckId
 
 
 class PerFieldSettings(TypedDict):
@@ -160,7 +162,7 @@ class PromptDialog(QDialog):
         default_note_state = self._state_for_new_card_type(
             selected_note_type, field_type, deck_id=deck_id
         )
-        selected_target_field = field or default_note_state["target_field"]
+        selected_target_field = field or default_note_state["selected_note_field"]
 
         automatic = (
             get_generate_automatically(
@@ -179,7 +181,7 @@ class PromptDialog(QDialog):
 
         # Only if it's a new card, we need to get the fields for the selected card type
         target_fields = (
-            default_note_state["target_fields"]
+            default_note_state["note_fields"]
             if self.mode == "new"
             else get_fields(selected_note_type)
         )
@@ -188,7 +190,7 @@ class PromptDialog(QDialog):
         selected_tts_source_field = (
             (self._attempt_to_parse_source_field(prompt) or "")
             if prompt
-            else default_note_state["source_field"]
+            else default_note_state["selected_tts_source_field"]
         )
 
         initial_state: State = {
@@ -197,7 +199,7 @@ class PromptDialog(QDialog):
             "selected_note_type": selected_note_type,
             "note_types": note_types,
             # tts
-            "tts_source_fields": default_note_state["source_fields"],
+            "tts_source_fields": default_note_state["tts_source_fields"],
             "selected_tts_source_field": selected_tts_source_field,
             # target fields
             "note_fields": target_fields,
@@ -500,49 +502,32 @@ class PromptDialog(QDialog):
         source_fields = self.get_valid_fields_for_prompt(note_type, deck_id=deck_id)
         source_field = self._get_initial_source_field(note_type, deck_id=deck_id)
         prompt = self.get_tts_prompt(source_field) if type == "tts" else ""
+
         return {
+            "selected_note_type": note_type,
             "prompt": prompt,
-            "target_fields": target_fields,
-            "target_field": target_field,
-            "source_fields": source_fields,
-            "source_field": source_field,
+            "selected_deck": deck_id,
+            "selected_note_field": target_field,
+            "note_fields": target_fields,
+            "tts_source_fields": source_fields,
+            "selected_tts_source_field": source_field,
         }
 
     def _on_new_card_type_selected(self, note_type: str) -> None:
         new_state = self._state_for_new_card_type(
             note_type=note_type, type=self.state.s["type"], deck_id=GLOBAL_DECK_ID
         )
-        self.state.update(
-            {
-                "prompt": new_state["prompt"],
-                "selected_note_type": note_type,
-                "selected_note_field": new_state["target_field"],
-                "selected_deck": GLOBAL_DECK_ID,
-                "note_fields": new_state["target_fields"],
-                "tts_source_fields": new_state["source_fields"],
-                "selected_tts_source_field": new_state["source_field"],
-            }
-        )
+        self.state.update(cast(Dict[str, Any], new_state))
 
     def on_deck_selected(self, deck: str) -> None:
         # Dumb hack bc of leaky abstraction reactive combo box + int keys
-        deck = DeckId(int(deck))  # type: ignore
+        deck_id = DeckId(int(deck))
         note_type = self.state.s["selected_note_type"]
         new_state = self._state_for_new_card_type(
-            note_type=note_type, type=self.state.s["type"], deck_id=deck
+            note_type=note_type, type=self.state.s["type"], deck_id=deck_id
         )
 
-        self.state.update(
-            {
-                "prompt": new_state["prompt"],
-                "selected_note_type": note_type,
-                "selected_note_field": new_state["target_field"],
-                "selected_deck": deck,
-                "note_fields": new_state["target_fields"],
-                "tts_source_fields": new_state["source_fields"],
-                "selected_tts_source_field": new_state["source_field"],
-            }
-        )
+        self.state.update(cast(Dict[str, Any], new_state))
 
     def on_source_changed(self, source: str) -> None:
         self.state.update({"prompt": self.get_tts_prompt(source)})
@@ -741,6 +726,7 @@ class PromptDialog(QDialog):
                     field=field,
                     prompts=self.prompts_map,
                     deck_id=deck_id,
+                    fallback_to_global_deck=False,
                 )
                 or {"type": "chat"}  # Should never happen
             )["type"]
@@ -765,7 +751,7 @@ class PromptDialog(QDialog):
                     note_type=selected_note_type,
                     override_prompts_map=self.prompts_map,
                     deck_id=deck_id,
-                    merge_deck_types=False,
+                    fallback_to_global_deck=False,
                 )
                 or {}
             ).keys()
