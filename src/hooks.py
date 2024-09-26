@@ -322,7 +322,8 @@ def add_deck_option(
     if sidebar_item.item_type == SidebarItemType.NOTETYPE:
         cards = mw.col.find_cards(f'"note:{sidebar_item.name}"')
     elif sidebar_item.item_type in [SidebarItemType.DECK, SidebarItemType.DECK_CURRENT]:
-        cards = mw.col.find_cards(f'"deck:{sidebar_item.name}"')
+        query = f'"deck:{sidebar_item.full_name}"'
+        cards = mw.col.find_cards(query)
     else:
         return
 
