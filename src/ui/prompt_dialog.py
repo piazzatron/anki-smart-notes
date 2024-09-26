@@ -70,9 +70,9 @@ from .state_manager import StateManager
 from .tts_options import TTSOptions
 from .ui_utils import default_form_layout, font_bold, font_small, show_message_box
 
-explanation = """Write a "prompt" to help the chat model generate your target smart field.
+explanation = """Write a "prompt" to help the chat model generate your Smart Field.
 
-You may reference any other field via enclosing it in {{double curly braces}}. Valid fields are listed below for convenience.
+Your prompt may reference other fields via {{double curly braces}}. Valid fields are listed below for convenience.
 
 Test out your prompt with the test button before saving it!
 """
@@ -250,6 +250,8 @@ class PromptDialog(QDialog):
             or DEFAULT_EXTRAS
         )
 
+        extras["type"] = self.field_type
+
         return {
             "chat_model": extras.get("chat_model") or config.chat_model,
             "chat_provider": extras.get("chat_provider") or config.chat_provider,
@@ -282,18 +284,51 @@ class PromptDialog(QDialog):
         )
         card_label = QLabel("Note Type")
         card_label.setFont(font_bold)
-        card_explanation = QLabel("Which note type should have the Smart Field.")
+        card_explanation = QLabel(
+            f"The note type that will have the {'Smart Field' if self.field_type == 'chat' else 'TTS field'}."
+        )
         card_explanation.setFont(font_small)
         layout.addWidget(card_label)
         layout.addWidget(self.note_combo_box)
         layout.addWidget(card_explanation)
-        layout.addSpacerItem(QSpacerItem(0, 16))
+        layout.addSpacerItem(QSpacerItem(0, 20))
+
+        if self.state.s["type"] == "tts":
+            self.tts_source_combo_box = ReactiveComboBox(
+                self.state, "tts_source_fields", "selected_tts_source_field"
+            )
+            self.tts_source_combo_box.onChange.connect(self.on_source_changed)
+            source_label = QLabel("Source Field")
+            source_label.setFont(font_bold)
+            source_explainer = QLabel("The field that will be spoken.")
+            source_explainer.setFont(font_small)
+            layout.addWidget(source_label)
+            layout.addWidget(self.tts_source_combo_box)
+            layout.addWidget(source_explainer)
+            layout.addItem(QSpacerItem(0, 20))
+
+        self.field_combo_box = ReactiveComboBox(
+            self.state, "note_fields", "selected_note_field"
+        )
+        field_label = QLabel("Destination Field")
+        field_label.setFont(font_bold)
+        field_explanation = QLabel(
+            "The field that will be AI generated."
+            if self.field_type == "chat"
+            else "The field that will store the audio file from TTS."
+        )
+        field_explanation.setFont(font_small)
+        layout.addWidget(field_label)
+        layout.addWidget(self.field_combo_box)
+        layout.addWidget(field_explanation)
+        layout.addSpacerItem(QSpacerItem(0, 20))
 
         deck_label = QLabel("Deck")
         deck_label.setFont(font_bold)
         self.deck_subtitle = QLabel(
-            "Optionally apply a Smart Field to a specific deck (can only apply to decks without children decks)."
+            f"Optionally restrict this {'Smart Field' if self.field_type == 'chat' else 'TTS Field'} to a specific deck (useful for sharing note types between decks)."
         )
+        self.deck_subtitle.setMaximumWidth(500)
         self.deck_subtitle.setFont(font_small)
         self.deck_combo_box = ReactiveComboBox(
             self.state,
@@ -305,31 +340,7 @@ class PromptDialog(QDialog):
         layout.addWidget(deck_label)
         layout.addWidget(self.deck_combo_box)
         layout.addWidget(self.deck_subtitle)
-        layout.addSpacerItem(QSpacerItem(0, 16))
-
-        if self.state.s["type"] == "tts":
-            self.tts_source_combo_box = ReactiveComboBox(
-                self.state, "tts_source_fields", "selected_tts_source_field"
-            )
-            self.tts_source_combo_box.onChange.connect(self.on_source_changed)
-            source_label = QLabel("Source Field")
-            source_label.setFont(font_bold)
-            layout.addWidget(source_label)
-            layout.addWidget(self.tts_source_combo_box)
-
-        self.field_combo_box = ReactiveComboBox(
-            self.state, "note_fields", "selected_note_field"
-        )
-        field_label = QLabel("Field")
-        field_label.setFont(font_bold)
-        field_explanation = QLabel(
-            "Which field should be automatically generated as a Smart Field."
-        )
-        field_explanation.setFont(font_small)
-        layout.addWidget(field_label)
-        layout.addWidget(self.field_combo_box)
-        layout.addWidget(field_explanation)
-        layout.addSpacerItem(QSpacerItem(0, 16))
+        layout.addSpacerItem(QSpacerItem(0, 20))
 
         self.test_button = QPushButton("✨ Test Smart Field ✨")
 
@@ -512,7 +523,8 @@ class PromptDialog(QDialog):
         )
 
     def on_deck_selected(self, deck: str) -> None:
-        deck = DeckId(int(deck))
+        # Dumb hack bc of leaky abstraction reactive combo box + int keys
+        deck = DeckId(int(deck))  # type: ignore
         note_type = self.state.s["selected_note_type"]
         new_state = self._state_for_new_card_type(
             note_type=note_type, type=self.state.s["type"], deck_id=deck
@@ -756,10 +768,6 @@ class PromptDialog(QDialog):
                 or {}
             ).keys()
         )
-        print("GOT VALID PROMPTS")
-        print(deck_id)
-        print(all_valid_fields)
-        print(existing_prompts)
 
         return [field for field in all_valid_fields if field not in existing_prompts]
 
