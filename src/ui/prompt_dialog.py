@@ -511,7 +511,8 @@ class PromptDialog(QDialog):
             }
         )
 
-    def on_deck_selected(self, deck: DeckId) -> None:
+    def on_deck_selected(self, deck: str) -> None:
+        deck = DeckId(int(deck))
         note_type = self.state.s["selected_note_type"]
         new_state = self._state_for_new_card_type(
             note_type=note_type, type=self.state.s["type"], deck_id=deck

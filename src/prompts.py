@@ -43,18 +43,11 @@ def get_prompts_for_note(
     override_prompts_map: Union[PromptMap, None] = None,
     merge_deck_types=True,
 ) -> Union[Dict[str, str], None]:
-    logger.debug(f"studying deck: {deck_id}")
     all_prompts = get_all_prompts(to_lower, override_prompts_map)
     prompts_for_note_type = all_prompts.get(note_type, {})
-    # TODO: left off here, for some reason this is empty?!?! No freaking clue.
-    deck_prompts = prompts_for_note_type.get(deck_id, {}).copy()
-    global_prompts = prompts_for_note_type.get(GLOBAL_DECK_ID, {}).copy()
+    deck_prompts = deepcopy(prompts_for_note_type.get(deck_id, {}))
+    global_prompts = deepcopy(prompts_for_note_type.get(GLOBAL_DECK_ID, {}))
 
-    print("IN GET PROMPTS FOR NOTE")
-    print(deck_id)
-    print(prompts_for_note_type)
-    print(deck_prompts)
-    print(global_prompts)
     # Add any missing global prompts
     if merge_deck_types:
         for field, prompt in global_prompts.items():
