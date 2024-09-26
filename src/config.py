@@ -17,11 +17,14 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import json
 import os
-from typing import Any, Dict, Literal, Optional, TypedDict, Union
+from copy import deepcopy
+from typing import Any, Dict, Literal, Optional, TypedDict, Union, cast
 
 from aqt import addons, mw
 
+from .constants import DEFAULT_TEMPERATURE, GLOBAL_DECK_ID
 from .models import (
     ChatModels,
     ChatProviders,
@@ -30,48 +33,34 @@ from .models import (
     TTSProviders,
     legacy_openai_chat_models,
 )
+from .ui.rate_dialog import RateDialog
+from .utils import USES_BEFORE_RATE_DIALOG, get_file_path
 
 
 class FieldExtras(TypedDict):
-    """Should be only used internally by config"""
 
-    automatic: Optional[bool]
-    type: Optional[Literal["chat", "tts"]]
-    use_custom_model: Optional[bool]
+    automatic: bool
+    type: Literal["chat", "tts"]
+    use_custom_model: bool
+
     # Chat
     chat_model: Optional[ChatModels]
     chat_provider: Optional[ChatProviders]
     chat_temperature: Optional[int]
+
     # TTS
     tts_provider: Optional[TTSProviders]
-    tts_model: Optional[str]
+    tts_model: Optional[TTSModels]
     tts_voice: Optional[str]
-
-
-class FieldExtrasWithDefaults(TypedDict):
-    """This is the type returned by get_extras, that the actual app should deal with"""
-
-    automatic: bool
-    use_custom_model: bool
-    type: Literal["chat", "tts"]
-    # Chat
-    chat_model: ChatModels
-    chat_provider: ChatProviders
-    chat_temperature: int
-
-    # TTS
-    tts_provider: TTSProviders
-    tts_model: TTSModels
-    tts_voice: str
 
 
 class NoteTypeMap(TypedDict):
     fields: Dict[str, str]
-    extras: Union[Dict[str, FieldExtras], None]  # maps from field name -> extras
+    extras: Dict[str, FieldExtras]
 
 
 class PromptMap(TypedDict):
-    note_types: Dict[str, NoteTypeMap]
+    note_types: Dict[str, Dict[str, NoteTypeMap]]
 
 
 class Config:
@@ -101,10 +90,12 @@ class Config:
     tts_voice: str
     tts_model: TTSModels
 
-    # Dialogs
+    # Dialogs / Migrations
     did_show_chained_error_dialog: bool
     did_show_rate_dialog: bool
     did_show_premium_tts_dialog: bool
+    did_deck_filter_migration: bool
+    did_cleanup_config_defaults: bool
 
     # Deprecated fields:
     legacy_openai_model: OpenAIModels
@@ -146,6 +137,9 @@ class Config:
                 print(f"migrate_models: old 3.5-turbo model seen, migrating to 4o-mini")
                 config.legacy_openai_model = "gpt-4o-mini"
 
+            self.perform_deck_filter_migration()
+            self.perform_extras_cleanup()
+
         except Exception as e:
             if not os.getenv("IS_TEST"):
                 print(f"Error: Unexepctedly caught exception cleaning up config {e}")
@@ -186,5 +180,88 @@ class Config:
         defaults = mgr.addonConfigDefaults("smart-notes")
         return defaults
 
+    # Migrations
+
+    def perform_deck_filter_migration(self) -> None:
+        if self.did_deck_filter_migration:
+            return
+
+        self._backup_config()
+
+        print("Migration: prompts map migration for per-deck prompts")
+        old_prompts_map: OldPromptsMap = cast(OldPromptsMap, self.prompts_map)
+        new_prompts_map: PromptMap = {"note_types": {}}
+
+        for note_type, fields_and_extras in old_prompts_map["note_types"].items():
+            new_prompts_map["note_types"][note_type] = {
+                str(GLOBAL_DECK_ID): fields_and_extras.copy()
+            }
+        self.prompts_map = new_prompts_map
+
+        self.did_deck_filter_migration = True
+
+    def perform_extras_cleanup(self) -> None:
+        """Old extras might not have had some values or even existed at all. Rather than accomodate that in the data model, make it right."""
+        if self.did_cleanup_config_defaults:
+            return
+
+        # Also deal w chat_temperature default
+        self.chat_temperature = DEFAULT_TEMPERATURE
+
+        print("Migration: writing sane defaults for prompt extras")
+        prompts_map = deepcopy(self.prompts_map)
+
+        for decks_map in prompts_map["note_types"].values():
+            for extras_and_fields in decks_map.values():
+                # Theoretically extras might not exist at all. Make it
+                if not extras_and_fields.get("extras"):
+                    extras_and_fields["extras"] = {}
+
+                # Make sure extras exists for every prompt field
+                for field in extras_and_fields["fields"].keys():
+                    if not extras_and_fields["extras"].get(field):
+                        extras_and_fields["extras"][field] = {}  # type: ignore
+
+                # Fill out some fields that could have been optional before
+                for extras in extras_and_fields["extras"].values():
+                    if not "automatic" in extras:
+                        extras["automatic"] = True
+                    if not "type" in extras:
+                        extras["type"] = "chat"
+                    if not "use_custom_model" in extras:
+                        extras["use_custom_model"] = False
+
+                    # Lastly, write out better temperature
+                    if extras["chat_temperature"] is not None:
+                        extras["chat_temperature"] = DEFAULT_TEMPERATURE
+
+        self.prompts_map = prompts_map
+        self.did_cleanup_config_defaults = True
+
+    def _backup_config(self) -> None:
+        try:
+            if not mw:
+                return
+            config = mw.addonManager.getConfig(__name__)
+            if config:
+                json_config = json.dumps(config)
+                file_path = get_file_path("config_backup.json")
+                with open(file_path, "w", encoding="utf-8") as f:
+                    f.write(json_config)
+        except Exception as e:
+            print(f"Could not backup config due to error: {e}")
+
+
+class OldPromptsMap(TypedDict):
+    note_types: Dict[str, NoteTypeMap]
+
 
 config = Config()  # type: ignore
+
+
+def bump_usage_counter() -> None:
+    config.times_used += 1
+    if config.times_used > USES_BEFORE_RATE_DIALOG and not config.did_show_rate_dialog:
+        config.did_show_rate_dialog = True
+        dialog = RateDialog()
+        dialog.exec()

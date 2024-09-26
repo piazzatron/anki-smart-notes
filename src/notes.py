@@ -19,12 +19,16 @@
 
 from typing import List, Union
 
+from anki.cards import Card
+from anki.decks import DeckId
 from anki.notes import Note
 from aqt import mw
 
-from .prompts import get_generate_automatically, get_prompt_fields, get_prompts
+from .constants import GLOBAL_DECK_ID
+from .decks import deck_id_to_name_map
+from .prompts import get_generate_automatically, get_prompt_fields, get_prompts_for_note
 from .ui.ui_utils import show_message_box
-from .utils import get_fields, to_lowercase_dict
+from .utils import get_fields
 
 """Helpful functions for working with notes"""
 
@@ -44,33 +48,33 @@ def get_note_types() -> List[str]:
     return [model["name"] for model in models]
 
 
-def is_note_fully_processed(note: Note) -> bool:
+def is_card_fully_processed(card: Card) -> bool:
+    note = card.note()
     note_type = get_note_type(note)
     if not note_type:
         return True
 
-    all_prompts = get_prompts()
-    prompts = all_prompts.get(note_type, None)
+    prompts = get_prompts_for_note(note_type, card.did)
 
     if not prompts:
         return True
 
     for field in prompts.keys():
         field_exists = field in note and note[field]
-        is_automatic = get_generate_automatically(note_type, field)
+        is_automatic = get_generate_automatically(note_type, field, deck_id=card.did)
         if (not field_exists) and is_automatic:
             return False
 
     return True
 
 
-def is_ai_field(current_field_num: int, note: Note) -> Union[str, None]:
+def is_ai_field(current_field_num: int, card: Card) -> Union[str, None]:
     """Helper to determine if the current field is an AI field. Returns the non-lowercased field name if it is."""
-    if not note:
+    if not card:
         return None
 
     # Sort dem fields and get their names
-    note_type = get_note_type(note)
+    note_type = get_note_type(card.note())
     sorted_fields = get_fields(note_type)
     sorted_fields_lower = [field.lower() for field in sorted_fields]
 
@@ -80,21 +84,24 @@ def is_ai_field(current_field_num: int, note: Note) -> Union[str, None]:
 
     current_field = sorted_fields_lower[current_field_num]
 
-    prompts_for_card = to_lowercase_dict(get_prompts().get(get_note_type(note), {}))
+    prompts_for_card = get_prompts_for_note(note_type, card.did, to_lower=True)
+
+    if not prompts_for_card:
+        return None
 
     is_ai = bool(prompts_for_card.get(current_field, None))
     return sorted_fields[current_field_num] if is_ai else None
 
 
-def has_chained_ai_fields(note_type: str) -> bool:
-    """Check if a note has any AI fields that depend on other AI fields."""
-    return bool(get_chained_ai_fields(note_type))
+def has_chained_ai_fields(card: Card) -> bool:
+    """Check if a card has any AI fields that depend on other AI fields."""
+    return bool(get_chained_ai_fields(get_note_type(card.note()), card.did))
 
 
-def get_chained_ai_fields(note_type: str) -> set[str]:
+def get_chained_ai_fields(note_type: str, deck_id: DeckId) -> set[str]:
     """Check if a note has any AI fields that depend on other AI fields."""
     res: set[str] = set()
-    prompts = get_prompts(to_lower=True).get(note_type, None)
+    prompts = get_prompts_for_note(note_type, deck_id, to_lower=True)
 
     if not prompts:
         return res
@@ -111,11 +118,14 @@ def get_chained_ai_fields(note_type: str) -> set[str]:
     return res
 
 
-def get_random_note(note_type: str) -> Union[Note, None]:
+def get_random_note(note_type: str, deck_id: DeckId) -> Union[Note, None]:
     if not mw or not mw.col:
         return None
 
-    sample_note_ids = mw.col.find_notes(f'note:"{note_type}"')
+    query = f'note:"{note_type}"'
+    if deck_id != GLOBAL_DECK_ID:
+        query += f" deck:*::{deck_id_to_name_map()[deck_id]}"
+    sample_note_ids = mw.col.find_notes(query)
 
     if not sample_note_ids:
         show_message_box("No cards found for this note type.")

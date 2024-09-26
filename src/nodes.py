@@ -19,6 +19,7 @@
 
 from typing import Any, List, Union
 
+from anki.decks import DeckId
 from attr import dataclass
 
 from .models import ChatModels, ChatProviders, TTSModels, TTSProviders
@@ -52,6 +53,7 @@ class FieldNode:
     in_nodes: List["FieldNode"]
     manual: bool
     overwrite: bool
+    deck_id: DeckId
     payload: Union[ChatPayload, TTSPayload]
     is_target: bool = False
     generate_despite_manual: bool = False  # Used if it's pre a target field

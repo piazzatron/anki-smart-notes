@@ -25,8 +25,6 @@ from typing import Any, Callable, Dict, List
 from aqt import mw
 
 from ..env import environment
-from .config import config
-from .ui.rate_dialog import RateDialog
 
 
 def to_lowercase_dict(d: Dict[str, Any]) -> Dict[str, Any]:
@@ -50,14 +48,6 @@ def get_fields(note_type: str) -> List[str]:
 
 
 USES_BEFORE_RATE_DIALOG = 10
-
-
-def bump_usage_counter() -> None:
-    config.times_used += 1
-    if config.times_used > USES_BEFORE_RATE_DIALOG and not config.did_show_rate_dialog:
-        config.did_show_rate_dialog = True
-        dialog = RateDialog()
-        dialog.exec()
 
 
 def get_file_path(file: str) -> str:

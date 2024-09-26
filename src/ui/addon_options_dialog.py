@@ -17,7 +17,6 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import copy
 from typing import List, TypedDict, Union
 from urllib.parse import urlparse
 
@@ -41,7 +40,8 @@ from PyQt6.QtCore import Qt
 
 from ..app_state import AppState, app_state, is_app_unlocked
 from ..config import PromptMap, config
-from ..constants import UNPAID_PROVIDER_ERROR
+from ..constants import GLOBAL_DECK_ID, UNPAID_PROVIDER_ERROR
+from ..decks import deck_id_to_name_map, deck_name_to_id_map
 from ..logger import logger
 from ..models import (
     ChatModels,
@@ -51,7 +51,7 @@ from ..models import (
     legacy_openai_chat_models,
 )
 from ..processor import Processor
-from ..prompts import get_extras, get_prompts
+from ..prompts import get_all_prompts, get_extras, get_prompts_for_note, remove_prompt
 from ..utils import get_version
 from .account_options import AccountOptions
 from .chat_options import ChatOptions, provider_model_map
@@ -254,23 +254,31 @@ class AddonOptionsDialog(QDialog):
         self.table.setRowCount(0)
 
         row = 0
-        for note_type, field_prompts in self.state.s["prompts_map"][
-            "note_types"
-        ].items():
-            for field, prompt in field_prompts["fields"].items():
-                extras = get_extras(note_type, field)
-                type = extras["type"]
-                self.table.insertRow(self.table.rowCount())
-                items = [
-                    QTableWidgetItem(note_type),
-                    QTableWidgetItem(field),
-                    QTableWidgetItem("text" if type == "chat" else "tts"),
-                    QTableWidgetItem(prompt if type == "chat" else "🔈"),
-                ]
-                for i, item in enumerate(items):
-                    item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsEditable)
-                    self.table.setItem(row, i, item)
-                row += 1
+        all_prompts = get_all_prompts(override_prompts_map=self.state.s["prompts_map"])
+        for note_type, deck_prompts in all_prompts.items():
+            for deck_id, field_prompts in deck_prompts.items():
+                for field, prompt in field_prompts.items():
+                    # TODO: show deck col
+                    extras = get_extras(
+                        note_type=note_type, field=field, deck_id=deck_id
+                    )
+
+                    if not extras:
+                        continue
+
+                    type = extras["type"]
+                    self.table.insertRow(self.table.rowCount())
+                    items = [
+                        QTableWidgetItem(note_type),
+                        QTableWidgetItem(deck_id_to_name_map()[deck_id]),
+                        QTableWidgetItem(field),
+                        QTableWidgetItem("text" if type == "chat" else "tts"),
+                        QTableWidgetItem(prompt if type == "chat" else "🔈"),
+                    ]
+                    for i, item in enumerate(items):
+                        item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsEditable)
+                        self.table.setItem(row, i, item)
+                    row += 1
 
         # Ensure the correct row is always selected
         # shouldn't need the second and condition, but defensive
@@ -430,8 +438,10 @@ class AddonOptionsDialog(QDialog):
         )
 
     def create_table(self) -> QTableWidget:
-        table = QTableWidget(0, 4)
-        table.setHorizontalHeaderLabels(["Note Type", "Target Field", "Type", "Prompt"])
+        table = QTableWidget(0, 5)
+        table.setHorizontalHeaderLabels(
+            ["Note Type", "Deck", "Target Field", "Type", "Prompt"]
+        )
 
         # Selection
         table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
@@ -457,7 +467,8 @@ class AddonOptionsDialog(QDialog):
             return
 
         note_type = self.table.item(row, 0).text()  # type: ignore
-        field = self.table.item(row, 1).text()  # type: ignore
+        deck_id = deck_name_to_id_map()[self.table.item(row, 1).text()]  # type: ignore
+        field = self.table.item(row, 2).text()  # type: ignore
         logger.debug(f"Editing {note_type}, {field}")
 
         # Save out API key jic
@@ -465,16 +476,27 @@ class AddonOptionsDialog(QDialog):
             config.openai_api_key = self.api_key_edit.text()
 
         # Get type
-        field_type = get_extras(note_type, field)["type"]
+        extras = get_extras(note_type=note_type, field=field, deck_id=deck_id)
+        if not extras:
+            return
+        field_type = extras["type"]
+
+        prompts = get_prompts_for_note(
+            note_type=note_type, to_lower=True, deck_id=deck_id
+        )
+
+        if not prompts:
+            return
 
         prompt_dialog = PromptDialog(
             self.state.s["prompts_map"],
             self.processor,
             self.on_update_prompts,
             card_type=note_type,
+            deck_id=deck_id,
             field=field,
             field_type=field_type,
-            prompt=get_prompts(to_lower=True)[note_type][field.lower()],
+            prompt=prompts[field.lower()],
         )
 
         if prompt_dialog.exec() == QDialog.DialogCode.Accepted:
@@ -495,6 +517,7 @@ class AddonOptionsDialog(QDialog):
             self.processor,
             self.on_update_prompts,
             field_type="tts" if is_tts else "chat",
+            deck_id=GLOBAL_DECK_ID,
         )
 
         if prompt_dialog.exec() == QDialog.DialogCode.Accepted:
@@ -513,21 +536,17 @@ class AddonOptionsDialog(QDialog):
             # Should never happen
             return
 
-        card_type = self.table.item(row, 0).text()  # type: ignore
-        field = self.table.item(row, 1).text()  # type: ignore
-        logger.debug(f"Removing {card_type}, {field}")
-        # Deep copy bc we need the subdicts to not be mutated
-        prompts_map = copy.deepcopy(self.state.s["prompts_map"])
+        note_type = self.table.item(row, 0).text()  # type: ignore
+        deck_id = deck_name_to_id_map()[self.table.item(row, 1).text()]  # type: ignore
+        field = self.table.item(row, 2).text()  # type: ignore
+        new_map = remove_prompt(
+            self.state.s["prompts_map"],
+            note_type=note_type,
+            deck_id=deck_id,
+            field=field,
+        )
 
-        prompts_map["note_types"][card_type]["fields"].pop(field)
-        extras = prompts_map["note_types"][card_type]["extras"]
-        if extras:
-            extras.pop(field, None)
-        # If there are no more fields for this card type, remove the card type
-        if not prompts_map["note_types"][card_type]["fields"]:
-            prompts_map["note_types"].pop(card_type)
-
-        self.state.update({"prompts_map": prompts_map, "selected_row": None})
+        self.state.update({"prompts_map": new_map, "selected_row": None})
 
     def on_accept(self) -> None:
         self.write_config()

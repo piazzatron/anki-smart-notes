@@ -17,6 +17,10 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from typing import cast
+
+from anki.decks import DeckId
+
 from .. import env
 from .models import ChatModels, ChatProviders
 
@@ -36,7 +40,7 @@ STANDARD_BATCH_LIMIT = 10
 DEFAULT_CHAT_MODEL: ChatModels = "gpt-4o-mini"
 DEFAULT_CHAT_PROVIDER: ChatProviders = "openai"
 
-DEFAULT_TEMPERATURE = 0
+DEFAULT_TEMPERATURE = 1
 
 # Errors
 UNPAID_PROVIDER_ERROR = (
@@ -72,3 +76,7 @@ def get_server_url() -> str:
 
 def get_site_url() -> str:
     return SITE_URL_PROD if env.environment == "PROD" else SITE_URL_DEV
+
+
+GLOBAL_DECK_ID: DeckId = cast(DeckId, -1)
+GLOBAL_DECK_NAME = "All Decks"

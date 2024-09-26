@@ -19,6 +19,7 @@
 
 from typing import Any, Union
 
+from anki.decks import DeckId
 from anki.notes import Note
 from aqt import mw
 
@@ -87,6 +88,7 @@ class FieldResolver:
         elif isinstance(node.payload, ChatPayload):
             return await self.get_chat_response(
                 note=note,
+                deck_id=node.deck_id,
                 prompt=payload.prompt,
                 model=payload.model,
                 provider=payload.provider,
@@ -101,6 +103,7 @@ class FieldResolver:
     async def get_chat_response(
         self,
         note: Note,
+        deck_id: DeckId,
         prompt: str,
         model: ChatModels,
         provider: ChatProviders,
@@ -124,7 +127,9 @@ class FieldResolver:
         elif has_api_key():
             logger.debug("On legacy path....")
             # Check that this isn't a chained smart field
-            chained_fields = get_chained_ai_fields(get_note_type(note))
+            chained_fields = get_chained_ai_fields(
+                note_type=get_note_type(note), deck_id=deck_id
+            )
             logger.debug(f"Chained fields: {chained_fields}")
             if field_lower in chained_fields:
                 logger.debug(f"Skipping chained field: ${field_lower}")
