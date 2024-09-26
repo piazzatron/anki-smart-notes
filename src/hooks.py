@@ -28,6 +28,7 @@ from typing import Callable, List, Sequence
 from anki.cards import Card
 from anki.notes import Note
 from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
+from aqt.addcards import AddCards
 from aqt.browser import SidebarItemType  # type: ignore
 
 from .app_state import app_state, is_app_unlocked_or_legacy
@@ -72,17 +73,29 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
 
     @with_sentry
     def fn(editor: editor.Editor):
+        if not mw:
+            return
+
         if not is_app_unlocked_or_legacy(show_box=True):
             return
 
         card = editor.card
+        note = editor.note
 
-        if not card:
-            logger.error("no note found")
+        if note is None:
+            logger.error("Unexpectedly found no note")
             return
 
-        if not mw:
-            return
+        # New notes don't have cards yet, fetch into the deck_chooser to get the deckId
+        if card is None:
+            parent = editor.parentWindow
+            # Parent should always be AddCards if there's no card
+            if isinstance(parent, AddCards):
+                deck_id = parent.deck_chooser.selected_deck_id
+                logger.debug(f"Setting deck_id to {deck_id}")
+            card = note.ephemeral_card()
+            if deck_id:
+                card.did = deck_id
 
         # Imperatively set the button styling and disabled state 🤦‍♂️
         # y u do dis, anki
