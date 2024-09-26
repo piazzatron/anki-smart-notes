@@ -1,3 +1,8 @@
+# v2.2.0
+
+- Add support for 👏 per-deck 👏 Smart Fields. This much-requested feature allows you to easily reuse the same note type across different decks!
+- Increase default OpenAI temperature for more creative & random responses (if you previously set a custom temp, you'll have reset it).
+
 # v2.1.0
 
 - Fix bug affecting new text fields for some users 😓. Free Trials for all new users have been extended. 

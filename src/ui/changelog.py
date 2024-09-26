@@ -143,7 +143,7 @@ class ChangeLogDialog(QDialog):
 
         layout.addWidget(header)
         cta = QLabel(
-            '<a href="https://ankiweb.net/shared/info/1531888719">Help others find Smart Notes by rating it on AnkiWeb<👍a👍>'
+            '<a href="https://ankiweb.net/shared/info/1531888719">Enjoying Smart Notes? Rate it on AnkiWeb to help others find it 👍</a>'
         )
         cta.setFont(bold_font)
         cta.setOpenExternalLinks(True)
