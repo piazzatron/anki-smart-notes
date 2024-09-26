@@ -96,7 +96,7 @@ class ChatOptions(QWidget):
         advanced.setLayout(advanced_layout)
         advanced_layout.addRow("Temperature:", self.temperature)
         temp_desc = QLabel(
-            "Temperature controls the randomness of responses. A higher temperature results in more creative responses."
+            "Temperature controls the creativity of responses. Values range from 0-2 (ChatGPT default is 1)."
         )
         temp_desc.setFont(font_small)
         advanced_layout.addRow(temp_desc)
