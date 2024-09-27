@@ -34,7 +34,7 @@ from aqt.browser import SidebarItemType  # type: ignore
 from .app_state import app_state, is_app_unlocked_or_legacy
 from .config import bump_usage_counter, config
 from .decks import deck_id_to_name_map
-from .logger import logger
+from .logger import logger, setup_logger
 from .message_polling import start_polling_for_messages
 from .notes import is_ai_field, is_card_fully_processed
 from .processor import Processor
@@ -233,7 +233,9 @@ def on_main_window(processor: Processor):
     if not mw:
         return
 
-    # This better be the first thing we do
+    # Setup logger as first thing
+    setup_logger()
+    # Then setup config, which depends on logger
     config.setup_config()
 
     # Add options to Anki Menu

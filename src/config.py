@@ -25,6 +25,7 @@ from typing import Any, Dict, Literal, Optional, TypedDict, Union, cast
 from aqt import addons, mw
 
 from .constants import DEFAULT_TEMPERATURE, GLOBAL_DECK_ID
+from .logger import logger
 from .models import (
     ChatModels,
     ChatProviders,
@@ -105,7 +106,7 @@ class Config:
             # First, migrate away from openai_model -> legacy_openai_model
             old_openai_model = self.__getattr__("openai_model")
             if old_openai_model:
-                print(f"Migration: old_openai_model={old_openai_model}")
+                logger.debug(f"Migration: old_openai_model={old_openai_model}")
                 self.legacy_openai_model = old_openai_model  # type: ignore
                 self.__setattr__("openai_model", None)
 
@@ -117,20 +118,22 @@ class Config:
                 if old_chat_model not in legacy_openai_chat_models:
                     old_chat_model = "gpt-4o"
 
-                print(f"Migration: legacy_openai_model={old_chat_model}")
+                logger.debug(f"Migration: legacy_openai_model={old_chat_model}")
                 self.legacy_openai_model = old_chat_model
 
             # If we've never set the legacy_support flag
             # set it to whether or not we have an openai key
             if self.__getattr__("legacy_support") is None:
                 is_legacy = bool(self.openai_api_key)
-                print(f"Setting legacy_support to {is_legacy}")
+                logger.debug(f"Setting legacy_support to {is_legacy}")
                 self.__setattr__("legacy_support", is_legacy)
 
             # Double check that we don't support 3.5 turbo anywhere
 
             if self.legacy_openai_model == "gpt-3.5-turbo":  # type: ignore
-                print(f"migrate_models: old 3.5-turbo model seen, migrating to 4o-mini")
+                logger.debug(
+                    f"migrate_models: old 3.5-turbo model seen, migrating to 4o-mini"
+                )
                 config.legacy_openai_model = "gpt-4o-mini"
 
             self.perform_deck_filter_migration()
@@ -138,7 +141,9 @@ class Config:
 
         except Exception as e:
             if not os.getenv("IS_TEST"):
-                print(f"Error: Unexepctedly caught exception cleaning up config {e}")
+                logger.error(
+                    f"Error: Unexepctedly caught exception cleaning up config {e}"
+                )
 
     def __getattr__(self, key: str) -> object:
         if not mw:
@@ -184,7 +189,7 @@ class Config:
 
         self._backup_config()
 
-        print("Migration: prompts map migration for per-deck prompts")
+        logger.debug("Migration: prompts map migration for per-deck prompts")
         old_prompts_map: OldPromptsMap = cast(OldPromptsMap, self.prompts_map)
         new_prompts_map: PromptMap = {"note_types": {}}
 
@@ -204,7 +209,7 @@ class Config:
         # Also deal w chat_temperature default
         self.chat_temperature = DEFAULT_TEMPERATURE
 
-        print("Migration: writing sane defaults for prompt extras")
+        logger.debug("Migration: writing sane defaults for prompt extras")
         prompts_map = deepcopy(self.prompts_map)
 
         for decks_map in prompts_map["note_types"].values():
@@ -245,14 +250,14 @@ class Config:
                 with open(file_path, "w", encoding="utf-8") as f:
                     f.write(json_config)
         except Exception as e:
-            print(f"Could not backup config due to error: {e}")
+            logger.error(f"Could not backup config due to error: {e}")
 
 
 class OldPromptsMap(TypedDict):
     note_types: Dict[str, NoteTypeMap]
 
 
-config = Config()  # type: ignore
+config = Config()
 
 
 def bump_usage_counter() -> None:

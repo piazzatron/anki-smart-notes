@@ -21,17 +21,29 @@ import logging
 import os
 import sys
 
-from .config import config
+from aqt import mw
+
 from .utils import get_file_path, is_production
 
 
-def _setup_logger() -> logging.Logger:
-    logger = logging.getLogger("smart_notes")
+def setup_logger() -> None:
+    global logger
+
+    if not mw:
+        return
+
     formatter = logging.Formatter("%(name)s/%(filename)s: [%(levelname)s] %(message)s")
     stream_handler = logging.StreamHandler(sys.stdout)
     stream_handler.setFormatter(formatter)
 
-    if is_production() and not config.debug:
+    # Can't use config directly here to avoid cyclical import
+    config = mw.addonManager.getConfig(__name__)
+    if not config:
+        return
+
+    is_debug = config.get("debug")
+
+    if is_production() and not is_debug:
         logger.setLevel(logging.ERROR)
     else:
         logger.setLevel(logging.DEBUG)
@@ -43,11 +55,10 @@ def _setup_logger() -> logging.Logger:
             file_handler.setFormatter(formatter)
             logger.addHandler(file_handler)
 
-            if config.debug:
+            if is_debug:
                 logger.debug("Starting app in debug mode")
 
     logger.addHandler(stream_handler)
-    return logger
 
 
-logger = _setup_logger()
+logger = logging.getLogger("smart_notes")
