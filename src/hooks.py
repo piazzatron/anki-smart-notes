@@ -233,6 +233,9 @@ def on_main_window(processor: Processor):
     if not mw:
         return
 
+    # This better be the first thing we do
+    config.setup_config()
+
     # Add options to Anki Menu
     options_action = QAction("Smart Notes", mw)
     # Triggered passes a bool, so we need to use a lambda to pass the processor

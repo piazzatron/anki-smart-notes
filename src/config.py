@@ -100,11 +100,7 @@ class Config:
     # Deprecated fields:
     legacy_openai_model: OpenAIModels
 
-    def __init__(self):
-        self._perform_cleanup()
-
-    def _perform_cleanup(self) -> None:
-        print("Cleaning up config")
+    def setup_config(self) -> None:
         try:
             # First, migrate away from openai_model -> legacy_openai_model
             old_openai_model = self.__getattr__("openai_model")
