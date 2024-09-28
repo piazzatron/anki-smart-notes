@@ -233,7 +233,7 @@ class Config:
                         extras["use_custom_model"] = False
 
                     # Lastly, write out better temperature
-                    if extras["chat_temperature"] is not None:
+                    if extras.get("chat_temperature") is not None:
                         extras["chat_temperature"] = DEFAULT_TEMPERATURE
 
         self.prompts_map = prompts_map
