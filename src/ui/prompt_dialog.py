@@ -793,6 +793,8 @@ class PromptDialog(QDialog):
             return
 
         new_prompts_map = self._create_new_prompts_map()
+        logger.debug("Created new prompts map")
+        logger.debug(new_prompts_map)
 
         # Make an ephemeral note
         note_type = next(

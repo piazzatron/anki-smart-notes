@@ -69,9 +69,12 @@ def generate_fields_dag(
             if not prompt:
                 continue
 
-            extras = get_extras(note_type, field, deck_id=deck_id)
+            extras = get_extras(
+                note_type, field, deck_id=deck_id, prompts=override_prompts_map
+            )
+
             if not extras:
-                logger.error("Unexpetedly no extras!")
+                logger.error(f"Unexpectedly no extras for field {field}!")
                 continue
 
             is_custom = extras["use_custom_model"]

@@ -191,7 +191,6 @@ def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMe
     menu.addAction(item)
 
     cards = browser.selected_cards()
-    print(cards)
 
     def wrapped():
         if not is_app_unlocked_or_legacy(show_box=True):

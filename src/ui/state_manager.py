@@ -22,9 +22,6 @@ from typing import Any, Dict, Generic, TypeVar
 
 from aqt import QObject, pyqtSignal
 
-from ..logger import logger
-from ..utils import is_production
-
 T = TypeVar("T")
 
 
@@ -55,10 +52,6 @@ class StateManager(QObject, Generic[T]):
             new_state[key] = value  # type: ignore
 
         if new_state != self._state:
-            if not is_production():
-                logger.debug("State transition")
-                # logger.debug(self._state)
-                # logger.debug(new_state)
             self._state = new_state
             self.state_changed.emit(new_state)
 

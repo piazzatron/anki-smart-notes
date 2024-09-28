@@ -525,7 +525,6 @@ class AddonOptionsDialog(QDialog):
 
     # When appstate updates
     def update_from_state(self, _: AppState) -> None:
-        logger.debug("Updating with new AppState")
         is_unlocked = is_app_unlocked()
         self.voice_button.setEnabled(is_unlocked)
         self.tts_tab.setEnabled(is_unlocked)
@@ -586,7 +585,6 @@ class AddonOptionsDialog(QDialog):
             item for item in self.state.s.items() if item[0] in valid_config_attrs
         ]:
             config.__setattr__(k, v)
-            logger.debug(f"Setting {k} to {v}")
 
         if not old_debug and self.state.s["debug"]:
             show_message_box("Debug mode enabled. Please restart Anki.")
