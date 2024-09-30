@@ -792,7 +792,10 @@ class PromptDialog(QDialog):
         default_target_field = (
             valid_target_fields[0] if len(valid_target_fields) > 0 else None
         )
-        return next(f for f in fields if f != default_target_field)
+        return next(
+            (f for f in fields if f != default_target_field),
+            "No valid source fields remaining",
+        )
 
     def _attempt_to_parse_source_field(self, prompt: str) -> Union[str, None]:
         fields = get_prompt_fields(prompt, lower=False)
@@ -819,8 +822,13 @@ class PromptDialog(QDialog):
 
         # Make an ephemeral note
         note_type = next(
-            e for e in mw.col.models.all() if e["name"] == selected_card_type
+            (e for e in mw.col.models.all() if e["name"] == selected_card_type), None
         )
+
+        if not note_type:
+            logger.error("Unexpectedly find note type in prompt_dialog")
+            return
+
         sample_note = Note(mw.col, note_type)
 
         err = prompt_has_error(

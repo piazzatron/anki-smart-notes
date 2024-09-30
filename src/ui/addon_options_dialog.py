@@ -52,7 +52,7 @@ from ..models import (
 )
 from ..processor import Processor
 from ..prompts import get_all_prompts, get_extras, get_prompts_for_note, remove_prompt
-from ..utils import get_version
+from ..utils import get_fields, get_version
 from .account_options import AccountOptions
 from .chat_options import ChatOptions, provider_model_map
 from .prompt_dialog import PromptDialog
@@ -482,10 +482,16 @@ class AddonOptionsDialog(QDialog):
         field_type = extras["type"]
 
         prompts = get_prompts_for_note(
-            note_type=note_type, to_lower=True, deck_id=deck_id
+            note_type=note_type,
+            to_lower=True,
+            deck_id=deck_id,
+            fallback_to_global_deck=False,
         )
 
-        if not prompts:
+        all_fields = get_fields(note_type)
+
+        if not prompts or not len(all_fields) or not field in all_fields:
+            show_message_box("Note type does not exist or field not in note type!")
             return
 
         prompt_dialog = PromptDialog(
