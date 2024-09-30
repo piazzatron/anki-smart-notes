@@ -470,10 +470,31 @@ class PromptDialog(QDialog):
         return standard_buttons
 
     def render_custom_model(self) -> QWidget:
+        self.tts_options = TTSOptions()
         # TODO: encapsulate this ChatOptions state
         self.chat_options = ChatOptions(self.state)  # type: ignore
-        self.tts_options = TTSOptions()
-        return self.chat_options if self.state.s["type"] == "chat" else self.tts_options
+
+        if self.state.s["type"] == "tts":
+            extras = get_extras(
+                note_type=self.state.s["selected_note_type"],
+                field=self.state.s["selected_note_field"],
+                deck_id=self.state.s["selected_deck"],
+                prompts=self.prompts_map,
+                fallback_to_global_deck=False,
+            )
+
+            if extras and extras["use_custom_model"]:
+                tts_provider = extras.get("tts_provider")
+                tts_voice = extras.get("tts_voice")
+                tts_model = extras.get("tts_model")
+                self.tts_options = TTSOptions(
+                    provider=tts_provider, voice=tts_voice, model=tts_model
+                )
+
+            return self.tts_options
+
+        elif self.state.s["type"] == "chat":
+            return self.chat_options
 
     def on_state_update(self):
         self.model_options.setEnabled(self.state.s["use_custom_model"])

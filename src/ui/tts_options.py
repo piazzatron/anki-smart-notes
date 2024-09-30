@@ -18,7 +18,7 @@
 """
 
 import json
-from typing import Dict, List, Literal, TypedDict, Union
+from typing import Dict, List, Literal, Optional, TypedDict, Union
 
 from aqt import (
     QAbstractListModel,
@@ -236,11 +236,23 @@ class CustomListModel(QAbstractListModel):
 
 
 class TTSOptions(QWidget):
-    def __init__(self, state: Union[StateManager[TTSState], None] = None):
+    def __init__(
+        self,
+        state: Union[StateManager[TTSState], None] = None,
+        provider: Optional[TTSProviders] = None,
+        voice: Optional[str] = None,
+        model: Optional[TTSModels] = None,
+    ):
         super().__init__()
 
         self.state = (
-            state if state else StateManager[TTSState](self.get_initial_state())
+            state
+            if state
+            else StateManager[TTSState](
+                self.get_initial_state(
+                    tts_provider=provider, tts_voice=voice, tts_model=model
+                )
+            )
         )
         self.setup_ui()
 
@@ -438,7 +450,12 @@ class TTSOptions(QWidget):
                 filtered.append(voice)
         return filtered
 
-    def get_initial_state(self) -> TTSState:
+    def get_initial_state(
+        self,
+        tts_provider: Union[TTSProviders, None],
+        tts_voice: Union[str, None],
+        tts_model: Union[TTSModels, None],
+    ) -> TTSState:
         return {
             "providers": providers,
             "selected_provider": ALL,
@@ -449,7 +466,7 @@ class TTSOptions(QWidget):
             "selected_language": ALL,
             "test_text": default_texts[ALL],
             "test_enabled": True,
-            "tts_provider": config.tts_provider,
-            "tts_voice": config.tts_voice,
-            "tts_model": config.tts_model,
+            "tts_provider": tts_provider or config.tts_provider,
+            "tts_voice": tts_voice or config.tts_voice,
+            "tts_model": tts_model or config.tts_model,
         }
