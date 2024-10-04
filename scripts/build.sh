@@ -111,6 +111,29 @@ sentry-release () {
   # sentry-cli releases --org michael-piazza new --finalize ${version}
 }
 
+version () {
+  if [ -z "$1" ]; then
+    echo "Usage: $0 <version>"
+    exit 1
+  fi
+
+  VERSION=$1
+
+  jq --arg version "$VERSION" '.human_version = $version' manifest.json > manifest.tmp && mv manifest.tmp manifest.json
+
+  # Commit the changes
+  git add manifest.json
+  git commit -m "v$VERSION"
+
+  # Create a tag
+  git tag "v$VERSION"
+
+  # Push the commit and the tag
+  git push
+  git push origin "v$VERSION"
+}
+
+
 if [ "$1" == "build" ]; then
   clean
   build
@@ -122,7 +145,10 @@ elif [ "$1" == "test-build" ]; then
   test-build
 elif [ "$1" == "sentry-release" ]; then
   sentry-release
+elif [ "$1" == "version" ]; then
+  version $2
 else
+
   echo "Invalid argument: $1"
 fi
 
