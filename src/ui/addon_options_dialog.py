@@ -266,11 +266,15 @@ class AddonOptionsDialog(QDialog):
                     if not extras:
                         continue
 
+                    deck_name = deck_id_to_name_map().get(deck_id)
+                    if not deck_name:
+                        continue
+
                     type = extras["type"]
                     self.table.insertRow(self.table.rowCount())
                     items = [
                         QTableWidgetItem(note_type),
-                        QTableWidgetItem(deck_id_to_name_map()[deck_id]),
+                        QTableWidgetItem(deck_name),
                         QTableWidgetItem(field),
                         QTableWidgetItem("text" if type == "chat" else "tts"),
                         QTableWidgetItem(prompt if type == "chat" else "🔈"),
