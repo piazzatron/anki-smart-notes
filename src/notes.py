@@ -26,6 +26,7 @@ from aqt import mw
 
 from .constants import GLOBAL_DECK_ID
 from .decks import deck_id_to_name_map
+from .logger import logger
 from .prompts import get_generate_automatically, get_prompt_fields, get_prompts_for_note
 from .ui.ui_utils import show_message_box
 from .utils import get_fields
@@ -122,9 +123,17 @@ def get_random_note(note_type: str, deck_id: DeckId) -> Union[Note, None]:
     if not mw or not mw.col:
         return None
 
-    query = f'note:"{note_type}"'
+    # Try finding in custom deck first, and then fall back if not
     if deck_id != GLOBAL_DECK_ID:
-        query += f" deck:*::{deck_id_to_name_map()[deck_id]}"
+        deck_name = deck_id_to_name_map().get(deck_id, None)
+        # Need to handle the possibility that the deck is top level or leaf level
+        query = f'note:"{note_type}" (deck:"*::{deck_name}" or deck:"{deck_name}")'
+        sample_note_ids = mw.col.find_notes(query)
+        if sample_note_ids:
+            return mw.col.get_note(sample_note_ids[0])
+        logger.debug(f"Couldn't find note in custom deck, falling back to global deck.")
+
+    query = f'note:"{note_type}"'
     sample_note_ids = mw.col.find_notes(query)
 
     if not sample_note_ids:
