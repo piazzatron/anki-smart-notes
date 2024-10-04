@@ -17,8 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from anki.sound import play  # type: ignore
-from aqt import mw
+from aqt import gui_hooks, mw, sound
 
 from .logger import logger
 
@@ -28,8 +27,13 @@ def play_audio(audio: bytes):
     if not mw or not mw.col.media:
         logger.error("No mw")
         return
-    path = mw.col.media.write_data("smart-notes-test", audio)
-    play(path)
 
-    # Cleanup
-    mw.col.media.trash_files([path])
+    path = mw.col.media.write_data("smart-notes-test", audio)
+
+    def on_end(_):
+        logger.debug("Finished playing audio, cleaning up file")
+        mw.col.media.trash_files([path])
+        gui_hooks.av_player_did_end_playing.remove(on_end)
+
+    gui_hooks.av_player_did_end_playing.append(on_end)
+    sound.av_player.play_file(path)
