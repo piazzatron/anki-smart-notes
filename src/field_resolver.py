@@ -17,8 +17,9 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, Union
+from typing import Any, Optional, Union
 
+import marko
 from anki.decks import DeckId
 from anki.notes import Note
 from aqt import mw
@@ -116,8 +117,10 @@ class FieldResolver:
         if not interpolated_prompt:
             return None
 
+        resp: Optional[str] = None
+
         if is_app_unlocked() and not is_at_text_capacity():
-            return await self.chat_provider.async_get_chat_response(
+            resp = await self.chat_provider.async_get_chat_response(
                 interpolated_prompt,
                 model=model,
                 provider=provider,
@@ -135,11 +138,14 @@ class FieldResolver:
                 logger.debug(f"Skipping chained field: ${field_lower}")
                 return None
 
-            return await self.openai_provider.async_get_chat_response(
+            resp = await self.openai_provider.async_get_chat_response(
                 interpolated_prompt, temperature=temperature, retry_count=0
             )
 
-        return None
+        if resp:
+            resp = marko.convert(resp)
+
+        return resp
 
     async def get_tts_response(
         self,
