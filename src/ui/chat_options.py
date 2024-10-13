@@ -27,6 +27,7 @@ from ..models import (
     anthropic_chat_models,
     openai_chat_models,
 )
+from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_spin_box import ReactiveDoubleSpinBox
 from .state_manager import StateManager
@@ -39,6 +40,7 @@ class ChatOptionsState(TypedDict):
     chat_models: List[ChatModels]
     chat_model: ChatModels
     chat_temperature: int
+    chat_markdown_to_html: bool
 
 
 provider_model_map: Dict[ChatProviders, List[ChatModels]] = {
@@ -88,9 +90,20 @@ class ChatOptions(QWidget):
         self.chat_model.setMinimumWidth(350)
         chat_box = QGroupBox("✨ Language Model")
         chat_form = default_form_layout()
+        chat_box.setLayout(chat_form)
         chat_form.addRow("Provider:", self.chat_provider)
         chat_form.addRow("Model:", self.chat_model)
 
+        text_rules = QGroupBox("🔤 Text Processing")
+        text_layout = default_form_layout()
+        text_rules.setLayout(text_layout)
+        self.convert_box = ReactiveCheckBox(self.state, "chat_markdown_to_html")
+        text_layout.addRow(QLabel("Convert Markdown to HTML:"), self.convert_box)
+        convert_explainer = QLabel(
+            "Language models often use **Markdown** in their responses - convert it to HTML to render within Anki."
+        )
+        convert_explainer.setFont(font_small)
+        text_layout.addRow(convert_explainer)
         advanced = QGroupBox("⚙️ Advanced")
         advanced_layout = default_form_layout()
         advanced.setLayout(advanced_layout)
@@ -101,9 +114,10 @@ class ChatOptions(QWidget):
         temp_desc.setFont(font_small)
         advanced_layout.addRow(temp_desc)
 
-        chat_box.setLayout(chat_form)
         chat_layout = default_form_layout()
         chat_layout.addRow(chat_box)
+        chat_layout.addItem(QSpacerItem(0, 12))
+        chat_layout.addRow(text_rules)
         chat_layout.addItem(QSpacerItem(0, 12))
         chat_layout.addRow(advanced)
         chat_layout.setContentsMargins(0, 0, 0, 0)

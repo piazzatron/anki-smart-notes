@@ -43,16 +43,15 @@ from aqt import (
 from PyQt6.QtCore import Qt
 
 from ..app_state import is_app_legacy, is_app_unlocked, is_app_unlocked_or_legacy
-from ..config import PromptMap, config
+from ..config import config
 from ..constants import GLOBAL_DECK_ID, UNPAID_PROVIDER_ERROR
 from ..dag import prompt_has_error
 from ..decks import deck_id_to_name_map, get_all_deck_ids
 from ..logger import logger
-from ..models import ChatModels, ChatProviders
+from ..models import DEFAULT_EXTRAS, ChatModels, ChatProviders, PromptMap
 from ..notes import get_note_types, get_random_note
 from ..processor import Processor
 from ..prompts import (
-    DEFAULT_EXTRAS,
     add_or_update_prompts,
     get_extras,
     get_generate_automatically,
@@ -93,6 +92,7 @@ class State(TypedDict):
     chat_models: List[ChatModels]
     chat_model: ChatModels
     chat_temperature: int
+    chat_markdown_to_html: bool
     use_custom_model: bool
     type: Literal["chat", "tts"]
 
@@ -114,6 +114,7 @@ class PerFieldSettings(TypedDict):
     chat_provider: ChatProviders
     chat_model: ChatModels
     chat_temperature: int
+    chat_markdown_to_html: bool
     use_custom_model: bool
     type: Literal["chat", "tts"]
 
@@ -224,9 +225,6 @@ class PromptDialog(QDialog):
             "generate_manually",
             text="Manually generate only",
         )
-        self.manual_box.onChange.connect(
-            lambda checked: self.state.update({"generate_manually": checked})
-        )
         self.standard_buttons = self.create_buttons()
 
         tabs = QTabWidget()
@@ -261,6 +259,11 @@ class PromptDialog(QDialog):
             or config.chat_temperature,
             "type": extras["type"],
             "use_custom_model": extras["use_custom_model"],
+            "chat_markdown_to_html": (
+                extras.get("chat_markdown_to_html")
+                if self.state.s["use_custom_model"]
+                else config.chat_markdown_to_html
+            ),
         }
 
     def setup_ui(self) -> None:
@@ -419,15 +422,12 @@ class PromptDialog(QDialog):
         self.model_options = self.render_custom_model()
         self.model_options.setEnabled(self.state.s["use_custom_model"])
         self.custom_model = ReactiveCheckBox(self.state, "use_custom_model")
-        self.custom_model.onChange.connect(
-            lambda checked: self.state.update({"use_custom_model": checked})
-        )
         self.state.state_changed.connect(self.on_state_update)
         override_box = QWidget()
         override_layout = QHBoxLayout()
         override_layout.setContentsMargins(0, 0, 0, 0)
         override_box.setLayout(override_layout)
-        override_layout.addWidget(QLabel("Override Default Model"))
+        override_layout.addWidget(QLabel("Override Default Settings"))
         override_layout.addWidget(self.custom_model)
         models_layout.addWidget(override_box)
         models_layout.addWidget(self.model_options)
@@ -875,4 +875,5 @@ class PromptDialog(QDialog):
             chat_model=s["chat_model"],
             chat_provider=s["chat_provider"],
             chat_temperature=s["chat_temperature"],
+            chat_markdown_to_html=s["chat_markdown_to_html"],
         )

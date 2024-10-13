@@ -26,11 +26,19 @@ from typing import Dict, List, Literal, Optional, Union, cast
 from anki.decks import DeckId
 from anki.notes import Note
 
-from .config import FieldExtras, PromptMap, config
+from .config import config
 from .constants import GLOBAL_DECK_ID
 from .decks import deck_id_to_name_map
 from .logger import logger
-from .models import ChatModels, ChatProviders, TTSModels, TTSProviders
+from .models import (
+    DEFAULT_EXTRAS,
+    ChatModels,
+    ChatProviders,
+    FieldExtras,
+    PromptMap,
+    TTSModels,
+    TTSProviders,
+)
 from .utils import to_lowercase_dict
 
 EXTRAS_DEFAULT_AUTOMATIC = True
@@ -168,12 +176,6 @@ def interpolate_prompt(prompt: str, note: Note) -> Union[str, None]:
     return None
 
 
-DEFAULT_EXTRAS: FieldExtras = cast(
-    FieldExtras,
-    {"automatic": True, "type": "chat", "use_custom_model": False},
-)
-
-
 def add_or_update_prompts(
     prompts_map: PromptMap,
     note_type: str,
@@ -189,6 +191,7 @@ def add_or_update_prompts(
     chat_model: Optional[ChatModels],
     chat_provider: Optional[ChatProviders],
     chat_temperature: Optional[int],
+    chat_markdown_to_html: Optional[bool],
 ) -> PromptMap:
     new_prompts_map = deepcopy(prompts_map)
 
@@ -233,6 +236,9 @@ def add_or_update_prompts(
             extras["chat_model"] = chat_model or extras["chat_model"]
             extras["chat_provider"] = chat_provider or extras["chat_provider"]
             extras["chat_temperature"] = chat_temperature or extras["chat_temperature"]
+            extras["chat_markdown_to_html"] = (
+                chat_markdown_to_html or extras["chat_markdown_to_html"]
+            )
 
     # Otherwise need to delete any custom config if it's not being used
     else:
@@ -242,6 +248,7 @@ def add_or_update_prompts(
         extras["tts_model"] = None
         extras["tts_provider"] = None
         extras["tts_voice"] = None
+        extras["chat_markdown_to_html"] = None
 
     # Write em out
     new_prompts_map["note_types"][note_type][str(deck_id)]["extras"][field] = extras

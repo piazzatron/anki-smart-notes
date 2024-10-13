@@ -17,7 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import List, Literal, Union
+from typing import Dict, List, Literal, Optional, TypedDict, Union
 
 # Providers
 
@@ -61,3 +61,47 @@ OpenAIVoices = Literal[
 ]
 
 ElevenVoices = Literal["male-1", "male-2", "female-1", "female-2"]
+
+
+class FieldExtras(TypedDict):
+
+    automatic: bool
+    type: Literal["chat", "tts"]
+    use_custom_model: bool
+
+    # Chat
+    chat_model: Optional[ChatModels]
+    chat_provider: Optional[ChatProviders]
+    chat_temperature: Optional[int]
+    chat_markdown_to_html: Optional[bool]
+
+    # TTS
+    tts_provider: Optional[TTSProviders]
+    tts_model: Optional[TTSModels]
+    tts_voice: Optional[str]
+    tts_strip_html: Optional[bool]
+
+
+# Any non-mandatory fields should default to none, and will be displayed from global config instead
+DEFAULT_EXTRAS: FieldExtras = {
+    "automatic": True,
+    "type": "chat",
+    "use_custom_model": False,
+    "chat_markdown_to_html": None,
+    "chat_model": None,
+    "chat_provider": None,
+    "chat_temperature": None,
+    "tts_model": None,
+    "tts_provider": None,
+    "tts_voice": None,
+    "tts_strip_html": None,
+}
+
+
+class NoteTypeMap(TypedDict):
+    fields: Dict[str, str]
+    extras: Dict[str, FieldExtras]
+
+
+class PromptMap(TypedDict):
+    note_types: Dict[str, Dict[str, NoteTypeMap]]

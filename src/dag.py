@@ -23,8 +23,9 @@ from typing import Dict, Union
 from anki.decks import DeckId
 from anki.notes import Note
 
-from .config import PromptMap, config
+from .config import config
 from .logger import logger
+from .models import PromptMap
 from .nodes import ChatPayload, FieldNode, TTSPayload
 from .notes import get_note_type
 from .prompts import get_extras, get_prompt_fields, get_prompts_for_note

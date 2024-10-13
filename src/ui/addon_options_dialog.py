@@ -39,7 +39,7 @@ from aqt import (
 from PyQt6.QtCore import Qt
 
 from ..app_state import AppState, app_state, is_app_unlocked
-from ..config import PromptMap, config
+from ..config import config
 from ..constants import GLOBAL_DECK_ID, UNPAID_PROVIDER_ERROR
 from ..decks import deck_id_to_name_map, deck_name_to_id_map
 from ..logger import logger
@@ -47,6 +47,7 @@ from ..models import (
     ChatModels,
     ChatProviders,
     OpenAIModels,
+    PromptMap,
     TTSProviders,
     legacy_openai_chat_models,
 )
@@ -82,6 +83,7 @@ class State(TypedDict):
     chat_models: List[ChatModels]
     chat_model: ChatModels
     chat_temperature: int
+    chat_markdown_to_html: int
 
     # TTS
     tts_provider: Union[TTSProviders, None]
@@ -176,7 +178,7 @@ class AddonOptionsDialog(QDialog):
         general_tab = QWidget()
         general_tab.setLayout(layout)
         tabs.addTab(general_tab, "General")
-        tabs.addTab(self.render_chat_tab(), "Language Model")
+        tabs.addTab(self.render_chat_tab(), "Text")
         # Store a ref so we can enable/disable it
         self.tts_tab = self.render_tts_tab()
         tabs.addTab(self.tts_tab, "TTS")
@@ -327,9 +329,6 @@ class AddonOptionsDialog(QDialog):
         self.generate_at_review_button = ReactiveCheckBox(
             self.state, "generate_at_review"
         )
-        self.generate_at_review_button.onChange.connect(
-            lambda checked: self.state.update({"generate_at_review": checked})
-        )
 
         plugin_form.addRow(
             "Generate fields during review:", self.generate_at_review_button
@@ -339,11 +338,6 @@ class AddonOptionsDialog(QDialog):
         # Regenerate when during
         self.regenerate_notes_when_batching = ReactiveCheckBox(
             self.state, "regenerate_notes_when_batching"
-        )
-        self.regenerate_notes_when_batching.onChange.connect(
-            lambda checked: self.state.update(
-                {"regenerate_notes_when_batching": checked}
-            )
         )
         plugin_form.addRow(
             "Regenerate all smart fields when batch processing:",
@@ -357,9 +351,6 @@ class AddonOptionsDialog(QDialog):
         plugin_form.addRow("", QLabel(""))
 
         self.allow_empty_fields_box = ReactiveCheckBox(self.state, "allow_empty_fields")
-        self.allow_empty_fields_box.onChange.connect(
-            lambda checked: self.state.update({"allow_empty_fields": checked})
-        )
         plugin_form.addRow(
             "Generate prompts with some blank fields:", self.allow_empty_fields_box
         )
@@ -377,9 +368,6 @@ class AddonOptionsDialog(QDialog):
             plugin_tab_layout.addRow(self.render_legacy_options())
 
         self.debug_checkbox = ReactiveCheckBox(self.state, "debug")
-        self.debug_checkbox.onChange.connect(
-            (lambda checked: self.state.update({"debug": checked}))
-        )
         plugin_tab_layout.addRow(QLabel(""))
         plugin_tab_layout.addRow("Debug mode", self.debug_checkbox)
 
@@ -399,8 +387,8 @@ class AddonOptionsDialog(QDialog):
         # TODO: this shouldn't depend on self state
         options = ChatOptions(self.state)  # type: ignore
         options.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Expanding)
-        expl = QLabel("Configure default language model settings")
-        subExpl = QLabel("These settings can be overridden on a per-field basis.")
+        expl = QLabel("Configure default settings for text Smart Fields.")
+        subExpl = QLabel("These settings can be further customized for each field.")
         expl.setFont(font_large)
         subExpl.setFont(font_small)
         layout.addWidget(expl)
@@ -621,6 +609,7 @@ class AddonOptionsDialog(QDialog):
             "chat_model": config.chat_model,
             "chat_models": provider_model_map[config.chat_provider],
             "chat_temperature": config.chat_temperature,
+            "chat_markdown_to_html": config.chat_markdown_to_html,
             # TTS
             "tts_provider": config.tts_provider,
             "tts_voice": config.tts_voice,
