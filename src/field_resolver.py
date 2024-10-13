@@ -31,13 +31,14 @@ from .app_state import (
     is_at_voice_capacity,
 )
 from .chat_provider import ChatProvider
+from .config import config
 from .constants import DEFAULT_TEMPERATURE
 from .logger import logger
 from .models import ChatModels, ChatProviders, TTSModels, TTSProviders
 from .nodes import ChatPayload, FieldNode, TTSPayload
 from .notes import get_chained_ai_fields, get_note_type
 from .open_ai_client import OpenAIClient
-from .prompts import interpolate_prompt
+from .prompts import get_extras, interpolate_prompt
 from .tts_provider import TTSProvider
 
 
@@ -142,7 +143,20 @@ class FieldResolver:
                 interpolated_prompt, temperature=temperature, retry_count=0
             )
 
-        if resp:
+        extras = get_extras(
+            note_type=get_note_type(note),
+            field=field_lower,
+            deck_id=deck_id,
+            fallback_to_global_deck=True,
+        )
+
+        should_convert = (
+            extras["chat_markdown_to_html"]
+            if (extras and extras.get("chat_markdown_to_html") is not None)
+            else config.chat_markdown_to_html
+        )
+
+        if resp and should_convert:
             resp = marko.convert(resp)
 
         return resp

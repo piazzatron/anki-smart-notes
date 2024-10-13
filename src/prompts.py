@@ -21,24 +21,16 @@
 
 import re
 from copy import deepcopy
-from typing import Dict, List, Literal, Optional, Union, cast
+from typing import Any, Dict, List, Literal, Optional, Union, cast
 
 from anki.decks import DeckId
 from anki.notes import Note
 
-from .config import config
+from .config import OverridableChatOptions, config, overridable_chat_options
 from .constants import GLOBAL_DECK_ID
 from .decks import deck_id_to_name_map
 from .logger import logger
-from .models import (
-    DEFAULT_EXTRAS,
-    ChatModels,
-    ChatProviders,
-    FieldExtras,
-    PromptMap,
-    TTSModels,
-    TTSProviders,
-)
+from .models import DEFAULT_EXTRAS, FieldExtras, PromptMap, TTSModels, TTSProviders
 from .utils import to_lowercase_dict
 
 EXTRAS_DEFAULT_AUTOMATIC = True
@@ -188,10 +180,7 @@ def add_or_update_prompts(
     tts_provider: Optional[TTSProviders],
     tts_model: Optional[TTSModels],
     tts_voice: Optional[str],
-    chat_model: Optional[ChatModels],
-    chat_provider: Optional[ChatProviders],
-    chat_temperature: Optional[int],
-    chat_markdown_to_html: Optional[bool],
+    chat_options: Dict[OverridableChatOptions, Any],
 ) -> PromptMap:
     new_prompts_map = deepcopy(prompts_map)
 
@@ -233,22 +222,16 @@ def add_or_update_prompts(
             extras["tts_voice"] = tts_voice or extras["tts_voice"]
             extras["tts_model"] = tts_model or extras["tts_model"]
         elif type == "chat":
-            extras["chat_model"] = chat_model or extras["chat_model"]
-            extras["chat_provider"] = chat_provider or extras["chat_provider"]
-            extras["chat_temperature"] = chat_temperature or extras["chat_temperature"]
-            extras["chat_markdown_to_html"] = (
-                chat_markdown_to_html or extras["chat_markdown_to_html"]
-            )
+            for k, v in chat_options.items():
+                extras[k] = v if v is not None else extras[k]
 
     # Otherwise need to delete any custom config if it's not being used
     else:
-        extras["chat_model"] = None
-        extras["chat_provider"] = None
-        extras["chat_temperature"] = None
+        for k in overridable_chat_options:
+            extras[k] = None
         extras["tts_model"] = None
         extras["tts_provider"] = None
         extras["tts_voice"] = None
-        extras["chat_markdown_to_html"] = None
 
     # Write em out
     new_prompts_map["note_types"][note_type][str(deck_id)]["extras"][field] = extras

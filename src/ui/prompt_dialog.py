@@ -43,7 +43,7 @@ from aqt import (
 from PyQt6.QtCore import Qt
 
 from ..app_state import is_app_legacy, is_app_unlocked, is_app_unlocked_or_legacy
-from ..config import config
+from ..config import config, overridable_chat_options
 from ..constants import GLOBAL_DECK_ID, UNPAID_PROVIDER_ERROR
 from ..dag import prompt_has_error
 from ..decks import deck_id_to_name_map, get_all_deck_ids
@@ -240,6 +240,8 @@ class PromptDialog(QDialog):
     def get_per_field_settings(
         self, selected_card_type: str, selected_field: str, deck_id: DeckId
     ) -> PerFieldSettings:
+        # TODO: this fn should go
+
         extras = (
             get_extras(
                 note_type=selected_card_type,
@@ -252,19 +254,15 @@ class PromptDialog(QDialog):
 
         extras["type"] = self.field_type
 
-        return {
-            "chat_model": extras.get("chat_model") or config.chat_model,
-            "chat_provider": extras.get("chat_provider") or config.chat_provider,
-            "chat_temperature": extras.get("chat_temperature")
-            or config.chat_temperature,
+        ret = {
             "type": extras["type"],
             "use_custom_model": extras["use_custom_model"],
-            "chat_markdown_to_html": (
-                extras.get("chat_markdown_to_html")
-                if self.state.s["use_custom_model"]
-                else config.chat_markdown_to_html
-            ),
         }
+
+        for k in overridable_chat_options:
+            ret[k] = extras[k] if extras.get(k) is not None else config.__getattr__(k)  # type: ignore
+
+        return ret  # type: ignore
 
     def setup_ui(self) -> None:
         self.render_ui()
@@ -872,8 +870,5 @@ class PromptDialog(QDialog):
             tts_provider=self.tts_options.state.s["tts_provider"],
             tts_model=self.tts_options.state.s["tts_model"],
             tts_voice=self.tts_options.state.s["tts_voice"],
-            chat_model=s["chat_model"],
-            chat_provider=s["chat_provider"],
-            chat_temperature=s["chat_temperature"],
-            chat_markdown_to_html=s["chat_markdown_to_html"],
+            chat_options={k: s[k] for k in overridable_chat_options},
         )
