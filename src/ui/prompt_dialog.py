@@ -43,26 +43,29 @@ from aqt import (
 from PyQt6.QtCore import Qt
 
 from ..app_state import is_app_legacy, is_app_unlocked, is_app_unlocked_or_legacy
-from ..config import PromptMap, config
+from ..config import config, key_or_config_val
 from ..constants import GLOBAL_DECK_ID, UNPAID_PROVIDER_ERROR
 from ..dag import prompt_has_error
 from ..decks import deck_id_to_name_map, get_all_deck_ids
 from ..logger import logger
-from ..models import ChatModels, ChatProviders
+from ..models import (
+    DEFAULT_EXTRAS,
+    PromptMap,
+    overridable_chat_options,
+    overridable_tts_options,
+)
 from ..notes import get_note_types, get_random_note
 from ..processor import Processor
 from ..prompts import (
-    DEFAULT_EXTRAS,
     add_or_update_prompts,
     get_extras,
-    get_generate_automatically,
     get_prompt_fields,
     get_prompts_for_note,
 )
 from ..sentry import run_async_in_background_with_sentry
 from ..tts_utils import play_audio
-from ..utils import get_fields, to_lowercase_dict
-from .chat_options import ChatOptions, provider_model_map
+from ..utils import get_fields, none_defaulting, to_lowercase_dict
+from .chat_options import ChatOptions
 from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_edit_text import ReactiveEditText
@@ -88,11 +91,7 @@ class State(TypedDict):
     selected_note_field: str
     is_loading_prompt: bool
     generate_manually: bool
-    chat_provider: ChatProviders
-    chat_providers: List[ChatProviders]
-    chat_models: List[ChatModels]
-    chat_model: ChatModels
-    chat_temperature: int
+
     use_custom_model: bool
     type: Literal["chat", "tts"]
 
@@ -108,14 +107,6 @@ class PartialState(TypedDict):
     selected_tts_source_field: str
     selected_note_type: str
     selected_deck: DeckId
-
-
-class PerFieldSettings(TypedDict):
-    chat_provider: ChatProviders
-    chat_model: ChatModels
-    chat_temperature: int
-    use_custom_model: bool
-    type: Literal["chat", "tts"]
 
 
 class PromptDialog(QDialog):
@@ -164,19 +155,14 @@ class PromptDialog(QDialog):
         )
         selected_target_field = field or default_note_state["selected_note_field"]
 
-        automatic = (
-            get_generate_automatically(
-                note=selected_note_type,
+        extras = (
+            get_extras(
+                note_type=selected_note_type,
                 field=selected_target_field,
-                deck_id=deck_id or GLOBAL_DECK_ID,
-                prompts=prompts_map,
+                prompts=self.prompts_map,
+                deck_id=deck_id,
             )
-            if self.mode == "edit"
-            else True
-        )  # Default new cards to automatic always
-
-        per_field_settings = self.get_per_field_settings(
-            selected_note_type, selected_target_field, deck_id=deck_id or GLOBAL_DECK_ID
+            or DEFAULT_EXTRAS
         )
 
         # Only if it's a new card, we need to get the fields for the selected card type
@@ -206,16 +192,11 @@ class PromptDialog(QDialog):
             "selected_note_field": selected_target_field,
             # other
             "is_loading_prompt": False,
-            "generate_manually": not automatic,
-            "chat_providers": ["openai", "anthropic"],
-            "chat_models": (
-                provider_model_map[
-                    per_field_settings["chat_provider"] or config.chat_provider
-                ]
-            ),
             "decks": get_all_deck_ids(),
             "selected_deck": deck_id,
-            **per_field_settings,
+            "type": field_type,
+            "generate_manually": not extras["automatic"],
+            "use_custom_model": extras["use_custom_model"],
         }
         self.state = StateManager[State](initial_state)
 
@@ -223,9 +204,6 @@ class PromptDialog(QDialog):
             self.state,
             "generate_manually",
             text="Manually generate only",
-        )
-        self.manual_box.onChange.connect(
-            lambda checked: self.state.update({"generate_manually": checked})
         )
         self.standard_buttons = self.create_buttons()
 
@@ -238,30 +216,6 @@ class PromptDialog(QDialog):
         container.addWidget(self.standard_buttons)
         self.setLayout(container)
         self.setup_ui()
-
-    def get_per_field_settings(
-        self, selected_card_type: str, selected_field: str, deck_id: DeckId
-    ) -> PerFieldSettings:
-        extras = (
-            get_extras(
-                note_type=selected_card_type,
-                field=selected_field,
-                prompts=self.prompts_map,
-                deck_id=deck_id,
-            )
-            or DEFAULT_EXTRAS
-        )
-
-        extras["type"] = self.field_type
-
-        return {
-            "chat_model": extras.get("chat_model") or config.chat_model,
-            "chat_provider": extras.get("chat_provider") or config.chat_provider,
-            "chat_temperature": extras.get("chat_temperature")
-            or config.chat_temperature,
-            "type": extras["type"],
-            "use_custom_model": extras["use_custom_model"],
-        }
 
     def setup_ui(self) -> None:
         self.render_ui()
@@ -419,15 +373,12 @@ class PromptDialog(QDialog):
         self.model_options = self.render_custom_model()
         self.model_options.setEnabled(self.state.s["use_custom_model"])
         self.custom_model = ReactiveCheckBox(self.state, "use_custom_model")
-        self.custom_model.onChange.connect(
-            lambda checked: self.state.update({"use_custom_model": checked})
-        )
         self.state.state_changed.connect(self.on_state_update)
         override_box = QWidget()
         override_layout = QHBoxLayout()
         override_layout.setContentsMargins(0, 0, 0, 0)
         override_box.setLayout(override_layout)
-        override_layout.addWidget(QLabel("Override Default Model"))
+        override_layout.addWidget(QLabel("Override Default Settings"))
         override_layout.addWidget(self.custom_model)
         models_layout.addWidget(override_box)
         models_layout.addWidget(self.model_options)
@@ -470,31 +421,44 @@ class PromptDialog(QDialog):
         return standard_buttons
 
     def render_custom_model(self) -> QWidget:
+        # Setup the dummy options; only one will be used
         self.tts_options = TTSOptions()
-        # TODO: encapsulate this ChatOptions state
-        self.chat_options = ChatOptions(self.state)  # type: ignore
+        self.chat_options = ChatOptions()
+
+        extras = get_extras(
+            note_type=self.state.s["selected_note_type"],
+            field=self.state.s["selected_note_field"],
+            deck_id=self.state.s["selected_deck"],
+            prompts=self.prompts_map,
+            fallback_to_global_deck=False,
+        )
 
         if self.state.s["type"] == "tts":
-            extras = get_extras(
-                note_type=self.state.s["selected_note_type"],
-                field=self.state.s["selected_note_field"],
-                deck_id=self.state.s["selected_deck"],
-                prompts=self.prompts_map,
-                fallback_to_global_deck=False,
-            )
-
             if extras and extras["use_custom_model"]:
-                tts_provider = extras.get("tts_provider")
-                tts_voice = extras.get("tts_voice")
-                tts_model = extras.get("tts_model")
                 self.tts_options = TTSOptions(
-                    provider=tts_provider, voice=tts_voice, model=tts_model
+                    {
+                        "tts_provider": extras.get("tts_provider"),
+                        "tts_voice": extras.get("tts_voice"),
+                        "tts_model": extras.get("tts_model"),
+                        "tts_strip_html": extras.get("tts_strip_html"),
+                    }
                 )
-
             return self.tts_options
 
         elif self.state.s["type"] == "chat":
+            if extras and extras["use_custom_model"]:
+                self.chat_options = ChatOptions(
+                    {
+                        "chat_provider": extras.get("chat_provider"),
+                        "chat_model": extras.get("chat_model"),
+                        "chat_temperature": extras.get("chat_temperature"),
+                        "chat_markdown_to_html": extras.get("chat_markdown_to_html"),
+                    }
+                )
             return self.chat_options
+
+        # Should never get here
+        return QWidget()
 
     def on_state_update(self):
         self.model_options.setEnabled(self.state.s["use_custom_model"])
@@ -572,11 +536,11 @@ class PromptDialog(QDialog):
                 "prompt": prompt,
                 "selected_note_field": field,
                 # TODO: do I still need this if editing is not allowed?
-                **self.get_per_field_settings(
-                    self.state.s["selected_note_type"],
-                    selected_field=field,
-                    deck_id=DeckId(int(self.state.s["selected_deck"])),
-                ),
+                # **self.get_per_field_settings(
+                #     self.state.s["selected_note_type"],
+                #     selected_field=field,
+                #     deck_id=DeckId(int(self.state.s["selected_deck"])),
+                # ),
             }
         )
 
@@ -632,13 +596,14 @@ class PromptDialog(QDialog):
 
         self.state["is_loading_prompt"] = True
 
+        # TODO: this part could use some simplification
         chat_provider = (
-            self.state.s["chat_provider"]
+            self.chat_options.state.s["chat_provider"]
             if self.state.s["use_custom_model"]
             else config.chat_provider
         )
         chat_model = (
-            self.state.s["chat_model"]
+            self.chat_options.state.s["chat_model"]
             if self.state.s["use_custom_model"]
             else config.chat_model
         )
@@ -691,17 +656,23 @@ class PromptDialog(QDialog):
 
         if self.state.s["type"] == "chat":
 
-            # TODO: lose this fn, just call it on field resolver
-            self.processor.get_chat_response(
-                prompt=prompt,
-                note=sample_note,
-                provider=chat_provider,
-                model=chat_model,
-                field_lower=self.state.s["selected_note_field"].lower(),
-                on_success=on_success,
-                on_failure=on_failure,
-                deck_id=self.state.s["selected_deck"],
+            fn = lambda: (
+                self.processor.field_resolver.get_chat_response(
+                    prompt=prompt,
+                    note=sample_note,
+                    provider=chat_provider,
+                    model=chat_model,
+                    field_lower=self.state.s["selected_note_field"].lower(),
+                    deck_id=self.state.s["selected_deck"],
+                    temperature=key_or_config_val(
+                        self.chat_options.state.s, "chat_temperature"
+                    ),
+                    should_convert_to_html=key_or_config_val(
+                        self.chat_options.state.s, "chat_markdown_to_html"
+                    ),
+                )
             )
+            run_async_in_background_with_sentry(fn, on_success, on_failure)
         else:
             fn = lambda: (
                 self.processor.field_resolver.get_tts_response(
@@ -710,7 +681,9 @@ class PromptDialog(QDialog):
                     provider=tts_provider,
                     model=tts_model,
                     voice=tts_voice,
-                    options={},
+                    strip_html=none_defaulting(
+                        self.tts_options.state.s, "tts_strip_html", True
+                    ),
                 )
             )
 
@@ -847,7 +820,7 @@ class PromptDialog(QDialog):
         if not is_app_unlocked():
             if (
                 self.state.s["use_custom_model"]
-                and self.state.s["chat_provider"] != "openai"
+                and self.chat_options.state.s["chat_provider"] != "openai"
             ):
                 show_message_box(UNPAID_PROVIDER_ERROR)
                 return
@@ -860,6 +833,7 @@ class PromptDialog(QDialog):
 
     def _create_new_prompts_map(self) -> PromptMap:
         s = self.state.s
+
         return add_or_update_prompts(
             prompts_map=self.prompts_map,
             note_type=s["selected_note_type"],
@@ -869,10 +843,10 @@ class PromptDialog(QDialog):
             is_automatic=not s["generate_manually"],
             is_custom_model=s["use_custom_model"],
             type=s["type"],
-            tts_provider=self.tts_options.state.s["tts_provider"],
-            tts_model=self.tts_options.state.s["tts_model"],
-            tts_voice=self.tts_options.state.s["tts_voice"],
-            chat_model=s["chat_model"],
-            chat_provider=s["chat_provider"],
-            chat_temperature=s["chat_temperature"],
+            tts_options={
+                k: self.tts_options.state.s[k] for k in overridable_tts_options
+            },
+            chat_options={
+                k: self.chat_options.state.s[k] for k in overridable_chat_options
+            },
         )

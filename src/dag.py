@@ -23,8 +23,9 @@ from typing import Dict, Union
 from anki.decks import DeckId
 from anki.notes import Note
 
-from .config import PromptMap, config
+from .config import config
 from .logger import logger
+from .models import PromptMap
 from .nodes import ChatPayload, FieldNode, TTSPayload
 from .notes import get_note_type
 from .prompts import get_extras, get_prompt_fields, get_prompts_for_note
@@ -82,44 +83,17 @@ def generate_fields_dag(
             should_generate_automatically = extras["automatic"]
 
             payload: Union[ChatPayload, TTSPayload]
+
+            def extras_if_custom(k: str):
+                return extras.get(k) if is_custom else config.__getattr__(k)
+
             if type == "chat":
                 payload = ChatPayload(
-                    provider=(
-                        (extras.get("chat_provider") or config.chat_provider)
-                        if is_custom
-                        else config.chat_provider
-                    ),
-                    model=(
-                        (extras.get("chat_model") or config.chat_model)
-                        if is_custom
-                        else config.chat_model
-                    ),
-                    temperature=(
-                        (extras.get("chat_temperature") or config.chat_temperature)
-                        if is_custom
-                        else config.chat_temperature
-                    ),
                     prompt=prompt,
                 )
             elif type == "tts":
                 payload = TTSPayload(
-                    provider=(
-                        (extras.get("tts_provider") or config.tts_provider)
-                        if is_custom
-                        else config.tts_provider
-                    ),
-                    model=(
-                        (extras.get("tts_model") or config.tts_model)
-                        if is_custom
-                        else config.tts_model
-                    ),
-                    voice=(
-                        (extras.get("tts_voice") or config.tts_voice)
-                        if is_custom
-                        else config.tts_voice
-                    ),
                     input=prompt,
-                    options={},
                 )
 
             dag[field_lower] = FieldNode(

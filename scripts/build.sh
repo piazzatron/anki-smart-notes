@@ -51,6 +51,7 @@ build () {
     "certifi"
     "urllib3"
     "dotenv"
+    "marko"
   )
 
   # copy them in a loop
@@ -71,11 +72,22 @@ build () {
 clean () {
   echo "Cleaning..."
   rm -rf dist
-  unlink ~/Library/Application\ Support/Anki2/addons21/smart-notes
+  rm -rf ~/Library/Application\ Support/Anki2/addons21/smart-notes
+  rm -rf ~/development/win_shared/smart-notes
 }
 
 link-dev () {
+  # Link for Mac Local Dev
   ln -s $(pwd) ~/Library/Application\ Support/Anki2/addons21/smart-notes
+}
+
+win-dist () {
+  clean
+  build
+  rm -rf ~/development/win_shared/smart-notes
+  mkdir ~/development/win_shared/smart-notes
+  # Link for Windows dev thru shared folder
+  cp -r $(pwd)/dist/* ~/development/win_shared/smart-notes
 }
 
 # Tests a production build by symlinking dist folder
@@ -139,6 +151,8 @@ if [ "$1" == "build" ]; then
   build
 elif [ "$1" == "clean" ]; then
   clean
+elif [ "$1" == "win" ]; then
+  win-dist
 elif [ "$1" == "test-dev" ]; then
   test-dev
 elif [ "$1" == "test-build" ]; then

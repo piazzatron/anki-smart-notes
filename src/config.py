@@ -20,48 +20,25 @@
 import json
 import os
 from copy import deepcopy
-from typing import Any, Dict, Literal, Optional, TypedDict, Union, cast
+from typing import Any, Dict, Mapping, Optional, TypedDict, TypeVar, Union, cast
 
 from aqt import addons, mw
 
 from .constants import DEFAULT_TEMPERATURE, GLOBAL_DECK_ID
 from .logger import logger
 from .models import (
+    DEFAULT_EXTRAS,
     ChatModels,
     ChatProviders,
+    NoteTypeMap,
     OpenAIModels,
+    PromptMap,
     TTSModels,
     TTSProviders,
     legacy_openai_chat_models,
 )
 from .ui.rate_dialog import RateDialog
 from .utils import USES_BEFORE_RATE_DIALOG, get_file_path
-
-
-class FieldExtras(TypedDict):
-
-    automatic: bool
-    type: Literal["chat", "tts"]
-    use_custom_model: bool
-
-    # Chat
-    chat_model: Optional[ChatModels]
-    chat_provider: Optional[ChatProviders]
-    chat_temperature: Optional[int]
-
-    # TTS
-    tts_provider: Optional[TTSProviders]
-    tts_model: Optional[TTSModels]
-    tts_voice: Optional[str]
-
-
-class NoteTypeMap(TypedDict):
-    fields: Dict[str, str]
-    extras: Dict[str, FieldExtras]
-
-
-class PromptMap(TypedDict):
-    note_types: Dict[str, Dict[str, NoteTypeMap]]
 
 
 class Config:
@@ -85,11 +62,13 @@ class Config:
     chat_provider: ChatProviders
     chat_model: ChatModels
     chat_temperature: int
+    chat_markdown_to_html: bool
 
     # TTS
     tts_provider: TTSProviders
     tts_voice: str
     tts_model: TTSModels
+    tts_strip_html: bool
 
     # Dialogs / Migrations
     did_show_chained_error_dialog: bool
@@ -202,12 +181,10 @@ class Config:
         self.did_deck_filter_migration = True
 
     def perform_extras_cleanup(self) -> None:
-        """Old extras might not have had some values or even existed at all. Rather than accomodate that in the data model, make it right."""
-        if self.did_cleanup_config_defaults:
-            return
-
-        # Also deal w chat_temperature default
-        self.chat_temperature = DEFAULT_TEMPERATURE
+        """Add new extras"""
+        if not self.did_cleanup_config_defaults:
+            self.chat_temperature = DEFAULT_TEMPERATURE
+            self.did_cleanup_config_defaults = True
 
         logger.debug("Migration: writing sane defaults for prompt extras")
         prompts_map = deepcopy(self.prompts_map)
@@ -223,21 +200,14 @@ class Config:
                     if not extras_and_fields["extras"].get(field):
                         extras_and_fields["extras"][field] = {}  # type: ignore
 
-                # Fill out some fields that could have been optional before
+                # Add all default fields
                 for extras in extras_and_fields["extras"].values():
-                    if not "automatic" in extras:
-                        extras["automatic"] = True
-                    if not "type" in extras:
-                        extras["type"] = "chat"
-                    if not "use_custom_model" in extras:
-                        extras["use_custom_model"] = False
-
-                    # Lastly, write out better temperature
-                    if extras.get("chat_temperature") is not None:
-                        extras["chat_temperature"] = DEFAULT_TEMPERATURE
+                    for k, v in DEFAULT_EXTRAS.items():
+                        if not k in extras:
+                            logger.debug(f"Adding extra {k}: {v}")
+                            extras[k] = v  # type: ignore
 
         self.prompts_map = prompts_map
-        self.did_cleanup_config_defaults = True
 
     def _backup_config(self) -> None:
         try:
@@ -266,3 +236,17 @@ def bump_usage_counter() -> None:
         config.did_show_rate_dialog = True
         dialog = RateDialog()
         dialog.exec()
+
+
+T = TypeVar("T")
+M = TypeVar("M", bound=Mapping[str, object])
+
+
+# TODO: this belongs in utils but ciruclar import
+# TODO: make this use the none_defaulting (too much type golf for now tho)
+def key_or_config_val(vals: Optional[M], k: str) -> T:  # type: ignore
+    return (
+        cast(T, vals[k])
+        if (vals and vals.get(k) is not None)
+        else cast(T, config.__getattr__(k))
+    )

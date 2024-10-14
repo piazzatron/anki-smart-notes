@@ -22,6 +22,8 @@ from typing import Any, Dict, Generic, TypeVar
 
 from aqt import QObject, pyqtSignal
 
+from ..logger import logger
+
 T = TypeVar("T")
 
 
@@ -53,6 +55,8 @@ class StateManager(QObject, Generic[T]):
 
         if new_state != self._state:
             self._state = new_state
+            logger.debug("Updating state from slice")
+            logger.debug(updates)
             self.state_changed.emit(new_state)
 
         self.updating = False

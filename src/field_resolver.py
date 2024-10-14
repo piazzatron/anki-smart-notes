@@ -17,8 +17,9 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, Union
+from typing import Optional, Union
 
+import marko
 from anki.decks import DeckId
 from anki.notes import Note
 from aqt import mw
@@ -30,13 +31,13 @@ from .app_state import (
     is_at_voice_capacity,
 )
 from .chat_provider import ChatProvider
-from .constants import DEFAULT_TEMPERATURE
+from .config import key_or_config_val
 from .logger import logger
-from .models import ChatModels, ChatProviders, TTSModels, TTSProviders
+from .models import DEFAULT_EXTRAS, ChatModels, ChatProviders, TTSModels, TTSProviders
 from .nodes import ChatPayload, FieldNode, TTSPayload
 from .notes import get_chained_ai_fields, get_note_type
 from .open_ai_client import OpenAIClient
-from .prompts import interpolate_prompt
+from .prompts import get_extras, interpolate_prompt
 from .tts_provider import TTSProvider
 
 
@@ -55,6 +56,16 @@ class FieldResolver:
     async def resolve(self, node: FieldNode, note: Note) -> Union[str, None]:
         payload = node.payload
 
+        extras = (
+            get_extras(
+                note_type=get_note_type(note),
+                field=node.field,
+                deck_id=node.deck_id,
+                fallback_to_global_deck=True,
+            )
+            or DEFAULT_EXTRAS
+        )
+
         if isinstance(payload, TTSPayload):
             if not is_app_unlocked():
                 logger.debug("Skipping TTS field for locked app")
@@ -67,13 +78,18 @@ class FieldResolver:
                 logger.error("No media")
                 return None
 
+            should_strip_html: bool = key_or_config_val(extras, "tts_strip_html")
+            tts_provider: TTSProviders = key_or_config_val(extras, "tts_provider")
+            tts_model: TTSModels = key_or_config_val(extras, "tts_model")
+            tts_voice: str = key_or_config_val(extras, "tts_voice")
+
             tts_response = await self.get_tts_response(
                 note=note,
                 input_text=payload.input,
-                model=payload.model,
-                voice=payload.voice,
-                provider=payload.provider,
-                options=payload.options,
+                model=tts_model,
+                voice=tts_voice,
+                provider=tts_provider,
+                strip_html=should_strip_html,
             )
 
             if not tts_response:
@@ -86,14 +102,20 @@ class FieldResolver:
             return f"[sound:{path}]"
 
         elif isinstance(node.payload, ChatPayload):
+            chat_model: ChatModels = key_or_config_val(extras, "chat_model")
+            chat_provider: ChatProviders = key_or_config_val(extras, "chat_provider")
+            chat_temperature: int = key_or_config_val(extras, "chat_temperature")
+            should_convert: bool = key_or_config_val(extras, "chat_markdown_to_html")
+
             return await self.get_chat_response(
                 note=note,
                 deck_id=node.deck_id,
                 prompt=payload.prompt,
-                model=payload.model,
-                provider=payload.provider,
-                temperature=payload.temperature,
+                model=chat_model,
+                provider=chat_provider,
+                temperature=chat_temperature,
                 field_lower=node.field,
+                should_convert_to_html=should_convert,
             )
 
         else:
@@ -108,7 +130,8 @@ class FieldResolver:
         model: ChatModels,
         provider: ChatProviders,
         field_lower: str,
-        temperature: int = DEFAULT_TEMPERATURE,
+        temperature: int,
+        should_convert_to_html: bool,
     ) -> Union[str, None]:
 
         interpolated_prompt = interpolate_prompt(prompt, note)
@@ -116,8 +139,10 @@ class FieldResolver:
         if not interpolated_prompt:
             return None
 
+        resp: Optional[str] = None
+
         if is_app_unlocked() and not is_at_text_capacity():
-            return await self.chat_provider.async_get_chat_response(
+            resp = await self.chat_provider.async_get_chat_response(
                 interpolated_prompt,
                 model=model,
                 provider=provider,
@@ -135,11 +160,14 @@ class FieldResolver:
                 logger.debug(f"Skipping chained field: ${field_lower}")
                 return None
 
-            return await self.openai_provider.async_get_chat_response(
+            resp = await self.openai_provider.async_get_chat_response(
                 interpolated_prompt, temperature=temperature, retry_count=0
             )
 
-        return None
+        if resp and should_convert_to_html:
+            resp = marko.convert(resp)
+
+        return resp
 
     async def get_tts_response(
         self,
@@ -148,7 +176,7 @@ class FieldResolver:
         model: TTSModels,
         provider: TTSProviders,
         voice: str,
-        options: Any,
+        strip_html: bool,
     ):
 
         interpolated_prompt = interpolate_prompt(input_text, note)
@@ -165,7 +193,7 @@ class FieldResolver:
             input=interpolated_prompt,
             model=model,
             provider=provider,
-            options=options,
             voice=voice,
             note_id=note.id,
+            strip_html=strip_html,
         )

@@ -17,16 +17,20 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Dict, List, TypedDict
+from typing import Any, Dict, List, Optional, TypedDict
 
 from aqt import QGroupBox, QLabel, QSpacerItem, QWidget
 
+from ..config import key_or_config_val
 from ..models import (
     ChatModels,
     ChatProviders,
+    OverridableChatOptions,
     anthropic_chat_models,
     openai_chat_models,
+    overridable_chat_options,
 )
+from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_spin_box import ReactiveDoubleSpinBox
 from .state_manager import StateManager
@@ -39,6 +43,7 @@ class ChatOptionsState(TypedDict):
     chat_models: List[ChatModels]
     chat_model: ChatModels
     chat_temperature: int
+    chat_markdown_to_html: bool
 
 
 provider_model_map: Dict[ChatProviders, List[ChatModels]] = {
@@ -56,11 +61,17 @@ models_map: Dict[str, str] = {
 
 providers_map = {"openai": "ChatGPT", "anthropic": "Claude"}
 
+all_chat_providers: List[ChatProviders] = ["openai", "anthropic"]
+
 
 class ChatOptions(QWidget):
-    def __init__(self, state: StateManager[ChatOptionsState]):
+    def __init__(
+        self, chat_options: Optional[Dict[OverridableChatOptions, Any]] = None
+    ):
         super().__init__()
-        self.state = state
+        self.state = StateManager[ChatOptionsState](
+            self.get_initial_state(chat_options or {})
+        )
         self.setup_ui()
 
     def setup_ui(self) -> None:
@@ -88,9 +99,20 @@ class ChatOptions(QWidget):
         self.chat_model.setMinimumWidth(350)
         chat_box = QGroupBox("✨ Language Model")
         chat_form = default_form_layout()
+        chat_box.setLayout(chat_form)
         chat_form.addRow("Provider:", self.chat_provider)
         chat_form.addRow("Model:", self.chat_model)
 
+        text_rules = QGroupBox("🔤 Text Processing")
+        text_layout = default_form_layout()
+        text_rules.setLayout(text_layout)
+        self.convert_box = ReactiveCheckBox(self.state, "chat_markdown_to_html")
+        text_layout.addRow(QLabel("Convert Markdown to HTML:"), self.convert_box)
+        convert_explainer = QLabel(
+            "Language models often use **Markdown** in their responses - convert it to HTML to render within Anki."
+        )
+        convert_explainer.setFont(font_small)
+        text_layout.addRow(convert_explainer)
         advanced = QGroupBox("⚙️ Advanced")
         advanced_layout = default_form_layout()
         advanced.setLayout(advanced_layout)
@@ -101,11 +123,23 @@ class ChatOptions(QWidget):
         temp_desc.setFont(font_small)
         advanced_layout.addRow(temp_desc)
 
-        chat_box.setLayout(chat_form)
         chat_layout = default_form_layout()
         chat_layout.addRow(chat_box)
+        chat_layout.addItem(QSpacerItem(0, 12))
+        chat_layout.addRow(text_rules)
         chat_layout.addItem(QSpacerItem(0, 12))
         chat_layout.addRow(advanced)
         chat_layout.setContentsMargins(0, 0, 0, 0)
 
         self.setLayout(chat_layout)
+
+    def get_initial_state(
+        self, chat_options: Dict[OverridableChatOptions, Any]
+    ) -> ChatOptionsState:
+        ret: ChatOptionsState = {
+            k: key_or_config_val(chat_options, k) for k in overridable_chat_options  # type: ignore
+        }
+
+        ret["chat_providers"] = all_chat_providers
+        ret["chat_models"] = provider_model_map[ret["chat_provider"]]
+        return ret

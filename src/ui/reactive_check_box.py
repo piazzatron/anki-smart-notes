@@ -37,6 +37,7 @@ class ReactiveCheckBox(ReactiveWidget[T], QCheckBox, Generic[T]):
         state.bind(self)
 
         self.stateChanged.connect(self._on_state_changed)
+        self.onChange.connect(lambda checked: state.update({key: checked}))
 
     def _update_from_state(self, updates: Dict[str, Any]) -> None:
         self.setChecked(updates[self._key])
