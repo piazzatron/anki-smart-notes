@@ -1,3 +1,10 @@
+# v2.3.0
+
+- Adds two new configurable pre-processing features:
+- 1) Text prompts will convert markdown into HTML to properly render bold/italics/newlines/etc (enabled by default)
+- 2) TTS will now strip out HTML by before creating speech (enabled by default)
+
+
 # v2.2.0
 
 - New feature: associate a Smart Field with a deck to easily reuse the same note type across different decks!
