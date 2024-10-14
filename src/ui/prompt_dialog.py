@@ -535,12 +535,6 @@ class PromptDialog(QDialog):
             {
                 "prompt": prompt,
                 "selected_note_field": field,
-                # TODO: do I still need this if editing is not allowed?
-                # **self.get_per_field_settings(
-                #     self.state.s["selected_note_type"],
-                #     selected_field=field,
-                #     deck_id=DeckId(int(self.state.s["selected_deck"])),
-                # ),
             }
         )
 
