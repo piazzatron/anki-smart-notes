@@ -667,9 +667,7 @@ class PromptDialog(QDialog):
                     temperature=key_or_config_val(
                         self.chat_options.state.s, "chat_temperature"
                     ),
-                    should_convert_to_html=key_or_config_val(
-                        self.chat_options.state.s, "chat_markdown_to_html"
-                    ),
+                    should_convert_to_html=False,  # Don't show HTML here bc it's confusing
                 )
             )
             run_async_in_background_with_sentry(fn, on_success, on_failure)
