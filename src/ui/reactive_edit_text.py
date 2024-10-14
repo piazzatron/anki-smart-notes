@@ -46,7 +46,7 @@ class ReactiveEditText(ReactiveWidget[T], QTextEdit, Generic[T]):
         if scroll_bar:
             scroll = scroll_bar.value()
 
-        self.setText(updates[self._key])
+        self.setPlainText(updates[self._key])
 
         cursor.setPosition(position, QTextCursor.MoveMode.MoveAnchor)
         self.setTextCursor(cursor)
