@@ -17,15 +17,18 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Dict, List, TypedDict
+from typing import Any, Dict, List, Optional, TypedDict
 
 from aqt import QGroupBox, QLabel, QSpacerItem, QWidget
 
+from ..config import key_or_config_val
 from ..models import (
     ChatModels,
     ChatProviders,
+    OverridableChatOptions,
     anthropic_chat_models,
     openai_chat_models,
+    overridable_chat_options,
 )
 from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
@@ -58,11 +61,17 @@ models_map: Dict[str, str] = {
 
 providers_map = {"openai": "ChatGPT", "anthropic": "Claude"}
 
+all_chat_providers: List[ChatProviders] = ["openai", "anthropic"]
+
 
 class ChatOptions(QWidget):
-    def __init__(self, state: StateManager[ChatOptionsState]):
+    def __init__(
+        self, chat_options: Optional[Dict[OverridableChatOptions, Any]] = None
+    ):
         super().__init__()
-        self.state = state
+        self.state = StateManager[ChatOptionsState](
+            self.get_initial_state(chat_options or {})
+        )
         self.setup_ui()
 
     def setup_ui(self) -> None:
@@ -123,3 +132,14 @@ class ChatOptions(QWidget):
         chat_layout.setContentsMargins(0, 0, 0, 0)
 
         self.setLayout(chat_layout)
+
+    def get_initial_state(
+        self, chat_options: Dict[OverridableChatOptions, Any]
+    ) -> ChatOptionsState:
+        ret: ChatOptionsState = {
+            k: key_or_config_val(chat_options, k) for k in overridable_chat_options  # type: ignore
+        }
+
+        ret["chat_providers"] = all_chat_providers
+        ret["chat_models"] = provider_model_map[ret["chat_provider"]]
+        return ret

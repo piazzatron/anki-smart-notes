@@ -20,7 +20,7 @@
 import json
 import os
 from copy import deepcopy
-from typing import Any, Dict, List, Literal, TypedDict, Union, cast
+from typing import Any, Dict, Mapping, TypedDict, TypeVar, Union, cast
 
 from aqt import addons, mw
 
@@ -39,20 +39,6 @@ from .models import (
 )
 from .ui.rate_dialog import RateDialog
 from .utils import USES_BEFORE_RATE_DIALOG, get_file_path
-
-OverridableChatOptions = Union[
-    Literal["chat_provider"],
-    Literal["chat_model"],
-    Literal["chat_temperature"],
-    Literal["chat_markdown_to_html"],
-]
-
-overridable_chat_options: List[OverridableChatOptions] = [
-    "chat_provider",
-    "chat_model",
-    "chat_temperature",
-    "chat_markdown_to_html",
-]
 
 
 class Config:
@@ -250,3 +236,17 @@ def bump_usage_counter() -> None:
         config.did_show_rate_dialog = True
         dialog = RateDialog()
         dialog.exec()
+
+
+T = TypeVar("T")
+M = TypeVar("M", bound=Mapping[str, object])
+
+
+# TODO: this belongs in utils but ciruclar import
+# TODO: make this use the none_defaulting (too much type golf for now tho)
+def key_or_config_val(vals: Optional[M], k: str) -> T:  # type: ignore
+    return (
+        cast(T, vals[k])
+        if (vals and vals.get(k) is not None)
+        else cast(T, config.__getattr__(k))
+    )

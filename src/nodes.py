@@ -17,31 +17,22 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, List, Union
+from typing import List, Union
 
 from anki.decks import DeckId
 from attr import dataclass
-
-from .models import ChatModels, ChatProviders, TTSModels, TTSProviders
 
 # Had to put this in a separate field to resolve circular import btwn processor + field_resolver
 
 
 @dataclass
 class ChatPayload:
-    provider: ChatProviders
-    model: ChatModels
-    temperature: int
     prompt: str
 
 
 @dataclass
 class TTSPayload:
-    provider: TTSProviders
     input: str
-    model: TTSModels
-    voice: str
-    options: Any  # TODO:
 
 
 @dataclass(repr=False)

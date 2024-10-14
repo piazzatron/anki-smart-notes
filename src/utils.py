@@ -20,7 +20,7 @@
 import json
 import os
 import random
-from typing import Any, Callable, Dict, List
+from typing import Any, Callable, Dict, List, Mapping, TypeVar, cast
 
 from aqt import mw
 
@@ -95,3 +95,11 @@ def make_uuid() -> str:
     for _ in range(16):
         uuid.append(random.choice(letters))
     return "".join(uuid)
+
+
+T = TypeVar("T")
+M = TypeVar("M", bound=Mapping[str, Any])
+
+
+def none_defaulting(d: M, k: str, fallback: T) -> T:
+    return cast(T, d[k]) if d.get(k) is not None else fallback

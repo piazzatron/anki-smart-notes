@@ -17,7 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import List, TypedDict, Union
+from typing import Any, List, TypedDict, Union
 from urllib.parse import urlparse
 
 from aqt import (
@@ -43,26 +43,19 @@ from ..config import config
 from ..constants import GLOBAL_DECK_ID, UNPAID_PROVIDER_ERROR
 from ..decks import deck_id_to_name_map, deck_name_to_id_map
 from ..logger import logger
-from ..models import (
-    ChatModels,
-    ChatProviders,
-    OpenAIModels,
-    PromptMap,
-    TTSProviders,
-    legacy_openai_chat_models,
-)
+from ..models import OpenAIModels, PromptMap, legacy_openai_chat_models
 from ..processor import Processor
 from ..prompts import get_all_prompts, get_extras, get_prompts_for_note, remove_prompt
 from ..utils import get_fields, get_version
 from .account_options import AccountOptions
-from .chat_options import ChatOptions, provider_model_map
+from .chat_options import ChatOptions
 from .prompt_dialog import PromptDialog
 from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_line_edit import ReactiveLineEdit
 from .state_manager import StateManager
 from .subscription_box import SubscriptionBox
-from .tts_options import TTSOptions, TTSState
+from .tts_options import TTSOptions
 from .ui_utils import default_form_layout, font_large, font_small, show_message_box
 
 OPTIONS_MIN_WIDTH = 875
@@ -76,19 +69,6 @@ class State(TypedDict):
     openai_endpoint: Union[str, None]
     allow_empty_fields: bool
     debug: bool
-
-    # Chat Options
-    chat_provider: ChatProviders
-    chat_providers: List[ChatProviders]
-    chat_models: List[ChatModels]
-    chat_model: ChatModels
-    chat_temperature: int
-    chat_markdown_to_html: int
-
-    # TTS
-    tts_provider: Union[TTSProviders, None]
-    tts_voice: Union[str, None]
-    tts_model: Union[str, None]
 
     # Legacy OpenAI
     openai_api_key: Union[str, None]
@@ -384,9 +364,10 @@ class AddonOptionsDialog(QDialog):
         layout = QVBoxLayout()
         container.setLayout(layout)
         layout.setContentsMargins(24, 24, 24, 24)
-        # TODO: this shouldn't depend on self state
-        options = ChatOptions(self.state)  # type: ignore
-        options.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Expanding)
+        self.chat_options = ChatOptions()
+        self.chat_options.setSizePolicy(
+            QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Expanding
+        )
         expl = QLabel("Configure default settings for text Smart Fields.")
         subExpl = QLabel("These settings can be further customized for each field.")
         expl.setFont(font_large)
@@ -396,7 +377,7 @@ class AddonOptionsDialog(QDialog):
         layout.addItem(
             QSpacerItem(0, 24, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
         )
-        layout.addWidget(options)
+        layout.addWidget(self.chat_options)
         return container
 
     def render_tts_tab(self) -> QWidget:
@@ -404,9 +385,8 @@ class AddonOptionsDialog(QDialog):
         layout = QVBoxLayout()
         container.setLayout(layout)
         layout.setContentsMargins(24, 24, 24, 24)
-        options = TTSOptions()
-        options.state.state_changed.connect(self.tts_state_changed)
-        options.setContentsMargins(0, 0, 0, 0)
+        self.tts_options = TTSOptions()
+        self.tts_options.setContentsMargins(0, 0, 0, 0)
 
         expl = QLabel("Configure default voice settings for TTS.")
         subExpl = QLabel("These settings can be overridden on a per-field basis.")
@@ -417,17 +397,8 @@ class AddonOptionsDialog(QDialog):
         layout.addItem(
             QSpacerItem(0, 24, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
         )
-        layout.addWidget(options)
+        layout.addWidget(self.tts_options)
         return container
-
-    def tts_state_changed(self, state: TTSState) -> None:
-        self.state.update(
-            {
-                "tts_provider": state["tts_provider"],
-                "tts_voice": state["tts_voice"],
-                "tts_model": state["tts_model"],
-            }
-        )
 
     def create_table(self) -> QTableWidget:
         table = QTableWidget(0, 5)
@@ -559,7 +530,7 @@ class AddonOptionsDialog(QDialog):
             return False
 
         if (
-            self.state.s["tts_provider"] == "elevenLabs"
+            self.tts_options.state.s["tts_provider"] == "elevenLabs"
             and not config.tts_provider == "elevenLabs"
         ):
             did_click_ok = show_message_box(
@@ -572,17 +543,25 @@ class AddonOptionsDialog(QDialog):
         is_unlocked = is_app_unlocked()
 
         if not is_unlocked:
-            if self.state.s["chat_provider"] != "openai":
+            if self.chat_options.state.s["chat_provider"] != "openai":
                 show_message_box(UNPAID_PROVIDER_ERROR)
                 return False
 
         valid_config_attrs = config.__annotations__.keys()
 
         old_debug = config.debug
-        for k, v in [
-            item for item in self.state.s.items() if item[0] in valid_config_attrs
-        ]:
-            config.__setattr__(k, v)
+
+        # Write out all the states here
+        states: List[StateManager[Any]] = [
+            self.state,
+            self.tts_options.state,
+            self.chat_options.state,
+        ]
+        for state in states:
+            for k, v in [
+                item for item in state.s.items() if item[0] in valid_config_attrs
+            ]:
+                config.__setattr__(k, v)
 
         if not old_debug and self.state.s["debug"]:
             show_message_box("Debug mode enabled. Please restart Anki.")
@@ -603,17 +582,6 @@ class AddonOptionsDialog(QDialog):
             "openai_endpoint": config.openai_endpoint,
             "allow_empty_fields": config.allow_empty_fields,
             "debug": config.debug,
-            # Chat
-            "chat_provider": config.chat_provider,
-            "chat_providers": ["openai", "anthropic"],
-            "chat_model": config.chat_model,
-            "chat_models": provider_model_map[config.chat_provider],
-            "chat_temperature": config.chat_temperature,
-            "chat_markdown_to_html": config.chat_markdown_to_html,
-            # TTS
-            "tts_provider": config.tts_provider,
-            "tts_voice": config.tts_voice,
-            "tts_model": config.tts_model,
             # Legacy OpenAI
             "legacy_openai_model": config.legacy_openai_model,
             "legacy_openai_models": legacy_openai_chat_models,

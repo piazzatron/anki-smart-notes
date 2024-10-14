@@ -17,8 +17,6 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any
-
 from .api_client import api
 from .constants import TTS_PROVIDER_TIMEOUT_SEC
 from .models import TTSModels, TTSProviders
@@ -31,7 +29,7 @@ class TTSProvider:
         model: TTSModels,
         provider: TTSProviders,
         voice: str,
-        options: Any = {},
+        strip_html: bool,
         note_id: int = -1,
     ) -> bytes:
 
@@ -42,6 +40,7 @@ class TTSProvider:
                 "model": model,
                 "message": input,
                 "voice": voice,
+                "stripHtml": strip_html,
             },
             note_id=note_id,
             timeout_sec=TTS_PROVIDER_TIMEOUT_SEC,

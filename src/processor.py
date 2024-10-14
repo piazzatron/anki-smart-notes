@@ -38,7 +38,6 @@ from .constants import STANDARD_BATCH_LIMIT
 from .dag import generate_fields_dag
 from .field_resolver import FieldResolver
 from .logger import logger
-from .models import ChatModels, ChatProviders
 from .nodes import FieldNode
 from .notes import get_note_type
 from .prompts import get_prompts_for_note
@@ -404,47 +403,6 @@ class Processor:
 
     def _assert_valid_app_mode(self) -> bool:
         return is_app_unlocked() or has_api_key()
-
-    def get_chat_response(
-        self,
-        prompt: str,
-        note: Note,
-        deck_id: DeckId,
-        provider: ChatProviders,
-        model: ChatModels,
-        field_lower: str,
-        on_success: Callable[[str], None],
-        on_failure: Union[Callable[[Exception], None], None] = None,
-    ):
-
-        if not self._assert_preconditions():
-            return
-
-        def wrapped_on_success(response: str) -> None:
-            self._reqlinquish_req_in_process()
-            on_success(response)
-
-        def wrapped_on_failure(e: Exception) -> None:
-            self._handle_failure(e)
-            self._reqlinquish_req_in_process()
-            if on_failure:
-                on_failure(e)
-
-        # TODO: needs field_upper
-        chat_fn = lambda: self.field_resolver.get_chat_response(
-            prompt=prompt,
-            note=note,
-            deck_id=deck_id,
-            model=model,
-            provider=provider,
-            field_lower=field_lower,
-        )
-
-        run_async_in_background_with_sentry(
-            chat_fn,
-            wrapped_on_success,
-            wrapped_on_failure,
-        )
 
     async def _process_node(self, node: FieldNode, note: Note) -> Union[str, None]:
         if node.abort:

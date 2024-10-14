@@ -87,10 +87,12 @@ DEFAULT_EXTRAS: FieldExtras = {
     "automatic": True,
     "type": "chat",
     "use_custom_model": False,
+    # Overridable Chat Options
     "chat_markdown_to_html": None,
     "chat_model": None,
     "chat_provider": None,
     "chat_temperature": None,
+    # Overridable TTS Options
     "tts_model": None,
     "tts_provider": None,
     "tts_voice": None,
@@ -105,3 +107,39 @@ class NoteTypeMap(TypedDict):
 
 class PromptMap(TypedDict):
     note_types: Dict[str, Dict[str, NoteTypeMap]]
+
+
+OverridableChatOptions = Union[
+    Literal["chat_provider"],
+    Literal["chat_model"],
+    Literal["chat_temperature"],
+    Literal["chat_markdown_to_html"],
+]
+
+overridable_chat_options: List[OverridableChatOptions] = [
+    "chat_provider",
+    "chat_model",
+    "chat_temperature",
+    "chat_markdown_to_html",
+]
+
+OverridableTTSOptions = Union[
+    Literal["tts_model"],
+    Literal["tts_provider"],
+    Literal["tts_voice"],
+    Literal["tts_strip_html"],
+]
+
+overridable_tts_options: List[OverridableTTSOptions] = [
+    "tts_model",
+    "tts_provider",
+    "tts_voice",
+    "tts_strip_html",
+]
+
+
+class OverrideTTSOptionsDict(TypedDict):
+    tts_model: Optional[TTSModels]
+    tts_provider: Optional[TTSProviders]
+    tts_voice: Optional[str]
+    tts_strip_html: Optional[bool]

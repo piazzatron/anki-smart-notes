@@ -27,7 +27,8 @@ from aqt import mw
 from .constants import GLOBAL_DECK_ID
 from .decks import deck_id_to_name_map
 from .logger import logger
-from .prompts import get_generate_automatically, get_prompt_fields, get_prompts_for_note
+from .models import DEFAULT_EXTRAS
+from .prompts import get_extras, get_prompt_fields, get_prompts_for_note
 from .ui.ui_utils import show_message_box
 from .utils import get_fields
 
@@ -62,7 +63,10 @@ def is_card_fully_processed(card: Card) -> bool:
 
     for field in prompts.keys():
         field_exists = field in note and note[field]
-        is_automatic = get_generate_automatically(note_type, field, deck_id=card.did)
+        is_automatic = (
+            get_extras(note_type=note_type, field=field, deck_id=card.did)
+            or DEFAULT_EXTRAS
+        )["automatic"]
         if (not field_exists) and is_automatic:
             return False
 

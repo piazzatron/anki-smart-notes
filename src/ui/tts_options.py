@@ -18,7 +18,7 @@
 """
 
 import json
-from typing import Dict, List, Literal, Optional, TypedDict, Union
+from typing import Dict, List, Literal, Optional, TypedDict, Union, cast
 
 from aqt import (
     QAbstractListModel,
@@ -36,13 +36,19 @@ from aqt import (
     QWidget,
 )
 
-from ..config import config
+from ..config import config, key_or_config_val
 from ..logger import logger
-from ..models import TTSModels, TTSProviders
+from ..models import (
+    OverrideTTSOptionsDict,
+    TTSModels,
+    TTSProviders,
+    overridable_tts_options,
+)
 from ..sentry import run_async_in_background_with_sentry
 from ..tts_provider import TTSProvider
 from ..tts_utils import play_audio
-from ..utils import load_file
+from ..utils import load_file, none_defaulting
+from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_edit_text import ReactiveEditText
 from .state_manager import StateManager
@@ -88,9 +94,10 @@ class TTSState(TypedDict):
     voice: str
 
     # These are the actual values read from and written to config
-    tts_provider: Union[TTSProviders, None]
-    tts_voice: Union[str, None]
-    tts_model: Union[TTSModels, None]
+    tts_provider: Optional[TTSProviders]
+    tts_voice: Optional[str]
+    tts_model: Optional[TTSModels]
+    tts_strip_html: Optional[bool]
 
     test_text: str
     test_enabled: bool
@@ -236,24 +243,10 @@ class CustomListModel(QAbstractListModel):
 
 
 class TTSOptions(QWidget):
-    def __init__(
-        self,
-        state: Union[StateManager[TTSState], None] = None,
-        provider: Optional[TTSProviders] = None,
-        voice: Optional[str] = None,
-        model: Optional[TTSModels] = None,
-    ):
+    def __init__(self, tts_options: Optional[OverrideTTSOptionsDict] = None):
         super().__init__()
 
-        self.state = (
-            state
-            if state
-            else StateManager[TTSState](
-                self.get_initial_state(
-                    tts_provider=provider, tts_voice=voice, tts_model=model
-                )
-            )
-        )
+        self.state = StateManager[TTSState](self.get_initial_state(tts_options))
         self.setup_ui()
 
     def setup_ui(self) -> None:
@@ -272,6 +265,8 @@ class TTSOptions(QWidget):
         layout.addWidget(top_row)
         layout.addSpacerItem(QSpacerItem(0, 12))
         layout.addWidget(self.render_test_voice())
+        layout.addSpacerItem(QSpacerItem(0, 12))
+        layout.addWidget(self.render_processing_rules())
         self.state.state_changed.connect(self.update_ui)
         self.update_ui()
 
@@ -383,7 +378,7 @@ class TTSOptions(QWidget):
             config.did_show_premium_tts_dialog = True
 
     def render_test_voice(self) -> QWidget:
-        box = QGroupBox("Test Voice 🔈")
+        box = QGroupBox("🔈Test Voice")
         layout = QHBoxLayout()
         edit_text = ReactiveEditText(self.state, "test_text")
         edit_text.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
@@ -396,6 +391,14 @@ class TTSOptions(QWidget):
 
         box.setLayout(layout)
 
+        return box
+
+    def render_processing_rules(self) -> QWidget:
+        box = QGroupBox("⚙️Voice Processing")
+        layout = default_form_layout()
+        box.setLayout(layout)
+        strip_html_box = ReactiveCheckBox(self.state, "tts_strip_html")
+        layout.addRow("Strip HTML from text before speaking:", strip_html_box)
         return box
 
     def test_and_play(self) -> None:
@@ -421,6 +424,7 @@ class TTSOptions(QWidget):
                 model=model,
                 provider=provider,
                 voice=voice,
+                strip_html=(none_defaulting(self.state.s, "tts_strip_html", True)),
             )
             return resp
 
@@ -451,12 +455,10 @@ class TTSOptions(QWidget):
         return filtered
 
     def get_initial_state(
-        self,
-        tts_provider: Union[TTSProviders, None],
-        tts_voice: Union[str, None],
-        tts_model: Union[TTSModels, None],
+        self, tts_options: Optional[OverrideTTSOptionsDict]
     ) -> TTSState:
-        return {
+
+        ret = {
             "providers": providers,
             "selected_provider": ALL,
             "voice": config.tts_voice,
@@ -466,7 +468,9 @@ class TTSOptions(QWidget):
             "selected_language": ALL,
             "test_text": default_texts[ALL],
             "test_enabled": True,
-            "tts_provider": tts_provider or config.tts_provider,
-            "tts_voice": tts_voice or config.tts_voice,
-            "tts_model": tts_model or config.tts_model,
         }
+
+        for k in overridable_tts_options:
+
+            ret[k] = key_or_config_val(tts_options, k)
+        return cast(TTSState, ret)

@@ -26,11 +26,19 @@ from typing import Any, Dict, List, Literal, Optional, Union, cast
 from anki.decks import DeckId
 from anki.notes import Note
 
-from .config import OverridableChatOptions, config, overridable_chat_options
+from .config import config
 from .constants import GLOBAL_DECK_ID
 from .decks import deck_id_to_name_map
 from .logger import logger
-from .models import DEFAULT_EXTRAS, FieldExtras, PromptMap, TTSModels, TTSProviders
+from .models import (
+    DEFAULT_EXTRAS,
+    FieldExtras,
+    OverridableChatOptions,
+    OverridableTTSOptions,
+    PromptMap,
+    overridable_chat_options,
+    overridable_tts_options,
+)
 from .utils import to_lowercase_dict
 
 EXTRAS_DEFAULT_AUTOMATIC = True
@@ -116,21 +124,6 @@ def get_all_prompts(
     return prompts_map
 
 
-def get_generate_automatically(
-    note: str,
-    field: str,
-    deck_id: DeckId,
-    prompts: Union[PromptMap, None] = None,
-) -> bool:
-    extras = get_extras(note_type=note, field=field, deck_id=deck_id, prompts=prompts)
-
-    if not extras:
-        logger.error("get_generate_automatically: no extras!")
-        return True
-
-    return extras["automatic"]
-
-
 def get_prompt_fields(prompt: str, lower: bool = True) -> List[str]:
     pattern = r"\{\{(.+?)\}\}"
     fields = re.findall(pattern, prompt)
@@ -177,9 +170,7 @@ def add_or_update_prompts(
     is_automatic: bool,
     is_custom_model: bool,
     type: Literal["chat", "tts"],
-    tts_provider: Optional[TTSProviders],
-    tts_model: Optional[TTSModels],
-    tts_voice: Optional[str],
+    tts_options: Dict[OverridableTTSOptions, Any],
     chat_options: Dict[OverridableChatOptions, Any],
 ) -> PromptMap:
     new_prompts_map = deepcopy(prompts_map)
@@ -216,22 +207,20 @@ def add_or_update_prompts(
     extras["automatic"] = is_automatic
     extras["use_custom_model"] = is_custom_model
 
+    # If we're doing custom settins, write out extra config
     if is_custom_model:
-        if type == "tts":
-            extras["tts_provider"] = tts_provider or extras["tts_provider"]
-            extras["tts_voice"] = tts_voice or extras["tts_voice"]
-            extras["tts_model"] = tts_model or extras["tts_model"]
-        elif type == "chat":
-            for k, v in chat_options.items():
-                extras[k] = v if v is not None else extras[k]
+        overrideable_options = cast(
+            Union[Dict[OverridableChatOptions, Any], Dict[OverridableTTSOptions, Any]],
+            {"chat": chat_options, "tts": tts_options}[type],
+        )
+        # Overwrite any extras fields if they have been passed in
+        for k, v in overrideable_options.items():
+            extras[k] = v if v is not None else extras[k]
 
     # Otherwise need to delete any custom config if it's not being used
     else:
-        for k in overridable_chat_options:
+        for k in overridable_chat_options + overridable_tts_options:
             extras[k] = None
-        extras["tts_model"] = None
-        extras["tts_provider"] = None
-        extras["tts_voice"] = None
 
     # Write em out
     new_prompts_map["note_types"][note_type][str(deck_id)]["extras"][field] = extras
