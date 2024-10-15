@@ -17,6 +17,8 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from typing import cast
+
 from .api_client import api
 from .constants import CHAT_CLIENT_TIMEOUT_SEC, DEFAULT_TEMPERATURE
 from .logger import logger
@@ -49,4 +51,11 @@ class ChatProvider:
         if not len(resp["messages"]):
             logger.debug(f"Empty response from chat provider {provider}")
             return ""
-        return resp["messages"][0]  # type: ignore
+
+        msg = cast(str, resp["messages"][0])
+
+        logger.debug(
+            f"Response for prompt [{prompt}] temperature [{temperature}] model [{model}]: [{msg}]"
+        )
+
+        return msg

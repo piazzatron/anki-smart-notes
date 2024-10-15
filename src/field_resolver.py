@@ -19,7 +19,6 @@
 
 from typing import Optional, Union
 
-import marko
 from anki.decks import DeckId
 from anki.notes import Note
 from aqt import mw
@@ -33,6 +32,7 @@ from .app_state import (
 from .chat_provider import ChatProvider
 from .config import key_or_config_val
 from .logger import logger
+from .markdown import convert_markdown_to_html
 from .models import DEFAULT_EXTRAS, ChatModels, ChatProviders, TTSModels, TTSProviders
 from .nodes import ChatPayload, FieldNode, TTSPayload
 from .notes import get_chained_ai_fields, get_note_type
@@ -165,7 +165,7 @@ class FieldResolver:
             )
 
         if resp and should_convert_to_html:
-            resp = marko.convert(resp)
+            resp = convert_markdown_to_html(resp)
 
         return resp
 

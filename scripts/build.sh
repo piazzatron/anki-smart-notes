@@ -51,7 +51,6 @@ build () {
     "certifi"
     "urllib3"
     "dotenv"
-    "marko"
   )
 
   # copy them in a loop

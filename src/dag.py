@@ -23,7 +23,6 @@ from typing import Dict, Union
 from anki.decks import DeckId
 from anki.notes import Note
 
-from .config import config
 from .logger import logger
 from .models import PromptMap
 from .nodes import ChatPayload, FieldNode, TTSPayload
@@ -45,7 +44,6 @@ def generate_fields_dag(
     # - Optionally trims them if it's target_field mode
 
     try:
-        logger.debug("Generating dag...")
         note_type = get_note_type(note)
 
         prompts = get_prompts_for_note(
@@ -83,9 +81,6 @@ def generate_fields_dag(
             should_generate_automatically = extras["automatic"]
 
             payload: Union[ChatPayload, TTSPayload]
-
-            def extras_if_custom(k: str):
-                return extras.get(k) if is_custom else config.__getattr__(k)
 
             if type == "chat":
                 payload = ChatPayload(
@@ -141,8 +136,6 @@ def generate_fields_dag(
             logger.debug(trimmed)
             return trimmed
 
-        logger.debug("Generated dag")
-        logger.debug(dag)
         return dag
     except Exception as e:
         logger.error(f"Error creating dag: {e}")

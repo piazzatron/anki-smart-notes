@@ -32,7 +32,6 @@ Jinja2==3.1.4
 jsonschema==4.22.0
 jsonschema-specifications==2023.12.1
 Markdown==3.6
-marko==2.1.2
 MarkupSafe==2.1.5
 multidict==6.0.5
 mypy==1.10.0
