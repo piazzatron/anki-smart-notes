@@ -37,8 +37,8 @@ def convert_markdown_to_html(markdown: str) -> str:
     markdown = re.sub(r"## (.*?)\n", r"<h2>\1</h2>\n", markdown)
     markdown = re.sub(r"# (.*?)\n", r"<h1>\1</h1>\n", markdown)
 
-    # Convert all head space to &nbsp;
-    markdown = convert_leading_spaces_to_html(markdown)
+    # Convert all head whitespace to &nbsp;
+    markdown = convert_leading_whitespaces_to_html(markdown)
 
     # Convert newlines to <br> tags
     markdown = re.sub(r"\n", r"<br>", markdown)
@@ -46,10 +46,16 @@ def convert_markdown_to_html(markdown: str) -> str:
     return markdown
 
 
-# Convert leading spaces to &nbsp;
-def convert_leading_spaces_to_html(markdown: str) -> str:
+# Convert leading whitespaces to &nbsp;
+def convert_leading_whitespaces_to_html(markdown: str) -> str:
     def replace_spaces(match: re.Match[str]):
         spaces = match.group(1)
         return "&nbsp;" * len(spaces) + match.group(2)
 
-    return re.sub(r"^( +)(.*)", replace_spaces, markdown, flags=re.MULTILINE)
+    """
+    example:
+      "Hello  "            -> "Hello  "
+      "   "              -> "&nbsp;&nbsp;&nbsp;"
+      "   Hello, World!" -> "&nbsp;&nbsp;&nbsp;Hello, World!"
+    """
+    return re.sub(r"^([\s]+)(.*)$", replace_spaces, markdown, flags=re.MULTILINE)
