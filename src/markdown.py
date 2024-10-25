@@ -56,7 +56,8 @@ def convert_leading_whitespaces_to_html(markdown: str) -> str:
       "   Hello, World!"   -> "&nbsp;&nbsp;&nbsp;Hello, World!"
     """
     return re.sub(
-           r"^([\s]+)",
+           # Only match spaces and tabs, not newlines.
+           r"^([ \t]+)",
            lambda match: '&nbsp;' * len(match.group(1)),
            markdown,
            flags=re.MULTILINE
