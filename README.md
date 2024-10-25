@@ -162,13 +162,17 @@ Smart fields can reference as many other fields on your card as you like, includ
 
 </br>
 
-# Help and Support
+# Support
 
 Found a bug or want to request a feature? File an <a href="https://github.com/piazzatron/anki-smart-notes/issues"> issue on Github</a> or email <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a>
 
 Enjoying this addon? <a href="https://ankiweb.net/shared/info/1531888719">Please rate it to help others find it.👍</a>
 
 </br>
+
+# Contributing
+
+PRs are welcome! See <a href="https://github.com/piazzatron/anki-smart-notes/pull/41">this PR</a> for a great example.
 
 # Cost
 
