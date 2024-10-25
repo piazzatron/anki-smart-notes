@@ -48,14 +48,16 @@ def convert_markdown_to_html(markdown: str) -> str:
 
 # Convert leading whitespaces to &nbsp;
 def convert_leading_whitespaces_to_html(markdown: str) -> str:
-    def replace_spaces(match: re.Match[str]):
-        spaces = match.group(1)
-        return "&nbsp;" * len(spaces) + match.group(2)
-
     """
     example:
       "Hello  "            -> "Hello  "
-      "   "              -> "&nbsp;&nbsp;&nbsp;"
-      "   Hello, World!" -> "&nbsp;&nbsp;&nbsp;Hello, World!"
+      "  "                 -> "&nbsp;&nbsp;"    <- This is a space
+      "		"              -> "&nbsp;&nbsp;"    <- This is a tab
+      "   Hello, World!"   -> "&nbsp;&nbsp;&nbsp;Hello, World!"
     """
-    return re.sub(r"^([\s]+)(.*)$", replace_spaces, markdown, flags=re.MULTILINE)
+    return re.sub(
+           r"^([\s]+)",
+           lambda match: '&nbsp;' * len(match.group(1)),
+           markdown,
+           flags=re.MULTILINE
+           )
