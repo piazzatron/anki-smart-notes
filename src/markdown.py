@@ -47,9 +47,9 @@ def convert_markdown_to_html(markdown: str) -> str:
 
 
 # Convert leading spaces to &nbsp;
-def convert_leading_spaces_to_html(markdown):
-    def replace_spaces(match):
+def convert_leading_spaces_to_html(markdown: str) -> str:
+    def replace_spaces(match: re.Match[str]):
         spaces = match.group(1)
-        return '&nbsp;' * len(spaces) + match.group(2)
+        return "&nbsp;" * len(spaces) + match.group(2)
 
     return re.sub(r"^( +)(.*)", replace_spaces, markdown, flags=re.MULTILINE)
