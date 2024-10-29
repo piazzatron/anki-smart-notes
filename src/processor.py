@@ -334,7 +334,10 @@ class Processor:
                 for out_node in node.out_nodes:
                     out_node.in_nodes.remove(node)
 
-                if node.did_update:
+                # New notes have ID 0 and don't exist in the DB yet, so can't be updated!
+                if note.id and node.did_update:
+                    if mw:
+                        mw.col.update_note(note)
                     did_update = True
 
                 dag.pop(field)

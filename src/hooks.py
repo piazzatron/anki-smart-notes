@@ -129,20 +129,29 @@ def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Ed
 
         set_button_disabled()
 
+        def reloadNote() -> None:
+            # Don't reload notes if they don't exist yet
+            if note.id:
+                note.load()
+            editor.loadNote()
+
+            parent = editor.parentWindow
+
+            # Reload previewer if we need to
+            if isinstance(parent, browser.Browser):  # type: ignore
+                if parent._previewer:
+                    parent._previewer.render_card()
+
         def on_success(did_change: bool):
             set_button_enabled()
 
             if not did_change:
                 return
 
-            # New card have note id 0
-            if card.id:
-                # Only update card if it's already in the database
-                mw.col.update_card(card)
-            editor.loadNote()
+            reloadNote()
 
         def on_field() -> None:
-            editor.loadNote()
+            reloadNote()
 
         is_fully_processed = is_card_fully_processed(card)
         processor.process_card(
