@@ -1,3 +1,8 @@
+# v2.4.0
+
+- Bug fix: you can now generate notes while the preview window is open, and the preview will automatically update.
+- Bug fix: fixed overflowing add prompts UI for note types with many fields.
+
 # v2.3.0
 
 - Adds two new configurable pre-processing features:
