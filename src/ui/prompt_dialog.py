@@ -320,7 +320,7 @@ class PromptDialog(QDialog):
         self.valid_fields = QLabel("")
         self.valid_fields.setMinimumWidth(500)
         size_policy = QSizePolicy(
-            QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred
+            QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding
         )
         size_policy.setHorizontalStretch(1)
         self.valid_fields.setSizePolicy(size_policy)
@@ -503,6 +503,8 @@ class PromptDialog(QDialog):
             note_type=note_type, type=self.state.s["type"], deck_id=GLOBAL_DECK_ID
         )
         self.state.update(cast(Dict[str, Any], new_state))
+        # Force re-layout every time
+        self.adjustSize()
 
     def on_deck_selected(self, deck: str) -> None:
         # Dumb hack bc of leaky abstraction reactive combo box + int keys
