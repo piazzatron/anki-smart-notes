@@ -36,8 +36,8 @@ from .config import bump_usage_counter, config
 from .decks import deck_id_to_name_map
 from .logger import logger, setup_logger
 from .message_polling import start_polling_for_messages
+from .note_proccessor import NoteProcessor
 from .notes import is_ai_field, is_card_fully_processed
-from .processor import Processor
 from .sentry import pinger, sentry, with_sentry
 from .tasks import run_async_in_background
 from .ui.addon_options_dialog import AddonOptionsDialog
@@ -51,7 +51,7 @@ def with_processor(fn):
     # Too annoying to type this thing
     """Decorator to pass the processor to the function."""
 
-    def wrapper(processor: Processor):
+    def wrapper(processor: NoteProcessor):
         @with_sentry
         def inner(*args, **kwargs):
             return fn(processor, *args, **kwargs)
@@ -62,14 +62,16 @@ def with_processor(fn):
 
 
 @with_processor  # type: ignore
-def on_options(processor: Processor):
+def on_options(processor: NoteProcessor):
     app_state.update_subscription_state()
     dialog = AddonOptionsDialog(processor)
     dialog.exec()
 
 
 @with_processor  # type: ignore
-def add_editor_top_button(processor: Processor, buttons: List[str], e: editor.Editor):
+def add_editor_top_button(
+    processor: NoteProcessor, buttons: List[str], e: editor.Editor
+):
 
     @with_sentry
     def fn(editor: editor.Editor):
@@ -194,7 +196,7 @@ def make_on_batch_success(
 
 
 @with_processor  # type: ignore
-def on_browser_context(processor: Processor, browser: browser.Browser, menu: QMenu):  # type: ignore
+def on_browser_context(processor: NoteProcessor, browser: browser.Browser, menu: QMenu):  # type: ignore
     item = QAction("✨ Generate Smart Fields", menu)
     menu.addSeparator()
     menu.addAction(item)
@@ -237,7 +239,7 @@ def on_start_actions() -> None:
 
 
 @with_processor  # type: ignore
-def on_main_window(processor: Processor):
+def on_main_window(processor: NoteProcessor):
     if not mw:
         return
 
@@ -257,7 +259,7 @@ def on_main_window(processor: Processor):
 
 @with_processor  # type: ignore
 def on_editor_context(
-    processor: Processor, editor_web_view: editor.EditorWebView, menu: QMenu
+    processor: NoteProcessor, editor_web_view: editor.EditorWebView, menu: QMenu
 ):
     editor = editor_web_view.editor
     card = editor.card
@@ -289,7 +291,7 @@ def on_editor_context(
 
 
 @with_processor  # type: ignore
-def on_review(processor: Processor, card: Card):
+def on_review(processor: NoteProcessor, card: Card):
     logger.debug("Reviewing...")
     if not is_app_unlocked_or_legacy(show_box=False):
         return
@@ -322,7 +324,7 @@ def on_review(processor: Processor, card: Card):
 
 @with_processor  # type: ignore
 def add_deck_option(
-    processor: Processor,
+    processor: NoteProcessor,
     tree_view: browser.sidebar.SidebarTreeView,  # type: ignore
     menu: QMenu,
     sidebar_item: browser.SidebarItem,  # type: ignore
@@ -385,7 +387,7 @@ def prevent_batches_on_free_trial(notes) -> bool:
 
 
 @with_sentry
-def setup_hooks(processor: Processor):
+def setup_hooks(processor: NoteProcessor):
     gui_hooks.browser_will_show_context_menu.append(on_browser_context(processor))
     gui_hooks.browser_sidebar_will_show_context_menu.append(add_deck_option(processor))
     gui_hooks.editor_did_init_buttons.append(add_editor_top_button(processor))

@@ -17,7 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, Dict, List, Optional, TypedDict
+from typing import Dict, List, Optional, TypedDict
 
 from aqt import QGroupBox, QLabel, QSpacerItem, QWidget
 
@@ -25,7 +25,7 @@ from ..config import key_or_config_val
 from ..models import (
     ChatModels,
     ChatProviders,
-    OverridableChatOptions,
+    OverridableChatOptionsDict,
     anthropic_chat_models,
     openai_chat_models,
     overridable_chat_options,
@@ -65,12 +65,10 @@ all_chat_providers: List[ChatProviders] = ["openai", "anthropic"]
 
 
 class ChatOptions(QWidget):
-    def __init__(
-        self, chat_options: Optional[Dict[OverridableChatOptions, Any]] = None
-    ):
+    def __init__(self, chat_options: Optional[OverridableChatOptionsDict] = None):
         super().__init__()
         self.state = StateManager[ChatOptionsState](
-            self.get_initial_state(chat_options or {})
+            self.get_initial_state(chat_options or {})  # type: ignore
         )
         self.setup_ui()
 
@@ -134,7 +132,7 @@ class ChatOptions(QWidget):
         self.setLayout(chat_layout)
 
     def get_initial_state(
-        self, chat_options: Dict[OverridableChatOptions, Any]
+        self, chat_options: OverridableChatOptionsDict
     ) -> ChatOptionsState:
         ret: ChatOptionsState = {
             k: key_or_config_val(chat_options, k) for k in overridable_chat_options  # type: ignore

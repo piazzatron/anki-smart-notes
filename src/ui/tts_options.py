@@ -39,7 +39,7 @@ from aqt import (
 from ..config import config, key_or_config_val
 from ..logger import logger
 from ..models import (
-    OverrideTTSOptionsDict,
+    OverrideableTTSOptionsDict,
     TTSModels,
     TTSProviders,
     overridable_tts_options,
@@ -243,7 +243,7 @@ class CustomListModel(QAbstractListModel):
 
 
 class TTSOptions(QWidget):
-    def __init__(self, tts_options: Optional[OverrideTTSOptionsDict] = None):
+    def __init__(self, tts_options: Optional[OverrideableTTSOptionsDict] = None):
         super().__init__()
 
         self.state = StateManager[TTSState](self.get_initial_state(tts_options))
@@ -455,7 +455,7 @@ class TTSOptions(QWidget):
         return filtered
 
     def get_initial_state(
-        self, tts_options: Optional[OverrideTTSOptionsDict]
+        self, tts_options: Optional[OverrideableTTSOptionsDict]
     ) -> TTSState:
 
         ret = {

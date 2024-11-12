@@ -36,7 +36,7 @@ from .app_state import (
 from .config import Config, bump_usage_counter
 from .constants import STANDARD_BATCH_LIMIT
 from .dag import generate_fields_dag
-from .field_resolver import FieldResolver
+from .field_processor import FieldProcessor
 from .logger import logger
 from .nodes import FieldNode
 from .notes import get_note_type
@@ -50,10 +50,10 @@ NEW_OPEN_AI_MODEL_REQ_PER_MIN = 500
 OLD_OPEN_AI_MODEL_REQ_PER_MIN = 3500
 
 
-class Processor:
+class NoteProcessor:
 
-    def __init__(self, field_resolver: FieldResolver, config: Config):
-        self.field_resolver = field_resolver
+    def __init__(self, field_processor: FieldProcessor, config: Config):
+        self.field_processor = field_processor
         self.config = config
         self.req_in_progress = False
 
@@ -324,7 +324,7 @@ class Processor:
             for field, response in zip(batch_tasks.keys(), responses):
                 node = dag[field]
                 if response:
-                    logger.debug(f"Updating field {field} with response")
+                    logger.debug(f"Updating field {field} with response: {response}")
                     note[node.field_upper] = response
 
                 if node.abort:
@@ -423,7 +423,7 @@ class Processor:
         if value and not (node.is_target or node.overwrite):
             return value
 
-        new_value = await self.field_resolver.resolve(node, note)
+        new_value = await self.field_processor.resolve(node, note)
         if new_value:
             node.did_update = True
 

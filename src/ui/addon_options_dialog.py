@@ -44,7 +44,7 @@ from ..constants import GLOBAL_DECK_ID, UNPAID_PROVIDER_ERROR
 from ..decks import deck_id_to_name_map, deck_name_to_id_map
 from ..logger import logger
 from ..models import OpenAIModels, PromptMap, legacy_openai_chat_models
-from ..processor import Processor
+from ..note_proccessor import NoteProcessor
 from ..prompts import get_all_prompts, get_extras, get_prompts_for_note, remove_prompt
 from ..utils import get_fields, get_version
 from .account_options import AccountOptions
@@ -85,7 +85,7 @@ class AddonOptionsDialog(QDialog):
     edit_button: QPushButton
     state: StateManager[State]
 
-    def __init__(self, processor: Processor):
+    def __init__(self, processor: NoteProcessor):
         super().__init__()
         self.processor = processor
         self.state = StateManager[State](self.make_initial_state())
@@ -258,7 +258,9 @@ class AddonOptionsDialog(QDialog):
                         QTableWidgetItem(note_type),
                         QTableWidgetItem(deck_name),
                         QTableWidgetItem(field),
-                        QTableWidgetItem("text" if type == "chat" else "tts"),
+                        QTableWidgetItem(
+                            {"chat": "text", "tts": "tts", "image": "image"}[type]
+                        ),
                         QTableWidgetItem(prompt if type == "chat" else "🔈"),
                     ]
                     for i, item in enumerate(items):

@@ -50,12 +50,14 @@ from ..decks import deck_id_to_name_map, get_all_deck_ids
 from ..logger import logger
 from ..models import (
     DEFAULT_EXTRAS,
+    OverrideableTTSOptionsDict,
     PromptMap,
+    SmartFieldType,
     overridable_chat_options,
     overridable_tts_options,
 )
+from ..note_proccessor import NoteProcessor
 from ..notes import get_note_types, get_random_note
-from ..processor import Processor
 from ..prompts import (
     add_or_update_prompts,
     get_extras,
@@ -93,7 +95,7 @@ class State(TypedDict):
     generate_manually: bool
 
     use_custom_model: bool
-    type: Literal["chat", "tts"]
+    type: SmartFieldType
 
     selected_deck: DeckId
     decks: List[DeckId]
@@ -119,14 +121,14 @@ class PromptDialog(QDialog):
     chat_options: ChatOptions
     tts_options: TTSOptions
     mode: Literal["new", "edit"]
-    field_type: Literal["chat", "tts"]
+    field_type: SmartFieldType
 
     def __init__(
         self,
         prompts_map: PromptMap,
-        processor: Processor,
+        processor: NoteProcessor,
         on_accept_callback: Callable[[PromptMap], None],
-        field_type: Literal["chat", "tts"],
+        field_type: SmartFieldType,
         deck_id: DeckId,
         card_type: Union[str, None] = None,
         field: Union[str, None] = None,
@@ -457,6 +459,9 @@ class PromptDialog(QDialog):
                 )
             return self.chat_options
 
+        elif self.state.s["type"] == "image":
+            raise Exception("UNNIMPLEMENTED")
+
         # Should never get here
         return QWidget()
 
@@ -478,7 +483,7 @@ class PromptDialog(QDialog):
         return len(target_fields) > 0
 
     def _state_for_new_card_type(
-        self, note_type: str, type: Literal["chat", "tts"], deck_id: DeckId
+        self, note_type: str, type: SmartFieldType, deck_id: DeckId
     ) -> PartialState:
 
         target_fields = self._get_valid_target_fields(note_type, deck_id=deck_id)
@@ -652,8 +657,8 @@ class PromptDialog(QDialog):
 
         if self.state.s["type"] == "chat":
 
-            fn = lambda: (
-                self.processor.field_resolver.get_chat_response(
+            chat_fn = lambda: (
+                self.processor.field_processor.get_chat_response(
                     prompt=prompt,
                     note=sample_note,
                     provider=chat_provider,
@@ -666,10 +671,10 @@ class PromptDialog(QDialog):
                     should_convert_to_html=False,  # Don't show HTML here bc it's confusing
                 )
             )
-            run_async_in_background_with_sentry(fn, on_success, on_failure)
-        else:
-            fn = lambda: (
-                self.processor.field_resolver.get_tts_response(
+            run_async_in_background_with_sentry(chat_fn, on_success, on_failure)
+        elif self.state.s["type"] == "tts":
+            tts_fn = lambda: (
+                self.processor.field_processor.get_tts_response(
                     input_text=prompt,
                     note=sample_note,
                     provider=tts_provider,
@@ -681,7 +686,9 @@ class PromptDialog(QDialog):
                 )
             )
 
-            run_async_in_background_with_sentry(fn, on_success, on_failure)
+            run_async_in_background_with_sentry(tts_fn, on_success, on_failure)
+        else:
+            raise Exception("Unimplemented")
 
     def render_automatic_button(self) -> None:
         self.manual_box.setChecked(self.state.s["generate_manually"])
@@ -837,10 +844,12 @@ class PromptDialog(QDialog):
             is_automatic=not s["generate_manually"],
             is_custom_model=s["use_custom_model"],
             type=s["type"],
-            tts_options={
-                k: self.tts_options.state.s[k] for k in overridable_tts_options
-            },
+            tts_options=cast(
+                OverrideableTTSOptionsDict,
+                {k: self.tts_options.state.s[k] for k in overridable_tts_options},
+            ),
             chat_options={
                 k: self.chat_options.state.s[k] for k in overridable_chat_options
             },
+            image_options={},
         )

@@ -31,30 +31,42 @@ from .app_state import (
 )
 from .chat_provider import ChatProvider
 from .config import key_or_config_val
+from .image_provider import ImageProvider
 from .logger import logger
 from .markdown import convert_markdown_to_html
-from .models import DEFAULT_EXTRAS, ChatModels, ChatProviders, TTSModels, TTSProviders
-from .nodes import ChatPayload, FieldNode, TTSPayload
+from .models import (
+    DEFAULT_EXTRAS,
+    ChatModels,
+    ChatProviders,
+    ImageModels,
+    ImageProviders,
+    TTSModels,
+    TTSProviders,
+)
+from .nodes import FieldNode
 from .notes import get_chained_ai_fields, get_note_type
 from .open_ai_client import OpenAIClient
 from .prompts import get_extras, interpolate_prompt
 from .tts_provider import TTSProvider
 
 
-class FieldResolver:
+class FieldProcessor:
 
     def __init__(
         self,
         openai_provider: OpenAIClient,
         chat_provider: ChatProvider,
         tts_provider: TTSProvider,
+        image_provider: ImageProvider,
     ):
         self.openai_provider = openai_provider
         self.chat_provider = chat_provider
         self.tts_provider = tts_provider
+        self.image_provider = image_provider
 
     async def resolve(self, node: FieldNode, note: Note) -> Union[str, None]:
-        payload = node.payload
+        input = node.input
+        field_type = node.field_type
 
         extras = (
             get_extras(
@@ -66,7 +78,7 @@ class FieldResolver:
             or DEFAULT_EXTRAS
         )
 
-        if isinstance(payload, TTSPayload):
+        if field_type == "tts":
             if not is_app_unlocked():
                 logger.debug("Skipping TTS field for locked app")
                 return None
@@ -85,7 +97,7 @@ class FieldResolver:
 
             tts_response = await self.get_tts_response(
                 note=note,
-                input_text=payload.input,
+                input_text=input,
                 model=tts_model,
                 voice=tts_voice,
                 provider=tts_provider,
@@ -101,7 +113,7 @@ class FieldResolver:
 
             return f"[sound:{path}]"
 
-        elif isinstance(node.payload, ChatPayload):
+        elif field_type == "chat":
             chat_model: ChatModels = key_or_config_val(extras, "chat_model")
             chat_provider: ChatProviders = key_or_config_val(extras, "chat_provider")
             chat_temperature: int = key_or_config_val(extras, "chat_temperature")
@@ -110,7 +122,7 @@ class FieldResolver:
             return await self.get_chat_response(
                 note=note,
                 deck_id=node.deck_id,
-                prompt=payload.prompt,
+                prompt=input,
                 model=chat_model,
                 provider=chat_provider,
                 temperature=chat_temperature,
@@ -118,9 +130,36 @@ class FieldResolver:
                 should_convert_to_html=should_convert,
             )
 
+        elif field_type == "image":
+
+            if not mw:
+                return None
+
+            media = mw.col.media
+            if not media:
+                logger.error("No media")
+                return None
+
+            image_model: ImageModels = key_or_config_val(extras, "image_model")
+            image_provider: ImageProviders = key_or_config_val(extras, "image_provider")
+
+            image_response = await self.get_image_response(
+                note=note, input_text=input, model=image_model, provider=image_provider
+            )
+            print("GOT IMAGE RESP")
+            print(image_response)
+            if not image_response:
+                return None
+
+            note_type = get_note_type(note)
+            file_name = f"{note_type}-{node.field}-{note.id}.webp"
+            path = media.write_data(file_name, image_response)
+            print("Got path:")
+            print(path)
+
+            return f'<img src="{path}"/>'
         else:
-            logger.error(f"Unexpected payload type {type(payload)}")
-            return None
+            raise Exception(f"Unexpected note type {field_type}")
 
     async def get_chat_response(
         self,
@@ -177,7 +216,7 @@ class FieldResolver:
         provider: TTSProviders,
         voice: str,
         strip_html: bool,
-    ):
+    ) -> Union[bytes, None]:
 
         interpolated_prompt = interpolate_prompt(input_text, note)
 
@@ -196,4 +235,16 @@ class FieldResolver:
             voice=voice,
             note_id=note.id,
             strip_html=strip_html,
+        )
+
+    async def get_image_response(
+        self, note: Note, input_text: str, model: ImageModels, provider: ImageProviders
+    ) -> Union[bytes, None]:
+        interpolated_prompt = interpolate_prompt(input_text, note)
+
+        if not interpolated_prompt:
+            return None
+
+        return await self.image_provider.async_get_image_response(
+            prompt=interpolated_prompt, model=model, provider=provider, note_id=note.id
         )

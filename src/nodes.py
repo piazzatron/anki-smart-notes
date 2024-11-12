@@ -22,17 +22,9 @@ from typing import List, Union
 from anki.decks import DeckId
 from attr import dataclass
 
+from .models import SmartFieldType
+
 # Had to put this in a separate field to resolve circular import btwn processor + field_resolver
-
-
-@dataclass
-class ChatPayload:
-    prompt: str
-
-
-@dataclass
-class TTSPayload:
-    input: str
 
 
 @dataclass(repr=False)
@@ -45,7 +37,8 @@ class FieldNode:
     manual: bool
     overwrite: bool
     deck_id: DeckId
-    payload: Union[ChatPayload, TTSPayload]
+    input: str
+    field_type: SmartFieldType
     is_target: bool = False
     generate_despite_manual: bool = False  # Used if it's pre a target field
     did_update: bool = False

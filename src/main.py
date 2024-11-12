@@ -19,10 +19,11 @@
 
 from .chat_provider import ChatProvider
 from .config import config
-from .field_resolver import FieldResolver
+from .field_processor import FieldProcessor
 from .hooks import setup_hooks
+from .image_provider import ImageProvider
+from .note_proccessor import NoteProcessor
 from .open_ai_client import OpenAIClient
-from .processor import Processor
 from .tts_provider import TTSProvider
 
 
@@ -30,13 +31,15 @@ def main() -> None:
     openai_provider = OpenAIClient()
     chat_provider = ChatProvider()
     tts_provider = TTSProvider()
+    image_provider = ImageProvider()
 
-    field_resolver = FieldResolver(
+    field_processor = FieldProcessor(
         openai_provider=openai_provider,
         chat_provider=chat_provider,
         tts_provider=tts_provider,
+        image_provider=image_provider,
     )
 
-    processor = Processor(field_resolver=field_resolver, config=config)
+    processor = NoteProcessor(field_processor=field_processor, config=config)
 
     setup_hooks(processor)
