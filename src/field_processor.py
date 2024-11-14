@@ -29,11 +29,12 @@ from .app_state import (
     is_at_text_capacity,
     is_at_voice_capacity,
 )
-from .chat_provider import ChatProvider
+from .chat_provider import ChatProvider, chat_provider
 from .config import key_or_config_val
-from .image_provider import ImageProvider
+from .image_provider import ImageProvider, image_provider
 from .logger import logger
 from .markdown import convert_markdown_to_html
+from .media_utils import get_media_path
 from .models import (
     DEFAULT_EXTRAS,
     ChatModels,
@@ -45,9 +46,9 @@ from .models import (
 )
 from .nodes import FieldNode
 from .notes import get_chained_ai_fields, get_note_type
-from .open_ai_client import OpenAIClient
+from .open_ai_client import OpenAIClient, openai_provider
 from .prompts import get_extras, interpolate_prompt
-from .tts_provider import TTSProvider
+from .tts_provider import TTSProvider, tts_provider
 
 
 class FieldProcessor:
@@ -107,8 +108,7 @@ class FieldProcessor:
             if not tts_response:
                 return None
 
-            note_type = get_note_type(note)
-            file_name = f"{note_type}-{node.field}-{note.id}.mp3"
+            file_name = get_media_path(note, node.field, "mp3")
             path = media.write_data(file_name, tts_response)
 
             return f"[sound:{path}]"
@@ -146,17 +146,11 @@ class FieldProcessor:
             image_response = await self.get_image_response(
                 note=note, input_text=input, model=image_model, provider=image_provider
             )
-            print("GOT IMAGE RESP")
-            print(image_response)
             if not image_response:
                 return None
 
-            note_type = get_note_type(note)
-            file_name = f"{note_type}-{node.field}-{note.id}.webp"
+            file_name = get_media_path(note, node.field, "webp")
             path = media.write_data(file_name, image_response)
-            print("Got path:")
-            print(path)
-
             return f'<img src="{path}"/>'
         else:
             raise Exception(f"Unexpected note type {field_type}")
@@ -248,3 +242,11 @@ class FieldProcessor:
         return await self.image_provider.async_get_image_response(
             prompt=interpolated_prompt, model=model, provider=provider, note_id=note.id
         )
+
+
+field_processor = FieldProcessor(
+    openai_provider=openai_provider,
+    chat_provider=chat_provider,
+    tts_provider=tts_provider,
+    image_provider=image_provider,
+)

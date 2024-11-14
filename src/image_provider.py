@@ -35,3 +35,6 @@ class ImageProvider:
         )
 
         return response._body  # type: ignore
+
+
+image_provider = ImageProvider()

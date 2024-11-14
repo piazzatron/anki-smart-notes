@@ -29,7 +29,7 @@ from anki.cards import Card
 from anki.notes import Note
 from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
 from aqt.addcards import AddCards
-from aqt.browser import SidebarItemType  # type: ignore
+from aqt.browser import SidebarItemType
 
 from .app_state import app_state, is_app_unlocked_or_legacy
 from .config import bump_usage_counter, config
@@ -37,11 +37,12 @@ from .decks import deck_id_to_name_map
 from .logger import logger, setup_logger
 from .message_polling import start_polling_for_messages
 from .note_proccessor import NoteProcessor
-from .notes import is_ai_field, is_card_fully_processed
+from .notes import get_field_from_index, is_ai_field, is_card_fully_processed
 from .sentry import pinger, sentry, with_sentry
 from .tasks import run_async_in_background
 from .ui.addon_options_dialog import AddonOptionsDialog
 from .ui.changelog import perform_update_check
+from .ui.custom_prompt import CustomImagePrompt, CustomTextPrompt, CustomTTSPrompt
 from .ui.sparkle import Sparkle
 from .ui.ui_utils import show_message_box
 from .utils import make_uuid
@@ -271,23 +272,75 @@ def on_editor_context(
         return
 
     ai_field = is_ai_field(current_field_num, card)
-    if not ai_field:
-        return
-    item = QAction("✨ Generate Smart Field", menu)
 
-    def on_success(_: bool):
+    def on_generate_success(_: bool):
         editor.loadNote()
 
-    def wrapped():
+    def process_card_wrapped():
         if not is_app_unlocked_or_legacy(show_box=True):
             return
 
         processor.process_card(
-            card, overwrite_fields=False, target_field=ai_field, on_success=on_success
+            card,
+            overwrite_fields=False,
+            target_field=ai_field,
+            on_success=on_generate_success,
         )
 
-    item.triggered.connect(wrapped)
-    menu.addAction(item)
+    menu.addSeparator()
+
+    if ai_field:
+        generate_field_item = QAction("✨ Generate Smart Field", menu)
+        generate_field_item.triggered.connect(process_card_wrapped)
+        menu.addAction(generate_field_item)
+        menu.addSeparator()
+
+    custom_text_item = QAction("💬 Custom Text", menu)
+    custom_tts_item = QAction("📣 Custom TTS", menu)
+    custom_image_item = QAction("🖼️ Custom Image", menu)
+
+    field = get_field_from_index(card.note(), current_field_num)
+    if not field:
+        return
+
+    def on_custom_text(_: bool):
+        custom_prompt = CustomTextPrompt(
+            note=card.note(),
+            deck_id=card.did,
+            field_upper=field,
+            on_success=lambda: editor.loadNote(),
+        )
+        custom_prompt.exec()
+
+    def on_custom_image(_: bool):
+        custom_prompt = CustomImagePrompt(
+            note=card.note(),
+            deck_id=card.did,
+            field_upper=field,
+            on_success=lambda: editor.loadNote(),
+            parent=editor.parentWindow,
+        )
+        # This should be called with exec instead of show, but
+        # for some reason having a webview inside of this dialog
+        # causes UI bugs when using exec
+        custom_prompt.show()
+
+    def on_custom_tts(_: bool):
+        custom_tts = CustomTTSPrompt(
+            note=card.note(),
+            deck_id=card.did,
+            field_upper=field,
+            on_success=lambda: editor.loadNote(),
+        )
+        custom_tts.exec()
+
+    custom_text_item.triggered.connect(on_custom_text)
+    custom_image_item.triggered.connect(on_custom_image)
+    custom_tts_item.triggered.connect(on_custom_tts)
+
+    menu.addAction(custom_text_item)
+    menu.addAction(custom_tts_item)
+    menu.addAction(custom_image_item)
 
 
 @with_processor  # type: ignore

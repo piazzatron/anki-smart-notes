@@ -69,7 +69,7 @@ SmartFieldType = Literal["chat", "tts", "image"]
 ReplicateImageModels = Literal["flux-dev", "flux-schnell"]
 ImageModels = Union[ReplicateImageModels]
 
-ImageProviders = Literal["Replicate"]
+ImageProviders = Literal["replicate"]
 
 
 class FieldExtras(TypedDict):

@@ -59,3 +59,6 @@ class ChatProvider:
         )
 
         return msg
+
+
+chat_provider = ChatProvider()

@@ -48,3 +48,6 @@ class TTSProvider:
         # TODO: write it directly to a temp cache file so they're not all going into memory
 
         return response._body  # type: ignore
+
+
+tts_provider = TTSProvider()

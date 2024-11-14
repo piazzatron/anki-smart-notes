@@ -43,7 +43,7 @@ from ..config import config
 from ..constants import GLOBAL_DECK_ID, UNPAID_PROVIDER_ERROR
 from ..decks import deck_id_to_name_map, deck_name_to_id_map
 from ..logger import logger
-from ..models import OpenAIModels, PromptMap, legacy_openai_chat_models
+from ..models import OpenAIModels, PromptMap, SmartFieldType, legacy_openai_chat_models
 from ..note_proccessor import NoteProcessor
 from ..prompts import get_all_prompts, get_extras, get_prompts_for_note, remove_prompt
 from ..utils import get_fields, get_version
@@ -105,9 +105,9 @@ class AddonOptionsDialog(QDialog):
         # Buttons
         table_buttons = QHBoxLayout()
         add_button = QPushButton("💬 New Text Field")
-        add_button.clicked.connect(lambda _: self.on_add(False))
+        add_button.clicked.connect(lambda _: self.on_add("chat"))
         self.voice_button = QPushButton("🔈 New TTS Field")
-        self.voice_button.clicked.connect(lambda _: self.on_add(True))
+        self.voice_button.clicked.connect(lambda _: self.on_add("tts"))
         self.remove_button = QPushButton("Remove")
         self.remove_button.setFixedWidth(75)
         self.edit_button = QPushButton("Edit")
@@ -116,10 +116,15 @@ class AddonOptionsDialog(QDialog):
         table_buttons.addWidget(self.remove_button, 1)
         table_buttons.addWidget(self.edit_button, 1)
         self.remove_button.clicked.connect(self.on_remove)
-        table_buttons.addSpacerItem(QSpacerItem(0, 0, QSizePolicy.Policy.Expanding))
-        table_buttons.addWidget(self.voice_button, Qt.AlignmentFlag.AlignRight)
         self.voice_button.setFixedWidth(150)
+        self.image_button = QPushButton("🖼️ New Image Field")
+        self.image_button.setFixedWidth(150)
+        self.image_button.clicked.connect(lambda _: self.on_add("image"))
         add_button.setFixedWidth(150)
+        table_buttons.addSpacerItem(QSpacerItem(0, 0, QSizePolicy.Policy.Expanding))
+
+        table_buttons.addWidget(self.image_button, Qt.AlignmentFlag.AlignRight)
+        table_buttons.addWidget(self.voice_button, Qt.AlignmentFlag.AlignRight)
         table_buttons.addWidget(add_button, Qt.AlignmentFlag.AlignRight)
 
         standard_buttons = QDialogButtonBox(
@@ -141,7 +146,9 @@ class AddonOptionsDialog(QDialog):
 
         tabs = QTabWidget()
 
-        explanation = QLabel("Automatically generate text and voice fields.")
+        explanation = QLabel(
+            "Automatically generate text, voice, and images on any field."
+        )
         explanation.setFont(font_small)
         layout = QVBoxLayout()
 
@@ -259,9 +266,15 @@ class AddonOptionsDialog(QDialog):
                         QTableWidgetItem(deck_name),
                         QTableWidgetItem(field),
                         QTableWidgetItem(
-                            {"chat": "text", "tts": "tts", "image": "image"}[type]
+                            {"chat": "💬", "tts": "🔈", "image": "🖼️"}[type]
                         ),
-                        QTableWidgetItem(prompt if type == "chat" else "🔈"),
+                        QTableWidgetItem(
+                            {
+                                "chat": f"{prompt}",
+                                "tts": "🔈",
+                                "image": f"{prompt}",
+                            }[type]
+                        ),
                     ]
                     for i, item in enumerate(items):
                         item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsEditable)
@@ -478,7 +491,7 @@ class AddonOptionsDialog(QDialog):
         self.remove_button.setEnabled(is_enabled)
         self.edit_button.setEnabled(is_enabled)
 
-    def on_add(self, is_tts: bool) -> None:
+    def on_add(self, field_type: SmartFieldType) -> None:
         # Save out the API key in case it's been updated this run
         if hasattr(self, "api_key_edit"):
             config.openai_api_key = self.api_key_edit.text()
@@ -487,7 +500,7 @@ class AddonOptionsDialog(QDialog):
             self.state.s["prompts_map"],
             self.processor,
             self.on_update_prompts,
-            field_type="tts" if is_tts else "chat",
+            field_type=field_type,
             deck_id=GLOBAL_DECK_ID,
         )
 

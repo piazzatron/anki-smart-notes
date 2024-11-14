@@ -65,11 +65,18 @@ all_chat_providers: List[ChatProviders] = ["openai", "anthropic"]
 
 
 class ChatOptions(QWidget):
-    def __init__(self, chat_options: Optional[OverridableChatOptionsDict] = None):
+    _show_text_processing: bool
+
+    def __init__(
+        self,
+        chat_options: Optional[OverridableChatOptionsDict] = None,
+        show_text_processing: bool = True,
+    ):
         super().__init__()
         self.state = StateManager[ChatOptionsState](
             self.get_initial_state(chat_options or {})  # type: ignore
         )
+        self._show_text_processing = show_text_processing
         self.setup_ui()
 
     def setup_ui(self) -> None:
@@ -104,6 +111,7 @@ class ChatOptions(QWidget):
         text_rules = QGroupBox("🔤 Text Processing")
         text_layout = default_form_layout()
         text_rules.setLayout(text_layout)
+        text_rules.setHidden(not self._show_text_processing)
         self.convert_box = ReactiveCheckBox(self.state, "chat_markdown_to_html")
         text_layout.addRow(QLabel("Convert Markdown to HTML:"), self.convert_box)
         convert_explainer = QLabel(
@@ -125,7 +133,8 @@ class ChatOptions(QWidget):
         chat_layout.addRow(chat_box)
         chat_layout.addItem(QSpacerItem(0, 12))
         chat_layout.addRow(text_rules)
-        chat_layout.addItem(QSpacerItem(0, 12))
+        if self._show_text_processing:
+            chat_layout.addItem(QSpacerItem(0, 12))
         chat_layout.addRow(advanced)
         chat_layout.setContentsMargins(0, 0, 0, 0)
 
