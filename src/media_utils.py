@@ -17,12 +17,31 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from .config import config
-from .field_processor import field_processor
-from .hooks import setup_hooks
-from .note_proccessor import NoteProcessor
+from typing import List, Union
+
+from anki.notes import Note
+from aqt import mw
+
+from .notes import get_note_type
 
 
-def main() -> None:
-    processor = NoteProcessor(field_processor=field_processor, config=config)
-    setup_hooks(processor)
+def get_media_path(note: Note, field: str, format: str) -> str:
+    return f"{get_note_type(note)}-{field}-{note.id}.{format}"
+
+
+def write_media(file_name: str, file: bytes) -> Union[str, None]:
+    if not mw:
+        return None
+    media = mw.col.media
+    if not media:
+        return None
+    return media.write_data(file_name, file)
+
+
+def trash_files(file_names: List[str]) -> None:
+    if not mw:
+        return
+    media = mw.col.media
+    if not media:
+        return
+    media.trash_files(file_names)

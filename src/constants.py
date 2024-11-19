@@ -34,6 +34,7 @@ RETRY_BASE_SECONDS = 5
 MAX_RETRIES = 10
 CHAT_CLIENT_TIMEOUT_SEC = 30
 TTS_PROVIDER_TIMEOUT_SEC = 30
+IMAGE_PROVIDER_TIMEOUT_SEC = 45
 
 STANDARD_BATCH_LIMIT = 10
 
@@ -59,15 +60,17 @@ FREE_TRIAL_ENDED_CAPACITY_API_KEY = "Smart Notes: Your free trial capacity has b
 FREE_TRIAL_ENDED_EXPIRED_API_KEY = "Smart Notes: Your free trial capacity has been used up! Please upgrade to continue using Smart Notes. Smart Notes will continue with limited functionality using your OpenAI API key."
 FREE_TRIAL_ENDED_CAPACITY_NO_API_KEY = "Smart Notes: Your free trial capacity has been used up! Please upgrade to continue using Smart Notes."
 FREE_TRIAL_ENDED_EXPIRED_NO_API_KEY = "Smart Notes: Your free trial capacity has been used up! Please upgrade to continue using Smart Notes."
-FREE_TRIAL_VOICE_CAPACITY = "Smart Notes: Your free trial voice capacity has been used up! Text fields will continue to function."
-FREE_TRIAL_TEXT_CAPACITY = "Smart Notes: Your free trial text capacity has been used up! Voice fields will continue to function."
 
 PAID_PLAN_ENDED_CAPACITY_API_KEY = "Smart Notes: Your subscription capacity has been used up. Please upgrade to a higher plan to continue using Smart Notes. Smart Notes will continue with limited functionality using your OpenAI API key."
 PAID_PLAN_ENDED_EXPIRED_API_KEY = "Smart Notes: Your subscription has expired. Smart Notes will continue with limited functionality using your OpenAI API key."
 PAID_PLAN_ENDED_CAPACITY_NO_API_KEY = "Smart Notes: Your subscription capacity has been used up. Please upgrade to a higher plan to continue using Smart Notes."
 PAID_PLAN_ENDED_EXPIRED_NO_API_KEY = "Smart Notes: Your subscription has expired. Please subscribe to continue using Smart Notes."
-PAID_PLAN_VOICE_CAPACITY = "Smart Notes: Your subscription voice capacity has been used up! Text fields will continue to function."
-PAID_PLAN_TEXT_CAPACITY = "Smart Notes: Your subscription text capacity has been used up! Voice fields will continue to function."
+
+EXCEEDED_TEXT_CAPACITY = "Smart Notes: You've used all your text credits! TTS and image will still function if you have enough credits."
+EXCEEDED_IMAGE_CAPACITY = "Smart Notes: You've used all your image credits! Text and TTS will still function if you have enough credits."
+EXCEEDED_TTS_CAPACITY = "Smart Notes: You've used all your TTS credits! Text and image will still function if you have enough credits."
+
+GENERIC_CREDITS_MESSAGE = "Smart Notes: You have run out of credits for this operation 😕! Check the account tab for more information and consider upgrading to a larger plan."
 
 
 def get_server_url() -> str:

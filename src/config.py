@@ -30,6 +30,8 @@ from .models import (
     DEFAULT_EXTRAS,
     ChatModels,
     ChatProviders,
+    ImageModels,
+    ImageProviders,
     NoteTypeMap,
     OpenAIModels,
     PromptMap,
@@ -69,6 +71,10 @@ class Config:
     tts_voice: str
     tts_model: TTSModels
     tts_strip_html: bool
+
+    # Images
+    image_provider: ImageProviders
+    image_model: ImageModels
 
     # Dialogs / Migrations
     did_show_chained_error_dialog: bool

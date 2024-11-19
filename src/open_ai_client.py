@@ -85,3 +85,6 @@ class OpenAIClient:
                 msg: str = resp["choices"][0]["message"]["content"]
                 logger.debug(f"Got response from OpenAI: {msg}")
                 return msg
+
+
+openai_provider = OpenAIClient()

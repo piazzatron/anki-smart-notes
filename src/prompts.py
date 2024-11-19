@@ -21,7 +21,7 @@
 
 import re
 from copy import deepcopy
-from typing import Any, Dict, List, Literal, Optional, Union, cast
+from typing import Any, Dict, List, Optional, Union, cast
 
 from anki.decks import DeckId
 from anki.notes import Note
@@ -34,9 +34,14 @@ from .models import (
     DEFAULT_EXTRAS,
     FieldExtras,
     OverridableChatOptions,
-    OverridableTTSOptions,
+    OverridableChatOptionsDict,
+    OverridableImageOptions,
+    OverridableImageOptionsDict,
+    OverrideableTTSOptionsDict,
     PromptMap,
+    SmartFieldType,
     overridable_chat_options,
+    overridable_image_options,
     overridable_tts_options,
 )
 from .utils import to_lowercase_dict
@@ -169,9 +174,10 @@ def add_or_update_prompts(
     prompt: str,
     is_automatic: bool,
     is_custom_model: bool,
-    type: Literal["chat", "tts"],
-    tts_options: Dict[OverridableTTSOptions, Any],
+    type: SmartFieldType,
+    tts_options: OverrideableTTSOptionsDict,
     chat_options: Dict[OverridableChatOptions, Any],
+    image_options: Dict[OverridableImageOptions, Any],
 ) -> PromptMap:
     new_prompts_map = deepcopy(prompts_map)
 
@@ -207,19 +213,27 @@ def add_or_update_prompts(
     extras["automatic"] = is_automatic
     extras["use_custom_model"] = is_custom_model
 
-    # If we're doing custom settins, write out extra config
+    # If we're doing custom settings, write out extra config
     if is_custom_model:
-        overrideable_options = cast(
-            Union[Dict[OverridableChatOptions, Any], Dict[OverridableTTSOptions, Any]],
-            {"chat": chat_options, "tts": tts_options}[type],
-        )
+        overrideable_options: Union[OverridableChatOptionsDict, OverridableImageOptionsDict, OverrideableTTSOptionsDict] = {  # type: ignore
+            "chat": chat_options,
+            "tts": tts_options,
+            "image": image_options,
+        }[
+            type
+        ]
+
         # Overwrite any extras fields if they have been passed in
         for k, v in overrideable_options.items():
-            extras[k] = v if v is not None else extras[k]
+            extras[k] = v if v is not None else extras[k]  # type: ignore
 
     # Otherwise need to delete any custom config if it's not being used
     else:
-        for k in overridable_chat_options + overridable_tts_options:
+        for k in (
+            overridable_chat_options
+            + overridable_tts_options
+            + overridable_image_options
+        ):
             extras[k] = None
 
     # Write em out

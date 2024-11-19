@@ -26,8 +26,7 @@ from aqt import mw
 
 from .constants import GLOBAL_DECK_ID
 from .decks import deck_id_to_name_map
-from .logger import logger
-from .models import DEFAULT_EXTRAS
+from .models import DEFAULT_EXTRAS, PromptMap
 from .prompts import get_extras, get_prompt_fields, get_prompts_for_note
 from .ui.ui_utils import show_message_box
 from .utils import get_fields
@@ -73,6 +72,15 @@ def is_card_fully_processed(card: Card) -> bool:
     return True
 
 
+def get_field_from_index(note: Note, index: int) -> Union[str, None]:
+    """Gets the field name from the index of a note."""
+    fields = get_fields(get_note_type(note))
+    if index < 0 or index >= len(fields):
+        return None
+    return fields[index]
+
+
+# TODO: make this work with get_field_from_index, taking in a field name
 def is_ai_field(current_field_num: int, card: Card) -> Union[str, None]:
     """Helper to determine if the current field is an AI field. Returns the non-lowercased field name if it is."""
     if not card:
@@ -135,7 +143,6 @@ def get_random_note(note_type: str, deck_id: DeckId) -> Union[Note, None]:
         sample_note_ids = mw.col.find_notes(query)
         if sample_note_ids:
             return mw.col.get_note(sample_note_ids[0])
-        logger.debug(f"Couldn't find note in custom deck, falling back to global deck.")
 
     query = f'note:"{note_type}"'
     sample_note_ids = mw.col.find_notes(query)
@@ -145,3 +152,29 @@ def get_random_note(note_type: str, deck_id: DeckId) -> Union[Note, None]:
         return None
 
     return mw.col.get_note(sample_note_ids[0])
+
+
+def get_valid_fields_for_prompt(
+    selected_note_type: str,
+    deck_id: DeckId,
+    selected_note_field: Union[str, None] = None,
+    prompts_map: Union[PromptMap, None] = None,
+) -> List[str]:
+    """Gets all fields excluding the selected one, if one is selected"""
+    fields = get_fields(selected_note_type)
+    return [
+        field
+        for field in fields
+        if field != selected_note_field
+        and (
+            get_extras(
+                note_type=selected_note_type,
+                field=field,
+                prompts=prompts_map,
+                deck_id=deck_id,
+                fallback_to_global_deck=False,
+            )
+            or {"type": "chat"}  # Should never happen
+        )["type"]
+        == "chat"
+    ]

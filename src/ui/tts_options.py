@@ -26,6 +26,7 @@ from aqt import (
     QHBoxLayout,
     QItemSelection,
     QItemSelectionModel,
+    QLabel,
     QListView,
     QModelIndex,
     QPushButton,
@@ -39,7 +40,7 @@ from aqt import (
 from ..config import config, key_or_config_val
 from ..logger import logger
 from ..models import (
-    OverrideTTSOptionsDict,
+    OverrideableTTSOptionsDict,
     TTSModels,
     TTSProviders,
     overridable_tts_options,
@@ -52,7 +53,7 @@ from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_edit_text import ReactiveEditText
 from .state_manager import StateManager
-from .ui_utils import default_form_layout, show_message_box
+from .ui_utils import default_form_layout, font_small, show_message_box
 
 ALL: Literal["All"] = "All"
 
@@ -94,10 +95,10 @@ class TTSState(TypedDict):
     voice: str
 
     # These are the actual values read from and written to config
-    tts_provider: Optional[TTSProviders]
-    tts_voice: Optional[str]
-    tts_model: Optional[TTSModels]
-    tts_strip_html: Optional[bool]
+    tts_provider: TTSProviders
+    tts_voice: str
+    tts_model: TTSModels
+    tts_strip_html: bool
 
     test_text: str
     test_enabled: bool
@@ -220,6 +221,10 @@ languages: List[str] = [ALL] + sorted(
 providers: List[AllTTSProviders] = [ALL, "google", "openai", "elevenLabs"]
 
 
+def format_voice(voice: TTSMeta) -> str:
+    return f'{voice["tts_provider"].capitalize()} - {voice["friendly_voice"].capitalize()} ({price_tier_copy[voice["price_tier"]]})'
+
+
 class CustomListModel(QAbstractListModel):
     def __init__(self, data: List[TTSMeta]):
         super().__init__()
@@ -233,8 +238,7 @@ class CustomListModel(QAbstractListModel):
         return len(self._data)
 
     def create_str(self, row: int) -> str:
-        data = self._data[row]
-        return f'{data["tts_provider"].capitalize()} - {data["friendly_voice"].capitalize()} ({price_tier_copy[data["price_tier"]]})'
+        return format_voice(self._data[row])
 
     def update_data(self, new_data: List[TTSMeta]):
         self.beginResetModel()
@@ -242,9 +246,26 @@ class CustomListModel(QAbstractListModel):
         self.endResetModel()
 
 
-class TTSOptions(QWidget):
-    def __init__(self, tts_options: Optional[OverrideTTSOptionsDict] = None):
+class SelectedVoiceLabel(QLabel):
+    def __init__(self, meta: TTSMeta):
         super().__init__()
+        self.update_text(meta)
+
+    def update_text(self, meta: TTSMeta):
+        self.setText(f" Current voice: {format_voice(meta)}")
+        self.setFont(font_small)
+
+
+class TTSOptions(QWidget):
+    extras_visible: bool
+
+    def __init__(
+        self,
+        tts_options: Optional[OverrideableTTSOptionsDict] = None,
+        extras_visible: bool = False,
+    ):
+        super().__init__()
+        self.extras_visible = extras_visible
 
         self.state = StateManager[TTSState](self.get_initial_state(tts_options))
         self.setup_ui()
@@ -260,13 +281,28 @@ class TTSOptions(QWidget):
         top_row_layout = QHBoxLayout()
         top_row_layout.setContentsMargins(0, 0, 0, 0)
         top_row.setLayout(top_row_layout)
+
+        # This shouldn't ever be none but being defensive
+        current_selection = self.voices_list.selectedIndexes()
+        selected_voice = self.voices_models._data[
+            current_selection[0].row() if current_selection else 0
+        ]
+        self.selected_voice_label = SelectedVoiceLabel(selected_voice)
         top_row_layout.addWidget(self.render_filters())
         top_row_layout.addWidget(self.render_voices_list())
+
+        layout.addWidget(self.selected_voice_label)
+        layout.addSpacerItem(QSpacerItem(0, 12))
         layout.addWidget(top_row)
         layout.addSpacerItem(QSpacerItem(0, 12))
         layout.addWidget(self.render_test_voice())
         layout.addSpacerItem(QSpacerItem(0, 12))
         layout.addWidget(self.render_processing_rules())
+
+        if not self.extras_visible:
+            self.test_voice_box.hide()
+            self.processing_box.hide()
+
         self.state.state_changed.connect(self.update_ui)
         self.update_ui()
 
@@ -323,6 +359,7 @@ class TTSOptions(QWidget):
             )
             # TODO: do I need to call this?
             self.voices_list.update()
+            self.selected_voice_label.update_text(selected_voice)
 
     def update_ui(self) -> None:
         self.update_list_ui()
@@ -378,7 +415,7 @@ class TTSOptions(QWidget):
             config.did_show_premium_tts_dialog = True
 
     def render_test_voice(self) -> QWidget:
-        box = QGroupBox("🔈Test Voice")
+        self.test_voice_box = QGroupBox("🔈Test Voice")
         layout = QHBoxLayout()
         edit_text = ReactiveEditText(self.state, "test_text")
         edit_text.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
@@ -389,17 +426,17 @@ class TTSOptions(QWidget):
         layout.addWidget(edit_text)
         layout.addWidget(self.test_button)
 
-        box.setLayout(layout)
+        self.test_voice_box.setLayout(layout)
 
-        return box
+        return self.test_voice_box
 
     def render_processing_rules(self) -> QWidget:
-        box = QGroupBox("⚙️Voice Processing")
+        self.processing_box = QGroupBox("⚙️Voice Processing")
         layout = default_form_layout()
-        box.setLayout(layout)
+        self.processing_box.setLayout(layout)
         strip_html_box = ReactiveCheckBox(self.state, "tts_strip_html")
         layout.addRow("Strip HTML from text before speaking:", strip_html_box)
-        return box
+        return self.processing_box
 
     def test_and_play(self) -> None:
 
@@ -455,7 +492,7 @@ class TTSOptions(QWidget):
         return filtered
 
     def get_initial_state(
-        self, tts_options: Optional[OverrideTTSOptionsDict]
+        self, tts_options: Optional[OverrideableTTSOptionsDict]
     ) -> TTSState:
 
         ret = {

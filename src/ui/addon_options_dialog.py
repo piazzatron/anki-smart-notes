@@ -43,12 +43,13 @@ from ..config import config
 from ..constants import GLOBAL_DECK_ID, UNPAID_PROVIDER_ERROR
 from ..decks import deck_id_to_name_map, deck_name_to_id_map
 from ..logger import logger
-from ..models import OpenAIModels, PromptMap, legacy_openai_chat_models
-from ..processor import Processor
+from ..models import OpenAIModels, PromptMap, SmartFieldType, legacy_openai_chat_models
+from ..note_proccessor import NoteProcessor
 from ..prompts import get_all_prompts, get_extras, get_prompts_for_note, remove_prompt
 from ..utils import get_fields, get_version
 from .account_options import AccountOptions
 from .chat_options import ChatOptions
+from .image_options import ImageOptions
 from .prompt_dialog import PromptDialog
 from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
@@ -85,7 +86,7 @@ class AddonOptionsDialog(QDialog):
     edit_button: QPushButton
     state: StateManager[State]
 
-    def __init__(self, processor: Processor):
+    def __init__(self, processor: NoteProcessor):
         super().__init__()
         self.processor = processor
         self.state = StateManager[State](self.make_initial_state())
@@ -105,9 +106,9 @@ class AddonOptionsDialog(QDialog):
         # Buttons
         table_buttons = QHBoxLayout()
         add_button = QPushButton("💬 New Text Field")
-        add_button.clicked.connect(lambda _: self.on_add(False))
+        add_button.clicked.connect(lambda _: self.on_add("chat"))
         self.voice_button = QPushButton("🔈 New TTS Field")
-        self.voice_button.clicked.connect(lambda _: self.on_add(True))
+        self.voice_button.clicked.connect(lambda _: self.on_add("tts"))
         self.remove_button = QPushButton("Remove")
         self.remove_button.setFixedWidth(75)
         self.edit_button = QPushButton("Edit")
@@ -116,10 +117,15 @@ class AddonOptionsDialog(QDialog):
         table_buttons.addWidget(self.remove_button, 1)
         table_buttons.addWidget(self.edit_button, 1)
         self.remove_button.clicked.connect(self.on_remove)
-        table_buttons.addSpacerItem(QSpacerItem(0, 0, QSizePolicy.Policy.Expanding))
-        table_buttons.addWidget(self.voice_button, Qt.AlignmentFlag.AlignRight)
         self.voice_button.setFixedWidth(150)
+        self.image_button = QPushButton("🖼️ New Image Field")
+        self.image_button.setFixedWidth(150)
+        self.image_button.clicked.connect(lambda _: self.on_add("image"))
         add_button.setFixedWidth(150)
+        table_buttons.addSpacerItem(QSpacerItem(0, 0, QSizePolicy.Policy.Expanding))
+
+        table_buttons.addWidget(self.image_button, Qt.AlignmentFlag.AlignRight)
+        table_buttons.addWidget(self.voice_button, Qt.AlignmentFlag.AlignRight)
         table_buttons.addWidget(add_button, Qt.AlignmentFlag.AlignRight)
 
         standard_buttons = QDialogButtonBox(
@@ -141,7 +147,9 @@ class AddonOptionsDialog(QDialog):
 
         tabs = QTabWidget()
 
-        explanation = QLabel("Automatically generate text and voice fields.")
+        explanation = QLabel(
+            "Automatically generate text, voice, and images on any field."
+        )
         explanation.setFont(font_small)
         layout = QVBoxLayout()
 
@@ -162,6 +170,8 @@ class AddonOptionsDialog(QDialog):
         # Store a ref so we can enable/disable it
         self.tts_tab = self.render_tts_tab()
         tabs.addTab(self.tts_tab, "TTS")
+        self.images_tab = self.render_images_tab()
+        tabs.addTab(self.images_tab, "Images")
         tabs.addTab(self.render_plugin_tab(), "Advanced")
         tabs.addTab(self.render_account_tab(), "Account")
 
@@ -258,12 +268,23 @@ class AddonOptionsDialog(QDialog):
                         QTableWidgetItem(note_type),
                         QTableWidgetItem(deck_name),
                         QTableWidgetItem(field),
-                        QTableWidgetItem("text" if type == "chat" else "tts"),
-                        QTableWidgetItem(prompt if type == "chat" else "🔈"),
+                        QTableWidgetItem(
+                            {"chat": "💬", "tts": "🔈", "image": "🖼️"}[type]
+                        ),
+                        QTableWidgetItem(
+                            {
+                                "chat": f"{prompt}",
+                                "tts": "🔈",
+                                "image": f"{prompt}",
+                            }[type]
+                        ),
                     ]
+                    enabled = extras["automatic"]
                     for i, item in enumerate(items):
                         item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsEditable)
                         self.table.setItem(row, i, item)
+                        if not enabled:
+                            item.setForeground(Qt.GlobalColor.lightGray)
                     row += 1
 
         # Ensure the correct row is always selected
@@ -400,6 +421,29 @@ class AddonOptionsDialog(QDialog):
         layout.addWidget(self.tts_options)
         return container
 
+    def render_images_tab(self) -> QWidget:
+        container = QWidget()
+        layout = QVBoxLayout()
+        container.setLayout(layout)
+        layout.setContentsMargins(24, 24, 24, 24)
+        self.image_options = ImageOptions()
+        self.image_options.setContentsMargins(0, 0, 0, 0)
+
+        expl = QLabel("Configure default settings for image generation.")
+        subExpl = QLabel("These settings can be overridden on a per-field basis.")
+        expl.setFont(font_large)
+        subExpl.setFont(font_small)
+        layout.addWidget(expl)
+        layout.addWidget(subExpl)
+        layout.addItem(
+            QSpacerItem(0, 24, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        )
+        layout.addWidget(self.image_options)
+        layout.addItem(
+            QSpacerItem(0, 24, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        )
+        return container
+
     def create_table(self) -> QTableWidget:
         table = QTableWidget(0, 5)
         table.setHorizontalHeaderLabels(
@@ -476,7 +520,7 @@ class AddonOptionsDialog(QDialog):
         self.remove_button.setEnabled(is_enabled)
         self.edit_button.setEnabled(is_enabled)
 
-    def on_add(self, is_tts: bool) -> None:
+    def on_add(self, field_type: SmartFieldType) -> None:
         # Save out the API key in case it's been updated this run
         if hasattr(self, "api_key_edit"):
             config.openai_api_key = self.api_key_edit.text()
@@ -485,7 +529,7 @@ class AddonOptionsDialog(QDialog):
             self.state.s["prompts_map"],
             self.processor,
             self.on_update_prompts,
-            field_type="tts" if is_tts else "chat",
+            field_type=field_type,
             deck_id=GLOBAL_DECK_ID,
         )
 
@@ -551,16 +595,18 @@ class AddonOptionsDialog(QDialog):
 
         old_debug = config.debug
 
-        # Write out all the states here
+        # Automatically inspect all the substates for valid config and write them out
         states: List[StateManager[Any]] = [
             self.state,
             self.tts_options.state,
             self.chat_options.state,
+            self.image_options.state,
         ]
         for state in states:
             for k, v in [
                 item for item in state.s.items() if item[0] in valid_config_attrs
             ]:
+                logger.debug(f"Setting: {k}: {v}")
                 config.__setattr__(k, v)
 
         if not old_debug and self.state.s["debug"]:

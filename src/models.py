@@ -62,11 +62,20 @@ OpenAIVoices = Literal[
 
 ElevenVoices = Literal["male-1", "male-2", "female-1", "female-2"]
 
+SmartFieldType = Literal["chat", "tts", "image"]
+
+# Image Models
+
+ReplicateImageModels = Literal["flux-dev", "flux-schnell"]
+ImageModels = Union[ReplicateImageModels]
+
+ImageProviders = Literal["replicate"]
+
 
 class FieldExtras(TypedDict):
 
     automatic: bool
-    type: Literal["chat", "tts"]
+    type: SmartFieldType
     use_custom_model: bool
 
     # Chat
@@ -80,6 +89,10 @@ class FieldExtras(TypedDict):
     tts_model: Optional[TTSModels]
     tts_voice: Optional[str]
     tts_strip_html: Optional[bool]
+
+    # Images
+    image_provider: Optional[ImageProviders]
+    image_model: Optional[ImageModels]
 
 
 # Any non-mandatory fields should default to none, and will be displayed from global config instead
@@ -97,6 +110,9 @@ DEFAULT_EXTRAS: FieldExtras = {
     "tts_provider": None,
     "tts_voice": None,
     "tts_strip_html": None,
+    # Overridable Image Options
+    "image_provider": None,
+    "image_model": None,
 }
 
 
@@ -108,6 +124,8 @@ class NoteTypeMap(TypedDict):
 class PromptMap(TypedDict):
     note_types: Dict[str, Dict[str, NoteTypeMap]]
 
+
+# Overridable Options
 
 OverridableChatOptions = Union[
     Literal["chat_provider"],
@@ -122,6 +140,14 @@ overridable_chat_options: List[OverridableChatOptions] = [
     "chat_temperature",
     "chat_markdown_to_html",
 ]
+
+
+class OverridableChatOptionsDict(TypedDict):
+    chat_provider: Optional[ChatProviders]
+    chat_model: Optional[ChatModels]
+    chat_temperature: Optional[int]
+    chat_markdown_to_html: Optional[bool]
+
 
 OverridableTTSOptions = Union[
     Literal["tts_model"],
@@ -138,8 +164,20 @@ overridable_tts_options: List[OverridableTTSOptions] = [
 ]
 
 
-class OverrideTTSOptionsDict(TypedDict):
+class OverrideableTTSOptionsDict(TypedDict):
     tts_model: Optional[TTSModels]
     tts_provider: Optional[TTSProviders]
     tts_voice: Optional[str]
     tts_strip_html: Optional[bool]
+
+
+OverridableImageOptions = Union[Literal["image_provider"], Literal["image_model"]]
+overridable_image_options: List[OverridableImageOptions] = [
+    "image_model",
+    "image_provider",
+]
+
+
+class OverridableImageOptionsDict(TypedDict):
+    image_model: Optional[ImageModels]
+    image_provider: Optional[ImageProviders]

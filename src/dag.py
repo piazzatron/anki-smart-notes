@@ -25,7 +25,7 @@ from anki.notes import Note
 
 from .logger import logger
 from .models import PromptMap
-from .nodes import ChatPayload, FieldNode, TTSPayload
+from .nodes import FieldNode
 from .notes import get_note_type
 from .prompts import get_extras, get_prompt_fields, get_prompts_for_note
 from .utils import get_fields
@@ -80,17 +80,6 @@ def generate_fields_dag(
             type = extras["type"]
             should_generate_automatically = extras["automatic"]
 
-            payload: Union[ChatPayload, TTSPayload]
-
-            if type == "chat":
-                payload = ChatPayload(
-                    prompt=prompt,
-                )
-            elif type == "tts":
-                payload = TTSPayload(
-                    input=prompt,
-                )
-
             dag[field_lower] = FieldNode(
                 field=field_lower,
                 field_upper=field,
@@ -100,8 +89,9 @@ def generate_fields_dag(
                 overwrite=overwrite_fields,
                 manual=not should_generate_automatically,
                 is_target=bool(target_field and field_lower == target_field.lower()),
-                payload=payload,
+                input=prompt,
                 deck_id=deck_id,
+                field_type=type,
             )
 
         if not len(dag):
@@ -180,9 +170,8 @@ def prompt_has_error(
 
         extras = get_extras(note_type, prompt_field, deck_id, prompts_map)
 
-        # Is TTS
-        if extras and extras["type"] == "tts":
-            return "Cannot reference TTS fields in prompts"
+        if extras and extras["type"] in ["tts", "image"]:
+            return "Cannot reference TTS or image fields in prompts"
 
     # Can't reference itself
     if target_field and target_field.lower() in prompt_fields:

@@ -18,36 +18,23 @@
 """
 
 from .api_client import api
-from .constants import TTS_PROVIDER_TIMEOUT_SEC
-from .models import TTSModels, TTSProviders
+from .constants import IMAGE_PROVIDER_TIMEOUT_SEC
+from .models import ImageModels, ImageProviders
 
 
-class TTSProvider:
-    async def async_get_tts_response(
-        self,
-        input: str,
-        model: TTSModels,
-        provider: TTSProviders,
-        voice: str,
-        strip_html: bool,
-        note_id: int = -1,
+class ImageProvider:
+    async def async_get_image_response(
+        self, prompt: str, model: ImageModels, provider: ImageProviders, note_id: int
     ) -> bytes:
 
         response = await api.get_api_response(
-            path="tts",
-            args={
-                "provider": provider,
-                "model": model,
-                "message": input,
-                "voice": voice,
-                "stripHtml": strip_html,
-            },
+            path="image",
+            args={"provider": provider, "model": model, "prompt": prompt},
             note_id=note_id,
-            timeout_sec=TTS_PROVIDER_TIMEOUT_SEC,
+            timeout_sec=IMAGE_PROVIDER_TIMEOUT_SEC,
         )
-        # TODO: write it directly to a temp cache file so they're not all going into memory
 
         return response._body  # type: ignore
 
 
-tts_provider = TTSProvider()
+image_provider = ImageProvider()

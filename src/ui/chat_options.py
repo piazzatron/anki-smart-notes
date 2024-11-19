@@ -17,7 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, Dict, List, Optional, TypedDict
+from typing import Dict, List, Optional, TypedDict
 
 from aqt import QGroupBox, QLabel, QSpacerItem, QWidget
 
@@ -25,7 +25,7 @@ from ..config import key_or_config_val
 from ..models import (
     ChatModels,
     ChatProviders,
-    OverridableChatOptions,
+    OverridableChatOptionsDict,
     anthropic_chat_models,
     openai_chat_models,
     overridable_chat_options,
@@ -65,13 +65,18 @@ all_chat_providers: List[ChatProviders] = ["openai", "anthropic"]
 
 
 class ChatOptions(QWidget):
+    _show_text_processing: bool
+
     def __init__(
-        self, chat_options: Optional[Dict[OverridableChatOptions, Any]] = None
+        self,
+        chat_options: Optional[OverridableChatOptionsDict] = None,
+        show_text_processing: bool = True,
     ):
         super().__init__()
         self.state = StateManager[ChatOptionsState](
-            self.get_initial_state(chat_options or {})
+            self.get_initial_state(chat_options or {})  # type: ignore
         )
+        self._show_text_processing = show_text_processing
         self.setup_ui()
 
     def setup_ui(self) -> None:
@@ -106,6 +111,7 @@ class ChatOptions(QWidget):
         text_rules = QGroupBox("🔤 Text Processing")
         text_layout = default_form_layout()
         text_rules.setLayout(text_layout)
+        text_rules.setHidden(not self._show_text_processing)
         self.convert_box = ReactiveCheckBox(self.state, "chat_markdown_to_html")
         text_layout.addRow(QLabel("Convert Markdown to HTML:"), self.convert_box)
         convert_explainer = QLabel(
@@ -127,14 +133,15 @@ class ChatOptions(QWidget):
         chat_layout.addRow(chat_box)
         chat_layout.addItem(QSpacerItem(0, 12))
         chat_layout.addRow(text_rules)
-        chat_layout.addItem(QSpacerItem(0, 12))
+        if self._show_text_processing:
+            chat_layout.addItem(QSpacerItem(0, 12))
         chat_layout.addRow(advanced)
         chat_layout.setContentsMargins(0, 0, 0, 0)
 
         self.setLayout(chat_layout)
 
     def get_initial_state(
-        self, chat_options: Dict[OverridableChatOptions, Any]
+        self, chat_options: OverridableChatOptionsDict
     ) -> ChatOptionsState:
         ret: ChatOptionsState = {
             k: key_or_config_val(chat_options, k) for k in overridable_chat_options  # type: ignore

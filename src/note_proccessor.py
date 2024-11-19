@@ -34,9 +34,9 @@ from .app_state import (
     is_app_unlocked_or_legacy,
 )
 from .config import Config, bump_usage_counter
-from .constants import STANDARD_BATCH_LIMIT
+from .constants import GENERIC_CREDITS_MESSAGE, STANDARD_BATCH_LIMIT
 from .dag import generate_fields_dag
-from .field_resolver import FieldResolver
+from .field_processor import FieldProcessor
 from .logger import logger
 from .nodes import FieldNode
 from .notes import get_note_type
@@ -50,10 +50,10 @@ NEW_OPEN_AI_MODEL_REQ_PER_MIN = 500
 OLD_OPEN_AI_MODEL_REQ_PER_MIN = 3500
 
 
-class Processor:
+class NoteProcessor:
 
-    def __init__(self, field_resolver: FieldResolver, config: Config):
-        self.field_resolver = field_resolver
+    def __init__(self, field_processor: FieldProcessor, config: Config):
+        self.field_processor = field_processor
         self.config = config
         self.req_in_progress = False
 
@@ -103,17 +103,15 @@ class Processor:
                 if model == "gpt-4o-mini"
                 else NEW_OPEN_AI_MODEL_REQ_PER_MIN
             )
-        is_large_batch = len(note_ids) >= 3
         logger.debug(f"Rate limit: {limit}")
 
         # Only show fancy progress meter for large batches
-        if is_large_batch:
-            mw.progress.start(
-                label=f"(0/{len(note_ids)})...",
-                min=0,
-                max=len(note_ids),
-                immediate=True,
-            )
+        mw.progress.start(
+            label=f"✨Generating... (0/{len(note_ids)})",
+            min=0,
+            max=len(note_ids),
+            immediate=True,
+        )
 
         def on_update(
             updated: List[Note], processed_count: int, finished: bool
@@ -123,15 +121,14 @@ class Processor:
 
             mw.col.update_notes(updated)
 
-            if is_large_batch:
-                if not finished:
-                    mw.progress.update(
-                        label=f"({processed_count}/{len(note_ids)})",
-                        value=processed_count,
-                        max=len(note_ids),
-                    )
-                else:
-                    mw.progress.finish()
+            if not finished:
+                mw.progress.update(
+                    label=f"(✨ Generating... ({processed_count}/{len(note_ids)})",
+                    value=processed_count,
+                    max=len(note_ids),
+                )
+            else:
+                mw.progress.finish()
 
         async def op():
             total_updated = []
@@ -176,7 +173,7 @@ class Processor:
             return total_updated, total_failed
 
         run_async_in_background_with_sentry(
-            op, wrapped_on_success, on_failure, with_progress=(not is_large_batch)
+            op, wrapped_on_success, on_failure, with_progress=True
         )
 
     async def _process_notes_batch(
@@ -274,6 +271,7 @@ class Processor:
                 deck_id=card.did,
                 target_field=target_field,
                 on_field_update=on_field_update,
+                show_progress=True,
             ),
             wrapped_on_success,
             wrapped_failure,
@@ -290,6 +288,7 @@ class Processor:
         overwrite_fields: bool = False,
         target_field: Union[str, None] = None,
         on_field_update: Union[Callable[[], None], None] = None,
+        show_progress: bool = False,
     ) -> bool:
         """Process a single note, returns whether any fields were updated. Optionally can target specific fields. Caller responsible for handling any exceptions."""
 
@@ -310,39 +309,63 @@ class Processor:
 
         did_update = False
 
-        while len(dag):
-            next_batch: List[FieldNode] = [
-                node for node in dag.values() if not node.in_nodes
-            ]
-            logger.debug(f"Processing next nodes: {next_batch}")
-            batch_tasks = {
-                node.field: self._process_node(node, note) for node in next_batch
-            }
+        will_show_progress = show_progress and len(dag)
+        if will_show_progress:
+            run_on_main(
+                lambda: mw.progress.start(  # type: ignore
+                    label="✨ Generating...",
+                    min=0,
+                    max=len(dag),
+                    immediate=True,
+                )
+            )
 
-            responses = await asyncio.gather(*batch_tasks.values())
+        try:
+            while len(dag):
+                next_batch: List[FieldNode] = [
+                    node for node in dag.values() if not node.in_nodes
+                ]
+                logger.debug(f"Processing next nodes: {next_batch}")
+                batch_tasks = {
+                    node.field: self._process_node(
+                        # Only show the error box for the target field
+                        node,
+                        note,
+                        show_error_message_box=node.is_target,
+                    )
+                    for node in next_batch
+                }
 
-            for field, response in zip(batch_tasks.keys(), responses):
-                node = dag[field]
-                if response:
-                    logger.debug(f"Updating field {field} with response")
-                    note[node.field_upper] = response
+                responses = await asyncio.gather(*batch_tasks.values())
 
-                if node.abort:
+                for field, response in zip(batch_tasks.keys(), responses):
+                    node = dag[field]
+                    if response:
+                        logger.debug(
+                            f"Updating field {field} with response: {response}"
+                        )
+                        note[node.field_upper] = response
+
+                    if node.abort:
+                        for out_node in node.out_nodes:
+                            out_node.abort = True
+
                     for out_node in node.out_nodes:
-                        out_node.abort = True
+                        out_node.in_nodes.remove(node)
 
-                for out_node in node.out_nodes:
-                    out_node.in_nodes.remove(node)
+                    # New notes have ID 0 and don't exist in the DB yet, so can't be updated!
+                    if note.id and node.did_update:
+                        if mw:
+                            mw.col.update_note(note)
+                        did_update = True
 
-                # New notes have ID 0 and don't exist in the DB yet, so can't be updated!
-                if note.id and node.did_update:
-                    if mw:
-                        mw.col.update_note(note)
-                    did_update = True
+                    dag.pop(field)
+                    if on_field_update:
+                        run_on_main(on_field_update)
 
-                dag.pop(field)
-                if on_field_update:
-                    run_on_main(on_field_update)
+        finally:
+            if will_show_progress:
+                run_on_main(lambda: mw.progress.finish())  # type: ignore
 
         return did_update
 
@@ -378,9 +401,14 @@ class Processor:
                 else:
                     show_message_box(unknown_error)
             else:
-                # Shouldn't get here
-                logger.error(f"Got 4xx error but app is locked & no API key")
-                show_message_box(unknown_error)
+                if status == 402:
+                    # Shouldn't get here; requests should be blocked if you're
+                    # out of credits.
+                    logger.debug("Got 402 error but app is locked & no API key")
+                    show_message_box(GENERIC_CREDITS_MESSAGE)
+                else:
+                    logger.error(f"Got 4xx error but app is locked & no API key")
+                    show_message_box(unknown_error)
         else:
             logger.error(f"Got non-HTTP error: {e}")
             show_message_box(f"Smart Notes Error: Unknown error: {e}")
@@ -407,9 +435,14 @@ class Processor:
     def _assert_valid_app_mode(self) -> bool:
         return is_app_unlocked() or has_api_key()
 
-    async def _process_node(self, node: FieldNode, note: Note) -> Union[str, None]:
+    async def _process_node(
+        self, node: FieldNode, note: Note, show_error_message_box: bool
+    ) -> Union[str, None]:
         if node.abort:
+            logger.debug(f"Skipping field {node.field}")
             return None
+
+        logger.debug(f"Processing field {node.field}")
 
         value = note[node.field_upper]
 
@@ -423,7 +456,9 @@ class Processor:
         if value and not (node.is_target or node.overwrite):
             return value
 
-        new_value = await self.field_resolver.resolve(node, note)
+        new_value = await self.field_processor.resolve(
+            node, note, show_error_message_box
+        )
         if new_value:
             node.did_update = True
 
