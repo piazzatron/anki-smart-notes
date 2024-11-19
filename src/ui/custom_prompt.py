@@ -302,6 +302,8 @@ class CustomImagePrompt(CustomPrompt):
             self._update_ui_states()
 
         def on_error(error: Exception):
+            logger.error(f"Error generating image: {error}")
+            show_message_box("Error generating image: " + str(error))
             self._loading = False
             self._update_ui_states()
 
@@ -309,8 +311,8 @@ class CustomImagePrompt(CustomPrompt):
             return await field_processor.get_image_response(
                 note=self._note,
                 input_text=prompt,
-                model=self.image_options.state.s["model"],
-                provider=self.image_options.state.s["provider"],
+                model=self.image_options.state.s["image_model"],
+                provider=self.image_options.state.s["image_provider"],
             )
 
         run_async_in_background_with_sentry(generate_image, on_success, on_error)
@@ -324,14 +326,14 @@ class CustomImagePrompt(CustomPrompt):
 
     def on_save_result(self) -> Union[str, None]:
         if not self.raw_image:
-            return
+            return None
         file_name = get_media_path(self._note, self._field_upper, "webp")
         path = write_media(file_name, self.raw_image)
         return f'<img src="{path}"/>'
 
     def update_ui_states(self) -> None:
         if self.raw_image:
-            self.response_image.set_image(self.raw_image, 500, 500)
+            self.response_image.set_image(self.raw_image)
 
 
 class TTSPromptState(TypedDict):

@@ -24,13 +24,15 @@ from anki.notes import Note
 from aqt import mw
 
 from .app_state import (
+    did_exceed_image_capacity,
+    did_exceed_text_capacity,
+    did_exceed_voice_capacity,
     has_api_key,
     is_app_unlocked,
-    is_at_text_capacity,
-    is_at_voice_capacity,
 )
 from .chat_provider import ChatProvider, chat_provider
 from .config import key_or_config_val
+from .constants import GENERIC_CREDITS_MESSAGE
 from .image_provider import ImageProvider, image_provider
 from .logger import logger
 from .markdown import convert_markdown_to_html
@@ -49,6 +51,8 @@ from .notes import get_chained_ai_fields, get_note_type
 from .open_ai_client import OpenAIClient, openai_provider
 from .prompts import get_extras, interpolate_prompt
 from .tts_provider import TTSProvider, tts_provider
+from .ui.ui_utils import show_message_box
+from .utils import run_on_main
 
 
 class FieldProcessor:
@@ -65,7 +69,10 @@ class FieldProcessor:
         self.tts_provider = tts_provider
         self.image_provider = image_provider
 
-    async def resolve(self, node: FieldNode, note: Note) -> Union[str, None]:
+    async def resolve(
+        self, node: FieldNode, note: Note, show_error_box: bool = False
+    ) -> Union[str, None]:
+        # Don't show error boxes in this method because it will be called
         input = node.input
         field_type = node.field_type
 
@@ -103,6 +110,7 @@ class FieldProcessor:
                 voice=tts_voice,
                 provider=tts_provider,
                 strip_html=should_strip_html,
+                show_error_box=show_error_box,
             )
 
             if not tts_response:
@@ -128,6 +136,7 @@ class FieldProcessor:
                 temperature=chat_temperature,
                 field_lower=node.field,
                 should_convert_to_html=should_convert,
+                show_error_box=show_error_box,
             )
 
         elif field_type == "image":
@@ -144,7 +153,11 @@ class FieldProcessor:
             image_provider: ImageProviders = key_or_config_val(extras, "image_provider")
 
             image_response = await self.get_image_response(
-                note=note, input_text=input, model=image_model, provider=image_provider
+                note=note,
+                input_text=input,
+                model=image_model,
+                provider=image_provider,
+                show_error_box=show_error_box,
             )
             if not image_response:
                 return None
@@ -165,6 +178,7 @@ class FieldProcessor:
         field_lower: str,
         temperature: int,
         should_convert_to_html: bool,
+        show_error_box: bool = True,
     ) -> Union[str, None]:
 
         interpolated_prompt = interpolate_prompt(prompt, note)
@@ -174,14 +188,19 @@ class FieldProcessor:
 
         resp: Optional[str] = None
 
-        if is_app_unlocked() and not is_at_text_capacity():
-            resp = await self.chat_provider.async_get_chat_response(
-                interpolated_prompt,
-                model=model,
-                provider=provider,
-                temperature=temperature,
-                note_id=note.id,
-            )
+        if is_app_unlocked():
+            if did_exceed_text_capacity():
+                if show_error_box:
+                    run_on_main(lambda: show_message_box(GENERIC_CREDITS_MESSAGE))
+                return None
+            else:
+                resp = await self.chat_provider.async_get_chat_response(
+                    interpolated_prompt,
+                    model=model,
+                    provider=provider,
+                    temperature=temperature,
+                    note_id=note.id,
+                )
         elif has_api_key():
             logger.debug("On legacy path....")
             # Check that this isn't a chained smart field
@@ -196,6 +215,11 @@ class FieldProcessor:
             resp = await self.openai_provider.async_get_chat_response(
                 interpolated_prompt, temperature=temperature, retry_count=0
             )
+        else:
+            logger.error("App is locked + no API key")
+            if show_error_box:
+                run_on_main(lambda: show_message_box(GENERIC_CREDITS_MESSAGE))
+            return None
 
         if resp and should_convert_to_html:
             resp = convert_markdown_to_html(resp)
@@ -210,6 +234,7 @@ class FieldProcessor:
         provider: TTSProviders,
         voice: str,
         strip_html: bool,
+        show_error_box: bool = True,
     ) -> Union[bytes, None]:
 
         interpolated_prompt = interpolate_prompt(input_text, note)
@@ -218,8 +243,11 @@ class FieldProcessor:
             return None
 
         logger.debug(f"Resolving: {interpolated_prompt}")
-        if is_at_voice_capacity():
+
+        if did_exceed_voice_capacity():
             logger.debug("App at voice capacity, returning early")
+            if show_error_box:
+                run_on_main(lambda: show_message_box(GENERIC_CREDITS_MESSAGE))
             return None
 
         return await self.tts_provider.async_get_tts_response(
@@ -232,8 +260,19 @@ class FieldProcessor:
         )
 
     async def get_image_response(
-        self, note: Note, input_text: str, model: ImageModels, provider: ImageProviders
+        self,
+        note: Note,
+        input_text: str,
+        model: ImageModels,
+        provider: ImageProviders,
+        show_error_box: bool = True,
     ) -> Union[bytes, None]:
+        if did_exceed_image_capacity():
+            logger.debug("App at image capacity, returning early")
+            if show_error_box:
+                run_on_main(lambda: show_message_box(GENERIC_CREDITS_MESSAGE))
+            return None
+
         interpolated_prompt = interpolate_prompt(input_text, note)
 
         if not interpolated_prompt:

@@ -17,39 +17,49 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import List, TypedDict
+from typing import List, Optional, TypedDict
 
 from aqt import QGroupBox, QVBoxLayout, QWidget
 
-from ..config import config
-from ..models import ImageModels, ImageProviders
+from ..config import key_or_config_val
+from ..models import ImageModels, ImageProviders, OverridableImageOptionsDict
 from .reactive_combo_box import ReactiveComboBox
 from .state_manager import StateManager
 from .ui_utils import default_form_layout
 
 
 class State(TypedDict):
-    model: ImageModels
-    models: List[ImageModels]
-    provider: ImageProviders
+    image_model: ImageModels
+    image_models: List[ImageModels]
+    image_provider: ImageProviders
 
 
 class ImageOptions(QWidget):
-    def __init__(self) -> None:
+    def __init__(
+        self, image_options: Optional[OverridableImageOptionsDict] = None
+    ) -> None:
         super().__init__()
 
         self.state = StateManager[State](
             {
-                "model": config.image_model,
-                "models": ["flux-dev", "flux-schnell"],
-                "provider": "replicate",
+                "image_model": key_or_config_val(image_options or {}, "image_model"),
+                "image_models": ["flux-dev", "flux-schnell"],
+                "image_provider": "replicate",
             }
         )
 
         self._setup_ui()
 
     def _setup_ui(self) -> None:
-        self.model_picker = ReactiveComboBox(self.state, "models", "model")
+        self.model_picker = ReactiveComboBox(
+            self.state,
+            "image_models",
+            "image_model",
+            {
+                "flux-schnell": "Flux Schnell (1 credit)",
+                "flux-dev": "Flux Dev (8 credits)",
+            },
+        )
         self.model_picker.setMaximumWidth(300)
         box = QGroupBox("🖼️ Image Model Settings")
         layout = QVBoxLayout()

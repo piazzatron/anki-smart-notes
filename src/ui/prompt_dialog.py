@@ -54,6 +54,7 @@ from ..models import (
     PromptMap,
     SmartFieldType,
     overridable_chat_options,
+    overridable_image_options,
     overridable_tts_options,
 )
 from ..note_proccessor import NoteProcessor
@@ -70,6 +71,7 @@ from ..tts_utils import play_audio
 from ..utils import get_fields, none_defaulting, to_lowercase_dict
 from .chat_options import ChatOptions
 from .image_displayer import ImageDisplayer
+from .image_options import ImageOptions
 from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_edit_text import ReactiveEditText
@@ -77,7 +79,7 @@ from .state_manager import StateManager
 from .tts_options import TTSOptions
 from .ui_utils import default_form_layout, font_bold, font_small, show_message_box
 
-explanation = """Write a "prompt" to help the chat model generate your Smart Field.
+explanation = """Write a prompt to help the chat model generate your Smart Field.
 
 Your prompt may reference other fields via {{double curly braces}}. Valid fields are listed below for convenience.
 
@@ -94,7 +96,7 @@ class State(TypedDict):
     selected_tts_source_field: str
     selected_note_field: str
     is_loading_prompt: bool
-    generate_manually: bool
+    generate_automatically: bool
 
     use_custom_model: bool
     type: SmartFieldType
@@ -121,6 +123,7 @@ class PromptDialog(QDialog):
     state: StateManager[State]
     prompts_map: PromptMap
     chat_options: ChatOptions
+    image_options: ImageOptions
     tts_options: TTSOptions
     mode: Literal["new", "edit"]
     field_type: SmartFieldType
@@ -199,15 +202,15 @@ class PromptDialog(QDialog):
             "decks": get_all_deck_ids(),
             "selected_deck": deck_id,
             "type": field_type,
-            "generate_manually": not extras["automatic"],
+            "generate_automatically": extras["automatic"],
             "use_custom_model": extras["use_custom_model"],
         }
         self.state = StateManager[State](initial_state)
 
-        self.manual_box = ReactiveCheckBox(
+        self.enabled_box = ReactiveCheckBox(
             self.state,
-            "generate_manually",
-            text="Manually generate only",
+            "generate_automatically",
+            text="Enabled",
         )
         self.standard_buttons = self.create_buttons()
 
@@ -217,6 +220,7 @@ class PromptDialog(QDialog):
 
         container = QVBoxLayout()
         container.addWidget(tabs)
+
         container.addWidget(self.standard_buttons)
         self.setLayout(container)
         self.setup_ui()
@@ -351,6 +355,7 @@ class PromptDialog(QDialog):
         text_only_layout.addWidget(self.valid_fields)
         layout.addWidget(text_only_container)
         layout.addSpacerItem(QSpacerItem(0, 12))
+
         layout.addWidget(self.test_button)
         layout.addSpacerItem(
             QSpacerItem(
@@ -367,6 +372,20 @@ class PromptDialog(QDialog):
         )
 
         self.test_button.clicked.connect(self.on_test)
+
+        field_options = QGroupBox()
+        field_layout = QVBoxLayout()
+        field_options.setLayout(field_layout)
+        automatic_explanation = QLabel(
+            "Enable or disable this field. Disabled fields can be generated via right clicking a field in the editor."
+        )
+        automatic_explanation.setFont(font_small)
+        field_layout.addWidget(self.enabled_box)
+        field_layout.addWidget(automatic_explanation)
+
+        layout.addItem(QSpacerItem(0, 24))
+        layout.addWidget(field_options)
+
         container = QWidget()
         container.setLayout(layout)
 
@@ -409,17 +428,7 @@ class PromptDialog(QDialog):
         model_box.setLayout(models_layout)
         model_box.setContentsMargins(0, 24, 0, 24)
 
-        behavior_box = QGroupBox("Field Behavior")
-        behavior_layout = default_form_layout()
-        behavior_box.setLayout(behavior_layout)
-
-        manual_explanation = QLabel("Via editor right click -> generate")
-        manual_explanation.setFont(font_small)
-        behavior_layout.addRow(self.manual_box)
-        behavior_layout.addRow(manual_explanation)
-
         container_layout = default_form_layout()
-        container_layout.addRow(behavior_box)
         container_layout.addRow(QLabel(""), None)
         container_layout.addRow(model_box)
         container = QWidget()
@@ -433,13 +442,15 @@ class PromptDialog(QDialog):
         )
 
         standard_buttons.accepted.connect(self.on_accept)
-        standard_buttons.rejected.connect(self.on_reject)
+        standard_buttons.rejected.connect(self.reject)
         return standard_buttons
 
     def render_custom_model(self) -> QWidget:
+        # TODO: could use a refactor
         # Setup the dummy options; only one will be used
         self.tts_options = TTSOptions()
         self.chat_options = ChatOptions()
+        self.image_options = ImageOptions()
 
         extras = get_extras(
             note_type=self.state.s["selected_note_type"],
@@ -449,8 +460,10 @@ class PromptDialog(QDialog):
             fallback_to_global_deck=False,
         )
 
+        use_custom_model = extras and extras["use_custom_model"]
+
         if self.state.s["type"] == "tts":
-            if extras and extras["use_custom_model"]:
+            if extras and use_custom_model:
                 self.tts_options = TTSOptions(
                     {
                         "tts_provider": extras.get("tts_provider"),
@@ -462,7 +475,7 @@ class PromptDialog(QDialog):
             return self.tts_options
 
         elif self.state.s["type"] == "chat":
-            if extras and extras["use_custom_model"]:
+            if extras and use_custom_model:
                 self.chat_options = ChatOptions(
                     {
                         "chat_provider": extras.get("chat_provider"),
@@ -474,7 +487,14 @@ class PromptDialog(QDialog):
             return self.chat_options
 
         elif self.state.s["type"] == "image":
-            return QWidget()
+            if extras and use_custom_model:
+                self.image_options = ImageOptions(
+                    {
+                        "image_model": extras.get("image_model"),
+                        "image_provider": "replicate",
+                    }
+                )
+            return self.image_options
 
         # Should never get here
         return QWidget()
@@ -574,7 +594,7 @@ class PromptDialog(QDialog):
         if self.state.s["is_loading_prompt"]:
             self.test_button.setText("Loading...")
         else:
-            self.test_button.setText("Test ✨")
+            self.test_button.setText("Test With Random Note✨")
 
     def on_test(self) -> None:
         if self.state.s["type"] == "chat":
@@ -722,7 +742,7 @@ class PromptDialog(QDialog):
             run_async_in_background_with_sentry(img_fn, on_success, on_failure)
 
     def render_automatic_button(self) -> None:
-        self.manual_box.setChecked(self.state.s["generate_manually"])
+        self.enabled_box.setChecked(self.state.s["generate_automatically"])
 
     def render_valid_fields(self) -> None:
         fields = get_valid_fields_for_prompt(
@@ -848,7 +868,7 @@ class PromptDialog(QDialog):
             deck_id=s["selected_deck"],
             field=s["selected_note_field"],
             prompt=s["prompt"],
-            is_automatic=not s["generate_manually"],
+            is_automatic=s["generate_automatically"],
             is_custom_model=s["use_custom_model"],
             type=s["type"],
             tts_options=cast(
@@ -858,7 +878,9 @@ class PromptDialog(QDialog):
             chat_options={
                 k: self.chat_options.state.s[k] for k in overridable_chat_options
             },
-            image_options={},
+            image_options={
+                k: self.image_options.state.s[k] for k in overridable_image_options
+            },
         )
 
 

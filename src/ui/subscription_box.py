@@ -30,7 +30,13 @@ from aqt import (
     pyqtSignal,
 )
 
-from ..app_state import AppState, app_state
+from ..app_state import (
+    AppState,
+    app_state,
+    did_exceed_image_capacity,
+    did_exceed_text_capacity,
+    did_exceed_voice_capacity,
+)
 from ..constants import get_site_url
 from ..sentry import pinger
 from ..subscription_provider import SubscriptionState
@@ -127,14 +133,12 @@ class SubscriptionBox(QWidget):
             "UNAUTHENTICATED": self._render_start_trial(),
             "NO_SUBSCRIPTION": self._render_start_trial(),
             "FREE_TRIAL_ACTIVE": self._render_free_trial_active(),
-            "FREE_TRIAL_EXPIRED": self._render_upgrade_trial("expired"),
-            "FREE_TRIAL_CAPACITY": self._render_upgrade_trial("expired"),
-            "FREE_TRIAL_TEXT_CAPACITY": self._render_upgrade_trial("text"),
-            "FREE_TRIAL_VOICE_CAPACITY": self._render_upgrade_trial("voice"),
+            "FREE_TRIAL_EXPIRED": self._render_upgrade(False),
+            "FREE_TRIAL_CAPACITY": self._render_upgrade(False),
+            "FREE_TRIAL_PARTIAL_CAPACITY": self._render_upgrade(False),
             "PAID_PLAN_ACTIVE": self._render_active(),
-            "PAID_PLAN_CAPACITY": self._render_paid_capacity("expired"),
-            "PAID_PLAN_TEXT_CAPACITY": self._render_paid_capacity("text"),
-            "PAID_PLAN_VOICE_CAPACITY": self._render_paid_capacity("voice"),
+            "PAID_PLAN_CAPACITY": self._render_upgrade(True),
+            "PAID_PLAN_PARTIAL_CAPACITY": self._render_upgrade(True),
             "PAID_PLAN_EXPIRED": self._render_paid_lapsed(),
         }
 
@@ -262,38 +266,40 @@ class SubscriptionBox(QWidget):
 
         return upgrade_now_button
 
-    def _render_upgrade_trial(
-        self, type: Literal["expired", "voice", "text"]
+    def _render_upgrade(
+        self,
+        paid: bool = False,
     ) -> QWidget:
         layout = QHBoxLayout()
-        labels = {
-            "expired": "🚨 Trial Expired!",
-            "voice": "⚠️ Voice Capacity Reached!",
-            "text": "⚠️ Text Capacity Reached!",
-        }
-        label = QLabel(labels[type])
-        label.setFont(font_bold)
+        text_capacity = did_exceed_text_capacity()
+        image_capacity = did_exceed_image_capacity()
+        voice_capacity = did_exceed_voice_capacity()
+        inner_text: str = ""
+        expired = False
 
-        layout.addWidget(label, alignment=Qt.AlignmentFlag.AlignLeft)
-        layout.addWidget(
-            self._render_upgrade_now_button(), alignment=Qt.AlignmentFlag.AlignRight
+        if text_capacity and voice_capacity and image_capacity:
+            expired = True
+            inner_text = "capacity reached!"
+        elif text_capacity and voice_capacity:
+            inner_text = "text and voice capacity reached!"
+        elif text_capacity and image_capacity:
+            inner_text = "text and image capacity reached!"
+        elif voice_capacity and image_capacity:
+            inner_text = "voice and image capacity reached!"
+        elif text_capacity:
+            inner_text = "text capacity reached!"
+        elif voice_capacity:
+            inner_text = "voice capacity reached!"
+        elif image_capacity:
+            inner_text = "image capacity reached!"
+
+        label_text = (
+            f"{'🚨' if expired else '⚠️'} {'Plan' if paid else 'Trial'} {inner_text}"
         )
 
-        container = QWidget()
-        container.setLayout(layout)
-        return container
-
-    def _render_paid_capacity(
-        self, type: Literal["expired", "voice", "text"]
-    ) -> QWidget:
-        layout = QHBoxLayout()
-        labels = {
-            "expired": "🚨 Plan capacity reached!",
-            "voice": "⚠️ Voice Capacity Reached!",
-            "text": "⚠️ Text Capacity Reached!",
-        }
-        label = QLabel(labels[type])
+        label = QLabel(label_text)
         label.setFont(font_bold)
+
         layout.addWidget(label, alignment=Qt.AlignmentFlag.AlignLeft)
         layout.addWidget(
             self._render_upgrade_now_button(), alignment=Qt.AlignmentFlag.AlignRight

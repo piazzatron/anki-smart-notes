@@ -95,10 +95,10 @@ class TTSState(TypedDict):
     voice: str
 
     # These are the actual values read from and written to config
-    tts_provider: Optional[TTSProviders]
-    tts_voice: Optional[str]
-    tts_model: Optional[TTSModels]
-    tts_strip_html: Optional[bool]
+    tts_provider: TTSProviders
+    tts_voice: str
+    tts_model: TTSModels
+    tts_strip_html: bool
 
     test_text: str
     test_enabled: bool

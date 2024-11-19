@@ -48,10 +48,10 @@ class ImageDisplayer(QWidget):
         self.webview.setContentsMargins(0, 0, 0, 0)  # Remove padding
         # self.webview.show()
         if image:
-            self.set_image(image, height, width)
+            self.set_image(image)
 
-    def set_image(self, image: bytes, height: int, width: int) -> None:
+    def set_image(self, image: bytes) -> None:
         b64_image = base64.b64encode(image).decode("utf-8")
-        html = f'<img src="data:image/png;base64,{b64_image}" height="{height}" width="{width}"/>'
+        html = f'<img src="data:image/png;base64,{b64_image}" height="100%" width="100%" />'
         self.webview.setHtml(html)
         self.webview.show()
