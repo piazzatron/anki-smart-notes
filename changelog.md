@@ -1,3 +1,8 @@
+# v2.5.0
+
+- Image generation!
+- Right click on an editor to field to generate custom text/TTS/images
+
 # v2.4.0
 
 - Bug fix: you can now generate notes while the preview window is open, and the preview will automatically update.
