@@ -1,3 +1,8 @@
+# v2.5.0
+
+- New feature: Image generation Smart Fields!
+- New feature: custom text/TTS/image generation via right clicking a field in the editor.
+
 # v2.4.0
 
 - Bug fix: you can now generate notes while the preview window is open, and the preview will automatically update.
