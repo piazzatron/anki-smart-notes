@@ -141,7 +141,7 @@ class AppStateManager:
         if old_state == "LOADING":
             return False
 
-        # Only show it new state is
+        # Only show warning if new state isn't an active state
         active_states: List[SubscriptionState] = [
             "PAID_PLAN_ACTIVE",
             "FREE_TRIAL_ACTIVE",

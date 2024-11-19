@@ -108,7 +108,7 @@ class NoteProcessor:
         # Only show fancy progress meter for large batches
         mw.progress.start(
             label=f"✨Generating... (0/{len(note_ids)})",
-            min=1,
+            min=0,
             max=len(note_ids),
             immediate=True,
         )
@@ -309,7 +309,6 @@ class NoteProcessor:
 
         did_update = False
 
-        # has_image = any(node.field_type == "image" for node in dag.values())
         will_show_progress = show_progress and len(dag)
         if will_show_progress:
             run_on_main(
@@ -403,6 +402,8 @@ class NoteProcessor:
                     show_message_box(unknown_error)
             else:
                 if status == 402:
+                    # Shouldn't get here; requests should be blocked if you're
+                    # out of credits.
                     logger.debug("Got 402 error but app is locked & no API key")
                     show_message_box(GENERIC_CREDITS_MESSAGE)
                 else:

@@ -170,7 +170,6 @@ def prompt_has_error(
 
         extras = get_extras(note_type, prompt_field, deck_id, prompts_map)
 
-        # Is TTS
         if extras and extras["type"] in ["tts", "image"]:
             return "Cannot reference TTS or image fields in prompts"
 

@@ -72,7 +72,7 @@ class FieldProcessor:
     async def resolve(
         self, node: FieldNode, note: Note, show_error_box: bool = False
     ) -> Union[str, None]:
-        # Don't show error boxes in this method because it will be called
+        # Only show error box if we're running on the target node
         input = node.input
         field_type = node.field_type
 

@@ -109,6 +109,9 @@ class CustomPrompt(QDialog):
     def update_ui_states(self) -> None:
         raise Exception("Not implemented")
 
+    def setup_ui(self) -> None:
+        pass
+
     def _setup_ui(self) -> None:
         container = QVBoxLayout()
 
@@ -206,9 +209,6 @@ class CustomPrompt(QDialog):
     def _on_prompt_changed(self) -> None:
         self._update_ui_states()
 
-    def setup_ui(self) -> None:
-        pass
-
     def reject(self):
         if not self.has_output() or show_message_box(
             "Close and lose results?", show_cancel=True
@@ -241,17 +241,16 @@ class CustomTextPrompt(CustomPrompt):
     def on_generate(self) -> None:
 
         prompt = self._prompt_window.toPlainText()
-        print("GENERATING")
 
         def on_success(text: str):
-            print("ON SUCCESS")
             self._loading = False
             self._response_edit.setText(text)
             self._update_ui_states()
 
         def on_error(error: Exception):
-            print("ON ERROR")
-            print(error)
+            msg = f"Error generating text: {error}"
+            logger.error(msg)
+            show_message_box(msg)
             self._loading = False
             self._update_ui_states()
 
