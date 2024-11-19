@@ -288,18 +288,6 @@ class PromptDialog(QDialog):
             layout.addWidget(source_explainer)
             layout.addItem(QSpacerItem(0, 20))
 
-        self.field_combo_box = ReactiveComboBox(
-            self.state, "note_fields", "selected_note_field"
-        )
-        field_label = QLabel(text["destination"][field_type])
-        field_label.setFont(font_bold)
-        field_explanation = QLabel(text["destination_explanation"][field_type])
-        field_explanation.setFont(font_small)
-        layout.addWidget(field_label)
-        layout.addWidget(self.field_combo_box)
-        layout.addWidget(field_explanation)
-        layout.addSpacerItem(QSpacerItem(0, 20))
-
         deck_label = QLabel("Deck")
         deck_label.setFont(font_bold)
         self.deck_subtitle = QLabel(
@@ -317,6 +305,18 @@ class PromptDialog(QDialog):
         layout.addWidget(deck_label)
         layout.addWidget(self.deck_combo_box)
         layout.addWidget(self.deck_subtitle)
+        layout.addSpacerItem(QSpacerItem(0, 20))
+
+        self.field_combo_box = ReactiveComboBox(
+            self.state, "note_fields", "selected_note_field"
+        )
+        field_label = QLabel(text["destination"][field_type])
+        field_label.setFont(font_bold)
+        field_explanation = QLabel(text["destination_explanation"][field_type])
+        field_explanation.setFont(font_small)
+        layout.addWidget(field_label)
+        layout.addWidget(self.field_combo_box)
+        layout.addWidget(field_explanation)
         layout.addSpacerItem(QSpacerItem(0, 20))
 
         self.test_button = QPushButton("✨ Test Smart Field ✨")
