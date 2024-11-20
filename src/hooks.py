@@ -163,6 +163,7 @@ def add_editor_top_button(
             on_success=on_success,
             on_failure=lambda _: set_button_enabled(),
             on_field_update=on_field,
+            show_progress=True,
         )
 
     button = e.addButton(
@@ -285,6 +286,7 @@ def on_editor_context(
             overwrite_fields=False,
             target_field=ai_field,
             on_success=on_generate_success,
+            show_progress=True,
         )
 
     menu.addSeparator()
@@ -372,7 +374,9 @@ def on_review(processor: NoteProcessor, card: Card):
         # Suppressing invocation of -[NSApplication runModalSession:]. -[NSApplication runModalSession:] cannot run inside a transaction begin/commit pair, or inside a transaction commit. Consider switching to an asynchronous equivalent.
         bump_usage_counter()
 
-    processor.process_card(card, overwrite_fields=False, on_success=on_success)
+    processor.process_card(
+        card, overwrite_fields=False, on_success=on_success, show_progress=False
+    )
 
 
 @with_processor  # type: ignore

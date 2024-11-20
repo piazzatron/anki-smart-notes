@@ -240,6 +240,7 @@ class NoteProcessor:
     def process_card(
         self,
         card: Card,
+        show_progress: bool,
         overwrite_fields: bool = False,
         on_success: Callable[[bool], None] = lambda _: None,
         on_failure: Union[Callable[[Exception], None], None] = None,
@@ -271,7 +272,7 @@ class NoteProcessor:
                 deck_id=card.did,
                 target_field=target_field,
                 on_field_update=on_field_update,
-                show_progress=True,
+                show_progress=show_progress,
             ),
             wrapped_on_success,
             wrapped_failure,
