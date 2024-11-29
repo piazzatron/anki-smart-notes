@@ -73,13 +73,25 @@ class AppStateManager:
             return
 
         def on_failure(_) -> None:
+            logger.error("Got failure getting new status. Wiping auth.")
+            config.auth_token = None
             self._state.update({"subscription": "LOADING", "plan": None})
 
         def on_new_status(status: Union[UserStatus, None]) -> None:
             logger.debug(f"Got new subscription status: {status}")
 
             if not status:
+                logger.error(
+                    "Got empty status. Possibly dead account. Logging user out."
+                )
+                config.auth_token = None
                 on_failure(None)
+                return
+
+            if not status.get("plan"):
+                if status.get("error"):
+                    logger.error(f"Saw error in app_state: ${status['error']}")
+                    on_failure(None)
                 return
 
             old_state = self._state.s.copy()

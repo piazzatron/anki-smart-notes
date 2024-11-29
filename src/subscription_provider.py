@@ -17,7 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Literal, TypedDict, Union
+from typing import Literal, Optional, TypedDict, Union
 
 from .api_client import api
 from .config import config
@@ -52,7 +52,8 @@ class PlanInfo(TypedDict):
 
 
 class UserStatus(TypedDict):
-    plan: Union[PlanInfo, None]
+    plan: Optional[PlanInfo]
+    error: Optional[str]
 
 
 class UserInfoProvider:
