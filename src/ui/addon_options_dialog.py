@@ -21,6 +21,7 @@ from typing import Any, List, TypedDict, Union
 from urllib.parse import urlparse
 
 from aqt import (
+    QDesktopServices,
     QDialog,
     QDialogButtonBox,
     QGraphicsOpacityEffect,
@@ -33,6 +34,7 @@ from aqt import (
     QTableWidget,
     QTableWidgetItem,
     QTabWidget,
+    QUrl,
     QVBoxLayout,
     QWidget,
 )
@@ -176,6 +178,28 @@ class AddonOptionsDialog(QDialog):
         tabs.addTab(self.render_account_tab(), "Account")
 
         tab_layout = QVBoxLayout()
+
+        if not config.did_click_rate_link:
+            rate_box = QWidget()
+            rate_layout = QHBoxLayout()
+            rate_box.setLayout(rate_layout)
+            rate_label = QLabel(
+                'Enjoying Smart Notes? Please consider <a href="https://ankiweb.net/shared/info/1531888719">leaving a review.</a>'
+            )
+            rate_label.setContentsMargins(0, 12, 0, 18)
+            rate_font = rate_label.font()
+            rate_font.setItalic(True)
+            rate_label.setFont(rate_font)
+            rate_layout.addStretch()
+            rate_layout.addWidget(rate_label)
+            rate_layout.addStretch()
+
+            def on_rate_click(url: str):
+                QDesktopServices.openUrl(QUrl(url))
+                config.did_click_rate_link = True
+
+            rate_label.linkActivated.connect(on_rate_click)
+            tab_layout.addWidget(rate_box)
         tab_layout.addWidget(tabs)
 
         # Version Box

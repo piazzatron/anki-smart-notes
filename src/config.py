@@ -82,6 +82,7 @@ class Config:
     did_show_premium_tts_dialog: bool
     did_deck_filter_migration: bool
     did_cleanup_config_defaults: bool
+    did_click_rate_link: bool
 
     # Deprecated fields:
     legacy_openai_model: OpenAIModels

@@ -25,7 +25,7 @@ class RateDialog(QDialog):
 
     def __init__(self) -> None:
         super().__init__()
-        msg = 'Thanks for using ✨Smart Notes ✨!<br><br> If you\'ve found it useful, please help others find it by <a href="https://ankiweb.net/shared/info/1531888719">leaving a rating on AnkiWeb</a> 👍'
+        msg = 'Thanks for using ✨Smart Notes ✨!<br><br> I sincerely hope you\'re finding it useful. If so, if you could spare a minute to leave a review on <a href="https://ankiweb.net/shared/info/1531888719">AnkiWeb</a>, I would really appreciate it.'
         font = QFont()
         font.setBold(True)
         text = QLabel(msg)

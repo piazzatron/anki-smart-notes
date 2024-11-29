@@ -28,5 +28,6 @@
   "did_show_premium_tts_dialog": false,
   "did_deck_filter_migration": false,
   "chat_markdown_to_html": true,
-  "tts_strip_html": true
+  "tts_strip_html": true,
+  "did_click_rate_link": false
 }
