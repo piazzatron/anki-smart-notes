@@ -249,9 +249,9 @@ class PromptDialog(QDialog):
                 "image": "The note type that will have the image field",
             },
             "destination": {
-                "chat": "Field",
-                "tts": "Destination Field",
-                "image": "Field",
+                "chat": "Target Field",
+                "tts": "Target Field",
+                "image": "Target Field",
             },
             "destination_explanation": {
                 "chat": "The AI generated Smart Field.",
@@ -274,20 +274,6 @@ class PromptDialog(QDialog):
         layout.addWidget(card_explanation)
         layout.addSpacerItem(QSpacerItem(0, 20))
 
-        if self.state.s["type"] == "tts":
-            self.tts_source_combo_box = ReactiveComboBox(
-                self.state, "tts_source_fields", "selected_tts_source_field"
-            )
-            self.tts_source_combo_box.onChange.connect(self.on_source_changed)
-            source_label = QLabel("Source Field")
-            source_label.setFont(font_bold)
-            source_explainer = QLabel("The field that will be spoken.")
-            source_explainer.setFont(font_small)
-            layout.addWidget(source_label)
-            layout.addWidget(self.tts_source_combo_box)
-            layout.addWidget(source_explainer)
-            layout.addItem(QSpacerItem(0, 20))
-
         deck_label = QLabel("Deck")
         deck_label.setFont(font_bold)
         self.deck_subtitle = QLabel(
@@ -306,6 +292,20 @@ class PromptDialog(QDialog):
         layout.addWidget(self.deck_combo_box)
         layout.addWidget(self.deck_subtitle)
         layout.addSpacerItem(QSpacerItem(0, 20))
+
+        if self.state.s["type"] == "tts":
+            self.tts_source_combo_box = ReactiveComboBox(
+                self.state, "tts_source_fields", "selected_tts_source_field"
+            )
+            self.tts_source_combo_box.onChange.connect(self.on_source_changed)
+            source_label = QLabel("Source Field")
+            source_label.setFont(font_bold)
+            source_explainer = QLabel("The field that will be spoken.")
+            source_explainer.setFont(font_small)
+            layout.addWidget(source_label)
+            layout.addWidget(self.tts_source_combo_box)
+            layout.addWidget(source_explainer)
+            layout.addItem(QSpacerItem(0, 20))
 
         self.field_combo_box = ReactiveComboBox(
             self.state, "note_fields", "selected_note_field"
