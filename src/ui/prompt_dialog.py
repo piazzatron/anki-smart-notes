@@ -330,7 +330,6 @@ class PromptDialog(QDialog):
         prompt_label = QLabel("Prompt")
         prompt_label.setFont(font_bold)
         self.prompt_text_box = ReactiveEditText(self.state, "prompt")
-        self.prompt_text_box.setMinimumHeight(150)
         self.prompt_text_box.setAlignment(Qt.AlignmentFlag.AlignTop)
         self.prompt_text_box.setLineWrapMode(QTextEdit.LineWrapMode.WidgetWidth)
         self.prompt_text_box.setWordWrapMode(
@@ -386,6 +385,16 @@ class PromptDialog(QDialog):
         layout.addItem(QSpacerItem(0, 24))
         layout.addWidget(field_options)
 
+        # On small screens, make it a proportion of screen height. Otherwise set a fixed height
+        FIXED_HEIGHT = 800
+        screen = mw and mw.screen()
+        if not screen:
+            screen_height = FIXED_HEIGHT
+        else:
+            screen_height = screen.geometry().height()
+
+        min_height = min(FIXED_HEIGHT, int(screen_height * 0.8))
+        self.setMinimumHeight(min_height)
         container = QWidget()
         container.setLayout(layout)
 
