@@ -21,8 +21,15 @@ import time
 from typing import Dict
 from urllib.parse import urlencode
 
-from aqt import (QDateTime, QDialog, QHBoxLayout, QUrl, QUrlQuery,
-                 QWebEngineView, QWidget)
+from aqt import (
+    QDateTime,
+    QDialog,
+    QHBoxLayout,
+    QUrl,
+    QUrlQuery,
+    QWebEngineView,
+    QWidget,
+)
 from PyQt6.QtNetwork import QNetworkCookie
 
 from ..app_state import app_state
@@ -48,12 +55,15 @@ class WebviewDialog(QDialog):
 
         engine = QWebEngineView()
         encoded = urlencode(query_params)
+
         url = f"{get_site_url()}{path}?{encoded}"
         engine.load(QUrl(url))
         engine.urlChanged.connect(self.on_engine_url_changed)
         layout = QHBoxLayout()
-        self.setMinimumHeight(1200)
-        self.setMinimumWidth(1200)
+        self.setMinimumHeight(1080)
+        self.setMinimumWidth(1080)
+        self.resize(1400, 1200)
+
         self.setLayout(layout)
         layout.addWidget(engine)
         engine.showMaximized()

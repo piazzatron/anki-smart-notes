@@ -436,7 +436,7 @@ def cleanup() -> None:
 def prevent_batches_on_free_trial(notes) -> bool:
     if app_state.is_free_trial() and len(notes) > 50:
         did_accept: bool = show_message_box(
-            "Warning: your free trial is limited to 500 cards. Continue?",
+            "Warning: your free trial allows a limited number of cards. Continue?",
             show_cancel=True,
         )
         return did_accept
