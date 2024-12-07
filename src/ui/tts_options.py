@@ -262,7 +262,7 @@ class TTSOptions(QWidget):
     def __init__(
         self,
         tts_options: Optional[OverrideableTTSOptionsDict] = None,
-        extras_visible: bool = False,
+        extras_visible: bool = True,
     ):
         super().__init__()
         self.extras_visible = extras_visible
