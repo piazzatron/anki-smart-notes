@@ -25,10 +25,14 @@ from aqt import (
     QDateTime,
     QDialog,
     QHBoxLayout,
+    QObject,
     QUrl,
     QUrlQuery,
+    QWebChannel,
+    QWebEnginePage,
     QWebEngineView,
     QWidget,
+    pyqtSlot,
 )
 from PyQt6.QtNetwork import QNetworkCookie
 
@@ -38,6 +42,25 @@ from ..constants import get_site_url
 from ..logger import logger
 
 CLERK_DEV_JWT = "dvb_2jUh8kOg9bIN8jQzywLdD3E5bMl"
+
+
+# Create a bridge + channel to suppress `unrecognized qt` javascript error
+class Bridge(QObject):
+    @pyqtSlot(str, result=str)  # type: ignore
+    def cmd(self, arg: str) -> str:
+        print(f"Received command from JS: {arg}")
+        return f"Response to {arg}"
+
+
+channel = QWebChannel()
+bridge = Bridge()
+channel.registerObject("py", bridge)
+
+
+# Custom web engine page to log out JS errors
+class CustomWebEnginePage(QWebEnginePage):
+    def javaScriptConsoleMessage(self, level, message, lineNumber, sourceID):
+        logger.info(f"JS: {message}, {lineNumber}, {sourceID}")
 
 
 class WebviewDialog(QDialog):
@@ -54,6 +77,10 @@ class WebviewDialog(QDialog):
             query_params["isLegacy"] = "true"
 
         engine = QWebEngineView()
+        engine.setPage(CustomWebEnginePage(engine))
+        page = engine.page()
+        if page:
+            page.setWebChannel(channel)
         encoded = urlencode(query_params)
 
         url = f"{get_site_url()}{path}?{encoded}"
