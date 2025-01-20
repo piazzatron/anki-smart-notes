@@ -3,7 +3,7 @@
 
 ## 💬 Use AI to automatically generate any field.
 
-For example, use ChatGPT or Claude to automatically generate example sentences for vocab cards in nearly any language in **bulk**.
+For example, use ChatGPT / Claude / DeepSeek to automatically generate example sentences for vocab cards in nearly any language in **bulk**.
 </br>
 </br>
 
@@ -71,7 +71,7 @@ They may reference other fields, and you can have as many smart fields as you li
 
 2. Pick the `card type` and `target field` you want to automatically generate.
 
-3. Then, write the `prompt` that will be automatically sent to Claude/ChatGPT to generate the `target field`.
+3. Then, write the `prompt` that will be automatically sent to Claude/ChatGPT/DeepSeek to generate the `target field`.
 
 </br>
 
