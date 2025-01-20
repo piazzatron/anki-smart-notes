@@ -1,6 +1,6 @@
 # v2.6.0
 
-- Adds support for DeepSeek-v3, a new language model that has high performance and very cheap pricing (cheaper than 4o-mini!). Try it out!
+- Adds support for DeepSeek-v3, a new language model that has high performance and cheap pricing. Try it out!
 
 # v2.5.0
 

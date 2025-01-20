@@ -58,8 +58,8 @@ models_map: Dict[str, str] = {
     "gpt-4o-mini": "GPT-4o Mini (Fast, Cheap)",
     "gpt-4o": "GPT-4o (Smartest, More Expensive)",
     "claude-3-5-sonnet": "Claude 3.5 Sonnet (Smartest, More Expensive)",
-    "claude-3-haiku": "Claude 3 Haiku (Cheap, Fast)",
-    "deepseek-v3": "Deepseek v3 (Smart, Cheapest)",
+    "claude-3-haiku": "Claude 3 Haiku (Fast, Cheap)",
+    "deepseek-v3": "Deepseek v3 (Smart, Cheap)",
 }
 
 providers_map = {"openai": "ChatGPT", "anthropic": "Claude", "deepseek": "DeepSeek"}
