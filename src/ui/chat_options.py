@@ -27,6 +27,7 @@ from ..models import (
     ChatProviders,
     OverridableChatOptionsDict,
     anthropic_chat_models,
+    deepseek_chat_models,
     openai_chat_models,
     overridable_chat_options,
 )
@@ -49,6 +50,7 @@ class ChatOptionsState(TypedDict):
 provider_model_map: Dict[ChatProviders, List[ChatModels]] = {
     "openai": openai_chat_models,
     "anthropic": anthropic_chat_models,
+    "deepseek": deepseek_chat_models,
 }
 
 
@@ -57,11 +59,12 @@ models_map: Dict[str, str] = {
     "gpt-4o": "GPT-4o (Smartest, More Expensive)",
     "claude-3-5-sonnet": "Claude 3.5 Sonnet (Smartest, More Expensive)",
     "claude-3-haiku": "Claude 3 Haiku (Cheap, Fast)",
+    "deepseek-v3": "Deepseek v3 (Smart, Cheapest)",
 }
 
-providers_map = {"openai": "ChatGPT", "anthropic": "Claude"}
+providers_map = {"openai": "ChatGPT", "anthropic": "Claude", "deepseek": "DeepSeek"}
 
-all_chat_providers: List[ChatProviders] = ["openai", "anthropic"]
+all_chat_providers: List[ChatProviders] = ["openai", "anthropic", "deepseek"]
 
 
 class ChatOptions(QWidget):

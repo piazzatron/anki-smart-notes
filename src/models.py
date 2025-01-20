@@ -22,13 +22,14 @@ from typing import Dict, List, Literal, Optional, TypedDict, Union
 # Providers
 
 TTSProviders = Literal["openai", "elevenLabs", "google"]
-ChatProviders = Literal["openai", "anthropic"]
+ChatProviders = Literal["openai", "anthropic", "deepseek"]
 
 # Chat Models
 
 OpenAIModels = Literal["gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4"]
+DeepseekModels = Literal["deepseek-v3"]
 AnthropicModels = Literal["claude-3-haiku", "claude-3-5-sonnet"]
-ChatModels = Union[OpenAIModels, AnthropicModels]
+ChatModels = Union[OpenAIModels, AnthropicModels, DeepseekModels]
 
 legacy_openai_chat_models: List[OpenAIModels] = [
     "gpt-4o-mini",
@@ -41,6 +42,8 @@ anthropic_chat_models: List[ChatModels] = [
     "claude-3-5-sonnet",
     "claude-3-haiku",
 ]
+
+deepseek_chat_models: List[ChatModels] = ["deepseek-v3"]
 
 # TTS Models
 
