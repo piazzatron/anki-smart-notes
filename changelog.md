@@ -1,3 +1,9 @@
+# v2.7.0
+
+- Added OpenAI o1-mini reasoning model.
+- No longer block UI with progress bar when generating individual cards.
+- Fixed bug with ElevenLabs voices that made premium + ultra premium use the same voice.
+
 # v2.6.0
 
 - Adds support for DeepSeek-v3, a new language model that has high performance and cheap pricing. Try it out!
