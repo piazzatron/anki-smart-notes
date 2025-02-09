@@ -163,7 +163,7 @@ def add_editor_top_button(
             on_success=on_success,
             on_failure=lambda _: set_button_enabled(),
             on_field_update=on_field,
-            show_progress=True,
+            show_progress=False,
         )
 
     button = e.addButton(
