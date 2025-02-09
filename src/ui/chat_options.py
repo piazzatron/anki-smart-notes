@@ -57,6 +57,8 @@ provider_model_map: Dict[ChatProviders, List[ChatModels]] = {
 models_map: Dict[str, str] = {
     "gpt-4o-mini": "GPT-4o Mini (Fast, Cheap)",
     "gpt-4o": "GPT-4o (Smartest, More Expensive)",
+    # "o3-mini": "o3-mini soon ;)
+    "o1-mini": "o1-mini (Reasoning model, Excels at Math & Science, Cheap)",
     "claude-3-5-sonnet": "Claude 3.5 Sonnet (Smartest, More Expensive)",
     "claude-3-haiku": "Claude 3 Haiku (Fast, Cheap)",
     "deepseek-v3": "Deepseek v3 (Smart, Cheap)",
