@@ -134,6 +134,7 @@ version () {
 
   # Commit the changes
   git add manifest.json
+  git add changelog.md
   git commit -m "v$VERSION"
 
   # Create a tag
