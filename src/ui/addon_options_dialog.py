@@ -21,6 +21,8 @@ from typing import Any, List, TypedDict, Union
 from urllib.parse import urlparse
 
 from aqt import (
+    QAction,
+    QApplication,
     QDesktopServices,
     QDialog,
     QDialogButtonBox,
@@ -28,6 +30,8 @@ from aqt import (
     QGroupBox,
     QHBoxLayout,
     QLabel,
+    QMenu,
+    QPoint,
     QPushButton,
     QSizePolicy,
     QSpacerItem,
@@ -62,6 +66,7 @@ from .tts_options import TTSOptions
 from .ui_utils import default_form_layout, font_large, font_small, show_message_box
 
 OPTIONS_MIN_WIDTH = 875
+TTS_PROMPT_STUB_VALUE = "🔈"
 
 
 class State(TypedDict):
@@ -144,6 +149,7 @@ class AddonOptionsDialog(QDialog):
 
         # Table
         self.table = self.create_table()
+        self.setup_table_context_menu(self.table)
 
         # Set up layout
 
@@ -236,6 +242,28 @@ class AddonOptionsDialog(QDialog):
         self.state.state_changed.connect(self.render_ui)
         self.render_ui()
 
+    def setup_table_context_menu(self, table: QTableWidget) -> None:
+        table.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        table.customContextMenuRequested.connect(self.show_table_context_menu)
+
+    def show_table_context_menu(self, pos: QPoint):
+        row = self.table.rowAt(pos.y())
+        if row >= 0:
+            prompt_item = self.table.item(row, 4)
+            prompt_text = prompt_item.text() if prompt_item else ""
+
+            if prompt_text and prompt_text != TTS_PROMPT_STUB_VALUE:
+                menu = QMenu(self)
+                copy_action = QAction("Copy Prompt", self)
+
+                menu.addAction(copy_action)
+
+                action = menu.exec(self.table.mapToGlobal(pos))
+                if action == copy_action:
+                    clipboard = QApplication.clipboard()
+                    if clipboard:
+                        clipboard.setText(prompt_text)
+
     def render_openai_api_key_box(self) -> QWidget:
         get_api_key_label = QLabel(
             "A paid OpenAI API key is required. <a href='https://platform.openai.com/account/api-keys/'>Get an API key.</a>"
@@ -298,7 +326,7 @@ class AddonOptionsDialog(QDialog):
                         QTableWidgetItem(
                             {
                                 "chat": f"{prompt}",
-                                "tts": "🔈",
+                                "tts": TTS_PROMPT_STUB_VALUE,
                                 "image": f"{prompt}",
                             }[type]
                         ),
