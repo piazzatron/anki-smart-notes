@@ -22,7 +22,7 @@ import traceback
 from typing import Callable, Dict, List, Sequence, Tuple, Union
 
 import aiohttp
-from anki.cards import Card
+from anki.cards import Card, CardId
 from anki.decks import DeckId
 from anki.notes import Note, NoteId
 from aqt import mw
@@ -59,7 +59,7 @@ class NoteProcessor:
 
     def process_cards_with_progress(
         self,
-        card_ids: Sequence[NoteId],
+        card_ids: Sequence[CardId],
         on_success: Union[Callable[[List[Note], List[Note]], None], None],
         overwrite_fields: bool = False,
     ) -> None:
@@ -70,6 +70,10 @@ class NoteProcessor:
 
         bump_usage_counter()
         cards = [mw.col.get_card(card_in) for card_in in card_ids]
+
+        # If a card appears multiple times in the same deck, process it just a single time
+        cards = list({card.nid: card for card in cards}.values())
+
         note_ids = [card.nid for card in cards]
         did_map = {card.nid: card.did for card in cards}
 
