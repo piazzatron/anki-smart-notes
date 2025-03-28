@@ -1,3 +1,8 @@
+# v2.8.0
+
+- Bug fix: notes that have multiple associated cards were processed repeatedly during batch generation. If you were affected by this, please email support@smart-notes.xyz!
+- Feature: Right click on a prompt in the table view to copy it (from @danielpmichalski)
+
 # v2.7.0
 
 - Added OpenAI o1-mini reasoning model.
