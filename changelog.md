@@ -1,3 +1,9 @@
+# v2.9.0
+
+- Add support for new OpenAI models: 4.1, 4.1-mini, 4.1-nano, o4-mini, o3. If you're currently on 4o, try 4.1: it's cheaper and better!
+- Improve UI for explaining cost differences between models.
+- Migrate users on deprecated o1-mini model to o4-mini.
+
 # v2.8.0
 
 - Bug fix: notes that have multiple associated cards were processed repeatedly during batch generation. If you were affected by this, please email support@smart-notes.xyz!
