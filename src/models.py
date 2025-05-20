@@ -27,28 +27,25 @@ ChatProviders = Literal["openai", "anthropic", "deepseek"]
 # Chat Models
 
 OpenAIModels = Literal[
-    "gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4", "o3-mini", "o1-mini"
+    "gpt-4o-mini", "gpt-4.1-mini", "gpt-4.1-nano", "gpt-4.1", "gpt-4o", "o3", "o4-mini"
 ]
 DeepseekModels = Literal["deepseek-v3"]
 AnthropicModels = Literal["claude-3-haiku", "claude-3-5-sonnet"]
 ChatModels = Union[OpenAIModels, AnthropicModels, DeepseekModels]
 
-legacy_openai_chat_models: List[OpenAIModels] = [
+legacy_openai_chat_models: List[str] = [
     "gpt-4o-mini",
     "gpt-4o",
     "gpt-4-turbo",
     "gpt-4",
     "o3-mini",
     "o1-mini",
+    "gpt-4.1",
+    "gpt-4.1-mini",
+    "gpt-4.1-nano",
+    "o3",
+    "o4-mini",
 ]
-
-openai_chat_models: List[ChatModels] = ["gpt-4o", "gpt-4o-mini", "o1-mini"]
-anthropic_chat_models: List[ChatModels] = [
-    "claude-3-5-sonnet",
-    "claude-3-haiku",
-]
-
-deepseek_chat_models: List[ChatModels] = ["deepseek-v3"]
 
 # TTS Models
 

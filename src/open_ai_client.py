@@ -17,6 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+
 import asyncio
 
 import aiohttp
@@ -29,7 +30,6 @@ from .constants import (
     RETRY_BASE_SECONDS,
 )
 from .logger import logger
-from .models import openai_chat_models
 
 OPENAI_ENDPOINT = "https://api.openai.com"
 
@@ -48,9 +48,6 @@ class OpenAIClient:
 
         # Extra defensive: ensure that the chat model is valid
         chat_model = config.chat_model
-        if chat_model not in openai_chat_models:
-            logger.error(f"Unexpected non-openAI chat model: {chat_model}")
-            chat_model = "gpt-4o-mini"
 
         logger.debug(
             f"OpenAI: hitting {endpoint} model: {chat_model} retries {retry_count} for prompt: {prompt}"

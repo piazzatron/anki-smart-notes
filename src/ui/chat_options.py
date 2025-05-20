@@ -26,9 +26,6 @@ from ..models import (
     ChatModels,
     ChatProviders,
     OverridableChatOptionsDict,
-    anthropic_chat_models,
-    deepseek_chat_models,
-    openai_chat_models,
     overridable_chat_options,
 )
 from .reactive_check_box import ReactiveCheckBox
@@ -47,21 +44,44 @@ class ChatOptionsState(TypedDict):
     chat_markdown_to_html: bool
 
 
+# Order that the models are displayed in the UI
+openai_chat_models: List[ChatModels] = [
+    # GPT models
+    "gpt-4.1-nano",
+    "gpt-4o-mini",
+    "gpt-4.1-mini",
+    "gpt-4.1",
+    # Reasoning models
+    "o4-mini",
+    "o3",
+    # Deprecated
+    "gpt-4o",
+]
+
+anthropic_chat_models: List[ChatModels] = [
+    "claude-3-5-sonnet",
+    "claude-3-haiku",
+]
+
+deepseek_chat_models: List[ChatModels] = ["deepseek-v3"]
+
 provider_model_map: Dict[ChatProviders, List[ChatModels]] = {
     "openai": openai_chat_models,
     "anthropic": anthropic_chat_models,
     "deepseek": deepseek_chat_models,
 }
 
-
 models_map: Dict[str, str] = {
-    "gpt-4o-mini": "GPT-4o Mini (Fast, Cheap)",
-    "gpt-4o": "GPT-4o (Smartest, More Expensive)",
-    # "o3-mini": "o3-mini soon ;)
-    "o1-mini": "o1-mini (Reasoning model, Excels at Math & Science, Cheap)",
-    "claude-3-5-sonnet": "Claude 3.5 Sonnet (Smartest, More Expensive)",
-    "claude-3-haiku": "Claude 3 Haiku (Fast, Cheap)",
-    "deepseek-v3": "Deepseek v3 (Smart, Cheap)",
+    "gpt-4.1-nano": "gpt-4.1-nano (0.25x Cost)",
+    "gpt-4o-mini": "gpt-4o-mini (0.4x Cost)",
+    "gpt-4.1-mini": "gpt-4.1-mini (1x Cost, Recommended 👍)",
+    "o4-mini": "o4-mini reasoning model (2.5x Cost)",
+    "gpt-4.1": "gpt-4.1 (5x Cost)",
+    "gpt-4o": "gpt-4o (7x Cost, Outdated)",
+    "o3": "o3 reasoning model (25x Cost)",
+    "claude-3-5-sonnet": "Claude 3.5 Sonnet (10x Cost)",
+    "claude-3-haiku": "Claude 3 Haiku (0.75x Cost)",
+    "deepseek-v3": "Deepseek v3 (0.7x Cost)",
 }
 
 providers_map = {"openai": "ChatGPT", "anthropic": "Claude", "deepseek": "DeepSeek"}

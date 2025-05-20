@@ -17,6 +17,7 @@
  along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+
 import json
 import os
 from copy import deepcopy
@@ -37,7 +38,6 @@ from .models import (
     PromptMap,
     TTSModels,
     TTSProviders,
-    legacy_openai_chat_models,
 )
 from .ui.rate_dialog import RateDialog
 from .utils import USES_BEFORE_RATE_DIALOG, get_file_path
@@ -89,39 +89,7 @@ class Config:
 
     def setup_config(self) -> None:
         try:
-            # First, migrate away from openai_model -> legacy_openai_model
-            old_openai_model = self.__getattr__("openai_model")
-            if old_openai_model:
-                logger.debug(f"Migration: old_openai_model={old_openai_model}")
-                self.legacy_openai_model = old_openai_model  # type: ignore
-                self.__setattr__("openai_model", None)
-
-            # We previously migrated openai_model -> chat_model, which wasn't great. So we'll migrate that to legacy_openai_model
-            if self.legacy_openai_model is None:
-                old_chat_model = self.chat_model
-
-                # This could possibly be a claude model, and if so, default it to gpt-4o
-                if old_chat_model not in legacy_openai_chat_models:
-                    old_chat_model = "gpt-4o"
-
-                logger.debug(f"Migration: legacy_openai_model={old_chat_model}")
-                self.legacy_openai_model = old_chat_model
-
-            # If we've never set the legacy_support flag
-            # set it to whether or not we have an openai key
-            if self.__getattr__("legacy_support") is None:
-                is_legacy = bool(self.openai_api_key)
-                logger.debug(f"Setting legacy_support to {is_legacy}")
-                self.__setattr__("legacy_support", is_legacy)
-
-            # Double check that we don't support 3.5 turbo anywhere
-
-            if self.legacy_openai_model == "gpt-3.5-turbo":  # type: ignore
-                logger.debug(
-                    f"migrate_models: old 3.5-turbo model seen, migrating to 4o-mini"
-                )
-                config.legacy_openai_model = "gpt-4o-mini"
-
+            self.migrate_models()
             self.perform_deck_filter_migration()
             self.perform_extras_cleanup()
 
@@ -168,6 +136,33 @@ class Config:
         return defaults
 
     # Migrations
+
+    def migrate_models(self) -> None:
+        migration_map = {"o1-mini": "o4-mini"}
+
+        # Migrate base model
+        for old_model, new_model in migration_map.items():
+            if self.chat_model == old_model:
+                logger.debug(f"Migration: {old_model} -> {new_model}")
+                self.chat_model = new_model  # type: ignore
+
+        # Migrate any custom models
+        prompts_map = deepcopy(self.prompts_map)
+        # Notes
+        for _, decks in prompts_map["note_types"].items():
+            # Decks
+            for _, fields_and_extras in decks.items():
+                # Fields
+                for _, extras in fields_and_extras["extras"].items():
+                    if extras.get("chat_model") and migration_map.get(
+                        extras["chat_model"]  # type: ignore
+                    ):
+                        new_model = migration_map[extras["chat_model"]]  # type: ignore
+                        logger.debug(
+                            f"Custom prompt migration: {extras['chat_model']} -> {new_model}"
+                        )
+                        extras["chat_model"] = new_model  # type: ignore
+        self.prompts_map = prompts_map
 
     def perform_deck_filter_migration(self) -> None:
         if self.did_deck_filter_migration:

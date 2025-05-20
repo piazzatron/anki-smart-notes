@@ -49,7 +49,7 @@ from ..config import config
 from ..constants import GLOBAL_DECK_ID, UNPAID_PROVIDER_ERROR
 from ..decks import deck_id_to_name_map, deck_name_to_id_map
 from ..logger import logger
-from ..models import OpenAIModels, PromptMap, SmartFieldType, legacy_openai_chat_models
+from ..models import PromptMap, SmartFieldType, legacy_openai_chat_models
 from ..note_proccessor import NoteProcessor
 from ..prompts import get_all_prompts, get_extras, get_prompts_for_note, remove_prompt
 from ..utils import get_fields, get_version
@@ -80,8 +80,8 @@ class State(TypedDict):
 
     # Legacy OpenAI
     openai_api_key: Union[str, None]
-    legacy_openai_model: OpenAIModels
-    legacy_openai_models: List[OpenAIModels]
+    legacy_openai_model: str
+    legacy_openai_models: List[str]
 
 
 class AddonOptionsDialog(QDialog):
