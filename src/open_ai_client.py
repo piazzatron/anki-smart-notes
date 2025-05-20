@@ -46,11 +46,8 @@ class OpenAIClient:
         """Gets a chat response from OpenAI's chat API. This method can throw; the caller should handle with care."""
         endpoint = f"{config.openai_endpoint or OPENAI_ENDPOINT}/v1/chat/completions"
 
-        # Extra defensive: ensure that the chat model is valid
-        chat_model = config.chat_model
-
         logger.debug(
-            f"OpenAI: hitting {endpoint} model: {chat_model} retries {retry_count} for prompt: {prompt}"
+            f"OpenAI: hitting {endpoint} model: {config.legacy_openai_model} retries {retry_count} for prompt: {prompt}"
         )
         async with aiohttp.ClientSession(timeout=timeout) as session:
             async with session.post(
@@ -59,7 +56,7 @@ class OpenAIClient:
                     "Authorization": f"Bearer {config.openai_api_key}",
                 },
                 json={
-                    "model": chat_model,
+                    "model": config.legacy_openai_model,
                     "messages": [{"role": "user", "content": prompt}],
                     "temperature": temperature,
                 },
