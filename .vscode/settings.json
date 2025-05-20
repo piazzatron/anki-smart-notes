@@ -4,5 +4,6 @@
   "licenser.projectName": "Smart Notes",
   "python.analysis.autoImportCompletions": true,
   "python.analysis.exclude": ["**/dist", "**/env"],
-  "python.analysis.importFormat": "relative"
+  "python.analysis.importFormat": "relative",
+  "black-formatter.args": ["--line-ranges=19-10000"]
 }
