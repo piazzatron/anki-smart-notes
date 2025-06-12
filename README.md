@@ -184,44 +184,8 @@ Using OpenAI, Anthropic, and TTS models all cost money, so Smart Notes is a paid
 
 # Changelog
 
-## V2.0
+See <a href="https://github.com/piazzatron/anki-smart-notes/blob/main/changelog.md">Changelog.md</a>
 
-- Add Text to Speech from Google, ElevenLabs, and OpenAI
-- Add Anthropic models: Claude 3.5 Sonnet, Claude 3.0 Haiku
-- Add chained smart fields
-- Move to subscription model
-
-## v1.6.0
-
-- Add support for new gpt-4o-mini model, removing the old gpt-3.5-turbo. Users on gpt-3.5-turbo are automatically migrated to 4o-mini.
-- Stability & UX improvements.
-
-## v1.5.0
-
-- Prompts may now reference empty fields. Control this behavior in settings > advanced.
-
-## v1.4.0
-
-- Manual fields: uncheck "Always Generate Smart Field" when creating a field to leave it empty by default. Editor > Right Click to generate it.
-- Set a custom OpenAI endpoint via Settings > Advanced. Supports users who are unable to access the official OpenAI API.
-
-## v1.3.0
-
-- Improved regenerating smart field behavior:
-- 1. For partially filled notes, the editor ✨ button will now only generate empty fields. Click ✨ a second time to regenerate the card from scratch.
-- 2. Batch processing will now only generate empty fields by default. Configurable via Settings -> Advanced to regenerate the entire note.
-
-## v1.2.0
-
-- Support batch processing huge decks.
-- Right click on a deck or note type in the browser and generate all notes.
-- Fix bugs.
-
-## v1.1.0
-
-- Add `ctrl+shift+g`(`cmd+shift+g`) hotkey to generate fields in the editor.
-- Clarify that this add-on requires a paid OpenAI API key (no free tier 🥺).
-- Fix bugs.
 
 ## </br>
 
