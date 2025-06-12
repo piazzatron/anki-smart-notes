@@ -1,3 +1,7 @@
+# v2.10.0
+
+- Bug fix: right clicking on fields during add card flow now opens context menu properly.
+
 # v2.9.0
 
 - Add support for new OpenAI models: 4.1, 4.1-mini, 4.1-nano, o4-mini, o3. If you're currently on 4o, try 4.1: it's cheaper and better!

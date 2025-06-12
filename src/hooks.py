@@ -42,7 +42,7 @@ from .sentry import pinger, sentry, with_sentry
 from .tasks import run_async_in_background
 from .ui.addon_options_dialog import AddonOptionsDialog
 from .ui.changelog import perform_update_check
-from .ui.custom_prompt import CustomImagePrompt, CustomTextPrompt, CustomTTSPrompt
+from .ui.field_menu import FieldMenu
 from .ui.sparkle import Sparkle
 from .ui.ui_utils import show_message_box
 from .utils import make_uuid
@@ -132,18 +132,16 @@ def add_editor_top_button(
 
         set_button_disabled()
 
-        def reloadNote() -> None:
+        def reload_note() -> None:
             # Don't reload notes if they don't exist yet
             if note.id:
                 note.load()
             editor.loadNote()
 
             parent = editor.parentWindow
-
-            # Reload previewer if we need to
             if isinstance(parent, browser.Browser):  # type: ignore
-                if parent._previewer:
-                    parent._previewer.render_card()
+                if getattr(parent, "_previewer", None):
+                    parent._previewer.render_card()  # type: ignore
 
         def on_success(did_change: bool):
             set_button_enabled()
@@ -151,10 +149,10 @@ def add_editor_top_button(
             if not did_change:
                 return
 
-            reloadNote()
+            reload_note()
 
         def on_field() -> None:
-            reloadNote()
+            reload_note()
 
         is_fully_processed = is_card_fully_processed(card)
         processor.process_card(
@@ -265,84 +263,52 @@ def on_editor_context(
 ):
     editor = editor_web_view.editor
     card = editor.card
-    if not card:
+    note = editor.note
+
+    # Add flow cards don't exist. Make ephemeral.
+    if card is None and note is not None:
+        deck_id = None
+        parent = editor.parentWindow
+
+        # When adding a new card the parent window is AddCards – grab the
+        # selected deck so that prompts are fetched for the correct deck.
+        if isinstance(parent, AddCards):
+            deck_id = parent.deck_chooser.selected_deck_id
+            logger.debug(
+                f"on_editor_context: generated ephemeral card with deck_id {deck_id}"
+            )
+
+        card = note.ephemeral_card()
+        if deck_id:
+            card.did = deck_id
+
+    # If we still do not have a card (or a note) there is nothing we can do.
+    if card is None:
         return
 
     current_field_num = editor.currentField
     if current_field_num is None:
         return
 
-    ai_field = is_ai_field(current_field_num, card)
+    is_smart_field = bool(is_ai_field(current_field_num, card))
 
-    def on_generate_success(_: bool):
-        editor.loadNote()
-
-    def process_card_wrapped():
-        if not is_app_unlocked_or_legacy(show_box=True):
-            return
-
-        processor.process_card(
-            card,
-            overwrite_fields=False,
-            target_field=ai_field,
-            on_success=on_generate_success,
-            show_progress=True,
-        )
-
-    menu.addSeparator()
-
-    if ai_field:
-        generate_field_item = QAction("✨ Generate Smart Field", menu)
-        generate_field_item.triggered.connect(process_card_wrapped)
-        menu.addAction(generate_field_item)
-        menu.addSeparator()
-
-    custom_text_item = QAction("💬 Custom Text", menu)
-    custom_tts_item = QAction("📣 Custom TTS", menu)
-    custom_image_item = QAction("🖼️ Custom Image", menu)
+    # The FieldMenu UI component will add its own separators/actions as needed.
 
     field = get_field_from_index(card.note(), current_field_num)
     if not field:
         return
 
-    def on_custom_text(_: bool):
-        custom_prompt = CustomTextPrompt(
-            note=card.note(),
-            deck_id=card.did,
-            field_upper=field,
-            on_success=lambda: editor.loadNote(),
-        )
-        custom_prompt.exec()
+    field_menu = FieldMenu(
+        editor_instance=editor,
+        menu=menu,
+        processor=processor,
+        card=card,
+        field_upper=field,
+        is_smart_field=is_smart_field,
+    )
 
-    def on_custom_image(_: bool):
-        custom_prompt = CustomImagePrompt(
-            note=card.note(),
-            deck_id=card.did,
-            field_upper=field,
-            on_success=lambda: editor.loadNote(),
-            parent=editor.parentWindow,
-        )
-        # This should be called with exec instead of show, but
-        # for some reason having a webview inside of this dialog
-        # causes UI bugs when using exec
-        custom_prompt.show()
-
-    def on_custom_tts(_: bool):
-        custom_tts = CustomTTSPrompt(
-            note=card.note(),
-            deck_id=card.did,
-            field_upper=field,
-            on_success=lambda: editor.loadNote(),
-        )
-        custom_tts.exec()
-
-    custom_text_item.triggered.connect(on_custom_text)
-    custom_image_item.triggered.connect(on_custom_image)
-    custom_tts_item.triggered.connect(on_custom_tts)
-
-    menu.addAction(custom_text_item)
-    menu.addAction(custom_tts_item)
-    menu.addAction(custom_image_item)
+    # Keep a reference to avoid premature garbage collection
+    setattr(menu, "_smartnotes_field_menu", field_menu)
 
 
 @with_processor  # type: ignore

@@ -63,7 +63,7 @@ class CustomPrompt(QDialog):
     _prompt_window: QTextEdit
     _note: Note
     _deck_id: DeckId
-    _on_success: Callable[[], None]
+    _on_success: Callable[[Union[str, None]], None]
     _field_upper: str
 
     def __init__(
@@ -71,7 +71,7 @@ class CustomPrompt(QDialog):
         note: Note,
         deck_id: DeckId,
         field_upper: str,
-        on_success: Callable[[], None],
+        on_success: Callable[[Union[str, None]], None],
         parent: Union[QWidget, None] = None,
     ) -> None:
         super().__init__(parent=parent)
@@ -97,7 +97,7 @@ class CustomPrompt(QDialog):
     def render_custom_model(self) -> QWidget:
         raise Exception("Not implemented")
 
-    def on_save_result(self) -> Union[str, None]:
+    def render_to_text(self) -> Union[str, None]:
         raise Exception("Not Implemented")
 
     def render_response_box(self) -> QWidget:
@@ -196,14 +196,9 @@ class CustomPrompt(QDialog):
         return container
 
     def _on_save_result(self) -> None:
-        res = self.on_save_result()
-        if not res:
-            self.accept()
-            return
-
-        self._note[self._field_upper] = res
-        mw.col.update_note(self._note)  # type: ignore
-        self._on_success()
+        res = self.render_to_text()
+        if res is not None:
+            self._on_success(res)
         self.accept()
 
     def _on_prompt_changed(self) -> None:
@@ -275,7 +270,7 @@ class CustomTextPrompt(CustomPrompt):
     def has_output(self) -> bool:
         return bool(self._response_edit.toPlainText())
 
-    def on_save_result(self) -> Union[str, None]:
+    def render_to_text(self) -> Union[str, None]:
         return self._response_edit.toPlainText()
 
     def update_ui_states(self) -> None:
@@ -323,7 +318,7 @@ class CustomImagePrompt(CustomPrompt):
     def has_output(self) -> bool:
         return bool(self.raw_image)
 
-    def on_save_result(self) -> Union[str, None]:
+    def render_to_text(self) -> Union[str, None]:
         if not self.raw_image:
             return None
         file_name = get_media_path(self._note, self._field_upper, "webp")
@@ -348,7 +343,7 @@ class CustomTTSPrompt(CustomPrompt):
         note: Note,
         deck_id: DeckId,
         field_upper: str,
-        on_success: Callable[[], None],
+        on_success: Callable[[Union[str, None]], None],
     ) -> None:
         self._note = note
         self._deck_id = deck_id
@@ -411,7 +406,7 @@ class CustomTTSPrompt(CustomPrompt):
     def has_output(self) -> bool:
         return bool(self.audio)
 
-    def on_save_result(self) -> Union[None, str]:
+    def render_to_text(self) -> Union[None, str]:
         if not self.audio:
             return None
         file_name = get_media_path(self._note, self._field_upper, "mp3")
