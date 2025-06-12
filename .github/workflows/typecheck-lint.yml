@@ -29,7 +29,7 @@ jobs:
         
     - name: Run mypy
       run: |
-        PYTHONPATH=$PYTHONPATH:$(pwd) mypy --namespace-packages src/
+        mypy --namespace-packages src/
         
     - name: Run flake8
       run: |
