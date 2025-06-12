@@ -15,6 +15,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        path: anki_smart_notes
     
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
@@ -22,16 +24,19 @@ jobs:
         python-version: ${{ matrix.python-version }}
         
     - name: Install dependencies
+      working-directory: anki_smart_notes
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install flake8
         
     - name: Run mypy
+      working-directory: anki_smart_notes
       run: |
         mypy --namespace-packages src/
         
     - name: Run flake8
+      working-directory: anki_smart_notes
       run: |
         flake8 src/ --count --select=E9,F63,F7,F82 --show-source --statistics
         flake8 src/ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
