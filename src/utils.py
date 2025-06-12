@@ -68,7 +68,7 @@ def load_file(file: str, test_override: str = "") -> str:
     return content
 
 
-def run_on_main(work: Callable[[], None]) -> None:
+def run_on_main(work: Callable[[], Any]) -> None:
     if not mw:
         return
     mw.taskman.run_on_main(work)
@@ -98,8 +98,7 @@ def make_uuid() -> str:
 
 
 T = TypeVar("T")
-M = TypeVar("M", bound=Mapping[str, Any])
 
 
-def none_defaulting(d: M, k: str, fallback: T) -> T:
+def none_defaulting(d: Mapping[str, Any], k: str, fallback: T) -> T:
     return cast(T, d[k]) if d.get(k) is not None else fallback

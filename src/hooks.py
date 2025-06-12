@@ -29,7 +29,7 @@ from anki.cards import Card
 from anki.notes import Note
 from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
 from aqt.addcards import AddCards
-from aqt.browser import SidebarItemType
+from aqt.browser.sidebar.item import SidebarItemType
 
 from .app_state import app_state, is_app_unlocked_or_legacy
 from .config import bump_usage_counter, config
@@ -326,7 +326,7 @@ def on_review(processor: NoteProcessor, card: Card):
         if not did_change:
             return
 
-        if not mw:
+        if not mw or not mw.col:
             logger.error("Error: mw not found")
             return
 
@@ -353,7 +353,7 @@ def add_deck_option(
     sidebar_item: browser.SidebarItem,  # type: ignore
     _,
 ) -> None:
-    if not mw:
+    if not mw or not mw.col:
         return
     cards: Sequence[int] = []
 

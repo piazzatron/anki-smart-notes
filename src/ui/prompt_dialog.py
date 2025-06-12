@@ -819,7 +819,7 @@ class PromptDialog(QDialog):
         return fields[0]
 
     def on_accept(self):
-        if not mw:
+        if not mw or not mw.col:
             return
 
         prompt = self.state.s["prompt"]

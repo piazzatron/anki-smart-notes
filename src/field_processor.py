@@ -43,6 +43,9 @@ from .models import (
     ChatProviders,
     ImageModels,
     ImageProviders,
+    OpenAIVoices,
+    ElevenVoices,
+    SmartFieldType,
     TTSModels,
     TTSProviders,
 )
@@ -74,7 +77,7 @@ class FieldProcessor:
     ) -> Union[str, None]:
         # Only show error box if we're running on the target node
         input = node.input
-        field_type = node.field_type
+        field_type: SmartFieldType = node.field_type
 
         extras = (
             get_extras(
@@ -91,7 +94,7 @@ class FieldProcessor:
                 logger.debug("Skipping TTS field for locked app")
                 return None
 
-            if not mw:
+            if not mw or not mw.col:
                 return None
             media = mw.col.media
             if not media:
@@ -101,7 +104,7 @@ class FieldProcessor:
             should_strip_html: bool = key_or_config_val(extras, "tts_strip_html")
             tts_provider: TTSProviders = key_or_config_val(extras, "tts_provider")
             tts_model: TTSModels = key_or_config_val(extras, "tts_model")
-            tts_voice: str = key_or_config_val(extras, "tts_voice")
+            tts_voice: Union[OpenAIVoices, ElevenVoices] = key_or_config_val(extras, "tts_voice")
 
             tts_response = await self.get_tts_response(
                 note=note,
@@ -124,7 +127,7 @@ class FieldProcessor:
         elif field_type == "chat":
             chat_model: ChatModels = key_or_config_val(extras, "chat_model")
             chat_provider: ChatProviders = key_or_config_val(extras, "chat_provider")
-            chat_temperature: int = key_or_config_val(extras, "chat_temperature")
+            chat_temperature: float = key_or_config_val(extras, "chat_temperature")
             should_convert: bool = key_or_config_val(extras, "chat_markdown_to_html")
 
             return await self.get_chat_response(
@@ -141,7 +144,7 @@ class FieldProcessor:
 
         elif field_type == "image":
 
-            if not mw:
+            if not mw or not mw.col:
                 return None
 
             media = mw.col.media
@@ -176,7 +179,7 @@ class FieldProcessor:
         model: ChatModels,
         provider: ChatProviders,
         field_lower: str,
-        temperature: int,
+        temperature: float,
         should_convert_to_html: bool,
         show_error_box: bool = True,
     ) -> Union[str, None]:

@@ -178,10 +178,12 @@ class Sentry:
     def _show_error_message(self, e: Exception) -> None:
         if not mw:
             return
+
         # Show the error message on the main thread
-        mw.taskman.run_on_main(
-            lambda: show_message_box("Smart Notes has encountered an error", str(e))
-        )
+        def show_error_message() -> None:
+            show_message_box("Smart Notes has encountered an error", str(e))
+
+        mw.taskman.run_on_main(show_error_message)
 
 
 def pinger(event: str) -> Callable[[], Coroutine[Any, Any, None]]:

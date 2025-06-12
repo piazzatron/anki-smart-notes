@@ -65,7 +65,7 @@ class NoteProcessor:
     ) -> None:
         """Processes notes in the background with a progress bar, batching into a single undo op"""
 
-        if not mw:
+        if not mw or not mw.col:
             return
 
         bump_usage_counter()
@@ -87,7 +87,7 @@ class NoteProcessor:
 
         def wrapped_on_success(res: Tuple[List[Note], List[Note]]) -> None:
             updated, failed = res
-            if not mw:
+            if not mw or not mw.col:
                 return
             mw.col.update_notes(updated)
             self._reqlinquish_req_in_process()
@@ -120,7 +120,7 @@ class NoteProcessor:
         def on_update(
             updated: List[Note], processed_count: int, finished: bool
         ) -> None:
-            if not mw:
+            if not mw or not mw.col:
                 return
 
             mw.col.update_notes(updated)
@@ -188,7 +188,7 @@ class NoteProcessor:
     ) -> Tuple[List[Note], List[Note], List[Note]]:
         """Returns updated, failed, skipped notes"""
         logger.debug(f"Processing {len(note_ids)} notes...")
-        if not mw:
+        if not mw or not mw.col:
             logger.error("No mw!")
             return ([], [], [])
 
@@ -360,7 +360,7 @@ class NoteProcessor:
 
                     # New notes have ID 0 and don't exist in the DB yet, so can't be updated!
                     if note.id and node.did_update:
-                        if mw:
+                        if mw and mw.col:
                             mw.col.update_note(note)
                         did_update = True
 

@@ -41,7 +41,10 @@ class OpenAIClient:
     """Client for OpenAI's chat API."""
 
     async def async_get_chat_response(
-        self, prompt: str, temperature=DEFAULT_TEMPERATURE, retry_count=0
+        self,
+        prompt: str,
+        temperature: float = DEFAULT_TEMPERATURE,
+        retry_count: int = 0,
     ) -> str:
         """Gets a chat response from OpenAI's chat API. This method can throw; the caller should handle with care."""
         endpoint = f"{config.openai_endpoint or OPENAI_ENDPOINT}/v1/chat/completions"

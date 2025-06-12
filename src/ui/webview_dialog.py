@@ -124,8 +124,6 @@ class WebviewDialog(QDialog):
         cookie_store.setCookie(c2, url)
         cookie_store.setCookie(c3, url)
 
-        cookie_store
-
     def make_cookie(self, name: bytes, value: bytes):
         cookie = QNetworkCookie()
         cookie.setName(name)

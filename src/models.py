@@ -72,7 +72,7 @@ SmartFieldType = Literal["chat", "tts", "image"]
 # Image Models
 
 ReplicateImageModels = Literal["flux-dev", "flux-schnell"]
-ImageModels = Union[ReplicateImageModels]
+ImageModels = ReplicateImageModels
 
 ImageProviders = Literal["replicate"]
 

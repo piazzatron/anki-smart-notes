@@ -24,13 +24,16 @@ from .logger import logger
 
 def play_audio(audio: bytes):
     logger.debug("Successfully got audio!")
-    if not mw or not mw.col.media:
+    if not mw or not mw.col or not mw.col.media:
         logger.error("No mw")
         return
 
     path = mw.col.media.write_data("smart-notes-test", audio)
 
     def on_end(_):
+        if not mw or not mw.col or not mw.col.media:
+            logger.error("No mw")
+            return
         logger.debug("Finished playing audio, cleaning up file")
         mw.col.media.trash_files([path])
         gui_hooks.av_player_did_end_playing.remove(on_end)

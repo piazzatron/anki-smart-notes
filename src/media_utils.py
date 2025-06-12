@@ -30,7 +30,7 @@ def get_media_path(note: Note, field: str, format: str) -> str:
 
 
 def write_media(file_name: str, file: bytes) -> Union[str, None]:
-    if not mw:
+    if not mw or not mw.col:
         return None
     media = mw.col.media
     if not media:
@@ -39,7 +39,7 @@ def write_media(file_name: str, file: bytes) -> Union[str, None]:
 
 
 def trash_files(file_names: List[str]) -> None:
-    if not mw:
+    if not mw or not mw.col:
         return
     media = mw.col.media
     if not media:
