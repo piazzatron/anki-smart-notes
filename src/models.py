@@ -70,6 +70,9 @@ ElevenVoices = Literal["male-1", "male-2", "female-1", "female-2"]
 SmartFieldType = Literal["chat", "tts", "image"]
 
 # Image Models
+wrong: str = "1"
+wrong = 1
+
 
 ReplicateImageModels = Literal["flux-dev", "flux-schnell"]
 ImageModels = ReplicateImageModels
