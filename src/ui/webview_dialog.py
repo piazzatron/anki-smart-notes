@@ -28,13 +28,13 @@ from aqt import (
     QObject,
     QUrl,
     QUrlQuery,
-    QWebChannel,
     QWebEnginePage,
     QWebEngineView,
     QWidget,
     pyqtSlot,
 )
 from PyQt6.QtNetwork import QNetworkCookie
+from PyQt6.QtWebChannel import QWebChannel
 
 from ..app_state import app_state
 from ..config import config

@@ -18,7 +18,7 @@
 """
 
 import json
-from typing import Dict, List, Literal, Optional, TypedDict, Union, cast
+from typing import Dict, List, Literal, Optional, TypedDict, Union, cast, Any
 
 from aqt import (
     QAbstractListModel,
@@ -230,11 +230,12 @@ class CustomListModel(QAbstractListModel):
         super().__init__()
         self._data = data
 
-    def data(self, index, role):  # type: ignore
+    def data(self, index: QModelIndex, role: int = Qt.ItemDataRole.DisplayRole) -> Any:
         if role == Qt.ItemDataRole.DisplayRole:
             return self.create_str(index.row())
+        return None
 
-    def rowCount(self, _: QModelIndex) -> int:  # type: ignore
+    def rowCount(self, parent: Optional[QModelIndex] = None) -> int:
         return len(self._data)
 
     def create_str(self, row: int) -> str:
