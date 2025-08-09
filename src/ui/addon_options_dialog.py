@@ -352,7 +352,7 @@ class AddonOptionsDialog(QDialog):
         models_form.addRow("OpenAI Model:", self.openai_legacy_combo_box)
 
         learn_more_about_models = QLabel(
-            'Newer models (GPT-4o, etc) will perform better with lower rate limits and higher cost. <a href="https://platform.openai.com/docs/models/">Learn more.</a>'
+            'Newer models (GPT-5, etc) will perform better with lower rate limits and higher cost. <a href="https://platform.openai.com/docs/models/">Learn more.</a>'
         )
         learn_more_about_models.setOpenExternalLinks(True)
         learn_more_about_models.setFont(font_small)

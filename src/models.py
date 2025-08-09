@@ -27,7 +27,11 @@ ChatProviders = Literal["openai", "anthropic", "deepseek"]
 # Chat Models
 
 OpenAIModels = Literal[
-    "gpt-4o-mini", "gpt-4.1-mini", "gpt-4.1-nano", "gpt-4.1", "gpt-4o", "o3", "o4-mini"
+    "gpt-5",
+    "gpt-5-mini",
+    "gpt-5-nano",
+    "gpt-5-chat-latest",
+    "gpt-4o-mini",
 ]
 DeepseekModels = Literal["deepseek-v3"]
 AnthropicModels = Literal["claude-3-haiku", "claude-3-5-sonnet"]

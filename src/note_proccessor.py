@@ -98,6 +98,7 @@ class NoteProcessor:
             self._reqlinquish_req_in_process()
             show_message_box(f"Error: {e}")
 
+        # TODO: this logic should be re-addressed when I revist batch limits (ANK-28)
         if is_app_unlocked():
             limit = STANDARD_BATCH_LIMIT
         else:

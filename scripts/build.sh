@@ -95,7 +95,7 @@ link-dist () {
 }
 
 anki () {
-   /Applications/Anki.app/Contents/MacOS/anki
+   /Applications/Anki.app/Contents/MacOS/launcher
 }
 
 test-dev () {
