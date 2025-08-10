@@ -89,7 +89,6 @@ class Config:
 
     def setup_config(self) -> None:
         try:
-            self.migrate_models()
             self.perform_deck_filter_migration()
             self.perform_extras_cleanup()
 
@@ -136,33 +135,6 @@ class Config:
         return defaults
 
     # Migrations
-
-    def migrate_models(self) -> None:
-        migration_map = {"o1-mini": "o4-mini"}
-
-        # Migrate base model
-        for old_model, new_model in migration_map.items():
-            if self.chat_model == old_model:
-                logger.debug(f"Migration: {old_model} -> {new_model}")
-                self.chat_model = new_model  # type: ignore
-
-        # Migrate any custom models
-        prompts_map = deepcopy(self.prompts_map)
-        # Notes
-        for _, decks in prompts_map["note_types"].items():
-            # Decks
-            for _, fields_and_extras in decks.items():
-                # Fields
-                for _, extras in fields_and_extras["extras"].items():
-                    if extras.get("chat_model") and migration_map.get(
-                        extras["chat_model"]  # type: ignore
-                    ):
-                        new_model = migration_map[extras["chat_model"]]  # type: ignore
-                        logger.debug(
-                            f"Custom prompt migration: {extras['chat_model']} -> {new_model}"
-                        )
-                        extras["chat_model"] = new_model  # type: ignore
-        self.prompts_map = prompts_map
 
     def perform_deck_filter_migration(self) -> None:
         if self.did_deck_filter_migration:

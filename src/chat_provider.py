@@ -33,7 +33,7 @@ class ChatProvider:
         model: ChatModels,
         provider: ChatProviders,
         note_id: int,
-        temperature: float=DEFAULT_TEMPERATURE  ,
+        temperature: float = DEFAULT_TEMPERATURE,
     ) -> str:
         response = await api.get_api_response(
             path="chat",

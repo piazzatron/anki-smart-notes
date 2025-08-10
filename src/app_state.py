@@ -220,7 +220,7 @@ class AppStateManager:
         if config.chat_provider == "anthropic":
             logger.debug("Migrating ot OpenAI chat provider")
             config.chat_provider = "openai"
-            config.chat_model = "gpt-4o"
+            config.chat_model = "gpt-5-mini"
 
         if not err:
             logger.error(
