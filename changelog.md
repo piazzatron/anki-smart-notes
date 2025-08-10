@@ -1,5 +1,6 @@
 # v2.10.0
 
+- Add support for GPT-5 models, deprecate all 4 series models except 4o-mini.
 - Bug fix: right clicking on fields during add card flow now opens context menu properly.
 
 # v2.9.0
