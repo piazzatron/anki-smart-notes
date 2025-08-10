@@ -61,6 +61,10 @@ provider_model_map: Dict[ChatProviders, List[ChatModels]] = {
 
 
 legacy_openai_chat_models: List[str] = [
+    "gpt-5-chat-latest",
+    "gpt-5",
+    "gpt-5-nano",
+    "gpt-5-mini",
     "gpt-4o-mini",
     "gpt-4o",
     "gpt-4-turbo",
