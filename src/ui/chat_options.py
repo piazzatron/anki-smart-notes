@@ -27,6 +27,7 @@ from ..models import (
     ChatProviders,
     OverridableChatOptionsDict,
     overridable_chat_options,
+    provider_model_map,
 )
 from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
@@ -43,29 +44,6 @@ class ChatOptionsState(TypedDict):
     chat_temperature: int
     chat_markdown_to_html: bool
 
-
-# Order that the models are displayed in the UI
-openai_chat_models: List[ChatModels] = [
-    # GPT-5 models
-    "gpt-5-nano",
-    "gpt-4o-mini",
-    "gpt-5-mini",
-    "gpt-5-chat-latest",
-    "gpt-5",
-]
-
-anthropic_chat_models: List[ChatModels] = [
-    "claude-3-5-sonnet",
-    "claude-3-haiku",
-]
-
-deepseek_chat_models: List[ChatModels] = ["deepseek-v3"]
-
-provider_model_map: Dict[ChatProviders, List[ChatModels]] = {
-    "openai": openai_chat_models,
-    "anthropic": anthropic_chat_models,
-    "deepseek": deepseek_chat_models,
-}
 
 models_map: Dict[str, str] = {
     "gpt-5-mini": "GPT-5 Mini (1x cost)",

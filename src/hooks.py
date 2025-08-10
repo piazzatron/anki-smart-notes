@@ -36,6 +36,7 @@ from .config import bump_usage_counter, config
 from .decks import deck_id_to_name_map
 from .logger import logger, setup_logger
 from .message_polling import start_polling_for_messages
+from .migrations import migrate_models
 from .note_proccessor import NoteProcessor
 from .notes import get_field_from_index, is_ai_field, is_card_fully_processed
 from .sentry import pinger, sentry, with_sentry
@@ -247,6 +248,7 @@ def on_main_window(processor: NoteProcessor):
     setup_logger()
     # Then setup config, which depends on logger
     config.setup_config()
+    migrate_models()
 
     # Add options to Anki Menu
     options_action = QAction("Smart Notes", mw)

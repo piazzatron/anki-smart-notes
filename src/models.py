@@ -37,6 +37,30 @@ DeepseekModels = Literal["deepseek-v3"]
 AnthropicModels = Literal["claude-3-haiku", "claude-3-5-sonnet"]
 ChatModels = Union[OpenAIModels, AnthropicModels, DeepseekModels]
 
+# Order that the models are displayed in the UI
+openai_chat_models: List[ChatModels] = [
+    # GPT-5 models
+    "gpt-5-nano",
+    "gpt-4o-mini",
+    "gpt-5-mini",
+    "gpt-5-chat-latest",
+    "gpt-5",
+]
+
+anthropic_chat_models: List[ChatModels] = [
+    "claude-3-5-sonnet",
+    "claude-3-haiku",
+]
+
+deepseek_chat_models: List[ChatModels] = ["deepseek-v3"]
+
+provider_model_map: Dict[ChatProviders, List[ChatModels]] = {
+    "openai": openai_chat_models,
+    "anthropic": anthropic_chat_models,
+    "deepseek": deepseek_chat_models,
+}
+
+
 legacy_openai_chat_models: List[str] = [
     "gpt-4o-mini",
     "gpt-4o",
