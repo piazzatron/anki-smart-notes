@@ -39,7 +39,6 @@ ChatModels = Union[OpenAIModels, AnthropicModels, DeepseekModels]
 
 # Order that the models are displayed in the UI
 openai_chat_models: List[ChatModels] = [
-    # GPT-5 models
     "gpt-5-nano",
     "gpt-4o-mini",
     "gpt-5-mini",
