@@ -134,12 +134,12 @@ lint () {
 
 typecheck () {
   echo "Type checking..."
-  python3 -m mypy .
+  python3 -m pyright .
 }
 
 check () {
   echo "Running all checks..."
-  python3 -m ruff format . && python3 -m ruff check . && python3 -m mypy .
+  python3 -m ruff format . && python3 -m ruff check . && python3 -m pyright .
 }
 
 fix () {
