@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Dict, List, Literal, Optional, TypedDict, Union
+from typing import Literal, TypedDict, Union
 
 # Providers
 
@@ -38,7 +38,7 @@ AnthropicModels = Literal["claude-3-haiku", "claude-3-5-sonnet"]
 ChatModels = Union[OpenAIModels, AnthropicModels, DeepseekModels]
 
 # Order that the models are displayed in the UI
-openai_chat_models: List[ChatModels] = [
+openai_chat_models: list[ChatModels] = [
     "gpt-5-nano",
     "gpt-4o-mini",
     "gpt-5-mini",
@@ -46,21 +46,21 @@ openai_chat_models: List[ChatModels] = [
     "gpt-5",
 ]
 
-anthropic_chat_models: List[ChatModels] = [
+anthropic_chat_models: list[ChatModels] = [
     "claude-3-5-sonnet",
     "claude-3-haiku",
 ]
 
-deepseek_chat_models: List[ChatModels] = ["deepseek-v3"]
+deepseek_chat_models: list[ChatModels] = ["deepseek-v3"]
 
-provider_model_map: Dict[ChatProviders, List[ChatModels]] = {
+provider_model_map: dict[ChatProviders, list[ChatModels]] = {
     "openai": openai_chat_models,
     "anthropic": anthropic_chat_models,
     "deepseek": deepseek_chat_models,
 }
 
 
-legacy_openai_chat_models: List[str] = [
+legacy_openai_chat_models: list[str] = [
     "gpt-5-chat-latest",
     "gpt-5",
     "gpt-5-nano",
@@ -114,20 +114,20 @@ class FieldExtras(TypedDict):
     use_custom_model: bool
 
     # Chat
-    chat_model: Optional[ChatModels]
-    chat_provider: Optional[ChatProviders]
-    chat_temperature: Optional[int]
-    chat_markdown_to_html: Optional[bool]
+    chat_model: ChatModels | None
+    chat_provider: ChatProviders | None
+    chat_temperature: int | None
+    chat_markdown_to_html: bool | None
 
     # TTS
-    tts_provider: Optional[TTSProviders]
-    tts_model: Optional[TTSModels]
-    tts_voice: Optional[str]
-    tts_strip_html: Optional[bool]
+    tts_provider: TTSProviders | None
+    tts_model: TTSModels | None
+    tts_voice: str | None
+    tts_strip_html: bool | None
 
     # Images
-    image_provider: Optional[ImageProviders]
-    image_model: Optional[ImageModels]
+    image_provider: ImageProviders | None
+    image_model: ImageModels | None
 
 
 # Any non-mandatory fields should default to none, and will be displayed from global config instead
@@ -152,12 +152,12 @@ DEFAULT_EXTRAS: FieldExtras = {
 
 
 class NoteTypeMap(TypedDict):
-    fields: Dict[str, str]
-    extras: Dict[str, FieldExtras]
+    fields: dict[str, str]
+    extras: dict[str, FieldExtras]
 
 
 class PromptMap(TypedDict):
-    note_types: Dict[str, Dict[str, NoteTypeMap]]
+    note_types: dict[str, dict[str, NoteTypeMap]]
 
 
 # Overridable Options
@@ -169,7 +169,7 @@ OverridableChatOptions = Union[
     Literal["chat_markdown_to_html"],
 ]
 
-overridable_chat_options: List[OverridableChatOptions] = [
+overridable_chat_options: list[OverridableChatOptions] = [
     "chat_provider",
     "chat_model",
     "chat_temperature",
@@ -178,10 +178,10 @@ overridable_chat_options: List[OverridableChatOptions] = [
 
 
 class OverridableChatOptionsDict(TypedDict):
-    chat_provider: Optional[ChatProviders]
-    chat_model: Optional[ChatModels]
-    chat_temperature: Optional[int]
-    chat_markdown_to_html: Optional[bool]
+    chat_provider: ChatProviders | None
+    chat_model: ChatModels | None
+    chat_temperature: int | None
+    chat_markdown_to_html: bool | None
 
 
 OverridableTTSOptions = Union[
@@ -191,7 +191,7 @@ OverridableTTSOptions = Union[
     Literal["tts_strip_html"],
 ]
 
-overridable_tts_options: List[OverridableTTSOptions] = [
+overridable_tts_options: list[OverridableTTSOptions] = [
     "tts_model",
     "tts_provider",
     "tts_voice",
@@ -200,19 +200,19 @@ overridable_tts_options: List[OverridableTTSOptions] = [
 
 
 class OverrideableTTSOptionsDict(TypedDict):
-    tts_model: Optional[TTSModels]
-    tts_provider: Optional[TTSProviders]
-    tts_voice: Optional[str]
-    tts_strip_html: Optional[bool]
+    tts_model: TTSModels | None
+    tts_provider: TTSProviders | None
+    tts_voice: str | None
+    tts_strip_html: bool | None
 
 
 OverridableImageOptions = Union[Literal["image_provider"], Literal["image_model"]]
-overridable_image_options: List[OverridableImageOptions] = [
+overridable_image_options: list[OverridableImageOptions] = [
     "image_model",
     "image_provider",
 ]
 
 
 class OverridableImageOptionsDict(TypedDict):
-    image_model: Optional[ImageModels]
-    image_provider: Optional[ImageProviders]
+    image_model: ImageModels | None
+    image_provider: ImageProviders | None

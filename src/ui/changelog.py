@@ -17,7 +17,6 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import List, Tuple, Union
 
 from aqt import QDialog, QDialogButtonBox, QFont, QLabel, QVBoxLayout, mw
 
@@ -30,9 +29,9 @@ from .v2_cta import V2CTA
 from .webview_dialog import WebviewDialog
 
 
-def parse_changelog() -> List[Tuple[str, List[str]]]:
+def parse_changelog() -> list[tuple[str, list[str]]]:
     changelog = load_file("changelog.md")
-    versions: List[Tuple[str, List[str]]] = []
+    versions: list[tuple[str, list[str]]] = []
 
     try:
         for line in changelog.split("\n"):
@@ -55,7 +54,7 @@ def parse_changelog() -> List[Tuple[str, List[str]]]:
         return []
 
 
-def get_versions(v: str) -> Tuple[int, int]:
+def get_versions(v: str) -> tuple[int, int]:
     major = v.split(".")[0]
     minor = v.split(".")[1]
     return (int(major), int(minor))
@@ -117,9 +116,9 @@ def perform_update_check() -> None:
 class ChangeLogDialog(QDialog):
     """Fancy version dialog that shows the changelog since the last version."""
 
-    prior_version: Union[str, None]
+    prior_version: str | None
 
-    def __init__(self, prior_version: Union[str, None]) -> None:
+    def __init__(self, prior_version: str | None) -> None:
         super().__init__()
         self.prior_version = prior_version
         self.setup_ui()
@@ -139,7 +138,7 @@ class ChangeLogDialog(QDialog):
         header = QLabel(f"Smart Notes has updated to version {current_version}! 🥳")
         header.setFont(header_font)
 
-        self.setWindowTitle(f"Smart Notes Changelog")
+        self.setWindowTitle("Smart Notes Changelog")
 
         layout.addWidget(header)
         cta = QLabel(

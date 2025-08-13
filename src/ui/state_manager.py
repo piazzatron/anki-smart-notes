@@ -18,7 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 from copy import deepcopy
-from typing import Any, Dict, Generic, TypeVar
+from typing import Any, Generic, TypeVar
 
 from aqt import QObject, pyqtSignal
 
@@ -41,7 +41,7 @@ class StateManager(QObject, Generic[T]):
     def s(self) -> T:
         return self._state
 
-    def update(self, updates: Dict[str, Any]) -> None:
+    def update(self, updates: dict[str, Any]) -> None:
         # Avoid recursive calls to update, i.e. from components
         # that are re-configuring themselves as a response to
         # a state change, which itself calls update(...)

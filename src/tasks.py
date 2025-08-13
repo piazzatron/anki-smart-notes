@@ -18,7 +18,8 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import asyncio
-from typing import Any, Callable, Union
+from collections.abc import Callable
+from typing import Any
 
 from aqt import mw
 from aqt.operations import QueryOp
@@ -27,7 +28,7 @@ from aqt.operations import QueryOp
 def run_async_in_background(
     op: Callable[[], Any],
     on_success: Callable[[Any], None] = lambda _: None,
-    on_failure: Union[Callable[[Exception], None], None] = None,
+    on_failure: Callable[[Exception], None] | None = None,
     with_progress: bool = False,
     use_collection: bool = True,
 ):

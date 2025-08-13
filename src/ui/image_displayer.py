@@ -18,7 +18,6 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import base64
-from typing import Union
 
 from aqt import QHBoxLayout, QWebEngineView, QWidget
 from PyQt6.QtCore import Qt
@@ -29,10 +28,10 @@ class ImageDisplayer(QWidget):
 
     def __init__(
         self,
-        image: Union[bytes, None] = None,
+        image: bytes | None = None,
         height: int = 500,
         width: int = 500,
-        parent: Union[QWidget, None] = None,
+        parent: QWidget | None = None,
     ) -> None:
         super().__init__(parent)
 

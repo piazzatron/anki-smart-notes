@@ -19,8 +19,9 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import json
 import os
+from collections.abc import Mapping
 from copy import deepcopy
-from typing import Any, Dict, Mapping, Optional, TypedDict, TypeVar, Union, cast
+from typing import Any, TypedDict, TypeVar, cast
 
 from aqt import addons, mw
 
@@ -45,19 +46,19 @@ from .utils import USES_BEFORE_RATE_DIALOG, get_file_path
 class Config:
     """Fancy config class that uses the Anki addon manager to store config values."""
 
-    openai_api_key: Union[str, None]
+    openai_api_key: str | None
     prompts_map: PromptMap
     generate_at_review: bool
     times_used: int
-    last_seen_version: Union[str, None]
+    last_seen_version: str | None
     uuid: str
-    openai_endpoint: Union[str, None]
+    openai_endpoint: str | None
     regenerate_notes_when_batching: bool
     allow_empty_fields: bool
     last_message_id: int
     debug: bool
-    auth_token: Union[str, None]
-    legacy_support: Union[bool, None]
+    auth_token: str | None
+    legacy_support: bool | None
 
     # Chat
     chat_provider: ChatProviders
@@ -125,7 +126,7 @@ class Config:
         for key, value in defaults.items():
             setattr(self, key, value)
 
-    def _defaults(self) -> Union[Dict[str, Any], None]:
+    def _defaults(self) -> dict[str, Any] | None:
         if not mw:
             return {}
 
@@ -176,7 +177,7 @@ class Config:
                 # Add all default fields
                 for extras in extras_and_fields["extras"].values():
                     for k, v in DEFAULT_EXTRAS.items():
-                        if not k in extras:
+                        if k not in extras:
                             logger.debug(f"Adding extra {k}: {v}")
                             extras[k] = v  # type: ignore
 
@@ -197,7 +198,7 @@ class Config:
 
 
 class OldPromptsMap(TypedDict):
-    note_types: Dict[str, NoteTypeMap]
+    note_types: dict[str, NoteTypeMap]
 
 
 config = Config()
@@ -217,7 +218,7 @@ M = TypeVar("M", bound=Mapping[str, object])
 
 # TODO: this belongs in utils but ciruclar import
 # TODO: make this use the none_defaulting (too much type golf for now tho)
-def key_or_config_val(vals: Optional[M], k: str) -> T:  # type: ignore
+def key_or_config_val(vals: M | None, k: str) -> T:  # type: ignore
     return (
         cast(T, vals[k])
         if (vals and vals.get(k) is not None)

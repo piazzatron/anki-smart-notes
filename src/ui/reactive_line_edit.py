@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, Dict, Generic, TypeVar
+from typing import Any, Generic, TypeVar
 
 from aqt import QLineEdit
 
@@ -36,7 +36,7 @@ class ReactiveLineEdit(ReactiveWidget[T], QLineEdit, Generic[T]):
 
         self.textChanged.connect(self._on_text_changed)
 
-    def _update_from_state(self, updates: Dict[str, Any]) -> None:
+    def _update_from_state(self, updates: dict[str, Any]) -> None:
         self.setText(updates[self._key])
 
     def _on_text_changed(self, text: str) -> None:

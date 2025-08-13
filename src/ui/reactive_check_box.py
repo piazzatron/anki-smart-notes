@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, Dict, Generic, TypeVar
+from typing import Any, Generic, TypeVar
 
 from aqt import QCheckBox, pyqtSignal
 
@@ -39,7 +39,7 @@ class ReactiveCheckBox(ReactiveWidget[T], QCheckBox, Generic[T]):
         self.stateChanged.connect(self._on_state_changed)
         self.onChange.connect(lambda checked: state.update({key: checked}))
 
-    def _update_from_state(self, updates: Dict[str, Any]) -> None:
+    def _update_from_state(self, updates: dict[str, Any]) -> None:
         self.setChecked(updates[self._key])
 
     def _on_state_changed(self, state: T) -> None:

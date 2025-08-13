@@ -17,7 +17,6 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import List, Union
 
 from anki.decks import DeckId
 from attr import dataclass
@@ -31,9 +30,9 @@ from .models import SmartFieldType
 class FieldNode:
     field: str
     field_upper: str
-    existing_value: Union[str, None]
-    out_nodes: List["FieldNode"]
-    in_nodes: List["FieldNode"]
+    existing_value: str | None
+    out_nodes: list["FieldNode"]
+    in_nodes: list["FieldNode"]
     manual: bool
     overwrite: bool
     deck_id: DeckId

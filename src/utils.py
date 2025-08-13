@@ -20,19 +20,20 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 import json
 import os
 import random
-from typing import Any, Callable, Dict, List, Mapping, TypeVar, cast
+from collections.abc import Callable, Mapping
+from typing import Any, TypeVar, cast
 
 from aqt import mw
 
 from ..env import environment
 
 
-def to_lowercase_dict(d: Dict[str, Any]) -> Dict[str, Any]:
+def to_lowercase_dict(d: dict[str, Any]) -> dict[str, Any]:
     """Converts a dictionary to lowercase keys"""
     return {k.lower(): v for k, v in d.items()}
 
 
-def get_fields(note_type: str) -> List[str]:
+def get_fields(note_type: str) -> list[str]:
     """Gets the fields of a note type. Returns them sorted in their order on the card"""
     if not mw or not mw.col:
         return []
@@ -62,7 +63,7 @@ def load_file(file: str, test_override: str = "") -> str:
 
     file_path = get_file_path(file)
 
-    with open(file_path, "r", encoding="utf-8") as f:
+    with open(file_path, encoding="utf-8") as f:
         content = f.read()
 
     return content

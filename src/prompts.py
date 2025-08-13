@@ -21,7 +21,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import re
 from copy import deepcopy
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, cast
 
 from anki.decks import DeckId
 from anki.notes import Note
@@ -53,9 +53,9 @@ def get_prompts_for_note(
     note_type: str,
     deck_id: DeckId,
     to_lower: bool = False,
-    override_prompts_map: Union[PromptMap, None] = None,
+    override_prompts_map: PromptMap | None = None,
     fallback_to_global_deck: bool = True,
-) -> Union[Dict[str, str], None]:
+) -> dict[str, str] | None:
     all_prompts = get_all_prompts(to_lower, override_prompts_map)
     prompts_for_note_type = all_prompts.get(note_type, {})
     deck_prompts = deepcopy(prompts_for_note_type.get(deck_id, {}))
@@ -64,7 +64,7 @@ def get_prompts_for_note(
     # Add any missing global prompts
     if fallback_to_global_deck:
         for field, prompt in global_prompts.items():
-            if not field in deck_prompts:
+            if field not in deck_prompts:
                 deck_prompts[field] = prompt
 
     return deck_prompts
@@ -75,9 +75,9 @@ def get_extras(
     note_type: str,
     field: str,
     deck_id: DeckId,
-    prompts: Union[PromptMap, None] = None,
+    prompts: PromptMap | None = None,
     fallback_to_global_deck: bool = True,
-) -> Optional[FieldExtras]:
+) -> FieldExtras | None:
     # Lowercase the field names
     deck_extras = to_lowercase_dict(
         (prompts or config.prompts_map)["note_types"]  # type: ignore
@@ -99,8 +99,8 @@ def get_extras(
 
 
 def get_all_prompts(
-    to_lower: bool = False, override_prompts_map: Union[PromptMap, None] = None
-) -> Dict[str, Dict[DeckId, Dict[str, str]]]:
+    to_lower: bool = False, override_prompts_map: PromptMap | None = None
+) -> dict[str, dict[DeckId, dict[str, str]]]:
     """Gets the prompts map. Maps note_type -> deck -> {field -> prompt}"""
     prompts_map = {
         note_type: {
@@ -128,13 +128,13 @@ def get_all_prompts(
     return prompts_map
 
 
-def get_prompt_fields(prompt: str, lower: bool = True) -> List[str]:
+def get_prompt_fields(prompt: str, lower: bool = True) -> list[str]:
     pattern = r"\{\{(.+?)\}\}"
     fields = re.findall(pattern, prompt)
     return [(field.lower() if lower else field) for field in fields]
 
 
-def interpolate_prompt(prompt: str, note: Note) -> Union[str, None]:
+def interpolate_prompt(prompt: str, note: Note) -> str | None:
     """Interpolates a prompt. Returns none if all source field are empty, or if some are empty and we're not allowing empty fields."""
     # Bunch of extra logic to make this whole process case insensitive
 
@@ -157,7 +157,7 @@ def interpolate_prompt(prompt: str, note: Note) -> Union[str, None]:
     values = [all_note_fields.get(field, "") for field in fields]
 
     if any(values) and (allow_empty or all(values)):
-        for field, value in zip(fields, values):
+        for field, value in zip(fields, values, strict=False):
             prompt = prompt.replace("{{" + field + "}}", value)
         return prompt
 
@@ -175,8 +175,8 @@ def add_or_update_prompts(
     is_custom_model: bool,
     type: SmartFieldType,
     tts_options: OverrideableTTSOptionsDict,
-    chat_options: Dict[OverridableChatOptions, Any],
-    image_options: Dict[OverridableImageOptions, Any],
+    chat_options: dict[OverridableChatOptions, Any],
+    image_options: dict[OverridableImageOptions, Any],
 ) -> PromptMap:
     new_prompts_map = deepcopy(prompts_map)
 
@@ -214,11 +214,7 @@ def add_or_update_prompts(
 
     # If we're doing custom settings, write out extra config
     if is_custom_model:
-        overrideable_options: Union[
-            OverridableChatOptionsDict,
-            OverridableImageOptionsDict,
-            OverrideableTTSOptionsDict,
-        ] = {  # type: ignore
+        overrideable_options: OverridableChatOptionsDict | OverridableImageOptionsDict | OverrideableTTSOptionsDict = {  # type: ignore
             "chat": chat_options,
             "tts": tts_options,
             "image": image_options,

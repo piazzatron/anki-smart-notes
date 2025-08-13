@@ -17,7 +17,8 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, Callable, Dict, List, Literal, TypedDict, Union, cast
+from collections.abc import Callable
+from typing import Any, Literal, TypedDict, cast
 
 from anki.decks import DeckId
 from anki.notes import Note
@@ -89,10 +90,10 @@ Test out your prompt with the test button before saving it!
 
 class State(TypedDict):
     prompt: str
-    note_types: List[str]
+    note_types: list[str]
     selected_note_type: str
-    note_fields: List[str]
-    tts_source_fields: List[str]
+    note_fields: list[str]
+    tts_source_fields: list[str]
     selected_tts_source_field: str
     selected_note_field: str
     is_loading_prompt: bool
@@ -102,14 +103,14 @@ class State(TypedDict):
     type: SmartFieldType
 
     selected_deck: DeckId
-    decks: List[DeckId]
+    decks: list[DeckId]
 
 
 class PartialState(TypedDict):
     prompt: str
-    note_fields: List[str]
+    note_fields: list[str]
     selected_note_field: str
-    tts_source_fields: List[str]
+    tts_source_fields: list[str]
     selected_tts_source_field: str
     selected_note_type: str
     selected_deck: DeckId
@@ -135,9 +136,9 @@ class PromptDialog(QDialog):
         on_accept_callback: Callable[[PromptMap], None],
         field_type: SmartFieldType,
         deck_id: DeckId,
-        card_type: Union[str, None] = None,
-        field: Union[str, None] = None,
-        prompt: Union[str, None] = None,
+        card_type: str | None = None,
+        field: str | None = None,
+        prompt: str | None = None,
     ):
         super().__init__()
 
@@ -277,7 +278,7 @@ class PromptDialog(QDialog):
         deck_label = QLabel("Deck")
         deck_label.setFont(font_bold)
         self.deck_subtitle = QLabel(
-            f"Optionally apply this field only to a specific deck (useful for sharing note types between decks)."
+            "Optionally apply this field only to a specific deck (useful for sharing note types between decks)."
         )
         self.deck_subtitle.setMaximumWidth(500)
         self.deck_subtitle.setFont(font_small)
@@ -511,7 +512,7 @@ class PromptDialog(QDialog):
     def on_state_update(self):
         self.model_options.setEnabled(self.state.s["use_custom_model"])
 
-    def _get_note_types(self, deck_id: DeckId) -> List[str]:
+    def _get_note_types(self, deck_id: DeckId) -> list[str]:
         """Returns note types for which there are valid target fields remaining"""
         note_types = get_note_types()
         # Need to find a note type where there are valid field
@@ -551,7 +552,7 @@ class PromptDialog(QDialog):
         new_state = self._state_for_new_card_type(
             note_type=note_type, type=self.state.s["type"], deck_id=GLOBAL_DECK_ID
         )
-        self.state.update(cast(Dict[str, Any], new_state))
+        self.state.update(cast("dict[str, Any]", new_state))
         # Force re-layout every time
         self.adjustSize()
 
@@ -563,7 +564,7 @@ class PromptDialog(QDialog):
             note_type=note_type, type=self.state.s["type"], deck_id=deck_id
         )
 
-        self.state.update(cast(Dict[str, Any], new_state))
+        self.state.update(cast("dict[str, Any]", new_state))
 
     def on_source_changed(self, source: str) -> None:
         self.state.update({"prompt": self.get_tts_prompt(source)})
@@ -571,7 +572,7 @@ class PromptDialog(QDialog):
     def get_tts_prompt(self, source: str) -> str:
         return f"{{{{{source}}}}}"
 
-    def on_target_field_changed(self, field: Union[str, None]) -> None:
+    def on_target_field_changed(self, field: str | None) -> None:
         # This shouldn't happen
         if not field:
             return
@@ -776,8 +777,8 @@ class PromptDialog(QDialog):
         self,
         selected_note_type: str,
         deck_id: DeckId,
-        selected_note_field: Union[str, None] = None,
-    ) -> List[str]:
+        selected_note_field: str | None = None,
+    ) -> list[str]:
         """Gets all fields excluding selected and existing prompts"""
         all_valid_fields = get_valid_fields_for_prompt(
             selected_note_type=selected_note_type,
@@ -818,7 +819,7 @@ class PromptDialog(QDialog):
             "No valid source fields remaining",
         )
 
-    def _attempt_to_parse_source_field(self, prompt: str) -> Union[str, None]:
+    def _attempt_to_parse_source_field(self, prompt: str) -> str | None:
         fields = get_prompt_fields(prompt, lower=False)
 
         if len(fields) != 1:
@@ -889,7 +890,7 @@ class PromptDialog(QDialog):
             is_custom_model=s["use_custom_model"],
             type=s["type"],
             tts_options=cast(
-                OverrideableTTSOptionsDict,
+                "OverrideableTTSOptionsDict",
                 {k: self.tts_options.state.s[k] for k in overridable_tts_options},
             ),
             chat_options={

@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Dict, List, Optional, TypedDict
+from typing import TypedDict
 
 from aqt import QGroupBox, QLabel, QSpacerItem, QWidget
 
@@ -38,14 +38,14 @@ from .ui_utils import default_form_layout, font_small
 
 class ChatOptionsState(TypedDict):
     chat_provider: ChatProviders
-    chat_providers: List[ChatProviders]
-    chat_models: List[ChatModels]
+    chat_providers: list[ChatProviders]
+    chat_models: list[ChatModels]
     chat_model: ChatModels
     chat_temperature: int
     chat_markdown_to_html: bool
 
 
-models_map: Dict[str, str] = {
+models_map: dict[str, str] = {
     "gpt-5-mini": "GPT-5 Mini (1x cost)",
     "gpt-5-chat-latest": "GPT-5 (No Reasoning, 5x cost)",
     "gpt-5": "GPT-5 (Reasoning, 5x++ cost)",
@@ -58,7 +58,7 @@ models_map: Dict[str, str] = {
 
 providers_map = {"openai": "ChatGPT", "anthropic": "Claude", "deepseek": "DeepSeek"}
 
-all_chat_providers: List[ChatProviders] = ["openai", "anthropic", "deepseek"]
+all_chat_providers: list[ChatProviders] = ["openai", "anthropic", "deepseek"]
 
 
 class ChatOptions(QWidget):
@@ -66,7 +66,7 @@ class ChatOptions(QWidget):
 
     def __init__(
         self,
-        chat_options: Optional[OverridableChatOptionsDict] = None,
+        chat_options: OverridableChatOptionsDict | None = None,
         show_text_processing: bool = True,
     ):
         super().__init__()

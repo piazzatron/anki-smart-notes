@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, Dict, Generic, TypeVar
+from typing import Any, Generic, TypeVar
 
 from aqt import QDoubleSpinBox, pyqtSignal
 
@@ -38,7 +38,7 @@ class ReactiveDoubleSpinBox(ReactiveWidget[T], QDoubleSpinBox, Generic[T]):
 
         self.valueChanged.connect(self._on_state_changed)
 
-    def _update_from_state(self, updates: Dict[str, Any]) -> None:
+    def _update_from_state(self, updates: dict[str, Any]) -> None:
         self.setValue(updates[self._key])
 
     def _on_state_changed(self, state: T) -> None:

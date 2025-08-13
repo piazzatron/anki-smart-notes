@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import List, TypedDict
+from typing import TypedDict
 
 import aiohttp
 from aqt import mw
@@ -37,11 +37,11 @@ class Message(TypedDict):
     id: int
 
 
-async def get_messages() -> List[Message]:
+async def get_messages() -> list[Message]:
     async with aiohttp.ClientSession() as session:
         async with session.get(f"{get_server_url()}/messages") as response:
             if response.status == 200:
-                data: List[Message] = await response.json()
+                data: list[Message] = await response.json()
                 return data
             else:
                 logger.error(f"Failed to get messages: {response.status}")

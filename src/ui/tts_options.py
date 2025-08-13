@@ -18,7 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import json
-from typing import Any, Dict, List, Literal, Optional, TypedDict, Union, cast
+from typing import Literal, TypedDict, Union, cast
 
 from aqt import (
     QAbstractListModel,
@@ -60,7 +60,7 @@ ALL: Literal["All"] = "All"
 AllTTSProviders = Union[Literal["All"], TTSProviders]
 
 Gender = Literal["All", "Male", "Female"]
-default_texts: Dict[str, str] = {
+default_texts: dict[str, str] = {
     ALL: "I'm sorry Dave, I'm afraid I can't do that.",
 }
 
@@ -85,11 +85,11 @@ class TTSMeta(TypedDict):
 class TTSState(TypedDict):
     # Combo box fields
 
-    providers: List[AllTTSProviders]
+    providers: list[AllTTSProviders]
     selected_provider: AllTTSProviders
-    genders: List[Gender]
+    genders: list[Gender]
     selected_gender: Gender
-    languages: List[str]
+    languages: list[str]
     selected_language: str
 
     voice: str
@@ -104,7 +104,7 @@ class TTSState(TypedDict):
     test_enabled: bool
 
 
-openai_voices: List[TTSMeta] = [
+openai_voices: list[TTSMeta] = [
     {
         "tts_provider": "openai",
         "voice": "alloy",
@@ -170,10 +170,10 @@ class GoogleVoice(TypedDict):
     type: Literal["Standard", "Wavenet", "Neural"]
 
 
-def get_google_voices() -> List[TTSMeta]:
+def get_google_voices() -> list[TTSMeta]:
     s = load_file("google_voices.json", test_override="[]")
-    google_voices: List[GoogleVoice] = json.loads(s)
-    voices: List[TTSMeta] = []
+    google_voices: list[GoogleVoice] = json.loads(s)
+    voices: list[TTSMeta] = []
     tiers = {"Standard": "standard", "Wavenet": "best", "Neural": "best"}
     for voice in google_voices:
         voices.append(
@@ -190,10 +190,10 @@ def get_google_voices() -> List[TTSMeta]:
     return voices
 
 
-def get_eleven_voices() -> List[TTSMeta]:
+def get_eleven_voices() -> list[TTSMeta]:
     s = load_file("eleven_voices.json", test_override="[]")
     eleven_voices = json.loads(s)
-    voices: List[TTSMeta] = []
+    voices: list[TTSMeta] = []
     for voice in eleven_voices:
         premium: TTSMeta = {
             "tts_provider": "elevenLabs",
@@ -215,10 +215,10 @@ def get_eleven_voices() -> List[TTSMeta]:
 # Combine all voices
 voices = get_google_voices() + openai_voices + get_eleven_voices()
 
-languages: List[str] = [ALL] + sorted(
+languages: list[str] = [ALL] + sorted(
     list(set([voice["language"] for voice in voices]) - {ALL})
 )
-providers: List[AllTTSProviders] = [ALL, "google", "openai", "elevenLabs"]
+providers: list[AllTTSProviders] = [ALL, "google", "openai", "elevenLabs"]
 
 
 def format_voice(voice: TTSMeta) -> str:
@@ -226,7 +226,7 @@ def format_voice(voice: TTSMeta) -> str:
 
 
 class CustomListModel(QAbstractListModel):
-    def __init__(self, data: List[TTSMeta]):
+    def __init__(self, data: list[TTSMeta]):
         super().__init__()
         self._data = data
 
@@ -240,7 +240,7 @@ class CustomListModel(QAbstractListModel):
     def create_str(self, row: int) -> str:
         return format_voice(self._data[row])
 
-    def update_data(self, new_data: List[TTSMeta]):
+    def update_data(self, new_data: list[TTSMeta]):
         self.beginResetModel()
         self._data = new_data
         self.endResetModel()
@@ -261,7 +261,7 @@ class TTSOptions(QWidget):
 
     def __init__(
         self,
-        tts_options: Optional[OverrideableTTSOptionsDict] = None,
+        tts_options: OverrideableTTSOptionsDict | None = None,
         extras_visible: bool = True,
     ):
         super().__init__()
@@ -468,7 +468,7 @@ class TTSOptions(QWidget):
             fetch_audio, on_success=on_success, on_failure=on_failure
         )
 
-    def get_visible_voice_filters(self) -> List[TTSMeta]:
+    def get_visible_voice_filters(self) -> list[TTSMeta]:
         filtered = []
         for voice in voices:
             matches_provider = (
@@ -490,7 +490,7 @@ class TTSOptions(QWidget):
         return filtered
 
     def get_initial_state(
-        self, tts_options: Optional[OverrideableTTSOptionsDict]
+        self, tts_options: OverrideableTTSOptionsDict | None
     ) -> TTSState:
         ret = {
             "providers": providers,

@@ -23,7 +23,8 @@ Setup the hooks for the Anki plugin
 
 
 import logging
-from typing import Any, Callable, List, Sequence
+from collections.abc import Callable, Sequence
+from typing import Any
 
 from anki.cards import Card
 from anki.notes import Note
@@ -72,7 +73,7 @@ def on_options(processor: NoteProcessor):
 
 @with_processor  # type: ignore
 def add_editor_top_button(
-    processor: NoteProcessor, buttons: List[str], e: editor.Editor
+    processor: NoteProcessor, buttons: list[str], e: editor.Editor
 ):
     @with_sentry
     def fn(editor: editor.Editor):
@@ -179,8 +180,8 @@ def add_editor_top_button(
 
 def make_on_batch_success(
     browser: browser.Browser,  # type: ignore
-) -> Callable[[List[Note], List[Note]], None]:
-    def wrapped_on_batch_success(updated: List[Note], errors: List[Note]):
+) -> Callable[[list[Note], list[Note]], None]:
+    def wrapped_on_batch_success(updated: list[Note], errors: list[Note]):
         browser.on_all_or_selected_rows_changed()
 
         if not len(updated) and len(errors):
@@ -309,7 +310,7 @@ def on_editor_context(
     )
 
     # Keep a reference to avoid premature garbage collection
-    setattr(menu, "_smartnotes_field_menu", field_menu)
+    menu._smartnotes_field_menu = field_menu
 
 
 @with_processor  # type: ignore

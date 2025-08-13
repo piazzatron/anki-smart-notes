@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, List, TypedDict, Union
+from typing import Any, TypedDict
 from urllib.parse import urlparse
 
 from aqt import (
@@ -71,17 +71,17 @@ TTS_PROMPT_STUB_VALUE = "🔈"
 
 class State(TypedDict):
     prompts_map: PromptMap
-    selected_row: Union[int, None]
+    selected_row: int | None
     generate_at_review: bool
     regenerate_notes_when_batching: bool
-    openai_endpoint: Union[str, None]
+    openai_endpoint: str | None
     allow_empty_fields: bool
     debug: bool
 
     # Legacy OpenAI
-    openai_api_key: Union[str, None]
+    openai_api_key: str | None
     legacy_openai_model: str
-    legacy_openai_models: List[str]
+    legacy_openai_models: list[str]
 
 
 class AddonOptionsDialog(QDialog):
@@ -549,7 +549,7 @@ class AddonOptionsDialog(QDialog):
 
         all_fields = get_fields(note_type)
 
-        if not prompts or not len(all_fields) or not field in all_fields:
+        if not prompts or not len(all_fields) or field not in all_fields:
             show_message_box("Note type does not exist or field not in note type!")
             return
 
@@ -627,7 +627,7 @@ class AddonOptionsDialog(QDialog):
 
         if (
             self.tts_options.state.s["tts_provider"] == "elevenLabs"
-            and not config.tts_provider == "elevenLabs"
+            and config.tts_provider != "elevenLabs"
         ):
             did_click_ok = show_message_box(
                 "Are you sure you want to set your default voice provider to a premium model? These voices may consume your plan quickly.",
@@ -648,7 +648,7 @@ class AddonOptionsDialog(QDialog):
         old_debug = config.debug
 
         # Automatically inspect all the substates for valid config and write them out
-        states: List[StateManager[Any]] = [
+        states: list[StateManager[Any]] = [
             self.state,
             self.tts_options.state,
             self.chat_options.state,

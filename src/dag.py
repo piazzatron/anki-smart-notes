@@ -18,7 +18,6 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import traceback
-from typing import Dict, Union
 
 from anki.decks import DeckId
 from anki.notes import Note
@@ -35,9 +34,9 @@ def generate_fields_dag(
     note: Note,
     overwrite_fields: bool,
     deck_id: DeckId,
-    target_field: Union[str, None] = None,
-    override_prompts_map: Union[PromptMap, None] = None,
-) -> Dict[str, FieldNode]:
+    target_field: str | None = None,
+    override_prompts_map: PromptMap | None = None,
+) -> dict[str, FieldNode]:
     """Generates a directed acyclic graph of prompts for a note, or a subset of that graph if a target_fields list is passed. Returns a mapping of field -> PromptNode"""
     # - Generates all nodes
     # - Connects them
@@ -57,7 +56,7 @@ def generate_fields_dag(
             logger.debug("generate_fields_dag: no prompts found for note type")
             return {}
 
-        dag: Dict[str, FieldNode] = {}
+        dag: dict[str, FieldNode] = {}
         fields = get_fields(note_type)
 
         # Have to iterate over fields to get the canonical capitalization lol
@@ -111,7 +110,7 @@ def generate_fields_dag(
         # the dag to only the input of the target field
         if target_field:
             target_node = dag[target_field.lower()]
-            trimmed: Dict[str, FieldNode] = {target_field.lower(): target_node}
+            trimmed: dict[str, FieldNode] = {target_field.lower(): target_node}
 
             # Add pre
             explore = target_node.in_nodes.copy()
@@ -132,7 +131,7 @@ def generate_fields_dag(
         return {}
 
 
-def has_cycle(dag: Dict[str, FieldNode]) -> bool:
+def has_cycle(dag: dict[str, FieldNode]) -> bool:
     """Tests for cycles in a DAG. Returns True if there are cycles, False if there are not."""
     dag = dag.copy()
     for start in dag.values():
@@ -153,9 +152,9 @@ def prompt_has_error(
     prompt: str,
     note: Note,
     deck_id: DeckId,
-    target_field: Union[str, None] = None,
-    prompts_map: Union[PromptMap, None] = None,
-) -> Union[str, None]:
+    target_field: str | None = None,
+    prompts_map: PromptMap | None = None,
+) -> str | None:
     """Checks if a prompt has an error. Returns the error message if there is one."""
     note_type = get_note_type(note)
     note_fields = {field.lower() for field in get_fields(note_type)}

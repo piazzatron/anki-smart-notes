@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Callable, Union
+from collections.abc import Callable
 
 from anki.cards import Card
 from aqt import QAction, QMenu, browser, editor, mw
@@ -111,8 +111,8 @@ class FieldMenu:
 
     # --------------------- callbacks ----------------------------
 
-    def _make_custom_field_success(self) -> Callable[[Union[str, None]], None]:
-        def _on_success(res: Union[str, None]) -> None:
+    def _make_custom_field_success(self) -> Callable[[str | None], None]:
+        def _on_success(res: str | None) -> None:
             if res is None:
                 return
 

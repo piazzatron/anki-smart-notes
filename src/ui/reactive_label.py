@@ -17,7 +17,8 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, Callable, Dict, Generic, TypeVar
+from collections.abc import Callable
+from typing import Any, Generic, TypeVar
 
 from aqt import QLabel
 
@@ -41,7 +42,7 @@ class ReactiveLabel(ReactiveWidget[T], QLabel, Generic[T]):
         self.transform = transform
         state.bind(self)
 
-    def _update_from_state(self, updates: Dict[str, Any]) -> None:
+    def _update_from_state(self, updates: dict[str, Any]) -> None:
         self.setText(self.transform(updates[self._key]))
 
     def _on_text_changed(self, text: str) -> None:
