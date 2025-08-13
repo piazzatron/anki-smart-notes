@@ -86,7 +86,7 @@ class Sentry:
         try:
             old_hook = sys.excepthook
 
-            def new_hook(exc_type, exc_value, exc_traceback) -> None:
+            def new_hook(exc_type: Any, exc_value: Any, exc_traceback: Any) -> None:
                 try:
                     if is_production():
                         self.capture_exception(exc_value)
@@ -132,7 +132,7 @@ class Sentry:
     def wrap_async(
         self, fn: Callable[..., Any]
     ) -> Callable[[], Coroutine[Any, Any, Any]]:
-        async def wrapped(*args, **kwargs):
+        async def wrapped(*args: Any, **kwargs: Any):
             try:
                 return await fn(*args, **kwargs)
             except Exception as e:
@@ -147,7 +147,7 @@ class Sentry:
         return wrapped
 
     def wrap(self, fn: Callable[..., Any]) -> Any:
-        def wrapped(*args, **kwargs):
+        def wrapped(*args: Any, **kwargs: Any):
             try:
                 return fn(*args, **kwargs)
             except Exception as e:
@@ -237,7 +237,7 @@ def init_sentry() -> Union[Sentry, None]:
 
 
 def with_sentry(fn: Callable[..., Any]) -> Callable[..., Any]:
-    def wrapper(*args, **kwargs):
+    def wrapper(*args: Any, **kwargs: Any):
         if not sentry:
             return fn(*args, **kwargs)
         return sentry.wrap(fn)(*args, **kwargs)

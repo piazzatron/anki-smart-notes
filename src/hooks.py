@@ -23,7 +23,7 @@ Setup the hooks for the Anki plugin
 
 
 import logging
-from typing import Callable, List, Sequence
+from typing import Any, Callable, List, Sequence
 
 from anki.cards import Card
 from anki.notes import Note
@@ -49,13 +49,13 @@ from .ui.ui_utils import show_message_box
 from .utils import make_uuid
 
 
-def with_processor(fn):
+def with_processor(fn: Any):
     # Too annoying to type this thing
     """Decorator to pass the processor to the function."""
 
     def wrapper(processor: NoteProcessor):
         @with_sentry
-        def inner(*args, **kwargs):
+        def inner(*args: Any, **kwargs: Any):
             return fn(processor, *args, **kwargs)
 
         return inner
@@ -400,7 +400,7 @@ def cleanup() -> None:
     logger.handlers.clear()
 
 
-def prevent_batches_on_free_trial(notes) -> bool:
+def prevent_batches_on_free_trial(notes: Any) -> bool:
     if app_state.is_free_trial() and len(notes) > 50:
         did_accept: bool = show_message_box(
             "Warning: your free trial allows a limited number of cards. Continue?",

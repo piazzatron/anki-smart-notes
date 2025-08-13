@@ -31,7 +31,7 @@ class ReactiveEditText(ReactiveWidget[T], QTextEdit, Generic[T]):
     _key: str
     _state: StateManager[T]
 
-    def __init__(self, state: StateManager[T], key: str, **kwargs):
+    def __init__(self, state: StateManager[T], key: str, **kwargs: Any):
         super().__init__(state, **kwargs)
         self._key = key
 

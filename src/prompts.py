@@ -54,7 +54,7 @@ def get_prompts_for_note(
     deck_id: DeckId,
     to_lower: bool = False,
     override_prompts_map: Union[PromptMap, None] = None,
-    fallback_to_global_deck=True,
+    fallback_to_global_deck: bool = True,
 ) -> Union[Dict[str, str], None]:
     all_prompts = get_all_prompts(to_lower, override_prompts_map)
     prompts_for_note_type = all_prompts.get(note_type, {})

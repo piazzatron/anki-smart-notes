@@ -516,7 +516,7 @@ class AddonOptionsDialog(QDialog):
 
         return table
 
-    def on_row_selected(self, current) -> None:
+    def on_row_selected(self, current: QTableWidgetItem | None) -> None:
         if current:
             self.state.update({"selected_row": current.row()})
 

@@ -236,7 +236,7 @@ app_state = AppStateManager()
 # Mode selection stuff
 
 
-def is_app_unlocked(show_box=False) -> bool:
+def is_app_unlocked(show_box: bool = False) -> bool:
     state = app_state._state.s["subscription"]
     unlocked_states: List[SubscriptionState] = [
         "FREE_TRIAL_ACTIVE",
@@ -259,7 +259,7 @@ def is_app_legacy() -> bool:
     return not is_app_unlocked() and has_api_key()
 
 
-def is_app_unlocked_or_legacy(show_box=False) -> bool:
+def is_app_unlocked_or_legacy(show_box: bool = False) -> bool:
     allowed = is_app_unlocked() or has_api_key()
     if not allowed and show_box:
         show_message_box(APP_LOCKED_ERROR)

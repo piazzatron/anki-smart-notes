@@ -18,7 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import json
-from typing import Dict, List, Literal, Optional, TypedDict, Union, cast
+from typing import Any, Dict, List, Literal, Optional, TypedDict, Union, cast
 
 from aqt import (
     QAbstractListModel,
@@ -448,7 +448,7 @@ class TTSOptions(QWidget):
         if not (provider and voice and model):
             return
 
-        def on_failure(err):
+        def on_failure(err: Exception):
             show_message_box(f"Something went wrong testing audio: {err}")
             self.state.update({"test_enabled": True})
 

@@ -671,7 +671,7 @@ class PromptDialog(QDialog):
             else config.tts_model
         ) or config.tts_model
 
-        def on_success(arg):
+        def on_success(arg: str | bytes | None):
             prompt = self.state.s["prompt"]
             if not prompt:
                 return
@@ -688,17 +688,26 @@ class PromptDialog(QDialog):
             self.state["is_loading_prompt"] = False
             field_type = self.state.s["type"]
             if field_type == "chat":
-                msg = f"Ran with fields: \n{stringified_vals}.\n Model: {chat_model}\n\n Response: {arg}"
+                if arg is None:
+                    msg = f"Ran with fields: \n{stringified_vals}.\n Model: {chat_model}\n\n Response: No response received"
+                else:
+                    msg = f"Ran with fields: \n{stringified_vals}.\n Model: {chat_model}\n\n Response: {arg}"
                 show_message_box(msg, custom_ok="Close")
             elif field_type == "tts":
                 msg = f"Ran with fields: \n{stringified_vals}.\n Voice: {tts_provider} - {tts_voice}\n\n"
-                play_audio(arg)
+                if arg is not None and isinstance(arg, bytes):
+                    play_audio(arg)
+                else:
+                    msg += "No audio response received"
                 show_message_box(msg, custom_ok="Close")
             else:
-                test_window = ImageTestDialog(
-                    arg, interpolate_prompt(prompt, sample_note) or ""
-                )
-                test_window.exec()
+                if arg is not None and isinstance(arg, bytes):
+                    test_window = ImageTestDialog(
+                        arg, interpolate_prompt(prompt, sample_note) or ""
+                    )
+                    test_window.exec()
+                else:
+                    show_message_box("No image response received", custom_ok="Close")
 
         def on_failure(e: Exception) -> None:
             show_message_box(f"Failed to get response: {e}")

@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Dict, Literal, TypedDict, Union
+from typing import Any, Dict, Literal, TypedDict, Union
 
 from aqt import (
     QGroupBox,
@@ -100,10 +100,10 @@ upgrade_now_style = """
 class ClickableLabel(QLabel):
     clicked = pyqtSignal()
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
 
-    def mousePressEvent(self, event) -> None:
+    def mousePressEvent(self, event: Any) -> None:
         if event.button() == Qt.MouseButton.LeftButton:
             self.clicked.emit()
         super().mousePressEvent(event)

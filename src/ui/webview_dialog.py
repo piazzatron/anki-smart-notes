@@ -18,7 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import time
-from typing import Dict
+from typing import Any, Dict
 from urllib.parse import urlencode
 
 from aqt import (
@@ -59,7 +59,7 @@ channel.registerObject("py", bridge)
 
 # Custom web engine page to log out JS errors
 class CustomWebEnginePage(QWebEnginePage):
-    def javaScriptConsoleMessage(self, level, message, lineNumber, sourceID):
+    def javaScriptConsoleMessage(self, level: Any, message: Any, lineNumber: Any, sourceID: Any):
         logger.info(f"JS: {message}, {lineNumber}, {sourceID}")
 
 
@@ -142,7 +142,7 @@ class WebviewDialog(QDialog):
             config.auth_token = value
             app_state.update_subscription_state()
 
-    def closeEvent(self, event) -> None:
+    def closeEvent(self, event: Any) -> None:
         logger.debug("Webview dialog closed, updating subscription state")
         app_state.update_subscription_state()
         super().closeEvent(event)
