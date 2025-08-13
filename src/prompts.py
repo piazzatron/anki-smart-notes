@@ -1,20 +1,20 @@
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 """Helpful functions for working with prompts and cards"""
@@ -78,7 +78,6 @@ def get_extras(
     prompts: Union[PromptMap, None] = None,
     fallback_to_global_deck: bool = True,
 ) -> Optional[FieldExtras]:
-
     # Lowercase the field names
     deck_extras = to_lowercase_dict(
         (prompts or config.prompts_map)["note_types"]  # type: ignore
@@ -215,13 +214,15 @@ def add_or_update_prompts(
 
     # If we're doing custom settings, write out extra config
     if is_custom_model:
-        overrideable_options: Union[OverridableChatOptionsDict, OverridableImageOptionsDict, OverrideableTTSOptionsDict] = {  # type: ignore
+        overrideable_options: Union[
+            OverridableChatOptionsDict,
+            OverridableImageOptionsDict,
+            OverrideableTTSOptionsDict,
+        ] = {  # type: ignore
             "chat": chat_options,
             "tts": tts_options,
             "image": image_options,
-        }[
-            type
-        ]
+        }[type]
 
         # Overwrite any extras fields if they have been passed in
         for k, v in overrideable_options.items():

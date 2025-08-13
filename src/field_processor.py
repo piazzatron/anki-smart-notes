@@ -1,20 +1,20 @@
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 from typing import Optional, Union
@@ -59,7 +59,6 @@ from .utils import run_on_main
 
 
 class FieldProcessor:
-
     def __init__(
         self,
         openai_provider: OpenAIClient,
@@ -104,7 +103,9 @@ class FieldProcessor:
             should_strip_html: bool = key_or_config_val(extras, "tts_strip_html")
             tts_provider: TTSProviders = key_or_config_val(extras, "tts_provider")
             tts_model: TTSModels = key_or_config_val(extras, "tts_model")
-            tts_voice: Union[OpenAIVoices, ElevenVoices] = key_or_config_val(extras, "tts_voice")
+            tts_voice: Union[OpenAIVoices, ElevenVoices] = key_or_config_val(
+                extras, "tts_voice"
+            )
 
             tts_response = await self.get_tts_response(
                 note=note,
@@ -143,7 +144,6 @@ class FieldProcessor:
             )
 
         elif field_type == "image":
-
             if not mw or not mw.col:
                 return None
 
@@ -183,7 +183,6 @@ class FieldProcessor:
         should_convert_to_html: bool,
         show_error_box: bool = True,
     ) -> Union[str, None]:
-
         interpolated_prompt = interpolate_prompt(prompt, note)
 
         if not interpolated_prompt:
@@ -239,7 +238,6 @@ class FieldProcessor:
         strip_html: bool,
         show_error_box: bool = True,
     ) -> Union[bytes, None]:
-
         interpolated_prompt = interpolate_prompt(input_text, note)
 
         if not interpolated_prompt:

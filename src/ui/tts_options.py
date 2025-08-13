@@ -1,20 +1,20 @@
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import json
@@ -271,7 +271,6 @@ class TTSOptions(QWidget):
         self.setup_ui()
 
     def setup_ui(self) -> None:
-
         self.voices_list = QListView()
         self.voices_models = CustomListModel(self.get_visible_voice_filters())
         self.voices_list.setModel(self.voices_models)
@@ -439,7 +438,6 @@ class TTSOptions(QWidget):
         return self.processing_box
 
     def test_and_play(self) -> None:
-
         def on_success(audio: bytes):
             play_audio(audio)
             self.state.update({"test_enabled": True})
@@ -494,7 +492,6 @@ class TTSOptions(QWidget):
     def get_initial_state(
         self, tts_options: Optional[OverrideableTTSOptionsDict]
     ) -> TTSState:
-
         ret = {
             "providers": providers,
             "selected_provider": ALL,
@@ -508,6 +505,5 @@ class TTSOptions(QWidget):
         }
 
         for k in overridable_tts_options:
-
             ret[k] = key_or_config_val(tts_options, k)
         return cast(TTSState, ret)

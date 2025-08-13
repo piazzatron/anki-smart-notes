@@ -1,20 +1,20 @@
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 from typing import Any, Callable, Dict, List, Literal, TypedDict, Union, cast
@@ -528,7 +528,6 @@ class PromptDialog(QDialog):
     def _state_for_new_card_type(
         self, note_type: str, type: SmartFieldType, deck_id: DeckId
     ) -> PartialState:
-
         target_fields = self._get_valid_target_fields(note_type, deck_id=deck_id)
         target_field = target_fields[0] if len(target_fields) else "None"
 
@@ -673,7 +672,6 @@ class PromptDialog(QDialog):
         ) or config.tts_model
 
         def on_success(arg):
-
             prompt = self.state.s["prompt"]
             if not prompt:
                 return
@@ -707,19 +705,20 @@ class PromptDialog(QDialog):
             self.state["is_loading_prompt"] = False
 
         if self.state.s["type"] == "chat":
-
-            chat_fn = lambda: (
-                self.processor.field_processor.get_chat_response(
-                    prompt=prompt,
-                    note=sample_note,
-                    provider=chat_provider,
-                    model=chat_model,
-                    field_lower=self.state.s["selected_note_field"].lower(),
-                    deck_id=self.state.s["selected_deck"],
-                    temperature=key_or_config_val(
-                        self.chat_options.state.s, "chat_temperature"
-                    ),
-                    should_convert_to_html=False,  # Don't show HTML here bc it's confusing
+            chat_fn = (
+                lambda: (
+                    self.processor.field_processor.get_chat_response(
+                        prompt=prompt,
+                        note=sample_note,
+                        provider=chat_provider,
+                        model=chat_model,
+                        field_lower=self.state.s["selected_note_field"].lower(),
+                        deck_id=self.state.s["selected_deck"],
+                        temperature=key_or_config_val(
+                            self.chat_options.state.s, "chat_temperature"
+                        ),
+                        should_convert_to_html=False,  # Don't show HTML here bc it's confusing
+                    )
                 )
             )
             run_async_in_background_with_sentry(chat_fn, on_success, on_failure)
