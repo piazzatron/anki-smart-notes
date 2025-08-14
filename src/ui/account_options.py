@@ -80,7 +80,8 @@ class AccountOptions(QWidget):
         if not state["plan"]:
             self.sub_box.hide()
             self.no_sub.show()
-            self.logoutButton.setEnabled(False)
+            # Enable logout if user is authenticated (has auth token), even if plan data failed to load
+            self.logoutButton.setEnabled(bool(config.auth_token))
         else:
             self.sub_box.show()
             self.no_sub.hide()
