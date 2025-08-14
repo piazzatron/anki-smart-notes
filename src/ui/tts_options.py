@@ -243,6 +243,9 @@ class CustomListModel(QAbstractListModel):
         self._data = new_data
         self.endResetModel()
 
+    def get_data(self) -> list[TTSMeta]:
+        return self._data
+
 
 class SelectedVoiceLabel(QLabel):
     def __init__(self, meta: TTSMeta):
@@ -281,7 +284,7 @@ class TTSOptions(QWidget):
 
         # This shouldn't ever be none but being defensive
         current_selection = self.voices_list.selectedIndexes()
-        selected_voice = self.voices_models._data[
+        selected_voice = self.voices_models.get_data()[
             current_selection[0].row() if current_selection else 0
         ]
         self.selected_voice_label = SelectedVoiceLabel(selected_voice)
@@ -344,7 +347,7 @@ class TTSOptions(QWidget):
         indexes = selected.indexes()
         if indexes:
             selected_index = indexes[0]
-            selected_voice = self.voices_models._data[selected_index.row()]
+            selected_voice = self.voices_models.get_data()[selected_index.row()]
             logger.debug(f"Selected voice: {selected_voice}")
             self.state.update(
                 {
@@ -392,8 +395,8 @@ class TTSOptions(QWidget):
 
         # Get the new location after updating
         voice_location = (
-            self.voices_models._data.index(selected_voice)
-            if selected_voice and selected_voice in self.voices_models._data
+            self.voices_models.get_data().index(selected_voice)
+            if selected_voice and selected_voice in self.voices_models.get_data()
             else None
         )
 

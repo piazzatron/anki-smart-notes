@@ -77,7 +77,7 @@ class FieldMenu:
                 self.editor.loadNote()
 
                 parent = self.editor.parentWindow
-                if isinstance(parent, browser.Browser) and getattr(
+                if isinstance(parent, browser.Browser) and getattr(  # type: ignore
                     parent, "_previewer", None
                 ):  # type: ignore
                     parent._previewer.render_card()  # type: ignore
@@ -127,7 +127,7 @@ class FieldMenu:
             self.editor.loadNote()
 
             parent = self.editor.parentWindow
-            if isinstance(parent, browser.Browser) and getattr(
+            if isinstance(parent, browser.Browser) and getattr(  # type: ignore
                 parent, "_previewer", None
             ):  # type: ignore
                 parent._previewer.render_card()  # type: ignore
