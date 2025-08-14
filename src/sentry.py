@@ -17,6 +17,8 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+# pyright: reportPrivateUsage=false
+
 import logging
 import os
 import sys
