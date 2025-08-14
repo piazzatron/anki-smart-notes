@@ -18,7 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import json
-from typing import Literal, TypedDict, Union, cast
+from typing import Literal, TypedDict, cast
 
 from aqt import (
     QAbstractListModel,
@@ -57,7 +57,7 @@ from .ui_utils import default_form_layout, font_small, show_message_box
 
 ALL: Literal["All"] = "All"
 
-AllTTSProviders = Union[Literal["All"], TTSProviders]
+AllTTSProviders = Literal["All"] | TTSProviders
 
 Gender = Literal["All", "Male", "Female"]
 default_texts: dict[str, str] = {

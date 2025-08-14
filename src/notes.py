@@ -59,7 +59,7 @@ def is_card_fully_processed(card: Card) -> bool:
     if not prompts:
         return True
 
-    for field in prompts.keys():
+    for field in prompts:
         field_exists = field in note and note[field]
         is_automatic = (
             get_extras(note_type=note_type, field=field, deck_id=card.did)

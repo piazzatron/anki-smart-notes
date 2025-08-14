@@ -74,7 +74,6 @@ def generate_fields_dag(
                 logger.error(f"Unexpectedly no extras for field {field}!")
                 continue
 
-            is_custom = extras["use_custom_model"]
             type = extras["type"]
             should_generate_automatically = extras["automatic"]
 

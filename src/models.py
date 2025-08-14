@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Literal, TypedDict, Union
+from typing import Literal, TypedDict
 
 # Providers
 
@@ -35,7 +35,7 @@ OpenAIModels = Literal[
 ]
 DeepseekModels = Literal["deepseek-v3"]
 AnthropicModels = Literal["claude-3-haiku", "claude-3-5-sonnet"]
-ChatModels = Union[OpenAIModels, AnthropicModels, DeepseekModels]
+ChatModels = OpenAIModels | AnthropicModels | DeepseekModels
 
 # Order that the models are displayed in the UI
 openai_chat_models: list[ChatModels] = [
@@ -83,7 +83,7 @@ legacy_openai_chat_models: list[str] = [
 OpenAITTSModels = Literal["tts-1"]
 ElevenTTSModels = Literal["eleven_multilingual_v2"]
 GoogleModels = Literal["standard", "wavenet", "neural"]
-TTSModels = Union[OpenAITTSModels, ElevenTTSModels, GoogleModels]
+TTSModels = OpenAITTSModels | ElevenTTSModels | GoogleModels
 
 # TTS Voices
 
@@ -162,12 +162,12 @@ class PromptMap(TypedDict):
 
 # Overridable Options
 
-OverridableChatOptions = Union[
-    Literal["chat_provider"],
-    Literal["chat_model"],
-    Literal["chat_temperature"],
-    Literal["chat_markdown_to_html"],
-]
+OverridableChatOptions = (
+    Literal["chat_provider"]
+    | Literal["chat_model"]
+    | Literal["chat_temperature"]
+    | Literal["chat_markdown_to_html"]
+)
 
 overridable_chat_options: list[OverridableChatOptions] = [
     "chat_provider",
@@ -184,12 +184,12 @@ class OverridableChatOptionsDict(TypedDict):
     chat_markdown_to_html: bool | None
 
 
-OverridableTTSOptions = Union[
-    Literal["tts_model"],
-    Literal["tts_provider"],
-    Literal["tts_voice"],
-    Literal["tts_strip_html"],
-]
+OverridableTTSOptions = (
+    Literal["tts_model"]
+    | Literal["tts_provider"]
+    | Literal["tts_voice"]
+    | Literal["tts_strip_html"]
+)
 
 overridable_tts_options: list[OverridableTTSOptions] = [
     "tts_model",
@@ -206,7 +206,7 @@ class OverrideableTTSOptionsDict(TypedDict):
     tts_strip_html: bool | None
 
 
-OverridableImageOptions = Union[Literal["image_provider"], Literal["image_model"]]
+OverridableImageOptions = Literal["image_provider"] | Literal["image_model"]
 overridable_image_options: list[OverridableImageOptions] = [
     "image_model",
     "image_provider",

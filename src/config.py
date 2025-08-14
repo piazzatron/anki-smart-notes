@@ -170,7 +170,7 @@ class Config:
                     extras_and_fields["extras"] = {}
 
                 # Make sure extras exists for every prompt field
-                for field in extras_and_fields["fields"].keys():
+                for field in extras_and_fields["fields"]:
                     if not extras_and_fields["extras"].get(field):
                         extras_and_fields["extras"][field] = {}  # type: ignore
 
