@@ -10,7 +10,8 @@
 - Always run format, lint, typecheck, and tests as the last thing you do. This is super important.
 - Use `./scripts/build.sh check` to run all code quality checks (format, lint, typecheck)
 - Use `./scripts/build.sh typecheck` to run only type checking
-- Use `./scripts/build.sh fix` to automatically fix formatting and linting issues 
+- Use `./scripts/build.sh fix` to automatically fix formatting and linting issues
+- Always put imports at the top of files, never inside functions or methods 
 
 # Testing
 - Always check for existing test patterns and follow them consistently.
