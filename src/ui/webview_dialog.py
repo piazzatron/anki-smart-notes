@@ -67,8 +67,10 @@ class CustomWebEnginePage(QWebEnginePage):
 
 class WebviewDialog(QDialog):
     def __init__(
-        self, parent: QWidget, path: str = "", query_params: dict[str, str] = {}
+        self, parent: QWidget, path: str = "", query_params: dict[str, str] | None = None
     ) -> None:
+        if query_params is None:
+            query_params = {}
         super().__init__(parent)
         self._setup_ui(path, query_params)
 

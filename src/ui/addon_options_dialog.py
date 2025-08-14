@@ -638,10 +638,9 @@ class AddonOptionsDialog(QDialog):
 
         is_unlocked = is_app_unlocked()
 
-        if not is_unlocked:
-            if self.chat_options.state.s["chat_provider"] != "openai":
-                show_message_box(UNPAID_PROVIDER_ERROR)
-                return False
+        if not is_unlocked and self.chat_options.state.s["chat_provider"] != "openai":
+            show_message_box(UNPAID_PROVIDER_ERROR)
+            return False
 
         valid_config_attrs = config.__annotations__.keys()
 

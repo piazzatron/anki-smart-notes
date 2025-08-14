@@ -389,10 +389,7 @@ class PromptDialog(QDialog):
         # On small screens, make it a proportion of screen height. Otherwise set a fixed height
         FIXED_HEIGHT = 800
         screen = mw and mw.screen()
-        if not screen:
-            screen_height = FIXED_HEIGHT
-        else:
-            screen_height = screen.geometry().height()
+        screen_height = FIXED_HEIGHT if not screen else screen.geometry().height()
 
         min_height = min(FIXED_HEIGHT, int(screen_height * 0.8))
         self.setMinimumHeight(min_height)
@@ -865,13 +862,13 @@ class PromptDialog(QDialog):
             return
 
         # Ensure only openai for legacy
-        if not is_app_unlocked():
-            if (
-                self.state.s["use_custom_model"]
-                and self.chat_options.state.s["chat_provider"] != "openai"
-            ):
-                show_message_box(UNPAID_PROVIDER_ERROR)
-                return
+        if (
+            not is_app_unlocked()
+            and self.state.s["use_custom_model"]
+            and self.chat_options.state.s["chat_provider"] != "openai"
+        ):
+            show_message_box(UNPAID_PROVIDER_ERROR)
+            return
 
         self.on_accept_callback(new_prompts_map)
         self.accept()

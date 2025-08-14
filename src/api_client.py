@@ -32,12 +32,14 @@ class APIClient:
     async def get_api_response(
         self,
         path: str,
-        args: dict[str, Any] = {},
+        args: dict[str, Any] | None = None,
         timeout_sec: int | None = None,
         retry_count: int = 0,
         note_id: int | None = None,
         method: Literal["GET", "POST"] = "POST",
     ) -> ClientResponse:
+        if args is None:
+            args = {}
         endpoint = f"{get_server_url()}/api/{path}"
         jwt = config.auth_token
         if not jwt:
