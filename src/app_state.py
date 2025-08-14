@@ -17,7 +17,8 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import TypedDict
+from copy import deepcopy
+from typing import Any, TypedDict
 
 from .config import config
 from .constants import (
@@ -56,6 +57,14 @@ class AppStateManager:
 
     def __init__(self) -> None:
         self._state = StateManager[AppState]({"subscription": "LOADING", "plan": None})
+
+    @property
+    def state(self) -> AppState:
+        return deepcopy(self._state.s)
+
+    def bind(self, widget: Any) -> None:
+        """Bind a widget to state changes."""
+        self._state.bind(widget)
 
     def is_free_trial(self) -> bool:
         free_trial_states: list[SubscriptionState] = [
@@ -237,7 +246,7 @@ app_state = AppStateManager()
 
 
 def is_app_unlocked(show_box: bool = False) -> bool:
-    state = app_state._state.s["subscription"]
+    state = app_state.state["subscription"]
     unlocked_states: list[SubscriptionState] = [
         "FREE_TRIAL_ACTIVE",
         "PAID_PLAN_ACTIVE",
@@ -267,21 +276,21 @@ def is_app_unlocked_or_legacy(show_box: bool = False) -> bool:
 
 
 def did_exceed_image_capacity(sub: PlanInfo | None = None) -> bool:
-    sub = sub or app_state._state.s["plan"]
+    sub = sub or app_state.state["plan"]
     if not sub:
         return False
     return sub["imageCreditsUsed"] >= sub["imageCreditsCapacity"]
 
 
 def did_exceed_text_capacity(sub: PlanInfo | None = None) -> bool:
-    sub = sub or app_state._state.s["plan"]
+    sub = sub or app_state.state["plan"]
     if not sub:
         return False
     return sub["textCreditsUsed"] >= sub["textCreditsCapacity"]
 
 
 def did_exceed_voice_capacity(sub: PlanInfo | None = None) -> bool:
-    sub = sub or app_state._state.s["plan"]
+    sub = sub or app_state.state["plan"]
     if not sub:
         return False
     return sub["voiceCreditsUsed"] >= sub["voiceCreditsCapacity"]

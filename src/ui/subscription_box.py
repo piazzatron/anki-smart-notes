@@ -183,7 +183,7 @@ class SubscriptionBox(QWidget):
         #     )
         # )
         # layout.addWidget(combo_picker
-        app_state._state.bind(self)
+        app_state.bind(self)
 
     def upgrade_now_clicked(self) -> None:
         webview = WebviewDialog(self, "/upgrade/sign-in")

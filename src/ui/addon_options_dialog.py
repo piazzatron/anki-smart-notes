@@ -98,7 +98,7 @@ class AddonOptionsDialog(QDialog):
         self.processor = processor
         self.state = StateManager[State](self.make_initial_state())
         self.setup_ui()
-        app_state._state.bind(self)
+        app_state.bind(self)
 
     def setup_ui(self) -> None:
         self.setWindowTitle("Smart Notes ✨")

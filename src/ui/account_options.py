@@ -37,7 +37,7 @@ class AccountOptions(QWidget):
     def __init__(self) -> None:
         super().__init__()
         self._setup_ui()
-        app_state._state.bind(self)
+        app_state.bind(self)
 
     def _setup_ui(self) -> None:
         self.logoutButton = QPushButton("Logout")
