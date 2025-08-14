@@ -312,7 +312,7 @@ def on_editor_context(
     )
 
     # Keep a reference to avoid premature garbage collection
-    menu._smartnotes_field_menu = field_menu
+    menu._smartnotes_field_menu = field_menu  # type: ignore
 
 
 @with_processor  # type: ignore

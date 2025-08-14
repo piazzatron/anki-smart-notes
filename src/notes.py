@@ -79,7 +79,7 @@ def get_field_from_index(note: Note, index: int) -> str | None:
 
 
 # TODO: make this work with get_field_from_index, taking in a field name
-def is_ai_field(current_field_num: int, card: Card) -> str | None:
+def is_ai_field(current_field_num: int | None, card: Card) -> str | None:
     """Helper to determine if the current field is an AI field. Returns the non-lowercased field name if it is."""
     if not card:
         return None

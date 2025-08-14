@@ -183,7 +183,7 @@ def get_google_voices() -> list[TTSMeta]:
                 "gender": voice["gender"],
                 "voice": voice["name"],
                 "model": voice["type"].lower(),
-                "friendly_voice": f'{voice["language"].capitalize()} - {voice["gender"].capitalize()}',
+                "friendly_voice": f"{voice['language'].capitalize()} - {voice['gender'].capitalize()}",
                 "price_tier": tiers[voice["type"]],  # type: ignore
             }
         )
@@ -200,7 +200,7 @@ def get_eleven_voices() -> list[TTSMeta]:
             "language": voice["language"],
             "voice": voice["voice_id"],
             "model": "eleven_turbo_v2_5",
-            "friendly_voice": f'{voice["language"].capitalize()} - {voice["gender"].capitalize()} - {voice["name"].capitalize()}',
+            "friendly_voice": f"{voice['language'].capitalize()} - {voice['gender'].capitalize()} - {voice['name'].capitalize()}",
             "gender": voice["gender"],
             "price_tier": "premium",
         }
@@ -220,7 +220,7 @@ providers: list[AllTTSProviders] = [ALL, "google", "openai", "elevenLabs"]
 
 
 def format_voice(voice: TTSMeta) -> str:
-    return f'{voice["tts_provider"].capitalize()} - {voice["friendly_voice"].capitalize()} ({price_tier_copy[voice["price_tier"]]})'
+    return f"{voice['tts_provider'].capitalize()} - {voice['friendly_voice'].capitalize()} ({price_tier_copy[voice['price_tier']]})"
 
 
 class CustomListModel(QAbstractListModel):
@@ -507,4 +507,4 @@ class TTSOptions(QWidget):
 
         for k in overridable_tts_options:
             ret[k] = key_or_config_val(tts_options, k)
-        return cast(TTSState, ret)
+        return cast("TTSState", ret)

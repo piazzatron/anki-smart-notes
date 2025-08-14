@@ -103,10 +103,10 @@ class ClickableLabel(QLabel):
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
 
-    def mousePressEvent(self, event: Any) -> None:
-        if event.button() == Qt.MouseButton.LeftButton:
+    def mousePressEvent(self, ev: Any) -> None:
+        if ev.button() == Qt.MouseButton.LeftButton:
             self.clicked.emit()
-        super().mousePressEvent(event)
+        super().mousePressEvent(ev)
 
 
 class StartFreeTrialButton(QPushButton):

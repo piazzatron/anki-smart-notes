@@ -149,7 +149,7 @@ class WebviewDialog(QDialog):
             config.auth_token = value
             app_state.update_subscription_state()
 
-    def closeEvent(self, event: Any) -> None:
+    def closeEvent(self, a0: Any) -> None:
         logger.debug("Webview dialog closed, updating subscription state")
         app_state.update_subscription_state()
-        super().closeEvent(event)
+        super().closeEvent(a0)
