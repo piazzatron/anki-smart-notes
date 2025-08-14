@@ -216,7 +216,7 @@ def get_eleven_voices() -> list[TTSMeta]:
 voices = get_google_voices() + openai_voices + get_eleven_voices()
 
 languages: list[str] = [ALL] + sorted(
-    list(set([voice["language"] for voice in voices]) - {ALL})
+    {voice["language"] for voice in voices} - {ALL}
 )
 providers: list[AllTTSProviders] = [ALL, "google", "openai", "elevenLabs"]
 
