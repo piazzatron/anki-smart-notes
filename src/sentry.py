@@ -206,14 +206,16 @@ def pinger(event: str) -> Callable[[], Coroutine[Any, Any, None]]:
     async def ping() -> None:
         try:
             # 10s timeout for users who can't connect for some reason (china/vpn etc)
-            async with aiohttp.ClientSession(
-                timeout=aiohttp.ClientTimeout(total=10)
-            ) as session:
-                async with session.get(ping_url, params=params) as response:
-                    if response.status != 200:
-                        logger.error(f"Error pinging server: {response.status}")
-                    else:
-                        logger.debug("Successfully pinged server")
+            async with (
+                aiohttp.ClientSession(
+                    timeout=aiohttp.ClientTimeout(total=10)
+                ) as session,
+                session.get(ping_url, params=params) as response,
+            ):
+                if response.status != 200:
+                    logger.error(f"Error pinging server: {response.status}")
+                else:
+                    logger.debug("Successfully pinged server")
         except Exception as e:
             logger.error(f"Error pinging server: {e}")
 

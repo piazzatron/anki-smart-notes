@@ -38,14 +38,16 @@ class Message(TypedDict):
 
 
 async def get_messages() -> list[Message]:
-    async with aiohttp.ClientSession() as session:
-        async with session.get(f"{get_server_url()}/messages") as response:
-            if response.status == 200:
-                data: list[Message] = await response.json()
-                return data
-            else:
-                logger.error(f"Failed to get messages: {response.status}")
-            return []
+    async with (
+        aiohttp.ClientSession() as session,
+        session.get(f"{get_server_url()}/messages") as response,
+    ):
+        if response.status == 200:
+            data: list[Message] = await response.json()
+            return data
+        else:
+            logger.error(f"Failed to get messages: {response.status}")
+        return []
 
 
 async def show_latest_message() -> None:

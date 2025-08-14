@@ -105,10 +105,7 @@ def get_all_prompts(
     prompts_map = {
         note_type: {
             # Tricky str -> int convert here
-            cast(DeckId, int(deck)): {
-                field: prompt
-                for field, prompt in note_type_map.get("fields", {}).items()
-            }
+            cast(DeckId, int(deck)): dict(note_type_map.get("fields", {}))
             for deck, note_type_map in decks_dict.items()
         }
         for note_type, decks_dict in (override_prompts_map or config.prompts_map)[

@@ -140,7 +140,9 @@ def add_editor_top_button(
             editor.loadNote()
 
             parent = editor.parentWindow
-            if isinstance(parent, browser.Browser) and getattr(parent, "_previewer", None):  # type: ignore
+            if isinstance(parent, browser.Browser) and getattr(
+                parent, "_previewer", None
+            ):  # type: ignore
                 parent._previewer.render_card()  # type: ignore
 
         def on_success(did_change: bool):
