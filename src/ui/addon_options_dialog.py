@@ -277,7 +277,7 @@ class AddonOptionsDialog(QDialog):
         self.api_key_edit.setSizePolicy(
             QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred
         )
-        self.api_key_edit.onChange.connect(
+        self.api_key_edit.on_change.connect(
             lambda text: self.state.update({"openai_api_key": text})
         )
 
@@ -362,7 +362,7 @@ class AddonOptionsDialog(QDialog):
         self.openai_endpoint_edit = ReactiveLineEdit(self.state, "openai_endpoint")
         self.openai_endpoint_edit.setPlaceholderText("https://api.openai.com")
         self.openai_endpoint_edit.setMinimumWidth(400)
-        self.openai_endpoint_edit.onChange.connect(
+        self.openai_endpoint_edit.on_change.connect(
             lambda text: self.state.update({"openai_endpoint": text})
         )
         endpoint_info = QLabel("Provide an alternative endpoint to the OpenAI API.")

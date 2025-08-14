@@ -28,7 +28,7 @@ T = TypeVar("T")
 
 
 class ReactiveCheckBox(ReactiveWidget[T], QCheckBox, Generic[T]):
-    onChange = pyqtSignal(bool)
+    on_change = pyqtSignal(bool)
 
     def __init__(self, state: StateManager[T], key: str, **kwargs: Any):
         super().__init__(state, **kwargs)
@@ -37,7 +37,7 @@ class ReactiveCheckBox(ReactiveWidget[T], QCheckBox, Generic[T]):
         state.bind(self)
 
         self.stateChanged.connect(self._on_state_changed)
-        self.onChange.connect(lambda checked: state.update({key: checked}))
+        self.on_change.connect(lambda checked: state.update({key: checked}))
 
     def _update_from_state(self, updates: dict[str, Any]) -> None:
         self.setChecked(updates[self._key])
@@ -46,4 +46,4 @@ class ReactiveCheckBox(ReactiveWidget[T], QCheckBox, Generic[T]):
         if self._state.updating:
             return
 
-        self.onChange.emit(state == 2)
+        self.on_change.emit(state == 2)

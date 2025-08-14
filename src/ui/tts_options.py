@@ -312,7 +312,7 @@ class TTSOptions(QWidget):
         filters_box.setLayout(filters_layout)
 
         language = ReactiveComboBox(self.state, "languages", "selected_language")
-        language.onChange.connect(
+        language.on_change.connect(
             lambda langauge: self.state.update(
                 {"test_text": default_texts.get(langauge, default_texts[ALL])}
             )
@@ -417,7 +417,7 @@ class TTSOptions(QWidget):
         edit_text = ReactiveEditText(self.state, "test_text")
         edit_text.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         edit_text.setFixedHeight(26)
-        edit_text.onChange.connect(lambda text: self.state.update({"test_text": text}))
+        edit_text.on_change.connect(lambda text: self.state.update({"test_text": text}))
         self.test_button = QPushButton("Test")
         self.test_button.clicked.connect(self.test_and_play)
         layout.addWidget(edit_text)

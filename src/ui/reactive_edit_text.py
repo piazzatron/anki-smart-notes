@@ -59,4 +59,4 @@ class ReactiveEditText(ReactiveWidget[T], QTextEdit, Generic[T]):
         if self._state.updating:
             return
 
-        self.onChange.emit(self.toPlainText())
+        self.on_change.emit(self.toPlainText())

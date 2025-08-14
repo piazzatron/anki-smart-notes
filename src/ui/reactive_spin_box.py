@@ -28,7 +28,7 @@ T = TypeVar("T")
 
 
 class ReactiveDoubleSpinBox(ReactiveWidget[T], QDoubleSpinBox, Generic[T]):
-    onChange = pyqtSignal(float)
+    on_change = pyqtSignal(float)
 
     def __init__(self, state: StateManager[T], key: str, **kwargs: Any):
         super().__init__(state, **kwargs)
@@ -45,4 +45,4 @@ class ReactiveDoubleSpinBox(ReactiveWidget[T], QDoubleSpinBox, Generic[T]):
         if self._state.updating:
             return
 
-        self.onChange.emit(state)
+        self.on_change.emit(state)

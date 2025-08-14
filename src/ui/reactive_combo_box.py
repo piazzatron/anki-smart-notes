@@ -56,7 +56,7 @@ class ReactiveComboBox(ReactiveWidget[T], QComboBox, Generic[T]):
         self.currentTextChanged.connect(self._on_current_text_changed)
 
         # Bind from view change to state
-        self.onChange.connect(
+        self.on_change.connect(
             lambda new_value: state.update(
                 {self._selected_key: int(new_value) if int_keys else new_value}
             )
@@ -75,4 +75,4 @@ class ReactiveComboBox(ReactiveWidget[T], QComboBox, Generic[T]):
             return
 
         new_state = self.ui_to_state.get(text, text)
-        self.onChange.emit(str(new_state))
+        self.on_change.emit(str(new_state))

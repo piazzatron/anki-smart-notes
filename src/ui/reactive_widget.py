@@ -27,7 +27,7 @@ T = TypeVar("T")
 
 
 class ReactiveWidget(Generic[T]):
-    onChange = pyqtSignal(str)
+    on_change = pyqtSignal(str)
     _state: StateManager[T]
 
     def __init__(self, state: StateManager[T], **kwargs: Any):

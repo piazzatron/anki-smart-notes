@@ -80,7 +80,7 @@ class ChatOptions(QWidget):
         self.chat_provider = ReactiveComboBox(
             self.state, "chat_providers", "chat_provider", providers_map
         )
-        self.chat_provider.onChange.connect(
+        self.chat_provider.on_change.connect(
             lambda text: self.state.update(
                 {
                     "chat_provider": text,
@@ -92,7 +92,7 @@ class ChatOptions(QWidget):
         self.temperature = ReactiveDoubleSpinBox(self.state, "chat_temperature")
         self.temperature.setRange(0, 2)
         self.temperature.setSingleStep(0.1)
-        self.temperature.onChange.connect(
+        self.temperature.on_change.connect(
             lambda temp: self.state.update({"chat_temperature": temp})
         )
         self.chat_model = ReactiveComboBox(

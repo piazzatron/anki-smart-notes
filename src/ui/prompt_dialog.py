@@ -297,7 +297,7 @@ class PromptDialog(QDialog):
             self.tts_source_combo_box = ReactiveComboBox(
                 self.state, "tts_source_fields", "selected_tts_source_field"
             )
-            self.tts_source_combo_box.onChange.connect(self.on_source_changed)
+            self.tts_source_combo_box.on_change.connect(self.on_source_changed)
             source_label = QLabel("Source Field")
             source_label.setFont(font_bold)
             source_explainer = QLabel("The field that will be spoken.")
@@ -363,10 +363,10 @@ class PromptDialog(QDialog):
         )
 
         self.state.state_changed.connect(self.render_ui)
-        self.note_combo_box.onChange.connect(self._on_new_card_type_selected)
-        self.field_combo_box.onChange.connect(self.on_target_field_changed)
-        self.deck_combo_box.onChange.connect(self.on_deck_selected)
-        self.prompt_text_box.onChange.connect(
+        self.note_combo_box.on_change.connect(self._on_new_card_type_selected)
+        self.field_combo_box.on_change.connect(self.on_target_field_changed)
+        self.deck_combo_box.on_change.connect(self.on_deck_selected)
+        self.prompt_text_box.on_change.connect(
             lambda text: self.state.update({"prompt": text})
         )
 

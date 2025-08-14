@@ -43,4 +43,4 @@ class ReactiveLineEdit(ReactiveWidget[T], QLineEdit, Generic[T]):
         if self._state.updating:
             return
 
-        self.onChange.emit(text)
+        self.on_change.emit(text)

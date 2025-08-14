@@ -424,7 +424,7 @@ class CustomTTSPrompt(CustomPrompt):
 
         update_source_combo(self.state.s["source_field"])
 
-        self.source_combo.onChange.connect(update_source_combo)
+        self.source_combo.on_change.connect(update_source_combo)
         self.left_layout.addItem(QSpacerItem(0, 16))
         self.left_layout.addWidget(QLabel("Source Field"))
         self.left_layout.addWidget(self.source_combo)
