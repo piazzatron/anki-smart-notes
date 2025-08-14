@@ -92,6 +92,7 @@ def add_editor_top_button(
 
         # New notes don't have cards yet, fetch into the deck_chooser to get the deckId
         if card is None:
+            deck_id: int | None = None
             parent = editor.parentWindow
             # Parent should always be AddCards if there's no card
             if isinstance(parent, AddCards):

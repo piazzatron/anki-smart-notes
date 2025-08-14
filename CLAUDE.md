@@ -9,6 +9,7 @@
 - Use modern Python. Make sure your code is fully typed.
 - Always run format, lint, typecheck, and tests as the last thing you do. This is super important.
 - Use `./scripts/build.sh check` to run all code quality checks (format, lint, typecheck)
+- Use `./scripts/build.sh typecheck` to run only type checking
 - Use `./scripts/build.sh fix` to automatically fix formatting and linting issues 
 
 # Testing

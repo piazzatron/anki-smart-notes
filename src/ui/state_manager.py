@@ -39,7 +39,7 @@ class StateManager(QObject, Generic[T]):
 
     @property
     def s(self) -> T:
-        return self._state
+        return deepcopy(self._state)
 
     def update(self, updates: dict[str, Any]) -> None:
         # Avoid recursive calls to update, i.e. from components

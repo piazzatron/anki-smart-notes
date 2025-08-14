@@ -183,7 +183,7 @@ class AppStateManager:
             logger.error(f"Unexpected subscription state: {new_sub}")
             return
 
-        err: str
+        err: str | None = None
         is_api_key = has_api_key()
 
         if end_type == "capacity":
