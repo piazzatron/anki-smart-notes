@@ -1,23 +1,23 @@
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Dict, Literal, TypedDict, Union
+from typing import Any, Literal, TypedDict
 
 from aqt import (
     QGroupBox,
@@ -47,7 +47,7 @@ from .webview_dialog import WebviewDialog
 
 
 class State(TypedDict):
-    subscription: Union[SubscriptionState, Literal["Loading"]]
+    subscription: SubscriptionState | Literal["Loading"]
 
 
 start_trial_style = """
@@ -100,13 +100,13 @@ upgrade_now_style = """
 class ClickableLabel(QLabel):
     clicked = pyqtSignal()
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
 
-    def mousePressEvent(self, event) -> None:
-        if event.button() == Qt.MouseButton.LeftButton:
+    def mousePressEvent(self, ev: Any) -> None:
+        if ev.button() == Qt.MouseButton.LeftButton:
             self.clicked.emit()
-        super().mousePressEvent(event)
+        super().mousePressEvent(ev)
 
 
 class StartFreeTrialButton(QPushButton):
@@ -124,11 +124,10 @@ class StartFreeTrialButton(QPushButton):
 
 
 class SubscriptionBox(QWidget):
-
     def __init__(self) -> None:
         super().__init__()
 
-        self.ui_map: Dict[Union[SubscriptionState, Literal["Loading"]], QWidget] = {
+        self.ui_map: dict[SubscriptionState | Literal["Loading"], QWidget] = {
             "LOADING": self._render_loading(),
             "UNAUTHENTICATED": self._render_start_trial(),
             "NO_SUBSCRIPTION": self._render_start_trial(),
@@ -184,7 +183,7 @@ class SubscriptionBox(QWidget):
         #     )
         # )
         # layout.addWidget(combo_picker
-        app_state._state.bind(self)
+        app_state.bind(self)
 
     def upgrade_now_clicked(self) -> None:
         webview = WebviewDialog(self, "/upgrade/sign-in")
@@ -219,7 +218,7 @@ class SubscriptionBox(QWidget):
         )
         self.trial_description.setFont(font_bold)
 
-        login = ClickableLabel(f"<a href>Already have an account? Sign in.</>")
+        login = ClickableLabel("<a href>Already have an account? Sign in.</>")
         login.clicked.connect(self.login_clicked)
         login.setFont(font_small)
 

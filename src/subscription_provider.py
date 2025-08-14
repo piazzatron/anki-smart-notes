@@ -1,23 +1,23 @@
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Literal, Optional, TypedDict, Union
+from typing import Literal, TypedDict
 
 from .api_client import api
 from .config import config
@@ -38,10 +38,10 @@ SubscriptionState = Literal[
 
 
 class PlanInfo(TypedDict):
-    planId: Union[Literal["free"], str]
+    planId: Literal["free"] | str
     planName: str
-    notesUsed: Union[int, None]
-    notesLimit: Union[int, None]
+    notesUsed: int | None
+    notesLimit: int | None
     daysLeft: int
     textCreditsUsed: int
     textCreditsCapacity: int
@@ -52,8 +52,8 @@ class PlanInfo(TypedDict):
 
 
 class UserStatus(TypedDict):
-    plan: Optional[PlanInfo]
-    error: Optional[str]
+    plan: PlanInfo | None
+    error: str | None
 
 
 class UserInfoProvider:

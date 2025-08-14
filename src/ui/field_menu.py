@@ -1,23 +1,23 @@
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Callable, Union
+from collections.abc import Callable
 
 from anki.cards import Card
 from aqt import QAction, QMenu, browser, editor, mw
@@ -77,9 +77,10 @@ class FieldMenu:
                 self.editor.loadNote()
 
                 parent = self.editor.parentWindow
-                if isinstance(parent, browser.Browser):  # type: ignore
-                    if getattr(parent, "_previewer", None):
-                        parent._previewer.render_card()  # type: ignore
+                if isinstance(parent, browser.Browser) and getattr(  # type: ignore
+                    parent, "_previewer", None
+                ):  # type: ignore
+                    parent._previewer.render_card()  # type: ignore
 
             self.processor.process_card(
                 self.card,
@@ -111,8 +112,8 @@ class FieldMenu:
 
     # --------------------- callbacks ----------------------------
 
-    def _make_custom_field_success(self) -> Callable[[Union[str, None]], None]:
-        def _on_success(res: Union[str, None]) -> None:
+    def _make_custom_field_success(self) -> Callable[[str | None], None]:
+        def _on_success(res: str | None) -> None:
             if res is None:
                 return
 
@@ -126,9 +127,10 @@ class FieldMenu:
             self.editor.loadNote()
 
             parent = self.editor.parentWindow
-            if isinstance(parent, browser.Browser):  # type: ignore
-                if getattr(parent, "_previewer", None):
-                    parent._previewer.render_card()  # type: ignore
+            if isinstance(parent, browser.Browser) and getattr(  # type: ignore
+                parent, "_previewer", None
+            ):  # type: ignore
+                parent._previewer.render_card()  # type: ignore
 
         return _on_success
 

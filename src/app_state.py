@@ -1,23 +1,24 @@
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import List, Optional, TypedDict, Union
+from copy import deepcopy
+from typing import Any, TypedDict
 
 from .config import config
 from .constants import (
@@ -48,7 +49,7 @@ from .ui.ui_utils import show_message_box
 
 class AppState(TypedDict):
     subscription: SubscriptionState
-    plan: Union[PlanInfo, None]
+    plan: PlanInfo | None
 
 
 class AppStateManager:
@@ -57,8 +58,16 @@ class AppStateManager:
     def __init__(self) -> None:
         self._state = StateManager[AppState]({"subscription": "LOADING", "plan": None})
 
+    @property
+    def state(self) -> AppState:
+        return deepcopy(self._state.s)
+
+    def bind(self, widget: Any) -> None:
+        """Bind a widget to state changes."""
+        self._state.bind(widget)
+
     def is_free_trial(self) -> bool:
-        free_trial_states: List[SubscriptionState] = [
+        free_trial_states: list[SubscriptionState] = [
             "FREE_TRIAL_ACTIVE",
             "FREE_TRIAL_CAPACITY",
             "FREE_TRIAL_PARTIAL_CAPACITY",
@@ -77,7 +86,7 @@ class AppStateManager:
             config.auth_token = None
             self._state.update({"subscription": "LOADING", "plan": None})
 
-        def on_new_status(status: Union[UserStatus, None]) -> None:
+        def on_new_status(status: UserStatus | None) -> None:
             logger.debug(f"Got new subscription status: {status}")
 
             if not status:
@@ -113,7 +122,7 @@ class AppStateManager:
             use_collection=False,
         )
 
-    def _make_subscription_state(self, sub: Union[PlanInfo, None]) -> SubscriptionState:
+    def _make_subscription_state(self, sub: PlanInfo | None) -> SubscriptionState:
         if not sub:
             return "NO_SUBSCRIPTION"
 
@@ -154,7 +163,7 @@ class AppStateManager:
             return False
 
         # Only show warning if new state isn't an active state
-        active_states: List[SubscriptionState] = [
+        active_states: list[SubscriptionState] = [
             "PAID_PLAN_ACTIVE",
             "FREE_TRIAL_ACTIVE",
         ]
@@ -168,7 +177,7 @@ class AppStateManager:
         return did_functionality_degrade
 
     def _handle_subscription_did_transition(
-        self, new_sub: SubscriptionState, plan: Optional[PlanInfo]
+        self, new_sub: SubscriptionState, plan: PlanInfo | None
     ) -> None:
         plan_type = "trial" if "FREE" in new_sub else "paid"
         end_type: str
@@ -183,7 +192,7 @@ class AppStateManager:
             logger.error(f"Unexpected subscription state: {new_sub}")
             return
 
-        err: str
+        err: str | None = None
         is_api_key = has_api_key()
 
         if end_type == "capacity":
@@ -236,9 +245,9 @@ app_state = AppStateManager()
 # Mode selection stuff
 
 
-def is_app_unlocked(show_box=False) -> bool:
-    state = app_state._state.s["subscription"]
-    unlocked_states: List[SubscriptionState] = [
+def is_app_unlocked(show_box: bool = False) -> bool:
+    state = app_state.state["subscription"]
+    unlocked_states: list[SubscriptionState] = [
         "FREE_TRIAL_ACTIVE",
         "PAID_PLAN_ACTIVE",
         "FREE_TRIAL_PARTIAL_CAPACITY",
@@ -259,29 +268,29 @@ def is_app_legacy() -> bool:
     return not is_app_unlocked() and has_api_key()
 
 
-def is_app_unlocked_or_legacy(show_box=False) -> bool:
+def is_app_unlocked_or_legacy(show_box: bool = False) -> bool:
     allowed = is_app_unlocked() or has_api_key()
     if not allowed and show_box:
         show_message_box(APP_LOCKED_ERROR)
     return allowed
 
 
-def did_exceed_image_capacity(sub: Optional[PlanInfo] = None) -> bool:
-    sub = sub or app_state._state.s["plan"]
+def did_exceed_image_capacity(sub: PlanInfo | None = None) -> bool:
+    sub = sub or app_state.state["plan"]
     if not sub:
         return False
     return sub["imageCreditsUsed"] >= sub["imageCreditsCapacity"]
 
 
-def did_exceed_text_capacity(sub: Optional[PlanInfo] = None) -> bool:
-    sub = sub or app_state._state.s["plan"]
+def did_exceed_text_capacity(sub: PlanInfo | None = None) -> bool:
+    sub = sub or app_state.state["plan"]
     if not sub:
         return False
     return sub["textCreditsUsed"] >= sub["textCreditsCapacity"]
 
 
-def did_exceed_voice_capacity(sub: Optional[PlanInfo] = None) -> bool:
-    sub = sub or app_state._state.s["plan"]
+def did_exceed_voice_capacity(sub: PlanInfo | None = None) -> bool:
+    sub = sub or app_state.state["plan"]
     if not sub:
         return False
     return sub["voiceCreditsUsed"] >= sub["voiceCreditsCapacity"]

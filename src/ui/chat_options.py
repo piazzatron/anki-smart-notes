@@ -1,23 +1,23 @@
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Dict, List, Optional, TypedDict
+from typing import TypedDict
 
 from aqt import QGroupBox, QLabel, QSpacerItem, QWidget
 
@@ -38,14 +38,14 @@ from .ui_utils import default_form_layout, font_small
 
 class ChatOptionsState(TypedDict):
     chat_provider: ChatProviders
-    chat_providers: List[ChatProviders]
-    chat_models: List[ChatModels]
+    chat_providers: list[ChatProviders]
+    chat_models: list[ChatModels]
     chat_model: ChatModels
     chat_temperature: int
     chat_markdown_to_html: bool
 
 
-models_map: Dict[str, str] = {
+models_map: dict[str, str] = {
     "gpt-5-mini": "GPT-5 Mini (1x cost)",
     "gpt-5-chat-latest": "GPT-5 (No Reasoning, 5x cost)",
     "gpt-5": "GPT-5 (Reasoning, 5x++ cost)",
@@ -58,7 +58,7 @@ models_map: Dict[str, str] = {
 
 providers_map = {"openai": "ChatGPT", "anthropic": "Claude", "deepseek": "DeepSeek"}
 
-all_chat_providers: List[ChatProviders] = ["openai", "anthropic", "deepseek"]
+all_chat_providers: list[ChatProviders] = ["openai", "anthropic", "deepseek"]
 
 
 class ChatOptions(QWidget):
@@ -66,7 +66,7 @@ class ChatOptions(QWidget):
 
     def __init__(
         self,
-        chat_options: Optional[OverridableChatOptionsDict] = None,
+        chat_options: OverridableChatOptionsDict | None = None,
         show_text_processing: bool = True,
     ):
         super().__init__()
@@ -80,7 +80,7 @@ class ChatOptions(QWidget):
         self.chat_provider = ReactiveComboBox(
             self.state, "chat_providers", "chat_provider", providers_map
         )
-        self.chat_provider.onChange.connect(
+        self.chat_provider.on_change.connect(
             lambda text: self.state.update(
                 {
                     "chat_provider": text,
@@ -92,7 +92,7 @@ class ChatOptions(QWidget):
         self.temperature = ReactiveDoubleSpinBox(self.state, "chat_temperature")
         self.temperature.setRange(0, 2)
         self.temperature.setSingleStep(0.1)
-        self.temperature.onChange.connect(
+        self.temperature.on_change.connect(
             lambda temp: self.state.update({"chat_temperature": temp})
         )
         self.chat_model = ReactiveComboBox(
@@ -141,7 +141,8 @@ class ChatOptions(QWidget):
         self, chat_options: OverridableChatOptionsDict
     ) -> ChatOptionsState:
         ret: ChatOptionsState = {
-            k: key_or_config_val(chat_options, k) for k in overridable_chat_options  # type: ignore
+            k: key_or_config_val(chat_options, k)
+            for k in overridable_chat_options  # type: ignore
         }
 
         ret["chat_providers"] = all_chat_providers

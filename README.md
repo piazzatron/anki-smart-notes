@@ -1,4 +1,7 @@
 # **Smart Notes** - Anki + AI generated fields ✨
+
+[![CI](https://github.com/piazzatron/anki-smart-notes/actions/workflows/ci.yml/badge.svg)](https://github.com/piazzatron/anki-smart-notes/actions/workflows/ci.yml)
+
 </br>
 
 ## 💬 Use AI to automatically generate any field.

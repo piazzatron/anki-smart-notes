@@ -1,22 +1,22 @@
 # type: ignore
 
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import os
@@ -103,9 +103,7 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     chat = MockChatClient()
 
     extras = {
-        k: {"automatic": not options[k]["manual"]}
-        for k in prompts_map.keys()
-        if k in options
+        k: {"automatic": not options[k]["manual"]} for k in prompts_map if k in options
     }
 
     prompts_map = {
@@ -117,7 +115,9 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     p = Processor(field_resolver=f, config=c)
 
     monkeypatch.setattr(
-        anki_smart_notes.src.dag, "get_fields", lambda _: note.fields()  # type: ignore
+        anki_smart_notes.src.dag,
+        "get_fields",
+        lambda _: note.fields(),  # type: ignore
     )
 
     monkeypatch.setattr(
@@ -413,7 +413,6 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     ],
 )
 async def test_processor_1(name, note, prompts_map, expected, options, monkeypatch):
-
     overwrite_fields = bool(options.get("overwrite"))
     target_field = options.get("target_field")
     allow_empty_fields = bool(options.get("allow_empty"))

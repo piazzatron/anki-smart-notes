@@ -1,24 +1,24 @@
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import time
-from typing import Dict
+from typing import Any
 from urllib.parse import urlencode
 
 from aqt import (
@@ -59,18 +59,25 @@ channel.registerObject("py", bridge)
 
 # Custom web engine page to log out JS errors
 class CustomWebEnginePage(QWebEnginePage):
-    def javaScriptConsoleMessage(self, level, message, lineNumber, sourceID):
+    def javaScriptConsoleMessage(
+        self, level: Any, message: Any, lineNumber: Any, sourceID: Any
+    ):
         logger.info(f"JS: {message}, {lineNumber}, {sourceID}")
 
 
 class WebviewDialog(QDialog):
     def __init__(
-        self, parent: QWidget, path: str = "", query_params: Dict[str, str] = {}
+        self,
+        parent: QWidget,
+        path: str = "",
+        query_params: dict[str, str] | None = None,
     ) -> None:
+        if query_params is None:
+            query_params = {}
         super().__init__(parent)
         self._setup_ui(path, query_params)
 
-    def _setup_ui(self, path: str, query_params: Dict[str, str]) -> None:
+    def _setup_ui(self, path: str, query_params: dict[str, str]) -> None:
         query_params["anki"] = "true"
         query_params["uuid"] = config.uuid or ""
         if config.legacy_support:
@@ -138,11 +145,11 @@ class WebviewDialog(QDialog):
         query = QUrlQuery(url)
         value = query.queryItemValue("jwt")
         if value:
-            logger.debug(f"Got JWT! Adding to config")
+            logger.debug("Got JWT! Adding to config")
             config.auth_token = value
             app_state.update_subscription_state()
 
-    def closeEvent(self, event) -> None:
+    def closeEvent(self, a0: Any) -> None:
         logger.debug("Webview dialog closed, updating subscription state")
         app_state.update_subscription_state()
-        super().closeEvent(event)
+        super().closeEvent(a0)

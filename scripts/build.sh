@@ -122,6 +122,31 @@ sentry-release () {
   # sentry-cli releases --org michael-piazza new --finalize ${version}
 }
 
+format () {
+  echo "Formatting code..."
+  python3 -m ruff format .
+}
+
+lint () {
+  echo "Linting code..."
+  python3 -m ruff check .
+}
+
+typecheck () {
+  echo "Type checking..."
+  python3 -m pyright .
+}
+
+check () {
+  echo "Running all checks..."
+  python3 -m ruff format . && python3 -m ruff check . && python3 -m pyright .
+}
+
+fix () {
+  echo "Fixing code issues..."
+  python3 -m ruff format . && python3 -m ruff check . --fix
+}
+
 version () {
   if [ -z "$1" ]; then
     echo "Usage: $0 <version>"
@@ -161,9 +186,19 @@ elif [ "$1" == "sentry-release" ]; then
   sentry-release
 elif [ "$1" == "version" ]; then
   version $2
+elif [ "$1" == "format" ]; then
+  format
+elif [ "$1" == "lint" ]; then
+  lint
+elif [ "$1" == "typecheck" ]; then
+  typecheck
+elif [ "$1" == "check" ]; then
+  check
+elif [ "$1" == "fix" ]; then
+  fix
 else
-
   echo "Invalid argument: $1"
+  echo "Available commands: build, clean, win, test-dev, test-build, sentry-release, version, format, lint, typecheck, check, fix"
 fi
 
 echo "Done"

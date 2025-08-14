@@ -1,23 +1,24 @@
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, Callable, Dict, List, Literal, TypedDict, Union, cast
+from collections.abc import Callable
+from typing import Any, Literal, TypedDict, cast
 
 from anki.decks import DeckId
 from anki.notes import Note
@@ -40,7 +41,6 @@ from aqt import (
     QWidget,
     mw,
 )
-from PyQt6.QtCore import Qt
 
 from ..app_state import is_app_legacy, is_app_unlocked, is_app_unlocked_or_legacy
 from ..config import config, key_or_config_val
@@ -89,10 +89,10 @@ Test out your prompt with the test button before saving it!
 
 class State(TypedDict):
     prompt: str
-    note_types: List[str]
+    note_types: list[str]
     selected_note_type: str
-    note_fields: List[str]
-    tts_source_fields: List[str]
+    note_fields: list[str]
+    tts_source_fields: list[str]
     selected_tts_source_field: str
     selected_note_field: str
     is_loading_prompt: bool
@@ -102,14 +102,14 @@ class State(TypedDict):
     type: SmartFieldType
 
     selected_deck: DeckId
-    decks: List[DeckId]
+    decks: list[DeckId]
 
 
 class PartialState(TypedDict):
     prompt: str
-    note_fields: List[str]
+    note_fields: list[str]
     selected_note_field: str
-    tts_source_fields: List[str]
+    tts_source_fields: list[str]
     selected_tts_source_field: str
     selected_note_type: str
     selected_deck: DeckId
@@ -135,9 +135,9 @@ class PromptDialog(QDialog):
         on_accept_callback: Callable[[PromptMap], None],
         field_type: SmartFieldType,
         deck_id: DeckId,
-        card_type: Union[str, None] = None,
-        field: Union[str, None] = None,
-        prompt: Union[str, None] = None,
+        card_type: str | None = None,
+        field: str | None = None,
+        prompt: str | None = None,
     ):
         super().__init__()
 
@@ -277,7 +277,7 @@ class PromptDialog(QDialog):
         deck_label = QLabel("Deck")
         deck_label.setFont(font_bold)
         self.deck_subtitle = QLabel(
-            f"Optionally apply this field only to a specific deck (useful for sharing note types between decks)."
+            "Optionally apply this field only to a specific deck (useful for sharing note types between decks)."
         )
         self.deck_subtitle.setMaximumWidth(500)
         self.deck_subtitle.setFont(font_small)
@@ -297,7 +297,7 @@ class PromptDialog(QDialog):
             self.tts_source_combo_box = ReactiveComboBox(
                 self.state, "tts_source_fields", "selected_tts_source_field"
             )
-            self.tts_source_combo_box.onChange.connect(self.on_source_changed)
+            self.tts_source_combo_box.on_change.connect(self.on_source_changed)
             source_label = QLabel("Source Field")
             source_label.setFont(font_bold)
             source_explainer = QLabel("The field that will be spoken.")
@@ -363,10 +363,10 @@ class PromptDialog(QDialog):
         )
 
         self.state.state_changed.connect(self.render_ui)
-        self.note_combo_box.onChange.connect(self._on_new_card_type_selected)
-        self.field_combo_box.onChange.connect(self.on_target_field_changed)
-        self.deck_combo_box.onChange.connect(self.on_deck_selected)
-        self.prompt_text_box.onChange.connect(
+        self.note_combo_box.on_change.connect(self._on_new_card_type_selected)
+        self.field_combo_box.on_change.connect(self.on_target_field_changed)
+        self.deck_combo_box.on_change.connect(self.on_deck_selected)
+        self.prompt_text_box.on_change.connect(
             lambda text: self.state.update({"prompt": text})
         )
 
@@ -388,10 +388,7 @@ class PromptDialog(QDialog):
         # On small screens, make it a proportion of screen height. Otherwise set a fixed height
         FIXED_HEIGHT = 800
         screen = mw and mw.screen()
-        if not screen:
-            screen_height = FIXED_HEIGHT
-        else:
-            screen_height = screen.geometry().height()
+        screen_height = FIXED_HEIGHT if not screen else screen.geometry().height()
 
         min_height = min(FIXED_HEIGHT, int(screen_height * 0.8))
         self.setMinimumHeight(min_height)
@@ -511,7 +508,7 @@ class PromptDialog(QDialog):
     def on_state_update(self):
         self.model_options.setEnabled(self.state.s["use_custom_model"])
 
-    def _get_note_types(self, deck_id: DeckId) -> List[str]:
+    def _get_note_types(self, deck_id: DeckId) -> list[str]:
         """Returns note types for which there are valid target fields remaining"""
         note_types = get_note_types()
         # Need to find a note type where there are valid field
@@ -528,7 +525,6 @@ class PromptDialog(QDialog):
     def _state_for_new_card_type(
         self, note_type: str, type: SmartFieldType, deck_id: DeckId
     ) -> PartialState:
-
         target_fields = self._get_valid_target_fields(note_type, deck_id=deck_id)
         target_field = target_fields[0] if len(target_fields) else "None"
 
@@ -552,7 +548,7 @@ class PromptDialog(QDialog):
         new_state = self._state_for_new_card_type(
             note_type=note_type, type=self.state.s["type"], deck_id=GLOBAL_DECK_ID
         )
-        self.state.update(cast(Dict[str, Any], new_state))
+        self.state.update(cast("dict[str, Any]", new_state))
         # Force re-layout every time
         self.adjustSize()
 
@@ -564,7 +560,7 @@ class PromptDialog(QDialog):
             note_type=note_type, type=self.state.s["type"], deck_id=deck_id
         )
 
-        self.state.update(cast(Dict[str, Any], new_state))
+        self.state.update(cast("dict[str, Any]", new_state))
 
     def on_source_changed(self, source: str) -> None:
         self.state.update({"prompt": self.get_tts_prompt(source)})
@@ -572,7 +568,7 @@ class PromptDialog(QDialog):
     def get_tts_prompt(self, source: str) -> str:
         return f"{{{{{source}}}}}"
 
-    def on_target_field_changed(self, field: Union[str, None]) -> None:
+    def on_target_field_changed(self, field: str | None) -> None:
         # This shouldn't happen
         if not field:
             return
@@ -672,8 +668,7 @@ class PromptDialog(QDialog):
             else config.tts_model
         ) or config.tts_model
 
-        def on_success(arg):
-
+        def on_success(arg: str | bytes | None):
             prompt = self.state.s["prompt"]
             if not prompt:
                 return
@@ -690,17 +685,26 @@ class PromptDialog(QDialog):
             self.state["is_loading_prompt"] = False
             field_type = self.state.s["type"]
             if field_type == "chat":
-                msg = f"Ran with fields: \n{stringified_vals}.\n Model: {chat_model}\n\n Response: {arg}"
+                if arg is None:
+                    msg = f"Ran with fields: \n{stringified_vals}.\n Model: {chat_model}\n\n Response: No response received"
+                else:
+                    msg = f"Ran with fields: \n{stringified_vals}.\n Model: {chat_model}\n\n Response: {arg}"
                 show_message_box(msg, custom_ok="Close")
             elif field_type == "tts":
                 msg = f"Ran with fields: \n{stringified_vals}.\n Voice: {tts_provider} - {tts_voice}\n\n"
-                play_audio(arg)
+                if arg is not None and isinstance(arg, bytes):
+                    play_audio(arg)
+                else:
+                    msg += "No audio response received"
                 show_message_box(msg, custom_ok="Close")
             else:
-                test_window = ImageTestDialog(
-                    arg, interpolate_prompt(prompt, sample_note) or ""
-                )
-                test_window.exec()
+                if arg is not None and isinstance(arg, bytes):
+                    test_window = ImageTestDialog(
+                        arg, interpolate_prompt(prompt, sample_note) or ""
+                    )
+                    test_window.exec()
+                else:
+                    show_message_box("No image response received", custom_ok="Close")
 
         def on_failure(e: Exception) -> None:
             show_message_box(f"Failed to get response: {e}")
@@ -708,8 +712,8 @@ class PromptDialog(QDialog):
 
         if self.state.s["type"] == "chat":
 
-            chat_fn = lambda: (
-                self.processor.field_processor.get_chat_response(
+            def chat_fn():
+                return self.processor.field_processor.get_chat_response(
                     prompt=prompt,
                     note=sample_note,
                     provider=chat_provider,
@@ -721,11 +725,12 @@ class PromptDialog(QDialog):
                     ),
                     should_convert_to_html=False,  # Don't show HTML here bc it's confusing
                 )
-            )
+
             run_async_in_background_with_sentry(chat_fn, on_success, on_failure)
         elif self.state.s["type"] == "tts":
-            tts_fn = lambda: (
-                self.processor.field_processor.get_tts_response(
+
+            def tts_fn():
+                return self.processor.field_processor.get_tts_response(
                     input_text=prompt,
                     note=sample_note,
                     provider=tts_provider,
@@ -735,18 +740,17 @@ class PromptDialog(QDialog):
                         self.tts_options.state.s, "tts_strip_html", True
                     ),
                 )
-            )
 
             run_async_in_background_with_sentry(tts_fn, on_success, on_failure)
         else:
-            img_fn = lambda: (
-                self.processor.field_processor.get_image_response(
+
+            def img_fn():
+                return self.processor.field_processor.get_image_response(
                     input_text=prompt,
                     note=sample_note,
                     model="flux-dev",
                     provider="replicate",
                 )
-            )
 
             run_async_in_background_with_sentry(img_fn, on_success, on_failure)
 
@@ -768,8 +772,8 @@ class PromptDialog(QDialog):
         self,
         selected_note_type: str,
         deck_id: DeckId,
-        selected_note_field: Union[str, None] = None,
-    ) -> List[str]:
+        selected_note_field: str | None = None,
+    ) -> list[str]:
         """Gets all fields excluding selected and existing prompts"""
         all_valid_fields = get_valid_fields_for_prompt(
             selected_note_type=selected_note_type,
@@ -810,7 +814,7 @@ class PromptDialog(QDialog):
             "No valid source fields remaining",
         )
 
-    def _attempt_to_parse_source_field(self, prompt: str) -> Union[str, None]:
+    def _attempt_to_parse_source_field(self, prompt: str) -> str | None:
         fields = get_prompt_fields(prompt, lower=False)
 
         if len(fields) != 1:
@@ -857,13 +861,13 @@ class PromptDialog(QDialog):
             return
 
         # Ensure only openai for legacy
-        if not is_app_unlocked():
-            if (
-                self.state.s["use_custom_model"]
-                and self.chat_options.state.s["chat_provider"] != "openai"
-            ):
-                show_message_box(UNPAID_PROVIDER_ERROR)
-                return
+        if (
+            not is_app_unlocked()
+            and self.state.s["use_custom_model"]
+            and self.chat_options.state.s["chat_provider"] != "openai"
+        ):
+            show_message_box(UNPAID_PROVIDER_ERROR)
+            return
 
         self.on_accept_callback(new_prompts_map)
         self.accept()
@@ -881,7 +885,7 @@ class PromptDialog(QDialog):
             is_custom_model=s["use_custom_model"],
             type=s["type"],
             tts_options=cast(
-                OverrideableTTSOptionsDict,
+                "OverrideableTTSOptionsDict",
                 {k: self.tts_options.state.s[k] for k in overridable_tts_options},
             ),
             chat_options={

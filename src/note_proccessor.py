@@ -1,25 +1,25 @@
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import asyncio
 import traceback
-from typing import Callable, Dict, List, Sequence, Tuple, Union
+from collections.abc import Callable, Sequence
 
 import aiohttp
 from anki.cards import Card, CardId
@@ -51,7 +51,6 @@ OLD_OPEN_AI_MODEL_REQ_PER_MIN = 3500
 
 
 class NoteProcessor:
-
     def __init__(self, field_processor: FieldProcessor, config: Config):
         self.field_processor = field_processor
         self.config = config
@@ -60,7 +59,7 @@ class NoteProcessor:
     def process_cards_with_progress(
         self,
         card_ids: Sequence[CardId],
-        on_success: Union[Callable[[List[Note], List[Note]], None], None],
+        on_success: Callable[[list[Note], list[Note]], None] | None,
         overwrite_fields: bool = False,
     ) -> None:
         """Processes notes in the background with a progress bar, batching into a single undo op"""
@@ -85,7 +84,7 @@ class NoteProcessor:
         if not is_app_unlocked_or_legacy(show_box=False):
             return
 
-        def wrapped_on_success(res: Tuple[List[Note], List[Note]]) -> None:
+        def wrapped_on_success(res: tuple[list[Note], list[Note]]) -> None:
             updated, failed = res
             if not mw or not mw.col:
                 return
@@ -119,7 +118,7 @@ class NoteProcessor:
         )
 
         def on_update(
-            updated: List[Note], processed_count: int, finished: bool
+            updated: list[Note], processed_count: int, finished: bool
         ) -> None:
             if not mw or not mw.col:
                 return
@@ -160,10 +159,11 @@ class NoteProcessor:
 
                 # Update the notes in the main thread
                 run_on_main(
-                    lambda: on_update(
+                    lambda updated=updated,
+                    to_process_ids_empty=len(to_process_ids) == 0: on_update(
                         updated,
                         len(total_updated) + len(total_failed),
-                        len(to_process_ids) == 0,
+                        to_process_ids_empty,
                     )
                 )
 
@@ -185,8 +185,8 @@ class NoteProcessor:
         self,
         note_ids: Sequence[NoteId],
         overwrite_fields: bool,
-        did_map: Dict[NoteId, DeckId],
-    ) -> Tuple[List[Note], List[Note], List[Note]]:
+        did_map: dict[NoteId, DeckId],
+    ) -> tuple[list[Note], list[Note], list[Note]]:
         """Returns updated, failed, skipped notes"""
         logger.debug(f"Processing {len(note_ids)} notes...")
         if not mw or not mw.col:
@@ -196,10 +196,9 @@ class NoteProcessor:
         notes = [mw.col.get_note(note_id) for note_id in note_ids]
 
         # Only process notes that have prompts
-        to_process: List[Note] = []
-        skipped: List[Note] = []
+        to_process: list[Note] = []
+        skipped: list[Note] = []
         for note in notes:
-
             note_type = get_note_type(note)
             prompts = get_prompts_for_note(note_type, did_map[note.id])
             if not prompts:
@@ -248,9 +247,9 @@ class NoteProcessor:
         show_progress: bool,
         overwrite_fields: bool = False,
         on_success: Callable[[bool], None] = lambda _: None,
-        on_failure: Union[Callable[[Exception], None], None] = None,
-        target_field: Union[str, None] = None,
-        on_field_update: Union[Callable[[], None], None] = None,
+        on_failure: Callable[[Exception], None] | None = None,
+        target_field: str | None = None,
+        on_field_update: Callable[[], None] | None = None,
     ):
         """Process a single note, filling in fields with prompts from the user"""
         if not self._assert_preconditions():
@@ -292,8 +291,8 @@ class NoteProcessor:
         note: Note,
         deck_id: DeckId,
         overwrite_fields: bool = False,
-        target_field: Union[str, None] = None,
-        on_field_update: Union[Callable[[], None], None] = None,
+        target_field: str | None = None,
+        on_field_update: Callable[[], None] | None = None,
         show_progress: bool = False,
     ) -> bool:
         """Process a single note, returns whether any fields were updated. Optionally can target specific fields. Caller responsible for handling any exceptions."""
@@ -328,7 +327,7 @@ class NoteProcessor:
 
         try:
             while len(dag):
-                next_batch: List[FieldNode] = [
+                next_batch: list[FieldNode] = [
                     node for node in dag.values() if not node.in_nodes
                 ]
                 logger.debug(f"Processing next nodes: {next_batch}")
@@ -344,7 +343,7 @@ class NoteProcessor:
 
                 responses = await asyncio.gather(*batch_tasks.values())
 
-                for field, response in zip(batch_tasks.keys(), responses):
+                for field, response in zip(batch_tasks.keys(), responses, strict=False):
                     node = dag[field]
                     if response:
                         logger.debug(
@@ -413,7 +412,7 @@ class NoteProcessor:
                     logger.debug("Got 402 error but app is locked & no API key")
                     show_message_box(GENERIC_CREDITS_MESSAGE)
                 else:
-                    logger.error(f"Got 4xx error but app is locked & no API key")
+                    logger.error("Got 4xx error but app is locked & no API key")
                     show_message_box(unknown_error)
         else:
             logger.error(f"Got non-HTTP error: {e}")
@@ -443,7 +442,7 @@ class NoteProcessor:
 
     async def _process_node(
         self, node: FieldNode, note: Note, show_error_message_box: bool
-    ) -> Union[str, None]:
+    ) -> str | None:
         if node.abort:
             logger.debug(f"Skipping field {node.field}")
             return None

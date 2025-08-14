@@ -1,27 +1,27 @@
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
-
 
 import json
 import os
+from collections.abc import Mapping
 from copy import deepcopy
-from typing import Any, Dict, Mapping, Optional, TypedDict, TypeVar, Union, cast
+from typing import Any, TypedDict, TypeVar, cast
 
 from aqt import addons, mw
 
@@ -46,19 +46,19 @@ from .utils import USES_BEFORE_RATE_DIALOG, get_file_path
 class Config:
     """Fancy config class that uses the Anki addon manager to store config values."""
 
-    openai_api_key: Union[str, None]
+    openai_api_key: str | None
     prompts_map: PromptMap
     generate_at_review: bool
     times_used: int
-    last_seen_version: Union[str, None]
+    last_seen_version: str | None
     uuid: str
-    openai_endpoint: Union[str, None]
+    openai_endpoint: str | None
     regenerate_notes_when_batching: bool
     allow_empty_fields: bool
     last_message_id: int
     debug: bool
-    auth_token: Union[str, None]
-    legacy_support: Union[bool, None]
+    auth_token: str | None
+    legacy_support: bool | None
 
     # Chat
     chat_provider: ChatProviders
@@ -126,7 +126,7 @@ class Config:
         for key, value in defaults.items():
             setattr(self, key, value)
 
-    def _defaults(self) -> Union[Dict[str, Any], None]:
+    def _defaults(self) -> dict[str, Any] | None:
         if not mw:
             return {}
 
@@ -170,14 +170,14 @@ class Config:
                     extras_and_fields["extras"] = {}
 
                 # Make sure extras exists for every prompt field
-                for field in extras_and_fields["fields"].keys():
+                for field in extras_and_fields["fields"]:
                     if not extras_and_fields["extras"].get(field):
                         extras_and_fields["extras"][field] = {}  # type: ignore
 
                 # Add all default fields
                 for extras in extras_and_fields["extras"].values():
                     for k, v in DEFAULT_EXTRAS.items():
-                        if not k in extras:
+                        if k not in extras:
                             logger.debug(f"Adding extra {k}: {v}")
                             extras[k] = v  # type: ignore
 
@@ -198,7 +198,7 @@ class Config:
 
 
 class OldPromptsMap(TypedDict):
-    note_types: Dict[str, NoteTypeMap]
+    note_types: dict[str, NoteTypeMap]
 
 
 config = Config()
@@ -218,7 +218,7 @@ M = TypeVar("M", bound=Mapping[str, object])
 
 # TODO: this belongs in utils but ciruclar import
 # TODO: make this use the none_defaulting (too much type golf for now tho)
-def key_or_config_val(vals: Optional[M], k: str) -> T:  # type: ignore
+def key_or_config_val(vals: M | None, k: str) -> T:  # type: ignore
     return (
         cast(T, vals[k])
         if (vals and vals.get(k) is not None)

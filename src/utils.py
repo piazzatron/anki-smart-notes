@@ -1,38 +1,39 @@
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import json
 import os
 import random
-from typing import Any, Callable, Dict, List, Mapping, TypeVar, cast
+from collections.abc import Callable, Mapping
+from typing import Any, TypeVar, cast
 
 from aqt import mw
 
 from ..env import environment
 
 
-def to_lowercase_dict(d: Dict[str, Any]) -> Dict[str, Any]:
+def to_lowercase_dict(d: dict[str, Any]) -> dict[str, Any]:
     """Converts a dictionary to lowercase keys"""
     return {k.lower(): v for k, v in d.items()}
 
 
-def get_fields(note_type: str) -> List[str]:
+def get_fields(note_type: str) -> list[str]:
     """Gets the fields of a note type. Returns them sorted in their order on the card"""
     if not mw or not mw.col:
         return []
@@ -62,7 +63,7 @@ def load_file(file: str, test_override: str = "") -> str:
 
     file_path = get_file_path(file)
 
-    with open(file_path, "r", encoding="utf-8") as f:
+    with open(file_path, encoding="utf-8") as f:
         content = f.read()
 
     return content

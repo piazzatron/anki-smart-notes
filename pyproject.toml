@@ -1,0 +1,44 @@
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+exclude = [
+    "dist",
+    "env",
+    "builds",
+    "*.egg-info",
+    "__pycache__",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "N",   # pep8-naming
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "SIM", # flake8-simplify
+    "TCH", # flake8-type-checking
+]
+ignore = [
+    "E501",  # line too long (handled by formatter)
+    "E402",  # module level import not at top of file (conflicts with conditional imports)
+    "B008",  # do not perform function calls in argument defaults
+    "N806",  # variable in function should be lowercase (conflicts with Qt naming)
+    "N802",  # function name should be lowercase (conflicts with Qt naming)
+    "N803",  # argument name should be lowercase (conflicts with Qt naming)
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.lint.isort]
+known-first-party = ["src"]
+force-single-line = false
+combine-as-imports = true
+

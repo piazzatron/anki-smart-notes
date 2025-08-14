@@ -1,27 +1,30 @@
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
+
+# pyright: reportPrivateUsage=false
 
 import logging
 import os
 import sys
 import traceback
-from typing import Any, Callable, Coroutine, Dict, Union
+from collections.abc import Callable, Coroutine
+from typing import Any
 
 import aiohttp
 import sentry_sdk
@@ -51,7 +54,7 @@ class Sentry:
         logger.debug("Initializing sentry...")
         logger.debug(f"release: {release}, uuid: {uuid}, env: {env}")
 
-        def before_send(event: Any, _: Dict[str, Any]) -> Union[Any, None]:
+        def before_send(event: Any, _: dict[str, Any]) -> Any | None:
             if not is_production():
                 return None
 
@@ -86,7 +89,7 @@ class Sentry:
         try:
             old_hook = sys.excepthook
 
-            def new_hook(exc_type, exc_value, exc_traceback) -> None:
+            def new_hook(exc_type: Any, exc_value: Any, exc_traceback: Any) -> None:
                 try:
                     if is_production():
                         self.capture_exception(exc_value)
@@ -132,7 +135,7 @@ class Sentry:
     def wrap_async(
         self, fn: Callable[..., Any]
     ) -> Callable[[], Coroutine[Any, Any, Any]]:
-        async def wrapped(*args, **kwargs):
+        async def wrapped(*args: Any, **kwargs: Any):
             try:
                 return await fn(*args, **kwargs)
             except Exception as e:
@@ -147,7 +150,7 @@ class Sentry:
         return wrapped
 
     def wrap(self, fn: Callable[..., Any]) -> Any:
-        def wrapped(*args, **kwargs):
+        def wrapped(*args: Any, **kwargs: Any):
             try:
                 return fn(*args, **kwargs)
             except Exception as e:
@@ -160,7 +163,7 @@ class Sentry:
 
         return wrapped
 
-    def _get_session(self) -> Union[Session, None]:
+    def _get_session(self) -> Session | None:
         _, scope = self.hub._stack[-1]
         return scope._session
 
@@ -203,21 +206,23 @@ def pinger(event: str) -> Callable[[], Coroutine[Any, Any, None]]:
     async def ping() -> None:
         try:
             # 10s timeout for users who can't connect for some reason (china/vpn etc)
-            async with aiohttp.ClientSession(
-                timeout=aiohttp.ClientTimeout(total=10)
-            ) as session:
-                async with session.get(ping_url, params=params) as response:
-                    if response.status != 200:
-                        logger.error(f"Error pinging server: {response.status}")
-                    else:
-                        logger.debug("Successfully pinged server")
+            async with (
+                aiohttp.ClientSession(
+                    timeout=aiohttp.ClientTimeout(total=10)
+                ) as session,
+                session.get(ping_url, params=params) as response,
+            ):
+                if response.status != 200:
+                    logger.error(f"Error pinging server: {response.status}")
+                else:
+                    logger.debug("Successfully pinged server")
         except Exception as e:
             logger.error(f"Error pinging server: {e}")
 
     return ping
 
 
-def init_sentry() -> Union[Sentry, None]:
+def init_sentry() -> Sentry | None:
     try:
         if os.getenv("IS_TEST"):
             return None
@@ -237,7 +242,7 @@ def init_sentry() -> Union[Sentry, None]:
 
 
 def with_sentry(fn: Callable[..., Any]) -> Callable[..., Any]:
-    def wrapper(*args, **kwargs):
+    def wrapper(*args: Any, **kwargs: Any):
         if not sentry:
             return fn(*args, **kwargs)
         return sentry.wrap(fn)(*args, **kwargs)
@@ -251,7 +256,7 @@ sentry = init_sentry()
 def run_async_in_background_with_sentry(
     op: Callable[[], Any],
     on_success: Callable[[Any], None],
-    on_failure: Union[Callable[[Exception], None], None] = None,
+    on_failure: Callable[[Exception], None] | None = None,
     with_progress: bool = False,
     use_collection: bool = True,
 ):

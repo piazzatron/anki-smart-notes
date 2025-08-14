@@ -1,20 +1,20 @@
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 from aqt import (
@@ -37,7 +37,7 @@ class AccountOptions(QWidget):
     def __init__(self) -> None:
         super().__init__()
         self._setup_ui()
-        app_state._state.bind(self)
+        app_state.bind(self)
 
     def _setup_ui(self) -> None:
         self.logoutButton = QPushButton("Logout")
@@ -66,7 +66,6 @@ class AccountOptions(QWidget):
         layout.addWidget(self.sub_box)
         layout.addWidget(self.no_sub)
 
-        layout.addWidget
         self.sub_box.setLayout(sub_box_layout)
         self.sub_box.setSizePolicy(
             QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum
@@ -78,7 +77,6 @@ class AccountOptions(QWidget):
         self.setLayout(layout)
 
     def update_from_state(self, state: AppState) -> None:
-
         if not state["plan"]:
             self.sub_box.hide()
             self.no_sub.show()
@@ -89,15 +87,15 @@ class AccountOptions(QWidget):
             self.logoutButton.setEnabled(True)
 
             sub_type = state["plan"]["planName"]
-            text_capacity = f'{(100 * float(state["plan"]["textCreditsUsed"]) / float(state["plan"]["textCreditsCapacity"])):.2f}%.'
-            voice_capacity = f'{(100 * float(state["plan"]["voiceCreditsUsed"]) / float(state["plan"]["voiceCreditsCapacity"])):.2f}%.'
-            image_capacity = f'{(100 * float(state["plan"]["imageCreditsUsed"]) / float(state["plan"]["imageCreditsCapacity"])):.2f}%.'
+            text_capacity = f"{(100 * float(state['plan']['textCreditsUsed']) / float(state['plan']['textCreditsCapacity'])):.2f}%."
+            voice_capacity = f"{(100 * float(state['plan']['voiceCreditsUsed']) / float(state['plan']['voiceCreditsCapacity'])):.2f}%."
+            image_capacity = f"{(100 * float(state['plan']['imageCreditsUsed']) / float(state['plan']['imageCreditsCapacity'])):.2f}%."
             days = state["plan"]["daysLeft"]
-            days_remaining = f'{days} day{"s" if days > 1 else ""} left{" in cycle" if state["plan"]["planId"] == "free" else ""}.'
+            days_remaining = f"{days} day{'s' if days > 1 else ''} left{' in cycle' if state['plan']['planId'] == 'free' else ''}."
 
             if state["plan"]["notesLimit"]:
                 notes_limit = (
-                    f'{state["plan"]["notesUsed"]}/{state["plan"]["notesLimit"]}'
+                    f"{state['plan']['notesUsed']}/{state['plan']['notesLimit']}"
                 )
             else:
                 notes_limit = "Unlimited"

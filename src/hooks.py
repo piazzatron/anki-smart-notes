@@ -1,20 +1,20 @@
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 """
@@ -23,7 +23,8 @@ Setup the hooks for the Anki plugin
 
 
 import logging
-from typing import Callable, List, Sequence
+from collections.abc import Callable, Sequence
+from typing import Any
 
 from anki.cards import Card
 from anki.notes import Note
@@ -49,13 +50,13 @@ from .ui.ui_utils import show_message_box
 from .utils import make_uuid
 
 
-def with_processor(fn):
+def with_processor(fn: Any):
     # Too annoying to type this thing
     """Decorator to pass the processor to the function."""
 
     def wrapper(processor: NoteProcessor):
         @with_sentry
-        def inner(*args, **kwargs):
+        def inner(*args: Any, **kwargs: Any):
             return fn(processor, *args, **kwargs)
 
         return inner
@@ -72,9 +73,8 @@ def on_options(processor: NoteProcessor):
 
 @with_processor  # type: ignore
 def add_editor_top_button(
-    processor: NoteProcessor, buttons: List[str], e: editor.Editor
+    processor: NoteProcessor, buttons: list[str], e: editor.Editor
 ):
-
     @with_sentry
     def fn(editor: editor.Editor):
         if not mw:
@@ -92,6 +92,7 @@ def add_editor_top_button(
 
         # New notes don't have cards yet, fetch into the deck_chooser to get the deckId
         if card is None:
+            deck_id: int | None = None
             parent = editor.parentWindow
             # Parent should always be AddCards if there's no card
             if isinstance(parent, AddCards):
@@ -140,9 +141,10 @@ def add_editor_top_button(
             editor.loadNote()
 
             parent = editor.parentWindow
-            if isinstance(parent, browser.Browser):  # type: ignore
-                if getattr(parent, "_previewer", None):
-                    parent._previewer.render_card()  # type: ignore
+            if isinstance(parent, browser.Browser) and getattr(  # type: ignore
+                parent, "_previewer", None
+            ):  # type: ignore
+                parent._previewer.render_card()  # type: ignore
 
         def on_success(did_change: bool):
             set_button_enabled()
@@ -180,8 +182,8 @@ def add_editor_top_button(
 
 def make_on_batch_success(
     browser: browser.Browser,  # type: ignore
-) -> Callable[[List[Note], List[Note]], None]:
-    def wrapped_on_batch_success(updated: List[Note], errors: List[Note]):
+) -> Callable[[list[Note], list[Note]], None]:
+    def wrapped_on_batch_success(updated: list[Note], errors: list[Note]):
         browser.on_all_or_selected_rows_changed()
 
         if not len(updated) and len(errors):
@@ -310,7 +312,7 @@ def on_editor_context(
     )
 
     # Keep a reference to avoid premature garbage collection
-    setattr(menu, "_smartnotes_field_menu", field_menu)
+    menu._smartnotes_field_menu = field_menu  # type: ignore
 
 
 @with_processor  # type: ignore
@@ -401,7 +403,7 @@ def cleanup() -> None:
     logger.handlers.clear()
 
 
-def prevent_batches_on_free_trial(notes) -> bool:
+def prevent_batches_on_free_trial(notes: Any) -> bool:
     if app_state.is_free_trial() and len(notes) > 50:
         did_accept: bool = show_message_box(
             "Warning: your free trial allows a limited number of cards. Continue?",

@@ -1,24 +1,23 @@
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import traceback
-from typing import Dict, Union
 
 from anki.decks import DeckId
 from anki.notes import Note
@@ -35,9 +34,9 @@ def generate_fields_dag(
     note: Note,
     overwrite_fields: bool,
     deck_id: DeckId,
-    target_field: Union[str, None] = None,
-    override_prompts_map: Union[PromptMap, None] = None,
-) -> Dict[str, FieldNode]:
+    target_field: str | None = None,
+    override_prompts_map: PromptMap | None = None,
+) -> dict[str, FieldNode]:
     """Generates a directed acyclic graph of prompts for a note, or a subset of that graph if a target_fields list is passed. Returns a mapping of field -> PromptNode"""
     # - Generates all nodes
     # - Connects them
@@ -57,12 +56,11 @@ def generate_fields_dag(
             logger.debug("generate_fields_dag: no prompts found for note type")
             return {}
 
-        dag: Dict[str, FieldNode] = {}
+        dag: dict[str, FieldNode] = {}
         fields = get_fields(note_type)
 
         # Have to iterate over fields to get the canonical capitalization lol
         for field in fields:
-
             field_lower = field.lower()
             prompt = prompts.get(field_lower)
             if not prompt:
@@ -76,7 +74,6 @@ def generate_fields_dag(
                 logger.error(f"Unexpectedly no extras for field {field}!")
                 continue
 
-            is_custom = extras["use_custom_model"]
             type = extras["type"]
             should_generate_automatically = extras["automatic"]
 
@@ -112,7 +109,7 @@ def generate_fields_dag(
         # the dag to only the input of the target field
         if target_field:
             target_node = dag[target_field.lower()]
-            trimmed: Dict[str, FieldNode] = {target_field.lower(): target_node}
+            trimmed: dict[str, FieldNode] = {target_field.lower(): target_node}
 
             # Add pre
             explore = target_node.in_nodes.copy()
@@ -133,7 +130,7 @@ def generate_fields_dag(
         return {}
 
 
-def has_cycle(dag: Dict[str, FieldNode]) -> bool:
+def has_cycle(dag: dict[str, FieldNode]) -> bool:
     """Tests for cycles in a DAG. Returns True if there are cycles, False if there are not."""
     dag = dag.copy()
     for start in dag.values():
@@ -154,9 +151,9 @@ def prompt_has_error(
     prompt: str,
     note: Note,
     deck_id: DeckId,
-    target_field: Union[str, None] = None,
-    prompts_map: Union[PromptMap, None] = None,
-) -> Union[str, None]:
+    target_field: str | None = None,
+    prompts_map: PromptMap | None = None,
+) -> str | None:
     """Checks if a prompt has an error. Returns the error message if there is one."""
     note_type = get_note_type(note)
     note_fields = {field.lower() for field in get_fields(note_type)}
@@ -164,7 +161,6 @@ def prompt_has_error(
 
     # Check for referencing invalid fields
     for prompt_field in prompt_fields:
-
         if prompt_field not in note_fields:
             return f"Invalid field in prompt: {prompt_field}"
 

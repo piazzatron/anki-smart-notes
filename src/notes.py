@@ -1,23 +1,21 @@
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
-
-from typing import List, Union
 
 from anki.cards import Card
 from anki.decks import DeckId
@@ -42,7 +40,7 @@ def get_note_type(note: Note) -> str:
     return t["name"]  # type: ignore
 
 
-def get_note_types() -> List[str]:
+def get_note_types() -> list[str]:
     if not mw or not mw.col:
         return []
     models = mw.col.models.all()
@@ -60,7 +58,7 @@ def is_card_fully_processed(card: Card) -> bool:
     if not prompts:
         return True
 
-    for field in prompts.keys():
+    for field in prompts:
         field_exists = field in note and note[field]
         is_automatic = (
             get_extras(note_type=note_type, field=field, deck_id=card.did)
@@ -72,7 +70,7 @@ def is_card_fully_processed(card: Card) -> bool:
     return True
 
 
-def get_field_from_index(note: Note, index: int) -> Union[str, None]:
+def get_field_from_index(note: Note, index: int) -> str | None:
     """Gets the field name from the index of a note."""
     fields = get_fields(get_note_type(note))
     if index < 0 or index >= len(fields):
@@ -81,7 +79,7 @@ def get_field_from_index(note: Note, index: int) -> Union[str, None]:
 
 
 # TODO: make this work with get_field_from_index, taking in a field name
-def is_ai_field(current_field_num: int, card: Card) -> Union[str, None]:
+def is_ai_field(current_field_num: int | None, card: Card) -> str | None:
     """Helper to determine if the current field is an AI field. Returns the non-lowercased field name if it is."""
     if not card:
         return None
@@ -131,7 +129,7 @@ def get_chained_ai_fields(note_type: str, deck_id: DeckId) -> set[str]:
     return res
 
 
-def get_random_note(note_type: str, deck_id: DeckId) -> Union[Note, None]:
+def get_random_note(note_type: str, deck_id: DeckId) -> Note | None:
     if not mw or not mw.col:
         return None
 
@@ -157,9 +155,9 @@ def get_random_note(note_type: str, deck_id: DeckId) -> Union[Note, None]:
 def get_valid_fields_for_prompt(
     selected_note_type: str,
     deck_id: DeckId,
-    selected_note_field: Union[str, None] = None,
-    prompts_map: Union[PromptMap, None] = None,
-) -> List[str]:
+    selected_note_field: str | None = None,
+    prompts_map: PromptMap | None = None,
+) -> list[str]:
     """Gets all fields excluding the selected one, if one is selected"""
     fields = get_fields(selected_note_type)
     return [

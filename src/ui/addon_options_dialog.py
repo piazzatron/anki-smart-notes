@@ -1,23 +1,23 @@
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, List, TypedDict, Union
+from typing import Any, TypedDict
 from urllib.parse import urlparse
 
 from aqt import (
@@ -71,17 +71,17 @@ TTS_PROMPT_STUB_VALUE = "🔈"
 
 class State(TypedDict):
     prompts_map: PromptMap
-    selected_row: Union[int, None]
+    selected_row: int | None
     generate_at_review: bool
     regenerate_notes_when_batching: bool
-    openai_endpoint: Union[str, None]
+    openai_endpoint: str | None
     allow_empty_fields: bool
     debug: bool
 
     # Legacy OpenAI
-    openai_api_key: Union[str, None]
+    openai_api_key: str | None
     legacy_openai_model: str
-    legacy_openai_models: List[str]
+    legacy_openai_models: list[str]
 
 
 class AddonOptionsDialog(QDialog):
@@ -98,7 +98,7 @@ class AddonOptionsDialog(QDialog):
         self.processor = processor
         self.state = StateManager[State](self.make_initial_state())
         self.setup_ui()
-        app_state._state.bind(self)
+        app_state.bind(self)
 
     def setup_ui(self) -> None:
         self.setWindowTitle("Smart Notes ✨")
@@ -277,7 +277,7 @@ class AddonOptionsDialog(QDialog):
         self.api_key_edit.setSizePolicy(
             QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred
         )
-        self.api_key_edit.onChange.connect(
+        self.api_key_edit.on_change.connect(
             lambda text: self.state.update({"openai_api_key": text})
         )
 
@@ -362,7 +362,7 @@ class AddonOptionsDialog(QDialog):
         self.openai_endpoint_edit = ReactiveLineEdit(self.state, "openai_endpoint")
         self.openai_endpoint_edit.setPlaceholderText("https://api.openai.com")
         self.openai_endpoint_edit.setMinimumWidth(400)
-        self.openai_endpoint_edit.onChange.connect(
+        self.openai_endpoint_edit.on_change.connect(
             lambda text: self.state.update({"openai_endpoint": text})
         )
         endpoint_info = QLabel("Provide an alternative endpoint to the OpenAI API.")
@@ -516,7 +516,7 @@ class AddonOptionsDialog(QDialog):
 
         return table
 
-    def on_row_selected(self, current) -> None:
+    def on_row_selected(self, current: QTableWidgetItem | None) -> None:
         if current:
             self.state.update({"selected_row": current.row()})
 
@@ -549,7 +549,7 @@ class AddonOptionsDialog(QDialog):
 
         all_fields = get_fields(note_type)
 
-        if not prompts or not len(all_fields) or not field in all_fields:
+        if not prompts or not len(all_fields) or field not in all_fields:
             show_message_box("Note type does not exist or field not in note type!")
             return
 
@@ -627,7 +627,7 @@ class AddonOptionsDialog(QDialog):
 
         if (
             self.tts_options.state.s["tts_provider"] == "elevenLabs"
-            and not config.tts_provider == "elevenLabs"
+            and config.tts_provider != "elevenLabs"
         ):
             did_click_ok = show_message_box(
                 "Are you sure you want to set your default voice provider to a premium model? These voices may consume your plan quickly.",
@@ -638,17 +638,16 @@ class AddonOptionsDialog(QDialog):
 
         is_unlocked = is_app_unlocked()
 
-        if not is_unlocked:
-            if self.chat_options.state.s["chat_provider"] != "openai":
-                show_message_box(UNPAID_PROVIDER_ERROR)
-                return False
+        if not is_unlocked and self.chat_options.state.s["chat_provider"] != "openai":
+            show_message_box(UNPAID_PROVIDER_ERROR)
+            return False
 
         valid_config_attrs = config.__annotations__.keys()
 
         old_debug = config.debug
 
         # Automatically inspect all the substates for valid config and write them out
-        states: List[StateManager[Any]] = [
+        states: list[StateManager[Any]] = [
             self.state,
             self.tts_options.state,
             self.chat_options.state,

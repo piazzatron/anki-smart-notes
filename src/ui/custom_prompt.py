@@ -1,27 +1,28 @@
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 # Note to future self / contributors:
 # these classes are fairly brittle & tightly coupled, and deviate a good bit from
 # existing patterns in the codebase (making heavy use of inheritance, using StateManager in an adhoc-way, etc)
 
-from typing import Callable, TypedDict, Union
+from collections.abc import Callable
+from typing import TypedDict
 
 from anki.decks import DeckId
 from anki.notes import Note
@@ -36,7 +37,6 @@ from aqt import (
     QTextEdit,
     QVBoxLayout,
     QWidget,
-    mw,
 )
 
 from ..field_processor import field_processor
@@ -56,14 +56,14 @@ from .ui_utils import font_small, show_message_box
 
 
 class CustomPrompt(QDialog):
-    _initial_prompt: Union[str, None]
+    _initial_prompt: str | None
     _generate_button: QPushButton
     _save_button: QPushButton
     _loading: bool = False
     _prompt_window: QTextEdit
     _note: Note
     _deck_id: DeckId
-    _on_success: Callable[[Union[str, None]], None]
+    _on_success: Callable[[str | None], None]
     _field_upper: str
 
     def __init__(
@@ -71,8 +71,8 @@ class CustomPrompt(QDialog):
         note: Note,
         deck_id: DeckId,
         field_upper: str,
-        on_success: Callable[[Union[str, None]], None],
-        parent: Union[QWidget, None] = None,
+        on_success: Callable[[str | None], None],
+        parent: QWidget | None = None,
     ) -> None:
         super().__init__(parent=parent)
         all_prompts = get_prompts_for_note(
@@ -97,7 +97,7 @@ class CustomPrompt(QDialog):
     def render_custom_model(self) -> QWidget:
         raise Exception("Not implemented")
 
-    def render_to_text(self) -> Union[str, None]:
+    def render_to_text(self) -> str | None:
         raise Exception("Not Implemented")
 
     def render_response_box(self) -> QWidget:
@@ -224,7 +224,6 @@ class CustomPrompt(QDialog):
 
 
 class CustomTextPrompt(CustomPrompt):
-
     _response_edit: QTextEdit
     _chat_options: ChatOptions
 
@@ -234,7 +233,6 @@ class CustomTextPrompt(CustomPrompt):
         return self._response_edit
 
     def on_generate(self) -> None:
-
         prompt = self._prompt_window.toPlainText()
 
         def on_success(text: str):
@@ -270,7 +268,7 @@ class CustomTextPrompt(CustomPrompt):
     def has_output(self) -> bool:
         return bool(self._response_edit.toPlainText())
 
-    def render_to_text(self) -> Union[str, None]:
+    def render_to_text(self) -> str | None:
         return self._response_edit.toPlainText()
 
     def update_ui_states(self) -> None:
@@ -279,7 +277,7 @@ class CustomTextPrompt(CustomPrompt):
 
 class CustomImagePrompt(CustomPrompt):
     response_image: ImageDisplayer
-    raw_image: Union[bytes, None] = None
+    raw_image: bytes | None = None
     image_options: ImageOptions
 
     def render_response_box(self) -> QWidget:
@@ -318,7 +316,7 @@ class CustomImagePrompt(CustomPrompt):
     def has_output(self) -> bool:
         return bool(self.raw_image)
 
-    def render_to_text(self) -> Union[str, None]:
+    def render_to_text(self) -> str | None:
         if not self.raw_image:
             return None
         file_name = get_media_path(self._note, self._field_upper, "webp")
@@ -336,14 +334,14 @@ class TTSPromptState(TypedDict):
 
 
 class CustomTTSPrompt(CustomPrompt):
-    audio: Union[bytes, None] = None
+    audio: bytes | None = None
 
     def __init__(
         self,
         note: Note,
         deck_id: DeckId,
         field_upper: str,
-        on_success: Callable[[Union[str, None]], None],
+        on_success: Callable[[str | None], None],
     ) -> None:
         self._note = note
         self._deck_id = deck_id
@@ -379,7 +377,7 @@ class CustomTTSPrompt(CustomPrompt):
                 strip_html=True,
             )
 
-        def on_success(audio: Union[bytes, None]):
+        def on_success(audio: bytes | None):
             self._loading = False
             self.audio = audio
 
@@ -406,7 +404,7 @@ class CustomTTSPrompt(CustomPrompt):
     def has_output(self) -> bool:
         return bool(self.audio)
 
-    def render_to_text(self) -> Union[None, str]:
+    def render_to_text(self) -> None | str:
         if not self.audio:
             return None
         file_name = get_media_path(self._note, self._field_upper, "mp3")
@@ -426,7 +424,7 @@ class CustomTTSPrompt(CustomPrompt):
 
         update_source_combo(self.state.s["source_field"])
 
-        self.source_combo.onChange.connect(update_source_combo)
+        self.source_combo.on_change.connect(update_source_combo)
         self.left_layout.addItem(QSpacerItem(0, 16))
         self.left_layout.addWidget(QLabel("Source Field"))
         self.left_layout.addWidget(self.source_combo)

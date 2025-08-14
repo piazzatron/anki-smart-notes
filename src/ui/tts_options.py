@@ -1,24 +1,24 @@
 """
- Copyright (C) 2024 Michael Piazza
+Copyright (C) 2024 Michael Piazza
 
- This file is part of Smart Notes.
+This file is part of Smart Notes.
 
- Smart Notes is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
- Smart Notes is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import json
-from typing import Dict, List, Literal, Optional, TypedDict, Union, cast
+from typing import Literal, TypedDict, cast
 
 from aqt import (
     QAbstractListModel,
@@ -57,10 +57,10 @@ from .ui_utils import default_form_layout, font_small, show_message_box
 
 ALL: Literal["All"] = "All"
 
-AllTTSProviders = Union[Literal["All"], TTSProviders]
+AllTTSProviders = Literal["All"] | TTSProviders
 
 Gender = Literal["All", "Male", "Female"]
-default_texts: Dict[str, str] = {
+default_texts: dict[str, str] = {
     ALL: "I'm sorry Dave, I'm afraid I can't do that.",
 }
 
@@ -85,11 +85,11 @@ class TTSMeta(TypedDict):
 class TTSState(TypedDict):
     # Combo box fields
 
-    providers: List[AllTTSProviders]
+    providers: list[AllTTSProviders]
     selected_provider: AllTTSProviders
-    genders: List[Gender]
+    genders: list[Gender]
     selected_gender: Gender
-    languages: List[str]
+    languages: list[str]
     selected_language: str
 
     voice: str
@@ -104,7 +104,7 @@ class TTSState(TypedDict):
     test_enabled: bool
 
 
-openai_voices: List[TTSMeta] = [
+openai_voices: list[TTSMeta] = [
     {
         "tts_provider": "openai",
         "voice": "alloy",
@@ -170,10 +170,10 @@ class GoogleVoice(TypedDict):
     type: Literal["Standard", "Wavenet", "Neural"]
 
 
-def get_google_voices() -> List[TTSMeta]:
+def get_google_voices() -> list[TTSMeta]:
     s = load_file("google_voices.json", test_override="[]")
-    google_voices: List[GoogleVoice] = json.loads(s)
-    voices: List[TTSMeta] = []
+    google_voices: list[GoogleVoice] = json.loads(s)
+    voices: list[TTSMeta] = []
     tiers = {"Standard": "standard", "Wavenet": "best", "Neural": "best"}
     for voice in google_voices:
         voices.append(
@@ -183,24 +183,24 @@ def get_google_voices() -> List[TTSMeta]:
                 "gender": voice["gender"],
                 "voice": voice["name"],
                 "model": voice["type"].lower(),
-                "friendly_voice": f'{voice["language"].capitalize()} - {voice["gender"].capitalize()}',
+                "friendly_voice": f"{voice['language'].capitalize()} - {voice['gender'].capitalize()}",
                 "price_tier": tiers[voice["type"]],  # type: ignore
             }
         )
     return voices
 
 
-def get_eleven_voices() -> List[TTSMeta]:
+def get_eleven_voices() -> list[TTSMeta]:
     s = load_file("eleven_voices.json", test_override="[]")
     eleven_voices = json.loads(s)
-    voices: List[TTSMeta] = []
+    voices: list[TTSMeta] = []
     for voice in eleven_voices:
         premium: TTSMeta = {
             "tts_provider": "elevenLabs",
             "language": voice["language"],
             "voice": voice["voice_id"],
             "model": "eleven_turbo_v2_5",
-            "friendly_voice": f'{voice["language"].capitalize()} - {voice["gender"].capitalize()} - {voice["name"].capitalize()}',
+            "friendly_voice": f"{voice['language'].capitalize()} - {voice['gender'].capitalize()} - {voice['name'].capitalize()}",
             "gender": voice["gender"],
             "price_tier": "premium",
         }
@@ -215,18 +215,16 @@ def get_eleven_voices() -> List[TTSMeta]:
 # Combine all voices
 voices = get_google_voices() + openai_voices + get_eleven_voices()
 
-languages: List[str] = [ALL] + sorted(
-    list(set([voice["language"] for voice in voices]) - {ALL})
-)
-providers: List[AllTTSProviders] = [ALL, "google", "openai", "elevenLabs"]
+languages: list[str] = [ALL] + sorted({voice["language"] for voice in voices} - {ALL})
+providers: list[AllTTSProviders] = [ALL, "google", "openai", "elevenLabs"]
 
 
 def format_voice(voice: TTSMeta) -> str:
-    return f'{voice["tts_provider"].capitalize()} - {voice["friendly_voice"].capitalize()} ({price_tier_copy[voice["price_tier"]]})'
+    return f"{voice['tts_provider'].capitalize()} - {voice['friendly_voice'].capitalize()} ({price_tier_copy[voice['price_tier']]})"
 
 
 class CustomListModel(QAbstractListModel):
-    def __init__(self, data: List[TTSMeta]):
+    def __init__(self, data: list[TTSMeta]):
         super().__init__()
         self._data = data
 
@@ -240,10 +238,13 @@ class CustomListModel(QAbstractListModel):
     def create_str(self, row: int) -> str:
         return format_voice(self._data[row])
 
-    def update_data(self, new_data: List[TTSMeta]):
+    def update_data(self, new_data: list[TTSMeta]):
         self.beginResetModel()
         self._data = new_data
         self.endResetModel()
+
+    def get_data(self) -> list[TTSMeta]:
+        return self._data
 
 
 class SelectedVoiceLabel(QLabel):
@@ -261,7 +262,7 @@ class TTSOptions(QWidget):
 
     def __init__(
         self,
-        tts_options: Optional[OverrideableTTSOptionsDict] = None,
+        tts_options: OverrideableTTSOptionsDict | None = None,
         extras_visible: bool = True,
     ):
         super().__init__()
@@ -271,7 +272,6 @@ class TTSOptions(QWidget):
         self.setup_ui()
 
     def setup_ui(self) -> None:
-
         self.voices_list = QListView()
         self.voices_models = CustomListModel(self.get_visible_voice_filters())
         self.voices_list.setModel(self.voices_models)
@@ -284,7 +284,7 @@ class TTSOptions(QWidget):
 
         # This shouldn't ever be none but being defensive
         current_selection = self.voices_list.selectedIndexes()
-        selected_voice = self.voices_models._data[
+        selected_voice = self.voices_models.get_data()[
             current_selection[0].row() if current_selection else 0
         ]
         self.selected_voice_label = SelectedVoiceLabel(selected_voice)
@@ -315,7 +315,7 @@ class TTSOptions(QWidget):
         filters_box.setLayout(filters_layout)
 
         language = ReactiveComboBox(self.state, "languages", "selected_language")
-        language.onChange.connect(
+        language.on_change.connect(
             lambda langauge: self.state.update(
                 {"test_text": default_texts.get(langauge, default_texts[ALL])}
             )
@@ -347,7 +347,7 @@ class TTSOptions(QWidget):
         indexes = selected.indexes()
         if indexes:
             selected_index = indexes[0]
-            selected_voice = self.voices_models._data[selected_index.row()]
+            selected_voice = self.voices_models.get_data()[selected_index.row()]
             logger.debug(f"Selected voice: {selected_voice}")
             self.state.update(
                 {
@@ -395,8 +395,8 @@ class TTSOptions(QWidget):
 
         # Get the new location after updating
         voice_location = (
-            self.voices_models._data.index(selected_voice)
-            if selected_voice and selected_voice in self.voices_models._data
+            self.voices_models.get_data().index(selected_voice)
+            if selected_voice and selected_voice in self.voices_models.get_data()
             else None
         )
 
@@ -420,7 +420,7 @@ class TTSOptions(QWidget):
         edit_text = ReactiveEditText(self.state, "test_text")
         edit_text.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         edit_text.setFixedHeight(26)
-        edit_text.onChange.connect(lambda text: self.state.update({"test_text": text}))
+        edit_text.on_change.connect(lambda text: self.state.update({"test_text": text}))
         self.test_button = QPushButton("Test")
         self.test_button.clicked.connect(self.test_and_play)
         layout.addWidget(edit_text)
@@ -439,7 +439,6 @@ class TTSOptions(QWidget):
         return self.processing_box
 
     def test_and_play(self) -> None:
-
         def on_success(audio: bytes):
             play_audio(audio)
             self.state.update({"test_enabled": True})
@@ -450,7 +449,7 @@ class TTSOptions(QWidget):
         if not (provider and voice and model):
             return
 
-        def on_failure(err):
+        def on_failure(err: Exception):
             show_message_box(f"Something went wrong testing audio: {err}")
             self.state.update({"test_enabled": True})
 
@@ -470,7 +469,7 @@ class TTSOptions(QWidget):
             fetch_audio, on_success=on_success, on_failure=on_failure
         )
 
-    def get_visible_voice_filters(self) -> List[TTSMeta]:
+    def get_visible_voice_filters(self) -> list[TTSMeta]:
         filtered = []
         for voice in voices:
             matches_provider = (
@@ -492,9 +491,8 @@ class TTSOptions(QWidget):
         return filtered
 
     def get_initial_state(
-        self, tts_options: Optional[OverrideableTTSOptionsDict]
+        self, tts_options: OverrideableTTSOptionsDict | None
     ) -> TTSState:
-
         ret = {
             "providers": providers,
             "selected_provider": ALL,
@@ -508,6 +506,5 @@ class TTSOptions(QWidget):
         }
 
         for k in overridable_tts_options:
-
             ret[k] = key_or_config_val(tts_options, k)
-        return cast(TTSState, ret)
+        return cast("TTSState", ret)

@@ -1,0 +1,27 @@
+{
+  "include": [
+    "src",
+    "tests",
+    "*.py"
+  ],
+  "exclude": [
+    "dist",
+    "env",
+    "builds",
+    "**/__pycache__",
+    "**/*.pyc"
+  ],
+  "extraPaths": [
+    "."
+  ],
+  "pythonVersion": "3.11",
+  "typeCheckingMode": "strict",
+  "useLibraryCodeForTypes": true,
+  "reportMissingImports": "error",
+  "reportMissingTypeStubs": "none",
+  "reportUnknownMemberType": "none",
+  "reportUnknownArgumentType": "none",
+  "reportUnknownVariableType": "none",
+  "reportUnknownLambdaType": "none",
+  "reportUnknownParameterType": "none"
+}
