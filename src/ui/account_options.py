@@ -66,7 +66,6 @@ class AccountOptions(QWidget):
         layout.addWidget(self.sub_box)
         layout.addWidget(self.no_sub)
 
-        layout.addWidget
         self.sub_box.setLayout(sub_box_layout)
         self.sub_box.setSizePolicy(
             QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum
@@ -88,15 +87,15 @@ class AccountOptions(QWidget):
             self.logoutButton.setEnabled(True)
 
             sub_type = state["plan"]["planName"]
-            text_capacity = f'{(100 * float(state["plan"]["textCreditsUsed"]) / float(state["plan"]["textCreditsCapacity"])):.2f}%.'
-            voice_capacity = f'{(100 * float(state["plan"]["voiceCreditsUsed"]) / float(state["plan"]["voiceCreditsCapacity"])):.2f}%.'
-            image_capacity = f'{(100 * float(state["plan"]["imageCreditsUsed"]) / float(state["plan"]["imageCreditsCapacity"])):.2f}%.'
+            text_capacity = f"{(100 * float(state['plan']['textCreditsUsed']) / float(state['plan']['textCreditsCapacity'])):.2f}%."
+            voice_capacity = f"{(100 * float(state['plan']['voiceCreditsUsed']) / float(state['plan']['voiceCreditsCapacity'])):.2f}%."
+            image_capacity = f"{(100 * float(state['plan']['imageCreditsUsed']) / float(state['plan']['imageCreditsCapacity'])):.2f}%."
             days = state["plan"]["daysLeft"]
-            days_remaining = f'{days} day{"s" if days > 1 else ""} left{" in cycle" if state["plan"]["planId"] == "free" else ""}.'
+            days_remaining = f"{days} day{'s' if days > 1 else ''} left{' in cycle' if state['plan']['planId'] == 'free' else ''}."
 
             if state["plan"]["notesLimit"]:
                 notes_limit = (
-                    f'{state["plan"]["notesUsed"]}/{state["plan"]["notesLimit"]}'
+                    f"{state['plan']['notesUsed']}/{state['plan']['notesLimit']}"
                 )
             else:
                 notes_limit = "Unlimited"

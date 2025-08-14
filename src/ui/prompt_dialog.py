@@ -41,7 +41,6 @@ from aqt import (
     QWidget,
     mw,
 )
-from PyQt6.QtCore import Qt
 
 from ..app_state import is_app_legacy, is_app_unlocked, is_app_unlocked_or_legacy
 from ..config import config, key_or_config_val

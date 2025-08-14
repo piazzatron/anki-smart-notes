@@ -2,7 +2,6 @@
   "licenser.license": "GPLv3",
   "licenser.useSingleLineStyle": false,
   "licenser.projectName": "Smart Notes",
-  "python.defaultInterpreterPath": "./env/bin/python",
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "charliermarsh.ruff",
   "[python]": {
@@ -10,5 +9,6 @@
     "editor.codeActionsOnSave": {
       "source.organizeImports": "explicit"
     }
-  }
+  },
+  "python-envs.pythonProjects": []
 }

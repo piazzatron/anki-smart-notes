@@ -34,7 +34,7 @@ jsonschema-specifications==2023.12.1
 Markdown==3.6
 MarkupSafe==2.1.5
 multidict==6.0.5
-pyright==1.1.379
+pyright==1.1.403
 ndjson==0.3.1
 openai==1.30.3
 orjson==3.10.3
