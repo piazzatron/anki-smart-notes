@@ -715,6 +715,7 @@ class PromptDialog(QDialog):
             self.state["is_loading_prompt"] = False
 
         if self.state.s["type"] == "chat":
+
             def chat_fn():
                 return self.processor.field_processor.get_chat_response(
                     prompt=prompt,
@@ -728,9 +729,10 @@ class PromptDialog(QDialog):
                     ),
                     should_convert_to_html=False,  # Don't show HTML here bc it's confusing
                 )
-            
+
             run_async_in_background_with_sentry(chat_fn, on_success, on_failure)
         elif self.state.s["type"] == "tts":
+
             def tts_fn():
                 return self.processor.field_processor.get_tts_response(
                     input_text=prompt,
@@ -745,6 +747,7 @@ class PromptDialog(QDialog):
 
             run_async_in_background_with_sentry(tts_fn, on_success, on_failure)
         else:
+
             def img_fn():
                 return self.processor.field_processor.get_image_response(
                     input_text=prompt,

@@ -24,6 +24,7 @@ select = [
 ]
 ignore = [
     "E501",  # line too long (handled by formatter)
+    "E402",  # module level import not at top of file (conflicts with conditional imports)
     "B008",  # do not perform function calls in argument defaults
     "N806",  # variable in function should be lowercase (conflicts with Qt naming)
     "N802",  # function name should be lowercase (conflicts with Qt naming)

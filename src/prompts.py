@@ -214,7 +214,11 @@ def add_or_update_prompts(
 
     # If we're doing custom settings, write out extra config
     if is_custom_model:
-        overrideable_options: OverridableChatOptionsDict | OverridableImageOptionsDict | OverrideableTTSOptionsDict = {  # type: ignore
+        overrideable_options: (
+            OverridableChatOptionsDict
+            | OverridableImageOptionsDict
+            | OverrideableTTSOptionsDict
+        ) = {  # type: ignore
             "chat": chat_options,
             "tts": tts_options,
             "image": image_options,

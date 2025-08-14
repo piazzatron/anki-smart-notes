@@ -103,9 +103,7 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     chat = MockChatClient()
 
     extras = {
-        k: {"automatic": not options[k]["manual"]}
-        for k in prompts_map
-        if k in options
+        k: {"automatic": not options[k]["manual"]} for k in prompts_map if k in options
     }
 
     prompts_map = {
