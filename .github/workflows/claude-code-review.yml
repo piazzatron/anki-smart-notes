@@ -17,22 +17,12 @@ jobs:
     #   github.event.pull_request.user.login == 'external-contributor' ||
     #   github.event.pull_request.user.login == 'new-developer' ||
     #   github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR'
-<<<<<<< HEAD
-
-=======
-
->>>>>>> 4461964 (Update claude PR prompt)
     runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: read
       issues: read
       id-token: write
-<<<<<<< HEAD
-
-=======
-
->>>>>>> 4461964 (Update claude PR prompt)
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
