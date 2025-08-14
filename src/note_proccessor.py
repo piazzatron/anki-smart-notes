@@ -159,10 +159,11 @@ class NoteProcessor:
 
                 # Update the notes in the main thread
                 run_on_main(
-                    lambda: on_update(
+                    lambda updated=updated,
+                    to_process_ids_empty=len(to_process_ids) == 0: on_update(
                         updated,
                         len(total_updated) + len(total_failed),
-                        len(to_process_ids) == 0,
+                        to_process_ids_empty,
                     )
                 )
 
