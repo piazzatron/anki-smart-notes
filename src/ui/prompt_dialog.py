@@ -715,26 +715,24 @@ class PromptDialog(QDialog):
             self.state["is_loading_prompt"] = False
 
         if self.state.s["type"] == "chat":
-            chat_fn = (
-                lambda: (
-                    self.processor.field_processor.get_chat_response(
-                        prompt=prompt,
-                        note=sample_note,
-                        provider=chat_provider,
-                        model=chat_model,
-                        field_lower=self.state.s["selected_note_field"].lower(),
-                        deck_id=self.state.s["selected_deck"],
-                        temperature=key_or_config_val(
-                            self.chat_options.state.s, "chat_temperature"
-                        ),
-                        should_convert_to_html=False,  # Don't show HTML here bc it's confusing
-                    )
+            def chat_fn():
+                return self.processor.field_processor.get_chat_response(
+                    prompt=prompt,
+                    note=sample_note,
+                    provider=chat_provider,
+                    model=chat_model,
+                    field_lower=self.state.s["selected_note_field"].lower(),
+                    deck_id=self.state.s["selected_deck"],
+                    temperature=key_or_config_val(
+                        self.chat_options.state.s, "chat_temperature"
+                    ),
+                    should_convert_to_html=False,  # Don't show HTML here bc it's confusing
                 )
-            )
+            
             run_async_in_background_with_sentry(chat_fn, on_success, on_failure)
         elif self.state.s["type"] == "tts":
-            tts_fn = lambda: (
-                self.processor.field_processor.get_tts_response(
+            def tts_fn():
+                return self.processor.field_processor.get_tts_response(
                     input_text=prompt,
                     note=sample_note,
                     provider=tts_provider,
@@ -744,18 +742,16 @@ class PromptDialog(QDialog):
                         self.tts_options.state.s, "tts_strip_html", True
                     ),
                 )
-            )
 
             run_async_in_background_with_sentry(tts_fn, on_success, on_failure)
         else:
-            img_fn = lambda: (
-                self.processor.field_processor.get_image_response(
+            def img_fn():
+                return self.processor.field_processor.get_image_response(
                     input_text=prompt,
                     note=sample_note,
                     model="flux-dev",
                     provider="replicate",
                 )
-            )
 
             run_async_in_background_with_sentry(img_fn, on_success, on_failure)
 
