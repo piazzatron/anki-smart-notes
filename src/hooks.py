@@ -182,18 +182,26 @@ def add_editor_top_button(
 
 def make_on_batch_success(
     browser: browser.Browser,  # type: ignore
-) -> Callable[[list[Note], list[Note]], None]:
-    def wrapped_on_batch_success(updated: list[Note], errors: list[Note]):
+) -> Callable[[list[Note], list[Note], list[Note]], None]:
+    def wrapped_on_batch_success(
+        updated: list[Note], errors: list[Note], skipped: list[Note]
+    ):
         browser.on_all_or_selected_rows_changed()
+
+        def pluralize(word: str, count: int) -> str:
+            return f"{count} {word}{'s' if count != 1 else ''}"
 
         if not len(updated) and len(errors):
             show_message_box("All notes failed. Try again soon.")
-        elif len(errors):
-            show_message_box(
-                f"Processed {len(updated)} notes successfully. {len(errors)} notes failed."
-            )
+        elif len(errors) or len(skipped):
+            parts = [f"Processed {pluralize('note', len(updated))} successfully"]
+            if len(errors):
+                parts.append(f"{pluralize('note', len(errors))} failed")
+            if len(skipped):
+                parts.append(f"{pluralize('note', len(skipped))} skipped")
+            show_message_box(". ".join(parts) + ".")
         else:
-            show_message_box(f"Processed {len(updated)} notes successfully.")
+            show_message_box(f"Processed {pluralize('note', len(updated))} successfully.")
 
     return wrapped_on_batch_success
 

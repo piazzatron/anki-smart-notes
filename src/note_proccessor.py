@@ -59,7 +59,7 @@ class NoteProcessor:
     def process_cards_with_progress(
         self,
         card_ids: Sequence[CardId],
-        on_success: Callable[[list[Note], list[Note]], None] | None,
+        on_success: Callable[[list[Note], list[Note], list[Note]], None] | None,
         overwrite_fields: bool = False,
     ) -> None:
         """Processes notes in the background with a progress bar, batching into a single undo op"""
@@ -84,14 +84,14 @@ class NoteProcessor:
         if not is_app_unlocked_or_legacy(show_box=False):
             return
 
-        def wrapped_on_success(res: tuple[list[Note], list[Note]]) -> None:
-            updated, failed = res
+        def wrapped_on_success(res: tuple[list[Note], list[Note], list[Note]]) -> None:
+            updated, failed, skipped = res
             if not mw or not mw.col:
                 return
             mw.col.update_notes(updated)
             self._reqlinquish_req_in_process()
             if on_success:
-                on_success(updated, failed)
+                on_success(updated, failed, skipped)
 
         def on_failure(e: Exception) -> None:
             self._reqlinquish_req_in_process()
@@ -113,7 +113,7 @@ class NoteProcessor:
         mw.progress.start(
             label=f"✨Generating... (0/{len(note_ids)})",
             min=0,
-            max=len(note_ids),
+            max=0,
             immediate=True,
         )
 
@@ -127,16 +127,18 @@ class NoteProcessor:
 
             if not finished:
                 mw.progress.update(
-                    label=f"(✨ Generating... ({processed_count}/{len(note_ids)})",
+                    label=f"✨ Generating... ({processed_count}/{len(note_ids)})",
                     value=processed_count,
                     max=len(note_ids),
                 )
             else:
+                logger.info("Finished processing all notes")
                 mw.progress.finish()
 
         async def op():
             total_updated = []
             total_failed = []
+            total_skipped = []
             to_process_ids = note_ids[:]
 
             # Manually track processed count since sometimes we may
@@ -151,18 +153,19 @@ class NoteProcessor:
                     batch, overwrite_fields=overwrite_fields, did_map=did_map
                 )
 
-                processed_count += len(updated) + len(failed)
+                processed_count += len(batch)
 
                 total_updated.extend(updated)
-                total_updated.extend(skipped)
                 total_failed.extend(failed)
+                total_skipped.extend(skipped)
 
                 # Update the notes in the main thread
                 run_on_main(
                     lambda updated=updated,
-                    to_process_ids_empty=len(to_process_ids) == 0: on_update(
+                    to_process_ids_empty=len(to_process_ids) == 0,
+                    processed_count=processed_count: on_update(
                         updated,
-                        len(total_updated) + len(total_failed),
+                        processed_count,
                         to_process_ids_empty,
                     )
                 )
@@ -170,12 +173,7 @@ class NoteProcessor:
                 if not to_process_ids:
                     break
 
-                if (
-                    processed_count >= limit - 5
-                ):  # Make it a little fuzzy in case we've used some reqs already
-                    processed_count = 0
-
-            return total_updated, total_failed
+            return total_updated, total_failed, total_skipped
 
         run_async_in_background_with_sentry(
             op, wrapped_on_success, on_failure, with_progress=True
