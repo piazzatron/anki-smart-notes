@@ -134,14 +134,15 @@ def has_cycle(dag: dict[str, FieldNode]) -> bool:
     """Tests for cycles in a DAG. Returns True if there are cycles, False if there are not."""
     dag = dag.copy()
     for start in dag.values():
-        seen = set()
-        explore = [start]
+        # track both current node and path taken to get there
+        explore = [(start, set())]
         while len(explore):
-            cur = explore.pop()
-            if cur.field in seen:
+            cur, path = explore.pop()
+            if cur.field in path:
                 return True
-            seen.add(cur.field)
-            explore.extend(cur.out_nodes.copy())
+            new_path = path.copy()
+            new_path.add(cur.field)
+            explore.extend((node, new_path) for node in cur.out_nodes)
 
     return False
 
