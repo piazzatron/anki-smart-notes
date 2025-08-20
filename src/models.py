@@ -34,7 +34,7 @@ OpenAIModels = Literal[
     "gpt-4o-mini",
 ]
 DeepseekModels = Literal["deepseek-v3"]
-AnthropicModels = Literal["claude-3-haiku", "claude-3-5-sonnet"]
+AnthropicModels = Literal["claude-3-5-haiku-latest", "claude-sonnet-4-0", "claude-opus-4-1"]
 ChatModels = OpenAIModels | AnthropicModels | DeepseekModels
 
 # Order that the models are displayed in the UI
@@ -47,8 +47,9 @@ openai_chat_models: list[ChatModels] = [
 ]
 
 anthropic_chat_models: list[ChatModels] = [
-    "claude-3-5-sonnet",
-    "claude-3-haiku",
+    "claude-opus-4-1",
+    "claude-sonnet-4-0",
+    "claude-3-5-haiku-latest",
 ]
 
 deepseek_chat_models: list[ChatModels] = ["deepseek-v3"]
