@@ -51,9 +51,9 @@ models_map: dict[str, str] = {
     "gpt-5": "GPT-5 (Reasoning, 5x++ cost)",
     "gpt-5-nano": "GPT-5 Nano (0.2x cost)",
     "gpt-4o-mini": "GPT-4o Mini (0.3x cost)",
-    "claude-opus-4-1": "Claude Opus 4.1 (50x Cost)",
-    "claude-sonnet-4-0": "Claude Sonnet 4.0 (20x Cost)",
-    "claude-3-5-haiku-latest": "Claude 3.5 Haiku (0.75x Cost)",
+    "claude-opus-4-1": "Claude Opus 4.1 (40x Cost)",
+    "claude-sonnet-4-0": "Claude Sonnet 4.0 (3x Cost)",
+    "claude-3-5-haiku-latest": "Claude 3.5 Haiku (2x Cost)",
     "deepseek-v3": "Deepseek v3 (0.7x Cost)",
 }
 
