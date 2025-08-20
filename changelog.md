@@ -1,3 +1,9 @@
+# v2.11.0
+
+- Upgrade Anthropic to Sonnet 4.0, Opus 4.1, and Haiku 3.5 models.
+- Bug fix: fix bug in cycle detection for complex prompts.
+- Additional bug fixes.
+
 # v2.10.0
 
 - Add support for GPT-5 models, deprecate all 4 series models except 4o-mini.
