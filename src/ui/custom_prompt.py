@@ -22,7 +22,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 # existing patterns in the codebase (making heavy use of inheritance, using StateManager in an adhoc-way, etc)
 
 from collections.abc import Callable
-from typing import TypedDict
+from typing import Optional, TypedDict
 
 from anki.decks import DeckId
 from anki.notes import Note
@@ -56,14 +56,14 @@ from .ui_utils import font_small, show_message_box
 
 
 class CustomPrompt(QDialog):
-    _initial_prompt: str | None
+    _initial_prompt: Optional[str]
     _generate_button: QPushButton
     _save_button: QPushButton
     _loading: bool = False
     _prompt_window: QTextEdit
     _note: Note
     _deck_id: DeckId
-    _on_success: Callable[[str | None], None]
+    _on_success: Callable[[Optional[str]], None]
     _field_upper: str
 
     def __init__(
@@ -71,8 +71,8 @@ class CustomPrompt(QDialog):
         note: Note,
         deck_id: DeckId,
         field_upper: str,
-        on_success: Callable[[str | None], None],
-        parent: QWidget | None = None,
+        on_success: Callable[[Optional[str]], None],
+        parent: Optional[QWidget] = None,
     ) -> None:
         super().__init__(parent=parent)
         all_prompts = get_prompts_for_note(
@@ -97,7 +97,7 @@ class CustomPrompt(QDialog):
     def render_custom_model(self) -> QWidget:
         raise Exception("Not implemented")
 
-    def render_to_text(self) -> str | None:
+    def render_to_text(self) -> Optional[str]:
         raise Exception("Not Implemented")
 
     def render_response_box(self) -> QWidget:
@@ -268,7 +268,7 @@ class CustomTextPrompt(CustomPrompt):
     def has_output(self) -> bool:
         return bool(self._response_edit.toPlainText())
 
-    def render_to_text(self) -> str | None:
+    def render_to_text(self) -> Optional[str]:
         return self._response_edit.toPlainText()
 
     def update_ui_states(self) -> None:
@@ -277,7 +277,7 @@ class CustomTextPrompt(CustomPrompt):
 
 class CustomImagePrompt(CustomPrompt):
     response_image: ImageDisplayer
-    raw_image: bytes | None = None
+    raw_image: Optional[bytes] = None
     image_options: ImageOptions
 
     def render_response_box(self) -> QWidget:
@@ -316,7 +316,7 @@ class CustomImagePrompt(CustomPrompt):
     def has_output(self) -> bool:
         return bool(self.raw_image)
 
-    def render_to_text(self) -> str | None:
+    def render_to_text(self) -> Optional[str]:
         if not self.raw_image:
             return None
         file_name = get_media_path(self._note, self._field_upper, "webp")
@@ -334,14 +334,14 @@ class TTSPromptState(TypedDict):
 
 
 class CustomTTSPrompt(CustomPrompt):
-    audio: bytes | None = None
+    audio: Optional[bytes] = None
 
     def __init__(
         self,
         note: Note,
         deck_id: DeckId,
         field_upper: str,
-        on_success: Callable[[str | None], None],
+        on_success: Callable[[Optional[str]], None],
     ) -> None:
         self._note = note
         self._deck_id = deck_id
@@ -377,7 +377,7 @@ class CustomTTSPrompt(CustomPrompt):
                 strip_html=True,
             )
 
-        def on_success(audio: bytes | None):
+        def on_success(audio: Optional[bytes]):
             self._loading = False
             self.audio = audio
 
@@ -404,7 +404,7 @@ class CustomTTSPrompt(CustomPrompt):
     def has_output(self) -> bool:
         return bool(self.audio)
 
-    def render_to_text(self) -> None | str:
+    def render_to_text(self) -> Optional[str]:
         if not self.audio:
             return None
         file_name = get_media_path(self._note, self._field_upper, "mp3")

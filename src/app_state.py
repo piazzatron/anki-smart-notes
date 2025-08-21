@@ -18,7 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 from copy import deepcopy
-from typing import Any, TypedDict
+from typing import Any, Optional, TypedDict
 
 from .config import config
 from .constants import (
@@ -49,7 +49,7 @@ from .ui.ui_utils import show_message_box
 
 class AppState(TypedDict):
     subscription: SubscriptionState
-    plan: PlanInfo | None
+    plan: Optional[PlanInfo]
 
 
 class AppStateManager:
@@ -86,7 +86,7 @@ class AppStateManager:
             config.auth_token = None
             self._state.update({"subscription": "LOADING", "plan": None})
 
-        def on_new_status(status: UserStatus | None) -> None:
+        def on_new_status(status: Optional[UserStatus]) -> None:
             logger.debug(f"Got new subscription status: {status}")
 
             if not status:
@@ -122,7 +122,7 @@ class AppStateManager:
             use_collection=False,
         )
 
-    def _make_subscription_state(self, sub: PlanInfo | None) -> SubscriptionState:
+    def _make_subscription_state(self, sub: Optional[PlanInfo]) -> SubscriptionState:
         if not sub:
             return "NO_SUBSCRIPTION"
 
@@ -177,7 +177,7 @@ class AppStateManager:
         return did_functionality_degrade
 
     def _handle_subscription_did_transition(
-        self, new_sub: SubscriptionState, plan: PlanInfo | None
+        self, new_sub: SubscriptionState, plan: Optional[PlanInfo]
     ) -> None:
         plan_type = "trial" if "FREE" in new_sub else "paid"
         end_type: str
@@ -192,7 +192,7 @@ class AppStateManager:
             logger.error(f"Unexpected subscription state: {new_sub}")
             return
 
-        err: str | None = None
+        err: Optional[str] = None
         is_api_key = has_api_key()
 
         if end_type == "capacity":
@@ -275,21 +275,21 @@ def is_app_unlocked_or_legacy(show_box: bool = False) -> bool:
     return allowed
 
 
-def did_exceed_image_capacity(sub: PlanInfo | None = None) -> bool:
+def did_exceed_image_capacity(sub: Optional[PlanInfo] = None) -> bool:
     sub = sub or app_state.state["plan"]
     if not sub:
         return False
     return sub["imageCreditsUsed"] >= sub["imageCreditsCapacity"]
 
 
-def did_exceed_text_capacity(sub: PlanInfo | None = None) -> bool:
+def did_exceed_text_capacity(sub: Optional[PlanInfo] = None) -> bool:
     sub = sub or app_state.state["plan"]
     if not sub:
         return False
     return sub["textCreditsUsed"] >= sub["textCreditsCapacity"]
 
 
-def did_exceed_voice_capacity(sub: PlanInfo | None = None) -> bool:
+def did_exceed_voice_capacity(sub: Optional[PlanInfo] = None) -> bool:
     sub = sub or app_state.state["plan"]
     if not sub:
         return False

@@ -18,6 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import traceback
+from typing import Optional
 
 from anki.decks import DeckId
 from anki.notes import Note
@@ -34,8 +35,8 @@ def generate_fields_dag(
     note: Note,
     overwrite_fields: bool,
     deck_id: DeckId,
-    target_field: str | None = None,
-    override_prompts_map: PromptMap | None = None,
+    target_field: Optional[str] = None,
+    override_prompts_map: Optional[PromptMap] = None,
 ) -> dict[str, FieldNode]:
     """Generates a directed acyclic graph of prompts for a note, or a subset of that graph if a target_fields list is passed. Returns a mapping of field -> PromptNode"""
     # - Generates all nodes
@@ -152,9 +153,9 @@ def prompt_has_error(
     prompt: str,
     note: Note,
     deck_id: DeckId,
-    target_field: str | None = None,
-    prompts_map: PromptMap | None = None,
-) -> str | None:
+    target_field: Optional[str] = None,
+    prompts_map: Optional[PromptMap] = None,
+) -> Optional[str]:
     """Checks if a prompt has an error. Returns the error message if there is one."""
     note_type = get_note_type(note)
     note_fields = {field.lower() for field in get_fields(note_type)}

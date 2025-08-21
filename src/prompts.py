@@ -21,7 +21,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import re
 from copy import deepcopy
-from typing import Any, cast
+from typing import Any, Optional, Union, cast
 
 from anki.decks import DeckId
 from anki.notes import Note
@@ -53,9 +53,9 @@ def get_prompts_for_note(
     note_type: str,
     deck_id: DeckId,
     to_lower: bool = False,
-    override_prompts_map: PromptMap | None = None,
+    override_prompts_map: Optional[PromptMap] = None,
     fallback_to_global_deck: bool = True,
-) -> dict[str, str] | None:
+) -> Optional[dict[str, str]]:
     all_prompts = get_all_prompts(to_lower, override_prompts_map)
     prompts_for_note_type = all_prompts.get(note_type, {})
     deck_prompts = deepcopy(prompts_for_note_type.get(deck_id, {}))
@@ -75,9 +75,9 @@ def get_extras(
     note_type: str,
     field: str,
     deck_id: DeckId,
-    prompts: PromptMap | None = None,
+    prompts: Optional[PromptMap] = None,
     fallback_to_global_deck: bool = True,
-) -> FieldExtras | None:
+) -> Optional[FieldExtras]:
     # Lowercase the field names
     deck_extras = to_lowercase_dict(
         (prompts or config.prompts_map)["note_types"]  # type: ignore
@@ -99,7 +99,7 @@ def get_extras(
 
 
 def get_all_prompts(
-    to_lower: bool = False, override_prompts_map: PromptMap | None = None
+    to_lower: bool = False, override_prompts_map: Optional[PromptMap] = None
 ) -> dict[str, dict[DeckId, dict[str, str]]]:
     """Gets the prompts map. Maps note_type -> deck -> {field -> prompt}"""
     prompts_map = {
@@ -131,7 +131,7 @@ def get_prompt_fields(prompt: str, lower: bool = True) -> list[str]:
     return [(field.lower() if lower else field) for field in fields]
 
 
-def interpolate_prompt(prompt: str, note: Note) -> str | None:
+def interpolate_prompt(prompt: str, note: Note) -> Optional[str]:
     """Interpolates a prompt. Returns none if all source field are empty, or if some are empty and we're not allowing empty fields."""
     # Bunch of extra logic to make this whole process case insensitive
 
@@ -154,7 +154,7 @@ def interpolate_prompt(prompt: str, note: Note) -> str | None:
     values = [all_note_fields.get(field, "") for field in fields]
 
     if any(values) and (allow_empty or all(values)):
-        for field, value in zip(fields, values, strict=False):
+        for field, value in zip(fields, values):
             prompt = prompt.replace("{{" + field + "}}", value)
         return prompt
 
@@ -211,11 +211,11 @@ def add_or_update_prompts(
 
     # If we're doing custom settings, write out extra config
     if is_custom_model:
-        overrideable_options: (
-            OverridableChatOptionsDict
-            | OverridableImageOptionsDict
-            | OverrideableTTSOptionsDict
-        ) = {  # type: ignore
+        overrideable_options: Union[
+            OverridableChatOptionsDict,
+            OverridableImageOptionsDict,
+            OverrideableTTSOptionsDict,
+        ] = {  # type: ignore
             "chat": chat_options,
             "tts": tts_options,
             "image": image_options,

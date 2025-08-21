@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Literal, TypedDict
+from typing import Literal, Optional, TypedDict, Union
 
 from .api_client import api
 from .config import config
@@ -38,10 +38,10 @@ SubscriptionState = Literal[
 
 
 class PlanInfo(TypedDict):
-    planId: Literal["free"] | str
+    planId: Union[Literal["free"], str]
     planName: str
-    notesUsed: int | None
-    notesLimit: int | None
+    notesUsed: Optional[int]
+    notesLimit: Optional[int]
     daysLeft: int
     textCreditsUsed: int
     textCreditsCapacity: int
@@ -52,8 +52,8 @@ class PlanInfo(TypedDict):
 
 
 class UserStatus(TypedDict):
-    plan: PlanInfo | None
-    error: str | None
+    plan: Optional[PlanInfo]
+    error: Optional[str]
 
 
 class UserInfoProvider:

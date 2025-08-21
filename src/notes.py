@@ -17,6 +17,8 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from typing import Optional
+
 from anki.cards import Card
 from anki.decks import DeckId
 from anki.notes import Note
@@ -70,7 +72,7 @@ def is_card_fully_processed(card: Card) -> bool:
     return True
 
 
-def get_field_from_index(note: Note, index: int) -> str | None:
+def get_field_from_index(note: Note, index: int) -> Optional[str]:
     """Gets the field name from the index of a note."""
     fields = get_fields(get_note_type(note))
     if index < 0 or index >= len(fields):
@@ -79,7 +81,7 @@ def get_field_from_index(note: Note, index: int) -> str | None:
 
 
 # TODO: make this work with get_field_from_index, taking in a field name
-def is_ai_field(current_field_num: int | None, card: Card) -> str | None:
+def is_ai_field(current_field_num: Optional[int], card: Card) -> Optional[str]:
     """Helper to determine if the current field is an AI field. Returns the non-lowercased field name if it is."""
     if not card:
         return None
@@ -129,7 +131,7 @@ def get_chained_ai_fields(note_type: str, deck_id: DeckId) -> set[str]:
     return res
 
 
-def get_random_note(note_type: str, deck_id: DeckId) -> Note | None:
+def get_random_note(note_type: str, deck_id: DeckId) -> Optional[Note]:
     if not mw or not mw.col:
         return None
 
@@ -155,8 +157,8 @@ def get_random_note(note_type: str, deck_id: DeckId) -> Note | None:
 def get_valid_fields_for_prompt(
     selected_note_type: str,
     deck_id: DeckId,
-    selected_note_field: str | None = None,
-    prompts_map: PromptMap | None = None,
+    selected_note_field: Optional[str] = None,
+    prompts_map: Optional[PromptMap] = None,
 ) -> list[str]:
     """Gets all fields excluding the selected one, if one is selected"""
     fields = get_fields(selected_note_type)

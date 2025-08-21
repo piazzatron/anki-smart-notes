@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, Literal, TypedDict
+from typing import Any, Literal, TypedDict, Union
 
 from aqt import (
     QGroupBox,
@@ -47,7 +47,7 @@ from .webview_dialog import WebviewDialog
 
 
 class State(TypedDict):
-    subscription: SubscriptionState | Literal["Loading"]
+    subscription: Union[SubscriptionState, Literal["Loading"]]
 
 
 start_trial_style = """
@@ -127,7 +127,7 @@ class SubscriptionBox(QWidget):
     def __init__(self) -> None:
         super().__init__()
 
-        self.ui_map: dict[SubscriptionState | Literal["Loading"], QWidget] = {
+        self.ui_map: dict[Union[SubscriptionState, Literal["Loading"]], QWidget] = {
             "LOADING": self._render_loading(),
             "UNAUTHENTICATED": self._render_start_trial(),
             "NO_SUBSCRIPTION": self._render_start_trial(),

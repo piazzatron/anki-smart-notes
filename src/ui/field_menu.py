@@ -18,6 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 from collections.abc import Callable
+from typing import Optional
 
 from anki.cards import Card
 from aqt import QAction, QMenu, browser, editor, mw
@@ -112,8 +113,8 @@ class FieldMenu:
 
     # --------------------- callbacks ----------------------------
 
-    def _make_custom_field_success(self) -> Callable[[str | None], None]:
-        def _on_success(res: str | None) -> None:
+    def _make_custom_field_success(self) -> Callable[[Optional[str]], None]:
+        def _on_success(res: Optional[str]) -> None:
             if res is None:
                 return
 

@@ -21,7 +21,7 @@ import json
 import os
 from collections.abc import Mapping
 from copy import deepcopy
-from typing import Any, TypedDict, TypeVar, cast
+from typing import Any, Optional, TypedDict, TypeVar, cast
 
 from aqt import addons, mw
 
@@ -46,19 +46,19 @@ from .utils import USES_BEFORE_RATE_DIALOG, get_file_path
 class Config:
     """Fancy config class that uses the Anki addon manager to store config values."""
 
-    openai_api_key: str | None
+    openai_api_key: Optional[str]
     prompts_map: PromptMap
     generate_at_review: bool
     times_used: int
-    last_seen_version: str | None
+    last_seen_version: Optional[str]
     uuid: str
-    openai_endpoint: str | None
+    openai_endpoint: Optional[str]
     regenerate_notes_when_batching: bool
     allow_empty_fields: bool
     last_message_id: int
     debug: bool
-    auth_token: str | None
-    legacy_support: bool | None
+    auth_token: Optional[str]
+    legacy_support: Optional[bool]
 
     # Chat
     chat_provider: ChatProviders
@@ -126,7 +126,7 @@ class Config:
         for key, value in defaults.items():
             setattr(self, key, value)
 
-    def _defaults(self) -> dict[str, Any] | None:
+    def _defaults(self) -> Optional[dict[str, Any]]:
         if not mw:
             return {}
 
@@ -218,7 +218,7 @@ M = TypeVar("M", bound=Mapping[str, object])
 
 # TODO: this belongs in utils but ciruclar import
 # TODO: make this use the none_defaulting (too much type golf for now tho)
-def key_or_config_val(vals: M | None, k: str) -> T:  # type: ignore
+def key_or_config_val(vals: Optional[M], k: str) -> T:  # type: ignore
     return (
         cast(T, vals[k])
         if (vals and vals.get(k) is not None)

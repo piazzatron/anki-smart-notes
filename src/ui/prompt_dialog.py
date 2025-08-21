@@ -18,7 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 from collections.abc import Callable
-from typing import Any, Literal, TypedDict, cast
+from typing import Any, Literal, Optional, TypedDict, Union, cast
 
 from anki.decks import DeckId
 from anki.notes import Note
@@ -135,9 +135,9 @@ class PromptDialog(QDialog):
         on_accept_callback: Callable[[PromptMap], None],
         field_type: SmartFieldType,
         deck_id: DeckId,
-        card_type: str | None = None,
-        field: str | None = None,
-        prompt: str | None = None,
+        card_type: Optional[str] = None,
+        field: Optional[str] = None,
+        prompt: Optional[str] = None,
     ):
         super().__init__()
 
@@ -568,7 +568,7 @@ class PromptDialog(QDialog):
     def get_tts_prompt(self, source: str) -> str:
         return f"{{{{{source}}}}}"
 
-    def on_target_field_changed(self, field: str | None) -> None:
+    def on_target_field_changed(self, field: Optional[str]) -> None:
         # This shouldn't happen
         if not field:
             return
@@ -668,7 +668,7 @@ class PromptDialog(QDialog):
             else config.tts_model
         ) or config.tts_model
 
-        def on_success(arg: str | bytes | None):
+        def on_success(arg: Union[str, bytes, None]):
             prompt = self.state.s["prompt"]
             if not prompt:
                 return
@@ -772,7 +772,7 @@ class PromptDialog(QDialog):
         self,
         selected_note_type: str,
         deck_id: DeckId,
-        selected_note_field: str | None = None,
+        selected_note_field: Optional[str] = None,
     ) -> list[str]:
         """Gets all fields excluding selected and existing prompts"""
         all_valid_fields = get_valid_fields_for_prompt(
@@ -814,7 +814,7 @@ class PromptDialog(QDialog):
             "No valid source fields remaining",
         )
 
-    def _attempt_to_parse_source_field(self, prompt: str) -> str | None:
+    def _attempt_to_parse_source_field(self, prompt: str) -> Optional[str]:
         fields = get_prompt_fields(prompt, lower=False)
 
         if len(fields) != 1:

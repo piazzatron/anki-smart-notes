@@ -17,6 +17,8 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from typing import Optional, Union
+
 from anki.decks import DeckId
 from anki.notes import Note
 from aqt import mw
@@ -71,7 +73,7 @@ class FieldProcessor:
 
     async def resolve(
         self, node: FieldNode, note: Note, show_error_box: bool = False
-    ) -> str | None:
+    ) -> Optional[str]:
         # Only show error box if we're running on the target node
         input = node.input
         field_type: SmartFieldType = node.field_type
@@ -101,7 +103,7 @@ class FieldProcessor:
             should_strip_html: bool = key_or_config_val(extras, "tts_strip_html")
             tts_provider: TTSProviders = key_or_config_val(extras, "tts_provider")
             tts_model: TTSModels = key_or_config_val(extras, "tts_model")
-            tts_voice: OpenAIVoices | ElevenVoices = key_or_config_val(
+            tts_voice: Union[OpenAIVoices, ElevenVoices] = key_or_config_val(
                 extras, "tts_voice"
             )
 
@@ -180,13 +182,13 @@ class FieldProcessor:
         temperature: float,
         should_convert_to_html: bool,
         show_error_box: bool = True,
-    ) -> str | None:
+    ) -> Optional[str]:
         interpolated_prompt = interpolate_prompt(prompt, note)
 
         if not interpolated_prompt:
             return None
 
-        resp: str | None = None
+        resp: Optional[str] = None
 
         if is_app_unlocked():
             if did_exceed_text_capacity():
@@ -235,7 +237,7 @@ class FieldProcessor:
         voice: str,
         strip_html: bool,
         show_error_box: bool = True,
-    ) -> bytes | None:
+    ) -> Optional[bytes]:
         interpolated_prompt = interpolate_prompt(input_text, note)
 
         if not interpolated_prompt:
@@ -265,7 +267,7 @@ class FieldProcessor:
         model: ImageModels,
         provider: ImageProviders,
         show_error_box: bool = True,
-    ) -> bytes | None:
+    ) -> Optional[bytes]:
         if did_exceed_image_capacity():
             logger.debug("App at image capacity, returning early")
             if show_error_box:

@@ -17,13 +17,15 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from typing import Optional
+
 from aqt import QFont, QFormLayout, QMessageBox, QPushButton, Qt
 
 
 def show_message_box(
     message: str,
-    details: str | None = None,
-    custom_ok: str | None = None,
+    details: Optional[str] = None,
+    custom_ok: Optional[str] = None,
     show_cancel: bool = False,
 ):
     msg = QMessageBox()

@@ -18,7 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import json
-from typing import Literal, TypedDict, cast
+from typing import Literal, Optional, TypedDict, Union, cast
 
 from aqt import (
     QAbstractListModel,
@@ -57,7 +57,7 @@ from .ui_utils import default_form_layout, font_small, show_message_box
 
 ALL: Literal["All"] = "All"
 
-AllTTSProviders = Literal["All"] | TTSProviders
+AllTTSProviders = Union[Literal["All"], TTSProviders]
 
 Gender = Literal["All", "Male", "Female"]
 default_texts: dict[str, str] = {
@@ -262,7 +262,7 @@ class TTSOptions(QWidget):
 
     def __init__(
         self,
-        tts_options: OverrideableTTSOptionsDict | None = None,
+        tts_options: Optional[OverrideableTTSOptionsDict] = None,
         extras_visible: bool = True,
     ):
         super().__init__()
@@ -491,7 +491,7 @@ class TTSOptions(QWidget):
         return filtered
 
     def get_initial_state(
-        self, tts_options: OverrideableTTSOptionsDict | None
+        self, tts_options: Optional[OverrideableTTSOptionsDict]
     ) -> TTSState:
         ret = {
             "providers": providers,

@@ -24,7 +24,7 @@ import os
 import sys
 import traceback
 from collections.abc import Callable, Coroutine
-from typing import Any
+from typing import Any, Optional
 
 import aiohttp
 import sentry_sdk
@@ -54,7 +54,7 @@ class Sentry:
         logger.debug("Initializing sentry...")
         logger.debug(f"release: {release}, uuid: {uuid}, env: {env}")
 
-        def before_send(event: Any, _: dict[str, Any]) -> Any | None:
+        def before_send(event: Any, _: dict[str, Any]) -> Optional[Any]:
             if not is_production():
                 return None
 
@@ -163,7 +163,7 @@ class Sentry:
 
         return wrapped
 
-    def _get_session(self) -> Session | None:
+    def _get_session(self) -> Optional[Session]:
         _, scope = self.hub._stack[-1]
         return scope._session
 
@@ -222,7 +222,7 @@ def pinger(event: str) -> Callable[[], Coroutine[Any, Any, None]]:
     return ping
 
 
-def init_sentry() -> Sentry | None:
+def init_sentry() -> Optional[Sentry]:
     try:
         if os.getenv("IS_TEST"):
             return None
@@ -256,7 +256,7 @@ sentry = init_sentry()
 def run_async_in_background_with_sentry(
     op: Callable[[], Any],
     on_success: Callable[[Any], None],
-    on_failure: Callable[[Exception], None] | None = None,
+    on_failure: Optional[Callable[[Exception], None]] = None,
     with_progress: bool = False,
     use_collection: bool = True,
 ):
