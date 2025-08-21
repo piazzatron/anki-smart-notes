@@ -55,7 +55,7 @@ build () {
 
   # copy them in a loop
   for dep in "${vendored[@]}"; do
-    cp -r "env/lib/python3.11/site-packages/$dep" dist/vendor/
+    cp -r ".venv/lib/python3.11/site-packages/$dep" dist/vendor/
   done
 
   # Voices
