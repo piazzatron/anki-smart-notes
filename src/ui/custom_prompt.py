@@ -269,7 +269,10 @@ class CustomTextPrompt(CustomPrompt):
         return bool(self._response_edit.toPlainText())
 
     def render_to_text(self) -> Optional[str]:
-        return self._response_edit.toHtml()
+        if self._chat_options.state.s["chat_markdown_to_html"]:
+            return self._response_edit.toHtml()
+        else:
+            return self._response_edit.toPlainText()
 
     def update_ui_states(self) -> None:
         self._response_edit.setReadOnly(self._loading)
