@@ -95,9 +95,11 @@ NOTE_TYPE_NAME = "note_type_1"
 
 def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     # Make mocks
-    import anki_smart_notes
-    from anki_smart_notes.src.field_resolver import FieldResolver
-    from anki_smart_notes.src.processor import Processor
+    from src.field_processor import FieldProcessor
+    from src.note_proccessor import NoteProcessor
+    import src.dag
+    import src.app_state
+    import src.prompts
 
     openai = MockOpenAIClient()
     chat = MockChatClient()
@@ -111,26 +113,26 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     }
 
     c = MockConfig(prompts_map=prompts_map, allow_empty_fields=allow_empty_fields)
-    f = FieldResolver(openai_provider=openai, chat_provider=chat, tts_provider=chat)  # type: ignore
-    p = Processor(field_resolver=f, config=c)
+    f = FieldProcessor(openai_provider=openai, chat_provider=chat, tts_provider=chat)  # type: ignore
+    p = NoteProcessor(field_processor=f, config=c)
 
     monkeypatch.setattr(
-        anki_smart_notes.src.dag,
+        src.dag,
         "get_fields",
         lambda _: note.fields(),  # type: ignore
     )
 
     monkeypatch.setattr(
-        anki_smart_notes.src.field_resolver, "is_app_unlocked", lambda: True
+        src.app_state, "is_app_unlocked", lambda: True
     )
     monkeypatch.setattr(
-        anki_smart_notes.src.field_resolver, "has_api_key", lambda: False
+        src.app_state, "has_api_key", lambda: False
     )
 
-    monkeypatch.setattr(anki_smart_notes.src.prompts, "config", c)
-    monkeypatch.setattr(anki_smart_notes.src.dag, "config", c)
+    monkeypatch.setattr(src.prompts, "config", c)
+    monkeypatch.setattr(src.dag, "config", c)
     monkeypatch.setattr(
-        anki_smart_notes.src.dag,
+        src.dag,
         "get_prompts",
         lambda to_lower, override_prompts_map: prompts_map,
     )
@@ -427,7 +429,7 @@ async def test_processor_1(name, note, prompts_map, expected, options, monkeypat
     )
 
     await p._process_note(
-        n, overwrite_fields=overwrite_fields, target_field=target_field
+        n, deck_id=1, overwrite_fields=overwrite_fields, target_field=target_field
     )
 
     for k, v in expected.items():
@@ -455,7 +457,7 @@ async def test_processor_1(name, note, prompts_map, expected, options, monkeypat
     ],
 )
 async def test_cycle(note, prompts_map, expected, monkeypatch):
-    from anki_smart_notes.src.dag import generate_fields_dag, has_cycle
+    from src.dag import generate_fields_dag, has_cycle
 
     n = MockNote(note_type=NOTE_TYPE_NAME, data=note)
     dag = generate_fields_dag(n, overwrite_fields=True)
@@ -489,5 +491,5 @@ async def test_returns_if_updated(note, prompts_map, expected, monkeypatch):
         allow_empty_fields=False,
     )
 
-    res = await p._process_note(n, overwrite_fields=False, target_field=None)  # type: ignore
+    res = await p._process_note(n, deck_id=1, overwrite_fields=False, target_field=None)  # type: ignore
     assert res == expected
