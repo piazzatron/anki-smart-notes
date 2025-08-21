@@ -37,9 +37,18 @@ def run_async_in_background(
     if not mw:
         raise Exception("Error: mw not found in run_async_in_background")
 
+    def run_op(_):
+        """
+        Wrapper to avoid capturing FrameLocalsProxy objects in closures.
+        Sentry's error tracking can create frame proxy objects that can't be pickled,
+        causing "Cannot pickle 'FrameLocalsProxy' object" errors when QueryOp
+        tries to serialize the operation for background execution.
+        """
+        return asyncio.run(op())
+
     query_op = QueryOp(
         parent=mw,
-        op=lambda _: asyncio.run(op()),
+        op=run_op,
         success=on_success,
     )
 
