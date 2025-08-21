@@ -256,7 +256,7 @@ class CustomTextPrompt(CustomPrompt):
                 temperature=self._chat_options.state.s["chat_temperature"],
                 model=self._chat_options.state.s["chat_model"],
                 provider=self._chat_options.state.s["chat_provider"],
-                should_convert_to_html=True,
+                should_convert_to_html=self._chat_options.state.s["chat_markdown_to_html"],
             )
 
         run_async_in_background_with_sentry(generate_text, on_success, on_error)
@@ -269,7 +269,10 @@ class CustomTextPrompt(CustomPrompt):
         return bool(self._response_edit.toPlainText())
 
     def render_to_text(self) -> Optional[str]:
-        return self._response_edit.toPlainText()
+        if self._chat_options.state.s["chat_markdown_to_html"]:
+            return self._response_edit.toHtml()
+        else:
+            return self._response_edit.toPlainText()
 
     def update_ui_states(self) -> None:
         self._response_edit.setReadOnly(self._loading)
