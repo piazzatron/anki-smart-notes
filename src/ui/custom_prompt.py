@@ -256,7 +256,9 @@ class CustomTextPrompt(CustomPrompt):
                 temperature=self._chat_options.state.s["chat_temperature"],
                 model=self._chat_options.state.s["chat_model"],
                 provider=self._chat_options.state.s["chat_provider"],
-                should_convert_to_html=self._chat_options.state.s["chat_markdown_to_html"],
+                should_convert_to_html=self._chat_options.state.s[
+                    "chat_markdown_to_html"
+                ],
             )
 
         run_async_in_background_with_sentry(generate_text, on_success, on_error)
