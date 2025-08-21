@@ -24,4 +24,4 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run code quality checks
-      run: ./scripts/build.sh fix
+      run: ./scripts/build.sh check
