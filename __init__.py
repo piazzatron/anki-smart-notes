@@ -27,7 +27,7 @@ def update_path() -> None:
     # Local and prod builds have different package directories
     # Can't use `is_production` b/c utils requires dotenv to load, and this has to run before we import an deps
     relative_packages_dir = (
-        "vendor" if environment == "PROD" else "env/lib/python3.11/site-packages"
+        "vendor" if environment == "PROD" else ".venv/lib/python3.11/site-packages"
     )
 
     packages_dir = os.path.join(
