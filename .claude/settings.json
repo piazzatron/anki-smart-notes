@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bun run:*)",
+      "Bash(cat:*)",
+      "Bash(bun:*)",
+      "Bash(mkdir:*)",
+      "Bash(gh:*)",
+      "Bash(rm:*)",
+      "WebFetch(domain:*)",
+      "Bash(./scripts/build.sh:*)",
+      "Bash(pip install:*)",
+      "Bash(python:*)",
+      "Bash(touch:*)",
+      "Bash(source:*)",
+      "Bash(env/bin/python3:*)",
+      "Bash(env/bin/pip install:*)",
+      "Bash(git:*)",
+      "Bash(echo $?)",
+      "Bash(false)",
+      "Bash(echo:*)",
+      "Bash(chmod:*)"
+    ],
+    "deny": []
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/format-hook.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

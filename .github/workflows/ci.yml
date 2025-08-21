@@ -16,7 +16,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.9'
+        python-version: '3.11'
 
     - name: Install dependencies
       run: |
@@ -24,4 +24,4 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run code quality checks
-      run: ./scripts/build.sh fix
+      run: ./scripts/build.sh check

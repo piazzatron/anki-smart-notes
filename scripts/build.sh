@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Copyright (C) 2024 Michael Piazza
 #
@@ -139,7 +140,7 @@ typecheck () {
 
 check () {
   echo "Running all checks..."
-  python3 -m ruff format . && python3 -m ruff check . && python3 -m pyright .
+  python3 -m ruff format . --check && python3 -m ruff check . && python3 -m pyright .
 }
 
 fix () {
@@ -199,6 +200,10 @@ elif [ "$1" == "fix" ]; then
 else
   echo "Invalid argument: $1"
   echo "Available commands: build, clean, win, test-dev, test-build, sentry-release, version, format, lint, typecheck, check, fix"
+  exit 1
 fi
 
-echo "Done"
+# Check if the last command succeeded
+if [ $? -eq 0 ]; then
+  echo "Done"
+fi
