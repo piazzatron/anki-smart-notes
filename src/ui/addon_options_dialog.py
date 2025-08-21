@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, TypedDict
+from typing import Any, Optional, TypedDict
 from urllib.parse import urlparse
 
 from aqt import (
@@ -71,15 +71,15 @@ TTS_PROMPT_STUB_VALUE = "🔈"
 
 class State(TypedDict):
     prompts_map: PromptMap
-    selected_row: int | None
+    selected_row: Optional[int]
     generate_at_review: bool
     regenerate_notes_when_batching: bool
-    openai_endpoint: str | None
+    openai_endpoint: Optional[str]
     allow_empty_fields: bool
     debug: bool
 
     # Legacy OpenAI
-    openai_api_key: str | None
+    openai_api_key: Optional[str]
     legacy_openai_model: str
     legacy_openai_models: list[str]
 
@@ -516,7 +516,7 @@ class AddonOptionsDialog(QDialog):
 
         return table
 
-    def on_row_selected(self, current: QTableWidgetItem | None) -> None:
+    def on_row_selected(self, current: Optional[QTableWidgetItem]) -> None:
         if current:
             self.state.update({"selected_row": current.row()})
 

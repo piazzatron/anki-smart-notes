@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import TypedDict
+from typing import Optional, TypedDict
 
 from aqt import QGroupBox, QLabel, QSpacerItem, QWidget
 
@@ -67,7 +67,7 @@ class ChatOptions(QWidget):
 
     def __init__(
         self,
-        chat_options: OverridableChatOptionsDict | None = None,
+        chat_options: Optional[OverridableChatOptionsDict] = None,
         show_text_processing: bool = True,
     ):
         super().__init__()

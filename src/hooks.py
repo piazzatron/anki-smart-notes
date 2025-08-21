@@ -24,7 +24,7 @@ Setup the hooks for the Anki plugin
 
 import logging
 from collections.abc import Callable, Sequence
-from typing import Any
+from typing import Any, Optional
 
 from anki.cards import Card
 from anki.notes import Note
@@ -92,7 +92,7 @@ def add_editor_top_button(
 
         # New notes don't have cards yet, fetch into the deck_chooser to get the deckId
         if card is None:
-            deck_id: int | None = None
+            deck_id: Optional[int] = None
             parent = editor.parentWindow
             # Parent should always be AddCards if there's no card
             if isinstance(parent, AddCards):
@@ -201,7 +201,9 @@ def make_on_batch_success(
                 parts.append(f"{pluralize('note', len(skipped))} skipped")
             show_message_box(". ".join(parts) + ".")
         else:
-            show_message_box(f"Processed {pluralize('note', len(updated))} successfully.")
+            show_message_box(
+                f"Processed {pluralize('note', len(updated))} successfully."
+            )
 
     return wrapped_on_batch_success
 

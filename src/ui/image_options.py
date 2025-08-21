@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import TypedDict
+from typing import Optional, TypedDict
 
 from aqt import QGroupBox, QVBoxLayout, QWidget
 
@@ -36,7 +36,7 @@ class State(TypedDict):
 
 class ImageOptions(QWidget):
     def __init__(
-        self, image_options: OverridableImageOptionsDict | None = None
+        self, image_options: Optional[OverridableImageOptionsDict] = None
     ) -> None:
         super().__init__()
 

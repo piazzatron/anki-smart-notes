@@ -20,6 +20,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 import asyncio
 import traceback
 from collections.abc import Callable, Sequence
+from typing import Optional
 
 import aiohttp
 from anki.cards import Card, CardId
@@ -59,7 +60,7 @@ class NoteProcessor:
     def process_cards_with_progress(
         self,
         card_ids: Sequence[CardId],
-        on_success: Callable[[list[Note], list[Note], list[Note]], None] | None,
+        on_success: Optional[Callable[[list[Note], list[Note], list[Note]], None]],
         overwrite_fields: bool = False,
     ) -> None:
         """Processes notes in the background with a progress bar, batching into a single undo op"""
@@ -245,9 +246,9 @@ class NoteProcessor:
         show_progress: bool,
         overwrite_fields: bool = False,
         on_success: Callable[[bool], None] = lambda _: None,
-        on_failure: Callable[[Exception], None] | None = None,
-        target_field: str | None = None,
-        on_field_update: Callable[[], None] | None = None,
+        on_failure: Optional[Callable[[Exception], None]] = None,
+        target_field: Optional[str] = None,
+        on_field_update: Optional[Callable[[], None]] = None,
     ):
         """Process a single note, filling in fields with prompts from the user"""
         if not self._assert_preconditions():
@@ -289,8 +290,8 @@ class NoteProcessor:
         note: Note,
         deck_id: DeckId,
         overwrite_fields: bool = False,
-        target_field: str | None = None,
-        on_field_update: Callable[[], None] | None = None,
+        target_field: Optional[str] = None,
+        on_field_update: Optional[Callable[[], None]] = None,
         show_progress: bool = False,
     ) -> bool:
         """Process a single note, returns whether any fields were updated. Optionally can target specific fields. Caller responsible for handling any exceptions."""
@@ -341,7 +342,7 @@ class NoteProcessor:
 
                 responses = await asyncio.gather(*batch_tasks.values())
 
-                for field, response in zip(batch_tasks.keys(), responses, strict=False):
+                for field, response in zip(batch_tasks.keys(), responses):
                     node = dag[field]
                     if response:
                         logger.debug(
@@ -440,7 +441,7 @@ class NoteProcessor:
 
     async def _process_node(
         self, node: FieldNode, note: Note, show_error_message_box: bool
-    ) -> str | None:
+    ) -> Optional[str]:
         if node.abort:
             logger.debug(f"Skipping field {node.field}")
             return None

@@ -18,7 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import time
-from typing import Any
+from typing import Any, Optional
 from urllib.parse import urlencode
 
 from aqt import (
@@ -70,7 +70,7 @@ class WebviewDialog(QDialog):
         self,
         parent: QWidget,
         path: str = "",
-        query_params: dict[str, str] | None = None,
+        query_params: Optional[dict[str, str]] = None,
     ) -> None:
         if query_params is None:
             query_params = {}

@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Literal, TypedDict
+from typing import Literal, Optional, TypedDict, Union
 
 # Providers
 
@@ -34,8 +34,10 @@ OpenAIModels = Literal[
     "gpt-4o-mini",
 ]
 DeepseekModels = Literal["deepseek-v3"]
-AnthropicModels = Literal["claude-3-5-haiku-latest", "claude-sonnet-4-0", "claude-opus-4-1"]
-ChatModels = OpenAIModels | AnthropicModels | DeepseekModels
+AnthropicModels = Literal[
+    "claude-3-5-haiku-latest", "claude-sonnet-4-0", "claude-opus-4-1"
+]
+ChatModels = Union[OpenAIModels, AnthropicModels, DeepseekModels]
 
 # Order that the models are displayed in the UI
 openai_chat_models: list[ChatModels] = [
@@ -84,7 +86,7 @@ legacy_openai_chat_models: list[str] = [
 OpenAITTSModels = Literal["tts-1"]
 ElevenTTSModels = Literal["eleven_multilingual_v2"]
 GoogleModels = Literal["standard", "wavenet", "neural"]
-TTSModels = OpenAITTSModels | ElevenTTSModels | GoogleModels
+TTSModels = Union[OpenAITTSModels, ElevenTTSModels, GoogleModels]
 
 # TTS Voices
 
@@ -115,20 +117,20 @@ class FieldExtras(TypedDict):
     use_custom_model: bool
 
     # Chat
-    chat_model: ChatModels | None
-    chat_provider: ChatProviders | None
-    chat_temperature: int | None
-    chat_markdown_to_html: bool | None
+    chat_model: Optional[ChatModels]
+    chat_provider: Optional[ChatProviders]
+    chat_temperature: Optional[int]
+    chat_markdown_to_html: Optional[bool]
 
     # TTS
-    tts_provider: TTSProviders | None
-    tts_model: TTSModels | None
-    tts_voice: str | None
-    tts_strip_html: bool | None
+    tts_provider: Optional[TTSProviders]
+    tts_model: Optional[TTSModels]
+    tts_voice: Optional[str]
+    tts_strip_html: Optional[bool]
 
     # Images
-    image_provider: ImageProviders | None
-    image_model: ImageModels | None
+    image_provider: Optional[ImageProviders]
+    image_model: Optional[ImageModels]
 
 
 # Any non-mandatory fields should default to none, and will be displayed from global config instead
@@ -163,12 +165,12 @@ class PromptMap(TypedDict):
 
 # Overridable Options
 
-OverridableChatOptions = (
-    Literal["chat_provider"]
-    | Literal["chat_model"]
-    | Literal["chat_temperature"]
-    | Literal["chat_markdown_to_html"]
-)
+OverridableChatOptions = Union[
+    Literal["chat_provider"],
+    Literal["chat_model"],
+    Literal["chat_temperature"],
+    Literal["chat_markdown_to_html"],
+]
 
 overridable_chat_options: list[OverridableChatOptions] = [
     "chat_provider",
@@ -179,18 +181,18 @@ overridable_chat_options: list[OverridableChatOptions] = [
 
 
 class OverridableChatOptionsDict(TypedDict):
-    chat_provider: ChatProviders | None
-    chat_model: ChatModels | None
-    chat_temperature: int | None
-    chat_markdown_to_html: bool | None
+    chat_provider: Optional[ChatProviders]
+    chat_model: Optional[ChatModels]
+    chat_temperature: Optional[int]
+    chat_markdown_to_html: Optional[bool]
 
 
-OverridableTTSOptions = (
-    Literal["tts_model"]
-    | Literal["tts_provider"]
-    | Literal["tts_voice"]
-    | Literal["tts_strip_html"]
-)
+OverridableTTSOptions = Union[
+    Literal["tts_model"],
+    Literal["tts_provider"],
+    Literal["tts_voice"],
+    Literal["tts_strip_html"],
+]
 
 overridable_tts_options: list[OverridableTTSOptions] = [
     "tts_model",
@@ -201,13 +203,13 @@ overridable_tts_options: list[OverridableTTSOptions] = [
 
 
 class OverrideableTTSOptionsDict(TypedDict):
-    tts_model: TTSModels | None
-    tts_provider: TTSProviders | None
-    tts_voice: str | None
-    tts_strip_html: bool | None
+    tts_model: Optional[TTSModels]
+    tts_provider: Optional[TTSProviders]
+    tts_voice: Optional[str]
+    tts_strip_html: Optional[bool]
 
 
-OverridableImageOptions = Literal["image_provider"] | Literal["image_model"]
+OverridableImageOptions = Union[Literal["image_provider"], Literal["image_model"]]
 overridable_image_options: list[OverridableImageOptions] = [
     "image_model",
     "image_provider",
@@ -215,5 +217,5 @@ overridable_image_options: list[OverridableImageOptions] = [
 
 
 class OverridableImageOptionsDict(TypedDict):
-    image_model: ImageModels | None
-    image_provider: ImageProviders | None
+    image_model: Optional[ImageModels]
+    image_provider: Optional[ImageProviders]

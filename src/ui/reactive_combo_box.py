@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, Generic, TypeVar
+from typing import Any, Generic, Optional, TypeVar
 
 from aqt import QComboBox
 
@@ -36,7 +36,7 @@ class ReactiveComboBox(ReactiveWidget[T], QComboBox, Generic[T]):
         state: StateManager[T],
         fields_key: str,
         selected_key: str,
-        render_map: dict[str, str] | None = None,
+        render_map: Optional[dict[str, str]] = None,
         # Internally can't use int bc huge ints will cause overflow (thx insane anki deck ids), but
         # pretend to outside consumers
         int_keys: bool = False,

@@ -18,7 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import asyncio
-from typing import Any, Literal
+from typing import Any, Literal, Optional
 
 import aiohttp
 from aiohttp import ClientResponse
@@ -32,10 +32,10 @@ class APIClient:
     async def get_api_response(
         self,
         path: str,
-        args: dict[str, Any] | None = None,
-        timeout_sec: int | None = None,
+        args: Optional[dict[str, Any]] = None,
+        timeout_sec: Optional[int] = None,
         retry_count: int = 0,
-        note_id: int | None = None,
+        note_id: Optional[int] = None,
         method: Literal["GET", "POST"] = "POST",
     ) -> ClientResponse:
         if args is None:

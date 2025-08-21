@@ -17,6 +17,8 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from typing import Optional
+
 from aqt import QDialog, QDialogButtonBox, QFont, QLabel, QVBoxLayout, mw
 
 from ..config import config
@@ -115,9 +117,9 @@ def perform_update_check() -> None:
 class ChangeLogDialog(QDialog):
     """Fancy version dialog that shows the changelog since the last version."""
 
-    prior_version: str | None
+    prior_version: Optional[str]
 
-    def __init__(self, prior_version: str | None) -> None:
+    def __init__(self, prior_version: Optional[str]) -> None:
         super().__init__()
         self.prior_version = prior_version
         self.setup_ui()
