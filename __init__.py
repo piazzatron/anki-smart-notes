@@ -21,6 +21,7 @@ import os
 
 # Only run any code if we're not in test mode
 if not os.getenv("IS_TEST"):
+
     def update_path() -> None:
         import os
         import sys
@@ -39,12 +40,12 @@ if not os.getenv("IS_TEST"):
 
         sys.path.append(packages_dir)
 
-
     update_path()
 
     from dotenv import load_dotenv
-    from .src.utils import get_file_path
+
     from .src.logger import logger
+    from .src.utils import get_file_path
 
     load_dotenv(dotenv_path=get_file_path(".env"))
 

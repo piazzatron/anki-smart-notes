@@ -2,8 +2,10 @@
 
 # Fix Anki circular import BEFORE any other imports
 import os
+
 os.environ["IS_TEST"] = "True"
 import anki.collection
+
 _ = anki.collection.Collection  # Force load
 
 """
@@ -98,16 +100,16 @@ NOTE_TYPE_NAME = "note_type_1"
 
 def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     # Make mocks
-    from src.field_processor import FieldProcessor
-    from src.note_proccessor import NoteProcessor
-    import src.dag
     import src.app_state
+    import src.dag
     import src.prompts
     import src.utils
+    from src.field_processor import FieldProcessor
+    from src.note_proccessor import NoteProcessor
 
     # Mock mw to be None in tests
     monkeypatch.setattr("aqt.mw", None)
-    
+
     openai = MockOpenAIClient()
     chat = MockChatClient()
 
@@ -120,7 +122,12 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     }
 
     c = MockConfig(prompts_map=prompts_map, allow_empty_fields=allow_empty_fields)
-    f = FieldProcessor(openai_provider=openai, chat_provider=chat, tts_provider=chat, image_provider=chat)  # type: ignore
+    f = FieldProcessor(
+        openai_provider=openai,
+        chat_provider=chat,
+        tts_provider=chat,
+        image_provider=chat,
+    )  # type: ignore
     p = NoteProcessor(field_processor=f, config=c)
 
     monkeypatch.setattr(
@@ -129,23 +136,25 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
         lambda _: note.fields(),  # type: ignore
     )
 
-    monkeypatch.setattr(
-        src.app_state, "is_app_unlocked", lambda: True
-    )
-    monkeypatch.setattr(
-        src.app_state, "has_api_key", lambda: False
-    )
+    monkeypatch.setattr(src.app_state, "is_app_unlocked", lambda: True)
+    monkeypatch.setattr(src.app_state, "has_api_key", lambda: False)
 
     monkeypatch.setattr(src.prompts, "config", c)
     monkeypatch.setattr(
         src.prompts,
         "get_prompts_for_note",
-        lambda note_type, deck_id, override_prompts_map=None: prompts_map["note_types"][note_type]["1"]["fields"],
+        lambda note_type, deck_id, override_prompts_map=None: prompts_map["note_types"][
+            note_type
+        ]["1"]["fields"],
     )
     monkeypatch.setattr(
         src.prompts,
         "get_extras",
-        lambda note_type, field, deck_id, prompts=None, fallback_to_global_deck=True: extras.get(field, {"automatic": True}),
+        lambda note_type,
+        field,
+        deck_id,
+        prompts=None,
+        fallback_to_global_deck=True: extras.get(field, {"automatic": True}),
     )
 
     return p
