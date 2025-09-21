@@ -19,9 +19,8 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
 
-# Only run any code if we're not in test mode
-if not os.getenv("IS_TEST"):
 
+def init_addon():
     def update_path() -> None:
         import os
         import sys
@@ -67,3 +66,9 @@ if not os.getenv("IS_TEST"):
     from .src.main import main
 
     main()
+
+    # Exit early if we're in test mode
+
+
+if not os.getenv("IS_TEST"):
+    init_addon()
