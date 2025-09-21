@@ -109,11 +109,11 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     }
 
     prompts_map = {
-        "note_types": {NOTE_TYPE_NAME: {"fields": prompts_map, "extras": extras}}
+        "note_types": {NOTE_TYPE_NAME: {"1": {"fields": prompts_map, "extras": extras}}}
     }
 
     c = MockConfig(prompts_map=prompts_map, allow_empty_fields=allow_empty_fields)
-    f = FieldProcessor(openai_provider=openai, chat_provider=chat, tts_provider=chat)  # type: ignore
+    f = FieldProcessor(openai_provider=openai, chat_provider=chat, tts_provider=chat, image_provider=chat)  # type: ignore
     p = NoteProcessor(field_processor=f, config=c)
 
     monkeypatch.setattr(
@@ -130,11 +130,15 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     )
 
     monkeypatch.setattr(src.prompts, "config", c)
-    monkeypatch.setattr(src.dag, "config", c)
     monkeypatch.setattr(
-        src.dag,
-        "get_prompts",
-        lambda to_lower, override_prompts_map: prompts_map,
+        src.prompts,
+        "get_prompts_for_note",
+        lambda note_type, deck_id, override_prompts_map=None: prompts_map["note_types"][note_type]["1"]["fields"],
+    )
+    monkeypatch.setattr(
+        src.prompts,
+        "get_extras",
+        lambda note_type, field, deck_id, prompts=None, fallback_to_global_deck=True: extras.get(field, {"automatic": True}),
     )
 
     return p
