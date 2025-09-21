@@ -212,11 +212,42 @@ def get_eleven_voices() -> list[TTSMeta]:
     return voices
 
 
+class AzureVoice(TypedDict):
+    name: str
+    displayName: str
+    locale: str
+    language: str
+    gender: Literal["Male", "Female"]
+    voiceType: Literal["Neural", "Standard"]
+    styleList: list[str]
+    sampleRateHertz: str
+
+
+def get_azure_voices() -> list[TTSMeta]:
+    s = load_file("azure_voices.json", test_override="[]")
+    azure_voices: list[AzureVoice] = json.loads(s)
+    voices: list[TTSMeta] = []
+    tiers = {"Standard": "standard", "Neural": "best"}
+    for voice in azure_voices:
+        voices.append(
+            {
+                "tts_provider": "azure",
+                "language": voice["language"],
+                "gender": voice["gender"],
+                "voice": voice["name"],
+                "model": voice["voiceType"].lower(),
+                "friendly_voice": f"{voice['language']} - {voice['gender']} - {voice['displayName']}",
+                "price_tier": tiers[voice["voiceType"]],  # type: ignore
+            }
+        )
+    return voices
+
+
 # Combine all voices
-voices = get_google_voices() + openai_voices + get_eleven_voices()
+voices = get_google_voices() + openai_voices + get_eleven_voices() + get_azure_voices()
 
 languages: list[str] = [ALL] + sorted({voice["language"] for voice in voices} - {ALL})
-providers: list[AllTTSProviders] = [ALL, "google", "openai", "elevenLabs"]
+providers: list[AllTTSProviders] = [ALL, "google", "openai", "elevenLabs", "azure"]
 
 
 def format_voice(voice: TTSMeta) -> str:
