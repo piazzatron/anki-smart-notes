@@ -8,10 +8,14 @@
 - Follow existing practices and conventions in the codebase.
 - Use modern Python. Make sure your code is fully typed.
 - Always run format, lint, typecheck, and tests as the last thing you do. This is super important.
+- Always put imports at the top of files, never inside functions or methods 
+- Don't prefix top level defs with an `_` ever. Save those for private methods on classes.
+
+# Important Commands
 - Use `./scripts/build.sh check` to run all code quality checks (format, lint, typecheck)
 - Use `./scripts/build.sh typecheck` to run only type checking
 - Use `./scripts/build.sh fix` to automatically fix formatting and linting issues
-- Always put imports at the top of files, never inside functions or methods 
+- Use `python -m pytest` to run tests.
 
 # Testing
 - Always check for existing test patterns and follow them consistently.

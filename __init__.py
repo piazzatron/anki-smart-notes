@@ -17,58 +17,58 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-
-def update_path() -> None:
-    import os
-    import sys
-
-    from .env import environment
-
-    # Local and prod builds have different package directories
-    # Can't use `is_production` b/c utils requires dotenv to load, and this has to run before we import an deps
-    relative_packages_dir = (
-        "vendor" if environment == "PROD" else ".venv/lib/python3.11/site-packages"
-    )
-
-    packages_dir = os.path.join(
-        os.path.dirname(os.path.realpath(__file__)), relative_packages_dir
-    )
-
-    sys.path.append(packages_dir)
-
-
-update_path()
-
-
 import os
 
-from dotenv import load_dotenv
 
-from .src.utils import get_file_path
+def init_addon():
+    def update_path() -> None:
+        import os
+        import sys
 
-if not os.getenv("IS_TEST"):
+        from .src.env import environment
+
+        # Local and prod builds have different package directories
+        # Can't use `is_production` b/c utils requires dotenv to load, and this has to run before we import an deps
+        relative_packages_dir = (
+            "vendor" if environment == "PROD" else ".venv/lib/python3.11/site-packages"
+        )
+
+        packages_dir = os.path.join(
+            os.path.dirname(os.path.realpath(__file__)), relative_packages_dir
+        )
+
+        sys.path.append(packages_dir)
+
+    update_path()
+
+    from dotenv import load_dotenv
+
+    from .src.logger import logger
+    from .src.utils import get_file_path
+
     load_dotenv(dotenv_path=get_file_path(".env"))
 
+    def setup_platform_specific_functionality() -> None:
+        import asyncio
+        import platform
 
-from .src.logger import logger
+        # https://stackoverflow.com/questions/45600579/asyncio-event-loop-is-closed-when-getting-loop
+        # https://github.com/piazzatron/anki-smart-notes/issues/5
+        if platform.system() == "Windows":
+            logger.debug(
+                "Running in windows environment, setting event loop to selector policy"
+            )
+            asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())  # type: ignore
+
+    setup_platform_specific_functionality()
+
+    # Import this after setting the correct path
+    from .src.main import main
+
+    main()
+
+    # Exit early if we're in test mode
 
 
-def setup_platform_specific_functionality() -> None:
-    import asyncio
-    import platform
-
-    # https://stackoverflow.com/questions/45600579/asyncio-event-loop-is-closed-when-getting-loop
-    # https://github.com/piazzatron/anki-smart-notes/issues/5
-    if platform.system() == "Windows":
-        logger.debug(
-            "Running in windows environment, setting event loop to selector policy"
-        )
-        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())  # type: ignore
-
-
-setup_platform_specific_functionality()
-
-# Import this after setting the correct path
-from .src.main import main
-
-main()
+if not os.getenv("IS_TEST"):
+    init_addon()

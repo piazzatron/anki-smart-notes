@@ -19,13 +19,10 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import os
 from typing import Any
 
 import pytest
 from attr import dataclass
-
-os.environ["IS_TEST"] = "True"
 
 
 @dataclass
@@ -64,7 +61,9 @@ class MockConfig:
     tts_provider = "openai"
     tts_voice = "alloy"
     tts_model = "tts-1"
-
+    openai_api_key = ""
+    auth_token: str = ""
+    uuid: str = "test-uuid-12345"
     debug: bool = True
 
 
@@ -90,52 +89,126 @@ class MockChatClient:
         return p(prompt)
 
 
+class MockAppState:
+    """Mock app state that simulates an unlocked app with unlimited capacity"""
+
+    state = {
+        "subscription": "PAID_PLAN_ACTIVE",  # Unlocked state
+        "plan": {
+            "planId": "test_plan",
+            "planName": "Test Plan",
+            "notesUsed": 0,
+            "notesLimit": 1000,
+            "daysLeft": 30,
+            "textCreditsUsed": 0,
+            "textCreditsCapacity": 1000,
+            "voiceCreditsUsed": 0,
+            "voiceCreditsCapacity": 1000,
+            "imageCreditsUsed": 0,
+            "imageCreditsCapacity": 1000,
+        },
+    }
+
+
 NOTE_TYPE_NAME = "note_type_1"
 
 
 def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
-    # Make mocks
-    import anki_smart_notes
-    from anki_smart_notes.src.field_resolver import FieldResolver
-    from anki_smart_notes.src.processor import Processor
+    import src.app_state
+    import src.dag
+    import src.prompts
+    from src.field_processor import FieldProcessor
+    from src.note_proccessor import NoteProcessor
 
     openai = MockOpenAIClient()
     chat = MockChatClient()
 
-    extras = {
-        k: {"automatic": not options[k]["manual"]} for k in prompts_map if k in options
-    }
+    # Create extras for all fields with prompts, with defaults for fields not in options
+    extras = {}
+    for field in prompts_map:
+        if field in options:
+            extras[field] = {
+                "automatic": not options[field]["manual"],
+                "type": "chat",
+                "use_custom_model": False,
+                # Add the config values that key_or_config_val looks for
+                "chat_model": "gpt-4o-mini",
+                "chat_provider": "openai",
+                "chat_temperature": 0,
+                "chat_markdown_to_html": False,
+            }
+        else:
+            extras[field] = {
+                "automatic": True,
+                "type": "chat",
+                "use_custom_model": False,
+                # Add the config values that key_or_config_val looks for
+                "chat_model": "gpt-4o-mini",
+                "chat_provider": "openai",
+                "chat_temperature": 0,
+                "chat_markdown_to_html": False,
+            }  # Default extras
 
     prompts_map = {
-        "note_types": {NOTE_TYPE_NAME: {"fields": prompts_map, "extras": extras}}
+        "note_types": {NOTE_TYPE_NAME: {"1": {"fields": prompts_map, "extras": extras}}}
     }
 
     c = MockConfig(prompts_map=prompts_map, allow_empty_fields=allow_empty_fields)
-    f = FieldResolver(openai_provider=openai, chat_provider=chat, tts_provider=chat)  # type: ignore
-    p = Processor(field_resolver=f, config=c)
+    f = FieldProcessor(
+        openai_provider=openai,
+        chat_provider=chat,
+        tts_provider=chat,
+        image_provider=chat,
+    )  # type: ignore
+    p = NoteProcessor(field_processor=f, config=c)
 
     monkeypatch.setattr(
-        anki_smart_notes.src.dag,
+        src.dag,
         "get_fields",
         lambda _: note.fields(),  # type: ignore
     )
 
-    monkeypatch.setattr(
-        anki_smart_notes.src.field_resolver, "is_app_unlocked", lambda: True
-    )
-    monkeypatch.setattr(
-        anki_smart_notes.src.field_resolver, "has_api_key", lambda: False
-    )
+    # Replace config and app_state with mocks - cleaner than patching individual functions
+    mock_app_state = MockAppState()
+    monkeypatch.setattr(src.app_state, "config", c)
+    monkeypatch.setattr(src.app_state, "app_state", mock_app_state)
 
-    monkeypatch.setattr(anki_smart_notes.src.prompts, "config", c)
-    monkeypatch.setattr(anki_smart_notes.src.dag, "config", c)
+    monkeypatch.setattr(src.prompts, "config", c)
     monkeypatch.setattr(
-        anki_smart_notes.src.dag,
-        "get_prompts",
-        lambda to_lower, override_prompts_map: prompts_map,
+        src.prompts,
+        "get_prompts_for_note",
+        lambda note_type, deck_id, override_prompts_map=None: prompts_map["note_types"][
+            note_type
+        ]["1"]["fields"],
+    )
+    monkeypatch.setattr(
+        src.prompts,
+        "get_extras",
+        lambda note_type,
+        field,
+        deck_id,
+        prompts=None,
+        fallback_to_global_deck=True: extras.get(field, {"automatic": True}),
     )
 
     return p
+
+
+"""
+test_processor_1 Parameters:
+    name: str - Test case name for identification
+    note: dict[str, str] - Note field data, e.g. {"f1": "value", "f2": ""}
+    prompts_map: dict[str, str] - Field prompts, e.g. {"f2": "{{f1}}"}
+    expected: dict[str, str] - Expected field values after processing
+    options: dict[str, Any] - Test options:
+        - "overwrite": bool - Whether to overwrite existing field values
+        - "target_field": str - Specific field to process (if any)
+        - "allow_empty": bool - Whether to allow processing with empty reference fields
+        - "{field_name}": dict - Field-specific options:
+            - "manual": bool - Whether field is marked as manual
+
+Example: ("basic", {"f1": "1", "f2": ""}, {"f2": "{{f1}}"}, {"f2": "p_1"}, {})
+"""
 
 
 @pytest.mark.asyncio
@@ -427,11 +500,21 @@ async def test_processor_1(name, note, prompts_map, expected, options, monkeypat
     )
 
     await p._process_note(
-        n, overwrite_fields=overwrite_fields, target_field=target_field
+        n, deck_id=1, overwrite_fields=overwrite_fields, target_field=target_field
     )
 
     for k, v in expected.items():
         assert n[k] == v, f"{name}: Field {k} is {n[k]}, expected {v}"
+
+
+"""
+test_cycle Parameters:
+    note: dict[str, str] - Note field data
+    prompts_map: dict[str, str] - Field prompts that may contain cycles
+    expected: bool - Whether a cycle should be detected
+
+Example: ({"f1": "1", "f2": ""}, {"f2": "{{f1}} {{f4}}", "f4": "{{f2}}"}, True)
+"""
 
 
 @pytest.mark.asyncio
@@ -449,18 +532,64 @@ async def test_processor_1(name, note, prompts_map, expected, options, monkeypat
         # .     ^-----------|
         (
             {"f1": "1", "f2": "2", "f3": "", "f4": ""},
-            {"f2": "{{f1}} {{f4}}", "f3": "{{f2}}", "f4": "{{f2}}"},
+            {"f2": "{{f1}} {{f4}}", "f3": "{{f2}}", "f4": "{{f3}}"},
             True,
+        ),
+        # Diamond shaped DAG - no cycle
+        # f1 -> f2 -> f4
+        # f1 -> f3 -> f4
+        (
+            {"f1": "1", "f2": "", "f3": "", "f4": ""},
+            {"f2": "{{f1}}", "f3": "{{f1}}", "f4": "{{f2}} {{f3}}"},
+            False,
         ),
     ],
 )
 async def test_cycle(note, prompts_map, expected, monkeypatch):
-    from anki_smart_notes.src.dag import generate_fields_dag, has_cycle
+    import src.dag
+    import src.prompts
 
     n = MockNote(note_type=NOTE_TYPE_NAME, data=note)
-    dag = generate_fields_dag(n, overwrite_fields=True)
-    cycle = has_cycle(dag)
+
+    # Set up the same mocks that setup_data does for prompts
+    extras = {
+        field: {"automatic": True, "type": "chat", "use_custom_model": False}
+        for field in prompts_map
+    }
+    prompts_data = {
+        "note_types": {NOTE_TYPE_NAME: {"1": {"fields": prompts_map, "extras": extras}}}
+    }
+    c = MockConfig(prompts_map=prompts_data, allow_empty_fields=False)
+
+    monkeypatch.setattr(src.prompts, "config", c)
+    monkeypatch.setattr(
+        src.prompts,
+        "get_prompts_for_note",
+        lambda note_type, deck_id, override_prompts_map=None: prompts_data[
+            "note_types"
+        ][note_type]["1"]["fields"],
+    )
+
+    # Mock get_fields like in setup_data
+    monkeypatch.setattr(
+        src.dag,
+        "get_fields",
+        lambda _: n.fields(),
+    )
+
+    dag = src.dag.generate_fields_dag(n, deck_id=1, overwrite_fields=True)
+    cycle = src.dag.has_cycle(dag)
     assert cycle == expected
+
+
+"""
+test_returns_if_updated Parameters:
+    note: dict[str, str] - Note field data
+    prompts_map: dict[str, str] - Field prompts
+    expected: bool - Whether the note should be marked as updated
+
+Example: ({"f1": "1", "f2": ""}, {"f2": "{{f1}}"}, True)
+"""
 
 
 @pytest.mark.asyncio
@@ -489,5 +618,5 @@ async def test_returns_if_updated(note, prompts_map, expected, monkeypatch):
         allow_empty_fields=False,
     )
 
-    res = await p._process_note(n, overwrite_fields=False, target_field=None)  # type: ignore
+    res = await p._process_note(n, deck_id=1, overwrite_fields=False, target_field=None)  # type: ignore
     assert res == expected
