@@ -47,4 +47,3 @@ known-first-party = ["src"]
 force-single-line = false
 combine-as-imports = true
 
-

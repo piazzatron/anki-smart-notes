@@ -61,8 +61,11 @@ class MockConfig:
     tts_provider = "openai"
     tts_voice = "alloy"
     tts_model = "tts-1"
-    openai_api_key = ""  # Empty string so has_api_key returns False
+    openai_api_key = ""  # Empty string so has_api_key() returns False
 
+    # Add other config fields that might be accessed
+    auth_token: str = ""
+    uuid: str = "test-uuid-12345"
     debug: bool = True
 
 
@@ -88,6 +91,27 @@ class MockChatClient:
         return p(prompt)
 
 
+class MockAppState:
+    """Mock app state that simulates an unlocked app with unlimited capacity"""
+
+    state = {
+        "subscription": "PAID_PLAN_ACTIVE",  # Unlocked state
+        "plan": {
+            "planId": "test_plan",
+            "planName": "Test Plan",
+            "notesUsed": 0,
+            "notesLimit": 1000,
+            "daysLeft": 30,
+            "textCreditsUsed": 0,
+            "textCreditsCapacity": 1000,
+            "voiceCreditsUsed": 0,
+            "voiceCreditsCapacity": 1000,
+            "imageCreditsUsed": 0,
+            "imageCreditsCapacity": 1000,
+        },
+    }
+
+
 NOTE_TYPE_NAME = "note_type_1"
 
 
@@ -96,12 +120,8 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     import src.app_state
     import src.dag
     import src.prompts
-    import src.utils
     from src.field_processor import FieldProcessor
     from src.note_proccessor import NoteProcessor
-
-    # Mock mw to be None in tests
-    monkeypatch.setattr("aqt.mw", None)
 
     openai = MockOpenAIClient()
     chat = MockChatClient()
@@ -151,19 +171,12 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
         lambda _: note.fields(),  # type: ignore
     )
 
-    monkeypatch.setattr(src.app_state, "is_app_unlocked", lambda: True)
-    monkeypatch.setattr(src.app_state, "has_api_key", lambda: False)
-    monkeypatch.setattr(src.app_state, "did_exceed_text_capacity", lambda: False)
-
-    # Also patch in field_processor since it imports these functions
-    import src.field_processor
-
-    monkeypatch.setattr(src.field_processor, "is_app_unlocked", lambda: True)
-    monkeypatch.setattr(src.field_processor, "has_api_key", lambda: False)
-    monkeypatch.setattr(src.field_processor, "did_exceed_text_capacity", lambda: False)
+    # Replace config and app_state with mocks - cleaner than patching individual functions
+    mock_app_state = MockAppState()
+    monkeypatch.setattr(src.app_state, "config", c)
+    monkeypatch.setattr(src.app_state, "app_state", mock_app_state)
 
     monkeypatch.setattr(src.prompts, "config", c)
-    monkeypatch.setattr(src.app_state, "config", c)
     monkeypatch.setattr(
         src.prompts,
         "get_prompts_for_note",
