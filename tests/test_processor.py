@@ -535,6 +535,14 @@ Example: ({"f1": "1", "f2": ""}, {"f2": "{{f1}} {{f4}}", "f4": "{{f2}}"}, True)
             {"f2": "{{f1}} {{f4}}", "f3": "{{f2}}", "f4": "{{f3}}"},
             True,
         ),
+        # Diamond shaped DAG - no cycle
+        # f1 -> f2 -> f4
+        # f1 -> f3 -> f4
+        (
+            {"f1": "1", "f2": "", "f3": "", "f4": ""},
+            {"f2": "{{f1}}", "f3": "{{f1}}", "f4": "{{f2}} {{f3}}"},
+            False,
+        ),
     ],
 )
 async def test_cycle(note, prompts_map, expected, monkeypatch):
