@@ -25,3 +25,6 @@ jobs:
 
     - name: Run code quality checks
       run: ./scripts/build.sh check
+
+    - name: Run tests
+      run: python -m pytest tests/ -v
