@@ -19,6 +19,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+
 from typing import Any
 
 import pytest
@@ -61,9 +62,7 @@ class MockConfig:
     tts_provider = "openai"
     tts_voice = "alloy"
     tts_model = "tts-1"
-    openai_api_key = ""  # Empty string so has_api_key() returns False
-
-    # Add other config fields that might be accessed
+    openai_api_key = ""
     auth_token: str = ""
     uuid: str = "test-uuid-12345"
     debug: bool = True
@@ -197,6 +196,21 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     return p
 
 
+"""
+test_processor_1 Parameters:
+    name: str - Test case name for identification
+    note: dict[str, str] - Note field data, e.g. {"f1": "value", "f2": ""}
+    prompts_map: dict[str, str] - Field prompts, e.g. {"f2": "{{f1}}"}
+    expected: dict[str, str] - Expected field values after processing
+    options: dict[str, Any] - Test options:
+        - "overwrite": bool - Whether to overwrite existing field values
+        - "target_field": str - Specific field to process (if any)
+        - "allow_empty": bool - Whether to allow processing with empty reference fields
+        - "{field_name}": dict - Field-specific options:
+            - "manual": bool - Whether field is marked as manual
+
+Example: ("basic", {"f1": "1", "f2": ""}, {"f2": "{{f1}}"}, {"f2": "p_1"}, {})
+"""
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
     "name, note, prompts_map, expected, options",
@@ -493,6 +507,14 @@ async def test_processor_1(name, note, prompts_map, expected, options, monkeypat
         assert n[k] == v, f"{name}: Field {k} is {n[k]}, expected {v}"
 
 
+"""
+test_cycle Parameters:
+    note: dict[str, str] - Note field data
+    prompts_map: dict[str, str] - Field prompts that may contain cycles
+    expected: bool - Whether a cycle should be detected
+
+Example: ({"f1": "1", "f2": ""}, {"f2": "{{f1}} {{f4}}", "f4": "{{f2}}"}, True)
+"""
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
     "note, prompts_map, expected",
@@ -543,6 +565,14 @@ async def test_cycle(note, prompts_map, expected, monkeypatch):
     assert cycle == expected
 
 
+"""
+test_returns_if_updated Parameters:
+    note: dict[str, str] - Note field data
+    prompts_map: dict[str, str] - Field prompts
+    expected: bool - Whether the note should be marked as updated
+
+Example: ({"f1": "1", "f2": ""}, {"f2": "{{f1}}"}, True)
+"""
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
     "note, prompts_map, expected",
