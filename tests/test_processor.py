@@ -19,7 +19,6 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-
 from typing import Any
 
 import pytest
@@ -115,7 +114,6 @@ NOTE_TYPE_NAME = "note_type_1"
 
 
 def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
-    # Make mocks
     import src.app_state
     import src.dag
     import src.prompts
@@ -211,6 +209,8 @@ test_processor_1 Parameters:
 
 Example: ("basic", {"f1": "1", "f2": ""}, {"f2": "{{f1}}"}, {"f2": "p_1"}, {})
 """
+
+
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
     "name, note, prompts_map, expected, options",
@@ -515,6 +515,8 @@ test_cycle Parameters:
 
 Example: ({"f1": "1", "f2": ""}, {"f2": "{{f1}} {{f4}}", "f4": "{{f2}}"}, True)
 """
+
+
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
     "note, prompts_map, expected",
@@ -536,8 +538,8 @@ Example: ({"f1": "1", "f2": ""}, {"f2": "{{f1}} {{f4}}", "f4": "{{f2}}"}, True)
     ],
 )
 async def test_cycle(note, prompts_map, expected, monkeypatch):
+    import src.dag
     import src.prompts
-    from src.dag import generate_fields_dag, has_cycle
 
     n = MockNote(note_type=NOTE_TYPE_NAME, data=note)
 
@@ -560,8 +562,15 @@ async def test_cycle(note, prompts_map, expected, monkeypatch):
         ][note_type]["1"]["fields"],
     )
 
-    dag = generate_fields_dag(n, deck_id=1, overwrite_fields=True)
-    cycle = has_cycle(dag)
+    # Mock get_fields like in setup_data
+    monkeypatch.setattr(
+        src.dag,
+        "get_fields",
+        lambda _: n.fields(),
+    )
+
+    dag = src.dag.generate_fields_dag(n, deck_id=1, overwrite_fields=True)
+    cycle = src.dag.has_cycle(dag)
     assert cycle == expected
 
 
@@ -573,6 +582,8 @@ test_returns_if_updated Parameters:
 
 Example: ({"f1": "1", "f2": ""}, {"f2": "{{f1}}"}, True)
 """
+
+
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
     "note, prompts_map, expected",
