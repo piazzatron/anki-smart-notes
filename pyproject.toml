@@ -29,11 +29,7 @@ ignore = [
     "N806",  # variable in function should be lowercase (conflicts with Qt naming)
     "N802",  # function name should be lowercase (conflicts with Qt naming)
     "N803",  # argument name should be lowercase (conflicts with Qt naming)
-<<<<<<< HEAD
-    "N999",  # invalid module name (allows hyphens in package directory name)
-=======
     "N999",  # invalid module name (conflicts with anki-smart-notes directory name)
->>>>>>> 6409c72 (Fixed test imports)
 ]
 
 [tool.ruff.format]
