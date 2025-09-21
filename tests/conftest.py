@@ -17,20 +17,6 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-# Set the test environment flag FIRST, before any other imports
 import os
 
 os.environ["IS_TEST"] = "True"
-
-import sys
-from pathlib import Path
-
-# Add the parent directory to Python path so we can import src modules directly
-parent_dir = Path(__file__).parent.parent
-sys.path.insert(0, str(parent_dir))
-
-# CRITICAL: Import anki.collection first to break the circular import
-import anki.collection
-
-# hack: to fix unused import error
-_ = anki.collection.Collection
