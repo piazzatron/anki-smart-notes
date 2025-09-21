@@ -32,7 +32,7 @@ from aqt import mw
 from sentry_sdk.integrations.logging import LoggingIntegration
 from sentry_sdk.session import Session
 
-from .. import env
+from . import env
 from .config import config
 from .constants import get_server_url
 from .logger import logger

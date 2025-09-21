@@ -26,13 +26,12 @@ build () {
   mkdir -p dist/vendor
 
   cp *.py dist/
-  cp .env dist/
   cp manifest.json dist/
   cp config.json dist/
   cp -r src dist/
   cp license dist/
   cp changelog.md dist/
-  echo "environment = \"PROD\"" > dist/env.py
+  echo "environment = \"PROD\"" > dist/src/env.py
 
   # Nuke any pycache
   rm -rf dist/__pycache__

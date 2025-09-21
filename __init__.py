@@ -26,7 +26,7 @@ if not os.getenv("IS_TEST"):
         import os
         import sys
 
-        from .env import environment
+        from .src.env import environment
 
         # Local and prod builds have different package directories
         # Can't use `is_production` b/c utils requires dotenv to load, and this has to run before we import an deps

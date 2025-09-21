@@ -21,7 +21,7 @@ from typing import cast
 
 from anki.decks import DeckId
 
-from .. import env
+from . import env
 from .models import ChatModels, ChatProviders
 
 SERVER_URL_PROD = "https://anki-smart-notes-server-production.up.railway.app"

@@ -25,7 +25,7 @@ from typing import Any, TypeVar, cast
 
 from aqt import mw
 
-from ..env import environment
+from .env import environment
 
 
 def to_lowercase_dict(d: dict[str, Any]) -> dict[str, Any]:
