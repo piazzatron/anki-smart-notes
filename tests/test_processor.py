@@ -1,13 +1,5 @@
 # type: ignore
 
-# Fix Anki circular import BEFORE any other imports
-import os
-
-os.environ["IS_TEST"] = "True"
-import anki.collection
-
-_ = anki.collection.Collection  # Force load
-
 """
 Copyright (C) 2024 Michael Piazza
 
