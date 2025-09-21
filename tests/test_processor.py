@@ -69,6 +69,7 @@ class MockConfig:
     tts_provider = "openai"
     tts_voice = "alloy"
     tts_model = "tts-1"
+    openai_api_key = ""  # Empty string so has_api_key returns False
 
     debug: bool = True
 
@@ -113,9 +114,31 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     openai = MockOpenAIClient()
     chat = MockChatClient()
 
-    extras = {
-        k: {"automatic": not options[k]["manual"]} for k in prompts_map if k in options
-    }
+    # Create extras for all fields with prompts, with defaults for fields not in options
+    extras = {}
+    for field in prompts_map:
+        if field in options:
+            extras[field] = {
+                "automatic": not options[field]["manual"],
+                "type": "chat",
+                "use_custom_model": False,
+                # Add the config values that key_or_config_val looks for
+                "chat_model": "gpt-4o-mini",
+                "chat_provider": "openai",
+                "chat_temperature": 0,
+                "chat_markdown_to_html": False,
+            }
+        else:
+            extras[field] = {
+                "automatic": True,
+                "type": "chat",
+                "use_custom_model": False,
+                # Add the config values that key_or_config_val looks for
+                "chat_model": "gpt-4o-mini",
+                "chat_provider": "openai",
+                "chat_temperature": 0,
+                "chat_markdown_to_html": False,
+            }  # Default extras
 
     prompts_map = {
         "note_types": {NOTE_TYPE_NAME: {"1": {"fields": prompts_map, "extras": extras}}}
@@ -138,8 +161,17 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
 
     monkeypatch.setattr(src.app_state, "is_app_unlocked", lambda: True)
     monkeypatch.setattr(src.app_state, "has_api_key", lambda: False)
+    monkeypatch.setattr(src.app_state, "did_exceed_text_capacity", lambda: False)
+
+    # Also patch in field_processor since it imports these functions
+    import src.field_processor
+
+    monkeypatch.setattr(src.field_processor, "is_app_unlocked", lambda: True)
+    monkeypatch.setattr(src.field_processor, "has_api_key", lambda: False)
+    monkeypatch.setattr(src.field_processor, "did_exceed_text_capacity", lambda: False)
 
     monkeypatch.setattr(src.prompts, "config", c)
+    monkeypatch.setattr(src.app_state, "config", c)
     monkeypatch.setattr(
         src.prompts,
         "get_prompts_for_note",
@@ -471,16 +503,37 @@ async def test_processor_1(name, note, prompts_map, expected, options, monkeypat
         # .     ^-----------|
         (
             {"f1": "1", "f2": "2", "f3": "", "f4": ""},
-            {"f2": "{{f1}} {{f4}}", "f3": "{{f2}}", "f4": "{{f2}}"},
+            {"f2": "{{f1}} {{f4}}", "f3": "{{f2}}", "f4": "{{f3}}"},
             True,
         ),
     ],
 )
 async def test_cycle(note, prompts_map, expected, monkeypatch):
+    import src.prompts
     from src.dag import generate_fields_dag, has_cycle
 
     n = MockNote(note_type=NOTE_TYPE_NAME, data=note)
-    dag = generate_fields_dag(n, overwrite_fields=True)
+
+    # Set up the same mocks that setup_data does for prompts
+    extras = {
+        field: {"automatic": True, "type": "chat", "use_custom_model": False}
+        for field in prompts_map
+    }
+    prompts_data = {
+        "note_types": {NOTE_TYPE_NAME: {"1": {"fields": prompts_map, "extras": extras}}}
+    }
+    c = MockConfig(prompts_map=prompts_data, allow_empty_fields=False)
+
+    monkeypatch.setattr(src.prompts, "config", c)
+    monkeypatch.setattr(
+        src.prompts,
+        "get_prompts_for_note",
+        lambda note_type, deck_id, override_prompts_map=None: prompts_data[
+            "note_types"
+        ][note_type]["1"]["fields"],
+    )
+
+    dag = generate_fields_dag(n, deck_id=1, overwrite_fields=True)
     cycle = has_cycle(dag)
     assert cycle == expected
 
