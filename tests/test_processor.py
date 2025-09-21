@@ -1,5 +1,11 @@
 # type: ignore
 
+# Fix Anki circular import BEFORE any other imports
+import os
+os.environ["IS_TEST"] = "True"
+import anki.collection
+_ = anki.collection.Collection  # Force load
+
 """
 Copyright (C) 2024 Michael Piazza
 
@@ -19,13 +25,10 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import os
 from typing import Any
 
 import pytest
 from attr import dataclass
-
-os.environ["IS_TEST"] = "True"
 
 
 @dataclass
@@ -100,7 +103,11 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     import src.dag
     import src.app_state
     import src.prompts
+    import src.utils
 
+    # Mock mw to be None in tests
+    monkeypatch.setattr("aqt.mw", None)
+    
     openai = MockOpenAIClient()
     chat = MockChatClient()
 
