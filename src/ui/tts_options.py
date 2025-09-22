@@ -228,15 +228,14 @@ def get_azure_voices() -> list[TTSMeta]:
     s = load_file("azure_voices.json", test_override="[]")
     azure_voices: list[AzureVoice] = json.loads(s)
     voices: list[TTSMeta] = []
-    tiers = {"Standard": "standard", "Neural": "best"}
+    # TODO: Figure out what to call these
+    tiers = {"Standard": "standard", "Neural": "best", "NeuralHD": "premium"}
     for voice in azure_voices:
         # Use displayName which now includes region info for languages with variants
         voices.append(
             {
                 "tts_provider": "azure",
-                "language": voice[
-                    "language"
-                ],  # This is now mapped to match Google naming
+                "language": voice["language"],
                 "gender": voice["gender"],
                 "voice": voice["name"],
                 "model": voice["voiceType"].lower(),
