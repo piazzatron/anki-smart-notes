@@ -217,6 +217,7 @@ class AzureVoice(TypedDict):
     displayName: str
     locale: str
     language: str
+    originalLanguage: str  # Original Azure language name for reference
     gender: Literal["Male", "Female"]
     voiceType: Literal["Neural", "Standard"]
     styleList: list[str]
@@ -229,14 +230,17 @@ def get_azure_voices() -> list[TTSMeta]:
     voices: list[TTSMeta] = []
     tiers = {"Standard": "standard", "Neural": "best"}
     for voice in azure_voices:
+        # Use displayName which now includes region info for languages with variants
         voices.append(
             {
                 "tts_provider": "azure",
-                "language": voice["language"],
+                "language": voice[
+                    "language"
+                ],  # This is now mapped to match Google naming
                 "gender": voice["gender"],
                 "voice": voice["name"],
                 "model": voice["voiceType"].lower(),
-                "friendly_voice": f"{voice['language']} - {voice['gender']} - {voice['displayName']}",
+                "friendly_voice": f"{voice['displayName']} - {voice['gender']}",
                 "price_tier": tiers[voice["voiceType"]],  # type: ignore
             }
         )

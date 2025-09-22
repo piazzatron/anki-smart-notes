@@ -1,0 +1,6387 @@
+[
+  {
+    "name": "af-ZA-AdriNeural",
+    "displayName": "Adri",
+    "locale": "af-ZA",
+    "language": "Afrikaans (South Africa)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "af-ZA-WillemNeural",
+    "displayName": "Willem",
+    "locale": "af-ZA",
+    "language": "Afrikaans (South Africa)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "sq-AL-AnilaNeural",
+    "displayName": "Anila",
+    "locale": "sq-AL",
+    "language": "Albanian (Albania)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "sq-AL-IlirNeural",
+    "displayName": "Ilir",
+    "locale": "sq-AL",
+    "language": "Albanian (Albania)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "am-ET-AmehaNeural",
+    "displayName": "Ameha",
+    "locale": "am-ET",
+    "language": "Amharic (Ethiopia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "am-ET-MekdesNeural",
+    "displayName": "Mekdes",
+    "locale": "am-ET",
+    "language": "Amharic (Ethiopia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-DZ-AminaNeural",
+    "displayName": "Amina",
+    "locale": "ar-DZ",
+    "language": "Arabic (Algeria)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-DZ-IsmaelNeural",
+    "displayName": "Ismael",
+    "locale": "ar-DZ",
+    "language": "Arabic (Algeria)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-BH-AliNeural",
+    "displayName": "Ali",
+    "locale": "ar-BH",
+    "language": "Arabic (Bahrain)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-BH-LailaNeural",
+    "displayName": "Laila",
+    "locale": "ar-BH",
+    "language": "Arabic (Bahrain)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-EG-SalmaNeural",
+    "displayName": "Salma",
+    "locale": "ar-EG",
+    "language": "Arabic (Egypt)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-EG-ShakirNeural",
+    "displayName": "Shakir",
+    "locale": "ar-EG",
+    "language": "Arabic (Egypt)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-IQ-BasselNeural",
+    "displayName": "Bassel",
+    "locale": "ar-IQ",
+    "language": "Arabic (Iraq)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-IQ-RanaNeural",
+    "displayName": "Rana",
+    "locale": "ar-IQ",
+    "language": "Arabic (Iraq)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-JO-SanaNeural",
+    "displayName": "Sana",
+    "locale": "ar-JO",
+    "language": "Arabic (Jordan)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-JO-TaimNeural",
+    "displayName": "Taim",
+    "locale": "ar-JO",
+    "language": "Arabic (Jordan)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-KW-FahedNeural",
+    "displayName": "Fahed",
+    "locale": "ar-KW",
+    "language": "Arabic (Kuwait)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-KW-NouraNeural",
+    "displayName": "Noura",
+    "locale": "ar-KW",
+    "language": "Arabic (Kuwait)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-LB-LaylaNeural",
+    "displayName": "Layla",
+    "locale": "ar-LB",
+    "language": "Arabic (Lebanon)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-LB-RamiNeural",
+    "displayName": "Rami",
+    "locale": "ar-LB",
+    "language": "Arabic (Lebanon)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-LY-ImanNeural",
+    "displayName": "Iman",
+    "locale": "ar-LY",
+    "language": "Arabic (Libya)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-LY-OmarNeural",
+    "displayName": "Omar",
+    "locale": "ar-LY",
+    "language": "Arabic (Libya)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-MA-JamalNeural",
+    "displayName": "Jamal",
+    "locale": "ar-MA",
+    "language": "Arabic (Morocco)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-MA-MounaNeural",
+    "displayName": "Mouna",
+    "locale": "ar-MA",
+    "language": "Arabic (Morocco)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-OM-AbdullahNeural",
+    "displayName": "Abdullah",
+    "locale": "ar-OM",
+    "language": "Arabic (Oman)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-OM-AyshaNeural",
+    "displayName": "Aysha",
+    "locale": "ar-OM",
+    "language": "Arabic (Oman)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-QA-AmalNeural",
+    "displayName": "Amal",
+    "locale": "ar-QA",
+    "language": "Arabic (Qatar)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-QA-MoazNeural",
+    "displayName": "Moaz",
+    "locale": "ar-QA",
+    "language": "Arabic (Qatar)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-SA-HamedNeural",
+    "displayName": "Hamed",
+    "locale": "ar-SA",
+    "language": "Arabic (Saudi Arabia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-SA-ZariyahNeural",
+    "displayName": "Zariyah",
+    "locale": "ar-SA",
+    "language": "Arabic (Saudi Arabia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-SY-AmanyNeural",
+    "displayName": "Amany",
+    "locale": "ar-SY",
+    "language": "Arabic (Syria)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-SY-LaithNeural",
+    "displayName": "Laith",
+    "locale": "ar-SY",
+    "language": "Arabic (Syria)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-TN-HediNeural",
+    "displayName": "Hedi",
+    "locale": "ar-TN",
+    "language": "Arabic (Tunisia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-TN-ReemNeural",
+    "displayName": "Reem",
+    "locale": "ar-TN",
+    "language": "Arabic (Tunisia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-AE-FatimaNeural",
+    "displayName": "Fatima",
+    "locale": "ar-AE",
+    "language": "Arabic (United Arab Emirates)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-AE-HamdanNeural",
+    "displayName": "Hamdan",
+    "locale": "ar-AE",
+    "language": "Arabic (United Arab Emirates)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-YE-MaryamNeural",
+    "displayName": "Maryam",
+    "locale": "ar-YE",
+    "language": "Arabic (Yemen)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ar-YE-SalehNeural",
+    "displayName": "Saleh",
+    "locale": "ar-YE",
+    "language": "Arabic (Yemen)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "hy-AM-AnahitNeural",
+    "displayName": "Anahit",
+    "locale": "hy-AM",
+    "language": "Armenian (Armenia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "hy-AM-HaykNeural",
+    "displayName": "Hayk",
+    "locale": "hy-AM",
+    "language": "Armenian (Armenia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "as-IN-PriyomNeural",
+    "displayName": "Priyom",
+    "locale": "as-IN",
+    "language": "Assamese (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "as-IN-YashicaNeural",
+    "displayName": "Yashica",
+    "locale": "as-IN",
+    "language": "Assamese (India)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "az-AZ-BabekNeural",
+    "displayName": "Babek",
+    "locale": "az-AZ",
+    "language": "Azerbaijani (Latin, Azerbaijan)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "az-AZ-BanuNeural",
+    "displayName": "Banu",
+    "locale": "az-AZ",
+    "language": "Azerbaijani (Latin, Azerbaijan)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "bn-BD-NabanitaNeural",
+    "displayName": "Nabanita",
+    "locale": "bn-BD",
+    "language": "Bangla (Bangladesh)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "bn-BD-PradeepNeural",
+    "displayName": "Pradeep",
+    "locale": "bn-BD",
+    "language": "Bangla (Bangladesh)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "eu-ES-AinhoaNeural",
+    "displayName": "Ainhoa",
+    "locale": "eu-ES",
+    "language": "Basque",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "eu-ES-AnderNeural",
+    "displayName": "Ander",
+    "locale": "eu-ES",
+    "language": "Basque",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "bn-IN-BashkarNeural",
+    "displayName": "Bashkar",
+    "locale": "bn-IN",
+    "language": "Bengali (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "bn-IN-TanishaaNeural",
+    "displayName": "Tanishaa",
+    "locale": "bn-IN",
+    "language": "Bengali (India)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "bs-BA-GoranNeural",
+    "displayName": "Goran",
+    "locale": "bs-BA",
+    "language": "Bosnian (Bosnia and Herzegovina)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "bs-BA-VesnaNeural",
+    "displayName": "Vesna",
+    "locale": "bs-BA",
+    "language": "Bosnian (Bosnia and Herzegovina)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "bg-BG-BorislavNeural",
+    "displayName": "Borislav",
+    "locale": "bg-BG",
+    "language": "Bulgarian (Bulgaria)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "bg-BG-KalinaNeural",
+    "displayName": "Kalina",
+    "locale": "bg-BG",
+    "language": "Bulgarian (Bulgaria)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "my-MM-NilarNeural",
+    "displayName": "Nilar",
+    "locale": "my-MM",
+    "language": "Burmese (Myanmar)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "my-MM-ThihaNeural",
+    "displayName": "Thiha",
+    "locale": "my-MM",
+    "language": "Burmese (Myanmar)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ca-ES-AlbaNeural",
+    "displayName": "Alba",
+    "locale": "ca-ES",
+    "language": "Catalan",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ca-ES-EnricNeural",
+    "displayName": "Enric",
+    "locale": "ca-ES",
+    "language": "Catalan",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ca-ES-JoanaNeural",
+    "displayName": "Joana",
+    "locale": "ca-ES",
+    "language": "Catalan",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "yue-CN-XiaoMinNeural",
+    "displayName": "XiaoMin",
+    "locale": "yue-CN",
+    "language": "Chinese (Cantonese, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "yue-CN-YunSongNeural",
+    "displayName": "YunSong",
+    "locale": "yue-CN",
+    "language": "Chinese (Cantonese, Simplified)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-HK-HiuGaaiNeural",
+    "displayName": "HiuGaai",
+    "locale": "zh-HK",
+    "language": "Chinese (Cantonese, Traditional)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-HK-HiuMaanNeural",
+    "displayName": "HiuMaan",
+    "locale": "zh-HK",
+    "language": "Chinese (Cantonese, Traditional)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-HK-WanLungNeural",
+    "displayName": "WanLung",
+    "locale": "zh-HK",
+    "language": "Chinese (Cantonese, Traditional)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-guangxi-YunqiNeural",
+    "displayName": "Yunqi",
+    "locale": "zh-CN-guangxi",
+    "language": "Chinese (Guangxi Accent Mandarin, Simplified)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "zh-CN-shandong-YunxiangNeural",
+    "displayName": "Yunxiang",
+    "locale": "zh-CN-shandong",
+    "language": "Chinese (Jilu Mandarin, Simplified)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-XiaochenNeural",
+    "displayName": "Xiaochen",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "livecommercial"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-Xiaochen:DragonHDLatestNeural",
+    "displayName": "Xiaochen Dragon HD Latest",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Female",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "zh-CN-XiaochenMultilingualNeural",
+    "displayName": "Xiaochen Multilingual",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "zh-CN-XiaohanNeural",
+    "displayName": "Xiaohan",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "calm",
+      "fearful",
+      "cheerful",
+      "disgruntled",
+      "serious",
+      "angry",
+      "sad",
+      "gentle",
+      "affectionate",
+      "embarrassed"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-XiaomengNeural",
+    "displayName": "Xiaomeng",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "chat"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-XiaomoNeural",
+    "displayName": "Xiaomo",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "embarrassed",
+      "calm",
+      "fearful",
+      "cheerful",
+      "disgruntled",
+      "serious",
+      "angry",
+      "sad",
+      "depressed",
+      "affectionate",
+      "gentle",
+      "envious"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-XiaoqiuNeural",
+    "displayName": "Xiaoqiu",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-XiaorouNeural",
+    "displayName": "Xiaorou",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-XiaoruiNeural",
+    "displayName": "Xiaorui",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "calm",
+      "fearful",
+      "angry",
+      "sad"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-XiaoshuangNeural",
+    "displayName": "Xiaoshuang",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "chat"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-XiaoxiaoNeural",
+    "displayName": "Xiaoxiao",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "assistant",
+      "chat",
+      "customerservice",
+      "newscast",
+      "affectionate",
+      "angry",
+      "calm",
+      "cheerful",
+      "disgruntled",
+      "fearful",
+      "gentle",
+      "lyrical",
+      "sad",
+      "serious",
+      "poetry-reading",
+      "friendly",
+      "chat-casual",
+      "whispering",
+      "sorry",
+      "excited"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-XiaoxiaoDialectsNeural",
+    "displayName": "Xiaoxiao Dialects",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "zh-CN-XiaoxiaoMultilingualNeural",
+    "displayName": "Xiaoxiao Multilingual",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "affectionate",
+      "cheerful",
+      "empathetic",
+      "excited",
+      "poetry-reading",
+      "sorry",
+      "story"
+    ],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "zh-CN-XiaoyanNeural",
+    "displayName": "Xiaoyan",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-XiaoyiNeural",
+    "displayName": "Xiaoyi",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "angry",
+      "disgruntled",
+      "affectionate",
+      "cheerful",
+      "fearful",
+      "sad",
+      "embarrassed",
+      "serious",
+      "gentle"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-XiaoyouNeural",
+    "displayName": "Xiaoyou",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-XiaoyuMultilingualNeural",
+    "displayName": "Xiaoyu Multilingual",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "zh-CN-XiaozhenNeural",
+    "displayName": "Xiaozhen",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "angry",
+      "disgruntled",
+      "cheerful",
+      "fearful",
+      "sad",
+      "serious"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-Yunfan:DragonHDLatestNeural",
+    "displayName": "Yunfan Dragon HD Latest",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Male",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "zh-CN-YunfanMultilingualNeural",
+    "displayName": "Yunfan Multilingual",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "zh-CN-YunfengNeural",
+    "displayName": "Yunfeng",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "angry",
+      "disgruntled",
+      "cheerful",
+      "fearful",
+      "sad",
+      "serious",
+      "depressed"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-YunhaoNeural",
+    "displayName": "Yunhao",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "advertisement-upbeat"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-YunjianNeural",
+    "displayName": "Yunjian",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "narration-relaxed",
+      "sports-commentary",
+      "sports-commentary-excited",
+      "angry",
+      "disgruntled",
+      "cheerful",
+      "sad",
+      "serious",
+      "depressed",
+      "documentary-narration"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-YunjieNeural",
+    "displayName": "Yunjie",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-YunxiNeural",
+    "displayName": "Yunxi",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "narration-relaxed",
+      "embarrassed",
+      "fearful",
+      "cheerful",
+      "disgruntled",
+      "serious",
+      "angry",
+      "sad",
+      "depressed",
+      "chat",
+      "assistant",
+      "newscast"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-YunxiaNeural",
+    "displayName": "Yunxia",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "calm",
+      "fearful",
+      "cheerful",
+      "angry",
+      "sad"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-YunxiaoMultilingualNeural",
+    "displayName": "Yunxiao Multilingual",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "zh-CN-YunyangNeural",
+    "displayName": "Yunyang",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "customerservice",
+      "narration-professional",
+      "newscast-casual"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-YunyeNeural",
+    "displayName": "Yunye",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "embarrassed",
+      "calm",
+      "fearful",
+      "cheerful",
+      "disgruntled",
+      "serious",
+      "angry",
+      "sad"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-YunyiMultilingualNeural",
+    "displayName": "Yunyi Multilingual",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "zh-CN-YunzeNeural",
+    "displayName": "Yunze",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "calm",
+      "fearful",
+      "cheerful",
+      "disgruntled",
+      "serious",
+      "angry",
+      "sad",
+      "depressed",
+      "documentary-narration"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-Xiaochen:DragonHDFlashLatestNeural",
+    "displayName": "zh-CN-Xiaochen:DragonHDFlashLatestNeural",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "zh-CN-Xiaoxiao:DragonHDFlashLatestNeural",
+    "displayName": "zh-CN-Xiaoxiao:DragonHDFlashLatestNeural",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "angry",
+      "chat",
+      "cheerful",
+      "excited",
+      "fearful",
+      "sad",
+      "voiceassistant"
+    ],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "zh-CN-Xiaoxiao2:DragonHDFlashLatestNeural",
+    "displayName": "zh-CN-Xiaoxiao2:DragonHDFlashLatestNeural",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "affectionate",
+      "angry",
+      "cheerful",
+      "empathetic",
+      "excited",
+      "fearful",
+      "poetry-reading",
+      "sad",
+      "sentiment",
+      "sorry",
+      "story",
+      "whisper"
+    ],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "zh-CN-Yunxiao:DragonHDFlashLatestNeural",
+    "displayName": "zh-CN-Yunxiao:DragonHDFlashLatestNeural",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "zh-CN-Yunye:DragonHDFlashLatestNeural",
+    "displayName": "zh-CN-Yunye:DragonHDFlashLatestNeural",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "zh-CN-Yunyi:DragonHDFlashLatestNeural",
+    "displayName": "zh-CN-Yunyi:DragonHDFlashLatestNeural",
+    "locale": "zh-CN",
+    "language": "Chinese (Mandarin, Simplified)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "assassin",
+      "captain",
+      "cavalier",
+      "drake",
+      "gamenarrator",
+      "geomancer",
+      "poet"
+    ],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "zh-CN-liaoning-XiaobeiNeural",
+    "displayName": "Xiaobei",
+    "locale": "zh-CN-liaoning",
+    "language": "Chinese (Northeastern Mandarin, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-liaoning-YunbiaoNeural",
+    "displayName": "Yunbiao",
+    "locale": "zh-CN-liaoning",
+    "language": "Chinese (Northeastern Mandarin, Simplified)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "zh-CN-sichuan-YunxiNeural",
+    "displayName": "Yunxi",
+    "locale": "zh-CN-sichuan",
+    "language": "Chinese (Southwestern Mandarin, Simplified)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-TW-HsiaoChenNeural",
+    "displayName": "HsiaoChen",
+    "locale": "zh-TW",
+    "language": "Chinese (Taiwanese Mandarin, Traditional)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-TW-HsiaoYuNeural",
+    "displayName": "HsiaoYu",
+    "locale": "zh-TW",
+    "language": "Chinese (Taiwanese Mandarin, Traditional)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-TW-YunJheNeural",
+    "displayName": "YunJhe",
+    "locale": "zh-TW",
+    "language": "Chinese (Taiwanese Mandarin, Traditional)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "wuu-CN-XiaotongNeural",
+    "displayName": "Xiaotong",
+    "locale": "wuu-CN",
+    "language": "Chinese (Wu, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "wuu-CN-YunzheNeural",
+    "displayName": "Yunzhe",
+    "locale": "wuu-CN",
+    "language": "Chinese (Wu, Simplified)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-henan-YundengNeural",
+    "displayName": "Yundeng",
+    "locale": "zh-CN-henan",
+    "language": "Chinese (Zhongyuan Mandarin Henan, Simplified)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zh-CN-shaanxi-XiaoniNeural",
+    "displayName": "Xiaoni",
+    "locale": "zh-CN-shaanxi",
+    "language": "Chinese (Zhongyuan Mandarin Shaanxi, Simplified)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "hr-HR-GabrijelaNeural",
+    "displayName": "Gabrijela",
+    "locale": "hr-HR",
+    "language": "Croatian (Croatia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "hr-HR-SreckoNeural",
+    "displayName": "Srecko",
+    "locale": "hr-HR",
+    "language": "Croatian (Croatia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "cs-CZ-AntoninNeural",
+    "displayName": "Antonin",
+    "locale": "cs-CZ",
+    "language": "Czech (Czechia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "cs-CZ-VlastaNeural",
+    "displayName": "Vlasta",
+    "locale": "cs-CZ",
+    "language": "Czech (Czechia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "da-DK-ChristelNeural",
+    "displayName": "Christel",
+    "locale": "da-DK",
+    "language": "Danish (Denmark)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "da-DK-JeppeNeural",
+    "displayName": "Jeppe",
+    "locale": "da-DK",
+    "language": "Danish (Denmark)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "nl-BE-ArnaudNeural",
+    "displayName": "Arnaud",
+    "locale": "nl-BE",
+    "language": "Dutch (Belgium)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "nl-BE-DenaNeural",
+    "displayName": "Dena",
+    "locale": "nl-BE",
+    "language": "Dutch (Belgium)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "nl-NL-ColetteNeural",
+    "displayName": "Colette",
+    "locale": "nl-NL",
+    "language": "Dutch (Netherlands)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "nl-NL-FennaNeural",
+    "displayName": "Fenna",
+    "locale": "nl-NL",
+    "language": "Dutch (Netherlands)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "nl-NL-MaartenNeural",
+    "displayName": "Maarten",
+    "locale": "nl-NL",
+    "language": "Dutch (Netherlands)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-AU-AnnetteNeural",
+    "displayName": "Annette",
+    "locale": "en-AU",
+    "language": "English (Australia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-AU-CarlyNeural",
+    "displayName": "Carly",
+    "locale": "en-AU",
+    "language": "English (Australia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-AU-DarrenNeural",
+    "displayName": "Darren",
+    "locale": "en-AU",
+    "language": "English (Australia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-AU-DuncanNeural",
+    "displayName": "Duncan",
+    "locale": "en-AU",
+    "language": "English (Australia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-AU-ElsieNeural",
+    "displayName": "Elsie",
+    "locale": "en-AU",
+    "language": "English (Australia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-AU-FreyaNeural",
+    "displayName": "Freya",
+    "locale": "en-AU",
+    "language": "English (Australia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-AU-JoanneNeural",
+    "displayName": "Joanne",
+    "locale": "en-AU",
+    "language": "English (Australia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-AU-KenNeural",
+    "displayName": "Ken",
+    "locale": "en-AU",
+    "language": "English (Australia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-AU-KimNeural",
+    "displayName": "Kim",
+    "locale": "en-AU",
+    "language": "English (Australia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-AU-NatashaNeural",
+    "displayName": "Natasha",
+    "locale": "en-AU",
+    "language": "English (Australia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-AU-NeilNeural",
+    "displayName": "Neil",
+    "locale": "en-AU",
+    "language": "English (Australia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-AU-TimNeural",
+    "displayName": "Tim",
+    "locale": "en-AU",
+    "language": "English (Australia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-AU-TinaNeural",
+    "displayName": "Tina",
+    "locale": "en-AU",
+    "language": "English (Australia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-AU-WilliamNeural",
+    "displayName": "William",
+    "locale": "en-AU",
+    "language": "English (Australia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-AU-WilliamMultilingualNeural",
+    "displayName": "William Multilingual",
+    "locale": "en-AU",
+    "language": "English (Australia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-CA-ClaraNeural",
+    "displayName": "Clara",
+    "locale": "en-CA",
+    "language": "English (Canada)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-CA-LiamNeural",
+    "displayName": "Liam",
+    "locale": "en-CA",
+    "language": "English (Canada)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-HK-SamNeural",
+    "displayName": "Sam",
+    "locale": "en-HK",
+    "language": "English (Hong Kong SAR)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-HK-YanNeural",
+    "displayName": "Yan",
+    "locale": "en-HK",
+    "language": "English (Hong Kong SAR)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-IN-AaravNeural",
+    "displayName": "Aarav",
+    "locale": "en-IN",
+    "language": "English (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-IN-AartiNeural",
+    "displayName": "Aarti",
+    "locale": "en-IN",
+    "language": "English (India)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-IN-AartiIndicNeural",
+    "displayName": "Aarti Indic",
+    "locale": "en-IN",
+    "language": "English (India)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-IN-AashiNeural",
+    "displayName": "Aashi",
+    "locale": "en-IN",
+    "language": "English (India)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-IN-AnanyaNeural",
+    "displayName": "Ananya",
+    "locale": "en-IN",
+    "language": "English (India)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-IN-ArjunNeural",
+    "displayName": "Arjun",
+    "locale": "en-IN",
+    "language": "English (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-IN-ArjunIndicNeural",
+    "displayName": "Arjun Indic",
+    "locale": "en-IN",
+    "language": "English (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-IN-KavyaNeural",
+    "displayName": "Kavya",
+    "locale": "en-IN",
+    "language": "English (India)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-IN-KunalNeural",
+    "displayName": "Kunal",
+    "locale": "en-IN",
+    "language": "English (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-IN-NeerjaNeural",
+    "displayName": "Neerja",
+    "locale": "en-IN",
+    "language": "English (India)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "newscast",
+      "cheerful",
+      "empathetic"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-IN-NeerjaIndicNeural",
+    "displayName": "Neerja Indic",
+    "locale": "en-IN",
+    "language": "English (India)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-IN-PrabhatNeural",
+    "displayName": "Prabhat",
+    "locale": "en-IN",
+    "language": "English (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-IN-PrabhatIndicNeural",
+    "displayName": "Prabhat Indic",
+    "locale": "en-IN",
+    "language": "English (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-IN-RehaanNeural",
+    "displayName": "Rehaan",
+    "locale": "en-IN",
+    "language": "English (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-IE-ConnorNeural",
+    "displayName": "Connor",
+    "locale": "en-IE",
+    "language": "English (Ireland)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-IE-EmilyNeural",
+    "displayName": "Emily",
+    "locale": "en-IE",
+    "language": "English (Ireland)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-KE-AsiliaNeural",
+    "displayName": "Asilia",
+    "locale": "en-KE",
+    "language": "English (Kenya)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-KE-ChilembaNeural",
+    "displayName": "Chilemba",
+    "locale": "en-KE",
+    "language": "English (Kenya)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-NZ-MitchellNeural",
+    "displayName": "Mitchell",
+    "locale": "en-NZ",
+    "language": "English (New Zealand)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-NZ-MollyNeural",
+    "displayName": "Molly",
+    "locale": "en-NZ",
+    "language": "English (New Zealand)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-NG-AbeoNeural",
+    "displayName": "Abeo",
+    "locale": "en-NG",
+    "language": "English (Nigeria)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-NG-EzinneNeural",
+    "displayName": "Ezinne",
+    "locale": "en-NG",
+    "language": "English (Nigeria)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-PH-JamesNeural",
+    "displayName": "James",
+    "locale": "en-PH",
+    "language": "English (Philippines)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-PH-RosaNeural",
+    "displayName": "Rosa",
+    "locale": "en-PH",
+    "language": "English (Philippines)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-SG-LunaNeural",
+    "displayName": "Luna",
+    "locale": "en-SG",
+    "language": "English (Singapore)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-SG-WayneNeural",
+    "displayName": "Wayne",
+    "locale": "en-SG",
+    "language": "English (Singapore)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-ZA-LeahNeural",
+    "displayName": "Leah",
+    "locale": "en-ZA",
+    "language": "English (South Africa)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-ZA-LukeNeural",
+    "displayName": "Luke",
+    "locale": "en-ZA",
+    "language": "English (South Africa)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-TZ-ElimuNeural",
+    "displayName": "Elimu",
+    "locale": "en-TZ",
+    "language": "English (Tanzania)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-TZ-ImaniNeural",
+    "displayName": "Imani",
+    "locale": "en-TZ",
+    "language": "English (Tanzania)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-GB-AbbiNeural",
+    "displayName": "Abbi",
+    "locale": "en-GB",
+    "language": "English (United Kingdom)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-GB-AdaMultilingualNeural",
+    "displayName": "Ada Multilingual",
+    "locale": "en-GB",
+    "language": "English (United Kingdom)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-GB-AlfieNeural",
+    "displayName": "Alfie",
+    "locale": "en-GB",
+    "language": "English (United Kingdom)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-GB-BellaNeural",
+    "displayName": "Bella",
+    "locale": "en-GB",
+    "language": "English (United Kingdom)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-GB-ElliotNeural",
+    "displayName": "Elliot",
+    "locale": "en-GB",
+    "language": "English (United Kingdom)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-GB-EthanNeural",
+    "displayName": "Ethan",
+    "locale": "en-GB",
+    "language": "English (United Kingdom)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-GB-HollieNeural",
+    "displayName": "Hollie",
+    "locale": "en-GB",
+    "language": "English (United Kingdom)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-GB-LibbyNeural",
+    "displayName": "Libby",
+    "locale": "en-GB",
+    "language": "English (United Kingdom)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-GB-MaisieNeural",
+    "displayName": "Maisie",
+    "locale": "en-GB",
+    "language": "English (United Kingdom)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-GB-MiaNeural",
+    "displayName": "Mia",
+    "locale": "en-GB",
+    "language": "English (United Kingdom)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-GB-NoahNeural",
+    "displayName": "Noah",
+    "locale": "en-GB",
+    "language": "English (United Kingdom)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-GB-OliverNeural",
+    "displayName": "Oliver",
+    "locale": "en-GB",
+    "language": "English (United Kingdom)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-GB-OliviaNeural",
+    "displayName": "Olivia",
+    "locale": "en-GB",
+    "language": "English (United Kingdom)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-GB-OllieMultilingualNeural",
+    "displayName": "Ollie Multilingual",
+    "locale": "en-GB",
+    "language": "English (United Kingdom)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-GB-RyanNeural",
+    "displayName": "Ryan",
+    "locale": "en-GB",
+    "language": "English (United Kingdom)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "cheerful",
+      "chat",
+      "whispering",
+      "sad"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-GB-SoniaNeural",
+    "displayName": "Sonia",
+    "locale": "en-GB",
+    "language": "English (United Kingdom)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "cheerful",
+      "sad"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-GB-ThomasNeural",
+    "displayName": "Thomas",
+    "locale": "en-GB",
+    "language": "English (United Kingdom)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-Adam:DragonHDLatestNeural",
+    "displayName": "Adam Dragon HD Latest",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-AdamMultilingualNeural",
+    "displayName": "Adam Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-AIGenerate1Neural",
+    "displayName": "AIGenerate1",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-AIGenerate2Neural",
+    "displayName": "AIGenerate2",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-Alloy:DragonHDLatestNeural",
+    "displayName": "Alloy Dragon HD Latest",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-AlloyTurboMultilingualNeural",
+    "displayName": "Alloy Turbo Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-AmandaMultilingualNeural",
+    "displayName": "Amanda Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-AmberNeural",
+    "displayName": "Amber",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-AnaNeural",
+    "displayName": "Ana",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-AndrewNeural",
+    "displayName": "Andrew",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-Andrew:DragonHDLatestNeural",
+    "displayName": "Andrew Dragon HD Latest",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-AndrewMultilingualNeural",
+    "displayName": "Andrew Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "empathetic",
+      "relieved"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-Andrew2:DragonHDLatestNeural",
+    "displayName": "Andrew2 Dragon HD Latest",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-Andrew3:DragonHDLatestNeural",
+    "displayName": "Andrew3 Dragon HD Latest",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-AriaNeural",
+    "displayName": "Aria",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "chat",
+      "customerservice",
+      "narration-professional",
+      "newscast-casual",
+      "newscast-formal",
+      "cheerful",
+      "empathetic",
+      "angry",
+      "sad",
+      "excited",
+      "friendly",
+      "terrified",
+      "shouting",
+      "unfriendly",
+      "whispering",
+      "hopeful"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-Aria:DragonHDLatestNeural",
+    "displayName": "Aria Dragon HD Latest",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-AshTurboMultilingualNeural",
+    "displayName": "Ash Turbo Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-AshleyNeural",
+    "displayName": "Ashley",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-AvaNeural",
+    "displayName": "Ava",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "angry",
+      "fearful",
+      "sad"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-MultiTalker-Ava-Andrew:DragonHDLatestNeural",
+    "displayName": "Ava & Andrew MultiTalker Dragon HD Latest",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Neutral",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-MultiTalker-Ava-Steffan:DragonHDLatestNeural",
+    "displayName": "Ava & Steffan MultiTalker Dragon HD Latest",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Neutral",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-Ava:DragonHDLatestNeural",
+    "displayName": "Ava Dragon HD Latest",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-AvaMultilingualNeural",
+    "displayName": "Ava Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-Ava3:DragonHDLatestNeural",
+    "displayName": "Ava3 Dragon HD Latest",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-BlueNeural",
+    "displayName": "Blue",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Neutral",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-BrandonNeural",
+    "displayName": "Brandon",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-BrandonMultilingualNeural",
+    "displayName": "Brandon Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-Bree:DragonHDLatestNeural",
+    "displayName": "Bree Dragon HD Latest",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-BrianNeural",
+    "displayName": "Brian",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-Brian:DragonHDLatestNeural",
+    "displayName": "Brian Dragon HD Latest",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-BrianMultilingualNeural",
+    "displayName": "Brian Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-ChristopherNeural",
+    "displayName": "Christopher",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-ChristopherMultilingualNeural",
+    "displayName": "Christopher Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-CoraNeural",
+    "displayName": "Cora",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-CoraMultilingualNeural",
+    "displayName": "Cora Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-DavisNeural",
+    "displayName": "Davis",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "chat",
+      "angry",
+      "cheerful",
+      "excited",
+      "friendly",
+      "hopeful",
+      "sad",
+      "shouting",
+      "terrified",
+      "unfriendly",
+      "whispering"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-Davis:DragonHDLatestNeural",
+    "displayName": "Davis Dragon HD Latest",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-DavisMultilingualNeural",
+    "displayName": "Davis Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "empathetic",
+      "funny",
+      "relieved"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-DerekMultilingualNeural",
+    "displayName": "Derek Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "empathetic",
+      "excited",
+      "relieved",
+      "shy"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-DustinMultilingualNeural",
+    "displayName": "Dustin Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-EchoTurboMultilingualNeural",
+    "displayName": "Echo Turbo Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-ElizabethNeural",
+    "displayName": "Elizabeth",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-EmmaNeural",
+    "displayName": "Emma",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-Emma:DragonHDLatestNeural",
+    "displayName": "Emma Dragon HD Latest",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-EmmaMultilingualNeural",
+    "displayName": "Emma Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-Emma2:DragonHDLatestNeural",
+    "displayName": "Emma2 Dragon HD Latest",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-EricNeural",
+    "displayName": "Eric",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-EvelynMultilingualNeural",
+    "displayName": "Evelyn Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-FableTurboMultilingualNeural",
+    "displayName": "Fable Turbo Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Neutral",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-GuyNeural",
+    "displayName": "Guy",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "newscast",
+      "angry",
+      "cheerful",
+      "sad",
+      "excited",
+      "friendly",
+      "terrified",
+      "shouting",
+      "unfriendly",
+      "whispering",
+      "hopeful"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-JacobNeural",
+    "displayName": "Jacob",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-JaneNeural",
+    "displayName": "Jane",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "angry",
+      "cheerful",
+      "excited",
+      "friendly",
+      "hopeful",
+      "sad",
+      "shouting",
+      "terrified",
+      "unfriendly",
+      "whispering"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-Jane:DragonHDLatestNeural",
+    "displayName": "Jane Dragon HD Latest",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-JasonNeural",
+    "displayName": "Jason",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "angry",
+      "cheerful",
+      "excited",
+      "friendly",
+      "hopeful",
+      "sad",
+      "shouting",
+      "terrified",
+      "unfriendly",
+      "whispering"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-JennyNeural",
+    "displayName": "Jenny",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "assistant",
+      "chat",
+      "customerservice",
+      "newscast",
+      "angry",
+      "cheerful",
+      "sad",
+      "excited",
+      "friendly",
+      "terrified",
+      "shouting",
+      "unfriendly",
+      "whispering",
+      "hopeful"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-Jenny:DragonHDLatestNeural",
+    "displayName": "Jenny Dragon HD Latest",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-JennyMultilingualNeural",
+    "displayName": "Jenny Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-KaiNeural",
+    "displayName": "Kai",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "conversation"
+    ],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-LewisMultilingualNeural",
+    "displayName": "Lewis Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-LolaMultilingualNeural",
+    "displayName": "Lola Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-LunaNeural",
+    "displayName": "Luna",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "conversation"
+    ],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-MichelleNeural",
+    "displayName": "Michelle",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-MonicaNeural",
+    "displayName": "Monica",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-NancyNeural",
+    "displayName": "Nancy",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "angry",
+      "cheerful",
+      "excited",
+      "friendly",
+      "hopeful",
+      "sad",
+      "shouting",
+      "terrified",
+      "unfriendly",
+      "whispering"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-NancyMultilingualNeural",
+    "displayName": "Nancy Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "excited",
+      "friendly",
+      "funny",
+      "relieved",
+      "shy"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-Nova:DragonHDLatestNeural",
+    "displayName": "Nova Dragon HD Latest",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-NovaTurboMultilingualNeural",
+    "displayName": "Nova Turbo Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-OnyxTurboMultilingualNeural",
+    "displayName": "Onyx Turbo Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-Phoebe:DragonHDLatestNeural",
+    "displayName": "Phoebe Dragon HD Latest",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-PhoebeMultilingualNeural",
+    "displayName": "Phoebe Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "empathetic",
+      "sad",
+      "serious"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-RogerNeural",
+    "displayName": "Roger",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-RyanMultilingualNeural",
+    "displayName": "Ryan Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-SamuelMultilingualNeural",
+    "displayName": "Samuel Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-SaraNeural",
+    "displayName": "Sara",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "angry",
+      "cheerful",
+      "excited",
+      "friendly",
+      "hopeful",
+      "sad",
+      "shouting",
+      "terrified",
+      "unfriendly",
+      "whispering"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-Serena:DragonHDLatestNeural",
+    "displayName": "Serena Dragon HD Latest",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-SerenaMultilingualNeural",
+    "displayName": "Serena Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "empathetic",
+      "excited",
+      "friendly",
+      "shy",
+      "serious",
+      "relieved",
+      "sad"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-ShimmerTurboMultilingualNeural",
+    "displayName": "Shimmer Turbo Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-SteffanNeural",
+    "displayName": "Steffan",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "en-US-Steffan:DragonHDLatestNeural",
+    "displayName": "Steffan Dragon HD Latest",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-SteffanMultilingualNeural",
+    "displayName": "Steffan Multilingual",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "en-US-TonyNeural",
+    "displayName": "Tony",
+    "locale": "en-US",
+    "language": "English (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "angry",
+      "cheerful",
+      "excited",
+      "friendly",
+      "hopeful",
+      "sad",
+      "shouting",
+      "terrified",
+      "unfriendly",
+      "whispering"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "et-EE-AnuNeural",
+    "displayName": "Anu",
+    "locale": "et-EE",
+    "language": "Estonian (Estonia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "et-EE-KertNeural",
+    "displayName": "Kert",
+    "locale": "et-EE",
+    "language": "Estonian (Estonia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fil-PH-AngeloNeural",
+    "displayName": "Angelo",
+    "locale": "fil-PH",
+    "language": "Filipino (Philippines)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fil-PH-BlessicaNeural",
+    "displayName": "Blessica",
+    "locale": "fil-PH",
+    "language": "Filipino (Philippines)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fi-FI-HarriNeural",
+    "displayName": "Harri",
+    "locale": "fi-FI",
+    "language": "Finnish (Finland)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fi-FI-NooraNeural",
+    "displayName": "Noora",
+    "locale": "fi-FI",
+    "language": "Finnish (Finland)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fi-FI-SelmaNeural",
+    "displayName": "Selma",
+    "locale": "fi-FI",
+    "language": "Finnish (Finland)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fr-BE-CharlineNeural",
+    "displayName": "Charline",
+    "locale": "fr-BE",
+    "language": "French (Belgium)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fr-BE-GerardNeural",
+    "displayName": "Gerard",
+    "locale": "fr-BE",
+    "language": "French (Belgium)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fr-CA-AntoineNeural",
+    "displayName": "Antoine",
+    "locale": "fr-CA",
+    "language": "French (Canada)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fr-CA-JeanNeural",
+    "displayName": "Jean",
+    "locale": "fr-CA",
+    "language": "French (Canada)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fr-CA-SylvieNeural",
+    "displayName": "Sylvie",
+    "locale": "fr-CA",
+    "language": "French (Canada)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fr-CA-ThierryNeural",
+    "displayName": "Thierry",
+    "locale": "fr-CA",
+    "language": "French (Canada)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fr-FR-AlainNeural",
+    "displayName": "Alain",
+    "locale": "fr-FR",
+    "language": "French (France)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fr-FR-BrigitteNeural",
+    "displayName": "Brigitte",
+    "locale": "fr-FR",
+    "language": "French (France)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fr-FR-CelesteNeural",
+    "displayName": "Celeste",
+    "locale": "fr-FR",
+    "language": "French (France)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fr-FR-ClaudeNeural",
+    "displayName": "Claude",
+    "locale": "fr-FR",
+    "language": "French (France)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fr-FR-CoralieNeural",
+    "displayName": "Coralie",
+    "locale": "fr-FR",
+    "language": "French (France)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fr-FR-DeniseNeural",
+    "displayName": "Denise",
+    "locale": "fr-FR",
+    "language": "French (France)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "cheerful",
+      "sad",
+      "whispering",
+      "excited"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fr-FR-EloiseNeural",
+    "displayName": "Eloise",
+    "locale": "fr-FR",
+    "language": "French (France)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fr-FR-HenriNeural",
+    "displayName": "Henri",
+    "locale": "fr-FR",
+    "language": "French (France)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "cheerful",
+      "sad",
+      "whispering",
+      "excited"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fr-FR-JacquelineNeural",
+    "displayName": "Jacqueline",
+    "locale": "fr-FR",
+    "language": "French (France)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fr-FR-JeromeNeural",
+    "displayName": "Jerome",
+    "locale": "fr-FR",
+    "language": "French (France)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fr-FR-JosephineNeural",
+    "displayName": "Josephine",
+    "locale": "fr-FR",
+    "language": "French (France)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fr-FR-LucienMultilingualNeural",
+    "displayName": "Lucien Multilingual",
+    "locale": "fr-FR",
+    "language": "French (France)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "fr-FR-MauriceNeural",
+    "displayName": "Maurice",
+    "locale": "fr-FR",
+    "language": "French (France)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fr-FR-Remy:DragonHDLatestNeural",
+    "displayName": "Remy Dragon HD Latest",
+    "locale": "fr-FR",
+    "language": "French (France)",
+    "gender": "Male",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "fr-FR-RemyMultilingualNeural",
+    "displayName": "Remy Multilingual",
+    "locale": "fr-FR",
+    "language": "French (France)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "fr-FR-Vivienne:DragonHDLatestNeural",
+    "displayName": "Vivienne Dragon HD Latest",
+    "locale": "fr-FR",
+    "language": "French (France)",
+    "gender": "Female",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "fr-FR-VivienneMultilingualNeural",
+    "displayName": "Vivienne Multilingual",
+    "locale": "fr-FR",
+    "language": "French (France)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "fr-FR-YvesNeural",
+    "displayName": "Yves",
+    "locale": "fr-FR",
+    "language": "French (France)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fr-FR-YvetteNeural",
+    "displayName": "Yvette",
+    "locale": "fr-FR",
+    "language": "French (France)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fr-CH-ArianeNeural",
+    "displayName": "Ariane",
+    "locale": "fr-CH",
+    "language": "French (Switzerland)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fr-CH-FabriceNeural",
+    "displayName": "Fabrice",
+    "locale": "fr-CH",
+    "language": "French (Switzerland)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "gl-ES-RoiNeural",
+    "displayName": "Roi",
+    "locale": "gl-ES",
+    "language": "Galician",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "gl-ES-SabelaNeural",
+    "displayName": "Sabela",
+    "locale": "gl-ES",
+    "language": "Galician",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ka-GE-EkaNeural",
+    "displayName": "Eka",
+    "locale": "ka-GE",
+    "language": "Georgian (Georgia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ka-GE-GiorgiNeural",
+    "displayName": "Giorgi",
+    "locale": "ka-GE",
+    "language": "Georgian (Georgia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "de-AT-IngridNeural",
+    "displayName": "Ingrid",
+    "locale": "de-AT",
+    "language": "German (Austria)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "de-AT-JonasNeural",
+    "displayName": "Jonas",
+    "locale": "de-AT",
+    "language": "German (Austria)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "de-DE-AmalaNeural",
+    "displayName": "Amala",
+    "locale": "de-DE",
+    "language": "German (Germany)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "de-DE-BerndNeural",
+    "displayName": "Bernd",
+    "locale": "de-DE",
+    "language": "German (Germany)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "de-DE-ChristophNeural",
+    "displayName": "Christoph",
+    "locale": "de-DE",
+    "language": "German (Germany)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "de-DE-ConradNeural",
+    "displayName": "Conrad",
+    "locale": "de-DE",
+    "language": "German (Germany)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "cheerful",
+      "sad"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "de-DE-ElkeNeural",
+    "displayName": "Elke",
+    "locale": "de-DE",
+    "language": "German (Germany)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "de-DE-Florian:DragonHDLatestNeural",
+    "displayName": "Florian Dragon HD Latest",
+    "locale": "de-DE",
+    "language": "German (Germany)",
+    "gender": "Male",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "de-DE-FlorianMultilingualNeural",
+    "displayName": "Florian Multilingual",
+    "locale": "de-DE",
+    "language": "German (Germany)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "de-DE-GiselaNeural",
+    "displayName": "Gisela",
+    "locale": "de-DE",
+    "language": "German (Germany)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "de-DE-KasperNeural",
+    "displayName": "Kasper",
+    "locale": "de-DE",
+    "language": "German (Germany)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "de-DE-KatjaNeural",
+    "displayName": "Katja",
+    "locale": "de-DE",
+    "language": "German (Germany)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "de-DE-KillianNeural",
+    "displayName": "Killian",
+    "locale": "de-DE",
+    "language": "German (Germany)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "de-DE-KlarissaNeural",
+    "displayName": "Klarissa",
+    "locale": "de-DE",
+    "language": "German (Germany)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "de-DE-KlausNeural",
+    "displayName": "Klaus",
+    "locale": "de-DE",
+    "language": "German (Germany)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "de-DE-LouisaNeural",
+    "displayName": "Louisa",
+    "locale": "de-DE",
+    "language": "German (Germany)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "de-DE-MajaNeural",
+    "displayName": "Maja",
+    "locale": "de-DE",
+    "language": "German (Germany)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "de-DE-RalfNeural",
+    "displayName": "Ralf",
+    "locale": "de-DE",
+    "language": "German (Germany)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "de-DE-Seraphina:DragonHDLatestNeural",
+    "displayName": "Seraphina Dragon HD Latest",
+    "locale": "de-DE",
+    "language": "German (Germany)",
+    "gender": "Female",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "de-DE-SeraphinaMultilingualNeural",
+    "displayName": "Seraphina Multilingual",
+    "locale": "de-DE",
+    "language": "German (Germany)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "de-DE-TanjaNeural",
+    "displayName": "Tanja",
+    "locale": "de-DE",
+    "language": "German (Germany)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "de-CH-JanNeural",
+    "displayName": "Jan",
+    "locale": "de-CH",
+    "language": "German (Switzerland)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "de-CH-LeniNeural",
+    "displayName": "Leni",
+    "locale": "de-CH",
+    "language": "German (Switzerland)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "el-GR-AthinaNeural",
+    "displayName": "Athina",
+    "locale": "el-GR",
+    "language": "Greek (Greece)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "el-GR-NestorasNeural",
+    "displayName": "Nestoras",
+    "locale": "el-GR",
+    "language": "Greek (Greece)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "gu-IN-DhwaniNeural",
+    "displayName": "Dhwani",
+    "locale": "gu-IN",
+    "language": "Gujarati (India)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "gu-IN-NiranjanNeural",
+    "displayName": "Niranjan",
+    "locale": "gu-IN",
+    "language": "Gujarati (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "he-IL-AvriNeural",
+    "displayName": "Avri",
+    "locale": "he-IL",
+    "language": "Hebrew (Israel)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "he-IL-HilaNeural",
+    "displayName": "Hila",
+    "locale": "he-IL",
+    "language": "Hebrew (Israel)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "hi-IN-AaravNeural",
+    "displayName": "Aarav",
+    "locale": "hi-IN",
+    "language": "Hindi (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "hi-IN-AartiNeural",
+    "displayName": "Aarti",
+    "locale": "hi-IN",
+    "language": "Hindi (India)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "hi-IN-AnanyaNeural",
+    "displayName": "Ananya",
+    "locale": "hi-IN",
+    "language": "Hindi (India)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "hi-IN-ArjunNeural",
+    "displayName": "Arjun",
+    "locale": "hi-IN",
+    "language": "Hindi (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "hi-IN-KavyaNeural",
+    "displayName": "Kavya",
+    "locale": "hi-IN",
+    "language": "Hindi (India)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "hi-IN-KunalNeural",
+    "displayName": "Kunal",
+    "locale": "hi-IN",
+    "language": "Hindi (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "hi-IN-MadhurNeural",
+    "displayName": "Madhur",
+    "locale": "hi-IN",
+    "language": "Hindi (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "hi-IN-RehaanNeural",
+    "displayName": "Rehaan",
+    "locale": "hi-IN",
+    "language": "Hindi (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "hi-IN-SwaraNeural",
+    "displayName": "Swara",
+    "locale": "hi-IN",
+    "language": "Hindi (India)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "newscast",
+      "cheerful",
+      "empathetic"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "hu-HU-NoemiNeural",
+    "displayName": "Noemi",
+    "locale": "hu-HU",
+    "language": "Hungarian (Hungary)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "hu-HU-TamasNeural",
+    "displayName": "Tamas",
+    "locale": "hu-HU",
+    "language": "Hungarian (Hungary)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "is-IS-GudrunNeural",
+    "displayName": "Gudrun",
+    "locale": "is-IS",
+    "language": "Icelandic (Iceland)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "is-IS-GunnarNeural",
+    "displayName": "Gunnar",
+    "locale": "is-IS",
+    "language": "Icelandic (Iceland)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "id-ID-ArdiNeural",
+    "displayName": "Ardi",
+    "locale": "id-ID",
+    "language": "Indonesian (Indonesia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "id-ID-GadisNeural",
+    "displayName": "Gadis",
+    "locale": "id-ID",
+    "language": "Indonesian (Indonesia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "iu-Latn-CA-SiqiniqNeural",
+    "displayName": "Siqiniq",
+    "locale": "iu-Latn-CA",
+    "language": "Inuktitut (Latin, Canada)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "iu-Latn-CA-TaqqiqNeural",
+    "displayName": "Taqqiq",
+    "locale": "iu-Latn-CA",
+    "language": "Inuktitut (Latin, Canada)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "iu-Cans-CA-SiqiniqNeural",
+    "displayName": "Siqiniq",
+    "locale": "iu-Cans-CA",
+    "language": "Inuktitut (Syllabics, Canada)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "iu-Cans-CA-TaqqiqNeural",
+    "displayName": "Taqqiq",
+    "locale": "iu-Cans-CA",
+    "language": "Inuktitut (Syllabics, Canada)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ga-IE-ColmNeural",
+    "displayName": "Colm",
+    "locale": "ga-IE",
+    "language": "Irish (Ireland)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ga-IE-OrlaNeural",
+    "displayName": "Orla",
+    "locale": "ga-IE",
+    "language": "Irish (Ireland)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "it-IT-Alessio:DragonHDLatestNeural",
+    "displayName": "Alessio Dragon HD Latest",
+    "locale": "it-IT",
+    "language": "Italian (Italy)",
+    "gender": "Male",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "it-IT-AlessioMultilingualNeural",
+    "displayName": "Alessio Multilingual",
+    "locale": "it-IT",
+    "language": "Italian (Italy)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "it-IT-BenignoNeural",
+    "displayName": "Benigno",
+    "locale": "it-IT",
+    "language": "Italian (Italy)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "it-IT-CalimeroNeural",
+    "displayName": "Calimero",
+    "locale": "it-IT",
+    "language": "Italian (Italy)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "it-IT-CataldoNeural",
+    "displayName": "Cataldo",
+    "locale": "it-IT",
+    "language": "Italian (Italy)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "it-IT-DiegoNeural",
+    "displayName": "Diego",
+    "locale": "it-IT",
+    "language": "Italian (Italy)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "cheerful",
+      "sad",
+      "excited"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "it-IT-ElsaNeural",
+    "displayName": "Elsa",
+    "locale": "it-IT",
+    "language": "Italian (Italy)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "it-IT-FabiolaNeural",
+    "displayName": "Fabiola",
+    "locale": "it-IT",
+    "language": "Italian (Italy)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "it-IT-FiammaNeural",
+    "displayName": "Fiamma",
+    "locale": "it-IT",
+    "language": "Italian (Italy)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "it-IT-GianniNeural",
+    "displayName": "Gianni",
+    "locale": "it-IT",
+    "language": "Italian (Italy)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "it-IT-GiuseppeNeural",
+    "displayName": "Giuseppe",
+    "locale": "it-IT",
+    "language": "Italian (Italy)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "it-IT-GiuseppeMultilingualNeural",
+    "displayName": "Giuseppe Multilingual",
+    "locale": "it-IT",
+    "language": "Italian (Italy)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "it-IT-ImeldaNeural",
+    "displayName": "Imelda",
+    "locale": "it-IT",
+    "language": "Italian (Italy)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "it-IT-IrmaNeural",
+    "displayName": "Irma",
+    "locale": "it-IT",
+    "language": "Italian (Italy)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "it-IT-IsabellaNeural",
+    "displayName": "Isabella",
+    "locale": "it-IT",
+    "language": "Italian (Italy)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "cheerful",
+      "chat",
+      "whispering",
+      "sad",
+      "excited"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "it-IT-Isabella:DragonHDLatestNeural",
+    "displayName": "Isabella Dragon HD Latest",
+    "locale": "it-IT",
+    "language": "Italian (Italy)",
+    "gender": "Female",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "it-IT-IsabellaMultilingualNeural",
+    "displayName": "Isabella Multilingual",
+    "locale": "it-IT",
+    "language": "Italian (Italy)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "it-IT-LisandroNeural",
+    "displayName": "Lisandro",
+    "locale": "it-IT",
+    "language": "Italian (Italy)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "it-IT-MarcelloMultilingualNeural",
+    "displayName": "Marcello Multilingual",
+    "locale": "it-IT",
+    "language": "Italian (Italy)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "it-IT-PalmiraNeural",
+    "displayName": "Palmira",
+    "locale": "it-IT",
+    "language": "Italian (Italy)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "it-IT-PierinaNeural",
+    "displayName": "Pierina",
+    "locale": "it-IT",
+    "language": "Italian (Italy)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "it-IT-RinaldoNeural",
+    "displayName": "Rinaldo",
+    "locale": "it-IT",
+    "language": "Italian (Italy)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ja-JP-AoiNeural",
+    "displayName": "Aoi",
+    "locale": "ja-JP",
+    "language": "Japanese (Japan)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ja-JP-DaichiNeural",
+    "displayName": "Daichi",
+    "locale": "ja-JP",
+    "language": "Japanese (Japan)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ja-JP-KeitaNeural",
+    "displayName": "Keita",
+    "locale": "ja-JP",
+    "language": "Japanese (Japan)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ja-JP-Masaru:DragonHDLatestNeural",
+    "displayName": "Masaru Dragon HD Latest",
+    "locale": "ja-JP",
+    "language": "Japanese (Japan)",
+    "gender": "Male",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "ja-JP-MasaruMultilingualNeural",
+    "displayName": "Masaru Multilingual",
+    "locale": "ja-JP",
+    "language": "Japanese (Japan)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "ja-JP-MayuNeural",
+    "displayName": "Mayu",
+    "locale": "ja-JP",
+    "language": "Japanese (Japan)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ja-JP-NanamiNeural",
+    "displayName": "Nanami",
+    "locale": "ja-JP",
+    "language": "Japanese (Japan)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "chat",
+      "customerservice",
+      "cheerful"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ja-JP-Nanami:DragonHDLatestNeural",
+    "displayName": "Nanami Dragon HD Latest",
+    "locale": "ja-JP",
+    "language": "Japanese (Japan)",
+    "gender": "Female",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "ja-JP-NaokiNeural",
+    "displayName": "Naoki",
+    "locale": "ja-JP",
+    "language": "Japanese (Japan)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ja-JP-ShioriNeural",
+    "displayName": "Shiori",
+    "locale": "ja-JP",
+    "language": "Japanese (Japan)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "jv-ID-DimasNeural",
+    "displayName": "Dimas",
+    "locale": "jv-ID",
+    "language": "Javanese (Latin, Indonesia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "jv-ID-SitiNeural",
+    "displayName": "Siti",
+    "locale": "jv-ID",
+    "language": "Javanese (Latin, Indonesia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "kn-IN-GaganNeural",
+    "displayName": "Gagan",
+    "locale": "kn-IN",
+    "language": "Kannada (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "kn-IN-SapnaNeural",
+    "displayName": "Sapna",
+    "locale": "kn-IN",
+    "language": "Kannada (India)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "kk-KZ-AigulNeural",
+    "displayName": "Aigul",
+    "locale": "kk-KZ",
+    "language": "Kazakh (Kazakhstan)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "kk-KZ-DauletNeural",
+    "displayName": "Daulet",
+    "locale": "kk-KZ",
+    "language": "Kazakh (Kazakhstan)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "km-KH-PisethNeural",
+    "displayName": "Piseth",
+    "locale": "km-KH",
+    "language": "Khmer (Cambodia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "km-KH-SreymomNeural",
+    "displayName": "Sreymom",
+    "locale": "km-KH",
+    "language": "Khmer (Cambodia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ko-KR-BongJinNeural",
+    "displayName": "BongJin",
+    "locale": "ko-KR",
+    "language": "Korean (Korea)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ko-KR-GookMinNeural",
+    "displayName": "GookMin",
+    "locale": "ko-KR",
+    "language": "Korean (Korea)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ko-KR-HyunsuNeural",
+    "displayName": "Hyunsu",
+    "locale": "ko-KR",
+    "language": "Korean (Korea)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ko-KR-HyunsuMultilingualNeural",
+    "displayName": "Hyunsu Multilingual",
+    "locale": "ko-KR",
+    "language": "Korean (Korea)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "ko-KR-InJoonNeural",
+    "displayName": "InJoon",
+    "locale": "ko-KR",
+    "language": "Korean (Korea)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "sad"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ko-KR-JiMinNeural",
+    "displayName": "JiMin",
+    "locale": "ko-KR",
+    "language": "Korean (Korea)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ko-KR-SeoHyeonNeural",
+    "displayName": "SeoHyeon",
+    "locale": "ko-KR",
+    "language": "Korean (Korea)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ko-KR-SoonBokNeural",
+    "displayName": "SoonBok",
+    "locale": "ko-KR",
+    "language": "Korean (Korea)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ko-KR-SunHiNeural",
+    "displayName": "Sun-Hi",
+    "locale": "ko-KR",
+    "language": "Korean (Korea)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ko-KR-YuJinNeural",
+    "displayName": "YuJin",
+    "locale": "ko-KR",
+    "language": "Korean (Korea)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "lo-LA-ChanthavongNeural",
+    "displayName": "Chanthavong",
+    "locale": "lo-LA",
+    "language": "Lao (Laos)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "lo-LA-KeomanyNeural",
+    "displayName": "Keomany",
+    "locale": "lo-LA",
+    "language": "Lao (Laos)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "lv-LV-EveritaNeural",
+    "displayName": "Everita",
+    "locale": "lv-LV",
+    "language": "Latvian (Latvia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "lv-LV-NilsNeural",
+    "displayName": "Nils",
+    "locale": "lv-LV",
+    "language": "Latvian (Latvia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "lt-LT-LeonasNeural",
+    "displayName": "Leonas",
+    "locale": "lt-LT",
+    "language": "Lithuanian (Lithuania)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "lt-LT-OnaNeural",
+    "displayName": "Ona",
+    "locale": "lt-LT",
+    "language": "Lithuanian (Lithuania)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "mk-MK-AleksandarNeural",
+    "displayName": "Aleksandar",
+    "locale": "mk-MK",
+    "language": "Macedonian (North Macedonia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "mk-MK-MarijaNeural",
+    "displayName": "Marija",
+    "locale": "mk-MK",
+    "language": "Macedonian (North Macedonia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ms-MY-OsmanNeural",
+    "displayName": "Osman",
+    "locale": "ms-MY",
+    "language": "Malay (Malaysia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ms-MY-YasminNeural",
+    "displayName": "Yasmin",
+    "locale": "ms-MY",
+    "language": "Malay (Malaysia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ml-IN-MidhunNeural",
+    "displayName": "Midhun",
+    "locale": "ml-IN",
+    "language": "Malayalam (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ml-IN-SobhanaNeural",
+    "displayName": "Sobhana",
+    "locale": "ml-IN",
+    "language": "Malayalam (India)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "mt-MT-GraceNeural",
+    "displayName": "Grace",
+    "locale": "mt-MT",
+    "language": "Maltese (Malta)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "mt-MT-JosephNeural",
+    "displayName": "Joseph",
+    "locale": "mt-MT",
+    "language": "Maltese (Malta)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "mr-IN-AarohiNeural",
+    "displayName": "Aarohi",
+    "locale": "mr-IN",
+    "language": "Marathi (India)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "mr-IN-ManoharNeural",
+    "displayName": "Manohar",
+    "locale": "mr-IN",
+    "language": "Marathi (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "mn-MN-BataaNeural",
+    "displayName": "Bataa",
+    "locale": "mn-MN",
+    "language": "Mongolian (Mongolia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "mn-MN-YesuiNeural",
+    "displayName": "Yesui",
+    "locale": "mn-MN",
+    "language": "Mongolian (Mongolia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ne-NP-HemkalaNeural",
+    "displayName": "Hemkala",
+    "locale": "ne-NP",
+    "language": "Nepali (Nepal)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ne-NP-SagarNeural",
+    "displayName": "Sagar",
+    "locale": "ne-NP",
+    "language": "Nepali (Nepal)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "nb-NO-FinnNeural",
+    "displayName": "Finn",
+    "locale": "nb-NO",
+    "language": "Norwegian Bokmål (Norway)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "nb-NO-IselinNeural",
+    "displayName": "Iselin",
+    "locale": "nb-NO",
+    "language": "Norwegian Bokmål (Norway)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "nb-NO-PernilleNeural",
+    "displayName": "Pernille",
+    "locale": "nb-NO",
+    "language": "Norwegian Bokmål (Norway)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "or-IN-SubhasiniNeural",
+    "displayName": "Subhasini",
+    "locale": "or-IN",
+    "language": "Odia (India)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "or-IN-SukantNeural",
+    "displayName": "Sukant",
+    "locale": "or-IN",
+    "language": "Odia (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ps-AF-GulNawazNeural",
+    "displayName": "Gul Nawaz",
+    "locale": "ps-AF",
+    "language": "Pashto (Afghanistan)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ps-AF-LatifaNeural",
+    "displayName": "Latifa",
+    "locale": "ps-AF",
+    "language": "Pashto (Afghanistan)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fa-IR-DilaraNeural",
+    "displayName": "Dilara",
+    "locale": "fa-IR",
+    "language": "Persian (Iran)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "fa-IR-FaridNeural",
+    "displayName": "Farid",
+    "locale": "fa-IR",
+    "language": "Persian (Iran)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pl-PL-AgnieszkaNeural",
+    "displayName": "Agnieszka",
+    "locale": "pl-PL",
+    "language": "Polish (Poland)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pl-PL-MarekNeural",
+    "displayName": "Marek",
+    "locale": "pl-PL",
+    "language": "Polish (Poland)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pl-PL-ZofiaNeural",
+    "displayName": "Zofia",
+    "locale": "pl-PL",
+    "language": "Polish (Poland)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pt-BR-AntonioNeural",
+    "displayName": "Antonio",
+    "locale": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pt-BR-BrendaNeural",
+    "displayName": "Brenda",
+    "locale": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pt-BR-DonatoNeural",
+    "displayName": "Donato",
+    "locale": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pt-BR-ElzaNeural",
+    "displayName": "Elza",
+    "locale": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pt-BR-FabioNeural",
+    "displayName": "Fabio",
+    "locale": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pt-BR-FranciscaNeural",
+    "displayName": "Francisca",
+    "locale": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "calm"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pt-BR-GiovannaNeural",
+    "displayName": "Giovanna",
+    "locale": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pt-BR-HumbertoNeural",
+    "displayName": "Humberto",
+    "locale": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pt-BR-JulioNeural",
+    "displayName": "Julio",
+    "locale": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pt-BR-LeilaNeural",
+    "displayName": "Leila",
+    "locale": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pt-BR-LeticiaNeural",
+    "displayName": "Leticia",
+    "locale": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pt-BR-Macerio:DragonHDLatestNeural",
+    "displayName": "Macerio Dragon HD Latest",
+    "locale": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "gender": "Male",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "pt-BR-MacerioMultilingualNeural",
+    "displayName": "Macerio Multilingual",
+    "locale": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "pt-BR-ManuelaNeural",
+    "displayName": "Manuela",
+    "locale": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pt-BR-NicolauNeural",
+    "displayName": "Nicolau",
+    "locale": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pt-BR-ThalitaNeural",
+    "displayName": "Thalita",
+    "locale": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pt-BR-Thalita:DragonHDLatestNeural",
+    "displayName": "Thalita Dragon HD Latest",
+    "locale": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "gender": "Female",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "pt-BR-ThalitaMultilingualNeural",
+    "displayName": "Thalita Multilingual",
+    "locale": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "pt-BR-ValerioNeural",
+    "displayName": "Valerio",
+    "locale": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pt-BR-YaraNeural",
+    "displayName": "Yara",
+    "locale": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pt-PT-DuarteNeural",
+    "displayName": "Duarte",
+    "locale": "pt-PT",
+    "language": "Portuguese (Portugal)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pt-PT-FernandaNeural",
+    "displayName": "Fernanda",
+    "locale": "pt-PT",
+    "language": "Portuguese (Portugal)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pt-PT-RaquelNeural",
+    "displayName": "Raquel",
+    "locale": "pt-PT",
+    "language": "Portuguese (Portugal)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "sad",
+      "whispering"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pa-IN-OjasNeural",
+    "displayName": "Ojas",
+    "locale": "pa-IN",
+    "language": "Punjabi (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "pa-IN-VaaniNeural",
+    "displayName": "Vaani",
+    "locale": "pa-IN",
+    "language": "Punjabi (India)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ro-RO-AlinaNeural",
+    "displayName": "Alina",
+    "locale": "ro-RO",
+    "language": "Romanian (Romania)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ro-RO-EmilNeural",
+    "displayName": "Emil",
+    "locale": "ro-RO",
+    "language": "Romanian (Romania)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ru-RU-DariyaNeural",
+    "displayName": "Dariya",
+    "locale": "ru-RU",
+    "language": "Russian (Russia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ru-RU-DmitryNeural",
+    "displayName": "Dmitry",
+    "locale": "ru-RU",
+    "language": "Russian (Russia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ru-RU-SvetlanaNeural",
+    "displayName": "Svetlana",
+    "locale": "ru-RU",
+    "language": "Russian (Russia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "sr-RS-NicholasNeural",
+    "displayName": "Nicholas",
+    "locale": "sr-RS",
+    "language": "Serbian (Cyrillic, Serbia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "sr-RS-SophieNeural",
+    "displayName": "Sophie",
+    "locale": "sr-RS",
+    "language": "Serbian (Cyrillic, Serbia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "sr-Latn-RS-NicholasNeural",
+    "displayName": "Nicholas",
+    "locale": "sr-Latn-RS",
+    "language": "Serbian (Latin, Serbia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "sr-Latn-RS-SophieNeural",
+    "displayName": "Sophie",
+    "locale": "sr-Latn-RS",
+    "language": "Serbian (Latin, Serbia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "si-LK-SameeraNeural",
+    "displayName": "Sameera",
+    "locale": "si-LK",
+    "language": "Sinhala (Sri Lanka)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "si-LK-ThiliniNeural",
+    "displayName": "Thilini",
+    "locale": "si-LK",
+    "language": "Sinhala (Sri Lanka)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "sk-SK-LukasNeural",
+    "displayName": "Lukas",
+    "locale": "sk-SK",
+    "language": "Slovak (Slovakia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "sk-SK-ViktoriaNeural",
+    "displayName": "Viktoria",
+    "locale": "sk-SK",
+    "language": "Slovak (Slovakia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "sl-SI-PetraNeural",
+    "displayName": "Petra",
+    "locale": "sl-SI",
+    "language": "Slovenian (Slovenia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "sl-SI-RokNeural",
+    "displayName": "Rok",
+    "locale": "sl-SI",
+    "language": "Slovenian (Slovenia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "so-SO-MuuseNeural",
+    "displayName": "Muuse",
+    "locale": "so-SO",
+    "language": "Somali (Somalia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "so-SO-UbaxNeural",
+    "displayName": "Ubax",
+    "locale": "so-SO",
+    "language": "Somali (Somalia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-AR-ElenaNeural",
+    "displayName": "Elena",
+    "locale": "es-AR",
+    "language": "Spanish (Argentina)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-AR-TomasNeural",
+    "displayName": "Tomas",
+    "locale": "es-AR",
+    "language": "Spanish (Argentina)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-BO-MarceloNeural",
+    "displayName": "Marcelo",
+    "locale": "es-BO",
+    "language": "Spanish (Bolivia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-BO-SofiaNeural",
+    "displayName": "Sofia",
+    "locale": "es-BO",
+    "language": "Spanish (Bolivia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-CL-CatalinaNeural",
+    "displayName": "Catalina",
+    "locale": "es-CL",
+    "language": "Spanish (Chile)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-CL-LorenzoNeural",
+    "displayName": "Lorenzo",
+    "locale": "es-CL",
+    "language": "Spanish (Chile)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-CO-GonzaloNeural",
+    "displayName": "Gonzalo",
+    "locale": "es-CO",
+    "language": "Spanish (Colombia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-CO-SalomeNeural",
+    "displayName": "Salome",
+    "locale": "es-CO",
+    "language": "Spanish (Colombia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-CR-JuanNeural",
+    "displayName": "Juan",
+    "locale": "es-CR",
+    "language": "Spanish (Costa Rica)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-CR-MariaNeural",
+    "displayName": "Maria",
+    "locale": "es-CR",
+    "language": "Spanish (Costa Rica)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-CU-BelkysNeural",
+    "displayName": "Belkys",
+    "locale": "es-CU",
+    "language": "Spanish (Cuba)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-CU-ManuelNeural",
+    "displayName": "Manuel",
+    "locale": "es-CU",
+    "language": "Spanish (Cuba)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-DO-EmilioNeural",
+    "displayName": "Emilio",
+    "locale": "es-DO",
+    "language": "Spanish (Dominican Republic)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-DO-RamonaNeural",
+    "displayName": "Ramona",
+    "locale": "es-DO",
+    "language": "Spanish (Dominican Republic)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-EC-AndreaNeural",
+    "displayName": "Andrea",
+    "locale": "es-EC",
+    "language": "Spanish (Ecuador)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-EC-LuisNeural",
+    "displayName": "Luis",
+    "locale": "es-EC",
+    "language": "Spanish (Ecuador)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-SV-LorenaNeural",
+    "displayName": "Lorena",
+    "locale": "es-SV",
+    "language": "Spanish (El Salvador)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-SV-RodrigoNeural",
+    "displayName": "Rodrigo",
+    "locale": "es-SV",
+    "language": "Spanish (El Salvador)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-GQ-JavierNeural",
+    "displayName": "Javier",
+    "locale": "es-GQ",
+    "language": "Spanish (Equatorial Guinea)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-GQ-TeresaNeural",
+    "displayName": "Teresa",
+    "locale": "es-GQ",
+    "language": "Spanish (Equatorial Guinea)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-GT-AndresNeural",
+    "displayName": "Andres",
+    "locale": "es-GT",
+    "language": "Spanish (Guatemala)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-GT-MartaNeural",
+    "displayName": "Marta",
+    "locale": "es-GT",
+    "language": "Spanish (Guatemala)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-HN-CarlosNeural",
+    "displayName": "Carlos",
+    "locale": "es-HN",
+    "language": "Spanish (Honduras)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-HN-KarlaNeural",
+    "displayName": "Karla",
+    "locale": "es-HN",
+    "language": "Spanish (Honduras)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-MX-BeatrizNeural",
+    "displayName": "Beatriz",
+    "locale": "es-MX",
+    "language": "Spanish (Mexico)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-MX-CandelaNeural",
+    "displayName": "Candela",
+    "locale": "es-MX",
+    "language": "Spanish (Mexico)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-MX-CarlotaNeural",
+    "displayName": "Carlota",
+    "locale": "es-MX",
+    "language": "Spanish (Mexico)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-MX-CecilioNeural",
+    "displayName": "Cecilio",
+    "locale": "es-MX",
+    "language": "Spanish (Mexico)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-MX-DaliaNeural",
+    "displayName": "Dalia",
+    "locale": "es-MX",
+    "language": "Spanish (Mexico)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [
+      "cheerful",
+      "sad",
+      "whispering"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-MX-DaliaMultilingualNeural",
+    "displayName": "Dalia Multilingual",
+    "locale": "es-MX",
+    "language": "Spanish (Mexico)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "es-MX-GerardoNeural",
+    "displayName": "Gerardo",
+    "locale": "es-MX",
+    "language": "Spanish (Mexico)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-MX-JorgeNeural",
+    "displayName": "Jorge",
+    "locale": "es-MX",
+    "language": "Spanish (Mexico)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "cheerful",
+      "chat",
+      "whispering",
+      "sad",
+      "excited"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-MX-JorgeMultilingualNeural",
+    "displayName": "Jorge Multilingual",
+    "locale": "es-MX",
+    "language": "Spanish (Mexico)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "es-MX-LarissaNeural",
+    "displayName": "Larissa",
+    "locale": "es-MX",
+    "language": "Spanish (Mexico)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-MX-LibertoNeural",
+    "displayName": "Liberto",
+    "locale": "es-MX",
+    "language": "Spanish (Mexico)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-MX-LucianoNeural",
+    "displayName": "Luciano",
+    "locale": "es-MX",
+    "language": "Spanish (Mexico)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-MX-MarinaNeural",
+    "displayName": "Marina",
+    "locale": "es-MX",
+    "language": "Spanish (Mexico)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-MX-NuriaNeural",
+    "displayName": "Nuria",
+    "locale": "es-MX",
+    "language": "Spanish (Mexico)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-MX-PelayoNeural",
+    "displayName": "Pelayo",
+    "locale": "es-MX",
+    "language": "Spanish (Mexico)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-MX-RenataNeural",
+    "displayName": "Renata",
+    "locale": "es-MX",
+    "language": "Spanish (Mexico)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-MX-YagoNeural",
+    "displayName": "Yago",
+    "locale": "es-MX",
+    "language": "Spanish (Mexico)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-NI-FedericoNeural",
+    "displayName": "Federico",
+    "locale": "es-NI",
+    "language": "Spanish (Nicaragua)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-NI-YolandaNeural",
+    "displayName": "Yolanda",
+    "locale": "es-NI",
+    "language": "Spanish (Nicaragua)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-PA-MargaritaNeural",
+    "displayName": "Margarita",
+    "locale": "es-PA",
+    "language": "Spanish (Panama)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-PA-RobertoNeural",
+    "displayName": "Roberto",
+    "locale": "es-PA",
+    "language": "Spanish (Panama)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-PY-MarioNeural",
+    "displayName": "Mario",
+    "locale": "es-PY",
+    "language": "Spanish (Paraguay)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-PY-TaniaNeural",
+    "displayName": "Tania",
+    "locale": "es-PY",
+    "language": "Spanish (Paraguay)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-PE-AlexNeural",
+    "displayName": "Alex",
+    "locale": "es-PE",
+    "language": "Spanish (Peru)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-PE-CamilaNeural",
+    "displayName": "Camila",
+    "locale": "es-PE",
+    "language": "Spanish (Peru)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-PR-KarinaNeural",
+    "displayName": "Karina",
+    "locale": "es-PR",
+    "language": "Spanish (Puerto Rico)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-PR-VictorNeural",
+    "displayName": "Victor",
+    "locale": "es-PR",
+    "language": "Spanish (Puerto Rico)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-ES-AbrilNeural",
+    "displayName": "Abril",
+    "locale": "es-ES",
+    "language": "Spanish (Spain)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-ES-AlvaroNeural",
+    "displayName": "Alvaro",
+    "locale": "es-ES",
+    "language": "Spanish (Spain)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [
+      "cheerful",
+      "sad"
+    ],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-ES-ArabellaMultilingualNeural",
+    "displayName": "Arabella Multilingual",
+    "locale": "es-ES",
+    "language": "Spanish (Spain)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "es-ES-ArnauNeural",
+    "displayName": "Arnau",
+    "locale": "es-ES",
+    "language": "Spanish (Spain)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-ES-DarioNeural",
+    "displayName": "Dario",
+    "locale": "es-ES",
+    "language": "Spanish (Spain)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-ES-EliasNeural",
+    "displayName": "Elias",
+    "locale": "es-ES",
+    "language": "Spanish (Spain)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-ES-ElviraNeural",
+    "displayName": "Elvira",
+    "locale": "es-ES",
+    "language": "Spanish (Spain)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-ES-EstrellaNeural",
+    "displayName": "Estrella",
+    "locale": "es-ES",
+    "language": "Spanish (Spain)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-ES-IreneNeural",
+    "displayName": "Irene",
+    "locale": "es-ES",
+    "language": "Spanish (Spain)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-ES-IsidoraMultilingualNeural",
+    "displayName": "Isidora Multilingual",
+    "locale": "es-ES",
+    "language": "Spanish (Spain)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "es-ES-LaiaNeural",
+    "displayName": "Laia",
+    "locale": "es-ES",
+    "language": "Spanish (Spain)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-ES-LiaNeural",
+    "displayName": "Lia",
+    "locale": "es-ES",
+    "language": "Spanish (Spain)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-ES-NilNeural",
+    "displayName": "Nil",
+    "locale": "es-ES",
+    "language": "Spanish (Spain)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-ES-SaulNeural",
+    "displayName": "Saul",
+    "locale": "es-ES",
+    "language": "Spanish (Spain)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-ES-TeoNeural",
+    "displayName": "Teo",
+    "locale": "es-ES",
+    "language": "Spanish (Spain)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-ES-TrianaNeural",
+    "displayName": "Triana",
+    "locale": "es-ES",
+    "language": "Spanish (Spain)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-ES-Tristan:DragonHDLatestNeural",
+    "displayName": "Tristan Dragon HD Latest",
+    "locale": "es-ES",
+    "language": "Spanish (Spain)",
+    "gender": "Male",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "es-ES-TristanMultilingualNeural",
+    "displayName": "Tristan Multilingual",
+    "locale": "es-ES",
+    "language": "Spanish (Spain)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "es-ES-VeraNeural",
+    "displayName": "Vera",
+    "locale": "es-ES",
+    "language": "Spanish (Spain)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-ES-XimenaNeural",
+    "displayName": "Ximena",
+    "locale": "es-ES",
+    "language": "Spanish (Spain)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-ES-Ximena:DragonHDLatestNeural",
+    "displayName": "Ximena Dragon HD Latest",
+    "locale": "es-ES",
+    "language": "Spanish (Spain)",
+    "gender": "Female",
+    "voiceType": "NeuralHD",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "es-ES-XimenaMultilingualNeural",
+    "displayName": "Ximena Multilingual",
+    "locale": "es-ES",
+    "language": "Spanish (Spain)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "24000"
+  },
+  {
+    "name": "es-US-AlonsoNeural",
+    "displayName": "Alonso",
+    "locale": "es-US",
+    "language": "Spanish (United States)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-US-PalomaNeural",
+    "displayName": "Paloma",
+    "locale": "es-US",
+    "language": "Spanish (United States)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-UY-MateoNeural",
+    "displayName": "Mateo",
+    "locale": "es-UY",
+    "language": "Spanish (Uruguay)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-UY-ValentinaNeural",
+    "displayName": "Valentina",
+    "locale": "es-UY",
+    "language": "Spanish (Uruguay)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-VE-PaolaNeural",
+    "displayName": "Paola",
+    "locale": "es-VE",
+    "language": "Spanish (Venezuela)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "es-VE-SebastianNeural",
+    "displayName": "Sebastian",
+    "locale": "es-VE",
+    "language": "Spanish (Venezuela)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "su-ID-JajangNeural",
+    "displayName": "Jajang",
+    "locale": "su-ID",
+    "language": "Sundanese (Indonesia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "su-ID-TutiNeural",
+    "displayName": "Tuti",
+    "locale": "su-ID",
+    "language": "Sundanese (Indonesia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "sw-KE-RafikiNeural",
+    "displayName": "Rafiki",
+    "locale": "sw-KE",
+    "language": "Swahili (Kenya)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "sw-KE-ZuriNeural",
+    "displayName": "Zuri",
+    "locale": "sw-KE",
+    "language": "Swahili (Kenya)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "sw-TZ-DaudiNeural",
+    "displayName": "Daudi",
+    "locale": "sw-TZ",
+    "language": "Swahili (Tanzania)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "sw-TZ-RehemaNeural",
+    "displayName": "Rehema",
+    "locale": "sw-TZ",
+    "language": "Swahili (Tanzania)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "sv-SE-HilleviNeural",
+    "displayName": "Hillevi",
+    "locale": "sv-SE",
+    "language": "Swedish (Sweden)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "sv-SE-MattiasNeural",
+    "displayName": "Mattias",
+    "locale": "sv-SE",
+    "language": "Swedish (Sweden)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "sv-SE-SofieNeural",
+    "displayName": "Sofie",
+    "locale": "sv-SE",
+    "language": "Swedish (Sweden)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ta-IN-PallaviNeural",
+    "displayName": "Pallavi",
+    "locale": "ta-IN",
+    "language": "Tamil (India)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ta-IN-ValluvarNeural",
+    "displayName": "Valluvar",
+    "locale": "ta-IN",
+    "language": "Tamil (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ta-MY-KaniNeural",
+    "displayName": "Kani",
+    "locale": "ta-MY",
+    "language": "Tamil (Malaysia)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ta-MY-SuryaNeural",
+    "displayName": "Surya",
+    "locale": "ta-MY",
+    "language": "Tamil (Malaysia)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ta-SG-AnbuNeural",
+    "displayName": "Anbu",
+    "locale": "ta-SG",
+    "language": "Tamil (Singapore)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ta-SG-VenbaNeural",
+    "displayName": "Venba",
+    "locale": "ta-SG",
+    "language": "Tamil (Singapore)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ta-LK-KumarNeural",
+    "displayName": "Kumar",
+    "locale": "ta-LK",
+    "language": "Tamil (Sri Lanka)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ta-LK-SaranyaNeural",
+    "displayName": "Saranya",
+    "locale": "ta-LK",
+    "language": "Tamil (Sri Lanka)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "te-IN-MohanNeural",
+    "displayName": "Mohan",
+    "locale": "te-IN",
+    "language": "Telugu (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "te-IN-ShrutiNeural",
+    "displayName": "Shruti",
+    "locale": "te-IN",
+    "language": "Telugu (India)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "th-TH-AcharaNeural",
+    "displayName": "Achara",
+    "locale": "th-TH",
+    "language": "Thai (Thailand)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "th-TH-NiwatNeural",
+    "displayName": "Niwat",
+    "locale": "th-TH",
+    "language": "Thai (Thailand)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "th-TH-PremwadeeNeural",
+    "displayName": "Premwadee",
+    "locale": "th-TH",
+    "language": "Thai (Thailand)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "tr-TR-AhmetNeural",
+    "displayName": "Ahmet",
+    "locale": "tr-TR",
+    "language": "Turkish (Türkiye)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "tr-TR-EmelNeural",
+    "displayName": "Emel",
+    "locale": "tr-TR",
+    "language": "Turkish (Türkiye)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "uk-UA-OstapNeural",
+    "displayName": "Ostap",
+    "locale": "uk-UA",
+    "language": "Ukrainian (Ukraine)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "uk-UA-PolinaNeural",
+    "displayName": "Polina",
+    "locale": "uk-UA",
+    "language": "Ukrainian (Ukraine)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ur-IN-GulNeural",
+    "displayName": "Gul",
+    "locale": "ur-IN",
+    "language": "Urdu (India)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ur-IN-SalmanNeural",
+    "displayName": "Salman",
+    "locale": "ur-IN",
+    "language": "Urdu (India)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ur-PK-AsadNeural",
+    "displayName": "Asad",
+    "locale": "ur-PK",
+    "language": "Urdu (Pakistan)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "ur-PK-UzmaNeural",
+    "displayName": "Uzma",
+    "locale": "ur-PK",
+    "language": "Urdu (Pakistan)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "uz-UZ-MadinaNeural",
+    "displayName": "Madina",
+    "locale": "uz-UZ",
+    "language": "Uzbek (Latin, Uzbekistan)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "uz-UZ-SardorNeural",
+    "displayName": "Sardor",
+    "locale": "uz-UZ",
+    "language": "Uzbek (Latin, Uzbekistan)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "vi-VN-HoaiMyNeural",
+    "displayName": "HoaiMy",
+    "locale": "vi-VN",
+    "language": "Vietnamese (Vietnam)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "vi-VN-NamMinhNeural",
+    "displayName": "NamMinh",
+    "locale": "vi-VN",
+    "language": "Vietnamese (Vietnam)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "cy-GB-AledNeural",
+    "displayName": "Aled",
+    "locale": "cy-GB",
+    "language": "Welsh (United Kingdom)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "cy-GB-NiaNeural",
+    "displayName": "Nia",
+    "locale": "cy-GB",
+    "language": "Welsh (United Kingdom)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zu-ZA-ThandoNeural",
+    "displayName": "Thando",
+    "locale": "zu-ZA",
+    "language": "Zulu (South Africa)",
+    "gender": "Female",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  },
+  {
+    "name": "zu-ZA-ThembaNeural",
+    "displayName": "Themba",
+    "locale": "zu-ZA",
+    "language": "Zulu (South Africa)",
+    "gender": "Male",
+    "voiceType": "Neural",
+    "styleList": [],
+    "sampleRateHertz": "48000"
+  }
+]
