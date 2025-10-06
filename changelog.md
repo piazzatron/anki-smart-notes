@@ -1,3 +1,9 @@
+# v2.12.0
+
+- Add new TTS voices: 600 Azure voices, 74 Google Chirp.
+- Improve voice selection UX.
+- Bug fixes.
+
 # v2.11.0
 
 - Upgrade Anthropic to Sonnet 4.0, Opus 4.1, and Haiku 3.5 models.
