@@ -20,31 +20,15 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 import json
 from typing import Literal, Optional, TypedDict, Union, cast
 
-from aqt import (
-    QAbstractListModel,
-    QGroupBox,
-    QHBoxLayout,
-    QItemSelection,
-    QItemSelectionModel,
-    QLabel,
-    QListView,
-    QModelIndex,
-    QPushButton,
-    QSizePolicy,
-    QSpacerItem,
-    Qt,
-    QVBoxLayout,
-    QWidget,
-)
+from aqt import (QAbstractListModel, QGroupBox, QHBoxLayout, QItemSelection,
+                 QItemSelectionModel, QLabel, QListView, QModelIndex,
+                 QPushButton, QSizePolicy, QSpacerItem, Qt, QVBoxLayout,
+                 QWidget)
 
 from ..config import config, key_or_config_val
 from ..logger import logger
-from ..models import (
-    OverrideableTTSOptionsDict,
-    TTSModels,
-    TTSProviders,
-    overridable_tts_options,
-)
+from ..models import (OverrideableTTSOptionsDict, TTSModels, TTSProviders,
+                      overridable_tts_options)
 from ..sentry import run_async_in_background_with_sentry
 from ..tts_provider import TTSProvider
 from ..tts_utils import play_audio
@@ -65,10 +49,10 @@ default_texts: dict[str, str] = {
 }
 
 price_tier_copy = {
-    "standard": "Standard Quality",
-    "best": "Good Quality",
-    "premium": "Premium Quality",
-    "ultra-premium": "Ultra Premium Quality",
+    "low": "Low Cost",
+    "standard": "Standard Cost",
+    "high": "High Cost",
+    "ultra-high": "Ultra High Cost",
 }
 
 
@@ -79,7 +63,7 @@ class TTSMeta(TypedDict):
     friendly_voice: str
     gender: Literal["Male", "Female", "All"]
     language: str
-    price_tier: Literal["standard", "best", "premium", "ultra-premium"]
+    price_tier: Literal["low", "standard", "high", "ultra-high"]
 
 
 class TTSState(TypedDict):
@@ -112,7 +96,7 @@ openai_voices: list[TTSMeta] = [
         "friendly_voice": "alloy",
         "gender": "Female",
         "language": ALL,
-        "price_tier": "best",
+        "price_tier": "standard",
     },
     {
         "tts_provider": "openai",
@@ -121,7 +105,7 @@ openai_voices: list[TTSMeta] = [
         "friendly_voice": "echo",
         "gender": "Male",
         "language": ALL,
-        "price_tier": "best",
+        "price_tier": "standard",
     },
     {
         "tts_provider": "openai",
@@ -130,7 +114,7 @@ openai_voices: list[TTSMeta] = [
         "friendly_voice": "fable",
         "gender": "Female",
         "language": ALL,
-        "price_tier": "best",
+        "price_tier": "standard",
     },
     {
         "tts_provider": "openai",
@@ -139,7 +123,7 @@ openai_voices: list[TTSMeta] = [
         "friendly_voice": "onyx",
         "gender": "Male",
         "language": ALL,
-        "price_tier": "best",
+        "price_tier": "standard",
     },
     {
         "tts_provider": "openai",
@@ -148,7 +132,7 @@ openai_voices: list[TTSMeta] = [
         "friendly_voice": "nova",
         "gender": "Female",
         "language": ALL,
-        "price_tier": "best",
+        "price_tier": "standard",
     },
     {
         "tts_provider": "openai",
@@ -157,7 +141,7 @@ openai_voices: list[TTSMeta] = [
         "friendly_voice": "shimmer",
         "gender": "Female",
         "language": ALL,
-        "price_tier": "best",
+        "price_tier": "standard",
     },
 ]
 
@@ -174,7 +158,7 @@ def get_google_voices() -> list[TTSMeta]:
     s = load_file("google_voices.json", test_override="[]")
     google_voices: list[GoogleVoice] = json.loads(s)
     voices: list[TTSMeta] = []
-    tiers = {"Standard": "standard", "Wavenet": "best", "Neural": "best"}
+    tiers = {"Standard": "low", "Wavenet": "standard", "Neural": "standard"}
     for voice in google_voices:
         voices.append(
             {
@@ -194,33 +178,69 @@ def get_eleven_voices() -> list[TTSMeta]:
     s = load_file("eleven_voices.json", test_override="[]")
     eleven_voices = json.loads(s)
     voices: list[TTSMeta] = []
+
     for voice in eleven_voices:
-        premium: TTSMeta = {
+        high: TTSMeta = {
             "tts_provider": "elevenLabs",
             "language": voice["language"],
             "voice": voice["voice_id"],
             "model": "eleven_turbo_v2_5",
             "friendly_voice": f"{voice['language'].capitalize()} - {voice['gender'].capitalize()} - {voice['name'].capitalize()}",
             "gender": voice["gender"],
-            "price_tier": "premium",
+            "price_tier": "high",
         }
-        ultra_premium = premium.copy()
-        ultra_premium["model"] = "eleven_multilingual_v2"
-        ultra_premium["price_tier"] = "ultra-premium"
-        voices.extend([premium, ultra_premium])
+        ultra_high = high.copy()
+        ultra_high["model"] = "eleven_multilingual_v2"
+        ultra_high["price_tier"] = "ultra-high"
+        voices.extend([high, ultra_high])
 
     return voices
 
 
+class AzureVoice(TypedDict):
+    name: str
+    displayName: str
+    locale: str
+    language: str
+    gender: Literal["Male", "Female"]
+    voiceType: Literal["Neural", "NeuralHD"]
+    styleList: list[str]
+    sampleRateHertz: str
+
+
+def get_azure_voices() -> list[TTSMeta]:
+    s = load_file("azure_voices.json", test_override="[]")
+    azure_voices: list[AzureVoice] = json.loads(s)
+    voices: list[TTSMeta] = []
+    tiers: dict[str, Literal["low", "standard", "high", "ultra-high"]] = {
+        "Neural": "standard",
+        "NeuralHD": "standard",
+    }
+    for voice in azure_voices:
+        voices.append(
+            {
+                "tts_provider": "azure",
+                "language": voice["language"],
+                "gender": voice["gender"],
+                "voice": voice["name"],
+                "model": voice["voiceType"].lower(),
+                "friendly_voice": f"{voice['displayName'].title()} ({voice['voiceType']})",
+                "price_tier": tiers[voice["voiceType"]],
+            }
+        )
+    return voices
+
+
 # Combine all voices
-voices = get_google_voices() + openai_voices + get_eleven_voices()
+voices = get_google_voices() + openai_voices + get_eleven_voices() + get_azure_voices()
 
 languages: list[str] = [ALL] + sorted({voice["language"] for voice in voices} - {ALL})
-providers: list[AllTTSProviders] = [ALL, "google", "openai", "elevenLabs"]
+providers: list[AllTTSProviders] = [ALL, "google", "openai", "elevenLabs", "azure"]
 
 
 def format_voice(voice: TTSMeta) -> str:
-    return f"{voice['tts_provider'].capitalize()} - {voice['friendly_voice'].capitalize()} ({price_tier_copy[voice['price_tier']]})"
+    language_display = "Multilingual" if voice["language"] == ALL else voice["language"]
+    return f"{voice['tts_provider'].capitalize()} - {language_display} - {voice['gender']} - {voice['friendly_voice'].title()} ({price_tier_copy[voice['price_tier']]})"
 
 
 class CustomListModel(QAbstractListModel):
@@ -321,7 +341,17 @@ class TTSOptions(QWidget):
             )
         )
         gender = ReactiveComboBox(self.state, "genders", "selected_gender")
-        provider = ReactiveComboBox(self.state, "providers", "selected_provider")
+        provider = ReactiveComboBox(
+            self.state,
+            "providers",
+            "selected_provider",
+            render_map={
+                "google": "Google",
+                "azure": "Azure",
+                "openai": "OpenAI",
+                "elevenLabs": "ElevenLabs",
+            },
+        )
 
         filters_layout.addRow("Language:", language)
         filters_layout.addRow("Gender:", gender)
