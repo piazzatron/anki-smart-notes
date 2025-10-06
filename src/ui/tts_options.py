@@ -20,31 +20,15 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 import json
 from typing import Literal, Optional, TypedDict, Union, cast
 
-from aqt import (
-    QAbstractListModel,
-    QGroupBox,
-    QHBoxLayout,
-    QItemSelection,
-    QItemSelectionModel,
-    QLabel,
-    QListView,
-    QModelIndex,
-    QPushButton,
-    QSizePolicy,
-    QSpacerItem,
-    Qt,
-    QVBoxLayout,
-    QWidget,
-)
+from aqt import (QAbstractListModel, QGroupBox, QHBoxLayout, QItemSelection,
+                 QItemSelectionModel, QLabel, QListView, QModelIndex,
+                 QPushButton, QSizePolicy, QSpacerItem, Qt, QVBoxLayout,
+                 QWidget)
 
 from ..config import config, key_or_config_val
 from ..logger import logger
-from ..models import (
-    OverrideableTTSOptionsDict,
-    TTSModels,
-    TTSProviders,
-    overridable_tts_options,
-)
+from ..models import (OverrideableTTSOptionsDict, TTSModels, TTSProviders,
+                      overridable_tts_options)
 from ..sentry import run_async_in_background_with_sentry
 from ..tts_provider import TTSProvider
 from ..tts_utils import play_audio
@@ -218,7 +202,6 @@ class AzureVoice(TypedDict):
     displayName: str
     locale: str
     language: str
-    originalLanguage: str  # Original Azure language name for reference
     gender: Literal["Male", "Female"]
     voiceType: Literal["Neural", "NeuralHD"]
     styleList: list[str]
