@@ -560,16 +560,25 @@ class TTSOptions(QWidget):
                 self.state.s["selected_provider"] == ALL
                 or voice["tts_provider"] == self.state.s["selected_provider"]
             )
+            if not matches_provider:
+                continue
+
             matches_gender = (
                 self.state.s["selected_gender"] == ALL
                 or voice["gender"] == self.state.s["selected_gender"]
             )
+            if not matches_gender:
+                continue
+
             matches_language = (
                 self.state.s["selected_language"] == ALL
                 or voice["language"]
                 == ALL  # Or maybe don't want generic ones to appear?
                 or voice["language"] == self.state.s["selected_language"]
             )
+
+            if not matches_language:
+                continue
 
             # Search works by splitting the user's input into terms and the formatted
             # voice display text into words. Each search term must match (via substring)
@@ -580,13 +589,9 @@ class TTSOptions(QWidget):
             matches_search = not search_terms or all(
                 any(term in word for word in voice_words) for term in search_terms
             )
-            if (
-                matches_provider
-                and matches_gender
-                and matches_language
-                and matches_search
-            ):
-                filtered.append(voice)
+            if not matches_search:
+                continue
+            filtered.append(voice)
         return filtered
 
     def get_initial_state(
