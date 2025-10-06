@@ -220,7 +220,7 @@ class AzureVoice(TypedDict):
     language: str
     originalLanguage: str  # Original Azure language name for reference
     gender: Literal["Male", "Female"]
-    voiceType: Literal["Neural", "Standard"]
+    voiceType: Literal["Neural", "NeuralHD"]
     styleList: list[str]
     sampleRateHertz: str
 
