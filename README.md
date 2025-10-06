@@ -12,6 +12,9 @@ For example, use ChatGPT / Claude / DeepSeek to automatically generate example s
 
 ## 🗣️ Speak your notes with Text to Speech (TTS) from Google, OpenAI, and ElevenLabs.
 
+Generate nearly 1000 premium voices in 90+ languages, from Google, Azure, OpenAI, and ElevenLabs - including the latest advanced <a href="https://cloud.google.com/text-to-speech/docs/chirp3-hd">Google Chirp</a> voices.
+
+
 Smart Notes supports 250+ voices in 50+ languages.
 </br>
 </br>

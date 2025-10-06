@@ -40,7 +40,6 @@ build () {
   vendored=(
     "aiohttp"
     "aiosignal"
-    "aiofiles"
     "async_timeout"
     "frozenlist"
     "attrs"
@@ -61,6 +60,7 @@ build () {
   # Voices
   cp -r eleven_voices.json dist/
   cp -r google_voices.json dist/
+  cp -r azure_voices.json dist/
 
   # Zip it
   cd dist
