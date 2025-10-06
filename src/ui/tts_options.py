@@ -20,15 +20,31 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 import json
 from typing import Literal, Optional, TypedDict, Union, cast
 
-from aqt import (QAbstractListModel, QGroupBox, QHBoxLayout, QItemSelection,
-                 QItemSelectionModel, QLabel, QListView, QModelIndex,
-                 QPushButton, QSizePolicy, QSpacerItem, Qt, QVBoxLayout,
-                 QWidget)
+from aqt import (
+    QAbstractListModel,
+    QGroupBox,
+    QHBoxLayout,
+    QItemSelection,
+    QItemSelectionModel,
+    QLabel,
+    QListView,
+    QModelIndex,
+    QPushButton,
+    QSizePolicy,
+    QSpacerItem,
+    Qt,
+    QVBoxLayout,
+    QWidget,
+)
 
 from ..config import config, key_or_config_val
 from ..logger import logger
-from ..models import (OverrideableTTSOptionsDict, TTSModels, TTSProviders,
-                      overridable_tts_options)
+from ..models import (
+    OverrideableTTSOptionsDict,
+    TTSModels,
+    TTSProviders,
+    overridable_tts_options,
+)
 from ..sentry import run_async_in_background_with_sentry
 from ..tts_provider import TTSProvider
 from ..tts_utils import play_audio
@@ -151,14 +167,19 @@ class GoogleVoice(TypedDict):
     languageCode: str
     language: str
     name: str
-    type: Literal["Standard", "Wavenet", "Neural"]
+    type: Literal["Standard", "Wavenet", "Neural", "Chirp"]
 
 
 def get_google_voices() -> list[TTSMeta]:
     s = load_file("google_voices.json", test_override="[]")
     google_voices: list[GoogleVoice] = json.loads(s)
     voices: list[TTSMeta] = []
-    tiers = {"Standard": "low", "Wavenet": "standard", "Neural": "standard"}
+    tiers = {
+        "Standard": "low",
+        "Wavenet": "standard",
+        "Neural": "standard",
+        "Chirp": "standard",
+    }
     for voice in google_voices:
         voices.append(
             {
@@ -167,7 +188,7 @@ def get_google_voices() -> list[TTSMeta]:
                 "gender": voice["gender"],
                 "voice": voice["name"],
                 "model": voice["type"].lower(),
-                "friendly_voice": f"{voice['language'].capitalize()} - {voice['gender'].capitalize()}",
+                "friendly_voice": f"{voice['language'].capitalize()} - {voice['gender'].capitalize()} ({voice['type']})",
                 "price_tier": tiers[voice["type"]],  # type: ignore
             }
         )
@@ -360,9 +381,9 @@ class TTSOptions(QWidget):
         return filters_box
 
     def render_voices_list(self) -> QWidget:
-        voice_box = QGroupBox(f"🗣️ Voices ({len(voices)})")
+        self.voice_box = QGroupBox(f"🗣️ Voices ({len(voices)})")
         voice_box_layout = QVBoxLayout()
-        voice_box.setLayout(voice_box_layout)
+        self.voice_box.setLayout(voice_box_layout)
         voice_box_layout.setContentsMargins(0, 0, 0, 0)
         self.voices_list = QListView()
         self.voices_models = CustomListModel(self.get_visible_voice_filters())
@@ -371,7 +392,7 @@ class TTSOptions(QWidget):
         if selection_model:
             selection_model.selectionChanged.connect(self.voice_did_change)
         voice_box_layout.addWidget(self.voices_list)
-        return voice_box
+        return self.voice_box
 
     def voice_did_change(self, selected: QItemSelection):
         indexes = selected.indexes()
@@ -422,6 +443,7 @@ class TTSOptions(QWidget):
             return
 
         self.voices_models.update_data(self.get_visible_voice_filters())
+        self.voice_box.setTitle(f"🗣️ Voices ({len(self.voices_models.get_data())})")
 
         # Get the new location after updating
         voice_location = (
