@@ -52,6 +52,7 @@ from ..utils import load_file, none_defaulting
 from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_edit_text import ReactiveEditText
+from .reactive_line_edit import ReactiveLineEdit
 from .state_manager import StateManager
 from .ui_utils import default_form_layout, font_small, show_message_box
 
@@ -102,6 +103,7 @@ class TTSState(TypedDict):
 
     test_text: str
     test_enabled: bool
+    search_text: str
 
 
 openai_voices: list[TTSMeta] = [
@@ -384,7 +386,18 @@ class TTSOptions(QWidget):
         self.voice_box = QGroupBox(f"🗣️ Voices ({len(voices)})")
         voice_box_layout = QVBoxLayout()
         self.voice_box.setLayout(voice_box_layout)
-        voice_box_layout.setContentsMargins(0, 0, 0, 0)
+
+        search_layout = QHBoxLayout()
+        search_input = ReactiveLineEdit(self.state, "search_text")
+        search_input.setPlaceholderText("🔎 Search Voices")
+        search_input.setMinimumHeight(36)
+        search_input.setStyleSheet("padding: 0px 8px;")
+        search_input.on_change.connect(
+            lambda text: self.state.update({"search_text": text})
+        )
+        search_layout.addWidget(search_input)
+        voice_box_layout.addLayout(search_layout)
+
         self.voices_list = QListView()
         self.voices_models = CustomListModel(self.get_visible_voice_filters())
         self.voices_list.setModel(self.voices_models)
@@ -523,6 +536,7 @@ class TTSOptions(QWidget):
 
     def get_visible_voice_filters(self) -> list[TTSMeta]:
         filtered = []
+        search_text = self.state.s["search_text"].lower()
         for voice in voices:
             matches_provider = (
                 self.state.s["selected_provider"] == ALL
@@ -538,7 +552,18 @@ class TTSOptions(QWidget):
                 == ALL  # Or maybe don't want generic ones to appear?
                 or voice["language"] == self.state.s["selected_language"]
             )
-            if matches_provider and matches_gender and matches_language:
+            matches_search = (
+                search_text == ""
+                or search_text in voice["friendly_voice"].lower()
+                or search_text in voice["language"].lower()
+                or search_text in voice["voice"].lower()
+            )
+            if (
+                matches_provider
+                and matches_gender
+                and matches_language
+                and matches_search
+            ):
                 filtered.append(voice)
         return filtered
 
@@ -555,6 +580,7 @@ class TTSOptions(QWidget):
             "selected_language": ALL,
             "test_text": default_texts[ALL],
             "test_enabled": True,
+            "search_text": "",
         }
 
         for k in overridable_tts_options:
