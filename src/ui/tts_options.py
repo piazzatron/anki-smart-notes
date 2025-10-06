@@ -33,6 +33,7 @@ from aqt import (
     QSizePolicy,
     QSpacerItem,
     Qt,
+    QTimer,
     QVBoxLayout,
     QWidget,
 )
@@ -266,6 +267,12 @@ def format_voice(voice: TTSMeta) -> str:
     return f"{voice['tts_provider'].capitalize()} - {language_display} - {voice['gender']} - {voice['friendly_voice'].title()} ({price_tier_copy[voice['price_tier']]})"
 
 
+voice_search_cache: dict[tuple[str, str, str], list[str]] = {
+    (v["tts_provider"], v["voice"], v["model"]): format_voice(v).lower().split()
+    for v in voices
+}
+
+
 class CustomListModel(QAbstractListModel):
     def __init__(self, data: list[TTSMeta]):
         super().__init__()
@@ -312,6 +319,10 @@ class TTSOptions(QWidget):
         self.extras_visible = extras_visible
 
         self.state = StateManager[TTSState](self.get_initial_state(tts_options))
+        self.search_timer = QTimer()
+        self.search_timer.setSingleShot(True)
+        self.search_timer.timeout.connect(self.update_search)
+        self.pending_search_text = ""
         self.setup_ui()
 
     def setup_ui(self) -> None:
@@ -392,9 +403,7 @@ class TTSOptions(QWidget):
         search_input.setPlaceholderText("🔎 Search Voices")
         search_input.setMinimumHeight(36)
         search_input.setStyleSheet("padding: 0px 8px;")
-        search_input.on_change.connect(
-            lambda text: self.state.update({"search_text": text})
-        )
+        search_input.on_change.connect(self.debounced_search)
         search_layout.addWidget(search_input)
         voice_box_layout.addLayout(search_layout)
 
@@ -534,9 +543,18 @@ class TTSOptions(QWidget):
             fetch_audio, on_success=on_success, on_failure=on_failure
         )
 
+    def debounced_search(self, text: str) -> None:
+        self.pending_search_text = text
+        self.search_timer.stop()
+        self.search_timer.start(100)
+
+    def update_search(self) -> None:
+        self.state.update({"search_text": self.pending_search_text})
+
     def get_visible_voice_filters(self) -> list[TTSMeta]:
         filtered = []
-        search_text = self.state.s["search_text"].lower()
+        search_terms = self.state.s["search_text"].lower().strip().split()
+
         for voice in voices:
             matches_provider = (
                 self.state.s["selected_provider"] == ALL
@@ -552,11 +570,15 @@ class TTSOptions(QWidget):
                 == ALL  # Or maybe don't want generic ones to appear?
                 or voice["language"] == self.state.s["selected_language"]
             )
-            matches_search = (
-                search_text == ""
-                or search_text in voice["friendly_voice"].lower()
-                or search_text in voice["language"].lower()
-                or search_text in voice["voice"].lower()
+
+            # Search works by splitting the user's input into terms and the formatted
+            # voice display text into words. Each search term must match (via substring)
+            # at least one word in the voice. All search terms must match for inclusion.
+            # The voice_search_cache contains pre-split words from format_voice() output.
+            voice_key = (voice["tts_provider"], voice["voice"], voice["model"])
+            voice_words = voice_search_cache[voice_key]
+            matches_search = not search_terms or all(
+                any(term in word for word in voice_words) for term in search_terms
             )
             if (
                 matches_provider
