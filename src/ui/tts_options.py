@@ -195,28 +195,13 @@ def get_eleven_voices() -> list[TTSMeta]:
     eleven_voices = json.loads(s)
     voices: list[TTSMeta] = []
 
-    # Map ElevenLabs language names to match Google's naming conventions
-    eleven_to_google_language_map = {
-        "Spanish": "Spanish (Spain)",  # Map generic Spanish to Spanish (Spain)
-        "Portuguese": "Portuguese (Portugal)",  # Map generic Portuguese to Portuguese (Portugal)
-        "Chinese": "Chinese (Mandarin)",  # Map generic Chinese to Chinese (Mandarin)
-        "French": "French (France)",  # Map generic French to French (France)
-        "English": "English (United States)",  # Map generic English to English (United States)
-        # Keep exact matches as-is: Arabic, German, Italian, Japanese, Korean, Swedish, Chinese (Mandarin), English (United States)
-    }
-
     for voice in eleven_voices:
-        # Map the language to match Google's conventions
-        mapped_language = eleven_to_google_language_map.get(
-            voice["language"], voice["language"]
-        )
-
         high: TTSMeta = {
             "tts_provider": "elevenLabs",
-            "language": mapped_language,
+            "language": voice["language"],
             "voice": voice["voice_id"],
             "model": "eleven_turbo_v2_5",
-            "friendly_voice": f"{mapped_language.capitalize()} - {voice['gender'].capitalize()} - {voice['name'].capitalize()}",
+            "friendly_voice": f"{voice['language'].capitalize()} - {voice['gender'].capitalize()} - {voice['name'].capitalize()}",
             "gender": voice["gender"],
             "price_tier": "high",
         }
