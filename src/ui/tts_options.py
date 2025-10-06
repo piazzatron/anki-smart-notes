@@ -229,7 +229,10 @@ def get_azure_voices() -> list[TTSMeta]:
     s = load_file("azure_voices.json", test_override="[]")
     azure_voices: list[AzureVoice] = json.loads(s)
     voices: list[TTSMeta] = []
-    tiers = {"Neural": "standard", "NeuralHD": "standard"}
+    tiers: dict[str, Literal["low", "standard", "high", "ultra-high"]] = {
+        "Neural": "standard",
+        "NeuralHD": "standard",
+    }
     for voice in azure_voices:
         voices.append(
             {
@@ -239,7 +242,7 @@ def get_azure_voices() -> list[TTSMeta]:
                 "voice": voice["name"],
                 "model": voice["voiceType"].lower(),
                 "friendly_voice": f"{voice['displayName'].title()} ({voice['voiceType']})",
-                "price_tier": tiers[voice["voiceType"]],  # type: ignore
+                "price_tier": tiers[voice["voiceType"]],
             }
         )
     return voices
