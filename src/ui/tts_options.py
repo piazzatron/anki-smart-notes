@@ -20,15 +20,32 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 import json
 from typing import Literal, Optional, TypedDict, Union, cast
 
-from aqt import (QAbstractListModel, QGroupBox, QHBoxLayout, QItemSelection,
-                 QItemSelectionModel, QLabel, QListView, QModelIndex,
-                 QPushButton, QSizePolicy, QSpacerItem, Qt, QVBoxLayout,
-                 QWidget)
+from aqt import (
+    QAbstractListModel,
+    QGroupBox,
+    QHBoxLayout,
+    QItemSelection,
+    QItemSelectionModel,
+    QLabel,
+    QListView,
+    QModelIndex,
+    QPushButton,
+    QSizePolicy,
+    QSpacerItem,
+    Qt,
+    QTimer,
+    QVBoxLayout,
+    QWidget,
+)
 
 from ..config import config, key_or_config_val
 from ..logger import logger
-from ..models import (OverrideableTTSOptionsDict, TTSModels, TTSProviders,
-                      overridable_tts_options)
+from ..models import (
+    OverrideableTTSOptionsDict,
+    TTSModels,
+    TTSProviders,
+    overridable_tts_options,
+)
 from ..sentry import run_async_in_background_with_sentry
 from ..tts_provider import TTSProvider
 from ..tts_utils import play_audio
@@ -36,6 +53,7 @@ from ..utils import load_file, none_defaulting
 from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_edit_text import ReactiveEditText
+from .reactive_line_edit import ReactiveLineEdit
 from .state_manager import StateManager
 from .ui_utils import default_form_layout, font_small, show_message_box
 
@@ -86,6 +104,7 @@ class TTSState(TypedDict):
 
     test_text: str
     test_enabled: bool
+    search_text: str
 
 
 openai_voices: list[TTSMeta] = [
@@ -151,14 +170,19 @@ class GoogleVoice(TypedDict):
     languageCode: str
     language: str
     name: str
-    type: Literal["Standard", "Wavenet", "Neural"]
+    type: Literal["Standard", "Wavenet", "Neural", "Chirp"]
 
 
 def get_google_voices() -> list[TTSMeta]:
     s = load_file("google_voices.json", test_override="[]")
     google_voices: list[GoogleVoice] = json.loads(s)
     voices: list[TTSMeta] = []
-    tiers = {"Standard": "low", "Wavenet": "standard", "Neural": "standard"}
+    tiers = {
+        "Standard": "low",
+        "Wavenet": "standard",
+        "Neural": "standard",
+        "Chirp": "standard",
+    }
     for voice in google_voices:
         voices.append(
             {
@@ -167,7 +191,7 @@ def get_google_voices() -> list[TTSMeta]:
                 "gender": voice["gender"],
                 "voice": voice["name"],
                 "model": voice["type"].lower(),
-                "friendly_voice": f"{voice['language'].capitalize()} - {voice['gender'].capitalize()}",
+                "friendly_voice": f"{voice['language'].capitalize()} - {voice['gender'].capitalize()} ({voice['type']})",
                 "price_tier": tiers[voice["type"]],  # type: ignore
             }
         )
@@ -243,6 +267,12 @@ def format_voice(voice: TTSMeta) -> str:
     return f"{voice['tts_provider'].capitalize()} - {language_display} - {voice['gender']} - {voice['friendly_voice'].title()} ({price_tier_copy[voice['price_tier']]})"
 
 
+voice_search_cache: dict[tuple[str, str, str], list[str]] = {
+    (v["tts_provider"], v["voice"], v["model"]): format_voice(v).lower().split()
+    for v in voices
+}
+
+
 class CustomListModel(QAbstractListModel):
     def __init__(self, data: list[TTSMeta]):
         super().__init__()
@@ -289,6 +319,10 @@ class TTSOptions(QWidget):
         self.extras_visible = extras_visible
 
         self.state = StateManager[TTSState](self.get_initial_state(tts_options))
+        self.search_timer = QTimer()
+        self.search_timer.setSingleShot(True)
+        self.search_timer.timeout.connect(self.update_search)
+        self.pending_search_text = ""
         self.setup_ui()
 
     def setup_ui(self) -> None:
@@ -360,10 +394,19 @@ class TTSOptions(QWidget):
         return filters_box
 
     def render_voices_list(self) -> QWidget:
-        voice_box = QGroupBox(f"🗣️ Voices ({len(voices)})")
+        self.voice_box = QGroupBox(f"🗣️ Voices ({len(voices)})")
         voice_box_layout = QVBoxLayout()
-        voice_box.setLayout(voice_box_layout)
-        voice_box_layout.setContentsMargins(0, 0, 0, 0)
+        self.voice_box.setLayout(voice_box_layout)
+
+        search_layout = QHBoxLayout()
+        search_input = ReactiveLineEdit(self.state, "search_text")
+        search_input.setPlaceholderText("🔎 Search Voices")
+        search_input.setMinimumHeight(36)
+        search_input.setStyleSheet("padding: 0px 8px;")
+        search_input.on_change.connect(self.debounced_search)
+        search_layout.addWidget(search_input)
+        voice_box_layout.addLayout(search_layout)
+
         self.voices_list = QListView()
         self.voices_models = CustomListModel(self.get_visible_voice_filters())
         self.voices_list.setModel(self.voices_models)
@@ -371,7 +414,7 @@ class TTSOptions(QWidget):
         if selection_model:
             selection_model.selectionChanged.connect(self.voice_did_change)
         voice_box_layout.addWidget(self.voices_list)
-        return voice_box
+        return self.voice_box
 
     def voice_did_change(self, selected: QItemSelection):
         indexes = selected.indexes()
@@ -422,6 +465,7 @@ class TTSOptions(QWidget):
             return
 
         self.voices_models.update_data(self.get_visible_voice_filters())
+        self.voice_box.setTitle(f"🗣️ Voices ({len(self.voices_models.get_data())})")
 
         # Get the new location after updating
         voice_location = (
@@ -499,25 +543,55 @@ class TTSOptions(QWidget):
             fetch_audio, on_success=on_success, on_failure=on_failure
         )
 
+    def debounced_search(self, text: str) -> None:
+        self.pending_search_text = text
+        self.search_timer.stop()
+        self.search_timer.start(100)
+
+    def update_search(self) -> None:
+        self.state.update({"search_text": self.pending_search_text})
+
     def get_visible_voice_filters(self) -> list[TTSMeta]:
         filtered = []
+        search_terms = self.state.s["search_text"].lower().strip().split()
+
         for voice in voices:
             matches_provider = (
                 self.state.s["selected_provider"] == ALL
                 or voice["tts_provider"] == self.state.s["selected_provider"]
             )
+            if not matches_provider:
+                continue
+
             matches_gender = (
                 self.state.s["selected_gender"] == ALL
                 or voice["gender"] == self.state.s["selected_gender"]
             )
+            if not matches_gender:
+                continue
+
             matches_language = (
                 self.state.s["selected_language"] == ALL
                 or voice["language"]
                 == ALL  # Or maybe don't want generic ones to appear?
                 or voice["language"] == self.state.s["selected_language"]
             )
-            if matches_provider and matches_gender and matches_language:
-                filtered.append(voice)
+
+            if not matches_language:
+                continue
+
+            # Search works by splitting the user's input into terms and the formatted
+            # voice display text into words. Each search term must match (via substring)
+            # at least one word in the voice. All search terms must match for inclusion.
+            # The voice_search_cache contains pre-split words from format_voice() output.
+            voice_key = (voice["tts_provider"], voice["voice"], voice["model"])
+            voice_words = voice_search_cache[voice_key]
+            matches_search = not search_terms or all(
+                any(term in word for word in voice_words) for term in search_terms
+            )
+            if not matches_search:
+                continue
+            filtered.append(voice)
         return filtered
 
     def get_initial_state(
@@ -533,6 +607,7 @@ class TTSOptions(QWidget):
             "selected_language": ALL,
             "test_text": default_texts[ALL],
             "test_enabled": True,
+            "search_text": "",
         }
 
         for k in overridable_tts_options:

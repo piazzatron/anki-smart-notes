@@ -1552,5 +1552,523 @@
     "language": "Chinese (Cantonese)",
     "name": "yue-HK-Standard-B",
     "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ar-XA",
+    "language": "Arabic",
+    "name": "ar-XA-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ar-XA",
+    "language": "Arabic",
+    "name": "ar-XA-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "bn-IN",
+    "language": "Bengali",
+    "name": "bn-IN-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "bn-IN",
+    "language": "Bengali",
+    "name": "bn-IN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "cmn-CN",
+    "language": "Chinese (Mandarin)",
+    "name": "cmn-CN-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "cmn-CN",
+    "language": "Chinese (Mandarin)",
+    "name": "cmn-CN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "da-DK",
+    "language": "Danish",
+    "name": "da-DK-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "da-DK",
+    "language": "Danish",
+    "name": "da-DK-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "de-DE",
+    "language": "German",
+    "name": "de-DE-Chirp-HD-D",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "de-DE",
+    "language": "German",
+    "name": "de-DE-Chirp-HD-F",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "en-AU",
+    "language": "English (Australia)",
+    "name": "en-AU-Chirp-HD-D",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "en-AU",
+    "language": "English (Australia)",
+    "name": "en-AU-Chirp-HD-F",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "en-GB",
+    "language": "English (United Kingdom)",
+    "name": "en-GB-Chirp-HD-D",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "en-GB",
+    "language": "English (United Kingdom)",
+    "name": "en-GB-Chirp-HD-F",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "en-IN",
+    "language": "English (India)",
+    "name": "en-IN-Chirp-HD-D",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "en-IN",
+    "language": "English (India)",
+    "name": "en-IN-Chirp-HD-F",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "es-ES",
+    "language": "Spanish (Spain)",
+    "name": "es-ES-Chirp-HD-D",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "es-ES",
+    "language": "Spanish (Spain)",
+    "name": "es-ES-Chirp-HD-F",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "es-US",
+    "language": "Spanish (United States)",
+    "name": "es-US-Chirp-HD-D",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "es-US",
+    "language": "Spanish (United States)",
+    "name": "es-US-Chirp-HD-F",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "fi-FI",
+    "language": "Finnish",
+    "name": "fi-FI-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "fi-FI",
+    "language": "Finnish",
+    "name": "fi-FI-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "fr-CA",
+    "language": "French (Canada)",
+    "name": "fr-CA-Chirp-HD-D",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "fr-CA",
+    "language": "French (Canada)",
+    "name": "fr-CA-Chirp-HD-F",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "fr-FR",
+    "language": "French (France)",
+    "name": "fr-FR-Chirp-HD-D",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "fr-FR",
+    "language": "French (France)",
+    "name": "fr-FR-Chirp-HD-F",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "gu-IN",
+    "language": "Gujarati",
+    "name": "gu-IN-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "gu-IN",
+    "language": "Gujarati",
+    "name": "gu-IN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "hi-IN",
+    "language": "Hindi",
+    "name": "hi-IN-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "hi-IN",
+    "language": "Hindi",
+    "name": "hi-IN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "id-ID",
+    "language": "Indonesian",
+    "name": "id-ID-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "id-ID",
+    "language": "Indonesian",
+    "name": "id-ID-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "it-IT",
+    "language": "Italian",
+    "name": "it-IT-Chirp-HD-D",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "it-IT",
+    "language": "Italian",
+    "name": "it-IT-Chirp-HD-F",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ja-JP",
+    "language": "Japanese",
+    "name": "ja-JP-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ja-JP",
+    "language": "Japanese",
+    "name": "ja-JP-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "kn-IN",
+    "language": "Kannada",
+    "name": "kn-IN-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "kn-IN",
+    "language": "Kannada",
+    "name": "kn-IN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ko-KR",
+    "language": "Korean",
+    "name": "ko-KR-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ko-KR",
+    "language": "Korean",
+    "name": "ko-KR-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ml-IN",
+    "language": "Malayalam",
+    "name": "ml-IN-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ml-IN",
+    "language": "Malayalam",
+    "name": "ml-IN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "mr-IN",
+    "language": "Marathi",
+    "name": "mr-IN-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "mr-IN",
+    "language": "Marathi",
+    "name": "mr-IN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "nb-NO",
+    "language": "Norwegian",
+    "name": "nb-NO-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "nb-NO",
+    "language": "Norwegian",
+    "name": "nb-NO-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "nl-BE",
+    "language": "Dutch (Belgium)",
+    "name": "nl-BE-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "nl-BE",
+    "language": "Dutch (Belgium)",
+    "name": "nl-BE-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "nl-NL",
+    "language": "Dutch (Netherlands)",
+    "name": "nl-NL-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "nl-NL",
+    "language": "Dutch (Netherlands)",
+    "name": "nl-NL-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "pl-PL",
+    "language": "Polish",
+    "name": "pl-PL-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "pl-PL",
+    "language": "Polish",
+    "name": "pl-PL-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "name": "pt-BR-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "name": "pt-BR-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ru-RU",
+    "language": "Russian",
+    "name": "ru-RU-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ru-RU",
+    "language": "Russian",
+    "name": "ru-RU-Chirp3-HD-Charon",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "sv-SE",
+    "language": "Swedish",
+    "name": "sv-SE-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "sv-SE",
+    "language": "Swedish",
+    "name": "sv-SE-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "sw-KE",
+    "language": "Swahili",
+    "name": "sw-KE-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "sw-KE",
+    "language": "Swahili",
+    "name": "sw-KE-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ta-IN",
+    "language": "Tamil",
+    "name": "ta-IN-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ta-IN",
+    "language": "Tamil",
+    "name": "ta-IN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "te-IN",
+    "language": "Telugu",
+    "name": "te-IN-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "te-IN",
+    "language": "Telugu",
+    "name": "te-IN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "th-TH",
+    "language": "Thai",
+    "name": "th-TH-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "th-TH",
+    "language": "Thai",
+    "name": "th-TH-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "tr-TR",
+    "language": "Turkish",
+    "name": "tr-TR-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "tr-TR",
+    "language": "Turkish",
+    "name": "tr-TR-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "uk-UA",
+    "language": "Ukrainian",
+    "name": "uk-UA-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "uk-UA",
+    "language": "Ukrainian",
+    "name": "uk-UA-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ur-IN",
+    "language": "Urdu",
+    "name": "ur-IN-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ur-IN",
+    "language": "Urdu",
+    "name": "ur-IN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "vi-VN",
+    "language": "Vietnamese",
+    "name": "vi-VN-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "vi-VN",
+    "language": "Vietnamese",
+    "name": "vi-VN-Chirp3-HD-Achird",
+    "type": "Chirp"
   }
 ]
