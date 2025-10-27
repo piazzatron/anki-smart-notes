@@ -73,6 +73,8 @@ price_tier_copy = {
     "ultra-high": "Ultra High Cost",
 }
 
+PriceTiers = Literal["low", "standard", "high", "ultra-high"]
+
 
 class TTSMeta(TypedDict):
     tts_provider: TTSProviders
@@ -81,7 +83,7 @@ class TTSMeta(TypedDict):
     friendly_voice: str
     gender: Literal["Male", "Female", "All"]
     language: str
-    price_tier: Literal["low", "standard", "high", "ultra-high"]
+    price_tier: PriceTiers
 
 
 class TTSState(TypedDict):
@@ -203,20 +205,31 @@ def get_eleven_voices() -> list[TTSMeta]:
     eleven_voices = json.loads(s)
     voices: list[TTSMeta] = []
 
+    models: list[dict[str, str]] = [
+        {"model": "eleven_v3", "price_tier": "ultra-high"},
+        {"model": "eleven_multilingual_v2", "price_tier": "ultra-high"},
+        {"model": "eleven_flash_v2_5", "price_tier": "high"},
+    ]
+
+    friendly_models = {
+        "eleven_v3": "V3",
+        "eleven_multilingual_v2": "Multilingual V2",
+        "eleven_flash_v2_5": "Flash V2.5",
+    }
+
     for voice in eleven_voices:
-        high: TTSMeta = {
-            "tts_provider": "elevenLabs",
-            "language": voice["language"],
-            "voice": voice["voice_id"],
-            "model": "eleven_turbo_v2_5",
-            "friendly_voice": f"{voice['language'].capitalize()} - {voice['gender'].capitalize()} - {voice['name'].capitalize()}",
-            "gender": voice["gender"],
-            "price_tier": "high",
-        }
-        ultra_high = high.copy()
-        ultra_high["model"] = "eleven_multilingual_v2"
-        ultra_high["price_tier"] = "ultra-high"
-        voices.extend([high, ultra_high])
+        for model in models:
+            ttsMeta: TTSMeta = {
+                "tts_provider": "elevenLabs",
+                "language": voice["language"],
+                "voice": voice["voice_id"],
+                "model": model["model"],
+                "friendly_voice": f"{voice['name'].capitalize()} ({friendly_models[model['model']]})",
+                "gender": voice["gender"],
+                "price_tier": cast(PriceTiers, model["price_tier"]),
+            }
+
+            voices.append(ttsMeta)
 
     return voices
 
@@ -264,7 +277,7 @@ providers: list[AllTTSProviders] = [ALL, "google", "openai", "elevenLabs", "azur
 
 def format_voice(voice: TTSMeta) -> str:
     language_display = "Multilingual" if voice["language"] == ALL else voice["language"]
-    return f"{voice['tts_provider'].capitalize()} - {language_display} - {voice['gender']} - {voice['friendly_voice'].title()} ({price_tier_copy[voice['price_tier']]})"
+    return f"{voice['tts_provider'].capitalize()} - {language_display} - {voice['gender'].capitalize()} - {voice['friendly_voice'].title()} ({price_tier_copy[voice['price_tier']]})"
 
 
 voice_search_cache: dict[tuple[str, str, str], list[str]] = {
