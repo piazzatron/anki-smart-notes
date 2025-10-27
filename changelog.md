@@ -1,3 +1,7 @@
+# v2.13.0
+- Add new ElevenLabs V3 model and more affordable Flash V2.5 model (replacing Turbo 2.5).
+- Add additional ElevenLabs Vietnamese voices.
+
 # v2.12.0
 
 - NEW TTS voices: 600 new Azure voices, 74 new Google Chirp voices.

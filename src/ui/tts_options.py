@@ -20,15 +20,32 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 import json
 from typing import Literal, Optional, TypedDict, Union, cast
 
-from aqt import (QAbstractListModel, QGroupBox, QHBoxLayout, QItemSelection,
-                 QItemSelectionModel, QLabel, QListView, QModelIndex,
-                 QPushButton, QSizePolicy, QSpacerItem, Qt, QTimer,
-                 QVBoxLayout, QWidget)
+from aqt import (
+    QAbstractListModel,
+    QGroupBox,
+    QHBoxLayout,
+    QItemSelection,
+    QItemSelectionModel,
+    QLabel,
+    QListView,
+    QModelIndex,
+    QPushButton,
+    QSizePolicy,
+    QSpacerItem,
+    Qt,
+    QTimer,
+    QVBoxLayout,
+    QWidget,
+)
 
 from ..config import config, key_or_config_val
 from ..logger import logger
-from ..models import (OverrideableTTSOptionsDict, TTSModels, TTSProviders,
-                      overridable_tts_options)
+from ..models import (
+    OverrideableTTSOptionsDict,
+    TTSModels,
+    TTSProviders,
+    overridable_tts_options,
+)
 from ..sentry import run_async_in_background_with_sentry
 from ..tts_provider import TTSProvider
 from ..tts_utils import play_audio
@@ -56,6 +73,8 @@ price_tier_copy = {
     "ultra-high": "Ultra High Cost",
 }
 
+PriceTiers = Literal["low", "standard", "high", "ultra-high"]
+
 
 class TTSMeta(TypedDict):
     tts_provider: TTSProviders
@@ -64,7 +83,7 @@ class TTSMeta(TypedDict):
     friendly_voice: str
     gender: Literal["Male", "Female", "All"]
     language: str
-    price_tier: Literal["low", "standard", "high", "ultra-high"]
+    price_tier: PriceTiers
 
 
 class TTSState(TypedDict):
@@ -186,19 +205,16 @@ def get_eleven_voices() -> list[TTSMeta]:
     eleven_voices = json.loads(s)
     voices: list[TTSMeta] = []
 
-
     models: list[dict[str, str]] = [
         {"model": "eleven_v3", "price_tier": "ultra-high"},
         {"model": "eleven_multilingual_v2", "price_tier": "ultra-high"},
-        {"model": "eleven_turbo_v2_5", "price_tier": "high"},
         {"model": "eleven_flash_v2_5", "price_tier": "high"},
     ]
 
     friendly_models = {
         "eleven_v3": "V3",
         "eleven_multilingual_v2": "Multilingual V2",
-        "eleven_turbo_v2_5": "Turbo V2.5",
-        "eleven_flash_v2_5": "Flash V2.5"
+        "eleven_flash_v2_5": "Flash V2.5",
     }
 
     for voice in eleven_voices:
@@ -210,7 +226,7 @@ def get_eleven_voices() -> list[TTSMeta]:
                 "model": model["model"],
                 "friendly_voice": f"{voice['name'].capitalize()} ({friendly_models[model['model']]})",
                 "gender": voice["gender"],
-                "price_tier": model["price_tier"], # type: ignore
+                "price_tier": cast(PriceTiers, model["price_tier"]),
             }
 
             voices.append(ttsMeta)
