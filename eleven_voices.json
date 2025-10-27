@@ -110,5 +110,29 @@
     "country": "sv",
     "preview_url": "https://storage.googleapis.com/eleven-public-prod/Clk6kdJ10yNzb14pOOqXKi1y5qW2/voices/x0u3EW21dbrORJzOq1m9/ffda0752-26f1-4341-8f31-161771679941.mp3",
     "language": "Swedish"
+  },
+  {
+    "voice_id": "BUPPIXeDaJWBz696iXRS",
+    "name": "Việt Dũng",
+    "gender": "male",
+    "country": "vi",
+    "preview_url": "",
+    "language": "Vietnamese (North)"
+  },
+ {
+    "voice_id": "ywBZEqUhld86Jeajq94o",
+    "name": "Decyber - Mr. Anh",
+    "gender": "male",
+    "country": "vi",
+    "preview_url": "",
+    "language": "Vietnamese (North)"
+  },
+ {
+    "voice_id": "BlZK9tHPU6XXjwOSIiYA",
+    "name": "HuyenTrang",
+    "gender": "female",
+    "country": "vi",
+    "preview_url": "",
+    "language": "Vietnamese (North)"
   }
 ]
