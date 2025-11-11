@@ -392,6 +392,7 @@ def add_deck_option(
         processor.process_cards_with_progress(
             cards,
             on_success=make_on_batch_success(tree_view.browser),
+            overwrite_fields=config.regenerate_notes_when_batching,
         )
 
     item.triggered.connect(wrapped)
