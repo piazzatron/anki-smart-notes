@@ -51,36 +51,52 @@ class OpenAIClient:
         logger.debug(
             f"OpenAI: hitting {endpoint} model: {config.legacy_openai_model} retries {retry_count} for prompt: {prompt}"
         )
-        async with (
-            aiohttp.ClientSession(timeout=timeout) as session,
-            session.post(
-                endpoint,
-                headers={
-                    "Authorization": f"Bearer {config.openai_api_key}",
-                },
-                json={
-                    "model": config.legacy_openai_model,
-                    "messages": [{"role": "user", "content": prompt}],
-                    "temperature": temperature,
-                },
-            ) as response,
-        ):
-            if response.status == 429:
-                logger.debug("Got a 429 from OpenAI")
-                if retry_count < MAX_RETRIES:
-                    wait_time = (2**retry_count) * RETRY_BASE_SECONDS
-                    logger.debug(
-                        f"Retry: {retry_count} Waiting {wait_time} seconds before retrying"
-                    )
-                    await asyncio.sleep(wait_time)
+        try:
+            async with (
+                aiohttp.ClientSession(timeout=timeout) as session,
+                session.post(
+                    endpoint,
+                    headers={
+                        "Authorization": f"Bearer {config.openai_api_key}",
+                    },
+                    json={
+                        "model": config.legacy_openai_model,
+                        "messages": [{"role": "user", "content": prompt}],
+                        "temperature": temperature,
+                    },
+                ) as response,
+            ):
+                if response.status == 429:
+                    logger.debug("Got a 429 from OpenAI")
+                    if retry_count < MAX_RETRIES:
+                        wait_time = (2**retry_count) * RETRY_BASE_SECONDS
+                        logger.debug(
+                            f"Retry: {retry_count} Waiting {wait_time} seconds before retrying"
+                        )
+                        await asyncio.sleep(wait_time)
 
-                    return await self.async_get_chat_response(prompt, retry_count + 1)
+                        return await self.async_get_chat_response(
+                            prompt, temperature, retry_count + 1
+                        )
 
-            response.raise_for_status()
-            resp = await response.json()
-            msg: str = resp["choices"][0]["message"]["content"]
-            logger.debug(f"Got response from OpenAI: {msg}")
-            return msg
+                response.raise_for_status()
+                resp = await response.json()
+                msg: str = resp["choices"][0]["message"]["content"]
+                logger.debug(f"Got response from OpenAI: {msg}")
+                return msg
+        except asyncio.TimeoutError:
+            logger.warning("OpenAI request timed out")
+            if retry_count < MAX_RETRIES:
+                wait_time = (2**retry_count) * RETRY_BASE_SECONDS
+                logger.debug(
+                    f"Retry: {retry_count} Waiting {wait_time} seconds before retrying"
+                )
+                await asyncio.sleep(wait_time)
+
+                return await self.async_get_chat_response(
+                    prompt, temperature, retry_count + 1
+                )
+            raise
 
 
 openai_provider = OpenAIClient()

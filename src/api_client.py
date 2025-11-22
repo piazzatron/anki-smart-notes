@@ -58,44 +58,63 @@ class APIClient:
         if note_id is not None:
             headers["Note-ID"] = f"{note_id}"
 
-        async with (
-            aiohttp.ClientSession() as session,
-            (session.get if method == "GET" else session.post)(
-                endpoint,
-                headers=headers,
-                json=args,
-                timeout=timeout,
-            ) as response,
-        ):
-            if response.status == 429:
-                logger.warning("Got a 429 from server")
-                if retry_count < MAX_RETRIES:
-                    wait_time = (2**retry_count) * RETRY_BASE_SECONDS
-                    logger.debug(
-                        f"Retry: {retry_count} Waiting {wait_time} seconds before retrying"
-                    )
-                    await asyncio.sleep(wait_time)
+        try:
+            async with (
+                aiohttp.ClientSession() as session,
+                (session.get if method == "GET" else session.post)(
+                    endpoint,
+                    headers=headers,
+                    json=args,
+                    timeout=timeout,
+                ) as response,
+            ):
+                if response.status == 429:
+                    logger.warning("Got a 429 from server")
+                    if retry_count < MAX_RETRIES:
+                        wait_time = (2**retry_count) * RETRY_BASE_SECONDS
+                        logger.debug(
+                            f"Retry: {retry_count} Waiting {wait_time} seconds before retrying"
+                        )
+                        await asyncio.sleep(wait_time)
 
-                    return await self.get_api_response(
-                        path=path,
-                        args=args,
-                        timeout_sec=timeout_sec,
-                        retry_count=retry_count + 1,
-                        note_id=note_id,
-                        method=method,
-                    )
+                        return await self.get_api_response(
+                            path=path,
+                            args=args,
+                            timeout_sec=timeout_sec,
+                            retry_count=retry_count + 1,
+                            note_id=note_id,
+                            method=method,
+                        )
 
-            logger.debug(f"Got response from {path}: {response.status}")
-            if response.status == 400:
-                json = await response.json()
-                logger.error(json)
-                raise Exception(f"Validation error: {json['error']}")
-            response.raise_for_status()
+                logger.debug(f"Got response from {path}: {response.status}")
+                if response.status == 400:
+                    json = await response.json()
+                    logger.error(json)
+                    raise Exception(f"Validation error: {json['error']}")
+                response.raise_for_status()
 
-            # Read it all into memory
-            await response.read()
+                # Read it all into memory
+                await response.read()
 
-            return response
+                return response
+        except asyncio.TimeoutError:
+            logger.warning(f"Request to {path} timed out")
+            if retry_count < MAX_RETRIES:
+                wait_time = (2**retry_count) * RETRY_BASE_SECONDS
+                logger.debug(
+                    f"Retry: {retry_count} Waiting {wait_time} seconds before retrying"
+                )
+                await asyncio.sleep(wait_time)
+
+                return await self.get_api_response(
+                    path=path,
+                    args=args,
+                    timeout_sec=timeout_sec,
+                    retry_count=retry_count + 1,
+                    note_id=note_id,
+                    method=method,
+                )
+            raise
 
 
 api = APIClient()
