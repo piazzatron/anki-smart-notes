@@ -1,3 +1,7 @@
+
+# v2.14.0
+- Unify credits: text, TTS, and image generation now all draw from the same credits pool. This should result in increased credit limits across all plans, potentially substantially, depending on your use case. 
+
 # v2.13.0
 - Add new ElevenLabs V3 model and more affordable Flash V2.5 model (replacing Turbo 2.5).
 - Add additional ElevenLabs Vietnamese voices.
