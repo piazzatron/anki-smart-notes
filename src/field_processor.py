@@ -23,13 +23,7 @@ from anki.decks import DeckId
 from anki.notes import Note
 from aqt import mw
 
-from .app_state import (
-    did_exceed_image_capacity,
-    did_exceed_text_capacity,
-    did_exceed_voice_capacity,
-    has_api_key,
-    is_app_unlocked,
-)
+from .app_state import has_api_key, is_capacity_remaining
 from .chat_provider import ChatProvider, chat_provider
 from .config import key_or_config_val
 from .constants import GENERIC_CREDITS_MESSAGE
@@ -89,7 +83,7 @@ class FieldProcessor:
         )
 
         if field_type == "tts":
-            if not is_app_unlocked():
+            if not is_capacity_remaining():
                 logger.debug("Skipping TTS field for locked app")
                 return None
 
@@ -190,19 +184,14 @@ class FieldProcessor:
 
         resp: Optional[str] = None
 
-        if is_app_unlocked():
-            if did_exceed_text_capacity():
-                if show_error_box:
-                    run_on_main(lambda: show_message_box(GENERIC_CREDITS_MESSAGE))
-                return None
-            else:
-                resp = await self.chat_provider.async_get_chat_response(
-                    interpolated_prompt,
-                    model=model,
-                    provider=provider,
-                    temperature=temperature,
-                    note_id=note.id,
-                )
+        if is_capacity_remaining():
+            resp = await self.chat_provider.async_get_chat_response(
+                interpolated_prompt,
+                model=model,
+                provider=provider,
+                temperature=temperature,
+                note_id=note.id,
+            )
         elif has_api_key():
             logger.debug("On legacy path....")
             # Check that this isn't a chained smart field
@@ -218,7 +207,7 @@ class FieldProcessor:
                 interpolated_prompt, temperature=temperature, retry_count=0
             )
         else:
-            logger.error("App is locked + no API key")
+            logger.error("App is at capacity + no API key")
             if show_error_box:
                 run_on_main(lambda: show_message_box(GENERIC_CREDITS_MESSAGE))
             return None
@@ -245,8 +234,8 @@ class FieldProcessor:
 
         logger.debug(f"Resolving: {interpolated_prompt}")
 
-        if did_exceed_voice_capacity():
-            logger.debug("App at voice capacity, returning early")
+        if not is_capacity_remaining():
+            logger.debug("App at capacity, returning early")
             if show_error_box:
                 run_on_main(lambda: show_message_box(GENERIC_CREDITS_MESSAGE))
             return None
@@ -268,8 +257,8 @@ class FieldProcessor:
         provider: ImageProviders,
         show_error_box: bool = True,
     ) -> Optional[bytes]:
-        if did_exceed_image_capacity():
-            logger.debug("App at image capacity, returning early")
+        if not is_capacity_remaining():
+            logger.debug("App at capacity, returning early")
             if show_error_box:
                 run_on_main(lambda: show_message_box(GENERIC_CREDITS_MESSAGE))
             return None

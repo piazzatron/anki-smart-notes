@@ -32,7 +32,7 @@ from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
 from aqt.addcards import AddCards
 from aqt.browser.sidebar.item import SidebarItemType
 
-from .app_state import app_state, is_app_unlocked_or_legacy
+from .app_state import app_state, is_capacity_remaining_or_legacy
 from .config import bump_usage_counter, config
 from .decks import deck_id_to_name_map
 from .logger import logger, setup_logger
@@ -80,7 +80,7 @@ def add_editor_top_button(
         if not mw:
             return
 
-        if not is_app_unlocked_or_legacy(show_box=True):
+        if not is_capacity_remaining_or_legacy(show_box=True):
             return
 
         card = editor.card
@@ -217,7 +217,7 @@ def on_browser_context(processor: NoteProcessor, browser: browser.Browser, menu:
     cards = browser.selected_cards()
 
     def wrapped():
-        if not is_app_unlocked_or_legacy(show_box=True):
+        if not is_capacity_remaining_or_legacy(show_box=True):
             return
 
         if not prevent_batches_on_free_trial(cards):
@@ -328,7 +328,7 @@ def on_editor_context(
 @with_processor  # type: ignore
 def on_review(processor: NoteProcessor, card: Card):
     logger.debug("Reviewing...")
-    if not is_app_unlocked_or_legacy(show_box=False):
+    if not is_capacity_remaining_or_legacy(show_box=False):
         return
 
     if not config.generate_at_review:
@@ -384,7 +384,7 @@ def add_deck_option(
     menu.addAction(item)
 
     def wrapped():
-        if not is_app_unlocked_or_legacy(show_box=True):
+        if not is_capacity_remaining_or_legacy(show_box=True):
             return
         if not prevent_batches_on_free_trial(cards):
             return

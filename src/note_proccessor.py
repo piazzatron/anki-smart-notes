@@ -31,8 +31,8 @@ from aqt import mw
 from .app_state import (
     app_state,
     has_api_key,
-    is_app_unlocked,
-    is_app_unlocked_or_legacy,
+    is_capacity_remaining,
+    is_capacity_remaining_or_legacy,
 )
 from .config import Config, bump_usage_counter
 from .constants import GENERIC_CREDITS_MESSAGE, STANDARD_BATCH_LIMIT
@@ -82,7 +82,7 @@ class NoteProcessor:
 
         logger.debug("Processing notes...")
 
-        if not is_app_unlocked_or_legacy(show_box=False):
+        if not is_capacity_remaining_or_legacy(show_box=False):
             return
 
         def wrapped_on_success(res: tuple[list[Note], list[Note], list[Note]]) -> None:
@@ -99,7 +99,7 @@ class NoteProcessor:
             show_message_box(f"Error: {e}")
 
         # TODO: this logic should be re-addressed when I revisit batch limits (ANK-28)
-        if is_app_unlocked():
+        if is_capacity_remaining():
             limit = STANDARD_BATCH_LIMIT
         else:
             model = self.config.chat_model
@@ -388,7 +388,7 @@ class NoteProcessor:
             unknown_error = f"Smart Notes Error: Unknown error: {e}"
 
             # First time we see a 4xx error, update subscription state
-            if is_app_unlocked():
+            if is_capacity_remaining():
                 logger.debug(f"Got API error: {e}")
                 if status >= 400 and status < 500:
                     logger.debug(
@@ -437,7 +437,7 @@ class NoteProcessor:
         self.req_in_progress = False
 
     def _assert_valid_app_mode(self) -> bool:
-        return is_app_unlocked() or has_api_key()
+        return is_capacity_remaining() or has_api_key()
 
     async def _process_node(
         self, node: FieldNode, note: Note, show_error_message_box: bool

@@ -56,8 +56,8 @@ class ImageOptions(QWidget):
             "image_models",
             "image_model",
             {
-                "flux-schnell": "Flux Schnell (1 credit)",
-                "flux-dev": "Flux Dev (8 credits)",
+                "flux-schnell": "Flux Schnell (1x Image Cost)",
+                "flux-dev": "Flux Dev (8x Image Cost)",
             },
         )
         self.model_picker.setMaximumWidth(300)

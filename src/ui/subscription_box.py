@@ -30,13 +30,7 @@ from aqt import (
     pyqtSignal,
 )
 
-from ..app_state import (
-    AppState,
-    app_state,
-    did_exceed_image_capacity,
-    did_exceed_text_capacity,
-    did_exceed_voice_capacity,
-)
+from ..app_state import AppState, app_state
 from ..constants import get_site_url
 from ..sentry import pinger
 from ..subscription_provider import SubscriptionState
@@ -134,10 +128,8 @@ class SubscriptionBox(QWidget):
             "FREE_TRIAL_ACTIVE": self._render_free_trial_active(),
             "FREE_TRIAL_EXPIRED": self._render_upgrade(False),
             "FREE_TRIAL_CAPACITY": self._render_upgrade(False),
-            "FREE_TRIAL_PARTIAL_CAPACITY": self._render_upgrade(False),
             "PAID_PLAN_ACTIVE": self._render_active(),
             "PAID_PLAN_CAPACITY": self._render_upgrade(True),
-            "PAID_PLAN_PARTIAL_CAPACITY": self._render_upgrade(True),
             "PAID_PLAN_EXPIRED": self._render_paid_lapsed(),
         }
 
@@ -270,31 +262,8 @@ class SubscriptionBox(QWidget):
         paid: bool = False,
     ) -> QWidget:
         layout = QHBoxLayout()
-        text_capacity = did_exceed_text_capacity()
-        image_capacity = did_exceed_image_capacity()
-        voice_capacity = did_exceed_voice_capacity()
-        inner_text: str = ""
-        expired = False
 
-        if text_capacity and voice_capacity and image_capacity:
-            expired = True
-            inner_text = "capacity reached!"
-        elif text_capacity and voice_capacity:
-            inner_text = "text and voice capacity reached!"
-        elif text_capacity and image_capacity:
-            inner_text = "text and image capacity reached!"
-        elif voice_capacity and image_capacity:
-            inner_text = "voice and image capacity reached!"
-        elif text_capacity:
-            inner_text = "text capacity reached!"
-        elif voice_capacity:
-            inner_text = "voice capacity reached!"
-        elif image_capacity:
-            inner_text = "image capacity reached!"
-
-        label_text = (
-            f"{'🚨' if expired else '⚠️'} {'Plan' if paid else 'Trial'} {inner_text}"
-        )
+        label_text = f"🚨 {'Plan' if paid else 'Trial'} capacity reached! (100%)"
 
         label = QLabel(label_text)
         label.setFont(font_bold)
