@@ -66,11 +66,7 @@ PAID_PLAN_ENDED_EXPIRED_API_KEY = "Smart Notes: Your subscription has expired. S
 PAID_PLAN_ENDED_CAPACITY_NO_API_KEY = "Smart Notes: Your subscription capacity has been used up. Please upgrade to a higher plan to continue using Smart Notes."
 PAID_PLAN_ENDED_EXPIRED_NO_API_KEY = "Smart Notes: Your subscription has expired. Please subscribe to continue using Smart Notes."
 
-EXCEEDED_TEXT_CAPACITY = "Smart Notes: You've used all your text credits! TTS and image will still function if you have enough credits."
-EXCEEDED_IMAGE_CAPACITY = "Smart Notes: You've used all your image credits! Text and TTS will still function if you have enough credits."
-EXCEEDED_TTS_CAPACITY = "Smart Notes: You've used all your TTS credits! Text and image will still function if you have enough credits."
-
-GENERIC_CREDITS_MESSAGE = "Smart Notes: You have run out of credits for this operation 😕! Check the account tab for more information and consider upgrading to a larger plan."
+GENERIC_CREDITS_MESSAGE = "Smart Notes: You have reached your credit capacity! Check the account tab for details and consider upgrading to a larger plan."
 
 
 def get_server_url() -> str:

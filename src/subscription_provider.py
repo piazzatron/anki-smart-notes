@@ -27,12 +27,10 @@ SubscriptionState = Literal[
     "UNAUTHENTICATED",  # This is not returned, jic there's no JWT
     "NO_SUBSCRIPTION",
     "FREE_TRIAL_ACTIVE",
-    "FREE_TRIAL_PARTIAL_CAPACITY",
     "FREE_TRIAL_EXPIRED",
     "FREE_TRIAL_CAPACITY",
     "PAID_PLAN_ACTIVE",
     "PAID_PLAN_EXPIRED",
-    "PAID_PLAN_PARTIAL_CAPACITY",
     "PAID_PLAN_CAPACITY",
 ]
 
@@ -49,6 +47,8 @@ class PlanInfo(TypedDict):
     voiceCreditsCapacity: int
     imageCreditsUsed: int
     imageCreditsCapacity: int
+    totalCreditsUsed: int
+    totalCreditsCapacity: int
 
 
 class UserStatus(TypedDict):

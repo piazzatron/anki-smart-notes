@@ -42,7 +42,11 @@ from aqt import (
     mw,
 )
 
-from ..app_state import is_app_legacy, is_app_unlocked, is_app_unlocked_or_legacy
+from ..app_state import (
+    is_app_legacy,
+    is_capacity_remaining,
+    is_capacity_remaining_or_legacy,
+)
 from ..config import config, key_or_config_val
 from ..constants import GLOBAL_DECK_ID, UNPAID_PROVIDER_ERROR
 from ..dag import prompt_has_error
@@ -603,10 +607,10 @@ class PromptDialog(QDialog):
 
     def on_test(self) -> None:
         if self.state.s["type"] == "chat":
-            if not is_app_unlocked_or_legacy(True):
+            if not is_capacity_remaining_or_legacy(True):
                 return
         else:
-            if not is_app_unlocked(True):
+            if not is_capacity_remaining(True):
                 return
 
         prompt = self.state.s["prompt"]
@@ -862,7 +866,7 @@ class PromptDialog(QDialog):
 
         # Ensure only openai for legacy
         if (
-            not is_app_unlocked()
+            not is_capacity_remaining()
             and self.state.s["use_custom_model"]
             and self.chat_options.state.s["chat_provider"] != "openai"
         ):

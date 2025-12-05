@@ -23,9 +23,6 @@ from typing import Any, Optional, TypedDict
 from .config import config
 from .constants import (
     APP_LOCKED_ERROR,
-    EXCEEDED_IMAGE_CAPACITY,
-    EXCEEDED_TEXT_CAPACITY,
-    EXCEEDED_TTS_CAPACITY,
     FREE_TRIAL_ENDED_CAPACITY_API_KEY,
     FREE_TRIAL_ENDED_CAPACITY_NO_API_KEY,
     FREE_TRIAL_ENDED_EXPIRED_API_KEY,
@@ -70,7 +67,6 @@ class AppStateManager:
         free_trial_states: list[SubscriptionState] = [
             "FREE_TRIAL_ACTIVE",
             "FREE_TRIAL_CAPACITY",
-            "FREE_TRIAL_PARTIAL_CAPACITY",
             "FREE_TRIAL_EXPIRED",
         ]
         return self._state.s["subscription"] in free_trial_states
@@ -82,9 +78,7 @@ class AppStateManager:
             return
 
         def on_failure(_) -> None:
-            logger.error("Got failure getting new status. Wiping auth.")
-            config.auth_token = None
-            self._state.update({"subscription": "LOADING", "plan": None})
+            logger.error("Got failure getting new status.")
 
         def on_new_status(status: Optional[UserStatus]) -> None:
             logger.debug(f"Got new subscription status: {status}")
@@ -115,6 +109,8 @@ class AppStateManager:
             if sub_did_end:
                 self._handle_subscription_did_transition(new_sub_state, status["plan"])
 
+            self._check_capacity_threshold(status["plan"])
+
         run_async_in_background_with_sentry(
             subscription_provider.get_subscription_status,
             on_new_status,
@@ -127,9 +123,6 @@ class AppStateManager:
             return "NO_SUBSCRIPTION"
 
         is_free = sub["planId"] == "free"
-        text_capacity_reached = did_exceed_text_capacity(sub)
-        voice_capacity_reached = did_exceed_voice_capacity(sub)
-        image_capacity_reached = did_exceed_image_capacity(sub)
 
         if (
             is_free
@@ -142,15 +135,8 @@ class AppStateManager:
         if sub["daysLeft"] <= 0:
             return "FREE_TRIAL_EXPIRED" if is_free else "PAID_PLAN_EXPIRED"
 
-        if text_capacity_reached and voice_capacity_reached and image_capacity_reached:
+        if sub["totalCreditsUsed"] >= sub["totalCreditsCapacity"]:
             return "FREE_TRIAL_CAPACITY" if is_free else "PAID_PLAN_CAPACITY"
-
-        if text_capacity_reached or voice_capacity_reached or image_capacity_reached:
-            return (
-                "FREE_TRIAL_PARTIAL_CAPACITY"
-                if is_free
-                else "PAID_PLAN_PARTIAL_CAPACITY"
-            )
 
         return "FREE_TRIAL_ACTIVE" if is_free else "PAID_PLAN_ACTIVE"
 
@@ -186,8 +172,6 @@ class AppStateManager:
             end_type = "capacity"
         elif new_sub in ["FREE_TRIAL_EXPIRED", "PAID_PLAN_EXPIRED"]:
             end_type = "expired"
-        elif new_sub in ["FREE_TRIAL_PARTIAL_CAPACITY", "PAID_PLAN_PARTIAL_CAPACITY"]:
-            end_type = "partial_capacity"
         else:
             logger.error(f"Unexpected subscription state: {new_sub}")
             return
@@ -217,16 +201,8 @@ class AppStateManager:
                     err = PAID_PLAN_ENDED_EXPIRED_API_KEY
                 else:
                     err = PAID_PLAN_ENDED_EXPIRED_NO_API_KEY
-        elif end_type == "partial_capacity":
-            if did_exceed_image_capacity(plan):
-                err = EXCEEDED_IMAGE_CAPACITY
-            elif did_exceed_text_capacity(plan):
-                err = EXCEEDED_TEXT_CAPACITY
-            elif did_exceed_voice_capacity(plan):
-                err = EXCEEDED_TTS_CAPACITY
 
-        # Migrate you from anthropic to OpenAI if necessary
-        if config.chat_provider == "anthropic":
+        if config.chat_provider != "openai":
             logger.debug("Migrating ot OpenAI chat provider")
             config.chat_provider = "openai"
             config.chat_model = "gpt-5-mini"
@@ -239,19 +215,35 @@ class AppStateManager:
         else:
             show_message_box(err)
 
+    def _check_capacity_threshold(self, plan: Optional[PlanInfo]) -> None:
+        """Alert user when they cross 50% capacity threshold."""
+        if not plan or plan["planId"] == "free":
+            return
+
+        capacity_percent = plan["totalCreditsUsed"] / plan["totalCreditsCapacity"] * 100
+        did_show = config.did_show_capacity_threshold_this_cycle
+
+        if capacity_percent < 50 and did_show:
+            config.did_show_capacity_threshold_this_cycle = False
+            return
+
+        if capacity_percent >= 50 and not did_show:
+            config.did_show_capacity_threshold_this_cycle = True
+            show_message_box(
+                "Smart Notes: You've used 50% of your credits this period. Check the account tab to see your usage breakdown."
+            )
+
 
 app_state = AppStateManager()
 
 # Mode selection stuff
 
 
-def is_app_unlocked(show_box: bool = False) -> bool:
+def is_capacity_remaining(show_box: bool = False) -> bool:
     state = app_state.state["subscription"]
     unlocked_states: list[SubscriptionState] = [
         "FREE_TRIAL_ACTIVE",
         "PAID_PLAN_ACTIVE",
-        "FREE_TRIAL_PARTIAL_CAPACITY",
-        "PAID_PLAN_PARTIAL_CAPACITY",
     ]
 
     unlocked = state in unlocked_states
@@ -265,32 +257,11 @@ def has_api_key() -> bool:
 
 
 def is_app_legacy() -> bool:
-    return not is_app_unlocked() and has_api_key()
+    return not is_capacity_remaining() and has_api_key()
 
 
-def is_app_unlocked_or_legacy(show_box: bool = False) -> bool:
-    allowed = is_app_unlocked() or has_api_key()
+def is_capacity_remaining_or_legacy(show_box: bool = False) -> bool:
+    allowed = is_capacity_remaining() or has_api_key()
     if not allowed and show_box:
         show_message_box(APP_LOCKED_ERROR)
     return allowed
-
-
-def did_exceed_image_capacity(sub: Optional[PlanInfo] = None) -> bool:
-    sub = sub or app_state.state["plan"]
-    if not sub:
-        return False
-    return sub["imageCreditsUsed"] >= sub["imageCreditsCapacity"]
-
-
-def did_exceed_text_capacity(sub: Optional[PlanInfo] = None) -> bool:
-    sub = sub or app_state.state["plan"]
-    if not sub:
-        return False
-    return sub["textCreditsUsed"] >= sub["textCreditsCapacity"]
-
-
-def did_exceed_voice_capacity(sub: Optional[PlanInfo] = None) -> bool:
-    sub = sub or app_state.state["plan"]
-    if not sub:
-        return False
-    return sub["voiceCreditsUsed"] >= sub["voiceCreditsCapacity"]

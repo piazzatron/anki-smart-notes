@@ -84,6 +84,9 @@ class Config:
     did_cleanup_config_defaults: bool
     did_click_rate_link: bool
 
+    # Capacity alerts
+    did_show_capacity_threshold_this_cycle: bool
+
     # Deprecated fields:
     legacy_openai_model: OpenAIModels
 

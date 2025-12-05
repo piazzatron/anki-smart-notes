@@ -44,7 +44,7 @@ from aqt import (
 )
 from PyQt6.QtCore import Qt
 
-from ..app_state import AppState, app_state, is_app_unlocked
+from ..app_state import AppState, app_state, is_capacity_remaining
 from ..config import config
 from ..constants import GLOBAL_DECK_ID, UNPAID_PROVIDER_ERROR
 from ..decks import deck_id_to_name_map, deck_name_to_id_map
@@ -590,7 +590,7 @@ class AddonOptionsDialog(QDialog):
 
     # When appstate updates
     def update_from_state(self, _: AppState) -> None:
-        is_unlocked = is_app_unlocked()
+        is_unlocked = is_capacity_remaining()
         self.voice_button.setEnabled(is_unlocked)
         self.tts_tab.setEnabled(is_unlocked)
 
@@ -636,7 +636,7 @@ class AddonOptionsDialog(QDialog):
             if not did_click_ok:
                 return False
 
-        is_unlocked = is_app_unlocked()
+        is_unlocked = is_capacity_remaining()
 
         if not is_unlocked and self.chat_options.state.s["chat_provider"] != "openai":
             show_message_box(UNPAID_PROVIDER_ERROR)
