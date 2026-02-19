@@ -29,6 +29,10 @@
 - We use `Linear` for issue tracking: if you see text like [ANK-123] somewhere, like in your prompt or a Github issue title , the PR should include that text `[ANK-123]` at the end of the title. Example: `fix: double sign out bug [ANK-1337]`
 - Branches should contain the Linear tag if you are provided one as well. Names should be concise, for example: `fix-sign-out-bug-ank-1337`
 
+# Changelog
+- When shipping a significant feature, add an entry to `changelog.md`. You don't need to do this for minor bug fixes.
+- Always follow the existing format of the changelog precisely, including newlines.
+
 # Permissions
 - If you're in accept edits mode, don't ask for permission to git commit or git push. Just do it.
 
