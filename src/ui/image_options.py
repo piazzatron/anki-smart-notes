@@ -22,10 +22,24 @@ from typing import Optional, TypedDict
 from aqt import QGroupBox, QVBoxLayout, QWidget
 
 from ..config import key_or_config_val
-from ..models import ImageModels, ImageProviders, OverridableImageOptionsDict
+from ..models import (
+    ImageModels,
+    ImageProviders,
+    OverridableImageOptionsDict,
+    all_image_models,
+    image_model_to_provider,
+)
 from .reactive_combo_box import ReactiveComboBox
 from .state_manager import StateManager
 from .ui_utils import default_form_layout
+
+image_models_display: dict[str, str] = {
+    "flux-schnell": "Flux Schnell (1x Image Cost)",
+    "flux-dev": "Flux Dev (8x Image Cost)",
+    "nano-banana": "Nano Banana (TBD Cost)",
+    "nano-banana-pro": "Nano Banana Pro (TBD Cost)",
+    "gpt-image-1": "GPT Image 1 (TBD Cost)",
+}
 
 
 class State(TypedDict):
@@ -40,11 +54,13 @@ class ImageOptions(QWidget):
     ) -> None:
         super().__init__()
 
+        model: ImageModels = key_or_config_val(image_options or {}, "image_model")
+
         self.state = StateManager[State](
             {
-                "image_model": key_or_config_val(image_options or {}, "image_model"),
-                "image_models": ["flux-dev", "flux-schnell"],
-                "image_provider": "replicate",
+                "image_model": model,
+                "image_models": all_image_models,
+                "image_provider": image_model_to_provider[model],
             }
         )
 
@@ -55,10 +71,12 @@ class ImageOptions(QWidget):
             self.state,
             "image_models",
             "image_model",
-            {
-                "flux-schnell": "Flux Schnell (1x Image Cost)",
-                "flux-dev": "Flux Dev (8x Image Cost)",
-            },
+            image_models_display,
+        )
+        self.model_picker.on_change.connect(
+            lambda model: self.state.update(
+                {"image_provider": image_model_to_provider[model]}
+            )
         )
         self.model_picker.setMaximumWidth(300)
         box = QGroupBox("🖼️ Image Model Settings")
