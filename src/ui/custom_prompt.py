@@ -40,8 +40,9 @@ from aqt import (
 )
 
 from ..field_processor import field_processor
+from ..image_provider import ImageResponse
 from ..logger import logger
-from ..media_utils import get_media_path, write_media
+from ..media_utils import ext_from_content_type, get_media_path, write_media
 from ..notes import get_note_type, get_valid_fields_for_prompt
 from ..prompts import get_prompts_for_note
 from ..sentry import run_async_in_background_with_sentry
@@ -282,7 +283,7 @@ class CustomTextPrompt(CustomPrompt):
 
 class CustomImagePrompt(CustomPrompt):
     response_image: ImageDisplayer
-    raw_image: Optional[bytes] = None
+    raw_image: Optional[ImageResponse] = None
     image_options: ImageOptions
 
     def render_response_box(self) -> QWidget:
@@ -292,7 +293,7 @@ class CustomImagePrompt(CustomPrompt):
     def on_generate(self) -> None:
         prompt = self._prompt_window.toPlainText()
 
-        def on_success(image: bytes):
+        def on_success(image: ImageResponse):
             logger.debug("Got image")
             self._loading = False
             self.raw_image = image
@@ -324,13 +325,14 @@ class CustomImagePrompt(CustomPrompt):
     def render_to_text(self) -> Optional[str]:
         if not self.raw_image:
             return None
-        file_name = get_media_path(self._note, self._field_upper, "webp")
-        path = write_media(file_name, self.raw_image)
+        ext = ext_from_content_type(self.raw_image["content_type"])
+        file_name = get_media_path(self._note, self._field_upper, ext)
+        path = write_media(file_name, self.raw_image["data"])
         return f'<img src="{path}"/>'
 
     def update_ui_states(self) -> None:
         if self.raw_image:
-            self.response_image.set_image(self.raw_image)
+            self.response_image.set_image(self.raw_image["data"])
 
 
 class TTSPromptState(TypedDict):

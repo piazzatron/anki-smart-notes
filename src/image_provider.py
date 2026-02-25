@@ -17,15 +17,22 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from typing import TypedDict
+
 from .api_client import api
 from .constants import IMAGE_PROVIDER_TIMEOUT_SEC
 from .models import ImageModels, ImageProviders
 
 
+class ImageResponse(TypedDict):
+    data: bytes
+    content_type: str
+
+
 class ImageProvider:
     async def async_get_image_response(
         self, prompt: str, model: ImageModels, provider: ImageProviders, note_id: int
-    ) -> bytes:
+    ) -> ImageResponse:
         response = await api.get_api_response(
             path="image",
             args={"provider": provider, "model": model, "prompt": prompt},
@@ -33,7 +40,7 @@ class ImageProvider:
             timeout_sec=IMAGE_PROVIDER_TIMEOUT_SEC,
         )
 
-        return response._body  # type: ignore
+        return {"data": response._body, "content_type": response.content_type}  # type: ignore
 
 
 image_provider = ImageProvider()
