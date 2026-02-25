@@ -42,6 +42,7 @@ class ImageDisplayer(QWidget):
         self.setLayout(layout)
         self.label = QLabel()
         self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.label.setStyleSheet("background-color: white;")
         layout.addWidget(self.label)
         self.setFixedHeight(height)
         self.setFixedWidth(width)
