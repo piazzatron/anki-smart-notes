@@ -107,54 +107,44 @@ SmartFieldType = Literal["chat", "tts", "image"]
 # Image Models
 
 ReplicateImageModels = Literal["flux-dev", "flux-schnell"]
-GoogleImageModels = Literal["nano-banana", "nano-banana-pro"]
-OpenAIImageModels = Literal[
-    "gpt-image-1.5-low", "gpt-image-1.5-medium", "gpt-image-1.5-high"
-]
+GoogleImageModels = Literal["nano-banana"]
+OpenAIImageModels = Literal["gpt-image-1.5-medium", "gpt-image-1.5-low"]
 ImageModels = Union[ReplicateImageModels, GoogleImageModels, OpenAIImageModels]
 
 ImageProviders = Literal["replicate", "google", "openai"]
 
-ImageQuality = Literal["low", "medium", "high"]
+ImageQuality = Literal["low", "medium"]
 
 all_image_models: list[ImageModels] = [
     "flux-schnell",
     "flux-dev",
     "nano-banana",
-    "nano-banana-pro",
-    "gpt-image-1.5-low",
     "gpt-image-1.5-medium",
-    "gpt-image-1.5-high",
+    "gpt-image-1.5-low",
 ]
 
 image_model_to_provider: dict[ImageModels, ImageProviders] = {
     "flux-dev": "replicate",
     "flux-schnell": "replicate",
     "nano-banana": "google",
-    "nano-banana-pro": "google",
     "gpt-image-1.5-low": "openai",
     "gpt-image-1.5-medium": "openai",
-    "gpt-image-1.5-high": "openai",
 }
 
 image_model_to_api_model: dict[ImageModels, str] = {
     "flux-dev": "flux-dev",
     "flux-schnell": "flux-schnell",
     "nano-banana": "nano-banana",
-    "nano-banana-pro": "nano-banana-pro",
     "gpt-image-1.5-low": "gpt-image-1.5",
     "gpt-image-1.5-medium": "gpt-image-1.5",
-    "gpt-image-1.5-high": "gpt-image-1.5",
 }
 
 image_model_to_quality: dict[ImageModels, Optional[ImageQuality]] = {
     "flux-dev": None,
     "flux-schnell": None,
     "nano-banana": None,
-    "nano-banana-pro": None,
     "gpt-image-1.5-low": "low",
     "gpt-image-1.5-medium": "medium",
-    "gpt-image-1.5-high": "high",
 }
 
 
