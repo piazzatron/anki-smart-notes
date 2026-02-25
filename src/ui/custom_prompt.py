@@ -332,7 +332,9 @@ class CustomImagePrompt(CustomPrompt):
 
     def update_ui_states(self) -> None:
         if self.raw_image:
-            self.response_image.set_image(self.raw_image["data"])
+            self.response_image.set_image(
+                self.raw_image["data"], self.raw_image["content_type"]
+            )
 
 
 class TTSPromptState(TypedDict):

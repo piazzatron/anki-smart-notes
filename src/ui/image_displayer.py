@@ -50,8 +50,8 @@ class ImageDisplayer(QWidget):
         if image:
             self.set_image(image)
 
-    def set_image(self, image: bytes) -> None:
+    def set_image(self, image: bytes, content_type: str = "image/png") -> None:
         b64_image = base64.b64encode(image).decode("utf-8")
-        html = f'<img src="data:image/png;base64,{b64_image}" height="100%" width="100%" />'
+        html = f'<img src="data:{content_type};base64,{b64_image}" height="100%" width="100%" />'
         self.webview.setHtml(html)
         self.webview.show()
