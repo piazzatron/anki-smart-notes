@@ -21,7 +21,7 @@ import base64
 from typing import Optional
 
 from aqt import QHBoxLayout, QWebEngineView, QWidget
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import QByteArray, Qt
 
 
 class ImageDisplayer(QWidget):
@@ -53,5 +53,5 @@ class ImageDisplayer(QWidget):
     def set_image(self, image: bytes, content_type: str = "image/png") -> None:
         b64_image = base64.b64encode(image).decode("utf-8")
         html = f'<img src="data:{content_type};base64,{b64_image}" height="100%" width="100%" />'
-        self.webview.setHtml(html)
+        self.webview.setContent(QByteArray(html.encode("utf-8")), "text/html")
         self.webview.show()
