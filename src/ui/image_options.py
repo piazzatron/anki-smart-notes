@@ -38,7 +38,7 @@ image_models_display: dict[str, str] = {
     "flux-dev": "Flux Dev (8x Image Cost)",
     "nano-banana": "Nano Banana (TBD Cost)",
     "nano-banana-pro": "Nano Banana Pro (TBD Cost)",
-    "gpt-image-1": "GPT Image 1 (TBD Cost)",
+    "gpt-image-1.5": "GPT Image 1.5 (TBD Cost)",
 }
 
 
