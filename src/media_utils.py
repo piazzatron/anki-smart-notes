@@ -24,15 +24,13 @@ from aqt import mw
 
 from .notes import get_note_type
 
-CONTENT_TYPE_TO_EXT: dict[str, str] = {
-    "image/webp": "webp",
-    "image/png": "png",
-    "image/jpeg": "jpg",
-}
-
 
 def ext_from_content_type(content_type: str) -> str:
-    return CONTENT_TYPE_TO_EXT.get(content_type, "webp")
+    return {
+        "image/webp": "webp",
+        "image/png": "png",
+        "image/jpeg": "jpg",
+    }.get(content_type, "webp")
 
 
 def get_media_path(note: Note, field: str, format: str) -> str:

@@ -46,7 +46,8 @@ class ImageProvider:
             timeout_sec=IMAGE_PROVIDER_TIMEOUT_SEC,
         )
 
-        return {"data": response._body, "content_type": response.content_type}  # type: ignore
+        body: bytes = await response.read()
+        return {"data": body, "content_type": response.content_type}
 
 
 image_provider = ImageProvider()
