@@ -19,13 +19,27 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 from typing import Optional, TypedDict
 
-from aqt import QGroupBox, QVBoxLayout, QWidget
+from aqt import QGroupBox, QLabel, QVBoxLayout, QWidget
 
 from ..config import key_or_config_val
-from ..models import ImageModels, ImageProviders, OverridableImageOptionsDict
+from ..models import (
+    ImageModels,
+    ImageProviders,
+    OverridableImageOptionsDict,
+    all_image_models,
+    image_model_to_provider,
+)
 from .reactive_combo_box import ReactiveComboBox
 from .state_manager import StateManager
-from .ui_utils import default_form_layout
+from .ui_utils import default_form_layout, font_bold, font_small
+
+image_models_display: dict[str, str] = {
+    "z-image-turbo": "Z-Image Turbo (0.3x Cost)",
+    "flux-dev": "Flux Dev (3x Cost)",
+    "nano-banana": "Nano Banana (4x Cost)",
+    "gpt-image-1.5-medium": "GPT Image 1.5 (4x Cost)",
+    "gpt-image-1.5-low": "GPT Image 1.5 Low (1x Cost)",
+}
 
 
 class State(TypedDict):
@@ -40,11 +54,13 @@ class ImageOptions(QWidget):
     ) -> None:
         super().__init__()
 
+        model: ImageModels = key_or_config_val(image_options or {}, "image_model")
+
         self.state = StateManager[State](
             {
-                "image_model": key_or_config_val(image_options or {}, "image_model"),
-                "image_models": ["flux-dev", "flux-schnell"],
-                "image_provider": "replicate",
+                "image_model": model,
+                "image_models": all_image_models,
+                "image_provider": image_model_to_provider[model],
             }
         )
 
@@ -55,10 +71,12 @@ class ImageOptions(QWidget):
             self.state,
             "image_models",
             "image_model",
-            {
-                "flux-schnell": "Flux Schnell (1x Image Cost)",
-                "flux-dev": "Flux Dev (8x Image Cost)",
-            },
+            image_models_display,
+        )
+        self.model_picker.on_change.connect(
+            lambda model: self.state.update(
+                {"image_provider": image_model_to_provider[model]}
+            )
         )
         self.model_picker.setMaximumWidth(300)
         box = QGroupBox("🖼️ Image Model Settings")
@@ -67,4 +85,19 @@ class ImageOptions(QWidget):
         box_layout = default_form_layout()
         box.setLayout(box_layout)
         box_layout.addRow("Image Model:", self.model_picker)
+        tips_title = QLabel("💡  Picking an Image Model")
+        tips_title.setFont(font_bold)
+        tips_body = QLabel(
+            "GPT-image-low is usually the best balance of quality and price. "
+            "Z-Image Turbo is the fastest, cheapest, and lowest quality. "
+            "Flux-Dev is fast, but may have quality issues."
+        )
+        tips_body.setWordWrap(True)
+        tips_body.setFont(font_small)
+        info_box = QGroupBox()
+        info_layout = QVBoxLayout()
+        info_layout.addWidget(tips_title)
+        info_layout.addWidget(tips_body)
+        info_box.setLayout(info_layout)
+        box_layout.addRow(info_box)
         self.setLayout(layout)

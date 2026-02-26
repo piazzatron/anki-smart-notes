@@ -27,10 +27,10 @@ from .app_state import has_api_key, is_capacity_remaining
 from .chat_provider import ChatProvider, chat_provider
 from .config import key_or_config_val
 from .constants import GENERIC_CREDITS_MESSAGE
-from .image_provider import ImageProvider, image_provider
+from .image_provider import ImageProvider, ImageResponse, image_provider
 from .logger import logger
 from .markdown import convert_markdown_to_html
-from .media_utils import get_media_path
+from .media_utils import ext_from_content_type, get_media_path
 from .models import (
     DEFAULT_EXTRAS,
     ChatModels,
@@ -159,8 +159,9 @@ class FieldProcessor:
             if not image_response:
                 return None
 
-            file_name = get_media_path(note, node.field, "webp")
-            path = media.write_data(file_name, image_response)
+            ext = ext_from_content_type(image_response["content_type"])
+            file_name = get_media_path(note, node.field, ext)
+            path = media.write_data(file_name, image_response["data"])
             return f'<img src="{path}"/>'
         else:
             raise Exception(f"Unexpected note type {field_type}")
@@ -256,7 +257,7 @@ class FieldProcessor:
         model: ImageModels,
         provider: ImageProviders,
         show_error_box: bool = True,
-    ) -> Optional[bytes]:
+    ) -> Optional[ImageResponse]:
         if not is_capacity_remaining():
             logger.debug("App at capacity, returning early")
             if show_error_box:

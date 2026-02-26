@@ -17,15 +17,15 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import base64
 from typing import Optional
 
-from aqt import QHBoxLayout, QWebEngineView, QWidget
+from aqt import QHBoxLayout, QLabel, QWidget
 from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QPixmap
 
 
 class ImageDisplayer(QWidget):
-    webview: QWebEngineView
+    label: QLabel
 
     def __init__(
         self,
@@ -37,21 +37,25 @@ class ImageDisplayer(QWidget):
         super().__init__(parent)
 
         layout = QHBoxLayout()
-        layout.setContentsMargins(0, 0, 0, 0)  # Remove padding
-        self.setContentsMargins(0, 0, 0, 0)  # Remove padding
+        layout.setContentsMargins(0, 0, 0, 0)
+        self.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
-        self.webview = QWebEngineView()
-        self.webview.setFocusPolicy(Qt.FocusPolicy.NoFocus)  # No focus
-        layout.addWidget(self.webview)
+        self.label = QLabel()
+        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.label.setStyleSheet("background-color: white;")
+        layout.addWidget(self.label)
         self.setFixedHeight(height)
         self.setFixedWidth(width)
-        self.webview.setContentsMargins(0, 0, 0, 0)  # Remove padding
-        # self.webview.show()
         if image:
             self.set_image(image)
 
-    def set_image(self, image: bytes) -> None:
-        b64_image = base64.b64encode(image).decode("utf-8")
-        html = f'<img src="data:image/png;base64,{b64_image}" height="100%" width="100%" />'
-        self.webview.setHtml(html)
-        self.webview.show()
+    def set_image(self, image: bytes, content_type: str = "image/png") -> None:
+        pixmap = QPixmap()
+        pixmap.loadFromData(image)
+        scaled = pixmap.scaled(
+            self.width(),
+            self.height(),
+            Qt.AspectRatioMode.KeepAspectRatio,
+            Qt.TransformationMode.SmoothTransformation,
+        )
+        self.label.setPixmap(scaled)

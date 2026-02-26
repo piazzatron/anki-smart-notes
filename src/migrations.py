@@ -23,7 +23,7 @@ from typing import Literal, TypedDict, Union
 from .config import config
 from .constants import DEFAULT_CHAT_MODEL, DEFAULT_CHAT_PROVIDER
 from .logger import logger
-from .models import provider_model_map
+from .models import all_image_models, provider_model_map
 
 ModelType = Literal["chat", "tts"]
 
@@ -52,6 +52,9 @@ migration_map: dict[str, Union[dict[str, str], TTSMigrations]] = {
         },
         "voices": {},
     },
+    "image": {
+        "flux-schnell": "z-image-turbo",
+    },
 }
 
 
@@ -60,11 +63,13 @@ def migrate_models() -> None:
 
     chat_migration_map_raw = migration_map["chat"]
     tts_migrations_raw = migration_map["tts"]
+    image_migration_map_raw = migration_map["image"]
 
     chat_migration_map: dict[str, str] = chat_migration_map_raw  # type: ignore
     tts_migrations: TTSMigrations = tts_migrations_raw  # type: ignore
     tts_model_migration_map = tts_migrations["models"]
     tts_voice_migration_map = tts_migrations["voices"]
+    image_migration_map: dict[str, str] = image_migration_map_raw  # type: ignore
 
     # Migrate base chat model
     for old_model, new_model in chat_migration_map.items():
@@ -83,6 +88,16 @@ def migrate_models() -> None:
         if config.tts_voice == old_voice:
             logger.debug(f"TTS voice migration: {old_voice} -> {new_voice}")
             config.tts_voice = new_voice  # type: ignore
+
+    # Migrate base image model
+    for old_model, new_model in image_migration_map.items():
+        if config.image_model == old_model:
+            logger.debug(f"Image migration: {old_model} -> {new_model}")
+            config.image_model = new_model  # type: ignore
+
+    if config.image_model not in all_image_models:
+        logger.warning(f"Invalid image model: {config.image_model}, setting to default")
+        config.image_model = all_image_models[0]  # type: ignore
 
     # Set defaults for chat
     valid_models = {
@@ -127,6 +142,14 @@ def migrate_models() -> None:
                         f"Custom TTS voice migration: {tts_voice} -> {new_voice}"
                     )
                     extras["tts_voice"] = new_voice  # type: ignore
+
+                image_model = extras.get("image_model")
+                if image_model and image_model in image_migration_map:
+                    new_model = image_migration_map[image_model]
+                    logger.debug(
+                        f"Custom image model migration: {image_model} -> {new_model}"
+                    )
+                    extras["image_model"] = new_model  # type: ignore
 
     config.prompts_map = prompts_map
     logger.info("Models migration completed.")
