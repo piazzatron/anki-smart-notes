@@ -29,6 +29,13 @@
 - We use `Linear` for issue tracking: if you see text like [ANK-123] somewhere, like in your prompt or a Github issue title , the PR should include that text `[ANK-123]` at the end of the title. Example: `fix: double sign out bug [ANK-1337]`
 - Branches should contain the Linear tag if you are provided one as well. Names should be concise, for example: `fix-sign-out-bug-ank-1337`
 
+# Changelog
+- After completing a significant feature (new models, new capabilities, major bug fixes, UI changes), add an entry to `changelog.md`.
+- The next entry should use the next minor version (e.g. if the latest is v2.15.0, use v2.16.0). Create a new version header; do not append to an existing one.
+- Follow the exact format: `# v2.X.0` header, then `- Description.` bullet points.
+- Each bullet should be a single concise line that covers *all* the work done — don't split into multiple bullets when one will do. Mention every meaningful addition/change/deprecation. Example: `- Add new image models: GPT Image 1.5, Nano Banana, and Z-Image Turbo. Deprecate Flux Schnell.`
+- Do this before putting up the PR so it's included in the same changeset.
+
 # Permissions
 - If you're in accept edits mode, don't ask for permission to git commit or git push. Just do it.
 
