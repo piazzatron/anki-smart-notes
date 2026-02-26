@@ -21,12 +21,7 @@ from typing import TypedDict
 
 from .api_client import api
 from .constants import IMAGE_PROVIDER_TIMEOUT_SEC
-from .models import (
-    ImageModels,
-    ImageProviders,
-    image_model_to_api_model,
-    image_model_to_quality,
-)
+from .models import ImageModels, ImageProviders
 
 
 class ImageResponse(TypedDict):
@@ -40,12 +35,9 @@ class ImageProvider:
     ) -> ImageResponse:
         args: dict[str, str] = {
             "provider": provider,
-            "model": image_model_to_api_model[model],
+            "model": model,
             "prompt": prompt,
         }
-        quality = image_model_to_quality[model]
-        if quality:
-            args["quality"] = quality
 
         response = await api.get_api_response(
             path="image",

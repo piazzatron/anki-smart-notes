@@ -34,11 +34,11 @@ from .state_manager import StateManager
 from .ui_utils import default_form_layout
 
 image_models_display: dict[str, str] = {
-    "flux-schnell": "Flux Schnell (1x Image Cost)",
-    "flux-dev": "Flux Dev (8x Image Cost)",
-    "nano-banana": "Nano Banana (TBD Cost)",
-    "gpt-image-1.5-medium": "GPT Image 1.5 (TBD Cost)",
-    "gpt-image-1.5-low": "GPT Image 1.5 Low (TBD Cost)",
+    "flux-schnell": "Flux Schnell (0.3x Cost)",
+    "flux-dev": "Flux Dev (3x Cost)",
+    "nano-banana": "Nano Banana (4x Cost)",
+    "gpt-image-1.5-medium": "GPT Image 1.5 (3x Cost)",
+    "gpt-image-1.5-low": "GPT Image 1.5 Low (1x Cost)",
 }
 
 

@@ -113,8 +113,6 @@ ImageModels = Union[ReplicateImageModels, GoogleImageModels, OpenAIImageModels]
 
 ImageProviders = Literal["replicate", "google", "openai"]
 
-ImageQuality = Literal["low", "medium"]
-
 all_image_models: list[ImageModels] = [
     "flux-schnell",
     "flux-dev",
@@ -129,22 +127,6 @@ image_model_to_provider: dict[ImageModels, ImageProviders] = {
     "nano-banana": "google",
     "gpt-image-1.5-low": "openai",
     "gpt-image-1.5-medium": "openai",
-}
-
-image_model_to_api_model: dict[ImageModels, str] = {
-    "flux-dev": "flux-dev",
-    "flux-schnell": "flux-schnell",
-    "nano-banana": "nano-banana",
-    "gpt-image-1.5-low": "gpt-image-1.5",
-    "gpt-image-1.5-medium": "gpt-image-1.5",
-}
-
-image_model_to_quality: dict[ImageModels, Optional[ImageQuality]] = {
-    "flux-dev": None,
-    "flux-schnell": None,
-    "nano-banana": None,
-    "gpt-image-1.5-low": "low",
-    "gpt-image-1.5-medium": "medium",
 }
 
 
