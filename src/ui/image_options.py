@@ -19,7 +19,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 from typing import Optional, TypedDict
 
-from aqt import QGroupBox, QVBoxLayout, QWidget
+from aqt import QGroupBox, QLabel, QVBoxLayout, QWidget
 
 from ..config import key_or_config_val
 from ..models import (
@@ -31,13 +31,13 @@ from ..models import (
 )
 from .reactive_combo_box import ReactiveComboBox
 from .state_manager import StateManager
-from .ui_utils import default_form_layout
+from .ui_utils import default_form_layout, font_bold, font_small
 
 image_models_display: dict[str, str] = {
-    "flux-schnell": "Flux Schnell (0.3x Cost)",
+    "z-image-turbo": "Z-Image Turbo (0.3x Cost)",
     "flux-dev": "Flux Dev (3x Cost)",
     "nano-banana": "Nano Banana (4x Cost)",
-    "gpt-image-1.5-medium": "GPT Image 1.5 (3x Cost)",
+    "gpt-image-1.5-medium": "GPT Image 1.5 (4x Cost)",
     "gpt-image-1.5-low": "GPT Image 1.5 Low (1x Cost)",
 }
 
@@ -85,4 +85,19 @@ class ImageOptions(QWidget):
         box_layout = default_form_layout()
         box.setLayout(box_layout)
         box_layout.addRow("Image Model:", self.model_picker)
+        tips_title = QLabel("💡  Picking an Image Model")
+        tips_title.setFont(font_bold)
+        tips_body = QLabel(
+            "GPT-image-low is usually the best balance of quality and price. "
+            "Z-Image Turbo is the fastest, cheapest, and lowest quality. "
+            "Flux-Dev is fast, but may have quality issues."
+        )
+        tips_body.setWordWrap(True)
+        tips_body.setFont(font_small)
+        info_box = QGroupBox()
+        info_layout = QVBoxLayout()
+        info_layout.addWidget(tips_title)
+        info_layout.addWidget(tips_body)
+        info_box.setLayout(info_layout)
+        box_layout.addRow(info_box)
         self.setLayout(layout)

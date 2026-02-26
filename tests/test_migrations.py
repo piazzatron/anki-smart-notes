@@ -33,6 +33,7 @@ class MockConfig:
     chat_model: str = "gpt-4o-mini"
     tts_model: str = "tts-1"
     tts_voice: str = "alloy"
+    image_model: str = "gpt-image-1.5-low"
 
     def __setattr__(self, name: str, value: Any) -> None:
         object.__setattr__(self, name, value)
@@ -52,12 +53,14 @@ def mock_config(monkeypatch):
                                 "chat_model": None,
                                 "tts_model": None,
                                 "tts_voice": None,
+                                "image_model": None,
                             },
                             "Back": {
                                 "type": "tts",
                                 "chat_model": None,
                                 "tts_model": None,
                                 "tts_voice": None,
+                                "image_model": None,
                             },
                         },
                     }
@@ -206,4 +209,30 @@ def test_migrate_tts_voice_custom_prompts(mock_config, mock_logger):
             "tts_voice"
         ]
         == "new_voice_id"
+    )
+
+
+def test_migrate_image_model_global(mock_config, mock_logger):
+    from src.migrations import migrate_models
+
+    mock_config.image_model = "flux-schnell"
+    migrate_models()
+
+    assert mock_config.image_model == "z-image-turbo"
+
+
+def test_migrate_image_model_custom_prompts(mock_config, mock_logger):
+    from src.migrations import migrate_models
+
+    mock_config.prompts_map["note_types"]["Basic"]["All"]["extras"]["Front"][
+        "image_model"
+    ] = "flux-schnell"
+
+    migrate_models()
+
+    assert (
+        mock_config.prompts_map["note_types"]["Basic"]["All"]["extras"]["Front"][
+            "image_model"
+        ]
+        == "z-image-turbo"
     )
