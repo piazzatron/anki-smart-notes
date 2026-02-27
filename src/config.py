@@ -83,6 +83,7 @@ class Config:
     did_deck_filter_migration: bool
     did_cleanup_config_defaults: bool
     did_click_rate_link: bool
+    did_dismiss_rate_prompt: bool
 
     # Capacity alerts
     did_show_capacity_threshold_this_cycle: bool

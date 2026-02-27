@@ -185,27 +185,42 @@ class AddonOptionsDialog(QDialog):
 
         tab_layout = QVBoxLayout()
 
-        if not config.did_click_rate_link:
-            rate_box = QWidget()
-            rate_layout = QHBoxLayout()
-            rate_box.setLayout(rate_layout)
+        if not config.did_click_rate_link and not config.did_dismiss_rate_prompt:
+            rate_group = QGroupBox()
+            rate_outer = QHBoxLayout()
+            rate_group.setLayout(rate_outer)
+
             rate_label = QLabel(
                 'Enjoying Smart Notes? Please consider <a href="https://ankiweb.net/shared/info/1531888719">leaving a review.</a>'
             )
-            rate_label.setContentsMargins(0, 12, 0, 18)
             rate_font = rate_label.font()
             rate_font.setItalic(True)
             rate_label.setFont(rate_font)
-            rate_layout.addStretch()
-            rate_layout.addWidget(rate_label)
-            rate_layout.addStretch()
+
+            dismiss_button = QPushButton("\u2715")
+            dismiss_button.setFixedSize(20, 20)
+            dismiss_button.setFlat(True)
+            dismiss_button.setStyleSheet(
+                "QPushButton { border: none; font-size: 14px; }"
+            )
+
+            rate_outer.addStretch()
+            rate_outer.addWidget(rate_label)
+            rate_outer.addStretch()
+            rate_outer.addWidget(dismiss_button)
 
             def on_rate_click(url: str):
                 QDesktopServices.openUrl(QUrl(url))
                 config.did_click_rate_link = True
+                rate_group.hide()
+
+            def on_dismiss():
+                config.did_dismiss_rate_prompt = True
+                rate_group.hide()
 
             rate_label.linkActivated.connect(on_rate_click)
-            tab_layout.addWidget(rate_box)
+            dismiss_button.clicked.connect(on_dismiss)
+            tab_layout.addWidget(rate_group)
         tab_layout.addWidget(tabs)
 
         # Version Box

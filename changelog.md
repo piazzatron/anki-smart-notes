@@ -1,6 +1,7 @@
 
 # v2.15.0
 - Add new image models: GPT Image 1.5, Nano Banana 2, and Z-Image Turbo. Deprecate Flux Schnell.
+- The "leave a review" prompt is now dismissable and wrapped in a group box for better visual grouping.
 
 # v2.14.0
 - Unify credits: text, TTS, and image generation now all draw from the same credits pool. This should result in increased credit limits across all plans, potentially substantially, depending on your use case. 

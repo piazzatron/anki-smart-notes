@@ -30,5 +30,6 @@
   "chat_markdown_to_html": true,
   "tts_strip_html": true,
   "did_click_rate_link": false,
+  "did_dismiss_rate_prompt": false,
   "did_show_capacity_threshold_this_cycle": false
 }
