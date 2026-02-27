@@ -107,7 +107,7 @@ SmartFieldType = Literal["chat", "tts", "image"]
 # Image Models
 
 ReplicateImageModels = Literal["flux-dev", "z-image-turbo"]
-GoogleImageModels = Literal["nano-banana"]
+GoogleImageModels = Literal["nano-banana-2"]
 OpenAIImageModels = Literal["gpt-image-1.5-medium", "gpt-image-1.5-low"]
 ImageModels = Union[ReplicateImageModels, GoogleImageModels, OpenAIImageModels]
 
@@ -119,13 +119,13 @@ all_image_models: list[ImageModels] = [
     "gpt-image-1.5-low",
     "flux-dev",
     "gpt-image-1.5-medium",
-    "nano-banana",
+    "nano-banana-2",
 ]
 
 image_model_to_provider: dict[ImageModels, ImageProviders] = {
     "flux-dev": "replicate",
     "z-image-turbo": "replicate",
-    "nano-banana": "google",
+    "nano-banana-2": "google",
     "gpt-image-1.5-low": "openai",
     "gpt-image-1.5-medium": "openai",
 }
