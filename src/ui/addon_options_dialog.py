@@ -185,7 +185,7 @@ class AddonOptionsDialog(QDialog):
 
         tab_layout = QVBoxLayout()
 
-        if not config.did_click_rate_link and not config.did_dismiss_rate_prompt:
+        if not config.did_click_rate_link:
             rate_group = QGroupBox()
             rate_outer = QHBoxLayout()
             rate_group.setLayout(rate_outer)
@@ -215,7 +215,7 @@ class AddonOptionsDialog(QDialog):
                 rate_group.hide()
 
             def on_dismiss():
-                config.did_dismiss_rate_prompt = True
+                config.did_click_rate_link = True
                 rate_group.hide()
 
             rate_label.linkActivated.connect(on_rate_click)
