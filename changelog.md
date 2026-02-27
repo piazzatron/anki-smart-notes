@@ -1,4 +1,7 @@
 
+# v2.16.0
+- Upgrade Nano Banana to Nano Banana 2.
+
 # v2.15.0
 - Add new image models: GPT Image 1.5, Nano Banana, and Z-Image Turbo. Deprecate Flux Schnell.
 
