@@ -23,13 +23,14 @@
 - Always reuse existing test fixtures and mocks instead of creating new ones. 
 
 # PRs
-- Prefix PRs with one of either `feat:` (new feature), `fix:` (fix a bug), `refactor:` (refactor an existing feature), or `chore:` (fixing lint, upgrading deps, tests, etc). Keep titles concise. For example: `feat: implement new MegaSqueek TTS model`.
+- Prefix PRs with one of either `feat:` (new feature), `fix:` (fix a bug), `refactor:` (refactor an existing feature), or `chore:` (fixing lint, upgrading deps, tests, small UI tweaks, etc). Small UI features/tweaks should be categorized as `chore:`, not `feat:`. Keep titles concise. For example: `feat: implement new MegaSqueek TTS model`.
 - When you are told to fix PR comments, you should mark them as resolved when they are done. 
 - You should be very careful that you actually look at every PR comment. Don't let them slip through.
 - We use `Linear` for issue tracking: if you see text like [ANK-123] somewhere, like in your prompt or a Github issue title , the PR should include that text `[ANK-123]` at the end of the title. Example: `fix: double sign out bug [ANK-1337]`
 - Branches should contain the Linear tag if you are provided one as well. Names should be concise, for example: `fix-sign-out-bug-ank-1337`
 
 # Changelog
+- Chores should NOT be included in the changelog.
 - After completing a significant feature (new models, new capabilities, major bug fixes, UI changes), add an entry to `changelog.md`.
 - The next entry should use the next minor version (e.g. if the latest is v2.15.0, use v2.16.0). Create a new version header; do not append to an existing one.
 - Follow the exact format: `# v2.X.0` header, then `- Description.` bullet points.
