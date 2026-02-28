@@ -68,7 +68,7 @@ async def _download_image(
                 return None, "Empty response"
             return (data, content_type), None
     except Exception as e:
-        msg = str(e)
+        msg = str(e) or type(e).__name__
         logger.debug(f"Error downloading image {url}: {msg}")
         return None, msg
 
