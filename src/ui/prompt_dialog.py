@@ -85,7 +85,7 @@ from .ui_utils import default_form_layout, font_bold, font_small, show_message_b
 
 explanation = """Write a prompt to help the chat model generate your Smart Field.
 
-Your prompt may reference other fields via {{double curly braces}}. Valid fields are listed below for convenience.
+Your prompt may reference other fields via [[double square brackets]]. Curly brackets {{like this}} from prior versions are also supported.
 
 Test out your prompt with the test button before saving it!
 """
@@ -571,7 +571,7 @@ class PromptDialog(QDialog):
         self.state.update({"prompt": self.get_tts_prompt(source)})
 
     def get_tts_prompt(self, source: str) -> str:
-        return f"{{{{{source}}}}}"
+        return f"[[{source}]]"
 
     def on_target_field_changed(self, field: Optional[str]) -> None:
         # This shouldn't happen
@@ -769,7 +769,7 @@ class PromptDialog(QDialog):
             deck_id=self.state.s["selected_deck"],
             prompts_map=self.prompts_map,
         )
-        fields = ["{{" + field + "}}" for field in fields]
+        fields = ["[[" + field + "]]" for field in fields]
         text = f"Valid fields to include in prompt: {', '.join(fields)}"
         self.valid_fields.setText(text)
 

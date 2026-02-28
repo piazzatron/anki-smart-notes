@@ -136,7 +136,7 @@ class CustomPrompt(QDialog):
             "Valid fields: "
             + ", ".join(
                 [
-                    "{{" + field + "}} "
+                    "[[" + field + "]] "
                     for field in get_valid_fields_for_prompt(
                         get_note_type(self._note), self._deck_id, self._field_upper
                     )
@@ -430,7 +430,7 @@ class CustomTTSPrompt(CustomPrompt):
         )
 
         def update_source_combo(pick: str):
-            self._prompt_window.setText(f"{{{{{pick}}}}}")
+            self._prompt_window.setText(f"[[{pick}]]")
 
         update_source_combo(self.state.s["source_field"])
 

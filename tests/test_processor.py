@@ -483,10 +483,28 @@ Example: ("basic", {"f1": "1", "f2": ""}, {"f2": "{{f1}}"}, {"f2": "p_1"}, {})
                 "target_field": "f3",
             },
         ),
-        # LEFT OFF:
-        # Overwrite! I think this is the last real one?
-        # TODO: next chains + overwrite
-        # TODO: error handling?
+        # ------ Square bracket syntax ------
+        (
+            "square brackets basic",
+            {"f1": "1", "f2": ""},
+            {"f2": "[[f1]]"},
+            {"f2": p("1")},
+            {},
+        ),
+        (
+            "square brackets chained",
+            {"f1": "1", "f2": "", "f3": ""},
+            {"f2": "[[f1]]", "f3": "[[f2]]"},
+            {"f2": p("1"), "f3": p(p("1"))},
+            {},
+        ),
+        (
+            "mixed brackets",
+            {"f1": "1", "f2": "2", "f3": ""},
+            {"f3": "[[f1]] {{f2}}"},
+            {"f3": p("1 2")},
+            {},
+        ),
     ],
 )
 async def test_processor_1(name, note, prompts_map, expected, options, monkeypatch):
