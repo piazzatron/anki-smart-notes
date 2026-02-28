@@ -189,7 +189,7 @@ class AddonOptionsDialog(QDialog):
             rate_group.setLayout(rate_outer)
 
             rate_label = QLabel(
-                'Enjoying Smart Notes? Click <a href="https://ankiweb.net/shared/info/1531888719">to leave a review</a> to help other users find it.'
+                'Enjoying Smart Notes? Consider <a href="https://ankiweb.net/shared/info/1531888719">leaving a review</a> to help other users find it.'
             )
             rate_font = rate_label.font()
             rate_font.setItalic(True)
@@ -200,7 +200,7 @@ class AddonOptionsDialog(QDialog):
             dismiss_button.setFixedSize(24, 24)
             dismiss_button.setFlat(True)
             dismiss_button.setStyleSheet(
-                "QPushButton { border: none; font-size: 16px; opacity: 0.6; }"
+                "QPushButton { border: none; font-size: 20px; opacity: 0.6; }"
             )
 
             dismiss_opacity = QGraphicsOpacityEffect()
