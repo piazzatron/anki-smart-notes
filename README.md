@@ -87,13 +87,15 @@ They may reference other fields, and you can have as many smart fields as you li
 
 ### Writing a Prompt
 
-A prompt may reference any other field on the card via `{{double curly braces}}`.
+A prompt may reference any other field on the card via `[[double square brackets]]`.
 
 For example, if you're studying a language and want to generate a mmemonic to aid in memorization, you might make a prompt like this (assuming you have a field called "vocab"):
 
 ```
-Create a simple, memorable mmemonic in Japanese for the word {{vocab}}. Reply with only the mmemonic.
+Create a simple, memorable mmemonic in Japanese for the word [[vocab]]. Reply with only the mmemonic.
 ```
+
+_Note: The old `{{curly brace}}` syntax is still supported for backwards compatibility, but `[[square brackets]]` are recommended to avoid conflicts with Anki's cloze deletion syntax._
 
 It's often useful to tell language model to "only reply" with the phrase you care about.
 
