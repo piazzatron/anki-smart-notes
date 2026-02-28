@@ -492,6 +492,7 @@ class PromptDialog(QDialog):
                         "chat_model": extras.get("chat_model"),
                         "chat_temperature": extras.get("chat_temperature"),
                         "chat_markdown_to_html": extras.get("chat_markdown_to_html"),
+                        "chat_web_search": extras.get("chat_web_search"),
                     }
                 )
             return self.chat_options

@@ -260,6 +260,7 @@ class CustomTextPrompt(CustomPrompt):
                 should_convert_to_html=self._chat_options.state.s[
                     "chat_markdown_to_html"
                 ],
+                web_search=self._chat_options.state.s["chat_web_search"],
             )
 
         run_async_in_background_with_sentry(generate_text, on_success, on_error)

@@ -139,6 +139,7 @@ class FieldExtras(TypedDict):
     chat_provider: Optional[ChatProviders]
     chat_temperature: Optional[int]
     chat_markdown_to_html: Optional[bool]
+    chat_web_search: Optional[bool]
 
     # TTS
     tts_provider: Optional[TTSProviders]
@@ -161,6 +162,7 @@ DEFAULT_EXTRAS: FieldExtras = {
     "chat_model": None,
     "chat_provider": None,
     "chat_temperature": None,
+    "chat_web_search": None,
     # Overridable TTS Options
     "tts_model": None,
     "tts_provider": None,
@@ -188,6 +190,7 @@ OverridableChatOptions = Union[
     Literal["chat_model"],
     Literal["chat_temperature"],
     Literal["chat_markdown_to_html"],
+    Literal["chat_web_search"],
 ]
 
 overridable_chat_options: list[OverridableChatOptions] = [
@@ -195,6 +198,7 @@ overridable_chat_options: list[OverridableChatOptions] = [
     "chat_model",
     "chat_temperature",
     "chat_markdown_to_html",
+    "chat_web_search",
 ]
 
 
@@ -203,6 +207,7 @@ class OverridableChatOptionsDict(TypedDict):
     chat_model: Optional[ChatModels]
     chat_temperature: Optional[int]
     chat_markdown_to_html: Optional[bool]
+    chat_web_search: Optional[bool]
 
 
 OverridableTTSOptions = Union[

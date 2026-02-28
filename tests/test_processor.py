@@ -58,6 +58,7 @@ class MockConfig:
     chat_provider = "openai"
     chat_model = "gpt-4o-mini"
     chat_temperature = 0
+    chat_web_search = False
     tts_provider = "openai"
     tts_voice = "alloy"
     tts_model = "tts-1"
@@ -85,6 +86,7 @@ class MockChatClient:
         note_id: int,
         temperature: int = 0,
         retry_count: int = 0,
+        web_search: bool = False,
     ) -> str:
         return p(prompt)
 
@@ -136,6 +138,7 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
                 "chat_provider": "openai",
                 "chat_temperature": 0,
                 "chat_markdown_to_html": False,
+                "chat_web_search": False,
             }
         else:
             extras[field] = {
@@ -147,6 +150,7 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
                 "chat_provider": "openai",
                 "chat_temperature": 0,
                 "chat_markdown_to_html": False,
+                "chat_web_search": False,
             }  # Default extras
 
     prompts_map = {

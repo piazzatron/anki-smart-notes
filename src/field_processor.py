@@ -28,6 +28,7 @@ from .chat_provider import ChatProvider, chat_provider
 from .config import key_or_config_val
 from .constants import GENERIC_CREDITS_MESSAGE
 from .image_provider import ImageProvider, ImageResponse, image_provider
+from .image_utils import download_and_embed_images
 from .logger import logger
 from .markdown import convert_markdown_to_html
 from .media_utils import ext_from_content_type, get_media_path
@@ -124,6 +125,7 @@ class FieldProcessor:
             chat_provider: ChatProviders = key_or_config_val(extras, "chat_provider")
             chat_temperature: float = key_or_config_val(extras, "chat_temperature")
             should_convert: bool = key_or_config_val(extras, "chat_markdown_to_html")
+            web_search: bool = key_or_config_val(extras, "chat_web_search")
 
             return await self.get_chat_response(
                 note=note,
@@ -134,6 +136,7 @@ class FieldProcessor:
                 temperature=chat_temperature,
                 field_lower=node.field,
                 should_convert_to_html=should_convert,
+                web_search=web_search,
                 show_error_box=show_error_box,
             )
 
@@ -176,6 +179,7 @@ class FieldProcessor:
         field_lower: str,
         temperature: float,
         should_convert_to_html: bool,
+        web_search: bool = False,
         show_error_box: bool = True,
     ) -> Optional[str]:
         interpolated_prompt = interpolate_prompt(prompt, note)
@@ -192,10 +196,10 @@ class FieldProcessor:
                 provider=provider,
                 temperature=temperature,
                 note_id=note.id,
+                web_search=web_search,
             )
         elif has_api_key():
             logger.debug("On legacy path....")
-            # Check that this isn't a chained smart field
             chained_fields = get_chained_ai_fields(
                 note_type=get_note_type(note), deck_id=deck_id
             )
@@ -212,6 +216,9 @@ class FieldProcessor:
             if show_error_box:
                 run_on_main(lambda: show_message_box(GENERIC_CREDITS_MESSAGE))
             return None
+
+        if resp and web_search:
+            resp = await download_and_embed_images(resp, note, field_lower)
 
         if resp and should_convert_to_html:
             resp = convert_markdown_to_html(resp)

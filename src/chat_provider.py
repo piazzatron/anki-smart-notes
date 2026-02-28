@@ -33,6 +33,7 @@ class ChatProvider:
         provider: ChatProviders,
         note_id: int,
         temperature: float = DEFAULT_TEMPERATURE,
+        web_search: bool = False,
     ) -> str:
         response = await api.get_api_response(
             path="chat",
@@ -41,6 +42,7 @@ class ChatProvider:
                 "model": model,
                 "message": prompt,
                 "temperature": temperature,
+                "web_search": web_search,
             },
             note_id=note_id,
             timeout_sec=CHAT_CLIENT_TIMEOUT_SEC,

@@ -65,6 +65,7 @@ class Config:
     chat_model: ChatModels
     chat_temperature: int
     chat_markdown_to_html: bool
+    chat_web_search: bool
 
     # TTS
     tts_provider: TTSProviders
