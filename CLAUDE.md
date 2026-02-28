@@ -16,7 +16,7 @@
 - Use `python -m pytest` to run tests.
 
 # Changelog
-- Chores should NOT be included in the changelog.
+- Chores should NOT be included in the changelog, unless the chore is upgrading models.
 - After completing a significant feature (new models, new capabilities, major bug fixes, UI changes), add an entry to `changelog.md`.
 - The next entry should use the next minor version (e.g. if the latest is v2.15.0, use v2.16.0). Create a new version header; do not append to an existing one.
 - Follow the exact format: `# v2.X.0` header, then `- Description.` bullet points.
