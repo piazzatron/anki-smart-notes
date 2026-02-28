@@ -45,6 +45,9 @@ migration_map: dict[str, Union[dict[str, str], TTSMigrations]] = {
         "gpt-4.1-nano": "gpt-5-nano",
         "o3": "gpt-5",
         "o4-mini": "gpt-5-mini",
+        "claude-3-5-haiku-latest": "claude-haiku-4-5",
+        "claude-sonnet-4-0": "claude-sonnet-4-6",
+        "claude-opus-4-1": "claude-opus-4-6",
     },
     "tts": {
         "models": {
