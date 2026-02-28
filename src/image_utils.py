@@ -20,6 +20,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 import re
 import uuid
 from typing import Optional
+from urllib.parse import urlparse
 
 import aiohttp
 from anki.notes import Note
@@ -47,8 +48,11 @@ async def _download_image(
     url: str,
 ) -> tuple[Optional[tuple[bytes, str]], Optional[str]]:
     try:
+        parsed = urlparse(url)
         headers = {
-            "User-Agent": "Mozilla/5.0 (compatible; AnkiSmartNotes/2.16)",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+            "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+            "Referer": f"{parsed.scheme}://{parsed.netloc}/",
         }
         async with (
             aiohttp.ClientSession(headers=headers) as session,
@@ -77,15 +81,9 @@ def _ext_from_url_or_content_type(url: str, content_type: str) -> str:
     return ext_from_content_type(content_type)
 
 
-def _show_download_error(url: str, error: Optional[str]) -> None:
-    run_on_main(
-        lambda: show_message_box(
-            f"Failed to download image from web search.\n\nURL: {url}\nError: {error}"
-        )
-    )
-
-
-async def download_and_embed_images(text: str, note: Note, field: str) -> str:
+async def download_and_embed_images(
+    text: str, note: Note, field: str, show_error_box: bool = True
+) -> str:
     urls: list[tuple[str, Optional[str]]] = []
 
     for match in MARKDOWN_IMAGE_RE.finditer(text):
@@ -107,8 +105,13 @@ async def download_and_embed_images(text: str, note: Note, field: str) -> str:
         logger.debug(f"Downloading image: {url}")
         result, error = await _download_image(url)
         if not result:
-            logger.debug(f"Download failed for: {url}")
-            _show_download_error(url, error)
+            logger.debug(f"Download failed for {url}: {error}")
+            if show_error_box:
+                run_on_main(
+                    lambda url=url, error=error: show_message_box(
+                        f"Failed to download image from web search.\n\nURL: {url}\nError: {error}"
+                    )
+                )
             continue
 
         data, content_type = result

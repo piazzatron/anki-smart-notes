@@ -218,7 +218,9 @@ class FieldProcessor:
             return None
 
         if resp and web_search:
-            resp = await download_and_embed_images(resp, note, field_lower)
+            resp = await download_and_embed_images(
+                resp, note, field_lower, show_error_box=show_error_box
+            )
 
         if resp and should_convert_to_html:
             resp = convert_markdown_to_html(resp)
