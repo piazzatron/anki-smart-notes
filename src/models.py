@@ -22,7 +22,7 @@ from typing import Literal, Optional, TypedDict, Union
 # Providers
 
 TTSProviders = Literal["openai", "elevenLabs", "google", "azure"]
-ChatProviders = Literal["openai", "anthropic", "deepseek"]
+ChatProviders = Literal["openai", "anthropic", "deepseek", "gemini"]
 
 # Chat Models
 
@@ -35,7 +35,8 @@ OpenAIModels = Literal[
 ]
 DeepseekModels = Literal["deepseek-v3"]
 AnthropicModels = Literal["claude-haiku-4-5", "claude-sonnet-4-6", "claude-opus-4-6"]
-ChatModels = Union[OpenAIModels, AnthropicModels, DeepseekModels]
+GeminiModels = Literal["gemini-3.1-pro", "gemini-3-flash"]
+ChatModels = Union[OpenAIModels, AnthropicModels, DeepseekModels, GeminiModels]
 
 # Order that the models are displayed in the UI
 openai_chat_models: list[ChatModels] = [
@@ -54,10 +55,16 @@ anthropic_chat_models: list[ChatModels] = [
 
 deepseek_chat_models: list[ChatModels] = ["deepseek-v3"]
 
+gemini_chat_models: list[ChatModels] = [
+    "gemini-3-flash",
+    "gemini-3.1-pro",
+]
+
 provider_model_map: dict[ChatProviders, list[ChatModels]] = {
     "openai": openai_chat_models,
     "anthropic": anthropic_chat_models,
     "deepseek": deepseek_chat_models,
+    "gemini": gemini_chat_models,
 }
 
 

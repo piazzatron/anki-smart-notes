@@ -1,6 +1,7 @@
 
 # v2.16.0
 - Allow editing target field, note type, and deck on existing smart field rules.
+- Add Google Gemini text models: Gemini 3.1 Pro and Gemini 3 Flash.
 
 # v2.15.0
 - Add new image models: GPT Image 1.5, Nano Banana 2, and Z-Image Turbo. Deprecate Flux Schnell.
