@@ -56,7 +56,7 @@ async def _download_image(
         }
         async with (
             aiohttp.ClientSession(headers=headers) as session,
-            session.get(url, timeout=aiohttp.ClientTimeout(total=15)) as r,
+            session.get(url, timeout=aiohttp.ClientTimeout(total=30)) as r,
         ):
             if r.status != 200:
                 msg = f"HTTP {r.status}"
