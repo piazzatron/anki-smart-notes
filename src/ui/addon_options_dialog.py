@@ -23,7 +23,6 @@ from urllib.parse import urlparse
 from aqt import (
     QAction,
     QApplication,
-    QDesktopServices,
     QDialog,
     QDialogButtonBox,
     QGraphicsOpacityEffect,
@@ -38,7 +37,6 @@ from aqt import (
     QTableWidget,
     QTableWidgetItem,
     QTabWidget,
-    QUrl,
     QVBoxLayout,
     QWidget,
 )
@@ -191,34 +189,33 @@ class AddonOptionsDialog(QDialog):
             rate_group.setLayout(rate_outer)
 
             rate_label = QLabel(
-                'Enjoying Smart Notes? Please consider <a href="https://ankiweb.net/shared/info/1531888719">leaving a review.</a>'
+                'Enjoying Smart Notes? Click <a href="https://ankiweb.net/shared/info/1531888719">to leave a review</a> to help other users find it.'
             )
             rate_font = rate_label.font()
             rate_font.setItalic(True)
             rate_label.setFont(rate_font)
+            rate_label.setOpenExternalLinks(True)
 
             dismiss_button = QPushButton("\u2715")
-            dismiss_button.setFixedSize(20, 20)
+            dismiss_button.setFixedSize(24, 24)
             dismiss_button.setFlat(True)
             dismiss_button.setStyleSheet(
-                "QPushButton { border: none; font-size: 14px; }"
+                "QPushButton { border: none; font-size: 16px; opacity: 0.6; }"
             )
+
+            dismiss_opacity = QGraphicsOpacityEffect()
+            dismiss_opacity.setOpacity(0.6)
+            dismiss_button.setGraphicsEffect(dismiss_opacity)
 
             rate_outer.addStretch()
             rate_outer.addWidget(rate_label)
             rate_outer.addStretch()
             rate_outer.addWidget(dismiss_button)
 
-            def on_rate_click(url: str):
-                QDesktopServices.openUrl(QUrl(url))
-                config.did_click_rate_link = True
-                rate_group.hide()
-
             def on_dismiss():
                 config.did_click_rate_link = True
                 rate_group.hide()
 
-            rate_label.linkActivated.connect(on_rate_click)
             dismiss_button.clicked.connect(on_dismiss)
             tab_layout.addWidget(rate_group)
         tab_layout.addWidget(tabs)
