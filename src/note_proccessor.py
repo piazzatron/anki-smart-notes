@@ -18,6 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import asyncio
+import threading
 import traceback
 from collections.abc import Callable, Sequence
 from typing import Optional
@@ -57,6 +58,7 @@ class NoteProcessor:
         self.field_processor = field_processor
         self.config = config
         self.req_in_progress = False
+        self._cancelled = threading.Event()
 
     def process_cards_with_progress(
         self,
@@ -85,6 +87,8 @@ class NoteProcessor:
 
         if not is_capacity_remaining_or_legacy(show_box=False):
             return
+
+        self._cancelled.clear()
 
         def wrapped_on_success(res: tuple[list[Note], list[Note], list[Note]]) -> None:
             updated, failed, skipped = res
@@ -130,6 +134,9 @@ class NoteProcessor:
 
             mw.col.update_notes(updated)
 
+            if mw.progress.want_cancel():
+                self._cancelled.set()
+
             if not finished:
                 mw.progress.update(
                     label=f"✨ Generating... ({processed_count}/{len(note_ids)})",
@@ -141,15 +148,20 @@ class NoteProcessor:
                 mw.progress.finish()
 
         async def op():
-            total_updated = []
-            total_failed = []
-            total_skipped = []
+            total_updated: list[Note] = []
+            total_failed: list[Note] = []
+            total_skipped: list[Note] = []
             to_process_ids = note_ids[:]
             hit_out_of_credits = False
 
             processed_count = 0
 
             while len(to_process_ids) > 0:
+                if self._check_cancel():
+                    logger.info("Batch cancelled by user")
+                    run_on_main(lambda: mw.progress.finish())  # type: ignore
+                    return total_updated, total_failed, total_skipped
+
                 logger.debug("Processing batch...")
                 batch = to_process_ids[:limit]
                 to_process_ids = to_process_ids[limit:]
@@ -272,6 +284,7 @@ class NoteProcessor:
         if not self._assert_preconditions():
             return
 
+        self._cancelled.clear()
         note = card.note()
 
         def wrapped_on_success(updated: bool) -> None:
@@ -344,6 +357,10 @@ class NoteProcessor:
 
         try:
             while len(dag):
+                if will_show_progress and self._check_cancel():
+                    logger.info("Operation cancelled by user")
+                    return did_update
+
                 next_batch: list[FieldNode] = [
                     node for node in dag.values() if not node.in_nodes
                 ]
@@ -448,6 +465,14 @@ class NoteProcessor:
 
     def _reqlinquish_req_in_process(self) -> None:
         self.req_in_progress = False
+
+    def _check_cancel(self) -> bool:
+        if self._cancelled.is_set():
+            return True
+        if mw and mw.progress.want_cancel():
+            self._cancelled.set()
+            return True
+        return False
 
     def _assert_valid_app_mode(self) -> bool:
         return is_capacity_remaining() or has_api_key()
