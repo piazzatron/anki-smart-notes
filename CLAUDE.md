@@ -5,10 +5,8 @@
 
 
 # Code Style and Practices
-- Follow existing practices and conventions in the codebase.
 - Use modern Python. Make sure your code is fully typed.
-- Always run format, lint, typecheck, and tests as the last thing you do. This is super important.
-- Always put imports at the top of files, never inside functions or methods 
+- Always put imports at the top of files, never inside functions or methods
 - Don't prefix top level defs with an `_` ever. Save those for private methods on classes.
 
 # Important Commands
@@ -17,18 +15,6 @@
 - Use `./scripts/build.sh fix` to automatically fix formatting and linting issues
 - Use `python -m pytest` to run tests.
 
-# Testing
-- Always check for existing test patterns and follow them consistently.
-- Always run tests after writing code and before submitting PRs to ensure you didn't break anything. 
-- Always reuse existing test fixtures and mocks instead of creating new ones. 
-
-# PRs
-- Prefix PRs with one of either `feat:` (new feature), `fix:` (fix a bug), `refactor:` (refactor an existing feature), or `chore:` (fixing lint, upgrading deps, tests, small UI tweaks, etc). Small UI features/tweaks should be categorized as `chore:`, not `feat:`. Keep titles concise. For example: `feat: implement new MegaSqueek TTS model`.
-- When you are told to fix PR comments, you should mark them as resolved when they are done. 
-- You should be very careful that you actually look at every PR comment. Don't let them slip through.
-- We use `Linear` for issue tracking: if you see text like [ANK-123] somewhere, like in your prompt or a Github issue title , the PR should include that text `[ANK-123]` at the end of the title. Example: `fix: double sign out bug [ANK-1337]`
-- Branches should contain the Linear tag if you are provided one as well. Names should be concise, for example: `fix-sign-out-bug-ank-1337`
-
 # Changelog
 - Chores should NOT be included in the changelog.
 - After completing a significant feature (new models, new capabilities, major bug fixes, UI changes), add an entry to `changelog.md`.
@@ -36,9 +22,6 @@
 - Follow the exact format: `# v2.X.0` header, then `- Description.` bullet points.
 - Each bullet should be a single concise line that covers *all* the work done — don't split into multiple bullets when one will do. Mention every meaningful addition/change/deprecation. Example: `- Add new image models: GPT Image 1.5, Nano Banana, and Z-Image Turbo. Deprecate Flux Schnell.`
 - Do this before putting up the PR so it's included in the same changeset.
-
-# Permissions
-- If you're in accept edits mode, don't ask for permission to git commit or git push. Just do it.
 
 # Code Structure
 - This is a Python3 codebase which takes full advantage of strong typing for static analysis.
