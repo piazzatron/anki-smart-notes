@@ -43,6 +43,7 @@ class ChatOptionsState(TypedDict):
     chat_model: ChatModels
     chat_temperature: int
     chat_markdown_to_html: bool
+    chat_web_search: bool
 
 
 models_map: dict[str, str] = {
@@ -106,6 +107,27 @@ class ChatOptions(QWidget):
         chat_form.addRow("Provider:", self.chat_provider)
         chat_form.addRow("Model:", self.chat_model)
 
+        search_box = QGroupBox("🔍 Web Search")
+        search_layout = default_form_layout()
+        search_box.setLayout(search_layout)
+        self.web_search_box = ReactiveCheckBox(self.state, "chat_web_search")
+        search_layout.addRow(QLabel("Allow web searches:"), self.web_search_box)
+        search_explainer = QLabel(
+            "Search the web and return results, including images."
+        )
+        search_explainer.setFont(font_small)
+        search_explainer.setWordWrap(True)
+        search_layout.addRow(search_explainer)
+        search_warning_cost = QLabel("⚠️ Search can be expensive. Monitor your credits.")
+        search_warning_cost.setFont(font_small)
+        search_layout.addRow(search_warning_cost)
+        search_warning_models = QLabel(
+            "⚠️ Only available for OpenAI and Anthropic models. Reasoning models will perform best."
+        )
+        search_warning_models.setFont(font_small)
+        search_warning_models.setWordWrap(True)
+        search_layout.addRow(search_warning_models)
+
         text_rules = QGroupBox("🔤 Text Processing")
         text_layout = default_form_layout()
         text_rules.setLayout(text_layout)
@@ -129,6 +151,8 @@ class ChatOptions(QWidget):
 
         chat_layout = default_form_layout()
         chat_layout.addRow(chat_box)
+        chat_layout.addItem(QSpacerItem(0, 12))
+        chat_layout.addRow(search_box)
         chat_layout.addItem(QSpacerItem(0, 12))
         chat_layout.addRow(text_rules)
         if self._show_text_processing:

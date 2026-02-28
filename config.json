@@ -28,6 +28,7 @@
   "did_show_premium_tts_dialog": false,
   "did_deck_filter_migration": false,
   "chat_markdown_to_html": true,
+  "chat_web_search": false,
   "tts_strip_html": true,
   "did_click_rate_link": false,
   "did_show_capacity_threshold_this_cycle": false

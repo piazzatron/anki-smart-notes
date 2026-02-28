@@ -2,6 +2,7 @@
 # v2.15.0
 - Add new image models: GPT Image 1.5, Nano Banana 2, and Z-Image Turbo. Deprecate Flux Schnell.
 - Upgrade Anthropic models to Claude Opus 4.6, Sonnet 4.6, and Haiku 4.5.
+- Add optional web search for chat fields. When enabled, OpenAI and Anthropic models can search the web for current information. Images found in search results are automatically downloaded and saved to Anki.
 
 # v2.14.0
 - Unify credits: text, TTS, and image generation now all draw from the same credits pool. This should result in increased credit limits across all plans, potentially substantially, depending on your use case. 
