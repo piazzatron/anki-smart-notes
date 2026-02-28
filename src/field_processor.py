@@ -115,7 +115,8 @@ class FieldProcessor:
             if not tts_response:
                 return None
 
-            file_name = get_media_path(note, node.field, "mp3")
+            audio_ext = "wav" if str(tts_provider) == "voicevox" else "mp3"
+            file_name = get_media_path(note, node.field, audio_ext)
             path = media.write_data(file_name, tts_response)
 
             return f"[sound:{path}]"

@@ -61,6 +61,7 @@ build () {
   cp -r eleven_voices.json dist/
   cp -r google_voices.json dist/
   cp -r azure_voices.json dist/
+  cp -r voicevox_voices.json dist/
 
   # Zip it
   cd dist

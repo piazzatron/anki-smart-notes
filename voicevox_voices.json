@@ -1,0 +1,212 @@
+[
+  {
+    "name": "Shikoku Metan",
+    "styleId": 2,
+    "styleName": "Normal",
+    "gender": "Female"
+  },
+  {
+    "name": "Shikoku Metan",
+    "styleId": 0,
+    "styleName": "Sweet",
+    "gender": "Female"
+  },
+  {
+    "name": "Shikoku Metan",
+    "styleId": 6,
+    "styleName": "Tsundere",
+    "gender": "Female"
+  },
+  {
+    "name": "Shikoku Metan",
+    "styleId": 4,
+    "styleName": "Sexy",
+    "gender": "Female"
+  },
+  {
+    "name": "Shikoku Metan",
+    "styleId": 36,
+    "styleName": "Whisper",
+    "gender": "Female"
+  },
+  {
+    "name": "Shikoku Metan",
+    "styleId": 37,
+    "styleName": "Hushed",
+    "gender": "Female"
+  },
+  {
+    "name": "Zundamon",
+    "styleId": 3,
+    "styleName": "Normal",
+    "gender": "Female"
+  },
+  {
+    "name": "Zundamon",
+    "styleId": 1,
+    "styleName": "Sweet",
+    "gender": "Female"
+  },
+  {
+    "name": "Zundamon",
+    "styleId": 7,
+    "styleName": "Tsundere",
+    "gender": "Female"
+  },
+  {
+    "name": "Zundamon",
+    "styleId": 5,
+    "styleName": "Sexy",
+    "gender": "Female"
+  },
+  {
+    "name": "Zundamon",
+    "styleId": 22,
+    "styleName": "Whisper",
+    "gender": "Female"
+  },
+  {
+    "name": "Zundamon",
+    "styleId": 38,
+    "styleName": "Hushed",
+    "gender": "Female"
+  },
+  {
+    "name": "Zundamon",
+    "styleId": 75,
+    "styleName": "Exhausted",
+    "gender": "Female"
+  },
+  {
+    "name": "Zundamon",
+    "styleId": 76,
+    "styleName": "Tearful",
+    "gender": "Female"
+  },
+  {
+    "name": "Kasukabe Tsumugi",
+    "styleId": 8,
+    "styleName": "Normal",
+    "gender": "Female"
+  },
+  {
+    "name": "Namine Ritsu",
+    "styleId": 9,
+    "styleName": "Normal",
+    "gender": "Female"
+  },
+  {
+    "name": "Takehiro",
+    "styleId": 11,
+    "styleName": "Normal",
+    "gender": "Male"
+  },
+  {
+    "name": "Hakka",
+    "styleId": 13,
+    "styleName": "Normal",
+    "gender": "Male"
+  },
+  {
+    "name": "Sora",
+    "styleId": 16,
+    "styleName": "Normal",
+    "gender": "Female"
+  },
+  {
+    "name": "Sora",
+    "styleId": 15,
+    "styleName": "Sweet",
+    "gender": "Female"
+  },
+  {
+    "name": "Sora",
+    "styleId": 18,
+    "styleName": "Tsundere",
+    "gender": "Female"
+  },
+  {
+    "name": "Sora",
+    "styleId": 17,
+    "styleName": "Sexy",
+    "gender": "Female"
+  },
+  {
+    "name": "Mochiko",
+    "styleId": 20,
+    "styleName": "Normal",
+    "gender": "Female"
+  },
+  {
+    "name": "Kenzaki",
+    "styleId": 21,
+    "styleName": "Normal",
+    "gender": "Male"
+  },
+  {
+    "name": "WhiteCUL",
+    "styleId": 23,
+    "styleName": "Normal",
+    "gender": "Female"
+  },
+  {
+    "name": "WhiteCUL",
+    "styleId": 24,
+    "styleName": "Joy",
+    "gender": "Female"
+  },
+  {
+    "name": "WhiteCUL",
+    "styleId": 25,
+    "styleName": "Sad",
+    "gender": "Female"
+  },
+  {
+    "name": "WhiteCUL",
+    "styleId": 26,
+    "styleName": "Gentle",
+    "gender": "Female"
+  },
+  {
+    "name": "Goki",
+    "styleId": 27,
+    "styleName": "Normal",
+    "gender": "Male"
+  },
+  {
+    "name": "No7",
+    "styleId": 29,
+    "styleName": "Normal",
+    "gender": "Male"
+  },
+  {
+    "name": "No7",
+    "styleId": 30,
+    "styleName": "Announcement",
+    "gender": "Male"
+  },
+  {
+    "name": "No7",
+    "styleId": 31,
+    "styleName": "Reading",
+    "gender": "Male"
+  },
+  {
+    "name": "Chibi Shiki",
+    "styleId": 42,
+    "styleName": "Normal",
+    "gender": "Male"
+  },
+  {
+    "name": "Ouka Miko",
+    "styleId": 43,
+    "styleName": "Normal",
+    "gender": "Female"
+  },
+  {
+    "name": "Ouka Miko",
+    "styleId": 44,
+    "styleName": "Second",
+    "gender": "Female"
+  }
+]
