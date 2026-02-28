@@ -113,18 +113,16 @@ class ChatOptions(QWidget):
         self.web_search_box = ReactiveCheckBox(self.state, "chat_web_search")
         search_layout.addRow(QLabel("Allow web searches:"), self.web_search_box)
         search_explainer = QLabel(
-            "Web Search allows Smart Text Fields to search the web and return relevant information, including images."
+            "Search the web and return results, including images."
         )
         search_explainer.setFont(font_small)
         search_explainer.setWordWrap(True)
         search_layout.addRow(search_explainer)
-        search_warning_cost = QLabel(
-            "⚠️ Web Search can be significantly more expensive. Monitor your credits."
-        )
+        search_warning_cost = QLabel("⚠️ Search can be expensive. Monitor your credits.")
         search_warning_cost.setFont(font_small)
         search_layout.addRow(search_warning_cost)
         search_warning_models = QLabel(
-            "⚠️ Only available for OpenAI and Anthropic models. Reasoning models will perform better."
+            "⚠️ Only available for OpenAI and Anthropic models. Reasoning models will perform best."
         )
         search_warning_models.setFont(font_small)
         search_warning_models.setWordWrap(True)
