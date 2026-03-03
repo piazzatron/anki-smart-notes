@@ -125,6 +125,7 @@ def get_all_prompts(
     return prompts_map
 
 
+# Matches {{field}} references but skips Anki cloze deletions like {{c1::answer}}
 FIELD_PATTERN = r"\{\{(?!c\d+::)(.+?)\}\}"
 
 
