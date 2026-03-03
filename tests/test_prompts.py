@@ -113,3 +113,87 @@ def test_interpolate_prompt_empty_field_allowed(monkeypatch):
     c = MockConfig(allow_empty_fields=True)
     monkeypatch.setattr(src.prompts, "config", c)
     assert interpolate_prompt("[[f1]] [[f2]]", note) == "hello "
+
+
+@pytest.mark.parametrize(
+    "prompt, expected",
+    [
+        ("[[vocab]]", ["vocab"]),
+        ("[[vocab]] with no cloze issues", ["vocab"]),
+        ("[text](url)", []),
+        ("![alt text](image.png)", []),
+        ("[link](https://example.com) and [[field]]", ["field"]),
+        ("![img](pic.jpg) then [[vocab]]", ["vocab"]),
+        ("[single brackets]", []),
+        ("text with [misc] brackets", []),
+        ("[a]([b]) [[real_field]]", ["real_field"]),
+    ],
+)
+def test_get_prompt_fields_ignores_non_field_brackets(prompt, expected):
+    from src.prompts import get_prompt_fields
+
+    assert get_prompt_fields(prompt) == expected
+
+
+@pytest.mark.parametrize(
+    "prompt, note_data, expected",
+    [
+        (
+            "Define [[vocab]]",
+            {"vocab": "{{c1::hello}}"},
+            "Define {{c1::hello}}",
+        ),
+        (
+            "Explain [[vocab]]",
+            {"vocab": "{{c1::word}} means {{c2::meaning}}"},
+            "Explain {{c1::word}} means {{c2::meaning}}",
+        ),
+        (
+            "[[front]] - [[back]]",
+            {"front": "{{c1::cat}}", "back": "animal"},
+            "{{c1::cat}} - animal",
+        ),
+    ],
+)
+def test_interpolate_prompt_preserves_cloze_deletions(
+    prompt, note_data, expected, monkeypatch
+):
+    import src.prompts
+    from src.prompts import interpolate_prompt
+
+    note = MockNote(data=note_data)
+    c = MockConfig(allow_empty_fields=False)
+    monkeypatch.setattr(src.prompts, "config", c)
+    assert interpolate_prompt(prompt, note) == expected
+
+
+@pytest.mark.parametrize(
+    "prompt, note_data, expected",
+    [
+        (
+            "Translate [[vocab]] ![icon](img.png)",
+            {"vocab": "hello"},
+            "Translate hello ![icon](img.png)",
+        ),
+        (
+            "See [docs](https://example.com) for [[vocab]]",
+            {"vocab": "hello"},
+            "See [docs](https://example.com) for hello",
+        ),
+        (
+            "[![img](pic.jpg)](link) and [[vocab]]",
+            {"vocab": "hello"},
+            "[![img](pic.jpg)](link) and hello",
+        ),
+    ],
+)
+def test_interpolate_prompt_preserves_markdown(
+    prompt, note_data, expected, monkeypatch
+):
+    import src.prompts
+    from src.prompts import interpolate_prompt
+
+    note = MockNote(data=note_data)
+    c = MockConfig(allow_empty_fields=False)
+    monkeypatch.setattr(src.prompts, "config", c)
+    assert interpolate_prompt(prompt, note) == expected
