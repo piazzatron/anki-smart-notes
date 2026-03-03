@@ -21,7 +21,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import re
 from copy import deepcopy
-from typing import Any, Optional, Union, cast
+from typing import Optional, Union, cast
 
 from anki.decks import DeckId
 from anki.notes import Note
@@ -33,9 +33,7 @@ from .logger import logger
 from .models import (
     DEFAULT_EXTRAS,
     FieldExtras,
-    OverridableChatOptions,
     OverridableChatOptionsDict,
-    OverridableImageOptions,
     OverridableImageOptionsDict,
     OverrideableTTSOptionsDict,
     PromptMap,
@@ -172,8 +170,8 @@ def add_or_update_prompts(
     is_custom_model: bool,
     type: SmartFieldType,
     tts_options: OverrideableTTSOptionsDict,
-    chat_options: dict[OverridableChatOptions, Any],
-    image_options: dict[OverridableImageOptions, Any],
+    chat_options: OverridableChatOptionsDict,
+    image_options: OverridableImageOptionsDict,
 ) -> PromptMap:
     new_prompts_map = deepcopy(prompts_map)
 

@@ -54,6 +54,8 @@ from ..decks import deck_id_to_name_map, get_all_deck_ids
 from ..logger import logger
 from ..models import (
     DEFAULT_EXTRAS,
+    OverridableChatOptionsDict,
+    OverridableImageOptionsDict,
     OverrideableTTSOptionsDict,
     PromptMap,
     SmartFieldType,
@@ -893,12 +895,14 @@ class PromptDialog(QDialog):
                 "OverrideableTTSOptionsDict",
                 {k: self.tts_options.state.s[k] for k in overridable_tts_options},
             ),
-            chat_options={
-                k: self.chat_options.state.s[k] for k in overridable_chat_options
-            },
-            image_options={
-                k: self.image_options.state.s[k] for k in overridable_image_options
-            },
+            chat_options=cast(
+                "OverridableChatOptionsDict",
+                {k: self.chat_options.state.s[k] for k in overridable_chat_options},
+            ),
+            image_options=cast(
+                "OverridableImageOptionsDict",
+                {k: self.image_options.state.s[k] for k in overridable_image_options},
+            ),
         )
 
 
