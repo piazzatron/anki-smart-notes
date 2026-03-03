@@ -95,8 +95,6 @@ For example, if you're studying a language and want to generate a mnemonic to ai
 Create a simple, memorable mmemonic in Japanese for the word [[vocab]]. Reply with only the mmemonic.
 ```
 
-_Note: The old `{{curly brace}}` syntax is still supported for backwards compatibility, but `[[square brackets]]` are recommended to avoid conflicts with Anki's cloze deletion syntax._
-
 Smart Fields can even reference other Smart Fields, allowing you to create complicated pipelines.
 
 </br>
