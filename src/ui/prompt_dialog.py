@@ -608,18 +608,7 @@ class PromptDialog(QDialog):
                 )
                 return
 
-        prompt = (
-            self.get_tts_prompt(self.state.s["selected_tts_source_field"])
-            if self.state.s["type"] == "tts"
-            else ""
-        )
-
-        self.state.update(
-            {
-                "prompt": prompt,
-                "selected_note_field": field,
-            }
-        )
+        self.state.update({"selected_note_field": field})
 
     def render_buttons(self) -> None:
         is_enabled = (
