@@ -95,6 +95,8 @@ For example, if you're studying a language and want to generate a mnemonic to ai
 Create a simple, memorable mmemonic in Japanese for the word [[vocab]]. Reply with only the mmemonic.
 ```
 
+> 💡 `{{double curly brackets}}` from prior versions are still supported, but have issues with Cloze deletions.
+
 Smart Fields can even reference other Smart Fields, allowing you to create complicated pipelines.
 
 </br>
