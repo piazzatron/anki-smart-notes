@@ -85,7 +85,7 @@ from .ui_utils import default_form_layout, font_bold, font_small, show_message_b
 
 explanation = """Write a prompt to help the chat model generate your Smart Field.
 
-Your prompt may reference other fields via [[double square brackets]]. Curly brackets {{like this}} from prior versions are also supported.
+Your prompt may reference other fields via [[double square brackets]]. Valid fields are listed below for convenience.
 
 Test out your prompt with the test button before saving it!
 """
