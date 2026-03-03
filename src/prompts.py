@@ -125,9 +125,11 @@ def get_all_prompts(
     return prompts_map
 
 
+FIELD_PATTERN = r"\{\{(?!c\d+::)(.+?)\}\}"
+
+
 def get_prompt_fields(prompt: str, lower: bool = True) -> list[str]:
-    pattern = r"\{\{(.+?)\}\}"
-    fields = re.findall(pattern, prompt)
+    fields = re.findall(FIELD_PATTERN, prompt)
     return [(field.lower() if lower else field) for field in fields]
 
 
@@ -135,18 +137,15 @@ def interpolate_prompt(prompt: str, note: Note) -> Optional[str]:
     """Interpolates a prompt. Returns none if all source field are empty, or if some are empty and we're not allowing empty fields."""
     # Bunch of extra logic to make this whole process case insensitive
 
-    # Regex to pull out any words enclosed in double curly braces
     fields = get_prompt_fields(prompt)
-    # For some reason, the user is using a prompt with no fields
     if not fields:
         return prompt
-    pattern = r"\{\{(.+?)\}\}"
 
     # field.lower() -> value map
     all_note_fields = to_lowercase_dict(note)  # type: ignore[arg-type]
 
-    # Lowercase the characters inside {{}} in the prompt
-    prompt = re.sub(pattern, lambda x: "{{" + x.group(1).lower() + "}}", prompt)
+    # Lowercase field references inside {{}} while preserving cloze deletions
+    prompt = re.sub(FIELD_PATTERN, lambda x: "{{" + x.group(1).lower() + "}}", prompt)
 
     allow_empty = config.allow_empty_fields
 
