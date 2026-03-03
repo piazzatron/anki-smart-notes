@@ -8,6 +8,7 @@
 - Use modern Python. Make sure your code is fully typed.
 - Always put imports at the top of files, never inside functions or methods
 - Don't prefix top level defs with an `_` ever. Save those for private methods on classes.
+- Do not delete existing comments in the codebase unless they are no longer relevant. When modifying code, update comments to reflect the new behavior rather than removing them.
 
 # Important Commands
 - Use `./scripts/build.sh check` to run all code quality checks (format, lint, typecheck)

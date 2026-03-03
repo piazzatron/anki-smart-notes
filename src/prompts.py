@@ -136,12 +136,17 @@ def get_prompt_fields(prompt: str, lower: bool = True) -> list[str]:
 
 def interpolate_prompt(prompt: str, note: Note) -> Optional[str]:
     """Interpolates a prompt. Returns none if all source field are empty, or if some are empty and we're not allowing empty fields."""
+    # Bunch of extra logic to make this whole process case insensitive
+
     fields = get_prompt_fields(prompt)
+    # For some reason, the user is using a prompt with no fields
     if not fields:
         return prompt
 
+    # field.lower() -> value map
     all_note_fields = to_lowercase_dict(note)  # type: ignore[arg-type]
 
+    # Lowercase the characters inside [[]] and {{}} in the prompt
     def _lowercase_field_ref(m: re.Match[str]) -> str:
         if m.group(1) is not None:
             return "[[" + m.group(1).lower() + "]]"
@@ -151,6 +156,7 @@ def interpolate_prompt(prompt: str, note: Note) -> Optional[str]:
 
     allow_empty = config.allow_empty_fields
 
+    # Sub values in prompt
     values = [all_note_fields.get(field, "") for field in fields]
 
     if any(values) and (allow_empty or all(values)):
