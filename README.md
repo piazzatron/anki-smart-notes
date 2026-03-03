@@ -95,8 +95,6 @@ For example, if you're studying a language and want to generate a mmemonic to ai
 Create a simple, memorable mmemonic in Japanese for the word [[vocab]]. Reply with only the mmemonic.
 ```
 
-_Note: The old `{{curly brace}}` syntax is still supported for backwards compatibility, but `[[square brackets]]` are recommended to avoid conflicts with Anki's cloze deletion syntax._
-
 It's often useful to tell language model to "only reply" with the phrase you care about.
 
 _You can't reference the target field, or other smart fields – but the addon will validate your prompt, so don't worry!_
