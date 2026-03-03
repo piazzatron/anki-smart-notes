@@ -47,7 +47,9 @@ from .ui.changelog import perform_update_check
 from .ui.field_menu import FieldMenu
 from .ui.sparkle import Sparkle
 from .ui.ui_utils import show_message_box
-from .utils import make_uuid
+from .utils import is_production, make_uuid
+
+_dev_server: Any = None
 
 
 def with_processor(fn: Any):
@@ -270,6 +272,13 @@ def on_main_window(processor: NoteProcessor):
     mw.addonManager.setConfigAction(__name__, on_options(processor))
     on_start_actions()
 
+    if not is_production():
+        from .dev_server import DevServer
+
+        global _dev_server
+        _dev_server = DevServer(processor)
+        _dev_server.start()
+
 
 @with_processor  # type: ignore
 def on_editor_context(
@@ -400,6 +409,11 @@ def add_deck_option(
 
 @with_sentry
 def cleanup() -> None:
+    global _dev_server
+    if _dev_server is not None:
+        _dev_server.stop()
+        _dev_server = None
+
     logger.debug("Shutting down loggers")
     # Ridiculous hack to fix this sentry logger error:
     # I don't quite understand it but the stream handler setup in sentry_sdk
