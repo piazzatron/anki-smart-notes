@@ -21,7 +21,8 @@ import asyncio
 import concurrent.futures
 import threading
 import traceback
-from typing import Any, Optional, cast
+from collections.abc import Mapping
+from typing import Any, Optional, TypedDict, cast
 
 from aiohttp import web
 from anki.decks import DeckId
@@ -32,12 +33,19 @@ from .config import config
 from .constants import GLOBAL_DECK_ID
 from .logger import logger
 from .models import (
+    ChatModels,
+    ChatProviders,
+    FieldExtras,
+    ImageModels,
+    ImageProviders,
     OverridableChatOptions,
     OverridableChatOptionsDict,
     OverridableImageOptions,
     OverridableImageOptionsDict,
     OverrideableTTSOptionsDict,
     SmartFieldType,
+    TTSModels,
+    TTSProviders,
 )
 from .note_proccessor import NoteProcessor
 from .prompts import (
@@ -46,6 +54,90 @@ from .prompts import (
     get_prompts_for_note,
     remove_prompt,
 )
+
+# -- Request param types --
+
+
+class GetSmartFieldsParams(TypedDict, total=False):
+    noteType: str  # required
+    deckId: int
+
+
+class ChatOptionsParams(TypedDict, total=False):
+    provider: ChatProviders
+    model: ChatModels
+    temperature: int
+    markdownToHtml: bool
+    webSearch: bool
+
+
+class TTSOptionsParams(TypedDict, total=False):
+    provider: TTSProviders
+    model: TTSModels
+    voice: str
+    stripHtml: bool
+
+
+class ImageOptionsParams(TypedDict, total=False):
+    provider: ImageProviders
+    model: ImageModels
+
+
+class SmartFieldParams(TypedDict, total=False):
+    noteType: str  # required
+    field: str  # required
+    prompt: str  # required
+    type: SmartFieldType
+    deckId: int
+    automatic: bool
+    useCustomModel: bool
+    chatOptions: ChatOptionsParams
+    ttsOptions: TTSOptionsParams
+    imageOptions: ImageOptionsParams
+
+
+class RemoveSmartFieldParams(TypedDict, total=False):
+    noteType: str  # required
+    field: str  # required
+    deckId: int
+
+
+class GenerateNoteParams(TypedDict, total=False):
+    noteId: int  # required
+    deckId: int
+    overwrite: bool
+    targetField: str
+
+
+class GenerateNotesParams(TypedDict, total=False):
+    noteIds: list[int]  # required
+    deckId: int
+    overwrite: bool
+
+
+# -- Response types --
+
+
+class SmartFieldInfo(TypedDict):
+    prompt: str
+    extras: Optional[FieldExtras]
+
+
+class GenerateNoteResult(TypedDict):
+    updated: bool
+    fields: dict[str, str]
+
+
+class GenerateNotesResult(TypedDict):
+    updated: list[int]
+    failed: list[int]
+    skipped: list[int]
+
+
+class ApiResponse(TypedDict):
+    result: Any
+    error: Optional[str]
+
 
 DEV_SERVER_PORT = 8766
 DEV_SERVER_HOST = "127.0.0.1"
@@ -67,15 +159,15 @@ def _run_on_main_sync(fn: Any) -> Any:
     return future.result(timeout=30)
 
 
-def _ok(result: Any) -> dict[str, Any]:
+def _ok(result: Any) -> ApiResponse:
     return {"result": result, "error": None}
 
 
-def _err(message: str) -> dict[str, Any]:
+def _err(message: str) -> ApiResponse:
     return {"result": None, "error": message}
 
 
-def _get_deck_id(params: dict[str, Any]) -> DeckId:
+def _get_deck_id(params: Mapping[str, Any]) -> DeckId:
     raw = params.get("deckId")
     if raw is None:
         return GLOBAL_DECK_ID
@@ -154,10 +246,12 @@ class DevServer:
             )
             return web.json_response(_err(str(e)))
 
-    async def _handle_ping(self, params: dict[str, Any]) -> dict[str, Any]:
+    async def _handle_ping(self, params: dict[str, Any]) -> ApiResponse:
         return _ok("pong")
 
-    async def _handle_get_smart_fields(self, params: dict[str, Any]) -> dict[str, Any]:
+    async def _handle_get_smart_fields(
+        self, params: GetSmartFieldsParams
+    ) -> ApiResponse:
         note_type = params.get("noteType")
         if not note_type:
             return _err("noteType is required")
@@ -170,7 +264,7 @@ class DevServer:
         if not prompts:
             return _ok({})
 
-        result: dict[str, Any] = {}
+        result: dict[str, SmartFieldInfo] = {}
         for field, prompt in prompts.items():
             extras = get_extras(
                 note_type=note_type,
@@ -181,7 +275,7 @@ class DevServer:
 
         return _ok(result)
 
-    async def _handle_add_smart_field(self, params: dict[str, Any]) -> dict[str, Any]:
+    async def _handle_add_smart_field(self, params: SmartFieldParams) -> ApiResponse:
         note_type = params.get("noteType")
         field = params.get("field")
         prompt = params.get("prompt")
@@ -205,9 +299,7 @@ class DevServer:
             params, note_type, field, prompt, field_type, deck_id
         )
 
-    async def _handle_update_smart_field(
-        self, params: dict[str, Any]
-    ) -> dict[str, Any]:
+    async def _handle_update_smart_field(self, params: SmartFieldParams) -> ApiResponse:
         note_type = params.get("noteType")
         field = params.get("field")
         prompt = params.get("prompt")
@@ -233,13 +325,13 @@ class DevServer:
 
     async def _save_smart_field(
         self,
-        params: dict[str, Any],
+        params: SmartFieldParams,
         note_type: str,
         field: str,
         prompt: str,
         field_type: SmartFieldType,
         deck_id: DeckId,
-    ) -> dict[str, Any]:
+    ) -> ApiResponse:
         is_automatic = params.get("automatic", True)
         use_custom_model = params.get("useCustomModel", False)
 
@@ -285,8 +377,8 @@ class DevServer:
         return _ok(True)
 
     async def _handle_remove_smart_field(
-        self, params: dict[str, Any]
-    ) -> dict[str, Any]:
+        self, params: RemoveSmartFieldParams
+    ) -> ApiResponse:
         note_type = params.get("noteType")
         field = params.get("field")
 
@@ -307,7 +399,7 @@ class DevServer:
         _run_on_main_sync(do_remove)
         return _ok(True)
 
-    async def _handle_generate_note(self, params: dict[str, Any]) -> dict[str, Any]:
+    async def _handle_generate_note(self, params: GenerateNoteParams) -> ApiResponse:
         note_id_raw = params.get("noteId")
         if note_id_raw is None:
             return _err("noteId is required")
@@ -354,9 +446,10 @@ class DevServer:
             if fields_after[f] != fields_before.get(f)
         }
 
-        return _ok({"updated": updated, "fields": changed_fields})
+        result: GenerateNoteResult = {"updated": updated, "fields": changed_fields}
+        return _ok(result)
 
-    async def _handle_generate_notes(self, params: dict[str, Any]) -> dict[str, Any]:
+    async def _handle_generate_notes(self, params: GenerateNotesParams) -> ApiResponse:
         note_ids_raw = params.get("noteIds")
         if not note_ids_raw:
             return _err("noteIds is required")
@@ -394,10 +487,9 @@ class DevServer:
                 lambda: mw.col.update_notes(updated_notes) if mw and mw.col else None
             )
 
-        return _ok(
-            {
-                "updated": [n.id for n in updated_notes],
-                "failed": [n.id for n in failed_notes],
-                "skipped": [n.id for n in skipped_notes],
-            }
-        )
+        result: GenerateNotesResult = {
+            "updated": [n.id for n in updated_notes],
+            "failed": [n.id for n in failed_notes],
+            "skipped": [n.id for n in skipped_notes],
+        }
+        return _ok(result)
