@@ -26,5 +26,5 @@ class ManageSubscription(QLabel):
     def __init__(self) -> None:
         super().__init__()
         manage_link = f"{get_site_url()}/account"
-        self.setText(f"<a href={manage_link}>Manage Subscription</a>")
+        self.setText(f"<a href={manage_link}>Manage or Cancel Subscription</a>")
         self.setOpenExternalLinks(True)

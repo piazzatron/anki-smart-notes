@@ -283,7 +283,9 @@ class SubscriptionBox(QWidget):
         label.setFont(font_bold)
 
         manage_link = f"{get_site_url()}/account"
-        manage_label = QLabel(f"<a href={manage_link}>Manage Subscription</a>")
+        manage_label = QLabel(
+            f"<a href={manage_link}>Manage or Cancel Subscription</a>"
+        )
         manage_label.setOpenExternalLinks(True)
         layout.addWidget(label, alignment=Qt.AlignmentFlag.AlignLeft)
         layout.addWidget(manage_label, alignment=Qt.AlignmentFlag.AlignRight)
