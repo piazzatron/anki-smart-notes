@@ -40,6 +40,7 @@ from ..app_state import app_state
 from ..config import config
 from ..constants import get_site_url
 from ..logger import logger
+from ..sentry import sentry
 
 CLERK_DEV_JWT = "dvb_2jUh8kOg9bIN8jQzywLdD3E5bMl"
 
@@ -147,6 +148,8 @@ class WebviewDialog(QDialog):
         if value:
             logger.debug("Got JWT! Adding to config")
             config.auth_token = value
+            if sentry:
+                sentry.set_user()
             app_state.update_subscription_state()
 
     def closeEvent(self, a0: Any) -> None:
