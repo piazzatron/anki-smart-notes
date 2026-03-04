@@ -20,3 +20,5 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 import os
 
 os.environ["IS_TEST"] = "True"
+
+import src.app_state as _  # noqa: E402, F401
