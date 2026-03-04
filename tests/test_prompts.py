@@ -19,8 +19,10 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from copy import deepcopy
 from typing import Any
 
+import aqt  # noqa: F401
 import pytest
 from attr import dataclass
 
@@ -44,7 +46,74 @@ class MockNote:
 
 @dataclass
 class MockConfig:
+    prompts_map: Any = None
     allow_empty_fields: bool = False
+
+
+DEFAULT_TTS_OPTIONS = {
+    "tts_model": None,
+    "tts_provider": None,
+    "tts_voice": None,
+    "tts_strip_html": None,
+}
+
+DEFAULT_CHAT_OPTIONS = {
+    "chat_provider": None,
+    "chat_model": None,
+    "chat_temperature": None,
+    "chat_markdown_to_html": None,
+    "chat_web_search": None,
+}
+
+DEFAULT_IMAGE_OPTIONS = {
+    "image_model": None,
+    "image_provider": None,
+}
+
+
+def make_extras():
+    return {
+        "automatic": True,
+        "type": "chat",
+        "use_custom_model": False,
+        "chat_model": None,
+        "chat_provider": None,
+        "chat_temperature": None,
+        "chat_markdown_to_html": None,
+        "chat_web_search": None,
+        "tts_model": None,
+        "tts_provider": None,
+        "tts_voice": None,
+        "tts_strip_html": None,
+        "image_provider": None,
+        "image_model": None,
+    }
+
+
+def make_prompts_map(note_type, deck_id, fields, extras):
+    return {
+        "note_types": {
+            note_type: {
+                str(deck_id): {
+                    "fields": deepcopy(fields),
+                    "extras": deepcopy(extras),
+                }
+            }
+        }
+    }
+
+
+def setup_prompts(monkeypatch, prompts_map):
+    import src.prompts
+
+    c = MockConfig(prompts_map=prompts_map)
+    monkeypatch.setattr(src.prompts, "config", c)
+    monkeypatch.setattr(
+        src.prompts,
+        "deck_id_to_name_map",
+        lambda: {1: "Default", 2: "Spanish"},
+    )
+    return c
 
 
 @pytest.mark.parametrize(
@@ -143,3 +212,171 @@ def test_interpolate_prompt(prompt, note_data, allow_empty, expected, monkeypatc
     note = MockNote(data=note_data)
     result = interpolate_prompt(prompt, note)
     assert result == expected
+
+
+class TestMoveSmartField:
+    def test_move_field_removes_old_and_adds_new(self, monkeypatch):
+        from src.prompts import add_or_update_prompts, remove_prompt
+
+        extras = make_extras()
+        prompts_map = make_prompts_map(
+            "Basic", 1, {"Back": "{{Front}}"}, {"Back": extras}
+        )
+        setup_prompts(monkeypatch, prompts_map)
+
+        removed = remove_prompt(prompts_map, "Basic", 1, "Back")
+        result = add_or_update_prompts(
+            prompts_map=removed,
+            note_type="Basic",
+            deck_id=1,
+            field="Extra",
+            prompt="{{Front}}",
+            is_automatic=True,
+            is_custom_model=False,
+            type="chat",
+            tts_options=DEFAULT_TTS_OPTIONS,
+            chat_options=DEFAULT_CHAT_OPTIONS,
+            image_options=DEFAULT_IMAGE_OPTIONS,
+        )
+
+        assert "Extra" in result["note_types"]["Basic"]["1"]["fields"]
+        assert result["note_types"]["Basic"]["1"]["fields"]["Extra"] == "{{Front}}"
+        assert "Back" not in result["note_types"]["Basic"]["1"]["fields"]
+
+    def test_move_field_to_different_note_type(self, monkeypatch):
+        from src.prompts import add_or_update_prompts, remove_prompt
+
+        extras = make_extras()
+        prompts_map = make_prompts_map(
+            "Basic", 1, {"Back": "{{Front}}"}, {"Back": extras}
+        )
+        setup_prompts(monkeypatch, prompts_map)
+
+        removed = remove_prompt(prompts_map, "Basic", 1, "Back")
+        result = add_or_update_prompts(
+            prompts_map=removed,
+            note_type="Cloze",
+            deck_id=1,
+            field="Extra",
+            prompt="{{Text}}",
+            is_automatic=True,
+            is_custom_model=False,
+            type="chat",
+            tts_options=DEFAULT_TTS_OPTIONS,
+            chat_options=DEFAULT_CHAT_OPTIONS,
+            image_options=DEFAULT_IMAGE_OPTIONS,
+        )
+
+        assert "Basic" not in result["note_types"]
+        assert "Extra" in result["note_types"]["Cloze"]["1"]["fields"]
+
+    def test_move_field_to_different_deck(self, monkeypatch):
+        from src.prompts import add_or_update_prompts, remove_prompt
+
+        extras = make_extras()
+        prompts_map = make_prompts_map(
+            "Basic", 1, {"Back": "{{Front}}"}, {"Back": extras}
+        )
+        setup_prompts(monkeypatch, prompts_map)
+
+        removed = remove_prompt(prompts_map, "Basic", 1, "Back")
+        result = add_or_update_prompts(
+            prompts_map=removed,
+            note_type="Basic",
+            deck_id=2,
+            field="Back",
+            prompt="{{Front}}",
+            is_automatic=True,
+            is_custom_model=False,
+            type="chat",
+            tts_options=DEFAULT_TTS_OPTIONS,
+            chat_options=DEFAULT_CHAT_OPTIONS,
+            image_options=DEFAULT_IMAGE_OPTIONS,
+        )
+
+        assert "1" not in result["note_types"]["Basic"]
+        assert "Back" in result["note_types"]["Basic"]["2"]["fields"]
+
+    def test_overwrite_existing_field_rule(self, monkeypatch):
+        from src.prompts import add_or_update_prompts, remove_prompt
+
+        extras_back = make_extras()
+        extras_extra = make_extras()
+        prompts_map = {
+            "note_types": {
+                "Basic": {
+                    "1": {
+                        "fields": {
+                            "Back": "{{Front}}",
+                            "Extra": "old prompt",
+                        },
+                        "extras": {
+                            "Back": extras_back,
+                            "Extra": extras_extra,
+                        },
+                    }
+                }
+            }
+        }
+        setup_prompts(monkeypatch, prompts_map)
+
+        removed = remove_prompt(prompts_map, "Basic", 1, "Back")
+        result = add_or_update_prompts(
+            prompts_map=removed,
+            note_type="Basic",
+            deck_id=1,
+            field="Extra",
+            prompt="new prompt for extra",
+            is_automatic=True,
+            is_custom_model=False,
+            type="chat",
+            tts_options=DEFAULT_TTS_OPTIONS,
+            chat_options=DEFAULT_CHAT_OPTIONS,
+            image_options=DEFAULT_IMAGE_OPTIONS,
+        )
+
+        assert "Back" not in result["note_types"]["Basic"]["1"]["fields"]
+        assert (
+            result["note_types"]["Basic"]["1"]["fields"]["Extra"]
+            == "new prompt for extra"
+        )
+
+    def test_remove_prompt_cleans_up_empty_structures(self, monkeypatch):
+        from src.prompts import remove_prompt
+
+        extras = make_extras()
+        prompts_map = make_prompts_map(
+            "Basic", 1, {"Back": "{{Front}}"}, {"Back": extras}
+        )
+        setup_prompts(monkeypatch, prompts_map)
+
+        removed = remove_prompt(prompts_map, "Basic", 1, "Back")
+        assert "Basic" not in removed["note_types"]
+
+    def test_save_to_same_field_no_removal_needed(self, monkeypatch):
+        from src.prompts import add_or_update_prompts
+
+        extras = make_extras()
+        prompts_map = make_prompts_map(
+            "Basic", 1, {"Back": "{{Front}}"}, {"Back": extras}
+        )
+        setup_prompts(monkeypatch, prompts_map)
+
+        result = add_or_update_prompts(
+            prompts_map=prompts_map,
+            note_type="Basic",
+            deck_id=1,
+            field="Back",
+            prompt="updated prompt {{Front}}",
+            is_automatic=True,
+            is_custom_model=False,
+            type="chat",
+            tts_options=DEFAULT_TTS_OPTIONS,
+            chat_options=DEFAULT_CHAT_OPTIONS,
+            image_options=DEFAULT_IMAGE_OPTIONS,
+        )
+
+        assert (
+            result["note_types"]["Basic"]["1"]["fields"]["Back"]
+            == "updated prompt {{Front}}"
+        )

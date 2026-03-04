@@ -69,6 +69,7 @@ from ..prompts import (
     get_prompt_fields,
     get_prompts_for_note,
     interpolate_prompt,
+    remove_prompt,
 )
 from ..sentry import run_async_in_background_with_sentry
 from ..tts_utils import play_audio
@@ -150,7 +151,17 @@ class PromptDialog(QDialog):
         self.prompts_map = prompts_map
         self.mode = "edit" if card_type else "new"
         self.field_type = field_type
-        note_types = self._get_note_types(deck_id=deck_id)
+
+        # Track original values so we can detect when the user changes the target in edit mode
+        self.original_field = field
+        self.original_note_type = card_type
+        self.original_deck_id = deck_id if self.mode == "edit" else None
+
+        note_types = (
+            get_note_types()
+            if self.mode == "edit"
+            else self._get_note_types(deck_id=deck_id)
+        )
         selected_note_type = card_type or note_types[0]
 
         # Ensure there are valid fields to select
@@ -241,11 +252,12 @@ class PromptDialog(QDialog):
         layout = QVBoxLayout()
 
         field_type = self.state.s["type"]
+        edit_or_new = "Edit" if self.mode == "edit" else "New"
         text = {
             "title": {
-                "chat": "💬 New Text Field",
-                "tts": "🔈️ New Text to Speech Field",
-                "image": " 🖼️ New Image Field",
+                "chat": f"💬 {edit_or_new} Text Field",
+                "tts": f"🔈️ {edit_or_new} Text to Speech Field",
+                "image": f" 🖼️ {edit_or_new} Image Field",
             },
             "explanation": {
                 "chat": "The note that will have the Smart Field",
@@ -399,13 +411,6 @@ class PromptDialog(QDialog):
         container = QWidget()
         container.setLayout(layout)
 
-        # Control visibility depending on mode
-        if self.mode == "edit":
-            self.note_combo_box.setEnabled(False)
-            self.field_combo_box.setEnabled(False)
-            self.deck_combo_box.setEnabled(False)
-            if hasattr(self, "tts_source_combo_box"):
-                self.tts_source_combo_box.setEnabled(False)
         if is_app_legacy():
             self.deck_combo_box.setEnabled(False)
             self.deck_subtitle.setText(
@@ -528,9 +533,16 @@ class PromptDialog(QDialog):
         return len(target_fields) > 0
 
     def _state_for_new_card_type(
-        self, note_type: str, type: SmartFieldType, deck_id: DeckId
+        self,
+        note_type: str,
+        type: SmartFieldType,
+        deck_id: DeckId,
     ) -> PartialState:
-        target_fields = self._get_valid_target_fields(note_type, deck_id=deck_id)
+        # In edit mode, all fields are valid targets since we're modifying an existing rule
+        if self.mode == "edit":
+            target_fields = get_fields(note_type)
+        else:
+            target_fields = self._get_valid_target_fields(note_type, deck_id=deck_id)
         target_field = target_fields[0] if len(target_fields) else "None"
 
         source_fields = get_valid_fields_for_prompt(
@@ -551,18 +563,20 @@ class PromptDialog(QDialog):
 
     def _on_new_card_type_selected(self, note_type: str) -> None:
         new_state = self._state_for_new_card_type(
-            note_type=note_type, type=self.state.s["type"], deck_id=GLOBAL_DECK_ID
+            note_type=note_type,
+            type=self.state.s["type"],
+            deck_id=GLOBAL_DECK_ID,
         )
         self.state.update(cast("dict[str, Any]", new_state))
-        # Force re-layout every time
         self.adjustSize()
 
     def on_deck_selected(self, deck: str) -> None:
-        # Dumb hack bc of leaky abstraction reactive combo box + int keys
         deck_id = DeckId(int(deck))
         note_type = self.state.s["selected_note_type"]
         new_state = self._state_for_new_card_type(
-            note_type=note_type, type=self.state.s["type"], deck_id=deck_id
+            note_type=note_type,
+            type=self.state.s["type"],
+            deck_id=deck_id,
         )
 
         self.state.update(cast("dict[str, Any]", new_state))
@@ -574,9 +588,25 @@ class PromptDialog(QDialog):
         return f"{{{{{source}}}}}"
 
     def on_target_field_changed(self, field: Optional[str]) -> None:
-        # This shouldn't happen
         if not field:
             return
+
+        if self.mode == "edit":
+            existing_prompts = get_prompts_for_note(
+                note_type=self.state.s["selected_note_type"],
+                deck_id=self.state.s["selected_deck"],
+                override_prompts_map=self.prompts_map,
+                fallback_to_global_deck=False,
+            )
+            existing_prompt = existing_prompts.get(field) if existing_prompts else None
+            if existing_prompt is not None:
+                self.state.update(
+                    {
+                        "prompt": existing_prompt,
+                        "selected_note_field": field,
+                    }
+                )
+                return
 
         prompt = (
             self.get_tts_prompt(self.state.s["selected_tts_source_field"])
@@ -834,15 +864,54 @@ class PromptDialog(QDialog):
         prompt = self.state.s["prompt"]
         selected_card_type = self.state.s["selected_note_type"]
         selected_field = self.state.s["selected_note_field"]
+        selected_deck = self.state.s["selected_deck"]
 
         if not prompt:
             return
+
+        # Check if the user changed the target field/note type/deck from the original
+        target_changed = self.mode == "edit" and not (
+            selected_card_type == self.original_note_type
+            and selected_field == self.original_field
+            and selected_deck == self.original_deck_id
+        )
+
+        if target_changed:
+            existing_prompts = get_prompts_for_note(
+                note_type=selected_card_type,
+                deck_id=selected_deck,
+                override_prompts_map=self.prompts_map,
+                fallback_to_global_deck=False,
+            )
+            existing_prompt = (
+                existing_prompts.get(selected_field) if existing_prompts else None
+            )
+            if existing_prompt is not None:
+                confirmed = show_message_box(
+                    f'The field "{selected_field}" already has a smart field rule. '
+                    "Saving will overwrite the existing rule.",
+                    show_cancel=True,
+                )
+                if not confirmed:
+                    return
+
+        if (
+            target_changed
+            and self.original_note_type
+            and self.original_field
+            and self.original_deck_id is not None
+        ):
+            self.prompts_map = remove_prompt(
+                self.prompts_map,
+                note_type=self.original_note_type,
+                deck_id=self.original_deck_id,
+                field=self.original_field,
+            )
 
         new_prompts_map = self._create_new_prompts_map()
         logger.debug("Created new prompts map")
         logger.debug(new_prompts_map)
 
-        # Make an ephemeral note
         note_type = next(
             (e for e in mw.col.models.all() if e["name"] == selected_card_type), None
         )
@@ -858,14 +927,13 @@ class PromptDialog(QDialog):
             note=sample_note,
             target_field=selected_field,
             prompts_map=new_prompts_map,
-            deck_id=self.state.s["selected_deck"],
+            deck_id=selected_deck,
         )
 
         if err:
             show_message_box(f"Invalid prompt: {err}")
             return
 
-        # Ensure only openai for legacy
         if (
             not is_capacity_remaining()
             and self.state.s["use_custom_model"]

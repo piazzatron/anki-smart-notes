@@ -1,4 +1,7 @@
 
+# v2.16.0
+- Allow editing target field, note type, and deck on existing smart field rules.
+
 # v2.15.0
 - Add new image models: GPT Image 1.5, Nano Banana 2, and Z-Image Turbo. Deprecate Flux Schnell.
 - Upgrade Anthropic models to Claude Opus 4.6, Sonnet 4.6, and Haiku 4.5.
