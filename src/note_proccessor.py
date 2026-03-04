@@ -28,6 +28,7 @@ from anki.decks import DeckId
 from anki.notes import Note, NoteId
 from aqt import mw
 
+from .api_client import OutOfCreditsError
 from .app_state import (
     app_state,
     has_api_key,
@@ -35,7 +36,7 @@ from .app_state import (
     is_capacity_remaining_or_legacy,
 )
 from .config import Config, bump_usage_counter
-from .constants import GENERIC_CREDITS_MESSAGE, STANDARD_BATCH_LIMIT
+from .constants import STANDARD_BATCH_LIMIT
 from .dag import generate_fields_dag
 from .field_processor import FieldProcessor
 from .logger import logger
@@ -96,7 +97,10 @@ class NoteProcessor:
 
         def on_failure(e: Exception) -> None:
             self._reqlinquish_req_in_process()
-            show_message_box(f"Error: {e}")
+            if isinstance(e, OutOfCreditsError):
+                app_state.update_subscription_state()
+            else:
+                show_message_box(f"Error: {e}")
 
         # TODO: this logic should be re-addressed when I revisit batch limits (ANK-28)
         if is_capacity_remaining():
@@ -141,16 +145,20 @@ class NoteProcessor:
             total_failed = []
             total_skipped = []
             to_process_ids = note_ids[:]
+            hit_out_of_credits = False
 
-            # Manually track processed count since sometimes we may
-            # process a note without actually calling OpenAI
             processed_count = 0
 
             while len(to_process_ids) > 0:
                 logger.debug("Processing batch...")
                 batch = to_process_ids[:limit]
                 to_process_ids = to_process_ids[limit:]
-                updated, failed, skipped = await self._process_notes_batch(
+                (
+                    updated,
+                    failed,
+                    skipped,
+                    out_of_credits,
+                ) = await self._process_notes_batch(
                     batch, overwrite_fields=overwrite_fields, did_map=did_map
                 )
 
@@ -160,19 +168,26 @@ class NoteProcessor:
                 total_failed.extend(failed)
                 total_skipped.extend(skipped)
 
-                # Update the notes in the main thread
+                if out_of_credits:
+                    hit_out_of_credits = True
+
+                is_finished = not to_process_ids or out_of_credits
+
                 run_on_main(
                     lambda updated=updated,
-                    to_process_ids_empty=len(to_process_ids) == 0,
+                    is_finished=is_finished,
                     processed_count=processed_count: on_update(
                         updated,
                         processed_count,
-                        to_process_ids_empty,
+                        is_finished,
                     )
                 )
 
-                if not to_process_ids:
+                if is_finished:
                     break
+
+            if hit_out_of_credits:
+                raise OutOfCreditsError()
 
             return total_updated, total_failed, total_skipped
 
@@ -185,12 +200,12 @@ class NoteProcessor:
         note_ids: Sequence[NoteId],
         overwrite_fields: bool,
         did_map: dict[NoteId, DeckId],
-    ) -> tuple[list[Note], list[Note], list[Note]]:
-        """Returns updated, failed, skipped notes"""
+    ) -> tuple[list[Note], list[Note], list[Note], bool]:
+        """Returns updated, failed, skipped notes and whether we hit out-of-credits"""
         logger.debug(f"Processing {len(note_ids)} notes...")
         if not mw or not mw.col:
             logger.error("No mw!")
-            return ([], [], [])
+            return ([], [], [], False)
 
         notes = [mw.col.get_note(note_id) for note_id in note_ids]
 
@@ -207,7 +222,7 @@ class NoteProcessor:
                 to_process.append(note)
         if not to_process:
             logger.debug("No notes to process")
-            return ([], [], [])
+            return ([], [], [], False)
 
         # Run them all in parallel
         tasks = []
@@ -219,12 +234,15 @@ class NoteProcessor:
             )
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
-        # Process errors
         notes_to_update = []
         failed = []
+        hit_out_of_credits = False
         for i, result in enumerate(results):
             note = to_process[i]
-            if isinstance(result, Exception):
+            if isinstance(result, OutOfCreditsError):
+                hit_out_of_credits = True
+                failed.append(note)
+            elif isinstance(result, Exception):
                 logger.error(
                     f"Error processing note {note_ids[i]}: {result}, {''.join(traceback.format_exception(type(result), result, result.__traceback__))}"
                 )
@@ -238,7 +256,7 @@ class NoteProcessor:
             f"Updated: {len(notes_to_update)}, Failed: {len(failed)}, Skipped: {len(skipped)}"
         )
 
-        return (notes_to_update, failed, skipped)
+        return (notes_to_update, failed, skipped, hit_out_of_credits)
 
     def process_card(
         self,
@@ -332,7 +350,6 @@ class NoteProcessor:
                 logger.debug(f"Processing next nodes: {next_batch}")
                 batch_tasks = {
                     node.field: self._process_node(
-                        # Only show the error box for the target field
                         node,
                         note,
                         show_error_message_box=node.is_target,
@@ -357,7 +374,6 @@ class NoteProcessor:
                     for out_node in node.out_nodes:
                         out_node.in_nodes.remove(node)
 
-                    # New notes have ID 0 and don't exist in the DB yet, so can't be updated!
                     if note.id and node.did_update:
                         if mw and mw.col:
                             mw.col.update_note(note)
@@ -376,6 +392,10 @@ class NoteProcessor:
     def _handle_failure(self, e: Exception) -> None:
         logger.debug("Handling failure")
 
+        if isinstance(e, OutOfCreditsError):
+            app_state.update_subscription_state()
+            return
+
         openai_failure_map = {
             401: "Smart Notes Error: OpenAI returned 401, meaning there's an issue with your API key.",
             404: "Smart Notes Error: OpenAI returned 404 - did you pay for an API key? Paying for ChatGPT premium alone will not work (this is an OpenAI limitation).",
@@ -387,7 +407,6 @@ class NoteProcessor:
             logger.debug(f"Got status: {status}")
             unknown_error = f"Smart Notes Error: Unknown error: {e}"
 
-            # First time we see a 4xx error, update subscription state
             if is_capacity_remaining():
                 logger.debug(f"Got API error: {e}")
                 if status >= 400 and status < 500:
@@ -405,14 +424,8 @@ class NoteProcessor:
                 else:
                     show_message_box(unknown_error)
             else:
-                if status == 402:
-                    # Shouldn't get here; requests should be blocked if you're
-                    # out of credits.
-                    logger.debug("Got 402 error but app is locked & no API key")
-                    show_message_box(GENERIC_CREDITS_MESSAGE)
-                else:
-                    logger.error("Got 4xx error but app is locked & no API key")
-                    show_message_box(unknown_error)
+                logger.error("Got 4xx error but app is locked & no API key")
+                show_message_box(unknown_error)
         else:
             logger.error(f"Got non-HTTP error: {e}")
             show_message_box(f"Smart Notes Error: Unknown error: {e}")

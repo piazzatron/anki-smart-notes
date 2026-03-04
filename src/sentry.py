@@ -35,6 +35,7 @@ from sentry_sdk.integrations.logging import LoggingIntegration
 from sentry_sdk.session import Session
 
 from . import env
+from .api_client import OutOfCreditsError
 from .config import config
 from .constants import get_server_url
 from .logger import logger
@@ -159,6 +160,8 @@ class Sentry:
         async def wrapped(*args: Any, **kwargs: Any):
             try:
                 return await fn(*args, **kwargs)
+            except OutOfCreditsError:
+                raise
             except Exception as e:
                 if is_production():
                     logger.debug(f"Sentry: capturing exception {e}")

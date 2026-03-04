@@ -28,6 +28,10 @@ from .constants import MAX_RETRIES, RETRY_BASE_SECONDS, get_server_url
 from .logger import logger
 
 
+class OutOfCreditsError(Exception):
+    pass
+
+
 class APIClient:
     async def get_api_response(
         self,
@@ -87,6 +91,8 @@ class APIClient:
                         )
 
                 logger.debug(f"Got response from {path}: {response.status}")
+                if response.status == 402:
+                    raise OutOfCreditsError()
                 if response.status == 400:
                     json = await response.json()
                     logger.error(json)
