@@ -146,6 +146,35 @@ Batch-generate smart fields for multiple notes.
 }
 ```
 
+## UI Actions
+
+These actions open Qt dialogs programmatically. The request blocks until the dialog is closed.
+
+### uiEditSmartField
+
+Open the prompt dialog in edit mode for an existing smart field.
+
+**Params:**
+| Field | Type | Required | Default | Description |
+|-------|------|----------|---------|-------------|
+| `noteType` | string | yes | | Anki note type name |
+| `field` | string | yes | | Field name to edit |
+| `deckId` | int | no | global (1) | Deck ID |
+
+**Result:** `true` if the user clicked OK, `false` if cancelled.
+
+### uiNewSmartField
+
+Open the prompt dialog in new mode to create a smart field.
+
+**Params:**
+| Field | Type | Required | Default | Description |
+|-------|------|----------|---------|-------------|
+| `fieldType` | string | yes | | One of: `"chat"`, `"tts"`, `"image"` |
+| `deckId` | int | no | global (1) | Deck ID |
+
+**Result:** `true` if the user clicked OK, `false` if cancelled.
+
 ## Notes
 
 - Use Anki Connect (port 8765) for standard Anki operations like `findNotes`, `notesInfo`, `modelNames`, `deckNames`, etc.
