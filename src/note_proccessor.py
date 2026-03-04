@@ -36,11 +36,7 @@ from .app_state import (
     is_capacity_remaining_or_legacy,
 )
 from .config import Config, bump_usage_counter
-from .constants import (
-    GENERIC_CREDITS_MESSAGE,
-    OUT_OF_CREDITS_MID_OPERATION_MESSAGE,
-    STANDARD_BATCH_LIMIT,
-)
+from .constants import STANDARD_BATCH_LIMIT
 from .dag import generate_fields_dag
 from .field_processor import FieldProcessor
 from .logger import logger
@@ -102,7 +98,7 @@ class NoteProcessor:
         def on_failure(e: Exception) -> None:
             self._reqlinquish_req_in_process()
             if isinstance(e, OutOfCreditsError):
-                self._handle_out_of_credits(batch=True)
+                app_state.update_subscription_state()
             else:
                 show_message_box(f"Error: {e}")
 
@@ -393,18 +389,11 @@ class NoteProcessor:
 
         return did_update
 
-    def _handle_out_of_credits(self, batch: bool = False) -> None:
-        message = (
-            OUT_OF_CREDITS_MID_OPERATION_MESSAGE if batch else GENERIC_CREDITS_MESSAGE
-        )
-        show_message_box(message)
-        app_state.update_subscription_state(show_message=False)
-
     def _handle_failure(self, e: Exception) -> None:
         logger.debug("Handling failure")
 
         if isinstance(e, OutOfCreditsError):
-            self._handle_out_of_credits()
+            app_state.update_subscription_state()
             return
 
         openai_failure_map = {

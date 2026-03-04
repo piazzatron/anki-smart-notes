@@ -68,8 +68,6 @@ PAID_PLAN_ENDED_EXPIRED_NO_API_KEY = "Smart Notes: Your subscription has expired
 
 GENERIC_CREDITS_MESSAGE = "Smart Notes: You have reached your credit capacity! Check the account tab for details and consider upgrading to a larger plan."
 
-OUT_OF_CREDITS_MID_OPERATION_MESSAGE = "Smart Notes: You ran out of credits during this operation. Any remaining notes were skipped. Check the account tab for details and consider upgrading to a larger plan."
-
 
 def get_server_url() -> str:
     return SERVER_URL_PROD if env.environment == "PROD" else SERVER_URL_DEV
