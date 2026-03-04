@@ -31,6 +31,7 @@ from aqt import (
 
 from ..app_state import AppState, app_state
 from ..config import config
+from ..sentry import sentry
 from .manage_subscription import ManageSubscription
 from .ui_utils import default_form_layout
 
@@ -145,5 +146,7 @@ class AccountOptions(QWidget):
 
     def logout(self):
         config.auth_token = None
+        if sentry:
+            sentry.set_user()
         self.logoutButton.setEnabled(False)
         app_state.update_subscription_state()

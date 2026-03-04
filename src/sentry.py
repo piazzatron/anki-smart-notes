@@ -19,6 +19,8 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 # pyright: reportPrivateUsage=false
 
+import base64
+import json
 import logging
 import os
 import sys
@@ -41,6 +43,17 @@ from .ui.ui_utils import show_message_box
 from .utils import get_version, is_production
 
 dsn = os.getenv("SENTRY_DSN")
+
+
+def get_user_id_from_jwt(token: str) -> Optional[str]:
+    try:
+        payload = token.split(".")[1]
+        padding = 4 - len(payload) % 4
+        payload += "=" * padding
+        decoded = json.loads(base64.urlsafe_b64decode(payload))
+        return decoded.get("sub")
+    except Exception:
+        return None
 
 
 # Based on
@@ -79,11 +92,19 @@ class Sentry:
 
     def configure_scope(self) -> None:
         self._monekypatch_sys_excepthook()
-        logger.debug("Configuring scope")
-        with self.hub.configure_scope() as scope:
-            scope.user = {"id": self.uuid}
-
+        self.set_user()
         self._start_session()
+
+    def set_user(self) -> None:
+        user_id = self.uuid
+        if config.auth_token:
+            jwt_user_id = get_user_id_from_jwt(config.auth_token)
+            if jwt_user_id:
+                user_id = jwt_user_id
+
+        logger.debug(f"Setting sentry user to {user_id}")
+        with self.hub.configure_scope() as scope:
+            scope.user = {"id": user_id}
 
     def _monekypatch_sys_excepthook(self) -> None:
         try:

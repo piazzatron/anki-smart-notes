@@ -71,20 +71,24 @@ build () {
 clean () {
   echo "Cleaning..."
   rm -rf dist
+  rm -rf meta.json
   rm -rf ~/Library/Application\ Support/Anki2/addons21/smart-notes
+  rm -rf ~/development/anki-storage/addons21/smart-notes
   rm -rf ~/development/win_shared/smart-notes
 }
 
 link-dev () {
+  mkdir -p ~/development/anki-storage/addons21
   # Link for Mac Local Dev
   ln -s $(pwd) ~/Library/Application\ Support/Anki2/addons21/smart-notes
+  ln -s $(pwd) ~/development/anki-storage/addons21/smart-notes
 }
 
 win-dist () {
   clean
   build
   rm -rf ~/development/win_shared/smart-notes
-  mkdir ~/development/win_shared/smart-notes
+  mkdir -p ~/development/win_shared/smart-notes
   # Link for Windows dev thru shared folder
   cp -r $(pwd)/dist/* ~/development/win_shared/smart-notes
 }
@@ -98,10 +102,20 @@ anki () {
    /Applications/Anki.app/Contents/MacOS/launcher
 }
 
+anki-local () {
+   /Applications/Anki.app/Contents/MacOS/launcher -b ~/development/anki-storage
+}
+
 test-dev () {
   clean
   link-dev
   anki
+}
+
+test-dev-clean () {
+  clean
+  link-dev
+  anki-local
 }
 
 test-build () {
@@ -180,6 +194,8 @@ elif [ "$1" == "win" ]; then
   win-dist
 elif [ "$1" == "test-dev" ]; then
   test-dev
+elif [ "$1" == "test-dev-clean" ]; then
+  test-dev-clean
 elif [ "$1" == "test-build" ]; then
   test-build
 elif [ "$1" == "sentry-release" ]; then
