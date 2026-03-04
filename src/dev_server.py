@@ -28,6 +28,7 @@ from aiohttp import web
 from anki.decks import DeckId
 from anki.notes import NoteId
 from aqt import mw
+from aqt.qt import QDialog
 
 from .config import config
 from .constants import GLOBAL_DECK_ID
@@ -48,12 +49,14 @@ from .models import (
     TTSProviders,
 )
 from .note_proccessor import NoteProcessor
+from .notes import get_fields
 from .prompts import (
     add_or_update_prompts,
     get_extras,
     get_prompts_for_note,
     remove_prompt,
 )
+from .ui.prompt_dialog import PromptDialog
 
 # -- Request param types --
 
@@ -188,6 +191,8 @@ class DevServer:
             "removeSmartField": self._handle_remove_smart_field,
             "generateNote": self._handle_generate_note,
             "generateNotes": self._handle_generate_notes,
+            "uiEditSmartField": self._handle_ui_edit_smart_field,
+            "uiNewSmartField": self._handle_ui_new_smart_field,
         }
 
     def start(self) -> None:
@@ -493,3 +498,72 @@ class DevServer:
             "skipped": [n.id for n in skipped_notes],
         }
         return _ok(result)
+
+    async def _handle_ui_edit_smart_field(self, params: dict[str, Any]) -> ApiResponse:
+        note_type = params.get("noteType")
+        field = params.get("field")
+
+        if not note_type or not field:
+            return _err("noteType and field are required")
+
+        deck_id = _get_deck_id(params)
+
+        extras = get_extras(note_type=note_type, field=field, deck_id=deck_id)
+        if not extras:
+            return _err(f"No smart field '{field}' for noteType '{note_type}'")
+
+        prompts = get_prompts_for_note(
+            note_type=note_type,
+            to_lower=True,
+            deck_id=deck_id,
+            fallback_to_global_deck=False,
+        )
+
+        all_fields = get_fields(note_type)
+        if not prompts or field not in all_fields:
+            return _err("Note type does not exist or field not in note type")
+
+        field_type = extras["type"]
+
+        def open_dialog() -> bool:
+            def on_accept(new_map: Any) -> None:
+                config.prompts_map = new_map
+
+            dialog = PromptDialog(
+                config.prompts_map,
+                self._processor,
+                on_accept,
+                card_type=note_type,
+                deck_id=deck_id,
+                field=field,
+                field_type=field_type,
+                prompt=prompts[field.lower()],
+            )
+            return dialog.exec() == QDialog.DialogCode.Accepted
+
+        accepted = _run_on_main_sync(open_dialog)
+        return _ok(accepted)
+
+    async def _handle_ui_new_smart_field(self, params: dict[str, Any]) -> ApiResponse:
+        field_type: Optional[SmartFieldType] = params.get("fieldType")
+
+        if not field_type or field_type not in ("chat", "tts", "image"):
+            return _err("fieldType is required (chat, tts, or image)")
+
+        deck_id = _get_deck_id(params)
+
+        def open_dialog() -> bool:
+            def on_accept(new_map: Any) -> None:
+                config.prompts_map = new_map
+
+            dialog = PromptDialog(
+                config.prompts_map,
+                self._processor,
+                on_accept,
+                field_type=field_type,
+                deck_id=deck_id,
+            )
+            return dialog.exec() == QDialog.DialogCode.Accepted
+
+        accepted = _run_on_main_sync(open_dialog)
+        return _ok(accepted)
