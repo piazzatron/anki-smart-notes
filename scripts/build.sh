@@ -80,8 +80,8 @@ clean () {
 link-dev () {
   mkdir -p ~/development/anki-storage/addons21
   # Link for Mac Local Dev
-  ln -s $(pwd) ~/Library/Application\ Support/Anki2/addons21/smart-notes
-  ln -s $(pwd) ~/development/anki-storage/addons21/smart-notes
+  ln -s "$(pwd)" ~/Library/Application\ Support/Anki2/addons21/smart-notes
+  ln -s "$(pwd)" ~/development/anki-storage/addons21/smart-notes
 }
 
 win-dist () {
@@ -90,12 +90,12 @@ win-dist () {
   rm -rf ~/development/win_shared/smart-notes
   mkdir -p ~/development/win_shared/smart-notes
   # Link for Windows dev thru shared folder
-  cp -r $(pwd)/dist/* ~/development/win_shared/smart-notes
+  cp -r "$(pwd)/dist/"* ~/development/win_shared/smart-notes
 }
 
 # Tests a production build by symlinking dist folder
 link-dist () {
-  ln -s $(pwd)/dist ~/Library/Application\ Support/Anki2/addons21/smart-notes
+  ln -s "$(pwd)/dist" ~/Library/Application\ Support/Anki2/addons21/smart-notes
 }
 
 anki () {
