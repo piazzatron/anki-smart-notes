@@ -149,6 +149,7 @@ class NoteProcessor:
             total_failed = []
             total_skipped = []
             to_process_ids = note_ids[:]
+            hit_out_of_credits = False
 
             processed_count = 0
 
@@ -171,6 +172,9 @@ class NoteProcessor:
                 total_failed.extend(failed)
                 total_skipped.extend(skipped)
 
+                if out_of_credits:
+                    hit_out_of_credits = True
+
                 is_finished = not to_process_ids or out_of_credits
 
                 run_on_main(
@@ -185,6 +189,9 @@ class NoteProcessor:
 
                 if is_finished:
                     break
+
+            if hit_out_of_credits:
+                raise OutOfCreditsError()
 
             return total_updated, total_failed, total_skipped
 
@@ -248,9 +255,6 @@ class NoteProcessor:
                 notes_to_update.append(note)
             else:
                 skipped.append(note)
-
-        if hit_out_of_credits:
-            run_on_main(lambda: self._handle_out_of_credits(batch=True))
 
         logger.debug(
             f"Updated: {len(notes_to_update)}, Failed: {len(failed)}, Skipped: {len(skipped)}"
