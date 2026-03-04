@@ -1,6 +1,6 @@
 
 # v2.16.0
-- Allow editing target field, note type, and deck on existing smart field rules. Changing the target field removes the old config and creates a new one, with a confirmation dialog when overwriting an existing rule.
+- Allow editing target field, note type, and deck on existing smart field rules.
 
 # v2.15.0
 - Add new image models: GPT Image 1.5, Nano Banana 2, and Z-Image Turbo. Deprecate Flux Schnell.

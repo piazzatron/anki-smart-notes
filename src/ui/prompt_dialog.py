@@ -152,6 +152,7 @@ class PromptDialog(QDialog):
         self.mode = "edit" if card_type else "new"
         self.field_type = field_type
 
+        # Track original values so we can detect when the user changes the target in edit mode
         self.original_field = field
         self.original_note_type = card_type
         self.original_deck_id = deck_id if self.mode == "edit" else None
@@ -536,9 +537,9 @@ class PromptDialog(QDialog):
         note_type: str,
         type: SmartFieldType,
         deck_id: DeckId,
-        show_all_fields: bool = False,
     ) -> PartialState:
-        if show_all_fields:
+        # In edit mode, all fields are valid targets since we're modifying an existing rule
+        if self.mode == "edit":
             target_fields = get_fields(note_type)
         else:
             target_fields = self._get_valid_target_fields(note_type, deck_id=deck_id)
@@ -565,7 +566,6 @@ class PromptDialog(QDialog):
             note_type=note_type,
             type=self.state.s["type"],
             deck_id=GLOBAL_DECK_ID,
-            show_all_fields=self.mode == "edit",
         )
         self.state.update(cast("dict[str, Any]", new_state))
         self.adjustSize()
@@ -577,7 +577,6 @@ class PromptDialog(QDialog):
             note_type=note_type,
             type=self.state.s["type"],
             deck_id=deck_id,
-            show_all_fields=self.mode == "edit",
         )
 
         self.state.update(cast("dict[str, Any]", new_state))
@@ -593,11 +592,13 @@ class PromptDialog(QDialog):
             return
 
         if self.mode == "edit":
-            existing_prompt = self._get_existing_prompt_for_field(
-                self.state.s["selected_note_type"],
-                field,
-                self.state.s["selected_deck"],
+            existing_prompts = get_prompts_for_note(
+                note_type=self.state.s["selected_note_type"],
+                deck_id=self.state.s["selected_deck"],
+                override_prompts_map=self.prompts_map,
+                fallback_to_global_deck=False,
             )
+            existing_prompt = existing_prompts.get(field) if existing_prompts else None
             if existing_prompt is not None:
                 self.state.update(
                     {
@@ -848,27 +849,6 @@ class PromptDialog(QDialog):
             "No valid source fields remaining",
         )
 
-    def _get_existing_prompt_for_field(
-        self, note_type: str, field: str, deck_id: DeckId
-    ) -> Optional[str]:
-        prompts = get_prompts_for_note(
-            note_type=note_type,
-            deck_id=deck_id,
-            override_prompts_map=self.prompts_map,
-            fallback_to_global_deck=False,
-        )
-        if not prompts:
-            return None
-        return prompts.get(field)
-
-    def _is_original_field(self, note_type: str, field: str, deck_id: DeckId) -> bool:
-        return (
-            self.mode == "edit"
-            and note_type == self.original_note_type
-            and field == self.original_field
-            and deck_id == self.original_deck_id
-        )
-
     def _attempt_to_parse_source_field(self, prompt: str) -> Optional[str]:
         fields = get_prompt_fields(prompt, lower=False)
 
@@ -889,13 +869,22 @@ class PromptDialog(QDialog):
         if not prompt:
             return
 
-        target_changed = self.mode == "edit" and not self._is_original_field(
-            selected_card_type, selected_field, selected_deck
+        # Check if the user changed the target field/note type/deck from the original
+        target_changed = self.mode == "edit" and not (
+            selected_card_type == self.original_note_type
+            and selected_field == self.original_field
+            and selected_deck == self.original_deck_id
         )
 
         if target_changed:
-            existing_prompt = self._get_existing_prompt_for_field(
-                selected_card_type, selected_field, selected_deck
+            existing_prompts = get_prompts_for_note(
+                note_type=selected_card_type,
+                deck_id=selected_deck,
+                override_prompts_map=self.prompts_map,
+                fallback_to_global_deck=False,
+            )
+            existing_prompt = (
+                existing_prompts.get(selected_field) if existing_prompts else None
             )
             if existing_prompt is not None:
                 confirmed = show_message_box(
