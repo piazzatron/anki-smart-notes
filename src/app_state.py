@@ -71,7 +71,7 @@ class AppStateManager:
         ]
         return self._state.s["subscription"] in free_trial_states
 
-    def update_subscription_state(self) -> None:
+    def update_subscription_state(self, show_message: bool = True) -> None:
         if not config.auth_token:
             logger.debug("User is not authenticated")
             self._state.update({"subscription": "UNAUTHENTICATED", "plan": None})
@@ -106,10 +106,11 @@ class AppStateManager:
 
             self._state.update({"subscription": new_sub_state, "plan": status["plan"]})
 
-            if sub_did_end:
+            if sub_did_end and show_message:
                 self._handle_subscription_did_transition(new_sub_state, status["plan"])
 
-            self._check_capacity_threshold(status["plan"])
+            if show_message:
+                self._check_capacity_threshold(status["plan"])
 
         run_async_in_background_with_sentry(
             subscription_provider.get_subscription_status,

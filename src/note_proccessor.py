@@ -398,7 +398,7 @@ class NoteProcessor:
             OUT_OF_CREDITS_MID_OPERATION_MESSAGE if batch else GENERIC_CREDITS_MESSAGE
         )
         show_message_box(message)
-        app_state.update_subscription_state()
+        app_state.update_subscription_state(show_message=False)
 
     def _handle_failure(self, e: Exception) -> None:
         logger.debug("Handling failure")
@@ -435,12 +435,8 @@ class NoteProcessor:
                 else:
                     show_message_box(unknown_error)
             else:
-                if status == 402:
-                    logger.debug("Got 402 error but app is locked & no API key")
-                    show_message_box(GENERIC_CREDITS_MESSAGE)
-                else:
-                    logger.error("Got 4xx error but app is locked & no API key")
-                    show_message_box(unknown_error)
+                logger.error("Got 4xx error but app is locked & no API key")
+                show_message_box(unknown_error)
         else:
             logger.error(f"Got non-HTTP error: {e}")
             show_message_box(f"Smart Notes Error: Unknown error: {e}")
