@@ -895,23 +895,20 @@ class PromptDialog(QDialog):
                 if not confirmed:
                     return
 
-        base_prompts_map = self.prompts_map
         if (
             target_changed
             and self.original_note_type
             and self.original_field
             and self.original_deck_id is not None
         ):
-            base_prompts_map = remove_prompt(
-                base_prompts_map,
+            self.prompts_map = remove_prompt(
+                self.prompts_map,
                 note_type=self.original_note_type,
                 deck_id=self.original_deck_id,
                 field=self.original_field,
             )
 
-        new_prompts_map = self._create_new_prompts_map(
-            base_prompts_map=base_prompts_map
-        )
+        new_prompts_map = self._create_new_prompts_map()
         logger.debug("Created new prompts map")
         logger.debug(new_prompts_map)
 
@@ -948,13 +945,11 @@ class PromptDialog(QDialog):
         self.on_accept_callback(new_prompts_map)
         self.accept()
 
-    def _create_new_prompts_map(
-        self, base_prompts_map: Optional[PromptMap] = None
-    ) -> PromptMap:
+    def _create_new_prompts_map(self) -> PromptMap:
         s = self.state.s
 
         return add_or_update_prompts(
-            prompts_map=base_prompts_map or self.prompts_map,
+            prompts_map=self.prompts_map,
             note_type=s["selected_note_type"],
             deck_id=s["selected_deck"],
             field=s["selected_note_field"],
