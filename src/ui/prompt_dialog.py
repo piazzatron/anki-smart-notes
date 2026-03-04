@@ -591,23 +591,6 @@ class PromptDialog(QDialog):
         if not field:
             return
 
-        if self.mode == "edit":
-            existing_prompts = get_prompts_for_note(
-                note_type=self.state.s["selected_note_type"],
-                deck_id=self.state.s["selected_deck"],
-                override_prompts_map=self.prompts_map,
-                fallback_to_global_deck=False,
-            )
-            existing_prompt = existing_prompts.get(field) if existing_prompts else None
-            if existing_prompt is not None:
-                self.state.update(
-                    {
-                        "prompt": existing_prompt,
-                        "selected_note_field": field,
-                    }
-                )
-                return
-
         self.state.update({"selected_note_field": field})
 
     def render_buttons(self) -> None:
