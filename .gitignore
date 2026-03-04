@@ -125,6 +125,7 @@ celerybeat.pid
 
 # Environments
 .env
+.env.local
 .venv
 env/
 venv/
@@ -164,7 +165,7 @@ cython_debug/
 #.idea/
 
 # Anki overwriting config
-meta.json
+meta*.json
 config_backup.json
 
 todo*.md
