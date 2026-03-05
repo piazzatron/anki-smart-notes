@@ -109,88 +109,38 @@ class TTSState(TypedDict):
     search_text: str
 
 
+openai_voice_defs: list[dict[str, str]] = [
+    {"voice": "alloy", "gender": "Female"},
+    {"voice": "ash", "gender": "Male"},
+    {"voice": "coral", "gender": "Female"},
+    {"voice": "echo", "gender": "Male"},
+    {"voice": "fable", "gender": "Female"},
+    {"voice": "nova", "gender": "Female"},
+    {"voice": "onyx", "gender": "Male"},
+    {"voice": "sage", "gender": "Female"},
+    {"voice": "shimmer", "gender": "Female"},
+]
+
+openai_tts_models: list[dict[str, str]] = [
+    {"model": "gpt-4o-mini-tts", "friendly_model": "4o Mini"},
+    {"model": "tts-1", "friendly_model": "TTS-1"},
+]
+
 openai_voices: list[TTSMeta] = [
-    {
-        "tts_provider": "openai",
-        "voice": "alloy",
-        "model": "tts-1",
-        "friendly_voice": "alloy",
-        "gender": "Female",
-        "language": ALL,
-        "price_tier": "standard",
-    },
-    {
-        "tts_provider": "openai",
-        "voice": "ash",
-        "model": "tts-1",
-        "friendly_voice": "ash",
-        "gender": "Male",
-        "language": ALL,
-        "price_tier": "standard",
-    },
-    {
-        "tts_provider": "openai",
-        "voice": "coral",
-        "model": "tts-1",
-        "friendly_voice": "coral",
-        "gender": "Female",
-        "language": ALL,
-        "price_tier": "standard",
-    },
-    {
-        "tts_provider": "openai",
-        "voice": "echo",
-        "model": "tts-1",
-        "friendly_voice": "echo",
-        "gender": "Male",
-        "language": ALL,
-        "price_tier": "standard",
-    },
-    {
-        "tts_provider": "openai",
-        "voice": "fable",
-        "model": "tts-1",
-        "friendly_voice": "fable",
-        "gender": "Female",
-        "language": ALL,
-        "price_tier": "standard",
-    },
-    {
-        "tts_provider": "openai",
-        "voice": "nova",
-        "model": "tts-1",
-        "friendly_voice": "nova",
-        "gender": "Female",
-        "language": ALL,
-        "price_tier": "standard",
-    },
-    {
-        "tts_provider": "openai",
-        "voice": "onyx",
-        "model": "tts-1",
-        "friendly_voice": "onyx",
-        "gender": "Male",
-        "language": ALL,
-        "price_tier": "standard",
-    },
-    {
-        "tts_provider": "openai",
-        "voice": "sage",
-        "model": "tts-1",
-        "friendly_voice": "sage",
-        "gender": "Female",
-        "language": ALL,
-        "price_tier": "standard",
-    },
-    {
-        "tts_provider": "openai",
-        "voice": "shimmer",
-        "model": "tts-1",
-        "friendly_voice": "shimmer",
-        "gender": "Female",
-        "language": ALL,
-        "price_tier": "standard",
-    },
+    cast(
+        TTSMeta,
+        {
+            "tts_provider": "openai",
+            "voice": v["voice"],
+            "model": m["model"],
+            "friendly_voice": f"{v['voice']} ({m['friendly_model']})",
+            "gender": v["gender"],
+            "language": ALL,
+            "price_tier": "standard",
+        },
+    )
+    for v in openai_voice_defs
+    for m in openai_tts_models
 ]
 
 
