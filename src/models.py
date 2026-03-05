@@ -35,7 +35,7 @@ OpenAIModels = Literal[
 ]
 DeepseekModels = Literal["deepseek-v3"]
 AnthropicModels = Literal["claude-haiku-4-5", "claude-sonnet-4-6", "claude-opus-4-6"]
-GeminiModels = Literal["gemini-3.1-pro", "gemini-3-flash"]
+GeminiModels = Literal["gemini-3.1-pro", "gemini-3.1-flash-lite", "gemini-3-flash"]
 ChatModels = Union[OpenAIModels, AnthropicModels, DeepseekModels, GeminiModels]
 
 # Order that the models are displayed in the UI
@@ -56,6 +56,7 @@ anthropic_chat_models: list[ChatModels] = [
 deepseek_chat_models: list[ChatModels] = ["deepseek-v3"]
 
 gemini_chat_models: list[ChatModels] = [
+    "gemini-3.1-flash-lite",
     "gemini-3-flash",
     "gemini-3.1-pro",
 ]
