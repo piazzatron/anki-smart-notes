@@ -1,32 +1,46 @@
 </br>
 
-## 👉**For issues / questions, email <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a> or create an <a href="https://github.com/piazzatron/anki-smart-notes/issues"> issue on Github</a> (fastest).**
-
-</br>
+# The **ultimate AI toolkit** for Anki.
 </br>
 
-## 💬 Define prompts, then AI generate any field
+## 💬 Generate any field in **bulk**.
 
-For example - automatically generate example sentences for vocab cards in nearly any language in **bulk**. 
-</br>
+Define custom prompts and AI generate any field across your _entire deck_.
 
-Supports the latest models from OpenAI, Anthropic, and DeepSeek.
+- Generate example sentences for vocab cards.
+- Explain complex concepts for medical school.
 
-</br>
 
-## 🗣️ Text to Speech (TTS)
-
-Generate nearly 1000 premium voices in 90+ languages, from Google, Azure, OpenAI, and ElevenLabs - including the latest advanced <a href="https://cloud.google.com/text-to-speech/docs/chirp3-hd">Google Chirp</a> voices.
+Supports the latest ChatGPT, Claude, and Gemini models.
 
 </br>
 
-## 🏞️ Image Generation
+## 🗣️ Text to Speech (TTS).
 
-Automatically create memorable images to improve retention.
+Generate nearly 1000 premium voices in 90+ languages, from Google, Azure, OpenAI, and ElevenLabs.
 
 </br>
 
-## Learn more at <a href="https://smart-notes.xyz">smart-notes.xyz</a>
+## 🏞️ Image Generation.
+
+Create memorable images to improve retention. Image models from Nano Banana, ChatGPT, and more.
+
+</br>
+
+## ⚙️ Complex Pipelines
+
+Generate an example sentence in one field, translate it another, and generate an example image in the third.
+
+Smart Notes figures out the fastest order to generate your fields using <a href="https://en.wikipedia.org/wiki/Topological_sorting">topological sorting</a>. You just set them up.
+
+</br>
+
+## 👉For issues / questions, email <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a> or create an <a href="https://github.com/piazzatron/anki-smart-notes/issues"> issue on Github</a>
+</br>
+
+## *Learn more at <a href="https://smart-notes.xyz">smart-notes.xyz</a>*
+
+</br>
 
 </br>
 
@@ -38,14 +52,17 @@ Automatically create memorable images to improve retention.
 </br>
 </br>
 
-#### 
+####
 
 #### ⚠️ 💳 Smart Notes is a paid add-on (with a free trial).
-<a href="https://www.smart-notes.xyz/prices">Learn more about plans</a> or start your free trial within Anki. Smart Notes supports __AliPay__. 🇨🇳
 
-*If you are unable to afford Smart Notes due to financial hardship, please get in touch at <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a>.*
+<a href="https://www.smart-notes.xyz/prices">Learn more about plans</a> or start your free trial within Anki. Smart Notes supports **AliPay**. 🇨🇳
 
-#### ⚠️ Smart Notes only supports Anki Qt6.
+_If you are unable to afford Smart Notes due to financial hardship, please get in touch at <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a>._
+
+💡 Smart Notes has been in active development for over 2 years by a solo dev (me!) - purchasing a subscription allows me to continually develop it to the highest standards and offer quality support for years to come.
+
+#### ⚠️ Smart Notes only supports Anki Qt6 (all recent Anki versions).
 
 </br>
 
@@ -57,7 +74,7 @@ Download with extension id `1531888719` (Tools > Addons > Get Addon). Restart. S
 
 # **Demo**
 
-The fastest way to learn Smart Notes is to see it in action! 
+The fastest way to learn Smart Notes is to see it in action!
 
 <a href="https://youtu.be/XCBPQHxwomg">Smart Notes Video Demo / Tutorial</a>
 </br>
@@ -79,7 +96,7 @@ Add text, image, or TTS smart fields via `Tools > Smart Notes`.
 </br>
 </br>
 
-They can reference other fields, and you can have as many Smart Fields as you like. 
+They can reference other fields, and you can have as many Smart Fields as you like.
 
 </br>
 
@@ -103,30 +120,26 @@ Smart Fields can even reference other Smart Fields, allowing you to create compl
 
 After setting up your Smart Fields, you can generate your notes in many different ways. Please watch the <a href="https://youtu.be/XCBPQHxwomg">demo video</a>.
 
-1) In the editor, for individual fields or the entire note.
-> To generate all smart fields on a note, press `ctrl+shift+g` (on Mac: `cmd+shift+g`) or click the ✨ button in the editor
+1. In the editor, for individual fields or the entire note.
+   > To generate all smart fields on a note, press `ctrl+shift+g` (on Mac: `cmd+shift+g`) or click the ✨ button in the editor
 
 <img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/editor_button.png?raw=true" height="200px" />
 
-2) In bulk in the browser.
+2. In bulk in the browser.
 
 <img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/batch.png?raw=true" height="250px" />
 
-3) Per field
+3. Per field
 
 <img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/per_field.png?raw=true" height="300px" />
 
-4) At review time, in the background (*you can turn this off in Advanced settings*)
+4. At review time, in the background (_you can turn this off in Advanced settings_)
 
  <img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/sparkle.gif?raw=true" />
 
 _A sparkle emoji will briefly show (we love sparkle)._
 
 </br>
-
-# Additional Features
-
-Please watch the <a href="https://youtu.be/XCBPQHxwomg">demo video</a>.
 
 ### Models
 
@@ -150,8 +163,7 @@ Enjoying this addon? <a href="https://ankiweb.net/shared/info/1531888719">Please
 
 # Changelog
 
-See <a href="https://github.com/piazzatron/anki-smart-notes/blob/main/changelog.md">Changelog.md</a>
-## </br>
+Smart Notes is under constant development. See <a href="https://github.com/piazzatron/anki-smart-notes/blob/main/changelog.md">Changelog.md</a> for the latest changes.
 
 </br>
 
