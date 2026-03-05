@@ -41,6 +41,7 @@ from aqt import (
     QWidget,
 )
 from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QKeySequence, QShortcut
 
 from ..app_state import AppState, app_state, is_capacity_remaining
 from ..config import config
@@ -148,6 +149,14 @@ class AddonOptionsDialog(QDialog):
         # Table
         self.table = self.create_table()
         self.setup_table_context_menu(self.table)
+
+        # Keyboard shortcuts
+        QShortcut(QKeySequence("Ctrl+E"), self).activated.connect(
+            lambda: self.on_edit(None)
+        )
+        QShortcut(QKeySequence("Ctrl+N"), self).activated.connect(
+            lambda: self.on_add("chat")
+        )
 
         # Set up layout
 
