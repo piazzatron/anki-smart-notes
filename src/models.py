@@ -99,10 +99,13 @@ TTSModels = Union[OpenAITTSModels, ElevenTTSModels, GoogleModels, AzureModels]
 
 OpenAIVoices = Literal[
     "alloy",
+    "ash",
+    "coral",
     "echo",
     "fable",
-    "onyx",
     "nova",
+    "onyx",
+    "sage",
     "shimmer",
 ]
 
