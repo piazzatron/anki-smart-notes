@@ -376,6 +376,10 @@ class NoteProcessor:
 
                 responses = await asyncio.gather(*batch_tasks.values())
 
+                if self._check_cancel():
+                    logger.debug("Individual field generation cancelled by user")
+                    return did_update
+
                 for field, response in zip(batch_tasks.keys(), responses):
                     node = dag[field]
                     if response:
