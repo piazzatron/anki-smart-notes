@@ -1,18 +1,22 @@
-
 # v2.16.0
-- Allow editing target field, note type, and deck on existing smart field rules.
-- Add Google Gemini text models: Gemini 3.1 Pro, Gemini 3 Flash, and Gemini 3.1 Flash Lite.
-- Add new OpenAI TTS voices: ash, coral, and sage.
+
+- Add Gemini models: Gemini 3.1 Pro, Gemini 3 Flash, and Gemini 3.1 Flash Lite.
+- Add OpenAI TTS voices: ash, coral, and sage.
+- UX improvement: Batches are now cancellable.
+- UX improvement: Allow editing existing Smart Fields target field, note type, and deck.
 
 # v2.15.0
+
 - Add new image models: GPT Image 1.5, Nano Banana 2, and Z-Image Turbo. Deprecate Flux Schnell.
 - Upgrade Anthropic models to Claude Opus 4.6, Sonnet 4.6, and Haiku 4.5.
 - Add optional web search for chat fields. When enabled, OpenAI and Anthropic models can search the web for current information. Images found in search results are automatically downloaded and saved to Anki.
 
 # v2.14.0
-- Unify credits: text, TTS, and image generation now all draw from the same credits pool. This should result in increased credit limits across all plans, potentially substantially, depending on your use case. 
+
+- Unify credits: text, TTS, and image generation now all draw from the same credits pool. This should result in increased credit limits across all plans, potentially substantially, depending on your use case.
 
 # v2.13.0
+
 - Add new ElevenLabs V3 model and more affordable Flash V2.5 model (replacing Turbo 2.5).
 - Add additional ElevenLabs Vietnamese voices.
 
@@ -67,9 +71,8 @@
 # v2.3.0
 
 - Adds two new configurable pre-processing features:
-- 1) Text prompts will convert markdown into HTML to properly render bold/italics/newlines/etc (enabled by default)
-- 2) TTS will now strip out HTML by before creating speech (enabled by default)
-
+- 1. Text prompts will convert markdown into HTML to properly render bold/italics/newlines/etc (enabled by default)
+- 2. TTS will now strip out HTML by before creating speech (enabled by default)
 
 # v2.2.0
 
@@ -78,7 +81,7 @@
 
 # v2.1.0
 
-- Fix bug affecting new text fields for some users 😓. Free Trials for all new users have been extended. 
+- Fix bug affecting new text fields for some users 😓. Free Trials for all new users have been extended.
 
 # v2.0.0
 
