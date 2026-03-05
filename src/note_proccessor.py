@@ -158,7 +158,7 @@ class NoteProcessor:
 
             while len(to_process_ids) > 0:
                 if self._check_cancel():
-                    logger.info("Batch cancelled by user")
+                    logger.debug("Batch cancelled by user")
                     run_on_main(lambda: mw.progress.finish())  # type: ignore
                     return total_updated, total_failed, total_skipped
 
@@ -357,8 +357,8 @@ class NoteProcessor:
 
         try:
             while len(dag):
-                if will_show_progress and self._check_cancel():
-                    logger.info("Operation cancelled by user")
+                if self._check_cancel():
+                    logger.debug("Individual field generation cancelled by user")
                     return did_update
 
                 next_batch: list[FieldNode] = [
@@ -468,11 +468,12 @@ class NoteProcessor:
 
     def _check_cancel(self) -> bool:
         if self._cancelled.is_set():
+            logger.debug("Cancel check: already cancelled")
             return True
         if mw and mw.progress.want_cancel():
+            logger.debug("Cancel check: user requested cancel via progress dialog")
             self._cancelled.set()
-            return True
-        return False
+        return self._cancelled.is_set()
 
     def _assert_valid_app_mode(self) -> bool:
         return is_capacity_remaining() or has_api_key()
