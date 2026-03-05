@@ -122,7 +122,7 @@ openai_voice_defs: list[dict[str, str]] = [
 ]
 
 openai_tts_models: list[dict[str, str]] = [
-    {"model": "gpt-4o-mini-tts", "friendly_model": "4o Mini"},
+    {"model": "gpt-4o-mini-tts", "friendly_model": "4o-mini"},
     {"model": "tts-1", "friendly_model": "TTS-1"},
 ]
 
@@ -133,7 +133,7 @@ openai_voices: list[TTSMeta] = [
             "tts_provider": "openai",
             "voice": v["voice"],
             "model": m["model"],
-            "friendly_voice": f"{v['voice']} ({m['friendly_model']})",
+            "friendly_voice": f"{v['voice'].capitalize()} ({m['friendly_model']})",
             "gender": v["gender"],
             "language": ALL,
             "price_tier": "standard",
@@ -254,7 +254,7 @@ providers: list[AllTTSProviders] = [ALL, "google", "openai", "elevenLabs", "azur
 
 def format_voice(voice: TTSMeta) -> str:
     language_display = "Multilingual" if voice["language"] == ALL else voice["language"]
-    return f"{voice['tts_provider'].capitalize()} - {language_display} - {voice['gender'].capitalize()} - {voice['friendly_voice'].title()} ({price_tier_copy[voice['price_tier']]})"
+    return f"{voice['tts_provider'].capitalize()} - {language_display} - {voice['gender'].capitalize()} - {voice['friendly_voice']} ({price_tier_copy[voice['price_tier']]})"
 
 
 voice_search_cache: dict[tuple[str, str, str], list[str]] = {
