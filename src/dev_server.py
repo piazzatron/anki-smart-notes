@@ -39,9 +39,7 @@ from .models import (
     FieldExtras,
     ImageModels,
     ImageProviders,
-    OverridableChatOptions,
     OverridableChatOptionsDict,
-    OverridableImageOptions,
     OverridableImageOptionsDict,
     OverrideableTTSOptionsDict,
     SmartFieldType,
@@ -373,8 +371,8 @@ class DevServer:
                 is_custom_model=use_custom_model,
                 type=field_type,
                 tts_options=tts_options,
-                chat_options=cast(dict[OverridableChatOptions, Any], chat_options),
-                image_options=cast(dict[OverridableImageOptions, Any], image_options),
+                chat_options=chat_options,
+                image_options=image_options,
             )
             config.prompts_map = new_map
 

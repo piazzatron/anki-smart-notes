@@ -126,12 +126,12 @@ class ChatOptions(QWidget):
         search_explainer.setFont(font_small)
         search_explainer.setWordWrap(True)
         search_layout.addRow(search_explainer)
-        search_warning_cost = QLabel("⚠️ Search can be expensive. Monitor your credits.")
+        search_warning_cost = QLabel(
+            "⚠️ Search can be expensive. Monitor your credits. Reasoning models may perform better."
+        )
         search_warning_cost.setFont(font_small)
         search_layout.addRow(search_warning_cost)
-        search_warning_models = QLabel(
-            "⚠️ Only available for OpenAI and Anthropic models. Reasoning models will perform best."
-        )
+        search_warning_models = QLabel("⚠️ Not available for Deepseek.")
         search_warning_models.setFont(font_small)
         search_warning_models.setWordWrap(True)
         search_layout.addRow(search_warning_models)

@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Literal, Optional, TypedDict, Union
+from typing import Any, Literal, Optional, TypedDict, Union
 
 # Providers
 
@@ -192,22 +192,15 @@ class PromptMap(TypedDict):
 
 
 # Overridable Options
+#
+# Each field type (chat, tts, image) has a TypedDict defining its overridable
+# options. The runtime key lists are derived automatically from these TypedDicts,
+# so adding a new option only requires updating the TypedDict (plus FieldExtras
+# and DEFAULT_EXTRAS).
 
-OverridableChatOptions = Union[
-    Literal["chat_provider"],
-    Literal["chat_model"],
-    Literal["chat_temperature"],
-    Literal["chat_markdown_to_html"],
-    Literal["chat_web_search"],
-]
 
-overridable_chat_options: list[OverridableChatOptions] = [
-    "chat_provider",
-    "chat_model",
-    "chat_temperature",
-    "chat_markdown_to_html",
-    "chat_web_search",
-]
+def _typed_dict_keys(td: Any) -> list[str]:
+    return list(td.__annotations__.keys())
 
 
 class OverridableChatOptionsDict(TypedDict):
@@ -218,19 +211,7 @@ class OverridableChatOptionsDict(TypedDict):
     chat_web_search: Optional[bool]
 
 
-OverridableTTSOptions = Union[
-    Literal["tts_model"],
-    Literal["tts_provider"],
-    Literal["tts_voice"],
-    Literal["tts_strip_html"],
-]
-
-overridable_tts_options: list[OverridableTTSOptions] = [
-    "tts_model",
-    "tts_provider",
-    "tts_voice",
-    "tts_strip_html",
-]
+overridable_chat_options: list[str] = _typed_dict_keys(OverridableChatOptionsDict)
 
 
 class OverrideableTTSOptionsDict(TypedDict):
@@ -240,13 +221,12 @@ class OverrideableTTSOptionsDict(TypedDict):
     tts_strip_html: Optional[bool]
 
 
-OverridableImageOptions = Union[Literal["image_provider"], Literal["image_model"]]
-overridable_image_options: list[OverridableImageOptions] = [
-    "image_model",
-    "image_provider",
-]
+overridable_tts_options: list[str] = _typed_dict_keys(OverrideableTTSOptionsDict)
 
 
 class OverridableImageOptionsDict(TypedDict):
     image_model: Optional[ImageModels]
     image_provider: Optional[ImageProviders]
+
+
+overridable_image_options: list[str] = _typed_dict_keys(OverridableImageOptionsDict)
