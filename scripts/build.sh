@@ -103,7 +103,34 @@ anki () {
 }
 
 anki-local () {
-   /Applications/Anki.app/Contents/MacOS/launcher -b ~/development/anki-storage
+  local META_JSON=~/development/anki-storage/addons21/smart-notes/meta.json
+  local ENV_LOCAL="$(cd "$(dirname "$0")/.." && pwd)/.env.local"
+
+  # Launch Anki in background (stdout/stderr still print to terminal)
+  /Applications/Anki.app/Contents/MacOS/launcher -b ~/development/anki-storage &
+  local ANKI_PID=$!
+
+  # Ensure Anki is killed on Ctrl+C
+  trap "kill $ANKI_PID 2>/dev/null; exit" INT TERM
+
+  # Wait for meta.json to appear (Anki creates it on load)
+  echo "Waiting for Anki to create meta.json..."
+  while [ ! -f "$META_JSON" ]; do
+    sleep 1
+  done
+
+  # Inject auth token
+  if [ -f "$ENV_LOCAL" ]; then
+    local AUTH_TOKEN=$(grep LOCAL_AUTH_TOKEN "$ENV_LOCAL" | cut -d= -f2)
+    if [ -n "$AUTH_TOKEN" ]; then
+      jq --arg token "$AUTH_TOKEN" '.config.auth_token = $token' "$META_JSON" > /tmp/meta_tmp.json && \
+        cat /tmp/meta_tmp.json > "$META_JSON"
+      echo "Auth token injected into meta.json"
+    fi
+  fi
+
+  # Block until Anki exits — Ctrl+C propagates naturally
+  wait $ANKI_PID
 }
 
 test-dev () {
