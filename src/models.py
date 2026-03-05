@@ -89,7 +89,7 @@ legacy_openai_chat_models: list[str] = [
 
 # TTS Models
 
-OpenAITTSModels = Literal["tts-1"]
+OpenAITTSModels = Literal["tts-1", "gpt-4o-mini-tts"]
 ElevenTTSModels = Literal["eleven_multilingual_v2"]
 GoogleModels = Literal["standard", "wavenet", "neural"]
 AzureModels = Literal["standard", "neural"]
