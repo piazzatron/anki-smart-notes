@@ -18,6 +18,8 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import asyncio
+import contextlib
+import threading
 import traceback
 from collections.abc import Callable, Sequence
 from typing import Optional
@@ -52,11 +54,29 @@ NEW_OPEN_AI_MODEL_REQ_PER_MIN = 500
 OLD_OPEN_AI_MODEL_REQ_PER_MIN = 3500
 
 
+# Cancellation architecture:
+#
+# _cancelled is a threading.Event that signals the user wants to stop. It is checked
+# between DAG levels (single card) and between batches (multi-card). Once set, no
+# new work starts.
+#
+# _check_cancel() is the central detection point: it polls mw.progress.want_cancel(),
+# and when the user clicks X it sets _cancelled AND immediately calls
+# mw.progress.finish() to dismiss the dialog. (finish() is idempotent in Anki —
+# it uses an internal _levels counter clamped to 0, so extra calls are safe.)
+#
+# For single-card operations, the event loop can be blocked inside asyncio.gather()
+# waiting on API calls. A concurrent _poll_cancel() coroutine runs alongside the
+# gather, checking for cancel every 0.5s so the dialog dismisses promptly even
+# mid-request.
+
+
 class NoteProcessor:
     def __init__(self, field_processor: FieldProcessor, config: Config):
         self.field_processor = field_processor
         self.config = config
         self.req_in_progress = False
+        self._cancelled = threading.Event()
 
     def process_cards_with_progress(
         self,
@@ -85,6 +105,8 @@ class NoteProcessor:
 
         if not is_capacity_remaining_or_legacy(show_box=False):
             return
+
+        self._cancelled.clear()
 
         def wrapped_on_success(res: tuple[list[Note], list[Note], list[Note]]) -> None:
             updated, failed, skipped = res
@@ -130,26 +152,30 @@ class NoteProcessor:
 
             mw.col.update_notes(updated)
 
-            if not finished:
+            if finished:
+                logger.info("Finished processing all notes")
+                mw.progress.finish()
+            elif not self._cancelled.is_set():
                 mw.progress.update(
                     label=f"✨ Generating... ({processed_count}/{len(note_ids)})",
                     value=processed_count,
                     max=len(note_ids),
                 )
-            else:
-                logger.info("Finished processing all notes")
-                mw.progress.finish()
 
         async def op():
-            total_updated = []
-            total_failed = []
-            total_skipped = []
+            total_updated: list[Note] = []
+            total_failed: list[Note] = []
+            total_skipped: list[Note] = []
             to_process_ids = note_ids[:]
             hit_out_of_credits = False
 
             processed_count = 0
 
             while len(to_process_ids) > 0:
+                if self._check_cancel():
+                    logger.debug("Batch cancelled by user")
+                    return total_updated, total_failed, total_skipped
+
                 logger.debug("Processing batch...")
                 batch = to_process_ids[:limit]
                 to_process_ids = to_process_ids[limit:]
@@ -191,9 +217,7 @@ class NoteProcessor:
 
             return total_updated, total_failed, total_skipped
 
-        run_async_in_background_with_sentry(
-            op, wrapped_on_success, on_failure, with_progress=True
-        )
+        run_async_in_background_with_sentry(op, wrapped_on_success, on_failure)
 
     async def _process_notes_batch(
         self,
@@ -272,6 +296,7 @@ class NoteProcessor:
         if not self._assert_preconditions():
             return
 
+        self._cancelled.clear()
         note = card.note()
 
         def wrapped_on_success(updated: bool) -> None:
@@ -344,6 +369,10 @@ class NoteProcessor:
 
         try:
             while len(dag):
+                if self._check_cancel():
+                    logger.debug("Individual field generation cancelled by user")
+                    return did_update
+
                 next_batch: list[FieldNode] = [
                     node for node in dag.values() if not node.in_nodes
                 ]
@@ -357,7 +386,17 @@ class NoteProcessor:
                     for node in next_batch
                 }
 
-                responses = await asyncio.gather(*batch_tasks.values())
+                cancel_task = asyncio.create_task(self._poll_cancel())
+                try:
+                    responses = await asyncio.gather(*batch_tasks.values())
+                finally:
+                    cancel_task.cancel()
+                    with contextlib.suppress(asyncio.CancelledError):
+                        await cancel_task
+
+                if self._check_cancel():
+                    logger.debug("Individual field generation cancelled by user")
+                    return did_update
 
                 for field, response in zip(batch_tasks.keys(), responses):
                     node = dag[field]
@@ -448,6 +487,20 @@ class NoteProcessor:
 
     def _reqlinquish_req_in_process(self) -> None:
         self.req_in_progress = False
+
+    def _check_cancel(self) -> bool:
+        if self._cancelled.is_set():
+            return True
+        if mw and mw.progress.want_cancel():
+            logger.debug("Cancel check: user requested cancel via progress dialog")
+            self._cancelled.set()
+            run_on_main(lambda: mw.progress.finish())  # type: ignore
+        return self._cancelled.is_set()
+
+    async def _poll_cancel(self, interval: float = 0.5) -> None:
+        while not self._cancelled.is_set():
+            await asyncio.sleep(interval)
+            self._check_cancel()
 
     def _assert_valid_app_mode(self) -> bool:
         return is_capacity_remaining() or has_api_key()

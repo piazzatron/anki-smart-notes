@@ -68,13 +68,17 @@ build () {
   cd ..
 }
 
-clean () {
-  echo "Cleaning..."
+clean-links () {
+  echo "Cleaning links..."
   rm -rf dist
-  rm -rf meta.json
   rm -rf ~/Library/Application\ Support/Anki2/addons21/smart-notes
   rm -rf ~/development/anki-storage/addons21/smart-notes
   rm -rf ~/development/win_shared/smart-notes
+}
+
+clean () {
+  clean-links
+  rm -rf meta.json
 }
 
 link-dev () {
@@ -133,13 +137,22 @@ anki-local () {
   wait $ANKI_PID
 }
 
+# Tests with your normal Anki instance
 test-dev () {
-  clean
+  clean-links
   link-dev
   anki
 }
 
-test-dev-clean () {
+# Tests with an isolated anki instance, reusing existing meta.json
+test-dev-isolate () {
+  clean-links
+  link-dev
+  anki-local
+}
+
+# Tests with an isolated anki instance, nuking meta.json for a fresh start
+test-dev-isolate-clean () {
   clean
   link-dev
   anki-local
@@ -221,8 +234,10 @@ elif [ "$1" == "win" ]; then
   win-dist
 elif [ "$1" == "test-dev" ]; then
   test-dev
-elif [ "$1" == "test-dev-clean" ]; then
-  test-dev-clean
+elif [ "$1" == "test-dev-isolate" ]; then
+  test-dev-isolate
+elif [ "$1" == "test-dev-isolate-clean" ]; then
+  test-dev-isolate-clean
 elif [ "$1" == "test-build" ]; then
   test-build
 elif [ "$1" == "sentry-release" ]; then
@@ -241,7 +256,7 @@ elif [ "$1" == "fix" ]; then
   fix
 else
   echo "Invalid argument: $1"
-  echo "Available commands: build, clean, win, test-dev, test-build, sentry-release, version, format, lint, typecheck, check, fix"
+  echo "Available commands: build, clean, win, test-dev, test-dev-isolate, test-dev-isolate-clean, test-build, sentry-release, version, format, lint, typecheck, check, fix"
   exit 1
 fi
 
