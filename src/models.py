@@ -22,7 +22,7 @@ from typing import Literal, Optional, TypedDict, Union
 # Providers
 
 TTSProviders = Literal["openai", "elevenLabs", "google", "azure"]
-ChatProviders = Literal["openai", "anthropic", "deepseek", "gemini"]
+ChatProviders = Literal["openai", "anthropic", "deepseek", "google"]
 
 # Chat Models
 
@@ -65,7 +65,7 @@ provider_model_map: dict[ChatProviders, list[ChatModels]] = {
     "openai": openai_chat_models,
     "anthropic": anthropic_chat_models,
     "deepseek": deepseek_chat_models,
-    "gemini": gemini_chat_models,
+    "google": gemini_chat_models,
 }
 
 

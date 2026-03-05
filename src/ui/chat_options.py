@@ -65,10 +65,10 @@ providers_map = {
     "openai": "OpenAI",
     "anthropic": "Anthropic",
     "deepseek": "DeepSeek",
-    "gemini": "Google",
+    "google": "Google",
 }
 
-all_chat_providers: list[ChatProviders] = ["openai", "anthropic", "gemini", "deepseek"]
+all_chat_providers: list[ChatProviders] = ["openai", "anthropic", "google", "deepseek"]
 
 
 class ChatOptions(QWidget):
