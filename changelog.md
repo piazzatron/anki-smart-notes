@@ -1,7 +1,7 @@
 # v2.16.0
 
 - Add Gemini models: Gemini 3.1 Pro, Gemini 3 Flash, and Gemini 3.1 Flash Lite.
-- Add OpenAI TTS voices: ash, coral, and sage. Add new GPT-4o Mini TTS model.
+- Add OpenAI TTS model GPT-4o Mini TTS. Higher quality than existing TTS-1.
 - UX improvement: Batches are now cancellable.
 - UX improvement: Allow editing existing Smart Fields target field, note type, and deck.
 
