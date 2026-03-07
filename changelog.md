@@ -1,3 +1,7 @@
+# v2.17.0
+
+- Add free VoiceVox Japanese TTS with 29 character voices and 87 voice styles.
+
 # v2.16.0
 
 - Add Gemini models: Gemini 3.1 Pro, Gemini 3 Flash, and Gemini 3.1 Flash Lite.
