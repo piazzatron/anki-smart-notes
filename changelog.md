@@ -1,6 +1,6 @@
 # v2.17.0
 
-- Add free VoiceVox Japanese TTS with 29 character voices and 87 voice styles.
+- Add VoiceVox: Free, best in class Japanese TTS with 29 character voices and 87 voice styles.
 
 # v2.16.0
 
