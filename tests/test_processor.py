@@ -483,6 +483,32 @@ Example: ("basic", {"f1": "1", "f2": ""}, {"f2": "{{f1}}"}, {"f2": "p_1"}, {})
                 "target_field": "f3",
             },
         ),
+        # C) Manual field with existing value should NOT abort downstream
+        #       .     .     .
+        # f1 -> f2 -> f3
+        #       M
+        (
+            "chained manual with value doesn't stop chain",
+            {"f1": "1", "f2": "existing", "f3": ""},
+            {"f2": "{{f1}}", "f3": "{{f2}}"},
+            {"f2": "existing", "f3": p("existing")},
+            {
+                "f2": {"manual": True},
+            },
+        ),
+        # D) Manual field WITHOUT value should still abort downstream
+        #       .     X     X
+        # f1 -> f2 -> f3
+        #       M
+        (
+            "chained manual without value stops chain",
+            {"f1": "1", "f2": "", "f3": ""},
+            {"f2": "{{f1}}", "f3": "{{f2}}"},
+            {"f2": "", "f3": ""},
+            {
+                "f2": {"manual": True},
+            },
+        ),
         # LEFT OFF:
         # Overwrite! I think this is the last real one?
         # TODO: next chains + overwrite
