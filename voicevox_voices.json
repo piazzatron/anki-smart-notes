@@ -96,16 +96,70 @@
     "gender": "Female"
   },
   {
+    "name": "Namine Ritsu",
+    "styleId": 65,
+    "styleName": "Queen",
+    "gender": "Female"
+  },
+  {
     "name": "Takehiro",
     "styleId": 11,
     "styleName": "Normal",
     "gender": "Male"
   },
   {
+    "name": "Takehiro",
+    "styleId": 39,
+    "styleName": "Joy",
+    "gender": "Male"
+  },
+  {
+    "name": "Takehiro",
+    "styleId": 40,
+    "styleName": "Irritated",
+    "gender": "Male"
+  },
+  {
+    "name": "Takehiro",
+    "styleId": 41,
+    "styleName": "Sad",
+    "gender": "Male"
+  },
+  {
     "name": "Hakka",
-    "styleId": 13,
+    "styleId": 12,
     "styleName": "Normal",
     "gender": "Male"
+  },
+  {
+    "name": "Hakka",
+    "styleId": 32,
+    "styleName": "Joy",
+    "gender": "Male"
+  },
+  {
+    "name": "Hakka",
+    "styleId": 33,
+    "styleName": "Nervous",
+    "gender": "Male"
+  },
+  {
+    "name": "Hakka",
+    "styleId": 34,
+    "styleName": "Angry",
+    "gender": "Male"
+  },
+  {
+    "name": "Hakka",
+    "styleId": 35,
+    "styleName": "Crying",
+    "gender": "Male"
+  },
+  {
+    "name": "Meimei Himari",
+    "styleId": 14,
+    "styleName": "Normal",
+    "gender": "Female"
   },
   {
     "name": "Sora",
@@ -132,9 +186,9 @@
     "gender": "Female"
   },
   {
-    "name": "Mochiko",
-    "styleId": 20,
-    "styleName": "Normal",
+    "name": "Sora",
+    "styleId": 19,
+    "styleName": "Whisper",
     "gender": "Female"
   },
   {
@@ -168,30 +222,6 @@
     "gender": "Female"
   },
   {
-    "name": "Goki",
-    "styleId": 27,
-    "styleName": "Normal",
-    "gender": "Male"
-  },
-  {
-    "name": "No7",
-    "styleId": 29,
-    "styleName": "Normal",
-    "gender": "Male"
-  },
-  {
-    "name": "No7",
-    "styleId": 30,
-    "styleName": "Announcement",
-    "gender": "Male"
-  },
-  {
-    "name": "No7",
-    "styleId": 31,
-    "styleName": "Reading",
-    "gender": "Male"
-  },
-  {
     "name": "Chibi Shiki",
     "styleId": 42,
     "styleName": "Normal",
@@ -207,6 +237,288 @@
     "name": "Ouka Miko",
     "styleId": 44,
     "styleName": "Second",
+    "gender": "Female"
+  },
+  {
+    "name": "Ouka Miko",
+    "styleId": 45,
+    "styleName": "Loli",
+    "gender": "Female"
+  },
+  {
+    "name": "SAYO",
+    "styleId": 46,
+    "styleName": "Normal",
+    "gender": "Female"
+  },
+  {
+    "name": "Nurse Robot Type T",
+    "styleId": 47,
+    "styleName": "Normal",
+    "gender": "Female"
+  },
+  {
+    "name": "Nurse Robot Type T",
+    "styleId": 48,
+    "styleName": "Relaxed",
+    "gender": "Female"
+  },
+  {
+    "name": "Nurse Robot Type T",
+    "styleId": 49,
+    "styleName": "Fear",
+    "gender": "Female"
+  },
+  {
+    "name": "Nurse Robot Type T",
+    "styleId": 50,
+    "styleName": "Whisper",
+    "gender": "Female"
+  },
+  {
+    "name": "Holy Knight Kurezakura",
+    "styleId": 51,
+    "styleName": "Normal",
+    "gender": "Male"
+  },
+  {
+    "name": "Suzumatsu Akashi",
+    "styleId": 52,
+    "styleName": "Normal",
+    "gender": "Male"
+  },
+  {
+    "name": "Kigashima Sorin",
+    "styleId": 53,
+    "styleName": "Normal",
+    "gender": "Male"
+  },
+  {
+    "name": "Haruka Nana",
+    "styleId": 54,
+    "styleName": "Normal",
+    "gender": "Female"
+  },
+  {
+    "name": "Nekotsuka Aru",
+    "styleId": 55,
+    "styleName": "Normal",
+    "gender": "Female"
+  },
+  {
+    "name": "Nekotsuka Aru",
+    "styleId": 56,
+    "styleName": "Calm",
+    "gender": "Female"
+  },
+  {
+    "name": "Nekotsuka Aru",
+    "styleId": 57,
+    "styleName": "Cheerful",
+    "gender": "Female"
+  },
+  {
+    "name": "Nekotsuka Aru",
+    "styleId": 110,
+    "styleName": "Strong",
+    "gender": "Female"
+  },
+  {
+    "name": "Nekotsuka Aru",
+    "styleId": 111,
+    "styleName": "Exhausted",
+    "gender": "Female"
+  },
+  {
+    "name": "Nekotsuka Bii",
+    "styleId": 58,
+    "styleName": "Normal",
+    "gender": "Female"
+  },
+  {
+    "name": "Nekotsuka Bii",
+    "styleId": 59,
+    "styleName": "Calm",
+    "gender": "Female"
+  },
+  {
+    "name": "Nekotsuka Bii",
+    "styleId": 60,
+    "styleName": "Shy",
+    "gender": "Female"
+  },
+  {
+    "name": "Nekotsuka Bii",
+    "styleId": 112,
+    "styleName": "Strong",
+    "gender": "Female"
+  },
+  {
+    "name": "Chugoku Usagi",
+    "styleId": 61,
+    "styleName": "Normal",
+    "gender": "Female"
+  },
+  {
+    "name": "Chugoku Usagi",
+    "styleId": 62,
+    "styleName": "Surprised",
+    "gender": "Female"
+  },
+  {
+    "name": "Chugoku Usagi",
+    "styleId": 63,
+    "styleName": "Scared",
+    "gender": "Female"
+  },
+  {
+    "name": "Chugoku Usagi",
+    "styleId": 64,
+    "styleName": "Exhausted",
+    "gender": "Female"
+  },
+  {
+    "name": "Kurita Maron",
+    "styleId": 67,
+    "styleName": "Normal",
+    "gender": "Female"
+  },
+  {
+    "name": "Aierutan",
+    "styleId": 68,
+    "styleName": "Normal",
+    "gender": "Female"
+  },
+  {
+    "name": "Manbetsu Hanamaru",
+    "styleId": 69,
+    "styleName": "Normal",
+    "gender": "Female"
+  },
+  {
+    "name": "Manbetsu Hanamaru",
+    "styleId": 70,
+    "styleName": "Energetic",
+    "gender": "Female"
+  },
+  {
+    "name": "Manbetsu Hanamaru",
+    "styleId": 71,
+    "styleName": "Whisper",
+    "gender": "Female"
+  },
+  {
+    "name": "Manbetsu Hanamaru",
+    "styleId": 72,
+    "styleName": "Cute",
+    "gender": "Female"
+  },
+  {
+    "name": "Manbetsu Hanamaru",
+    "styleId": 73,
+    "styleName": "Boy",
+    "gender": "Female"
+  },
+  {
+    "name": "Kotoyomi Nia",
+    "styleId": 74,
+    "styleName": "Normal",
+    "gender": "Female"
+  },
+  {
+    "name": "Chubu Tsurugi",
+    "styleId": 94,
+    "styleName": "Normal",
+    "gender": "Male"
+  },
+  {
+    "name": "Chubu Tsurugi",
+    "styleId": 95,
+    "styleName": "Angry",
+    "gender": "Male"
+  },
+  {
+    "name": "Chubu Tsurugi",
+    "styleId": 96,
+    "styleName": "Hushed",
+    "gender": "Male"
+  },
+  {
+    "name": "Chubu Tsurugi",
+    "styleId": 97,
+    "styleName": "Nervous",
+    "gender": "Male"
+  },
+  {
+    "name": "Chubu Tsurugi",
+    "styleId": 98,
+    "styleName": "Despair",
+    "gender": "Male"
+  },
+  {
+    "name": "Ritto",
+    "styleId": 99,
+    "styleName": "Normal",
+    "gender": "Male"
+  },
+  {
+    "name": "Ritto",
+    "styleId": 101,
+    "styleName": "Serious",
+    "gender": "Male"
+  },
+  {
+    "name": "Kurosawa Saeshiro",
+    "styleId": 100,
+    "styleName": "Normal",
+    "gender": "Male"
+  },
+  {
+    "name": "Tohoku Zunko",
+    "styleId": 107,
+    "styleName": "Normal",
+    "gender": "Female"
+  },
+  {
+    "name": "Tohoku Kiritan",
+    "styleId": 108,
+    "styleName": "Normal",
+    "gender": "Female"
+  },
+  {
+    "name": "Tohoku Itako",
+    "styleId": 109,
+    "styleName": "Normal",
+    "gender": "Female"
+  },
+  {
+    "name": "Ankomon",
+    "styleId": 113,
+    "styleName": "Normal",
+    "gender": "Female"
+  },
+  {
+    "name": "Ankomon",
+    "styleId": 114,
+    "styleName": "Strong",
+    "gender": "Female"
+  },
+  {
+    "name": "Ankomon",
+    "styleId": 115,
+    "styleName": "Weak",
+    "gender": "Female"
+  },
+  {
+    "name": "Ankomon",
+    "styleId": 116,
+    "styleName": "Languid",
+    "gender": "Female"
+  },
+  {
+    "name": "Ankomon",
+    "styleId": 117,
+    "styleName": "Whisper",
     "gender": "Female"
   }
 ]
