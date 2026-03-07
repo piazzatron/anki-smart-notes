@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Optional, Union
+from typing import Optional, Union, cast
 
 from anki.decks import DeckId
 from anki.notes import Note
@@ -96,7 +96,7 @@ class FieldProcessor:
                 return None
 
             should_strip_html: bool = key_or_config_val(extras, "tts_strip_html")
-            tts_provider: TTSProviders = key_or_config_val(extras, "tts_provider")
+            tts_provider = cast(TTSProviders, key_or_config_val(extras, "tts_provider"))
             tts_model: TTSModels = key_or_config_val(extras, "tts_model")
             tts_voice: Union[OpenAIVoices, ElevenVoices] = key_or_config_val(
                 extras, "tts_voice"
@@ -115,7 +115,7 @@ class FieldProcessor:
             if not tts_response:
                 return None
 
-            audio_ext = "wav" if str(tts_provider) == "voicevox" else "mp3"
+            audio_ext = "wav" if tts_provider == "voicevox" else "mp3"
             file_name = get_media_path(note, node.field, audio_ext)
             path = media.write_data(file_name, tts_response)
 
