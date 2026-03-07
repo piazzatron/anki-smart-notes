@@ -64,16 +64,18 @@ AllTTSProviders = Union[Literal["All"], TTSProviders]
 Gender = Literal["All", "Male", "Female"]
 default_texts: dict[str, str] = {
     ALL: "I'm sorry Dave, I'm afraid I can't do that.",
+    "Japanese": "こんにちは、今日はいい天気ですね。",
 }
 
 price_tier_copy = {
+    "free": "Free",
     "low": "Low Cost",
     "standard": "Standard Cost",
     "high": "High Cost",
     "ultra-high": "Ultra High Cost",
 }
 
-PriceTiers = Literal["low", "standard", "high", "ultra-high"]
+PriceTiers = Literal["free", "low", "standard", "high", "ultra-high"]
 
 
 class TTSMeta(TypedDict):
@@ -245,11 +247,50 @@ def get_azure_voices() -> list[TTSMeta]:
     return voices
 
 
+class VoiceVoxVoice(TypedDict):
+    name: str
+    styleId: int
+    styleName: str
+    gender: Literal["Male", "Female"]
+
+
+def get_voicevox_voices() -> list[TTSMeta]:
+    s = load_file("voicevox_voices.json", test_override="[]")
+    voicevox_voices: list[VoiceVoxVoice] = json.loads(s)
+    voices: list[TTSMeta] = []
+    for voice in voicevox_voices:
+        voices.append(
+            {
+                "tts_provider": "voicevox",
+                "language": "Japanese",
+                "gender": voice["gender"],
+                "voice": str(voice["styleId"]),
+                "model": "voicevox",
+                "friendly_voice": f"{voice['name']} ({voice['styleName']})",
+                "price_tier": "free",
+            }
+        )
+    return voices
+
+
 # Combine all voices
-voices = get_google_voices() + openai_voices + get_eleven_voices() + get_azure_voices()
+voices = (
+    get_google_voices()
+    + openai_voices
+    + get_eleven_voices()
+    + get_azure_voices()
+    + get_voicevox_voices()
+)
 
 languages: list[str] = [ALL] + sorted({voice["language"] for voice in voices} - {ALL})
-providers: list[AllTTSProviders] = [ALL, "google", "openai", "elevenLabs", "azure"]
+providers: list[AllTTSProviders] = [
+    ALL,
+    "google",
+    "openai",
+    "elevenLabs",
+    "azure",
+    "voicevox",
+]
 
 
 def format_voice(voice: TTSMeta) -> str:
@@ -374,6 +415,7 @@ class TTSOptions(QWidget):
                 "azure": "Azure",
                 "openai": "OpenAI",
                 "elevenLabs": "ElevenLabs",
+                "voicevox": "VoiceVox",
             },
         )
 
