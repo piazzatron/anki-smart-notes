@@ -17,7 +17,7 @@ Supports the latest ChatGPT, Claude, and Gemini models.
 
 ## 🗣️ Text to Speech (TTS).
 
-Generate nearly 1000 premium voices in 90+ languages, from Google, Azure, OpenAI, and ElevenLabs.
+Generate 1000+ premium voices in 90+ languages, from Google, Azure, OpenAI, and ElevenLabs.
 
 </br>
 
