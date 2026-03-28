@@ -20,6 +20,8 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 from copy import deepcopy
 from typing import Any, Optional, TypedDict
 
+from aqt import QTimer
+
 from .config import config
 from .constants import (
     APP_LOCKED_ERROR,
@@ -49,11 +51,19 @@ class AppState(TypedDict):
     plan: Optional[PlanInfo]
 
 
+POLL_INTERVAL_MS = 1000
+MAX_POLL_ATTEMPTS = 5
+
+
 class AppStateManager:
     _state: StateManager[AppState]
+    _poll_attempts: int
+    _poll_timer: Optional[QTimer]
 
     def __init__(self) -> None:
         self._state = StateManager[AppState]({"subscription": "LOADING", "plan": None})
+        self._poll_attempts = 0
+        self._poll_timer = None
 
     @property
     def state(self) -> AppState:
@@ -95,7 +105,22 @@ class AppStateManager:
                 if status.get("error"):
                     logger.error(f"Saw error in app_state: ${status['error']}")
                     on_failure(None)
+                    return
+
+                # The server may not have finished setting up the trial yet;
+                # poll a few times before giving up.
+                if self._poll_attempts < MAX_POLL_ATTEMPTS:
+                    self._poll_attempts += 1
+                    logger.debug(
+                        f"No plan yet, retrying ({self._poll_attempts}/{MAX_POLL_ATTEMPTS})"
+                    )
+                    self._schedule_poll()
+                else:
+                    logger.debug("No plan after max retries, giving up")
+                    self._poll_attempts = 0
                 return
+
+            self._poll_attempts = 0
 
             old_state = self._state.s.copy()
 
@@ -117,6 +142,14 @@ class AppStateManager:
             on_failure,
             use_collection=False,
         )
+
+    def _schedule_poll(self) -> None:
+        if self._poll_timer:
+            self._poll_timer.stop()
+        self._poll_timer = QTimer()
+        self._poll_timer.setSingleShot(True)
+        self._poll_timer.timeout.connect(self.update_subscription_state)
+        self._poll_timer.start(POLL_INTERVAL_MS)
 
     def _make_subscription_state(self, sub: Optional[PlanInfo]) -> SubscriptionState:
         if not sub:
