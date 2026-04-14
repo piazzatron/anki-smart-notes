@@ -1,3 +1,7 @@
+# v2.18.0
+
+- Add an in-app feedback input to the Smart Notes dialog for sending bug reports and feature requests directly from Anki.
+
 # v2.17.0
 
 - Add VoiceVox: Free, best in class Japanese TTS with 29 character voices and 87 voice styles.
