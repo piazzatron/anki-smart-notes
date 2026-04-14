@@ -231,23 +231,33 @@ class AddonOptionsDialog(QDialog):
             dismiss_button.clicked.connect(on_dismiss)
             tab_layout.addWidget(rate_group)
         tab_layout.addWidget(tabs)
+        tab_layout.addSpacing(24)
 
-        # Feedback row
+        # Feedback group
+        feedback_group = QGroupBox()
+        feedback_group_layout = QVBoxLayout()
+        feedback_group.setLayout(feedback_group_layout)
+
         feedback_row = QHBoxLayout()
-        feedback_row.setContentsMargins(0, 0, 12, 0)
-        feedback_label = QLabel("Have feedback?")
-        feedback_label.setFont(font_small)
         self.feedback_input = QLineEdit()
-        self.feedback_input.setPlaceholderText("Report a bug or request a feature...")
+        self.feedback_input.setPlaceholderText("Please build me...")
         self.feedback_input.setMaxLength(2000)
         self.feedback_send_button = QPushButton("Send")
         self.feedback_send_button.setFixedWidth(80)
         self.feedback_send_button.clicked.connect(self.on_send_feedback)
         self.feedback_input.returnPressed.connect(self.on_send_feedback)
-        feedback_row.addWidget(feedback_label)
         feedback_row.addWidget(self.feedback_input, 1)
         feedback_row.addWidget(self.feedback_send_button)
-        tab_layout.addLayout(feedback_row)
+        feedback_group_layout.addLayout(feedback_row)
+
+        support_label = QLabel(
+            "Or <a href='https://github.com/piazzatron/anki-smart-notes/issues'>create an issue on Github</a> or email <a href='mailto:support@smart-notes.xyz'>support@smart-notes.xyz</a>."
+        )
+        support_label.setFont(font_small)
+        support_label.setOpenExternalLinks(True)
+        feedback_group_layout.addWidget(support_label)
+
+        tab_layout.addWidget(feedback_group)
 
         # Version Box
 
@@ -255,24 +265,14 @@ class AddonOptionsDialog(QDialog):
         version_box_layout = QHBoxLayout()
         version_box_layout.setContentsMargins(0, 0, 12, 0)
         version_box.setLayout(version_box_layout)
-        support_label = QLabel(
-            "Found a bug or have a feature request? <a href='https://github.com/piazzatron/anki-smart-notes/issues'>Create an issue on Github</a> or email <a href='mailto:support@smart-notes.xyz'>support@smart-notes.xyz</a>."
-        )
-        support_label.setFont(font_small)
-        support_label.setOpenExternalLinks(True)
         version_label = QLabel(f"Smart Notes v{get_version()}")
         version_label.setFont(font_small)
-        version_box_layout.addWidget(support_label)
         version_box_layout.addStretch()
         version_box_layout.addWidget(version_label)
 
         opacity_effect = QGraphicsOpacityEffect()
         opacity_effect.setOpacity(0.3)
-        opacity_effect2 = QGraphicsOpacityEffect()
-        opacity_effect2.setOpacity(0.7)
-
         version_label.setGraphicsEffect(opacity_effect)
-        support_label.setGraphicsEffect(opacity_effect2)
 
         tab_layout.addWidget(version_box)
 
@@ -755,6 +755,7 @@ class AddonOptionsDialog(QDialog):
             lambda: api.submit_feedback(message),
             on_success=on_success,
             on_failure=on_failure,
+            use_collection=False,
         )
 
 
