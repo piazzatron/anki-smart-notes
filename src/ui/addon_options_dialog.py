@@ -245,7 +245,16 @@ class AddonOptionsDialog(QDialog):
         self.feedback_input.setPlaceholderText("Submit a bug or feature request")
         self.feedback_input.setMaxLength(2000)
         self.feedback_input.setMinimumHeight(36)
-        self.feedback_input.setStyleSheet("QLineEdit { padding-left: 10px; }")
+        self.feedback_input.setTextMargins(24, 0, 0, 0)
+
+        lightbulb = QLabel("💡")
+        lightbulb.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents)
+        lightbulb.setStyleSheet("background: transparent;")
+        lightbulb_layout = QHBoxLayout(self.feedback_input)
+        lightbulb_layout.setContentsMargins(10, 0, 0, 0)
+        lightbulb_layout.addWidget(lightbulb)
+        lightbulb_layout.addStretch()
+
         self.feedback_send_button = QPushButton("Send")
         self.feedback_send_button.setFixedWidth(80)
         self.feedback_send_button.clicked.connect(self.on_send_feedback)
@@ -255,9 +264,9 @@ class AddonOptionsDialog(QDialog):
         feedback_group_layout.addLayout(feedback_row)
 
         support_label = QLabel(
-            "Or <a href='https://github.com/piazzatron/anki-smart-notes/issues'>create an issue on Github</a> or email <a href='mailto:support@smart-notes.xyz'>support@smart-notes.xyz</a>."
+            "Or via email: <a href='mailto:support@smart-notes.xyz'>support@smart-notes.xyz</a>."
         )
-        support_label.setContentsMargins(10, 0, 0, 0)
+        support_label.setContentsMargins(24, 0, 0, 0)
         feedback_group_layout.addWidget(support_label)
 
         support_label.setFont(font_small)
