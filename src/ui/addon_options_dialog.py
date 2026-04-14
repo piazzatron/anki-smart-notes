@@ -239,6 +239,7 @@ class AddonOptionsDialog(QDialog):
         feedback_group.setLayout(feedback_group_layout)
 
         feedback_prompt = QLabel("Found a bug or have a feature request?")
+        feedback_prompt.setFont(font_small)
         feedback_group_layout.addWidget(feedback_prompt)
 
         feedback_row = QHBoxLayout()
