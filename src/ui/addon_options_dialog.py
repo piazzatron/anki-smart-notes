@@ -243,6 +243,7 @@ class AddonOptionsDialog(QDialog):
         self.feedback_input.setPlaceholderText("Help!")
         self.feedback_input.setMaxLength(2000)
         self.feedback_input.setMinimumHeight(36)
+        self.feedback_input.setStyleSheet("QLineEdit { padding-left: 10px; }")
         self.feedback_send_button = QPushButton("Send")
         self.feedback_send_button.setFixedWidth(80)
         self.feedback_send_button.clicked.connect(self.on_send_feedback)
