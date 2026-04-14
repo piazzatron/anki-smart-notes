@@ -17,6 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import sys
 from typing import Any, Optional, TypedDict
 from urllib.parse import urlparse
 
@@ -29,6 +30,7 @@ from aqt import (
     QGroupBox,
     QHBoxLayout,
     QLabel,
+    QLineEdit,
     QMenu,
     QPoint,
     QPushButton,
@@ -43,6 +45,7 @@ from aqt import (
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QKeySequence, QShortcut
 
+from ..api_client import api
 from ..app_state import AppState, app_state, is_capacity_remaining
 from ..config import config
 from ..constants import GLOBAL_DECK_ID, UNPAID_PROVIDER_ERROR
@@ -51,6 +54,7 @@ from ..logger import logger
 from ..models import PromptMap, SmartFieldType, legacy_openai_chat_models
 from ..note_proccessor import NoteProcessor
 from ..prompts import get_all_prompts, get_extras, get_prompts_for_note, remove_prompt
+from ..tasks import run_async_in_background
 from ..utils import get_fields, get_version
 from .account_options import AccountOptions
 from .chat_options import ChatOptions
@@ -228,6 +232,52 @@ class AddonOptionsDialog(QDialog):
             dismiss_button.clicked.connect(on_dismiss)
             tab_layout.addWidget(rate_group)
         tab_layout.addWidget(tabs)
+        tab_layout.addSpacing(12)
+
+        # Feedback group
+        feedback_group = QGroupBox()
+        feedback_group_layout = QVBoxLayout()
+        feedback_group_layout.setContentsMargins(16, 8, 16, 8)
+        feedback_group_layout.setSpacing(4)
+        feedback_group.setLayout(feedback_group_layout)
+
+        feedback_row = QHBoxLayout()
+        feedback_row.setSpacing(12)
+        self.feedback_input = QLineEdit()
+        self.feedback_input.setPlaceholderText("Submit a bug or feature request")
+        self.feedback_input.setMaxLength(2000)
+        self.feedback_input.setMinimumHeight(36)
+        self.feedback_input.setTextMargins(30, 0, 0, 0)
+
+        lightbulb = QLabel("💡")
+        lightbulb.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents)
+        lightbulb.setStyleSheet("background: transparent;")
+        lightbulb_layout = QHBoxLayout(self.feedback_input)
+        lightbulb_layout.setContentsMargins(10, 0, 0, 0)
+        lightbulb_layout.addWidget(lightbulb)
+        lightbulb_layout.addStretch()
+
+        self.feedback_send_button = QPushButton("Submit")
+        self.feedback_send_button.setFixedWidth(80)
+        self.feedback_send_button.clicked.connect(self.on_send_feedback)
+        self.feedback_input.returnPressed.connect(self.on_send_feedback)
+        feedback_row.addWidget(self.feedback_input, 1)
+        feedback_row.addWidget(self.feedback_send_button)
+        feedback_group_layout.addLayout(feedback_row)
+
+        support_opacity = QGraphicsOpacityEffect()
+        support_opacity.setOpacity(0.8)
+        support_label = QLabel(
+            "Or get in touch at <a href='mailto:support@smart-notes.xyz'>support@smart-notes.xyz</a> or <a href='https://discord.gg/kxGaWpkTGr'>Discord</a>."
+        )
+        support_label.setGraphicsEffect(support_opacity)
+        support_label.setContentsMargins(0, 0, 0, 6)
+        feedback_group_layout.addWidget(support_label)
+
+        support_label.setFont(font_small)
+        support_label.setOpenExternalLinks(True)
+
+        tab_layout.addWidget(feedback_group)
 
         # Version Box
 
@@ -235,24 +285,14 @@ class AddonOptionsDialog(QDialog):
         version_box_layout = QHBoxLayout()
         version_box_layout.setContentsMargins(0, 0, 12, 0)
         version_box.setLayout(version_box_layout)
-        support_label = QLabel(
-            "Found a bug or have a feature request? <a href='https://github.com/piazzatron/anki-smart-notes/issues'>Create an issue on Github</a> or email <a href='mailto:support@smart-notes.xyz'>support@smart-notes.xyz</a>."
-        )
-        support_label.setFont(font_small)
-        support_label.setOpenExternalLinks(True)
         version_label = QLabel(f"Smart Notes v{get_version()}")
         version_label.setFont(font_small)
-        version_box_layout.addWidget(support_label)
         version_box_layout.addStretch()
         version_box_layout.addWidget(version_label)
 
         opacity_effect = QGraphicsOpacityEffect()
         opacity_effect.setOpacity(0.3)
-        opacity_effect2 = QGraphicsOpacityEffect()
-        opacity_effect2.setOpacity(0.7)
-
         version_label.setGraphicsEffect(opacity_effect)
-        support_label.setGraphicsEffect(opacity_effect2)
 
         tab_layout.addWidget(version_box)
 
@@ -708,6 +748,46 @@ class AddonOptionsDialog(QDialog):
     def on_restore_defaults(self) -> None:
         config.restore_defaults()
         self.state.update(self.make_initial_state())  # type: ignore
+
+    def on_send_feedback(self) -> None:
+        message = self.feedback_input.text().strip()
+        if not message:
+            return
+
+        if not config.auth_token:
+            show_message_box("You must be signed in to submit feedback.")
+            return
+
+        self.feedback_send_button.setEnabled(False)
+        self.feedback_input.setEnabled(False)
+
+        def on_success(_: Any) -> None:
+            self.feedback_input.clear()
+            self.feedback_input.setEnabled(True)
+            self.feedback_send_button.setEnabled(True)
+            show_message_box("Thanks! Your feedback has been sent.")
+
+        def on_failure(e: Exception) -> None:
+            logger.error(f"Failed to submit feedback: {e}")
+            self.feedback_input.setEnabled(True)
+            self.feedback_send_button.setEnabled(True)
+            show_message_box(
+                "Sorry, we couldn't send your feedback. Please try again or email support@smart-notes.xyz."
+            )
+
+        run_async_in_background(
+            lambda: api.get_api_response(
+                path="feedback",
+                args={
+                    "message": message,
+                    "version": get_version(),
+                    "platform": sys.platform,
+                },
+            ),
+            on_success=on_success,
+            on_failure=on_failure,
+            use_collection=False,
+        )
 
 
 def is_valid_url(url: str) -> bool:
