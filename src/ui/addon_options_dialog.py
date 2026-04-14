@@ -234,25 +234,30 @@ class AddonOptionsDialog(QDialog):
         tab_layout.addSpacing(12)
 
         # Feedback group
-        feedback_group = QGroupBox(
-            "💡 Submit a bug / feature request, or email support@smart-notes.xyz"
-        )
+        feedback_group = QGroupBox()
         feedback_group_layout = QVBoxLayout()
         feedback_group.setLayout(feedback_group_layout)
 
         feedback_row = QHBoxLayout()
         self.feedback_input = QLineEdit()
-        self.feedback_input.setPlaceholderText("My dream feature is...")
+        self.feedback_input.setPlaceholderText("Help!")
         self.feedback_input.setMaxLength(2000)
         self.feedback_input.setMinimumHeight(36)
         self.feedback_input.setStyleSheet("QLineEdit { padding-left: 10px; }")
-        self.feedback_send_button = QPushButton("Submit")
+        self.feedback_send_button = QPushButton("Send")
         self.feedback_send_button.setFixedWidth(80)
         self.feedback_send_button.clicked.connect(self.on_send_feedback)
         self.feedback_input.returnPressed.connect(self.on_send_feedback)
+        support_label = QLabel(
+            "💡 Submit a bug or feature request. Or <a href='https://github.com/piazzatron/anki-smart-notes/issues'>create an issue on Github</a> or email <a href='mailto:support@smart-notes.xyz'>support@smart-notes.xyz</a>."
+        )
+        feedback_group_layout.addWidget(support_label)
         feedback_row.addWidget(self.feedback_input, 1)
         feedback_row.addWidget(self.feedback_send_button)
         feedback_group_layout.addLayout(feedback_row)
+
+        support_label.setFont(font_small)
+        support_label.setOpenExternalLinks(True)
 
         tab_layout.addWidget(feedback_group)
 
