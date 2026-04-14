@@ -69,8 +69,15 @@ def with_processor(fn: Any):
 @with_processor  # type: ignore
 def on_options(processor: NoteProcessor):
     app_state.update_subscription_state()
+    if not mw:
+        return
     dialog = AddonOptionsDialog(processor)
-    dialog.exec()
+    # Use show() instead of exec() so the dialog is non-modal; nested webview
+    # dialogs (sign-in, upgrade) can't be shown cleanly while an app-modal is
+    # running on macOS. garbage_collect_on_dialog_finish keeps the dialog alive
+    # and cleans it up when closed.
+    mw.garbage_collect_on_dialog_finish(dialog)
+    dialog.show()
 
 
 @with_processor  # type: ignore
