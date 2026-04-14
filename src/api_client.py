@@ -18,6 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import asyncio
+import sys
 from typing import Any, Literal, Optional
 
 import aiohttp
@@ -26,6 +27,7 @@ from aiohttp import ClientResponse
 from .config import config
 from .constants import MAX_RETRIES, RETRY_BASE_SECONDS, get_server_url
 from .logger import logger
+from .utils import get_version
 
 
 class OutOfCreditsError(Exception):
@@ -33,6 +35,31 @@ class OutOfCreditsError(Exception):
 
 
 class APIClient:
+    async def submit_feedback(self, message: str) -> None:
+        """POST to /feedback; includes JWT if present so the server can attribute it."""
+        endpoint = f"{get_server_url()}/feedback"
+        headers: dict[str, str] = {
+            "Content-Type": "application/json",
+            "X-Sn-Client": "anki-plugin",
+        }
+        jwt = config.auth_token
+        if jwt:
+            headers["Authorization"] = f"Bearer {jwt}"
+
+        body = {
+            "message": message,
+            "version": get_version(),
+            "platform": sys.platform,
+        }
+
+        timeout = aiohttp.ClientTimeout(total=10)
+        async with (
+            aiohttp.ClientSession() as session,
+            session.post(endpoint, headers=headers, json=body, timeout=timeout) as r,
+        ):
+            r.raise_for_status()
+            await r.read()
+
     async def get_api_response(
         self,
         path: str,

@@ -29,6 +29,7 @@ from aqt import (
     QGroupBox,
     QHBoxLayout,
     QLabel,
+    QLineEdit,
     QMenu,
     QPoint,
     QPushButton,
@@ -43,6 +44,7 @@ from aqt import (
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QKeySequence, QShortcut
 
+from ..api_client import api
 from ..app_state import AppState, app_state, is_capacity_remaining
 from ..config import config
 from ..constants import GLOBAL_DECK_ID, UNPAID_PROVIDER_ERROR
@@ -51,6 +53,7 @@ from ..logger import logger
 from ..models import PromptMap, SmartFieldType, legacy_openai_chat_models
 from ..note_proccessor import NoteProcessor
 from ..prompts import get_all_prompts, get_extras, get_prompts_for_note, remove_prompt
+from ..tasks import run_async_in_background
 from ..utils import get_fields, get_version
 from .account_options import AccountOptions
 from .chat_options import ChatOptions
@@ -228,6 +231,23 @@ class AddonOptionsDialog(QDialog):
             dismiss_button.clicked.connect(on_dismiss)
             tab_layout.addWidget(rate_group)
         tab_layout.addWidget(tabs)
+
+        # Feedback row
+        feedback_row = QHBoxLayout()
+        feedback_row.setContentsMargins(0, 0, 12, 0)
+        feedback_label = QLabel("Have feedback?")
+        feedback_label.setFont(font_small)
+        self.feedback_input = QLineEdit()
+        self.feedback_input.setPlaceholderText("Report a bug or request a feature...")
+        self.feedback_input.setMaxLength(2000)
+        self.feedback_send_button = QPushButton("Send")
+        self.feedback_send_button.setFixedWidth(80)
+        self.feedback_send_button.clicked.connect(self.on_send_feedback)
+        self.feedback_input.returnPressed.connect(self.on_send_feedback)
+        feedback_row.addWidget(feedback_label)
+        feedback_row.addWidget(self.feedback_input, 1)
+        feedback_row.addWidget(self.feedback_send_button)
+        tab_layout.addLayout(feedback_row)
 
         # Version Box
 
@@ -708,6 +728,34 @@ class AddonOptionsDialog(QDialog):
     def on_restore_defaults(self) -> None:
         config.restore_defaults()
         self.state.update(self.make_initial_state())  # type: ignore
+
+    def on_send_feedback(self) -> None:
+        message = self.feedback_input.text().strip()
+        if not message:
+            return
+
+        self.feedback_send_button.setEnabled(False)
+        self.feedback_input.setEnabled(False)
+
+        def on_success(_: Any) -> None:
+            self.feedback_input.clear()
+            self.feedback_input.setEnabled(True)
+            self.feedback_send_button.setEnabled(True)
+            show_message_box("Thanks! Your feedback has been sent.")
+
+        def on_failure(e: Exception) -> None:
+            logger.error(f"Failed to submit feedback: {e}")
+            self.feedback_input.setEnabled(True)
+            self.feedback_send_button.setEnabled(True)
+            show_message_box(
+                "Sorry, we couldn't send your feedback. Please try again or email support@smart-notes.xyz."
+            )
+
+        run_async_in_background(
+            lambda: api.submit_feedback(message),
+            on_success=on_success,
+            on_failure=on_failure,
+        )
 
 
 def is_valid_url(url: str) -> bool:
