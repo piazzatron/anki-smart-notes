@@ -57,7 +57,11 @@ class APIClient:
         else:
             timeout = aiohttp.ClientTimeout(total=10)
 
-        headers = {"Authorization": f"Bearer {jwt}", "Content-Type": "application/json"}
+        headers = {
+            "Authorization": f"Bearer {jwt}",
+            "Content-Type": "application/json",
+            "X-Sn-Client": "anki-plugin",
+        }
 
         if note_id is not None:
             headers["Note-ID"] = f"{note_id}"
