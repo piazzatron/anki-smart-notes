@@ -236,7 +236,7 @@ class AddonOptionsDialog(QDialog):
         # Feedback group
         feedback_group = QGroupBox()
         feedback_group_layout = QVBoxLayout()
-        feedback_group_layout.setContentsMargins(12, 8, 12, 8)
+        feedback_group_layout.setContentsMargins(16, 8, 16, 8)
         feedback_group_layout.setSpacing(4)
         feedback_group.setLayout(feedback_group_layout)
 
@@ -245,7 +245,7 @@ class AddonOptionsDialog(QDialog):
         self.feedback_input.setPlaceholderText("Submit a bug or feature request")
         self.feedback_input.setMaxLength(2000)
         self.feedback_input.setMinimumHeight(36)
-        self.feedback_input.setTextMargins(24, 0, 0, 0)
+        self.feedback_input.setTextMargins(30, 0, 0, 0)
 
         lightbulb = QLabel("💡")
         lightbulb.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents)
@@ -255,7 +255,7 @@ class AddonOptionsDialog(QDialog):
         lightbulb_layout.addWidget(lightbulb)
         lightbulb_layout.addStretch()
 
-        self.feedback_send_button = QPushButton("Send")
+        self.feedback_send_button = QPushButton("Submit")
         self.feedback_send_button.setFixedWidth(80)
         self.feedback_send_button.clicked.connect(self.on_send_feedback)
         self.feedback_input.returnPressed.connect(self.on_send_feedback)
@@ -263,10 +263,13 @@ class AddonOptionsDialog(QDialog):
         feedback_row.addWidget(self.feedback_send_button)
         feedback_group_layout.addLayout(feedback_row)
 
+        support_opacity = QGraphicsOpacityEffect()
+        support_opacity.setOpacity(0.8)
         support_label = QLabel(
-            "Or via email: <a href='mailto:support@smart-notes.xyz'>support@smart-notes.xyz</a>."
+            "Or get in touch at <a href='mailto:support@smart-notes.xyz'>support@smart-notes.xyz</a> or <a href='https://discord.gg/kxGaWpkTGr'>Discord</a>."
         )
-        support_label.setContentsMargins(24, 0, 0, 0)
+        support_label.setGraphicsEffect(support_opacity)
+        support_label.setContentsMargins(0, 0, 0, 6)
         feedback_group_layout.addWidget(support_label)
 
         support_label.setFont(font_small)
