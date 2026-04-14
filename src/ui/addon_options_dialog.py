@@ -241,6 +241,7 @@ class AddonOptionsDialog(QDialog):
         feedback_group.setLayout(feedback_group_layout)
 
         feedback_row = QHBoxLayout()
+        feedback_row.setSpacing(12)
         self.feedback_input = QLineEdit()
         self.feedback_input.setPlaceholderText("Submit a bug or feature request")
         self.feedback_input.setMaxLength(2000)
