@@ -17,6 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import sys
 from typing import Any, Optional, TypedDict
 from urllib.parse import urlparse
 
@@ -775,7 +776,14 @@ class AddonOptionsDialog(QDialog):
             )
 
         run_async_in_background(
-            lambda: api.submit_feedback(message),
+            lambda: api.get_api_response(
+                path="feedback",
+                args={
+                    "message": message,
+                    "version": get_version(),
+                    "platform": sys.platform,
+                },
+            ),
             on_success=on_success,
             on_failure=on_failure,
             use_collection=False,

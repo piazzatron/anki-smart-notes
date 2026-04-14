@@ -18,7 +18,6 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import asyncio
-import sys
 from typing import Any, Literal, Optional
 
 import aiohttp
@@ -27,7 +26,6 @@ from aiohttp import ClientResponse
 from .config import config
 from .constants import MAX_RETRIES, RETRY_BASE_SECONDS, get_server_url
 from .logger import logger
-from .utils import get_version
 
 
 class OutOfCreditsError(Exception):
@@ -35,16 +33,6 @@ class OutOfCreditsError(Exception):
 
 
 class APIClient:
-    async def submit_feedback(self, message: str) -> None:
-        await self.get_api_response(
-            path="feedback",
-            args={
-                "message": message,
-                "version": get_version(),
-                "platform": sys.platform,
-            },
-        )
-
     async def get_api_response(
         self,
         path: str,
