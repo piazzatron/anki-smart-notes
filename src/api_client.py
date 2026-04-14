@@ -36,29 +36,14 @@ class OutOfCreditsError(Exception):
 
 class APIClient:
     async def submit_feedback(self, message: str) -> None:
-        """POST to /feedback; includes JWT if present so the server can attribute it."""
-        endpoint = f"{get_server_url()}/feedback"
-        headers: dict[str, str] = {
-            "Content-Type": "application/json",
-            "X-Sn-Client": "anki-plugin",
-        }
-        jwt = config.auth_token
-        if jwt:
-            headers["Authorization"] = f"Bearer {jwt}"
-
-        body = {
-            "message": message,
-            "version": get_version(),
-            "platform": sys.platform,
-        }
-
-        timeout = aiohttp.ClientTimeout(total=10)
-        async with (
-            aiohttp.ClientSession() as session,
-            session.post(endpoint, headers=headers, json=body, timeout=timeout) as r,
-        ):
-            r.raise_for_status()
-            await r.read()
+        await self.get_api_response(
+            path="feedback",
+            args={
+                "message": message,
+                "version": get_version(),
+                "platform": sys.platform,
+            },
+        )
 
     async def get_api_response(
         self,

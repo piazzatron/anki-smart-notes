@@ -753,6 +753,12 @@ class AddonOptionsDialog(QDialog):
         if not message:
             return
 
+        if not config.auth_token:
+            show_message_box(
+                "You must be signed in to submit feedback. Sign in from the Account tab."
+            )
+            return
+
         self.feedback_send_button.setEnabled(False)
         self.feedback_input.setEnabled(False)
 
