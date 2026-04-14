@@ -236,6 +236,8 @@ class AddonOptionsDialog(QDialog):
         # Feedback group
         feedback_group = QGroupBox()
         feedback_group_layout = QVBoxLayout()
+        feedback_group_layout.setContentsMargins(12, 8, 12, 8)
+        feedback_group_layout.setSpacing(4)
         feedback_group.setLayout(feedback_group_layout)
 
         feedback_row = QHBoxLayout()
@@ -255,6 +257,7 @@ class AddonOptionsDialog(QDialog):
         support_label = QLabel(
             "Or <a href='https://github.com/piazzatron/anki-smart-notes/issues'>create an issue on Github</a> or email <a href='mailto:support@smart-notes.xyz'>support@smart-notes.xyz</a>."
         )
+        support_label.setContentsMargins(10, 0, 0, 0)
         feedback_group_layout.addWidget(support_label)
 
         support_label.setFont(font_small)
