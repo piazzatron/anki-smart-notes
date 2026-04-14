@@ -231,13 +231,12 @@ class AddonOptionsDialog(QDialog):
             dismiss_button.clicked.connect(on_dismiss)
             tab_layout.addWidget(rate_group)
         tab_layout.addWidget(tabs)
-        tab_layout.addSpacing(24)
+        tab_layout.addSpacing(12)
 
         # Feedback group
         feedback_group = QGroupBox()
         feedback_group_layout = QVBoxLayout()
         feedback_group.setLayout(feedback_group_layout)
-
 
         feedback_row = QHBoxLayout()
         self.feedback_input = QLineEdit()
