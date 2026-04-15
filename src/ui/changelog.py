@@ -21,13 +21,13 @@ from typing import Optional
 
 from aqt import QDialog, QDialogButtonBox, QFont, QLabel, QVBoxLayout, mw
 
+from ..auth_flow import start_browser_signup
 from ..config import config
 from ..logger import logger
 from ..sentry import pinger
 from ..tasks import run_async_in_background
 from ..utils import get_version, load_file
 from .v2_cta import V2CTA
-from .webview_dialog import WebviewDialog
 
 
 def parse_changelog() -> list[tuple[str, list[str]]]:
@@ -89,8 +89,7 @@ def perform_update_check() -> None:
 
         # FIRST RUN
         if not prior_version:
-            trial_cta = WebviewDialog(mw, "/trial")
-            trial_cta.show()
+            start_browser_signup("/trial")
             run_async_in_background(
                 pinger("show_first_start_cta"), use_collection=False
             )

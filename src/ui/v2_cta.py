@@ -17,15 +17,53 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from aqt import QWidget
+from aqt import (
+    QDialog,
+    QDialogButtonBox,
+    QFont,
+    QLabel,
+    QPushButton,
+    QVBoxLayout,
+    QWidget,
+)
 
+from ..auth_flow import start_browser_signup
 from ..sentry import pinger
 from ..tasks import run_async_in_background
-from .webview_dialog import WebviewDialog
 
 
-class V2CTA(WebviewDialog):
+class V2CTA(QDialog):
     def __init__(self, parent: QWidget) -> None:
-        super().__init__(parent, "/v2")
+        super().__init__(parent)
         run_async_in_background(pinger("show_trial_cta"), use_collection=False)
-        self.setMinimumHeight(1200)
+        self.setWindowTitle("Smart Notes 2.0")
+        self._setup_ui()
+
+    def _setup_ui(self) -> None:
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+
+        header_font = QFont()
+        header_font.setBold(True)
+        header_font.setPointSize(18)
+
+        title = QLabel("✨ Smart Notes 2.0 is here! ✨")
+        title.setFont(header_font)
+        layout.addWidget(title)
+
+        body = QLabel(
+            "Smart Notes has been rewritten with a brand new backend, new AI models, "
+            "and a full subscription plan. Sign up to keep enjoying Smart Notes."
+        )
+        body.setWordWrap(True)
+        layout.addWidget(body)
+
+        cta = QPushButton("Sign up in your browser")
+        cta.clicked.connect(lambda: start_browser_signup("/upgrade/sign-in"))
+        layout.addWidget(cta)
+
+        buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Close)
+        buttons.rejected.connect(self.reject)
+        layout.addWidget(buttons)
+
+        self.setMinimumWidth(480)

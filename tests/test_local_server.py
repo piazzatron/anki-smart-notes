@@ -36,10 +36,10 @@ def _err(message: str) -> dict[str, Any]:
 
 
 def _make_server():
-    from src.dev_server import DevServer
+    from src.local_server import LocalServer
 
     processor = MagicMock()
-    return DevServer(processor)
+    return LocalServer(processor)
 
 
 def _make_app():
@@ -101,15 +101,15 @@ async def test_get_smart_fields_missing_note_type():
 
 @pytest.mark.asyncio
 async def test_get_smart_fields(monkeypatch):
-    import src.dev_server
+    import src.local_server
 
     monkeypatch.setattr(
-        src.dev_server,
+        src.local_server,
         "get_prompts_for_note",
         lambda note_type, deck_id, fallback_to_global_deck=True: {"Field1": "prompt1"},
     )
     monkeypatch.setattr(
-        src.dev_server,
+        src.local_server,
         "get_extras",
         lambda note_type, field, deck_id: {"type": "chat", "automatic": True},
     )
@@ -125,10 +125,10 @@ async def test_get_smart_fields(monkeypatch):
 
 @pytest.mark.asyncio
 async def test_get_smart_fields_empty(monkeypatch):
-    import src.dev_server
+    import src.local_server
 
     monkeypatch.setattr(
-        src.dev_server,
+        src.local_server,
         "get_prompts_for_note",
         lambda note_type, deck_id, fallback_to_global_deck=True: None,
     )
@@ -149,10 +149,10 @@ async def test_add_smart_field_missing_params():
 
 @pytest.mark.asyncio
 async def test_add_smart_field_already_exists(monkeypatch):
-    import src.dev_server
+    import src.local_server
 
     monkeypatch.setattr(
-        src.dev_server,
+        src.local_server,
         "get_prompts_for_note",
         lambda note_type, deck_id, fallback_to_global_deck=False: {"Back": "existing"},
     )
@@ -170,23 +170,23 @@ async def test_add_smart_field_already_exists(monkeypatch):
 
 @pytest.mark.asyncio
 async def test_add_smart_field_success(monkeypatch):
-    import src.dev_server
+    import src.local_server
 
     monkeypatch.setattr(
-        src.dev_server,
+        src.local_server,
         "get_prompts_for_note",
         lambda note_type, deck_id, fallback_to_global_deck=False: None,
     )
     monkeypatch.setattr(
-        src.dev_server,
+        src.local_server,
         "add_or_update_prompts",
         lambda **kwargs: {"note_types": {}},
     )
 
     mock_config = MagicMock()
     mock_config.prompts_map = {"note_types": {}}
-    monkeypatch.setattr(src.dev_server, "config", mock_config)
-    monkeypatch.setattr(src.dev_server, "_run_on_main_sync", lambda fn: fn())
+    monkeypatch.setattr(src.local_server, "config", mock_config)
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
 
     async with TestClient(TestServer(_make_app())) as client:
         data = await _post(
@@ -205,10 +205,10 @@ async def test_add_smart_field_success(monkeypatch):
 
 @pytest.mark.asyncio
 async def test_update_smart_field_not_exists(monkeypatch):
-    import src.dev_server
+    import src.local_server
 
     monkeypatch.setattr(
-        src.dev_server,
+        src.local_server,
         "get_prompts_for_note",
         lambda note_type, deck_id, fallback_to_global_deck=False: None,
     )
@@ -226,25 +226,25 @@ async def test_update_smart_field_not_exists(monkeypatch):
 
 @pytest.mark.asyncio
 async def test_update_smart_field_success(monkeypatch):
-    import src.dev_server
+    import src.local_server
 
     monkeypatch.setattr(
-        src.dev_server,
+        src.local_server,
         "get_prompts_for_note",
         lambda note_type, deck_id, fallback_to_global_deck=False: {
             "Back": "old prompt"
         },
     )
     monkeypatch.setattr(
-        src.dev_server,
+        src.local_server,
         "add_or_update_prompts",
         lambda **kwargs: {"note_types": {}},
     )
 
     mock_config = MagicMock()
     mock_config.prompts_map = {"note_types": {}}
-    monkeypatch.setattr(src.dev_server, "config", mock_config)
-    monkeypatch.setattr(src.dev_server, "_run_on_main_sync", lambda fn: fn())
+    monkeypatch.setattr(src.local_server, "config", mock_config)
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
 
     async with TestClient(TestServer(_make_app())) as client:
         data = await _post(
@@ -272,18 +272,18 @@ async def test_remove_smart_field_missing_params():
 
 @pytest.mark.asyncio
 async def test_remove_smart_field_success(monkeypatch):
-    import src.dev_server
+    import src.local_server
 
     monkeypatch.setattr(
-        src.dev_server,
+        src.local_server,
         "remove_prompt",
         lambda **kwargs: {"note_types": {}},
     )
 
     mock_config = MagicMock()
     mock_config.prompts_map = {"note_types": {}}
-    monkeypatch.setattr(src.dev_server, "config", mock_config)
-    monkeypatch.setattr(src.dev_server, "_run_on_main_sync", lambda fn: fn())
+    monkeypatch.setattr(src.local_server, "config", mock_config)
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
 
     async with TestClient(TestServer(_make_app())) as client:
         data = await _post(
@@ -305,9 +305,9 @@ async def test_generate_note_missing_note_id():
 
 @pytest.mark.asyncio
 async def test_generate_note_no_collection(monkeypatch):
-    import src.dev_server
+    import src.local_server
 
-    monkeypatch.setattr(src.dev_server, "mw", None)
+    monkeypatch.setattr(src.local_server, "mw", None)
 
     async with TestClient(TestServer(_make_app())) as client:
         data = await _post(client, make_request("generateNote", {"noteId": 1}))
@@ -323,9 +323,9 @@ async def test_generate_notes_missing_note_ids():
 
 @pytest.mark.asyncio
 async def test_generate_notes_no_collection(monkeypatch):
-    import src.dev_server
+    import src.local_server
 
-    monkeypatch.setattr(src.dev_server, "mw", None)
+    monkeypatch.setattr(src.local_server, "mw", None)
 
     async with TestClient(TestServer(_make_app())) as client:
         data = await _post(client, make_request("generateNotes", {"noteIds": [1, 2]}))

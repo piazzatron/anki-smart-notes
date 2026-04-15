@@ -180,4 +180,5 @@ Open the prompt dialog in new mode to create a smart field.
 - Use Anki Connect (port 8765) for standard Anki operations like `findNotes`, `notesInfo`, `modelNames`, `deckNames`, etc.
 - Smart fields are scoped to noteType + deckId. The global deck (ID 1) serves as a fallback.
 - The `{{FieldName}}` syntax in prompts references other fields on the same note. Fields are resolved in dependency order via a DAG.
-- Type definitions for params and responses are in `src/dev_server.py`.
+- Type definitions for params and responses are in `src/local_server.py`.
+- The local server is also used for the `/auth/callback` browser-based sign-in handoff. If port 8766 fails to bind (e.g. two Anki profiles running at once), the plugin logs the error and the user falls back to the auth code copy-paste flow.

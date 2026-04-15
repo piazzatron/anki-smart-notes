@@ -21,6 +21,7 @@ from aqt import (
     QGroupBox,
     QHBoxLayout,
     QLabel,
+    QLineEdit,
     QProgressBar,
     QPushButton,
     QSizePolicy,
@@ -30,10 +31,11 @@ from aqt import (
 )
 
 from ..app_state import AppState, app_state
+from ..auth_flow import start_browser_signup, submit_code
 from ..config import config
 from ..sentry import sentry
 from .manage_subscription import ManageSubscription
-from .ui_utils import default_form_layout
+from .ui_utils import default_form_layout, font_bold, font_small
 
 
 class AccountOptions(QWidget):
@@ -46,6 +48,9 @@ class AccountOptions(QWidget):
         self.logoutButton = QPushButton("Logout")
         self.logoutButton.clicked.connect(self.logout)
         layout = QVBoxLayout()
+
+        self.signin_box = self._build_signin_box()
+        layout.addWidget(self.signin_box)
 
         self.sub_box = QGroupBox("Subscription Info")
         self.sub_type = QLabel()
@@ -88,7 +93,76 @@ class AccountOptions(QWidget):
         layout.addWidget(self.logoutButton)
         self.setLayout(layout)
 
+    def _build_signin_box(self) -> QGroupBox:
+        box = QGroupBox("Sign in to Smart Notes")
+        box_layout = QVBoxLayout()
+
+        header = QLabel(
+            "Sign in opens in your default browser with full support for passkeys, SSO, and password managers."
+        )
+        header.setWordWrap(True)
+        box_layout.addWidget(header)
+
+        self.signin_browser_button = QPushButton("Sign in with browser")
+        self.signin_browser_button.setFont(font_bold)
+        self.signin_browser_button.clicked.connect(
+            lambda: start_browser_signup("/sign-in")
+        )
+        box_layout.addWidget(self.signin_browser_button)
+
+        code_label = QLabel(
+            "If your browser can't connect to Anki automatically, paste the code it shows you here:"
+        )
+        code_label.setWordWrap(True)
+        code_label.setFont(font_small)
+        box_layout.addWidget(code_label)
+
+        code_row = QHBoxLayout()
+        self.code_edit = QLineEdit()
+        self.code_edit.setPlaceholderText("Paste your code")
+        code_row.addWidget(self.code_edit)
+        self.code_submit_button = QPushButton("Submit")
+        self.code_submit_button.clicked.connect(self._on_submit_code)
+        code_row.addWidget(self.code_submit_button)
+        code_widget = QWidget()
+        code_widget.setLayout(code_row)
+        box_layout.addWidget(code_widget)
+
+        self.code_status_label = QLabel("")
+        self.code_status_label.setFont(font_small)
+        self.code_status_label.setWordWrap(True)
+        box_layout.addWidget(self.code_status_label)
+
+        box.setLayout(box_layout)
+        return box
+
+    def _on_submit_code(self) -> None:
+        self.code_submit_button.setEnabled(False)
+        self.code_status_label.setText("Submitting…")
+        self.code_status_label.setStyleSheet("")
+
+        def on_result(error: object) -> None:
+            self.code_submit_button.setEnabled(True)
+            if error is None:
+                self.code_status_label.setText("✅ Signed in.")
+                self.code_status_label.setStyleSheet("color: #43a047;")
+                self.code_edit.clear()
+                return
+            self.code_status_label.setText(str(error))
+            self.code_status_label.setStyleSheet("color: #e53935;")
+
+        submit_code(self.code_edit.text(), on_result)
+
     def update_from_state(self, state: AppState) -> None:
+        if config.auth_token:
+            self.signin_box.hide()
+        else:
+            self.signin_box.show()
+            self.sub_box.hide()
+            self.no_sub.hide()
+            self.logoutButton.setEnabled(False)
+            return
+
         if not state["plan"]:
             self.sub_box.hide()
             self.no_sub.show()
