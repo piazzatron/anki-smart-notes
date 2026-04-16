@@ -221,6 +221,8 @@ class LocalServer:
         app.router.add_post("/", self._handle_request)
         app.router.add_post("/auth/callback", self._handle_auth_callback)
         app.router.add_options("/auth/callback", self._handle_auth_preflight)
+        app.router.add_post("/subscription/refresh", self._handle_subscription_refresh)
+        app.router.add_options("/subscription/refresh", self._handle_auth_preflight)
         self._runner = web.AppRunner(app)
         await self._runner.setup()
         try:
@@ -280,6 +282,17 @@ class LocalServer:
 
         if mw:
             mw.taskman.run_on_main(write_token)
+        return web.json_response({"ok": True}, headers=headers)
+
+    async def _handle_subscription_refresh(self, request: web.Request) -> web.Response:
+        origin = request.headers.get("Origin")
+        headers = self._cors_headers(origin)
+        if origin not in ALLOWED_ORIGINS:
+            return web.json_response(
+                {"ok": False, "error": "forbidden"}, status=403, headers=headers
+            )
+        if mw:
+            mw.taskman.run_on_main(app_state.update_subscription_state)
         return web.json_response({"ok": True}, headers=headers)
 
     async def _handle_request(self, request: web.Request) -> web.Response:
