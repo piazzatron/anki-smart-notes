@@ -35,7 +35,7 @@ def start_browser_signup(path: str) -> None:
     """Open the system browser to the given site path. No query params."""
     url = f"{get_site_url()}{path}"
     logger.info(f"Opening browser for signup: {url}")
-    webbrowser.open_new_tab(url)
+    webbrowser.open(url, new=1)
 
 
 def submit_code(
