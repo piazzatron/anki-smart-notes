@@ -19,7 +19,8 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import webbrowser
 from collections.abc import Callable
-from typing import Optional
+from dataclasses import dataclass
+from typing import Optional, Union
 
 import aiohttp
 
@@ -50,48 +51,69 @@ def submit_code(
         on_result("Please enter a code.")
         return
 
-    async def do_exchange() -> Optional[str]:
-        url = f"{get_server_url()}/auth/code/exchange"
-        timeout = aiohttp.ClientTimeout(total=10)
-        try:
-            async with (
-                aiohttp.ClientSession(timeout=timeout) as session,
-                session.post(url, json={"code": cleaned}) as resp,
-            ):
-                body = await resp.json()
-                if resp.status != 200:
-                    return body.get("error") or f"Server returned {resp.status}"
-                jwt = body.get("jwt")
-                if not isinstance(jwt, str) or not jwt:
-                    return "Server returned an invalid response."
-                return jwt
-        except Exception as e:
-            logger.error(f"Auth code exchange failed: {e}")
-            return "Could not reach the Smart Notes server. Check your connection."
-
-    def on_success(result: Optional[str]) -> None:
-        if result is None:
-            on_result("Unexpected error.")
+    def on_exchange_done(result: "ExchangeResult") -> None:
+        if isinstance(result, ExchangeError):
+            on_result(result.message)
             return
-        # If result is a JWT it won't match known error codes.
-        if result == "INVALID_OR_EXPIRED":
-            on_result("That code is invalid or has expired. Please try again.")
-            return
-        if result == "RATE_LIMITED":
-            on_result("Too many attempts. Please wait a minute and try again.")
-            return
-        if result.count(".") != 2 or len(result) < 20:
-            # Treat as error string, not a JWT
-            on_result(result)
-            return
-        config.auth_token = result
+        config.auth_token = result.jwt
         if sentry:
             sentry.set_user()
         app_state.update_subscription_state()
         on_result(None)
 
-    run_async_in_background(do_exchange, on_success=on_success, use_collection=False)
+    run_async_in_background(
+        lambda: exchange_code(cleaned),
+        on_success=on_exchange_done,
+        use_collection=False,
+    )
 
 
 def is_authenticated() -> bool:
     return bool(config.auth_token)
+
+
+# -- Internals --
+
+
+@dataclass
+class ExchangeSuccess:
+    jwt: str
+
+
+@dataclass
+class ExchangeError:
+    message: str
+
+
+ExchangeResult = Union[ExchangeSuccess, ExchangeError]
+
+# Server error codes mapped to user-facing messages.
+ERROR_MESSAGES = {
+    "INVALID_OR_EXPIRED": "That code is invalid or has expired. Please try again.",
+    "RATE_LIMITED": "Too many attempts. Please wait a minute and try again.",
+}
+
+
+async def exchange_code(code: str) -> ExchangeResult:
+    url = f"{get_server_url()}/auth/code/exchange"
+    timeout = aiohttp.ClientTimeout(total=10)
+    try:
+        async with (
+            aiohttp.ClientSession(timeout=timeout) as session,
+            session.post(url, json={"code": code}) as resp,
+        ):
+            body = await resp.json()
+            if resp.status != 200:
+                raw = body.get("error")
+                return ExchangeError(
+                    ERROR_MESSAGES.get(raw) or raw or f"Server returned {resp.status}"
+                )
+            jwt = body.get("jwt")
+            if not isinstance(jwt, str) or not jwt:
+                return ExchangeError("Server returned an invalid response.")
+            return ExchangeSuccess(jwt)
+    except Exception as e:
+        logger.error(f"Auth code exchange failed: {e}")
+        return ExchangeError(
+            "Could not reach the Smart Notes server. Check your connection."
+        )

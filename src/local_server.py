@@ -238,10 +238,10 @@ class LocalServer:
                 f"Local server failed to bind {LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}: {e}"
             )
 
-    def _cors_headers(self, origin: Optional[str]) -> dict[str, str]:
-        allowed = origin if origin in ALLOWED_ORIGINS else SITE_URL_PROD
+    def _cors_headers(self, origin: str) -> dict[str, str]:
+        # Only called once origin is confirmed to be in ALLOWED_ORIGINS.
         return {
-            "Access-Control-Allow-Origin": allowed,
+            "Access-Control-Allow-Origin": origin,
             "Access-Control-Allow-Methods": "POST, OPTIONS",
             "Access-Control-Allow-Headers": "Content-Type",
             "Access-Control-Allow-Private-Network": "true",
@@ -250,18 +250,17 @@ class LocalServer:
         }
 
     async def _handle_auth_preflight(self, request: web.Request) -> web.Response:
-        return web.Response(
-            status=204, headers=self._cors_headers(request.headers.get("Origin"))
-        )
+        origin = request.headers.get("Origin")
+        if origin not in ALLOWED_ORIGINS:
+            return web.Response(status=403)
+        return web.Response(status=204, headers=self._cors_headers(origin))
 
     async def _handle_auth_callback(self, request: web.Request) -> web.Response:
         origin = request.headers.get("Origin")
-        headers = self._cors_headers(origin)
         if origin not in ALLOWED_ORIGINS:
             logger.warning(f"Rejected /auth/callback from origin: {origin}")
-            return web.json_response(
-                {"ok": False, "error": "forbidden"}, status=403, headers=headers
-            )
+            return web.json_response({"ok": False, "error": "forbidden"}, status=403)
+        headers = self._cors_headers(origin)
         try:
             body = await request.json()
         except Exception:
@@ -286,14 +285,11 @@ class LocalServer:
 
     async def _handle_subscription_refresh(self, request: web.Request) -> web.Response:
         origin = request.headers.get("Origin")
-        headers = self._cors_headers(origin)
         if origin not in ALLOWED_ORIGINS:
-            return web.json_response(
-                {"ok": False, "error": "forbidden"}, status=403, headers=headers
-            )
+            return web.json_response({"ok": False, "error": "forbidden"}, status=403)
         if mw:
             mw.taskman.run_on_main(app_state.update_subscription_state)
-        return web.json_response({"ok": True}, headers=headers)
+        return web.json_response({"ok": True}, headers=self._cors_headers(origin))
 
     async def _handle_request(self, request: web.Request) -> web.Response:
         try:
@@ -318,7 +314,7 @@ class LocalServer:
             return web.json_response(result)
         except Exception as e:
             logger.error(
-                f"Dev server error handling {action}: "
+                f"Local server error handling {action}: "
                 f"{''.join(traceback.format_exception(type(e), e, e.__traceback__))}"
             )
             return web.json_response(_err(str(e)))

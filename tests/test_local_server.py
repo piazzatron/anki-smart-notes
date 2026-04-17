@@ -46,7 +46,12 @@ def _make_app():
     server = _make_server()
     app = web.Application()
     app.router.add_post("/", server._handle_request)
+    app.router.add_post("/auth/callback", server._handle_auth_callback)
+    app.router.add_options("/auth/callback", server._handle_auth_preflight)
     return app
+
+
+ALLOWED_ORIGIN = "https://smart-notes.xyz"
 
 
 def make_request(action: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -330,3 +335,133 @@ async def test_generate_notes_no_collection(monkeypatch):
     async with TestClient(TestServer(_make_app())) as client:
         data = await _post(client, make_request("generateNotes", {"noteIds": [1, 2]}))
         assert data["error"] == "Anki collection not available"
+
+
+# -- /auth/callback --
+
+
+def _patch_auth_callback_deps(monkeypatch):
+    """Replace config/sentry/app_state so _handle_auth_callback is pure."""
+    import src.local_server
+
+    written: dict[str, Any] = {"jwt": None}
+
+    class FakeConfig:
+        auth_token = None
+
+    fake_config = FakeConfig()
+
+    def fake_run_on_main(fn):
+        fn()
+        written["jwt"] = fake_config.auth_token
+
+    fake_mw = MagicMock()
+    fake_mw.taskman.run_on_main = fake_run_on_main
+    monkeypatch.setattr(src.local_server, "config", fake_config)
+    monkeypatch.setattr(src.local_server, "mw", fake_mw)
+    monkeypatch.setattr(src.local_server, "sentry", None)
+    monkeypatch.setattr(src.local_server, "app_state", MagicMock())
+    return written
+
+
+@pytest.mark.asyncio
+async def test_auth_callback_happy_path(monkeypatch):
+    written = _patch_auth_callback_deps(monkeypatch)
+
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.post(
+            "/auth/callback",
+            json={"jwt": "abc.def.ghi"},
+            headers={"Origin": ALLOWED_ORIGIN},
+        )
+        assert resp.status == 200
+        assert (await resp.json()) == {"ok": True}
+        assert resp.headers["Access-Control-Allow-Origin"] == ALLOWED_ORIGIN
+        assert written["jwt"] == "abc.def.ghi"
+
+
+@pytest.mark.asyncio
+async def test_auth_callback_rejects_bad_origin(monkeypatch):
+    _patch_auth_callback_deps(monkeypatch)
+
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.post(
+            "/auth/callback",
+            json={"jwt": "abc.def.ghi"},
+            headers={"Origin": "https://evil.com"},
+        )
+        assert resp.status == 403
+        assert "Access-Control-Allow-Origin" not in resp.headers
+
+
+@pytest.mark.asyncio
+async def test_auth_callback_rejects_missing_origin(monkeypatch):
+    _patch_auth_callback_deps(monkeypatch)
+
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.post("/auth/callback", json={"jwt": "abc.def.ghi"})
+        assert resp.status == 403
+
+
+@pytest.mark.asyncio
+async def test_auth_callback_invalid_json(monkeypatch):
+    _patch_auth_callback_deps(monkeypatch)
+
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.post(
+            "/auth/callback",
+            data=b"not json",
+            headers={
+                "Origin": ALLOWED_ORIGIN,
+                "Content-Type": "application/json",
+            },
+        )
+        assert resp.status == 400
+        body = await resp.json()
+        assert body["error"] == "invalid_json"
+
+
+@pytest.mark.asyncio
+async def test_auth_callback_missing_jwt(monkeypatch):
+    _patch_auth_callback_deps(monkeypatch)
+
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.post(
+            "/auth/callback", json={}, headers={"Origin": ALLOWED_ORIGIN}
+        )
+        assert resp.status == 400
+        assert (await resp.json())["error"] == "missing_jwt"
+
+
+@pytest.mark.asyncio
+async def test_auth_callback_non_string_jwt(monkeypatch):
+    _patch_auth_callback_deps(monkeypatch)
+
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.post(
+            "/auth/callback",
+            json={"jwt": 42},
+            headers={"Origin": ALLOWED_ORIGIN},
+        )
+        assert resp.status == 400
+
+
+@pytest.mark.asyncio
+async def test_auth_preflight_allowed_origin():
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.options(
+            "/auth/callback", headers={"Origin": ALLOWED_ORIGIN}
+        )
+        assert resp.status == 204
+        assert resp.headers["Access-Control-Allow-Origin"] == ALLOWED_ORIGIN
+        assert resp.headers["Access-Control-Allow-Private-Network"] == "true"
+        assert "POST" in resp.headers["Access-Control-Allow-Methods"]
+
+
+@pytest.mark.asyncio
+async def test_auth_preflight_rejects_bad_origin():
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.options(
+            "/auth/callback", headers={"Origin": "https://evil.com"}
+        )
+        assert resp.status == 403
