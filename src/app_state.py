@@ -20,6 +20,8 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 from copy import deepcopy
 from typing import Any, Optional, TypedDict
 
+import aiohttp
+
 from .config import config
 from .constants import (
     APP_LOCKED_ERROR,
@@ -79,6 +81,12 @@ class AppStateManager:
 
         def on_failure(exc: Optional[Exception]) -> None:
             logger.error(f"Got failure getting new status: {exc}")
+            # Self-heal: a stale/invalid token blocks the signin UI's logout
+            # button. Clear it so the user can re-auth without manual steps.
+            if isinstance(exc, aiohttp.ClientResponseError) and exc.status == 401:
+                logger.info("Auth token rejected by server, clearing")
+                config.auth_token = None
+                self._state.update({"subscription": "UNAUTHENTICATED", "plan": None})
 
         def on_new_status(status: Optional[UserStatus]) -> None:
             logger.debug(f"Got new subscription status: {status}")
