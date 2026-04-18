@@ -63,6 +63,7 @@ from .prompt_dialog import PromptDialog
 from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_line_edit import ReactiveLineEdit
+from .review_box import ReviewBox
 from .state_manager import StateManager
 from .subscription_box import SubscriptionBox
 from .tts_options import TTSOptions
@@ -196,41 +197,8 @@ class AddonOptionsDialog(QDialog):
 
         tab_layout = QVBoxLayout()
 
-        if not config.did_click_rate_link:
-            rate_group = QGroupBox()
-            rate_outer = QHBoxLayout()
-            rate_group.setLayout(rate_outer)
-
-            rate_label = QLabel(
-                'Enjoying Smart Notes? Consider <a href="https://ankiweb.net/shared/info/1531888719">leaving a review</a> to help other users find it.'
-            )
-            rate_font = rate_label.font()
-            rate_font.setItalic(True)
-            rate_label.setFont(rate_font)
-            rate_label.setOpenExternalLinks(True)
-
-            dismiss_button = QPushButton("\u2715")
-            dismiss_button.setFixedSize(24, 24)
-            dismiss_button.setFlat(True)
-            dismiss_button.setStyleSheet(
-                "QPushButton { border: none; font-size: 20px; opacity: 0.6; }"
-            )
-
-            dismiss_opacity = QGraphicsOpacityEffect()
-            dismiss_opacity.setOpacity(0.6)
-            dismiss_button.setGraphicsEffect(dismiss_opacity)
-
-            rate_outer.addStretch()
-            rate_outer.addWidget(rate_label)
-            rate_outer.addStretch()
-            rate_outer.addWidget(dismiss_button)
-
-            def on_dismiss():
-                config.did_click_rate_link = True
-                rate_group.hide()
-
-            dismiss_button.clicked.connect(on_dismiss)
-            tab_layout.addWidget(rate_group)
+        if ReviewBox.should_show():
+            tab_layout.addWidget(ReviewBox())
         tab_layout.addWidget(tabs)
         tab_layout.addSpacing(12)
 
