@@ -48,6 +48,8 @@ def _make_app():
     app.router.add_post("/", server._handle_request)
     app.router.add_post("/auth/callback", server._handle_auth_callback)
     app.router.add_options("/auth/callback", server._handle_auth_preflight)
+    app.router.add_post("/ping", server._handle_loopback_ping)
+    app.router.add_options("/ping", server._handle_auth_preflight)
     return app
 
 
@@ -465,3 +467,30 @@ async def test_auth_preflight_rejects_bad_origin():
             "/auth/callback", headers={"Origin": "https://evil.com"}
         )
         assert resp.status == 403
+
+
+# -- /ping --
+
+
+@pytest.mark.asyncio
+async def test_loopback_ping_allowed_origin():
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.post("/ping", headers={"Origin": ALLOWED_ORIGIN})
+        assert resp.status == 200
+        assert (await resp.json()) == {"ok": True}
+        assert resp.headers["Access-Control-Allow-Origin"] == ALLOWED_ORIGIN
+
+
+@pytest.mark.asyncio
+async def test_loopback_ping_rejects_bad_origin():
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.post("/ping", headers={"Origin": "https://evil.com"})
+        assert resp.status == 403
+
+
+@pytest.mark.asyncio
+async def test_loopback_ping_preflight_allowed_origin():
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.options("/ping", headers={"Origin": ALLOWED_ORIGIN})
+        assert resp.status == 204
+        assert resp.headers["Access-Control-Allow-Private-Network"] == "true"
