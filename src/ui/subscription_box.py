@@ -31,7 +31,7 @@ from aqt import (
 )
 
 from ..app_state import AppState, app_state
-from ..auth_flow import start_browser_signup
+from ..auth_flow import open_browser
 from ..constants import get_site_url
 from ..sentry import pinger
 from ..subscription_provider import SubscriptionState
@@ -113,7 +113,7 @@ class StartFreeTrialButton(QPushButton):
 
     def start_free_trial_clicked(self) -> None:
         run_async_in_background(pinger("click_trial_cta"), use_collection=False)
-        start_browser_signup("/trial")
+        open_browser("/trial")
 
 
 class SubscriptionBox(QWidget):
@@ -177,10 +177,10 @@ class SubscriptionBox(QWidget):
         app_state.bind(self)
 
     def upgrade_now_clicked(self) -> None:
-        start_browser_signup("/upgrade/sign-in")
+        open_browser("/upgrade/sign-in")
 
     def login_clicked(self) -> None:
-        start_browser_signup("/sign-in")
+        open_browser("/sign-in")
 
     def update_from_state(self, state: AppState) -> None:
         for k, v in self.ui_map.items():

@@ -32,7 +32,7 @@ from .sentry import sentry
 from .tasks import run_async_in_background
 
 
-def start_browser_signup(path: str) -> None:
+def open_browser(path: str) -> None:
     """Open the system browser to the given site path. No query params."""
     url = f"{get_site_url()}{path}"
     logger.info(f"Opening browser for signup: {url}")
@@ -48,13 +48,18 @@ def submit_code(
 
     cleaned = code.strip().upper()
     if not cleaned:
+        logger.info("Auth code submit: empty input, rejecting")
         on_result("Please enter a code.")
         return
 
+    logger.info(f"Auth code submit: attempting exchange (code len={len(cleaned)})")
+
     def on_exchange_done(result: "ExchangeResult") -> None:
         if isinstance(result, ExchangeError):
+            logger.warning(f"Auth code submit: exchange failed: {result.message}")
             on_result(result.message)
             return
+        logger.info("Auth code submit: exchange succeeded, writing token")
         config.auth_token = result.jwt
         if sentry:
             sentry.set_user()
@@ -96,6 +101,7 @@ ERROR_MESSAGES = {
 
 async def exchange_code(code: str) -> ExchangeResult:
     url = f"{get_server_url()}/auth/code/exchange"
+    logger.debug(f"Auth code exchange: POST {url}")
     timeout = aiohttp.ClientTimeout(total=10)
     try:
         async with (
@@ -103,14 +109,20 @@ async def exchange_code(code: str) -> ExchangeResult:
             session.post(url, json={"code": code}) as resp,
         ):
             body = await resp.json()
+            logger.debug(f"Auth code exchange: response status={resp.status}")
             if resp.status != 200:
                 raw = body.get("error")
+                logger.warning(
+                    f"Auth code exchange: server rejected with status={resp.status} error={raw}"
+                )
                 return ExchangeError(
                     ERROR_MESSAGES.get(raw) or raw or f"Server returned {resp.status}"
                 )
             jwt = body.get("jwt")
             if not isinstance(jwt, str) or not jwt:
+                logger.warning("Auth code exchange: 200 but response missing jwt field")
                 return ExchangeError("Server returned an invalid response.")
+            logger.debug(f"Auth code exchange: got jwt (len={len(jwt)})")
             return ExchangeSuccess(jwt)
     except Exception as e:
         logger.error(f"Auth code exchange failed: {e}")

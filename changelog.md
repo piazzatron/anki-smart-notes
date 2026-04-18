@@ -1,6 +1,6 @@
 # v2.18.0
 
-- Sign in and sign up now open in your default browser, with passkey and SSO support.
+- Sign in and sign up now open in your default browser, with passkey and password manager support.
 
 # v2.17.0
 

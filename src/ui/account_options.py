@@ -31,7 +31,7 @@ from aqt import (
 )
 
 from ..app_state import AppState, app_state
-from ..auth_flow import start_browser_signup, submit_code
+from ..auth_flow import open_browser, submit_code
 from ..config import config
 from ..sentry import sentry
 from .manage_subscription import ManageSubscription
@@ -79,9 +79,7 @@ class AccountOptions(QWidget):
         sub_box_layout.addItem(QSpacerItem(0, 12))
         sub_box_layout.addRow(ManageSubscription(), QLabel(""))
 
-        self.no_sub = QLabel("Nothing to see here...")
         layout.addWidget(self.sub_box)
-        layout.addWidget(self.no_sub)
 
         self.sub_box.setLayout(sub_box_layout)
         self.sub_box.setSizePolicy(
@@ -97,17 +95,9 @@ class AccountOptions(QWidget):
         box = QGroupBox("Sign in to Smart Notes")
         box_layout = QVBoxLayout()
 
-        header = QLabel(
-            "Sign in opens in your default browser with full support for passkeys, SSO, and password managers."
-        )
-        header.setWordWrap(True)
-        box_layout.addWidget(header)
-
         self.signin_browser_button = QPushButton("Sign in with browser")
         self.signin_browser_button.setFont(font_bold)
-        self.signin_browser_button.clicked.connect(
-            lambda: start_browser_signup("/sign-in")
-        )
+        self.signin_browser_button.clicked.connect(lambda: open_browser("/sign-in"))
         box_layout.addWidget(self.signin_browser_button)
 
         code_label = QLabel(
@@ -154,69 +144,62 @@ class AccountOptions(QWidget):
         submit_code(self.code_edit.text(), on_result)
 
     def update_from_state(self, state: AppState) -> None:
-        if config.auth_token:
-            self.signin_box.hide()
-        else:
+        # Treat "no plan" (unauthenticated, loading, or plan fetch failed)
+        # identically — show the signin box and hide the subscription info.
+        if not state["plan"]:
             self.signin_box.show()
             self.sub_box.hide()
-            self.no_sub.hide()
             self.logoutButton.setEnabled(False)
             return
 
-        if not state["plan"]:
-            self.sub_box.hide()
-            self.no_sub.show()
-            # Enable logout if user is authenticated (has auth token), even if plan data failed to load
-            self.logoutButton.setEnabled(bool(config.auth_token))
+        self.signin_box.hide()
+        self.sub_box.show()
+        self.logoutButton.setEnabled(True)
+
+        plan = state["plan"]
+        sub_type = plan["planName"]
+
+        total_used = plan["totalCreditsUsed"]
+        total_capacity = plan["totalCreditsCapacity"]
+        usage_percent = (
+            int((total_used / total_capacity) * 100) if total_capacity > 0 else 0
+        )
+
+        text_credits = plan["textCreditsUsed"]
+        voice_credits = plan["voiceCreditsUsed"]
+
+        if total_used > 0:
+            text_percent = int((text_credits / total_used) * 100)
+            voice_percent = int((voice_credits / total_used) * 100)
+            image_percent = 100 - text_percent - voice_percent
         else:
-            self.sub_box.show()
-            self.no_sub.hide()
-            self.logoutButton.setEnabled(True)
+            text_percent = voice_percent = image_percent = 0
 
-            plan = state["plan"]
-            sub_type = plan["planName"]
+        credits_breakdown = f"Text 💬: {text_percent}%  |  Voice 🎤: {voice_percent}%  |  Image 🖼️: {image_percent}%"
 
-            total_used = plan["totalCreditsUsed"]
-            total_capacity = plan["totalCreditsCapacity"]
-            usage_percent = (
-                int((total_used / total_capacity) * 100) if total_capacity > 0 else 0
-            )
+        days = plan["daysLeft"]
+        days_remaining = f"{days} day{'s' if days > 1 else ''} left{' in cycle' if plan['planId'] == 'free' else ''}."
 
-            text_credits = plan["textCreditsUsed"]
-            voice_credits = plan["voiceCreditsUsed"]
+        if plan["notesLimit"]:
+            notes_limit = f"{plan['notesUsed']}/{plan['notesLimit']}"
+        else:
+            notes_limit = "Unlimited"
 
-            if total_used > 0:
-                text_percent = int((text_credits / total_used) * 100)
-                voice_percent = int((voice_credits / total_used) * 100)
-                image_percent = 100 - text_percent - voice_percent
-            else:
-                text_percent = voice_percent = image_percent = 0
+        self.sub_type.setText(sub_type)
+        self.credits_progress.setValue(usage_percent)
 
-            credits_breakdown = f"Text 💬: {text_percent}%  |  Voice 🎤: {voice_percent}%  |  Image 🖼️: {image_percent}%"
+        if usage_percent > 80:
+            color = "#e53935"
+        elif usage_percent > 50:
+            color = "#fb8c00"
+        else:
+            color = "#43a047"
+        self.credits_percent_label.setText(f"{usage_percent}% used")
+        self.credits_percent_label.setStyleSheet(f"color: {color};")
 
-            days = plan["daysLeft"]
-            days_remaining = f"{days} day{'s' if days > 1 else ''} left{' in cycle' if plan['planId'] == 'free' else ''}."
-
-            if plan["notesLimit"]:
-                notes_limit = f"{plan['notesUsed']}/{plan['notesLimit']}"
-            else:
-                notes_limit = "Unlimited"
-
-            self.sub_type.setText(sub_type)
-            self.credits_progress.setValue(usage_percent)
-
-            if usage_percent > 80:
-                color = "#e53935"
-            elif usage_percent > 50:
-                color = "#fb8c00"
-            else:
-                color = "#43a047"
-            self.credits_percent_label.setText(f"{usage_percent}% used")
-            self.credits_percent_label.setStyleSheet(f"color: {color};")
-
-            self.credits_breakdown.setText(credits_breakdown)
-            self.days_remaining.setText(days_remaining)
-            self.cards_remaining.setText(notes_limit)
+        self.credits_breakdown.setText(credits_breakdown)
+        self.days_remaining.setText(days_remaining)
+        self.cards_remaining.setText(notes_limit)
 
     def logout(self):
         config.auth_token = None
