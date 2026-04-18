@@ -17,20 +17,15 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from aqt import (
-    QGraphicsOpacityEffect,
-    QGroupBox,
-    QHBoxLayout,
-    QLabel,
-    QPushButton,
-)
+from aqt import QGraphicsOpacityEffect, QGroupBox, QHBoxLayout, QLabel, QPushButton
 
 from ..app_state import app_state
 from ..config import config
 from ..feature_flags import flags
+from ..utils import USES_BEFORE_RATE_DIALOG
 
 STANDARD_TEXT = 'Enjoying Smart Notes? Consider <a href="https://ankiweb.net/shared/info/1531888719">leaving a review</a> to help other users find it.'
-FREE_MONTH_TEXT = 'Get a free month of Smart Notes by <a href="https://ankiweb.net/shared/info/1531888719">leaving a review</a> and emailing <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a>.'
+FREE_MONTH_TEXT = 'Enjoying Smart Notes? Get a free month of Smart Notes on us by <a href="https://ankiweb.net/shared/info/1531888719">leaving a review on AnkiWeb </a> and emailing <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a>.'
 
 
 class ReviewBox(QGroupBox):
@@ -66,10 +61,13 @@ class ReviewBox(QGroupBox):
 
     @staticmethod
     def should_show() -> bool:
-        # Gated on the same threshold as the RateDialog popup: `bump_usage_counter`
-        # latches `did_show_rate_dialog=True` once usage crosses the threshold, so
-        # this box only appears after the popup has fired at least once.
-        return config.did_show_rate_dialog and not config.did_click_rate_link
+        # Uses the same threshold as the RateDialog popup so both surfaces appear
+        # together. Checked directly (rather than piggybacking on did_show_rate_dialog)
+        # so paid users — who never trigger the popup — still get the box.
+        return (
+            config.times_used > USES_BEFORE_RATE_DIALOG
+            and not config.did_click_rate_link
+        )
 
     def _message_text(self) -> str:
         if flags.review_free_month and app_state.is_free_trial():
