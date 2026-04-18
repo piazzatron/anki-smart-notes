@@ -25,7 +25,7 @@ from ..feature_flags import flags
 from ..utils import USES_BEFORE_RATE_DIALOG
 
 STANDARD_TEXT = 'Enjoying Smart Notes? Consider <a href="https://ankiweb.net/shared/info/1531888719">leaving a review</a> to help other users find it.'
-FREE_MONTH_TEXT = 'Enjoying Smart Notes? Get a free month of Smart Notes on us by <a href="https://ankiweb.net/shared/info/1531888719">leaving a review on AnkiWeb </a> and emailing <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a>.'
+FREE_MONTH_TEXT = 'Enjoying Smart Notes? Leave a review on <a href="https://ankiweb.net/shared/info/1531888719">AnkiWeb </a> then send us an <a href="mailto:support@smart-notes.xyz">email</a> for a free month of Lite plan.'
 
 
 class ReviewBox(QGroupBox):

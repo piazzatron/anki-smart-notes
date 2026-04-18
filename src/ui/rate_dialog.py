@@ -21,8 +21,8 @@ from aqt import QDialog, QDialogButtonBox, QFont, QLabel, Qt, QVBoxLayout
 
 from ..feature_flags import flags
 
-STANDARD_MSG = 'Thanks for using ✨Smart Notes ✨!<br><br> I sincerely hope you\'re finding it useful. If so, if you could spare a minute to leave a review on <a href="https://ankiweb.net/shared/info/1531888719">AnkiWeb</a>, I would really appreciate it.'
-FREE_MONTH_MSG = 'Thanks for using ✨Smart Notes ✨!<br><br> Get a free month of Smart Notes by leaving a review on <a href="https://ankiweb.net/shared/info/1531888719">AnkiWeb</a> and emailing <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a>.'
+STANDARD_MSG = "You've used Smart Notes 20 times! 🥳<br><br>If you're finding it useful and can spare a minute of your time, consider leaving a review on <a href='https://ankiweb.net/shared/info/1531888719'>AnkiWeb</a> to help other people find it."
+FREE_MONTH_MSG = "You've used Smart Notes 20 times! 🥳<br><br> Enjoying the plugin? Leave a review on <a href='https://ankiweb.net/shared/info/1531888719'>AnkiWeb</a> and email <a href='mailto:support@smart-notes.xyz'>support@smart-notes.xyz</a> for a free month of the Lite plan, on us 🥂"
 
 
 class RateDialog(QDialog):

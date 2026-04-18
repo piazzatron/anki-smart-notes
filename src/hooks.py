@@ -33,7 +33,7 @@ from aqt.addcards import AddCards
 from aqt.browser.sidebar.item import SidebarItemType
 
 from .app_state import app_state, is_capacity_remaining_or_legacy
-from .config import bump_usage_counter, config
+from .config import config
 from .decks import deck_id_to_name_map
 from .feature_flags import refresh_feature_flags
 from .logger import logger, setup_logger
@@ -366,10 +366,6 @@ def on_review(processor: NoteProcessor, card: Card):
         mw.col.update_note(note)
         card.load()
         Sparkle()
-
-        # NOTE: Calling this inside processor causes a crash with
-        # Suppressing invocation of -[NSApplication runModalSession:]. -[NSApplication runModalSession:] cannot run inside a transaction begin/commit pair, or inside a transaction commit. Consider switching to an asynchronous equivalent.
-        bump_usage_counter()
 
     processor.process_card(
         card, overwrite_fields=False, on_success=on_success, show_progress=False

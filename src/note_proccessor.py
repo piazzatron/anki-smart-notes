@@ -296,6 +296,8 @@ class NoteProcessor:
         if not self._assert_preconditions():
             return
 
+        bump_usage_counter()
+
         self._cancelled.clear()
         note = card.note()
 

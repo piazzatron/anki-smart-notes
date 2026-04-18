@@ -39,7 +39,6 @@ from .models import (
     TTSModels,
     TTSProviders,
 )
-from .ui.rate_dialog import RateDialog
 from .utils import USES_BEFORE_RATE_DIALOG, get_file_path
 
 
@@ -218,6 +217,8 @@ def bump_usage_counter() -> None:
         and not config.did_show_rate_dialog
         and app_state.is_free_trial()
     ):
+        from .ui.rate_dialog import RateDialog
+
         config.did_show_rate_dialog = True
         dialog = RateDialog()
         dialog.exec()
