@@ -32,7 +32,7 @@ from aqt.qt import QDialog
 
 from .app_state import app_state
 from .config import config
-from .constants import GLOBAL_DECK_ID, SITE_URL_DEV, SITE_URL_PROD
+from .constants import GLOBAL_DECK_ID, SITE_URL_DEV
 from .logger import logger
 from .models import (
     ChatModels,
@@ -146,7 +146,11 @@ LOCAL_SERVER_PORT = 8766
 LOCAL_SERVER_HOST = "127.0.0.1"
 API_VERSION = 1
 
-ALLOWED_ORIGINS = {SITE_URL_PROD, SITE_URL_DEV}
+ALLOWED_ORIGINS = {
+    "https://smart-notes.xyz",
+    "https://www.smart-notes.xyz",
+    SITE_URL_DEV,
+}
 
 
 def _run_on_main_sync(fn: Any) -> Any:
