@@ -50,6 +50,7 @@ from ..app_state import AppState, app_state, is_capacity_remaining
 from ..config import config
 from ..constants import GLOBAL_DECK_ID, UNPAID_PROVIDER_ERROR
 from ..decks import deck_id_to_name_map, deck_name_to_id_map
+from ..feature_flags import flags
 from ..logger import logger
 from ..models import PromptMap, SmartFieldType, legacy_openai_chat_models
 from ..note_proccessor import NoteProcessor
@@ -201,9 +202,12 @@ class AddonOptionsDialog(QDialog):
             rate_outer = QHBoxLayout()
             rate_group.setLayout(rate_outer)
 
-            rate_label = QLabel(
-                'Enjoying Smart Notes? Consider <a href="https://ankiweb.net/shared/info/1531888719">leaving a review</a> to help other users find it.'
+            rate_text = (
+                'Get a free month of Smart Notes by <a href="https://ankiweb.net/shared/info/1531888719">leaving a review</a> and emailing <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a>.'
+                if flags.review_free_month
+                else 'Enjoying Smart Notes? Consider <a href="https://ankiweb.net/shared/info/1531888719">leaving a review</a> to help other users find it.'
             )
+            rate_label = QLabel(rate_text)
             rate_font = rate_label.font()
             rate_font.setItalic(True)
             rate_label.setFont(rate_font)
