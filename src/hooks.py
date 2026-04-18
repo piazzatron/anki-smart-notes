@@ -35,6 +35,7 @@ from aqt.browser.sidebar.item import SidebarItemType
 from .app_state import app_state, is_capacity_remaining_or_legacy
 from .config import bump_usage_counter, config
 from .decks import deck_id_to_name_map
+from .feature_flags import refresh_feature_flags
 from .logger import logger, setup_logger
 from .message_polling import start_polling_for_messages
 from .migrations import migrate_models
@@ -249,6 +250,7 @@ def on_start_actions() -> None:
     run_async_in_background(pinger("session_start"), use_collection=False)
     perform_update_check()
     start_polling_for_messages()
+    refresh_feature_flags()
 
     app_state.update_subscription_state()
     if sentry:
