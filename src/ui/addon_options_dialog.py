@@ -202,9 +202,10 @@ class AddonOptionsDialog(QDialog):
             rate_outer = QHBoxLayout()
             rate_group.setLayout(rate_outer)
 
+            show_free_month = flags.review_free_month and app_state.is_free_trial()
             rate_text = (
                 'Get a free month of Smart Notes by <a href="https://ankiweb.net/shared/info/1531888719">leaving a review</a> and emailing <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a>.'
-                if flags.review_free_month
+                if show_free_month
                 else 'Enjoying Smart Notes? Consider <a href="https://ankiweb.net/shared/info/1531888719">leaving a review</a> to help other users find it.'
             )
             rate_label = QLabel(rate_text)
