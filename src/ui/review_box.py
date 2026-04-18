@@ -66,7 +66,10 @@ class ReviewBox(QGroupBox):
 
     @staticmethod
     def should_show() -> bool:
-        return not config.did_click_rate_link
+        # Gated on the same threshold as the RateDialog popup: `bump_usage_counter`
+        # latches `did_show_rate_dialog=True` once usage crosses the threshold, so
+        # this box only appears after the popup has fired at least once.
+        return config.did_show_rate_dialog and not config.did_click_rate_link
 
     def _message_text(self) -> str:
         if flags.review_free_month and app_state.is_free_trial():
