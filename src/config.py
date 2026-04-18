@@ -209,8 +209,15 @@ config = Config()
 
 
 def bump_usage_counter() -> None:
+    # Local import avoids the config <-> app_state circular dependency.
+    from .app_state import app_state
+
     config.times_used += 1
-    if config.times_used > USES_BEFORE_RATE_DIALOG and not config.did_show_rate_dialog:
+    if (
+        config.times_used > USES_BEFORE_RATE_DIALOG
+        and not config.did_show_rate_dialog
+        and app_state.is_free_trial()
+    ):
         config.did_show_rate_dialog = True
         dialog = RateDialog()
         dialog.exec()
