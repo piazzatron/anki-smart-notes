@@ -98,16 +98,24 @@ win-dist () {
   cp -r "$(pwd)/dist/"* ~/development/win_shared/smart-notes
 }
 
-# Tests a production build by symlinking dist folder
+# Symlink the built dist/ into both the main Anki profile and the sandbox
+# profile addon folders, so either profile can run the zipped prod build.
 link-dist () {
+  mkdir -p ~/development/anki-storage/addons21
   ln -s "$(pwd)/dist" ~/Library/Application\ Support/Anki2/addons21/smart-notes
+  ln -s "$(pwd)/dist" ~/development/anki-storage/addons21/smart-notes
 }
 
-anki () {
+# Helper: launch the user's main Anki install against the default profile dir.
+launch-anki-main () {
    /Applications/Anki.app/Contents/MacOS/launcher
 }
 
-anki-local () {
+# Helper: launch Anki against the isolated sandbox profile at
+# ~/development/anki-storage, injecting the auth token named by $1 from
+# .env.local into meta.json once Anki creates it.
+launch-anki-sandbox () {
+  local TOKEN_VAR="${1:-LOCAL_AUTH_TOKEN}"
   local META_JSON=~/development/anki-storage/addons21/smart-notes/meta.json
   local ENV_LOCAL="$(cd "$(dirname "$0")/.." && pwd)/.env.local"
 
@@ -126,11 +134,13 @@ anki-local () {
 
   # Inject auth token
   if [ -f "$ENV_LOCAL" ]; then
-    local AUTH_TOKEN=$(grep LOCAL_AUTH_TOKEN "$ENV_LOCAL" | cut -d= -f2)
+    local AUTH_TOKEN=$(grep "^${TOKEN_VAR}=" "$ENV_LOCAL" | cut -d= -f2-)
     if [ -n "$AUTH_TOKEN" ]; then
       jq --arg token "$AUTH_TOKEN" '.config.auth_token = $token' "$META_JSON" > /tmp/meta_tmp.json && \
         cat /tmp/meta_tmp.json > "$META_JSON"
-      echo "Auth token injected into meta.json"
+      echo "Auth token injected into meta.json ($TOKEN_VAR)"
+    else
+      echo "Warning: $TOKEN_VAR not found in .env.local — skipping auth injection"
     fi
   fi
 
@@ -138,36 +148,39 @@ anki-local () {
   wait $ANKI_PID
 }
 
-# Tests with your normal Anki instance
-test-dev () {
+# Main profile, live-linked dev source, local backend.
+anki-local () {
   clean-links
   link-dev
-  anki
+  launch-anki-main
 }
 
-# Tests with an isolated anki instance, reusing existing meta.json
-test-dev-isolate () {
-  clean-links
-  link-dev
-  anki-local
-}
-
-# Tests with an isolated anki instance, nuking meta.json for a fresh start
-test-dev-isolate-clean () {
-  clean
-  link-dev
-  anki-local
-}
-
-test-build () {
+# Main profile, built prod zip, prod backend.
+anki-prod () {
   clean
   build
   rm -rf dist/meta.json
   link-dist
-  # cp meta.json dist/
-  # copy the current meta to make testing easier
-  # jq '.config.auth_token = null' dist/meta.json > dist/temp.json && mv dist/temp.json dist/meta.json
-  anki
+  launch-anki-main
+}
+
+# Sandbox profile, live-linked dev source, local backend.
+# Injects LOCAL_AUTH_TOKEN from .env.local.
+sandbox-local () {
+  clean-links
+  link-dev
+  launch-anki-sandbox LOCAL_AUTH_TOKEN
+}
+
+# Sandbox profile, built prod zip, prod backend.
+# Injects PROD_AUTH_TOKEN from .env.local so the sandbox profile's auth
+# doesn't get clobbered by a local token when flipping between backends.
+sandbox-prod () {
+  clean
+  build
+  rm -rf dist/meta.json
+  link-dist
+  launch-anki-sandbox PROD_AUTH_TOKEN
 }
 
 sentry-release () {
@@ -233,14 +246,14 @@ elif [ "$1" == "clean" ]; then
   clean
 elif [ "$1" == "win" ]; then
   win-dist
-elif [ "$1" == "test-dev" ]; then
-  test-dev
-elif [ "$1" == "test-dev-isolate" ]; then
-  test-dev-isolate
-elif [ "$1" == "test-dev-isolate-clean" ]; then
-  test-dev-isolate-clean
-elif [ "$1" == "test-build" ]; then
-  test-build
+elif [ "$1" == "anki-local" ]; then
+  anki-local
+elif [ "$1" == "anki-prod" ]; then
+  anki-prod
+elif [ "$1" == "sandbox-local" ]; then
+  sandbox-local
+elif [ "$1" == "sandbox-prod" ]; then
+  sandbox-prod
 elif [ "$1" == "sentry-release" ]; then
   sentry-release
 elif [ "$1" == "version" ]; then
@@ -257,7 +270,7 @@ elif [ "$1" == "fix" ]; then
   fix
 else
   echo "Invalid argument: $1"
-  echo "Available commands: build, clean, win, test-dev, test-dev-isolate, test-dev-isolate-clean, test-build, sentry-release, version, format, lint, typecheck, check, fix"
+  echo "Available commands: build, clean, win, anki-local, anki-prod, sandbox-local, sandbox-prod, sentry-release, version, format, lint, typecheck, check, fix"
   exit 1
 fi
 
