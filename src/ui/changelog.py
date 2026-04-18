@@ -21,13 +21,12 @@ from typing import Optional
 
 from aqt import QDialog, QDialogButtonBox, QFont, QLabel, QVBoxLayout, mw
 
-from ..auth_flow import start_browser_signup
+from ..auth_flow import open_browser
 from ..config import config
 from ..logger import logger
 from ..sentry import pinger
 from ..tasks import run_async_in_background
 from ..utils import get_version, load_file
-from .v2_cta import V2CTA
 
 
 def parse_changelog() -> list[tuple[str, list[str]]]:
@@ -53,12 +52,6 @@ def parse_changelog() -> list[tuple[str, list[str]]]:
     except Exception as e:
         logger.error(f"Error parsing changelog: {e}")
         return []
-
-
-def get_versions(v: str) -> tuple[int, int]:
-    major = v.split(".")[0]
-    minor = v.split(".")[1]
-    return (int(major), int(minor))
 
 
 def is_new_major_or_minor_version(v1: str, v2: str):
@@ -89,26 +82,14 @@ def perform_update_check() -> None:
 
         # FIRST RUN
         if not prior_version:
-            start_browser_signup("/trial")
+            open_browser("/trial")
             run_async_in_background(
                 pinger("show_first_start_cta"), use_collection=False
             )
             return
 
         if is_new_major_or_minor_version(current_version, prior_version):
-            dialog: QDialog
-            # Check about showing special v2 changelog
-            # Only show the V2 CTA if the prior version was 1.x and the current version is 2.x
-            # Don't show it if no prior version bc shouldn't show it on first run
-            if (
-                get_versions(prior_version)[0] == 1
-                and get_versions(current_version)[0] == 2
-            ):
-                dialog = V2CTA(mw)
-                dialog.show()
-            else:
-                dialog = ChangeLogDialog(prior_version)
-                dialog.exec()
+            ChangeLogDialog(prior_version).exec()
     except Exception as e:
         logger.error(f"Error checking for updates: {e}")
 
