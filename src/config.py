@@ -208,7 +208,6 @@ config = Config()
 
 
 def bump_usage_counter() -> None:
-    # Local import avoids the config <-> app_state circular dependency.
     from .app_state import app_state
 
     config.times_used += 1
