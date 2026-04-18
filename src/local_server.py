@@ -146,8 +146,6 @@ LOCAL_SERVER_PORT = 8766
 LOCAL_SERVER_HOST = "127.0.0.1"
 API_VERSION = 1
 
-# Prod Vercel canonical is www.smart-notes.xyz (apex 308s to www), so the
-# preflight Origin is the www variant. Allow both in case the canonical flips.
 ALLOWED_ORIGINS = {
     "https://smart-notes.xyz",
     "https://www.smart-notes.xyz",
