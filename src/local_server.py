@@ -223,8 +223,8 @@ class LocalServer:
         app.router.add_options("/auth/callback", self._handle_auth_preflight)
         app.router.add_post("/subscription/refresh", self._handle_subscription_refresh)
         app.router.add_options("/subscription/refresh", self._handle_auth_preflight)
-        app.router.add_post("/ping", self._handle_loopback_ping)
-        app.router.add_options("/ping", self._handle_auth_preflight)
+        app.router.add_get("/ping", self._handle_loopback_ping)
+        app.router.add_options("/ping", self._handle_ping_preflight)
         self._runner = web.AppRunner(app)
         await self._runner.setup()
         try:
@@ -294,12 +294,15 @@ class LocalServer:
         return web.json_response({"ok": True}, headers=self._cors_headers(origin))
 
     async def _handle_loopback_ping(self, request: web.Request) -> web.Response:
-        # Browser-reachable no-op. Site calls this first to surface the PNA
-        # consent prompt explicitly, before posting the real JWT.
-        origin = request.headers.get("Origin")
-        if origin not in ALLOWED_ORIGINS:
-            return web.json_response({"ok": False, "error": "forbidden"}, status=403)
+        # Browser-reachable no-op used to surface the PNA consent prompt on a
+        # user gesture before the real JWT post. No origin allowlist — the
+        # response carries no sensitive info and no side effect.
+        origin = request.headers.get("Origin", "*")
         return web.json_response({"ok": True}, headers=self._cors_headers(origin))
+
+    async def _handle_ping_preflight(self, request: web.Request) -> web.Response:
+        origin = request.headers.get("Origin", "*")
+        return web.Response(status=204, headers=self._cors_headers(origin))
 
     async def _handle_request(self, request: web.Request) -> web.Response:
         try:
