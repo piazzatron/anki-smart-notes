@@ -30,8 +30,9 @@ from anki.notes import NoteId
 from aqt import mw
 from aqt.qt import QDialog
 
+from .app_state import app_state
 from .config import config
-from .constants import GLOBAL_DECK_ID
+from .constants import GLOBAL_DECK_ID, SITE_URL_DEV, SITE_URL_PROD
 from .logger import logger
 from .models import (
     ChatModels,
@@ -54,6 +55,7 @@ from .prompts import (
     get_prompts_for_note,
     remove_prompt,
 )
+from .sentry import sentry
 from .ui.prompt_dialog import PromptDialog
 
 # -- Request param types --
@@ -140,9 +142,11 @@ class ApiResponse(TypedDict):
     error: Optional[str]
 
 
-DEV_SERVER_PORT = 8766
-DEV_SERVER_HOST = "127.0.0.1"
+LOCAL_SERVER_PORT = 8766
+LOCAL_SERVER_HOST = "127.0.0.1"
 API_VERSION = 1
+
+ALLOWED_ORIGINS = {SITE_URL_PROD, SITE_URL_DEV}
 
 
 def _run_on_main_sync(fn: Any) -> Any:
@@ -175,7 +179,7 @@ def _get_deck_id(params: Mapping[str, Any]) -> DeckId:
     return cast(DeckId, int(raw))
 
 
-class DevServer:
+class LocalServer:
     def __init__(self, processor: NoteProcessor) -> None:
         self._processor = processor
         self._thread: Optional[threading.Thread] = None
@@ -215,11 +219,77 @@ class DevServer:
     async def _start_server(self) -> None:
         app = web.Application()
         app.router.add_post("/", self._handle_request)
+        app.router.add_post("/auth/callback", self._handle_auth_callback)
+        app.router.add_options("/auth/callback", self._handle_auth_preflight)
+        app.router.add_post("/subscription/refresh", self._handle_subscription_refresh)
+        app.router.add_options("/subscription/refresh", self._handle_auth_preflight)
         self._runner = web.AppRunner(app)
         await self._runner.setup()
-        site = web.TCPSite(self._runner, DEV_SERVER_HOST, DEV_SERVER_PORT)
-        await site.start()
-        logger.info(f"Dev server started on http://{DEV_SERVER_HOST}:{DEV_SERVER_PORT}")
+        try:
+            site = web.TCPSite(self._runner, LOCAL_SERVER_HOST, LOCAL_SERVER_PORT)
+            await site.start()
+            logger.info(
+                f"Local server started on http://{LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}"
+            )
+        except OSError as e:
+            # Port already in use (another Anki profile, or something squatting).
+            # That user falls back to the auth code flow — acceptable edge case.
+            logger.error(
+                f"Local server failed to bind {LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}: {e}"
+            )
+
+    def _cors_headers(self, origin: str) -> dict[str, str]:
+        # Only called once origin is confirmed to be in ALLOWED_ORIGINS.
+        return {
+            "Access-Control-Allow-Origin": origin,
+            "Access-Control-Allow-Methods": "POST, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type",
+            "Access-Control-Allow-Private-Network": "true",
+            "Access-Control-Max-Age": "600",
+            "Vary": "Origin",
+        }
+
+    async def _handle_auth_preflight(self, request: web.Request) -> web.Response:
+        origin = request.headers.get("Origin")
+        if origin not in ALLOWED_ORIGINS:
+            return web.Response(status=403)
+        return web.Response(status=204, headers=self._cors_headers(origin))
+
+    async def _handle_auth_callback(self, request: web.Request) -> web.Response:
+        origin = request.headers.get("Origin")
+        if origin not in ALLOWED_ORIGINS:
+            logger.warning(f"Rejected /auth/callback from origin: {origin}")
+            return web.json_response({"ok": False, "error": "forbidden"}, status=403)
+        headers = self._cors_headers(origin)
+        try:
+            body = await request.json()
+        except Exception:
+            return web.json_response(
+                {"ok": False, "error": "invalid_json"}, status=400, headers=headers
+            )
+        jwt = body.get("jwt")
+        if not isinstance(jwt, str) or not jwt:
+            return web.json_response(
+                {"ok": False, "error": "missing_jwt"}, status=400, headers=headers
+            )
+
+        def write_token() -> None:
+            config.auth_token = jwt
+            if sentry:
+                sentry.set_user()
+            app_state.update_subscription_state()
+
+        if mw:
+            mw.taskman.run_on_main(write_token)
+        return web.json_response({"ok": True}, headers=headers)
+
+    async def _handle_subscription_refresh(self, request: web.Request) -> web.Response:
+        origin = request.headers.get("Origin")
+        if origin not in ALLOWED_ORIGINS:
+            return web.json_response({"ok": False, "error": "forbidden"}, status=403)
+        if mw:
+            mw.taskman.run_on_main(app_state.update_subscription_state)
+        return web.json_response({"ok": True}, headers=self._cors_headers(origin))
 
     async def _handle_request(self, request: web.Request) -> web.Response:
         try:
@@ -244,7 +314,7 @@ class DevServer:
             return web.json_response(result)
         except Exception as e:
             logger.error(
-                f"Dev server error handling {action}: "
+                f"Local server error handling {action}: "
                 f"{''.join(traceback.format_exception(type(e), e, e.__traceback__))}"
             )
             return web.json_response(_err(str(e)))

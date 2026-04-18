@@ -77,8 +77,8 @@ class AppStateManager:
             self._state.update({"subscription": "UNAUTHENTICATED", "plan": None})
             return
 
-        def on_failure(_) -> None:
-            logger.error("Got failure getting new status.")
+        def on_failure(exc: Optional[Exception]) -> None:
+            logger.error(f"Got failure getting new status: {exc}")
 
         def on_new_status(status: Optional[UserStatus]) -> None:
             logger.debug(f"Got new subscription status: {status}")

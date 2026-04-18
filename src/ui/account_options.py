@@ -21,6 +21,7 @@ from aqt import (
     QGroupBox,
     QHBoxLayout,
     QLabel,
+    QLineEdit,
     QProgressBar,
     QPushButton,
     QSizePolicy,
@@ -30,10 +31,11 @@ from aqt import (
 )
 
 from ..app_state import AppState, app_state
+from ..auth_flow import open_browser, submit_code
 from ..config import config
 from ..sentry import sentry
 from .manage_subscription import ManageSubscription
-from .ui_utils import default_form_layout
+from .ui_utils import default_form_layout, font_bold, font_small
 
 
 class AccountOptions(QWidget):
@@ -46,6 +48,9 @@ class AccountOptions(QWidget):
         self.logoutButton = QPushButton("Logout")
         self.logoutButton.clicked.connect(self.logout)
         layout = QVBoxLayout()
+
+        self.signin_box = self._build_signin_box()
+        layout.addWidget(self.signin_box)
 
         self.sub_box = QGroupBox("Subscription Info")
         self.sub_type = QLabel()
@@ -74,9 +79,7 @@ class AccountOptions(QWidget):
         sub_box_layout.addItem(QSpacerItem(0, 12))
         sub_box_layout.addRow(ManageSubscription(), QLabel(""))
 
-        self.no_sub = QLabel("Nothing to see here...")
         layout.addWidget(self.sub_box)
-        layout.addWidget(self.no_sub)
 
         self.sub_box.setLayout(sub_box_layout)
         self.sub_box.setSizePolicy(
@@ -88,61 +91,115 @@ class AccountOptions(QWidget):
         layout.addWidget(self.logoutButton)
         self.setLayout(layout)
 
+    def _build_signin_box(self) -> QGroupBox:
+        box = QGroupBox("Sign in to Smart Notes")
+        box_layout = QVBoxLayout()
+
+        self.signin_browser_button = QPushButton("Sign in with browser")
+        self.signin_browser_button.setFont(font_bold)
+        self.signin_browser_button.clicked.connect(lambda: open_browser("/sign-in"))
+        box_layout.addWidget(self.signin_browser_button)
+
+        code_label = QLabel(
+            "If your browser can't connect to Anki automatically, paste the code it shows you here:"
+        )
+        code_label.setWordWrap(True)
+        code_label.setFont(font_small)
+        box_layout.addWidget(code_label)
+
+        code_row = QHBoxLayout()
+        self.code_edit = QLineEdit()
+        self.code_edit.setPlaceholderText("Paste your code")
+        code_row.addWidget(self.code_edit)
+        self.code_submit_button = QPushButton("Submit")
+        self.code_submit_button.clicked.connect(self._on_submit_code)
+        code_row.addWidget(self.code_submit_button)
+        code_widget = QWidget()
+        code_widget.setLayout(code_row)
+        box_layout.addWidget(code_widget)
+
+        self.code_status_label = QLabel("")
+        self.code_status_label.setFont(font_small)
+        self.code_status_label.setWordWrap(True)
+        box_layout.addWidget(self.code_status_label)
+
+        box.setLayout(box_layout)
+        return box
+
+    def _on_submit_code(self) -> None:
+        self.code_submit_button.setEnabled(False)
+        self.code_status_label.setText("Submitting…")
+        self.code_status_label.setStyleSheet("")
+
+        def on_result(error: object) -> None:
+            self.code_submit_button.setEnabled(True)
+            if error is None:
+                self.code_status_label.setText("✅ Signed in.")
+                self.code_status_label.setStyleSheet("color: #43a047;")
+                self.code_edit.clear()
+                return
+            self.code_status_label.setText(str(error))
+            self.code_status_label.setStyleSheet("color: #e53935;")
+
+        submit_code(self.code_edit.text(), on_result)
+
     def update_from_state(self, state: AppState) -> None:
+        # Treat "no plan" (unauthenticated, loading, or plan fetch failed)
+        # identically — show the signin box and hide the subscription info.
         if not state["plan"]:
+            self.signin_box.show()
             self.sub_box.hide()
-            self.no_sub.show()
-            # Enable logout if user is authenticated (has auth token), even if plan data failed to load
-            self.logoutButton.setEnabled(bool(config.auth_token))
+            self.logoutButton.setEnabled(False)
+            return
+
+        self.signin_box.hide()
+        self.sub_box.show()
+        self.logoutButton.setEnabled(True)
+
+        plan = state["plan"]
+        sub_type = plan["planName"]
+
+        total_used = plan["totalCreditsUsed"]
+        total_capacity = plan["totalCreditsCapacity"]
+        usage_percent = (
+            int((total_used / total_capacity) * 100) if total_capacity > 0 else 0
+        )
+
+        text_credits = plan["textCreditsUsed"]
+        voice_credits = plan["voiceCreditsUsed"]
+
+        if total_used > 0:
+            text_percent = int((text_credits / total_used) * 100)
+            voice_percent = int((voice_credits / total_used) * 100)
+            image_percent = 100 - text_percent - voice_percent
         else:
-            self.sub_box.show()
-            self.no_sub.hide()
-            self.logoutButton.setEnabled(True)
+            text_percent = voice_percent = image_percent = 0
 
-            plan = state["plan"]
-            sub_type = plan["planName"]
+        credits_breakdown = f"Text 💬: {text_percent}%  |  Voice 🎤: {voice_percent}%  |  Image 🖼️: {image_percent}%"
 
-            total_used = plan["totalCreditsUsed"]
-            total_capacity = plan["totalCreditsCapacity"]
-            usage_percent = (
-                int((total_used / total_capacity) * 100) if total_capacity > 0 else 0
-            )
+        days = plan["daysLeft"]
+        days_remaining = f"{days} day{'s' if days > 1 else ''} left{' in cycle' if plan['planId'] == 'free' else ''}."
 
-            text_credits = plan["textCreditsUsed"]
-            voice_credits = plan["voiceCreditsUsed"]
+        if plan["notesLimit"]:
+            notes_limit = f"{plan['notesUsed']}/{plan['notesLimit']}"
+        else:
+            notes_limit = "Unlimited"
 
-            if total_used > 0:
-                text_percent = int((text_credits / total_used) * 100)
-                voice_percent = int((voice_credits / total_used) * 100)
-                image_percent = 100 - text_percent - voice_percent
-            else:
-                text_percent = voice_percent = image_percent = 0
+        self.sub_type.setText(sub_type)
+        self.credits_progress.setValue(usage_percent)
 
-            credits_breakdown = f"Text 💬: {text_percent}%  |  Voice 🎤: {voice_percent}%  |  Image 🖼️: {image_percent}%"
+        if usage_percent > 80:
+            color = "#e53935"
+        elif usage_percent > 50:
+            color = "#fb8c00"
+        else:
+            color = "#43a047"
+        self.credits_percent_label.setText(f"{usage_percent}% used")
+        self.credits_percent_label.setStyleSheet(f"color: {color};")
 
-            days = plan["daysLeft"]
-            days_remaining = f"{days} day{'s' if days > 1 else ''} left{' in cycle' if plan['planId'] == 'free' else ''}."
-
-            if plan["notesLimit"]:
-                notes_limit = f"{plan['notesUsed']}/{plan['notesLimit']}"
-            else:
-                notes_limit = "Unlimited"
-
-            self.sub_type.setText(sub_type)
-            self.credits_progress.setValue(usage_percent)
-
-            if usage_percent > 80:
-                color = "#e53935"
-            elif usage_percent > 50:
-                color = "#fb8c00"
-            else:
-                color = "#43a047"
-            self.credits_percent_label.setText(f"{usage_percent}% used")
-            self.credits_percent_label.setStyleSheet(f"color: {color};")
-
-            self.credits_breakdown.setText(credits_breakdown)
-            self.days_remaining.setText(days_remaining)
-            self.cards_remaining.setText(notes_limit)
+        self.credits_breakdown.setText(credits_breakdown)
+        self.days_remaining.setText(days_remaining)
+        self.cards_remaining.setText(notes_limit)
 
     def logout(self):
         config.auth_token = None

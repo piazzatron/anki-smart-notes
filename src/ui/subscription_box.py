@@ -31,13 +31,13 @@ from aqt import (
 )
 
 from ..app_state import AppState, app_state
+from ..auth_flow import open_browser
 from ..constants import get_site_url
 from ..sentry import pinger
 from ..subscription_provider import SubscriptionState
 from ..tasks import run_async_in_background
 from .manage_subscription import ManageSubscription
 from .ui_utils import font_bold, font_small
-from .webview_dialog import WebviewDialog
 
 
 class State(TypedDict):
@@ -113,8 +113,7 @@ class StartFreeTrialButton(QPushButton):
 
     def start_free_trial_clicked(self) -> None:
         run_async_in_background(pinger("click_trial_cta"), use_collection=False)
-        webview = WebviewDialog(self, "/trial")
-        webview.show()
+        open_browser("/trial")
 
 
 class SubscriptionBox(QWidget):
@@ -178,12 +177,10 @@ class SubscriptionBox(QWidget):
         app_state.bind(self)
 
     def upgrade_now_clicked(self) -> None:
-        webview = WebviewDialog(self, "/upgrade/sign-in")
-        webview.show()
+        open_browser("/upgrade/sign-in")
 
     def login_clicked(self) -> None:
-        webview = WebviewDialog(self, "/sign-in")
-        webview.show()
+        open_browser("/sign-in")
 
     def update_from_state(self, state: AppState) -> None:
         for k, v in self.ui_map.items():

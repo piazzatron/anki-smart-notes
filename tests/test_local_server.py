@@ -36,17 +36,22 @@ def _err(message: str) -> dict[str, Any]:
 
 
 def _make_server():
-    from src.dev_server import DevServer
+    from src.local_server import LocalServer
 
     processor = MagicMock()
-    return DevServer(processor)
+    return LocalServer(processor)
 
 
 def _make_app():
     server = _make_server()
     app = web.Application()
     app.router.add_post("/", server._handle_request)
+    app.router.add_post("/auth/callback", server._handle_auth_callback)
+    app.router.add_options("/auth/callback", server._handle_auth_preflight)
     return app
+
+
+ALLOWED_ORIGIN = "https://smart-notes.xyz"
 
 
 def make_request(action: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -101,15 +106,15 @@ async def test_get_smart_fields_missing_note_type():
 
 @pytest.mark.asyncio
 async def test_get_smart_fields(monkeypatch):
-    import src.dev_server
+    import src.local_server
 
     monkeypatch.setattr(
-        src.dev_server,
+        src.local_server,
         "get_prompts_for_note",
         lambda note_type, deck_id, fallback_to_global_deck=True: {"Field1": "prompt1"},
     )
     monkeypatch.setattr(
-        src.dev_server,
+        src.local_server,
         "get_extras",
         lambda note_type, field, deck_id: {"type": "chat", "automatic": True},
     )
@@ -125,10 +130,10 @@ async def test_get_smart_fields(monkeypatch):
 
 @pytest.mark.asyncio
 async def test_get_smart_fields_empty(monkeypatch):
-    import src.dev_server
+    import src.local_server
 
     monkeypatch.setattr(
-        src.dev_server,
+        src.local_server,
         "get_prompts_for_note",
         lambda note_type, deck_id, fallback_to_global_deck=True: None,
     )
@@ -149,10 +154,10 @@ async def test_add_smart_field_missing_params():
 
 @pytest.mark.asyncio
 async def test_add_smart_field_already_exists(monkeypatch):
-    import src.dev_server
+    import src.local_server
 
     monkeypatch.setattr(
-        src.dev_server,
+        src.local_server,
         "get_prompts_for_note",
         lambda note_type, deck_id, fallback_to_global_deck=False: {"Back": "existing"},
     )
@@ -170,23 +175,23 @@ async def test_add_smart_field_already_exists(monkeypatch):
 
 @pytest.mark.asyncio
 async def test_add_smart_field_success(monkeypatch):
-    import src.dev_server
+    import src.local_server
 
     monkeypatch.setattr(
-        src.dev_server,
+        src.local_server,
         "get_prompts_for_note",
         lambda note_type, deck_id, fallback_to_global_deck=False: None,
     )
     monkeypatch.setattr(
-        src.dev_server,
+        src.local_server,
         "add_or_update_prompts",
         lambda **kwargs: {"note_types": {}},
     )
 
     mock_config = MagicMock()
     mock_config.prompts_map = {"note_types": {}}
-    monkeypatch.setattr(src.dev_server, "config", mock_config)
-    monkeypatch.setattr(src.dev_server, "_run_on_main_sync", lambda fn: fn())
+    monkeypatch.setattr(src.local_server, "config", mock_config)
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
 
     async with TestClient(TestServer(_make_app())) as client:
         data = await _post(
@@ -205,10 +210,10 @@ async def test_add_smart_field_success(monkeypatch):
 
 @pytest.mark.asyncio
 async def test_update_smart_field_not_exists(monkeypatch):
-    import src.dev_server
+    import src.local_server
 
     monkeypatch.setattr(
-        src.dev_server,
+        src.local_server,
         "get_prompts_for_note",
         lambda note_type, deck_id, fallback_to_global_deck=False: None,
     )
@@ -226,25 +231,25 @@ async def test_update_smart_field_not_exists(monkeypatch):
 
 @pytest.mark.asyncio
 async def test_update_smart_field_success(monkeypatch):
-    import src.dev_server
+    import src.local_server
 
     monkeypatch.setattr(
-        src.dev_server,
+        src.local_server,
         "get_prompts_for_note",
         lambda note_type, deck_id, fallback_to_global_deck=False: {
             "Back": "old prompt"
         },
     )
     monkeypatch.setattr(
-        src.dev_server,
+        src.local_server,
         "add_or_update_prompts",
         lambda **kwargs: {"note_types": {}},
     )
 
     mock_config = MagicMock()
     mock_config.prompts_map = {"note_types": {}}
-    monkeypatch.setattr(src.dev_server, "config", mock_config)
-    monkeypatch.setattr(src.dev_server, "_run_on_main_sync", lambda fn: fn())
+    monkeypatch.setattr(src.local_server, "config", mock_config)
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
 
     async with TestClient(TestServer(_make_app())) as client:
         data = await _post(
@@ -272,18 +277,18 @@ async def test_remove_smart_field_missing_params():
 
 @pytest.mark.asyncio
 async def test_remove_smart_field_success(monkeypatch):
-    import src.dev_server
+    import src.local_server
 
     monkeypatch.setattr(
-        src.dev_server,
+        src.local_server,
         "remove_prompt",
         lambda **kwargs: {"note_types": {}},
     )
 
     mock_config = MagicMock()
     mock_config.prompts_map = {"note_types": {}}
-    monkeypatch.setattr(src.dev_server, "config", mock_config)
-    monkeypatch.setattr(src.dev_server, "_run_on_main_sync", lambda fn: fn())
+    monkeypatch.setattr(src.local_server, "config", mock_config)
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
 
     async with TestClient(TestServer(_make_app())) as client:
         data = await _post(
@@ -305,9 +310,9 @@ async def test_generate_note_missing_note_id():
 
 @pytest.mark.asyncio
 async def test_generate_note_no_collection(monkeypatch):
-    import src.dev_server
+    import src.local_server
 
-    monkeypatch.setattr(src.dev_server, "mw", None)
+    monkeypatch.setattr(src.local_server, "mw", None)
 
     async with TestClient(TestServer(_make_app())) as client:
         data = await _post(client, make_request("generateNote", {"noteId": 1}))
@@ -323,10 +328,140 @@ async def test_generate_notes_missing_note_ids():
 
 @pytest.mark.asyncio
 async def test_generate_notes_no_collection(monkeypatch):
-    import src.dev_server
+    import src.local_server
 
-    monkeypatch.setattr(src.dev_server, "mw", None)
+    monkeypatch.setattr(src.local_server, "mw", None)
 
     async with TestClient(TestServer(_make_app())) as client:
         data = await _post(client, make_request("generateNotes", {"noteIds": [1, 2]}))
         assert data["error"] == "Anki collection not available"
+
+
+# -- /auth/callback --
+
+
+def _patch_auth_callback_deps(monkeypatch):
+    """Replace config/sentry/app_state so _handle_auth_callback is pure."""
+    import src.local_server
+
+    written: dict[str, Any] = {"jwt": None}
+
+    class FakeConfig:
+        auth_token = None
+
+    fake_config = FakeConfig()
+
+    def fake_run_on_main(fn):
+        fn()
+        written["jwt"] = fake_config.auth_token
+
+    fake_mw = MagicMock()
+    fake_mw.taskman.run_on_main = fake_run_on_main
+    monkeypatch.setattr(src.local_server, "config", fake_config)
+    monkeypatch.setattr(src.local_server, "mw", fake_mw)
+    monkeypatch.setattr(src.local_server, "sentry", None)
+    monkeypatch.setattr(src.local_server, "app_state", MagicMock())
+    return written
+
+
+@pytest.mark.asyncio
+async def test_auth_callback_happy_path(monkeypatch):
+    written = _patch_auth_callback_deps(monkeypatch)
+
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.post(
+            "/auth/callback",
+            json={"jwt": "abc.def.ghi"},
+            headers={"Origin": ALLOWED_ORIGIN},
+        )
+        assert resp.status == 200
+        assert (await resp.json()) == {"ok": True}
+        assert resp.headers["Access-Control-Allow-Origin"] == ALLOWED_ORIGIN
+        assert written["jwt"] == "abc.def.ghi"
+
+
+@pytest.mark.asyncio
+async def test_auth_callback_rejects_bad_origin(monkeypatch):
+    _patch_auth_callback_deps(monkeypatch)
+
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.post(
+            "/auth/callback",
+            json={"jwt": "abc.def.ghi"},
+            headers={"Origin": "https://evil.com"},
+        )
+        assert resp.status == 403
+        assert "Access-Control-Allow-Origin" not in resp.headers
+
+
+@pytest.mark.asyncio
+async def test_auth_callback_rejects_missing_origin(monkeypatch):
+    _patch_auth_callback_deps(monkeypatch)
+
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.post("/auth/callback", json={"jwt": "abc.def.ghi"})
+        assert resp.status == 403
+
+
+@pytest.mark.asyncio
+async def test_auth_callback_invalid_json(monkeypatch):
+    _patch_auth_callback_deps(monkeypatch)
+
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.post(
+            "/auth/callback",
+            data=b"not json",
+            headers={
+                "Origin": ALLOWED_ORIGIN,
+                "Content-Type": "application/json",
+            },
+        )
+        assert resp.status == 400
+        body = await resp.json()
+        assert body["error"] == "invalid_json"
+
+
+@pytest.mark.asyncio
+async def test_auth_callback_missing_jwt(monkeypatch):
+    _patch_auth_callback_deps(monkeypatch)
+
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.post(
+            "/auth/callback", json={}, headers={"Origin": ALLOWED_ORIGIN}
+        )
+        assert resp.status == 400
+        assert (await resp.json())["error"] == "missing_jwt"
+
+
+@pytest.mark.asyncio
+async def test_auth_callback_non_string_jwt(monkeypatch):
+    _patch_auth_callback_deps(monkeypatch)
+
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.post(
+            "/auth/callback",
+            json={"jwt": 42},
+            headers={"Origin": ALLOWED_ORIGIN},
+        )
+        assert resp.status == 400
+
+
+@pytest.mark.asyncio
+async def test_auth_preflight_allowed_origin():
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.options(
+            "/auth/callback", headers={"Origin": ALLOWED_ORIGIN}
+        )
+        assert resp.status == 204
+        assert resp.headers["Access-Control-Allow-Origin"] == ALLOWED_ORIGIN
+        assert resp.headers["Access-Control-Allow-Private-Network"] == "true"
+        assert "POST" in resp.headers["Access-Control-Allow-Methods"]
+
+
+@pytest.mark.asyncio
+async def test_auth_preflight_rejects_bad_origin():
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.options(
+            "/auth/callback", headers={"Origin": "https://evil.com"}
+        )
+        assert resp.status == 403
