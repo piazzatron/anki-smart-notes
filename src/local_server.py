@@ -28,7 +28,7 @@ import threading
 import traceback
 from collections.abc import Awaitable
 from dataclasses import dataclass, field
-from typing import Any, Callable, Optional, TypeVar, Union, cast
+from typing import Any, Callable, Optional, TypeVar, cast
 
 import dacite
 from aiohttp import web
@@ -39,7 +39,7 @@ from aqt.qt import QDialog
 
 from .app_state import app_state
 from .config import config
-from .constants import GLOBAL_DECK_ID, SITE_URL_DEV
+from .constants import GLOBAL_DECK_ID
 from .logger import logger
 from .models import (
     FieldExtras,
@@ -122,14 +122,6 @@ def build_app(processor: NoteProcessor) -> web.Application:
 LOCAL_SERVER_PORT = 8766
 LOCAL_SERVER_HOST = "127.0.0.1"
 API_VERSION = 1
-
-ALLOWED_ORIGINS: frozenset[str] = frozenset(
-    {
-        "https://smart-notes.xyz",
-        "https://www.smart-notes.xyz",
-        SITE_URL_DEV,
-    }
-)
 
 
 # -- Request param types -----------------------------------------------------
@@ -264,38 +256,25 @@ def _err(message: str) -> web.Response:
 
 
 # -- CORS middleware ---------------------------------------------------------
+#
+# The browser-facing paths (`/auth/callback`, `/subscription/refresh`, `/ping`)
+# need CORS headers or the browser rejects the response. We do not enforce an
+# origin allowlist: a hostile page could at worst overwrite the user's JWT
+# with one of its own, which just redirects API costs to the attacker's
+# account. Not a threat model worth complicating the code for.
 
 
-@dataclass(frozen=True)
-class CorsPolicy:
-    """Declarative CORS config for a single path.
-
-    `allowed_origins="*"` lets any origin through (used for the loopback ping
-    that exists only to surface the PNA consent prompt — it has no side effects
-    worth gating). A concrete set restricts to an allowlist and rejects
-    everything else with a plain 403.
-    """
-
-    allowed_origins: Union[frozenset[str], str]
-    allowed_methods: str
-
-    def is_allowed(self, origin: Optional[str]) -> bool:
-        if self.allowed_origins == "*":
-            return True
-        return origin is not None and origin in self.allowed_origins
+CORS_PATHS: frozenset[str] = frozenset(
+    {"/auth/callback", "/subscription/refresh", "/ping"}
+)
 
 
-_PNA_HEADER = "Access-Control-Allow-Private-Network"
-
-
-def _cors_response_headers(policy: CorsPolicy, origin: Optional[str]) -> dict[str, str]:
-    echoed = origin if policy.allowed_origins != "*" else (origin or "*")
+def cors_headers(origin: Optional[str]) -> dict[str, str]:
     return {
-        "Access-Control-Allow-Origin": echoed or "*",
-        "Access-Control-Allow-Methods": f"{policy.allowed_methods}, OPTIONS",
+        "Access-Control-Allow-Origin": origin or "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type",
-        _PNA_HEADER: "true",
-        "Access-Control-Max-Age": "600",
+        "Access-Control-Allow-Private-Network": "true",
         "Vary": "Origin",
     }
 
@@ -305,37 +284,16 @@ async def cors_middleware(
     request: web.Request,
     handler: Callable[[web.Request], Awaitable[web.StreamResponse]],
 ) -> web.StreamResponse:
-    policy = CORS_POLICIES.get(request.path)
-
-    # No CORS on this path — handle normally (e.g. the `/` RPC endpoint).
-    if policy is None:
+    if request.path not in CORS_PATHS:
         return await handler(request)
 
     origin = request.headers.get("Origin")
-
-    # Preflight: short-circuit without invoking the handler.
     if request.method == "OPTIONS":
-        if not policy.is_allowed(origin):
-            return web.Response(status=403)
-        return web.Response(status=204, headers=_cors_response_headers(policy, origin))
-
-    # Real request with a restricted origin: reject up front so the handler
-    # never sees the caller. Matches the previous per-endpoint gating.
-    if policy.allowed_origins != "*" and not policy.is_allowed(origin):
-        logger.warning(f"Rejected {request.path} from origin: {origin}")
-        return web.json_response({"ok": False, "error": "forbidden"}, status=403)
+        return web.Response(status=204, headers=cors_headers(origin))
 
     response = await handler(request)
-    response.headers.update(_cors_response_headers(policy, origin))
+    response.headers.update(cors_headers(origin))
     return response
-
-
-# Populated below once the policies' origin sets are known.
-CORS_POLICIES: dict[str, CorsPolicy] = {
-    "/auth/callback": CorsPolicy(ALLOWED_ORIGINS, "POST"),
-    "/subscription/refresh": CorsPolicy(ALLOWED_ORIGINS, "POST"),
-    "/ping": CorsPolicy("*", "GET"),
-}
 
 
 # -- Route registration ------------------------------------------------------

@@ -396,26 +396,19 @@ async def test_auth_callback_happy_path(monkeypatch):
 
 
 @pytest.mark.asyncio
-async def test_auth_callback_rejects_bad_origin(monkeypatch):
-    _patch_auth_callback_deps(monkeypatch)
+async def test_auth_callback_accepts_any_origin(monkeypatch):
+    # No allowlist — the add-on trusts whoever can reach localhost.
+    written = _patch_auth_callback_deps(monkeypatch)
 
     async with TestClient(TestServer(_make_app())) as client:
         resp = await client.post(
             "/auth/callback",
             json={"jwt": "abc.def.ghi"},
-            headers={"Origin": "https://evil.com"},
+            headers={"Origin": "https://anywhere.example"},
         )
-        assert resp.status == 403
-        assert "Access-Control-Allow-Origin" not in resp.headers
-
-
-@pytest.mark.asyncio
-async def test_auth_callback_rejects_missing_origin(monkeypatch):
-    _patch_auth_callback_deps(monkeypatch)
-
-    async with TestClient(TestServer(_make_app())) as client:
-        resp = await client.post("/auth/callback", json={"jwt": "abc.def.ghi"})
-        assert resp.status == 403
+        assert resp.status == 200
+        assert resp.headers["Access-Control-Allow-Origin"] == "https://anywhere.example"
+        assert written["jwt"] == "abc.def.ghi"
 
 
 @pytest.mark.asyncio
@@ -462,7 +455,7 @@ async def test_auth_callback_non_string_jwt(monkeypatch):
 
 
 @pytest.mark.asyncio
-async def test_auth_preflight_allowed_origin():
+async def test_auth_preflight_returns_cors_headers():
     async with TestClient(TestServer(_make_app())) as client:
         resp = await client.options(
             "/auth/callback", headers={"Origin": ALLOWED_ORIGIN}
@@ -471,15 +464,6 @@ async def test_auth_preflight_allowed_origin():
         assert resp.headers["Access-Control-Allow-Origin"] == ALLOWED_ORIGIN
         assert resp.headers["Access-Control-Allow-Private-Network"] == "true"
         assert "POST" in resp.headers["Access-Control-Allow-Methods"]
-
-
-@pytest.mark.asyncio
-async def test_auth_preflight_rejects_bad_origin():
-    async with TestClient(TestServer(_make_app())) as client:
-        resp = await client.options(
-            "/auth/callback", headers={"Origin": "https://evil.com"}
-        )
-        assert resp.status == 403
 
 
 # -- /subscription/refresh ---------------------------------------------------
@@ -511,18 +495,6 @@ async def test_subscription_refresh_happy_path(monkeypatch):
         assert called["n"] == 1
 
 
-@pytest.mark.asyncio
-async def test_subscription_refresh_rejects_bad_origin():
-    async with TestClient(TestServer(_make_app())) as client:
-        resp = await client.post(
-            "/subscription/refresh",
-            json={},
-            headers={"Origin": "https://evil.com"},
-        )
-        assert resp.status == 403
-        assert "Access-Control-Allow-Origin" not in resp.headers
-
-
 # -- /ping -------------------------------------------------------------------
 
 
@@ -536,13 +508,12 @@ async def test_loopback_ping_returns_ok():
 
 
 @pytest.mark.asyncio
-async def test_loopback_ping_open_to_any_origin():
-    # Intentionally no origin allowlist — the response is a harmless no-op
-    # and the PNA consent prompt is not worth protecting here.
+async def test_loopback_ping_echoes_any_origin():
     async with TestClient(TestServer(_make_app())) as client:
-        resp = await client.get("/ping", headers={"Origin": "https://evil.com"})
+        resp = await client.get("/ping", headers={"Origin": "https://anywhere.example"})
         assert resp.status == 200
         assert (await resp.json()) == {"ok": True}
+        assert resp.headers["Access-Control-Allow-Origin"] == "https://anywhere.example"
 
 
 @pytest.mark.asyncio
