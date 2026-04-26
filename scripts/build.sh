@@ -50,6 +50,7 @@ build () {
     "certifi"
     "urllib3"
     "dotenv"
+    "dacite"
   )
 
   # copy them in a loop
