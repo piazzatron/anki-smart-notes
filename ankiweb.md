@@ -1,6 +1,7 @@
 </br>
 
-# The **ultimate AI toolkit** for Anki.
+# The **ultimate AI toolkit** for Anki. Learn more at **<a href="https://smart-notes.xyz?utm_source=ankiweb">https://smart-notes.xyz</a>**.
+
 </br>
 
 ## 💬 Generate any field in **bulk**.
@@ -38,7 +39,6 @@ Smart Notes figures out the fastest order to generate your fields using <a href=
 ## 👉For issues / questions, email <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a> or create an <a href="https://github.com/piazzatron/anki-smart-notes/issues"> issue on Github</a>
 </br>
 
-## *Learn more at <a href="https://smart-notes.xyz">smart-notes.xyz</a>*
 
 </br>
 
