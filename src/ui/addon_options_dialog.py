@@ -602,6 +602,18 @@ class AddonOptionsDialog(QDialog):
         self.edit_button.setEnabled(is_enabled)
 
     def on_add(self, field_type: SmartFieldType) -> None:
+        if config.auth_token:
+            run_async_in_background(
+                lambda: api.get_api_response(
+                    path="m",
+                    args={"event": "add_smart_field_started"},
+                ),
+                use_collection=False,
+                on_failure=lambda e: logger.error(
+                    f"Failed to record add_smart_field_started: {e}"
+                ),
+            )
+
         # Save out the API key in case it's been updated this run
         if hasattr(self, "api_key_edit"):
             config.openai_api_key = self.api_key_edit.text()
