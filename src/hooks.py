@@ -72,6 +72,7 @@ def on_options(processor: NoteProcessor):
     app_state.update_subscription_state()
     if not mw:
         return
+    run_async_in_background(pinger("open_config"), use_collection=False)
     dialog = AddonOptionsDialog(processor)
     # Use show() instead of exec() so the dialog is non-modal; nested webview
     # dialogs (sign-in, upgrade) can't be shown cleanly while an app-modal is

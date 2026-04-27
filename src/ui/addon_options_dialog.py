@@ -54,6 +54,7 @@ from ..logger import logger
 from ..models import PromptMap, SmartFieldType, legacy_openai_chat_models
 from ..note_proccessor import NoteProcessor
 from ..prompts import get_all_prompts, get_extras, get_prompts_for_note, remove_prompt
+from ..sentry import pinger
 from ..tasks import run_async_in_background
 from ..utils import get_fields, get_version
 from .account_options import AccountOptions
@@ -602,6 +603,8 @@ class AddonOptionsDialog(QDialog):
         self.edit_button.setEnabled(is_enabled)
 
     def on_add(self, field_type: SmartFieldType) -> None:
+        run_async_in_background(pinger("add_smart_field_started"), use_collection=False)
+
         # Save out the API key in case it's been updated this run
         if hasattr(self, "api_key_edit"):
             config.openai_api_key = self.api_key_edit.text()
