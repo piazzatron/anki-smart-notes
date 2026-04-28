@@ -1,18 +1,15 @@
 </br>
 
-# The **ultimate AI toolkit** for Anki. Learn more at **<a href="https://smart-notes.xyz?utm_source=ankiweb">https://smart-notes.xyz</a>**.
+# **Generate example sentences, explanations, TTS, images, and anything else you want – for thousands of cards.**
+</br>
+
+## Learn more at **<a href="https://smart-notes.xyz?utm_source=ankiweb">https://smart-notes.xyz</a>** and <a href='https://discord.gg/kxGaWpkTGr'>Discord</a>. Download in Anki with extension id `1531888719`.
 
 </br>
 
 ## 💬 Generate any field in **bulk**.
 
-Define custom prompts and AI generate any field across your _entire deck_.
-
-- Generate example sentences for vocab cards.
-- Explain complex concepts for medical school.
-
-
-Supports the latest ChatGPT, Claude, and Gemini models.
+Define custom prompts and AI generate any field across your _entire deck_. Supports the latest ChatGPT, Claude, and Gemini models.
 
 </br>
 
@@ -24,7 +21,7 @@ Generate 1000+ premium voices in 90+ languages, from Google, Azure, OpenAI, and 
 
 ## 🏞️ Image Generation.
 
-Create memorable images to improve retention. Image models from Nano Banana, ChatGPT, and more.
+Create memorable images to improve retention. Image models from NanoBanana, ChatGPT, and more.
 
 </br>
 
@@ -36,9 +33,18 @@ Smart Notes figures out the fastest order to generate your fields using <a href=
 
 </br>
 
-## 👉For issues / questions, email <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a> or create an <a href="https://github.com/piazzatron/anki-smart-notes/issues"> issue on Github</a>
+## 👉For issues / questions, email <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a> or join on <a href='https://discord.gg/kxGaWpkTGr'>Discord</a>.
 </br>
 
+#### ⚠️ 💳 Smart Notes is paid (with a free trial).
+
+<a href="https://www.smart-notes.xyz/prices">Learn more about plans</a> or start your free trial within Anki. Smart Notes supports **AliPay**. 🇨🇳
+
+Unable to afford Smart Notes due to financial hardship? Get in touch at <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a>.
+
+*(Note: I'm a solo dev & passionate Anki user, not some faceless company - your support allows me to continue developing Smart Notes for years to come 🙂)*
+
+#### ⚠️ Requires Anki Qt6 (all recent Anki versions).
 
 </br>
 
@@ -54,21 +60,11 @@ Smart Notes figures out the fastest order to generate your fields using <a href=
 
 ####
 
-#### ⚠️ 💳 Smart Notes is a paid add-on (with a free trial).
 
-<a href="https://www.smart-notes.xyz/prices">Learn more about plans</a> or start your free trial within Anki. Smart Notes supports **AliPay**. 🇨🇳
 
-_If you are unable to afford Smart Notes due to financial hardship, please get in touch at <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a>._
 
-💡 Smart Notes has been in active development for over 2 years by a solo dev (me!) - purchasing a subscription allows me to continually develop it to the highest standards and offer quality support for years to come.
-
-#### ⚠️ Smart Notes only supports Anki Qt6 (all recent Anki versions).
 
 </br>
-
-## **Installation**:
-
-Download with extension id `1531888719` (Tools > Addons > Get Addon). Restart. Start your free trial inside Anki.
 
 </br>
 
