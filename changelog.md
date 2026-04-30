@@ -1,3 +1,7 @@
+# v2.19.0
+
+- Improve chat responses so generated fields return only the requested text without extra labels, translations, or explanations.
+
 # v2.18.0
 
 - Sign in and sign up now open in your default browser, with passkey and password manager support.
