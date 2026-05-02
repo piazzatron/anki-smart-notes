@@ -567,6 +567,7 @@ class TTSOptions(QWidget):
                 provider=provider,
                 voice=voice,
                 strip_html=(none_defaulting(self.state.s, "tts_strip_html", True)),
+                extra={"generation_source": "voice_test"},
             )
             return resp
 

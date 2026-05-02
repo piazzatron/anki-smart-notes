@@ -115,6 +115,14 @@ OpenAIVoices = Literal[
 ElevenVoices = Literal["male-1", "male-2", "female-1", "female-2"]
 
 SmartFieldType = Literal["chat", "tts", "image"]
+GenerationSource = Literal[
+    "card_generation", "prompt_test", "custom_field", "voice_test"
+]
+
+
+class GenerationExtra(TypedDict):
+    generation_source: GenerationSource
+
 
 # Image Models
 

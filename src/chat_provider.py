@@ -17,12 +17,12 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import cast
+from typing import Optional, cast
 
 from .api_client import api
 from .constants import CHAT_CLIENT_TIMEOUT_SEC, DEFAULT_TEMPERATURE
 from .logger import logger
-from .models import ChatModels, ChatProviders
+from .models import ChatModels, ChatProviders, GenerationExtra
 
 
 class ChatProvider:
@@ -34,16 +34,21 @@ class ChatProvider:
         note_id: int,
         temperature: float = DEFAULT_TEMPERATURE,
         web_search: bool = False,
+        extra: Optional[GenerationExtra] = None,
     ) -> str:
+        args: dict[str, object] = {
+            "provider": provider,
+            "model": model,
+            "message": prompt,
+            "temperature": temperature,
+            "web_search": web_search,
+        }
+        if extra:
+            args["extra"] = extra
+
         response = await api.get_api_response(
             path="chat",
-            args={
-                "provider": provider,
-                "model": model,
-                "message": prompt,
-                "temperature": temperature,
-                "web_search": web_search,
-            },
+            args=args,
             note_id=note_id,
             timeout_sec=CHAT_CLIENT_TIMEOUT_SEC,
         )

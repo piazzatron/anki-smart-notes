@@ -87,6 +87,7 @@ class MockChatClient:
         temperature: int = 0,
         retry_count: int = 0,
         web_search: bool = False,
+        extra: Any = None,
     ) -> str:
         return p(prompt)
 

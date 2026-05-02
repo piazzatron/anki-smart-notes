@@ -37,6 +37,7 @@ from .models import (
     ChatModels,
     ChatProviders,
     ElevenVoices,
+    GenerationSource,
     ImageModels,
     ImageProviders,
     OpenAIVoices,
@@ -182,6 +183,7 @@ class FieldProcessor:
         should_convert_to_html: bool,
         web_search: bool = False,
         show_error_box: bool = True,
+        generation_source: GenerationSource = "card_generation",
     ) -> Optional[str]:
         interpolated_prompt = interpolate_prompt(prompt, note)
 
@@ -198,6 +200,7 @@ class FieldProcessor:
                 temperature=temperature,
                 note_id=note.id,
                 web_search=web_search,
+                extra={"generation_source": generation_source},
             )
         elif has_api_key():
             logger.debug("On legacy path....")
@@ -237,6 +240,7 @@ class FieldProcessor:
         voice: str,
         strip_html: bool,
         show_error_box: bool = True,
+        generation_source: GenerationSource = "card_generation",
     ) -> Optional[bytes]:
         interpolated_prompt = interpolate_prompt(input_text, note)
 
@@ -258,6 +262,7 @@ class FieldProcessor:
             voice=voice,
             note_id=note.id,
             strip_html=strip_html,
+            extra={"generation_source": generation_source},
         )
 
     async def get_image_response(
@@ -267,6 +272,7 @@ class FieldProcessor:
         model: ImageModels,
         provider: ImageProviders,
         show_error_box: bool = True,
+        generation_source: GenerationSource = "card_generation",
     ) -> Optional[ImageResponse]:
         if not is_capacity_remaining():
             logger.debug("App at capacity, returning early")
@@ -280,7 +286,11 @@ class FieldProcessor:
             return None
 
         return await self.image_provider.async_get_image_response(
-            prompt=interpolated_prompt, model=model, provider=provider, note_id=note.id
+            prompt=interpolated_prompt,
+            model=model,
+            provider=provider,
+            note_id=note.id,
+            extra={"generation_source": generation_source},
         )
 
 

@@ -17,11 +17,11 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import TypedDict
+from typing import Optional, TypedDict
 
 from .api_client import api
 from .constants import IMAGE_PROVIDER_TIMEOUT_SEC
-from .models import ImageModels, ImageProviders
+from .models import GenerationExtra, ImageModels, ImageProviders
 
 
 class ImageResponse(TypedDict):
@@ -31,13 +31,20 @@ class ImageResponse(TypedDict):
 
 class ImageProvider:
     async def async_get_image_response(
-        self, prompt: str, model: ImageModels, provider: ImageProviders, note_id: int
+        self,
+        prompt: str,
+        model: ImageModels,
+        provider: ImageProviders,
+        note_id: int,
+        extra: Optional[GenerationExtra] = None,
     ) -> ImageResponse:
-        args: dict[str, str] = {
+        args: dict[str, object] = {
             "provider": provider,
             "model": model,
             "prompt": prompt,
         }
+        if extra:
+            args["extra"] = extra
 
         response = await api.get_api_response(
             path="image",

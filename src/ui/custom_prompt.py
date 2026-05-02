@@ -261,6 +261,7 @@ class CustomTextPrompt(CustomPrompt):
                     "chat_markdown_to_html"
                 ],
                 web_search=self._chat_options.state.s["chat_web_search"],
+                generation_source="custom_field",
             )
 
         run_async_in_background_with_sentry(generate_text, on_success, on_error)
@@ -312,6 +313,7 @@ class CustomImagePrompt(CustomPrompt):
                 input_text=prompt,
                 model=self.image_options.state.s["image_model"],
                 provider=self.image_options.state.s["image_provider"],
+                generation_source="custom_field",
             )
 
         run_async_in_background_with_sentry(generate_image, on_success, on_error)
@@ -385,6 +387,7 @@ class CustomTTSPrompt(CustomPrompt):
                 provider=self.tts_options.state.s["tts_provider"],
                 voice=self.tts_options.state.s["tts_voice"],
                 strip_html=True,
+                generation_source="custom_field",
             )
 
         def on_success(audio: Optional[bytes]):

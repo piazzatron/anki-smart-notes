@@ -214,27 +214,35 @@ class Sentry:
 
 
 def pinger(event: str) -> Callable[[], Coroutine[Any, Any, None]]:
-    user_state = (
-        "subscriber"
-        if config.auth_token
-        else ("legacy" if config.openai_api_key else "inactive")
-    )
-    ping_url = f"{get_server_url()}/ping"
-    params = {
-        "version": get_version(),
-        "uuid": config.uuid,
-        "event": event,
-        "userState": user_state,
-    }
-
     async def ping() -> None:
+        headers = None
+        if config.auth_token:
+            ping_url = f"{get_server_url()}/api/ping"
+            params = {
+                "version": get_version(),
+                "event": event,
+                "userState": "subscriber",
+            }
+            headers = {"Authorization": f"Bearer {config.auth_token}"}
+        elif config.openai_api_key:
+            ping_url = f"{get_server_url()}/ping"
+            params = {
+                "version": get_version(),
+                "uuid": config.uuid,
+                "event": event,
+                "userState": "legacy",
+            }
+        else:
+            logger.debug("Skipping ping for inactive unauthenticated user")
+            return
+
         try:
             # 10s timeout for users who can't connect for some reason (china/vpn etc)
             async with (
                 aiohttp.ClientSession(
                     timeout=aiohttp.ClientTimeout(total=10)
                 ) as session,
-                session.get(ping_url, params=params) as response,
+                session.get(ping_url, params=params, headers=headers) as response,
             ):
                 if response.status != 200:
                     logger.error(f"Error pinging server: {response.status}")
