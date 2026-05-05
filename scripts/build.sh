@@ -156,10 +156,19 @@ anki-local () {
 }
 
 # Main profile, built prod zip, prod backend.
+# Seeds dist/meta.json from the user's installed prod addon (1531888719) so
+# auth/config carries over and we don't have to sign in every run.
 anki-prod () {
   clean
   build
   rm -rf dist/meta.json
+  local INSTALLED_META=~/Library/Application\ Support/Anki2/addons21/1531888719/meta.json
+  if [ -f "$INSTALLED_META" ]; then
+    cp "$INSTALLED_META" dist/meta.json
+    echo "Seeded dist/meta.json from installed prod addon"
+  else
+    echo "Warning: $INSTALLED_META not found — skipping meta.json seed"
+  fi
   link-dist
   launch-anki-main
 }
