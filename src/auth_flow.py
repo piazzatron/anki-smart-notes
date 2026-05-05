@@ -33,8 +33,7 @@ from .tasks import run_async_in_background
 
 
 def open_browser(path: str) -> None:
-    """Open the system browser to the given site path. No query params."""
-    url = f"{get_site_url()}{path}"
+    url = f"{get_site_url()}{with_plugin_utm_params(path)}"
     logger.info(f"Opening browser for signup: {url}")
     webbrowser.open(url, new=1)
 
@@ -80,6 +79,11 @@ def is_authenticated() -> bool:
 # -- Internals --
 
 
+def with_plugin_utm_params(path: str) -> str:
+    separator = "&" if "?" in path else "?"
+    return f"{path}{separator}utm_source=ankiweb&utm_medium=plugin"
+
+
 @dataclass
 class ExchangeSuccess:
     jwt: str
@@ -106,7 +110,9 @@ async def exchange_code(code: str) -> ExchangeResult:
     try:
         async with (
             aiohttp.ClientSession(timeout=timeout) as session,
-            session.post(url, json={"code": code}) as resp,
+            session.post(
+                url, json={"code": code}, headers={"x-sn-source": "anki-plugin"}
+            ) as resp,
         ):
             body = await resp.json()
             logger.debug(f"Auth code exchange: response status={resp.status}")

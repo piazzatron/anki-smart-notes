@@ -28,7 +28,6 @@ import traceback
 from collections.abc import Callable, Coroutine
 from typing import Any, Optional
 
-import aiohttp
 import sentry_sdk
 from aqt import mw
 from sentry_sdk.integrations.logging import LoggingIntegration
@@ -37,7 +36,6 @@ from sentry_sdk.session import Session
 from . import env
 from .api_client import OutOfCreditsError
 from .config import config
-from .constants import get_server_url
 from .logger import logger
 from .tasks import run_async_in_background
 from .ui.ui_utils import show_message_box
@@ -211,39 +209,6 @@ class Sentry:
             show_message_box("Smart Notes has encountered an error", str(e))
 
         mw.taskman.run_on_main(show_error_message)
-
-
-def pinger(event: str) -> Callable[[], Coroutine[Any, Any, None]]:
-    user_state = (
-        "subscriber"
-        if config.auth_token
-        else ("legacy" if config.openai_api_key else "inactive")
-    )
-    ping_url = f"{get_server_url()}/ping"
-    params = {
-        "version": get_version(),
-        "uuid": config.uuid,
-        "event": event,
-        "userState": user_state,
-    }
-
-    async def ping() -> None:
-        try:
-            # 10s timeout for users who can't connect for some reason (china/vpn etc)
-            async with (
-                aiohttp.ClientSession(
-                    timeout=aiohttp.ClientTimeout(total=10)
-                ) as session,
-                session.get(ping_url, params=params) as response,
-            ):
-                if response.status != 200:
-                    logger.error(f"Error pinging server: {response.status}")
-                else:
-                    logger.debug("Successfully pinged server")
-        except Exception as e:
-            logger.error(f"Error pinging server: {e}")
-
-    return ping
 
 
 def init_sentry() -> Optional[Sentry]:

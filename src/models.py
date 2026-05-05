@@ -19,6 +19,13 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 from typing import Any, Literal, Optional, TypedDict, Union
 
+GenerationSource = Literal["card_generation", "prompt_test", "custom_field"]
+
+
+class GenerationExtra(TypedDict):
+    generation_source: GenerationSource
+
+
 # Providers
 
 TTSProviders = Literal["openai", "elevenLabs", "google", "azure", "voicevox"]

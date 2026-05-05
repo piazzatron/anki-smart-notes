@@ -33,9 +33,7 @@ from aqt import (
 from ..app_state import AppState, app_state
 from ..auth_flow import open_browser
 from ..constants import get_site_url
-from ..sentry import pinger
 from ..subscription_provider import SubscriptionState
-from ..tasks import run_async_in_background
 from .manage_subscription import ManageSubscription
 from .ui_utils import font_bold, font_small
 
@@ -112,7 +110,6 @@ class StartFreeTrialButton(QPushButton):
         self.setFixedHeight(100)
 
     def start_free_trial_clicked(self) -> None:
-        run_async_in_background(pinger("click_trial_cta"), use_collection=False)
         open_browser("/trial")
 
 

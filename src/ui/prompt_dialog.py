@@ -733,6 +733,7 @@ class PromptDialog(QDialog):
                         self.chat_options.state.s, "chat_temperature"
                     ),
                     should_convert_to_html=False,  # Don't show HTML here bc it's confusing
+                    generation_source="prompt_test",
                 )
 
             run_async_in_background_with_sentry(chat_fn, on_success, on_failure)
@@ -748,6 +749,7 @@ class PromptDialog(QDialog):
                     strip_html=none_defaulting(
                         self.tts_options.state.s, "tts_strip_html", True
                     ),
+                    generation_source="prompt_test",
                 )
 
             run_async_in_background_with_sentry(tts_fn, on_success, on_failure)
@@ -759,6 +761,7 @@ class PromptDialog(QDialog):
                     note=sample_note,
                     model="flux-dev",
                     provider="replicate",
+                    generation_source="prompt_test",
                 )
 
             run_async_in_background_with_sentry(img_fn, on_success, on_failure)
