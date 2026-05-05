@@ -70,6 +70,9 @@ from .tts_options import TTSOptions
 from .ui_utils import default_form_layout, font_large, font_small, show_message_box
 
 OPTIONS_MIN_WIDTH = 875
+OPTIONS_INITIAL_HEIGHT = 400
+SMART_FIELDS_TABLE_MAX_HEIGHT = 500
+SMART_FIELDS_TABLE_MIN_HEIGHT = 50
 TTS_PROMPT_STUB_VALUE = "🔈"
 
 
@@ -268,6 +271,17 @@ class AddonOptionsDialog(QDialog):
         tab_layout.addWidget(standard_buttons)
 
         self.setLayout(tab_layout)
+        # On Windows with Anki's UI scaling > 100%, the layout's sizeHint balloons
+        # enough that without an explicit height the dialog opens taller than the
+        # screen and the OK/Cancel buttons fall off the bottom. Clamp to the
+        # available screen height as a safety net for small displays.
+        screen = self.screen() or QApplication.primaryScreen()
+        max_h = (
+            screen.availableGeometry().height() - 80
+            if screen
+            else OPTIONS_INITIAL_HEIGHT
+        )
+        self.resize(OPTIONS_MIN_WIDTH, min(OPTIONS_INITIAL_HEIGHT, max_h))
         self.state.state_changed.connect(self.render_ui)
         self.render_ui()
 
@@ -530,6 +544,8 @@ class AddonOptionsDialog(QDialog):
         table.setHorizontalHeaderLabels(
             ["Note Type", "Deck", "Target Field", "Type", "Prompt"]
         )
+        table.setMinimumHeight(SMART_FIELDS_TABLE_MIN_HEIGHT)
+        table.setMaximumHeight(SMART_FIELDS_TABLE_MAX_HEIGHT)
 
         # Selection
         table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)

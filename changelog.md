@@ -1,6 +1,7 @@
 # v2.19.0
 
-- Improve text generation to automatically exclude unwanted info ("Sure! Here's your translation:", etc). You can try removing those hints from your prompts.
+- Improve text generation to exclude unwanted info ("Sure! Here's your translation:", etc). You can try removing those hints from your prompts.
+- Bug fix: Fix options dialog opening too tall on scaled or smaller displays.
 
 # v2.18.0
 
