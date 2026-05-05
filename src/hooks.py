@@ -48,7 +48,6 @@ from .ui.changelog import perform_update_check
 from .ui.field_menu import FieldMenu
 from .ui.sparkle import Sparkle
 from .ui.ui_utils import show_message_box
-from .utils import make_uuid
 
 _local_server: Any = None
 
@@ -243,10 +242,6 @@ def on_browser_context(processor: NoteProcessor, browser: browser.Browser, menu:
 
 
 def on_start_actions() -> None:
-    # Make UUID if necessary
-    if not config.uuid:
-        config.uuid = make_uuid()
-
     perform_update_check()
     start_polling_for_messages()
     refresh_feature_flags()

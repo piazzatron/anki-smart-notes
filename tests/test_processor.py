@@ -64,7 +64,6 @@ class MockConfig:
     tts_model = "tts-1"
     openai_api_key = ""
     auth_token: str = ""
-    uuid: str = "test-uuid-12345"
     debug: bool = True
 
 

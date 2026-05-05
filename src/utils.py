@@ -19,7 +19,6 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import json
 import os
-import random
 from collections.abc import Callable, Mapping
 from typing import Any, TypeVar, cast
 
@@ -88,14 +87,6 @@ def is_production() -> bool:
 def get_version() -> str:
     manifest = load_file("manifest.json")
     return json.loads(manifest)["human_version"]  # type: ignore
-
-
-def make_uuid() -> str:
-    letters = "abcdefghijklmnopqrstuvwxyz1234567890"
-    uuid = []
-    for _ in range(16):
-        uuid.append(random.choice(letters))
-    return "".join(uuid)
 
 
 T = TypeVar("T")
