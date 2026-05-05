@@ -364,6 +364,7 @@ def on_review(processor: NoteProcessor, card: Card):
         logger.debug("Did update card on review...")
 
         mw.col.update_note(note)
+
         # Reload the reviewer webview so async review-time generation is
         # visible immediately without advancing away from the current card.
         reviewer: Any = mw.reviewer
