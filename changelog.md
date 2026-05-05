@@ -1,6 +1,6 @@
 # v2.19.0
 
-- Improve chat responses so generated fields return only the requested text without extra labels, translations, or explanations.
+- Improve text generation to automatically exclude unwanted info ("Sure! Here's your translation:", etc). You can try removing those hints from your prompts.
 
 # v2.18.0
 
