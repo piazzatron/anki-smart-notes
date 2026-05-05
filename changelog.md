@@ -1,3 +1,7 @@
+# v2.19.0
+
+- Improve text generation to automatically exclude unwanted info ("Sure! Here's your translation:", etc). You can try removing those hints from your prompts.
+
 # v2.18.0
 
 - Sign in and sign up now open in your default browser, with passkey and password manager support.
