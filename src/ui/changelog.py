@@ -24,8 +24,6 @@ from aqt import QDialog, QDialogButtonBox, QFont, QLabel, QVBoxLayout, mw
 from ..auth_flow import open_browser
 from ..config import config
 from ..logger import logger
-from ..sentry import pinger
-from ..tasks import run_async_in_background
 from ..utils import get_version, load_file
 
 
@@ -83,9 +81,6 @@ def perform_update_check() -> None:
         # FIRST RUN
         if not prior_version:
             open_browser("/trial")
-            run_async_in_background(
-                pinger("show_first_start_cta"), use_collection=False
-            )
             return
 
         if is_new_major_or_minor_version(current_version, prior_version):

@@ -17,9 +17,11 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from typing import Any
+
 from .api_client import api
 from .constants import TTS_PROVIDER_TIMEOUT_SEC
-from .models import TTSModels, TTSProviders
+from .models import GenerationSource, TTSModels, TTSProviders
 
 
 class TTSProvider:
@@ -30,17 +32,21 @@ class TTSProvider:
         provider: TTSProviders,
         voice: str,
         strip_html: bool,
+        generation_source: GenerationSource,
         note_id: int = -1,
     ) -> bytes:
+        args: dict[str, Any] = {
+            "provider": provider,
+            "model": model,
+            "message": input,
+            "voice": voice,
+            "stripHtml": strip_html,
+        }
+        args["extra"] = {"generation_source": generation_source}
+
         response = await api.get_api_response(
             path="tts",
-            args={
-                "provider": provider,
-                "model": model,
-                "message": input,
-                "voice": voice,
-                "stripHtml": strip_html,
-            },
+            args=args,
             note_id=note_id,
             timeout_sec=TTS_PROVIDER_TIMEOUT_SEC,
         )

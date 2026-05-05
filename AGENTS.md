@@ -14,7 +14,7 @@
 - Use `./scripts/build.sh check` to run all code quality checks (format, lint, typecheck)
 - Use `./scripts/build.sh typecheck` to run only type checking
 - Use `./scripts/build.sh fix` to automatically fix formatting and linting issues
-- Use `python -m pytest` to run tests.
+- Use `python3 -m pytest` to run tests.
 
 # Changelog
 - Chores should NOT be included in the changelog, unless the chore is upgrading models.

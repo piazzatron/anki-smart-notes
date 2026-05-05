@@ -84,6 +84,7 @@ class MockChatClient:
         model: str,
         provider: str,
         note_id: int,
+        generation_source: object,
         temperature: int = 0,
         retry_count: int = 0,
         web_search: bool = False,

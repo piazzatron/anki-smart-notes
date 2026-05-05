@@ -37,6 +37,7 @@ from .models import (
     ChatModels,
     ChatProviders,
     ElevenVoices,
+    GenerationSource,
     ImageModels,
     ImageProviders,
     OpenAIVoices,
@@ -110,6 +111,7 @@ class FieldProcessor:
                 provider=tts_provider,
                 strip_html=should_strip_html,
                 show_error_box=show_error_box,
+                generation_source="card_generation",
             )
 
             if not tts_response:
@@ -139,6 +141,7 @@ class FieldProcessor:
                 should_convert_to_html=should_convert,
                 web_search=web_search,
                 show_error_box=show_error_box,
+                generation_source="card_generation",
             )
 
         elif field_type == "image":
@@ -159,6 +162,7 @@ class FieldProcessor:
                 model=image_model,
                 provider=image_provider,
                 show_error_box=show_error_box,
+                generation_source="card_generation",
             )
             if not image_response:
                 return None
@@ -180,6 +184,7 @@ class FieldProcessor:
         field_lower: str,
         temperature: float,
         should_convert_to_html: bool,
+        generation_source: GenerationSource,
         web_search: bool = False,
         show_error_box: bool = True,
     ) -> Optional[str]:
@@ -198,6 +203,7 @@ class FieldProcessor:
                 temperature=temperature,
                 note_id=note.id,
                 web_search=web_search,
+                generation_source=generation_source,
             )
         elif has_api_key():
             logger.debug("On legacy path....")
@@ -236,6 +242,7 @@ class FieldProcessor:
         provider: TTSProviders,
         voice: str,
         strip_html: bool,
+        generation_source: GenerationSource,
         show_error_box: bool = True,
     ) -> Optional[bytes]:
         interpolated_prompt = interpolate_prompt(input_text, note)
@@ -258,6 +265,7 @@ class FieldProcessor:
             voice=voice,
             note_id=note.id,
             strip_html=strip_html,
+            generation_source=generation_source,
         )
 
     async def get_image_response(
@@ -266,6 +274,7 @@ class FieldProcessor:
         input_text: str,
         model: ImageModels,
         provider: ImageProviders,
+        generation_source: GenerationSource,
         show_error_box: bool = True,
     ) -> Optional[ImageResponse]:
         if not is_capacity_remaining():
@@ -280,7 +289,11 @@ class FieldProcessor:
             return None
 
         return await self.image_provider.async_get_image_response(
-            prompt=interpolated_prompt, model=model, provider=provider, note_id=note.id
+            prompt=interpolated_prompt,
+            model=model,
+            provider=provider,
+            note_id=note.id,
+            generation_source=generation_source,
         )
 
 

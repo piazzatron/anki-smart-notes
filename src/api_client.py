@@ -60,6 +60,7 @@ class APIClient:
         headers = {
             "Authorization": f"Bearer {jwt}",
             "Content-Type": "application/json",
+            "x-sn-source": "anki-plugin",
         }
 
         if note_id is not None:

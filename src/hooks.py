@@ -41,7 +41,7 @@ from .message_polling import start_polling_for_messages
 from .migrations import migrate_models
 from .note_proccessor import NoteProcessor
 from .notes import get_field_from_index, is_ai_field, is_card_fully_processed
-from .sentry import pinger, sentry, with_sentry
+from .sentry import sentry, with_sentry
 from .tasks import run_async_in_background
 from .ui.addon_options_dialog import AddonOptionsDialog
 from .ui.changelog import perform_update_check
@@ -247,7 +247,6 @@ def on_start_actions() -> None:
     if not config.uuid:
         config.uuid = make_uuid()
 
-    run_async_in_background(pinger("session_start"), use_collection=False)
     perform_update_check()
     start_polling_for_messages()
     refresh_feature_flags()
