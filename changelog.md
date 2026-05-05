@@ -1,8 +1,8 @@
 # v2.19.0
 
 - Improve text generation to exclude unwanted info ("Sure! Here's your translation:", etc). You can try removing those hints from your prompts.
+- Review-time smart field generation improved and properly refreshes the displayed card immediately.
 - Bug fix: Fix options dialog opening too tall on scaled or smaller displays.
-- Bug fix: review-time smart field generation now refreshes the displayed card immediately.
 
 # v2.18.0
 
