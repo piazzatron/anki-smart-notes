@@ -60,11 +60,9 @@ def get_user_id_from_jwt(token: str) -> Optional[str]:
 class Sentry:
     # For some reason, I need to not list hub here as an instance var for typechecking to work? idk
 
-    uuid: str
-
-    def __init__(self, dsn: str, release: str, uuid: str, env: str) -> None:
+    def __init__(self, dsn: str, release: str, env: str) -> None:
         logger.debug("Initializing sentry...")
-        logger.debug(f"release: {release}, uuid: {uuid}, env: {env}")
+        logger.debug(f"release: {release}, env: {env}")
 
         def before_send(event: Any, _: dict[str, Any]) -> Optional[Any]:
             if not is_production():
@@ -86,7 +84,6 @@ class Sentry:
         )
         hub = sentry_sdk.Hub(client)
         self.hub = hub
-        self.uuid = uuid
         logger.debug("Sentry initialized...")
 
     def configure_scope(self) -> None:
@@ -95,7 +92,7 @@ class Sentry:
         self._start_session()
 
     def set_user(self) -> None:
-        user_id = self.uuid
+        user_id = None
         if config.auth_token:
             jwt_user_id = get_user_id_from_jwt(config.auth_token)
             if jwt_user_id:
@@ -103,7 +100,8 @@ class Sentry:
 
         logger.debug(f"Setting sentry user to {user_id}")
         with self.hub.configure_scope() as scope:
-            scope.user = {"id": user_id}
+            if user_id:
+                scope.user = {"id": user_id}
 
     def _monekypatch_sys_excepthook(self) -> None:
         try:
@@ -222,7 +220,7 @@ def init_sentry() -> Optional[Sentry]:
             logger.error("Sentry: no sentry DSN or release")
             return None
 
-        sentry = Sentry(dsn, release, config.uuid, env.environment)
+        sentry = Sentry(dsn, release, env.environment)
 
         return sentry
     except Exception as e:

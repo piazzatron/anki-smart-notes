@@ -20,7 +20,6 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 from typing import Literal, Optional, TypedDict, Union
 
 from .api_client import api
-from .config import config
 
 SubscriptionState = Literal[
     "LOADING",
@@ -59,7 +58,7 @@ class UserStatus(TypedDict):
 class UserInfoProvider:
     async def get_subscription_status(self) -> UserStatus:
         response = await api.get_api_response(
-            path=f"user?uuid={config.uuid}",
+            path="user",
             method="GET",
         )
         status: UserStatus = await response.json()

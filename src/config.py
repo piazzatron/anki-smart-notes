@@ -50,7 +50,6 @@ class Config:
     generate_at_review: bool
     times_used: int
     last_seen_version: Optional[str]
-    uuid: str
     openai_endpoint: Optional[str]
     regenerate_notes_when_batching: bool
     allow_empty_fields: bool
