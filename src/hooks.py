@@ -364,7 +364,13 @@ def on_review(processor: NoteProcessor, card: Card):
         logger.debug("Did update card on review...")
 
         mw.col.update_note(note)
-        card.load()
+
+        # Reload the reviewer webview so async review-time generation is
+        # visible immediately without advancing away from the current card.
+        reviewer: Any = mw.reviewer
+        current_card = reviewer.card
+        if current_card is not None and current_card.id == card.id:
+            reviewer._redraw_current_card()
         Sparkle()
 
     processor.process_card(
