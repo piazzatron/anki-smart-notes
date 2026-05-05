@@ -364,7 +364,12 @@ def on_review(processor: NoteProcessor, card: Card):
         logger.debug("Did update card on review...")
 
         mw.col.update_note(note)
-        refresh_reviewer_card(card)
+        # Reload the reviewer webview so async review-time generation is
+        # visible immediately without advancing away from the current card.
+        reviewer: Any = mw.reviewer
+        current_card = reviewer.card
+        if current_card is not None and current_card.id == card.id:
+            reviewer._redraw_current_card()
         Sparkle()
 
     processor.process_card(
@@ -440,19 +445,6 @@ def prevent_batches_on_free_trial(notes: Any) -> bool:
         )
         return did_accept
     return True
-
-
-def refresh_reviewer_card(card: Card) -> None:
-    if not mw:
-        logger.error("Cannot refresh reviewer card: mw not found")
-        return
-
-    reviewer: Any = mw.reviewer
-    current_card = reviewer.card
-    if current_card is None or current_card.id != card.id:
-        return
-
-    reviewer._redraw_current_card()
 
 
 @with_sentry
