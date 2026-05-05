@@ -1,21 +1,30 @@
 </br>
 
-# **Generate example sentences, explanations, TTS, images, and anything else you want – for thousands of cards.**
+# **Generate text, TTS, and images for thousands of cards in one click.**
 </br>
 
-## Learn more at **<a href="https://smart-notes.xyz?utm_source=ankiweb">https://smart-notes.xyz</a>** and <a href='https://discord.gg/kxGaWpkTGr'>Discord</a>. Download in Anki with extension id `1531888719`.
+## Learn more and sign up at **<a href="https://smart-notes.xyz?utm_source=ankiweb">https://smart-notes.xyz</a>** and **<a href='https://discord.gg/kxGaWpkTGr'>Discord</a>**. Anki extension id `1531888719`.
 
+</br>
+
+
+<img src="https://smart-notes.xyz/example_field.gif" height="350px" />
+<img src="https://smart-notes.xyz/batch.gif" height="350px" />
+<img src="https://smart-notes.xyz/image_gen.gif" height="350px" />
+<img src="https://smart-notes.xyz/multiple_fields.gif" height="350px" />
+
+</br>
 </br>
 
 ## 💬 Generate any field in **bulk**.
 
-Define custom prompts and AI generate any field across your _entire deck_. Supports the latest ChatGPT, Claude, and Gemini models.
+Define custom prompts and AI generate any field across your _entire deck_ or individual notes. Supports the latest ChatGPT, Claude, and Gemini models.
 
 </br>
 
 ## 🗣️ Text to Speech (TTS).
 
-Generate 1000+ premium voices in 90+ languages, from Google, Azure, OpenAI, and ElevenLabs.
+Generate 1000+ premium voices in 90+ languages, from Google, Azure, VoiceVox, OpenAI, and ElevenLabs. 
 
 </br>
 
@@ -31,31 +40,24 @@ Generate an example sentence in one field, translate it another, and generate an
 
 Smart Notes figures out the fastest order to generate your fields using <a href="https://en.wikipedia.org/wiki/Topological_sorting">topological sorting</a>. You just set them up.
 
-</br>
-
-## 👉For issues / questions, email <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a> or join on <a href='https://discord.gg/kxGaWpkTGr'>Discord</a>.
-</br>
-
-#### ⚠️ 💳 Smart Notes is paid (with a free trial).
+### ⚠️ 💳 Smart Notes is paid (with a free trial).
 
 <a href="https://www.smart-notes.xyz/prices">Learn more about plans</a> or start your free trial within Anki. Smart Notes supports **AliPay**. 🇨🇳
 
 Unable to afford Smart Notes due to financial hardship? Get in touch at <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a>.
 
-*(Note: I'm a solo dev & passionate Anki user, not some faceless company - your support allows me to continue developing Smart Notes for years to come 🙂)*
-
-#### ⚠️ Requires Anki Qt6 (all recent Anki versions).
+*(I'm a solo dev & passionate Anki user, not some faceless company - your support allows me to continue developing Smart Notes for years to come)*
 
 </br>
 
+### 👉For issues / questions, email <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a> or join on <a href='https://discord.gg/kxGaWpkTGr'>Discord</a>.
 </br>
 
-<img src="https://smart-notes.xyz/example_field.gif" height="350px" />
-<img src="https://smart-notes.xyz/batch.gif" height="350px" />
-<img src="https://smart-notes.xyz/image_gen.gif" height="350px" />
-<img src="https://smart-notes.xyz/multiple_fields.gif" height="350px" />
+
+### ⚠️ Requires Anki Qt6 (all recent Anki versions).
 
 </br>
+
 </br>
 
 ####
@@ -164,3 +166,5 @@ Smart Notes is under constant development. See <a href="https://github.com/piazz
 </br>
 
 _Smart Notes owes a debt of gratitude for inspiration to <a href="https://ankiweb.net/shared/info/1416178071">Intellifiller.</a>_
+
+<img src="https://cloud.umami.is/p/KOsj96vrI" />
