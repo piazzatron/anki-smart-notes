@@ -364,7 +364,7 @@ def on_review(processor: NoteProcessor, card: Card):
         logger.debug("Did update card on review...")
 
         mw.col.update_note(note)
-        card.load()
+        refresh_reviewer_card(card)
         Sparkle()
 
     processor.process_card(
@@ -440,6 +440,19 @@ def prevent_batches_on_free_trial(notes: Any) -> bool:
         )
         return did_accept
     return True
+
+
+def refresh_reviewer_card(card: Card) -> None:
+    if not mw:
+        logger.error("Cannot refresh reviewer card: mw not found")
+        return
+
+    reviewer: Any = mw.reviewer
+    current_card = reviewer.card
+    if current_card is None or current_card.id != card.id:
+        return
+
+    reviewer._redraw_current_card()
 
 
 @with_sentry
