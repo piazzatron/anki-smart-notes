@@ -47,9 +47,20 @@ from .ui.addon_options_dialog import AddonOptionsDialog
 from .ui.changelog import perform_update_check
 from .ui.field_menu import FieldMenu
 from .ui.sparkle import Sparkle
+from .ui.tutor_dialog import TutorDialog
 from .ui.ui_utils import show_message_box
 
 _local_server: Any = None
+_tutor_dialog: Any = None
+
+
+def open_tutor() -> None:
+    if not mw:
+        return
+    global _tutor_dialog
+    _tutor_dialog = TutorDialog()
+    mw.garbage_collect_on_dialog_finish(_tutor_dialog)
+    _tutor_dialog.show()
 
 
 def with_processor(fn: Any):
@@ -273,6 +284,10 @@ def on_main_window(processor: NoteProcessor):
     options_action.triggered.connect(lambda _: on_options(processor)())
     mw.form.menuTools.addAction(options_action)
     mw.addonManager.setConfigAction(__name__, on_options(processor))
+
+    tutor_action = QAction("Smart Notes: AI Tutor (alpha)", mw)
+    tutor_action.triggered.connect(lambda _: open_tutor())
+    mw.form.menuTools.addAction(tutor_action)
     on_start_actions()
 
     from .local_server import LocalServer
