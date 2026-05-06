@@ -42,6 +42,7 @@ from aqt import (
     mw,
 )
 
+from ..api_client import api
 from ..app_state import (
     is_app_legacy,
     is_capacity_remaining,
@@ -82,20 +83,15 @@ from .image_options import ImageOptions
 from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_edit_text import ReactiveEditText
+from .reactive_line_edit import ReactiveLineEdit
 from .state_manager import StateManager
 from .tts_options import TTSOptions
 from .ui_utils import default_form_layout, font_bold, font_small, show_message_box
 
-explanation = """Write a prompt to help the chat model generate your Smart Field.
-
-Your prompt may reference other fields via {{double curly braces}}. Valid fields are listed below for convenience.
-
-Test out your prompt with the test button before saving it!
-"""
-
 
 class State(TypedDict):
     prompt: str
+    ai_generation_prompt: str
     note_types: list[str]
     selected_note_type: str
     note_fields: list[str]
@@ -103,6 +99,7 @@ class State(TypedDict):
     selected_tts_source_field: str
     selected_note_field: str
     is_loading_prompt: bool
+    is_generating_prompt: bool
     generate_automatically: bool
 
     use_custom_model: bool
@@ -122,8 +119,14 @@ class PartialState(TypedDict):
     selected_deck: DeckId
 
 
+class GeneratedPromptResponse(TypedDict):
+    prompt: str
+
+
 class PromptDialog(QDialog):
     prompt_text_box: QTextEdit
+    ai_generation_input: ReactiveLineEdit[State]
+    generate_prompt_button: QPushButton
     test_button: QPushButton
     valid_fields: QLabel
     note_combo_box: QComboBox
@@ -205,6 +208,7 @@ class PromptDialog(QDialog):
 
         initial_state: State = {
             "prompt": prompt or default_note_state["prompt"],
+            "ai_generation_prompt": "",
             # Note types
             "selected_note_type": selected_note_type,
             "note_types": note_types,
@@ -216,6 +220,7 @@ class PromptDialog(QDialog):
             "selected_note_field": selected_target_field,
             # other
             "is_loading_prompt": False,
+            "is_generating_prompt": False,
             "decks": get_all_deck_ids(),
             "selected_deck": deck_id,
             "type": field_type,
@@ -259,22 +264,12 @@ class PromptDialog(QDialog):
             "title": {
                 "chat": f"💬 {edit_or_new} Text Field",
                 "tts": f"🔈️ {edit_or_new} Text to Speech Field",
-                "image": f" 🖼️ {edit_or_new} Image Field",
-            },
-            "explanation": {
-                "chat": "The note that will have the Smart Field",
-                "tts": "The note type that will have the TTS field",
-                "image": "The note type that will have the image field",
+                "image": f" 🖼️ {edit_or_new} Image Smart Field",
             },
             "destination": {
-                "chat": "Target Field",
-                "tts": "Target Field",
-                "image": "Target Field",
-            },
-            "destination_explanation": {
-                "chat": "The AI generated Smart Field.",
-                "tts": "The field that will store and play the audio file.",
-                "image": "The field that will display the image.",
+                "chat": "Target Smart Field",
+                "tts": "Target Smart Field",
+                "image": "Target Smart Field",
             },
         }
 
@@ -285,17 +280,14 @@ class PromptDialog(QDialog):
         )
         card_label = QLabel("Note Type")
         card_label.setFont(font_bold)
-        card_explanation = QLabel(text["explanation"][field_type])
-        card_explanation.setFont(font_small)
         layout.addWidget(card_label)
         layout.addWidget(self.note_combo_box)
-        layout.addWidget(card_explanation)
         layout.addSpacerItem(QSpacerItem(0, 20))
 
         deck_label = QLabel("Deck")
         deck_label.setFont(font_bold)
         self.deck_subtitle = QLabel(
-            "Optionally apply this field only to a specific deck (useful for sharing note types between decks)."
+            "Optionally apply this field only to a specific deck."
         )
         self.deck_subtitle.setMaximumWidth(500)
         self.deck_subtitle.setFont(font_small)
@@ -318,11 +310,8 @@ class PromptDialog(QDialog):
             self.tts_source_combo_box.on_change.connect(self.on_source_changed)
             source_label = QLabel("Source Field")
             source_label.setFont(font_bold)
-            source_explainer = QLabel("The field that will be spoken.")
-            source_explainer.setFont(font_small)
             layout.addWidget(source_label)
             layout.addWidget(self.tts_source_combo_box)
-            layout.addWidget(source_explainer)
             layout.addItem(QSpacerItem(0, 20))
 
         self.field_combo_box = ReactiveComboBox(
@@ -330,11 +319,8 @@ class PromptDialog(QDialog):
         )
         field_label = QLabel(text["destination"][field_type])
         field_label.setFont(font_bold)
-        field_explanation = QLabel(text["destination_explanation"][field_type])
-        field_explanation.setFont(font_small)
         layout.addWidget(field_label)
         layout.addWidget(self.field_combo_box)
-        layout.addWidget(field_explanation)
         layout.addSpacerItem(QSpacerItem(0, 20))
 
         self.test_button = QPushButton("✨ Test Smart Field ✨")
@@ -345,7 +331,7 @@ class PromptDialog(QDialog):
         text_only_layout.setContentsMargins(0, 0, 0, 0)
         text_only_container.setHidden(self.state.s["type"] == "tts")
 
-        prompt_label = QLabel("Prompt")
+        prompt_label = QLabel("Final Prompt")
         prompt_label.setFont(font_bold)
         self.prompt_text_box = ReactiveEditText(self.state, "prompt")
         self.prompt_text_box.setAlignment(Qt.AlignmentFlag.AlignTop)
@@ -353,7 +339,7 @@ class PromptDialog(QDialog):
         self.prompt_text_box.setWordWrapMode(
             QTextOption.WrapMode.WrapAtWordBoundaryOrAnywhere
         )
-        self.prompt_text_box.setPlaceholderText(explanation)
+        self.prompt_text_box.setPlaceholderText("...")
         self.valid_fields = QLabel("")
         self.valid_fields.setMinimumWidth(500)
         size_policy = QSizePolicy(
@@ -367,6 +353,7 @@ class PromptDialog(QDialog):
         self.valid_fields.setFont(small_font)
 
         self.setLayout(layout)
+        text_only_layout.addWidget(self.render_generate_prompt())
         text_only_layout.addWidget(prompt_label)
         text_only_layout.addWidget(self.prompt_text_box)
         text_only_layout.addWidget(self.valid_fields)
@@ -387,7 +374,11 @@ class PromptDialog(QDialog):
         self.prompt_text_box.on_change.connect(
             lambda text: self.state.update({"prompt": text})
         )
+        self.ai_generation_input.on_change.connect(
+            lambda text: self.state.update({"ai_generation_prompt": text})
+        )
 
+        self.generate_prompt_button.clicked.connect(self.on_generate_ai_prompt)
         self.test_button.clicked.connect(self.on_test)
 
         field_options = QGroupBox()
@@ -418,6 +409,42 @@ class PromptDialog(QDialog):
             self.deck_subtitle.setText(
                 "🔒 Deck based Smart Fields are only available on paid plans!"
             )
+        return container
+
+    def render_generate_prompt(self) -> QWidget:
+        label = QLabel("✨ Write My Prompt For Me ✨")
+        label.setFont(font_bold)
+        subtitle = QLabel(
+            "Use AI to write a draft of your Smart Field prompt automatically."
+        )
+        subtitle.setFont(font_small)
+        subtitle.setWordWrap(True)
+        self.ai_generation_input = ReactiveLineEdit(self.state, "ai_generation_prompt")
+        placeholder_text = (
+            '"Create a memorable image for this word..."'
+            if self.state.s["type"] == "image"
+            else '"Give me a Japanese example sentence..."'
+        )
+        self.ai_generation_input.setPlaceholderText(placeholder_text)
+        self.ai_generation_input.setMinimumHeight(40)
+        self.ai_generation_input.setStyleSheet("QLineEdit { padding: 6px 8px; }")
+        self.generate_prompt_button = QPushButton("Write Prompt")
+
+        input_row = QWidget()
+        input_layout = QHBoxLayout()
+        input_layout.setContentsMargins(0, 0, 0, 0)
+        input_row.setLayout(input_layout)
+        input_layout.addWidget(self.ai_generation_input)
+        input_layout.addWidget(self.generate_prompt_button)
+
+        container = QWidget()
+        layout = QVBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
+        container.setLayout(layout)
+        container.setHidden(self.state.s["type"] == "tts")
+        layout.addWidget(label)
+        layout.addWidget(subtitle)
+        layout.addWidget(input_row)
         return container
 
     def render_options_tab(self) -> QWidget:
@@ -596,11 +623,20 @@ class PromptDialog(QDialog):
         self.state.update({"selected_note_field": field})
 
     def render_buttons(self) -> None:
+        is_generating_prompt = self.state.s["is_generating_prompt"]
         is_enabled = (
-            bool(self.state.s["prompt"]) and not self.state.s["is_loading_prompt"]
+            bool(self.state.s["prompt"])
+            and not self.state.s["is_loading_prompt"]
+            and not is_generating_prompt
+        )
+        can_generate_prompt = (
+            self.state.s["type"] != "tts"
+            and bool(self.state.s["ai_generation_prompt"])
+            and not is_generating_prompt
         )
 
         self.test_button.setEnabled(is_enabled)
+        self.generate_prompt_button.setEnabled(can_generate_prompt)
         self.standard_buttons.button(QDialogButtonBox.StandardButton.Save).setEnabled(  # type: ignore
             is_enabled
         )
@@ -609,6 +645,50 @@ class PromptDialog(QDialog):
             self.test_button.setText("Loading...")
         else:
             self.test_button.setText("Test With Random Note✨")
+
+        if is_generating_prompt:
+            self.generate_prompt_button.setText("Generating...")
+        else:
+            self.generate_prompt_button.setText("Write Prompt")
+
+    def on_generate_ai_prompt(self) -> None:
+        s = self.state.s
+        if s["type"] == "tts" or not s["ai_generation_prompt"]:
+            return
+
+        self.state["is_generating_prompt"] = True
+
+        def generate_fn():
+            selected_deck = s["selected_deck"]
+            deck_name = deck_id_to_name_map().get(selected_deck, str(selected_deck))
+            args: dict[str, Any] = {
+                "note_type": s["selected_note_type"],
+                "deck_name": deck_name,
+                "target_field": s["selected_note_field"],
+                "field_type": s["type"],
+                "fields": get_fields(s["selected_note_type"]),
+                "generation_prompt": s["ai_generation_prompt"],
+            }
+
+            async def generate_prompt() -> str:
+                response = await api.get_api_response(
+                    path="prompt/generate",
+                    args=args,
+                    timeout_sec=30,
+                )
+                body = cast(GeneratedPromptResponse, await response.json())
+                return body["prompt"]
+
+            return generate_prompt()
+
+        def on_success(prompt: str) -> None:
+            self.state.update({"prompt": prompt, "is_generating_prompt": False})
+
+        def on_failure(e: Exception) -> None:
+            show_message_box(f"Failed to generate prompt: {e}")
+            self.state["is_generating_prompt"] = False
+
+        run_async_in_background_with_sentry(generate_fn, on_success, on_failure)
 
     def on_test(self) -> None:
         if self.state.s["type"] == "chat":
@@ -777,7 +857,7 @@ class PromptDialog(QDialog):
             prompts_map=self.prompts_map,
         )
         fields = ["{{" + field + "}}" for field in fields]
-        text = f"Valid fields to include in prompt: {', '.join(fields)}"
+        text = f"Valid Fields: {', '.join(fields)}"
         self.valid_fields.setText(text)
 
     def _get_valid_target_fields(

@@ -1,3 +1,7 @@
+# v2.20.0
+
+- Add AI-assisted prompt drafting for text and image Smart Fields.
+
 # v2.19.0
 
 - Improve text generation to exclude unwanted info ("Sure! Here's your translation:", etc). You can try removing those hints from your prompts.
