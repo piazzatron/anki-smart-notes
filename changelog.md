@@ -1,3 +1,7 @@
+# v2.20.0
+
+- New feature: AI can now write your Smart Fields for you. Try it out by adding or editing a Smart Field!
+
 # v2.19.0
 
 - Improve text generation to exclude unwanted info ("Sure! Here's your translation:", etc). You can try removing those hints from your prompts.
