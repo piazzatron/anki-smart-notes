@@ -1,6 +1,6 @@
 # v2.20.0
 
-- Add AI-assisted prompt drafting for text and image Smart Fields.
+- New feature: AI can now write your Smart Fields for you. Try it out by adding or editing a Smart Field!
 
 # v2.19.0
 
