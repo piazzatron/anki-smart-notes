@@ -423,7 +423,7 @@ class PromptDialog(QDialog):
         placeholder_text = (
             '"Create a memorable image for this word..."'
             if self.state.s["type"] == "image"
-            else '"Give me a Japanese example sentence..."'
+            else '"Make a simple example sentence for this vocab..."'
         )
         self.ai_generation_input.setPlaceholderText(placeholder_text)
         self.ai_generation_input.setMinimumHeight(40)
