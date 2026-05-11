@@ -45,9 +45,9 @@ MIN_TOP_OFF = 10
 class ReviewTimeEvaluator:
     """Keeps review-time Smart Field generation ahead of the reviewer.
 
-    Each reviewer tick evaluates the current card plus the scheduler lookahead
-    queue, starts one background generation wave when useful, and redraws only
-    the currently visible card as individual card tasks complete.
+    Each overview or reviewer tick evaluates the current card plus the scheduler
+    lookahead queue, starts one background generation wave when useful, and
+    redraws only the currently visible card as individual card tasks complete.
     """
 
     def __init__(self, processor: NoteProcessor) -> None:
@@ -57,17 +57,19 @@ class ReviewTimeEvaluator:
         self.pending_tick = False
 
     def tick(self) -> None:
-        # Review hooks call tick() whenever the current card changes or is answered.
-        # The evaluator keeps a small generation buffer ahead of the reviewer: include
-        # the current card if it still needs fields, scan Anki's scheduler lookahead for
-        # more eligible cards, and start one background wave for the uncovered cards.
+        # Overview and review hooks call tick() when the deck overview loads or
+        # the current card changes/is answered. The evaluator keeps a small
+        # generation buffer ahead of the reviewer: include the current card if
+        # review mode has one that still needs fields, scan Anki's scheduler
+        # lookahead for more eligible cards, and start one background wave for
+        # the uncovered cards.
         #
         # Only one review wave may run at a time. If a prior review wave is active,
         # remember that another tick is needed and replay it when the active wave
         # completes. Otherwise, wait until enough uncovered cards have accumulated,
         # unless the scheduler returned fewer than LOOKAHEAD cards and this wave should
         # flush the end-of-queue leftovers.
-        if not mw or not mw.col or mw.state != "review":
+        if not mw or not mw.col or mw.state not in {"overview", "review"}:
             return
 
         if not config.generate_at_review:
@@ -82,7 +84,7 @@ class ReviewTimeEvaluator:
 
         self.pending_tick = False
 
-        reviewer = mw.reviewer
+        reviewer = mw.reviewer if mw.state == "review" else None
         current_card = reviewer.card if reviewer else None
         current_card_candidates = (
             [current_card]

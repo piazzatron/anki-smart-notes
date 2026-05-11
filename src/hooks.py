@@ -421,6 +421,7 @@ def setup_hooks(processor: NoteProcessor):
     gui_hooks.browser_sidebar_will_show_context_menu.append(add_deck_option(processor))
     gui_hooks.editor_did_init_buttons.append(add_editor_top_button(processor))
     gui_hooks.editor_will_show_context_menu.append(on_editor_context(processor))
+    gui_hooks.overview_did_refresh.append(lambda _: evaluate_review_time_generation())
     gui_hooks.reviewer_did_show_question.append(
         lambda _: evaluate_review_time_generation()
     )

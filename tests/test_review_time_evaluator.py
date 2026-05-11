@@ -84,8 +84,10 @@ class MockReviewer:
 
 
 class MockMw:
-    def __init__(self, current: MockCard | None, queued: list[MockCard]) -> None:
-        self.state = "review"
+    def __init__(
+        self, current: MockCard | None, queued: list[MockCard], state: str
+    ) -> None:
+        self.state = state
         self.col = MockCollection(queued)
         self.reviewer = MockReviewer(current)
 
@@ -94,7 +96,7 @@ class MockConfig:
     generate_at_review = True
 
 
-def setup_review_time_evaluator(monkeypatch, current=None, queued=None):
+def setup_review_time_evaluator(monkeypatch, current=None, queued=None, state="review"):
     import src.review_time_evaluator
 
     if queued is None:
@@ -102,7 +104,7 @@ def setup_review_time_evaluator(monkeypatch, current=None, queued=None):
 
     processor = MockProcessor()
     evaluator = src.review_time_evaluator.ReviewTimeEvaluator(processor)  # type: ignore
-    monkeypatch.setattr(src.review_time_evaluator, "mw", MockMw(current, queued))
+    monkeypatch.setattr(src.review_time_evaluator, "mw", MockMw(current, queued, state))
     monkeypatch.setattr(src.review_time_evaluator, "config", MockConfig())
     monkeypatch.setattr(
         src.review_time_evaluator,
@@ -233,6 +235,49 @@ def test_tick_processes_tiny_top_off_at_end_of_queue(monkeypatch):
     assert len(started_batches) == 1
     assert evaluator.in_flight == {1}
     assert evaluator.wave_in_progress
+
+
+def test_tick_processes_initial_wave_from_overview(monkeypatch):
+    started_batches = []
+    evaluator, _, review_time_evaluator = setup_review_time_evaluator(
+        monkeypatch,
+        current=MockCard(id=99),
+        queued=[MockCard(id=1)],
+        state="overview",
+    )
+    monkeypatch.setattr(review_time_evaluator, "MIN_TOP_OFF", 10)
+    monkeypatch.setattr(
+        review_time_evaluator,
+        "run_async_in_background_with_sentry",
+        lambda *args, **kwargs: started_batches.append(args),
+    )
+
+    evaluator.tick()
+
+    assert len(started_batches) == 1
+    assert evaluator.in_flight == {1}
+    assert evaluator.wave_in_progress
+
+
+def test_tick_ignores_non_review_states(monkeypatch):
+    started_batches = []
+    evaluator, _, review_time_evaluator = setup_review_time_evaluator(
+        monkeypatch,
+        current=MockCard(id=99),
+        queued=[MockCard(id=1)],
+        state="deckBrowser",
+    )
+    monkeypatch.setattr(
+        review_time_evaluator,
+        "run_async_in_background_with_sentry",
+        lambda *args, **kwargs: started_batches.append(args),
+    )
+
+    evaluator.tick()
+
+    assert started_batches == []
+    assert evaluator.in_flight == set()
+    assert not evaluator.wave_in_progress
 
 
 def test_current_card_bypasses_top_off_gate(monkeypatch):
