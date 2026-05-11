@@ -1,7 +1,3 @@
-# v2.21.0
-
-- Bug fix: review-time Smart Field generation no longer blocks card review while it runs.
-
 # v2.20.0
 
 - New feature: AI can now write your Smart Fields for you. Try it out by adding or editing a Smart Field!
