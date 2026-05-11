@@ -41,7 +41,7 @@ class MockProcessor:
         self.batch_in_progress = False
         self.processed_cards: list[int] = []
 
-    async def _process_note(
+    async def process_note(
         self,
         note: Any,
         deck_id: int,

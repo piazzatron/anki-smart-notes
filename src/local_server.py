@@ -517,7 +517,7 @@ class LocalServer:
 
         fields_before = {f: note[f] for f in note.keys()}  # noqa: SIM118
 
-        updated = await self._processor._process_note(  # type: ignore
+        updated = await self._processor.process_note(
             note,
             deck_id=deck_id,
             overwrite_fields=overwrite,

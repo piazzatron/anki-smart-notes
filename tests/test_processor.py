@@ -529,7 +529,7 @@ async def test_processor_1(name, note, prompts_map, expected, options, monkeypat
         allow_empty_fields=allow_empty_fields,
     )
 
-    await p._process_note(
+    await p.process_note(
         n, deck_id=1, overwrite_fields=overwrite_fields, target_field=target_field
     )
 
@@ -657,7 +657,7 @@ async def test_process_note_updates_collection_on_main_thread(monkeypatch):
     monkeypatch.setattr(src.note_proccessor, "mw", mw)
     monkeypatch.setattr(src.note_proccessor, "run_on_main", lambda work: work())
 
-    await p._process_note(n, deck_id=1)
+    await p.process_note(n, deck_id=1)
 
     assert mw.col.updated_notes == [n]
 
@@ -773,5 +773,5 @@ async def test_returns_if_updated(note, prompts_map, expected, monkeypatch):
         allow_empty_fields=False,
     )
 
-    res = await p._process_note(n, deck_id=1, overwrite_fields=False, target_field=None)  # type: ignore
+    res = await p.process_note(n, deck_id=1, overwrite_fields=False, target_field=None)
     assert res == expected

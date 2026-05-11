@@ -258,7 +258,7 @@ class NoteProcessor:
         tasks = []
         for note in to_process:
             tasks.append(
-                self._process_note(
+                self.process_note(
                     note, overwrite_fields=overwrite_fields, deck_id=did_map[note.id]
                 )
             )
@@ -326,7 +326,7 @@ class NoteProcessor:
         # NOTE: for some reason i can't run bump_usage_counter in this hook without causing a
         # an PyQT crash, so I'm running it in the on_success callback instead
         run_async_in_background_with_sentry(
-            lambda: self._process_note(
+            lambda: self.process_note(
                 note,
                 overwrite_fields=overwrite_fields,
                 deck_id=card.did,
@@ -343,7 +343,7 @@ class NoteProcessor:
     # it will regenerate any fields up until the target field. A bit weird but
     # this combination of values doesn't really make sense anyways so it's probably fine.
     # Would be better modeled with some mode switch or something.
-    async def _process_note(
+    async def process_note(
         self,
         note: Note,
         deck_id: DeckId,

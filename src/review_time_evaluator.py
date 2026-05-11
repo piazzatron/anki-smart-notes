@@ -164,7 +164,7 @@ class ReviewTimeEvaluator:
     async def run_card_task(self, card: Card) -> None:
         did_change = False
         try:
-            did_change = await self.processor._process_note(  # type: ignore
+            did_change = await self.processor.process_note(
                 card.note(), deck_id=card.did, overwrite_fields=False
             )
         except OutOfCreditsError:
