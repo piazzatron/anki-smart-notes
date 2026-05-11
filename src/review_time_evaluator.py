@@ -35,11 +35,11 @@ from .ui.sparkle import Sparkle
 from .utils import run_on_main
 
 # Number of upcoming scheduler cards to inspect on each review tick.
-LOOKAHEAD = 30
+LOOKAHEAD = 25
 
 # Minimum number of uncovered queued cards required before firing a normal
 # top-off batch. Smaller batches still run when they flush the end of the queue.
-MIN_TOP_OFF = 10
+MIN_BATCH_SIZE = 5
 
 
 class ReviewTimeEvaluator:
@@ -83,6 +83,7 @@ class ReviewTimeEvaluator:
             return
 
         self.pending_tick = False
+        logger.info("Starting review-time evaluation tick")
 
         reviewer = mw.reviewer if mw.state == "review" else None
         current_card = reviewer.card if reviewer else None
@@ -94,16 +95,25 @@ class ReviewTimeEvaluator:
         queued_card_candidates, hit_end_of_queue = self.get_queued_card_candidates(
             existing_candidate_ids={card.id for card in current_card_candidates}
         )
+
+        logger.debug(
+            f"Found {len(current_card_candidates)} eligible current card(s) and {len(queued_card_candidates)} eligible queued card(s) for review-time evaluation"
+        )
+
         candidates = current_card_candidates + queued_card_candidates
 
         if not candidates:
+            logger.info("Zero eligible cards found for review-time evaluation")
             return
 
         if (
             not current_card_candidates
-            and len(queued_card_candidates) < MIN_TOP_OFF
+            and len(queued_card_candidates) < MIN_BATCH_SIZE
             and not hit_end_of_queue
         ):
+            logger.info(
+                "Not enough eligible cards to start review-time evaluation wave"
+            )
             return
 
         for card in candidates:
@@ -125,8 +135,10 @@ class ReviewTimeEvaluator:
 
         candidates: list[Card] = []
         candidate_ids = set(existing_candidate_ids)
-        scheduler: Any = mw.col.sched
+        scheduler = mw.col.sched
+
         queued_cards = scheduler.get_queued_cards(fetch_limit=LOOKAHEAD).cards
+
         hit_end_of_queue = len(queued_cards) < LOOKAHEAD
 
         for queued_card in queued_cards:
@@ -158,6 +170,7 @@ class ReviewTimeEvaluator:
         return not is_card_fully_processed(card)
 
     async def run_batch(self, candidates: list[Card]) -> None:
+        logger.info(f"Starting review-time evaluation wave for {len(candidates)} cards")
         results = await asyncio.gather(
             *[self.run_card_task(card) for card in candidates],
             return_exceptions=True,
@@ -181,8 +194,9 @@ class ReviewTimeEvaluator:
             self.in_flight.discard(card.id)
 
         run_on_main(
-            lambda card_id=card.id,
-            did_change=did_change: self.maybe_redraw_and_sparkle(card_id, did_change)
+            lambda card_id=card.id, did_change=did_change: self.maybe_redraw_and_sparkle(
+                card_id, did_change
+            )
         )
 
     def on_complete(self, _: Any) -> None:
