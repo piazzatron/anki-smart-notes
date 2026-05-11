@@ -75,7 +75,8 @@ class NoteProcessor:
     def __init__(self, field_processor: FieldProcessor, config: Config):
         self.field_processor = field_processor
         self.config = config
-        self.req_in_progress = False
+        self.in_flight: set[CardId] = set()
+        self.batch_in_progress = False
         self._cancelled = threading.Event()
 
     def process_cards_with_progress(
@@ -89,6 +90,10 @@ class NoteProcessor:
         if not mw or not mw.col:
             return
 
+        if self.batch_in_progress:
+            logger.info("A batch is already in progress.")
+            return
+
         bump_usage_counter()
         cards = [mw.col.get_card(card_in) for card_in in card_ids]
 
@@ -98,7 +103,7 @@ class NoteProcessor:
         note_ids = [card.nid for card in cards]
         did_map = {card.nid: card.did for card in cards}
 
-        if not self._assert_preconditions():
+        if not self._assert_valid_app_mode():
             return
 
         logger.debug("Processing notes...")
@@ -106,19 +111,20 @@ class NoteProcessor:
         if not is_capacity_remaining_or_legacy(show_box=False):
             return
 
+        self.batch_in_progress = True
         self._cancelled.clear()
 
         def wrapped_on_success(res: tuple[list[Note], list[Note], list[Note]]) -> None:
             updated, failed, skipped = res
+            self.batch_in_progress = False
             if not mw or not mw.col:
                 return
             mw.col.update_notes(updated)
-            self._reqlinquish_req_in_process()
             if on_success:
                 on_success(updated, failed, skipped)
 
         def on_failure(e: Exception) -> None:
-            self._reqlinquish_req_in_process()
+            self.batch_in_progress = False
             if isinstance(e, OutOfCreditsError):
                 app_state.update_subscription_state()
             else:
@@ -297,18 +303,23 @@ class NoteProcessor:
         if not self._assert_preconditions():
             return
 
+        if card.id in self.in_flight:
+            logger.info(f"Card {card.id} is already in progress.")
+            return
+
+        self.in_flight.add(card.id)
         bump_usage_counter()
 
         self._cancelled.clear()
         note = card.note()
 
         def wrapped_on_success(updated: bool) -> None:
-            self._reqlinquish_req_in_process()
+            self.in_flight.discard(card.id)
             on_success(updated)
 
         def wrapped_failure(e: Exception) -> None:
             self._handle_failure(e)
-            self._reqlinquish_req_in_process()
+            self.in_flight.discard(card.id)
             if on_failure:
                 on_failure(e)
 
@@ -480,20 +491,7 @@ class NoteProcessor:
         valid_app_mode = self._assert_valid_app_mode()
         if not valid_app_mode:
             logger.error("Invalid app mode")
-            return False
-        no_existing_req = self.assert_no_req_in_process()
-        return no_existing_req
-
-    def assert_no_req_in_process(self) -> bool:
-        if self.req_in_progress:
-            logger.info("A request is already in progress.")
-            return False
-
-        self.req_in_progress = True
-        return True
-
-    def _reqlinquish_req_in_process(self) -> None:
-        self.req_in_progress = False
+        return valid_app_mode
 
     def _check_cancel(self) -> bool:
         if self._cancelled.is_set():
