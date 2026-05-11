@@ -537,6 +537,73 @@ async def test_processor_1(name, note, prompts_map, expected, options, monkeypat
         assert n[k] == v, f"{name}: Field {k} is {n[k]}, expected {v}"
 
 
+def test_process_card_forwards_use_collection(monkeypatch):
+    from src.note_proccessor import NoteProcessor
+
+    class MockCard:
+        did = 1
+
+        def note(self):
+            return MockNote(note_type=NOTE_TYPE_NAME, data={"f1": "1"})
+
+    calls = []
+    processor = NoteProcessor(  # type: ignore
+        field_processor=None,
+        config=MockConfig(prompts_map={}, allow_empty_fields=False),
+    )
+    monkeypatch.setattr(processor, "_assert_preconditions", lambda: True)
+    monkeypatch.setattr("src.note_proccessor.bump_usage_counter", lambda: None)
+    monkeypatch.setattr(
+        "src.note_proccessor.run_async_in_background_with_sentry",
+        lambda op,
+        on_success,
+        on_failure=None,
+        with_progress=False,
+        use_collection=True: calls.append(use_collection),
+    )
+
+    processor.process_card(MockCard(), show_progress=False, use_collection=False)  # type: ignore
+
+    assert calls == [False]
+
+
+@pytest.mark.asyncio
+async def test_process_note_updates_collection_on_main_thread(monkeypatch):
+    import src.note_proccessor
+
+    class MockCollection:
+        def __init__(self):
+            self.updated_notes = []
+
+        def update_note(self, note):
+            self.updated_notes.append(note)
+
+    class MockProgress:
+        def want_cancel(self):
+            return False
+
+    class MockMw:
+        def __init__(self):
+            self.col = MockCollection()
+            self.progress = MockProgress()
+
+    n = MockNote(note_type=NOTE_TYPE_NAME, data={"f1": "1", "f2": ""})
+    p = setup_data(  # type: ignore
+        monkeypatch=monkeypatch,
+        note=n,
+        prompts_map={"f2": "{{f1}}"},
+        options={},
+        allow_empty_fields=False,
+    )
+    mw = MockMw()
+    monkeypatch.setattr(src.note_proccessor, "mw", mw)
+    monkeypatch.setattr(src.note_proccessor, "run_on_main", lambda work: work())
+
+    await p._process_note(n, deck_id=1)
+
+    assert mw.col.updated_notes == [n]
+
+
 """
 test_cycle Parameters:
     note: dict[str, str] - Note field data

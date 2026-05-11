@@ -368,7 +368,11 @@ def on_review(processor: NoteProcessor, card: Card):
         Sparkle()
 
     processor.process_card(
-        card, overwrite_fields=False, on_success=on_success, show_progress=False
+        card,
+        overwrite_fields=False,
+        on_success=on_success,
+        show_progress=False,
+        use_collection=False,
     )
 
 

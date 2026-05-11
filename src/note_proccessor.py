@@ -291,7 +291,8 @@ class NoteProcessor:
         on_failure: Optional[Callable[[Exception], None]] = None,
         target_field: Optional[str] = None,
         on_field_update: Optional[Callable[[], None]] = None,
-    ):
+        use_collection: bool = True,
+    ) -> None:
         """Process a single note, filling in fields with prompts from the user"""
         if not self._assert_preconditions():
             return
@@ -324,6 +325,7 @@ class NoteProcessor:
             ),
             wrapped_on_success,
             wrapped_failure,
+            use_collection=use_collection,
         )
 
     # Note: one quirk is that if overwrite_fields = True AND there's a target field,
@@ -416,8 +418,11 @@ class NoteProcessor:
                         out_node.in_nodes.remove(node)
 
                     if note.id and node.did_update:
-                        if mw and mw.col:
-                            mw.col.update_note(note)
+                        run_on_main(
+                            lambda note=note: (
+                                mw.col.update_note(note) if mw and mw.col else None
+                            )
+                        )
                         did_update = True
 
                     dag.pop(field)
