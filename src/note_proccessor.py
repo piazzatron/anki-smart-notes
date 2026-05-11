@@ -75,7 +75,7 @@ class NoteProcessor:
     def __init__(self, field_processor: FieldProcessor, config: Config):
         self.field_processor = field_processor
         self.config = config
-        self.req_in_progress = False
+        self.batch_in_progress = False
         self._cancelled = threading.Event()
 
     def process_cards_with_progress(
@@ -89,6 +89,10 @@ class NoteProcessor:
         if not mw or not mw.col:
             return
 
+        if self.batch_in_progress:
+            logger.info("A batch is already in progress.")
+            return
+
         bump_usage_counter()
         cards = [mw.col.get_card(card_in) for card_in in card_ids]
 
@@ -98,7 +102,7 @@ class NoteProcessor:
         note_ids = [card.nid for card in cards]
         did_map = {card.nid: card.did for card in cards}
 
-        if not self._assert_preconditions():
+        if not self._assert_valid_app_mode():
             return
 
         logger.debug("Processing notes...")
@@ -106,19 +110,20 @@ class NoteProcessor:
         if not is_capacity_remaining_or_legacy(show_box=False):
             return
 
+        self.batch_in_progress = True
         self._cancelled.clear()
 
         def wrapped_on_success(res: tuple[list[Note], list[Note], list[Note]]) -> None:
             updated, failed, skipped = res
+            self.batch_in_progress = False
             if not mw or not mw.col:
                 return
             mw.col.update_notes(updated)
-            self._reqlinquish_req_in_process()
             if on_success:
                 on_success(updated, failed, skipped)
 
         def on_failure(e: Exception) -> None:
-            self._reqlinquish_req_in_process()
+            self.batch_in_progress = False
             if isinstance(e, OutOfCreditsError):
                 app_state.update_subscription_state()
             else:
@@ -252,7 +257,7 @@ class NoteProcessor:
         tasks = []
         for note in to_process:
             tasks.append(
-                self._process_note(
+                self.process_note(
                     note, overwrite_fields=overwrite_fields, deck_id=did_map[note.id]
                 )
             )
@@ -291,7 +296,8 @@ class NoteProcessor:
         on_failure: Optional[Callable[[Exception], None]] = None,
         target_field: Optional[str] = None,
         on_field_update: Optional[Callable[[], None]] = None,
-    ):
+        use_collection: bool = True,
+    ) -> None:
         """Process a single note, filling in fields with prompts from the user"""
         if not self._assert_preconditions():
             return
@@ -302,19 +308,17 @@ class NoteProcessor:
         note = card.note()
 
         def wrapped_on_success(updated: bool) -> None:
-            self._reqlinquish_req_in_process()
             on_success(updated)
 
         def wrapped_failure(e: Exception) -> None:
             self._handle_failure(e)
-            self._reqlinquish_req_in_process()
             if on_failure:
                 on_failure(e)
 
         # NOTE: for some reason i can't run bump_usage_counter in this hook without causing a
         # an PyQT crash, so I'm running it in the on_success callback instead
         run_async_in_background_with_sentry(
-            lambda: self._process_note(
+            lambda: self.process_note(
                 note,
                 overwrite_fields=overwrite_fields,
                 deck_id=card.did,
@@ -324,13 +328,14 @@ class NoteProcessor:
             ),
             wrapped_on_success,
             wrapped_failure,
+            use_collection=use_collection,
         )
 
     # Note: one quirk is that if overwrite_fields = True AND there's a target field,
     # it will regenerate any fields up until the target field. A bit weird but
     # this combination of values doesn't really make sense anyways so it's probably fine.
     # Would be better modeled with some mode switch or something.
-    async def _process_note(
+    async def process_note(
         self,
         note: Note,
         deck_id: DeckId,
@@ -416,8 +421,11 @@ class NoteProcessor:
                         out_node.in_nodes.remove(node)
 
                     if note.id and node.did_update:
-                        if mw and mw.col:
-                            mw.col.update_note(note)
+                        run_on_main(
+                            lambda note=note: (
+                                mw.col.update_note(note) if mw and mw.col else None
+                            )
+                        )
                         did_update = True
 
                     dag.pop(field)
@@ -475,20 +483,7 @@ class NoteProcessor:
         valid_app_mode = self._assert_valid_app_mode()
         if not valid_app_mode:
             logger.error("Invalid app mode")
-            return False
-        no_existing_req = self.assert_no_req_in_process()
-        return no_existing_req
-
-    def assert_no_req_in_process(self) -> bool:
-        if self.req_in_progress:
-            logger.info("A request is already in progress.")
-            return False
-
-        self.req_in_progress = True
-        return True
-
-    def _reqlinquish_req_in_process(self) -> None:
-        self.req_in_progress = False
+        return valid_app_mode
 
     def _check_cancel(self) -> bool:
         if self._cancelled.is_set():

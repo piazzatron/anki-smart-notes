@@ -26,7 +26,6 @@ import logging
 from collections.abc import Callable, Sequence
 from typing import Any, Optional
 
-from anki.cards import Card
 from anki.notes import Note
 from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
 from aqt.addcards import AddCards
@@ -41,15 +40,16 @@ from .message_polling import start_polling_for_messages
 from .migrations import migrate_models
 from .note_proccessor import NoteProcessor
 from .notes import get_field_from_index, is_ai_field, is_card_fully_processed
+from .review_time_evaluator import ReviewTimeEvaluator
 from .sentry import sentry, with_sentry
 from .tasks import run_async_in_background
 from .ui.addon_options_dialog import AddonOptionsDialog
 from .ui.changelog import perform_update_check
 from .ui.field_menu import FieldMenu
-from .ui.sparkle import Sparkle
 from .ui.ui_utils import show_message_box
 
 _local_server: Any = None
+_review_time_evaluator: Optional[ReviewTimeEvaluator] = None
 
 
 def with_processor(fn: Any):
@@ -277,6 +277,9 @@ def on_main_window(processor: NoteProcessor):
 
     from .local_server import LocalServer
 
+    global _review_time_evaluator
+    _review_time_evaluator = ReviewTimeEvaluator(processor)
+
     global _local_server
     _local_server = LocalServer(processor)
     _local_server.start()
@@ -337,42 +340,6 @@ def on_editor_context(
 
 
 @with_processor  # type: ignore
-def on_review(processor: NoteProcessor, card: Card):
-    logger.debug("Reviewing...")
-    if not is_capacity_remaining_or_legacy(show_box=False):
-        return
-
-    if not config.generate_at_review:
-        return
-
-    note = card.note()
-
-    def on_success(did_change: bool):
-        if not did_change:
-            return
-
-        if not mw or not mw.col:
-            logger.error("Error: mw not found")
-            return
-
-        logger.debug("Did update card on review...")
-
-        mw.col.update_note(note)
-
-        # Reload the reviewer webview so async review-time generation is
-        # visible immediately without advancing away from the current card.
-        reviewer: Any = mw.reviewer
-        current_card = reviewer.card
-        if current_card is not None and current_card.id == card.id:
-            reviewer._redraw_current_card()
-        Sparkle()
-
-    processor.process_card(
-        card, overwrite_fields=False, on_success=on_success, show_progress=False
-    )
-
-
-@with_processor  # type: ignore
 def add_deck_option(
     processor: NoteProcessor,
     tree_view: browser.sidebar.SidebarTreeView,  # type: ignore
@@ -418,6 +385,9 @@ def cleanup() -> None:
         _local_server.stop()
         _local_server = None
 
+    global _review_time_evaluator
+    _review_time_evaluator = None
+
     logger.debug("Shutting down loggers")
     # Ridiculous hack to fix this sentry logger error:
     # I don't quite understand it but the stream handler setup in sentry_sdk
@@ -443,11 +413,23 @@ def prevent_batches_on_free_trial(notes: Any) -> bool:
 
 
 @with_sentry
+def evaluate_review_time_generation() -> None:
+    if _review_time_evaluator:
+        _review_time_evaluator.tick()
+
+
+@with_sentry
 def setup_hooks(processor: NoteProcessor):
     gui_hooks.browser_will_show_context_menu.append(on_browser_context(processor))
     gui_hooks.browser_sidebar_will_show_context_menu.append(add_deck_option(processor))
     gui_hooks.editor_did_init_buttons.append(add_editor_top_button(processor))
     gui_hooks.editor_will_show_context_menu.append(on_editor_context(processor))
-    gui_hooks.reviewer_did_show_question.append(on_review(processor))
+    gui_hooks.overview_did_refresh.append(lambda _: evaluate_review_time_generation())
+    gui_hooks.reviewer_did_show_question.append(
+        lambda _: evaluate_review_time_generation()
+    )
+    gui_hooks.reviewer_did_answer_card.append(
+        lambda *_: evaluate_review_time_generation()
+    )
     gui_hooks.main_window_did_init.append(on_main_window(processor))
     gui_hooks.profile_will_close.append(cleanup)
