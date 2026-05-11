@@ -202,7 +202,7 @@ def test_tick_skips_tiny_top_off_when_queue_has_more_cards(monkeypatch):
         current=MockCard(id=99, processed=True),
         queued=queued,
     )
-    monkeypatch.setattr(review_time_evaluator, "MIN_TOP_OFF", 10)
+    monkeypatch.setattr(review_time_evaluator, "MIN_BATCH_SIZE", 10)
     monkeypatch.setattr(
         review_time_evaluator,
         "run_async_in_background_with_sentry",
@@ -223,7 +223,7 @@ def test_tick_processes_tiny_top_off_at_end_of_queue(monkeypatch):
         current=MockCard(id=99, processed=True),
         queued=[MockCard(id=1)],
     )
-    monkeypatch.setattr(review_time_evaluator, "MIN_TOP_OFF", 10)
+    monkeypatch.setattr(review_time_evaluator, "MIN_BATCH_SIZE", 10)
     monkeypatch.setattr(
         review_time_evaluator,
         "run_async_in_background_with_sentry",
@@ -245,7 +245,7 @@ def test_tick_processes_initial_wave_from_overview(monkeypatch):
         queued=[MockCard(id=1)],
         state="overview",
     )
-    monkeypatch.setattr(review_time_evaluator, "MIN_TOP_OFF", 10)
+    monkeypatch.setattr(review_time_evaluator, "MIN_BATCH_SIZE", 10)
     monkeypatch.setattr(
         review_time_evaluator,
         "run_async_in_background_with_sentry",
@@ -288,7 +288,7 @@ def test_current_card_bypasses_top_off_gate(monkeypatch):
         current=MockCard(id=99),
         queued=queued,
     )
-    monkeypatch.setattr(review_time_evaluator, "MIN_TOP_OFF", 10)
+    monkeypatch.setattr(review_time_evaluator, "MIN_BATCH_SIZE", 10)
     monkeypatch.setattr(
         review_time_evaluator,
         "run_async_in_background_with_sentry",
