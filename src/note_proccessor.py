@@ -75,7 +75,6 @@ class NoteProcessor:
     def __init__(self, field_processor: FieldProcessor, config: Config):
         self.field_processor = field_processor
         self.config = config
-        self.in_flight: set[CardId] = set()
         self.batch_in_progress = False
         self._cancelled = threading.Event()
 
@@ -303,23 +302,16 @@ class NoteProcessor:
         if not self._assert_preconditions():
             return
 
-        if card.id in self.in_flight:
-            logger.info(f"Card {card.id} is already in progress.")
-            return
-
-        self.in_flight.add(card.id)
         bump_usage_counter()
 
         self._cancelled.clear()
         note = card.note()
 
         def wrapped_on_success(updated: bool) -> None:
-            self.in_flight.discard(card.id)
             on_success(updated)
 
         def wrapped_failure(e: Exception) -> None:
             self._handle_failure(e)
-            self.in_flight.discard(card.id)
             if on_failure:
                 on_failure(e)
 

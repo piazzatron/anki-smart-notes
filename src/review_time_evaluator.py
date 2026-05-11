@@ -52,6 +52,8 @@ class ReviewTimeEvaluator:
 
     def __init__(self, processor: NoteProcessor) -> None:
         self.processor = processor
+        self.in_flight: set[CardId] = set()
+        self.wave_in_progress = False
         self.pending_tick = False
 
     def tick(self) -> None:
@@ -60,11 +62,11 @@ class ReviewTimeEvaluator:
         # the current card if it still needs fields, scan Anki's scheduler lookahead for
         # more eligible cards, and start one background wave for the uncovered cards.
         #
-        # Only one batch-style operation may run at a time. If a browser batch or prior
-        # review wave is active, remember that another tick is needed and replay it when
-        # the active batch completes. Otherwise, wait until enough uncovered cards have
-        # accumulated, unless the scheduler returned fewer than LOOKAHEAD cards and
-        # this wave should flush the end-of-queue leftovers.
+        # Only one review wave may run at a time. If a prior review wave is active,
+        # remember that another tick is needed and replay it when the active wave
+        # completes. Otherwise, wait until enough uncovered cards have accumulated,
+        # unless the scheduler returned fewer than LOOKAHEAD cards and this wave should
+        # flush the end-of-queue leftovers.
         if not mw or not mw.col or mw.state != "review":
             return
 
@@ -74,7 +76,7 @@ class ReviewTimeEvaluator:
         if not is_capacity_remaining_or_legacy(show_box=False):
             return
 
-        if self.processor.batch_in_progress:
+        if self.wave_in_progress:
             self.pending_tick = True
             return
 
@@ -103,8 +105,8 @@ class ReviewTimeEvaluator:
             return
 
         for card in candidates:
-            self.processor.in_flight.add(card.id)
-        self.processor.batch_in_progress = True
+            self.in_flight.add(card.id)
+        self.wave_in_progress = True
 
         run_async_in_background_with_sentry(
             lambda: self.run_batch(candidates),
@@ -133,9 +135,9 @@ class ReviewTimeEvaluator:
             if card.id in candidate_ids:
                 continue
 
-            # Other generation entry points share this set, which prevents
-            # overlapping work when the reviewer and editor/browser both tick.
-            if card.id in self.processor.in_flight:
+            # Avoid processing the same queued card twice while an earlier
+            # review wave is still generating it.
+            if card.id in self.in_flight:
                 continue
 
             # Already-processed cards don't need to be included in the next
@@ -149,7 +151,7 @@ class ReviewTimeEvaluator:
         return (candidates, hit_end_of_queue)
 
     def is_card_eligible(self, card: Card) -> bool:
-        if card.id in self.processor.in_flight:
+        if card.id in self.in_flight:
             return False
         return not is_card_fully_processed(card)
 
@@ -174,7 +176,7 @@ class ReviewTimeEvaluator:
                 f"Error prepping card {card.id}: {e}, {''.join(traceback.format_exception(type(e), e, e.__traceback__))}"
             )
         finally:
-            self.processor.in_flight.discard(card.id)
+            self.in_flight.discard(card.id)
 
         run_on_main(
             lambda card_id=card.id,
@@ -182,11 +184,11 @@ class ReviewTimeEvaluator:
         )
 
     def on_complete(self, _: Any) -> None:
-        self.processor.batch_in_progress = False
+        self.wave_in_progress = False
         self.process_pending_tick()
 
     def on_complete_error(self, e: Exception) -> None:
-        self.processor.batch_in_progress = False
+        self.wave_in_progress = False
         if isinstance(e, OutOfCreditsError):
             app_state.update_subscription_state()
         self.process_pending_tick()

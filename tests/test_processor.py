@@ -568,35 +568,6 @@ def test_process_card_forwards_use_collection(monkeypatch):
     assert calls == [False]
 
 
-def test_process_card_dedupes_in_flight_card(monkeypatch):
-    from src.note_proccessor import NoteProcessor
-
-    class MockCard:
-        id = 1
-        did = 1
-
-        def note(self):
-            return MockNote(note_type=NOTE_TYPE_NAME, data={"f1": "1"})
-
-    calls = []
-    processor = NoteProcessor(  # type: ignore
-        field_processor=None,
-        config=MockConfig(prompts_map={}, allow_empty_fields=False),
-    )
-    monkeypatch.setattr(processor, "_assert_preconditions", lambda: True)
-    monkeypatch.setattr("src.note_proccessor.bump_usage_counter", lambda: None)
-    monkeypatch.setattr(
-        "src.note_proccessor.run_async_in_background_with_sentry",
-        lambda *args, **kwargs: calls.append(args),
-    )
-
-    processor.process_card(MockCard(), show_progress=False)  # type: ignore
-    processor.process_card(MockCard(), show_progress=False)  # type: ignore
-
-    assert len(calls) == 1
-    assert processor.in_flight == {1}
-
-
 def test_process_cards_with_progress_noops_during_batch(monkeypatch):
     import src.note_proccessor
     from src.note_proccessor import NoteProcessor

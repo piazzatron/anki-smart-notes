@@ -37,8 +37,6 @@ class MockCard:
 
 class MockProcessor:
     def __init__(self) -> None:
-        self.in_flight: set[int] = set()
-        self.batch_in_progress = False
         self.processed_cards: list[int] = []
 
     async def process_note(
@@ -124,13 +122,13 @@ def setup_review_time_evaluator(monkeypatch, current=None, queued=None):
     return evaluator, processor, src.review_time_evaluator
 
 
-def test_tick_sets_pending_tick_when_batch_in_progress(monkeypatch):
-    evaluator, processor, _ = setup_review_time_evaluator(
+def test_tick_sets_pending_tick_when_wave_in_progress(monkeypatch):
+    evaluator, _, _ = setup_review_time_evaluator(
         monkeypatch,
         current=MockCard(id=1),
         queued=[],
     )
-    processor.batch_in_progress = True
+    evaluator.wave_in_progress = True
 
     evaluator.tick()
 
@@ -139,7 +137,7 @@ def test_tick_sets_pending_tick_when_batch_in_progress(monkeypatch):
 
 def test_get_queued_card_candidates_does_not_mutate_existing_ids(monkeypatch):
     existing_candidate_ids = {1}
-    evaluator, processor, _ = setup_review_time_evaluator(
+    evaluator, _, _ = setup_review_time_evaluator(
         monkeypatch,
         current=None,
         queued=[
@@ -148,7 +146,7 @@ def test_get_queued_card_candidates_does_not_mutate_existing_ids(monkeypatch):
             MockCard(id=3, processed=True),
         ],
     )
-    processor.in_flight.add(4)
+    evaluator.in_flight.add(4)
 
     candidates, hit_end_of_queue = evaluator.get_queued_card_candidates(
         existing_candidate_ids
@@ -167,12 +165,12 @@ def test_tick_filters_in_flight_and_processed_cards(monkeypatch):
         MockCard(id=3, processed=True),
         MockCard(id=4),
     ]
-    evaluator, processor, review_time_evaluator = setup_review_time_evaluator(
+    evaluator, _, review_time_evaluator = setup_review_time_evaluator(
         monkeypatch,
         current=current,
         queued=queued,
     )
-    processor.in_flight.add(2)
+    evaluator.in_flight.add(2)
     monkeypatch.setattr(
         review_time_evaluator,
         "run_async_in_background_with_sentry",
@@ -185,8 +183,8 @@ def test_tick_filters_in_flight_and_processed_cards(monkeypatch):
 
     evaluator.tick()
 
-    assert processor.in_flight == {2, 4}
-    assert processor.batch_in_progress
+    assert evaluator.in_flight == {2, 4}
+    assert evaluator.wave_in_progress
     assert len(started_batches) == 1
     assert started_batches[0][1] is False
 
@@ -197,7 +195,7 @@ def test_tick_skips_tiny_top_off_when_queue_has_more_cards(monkeypatch):
         MockCard(id=1),
         *[MockCard(id=i, processed=True) for i in range(2, 31)],
     ]
-    evaluator, processor, review_time_evaluator = setup_review_time_evaluator(
+    evaluator, _, review_time_evaluator = setup_review_time_evaluator(
         monkeypatch,
         current=MockCard(id=99, processed=True),
         queued=queued,
@@ -212,13 +210,13 @@ def test_tick_skips_tiny_top_off_when_queue_has_more_cards(monkeypatch):
     evaluator.tick()
 
     assert started_batches == []
-    assert processor.in_flight == set()
-    assert not processor.batch_in_progress
+    assert evaluator.in_flight == set()
+    assert not evaluator.wave_in_progress
 
 
 def test_tick_processes_tiny_top_off_at_end_of_queue(monkeypatch):
     started_batches = []
-    evaluator, processor, review_time_evaluator = setup_review_time_evaluator(
+    evaluator, _, review_time_evaluator = setup_review_time_evaluator(
         monkeypatch,
         current=MockCard(id=99, processed=True),
         queued=[MockCard(id=1)],
@@ -233,14 +231,14 @@ def test_tick_processes_tiny_top_off_at_end_of_queue(monkeypatch):
     evaluator.tick()
 
     assert len(started_batches) == 1
-    assert processor.in_flight == {1}
-    assert processor.batch_in_progress
+    assert evaluator.in_flight == {1}
+    assert evaluator.wave_in_progress
 
 
 def test_current_card_bypasses_top_off_gate(monkeypatch):
     started_batches = []
     queued = [MockCard(id=i, processed=True) for i in range(1, 11)]
-    evaluator, processor, review_time_evaluator = setup_review_time_evaluator(
+    evaluator, _, review_time_evaluator = setup_review_time_evaluator(
         monkeypatch,
         current=MockCard(id=99),
         queued=queued,
@@ -255,8 +253,8 @@ def test_current_card_bypasses_top_off_gate(monkeypatch):
     evaluator.tick()
 
     assert len(started_batches) == 1
-    assert processor.in_flight == {99}
-    assert processor.batch_in_progress
+    assert evaluator.in_flight == {99}
+    assert evaluator.wave_in_progress
 
 
 def test_pending_tick_refires_after_completion(monkeypatch):
@@ -276,8 +274,8 @@ def test_pending_tick_refires_after_completion(monkeypatch):
     evaluator.on_complete(None)
 
     assert not evaluator.pending_tick
-    assert processor.batch_in_progress
-    assert processor.in_flight == {1}
+    assert evaluator.wave_in_progress
+    assert evaluator.in_flight == {1}
     assert len(started_batches) == 1
 
 
@@ -298,8 +296,8 @@ def test_tick_clears_stale_pending_tick_when_starting_batch(monkeypatch):
     evaluator.tick()
 
     assert not evaluator.pending_tick
-    assert processor.batch_in_progress
-    assert processor.in_flight == {1}
+    assert evaluator.wave_in_progress
+    assert evaluator.in_flight == {1}
     assert len(started_batches) == 1
 
 
@@ -328,7 +326,7 @@ async def test_run_batch_updates_state_for_each_card(monkeypatch):
         current=MockCard(id=1),
         queued=[],
     )
-    processor.in_flight.update({1, 2})
+    evaluator.in_flight.update({1, 2})
     redraws = []
     monkeypatch.setattr(
         review_time_evaluator,
@@ -338,6 +336,6 @@ async def test_run_batch_updates_state_for_each_card(monkeypatch):
 
     await evaluator.run_batch([MockCard(id=1, did=10), MockCard(id=2, did=20)])
 
-    assert processor.in_flight == set()
+    assert evaluator.in_flight == set()
     assert processor.processed_cards == [10, 20]
     assert len(redraws) == 2
