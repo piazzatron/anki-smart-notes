@@ -34,11 +34,22 @@ from .sentry import run_async_in_background_with_sentry
 from .ui.sparkle import Sparkle
 from .utils import run_on_main
 
+# Number of upcoming scheduler cards to inspect on each review tick.
 LOOKAHEAD = 30
+
+# Minimum uncovered queue size required before firing a top-off batch when the
+# reviewer already has a comfortable buffer of processed cards ahead.
 MIN_TOP_OFF = 10
 
 
-class ReviewPrepper:
+class ReviewTimeEvaluator:
+    """Keeps review-time Smart Field generation ahead of the reviewer.
+
+    Each reviewer tick evaluates the current card plus the scheduler lookahead
+    queue, starts one background generation wave when useful, and redraws only
+    the currently visible card as individual card tasks complete.
+    """
+
     def __init__(self, processor: NoteProcessor) -> None:
         self.processor = processor
         self.pending_tick = False
@@ -59,15 +70,23 @@ class ReviewPrepper:
 
         self.pending_tick = False
 
-        candidates: list[Card] = []
-        current_card_needs_processing = self.add_current_card_if_eligible(candidates)
-        processed_ahead_count = self.add_queued_cards_if_eligible(candidates)
+        reviewer = mw.reviewer
+        current_card = reviewer.card if reviewer else None
+        current_card_candidates = (
+            [current_card]
+            if current_card and self.is_card_eligible(current_card)
+            else []
+        )
+        queued_card_candidates, processed_ahead_count = self.get_queued_card_candidates(
+            existing_candidate_ids={card.id for card in current_card_candidates}
+        )
+        candidates = current_card_candidates + queued_card_candidates
 
         if not candidates:
             return
 
         if (
-            not current_card_needs_processing
+            not current_card_candidates
             and len(candidates) < MIN_TOP_OFF
             and processed_ahead_count >= MIN_TOP_OFF
         ):
@@ -84,31 +103,32 @@ class ReviewPrepper:
             use_collection=False,
         )
 
-    def add_current_card_if_eligible(self, candidates: list[Card]) -> bool:
-        reviewer = mw.reviewer if mw else None
-        card = reviewer.card if reviewer else None
-        if not card or not self.is_card_eligible(card):
-            return False
-
-        candidates.append(card)
-        return True
-
-    def add_queued_cards_if_eligible(self, candidates: list[Card]) -> int:
+    def get_queued_card_candidates(
+        self, existing_candidate_ids: set[CardId]
+    ) -> tuple[list[Card], int]:
         if not mw or not mw.col:
-            return 0
+            return ([], 0)
 
+        candidates: list[Card] = []
         processed_ahead_count = 0
-        candidate_ids = {card.id for card in candidates}
+        candidate_ids = set(existing_candidate_ids)
         scheduler: Any = mw.col.sched
-        if not hasattr(scheduler, "get_queued_cards"):
-            return 0
 
         for queued_card in scheduler.get_queued_cards(fetch_limit=LOOKAHEAD).cards:
             card = Card(mw.col, backend_card=queued_card.card)
+
+            # The current card can also appear in Anki's lookahead queue, so
+            # keep only the first copy of a card in this evaluation wave.
             if card.id in candidate_ids:
                 continue
+
+            # Other generation entry points share this set, which prevents
+            # overlapping work when the reviewer and editor/browser both tick.
             if card.id in self.processor.in_flight:
                 continue
+
+            # Processed cards count toward the user's ahead-of-time buffer, but
+            # they don't need to be included in the next generation batch.
             if is_card_fully_processed(card):
                 processed_ahead_count += 1
                 continue
@@ -116,7 +136,7 @@ class ReviewPrepper:
             candidates.append(card)
             candidate_ids.add(card.id)
 
-        return processed_ahead_count
+        return (candidates, processed_ahead_count)
 
     def is_card_eligible(self, card: Card) -> bool:
         if card.id in self.processor.in_flight:

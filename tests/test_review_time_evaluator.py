@@ -96,45 +96,67 @@ class MockConfig:
     generate_at_review = True
 
 
-def setup_review_prepper(monkeypatch, current=None, queued=None):
-    import src.review_prepper
+def setup_review_time_evaluator(monkeypatch, current=None, queued=None):
+    import src.review_time_evaluator
 
     if queued is None:
         queued = []
 
     processor = MockProcessor()
-    prepper = src.review_prepper.ReviewPrepper(processor)  # type: ignore
-    monkeypatch.setattr(src.review_prepper, "mw", MockMw(current, queued))
-    monkeypatch.setattr(src.review_prepper, "config", MockConfig())
+    evaluator = src.review_time_evaluator.ReviewTimeEvaluator(processor)  # type: ignore
+    monkeypatch.setattr(src.review_time_evaluator, "mw", MockMw(current, queued))
+    monkeypatch.setattr(src.review_time_evaluator, "config", MockConfig())
     monkeypatch.setattr(
-        src.review_prepper,
+        src.review_time_evaluator,
         "is_capacity_remaining_or_legacy",
         lambda show_box=False: True,
     )
     monkeypatch.setattr(
-        src.review_prepper,
+        src.review_time_evaluator,
         "is_card_fully_processed",
         lambda card: card.processed,
     )
     monkeypatch.setattr(
-        src.review_prepper,
+        src.review_time_evaluator,
         "Card",
         lambda col, backend_card: backend_card,
     )
-    return prepper, processor, src.review_prepper
+    return evaluator, processor, src.review_time_evaluator
 
 
 def test_tick_sets_pending_tick_when_batch_in_progress(monkeypatch):
-    prepper, processor, _ = setup_review_prepper(
+    evaluator, processor, _ = setup_review_time_evaluator(
         monkeypatch,
         current=MockCard(id=1),
         queued=[],
     )
     processor.batch_in_progress = True
 
-    prepper.tick()
+    evaluator.tick()
 
-    assert prepper.pending_tick
+    assert evaluator.pending_tick
+
+
+def test_get_queued_card_candidates_does_not_mutate_existing_ids(monkeypatch):
+    existing_candidate_ids = {1}
+    evaluator, processor, _ = setup_review_time_evaluator(
+        monkeypatch,
+        current=None,
+        queued=[
+            MockCard(id=1),
+            MockCard(id=2),
+            MockCard(id=3, processed=True),
+        ],
+    )
+    processor.in_flight.add(4)
+
+    candidates, processed_ahead_count = evaluator.get_queued_card_candidates(
+        existing_candidate_ids
+    )
+
+    assert [card.id for card in candidates] == [2]
+    assert processed_ahead_count == 1
+    assert existing_candidate_ids == {1}
 
 
 def test_tick_filters_in_flight_and_processed_cards(monkeypatch):
@@ -145,14 +167,14 @@ def test_tick_filters_in_flight_and_processed_cards(monkeypatch):
         MockCard(id=3, processed=True),
         MockCard(id=4),
     ]
-    prepper, processor, review_prepper = setup_review_prepper(
+    evaluator, processor, review_time_evaluator = setup_review_time_evaluator(
         monkeypatch,
         current=current,
         queued=queued,
     )
     processor.in_flight.add(2)
     monkeypatch.setattr(
-        review_prepper,
+        review_time_evaluator,
         "run_async_in_background_with_sentry",
         lambda op,
         on_success,
@@ -161,7 +183,7 @@ def test_tick_filters_in_flight_and_processed_cards(monkeypatch):
         use_collection=True: started_batches.append((op, use_collection)),
     )
 
-    prepper.tick()
+    evaluator.tick()
 
     assert processor.in_flight == {2, 4}
     assert processor.batch_in_progress
@@ -175,19 +197,19 @@ def test_tick_skips_tiny_top_off_when_buffer_is_comfortable(monkeypatch):
         *[MockCard(id=i, processed=True) for i in range(1, 11)],
         MockCard(id=11),
     ]
-    prepper, processor, review_prepper = setup_review_prepper(
+    evaluator, processor, review_time_evaluator = setup_review_time_evaluator(
         monkeypatch,
         current=MockCard(id=99, processed=True),
         queued=queued,
     )
-    monkeypatch.setattr(review_prepper, "MIN_TOP_OFF", 10)
+    monkeypatch.setattr(review_time_evaluator, "MIN_TOP_OFF", 10)
     monkeypatch.setattr(
-        review_prepper,
+        review_time_evaluator,
         "run_async_in_background_with_sentry",
         lambda *args, **kwargs: started_batches.append(args),
     )
 
-    prepper.tick()
+    evaluator.tick()
 
     assert started_batches == []
     assert processor.in_flight == set()
@@ -197,19 +219,19 @@ def test_tick_skips_tiny_top_off_when_buffer_is_comfortable(monkeypatch):
 def test_current_card_bypasses_top_off_gate(monkeypatch):
     started_batches = []
     queued = [MockCard(id=i, processed=True) for i in range(1, 11)]
-    prepper, processor, review_prepper = setup_review_prepper(
+    evaluator, processor, review_time_evaluator = setup_review_time_evaluator(
         monkeypatch,
         current=MockCard(id=99),
         queued=queued,
     )
-    monkeypatch.setattr(review_prepper, "MIN_TOP_OFF", 10)
+    monkeypatch.setattr(review_time_evaluator, "MIN_TOP_OFF", 10)
     monkeypatch.setattr(
-        review_prepper,
+        review_time_evaluator,
         "run_async_in_background_with_sentry",
         lambda *args, **kwargs: started_batches.append(args),
     )
 
-    prepper.tick()
+    evaluator.tick()
 
     assert len(started_batches) == 1
     assert processor.in_flight == {99}
@@ -218,21 +240,21 @@ def test_current_card_bypasses_top_off_gate(monkeypatch):
 
 def test_pending_tick_refires_after_completion(monkeypatch):
     started_batches = []
-    prepper, processor, review_prepper = setup_review_prepper(
+    evaluator, processor, review_time_evaluator = setup_review_time_evaluator(
         monkeypatch,
         current=MockCard(id=1),
         queued=[],
     )
     monkeypatch.setattr(
-        review_prepper,
+        review_time_evaluator,
         "run_async_in_background_with_sentry",
         lambda *args, **kwargs: started_batches.append(args),
     )
-    prepper.pending_tick = True
+    evaluator.pending_tick = True
 
-    prepper.on_complete(None)
+    evaluator.on_complete(None)
 
-    assert not prepper.pending_tick
+    assert not evaluator.pending_tick
     assert processor.batch_in_progress
     assert processor.in_flight == {1}
     assert len(started_batches) == 1
@@ -240,21 +262,21 @@ def test_pending_tick_refires_after_completion(monkeypatch):
 
 def test_tick_clears_stale_pending_tick_when_starting_batch(monkeypatch):
     started_batches = []
-    prepper, processor, review_prepper = setup_review_prepper(
+    evaluator, processor, review_time_evaluator = setup_review_time_evaluator(
         monkeypatch,
         current=MockCard(id=1),
         queued=[],
     )
-    prepper.pending_tick = True
+    evaluator.pending_tick = True
     monkeypatch.setattr(
-        review_prepper,
+        review_time_evaluator,
         "run_async_in_background_with_sentry",
         lambda *args, **kwargs: started_batches.append(args),
     )
 
-    prepper.tick()
+    evaluator.tick()
 
-    assert not prepper.pending_tick
+    assert not evaluator.pending_tick
     assert processor.batch_in_progress
     assert processor.in_flight == {1}
     assert len(started_batches) == 1
@@ -262,25 +284,25 @@ def test_tick_clears_stale_pending_tick_when_starting_batch(monkeypatch):
 
 def test_maybe_redraw_only_for_current_card(monkeypatch):
     current = MockCard(id=1)
-    prepper, _, review_prepper = setup_review_prepper(
+    evaluator, _, review_time_evaluator = setup_review_time_evaluator(
         monkeypatch,
         current=current,
         queued=[],
     )
     sparkles = []
-    monkeypatch.setattr(review_prepper, "Sparkle", lambda: sparkles.append(True))
+    monkeypatch.setattr(review_time_evaluator, "Sparkle", lambda: sparkles.append(True))
 
-    prepper.maybe_redraw_and_sparkle(2, True)
-    prepper.maybe_redraw_and_sparkle(1, False)
-    prepper.maybe_redraw_and_sparkle(1, True)
+    evaluator.maybe_redraw_and_sparkle(2, True)
+    evaluator.maybe_redraw_and_sparkle(1, False)
+    evaluator.maybe_redraw_and_sparkle(1, True)
 
-    assert review_prepper.mw.reviewer.redraws == 1
+    assert review_time_evaluator.mw.reviewer.redraws == 1
     assert sparkles == [True]
 
 
 @pytest.mark.asyncio
 async def test_run_batch_updates_state_for_each_card(monkeypatch):
-    prepper, processor, review_prepper = setup_review_prepper(
+    evaluator, processor, review_time_evaluator = setup_review_time_evaluator(
         monkeypatch,
         current=MockCard(id=1),
         queued=[],
@@ -288,12 +310,12 @@ async def test_run_batch_updates_state_for_each_card(monkeypatch):
     processor.in_flight.update({1, 2})
     redraws = []
     monkeypatch.setattr(
-        review_prepper,
+        review_time_evaluator,
         "run_on_main",
         lambda work: redraws.append(work),
     )
 
-    await prepper.run_batch([MockCard(id=1, did=10), MockCard(id=2, did=20)])
+    await evaluator.run_batch([MockCard(id=1, did=10), MockCard(id=2, did=20)])
 
     assert processor.in_flight == set()
     assert processor.processed_cards == [10, 20]
