@@ -19,9 +19,10 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import asyncio
 import traceback
-from typing import Any
+from typing import Any, cast
 
 from anki.cards import Card, CardId
+from anki.scheduler.v3 import Scheduler
 from aqt import mw
 
 from .api_client import OutOfCreditsError
@@ -118,6 +119,9 @@ class ReviewTimeEvaluator:
 
         for card in candidates:
             self.in_flight.add(card.id)
+
+        # tick() runs synchronously on the main thread, so another hook cannot
+        # enter between the early wave_in_progress check and this assignment.
         self.wave_in_progress = True
 
         run_async_in_background_with_sentry(
@@ -135,7 +139,7 @@ class ReviewTimeEvaluator:
 
         candidates: list[Card] = []
         candidate_ids = set(existing_candidate_ids)
-        scheduler = mw.col.sched
+        scheduler = cast(Scheduler, mw.col.sched)
 
         queued_cards = scheduler.get_queued_cards(fetch_limit=LOOKAHEAD).cards
 
@@ -194,9 +198,8 @@ class ReviewTimeEvaluator:
             self.in_flight.discard(card.id)
 
         run_on_main(
-            lambda card_id=card.id, did_change=did_change: self.maybe_redraw_and_sparkle(
-                card_id, did_change
-            )
+            lambda card_id=card.id,
+            did_change=did_change: self.maybe_redraw_and_sparkle(card_id, did_change)
         )
 
     def on_complete(self, _: Any) -> None:
