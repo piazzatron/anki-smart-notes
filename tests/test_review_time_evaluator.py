@@ -150,12 +150,12 @@ def test_get_queued_card_candidates_does_not_mutate_existing_ids(monkeypatch):
     )
     processor.in_flight.add(4)
 
-    candidates, processed_ahead_count = evaluator.get_queued_card_candidates(
+    candidates, hit_end_of_queue = evaluator.get_queued_card_candidates(
         existing_candidate_ids
     )
 
     assert [card.id for card in candidates] == [2]
-    assert processed_ahead_count == 1
+    assert hit_end_of_queue
     assert existing_candidate_ids == {1}
 
 
@@ -191,11 +191,11 @@ def test_tick_filters_in_flight_and_processed_cards(monkeypatch):
     assert started_batches[0][1] is False
 
 
-def test_tick_skips_tiny_top_off_when_buffer_is_comfortable(monkeypatch):
+def test_tick_skips_tiny_top_off_when_queue_has_more_cards(monkeypatch):
     started_batches = []
     queued = [
-        *[MockCard(id=i, processed=True) for i in range(1, 11)],
-        MockCard(id=11),
+        MockCard(id=1),
+        *[MockCard(id=i, processed=True) for i in range(2, 31)],
     ]
     evaluator, processor, review_time_evaluator = setup_review_time_evaluator(
         monkeypatch,
@@ -214,6 +214,27 @@ def test_tick_skips_tiny_top_off_when_buffer_is_comfortable(monkeypatch):
     assert started_batches == []
     assert processor.in_flight == set()
     assert not processor.batch_in_progress
+
+
+def test_tick_processes_tiny_top_off_at_end_of_queue(monkeypatch):
+    started_batches = []
+    evaluator, processor, review_time_evaluator = setup_review_time_evaluator(
+        monkeypatch,
+        current=MockCard(id=99, processed=True),
+        queued=[MockCard(id=1)],
+    )
+    monkeypatch.setattr(review_time_evaluator, "MIN_TOP_OFF", 10)
+    monkeypatch.setattr(
+        review_time_evaluator,
+        "run_async_in_background_with_sentry",
+        lambda *args, **kwargs: started_batches.append(args),
+    )
+
+    evaluator.tick()
+
+    assert len(started_batches) == 1
+    assert processor.in_flight == {1}
+    assert processor.batch_in_progress
 
 
 def test_current_card_bypasses_top_off_gate(monkeypatch):

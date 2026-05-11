@@ -37,8 +37,8 @@ from .utils import run_on_main
 # Number of upcoming scheduler cards to inspect on each review tick.
 LOOKAHEAD = 30
 
-# Minimum uncovered queue size required before firing a top-off batch when the
-# reviewer already has a comfortable buffer of processed cards ahead.
+# Minimum number of uncovered queued cards required before firing a normal
+# top-off batch. Smaller batches still run when they flush the end of the queue.
 MIN_TOP_OFF = 10
 
 
@@ -62,9 +62,9 @@ class ReviewTimeEvaluator:
         #
         # Only one batch-style operation may run at a time. If a browser batch or prior
         # review wave is active, remember that another tick is needed and replay it when
-        # the active batch completes. Once the reviewer already has enough processed
-        # cards ahead, avoid firing tiny top-off batches until enough uncovered cards
-        # accumulate.
+        # the active batch completes. Otherwise, wait until enough uncovered cards have
+        # accumulated, unless the scheduler returned fewer than LOOKAHEAD cards and
+        # this wave should flush the end-of-queue leftovers.
         if not mw or not mw.col or mw.state != "review":
             return
 
@@ -87,7 +87,7 @@ class ReviewTimeEvaluator:
             if current_card and self.is_card_eligible(current_card)
             else []
         )
-        queued_card_candidates, processed_ahead_count = self.get_queued_card_candidates(
+        queued_card_candidates, hit_end_of_queue = self.get_queued_card_candidates(
             existing_candidate_ids={card.id for card in current_card_candidates}
         )
         candidates = current_card_candidates + queued_card_candidates
@@ -97,8 +97,8 @@ class ReviewTimeEvaluator:
 
         if (
             not current_card_candidates
-            and len(candidates) < MIN_TOP_OFF
-            and processed_ahead_count >= MIN_TOP_OFF
+            and len(queued_card_candidates) < MIN_TOP_OFF
+            and not hit_end_of_queue
         ):
             return
 
@@ -115,16 +115,17 @@ class ReviewTimeEvaluator:
 
     def get_queued_card_candidates(
         self, existing_candidate_ids: set[CardId]
-    ) -> tuple[list[Card], int]:
+    ) -> tuple[list[Card], bool]:
         if not mw or not mw.col:
-            return ([], 0)
+            return ([], False)
 
         candidates: list[Card] = []
-        processed_ahead_count = 0
         candidate_ids = set(existing_candidate_ids)
         scheduler: Any = mw.col.sched
+        queued_cards = scheduler.get_queued_cards(fetch_limit=LOOKAHEAD).cards
+        hit_end_of_queue = len(queued_cards) < LOOKAHEAD
 
-        for queued_card in scheduler.get_queued_cards(fetch_limit=LOOKAHEAD).cards:
+        for queued_card in queued_cards:
             card = Card(mw.col, backend_card=queued_card.card)
 
             # The current card can also appear in Anki's lookahead queue, so
@@ -137,16 +138,15 @@ class ReviewTimeEvaluator:
             if card.id in self.processor.in_flight:
                 continue
 
-            # Processed cards count toward the user's ahead-of-time buffer, but
-            # they don't need to be included in the next generation batch.
+            # Already-processed cards don't need to be included in the next
+            # generation batch.
             if is_card_fully_processed(card):
-                processed_ahead_count += 1
                 continue
 
             candidates.append(card)
             candidate_ids.add(card.id)
 
-        return (candidates, processed_ahead_count)
+        return (candidates, hit_end_of_queue)
 
     def is_card_eligible(self, card: Card) -> bool:
         if card.id in self.processor.in_flight:
