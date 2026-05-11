@@ -385,6 +385,9 @@ def cleanup() -> None:
         _local_server.stop()
         _local_server = None
 
+    global _review_time_evaluator
+    _review_time_evaluator = None
+
     logger.debug("Shutting down loggers")
     # Ridiculous hack to fix this sentry logger error:
     # I don't quite understand it but the stream handler setup in sentry_sdk
