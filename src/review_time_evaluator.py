@@ -55,6 +55,16 @@ class ReviewTimeEvaluator:
         self.pending_tick = False
 
     def tick(self) -> None:
+        # Review hooks call tick() whenever the current card changes or is answered.
+        # The evaluator keeps a small generation buffer ahead of the reviewer: include
+        # the current card if it still needs fields, scan Anki's scheduler lookahead for
+        # more eligible cards, and start one background wave for the uncovered cards.
+        #
+        # Only one batch-style operation may run at a time. If a browser batch or prior
+        # review wave is active, remember that another tick is needed and replay it when
+        # the active batch completes. Once the reviewer already has enough processed
+        # cards ahead, avoid firing tiny top-off batches until enough uncovered cards
+        # accumulate.
         if not mw or not mw.col or mw.state != "review":
             return
 
