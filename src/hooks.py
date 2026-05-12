@@ -241,8 +241,8 @@ def on_browser_context(processor: NoteProcessor, browser: browser.Browser, menu:
     item.triggered.connect(wrapped)
 
 
-def on_start_actions() -> None:
-    perform_update_check()
+def on_start_actions() -> bool:
+    should_open_options = perform_update_check()
     start_polling_for_messages()
     refresh_feature_flags()
 
@@ -254,6 +254,7 @@ def on_start_actions() -> None:
         deck_id_to_name_map()
 
     run_async_in_background(cache_leaf_decks_map)
+    return should_open_options
 
 
 @with_processor  # type: ignore
@@ -273,7 +274,7 @@ def on_main_window(processor: NoteProcessor):
     options_action.triggered.connect(lambda _: on_options(processor)())
     mw.form.menuTools.addAction(options_action)
     mw.addonManager.setConfigAction(__name__, on_options(processor))
-    on_start_actions()
+    should_open_options = on_start_actions()
 
     from .local_server import LocalServer
 
@@ -283,6 +284,9 @@ def on_main_window(processor: NoteProcessor):
     global _local_server
     _local_server = LocalServer(processor)
     _local_server.start()
+
+    if should_open_options:
+        on_options(processor)()
 
 
 @with_processor  # type: ignore
