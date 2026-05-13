@@ -202,6 +202,7 @@ class SubscriptionBox(QWidget):
         login = ClickableLabel("<a href>Already have an account? Sign in.</>")
         login.clicked.connect(self.login_clicked)
         login.setFont(font_small)
+        login.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         free_trial_layout = QVBoxLayout()
         free_trial_layout.addWidget(self.start_trial_button)
