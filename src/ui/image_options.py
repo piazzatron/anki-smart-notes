@@ -81,6 +81,7 @@ class ImageOptions(QWidget):
         self.model_picker.setMaximumWidth(300)
         box = QGroupBox("🖼️ Image Model Settings")
         layout = QVBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
         layout.addWidget(box)
         box_layout = default_form_layout()
         box.setLayout(box_layout)
@@ -100,4 +101,5 @@ class ImageOptions(QWidget):
         info_layout.addWidget(tips_body)
         info_box.setLayout(info_layout)
         box_layout.addRow(info_box)
+        layout.addStretch()
         self.setLayout(layout)

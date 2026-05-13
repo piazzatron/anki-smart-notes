@@ -76,7 +76,7 @@ from ..prompts import (
 )
 from ..sentry import run_async_in_background_with_sentry
 from ..tts_utils import play_audio
-from ..utils import get_fields, none_defaulting, to_lowercase_dict
+from ..utils import get_fields, to_lowercase_dict
 from .chat_options import ChatOptions
 from .image_displayer import ImageDisplayer
 from .image_options import ImageOptions
@@ -85,6 +85,7 @@ from .reactive_combo_box import ReactiveComboBox
 from .reactive_edit_text import ReactiveEditText
 from .reactive_line_edit import ReactiveLineEdit
 from .state_manager import StateManager
+from .subscription_box import ClickableLabel
 from .tts_options import TTSOptions
 from .ui_utils import default_form_layout, font_bold, font_small, show_message_box
 
@@ -234,6 +235,7 @@ class PromptDialog(QDialog):
             "generate_automatically",
             text="Enabled",
         )
+        self.enabled_box.setFont(font_bold)
         self.standard_buttons = self.create_buttons()
 
         tabs = QTabWidget()
@@ -267,9 +269,9 @@ class PromptDialog(QDialog):
                 "image": f" 🖼️ {edit_or_new} Image Smart Field",
             },
             "destination": {
-                "chat": "Target Smart Field",
-                "tts": "Target Smart Field",
-                "image": "Target Smart Field",
+                "chat": "Field to Generate",
+                "tts": "Field to Generate",
+                "image": "Field to Generate",
             },
         }
 
@@ -278,19 +280,6 @@ class PromptDialog(QDialog):
         self.note_combo_box = ReactiveComboBox(
             self.state, "note_types", "selected_note_type"
         )
-        card_label = QLabel("Note Type")
-        card_label.setFont(font_bold)
-        layout.addWidget(card_label)
-        layout.addWidget(self.note_combo_box)
-        layout.addSpacerItem(QSpacerItem(0, 20))
-
-        deck_label = QLabel("Deck")
-        deck_label.setFont(font_bold)
-        self.deck_subtitle = QLabel(
-            "Optionally apply this field only to a specific deck."
-        )
-        self.deck_subtitle.setMaximumWidth(500)
-        self.deck_subtitle.setFont(font_small)
         self.deck_combo_box = ReactiveComboBox(
             self.state,
             "decks",
@@ -298,30 +287,52 @@ class PromptDialog(QDialog):
             render_map={str(k): v for k, v in deck_id_to_name_map().items()},
             int_keys=True,
         )
-        layout.addWidget(deck_label)
-        layout.addWidget(self.deck_combo_box)
-        layout.addWidget(self.deck_subtitle)
-        layout.addSpacerItem(QSpacerItem(0, 20))
+        self.field_combo_box = ReactiveComboBox(
+            self.state, "note_fields", "selected_note_field"
+        )
+
+        # Single panel that holds Note Type / Deck / (Source Field) / Target
+        # Field side-by-side. Each column is a stacked (label, combobox) pair.
+        targets_box = QGroupBox()
+        targets_layout = QHBoxLayout()
+        targets_layout.setSpacing(16)
+        targets_box.setLayout(targets_layout)
+
+        def add_target_column(label_text: str, combo: QWidget) -> None:
+            column = QVBoxLayout()
+            column.setSpacing(4)
+            column.setContentsMargins(0, 0, 0, 0)
+            label = QLabel(label_text)
+            label.setFont(font_bold)
+            # Match the native QComboBox's internal left padding so the label
+            # text lines up with the combo's selected-item text.
+            label.setIndent(6)
+            column.addWidget(label)
+            column.addWidget(combo)
+            targets_layout.addLayout(column, 1)
+
+        add_target_column("Note Type", self.note_combo_box)
+        add_target_column(text["destination"][field_type], self.field_combo_box)
 
         if self.state.s["type"] == "tts":
             self.tts_source_combo_box = ReactiveComboBox(
                 self.state, "tts_source_fields", "selected_tts_source_field"
             )
             self.tts_source_combo_box.on_change.connect(self.on_source_changed)
-            source_label = QLabel("Source Field")
-            source_label.setFont(font_bold)
-            layout.addWidget(source_label)
-            layout.addWidget(self.tts_source_combo_box)
-            layout.addItem(QSpacerItem(0, 20))
+            add_target_column("Source Field", self.tts_source_combo_box)
 
-        self.field_combo_box = ReactiveComboBox(
-            self.state, "note_fields", "selected_note_field"
-        )
-        field_label = QLabel(text["destination"][field_type])
-        field_label.setFont(font_bold)
-        layout.addWidget(field_label)
-        layout.addWidget(self.field_combo_box)
-        layout.addSpacerItem(QSpacerItem(0, 20))
+        add_target_column("Deck", self.deck_combo_box)
+
+        layout.addWidget(targets_box)
+
+        # Legacy-mode only — empty (and hidden) on paid plans, populated in the
+        # legacy-mode branch below.
+        self.deck_subtitle = QLabel("")
+        self.deck_subtitle.setFont(font_small)
+        self.deck_subtitle.setHidden(True)
+        layout.addWidget(self.deck_subtitle)
+
+        layout.addSpacerItem(QSpacerItem(0, 16))
 
         self.test_button = QPushButton("✨ Test Smart Field ✨")
 
@@ -330,6 +341,11 @@ class PromptDialog(QDialog):
         text_only_container.setLayout(text_only_layout)
         text_only_layout.setContentsMargins(0, 0, 0, 0)
         text_only_container.setHidden(self.state.s["type"] == "tts")
+        # Container absorbs vertical slack as the dialog grows; the QTextEdit
+        # inside (Expanding by default) absorbs it within the container.
+        text_only_container.setSizePolicy(
+            QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding
+        )
 
         prompt_label = QLabel("Final Prompt")
         prompt_label.setFont(font_bold)
@@ -340,14 +356,18 @@ class PromptDialog(QDialog):
             QTextOption.WrapMode.WrapAtWordBoundaryOrAnywhere
         )
         self.prompt_text_box.setPlaceholderText("...")
+        # Start small but Expanding vertically so the text edit grows when the
+        # dialog grows. Pinning valid_fields to a fixed height below stops it
+        # from shrinking as the dialog widens (heightForWidth on a wrapped
+        # QLabel), which would otherwise dump freed space into the text edit.
+        self.prompt_text_box.setMinimumHeight(50)
         self.valid_fields = QLabel("")
         self.valid_fields.setMinimumWidth(500)
-        size_policy = QSizePolicy(
-            QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding
+        self.valid_fields.setFixedHeight(20)
+        self.valid_fields.setWordWrap(False)
+        self.valid_fields.setAlignment(
+            Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft
         )
-        size_policy.setHorizontalStretch(1)
-        self.valid_fields.setSizePolicy(size_policy)
-        self.valid_fields.setWordWrap(True)
         small_font = self.valid_fields.font()
         small_font.setPointSize(10)
         self.valid_fields.setFont(small_font)
@@ -357,15 +377,8 @@ class PromptDialog(QDialog):
         text_only_layout.addWidget(prompt_label)
         text_only_layout.addWidget(self.prompt_text_box)
         text_only_layout.addWidget(self.valid_fields)
-        layout.addWidget(text_only_container)
-        layout.addSpacerItem(QSpacerItem(0, 12))
-
+        layout.addWidget(text_only_container, 1)
         layout.addWidget(self.test_button)
-        layout.addSpacerItem(
-            QSpacerItem(
-                0, 0, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding
-            )
-        )
 
         self.state.state_changed.connect(self.render_ui)
         self.note_combo_box.on_change.connect(self._on_new_card_type_selected)
@@ -382,20 +395,23 @@ class PromptDialog(QDialog):
         self.test_button.clicked.connect(self.on_test)
 
         field_options = QGroupBox()
-        field_layout = QVBoxLayout()
+        field_layout = QHBoxLayout()
         field_options.setLayout(field_layout)
-        automatic_explanation = QLabel(
-            "Enable or disable this field. Disabled fields can be generated via right clicking a field in the editor."
+        automatic_explanation = ClickableLabel(
+            "(Disabled fields can still be manually generated via right click)"
         )
         automatic_explanation.setFont(font_small)
+        automatic_explanation.setCursor(Qt.CursorShape.PointingHandCursor)
+        automatic_explanation.clicked.connect(self.enabled_box.toggle)
         field_layout.addWidget(self.enabled_box)
         field_layout.addWidget(automatic_explanation)
+        field_layout.addStretch()
 
         layout.addItem(QSpacerItem(0, 24))
         layout.addWidget(field_options)
 
         # On small screens, make it a proportion of screen height. Otherwise set a fixed height
-        FIXED_HEIGHT = 800
+        FIXED_HEIGHT = 680
         screen = mw and mw.screen()
         screen_height = FIXED_HEIGHT if not screen else screen.geometry().height()
 
@@ -409,16 +425,12 @@ class PromptDialog(QDialog):
             self.deck_subtitle.setText(
                 "🔒 Deck based Smart Fields are only available on paid plans!"
             )
+            self.deck_subtitle.setHidden(False)
         return container
 
     def render_generate_prompt(self) -> QWidget:
         label = QLabel("✨ Write My Prompt For Me ✨")
         label.setFont(font_bold)
-        subtitle = QLabel(
-            "Use AI to write a draft of your Smart Field prompt automatically."
-        )
-        subtitle.setFont(font_small)
-        subtitle.setWordWrap(True)
         self.ai_generation_input = ReactiveLineEdit(self.state, "ai_generation_prompt")
         placeholder_text = (
             '"Create a memorable image for this word..."'
@@ -443,7 +455,6 @@ class PromptDialog(QDialog):
         container.setLayout(layout)
         container.setHidden(self.state.s["type"] == "tts")
         layout.addWidget(label)
-        layout.addWidget(subtitle)
         layout.addWidget(input_row)
         return container
 
@@ -457,7 +468,14 @@ class PromptDialog(QDialog):
         override_layout = QHBoxLayout()
         override_layout.setContentsMargins(0, 0, 0, 0)
         override_box.setLayout(override_layout)
-        override_layout.addWidget(QLabel("Override Default Settings"))
+        # Pin the label's horizontal sizePolicy to Fixed so it doesn't expand
+        # to fill the row on Windows (the default QLabel sizeHint reports a
+        # wider value there, which floats the checkbox to the right edge).
+        override_label = QLabel("Override Default Settings")
+        override_label.setSizePolicy(
+            QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred
+        )
+        override_layout.addWidget(override_label)
         override_layout.addWidget(self.custom_model)
         models_layout.addWidget(override_box)
         models_layout.addWidget(self.model_options)
@@ -513,7 +531,6 @@ class PromptDialog(QDialog):
                         "tts_provider": extras.get("tts_provider"),
                         "tts_voice": extras.get("tts_voice"),
                         "tts_model": extras.get("tts_model"),
-                        "tts_strip_html": extras.get("tts_strip_html"),
                     }
                 )
             return self.tts_options
@@ -525,7 +542,6 @@ class PromptDialog(QDialog):
                         "chat_provider": extras.get("chat_provider"),
                         "chat_model": extras.get("chat_model"),
                         "chat_temperature": extras.get("chat_temperature"),
-                        "chat_markdown_to_html": extras.get("chat_markdown_to_html"),
                         "chat_web_search": extras.get("chat_web_search"),
                     }
                 )
@@ -826,9 +842,6 @@ class PromptDialog(QDialog):
                     provider=tts_provider,
                     model=tts_model,
                     voice=tts_voice,
-                    strip_html=none_defaulting(
-                        self.tts_options.state.s, "tts_strip_html", True
-                    ),
                     generation_source="prompt_test",
                 )
 

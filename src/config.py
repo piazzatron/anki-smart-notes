@@ -62,14 +62,12 @@ class Config:
     chat_provider: ChatProviders
     chat_model: ChatModels
     chat_temperature: int
-    chat_markdown_to_html: bool
     chat_web_search: bool
 
     # TTS
     tts_provider: TTSProviders
     tts_voice: str
     tts_model: TTSModels
-    tts_strip_html: bool
 
     # Images
     image_provider: ImageProviders

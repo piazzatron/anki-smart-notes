@@ -54,14 +54,12 @@ DEFAULT_TTS_OPTIONS = {
     "tts_model": None,
     "tts_provider": None,
     "tts_voice": None,
-    "tts_strip_html": None,
 }
 
 DEFAULT_CHAT_OPTIONS = {
     "chat_provider": None,
     "chat_model": None,
     "chat_temperature": None,
-    "chat_markdown_to_html": None,
     "chat_web_search": None,
 }
 
@@ -79,12 +77,10 @@ def make_extras():
         "chat_model": None,
         "chat_provider": None,
         "chat_temperature": None,
-        "chat_markdown_to_html": None,
         "chat_web_search": None,
         "tts_model": None,
         "tts_provider": None,
         "tts_voice": None,
-        "tts_strip_html": None,
         "image_provider": None,
         "image_model": None,
     }

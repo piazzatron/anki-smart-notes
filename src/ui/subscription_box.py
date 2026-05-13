@@ -50,10 +50,10 @@ start_trial_style = """
                 ); /* Gradient background */
                 color: white; /* White text */
                 border: none; /* No border */
-                padding: 0px 32px; /* Padding */
+                padding: 0px 24px; /* Padding */
                 text-align: center; /* Centered text */
                 text-decoration: none; /* No underline */
-                font-size: 24px; /* Font size */
+                font-size: 18px; /* Font size */
                 margin: 4px 2px; /* Margin */
                 border-radius: 12px; /* Rounded corners */
             }
@@ -107,7 +107,7 @@ class StartFreeTrialButton(QPushButton):
         self.setStyleSheet(start_trial_style)
         self.setFont(font_bold)
         self.clicked.connect(self.start_free_trial_clicked)
-        self.setFixedHeight(100)
+        self.setFixedHeight(75)
 
     def start_free_trial_clicked(self) -> None:
         open_browser("/trial")
@@ -199,20 +199,14 @@ class SubscriptionBox(QWidget):
     def _render_start_trial(self) -> QWidget:
         self.start_trial_button = StartFreeTrialButton()
 
-        self.trial_description = QLabel(
-            "👉 Access all features, including Claude, advanced text-to-speech, and chained smart fields. No credit card required!"
-        )
-        self.trial_description.setFont(font_bold)
-
         login = ClickableLabel("<a href>Already have an account? Sign in.</>")
         login.clicked.connect(self.login_clicked)
         login.setFont(font_small)
 
         free_trial_layout = QVBoxLayout()
         free_trial_layout.addWidget(self.start_trial_button)
-        free_trial_layout.addWidget(self.trial_description)
         free_trial_layout.addWidget(login)
-        free_trial_layout.setContentsMargins(24, 24, 24, 24)
+        free_trial_layout.setContentsMargins(24, 24, 24, 8)
         container = QWidget()
         container.setLayout(free_trial_layout)
         return container

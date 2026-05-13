@@ -31,7 +31,6 @@ class TTSProvider:
         model: TTSModels,
         provider: TTSProviders,
         voice: str,
-        strip_html: bool,
         generation_source: GenerationSource,
         note_id: int = -1,
     ) -> bytes:
@@ -40,7 +39,7 @@ class TTSProvider:
             "model": model,
             "message": input,
             "voice": voice,
-            "stripHtml": strip_html,
+            "stripHtml": True,
         }
         args["extra"] = {"generation_source": generation_source}
 

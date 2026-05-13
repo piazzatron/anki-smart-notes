@@ -257,9 +257,7 @@ class CustomTextPrompt(CustomPrompt):
                 temperature=self._chat_options.state.s["chat_temperature"],
                 model=self._chat_options.state.s["chat_model"],
                 provider=self._chat_options.state.s["chat_provider"],
-                should_convert_to_html=self._chat_options.state.s[
-                    "chat_markdown_to_html"
-                ],
+                should_convert_to_html=True,
                 web_search=self._chat_options.state.s["chat_web_search"],
                 generation_source="custom_field",
             )
@@ -267,17 +265,14 @@ class CustomTextPrompt(CustomPrompt):
         run_async_in_background_with_sentry(generate_text, on_success, on_error)
 
     def render_custom_model(self) -> QWidget:
-        self._chat_options = ChatOptions(show_text_processing=False)
+        self._chat_options = ChatOptions()
         return self._chat_options
 
     def has_output(self) -> bool:
         return bool(self._response_edit.toPlainText())
 
     def render_to_text(self) -> Optional[str]:
-        if self._chat_options.state.s["chat_markdown_to_html"]:
-            return self._response_edit.toHtml()
-        else:
-            return self._response_edit.toPlainText()
+        return self._response_edit.toHtml()
 
     def update_ui_states(self) -> None:
         self._response_edit.setReadOnly(self._loading)
@@ -386,7 +381,6 @@ class CustomTTSPrompt(CustomPrompt):
                 model=self.tts_options.state.s["tts_model"],
                 provider=self.tts_options.state.s["tts_provider"],
                 voice=self.tts_options.state.s["tts_voice"],
-                strip_html=True,
                 generation_source="custom_field",
             )
 

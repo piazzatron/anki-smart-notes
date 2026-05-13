@@ -429,9 +429,6 @@ class LocalServer:
             "chat_provider": params.get("chatOptions", {}).get("provider"),
             "chat_model": params.get("chatOptions", {}).get("model"),
             "chat_temperature": params.get("chatOptions", {}).get("temperature"),
-            "chat_markdown_to_html": params.get("chatOptions", {}).get(
-                "markdownToHtml"
-            ),
             "chat_web_search": params.get("chatOptions", {}).get("webSearch"),
         }
 
@@ -439,7 +436,6 @@ class LocalServer:
             "tts_provider": params.get("ttsOptions", {}).get("provider"),
             "tts_model": params.get("ttsOptions", {}).get("model"),
             "tts_voice": params.get("ttsOptions", {}).get("voice"),
-            "tts_strip_html": params.get("ttsOptions", {}).get("stripHtml"),
         }
 
         image_options: OverridableImageOptionsDict = {
