@@ -1,7 +1,7 @@
 # v2.21.0
 
 - Optimized user interface for Windows, and using Smart Notes on lower resolution screens.
-- Upgrade GPT Image model from 1.5 to 2.
+- Add GPT Image 2 as an option while keeping GPT Image 1.5 available.
 
 # v2.20.0
 

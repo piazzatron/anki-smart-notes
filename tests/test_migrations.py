@@ -238,19 +238,19 @@ def test_migrate_image_model_custom_prompts(mock_config, mock_logger):
     )
 
 
-def test_migrate_gpt_image_1_5_to_2_global(mock_config, mock_logger):
+def test_does_not_migrate_gpt_image_1_5_global(mock_config, mock_logger):
     from src.migrations import migrate_models
 
     mock_config.image_model = "gpt-image-1.5-low"
     migrate_models()
-    assert mock_config.image_model == "gpt-image-2-low"
+    assert mock_config.image_model == "gpt-image-1.5-low"
 
     mock_config.image_model = "gpt-image-1.5-medium"
     migrate_models()
-    assert mock_config.image_model == "gpt-image-2-medium"
+    assert mock_config.image_model == "gpt-image-1.5-medium"
 
 
-def test_migrate_gpt_image_1_5_to_2_custom_prompts(mock_config, mock_logger):
+def test_does_not_migrate_gpt_image_1_5_custom_prompts(mock_config, mock_logger):
     from src.migrations import migrate_models
 
     mock_config.prompts_map["note_types"]["Basic"]["All"]["extras"]["Front"][
@@ -263,5 +263,5 @@ def test_migrate_gpt_image_1_5_to_2_custom_prompts(mock_config, mock_logger):
         mock_config.prompts_map["note_types"]["Basic"]["All"]["extras"]["Front"][
             "image_model"
         ]
-        == "gpt-image-2-medium"
+        == "gpt-image-1.5-medium"
     )

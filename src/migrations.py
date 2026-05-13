@@ -57,8 +57,6 @@ migration_map: dict[str, Union[dict[str, str], TTSMigrations]] = {
     },
     "image": {
         "flux-schnell": "z-image-turbo",
-        "gpt-image-1.5-low": "gpt-image-2-low",
-        "gpt-image-1.5-medium": "gpt-image-2-medium",
     },
 }
 
