@@ -119,8 +119,6 @@ class AddonOptionsDialog(QDialog):
             self.state, "legacy_openai_models", "legacy_openai_model"
         )
 
-        # Buttons. No explicit widths — let each platform's native style size
-        # the buttons to their content + native padding.
         table_buttons = QHBoxLayout()
         add_button = QPushButton("💬 New Text Field")
         add_button.clicked.connect(lambda _: self.on_add("chat"))

@@ -37,8 +37,6 @@ from .ui_utils import default_form_layout, font_small
 class ChatOptionsState(TypedDict):
     chat_provider: ChatProviders
     chat_model: ChatModels
-    # Temperature is not user-editable from this UI anymore, but it is still
-    # read by consumers (prompt_dialog, custom_prompt) so we keep it in state.
     chat_temperature: int
     chat_web_search: bool
 
@@ -130,9 +128,11 @@ class ChatOptions(QWidget):
         self.setLayout(chat_layout)
 
     def build_grouped_model_combo(self) -> QComboBox:
-        # Use the combobox's default model (set up via addItem) so the native
-        # closed-state rendering keeps its expected metrics on every platform.
-        # Section headers are inserted as disabled rows with a bold font.
+        # Raw QComboBox rather than ReactiveComboBox: this dropdown mixes two
+        # row types — non-selectable bold provider headings ("OpenAI", "Anthropic"…)
+        # interleaved with selectable model rows — which ReactiveComboBox's
+        # flat-list-of-strings contract doesn't model. We bind manually instead:
+        # on_model_changed writes both chat_model and chat_provider to state.
         combo = QComboBox()
         model = combo.model()
         for provider in provider_display_order:
