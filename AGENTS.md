@@ -14,7 +14,7 @@
 - Use `./scripts/build.sh check` to run all code quality checks (format, lint, typecheck)
 - Use `./scripts/build.sh typecheck` to run only type checking
 - Use `./scripts/build.sh fix` to automatically fix formatting and linting issues
-- Use `python3 -m pytest` to run tests.
+- Use `source .venv/bin/activate && python -m pytest` to run tests.
 
 # Code Structure
 - This is a Python3 codebase which takes full advantage of strong typing for static analysis.
