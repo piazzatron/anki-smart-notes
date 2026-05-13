@@ -1,7 +1,3 @@
-# v2.22.0
-
-- Center the sign-in link under the start free trial button.
-
 # v2.21.0
 
 - Optimized user interface for Windows, and using Smart Notes on lower resolution screens.
