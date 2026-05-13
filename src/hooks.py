@@ -292,7 +292,10 @@ def on_main_window(processor: NoteProcessor):
     options_action.triggered.connect(lambda _: on_options(processor)())
     mw.form.menuTools.addAction(options_action)
     mw.addonManager.setConfigAction(__name__, on_options(processor))
+
     on_start_actions()
+    # Show either the first load window or the changelog if it's a new version
+    _stamp_version_and_show_first_load_window(processor)
 
     from .local_server import LocalServer
 
@@ -302,7 +305,6 @@ def on_main_window(processor: NoteProcessor):
     global _local_server
     _local_server = LocalServer(processor)
     _local_server.start()
-    _stamp_version_and_show_first_load_window(processor)
 
 
 @with_processor  # type: ignore
