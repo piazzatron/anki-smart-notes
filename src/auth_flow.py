@@ -81,7 +81,7 @@ def is_authenticated() -> bool:
 
 def with_plugin_utm_params(path: str) -> str:
     separator = "&" if "?" in path else "?"
-    return f"{path}{separator}utm_source=ankiweb&utm_medium=plugin"
+    return f"{path}{separator}utm_source=plugin"
 
 
 @dataclass
