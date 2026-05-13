@@ -97,7 +97,7 @@ class ImageOptions(QWidget):
         tips_title.setFont(font_bold)
         tips_body = QLabel(
             "• GPT Image 1.5 Low tends to be the best tradeoff of quality and speed.\n"
-            "• GPT Image 2 variants are the same cost but slower.\n"
+            "• GPT Image 2 variants are the same cost but slower and higher quality.\n"
             "• Z-Image Turbo is the fastest and cheapest."
         )
         tips_body.setWordWrap(True)
