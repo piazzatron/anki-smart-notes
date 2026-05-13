@@ -44,9 +44,10 @@ from .review_time_evaluator import ReviewTimeEvaluator
 from .sentry import sentry, with_sentry
 from .tasks import run_async_in_background
 from .ui.addon_options_dialog import AddonOptionsDialog
-from .ui.changelog import perform_update_check
+from .ui.changelog import ChangeLogDialog, is_new_major_or_minor_version
 from .ui.field_menu import FieldMenu
 from .ui.ui_utils import show_message_box
+from .utils import get_version
 
 _local_server: Any = None
 _review_time_evaluator: Optional[ReviewTimeEvaluator] = None
@@ -241,8 +242,7 @@ def on_browser_context(processor: NoteProcessor, browser: browser.Browser, menu:
     item.triggered.connect(wrapped)
 
 
-def on_start_actions() -> bool:
-    should_open_options = perform_update_check()
+def on_start_actions() -> None:
     start_polling_for_messages()
     refresh_feature_flags()
 
@@ -254,7 +254,29 @@ def on_start_actions() -> bool:
         deck_id_to_name_map()
 
     run_async_in_background(cache_leaf_decks_map)
-    return should_open_options
+
+
+def stamp_version_and_show_first_load_window(processor: NoteProcessor) -> None:
+    try:
+        current_version = get_version()
+        prior_version = config.last_seen_version
+        config.last_seen_version = current_version
+
+        logger.info(
+            f"current version: {current_version}, prior version: {prior_version}, is first use: {not prior_version}"
+        )
+
+        if not mw:
+            return
+
+        if not prior_version:
+            on_options(processor)()
+            return
+
+        if is_new_major_or_minor_version(current_version, prior_version):
+            ChangeLogDialog(prior_version).exec()
+    except Exception as e:
+        logger.error(f"Error checking for updates: {e}")
 
 
 @with_processor  # type: ignore
@@ -274,7 +296,7 @@ def on_main_window(processor: NoteProcessor):
     options_action.triggered.connect(lambda _: on_options(processor)())
     mw.form.menuTools.addAction(options_action)
     mw.addonManager.setConfigAction(__name__, on_options(processor))
-    should_open_options = on_start_actions()
+    on_start_actions()
 
     from .local_server import LocalServer
 
@@ -284,9 +306,7 @@ def on_main_window(processor: NoteProcessor):
     global _local_server
     _local_server = LocalServer(processor)
     _local_server.start()
-
-    if should_open_options:
-        on_options(processor)()
+    stamp_version_and_show_first_load_window(processor)
 
 
 @with_processor  # type: ignore
