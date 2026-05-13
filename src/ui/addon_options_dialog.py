@@ -55,6 +55,7 @@ from ..models import PromptMap, SmartFieldType, legacy_openai_chat_models
 from ..note_proccessor import NoteProcessor
 from ..prompts import get_all_prompts, get_extras, get_prompts_for_note, remove_prompt
 from ..tasks import run_async_in_background
+from ..telemetry import track_event
 from ..utils import get_fields, get_version
 from .account_options import AccountOptions
 from .chat_options import ChatOptions
@@ -106,6 +107,7 @@ class AddonOptionsDialog(QDialog):
         self.state = StateManager[State](self.make_initial_state())
         self.setup_ui()
         app_state.bind(self)
+        track_event("smart_notes_window_opened")
 
     def setup_ui(self) -> None:
         self.setWindowTitle("Smart Notes ✨")
@@ -618,6 +620,8 @@ class AddonOptionsDialog(QDialog):
         self.edit_button.setEnabled(is_enabled)
 
     def on_add(self, field_type: SmartFieldType) -> None:
+        track_event("clicked_add_smart_field", {"field_type": field_type})
+
         # Save out the API key in case it's been updated this run
         if hasattr(self, "api_key_edit"):
             config.openai_api_key = self.api_key_edit.text()
