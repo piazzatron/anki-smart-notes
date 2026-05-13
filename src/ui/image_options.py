@@ -45,7 +45,7 @@ image_models_display: dict[str, str] = {
 providers_map: dict[ImageProviders, str] = {
     "openai": "OpenAI",
     "google": "Google",
-    "replicate": "Replicate",
+    "replicate": "Other",
 }
 
 # Display order: providers in this order, models within each provider in
