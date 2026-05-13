@@ -71,9 +71,9 @@ from .tts_options import TTSOptions
 from .ui_utils import default_form_layout, font_large, font_small, show_message_box
 
 OPTIONS_MIN_WIDTH = 875
-OPTIONS_INITIAL_HEIGHT = 400
+OPTIONS_INITIAL_HEIGHT = 700
 SMART_FIELDS_TABLE_MAX_HEIGHT = 500
-SMART_FIELDS_TABLE_MIN_HEIGHT = 50
+SMART_FIELDS_TABLE_MIN_HEIGHT = 120
 TTS_PROMPT_STUB_VALUE = "🔈"
 
 
@@ -119,30 +119,26 @@ class AddonOptionsDialog(QDialog):
             self.state, "legacy_openai_models", "legacy_openai_model"
         )
 
-        # Buttons
+        # Buttons. No explicit widths — let each platform's native style size
+        # the buttons to their content + native padding.
         table_buttons = QHBoxLayout()
         add_button = QPushButton("💬 New Text Field")
         add_button.clicked.connect(lambda _: self.on_add("chat"))
         self.voice_button = QPushButton("🔈 New TTS Field")
         self.voice_button.clicked.connect(lambda _: self.on_add("tts"))
         self.remove_button = QPushButton("Remove")
-        self.remove_button.setFixedWidth(75)
         self.edit_button = QPushButton("Edit")
-        self.edit_button.setFixedWidth(75)
         self.edit_button.clicked.connect(self.on_edit)
-        table_buttons.addWidget(self.remove_button, 1)
-        table_buttons.addWidget(self.edit_button, 1)
+        table_buttons.addWidget(self.remove_button)
+        table_buttons.addWidget(self.edit_button)
         self.remove_button.clicked.connect(self.on_remove)
-        self.voice_button.setFixedWidth(150)
         self.image_button = QPushButton("🖼️ New Image Field")
-        self.image_button.setFixedWidth(150)
         self.image_button.clicked.connect(lambda _: self.on_add("image"))
-        add_button.setFixedWidth(150)
         table_buttons.addSpacerItem(QSpacerItem(0, 0, QSizePolicy.Policy.Expanding))
 
-        table_buttons.addWidget(self.image_button, Qt.AlignmentFlag.AlignRight)
-        table_buttons.addWidget(self.voice_button, Qt.AlignmentFlag.AlignRight)
-        table_buttons.addWidget(add_button, Qt.AlignmentFlag.AlignRight)
+        table_buttons.addWidget(self.image_button)
+        table_buttons.addWidget(self.voice_button)
+        table_buttons.addWidget(add_button)
 
         standard_buttons = QDialogButtonBox(
             QDialogButtonBox.StandardButton.Cancel | QDialogButtonBox.StandardButton.Ok
@@ -172,18 +168,17 @@ class AddonOptionsDialog(QDialog):
 
         tabs = QTabWidget()
 
-        explanation = QLabel(
-            "Automatically generate text, voice, and images on any field."
-        )
-        explanation.setFont(font_small)
         layout = QVBoxLayout()
 
         subscription_box = SubscriptionBox()
 
         layout.addWidget(subscription_box)
         layout.addSpacing(24)
-        layout.addWidget(QLabel("<h3>✨ Smart Fields</h3>"))
-        layout.addWidget(explanation)
+        layout.addWidget(
+            QLabel(
+                "<h3>✨ Smart Fields: Automatically Generate Text, Voice, and Images</h3>"
+            )
+        )
         layout.addSpacing(16)
         layout.addWidget(self.table)
         layout.addLayout(table_buttons)
@@ -231,43 +226,40 @@ class AddonOptionsDialog(QDialog):
         lightbulb_layout.addStretch()
 
         self.feedback_send_button = QPushButton("Submit")
-        self.feedback_send_button.setFixedWidth(80)
         self.feedback_send_button.clicked.connect(self.on_send_feedback)
         self.feedback_input.returnPressed.connect(self.on_send_feedback)
         feedback_row.addWidget(self.feedback_input, 1)
         feedback_row.addWidget(self.feedback_send_button)
         feedback_group_layout.addLayout(feedback_row)
 
-        support_opacity = QGraphicsOpacityEffect()
-        support_opacity.setOpacity(0.8)
-        support_label = QLabel(
-            "Or get in touch at <a href='mailto:support@smart-notes.xyz'>support@smart-notes.xyz</a> or <a href='https://discord.gg/kxGaWpkTGr'>Discord</a>."
-        )
-        support_label.setGraphicsEffect(support_opacity)
-        support_label.setContentsMargins(0, 0, 0, 6)
-        feedback_group_layout.addWidget(support_label)
-
-        support_label.setFont(font_small)
-        support_label.setOpenExternalLinks(True)
-
         tab_layout.addWidget(feedback_group)
 
-        # Version Box
+        # Footer row: support links on the left, version on the right
+        footer_box = QWidget()
+        footer_layout = QHBoxLayout()
+        footer_layout.setContentsMargins(4, 0, 12, 0)
+        footer_box.setLayout(footer_layout)
 
-        version_box = QWidget()
-        version_box_layout = QHBoxLayout()
-        version_box_layout.setContentsMargins(0, 0, 12, 0)
-        version_box.setLayout(version_box_layout)
+        support_label = QLabel(
+            "Get in touch at <a href='mailto:support@smart-notes.xyz'>support@smart-notes.xyz</a> or <a href='https://discord.gg/kxGaWpkTGr'>Discord</a>."
+        )
+        support_label.setFont(font_small)
+        support_label.setOpenExternalLinks(True)
+        support_opacity = QGraphicsOpacityEffect()
+        support_opacity.setOpacity(0.8)
+        support_label.setGraphicsEffect(support_opacity)
+
         version_label = QLabel(f"Smart Notes v{get_version()}")
         version_label.setFont(font_small)
-        version_box_layout.addStretch()
-        version_box_layout.addWidget(version_label)
-
         opacity_effect = QGraphicsOpacityEffect()
         opacity_effect.setOpacity(0.3)
         version_label.setGraphicsEffect(opacity_effect)
 
-        tab_layout.addWidget(version_box)
+        footer_layout.addWidget(support_label)
+        footer_layout.addStretch()
+        footer_layout.addWidget(version_label)
+
+        tab_layout.addWidget(footer_box)
 
         tab_layout.addSpacing(12)
         tab_layout.addWidget(standard_buttons)
@@ -478,67 +470,39 @@ class AddonOptionsDialog(QDialog):
         return AccountOptions()
 
     def render_chat_tab(self) -> QWidget:
-        container = QWidget()
-        layout = QVBoxLayout()
-        container.setLayout(layout)
-        layout.setContentsMargins(24, 24, 24, 24)
         self.chat_options = ChatOptions()
-        self.chat_options.setSizePolicy(
-            QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Expanding
+        return self.render_defaults_tab(
+            self.chat_options, "Default Text Generation Settings"
         )
-        expl = QLabel("Configure default settings for text Smart Fields.")
-        subExpl = QLabel("These settings can be further customized for each field.")
-        expl.setFont(font_large)
-        subExpl.setFont(font_small)
-        layout.addWidget(expl)
-        layout.addWidget(subExpl)
-        layout.addItem(
-            QSpacerItem(0, 24, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
-        )
-        layout.addWidget(self.chat_options)
-        return container
 
     def render_tts_tab(self) -> QWidget:
-        container = QWidget()
-        layout = QVBoxLayout()
-        container.setLayout(layout)
-        layout.setContentsMargins(24, 24, 24, 24)
         self.tts_options = TTSOptions()
-        self.tts_options.setContentsMargins(0, 0, 0, 0)
-
-        expl = QLabel("Configure default voice settings for TTS.")
-        subExpl = QLabel("These settings can be overridden on a per-field basis.")
-        expl.setFont(font_large)
-        subExpl.setFont(font_small)
-        layout.addWidget(expl)
-        layout.addWidget(subExpl)
-        layout.addItem(
-            QSpacerItem(0, 24, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
-        )
-        layout.addWidget(self.tts_options)
-        return container
+        return self.render_defaults_tab(self.tts_options, "Default TTS Settings")
 
     def render_images_tab(self) -> QWidget:
+        self.image_options = ImageOptions()
+        return self.render_defaults_tab(
+            self.image_options, "Default Image Generation Settings"
+        )
+
+    def render_defaults_tab(self, options_widget: QWidget, header: str) -> QWidget:
         container = QWidget()
         layout = QVBoxLayout()
         container.setLayout(layout)
         layout.setContentsMargins(24, 24, 24, 24)
-        self.image_options = ImageOptions()
-        self.image_options.setContentsMargins(0, 0, 0, 0)
 
-        expl = QLabel("Configure default settings for image generation.")
-        subExpl = QLabel("These settings can be overridden on a per-field basis.")
+        options_widget.setContentsMargins(0, 0, 0, 0)
+
+        expl = QLabel(header)
         expl.setFont(font_large)
+        subExpl = QLabel("These settings can be customized for each field.")
         subExpl.setFont(font_small)
         layout.addWidget(expl)
         layout.addWidget(subExpl)
         layout.addItem(
             QSpacerItem(0, 24, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
         )
-        layout.addWidget(self.image_options)
-        layout.addItem(
-            QSpacerItem(0, 24, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-        )
+        layout.addWidget(options_widget, 1)
         return container
 
     def create_table(self) -> QTableWidget:

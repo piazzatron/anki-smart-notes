@@ -19,7 +19,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 from typing import Optional, TypedDict
 
-from aqt import QGroupBox, QLabel, QSpacerItem, QWidget
+from aqt import QComboBox, QGroupBox, QLabel, Qt, QVBoxLayout, QWidget
 
 from ..config import key_or_config_val
 from ..models import (
@@ -30,19 +30,16 @@ from ..models import (
     provider_model_map,
 )
 from .reactive_check_box import ReactiveCheckBox
-from .reactive_combo_box import ReactiveComboBox
-from .reactive_spin_box import ReactiveDoubleSpinBox
 from .state_manager import StateManager
 from .ui_utils import default_form_layout, font_small
 
 
 class ChatOptionsState(TypedDict):
     chat_provider: ChatProviders
-    chat_providers: list[ChatProviders]
-    chat_models: list[ChatModels]
     chat_model: ChatModels
+    # Temperature is not user-editable from this UI anymore, but it is still
+    # read by consumers (prompt_dialog, custom_prompt) so we keep it in state.
     chat_temperature: int
-    chat_markdown_to_html: bool
     chat_web_search: bool
 
 
@@ -61,114 +58,112 @@ models_map: dict[str, str] = {
     "gemini-3.1-pro": "Gemini 3.1 Pro (5x Cost)",
 }
 
-providers_map = {
+providers_map: dict[ChatProviders, str] = {
     "openai": "OpenAI",
     "anthropic": "Anthropic",
-    "deepseek": "DeepSeek",
     "google": "Google",
+    "deepseek": "DeepSeek",
 }
 
-all_chat_providers: list[ChatProviders] = ["openai", "anthropic", "google", "deepseek"]
+# Display order: providers in this order, models within each provider in
+# provider_model_map order.
+provider_display_order: list[ChatProviders] = [
+    "openai",
+    "anthropic",
+    "google",
+    "deepseek",
+]
+
+model_to_provider: dict[ChatModels, ChatProviders] = {
+    model: provider
+    for provider, models in provider_model_map.items()
+    for model in models
+}
 
 
 class ChatOptions(QWidget):
-    _show_text_processing: bool
-
     def __init__(
         self,
         chat_options: Optional[OverridableChatOptionsDict] = None,
-        show_text_processing: bool = True,
     ):
         super().__init__()
         self.state = StateManager[ChatOptionsState](
             self.get_initial_state(chat_options or {})  # type: ignore
         )
-        self._show_text_processing = show_text_processing
         self.setup_ui()
 
     def setup_ui(self) -> None:
-        self.chat_provider = ReactiveComboBox(
-            self.state, "chat_providers", "chat_provider", providers_map
-        )
-        self.chat_provider.on_change.connect(
-            lambda text: self.state.update(
-                {
-                    "chat_provider": text,
-                    "chat_models": provider_model_map[text],
-                    "chat_model": provider_model_map[text][0],
-                }
-            )
-        )
-        self.temperature = ReactiveDoubleSpinBox(self.state, "chat_temperature")
-        self.temperature.setRange(0, 2)
-        self.temperature.setSingleStep(0.1)
-        self.temperature.on_change.connect(
-            lambda temp: self.state.update({"chat_temperature": temp})
-        )
-        self.chat_model = ReactiveComboBox(
-            self.state, "chat_models", "chat_model", models_map
-        )
-        self.chat_model.setMinimumWidth(350)
+        self.chat_model_combo = self.build_grouped_model_combo()
+        self.chat_model_combo.setMinimumWidth(350)
+        self.chat_model_combo.setMinimumHeight(30)
+        self.chat_model_combo.currentIndexChanged.connect(self.on_model_changed)
+        self.select_model_in_combo(self.state.s["chat_model"])
+
         chat_box = QGroupBox("✨ Language Model")
         chat_form = default_form_layout()
+        # vcenter labels so they align with a taller combobox rather than
+        # sticking to the top edge of the row.
+        chat_form.setLabelAlignment(
+            Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter
+        )
         chat_box.setLayout(chat_form)
-        chat_form.addRow("Provider:", self.chat_provider)
-        chat_form.addRow("Model:", self.chat_model)
+        chat_form.addRow("Model:", self.chat_model_combo)
 
         search_box = QGroupBox("🔍 Web Search")
         search_layout = default_form_layout()
         search_box.setLayout(search_layout)
         self.web_search_box = ReactiveCheckBox(self.state, "chat_web_search")
-        search_layout.addRow(QLabel("Allow web searches:"), self.web_search_box)
-        search_explainer = QLabel(
-            "Search the web and return results, including images."
+        search_layout.addRow(QLabel("Enable Web Search:"), self.web_search_box)
+        search_warning = QLabel(
+            "⚠️ Search is expensive; monitor your credits. Not available for Deepseek."
         )
-        search_explainer.setFont(font_small)
-        search_explainer.setWordWrap(True)
-        search_layout.addRow(search_explainer)
-        search_warning_cost = QLabel(
-            "⚠️ Search can be expensive. Monitor your credits. Reasoning models may perform better."
-        )
-        search_warning_cost.setFont(font_small)
-        search_layout.addRow(search_warning_cost)
-        search_warning_models = QLabel("⚠️ Not available for Deepseek.")
-        search_warning_models.setFont(font_small)
-        search_warning_models.setWordWrap(True)
-        search_layout.addRow(search_warning_models)
+        search_warning.setFont(font_small)
+        search_layout.addRow(search_warning)
 
-        text_rules = QGroupBox("🔤 Text Processing")
-        text_layout = default_form_layout()
-        text_rules.setLayout(text_layout)
-        text_rules.setHidden(not self._show_text_processing)
-        self.convert_box = ReactiveCheckBox(self.state, "chat_markdown_to_html")
-        text_layout.addRow(QLabel("Convert Markdown to HTML:"), self.convert_box)
-        convert_explainer = QLabel(
-            "Language models often use **Markdown** in their responses - convert it to HTML to render within Anki."
-        )
-        convert_explainer.setFont(font_small)
-        text_layout.addRow(convert_explainer)
-        advanced = QGroupBox("⚙️ Advanced")
-        advanced_layout = default_form_layout()
-        advanced.setLayout(advanced_layout)
-        advanced_layout.addRow("Temperature:", self.temperature)
-        temp_desc = QLabel(
-            "Temperature controls the creativity of responses. Values range from 0-2 (ChatGPT default is 1)."
-        )
-        temp_desc.setFont(font_small)
-        advanced_layout.addRow(temp_desc)
-
-        chat_layout = default_form_layout()
-        chat_layout.addRow(chat_box)
-        chat_layout.addItem(QSpacerItem(0, 12))
-        chat_layout.addRow(search_box)
-        chat_layout.addItem(QSpacerItem(0, 12))
-        chat_layout.addRow(text_rules)
-        if self._show_text_processing:
-            chat_layout.addItem(QSpacerItem(0, 12))
-        chat_layout.addRow(advanced)
+        chat_layout = QVBoxLayout()
+        chat_layout.addWidget(chat_box)
+        chat_layout.addSpacing(12)
+        chat_layout.addWidget(search_box)
+        chat_layout.addStretch()
         chat_layout.setContentsMargins(0, 0, 0, 0)
 
         self.setLayout(chat_layout)
+
+    def build_grouped_model_combo(self) -> QComboBox:
+        # Use the combobox's default model (set up via addItem) so the native
+        # closed-state rendering keeps its expected metrics on every platform.
+        # Section headers are inserted as disabled rows with a bold font.
+        combo = QComboBox()
+        model = combo.model()
+        for provider in provider_display_order:
+            combo.addItem(providers_map[provider], None)
+            header_item = model.item(combo.count() - 1)  # type: ignore[attr-defined]
+            header_item.setEnabled(False)
+            header_font = header_item.font()
+            header_font.setBold(True)
+            header_item.setFont(header_font)
+
+            for chat_model in provider_model_map[provider]:
+                combo.addItem(f"  {models_map.get(chat_model, chat_model)}", chat_model)
+        return combo
+
+    def select_model_in_combo(self, chat_model: ChatModels) -> None:
+        for i in range(self.chat_model_combo.count()):
+            data = self.chat_model_combo.itemData(i, Qt.ItemDataRole.UserRole)
+            if data == chat_model:
+                self.chat_model_combo.setCurrentIndex(i)
+                return
+
+    def on_model_changed(self, index: int) -> None:
+        chat_model = self.chat_model_combo.itemData(index, Qt.ItemDataRole.UserRole)
+        if not chat_model:
+            return
+        self.state.update(
+            {
+                "chat_model": chat_model,
+                "chat_provider": model_to_provider[chat_model],
+            }
+        )
 
     def get_initial_state(
         self, chat_options: OverridableChatOptionsDict
@@ -177,7 +172,4 @@ class ChatOptions(QWidget):
             k: key_or_config_val(chat_options, k)
             for k in overridable_chat_options  # type: ignore
         }
-
-        ret["chat_providers"] = all_chat_providers
-        ret["chat_models"] = provider_model_map[ret["chat_provider"]]
         return ret

@@ -68,7 +68,9 @@ class MockConfig:
 
 
 def p(str) -> str:
-    return f"p_{str}"
+    # Avoid underscores so markdown-to-html conversion (always-on) is a no-op
+    # on the simulated chat output.
+    return f"p-{str}"
 
 
 class MockOpenAIClient:
@@ -137,7 +139,6 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
                 "chat_model": "gpt-4o-mini",
                 "chat_provider": "openai",
                 "chat_temperature": 0,
-                "chat_markdown_to_html": False,
                 "chat_web_search": False,
             }
         else:
@@ -149,7 +150,6 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
                 "chat_model": "gpt-4o-mini",
                 "chat_provider": "openai",
                 "chat_temperature": 0,
-                "chat_markdown_to_html": False,
                 "chat_web_search": False,
             }  # Default extras
 

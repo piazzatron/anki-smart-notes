@@ -1,3 +1,7 @@
+# v2.21.0
+
+- Optimized user interface for Windows, and using Smart Notes on lower resolution screens.
+
 # v2.20.0
 
 - New feature: AI can now write your Smart Fields for you. Try it out by adding or editing a Smart Field!

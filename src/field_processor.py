@@ -96,7 +96,6 @@ class FieldProcessor:
                 logger.error("No media")
                 return None
 
-            should_strip_html: bool = key_or_config_val(extras, "tts_strip_html")
             tts_provider = cast(TTSProviders, key_or_config_val(extras, "tts_provider"))
             tts_model: TTSModels = key_or_config_val(extras, "tts_model")
             tts_voice: Union[OpenAIVoices, ElevenVoices] = key_or_config_val(
@@ -109,7 +108,6 @@ class FieldProcessor:
                 model=tts_model,
                 voice=tts_voice,
                 provider=tts_provider,
-                strip_html=should_strip_html,
                 show_error_box=show_error_box,
                 generation_source="card_generation",
             )
@@ -127,7 +125,6 @@ class FieldProcessor:
             chat_model: ChatModels = key_or_config_val(extras, "chat_model")
             chat_provider: ChatProviders = key_or_config_val(extras, "chat_provider")
             chat_temperature: float = key_or_config_val(extras, "chat_temperature")
-            should_convert: bool = key_or_config_val(extras, "chat_markdown_to_html")
             web_search: bool = key_or_config_val(extras, "chat_web_search")
 
             return await self.get_chat_response(
@@ -138,7 +135,7 @@ class FieldProcessor:
                 provider=chat_provider,
                 temperature=chat_temperature,
                 field_lower=node.field,
-                should_convert_to_html=should_convert,
+                should_convert_to_html=True,
                 web_search=web_search,
                 show_error_box=show_error_box,
                 generation_source="card_generation",
@@ -241,7 +238,6 @@ class FieldProcessor:
         model: TTSModels,
         provider: TTSProviders,
         voice: str,
-        strip_html: bool,
         generation_source: GenerationSource,
         show_error_box: bool = True,
     ) -> Optional[bytes]:
@@ -264,7 +260,6 @@ class FieldProcessor:
             provider=provider,
             voice=voice,
             note_id=note.id,
-            strip_html=strip_html,
             generation_source=generation_source,
         )
 

@@ -159,14 +159,12 @@ class FieldExtras(TypedDict):
     chat_model: Optional[ChatModels]
     chat_provider: Optional[ChatProviders]
     chat_temperature: Optional[int]
-    chat_markdown_to_html: Optional[bool]
     chat_web_search: Optional[bool]
 
     # TTS
     tts_provider: Optional[TTSProviders]
     tts_model: Optional[TTSModels]
     tts_voice: Optional[str]
-    tts_strip_html: Optional[bool]
 
     # Images
     image_provider: Optional[ImageProviders]
@@ -179,7 +177,6 @@ DEFAULT_EXTRAS: FieldExtras = {
     "type": "chat",
     "use_custom_model": False,
     # Overridable Chat Options
-    "chat_markdown_to_html": None,
     "chat_model": None,
     "chat_provider": None,
     "chat_temperature": None,
@@ -188,7 +185,6 @@ DEFAULT_EXTRAS: FieldExtras = {
     "tts_model": None,
     "tts_provider": None,
     "tts_voice": None,
-    "tts_strip_html": None,
     # Overridable Image Options
     "image_provider": None,
     "image_model": None,
@@ -220,7 +216,6 @@ class OverridableChatOptionsDict(TypedDict):
     chat_provider: Optional[ChatProviders]
     chat_model: Optional[ChatModels]
     chat_temperature: Optional[int]
-    chat_markdown_to_html: Optional[bool]
     chat_web_search: Optional[bool]
 
 
@@ -231,7 +226,6 @@ class OverrideableTTSOptionsDict(TypedDict):
     tts_model: Optional[TTSModels]
     tts_provider: Optional[TTSProviders]
     tts_voice: Optional[str]
-    tts_strip_html: Optional[bool]
 
 
 overridable_tts_options: list[str] = _typed_dict_keys(OverrideableTTSOptionsDict)

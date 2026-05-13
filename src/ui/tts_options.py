@@ -22,6 +22,7 @@ from typing import Literal, Optional, TypedDict, Union, cast
 
 from aqt import (
     QAbstractListModel,
+    QGridLayout,
     QGroupBox,
     QHBoxLayout,
     QItemSelection,
@@ -49,13 +50,12 @@ from ..models import (
 from ..sentry import run_async_in_background_with_sentry
 from ..tts_provider import TTSProvider
 from ..tts_utils import play_audio
-from ..utils import load_file, none_defaulting
-from .reactive_check_box import ReactiveCheckBox
+from ..utils import load_file
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_edit_text import ReactiveEditText
 from .reactive_line_edit import ReactiveLineEdit
 from .state_manager import StateManager
-from .ui_utils import default_form_layout, font_small, show_message_box
+from .ui_utils import default_form_layout, font_bold, show_message_box
 
 ALL: Literal["All"] = "All"
 
@@ -104,7 +104,6 @@ class TTSState(TypedDict):
     tts_provider: TTSProviders
     tts_voice: str
     tts_model: TTSModels
-    tts_strip_html: bool
 
     test_text: str
     test_enabled: bool
@@ -335,7 +334,7 @@ class SelectedVoiceLabel(QLabel):
 
     def update_text(self, meta: TTSMeta):
         self.setText(f" Current voice: {format_voice(meta)}")
-        self.setFont(font_small)
+        self.setFont(font_bold)
 
 
 class TTSOptions(QWidget):
@@ -361,11 +360,11 @@ class TTSOptions(QWidget):
         self.voices_models = CustomListModel(self.get_visible_voice_filters())
         self.voices_list.setModel(self.voices_models)
 
+        # Let TTSOptions soak up all the vertical space the parent tab gives
+        # it, so the voices list can grow when the user resizes the dialog.
+        self.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
+
         layout = QVBoxLayout()
-        top_row = QWidget()
-        top_row_layout = QHBoxLayout()
-        top_row_layout.setContentsMargins(0, 0, 0, 0)
-        top_row.setLayout(top_row_layout)
 
         # This shouldn't ever be none but being defensive
         current_selection = self.voices_list.selectedIndexes()
@@ -373,20 +372,45 @@ class TTSOptions(QWidget):
             current_selection[0].row() if current_selection else 0
         ]
         self.selected_voice_label = SelectedVoiceLabel(selected_voice)
-        top_row_layout.addWidget(self.render_filters())
-        top_row_layout.addWidget(self.render_voices_list())
+
+        # Grid layout with both column-0 (filters) and column-1 (voices)
+        # explicitly anchored at row 0, so their tops share the same baseline.
+        # The voices panel spans all 4 rows in column 1; the filter sits in
+        # row 0 of column 0, a fixed 12 px spacer in row 1, the test voice in
+        # row 2, and an Expanding spacer in row 3 absorbs the slack while
+        # letting the voices panel grow with the dialog.
+        top_row = QWidget()
+        top_row.setSizePolicy(
+            QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding
+        )
+        top_row_grid = QGridLayout()
+        top_row_grid.setContentsMargins(0, 0, 0, 0)
+        top_row_grid.setVerticalSpacing(0)
+        top_row.setLayout(top_row_grid)
+
+        top_row_grid.addWidget(self.render_filters(), 0, 0)
+        top_row_grid.addItem(
+            QSpacerItem(0, 12, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed),
+            1,
+            0,
+        )
+        top_row_grid.addWidget(self.render_test_voice(), 2, 0)
+        top_row_grid.addItem(
+            QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding),
+            3,
+            0,
+        )
+        top_row_grid.addWidget(self.render_voices_list(), 0, 1, 4, 1)
+
+        top_row_grid.setColumnStretch(0, 1)
+        top_row_grid.setColumnStretch(1, 1)
 
         layout.addWidget(self.selected_voice_label)
         layout.addSpacerItem(QSpacerItem(0, 12))
-        layout.addWidget(top_row)
-        layout.addSpacerItem(QSpacerItem(0, 12))
-        layout.addWidget(self.render_test_voice())
-        layout.addSpacerItem(QSpacerItem(0, 12))
-        layout.addWidget(self.render_processing_rules())
+        layout.addWidget(top_row, 1)
 
         if not self.extras_visible:
             self.test_voice_box.hide()
-            self.processing_box.hide()
 
         self.state.state_changed.connect(self.update_ui)
         self.update_ui()
@@ -536,14 +560,6 @@ class TTSOptions(QWidget):
 
         return self.test_voice_box
 
-    def render_processing_rules(self) -> QWidget:
-        self.processing_box = QGroupBox("⚙️Voice Processing")
-        layout = default_form_layout()
-        self.processing_box.setLayout(layout)
-        strip_html_box = ReactiveCheckBox(self.state, "tts_strip_html")
-        layout.addRow("Strip HTML from text before speaking:", strip_html_box)
-        return self.processing_box
-
     def test_and_play(self) -> None:
         def on_success(audio: bytes):
             play_audio(audio)
@@ -566,7 +582,6 @@ class TTSOptions(QWidget):
                 model=model,
                 provider=provider,
                 voice=voice,
-                strip_html=(none_defaulting(self.state.s, "tts_strip_html", True)),
                 generation_source="prompt_test",
             )
             return resp
