@@ -38,7 +38,7 @@ image_models_display: dict[str, str] = {
     "nano-banana-2": "Nano Banana 2 (5x Cost)",
     "gpt-image-1.5-medium": "GPT Image 1.5 (4x Cost)",
     "gpt-image-1.5-low": "GPT Image 1.5 Low (1x Cost)",
-    "gpt-image-2-medium": "GPT Image 2 (4x Cost)",
+    "gpt-image-2-medium": "GPT Image 2 Medium (4x Cost)",
     "gpt-image-2-low": "GPT Image 2 Low (1x Cost)",
 }
 
