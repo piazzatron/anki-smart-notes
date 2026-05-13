@@ -127,17 +127,41 @@ SmartFieldType = Literal["chat", "tts", "image"]
 
 ReplicateImageModels = Literal["flux-dev", "z-image-turbo"]
 GoogleImageModels = Literal["nano-banana-2"]
-OpenAIImageModels = Literal["gpt-image-1.5-medium", "gpt-image-1.5-low"]
+OpenAIImageModels = Literal[
+    "gpt-image-1.5-medium",
+    "gpt-image-1.5-low",
+    "gpt-image-2-medium",
+    "gpt-image-2-low",
+]
 ImageModels = Union[ReplicateImageModels, GoogleImageModels, OpenAIImageModels]
 
 ImageProviders = Literal["replicate", "google", "openai"]
+
+openai_image_models: list[ImageModels] = [
+    "gpt-image-1.5-low",
+    "gpt-image-2-low",
+    "gpt-image-1.5-medium",
+    "gpt-image-2-medium",
+]
+
+google_image_models: list[ImageModels] = ["nano-banana-2"]
+
+replicate_image_models: list[ImageModels] = ["z-image-turbo", "flux-dev"]
+
+image_provider_model_map: dict[ImageProviders, list[ImageModels]] = {
+    "openai": openai_image_models,
+    "google": google_image_models,
+    "replicate": replicate_image_models,
+}
 
 # Ordered from cheapest -> most expensive
 all_image_models: list[ImageModels] = [
     "z-image-turbo",
     "gpt-image-1.5-low",
+    "gpt-image-2-low",
     "flux-dev",
     "gpt-image-1.5-medium",
+    "gpt-image-2-medium",
     "nano-banana-2",
 ]
 
@@ -147,6 +171,8 @@ image_model_to_provider: dict[ImageModels, ImageProviders] = {
     "nano-banana-2": "google",
     "gpt-image-1.5-low": "openai",
     "gpt-image-1.5-medium": "openai",
+    "gpt-image-2-low": "openai",
+    "gpt-image-2-medium": "openai",
 }
 
 

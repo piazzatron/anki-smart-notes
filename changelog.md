@@ -1,6 +1,8 @@
 # v2.21.0
 
-- Optimized user interface for Windows, and using Smart Notes on lower resolution screens.
+- Add GPT Image 2.
+- Redesigned user interface for lower resolution screens, especially Windows.
+- Improved review-time Smart Field generation behavior (now generates many notes ahead of time).
 
 # v2.20.0
 
