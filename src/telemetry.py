@@ -28,13 +28,6 @@ from .tasks import run_async_in_background
 def track_event(event: str, properties: Optional[dict[str, Any]] = None) -> None:
     """
     Fire-and-forget client-side telemetry.
-
-    Posts to /api/events on the server, which validates and forwards to Amplitude.
-    Identity is resolved server-side from the authenticated user. Properties must
-    match the server-side schema for the event (see metrics/events.ts).
-
-    Silently no-ops if the user isn't signed in. Errors are swallowed so the UI
-    is never disrupted by telemetry.
     """
     if not config.auth_token:
         return
