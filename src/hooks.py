@@ -44,9 +44,10 @@ from .review_time_evaluator import ReviewTimeEvaluator
 from .sentry import sentry, with_sentry
 from .tasks import run_async_in_background
 from .ui.addon_options_dialog import AddonOptionsDialog
-from .ui.changelog import perform_update_check
+from .ui.changelog import ChangeLogDialog, is_new_major_or_minor_version
 from .ui.field_menu import FieldMenu
 from .ui.ui_utils import show_message_box
+from .utils import get_version
 
 _local_server: Any = None
 _review_time_evaluator: Optional[ReviewTimeEvaluator] = None
@@ -117,29 +118,25 @@ def add_editor_top_button(
         def set_button_disabled() -> None:
             if not e or not e.web:
                 return
-            e.web.eval(
-                """
+            e.web.eval("""
                     (() => {
                         const button = document.querySelector("#generate_smart_fields")
                         button.disabled = true
                         button.style.opacity = 0.25
                     })()
-                """
-            )
+                """)
 
         def set_button_enabled() -> None:
             if not e or not e.web:
                 return
 
-            e.web.eval(
-                """
+            e.web.eval("""
                     (() => {
                         const button = document.querySelector("#generate_smart_fields")
                         button.disabled = false
                         button.style.opacity = 1.0
                     })()
-                """
-            )
+                """)
 
         set_button_disabled()
 
@@ -242,7 +239,6 @@ def on_browser_context(processor: NoteProcessor, browser: browser.Browser, menu:
 
 
 def on_start_actions() -> None:
-    perform_update_check()
     start_polling_for_messages()
     refresh_feature_flags()
 
@@ -254,6 +250,29 @@ def on_start_actions() -> None:
         deck_id_to_name_map()
 
     run_async_in_background(cache_leaf_decks_map)
+
+
+def _stamp_version_and_show_first_load_window(processor: NoteProcessor) -> None:
+    try:
+        current_version = get_version()
+        prior_version = config.last_seen_version
+        config.last_seen_version = current_version
+
+        logger.info(
+            f"current version: {current_version}, prior version: {prior_version}, is first use: {not prior_version}"
+        )
+
+        if not mw:
+            return
+
+        if not prior_version:
+            on_options(processor)()
+            return
+
+        if is_new_major_or_minor_version(current_version, prior_version):
+            ChangeLogDialog(prior_version).exec()
+    except Exception as e:
+        logger.error(f"Error checking for updates: {e}")
 
 
 @with_processor  # type: ignore
@@ -273,7 +292,10 @@ def on_main_window(processor: NoteProcessor):
     options_action.triggered.connect(lambda _: on_options(processor)())
     mw.form.menuTools.addAction(options_action)
     mw.addonManager.setConfigAction(__name__, on_options(processor))
+
     on_start_actions()
+    # Show either the first load window or the changelog if it's a new version
+    _stamp_version_and_show_first_load_window(processor)
 
     from .local_server import LocalServer
 

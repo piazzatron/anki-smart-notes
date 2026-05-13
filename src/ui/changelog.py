@@ -19,10 +19,8 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 from typing import Optional
 
-from aqt import QDialog, QDialogButtonBox, QFont, QLabel, QVBoxLayout, mw
+from aqt import QDialog, QDialogButtonBox, QFont, QLabel, QVBoxLayout
 
-from ..auth_flow import open_browser
-from ..config import config
 from ..logger import logger
 from ..utils import get_version, load_file
 
@@ -56,37 +54,6 @@ def is_new_major_or_minor_version(v1: str, v2: str):
     (major1, minor1, _) = v1.split(".")
     (major2, minor2, _) = v2.split(".")
     return major1 != major2 or minor1 != minor2
-
-
-def perform_update_check() -> None:
-    """Checks if the version has changed and shows a dialog if it has. Also updates the last seen version in config."""
-    try:
-        current_version = get_version()
-        # prior_version can be None if this is version 1.1.0 which introduces this config field or if this is a first run
-        prior_version = config.last_seen_version
-
-        # Always update the last seen version
-        config.last_seen_version = current_version
-
-        logger.info(
-            f"current version: {current_version}, prior version: {prior_version}, is first use: {not prior_version}"
-        )
-
-        # Have to keep this crap around forever because v1 didn't have last_seen_version
-        # Only show a dialog if (the major or minor has changed OR it's possibly an upgrade to v1.1.0) and it's not the first use
-
-        if not mw:
-            return
-
-        # FIRST RUN
-        if not prior_version:
-            open_browser("/trial")
-            return
-
-        if is_new_major_or_minor_version(current_version, prior_version):
-            ChangeLogDialog(prior_version).exec()
-    except Exception as e:
-        logger.error(f"Error checking for updates: {e}")
 
 
 class ChangeLogDialog(QDialog):
