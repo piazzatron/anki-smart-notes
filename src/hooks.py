@@ -118,29 +118,25 @@ def add_editor_top_button(
         def set_button_disabled() -> None:
             if not e or not e.web:
                 return
-            e.web.eval(
-                """
+            e.web.eval("""
                     (() => {
                         const button = document.querySelector("#generate_smart_fields")
                         button.disabled = true
                         button.style.opacity = 0.25
                     })()
-                """
-            )
+                """)
 
         def set_button_enabled() -> None:
             if not e or not e.web:
                 return
 
-            e.web.eval(
-                """
+            e.web.eval("""
                     (() => {
                         const button = document.querySelector("#generate_smart_fields")
                         button.disabled = false
                         button.style.opacity = 1.0
                     })()
-                """
-            )
+                """)
 
         set_button_disabled()
 
@@ -256,7 +252,7 @@ def on_start_actions() -> None:
     run_async_in_background(cache_leaf_decks_map)
 
 
-def stamp_version_and_show_first_load_window(processor: NoteProcessor) -> None:
+def _stamp_version_and_show_first_load_window(processor: NoteProcessor) -> None:
     try:
         current_version = get_version()
         prior_version = config.last_seen_version
@@ -306,7 +302,7 @@ def on_main_window(processor: NoteProcessor):
     global _local_server
     _local_server = LocalServer(processor)
     _local_server.start()
-    stamp_version_and_show_first_load_window(processor)
+    _stamp_version_and_show_first_load_window(processor)
 
 
 @with_processor  # type: ignore
