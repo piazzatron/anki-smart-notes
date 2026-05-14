@@ -36,7 +36,7 @@ OpenAIModels = Literal[
     "gpt-5-chat-latest",
     "gpt-4o-mini",
 ]
-DeepseekModels = Literal["deepseek-v3"]
+DeepseekModels = Literal["auto", "deepseek-v3"]
 AnthropicModels = Literal["claude-haiku-4-5", "claude-sonnet-4-6", "claude-opus-4-6"]
 GeminiModels = Literal["gemini-3.1-pro", "gemini-3.1-flash-lite", "gemini-3-flash"]
 ChatModels = Union[OpenAIModels, AnthropicModels, DeepseekModels, GeminiModels]
@@ -56,7 +56,7 @@ anthropic_chat_models: list[ChatModels] = [
     "claude-opus-4-6",
 ]
 
-deepseek_chat_models: list[ChatModels] = ["deepseek-v3"]
+deepseek_chat_models: list[ChatModels] = ["auto", "deepseek-v3"]
 
 gemini_chat_models: list[ChatModels] = [
     "gemini-3.1-flash-lite",
