@@ -58,6 +58,7 @@ models_map: dict[str, str] = {
 }
 
 providers_map: dict[ChatProviders, str] = {
+    "auto": "Auto",
     "openai": "OpenAI",
     "anthropic": "Anthropic",
     "google": "Google",
@@ -67,6 +68,7 @@ providers_map: dict[ChatProviders, str] = {
 # Display order: providers in this order, models within each provider in
 # provider_model_map order.
 provider_display_order: list[ChatProviders] = [
+    "auto",
     "openai",
     "anthropic",
     "google",
