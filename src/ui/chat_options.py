@@ -51,6 +51,7 @@ models_map: dict[str, str] = {
     "claude-sonnet-4-6": "Claude Sonnet 4.6 (7x Cost)",
     "claude-opus-4-6": "Claude Opus 4.6 (10x Cost)",
     "auto": "Auto",
+    "auto-max": "Auto (MAX)",
     "deepseek-v3": "Deepseek v3 (0.7x Cost)",
     "gemini-3-flash": "Gemini 3 Flash (1.5x Cost)",
     "gemini-3.1-flash-lite": "Gemini 3.1 Flash Lite (0.75x Cost)",
