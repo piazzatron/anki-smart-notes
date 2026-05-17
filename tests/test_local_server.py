@@ -184,14 +184,19 @@ async def test_add_smart_field_success(monkeypatch):
         "get_prompts_for_note",
         lambda note_type, deck_id, fallback_to_global_deck=False: None,
     )
-    monkeypatch.setattr(
-        src.local_server,
-        "add_or_update_prompts",
-        lambda **kwargs: {"note_types": {}},
-    )
+    smart_field_service = MagicMock()
+    monkeypatch.setattr(src.local_server, "smart_field_service", smart_field_service)
+    monkeypatch.setattr(src.local_server, "get_note_type_id_from_name", lambda _: 123)
 
     mock_config = MagicMock()
-    mock_config.prompts_map = {"note_types": {}}
+    mock_config.chat_provider = "openai"
+    mock_config.chat_model = "gpt-4o-mini"
+    mock_config.chat_web_search = False
+    mock_config.tts_provider = "openai"
+    mock_config.tts_model = "tts-1"
+    mock_config.tts_voice = "alloy"
+    mock_config.image_provider = "openai"
+    mock_config.image_model = "gpt-image-1.5-low"
     monkeypatch.setattr(src.local_server, "config", mock_config)
     monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
 
@@ -208,6 +213,7 @@ async def test_add_smart_field_success(monkeypatch):
             ),
         )
         assert data == _ok(True)
+        smart_field_service.save_smart_field.assert_called_once()
 
 
 @pytest.mark.asyncio
@@ -242,14 +248,19 @@ async def test_update_smart_field_success(monkeypatch):
             "Back": "old prompt"
         },
     )
-    monkeypatch.setattr(
-        src.local_server,
-        "add_or_update_prompts",
-        lambda **kwargs: {"note_types": {}},
-    )
+    smart_field_service = MagicMock()
+    monkeypatch.setattr(src.local_server, "smart_field_service", smart_field_service)
+    monkeypatch.setattr(src.local_server, "get_note_type_id_from_name", lambda _: 123)
 
     mock_config = MagicMock()
-    mock_config.prompts_map = {"note_types": {}}
+    mock_config.chat_provider = "openai"
+    mock_config.chat_model = "gpt-4o-mini"
+    mock_config.chat_web_search = False
+    mock_config.tts_provider = "openai"
+    mock_config.tts_model = "tts-1"
+    mock_config.tts_voice = "alloy"
+    mock_config.image_provider = "openai"
+    mock_config.image_model = "gpt-image-1.5-low"
     monkeypatch.setattr(src.local_server, "config", mock_config)
     monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
 
@@ -266,6 +277,7 @@ async def test_update_smart_field_success(monkeypatch):
             ),
         )
         assert data == _ok(True)
+        smart_field_service.save_smart_field.assert_called_once()
 
 
 @pytest.mark.asyncio
@@ -281,15 +293,9 @@ async def test_remove_smart_field_missing_params():
 async def test_remove_smart_field_success(monkeypatch):
     import src.local_server
 
-    monkeypatch.setattr(
-        src.local_server,
-        "remove_prompt",
-        lambda **kwargs: {"note_types": {}},
-    )
-
-    mock_config = MagicMock()
-    mock_config.prompts_map = {"note_types": {}}
-    monkeypatch.setattr(src.local_server, "config", mock_config)
+    smart_field_service = MagicMock()
+    monkeypatch.setattr(src.local_server, "smart_field_service", smart_field_service)
+    monkeypatch.setattr(src.local_server, "get_note_type_id_from_name", lambda _: 123)
     monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
 
     async with TestClient(TestServer(_make_app())) as client:
@@ -301,6 +307,7 @@ async def test_remove_smart_field_success(monkeypatch):
             ),
         )
         assert data == _ok(True)
+        smart_field_service.delete_smart_field.assert_called_once_with(123, -1, "Back")
 
 
 @pytest.mark.asyncio

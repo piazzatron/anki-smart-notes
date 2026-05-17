@@ -26,8 +26,10 @@ from aqt import mw
 
 from .constants import GLOBAL_DECK_ID
 from .decks import deck_id_to_name_map
-from .models import DEFAULT_EXTRAS, PromptMap
-from .prompts import get_extras, get_prompt_fields, get_prompts_for_note
+from .models import PromptMap
+from .prompt_helpers import get_prompt_fields
+from .smart_field_models import ChatSmartFieldSettings
+from .smart_field_service import smart_field_service
 from .ui.ui_utils import show_message_box
 from .utils import get_fields
 
@@ -40,6 +42,23 @@ def get_note_type(note: Note) -> str:
     if not t:
         raise Exception("Note type not found")
     return t["name"]  # type: ignore
+
+
+def get_note_type_id(note: Note) -> int:
+    """Gets the note type id of a note."""
+    t = note.note_type()
+    if not t:
+        raise Exception("Note type not found")
+    return int(t["id"])
+
+
+def get_note_type_id_from_name(note_type: str) -> Optional[int]:
+    if not mw or not mw.col:
+        return None
+    model = mw.col.models.by_name(note_type)
+    if not model:
+        return None
+    return int(model["id"])
 
 
 def get_note_types() -> list[str]:
@@ -55,18 +74,16 @@ def is_card_fully_processed(card: Card) -> bool:
     if not note_type:
         return True
 
-    prompts = get_prompts_for_note(note_type, card.did)
-
-    if not prompts:
+    smart_fields = smart_field_service.get_smart_fields_for_note(
+        get_note_type_id(note), card.did, include_global=True
+    )
+    if not smart_fields:
         return True
 
-    for field in prompts:
+    for smart_field in smart_fields:
+        field = smart_field.target_field_name
         field_exists = field in note and note[field]
-        is_automatic = (
-            get_extras(note_type=note_type, field=field, deck_id=card.did)
-            or DEFAULT_EXTRAS
-        )["automatic"]
-        if (not field_exists) and is_automatic:
+        if (not field_exists) and smart_field.enabled:
             return False
 
     return True
@@ -97,12 +114,16 @@ def is_ai_field(current_field_num: Optional[int], card: Card) -> Optional[str]:
 
     current_field = sorted_fields_lower[current_field_num]
 
-    prompts_for_card = get_prompts_for_note(note_type, card.did, to_lower=True)
-
-    if not prompts_for_card:
+    smart_fields = smart_field_service.get_smart_fields_for_note(
+        get_note_type_id(card.note()), card.did, include_global=True
+    )
+    smart_field_names = {
+        smart_field.target_field_name.lower() for smart_field in smart_fields
+    }
+    if not smart_field_names:
         return None
 
-    is_ai = bool(prompts_for_card.get(current_field, None))
+    is_ai = current_field in smart_field_names
     return sorted_fields[current_field_num] if is_ai else None
 
 
@@ -114,17 +135,30 @@ def has_chained_ai_fields(card: Card) -> bool:
 def get_chained_ai_fields(note_type: str, deck_id: DeckId) -> set[str]:
     """Check if a note has any AI fields that depend on other AI fields."""
     res: set[str] = set()
-    prompts = get_prompts_for_note(note_type, deck_id, to_lower=True)
-
-    if not prompts:
+    if not mw or not mw.col:
+        return res
+    note_type_id = get_note_type_id_from_name(note_type)
+    if note_type_id is None:
         return res
 
-    for field, prompt in prompts.items():
-        smart_fields = prompts.keys() - {field.lower()}
-        input_fields = get_prompt_fields(prompt)
+    smart_fields = smart_field_service.get_smart_fields_for_note(
+        note_type_id, deck_id, include_global=True
+    )
+    if not smart_fields:
+        return res
+
+    smart_field_names = {
+        smart_field.target_field_name.lower() for smart_field in smart_fields
+    }
+    for smart_field in smart_fields:
+        if not isinstance(smart_field.settings, ChatSmartFieldSettings):
+            continue
+        field = smart_field.target_field_name.lower()
+        other_smart_fields = smart_field_names - {field}
+        input_fields = get_prompt_fields(smart_field.settings.prompt_text)
 
         for input_field in input_fields:
-            if input_field in smart_fields:
+            if input_field in other_smart_fields:
                 res.add(field)
                 break
 
@@ -162,19 +196,25 @@ def get_valid_fields_for_prompt(
 ) -> list[str]:
     """Gets all fields excluding the selected one, if one is selected"""
     fields = get_fields(selected_note_type)
+    if not mw or not mw.col:
+        return [field for field in fields if field != selected_note_field]
+
+    note_type_id = get_note_type_id_from_name(selected_note_type)
+    if note_type_id is None:
+        return [field for field in fields if field != selected_note_field]
+
+    non_chat_fields = {
+        smart_field.target_field_name
+        for smart_field in smart_field_service.get_smart_fields_for_note(
+            note_type_id,
+            deck_id,
+            include_global=False,
+        )
+        if not isinstance(smart_field.settings, ChatSmartFieldSettings)
+    }
+
     return [
         field
         for field in fields
-        if field != selected_note_field
-        and (
-            get_extras(
-                note_type=selected_note_type,
-                field=field,
-                prompts=prompts_map,
-                deck_id=deck_id,
-                fallback_to_global_deck=False,
-            )
-            or {"type": "chat"}  # Should never happen
-        )["type"]
-        == "chat"
+        if field != selected_note_field and field not in non_chat_fields
     ]

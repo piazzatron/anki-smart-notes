@@ -42,6 +42,10 @@ from .models import (
     overridable_image_options,
     overridable_tts_options,
 )
+from .smart_field_prompt_map import (
+    list_for_note_type,
+    list_prompt_map,
+)
 from .utils import to_lowercase_dict
 
 EXTRAS_DEFAULT_AUTOMATIC = True
@@ -54,6 +58,19 @@ def get_prompts_for_note(
     override_prompts_map: Optional[PromptMap] = None,
     fallback_to_global_deck: bool = True,
 ) -> Optional[dict[str, str]]:
+    if override_prompts_map is None:
+        fields = {
+            field: prompt
+            for field, (prompt, _) in list_for_note_type(
+                note_type,
+                deck_id,
+                fallback_to_global_deck=fallback_to_global_deck,
+            ).items()
+        }
+        if to_lower:
+            return to_lowercase_dict(fields)
+        return fields
+
     all_prompts = get_all_prompts(to_lower, override_prompts_map)
     prompts_for_note_type = all_prompts.get(note_type, {})
     deck_prompts = deepcopy(prompts_for_note_type.get(deck_id, {}))
@@ -76,6 +93,15 @@ def get_extras(
     prompts: Optional[PromptMap] = None,
     fallback_to_global_deck: bool = True,
 ) -> Optional[FieldExtras]:
+    if prompts is None:
+        smart_fields = list_for_note_type(
+            note_type,
+            deck_id,
+            fallback_to_global_deck=fallback_to_global_deck,
+        )
+        field_data = smart_fields.get(field) or smart_fields.get(field.lower())
+        return field_data[1] if field_data else None
+
     # Lowercase the field names
     deck_extras = to_lowercase_dict(
         (prompts or config.prompts_map)["note_types"]  # type: ignore
@@ -100,6 +126,9 @@ def get_all_prompts(
     to_lower: bool = False, override_prompts_map: Optional[PromptMap] = None
 ) -> dict[str, dict[DeckId, dict[str, str]]]:
     """Gets the prompts map. Maps note_type -> deck -> {field -> prompt}"""
+    if override_prompts_map is None:
+        override_prompts_map = list_prompt_map()
+
     prompts_map = {
         note_type: {
             # Tricky str -> int convert here

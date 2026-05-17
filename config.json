@@ -12,9 +12,6 @@
   "times_used": 0,
   "did_show_rate_dialog": false,
   "generate_at_review": true,
-  "prompts_map": {
-    "note_types": {}
-  },
   "last_seen_version": null,
   "regenerate_notes_when_batching": false,
   "allow_empty_fields": true,
@@ -25,8 +22,8 @@
   "legacy_openai_model": null,
   "did_show_chained_error_dialog": false,
   "did_show_premium_tts_dialog": false,
-  "did_deck_filter_migration": false,
   "chat_web_search": false,
   "did_click_rate_link": false,
-  "did_show_capacity_threshold_this_cycle": false
+  "did_show_capacity_threshold_this_cycle": false,
+  "did_migrate_smart_fields_to_sqlite": false
 }

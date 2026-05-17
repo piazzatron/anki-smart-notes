@@ -31,6 +31,7 @@ build () {
   cp -r src dist/
   cp license dist/
   cp changelog.md dist/
+  cp -r user_files dist/
   echo "environment = \"PROD\"" > dist/src/env.py
 
   # Nuke any pycache
@@ -50,6 +51,11 @@ build () {
     "certifi"
     "urllib3"
     "dotenv"
+    "yoyo"
+    "sqlparse"
+    "tabulate"
+    "importlib_metadata"
+    "zipp"
   )
 
   # copy them in a loop

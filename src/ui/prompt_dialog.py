@@ -66,7 +66,7 @@ from ..models import (
 )
 from ..note_proccessor import NoteProcessor
 from ..notes import get_note_types, get_random_note, get_valid_fields_for_prompt
-from ..prompts import (
+from ..prompt_helpers import (
     add_or_update_prompts,
     get_extras,
     get_prompt_fields,

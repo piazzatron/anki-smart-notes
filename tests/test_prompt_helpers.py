@@ -100,12 +100,12 @@ def make_prompts_map(note_type, deck_id, fields, extras):
 
 
 def setup_prompts(monkeypatch, prompts_map):
-    import src.prompts
+    import src.prompt_helpers
 
     c = MockConfig(prompts_map=prompts_map)
-    monkeypatch.setattr(src.prompts, "config", c)
+    monkeypatch.setattr(src.prompt_helpers, "config", c)
     monkeypatch.setattr(
-        src.prompts,
+        src.prompt_helpers,
         "deck_id_to_name_map",
         lambda: {1: "Default", 2: "Spanish"},
     )
@@ -131,7 +131,7 @@ def setup_prompts(monkeypatch, prompts_map):
     ],
 )
 def test_get_prompt_fields(prompt, expected):
-    from src.prompts import get_prompt_fields
+    from src.prompt_helpers import get_prompt_fields
 
     assert get_prompt_fields(prompt) == expected
 
@@ -145,7 +145,7 @@ def test_get_prompt_fields(prompt, expected):
     ],
 )
 def test_get_prompt_fields_no_lower(prompt, expected):
-    from src.prompts import get_prompt_fields
+    from src.prompt_helpers import get_prompt_fields
 
     assert get_prompt_fields(prompt, lower=False) == expected
 
@@ -198,12 +198,12 @@ def test_get_prompt_fields_no_lower(prompt, expected):
     ],
 )
 def test_interpolate_prompt(prompt, note_data, allow_empty, expected, monkeypatch):
-    import src.prompts
+    import src.prompt_helpers
 
     c = MockConfig(allow_empty_fields=allow_empty)
-    monkeypatch.setattr(src.prompts, "config", c)
+    monkeypatch.setattr(src.prompt_helpers, "config", c)
 
-    from src.prompts import interpolate_prompt
+    from src.prompt_helpers import interpolate_prompt
 
     note = MockNote(data=note_data)
     result = interpolate_prompt(prompt, note)
@@ -212,7 +212,7 @@ def test_interpolate_prompt(prompt, note_data, allow_empty, expected, monkeypatc
 
 class TestMoveSmartField:
     def test_move_field_removes_old_and_adds_new(self, monkeypatch):
-        from src.prompts import add_or_update_prompts, remove_prompt
+        from src.prompt_helpers import add_or_update_prompts, remove_prompt
 
         extras = make_extras()
         prompts_map = make_prompts_map(
@@ -240,7 +240,7 @@ class TestMoveSmartField:
         assert "Back" not in result["note_types"]["Basic"]["1"]["fields"]
 
     def test_move_field_to_different_note_type(self, monkeypatch):
-        from src.prompts import add_or_update_prompts, remove_prompt
+        from src.prompt_helpers import add_or_update_prompts, remove_prompt
 
         extras = make_extras()
         prompts_map = make_prompts_map(
@@ -267,7 +267,7 @@ class TestMoveSmartField:
         assert "Extra" in result["note_types"]["Cloze"]["1"]["fields"]
 
     def test_move_field_to_different_deck(self, monkeypatch):
-        from src.prompts import add_or_update_prompts, remove_prompt
+        from src.prompt_helpers import add_or_update_prompts, remove_prompt
 
         extras = make_extras()
         prompts_map = make_prompts_map(
@@ -294,7 +294,7 @@ class TestMoveSmartField:
         assert "Back" in result["note_types"]["Basic"]["2"]["fields"]
 
     def test_overwrite_existing_field_rule(self, monkeypatch):
-        from src.prompts import add_or_update_prompts, remove_prompt
+        from src.prompt_helpers import add_or_update_prompts, remove_prompt
 
         extras_back = make_extras()
         extras_extra = make_extras()
@@ -338,7 +338,7 @@ class TestMoveSmartField:
         )
 
     def test_remove_prompt_cleans_up_empty_structures(self, monkeypatch):
-        from src.prompts import remove_prompt
+        from src.prompt_helpers import remove_prompt
 
         extras = make_extras()
         prompts_map = make_prompts_map(
@@ -350,7 +350,7 @@ class TestMoveSmartField:
         assert "Basic" not in removed["note_types"]
 
     def test_save_to_same_field_no_removal_needed(self, monkeypatch):
-        from src.prompts import add_or_update_prompts
+        from src.prompt_helpers import add_or_update_prompts
 
         extras = make_extras()
         prompts_map = make_prompts_map(

@@ -15,6 +15,7 @@
 - Use `./scripts/build.sh typecheck` to run only type checking
 - Use `./scripts/build.sh fix` to automatically fix formatting and linting issues
 - Use `source .venv/bin/activate && python -m pytest` to run tests.
+- When adding or removing runtime dependencies in `requirements.txt`, also update the vendored dependency list in `scripts/build.sh`; packaged Anki builds only include dependencies copied into `dist/vendor`.
 
 # Code Structure
 - This is a Python3 codebase which takes full advantage of strong typing for static analysis.

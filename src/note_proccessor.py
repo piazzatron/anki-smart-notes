@@ -43,9 +43,9 @@ from .dag import generate_fields_dag
 from .field_processor import FieldProcessor
 from .logger import logger
 from .nodes import FieldNode
-from .notes import get_note_type
-from .prompts import get_prompts_for_note
+from .notes import get_note_type_id
 from .sentry import run_async_in_background_with_sentry
+from .smart_field_service import smart_field_service
 from .ui.ui_utils import show_message_box
 from .utils import run_on_main
 
@@ -242,9 +242,10 @@ class NoteProcessor:
         to_process: list[Note] = []
         skipped: list[Note] = []
         for note in notes:
-            note_type = get_note_type(note)
-            prompts = get_prompts_for_note(note_type, did_map[note.id])
-            if not prompts:
+            smart_fields = smart_field_service.get_smart_fields_for_note(
+                get_note_type_id(note), did_map[note.id], include_global=True
+            )
+            if not smart_fields:
                 logger.debug("Error: no prompts found for note type")
                 skipped.append(note)
             else:
@@ -346,19 +347,20 @@ class NoteProcessor:
     ) -> bool:
         """Process a single note, returns whether any fields were updated. Optionally can target specific fields. Caller responsible for handling any exceptions."""
 
-        note_type = get_note_type(note)
-        prompts_for_note = get_prompts_for_note(note_type, deck_id)
+        smart_fields = smart_field_service.get_smart_fields_for_note(
+            get_note_type_id(note), deck_id, include_global=True
+        )
 
-        if not prompts_for_note:
+        if not smart_fields:
             logger.debug("no prompts found for note type")
             return False
 
         # Topsort + parallel process the DAG
         dag = generate_fields_dag(
             note,
+            smart_fields=smart_fields,
             target_field=target_field,
             overwrite_fields=overwrite_fields,
-            deck_id=deck_id,
         )
 
         did_update = False

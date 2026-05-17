@@ -23,6 +23,7 @@ from anki.decks import DeckId
 from attr import dataclass
 
 from .models import SmartFieldType
+from .smart_field_models import SmartFieldSettings
 
 # Had to put this in a separate field to resolve circular import btwn processor + field_resolver
 
@@ -39,6 +40,7 @@ class FieldNode:
     deck_id: DeckId
     input: str
     field_type: SmartFieldType
+    settings: SmartFieldSettings
     is_target: bool = False
     generate_despite_manual: bool = False  # Used if it's pre a target field
     did_update: bool = False

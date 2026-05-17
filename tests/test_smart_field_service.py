@@ -1,0 +1,167 @@
+# type: ignore
+
+"""
+Copyright (C) 2024 Michael Piazza
+
+This file is part of Smart Notes.
+
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
+import pytest
+
+from src.constants import GLOBAL_DECK_ID
+from src.smart_field_models import (
+    ChatSmartFieldSettings,
+    ImageSmartFieldSettings,
+    SmartFieldCreate,
+    TTSSmartFieldSettings,
+)
+from src.smart_field_service import SmartFieldService
+
+NOTE_TYPE_ID = 123
+
+
+@pytest.fixture(autouse=True)
+def sqlite_database(tmp_path, monkeypatch):
+    import src.database
+
+    monkeypatch.setattr(
+        src.database,
+        "get_database_path",
+        lambda: str(tmp_path / "smart_notes.sqlite3"),
+    )
+
+
+def test_round_trips_typed_smart_fields() -> None:
+    service = SmartFieldService()
+
+    service.save_smart_field(
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=1,
+            target_field_name="Back",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="{{Front}}",
+                provider="openai",
+                model="gpt-4o-mini",
+                web_search_enabled=True,
+            ),
+        )
+    )
+    service.save_smart_field(
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=1,
+            target_field_name="Audio",
+            enabled=True,
+            settings=TTSSmartFieldSettings(
+                source_field_name="Back",
+                provider="openai",
+                model="tts-1",
+                voice_id="alloy",
+            ),
+        )
+    )
+    service.save_smart_field(
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=1,
+            target_field_name="Image",
+            enabled=False,
+            settings=ImageSmartFieldSettings(
+                prompt_text="Draw {{Front}}",
+                provider="openai",
+                model="gpt-image-1.5-low",
+            ),
+        )
+    )
+
+    smart_fields = {
+        smart_field.target_field_name: smart_field
+        for smart_field in service.get_smart_fields_for_note(
+            NOTE_TYPE_ID, 1, include_global=True
+        )
+    }
+
+    assert isinstance(smart_fields["Back"].settings, ChatSmartFieldSettings)
+    assert smart_fields["Back"].settings.prompt_text == "{{Front}}"
+    assert smart_fields["Back"].settings.web_search_enabled is True
+
+    assert isinstance(smart_fields["Audio"].settings, TTSSmartFieldSettings)
+    assert smart_fields["Audio"].settings.source_field_name == "Back"
+
+    assert isinstance(smart_fields["Image"].settings, ImageSmartFieldSettings)
+    assert smart_fields["Image"].enabled is False
+
+
+def test_get_smart_fields_for_note_applies_global_fallback_with_deck_override() -> None:
+    service = SmartFieldService()
+
+    service.save_smart_field(
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=GLOBAL_DECK_ID,
+            target_field_name="Back",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="global",
+                provider="openai",
+                model="gpt-4o-mini",
+                web_search_enabled=False,
+            ),
+        )
+    )
+    service.save_smart_field(
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=GLOBAL_DECK_ID,
+            target_field_name="Extra",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="global extra",
+                provider="openai",
+                model="gpt-4o-mini",
+                web_search_enabled=False,
+            ),
+        )
+    )
+    service.save_smart_field(
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=1,
+            target_field_name="Back",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="deck override",
+                provider="openai",
+                model="gpt-4o-mini",
+                web_search_enabled=False,
+            ),
+        )
+    )
+
+    smart_fields = {
+        smart_field.target_field_name: smart_field
+        for smart_field in service.get_smart_fields_for_note(
+            NOTE_TYPE_ID, 1, include_global=True
+        )
+    }
+
+    assert smart_fields.keys() == {"Back", "Extra"}
+    assert isinstance(smart_fields["Back"].settings, ChatSmartFieldSettings)
+    assert smart_fields["Back"].settings.prompt_text == "deck override"
+    assert isinstance(smart_fields["Extra"].settings, ChatSmartFieldSettings)
+    assert smart_fields["Extra"].settings.prompt_text == "global extra"

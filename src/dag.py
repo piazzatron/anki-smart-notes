@@ -18,25 +18,30 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import traceback
-from typing import Optional
+from typing import Optional, Union
 
 from anki.decks import DeckId
 from anki.notes import Note
 
 from .logger import logger
-from .models import PromptMap
+from .models import DEFAULT_EXTRAS, FieldExtras, PromptMap
 from .nodes import FieldNode
 from .notes import get_note_type
-from .prompts import get_extras, get_prompt_fields, get_prompts_for_note
+from .prompt_helpers import get_extras, get_prompt_fields
+from .smart_field_models import (
+    ChatSmartFieldSettings,
+    ImageSmartFieldSettings,
+    SmartField,
+    TTSSmartFieldSettings,
+)
 from .utils import get_fields
 
 
 def generate_fields_dag(
     note: Note,
+    smart_fields: list[SmartField],
     overwrite_fields: bool,
-    deck_id: DeckId,
     target_field: Optional[str] = None,
-    override_prompts_map: Optional[PromptMap] = None,
 ) -> dict[str, FieldNode]:
     """Generates a directed acyclic graph of prompts for a note, or a subset of that graph if a target_fields list is passed. Returns a mapping of field -> PromptNode"""
     # - Generates all nodes
@@ -45,15 +50,12 @@ def generate_fields_dag(
 
     try:
         note_type = get_note_type(note)
+        smart_fields_by_target = {
+            smart_field.target_field_name.lower(): smart_field
+            for smart_field in smart_fields
+        }
 
-        prompts = get_prompts_for_note(
-            note_type=note_type,
-            to_lower=True,
-            override_prompts_map=override_prompts_map,
-            deck_id=deck_id,
-        )
-
-        if not prompts:
+        if not smart_fields_by_target:
             logger.debug("generate_fields_dag: no prompts found for note type")
             return {}
 
@@ -63,20 +65,9 @@ def generate_fields_dag(
         # Have to iterate over fields to get the canonical capitalization lol
         for field in fields:
             field_lower = field.lower()
-            prompt = prompts.get(field_lower)
-            if not prompt:
+            smart_field = smart_fields_by_target.get(field_lower)
+            if not smart_field:
                 continue
-
-            extras = get_extras(
-                note_type, field, deck_id=deck_id, prompts=override_prompts_map
-            )
-
-            if not extras:
-                logger.error(f"Unexpectedly no extras for field {field}!")
-                continue
-
-            type = extras["type"]
-            should_generate_automatically = extras["automatic"]
 
             dag[field_lower] = FieldNode(
                 field=field_lower,
@@ -85,19 +76,22 @@ def generate_fields_dag(
                 in_nodes=[],
                 existing_value=note[field],
                 overwrite=overwrite_fields,
-                manual=not should_generate_automatically,
+                manual=not smart_field.enabled,
                 is_target=bool(target_field and field_lower == target_field.lower()),
-                input=prompt,
-                deck_id=deck_id,
-                field_type=type,
+                input=input_for_smart_field(smart_field),
+                deck_id=smart_field.deck_id,
+                field_type=smart_field.field_type,
+                settings=smart_field.settings,
             )
 
         if not len(dag):
             logger.debug("Unexpectedly empty dag!")
             return dag
 
-        for field, prompt in prompts.items():
-            in_fields = get_prompt_fields(prompt)
+        for field, smart_field in smart_fields_by_target.items():
+            if field not in dag:
+                continue
+            in_fields = dependency_fields_for_smart_field(smart_field)
 
             for in_field in in_fields:
                 if in_field in dag:
@@ -109,6 +103,8 @@ def generate_fields_dag(
         # If there's a target field, trim
         # the dag to only the input of the target field
         if target_field:
+            if target_field.lower() not in dag:
+                return {}
             target_node = dag[target_field.lower()]
             trimmed: dict[str, FieldNode] = {target_field.lower(): target_node}
 
@@ -148,6 +144,24 @@ def has_cycle(dag: dict[str, FieldNode]) -> bool:
     return False
 
 
+def input_for_smart_field(smart_field: SmartField) -> str:
+    settings = smart_field.settings
+    if isinstance(settings, ChatSmartFieldSettings):
+        return settings.prompt_text
+    if isinstance(settings, ImageSmartFieldSettings):
+        return settings.prompt_text
+    return settings.source_field_name
+
+
+def dependency_fields_for_smart_field(smart_field: SmartField) -> list[str]:
+    settings = smart_field.settings
+    if isinstance(settings, TTSSmartFieldSettings):
+        return [settings.source_field_name.lower()]
+    if isinstance(settings, ChatSmartFieldSettings):
+        return get_prompt_fields(settings.prompt_text)
+    return get_prompt_fields(settings.prompt_text)
+
+
 # Lives in here bc there is cycle detection. Not the best place but meh
 def prompt_has_error(
     prompt: str,
@@ -167,7 +181,6 @@ def prompt_has_error(
             return f"Invalid field in prompt: {prompt_field}"
 
         extras = get_extras(note_type, prompt_field, deck_id, prompts_map)
-
         if extras and extras["type"] in ["tts", "image"]:
             return "Cannot reference TTS or image fields in prompts"
 
@@ -175,11 +188,69 @@ def prompt_has_error(
     if target_field and target_field.lower() in prompt_fields:
         return "Cannot reference the target field in the prompt."
 
-    dag = generate_fields_dag(
-        note, overwrite_fields=False, deck_id=deck_id, override_prompts_map=prompts_map
-    )
-
-    if has_cycle(dag):
-        return "Smart fields referencing other smart fields cannot make a cycle!! 🔁"
+    if prompts_map:
+        note_type_model = note.note_type()
+        note_type_id = int(note_type_model["id"]) if note_type_model else -1
+        dag = generate_fields_dag(
+            note,
+            smart_fields=smart_fields_from_prompt_map(
+                note_type, note_type_id, deck_id, prompts_map
+            ),
+            overwrite_fields=False,
+        )
+        if has_cycle(dag):
+            return (
+                "Smart fields referencing other smart fields cannot make a cycle!! 🔁"
+            )
 
     return None
+
+
+def smart_fields_from_prompt_map(
+    note_type: str, note_type_id: int, deck_id: DeckId, prompts_map: PromptMap
+) -> list[SmartField]:
+    note_type_map = prompts_map["note_types"].get(note_type, {})
+    deck_map = note_type_map.get(str(deck_id), {})
+    fields = deck_map.get("fields", {})
+    extras_by_field = deck_map.get("extras", {})
+
+    return [
+        SmartField(
+            id=f"prompt-map:{field}",
+            note_type_id=note_type_id,
+            deck_id=deck_id,
+            target_field_name=field,
+            enabled=(extras_by_field.get(field) or DEFAULT_EXTRAS)["automatic"],
+            settings=smart_field_settings_from_prompt_parts(
+                prompt=prompt,
+                extras=extras_by_field.get(field) or DEFAULT_EXTRAS,
+            ),
+        )
+        for field, prompt in fields.items()
+    ]
+
+
+def smart_field_settings_from_prompt_parts(
+    prompt: str, extras: FieldExtras
+) -> Union[ChatSmartFieldSettings, TTSSmartFieldSettings, ImageSmartFieldSettings]:
+    field_type = extras["type"]
+    if field_type == "tts":
+        source_fields = get_prompt_fields(prompt, lower=False)
+        return TTSSmartFieldSettings(
+            source_field_name=source_fields[0] if source_fields else "",
+            provider=extras.get("tts_provider") or "openai",
+            model=extras.get("tts_model") or "tts-1",
+            voice_id=extras.get("tts_voice") or "alloy",
+        )
+    if field_type == "image":
+        return ImageSmartFieldSettings(
+            prompt_text=prompt,
+            provider=extras.get("image_provider") or "openai",
+            model=extras.get("image_model") or "gpt-image-1.5-low",
+        )
+    return ChatSmartFieldSettings(
+        prompt_text=prompt,
+        provider=extras.get("chat_provider") or "openai",
+        model=extras.get("chat_model") or "gpt-4o-mini",
+        web_search_enabled=extras.get("chat_web_search") or False,
+    )

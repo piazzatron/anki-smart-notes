@@ -23,7 +23,7 @@ import sys
 
 from aqt import mw
 
-from .utils import get_file_path, is_production
+from .utils import get_file_path
 
 
 def setup_logger() -> None:
@@ -41,22 +41,16 @@ def setup_logger() -> None:
     if not config:
         return
 
-    is_debug = config.get("debug")
+    logger.setLevel(logging.DEBUG)
 
-    if is_production() and not is_debug:
-        logger.setLevel(logging.ERROR)
-    else:
-        logger.setLevel(logging.DEBUG)
+    if not os.getenv("IS_TEST"):
+        file_handler = logging.FileHandler(
+            get_file_path("smart-notes.log"), mode="w", encoding="utf-8"
+        )
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
 
-        if not os.getenv("IS_TEST"):
-            file_handler = logging.FileHandler(
-                get_file_path("smart-notes.log"), mode="w", encoding="utf-8"
-            )
-            file_handler.setFormatter(formatter)
-            logger.addHandler(file_handler)
-
-            if is_debug:
-                logger.debug("Starting app in debug mode")
+        logger.debug("Starting app with debug logging enabled")
 
     logger.addHandler(stream_handler)
 
