@@ -36,7 +36,7 @@ OpenAIModels = Literal[
     "gpt-5-chat-latest",
     "gpt-4o-mini",
 ]
-AutoModels = Literal["auto"]
+AutoModels = Literal["auto", "auto-max"]
 DeepseekModels = Literal["deepseek-v3"]
 AnthropicModels = Literal["claude-haiku-4-5", "claude-sonnet-4-6", "claude-opus-4-6"]
 GeminiModels = Literal["gemini-3.1-pro", "gemini-3.1-flash-lite", "gemini-3-flash"]
@@ -45,7 +45,7 @@ ChatModels = Union[
 ]
 
 # Order that the models are displayed in the UI.
-auto_chat_models: list[ChatModels] = ["auto"]
+auto_chat_models: list[ChatModels] = ["auto", "auto-max"]
 
 openai_chat_models: list[ChatModels] = [
     "gpt-5-nano",
