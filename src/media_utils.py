@@ -44,12 +44,3 @@ def write_media(file_name: str, file: bytes) -> Optional[str]:
     if not media:
         return None
     return media.write_data(file_name, file)
-
-
-def trash_files(file_names: list[str]) -> None:
-    if not mw or not mw.col:
-        return
-    media = mw.col.media
-    if not media:
-        return
-    media.trash_files(file_names)

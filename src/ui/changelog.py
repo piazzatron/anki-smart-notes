@@ -25,7 +25,7 @@ from ..logger import logger
 from ..utils import get_version, load_file
 
 
-def parse_changelog() -> list[tuple[str, list[str]]]:
+def _parse_changelog() -> list[tuple[str, list[str]]]:
     changelog = load_file("changelog.md")
     versions: list[tuple[str, list[str]]] = []
 
@@ -68,7 +68,7 @@ class ChangeLogDialog(QDialog):
 
     def setup_ui(self) -> None:
         current_version = get_version()
-        change_log = parse_changelog()
+        change_log = _parse_changelog()
 
         layout = QVBoxLayout()
         self.setLayout(layout)

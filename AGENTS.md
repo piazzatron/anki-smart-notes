@@ -7,7 +7,7 @@
 # Code Style and Practices
 - Use modern Python. Make sure your code is fully typed.
 - Always put imports at the top of files, never inside functions or methods
-- Don't prefix top level defs with an `_` ever. Save those for private methods on classes.
+- Prefix private top level helper defs with `_`. Keep public APIs, Anki hook callbacks, Qt signal callbacks, and other framework entry points unprefixed.
 - Avoid unnecessary abstractions. Don't extract helper functions or add parameters unless the operation is actually reused. Prefer inlining logic with a brief comment over creating a single-use helper. Extra parameters that just proxy a check (e.g. passing `self.mode == "edit"` as a bool arg) add indirection — just check the condition directly in the method body.
 
 # Important Commands

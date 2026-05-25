@@ -37,7 +37,6 @@ from .database import apply_database_migrations
 from .decks import deck_id_to_name_map
 from .feature_flags import refresh_feature_flags
 from .logger import logger, setup_logger
-from .message_polling import start_polling_for_messages
 from .note_proccessor import NoteProcessor
 from .review_time_evaluator import ReviewTimeEvaluator
 from .sentry import sentry, with_sentry
@@ -58,7 +57,7 @@ _local_server: Any = None
 _review_time_evaluator: Optional[ReviewTimeEvaluator] = None
 
 
-def with_processor(fn: Any):
+def _with_processor(fn: Any):
     # Too annoying to type this thing
     """Decorator to pass the processor to the function."""
 
@@ -72,7 +71,7 @@ def with_processor(fn: Any):
     return wrapper
 
 
-@with_processor  # type: ignore
+@_with_processor  # type: ignore
 def on_options(processor: NoteProcessor):
     app_state.update_subscription_state()
     if not mw:
@@ -86,7 +85,7 @@ def on_options(processor: NoteProcessor):
     dialog.show()
 
 
-@with_processor  # type: ignore
+@_with_processor  # type: ignore
 def add_editor_top_button(
     processor: NoteProcessor, buttons: list[str], e: editor.Editor
 ):
@@ -191,7 +190,7 @@ def add_editor_top_button(
     buttons.append(button)
 
 
-def make_on_batch_success(
+def _make_on_batch_success(
     browser: browser.Browser,  # type: ignore
 ) -> Callable[[list[Note], list[Note], list[Note]], None]:
     def wrapped_on_batch_success(
@@ -219,7 +218,7 @@ def make_on_batch_success(
     return wrapped_on_batch_success
 
 
-@with_processor  # type: ignore
+@_with_processor  # type: ignore
 def on_browser_context(processor: NoteProcessor, browser: browser.Browser, menu: QMenu):  # type: ignore
     item = QAction("✨ Generate Smart Fields", menu)
     menu.addSeparator()
@@ -231,20 +230,19 @@ def on_browser_context(processor: NoteProcessor, browser: browser.Browser, menu:
         if not is_capacity_remaining_or_legacy(show_box=True):
             return
 
-        if not prevent_batches_on_free_trial(cards):
+        if not _prevent_batches_on_free_trial(cards):
             return
 
         processor.process_cards_with_progress(
             cards,
-            on_success=make_on_batch_success(browser),
+            on_success=_make_on_batch_success(browser),
             overwrite_fields=config.regenerate_notes_when_batching,
         )
 
     item.triggered.connect(wrapped)
 
 
-def on_start_actions() -> None:
-    start_polling_for_messages()
+def _on_start_actions() -> None:
     refresh_feature_flags()
 
     app_state.update_subscription_state()
@@ -280,7 +278,7 @@ def _stamp_version_and_show_first_load_window(processor: NoteProcessor) -> None:
         logger.error(f"Error checking for updates: {e}")
 
 
-@with_processor  # type: ignore
+@_with_processor  # type: ignore
 def on_main_window(processor: NoteProcessor):
     if not mw:
         return
@@ -297,7 +295,7 @@ def on_main_window(processor: NoteProcessor):
     mw.form.menuTools.addAction(options_action)
     mw.addonManager.setConfigAction(__name__, on_options(processor))
 
-    on_start_actions()
+    _on_start_actions()
     # Show either the first load window or the changelog if it's a new version
     _stamp_version_and_show_first_load_window(processor)
 
@@ -311,7 +309,7 @@ def on_main_window(processor: NoteProcessor):
     _local_server.start()
 
 
-@with_processor  # type: ignore
+@_with_processor  # type: ignore
 def on_editor_context(
     processor: NoteProcessor, editor_web_view: editor.EditorWebView, menu: QMenu
 ):
@@ -365,7 +363,7 @@ def on_editor_context(
     menu._smartnotes_field_menu = field_menu  # type: ignore
 
 
-@with_processor  # type: ignore
+@_with_processor  # type: ignore
 def add_deck_option(
     processor: NoteProcessor,
     tree_view: browser.sidebar.SidebarTreeView,  # type: ignore
@@ -392,12 +390,12 @@ def add_deck_option(
     def wrapped():
         if not is_capacity_remaining_or_legacy(show_box=True):
             return
-        if not prevent_batches_on_free_trial(cards):
+        if not _prevent_batches_on_free_trial(cards):
             return
 
         processor.process_cards_with_progress(
             cards,
-            on_success=make_on_batch_success(tree_view.browser),
+            on_success=_make_on_batch_success(tree_view.browser),
             overwrite_fields=config.regenerate_notes_when_batching,
         )
 
@@ -428,7 +426,7 @@ def cleanup() -> None:
     logger.handlers.clear()
 
 
-def prevent_batches_on_free_trial(notes: Any) -> bool:
+def _prevent_batches_on_free_trial(notes: Any) -> bool:
     if app_state.is_free_trial() and len(notes) > 50:
         did_accept: bool = show_message_box(
             "Warning: your free trial allows a limited number of cards. Continue?",

@@ -153,7 +153,7 @@ class GoogleVoice(TypedDict):
     type: Literal["Standard", "Wavenet", "Neural", "Chirp"]
 
 
-def get_google_voices() -> list[TTSMeta]:
+def _get_google_voices() -> list[TTSMeta]:
     s = load_file("google_voices.json", test_override="[]")
     google_voices: list[GoogleVoice] = json.loads(s)
     voices: list[TTSMeta] = []
@@ -178,7 +178,7 @@ def get_google_voices() -> list[TTSMeta]:
     return voices
 
 
-def get_eleven_voices() -> list[TTSMeta]:
+def _get_eleven_voices() -> list[TTSMeta]:
     s = load_file("eleven_voices.json", test_override="[]")
     eleven_voices = json.loads(s)
     voices: list[TTSMeta] = []
@@ -223,7 +223,7 @@ class AzureVoice(TypedDict):
     sampleRateHertz: str
 
 
-def get_azure_voices() -> list[TTSMeta]:
+def _get_azure_voices() -> list[TTSMeta]:
     s = load_file("azure_voices.json", test_override="[]")
     azure_voices: list[AzureVoice] = json.loads(s)
     voices: list[TTSMeta] = []
@@ -253,7 +253,7 @@ class VoiceVoxVoice(TypedDict):
     gender: Literal["Male", "Female"]
 
 
-def get_voicevox_voices() -> list[TTSMeta]:
+def _get_voicevox_voices() -> list[TTSMeta]:
     s = load_file("voicevox_voices.json", test_override="[]")
     voicevox_voices: list[VoiceVoxVoice] = json.loads(s)
     voices: list[TTSMeta] = []
@@ -274,11 +274,11 @@ def get_voicevox_voices() -> list[TTSMeta]:
 
 # Combine all voices
 voices = (
-    get_google_voices()
+    _get_google_voices()
     + openai_voices
-    + get_eleven_voices()
-    + get_azure_voices()
-    + get_voicevox_voices()
+    + _get_eleven_voices()
+    + _get_azure_voices()
+    + _get_voicevox_voices()
 )
 
 languages: list[str] = [ALL] + sorted({voice["language"] for voice in voices} - {ALL})
@@ -292,13 +292,13 @@ providers: list[AllTTSProviders] = [
 ]
 
 
-def format_voice(voice: TTSMeta) -> str:
+def _format_voice(voice: TTSMeta) -> str:
     language_display = "Multilingual" if voice["language"] == ALL else voice["language"]
     return f"{voice['tts_provider'].capitalize()} - {language_display} - {voice['gender'].capitalize()} - {voice['friendly_voice']} ({price_tier_copy[voice['price_tier']]})"
 
 
 voice_search_cache: dict[tuple[str, str, str], list[str]] = {
-    (v["tts_provider"], v["voice"], v["model"]): format_voice(v).lower().split()
+    (v["tts_provider"], v["voice"], v["model"]): _format_voice(v).lower().split()
     for v in voices
 }
 
@@ -316,7 +316,7 @@ class CustomListModel(QAbstractListModel):
         return len(self._data)
 
     def create_str(self, row: int) -> str:
-        return format_voice(self._data[row])
+        return _format_voice(self._data[row])
 
     def update_data(self, new_data: list[TTSMeta]):
         self.beginResetModel()
@@ -333,7 +333,7 @@ class SelectedVoiceLabel(QLabel):
         self.update_text(meta)
 
     def update_text(self, meta: TTSMeta):
-        self.setText(f" Current voice: {format_voice(meta)}")
+        self.setText(f" Current voice: {_format_voice(meta)}")
         self.setFont(font_bold)
 
 
@@ -631,7 +631,7 @@ class TTSOptions(QWidget):
             # Search works by splitting the user's input into terms and the formatted
             # voice display text into words. Each search term must match (via substring)
             # at least one word in the voice. All search terms must match for inclusion.
-            # The voice_search_cache contains pre-split words from format_voice() output.
+            # The voice_search_cache contains pre-split words from _format_voice() output.
             voice_key = (voice["tts_provider"], voice["voice"], voice["model"])
             voice_words = voice_search_cache[voice_key]
             matches_search = not search_terms or all(

@@ -127,11 +127,6 @@ def is_ai_field(current_field_num: Optional[int], card: Card) -> Optional[str]:
     return sorted_fields[current_field_num] if is_ai else None
 
 
-def has_chained_ai_fields(card: Card) -> bool:
-    """Check if a card has any AI fields that depend on other AI fields."""
-    return bool(get_chained_ai_fields(get_note_type(card.note()), card.did))
-
-
 def get_chained_ai_fields(note_type: str, deck_id: DeckId) -> set[str]:
     """Check if a note has any AI fields that depend on other AI fields."""
     res: set[str] = set()

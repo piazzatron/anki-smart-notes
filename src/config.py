@@ -138,7 +138,6 @@ M = TypeVar("M", bound=Mapping[str, object])
 
 
 # TODO: this belongs in utils but ciruclar import
-# TODO: make this use the none_defaulting (too much type golf for now tho)
 def key_or_config_val(vals: Optional[M], k: str) -> T:  # type: ignore
     return (
         cast(T, vals[k])

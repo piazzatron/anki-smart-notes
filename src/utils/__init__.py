@@ -19,8 +19,8 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import json
 import os
-from collections.abc import Callable, Mapping
-from typing import Any, TypeVar, cast
+from collections.abc import Callable
+from typing import Any
 
 from aqt import mw
 
@@ -74,12 +74,6 @@ def run_on_main(work: Callable[[], Any]) -> None:
     mw.taskman.run_on_main(work)
 
 
-def run_in_background(work: Callable[[], None]) -> None:
-    if not mw:
-        return
-    mw.taskman.run_in_background(work)
-
-
 def is_production() -> bool:
     return environment == "PROD"
 
@@ -87,10 +81,3 @@ def is_production() -> bool:
 def get_version() -> str:
     manifest = load_file("manifest.json")
     return json.loads(manifest)["human_version"]  # type: ignore
-
-
-T = TypeVar("T")
-
-
-def none_defaulting(d: Mapping[str, Any], k: str, fallback: T) -> T:
-    return cast(T, d[k]) if d.get(k) is not None else fallback

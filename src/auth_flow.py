@@ -33,7 +33,7 @@ from .tasks import run_async_in_background
 
 
 def open_browser(path: str) -> None:
-    url = f"{get_site_url()}{with_plugin_utm_params(path)}"
+    url = f"{get_site_url()}{_with_plugin_utm_params(path)}"
     logger.info(f"Opening browser for signup: {url}")
     webbrowser.open(url, new=1)
 
@@ -66,20 +66,16 @@ def submit_code(
         on_result(None)
 
     run_async_in_background(
-        lambda: exchange_code(cleaned),
+        lambda: _exchange_code(cleaned),
         on_success=on_exchange_done,
         use_collection=False,
     )
 
 
-def is_authenticated() -> bool:
-    return bool(config.auth_token)
-
-
 # -- Internals --
 
 
-def with_plugin_utm_params(path: str) -> str:
+def _with_plugin_utm_params(path: str) -> str:
     separator = "&" if "?" in path else "?"
     return f"{path}{separator}utm_source=plugin"
 
@@ -103,7 +99,7 @@ ERROR_MESSAGES = {
 }
 
 
-async def exchange_code(code: str) -> ExchangeResult:
+async def _exchange_code(code: str) -> ExchangeResult:
     url = f"{get_server_url()}/auth/code/exchange"
     logger.debug(f"Auth code exchange: POST {url}")
     timeout = aiohttp.ClientTimeout(total=10)
