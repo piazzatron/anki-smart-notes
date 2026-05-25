@@ -38,7 +38,7 @@ steps = [
     ),
     step(
         """
-        CREATE TABLE chat_smart_field_settings (
+        CREATE TABLE text_smart_field_settings (
             smart_field_id TEXT PRIMARY KEY REFERENCES smart_fields(id) ON DELETE CASCADE,
             prompt_text TEXT NOT NULL,
             provider TEXT NOT NULL,
@@ -46,7 +46,7 @@ steps = [
             web_search_enabled INTEGER NOT NULL DEFAULT 0 CHECK (web_search_enabled IN (0, 1))
         );
         """,
-        "DROP TABLE chat_smart_field_settings;",
+        "DROP TABLE text_smart_field_settings;",
     ),
     step(
         """

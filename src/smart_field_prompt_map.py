@@ -44,6 +44,9 @@ from .smart_field_models import (
 
 FIELD_PATTERN = r"\{\{(?!c\d+::)(.+?)\}\}"
 
+# Temporary compatibility layer for the existing smart field UI. The major UI
+# refactor should remove this prompt-map shape and talk to smart fields directly.
+
 
 def list_prompt_map() -> PromptMap:
     from .smart_field_service import smart_field_service

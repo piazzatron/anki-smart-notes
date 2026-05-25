@@ -38,7 +38,7 @@ def test_apply_database_migrations_creates_smart_field_tables(tmp_path: Path) ->
         }
 
         assert "smart_fields" in tables
-        assert "chat_smart_field_settings" in tables
+        assert "text_smart_field_settings" in tables
         assert "tts_smart_field_settings" in tables
         assert "image_smart_field_settings" in tables
 

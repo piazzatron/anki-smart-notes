@@ -96,7 +96,7 @@ class SmartFieldService:
                     image.provider AS image_provider,
                     image.model AS image_model
                 FROM smart_fields sf
-                LEFT JOIN chat_smart_field_settings chat ON chat.smart_field_id = sf.id
+                LEFT JOIN text_smart_field_settings chat ON chat.smart_field_id = sf.id
                 LEFT JOIN tts_smart_field_settings tts ON tts.smart_field_id = sf.id
                 LEFT JOIN image_smart_field_settings image ON image.smart_field_id = sf.id
                 ORDER BY sf.note_type_id, sf.deck_id, sf.target_field_name
@@ -182,7 +182,7 @@ class SmartFieldService:
         if isinstance(settings, ChatSmartFieldSettings):
             conn.execute(
                 """
-                INSERT INTO chat_smart_field_settings (
+                INSERT INTO text_smart_field_settings (
                     smart_field_id, prompt_text, provider, model, web_search_enabled
                 )
                 VALUES (?, ?, ?, ?, ?)
@@ -280,7 +280,7 @@ class SmartFieldService:
 
     def _delete_settings(self, conn: sqlite3.Connection, smart_field_id: str) -> None:
         conn.execute(
-            "DELETE FROM chat_smart_field_settings WHERE smart_field_id = ?",
+            "DELETE FROM text_smart_field_settings WHERE smart_field_id = ?",
             (smart_field_id,),
         )
         conn.execute(
