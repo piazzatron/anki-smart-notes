@@ -60,10 +60,10 @@ def generate_fields_dag(
             return {}
 
         dag: dict[str, FieldNode] = {}
-        fields = get_fields(note_type)
+        note_fields = get_fields(note_type)
 
         # Have to iterate over fields to get the canonical capitalization lol
-        for field in fields:
+        for field in note_fields:
             field_lower = field.lower()
             smart_field = smart_fields_by_target.get(field_lower)
             if not smart_field:
@@ -78,24 +78,21 @@ def generate_fields_dag(
                 overwrite=overwrite_fields,
                 manual=not smart_field.enabled,
                 is_target=bool(target_field and field_lower == target_field.lower()),
-                input=input_for_smart_field(smart_field),
-                deck_id=smart_field.deck_id,
-                field_type=smart_field.field_type,
-                settings=smart_field.settings,
+                smart_field=smart_field,
             )
 
         if not len(dag):
             logger.debug("Unexpectedly empty dag!")
             return dag
 
-        for field, smart_field in smart_fields_by_target.items():
-            if field not in dag:
+        for field_name, smart_field in smart_fields_by_target.items():
+            if field_name not in dag:
                 continue
             in_fields = dependency_fields_for_smart_field(smart_field)
 
             for in_field in in_fields:
                 if in_field in dag:
-                    this_node = dag[field]
+                    this_node = dag[field_name]
                     depends_on = dag[in_field]
                     this_node.in_nodes.append(depends_on)
                     depends_on.out_nodes.append(this_node)
@@ -142,15 +139,6 @@ def has_cycle(dag: dict[str, FieldNode]) -> bool:
             explore.extend((node, new_path) for node in cur.out_nodes)
 
     return False
-
-
-def input_for_smart_field(smart_field: SmartField) -> str:
-    settings = smart_field.settings
-    if isinstance(settings, ChatSmartFieldSettings):
-        return settings.prompt_text
-    if isinstance(settings, ImageSmartFieldSettings):
-        return settings.prompt_text
-    return settings.source_field_name
 
 
 def dependency_fields_for_smart_field(smart_field: SmartField) -> list[str]:

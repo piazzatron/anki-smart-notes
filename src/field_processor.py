@@ -76,10 +76,11 @@ class FieldProcessor:
     ) -> Optional[str]:
         # Only show error box if we're running on the target node
         input = node.input
-        field_type: SmartFieldType = node.field_type
+        field_type: SmartFieldType = node.smart_field.field_type
+        settings = node.smart_field.settings
 
         if field_type == "tts":
-            if not isinstance(node.settings, TTSSmartFieldSettings):
+            if not isinstance(settings, TTSSmartFieldSettings):
                 raise Exception(f"Unexpected settings for TTS field {node.field}")
 
             if not is_capacity_remaining():
@@ -94,7 +95,7 @@ class FieldProcessor:
                 return None
 
             source_value = note_field_value_case_insensitive(
-                note, node.settings.source_field_name
+                note, settings.source_field_name
             )
             if not source_value:
                 return None
@@ -102,9 +103,9 @@ class FieldProcessor:
             tts_response = await self.get_tts_response(
                 note=note,
                 input_text=source_value,
-                model=node.settings.model,
-                voice=cast(Union[OpenAIVoices, ElevenVoices], node.settings.voice_id),
-                provider=node.settings.provider,
+                model=settings.model,
+                voice=cast(Union[OpenAIVoices, ElevenVoices], settings.voice_id),
+                provider=settings.provider,
                 show_error_box=show_error_box,
                 generation_source="card_generation",
             )
@@ -112,32 +113,32 @@ class FieldProcessor:
             if not tts_response:
                 return None
 
-            audio_ext = "wav" if node.settings.provider == "voicevox" else "mp3"
+            audio_ext = "wav" if settings.provider == "voicevox" else "mp3"
             file_name = get_media_path(note, node.field, audio_ext)
             path = media.write_data(file_name, tts_response)
 
             return f"[sound:{path}]"
 
         elif field_type == "chat":
-            if not isinstance(node.settings, ChatSmartFieldSettings):
+            if not isinstance(settings, ChatSmartFieldSettings):
                 raise Exception(f"Unexpected settings for chat field {node.field}")
 
             return await self.get_chat_response(
                 note=note,
-                deck_id=node.deck_id,
+                deck_id=node.smart_field.deck_id,
                 prompt=input,
-                model=node.settings.model,
-                provider=node.settings.provider,
+                model=settings.model,
+                provider=settings.provider,
                 temperature=config.chat_temperature,
                 field_lower=node.field,
                 should_convert_to_html=True,
-                web_search=node.settings.web_search_enabled,
+                web_search=settings.web_search_enabled,
                 show_error_box=show_error_box,
                 generation_source="card_generation",
             )
 
         elif field_type == "image":
-            if not isinstance(node.settings, ImageSmartFieldSettings):
+            if not isinstance(settings, ImageSmartFieldSettings):
                 raise Exception(f"Unexpected settings for image field {node.field}")
 
             if not mw or not mw.col:
@@ -151,8 +152,8 @@ class FieldProcessor:
             image_response = await self.get_image_response(
                 note=note,
                 input_text=input,
-                model=node.settings.model,
-                provider=node.settings.provider,
+                model=settings.model,
+                provider=settings.provider,
                 show_error_box=show_error_box,
                 generation_source="card_generation",
             )
