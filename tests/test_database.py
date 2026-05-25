@@ -20,6 +20,9 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 import sqlite3
 from pathlib import Path
 
+import pytest
+import yoyo.backends.base
+
 from src.database import apply_database_migrations, get_database_path
 
 
@@ -57,6 +60,15 @@ def test_apply_database_migrations_creates_smart_field_tables(tmp_path: Path) ->
         }
     finally:
         conn.close()
+
+
+def test_apply_database_migrations_does_not_require_yoyo_entry_points(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    monkeypatch.setattr(yoyo.backends.base, "entry_points", lambda group: {})
+
+    apply_database_migrations(str(tmp_path / "smart_notes.sqlite3"))
 
 
 def test_get_database_path_uses_anki_preserved_user_files() -> None:

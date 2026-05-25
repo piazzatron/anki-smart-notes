@@ -21,7 +21,9 @@ import sqlite3
 from pathlib import Path
 from typing import Optional
 
-from yoyo import get_backend, read_migrations
+from yoyo import read_migrations
+from yoyo.backends.core.sqlite3 import SQLiteBackend
+from yoyo.connections import default_migration_table, parse_uri
 
 from .logger import logger
 
@@ -35,7 +37,7 @@ def apply_database_migrations(database_path: Optional[str] = None) -> None:
     Path(resolved_database_path).parent.mkdir(parents=True, exist_ok=True)
 
     logger.debug(f"Smart fields DB: preparing migrations for {resolved_database_path}")
-    backend = get_backend(f"sqlite:///{Path(resolved_database_path).absolute()}")
+    backend = get_sqlite_backend(resolved_database_path)
     migrations_path = Path(__file__).with_name("db_migrations")
     logger.debug(f"Smart fields DB: reading migrations from {migrations_path}")
     migrations = read_migrations(str(migrations_path))
@@ -68,3 +70,10 @@ def get_database_path() -> str:
 
 def get_user_files_path(filename: str) -> str:
     return str(Path(__file__).resolve().parent.parent / USER_FILES_DIR / filename)
+
+
+def get_sqlite_backend(database_path: str) -> SQLiteBackend:
+    database_uri = f"sqlite:///{Path(database_path).absolute().as_posix()}"
+    backend = SQLiteBackend(parse_uri(database_uri), default_migration_table)
+    backend.init_database()
+    return backend
