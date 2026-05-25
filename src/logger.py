@@ -41,7 +41,8 @@ def setup_logger() -> None:
     if not config:
         return
 
-    logger.setLevel(logging.DEBUG)
+    is_debug = bool(config.get("debug"))
+    logger.setLevel(logging.DEBUG if is_debug else logging.INFO)
 
     if not os.getenv("IS_TEST"):
         file_handler = logging.FileHandler(
@@ -50,7 +51,11 @@ def setup_logger() -> None:
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
 
-        logger.debug("Starting app with debug logging enabled")
+        logger.info(
+            "Starting app with debug logging enabled"
+            if is_debug
+            else "Starting app with info logging enabled"
+        )
 
     logger.addHandler(stream_handler)
 
