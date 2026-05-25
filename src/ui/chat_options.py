@@ -111,9 +111,7 @@ class ChatOptions(QWidget):
         search_box.setLayout(search_layout)
         self.web_search_box = ReactiveCheckBox(self.state, "chat_web_search")
         search_layout.addRow(QLabel("Enable Web Search:"), self.web_search_box)
-        search_warning = QLabel(
-            "⚠️ Search is expensive; monitor your credits. Not available for Deepseek."
-        )
+        search_warning = QLabel("⚠️ Search is expensive; monitor your credits.")
         search_warning.setFont(font_small)
         search_layout.addRow(search_warning)
 

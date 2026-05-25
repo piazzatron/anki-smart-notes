@@ -38,6 +38,7 @@ CONFIG_KEYS_TO_REMOVE_AFTER_IMPORT = [
     "did_deck_filter_migration",
     "did_cleanup_config_defaults",
 ]
+LEGACY_CHAT_MODELS_TO_AUTO = {"deepseek-v3", "gpt-4o-mini", "gpt-5-nano"}
 
 
 def migrate_legacy_smart_field_config() -> None:
@@ -78,6 +79,25 @@ def migrate_legacy_smart_field_config() -> None:
             "Please email support@smart-notes.xyz and include your smart-notes.log file.",
         )
         raise
+
+
+def migrate_legacy_chat_config_to_auto() -> None:
+    if not mw:
+        return
+    addon_config = mw.addonManager.getConfig(config_module.__name__)
+    if addon_config is None:
+        return
+
+    if (
+        addon_config.get("chat_provider") != "deepseek"
+        and addon_config.get("chat_model") not in LEGACY_CHAT_MODELS_TO_AUTO
+    ):
+        return
+
+    logger.info("Migrating legacy chat config to Auto")
+    addon_config["chat_provider"] = "auto"
+    addon_config["chat_model"] = "auto"
+    mw.addonManager.writeConfig(config_module.__name__, addon_config)
 
 
 def backup_config_for_sqlite_migration() -> None:

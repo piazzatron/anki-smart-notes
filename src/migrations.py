@@ -18,7 +18,10 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 from .database import apply_database_bootstrap_migrations, apply_database_migrations
-from .smart_field_migration import migrate_legacy_smart_field_config
+from .smart_field_migration import (
+    migrate_legacy_chat_config_to_auto,
+    migrate_legacy_smart_field_config,
+)
 
 
 def run_migrations() -> None:
@@ -27,3 +30,4 @@ def run_migrations() -> None:
     apply_database_bootstrap_migrations()
     migrate_legacy_smart_field_config()
     apply_database_migrations()
+    migrate_legacy_chat_config_to_auto()
