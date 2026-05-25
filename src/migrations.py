@@ -22,6 +22,8 @@ from .smart_field_migration import migrate_legacy_smart_field_config
 
 
 def run_migrations() -> None:
+    # Legacy config import writes into SQLite, so the table schema must exist
+    # first. Run all data migrations afterward so imported rows are included.
     apply_database_bootstrap_migrations()
     migrate_legacy_smart_field_config()
     apply_database_migrations()
