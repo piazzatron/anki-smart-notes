@@ -30,6 +30,10 @@ from .logger import logger
 
 DATABASE_FILENAME = "smart_notes.sqlite3"
 USER_FILES_DIR = "user_files"
+
+# Bootstrap migrations create only the database shape needed to import legacy
+# config-backed Smart Fields. Data migrations must run after that import so
+# rows copied from old config are included.
 BOOTSTRAP_MIGRATION_IDS = {"0001_initial_smart_fields_schema"}
 
 
