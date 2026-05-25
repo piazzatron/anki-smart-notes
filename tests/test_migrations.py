@@ -17,6 +17,8 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from typing import Optional
+
 import pytest
 
 from src.migrations import run_migrations
@@ -27,8 +29,11 @@ def test_run_migrations_applies_schema_before_legacy_config_import(
 ) -> None:
     calls: list[str] = []
 
+    def apply_database_migrations(migration_count: Optional[int] = None) -> None:
+        calls.append(f"database:{migration_count}")
+
     monkeypatch.setattr(
-        "src.migrations.apply_database_migrations", lambda: calls.append("database")
+        "src.migrations.apply_database_migrations", apply_database_migrations
     )
     monkeypatch.setattr(
         "src.migrations.migrate_legacy_smart_field_config",
@@ -37,4 +42,4 @@ def test_run_migrations_applies_schema_before_legacy_config_import(
 
     run_migrations()
 
-    assert calls == ["database", "legacy_config"]
+    assert calls == ["database:1", "legacy_config", "database:None"]
