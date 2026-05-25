@@ -40,7 +40,7 @@ class FeatureFlags:
 flags = FeatureFlags()
 
 
-async def fetch_flags() -> FeatureFlagsPayload:
+async def _fetch_flags() -> FeatureFlagsPayload:
     async with (
         aiohttp.ClientSession() as session,
         session.get(
@@ -67,7 +67,7 @@ def refresh_feature_flags() -> None:
         logger.warning(f"Failed to fetch feature flags: {e}")
 
     run_async_in_background_with_sentry(
-        fetch_flags,
+        _fetch_flags,
         on_success,
         on_failure,
         use_collection=False,

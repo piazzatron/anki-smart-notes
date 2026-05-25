@@ -44,7 +44,7 @@ from .utils import get_version, is_production
 dsn = os.getenv("SENTRY_DSN")
 
 
-def get_user_id_from_jwt(token: str) -> Optional[str]:
+def _get_user_id_from_jwt(token: str) -> Optional[str]:
     try:
         payload = token.split(".")[1]
         padding = 4 - len(payload) % 4
@@ -94,7 +94,7 @@ class Sentry:
     def set_user(self) -> None:
         user_id = None
         if config.auth_token:
-            jwt_user_id = get_user_id_from_jwt(config.auth_token)
+            jwt_user_id = _get_user_id_from_jwt(config.auth_token)
             if jwt_user_id:
                 user_id = jwt_user_id
 
@@ -209,7 +209,7 @@ class Sentry:
         mw.taskman.run_on_main(show_error_message)
 
 
-def init_sentry() -> Optional[Sentry]:
+def _init_sentry() -> Optional[Sentry]:
     try:
         if os.getenv("IS_TEST"):
             return None
@@ -237,7 +237,7 @@ def with_sentry(fn: Callable[..., Any]) -> Callable[..., Any]:
     return wrapper
 
 
-sentry = init_sentry()
+sentry = _init_sentry()
 
 
 def run_async_in_background_with_sentry(

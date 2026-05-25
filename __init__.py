@@ -20,7 +20,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 import os
 
 
-def init_addon():
+def _init_addon():
     def update_path() -> None:
         import os
         import sys
@@ -71,4 +71,4 @@ def init_addon():
 
 
 if not os.getenv("IS_TEST"):
-    init_addon()
+    _init_addon()

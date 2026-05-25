@@ -633,7 +633,7 @@ class AddonOptionsDialog(QDialog):
 
     def write_config(self) -> bool:
         logger.debug("Writing config")
-        if config.openai_endpoint and not is_valid_url(config.openai_endpoint):
+        if config.openai_endpoint and not _is_valid_url(config.openai_endpoint):
             show_message_box("Invalid OpenAI Host", "Please provide a valid URL.")
             return False
 
@@ -744,6 +744,6 @@ class AddonOptionsDialog(QDialog):
         )
 
 
-def is_valid_url(url: str) -> bool:
+def _is_valid_url(url: str) -> bool:
     parsed = urlparse(url)
     return all([parsed.scheme, parsed.netloc])
