@@ -47,6 +47,8 @@ from ..models.smart_fields import (
 
 
 class SmartFieldService:
+    """Persists smart field rules and maps database rows to domain models."""
+
     def get_smart_fields_for_note(
         self,
         note_type_id: int,
