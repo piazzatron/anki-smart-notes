@@ -44,14 +44,14 @@ from .models import (
     TTSModels,
     TTSProviders,
 )
-from .nodes import FieldNode
-from .open_ai_client import OpenAIClient, openai_provider
-from .prompt_helpers import interpolate_prompt
-from .smart_field_models import (
+from .models.smart_fields import (
     ChatSmartFieldSettings,
     ImageSmartFieldSettings,
     TTSSmartFieldSettings,
 )
+from .nodes import FieldNode
+from .open_ai_client import OpenAIClient, openai_provider
+from .prompt_helpers import interpolate_prompt
 from .tts_provider import TTSProvider, tts_provider
 from .ui.ui_utils import show_message_box
 from .utils import run_on_main

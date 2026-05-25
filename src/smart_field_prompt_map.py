@@ -33,7 +33,7 @@ from .models import (
     PromptMap,
     all_image_models,
 )
-from .smart_field_models import (
+from .models.smart_fields import (
     ChatSmartFieldSettings,
     ImageSmartFieldSettings,
     SmartField,

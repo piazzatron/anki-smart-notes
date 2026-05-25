@@ -36,7 +36,7 @@ from .models import (
     TTSModels,
     TTSProviders,
 )
-from .smart_field_models import (
+from .models.smart_fields import (
     ChatSmartFieldSettings,
     ImageSmartFieldSettings,
     SmartField,

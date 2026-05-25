@@ -48,16 +48,16 @@ from .models import (
     TTSModels,
     TTSProviders,
 )
-from .note_proccessor import NoteProcessor
-from .prompt_helpers import get_extras, get_prompts_for_note
-from .sentry import sentry
-from .smart_field_models import (
+from .models.smart_fields import (
     ChatSmartFieldSettings,
     ImageSmartFieldSettings,
     SmartFieldCreate,
     SmartFieldSettings,
     TTSSmartFieldSettings,
 )
+from .note_proccessor import NoteProcessor
+from .prompt_helpers import get_extras, get_prompts_for_note
+from .sentry import sentry
 from .smart_field_prompt_map import list_prompt_map, replace_from_prompt_map
 from .smart_field_service import smart_field_service
 from .ui.prompt_dialog import PromptDialog

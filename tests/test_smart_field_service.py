@@ -22,7 +22,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 import pytest
 
 from src.constants import GLOBAL_DECK_ID
-from src.smart_field_models import (
+from src.models.smart_fields import (
     ChatSmartFieldSettings,
     ImageSmartFieldSettings,
     SmartFieldCreate,

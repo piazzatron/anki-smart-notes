@@ -22,7 +22,7 @@ from typing import Union
 
 from anki.decks import DeckId
 
-from .models import (
+from .providers import (
     ChatModels,
     ChatProviders,
     ImageModels,

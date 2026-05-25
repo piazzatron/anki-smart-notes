@@ -131,7 +131,7 @@ def sqlite_database(tmp_path, monkeypatch):
 
 
 def seed_smart_fields(prompts_map, options):
-    from src.smart_field_models import ChatSmartFieldSettings, SmartFieldCreate
+    from src.models.smart_fields import ChatSmartFieldSettings, SmartFieldCreate
     from src.smart_field_service import smart_field_service
 
     for field, prompt in prompts_map.items():

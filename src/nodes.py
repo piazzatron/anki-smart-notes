@@ -21,7 +21,7 @@ from typing import Optional
 
 from attr import dataclass
 
-from .smart_field_models import (
+from .models.smart_fields import (
     ChatSmartFieldSettings,
     ImageSmartFieldSettings,
     SmartField,

@@ -25,14 +25,14 @@ from anki.notes import Note
 
 from .logger import logger
 from .models import DEFAULT_EXTRAS, FieldExtras, PromptMap
-from .nodes import FieldNode
-from .prompt_helpers import get_extras, get_prompt_fields
-from .smart_field_models import (
+from .models.smart_fields import (
     ChatSmartFieldSettings,
     ImageSmartFieldSettings,
     SmartField,
     TTSSmartFieldSettings,
 )
+from .nodes import FieldNode
+from .prompt_helpers import get_extras, get_prompt_fields
 from .utils import get_fields
 from .utils.notes_utils import get_note_type
 
