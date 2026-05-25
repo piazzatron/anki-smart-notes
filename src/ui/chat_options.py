@@ -26,6 +26,7 @@ from ..models import (
     ChatModels,
     ChatProviders,
     OverridableChatOptionsDict,
+    deprecated_auto_chat_models,
     overridable_chat_options,
     provider_model_map,
 )
@@ -44,15 +45,12 @@ class ChatOptionsState(TypedDict):
 models_map: dict[str, str] = {
     "auto": "Auto (1x cost)",
     "auto-max": "Auto (MAX) (12x cost)",
-    "gpt-5-nano": "GPT-5 Nano (1.5x cost)",
-    "gpt-4o-mini": "GPT-4o Mini (2x cost)",
     "gpt-5-mini": "GPT-5 Mini (5x cost)",
     "gpt-5-chat-latest": "GPT-5 (No Reasoning, 35x cost)",
     "gpt-5": "GPT-5 (Reasoning, 35x cost)",
     "claude-haiku-4-5": "Claude Haiku 4.5 (15x cost)",
     "claude-sonnet-4-6": "Claude Sonnet 4.6 (50x cost)",
     "claude-opus-4-6": "Claude Opus 4.6 (80x cost)",
-    "deepseek-v3": "Deepseek v3 (4x cost)",
     "gemini-3-flash": "Gemini 3 Flash (10x cost)",
     "gemini-3.1-flash-lite": "Gemini 3.1 Flash Lite (5x cost)",
     "gemini-3.1-pro": "Gemini 3.1 Pro (40x cost)",
@@ -63,7 +61,6 @@ providers_map: dict[ChatProviders, str] = {
     "openai": "OpenAI",
     "anthropic": "Anthropic",
     "google": "Google",
-    "deepseek": "DeepSeek",
 }
 
 # Display order: providers in this order, models within each provider in
@@ -73,7 +70,6 @@ provider_display_order: list[ChatProviders] = [
     "openai",
     "anthropic",
     "google",
-    "deepseek",
 ]
 
 model_to_provider: dict[ChatModels, ChatProviders] = {
@@ -176,4 +172,7 @@ class ChatOptions(QWidget):
             k: key_or_config_val(chat_options, k)
             for k in overridable_chat_options  # type: ignore
         }
+        if ret["chat_model"] in deprecated_auto_chat_models:
+            ret["chat_provider"] = "auto"
+            ret["chat_model"] = "auto"
         return ret

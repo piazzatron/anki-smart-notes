@@ -28,7 +28,10 @@ from anki.decks import DeckId
 from src.models import DEFAULT_EXTRAS, FieldExtras
 from src.models.smart_fields import ChatSmartFieldSettings
 from src.services.smart_field_service import SmartFieldService
-from src.smart_field_migration import migrate_legacy_smart_field_config
+from src.smart_field_migration import (
+    migrate_deprecated_chat_config_to_auto,
+    migrate_legacy_smart_field_config,
+)
 
 NOTE_TYPE_ID = 123
 DECK_ID = cast(DeckId, 1)
@@ -113,6 +116,8 @@ def test_migrate_legacy_smart_field_config_imports_prompts_and_cleans_config(
     assert smart_fields[0].target_field_name == "Back"
     assert isinstance(smart_fields[0].settings, ChatSmartFieldSettings)
     assert smart_fields[0].settings.prompt_text == "{{Front}}"
+    assert smart_fields[0].settings.provider == "auto"
+    assert smart_fields[0].settings.model == "auto"
     assert len(backup_files) == 1
     assert json.loads(backup_files[0].read_text(encoding="utf-8")) == expected_backup
     assert fake_mw.addonManager.written_config is not None
@@ -179,6 +184,23 @@ def test_migrate_legacy_smart_field_config_does_nothing_after_successful_migrati
 
     assert fake_mw.addonManager.written_config is None
     assert not (tmp_path / "user_files").exists()
+
+
+def test_migrate_deprecated_chat_config_to_auto(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    addon_config = {
+        "chat_provider": "openai",
+        "chat_model": "gpt-5-nano",
+    }
+    fake_mw = install_fake_anki(monkeypatch, addon_config, tmp_path)
+
+    migrate_deprecated_chat_config_to_auto()
+
+    assert fake_mw.addonManager.written_config is not None
+    assert fake_mw.addonManager.written_config["chat_provider"] == "auto"
+    assert fake_mw.addonManager.written_config["chat_model"] == "auto"
 
 
 def install_fake_anki(

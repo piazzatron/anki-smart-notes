@@ -1,7 +1,7 @@
 {
   "openai_api_key": "",
-  "chat_provider": "openai",
-  "chat_model": "gpt-4o-mini",
+  "chat_provider": "auto",
+  "chat_model": "auto",
   "chat_temperature": 1,
   "tts_provider": "google",
   "tts_voice": "en-US-Casual-K",

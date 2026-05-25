@@ -32,6 +32,7 @@ from .models import (
     FieldExtras,
     PromptMap,
     all_image_models,
+    deprecated_auto_chat_models,
 )
 from .models.smart_fields import (
     ChatSmartFieldSettings,
@@ -187,12 +188,18 @@ def extras_from_smart_field(smart_field: SmartField) -> FieldExtras:
 def settings_from_prompt_parts(prompt: str, extras: FieldExtras) -> SmartFieldSettings:
     field_type = extras["type"]
     if field_type == "chat":
+        model = extras.get("chat_model") or config.chat_model or DEFAULT_CHAT_MODEL
+        provider = (
+            extras.get("chat_provider") or config.chat_provider or DEFAULT_CHAT_PROVIDER
+        )
+        if model in deprecated_auto_chat_models:
+            provider = "auto"
+            model = "auto"
+
         return ChatSmartFieldSettings(
             prompt_text=prompt,
-            provider=extras.get("chat_provider")
-            or config.chat_provider
-            or DEFAULT_CHAT_PROVIDER,
-            model=extras.get("chat_model") or config.chat_model or DEFAULT_CHAT_MODEL,
+            provider=provider,
+            model=model,
             web_search_enabled=bool(
                 extras.get("chat_web_search")
                 if extras.get("chat_web_search") is not None

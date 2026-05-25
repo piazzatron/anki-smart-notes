@@ -23,6 +23,7 @@ from typing import Optional, Union
 from anki.decks import DeckId
 from anki.notes import Note
 
+from .constants import DEFAULT_CHAT_MODEL, DEFAULT_CHAT_PROVIDER
 from .logger import logger
 from .models import DEFAULT_EXTRAS, FieldExtras, PromptMap
 from .models.smart_fields import (
@@ -241,7 +242,7 @@ def smart_field_settings_from_prompt_parts(
         )
     return ChatSmartFieldSettings(
         prompt_text=prompt,
-        provider=extras.get("chat_provider") or "openai",
-        model=extras.get("chat_model") or "gpt-4o-mini",
+        provider=extras.get("chat_provider") or DEFAULT_CHAT_PROVIDER,
+        model=extras.get("chat_model") or DEFAULT_CHAT_MODEL,
         web_search_enabled=extras.get("chat_web_search") or False,
     )
