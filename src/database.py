@@ -23,19 +23,34 @@ from typing import Optional
 
 from yoyo import get_backend, read_migrations
 
+from .logger import logger
+
 DATABASE_FILENAME = "smart_notes.sqlite3"
 USER_FILES_DIR = "user_files"
 
 
 def apply_database_migrations(database_path: Optional[str] = None) -> None:
+    # Tests pass isolated temp DB paths so migration state never touches user data.
     resolved_database_path = database_path or get_database_path()
     Path(resolved_database_path).parent.mkdir(parents=True, exist_ok=True)
 
+    logger.debug(f"Smart fields DB: preparing migrations for {resolved_database_path}")
     backend = get_backend(f"sqlite:///{Path(resolved_database_path).absolute()}")
-    migrations = read_migrations(str(Path(__file__).with_name("db_migrations")))
+    migrations_path = Path(__file__).with_name("db_migrations")
+    logger.debug(f"Smart fields DB: reading migrations from {migrations_path}")
+    migrations = read_migrations(str(migrations_path))
 
     with backend.lock():
-        backend.apply_migrations(backend.to_apply(migrations))
+        pending_migrations = backend.to_apply(migrations)
+        if not pending_migrations:
+            logger.debug("Smart fields DB: no pending migrations")
+            return
+
+        logger.info(
+            f"Smart fields DB: applying {len(pending_migrations)} database migration(s)"
+        )
+        backend.apply_migrations(pending_migrations)
+        logger.info("Smart fields DB: database migrations applied")
 
 
 def open_database(database_path: Optional[str] = None) -> sqlite3.Connection:
