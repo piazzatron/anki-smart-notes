@@ -40,10 +40,7 @@ from .logger import logger, setup_logger
 from .note_proccessor import NoteProcessor
 from .review_time_evaluator import ReviewTimeEvaluator
 from .sentry import sentry, with_sentry
-from .smart_field_migration import (
-    migrate_deprecated_chat_config_to_auto,
-    migrate_legacy_smart_field_config,
-)
+from .smart_field_migration import migrate_legacy_smart_field_config
 from .tasks import run_async_in_background
 from .ui.addon_options_dialog import AddonOptionsDialog
 from .ui.changelog import ChangeLogDialog, is_new_major_or_minor_version
@@ -290,7 +287,6 @@ def on_main_window(processor: NoteProcessor):
     setup_logger()
     apply_database_migrations()
     migrate_legacy_smart_field_config()
-    migrate_deprecated_chat_config_to_auto()
 
     # Add options to Anki Menu
     options_action = QAction("Smart Notes", mw)

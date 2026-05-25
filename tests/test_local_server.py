@@ -189,8 +189,8 @@ async def test_add_smart_field_success(monkeypatch):
     monkeypatch.setattr(src.local_server, "get_note_type_id_from_name", lambda _: 123)
 
     mock_config = MagicMock()
-    mock_config.chat_provider = "openai"
-    mock_config.chat_model = "gpt-4o-mini"
+    mock_config.chat_provider = "auto"
+    mock_config.chat_model = "auto"
     mock_config.chat_web_search = False
     mock_config.tts_provider = "openai"
     mock_config.tts_model = "tts-1"
@@ -253,8 +253,8 @@ async def test_update_smart_field_success(monkeypatch):
     monkeypatch.setattr(src.local_server, "get_note_type_id_from_name", lambda _: 123)
 
     mock_config = MagicMock()
-    mock_config.chat_provider = "openai"
-    mock_config.chat_model = "gpt-4o-mini"
+    mock_config.chat_provider = "auto"
+    mock_config.chat_model = "auto"
     mock_config.chat_web_search = False
     mock_config.tts_provider = "openai"
     mock_config.tts_model = "tts-1"

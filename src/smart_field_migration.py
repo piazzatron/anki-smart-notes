@@ -29,7 +29,7 @@ from . import config as config_module
 from .config import config
 from .database import get_user_files_path
 from .logger import logger
-from .models import PromptMap, deprecated_auto_chat_models
+from .models import PromptMap
 from .smart_field_prompt_map import replace_from_prompt_map
 from .ui.ui_utils import show_message_box
 
@@ -78,22 +78,6 @@ def migrate_legacy_smart_field_config() -> None:
             "Please email support@smart-notes.xyz and include your smart-notes.log file.",
         )
         raise
-
-
-def migrate_deprecated_chat_config_to_auto() -> None:
-    if not mw:
-        return
-    addon_config = mw.addonManager.getConfig(config_module.__name__)
-    if addon_config is None:
-        return
-
-    if addon_config.get("chat_model") not in deprecated_auto_chat_models:
-        return
-
-    logger.info("Migrating deprecated chat model config to Auto")
-    addon_config["chat_provider"] = "auto"
-    addon_config["chat_model"] = "auto"
-    mw.addonManager.writeConfig(config_module.__name__, addon_config)
 
 
 def backup_config_for_sqlite_migration() -> None:

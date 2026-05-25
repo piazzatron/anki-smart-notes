@@ -56,8 +56,8 @@ def test_round_trips_typed_smart_fields() -> None:
             enabled=True,
             settings=ChatSmartFieldSettings(
                 prompt_text="{{Front}}",
-                provider="openai",
-                model="gpt-4o-mini",
+                provider="auto",
+                model="auto",
                 web_search_enabled=True,
             ),
         )
@@ -119,8 +119,8 @@ def test_get_smart_fields_for_note_applies_global_fallback_with_deck_override() 
             enabled=True,
             settings=ChatSmartFieldSettings(
                 prompt_text="global",
-                provider="openai",
-                model="gpt-4o-mini",
+                provider="auto",
+                model="auto",
                 web_search_enabled=False,
             ),
         )
@@ -133,8 +133,8 @@ def test_get_smart_fields_for_note_applies_global_fallback_with_deck_override() 
             enabled=True,
             settings=ChatSmartFieldSettings(
                 prompt_text="global extra",
-                provider="openai",
-                model="gpt-4o-mini",
+                provider="auto",
+                model="auto",
                 web_search_enabled=False,
             ),
         )
@@ -147,8 +147,8 @@ def test_get_smart_fields_for_note_applies_global_fallback_with_deck_override() 
             enabled=True,
             settings=ChatSmartFieldSettings(
                 prompt_text="deck override",
-                provider="openai",
-                model="gpt-4o-mini",
+                provider="auto",
+                model="auto",
                 web_search_enabled=False,
             ),
         )
@@ -179,8 +179,8 @@ def test_save_and_delete_match_target_fields_case_insensitively() -> None:
             enabled=True,
             settings=ChatSmartFieldSettings(
                 prompt_text="original",
-                provider="openai",
-                model="gpt-4o-mini",
+                provider="auto",
+                model="auto",
                 web_search_enabled=False,
             ),
         )
@@ -193,8 +193,8 @@ def test_save_and_delete_match_target_fields_case_insensitively() -> None:
             enabled=False,
             settings=ChatSmartFieldSettings(
                 prompt_text="updated",
-                provider="openai",
-                model="gpt-4o-mini",
+                provider="auto",
+                model="auto",
                 web_search_enabled=True,
             ),
         )

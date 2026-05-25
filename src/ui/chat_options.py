@@ -26,7 +26,6 @@ from ..models import (
     ChatModels,
     ChatProviders,
     OverridableChatOptionsDict,
-    deprecated_auto_chat_models,
     overridable_chat_options,
     provider_model_map,
 )
@@ -172,7 +171,4 @@ class ChatOptions(QWidget):
             k: key_or_config_val(chat_options, k)
             for k in overridable_chat_options  # type: ignore
         }
-        if ret["chat_model"] in deprecated_auto_chat_models:
-            ret["chat_provider"] = "auto"
-            ret["chat_model"] = "auto"
         return ret

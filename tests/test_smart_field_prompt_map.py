@@ -76,8 +76,8 @@ def test_replace_from_prompt_map_does_not_delete_existing_fields_if_conversion_f
             enabled=True,
             settings=ChatSmartFieldSettings(
                 prompt_text="existing",
-                provider="openai",
-                model="gpt-4o-mini",
+                provider="auto",
+                model="auto",
                 web_search_enabled=False,
             ),
         )
@@ -115,8 +115,8 @@ def test_replace_from_prompt_map_replaces_fields_after_successful_conversion() -
             enabled=True,
             settings=ChatSmartFieldSettings(
                 prompt_text="old",
-                provider="openai",
-                model="gpt-4o-mini",
+                provider="auto",
+                model="auto",
                 web_search_enabled=False,
             ),
         )
@@ -147,8 +147,8 @@ def test_replace_from_prompt_map_replaces_fields_after_successful_conversion() -
 def chat_extras(automatic: bool = True) -> FieldExtras:
     extras = deepcopy(DEFAULT_EXTRAS)
     extras["automatic"] = automatic
-    extras["chat_provider"] = "openai"
-    extras["chat_model"] = "gpt-4o-mini"
+    extras["chat_provider"] = "auto"
+    extras["chat_model"] = "auto"
     extras["chat_web_search"] = False
     return extras
 
