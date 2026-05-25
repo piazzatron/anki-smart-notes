@@ -127,6 +127,7 @@ def sqlite_database(tmp_path, monkeypatch):
         "get_database_path",
         lambda: str(tmp_path / "smart_notes.sqlite3"),
     )
+    src.database.apply_database_migrations()
 
 
 def seed_smart_fields(prompts_map, options):
