@@ -74,13 +74,13 @@ def test_run_migrations_applies_schema_before_legacy_config_import(
         lambda: calls.append("legacy_config"),
     )
     monkeypatch.setattr(
-        "src.migrations.migrate_legacy_chat_config_to_auto",
-        lambda: calls.append("chat_config"),
+        "src.migrations.migrate_legacy_addon_config",
+        lambda: calls.append("addon_config"),
     )
 
     run_migrations()
 
-    assert calls == ["bootstrap", "legacy_config", "database", "chat_config"]
+    assert calls == ["bootstrap", "legacy_config", "database", "addon_config"]
 
 
 def test_run_migrations_imports_legacy_config_before_chat_model_data_migration(
@@ -145,6 +145,7 @@ def install_fake_anki(
     addon_config: dict[str, Any],
     tmp_path: Path,
 ) -> Any:
+    import src.config_migrations
     import src.smart_field_migration
     import src.smart_field_prompt_map
 
@@ -164,6 +165,7 @@ def install_fake_anki(
 
     fake_mw = FakeMw()
     monkeypatch.setattr(src.smart_field_migration, "mw", fake_mw)
+    monkeypatch.setattr(src.config_migrations, "mw", fake_mw)
     monkeypatch.setattr(src.smart_field_prompt_map, "mw", fake_mw)
     monkeypatch.setattr(src.smart_field_migration, "config", FakeConfig(addon_config))
     monkeypatch.setattr(
