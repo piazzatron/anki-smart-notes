@@ -65,8 +65,7 @@ from ..models import (
     overridable_tts_options,
 )
 from ..note_proccessor import NoteProcessor
-from ..notes import get_note_types, get_random_note, get_valid_fields_for_prompt
-from ..prompts import (
+from ..prompt_helpers import (
     add_or_update_prompts,
     get_extras,
     get_prompt_fields,
@@ -77,6 +76,11 @@ from ..prompts import (
 from ..sentry import run_async_in_background_with_sentry
 from ..tts_utils import play_audio
 from ..utils import get_fields, to_lowercase_dict
+from ..utils.notes_utils import (
+    get_note_types,
+    get_random_note,
+    get_valid_fields_for_prompt,
+)
 from .chat_options import ChatOptions
 from .image_displayer import ImageDisplayer
 from .image_options import ImageOptions
@@ -818,7 +822,7 @@ class PromptDialog(QDialog):
         if self.state.s["type"] == "chat":
 
             def chat_fn():
-                return self.processor.field_processor.get_chat_response(
+                return self.processor.field_resolver.get_chat_response(
                     prompt=prompt,
                     note=sample_note,
                     provider=chat_provider,
@@ -836,7 +840,7 @@ class PromptDialog(QDialog):
         elif self.state.s["type"] == "tts":
 
             def tts_fn():
-                return self.processor.field_processor.get_tts_response(
+                return self.processor.field_resolver.get_tts_response(
                     input_text=prompt,
                     note=sample_note,
                     provider=tts_provider,
@@ -849,7 +853,7 @@ class PromptDialog(QDialog):
         else:
 
             def img_fn():
-                return self.processor.field_processor.get_image_response(
+                return self.processor.field_resolver.get_image_response(
                     input_text=prompt,
                     note=sample_note,
                     model="flux-dev",

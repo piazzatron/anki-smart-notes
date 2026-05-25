@@ -33,7 +33,7 @@ class MockNote:
     id = 1
 
     def note_type(self):
-        return {"name": self._note_type}
+        return {"name": self._note_type, "id": NOTE_TYPE_ID}
 
     def __getitem__(self, key):
         return self._data[key]
@@ -53,8 +53,8 @@ class MockNote:
 
 @dataclass
 class MockConfig:
-    prompts_map: Any
     allow_empty_fields: bool
+    prompts_map: Any = None
     chat_provider = "openai"
     chat_model = "gpt-4o-mini"
     chat_temperature = 0
@@ -115,56 +115,67 @@ class MockAppState:
 
 
 NOTE_TYPE_NAME = "note_type_1"
+NOTE_TYPE_ID = 123
+
+
+@pytest.fixture(autouse=True)
+def sqlite_database(tmp_path, monkeypatch):
+    import src.database
+
+    monkeypatch.setattr(
+        src.database,
+        "get_database_path",
+        lambda: str(tmp_path / "smart_notes.sqlite3"),
+    )
+    src.database.apply_database_migrations()
+
+
+def seed_smart_fields(prompts_map, options):
+    from src.models.smart_fields import ChatSmartFieldSettings, SmartFieldCreate
+    from src.services.smart_field_service import smart_field_service
+
+    for field, prompt in prompts_map.items():
+        smart_field_service.save_smart_field(
+            SmartFieldCreate(
+                note_type_id=NOTE_TYPE_ID,
+                deck_id=1,
+                target_field_name=field,
+                enabled=not options.get(field, {}).get("manual", False),
+                settings=ChatSmartFieldSettings(
+                    prompt_text=prompt,
+                    provider="openai",
+                    model="gpt-4o-mini",
+                    web_search_enabled=False,
+                ),
+            )
+        )
+
+    return smart_field_service.get_smart_fields_for_note(
+        NOTE_TYPE_ID, 1, include_global=True
+    )
 
 
 def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     import src.app_state
     import src.dag
-    import src.prompts
-    from src.field_processor import FieldProcessor
+    import src.field_resolver
+    import src.prompt_helpers
+    from src.field_resolver import FieldResolver
     from src.note_proccessor import NoteProcessor
 
     openai = MockOpenAIClient()
     chat = MockChatClient()
 
-    # Create extras for all fields with prompts, with defaults for fields not in options
-    extras = {}
-    for field in prompts_map:
-        if field in options:
-            extras[field] = {
-                "automatic": not options[field]["manual"],
-                "type": "chat",
-                "use_custom_model": False,
-                # Add the config values that key_or_config_val looks for
-                "chat_model": "gpt-4o-mini",
-                "chat_provider": "openai",
-                "chat_temperature": 0,
-                "chat_web_search": False,
-            }
-        else:
-            extras[field] = {
-                "automatic": True,
-                "type": "chat",
-                "use_custom_model": False,
-                # Add the config values that key_or_config_val looks for
-                "chat_model": "gpt-4o-mini",
-                "chat_provider": "openai",
-                "chat_temperature": 0,
-                "chat_web_search": False,
-            }  # Default extras
+    seed_smart_fields(prompts_map, options)
 
-    prompts_map = {
-        "note_types": {NOTE_TYPE_NAME: {"1": {"fields": prompts_map, "extras": extras}}}
-    }
-
-    c = MockConfig(prompts_map=prompts_map, allow_empty_fields=allow_empty_fields)
-    f = FieldProcessor(
+    c = MockConfig(allow_empty_fields=allow_empty_fields)
+    f = FieldResolver(
         openai_provider=openai,
         chat_provider=chat,
         tts_provider=chat,
         image_provider=chat,
     )  # type: ignore
-    p = NoteProcessor(field_processor=f, config=c)
+    p = NoteProcessor(field_resolver=f, config=c)
 
     monkeypatch.setattr(
         src.dag,
@@ -176,24 +187,8 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     mock_app_state = MockAppState()
     monkeypatch.setattr(src.app_state, "config", c)
     monkeypatch.setattr(src.app_state, "app_state", mock_app_state)
-
-    monkeypatch.setattr(src.prompts, "config", c)
-    monkeypatch.setattr(
-        src.prompts,
-        "get_prompts_for_note",
-        lambda note_type, deck_id, override_prompts_map=None: prompts_map["note_types"][
-            note_type
-        ]["1"]["fields"],
-    )
-    monkeypatch.setattr(
-        src.prompts,
-        "get_extras",
-        lambda note_type,
-        field,
-        deck_id,
-        prompts=None,
-        fallback_to_global_deck=True: extras.get(field, {"automatic": True}),
-    )
+    monkeypatch.setattr(src.prompt_helpers, "config", c)
+    monkeypatch.setattr(src.field_resolver, "config", c)
 
     return p
 
@@ -549,7 +544,7 @@ def test_process_card_forwards_use_collection(monkeypatch):
 
     calls = []
     processor = NoteProcessor(  # type: ignore
-        field_processor=None,
+        field_resolver=None,
         config=MockConfig(prompts_map={}, allow_empty_fields=False),
     )
     monkeypatch.setattr(processor, "_assert_preconditions", lambda: True)
@@ -580,7 +575,7 @@ def test_process_cards_with_progress_noops_during_batch(monkeypatch):
 
     calls = []
     processor = NoteProcessor(  # type: ignore
-        field_processor=None,
+        field_resolver=None,
         config=MockConfig(prompts_map={}, allow_empty_fields=False),
     )
     processor.batch_in_progress = True
@@ -673,28 +668,9 @@ Example: ({"f1": "1", "f2": ""}, {"f2": "{{f1}} {{f4}}", "f4": "{{f2}}"}, True)
 )
 async def test_cycle(note, prompts_map, expected, monkeypatch):
     import src.dag
-    import src.prompts
 
     n = MockNote(note_type=NOTE_TYPE_NAME, data=note)
-
-    # Set up the same mocks that setup_data does for prompts
-    extras = {
-        field: {"automatic": True, "type": "chat", "use_custom_model": False}
-        for field in prompts_map
-    }
-    prompts_data = {
-        "note_types": {NOTE_TYPE_NAME: {"1": {"fields": prompts_map, "extras": extras}}}
-    }
-    c = MockConfig(prompts_map=prompts_data, allow_empty_fields=False)
-
-    monkeypatch.setattr(src.prompts, "config", c)
-    monkeypatch.setattr(
-        src.prompts,
-        "get_prompts_for_note",
-        lambda note_type, deck_id, override_prompts_map=None: prompts_data[
-            "note_types"
-        ][note_type]["1"]["fields"],
-    )
+    smart_fields = seed_smart_fields(prompts_map, {})
 
     # Mock get_fields like in setup_data
     monkeypatch.setattr(
@@ -703,7 +679,9 @@ async def test_cycle(note, prompts_map, expected, monkeypatch):
         lambda _: n.fields(),
     )
 
-    dag = src.dag.generate_fields_dag(n, deck_id=1, overwrite_fields=True)
+    dag = src.dag.generate_fields_dag(
+        n, smart_fields=smart_fields, overwrite_fields=True
+    )
     cycle = src.dag.has_cycle(dag)
     assert cycle == expected
 

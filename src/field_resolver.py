@@ -25,7 +25,7 @@ from aqt import mw
 
 from .app_state import has_api_key, is_capacity_remaining
 from .chat_provider import ChatProvider, chat_provider
-from .config import key_or_config_val
+from .config import config
 from .constants import GENERIC_CREDITS_MESSAGE
 from .image_provider import ImageProvider, ImageResponse, image_provider
 from .image_utils import download_and_embed_images
@@ -33,7 +33,6 @@ from .logger import logger
 from .markdown import convert_markdown_to_html
 from .media_utils import ext_from_content_type, get_media_path
 from .models import (
-    DEFAULT_EXTRAS,
     ChatModels,
     ChatProviders,
     ElevenVoices,
@@ -45,16 +44,23 @@ from .models import (
     TTSModels,
     TTSProviders,
 )
+from .models.smart_fields import (
+    ChatSmartFieldSettings,
+    ImageSmartFieldSettings,
+    TTSSmartFieldSettings,
+)
 from .nodes import FieldNode
-from .notes import get_chained_ai_fields, get_note_type
 from .open_ai_client import OpenAIClient, openai_provider
-from .prompts import get_extras, interpolate_prompt
+from .prompt_helpers import interpolate_prompt
 from .tts_provider import TTSProvider, tts_provider
 from .ui.ui_utils import show_message_box
 from .utils import run_on_main
+from .utils.notes_utils import get_chained_ai_fields, get_note_type
 
 
-class FieldProcessor:
+class FieldResolver:
+    """Turns one DAG node into the text, audio, or image value written to a note."""
+
     def __init__(
         self,
         openai_provider: OpenAIClient,
@@ -72,19 +78,13 @@ class FieldProcessor:
     ) -> Optional[str]:
         # Only show error box if we're running on the target node
         input = node.input
-        field_type: SmartFieldType = node.field_type
-
-        extras = (
-            get_extras(
-                note_type=get_note_type(note),
-                field=node.field,
-                deck_id=node.deck_id,
-                fallback_to_global_deck=True,
-            )
-            or DEFAULT_EXTRAS
-        )
+        field_type: SmartFieldType = node.smart_field.field_type
+        settings = node.smart_field.settings
 
         if field_type == "tts":
+            if not isinstance(settings, TTSSmartFieldSettings):
+                raise Exception(f"Unexpected settings for TTS field {node.field}")
+
             if not is_capacity_remaining():
                 logger.debug("Skipping TTS field for locked app")
                 return None
@@ -96,18 +96,23 @@ class FieldProcessor:
                 logger.error("No media")
                 return None
 
-            tts_provider = cast(TTSProviders, key_or_config_val(extras, "tts_provider"))
-            tts_model: TTSModels = key_or_config_val(extras, "tts_model")
-            tts_voice: Union[OpenAIVoices, ElevenVoices] = key_or_config_val(
-                extras, "tts_voice"
-            )
+            # Anki field names are user-defined, so match case-insensitively while
+            # preserving the original note field key/value.
+            source_value = None
+            source_field_name_lower = settings.source_field_name.lower()
+            for note_field, value in note.items():  # type: ignore[attr-defined]
+                if note_field.lower() == source_field_name_lower:
+                    source_value = cast(Optional[str], value)
+                    break
+            if not source_value:
+                return None
 
             tts_response = await self.get_tts_response(
                 note=note,
-                input_text=input,
-                model=tts_model,
-                voice=tts_voice,
-                provider=tts_provider,
+                input_text=source_value,
+                model=settings.model,
+                voice=cast(Union[OpenAIVoices, ElevenVoices], settings.voice_id),
+                provider=settings.provider,
                 show_error_box=show_error_box,
                 generation_source="card_generation",
             )
@@ -115,33 +120,34 @@ class FieldProcessor:
             if not tts_response:
                 return None
 
-            audio_ext = "wav" if tts_provider == "voicevox" else "mp3"
+            audio_ext = "wav" if settings.provider == "voicevox" else "mp3"
             file_name = get_media_path(note, node.field, audio_ext)
             path = media.write_data(file_name, tts_response)
 
             return f"[sound:{path}]"
 
         elif field_type == "chat":
-            chat_model: ChatModels = key_or_config_val(extras, "chat_model")
-            chat_provider: ChatProviders = key_or_config_val(extras, "chat_provider")
-            chat_temperature: float = key_or_config_val(extras, "chat_temperature")
-            web_search: bool = key_or_config_val(extras, "chat_web_search")
+            if not isinstance(settings, ChatSmartFieldSettings):
+                raise Exception(f"Unexpected settings for chat field {node.field}")
 
             return await self.get_chat_response(
                 note=note,
-                deck_id=node.deck_id,
+                deck_id=node.smart_field.deck_id,
                 prompt=input,
-                model=chat_model,
-                provider=chat_provider,
-                temperature=chat_temperature,
+                model=settings.model,
+                provider=settings.provider,
+                temperature=config.chat_temperature,
                 field_lower=node.field,
                 should_convert_to_html=True,
-                web_search=web_search,
+                web_search=settings.web_search_enabled,
                 show_error_box=show_error_box,
                 generation_source="card_generation",
             )
 
         elif field_type == "image":
+            if not isinstance(settings, ImageSmartFieldSettings):
+                raise Exception(f"Unexpected settings for image field {node.field}")
+
             if not mw or not mw.col:
                 return None
 
@@ -150,14 +156,11 @@ class FieldProcessor:
                 logger.error("No media")
                 return None
 
-            image_model: ImageModels = key_or_config_val(extras, "image_model")
-            image_provider: ImageProviders = key_or_config_val(extras, "image_provider")
-
             image_response = await self.get_image_response(
                 note=note,
                 input_text=input,
-                model=image_model,
-                provider=image_provider,
+                model=settings.model,
+                provider=settings.provider,
                 show_error_box=show_error_box,
                 generation_source="card_generation",
             )
@@ -292,7 +295,7 @@ class FieldProcessor:
         )
 
 
-field_processor = FieldProcessor(
+field_resolver = FieldResolver(
     openai_provider=openai_provider,
     chat_provider=chat_provider,
     tts_provider=tts_provider,

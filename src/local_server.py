@@ -19,6 +19,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import asyncio
 import concurrent.futures
+import re
 import threading
 import traceback
 from collections.abc import Mapping
@@ -47,16 +48,23 @@ from .models import (
     TTSModels,
     TTSProviders,
 )
-from .note_proccessor import NoteProcessor
-from .notes import get_fields
-from .prompts import (
-    add_or_update_prompts,
-    get_extras,
-    get_prompts_for_note,
-    remove_prompt,
+from .models.smart_fields import (
+    ChatSmartFieldSettings,
+    ImageSmartFieldSettings,
+    SmartFieldCreate,
+    SmartFieldSettings,
+    TTSSmartFieldSettings,
 )
+from .note_proccessor import NoteProcessor
+from .prompt_helpers import get_extras, get_prompts_for_note
 from .sentry import sentry
+from .services.smart_field_service import smart_field_service
+from .smart_field_prompt_map import list_prompt_map, replace_from_prompt_map
 from .ui.prompt_dialog import PromptDialog
+from .utils import get_fields
+from .utils.notes_utils import get_note_type_id_from_name
+
+FIELD_PATTERN = r"\{\{(?!c\d+::)(.+?)\}\}"
 
 # -- Request param types --
 
@@ -181,6 +189,15 @@ def _get_deck_id(params: Mapping[str, Any]) -> DeckId:
     if raw is None:
         return GLOBAL_DECK_ID
     return cast(DeckId, int(raw))
+
+
+def source_field_from_tts_prompt(prompt: str) -> str:
+    fields = re.findall(FIELD_PATTERN, prompt)
+    if len(fields) != 1:
+        raise ValueError(
+            f"TTS smart fields must have exactly one source field, got: {prompt}"
+        )
+    return fields[0]
 
 
 class LocalServer:
@@ -423,41 +440,67 @@ class LocalServer:
         deck_id: DeckId,
     ) -> ApiResponse:
         is_automatic = params.get("automatic", True)
-        use_custom_model = params.get("useCustomModel", False)
-
         chat_options: OverridableChatOptionsDict = {
-            "chat_provider": params.get("chatOptions", {}).get("provider"),
-            "chat_model": params.get("chatOptions", {}).get("model"),
+            "chat_provider": params.get("chatOptions", {}).get("provider")
+            or config.chat_provider,
+            "chat_model": params.get("chatOptions", {}).get("model")
+            or config.chat_model,
             "chat_temperature": params.get("chatOptions", {}).get("temperature"),
-            "chat_web_search": params.get("chatOptions", {}).get("webSearch"),
+            "chat_web_search": params.get("chatOptions", {}).get("webSearch")
+            if params.get("chatOptions", {}).get("webSearch") is not None
+            else config.chat_web_search,
         }
 
         tts_options: OverrideableTTSOptionsDict = {
-            "tts_provider": params.get("ttsOptions", {}).get("provider"),
-            "tts_model": params.get("ttsOptions", {}).get("model"),
-            "tts_voice": params.get("ttsOptions", {}).get("voice"),
+            "tts_provider": params.get("ttsOptions", {}).get("provider")
+            or config.tts_provider,
+            "tts_model": params.get("ttsOptions", {}).get("model") or config.tts_model,
+            "tts_voice": params.get("ttsOptions", {}).get("voice") or config.tts_voice,
         }
 
         image_options: OverridableImageOptionsDict = {
-            "image_provider": params.get("imageOptions", {}).get("provider"),
-            "image_model": params.get("imageOptions", {}).get("model"),
+            "image_provider": params.get("imageOptions", {}).get("provider")
+            or config.image_provider,
+            "image_model": params.get("imageOptions", {}).get("model")
+            or config.image_model,
         }
 
         def do_save() -> None:
-            new_map = add_or_update_prompts(
-                prompts_map=config.prompts_map,
-                note_type=note_type,
-                deck_id=deck_id,
-                field=field,
-                prompt=prompt,
-                is_automatic=is_automatic,
-                is_custom_model=use_custom_model,
-                type=field_type,
-                tts_options=tts_options,
-                chat_options=chat_options,
-                image_options=image_options,
+            note_type_id = get_note_type_id_from_name(note_type)
+            if note_type_id is None:
+                raise ValueError(f"Note type does not exist: {note_type}")
+
+            settings: SmartFieldSettings
+            if field_type == "chat":
+                settings = ChatSmartFieldSettings(
+                    prompt_text=prompt,
+                    provider=cast(ChatProviders, chat_options["chat_provider"]),
+                    model=cast(ChatModels, chat_options["chat_model"]),
+                    web_search_enabled=chat_options["chat_web_search"] or False,
+                )
+            elif field_type == "tts":
+                settings = TTSSmartFieldSettings(
+                    source_field_name=source_field_from_tts_prompt(prompt),
+                    provider=cast(TTSProviders, tts_options["tts_provider"]),
+                    model=cast(TTSModels, tts_options["tts_model"]),
+                    voice_id=tts_options["tts_voice"] or config.tts_voice,
+                )
+            else:
+                settings = ImageSmartFieldSettings(
+                    prompt_text=prompt,
+                    provider=cast(ImageProviders, image_options["image_provider"]),
+                    model=cast(ImageModels, image_options["image_model"]),
+                )
+
+            smart_field_service.save_smart_field(
+                SmartFieldCreate(
+                    note_type_id=note_type_id,
+                    deck_id=deck_id,
+                    target_field_name=field,
+                    enabled=is_automatic,
+                    settings=settings,
+                )
             )
-            config.prompts_map = new_map
 
         _run_on_main_sync(do_save)
         return _ok(True)
@@ -474,13 +517,10 @@ class LocalServer:
         deck_id = _get_deck_id(params)
 
         def do_remove() -> None:
-            new_map = remove_prompt(
-                prompts_map=config.prompts_map,
-                note_type=note_type,
-                deck_id=deck_id,
-                field=field,
-            )
-            config.prompts_map = new_map
+            note_type_id = get_note_type_id_from_name(note_type)
+            if note_type_id is None:
+                raise ValueError(f"Note type does not exist: {note_type}")
+            smart_field_service.delete_smart_field(note_type_id, deck_id, field)
 
         _run_on_main_sync(do_remove)
         return _ok(True)
@@ -608,10 +648,10 @@ class LocalServer:
 
         def open_dialog() -> bool:
             def on_accept(new_map: Any) -> None:
-                config.prompts_map = new_map
+                replace_from_prompt_map(new_map)
 
             dialog = PromptDialog(
-                config.prompts_map,
+                list_prompt_map(),
                 self._processor,
                 on_accept,
                 card_type=note_type,
@@ -635,10 +675,10 @@ class LocalServer:
 
         def open_dialog() -> bool:
             def on_accept(new_map: Any) -> None:
-                config.prompts_map = new_map
+                replace_from_prompt_map(new_map)
 
             dialog = PromptDialog(
-                config.prompts_map,
+                list_prompt_map(),
                 self._processor,
                 on_accept,
                 field_type=field_type,

@@ -17,36 +17,27 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import json
-import os
 from collections.abc import Mapping
-from copy import deepcopy
-from typing import Any, Optional, TypedDict, TypeVar, cast
+from typing import Any, Optional, TypeVar, cast
 
 from aqt import addons, mw
 
-from .constants import DEFAULT_TEMPERATURE, GLOBAL_DECK_ID
-from .logger import logger
 from .models import (
-    DEFAULT_EXTRAS,
     ChatModels,
     ChatProviders,
     ImageModels,
     ImageProviders,
-    NoteTypeMap,
     OpenAIModels,
-    PromptMap,
     TTSModels,
     TTSProviders,
 )
-from .utils import USES_BEFORE_RATE_DIALOG, get_file_path
+from .utils import USES_BEFORE_RATE_DIALOG
 
 
 class Config:
     """Fancy config class that uses the Anki addon manager to store config values."""
 
     openai_api_key: Optional[str]
-    prompts_map: PromptMap
     generate_at_review: bool
     times_used: int
     last_seen_version: Optional[str]
@@ -77,26 +68,14 @@ class Config:
     did_show_chained_error_dialog: bool
     did_show_rate_dialog: bool
     did_show_premium_tts_dialog: bool
-    did_deck_filter_migration: bool
-    did_cleanup_config_defaults: bool
     did_click_rate_link: bool
+    did_migrate_smart_fields_to_sqlite: bool
 
     # Capacity alerts
     did_show_capacity_threshold_this_cycle: bool
 
     # Deprecated fields:
     legacy_openai_model: OpenAIModels
-
-    def setup_config(self) -> None:
-        try:
-            self.perform_deck_filter_migration()
-            self.perform_extras_cleanup()
-
-        except Exception as e:
-            if not os.getenv("IS_TEST"):
-                logger.error(
-                    f"Error: Unexepctedly caught exception cleaning up config {e}"
-                )
 
     def __getattr__(self, key: str) -> object:
         if not mw:
@@ -133,72 +112,6 @@ class Config:
         mgr = addons.AddonManager(mw)
         defaults = mgr.addonConfigDefaults("smart-notes")
         return defaults
-
-    # Migrations
-
-    def perform_deck_filter_migration(self) -> None:
-        if self.did_deck_filter_migration:
-            return
-
-        self._backup_config()
-
-        logger.debug("Migration: prompts map migration for per-deck prompts")
-        old_prompts_map: OldPromptsMap = cast(OldPromptsMap, self.prompts_map)
-        new_prompts_map: PromptMap = {"note_types": {}}
-
-        for note_type, fields_and_extras in old_prompts_map["note_types"].items():
-            new_prompts_map["note_types"][note_type] = {
-                str(GLOBAL_DECK_ID): fields_and_extras.copy()
-            }
-        self.prompts_map = new_prompts_map
-
-        self.did_deck_filter_migration = True
-
-    def perform_extras_cleanup(self) -> None:
-        """Add new extras"""
-        if not self.did_cleanup_config_defaults:
-            self.chat_temperature = DEFAULT_TEMPERATURE
-            self.did_cleanup_config_defaults = True
-
-        logger.debug("Migration: writing sane defaults for prompt extras")
-        prompts_map = deepcopy(self.prompts_map)
-
-        for decks_map in prompts_map["note_types"].values():
-            for extras_and_fields in decks_map.values():
-                # Theoretically extras might not exist at all. Make it
-                if not extras_and_fields.get("extras"):
-                    extras_and_fields["extras"] = {}
-
-                # Make sure extras exists for every prompt field
-                for field in extras_and_fields["fields"]:
-                    if not extras_and_fields["extras"].get(field):
-                        extras_and_fields["extras"][field] = {}  # type: ignore
-
-                # Add all default fields
-                for extras in extras_and_fields["extras"].values():
-                    for k, v in DEFAULT_EXTRAS.items():
-                        if k not in extras:
-                            logger.debug(f"Adding extra {k}: {v}")
-                            extras[k] = v  # type: ignore
-
-        self.prompts_map = prompts_map
-
-    def _backup_config(self) -> None:
-        try:
-            if not mw:
-                return
-            config = mw.addonManager.getConfig(__name__)
-            if config:
-                json_config = json.dumps(config)
-                file_path = get_file_path("config_backup.json")
-                with open(file_path, "w", encoding="utf-8") as f:
-                    f.write(json_config)
-        except Exception as e:
-            logger.error(f"Could not backup config due to error: {e}")
-
-
-class OldPromptsMap(TypedDict):
-    note_types: dict[str, NoteTypeMap]
 
 
 config = Config()

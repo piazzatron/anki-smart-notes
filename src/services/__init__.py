@@ -16,13 +16,3 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
-
-from .config import config
-from .field_resolver import field_resolver
-from .hooks import setup_hooks
-from .note_proccessor import NoteProcessor
-
-
-def main() -> None:
-    processor = NoteProcessor(field_resolver=field_resolver, config=config)
-    setup_hooks(processor)

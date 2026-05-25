@@ -40,14 +40,14 @@ from .app_state import (
 from .config import Config, bump_usage_counter
 from .constants import STANDARD_BATCH_LIMIT
 from .dag import generate_fields_dag
-from .field_processor import FieldProcessor
+from .field_resolver import FieldResolver
 from .logger import logger
 from .nodes import FieldNode
-from .notes import get_note_type
-from .prompts import get_prompts_for_note
 from .sentry import run_async_in_background_with_sentry
+from .services.smart_field_service import smart_field_service
 from .ui.ui_utils import show_message_box
 from .utils import run_on_main
+from .utils.notes_utils import get_note_type_id
 
 # OPEN_AI rate limits
 NEW_OPEN_AI_MODEL_REQ_PER_MIN = 500
@@ -72,8 +72,8 @@ OLD_OPEN_AI_MODEL_REQ_PER_MIN = 3500
 
 
 class NoteProcessor:
-    def __init__(self, field_processor: FieldProcessor, config: Config):
-        self.field_processor = field_processor
+    def __init__(self, field_resolver: FieldResolver, config: Config):
+        self.field_resolver = field_resolver
         self.config = config
         self.batch_in_progress = False
         self._cancelled = threading.Event()
@@ -242,9 +242,10 @@ class NoteProcessor:
         to_process: list[Note] = []
         skipped: list[Note] = []
         for note in notes:
-            note_type = get_note_type(note)
-            prompts = get_prompts_for_note(note_type, did_map[note.id])
-            if not prompts:
+            smart_fields = smart_field_service.get_smart_fields_for_note(
+                get_note_type_id(note), did_map[note.id], include_global=True
+            )
+            if not smart_fields:
                 logger.debug("Error: no prompts found for note type")
                 skipped.append(note)
             else:
@@ -346,19 +347,20 @@ class NoteProcessor:
     ) -> bool:
         """Process a single note, returns whether any fields were updated. Optionally can target specific fields. Caller responsible for handling any exceptions."""
 
-        note_type = get_note_type(note)
-        prompts_for_note = get_prompts_for_note(note_type, deck_id)
+        smart_fields = smart_field_service.get_smart_fields_for_note(
+            get_note_type_id(note), deck_id, include_global=True
+        )
 
-        if not prompts_for_note:
+        if not smart_fields:
             logger.debug("no prompts found for note type")
             return False
 
         # Topsort + parallel process the DAG
         dag = generate_fields_dag(
             note,
+            smart_fields=smart_fields,
             target_field=target_field,
             overwrite_fields=overwrite_fields,
-            deck_id=deck_id,
         )
 
         did_update = False
@@ -526,7 +528,7 @@ class NoteProcessor:
         if value and not (node.is_target or node.overwrite):
             return value
 
-        new_value = await self.field_processor.resolve(
+        new_value = await self.field_resolver.resolve(
             node, note, show_error_message_box
         )
         if new_value:

@@ -27,9 +27,9 @@ from anki.notes import Note
 
 from .logger import logger
 from .media_utils import ext_from_content_type, write_media
-from .notes import get_note_type
 from .ui.ui_utils import show_message_box
 from .utils import run_on_main
+from .utils.notes_utils import get_note_type
 
 IMAGE_EXTENSIONS = r"\.(png|jpg|jpeg|webp|gif)"
 MARKDOWN_IMAGE_RE = re.compile(r"!\[([^\]]*)\]\((https?://[^\s)]+)\)")

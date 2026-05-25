@@ -53,10 +53,13 @@ from ..decks import deck_id_to_name_map, deck_name_to_id_map
 from ..logger import logger
 from ..models import PromptMap, SmartFieldType, legacy_openai_chat_models
 from ..note_proccessor import NoteProcessor
-from ..prompts import get_all_prompts, get_extras, get_prompts_for_note, remove_prompt
+from ..prompt_helpers import get_all_prompts, get_extras, get_prompts_for_note
+from ..services.smart_field_service import smart_field_service
+from ..smart_field_prompt_map import list_prompt_map, replace_from_prompt_map
 from ..tasks import run_async_in_background
 from ..telemetry import track_event
 from ..utils import get_fields, get_version
+from ..utils.notes_utils import get_note_type_id_from_name
 from .account_options import AccountOptions
 from .chat_options import ChatOptions
 from .image_options import ImageOptions
@@ -333,7 +336,7 @@ class AddonOptionsDialog(QDialog):
         self.table.setRowCount(0)
 
         row = 0
-        all_prompts = get_all_prompts(override_prompts_map=self.state.s["prompts_map"])
+        all_prompts = get_all_prompts()
         for note_type, deck_prompts in all_prompts.items():
             for deck_id, field_prompts in deck_prompts.items():
                 for field, prompt in field_prompts.items():
@@ -563,7 +566,7 @@ class AddonOptionsDialog(QDialog):
             return
 
         prompt_dialog = PromptDialog(
-            self.state.s["prompts_map"],
+            list_prompt_map(),
             self.processor,
             self.on_update_prompts,
             card_type=note_type,
@@ -589,7 +592,7 @@ class AddonOptionsDialog(QDialog):
             config.openai_api_key = self.api_key_edit.text()
 
         prompt_dialog = PromptDialog(
-            self.state.s["prompts_map"],
+            list_prompt_map(),
             self.processor,
             self.on_update_prompts,
             field_type=field_type,
@@ -614,14 +617,12 @@ class AddonOptionsDialog(QDialog):
         note_type = self.table.item(row, 0).text()  # type: ignore
         deck_id = deck_name_to_id_map()[self.table.item(row, 1).text()]  # type: ignore
         field = self.table.item(row, 2).text()  # type: ignore
-        new_map = remove_prompt(
-            self.state.s["prompts_map"],
-            note_type=note_type,
-            deck_id=deck_id,
-            field=field,
-        )
-
-        self.state.update({"prompts_map": new_map, "selected_row": None})
+        note_type_id = get_note_type_id_from_name(note_type)
+        if note_type_id is None:
+            show_message_box("Note type does not exist or field not in note type!")
+            return
+        smart_field_service.delete_smart_field(note_type_id, deck_id, field)
+        self.state.update({"prompts_map": list_prompt_map(), "selected_row": None})
 
     def on_accept(self) -> None:
         self.write_config()
@@ -666,7 +667,9 @@ class AddonOptionsDialog(QDialog):
         ]
         for state in states:
             for k, v in [
-                item for item in state.s.items() if item[0] in valid_config_attrs
+                item
+                for item in state.s.items()
+                if item[0] in valid_config_attrs and item[0] != "prompts_map"
             ]:
                 logger.debug(f"Setting: {k}: {v}")
                 config.__setattr__(k, v)
@@ -677,13 +680,14 @@ class AddonOptionsDialog(QDialog):
         return True
 
     def on_update_prompts(self, prompts_map: PromptMap) -> None:
+        replace_from_prompt_map(prompts_map)
         self.state.update({"prompts_map": prompts_map})
         self.write_config()
 
     def make_initial_state(self) -> State:
         return {
             "openai_api_key": config.openai_api_key,
-            "prompts_map": config.prompts_map,
+            "prompts_map": list_prompt_map(),
             "selected_row": None,
             "generate_at_review": config.generate_at_review,
             "regenerate_notes_when_batching": config.regenerate_notes_when_batching,

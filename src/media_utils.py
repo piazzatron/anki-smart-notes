@@ -22,7 +22,7 @@ from typing import Optional
 from anki.notes import Note
 from aqt import mw
 
-from .notes import get_note_type
+from .utils.notes_utils import get_note_type
 
 
 def ext_from_content_type(content_type: str) -> str:
