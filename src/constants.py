@@ -22,7 +22,6 @@ from typing import cast
 from anki.decks import DeckId
 
 from . import env
-from .models import ChatModels, ChatProviders
 
 SERVER_URL_PROD = "https://anki-smart-notes-server-production.up.railway.app"
 SERVER_URL_DEV = "http://localhost:3000"
@@ -37,9 +36,6 @@ TTS_PROVIDER_TIMEOUT_SEC = 30
 IMAGE_PROVIDER_TIMEOUT_SEC = 45
 
 STANDARD_BATCH_LIMIT = 10
-
-DEFAULT_CHAT_MODEL: ChatModels = "gpt-4o-mini"
-DEFAULT_CHAT_PROVIDER: ChatProviders = "openai"
 
 DEFAULT_TEMPERATURE = 1
 

@@ -25,7 +25,7 @@ from anki.decks import DeckId
 from aqt import mw
 
 from .config import config
-from .constants import DEFAULT_CHAT_MODEL, DEFAULT_CHAT_PROVIDER, GLOBAL_DECK_ID
+from .constants import GLOBAL_DECK_ID
 from .logger import logger
 from .models import (
     DEFAULT_EXTRAS,
@@ -189,10 +189,8 @@ def settings_from_prompt_parts(prompt: str, extras: FieldExtras) -> SmartFieldSe
     if field_type == "chat":
         return ChatSmartFieldSettings(
             prompt_text=prompt,
-            provider=extras.get("chat_provider")
-            or config.chat_provider
-            or DEFAULT_CHAT_PROVIDER,
-            model=extras.get("chat_model") or config.chat_model or DEFAULT_CHAT_MODEL,
+            provider=extras.get("chat_provider") or config.chat_provider,
+            model=extras.get("chat_model") or config.chat_model,
             web_search_enabled=bool(
                 extras.get("chat_web_search")
                 if extras.get("chat_web_search") is not None
