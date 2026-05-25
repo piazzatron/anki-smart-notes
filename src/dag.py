@@ -88,7 +88,16 @@ def generate_fields_dag(
         for field_name, smart_field in smart_fields_by_target.items():
             if field_name not in dag:
                 continue
-            in_fields = dependency_fields_for_smart_field(smart_field)
+
+            # TTS stores its source field directly; text/image fields store
+            # dependencies as {{field}} references inside their prompts.
+            settings = smart_field.settings
+            if isinstance(settings, TTSSmartFieldSettings):
+                in_fields = [settings.source_field_name.lower()]
+            elif isinstance(settings, ChatSmartFieldSettings):
+                in_fields = get_prompt_fields(settings.prompt_text)
+            else:
+                in_fields = get_prompt_fields(settings.prompt_text)
 
             for in_field in in_fields:
                 if in_field in dag:
@@ -139,15 +148,6 @@ def has_cycle(dag: dict[str, FieldNode]) -> bool:
             explore.extend((node, new_path) for node in cur.out_nodes)
 
     return False
-
-
-def dependency_fields_for_smart_field(smart_field: SmartField) -> list[str]:
-    settings = smart_field.settings
-    if isinstance(settings, TTSSmartFieldSettings):
-        return [settings.source_field_name.lower()]
-    if isinstance(settings, ChatSmartFieldSettings):
-        return get_prompt_fields(settings.prompt_text)
-    return get_prompt_fields(settings.prompt_text)
 
 
 # Lives in here bc there is cycle detection. Not the best place but meh
