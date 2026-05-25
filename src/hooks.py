@@ -39,7 +39,6 @@ from .feature_flags import refresh_feature_flags
 from .logger import logger, setup_logger
 from .message_polling import start_polling_for_messages
 from .note_proccessor import NoteProcessor
-from .notes import get_field_from_index, is_ai_field, is_card_fully_processed
 from .review_time_evaluator import ReviewTimeEvaluator
 from .sentry import sentry, with_sentry
 from .smart_field_migration import migrate_legacy_smart_field_config
@@ -49,6 +48,11 @@ from .ui.changelog import ChangeLogDialog, is_new_major_or_minor_version
 from .ui.field_menu import FieldMenu
 from .ui.ui_utils import show_message_box
 from .utils import get_version
+from .utils.notes_utils import (
+    get_field_from_index,
+    is_ai_field,
+    is_card_fully_processed,
+)
 
 _local_server: Any = None
 _review_time_evaluator: Optional[ReviewTimeEvaluator] = None

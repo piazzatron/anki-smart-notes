@@ -45,7 +45,6 @@ from .models import (
     TTSProviders,
 )
 from .nodes import FieldNode
-from .notes import get_chained_ai_fields, get_note_type
 from .open_ai_client import OpenAIClient, openai_provider
 from .prompt_helpers import interpolate_prompt
 from .smart_field_models import (
@@ -56,6 +55,7 @@ from .smart_field_models import (
 from .tts_provider import TTSProvider, tts_provider
 from .ui.ui_utils import show_message_box
 from .utils import run_on_main
+from .utils.notes_utils import get_chained_ai_fields, get_note_type
 
 
 class FieldResolver:

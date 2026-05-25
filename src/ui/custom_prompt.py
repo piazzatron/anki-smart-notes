@@ -43,10 +43,10 @@ from ..field_resolver import field_resolver
 from ..image_provider import ImageResponse
 from ..logger import logger
 from ..media_utils import ext_from_content_type, get_media_path, write_media
-from ..notes import get_note_type, get_valid_fields_for_prompt
 from ..prompt_helpers import get_prompts_for_note
 from ..sentry import run_async_in_background_with_sentry
 from ..tts_utils import play_audio
+from ..utils.notes_utils import get_note_type, get_valid_fields_for_prompt
 from .chat_options import ChatOptions
 from .image_displayer import ImageDisplayer
 from .image_options import ImageOptions

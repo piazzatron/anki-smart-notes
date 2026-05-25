@@ -65,7 +65,6 @@ from ..models import (
     overridable_tts_options,
 )
 from ..note_proccessor import NoteProcessor
-from ..notes import get_note_types, get_random_note, get_valid_fields_for_prompt
 from ..prompt_helpers import (
     add_or_update_prompts,
     get_extras,
@@ -77,6 +76,11 @@ from ..prompt_helpers import (
 from ..sentry import run_async_in_background_with_sentry
 from ..tts_utils import play_audio
 from ..utils import get_fields, to_lowercase_dict
+from ..utils.notes_utils import (
+    get_note_types,
+    get_random_note,
+    get_valid_fields_for_prompt,
+)
 from .chat_options import ChatOptions
 from .image_displayer import ImageDisplayer
 from .image_options import ImageOptions

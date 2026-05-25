@@ -24,14 +24,14 @@ from anki.decks import DeckId
 from anki.notes import Note
 from aqt import mw
 
-from .constants import GLOBAL_DECK_ID
-from .decks import deck_id_to_name_map
-from .models import PromptMap
-from .prompt_helpers import get_prompt_fields
-from .smart_field_models import ChatSmartFieldSettings
-from .smart_field_service import smart_field_service
-from .ui.ui_utils import show_message_box
-from .utils import get_fields
+from ..constants import GLOBAL_DECK_ID
+from ..decks import deck_id_to_name_map
+from ..models import PromptMap
+from ..prompt_helpers import get_prompt_fields
+from ..smart_field_models import ChatSmartFieldSettings
+from ..smart_field_service import smart_field_service
+from ..ui.ui_utils import show_message_box
+from . import get_fields
 
 """Helpful functions for working with notes"""
 

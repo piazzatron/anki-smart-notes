@@ -43,11 +43,11 @@ from .dag import generate_fields_dag
 from .field_resolver import FieldResolver
 from .logger import logger
 from .nodes import FieldNode
-from .notes import get_note_type_id
 from .sentry import run_async_in_background_with_sentry
 from .smart_field_service import smart_field_service
 from .ui.ui_utils import show_message_box
 from .utils import run_on_main
+from .utils.notes_utils import get_note_type_id
 
 # OPEN_AI rate limits
 NEW_OPEN_AI_MODEL_REQ_PER_MIN = 500

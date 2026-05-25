@@ -30,10 +30,10 @@ from .app_state import app_state, is_capacity_remaining_or_legacy
 from .config import config
 from .logger import logger
 from .note_proccessor import NoteProcessor
-from .notes import is_card_fully_processed
 from .sentry import run_async_in_background_with_sentry
 from .ui.sparkle import Sparkle
 from .utils import run_on_main
+from .utils.notes_utils import is_card_fully_processed
 
 # Number of upcoming scheduler cards to inspect on each review tick.
 LOOKAHEAD = 25

@@ -26,7 +26,6 @@ from anki.notes import Note
 from .logger import logger
 from .models import DEFAULT_EXTRAS, FieldExtras, PromptMap
 from .nodes import FieldNode
-from .notes import get_note_type
 from .prompt_helpers import get_extras, get_prompt_fields
 from .smart_field_models import (
     ChatSmartFieldSettings,
@@ -35,6 +34,7 @@ from .smart_field_models import (
     TTSSmartFieldSettings,
 )
 from .utils import get_fields
+from .utils.notes_utils import get_note_type
 
 
 def generate_fields_dag(
