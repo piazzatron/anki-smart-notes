@@ -96,9 +96,14 @@ class FieldResolver:
                 logger.error("No media")
                 return None
 
-            source_value = note_field_value_case_insensitive(
-                note, settings.source_field_name
-            )
+            # Anki field names are user-defined, so match case-insensitively while
+            # preserving the original note field key/value.
+            source_value = None
+            source_field_name_lower = settings.source_field_name.lower()
+            for note_field, value in note.items():  # type: ignore[attr-defined]
+                if note_field.lower() == source_field_name_lower:
+                    source_value = cast(Optional[str], value)
+                    break
             if not source_value:
                 return None
 
@@ -296,11 +301,3 @@ field_resolver = FieldResolver(
     tts_provider=tts_provider,
     image_provider=image_provider,
 )
-
-
-def note_field_value_case_insensitive(note: Note, field_name: str) -> Optional[str]:
-    field_name_lower = field_name.lower()
-    for note_field, value in note.items():  # type: ignore[attr-defined]
-        if note_field.lower() == field_name_lower:
-            return cast(Optional[str], value)
-    return None
