@@ -31,7 +31,10 @@ DATABASE_FILENAME = "smart_notes.sqlite3"
 USER_FILES_DIR = "user_files"
 
 
-def apply_database_migrations(database_path: Optional[str] = None) -> None:
+def apply_database_migrations(
+    database_path: Optional[str] = None,
+    migration_count: Optional[int] = None,
+) -> None:
     # Tests pass isolated temp DB paths so migration state never touches user data.
     resolved_database_path = database_path or get_database_path()
     Path(resolved_database_path).parent.mkdir(parents=True, exist_ok=True)
@@ -41,6 +44,8 @@ def apply_database_migrations(database_path: Optional[str] = None) -> None:
     migrations_path = Path(__file__).with_name("db_migrations")
     logger.debug(f"Smart fields DB: reading migrations from {migrations_path}")
     migrations = read_migrations(str(migrations_path))
+    if migration_count is not None:
+        migrations = migrations[:migration_count]
 
     with backend.lock():
         pending_migrations = backend.to_apply(migrations)
