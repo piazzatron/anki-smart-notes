@@ -58,7 +58,9 @@ from .ui.ui_utils import show_message_box
 from .utils import run_on_main
 
 
-class FieldProcessor:
+class FieldResolver:
+    """Turns one DAG node into the text, audio, or image value written to a note."""
+
     def __init__(
         self,
         openai_provider: OpenAIClient,
@@ -288,7 +290,7 @@ class FieldProcessor:
         )
 
 
-field_processor = FieldProcessor(
+field_resolver = FieldResolver(
     openai_provider=openai_provider,
     chat_provider=chat_provider,
     tts_provider=tts_provider,

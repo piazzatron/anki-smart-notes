@@ -39,7 +39,7 @@ from aqt import (
     QWidget,
 )
 
-from ..field_processor import field_processor
+from ..field_resolver import field_resolver
 from ..image_provider import ImageResponse
 from ..logger import logger
 from ..media_utils import ext_from_content_type, get_media_path, write_media
@@ -249,7 +249,7 @@ class CustomTextPrompt(CustomPrompt):
             self._update_ui_states()
 
         async def generate_text():
-            return await field_processor.get_chat_response(
+            return await field_resolver.get_chat_response(
                 note=self._note,
                 deck_id=self._deck_id,
                 prompt=prompt,
@@ -303,7 +303,7 @@ class CustomImagePrompt(CustomPrompt):
             self._update_ui_states()
 
         async def generate_image():
-            return await field_processor.get_image_response(
+            return await field_resolver.get_image_response(
                 note=self._note,
                 input_text=prompt,
                 model=self.image_options.state.s["image_model"],
@@ -375,7 +375,7 @@ class CustomTTSPrompt(CustomPrompt):
         prompt = self._prompt_window.toPlainText()
 
         async def get_tts_response():
-            return await field_processor.get_tts_response(
+            return await field_resolver.get_tts_response(
                 note=self._note,
                 input_text=prompt,
                 model=self.tts_options.state.s["tts_model"],

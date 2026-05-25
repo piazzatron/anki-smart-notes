@@ -40,7 +40,7 @@ from .app_state import (
 from .config import Config, bump_usage_counter
 from .constants import STANDARD_BATCH_LIMIT
 from .dag import generate_fields_dag
-from .field_processor import FieldProcessor
+from .field_resolver import FieldResolver
 from .logger import logger
 from .nodes import FieldNode
 from .notes import get_note_type_id
@@ -72,8 +72,8 @@ OLD_OPEN_AI_MODEL_REQ_PER_MIN = 3500
 
 
 class NoteProcessor:
-    def __init__(self, field_processor: FieldProcessor, config: Config):
-        self.field_processor = field_processor
+    def __init__(self, field_resolver: FieldResolver, config: Config):
+        self.field_resolver = field_resolver
         self.config = config
         self.batch_in_progress = False
         self._cancelled = threading.Event()
@@ -528,7 +528,7 @@ class NoteProcessor:
         if value and not (node.is_target or node.overwrite):
             return value
 
-        new_value = await self.field_processor.resolve(
+        new_value = await self.field_resolver.resolve(
             node, note, show_error_message_box
         )
         if new_value:

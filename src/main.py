@@ -18,11 +18,11 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 from .config import config
-from .field_processor import field_processor
+from .field_resolver import field_resolver
 from .hooks import setup_hooks
 from .note_proccessor import NoteProcessor
 
 
 def main() -> None:
-    processor = NoteProcessor(field_processor=field_processor, config=config)
+    processor = NoteProcessor(field_resolver=field_resolver, config=config)
     setup_hooks(processor)

@@ -158,9 +158,9 @@ def seed_smart_fields(prompts_map, options):
 def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     import src.app_state
     import src.dag
-    import src.field_processor
+    import src.field_resolver
     import src.prompt_helpers
-    from src.field_processor import FieldProcessor
+    from src.field_resolver import FieldResolver
     from src.note_proccessor import NoteProcessor
 
     openai = MockOpenAIClient()
@@ -169,13 +169,13 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     seed_smart_fields(prompts_map, options)
 
     c = MockConfig(allow_empty_fields=allow_empty_fields)
-    f = FieldProcessor(
+    f = FieldResolver(
         openai_provider=openai,
         chat_provider=chat,
         tts_provider=chat,
         image_provider=chat,
     )  # type: ignore
-    p = NoteProcessor(field_processor=f, config=c)
+    p = NoteProcessor(field_resolver=f, config=c)
 
     monkeypatch.setattr(
         src.dag,
@@ -188,7 +188,7 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     monkeypatch.setattr(src.app_state, "config", c)
     monkeypatch.setattr(src.app_state, "app_state", mock_app_state)
     monkeypatch.setattr(src.prompt_helpers, "config", c)
-    monkeypatch.setattr(src.field_processor, "config", c)
+    monkeypatch.setattr(src.field_resolver, "config", c)
 
     return p
 
@@ -544,7 +544,7 @@ def test_process_card_forwards_use_collection(monkeypatch):
 
     calls = []
     processor = NoteProcessor(  # type: ignore
-        field_processor=None,
+        field_resolver=None,
         config=MockConfig(prompts_map={}, allow_empty_fields=False),
     )
     monkeypatch.setattr(processor, "_assert_preconditions", lambda: True)
@@ -575,7 +575,7 @@ def test_process_cards_with_progress_noops_during_batch(monkeypatch):
 
     calls = []
     processor = NoteProcessor(  # type: ignore
-        field_processor=None,
+        field_resolver=None,
         config=MockConfig(prompts_map={}, allow_empty_fields=False),
     )
     processor.batch_in_progress = True

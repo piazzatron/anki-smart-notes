@@ -818,7 +818,7 @@ class PromptDialog(QDialog):
         if self.state.s["type"] == "chat":
 
             def chat_fn():
-                return self.processor.field_processor.get_chat_response(
+                return self.processor.field_resolver.get_chat_response(
                     prompt=prompt,
                     note=sample_note,
                     provider=chat_provider,
@@ -836,7 +836,7 @@ class PromptDialog(QDialog):
         elif self.state.s["type"] == "tts":
 
             def tts_fn():
-                return self.processor.field_processor.get_tts_response(
+                return self.processor.field_resolver.get_tts_response(
                     input_text=prompt,
                     note=sample_note,
                     provider=tts_provider,
@@ -849,7 +849,7 @@ class PromptDialog(QDialog):
         else:
 
             def img_fn():
-                return self.processor.field_processor.get_image_response(
+                return self.processor.field_resolver.get_image_response(
                     input_text=prompt,
                     note=sample_note,
                     model="flux-dev",
