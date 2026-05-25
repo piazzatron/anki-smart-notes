@@ -194,6 +194,9 @@ def prompt_has_error(
     return None
 
 
+# TODO: Delete these prompt-map conversion helpers during the smart fields UI
+# rewrite. They only exist so the legacy PromptDialog can validate unsaved edits
+# before those edits are written to SQLite.
 def smart_fields_from_prompt_map(
     note_type: str, note_type_id: int, deck_id: DeckId, prompts_map: PromptMap
 ) -> list[SmartField]:
