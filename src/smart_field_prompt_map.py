@@ -88,16 +88,12 @@ def list_for_note_type(
 
 
 def replace_from_prompt_map(prompt_map: PromptMap) -> None:
-    from .database import open_database
     from .services.smart_field_service import smart_field_service
 
     logger.debug("Smart fields DB: replacing all smart fields from prompt map")
-    with open_database() as conn:
-        conn.execute("DELETE FROM smart_fields")
-        conn.commit()
-
-    for smart_field in smart_field_creates_from_prompt_map(prompt_map):
-        smart_field_service.save_smart_field(smart_field)
+    smart_field_service.replace_all_smart_fields(
+        smart_field_creates_from_prompt_map(prompt_map)
+    )
 
 
 def prompt_map_from_smart_fields(

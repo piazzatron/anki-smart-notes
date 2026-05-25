@@ -166,3 +166,48 @@ def test_get_smart_fields_for_note_applies_global_fallback_with_deck_override() 
     assert smart_fields["Back"].settings.prompt_text == "deck override"
     assert isinstance(smart_fields["Extra"].settings, ChatSmartFieldSettings)
     assert smart_fields["Extra"].settings.prompt_text == "global extra"
+
+
+def test_save_and_delete_match_target_fields_case_insensitively() -> None:
+    service = SmartFieldService()
+
+    service.save_smart_field(
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=1,
+            target_field_name="Back",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="original",
+                provider="openai",
+                model="gpt-4o-mini",
+                web_search_enabled=False,
+            ),
+        )
+    )
+    service.save_smart_field(
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=1,
+            target_field_name="back",
+            enabled=False,
+            settings=ChatSmartFieldSettings(
+                prompt_text="updated",
+                provider="openai",
+                model="gpt-4o-mini",
+                web_search_enabled=True,
+            ),
+        )
+    )
+
+    smart_fields = service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)
+
+    assert len(smart_fields) == 1
+    assert smart_fields[0].target_field_name == "back"
+    assert smart_fields[0].enabled is False
+    assert isinstance(smart_fields[0].settings, ChatSmartFieldSettings)
+    assert smart_fields[0].settings.prompt_text == "updated"
+
+    service.delete_smart_field(NOTE_TYPE_ID, 1, "BACK")
+
+    assert service.get_smart_fields_for_note(NOTE_TYPE_ID, 1) == []

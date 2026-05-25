@@ -111,53 +111,20 @@ class SmartFieldService:
             f"Smart fields DB: saving {smart_field.field_type} field "
             f"{smart_field.note_type_id}/{smart_field.deck_id}/{smart_field.target_field_name}"
         )
-        note_type_id = smart_field.note_type_id
         with open_database() as conn:
-            existing_id = self._get_existing_id(
-                conn, note_type_id, smart_field.deck_id, smart_field.target_field_name
-            )
-            smart_field_id = existing_id or str(uuid4())
-            now = self._now()
-
-            if existing_id:
-                conn.execute(
-                    """
-                    UPDATE smart_fields
-                    SET field_type = ?, enabled = ?, updated_at = ?
-                    WHERE id = ?
-                    """,
-                    (
-                        smart_field.field_type,
-                        int(smart_field.enabled),
-                        now,
-                        smart_field_id,
-                    ),
-                )
-                self._delete_settings(conn, smart_field_id)
-            else:
-                conn.execute(
-                    """
-                    INSERT INTO smart_fields (
-                        id, note_type_id, deck_id, target_field_name, field_type,
-                        enabled, created_at, updated_at
-                    )
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                    """,
-                    (
-                        smart_field_id,
-                        note_type_id,
-                        int(smart_field.deck_id),
-                        smart_field.target_field_name,
-                        smart_field.field_type,
-                        int(smart_field.enabled),
-                        now,
-                        now,
-                    ),
-                )
-
-            self._insert_settings(conn, smart_field_id, smart_field.settings)
+            smart_field_id = self._save_smart_field(conn, smart_field)
             conn.commit()
         logger.debug(f"Smart fields DB: saved smart_field_id={smart_field_id}")
+
+    def replace_all_smart_fields(self, smart_fields: list[SmartFieldCreate]) -> None:
+        logger.debug(
+            f"Smart fields DB: replacing all fields with {len(smart_fields)} field(s)"
+        )
+        with open_database() as conn:
+            conn.execute("DELETE FROM smart_fields")
+            for smart_field in smart_fields:
+                self._save_smart_field(conn, smart_field)
+            conn.commit()
 
     def delete_smart_field(
         self, note_type_id: int, deck_id: DeckId, target_field: str
@@ -169,11 +136,65 @@ class SmartFieldService:
             conn.execute(
                 """
                 DELETE FROM smart_fields
-                WHERE note_type_id = ? AND deck_id = ? AND target_field_name = ?
+                WHERE note_type_id = ?
+                    AND deck_id = ?
+                    AND lower(target_field_name) = lower(?)
                 """,
                 (note_type_id, int(deck_id), target_field),
             )
             conn.commit()
+
+    def _save_smart_field(
+        self, conn: sqlite3.Connection, smart_field: SmartFieldCreate
+    ) -> str:
+        existing_id = self._get_existing_id(
+            conn,
+            smart_field.note_type_id,
+            smart_field.deck_id,
+            smart_field.target_field_name,
+        )
+        smart_field_id = existing_id or str(uuid4())
+        now = self._now()
+
+        if existing_id:
+            conn.execute(
+                """
+                UPDATE smart_fields
+                SET target_field_name = ?, field_type = ?, enabled = ?, updated_at = ?
+                WHERE id = ?
+                """,
+                (
+                    smart_field.target_field_name,
+                    smart_field.field_type,
+                    int(smart_field.enabled),
+                    now,
+                    smart_field_id,
+                ),
+            )
+            self._delete_settings(conn, smart_field_id)
+        else:
+            conn.execute(
+                """
+                INSERT INTO smart_fields (
+                    id, note_type_id, deck_id, target_field_name, field_type,
+                    enabled, created_at, updated_at
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    smart_field_id,
+                    smart_field.note_type_id,
+                    int(smart_field.deck_id),
+                    smart_field.target_field_name,
+                    smart_field.field_type,
+                    int(smart_field.enabled),
+                    now,
+                    now,
+                ),
+            )
+
+        self._insert_settings(conn, smart_field_id, smart_field.settings)
+        return smart_field_id
 
     def _insert_settings(
         self,
@@ -274,7 +295,9 @@ class SmartFieldService:
         row = conn.execute(
             """
             SELECT id FROM smart_fields
-            WHERE note_type_id = ? AND deck_id = ? AND target_field_name = ?
+            WHERE note_type_id = ?
+                AND deck_id = ?
+                AND lower(target_field_name) = lower(?)
             """,
             (note_type_id, int(deck_id), target_field),
         ).fetchone()
