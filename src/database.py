@@ -24,16 +24,26 @@ from typing import Optional
 from yoyo import read_migrations
 from yoyo.backends.core.sqlite3 import SQLiteBackend
 from yoyo.connections import default_migration_table, parse_uri
+from yoyo.migrations import MigrationList
 
 from .logger import logger
 
 DATABASE_FILENAME = "smart_notes.sqlite3"
 USER_FILES_DIR = "user_files"
+BOOTSTRAP_MIGRATION_IDS = {"0001_initial_smart_fields_schema"}
 
 
-def apply_database_migrations(
+def apply_database_bootstrap_migrations(database_path: Optional[str] = None) -> None:
+    apply_migrations(database_path, migration_ids=BOOTSTRAP_MIGRATION_IDS)
+
+
+def apply_database_migrations(database_path: Optional[str] = None) -> None:
+    apply_migrations(database_path)
+
+
+def apply_migrations(
     database_path: Optional[str] = None,
-    migration_count: Optional[int] = None,
+    migration_ids: Optional[set[str]] = None,
 ) -> None:
     # Tests pass isolated temp DB paths so migration state never touches user data.
     resolved_database_path = database_path or get_database_path()
@@ -44,8 +54,14 @@ def apply_database_migrations(
     migrations_path = Path(__file__).with_name("db_migrations")
     logger.debug(f"Smart fields DB: reading migrations from {migrations_path}")
     migrations = read_migrations(str(migrations_path))
-    if migration_count is not None:
-        migrations = migrations[:migration_count]
+    if migration_ids is not None:
+        migrations_by_id = {migration.id: migration for migration in migrations}
+        missing_ids = migration_ids - migrations_by_id.keys()
+        if missing_ids:
+            raise RuntimeError(f"Missing database migrations: {sorted(missing_ids)}")
+        migrations = MigrationList(
+            [migration for migration in migrations if migration.id in migration_ids]
+        )
 
     with backend.lock():
         pending_migrations = backend.to_apply(migrations)

@@ -17,13 +17,11 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from .database import apply_database_migrations
+from .database import apply_database_bootstrap_migrations, apply_database_migrations
 from .smart_field_migration import migrate_legacy_smart_field_config
-
-SMART_FIELD_SCHEMA_MIGRATION_COUNT = 1
 
 
 def run_migrations() -> None:
-    apply_database_migrations(migration_count=SMART_FIELD_SCHEMA_MIGRATION_COUNT)
+    apply_database_bootstrap_migrations()
     migrate_legacy_smart_field_config()
     apply_database_migrations()
