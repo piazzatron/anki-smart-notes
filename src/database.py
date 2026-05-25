@@ -55,7 +55,6 @@ def apply_database_migrations(database_path: Optional[str] = None) -> None:
 
 def open_database(database_path: Optional[str] = None) -> sqlite3.Connection:
     resolved_database_path = database_path or get_database_path()
-    apply_database_migrations(resolved_database_path)
 
     conn = sqlite3.connect(resolved_database_path)
     conn.row_factory = sqlite3.Row
