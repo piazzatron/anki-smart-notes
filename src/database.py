@@ -73,6 +73,8 @@ def get_user_files_path(filename: str) -> str:
 
 
 def get_sqlite_backend(database_path: str) -> SQLiteBackend:
+    # In Anki's vendored add-on environment, yoyo's package metadata may be missing.
+    # Import the SQLite backend directly instead of relying on entry-point discovery.
     database_uri = f"sqlite:///{Path(database_path).absolute().as_posix()}"
     backend = SQLiteBackend(parse_uri(database_uri), default_migration_table)
     backend.init_database()
