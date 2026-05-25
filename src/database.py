@@ -24,7 +24,6 @@ from typing import Optional
 from yoyo import read_migrations
 from yoyo.backends.core.sqlite3 import SQLiteBackend
 from yoyo.connections import default_migration_table, parse_uri
-from yoyo.migrations import MigrationList
 
 from .logger import logger
 
@@ -34,11 +33,10 @@ USER_FILES_DIR = "user_files"
 # Bootstrap migrations create only the database shape needed to import legacy
 # config-backed Smart Fields. Data migrations must run after that import so
 # rows copied from old config are included.
-BOOTSTRAP_MIGRATION_IDS = {"0001_initial_smart_fields_schema"}
 
 
 def apply_database_bootstrap_migrations(database_path: Optional[str] = None) -> None:
-    apply_migrations(database_path, migration_ids=BOOTSTRAP_MIGRATION_IDS)
+    apply_migrations(database_path, bootstrap_only=True)
 
 
 def apply_database_migrations(database_path: Optional[str] = None) -> None:
@@ -47,7 +45,7 @@ def apply_database_migrations(database_path: Optional[str] = None) -> None:
 
 def apply_migrations(
     database_path: Optional[str] = None,
-    migration_ids: Optional[set[str]] = None,
+    bootstrap_only: bool = False,
 ) -> None:
     # Tests pass isolated temp DB paths so migration state never touches user data.
     resolved_database_path = database_path or get_database_path()
@@ -58,14 +56,8 @@ def apply_migrations(
     migrations_path = Path(__file__).with_name("db_migrations")
     logger.debug(f"Smart fields DB: reading migrations from {migrations_path}")
     migrations = read_migrations(str(migrations_path))
-    if migration_ids is not None:
-        migrations_by_id = {migration.id: migration for migration in migrations}
-        missing_ids = migration_ids - migrations_by_id.keys()
-        if missing_ids:
-            raise RuntimeError(f"Missing database migrations: {sorted(missing_ids)}")
-        migrations = MigrationList(
-            [migration for migration in migrations if migration.id in migration_ids]
-        )
+    if bootstrap_only:
+        migrations = migrations[:1]
 
     with backend.lock():
         pending_migrations = backend.to_apply(migrations)
