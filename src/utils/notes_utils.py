@@ -196,9 +196,6 @@ def get_valid_fields_for_prompt(
 ) -> list[str]:
     """Gets all fields excluding the selected one, if one is selected"""
     fields = get_fields(selected_note_type)
-    if not mw or not mw.col:
-        return [field for field in fields if field != selected_note_field]
-
     note_type_id = get_note_type_id_from_name(selected_note_type)
     if note_type_id is None:
         return [field for field in fields if field != selected_note_field]
