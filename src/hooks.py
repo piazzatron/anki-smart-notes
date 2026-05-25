@@ -37,7 +37,6 @@ from .database import apply_database_migrations
 from .decks import deck_id_to_name_map
 from .feature_flags import refresh_feature_flags
 from .logger import logger, setup_logger
-from .message_polling import start_polling_for_messages
 from .note_proccessor import NoteProcessor
 from .review_time_evaluator import ReviewTimeEvaluator
 from .sentry import sentry, with_sentry
@@ -244,7 +243,6 @@ def on_browser_context(processor: NoteProcessor, browser: browser.Browser, menu:
 
 
 def _on_start_actions() -> None:
-    start_polling_for_messages()
     refresh_feature_flags()
 
     app_state.update_subscription_state()
