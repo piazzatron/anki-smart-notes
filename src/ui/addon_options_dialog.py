@@ -54,8 +54,8 @@ from ..logger import logger
 from ..models import PromptMap, SmartFieldType, legacy_openai_chat_models
 from ..note_proccessor import NoteProcessor
 from ..prompt_helpers import get_all_prompts, get_extras, get_prompts_for_note
+from ..services.smart_field_service import smart_field_service
 from ..smart_field_prompt_map import list_prompt_map, replace_from_prompt_map
-from ..smart_field_service import smart_field_service
 from ..tasks import run_async_in_background
 from ..telemetry import track_event
 from ..utils import get_fields, get_version

@@ -49,7 +49,7 @@ FIELD_PATTERN = r"\{\{(?!c\d+::)(.+?)\}\}"
 
 
 def list_prompt_map() -> PromptMap:
-    from .smart_field_service import smart_field_service
+    from .services.smart_field_service import smart_field_service
 
     if not mw or not mw.col:
         return {"note_types": {}}
@@ -89,7 +89,7 @@ def list_for_note_type(
 
 def replace_from_prompt_map(prompt_map: PromptMap) -> None:
     from .database import open_database
-    from .smart_field_service import smart_field_service
+    from .services.smart_field_service import smart_field_service
 
     logger.debug("Smart fields DB: replacing all smart fields from prompt map")
     with open_database() as conn:

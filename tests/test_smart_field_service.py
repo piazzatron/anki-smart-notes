@@ -28,7 +28,7 @@ from src.models.smart_fields import (
     SmartFieldCreate,
     TTSSmartFieldSettings,
 )
-from src.smart_field_service import SmartFieldService
+from src.services.smart_field_service import SmartFieldService
 
 NOTE_TYPE_ID = 123
 

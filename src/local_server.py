@@ -58,8 +58,8 @@ from .models.smart_fields import (
 from .note_proccessor import NoteProcessor
 from .prompt_helpers import get_extras, get_prompts_for_note
 from .sentry import sentry
+from .services.smart_field_service import smart_field_service
 from .smart_field_prompt_map import list_prompt_map, replace_from_prompt_map
-from .smart_field_service import smart_field_service
 from .ui.prompt_dialog import PromptDialog
 from .utils import get_fields
 from .utils.notes_utils import get_note_type_id_from_name

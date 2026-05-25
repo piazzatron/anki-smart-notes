@@ -29,7 +29,7 @@ from ..decks import deck_id_to_name_map
 from ..models import PromptMap
 from ..models.smart_fields import ChatSmartFieldSettings
 from ..prompt_helpers import get_prompt_fields
-from ..smart_field_service import smart_field_service
+from ..services.smart_field_service import smart_field_service
 from ..ui.ui_utils import show_message_box
 from . import get_fields
 

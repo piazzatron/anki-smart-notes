@@ -24,10 +24,10 @@ from uuid import uuid4
 
 from anki.decks import DeckId
 
-from .constants import GLOBAL_DECK_ID
-from .database import open_database
-from .logger import logger
-from .models import (
+from ..constants import GLOBAL_DECK_ID
+from ..database import open_database
+from ..logger import logger
+from ..models import (
     ChatModels,
     ChatProviders,
     ImageModels,
@@ -36,7 +36,7 @@ from .models import (
     TTSModels,
     TTSProviders,
 )
-from .models.smart_fields import (
+from ..models.smart_fields import (
     ChatSmartFieldSettings,
     ImageSmartFieldSettings,
     SmartField,

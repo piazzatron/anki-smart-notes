@@ -44,7 +44,7 @@ from .field_resolver import FieldResolver
 from .logger import logger
 from .nodes import FieldNode
 from .sentry import run_async_in_background_with_sentry
-from .smart_field_service import smart_field_service
+from .services.smart_field_service import smart_field_service
 from .ui.ui_utils import show_message_box
 from .utils import run_on_main
 from .utils.notes_utils import get_note_type_id
