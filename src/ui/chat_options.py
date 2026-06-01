@@ -42,20 +42,20 @@ class ChatOptionsState(TypedDict):
 
 
 models_map: dict[str, str] = {
-    "auto": "Auto (1x cost)",
-    "auto-max": "Auto (MAX) (12x cost)",
+    "auto": "Auto (Best Value, 0.3x cost)",
+    "auto-max": "Auto MAX (4x cost)",
     "gpt-5-nano": "GPT-5 Nano (1.5x cost)",
     "gpt-4o-mini": "GPT-4o Mini (2x cost)",
-    "gpt-5-mini": "GPT-5 Mini (5x cost)",
-    "gpt-5-chat-latest": "GPT-5 (No Reasoning, 35x cost)",
-    "gpt-5": "GPT-5 (Reasoning, 35x cost)",
-    "claude-haiku-4-5": "Claude Haiku 4.5 (15x cost)",
-    "claude-sonnet-4-6": "Claude Sonnet 4.6 (50x cost)",
-    "claude-opus-4-6": "Claude Opus 4.6 (80x cost)",
+    "gpt-5-mini": "GPT-5 Mini (1x cost)",
+    "gpt-5-chat-latest": "GPT-5 (No Reasoning, 7x++ cost)",
+    "gpt-5": "GPT-5 (Reasoning, 7x cost)",
+    "claude-haiku-4-5": "Claude Haiku 4.5 (3x cost)",
+    "claude-sonnet-4-6": "Claude Sonnet 4.6 (10x cost)",
+    "claude-opus-4-6": "Claude Opus 4.6 (16x cost)",
     "deepseek-v3": "Deepseek v3 (4x cost)",
-    "gemini-3-flash": "Gemini 3 Flash (10x cost)",
-    "gemini-3.1-flash-lite": "Gemini 3.1 Flash Lite (5x cost)",
-    "gemini-3.1-pro": "Gemini 3.1 Pro (40x cost)",
+    "gemini-3-flash": "Gemini 3 Flash (2x cost)",
+    "gemini-3.1-flash-lite": "Gemini 3.1 Flash Lite (1x cost)",
+    "gemini-3.1-pro": "Gemini 3.1 Pro (8x cost)",
 }
 
 providers_map: dict[ChatProviders, str] = {
