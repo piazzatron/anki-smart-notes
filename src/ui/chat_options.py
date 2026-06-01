@@ -42,8 +42,8 @@ class ChatOptionsState(TypedDict):
 
 
 models_map: dict[str, str] = {
-    "auto": "Auto (Best Value, 0.2x cost)",
-    "auto-max": "Auto (MAX) (2.5x cost)",
+    "auto": "Auto (Best Value, 0.5x cost)",
+    "auto-max": "Auto (MAX) (4x cost)",
     "gpt-5-mini": "GPT-5 Mini (1x cost)",
     "gpt-5-chat-latest": "GPT-5 (No Reasoning, 7x cost)",
     "gpt-5": "GPT-5 (Reasoning, 7x cost)",
