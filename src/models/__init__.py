@@ -67,11 +67,14 @@ from .providers import (
     replicate_image_models,
 )
 from .smart_fields import (
+    ChatGenerationSettings,
     ChatSmartFieldSettings,
+    ImageGenerationSettings,
     ImageSmartFieldSettings,
     SmartField,
     SmartFieldCreate,
     SmartFieldSettings,
+    TTSGenerationSettings,
     TTSSmartFieldSettings,
     smart_field_type,
 )
@@ -81,6 +84,7 @@ __all__ = [
     "AzureModels",
     "ChatModels",
     "ChatProviders",
+    "ChatGenerationSettings",
     "ChatReasoningLevel",
     "ChatSmartFieldSettings",
     "DEFAULT_EXTRAS",
@@ -94,6 +98,7 @@ __all__ = [
     "GoogleModels",
     "ImageModels",
     "ImageProviders",
+    "ImageGenerationSettings",
     "ImageSmartFieldSettings",
     "NoteTypeMap",
     "OpenAIImageModels",
@@ -111,6 +116,7 @@ __all__ = [
     "SmartFieldSettings",
     "TTSModels",
     "TTSProviders",
+    "TTSGenerationSettings",
     "TTSSmartFieldSettings",
     "VoiceVoxModels",
     "all_image_models",

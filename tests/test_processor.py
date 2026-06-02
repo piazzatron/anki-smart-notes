@@ -190,7 +190,7 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     monkeypatch.setattr(src.app_state, "config", c)
     monkeypatch.setattr(src.app_state, "app_state", mock_app_state)
     monkeypatch.setattr(src.prompt_helpers, "config", c)
-    monkeypatch.setattr(src.field_resolver, "config", c)
+    monkeypatch.setattr(src.field_resolver, "config", c, raising=False)
 
     return p
 

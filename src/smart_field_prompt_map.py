@@ -24,14 +24,12 @@ from typing import Optional, cast
 from anki.decks import DeckId
 from aqt import mw
 
-from .config import config
 from .constants import GLOBAL_DECK_ID
 from .logger import logger
 from .models import (
     DEFAULT_EXTRAS,
     FieldExtras,
     PromptMap,
-    all_image_models,
 )
 from .models.smart_fields import (
     ChatSmartFieldSettings,
@@ -41,6 +39,7 @@ from .models.smart_fields import (
     SmartFieldSettings,
     TTSSmartFieldSettings,
 )
+from .services.generation_defaults_service import generation_defaults_service
 
 FIELD_PATTERN = r"\{\{(?!c\d+::)(.+?)\}\}"
 
@@ -166,13 +165,17 @@ def extras_from_smart_field(smart_field: SmartField) -> FieldExtras:
     extras = deepcopy(DEFAULT_EXTRAS)
     extras["type"] = smart_field.field_type
     extras["automatic"] = smart_field.enabled
-    extras["use_custom_model"] = True
 
     settings = smart_field.settings
+    extras["use_custom_model"] = not settings.uses_default_generation_settings
+    if settings.uses_default_generation_settings:
+        return extras
+
     if isinstance(settings, ChatSmartFieldSettings):
         extras["chat_provider"] = settings.provider
         extras["chat_model"] = settings.model
         extras["chat_reasoning_level"] = settings.reasoning_level
+        extras["chat_temperature"] = settings.temperature
         extras["chat_web_search"] = settings.web_search_enabled
     elif isinstance(settings, TTSSmartFieldSettings):
         extras["tts_provider"] = settings.provider
@@ -188,33 +191,35 @@ def extras_from_smart_field(smart_field: SmartField) -> FieldExtras:
 def settings_from_prompt_parts(prompt: str, extras: FieldExtras) -> SmartFieldSettings:
     field_type = extras["type"]
     if field_type == "chat":
+        defaults = generation_defaults_service.get_chat_defaults()
+        uses_defaults = not extras.get("use_custom_model")
         return ChatSmartFieldSettings(
             prompt_text=prompt,
-            provider=extras.get("chat_provider") or config.chat_provider,
-            model=extras.get("chat_model") or config.chat_model,
+            provider=extras.get("chat_provider") or defaults.provider,
+            model=extras.get("chat_model") or defaults.model,
             reasoning_level=extras.get("chat_reasoning_level")
-            or (
-                "off"
-                if extras.get("use_custom_model")
-                else config.chat_reasoning_level or "off"
+            or defaults.reasoning_level,
+            temperature=extras.get("chat_temperature") or defaults.temperature,
+            web_search_enabled=_bool_option(
+                extras.get("chat_web_search"), defaults.web_search_enabled
             ),
-            web_search_enabled=bool(
-                extras.get("chat_web_search")
-                if extras.get("chat_web_search") is not None
-                else config.chat_web_search or False
-            ),
+            uses_default_generation_settings=uses_defaults,
         )
     if field_type == "tts":
+        defaults = generation_defaults_service.get_tts_defaults()
         return TTSSmartFieldSettings(
             source_field_name=source_field_from_tts_prompt(prompt),
-            provider=extras.get("tts_provider") or config.tts_provider,
-            model=extras.get("tts_model") or config.tts_model,
-            voice_id=extras.get("tts_voice") or config.tts_voice,
+            provider=extras.get("tts_provider") or defaults.provider,
+            model=extras.get("tts_model") or defaults.model,
+            voice_id=extras.get("tts_voice") or defaults.voice_id,
+            uses_default_generation_settings=not extras.get("use_custom_model"),
         )
+    defaults = generation_defaults_service.get_image_defaults()
     return ImageSmartFieldSettings(
         prompt_text=prompt,
-        provider=extras.get("image_provider") or config.image_provider,
-        model=extras.get("image_model") or config.image_model or all_image_models[0],
+        provider=extras.get("image_provider") or defaults.provider,
+        model=extras.get("image_model") or defaults.model,
+        uses_default_generation_settings=not extras.get("use_custom_model"),
     )
 
 
@@ -225,3 +230,7 @@ def source_field_from_tts_prompt(prompt: str) -> str:
             f"TTS smart fields must have exactly one source field, got: {prompt}"
         )
     return fields[0]
+
+
+def _bool_option(value: object, default: bool) -> bool:
+    return bool(value if value is not None else default)

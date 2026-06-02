@@ -48,7 +48,6 @@ from ..app_state import (
     is_capacity_remaining,
     is_capacity_remaining_or_legacy,
 )
-from ..config import config, key_or_config_val
 from ..constants import GLOBAL_DECK_ID, UNPAID_PROVIDER_ERROR
 from ..dag import prompt_has_error
 from ..decks import deck_id_to_name_map, get_all_deck_ids
@@ -74,6 +73,7 @@ from ..prompt_helpers import (
     remove_prompt,
 )
 from ..sentry import run_async_in_background_with_sentry
+from ..services.generation_defaults_service import generation_defaults_service
 from ..tts_utils import play_audio
 from ..utils import get_fields, to_lowercase_dict
 from ..utils.notes_utils import (
@@ -748,40 +748,47 @@ class PromptDialog(QDialog):
 
         self.state["is_loading_prompt"] = True
 
-        # TODO: this part could use some simplification
+        chat_defaults = generation_defaults_service.get_chat_defaults()
+        tts_defaults = generation_defaults_service.get_tts_defaults()
+
         chat_provider = (
             self.chat_options.state.s["chat_provider"]
             if self.state.s["use_custom_model"]
-            else config.chat_provider
+            else chat_defaults.provider
         )
         chat_model = (
             self.chat_options.state.s["chat_model"]
             if self.state.s["use_custom_model"]
-            else config.chat_model
+            else chat_defaults.model
         )
         chat_reasoning_level = (
             self.chat_options.state.s["chat_reasoning_level"]
             if self.state.s["use_custom_model"]
-            else config.chat_reasoning_level
+            else chat_defaults.reasoning_level
         ) or "off"
+        chat_temperature = (
+            self.chat_options.state.s["chat_temperature"]
+            if self.state.s["use_custom_model"]
+            else chat_defaults.temperature
+        )
 
         tts_provider = (
             self.tts_options.state.s["tts_provider"]
             if self.state.s["use_custom_model"]
-            else config.tts_provider
-        ) or config.tts_provider
+            else tts_defaults.provider
+        ) or tts_defaults.provider
 
         tts_voice = (
             self.tts_options.state.s["tts_voice"]
             if self.state.s["use_custom_model"]
-            else config.tts_voice
-        ) or config.tts_voice
+            else tts_defaults.voice_id
+        ) or tts_defaults.voice_id
 
         tts_model = (
             self.tts_options.state.s["tts_model"]
             if self.state.s["use_custom_model"]
-            else config.tts_model
-        ) or config.tts_model
+            else tts_defaults.model
+        ) or tts_defaults.model
 
         def on_success(arg: Union[str, bytes, None]):
             prompt = self.state.s["prompt"]
@@ -835,9 +842,7 @@ class PromptDialog(QDialog):
                     model=chat_model,
                     field_lower=self.state.s["selected_note_field"].lower(),
                     deck_id=self.state.s["selected_deck"],
-                    temperature=key_or_config_val(
-                        self.chat_options.state.s, "chat_temperature"
-                    ),
+                    temperature=chat_temperature,
                     should_convert_to_html=False,  # Don't show HTML here bc it's confusing
                     reasoning_level=chat_reasoning_level,
                     generation_source="prompt_test",

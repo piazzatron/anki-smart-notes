@@ -38,13 +38,94 @@ steps = [
     ),
     step(
         """
-        CREATE TABLE text_smart_field_settings (
-            smart_field_id TEXT PRIMARY KEY REFERENCES smart_fields(id) ON DELETE CASCADE,
-            prompt_text TEXT NOT NULL,
+        CREATE TABLE default_text_generation_settings (
+            id INTEGER PRIMARY KEY CHECK (id = 1),
             provider TEXT NOT NULL,
             model TEXT NOT NULL,
             reasoning_level TEXT NOT NULL DEFAULT 'off' CHECK (reasoning_level IN ('off', 'low', 'high')),
+            temperature INTEGER NOT NULL DEFAULT 1,
             web_search_enabled INTEGER NOT NULL DEFAULT 0 CHECK (web_search_enabled IN (0, 1))
+        );
+        """,
+        "DROP TABLE default_text_generation_settings;",
+    ),
+    step(
+        """
+        INSERT INTO default_text_generation_settings (
+            id, provider, model, reasoning_level, temperature, web_search_enabled
+        )
+        VALUES (1, 'auto', 'auto', 'off', 1, 0);
+        """,
+        "DELETE FROM default_text_generation_settings WHERE id = 1;",
+    ),
+    step(
+        """
+        CREATE TABLE default_tts_generation_settings (
+            id INTEGER PRIMARY KEY CHECK (id = 1),
+            provider TEXT NOT NULL,
+            model TEXT NOT NULL,
+            voice_id TEXT NOT NULL
+        );
+        """,
+        "DROP TABLE default_tts_generation_settings;",
+    ),
+    step(
+        """
+        INSERT INTO default_tts_generation_settings (
+            id, provider, model, voice_id
+        )
+        VALUES (1, 'google', 'standard', 'en-US-Casual-K');
+        """,
+        "DELETE FROM default_tts_generation_settings WHERE id = 1;",
+    ),
+    step(
+        """
+        CREATE TABLE default_image_generation_settings (
+            id INTEGER PRIMARY KEY CHECK (id = 1),
+            provider TEXT NOT NULL,
+            model TEXT NOT NULL
+        );
+        """,
+        "DROP TABLE default_image_generation_settings;",
+    ),
+    step(
+        """
+        INSERT INTO default_image_generation_settings (
+            id, provider, model
+        )
+        VALUES (1, 'openai', 'gpt-image-1.5-low');
+        """,
+        "DELETE FROM default_image_generation_settings WHERE id = 1;",
+    ),
+    step(
+        """
+        CREATE TABLE text_smart_field_settings (
+            smart_field_id TEXT PRIMARY KEY REFERENCES smart_fields(id) ON DELETE CASCADE,
+            prompt_text TEXT NOT NULL,
+            uses_default_generation_settings INTEGER NOT NULL DEFAULT 1 CHECK (uses_default_generation_settings IN (0, 1)),
+            provider TEXT,
+            model TEXT,
+            reasoning_level TEXT CHECK (reasoning_level IN ('off', 'low', 'high')),
+            temperature INTEGER,
+            web_search_enabled INTEGER CHECK (web_search_enabled IN (0, 1)),
+            CHECK (
+                (
+                    uses_default_generation_settings = 1
+                    AND provider IS NULL
+                    AND model IS NULL
+                    AND reasoning_level IS NULL
+                    AND temperature IS NULL
+                    AND web_search_enabled IS NULL
+                )
+                OR (
+                    uses_default_generation_settings = 0
+                    AND provider IS NOT NULL
+                    AND model IS NOT NULL
+                    AND reasoning_level IS NOT NULL
+                    AND temperature IS NOT NULL
+                    AND web_search_enabled IS NOT NULL
+                )
+            )
         );
         """,
         "DROP TABLE text_smart_field_settings;",
@@ -54,9 +135,24 @@ steps = [
         CREATE TABLE tts_smart_field_settings (
             smart_field_id TEXT PRIMARY KEY REFERENCES smart_fields(id) ON DELETE CASCADE,
             source_field_name TEXT NOT NULL,
-            provider TEXT NOT NULL,
-            model TEXT NOT NULL,
-            voice_id TEXT NOT NULL
+            uses_default_generation_settings INTEGER NOT NULL DEFAULT 1 CHECK (uses_default_generation_settings IN (0, 1)),
+            provider TEXT,
+            model TEXT,
+            voice_id TEXT,
+            CHECK (
+                (
+                    uses_default_generation_settings = 1
+                    AND provider IS NULL
+                    AND model IS NULL
+                    AND voice_id IS NULL
+                )
+                OR (
+                    uses_default_generation_settings = 0
+                    AND provider IS NOT NULL
+                    AND model IS NOT NULL
+                    AND voice_id IS NOT NULL
+                )
+            )
         );
         """,
         "DROP TABLE tts_smart_field_settings;",
@@ -66,8 +162,21 @@ steps = [
         CREATE TABLE image_smart_field_settings (
             smart_field_id TEXT PRIMARY KEY REFERENCES smart_fields(id) ON DELETE CASCADE,
             prompt_text TEXT NOT NULL,
-            provider TEXT NOT NULL,
-            model TEXT NOT NULL
+            uses_default_generation_settings INTEGER NOT NULL DEFAULT 1 CHECK (uses_default_generation_settings IN (0, 1)),
+            provider TEXT,
+            model TEXT,
+            CHECK (
+                (
+                    uses_default_generation_settings = 1
+                    AND provider IS NULL
+                    AND model IS NULL
+                )
+                OR (
+                    uses_default_generation_settings = 0
+                    AND provider IS NOT NULL
+                    AND model IS NOT NULL
+                )
+            )
         );
         """,
         "DROP TABLE image_smart_field_settings;",

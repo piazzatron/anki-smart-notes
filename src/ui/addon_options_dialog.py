@@ -51,9 +51,18 @@ from ..config import config
 from ..constants import GLOBAL_DECK_ID, UNPAID_PROVIDER_ERROR
 from ..decks import deck_id_to_name_map, deck_name_to_id_map
 from ..logger import logger
-from ..models import PromptMap, SmartFieldType, legacy_openai_chat_models
+from ..models import (
+    ChatGenerationSettings,
+    FieldExtras,
+    ImageGenerationSettings,
+    PromptMap,
+    SmartFieldType,
+    TTSGenerationSettings,
+    legacy_openai_chat_models,
+)
 from ..note_proccessor import NoteProcessor
 from ..prompt_helpers import get_all_prompts, get_extras, get_prompts_for_note
+from ..services.generation_defaults_service import generation_defaults_service
 from ..services.smart_field_service import smart_field_service
 from ..smart_field_prompt_map import list_prompt_map, replace_from_prompt_map
 from ..tasks import run_async_in_background
@@ -61,8 +70,8 @@ from ..telemetry import track_event
 from ..utils import get_fields, get_version
 from ..utils.notes_utils import get_note_type_id_from_name
 from .account_options import AccountOptions
-from .chat_options import ChatOptions
-from .image_options import ImageOptions
+from .chat_options import ChatOptions, models_map as chat_models_display
+from .image_options import ImageOptions, image_models_display
 from .prompt_dialog import PromptDialog
 from .reactive_check_box import ReactiveCheckBox
 from .reactive_combo_box import ReactiveComboBox
@@ -78,6 +87,7 @@ OPTIONS_INITIAL_HEIGHT = 700
 SMART_FIELDS_TABLE_MAX_HEIGHT = 500
 SMART_FIELDS_TABLE_MIN_HEIGHT = 120
 TTS_PROMPT_STUB_VALUE = "🔈"
+SMART_FIELDS_TABLE_PROMPT_COLUMN = 5
 
 
 class State(TypedDict):
@@ -287,7 +297,7 @@ class AddonOptionsDialog(QDialog):
     def show_table_context_menu(self, pos: QPoint):
         row = self.table.rowAt(pos.y())
         if row >= 0:
-            prompt_item = self.table.item(row, 4)
+            prompt_item = self.table.item(row, SMART_FIELDS_TABLE_PROMPT_COLUMN)
             prompt_text = prompt_item.text() if prompt_item else ""
 
             if prompt_text and prompt_text != TTS_PROMPT_STUB_VALUE:
@@ -361,6 +371,7 @@ class AddonOptionsDialog(QDialog):
                         QTableWidgetItem(
                             {"chat": "💬", "tts": "🔈", "image": "🖼️"}[type]
                         ),
+                        QTableWidgetItem(_model_label_for_extras(extras)),
                         QTableWidgetItem(
                             {
                                 "chat": f"{prompt}",
@@ -507,9 +518,9 @@ class AddonOptionsDialog(QDialog):
         return container
 
     def create_table(self) -> QTableWidget:
-        table = QTableWidget(0, 5)
+        table = QTableWidget(0, 6)
         table.setHorizontalHeaderLabels(
-            ["Note Type", "Deck", "Target Field", "Type", "Prompt"]
+            ["Note Type", "Deck", "Target Field", "Type", "Model", "Prompt"]
         )
         table.setMinimumHeight(SMART_FIELDS_TABLE_MIN_HEIGHT)
         table.setMaximumHeight(SMART_FIELDS_TABLE_MAX_HEIGHT)
@@ -637,9 +648,10 @@ class AddonOptionsDialog(QDialog):
             show_message_box("Invalid OpenAI Host", "Please provide a valid URL.")
             return False
 
+        current_tts_defaults = generation_defaults_service.get_tts_defaults()
         if (
             self.tts_options.state.s["tts_provider"] == "elevenLabs"
-            and config.tts_provider != "elevenLabs"
+            and current_tts_defaults.provider != "elevenLabs"
         ):
             did_click_ok = show_message_box(
                 "Are you sure you want to set your default voice provider to a premium model? These voices may consume your plan quickly.",
@@ -653,6 +665,19 @@ class AddonOptionsDialog(QDialog):
         if not is_unlocked and self.chat_options.state.s["chat_provider"] != "openai":
             show_message_box(UNPAID_PROVIDER_ERROR)
             return False
+
+        generation_default_attrs = {
+            "chat_provider",
+            "chat_model",
+            "chat_reasoning_level",
+            "chat_temperature",
+            "chat_web_search",
+            "tts_provider",
+            "tts_model",
+            "tts_voice",
+            "image_provider",
+            "image_model",
+        }
 
         valid_config_attrs = config.__annotations__.keys()
 
@@ -669,10 +694,35 @@ class AddonOptionsDialog(QDialog):
             for k, v in [
                 item
                 for item in state.s.items()
-                if item[0] in valid_config_attrs and item[0] != "prompts_map"
+                if item[0] in valid_config_attrs
+                and item[0] != "prompts_map"
+                and item[0] not in generation_default_attrs
             ]:
                 logger.debug(f"Setting: {k}: {v}")
                 config.__setattr__(k, v)
+
+        generation_defaults_service.save_chat_defaults(
+            ChatGenerationSettings(
+                provider=self.chat_options.state.s["chat_provider"],
+                model=self.chat_options.state.s["chat_model"],
+                reasoning_level=self.chat_options.state.s["chat_reasoning_level"],
+                temperature=self.chat_options.state.s["chat_temperature"],
+                web_search_enabled=self.chat_options.state.s["chat_web_search"],
+            )
+        )
+        generation_defaults_service.save_tts_defaults(
+            TTSGenerationSettings(
+                provider=self.tts_options.state.s["tts_provider"],
+                model=self.tts_options.state.s["tts_model"],
+                voice_id=self.tts_options.state.s["tts_voice"],
+            )
+        )
+        generation_defaults_service.save_image_defaults(
+            ImageGenerationSettings(
+                provider=self.image_options.state.s["image_provider"],
+                model=self.image_options.state.s["image_model"],
+            )
+        )
 
         if not old_debug and self.state.s["debug"]:
             show_message_box("Debug mode enabled. Please restart Anki.")
@@ -701,6 +751,7 @@ class AddonOptionsDialog(QDialog):
 
     def on_restore_defaults(self) -> None:
         config.restore_defaults()
+        generation_defaults_service.restore_defaults()
         self.state.update(self.make_initial_state())  # type: ignore
 
     def on_send_feedback(self) -> None:
@@ -742,6 +793,42 @@ class AddonOptionsDialog(QDialog):
             on_failure=on_failure,
             use_collection=False,
         )
+
+
+def _model_label_for_extras(extras: FieldExtras) -> str:
+    field_type = extras["type"]
+    is_default = not extras.get("use_custom_model")
+
+    if field_type == "chat":
+        defaults = generation_defaults_service.get_chat_defaults()
+        model = extras.get("chat_model") or defaults.model
+        label = _compact_model_label(chat_models_display.get(model, model))
+    elif field_type == "image":
+        defaults = generation_defaults_service.get_image_defaults()
+        model = extras.get("image_model") or defaults.model
+        label = _compact_model_label(image_models_display.get(model, model))
+    else:
+        defaults = generation_defaults_service.get_tts_defaults()
+        model = extras.get("tts_model") or defaults.model
+        provider = extras.get("tts_provider") or defaults.provider
+        label = f"{_provider_label(provider)} {_compact_model_label(model)}"
+
+    return f"Default ({label})" if is_default else label
+
+
+def _compact_model_label(label: object) -> str:
+    return str(label).split("(", 1)[0].strip()
+
+
+def _provider_label(provider: object) -> str:
+    return {
+        "openai": "OpenAI",
+        "google": "Google",
+        "elevenLabs": "ElevenLabs",
+        "azure": "Azure",
+        "voicevox": "VoiceVox",
+        "replicate": "Other",
+    }.get(str(provider), str(provider))
 
 
 def _is_valid_url(url: str) -> bool:

@@ -26,6 +26,13 @@ import pytest
 from aiohttp import web
 from aiohttp.test_utils import TestClient, TestServer
 
+from src.models import (
+    ChatGenerationSettings,
+    ImageGenerationSettings,
+    TTSGenerationSettings,
+)
+from src.models.smart_fields import ChatSmartFieldSettings
+
 
 def _ok(result: Any) -> dict[str, Any]:
     return {"result": result, "error": None}
@@ -188,16 +195,9 @@ async def test_add_smart_field_success(monkeypatch):
     monkeypatch.setattr(src.local_server, "smart_field_service", smart_field_service)
     monkeypatch.setattr(src.local_server, "get_note_type_id_from_name", lambda _: 123)
 
-    mock_config = MagicMock()
-    mock_config.chat_provider = "auto"
-    mock_config.chat_model = "auto"
-    mock_config.chat_web_search = False
-    mock_config.tts_provider = "openai"
-    mock_config.tts_model = "tts-1"
-    mock_config.tts_voice = "alloy"
-    mock_config.image_provider = "openai"
-    mock_config.image_model = "gpt-image-1.5-low"
-    monkeypatch.setattr(src.local_server, "config", mock_config)
+    monkeypatch.setattr(
+        src.local_server, "generation_defaults_service", _fake_defaults_service()
+    )
     monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
 
     async with TestClient(TestServer(_make_app())) as client:
@@ -214,6 +214,9 @@ async def test_add_smart_field_success(monkeypatch):
         )
         assert data == _ok(True)
         smart_field_service.save_smart_field.assert_called_once()
+        saved_field = smart_field_service.save_smart_field.call_args.args[0]
+        assert isinstance(saved_field.settings, ChatSmartFieldSettings)
+        assert saved_field.settings.uses_default_generation_settings is True
 
 
 @pytest.mark.asyncio
@@ -252,16 +255,9 @@ async def test_update_smart_field_success(monkeypatch):
     monkeypatch.setattr(src.local_server, "smart_field_service", smart_field_service)
     monkeypatch.setattr(src.local_server, "get_note_type_id_from_name", lambda _: 123)
 
-    mock_config = MagicMock()
-    mock_config.chat_provider = "auto"
-    mock_config.chat_model = "auto"
-    mock_config.chat_web_search = False
-    mock_config.tts_provider = "openai"
-    mock_config.tts_model = "tts-1"
-    mock_config.tts_voice = "alloy"
-    mock_config.image_provider = "openai"
-    mock_config.image_model = "gpt-image-1.5-low"
-    monkeypatch.setattr(src.local_server, "config", mock_config)
+    monkeypatch.setattr(
+        src.local_server, "generation_defaults_service", _fake_defaults_service()
+    )
     monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
 
     async with TestClient(TestServer(_make_app())) as client:
@@ -278,6 +274,27 @@ async def test_update_smart_field_success(monkeypatch):
         )
         assert data == _ok(True)
         smart_field_service.save_smart_field.assert_called_once()
+
+
+def _fake_defaults_service() -> MagicMock:
+    service = MagicMock()
+    service.get_chat_defaults.return_value = ChatGenerationSettings(
+        provider="auto",
+        model="auto",
+        reasoning_level="off",
+        temperature=1,
+        web_search_enabled=False,
+    )
+    service.get_tts_defaults.return_value = TTSGenerationSettings(
+        provider="openai",
+        model="tts-1",
+        voice_id="alloy",
+    )
+    service.get_image_defaults.return_value = ImageGenerationSettings(
+        provider="openai",
+        model="gpt-image-1.5-low",
+    )
+    return service
 
 
 @pytest.mark.asyncio

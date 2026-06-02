@@ -35,12 +35,36 @@ from .providers import (
 
 
 @dataclass(frozen=True)
+class ChatGenerationSettings:
+    provider: ChatProviders
+    model: ChatModels
+    reasoning_level: ChatReasoningLevel
+    temperature: int
+    web_search_enabled: bool
+
+
+@dataclass(frozen=True)
+class TTSGenerationSettings:
+    provider: TTSProviders
+    model: TTSModels
+    voice_id: str
+
+
+@dataclass(frozen=True)
+class ImageGenerationSettings:
+    provider: ImageProviders
+    model: ImageModels
+
+
+@dataclass(frozen=True)
 class ChatSmartFieldSettings:
     prompt_text: str
     provider: ChatProviders
     model: ChatModels
     web_search_enabled: bool
     reasoning_level: ChatReasoningLevel = "off"
+    temperature: int = 1
+    uses_default_generation_settings: bool = False
 
 
 @dataclass(frozen=True)
@@ -49,6 +73,7 @@ class TTSSmartFieldSettings:
     provider: TTSProviders
     model: TTSModels
     voice_id: str
+    uses_default_generation_settings: bool = False
 
 
 @dataclass(frozen=True)
@@ -56,6 +81,7 @@ class ImageSmartFieldSettings:
     prompt_text: str
     provider: ImageProviders
     model: ImageModels
+    uses_default_generation_settings: bool = False
 
 
 SmartFieldSettings = Union[

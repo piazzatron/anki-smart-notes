@@ -22,10 +22,19 @@ from yoyo import step
 steps = [
     step(
         """
-        UPDATE text_smart_field_settings
+        UPDATE default_text_generation_settings
         SET provider = 'auto', model = 'auto'
         WHERE model IN ('deepseek-v3', 'gpt-4o-mini', 'gpt-5-nano');
         """,
         "SELECT 1;",
-    )
+    ),
+    step(
+        """
+        UPDATE text_smart_field_settings
+        SET provider = 'auto', model = 'auto'
+        WHERE uses_default_generation_settings = 0
+            AND model IN ('deepseek-v3', 'gpt-4o-mini', 'gpt-5-nano');
+        """,
+        "SELECT 1;",
+    ),
 ]

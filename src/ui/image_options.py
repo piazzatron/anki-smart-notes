@@ -21,7 +21,6 @@ from typing import Optional, TypedDict
 
 from aqt import QComboBox, QGroupBox, QLabel, Qt, QVBoxLayout, QWidget
 
-from ..config import key_or_config_val
 from ..models import (
     ImageModels,
     ImageProviders,
@@ -29,6 +28,7 @@ from ..models import (
     image_model_to_provider,
     image_provider_model_map,
 )
+from ..services.generation_defaults_service import generation_defaults_service
 from .state_manager import StateManager
 from .ui_utils import default_form_layout, font_bold, font_small
 
@@ -70,7 +70,8 @@ class ImageOptions(QWidget):
     ) -> None:
         super().__init__()
 
-        model: ImageModels = key_or_config_val(image_options or {}, "image_model")
+        defaults = generation_defaults_service.get_image_defaults()
+        model = (image_options or {}).get("image_model") or defaults.model
 
         self.state = StateManager[State](
             {

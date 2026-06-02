@@ -17,15 +17,17 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from .config_migrations import migrate_legacy_addon_config
 from .database import apply_database_bootstrap_migrations, apply_database_migrations
+from .generation_defaults_migration import migrate_legacy_generation_defaults_config
 from .smart_field_migration import migrate_legacy_smart_field_config
 
 
 def run_migrations() -> None:
-    # Legacy config import writes into SQLite, so the table schema must exist
-    # first. Run all data migrations afterward so imported rows are included.
+    # Bootstrap creates the schema only. Generation defaults and Smart Fields
+    # both come from legacy config.json, so import both before SQL data
+    # migrations. That keeps future model backfills simple: update the default
+    # row plus custom override rows, and inherited fields follow automatically.
     apply_database_bootstrap_migrations()
+    migrate_legacy_generation_defaults_config()
     migrate_legacy_smart_field_config()
     apply_database_migrations()
-    migrate_legacy_addon_config()

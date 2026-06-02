@@ -25,7 +25,6 @@ from aqt import mw
 
 from .app_state import has_api_key, is_capacity_remaining
 from .chat_provider import ChatProvider, chat_provider
-from .config import config
 from .constants import GENERIC_CREDITS_MESSAGE
 from .image_provider import ImageProvider, ImageResponse, image_provider
 from .image_utils import download_and_embed_images
@@ -137,7 +136,7 @@ class FieldResolver:
                 prompt=input,
                 model=settings.model,
                 provider=settings.provider,
-                temperature=config.chat_temperature,
+                temperature=settings.temperature,
                 field_lower=node.field,
                 should_convert_to_html=True,
                 web_search=settings.web_search_enabled,

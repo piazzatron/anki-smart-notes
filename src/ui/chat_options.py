@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Optional, TypedDict
+from typing import Any, Optional, TypedDict
 
 from aqt import (
     QComboBox,
@@ -31,15 +31,15 @@ from aqt import (
     QWidget,
 )
 
-from ..config import key_or_config_val
 from ..models import (
+    ChatGenerationSettings,
     ChatModels,
     ChatProviders,
     ChatReasoningLevel,
     OverridableChatOptionsDict,
-    overridable_chat_options,
     provider_model_map,
 )
+from ..services.generation_defaults_service import generation_defaults_service
 from .reactive_check_box import ReactiveCheckBox
 from .state_manager import StateManager
 from .ui_utils import default_form_layout, font_small
@@ -90,10 +90,10 @@ model_to_provider: dict[ChatModels, ChatProviders] = {
 }
 
 reasoning_levels: list[ChatReasoningLevel] = ["off", "low", "high"]
-reasoning_level_to_slider_value = {
+REASONING_LEVEL_TO_SLIDER_VALUE = {
     level: index for index, level in enumerate(reasoning_levels)
 }
-chat_model_control_width = 320
+CHAT_MODEL_CONTROL_WIDTH = 320
 
 
 class ChatOptions(QWidget):
@@ -109,7 +109,7 @@ class ChatOptions(QWidget):
 
     def setup_ui(self) -> None:
         self.chat_model_combo = self.build_grouped_model_combo()
-        self.chat_model_combo.setFixedWidth(chat_model_control_width)
+        self.chat_model_combo.setFixedWidth(CHAT_MODEL_CONTROL_WIDTH)
         self.chat_model_combo.setMinimumHeight(30)
         self.chat_model_combo.setSizePolicy(
             QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed
@@ -129,7 +129,7 @@ class ChatOptions(QWidget):
         self.reasoning_slider.setSingleStep(1)
         self.reasoning_slider.valueChanged.connect(self.on_reasoning_changed)
         self.reasoning_slider.setValue(
-            reasoning_level_to_slider_value[self.state.s["chat_reasoning_level"]]
+            REASONING_LEVEL_TO_SLIDER_VALUE[self.state.s["chat_reasoning_level"]]
         )
 
         reasoning_labels = QHBoxLayout()
@@ -143,7 +143,7 @@ class ChatOptions(QWidget):
                 reasoning_labels.addStretch()
 
         reasoning_scale = QWidget()
-        reasoning_scale.setFixedWidth(chat_model_control_width)
+        reasoning_scale.setFixedWidth(CHAT_MODEL_CONTROL_WIDTH)
         reasoning_scale_layout = QVBoxLayout()
         reasoning_scale_layout.setContentsMargins(0, 0, 0, 0)
         reasoning_scale_layout.setSpacing(4)
@@ -247,9 +247,39 @@ class ChatOptions(QWidget):
     def get_initial_state(
         self, chat_options: OverridableChatOptionsDict
     ) -> ChatOptionsState:
+        defaults = generation_defaults_service.get_chat_defaults()
         ret: ChatOptionsState = {
-            k: key_or_config_val(chat_options, k)
-            for k in overridable_chat_options  # type: ignore
+            "chat_provider": _defaulted_chat_option(
+                chat_options, "chat_provider", defaults
+            ),
+            "chat_model": _defaulted_chat_option(chat_options, "chat_model", defaults),
+            "chat_reasoning_level": _defaulted_chat_option(
+                chat_options, "chat_reasoning_level", defaults
+            ),
+            "chat_temperature": _defaulted_chat_option(
+                chat_options, "chat_temperature", defaults
+            ),
+            "chat_web_search": _defaulted_chat_option(
+                chat_options, "chat_web_search", defaults
+            ),
         }
         ret["chat_reasoning_level"] = ret["chat_reasoning_level"] or "off"
         return ret
+
+
+def _defaulted_chat_option(
+    chat_options: OverridableChatOptionsDict,
+    key: str,
+    defaults: ChatGenerationSettings,
+) -> Any:
+    if chat_options.get(key) is not None:
+        return chat_options[key]  # type: ignore[literal-required]
+
+    defaults_by_key = {
+        "chat_provider": defaults.provider,
+        "chat_model": defaults.model,
+        "chat_reasoning_level": defaults.reasoning_level,
+        "chat_temperature": defaults.temperature,
+        "chat_web_search": defaults.web_search_enabled,
+    }
+    return defaults_by_key[key]

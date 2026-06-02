@@ -26,6 +26,7 @@ from anki.decks import DeckId
 
 from src.migrations import run_migrations
 from src.models.smart_fields import ChatSmartFieldSettings
+from src.services.generation_defaults_service import generation_defaults_service
 from src.services.smart_field_service import SmartFieldService
 
 NOTE_TYPE_ID = 123
@@ -74,13 +75,13 @@ def test_run_migrations_applies_schema_before_legacy_config_import(
         lambda: calls.append("legacy_config"),
     )
     monkeypatch.setattr(
-        "src.migrations.migrate_legacy_addon_config",
-        lambda: calls.append("addon_config"),
+        "src.migrations.migrate_legacy_generation_defaults_config",
+        lambda: calls.append("generation_defaults"),
     )
 
     run_migrations()
 
-    assert calls == ["bootstrap", "legacy_config", "database", "addon_config"]
+    assert calls == ["bootstrap", "generation_defaults", "legacy_config", "database"]
 
 
 def test_run_migrations_imports_legacy_config_before_chat_model_data_migration(
@@ -137,9 +138,70 @@ def test_run_migrations_imports_legacy_config_before_chat_model_data_migration(
     assert isinstance(smart_fields[0].settings, ChatSmartFieldSettings)
     assert smart_fields[0].settings.provider == "auto"
     assert smart_fields[0].settings.model == "auto"
+    assert smart_fields[0].settings.uses_default_generation_settings is False
+    assert generation_defaults_service.get_chat_defaults().provider == "auto"
+    assert generation_defaults_service.get_chat_defaults().model == "auto"
     assert fake_mw.addonManager.written_config is not None
-    assert fake_mw.addonManager.written_config["chat_provider"] == "auto"
-    assert fake_mw.addonManager.written_config["chat_model"] == "auto"
+    assert "chat_provider" not in fake_mw.addonManager.written_config
+    assert "chat_model" not in fake_mw.addonManager.written_config
+
+
+def test_run_migrations_updates_inherited_fields_through_sql_default_row(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    import src.database
+
+    addon_config = {
+        "chat_provider": "openai",
+        "chat_model": "gpt-5-nano",
+        "chat_reasoning_level": "off",
+        "chat_temperature": 1,
+        "chat_web_search": False,
+        "prompts_map": {
+            "note_types": {
+                "Basic": {
+                    str(DECK_ID): {
+                        "fields": {"Back": "{{Front}}"},
+                        "extras": {
+                            "Back": {
+                                "automatic": True,
+                                "type": "chat",
+                                "use_custom_model": False,
+                                "chat_provider": None,
+                                "chat_model": None,
+                                "chat_reasoning_level": None,
+                                "chat_temperature": None,
+                                "chat_web_search": None,
+                                "tts_model": None,
+                                "tts_provider": None,
+                                "tts_voice": None,
+                                "image_provider": None,
+                                "image_model": None,
+                            }
+                        },
+                    }
+                }
+            }
+        },
+        "did_migrate_smart_fields_to_sqlite": False,
+    }
+    install_fake_anki(monkeypatch, addon_config, tmp_path)
+    monkeypatch.setattr(
+        src.database,
+        "get_database_path",
+        lambda: str(tmp_path / "smart_notes.sqlite3"),
+    )
+
+    run_migrations()
+
+    smart_fields = SmartFieldService().get_smart_fields_for_note(NOTE_TYPE_ID, DECK_ID)
+
+    assert len(smart_fields) == 1
+    assert isinstance(smart_fields[0].settings, ChatSmartFieldSettings)
+    assert smart_fields[0].settings.uses_default_generation_settings is True
+    assert smart_fields[0].settings.provider == "auto"
+    assert smart_fields[0].settings.model == "auto"
 
 
 def install_fake_anki(
@@ -147,7 +209,7 @@ def install_fake_anki(
     addon_config: dict[str, Any],
     tmp_path: Path,
 ) -> Any:
-    import src.config_migrations
+    import src.generation_defaults_migration
     import src.smart_field_migration
     import src.smart_field_prompt_map
 
@@ -167,7 +229,7 @@ def install_fake_anki(
 
     fake_mw = FakeMw()
     monkeypatch.setattr(src.smart_field_migration, "mw", fake_mw)
-    monkeypatch.setattr(src.config_migrations, "mw", fake_mw)
+    monkeypatch.setattr(src.generation_defaults_migration, "mw", fake_mw)
     monkeypatch.setattr(src.smart_field_prompt_map, "mw", fake_mw)
     monkeypatch.setattr(src.smart_field_migration, "config", FakeConfig(addon_config))
     monkeypatch.setattr(

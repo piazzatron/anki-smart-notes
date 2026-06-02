@@ -49,6 +49,9 @@ def test_apply_database_migrations_creates_smart_field_tables(tmp_path: Path) ->
         assert "text_smart_field_settings" in tables
         assert "tts_smart_field_settings" in tables
         assert "image_smart_field_settings" in tables
+        assert "default_text_generation_settings" in tables
+        assert "default_tts_generation_settings" in tables
+        assert "default_image_generation_settings" in tables
 
         smart_field_columns = {
             row[1] for row in conn.execute("PRAGMA table_info(smart_fields)")
@@ -104,9 +107,10 @@ def test_deprecated_chat_models_migrate_to_auto(tmp_path: Path) -> None:
             conn.execute(
                 """
                 INSERT INTO text_smart_field_settings (
-                    smart_field_id, prompt_text, provider, model, web_search_enabled
+                    smart_field_id, prompt_text, uses_default_generation_settings,
+                    provider, model, reasoning_level, temperature, web_search_enabled
                 )
-                VALUES (?, 'prompt', ?, ?, 0)
+                VALUES (?, 'prompt', 0, ?, ?, 'off', 1, 0)
                 """,
                 (
                     smart_field_id,
@@ -139,6 +143,46 @@ def test_deprecated_chat_models_migrate_to_auto(tmp_path: Path) -> None:
         ("field-2", "auto", "auto"),
         ("field-3", "openai", "gpt-5-mini"),
     ]
+
+
+def test_deprecated_default_chat_model_migrates_to_auto(tmp_path: Path) -> None:
+    database_path = tmp_path / "smart_notes.sqlite3"
+    migrations_path = Path(__file__).parents[1] / "src" / "db_migrations"
+    migrations = read_migrations(str(migrations_path))
+    backend = get_sqlite_backend(str(database_path))
+
+    with backend.lock():
+        backend.apply_migrations(migrations[:1])
+
+    conn = sqlite3.connect(database_path)
+    try:
+        conn.execute(
+            """
+            UPDATE default_text_generation_settings
+            SET provider = 'openai', model = 'gpt-5-nano'
+            WHERE id = 1
+            """
+        )
+        conn.commit()
+    finally:
+        conn.close()
+
+    with backend.lock():
+        backend.apply_migrations(migrations[1:])
+
+    conn = sqlite3.connect(database_path)
+    try:
+        row = conn.execute(
+            """
+            SELECT provider, model
+            FROM default_text_generation_settings
+            WHERE id = 1
+            """
+        ).fetchone()
+    finally:
+        conn.close()
+
+    assert row == ("auto", "auto")
 
 
 def test_get_database_path_uses_anki_preserved_user_files() -> None:

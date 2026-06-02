@@ -239,6 +239,7 @@ def install_fake_sentry(monkeypatch: pytest.MonkeyPatch) -> FakeSentry:
 
 def chat_extras() -> FieldExtras:
     extras = deepcopy(DEFAULT_EXTRAS)
+    extras["use_custom_model"] = True
     extras["chat_provider"] = "auto"
     extras["chat_model"] = "auto"
     extras["chat_reasoning_level"] = "off"
@@ -249,6 +250,7 @@ def chat_extras() -> FieldExtras:
 def tts_extras() -> FieldExtras:
     extras = deepcopy(DEFAULT_EXTRAS)
     extras["type"] = "tts"
+    extras["use_custom_model"] = True
     extras["tts_provider"] = "openai"
     extras["tts_model"] = "tts-1"
     extras["tts_voice"] = "alloy"
