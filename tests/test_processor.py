@@ -55,8 +55,9 @@ class MockNote:
 class MockConfig:
     allow_empty_fields: bool
     prompts_map: Any = None
-    chat_provider = "openai"
-    chat_model = "gpt-4o-mini"
+    chat_provider = "auto"
+    chat_model = "auto"
+    chat_reasoning_level = "off"
     chat_temperature = 0
     chat_web_search = False
     tts_provider = "openai"
@@ -89,6 +90,7 @@ class MockChatClient:
         temperature: int = 0,
         retry_count: int = 0,
         web_search: bool = False,
+        reasoning_level: str = "off",
     ) -> str:
         return p(prompt)
 
@@ -143,8 +145,8 @@ def seed_smart_fields(prompts_map, options):
                 enabled=not options.get(field, {}).get("manual", False),
                 settings=ChatSmartFieldSettings(
                     prompt_text=prompt,
-                    provider="openai",
-                    model="gpt-4o-mini",
+                    provider="auto",
+                    model="auto",
                     web_search_enabled=False,
                 ),
             )
