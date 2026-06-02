@@ -92,7 +92,7 @@ reasoning_levels: list[ChatReasoningLevel] = ["off", "low", "high"]
 reasoning_level_to_slider_value = {
     level: index for index, level in enumerate(reasoning_levels)
 }
-chat_model_control_width = 520
+chat_model_control_width = 360
 
 
 class ChatOptions(QWidget):
