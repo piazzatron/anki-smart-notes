@@ -241,6 +241,7 @@ def chat_extras() -> FieldExtras:
     extras = deepcopy(DEFAULT_EXTRAS)
     extras["chat_provider"] = "auto"
     extras["chat_model"] = "auto"
+    extras["chat_reasoning_level"] = "off"
     extras["chat_web_search"] = False
     return extras
 

@@ -43,6 +43,7 @@ steps = [
             prompt_text TEXT NOT NULL,
             provider TEXT NOT NULL,
             model TEXT NOT NULL,
+            reasoning_level TEXT NOT NULL DEFAULT 'off' CHECK (reasoning_level IN ('off', 'low', 'high')),
             web_search_enabled INTEGER NOT NULL DEFAULT 0 CHECK (web_search_enabled IN (0, 1))
         );
         """,

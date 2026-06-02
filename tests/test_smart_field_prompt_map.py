@@ -149,6 +149,7 @@ def chat_extras(automatic: bool = True) -> FieldExtras:
     extras["automatic"] = automatic
     extras["chat_provider"] = "auto"
     extras["chat_model"] = "auto"
+    extras["chat_reasoning_level"] = "off"
     extras["chat_web_search"] = False
     return extras
 

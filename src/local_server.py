@@ -445,6 +445,9 @@ class LocalServer:
             or config.chat_provider,
             "chat_model": params.get("chatOptions", {}).get("model")
             or config.chat_model,
+            "chat_reasoning_level": params.get("chatOptions", {}).get("reasoningLevel")
+            or config.chat_reasoning_level
+            or "off",
             "chat_temperature": params.get("chatOptions", {}).get("temperature"),
             "chat_web_search": params.get("chatOptions", {}).get("webSearch")
             if params.get("chatOptions", {}).get("webSearch") is not None
@@ -476,6 +479,7 @@ class LocalServer:
                     prompt_text=prompt,
                     provider=cast(ChatProviders, chat_options["chat_provider"]),
                     model=cast(ChatModels, chat_options["chat_model"]),
+                    reasoning_level=chat_options["chat_reasoning_level"] or "off",
                     web_search_enabled=chat_options["chat_web_search"] or False,
                 )
             elif field_type == "tts":

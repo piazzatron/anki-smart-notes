@@ -245,4 +245,10 @@ def smart_field_settings_from_prompt_parts(
         provider=extras.get("chat_provider") or config.chat_provider,
         model=extras.get("chat_model") or config.chat_model,
         web_search_enabled=extras.get("chat_web_search") or False,
+        reasoning_level=extras.get("chat_reasoning_level")
+        or (
+            "off"
+            if extras.get("use_custom_model")
+            else config.chat_reasoning_level or "off"
+        ),
     )

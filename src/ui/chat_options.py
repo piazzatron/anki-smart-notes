@@ -19,12 +19,22 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 from typing import Optional, TypedDict
 
-from aqt import QComboBox, QGroupBox, QLabel, Qt, QVBoxLayout, QWidget
+from aqt import (
+    QComboBox,
+    QGroupBox,
+    QHBoxLayout,
+    QLabel,
+    QSlider,
+    Qt,
+    QVBoxLayout,
+    QWidget,
+)
 
 from ..config import key_or_config_val
 from ..models import (
     ChatModels,
     ChatProviders,
+    ChatReasoningLevel,
     OverridableChatOptionsDict,
     overridable_chat_options,
     provider_model_map,
@@ -37,6 +47,7 @@ from .ui_utils import default_form_layout, font_small
 class ChatOptionsState(TypedDict):
     chat_provider: ChatProviders
     chat_model: ChatModels
+    chat_reasoning_level: ChatReasoningLevel
     chat_temperature: int
     chat_web_search: bool
 
@@ -77,6 +88,11 @@ model_to_provider: dict[ChatModels, ChatProviders] = {
     for model in models
 }
 
+reasoning_levels: list[ChatReasoningLevel] = ["off", "low", "high"]
+reasoning_level_to_slider_value = {
+    level: index for index, level in enumerate(reasoning_levels)
+}
+
 
 class ChatOptions(QWidget):
     def __init__(
@@ -93,8 +109,35 @@ class ChatOptions(QWidget):
         self.chat_model_combo = self.build_grouped_model_combo()
         self.chat_model_combo.setMinimumWidth(350)
         self.chat_model_combo.setMinimumHeight(30)
-        self.chat_model_combo.currentIndexChanged.connect(self.on_model_changed)
         self.select_model_in_combo(self.state.s["chat_model"])
+        self.reasoning_slider = QSlider(Qt.Orientation.Horizontal)
+        self.reasoning_slider.setRange(0, len(reasoning_levels) - 1)
+        self.reasoning_slider.setTickPosition(QSlider.TickPosition.TicksBelow)
+        self.reasoning_slider.setTickInterval(1)
+        self.reasoning_slider.setSingleStep(1)
+        self.reasoning_slider.valueChanged.connect(self.on_reasoning_changed)
+        self.reasoning_slider.setValue(
+            reasoning_level_to_slider_value[self.state.s["chat_reasoning_level"]]
+        )
+
+        reasoning_labels = QHBoxLayout()
+        for label in ("Off", "Low", "High"):
+            level_label = QLabel(label)
+            level_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            reasoning_labels.addWidget(level_label)
+
+        self.reasoning_container = QWidget()
+        reasoning_layout = QVBoxLayout()
+        reasoning_layout.setContentsMargins(0, 0, 0, 0)
+        reasoning_layout.addWidget(self.reasoning_slider)
+        reasoning_layout.addLayout(reasoning_labels)
+        reasoning_help = QLabel(
+            "Reasoning can improve harder generations, but uses more token credits."
+        )
+        reasoning_help.setFont(font_small)
+        reasoning_help.setWordWrap(True)
+        reasoning_layout.addWidget(reasoning_help)
+        self.reasoning_container.setLayout(reasoning_layout)
 
         chat_box = QGroupBox("✨ Language Model")
         chat_form = default_form_layout()
@@ -105,6 +148,10 @@ class ChatOptions(QWidget):
         )
         chat_box.setLayout(chat_form)
         chat_form.addRow("Model:", self.chat_model_combo)
+        self.reasoning_row_label = QLabel("Reasoning:")
+        chat_form.addRow(self.reasoning_row_label, self.reasoning_container)
+        self.update_reasoning_visibility()
+        self.chat_model_combo.currentIndexChanged.connect(self.on_model_changed)
 
         search_box = QGroupBox("🔍 Web Search")
         search_layout = default_form_layout()
@@ -161,6 +208,15 @@ class ChatOptions(QWidget):
                 "chat_provider": model_to_provider[chat_model],
             }
         )
+        self.update_reasoning_visibility()
+
+    def on_reasoning_changed(self, value: int) -> None:
+        self.state.update({"chat_reasoning_level": reasoning_levels[value]})
+
+    def update_reasoning_visibility(self) -> None:
+        is_auto_model = self.state.s["chat_provider"] == "auto"
+        self.reasoning_row_label.setVisible(is_auto_model)
+        self.reasoning_container.setVisible(is_auto_model)
 
     def get_initial_state(
         self, chat_options: OverridableChatOptionsDict
@@ -169,4 +225,5 @@ class ChatOptions(QWidget):
             k: key_or_config_val(chat_options, k)
             for k in overridable_chat_options  # type: ignore
         }
+        ret["chat_reasoning_level"] = ret["chat_reasoning_level"] or "off"
         return ret

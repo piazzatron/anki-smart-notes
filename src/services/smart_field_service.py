@@ -30,6 +30,7 @@ from ..logger import logger
 from ..models import (
     ChatModels,
     ChatProviders,
+    ChatReasoningLevel,
     ImageModels,
     ImageProviders,
     SmartFieldType,
@@ -89,6 +90,7 @@ class SmartFieldService:
                     chat.prompt_text AS chat_prompt,
                     chat.provider AS chat_provider,
                     chat.model AS chat_model,
+                    chat.reasoning_level AS chat_reasoning_level,
                     chat.web_search_enabled AS chat_web_search,
                     tts.source_field_name AS tts_source_field,
                     tts.provider AS tts_provider,
@@ -206,15 +208,16 @@ class SmartFieldService:
             conn.execute(
                 """
                 INSERT INTO text_smart_field_settings (
-                    smart_field_id, prompt_text, provider, model, web_search_enabled
+                    smart_field_id, prompt_text, provider, model, reasoning_level, web_search_enabled
                 )
-                VALUES (?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?)
                 """,
                 (
                     smart_field_id,
                     settings.prompt_text,
                     settings.provider,
                     settings.model,
+                    settings.reasoning_level,
                     int(settings.web_search_enabled),
                 ),
             )
@@ -260,6 +263,7 @@ class SmartFieldService:
                 prompt_text=cast(str, row["chat_prompt"]),
                 provider=cast(ChatProviders, row["chat_provider"]),
                 model=cast(ChatModels, row["chat_model"]),
+                reasoning_level=cast(ChatReasoningLevel, row["chat_reasoning_level"]),
                 web_search_enabled=bool(row["chat_web_search"]),
             )
         elif field_type == "tts":

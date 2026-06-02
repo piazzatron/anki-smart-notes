@@ -35,13 +35,19 @@ def migrate_legacy_addon_config() -> None:
     if addon_config is None:
         return
 
-    if (
-        addon_config.get("chat_provider") != "deepseek"
-        and addon_config.get("chat_model") not in LEGACY_CHAT_MODELS_TO_AUTO
-    ):
-        return
+    did_update_config = False
+    if addon_config.get("chat_reasoning_level") not in {"off", "low", "high"}:
+        addon_config["chat_reasoning_level"] = "off"
+        did_update_config = True
 
-    logger.info("Migrating legacy chat config to Auto")
-    addon_config["chat_provider"] = "auto"
-    addon_config["chat_model"] = "auto"
-    mw.addonManager.writeConfig(config_module.__name__, addon_config)
+    if (
+        addon_config.get("chat_provider") == "deepseek"
+        or addon_config.get("chat_model") in LEGACY_CHAT_MODELS_TO_AUTO
+    ):
+        logger.info("Migrating legacy chat config to Auto")
+        addon_config["chat_provider"] = "auto"
+        addon_config["chat_model"] = "auto"
+        did_update_config = True
+
+    if did_update_config:
+        mw.addonManager.writeConfig(config_module.__name__, addon_config)

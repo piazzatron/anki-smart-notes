@@ -57,6 +57,7 @@ class MockConfig:
     prompts_map: Any = None
     chat_provider = "auto"
     chat_model = "auto"
+    chat_reasoning_level = "off"
     chat_temperature = 0
     chat_web_search = False
     tts_provider = "openai"
@@ -89,6 +90,7 @@ class MockChatClient:
         temperature: int = 0,
         retry_count: int = 0,
         web_search: bool = False,
+        reasoning_level: str = "off",
     ) -> str:
         return p(prompt)
 

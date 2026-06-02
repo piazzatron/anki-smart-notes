@@ -28,6 +28,7 @@ class GenerationExtra(TypedDict):
 
 TTSProviders = Literal["openai", "elevenLabs", "google", "azure", "voicevox"]
 ChatProviders = Literal["auto", "openai", "anthropic", "google"]
+ChatReasoningLevel = Literal["off", "low", "high"]
 
 OpenAIModels = Literal[
     "gpt-5",

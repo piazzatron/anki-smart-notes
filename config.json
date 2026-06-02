@@ -2,6 +2,7 @@
   "openai_api_key": "",
   "chat_provider": "auto",
   "chat_model": "auto",
+  "chat_reasoning_level": "off",
   "chat_temperature": 1,
   "tts_provider": "google",
   "tts_voice": "en-US-Casual-K",

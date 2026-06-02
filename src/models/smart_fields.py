@@ -25,6 +25,7 @@ from anki.decks import DeckId
 from .providers import (
     ChatModels,
     ChatProviders,
+    ChatReasoningLevel,
     ImageModels,
     ImageProviders,
     SmartFieldType,
@@ -39,6 +40,7 @@ class ChatSmartFieldSettings:
     provider: ChatProviders
     model: ChatModels
     web_search_enabled: bool
+    reasoning_level: ChatReasoningLevel = "off"
 
 
 @dataclass(frozen=True)

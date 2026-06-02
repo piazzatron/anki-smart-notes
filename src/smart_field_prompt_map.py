@@ -172,6 +172,7 @@ def extras_from_smart_field(smart_field: SmartField) -> FieldExtras:
     if isinstance(settings, ChatSmartFieldSettings):
         extras["chat_provider"] = settings.provider
         extras["chat_model"] = settings.model
+        extras["chat_reasoning_level"] = settings.reasoning_level
         extras["chat_web_search"] = settings.web_search_enabled
     elif isinstance(settings, TTSSmartFieldSettings):
         extras["tts_provider"] = settings.provider
@@ -191,6 +192,12 @@ def settings_from_prompt_parts(prompt: str, extras: FieldExtras) -> SmartFieldSe
             prompt_text=prompt,
             provider=extras.get("chat_provider") or config.chat_provider,
             model=extras.get("chat_model") or config.chat_model,
+            reasoning_level=extras.get("chat_reasoning_level")
+            or (
+                "off"
+                if extras.get("use_custom_model")
+                else config.chat_reasoning_level or "off"
+            ),
             web_search_enabled=bool(
                 extras.get("chat_web_search")
                 if extras.get("chat_web_search") is not None

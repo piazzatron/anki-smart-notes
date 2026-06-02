@@ -25,6 +25,7 @@ from aqt import addons, mw
 from .models import (
     ChatModels,
     ChatProviders,
+    ChatReasoningLevel,
     ImageModels,
     ImageProviders,
     OpenAIModels,
@@ -52,6 +53,7 @@ class Config:
     # Chat
     chat_provider: ChatProviders
     chat_model: ChatModels
+    chat_reasoning_level: ChatReasoningLevel
     chat_temperature: int
     chat_web_search: bool
 
