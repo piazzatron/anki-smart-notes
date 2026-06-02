@@ -22,6 +22,7 @@ from typing import Any, Optional, TypedDict
 from .providers import (
     ChatModels,
     ChatProviders,
+    ChatReasoningLevel,
     ImageModels,
     ImageProviders,
     SmartFieldType,
@@ -37,6 +38,7 @@ class FieldExtras(TypedDict):
 
     chat_model: Optional[ChatModels]
     chat_provider: Optional[ChatProviders]
+    chat_reasoning_level: Optional[ChatReasoningLevel]
     chat_temperature: Optional[int]
     chat_web_search: Optional[bool]
 
@@ -54,6 +56,7 @@ DEFAULT_EXTRAS: FieldExtras = {
     "use_custom_model": False,
     "chat_model": None,
     "chat_provider": None,
+    "chat_reasoning_level": None,
     "chat_temperature": None,
     "chat_web_search": None,
     "tts_model": None,
@@ -82,6 +85,7 @@ def typed_dict_keys(td: Any) -> list[str]:
 class OverridableChatOptionsDict(TypedDict):
     chat_provider: Optional[ChatProviders]
     chat_model: Optional[ChatModels]
+    chat_reasoning_level: Optional[ChatReasoningLevel]
     chat_temperature: Optional[int]
     chat_web_search: Optional[bool]
 

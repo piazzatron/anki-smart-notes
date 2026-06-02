@@ -34,6 +34,7 @@ from .media_utils import ext_from_content_type, get_media_path
 from .models import (
     ChatModels,
     ChatProviders,
+    ChatReasoningLevel,
     ElevenVoices,
     GenerationSource,
     ImageModels,
@@ -139,6 +140,7 @@ class FieldResolver:
                 field_lower=node.field,
                 should_convert_to_html=True,
                 web_search=settings.web_search_enabled,
+                reasoning_level=settings.reasoning_level,
                 show_error_box=show_error_box,
                 generation_source="card_generation",
             )
@@ -185,6 +187,7 @@ class FieldResolver:
         should_convert_to_html: bool,
         generation_source: GenerationSource,
         web_search: bool = False,
+        reasoning_level: ChatReasoningLevel = "off",
         show_error_box: bool = True,
     ) -> Optional[str]:
         interpolated_prompt = interpolate_prompt(prompt, note)
@@ -202,6 +205,7 @@ class FieldResolver:
                 temperature=temperature,
                 note_id=note.id,
                 web_search=web_search,
+                reasoning_level=reasoning_level,
                 generation_source=generation_source,
             )
         elif has_api_key():

@@ -259,6 +259,7 @@ class CustomTextPrompt(CustomPrompt):
                 provider=self._chat_options.state.s["chat_provider"],
                 should_convert_to_html=True,
                 web_search=self._chat_options.state.s["chat_web_search"],
+                reasoning_level=self._chat_options.state.s["chat_reasoning_level"],
                 generation_source="custom_field",
             )
 

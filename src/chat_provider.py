@@ -22,7 +22,7 @@ from typing import Any, cast
 from .api_client import api
 from .constants import CHAT_CLIENT_TIMEOUT_SEC, DEFAULT_TEMPERATURE
 from .logger import logger
-from .models import ChatModels, ChatProviders, GenerationSource
+from .models import ChatModels, ChatProviders, ChatReasoningLevel, GenerationSource
 
 
 class ChatProvider:
@@ -35,6 +35,7 @@ class ChatProvider:
         generation_source: GenerationSource,
         temperature: float = DEFAULT_TEMPERATURE,
         web_search: bool = False,
+        reasoning_level: ChatReasoningLevel = "off",
     ) -> str:
         args: dict[str, Any] = {
             "provider": provider,
@@ -42,6 +43,7 @@ class ChatProvider:
             "message": prompt,
             "temperature": temperature,
             "web_search": web_search,
+            "reasoning_level": reasoning_level,
         }
         args["extra"] = {"generation_source": generation_source}
 
