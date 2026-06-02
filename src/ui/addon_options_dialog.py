@@ -21,6 +21,7 @@ import sys
 from typing import Any, Optional, TypedDict
 from urllib.parse import urlparse
 
+from anki.decks import DeckId
 from aqt import (
     QAction,
     QApplication,
@@ -29,6 +30,7 @@ from aqt import (
     QGraphicsOpacityEffect,
     QGroupBox,
     QHBoxLayout,
+    QHeaderView,
     QLabel,
     QLineEdit,
     QMenu,
@@ -88,6 +90,13 @@ SMART_FIELDS_TABLE_MAX_HEIGHT = 500
 SMART_FIELDS_TABLE_MIN_HEIGHT = 120
 TTS_PROMPT_STUB_VALUE = "🔈"
 SMART_FIELDS_TABLE_PROMPT_COLUMN = 5
+SMART_FIELDS_TABLE_COLUMN_WIDTHS = {
+    0: 48,
+    1: 110,
+    2: 80,
+    3: 120,
+    4: 185,
+}
 
 
 class State(TypedDict):
@@ -365,12 +374,12 @@ class AddonOptionsDialog(QDialog):
                     type = extras["type"]
                     self.table.insertRow(self.table.rowCount())
                     items = [
-                        QTableWidgetItem(note_type),
-                        QTableWidgetItem(deck_name),
-                        QTableWidgetItem(field),
                         QTableWidgetItem(
                             {"chat": "💬", "tts": "🔈", "image": "🖼️"}[type]
                         ),
+                        QTableWidgetItem(note_type),
+                        QTableWidgetItem(_deck_table_label(deck_id, deck_name)),
+                        QTableWidgetItem(field),
                         QTableWidgetItem(_model_label_for_extras(extras)),
                         QTableWidgetItem(
                             {
@@ -520,7 +529,7 @@ class AddonOptionsDialog(QDialog):
     def create_table(self) -> QTableWidget:
         table = QTableWidget(0, 6)
         table.setHorizontalHeaderLabels(
-            ["Note Type", "Deck", "Target Field", "Type", "Model", "Prompt"]
+            ["Type", "Note Type", "Deck", "Target Field", "Model", "Prompt"]
         )
         table.setMinimumHeight(SMART_FIELDS_TABLE_MIN_HEIGHT)
         table.setMaximumHeight(SMART_FIELDS_TABLE_MAX_HEIGHT)
@@ -530,7 +539,15 @@ class AddonOptionsDialog(QDialog):
         table.setSelectionMode(QTableWidget.SelectionMode.SingleSelection)
 
         # Styling
-        table.horizontalHeader().setStretchLastSection(True)  # type: ignore
+        header = table.horizontalHeader()
+        assert header is not None
+        for column, width in SMART_FIELDS_TABLE_COLUMN_WIDTHS.items():
+            table.setColumnWidth(column, width)
+            header.setSectionResizeMode(column, QHeaderView.ResizeMode.Fixed)
+        header.setSectionResizeMode(
+            SMART_FIELDS_TABLE_PROMPT_COLUMN,
+            QHeaderView.ResizeMode.Stretch,
+        )
         table.verticalHeader().setVisible(False)  # type: ignore
 
         # Wire up slots
@@ -548,9 +565,9 @@ class AddonOptionsDialog(QDialog):
         if row is None:
             return
 
-        note_type = self.table.item(row, 0).text()  # type: ignore
-        deck_id = deck_name_to_id_map()[self.table.item(row, 1).text()]  # type: ignore
-        field = self.table.item(row, 2).text()  # type: ignore
+        note_type = self.table.item(row, 1).text()  # type: ignore
+        deck_id = _deck_id_from_table_label(self.table.item(row, 2).text())  # type: ignore
+        field = self.table.item(row, 3).text()  # type: ignore
         logger.debug(f"Editing {note_type}, {field}")
 
         # Save out API key jic
@@ -625,9 +642,9 @@ class AddonOptionsDialog(QDialog):
             # Should never happen
             return
 
-        note_type = self.table.item(row, 0).text()  # type: ignore
-        deck_id = deck_name_to_id_map()[self.table.item(row, 1).text()]  # type: ignore
-        field = self.table.item(row, 2).text()  # type: ignore
+        note_type = self.table.item(row, 1).text()  # type: ignore
+        deck_id = _deck_id_from_table_label(self.table.item(row, 2).text())  # type: ignore
+        field = self.table.item(row, 3).text()  # type: ignore
         note_type_id = get_note_type_id_from_name(note_type)
         if note_type_id is None:
             show_message_box("Note type does not exist or field not in note type!")
@@ -814,6 +831,18 @@ def _model_label_for_extras(extras: FieldExtras) -> str:
         label = f"{_provider_label(provider)} {_compact_model_label(model)}"
 
     return f"Default ({label})" if is_default else label
+
+
+def _deck_table_label(deck_id: object, deck_name: str) -> str:
+    if deck_id == GLOBAL_DECK_ID:
+        return "All"
+    return deck_name
+
+
+def _deck_id_from_table_label(deck_label: str) -> DeckId:
+    if deck_label == "All":
+        return GLOBAL_DECK_ID
+    return deck_name_to_id_map()[deck_label]
 
 
 def _compact_model_label(label: object) -> str:
