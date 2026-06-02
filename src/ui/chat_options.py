@@ -24,7 +24,6 @@ from aqt import (
     QGroupBox,
     QHBoxLayout,
     QLabel,
-    QSizePolicy,
     QSlider,
     Qt,
     QVBoxLayout,
@@ -93,6 +92,7 @@ reasoning_levels: list[ChatReasoningLevel] = ["off", "low", "high"]
 reasoning_level_to_slider_value = {
     level: index for index, level in enumerate(reasoning_levels)
 }
+chat_model_control_width = 520
 
 
 class ChatOptions(QWidget):
@@ -108,20 +108,14 @@ class ChatOptions(QWidget):
 
     def setup_ui(self) -> None:
         self.chat_model_combo = self.build_grouped_model_combo()
-        self.chat_model_combo.setMinimumWidth(350)
+        self.chat_model_combo.setFixedWidth(chat_model_control_width)
         self.chat_model_combo.setMinimumHeight(30)
-        self.chat_model_combo.setSizePolicy(
-            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed
-        )
         self.select_model_in_combo(self.state.s["chat_model"])
         self.reasoning_slider = QSlider(Qt.Orientation.Horizontal)
         self.reasoning_slider.setRange(0, len(reasoning_levels) - 1)
         self.reasoning_slider.setTickPosition(QSlider.TickPosition.TicksBelow)
         self.reasoning_slider.setTickInterval(1)
         self.reasoning_slider.setSingleStep(1)
-        self.reasoning_slider.setSizePolicy(
-            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed
-        )
         self.reasoning_slider.valueChanged.connect(self.on_reasoning_changed)
         self.reasoning_slider.setValue(
             reasoning_level_to_slider_value[self.state.s["chat_reasoning_level"]]
@@ -137,15 +131,20 @@ class ChatOptions(QWidget):
             if label != "High":
                 reasoning_labels.addStretch()
 
+        reasoning_scale = QWidget()
+        reasoning_scale.setFixedWidth(chat_model_control_width)
+        reasoning_scale_layout = QVBoxLayout()
+        reasoning_scale_layout.setContentsMargins(0, 0, 0, 0)
+        reasoning_scale_layout.setSpacing(4)
+        reasoning_scale_layout.addWidget(self.reasoning_slider)
+        reasoning_scale_layout.addLayout(reasoning_labels)
+        reasoning_scale.setLayout(reasoning_scale_layout)
+
         self.reasoning_container = QWidget()
-        self.reasoning_container.setSizePolicy(
-            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed
-        )
         reasoning_layout = QVBoxLayout()
         reasoning_layout.setContentsMargins(0, 0, 0, 0)
         reasoning_layout.setSpacing(4)
-        reasoning_layout.addWidget(self.reasoning_slider)
-        reasoning_layout.addLayout(reasoning_labels)
+        reasoning_layout.addWidget(reasoning_scale)
         reasoning_help = QLabel(
             "⚠️ Higher reasoning levels can improve harder generations but use more credits."
         )
@@ -153,14 +152,10 @@ class ChatOptions(QWidget):
         reasoning_help.setWordWrap(False)
         reasoning_layout.addWidget(reasoning_help)
         self.reasoning_container.setLayout(reasoning_layout)
-        reasoning_width = max(
-            self.chat_model_combo.minimumWidth(), reasoning_help.sizeHint().width()
-        )
-        self.chat_model_combo.setMinimumWidth(reasoning_width)
-        self.reasoning_container.setMinimumWidth(reasoning_width)
 
         chat_box = QGroupBox("✨ Language Model")
         chat_form = default_form_layout()
+        chat_form.setVerticalSpacing(20)
         # vcenter labels so they align with a taller combobox rather than
         # sticking to the top edge of the row.
         chat_form.setLabelAlignment(
