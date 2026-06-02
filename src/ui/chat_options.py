@@ -24,6 +24,7 @@ from aqt import (
     QGroupBox,
     QHBoxLayout,
     QLabel,
+    QSizePolicy,
     QSlider,
     Qt,
     QVBoxLayout,
@@ -92,7 +93,7 @@ reasoning_levels: list[ChatReasoningLevel] = ["off", "low", "high"]
 reasoning_level_to_slider_value = {
     level: index for index, level in enumerate(reasoning_levels)
 }
-chat_model_control_width = 360
+chat_model_control_width = 320
 
 
 class ChatOptions(QWidget):
@@ -110,7 +111,17 @@ class ChatOptions(QWidget):
         self.chat_model_combo = self.build_grouped_model_combo()
         self.chat_model_combo.setFixedWidth(chat_model_control_width)
         self.chat_model_combo.setMinimumHeight(30)
+        self.chat_model_combo.setSizePolicy(
+            QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed
+        )
         self.select_model_in_combo(self.state.s["chat_model"])
+        chat_model_container = QWidget()
+        chat_model_layout = QHBoxLayout()
+        chat_model_layout.setContentsMargins(0, 0, 0, 0)
+        chat_model_layout.addWidget(self.chat_model_combo)
+        chat_model_layout.addStretch()
+        chat_model_container.setLayout(chat_model_layout)
+
         self.reasoning_slider = QSlider(Qt.Orientation.Horizontal)
         self.reasoning_slider.setRange(0, len(reasoning_levels) - 1)
         self.reasoning_slider.setTickPosition(QSlider.TickPosition.TicksBelow)
@@ -162,7 +173,7 @@ class ChatOptions(QWidget):
             Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter
         )
         chat_box.setLayout(chat_form)
-        chat_form.addRow("Model", self.chat_model_combo)
+        chat_form.addRow("Model", chat_model_container)
         self.reasoning_row_label = QLabel("Reasoning")
         chat_form.addRow(self.reasoning_row_label, self.reasoning_container)
         self.update_reasoning_visibility()
