@@ -113,6 +113,8 @@ def test_migrate_legacy_smart_field_config_imports_prompts_and_cleans_config(
     assert smart_fields[0].target_field_name == "Back"
     assert isinstance(smart_fields[0].settings, ChatSmartFieldSettings)
     assert smart_fields[0].settings.prompt_text == "{{Front}}"
+    assert smart_fields[0].settings.provider == "auto"
+    assert smart_fields[0].settings.model == "auto"
     assert len(backup_files) == 1
     assert json.loads(backup_files[0].read_text(encoding="utf-8")) == expected_backup
     assert fake_mw.addonManager.written_config is not None
@@ -237,8 +239,10 @@ def install_fake_sentry(monkeypatch: pytest.MonkeyPatch) -> FakeSentry:
 
 def chat_extras() -> FieldExtras:
     extras = deepcopy(DEFAULT_EXTRAS)
-    extras["chat_provider"] = "openai"
-    extras["chat_model"] = "gpt-4o-mini"
+    extras["use_custom_model"] = True
+    extras["chat_provider"] = "auto"
+    extras["chat_model"] = "auto"
+    extras["chat_reasoning_level"] = "off"
     extras["chat_web_search"] = False
     return extras
 
@@ -246,6 +250,7 @@ def chat_extras() -> FieldExtras:
 def tts_extras() -> FieldExtras:
     extras = deepcopy(DEFAULT_EXTRAS)
     extras["type"] = "tts"
+    extras["use_custom_model"] = True
     extras["tts_provider"] = "openai"
     extras["tts_model"] = "tts-1"
     extras["tts_voice"] = "alloy"

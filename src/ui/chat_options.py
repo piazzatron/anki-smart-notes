@@ -17,18 +17,29 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Optional, TypedDict
+from typing import Any, Optional, TypedDict
 
-from aqt import QComboBox, QGroupBox, QLabel, Qt, QVBoxLayout, QWidget
+from aqt import (
+    QComboBox,
+    QGroupBox,
+    QHBoxLayout,
+    QLabel,
+    QSizePolicy,
+    QSlider,
+    Qt,
+    QVBoxLayout,
+    QWidget,
+)
 
-from ..config import key_or_config_val
 from ..models import (
+    ChatGenerationSettings,
     ChatModels,
     ChatProviders,
+    ChatReasoningLevel,
     OverridableChatOptionsDict,
-    overridable_chat_options,
     provider_model_map,
 )
+from ..services.generation_defaults_service import generation_defaults_service
 from .reactive_check_box import ReactiveCheckBox
 from .state_manager import StateManager
 from .ui_utils import default_form_layout, font_small
@@ -37,6 +48,7 @@ from .ui_utils import default_form_layout, font_small
 class ChatOptionsState(TypedDict):
     chat_provider: ChatProviders
     chat_model: ChatModels
+    chat_reasoning_level: ChatReasoningLevel
     chat_temperature: int
     chat_web_search: bool
 
@@ -44,15 +56,12 @@ class ChatOptionsState(TypedDict):
 models_map: dict[str, str] = {
     "auto": "Auto (Best Value, 0.3x cost)",
     "auto-max": "Auto MAX (4x cost)",
-    "gpt-5-nano": "GPT-5 Nano (1.5x cost)",
-    "gpt-4o-mini": "GPT-4o Mini (2x cost)",
     "gpt-5-mini": "GPT-5 Mini (1x cost)",
     "gpt-5-chat-latest": "GPT-5 (No Reasoning, 7x++ cost)",
     "gpt-5": "GPT-5 (Reasoning, 7x cost)",
     "claude-haiku-4-5": "Claude Haiku 4.5 (3x cost)",
     "claude-sonnet-4-6": "Claude Sonnet 4.6 (10x cost)",
     "claude-opus-4-6": "Claude Opus 4.6 (16x cost)",
-    "deepseek-v3": "Deepseek v3 (4x cost)",
     "gemini-3-flash": "Gemini 3 Flash (2x cost)",
     "gemini-3.1-flash-lite": "Gemini 3.1 Flash Lite (1x cost)",
     "gemini-3.1-pro": "Gemini 3.1 Pro (8x cost)",
@@ -63,7 +72,6 @@ providers_map: dict[ChatProviders, str] = {
     "openai": "OpenAI",
     "anthropic": "Anthropic",
     "google": "Google",
-    "deepseek": "DeepSeek",
 }
 
 # Display order: providers in this order, models within each provider in
@@ -73,7 +81,6 @@ provider_display_order: list[ChatProviders] = [
     "openai",
     "anthropic",
     "google",
-    "deepseek",
 ]
 
 model_to_provider: dict[ChatModels, ChatProviders] = {
@@ -81,6 +88,12 @@ model_to_provider: dict[ChatModels, ChatProviders] = {
     for provider, models in provider_model_map.items()
     for model in models
 }
+
+reasoning_levels: list[ChatReasoningLevel] = ["off", "low", "high"]
+REASONING_LEVEL_TO_SLIDER_VALUE = {
+    level: index for index, level in enumerate(reasoning_levels)
+}
+CHAT_MODEL_CONTROL_WIDTH = 320
 
 
 class ChatOptions(QWidget):
@@ -96,29 +109,82 @@ class ChatOptions(QWidget):
 
     def setup_ui(self) -> None:
         self.chat_model_combo = self.build_grouped_model_combo()
-        self.chat_model_combo.setMinimumWidth(350)
+        self.chat_model_combo.setFixedWidth(CHAT_MODEL_CONTROL_WIDTH)
         self.chat_model_combo.setMinimumHeight(30)
-        self.chat_model_combo.currentIndexChanged.connect(self.on_model_changed)
+        self.chat_model_combo.setSizePolicy(
+            QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed
+        )
         self.select_model_in_combo(self.state.s["chat_model"])
+        chat_model_container = QWidget()
+        chat_model_layout = QHBoxLayout()
+        chat_model_layout.setContentsMargins(0, 0, 0, 0)
+        chat_model_layout.addWidget(self.chat_model_combo)
+        chat_model_layout.addStretch()
+        chat_model_container.setLayout(chat_model_layout)
+
+        self.reasoning_slider = QSlider(Qt.Orientation.Horizontal)
+        self.reasoning_slider.setRange(0, len(reasoning_levels) - 1)
+        self.reasoning_slider.setTickPosition(QSlider.TickPosition.TicksBelow)
+        self.reasoning_slider.setTickInterval(1)
+        self.reasoning_slider.setSingleStep(1)
+        self.reasoning_slider.valueChanged.connect(self.on_reasoning_changed)
+        self.reasoning_slider.setValue(
+            REASONING_LEVEL_TO_SLIDER_VALUE[self.state.s["chat_reasoning_level"]]
+        )
+
+        reasoning_labels = QHBoxLayout()
+        reasoning_labels.setContentsMargins(0, 0, 0, 0)
+        reasoning_labels.setSpacing(0)
+        for label in ("Off", "Low", "High"):
+            level_label = QLabel(label)
+            level_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            reasoning_labels.addWidget(level_label)
+            if label != "High":
+                reasoning_labels.addStretch()
+
+        reasoning_scale = QWidget()
+        reasoning_scale.setFixedWidth(CHAT_MODEL_CONTROL_WIDTH)
+        reasoning_scale_layout = QVBoxLayout()
+        reasoning_scale_layout.setContentsMargins(0, 0, 0, 0)
+        reasoning_scale_layout.setSpacing(4)
+        reasoning_scale_layout.addWidget(self.reasoning_slider)
+        reasoning_scale_layout.addLayout(reasoning_labels)
+        reasoning_scale.setLayout(reasoning_scale_layout)
+
+        self.reasoning_container = QWidget()
+        reasoning_layout = QVBoxLayout()
+        reasoning_layout.setContentsMargins(0, 0, 0, 0)
+        reasoning_layout.setSpacing(4)
+        reasoning_layout.addWidget(reasoning_scale)
+        reasoning_help = QLabel(
+            "⚠️ Higher reasoning levels can improve harder generations but use more credits."
+        )
+        reasoning_help.setFont(font_small)
+        reasoning_help.setWordWrap(False)
+        reasoning_layout.addWidget(reasoning_help)
+        self.reasoning_container.setLayout(reasoning_layout)
 
         chat_box = QGroupBox("✨ Language Model")
         chat_form = default_form_layout()
+        chat_form.setVerticalSpacing(20)
         # vcenter labels so they align with a taller combobox rather than
         # sticking to the top edge of the row.
         chat_form.setLabelAlignment(
             Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter
         )
         chat_box.setLayout(chat_form)
-        chat_form.addRow("Model:", self.chat_model_combo)
+        chat_form.addRow("Model", chat_model_container)
+        self.reasoning_row_label = QLabel("Reasoning")
+        chat_form.addRow(self.reasoning_row_label, self.reasoning_container)
+        self.update_reasoning_visibility()
+        self.chat_model_combo.currentIndexChanged.connect(self.on_model_changed)
 
         search_box = QGroupBox("🔍 Web Search")
         search_layout = default_form_layout()
         search_box.setLayout(search_layout)
         self.web_search_box = ReactiveCheckBox(self.state, "chat_web_search")
         search_layout.addRow(QLabel("Enable Web Search:"), self.web_search_box)
-        search_warning = QLabel(
-            "⚠️ Search is expensive; monitor your credits. Not available for Deepseek."
-        )
+        search_warning = QLabel("⚠️ Search is expensive; monitor your credits.")
         search_warning.setFont(font_small)
         search_layout.addRow(search_warning)
 
@@ -168,12 +234,52 @@ class ChatOptions(QWidget):
                 "chat_provider": model_to_provider[chat_model],
             }
         )
+        self.update_reasoning_visibility()
+
+    def on_reasoning_changed(self, value: int) -> None:
+        self.state.update({"chat_reasoning_level": reasoning_levels[value]})
+
+    def update_reasoning_visibility(self) -> None:
+        is_auto_model = self.state.s["chat_provider"] == "auto"
+        self.reasoning_row_label.setVisible(is_auto_model)
+        self.reasoning_container.setVisible(is_auto_model)
 
     def get_initial_state(
         self, chat_options: OverridableChatOptionsDict
     ) -> ChatOptionsState:
+        defaults = generation_defaults_service.get_chat_defaults()
         ret: ChatOptionsState = {
-            k: key_or_config_val(chat_options, k)
-            for k in overridable_chat_options  # type: ignore
+            "chat_provider": _defaulted_chat_option(
+                chat_options, "chat_provider", defaults
+            ),
+            "chat_model": _defaulted_chat_option(chat_options, "chat_model", defaults),
+            "chat_reasoning_level": _defaulted_chat_option(
+                chat_options, "chat_reasoning_level", defaults
+            ),
+            "chat_temperature": _defaulted_chat_option(
+                chat_options, "chat_temperature", defaults
+            ),
+            "chat_web_search": _defaulted_chat_option(
+                chat_options, "chat_web_search", defaults
+            ),
         }
+        ret["chat_reasoning_level"] = ret["chat_reasoning_level"] or "off"
         return ret
+
+
+def _defaulted_chat_option(
+    chat_options: OverridableChatOptionsDict,
+    key: str,
+    defaults: ChatGenerationSettings,
+) -> Any:
+    if chat_options.get(key) is not None:
+        return chat_options[key]  # type: ignore[literal-required]
+
+    defaults_by_key = {
+        "chat_provider": defaults.provider,
+        "chat_model": defaults.model,
+        "chat_reasoning_level": defaults.reasoning_level,
+        "chat_temperature": defaults.temperature,
+        "chat_web_search": defaults.web_search_enabled,
+    }
+    return defaults_by_key[key]

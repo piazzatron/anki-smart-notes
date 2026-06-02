@@ -26,7 +26,7 @@ from typing import cast
 from aqt import mw
 
 from . import config as config_module
-from .config import config
+from .config import SQL_GENERATION_DEFAULT_CONFIG_KEYS, config
 from .database import get_user_files_path
 from .logger import logger
 from .models import PromptMap
@@ -35,6 +35,7 @@ from .ui.ui_utils import show_message_box
 
 CONFIG_KEYS_TO_REMOVE_AFTER_IMPORT = [
     "prompts_map",
+    *SQL_GENERATION_DEFAULT_CONFIG_KEYS,
     "did_deck_filter_migration",
     "did_cleanup_config_defaults",
 ]

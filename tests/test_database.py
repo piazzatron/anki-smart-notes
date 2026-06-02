@@ -22,8 +22,13 @@ from pathlib import Path
 
 import pytest
 import yoyo.backends.base
+from yoyo import read_migrations
 
-from src.database import apply_database_migrations, get_database_path
+from src.database import (
+    apply_database_migrations,
+    get_database_path,
+    get_sqlite_backend,
+)
 
 
 def test_apply_database_migrations_creates_smart_field_tables(tmp_path: Path) -> None:
@@ -44,6 +49,9 @@ def test_apply_database_migrations_creates_smart_field_tables(tmp_path: Path) ->
         assert "text_smart_field_settings" in tables
         assert "tts_smart_field_settings" in tables
         assert "image_smart_field_settings" in tables
+        assert "default_text_generation_settings" in tables
+        assert "default_tts_generation_settings" in tables
+        assert "default_image_generation_settings" in tables
 
         smart_field_columns = {
             row[1] for row in conn.execute("PRAGMA table_info(smart_fields)")
@@ -69,6 +77,112 @@ def test_apply_database_migrations_does_not_require_yoyo_entry_points(
     monkeypatch.setattr(yoyo.backends.base, "entry_points", lambda group: {})
 
     apply_database_migrations(str(tmp_path / "smart_notes.sqlite3"))
+
+
+def test_deprecated_chat_models_migrate_to_auto(tmp_path: Path) -> None:
+    database_path = tmp_path / "smart_notes.sqlite3"
+    migrations_path = Path(__file__).parents[1] / "src" / "db_migrations"
+    migrations = read_migrations(str(migrations_path))
+    backend = get_sqlite_backend(str(database_path))
+
+    with backend.lock():
+        backend.apply_migrations(migrations[:1])
+
+    conn = sqlite3.connect(database_path)
+    try:
+        for index, model in enumerate(
+            ["deepseek-v3", "gpt-4o-mini", "gpt-5-nano", "gpt-5-mini"]
+        ):
+            smart_field_id = f"field-{index}"
+            conn.execute(
+                """
+                INSERT INTO smart_fields (
+                    id, note_type_id, deck_id, target_field_name, field_type,
+                    enabled, created_at, updated_at
+                )
+                VALUES (?, 1, 1, ?, 'chat', 1, 'now', 'now')
+                """,
+                (smart_field_id, f"Field {index}"),
+            )
+            conn.execute(
+                """
+                INSERT INTO text_smart_field_settings (
+                    smart_field_id, prompt_text, uses_default_generation_settings,
+                    provider, model, reasoning_level, temperature, web_search_enabled
+                )
+                VALUES (?, 'prompt', 0, ?, ?, 'off', 1, 0)
+                """,
+                (
+                    smart_field_id,
+                    "deepseek" if model == "deepseek-v3" else "openai",
+                    model,
+                ),
+            )
+        conn.commit()
+    finally:
+        conn.close()
+
+    with backend.lock():
+        backend.apply_migrations(migrations[1:])
+
+    conn = sqlite3.connect(database_path)
+    try:
+        rows = conn.execute(
+            """
+            SELECT smart_field_id, provider, model
+            FROM text_smart_field_settings
+            ORDER BY smart_field_id
+            """
+        ).fetchall()
+    finally:
+        conn.close()
+
+    assert rows == [
+        ("field-0", "auto", "auto"),
+        ("field-1", "auto", "auto"),
+        ("field-2", "auto", "auto"),
+        ("field-3", "openai", "gpt-5-mini"),
+    ]
+
+
+def test_deprecated_default_chat_model_migrates_to_auto(tmp_path: Path) -> None:
+    database_path = tmp_path / "smart_notes.sqlite3"
+    migrations_path = Path(__file__).parents[1] / "src" / "db_migrations"
+    migrations = read_migrations(str(migrations_path))
+    backend = get_sqlite_backend(str(database_path))
+
+    with backend.lock():
+        backend.apply_migrations(migrations[:1])
+
+    conn = sqlite3.connect(database_path)
+    try:
+        conn.execute(
+            """
+            UPDATE default_text_generation_settings
+            SET provider = 'openai', model = 'gpt-5-nano'
+            WHERE id = 1
+            """
+        )
+        conn.commit()
+    finally:
+        conn.close()
+
+    with backend.lock():
+        backend.apply_migrations(migrations[1:])
+
+    conn = sqlite3.connect(database_path)
+    try:
+        row = conn.execute(
+            """
+            SELECT provider, model
+            FROM default_text_generation_settings
+            WHERE id = 1
+            """
+        ).fetchone()
+    finally:
+        conn.close()
+
+    assert row == ("auto", "auto")
 
 
 def test_get_database_path_uses_anki_preserved_user_files() -> None:

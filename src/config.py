@@ -17,8 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from collections.abc import Mapping
-from typing import Any, Optional, TypeVar, cast
+from typing import Any, Optional
 
 from aqt import addons, mw
 
@@ -32,6 +31,19 @@ from .models import (
     TTSProviders,
 )
 from .utils import USES_BEFORE_RATE_DIALOG
+
+SQL_GENERATION_DEFAULT_CONFIG_KEYS = (
+    "chat_provider",
+    "chat_model",
+    "chat_reasoning_level",
+    "chat_temperature",
+    "chat_web_search",
+    "tts_provider",
+    "tts_voice",
+    "tts_model",
+    "image_provider",
+    "image_model",
+)
 
 
 class Config:
@@ -103,6 +115,8 @@ class Config:
             return
 
         for key, value in defaults.items():
+            if key in SQL_GENERATION_DEFAULT_CONFIG_KEYS:
+                continue
             setattr(self, key, value)
 
     def _defaults(self) -> Optional[dict[str, Any]]:
@@ -131,16 +145,3 @@ def bump_usage_counter() -> None:
         config.did_show_rate_dialog = True
         dialog = RateDialog()
         dialog.exec()
-
-
-T = TypeVar("T")
-M = TypeVar("M", bound=Mapping[str, object])
-
-
-# TODO: this belongs in utils but ciruclar import
-def key_or_config_val(vals: Optional[M], k: str) -> T:  # type: ignore
-    return (
-        cast(T, vals[k])
-        if (vals and vals.get(k) is not None)
-        else cast(T, config.__getattr__(k))
-    )
