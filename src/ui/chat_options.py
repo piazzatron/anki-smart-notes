@@ -24,6 +24,7 @@ from aqt import (
     QGroupBox,
     QHBoxLayout,
     QLabel,
+    QSizePolicy,
     QSlider,
     Qt,
     QVBoxLayout,
@@ -109,35 +110,54 @@ class ChatOptions(QWidget):
         self.chat_model_combo = self.build_grouped_model_combo()
         self.chat_model_combo.setMinimumWidth(350)
         self.chat_model_combo.setMinimumHeight(30)
+        self.chat_model_combo.setSizePolicy(
+            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed
+        )
         self.select_model_in_combo(self.state.s["chat_model"])
         self.reasoning_slider = QSlider(Qt.Orientation.Horizontal)
         self.reasoning_slider.setRange(0, len(reasoning_levels) - 1)
         self.reasoning_slider.setTickPosition(QSlider.TickPosition.TicksBelow)
         self.reasoning_slider.setTickInterval(1)
         self.reasoning_slider.setSingleStep(1)
+        self.reasoning_slider.setSizePolicy(
+            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed
+        )
         self.reasoning_slider.valueChanged.connect(self.on_reasoning_changed)
         self.reasoning_slider.setValue(
             reasoning_level_to_slider_value[self.state.s["chat_reasoning_level"]]
         )
 
         reasoning_labels = QHBoxLayout()
+        reasoning_labels.setContentsMargins(0, 0, 0, 0)
+        reasoning_labels.setSpacing(0)
         for label in ("Off", "Low", "High"):
             level_label = QLabel(label)
             level_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
             reasoning_labels.addWidget(level_label)
+            if label != "High":
+                reasoning_labels.addStretch()
 
         self.reasoning_container = QWidget()
+        self.reasoning_container.setSizePolicy(
+            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed
+        )
         reasoning_layout = QVBoxLayout()
         reasoning_layout.setContentsMargins(0, 0, 0, 0)
+        reasoning_layout.setSpacing(4)
         reasoning_layout.addWidget(self.reasoning_slider)
         reasoning_layout.addLayout(reasoning_labels)
         reasoning_help = QLabel(
-            "Reasoning can improve harder generations, but uses more token credits."
+            "⚠️ Higher reasoning levels can improve harder generations but use more credits."
         )
         reasoning_help.setFont(font_small)
-        reasoning_help.setWordWrap(True)
+        reasoning_help.setWordWrap(False)
         reasoning_layout.addWidget(reasoning_help)
         self.reasoning_container.setLayout(reasoning_layout)
+        reasoning_width = max(
+            self.chat_model_combo.minimumWidth(), reasoning_help.sizeHint().width()
+        )
+        self.chat_model_combo.setMinimumWidth(reasoning_width)
+        self.reasoning_container.setMinimumWidth(reasoning_width)
 
         chat_box = QGroupBox("✨ Language Model")
         chat_form = default_form_layout()
@@ -147,8 +167,8 @@ class ChatOptions(QWidget):
             Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter
         )
         chat_box.setLayout(chat_form)
-        chat_form.addRow("Model:", self.chat_model_combo)
-        self.reasoning_row_label = QLabel("Reasoning:")
+        chat_form.addRow("Model", self.chat_model_combo)
+        self.reasoning_row_label = QLabel("Reasoning")
         chat_form.addRow(self.reasoning_row_label, self.reasoning_container)
         self.update_reasoning_visibility()
         self.chat_model_combo.currentIndexChanged.connect(self.on_model_changed)
