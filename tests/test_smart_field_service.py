@@ -22,6 +22,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 import pytest
 
 from src.constants import GLOBAL_DECK_ID
+from src.database import open_database
 from src.models.smart_fields import (
     ChatSmartFieldSettings,
     ImageSmartFieldSettings,
@@ -36,9 +37,10 @@ NOTE_TYPE_ID = 123
 @pytest.fixture(autouse=True)
 def sqlite_database(tmp_path, monkeypatch):
     import src.database
+    import src.database.connection
 
     monkeypatch.setattr(
-        src.database,
+        src.database.connection,
         "get_database_path",
         lambda: str(tmp_path / "smart_notes.sqlite3"),
     )
@@ -211,3 +213,63 @@ def test_save_and_delete_match_target_fields_case_insensitively() -> None:
     service.delete_smart_field(NOTE_TYPE_ID, 1, "BACK")
 
     assert service.get_smart_fields_for_note(NOTE_TYPE_ID, 1) == []
+
+
+def test_get_chat_defaults_fails_when_seed_row_is_missing() -> None:
+    with open_database() as conn:
+        conn.execute("DELETE FROM default_text_generation_settings WHERE id = 1")
+        conn.commit()
+
+    with pytest.raises(
+        RuntimeError, match="Missing default text generation settings row"
+    ):
+        SmartFieldService().get_chat_defaults()
+
+
+def test_get_all_smart_fields_fails_when_default_seed_row_is_missing() -> None:
+    service = SmartFieldService()
+    service.save_smart_field(
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=1,
+            target_field_name="Back",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="{{Front}}",
+                provider="auto",
+                model="auto",
+                web_search_enabled=False,
+                uses_default_generation_settings=True,
+            ),
+        )
+    )
+    with open_database() as conn:
+        conn.execute("DELETE FROM default_text_generation_settings WHERE id = 1")
+        conn.commit()
+
+    with pytest.raises(
+        RuntimeError, match="Missing default text generation settings row"
+    ):
+        service.get_all_smart_fields()
+
+
+def test_get_tts_defaults_fails_when_seed_row_is_missing() -> None:
+    with open_database() as conn:
+        conn.execute("DELETE FROM default_tts_generation_settings WHERE id = 1")
+        conn.commit()
+
+    with pytest.raises(
+        RuntimeError, match="Missing default TTS generation settings row"
+    ):
+        SmartFieldService().get_tts_defaults()
+
+
+def test_get_image_defaults_fails_when_seed_row_is_missing() -> None:
+    with open_database() as conn:
+        conn.execute("DELETE FROM default_image_generation_settings WHERE id = 1")
+        conn.commit()
+
+    with pytest.raises(
+        RuntimeError, match="Missing default image generation settings row"
+    ):
+        SmartFieldService().get_image_defaults()

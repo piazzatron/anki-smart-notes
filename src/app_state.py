@@ -210,11 +210,6 @@ class AppStateManager:
                 else:
                     err = PAID_PLAN_ENDED_EXPIRED_NO_API_KEY
 
-        if config.chat_provider != "openai":
-            logger.debug("Migrating ot OpenAI chat provider")
-            config.chat_provider = "openai"
-            config.chat_model = "gpt-5-mini"
-
         if not err:
             logger.error(
                 f"Unexpectedly couldnt find error for {plan_type}, {end_type}, {is_api_key}"

@@ -33,14 +33,13 @@ from aqt.browser.sidebar.item import SidebarItemType
 
 from .app_state import app_state, is_capacity_remaining_or_legacy
 from .config import config
-from .database import apply_database_migrations
+from .database import run_migrations
 from .decks import deck_id_to_name_map
 from .feature_flags import refresh_feature_flags
 from .logger import logger, setup_logger
 from .note_proccessor import NoteProcessor
 from .review_time_evaluator import ReviewTimeEvaluator
 from .sentry import sentry, with_sentry
-from .smart_field_migration import migrate_legacy_smart_field_config
 from .tasks import run_async_in_background
 from .ui.addon_options_dialog import AddonOptionsDialog
 from .ui.changelog import ChangeLogDialog, is_new_major_or_minor_version
@@ -285,8 +284,7 @@ def on_main_window(processor: NoteProcessor):
 
     # Setup logger as first thing
     setup_logger()
-    apply_database_migrations()
-    migrate_legacy_smart_field_config()
+    run_migrations()
 
     # Add options to Anki Menu
     options_action = QAction("Smart Notes", mw)

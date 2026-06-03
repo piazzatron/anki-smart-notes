@@ -55,9 +55,9 @@ class MockNote:
 class MockConfig:
     allow_empty_fields: bool
     prompts_map: Any = None
-    chat_provider = "openai"
-    chat_model = "gpt-4o-mini"
-    chat_temperature = 0
+    chat_provider = "auto"
+    chat_model = "auto"
+    chat_reasoning_level = "off"
     chat_web_search = False
     tts_provider = "openai"
     tts_voice = "alloy"
@@ -86,9 +86,9 @@ class MockChatClient:
         provider: str,
         note_id: int,
         generation_source: object,
-        temperature: int = 0,
         retry_count: int = 0,
         web_search: bool = False,
+        reasoning_level: str = "off",
     ) -> str:
         return p(prompt)
 
@@ -121,9 +121,10 @@ NOTE_TYPE_ID = 123
 @pytest.fixture(autouse=True)
 def sqlite_database(tmp_path, monkeypatch):
     import src.database
+    import src.database.connection
 
     monkeypatch.setattr(
-        src.database,
+        src.database.connection,
         "get_database_path",
         lambda: str(tmp_path / "smart_notes.sqlite3"),
     )
@@ -143,8 +144,8 @@ def seed_smart_fields(prompts_map, options):
                 enabled=not options.get(field, {}).get("manual", False),
                 settings=ChatSmartFieldSettings(
                     prompt_text=prompt,
-                    provider="openai",
-                    model="gpt-4o-mini",
+                    provider="auto",
+                    model="auto",
                     web_search_enabled=False,
                 ),
             )
@@ -188,7 +189,7 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     monkeypatch.setattr(src.app_state, "config", c)
     monkeypatch.setattr(src.app_state, "app_state", mock_app_state)
     monkeypatch.setattr(src.prompt_helpers, "config", c)
-    monkeypatch.setattr(src.field_resolver, "config", c)
+    monkeypatch.setattr(src.field_resolver, "config", c, raising=False)
 
     return p
 

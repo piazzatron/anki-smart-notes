@@ -17,20 +17,11 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from collections.abc import Mapping
-from typing import Any, Optional, TypeVar, cast
+from typing import Any, Optional
 
 from aqt import addons, mw
 
-from .models import (
-    ChatModels,
-    ChatProviders,
-    ImageModels,
-    ImageProviders,
-    OpenAIModels,
-    TTSModels,
-    TTSProviders,
-)
+from .models import OpenAIModels
 from .utils import USES_BEFORE_RATE_DIALOG
 
 
@@ -48,21 +39,6 @@ class Config:
     debug: bool
     auth_token: Optional[str]
     legacy_support: Optional[bool]
-
-    # Chat
-    chat_provider: ChatProviders
-    chat_model: ChatModels
-    chat_temperature: int
-    chat_web_search: bool
-
-    # TTS
-    tts_provider: TTSProviders
-    tts_voice: str
-    tts_model: TTSModels
-
-    # Images
-    image_provider: ImageProviders
-    image_model: ImageModels
 
     # Dialogs / Migrations
     did_show_chained_error_dialog: bool
@@ -131,16 +107,3 @@ def bump_usage_counter() -> None:
         config.did_show_rate_dialog = True
         dialog = RateDialog()
         dialog.exec()
-
-
-T = TypeVar("T")
-M = TypeVar("M", bound=Mapping[str, object])
-
-
-# TODO: this belongs in utils but ciruclar import
-def key_or_config_val(vals: Optional[M], k: str) -> T:  # type: ignore
-    return (
-        cast(T, vals[k])
-        if (vals and vals.get(k) is not None)
-        else cast(T, config.__getattr__(k))
-    )

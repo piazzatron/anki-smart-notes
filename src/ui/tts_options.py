@@ -18,7 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import json
-from typing import Literal, Optional, TypedDict, Union, cast
+from typing import Any, Literal, Optional, TypedDict, Union, cast
 
 from aqt import (
     QAbstractListModel,
@@ -39,15 +39,17 @@ from aqt import (
     QWidget,
 )
 
-from ..config import config, key_or_config_val
+from ..config import config
 from ..logger import logger
 from ..models import (
     OverrideableTTSOptionsDict,
+    TTSGenerationSettings,
     TTSModels,
     TTSProviders,
     overridable_tts_options,
 )
 from ..sentry import run_async_in_background_with_sentry
+from ..services.smart_field_service import smart_field_service
 from ..tts_provider import TTSProvider
 from ..tts_utils import play_audio
 from ..utils import load_file
@@ -645,10 +647,12 @@ class TTSOptions(QWidget):
     def get_initial_state(
         self, tts_options: Optional[OverrideableTTSOptionsDict]
     ) -> TTSState:
+        defaults = smart_field_service.get_tts_defaults()
+        initial_tts_options = tts_options or cast(OverrideableTTSOptionsDict, {})
         ret = {
             "providers": providers,
             "selected_provider": ALL,
-            "voice": config.tts_voice,
+            "voice": defaults.voice_id,
             "genders": [ALL, "Male", "Female"],
             "selected_gender": ALL,
             "languages": languages,
@@ -659,5 +663,21 @@ class TTSOptions(QWidget):
         }
 
         for k in overridable_tts_options:
-            ret[k] = key_or_config_val(tts_options, k)
+            ret[k] = _defaulted_tts_option(initial_tts_options, k, defaults)
         return cast("TTSState", ret)
+
+
+def _defaulted_tts_option(
+    tts_options: OverrideableTTSOptionsDict,
+    key: str,
+    defaults: TTSGenerationSettings,
+) -> Any:
+    if tts_options.get(key) is not None:
+        return tts_options[key]  # type: ignore[literal-required]
+
+    defaults_by_key = {
+        "tts_provider": defaults.provider,
+        "tts_model": defaults.model,
+        "tts_voice": defaults.voice_id,
+    }
+    return defaults_by_key[key]

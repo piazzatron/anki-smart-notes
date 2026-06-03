@@ -38,6 +38,7 @@ from .logger import logger
 from .models import (
     ChatModels,
     ChatProviders,
+    ChatReasoningLevel,
     FieldExtras,
     ImageModels,
     ImageProviders,
@@ -77,7 +78,7 @@ class GetSmartFieldsParams(TypedDict, total=False):
 class ChatOptionsParams(TypedDict, total=False):
     provider: ChatProviders
     model: ChatModels
-    temperature: int
+    reasoningLevel: ChatReasoningLevel
     markdownToHtml: bool
     webSearch: bool
 
@@ -440,29 +441,36 @@ class LocalServer:
         deck_id: DeckId,
     ) -> ApiResponse:
         is_automatic = params.get("automatic", True)
+        use_custom_model = params.get("useCustomModel", False)
+        chat_defaults = smart_field_service.get_chat_defaults()
+        tts_defaults = smart_field_service.get_tts_defaults()
+        image_defaults = smart_field_service.get_image_defaults()
         chat_options: OverridableChatOptionsDict = {
             "chat_provider": params.get("chatOptions", {}).get("provider")
-            or config.chat_provider,
+            or chat_defaults.provider,
             "chat_model": params.get("chatOptions", {}).get("model")
-            or config.chat_model,
-            "chat_temperature": params.get("chatOptions", {}).get("temperature"),
+            or chat_defaults.model,
+            "chat_reasoning_level": params.get("chatOptions", {}).get("reasoningLevel")
+            or chat_defaults.reasoning_level,
             "chat_web_search": params.get("chatOptions", {}).get("webSearch")
             if params.get("chatOptions", {}).get("webSearch") is not None
-            else config.chat_web_search,
+            else chat_defaults.web_search_enabled,
         }
 
         tts_options: OverrideableTTSOptionsDict = {
             "tts_provider": params.get("ttsOptions", {}).get("provider")
-            or config.tts_provider,
-            "tts_model": params.get("ttsOptions", {}).get("model") or config.tts_model,
-            "tts_voice": params.get("ttsOptions", {}).get("voice") or config.tts_voice,
+            or tts_defaults.provider,
+            "tts_model": params.get("ttsOptions", {}).get("model")
+            or tts_defaults.model,
+            "tts_voice": params.get("ttsOptions", {}).get("voice")
+            or tts_defaults.voice_id,
         }
 
         image_options: OverridableImageOptionsDict = {
             "image_provider": params.get("imageOptions", {}).get("provider")
-            or config.image_provider,
+            or image_defaults.provider,
             "image_model": params.get("imageOptions", {}).get("model")
-            or config.image_model,
+            or image_defaults.model,
         }
 
         def do_save() -> None:
@@ -476,20 +484,24 @@ class LocalServer:
                     prompt_text=prompt,
                     provider=cast(ChatProviders, chat_options["chat_provider"]),
                     model=cast(ChatModels, chat_options["chat_model"]),
+                    reasoning_level=chat_options["chat_reasoning_level"] or "off",
                     web_search_enabled=chat_options["chat_web_search"] or False,
+                    uses_default_generation_settings=not use_custom_model,
                 )
             elif field_type == "tts":
                 settings = TTSSmartFieldSettings(
                     source_field_name=source_field_from_tts_prompt(prompt),
                     provider=cast(TTSProviders, tts_options["tts_provider"]),
                     model=cast(TTSModels, tts_options["tts_model"]),
-                    voice_id=tts_options["tts_voice"] or config.tts_voice,
+                    voice_id=tts_options["tts_voice"] or tts_defaults.voice_id,
+                    uses_default_generation_settings=not use_custom_model,
                 )
             else:
                 settings = ImageSmartFieldSettings(
                     prompt_text=prompt,
                     provider=cast(ImageProviders, image_options["image_provider"]),
                     model=cast(ImageModels, image_options["image_model"]),
+                    uses_default_generation_settings=not use_custom_model,
                 )
 
             smart_field_service.save_smart_field(

@@ -59,7 +59,7 @@ DEFAULT_TTS_OPTIONS = {
 DEFAULT_CHAT_OPTIONS = {
     "chat_provider": None,
     "chat_model": None,
-    "chat_temperature": None,
+    "chat_reasoning_level": None,
     "chat_web_search": None,
 }
 
@@ -76,7 +76,7 @@ def make_extras():
         "use_custom_model": False,
         "chat_model": None,
         "chat_provider": None,
-        "chat_temperature": None,
+        "chat_reasoning_level": None,
         "chat_web_search": None,
         "tts_model": None,
         "tts_provider": None,

@@ -25,7 +25,6 @@ from aqt import mw
 
 from .app_state import has_api_key, is_capacity_remaining
 from .chat_provider import ChatProvider, chat_provider
-from .config import config
 from .constants import GENERIC_CREDITS_MESSAGE
 from .image_provider import ImageProvider, ImageResponse, image_provider
 from .image_utils import download_and_embed_images
@@ -35,6 +34,7 @@ from .media_utils import ext_from_content_type, get_media_path
 from .models import (
     ChatModels,
     ChatProviders,
+    ChatReasoningLevel,
     ElevenVoices,
     GenerationSource,
     ImageModels,
@@ -136,10 +136,10 @@ class FieldResolver:
                 prompt=input,
                 model=settings.model,
                 provider=settings.provider,
-                temperature=config.chat_temperature,
                 field_lower=node.field,
                 should_convert_to_html=True,
                 web_search=settings.web_search_enabled,
+                reasoning_level=settings.reasoning_level,
                 show_error_box=show_error_box,
                 generation_source="card_generation",
             )
@@ -182,10 +182,10 @@ class FieldResolver:
         model: ChatModels,
         provider: ChatProviders,
         field_lower: str,
-        temperature: float,
         should_convert_to_html: bool,
         generation_source: GenerationSource,
         web_search: bool = False,
+        reasoning_level: ChatReasoningLevel = "off",
         show_error_box: bool = True,
     ) -> Optional[str]:
         interpolated_prompt = interpolate_prompt(prompt, note)
@@ -200,9 +200,9 @@ class FieldResolver:
                 interpolated_prompt,
                 model=model,
                 provider=provider,
-                temperature=temperature,
                 note_id=note.id,
                 web_search=web_search,
+                reasoning_level=reasoning_level,
                 generation_source=generation_source,
             )
         elif has_api_key():
@@ -216,7 +216,7 @@ class FieldResolver:
                 return None
 
             resp = await self.openai_provider.async_get_chat_response(
-                interpolated_prompt, temperature=temperature, retry_count=0
+                interpolated_prompt, retry_count=0
             )
         else:
             logger.error("App is at capacity + no API key")

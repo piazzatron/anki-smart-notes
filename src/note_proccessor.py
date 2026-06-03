@@ -50,8 +50,7 @@ from .utils import run_on_main
 from .utils.notes_utils import get_note_type_id
 
 # OPEN_AI rate limits
-NEW_OPEN_AI_MODEL_REQ_PER_MIN = 500
-OLD_OPEN_AI_MODEL_REQ_PER_MIN = 3500
+OPEN_AI_MODEL_REQ_PER_MIN = 500
 
 
 # Cancellation architecture:
@@ -133,12 +132,7 @@ class NoteProcessor:
         if is_capacity_remaining():
             limit = STANDARD_BATCH_LIMIT
         else:
-            model = self.config.chat_model
-            limit = (
-                OLD_OPEN_AI_MODEL_REQ_PER_MIN
-                if model == "gpt-4o-mini"
-                else NEW_OPEN_AI_MODEL_REQ_PER_MIN
-            )
+            limit = OPEN_AI_MODEL_REQ_PER_MIN
         logger.debug(f"Rate limit: {limit}")
 
         # Only show fancy progress meter for large batches

@@ -17,30 +17,49 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import sqlite3
 from pathlib import Path
 from typing import Optional
 
 from yoyo import read_migrations
-from yoyo.backends.core.sqlite3 import SQLiteBackend
-from yoyo.connections import default_migration_table, parse_uri
 
-from .logger import logger
+from ..logger import logger
+from . import connection
+from .legacy_config_migration import migrate_legacy_config_to_database
 
-DATABASE_FILENAME = "smart_notes.sqlite3"
-USER_FILES_DIR = "user_files"
+
+def run_migrations() -> None:
+    # Bootstrap creates the schema only. Generation defaults and Smart Fields
+    # both come from legacy config.json, so import both before SQL data
+    # migrations. That keeps future model backfills simple: update the default
+    # row plus custom override rows, and inherited fields follow automatically.
+    apply_database_bootstrap_migrations()
+    migrate_legacy_config_to_database()
+    apply_database_migrations()
+
+
+def apply_database_bootstrap_migrations(database_path: Optional[str] = None) -> None:
+    _apply_migrations(database_path, bootstrap_only=True)
 
 
 def apply_database_migrations(database_path: Optional[str] = None) -> None:
+    _apply_migrations(database_path)
+
+
+def _apply_migrations(
+    database_path: Optional[str] = None,
+    bootstrap_only: bool = False,
+) -> None:
     # Tests pass isolated temp DB paths so migration state never touches user data.
-    resolved_database_path = database_path or get_database_path()
+    resolved_database_path = database_path or connection.get_database_path()
     Path(resolved_database_path).parent.mkdir(parents=True, exist_ok=True)
 
     logger.debug(f"Smart fields DB: preparing migrations for {resolved_database_path}")
-    backend = get_sqlite_backend(resolved_database_path)
+    backend = connection.get_sqlite_backend(resolved_database_path)
     migrations_path = Path(__file__).with_name("db_migrations")
     logger.debug(f"Smart fields DB: reading migrations from {migrations_path}")
     migrations = read_migrations(str(migrations_path))
+    if bootstrap_only:
+        migrations = migrations[:1]
 
     with backend.lock():
         pending_migrations = backend.to_apply(migrations)
@@ -53,29 +72,3 @@ def apply_database_migrations(database_path: Optional[str] = None) -> None:
         )
         backend.apply_migrations(pending_migrations)
         logger.info("Smart fields DB: database migrations applied")
-
-
-def open_database(database_path: Optional[str] = None) -> sqlite3.Connection:
-    resolved_database_path = database_path or get_database_path()
-
-    conn = sqlite3.connect(resolved_database_path)
-    conn.row_factory = sqlite3.Row
-    conn.execute("PRAGMA foreign_keys = ON")
-    return conn
-
-
-def get_database_path() -> str:
-    return get_user_files_path(DATABASE_FILENAME)
-
-
-def get_user_files_path(filename: str) -> str:
-    return str(Path(__file__).resolve().parent.parent / USER_FILES_DIR / filename)
-
-
-def get_sqlite_backend(database_path: str) -> SQLiteBackend:
-    # In Anki's vendored add-on environment, yoyo's package metadata may be missing.
-    # Import the SQLite backend directly instead of relying on entry-point discovery.
-    database_uri = f"sqlite:///{Path(database_path).absolute().as_posix()}"
-    backend = SQLiteBackend(parse_uri(database_uri), default_migration_table)
-    backend.init_database()
-    return backend

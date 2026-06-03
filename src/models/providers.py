@@ -27,29 +27,23 @@ class GenerationExtra(TypedDict):
 
 
 TTSProviders = Literal["openai", "elevenLabs", "google", "azure", "voicevox"]
-ChatProviders = Literal["auto", "openai", "anthropic", "deepseek", "google"]
+ChatProviders = Literal["auto", "openai", "anthropic", "google"]
+ChatReasoningLevel = Literal["off", "low", "high"]
 
 OpenAIModels = Literal[
     "gpt-5",
     "gpt-5-mini",
-    "gpt-5-nano",
     "gpt-5-chat-latest",
-    "gpt-4o-mini",
 ]
 AutoModels = Literal["auto", "auto-max"]
-DeepseekModels = Literal["deepseek-v3"]
 AnthropicModels = Literal["claude-haiku-4-5", "claude-sonnet-4-6", "claude-opus-4-6"]
 GeminiModels = Literal["gemini-3.1-pro", "gemini-3.1-flash-lite", "gemini-3-flash"]
-ChatModels = Union[
-    AutoModels, OpenAIModels, AnthropicModels, DeepseekModels, GeminiModels
-]
+ChatModels = Union[AutoModels, OpenAIModels, AnthropicModels, GeminiModels]
 
 # Order that the models are displayed in the UI.
 auto_chat_models: list[ChatModels] = ["auto", "auto-max"]
 
 openai_chat_models: list[ChatModels] = [
-    "gpt-5-nano",
-    "gpt-4o-mini",
     "gpt-5-mini",
     "gpt-5-chat-latest",
     "gpt-5",
@@ -61,8 +55,6 @@ anthropic_chat_models: list[ChatModels] = [
     "claude-opus-4-6",
 ]
 
-deepseek_chat_models: list[ChatModels] = ["deepseek-v3"]
-
 gemini_chat_models: list[ChatModels] = [
     "gemini-3.1-flash-lite",
     "gemini-3-flash",
@@ -73,7 +65,6 @@ provider_model_map: dict[ChatProviders, list[ChatModels]] = {
     "auto": auto_chat_models,
     "openai": openai_chat_models,
     "anthropic": anthropic_chat_models,
-    "deepseek": deepseek_chat_models,
     "google": gemini_chat_models,
 }
 
@@ -81,9 +72,7 @@ provider_model_map: dict[ChatProviders, list[ChatModels]] = {
 legacy_openai_chat_models: list[str] = [
     "gpt-5-chat-latest",
     "gpt-5",
-    "gpt-5-nano",
     "gpt-5-mini",
-    "gpt-4o-mini",
     "gpt-4o",
     "gpt-4-turbo",
     "gpt-4",

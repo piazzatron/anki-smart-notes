@@ -1,13 +1,5 @@
 {
   "openai_api_key": "",
-  "chat_provider": "openai",
-  "chat_model": "gpt-4o-mini",
-  "chat_temperature": 1,
-  "tts_provider": "google",
-  "tts_voice": "en-US-Casual-K",
-  "tts_model": "standard",
-  "image_provider": "openai",
-  "image_model": "gpt-image-1.5-low",
   "openai_endpoint": null,
   "times_used": 0,
   "did_show_rate_dialog": false,
@@ -22,7 +14,6 @@
   "legacy_openai_model": null,
   "did_show_chained_error_dialog": false,
   "did_show_premium_tts_dialog": false,
-  "chat_web_search": false,
   "did_click_rate_link": false,
   "did_show_capacity_threshold_this_cycle": false,
   "did_migrate_smart_fields_to_sqlite": false

@@ -48,7 +48,6 @@ from ..app_state import (
     is_capacity_remaining,
     is_capacity_remaining_or_legacy,
 )
-from ..config import config, key_or_config_val
 from ..constants import GLOBAL_DECK_ID, UNPAID_PROVIDER_ERROR
 from ..dag import prompt_has_error
 from ..decks import deck_id_to_name_map, get_all_deck_ids
@@ -74,6 +73,7 @@ from ..prompt_helpers import (
     remove_prompt,
 )
 from ..sentry import run_async_in_background_with_sentry
+from ..services.smart_field_service import smart_field_service
 from ..tts_utils import play_audio
 from ..utils import get_fields, to_lowercase_dict
 from ..utils.notes_utils import (
@@ -545,7 +545,7 @@ class PromptDialog(QDialog):
                     {
                         "chat_provider": extras.get("chat_provider"),
                         "chat_model": extras.get("chat_model"),
-                        "chat_temperature": extras.get("chat_temperature"),
+                        "chat_reasoning_level": extras.get("chat_reasoning_level"),
                         "chat_web_search": extras.get("chat_web_search"),
                     }
                 )
@@ -747,35 +747,55 @@ class PromptDialog(QDialog):
 
         self.state["is_loading_prompt"] = True
 
-        # TODO: this part could use some simplification
+        chat_defaults = smart_field_service.get_chat_defaults()
+        tts_defaults = smart_field_service.get_tts_defaults()
+        image_defaults = smart_field_service.get_image_defaults()
+
         chat_provider = (
             self.chat_options.state.s["chat_provider"]
             if self.state.s["use_custom_model"]
-            else config.chat_provider
+            else chat_defaults.provider
         )
         chat_model = (
             self.chat_options.state.s["chat_model"]
             if self.state.s["use_custom_model"]
-            else config.chat_model
+            else chat_defaults.model
+        )
+        chat_reasoning_level = (
+            self.chat_options.state.s["chat_reasoning_level"]
+            if self.state.s["use_custom_model"]
+            else chat_defaults.reasoning_level
         )
 
         tts_provider = (
             self.tts_options.state.s["tts_provider"]
             if self.state.s["use_custom_model"]
-            else config.tts_provider
-        ) or config.tts_provider
+            else tts_defaults.provider
+        )
 
         tts_voice = (
             self.tts_options.state.s["tts_voice"]
             if self.state.s["use_custom_model"]
-            else config.tts_voice
-        ) or config.tts_voice
+            else tts_defaults.voice_id
+        )
 
         tts_model = (
             self.tts_options.state.s["tts_model"]
             if self.state.s["use_custom_model"]
-            else config.tts_model
-        ) or config.tts_model
+            else tts_defaults.model
+        )
+
+        image_provider = (
+            self.image_options.state.s["image_provider"]
+            if self.state.s["use_custom_model"]
+            else image_defaults.provider
+        )
+
+        image_model = (
+            self.image_options.state.s["image_model"]
+            if self.state.s["use_custom_model"]
+            else image_defaults.model
+        )
 
         def on_success(arg: Union[str, bytes, None]):
             prompt = self.state.s["prompt"]
@@ -829,10 +849,8 @@ class PromptDialog(QDialog):
                     model=chat_model,
                     field_lower=self.state.s["selected_note_field"].lower(),
                     deck_id=self.state.s["selected_deck"],
-                    temperature=key_or_config_val(
-                        self.chat_options.state.s, "chat_temperature"
-                    ),
                     should_convert_to_html=False,  # Don't show HTML here bc it's confusing
+                    reasoning_level=chat_reasoning_level,
                     generation_source="prompt_test",
                 )
 
@@ -856,8 +874,8 @@ class PromptDialog(QDialog):
                 return self.processor.field_resolver.get_image_response(
                     input_text=prompt,
                     note=sample_note,
-                    model="flux-dev",
-                    provider="replicate",
+                    model=image_model,
+                    provider=image_provider,
                     generation_source="prompt_test",
                 )
 
