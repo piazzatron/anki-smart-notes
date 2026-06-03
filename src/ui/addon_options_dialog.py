@@ -81,7 +81,7 @@ from .reactive_line_edit import ReactiveLineEdit
 from .review_box import ReviewBox
 from .state_manager import StateManager
 from .subscription_box import SubscriptionBox
-from .tts_options import TTSOptions
+from .tts_options import TTSOptions, format_tts_voice_label
 from .ui_utils import default_form_layout, font_large, font_small, show_message_box
 
 OPTIONS_MIN_WIDTH = 875
@@ -380,6 +380,34 @@ class AddonOptionsDialog(QDialog):
                     self.table.insertRow(self.table.rowCount())
                     deck_item = QTableWidgetItem(_deck_table_label(deck_id, deck_name))
                     deck_item.setData(Qt.ItemDataRole.UserRole, int(deck_id))
+                    model_label = _model_label_for_extras(extras)
+                    model_item = QTableWidgetItem(model_label)
+                    model_item.setToolTip(model_label)
+
+                    # Keep the closing paren visible in the fixed-width model column.
+                    if type == "tts":
+                        provider_label, separator, voice_label = model_label.partition(
+                            " ("
+                        )
+                        if separator and voice_label.endswith(")"):
+                            voice_label = voice_label[:-1]
+                            font_metrics = self.table.fontMetrics()
+                            model_column_width = (
+                                self.table.columnWidth(SMART_FIELDS_TABLE_MODEL_COLUMN)
+                                - 12
+                            )
+                            fixed_label_width = font_metrics.horizontalAdvance(
+                                f"{provider_label} ()"
+                            )
+                            elided_voice_label = font_metrics.elidedText(
+                                voice_label,
+                                Qt.TextElideMode.ElideRight,
+                                max(0, model_column_width - fixed_label_width),
+                            )
+                            model_item.setText(
+                                f"{provider_label} ({elided_voice_label})"
+                            )
+
                     items = {
                         SMART_FIELDS_TABLE_TYPE_COLUMN: QTableWidgetItem(
                             {"chat": "💬", "tts": "🔈", "image": "🖼️"}[type]
@@ -389,9 +417,7 @@ class AddonOptionsDialog(QDialog):
                         ),
                         SMART_FIELDS_TABLE_DECK_COLUMN: deck_item,
                         SMART_FIELDS_TABLE_FIELD_COLUMN: QTableWidgetItem(field),
-                        SMART_FIELDS_TABLE_MODEL_COLUMN: QTableWidgetItem(
-                            _model_label_for_extras(extras)
-                        ),
+                        SMART_FIELDS_TABLE_MODEL_COLUMN: model_item,
                         SMART_FIELDS_TABLE_PROMPT_COLUMN: QTableWidgetItem(
                             {
                                 "chat": f"{prompt}",
@@ -818,7 +844,8 @@ def _model_label_for_extras(extras: FieldExtras) -> str:
         defaults = smart_field_service.get_tts_defaults()
         model = extras.get("tts_model") or defaults.model
         provider = extras.get("tts_provider") or defaults.provider
-        label = f"{_provider_label(provider)} {_compact_model_label(model)}"
+        voice_id = extras.get("tts_voice") or defaults.voice_id
+        label = format_tts_voice_label(provider, model, voice_id)
 
     return f"Default ({label})" if is_default else label
 
@@ -841,17 +868,6 @@ def _deck_id_from_table_row(table: QTableWidget, row: int) -> DeckId:
 
 def _compact_model_label(label: object) -> str:
     return str(label).split("(", 1)[0].strip()
-
-
-def _provider_label(provider: object) -> str:
-    return {
-        "openai": "OpenAI",
-        "google": "Google",
-        "elevenLabs": "ElevenLabs",
-        "azure": "Azure",
-        "voicevox": "VoiceVox",
-        "replicate": "Other",
-    }.get(str(provider), str(provider))
 
 
 def _is_valid_url(url: str) -> bool:
