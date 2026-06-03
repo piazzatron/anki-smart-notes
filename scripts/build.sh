@@ -143,6 +143,7 @@ tail-smart-notes-log-until-exit () {
   local LOG_FILE="$(pwd)/smart-notes.log"
   local TAIL_PID=""
 
+  rm -f "$LOG_FILE"
   echo "Tailing Smart Notes log at $LOG_FILE"
   for _ in {1..40}; do
     if [ -f "$LOG_FILE" ]; then
@@ -171,9 +172,9 @@ tail-smart-notes-log-until-exit () {
 # Helper: launch the user's main Anki install against the default profile dir.
 launch-anki-main () {
    stop-running-anki
-   open -W -na /Applications/Anki.app --args &
-   local ANKI_OPEN_PID=$!
-   tail-smart-notes-log-until-exit "$ANKI_OPEN_PID"
+   /Applications/Anki.app/Contents/MacOS/launcher &
+   local ANKI_PID=$!
+   tail-smart-notes-log-until-exit "$ANKI_PID"
 }
 
 # Helper: launch Anki against the isolated sandbox profile at
@@ -187,7 +188,7 @@ launch-anki-sandbox () {
   stop-running-anki
 
   # Launch Anki in background.
-  open -W -na /Applications/Anki.app --args -b ~/development/anki-storage &
+  /Applications/Anki.app/Contents/MacOS/launcher -b ~/development/anki-storage &
   local ANKI_PID=$!
 
   # Ensure Anki is killed on Ctrl+C
