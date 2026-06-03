@@ -102,6 +102,15 @@ SMART_FIELDS_TABLE_COLUMN_WIDTHS = {
     SMART_FIELDS_TABLE_FIELD_COLUMN: 120,
     SMART_FIELDS_TABLE_MODEL_COLUMN: 185,
 }
+TTS_MODEL_TABLE_LABELS = {
+    "tts-1": "TTS-1",
+    "gpt-4o-mini-tts": "4o-mini",
+    "eleven_multilingual_v2": "Multilingual V2",
+    "standard": "Standard",
+    "wavenet": "Wavenet",
+    "neural": "Neural",
+    "voicevox": "VoiceVox",
+}
 
 
 class State(TypedDict):
@@ -818,7 +827,7 @@ def _model_label_for_extras(extras: FieldExtras) -> str:
         defaults = smart_field_service.get_tts_defaults()
         model = extras.get("tts_model") or defaults.model
         provider = extras.get("tts_provider") or defaults.provider
-        label = f"{_provider_label(provider)} {_compact_model_label(model)}"
+        label = f"{_provider_label(provider)} ({TTS_MODEL_TABLE_LABELS.get(model, model)})"
 
     return f"Default ({label})" if is_default else label
 
