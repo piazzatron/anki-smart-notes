@@ -35,9 +35,7 @@ from .constants import (
     PAID_PLAN_ENDED_EXPIRED_NO_API_KEY,
 )
 from .logger import logger
-from .models import ChatGenerationSettings
 from .sentry import run_async_in_background_with_sentry
-from .services.smart_field_service import smart_field_service
 from .subscription_provider import (
     PlanInfo,
     SubscriptionState,
@@ -211,18 +209,6 @@ class AppStateManager:
                     err = PAID_PLAN_ENDED_EXPIRED_API_KEY
                 else:
                     err = PAID_PLAN_ENDED_EXPIRED_NO_API_KEY
-
-        chat_defaults = smart_field_service.get_chat_defaults()
-        if chat_defaults.provider != "openai":
-            logger.debug("Migrating ot OpenAI chat provider")
-            smart_field_service.save_chat_defaults(
-                ChatGenerationSettings(
-                    provider="openai",
-                    model="gpt-5-mini",
-                    reasoning_level=chat_defaults.reasoning_level,
-                    web_search_enabled=chat_defaults.web_search_enabled,
-                )
-            )
 
         if not err:
             logger.error(
