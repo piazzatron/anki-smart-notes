@@ -79,8 +79,16 @@ def migrate_legacy_config_to_database() -> None:
     try:
         logger.info("Legacy config DB migration: starting legacy config import")
         addon_config = _get_addon_config()
+
+        # Preserve the pre-migration config before any import or cleanup mutates it.
         _backup_config_for_sqlite_migration(addon_config)
+
+        # Import generation defaults first so inherited Smart Field rows can
+        # point at SQL default rows as soon as they are created.
         _migrate_legacy_generation_defaults_config(addon_config)
+
+        # Snapshot the legacy prompt map before the final cleanup removes it
+        # from config.json.
         legacy_prompt_map = deepcopy(
             cast(
                 PromptMap,
@@ -91,7 +99,12 @@ def migrate_legacy_config_to_database() -> None:
             "Legacy config DB migration: importing "
             f"{len(legacy_prompt_map.get('note_types', {}))} note types"
         )
+
+        # Import Smart Fields after generation defaults so fields using default
+        # settings inherit from the SQL rows instead of config.json.
         replace_from_prompt_map(legacy_prompt_map)
+
+        # Delete legacy config keys only after both SQL imports have succeeded.
         _finish_legacy_config_migration(addon_config)
         logger.info("Legacy config DB migration: completed")
     except Exception as e:
