@@ -112,9 +112,69 @@ link-dist () {
   ln -s "$(pwd)/dist" ~/development/anki-storage/addons21/smart-notes
 }
 
+find-anki-main-pids () {
+  pgrep -f "sys.argv\\[0\\] = 'Anki'; aqt.run\\(\\)" || true
+}
+
+stop-running-anki () {
+  local ANKI_PIDS
+  ANKI_PIDS=$(find-anki-main-pids)
+  if [ -z "$ANKI_PIDS" ]; then
+    return
+  fi
+
+  echo "Stopping existing Anki instance..."
+  kill $ANKI_PIDS 2>/dev/null || true
+
+  for _ in {1..20}; do
+    sleep 0.5
+    ANKI_PIDS=$(find-anki-main-pids)
+    if [ -z "$ANKI_PIDS" ]; then
+      return
+    fi
+  done
+
+  echo "Existing Anki did not exit after SIGTERM; killing it..."
+  kill -9 $ANKI_PIDS 2>/dev/null || true
+}
+
+tail-smart-notes-log-until-exit () {
+  local WATCHED_PID=$1
+  local LOG_FILE="$(pwd)/smart-notes.log"
+  local TAIL_PID=""
+
+  rm -f "$LOG_FILE"
+  echo "Tailing Smart Notes log at $LOG_FILE"
+  for _ in {1..40}; do
+    if [ -f "$LOG_FILE" ]; then
+      tail -n +1 -F "$LOG_FILE" &
+      TAIL_PID=$!
+      break
+    fi
+    sleep 0.25
+  done
+
+  if [ -z "$TAIL_PID" ]; then
+    echo "Warning: Smart Notes log was not created at $LOG_FILE"
+  fi
+
+  wait "$WATCHED_PID"
+  local EXIT_CODE=$?
+
+  if [ -n "$TAIL_PID" ]; then
+    kill "$TAIL_PID" 2>/dev/null || true
+    wait "$TAIL_PID" 2>/dev/null || true
+  fi
+
+  return "$EXIT_CODE"
+}
+
 # Helper: launch the user's main Anki install against the default profile dir.
 launch-anki-main () {
-   /Applications/Anki.app/Contents/MacOS/launcher
+   stop-running-anki
+   /Applications/Anki.app/Contents/MacOS/launcher &
+   local ANKI_PID=$!
+   tail-smart-notes-log-until-exit "$ANKI_PID"
 }
 
 # Helper: launch Anki against the isolated sandbox profile at
@@ -125,7 +185,9 @@ launch-anki-sandbox () {
   local META_JSON=~/development/anki-storage/addons21/smart-notes/meta.json
   local ENV_LOCAL="$(cd "$(dirname "$0")/.." && pwd)/.env.local"
 
-  # Launch Anki in background (stdout/stderr still print to terminal)
+  stop-running-anki
+
+  # Launch Anki in background.
   /Applications/Anki.app/Contents/MacOS/launcher -b ~/development/anki-storage &
   local ANKI_PID=$!
 
@@ -151,7 +213,7 @@ launch-anki-sandbox () {
   fi
 
   # Block until Anki exits — Ctrl+C propagates naturally
-  wait $ANKI_PID
+  tail-smart-notes-log-until-exit "$ANKI_PID"
 }
 
 # Main profile, live-linked dev source, local backend.

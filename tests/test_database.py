@@ -25,10 +25,10 @@ import yoyo.backends.base
 from yoyo import read_migrations
 
 from src.database import (
-    apply_database_migrations,
     get_database_path,
     get_sqlite_backend,
 )
+from src.database.migrations import apply_database_migrations
 
 
 def test_apply_database_migrations_creates_smart_field_tables(tmp_path: Path) -> None:

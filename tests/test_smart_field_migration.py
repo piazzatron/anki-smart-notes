@@ -26,6 +26,7 @@ import pytest
 from anki.decks import DeckId
 
 from src.database.legacy_config_migration import migrate_legacy_config_to_database
+from src.database.migrations import apply_database_migrations
 from src.models import DEFAULT_EXTRAS, FieldExtras
 from src.models.smart_fields import ChatSmartFieldSettings
 from src.services.smart_field_service import SmartFieldService
@@ -68,7 +69,6 @@ class FakeSentry:
 
 @pytest.fixture(autouse=True)
 def sqlite_database(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    import src.database
     import src.database.connection
 
     monkeypatch.setattr(
@@ -76,7 +76,7 @@ def sqlite_database(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         "get_database_path",
         lambda: str(tmp_path / "smart_notes.sqlite3"),
     )
-    src.database.apply_database_migrations()
+    apply_database_migrations()
 
 
 def test_migrate_legacy_smart_field_config_imports_prompts_and_cleans_config(

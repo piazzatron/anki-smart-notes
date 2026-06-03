@@ -23,18 +23,10 @@ from .connection import (
     get_user_files_path,
     open_database,
 )
-from .migrations import (
-    apply_database_bootstrap_migrations,
-    apply_database_migrations,
-    run_migrations,
-)
 
 __all__ = [
-    "apply_database_bootstrap_migrations",
-    "apply_database_migrations",
     "get_database_path",
     "get_sqlite_backend",
     "get_user_files_path",
     "open_database",
-    "run_migrations",
 ]
