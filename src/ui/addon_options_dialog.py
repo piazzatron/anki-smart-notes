@@ -670,7 +670,6 @@ class AddonOptionsDialog(QDialog):
             "chat_provider",
             "chat_model",
             "chat_reasoning_level",
-            "chat_temperature",
             "chat_web_search",
             "tts_provider",
             "tts_model",
@@ -706,7 +705,6 @@ class AddonOptionsDialog(QDialog):
                 provider=self.chat_options.state.s["chat_provider"],
                 model=self.chat_options.state.s["chat_model"],
                 reasoning_level=self.chat_options.state.s["chat_reasoning_level"],
-                temperature=self.chat_options.state.s["chat_temperature"],
                 web_search_enabled=self.chat_options.state.s["chat_web_search"],
             )
         )

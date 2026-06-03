@@ -58,7 +58,6 @@ class MockConfig:
     chat_provider = "auto"
     chat_model = "auto"
     chat_reasoning_level = "off"
-    chat_temperature = 0
     chat_web_search = False
     tts_provider = "openai"
     tts_voice = "alloy"
@@ -87,7 +86,6 @@ class MockChatClient:
         provider: str,
         note_id: int,
         generation_source: object,
-        temperature: int = 0,
         retry_count: int = 0,
         web_search: bool = False,
         reasoning_level: str = "off",

@@ -78,7 +78,6 @@ class GetSmartFieldsParams(TypedDict, total=False):
 class ChatOptionsParams(TypedDict, total=False):
     provider: ChatProviders
     model: ChatModels
-    temperature: int
     markdownToHtml: bool
     webSearch: bool
 
@@ -452,8 +451,6 @@ class LocalServer:
             or chat_defaults.model,
             "chat_reasoning_level": params.get("chatOptions", {}).get("reasoningLevel")
             or chat_defaults.reasoning_level,
-            "chat_temperature": params.get("chatOptions", {}).get("temperature")
-            or chat_defaults.temperature,
             "chat_web_search": params.get("chatOptions", {}).get("webSearch")
             if params.get("chatOptions", {}).get("webSearch") is not None
             else chat_defaults.web_search_enabled,
@@ -487,8 +484,6 @@ class LocalServer:
                     provider=cast(ChatProviders, chat_options["chat_provider"]),
                     model=cast(ChatModels, chat_options["chat_model"]),
                     reasoning_level=chat_options["chat_reasoning_level"] or "off",
-                    temperature=chat_options["chat_temperature"]
-                    or chat_defaults.temperature,
                     web_search_enabled=chat_options["chat_web_search"] or False,
                     uses_default_generation_settings=not use_custom_model,
                 )

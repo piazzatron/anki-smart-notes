@@ -220,7 +220,6 @@ class AppStateManager:
                     provider="openai",
                     model="gpt-5-mini",
                     reasoning_level=chat_defaults.reasoning_level,
-                    temperature=chat_defaults.temperature,
                     web_search_enabled=chat_defaults.web_search_enabled,
                 )
             )

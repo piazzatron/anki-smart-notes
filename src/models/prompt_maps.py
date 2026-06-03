@@ -39,7 +39,6 @@ class FieldExtras(TypedDict):
     chat_model: Optional[ChatModels]
     chat_provider: Optional[ChatProviders]
     chat_reasoning_level: Optional[ChatReasoningLevel]
-    chat_temperature: Optional[int]
     chat_web_search: Optional[bool]
 
     tts_provider: Optional[TTSProviders]
@@ -57,7 +56,6 @@ DEFAULT_EXTRAS: FieldExtras = {
     "chat_model": None,
     "chat_provider": None,
     "chat_reasoning_level": None,
-    "chat_temperature": None,
     "chat_web_search": None,
     "tts_model": None,
     "tts_provider": None,
@@ -86,7 +84,6 @@ class OverridableChatOptionsDict(TypedDict):
     chat_provider: Optional[ChatProviders]
     chat_model: Optional[ChatModels]
     chat_reasoning_level: Optional[ChatReasoningLevel]
-    chat_temperature: Optional[int]
     chat_web_search: Optional[bool]
 
 

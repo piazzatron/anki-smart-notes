@@ -546,7 +546,6 @@ class PromptDialog(QDialog):
                         "chat_provider": extras.get("chat_provider"),
                         "chat_model": extras.get("chat_model"),
                         "chat_reasoning_level": extras.get("chat_reasoning_level"),
-                        "chat_temperature": extras.get("chat_temperature"),
                         "chat_web_search": extras.get("chat_web_search"),
                     }
                 )
@@ -766,11 +765,6 @@ class PromptDialog(QDialog):
             if self.state.s["use_custom_model"]
             else chat_defaults.reasoning_level
         ) or "off"
-        chat_temperature = (
-            self.chat_options.state.s["chat_temperature"]
-            if self.state.s["use_custom_model"]
-            else chat_defaults.temperature
-        )
 
         tts_provider = (
             self.tts_options.state.s["tts_provider"]
@@ -842,7 +836,6 @@ class PromptDialog(QDialog):
                     model=chat_model,
                     field_lower=self.state.s["selected_note_field"].lower(),
                     deck_id=self.state.s["selected_deck"],
-                    temperature=chat_temperature,
                     should_convert_to_html=False,  # Don't show HTML here bc it's confusing
                     reasoning_level=chat_reasoning_level,
                     generation_source="prompt_test",

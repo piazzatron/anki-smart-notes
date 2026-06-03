@@ -49,7 +49,6 @@ class ChatOptionsState(TypedDict):
     chat_provider: ChatProviders
     chat_model: ChatModels
     chat_reasoning_level: ChatReasoningLevel
-    chat_temperature: int
     chat_web_search: bool
 
 
@@ -256,9 +255,6 @@ class ChatOptions(QWidget):
             "chat_reasoning_level": _defaulted_chat_option(
                 chat_options, "chat_reasoning_level", defaults
             ),
-            "chat_temperature": _defaulted_chat_option(
-                chat_options, "chat_temperature", defaults
-            ),
             "chat_web_search": _defaulted_chat_option(
                 chat_options, "chat_web_search", defaults
             ),
@@ -279,7 +275,6 @@ def _defaulted_chat_option(
         "chat_provider": defaults.provider,
         "chat_model": defaults.model,
         "chat_reasoning_level": defaults.reasoning_level,
-        "chat_temperature": defaults.temperature,
         "chat_web_search": defaults.web_search_enabled,
     }
     return defaults_by_key[key]

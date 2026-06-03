@@ -36,7 +36,6 @@ SQL_GENERATION_DEFAULT_CONFIG_KEYS = (
     "chat_provider",
     "chat_model",
     "chat_reasoning_level",
-    "chat_temperature",
     "chat_web_search",
     "tts_provider",
     "tts_voice",
@@ -64,7 +63,6 @@ class Config:
     # Chat
     chat_provider: ChatProviders
     chat_model: ChatModels
-    chat_temperature: int
     chat_web_search: bool
 
     # TTS

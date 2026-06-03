@@ -254,7 +254,6 @@ class CustomTextPrompt(CustomPrompt):
                 deck_id=self._deck_id,
                 prompt=prompt,
                 field_lower=self._field_upper.lower(),
-                temperature=self._chat_options.state.s["chat_temperature"],
                 model=self._chat_options.state.s["chat_model"],
                 provider=self._chat_options.state.s["chat_provider"],
                 should_convert_to_html=True,

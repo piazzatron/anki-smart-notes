@@ -92,7 +92,6 @@ class SmartFieldService:
                     COALESCE(chat.provider, text_defaults.provider) AS chat_provider,
                     COALESCE(chat.model, text_defaults.model) AS chat_model,
                     COALESCE(chat.reasoning_level, text_defaults.reasoning_level) AS chat_reasoning_level,
-                    COALESCE(chat.temperature, text_defaults.temperature) AS chat_temperature,
                     COALESCE(chat.web_search_enabled, text_defaults.web_search_enabled) AS chat_web_search,
                     tts.source_field_name AS tts_source_field,
                     tts.uses_default_generation_settings AS tts_uses_default,
@@ -216,9 +215,9 @@ class SmartFieldService:
                 """
                 INSERT INTO text_smart_field_settings (
                     smart_field_id, prompt_text, uses_default_generation_settings,
-                    provider, model, reasoning_level, temperature, web_search_enabled
+                    provider, model, reasoning_level, web_search_enabled
                 )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     smart_field_id,
@@ -233,9 +232,6 @@ class SmartFieldService:
                     None
                     if settings.uses_default_generation_settings
                     else settings.reasoning_level,
-                    None
-                    if settings.uses_default_generation_settings
-                    else settings.temperature,
                     None
                     if settings.uses_default_generation_settings
                     else int(settings.web_search_enabled),
@@ -296,7 +292,6 @@ class SmartFieldService:
                 provider=cast(ChatProviders, row["chat_provider"]),
                 model=cast(ChatModels, row["chat_model"]),
                 reasoning_level=cast(ChatReasoningLevel, row["chat_reasoning_level"]),
-                temperature=int(row["chat_temperature"]),
                 web_search_enabled=bool(row["chat_web_search"]),
                 uses_default_generation_settings=bool(row["chat_uses_default"]),
             )

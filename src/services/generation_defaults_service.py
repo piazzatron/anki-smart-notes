@@ -39,7 +39,6 @@ DEFAULT_TEXT_GENERATION_SETTINGS = ChatGenerationSettings(
     provider="auto",
     model="auto",
     reasoning_level="off",
-    temperature=1,
     web_search_enabled=False,
 )
 DEFAULT_TTS_GENERATION_SETTINGS = TTSGenerationSettings(
@@ -60,7 +59,7 @@ class GenerationDefaultsService:
         with open_database() as conn:
             row = conn.execute(
                 """
-                SELECT provider, model, reasoning_level, temperature, web_search_enabled
+                SELECT provider, model, reasoning_level, web_search_enabled
                 FROM default_text_generation_settings
                 WHERE id = 1
                 """
@@ -74,21 +73,19 @@ class GenerationDefaultsService:
             conn.execute(
                 """
                 INSERT INTO default_text_generation_settings (
-                    id, provider, model, reasoning_level, temperature, web_search_enabled
+                    id, provider, model, reasoning_level, web_search_enabled
                 )
-                VALUES (1, ?, ?, ?, ?, ?)
+                VALUES (1, ?, ?, ?, ?)
                 ON CONFLICT(id) DO UPDATE SET
                     provider = excluded.provider,
                     model = excluded.model,
                     reasoning_level = excluded.reasoning_level,
-                    temperature = excluded.temperature,
                     web_search_enabled = excluded.web_search_enabled
                 """,
                 (
                     settings.provider,
                     settings.model,
                     settings.reasoning_level,
-                    settings.temperature,
                     int(settings.web_search_enabled),
                 ),
             )
@@ -174,10 +171,6 @@ class GenerationDefaultsService:
                 reasoning_level=_validated_reasoning_level(
                     addon_config.get("chat_reasoning_level")
                 ),
-                temperature=int(
-                    addon_config.get("chat_temperature")
-                    or DEFAULT_TEXT_GENERATION_SETTINGS.temperature
-                ),
                 web_search_enabled=bool(
                     addon_config.get("chat_web_search")
                     if addon_config.get("chat_web_search") is not None
@@ -230,7 +223,6 @@ def _chat_generation_settings_from_row(row: sqlite3.Row) -> ChatGenerationSettin
         provider=cast(ChatProviders, row["provider"]),
         model=cast(ChatModels, row["model"]),
         reasoning_level=cast(ChatReasoningLevel, row["reasoning_level"]),
-        temperature=int(row["temperature"]),
         web_search_enabled=bool(row["web_search_enabled"]),
     )
 

@@ -251,6 +251,5 @@ def smart_field_settings_from_prompt_parts(
         model=extras.get("chat_model") or defaults.model,
         web_search_enabled=extras.get("chat_web_search") or False,
         reasoning_level=extras.get("chat_reasoning_level") or defaults.reasoning_level,
-        temperature=extras.get("chat_temperature") or defaults.temperature,
         uses_default_generation_settings=not extras.get("use_custom_model"),
     )

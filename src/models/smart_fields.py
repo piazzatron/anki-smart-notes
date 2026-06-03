@@ -39,7 +39,6 @@ class ChatGenerationSettings:
     provider: ChatProviders
     model: ChatModels
     reasoning_level: ChatReasoningLevel
-    temperature: int
     web_search_enabled: bool
 
 
@@ -63,7 +62,6 @@ class ChatSmartFieldSettings:
     model: ChatModels
     web_search_enabled: bool
     reasoning_level: ChatReasoningLevel = "off"
-    temperature: int = 1
     uses_default_generation_settings: bool = False
 
 

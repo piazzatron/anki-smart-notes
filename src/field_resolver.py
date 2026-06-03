@@ -136,7 +136,6 @@ class FieldResolver:
                 prompt=input,
                 model=settings.model,
                 provider=settings.provider,
-                temperature=settings.temperature,
                 field_lower=node.field,
                 should_convert_to_html=True,
                 web_search=settings.web_search_enabled,
@@ -183,7 +182,6 @@ class FieldResolver:
         model: ChatModels,
         provider: ChatProviders,
         field_lower: str,
-        temperature: float,
         should_convert_to_html: bool,
         generation_source: GenerationSource,
         web_search: bool = False,
@@ -202,7 +200,6 @@ class FieldResolver:
                 interpolated_prompt,
                 model=model,
                 provider=provider,
-                temperature=temperature,
                 note_id=note.id,
                 web_search=web_search,
                 reasoning_level=reasoning_level,
@@ -219,7 +216,7 @@ class FieldResolver:
                 return None
 
             resp = await self.openai_provider.async_get_chat_response(
-                interpolated_prompt, temperature=temperature, retry_count=0
+                interpolated_prompt, retry_count=0
             )
         else:
             logger.error("App is at capacity + no API key")

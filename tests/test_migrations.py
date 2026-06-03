@@ -108,7 +108,6 @@ def test_run_migrations_imports_legacy_config_before_chat_model_data_migration(
                                 "chat_provider": "openai",
                                 "chat_model": "gpt-4o-mini",
                                 "chat_reasoning_level": None,
-                                "chat_temperature": None,
                                 "chat_web_search": False,
                                 "tts_model": None,
                                 "tts_provider": None,
@@ -156,7 +155,6 @@ def test_run_migrations_updates_inherited_fields_through_sql_default_row(
         "chat_provider": "openai",
         "chat_model": "gpt-5-nano",
         "chat_reasoning_level": "off",
-        "chat_temperature": 1,
         "chat_web_search": False,
         "prompts_map": {
             "note_types": {
@@ -171,7 +169,6 @@ def test_run_migrations_updates_inherited_fields_through_sql_default_row(
                                 "chat_provider": None,
                                 "chat_model": None,
                                 "chat_reasoning_level": None,
-                                "chat_temperature": None,
                                 "chat_web_search": None,
                                 "tts_model": None,
                                 "tts_provider": None,

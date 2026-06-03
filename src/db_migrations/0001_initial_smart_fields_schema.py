@@ -43,7 +43,6 @@ steps = [
             provider TEXT NOT NULL,
             model TEXT NOT NULL,
             reasoning_level TEXT NOT NULL DEFAULT 'off' CHECK (reasoning_level IN ('off', 'low', 'high')),
-            temperature INTEGER NOT NULL DEFAULT 1,
             web_search_enabled INTEGER NOT NULL DEFAULT 0 CHECK (web_search_enabled IN (0, 1))
         );
         """,
@@ -52,9 +51,9 @@ steps = [
     step(
         """
         INSERT INTO default_text_generation_settings (
-            id, provider, model, reasoning_level, temperature, web_search_enabled
+            id, provider, model, reasoning_level, web_search_enabled
         )
-        VALUES (1, 'auto', 'auto', 'off', 1, 0);
+        VALUES (1, 'auto', 'auto', 'off', 0);
         """,
         "DELETE FROM default_text_generation_settings WHERE id = 1;",
     ),
@@ -106,7 +105,6 @@ steps = [
             provider TEXT,
             model TEXT,
             reasoning_level TEXT CHECK (reasoning_level IN ('off', 'low', 'high')),
-            temperature INTEGER,
             web_search_enabled INTEGER CHECK (web_search_enabled IN (0, 1)),
             CHECK (
                 (
@@ -114,7 +112,6 @@ steps = [
                     AND provider IS NULL
                     AND model IS NULL
                     AND reasoning_level IS NULL
-                    AND temperature IS NULL
                     AND web_search_enabled IS NULL
                 )
                 OR (
@@ -122,7 +119,6 @@ steps = [
                     AND provider IS NOT NULL
                     AND model IS NOT NULL
                     AND reasoning_level IS NOT NULL
-                    AND temperature IS NOT NULL
                     AND web_search_enabled IS NOT NULL
                 )
             )

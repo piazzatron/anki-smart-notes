@@ -24,7 +24,6 @@ import aiohttp
 from .config import config
 from .constants import (
     CHAT_CLIENT_TIMEOUT_SEC,
-    DEFAULT_TEMPERATURE,
     MAX_RETRIES,
     RETRY_BASE_SECONDS,
 )
@@ -42,7 +41,6 @@ class OpenAIClient:
     async def async_get_chat_response(
         self,
         prompt: str,
-        temperature: float = DEFAULT_TEMPERATURE,
         retry_count: int = 0,
     ) -> str:
         """Gets a chat response from OpenAI's chat API. This method can throw; the caller should handle with care."""
@@ -62,7 +60,6 @@ class OpenAIClient:
                     json={
                         "model": config.legacy_openai_model,
                         "messages": [{"role": "user", "content": prompt}],
-                        "temperature": temperature,
                     },
                 ) as response,
             ):
@@ -76,7 +73,7 @@ class OpenAIClient:
                         await asyncio.sleep(wait_time)
 
                         return await self.async_get_chat_response(
-                            prompt, temperature, retry_count + 1
+                            prompt, retry_count + 1
                         )
 
                 response.raise_for_status()
@@ -93,9 +90,7 @@ class OpenAIClient:
                 )
                 await asyncio.sleep(wait_time)
 
-                return await self.async_get_chat_response(
-                    prompt, temperature, retry_count + 1
-                )
+                return await self.async_get_chat_response(prompt, retry_count + 1)
             raise
 
 

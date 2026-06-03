@@ -282,7 +282,6 @@ def _fake_defaults_service() -> MagicMock:
         provider="auto",
         model="auto",
         reasoning_level="off",
-        temperature=1,
         web_search_enabled=False,
     )
     service.get_tts_defaults.return_value = TTSGenerationSettings(

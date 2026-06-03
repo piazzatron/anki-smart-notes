@@ -20,7 +20,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 from typing import Any, cast
 
 from .api_client import api
-from .constants import CHAT_CLIENT_TIMEOUT_SEC, DEFAULT_TEMPERATURE
+from .constants import CHAT_CLIENT_TIMEOUT_SEC
 from .logger import logger
 from .models import ChatModels, ChatProviders, ChatReasoningLevel, GenerationSource
 
@@ -33,7 +33,6 @@ class ChatProvider:
         provider: ChatProviders,
         note_id: int,
         generation_source: GenerationSource,
-        temperature: float = DEFAULT_TEMPERATURE,
         web_search: bool = False,
         reasoning_level: ChatReasoningLevel = "off",
     ) -> str:
@@ -41,7 +40,6 @@ class ChatProvider:
             "provider": provider,
             "model": model,
             "message": prompt,
-            "temperature": temperature,
             "web_search": web_search,
             "reasoning_level": reasoning_level,
         }
@@ -61,9 +59,7 @@ class ChatProvider:
 
         msg = cast(str, resp["messages"][0])
 
-        logger.debug(
-            f"Response for prompt [{prompt}] temperature [{temperature}] model [{model}]: [{msg}]"
-        )
+        logger.debug(f"Response for prompt [{prompt}] model [{model}]: [{msg}]")
 
         return msg
 

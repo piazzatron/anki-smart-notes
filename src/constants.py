@@ -37,8 +37,6 @@ IMAGE_PROVIDER_TIMEOUT_SEC = 45
 
 STANDARD_BATCH_LIMIT = 10
 
-DEFAULT_TEMPERATURE = 1
-
 # Errors
 UNPAID_PROVIDER_ERROR = (
     "Only ChatGPT is supported for users without a Smart Notes subscription!"

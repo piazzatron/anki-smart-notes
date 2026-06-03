@@ -108,9 +108,9 @@ def test_deprecated_chat_models_migrate_to_auto(tmp_path: Path) -> None:
                 """
                 INSERT INTO text_smart_field_settings (
                     smart_field_id, prompt_text, uses_default_generation_settings,
-                    provider, model, reasoning_level, temperature, web_search_enabled
+                    provider, model, reasoning_level, web_search_enabled
                 )
-                VALUES (?, 'prompt', 0, ?, ?, 'off', 1, 0)
+                VALUES (?, 'prompt', 0, ?, ?, 'off', 0)
                 """,
                 (
                     smart_field_id,
