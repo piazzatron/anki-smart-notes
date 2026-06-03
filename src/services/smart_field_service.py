@@ -80,7 +80,7 @@ class SmartFieldService:
                 """
             ).fetchone()
         if not row:
-            return DEFAULT_TEXT_GENERATION_SETTINGS
+            raise RuntimeError("Missing default text generation settings row")
         return _chat_generation_settings_from_row(row)
 
     def save_chat_defaults(self, settings: ChatGenerationSettings) -> None:
@@ -116,7 +116,7 @@ class SmartFieldService:
                 """
             ).fetchone()
         if not row:
-            return DEFAULT_TTS_GENERATION_SETTINGS
+            raise RuntimeError("Missing default TTS generation settings row")
         return _tts_generation_settings_from_row(row)
 
     def save_tts_defaults(self, settings: TTSGenerationSettings) -> None:
@@ -146,7 +146,7 @@ class SmartFieldService:
                 """
             ).fetchone()
         if not row:
-            return DEFAULT_IMAGE_GENERATION_SETTINGS
+            raise RuntimeError("Missing default image generation settings row")
         return _image_generation_settings_from_row(row)
 
     def save_image_defaults(self, settings: ImageGenerationSettings) -> None:
