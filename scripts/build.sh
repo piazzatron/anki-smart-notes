@@ -31,7 +31,11 @@ build () {
   cp -r src dist/
   cp license dist/
   cp changelog.md dist/
-  cp -r user_files dist/
+  # Anki preserves this directory across add-on upgrades, so the package should
+  # include the directory scaffold. Copy only committed scaffold files here:
+  # local SQLite DBs and migration backups in user_files/ are runtime data.
+  mkdir -p dist/user_files
+  cp user_files/README.txt dist/user_files/
   echo "environment = \"PROD\"" > dist/src/env.py
 
   # Nuke any pycache
