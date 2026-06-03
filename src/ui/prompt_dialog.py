@@ -749,6 +749,7 @@ class PromptDialog(QDialog):
 
         chat_defaults = smart_field_service.get_chat_defaults()
         tts_defaults = smart_field_service.get_tts_defaults()
+        image_defaults = smart_field_service.get_image_defaults()
 
         chat_provider = (
             self.chat_options.state.s["chat_provider"]
@@ -783,6 +784,18 @@ class PromptDialog(QDialog):
             if self.state.s["use_custom_model"]
             else tts_defaults.model
         ) or tts_defaults.model
+
+        image_provider = (
+            self.image_options.state.s["image_provider"]
+            if self.state.s["use_custom_model"]
+            else image_defaults.provider
+        ) or image_defaults.provider
+
+        image_model = (
+            self.image_options.state.s["image_model"]
+            if self.state.s["use_custom_model"]
+            else image_defaults.model
+        ) or image_defaults.model
 
         def on_success(arg: Union[str, bytes, None]):
             prompt = self.state.s["prompt"]
@@ -861,8 +874,8 @@ class PromptDialog(QDialog):
                 return self.processor.field_resolver.get_image_response(
                     input_text=prompt,
                     note=sample_note,
-                    model="flux-dev",
-                    provider="replicate",
+                    model=image_model,
+                    provider=image_provider,
                     generation_source="prompt_test",
                 )
 

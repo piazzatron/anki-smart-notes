@@ -225,6 +225,33 @@ def test_get_chat_defaults_fails_when_seed_row_is_missing() -> None:
         SmartFieldService().get_chat_defaults()
 
 
+def test_get_all_smart_fields_fails_when_default_seed_row_is_missing() -> None:
+    service = SmartFieldService()
+    service.save_smart_field(
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=1,
+            target_field_name="Back",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="{{Front}}",
+                provider="auto",
+                model="auto",
+                web_search_enabled=False,
+                uses_default_generation_settings=True,
+            ),
+        )
+    )
+    with open_database() as conn:
+        conn.execute("DELETE FROM default_text_generation_settings WHERE id = 1")
+        conn.commit()
+
+    with pytest.raises(
+        RuntimeError, match="Missing default text generation settings row"
+    ):
+        service.get_all_smart_fields()
+
+
 def test_get_tts_defaults_fails_when_seed_row_is_missing() -> None:
     with open_database() as conn:
         conn.execute("DELETE FROM default_tts_generation_settings WHERE id = 1")

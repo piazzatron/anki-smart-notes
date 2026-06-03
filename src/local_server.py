@@ -38,6 +38,7 @@ from .logger import logger
 from .models import (
     ChatModels,
     ChatProviders,
+    ChatReasoningLevel,
     FieldExtras,
     ImageModels,
     ImageProviders,
@@ -77,6 +78,7 @@ class GetSmartFieldsParams(TypedDict, total=False):
 class ChatOptionsParams(TypedDict, total=False):
     provider: ChatProviders
     model: ChatModels
+    reasoningLevel: ChatReasoningLevel
     markdownToHtml: bool
     webSearch: bool
 

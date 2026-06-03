@@ -196,6 +196,10 @@ class SmartFieldService:
 
     def get_all_smart_fields(self) -> list[SmartField]:
         logger.debug("Smart fields DB: loading all fields")
+        self.get_chat_defaults()
+        self.get_tts_defaults()
+        self.get_image_defaults()
+
         with open_database() as conn:
             rows = conn.execute(
                 """

@@ -18,7 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import sys
-from typing import Any, Optional, TypedDict
+from typing import Any, Optional, TypedDict, cast
 from urllib.parse import urlparse
 
 from aqt import (
@@ -55,6 +55,7 @@ from ..models import (
     ChatGenerationSettings,
     FieldExtras,
     ImageGenerationSettings,
+    OpenAIModels,
     PromptMap,
     SmartFieldType,
     TTSGenerationSettings,
@@ -643,7 +644,8 @@ class AddonOptionsDialog(QDialog):
 
     def write_config(self) -> bool:
         logger.debug("Writing config")
-        if config.openai_endpoint and not _is_valid_url(config.openai_endpoint):
+        openai_endpoint = self.state.s["openai_endpoint"]
+        if openai_endpoint and not _is_valid_url(openai_endpoint):
             show_message_box("Invalid OpenAI Host", "Please provide a valid URL.")
             return False
 
@@ -665,39 +667,19 @@ class AddonOptionsDialog(QDialog):
             show_message_box(UNPAID_PROVIDER_ERROR)
             return False
 
-        generation_default_attrs = {
-            "chat_provider",
-            "chat_model",
-            "chat_reasoning_level",
-            "chat_web_search",
-            "tts_provider",
-            "tts_model",
-            "tts_voice",
-            "image_provider",
-            "image_model",
-        }
-
-        valid_config_attrs = config.__annotations__.keys()
-
         old_debug = config.debug
 
-        # Automatically inspect all the substates for valid config and write them out
-        states: list[StateManager[Any]] = [
-            self.state,
-            self.tts_options.state,
-            self.chat_options.state,
-            self.image_options.state,
+        config.openai_api_key = self.state.s["openai_api_key"]
+        config.generate_at_review = self.state.s["generate_at_review"]
+        config.regenerate_notes_when_batching = self.state.s[
+            "regenerate_notes_when_batching"
         ]
-        for state in states:
-            for k, v in [
-                item
-                for item in state.s.items()
-                if item[0] in valid_config_attrs
-                and item[0] != "prompts_map"
-                and item[0] not in generation_default_attrs
-            ]:
-                logger.debug(f"Setting: {k}: {v}")
-                config.__setattr__(k, v)
+        config.openai_endpoint = openai_endpoint
+        config.allow_empty_fields = self.state.s["allow_empty_fields"]
+        config.debug = self.state.s["debug"]
+        config.legacy_openai_model = cast(
+            OpenAIModels, self.state.s["legacy_openai_model"]
+        )
 
         smart_field_service.save_chat_defaults(
             ChatGenerationSettings(

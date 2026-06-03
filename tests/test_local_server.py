@@ -216,6 +216,46 @@ async def test_add_smart_field_success(monkeypatch):
 
 
 @pytest.mark.asyncio
+async def test_add_smart_field_with_custom_reasoning_level(monkeypatch):
+    import src.local_server
+
+    monkeypatch.setattr(
+        src.local_server,
+        "get_prompts_for_note",
+        lambda note_type, deck_id, fallback_to_global_deck=False: None,
+    )
+    smart_field_service = _fake_smart_field_service()
+    monkeypatch.setattr(src.local_server, "smart_field_service", smart_field_service)
+    monkeypatch.setattr(src.local_server, "get_note_type_id_from_name", lambda _: 123)
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+
+    async with TestClient(TestServer(_make_app())) as client:
+        data = await _post(
+            client,
+            make_request(
+                "addSmartField",
+                {
+                    "noteType": "Basic",
+                    "field": "Back",
+                    "prompt": "Define {{Front}}",
+                    "useCustomModel": True,
+                    "chatOptions": {
+                        "provider": "auto",
+                        "model": "auto",
+                        "reasoningLevel": "high",
+                        "webSearch": False,
+                    },
+                },
+            ),
+        )
+        assert data == _ok(True)
+        saved_field = smart_field_service.save_smart_field.call_args.args[0]
+        assert isinstance(saved_field.settings, ChatSmartFieldSettings)
+        assert saved_field.settings.reasoning_level == "high"
+        assert saved_field.settings.uses_default_generation_settings is False
+
+
+@pytest.mark.asyncio
 async def test_update_smart_field_not_exists(monkeypatch):
     import src.local_server
 
