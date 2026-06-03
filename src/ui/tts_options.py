@@ -76,6 +76,13 @@ price_tier_copy = {
     "high": "High Cost",
     "ultra-high": "Ultra High Cost",
 }
+TTS_PROVIDER_LABELS = {
+    "google": "Google",
+    "azure": "Azure",
+    "openai": "OpenAI",
+    "elevenLabs": "ElevenLabs",
+    "voicevox": "VoiceVox",
+}
 
 PriceTiers = Literal["free", "low", "standard", "high", "ultra-high"]
 
@@ -305,6 +312,22 @@ voice_search_cache: dict[tuple[str, str, str], list[str]] = {
 }
 
 
+def format_tts_voice_label(provider: object, model: object, voice_id: object) -> str:
+    matching_voice = next(
+        (
+            voice
+            for voice in voices
+            if voice["tts_provider"] == provider
+            and voice["model"] == model
+            and voice["voice"] == voice_id
+        ),
+        None,
+    )
+
+    voice_label = matching_voice["friendly_voice"] if matching_voice else str(voice_id)
+    return f"{TTS_PROVIDER_LABELS.get(str(provider), str(provider))} ({voice_label})"
+
+
 class CustomListModel(QAbstractListModel):
     def __init__(self, data: list[TTSMeta]):
         super().__init__()
@@ -436,13 +459,7 @@ class TTSOptions(QWidget):
             self.state,
             "providers",
             "selected_provider",
-            render_map={
-                "google": "Google",
-                "azure": "Azure",
-                "openai": "OpenAI",
-                "elevenLabs": "ElevenLabs",
-                "voicevox": "VoiceVox",
-            },
+            render_map=TTS_PROVIDER_LABELS,
         )
 
         filters_layout.addRow("Language:", language)

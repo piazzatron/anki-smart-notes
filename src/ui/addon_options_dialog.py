@@ -81,7 +81,7 @@ from .reactive_line_edit import ReactiveLineEdit
 from .review_box import ReviewBox
 from .state_manager import StateManager
 from .subscription_box import SubscriptionBox
-from .tts_options import TTSOptions
+from .tts_options import TTSOptions, format_tts_voice_label
 from .ui_utils import default_form_layout, font_large, font_small, show_message_box
 
 OPTIONS_MIN_WIDTH = 875
@@ -101,15 +101,6 @@ SMART_FIELDS_TABLE_COLUMN_WIDTHS = {
     SMART_FIELDS_TABLE_DECK_COLUMN: 80,
     SMART_FIELDS_TABLE_FIELD_COLUMN: 120,
     SMART_FIELDS_TABLE_MODEL_COLUMN: 185,
-}
-TTS_MODEL_TABLE_LABELS = {
-    "tts-1": "TTS-1",
-    "gpt-4o-mini-tts": "4o-mini",
-    "eleven_multilingual_v2": "Multilingual V2",
-    "standard": "Standard",
-    "wavenet": "Wavenet",
-    "neural": "Neural",
-    "voicevox": "VoiceVox",
 }
 
 
@@ -827,7 +818,8 @@ def _model_label_for_extras(extras: FieldExtras) -> str:
         defaults = smart_field_service.get_tts_defaults()
         model = extras.get("tts_model") or defaults.model
         provider = extras.get("tts_provider") or defaults.provider
-        label = f"{_provider_label(provider)} ({TTS_MODEL_TABLE_LABELS.get(model, model)})"
+        voice_id = extras.get("tts_voice") or defaults.voice_id
+        label = format_tts_voice_label(provider, model, voice_id)
 
     return f"Default ({label})" if is_default else label
 
@@ -850,17 +842,6 @@ def _deck_id_from_table_row(table: QTableWidget, row: int) -> DeckId:
 
 def _compact_model_label(label: object) -> str:
     return str(label).split("(", 1)[0].strip()
-
-
-def _provider_label(provider: object) -> str:
-    return {
-        "openai": "OpenAI",
-        "google": "Google",
-        "elevenLabs": "ElevenLabs",
-        "azure": "Azure",
-        "voicevox": "VoiceVox",
-        "replicate": "Other",
-    }.get(str(provider), str(provider))
 
 
 def _is_valid_url(url: str) -> bool:
