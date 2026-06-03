@@ -27,7 +27,7 @@ class GenerationExtra(TypedDict):
 
 
 TTSProviders = Literal["openai", "elevenLabs", "google", "azure", "voicevox"]
-ChatProviders = Literal["openai", "anthropic", "deepseek", "google"]
+ChatProviders = Literal["auto", "openai", "anthropic", "deepseek", "google"]
 
 OpenAIModels = Literal[
     "gpt-5",
@@ -36,12 +36,17 @@ OpenAIModels = Literal[
     "gpt-5-chat-latest",
     "gpt-4o-mini",
 ]
+AutoModels = Literal["auto", "auto-max"]
 DeepseekModels = Literal["deepseek-v3"]
 AnthropicModels = Literal["claude-haiku-4-5", "claude-sonnet-4-6", "claude-opus-4-6"]
 GeminiModels = Literal["gemini-3.1-pro", "gemini-3.1-flash-lite", "gemini-3-flash"]
-ChatModels = Union[OpenAIModels, AnthropicModels, DeepseekModels, GeminiModels]
+ChatModels = Union[
+    AutoModels, OpenAIModels, AnthropicModels, DeepseekModels, GeminiModels
+]
 
 # Order that the models are displayed in the UI.
+auto_chat_models: list[ChatModels] = ["auto", "auto-max"]
+
 openai_chat_models: list[ChatModels] = [
     "gpt-5-nano",
     "gpt-4o-mini",
@@ -65,6 +70,7 @@ gemini_chat_models: list[ChatModels] = [
 ]
 
 provider_model_map: dict[ChatProviders, list[ChatModels]] = {
+    "auto": auto_chat_models,
     "openai": openai_chat_models,
     "anthropic": anthropic_chat_models,
     "deepseek": deepseek_chat_models,

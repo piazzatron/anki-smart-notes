@@ -42,21 +42,24 @@ class ChatOptionsState(TypedDict):
 
 
 models_map: dict[str, str] = {
+    "auto": "Auto (Best Value, 0.3x cost)",
+    "auto-max": "Auto MAX (4x cost)",
+    "gpt-5-nano": "GPT-5 Nano (1.5x cost)",
+    "gpt-4o-mini": "GPT-4o Mini (2x cost)",
     "gpt-5-mini": "GPT-5 Mini (1x cost)",
-    "gpt-5-chat-latest": "GPT-5 (No Reasoning, 5x cost)",
-    "gpt-5": "GPT-5 (Reasoning, 5x++ cost)",
-    "gpt-5-nano": "GPT-5 Nano (0.2x cost)",
-    "gpt-4o-mini": "GPT-4o Mini (0.3x cost)",
-    "claude-haiku-4-5": "Claude Haiku 4.5 (2x Cost)",
-    "claude-sonnet-4-6": "Claude Sonnet 4.6 (7x Cost)",
-    "claude-opus-4-6": "Claude Opus 4.6 (10x Cost)",
-    "deepseek-v3": "Deepseek v3 (0.7x Cost)",
-    "gemini-3-flash": "Gemini 3 Flash (1.5x Cost)",
-    "gemini-3.1-flash-lite": "Gemini 3.1 Flash Lite (0.75x Cost)",
-    "gemini-3.1-pro": "Gemini 3.1 Pro (5x Cost)",
+    "gpt-5-chat-latest": "GPT-5 (No Reasoning, 7x++ cost)",
+    "gpt-5": "GPT-5 (Reasoning, 7x cost)",
+    "claude-haiku-4-5": "Claude Haiku 4.5 (3x cost)",
+    "claude-sonnet-4-6": "Claude Sonnet 4.6 (10x cost)",
+    "claude-opus-4-6": "Claude Opus 4.6 (16x cost)",
+    "deepseek-v3": "Deepseek v3 (4x cost)",
+    "gemini-3-flash": "Gemini 3 Flash (2x cost)",
+    "gemini-3.1-flash-lite": "Gemini 3.1 Flash Lite (1x cost)",
+    "gemini-3.1-pro": "Gemini 3.1 Pro (8x cost)",
 }
 
 providers_map: dict[ChatProviders, str] = {
+    "auto": "Auto",
     "openai": "OpenAI",
     "anthropic": "Anthropic",
     "google": "Google",
@@ -66,6 +69,7 @@ providers_map: dict[ChatProviders, str] = {
 # Display order: providers in this order, models within each provider in
 # provider_model_map order.
 provider_display_order: list[ChatProviders] = [
+    "auto",
     "openai",
     "anthropic",
     "google",
