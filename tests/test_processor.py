@@ -24,6 +24,8 @@ from typing import Any
 import pytest
 from attr import dataclass
 
+from src.database.migrations import apply_database_migrations
+
 
 @dataclass
 class MockNote:
@@ -120,7 +122,6 @@ NOTE_TYPE_ID = 123
 
 @pytest.fixture(autouse=True)
 def sqlite_database(tmp_path, monkeypatch):
-    import src.database
     import src.database.connection
 
     monkeypatch.setattr(
@@ -128,7 +129,7 @@ def sqlite_database(tmp_path, monkeypatch):
         "get_database_path",
         lambda: str(tmp_path / "smart_notes.sqlite3"),
     )
-    src.database.apply_database_migrations()
+    apply_database_migrations()
 
 
 def seed_smart_fields(prompts_map, options):

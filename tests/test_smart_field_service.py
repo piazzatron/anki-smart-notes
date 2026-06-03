@@ -23,6 +23,7 @@ import pytest
 
 from src.constants import GLOBAL_DECK_ID
 from src.database import open_database
+from src.database.migrations import apply_database_migrations
 from src.models.smart_fields import (
     ChatSmartFieldSettings,
     ImageSmartFieldSettings,
@@ -36,7 +37,6 @@ NOTE_TYPE_ID = 123
 
 @pytest.fixture(autouse=True)
 def sqlite_database(tmp_path, monkeypatch):
-    import src.database
     import src.database.connection
 
     monkeypatch.setattr(
@@ -44,7 +44,7 @@ def sqlite_database(tmp_path, monkeypatch):
         "get_database_path",
         lambda: str(tmp_path / "smart_notes.sqlite3"),
     )
-    src.database.apply_database_migrations()
+    apply_database_migrations()
 
 
 def test_round_trips_typed_smart_fields() -> None:
