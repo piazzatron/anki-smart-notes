@@ -380,6 +380,34 @@ class AddonOptionsDialog(QDialog):
                     self.table.insertRow(self.table.rowCount())
                     deck_item = QTableWidgetItem(_deck_table_label(deck_id, deck_name))
                     deck_item.setData(Qt.ItemDataRole.UserRole, int(deck_id))
+                    model_label = _model_label_for_extras(extras)
+                    model_item = QTableWidgetItem(model_label)
+                    model_item.setToolTip(model_label)
+
+                    # Keep the closing paren visible in the fixed-width model column.
+                    if type == "tts":
+                        provider_label, separator, voice_label = model_label.partition(
+                            " ("
+                        )
+                        if separator and voice_label.endswith(")"):
+                            voice_label = voice_label[:-1]
+                            font_metrics = self.table.fontMetrics()
+                            model_column_width = (
+                                self.table.columnWidth(SMART_FIELDS_TABLE_MODEL_COLUMN)
+                                - 12
+                            )
+                            fixed_label_width = font_metrics.horizontalAdvance(
+                                f"{provider_label} ()"
+                            )
+                            elided_voice_label = font_metrics.elidedText(
+                                voice_label,
+                                Qt.TextElideMode.ElideRight,
+                                max(0, model_column_width - fixed_label_width),
+                            )
+                            model_item.setText(
+                                f"{provider_label} ({elided_voice_label})"
+                            )
+
                     items = {
                         SMART_FIELDS_TABLE_TYPE_COLUMN: QTableWidgetItem(
                             {"chat": "💬", "tts": "🔈", "image": "🖼️"}[type]
@@ -389,9 +417,7 @@ class AddonOptionsDialog(QDialog):
                         ),
                         SMART_FIELDS_TABLE_DECK_COLUMN: deck_item,
                         SMART_FIELDS_TABLE_FIELD_COLUMN: QTableWidgetItem(field),
-                        SMART_FIELDS_TABLE_MODEL_COLUMN: QTableWidgetItem(
-                            _model_label_for_extras(extras)
-                        ),
+                        SMART_FIELDS_TABLE_MODEL_COLUMN: model_item,
                         SMART_FIELDS_TABLE_PROMPT_COLUMN: QTableWidgetItem(
                             {
                                 "chat": f"{prompt}",
