@@ -138,33 +138,44 @@ stop-running-anki () {
   kill -9 $ANKI_PIDS 2>/dev/null || true
 }
 
-tail-smart-notes-log-until-exit () {
-  local WATCHED_PID=$1
-  local LOG_FILE="$(pwd)/smart-notes.log"
+launch-anki-with-logs () {
+  local SMART_NOTES_LOG="$(pwd)/smart-notes.log"
+  local ANKI_STDOUT_LOG="$(pwd)/anki-stdout.log"
+  local ANKI_STDERR_LOG="$(pwd)/anki-stderr.log"
   local TAIL_PID=""
 
-  rm -f "$LOG_FILE"
-  echo "Tailing Smart Notes log at $LOG_FILE"
-  for _ in {1..40}; do
-    if [ -f "$LOG_FILE" ]; then
-      tail -n +1 -F "$LOG_FILE" &
-      TAIL_PID=$!
-      break
-    fi
-    sleep 0.25
-  done
+  # `open` does not stream app stdout/stderr to this terminal directly. Route
+  # those streams into ignored log files, then tail them alongside the Smart
+  # Notes app log so local startup failures still show up in `make ...` output.
+  rm -f "$SMART_NOTES_LOG" "$ANKI_STDOUT_LOG" "$ANKI_STDERR_LOG"
+  touch "$SMART_NOTES_LOG" "$ANKI_STDOUT_LOG" "$ANKI_STDERR_LOG"
 
-  if [ -z "$TAIL_PID" ]; then
-    echo "Warning: Smart Notes log was not created at $LOG_FILE"
-  fi
+  echo "Tailing Anki stdout at $ANKI_STDOUT_LOG"
+  echo "Tailing Anki stderr at $ANKI_STDERR_LOG"
+  echo "Tailing Smart Notes log at $SMART_NOTES_LOG"
+  tail -n +1 -F "$ANKI_STDOUT_LOG" "$ANKI_STDERR_LOG" "$SMART_NOTES_LOG" &
+  TAIL_PID=$!
 
-  wait "$WATCHED_PID"
+  # Launch through LaunchServices instead of executing the Python launcher
+  # binary directly. Computer Use and macOS window management attach more
+  # reliably when Anki is registered as the Anki.app bundle, while `-W` still
+  # lets this script block until the app exits.
+  open -W -n -a /Applications/Anki.app \
+    --stdout "$ANKI_STDOUT_LOG" \
+    --stderr "$ANKI_STDERR_LOG" \
+    --args "$@" &
+  local ANKI_OPEN_PID=$!
+
+  # Keep Ctrl+C behavior predictable for both main and sandbox launchers: stop
+  # the app process and the tailer instead of leaving either behind.
+  trap "stop-running-anki; kill $TAIL_PID 2>/dev/null; exit" INT TERM
+
+  wait "$ANKI_OPEN_PID"
   local EXIT_CODE=$?
 
-  if [ -n "$TAIL_PID" ]; then
-    kill "$TAIL_PID" 2>/dev/null || true
-    wait "$TAIL_PID" 2>/dev/null || true
-  fi
+  kill "$TAIL_PID" 2>/dev/null || true
+  wait "$TAIL_PID" 2>/dev/null || true
+  trap - INT TERM
 
   return "$EXIT_CODE"
 }
@@ -172,9 +183,9 @@ tail-smart-notes-log-until-exit () {
 # Helper: launch the user's main Anki install against the default profile dir.
 launch-anki-main () {
    stop-running-anki
-   /Applications/Anki.app/Contents/MacOS/launcher &
-   local ANKI_PID=$!
-   tail-smart-notes-log-until-exit "$ANKI_PID"
+   # Main and sandbox launches intentionally share the same LaunchServices/log
+   # plumbing so manual testing and Computer Use testing see the same behavior.
+   launch-anki-with-logs
 }
 
 # Helper: launch Anki against the isolated sandbox profile at
@@ -187,12 +198,13 @@ launch-anki-sandbox () {
 
   stop-running-anki
 
-  # Launch Anki in background.
-  /Applications/Anki.app/Contents/MacOS/launcher -b ~/development/anki-storage &
-  local ANKI_PID=$!
+  # Start Anki in the background so we can inject the sandbox auth token into
+  # meta.json as soon as Anki creates it, then wait on the shared launcher below.
+  launch-anki-with-logs -b ~/development/anki-storage &
+  local ANKI_LAUNCH_PID=$!
 
   # Ensure Anki is killed on Ctrl+C
-  trap "kill $ANKI_PID 2>/dev/null; exit" INT TERM
+  trap "stop-running-anki; exit" INT TERM
 
   # Wait for meta.json to appear (Anki creates it on load)
   echo "Waiting for Anki to create meta.json..."
@@ -213,7 +225,7 @@ launch-anki-sandbox () {
   fi
 
   # Block until Anki exits — Ctrl+C propagates naturally
-  tail-smart-notes-log-until-exit "$ANKI_PID"
+  wait "$ANKI_LAUNCH_PID"
 }
 
 # Main profile, live-linked dev source, local backend.
