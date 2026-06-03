@@ -765,37 +765,37 @@ class PromptDialog(QDialog):
             self.chat_options.state.s["chat_reasoning_level"]
             if self.state.s["use_custom_model"]
             else chat_defaults.reasoning_level
-        ) or "off"
+        )
 
         tts_provider = (
             self.tts_options.state.s["tts_provider"]
             if self.state.s["use_custom_model"]
             else tts_defaults.provider
-        ) or tts_defaults.provider
+        )
 
         tts_voice = (
             self.tts_options.state.s["tts_voice"]
             if self.state.s["use_custom_model"]
             else tts_defaults.voice_id
-        ) or tts_defaults.voice_id
+        )
 
         tts_model = (
             self.tts_options.state.s["tts_model"]
             if self.state.s["use_custom_model"]
             else tts_defaults.model
-        ) or tts_defaults.model
+        )
 
         image_provider = (
             self.image_options.state.s["image_provider"]
             if self.state.s["use_custom_model"]
             else image_defaults.provider
-        ) or image_defaults.provider
+        )
 
         image_model = (
             self.image_options.state.s["image_model"]
             if self.state.s["use_custom_model"]
             else image_defaults.model
-        ) or image_defaults.model
+        )
 
         def on_success(arg: Union[str, bytes, None]):
             prompt = self.state.s["prompt"]
