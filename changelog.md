@@ -1,3 +1,10 @@
+# v2.22.0
+
+- Added Auto and Auto MAX models models - these are both affordable and high quality, with configurable reasoning levels. Try them out to maximize your credits!
+- Migrate deepseek-v3, gpt-4o-mini, and gpt-5-nano to Auto.
+- Show currently selected model in the Smart Notes table.
+- Removed legacy 'temperature' setting.
+
 # v2.21.0
 
 - Add GPT Image 2.
