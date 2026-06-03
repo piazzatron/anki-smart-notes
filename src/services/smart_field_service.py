@@ -18,9 +18,8 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import sqlite3
-from collections.abc import Mapping
 from datetime import datetime, timezone
-from typing import Any, Optional, cast
+from typing import Optional, cast
 from uuid import uuid4
 
 from anki.decks import DeckId
@@ -169,64 +168,6 @@ class SmartFieldService:
         self.save_chat_defaults(DEFAULT_TEXT_GENERATION_SETTINGS)
         self.save_tts_defaults(DEFAULT_TTS_GENERATION_SETTINGS)
         self.save_image_defaults(DEFAULT_IMAGE_GENERATION_SETTINGS)
-
-    def import_generation_defaults_from_legacy_config(
-        self, addon_config: Mapping[str, Any]
-    ) -> None:
-        self.save_chat_defaults(
-            ChatGenerationSettings(
-                provider=cast(
-                    ChatProviders,
-                    addon_config.get("chat_provider")
-                    or DEFAULT_TEXT_GENERATION_SETTINGS.provider,
-                ),
-                model=cast(
-                    ChatModels,
-                    addon_config.get("chat_model")
-                    or DEFAULT_TEXT_GENERATION_SETTINGS.model,
-                ),
-                reasoning_level=_validated_reasoning_level(
-                    addon_config.get("chat_reasoning_level")
-                ),
-                web_search_enabled=bool(
-                    addon_config.get("chat_web_search")
-                    if addon_config.get("chat_web_search") is not None
-                    else DEFAULT_TEXT_GENERATION_SETTINGS.web_search_enabled
-                ),
-            )
-        )
-        self.save_tts_defaults(
-            TTSGenerationSettings(
-                provider=cast(
-                    TTSProviders,
-                    addon_config.get("tts_provider")
-                    or DEFAULT_TTS_GENERATION_SETTINGS.provider,
-                ),
-                model=cast(
-                    TTSModels,
-                    addon_config.get("tts_model")
-                    or DEFAULT_TTS_GENERATION_SETTINGS.model,
-                ),
-                voice_id=str(
-                    addon_config.get("tts_voice")
-                    or DEFAULT_TTS_GENERATION_SETTINGS.voice_id
-                ),
-            )
-        )
-        self.save_image_defaults(
-            ImageGenerationSettings(
-                provider=cast(
-                    ImageProviders,
-                    addon_config.get("image_provider")
-                    or DEFAULT_IMAGE_GENERATION_SETTINGS.provider,
-                ),
-                model=cast(
-                    ImageModels,
-                    addon_config.get("image_model")
-                    or DEFAULT_IMAGE_GENERATION_SETTINGS.model,
-                ),
-            )
-        )
 
     def get_smart_fields_for_note(
         self,
@@ -532,12 +473,6 @@ class SmartFieldService:
 
     def _now(self) -> str:
         return datetime.now(timezone.utc).isoformat()
-
-
-def _validated_reasoning_level(value: object) -> ChatReasoningLevel:
-    if value in {"off", "low", "high"}:
-        return cast(ChatReasoningLevel, value)
-    return DEFAULT_TEXT_GENERATION_SETTINGS.reasoning_level
 
 
 def _chat_generation_settings_from_row(row: sqlite3.Row) -> ChatGenerationSettings:
