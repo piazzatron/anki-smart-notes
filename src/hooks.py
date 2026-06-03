@@ -33,10 +33,10 @@ from aqt.browser.sidebar.item import SidebarItemType
 
 from .app_state import app_state, is_capacity_remaining_or_legacy
 from .config import config
+from .database import run_migrations
 from .decks import deck_id_to_name_map
 from .feature_flags import refresh_feature_flags
 from .logger import logger, setup_logger
-from .migrations import run_migrations
 from .note_proccessor import NoteProcessor
 from .review_time_evaluator import ReviewTimeEvaluator
 from .sentry import sentry, with_sentry

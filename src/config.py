@@ -21,28 +21,8 @@ from typing import Any, Optional
 
 from aqt import addons, mw
 
-from .models import (
-    ChatModels,
-    ChatProviders,
-    ImageModels,
-    ImageProviders,
-    OpenAIModels,
-    TTSModels,
-    TTSProviders,
-)
+from .models import OpenAIModels
 from .utils import USES_BEFORE_RATE_DIALOG
-
-SQL_GENERATION_DEFAULT_CONFIG_KEYS = (
-    "chat_provider",
-    "chat_model",
-    "chat_reasoning_level",
-    "chat_web_search",
-    "tts_provider",
-    "tts_voice",
-    "tts_model",
-    "image_provider",
-    "image_model",
-)
 
 
 class Config:
@@ -59,20 +39,6 @@ class Config:
     debug: bool
     auth_token: Optional[str]
     legacy_support: Optional[bool]
-
-    # Chat
-    chat_provider: ChatProviders
-    chat_model: ChatModels
-    chat_web_search: bool
-
-    # TTS
-    tts_provider: TTSProviders
-    tts_voice: str
-    tts_model: TTSModels
-
-    # Images
-    image_provider: ImageProviders
-    image_model: ImageModels
 
     # Dialogs / Migrations
     did_show_chained_error_dialog: bool
@@ -113,8 +79,6 @@ class Config:
             return
 
         for key, value in defaults.items():
-            if key in SQL_GENERATION_DEFAULT_CONFIG_KEYS:
-                continue
             setattr(self, key, value)
 
     def _defaults(self) -> Optional[dict[str, Any]]:

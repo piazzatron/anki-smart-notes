@@ -37,9 +37,10 @@ NOTE_TYPE_ID = 123
 @pytest.fixture(autouse=True)
 def sqlite_database(tmp_path, monkeypatch):
     import src.database
+    import src.database.connection
 
     monkeypatch.setattr(
-        src.database,
+        src.database.connection,
         "get_database_path",
         lambda: str(tmp_path / "smart_notes.sqlite3"),
     )

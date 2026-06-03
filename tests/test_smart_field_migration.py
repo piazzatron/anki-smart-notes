@@ -25,10 +25,10 @@ from typing import Any, Optional, cast
 import pytest
 from anki.decks import DeckId
 
+from src.database.legacy_config_migration import migrate_legacy_config_to_database
 from src.models import DEFAULT_EXTRAS, FieldExtras
 from src.models.smart_fields import ChatSmartFieldSettings
 from src.services.smart_field_service import SmartFieldService
-from src.smart_field_migration import migrate_legacy_smart_field_config
 
 NOTE_TYPE_ID = 123
 DECK_ID = cast(DeckId, 1)
@@ -69,9 +69,10 @@ class FakeSentry:
 @pytest.fixture(autouse=True)
 def sqlite_database(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     import src.database
+    import src.database.connection
 
     monkeypatch.setattr(
-        src.database,
+        src.database.connection,
         "get_database_path",
         lambda: str(tmp_path / "smart_notes.sqlite3"),
     )
@@ -102,7 +103,7 @@ def test_migrate_legacy_smart_field_config_imports_prompts_and_cleans_config(
     messages: list[tuple[object, ...]] = []
     install_migration_alert(monkeypatch, messages)
 
-    migrate_legacy_smart_field_config()
+    migrate_legacy_config_to_database()
 
     smart_fields = SmartFieldService().get_smart_fields_for_note(NOTE_TYPE_ID, DECK_ID)
     backup_files = list(
@@ -151,7 +152,7 @@ def test_migrate_legacy_smart_field_config_reports_failure_and_keeps_config(
     fake_sentry = install_fake_sentry(monkeypatch)
 
     with pytest.raises(ValueError):
-        migrate_legacy_smart_field_config()
+        migrate_legacy_config_to_database()
 
     backup_files = list(
         (tmp_path / "user_files").glob("config_backup_before_sqlite_*.json")
@@ -177,7 +178,7 @@ def test_migrate_legacy_smart_field_config_does_nothing_after_successful_migrati
     addon_config = {"did_migrate_smart_fields_to_sqlite": True}
     fake_mw = install_fake_anki(monkeypatch, addon_config, tmp_path)
 
-    migrate_legacy_smart_field_config()
+    migrate_legacy_config_to_database()
 
     assert fake_mw.addonManager.written_config is None
     assert not (tmp_path / "user_files").exists()
@@ -188,7 +189,7 @@ def install_fake_anki(
     addon_config: dict[str, Any],
     tmp_path: Path,
 ) -> Any:
-    import src.smart_field_migration
+    import src.database.legacy_config_migration
     import src.smart_field_prompt_map
 
     class FakeModels:
@@ -206,11 +207,13 @@ def install_fake_anki(
             self.col = FakeCollection()
 
     fake_mw = FakeMw()
-    monkeypatch.setattr(src.smart_field_migration, "mw", fake_mw)
+    monkeypatch.setattr(src.database.legacy_config_migration, "mw", fake_mw)
     monkeypatch.setattr(src.smart_field_prompt_map, "mw", fake_mw)
-    monkeypatch.setattr(src.smart_field_migration, "config", FakeConfig(addon_config))
     monkeypatch.setattr(
-        src.smart_field_migration,
+        src.database.legacy_config_migration, "config", FakeConfig(addon_config)
+    )
+    monkeypatch.setattr(
+        src.database.legacy_config_migration,
         "get_user_files_path",
         lambda filename: str(tmp_path / "user_files" / filename),
     )
@@ -220,10 +223,10 @@ def install_fake_anki(
 def install_migration_alert(
     monkeypatch: pytest.MonkeyPatch, messages: list[tuple[object, ...]]
 ) -> None:
-    import src.smart_field_migration
+    import src.database.legacy_config_migration
 
     monkeypatch.setattr(
-        src.smart_field_migration,
+        src.database.legacy_config_migration,
         "show_message_box",
         lambda *args: messages.append(args),
     )

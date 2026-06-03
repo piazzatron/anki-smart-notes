@@ -81,7 +81,7 @@ def test_apply_database_migrations_does_not_require_yoyo_entry_points(
 
 def test_deprecated_chat_models_migrate_to_auto(tmp_path: Path) -> None:
     database_path = tmp_path / "smart_notes.sqlite3"
-    migrations_path = Path(__file__).parents[1] / "src" / "db_migrations"
+    migrations_path = Path(__file__).parents[1] / "src" / "database" / "db_migrations"
     migrations = read_migrations(str(migrations_path))
     backend = get_sqlite_backend(str(database_path))
 
@@ -147,7 +147,7 @@ def test_deprecated_chat_models_migrate_to_auto(tmp_path: Path) -> None:
 
 def test_deprecated_default_chat_model_migrates_to_auto(tmp_path: Path) -> None:
     database_path = tmp_path / "smart_notes.sqlite3"
-    migrations_path = Path(__file__).parents[1] / "src" / "db_migrations"
+    migrations_path = Path(__file__).parents[1] / "src" / "database" / "db_migrations"
     migrations = read_migrations(str(migrations_path))
     backend = get_sqlite_backend(str(database_path))
 

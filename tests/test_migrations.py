@@ -24,7 +24,7 @@ from typing import Any, Optional, cast
 import pytest
 from anki.decks import DeckId
 
-from src.migrations import run_migrations
+from src.database.migrations import run_migrations
 from src.models.smart_fields import ChatSmartFieldSettings
 from src.services.smart_field_service import SmartFieldService, smart_field_service
 
@@ -62,32 +62,28 @@ def test_run_migrations_applies_schema_before_legacy_config_import(
     calls: list[str] = []
 
     monkeypatch.setattr(
-        "src.migrations.apply_database_bootstrap_migrations",
+        "src.database.migrations.apply_database_bootstrap_migrations",
         lambda: calls.append("bootstrap"),
     )
     monkeypatch.setattr(
-        "src.migrations.apply_database_migrations",
+        "src.database.migrations.apply_database_migrations",
         lambda: calls.append("database"),
     )
     monkeypatch.setattr(
-        "src.migrations.migrate_legacy_smart_field_config",
+        "src.database.migrations.migrate_legacy_config_to_database",
         lambda: calls.append("legacy_config"),
-    )
-    monkeypatch.setattr(
-        "src.migrations.migrate_legacy_generation_defaults_config",
-        lambda: calls.append("generation_defaults"),
     )
 
     run_migrations()
 
-    assert calls == ["bootstrap", "generation_defaults", "legacy_config", "database"]
+    assert calls == ["bootstrap", "legacy_config", "database"]
 
 
 def test_run_migrations_imports_legacy_config_before_chat_model_data_migration(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
 ) -> None:
-    import src.database
+    import src.database.connection
 
     addon_config = {
         "chat_provider": "openai",
@@ -123,7 +119,7 @@ def test_run_migrations_imports_legacy_config_before_chat_model_data_migration(
     }
     fake_mw = install_fake_anki(monkeypatch, addon_config, tmp_path)
     monkeypatch.setattr(
-        src.database,
+        src.database.connection,
         "get_database_path",
         lambda: str(tmp_path / "smart_notes.sqlite3"),
     )
@@ -148,7 +144,7 @@ def test_run_migrations_updates_inherited_fields_through_sql_default_row(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
 ) -> None:
-    import src.database
+    import src.database.connection
 
     addon_config = {
         "chat_provider": "openai",
@@ -184,7 +180,7 @@ def test_run_migrations_updates_inherited_fields_through_sql_default_row(
     }
     install_fake_anki(monkeypatch, addon_config, tmp_path)
     monkeypatch.setattr(
-        src.database,
+        src.database.connection,
         "get_database_path",
         lambda: str(tmp_path / "smart_notes.sqlite3"),
     )
@@ -205,8 +201,7 @@ def install_fake_anki(
     addon_config: dict[str, Any],
     tmp_path: Path,
 ) -> Any:
-    import src.generation_defaults_migration
-    import src.smart_field_migration
+    import src.database.legacy_config_migration
     import src.smart_field_prompt_map
 
     class FakeModels:
@@ -224,17 +219,18 @@ def install_fake_anki(
             self.col = FakeCollection()
 
     fake_mw = FakeMw()
-    monkeypatch.setattr(src.smart_field_migration, "mw", fake_mw)
-    monkeypatch.setattr(src.generation_defaults_migration, "mw", fake_mw)
+    monkeypatch.setattr(src.database.legacy_config_migration, "mw", fake_mw)
     monkeypatch.setattr(src.smart_field_prompt_map, "mw", fake_mw)
-    monkeypatch.setattr(src.smart_field_migration, "config", FakeConfig(addon_config))
     monkeypatch.setattr(
-        src.smart_field_migration,
+        src.database.legacy_config_migration, "config", FakeConfig(addon_config)
+    )
+    monkeypatch.setattr(
+        src.database.legacy_config_migration,
         "get_user_files_path",
         lambda filename: str(tmp_path / "user_files" / filename),
     )
     monkeypatch.setattr(
-        src.smart_field_migration,
+        src.database.legacy_config_migration,
         "show_message_box",
         lambda *args: None,
     )
