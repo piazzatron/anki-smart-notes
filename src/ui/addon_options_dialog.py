@@ -51,7 +51,7 @@ from ..api_client import api
 from ..app_state import AppState, app_state, is_capacity_remaining
 from ..config import config
 from ..constants import GLOBAL_DECK_ID, UNPAID_PROVIDER_ERROR
-from ..decks import deck_id_to_name_map, deck_name_to_id_map
+from ..decks import deck_id_to_name_map
 from ..logger import logger
 from ..models import (
     ChatGenerationSettings,
@@ -89,13 +89,18 @@ OPTIONS_INITIAL_HEIGHT = 700
 SMART_FIELDS_TABLE_MAX_HEIGHT = 500
 SMART_FIELDS_TABLE_MIN_HEIGHT = 120
 TTS_PROMPT_STUB_VALUE = "🔈"
+SMART_FIELDS_TABLE_TYPE_COLUMN = 0
+SMART_FIELDS_TABLE_NOTE_TYPE_COLUMN = 1
+SMART_FIELDS_TABLE_DECK_COLUMN = 2
+SMART_FIELDS_TABLE_FIELD_COLUMN = 3
+SMART_FIELDS_TABLE_MODEL_COLUMN = 4
 SMART_FIELDS_TABLE_PROMPT_COLUMN = 5
 SMART_FIELDS_TABLE_COLUMN_WIDTHS = {
-    0: 48,
-    1: 110,
-    2: 80,
-    3: 120,
-    4: 185,
+    SMART_FIELDS_TABLE_TYPE_COLUMN: 48,
+    SMART_FIELDS_TABLE_NOTE_TYPE_COLUMN: 110,
+    SMART_FIELDS_TABLE_DECK_COLUMN: 80,
+    SMART_FIELDS_TABLE_FIELD_COLUMN: 120,
+    SMART_FIELDS_TABLE_MODEL_COLUMN: 185,
 }
 
 
@@ -373,26 +378,32 @@ class AddonOptionsDialog(QDialog):
 
                     type = extras["type"]
                     self.table.insertRow(self.table.rowCount())
-                    items = [
-                        QTableWidgetItem(
+                    deck_item = QTableWidgetItem(_deck_table_label(deck_id, deck_name))
+                    deck_item.setData(Qt.ItemDataRole.UserRole, int(deck_id))
+                    items = {
+                        SMART_FIELDS_TABLE_TYPE_COLUMN: QTableWidgetItem(
                             {"chat": "💬", "tts": "🔈", "image": "🖼️"}[type]
                         ),
-                        QTableWidgetItem(note_type),
-                        QTableWidgetItem(_deck_table_label(deck_id, deck_name)),
-                        QTableWidgetItem(field),
-                        QTableWidgetItem(_model_label_for_extras(extras)),
-                        QTableWidgetItem(
+                        SMART_FIELDS_TABLE_NOTE_TYPE_COLUMN: QTableWidgetItem(
+                            note_type
+                        ),
+                        SMART_FIELDS_TABLE_DECK_COLUMN: deck_item,
+                        SMART_FIELDS_TABLE_FIELD_COLUMN: QTableWidgetItem(field),
+                        SMART_FIELDS_TABLE_MODEL_COLUMN: QTableWidgetItem(
+                            _model_label_for_extras(extras)
+                        ),
+                        SMART_FIELDS_TABLE_PROMPT_COLUMN: QTableWidgetItem(
                             {
                                 "chat": f"{prompt}",
                                 "tts": TTS_PROMPT_STUB_VALUE,
                                 "image": f"{prompt}",
                             }[type]
                         ),
-                    ]
+                    }
                     enabled = extras["automatic"]
-                    for i, item in enumerate(items):
+                    for column, item in items.items():
                         item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsEditable)
-                        self.table.setItem(row, i, item)
+                        self.table.setItem(row, column, item)
                         if not enabled:
                             item.setForeground(Qt.GlobalColor.lightGray)
                     row += 1
@@ -565,9 +576,9 @@ class AddonOptionsDialog(QDialog):
         if row is None:
             return
 
-        note_type = self.table.item(row, 1).text()  # type: ignore
-        deck_id = _deck_id_from_table_label(self.table.item(row, 2).text())  # type: ignore
-        field = self.table.item(row, 3).text()  # type: ignore
+        note_type = self.table.item(row, SMART_FIELDS_TABLE_NOTE_TYPE_COLUMN).text()  # type: ignore
+        deck_id = _deck_id_from_table_row(self.table, row)
+        field = self.table.item(row, SMART_FIELDS_TABLE_FIELD_COLUMN).text()  # type: ignore
         logger.debug(f"Editing {note_type}, {field}")
 
         # Save out API key jic
@@ -642,9 +653,9 @@ class AddonOptionsDialog(QDialog):
             # Should never happen
             return
 
-        note_type = self.table.item(row, 1).text()  # type: ignore
-        deck_id = _deck_id_from_table_label(self.table.item(row, 2).text())  # type: ignore
-        field = self.table.item(row, 3).text()  # type: ignore
+        note_type = self.table.item(row, SMART_FIELDS_TABLE_NOTE_TYPE_COLUMN).text()  # type: ignore
+        deck_id = _deck_id_from_table_row(self.table, row)
+        field = self.table.item(row, SMART_FIELDS_TABLE_FIELD_COLUMN).text()  # type: ignore
         note_type_id = get_note_type_id_from_name(note_type)
         if note_type_id is None:
             show_message_box("Note type does not exist or field not in note type!")
@@ -818,10 +829,14 @@ def _deck_table_label(deck_id: object, deck_name: str) -> str:
     return deck_name
 
 
-def _deck_id_from_table_label(deck_label: str) -> DeckId:
-    if deck_label == "All":
-        return GLOBAL_DECK_ID
-    return deck_name_to_id_map()[deck_label]
+def _deck_id_from_table_row(table: QTableWidget, row: int) -> DeckId:
+    deck_item = table.item(row, SMART_FIELDS_TABLE_DECK_COLUMN)
+    if deck_item is None:
+        raise RuntimeError("Smart Fields table row is missing deck item data")
+    deck_id = deck_item.data(Qt.ItemDataRole.UserRole)
+    if deck_id is None:
+        raise RuntimeError("Smart Fields table row is missing deck id data")
+    return cast(DeckId, int(deck_id))
 
 
 def _compact_model_label(label: object) -> str:
