@@ -39,7 +39,7 @@ from .models.smart_fields import (
     SmartFieldSettings,
     TTSSmartFieldSettings,
 )
-from .services.generation_defaults_service import generation_defaults_service
+from .services.smart_field_service import smart_field_service
 
 FIELD_PATTERN = r"\{\{(?!c\d+::)(.+?)\}\}"
 
@@ -48,8 +48,6 @@ FIELD_PATTERN = r"\{\{(?!c\d+::)(.+?)\}\}"
 
 
 def list_prompt_map() -> PromptMap:
-    from .services.smart_field_service import smart_field_service
-
     if not mw or not mw.col:
         return {"note_types": {}}
 
@@ -87,8 +85,6 @@ def list_for_note_type(
 
 
 def replace_from_prompt_map(prompt_map: PromptMap) -> None:
-    from .services.smart_field_service import smart_field_service
-
     logger.debug("Smart fields DB: replacing all smart fields from prompt map")
     smart_field_service.replace_all_smart_fields(
         smart_field_creates_from_prompt_map(prompt_map)
@@ -190,7 +186,7 @@ def extras_from_smart_field(smart_field: SmartField) -> FieldExtras:
 def settings_from_prompt_parts(prompt: str, extras: FieldExtras) -> SmartFieldSettings:
     field_type = extras["type"]
     if field_type == "chat":
-        defaults = generation_defaults_service.get_chat_defaults()
+        defaults = smart_field_service.get_chat_defaults()
         uses_defaults = not extras.get("use_custom_model")
         return ChatSmartFieldSettings(
             prompt_text=prompt,
@@ -204,7 +200,7 @@ def settings_from_prompt_parts(prompt: str, extras: FieldExtras) -> SmartFieldSe
             uses_default_generation_settings=uses_defaults,
         )
     if field_type == "tts":
-        defaults = generation_defaults_service.get_tts_defaults()
+        defaults = smart_field_service.get_tts_defaults()
         return TTSSmartFieldSettings(
             source_field_name=source_field_from_tts_prompt(prompt),
             provider=extras.get("tts_provider") or defaults.provider,
@@ -212,7 +208,7 @@ def settings_from_prompt_parts(prompt: str, extras: FieldExtras) -> SmartFieldSe
             voice_id=extras.get("tts_voice") or defaults.voice_id,
             uses_default_generation_settings=not extras.get("use_custom_model"),
         )
-    defaults = generation_defaults_service.get_image_defaults()
+    defaults = smart_field_service.get_image_defaults()
     return ImageSmartFieldSettings(
         prompt_text=prompt,
         provider=extras.get("image_provider") or defaults.provider,

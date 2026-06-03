@@ -49,7 +49,7 @@ from ..models import (
     overridable_tts_options,
 )
 from ..sentry import run_async_in_background_with_sentry
-from ..services.generation_defaults_service import generation_defaults_service
+from ..services.smart_field_service import smart_field_service
 from ..tts_provider import TTSProvider
 from ..tts_utils import play_audio
 from ..utils import load_file
@@ -647,7 +647,7 @@ class TTSOptions(QWidget):
     def get_initial_state(
         self, tts_options: Optional[OverrideableTTSOptionsDict]
     ) -> TTSState:
-        defaults = generation_defaults_service.get_tts_defaults()
+        defaults = smart_field_service.get_tts_defaults()
         initial_tts_options = tts_options or cast(OverrideableTTSOptionsDict, {})
         ret = {
             "providers": providers,

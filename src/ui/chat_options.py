@@ -39,7 +39,7 @@ from ..models import (
     OverridableChatOptionsDict,
     provider_model_map,
 )
-from ..services.generation_defaults_service import generation_defaults_service
+from ..services.smart_field_service import smart_field_service
 from .reactive_check_box import ReactiveCheckBox
 from .state_manager import StateManager
 from .ui_utils import default_form_layout, font_small
@@ -246,7 +246,7 @@ class ChatOptions(QWidget):
     def get_initial_state(
         self, chat_options: OverridableChatOptionsDict
     ) -> ChatOptionsState:
-        defaults = generation_defaults_service.get_chat_defaults()
+        defaults = smart_field_service.get_chat_defaults()
         ret: ChatOptionsState = {
             "chat_provider": _defaulted_chat_option(
                 chat_options, "chat_provider", defaults

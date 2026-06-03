@@ -191,13 +191,9 @@ async def test_add_smart_field_success(monkeypatch):
         "get_prompts_for_note",
         lambda note_type, deck_id, fallback_to_global_deck=False: None,
     )
-    smart_field_service = MagicMock()
+    smart_field_service = _fake_smart_field_service()
     monkeypatch.setattr(src.local_server, "smart_field_service", smart_field_service)
     monkeypatch.setattr(src.local_server, "get_note_type_id_from_name", lambda _: 123)
-
-    monkeypatch.setattr(
-        src.local_server, "generation_defaults_service", _fake_defaults_service()
-    )
     monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
 
     async with TestClient(TestServer(_make_app())) as client:
@@ -251,13 +247,9 @@ async def test_update_smart_field_success(monkeypatch):
             "Back": "old prompt"
         },
     )
-    smart_field_service = MagicMock()
+    smart_field_service = _fake_smart_field_service()
     monkeypatch.setattr(src.local_server, "smart_field_service", smart_field_service)
     monkeypatch.setattr(src.local_server, "get_note_type_id_from_name", lambda _: 123)
-
-    monkeypatch.setattr(
-        src.local_server, "generation_defaults_service", _fake_defaults_service()
-    )
     monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
 
     async with TestClient(TestServer(_make_app())) as client:
@@ -276,7 +268,7 @@ async def test_update_smart_field_success(monkeypatch):
         smart_field_service.save_smart_field.assert_called_once()
 
 
-def _fake_defaults_service() -> MagicMock:
+def _fake_smart_field_service() -> MagicMock:
     service = MagicMock()
     service.get_chat_defaults.return_value = ChatGenerationSettings(
         provider="auto",

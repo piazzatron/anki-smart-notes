@@ -73,7 +73,7 @@ from ..prompt_helpers import (
     remove_prompt,
 )
 from ..sentry import run_async_in_background_with_sentry
-from ..services.generation_defaults_service import generation_defaults_service
+from ..services.smart_field_service import smart_field_service
 from ..tts_utils import play_audio
 from ..utils import get_fields, to_lowercase_dict
 from ..utils.notes_utils import (
@@ -747,8 +747,8 @@ class PromptDialog(QDialog):
 
         self.state["is_loading_prompt"] = True
 
-        chat_defaults = generation_defaults_service.get_chat_defaults()
-        tts_defaults = generation_defaults_service.get_tts_defaults()
+        chat_defaults = smart_field_service.get_chat_defaults()
+        tts_defaults = smart_field_service.get_tts_defaults()
 
         chat_provider = (
             self.chat_options.state.s["chat_provider"]

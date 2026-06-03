@@ -21,7 +21,7 @@ from aqt import mw
 
 from . import config as config_module
 from .logger import logger
-from .services.generation_defaults_service import generation_defaults_service
+from .services.smart_field_service import smart_field_service
 
 
 def migrate_legacy_generation_defaults_config() -> None:
@@ -40,4 +40,4 @@ def migrate_legacy_generation_defaults_config() -> None:
     # data migrations run after both imports, so later model backfills update the
     # default row first and inherited fields automatically see the new value.
     logger.info("Generation defaults DB migration: importing config defaults")
-    generation_defaults_service.import_from_legacy_config(addon_config)
+    smart_field_service.import_generation_defaults_from_legacy_config(addon_config)

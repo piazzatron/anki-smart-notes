@@ -58,7 +58,6 @@ from .models.smart_fields import (
 from .note_proccessor import NoteProcessor
 from .prompt_helpers import get_extras, get_prompts_for_note
 from .sentry import sentry
-from .services.generation_defaults_service import generation_defaults_service
 from .services.smart_field_service import smart_field_service
 from .smart_field_prompt_map import list_prompt_map, replace_from_prompt_map
 from .ui.prompt_dialog import PromptDialog
@@ -441,9 +440,9 @@ class LocalServer:
     ) -> ApiResponse:
         is_automatic = params.get("automatic", True)
         use_custom_model = params.get("useCustomModel", False)
-        chat_defaults = generation_defaults_service.get_chat_defaults()
-        tts_defaults = generation_defaults_service.get_tts_defaults()
-        image_defaults = generation_defaults_service.get_image_defaults()
+        chat_defaults = smart_field_service.get_chat_defaults()
+        tts_defaults = smart_field_service.get_tts_defaults()
+        image_defaults = smart_field_service.get_image_defaults()
         chat_options: OverridableChatOptionsDict = {
             "chat_provider": params.get("chatOptions", {}).get("provider")
             or chat_defaults.provider,

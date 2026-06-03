@@ -28,7 +28,7 @@ from ..models import (
     image_model_to_provider,
     image_provider_model_map,
 )
-from ..services.generation_defaults_service import generation_defaults_service
+from ..services.smart_field_service import smart_field_service
 from .state_manager import StateManager
 from .ui_utils import default_form_layout, font_bold, font_small
 
@@ -70,7 +70,7 @@ class ImageOptions(QWidget):
     ) -> None:
         super().__init__()
 
-        defaults = generation_defaults_service.get_image_defaults()
+        defaults = smart_field_service.get_image_defaults()
         model = (image_options or {}).get("image_model") or defaults.model
 
         self.state = StateManager[State](

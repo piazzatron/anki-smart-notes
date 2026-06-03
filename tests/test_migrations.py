@@ -26,8 +26,7 @@ from anki.decks import DeckId
 
 from src.migrations import run_migrations
 from src.models.smart_fields import ChatSmartFieldSettings
-from src.services.generation_defaults_service import generation_defaults_service
-from src.services.smart_field_service import SmartFieldService
+from src.services.smart_field_service import SmartFieldService, smart_field_service
 
 NOTE_TYPE_ID = 123
 DECK_ID = cast(DeckId, 1)
@@ -138,8 +137,8 @@ def test_run_migrations_imports_legacy_config_before_chat_model_data_migration(
     assert smart_fields[0].settings.provider == "auto"
     assert smart_fields[0].settings.model == "auto"
     assert smart_fields[0].settings.uses_default_generation_settings is False
-    assert generation_defaults_service.get_chat_defaults().provider == "auto"
-    assert generation_defaults_service.get_chat_defaults().model == "auto"
+    assert smart_field_service.get_chat_defaults().provider == "auto"
+    assert smart_field_service.get_chat_defaults().model == "auto"
     assert fake_mw.addonManager.written_config is not None
     assert "chat_provider" not in fake_mw.addonManager.written_config
     assert "chat_model" not in fake_mw.addonManager.written_config

@@ -33,7 +33,7 @@ from .models.smart_fields import (
 )
 from .nodes import FieldNode
 from .prompt_helpers import get_extras, get_prompt_fields
-from .services.generation_defaults_service import generation_defaults_service
+from .services.smart_field_service import smart_field_service
 from .utils import get_fields
 from .utils.notes_utils import get_note_type
 
@@ -228,7 +228,7 @@ def smart_field_settings_from_prompt_parts(
     field_type = extras["type"]
     if field_type == "tts":
         source_fields = get_prompt_fields(prompt, lower=False)
-        defaults = generation_defaults_service.get_tts_defaults()
+        defaults = smart_field_service.get_tts_defaults()
         return TTSSmartFieldSettings(
             source_field_name=source_fields[0] if source_fields else "",
             provider=extras.get("tts_provider") or defaults.provider,
@@ -237,14 +237,14 @@ def smart_field_settings_from_prompt_parts(
             uses_default_generation_settings=not extras.get("use_custom_model"),
         )
     if field_type == "image":
-        defaults = generation_defaults_service.get_image_defaults()
+        defaults = smart_field_service.get_image_defaults()
         return ImageSmartFieldSettings(
             prompt_text=prompt,
             provider=extras.get("image_provider") or defaults.provider,
             model=extras.get("image_model") or defaults.model,
             uses_default_generation_settings=not extras.get("use_custom_model"),
         )
-    defaults = generation_defaults_service.get_chat_defaults()
+    defaults = smart_field_service.get_chat_defaults()
     return ChatSmartFieldSettings(
         prompt_text=prompt,
         provider=extras.get("chat_provider") or defaults.provider,

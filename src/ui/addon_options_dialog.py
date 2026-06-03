@@ -62,7 +62,6 @@ from ..models import (
 )
 from ..note_proccessor import NoteProcessor
 from ..prompt_helpers import get_all_prompts, get_extras, get_prompts_for_note
-from ..services.generation_defaults_service import generation_defaults_service
 from ..services.smart_field_service import smart_field_service
 from ..smart_field_prompt_map import list_prompt_map, replace_from_prompt_map
 from ..tasks import run_async_in_background
@@ -648,7 +647,7 @@ class AddonOptionsDialog(QDialog):
             show_message_box("Invalid OpenAI Host", "Please provide a valid URL.")
             return False
 
-        current_tts_defaults = generation_defaults_service.get_tts_defaults()
+        current_tts_defaults = smart_field_service.get_tts_defaults()
         if (
             self.tts_options.state.s["tts_provider"] == "elevenLabs"
             and current_tts_defaults.provider != "elevenLabs"
@@ -700,7 +699,7 @@ class AddonOptionsDialog(QDialog):
                 logger.debug(f"Setting: {k}: {v}")
                 config.__setattr__(k, v)
 
-        generation_defaults_service.save_chat_defaults(
+        smart_field_service.save_chat_defaults(
             ChatGenerationSettings(
                 provider=self.chat_options.state.s["chat_provider"],
                 model=self.chat_options.state.s["chat_model"],
@@ -708,14 +707,14 @@ class AddonOptionsDialog(QDialog):
                 web_search_enabled=self.chat_options.state.s["chat_web_search"],
             )
         )
-        generation_defaults_service.save_tts_defaults(
+        smart_field_service.save_tts_defaults(
             TTSGenerationSettings(
                 provider=self.tts_options.state.s["tts_provider"],
                 model=self.tts_options.state.s["tts_model"],
                 voice_id=self.tts_options.state.s["tts_voice"],
             )
         )
-        generation_defaults_service.save_image_defaults(
+        smart_field_service.save_image_defaults(
             ImageGenerationSettings(
                 provider=self.image_options.state.s["image_provider"],
                 model=self.image_options.state.s["image_model"],
@@ -749,7 +748,7 @@ class AddonOptionsDialog(QDialog):
 
     def on_restore_defaults(self) -> None:
         config.restore_defaults()
-        generation_defaults_service.restore_defaults()
+        smart_field_service.restore_generation_defaults()
         self.state.update(self.make_initial_state())  # type: ignore
 
     def on_send_feedback(self) -> None:
@@ -798,15 +797,15 @@ def _model_label_for_extras(extras: FieldExtras) -> str:
     is_default = not extras.get("use_custom_model")
 
     if field_type == "chat":
-        defaults = generation_defaults_service.get_chat_defaults()
+        defaults = smart_field_service.get_chat_defaults()
         model = extras.get("chat_model") or defaults.model
         label = _compact_model_label(chat_models_display.get(model, model))
     elif field_type == "image":
-        defaults = generation_defaults_service.get_image_defaults()
+        defaults = smart_field_service.get_image_defaults()
         model = extras.get("image_model") or defaults.model
         label = _compact_model_label(image_models_display.get(model, model))
     else:
-        defaults = generation_defaults_service.get_tts_defaults()
+        defaults = smart_field_service.get_tts_defaults()
         model = extras.get("tts_model") or defaults.model
         provider = extras.get("tts_provider") or defaults.provider
         label = f"{_provider_label(provider)} {_compact_model_label(model)}"
