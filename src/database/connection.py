@@ -18,6 +18,8 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import sqlite3
+from collections.abc import Iterator
+from contextlib import contextmanager
 from pathlib import Path
 from typing import Optional
 
@@ -28,13 +30,18 @@ DATABASE_FILENAME = "smart_notes.sqlite3"
 USER_FILES_DIR = "user_files"
 
 
-def open_database(database_path: Optional[str] = None) -> sqlite3.Connection:
+@contextmanager
+def open_database(database_path: Optional[str] = None) -> Iterator[sqlite3.Connection]:
     resolved_database_path = database_path or get_database_path()
 
     conn = sqlite3.connect(resolved_database_path)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
-    return conn
+    try:
+        with conn:
+            yield conn
+    finally:
+        conn.close()
 
 
 def get_database_path() -> str:

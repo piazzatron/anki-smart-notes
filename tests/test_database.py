@@ -27,6 +27,7 @@ from yoyo import read_migrations
 from src.database import (
     get_database_path,
     get_sqlite_backend,
+    open_database,
 )
 from src.database.migrations import apply_database_migrations
 
@@ -77,6 +78,16 @@ def test_apply_database_migrations_does_not_require_yoyo_entry_points(
     monkeypatch.setattr(yoyo.backends.base, "entry_points", lambda group: {})
 
     apply_database_migrations(str(tmp_path / "smart_notes.sqlite3"))
+
+
+def test_open_database_closes_connection_after_context(tmp_path: Path) -> None:
+    database_path = tmp_path / "smart_notes.sqlite3"
+
+    with open_database(str(database_path)) as conn:
+        conn.execute("CREATE TABLE example(id INTEGER PRIMARY KEY)")
+
+    with pytest.raises(sqlite3.ProgrammingError, match="closed database"):
+        conn.execute("SELECT 1")
 
 
 def test_deprecated_chat_models_migrate_to_auto(tmp_path: Path) -> None:
