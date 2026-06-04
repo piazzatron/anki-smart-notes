@@ -73,6 +73,10 @@ build () {
   cp -r azure_voices.json dist/
   cp -r voicevox_voices.json dist/
 
+  # Remove Python bytecode produced by local runs before packaging the release.
+  find dist -type d -name __pycache__ -prune -exec rm -rf {} +
+  find dist -type f -name '*.pyc' -delete
+
   # Zip it
   cd dist
   zip -9 -r smart-notes.ankiaddon .
