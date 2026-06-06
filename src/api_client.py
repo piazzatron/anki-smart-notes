@@ -26,6 +26,7 @@ from aiohttp import ClientResponse
 from .config import config
 from .constants import MAX_RETRIES, RETRY_BASE_SECONDS, get_server_url
 from .logger import logger
+from .utils import get_version
 
 
 class OutOfCreditsError(Exception):
@@ -60,6 +61,7 @@ class APIClient:
         headers = {
             "Authorization": f"Bearer {jwt}",
             "Content-Type": "application/json",
+            "x-sn-plugin-version": get_version(),
             "x-sn-source": "anki-plugin",
         }
 
