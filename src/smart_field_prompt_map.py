@@ -121,7 +121,10 @@ def smart_field_creates_from_prompt_map(
     for note_type, decks in prompt_map["note_types"].items():
         note_type_id = note_type_id_from_name(note_type)
         if note_type_id is None:
-            raise ValueError(f"Note type does not exist: {note_type}")
+            logger.warning(
+                f"Smart fields DB: skipping smart fields for missing note type: {note_type}"
+            )
+            continue
 
         for deck_id, note_type_map in decks.items():
             for field, prompt in note_type_map.get("fields", {}).items():

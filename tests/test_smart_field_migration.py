@@ -129,6 +129,56 @@ def test_migrate_legacy_smart_field_config_imports_prompts_and_cleans_config(
     assert messages == []
 
 
+def test_migrate_legacy_smart_field_config_skips_missing_note_types(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    addon_config = {
+        "prompts_map": {
+            "note_types": {
+                "Basic": {
+                    "1": {
+                        "fields": {"Back": "{{Front}}"},
+                        "extras": {"Back": chat_extras()},
+                    }
+                },
+                "Deleted Legacy Type": {
+                    "1": {
+                        "fields": {"Back": "{{Front}}"},
+                        "extras": {"Back": chat_extras()},
+                    }
+                },
+            }
+        },
+        "did_migrate_smart_fields_to_sqlite": False,
+    }
+    expected_backup = deepcopy(addon_config)
+    fake_mw = install_fake_anki(monkeypatch, addon_config, tmp_path)
+    messages: list[tuple[object, ...]] = []
+    install_migration_alert(monkeypatch, messages)
+
+    migrate_legacy_config_to_database()
+
+    smart_fields = SmartFieldService().get_smart_fields_for_note(NOTE_TYPE_ID, DECK_ID)
+    backup_files = list(
+        (tmp_path / "user_files").glob("config_backup_before_sqlite_*.json")
+    )
+
+    assert len(smart_fields) == 1
+    assert smart_fields[0].target_field_name == "Back"
+    assert isinstance(smart_fields[0].settings, ChatSmartFieldSettings)
+    assert smart_fields[0].settings.prompt_text == "{{Front}}"
+    assert len(backup_files) == 1
+    assert json.loads(backup_files[0].read_text(encoding="utf-8")) == expected_backup
+    assert fake_mw.addonManager.written_config is not None
+    assert "prompts_map" not in fake_mw.addonManager.written_config
+    assert (
+        fake_mw.addonManager.written_config["did_migrate_smart_fields_to_sqlite"]
+        is True
+    )
+    assert messages == []
+
+
 def test_migrate_legacy_smart_field_config_reports_failure_and_keeps_config(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,

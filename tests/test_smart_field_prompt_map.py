@@ -148,6 +148,32 @@ def test_replace_from_prompt_map_replaces_fields_after_successful_conversion() -
     assert smart_fields[0].settings.prompt_text == "new {{Front}}"
 
 
+def test_replace_from_prompt_map_skips_missing_note_types() -> None:
+    replace_from_prompt_map(
+        {
+            "note_types": {
+                "Deleted Legacy Type": {
+                    "1": {
+                        "fields": {"Back": "{{Front}}"},
+                        "extras": {"Back": chat_extras()},
+                    }
+                },
+                "Basic": {
+                    "1": {
+                        "fields": {"FrontExtra": "new {{Front}}"},
+                        "extras": {"FrontExtra": chat_extras()},
+                    }
+                },
+            }
+        }
+    )
+
+    smart_fields = SmartFieldService().get_smart_fields_for_note(NOTE_TYPE_ID, DECK_ID)
+
+    assert len(smart_fields) == 1
+    assert smart_fields[0].target_field_name == "FrontExtra"
+
+
 def test_prompt_map_preserves_default_backed_generation_settings() -> None:
     smart_field = SmartFieldCreate(
         note_type_id=NOTE_TYPE_ID,
