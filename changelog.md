@@ -1,3 +1,7 @@
+# v2.22.2
+
+- Bug fix: stale Smart Fields for deleted or renamed note types no longer block Smart Notes from starting after upgrade.
+
 # v2.22.0
 
 - Added Auto and Auto MAX models models - these are both affordable and high quality, with configurable reasoning levels. Try them out to maximize your credits!
