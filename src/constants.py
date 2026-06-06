@@ -31,7 +31,7 @@ SITE_URL_DEV = "http://localhost:3001"
 
 RETRY_BASE_SECONDS = 1
 MAX_RETRIES = 3
-CHAT_CLIENT_TIMEOUT_SEC = 60
+CHAT_CLIENT_TIMEOUT_SEC = 20
 TTS_PROVIDER_TIMEOUT_SEC = 30
 IMAGE_PROVIDER_TIMEOUT_SEC = 45
 
@@ -71,5 +71,5 @@ def get_site_url() -> str:
     return SITE_URL_PROD if env.environment == "PROD" else SITE_URL_DEV
 
 
-GLOBAL_DECK_ID: DeckId = cast(DeckId, -1)
+GLOBAL_DECK_ID: DeckId = cast("DeckId", -1)
 GLOBAL_DECK_NAME = "All Decks"
