@@ -28,7 +28,7 @@ from ..constants import GLOBAL_DECK_ID
 from ..decks import deck_id_to_name_map
 from ..models import PromptMap
 from ..models.smart_fields import ChatSmartFieldSettings
-from ..prompt_helpers import get_prompt_fields
+from ..prompt_helpers import get_extras, get_prompt_fields
 from ..services.smart_field_service import smart_field_service
 from ..ui.ui_utils import show_message_box
 from . import get_fields
@@ -188,6 +188,7 @@ def get_valid_fields_for_prompt(
     deck_id: DeckId,
     selected_note_field: Optional[str] = None,
     prompts_map: Optional[PromptMap] = None,
+    include_global_smart_fields: bool = True,
 ) -> list[str]:
     """Gets all fields excluding the selected one, if one is selected"""
     fields = get_fields(selected_note_type)
@@ -195,18 +196,35 @@ def get_valid_fields_for_prompt(
     if note_type_id is None:
         return [field for field in fields if field != selected_note_field]
 
-    non_chat_fields = {
-        smart_field.target_field_name
-        for smart_field in smart_field_service.get_smart_fields_for_note(
-            note_type_id,
-            deck_id,
-            include_global=False,
-        )
-        if not isinstance(smart_field.settings, ChatSmartFieldSettings)
-    }
+    if prompts_map:
+        non_chat_fields = {
+            field.lower()
+            for field in fields
+            if (
+                get_extras(
+                    selected_note_type,
+                    field,
+                    deck_id,
+                    prompts_map,
+                    fallback_to_global_deck=include_global_smart_fields,
+                )
+                or {}
+            ).get("type")
+            in {"tts", "image"}
+        }
+    else:
+        non_chat_fields = {
+            smart_field.target_field_name.lower()
+            for smart_field in smart_field_service.get_smart_fields_for_note(
+                note_type_id,
+                deck_id,
+                include_global=include_global_smart_fields,
+            )
+            if not isinstance(smart_field.settings, ChatSmartFieldSettings)
+        }
 
     return [
         field
         for field in fields
-        if field != selected_note_field and field not in non_chat_fields
+        if field != selected_note_field and field.lower() not in non_chat_fields
     ]

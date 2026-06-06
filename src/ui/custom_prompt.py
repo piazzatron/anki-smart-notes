@@ -39,6 +39,7 @@ from aqt import (
     QWidget,
 )
 
+from ..dag import prompt_has_error
 from ..field_resolver import field_resolver
 from ..image_provider import ImageResponse
 from ..logger import logger
@@ -235,6 +236,17 @@ class CustomTextPrompt(CustomPrompt):
 
     def on_generate(self) -> None:
         prompt = self._prompt_window.toPlainText()
+        error = prompt_has_error(
+            prompt,
+            note=self._note,
+            deck_id=self._deck_id,
+            target_field=self._field_upper,
+        )
+        if error:
+            show_message_box(f"Invalid prompt: {error}")
+            self._loading = False
+            self._update_ui_states()
+            return
 
         def on_success(text: str):
             self._loading = False

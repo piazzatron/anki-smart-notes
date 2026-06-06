@@ -907,6 +907,7 @@ class PromptDialog(QDialog):
             selected_note_field=selected_note_field,
             deck_id=deck_id,
             prompts_map=self.prompts_map,
+            include_global_smart_fields=False,
         )
         existing_prompts = set(
             (
@@ -930,14 +931,20 @@ class PromptDialog(QDialog):
             logger.debug(f"Note type {note_type} has no valid fields")
             return fields[0]
 
-        valid_target_fields = get_valid_fields_for_prompt(
+        source_fields = get_valid_fields_for_prompt(
             note_type, deck_id=deck_id, prompts_map=self.prompts_map
+        )
+        valid_target_fields = get_valid_fields_for_prompt(
+            note_type,
+            deck_id=deck_id,
+            prompts_map=self.prompts_map,
+            include_global_smart_fields=False,
         )
         default_target_field = (
             valid_target_fields[0] if len(valid_target_fields) > 0 else None
         )
         return next(
-            (f for f in fields if f != default_target_field),
+            (f for f in source_fields if f != default_target_field),
             "No valid source fields remaining",
         )
 

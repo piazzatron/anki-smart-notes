@@ -27,13 +27,14 @@ from typing import Any, Optional, TypedDict, cast
 
 from aiohttp import web
 from anki.decks import DeckId
-from anki.notes import NoteId
+from anki.notes import Note, NoteId
 from aqt import mw
 from aqt.qt import QDialog
 
 from .app_state import app_state
 from .config import config
 from .constants import GLOBAL_DECK_ID, SITE_URL_DEV
+from .dag import prompt_has_error
 from .logger import logger
 from .models import (
     ChatModels,
@@ -477,6 +478,21 @@ class LocalServer:
             note_type_id = get_note_type_id_from_name(note_type)
             if note_type_id is None:
                 raise ValueError(f"Note type does not exist: {note_type}")
+            if not mw or not mw.col:
+                raise ValueError("Anki collection not available")
+
+            note_type_model = mw.col.models.by_name(note_type)
+            if not note_type_model:
+                raise ValueError(f"Note type does not exist: {note_type}")
+
+            prompt_error = prompt_has_error(
+                prompt,
+                note=Note(mw.col, note_type_model),
+                target_field=field,
+                deck_id=deck_id,
+            )
+            if prompt_error:
+                raise ValueError(prompt_error)
 
             settings: SmartFieldSettings
             if field_type == "chat":

@@ -75,6 +75,21 @@ async def _post(client: TestClient, data: dict[str, Any]) -> dict[str, Any]:
     return await resp.json()
 
 
+def _patch_smart_field_save_deps(monkeypatch, prompt_error: str | None = None) -> None:
+    import src.local_server
+
+    fake_mw = MagicMock()
+    fake_mw.col.models.by_name.return_value = {"name": "Basic", "id": 123, "flds": []}
+    monkeypatch.setattr(src.local_server, "mw", fake_mw)
+    monkeypatch.setattr(src.local_server, "get_note_type_id_from_name", lambda _: 123)
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+    monkeypatch.setattr(
+        src.local_server,
+        "prompt_has_error",
+        lambda *_, **__: prompt_error,
+    )
+
+
 @pytest.mark.asyncio
 async def test_ping():
     async with TestClient(TestServer(_make_app())) as client:
@@ -193,8 +208,7 @@ async def test_add_smart_field_success(monkeypatch):
     )
     smart_field_service = _fake_smart_field_service()
     monkeypatch.setattr(src.local_server, "smart_field_service", smart_field_service)
-    monkeypatch.setattr(src.local_server, "get_note_type_id_from_name", lambda _: 123)
-    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+    _patch_smart_field_save_deps(monkeypatch)
 
     async with TestClient(TestServer(_make_app())) as client:
         data = await _post(
@@ -216,6 +230,37 @@ async def test_add_smart_field_success(monkeypatch):
 
 
 @pytest.mark.asyncio
+async def test_add_smart_field_rejects_invalid_prompt(monkeypatch):
+    import src.local_server
+
+    monkeypatch.setattr(
+        src.local_server,
+        "get_prompts_for_note",
+        lambda note_type, deck_id, fallback_to_global_deck=False: None,
+    )
+    smart_field_service = _fake_smart_field_service()
+    monkeypatch.setattr(src.local_server, "smart_field_service", smart_field_service)
+    _patch_smart_field_save_deps(
+        monkeypatch, "Cannot reference TTS or image fields in prompts"
+    )
+
+    async with TestClient(TestServer(_make_app())) as client:
+        data = await _post(
+            client,
+            make_request(
+                "addSmartField",
+                {
+                    "noteType": "Basic",
+                    "field": "Back",
+                    "prompt": "Define {{Audio}}",
+                },
+            ),
+        )
+        assert data["error"] == "Cannot reference TTS or image fields in prompts"
+        smart_field_service.save_smart_field.assert_not_called()
+
+
+@pytest.mark.asyncio
 async def test_add_smart_field_with_custom_reasoning_level(monkeypatch):
     import src.local_server
 
@@ -226,8 +271,7 @@ async def test_add_smart_field_with_custom_reasoning_level(monkeypatch):
     )
     smart_field_service = _fake_smart_field_service()
     monkeypatch.setattr(src.local_server, "smart_field_service", smart_field_service)
-    monkeypatch.setattr(src.local_server, "get_note_type_id_from_name", lambda _: 123)
-    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+    _patch_smart_field_save_deps(monkeypatch)
 
     async with TestClient(TestServer(_make_app())) as client:
         data = await _post(
@@ -289,8 +333,7 @@ async def test_update_smart_field_success(monkeypatch):
     )
     smart_field_service = _fake_smart_field_service()
     monkeypatch.setattr(src.local_server, "smart_field_service", smart_field_service)
-    monkeypatch.setattr(src.local_server, "get_note_type_id_from_name", lambda _: 123)
-    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+    _patch_smart_field_save_deps(monkeypatch)
 
     async with TestClient(TestServer(_make_app())) as client:
         data = await _post(
