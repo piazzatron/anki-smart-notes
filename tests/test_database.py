@@ -59,6 +59,7 @@ def test_apply_database_migrations_creates_smart_field_tables(tmp_path: Path) ->
         }
         assert smart_field_columns == {
             "id",
+            "profile_name",
             "note_type_id",
             "deck_id",
             "target_field_name",
@@ -194,6 +195,86 @@ def test_deprecated_default_chat_model_migrates_to_auto(tmp_path: Path) -> None:
         conn.close()
 
     assert row == ("auto", "auto")
+
+
+def test_profile_scope_migration_allows_same_field_in_different_profiles(
+    tmp_path: Path,
+) -> None:
+    database_path = tmp_path / "smart_notes.sqlite3"
+    conn = sqlite3.connect(database_path)
+    try:
+        conn.execute(
+            """
+            CREATE TABLE smart_fields (
+                id TEXT PRIMARY KEY,
+                note_type_id INTEGER NOT NULL,
+                deck_id INTEGER NOT NULL,
+                target_field_name TEXT NOT NULL,
+                field_type TEXT NOT NULL CHECK (field_type IN ('chat', 'tts', 'image')),
+                enabled INTEGER NOT NULL DEFAULT 1 CHECK (enabled IN (0, 1)),
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL,
+                UNIQUE(note_type_id, deck_id, target_field_name)
+            );
+            """
+        )
+        conn.execute(
+            """
+            INSERT INTO smart_fields (
+                id, note_type_id, deck_id, target_field_name, field_type,
+                enabled, created_at, updated_at
+            )
+            VALUES ('legacy', 1, 1, 'Back', 'chat', 1, 'now', 'now')
+            """
+        )
+        conn.commit()
+
+        conn.close()
+
+        migrations_path = (
+            Path(__file__).parents[1] / "src" / "database" / "db_migrations"
+        )
+        migrations = read_migrations(str(migrations_path))
+        backend = get_sqlite_backend(str(database_path))
+        with backend.lock():
+            backend.apply_migrations(migrations[2:3])
+
+        conn = sqlite3.connect(database_path)
+
+        conn.execute(
+            """
+            INSERT INTO smart_fields (
+                id, profile_name, note_type_id, deck_id, target_field_name,
+                field_type, enabled, created_at, updated_at
+            )
+            VALUES ('profile-1', 'Profile 1', 1, 1, 'Back', 'chat', 1, 'now', 'now')
+            """
+        )
+        conn.execute(
+            """
+            INSERT INTO smart_fields (
+                id, profile_name, note_type_id, deck_id, target_field_name,
+                field_type, enabled, created_at, updated_at
+            )
+            VALUES ('profile-2', 'Profile 2', 1, 1, 'Back', 'chat', 1, 'now', 'now')
+            """
+        )
+
+        with pytest.raises(sqlite3.IntegrityError):
+            conn.execute(
+                """
+                INSERT INTO smart_fields (
+                    id, profile_name, note_type_id, deck_id, target_field_name,
+                    field_type, enabled, created_at, updated_at
+                )
+                VALUES (
+                    'profile-1-duplicate', 'Profile 1', 1, 1, 'Back',
+                    'chat', 1, 'now', 'now'
+                )
+                """
+            )
+    finally:
+        conn.close()
 
 
 def test_get_database_path_uses_anki_preserved_user_files() -> None:

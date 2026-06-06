@@ -1,3 +1,7 @@
+# Unreleased
+
+- Bug fix: Smart Fields are now scoped to the current Anki profile, so switching profiles no longer shows or uses another profile's fields.
+
 # v2.22.2
 
 - Bug fix: stale Smart Fields for deleted or renamed note types no longer block Smart Notes from starting after upgrade.

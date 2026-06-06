@@ -33,7 +33,7 @@ from .models.smart_fields import (
 )
 from .nodes import FieldNode
 from .prompt_helpers import get_extras, get_prompt_fields
-from .services.smart_field_service import smart_field_service
+from .services.smart_field_service import get_current_profile_name, smart_field_service
 from .utils import get_fields
 from .utils.notes_utils import get_note_type
 
@@ -205,10 +205,12 @@ def smart_fields_from_prompt_map(
     deck_map = note_type_map.get(str(deck_id), {})
     fields = deck_map.get("fields", {})
     extras_by_field = deck_map.get("extras", {})
+    profile_name = get_current_profile_name()
 
     return [
         SmartField(
             id=f"prompt-map:{field}",
+            profile_name=profile_name,
             note_type_id=note_type_id,
             deck_id=deck_id,
             target_field_name=field,

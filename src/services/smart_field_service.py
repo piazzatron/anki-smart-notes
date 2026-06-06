@@ -17,11 +17,13 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import os
 import sqlite3
 from datetime import datetime, timezone
 from typing import Optional, cast
 from uuid import uuid4
 
+import aqt
 from anki.decks import DeckId
 
 from ..constants import GLOBAL_DECK_ID
@@ -64,10 +66,14 @@ DEFAULT_IMAGE_GENERATION_SETTINGS = ImageGenerationSettings(
     provider="openai",
     model="gpt-image-1.5-low",
 )
+TEST_PROFILE_NAME = "__test__"
 
 
 class SmartFieldService:
     """Persists Smart Field rules and global generation defaults."""
+
+    def __init__(self, profile_name: Optional[str] = None) -> None:
+        self._profile_name = profile_name
 
     def get_chat_defaults(self) -> ChatGenerationSettings:
         with open_database() as conn:
@@ -195,7 +201,8 @@ class SmartFieldService:
         return list(global_fields.values())
 
     def get_all_smart_fields(self) -> list[SmartField]:
-        logger.debug("Smart fields DB: loading all fields")
+        profile_name = self._get_profile_name()
+        logger.debug(f"Smart fields DB: loading all fields for profile={profile_name}")
         self.get_chat_defaults()
         self.get_tts_defaults()
         self.get_image_defaults()
@@ -205,6 +212,7 @@ class SmartFieldService:
                 """
                 SELECT
                     sf.id,
+                    sf.profile_name,
                     sf.note_type_id,
                     sf.deck_id,
                     sf.target_field_name,
@@ -232,54 +240,69 @@ class SmartFieldService:
                 LEFT JOIN default_text_generation_settings text_defaults ON text_defaults.id = 1
                 LEFT JOIN default_tts_generation_settings tts_defaults ON tts_defaults.id = 1
                 LEFT JOIN default_image_generation_settings image_defaults ON image_defaults.id = 1
+                WHERE sf.profile_name = ?
                 ORDER BY sf.note_type_id, sf.deck_id, sf.target_field_name
-                """
+                """,
+                (profile_name,),
             ).fetchall()
         return [self._smart_field_from_row(row) for row in rows]
 
     def save_smart_field(self, smart_field: SmartFieldCreate) -> None:
+        profile_name = self._get_profile_name()
         logger.debug(
             f"Smart fields DB: saving {smart_field.field_type} field "
-            f"{smart_field.note_type_id}/{smart_field.deck_id}/{smart_field.target_field_name}"
+            f"{profile_name}/{smart_field.note_type_id}/{smart_field.deck_id}/"
+            f"{smart_field.target_field_name}"
         )
         with open_database() as conn:
-            smart_field_id = self._save_smart_field(conn, smart_field)
+            smart_field_id = self._save_smart_field(conn, smart_field, profile_name)
             conn.commit()
         logger.debug(f"Smart fields DB: saved smart_field_id={smart_field_id}")
 
     def replace_all_smart_fields(self, smart_fields: list[SmartFieldCreate]) -> None:
+        profile_name = self._get_profile_name()
         logger.debug(
-            f"Smart fields DB: replacing all fields with {len(smart_fields)} field(s)"
+            f"Smart fields DB: replacing all fields for profile={profile_name} "
+            f"with {len(smart_fields)} field(s)"
         )
         with open_database() as conn:
-            conn.execute("DELETE FROM smart_fields")
+            conn.execute(
+                "DELETE FROM smart_fields WHERE profile_name = ?", (profile_name,)
+            )
             for smart_field in smart_fields:
-                self._save_smart_field(conn, smart_field)
+                self._save_smart_field(conn, smart_field, profile_name)
             conn.commit()
 
     def delete_smart_field(
         self, note_type_id: int, deck_id: DeckId, target_field: str
     ) -> None:
+        profile_name = self._get_profile_name()
         logger.debug(
-            f"Smart fields DB: removing {note_type_id}/{deck_id}/{target_field}"
+            f"Smart fields DB: removing {profile_name}/{note_type_id}/"
+            f"{deck_id}/{target_field}"
         )
         with open_database() as conn:
             conn.execute(
                 """
                 DELETE FROM smart_fields
-                WHERE note_type_id = ?
+                WHERE profile_name = ?
+                    AND note_type_id = ?
                     AND deck_id = ?
                     AND lower(target_field_name) = lower(?)
                 """,
-                (note_type_id, int(deck_id), target_field),
+                (profile_name, note_type_id, int(deck_id), target_field),
             )
             conn.commit()
 
     def _save_smart_field(
-        self, conn: sqlite3.Connection, smart_field: SmartFieldCreate
+        self,
+        conn: sqlite3.Connection,
+        smart_field: SmartFieldCreate,
+        profile_name: str,
     ) -> str:
         existing_id = self._get_existing_id(
             conn,
+            profile_name,
             smart_field.note_type_id,
             smart_field.deck_id,
             smart_field.target_field_name,
@@ -307,13 +330,14 @@ class SmartFieldService:
             conn.execute(
                 """
                 INSERT INTO smart_fields (
-                    id, note_type_id, deck_id, target_field_name, field_type,
+                    id, profile_name, note_type_id, deck_id, target_field_name, field_type,
                     enabled, created_at, updated_at
                 )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     smart_field_id,
+                    profile_name,
                     smart_field.note_type_id,
                     int(smart_field.deck_id),
                     smart_field.target_field_name,
@@ -436,6 +460,7 @@ class SmartFieldService:
 
         return SmartField(
             id=cast(str, row["id"]),
+            profile_name=cast(str, row["profile_name"]),
             note_type_id=int(row["note_type_id"]),
             deck_id=cast(DeckId, int(row["deck_id"])),
             target_field_name=cast(str, row["target_field_name"]),
@@ -446,6 +471,7 @@ class SmartFieldService:
     def _get_existing_id(
         self,
         conn: sqlite3.Connection,
+        profile_name: str,
         note_type_id: int,
         deck_id: DeckId,
         target_field: str,
@@ -453,11 +479,12 @@ class SmartFieldService:
         row = conn.execute(
             """
             SELECT id FROM smart_fields
-            WHERE note_type_id = ?
+            WHERE profile_name = ?
+                AND note_type_id = ?
                 AND deck_id = ?
                 AND lower(target_field_name) = lower(?)
             """,
-            (note_type_id, int(deck_id), target_field),
+            (profile_name, note_type_id, int(deck_id), target_field),
         ).fetchone()
         return cast(str, row["id"]) if row else None
 
@@ -477,6 +504,23 @@ class SmartFieldService:
 
     def _now(self) -> str:
         return datetime.now(timezone.utc).isoformat()
+
+    def _get_profile_name(self) -> str:
+        if self._profile_name:
+            return self._profile_name
+        return get_current_profile_name()
+
+
+def get_current_profile_name() -> str:
+    if os.getenv("IS_TEST"):
+        return TEST_PROFILE_NAME
+
+    if not aqt.mw or not aqt.mw.pm or not aqt.mw.pm.name:
+        raise RuntimeError(
+            "Cannot access Smart Fields because Anki profile is unavailable"
+        )
+
+    return str(aqt.mw.pm.name)
 
 
 def _chat_generation_settings_from_row(row: sqlite3.Row) -> ChatGenerationSettings:

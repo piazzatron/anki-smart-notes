@@ -23,6 +23,7 @@ from typing import Optional
 from yoyo import read_migrations
 
 from ..logger import logger
+from ..services.smart_field_service import get_current_profile_name
 from . import connection
 from .legacy_config_migration import migrate_legacy_config_to_database
 
@@ -33,8 +34,11 @@ def run_migrations() -> None:
     # migrations. That keeps future model backfills simple: update the default
     # row plus custom override rows, and inherited fields follow automatically.
     apply_database_bootstrap_migrations()
+    apply_database_profile_scope_migration()
+    backfill_smart_field_profile_names()
     migrate_legacy_config_to_database()
     apply_database_migrations()
+    backfill_smart_field_profile_names()
 
 
 def apply_database_bootstrap_migrations(database_path: Optional[str] = None) -> None:
@@ -45,9 +49,32 @@ def apply_database_migrations(database_path: Optional[str] = None) -> None:
     _apply_migrations(database_path)
 
 
+def apply_database_profile_scope_migration(database_path: Optional[str] = None) -> None:
+    _apply_migrations(database_path, migration_slice=slice(2, 3))
+
+
+def backfill_smart_field_profile_names(database_path: Optional[str] = None) -> None:
+    profile_name = get_current_profile_name()
+    with connection.open_database(database_path) as conn:
+        columns = {row[1] for row in conn.execute("PRAGMA table_info(smart_fields)")}
+        if "profile_name" not in columns:
+            raise RuntimeError("Missing smart_fields.profile_name after migrations")
+
+        conn.execute(
+            """
+            UPDATE smart_fields
+            SET profile_name = ?
+            WHERE profile_name IS NULL
+            """,
+            (profile_name,),
+        )
+        conn.commit()
+
+
 def _apply_migrations(
     database_path: Optional[str] = None,
     bootstrap_only: bool = False,
+    migration_slice: Optional[slice] = None,
 ) -> None:
     # Tests pass isolated temp DB paths so migration state never touches user data.
     resolved_database_path = database_path or connection.get_database_path()
@@ -60,6 +87,8 @@ def _apply_migrations(
     migrations = read_migrations(str(migrations_path))
     if bootstrap_only:
         migrations = migrations[:1]
+    if migration_slice:
+        migrations = migrations[migration_slice]
 
     with backend.lock():
         pending_migrations = backend.to_apply(migrations)

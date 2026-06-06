@@ -215,6 +215,82 @@ def test_save_and_delete_match_target_fields_case_insensitively() -> None:
     assert service.get_smart_fields_for_note(NOTE_TYPE_ID, 1) == []
 
 
+def test_smart_fields_are_scoped_to_profile() -> None:
+    first_profile = SmartFieldService(profile_name="Profile 1")
+    second_profile = SmartFieldService(profile_name="Profile 2")
+
+    first_profile.save_smart_field(
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=1,
+            target_field_name="Back",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="first profile",
+                provider="openai",
+                model="gpt-4o-mini",
+                web_search_enabled=False,
+            ),
+        )
+    )
+    second_profile.save_smart_field(
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=1,
+            target_field_name="Back",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="second profile",
+                provider="openai",
+                model="gpt-4o-mini",
+                web_search_enabled=False,
+            ),
+        )
+    )
+
+    first_fields = first_profile.get_smart_fields_for_note(NOTE_TYPE_ID, 1)
+    second_fields = second_profile.get_smart_fields_for_note(NOTE_TYPE_ID, 1)
+
+    assert len(first_fields) == 1
+    assert first_fields[0].profile_name == "Profile 1"
+    assert isinstance(first_fields[0].settings, ChatSmartFieldSettings)
+    assert first_fields[0].settings.prompt_text == "first profile"
+
+    assert len(second_fields) == 1
+    assert second_fields[0].profile_name == "Profile 2"
+    assert isinstance(second_fields[0].settings, ChatSmartFieldSettings)
+    assert second_fields[0].settings.prompt_text == "second profile"
+
+
+def test_profile_scoping_applies_to_replacements_and_deletes() -> None:
+    first_profile = SmartFieldService(profile_name="Profile 1")
+    second_profile = SmartFieldService(profile_name="Profile 2")
+    shared_field = SmartFieldCreate(
+        note_type_id=NOTE_TYPE_ID,
+        deck_id=1,
+        target_field_name="Back",
+        enabled=True,
+        settings=ChatSmartFieldSettings(
+            prompt_text="original",
+            provider="openai",
+            model="gpt-4o-mini",
+            web_search_enabled=False,
+        ),
+    )
+
+    first_profile.save_smart_field(shared_field)
+    second_profile.save_smart_field(shared_field)
+
+    first_profile.replace_all_smart_fields([])
+
+    assert first_profile.get_smart_fields_for_note(NOTE_TYPE_ID, 1) == []
+    assert len(second_profile.get_smart_fields_for_note(NOTE_TYPE_ID, 1)) == 1
+
+    second_profile.delete_smart_field(NOTE_TYPE_ID, 1, "Back")
+
+    assert second_profile.get_smart_fields_for_note(NOTE_TYPE_ID, 1) == []
+
+
 def test_get_chat_defaults_fails_when_seed_row_is_missing() -> None:
     with open_database() as conn:
         conn.execute("DELETE FROM default_text_generation_settings WHERE id = 1")

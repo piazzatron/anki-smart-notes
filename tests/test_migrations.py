@@ -70,13 +70,28 @@ def test_run_migrations_applies_schema_before_legacy_config_import(
         lambda: calls.append("database"),
     )
     monkeypatch.setattr(
+        "src.database.migrations.apply_database_profile_scope_migration",
+        lambda: calls.append("profile_scope"),
+    )
+    monkeypatch.setattr(
         "src.database.migrations.migrate_legacy_config_to_database",
         lambda: calls.append("legacy_config"),
+    )
+    monkeypatch.setattr(
+        "src.database.migrations.backfill_smart_field_profile_names",
+        lambda: calls.append("profile_backfill"),
     )
 
     run_migrations()
 
-    assert calls == ["bootstrap", "legacy_config", "database"]
+    assert calls == [
+        "bootstrap",
+        "profile_scope",
+        "profile_backfill",
+        "legacy_config",
+        "database",
+        "profile_backfill",
+    ]
 
 
 def test_run_migrations_imports_legacy_config_before_chat_model_data_migration(
@@ -194,6 +209,86 @@ def test_run_migrations_updates_inherited_fields_through_sql_default_row(
     assert smart_fields[0].settings.uses_default_generation_settings is True
     assert smart_fields[0].settings.provider == "auto"
     assert smart_fields[0].settings.model == "auto"
+
+
+def test_run_migrations_retries_legacy_import_after_profile_scope_migration(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    import src.database.connection
+    from src.database.migrations import apply_database_bootstrap_migrations
+
+    database_path = tmp_path / "smart_notes.sqlite3"
+    addon_config = {
+        "prompts_map": {
+            "note_types": {
+                "Basic": {
+                    str(DECK_ID): {
+                        "fields": {"Back": "{{Front}}"},
+                        "extras": {
+                            "Back": {
+                                "automatic": True,
+                                "type": "chat",
+                                "use_custom_model": True,
+                                "chat_provider": "openai",
+                                "chat_model": "gpt-4o-mini",
+                                "chat_reasoning_level": "off",
+                                "chat_web_search": False,
+                                "tts_model": None,
+                                "tts_provider": None,
+                                "tts_voice": None,
+                                "image_provider": None,
+                                "image_model": None,
+                            }
+                        },
+                    }
+                }
+            }
+        },
+        "did_migrate_smart_fields_to_sqlite": False,
+    }
+    install_fake_anki(monkeypatch, addon_config, tmp_path)
+    monkeypatch.setattr(
+        src.database.connection,
+        "get_database_path",
+        lambda: str(database_path),
+    )
+
+    apply_database_bootstrap_migrations(str(database_path))
+    with src.database.connection.open_database(str(database_path)) as conn:
+        conn.execute(
+            """
+            INSERT INTO smart_fields (
+                id, note_type_id, deck_id, target_field_name, field_type,
+                enabled, created_at, updated_at
+            )
+            VALUES ('stale-partial-import', ?, ?, 'Back', 'chat', 1, 'now', 'now')
+            """,
+            (NOTE_TYPE_ID, int(DECK_ID)),
+        )
+        conn.execute(
+            """
+            INSERT INTO text_smart_field_settings (
+                smart_field_id, prompt_text, uses_default_generation_settings,
+                provider, model, reasoning_level, web_search_enabled
+            )
+            VALUES (
+                'stale-partial-import', 'stale', 0,
+                'openai', 'gpt-4o-mini', 'off', 0
+            )
+            """
+        )
+        conn.commit()
+
+    run_migrations()
+
+    smart_fields = SmartFieldService().get_smart_fields_for_note(NOTE_TYPE_ID, DECK_ID)
+
+    assert len(smart_fields) == 1
+    assert smart_fields[0].id != "stale-partial-import"
+    assert smart_fields[0].profile_name == "__test__"
+    assert isinstance(smart_fields[0].settings, ChatSmartFieldSettings)
+    assert smart_fields[0].settings.prompt_text == "{{Front}}"
 
 
 def install_fake_anki(
