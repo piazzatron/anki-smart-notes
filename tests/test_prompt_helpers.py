@@ -21,6 +21,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 from copy import deepcopy
 from typing import Any
+from unittest.mock import MagicMock
 
 import aqt  # noqa: F401
 import pytest
@@ -208,6 +209,199 @@ def test_interpolate_prompt(prompt, note_data, allow_empty, expected, monkeypatc
     note = MockNote(data=note_data)
     result = interpolate_prompt(prompt, note)
     assert result == expected
+
+
+def test_valid_prompt_fields_exclude_unsaved_tts_fields(monkeypatch):
+    import src.utils.notes_utils
+
+    audio_extras = make_extras()
+    audio_extras["type"] = "tts"
+    prompts_map = make_prompts_map(
+        "Basic",
+        1,
+        {"Audio": "{{Front}}"},
+        {"Audio": audio_extras},
+    )
+    monkeypatch.setattr(
+        src.utils.notes_utils,
+        "get_fields",
+        lambda _: ["Front", "Audio", "Back"],
+    )
+    monkeypatch.setattr(
+        src.utils.notes_utils,
+        "get_note_type_id_from_name",
+        lambda _: 123,
+    )
+    monkeypatch.setattr(
+        src.utils.notes_utils.smart_field_service,
+        "get_smart_fields_for_note",
+        lambda *_, **__: [],
+    )
+
+    assert src.utils.notes_utils.get_valid_fields_for_prompt(
+        selected_note_type="Basic",
+        deck_id=1,
+        selected_note_field="Back",
+        prompts_map=prompts_map,
+    ) == ["Front"]
+
+
+def test_valid_prompt_fields_exclude_global_unsaved_tts_fields(monkeypatch):
+    import src.utils.notes_utils
+
+    audio_extras = make_extras()
+    audio_extras["type"] = "tts"
+    prompts_map = make_prompts_map(
+        "Basic",
+        -1,
+        {"Audio": "{{Front}}"},
+        {"Audio": audio_extras},
+    )
+    monkeypatch.setattr(
+        src.utils.notes_utils,
+        "get_fields",
+        lambda _: ["Front", "Audio", "Back"],
+    )
+    monkeypatch.setattr(
+        src.utils.notes_utils,
+        "get_note_type_id_from_name",
+        lambda _: 123,
+    )
+    monkeypatch.setattr(
+        src.utils.notes_utils.smart_field_service,
+        "get_smart_fields_for_note",
+        lambda *_, **__: [],
+    )
+
+    assert src.utils.notes_utils.get_valid_fields_for_prompt(
+        selected_note_type="Basic",
+        deck_id=1,
+        selected_note_field="Back",
+        prompts_map=prompts_map,
+    ) == ["Front"]
+
+    assert src.utils.notes_utils.get_valid_fields_for_prompt(
+        selected_note_type="Basic",
+        deck_id=1,
+        selected_note_field="Back",
+        prompts_map=prompts_map,
+        include_global_smart_fields=False,
+    ) == ["Front", "Audio"]
+
+
+def test_valid_prompt_fields_exclude_persisted_global_tts_fields(monkeypatch):
+    import src.utils.notes_utils
+    from src.models.smart_fields import SmartField, TTSSmartFieldSettings
+
+    monkeypatch.setattr(
+        src.utils.notes_utils,
+        "get_fields",
+        lambda _: ["Front", "Audio", "Back"],
+    )
+    monkeypatch.setattr(
+        src.utils.notes_utils,
+        "get_note_type_id_from_name",
+        lambda _: 123,
+    )
+    monkeypatch.setattr(
+        src.utils.notes_utils.smart_field_service,
+        "get_smart_fields_for_note",
+        lambda *_, **__: [
+            SmartField(
+                id="audio",
+                note_type_id=123,
+                deck_id=-1,
+                target_field_name="audio",
+                enabled=True,
+                settings=TTSSmartFieldSettings(
+                    source_field_name="Front",
+                    provider="openai",
+                    model="tts-1",
+                    voice_id="alloy",
+                ),
+            )
+        ],
+    )
+
+    assert src.utils.notes_utils.get_valid_fields_for_prompt(
+        selected_note_type="Basic",
+        deck_id=1,
+        selected_note_field="Back",
+    ) == ["Front"]
+
+
+def test_custom_text_prompt_rejects_invalid_prompt(monkeypatch):
+    import src.ui.custom_prompt
+
+    messages: list[str] = []
+    dialog = src.ui.custom_prompt.CustomTextPrompt.__new__(
+        src.ui.custom_prompt.CustomTextPrompt
+    )
+    dialog._prompt_window = MagicMock()
+    dialog._prompt_window.toPlainText.return_value = "Define {{Audio}}"
+    dialog._note = MagicMock()
+    dialog._deck_id = 1
+    dialog._field_upper = "Back"
+    dialog._loading = True
+    dialog._update_ui_states = MagicMock()
+    monkeypatch.setattr(
+        src.ui.custom_prompt,
+        "prompt_has_error",
+        lambda *_, **__: "Cannot reference TTS or image fields in prompts",
+    )
+    monkeypatch.setattr(
+        src.ui.custom_prompt,
+        "show_message_box",
+        lambda message: messages.append(message),
+    )
+    monkeypatch.setattr(
+        src.ui.custom_prompt,
+        "run_async_in_background_with_sentry",
+        MagicMock(),
+    )
+
+    src.ui.custom_prompt.CustomTextPrompt.on_generate(dialog)
+
+    assert messages == [
+        "Invalid prompt: Cannot reference TTS or image fields in prompts"
+    ]
+    assert dialog._loading is False
+    dialog._update_ui_states.assert_called_once()
+    src.ui.custom_prompt.run_async_in_background_with_sentry.assert_not_called()
+
+
+def test_prompt_dialog_initial_tts_source_uses_filtered_source_fields(monkeypatch):
+    import src.ui.prompt_dialog
+
+    prompts_map = make_prompts_map("Basic", -1, {}, {})
+    dialog = src.ui.prompt_dialog.PromptDialog.__new__(
+        src.ui.prompt_dialog.PromptDialog
+    )
+    dialog.prompts_map = prompts_map
+    monkeypatch.setattr(
+        src.ui.prompt_dialog,
+        "get_fields",
+        lambda _: ["Front", "Audio", "Back"],
+    )
+
+    def fake_get_valid_fields_for_prompt(
+        note_type,
+        deck_id,
+        selected_note_field=None,
+        prompts_map=None,
+        include_global_smart_fields=True,
+    ):
+        if include_global_smart_fields:
+            return ["Front", "Back"]
+        return ["Front", "Audio", "Back"]
+
+    monkeypatch.setattr(
+        src.ui.prompt_dialog,
+        "get_valid_fields_for_prompt",
+        fake_get_valid_fields_for_prompt,
+    )
+
+    assert dialog._get_initial_source_field("Basic", 1) == "Back"
 
 
 class TestMoveSmartField:
