@@ -17,15 +17,18 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any
+import asyncio
+from typing import Any, Optional, cast
 
+import aiohttp
 import pytest
 
 from src import api_client
 
 
 class FakeResponse:
-    status = 204
+    def __init__(self, status: int = 204) -> None:
+        self.status = status
 
     async def __aenter__(self) -> "FakeResponse":
         return self
@@ -34,6 +37,13 @@ class FakeResponse:
         return None
 
     def raise_for_status(self) -> None:
+        if self.status >= 400:
+            raise aiohttp.ClientResponseError(
+                request_info=cast(aiohttp.RequestInfo, None),
+                history=(),
+                status=self.status,
+                message="request failed",
+            )
         return None
 
     async def read(self) -> bytes:
@@ -41,6 +51,9 @@ class FakeResponse:
 
 
 class FakeSession:
+    response_status = 204
+    request_error: Optional[Exception] = None
+
     def __init__(self) -> None:
         self.calls: list[dict[str, Any]] = []
 
@@ -52,7 +65,9 @@ class FakeSession:
 
     def post(self, endpoint: str, **kwargs: Any) -> FakeResponse:
         self.calls.append({"endpoint": endpoint, **kwargs})
-        return FakeResponse()
+        if self.request_error:
+            raise self.request_error
+        return FakeResponse(self.response_status)
 
 
 @pytest.mark.asyncio
@@ -77,3 +92,41 @@ async def test_api_requests_include_plugin_version(
         "x-sn-source": "anki-plugin",
     }
     assert fake_session.calls[0]["json"] == {"event": "test_event"}
+
+
+@pytest.mark.asyncio
+async def test_api_client_does_not_retry_server_rate_limits(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    fake_session = FakeSession()
+    fake_session.response_status = 429
+    monkeypatch.setattr(api_client.aiohttp, "ClientSession", lambda: fake_session)
+    monkeypatch.setattr(
+        api_client, "config", type("Config", (), {"auth_token": "test-token"})()
+    )
+    monkeypatch.setattr(api_client, "get_server_url", lambda: "https://server.test")
+    monkeypatch.setattr(api_client, "get_version", lambda: "1.2.3")
+
+    with pytest.raises(aiohttp.ClientResponseError):
+        await api_client.APIClient().get_api_response("chat", {"message": "hello"})
+
+    assert len(fake_session.calls) == 1
+
+
+@pytest.mark.asyncio
+async def test_api_client_does_not_retry_timeouts(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    fake_session = FakeSession()
+    fake_session.request_error = asyncio.TimeoutError()
+    monkeypatch.setattr(api_client.aiohttp, "ClientSession", lambda: fake_session)
+    monkeypatch.setattr(
+        api_client, "config", type("Config", (), {"auth_token": "test-token"})()
+    )
+    monkeypatch.setattr(api_client, "get_server_url", lambda: "https://server.test")
+    monkeypatch.setattr(api_client, "get_version", lambda: "1.2.3")
+
+    with pytest.raises(asyncio.TimeoutError):
+        await api_client.APIClient().get_api_response("chat", {"message": "hello"})
+
+    assert len(fake_session.calls) == 1
