@@ -119,11 +119,11 @@ def test_prompt_has_error_returns_tts_source_validation_error(monkeypatch):
     import src.dag
     import src.utils
     from src.dag import prompt_has_error
-    from src.models import (
+    from src.models import GenerationDefaults
+    from src.services.smart_field_service import (
         DEFAULT_IMAGE_GENERATION_SETTINGS,
         DEFAULT_TEXT_GENERATION_SETTINGS,
         DEFAULT_TTS_GENERATION_SETTINGS,
-        GenerationDefaults,
     )
 
     prompts_map = make_prompts_map(

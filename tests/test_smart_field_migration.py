@@ -27,7 +27,7 @@ import pytest
 from anki.decks import DeckId
 
 from src.database.legacy_config_migration import migrate_legacy_config_to_database
-from src.database.migrations import apply_database_bootstrap_migrations
+from src.database.migrations import apply_database_migrations
 from src.models import DEFAULT_EXTRAS, FieldExtras
 
 NOTE_TYPE_ID = 123
@@ -75,7 +75,7 @@ def sqlite_database(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         "get_database_path",
         lambda: str(tmp_path / "smart_notes.sqlite3"),
     )
-    apply_database_bootstrap_migrations()
+    apply_database_migrations()
 
 
 def test_migrate_legacy_smart_field_config_imports_prompts_and_cleans_config(
@@ -110,6 +110,7 @@ def test_migrate_legacy_smart_field_config_imports_prompts_and_cleans_config(
     )
 
     assert len(smart_fields) == 1
+    assert smart_fields[0]["profile_name"] == "__test__"
     assert smart_fields[0]["target_field_name"] == "Back"
     assert smart_fields[0]["prompt_text"] == "{{Front}}"
     assert smart_fields[0]["provider"] == "auto"
@@ -163,6 +164,7 @@ def test_migrate_legacy_smart_field_config_skips_missing_note_types(
     )
 
     assert len(smart_fields) == 1
+    assert smart_fields[0]["profile_name"] == "__test__"
     assert smart_fields[0]["target_field_name"] == "Back"
     assert smart_fields[0]["prompt_text"] == "{{Front}}"
     assert len(backup_files) == 1
@@ -280,6 +282,7 @@ def fetch_legacy_text_smart_fields() -> list[sqlite3.Row]:
                 """
                 SELECT
                     sf.target_field_name,
+                    sf.profile_name,
                     text.prompt_text,
                     text.provider,
                     text.model

@@ -22,26 +22,17 @@ from typing import Optional
 
 from yoyo import read_migrations
 
-from .. import utils
 from ..logger import logger
 from . import connection
 from .legacy_config_migration import migrate_legacy_config_to_database
 
 
 def run_migrations() -> None:
-    # Bootstrap creates the schema only. Generation defaults and Smart Fields
-    # both come from legacy config.json, so import both before SQL data
-    # migrations. That keeps future model backfills simple: update the default
-    # row plus custom override rows, and inherited fields follow automatically.
-    apply_database_bootstrap_migrations()
-    migrate_legacy_config_to_database()
+    # SQL migrations bring any existing SQLite rows to the current schema first.
+    # Legacy config import then adapts old config.json/prompt-map data directly
+    # into the current runtime model through SmartFieldService.
     apply_database_migrations()
-
-    # Legacy prompt-map import intentionally runs against the bootstrap schema,
-    # before profile-scoping exists. Once SQL migrations add profile_name, bind
-    # those imported rows to the active Anki profile so runtime reads can enforce
-    # profile isolation.
-    backfill_smart_field_profile_names()
+    migrate_legacy_config_to_database()
 
 
 def apply_database_bootstrap_migrations(database_path: Optional[str] = None) -> None:
@@ -50,28 +41,6 @@ def apply_database_bootstrap_migrations(database_path: Optional[str] = None) -> 
 
 def apply_database_migrations(database_path: Optional[str] = None) -> None:
     _apply_migrations(database_path)
-
-
-def backfill_smart_field_profile_names(database_path: Optional[str] = None) -> None:
-    profile_name = utils.get_current_profile_name()
-    with connection.open_database(database_path) as conn:
-        columns = {row[1] for row in conn.execute("PRAGMA table_info(smart_fields)")}
-        if "profile_name" not in columns:
-            raise RuntimeError("Missing smart_fields.profile_name after migrations")
-
-        conn.execute(
-            """
-            UPDATE smart_fields
-            SET profile_name = ?
-            WHERE profile_name IS NULL
-            """,
-            (profile_name,),
-        )
-        remaining_null_rows = conn.execute(
-            "SELECT COUNT(*) FROM smart_fields WHERE profile_name IS NULL"
-        ).fetchone()[0]
-        if remaining_null_rows:
-            raise RuntimeError("Failed to backfill smart_fields.profile_name")
 
 
 def _apply_migrations(

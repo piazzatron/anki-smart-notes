@@ -215,11 +215,13 @@ def test_save_and_delete_match_target_fields_case_insensitively() -> None:
     assert service.get_smart_fields_for_note(NOTE_TYPE_ID, 1) == []
 
 
-def test_smart_fields_are_scoped_to_profile() -> None:
-    first_profile = SmartFieldService(profile_name="Profile 1")
-    second_profile = SmartFieldService(profile_name="Profile 2")
+def test_smart_fields_are_scoped_to_profile(monkeypatch: pytest.MonkeyPatch) -> None:
+    import src.utils
 
-    first_profile.save_smart_field(
+    service = SmartFieldService()
+
+    monkeypatch.setattr(src.utils, "get_current_profile_name", lambda: "Profile 1")
+    service.save_smart_field(
         SmartFieldCreate(
             note_type_id=NOTE_TYPE_ID,
             deck_id=1,
@@ -233,7 +235,8 @@ def test_smart_fields_are_scoped_to_profile() -> None:
             ),
         )
     )
-    second_profile.save_smart_field(
+    monkeypatch.setattr(src.utils, "get_current_profile_name", lambda: "Profile 2")
+    service.save_smart_field(
         SmartFieldCreate(
             note_type_id=NOTE_TYPE_ID,
             deck_id=1,
@@ -248,8 +251,10 @@ def test_smart_fields_are_scoped_to_profile() -> None:
         )
     )
 
-    first_fields = first_profile.get_smart_fields_for_note(NOTE_TYPE_ID, 1)
-    second_fields = second_profile.get_smart_fields_for_note(NOTE_TYPE_ID, 1)
+    monkeypatch.setattr(src.utils, "get_current_profile_name", lambda: "Profile 1")
+    first_fields = service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)
+    monkeypatch.setattr(src.utils, "get_current_profile_name", lambda: "Profile 2")
+    second_fields = service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)
 
     assert len(first_fields) == 1
     assert first_fields[0].profile_name == "Profile 1"
@@ -262,9 +267,12 @@ def test_smart_fields_are_scoped_to_profile() -> None:
     assert second_fields[0].settings.prompt_text == "second profile"
 
 
-def test_profile_scoping_applies_to_replacements_and_deletes() -> None:
-    first_profile = SmartFieldService(profile_name="Profile 1")
-    second_profile = SmartFieldService(profile_name="Profile 2")
+def test_profile_scoping_applies_to_replacements_and_deletes(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    import src.utils
+
+    service = SmartFieldService()
     shared_field = SmartFieldCreate(
         note_type_id=NOTE_TYPE_ID,
         deck_id=1,
@@ -278,17 +286,21 @@ def test_profile_scoping_applies_to_replacements_and_deletes() -> None:
         ),
     )
 
-    first_profile.save_smart_field(shared_field)
-    second_profile.save_smart_field(shared_field)
+    monkeypatch.setattr(src.utils, "get_current_profile_name", lambda: "Profile 1")
+    service.save_smart_field(shared_field)
+    monkeypatch.setattr(src.utils, "get_current_profile_name", lambda: "Profile 2")
+    service.save_smart_field(shared_field)
 
-    first_profile.replace_all_smart_fields([])
+    monkeypatch.setattr(src.utils, "get_current_profile_name", lambda: "Profile 1")
+    service.replace_all_smart_fields([])
 
-    assert first_profile.get_smart_fields_for_note(NOTE_TYPE_ID, 1) == []
-    assert len(second_profile.get_smart_fields_for_note(NOTE_TYPE_ID, 1)) == 1
+    assert service.get_smart_fields_for_note(NOTE_TYPE_ID, 1) == []
+    monkeypatch.setattr(src.utils, "get_current_profile_name", lambda: "Profile 2")
+    assert len(service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)) == 1
 
-    second_profile.delete_smart_field(NOTE_TYPE_ID, 1, "Back")
+    service.delete_smart_field(NOTE_TYPE_ID, 1, "Back")
 
-    assert second_profile.get_smart_fields_for_note(NOTE_TYPE_ID, 1) == []
+    assert service.get_smart_fields_for_note(NOTE_TYPE_ID, 1) == []
 
 
 def test_get_chat_defaults_fails_when_seed_row_is_missing() -> None:

@@ -62,23 +62,6 @@ class GenerationDefaults:
     image: ImageGenerationSettings
 
 
-DEFAULT_TEXT_GENERATION_SETTINGS = ChatGenerationSettings(
-    provider="auto",
-    model="auto",
-    reasoning_level="off",
-    web_search_enabled=False,
-)
-DEFAULT_TTS_GENERATION_SETTINGS = TTSGenerationSettings(
-    provider="google",
-    model="standard",
-    voice_id="en-US-Casual-K",
-)
-DEFAULT_IMAGE_GENERATION_SETTINGS = ImageGenerationSettings(
-    provider="openai",
-    model="gpt-image-1.5-low",
-)
-
-
 @dataclass(frozen=True)
 class ChatSmartFieldSettings:
     prompt_text: str

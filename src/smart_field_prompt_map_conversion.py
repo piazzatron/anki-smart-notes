@@ -24,7 +24,14 @@ from anki.decks import DeckId
 
 from . import utils
 from .logger import logger
-from .models import DEFAULT_EXTRAS, FieldExtras, GenerationDefaults, PromptMap
+from .models import (
+    DEFAULT_EXTRAS,
+    ChatModels,
+    ChatProviders,
+    FieldExtras,
+    GenerationDefaults,
+    PromptMap,
+)
 from .models.smart_fields import (
     ChatSmartFieldSettings,
     ImageSmartFieldSettings,
@@ -34,6 +41,7 @@ from .models.smart_fields import (
 )
 
 FIELD_PATTERN = r"\{\{(?!c\d+::)(.+?)\}\}"
+DEPRECATED_CHAT_MODELS_TO_AUTO = {"deepseek-v3", "gpt-4o-mini", "gpt-5-nano"}
 
 
 def smart_field_creates_from_prompt_map(
@@ -86,10 +94,14 @@ def smart_field_settings_from_prompt_parts(
             model=extras.get("image_model") or generation_defaults.image.model,
             uses_default_generation_settings=not extras.get("use_custom_model"),
         )
+    chat_provider, chat_model = normalize_deprecated_chat_generation(
+        extras.get("chat_provider") or generation_defaults.chat.provider,
+        extras.get("chat_model") or generation_defaults.chat.model,
+    )
     return ChatSmartFieldSettings(
         prompt_text=prompt,
-        provider=extras.get("chat_provider") or generation_defaults.chat.provider,
-        model=extras.get("chat_model") or generation_defaults.chat.model,
+        provider=chat_provider,
+        model=chat_model,
         reasoning_level=extras.get("chat_reasoning_level")
         or generation_defaults.chat.reasoning_level,
         web_search_enabled=_bool_option(
@@ -97,6 +109,14 @@ def smart_field_settings_from_prompt_parts(
         ),
         uses_default_generation_settings=not extras.get("use_custom_model"),
     )
+
+
+def normalize_deprecated_chat_generation(
+    provider: ChatProviders, model: object
+) -> tuple[ChatProviders, ChatModels]:
+    if model in DEPRECATED_CHAT_MODELS_TO_AUTO:
+        return "auto", "auto"
+    return provider, cast(ChatModels, model)
 
 
 def source_field_from_tts_prompt(prompt: str) -> str:

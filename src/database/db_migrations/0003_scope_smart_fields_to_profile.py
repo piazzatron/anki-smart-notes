@@ -27,11 +27,12 @@ def _scope_smart_fields_to_profile(conn: sqlite3.Connection) -> None:
     if "profile_name" in columns:
         return
 
+    has_smart_fields = _smart_fields_have_rows(conn)
     conn.execute(
         """
         CREATE TABLE smart_fields_new (
             id TEXT PRIMARY KEY,
-            profile_name TEXT,
+            profile_name TEXT NOT NULL,
             note_type_id INTEGER NOT NULL,
             deck_id INTEGER NOT NULL,
             target_field_name TEXT NOT NULL,
@@ -43,18 +44,22 @@ def _scope_smart_fields_to_profile(conn: sqlite3.Connection) -> None:
         );
         """
     )
-    conn.execute(
-        """
-        INSERT INTO smart_fields_new (
-            id, profile_name, note_type_id, deck_id, target_field_name, field_type,
-            enabled, created_at, updated_at
+    if has_smart_fields:
+        from src import utils
+
+        conn.execute(
+            """
+            INSERT INTO smart_fields_new (
+                id, profile_name, note_type_id, deck_id, target_field_name, field_type,
+                enabled, created_at, updated_at
+            )
+            SELECT
+                id, ?, note_type_id, deck_id, target_field_name, field_type,
+                enabled, created_at, updated_at
+            FROM smart_fields;
+            """,
+            (utils.get_current_profile_name(),),
         )
-        SELECT
-            id, NULL, note_type_id, deck_id, target_field_name, field_type,
-            enabled, created_at, updated_at
-        FROM smart_fields;
-        """
-    )
     conn.execute("DROP TABLE smart_fields;")
     conn.execute("ALTER TABLE smart_fields_new RENAME TO smart_fields;")
 
@@ -104,6 +109,10 @@ def _undo_scope_smart_fields_to_profile(conn: sqlite3.Connection) -> None:
 
 def _smart_field_columns(conn: sqlite3.Connection) -> set[str]:
     return {row[1] for row in conn.execute("PRAGMA table_info(smart_fields)")}
+
+
+def _smart_fields_have_rows(conn: sqlite3.Connection) -> bool:
+    return conn.execute("SELECT 1 FROM smart_fields LIMIT 1").fetchone() is not None
 
 
 steps = [

@@ -67,9 +67,6 @@ from .providers import (
     replicate_image_models,
 )
 from .smart_fields import (
-    DEFAULT_IMAGE_GENERATION_SETTINGS,
-    DEFAULT_TEXT_GENERATION_SETTINGS,
-    DEFAULT_TTS_GENERATION_SETTINGS,
     ChatGenerationSettings,
     ChatSmartFieldSettings,
     GenerationDefaults,
@@ -92,9 +89,6 @@ __all__ = [
     "ChatReasoningLevel",
     "ChatSmartFieldSettings",
     "DEFAULT_EXTRAS",
-    "DEFAULT_IMAGE_GENERATION_SETTINGS",
-    "DEFAULT_TEXT_GENERATION_SETTINGS",
-    "DEFAULT_TTS_GENERATION_SETTINGS",
     "ElevenTTSModels",
     "ElevenVoices",
     "FieldExtras",

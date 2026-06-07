@@ -56,15 +56,11 @@ class FakeConfig:
         return self.addon_config.get(key)
 
 
-def test_run_migrations_applies_schema_before_legacy_config_import(
+def test_run_migrations_applies_all_sql_migrations_before_legacy_config_import(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     calls: list[str] = []
 
-    monkeypatch.setattr(
-        "src.database.migrations.apply_database_bootstrap_migrations",
-        lambda: calls.append("bootstrap"),
-    )
     monkeypatch.setattr(
         "src.database.migrations.apply_database_migrations",
         lambda: calls.append("database"),
@@ -73,22 +69,16 @@ def test_run_migrations_applies_schema_before_legacy_config_import(
         "src.database.migrations.migrate_legacy_config_to_database",
         lambda: calls.append("legacy_config"),
     )
-    monkeypatch.setattr(
-        "src.database.migrations.backfill_smart_field_profile_names",
-        lambda: calls.append("profile_backfill"),
-    )
 
     run_migrations()
 
     assert calls == [
-        "bootstrap",
-        "legacy_config",
         "database",
-        "profile_backfill",
+        "legacy_config",
     ]
 
 
-def test_run_migrations_imports_legacy_config_before_chat_model_data_migration(
+def test_run_migrations_imports_legacy_config_after_sql_migrations(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
 ) -> None:
@@ -205,7 +195,7 @@ def test_run_migrations_updates_inherited_fields_through_sql_default_row(
     assert smart_fields[0].settings.model == "auto"
 
 
-def test_run_migrations_retries_legacy_import_after_profile_scope_migration(
+def test_run_migrations_replaces_stale_legacy_import_after_schema_migrations(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
 ) -> None:
