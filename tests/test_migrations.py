@@ -17,43 +17,14 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from copy import deepcopy
 from pathlib import Path
-from typing import Any, Optional, cast
 
 import pytest
-from anki.decks import DeckId
+from support import DECK_ID, NOTE_TYPE_ID, install_fake_anki, use_temp_sqlite
 
 from src.database.migrations import run_migrations
 from src.models.smart_fields import ChatSmartFieldSettings
 from src.services.smart_field_service import SmartFieldService, smart_field_service
-
-NOTE_TYPE_ID = 123
-DECK_ID = cast(DeckId, 1)
-
-
-class FakeAddonManager:
-    def __init__(self, addon_config: dict[str, Any]) -> None:
-        self.addon_config = addon_config
-        self.written_config: Optional[dict[str, Any]] = None
-
-    def getConfig(self, addon_name: str) -> dict[str, Any]:
-        return self.addon_config
-
-    def writeConfig(self, addon_name: str, addon_config: dict[str, Any]) -> None:
-        self.written_config = deepcopy(addon_config)
-
-
-class FakeConfig:
-    def __init__(self, addon_config: dict[str, Any]) -> None:
-        self.addon_config = addon_config
-
-    @property
-    def did_migrate_smart_fields_to_sqlite(self) -> bool:
-        return bool(self.addon_config.get("did_migrate_smart_fields_to_sqlite"))
-
-    def __getattr__(self, key: str) -> object:
-        return self.addon_config.get(key)
 
 
 def test_run_migrations_applies_schema_before_legacy_config_import(
@@ -83,8 +54,6 @@ def test_run_migrations_imports_legacy_config_before_chat_model_data_migration(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
 ) -> None:
-    import src.database.connection
-
     addon_config = {
         "chat_provider": "openai",
         "chat_model": "gpt-5-nano",
@@ -117,12 +86,13 @@ def test_run_migrations_imports_legacy_config_before_chat_model_data_migration(
         },
         "did_migrate_smart_fields_to_sqlite": False,
     }
-    fake_mw = install_fake_anki(monkeypatch, addon_config, tmp_path)
-    monkeypatch.setattr(
-        src.database.connection,
-        "get_database_path",
-        lambda: str(tmp_path / "smart_notes.sqlite3"),
+    fake_mw = install_fake_anki(
+        monkeypatch,
+        addon_config,
+        tmp_path,
+        show_message_box=lambda *args: None,
     )
+    use_temp_sqlite(monkeypatch, tmp_path)
 
     run_migrations()
 
@@ -144,8 +114,6 @@ def test_run_migrations_updates_inherited_fields_through_sql_default_row(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
 ) -> None:
-    import src.database.connection
-
     addon_config = {
         "chat_provider": "openai",
         "chat_model": "gpt-5-nano",
@@ -178,12 +146,13 @@ def test_run_migrations_updates_inherited_fields_through_sql_default_row(
         },
         "did_migrate_smart_fields_to_sqlite": False,
     }
-    install_fake_anki(monkeypatch, addon_config, tmp_path)
-    monkeypatch.setattr(
-        src.database.connection,
-        "get_database_path",
-        lambda: str(tmp_path / "smart_notes.sqlite3"),
+    install_fake_anki(
+        monkeypatch,
+        addon_config,
+        tmp_path,
+        show_message_box=lambda *args: None,
     )
+    use_temp_sqlite(monkeypatch, tmp_path)
 
     run_migrations()
 
@@ -194,44 +163,3 @@ def test_run_migrations_updates_inherited_fields_through_sql_default_row(
     assert smart_fields[0].settings.uses_default_generation_settings is True
     assert smart_fields[0].settings.provider == "auto"
     assert smart_fields[0].settings.model == "auto"
-
-
-def install_fake_anki(
-    monkeypatch: pytest.MonkeyPatch,
-    addon_config: dict[str, Any],
-    tmp_path: Path,
-) -> Any:
-    import src.database.legacy_config_migration
-    import src.smart_field_prompt_map
-
-    class FakeModels:
-        def by_name(self, note_type: str) -> Optional[dict[str, Any]]:
-            if note_type != "Basic":
-                return None
-            return {"id": NOTE_TYPE_ID}
-
-    class FakeCollection:
-        models = FakeModels()
-
-    class FakeMw:
-        def __init__(self) -> None:
-            self.addonManager = FakeAddonManager(addon_config)
-            self.col = FakeCollection()
-
-    fake_mw = FakeMw()
-    monkeypatch.setattr(src.database.legacy_config_migration, "mw", fake_mw)
-    monkeypatch.setattr(src.smart_field_prompt_map, "mw", fake_mw)
-    monkeypatch.setattr(
-        src.database.legacy_config_migration, "config", FakeConfig(addon_config)
-    )
-    monkeypatch.setattr(
-        src.database.legacy_config_migration,
-        "get_user_files_path",
-        lambda filename: str(tmp_path / "user_files" / filename),
-    )
-    monkeypatch.setattr(
-        src.database.legacy_config_migration,
-        "show_message_box",
-        lambda *args: None,
-    )
-    return fake_mw
