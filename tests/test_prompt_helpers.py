@@ -31,6 +31,9 @@ from attr import dataclass
 class MockNote:
     _data: dict[str, Any]
 
+    def note_type(self):
+        return {"id": 123, "name": "Basic"}
+
     def __getitem__(self, key):
         return self._data[key]
 
@@ -110,6 +113,48 @@ def setup_prompts(monkeypatch, prompts_map):
         lambda: {1: "Default", 2: "Spanish"},
     )
     return c
+
+
+def test_prompt_has_error_returns_tts_source_validation_error(monkeypatch):
+    import src.dag
+    import src.utils
+    from src.dag import prompt_has_error
+    from src.models import (
+        DEFAULT_IMAGE_GENERATION_SETTINGS,
+        DEFAULT_TEXT_GENERATION_SETTINGS,
+        DEFAULT_TTS_GENERATION_SETTINGS,
+        GenerationDefaults,
+    )
+
+    prompts_map = make_prompts_map(
+        "Basic",
+        1,
+        {"Audio": "{{Front}} {{Back}}"},
+        {"Audio": {**make_extras(), "type": "tts"}},
+    )
+    monkeypatch.setattr(
+        src.dag.smart_field_service,
+        "get_generation_defaults",
+        lambda: GenerationDefaults(
+            chat=DEFAULT_TEXT_GENERATION_SETTINGS,
+            tts=DEFAULT_TTS_GENERATION_SETTINGS,
+            image=DEFAULT_IMAGE_GENERATION_SETTINGS,
+        ),
+    )
+    monkeypatch.setattr(src.utils, "get_current_profile_name", lambda: "__test__")
+    monkeypatch.setattr(src.dag, "get_fields", lambda _: ["Front", "Back", "Audio"])
+
+    error = prompt_has_error(
+        "{{Front}}",
+        MockNote({"Front": "front", "Back": "back", "Audio": ""}),
+        1,
+        prompts_map=prompts_map,
+    )
+
+    assert (
+        error
+        == "TTS smart fields must have exactly one source field, got: {{Front}} {{Back}}"
+    )
 
 
 @pytest.mark.parametrize(

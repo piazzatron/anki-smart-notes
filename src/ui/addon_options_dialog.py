@@ -69,8 +69,7 @@ from ..services.smart_field_service import smart_field_service
 from ..smart_field_prompt_map import list_prompt_map, replace_from_prompt_map
 from ..tasks import run_async_in_background
 from ..telemetry import track_event
-from ..utils import get_fields, get_version
-from ..utils.notes_utils import get_note_type_id_from_name
+from ..utils import get_fields, get_note_type_id_from_name, get_version
 from .account_options import AccountOptions
 from .chat_options import ChatOptions, models_map as chat_models_display
 from .image_options import ImageOptions, image_models_display

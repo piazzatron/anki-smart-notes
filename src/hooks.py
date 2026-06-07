@@ -277,14 +277,35 @@ def _stamp_version_and_show_first_load_window(processor: NoteProcessor) -> None:
         logger.error(f"Error checking for updates: {e}")
 
 
+def _start_profile_runtime(processor: NoteProcessor) -> None:
+    if not mw:
+        return
+
+    global _local_server
+    global _review_time_evaluator
+    if _local_server is not None and _review_time_evaluator is not None:
+        return
+
+    setup_logger()
+    run_migrations()
+    _on_start_actions()
+
+    if _review_time_evaluator is None:
+        _review_time_evaluator = ReviewTimeEvaluator(processor)
+
+    if _local_server is None:
+        from .local_server import LocalServer
+
+        _local_server = LocalServer(processor)
+        _local_server.start()
+
+
 @_with_processor  # type: ignore
 def on_main_window(processor: NoteProcessor):
     if not mw:
         return
 
-    # Setup logger as first thing
-    setup_logger()
-    run_migrations()
+    _start_profile_runtime(processor)
 
     # Add options to Anki Menu
     options_action = QAction("Smart Notes", mw)
@@ -293,18 +314,13 @@ def on_main_window(processor: NoteProcessor):
     mw.form.menuTools.addAction(options_action)
     mw.addonManager.setConfigAction(__name__, on_options(processor))
 
-    _on_start_actions()
     # Show either the first load window or the changelog if it's a new version
     _stamp_version_and_show_first_load_window(processor)
 
-    from .local_server import LocalServer
 
-    global _review_time_evaluator
-    _review_time_evaluator = ReviewTimeEvaluator(processor)
-
-    global _local_server
-    _local_server = LocalServer(processor)
-    _local_server.start()
+@_with_processor  # type: ignore
+def on_profile_did_open(processor: NoteProcessor) -> None:
+    _start_profile_runtime(processor)
 
 
 @_with_processor  # type: ignore
@@ -454,4 +470,5 @@ def setup_hooks(processor: NoteProcessor):
         lambda *_: evaluate_review_time_generation()
     )
     gui_hooks.main_window_did_init.append(on_main_window(processor))
+    gui_hooks.profile_did_open.append(on_profile_did_open(processor))
     gui_hooks.profile_will_close.append(cleanup)

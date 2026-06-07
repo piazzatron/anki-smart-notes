@@ -19,6 +19,15 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
 
+import pytest
+
 os.environ["IS_TEST"] = "True"
 
 import src.app_state as _  # noqa: E402, F401
+
+
+@pytest.fixture(autouse=True)
+def current_profile_name(monkeypatch: pytest.MonkeyPatch) -> None:
+    import src.utils
+
+    monkeypatch.setattr(src.utils, "get_current_profile_name", lambda: "__test__")

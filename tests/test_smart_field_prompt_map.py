@@ -52,6 +52,8 @@ def sqlite_database(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
 @pytest.fixture(autouse=True)
 def anki_collection(monkeypatch: pytest.MonkeyPatch) -> None:
     import src.smart_field_prompt_map
+    import src.utils
+    import src.utils.notes_utils
 
     class FakeModels:
         def by_name(self, note_type: str) -> Optional[dict[str, Any]]:
@@ -66,6 +68,8 @@ def anki_collection(monkeypatch: pytest.MonkeyPatch) -> None:
         col = FakeCollection()
 
     monkeypatch.setattr(src.smart_field_prompt_map, "mw", FakeMw())
+    monkeypatch.setattr(src.utils, "mw", FakeMw())
+    monkeypatch.setattr(src.utils.notes_utils, "mw", FakeMw())
 
 
 def test_replace_from_prompt_map_does_not_delete_existing_fields_if_conversion_fails() -> (

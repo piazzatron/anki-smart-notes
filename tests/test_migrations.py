@@ -70,10 +70,6 @@ def test_run_migrations_applies_schema_before_legacy_config_import(
         lambda: calls.append("database"),
     )
     monkeypatch.setattr(
-        "src.database.migrations.apply_database_profile_scope_migration",
-        lambda: calls.append("profile_scope"),
-    )
-    monkeypatch.setattr(
         "src.database.migrations.migrate_legacy_config_to_database",
         lambda: calls.append("legacy_config"),
     )
@@ -86,8 +82,6 @@ def test_run_migrations_applies_schema_before_legacy_config_import(
 
     assert calls == [
         "bootstrap",
-        "profile_scope",
-        "profile_backfill",
         "legacy_config",
         "database",
         "profile_backfill",
@@ -298,6 +292,7 @@ def install_fake_anki(
 ) -> Any:
     import src.database.legacy_config_migration
     import src.smart_field_prompt_map
+    import src.utils
 
     class FakeModels:
         def by_name(self, note_type: str) -> Optional[dict[str, Any]]:
@@ -316,6 +311,7 @@ def install_fake_anki(
     fake_mw = FakeMw()
     monkeypatch.setattr(src.database.legacy_config_migration, "mw", fake_mw)
     monkeypatch.setattr(src.smart_field_prompt_map, "mw", fake_mw)
+    monkeypatch.setattr(src.utils, "mw", fake_mw)
     monkeypatch.setattr(
         src.database.legacy_config_migration, "config", FakeConfig(addon_config)
     )

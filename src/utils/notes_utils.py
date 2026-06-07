@@ -31,7 +31,7 @@ from ..models.smart_fields import ChatSmartFieldSettings
 from ..prompt_helpers import get_prompt_fields
 from ..services.smart_field_service import smart_field_service
 from ..ui.ui_utils import show_message_box
-from . import get_fields
+from . import get_fields, get_note_type_id_from_name
 
 """Helpful functions for working with notes"""
 
@@ -50,15 +50,6 @@ def get_note_type_id(note: Note) -> int:
     if not t:
         raise Exception("Note type not found")
     return int(t["id"])
-
-
-def get_note_type_id_from_name(note_type: str) -> Optional[int]:
-    if not mw or not mw.col:
-        return None
-    model = mw.col.models.by_name(note_type)
-    if not model:
-        return None
-    return int(model["id"])
 
 
 def get_note_types() -> list[str]:

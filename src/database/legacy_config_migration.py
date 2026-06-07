@@ -18,10 +18,12 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import json
+import sqlite3
 from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import cast
+from uuid import uuid4
 
 from aqt import mw
 
@@ -29,27 +31,33 @@ from .. import config as config_module
 from ..config import config
 from ..logger import logger
 from ..models import (
+    DEFAULT_IMAGE_GENERATION_SETTINGS,
+    DEFAULT_TEXT_GENERATION_SETTINGS,
+    DEFAULT_TTS_GENERATION_SETTINGS,
     ChatGenerationSettings,
     ChatModels,
     ChatProviders,
     ChatReasoningLevel,
+    GenerationDefaults,
     ImageGenerationSettings,
     ImageModels,
     ImageProviders,
     PromptMap,
+    SmartFieldCreate,
     TTSGenerationSettings,
     TTSModels,
     TTSProviders,
 )
-from ..services.smart_field_service import (
-    DEFAULT_IMAGE_GENERATION_SETTINGS,
-    DEFAULT_TEXT_GENERATION_SETTINGS,
-    DEFAULT_TTS_GENERATION_SETTINGS,
-    smart_field_service,
-)
-from ..smart_field_prompt_map import replace_from_prompt_map
+from ..smart_field_prompt_map_conversion import smart_field_creates_from_prompt_map
 from ..ui.ui_utils import show_message_box
+from . import connection
 from .connection import get_user_files_path
+from .smart_field_persistence import (
+    insert_smart_field_settings,
+    upsert_chat_generation_defaults,
+    upsert_image_generation_defaults,
+    upsert_tts_generation_defaults,
+)
 
 GENERATION_DEFAULT_CONFIG_KEYS = (
     "chat_provider",
@@ -85,7 +93,7 @@ def migrate_legacy_config_to_database() -> None:
 
         # Import generation defaults first so inherited Smart Field rows can
         # point at SQL default rows as soon as they are created.
-        _migrate_legacy_generation_defaults_config(addon_config)
+        generation_defaults = _migrate_legacy_generation_defaults_config(addon_config)
 
         # Snapshot the legacy prompt map before the final cleanup removes it
         # from config.json.
@@ -102,7 +110,7 @@ def migrate_legacy_config_to_database() -> None:
 
         # Import Smart Fields after generation defaults so fields using default
         # settings inherit from the SQL rows instead of config.json.
-        replace_from_prompt_map(legacy_prompt_map)
+        _migrate_legacy_prompt_map(legacy_prompt_map, generation_defaults)
 
         # Delete legacy config keys only after both SQL imports have succeeded.
         _finish_legacy_config_migration(addon_config)
@@ -150,7 +158,9 @@ def _backup_config_for_sqlite_migration(addon_config: dict[str, object]) -> None
     logger.info(f"Legacy config DB migration: backed up config to {backup_path}")
 
 
-def _migrate_legacy_generation_defaults_config(addon_config: dict[str, object]) -> None:
+def _migrate_legacy_generation_defaults_config(
+    addon_config: dict[str, object],
+) -> GenerationDefaults:
     # Global generation defaults used to live in config.json while Smart Fields
     # lived in prompts_map. Import the defaults into SQL before importing fields
     # so any non-custom field rows can point at these rows immediately. Model
@@ -161,8 +171,8 @@ def _migrate_legacy_generation_defaults_config(addon_config: dict[str, object]) 
     if chat_reasoning_level not in {"off", "low", "high"}:
         chat_reasoning_level = DEFAULT_TEXT_GENERATION_SETTINGS.reasoning_level
 
-    smart_field_service.save_chat_defaults(
-        ChatGenerationSettings(
+    generation_defaults = GenerationDefaults(
+        chat=ChatGenerationSettings(
             provider=cast(
                 ChatProviders,
                 addon_config.get("chat_provider")
@@ -179,10 +189,8 @@ def _migrate_legacy_generation_defaults_config(addon_config: dict[str, object]) 
                 if addon_config.get("chat_web_search") is not None
                 else DEFAULT_TEXT_GENERATION_SETTINGS.web_search_enabled
             ),
-        )
-    )
-    smart_field_service.save_tts_defaults(
-        TTSGenerationSettings(
+        ),
+        tts=TTSGenerationSettings(
             provider=cast(
                 TTSProviders,
                 addon_config.get("tts_provider")
@@ -196,10 +204,8 @@ def _migrate_legacy_generation_defaults_config(addon_config: dict[str, object]) 
                 addon_config.get("tts_voice")
                 or DEFAULT_TTS_GENERATION_SETTINGS.voice_id
             ),
-        )
-    )
-    smart_field_service.save_image_defaults(
-        ImageGenerationSettings(
+        ),
+        image=ImageGenerationSettings(
             provider=cast(
                 ImageProviders,
                 addon_config.get("image_provider")
@@ -210,8 +216,55 @@ def _migrate_legacy_generation_defaults_config(addon_config: dict[str, object]) 
                 addon_config.get("image_model")
                 or DEFAULT_IMAGE_GENERATION_SETTINGS.model,
             ),
-        )
+        ),
     )
+
+    with connection.open_database() as conn:
+        upsert_chat_generation_defaults(conn, generation_defaults.chat)
+        upsert_tts_generation_defaults(conn, generation_defaults.tts)
+        upsert_image_generation_defaults(conn, generation_defaults.image)
+
+    return generation_defaults
+
+
+def _migrate_legacy_prompt_map(
+    prompt_map: PromptMap, generation_defaults: GenerationDefaults
+) -> None:
+    smart_fields = smart_field_creates_from_prompt_map(prompt_map, generation_defaults)
+
+    with connection.open_database() as conn:
+        conn.execute("DELETE FROM smart_fields")
+        for smart_field in smart_fields:
+            _insert_legacy_smart_field(conn, smart_field)
+
+
+def _insert_legacy_smart_field(
+    conn: sqlite3.Connection, smart_field: SmartFieldCreate
+) -> None:
+    smart_field_id = str(uuid4())
+    now = datetime.now(timezone.utc).isoformat()
+    # The legacy import runs against the bootstrap schema, before the
+    # profile_name column exists. Later SQL migrations add and backfill it.
+    conn.execute(
+        """
+        INSERT INTO smart_fields (
+            id, note_type_id, deck_id, target_field_name, field_type,
+            enabled, created_at, updated_at
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            smart_field_id,
+            smart_field.note_type_id,
+            int(smart_field.deck_id),
+            smart_field.target_field_name,
+            smart_field.field_type,
+            int(smart_field.enabled),
+            now,
+            now,
+        ),
+    )
+    insert_smart_field_settings(conn, smart_field_id, smart_field.settings)
 
 
 def _finish_legacy_config_migration(addon_config: dict[str, object]) -> None:

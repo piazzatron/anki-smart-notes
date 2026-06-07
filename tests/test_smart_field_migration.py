@@ -18,6 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import json
+import sqlite3
 from copy import deepcopy
 from pathlib import Path
 from typing import Any, Optional, cast
@@ -26,10 +27,8 @@ import pytest
 from anki.decks import DeckId
 
 from src.database.legacy_config_migration import migrate_legacy_config_to_database
-from src.database.migrations import apply_database_migrations
+from src.database.migrations import apply_database_bootstrap_migrations
 from src.models import DEFAULT_EXTRAS, FieldExtras
-from src.models.smart_fields import ChatSmartFieldSettings
-from src.services.smart_field_service import SmartFieldService
 
 NOTE_TYPE_ID = 123
 DECK_ID = cast(DeckId, 1)
@@ -76,7 +75,7 @@ def sqlite_database(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         "get_database_path",
         lambda: str(tmp_path / "smart_notes.sqlite3"),
     )
-    apply_database_migrations()
+    apply_database_bootstrap_migrations()
 
 
 def test_migrate_legacy_smart_field_config_imports_prompts_and_cleans_config(
@@ -105,17 +104,16 @@ def test_migrate_legacy_smart_field_config_imports_prompts_and_cleans_config(
 
     migrate_legacy_config_to_database()
 
-    smart_fields = SmartFieldService().get_smart_fields_for_note(NOTE_TYPE_ID, DECK_ID)
+    smart_fields = fetch_legacy_text_smart_fields()
     backup_files = list(
         (tmp_path / "user_files").glob("config_backup_before_sqlite_*.json")
     )
 
     assert len(smart_fields) == 1
-    assert smart_fields[0].target_field_name == "Back"
-    assert isinstance(smart_fields[0].settings, ChatSmartFieldSettings)
-    assert smart_fields[0].settings.prompt_text == "{{Front}}"
-    assert smart_fields[0].settings.provider == "auto"
-    assert smart_fields[0].settings.model == "auto"
+    assert smart_fields[0]["target_field_name"] == "Back"
+    assert smart_fields[0]["prompt_text"] == "{{Front}}"
+    assert smart_fields[0]["provider"] == "auto"
+    assert smart_fields[0]["model"] == "auto"
     assert len(backup_files) == 1
     assert json.loads(backup_files[0].read_text(encoding="utf-8")) == expected_backup
     assert fake_mw.addonManager.written_config is not None
@@ -159,15 +157,14 @@ def test_migrate_legacy_smart_field_config_skips_missing_note_types(
 
     migrate_legacy_config_to_database()
 
-    smart_fields = SmartFieldService().get_smart_fields_for_note(NOTE_TYPE_ID, DECK_ID)
+    smart_fields = fetch_legacy_text_smart_fields()
     backup_files = list(
         (tmp_path / "user_files").glob("config_backup_before_sqlite_*.json")
     )
 
     assert len(smart_fields) == 1
-    assert smart_fields[0].target_field_name == "Back"
-    assert isinstance(smart_fields[0].settings, ChatSmartFieldSettings)
-    assert smart_fields[0].settings.prompt_text == "{{Front}}"
+    assert smart_fields[0]["target_field_name"] == "Back"
+    assert smart_fields[0]["prompt_text"] == "{{Front}}"
     assert len(backup_files) == 1
     assert json.loads(backup_files[0].read_text(encoding="utf-8")) == expected_backup
     assert fake_mw.addonManager.written_config is not None
@@ -241,6 +238,8 @@ def install_fake_anki(
 ) -> Any:
     import src.database.legacy_config_migration
     import src.smart_field_prompt_map
+    import src.utils
+    import src.utils.notes_utils
 
     class FakeModels:
         def by_name(self, note_type: str) -> Optional[dict[str, Any]]:
@@ -259,6 +258,8 @@ def install_fake_anki(
     fake_mw = FakeMw()
     monkeypatch.setattr(src.database.legacy_config_migration, "mw", fake_mw)
     monkeypatch.setattr(src.smart_field_prompt_map, "mw", fake_mw)
+    monkeypatch.setattr(src.utils, "mw", fake_mw)
+    monkeypatch.setattr(src.utils.notes_utils, "mw", fake_mw)
     monkeypatch.setattr(
         src.database.legacy_config_migration, "config", FakeConfig(addon_config)
     )
@@ -268,6 +269,26 @@ def install_fake_anki(
         lambda filename: str(tmp_path / "user_files" / filename),
     )
     return fake_mw
+
+
+def fetch_legacy_text_smart_fields() -> list[sqlite3.Row]:
+    import src.database.connection
+
+    with src.database.connection.open_database() as conn:
+        return list(
+            conn.execute(
+                """
+                SELECT
+                    sf.target_field_name,
+                    text.prompt_text,
+                    text.provider,
+                    text.model
+                FROM smart_fields sf
+                JOIN text_smart_field_settings text ON text.smart_field_id = sf.id
+                ORDER BY sf.target_field_name
+                """
+            ).fetchall()
+        )
 
 
 def install_migration_alert(

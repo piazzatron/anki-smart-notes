@@ -17,23 +17,29 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import os
 import sqlite3
 from datetime import datetime, timezone
 from typing import Optional, cast
 from uuid import uuid4
 
-import aqt
 from anki.decks import DeckId
 
+from .. import utils
 from ..constants import GLOBAL_DECK_ID
 from ..database.connection import open_database
+from ..database.smart_field_persistence import (
+    insert_smart_field_settings,
+    upsert_chat_generation_defaults,
+    upsert_image_generation_defaults,
+    upsert_tts_generation_defaults,
+)
 from ..logger import logger
 from ..models import (
     ChatGenerationSettings,
     ChatModels,
     ChatProviders,
     ChatReasoningLevel,
+    GenerationDefaults,
     ImageGenerationSettings,
     ImageModels,
     ImageProviders,
@@ -43,6 +49,9 @@ from ..models import (
     TTSProviders,
 )
 from ..models.smart_fields import (
+    DEFAULT_IMAGE_GENERATION_SETTINGS,
+    DEFAULT_TEXT_GENERATION_SETTINGS,
+    DEFAULT_TTS_GENERATION_SETTINGS,
     ChatSmartFieldSettings,
     ImageSmartFieldSettings,
     SmartField,
@@ -50,23 +59,6 @@ from ..models.smart_fields import (
     SmartFieldSettings,
     TTSSmartFieldSettings,
 )
-
-DEFAULT_TEXT_GENERATION_SETTINGS = ChatGenerationSettings(
-    provider="auto",
-    model="auto",
-    reasoning_level="off",
-    web_search_enabled=False,
-)
-DEFAULT_TTS_GENERATION_SETTINGS = TTSGenerationSettings(
-    provider="google",
-    model="standard",
-    voice_id="en-US-Casual-K",
-)
-DEFAULT_IMAGE_GENERATION_SETTINGS = ImageGenerationSettings(
-    provider="openai",
-    model="gpt-image-1.5-low",
-)
-TEST_PROFILE_NAME = "__test__"
 
 
 class SmartFieldService:
@@ -90,26 +82,7 @@ class SmartFieldService:
 
     def save_chat_defaults(self, settings: ChatGenerationSettings) -> None:
         with open_database() as conn:
-            conn.execute(
-                """
-                INSERT INTO default_text_generation_settings (
-                    id, provider, model, reasoning_level, web_search_enabled
-                )
-                VALUES (1, ?, ?, ?, ?)
-                ON CONFLICT(id) DO UPDATE SET
-                    provider = excluded.provider,
-                    model = excluded.model,
-                    reasoning_level = excluded.reasoning_level,
-                    web_search_enabled = excluded.web_search_enabled
-                """,
-                (
-                    settings.provider,
-                    settings.model,
-                    settings.reasoning_level,
-                    int(settings.web_search_enabled),
-                ),
-            )
-            conn.commit()
+            upsert_chat_generation_defaults(conn, settings)
 
     def get_tts_defaults(self) -> TTSGenerationSettings:
         with open_database() as conn:
@@ -126,20 +99,7 @@ class SmartFieldService:
 
     def save_tts_defaults(self, settings: TTSGenerationSettings) -> None:
         with open_database() as conn:
-            conn.execute(
-                """
-                INSERT INTO default_tts_generation_settings (
-                    id, provider, model, voice_id
-                )
-                VALUES (1, ?, ?, ?)
-                ON CONFLICT(id) DO UPDATE SET
-                    provider = excluded.provider,
-                    model = excluded.model,
-                    voice_id = excluded.voice_id
-                """,
-                (settings.provider, settings.model, settings.voice_id),
-            )
-            conn.commit()
+            upsert_tts_generation_defaults(conn, settings)
 
     def get_image_defaults(self) -> ImageGenerationSettings:
         with open_database() as conn:
@@ -156,24 +116,19 @@ class SmartFieldService:
 
     def save_image_defaults(self, settings: ImageGenerationSettings) -> None:
         with open_database() as conn:
-            conn.execute(
-                """
-                INSERT INTO default_image_generation_settings (
-                    id, provider, model
-                )
-                VALUES (1, ?, ?)
-                ON CONFLICT(id) DO UPDATE SET
-                    provider = excluded.provider,
-                    model = excluded.model
-                """,
-                (settings.provider, settings.model),
-            )
-            conn.commit()
+            upsert_image_generation_defaults(conn, settings)
 
     def restore_generation_defaults(self) -> None:
         self.save_chat_defaults(DEFAULT_TEXT_GENERATION_SETTINGS)
         self.save_tts_defaults(DEFAULT_TTS_GENERATION_SETTINGS)
         self.save_image_defaults(DEFAULT_IMAGE_GENERATION_SETTINGS)
+
+    def get_generation_defaults(self) -> GenerationDefaults:
+        return GenerationDefaults(
+            chat=self.get_chat_defaults(),
+            tts=self.get_tts_defaults(),
+            image=self.get_image_defaults(),
+        )
 
     def get_smart_fields_for_note(
         self,
@@ -203,11 +158,9 @@ class SmartFieldService:
     def get_all_smart_fields(self) -> list[SmartField]:
         profile_name = self._get_profile_name()
         logger.debug(f"Smart fields DB: loading all fields for profile={profile_name}")
-        self.get_chat_defaults()
-        self.get_tts_defaults()
-        self.get_image_defaults()
 
         with open_database() as conn:
+            _ensure_generation_defaults_exist(conn)
             rows = conn.execute(
                 """
                 SELECT
@@ -256,7 +209,6 @@ class SmartFieldService:
         )
         with open_database() as conn:
             smart_field_id = self._save_smart_field(conn, smart_field, profile_name)
-            conn.commit()
         logger.debug(f"Smart fields DB: saved smart_field_id={smart_field_id}")
 
     def replace_all_smart_fields(self, smart_fields: list[SmartFieldCreate]) -> None:
@@ -271,7 +223,6 @@ class SmartFieldService:
             )
             for smart_field in smart_fields:
                 self._save_smart_field(conn, smart_field, profile_name)
-            conn.commit()
 
     def delete_smart_field(
         self, note_type_id: int, deck_id: DeckId, target_field: str
@@ -292,7 +243,6 @@ class SmartFieldService:
                 """,
                 (profile_name, note_type_id, int(deck_id), target_field),
             )
-            conn.commit()
 
     def _save_smart_field(
         self,
@@ -348,90 +298,14 @@ class SmartFieldService:
                 ),
             )
 
-        self._insert_settings(conn, smart_field_id, smart_field.settings)
+        insert_smart_field_settings(conn, smart_field_id, smart_field.settings)
         return smart_field_id
 
-    def _insert_settings(
-        self,
-        conn: sqlite3.Connection,
-        smart_field_id: str,
-        settings: SmartFieldSettings,
-    ) -> None:
-        if isinstance(settings, ChatSmartFieldSettings):
-            conn.execute(
-                """
-                INSERT INTO text_smart_field_settings (
-                    smart_field_id, prompt_text, uses_default_generation_settings,
-                    provider, model, reasoning_level, web_search_enabled
-                )
-                VALUES (?, ?, ?, ?, ?, ?, ?)
-                """,
-                (
-                    smart_field_id,
-                    settings.prompt_text,
-                    int(settings.uses_default_generation_settings),
-                    None
-                    if settings.uses_default_generation_settings
-                    else settings.provider,
-                    None
-                    if settings.uses_default_generation_settings
-                    else settings.model,
-                    None
-                    if settings.uses_default_generation_settings
-                    else settings.reasoning_level,
-                    None
-                    if settings.uses_default_generation_settings
-                    else int(settings.web_search_enabled),
-                ),
-            )
-            return
-
-        if isinstance(settings, TTSSmartFieldSettings):
-            conn.execute(
-                """
-                INSERT INTO tts_smart_field_settings (
-                    smart_field_id, source_field_name, uses_default_generation_settings,
-                    provider, model, voice_id
-                )
-                VALUES (?, ?, ?, ?, ?, ?)
-                """,
-                (
-                    smart_field_id,
-                    settings.source_field_name,
-                    int(settings.uses_default_generation_settings),
-                    None
-                    if settings.uses_default_generation_settings
-                    else settings.provider,
-                    None
-                    if settings.uses_default_generation_settings
-                    else settings.model,
-                    None
-                    if settings.uses_default_generation_settings
-                    else settings.voice_id,
-                ),
-            )
-            return
-
-        conn.execute(
-            """
-            INSERT INTO image_smart_field_settings (
-                smart_field_id, prompt_text, uses_default_generation_settings,
-                provider, model
-            )
-            VALUES (?, ?, ?, ?, ?)
-            """,
-            (
-                smart_field_id,
-                settings.prompt_text,
-                int(settings.uses_default_generation_settings),
-                None
-                if settings.uses_default_generation_settings
-                else settings.provider,
-                None if settings.uses_default_generation_settings else settings.model,
-            ),
-        )
-
     def _smart_field_from_row(self, row: sqlite3.Row) -> SmartField:
+        profile_name = row["profile_name"]
+        if profile_name is None:
+            raise RuntimeError("Smart Field row is missing profile_name")
+
         field_type = cast(SmartFieldType, row["field_type"])
         if field_type == "chat":
             settings: SmartFieldSettings = ChatSmartFieldSettings(
@@ -460,7 +334,7 @@ class SmartFieldService:
 
         return SmartField(
             id=cast(str, row["id"]),
-            profile_name=cast(str, row["profile_name"]),
+            profile_name=cast(str, profile_name),
             note_type_id=int(row["note_type_id"]),
             deck_id=cast(DeckId, int(row["deck_id"])),
             target_field_name=cast(str, row["target_field_name"]),
@@ -508,19 +382,7 @@ class SmartFieldService:
     def _get_profile_name(self) -> str:
         if self._profile_name:
             return self._profile_name
-        return get_current_profile_name()
-
-
-def get_current_profile_name() -> str:
-    if os.getenv("IS_TEST"):
-        return TEST_PROFILE_NAME
-
-    if not aqt.mw or not aqt.mw.pm or not aqt.mw.pm.name:
-        raise RuntimeError(
-            "Cannot access Smart Fields because Anki profile is unavailable"
-        )
-
-    return str(aqt.mw.pm.name)
+        return utils.get_current_profile_name()
 
 
 def _chat_generation_settings_from_row(row: sqlite3.Row) -> ChatGenerationSettings:
@@ -545,6 +407,27 @@ def _image_generation_settings_from_row(row: sqlite3.Row) -> ImageGenerationSett
         provider=cast(ImageProviders, row["provider"]),
         model=cast(ImageModels, row["model"]),
     )
+
+
+def _ensure_generation_defaults_exist(conn: sqlite3.Connection) -> None:
+    row = conn.execute(
+        """
+        SELECT
+            EXISTS(SELECT 1 FROM default_text_generation_settings WHERE id = 1)
+                AS text_defaults_exist,
+            EXISTS(SELECT 1 FROM default_tts_generation_settings WHERE id = 1)
+                AS tts_defaults_exist,
+            EXISTS(SELECT 1 FROM default_image_generation_settings WHERE id = 1)
+                AS image_defaults_exist
+        """
+    ).fetchone()
+
+    if not row["text_defaults_exist"]:
+        raise RuntimeError("Missing default text generation settings row")
+    if not row["tts_defaults_exist"]:
+        raise RuntimeError("Missing default TTS generation settings row")
+    if not row["image_defaults_exist"]:
+        raise RuntimeError("Missing default image generation settings row")
 
 
 smart_field_service = SmartFieldService()
