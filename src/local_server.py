@@ -602,19 +602,26 @@ class LocalServer:
         did_map: dict[NoteId, DeckId] = {}
         raw_deck = params.get("deckId")
         for nid in note_ids:
+            try:
+                note = mw.col.get_note(nid)
+            except Exception:
+                return _err(f"Note {nid} not found")
+
             if raw_deck is not None:
                 did_map[nid] = cast(DeckId, int(raw_deck))
             else:
-                note = mw.col.get_note(nid)
                 cards = note.cards()
-                if cards:
-                    did_map[nid] = cards[0].did
+                if not cards:
+                    return _err(f"No cards found for note {nid}")
+                did_map[nid] = cards[0].did
 
         (
             updated_notes,
             failed_notes,
             skipped_notes,
-        ) = await self._processor._process_notes_batch(  # type: ignore
+            _hit_out_of_credits,
+            _processed_count,
+        ) = await self._processor._process_notes_worker_pool(  # type: ignore
             note_ids,
             overwrite_fields=overwrite,
             did_map=did_map,
@@ -630,6 +637,10 @@ class LocalServer:
             "failed": [n.id for n in failed_notes],
             "skipped": [n.id for n in skipped_notes],
         }
+
+        if _hit_out_of_credits:
+            return {"result": result, "error": "Out of credits"}
+
         return _ok(result)
 
     async def _handle_ui_edit_smart_field(self, params: dict[str, Any]) -> ApiResponse:

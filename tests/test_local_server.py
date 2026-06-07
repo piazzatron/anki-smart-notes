@@ -20,7 +20,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 from typing import Any
-from unittest.mock import MagicMock
+from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 from aiohttp import web
@@ -392,6 +392,111 @@ async def test_generate_notes_no_collection(monkeypatch):
     async with TestClient(TestServer(_make_app())) as client:
         data = await _post(client, make_request("generateNotes", {"noteIds": [1, 2]}))
         assert data["error"] == "Anki collection not available"
+
+
+@pytest.mark.asyncio
+async def test_generate_notes_validates_deck_mapping_before_worker_pool(monkeypatch):
+    import src.local_server
+    from src.local_server import LocalServer
+
+    note_with_card = MagicMock(id=1)
+    note_with_card.cards.return_value = [MagicMock(did=10)]
+    note_without_cards = MagicMock(id=2)
+    note_without_cards.cards.return_value = []
+
+    processor = MagicMock()
+    processor._process_notes_worker_pool = AsyncMock()
+
+    fake_mw = MagicMock()
+    fake_mw.col.get_note.side_effect = {
+        1: note_with_card,
+        2: note_without_cards,
+    }.__getitem__
+
+    monkeypatch.setattr(src.local_server, "mw", fake_mw)
+
+    data = await LocalServer(processor)._handle_generate_notes({"noteIds": [1, 2]})
+
+    assert data == {"result": None, "error": "No cards found for note 2"}
+    processor._process_notes_worker_pool.assert_not_called()
+
+
+@pytest.mark.asyncio
+async def test_generate_notes_returns_error_when_batch_hits_out_of_credits(
+    monkeypatch,
+):
+    import src.local_server
+    from src.local_server import LocalServer
+
+    note = MagicMock(id=1)
+    processor = MagicMock()
+    processor._process_notes_worker_pool = AsyncMock(
+        return_value=([note], [], [], True, 1)
+    )
+    processor._process_notes_batch = AsyncMock(
+        side_effect=AssertionError("generateNotes should use the worker pool")
+    )
+
+    fake_mw = MagicMock()
+    fake_mw.col.update_notes = MagicMock()
+
+    monkeypatch.setattr(src.local_server, "mw", fake_mw)
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+
+    data = await LocalServer(processor)._handle_generate_notes(
+        {"noteIds": [1], "deckId": 1}
+    )
+
+    assert data == {
+        "result": {"updated": [1], "failed": [], "skipped": []},
+        "error": "Out of credits",
+    }
+    fake_mw.col.update_notes.assert_called_once_with([note])
+    processor._process_notes_worker_pool.assert_awaited_once_with(
+        [1],
+        overwrite_fields=False,
+        did_map={1: 1},
+    )
+    processor._process_notes_batch.assert_not_called()
+
+
+@pytest.mark.asyncio
+async def test_generate_notes_ignores_stale_manual_cancellation(monkeypatch):
+    import src.local_server
+    from src.local_server import LocalServer
+    from src.note_proccessor import NoteProcessor
+
+    note = MagicMock(id=1)
+    processor = NoteProcessor(  # type: ignore
+        field_resolver=None,
+        config=MagicMock(),
+    )
+    processor._cancelled.set()
+
+    fake_mw = MagicMock()
+    fake_mw.col.get_note.return_value = note
+    fake_mw.col.update_notes = MagicMock()
+
+    async def process_note(note, deck_id, overwrite_fields, should_cancel, **kwargs):
+        assert should_cancel() is False
+        return True
+
+    monkeypatch.setattr(src.local_server, "mw", fake_mw)
+    monkeypatch.setattr("src.note_proccessor.mw", fake_mw)
+    monkeypatch.setattr("src.note_proccessor.get_note_type_id", lambda note: 123)
+    monkeypatch.setattr(
+        "src.note_proccessor.smart_field_service.get_smart_fields_for_note",
+        lambda *args, **kwargs: [object()],
+    )
+    monkeypatch.setattr(processor, "process_note", process_note)
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+
+    data = await LocalServer(processor)._handle_generate_notes(
+        {"noteIds": [1], "deckId": 1}
+    )
+
+    assert data == _ok({"updated": [1], "failed": [], "skipped": []})
+    fake_mw.col.update_notes.assert_called_once_with([note])
 
 
 # -- /auth/callback --

@@ -19,6 +19,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import asyncio
 from typing import Any
 
 import pytest
@@ -591,6 +592,396 @@ def test_process_cards_with_progress_noops_during_batch(monkeypatch):
 
     assert calls == []
     assert processor.batch_in_progress
+
+
+@pytest.mark.asyncio
+async def test_process_cards_with_progress_uses_worker_pool(monkeypatch):
+    import src.note_proccessor
+    from src.note_proccessor import NoteProcessor
+
+    class MockBatchNote:
+        def __init__(self, note_id):
+            self.id = note_id
+
+        def note_type(self):
+            return {"name": NOTE_TYPE_NAME, "id": NOTE_TYPE_ID}
+
+    class MockCard:
+        def __init__(self, card_id):
+            self.nid = card_id
+            self.did = 1
+
+    class MockCollection:
+        def get_card(self, card_id):
+            return MockCard(card_id)
+
+        def get_note(self, note_id):
+            return MockBatchNote(note_id)
+
+        def update_notes(self, notes):
+            pass
+
+    class MockProgress:
+        def start(self, **kwargs):
+            pass
+
+        def update(self, **kwargs):
+            pass
+
+        def finish(self):
+            pass
+
+        def want_cancel(self):
+            return False
+
+    class MockMw:
+        def __init__(self):
+            self.col = MockCollection()
+            self.progress = MockProgress()
+
+    captured = {}
+    started = []
+    slow_note_release = asyncio.Event()
+    third_note_started = asyncio.Event()
+    processor = NoteProcessor(  # type: ignore
+        field_resolver=None,
+        config=MockConfig(prompts_map={}, allow_empty_fields=False),
+    )
+
+    async def fake_process_note(note, overwrite_fields, deck_id, **kwargs):
+        started.append(note.id)
+        if note.id == 1:
+            await slow_note_release.wait()
+        if note.id == 3:
+            third_note_started.set()
+        return True
+
+    monkeypatch.setattr(src.note_proccessor, "mw", MockMw())
+    monkeypatch.setattr(src.note_proccessor, "STANDARD_BATCH_LIMIT", 2)
+    monkeypatch.setattr(src.note_proccessor, "bump_usage_counter", lambda: None)
+    monkeypatch.setattr(src.note_proccessor, "is_capacity_remaining", lambda: True)
+    monkeypatch.setattr(
+        src.note_proccessor,
+        "is_capacity_remaining_or_legacy",
+        lambda show_box=False: True,
+    )
+    monkeypatch.setattr(src.note_proccessor, "run_on_main", lambda work: work())
+    monkeypatch.setattr(
+        src.note_proccessor, "get_note_type_id", lambda note: NOTE_TYPE_ID
+    )
+    monkeypatch.setattr(
+        src.note_proccessor.smart_field_service,
+        "get_smart_fields_for_note",
+        lambda *args, **kwargs: [object()],
+    )
+    monkeypatch.setattr(
+        "src.note_proccessor.run_async_in_background_with_sentry",
+        lambda op, on_success, on_failure=None: captured.update({"op": op}),
+    )
+    monkeypatch.setattr(processor, "_assert_valid_app_mode", lambda: True)
+    monkeypatch.setattr(processor, "process_note", fake_process_note)
+
+    processor.process_cards_with_progress([1, 2, 3], on_success=None)
+
+    op_task = asyncio.create_task(captured["op"]())
+    try:
+        await asyncio.wait_for(third_note_started.wait(), timeout=0.2)
+        assert started == [1, 2, 3]
+    finally:
+        slow_note_release.set()
+        await op_task
+
+
+@pytest.mark.asyncio
+async def test_process_notes_batch_returns_skipped_notes_without_smart_fields(
+    monkeypatch,
+):
+    import src.note_proccessor
+    from src.note_proccessor import NoteProcessor
+
+    note = MockNote(note_type=NOTE_TYPE_NAME, data={"f1": "1"})
+
+    class MockCollection:
+        def get_note(self, note_id):
+            return note
+
+    class MockMw:
+        col = MockCollection()
+
+    monkeypatch.setattr(src.note_proccessor, "mw", MockMw())
+    monkeypatch.setattr(
+        src.note_proccessor.smart_field_service,
+        "get_smart_fields_for_note",
+        lambda *args, **kwargs: [],
+    )
+
+    updated, failed, skipped, hit_out_of_credits = await NoteProcessor(  # type: ignore
+        field_resolver=None,
+        config=MockConfig(prompts_map={}, allow_empty_fields=False),
+    )._process_notes_batch(
+        [note.id],
+        overwrite_fields=False,
+        did_map={note.id: 1},
+    )
+
+    assert updated == []
+    assert failed == []
+    assert skipped == [note]
+    assert hit_out_of_credits is False
+
+
+@pytest.mark.asyncio
+async def test_process_notes_worker_pool_returns_results_in_input_order(monkeypatch):
+    from src.note_proccessor import NoteProcessor
+
+    release_first = asyncio.Event()
+    processor = NoteProcessor(  # type: ignore
+        field_resolver=None,
+        config=MockConfig(prompts_map={}, allow_empty_fields=False),
+    )
+    notes = {
+        1: MockNote(note_type=NOTE_TYPE_NAME, data={"f1": "1"}),
+        2: MockNote(note_type=NOTE_TYPE_NAME, data={"f1": "2"}),
+        3: MockNote(note_type=NOTE_TYPE_NAME, data={"f1": "3"}),
+    }
+
+    notes[1].id = 1
+    notes[2].id = 2
+    notes[3].id = 3
+
+    async def process_note_batch(note_ids, overwrite_fields, did_map, should_cancel):
+        note_id = note_ids[0]
+        if note_id == 1:
+            await release_first.wait()
+        elif note_id == 2:
+            release_first.set()
+        return ([notes[note_id]], [], [], False)
+
+    monkeypatch.setattr(processor, "_process_notes_batch", process_note_batch)
+
+    (
+        updated,
+        failed,
+        skipped,
+        hit_out_of_credits,
+        processed_count,
+    ) = await processor._process_notes_worker_pool(
+        [1, 2, 3],
+        overwrite_fields=False,
+        did_map={1: 1, 2: 1, 3: 1},
+        worker_count=2,
+    )
+
+    assert [note.id for note in updated] == [1, 2, 3]
+    assert failed == []
+    assert skipped == []
+    assert hit_out_of_credits is False
+    assert processed_count == 3
+
+
+@pytest.mark.asyncio
+async def test_process_notes_worker_pool_drains_workers_after_fatal_error(monkeypatch):
+    from src.note_proccessor import NoteProcessor
+
+    processor = NoteProcessor(  # type: ignore
+        field_resolver=None,
+        config=MockConfig(prompts_map={}, allow_empty_fields=False),
+    )
+    started: list[int] = []
+    second_note_started = asyncio.Event()
+    release_second_note = asyncio.Event()
+
+    async def process_note_batch(note_ids, overwrite_fields, did_map, should_cancel):
+        note_id = note_ids[0]
+        started.append(note_id)
+
+        if note_id == 1:
+            await second_note_started.wait()
+            raise RuntimeError("unexpected worker failure")
+
+        if note_id == 2:
+            second_note_started.set()
+            await release_second_note.wait()
+
+        return ([], [], [], False)
+
+    monkeypatch.setattr(processor, "_process_notes_batch", process_note_batch)
+
+    pool_task = asyncio.create_task(
+        processor._process_notes_worker_pool(
+            [1, 2, 3],
+            overwrite_fields=False,
+            did_map={1: 1, 2: 1, 3: 1},
+            worker_count=2,
+        )
+    )
+
+    await asyncio.wait_for(second_note_started.wait(), timeout=0.2)
+    await asyncio.sleep(0)
+    assert pool_task.done() is False
+
+    release_second_note.set()
+    with pytest.raises(RuntimeError, match="unexpected worker failure"):
+        await pool_task
+
+    assert started == [1, 2]
+
+
+@pytest.mark.asyncio
+async def test_process_notes_worker_pool_drains_after_admission_error(monkeypatch):
+    from src.note_proccessor import NoteProcessor
+
+    processor = NoteProcessor(  # type: ignore
+        field_resolver=None,
+        config=MockConfig(prompts_map={}, allow_empty_fields=False),
+    )
+    started: list[int] = []
+    second_note_started = asyncio.Event()
+    should_cancel_should_raise = asyncio.Event()
+    release_second_note = asyncio.Event()
+
+    async def process_note_batch(note_ids, overwrite_fields, did_map, should_cancel):
+        note_id = note_ids[0]
+        started.append(note_id)
+
+        if note_id == 1:
+            await second_note_started.wait()
+            should_cancel_should_raise.set()
+
+        if note_id == 2:
+            second_note_started.set()
+            await release_second_note.wait()
+
+        return ([], [], [], False)
+
+    def should_cancel():
+        if should_cancel_should_raise.is_set():
+            raise RuntimeError("admission check failed")
+        return False
+
+    monkeypatch.setattr(processor, "_process_notes_batch", process_note_batch)
+
+    pool_task = asyncio.create_task(
+        processor._process_notes_worker_pool(
+            [1, 2, 3],
+            overwrite_fields=False,
+            did_map={1: 1, 2: 1, 3: 1},
+            worker_count=2,
+            should_cancel=should_cancel,
+        )
+    )
+
+    await asyncio.wait_for(second_note_started.wait(), timeout=0.2)
+    await asyncio.sleep(0)
+    assert pool_task.done() is False
+
+    release_second_note.set()
+    with pytest.raises(RuntimeError, match="admission check failed"):
+        await pool_task
+
+    assert started == [1, 2]
+
+
+@pytest.mark.asyncio
+async def test_process_cards_with_progress_stops_queue_after_out_of_credits(
+    monkeypatch,
+):
+    import src.note_proccessor
+    from src.api_client import OutOfCreditsError
+    from src.note_proccessor import NoteProcessor
+
+    class MockBatchNote:
+        def __init__(self, note_id):
+            self.id = note_id
+
+        def note_type(self):
+            return {"name": NOTE_TYPE_NAME, "id": NOTE_TYPE_ID}
+
+    class MockCard:
+        def __init__(self, card_id):
+            self.nid = card_id
+            self.did = 1
+
+    class MockCollection:
+        def get_card(self, card_id):
+            return MockCard(card_id)
+
+        def get_note(self, note_id):
+            return MockBatchNote(note_id)
+
+        def update_notes(self, notes):
+            pass
+
+    class MockProgress:
+        def start(self, **kwargs):
+            pass
+
+        def update(self, **kwargs):
+            pass
+
+        def finish(self):
+            pass
+
+        def want_cancel(self):
+            return False
+
+    class MockMw:
+        def __init__(self):
+            self.col = MockCollection()
+            self.progress = MockProgress()
+
+    captured = {}
+    started = []
+    first_note_started = asyncio.Event()
+    out_of_credits_seen = asyncio.Event()
+    processor = NoteProcessor(  # type: ignore
+        field_resolver=None,
+        config=MockConfig(prompts_map={}, allow_empty_fields=False),
+    )
+
+    async def fake_process_note(note, overwrite_fields, deck_id, **kwargs):
+        started.append(note.id)
+        if note.id == 1:
+            first_note_started.set()
+            await out_of_credits_seen.wait()
+            return True
+        if note.id == 2:
+            await first_note_started.wait()
+            out_of_credits_seen.set()
+            raise OutOfCreditsError()
+        return True
+
+    monkeypatch.setattr(src.note_proccessor, "mw", MockMw())
+    monkeypatch.setattr(src.note_proccessor, "STANDARD_BATCH_LIMIT", 2)
+    monkeypatch.setattr(src.note_proccessor, "bump_usage_counter", lambda: None)
+    monkeypatch.setattr(src.note_proccessor, "is_capacity_remaining", lambda: True)
+    monkeypatch.setattr(
+        src.note_proccessor,
+        "is_capacity_remaining_or_legacy",
+        lambda show_box=False: True,
+    )
+    monkeypatch.setattr(src.note_proccessor, "run_on_main", lambda work: work())
+    monkeypatch.setattr(
+        src.note_proccessor, "get_note_type_id", lambda note: NOTE_TYPE_ID
+    )
+    monkeypatch.setattr(
+        src.note_proccessor.smart_field_service,
+        "get_smart_fields_for_note",
+        lambda *args, **kwargs: [object()],
+    )
+    monkeypatch.setattr(
+        "src.note_proccessor.run_async_in_background_with_sentry",
+        lambda op, on_success, on_failure=None: captured.update({"op": op}),
+    )
+    monkeypatch.setattr(processor, "_assert_valid_app_mode", lambda: True)
+    monkeypatch.setattr(processor, "process_note", fake_process_note)
+
+    processor.process_cards_with_progress([1, 2, 3], on_success=None)
+
+    with pytest.raises(OutOfCreditsError):
+        await captured["op"]()
+
+    assert started == [1, 2]
 
 
 @pytest.mark.asyncio

@@ -21,6 +21,7 @@ import asyncio
 import contextlib
 import threading
 import traceback
+from collections import deque
 from collections.abc import Callable, Sequence
 from typing import Optional
 
@@ -162,54 +163,33 @@ class NoteProcessor:
                 )
 
         async def op():
-            total_updated: list[Note] = []
-            total_failed: list[Note] = []
-            total_skipped: list[Note] = []
-            to_process_ids = note_ids[:]
-            hit_out_of_credits = False
-
-            processed_count = 0
-
-            while len(to_process_ids) > 0:
-                if self._check_cancel():
-                    logger.debug("Batch cancelled by user")
-                    return total_updated, total_failed, total_skipped
-
-                logger.debug("Processing batch...")
-                batch = to_process_ids[:limit]
-                to_process_ids = to_process_ids[limit:]
-                (
+            (
+                total_updated,
+                total_failed,
+                total_skipped,
+                hit_out_of_credits,
+                processed_count,
+            ) = await self._process_notes_worker_pool(
+                note_ids,
+                overwrite_fields=overwrite_fields,
+                did_map=did_map,
+                worker_count=limit,
+                should_cancel=self._check_cancel,
+                on_note_done=lambda updated, processed_count: on_update(
                     updated,
-                    failed,
-                    skipped,
-                    out_of_credits,
-                ) = await self._process_notes_batch(
-                    batch, overwrite_fields=overwrite_fields, did_map=did_map
-                )
+                    processed_count,
+                    False,
+                ),
+            )
 
-                processed_count += len(batch)
-
-                total_updated.extend(updated)
-                total_failed.extend(failed)
-                total_skipped.extend(skipped)
-
-                if out_of_credits:
-                    hit_out_of_credits = True
-
-                is_finished = not to_process_ids or out_of_credits
-
+            if not self._cancelled.is_set():
                 run_on_main(
-                    lambda updated=updated,
-                    is_finished=is_finished,
-                    processed_count=processed_count: on_update(
-                        updated,
+                    lambda processed_count=processed_count: on_update(
+                        [],
                         processed_count,
-                        is_finished,
+                        True,
                     )
                 )
-
-                if is_finished:
-                    break
 
             if hit_out_of_credits:
                 raise OutOfCreditsError()
@@ -218,11 +198,102 @@ class NoteProcessor:
 
         run_async_in_background_with_sentry(op, wrapped_on_success, on_failure)
 
+    async def _process_notes_worker_pool(
+        self,
+        note_ids: Sequence[NoteId],
+        overwrite_fields: bool,
+        did_map: dict[NoteId, DeckId],
+        worker_count: Optional[int] = None,
+        should_cancel: Callable[[], bool] = lambda: False,
+        on_note_done: Optional[Callable[[list[Note], int], None]] = None,
+    ) -> tuple[list[Note], list[Note], list[Note], bool, int]:
+        total_updated: list[Note] = []
+        total_failed: list[Note] = []
+        total_skipped: list[Note] = []
+        to_process_ids = deque(note_ids)
+        hit_out_of_credits = False
+        fatal_error: Optional[Exception] = None
+        processed_count = 0
+
+        async def worker() -> None:
+            nonlocal fatal_error, hit_out_of_credits, processed_count
+
+            while True:
+                try:
+                    if not to_process_ids or hit_out_of_credits or fatal_error:
+                        return
+
+                    if should_cancel():
+                        logger.debug("Batch cancelled by user")
+                        return
+
+                    note_id = to_process_ids.popleft()
+                    (
+                        updated,
+                        failed,
+                        skipped,
+                        out_of_credits,
+                    ) = await self._process_notes_batch(
+                        [note_id],
+                        overwrite_fields=overwrite_fields,
+                        did_map=did_map,
+                        should_cancel=should_cancel,
+                    )
+
+                    processed_count += 1
+                    total_updated.extend(updated)
+                    total_failed.extend(failed)
+                    total_skipped.extend(skipped)
+
+                    if out_of_credits:
+                        hit_out_of_credits = True
+
+                    note_done = on_note_done
+                    if note_done:
+                        run_on_main(
+                            lambda updated=updated,
+                            processed_count=processed_count,
+                            note_done=note_done: note_done(
+                                updated,
+                                processed_count,
+                            )
+                        )
+                except Exception as exc:
+                    fatal_error = exc
+                    return
+
+        worker_count = min(worker_count or STANDARD_BATCH_LIMIT, len(to_process_ids))
+        if worker_count:
+            logger.debug(f"Processing notes with {worker_count} workers...")
+            worker_results = await asyncio.gather(
+                *(worker() for _ in range(worker_count)), return_exceptions=True
+            )
+            for result in worker_results:
+                if isinstance(result, Exception):
+                    fatal_error = result
+
+        if fatal_error:
+            raise fatal_error
+
+        note_order = {note_id: index for index, note_id in enumerate(note_ids)}
+
+        def in_input_order(note: Note) -> int:
+            return note_order[note.id]
+
+        return (
+            sorted(total_updated, key=in_input_order),
+            sorted(total_failed, key=in_input_order),
+            sorted(total_skipped, key=in_input_order),
+            hit_out_of_credits,
+            processed_count,
+        )
+
     async def _process_notes_batch(
         self,
         note_ids: Sequence[NoteId],
         overwrite_fields: bool,
         did_map: dict[NoteId, DeckId],
+        should_cancel: Callable[[], bool] = lambda: False,
     ) -> tuple[list[Note], list[Note], list[Note], bool]:
         """Returns updated, failed, skipped notes and whether we hit out-of-credits"""
         logger.debug(f"Processing {len(note_ids)} notes...")
@@ -246,14 +317,17 @@ class NoteProcessor:
                 to_process.append(note)
         if not to_process:
             logger.debug("No notes to process")
-            return ([], [], [], False)
+            return ([], [], skipped, False)
 
         # Run them all in parallel
         tasks = []
         for note in to_process:
             tasks.append(
                 self.process_note(
-                    note, overwrite_fields=overwrite_fields, deck_id=did_map[note.id]
+                    note,
+                    overwrite_fields=overwrite_fields,
+                    deck_id=did_map[note.id],
+                    should_cancel=should_cancel,
                 )
             )
         results = await asyncio.gather(*tasks, return_exceptions=True)
@@ -320,6 +394,7 @@ class NoteProcessor:
                 target_field=target_field,
                 on_field_update=on_field_update,
                 show_progress=show_progress,
+                should_cancel=self._check_cancel,
             ),
             wrapped_on_success,
             wrapped_failure,
@@ -338,6 +413,7 @@ class NoteProcessor:
         target_field: Optional[str] = None,
         on_field_update: Optional[Callable[[], None]] = None,
         show_progress: bool = False,
+        should_cancel: Callable[[], bool] = lambda: False,
     ) -> bool:
         """Process a single note, returns whether any fields were updated. Optionally can target specific fields. Caller responsible for handling any exceptions."""
 
@@ -372,7 +448,7 @@ class NoteProcessor:
 
         try:
             while len(dag):
-                if self._check_cancel():
+                if should_cancel():
                     logger.debug("Individual field generation cancelled by user")
                     return did_update
 
@@ -389,7 +465,7 @@ class NoteProcessor:
                     for node in next_batch
                 }
 
-                cancel_task = asyncio.create_task(self._poll_cancel())
+                cancel_task = asyncio.create_task(self._poll_cancel(should_cancel))
                 try:
                     responses = await asyncio.gather(*batch_tasks.values())
                 finally:
@@ -397,7 +473,7 @@ class NoteProcessor:
                     with contextlib.suppress(asyncio.CancelledError):
                         await cancel_task
 
-                if self._check_cancel():
+                if should_cancel():
                     logger.debug("Individual field generation cancelled by user")
                     return did_update
 
@@ -490,10 +566,11 @@ class NoteProcessor:
             run_on_main(lambda: mw.progress.finish())  # type: ignore
         return self._cancelled.is_set()
 
-    async def _poll_cancel(self, interval: float = 0.5) -> None:
-        while not self._cancelled.is_set():
+    async def _poll_cancel(
+        self, should_cancel: Callable[[], bool], interval: float = 0.5
+    ) -> None:
+        while not should_cancel():
             await asyncio.sleep(interval)
-            self._check_cancel()
 
     def _assert_valid_app_mode(self) -> bool:
         return is_capacity_remaining() or has_api_key()
