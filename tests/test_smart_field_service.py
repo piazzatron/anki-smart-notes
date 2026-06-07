@@ -303,6 +303,47 @@ def test_profile_scoping_applies_to_replacements_and_deletes(
     assert service.get_smart_fields_for_note(NOTE_TYPE_ID, 1) == []
 
 
+def test_replace_all_smart_fields_dedupes_target_fields_case_insensitively() -> None:
+    service = SmartFieldService()
+
+    service.replace_all_smart_fields(
+        [
+            SmartFieldCreate(
+                note_type_id=NOTE_TYPE_ID,
+                deck_id=1,
+                target_field_name="Back",
+                enabled=True,
+                settings=ChatSmartFieldSettings(
+                    prompt_text="first",
+                    provider="openai",
+                    model="gpt-4o-mini",
+                    web_search_enabled=False,
+                ),
+            ),
+            SmartFieldCreate(
+                note_type_id=NOTE_TYPE_ID,
+                deck_id=1,
+                target_field_name="back",
+                enabled=False,
+                settings=ChatSmartFieldSettings(
+                    prompt_text="second",
+                    provider="openai",
+                    model="gpt-4o-mini",
+                    web_search_enabled=False,
+                ),
+            ),
+        ]
+    )
+
+    smart_fields = service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)
+
+    assert len(smart_fields) == 1
+    assert smart_fields[0].target_field_name == "back"
+    assert smart_fields[0].enabled is False
+    assert isinstance(smart_fields[0].settings, ChatSmartFieldSettings)
+    assert smart_fields[0].settings.prompt_text == "second"
+
+
 def test_get_chat_defaults_fails_when_seed_row_is_missing() -> None:
     with open_database() as conn:
         conn.execute("DELETE FROM default_text_generation_settings WHERE id = 1")

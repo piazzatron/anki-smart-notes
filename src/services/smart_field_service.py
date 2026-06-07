@@ -52,10 +52,12 @@ from ..models.smart_fields import (
 )
 
 # Runtime callers should use SmartFieldService, which resolves the active Anki
-# profile at operation time. Legacy config migration runs after all SQL
-# migrations, so it can use the same service for current-shape Smart Fields. The
-# module-level SQL helpers below stay exported only for shared low-level inserts
-# and default-row upserts; they must not grow profile-aware runtime behavior.
+# profile at operation time and enforces profile-scoped reads, writes, deletes,
+# and replacements. Legacy config migration is different: it runs after the SQL
+# schema is current, but it must insert old prompt-map data directly so the
+# migration is not coupled to runtime service invariants. Keep shared SQL helpers
+# in this module small and typed so both paths use the same row shapes without
+# making SmartFieldService understand migration-era behavior.
 
 DEFAULT_TEXT_GENERATION_SETTINGS = ChatGenerationSettings(
     provider="auto",
@@ -228,11 +230,9 @@ class SmartFieldService:
             f"with {len(smart_fields)} field(s)"
         )
         with open_database() as conn:
-            conn.execute(
-                "DELETE FROM smart_fields WHERE profile_name = ?", (profile_name,)
+            replace_profile_smart_fields(
+                conn, profile_name=profile_name, smart_fields=smart_fields
             )
-            for smart_field in smart_fields:
-                self._save_smart_field(conn, smart_field, profile_name)
 
     def delete_smart_field(
         self, note_type_id: int, deck_id: DeckId, target_field: str
@@ -267,49 +267,32 @@ class SmartFieldService:
             smart_field.deck_id,
             smart_field.target_field_name,
         )
-        smart_field_id = existing_id or str(uuid4())
-        now = self._now()
 
-        if existing_id:
-            conn.execute(
-                """
-                UPDATE smart_fields
-                SET target_field_name = ?, field_type = ?, enabled = ?, updated_at = ?
-                WHERE id = ?
-                """,
-                (
-                    smart_field.target_field_name,
-                    smart_field.field_type,
-                    int(smart_field.enabled),
-                    now,
-                    smart_field_id,
-                ),
-            )
-            self._delete_settings(conn, smart_field_id)
-        else:
-            conn.execute(
-                """
-                INSERT INTO smart_fields (
-                    id, profile_name, note_type_id, deck_id, target_field_name, field_type,
-                    enabled, created_at, updated_at
-                )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """,
-                (
-                    smart_field_id,
-                    profile_name,
-                    smart_field.note_type_id,
-                    int(smart_field.deck_id),
-                    smart_field.target_field_name,
-                    smart_field.field_type,
-                    int(smart_field.enabled),
-                    now,
-                    now,
-                ),
+        if not existing_id:
+            return _insert_new_smart_field(
+                conn,
+                smart_field=smart_field,
+                profile_name=profile_name,
             )
 
-        insert_smart_field_settings(conn, smart_field_id, smart_field.settings)
-        return smart_field_id
+        now = _utc_now_iso()
+        conn.execute(
+            """
+            UPDATE smart_fields
+            SET target_field_name = ?, field_type = ?, enabled = ?, updated_at = ?
+            WHERE id = ?
+            """,
+            (
+                smart_field.target_field_name,
+                smart_field.field_type,
+                int(smart_field.enabled),
+                now,
+                existing_id,
+            ),
+        )
+        self._delete_settings(conn, existing_id)
+        _insert_smart_field_settings(conn, existing_id, smart_field.settings)
+        return existing_id
 
     def _smart_field_from_row(self, row: sqlite3.Row) -> SmartField:
         profile_name = row["profile_name"]
@@ -386,9 +369,6 @@ class SmartFieldService:
             (smart_field_id,),
         )
 
-    def _now(self) -> str:
-        return datetime.now(timezone.utc).isoformat()
-
     def _get_profile_name(self) -> str:
         return utils.get_current_profile_name()
 
@@ -452,7 +432,68 @@ def upsert_image_generation_defaults(
     )
 
 
-def insert_smart_field_settings(
+def _insert_new_smart_field(
+    conn: sqlite3.Connection,
+    *,
+    smart_field: SmartFieldCreate,
+    profile_name: str,
+) -> str:
+    smart_field_id = str(uuid4())
+    now = _utc_now_iso()
+    conn.execute(
+        """
+        INSERT INTO smart_fields (
+            id, profile_name, note_type_id, deck_id, target_field_name, field_type,
+            enabled, created_at, updated_at
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            smart_field_id,
+            profile_name,
+            smart_field.note_type_id,
+            int(smart_field.deck_id),
+            smart_field.target_field_name,
+            smart_field.field_type,
+            int(smart_field.enabled),
+            now,
+            now,
+        ),
+    )
+    _insert_smart_field_settings(conn, smart_field_id, smart_field.settings)
+    return smart_field_id
+
+
+def replace_profile_smart_fields(
+    conn: sqlite3.Connection,
+    *,
+    profile_name: str,
+    smart_fields: list[SmartFieldCreate],
+) -> None:
+    deduped_fields: dict[tuple[int, int, str], SmartFieldCreate] = {}
+    for smart_field in smart_fields:
+        deduped_fields[
+            (
+                smart_field.note_type_id,
+                int(smart_field.deck_id),
+                smart_field.target_field_name.lower(),
+            )
+        ] = smart_field
+
+    conn.execute("DELETE FROM smart_fields WHERE profile_name = ?", (profile_name,))
+    for smart_field in deduped_fields.values():
+        _insert_new_smart_field(
+            conn,
+            smart_field=smart_field,
+            profile_name=profile_name,
+        )
+
+
+def _utc_now_iso() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def _insert_smart_field_settings(
     conn: sqlite3.Connection,
     smart_field_id: str,
     settings: SmartFieldSettings,

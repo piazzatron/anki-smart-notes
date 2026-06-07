@@ -178,6 +178,106 @@ def test_migrate_legacy_smart_field_config_skips_missing_note_types(
     assert messages == []
 
 
+def test_migrate_legacy_smart_field_config_does_not_use_runtime_service(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    import src.database.legacy_config_migration
+
+    addon_config = {
+        "prompts_map": {
+            "note_types": {
+                "Basic": {
+                    "1": {
+                        "fields": {"Back": "{{Front}}"},
+                        "extras": {"Back": chat_extras()},
+                    }
+                }
+            }
+        },
+        "did_migrate_smart_fields_to_sqlite": False,
+    }
+    install_fake_anki(monkeypatch, addon_config, tmp_path)
+    install_migration_alert(monkeypatch, [])
+
+    class ForbiddenSmartFieldService:
+        def __init__(self, *args: object, **kwargs: object) -> None:
+            raise AssertionError("legacy migration must not use SmartFieldService")
+
+    class ForbiddenSmartFieldServiceSingleton:
+        def __getattr__(self, name: str) -> object:
+            raise AssertionError("legacy migration must not use smart_field_service")
+
+    monkeypatch.setattr(
+        src.database.legacy_config_migration,
+        "SmartFieldService",
+        ForbiddenSmartFieldService,
+        raising=False,
+    )
+    monkeypatch.setattr(
+        src.database.legacy_config_migration,
+        "smart_field_service",
+        ForbiddenSmartFieldServiceSingleton(),
+        raising=False,
+    )
+
+    migrate_legacy_config_to_database()
+
+    assert len(fetch_legacy_text_smart_fields()) == 1
+
+
+def test_migrate_legacy_smart_field_config_replaces_prior_failed_attempt(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    import src.database.connection
+
+    addon_config = {
+        "prompts_map": {
+            "note_types": {
+                "Basic": {
+                    "1": {
+                        "fields": {"Back": "{{Front}}"},
+                        "extras": {"Back": chat_extras()},
+                    }
+                }
+            }
+        },
+        "did_migrate_smart_fields_to_sqlite": False,
+    }
+    install_fake_anki(monkeypatch, addon_config, tmp_path)
+    install_migration_alert(monkeypatch, [])
+
+    with src.database.connection.open_database() as conn:
+        conn.execute(
+            """
+            INSERT INTO smart_fields (
+                id, profile_name, note_type_id, deck_id, target_field_name, field_type,
+                enabled, created_at, updated_at
+            )
+            VALUES ('stale-prior-attempt', '__test__', ?, ?, 'Back', 'chat', 1, 'now', 'now')
+            """,
+            (NOTE_TYPE_ID, int(DECK_ID)),
+        )
+        conn.execute(
+            """
+            INSERT INTO text_smart_field_settings (
+                smart_field_id, prompt_text, uses_default_generation_settings,
+                provider, model, reasoning_level, web_search_enabled
+            )
+            VALUES ('stale-prior-attempt', 'stale', 0, 'openai', 'gpt-5-mini', 'off', 0)
+            """
+        )
+
+    migrate_legacy_config_to_database()
+
+    smart_fields = fetch_legacy_text_smart_fields()
+
+    assert len(smart_fields) == 1
+    assert smart_fields[0]["target_field_name"] == "Back"
+    assert smart_fields[0]["prompt_text"] == "{{Front}}"
+
+
 def test_migrate_legacy_smart_field_config_reports_failure_and_keeps_config(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,

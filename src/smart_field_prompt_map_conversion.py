@@ -17,7 +17,6 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import re
 from typing import cast
 
 from anki.decks import DeckId
@@ -39,8 +38,8 @@ from .models.smart_fields import (
     SmartFieldSettings,
     TTSSmartFieldSettings,
 )
+from .prompt_fields import get_prompt_fields
 
-FIELD_PATTERN = r"\{\{(?!c\d+::)(.+?)\}\}"
 DEPRECATED_CHAT_MODELS_TO_AUTO = {"deepseek-v3", "gpt-4o-mini", "gpt-5-nano"}
 
 
@@ -120,7 +119,7 @@ def normalize_deprecated_chat_generation(
 
 
 def source_field_from_tts_prompt(prompt: str) -> str:
-    fields = re.findall(FIELD_PATTERN, prompt)
+    fields = get_prompt_fields(prompt, lower=False)
     if len(fields) != 1:
         raise ValueError(
             f"TTS smart fields must have exactly one source field, got: {prompt}"

@@ -176,7 +176,7 @@ def test_prompt_has_error_returns_tts_source_validation_error(monkeypatch):
     ],
 )
 def test_get_prompt_fields(prompt, expected):
-    from src.prompt_helpers import get_prompt_fields
+    from src.prompt_fields import get_prompt_fields
 
     assert get_prompt_fields(prompt) == expected
 
@@ -190,7 +190,7 @@ def test_get_prompt_fields(prompt, expected):
     ],
 )
 def test_get_prompt_fields_no_lower(prompt, expected):
-    from src.prompt_helpers import get_prompt_fields
+    from src.prompt_fields import get_prompt_fields
 
     assert get_prompt_fields(prompt, lower=False) == expected
 

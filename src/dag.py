@@ -32,7 +32,8 @@ from .models.smart_fields import (
     TTSSmartFieldSettings,
 )
 from .nodes import FieldNode
-from .prompt_helpers import get_extras, get_prompt_fields
+from .prompt_fields import get_prompt_fields
+from .prompt_helpers import get_extras
 from .services.smart_field_service import smart_field_service
 from .smart_field_prompt_map_conversion import (
     smart_field_settings_from_prompt_parts,

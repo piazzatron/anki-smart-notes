@@ -25,7 +25,7 @@ from typing import cast
 
 from aqt import mw
 
-from .. import config as config_module
+from .. import config as config_module, utils
 from ..config import config
 from ..logger import logger
 from ..models import (
@@ -45,14 +45,17 @@ from ..services.smart_field_service import (
     DEFAULT_IMAGE_GENERATION_SETTINGS,
     DEFAULT_TEXT_GENERATION_SETTINGS,
     DEFAULT_TTS_GENERATION_SETTINGS,
-    smart_field_service,
+    replace_profile_smart_fields,
+    upsert_chat_generation_defaults,
+    upsert_image_generation_defaults,
+    upsert_tts_generation_defaults,
 )
 from ..smart_field_prompt_map_conversion import (
     normalize_deprecated_chat_generation,
     smart_field_creates_from_prompt_map,
 )
 from ..ui.ui_utils import show_message_box
-from .connection import get_user_files_path
+from .connection import get_user_files_path, open_database
 
 GENERATION_DEFAULT_CONFIG_KEYS = (
     "chat_provider",
@@ -104,8 +107,8 @@ def migrate_legacy_config_to_database() -> None:
         )
 
         # SQL migrations have already brought the database to the current
-        # schema, so this adapter writes current-shape Smart Fields through the
-        # runtime service instead of handling migration-era table shapes.
+        # schema. Insert the converted prompt-map rows directly so legacy import
+        # stays independent from SmartFieldService's runtime profile behavior.
         _migrate_legacy_prompt_map(legacy_prompt_map, generation_defaults)
 
         # Delete legacy config keys only after both SQL imports have succeeded.
@@ -213,9 +216,10 @@ def _migrate_legacy_generation_defaults_config(
         ),
     )
 
-    smart_field_service.save_chat_defaults(generation_defaults.chat)
-    smart_field_service.save_tts_defaults(generation_defaults.tts)
-    smart_field_service.save_image_defaults(generation_defaults.image)
+    with open_database() as conn:
+        upsert_chat_generation_defaults(conn, generation_defaults.chat)
+        upsert_tts_generation_defaults(conn, generation_defaults.tts)
+        upsert_image_generation_defaults(conn, generation_defaults.image)
 
     return generation_defaults
 
@@ -223,9 +227,15 @@ def _migrate_legacy_generation_defaults_config(
 def _migrate_legacy_prompt_map(
     prompt_map: PromptMap, generation_defaults: GenerationDefaults
 ) -> None:
-    smart_field_service.replace_all_smart_fields(
-        smart_field_creates_from_prompt_map(prompt_map, generation_defaults)
-    )
+    smart_fields = smart_field_creates_from_prompt_map(prompt_map, generation_defaults)
+    profile_name = utils.get_current_profile_name()
+
+    with open_database() as conn:
+        # Re-run safety: a failed prior attempt may have inserted rows before
+        # config cleanup marked the legacy migration complete.
+        replace_profile_smart_fields(
+            conn, profile_name=profile_name, smart_fields=smart_fields
+        )
 
 
 def _finish_legacy_config_migration(addon_config: dict[str, object]) -> None:
