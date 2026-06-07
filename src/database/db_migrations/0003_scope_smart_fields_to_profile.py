@@ -27,6 +27,9 @@ def _scope_smart_fields_to_profile(conn: sqlite3.Connection) -> None:
     if "profile_name" in columns:
         return
 
+    # This only scopes Smart Fields that are already in SQLite. Legacy
+    # prompts_map rows are imported after all SQL migrations complete, so that
+    # importer writes directly into this final profile-scoped schema.
     has_smart_fields = _smart_fields_have_rows(conn)
     conn.execute(
         """

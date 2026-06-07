@@ -227,6 +227,28 @@ def test_profile_scope_migration_allows_same_field_in_different_profiles(
             VALUES ('legacy', 1, 1, 'Back', 'chat', 1, 'now', 'now')
             """
         )
+        conn.execute(
+            """
+            CREATE TABLE text_smart_field_settings (
+                smart_field_id TEXT PRIMARY KEY REFERENCES smart_fields(id) ON DELETE CASCADE,
+                prompt_text TEXT NOT NULL,
+                uses_default_generation_settings INTEGER NOT NULL DEFAULT 1 CHECK (uses_default_generation_settings IN (0, 1)),
+                provider TEXT,
+                model TEXT,
+                reasoning_level TEXT CHECK (reasoning_level IN ('off', 'low', 'high')),
+                web_search_enabled INTEGER CHECK (web_search_enabled IN (0, 1))
+            );
+            """
+        )
+        conn.execute(
+            """
+            INSERT INTO text_smart_field_settings (
+                smart_field_id, prompt_text, uses_default_generation_settings,
+                provider, model, reasoning_level, web_search_enabled
+            )
+            VALUES ('legacy', '{{Front}}', 0, 'openai', 'gpt-5-mini', 'off', 0)
+            """
+        )
         conn.commit()
 
         conn.close()
@@ -240,6 +262,16 @@ def test_profile_scope_migration_allows_same_field_in_different_profiles(
             backend.apply_migrations(migrations[2:3])
 
         conn = sqlite3.connect(database_path)
+        joined_row = conn.execute(
+            """
+            SELECT sf.profile_name, text.prompt_text, text.provider, text.model
+            FROM smart_fields sf
+            JOIN text_smart_field_settings text ON text.smart_field_id = sf.id
+            WHERE sf.id = 'legacy'
+            """
+        ).fetchone()
+
+        assert joined_row == ("__test__", "{{Front}}", "openai", "gpt-5-mini")
 
         conn.execute(
             """
