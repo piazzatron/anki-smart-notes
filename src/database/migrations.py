@@ -36,6 +36,11 @@ def run_migrations() -> None:
     apply_database_bootstrap_migrations()
     migrate_legacy_config_to_database()
     apply_database_migrations()
+
+    # Legacy prompt-map import intentionally runs against the bootstrap schema,
+    # before profile-scoping exists. Once SQL migrations add profile_name, bind
+    # those imported rows to the active Anki profile so runtime reads can enforce
+    # profile isolation.
     backfill_smart_field_profile_names()
 
 
