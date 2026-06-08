@@ -24,6 +24,7 @@ steps = [
         """
         CREATE TABLE smart_fields (
             id TEXT PRIMARY KEY,
+            profile_name TEXT NOT NULL,
             note_type_id INTEGER NOT NULL,
             deck_id INTEGER NOT NULL,
             target_field_name TEXT NOT NULL,
@@ -31,7 +32,7 @@ steps = [
             enabled INTEGER NOT NULL DEFAULT 1 CHECK (enabled IN (0, 1)),
             created_at TEXT NOT NULL,
             updated_at TEXT NOT NULL,
-            UNIQUE(note_type_id, deck_id, target_field_name)
+            UNIQUE(profile_name, note_type_id, deck_id, target_field_name)
         );
         """,
         "DROP TABLE smart_fields;",

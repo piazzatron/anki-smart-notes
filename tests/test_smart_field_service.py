@@ -33,6 +33,7 @@ from src.models.smart_fields import (
 from src.services.smart_field_service import SmartFieldService
 
 NOTE_TYPE_ID = 123
+TEST_PROFILE = "__test__"
 
 
 @pytest.fixture(autouse=True)
@@ -62,7 +63,8 @@ def test_round_trips_typed_smart_fields() -> None:
                 model="gpt-4o-mini",
                 web_search_enabled=True,
             ),
-        )
+        ),
+        profile_name=TEST_PROFILE,
     )
     service.save_smart_field(
         SmartFieldCreate(
@@ -76,7 +78,8 @@ def test_round_trips_typed_smart_fields() -> None:
                 model="tts-1",
                 voice_id="alloy",
             ),
-        )
+        ),
+        profile_name=TEST_PROFILE,
     )
     service.save_smart_field(
         SmartFieldCreate(
@@ -89,13 +92,14 @@ def test_round_trips_typed_smart_fields() -> None:
                 provider="openai",
                 model="gpt-image-1.5-low",
             ),
-        )
+        ),
+        profile_name=TEST_PROFILE,
     )
 
     smart_fields = {
         smart_field.target_field_name: smart_field
         for smart_field in service.get_smart_fields_for_note(
-            NOTE_TYPE_ID, 1, include_global=True
+            NOTE_TYPE_ID, 1, include_global=True, profile_name=TEST_PROFILE
         )
     }
 
@@ -125,7 +129,8 @@ def test_get_smart_fields_for_note_applies_global_fallback_with_deck_override() 
                 model="gpt-4o-mini",
                 web_search_enabled=False,
             ),
-        )
+        ),
+        profile_name=TEST_PROFILE,
     )
     service.save_smart_field(
         SmartFieldCreate(
@@ -139,7 +144,8 @@ def test_get_smart_fields_for_note_applies_global_fallback_with_deck_override() 
                 model="gpt-4o-mini",
                 web_search_enabled=False,
             ),
-        )
+        ),
+        profile_name=TEST_PROFILE,
     )
     service.save_smart_field(
         SmartFieldCreate(
@@ -153,13 +159,14 @@ def test_get_smart_fields_for_note_applies_global_fallback_with_deck_override() 
                 model="gpt-4o-mini",
                 web_search_enabled=False,
             ),
-        )
+        ),
+        profile_name=TEST_PROFILE,
     )
 
     smart_fields = {
         smart_field.target_field_name: smart_field
         for smart_field in service.get_smart_fields_for_note(
-            NOTE_TYPE_ID, 1, include_global=True
+            NOTE_TYPE_ID, 1, include_global=True, profile_name=TEST_PROFILE
         )
     }
 
@@ -185,7 +192,8 @@ def test_save_and_delete_match_target_fields_case_insensitively() -> None:
                 model="gpt-4o-mini",
                 web_search_enabled=False,
             ),
-        )
+        ),
+        profile_name=TEST_PROFILE,
     )
     service.save_smart_field(
         SmartFieldCreate(
@@ -199,10 +207,13 @@ def test_save_and_delete_match_target_fields_case_insensitively() -> None:
                 model="gpt-4o-mini",
                 web_search_enabled=True,
             ),
-        )
+        ),
+        profile_name=TEST_PROFILE,
     )
 
-    smart_fields = service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)
+    smart_fields = service.get_smart_fields_for_note(
+        NOTE_TYPE_ID, 1, profile_name=TEST_PROFILE
+    )
 
     assert len(smart_fields) == 1
     assert smart_fields[0].target_field_name == "back"
@@ -210,17 +221,17 @@ def test_save_and_delete_match_target_fields_case_insensitively() -> None:
     assert isinstance(smart_fields[0].settings, ChatSmartFieldSettings)
     assert smart_fields[0].settings.prompt_text == "updated"
 
-    service.delete_smart_field(NOTE_TYPE_ID, 1, "BACK")
+    service.delete_smart_field(NOTE_TYPE_ID, 1, "BACK", profile_name=TEST_PROFILE)
 
-    assert service.get_smart_fields_for_note(NOTE_TYPE_ID, 1) == []
+    assert (
+        service.get_smart_fields_for_note(NOTE_TYPE_ID, 1, profile_name=TEST_PROFILE)
+        == []
+    )
 
 
-def test_smart_fields_are_scoped_to_profile(monkeypatch: pytest.MonkeyPatch) -> None:
-    import src.utils
-
+def test_smart_fields_are_scoped_to_profile() -> None:
     service = SmartFieldService()
 
-    monkeypatch.setattr(src.utils, "get_current_profile_name", lambda: "Profile 1")
     service.save_smart_field(
         SmartFieldCreate(
             note_type_id=NOTE_TYPE_ID,
@@ -233,9 +244,9 @@ def test_smart_fields_are_scoped_to_profile(monkeypatch: pytest.MonkeyPatch) -> 
                 model="gpt-4o-mini",
                 web_search_enabled=False,
             ),
-        )
+        ),
+        profile_name="Profile 1",
     )
-    monkeypatch.setattr(src.utils, "get_current_profile_name", lambda: "Profile 2")
     service.save_smart_field(
         SmartFieldCreate(
             note_type_id=NOTE_TYPE_ID,
@@ -248,30 +259,27 @@ def test_smart_fields_are_scoped_to_profile(monkeypatch: pytest.MonkeyPatch) -> 
                 model="gpt-4o-mini",
                 web_search_enabled=False,
             ),
-        )
+        ),
+        profile_name="Profile 2",
     )
 
-    monkeypatch.setattr(src.utils, "get_current_profile_name", lambda: "Profile 1")
-    first_fields = service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)
-    monkeypatch.setattr(src.utils, "get_current_profile_name", lambda: "Profile 2")
-    second_fields = service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)
+    first_fields = service.get_smart_fields_for_note(
+        NOTE_TYPE_ID, 1, profile_name="Profile 1"
+    )
+    second_fields = service.get_smart_fields_for_note(
+        NOTE_TYPE_ID, 1, profile_name="Profile 2"
+    )
 
     assert len(first_fields) == 1
-    assert first_fields[0].profile_name == "Profile 1"
     assert isinstance(first_fields[0].settings, ChatSmartFieldSettings)
     assert first_fields[0].settings.prompt_text == "first profile"
 
     assert len(second_fields) == 1
-    assert second_fields[0].profile_name == "Profile 2"
     assert isinstance(second_fields[0].settings, ChatSmartFieldSettings)
     assert second_fields[0].settings.prompt_text == "second profile"
 
 
-def test_profile_scoping_applies_to_replacements_and_deletes(
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    import src.utils
-
+def test_profile_scoping_applies_to_replacements_and_deletes() -> None:
     service = SmartFieldService()
     shared_field = SmartFieldCreate(
         note_type_id=NOTE_TYPE_ID,
@@ -286,21 +294,28 @@ def test_profile_scoping_applies_to_replacements_and_deletes(
         ),
     )
 
-    monkeypatch.setattr(src.utils, "get_current_profile_name", lambda: "Profile 1")
-    service.save_smart_field(shared_field)
-    monkeypatch.setattr(src.utils, "get_current_profile_name", lambda: "Profile 2")
-    service.save_smart_field(shared_field)
+    service.save_smart_field(shared_field, profile_name="Profile 1")
+    service.save_smart_field(shared_field, profile_name="Profile 2")
 
-    monkeypatch.setattr(src.utils, "get_current_profile_name", lambda: "Profile 1")
-    service.replace_all_smart_fields([])
+    service.replace_all_smart_fields([], profile_name="Profile 1")
 
-    assert service.get_smart_fields_for_note(NOTE_TYPE_ID, 1) == []
-    monkeypatch.setattr(src.utils, "get_current_profile_name", lambda: "Profile 2")
-    assert len(service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)) == 1
+    assert (
+        service.get_smart_fields_for_note(NOTE_TYPE_ID, 1, profile_name="Profile 1")
+        == []
+    )
+    assert (
+        len(
+            service.get_smart_fields_for_note(NOTE_TYPE_ID, 1, profile_name="Profile 2")
+        )
+        == 1
+    )
 
-    service.delete_smart_field(NOTE_TYPE_ID, 1, "Back")
+    service.delete_smart_field(NOTE_TYPE_ID, 1, "Back", profile_name="Profile 2")
 
-    assert service.get_smart_fields_for_note(NOTE_TYPE_ID, 1) == []
+    assert (
+        service.get_smart_fields_for_note(NOTE_TYPE_ID, 1, profile_name="Profile 2")
+        == []
+    )
 
 
 def test_replace_all_smart_fields_dedupes_target_fields_case_insensitively() -> None:
@@ -332,10 +347,13 @@ def test_replace_all_smart_fields_dedupes_target_fields_case_insensitively() -> 
                     web_search_enabled=False,
                 ),
             ),
-        ]
+        ],
+        profile_name=TEST_PROFILE,
     )
 
-    smart_fields = service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)
+    smart_fields = service.get_smart_fields_for_note(
+        NOTE_TYPE_ID, 1, profile_name=TEST_PROFILE
+    )
 
     assert len(smart_fields) == 1
     assert smart_fields[0].target_field_name == "back"
@@ -370,7 +388,8 @@ def test_get_all_smart_fields_fails_when_default_seed_row_is_missing() -> None:
                 web_search_enabled=False,
                 uses_default_generation_settings=True,
             ),
-        )
+        ),
+        profile_name=TEST_PROFILE,
     )
     with open_database() as conn:
         conn.execute("DELETE FROM default_text_generation_settings WHERE id = 1")
@@ -379,7 +398,7 @@ def test_get_all_smart_fields_fails_when_default_seed_row_is_missing() -> None:
     with pytest.raises(
         RuntimeError, match="Missing default text generation settings row"
     ):
-        service.get_all_smart_fields()
+        service.get_all_smart_fields(profile_name=TEST_PROFILE)
 
 
 def test_get_tts_defaults_fails_when_seed_row_is_missing() -> None:

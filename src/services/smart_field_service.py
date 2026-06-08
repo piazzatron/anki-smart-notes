@@ -19,7 +19,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import sqlite3
 from datetime import datetime, timezone
-from typing import Optional, cast
+from typing import Literal, NoReturn, Optional, cast
 from uuid import uuid4
 
 from anki.decks import DeckId
@@ -66,14 +66,20 @@ DEFAULT_IMAGE_GENERATION_SETTINGS = ImageGenerationSettings(
     provider="openai",
     model="gpt-image-1.5-low",
 )
+GenerationDefaultKind = Literal["text", "tts", "image"]
+MISSING_DEFAULT_SETTINGS_ERRORS: dict[GenerationDefaultKind, str] = {
+    "text": "Missing default text generation settings row",
+    "tts": "Missing default TTS generation settings row",
+    "image": "Missing default image generation settings row",
+}
 
 
 class SmartFieldService:
     """Persists runtime Smart Field rules and global generation defaults.
 
-    Legacy prompt-map import intentionally duplicates its SQL in the migration
-    layer because it writes to an earlier schema shape before runtime profile
-    invariants exist.
+    Legacy prompt-map import owns separate SQL in the migration layer because it
+    ports old config data into the bootstrap schema; this service only owns
+    normal reads and writes after the full migration pipeline has completed.
     """
 
     def get_chat_defaults(self) -> ChatGenerationSettings:
@@ -85,9 +91,9 @@ class SmartFieldService:
                 WHERE id = 1
                 """
             ).fetchone()
-        if not row:
-            raise RuntimeError("Missing default text generation settings row")
-        return _chat_generation_settings_from_row(row)
+        return _chat_generation_settings_from_row(
+            _require_generation_default_row(row, "text")
+        )
 
     def save_chat_defaults(self, settings: ChatGenerationSettings) -> None:
         with open_database() as conn:
@@ -120,9 +126,9 @@ class SmartFieldService:
                 WHERE id = 1
                 """
             ).fetchone()
-        if not row:
-            raise RuntimeError("Missing default TTS generation settings row")
-        return _tts_generation_settings_from_row(row)
+        return _tts_generation_settings_from_row(
+            _require_generation_default_row(row, "tts")
+        )
 
     def save_tts_defaults(self, settings: TTSGenerationSettings) -> None:
         with open_database() as conn:
@@ -149,9 +155,9 @@ class SmartFieldService:
                 WHERE id = 1
                 """
             ).fetchone()
-        if not row:
-            raise RuntimeError("Missing default image generation settings row")
-        return _image_generation_settings_from_row(row)
+        return _image_generation_settings_from_row(
+            _require_generation_default_row(row, "image")
+        )
 
     def save_image_defaults(self, settings: ImageGenerationSettings) -> None:
         with open_database() as conn:
@@ -174,10 +180,39 @@ class SmartFieldService:
         self.save_image_defaults(DEFAULT_IMAGE_GENERATION_SETTINGS)
 
     def get_generation_defaults(self) -> GenerationDefaults:
+        with open_database() as conn:
+            chat_row = conn.execute(
+                """
+                SELECT provider, model, reasoning_level, web_search_enabled
+                FROM default_text_generation_settings
+                WHERE id = 1
+                """
+            ).fetchone()
+            tts_row = conn.execute(
+                """
+                SELECT provider, model, voice_id
+                FROM default_tts_generation_settings
+                WHERE id = 1
+                """
+            ).fetchone()
+            image_row = conn.execute(
+                """
+                SELECT provider, model
+                FROM default_image_generation_settings
+                WHERE id = 1
+                """
+            ).fetchone()
+
         return GenerationDefaults(
-            chat=self.get_chat_defaults(),
-            tts=self.get_tts_defaults(),
-            image=self.get_image_defaults(),
+            chat=_chat_generation_settings_from_row(
+                _require_generation_default_row(chat_row, "text")
+            ),
+            tts=_tts_generation_settings_from_row(
+                _require_generation_default_row(tts_row, "tts")
+            ),
+            image=_image_generation_settings_from_row(
+                _require_generation_default_row(image_row, "image")
+            ),
         )
 
     def get_smart_fields_for_note(
@@ -185,14 +220,17 @@ class SmartFieldService:
         note_type_id: int,
         deck_id: DeckId,
         include_global: bool = True,
+        *,
+        profile_name: Optional[str] = None,
     ) -> list[SmartField]:
+        profile_name = _profile_name_or_current(profile_name)
         logger.debug(
             f"Smart fields DB: loading fields for note_type_id={note_type_id}, deck_id={deck_id}"
         )
         global_fields: dict[str, SmartField] = {}
         deck_fields: dict[str, SmartField] = {}
 
-        for smart_field in self.get_all_smart_fields():
+        for smart_field in self.get_all_smart_fields(profile_name=profile_name):
             if smart_field.note_type_id != note_type_id:
                 continue
 
@@ -205,8 +243,10 @@ class SmartFieldService:
         global_fields.update(deck_fields)
         return list(global_fields.values())
 
-    def get_all_smart_fields(self) -> list[SmartField]:
-        profile_name = self._get_profile_name()
+    def get_all_smart_fields(
+        self, *, profile_name: Optional[str] = None
+    ) -> list[SmartField]:
+        profile_name = _profile_name_or_current(profile_name)
         logger.debug(f"Smart fields DB: loading all fields for profile={profile_name}")
 
         with open_database() as conn:
@@ -215,7 +255,6 @@ class SmartFieldService:
                 """
                 SELECT
                     sf.id,
-                    sf.profile_name,
                     sf.note_type_id,
                     sf.deck_id,
                     sf.target_field_name,
@@ -250,8 +289,10 @@ class SmartFieldService:
             ).fetchall()
         return [self._smart_field_from_row(row) for row in rows]
 
-    def save_smart_field(self, smart_field: SmartFieldCreate) -> None:
-        profile_name = self._get_profile_name()
+    def save_smart_field(
+        self, smart_field: SmartFieldCreate, *, profile_name: Optional[str] = None
+    ) -> None:
+        profile_name = _profile_name_or_current(profile_name)
         logger.debug(
             f"Smart fields DB: saving {smart_field.field_type} field "
             f"{profile_name}/{smart_field.note_type_id}/{smart_field.deck_id}/"
@@ -261,8 +302,13 @@ class SmartFieldService:
             smart_field_id = self._save_smart_field(conn, smart_field, profile_name)
         logger.debug(f"Smart fields DB: saved smart_field_id={smart_field_id}")
 
-    def replace_all_smart_fields(self, smart_fields: list[SmartFieldCreate]) -> None:
-        profile_name = self._get_profile_name()
+    def replace_all_smart_fields(
+        self,
+        smart_fields: list[SmartFieldCreate],
+        *,
+        profile_name: Optional[str] = None,
+    ) -> None:
+        profile_name = _profile_name_or_current(profile_name)
         logger.debug(
             f"Smart fields DB: replacing all fields for profile={profile_name} "
             f"with {len(smart_fields)} field(s)"
@@ -285,9 +331,14 @@ class SmartFieldService:
                 self._insert_smart_field(conn, smart_field, profile_name)
 
     def delete_smart_field(
-        self, note_type_id: int, deck_id: DeckId, target_field: str
+        self,
+        note_type_id: int,
+        deck_id: DeckId,
+        target_field: str,
+        *,
+        profile_name: Optional[str] = None,
     ) -> None:
-        profile_name = self._get_profile_name()
+        profile_name = _profile_name_or_current(profile_name)
         logger.debug(
             f"Smart fields DB: removing {profile_name}/{note_type_id}/"
             f"{deck_id}/{target_field}"
@@ -372,10 +423,6 @@ class SmartFieldService:
         return smart_field_id
 
     def _smart_field_from_row(self, row: sqlite3.Row) -> SmartField:
-        profile_name = row["profile_name"]
-        if profile_name is None:
-            raise RuntimeError("Smart Field row is missing profile_name")
-
         field_type = cast(SmartFieldType, row["field_type"])
         if field_type == "chat":
             settings: SmartFieldSettings = ChatSmartFieldSettings(
@@ -404,7 +451,6 @@ class SmartFieldService:
 
         return SmartField(
             id=cast(str, row["id"]),
-            profile_name=cast(str, profile_name),
             note_type_id=int(row["note_type_id"]),
             deck_id=cast(DeckId, int(row["deck_id"])),
             target_field_name=cast(str, row["target_field_name"]),
@@ -526,12 +572,25 @@ class SmartFieldService:
             ),
         )
 
-    def _get_profile_name(self) -> str:
-        return utils.get_current_profile_name()
-
 
 def _utc_now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
+
+
+def _profile_name_or_current(profile_name: Optional[str]) -> str:
+    return profile_name or utils.get_current_profile_name()
+
+
+def _require_generation_default_row(
+    row: Optional[sqlite3.Row], kind: GenerationDefaultKind
+) -> sqlite3.Row:
+    if not row:
+        _raise_missing_generation_default(kind)
+    return row
+
+
+def _raise_missing_generation_default(kind: GenerationDefaultKind) -> NoReturn:
+    raise RuntimeError(MISSING_DEFAULT_SETTINGS_ERRORS[kind])
 
 
 def _chat_generation_settings_from_row(row: sqlite3.Row) -> ChatGenerationSettings:
@@ -572,11 +631,11 @@ def _ensure_generation_defaults_exist(conn: sqlite3.Connection) -> None:
     ).fetchone()
 
     if not row["text_defaults_exist"]:
-        raise RuntimeError("Missing default text generation settings row")
+        _raise_missing_generation_default("text")
     if not row["tts_defaults_exist"]:
-        raise RuntimeError("Missing default TTS generation settings row")
+        _raise_missing_generation_default("tts")
     if not row["image_defaults_exist"]:
-        raise RuntimeError("Missing default image generation settings row")
+        _raise_missing_generation_default("image")
 
 
 smart_field_service = SmartFieldService()

@@ -283,6 +283,8 @@ def _start_profile_runtime(processor: NoteProcessor) -> None:
 
     global _local_server
     global _review_time_evaluator
+    # Initial profile load can fire both startup hooks. After profile_will_close
+    # cleanup resets these globals, this same path starts the next profile runtime.
     if _local_server is not None and _review_time_evaluator is not None:
         return
 

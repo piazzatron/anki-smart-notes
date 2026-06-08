@@ -149,11 +149,12 @@ def seed_smart_fields(prompts_map, options):
                     model="auto",
                     web_search_enabled=False,
                 ),
-            )
+            ),
+            profile_name="__test__",
         )
 
     return smart_field_service.get_smart_fields_for_note(
-        NOTE_TYPE_ID, 1, include_global=True
+        NOTE_TYPE_ID, 1, include_global=True, profile_name="__test__"
     )
 
 

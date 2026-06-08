@@ -20,17 +20,22 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 import json
 import sqlite3
 from copy import deepcopy
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import cast
+from typing import Any, cast
 from uuid import uuid4
 
+from anki.collection import Collection
+from anki.decks import DeckId
 from aqt import mw
 
-from .. import config as config_module
+from .. import config as config_module, utils
 from ..config import config
+from ..constants import GLOBAL_DECK_ID
 from ..logger import logger
 from ..models import (
+    DEFAULT_EXTRAS,
     ChatGenerationSettings,
     ChatModels,
     ChatProviders,
@@ -50,9 +55,10 @@ from ..models.smart_fields import (
     SmartFieldSettings,
     TTSSmartFieldSettings,
 )
-from ..smart_field_prompt_map_conversion import smart_field_creates_from_prompt_map
+from ..smart_field_prompt_map_conversion import smart_field_settings_from_prompt_parts
 from ..ui.ui_utils import show_message_box
 from .connection import get_user_files_path, open_database
+from .migration_state import assert_legacy_config_import_can_run
 
 GENERATION_DEFAULT_CONFIG_KEYS = (
     "chat_provider",
@@ -90,15 +96,32 @@ LEGACY_DEFAULT_IMAGE_GENERATION_SETTINGS = ImageGenerationSettings(
 )
 
 
+@dataclass(frozen=True)
+class _ProfilePromptMapContext:
+    profile_name: str
+    note_type_ids_by_name: dict[str, int]
+    deck_ids: set[int]
+
+
+@dataclass(frozen=True)
+class _ProfileSmartField:
+    profile_name: str
+    smart_field: SmartFieldCreate
+
+
+def legacy_config_migration_is_complete() -> bool:
+    return bool(config.did_migrate_smart_fields_to_sqlite)
+
+
 def migrate_legacy_config_to_database() -> None:
-    if config.did_migrate_smart_fields_to_sqlite:
+    if legacy_config_migration_is_complete():
         logger.debug("Legacy config DB migration: already completed")
         return
 
     try:
         logger.info("Legacy config DB migration: starting legacy config import")
         addon_config = _get_addon_config()
-        _assert_database_is_at_bootstrap_for_legacy_import()
+        assert_legacy_config_import_can_run()
 
         # Preserve the pre-migration config before any import or cleanup mutates it.
         _backup_config_for_sqlite_migration(addon_config)
@@ -241,12 +264,157 @@ def _migrate_legacy_generation_defaults_config(
 def _migrate_legacy_prompt_map(
     prompt_map: PromptMap, generation_defaults: GenerationDefaults
 ) -> None:
-    smart_fields = smart_field_creates_from_prompt_map(prompt_map, generation_defaults)
+    if not prompt_map["note_types"]:
+        return
+
+    # This import intentionally writes SQL directly instead of using
+    # SmartFieldService or shared service write helpers. It is an upgrade
+    # artifact that writes the bootstrap schema, while the service owns the final
+    # runtime schema and replacement semantics. Keeping this SQL local lets
+    # future runtime-service changes force explicit importer decisions without
+    # making old-data porting depend on the service; this is also the only phase
+    # that still has note type names and can preserve the old shared-by-name
+    # behavior across profiles. A little duplicated SQL is preferable here to
+    # coupling one-time old-data recovery to mutable runtime persistence code.
+    smart_fields = _profile_smart_fields_from_legacy_prompt_map(
+        prompt_map, generation_defaults, _get_profile_prompt_map_contexts()
+    )
 
     with open_database() as conn:
         # Re-run safety: a failed prior attempt may have inserted rows before
         # config cleanup marked the legacy migration complete.
         _upsert_bootstrap_smart_fields(conn, smart_fields)
+
+
+def _get_profile_prompt_map_contexts() -> list[_ProfilePromptMapContext]:
+    if not mw or not mw.pm or not mw.col:
+        raise RuntimeError(
+            "Cannot migrate Smart Fields because Anki profile is unavailable"
+        )
+
+    # The prompt-map import still has note type names, so it can preserve the old
+    # shared-by-name behavior. The SQL compatibility migration handles already
+    # imported rows separately because those rows only have profile-local ids.
+    current_profile = utils.get_current_profile_name()
+    profile_names = [str(profile_name) for profile_name in mw.pm.profiles()]
+    if current_profile not in profile_names:
+        profile_names.append(current_profile)
+
+    # Opening other profile collections can trigger Anki collection-level
+    # housekeeping, but note type and deck ids are profile-local. The importer
+    # cannot reconstruct the old shared-by-name prompt map without reading them.
+    contexts: list[_ProfilePromptMapContext] = []
+    for profile_name in profile_names:
+        collection = mw.col
+        close_after = False
+        if profile_name != current_profile:
+            collection_path = Path(str(mw.pm.base)) / profile_name / "collection.anki2"
+            if not collection_path.exists():
+                logger.warning(
+                    "Legacy config DB migration: skipping profile="
+                    f"{profile_name} because collection.anki2 does not exist"
+                )
+                continue
+
+            try:
+                collection = Collection(str(collection_path))
+            except Exception:
+                logger.warning(
+                    "Legacy config DB migration: skipping profile="
+                    f"{profile_name} because collection.anki2 could not be opened",
+                    exc_info=True,
+                )
+                continue
+            close_after = True
+
+        try:
+            contexts.append(_profile_prompt_map_context(profile_name, collection))
+        except Exception:
+            if profile_name == current_profile:
+                raise
+            logger.warning(
+                "Legacy config DB migration: skipping profile="
+                f"{profile_name} because collection metadata could not be read",
+                exc_info=True,
+            )
+        finally:
+            if close_after:
+                collection.close()
+
+    return contexts
+
+
+def _profile_prompt_map_context(
+    profile_name: str, collection: Any
+) -> _ProfilePromptMapContext:
+    note_type_ids_by_name = {
+        str(model["name"]): int(model["id"]) for model in collection.models.all()
+    }
+    deck_ids = {int(deck["id"]) for deck in collection.decks.all()}
+    return _ProfilePromptMapContext(
+        profile_name=profile_name,
+        note_type_ids_by_name=note_type_ids_by_name,
+        deck_ids=deck_ids,
+    )
+
+
+def _profile_smart_fields_from_legacy_prompt_map(
+    prompt_map: PromptMap,
+    generation_defaults: GenerationDefaults,
+    profile_contexts: list[_ProfilePromptMapContext],
+) -> list[_ProfileSmartField]:
+    smart_fields: list[_ProfileSmartField] = []
+    for note_type, decks in prompt_map["note_types"].items():
+        matching_contexts = [
+            context
+            for context in profile_contexts
+            if note_type in context.note_type_ids_by_name
+        ]
+        if not matching_contexts:
+            logger.warning(
+                "Legacy config DB migration: skipping legacy smart fields for "
+                f"note_type={note_type} because no Anki profile has that note type name"
+            )
+            continue
+
+        for context in matching_contexts:
+            note_type_id = context.note_type_ids_by_name[note_type]
+            logger.info(
+                "Legacy config DB migration: importing note_type="
+                f"{note_type} into profile={context.profile_name} "
+                f"as note_type_id={note_type_id}"
+            )
+            for deck_id_text, note_type_map in decks.items():
+                deck_id = int(deck_id_text)
+                if deck_id != int(GLOBAL_DECK_ID) and deck_id not in context.deck_ids:
+                    logger.warning(
+                        "Legacy config DB migration: skipping legacy smart fields "
+                        f"for profile={context.profile_name}, note_type={note_type}, "
+                        f"deck_id={deck_id} because the deck id does not exist in "
+                        "that profile"
+                    )
+                    continue
+
+                for field, prompt in note_type_map.get("fields", {}).items():
+                    extras = (
+                        note_type_map.get("extras", {}).get(field) or DEFAULT_EXTRAS
+                    )
+                    smart_fields.append(
+                        _ProfileSmartField(
+                            profile_name=context.profile_name,
+                            smart_field=SmartFieldCreate(
+                                note_type_id=note_type_id,
+                                deck_id=cast(DeckId, deck_id),
+                                target_field_name=field,
+                                enabled=extras["automatic"],
+                                settings=smart_field_settings_from_prompt_parts(
+                                    prompt, extras, generation_defaults
+                                ),
+                            ),
+                        )
+                    )
+
+    return smart_fields
 
 
 def _finish_legacy_config_migration(addon_config: dict[str, object]) -> None:
@@ -259,35 +427,6 @@ def _finish_legacy_config_migration(addon_config: dict[str, object]) -> None:
             addon_config.pop(key)
     addon_config["did_migrate_smart_fields_to_sqlite"] = True
     mw.addonManager.writeConfig(config_module.__name__, addon_config)
-
-
-def _assert_database_is_at_bootstrap_for_legacy_import() -> None:
-    with open_database() as conn:
-        try:
-            rows = conn.execute("SELECT migration_id FROM _yoyo_migration").fetchall()
-        except sqlite3.OperationalError as error:
-            raise RuntimeError(
-                "Cannot import legacy Smart Fields because the SQLite bootstrap "
-                "migration has not run"
-            ) from error
-
-    applied_migrations = {str(row["migration_id"]) for row in rows}
-    if "0001_initial_smart_fields_schema" not in applied_migrations:
-        raise RuntimeError(
-            "Cannot import legacy Smart Fields because the SQLite bootstrap "
-            "migration has not run"
-        )
-
-    later_migrations = sorted(
-        migration_id
-        for migration_id in applied_migrations
-        if migration_id != "0001_initial_smart_fields_schema"
-    )
-    if later_migrations:
-        raise RuntimeError(
-            "Cannot import legacy Smart Fields because SQL data migrations have "
-            "already run before legacy config import: " + ", ".join(later_migrations)
-        )
 
 
 def _upsert_legacy_chat_generation_defaults(
@@ -350,50 +489,57 @@ def _upsert_legacy_image_generation_defaults(
 
 
 def _upsert_bootstrap_smart_fields(
-    conn: sqlite3.Connection, smart_fields: list[SmartFieldCreate]
+    conn: sqlite3.Connection, smart_fields: list[_ProfileSmartField]
 ) -> None:
-    deduped_fields: dict[tuple[int, int, str], SmartFieldCreate] = {}
-    for smart_field in smart_fields:
+    deduped_fields: dict[tuple[str, int, int, str], _ProfileSmartField] = {}
+    for profile_smart_field in smart_fields:
+        smart_field = profile_smart_field.smart_field
         deduped_fields[
             (
+                profile_smart_field.profile_name,
                 smart_field.note_type_id,
                 int(smart_field.deck_id),
                 smart_field.target_field_name.lower(),
             )
-        ] = smart_field
+        ] = profile_smart_field
 
-    for smart_field in deduped_fields.values():
+    for profile_smart_field in deduped_fields.values():
+        smart_field = profile_smart_field.smart_field
         conn.execute(
             """
             DELETE FROM smart_fields
-            WHERE note_type_id = ?
+            WHERE profile_name = ?
+                AND note_type_id = ?
                 AND deck_id = ?
                 AND lower(target_field_name) = lower(?)
             """,
             (
+                profile_smart_field.profile_name,
                 smart_field.note_type_id,
                 int(smart_field.deck_id),
                 smart_field.target_field_name,
             ),
         )
-        _insert_bootstrap_smart_field(conn, smart_field)
+        _insert_bootstrap_smart_field(conn, profile_smart_field)
 
 
 def _insert_bootstrap_smart_field(
-    conn: sqlite3.Connection, smart_field: SmartFieldCreate
+    conn: sqlite3.Connection, profile_smart_field: _ProfileSmartField
 ) -> None:
+    smart_field = profile_smart_field.smart_field
     smart_field_id = str(uuid4())
     now = datetime.now(timezone.utc).isoformat()
     conn.execute(
         """
         INSERT INTO smart_fields (
-            id, note_type_id, deck_id, target_field_name, field_type,
+            id, profile_name, note_type_id, deck_id, target_field_name, field_type,
             enabled, created_at, updated_at
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
         (
             smart_field_id,
+            profile_smart_field.profile_name,
             smart_field.note_type_id,
             int(smart_field.deck_id),
             smart_field.target_field_name,
@@ -414,12 +560,12 @@ def _insert_bootstrap_smart_field_settings(
     if isinstance(settings, ChatSmartFieldSettings):
         conn.execute(
             """
-                INSERT INTO text_smart_field_settings (
-                    smart_field_id, prompt_text, uses_default_generation_settings,
-                    provider, model, reasoning_level, web_search_enabled
-                )
-                VALUES (?, ?, ?, ?, ?, ?, ?)
-                """,
+            INSERT INTO text_smart_field_settings (
+                smart_field_id, prompt_text, uses_default_generation_settings,
+                provider, model, reasoning_level, web_search_enabled
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
             (
                 smart_field_id,
                 settings.prompt_text,

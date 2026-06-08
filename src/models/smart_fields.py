@@ -97,7 +97,6 @@ SmartFieldSettings = Union[
 @dataclass(frozen=True)
 class SmartField:
     id: str
-    profile_name: str
     note_type_id: int
     deck_id: DeckId
     target_field_name: str

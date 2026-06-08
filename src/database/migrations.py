@@ -24,29 +24,84 @@ from yoyo import read_migrations
 
 from ..logger import logger
 from . import connection
-from .legacy_config_migration import migrate_legacy_config_to_database
+from .legacy_config_migration import (
+    legacy_config_migration_is_complete,
+    migrate_legacy_config_to_database,
+)
+from .migration_state import (
+    BOOTSTRAP_MIGRATION_ID,
+    PROFILE_SCOPE_MIGRATION_ID,
+    applied_migration_ids,
+    assert_legacy_config_import_can_run,
+)
 
 
 def run_migrations() -> None:
-    # Bootstrap creates the schema that legacy config import writes to. Later
-    # SQL migrations then evolve imported rows the same way they evolve any
-    # existing SQLite rows, keeping future backfills in one place.
+    # The upgrade pipeline intentionally has a narrow out-of-order repair:
+    #
+    # 1. Fresh installs run the edited bootstrap, import legacy config into that
+    #    schema, then run every remaining SQL migration in order.
+    # 2. Interrupted older installs may have yoyo's original bootstrap recorded
+    #    without profile_name in the physical table. If legacy import is still
+    #    pending, run only the profile-scope repair first so import can write
+    #    valid rows; later data migrations still run after import.
+    # 3. Installs that already imported legacy rows run the profile-scope
+    #    compatibility migration in normal yoyo order, where it can map existing
+    #    profile-local ids without guessing the currently-open profile.
+    #
+    # This keeps old config import at the earliest adequate schema while still
+    # making later SQL migrations own each backfill exactly once.
     apply_database_bootstrap_migrations()
+    apply_database_profile_scope_migration_if_needed()
     migrate_legacy_config_to_database()
     apply_database_migrations()
 
 
 def apply_database_bootstrap_migrations(database_path: Optional[str] = None) -> None:
-    _apply_migrations(database_path, bootstrap_only=True)
+    _apply_migrations(
+        database_path,
+        selected_migration_ids={BOOTSTRAP_MIGRATION_ID},
+    )
 
 
 def apply_database_migrations(database_path: Optional[str] = None) -> None:
     _apply_migrations(database_path)
 
 
+def apply_database_profile_scope_migration_if_needed(
+    database_path: Optional[str] = None,
+) -> None:
+    resolved_database_path = database_path or connection.get_database_path()
+    if not _database_has_unprofiled_smart_fields_schema(resolved_database_path):
+        return
+
+    if _migration_id_is_applied(resolved_database_path, PROFILE_SCOPE_MIGRATION_ID):
+        raise RuntimeError(
+            "Smart Fields profile migration is recorded as applied, but "
+            "smart_fields.profile_name is missing"
+        )
+
+    if legacy_config_migration_is_complete():
+        return
+
+    # Check the legacy-import invariant before mutating the old schema. The
+    # importer checks it again for direct callers, but this early repair runs
+    # before the importer and must not move a bad upgrade state forward first.
+    assert_legacy_config_import_can_run(resolved_database_path)
+
+    logger.info(
+        "Smart fields DB: applying profile-scope compatibility migration before "
+        "legacy config import"
+    )
+    _apply_migrations(
+        database_path,
+        selected_migration_ids={PROFILE_SCOPE_MIGRATION_ID},
+    )
+
+
 def _apply_migrations(
     database_path: Optional[str] = None,
-    bootstrap_only: bool = False,
+    selected_migration_ids: Optional[set[str]] = None,
 ) -> None:
     # Tests pass isolated temp DB paths so migration state never touches user data.
     resolved_database_path = database_path or connection.get_database_path()
@@ -57,8 +112,10 @@ def _apply_migrations(
     migrations_path = Path(__file__).with_name("db_migrations")
     logger.debug(f"Smart fields DB: reading migrations from {migrations_path}")
     migrations = read_migrations(str(migrations_path))
-    if bootstrap_only:
-        migrations = migrations[:1]
+    if selected_migration_ids is not None:
+        migrations = migrations.filter(
+            lambda migration: migration.id in selected_migration_ids
+        )
 
     with backend.lock():
         pending_migrations = backend.to_apply(migrations)
@@ -71,3 +128,26 @@ def _apply_migrations(
         )
         backend.apply_migrations(pending_migrations)
         logger.info("Smart fields DB: database migrations applied")
+
+
+def _database_has_unprofiled_smart_fields_schema(database_path: str) -> bool:
+    if not Path(database_path).exists():
+        return False
+
+    with connection.open_database(database_path) as conn:
+        has_smart_fields = (
+            conn.execute(
+                "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'smart_fields'"
+            ).fetchone()
+            is not None
+        )
+        if not has_smart_fields:
+            return False
+
+        columns = {row[1] for row in conn.execute("PRAGMA table_info(smart_fields)")}
+
+    return "profile_name" not in columns
+
+
+def _migration_id_is_applied(database_path: str, migration_id: str) -> bool:
+    return migration_id in applied_migration_ids(database_path)

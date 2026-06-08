@@ -64,8 +64,12 @@ def anki_collection(monkeypatch: pytest.MonkeyPatch) -> None:
     class FakeCollection:
         models = FakeModels()
 
+    class FakeProfileManager:
+        name = "__test__"
+
     class FakeMw:
         col = FakeCollection()
+        pm = FakeProfileManager()
 
     monkeypatch.setattr(src.smart_field_prompt_map, "mw", FakeMw())
     monkeypatch.setattr(src.utils, "mw", FakeMw())
@@ -88,7 +92,8 @@ def test_replace_from_prompt_map_does_not_delete_existing_fields_if_conversion_f
                 model="auto",
                 web_search_enabled=False,
             ),
-        )
+        ),
+        profile_name="__test__",
     )
 
     with pytest.raises(ValueError):
@@ -105,7 +110,9 @@ def test_replace_from_prompt_map_does_not_delete_existing_fields_if_conversion_f
             }
         )
 
-    smart_fields = service.get_smart_fields_for_note(NOTE_TYPE_ID, DECK_ID)
+    smart_fields = service.get_smart_fields_for_note(
+        NOTE_TYPE_ID, DECK_ID, profile_name="__test__"
+    )
 
     assert len(smart_fields) == 1
     assert smart_fields[0].target_field_name == "Back"
@@ -127,7 +134,8 @@ def test_replace_from_prompt_map_replaces_fields_after_successful_conversion() -
                 model="auto",
                 web_search_enabled=False,
             ),
-        )
+        ),
+        profile_name="__test__",
     )
 
     replace_from_prompt_map(
@@ -143,7 +151,9 @@ def test_replace_from_prompt_map_replaces_fields_after_successful_conversion() -
         }
     )
 
-    smart_fields = service.get_smart_fields_for_note(NOTE_TYPE_ID, DECK_ID)
+    smart_fields = service.get_smart_fields_for_note(
+        NOTE_TYPE_ID, DECK_ID, profile_name="__test__"
+    )
 
     assert len(smart_fields) == 1
     assert smart_fields[0].target_field_name == "FrontExtra"
@@ -172,7 +182,9 @@ def test_replace_from_prompt_map_skips_missing_note_types() -> None:
         }
     )
 
-    smart_fields = SmartFieldService().get_smart_fields_for_note(NOTE_TYPE_ID, DECK_ID)
+    smart_fields = SmartFieldService().get_smart_fields_for_note(
+        NOTE_TYPE_ID, DECK_ID, profile_name="__test__"
+    )
 
     assert len(smart_fields) == 1
     assert smart_fields[0].target_field_name == "FrontExtra"
@@ -193,10 +205,12 @@ def test_prompt_map_preserves_default_backed_generation_settings() -> None:
         ),
     )
     service = SmartFieldService()
-    service.save_smart_field(smart_field)
+    service.save_smart_field(smart_field, profile_name="__test__")
 
     prompt_map = prompt_map_from_smart_fields(
-        service.get_smart_fields_for_note(NOTE_TYPE_ID, DECK_ID),
+        service.get_smart_fields_for_note(
+            NOTE_TYPE_ID, DECK_ID, profile_name="__test__"
+        ),
         {NOTE_TYPE_ID: "Basic"},
     )
 

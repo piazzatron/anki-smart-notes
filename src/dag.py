@@ -23,7 +23,6 @@ from typing import Optional
 from anki.decks import DeckId
 from anki.notes import Note
 
-from . import utils
 from .logger import logger
 from .models import DEFAULT_EXTRAS, PromptMap
 from .models.smart_fields import (
@@ -214,13 +213,11 @@ def smart_fields_from_prompt_map(
     deck_map = note_type_map.get(str(deck_id), {})
     fields = deck_map.get("fields", {})
     extras_by_field = deck_map.get("extras", {})
-    profile_name = utils.get_current_profile_name()
     generation_defaults = smart_field_service.get_generation_defaults()
 
     return [
         SmartField(
             id=f"prompt-map:{field}",
-            profile_name=profile_name,
             note_type_id=note_type_id,
             deck_id=deck_id,
             target_field_name=field,

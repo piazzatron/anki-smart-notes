@@ -51,7 +51,8 @@ def list_prompt_map() -> PromptMap:
         for note_type in mw.col.models.all()
     }
     return prompt_map_from_smart_fields(
-        smart_field_service.get_all_smart_fields(), note_type_names
+        smart_field_service.get_all_smart_fields(),
+        note_type_names,
     )
 
 
