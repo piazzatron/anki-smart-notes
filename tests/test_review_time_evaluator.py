@@ -19,34 +19,8 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from dataclasses import dataclass
-from typing import Any
-
 import pytest
-
-
-@dataclass
-class MockCard:
-    id: int
-    did: int = 1
-    processed: bool = False
-
-    def note(self) -> Any:
-        return object()
-
-
-class MockProcessor:
-    def __init__(self) -> None:
-        self.processed_cards: list[int] = []
-
-    async def process_note(
-        self,
-        note: Any,
-        deck_id: int,
-        overwrite_fields: bool = False,
-    ) -> bool:
-        self.processed_cards.append(deck_id)
-        return True
+from fixtures import MockCard, MockConfig, MockProcessor
 
 
 class MockQueuedCard:
@@ -90,10 +64,6 @@ class MockMw:
         self.state = state
         self.col = MockCollection(queued)
         self.reviewer = MockReviewer(current)
-
-
-class MockConfig:
-    generate_at_review = True
 
 
 def setup_review_time_evaluator(monkeypatch, current=None, queued=None, state="review"):

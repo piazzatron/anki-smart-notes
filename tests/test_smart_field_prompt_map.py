@@ -19,10 +19,9 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 from copy import deepcopy
 from pathlib import Path
-from typing import Any, Optional, cast
 
 import pytest
-from anki.decks import DeckId
+from fixtures import DECK_ID, NOTE_TYPE_ID, install_prompt_map_collection
 
 from src.database.migrations import apply_database_migrations
 from src.models import DEFAULT_EXTRAS, FieldExtras
@@ -32,9 +31,6 @@ from src.smart_field_prompt_map import (
     prompt_map_from_smart_fields,
     replace_from_prompt_map,
 )
-
-NOTE_TYPE_ID = 123
-DECK_ID = cast(DeckId, 1)
 
 
 @pytest.fixture(autouse=True)
@@ -51,21 +47,7 @@ def sqlite_database(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
 
 @pytest.fixture(autouse=True)
 def anki_collection(monkeypatch: pytest.MonkeyPatch) -> None:
-    import src.smart_field_prompt_map
-
-    class FakeModels:
-        def by_name(self, note_type: str) -> Optional[dict[str, Any]]:
-            if note_type != "Basic":
-                return None
-            return {"id": NOTE_TYPE_ID}
-
-    class FakeCollection:
-        models = FakeModels()
-
-    class FakeMw:
-        col = FakeCollection()
-
-    monkeypatch.setattr(src.smart_field_prompt_map, "mw", FakeMw())
+    install_prompt_map_collection(monkeypatch)
 
 
 def test_replace_from_prompt_map_does_not_delete_existing_fields_if_conversion_fails() -> (
