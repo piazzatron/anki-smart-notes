@@ -20,7 +20,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 from pathlib import Path
 
 import pytest
-from support import DECK_ID, NOTE_TYPE_ID, install_fake_anki, use_temp_sqlite
+from fixtures import DECK_ID, NOTE_TYPE_ID, install_fake_anki, use_temp_sqlite
 
 from src.database.migrations import run_migrations
 from src.models.smart_fields import ChatSmartFieldSettings

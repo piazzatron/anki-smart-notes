@@ -22,7 +22,7 @@ from copy import deepcopy
 from pathlib import Path
 
 import pytest
-from support import (
+from fixtures import (
     DECK_ID,
     NOTE_TYPE_ID,
     install_fake_anki,

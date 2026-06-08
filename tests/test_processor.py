@@ -19,54 +19,10 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any
-
 import pytest
-from attr import dataclass
+from fixtures import NOTE_TYPE_ID, NOTE_TYPE_NAME, MockCard, MockConfig, MockNote
 
 from src.database.migrations import apply_database_migrations
-
-
-@dataclass
-class MockNote:
-    _note_type: str
-    _data: dict[str, Any]
-
-    id = 1
-
-    def note_type(self):
-        return {"name": self._note_type, "id": NOTE_TYPE_ID}
-
-    def __getitem__(self, key):
-        return self._data[key]
-
-    def __setitem__(self, key, value):
-        self._data[key] = value
-
-    def __contains__(self, key):
-        return key in self._data
-
-    def items(self):
-        return self._data.items()
-
-    def fields(self):
-        return self._data.keys()
-
-
-@dataclass
-class MockConfig:
-    allow_empty_fields: bool
-    prompts_map: Any = None
-    chat_provider = "auto"
-    chat_model = "auto"
-    chat_reasoning_level = "off"
-    chat_web_search = False
-    tts_provider = "openai"
-    tts_voice = "alloy"
-    tts_model = "tts-1"
-    openai_api_key = ""
-    auth_token: str = ""
-    debug: bool = True
 
 
 def p(str) -> str:
@@ -114,10 +70,6 @@ class MockAppState:
             "imageCreditsCapacity": 1000,
         },
     }
-
-
-NOTE_TYPE_NAME = "note_type_1"
-NOTE_TYPE_ID = 123
 
 
 @pytest.fixture(autouse=True)
@@ -517,7 +469,7 @@ async def test_processor_1(name, note, prompts_map, expected, options, monkeypat
     target_field = options.get("target_field")
     allow_empty_fields = bool(options.get("allow_empty"))
 
-    n = MockNote(note_type=NOTE_TYPE_NAME, data=note)
+    n = MockNote(note, note_type=NOTE_TYPE_NAME)
     p = setup_data(  # type: ignore
         monkeypatch=monkeypatch,
         note=n,
@@ -537,13 +489,6 @@ async def test_processor_1(name, note, prompts_map, expected, options, monkeypat
 def test_process_card_forwards_use_collection(monkeypatch):
     from src.note_proccessor import NoteProcessor
 
-    class MockCard:
-        id = 1
-        did = 1
-
-        def note(self):
-            return MockNote(note_type=NOTE_TYPE_NAME, data={"f1": "1"})
-
     calls = []
     processor = NoteProcessor(  # type: ignore
         field_resolver=None,
@@ -560,7 +505,11 @@ def test_process_card_forwards_use_collection(monkeypatch):
         use_collection=True: calls.append(use_collection),
     )
 
-    processor.process_card(MockCard(), show_progress=False, use_collection=False)  # type: ignore
+    processor.process_card(
+        MockCard(note=MockNote({"f1": "1"}, note_type=NOTE_TYPE_NAME)),
+        show_progress=False,
+        use_collection=False,
+    )  # type: ignore
 
     assert calls == [False]
 
@@ -613,7 +562,7 @@ async def test_process_note_updates_collection_on_main_thread(monkeypatch):
             self.col = MockCollection()
             self.progress = MockProgress()
 
-    n = MockNote(note_type=NOTE_TYPE_NAME, data={"f1": "1", "f2": ""})
+    n = MockNote({"f1": "1", "f2": ""}, note_type=NOTE_TYPE_NAME)
     p = setup_data(  # type: ignore
         monkeypatch=monkeypatch,
         note=n,
@@ -671,7 +620,7 @@ Example: ({"f1": "1", "f2": ""}, {"f2": "{{f1}} {{f4}}", "f4": "{{f2}}"}, True)
 async def test_cycle(note, prompts_map, expected, monkeypatch):
     import src.dag
 
-    n = MockNote(note_type=NOTE_TYPE_NAME, data=note)
+    n = MockNote(note, note_type=NOTE_TYPE_NAME)
     smart_fields = seed_smart_fields(prompts_map, {})
 
     # Mock get_fields like in setup_data
@@ -715,7 +664,7 @@ Example: ({"f1": "1", "f2": ""}, {"f2": "{{f1}}"}, True)
     ],
 )
 async def test_returns_if_updated(note, prompts_map, expected, monkeypatch):
-    n = MockNote(note_type=NOTE_TYPE_NAME, data=note)
+    n = MockNote(note, note_type=NOTE_TYPE_NAME)
     p = setup_data(  # type: ignore
         monkeypatch=monkeypatch,
         note=n,
