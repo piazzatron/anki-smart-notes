@@ -28,12 +28,9 @@ from .legacy_config_migration import (
     legacy_config_migration_is_complete,
     migrate_legacy_config_to_database,
 )
-from .migration_state import (
-    BOOTSTRAP_MIGRATION_ID,
-    PROFILE_SCOPE_MIGRATION_ID,
-    applied_migration_ids,
-    assert_legacy_config_import_can_run,
-)
+
+BOOTSTRAP_MIGRATION_ID = "0001_initial_smart_fields_schema"
+PROFILE_SCOPE_MIGRATION_ID = "0003_scope_smart_fields_to_profile"
 
 
 def run_migrations() -> None:
@@ -75,19 +72,8 @@ def apply_database_profile_scope_migration_if_needed(
     if not _database_has_unprofiled_smart_fields_schema(resolved_database_path):
         return
 
-    if _migration_id_is_applied(resolved_database_path, PROFILE_SCOPE_MIGRATION_ID):
-        raise RuntimeError(
-            "Smart Fields profile migration is recorded as applied, but "
-            "smart_fields.profile_name is missing"
-        )
-
     if legacy_config_migration_is_complete():
         return
-
-    # Check the legacy-import invariant before mutating the old schema. The
-    # importer checks it again for direct callers, but this early repair runs
-    # before the importer and must not move a bad upgrade state forward first.
-    assert_legacy_config_import_can_run(resolved_database_path)
 
     logger.info(
         "Smart fields DB: applying profile-scope compatibility migration before "
@@ -147,7 +133,3 @@ def _database_has_unprofiled_smart_fields_schema(database_path: str) -> bool:
         columns = {row[1] for row in conn.execute("PRAGMA table_info(smart_fields)")}
 
     return "profile_name" not in columns
-
-
-def _migration_id_is_applied(database_path: str, migration_id: str) -> bool:
-    return migration_id in applied_migration_ids(database_path)

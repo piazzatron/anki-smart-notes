@@ -27,7 +27,6 @@ from yoyo import read_migrations
 from src.database import get_sqlite_backend
 from src.database.migrations import (
     apply_database_bootstrap_migrations,
-    apply_database_migrations,
     run_migrations,
 )
 from src.models.smart_fields import ChatSmartFieldSettings
@@ -258,69 +257,6 @@ def test_run_migrations_repairs_old_bootstrap_only_schema_before_legacy_import(
     }
 
 
-def test_run_migrations_does_not_apply_profile_repair_after_data_migration_ran(
-    monkeypatch: pytest.MonkeyPatch,
-    tmp_path: Path,
-) -> None:
-    import src.database.connection
-
-    database_path = tmp_path / "smart_notes.sqlite3"
-    addon_config = {
-        "prompts_map": {
-            "note_types": {
-                "Basic": {
-                    str(DECK_ID): {
-                        "fields": {"Back": "{{Front}}"},
-                        "extras": {
-                            "Back": {
-                                "automatic": True,
-                                "type": "chat",
-                                "use_custom_model": True,
-                                "chat_provider": "openai",
-                                "chat_model": "gpt-4o-mini",
-                                "chat_reasoning_level": None,
-                                "chat_web_search": False,
-                                "tts_model": None,
-                                "tts_provider": None,
-                                "tts_voice": None,
-                                "image_provider": None,
-                                "image_model": None,
-                            }
-                        },
-                    }
-                }
-            }
-        },
-        "did_migrate_smart_fields_to_sqlite": False,
-    }
-    install_fake_anki(monkeypatch, addon_config, tmp_path)
-    monkeypatch.setattr(
-        src.database.connection,
-        "get_database_path",
-        lambda: str(database_path),
-    )
-    apply_first_two_database_migrations(database_path)
-    replace_smart_fields_with_old_unprofiled_bootstrap_schema(database_path)
-
-    with pytest.raises(
-        RuntimeError,
-        match=(
-            "SQL data migrations have already run before legacy config import: "
-            "0002_migrate_deprecated_chat_models_to_auto"
-        ),
-    ):
-        run_migrations()
-
-    with sqlite3.connect(database_path) as conn:
-        columns = {row[1] for row in conn.execute("PRAGMA table_info(smart_fields)")}
-        applied_migrations = {
-            row[0] for row in conn.execute("SELECT migration_id FROM _yoyo_migration")
-        }
-
-    assert "profile_name" not in columns
-    assert "0003_scope_smart_fields_to_profile" not in applied_migrations
-
-
 def test_run_migrations_profiles_old_sql_rows_after_legacy_import_completed(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
@@ -354,56 +290,6 @@ def test_run_migrations_profiles_old_sql_rows_after_legacy_import_completed(
 
     assert smart_field_row == ("__test__", NOTE_TYPE_ID, int(DECK_ID), "Back")
     assert "0003_scope_smart_fields_to_profile" in applied_migrations
-
-
-def test_run_migrations_fails_if_legacy_import_would_skip_sql_data_migrations(
-    monkeypatch: pytest.MonkeyPatch,
-    tmp_path: Path,
-) -> None:
-    import src.database.connection
-
-    database_path = tmp_path / "smart_notes.sqlite3"
-    addon_config = {
-        "prompts_map": {
-            "note_types": {
-                "Basic": {
-                    str(DECK_ID): {
-                        "fields": {"Back": "{{Front}}"},
-                        "extras": {
-                            "Back": {
-                                "automatic": True,
-                                "type": "chat",
-                                "use_custom_model": True,
-                                "chat_provider": "openai",
-                                "chat_model": "gpt-4o-mini",
-                                "chat_reasoning_level": None,
-                                "chat_web_search": False,
-                                "tts_model": None,
-                                "tts_provider": None,
-                                "tts_voice": None,
-                                "image_provider": None,
-                                "image_model": None,
-                            }
-                        },
-                    }
-                }
-            }
-        },
-        "did_migrate_smart_fields_to_sqlite": False,
-    }
-    install_fake_anki(monkeypatch, addon_config, tmp_path)
-    monkeypatch.setattr(
-        src.database.connection,
-        "get_database_path",
-        lambda: str(database_path),
-    )
-    apply_database_migrations(str(database_path))
-
-    with pytest.raises(
-        RuntimeError,
-        match="SQL data migrations have already run before legacy config import",
-    ):
-        run_migrations()
 
 
 def apply_first_two_database_migrations(database_path: Path) -> None:

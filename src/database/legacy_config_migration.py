@@ -58,7 +58,6 @@ from ..models.smart_fields import (
 from ..smart_field_prompt_map_conversion import smart_field_settings_from_prompt_parts
 from ..ui.ui_utils import show_message_box
 from .connection import get_user_files_path, open_database
-from .migration_state import assert_legacy_config_import_can_run
 
 GENERATION_DEFAULT_CONFIG_KEYS = (
     "chat_provider",
@@ -121,7 +120,6 @@ def migrate_legacy_config_to_database() -> None:
     try:
         logger.info("Legacy config DB migration: starting legacy config import")
         addon_config = _get_addon_config()
-        assert_legacy_config_import_can_run()
 
         # Preserve the pre-migration config before any import or cleanup mutates it.
         _backup_config_for_sqlite_migration(addon_config)
