@@ -23,71 +23,59 @@ from typing import Optional
 from yoyo import read_migrations
 
 from ..logger import logger
+from ..ui.ui_utils import show_message_box
 from . import connection
 from .legacy_config_migration import (
     legacy_config_migration_is_complete,
     migrate_legacy_config_to_database,
 )
 
-BOOTSTRAP_MIGRATION_ID = "0001_initial_smart_fields_schema"
-PROFILE_SCOPE_MIGRATION_ID = "0003_scope_smart_fields_to_profile"
-
 
 def run_migrations() -> None:
-    # The upgrade pipeline intentionally has a narrow out-of-order repair:
-    #
-    # 1. Fresh installs run the edited bootstrap, import legacy config into that
-    #    schema, then run every remaining SQL migration in order.
-    # 2. Interrupted older installs may have yoyo's original bootstrap recorded
-    #    without profile_name in the physical table. If legacy import is still
-    #    pending, run only the profile-scope repair first so import can write
-    #    valid rows; later data migrations still run after import.
-    # 3. Installs that already imported legacy rows run the profile-scope
-    #    compatibility migration in normal yoyo order, where it can map existing
-    #    profile-local ids without guessing the currently-open profile.
-    #
-    # This keeps old config import at the earliest adequate schema while still
-    # making later SQL migrations own each backfill exactly once.
+    # Bootstrap creates the schema only. Generation defaults and Smart Fields
+    # both come from legacy config.json, so import both before SQL data
+    # migrations. That keeps future model backfills simple: update the default
+    # row plus custom override rows, and inherited fields follow automatically.
     apply_database_bootstrap_migrations()
-    apply_database_profile_scope_migration_if_needed()
+    _fail_if_legacy_import_would_use_unprofiled_schema()
     migrate_legacy_config_to_database()
     apply_database_migrations()
 
 
 def apply_database_bootstrap_migrations(database_path: Optional[str] = None) -> None:
-    _apply_migrations(
-        database_path,
-        selected_migration_ids={BOOTSTRAP_MIGRATION_ID},
-    )
+    _apply_migrations(database_path, bootstrap_only=True)
 
 
 def apply_database_migrations(database_path: Optional[str] = None) -> None:
     _apply_migrations(database_path)
 
 
-def apply_database_profile_scope_migration_if_needed(
+def _fail_if_legacy_import_would_use_unprofiled_schema(
     database_path: Optional[str] = None,
 ) -> None:
+    if legacy_config_migration_is_complete():
+        return
+
     resolved_database_path = database_path or connection.get_database_path()
     if not _database_has_unprofiled_smart_fields_schema(resolved_database_path):
         return
 
-    if legacy_config_migration_is_complete():
-        return
-
-    logger.info(
-        "Smart fields DB: applying profile-scope compatibility migration before "
-        "legacy config import"
+    # This should never happen in the supported runner: bootstrap and legacy
+    # import are treated as one upgrade unit. If the user is here, support needs
+    # to inspect and repair the partial upgrade state instead of continuing.
+    show_message_box(
+        "Smart Notes could not finish upgrading your Smart Fields.",
+        "Please email support@smart-notes.xyz and include your smart-notes.log file.",
     )
-    _apply_migrations(
-        database_path,
-        selected_migration_ids={PROFILE_SCOPE_MIGRATION_ID},
+    raise RuntimeError(
+        "Smart Fields SQLite migration is in an unsupported partial upgrade state: "
+        "legacy config import is pending, but smart_fields lacks profile_name"
     )
 
 
 def _apply_migrations(
     database_path: Optional[str] = None,
-    selected_migration_ids: Optional[set[str]] = None,
+    bootstrap_only: bool = False,
 ) -> None:
     # Tests pass isolated temp DB paths so migration state never touches user data.
     resolved_database_path = database_path or connection.get_database_path()
@@ -98,10 +86,8 @@ def _apply_migrations(
     migrations_path = Path(__file__).with_name("db_migrations")
     logger.debug(f"Smart fields DB: reading migrations from {migrations_path}")
     migrations = read_migrations(str(migrations_path))
-    if selected_migration_ids is not None:
-        migrations = migrations.filter(
-            lambda migration: migration.id in selected_migration_ids
-        )
+    if bootstrap_only:
+        migrations = migrations[:1]
 
     with backend.lock():
         pending_migrations = backend.to_apply(migrations)

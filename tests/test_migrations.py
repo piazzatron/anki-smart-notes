@@ -47,8 +47,8 @@ def test_run_migrations_imports_legacy_config_after_bootstrap(
         lambda: calls.append("database"),
     )
     monkeypatch.setattr(
-        "src.database.migrations.apply_database_profile_scope_migration_if_needed",
-        lambda **kwargs: calls.append("profile_scope"),
+        "src.database.migrations._fail_if_legacy_import_would_use_unprofiled_schema",
+        lambda: calls.append("schema_check"),
     )
     monkeypatch.setattr(
         "src.database.migrations.migrate_legacy_config_to_database",
@@ -63,7 +63,7 @@ def test_run_migrations_imports_legacy_config_after_bootstrap(
 
     assert calls == [
         "bootstrap",
-        "profile_scope",
+        "schema_check",
         "legacy_config",
         "database",
     ]
@@ -188,7 +188,7 @@ def test_run_migrations_updates_inherited_fields_through_sql_default_row(
     assert smart_fields[0].settings.model == "auto"
 
 
-def test_run_migrations_repairs_old_bootstrap_only_schema_before_legacy_import(
+def test_run_migrations_fails_for_old_bootstrap_only_schema_before_legacy_import(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
 ) -> None:
@@ -233,28 +233,32 @@ def test_run_migrations_repairs_old_bootstrap_only_schema_before_legacy_import(
         "get_database_path",
         lambda: str(database_path),
     )
+    messages: list[tuple[object, ...]] = []
+    monkeypatch.setattr(
+        "src.database.migrations.show_message_box",
+        lambda *args: messages.append(args),
+    )
     apply_database_bootstrap_migrations(str(database_path))
     replace_smart_fields_with_old_unprofiled_bootstrap_schema(database_path)
 
-    run_migrations()
+    with pytest.raises(
+        RuntimeError,
+        match=("legacy config import is pending, but smart_fields lacks profile_name"),
+    ):
+        run_migrations()
 
-    smart_fields = SmartFieldService().get_smart_fields_for_note(
-        NOTE_TYPE_ID, DECK_ID, profile_name="__test__"
-    )
     with sqlite3.connect(database_path) as conn:
         applied_migrations = {
             row[0] for row in conn.execute("SELECT migration_id FROM _yoyo_migration")
         }
 
-    assert len(smart_fields) == 1
-    assert isinstance(smart_fields[0].settings, ChatSmartFieldSettings)
-    assert smart_fields[0].settings.provider == "auto"
-    assert smart_fields[0].settings.model == "auto"
-    assert applied_migrations == {
-        "0001_initial_smart_fields_schema",
-        "0002_migrate_deprecated_chat_models_to_auto",
-        "0003_scope_smart_fields_to_profile",
-    }
+    assert messages == [
+        (
+            "Smart Notes could not finish upgrading your Smart Fields.",
+            "Please email support@smart-notes.xyz and include your smart-notes.log file.",
+        )
+    ]
+    assert applied_migrations == {"0001_initial_smart_fields_schema"}
 
 
 def test_run_migrations_profiles_old_sql_rows_after_legacy_import_completed(
