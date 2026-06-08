@@ -69,6 +69,7 @@ from .providers import (
 from .smart_fields import (
     ChatGenerationSettings,
     ChatSmartFieldSettings,
+    GenerationDefaults,
     ImageGenerationSettings,
     ImageSmartFieldSettings,
     SmartField,
@@ -91,6 +92,7 @@ __all__ = [
     "ElevenTTSModels",
     "ElevenVoices",
     "FieldExtras",
+    "GenerationDefaults",
     "GeminiModels",
     "GenerationExtra",
     "GenerationSource",

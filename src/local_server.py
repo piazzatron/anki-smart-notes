@@ -19,7 +19,6 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import asyncio
 import concurrent.futures
-import re
 import threading
 import traceback
 from collections.abc import Mapping
@@ -34,6 +33,7 @@ from aqt.qt import QDialog
 from .app_state import app_state
 from .config import config
 from .constants import GLOBAL_DECK_ID, SITE_URL_DEV
+from .database.legacy_config_migration import source_field_from_tts_prompt
 from .logger import logger
 from .models import (
     ChatModels,
@@ -64,8 +64,6 @@ from .smart_field_prompt_map import list_prompt_map, replace_from_prompt_map
 from .ui.prompt_dialog import PromptDialog
 from .utils import get_fields
 from .utils.notes_utils import get_note_type_id_from_name
-
-FIELD_PATTERN = r"\{\{(?!c\d+::)(.+?)\}\}"
 
 # -- Request param types --
 
@@ -190,15 +188,6 @@ def _get_deck_id(params: Mapping[str, Any]) -> DeckId:
     if raw is None:
         return GLOBAL_DECK_ID
     return cast(DeckId, int(raw))
-
-
-def source_field_from_tts_prompt(prompt: str) -> str:
-    fields = re.findall(FIELD_PATTERN, prompt)
-    if len(fields) != 1:
-        raise ValueError(
-            f"TTS smart fields must have exactly one source field, got: {prompt}"
-        )
-    return fields[0]
 
 
 class LocalServer:

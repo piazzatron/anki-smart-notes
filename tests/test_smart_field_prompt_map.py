@@ -66,7 +66,7 @@ def test_replace_from_prompt_map_does_not_delete_existing_fields_if_conversion_f
                 model="auto",
                 web_search_enabled=False,
             ),
-        )
+        ),
     )
 
     with pytest.raises(ValueError):
@@ -105,7 +105,7 @@ def test_replace_from_prompt_map_replaces_fields_after_successful_conversion() -
                 model="auto",
                 web_search_enabled=False,
             ),
-        )
+        ),
     )
 
     replace_from_prompt_map(

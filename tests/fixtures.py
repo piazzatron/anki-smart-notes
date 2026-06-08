@@ -26,8 +26,11 @@ from anki.decks import DeckId
 
 import src.database.connection
 import src.database.legacy_config_migration
+import src.database.migrations
 import src.sentry
 import src.smart_field_prompt_map
+import src.utils
+import src.utils.notes_utils
 
 NOTE_TYPE_NAME = "note_type_1"
 BASIC_NOTE_TYPE_NAME = "Basic"
@@ -157,15 +160,56 @@ class FakeModels:
     def __init__(self, note_types: Optional[dict[str, int]] = None) -> None:
         self.note_types = note_types or {BASIC_NOTE_TYPE_NAME: NOTE_TYPE_ID}
 
+    def all(self) -> list[dict[str, Any]]:
+        return [
+            {"name": note_type, "id": note_type_id}
+            for note_type, note_type_id in self.note_types.items()
+        ]
+
     def by_name(self, note_type: str) -> Optional[dict[str, Any]]:
         if note_type not in self.note_types:
             return None
-        return {"id": self.note_types[note_type]}
+        return {"name": note_type, "id": self.note_types[note_type]}
 
 
 class FakeCollection:
-    def __init__(self, note_types: Optional[dict[str, int]] = None) -> None:
+    def __init__(
+        self,
+        note_types: Optional[dict[str, int]] = None,
+        deck_ids: Optional[set[int]] = None,
+    ) -> None:
         self.models = FakeModels(note_types)
+        self.decks = FakeDecks(deck_ids)
+        self.did_close = False
+
+    def close(self) -> None:
+        self.did_close = True
+
+
+class FakeDecks:
+    def __init__(self, deck_ids: Optional[set[int]] = None) -> None:
+        self.deck_ids = deck_ids or {int(DECK_ID)}
+
+    def all(self) -> list[dict[str, Any]]:
+        return [
+            {"id": deck_id, "name": f"Deck {deck_id}"}
+            for deck_id in sorted(self.deck_ids)
+        ]
+
+
+class FakeProfileManager:
+    def __init__(
+        self,
+        tmp_path: Path,
+        current_profile: str,
+        profiles: dict[str, tuple[dict[str, int], set[int]]],
+    ) -> None:
+        self.name = current_profile
+        self.base = str(tmp_path / "profiles")
+        self._profiles = profiles
+
+    def profiles(self) -> list[str]:
+        return list(self._profiles)
 
 
 class FakeMw:
@@ -173,10 +217,23 @@ class FakeMw:
         self,
         addon_config: Optional[dict[str, Any]] = None,
         *,
+        tmp_path: Optional[Path] = None,
         note_types: Optional[dict[str, int]] = None,
+        profiles: Optional[dict[str, tuple[dict[str, int], set[int]]]] = None,
+        current_profile: str = "__test__",
     ) -> None:
         self.addonManager = FakeAddonManager(addon_config)
-        self.col = FakeCollection(note_types)
+        profile_map = profiles or {
+            current_profile: (
+                note_types or {BASIC_NOTE_TYPE_NAME: NOTE_TYPE_ID},
+                {int(DECK_ID)},
+            )
+        }
+        current_note_types, current_decks = profile_map[current_profile]
+        self.col = FakeCollection(current_note_types, current_decks)
+        self.pm = FakeProfileManager(
+            tmp_path or Path("."), current_profile, profile_map
+        )
 
 
 def use_temp_sqlite(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
@@ -192,25 +249,57 @@ def install_fake_anki(
     addon_config: dict[str, Any],
     tmp_path: Path,
     *,
+    profiles: Optional[dict[str, tuple[dict[str, int], set[int]]]] = None,
+    current_profile: str = "__test__",
     show_message_box: Optional[Callable[..., None]] = None,
 ) -> FakeMw:
-    fake_mw = FakeMw(addon_config)
+    fake_mw = FakeMw(
+        addon_config,
+        tmp_path=tmp_path,
+        profiles=profiles,
+        current_profile=current_profile,
+    )
+    import aqt
+
+    monkeypatch.setattr(aqt, "mw", fake_mw)
     monkeypatch.setattr(src.database.legacy_config_migration, "mw", fake_mw)
     monkeypatch.setattr(src.smart_field_prompt_map, "mw", fake_mw)
+    monkeypatch.setattr(src.utils, "mw", fake_mw)
+    monkeypatch.setattr(src.utils.notes_utils, "mw", fake_mw)
+
+    profile_map = profiles or {
+        current_profile: ({BASIC_NOTE_TYPE_NAME: NOTE_TYPE_ID}, {int(DECK_ID)})
+    }
+    for profile_name in profile_map:
+        if profile_name == current_profile:
+            continue
+        profile_path = tmp_path / "profiles" / profile_name
+        profile_path.mkdir(parents=True)
+        (profile_path / "collection.anki2").write_text("", encoding="utf-8")
+
+    def open_collection(path: str) -> FakeCollection:
+        note_types, deck_ids = profile_map[Path(path).parent.name]
+        return FakeCollection(note_types, deck_ids)
+
+    monkeypatch.setattr(
+        src.database.legacy_config_migration,
+        "Collection",
+        open_collection,
+    )
     monkeypatch.setattr(
         src.database.legacy_config_migration, "config", FakeConfig(addon_config)
     )
+    monkeypatch.setattr(src.database.migrations, "config", FakeConfig(addon_config))
     monkeypatch.setattr(
         src.database.legacy_config_migration,
         "get_user_files_path",
         lambda filename: str(tmp_path / "user_files" / filename),
     )
-    if show_message_box is not None:
-        monkeypatch.setattr(
-            src.database.legacy_config_migration,
-            "show_message_box",
-            show_message_box,
-        )
+    monkeypatch.setattr(
+        src.database.legacy_config_migration,
+        "show_message_box",
+        show_message_box or (lambda *args: None),
+    )
     return fake_mw
 
 
@@ -221,6 +310,8 @@ def install_prompt_map_collection(
 ) -> FakeMw:
     fake_mw = FakeMw(note_types=note_types)
     monkeypatch.setattr(src.smart_field_prompt_map, "mw", fake_mw)
+    monkeypatch.setattr(src.utils, "mw", fake_mw)
+    monkeypatch.setattr(src.utils.notes_utils, "mw", fake_mw)
     return fake_mw
 
 

@@ -22,7 +22,9 @@ from typing import Optional
 
 from yoyo import read_migrations
 
+from ..config import config
 from ..logger import logger
+from ..ui.ui_utils import show_message_box
 from . import connection
 from .legacy_config_migration import migrate_legacy_config_to_database
 
@@ -33,8 +35,42 @@ def run_migrations() -> None:
     # migrations. That keeps future model backfills simple: update the default
     # row plus custom override rows, and inherited fields follow automatically.
     apply_database_bootstrap_migrations()
+    _fail_if_legacy_import_would_use_unprofiled_schema()
     migrate_legacy_config_to_database()
     apply_database_migrations()
+
+
+def _fail_if_legacy_import_would_use_unprofiled_schema() -> None:
+    # This should never happen in the supported runner: bootstrap and legacy
+    # import are treated as one upgrade unit. If the user is here, support needs
+    # to inspect and repair the partial upgrade state instead of continuing.
+    if not config.did_migrate_smart_fields_to_sqlite:
+        database_path = connection.get_database_path()
+        if Path(database_path).exists():
+            with connection.open_database(database_path) as conn:
+                has_smart_fields = (
+                    conn.execute(
+                        "SELECT 1 FROM sqlite_master "
+                        "WHERE type = 'table' AND name = 'smart_fields'"
+                    ).fetchone()
+                    is not None
+                )
+                if has_smart_fields:
+                    columns = {
+                        row[1]
+                        for row in conn.execute("PRAGMA table_info(smart_fields)")
+                    }
+                    if "profile_name" not in columns:
+                        show_message_box(
+                            "Smart Notes could not finish upgrading your Smart Fields.",
+                            "Please email support@smart-notes.xyz and include your "
+                            "smart-notes.log file.",
+                        )
+                        raise RuntimeError(
+                            "Smart Fields SQLite migration is in an unsupported "
+                            "partial upgrade state: legacy config import is pending, "
+                            "but smart_fields lacks profile_name"
+                        )
 
 
 def apply_database_bootstrap_migrations(database_path: Optional[str] = None) -> None:

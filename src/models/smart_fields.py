@@ -56,6 +56,13 @@ class ImageGenerationSettings:
 
 
 @dataclass(frozen=True)
+class GenerationDefaults:
+    chat: ChatGenerationSettings
+    tts: TTSGenerationSettings
+    image: ImageGenerationSettings
+
+
+@dataclass(frozen=True)
 class ChatSmartFieldSettings:
     prompt_text: str
     provider: ChatProviders
