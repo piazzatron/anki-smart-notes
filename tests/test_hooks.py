@@ -19,7 +19,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
 from types import SimpleNamespace
-from typing import cast
+from typing import Any, cast
 
 import pytest
 
@@ -58,3 +58,27 @@ def test_profile_did_open_restarts_local_server_after_profile_switch(
 
 def test_profile_did_open_hook_is_registered() -> None:
     assert hasattr(hooks.gui_hooks, "profile_did_open")
+
+
+def test_profile_cleanup_closes_open_options_dialog(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    did_close = False
+
+    class FakeDialog:
+        def close(self) -> None:
+            nonlocal did_close
+            did_close = True
+
+    monkeypatch.setattr(
+        hooks,
+        "_open_options_dialog",
+        cast(Any, FakeDialog()),
+    )
+
+    monkeypatch.setattr(hooks, "_local_server", None)
+    monkeypatch.setattr(hooks, "_review_time_evaluator", None)
+
+    hooks.cleanup()
+
+    assert did_close

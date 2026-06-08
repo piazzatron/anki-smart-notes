@@ -54,6 +54,7 @@ from .utils.notes_utils import (
 
 _local_server: Any = None
 _review_time_evaluator: Optional[ReviewTimeEvaluator] = None
+_open_options_dialog: Optional[AddonOptionsDialog] = None
 
 
 def _with_processor(fn: Any):
@@ -72,10 +73,28 @@ def _with_processor(fn: Any):
 
 @_with_processor  # type: ignore
 def on_options(processor: NoteProcessor):
+    global _open_options_dialog
+
     app_state.update_subscription_state()
     if not mw:
         return
+    if _open_options_dialog is not None:
+        _open_options_dialog.raise_()
+        _open_options_dialog.activateWindow()
+        return
+
+    # The options dialog snapshots profile-scoped Smart Field state. Keep the
+    # singleton reference so profile-close cleanup can close it before that state
+    # becomes stale.
     dialog = AddonOptionsDialog(processor)
+    _open_options_dialog = dialog
+
+    def clear_open_options_dialog(_: object) -> None:
+        global _open_options_dialog
+        if _open_options_dialog is dialog:
+            _open_options_dialog = None
+
+    dialog.finished.connect(clear_open_options_dialog)
     # Use show() instead of exec() so the dialog is non-modal; nested webview
     # dialogs (sign-in, upgrade) can't be shown cleanly while an app-modal is
     # running on macOS. garbage_collect_on_dialog_finish keeps the dialog alive
@@ -414,6 +433,16 @@ def add_deck_option(
 
 @with_sentry
 def cleanup() -> None:
+    global _open_options_dialog
+    if _open_options_dialog is not None:
+        # A profile switch changes the note types, decks, and profile-scoped
+        # Smart Field rows backing this UI. Close instead of refreshing so stale
+        # dialog state cannot be saved into the next profile.
+        logger.debug("Closing Smart Notes options dialog before profile close")
+        dialog = _open_options_dialog
+        _open_options_dialog = None
+        dialog.close()
+
     global _local_server
     if _local_server is not None:
         _local_server.stop()
