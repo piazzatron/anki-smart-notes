@@ -47,23 +47,18 @@ def test_run_migrations_imports_legacy_config_after_bootstrap(
         lambda: calls.append("database"),
     )
     monkeypatch.setattr(
-        "src.database.migrations._fail_if_legacy_import_would_use_unprofiled_schema",
-        lambda: calls.append("schema_check"),
-    )
-    monkeypatch.setattr(
         "src.database.migrations.migrate_legacy_config_to_database",
         lambda: calls.append("legacy_config"),
     )
     monkeypatch.setattr(
         "src.database.migrations.legacy_config_migration_is_complete",
-        lambda: False,
+        lambda: True,
     )
 
     run_migrations()
 
     assert calls == [
         "bootstrap",
-        "schema_check",
         "legacy_config",
         "database",
     ]

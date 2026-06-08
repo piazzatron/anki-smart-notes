@@ -37,7 +37,38 @@ def run_migrations() -> None:
     # migrations. That keeps future model backfills simple: update the default
     # row plus custom override rows, and inherited fields follow automatically.
     apply_database_bootstrap_migrations()
-    _fail_if_legacy_import_would_use_unprofiled_schema()
+
+    # This should never happen in the supported runner: bootstrap and legacy
+    # import are treated as one upgrade unit. If the user is here, support needs
+    # to inspect and repair the partial upgrade state instead of continuing.
+    if not legacy_config_migration_is_complete():
+        database_path = connection.get_database_path()
+        if Path(database_path).exists():
+            with connection.open_database(database_path) as conn:
+                has_smart_fields = (
+                    conn.execute(
+                        "SELECT 1 FROM sqlite_master "
+                        "WHERE type = 'table' AND name = 'smart_fields'"
+                    ).fetchone()
+                    is not None
+                )
+                if has_smart_fields:
+                    columns = {
+                        row[1]
+                        for row in conn.execute("PRAGMA table_info(smart_fields)")
+                    }
+                    if "profile_name" not in columns:
+                        show_message_box(
+                            "Smart Notes could not finish upgrading your Smart Fields.",
+                            "Please email support@smart-notes.xyz and include your "
+                            "smart-notes.log file.",
+                        )
+                        raise RuntimeError(
+                            "Smart Fields SQLite migration is in an unsupported "
+                            "partial upgrade state: legacy config import is pending, "
+                            "but smart_fields lacks profile_name"
+                        )
+
     migrate_legacy_config_to_database()
     apply_database_migrations()
 
@@ -48,29 +79,6 @@ def apply_database_bootstrap_migrations(database_path: Optional[str] = None) -> 
 
 def apply_database_migrations(database_path: Optional[str] = None) -> None:
     _apply_migrations(database_path)
-
-
-def _fail_if_legacy_import_would_use_unprofiled_schema(
-    database_path: Optional[str] = None,
-) -> None:
-    if legacy_config_migration_is_complete():
-        return
-
-    resolved_database_path = database_path or connection.get_database_path()
-    if not _database_has_unprofiled_smart_fields_schema(resolved_database_path):
-        return
-
-    # This should never happen in the supported runner: bootstrap and legacy
-    # import are treated as one upgrade unit. If the user is here, support needs
-    # to inspect and repair the partial upgrade state instead of continuing.
-    show_message_box(
-        "Smart Notes could not finish upgrading your Smart Fields.",
-        "Please email support@smart-notes.xyz and include your smart-notes.log file.",
-    )
-    raise RuntimeError(
-        "Smart Fields SQLite migration is in an unsupported partial upgrade state: "
-        "legacy config import is pending, but smart_fields lacks profile_name"
-    )
 
 
 def _apply_migrations(
@@ -100,22 +108,3 @@ def _apply_migrations(
         )
         backend.apply_migrations(pending_migrations)
         logger.info("Smart fields DB: database migrations applied")
-
-
-def _database_has_unprofiled_smart_fields_schema(database_path: str) -> bool:
-    if not Path(database_path).exists():
-        return False
-
-    with connection.open_database(database_path) as conn:
-        has_smart_fields = (
-            conn.execute(
-                "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'smart_fields'"
-            ).fetchone()
-            is not None
-        )
-        if not has_smart_fields:
-            return False
-
-        columns = {row[1] for row in conn.execute("PRAGMA table_info(smart_fields)")}
-
-    return "profile_name" not in columns
