@@ -35,7 +35,12 @@ def run_migrations() -> None:
     # migrations. That keeps future model backfills simple: update the default
     # row plus custom override rows, and inherited fields follow automatically.
     apply_database_bootstrap_migrations()
+    _fail_if_legacy_import_would_use_unprofiled_schema()
+    migrate_legacy_config_to_database()
+    apply_database_migrations()
 
+
+def _fail_if_legacy_import_would_use_unprofiled_schema() -> None:
     # This should never happen in the supported runner: bootstrap and legacy
     # import are treated as one upgrade unit. If the user is here, support needs
     # to inspect and repair the partial upgrade state instead of continuing.
@@ -66,9 +71,6 @@ def run_migrations() -> None:
                             "partial upgrade state: legacy config import is pending, "
                             "but smart_fields lacks profile_name"
                         )
-
-    migrate_legacy_config_to_database()
-    apply_database_migrations()
 
 
 def apply_database_bootstrap_migrations(database_path: Optional[str] = None) -> None:
