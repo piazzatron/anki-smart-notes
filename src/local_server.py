@@ -62,7 +62,8 @@ from .services.smart_field_service import smart_field_service
 from .smart_field_prompt_map import list_prompt_map, replace_from_prompt_map
 from .smart_field_prompt_map_conversion import source_field_from_tts_prompt
 from .ui.prompt_dialog import PromptDialog
-from .utils import get_fields, get_note_type_id_from_name
+from .utils import get_fields
+from .utils.notes_utils import get_note_type_id_from_name
 
 # -- Request param types --
 

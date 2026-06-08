@@ -30,6 +30,7 @@ import src.database.migrations
 import src.sentry
 import src.smart_field_prompt_map
 import src.utils
+import src.utils.notes_utils
 
 NOTE_TYPE_NAME = "note_type_1"
 BASIC_NOTE_TYPE_NAME = "Basic"
@@ -264,6 +265,7 @@ def install_fake_anki(
     monkeypatch.setattr(src.database.legacy_config_migration, "mw", fake_mw)
     monkeypatch.setattr(src.smart_field_prompt_map, "mw", fake_mw)
     monkeypatch.setattr(src.utils, "mw", fake_mw)
+    monkeypatch.setattr(src.utils.notes_utils, "mw", fake_mw)
 
     profile_map = profiles or {
         current_profile: ({BASIC_NOTE_TYPE_NAME: NOTE_TYPE_ID}, {int(DECK_ID)})
@@ -309,6 +311,7 @@ def install_prompt_map_collection(
     fake_mw = FakeMw(note_types=note_types)
     monkeypatch.setattr(src.smart_field_prompt_map, "mw", fake_mw)
     monkeypatch.setattr(src.utils, "mw", fake_mw)
+    monkeypatch.setattr(src.utils.notes_utils, "mw", fake_mw)
     return fake_mw
 
 

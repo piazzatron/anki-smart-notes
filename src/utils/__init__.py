@@ -20,7 +20,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 import json
 import os
 from collections.abc import Callable
-from typing import Any, Optional
+from typing import Any
 
 from aqt import mw
 
@@ -45,15 +45,6 @@ def get_fields(note_type: str) -> list[str]:
         return []
 
     return [field["name"] for field in sorted(model["flds"], key=lambda x: x["ord"])]
-
-
-def get_note_type_id_from_name(note_type: str) -> Optional[int]:
-    if not mw or not mw.col:
-        return None
-    model = mw.col.models.by_name(note_type)
-    if not model:
-        return None
-    return int(model["id"])
 
 
 def get_current_profile_name() -> str:

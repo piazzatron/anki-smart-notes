@@ -21,7 +21,6 @@ from typing import cast
 
 from anki.decks import DeckId
 
-from . import utils
 from .logger import logger
 from .models import (
     DEFAULT_EXTRAS,
@@ -37,6 +36,7 @@ from .models.smart_fields import (
     TTSSmartFieldSettings,
 )
 from .prompt_fields import get_prompt_fields
+from .utils.notes_utils import get_note_type_id_from_name
 
 
 def smart_field_creates_from_prompt_map(
@@ -45,7 +45,7 @@ def smart_field_creates_from_prompt_map(
 ) -> list[SmartFieldCreate]:
     smart_fields: list[SmartFieldCreate] = []
     for note_type, decks in prompt_map["note_types"].items():
-        note_type_id = utils.get_note_type_id_from_name(note_type)
+        note_type_id = get_note_type_id_from_name(note_type)
         if note_type_id is None:
             logger.warning(
                 f"Smart fields DB: skipping smart fields for missing note type: {note_type}"
