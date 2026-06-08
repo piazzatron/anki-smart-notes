@@ -110,9 +110,7 @@ def test_run_migrations_evolves_imported_legacy_config_to_current_schema(
 
     run_migrations()
 
-    smart_fields = SmartFieldService().get_smart_fields_for_note(
-        NOTE_TYPE_ID, DECK_ID, profile_name="__test__"
-    )
+    smart_fields = SmartFieldService().get_smart_fields_for_note(NOTE_TYPE_ID, DECK_ID)
 
     assert len(smart_fields) == 1
     assert isinstance(smart_fields[0].settings, ChatSmartFieldSettings)
@@ -172,9 +170,7 @@ def test_run_migrations_updates_inherited_fields_through_sql_default_row(
 
     run_migrations()
 
-    smart_fields = SmartFieldService().get_smart_fields_for_note(
-        NOTE_TYPE_ID, DECK_ID, profile_name="__test__"
-    )
+    smart_fields = SmartFieldService().get_smart_fields_for_note(NOTE_TYPE_ID, DECK_ID)
 
     assert len(smart_fields) == 1
     assert isinstance(smart_fields[0].settings, ChatSmartFieldSettings)

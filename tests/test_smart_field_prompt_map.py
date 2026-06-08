@@ -67,7 +67,6 @@ def test_replace_from_prompt_map_does_not_delete_existing_fields_if_conversion_f
                 web_search_enabled=False,
             ),
         ),
-        profile_name="__test__",
     )
 
     with pytest.raises(ValueError):
@@ -84,9 +83,7 @@ def test_replace_from_prompt_map_does_not_delete_existing_fields_if_conversion_f
             }
         )
 
-    smart_fields = service.get_smart_fields_for_note(
-        NOTE_TYPE_ID, DECK_ID, profile_name="__test__"
-    )
+    smart_fields = service.get_smart_fields_for_note(NOTE_TYPE_ID, DECK_ID)
 
     assert len(smart_fields) == 1
     assert smart_fields[0].target_field_name == "Back"
@@ -109,7 +106,6 @@ def test_replace_from_prompt_map_replaces_fields_after_successful_conversion() -
                 web_search_enabled=False,
             ),
         ),
-        profile_name="__test__",
     )
 
     replace_from_prompt_map(
@@ -125,9 +121,7 @@ def test_replace_from_prompt_map_replaces_fields_after_successful_conversion() -
         }
     )
 
-    smart_fields = service.get_smart_fields_for_note(
-        NOTE_TYPE_ID, DECK_ID, profile_name="__test__"
-    )
+    smart_fields = service.get_smart_fields_for_note(NOTE_TYPE_ID, DECK_ID)
 
     assert len(smart_fields) == 1
     assert smart_fields[0].target_field_name == "FrontExtra"
@@ -156,9 +150,7 @@ def test_replace_from_prompt_map_skips_missing_note_types() -> None:
         }
     )
 
-    smart_fields = SmartFieldService().get_smart_fields_for_note(
-        NOTE_TYPE_ID, DECK_ID, profile_name="__test__"
-    )
+    smart_fields = SmartFieldService().get_smart_fields_for_note(NOTE_TYPE_ID, DECK_ID)
 
     assert len(smart_fields) == 1
     assert smart_fields[0].target_field_name == "FrontExtra"
@@ -179,12 +171,10 @@ def test_prompt_map_preserves_default_backed_generation_settings() -> None:
         ),
     )
     service = SmartFieldService()
-    service.save_smart_field(smart_field, profile_name="__test__")
+    service.save_smart_field(smart_field)
 
     prompt_map = prompt_map_from_smart_fields(
-        service.get_smart_fields_for_note(
-            NOTE_TYPE_ID, DECK_ID, profile_name="__test__"
-        ),
+        service.get_smart_fields_for_note(NOTE_TYPE_ID, DECK_ID),
         {NOTE_TYPE_ID: "Basic"},
     )
 

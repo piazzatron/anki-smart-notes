@@ -75,12 +75,14 @@ class MockAppState:
 @pytest.fixture(autouse=True)
 def sqlite_database(tmp_path, monkeypatch):
     import src.database.connection
+    from src.services.smart_field_service import smart_field_service
 
     monkeypatch.setattr(
         src.database.connection,
         "get_database_path",
         lambda: str(tmp_path / "smart_notes.sqlite3"),
     )
+    monkeypatch.setattr(smart_field_service, "_get_profile_name", lambda: "__test__")
     apply_database_migrations()
 
 
@@ -102,11 +104,10 @@ def seed_smart_fields(prompts_map, options):
                     web_search_enabled=False,
                 ),
             ),
-            profile_name="__test__",
         )
 
     return smart_field_service.get_smart_fields_for_note(
-        NOTE_TYPE_ID, 1, include_global=True, profile_name="__test__"
+        NOTE_TYPE_ID, 1, include_global=True
     )
 
 

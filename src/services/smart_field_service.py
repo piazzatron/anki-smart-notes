@@ -19,7 +19,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import sqlite3
 from datetime import datetime, timezone
-from typing import Optional, cast
+from typing import Callable, Optional, cast
 from uuid import uuid4
 
 from anki.decks import DeckId
@@ -75,6 +75,9 @@ class SmartFieldService:
     ports old config data into the bootstrap schema; this service only owns
     normal reads and writes after the full migration pipeline has completed.
     """
+
+    def __init__(self, get_profile_name: Optional[Callable[[], str]] = None) -> None:
+        self._get_profile_name = get_profile_name or utils.get_current_profile_name
 
     def get_chat_defaults(self) -> ChatGenerationSettings:
         with open_database() as conn:
@@ -215,17 +218,14 @@ class SmartFieldService:
         note_type_id: int,
         deck_id: DeckId,
         include_global: bool = True,
-        *,
-        profile_name: Optional[str] = None,
     ) -> list[SmartField]:
-        profile_name = _profile_name_or_current(profile_name)
         logger.debug(
             f"Smart fields DB: loading fields for note_type_id={note_type_id}, deck_id={deck_id}"
         )
         global_fields: dict[str, SmartField] = {}
         deck_fields: dict[str, SmartField] = {}
 
-        for smart_field in self.get_all_smart_fields(profile_name=profile_name):
+        for smart_field in self.get_all_smart_fields():
             if smart_field.note_type_id != note_type_id:
                 continue
 
@@ -238,10 +238,8 @@ class SmartFieldService:
         global_fields.update(deck_fields)
         return list(global_fields.values())
 
-    def get_all_smart_fields(
-        self, *, profile_name: Optional[str] = None
-    ) -> list[SmartField]:
-        profile_name = _profile_name_or_current(profile_name)
+    def get_all_smart_fields(self) -> list[SmartField]:
+        profile_name = self._get_profile_name()
         logger.debug(f"Smart fields DB: loading all fields for profile={profile_name}")
 
         with open_database() as conn:
@@ -284,10 +282,8 @@ class SmartFieldService:
             ).fetchall()
         return [self._smart_field_from_row(row) for row in rows]
 
-    def save_smart_field(
-        self, smart_field: SmartFieldCreate, *, profile_name: Optional[str] = None
-    ) -> None:
-        profile_name = _profile_name_or_current(profile_name)
+    def save_smart_field(self, smart_field: SmartFieldCreate) -> None:
+        profile_name = self._get_profile_name()
         logger.debug(
             f"Smart fields DB: saving {smart_field.field_type} field "
             f"{profile_name}/{smart_field.note_type_id}/{smart_field.deck_id}/"
@@ -300,10 +296,8 @@ class SmartFieldService:
     def replace_all_smart_fields(
         self,
         smart_fields: list[SmartFieldCreate],
-        *,
-        profile_name: Optional[str] = None,
     ) -> None:
-        profile_name = _profile_name_or_current(profile_name)
+        profile_name = self._get_profile_name()
         logger.debug(
             f"Smart fields DB: replacing all fields for profile={profile_name} "
             f"with {len(smart_fields)} field(s)"
@@ -330,10 +324,8 @@ class SmartFieldService:
         note_type_id: int,
         deck_id: DeckId,
         target_field: str,
-        *,
-        profile_name: Optional[str] = None,
     ) -> None:
-        profile_name = _profile_name_or_current(profile_name)
+        profile_name = self._get_profile_name()
         logger.debug(
             f"Smart fields DB: removing {profile_name}/{note_type_id}/"
             f"{deck_id}/{target_field}"
@@ -570,10 +562,6 @@ class SmartFieldService:
 
 def _utc_now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
-
-
-def _profile_name_or_current(profile_name: Optional[str]) -> str:
-    return profile_name or utils.get_current_profile_name()
 
 
 def _chat_generation_settings_from_row(row: sqlite3.Row) -> ChatGenerationSettings:
