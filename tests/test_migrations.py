@@ -18,12 +18,10 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import sqlite3
-from copy import deepcopy
 from pathlib import Path
-from typing import Any, Optional, cast
 
 import pytest
-from anki.decks import DeckId
+from fixtures import DECK_ID, NOTE_TYPE_ID, install_fake_anki, use_temp_sqlite
 from yoyo import read_migrations
 
 from src.database import get_sqlite_backend
@@ -34,33 +32,6 @@ from src.database.migrations import (
 )
 from src.models.smart_fields import ChatSmartFieldSettings
 from src.services.smart_field_service import SmartFieldService
-
-NOTE_TYPE_ID = 123
-DECK_ID = cast(DeckId, 1)
-
-
-class FakeAddonManager:
-    def __init__(self, addon_config: dict[str, Any]) -> None:
-        self.addon_config = addon_config
-        self.written_config: Optional[dict[str, Any]] = None
-
-    def getConfig(self, addon_name: str) -> dict[str, Any]:
-        return self.addon_config
-
-    def writeConfig(self, addon_name: str, addon_config: dict[str, Any]) -> None:
-        self.written_config = deepcopy(addon_config)
-
-
-class FakeConfig:
-    def __init__(self, addon_config: dict[str, Any]) -> None:
-        self.addon_config = addon_config
-
-    @property
-    def did_migrate_smart_fields_to_sqlite(self) -> bool:
-        return bool(self.addon_config.get("did_migrate_smart_fields_to_sqlite"))
-
-    def __getattr__(self, key: str) -> object:
-        return self.addon_config.get(key)
 
 
 def test_run_migrations_imports_legacy_config_after_bootstrap(
@@ -103,8 +74,6 @@ def test_run_migrations_evolves_imported_legacy_config_to_current_schema(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
 ) -> None:
-    import src.database.connection
-
     addon_config = {
         "chat_provider": "openai",
         "chat_model": "gpt-5-nano",
@@ -137,12 +106,13 @@ def test_run_migrations_evolves_imported_legacy_config_to_current_schema(
         },
         "did_migrate_smart_fields_to_sqlite": False,
     }
-    fake_mw = install_fake_anki(monkeypatch, addon_config, tmp_path)
-    monkeypatch.setattr(
-        src.database.connection,
-        "get_database_path",
-        lambda: str(tmp_path / "smart_notes.sqlite3"),
+    fake_mw = install_fake_anki(
+        monkeypatch,
+        addon_config,
+        tmp_path,
+        show_message_box=lambda *args: None,
     )
+    use_temp_sqlite(monkeypatch, tmp_path)
 
     run_migrations()
 
@@ -166,8 +136,6 @@ def test_run_migrations_updates_inherited_fields_through_sql_default_row(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
 ) -> None:
-    import src.database.connection
-
     addon_config = {
         "chat_provider": "openai",
         "chat_model": "gpt-5-nano",
@@ -200,12 +168,13 @@ def test_run_migrations_updates_inherited_fields_through_sql_default_row(
         },
         "did_migrate_smart_fields_to_sqlite": False,
     }
-    install_fake_anki(monkeypatch, addon_config, tmp_path)
-    monkeypatch.setattr(
-        src.database.connection,
-        "get_database_path",
-        lambda: str(tmp_path / "smart_notes.sqlite3"),
+    install_fake_anki(
+        monkeypatch,
+        addon_config,
+        tmp_path,
+        show_message_box=lambda *args: None,
     )
+    use_temp_sqlite(monkeypatch, tmp_path)
 
     run_migrations()
 
@@ -435,68 +404,6 @@ def test_run_migrations_fails_if_legacy_import_would_skip_sql_data_migrations(
         match="SQL data migrations have already run before legacy config import",
     ):
         run_migrations()
-
-
-def install_fake_anki(
-    monkeypatch: pytest.MonkeyPatch,
-    addon_config: dict[str, Any],
-    tmp_path: Path,
-) -> Any:
-    import src.database.legacy_config_migration
-    import src.smart_field_prompt_map
-    import src.utils
-
-    class FakeModels:
-        def all(self) -> list[dict[str, Any]]:
-            return [{"name": "Basic", "id": NOTE_TYPE_ID}]
-
-        def by_name(self, note_type: str) -> Optional[dict[str, Any]]:
-            if note_type != "Basic":
-                return None
-            return {"id": NOTE_TYPE_ID}
-
-    class FakeDecks:
-        def all(self) -> list[dict[str, Any]]:
-            return [{"id": int(DECK_ID), "name": "Deck 1"}]
-
-    class FakeCollection:
-        models = FakeModels()
-        decks = FakeDecks()
-
-    class FakeProfileManager:
-        name = "__test__"
-        base = str(tmp_path / "profiles")
-
-        def profiles(self) -> list[str]:
-            return ["__test__"]
-
-    class FakeMw:
-        def __init__(self) -> None:
-            self.addonManager = FakeAddonManager(addon_config)
-            self.pm = FakeProfileManager()
-            self.col = FakeCollection()
-
-    fake_mw = FakeMw()
-    import aqt
-
-    monkeypatch.setattr(aqt, "mw", fake_mw)
-    monkeypatch.setattr(src.database.legacy_config_migration, "mw", fake_mw)
-    monkeypatch.setattr(src.smart_field_prompt_map, "mw", fake_mw)
-    monkeypatch.setattr(src.utils, "mw", fake_mw)
-    monkeypatch.setattr(
-        src.database.legacy_config_migration, "config", FakeConfig(addon_config)
-    )
-    monkeypatch.setattr(
-        src.database.legacy_config_migration,
-        "get_user_files_path",
-        lambda filename: str(tmp_path / "user_files" / filename),
-    )
-    monkeypatch.setattr(
-        src.database.legacy_config_migration,
-        "show_message_box",
-        lambda *args: None,
-    )
-    return fake_mw
 
 
 def apply_first_two_database_migrations(database_path: Path) -> None:

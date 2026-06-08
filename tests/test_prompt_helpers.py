@@ -20,38 +20,10 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 from copy import deepcopy
-from typing import Any
 
 import aqt  # noqa: F401
 import pytest
-from attr import dataclass
-
-
-@dataclass
-class MockNote:
-    _data: dict[str, Any]
-
-    def note_type(self):
-        return {"id": 123, "name": "Basic"}
-
-    def __getitem__(self, key):
-        return self._data[key]
-
-    def __setitem__(self, key, value):
-        self._data[key] = value
-
-    def __contains__(self, key):
-        return key in self._data
-
-    def items(self):
-        return self._data.items()
-
-
-@dataclass
-class MockConfig:
-    prompts_map: Any = None
-    allow_empty_fields: bool = False
-
+from fixtures import MockConfig, MockNote
 
 DEFAULT_TTS_OPTIONS = {
     "tts_model": None,
@@ -146,7 +118,7 @@ def test_prompt_has_error_returns_tts_source_validation_error(monkeypatch):
 
     error = prompt_has_error(
         "{{Front}}",
-        MockNote({"Front": "front", "Back": "back", "Audio": ""}),
+        MockNote({"Front": "front", "Back": "back", "Audio": ""}, note_type="Basic"),
         1,
         prompts_map=prompts_map,
     )
@@ -250,7 +222,7 @@ def test_interpolate_prompt(prompt, note_data, allow_empty, expected, monkeypatc
 
     from src.prompt_helpers import interpolate_prompt
 
-    note = MockNote(data=note_data)
+    note = MockNote(note_data)
     result = interpolate_prompt(prompt, note)
     assert result == expected
 

@@ -21,66 +21,28 @@ import json
 import sqlite3
 from copy import deepcopy
 from pathlib import Path
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import pytest
-from anki.decks import DeckId
+from fixtures import (
+    DECK_ID,
+    NOTE_TYPE_ID,
+    install_fake_anki,
+    install_fake_sentry,
+    install_migration_alert,
+    use_temp_sqlite,
+)
 
 from src.database.legacy_config_migration import migrate_legacy_config_to_database
 from src.database.migrations import apply_database_bootstrap_migrations
 from src.models import DEFAULT_EXTRAS, FieldExtras
-from tests.fake_anki_profiles import (
-    FakeProfileData,
-    install_fake_profile_collections,
-    profile_data as fake_profile_data,
-)
 
-NOTE_TYPE_ID = 123
-DECK_ID = cast(DeckId, 1)
 SECOND_PROFILE_NOTE_TYPE_ID = 456
-
-
-class FakeAddonManager:
-    def __init__(self, addon_config: dict[str, Any]) -> None:
-        self.addon_config = addon_config
-        self.written_config: Optional[dict[str, Any]] = None
-
-    def getConfig(self, addon_name: str) -> dict[str, Any]:
-        return self.addon_config
-
-    def writeConfig(self, addon_name: str, addon_config: dict[str, Any]) -> None:
-        self.written_config = deepcopy(addon_config)
-
-
-class FakeConfig:
-    def __init__(self, addon_config: dict[str, Any]) -> None:
-        self.addon_config = addon_config
-
-    @property
-    def did_migrate_smart_fields_to_sqlite(self) -> bool:
-        return bool(self.addon_config.get("did_migrate_smart_fields_to_sqlite"))
-
-    def __getattr__(self, key: str) -> object:
-        return self.addon_config.get(key)
-
-
-class FakeSentry:
-    def __init__(self) -> None:
-        self.captured: list[Exception] = []
-
-    def capture_exception(self, error: Exception) -> None:
-        self.captured.append(error)
 
 
 @pytest.fixture(autouse=True)
 def sqlite_database(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    import src.database.connection
-
-    monkeypatch.setattr(
-        src.database.connection,
-        "get_database_path",
-        lambda: str(tmp_path / "smart_notes.sqlite3"),
-    )
+    use_temp_sqlite(monkeypatch, tmp_path)
     apply_database_bootstrap_migrations()
 
 
@@ -709,47 +671,6 @@ def test_migrate_legacy_smart_field_config_does_nothing_after_successful_migrati
     assert not (tmp_path / "user_files").exists()
 
 
-def install_fake_anki(
-    monkeypatch: pytest.MonkeyPatch,
-    addon_config: dict[str, Any],
-    tmp_path: Path,
-    *,
-    profiles: Optional[dict[str, FakeProfileData]] = None,
-    current_profile: str = "__test__",
-) -> Any:
-    import src.database.legacy_config_migration
-    import src.smart_field_prompt_map
-    import src.utils
-    import src.utils.notes_utils
-
-    profile_map = profiles or {
-        current_profile: profile_data({"Basic": NOTE_TYPE_ID}, {int(DECK_ID)})
-    }
-    fake_mw = install_fake_profile_collections(
-        monkeypatch,
-        tmp_path,
-        profiles=profile_map,
-        current_profile=current_profile,
-        addon_manager=FakeAddonManager(addon_config),
-        modules_with_mw=(
-            src.database.legacy_config_migration,
-            src.smart_field_prompt_map,
-            src.utils,
-            src.utils.notes_utils,
-        ),
-        modules_with_collection=(src.database.legacy_config_migration,),
-    )
-    monkeypatch.setattr(
-        src.database.legacy_config_migration, "config", FakeConfig(addon_config)
-    )
-    monkeypatch.setattr(
-        src.database.legacy_config_migration,
-        "get_user_files_path",
-        lambda filename: str(tmp_path / "user_files" / filename),
-    )
-    return fake_mw
-
-
 def fetch_legacy_text_smart_fields() -> list[sqlite3.Row]:
     import src.database.connection
 
@@ -780,28 +701,10 @@ def table_columns(conn: sqlite3.Connection, table: str) -> list[str]:
     ]
 
 
-def profile_data(note_types: dict[str, int], deck_ids: set[int]) -> FakeProfileData:
-    return fake_profile_data(note_types, deck_ids)
-
-
-def install_migration_alert(
-    monkeypatch: pytest.MonkeyPatch, messages: list[tuple[object, ...]]
-) -> None:
-    import src.database.legacy_config_migration
-
-    monkeypatch.setattr(
-        src.database.legacy_config_migration,
-        "show_message_box",
-        lambda *args: messages.append(args),
-    )
-
-
-def install_fake_sentry(monkeypatch: pytest.MonkeyPatch) -> FakeSentry:
-    import src.sentry
-
-    fake_sentry = FakeSentry()
-    monkeypatch.setattr(src.sentry, "sentry", fake_sentry)
-    return fake_sentry
+def profile_data(
+    note_types: dict[str, int], deck_ids: set[int]
+) -> tuple[dict[str, int], set[int]]:
+    return (note_types, deck_ids)
 
 
 def chat_extras() -> FieldExtras:
