@@ -19,7 +19,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import sqlite3
 from datetime import datetime, timezone
-from typing import Literal, NoReturn, Optional, cast
+from typing import Optional, cast
 from uuid import uuid4
 
 from anki.decks import DeckId
@@ -66,12 +66,6 @@ DEFAULT_IMAGE_GENERATION_SETTINGS = ImageGenerationSettings(
     provider="openai",
     model="gpt-image-1.5-low",
 )
-GenerationDefaultKind = Literal["text", "tts", "image"]
-MISSING_DEFAULT_SETTINGS_ERRORS: dict[GenerationDefaultKind, str] = {
-    "text": "Missing default text generation settings row",
-    "tts": "Missing default TTS generation settings row",
-    "image": "Missing default image generation settings row",
-}
 
 
 class SmartFieldService:
@@ -91,9 +85,9 @@ class SmartFieldService:
                 WHERE id = 1
                 """
             ).fetchone()
-        return _chat_generation_settings_from_row(
-            _require_generation_default_row(row, "text")
-        )
+        if row is None:
+            raise RuntimeError("Missing default text generation settings row")
+        return _chat_generation_settings_from_row(row)
 
     def save_chat_defaults(self, settings: ChatGenerationSettings) -> None:
         with open_database() as conn:
@@ -126,9 +120,9 @@ class SmartFieldService:
                 WHERE id = 1
                 """
             ).fetchone()
-        return _tts_generation_settings_from_row(
-            _require_generation_default_row(row, "tts")
-        )
+        if row is None:
+            raise RuntimeError("Missing default TTS generation settings row")
+        return _tts_generation_settings_from_row(row)
 
     def save_tts_defaults(self, settings: TTSGenerationSettings) -> None:
         with open_database() as conn:
@@ -155,9 +149,9 @@ class SmartFieldService:
                 WHERE id = 1
                 """
             ).fetchone()
-        return _image_generation_settings_from_row(
-            _require_generation_default_row(row, "image")
-        )
+        if row is None:
+            raise RuntimeError("Missing default image generation settings row")
+        return _image_generation_settings_from_row(row)
 
     def save_image_defaults(self, settings: ImageGenerationSettings) -> None:
         with open_database() as conn:
@@ -203,16 +197,17 @@ class SmartFieldService:
                 """
             ).fetchone()
 
+        if chat_row is None:
+            raise RuntimeError("Missing default text generation settings row")
+        if tts_row is None:
+            raise RuntimeError("Missing default TTS generation settings row")
+        if image_row is None:
+            raise RuntimeError("Missing default image generation settings row")
+
         return GenerationDefaults(
-            chat=_chat_generation_settings_from_row(
-                _require_generation_default_row(chat_row, "text")
-            ),
-            tts=_tts_generation_settings_from_row(
-                _require_generation_default_row(tts_row, "tts")
-            ),
-            image=_image_generation_settings_from_row(
-                _require_generation_default_row(image_row, "image")
-            ),
+            chat=_chat_generation_settings_from_row(chat_row),
+            tts=_tts_generation_settings_from_row(tts_row),
+            image=_image_generation_settings_from_row(image_row),
         )
 
     def get_smart_fields_for_note(
@@ -581,18 +576,6 @@ def _profile_name_or_current(profile_name: Optional[str]) -> str:
     return profile_name or utils.get_current_profile_name()
 
 
-def _require_generation_default_row(
-    row: Optional[sqlite3.Row], kind: GenerationDefaultKind
-) -> sqlite3.Row:
-    if not row:
-        _raise_missing_generation_default(kind)
-    return row
-
-
-def _raise_missing_generation_default(kind: GenerationDefaultKind) -> NoReturn:
-    raise RuntimeError(MISSING_DEFAULT_SETTINGS_ERRORS[kind])
-
-
 def _chat_generation_settings_from_row(row: sqlite3.Row) -> ChatGenerationSettings:
     return ChatGenerationSettings(
         provider=cast(ChatProviders, row["provider"]),
@@ -631,11 +614,11 @@ def _ensure_generation_defaults_exist(conn: sqlite3.Connection) -> None:
     ).fetchone()
 
     if not row["text_defaults_exist"]:
-        _raise_missing_generation_default("text")
+        raise RuntimeError("Missing default text generation settings row")
     if not row["tts_defaults_exist"]:
-        _raise_missing_generation_default("tts")
+        raise RuntimeError("Missing default TTS generation settings row")
     if not row["image_defaults_exist"]:
-        _raise_missing_generation_default("image")
+        raise RuntimeError("Missing default image generation settings row")
 
 
 smart_field_service = SmartFieldService()
