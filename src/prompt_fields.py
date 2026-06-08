@@ -17,17 +17,12 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import os
+import re
 
-import pytest
-
-os.environ["IS_TEST"] = "True"
-
-import src.app_state as _  # noqa: E402, F401
+# Matches {{field}} references but skips Anki cloze deletions like {{c1::answer}}
+FIELD_PATTERN = r"\{\{(?!c\d+::)(.+?)\}\}"
 
 
-@pytest.fixture(autouse=True)
-def current_profile_name(monkeypatch: pytest.MonkeyPatch) -> None:
-    import src.utils
-
-    monkeypatch.setattr(src.utils, "get_current_profile_name", lambda: "__test__")
+def get_prompt_fields(prompt: str, lower: bool = True) -> list[str]:
+    fields = re.findall(FIELD_PATTERN, prompt)
+    return [(field.lower() if lower else field) for field in fields]

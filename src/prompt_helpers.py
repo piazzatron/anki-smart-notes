@@ -42,6 +42,7 @@ from .models import (
     overridable_image_options,
     overridable_tts_options,
 )
+from .prompt_fields import FIELD_PATTERN, get_prompt_fields
 from .smart_field_prompt_map import (
     list_for_note_type,
     list_prompt_map,
@@ -150,15 +151,6 @@ def get_all_prompts(
         }
 
     return prompts_map
-
-
-# Matches {{field}} references but skips Anki cloze deletions like {{c1::answer}}
-FIELD_PATTERN = r"\{\{(?!c\d+::)(.+?)\}\}"
-
-
-def get_prompt_fields(prompt: str, lower: bool = True) -> list[str]:
-    fields = re.findall(FIELD_PATTERN, prompt)
-    return [(field.lower() if lower else field) for field in fields]
 
 
 def interpolate_prompt(prompt: str, note: Note) -> Optional[str]:

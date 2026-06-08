@@ -308,6 +308,18 @@ def on_main_window(processor: NoteProcessor):
 
 
 @_with_processor  # type: ignore
+def on_profile_did_open(processor: NoteProcessor) -> None:
+    global _local_server
+    if _local_server is not None:
+        return
+
+    from .local_server import LocalServer
+
+    _local_server = LocalServer(processor)
+    _local_server.start()
+
+
+@_with_processor  # type: ignore
 def on_editor_context(
     processor: NoteProcessor, editor_web_view: editor.EditorWebView, menu: QMenu
 ):
@@ -454,4 +466,5 @@ def setup_hooks(processor: NoteProcessor):
         lambda *_: evaluate_review_time_generation()
     )
     gui_hooks.main_window_did_init.append(on_main_window(processor))
+    gui_hooks.profile_did_open.append(on_profile_did_open(processor))
     gui_hooks.profile_will_close.append(cleanup)

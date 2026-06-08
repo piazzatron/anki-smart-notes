@@ -47,6 +47,15 @@ def get_fields(note_type: str) -> list[str]:
     return [field["name"] for field in sorted(model["flds"], key=lambda x: x["ord"])]
 
 
+def get_current_profile_name() -> str:
+    if not mw or not mw.pm or not mw.pm.name:
+        raise RuntimeError(
+            "Cannot access Smart Fields because Anki profile is unavailable"
+        )
+
+    return str(mw.pm.name)
+
+
 USES_BEFORE_RATE_DIALOG = 20
 
 

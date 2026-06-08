@@ -18,21 +18,24 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import traceback
-from typing import Optional, Union
+from typing import Optional
 
 from anki.decks import DeckId
 from anki.notes import Note
 
+from .database.legacy_config_migration import (
+    smart_field_settings_from_prompt_parts,
+)
 from .logger import logger
-from .models import DEFAULT_EXTRAS, FieldExtras, PromptMap
+from .models import DEFAULT_EXTRAS, PromptMap
 from .models.smart_fields import (
     ChatSmartFieldSettings,
-    ImageSmartFieldSettings,
     SmartField,
     TTSSmartFieldSettings,
 )
 from .nodes import FieldNode
-from .prompt_helpers import get_extras, get_prompt_fields
+from .prompt_fields import get_prompt_fields
+from .prompt_helpers import get_extras
 from .services.smart_field_service import smart_field_service
 from .utils import get_fields
 from .utils.notes_utils import get_note_type
@@ -180,11 +183,16 @@ def prompt_has_error(
     if prompts_map:
         note_type_model = note.note_type()
         note_type_id = int(note_type_model["id"]) if note_type_model else -1
+        try:
+            smart_fields = smart_fields_from_prompt_map(
+                note_type, note_type_id, deck_id, prompts_map
+            )
+        except ValueError as error:
+            return str(error)
+
         dag = generate_fields_dag(
             note,
-            smart_fields=smart_fields_from_prompt_map(
-                note_type, note_type_id, deck_id, prompts_map
-            ),
+            smart_fields=smart_fields,
             overwrite_fields=False,
         )
         if has_cycle(dag):
@@ -205,6 +213,7 @@ def smart_fields_from_prompt_map(
     deck_map = note_type_map.get(str(deck_id), {})
     fields = deck_map.get("fields", {})
     extras_by_field = deck_map.get("extras", {})
+    generation_defaults = smart_field_service.get_generation_defaults()
 
     return [
         SmartField(
@@ -216,40 +225,8 @@ def smart_fields_from_prompt_map(
             settings=smart_field_settings_from_prompt_parts(
                 prompt=prompt,
                 extras=extras_by_field.get(field) or DEFAULT_EXTRAS,
+                generation_defaults=generation_defaults,
             ),
         )
         for field, prompt in fields.items()
     ]
-
-
-def smart_field_settings_from_prompt_parts(
-    prompt: str, extras: FieldExtras
-) -> Union[ChatSmartFieldSettings, TTSSmartFieldSettings, ImageSmartFieldSettings]:
-    field_type = extras["type"]
-    if field_type == "tts":
-        source_fields = get_prompt_fields(prompt, lower=False)
-        defaults = smart_field_service.get_tts_defaults()
-        return TTSSmartFieldSettings(
-            source_field_name=source_fields[0] if source_fields else "",
-            provider=extras.get("tts_provider") or defaults.provider,
-            model=extras.get("tts_model") or defaults.model,
-            voice_id=extras.get("tts_voice") or defaults.voice_id,
-            uses_default_generation_settings=not extras.get("use_custom_model"),
-        )
-    if field_type == "image":
-        defaults = smart_field_service.get_image_defaults()
-        return ImageSmartFieldSettings(
-            prompt_text=prompt,
-            provider=extras.get("image_provider") or defaults.provider,
-            model=extras.get("image_model") or defaults.model,
-            uses_default_generation_settings=not extras.get("use_custom_model"),
-        )
-    defaults = smart_field_service.get_chat_defaults()
-    return ChatSmartFieldSettings(
-        prompt_text=prompt,
-        provider=extras.get("chat_provider") or defaults.provider,
-        model=extras.get("chat_model") or defaults.model,
-        web_search_enabled=extras.get("chat_web_search") or False,
-        reasoning_level=extras.get("chat_reasoning_level") or defaults.reasoning_level,
-        uses_default_generation_settings=not extras.get("use_custom_model"),
-    )

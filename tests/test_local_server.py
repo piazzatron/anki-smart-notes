@@ -210,7 +210,8 @@ async def test_add_smart_field_success(monkeypatch):
         )
         assert data == _ok(True)
         smart_field_service.save_smart_field.assert_called_once()
-        saved_field = smart_field_service.save_smart_field.call_args.args[0]
+        (saved_field,) = smart_field_service.save_smart_field.call_args.args
+        assert smart_field_service.save_smart_field.call_args.kwargs == {}
         assert isinstance(saved_field.settings, ChatSmartFieldSettings)
         assert saved_field.settings.uses_default_generation_settings is True
 
@@ -249,7 +250,8 @@ async def test_add_smart_field_with_custom_reasoning_level(monkeypatch):
             ),
         )
         assert data == _ok(True)
-        saved_field = smart_field_service.save_smart_field.call_args.args[0]
+        (saved_field,) = smart_field_service.save_smart_field.call_args.args
+        assert smart_field_service.save_smart_field.call_args.kwargs == {}
         assert isinstance(saved_field.settings, ChatSmartFieldSettings)
         assert saved_field.settings.reasoning_level == "high"
         assert saved_field.settings.uses_default_generation_settings is False

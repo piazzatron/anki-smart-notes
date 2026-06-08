@@ -64,10 +64,10 @@ from ..models import (
     overridable_tts_options,
 )
 from ..note_proccessor import NoteProcessor
+from ..prompt_fields import get_prompt_fields
 from ..prompt_helpers import (
     add_or_update_prompts,
     get_extras,
-    get_prompt_fields,
     get_prompts_for_note,
     interpolate_prompt,
     remove_prompt,

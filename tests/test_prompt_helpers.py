@@ -87,6 +87,48 @@ def setup_prompts(monkeypatch, prompts_map):
     return c
 
 
+def test_prompt_has_error_returns_tts_source_validation_error(monkeypatch):
+    import src.dag
+    import src.utils
+    from src.dag import prompt_has_error
+    from src.models import GenerationDefaults
+    from src.services.smart_field_service import (
+        DEFAULT_IMAGE_GENERATION_SETTINGS,
+        DEFAULT_TEXT_GENERATION_SETTINGS,
+        DEFAULT_TTS_GENERATION_SETTINGS,
+    )
+
+    prompts_map = make_prompts_map(
+        "Basic",
+        1,
+        {"Audio": "{{Front}} {{Back}}"},
+        {"Audio": {**make_extras(), "type": "tts"}},
+    )
+    monkeypatch.setattr(
+        src.dag.smart_field_service,
+        "get_generation_defaults",
+        lambda: GenerationDefaults(
+            chat=DEFAULT_TEXT_GENERATION_SETTINGS,
+            tts=DEFAULT_TTS_GENERATION_SETTINGS,
+            image=DEFAULT_IMAGE_GENERATION_SETTINGS,
+        ),
+    )
+    monkeypatch.setattr(src.utils, "get_current_profile_name", lambda: "__test__")
+    monkeypatch.setattr(src.dag, "get_fields", lambda _: ["Front", "Back", "Audio"])
+
+    error = prompt_has_error(
+        "{{Front}}",
+        MockNote({"Front": "front", "Back": "back", "Audio": ""}, note_type="Basic"),
+        1,
+        prompts_map=prompts_map,
+    )
+
+    assert (
+        error
+        == "TTS smart fields must have exactly one source field, got: {{Front}} {{Back}}"
+    )
+
+
 @pytest.mark.parametrize(
     "prompt, expected",
     [
@@ -106,7 +148,7 @@ def setup_prompts(monkeypatch, prompts_map):
     ],
 )
 def test_get_prompt_fields(prompt, expected):
-    from src.prompt_helpers import get_prompt_fields
+    from src.prompt_fields import get_prompt_fields
 
     assert get_prompt_fields(prompt) == expected
 
@@ -120,7 +162,7 @@ def test_get_prompt_fields(prompt, expected):
     ],
 )
 def test_get_prompt_fields_no_lower(prompt, expected):
-    from src.prompt_helpers import get_prompt_fields
+    from src.prompt_fields import get_prompt_fields
 
     assert get_prompt_fields(prompt, lower=False) == expected
 

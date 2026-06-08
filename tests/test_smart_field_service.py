@@ -33,6 +33,13 @@ from src.models.smart_fields import (
 from src.services.smart_field_service import SmartFieldService
 
 NOTE_TYPE_ID = 123
+TEST_PROFILE = "__test__"
+
+
+def smart_field_service_for_profile(
+    profile_name: str = TEST_PROFILE,
+) -> SmartFieldService:
+    return SmartFieldService(get_profile_name=lambda: profile_name)
 
 
 @pytest.fixture(autouse=True)
@@ -48,7 +55,7 @@ def sqlite_database(tmp_path, monkeypatch):
 
 
 def test_round_trips_typed_smart_fields() -> None:
-    service = SmartFieldService()
+    service = smart_field_service_for_profile()
 
     service.save_smart_field(
         SmartFieldCreate(
@@ -62,7 +69,7 @@ def test_round_trips_typed_smart_fields() -> None:
                 model="gpt-4o-mini",
                 web_search_enabled=True,
             ),
-        )
+        ),
     )
     service.save_smart_field(
         SmartFieldCreate(
@@ -76,7 +83,7 @@ def test_round_trips_typed_smart_fields() -> None:
                 model="tts-1",
                 voice_id="alloy",
             ),
-        )
+        ),
     )
     service.save_smart_field(
         SmartFieldCreate(
@@ -89,7 +96,7 @@ def test_round_trips_typed_smart_fields() -> None:
                 provider="openai",
                 model="gpt-image-1.5-low",
             ),
-        )
+        ),
     )
 
     smart_fields = {
@@ -111,7 +118,7 @@ def test_round_trips_typed_smart_fields() -> None:
 
 
 def test_get_smart_fields_for_note_applies_global_fallback_with_deck_override() -> None:
-    service = SmartFieldService()
+    service = smart_field_service_for_profile()
 
     service.save_smart_field(
         SmartFieldCreate(
@@ -125,7 +132,7 @@ def test_get_smart_fields_for_note_applies_global_fallback_with_deck_override() 
                 model="gpt-4o-mini",
                 web_search_enabled=False,
             ),
-        )
+        ),
     )
     service.save_smart_field(
         SmartFieldCreate(
@@ -139,7 +146,7 @@ def test_get_smart_fields_for_note_applies_global_fallback_with_deck_override() 
                 model="gpt-4o-mini",
                 web_search_enabled=False,
             ),
-        )
+        ),
     )
     service.save_smart_field(
         SmartFieldCreate(
@@ -153,7 +160,7 @@ def test_get_smart_fields_for_note_applies_global_fallback_with_deck_override() 
                 model="gpt-4o-mini",
                 web_search_enabled=False,
             ),
-        )
+        ),
     )
 
     smart_fields = {
@@ -171,7 +178,7 @@ def test_get_smart_fields_for_note_applies_global_fallback_with_deck_override() 
 
 
 def test_save_and_delete_match_target_fields_case_insensitively() -> None:
-    service = SmartFieldService()
+    service = smart_field_service_for_profile()
 
     service.save_smart_field(
         SmartFieldCreate(
@@ -185,7 +192,7 @@ def test_save_and_delete_match_target_fields_case_insensitively() -> None:
                 model="gpt-4o-mini",
                 web_search_enabled=False,
             ),
-        )
+        ),
     )
     service.save_smart_field(
         SmartFieldCreate(
@@ -199,7 +206,7 @@ def test_save_and_delete_match_target_fields_case_insensitively() -> None:
                 model="gpt-4o-mini",
                 web_search_enabled=True,
             ),
-        )
+        ),
     )
 
     smart_fields = service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)
@@ -215,6 +222,121 @@ def test_save_and_delete_match_target_fields_case_insensitively() -> None:
     assert service.get_smart_fields_for_note(NOTE_TYPE_ID, 1) == []
 
 
+def test_smart_fields_are_scoped_to_profile() -> None:
+    profile_1_service = smart_field_service_for_profile("Profile 1")
+    profile_2_service = smart_field_service_for_profile("Profile 2")
+
+    profile_1_service.save_smart_field(
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=1,
+            target_field_name="Back",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="first profile",
+                provider="openai",
+                model="gpt-4o-mini",
+                web_search_enabled=False,
+            ),
+        ),
+    )
+    profile_2_service.save_smart_field(
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=1,
+            target_field_name="Back",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="second profile",
+                provider="openai",
+                model="gpt-4o-mini",
+                web_search_enabled=False,
+            ),
+        ),
+    )
+
+    first_fields = profile_1_service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)
+    second_fields = profile_2_service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)
+
+    assert len(first_fields) == 1
+    assert isinstance(first_fields[0].settings, ChatSmartFieldSettings)
+    assert first_fields[0].settings.prompt_text == "first profile"
+
+    assert len(second_fields) == 1
+    assert isinstance(second_fields[0].settings, ChatSmartFieldSettings)
+    assert second_fields[0].settings.prompt_text == "second profile"
+
+
+def test_profile_scoping_applies_to_replacements_and_deletes() -> None:
+    profile_1_service = smart_field_service_for_profile("Profile 1")
+    profile_2_service = smart_field_service_for_profile("Profile 2")
+    shared_field = SmartFieldCreate(
+        note_type_id=NOTE_TYPE_ID,
+        deck_id=1,
+        target_field_name="Back",
+        enabled=True,
+        settings=ChatSmartFieldSettings(
+            prompt_text="original",
+            provider="openai",
+            model="gpt-4o-mini",
+            web_search_enabled=False,
+        ),
+    )
+
+    profile_1_service.save_smart_field(shared_field)
+    profile_2_service.save_smart_field(shared_field)
+
+    profile_1_service.replace_all_smart_fields([])
+
+    assert profile_1_service.get_smart_fields_for_note(NOTE_TYPE_ID, 1) == []
+    assert len(profile_2_service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)) == 1
+
+    profile_2_service.delete_smart_field(NOTE_TYPE_ID, 1, "Back")
+
+    assert profile_2_service.get_smart_fields_for_note(NOTE_TYPE_ID, 1) == []
+
+
+def test_replace_all_smart_fields_dedupes_target_fields_case_insensitively() -> None:
+    service = smart_field_service_for_profile()
+
+    service.replace_all_smart_fields(
+        [
+            SmartFieldCreate(
+                note_type_id=NOTE_TYPE_ID,
+                deck_id=1,
+                target_field_name="Back",
+                enabled=True,
+                settings=ChatSmartFieldSettings(
+                    prompt_text="first",
+                    provider="openai",
+                    model="gpt-4o-mini",
+                    web_search_enabled=False,
+                ),
+            ),
+            SmartFieldCreate(
+                note_type_id=NOTE_TYPE_ID,
+                deck_id=1,
+                target_field_name="back",
+                enabled=False,
+                settings=ChatSmartFieldSettings(
+                    prompt_text="second",
+                    provider="openai",
+                    model="gpt-4o-mini",
+                    web_search_enabled=False,
+                ),
+            ),
+        ],
+    )
+
+    smart_fields = service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)
+
+    assert len(smart_fields) == 1
+    assert smart_fields[0].target_field_name == "back"
+    assert smart_fields[0].enabled is False
+    assert isinstance(smart_fields[0].settings, ChatSmartFieldSettings)
+    assert smart_fields[0].settings.prompt_text == "second"
+
+
 def test_get_chat_defaults_fails_when_seed_row_is_missing() -> None:
     with open_database() as conn:
         conn.execute("DELETE FROM default_text_generation_settings WHERE id = 1")
@@ -223,11 +345,11 @@ def test_get_chat_defaults_fails_when_seed_row_is_missing() -> None:
     with pytest.raises(
         RuntimeError, match="Missing default text generation settings row"
     ):
-        SmartFieldService().get_chat_defaults()
+        smart_field_service_for_profile().get_chat_defaults()
 
 
 def test_get_all_smart_fields_fails_when_default_seed_row_is_missing() -> None:
-    service = SmartFieldService()
+    service = smart_field_service_for_profile()
     service.save_smart_field(
         SmartFieldCreate(
             note_type_id=NOTE_TYPE_ID,
@@ -241,7 +363,7 @@ def test_get_all_smart_fields_fails_when_default_seed_row_is_missing() -> None:
                 web_search_enabled=False,
                 uses_default_generation_settings=True,
             ),
-        )
+        ),
     )
     with open_database() as conn:
         conn.execute("DELETE FROM default_text_generation_settings WHERE id = 1")
@@ -261,7 +383,7 @@ def test_get_tts_defaults_fails_when_seed_row_is_missing() -> None:
     with pytest.raises(
         RuntimeError, match="Missing default TTS generation settings row"
     ):
-        SmartFieldService().get_tts_defaults()
+        smart_field_service_for_profile().get_tts_defaults()
 
 
 def test_get_image_defaults_fails_when_seed_row_is_missing() -> None:
@@ -272,4 +394,4 @@ def test_get_image_defaults_fails_when_seed_row_is_missing() -> None:
     with pytest.raises(
         RuntimeError, match="Missing default image generation settings row"
     ):
-        SmartFieldService().get_image_defaults()
+        smart_field_service_for_profile().get_image_defaults()
