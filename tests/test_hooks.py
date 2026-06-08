@@ -27,7 +27,7 @@ import src.hooks as hooks
 from src.note_proccessor import NoteProcessor
 
 
-def test_start_profile_runtime_restarts_services_after_profile_switch(
+def test_profile_did_open_restarts_local_server_after_profile_switch(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     calls: list[str] = []
@@ -39,17 +39,7 @@ def test_start_profile_runtime_restarts_services_after_profile_switch(
         def start(self) -> None:
             calls.append("server_start")
 
-    class FakeReviewTimeEvaluator:
-        def __init__(self, processor: object) -> None:
-            calls.append("review_init")
-
-    monkeypatch.setattr(hooks, "mw", object())
     monkeypatch.setattr(hooks, "_local_server", None)
-    monkeypatch.setattr(hooks, "_review_time_evaluator", None)
-    monkeypatch.setattr(hooks, "setup_logger", lambda: calls.append("logger"))
-    monkeypatch.setattr(hooks, "run_migrations", lambda: calls.append("migrations"))
-    monkeypatch.setattr(hooks, "_on_start_actions", lambda: calls.append("start"))
-    monkeypatch.setattr(hooks, "ReviewTimeEvaluator", FakeReviewTimeEvaluator)
     monkeypatch.setitem(
         sys.modules,
         "src.local_server",
@@ -61,10 +51,6 @@ def test_start_profile_runtime_restarts_services_after_profile_switch(
     hooks.on_profile_did_open(processor)()
 
     assert calls == [
-        "logger",
-        "migrations",
-        "start",
-        "review_init",
         "server_init",
         "server_start",
     ]
