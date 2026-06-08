@@ -24,7 +24,7 @@ from typing import Any, Optional, cast
 import pytest
 from anki.decks import DeckId
 
-from src.database.migrations import run_migrations
+from src.database.migrations import apply_database_migrations, run_migrations
 from src.models.smart_fields import ChatSmartFieldSettings
 from src.services.smart_field_service import SmartFieldService
 
@@ -56,11 +56,15 @@ class FakeConfig:
         return self.addon_config.get(key)
 
 
-def test_run_migrations_applies_sql_migrations_before_legacy_config_import(
+def test_run_migrations_imports_legacy_config_after_bootstrap(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     calls: list[str] = []
 
+    monkeypatch.setattr(
+        "src.database.migrations.apply_database_bootstrap_migrations",
+        lambda: calls.append("bootstrap"),
+    )
     monkeypatch.setattr(
         "src.database.migrations.apply_database_migrations",
         lambda: calls.append("database"),
@@ -73,12 +77,13 @@ def test_run_migrations_applies_sql_migrations_before_legacy_config_import(
     run_migrations()
 
     assert calls == [
-        "database",
+        "bootstrap",
         "legacy_config",
+        "database",
     ]
 
 
-def test_run_migrations_imports_legacy_config_into_current_schema(
+def test_run_migrations_evolves_imported_legacy_config_to_current_schema(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
 ) -> None:
@@ -193,6 +198,56 @@ def test_run_migrations_updates_inherited_fields_through_sql_default_row(
     assert smart_fields[0].settings.uses_default_generation_settings is True
     assert smart_fields[0].settings.provider == "auto"
     assert smart_fields[0].settings.model == "auto"
+
+
+def test_run_migrations_fails_if_legacy_import_would_skip_sql_data_migrations(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    import src.database.connection
+
+    database_path = tmp_path / "smart_notes.sqlite3"
+    addon_config = {
+        "prompts_map": {
+            "note_types": {
+                "Basic": {
+                    str(DECK_ID): {
+                        "fields": {"Back": "{{Front}}"},
+                        "extras": {
+                            "Back": {
+                                "automatic": True,
+                                "type": "chat",
+                                "use_custom_model": True,
+                                "chat_provider": "openai",
+                                "chat_model": "gpt-4o-mini",
+                                "chat_reasoning_level": None,
+                                "chat_web_search": False,
+                                "tts_model": None,
+                                "tts_provider": None,
+                                "tts_voice": None,
+                                "image_provider": None,
+                                "image_model": None,
+                            }
+                        },
+                    }
+                }
+            }
+        },
+        "did_migrate_smart_fields_to_sqlite": False,
+    }
+    install_fake_anki(monkeypatch, addon_config, tmp_path)
+    monkeypatch.setattr(
+        src.database.connection,
+        "get_database_path",
+        lambda: str(database_path),
+    )
+    apply_database_migrations(str(database_path))
+
+    with pytest.raises(
+        RuntimeError,
+        match="SQL data migrations have already run before legacy config import",
+    ):
+        run_migrations()
 
 
 def install_fake_anki(

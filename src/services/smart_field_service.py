@@ -51,14 +51,6 @@ from ..models.smart_fields import (
     TTSSmartFieldSettings,
 )
 
-# Runtime callers should use SmartFieldService, which resolves the active Anki
-# profile at operation time and enforces profile-scoped reads, writes, deletes,
-# and replacements. Legacy config migration is different: it runs after the SQL
-# schema is current, but it must insert old prompt-map data directly so the
-# migration is not coupled to runtime service invariants. Keep shared SQL helpers
-# in this module small and typed so both paths use the same row shapes without
-# making SmartFieldService understand migration-era behavior.
-
 DEFAULT_TEXT_GENERATION_SETTINGS = ChatGenerationSettings(
     provider="auto",
     model="auto",
@@ -77,7 +69,12 @@ DEFAULT_IMAGE_GENERATION_SETTINGS = ImageGenerationSettings(
 
 
 class SmartFieldService:
-    """Persists Smart Field rules and global generation defaults."""
+    """Persists runtime Smart Field rules and global generation defaults.
+
+    Legacy prompt-map import intentionally duplicates its SQL in the migration
+    layer because it writes to an earlier schema shape before runtime profile
+    invariants exist.
+    """
 
     def get_chat_defaults(self) -> ChatGenerationSettings:
         with open_database() as conn:
@@ -94,7 +91,25 @@ class SmartFieldService:
 
     def save_chat_defaults(self, settings: ChatGenerationSettings) -> None:
         with open_database() as conn:
-            upsert_chat_generation_defaults(conn, settings)
+            conn.execute(
+                """
+                INSERT INTO default_text_generation_settings (
+                    id, provider, model, reasoning_level, web_search_enabled
+                )
+                VALUES (1, ?, ?, ?, ?)
+                ON CONFLICT(id) DO UPDATE SET
+                    provider = excluded.provider,
+                    model = excluded.model,
+                    reasoning_level = excluded.reasoning_level,
+                    web_search_enabled = excluded.web_search_enabled
+                """,
+                (
+                    settings.provider,
+                    settings.model,
+                    settings.reasoning_level,
+                    int(settings.web_search_enabled),
+                ),
+            )
 
     def get_tts_defaults(self) -> TTSGenerationSettings:
         with open_database() as conn:
@@ -111,7 +126,19 @@ class SmartFieldService:
 
     def save_tts_defaults(self, settings: TTSGenerationSettings) -> None:
         with open_database() as conn:
-            upsert_tts_generation_defaults(conn, settings)
+            conn.execute(
+                """
+                INSERT INTO default_tts_generation_settings (
+                    id, provider, model, voice_id
+                )
+                VALUES (1, ?, ?, ?)
+                ON CONFLICT(id) DO UPDATE SET
+                    provider = excluded.provider,
+                    model = excluded.model,
+                    voice_id = excluded.voice_id
+                """,
+                (settings.provider, settings.model, settings.voice_id),
+            )
 
     def get_image_defaults(self) -> ImageGenerationSettings:
         with open_database() as conn:
@@ -128,7 +155,18 @@ class SmartFieldService:
 
     def save_image_defaults(self, settings: ImageGenerationSettings) -> None:
         with open_database() as conn:
-            upsert_image_generation_defaults(conn, settings)
+            conn.execute(
+                """
+                INSERT INTO default_image_generation_settings (
+                    id, provider, model
+                )
+                VALUES (1, ?, ?)
+                ON CONFLICT(id) DO UPDATE SET
+                    provider = excluded.provider,
+                    model = excluded.model
+                """,
+                (settings.provider, settings.model),
+            )
 
     def restore_generation_defaults(self) -> None:
         self.save_chat_defaults(DEFAULT_TEXT_GENERATION_SETTINGS)
@@ -229,10 +267,22 @@ class SmartFieldService:
             f"Smart fields DB: replacing all fields for profile={profile_name} "
             f"with {len(smart_fields)} field(s)"
         )
+        deduped_fields: dict[tuple[int, int, str], SmartFieldCreate] = {}
+        for smart_field in smart_fields:
+            deduped_fields[
+                (
+                    smart_field.note_type_id,
+                    int(smart_field.deck_id),
+                    smart_field.target_field_name.lower(),
+                )
+            ] = smart_field
+
         with open_database() as conn:
-            replace_profile_smart_fields(
-                conn, profile_name=profile_name, smart_fields=smart_fields
+            conn.execute(
+                "DELETE FROM smart_fields WHERE profile_name = ?", (profile_name,)
             )
+            for smart_field in deduped_fields.values():
+                self._insert_smart_field(conn, smart_field, profile_name)
 
     def delete_smart_field(
         self, note_type_id: int, deck_id: DeckId, target_field: str
@@ -269,11 +319,7 @@ class SmartFieldService:
         )
 
         if not existing_id:
-            return _insert_new_smart_field(
-                conn,
-                smart_field=smart_field,
-                profile_name=profile_name,
-            )
+            return self._insert_smart_field(conn, smart_field, profile_name)
 
         now = _utc_now_iso()
         conn.execute(
@@ -291,8 +337,39 @@ class SmartFieldService:
             ),
         )
         self._delete_settings(conn, existing_id)
-        _insert_smart_field_settings(conn, existing_id, smart_field.settings)
+        self._insert_settings(conn, existing_id, smart_field.settings)
         return existing_id
+
+    def _insert_smart_field(
+        self,
+        conn: sqlite3.Connection,
+        smart_field: SmartFieldCreate,
+        profile_name: str,
+    ) -> str:
+        smart_field_id = str(uuid4())
+        now = _utc_now_iso()
+        conn.execute(
+            """
+            INSERT INTO smart_fields (
+                id, profile_name, note_type_id, deck_id, target_field_name, field_type,
+                enabled, created_at, updated_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                smart_field_id,
+                profile_name,
+                smart_field.note_type_id,
+                int(smart_field.deck_id),
+                smart_field.target_field_name,
+                smart_field.field_type,
+                int(smart_field.enabled),
+                now,
+                now,
+            ),
+        )
+        self._insert_settings(conn, smart_field_id, smart_field.settings)
+        return smart_field_id
 
     def _smart_field_from_row(self, row: sqlite3.Row) -> SmartField:
         profile_name = row["profile_name"]
@@ -369,143 +446,74 @@ class SmartFieldService:
             (smart_field_id,),
         )
 
-    def _get_profile_name(self) -> str:
-        return utils.get_current_profile_name()
-
-
-def upsert_chat_generation_defaults(
-    conn: sqlite3.Connection, settings: ChatGenerationSettings
-) -> None:
-    conn.execute(
-        """
-        INSERT INTO default_text_generation_settings (
-            id, provider, model, reasoning_level, web_search_enabled
-        )
-        VALUES (1, ?, ?, ?, ?)
-        ON CONFLICT(id) DO UPDATE SET
-            provider = excluded.provider,
-            model = excluded.model,
-            reasoning_level = excluded.reasoning_level,
-            web_search_enabled = excluded.web_search_enabled
-        """,
-        (
-            settings.provider,
-            settings.model,
-            settings.reasoning_level,
-            int(settings.web_search_enabled),
-        ),
-    )
-
-
-def upsert_tts_generation_defaults(
-    conn: sqlite3.Connection, settings: TTSGenerationSettings
-) -> None:
-    conn.execute(
-        """
-        INSERT INTO default_tts_generation_settings (
-            id, provider, model, voice_id
-        )
-        VALUES (1, ?, ?, ?)
-        ON CONFLICT(id) DO UPDATE SET
-            provider = excluded.provider,
-            model = excluded.model,
-            voice_id = excluded.voice_id
-        """,
-        (settings.provider, settings.model, settings.voice_id),
-    )
-
-
-def upsert_image_generation_defaults(
-    conn: sqlite3.Connection, settings: ImageGenerationSettings
-) -> None:
-    conn.execute(
-        """
-        INSERT INTO default_image_generation_settings (
-            id, provider, model
-        )
-        VALUES (1, ?, ?)
-        ON CONFLICT(id) DO UPDATE SET
-            provider = excluded.provider,
-            model = excluded.model
-        """,
-        (settings.provider, settings.model),
-    )
-
-
-def _insert_new_smart_field(
-    conn: sqlite3.Connection,
-    *,
-    smart_field: SmartFieldCreate,
-    profile_name: str,
-) -> str:
-    smart_field_id = str(uuid4())
-    now = _utc_now_iso()
-    conn.execute(
-        """
-        INSERT INTO smart_fields (
-            id, profile_name, note_type_id, deck_id, target_field_name, field_type,
-            enabled, created_at, updated_at
-        )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """,
-        (
-            smart_field_id,
-            profile_name,
-            smart_field.note_type_id,
-            int(smart_field.deck_id),
-            smart_field.target_field_name,
-            smart_field.field_type,
-            int(smart_field.enabled),
-            now,
-            now,
-        ),
-    )
-    _insert_smart_field_settings(conn, smart_field_id, smart_field.settings)
-    return smart_field_id
-
-
-def replace_profile_smart_fields(
-    conn: sqlite3.Connection,
-    *,
-    profile_name: str,
-    smart_fields: list[SmartFieldCreate],
-) -> None:
-    deduped_fields: dict[tuple[int, int, str], SmartFieldCreate] = {}
-    for smart_field in smart_fields:
-        deduped_fields[
-            (
-                smart_field.note_type_id,
-                int(smart_field.deck_id),
-                smart_field.target_field_name.lower(),
+    def _insert_settings(
+        self,
+        conn: sqlite3.Connection,
+        smart_field_id: str,
+        settings: SmartFieldSettings,
+    ) -> None:
+        if isinstance(settings, ChatSmartFieldSettings):
+            conn.execute(
+                """
+                INSERT INTO text_smart_field_settings (
+                    smart_field_id, prompt_text, uses_default_generation_settings,
+                    provider, model, reasoning_level, web_search_enabled
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    smart_field_id,
+                    settings.prompt_text,
+                    int(settings.uses_default_generation_settings),
+                    None
+                    if settings.uses_default_generation_settings
+                    else settings.provider,
+                    None
+                    if settings.uses_default_generation_settings
+                    else settings.model,
+                    None
+                    if settings.uses_default_generation_settings
+                    else settings.reasoning_level,
+                    None
+                    if settings.uses_default_generation_settings
+                    else int(settings.web_search_enabled),
+                ),
             )
-        ] = smart_field
+            return
 
-    conn.execute("DELETE FROM smart_fields WHERE profile_name = ?", (profile_name,))
-    for smart_field in deduped_fields.values():
-        _insert_new_smart_field(
-            conn,
-            smart_field=smart_field,
-            profile_name=profile_name,
-        )
+        if isinstance(settings, TTSSmartFieldSettings):
+            conn.execute(
+                """
+                INSERT INTO tts_smart_field_settings (
+                    smart_field_id, source_field_name, uses_default_generation_settings,
+                    provider, model, voice_id
+                )
+                VALUES (?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    smart_field_id,
+                    settings.source_field_name,
+                    int(settings.uses_default_generation_settings),
+                    None
+                    if settings.uses_default_generation_settings
+                    else settings.provider,
+                    None
+                    if settings.uses_default_generation_settings
+                    else settings.model,
+                    None
+                    if settings.uses_default_generation_settings
+                    else settings.voice_id,
+                ),
+            )
+            return
 
-
-def _utc_now_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
-
-
-def _insert_smart_field_settings(
-    conn: sqlite3.Connection,
-    smart_field_id: str,
-    settings: SmartFieldSettings,
-) -> None:
-    if isinstance(settings, ChatSmartFieldSettings):
         conn.execute(
             """
-            INSERT INTO text_smart_field_settings (
+            INSERT INTO image_smart_field_settings (
                 smart_field_id, prompt_text, uses_default_generation_settings,
-                provider, model, reasoning_level, web_search_enabled
+                provider, model
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?)
             """,
             (
                 smart_field_id,
@@ -515,56 +523,15 @@ def _insert_smart_field_settings(
                 if settings.uses_default_generation_settings
                 else settings.provider,
                 None if settings.uses_default_generation_settings else settings.model,
-                None
-                if settings.uses_default_generation_settings
-                else settings.reasoning_level,
-                None
-                if settings.uses_default_generation_settings
-                else int(settings.web_search_enabled),
             ),
         )
-        return
 
-    if isinstance(settings, TTSSmartFieldSettings):
-        conn.execute(
-            """
-            INSERT INTO tts_smart_field_settings (
-                smart_field_id, source_field_name, uses_default_generation_settings,
-                provider, model, voice_id
-            )
-            VALUES (?, ?, ?, ?, ?, ?)
-            """,
-            (
-                smart_field_id,
-                settings.source_field_name,
-                int(settings.uses_default_generation_settings),
-                None
-                if settings.uses_default_generation_settings
-                else settings.provider,
-                None if settings.uses_default_generation_settings else settings.model,
-                None
-                if settings.uses_default_generation_settings
-                else settings.voice_id,
-            ),
-        )
-        return
+    def _get_profile_name(self) -> str:
+        return utils.get_current_profile_name()
 
-    conn.execute(
-        """
-        INSERT INTO image_smart_field_settings (
-            smart_field_id, prompt_text, uses_default_generation_settings,
-            provider, model
-        )
-        VALUES (?, ?, ?, ?, ?)
-        """,
-        (
-            smart_field_id,
-            settings.prompt_text,
-            int(settings.uses_default_generation_settings),
-            None if settings.uses_default_generation_settings else settings.provider,
-            None if settings.uses_default_generation_settings else settings.model,
-        ),
-    )
+
+def _utc_now_iso() -> str:
+    return datetime.now(timezone.utc).isoformat()
 
 
 def _chat_generation_settings_from_row(row: sqlite3.Row) -> ChatGenerationSettings:

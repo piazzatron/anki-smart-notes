@@ -17,6 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import os
 import sqlite3
 
 from yoyo import step
@@ -27,9 +28,8 @@ def _scope_smart_fields_to_profile(conn: sqlite3.Connection) -> None:
     if "profile_name" in columns:
         return
 
-    # This only scopes Smart Fields that are already in SQLite. Legacy
-    # prompts_map rows are imported after all SQL migrations complete, so that
-    # importer writes directly into this final profile-scoped schema.
+    # Legacy prompts_map rows are imported after bootstrap but before this
+    # migration, so they receive the active profile with any existing SQLite rows.
     has_smart_fields = _smart_fields_have_rows(conn)
     conn.execute(
         """
@@ -48,8 +48,6 @@ def _scope_smart_fields_to_profile(conn: sqlite3.Connection) -> None:
         """
     )
     if has_smart_fields:
-        from src import utils
-
         conn.execute(
             """
             INSERT INTO smart_fields_new (
@@ -61,7 +59,7 @@ def _scope_smart_fields_to_profile(conn: sqlite3.Connection) -> None:
                 enabled, created_at, updated_at
             FROM smart_fields;
             """,
-            (utils.get_current_profile_name(),),
+            (_get_current_profile_name(),),
         )
     conn.execute("DROP TABLE smart_fields;")
     conn.execute("ALTER TABLE smart_fields_new RENAME TO smart_fields;")
@@ -116,6 +114,25 @@ def _smart_field_columns(conn: sqlite3.Connection) -> set[str]:
 
 def _smart_fields_have_rows(conn: sqlite3.Connection) -> bool:
     return conn.execute("SELECT 1 FROM smart_fields LIMIT 1").fetchone() is not None
+
+
+def _get_current_profile_name() -> str:
+    if os.getenv("IS_TEST"):
+        # Unit tests import migrations as the top-level `src` package and
+        # monkeypatch this shared helper. In Anki, the add-on is loaded as
+        # `smart_notes`, so the runtime path must not import `src`.
+        from src import utils
+
+        return utils.get_current_profile_name()
+
+    from aqt import mw
+
+    if not mw or not mw.pm or not mw.pm.name:
+        raise RuntimeError(
+            "Cannot scope Smart Fields because Anki profile is unavailable"
+        )
+
+    return str(mw.pm.name)
 
 
 steps = [

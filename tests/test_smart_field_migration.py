@@ -27,7 +27,7 @@ import pytest
 from anki.decks import DeckId
 
 from src.database.legacy_config_migration import migrate_legacy_config_to_database
-from src.database.migrations import apply_database_migrations
+from src.database.migrations import apply_database_bootstrap_migrations
 from src.models import DEFAULT_EXTRAS, FieldExtras
 
 NOTE_TYPE_ID = 123
@@ -75,7 +75,7 @@ def sqlite_database(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         "get_database_path",
         lambda: str(tmp_path / "smart_notes.sqlite3"),
     )
-    apply_database_migrations()
+    apply_database_bootstrap_migrations()
 
 
 def test_migrate_legacy_smart_field_config_imports_prompts_and_cleans_config(
@@ -110,7 +110,6 @@ def test_migrate_legacy_smart_field_config_imports_prompts_and_cleans_config(
     )
 
     assert len(smart_fields) == 1
-    assert smart_fields[0]["profile_name"] == "__test__"
     assert smart_fields[0]["target_field_name"] == "Back"
     assert smart_fields[0]["prompt_text"] == "{{Front}}"
     assert smart_fields[0]["provider"] == "auto"
@@ -164,7 +163,6 @@ def test_migrate_legacy_smart_field_config_skips_missing_note_types(
     )
 
     assert len(smart_fields) == 1
-    assert smart_fields[0]["profile_name"] == "__test__"
     assert smart_fields[0]["target_field_name"] == "Back"
     assert smart_fields[0]["prompt_text"] == "{{Front}}"
     assert len(backup_files) == 1
@@ -226,7 +224,39 @@ def test_migrate_legacy_smart_field_config_does_not_use_runtime_service(
     assert len(fetch_legacy_text_smart_fields()) == 1
 
 
-def test_migrate_legacy_smart_field_config_replaces_prior_failed_attempt(
+def test_migrate_legacy_smart_field_config_preserves_deprecated_models_for_sql_migration(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    extras = cast(Any, chat_extras())
+    extras["chat_provider"] = "openai"
+    extras["chat_model"] = "gpt-4o-mini"
+    addon_config = {
+        "prompts_map": {
+            "note_types": {
+                "Basic": {
+                    "1": {
+                        "fields": {"Back": "{{Front}}"},
+                        "extras": {"Back": extras},
+                    }
+                }
+            }
+        },
+        "did_migrate_smart_fields_to_sqlite": False,
+    }
+    install_fake_anki(monkeypatch, addon_config, tmp_path)
+    install_migration_alert(monkeypatch, [])
+
+    migrate_legacy_config_to_database()
+
+    smart_fields = fetch_legacy_text_smart_fields()
+
+    assert len(smart_fields) == 1
+    assert smart_fields[0]["provider"] == "openai"
+    assert smart_fields[0]["model"] == "gpt-4o-mini"
+
+
+def test_migrate_legacy_smart_field_config_replaces_prior_failed_attempt_key(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
 ) -> None:
@@ -252,10 +282,10 @@ def test_migrate_legacy_smart_field_config_replaces_prior_failed_attempt(
         conn.execute(
             """
             INSERT INTO smart_fields (
-                id, profile_name, note_type_id, deck_id, target_field_name, field_type,
+                id, note_type_id, deck_id, target_field_name, field_type,
                 enabled, created_at, updated_at
             )
-            VALUES ('stale-prior-attempt', '__test__', ?, ?, 'Back', 'chat', 1, 'now', 'now')
+            VALUES ('stale-prior-attempt', ?, ?, 'Back', 'chat', 1, 'now', 'now')
             """,
             (NOTE_TYPE_ID, int(DECK_ID)),
         )
@@ -268,14 +298,37 @@ def test_migrate_legacy_smart_field_config_replaces_prior_failed_attempt(
             VALUES ('stale-prior-attempt', 'stale', 0, 'openai', 'gpt-5-mini', 'off', 0)
             """
         )
+        conn.execute(
+            """
+            INSERT INTO smart_fields (
+                id, note_type_id, deck_id, target_field_name, field_type,
+                enabled, created_at, updated_at
+            )
+            VALUES ('existing-other-field', ?, ?, 'Extra', 'chat', 1, 'now', 'now')
+            """,
+            (NOTE_TYPE_ID, int(DECK_ID)),
+        )
+        conn.execute(
+            """
+            INSERT INTO text_smart_field_settings (
+                smart_field_id, prompt_text, uses_default_generation_settings,
+                provider, model, reasoning_level, web_search_enabled
+            )
+            VALUES (
+                'existing-other-field', 'keep me', 0,
+                'openai', 'gpt-5-mini', 'off', 0
+            )
+            """
+        )
 
     migrate_legacy_config_to_database()
 
     smart_fields = fetch_legacy_text_smart_fields()
 
-    assert len(smart_fields) == 1
-    assert smart_fields[0]["target_field_name"] == "Back"
-    assert smart_fields[0]["prompt_text"] == "{{Front}}"
+    assert [(row["target_field_name"], row["prompt_text"]) for row in smart_fields] == [
+        ("Back", "{{Front}}"),
+        ("Extra", "keep me"),
+    ]
 
 
 def test_migrate_legacy_smart_field_config_reports_failure_and_keeps_config(
@@ -382,7 +435,6 @@ def fetch_legacy_text_smart_fields() -> list[sqlite3.Row]:
                 """
                 SELECT
                     sf.target_field_name,
-                    sf.profile_name,
                     text.prompt_text,
                     text.provider,
                     text.model

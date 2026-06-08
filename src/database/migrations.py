@@ -28,14 +28,26 @@ from .legacy_config_migration import migrate_legacy_config_to_database
 
 
 def run_migrations() -> None:
-    # SQL migrations bring any existing SQLite rows to the current schema first.
-    # Legacy config import then adapts old config.json/prompt-map data directly
-    # into the current schema without going through runtime services.
-    apply_database_migrations()
+    # Bootstrap creates the schema that legacy config import writes to. Later
+    # SQL migrations then evolve imported rows the same way they evolve any
+    # existing SQLite rows, keeping future backfills in one place.
+    apply_database_bootstrap_migrations()
     migrate_legacy_config_to_database()
+    apply_database_migrations()
+
+
+def apply_database_bootstrap_migrations(database_path: Optional[str] = None) -> None:
+    _apply_migrations(database_path, bootstrap_only=True)
 
 
 def apply_database_migrations(database_path: Optional[str] = None) -> None:
+    _apply_migrations(database_path)
+
+
+def _apply_migrations(
+    database_path: Optional[str] = None,
+    bootstrap_only: bool = False,
+) -> None:
     # Tests pass isolated temp DB paths so migration state never touches user data.
     resolved_database_path = database_path or connection.get_database_path()
     Path(resolved_database_path).parent.mkdir(parents=True, exist_ok=True)
@@ -45,6 +57,8 @@ def apply_database_migrations(database_path: Optional[str] = None) -> None:
     migrations_path = Path(__file__).with_name("db_migrations")
     logger.debug(f"Smart fields DB: reading migrations from {migrations_path}")
     migrations = read_migrations(str(migrations_path))
+    if bootstrap_only:
+        migrations = migrations[:1]
 
     with backend.lock():
         pending_migrations = backend.to_apply(migrations)

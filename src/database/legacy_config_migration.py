@@ -18,18 +18,21 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import json
+import sqlite3
 from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import cast
+from uuid import uuid4
 
 from aqt import mw
 
-from .. import config as config_module, utils
+from .. import config as config_module
 from ..config import config
 from ..logger import logger
 from ..models import (
     ChatGenerationSettings,
+    ChatModels,
     ChatProviders,
     ChatReasoningLevel,
     GenerationDefaults,
@@ -41,19 +44,13 @@ from ..models import (
     TTSModels,
     TTSProviders,
 )
-from ..services.smart_field_service import (
-    DEFAULT_IMAGE_GENERATION_SETTINGS,
-    DEFAULT_TEXT_GENERATION_SETTINGS,
-    DEFAULT_TTS_GENERATION_SETTINGS,
-    replace_profile_smart_fields,
-    upsert_chat_generation_defaults,
-    upsert_image_generation_defaults,
-    upsert_tts_generation_defaults,
+from ..models.smart_fields import (
+    ChatSmartFieldSettings,
+    SmartFieldCreate,
+    SmartFieldSettings,
+    TTSSmartFieldSettings,
 )
-from ..smart_field_prompt_map_conversion import (
-    normalize_deprecated_chat_generation,
-    smart_field_creates_from_prompt_map,
-)
+from ..smart_field_prompt_map_conversion import smart_field_creates_from_prompt_map
 from ..ui.ui_utils import show_message_box
 from .connection import get_user_files_path, open_database
 
@@ -76,6 +73,22 @@ CONFIG_KEYS_TO_REMOVE_AFTER_IMPORT = [
     "did_cleanup_config_defaults",
 ]
 
+LEGACY_DEFAULT_TEXT_GENERATION_SETTINGS = ChatGenerationSettings(
+    provider="auto",
+    model="auto",
+    reasoning_level="off",
+    web_search_enabled=False,
+)
+LEGACY_DEFAULT_TTS_GENERATION_SETTINGS = TTSGenerationSettings(
+    provider="google",
+    model="standard",
+    voice_id="en-US-Casual-K",
+)
+LEGACY_DEFAULT_IMAGE_GENERATION_SETTINGS = ImageGenerationSettings(
+    provider="openai",
+    model="gpt-image-1.5-low",
+)
+
 
 def migrate_legacy_config_to_database() -> None:
     if config.did_migrate_smart_fields_to_sqlite:
@@ -85,6 +98,7 @@ def migrate_legacy_config_to_database() -> None:
     try:
         logger.info("Legacy config DB migration: starting legacy config import")
         addon_config = _get_addon_config()
+        _assert_database_is_at_bootstrap_for_legacy_import()
 
         # Preserve the pre-migration config before any import or cleanup mutates it.
         _backup_config_for_sqlite_migration(addon_config)
@@ -106,9 +120,8 @@ def migrate_legacy_config_to_database() -> None:
             f"{len(legacy_prompt_map.get('note_types', {}))} note types"
         )
 
-        # SQL migrations have already brought the database to the current
-        # schema. Insert the converted prompt-map rows directly so legacy import
-        # stays independent from SmartFieldService's runtime profile behavior.
+        # The bootstrap schema is present, and later SQL migrations will evolve
+        # these imported rows with the rest of the database.
         _migrate_legacy_prompt_map(legacy_prompt_map, generation_defaults)
 
         # Delete legacy config keys only after both SQL imports have succeeded.
@@ -166,60 +179,61 @@ def _migrate_legacy_generation_defaults_config(
     logger.info("Legacy config DB migration: importing generation defaults")
     chat_reasoning_level = addon_config.get("chat_reasoning_level")
     if chat_reasoning_level not in {"off", "low", "high"}:
-        chat_reasoning_level = DEFAULT_TEXT_GENERATION_SETTINGS.reasoning_level
-    chat_provider, chat_model = normalize_deprecated_chat_generation(
-        cast(
-            ChatProviders,
-            addon_config.get("chat_provider")
-            or DEFAULT_TEXT_GENERATION_SETTINGS.provider,
-        ),
-        addon_config.get("chat_model") or DEFAULT_TEXT_GENERATION_SETTINGS.model,
-    )
+        chat_reasoning_level = LEGACY_DEFAULT_TEXT_GENERATION_SETTINGS.reasoning_level
 
     generation_defaults = GenerationDefaults(
         chat=ChatGenerationSettings(
-            provider=chat_provider,
-            model=chat_model,
+            provider=cast(
+                ChatProviders,
+                addon_config.get("chat_provider")
+                or LEGACY_DEFAULT_TEXT_GENERATION_SETTINGS.provider,
+            ),
+            model=cast(
+                ChatModels,
+                addon_config.get("chat_model")
+                or LEGACY_DEFAULT_TEXT_GENERATION_SETTINGS.model,
+            ),
             reasoning_level=cast(ChatReasoningLevel, chat_reasoning_level),
             web_search_enabled=bool(
                 addon_config.get("chat_web_search")
                 if addon_config.get("chat_web_search") is not None
-                else DEFAULT_TEXT_GENERATION_SETTINGS.web_search_enabled
+                else LEGACY_DEFAULT_TEXT_GENERATION_SETTINGS.web_search_enabled
             ),
         ),
         tts=TTSGenerationSettings(
             provider=cast(
                 TTSProviders,
                 addon_config.get("tts_provider")
-                or DEFAULT_TTS_GENERATION_SETTINGS.provider,
+                or LEGACY_DEFAULT_TTS_GENERATION_SETTINGS.provider,
             ),
             model=cast(
                 TTSModels,
-                addon_config.get("tts_model") or DEFAULT_TTS_GENERATION_SETTINGS.model,
+                addon_config.get("tts_model")
+                or LEGACY_DEFAULT_TTS_GENERATION_SETTINGS.model,
             ),
             voice_id=str(
                 addon_config.get("tts_voice")
-                or DEFAULT_TTS_GENERATION_SETTINGS.voice_id
+                or LEGACY_DEFAULT_TTS_GENERATION_SETTINGS.voice_id
             ),
         ),
         image=ImageGenerationSettings(
             provider=cast(
                 ImageProviders,
                 addon_config.get("image_provider")
-                or DEFAULT_IMAGE_GENERATION_SETTINGS.provider,
+                or LEGACY_DEFAULT_IMAGE_GENERATION_SETTINGS.provider,
             ),
             model=cast(
                 ImageModels,
                 addon_config.get("image_model")
-                or DEFAULT_IMAGE_GENERATION_SETTINGS.model,
+                or LEGACY_DEFAULT_IMAGE_GENERATION_SETTINGS.model,
             ),
         ),
     )
 
     with open_database() as conn:
-        upsert_chat_generation_defaults(conn, generation_defaults.chat)
-        upsert_tts_generation_defaults(conn, generation_defaults.tts)
-        upsert_image_generation_defaults(conn, generation_defaults.image)
+        _upsert_legacy_chat_generation_defaults(conn, generation_defaults.chat)
+        _upsert_legacy_tts_generation_defaults(conn, generation_defaults.tts)
+        _upsert_legacy_image_generation_defaults(conn, generation_defaults.image)
 
     return generation_defaults
 
@@ -228,14 +242,11 @@ def _migrate_legacy_prompt_map(
     prompt_map: PromptMap, generation_defaults: GenerationDefaults
 ) -> None:
     smart_fields = smart_field_creates_from_prompt_map(prompt_map, generation_defaults)
-    profile_name = utils.get_current_profile_name()
 
     with open_database() as conn:
         # Re-run safety: a failed prior attempt may have inserted rows before
         # config cleanup marked the legacy migration complete.
-        replace_profile_smart_fields(
-            conn, profile_name=profile_name, smart_fields=smart_fields
-        )
+        _upsert_bootstrap_smart_fields(conn, smart_fields)
 
 
 def _finish_legacy_config_migration(addon_config: dict[str, object]) -> None:
@@ -248,3 +259,222 @@ def _finish_legacy_config_migration(addon_config: dict[str, object]) -> None:
             addon_config.pop(key)
     addon_config["did_migrate_smart_fields_to_sqlite"] = True
     mw.addonManager.writeConfig(config_module.__name__, addon_config)
+
+
+def _assert_database_is_at_bootstrap_for_legacy_import() -> None:
+    with open_database() as conn:
+        try:
+            rows = conn.execute("SELECT migration_id FROM _yoyo_migration").fetchall()
+        except sqlite3.OperationalError as error:
+            raise RuntimeError(
+                "Cannot import legacy Smart Fields because the SQLite bootstrap "
+                "migration has not run"
+            ) from error
+
+    applied_migrations = {str(row["migration_id"]) for row in rows}
+    if "0001_initial_smart_fields_schema" not in applied_migrations:
+        raise RuntimeError(
+            "Cannot import legacy Smart Fields because the SQLite bootstrap "
+            "migration has not run"
+        )
+
+    later_migrations = sorted(
+        migration_id
+        for migration_id in applied_migrations
+        if migration_id != "0001_initial_smart_fields_schema"
+    )
+    if later_migrations:
+        raise RuntimeError(
+            "Cannot import legacy Smart Fields because SQL data migrations have "
+            "already run before legacy config import: " + ", ".join(later_migrations)
+        )
+
+
+def _upsert_legacy_chat_generation_defaults(
+    conn: sqlite3.Connection, settings: ChatGenerationSettings
+) -> None:
+    conn.execute(
+        """
+        INSERT INTO default_text_generation_settings (
+            id, provider, model, reasoning_level, web_search_enabled
+        )
+        VALUES (1, ?, ?, ?, ?)
+        ON CONFLICT(id) DO UPDATE SET
+            provider = excluded.provider,
+            model = excluded.model,
+            reasoning_level = excluded.reasoning_level,
+            web_search_enabled = excluded.web_search_enabled
+        """,
+        (
+            settings.provider,
+            settings.model,
+            settings.reasoning_level,
+            int(settings.web_search_enabled),
+        ),
+    )
+
+
+def _upsert_legacy_tts_generation_defaults(
+    conn: sqlite3.Connection, settings: TTSGenerationSettings
+) -> None:
+    conn.execute(
+        """
+        INSERT INTO default_tts_generation_settings (
+            id, provider, model, voice_id
+        )
+        VALUES (1, ?, ?, ?)
+        ON CONFLICT(id) DO UPDATE SET
+            provider = excluded.provider,
+            model = excluded.model,
+            voice_id = excluded.voice_id
+        """,
+        (settings.provider, settings.model, settings.voice_id),
+    )
+
+
+def _upsert_legacy_image_generation_defaults(
+    conn: sqlite3.Connection, settings: ImageGenerationSettings
+) -> None:
+    conn.execute(
+        """
+        INSERT INTO default_image_generation_settings (
+            id, provider, model
+        )
+        VALUES (1, ?, ?)
+        ON CONFLICT(id) DO UPDATE SET
+            provider = excluded.provider,
+            model = excluded.model
+        """,
+        (settings.provider, settings.model),
+    )
+
+
+def _upsert_bootstrap_smart_fields(
+    conn: sqlite3.Connection, smart_fields: list[SmartFieldCreate]
+) -> None:
+    deduped_fields: dict[tuple[int, int, str], SmartFieldCreate] = {}
+    for smart_field in smart_fields:
+        deduped_fields[
+            (
+                smart_field.note_type_id,
+                int(smart_field.deck_id),
+                smart_field.target_field_name.lower(),
+            )
+        ] = smart_field
+
+    for smart_field in deduped_fields.values():
+        conn.execute(
+            """
+            DELETE FROM smart_fields
+            WHERE note_type_id = ?
+                AND deck_id = ?
+                AND lower(target_field_name) = lower(?)
+            """,
+            (
+                smart_field.note_type_id,
+                int(smart_field.deck_id),
+                smart_field.target_field_name,
+            ),
+        )
+        _insert_bootstrap_smart_field(conn, smart_field)
+
+
+def _insert_bootstrap_smart_field(
+    conn: sqlite3.Connection, smart_field: SmartFieldCreate
+) -> None:
+    smart_field_id = str(uuid4())
+    now = datetime.now(timezone.utc).isoformat()
+    conn.execute(
+        """
+        INSERT INTO smart_fields (
+            id, note_type_id, deck_id, target_field_name, field_type,
+            enabled, created_at, updated_at
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            smart_field_id,
+            smart_field.note_type_id,
+            int(smart_field.deck_id),
+            smart_field.target_field_name,
+            smart_field.field_type,
+            int(smart_field.enabled),
+            now,
+            now,
+        ),
+    )
+    _insert_bootstrap_smart_field_settings(conn, smart_field_id, smart_field.settings)
+
+
+def _insert_bootstrap_smart_field_settings(
+    conn: sqlite3.Connection,
+    smart_field_id: str,
+    settings: SmartFieldSettings,
+) -> None:
+    if isinstance(settings, ChatSmartFieldSettings):
+        conn.execute(
+            """
+                INSERT INTO text_smart_field_settings (
+                    smart_field_id, prompt_text, uses_default_generation_settings,
+                    provider, model, reasoning_level, web_search_enabled
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+                """,
+            (
+                smart_field_id,
+                settings.prompt_text,
+                int(settings.uses_default_generation_settings),
+                None
+                if settings.uses_default_generation_settings
+                else settings.provider,
+                None if settings.uses_default_generation_settings else settings.model,
+                None
+                if settings.uses_default_generation_settings
+                else settings.reasoning_level,
+                None
+                if settings.uses_default_generation_settings
+                else int(settings.web_search_enabled),
+            ),
+        )
+        return
+
+    if isinstance(settings, TTSSmartFieldSettings):
+        conn.execute(
+            """
+            INSERT INTO tts_smart_field_settings (
+                smart_field_id, source_field_name, uses_default_generation_settings,
+                provider, model, voice_id
+            )
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (
+                smart_field_id,
+                settings.source_field_name,
+                int(settings.uses_default_generation_settings),
+                None
+                if settings.uses_default_generation_settings
+                else settings.provider,
+                None if settings.uses_default_generation_settings else settings.model,
+                None
+                if settings.uses_default_generation_settings
+                else settings.voice_id,
+            ),
+        )
+        return
+
+    conn.execute(
+        """
+        INSERT INTO image_smart_field_settings (
+            smart_field_id, prompt_text, uses_default_generation_settings,
+            provider, model
+        )
+        VALUES (?, ?, ?, ?, ?)
+        """,
+        (
+            smart_field_id,
+            settings.prompt_text,
+            int(settings.uses_default_generation_settings),
+            None if settings.uses_default_generation_settings else settings.provider,
+            None if settings.uses_default_generation_settings else settings.model,
+        ),
+    )
