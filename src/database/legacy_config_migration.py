@@ -97,6 +97,8 @@ LEGACY_DEFAULT_IMAGE_GENERATION_SETTINGS = ImageGenerationSettings(
 
 @dataclass(frozen=True)
 class _ProfilePromptMapContext:
+    """Lookup data for importing legacy note-type-name rows into one profile."""
+
     profile_name: str
     note_type_ids_by_name: dict[str, int]
     deck_ids: set[int]
@@ -108,12 +110,8 @@ class _ProfileSmartField:
     smart_field: SmartFieldCreate
 
 
-def legacy_config_migration_is_complete() -> bool:
-    return bool(config.did_migrate_smart_fields_to_sqlite)
-
-
 def migrate_legacy_config_to_database() -> None:
-    if legacy_config_migration_is_complete():
+    if config.did_migrate_smart_fields_to_sqlite:
         logger.debug("Legacy config DB migration: already completed")
         return
 

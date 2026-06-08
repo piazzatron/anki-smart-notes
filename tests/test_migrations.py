@@ -19,6 +19,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import sqlite3
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 from fixtures import DECK_ID, NOTE_TYPE_ID, install_fake_anki, use_temp_sqlite
@@ -51,8 +52,8 @@ def test_run_migrations_imports_legacy_config_after_bootstrap(
         lambda: calls.append("legacy_config"),
     )
     monkeypatch.setattr(
-        "src.database.migrations.legacy_config_migration_is_complete",
-        lambda: True,
+        "src.database.migrations.config",
+        SimpleNamespace(did_migrate_smart_fields_to_sqlite=True),
     )
 
     run_migrations()

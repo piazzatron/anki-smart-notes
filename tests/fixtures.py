@@ -26,6 +26,7 @@ from anki.decks import DeckId
 
 import src.database.connection
 import src.database.legacy_config_migration
+import src.database.migrations
 import src.sentry
 import src.smart_field_prompt_map
 import src.utils
@@ -286,6 +287,7 @@ def install_fake_anki(
     monkeypatch.setattr(
         src.database.legacy_config_migration, "config", FakeConfig(addon_config)
     )
+    monkeypatch.setattr(src.database.migrations, "config", FakeConfig(addon_config))
     monkeypatch.setattr(
         src.database.legacy_config_migration,
         "get_user_files_path",

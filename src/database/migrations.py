@@ -22,13 +22,11 @@ from typing import Optional
 
 from yoyo import read_migrations
 
+from ..config import config
 from ..logger import logger
 from ..ui.ui_utils import show_message_box
 from . import connection
-from .legacy_config_migration import (
-    legacy_config_migration_is_complete,
-    migrate_legacy_config_to_database,
-)
+from .legacy_config_migration import migrate_legacy_config_to_database
 
 
 def run_migrations() -> None:
@@ -41,7 +39,7 @@ def run_migrations() -> None:
     # This should never happen in the supported runner: bootstrap and legacy
     # import are treated as one upgrade unit. If the user is here, support needs
     # to inspect and repair the partial upgrade state instead of continuing.
-    if not legacy_config_migration_is_complete():
+    if not config.did_migrate_smart_fields_to_sqlite:
         database_path = connection.get_database_path()
         if Path(database_path).exists():
             with connection.open_database(database_path) as conn:
