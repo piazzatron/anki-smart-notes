@@ -1,6 +1,7 @@
-# v2.22.2
+# v2.23.0
 
-- Bug fix: stale Smart Fields for deleted or renamed note types no longer block Smart Notes from starting after upgrade.
+- Added proper Anki profiles support: Smart Fields are now bound to the profile from which they were created.
+- NOTE: if you aren't seeing some Smart Fields after a recent upgrade, please email support@smart-notes.xyz - these are recoverable.
 
 # v2.22.0
 
