@@ -27,8 +27,6 @@ from .utils import get_file_path
 
 
 def setup_logger() -> None:
-    global logger
-
     if not mw:
         return
 
@@ -40,6 +38,8 @@ def setup_logger() -> None:
     config = mw.addonManager.getConfig(__name__)
     if not config:
         return
+
+    cleanup_logger()
 
     is_debug = bool(config.get("debug"))
     logger.setLevel(logging.DEBUG if is_debug else logging.INFO)
@@ -58,6 +58,14 @@ def setup_logger() -> None:
         )
 
     logger.addHandler(stream_handler)
+
+
+def cleanup_logger() -> None:
+    # Windows refuses to replace/delete add-on files while a FileHandler keeps
+    # smart-notes.log open, so cleanup must close handlers, not just drop them.
+    for handler in list(logger.handlers):
+        logger.removeHandler(handler)
+        handler.close()
 
 
 logger = logging.getLogger("smart_notes")

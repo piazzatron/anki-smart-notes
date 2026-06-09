@@ -82,3 +82,63 @@ def test_profile_cleanup_closes_open_options_dialog(
     hooks.cleanup()
 
     assert did_close
+
+
+def test_addon_install_hook_cleans_up_current_addon(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls: list[str] = []
+    current_package = hooks.__name__.split(".", maxsplit=1)[0]
+
+    monkeypatch.setattr(
+        hooks,
+        "_cleanup_before_addon_files_change",
+        lambda: calls.append("cleanup"),
+    )
+
+    hooks.on_addon_manager_will_install_addon(object(), "other-addon")
+    hooks.on_addon_manager_will_install_addon(object(), current_package)
+
+    assert calls == ["cleanup"]
+
+
+def test_addon_delete_hook_cleans_up_current_addon(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls: list[str] = []
+    current_package = hooks.__name__.split(".", maxsplit=1)[0]
+
+    monkeypatch.setattr(
+        hooks,
+        "_cleanup_before_addon_files_change",
+        lambda: calls.append("cleanup"),
+    )
+
+    hooks.on_addons_dialog_will_delete_addons(object(), ["first", current_package])
+
+    assert calls == ["cleanup"]
+
+
+def test_cleanup_before_addon_files_change_releases_non_ui_resources(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls: list[str] = []
+
+    class FakeLocalServer:
+        def stop(self) -> None:
+            calls.append("server_stop")
+
+    monkeypatch.setattr(hooks, "_local_server", FakeLocalServer())
+    monkeypatch.setattr(hooks.logger, "info", lambda message: calls.append(message))
+    monkeypatch.setattr(hooks, "cleanup_logger", lambda: calls.append("logger_cleanup"))
+
+    vars(hooks)["_cleanup_before_addon_files_change"]()
+
+    assert calls == [
+        "Preparing Smart Notes for add-on file replacement",
+        "Stopping Smart Notes local server before add-on file replacement",
+        "server_stop",
+        "Closing Smart Notes log handlers before add-on file replacement",
+        "logger_cleanup",
+    ]
+    assert vars(hooks)["_local_server"] is None

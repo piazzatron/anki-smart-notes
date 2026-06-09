@@ -36,7 +36,7 @@ from .config import config
 from .database.migrations import run_migrations
 from .decks import deck_id_to_name_map
 from .feature_flags import refresh_feature_flags
-from .logger import logger, setup_logger
+from .logger import cleanup_logger, logger, setup_logger
 from .note_proccessor import NoteProcessor
 from .review_time_evaluator import ReviewTimeEvaluator
 from .sentry import sentry, with_sentry
@@ -462,7 +462,42 @@ def cleanup() -> None:
 
     sentry_logger = logging.getLogger("sentry_sdk.errors")
     sentry_logger.handlers.clear()
-    logger.handlers.clear()
+    cleanup_logger()
+
+
+def on_addon_manager_will_install_addon(_: Any, package: str) -> None:
+    if not _is_current_addon_package(package):
+        return
+
+    _cleanup_before_addon_files_change()
+
+
+def on_addons_dialog_will_delete_addons(_: Any, packages: Sequence[str]) -> None:
+    if not any(_is_current_addon_package(package) for package in packages):
+        return
+
+    _cleanup_before_addon_files_change()
+
+
+def _cleanup_before_addon_files_change() -> None:
+    # Anki updates loaded add-ons in-process. On Windows, open files under the
+    # add-on folder can block user_files backup or package deletion, leaving a
+    # partial install. This hook runs on Anki's installer thread, so keep it to
+    # non-UI resources instead of calling full profile-close cleanup.
+    logger.info("Preparing Smart Notes for add-on file replacement")
+
+    global _local_server
+    if _local_server is not None:
+        logger.info("Stopping Smart Notes local server before add-on file replacement")
+        _local_server.stop()
+        _local_server = None
+
+    logger.info("Closing Smart Notes log handlers before add-on file replacement")
+    cleanup_logger()
+
+
+def _is_current_addon_package(package: str) -> bool:
+    return package == __name__.split(".", maxsplit=1)[0]
 
 
 def _prevent_batches_on_free_trial(notes: Any) -> bool:
@@ -497,3 +532,9 @@ def setup_hooks(processor: NoteProcessor):
     gui_hooks.main_window_did_init.append(on_main_window(processor))
     gui_hooks.profile_did_open.append(on_profile_did_open(processor))
     gui_hooks.profile_will_close.append(cleanup)
+    gui_hooks.addon_manager_will_install_addon.append(
+        on_addon_manager_will_install_addon
+    )
+    gui_hooks.addons_dialog_will_delete_addons.append(
+        on_addons_dialog_will_delete_addons
+    )
