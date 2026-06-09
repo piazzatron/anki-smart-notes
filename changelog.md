@@ -1,7 +1,3 @@
-# v2.23.2
-
-- Bug fix: Windows add-on updates now release Smart Notes resources before Anki replaces add-on files.
-
 # v2.23.0
 
 - Added proper Anki profiles support: Smart Fields are now bound to the profile from which they were created.
