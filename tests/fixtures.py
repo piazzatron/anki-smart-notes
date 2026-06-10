@@ -49,9 +49,13 @@ class MockNote:
         self._data = data
         self._note_type = note_type
         self.id = note_id
+        self.mid = NOTE_TYPE_ID
 
     def note_type(self) -> dict[str, object]:
         return {"name": self._note_type, "id": NOTE_TYPE_ID}
+
+    def keys(self) -> list[str]:
+        return list(self._data.keys())
 
     def __getitem__(self, key: str) -> Any:
         return self._data[key]
