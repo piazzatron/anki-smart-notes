@@ -329,9 +329,14 @@ def on_main_window(processor: NoteProcessor):
     global _review_time_evaluator
     _review_time_evaluator = ReviewTimeEvaluator(processor)
 
+    # profile_did_open fires before main_window_did_init at startup, so a
+    # server usually exists already. Starting another would fail to bind and
+    # clobber _local_server with a dead instance (whose session token the
+    # webview would then use).
     global _local_server
-    _local_server = LocalServer(processor)
-    _local_server.start()
+    if _local_server is None:
+        _local_server = LocalServer(processor)
+        _local_server.start()
 
 
 @with_sentry
