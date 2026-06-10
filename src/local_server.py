@@ -271,6 +271,6 @@ class LocalServer:
         if not index.exists():
             return web.Response(
                 status=404,
-                text="Smart Notes web app is not built. Run `npm run build` in web/.",
+                text="Smart Notes web app is not built. Run `bun run build` in web/.",
             )
         return web.FileResponse(index)

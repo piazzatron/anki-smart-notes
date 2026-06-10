@@ -241,9 +241,9 @@ launch-anki-sandbox () {
 build-web () {
   echo "Building web app..."
   if [ ! -d web/node_modules ]; then
-    npm --prefix web install
+    (cd web && bun install)
   fi
-  npm --prefix web run build
+  (cd web && bun run build)
 }
 
 # Main profile, live-linked dev source, local backend.
