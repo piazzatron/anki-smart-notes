@@ -236,10 +236,21 @@ launch-anki-sandbox () {
   wait "$ANKI_LAUNCH_PID"
 }
 
+# Build the React web app into src/web/static so the local server can serve
+# it at /app. Installs node deps on first run.
+build-web () {
+  echo "Building web app..."
+  if [ ! -d web/node_modules ]; then
+    npm --prefix web install
+  fi
+  npm --prefix web run build
+}
+
 # Main profile, live-linked dev source, local backend.
 anki-local () {
   clean-links
   link-dev
+  build-web
   launch-anki-main
 }
 
@@ -266,6 +277,7 @@ anki-prod () {
 sandbox-local () {
   clean-links
   link-dev
+  build-web
   launch-anki-sandbox LOCAL_AUTH_TOKEN
 }
 
