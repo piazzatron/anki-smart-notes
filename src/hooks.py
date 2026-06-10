@@ -51,6 +51,7 @@ from .utils.notes_utils import (
     is_ai_field,
     is_card_fully_processed,
 )
+from .web.hook_adapters import setup_web_hooks
 
 _local_server: Any = None
 _review_time_evaluator: Optional[ReviewTimeEvaluator] = None
@@ -518,6 +519,7 @@ def evaluate_review_time_generation() -> None:
 
 @with_sentry
 def setup_hooks(processor: NoteProcessor):
+    setup_web_hooks()
     gui_hooks.browser_will_show_context_menu.append(on_browser_context(processor))
     gui_hooks.browser_sidebar_will_show_context_menu.append(add_deck_option(processor))
     gui_hooks.editor_did_init_buttons.append(add_editor_top_button(processor))
