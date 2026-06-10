@@ -42,13 +42,7 @@ def _make_app(server=None):
     app.router.add_get("/ping", server._handle_loopback_ping)
     app.router.add_options("/ping", server._handle_ping_preflight)
     app.router.add_get("/api/events", server._handle_events)
-    app.router.add_post(
-        "/api/commands/smart-fields/save", server._handle_save_smart_field
-    )
-    app.router.add_post(
-        "/api/commands/smart-fields/delete", server._handle_delete_smart_field
-    )
-    app.router.add_post("/api/commands/defaults/save", server._handle_save_defaults)
+    app.router.add_post("/api/command", server._handle_command)
     return app
 
 
@@ -287,7 +281,7 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
         assert json.loads(event["data"]) == fake_state
 
 
-# -- /api/commands/* --
+# -- /api/command --
 
 
 def _patch_command_route_deps(monkeypatch):
@@ -301,15 +295,38 @@ def _patch_command_route_deps(monkeypatch):
     return fake_commands, fake_dto
 
 
+def _command_request(command: str, payload: dict[str, Any]) -> dict[str, Any]:
+    return {"command": command, "payload": payload}
+
+
 @pytest.mark.asyncio
-async def test_command_routes_reject_missing_token():
+async def test_command_rejects_missing_token():
     async with TestClient(TestServer(_make_app())) as client:
-        resp = await client.post("/api/commands/smart-fields/save", json={})
+        resp = await client.post("/api/command", json={})
         assert resp.status == 401
 
 
 @pytest.mark.asyncio
-async def test_save_smart_field_route(monkeypatch):
+async def test_command_rejects_unknown_command_and_lists_valid_ones(monkeypatch):
+    _patch_command_route_deps(monkeypatch)
+
+    server = _make_server()
+    async with TestClient(TestServer(_make_app(server))) as client:
+        resp = await client.post(
+            "/api/command",
+            json=_command_request("smartfields.save", {}),
+            headers={"X-Session-Token": server.session_token},
+        )
+        assert resp.status == 400
+        error = (await resp.json())["error"]
+        assert "Unknown command: smartfields.save" in error
+        assert "smartFields.save" in error
+        assert "smartFields.delete" in error
+        assert "defaults.save" in error
+
+
+@pytest.mark.asyncio
+async def test_save_smart_field_command_dispatch(monkeypatch):
     fake_commands, fake_dto = _patch_command_route_deps(monkeypatch)
     parsed = object()
     fake_dto.parse_smart_field_create.return_value = parsed
@@ -317,8 +334,8 @@ async def test_save_smart_field_route(monkeypatch):
     server = _make_server()
     async with TestClient(TestServer(_make_app(server))) as client:
         resp = await client.post(
-            "/api/commands/smart-fields/save",
-            json={"any": "payload"},
+            "/api/command",
+            json=_command_request("smartFields.save", {"any": "payload"}),
             headers={"X-Session-Token": server.session_token},
         )
         assert resp.status == 200
@@ -328,15 +345,15 @@ async def test_save_smart_field_route(monkeypatch):
 
 
 @pytest.mark.asyncio
-async def test_save_smart_field_route_returns_400_on_validation_error(monkeypatch):
+async def test_command_returns_400_on_validation_error(monkeypatch):
     fake_commands, fake_dto = _patch_command_route_deps(monkeypatch)
     fake_dto.parse_smart_field_create.side_effect = ValueError("Missing promptText")
 
     server = _make_server()
     async with TestClient(TestServer(_make_app(server))) as client:
         resp = await client.post(
-            "/api/commands/smart-fields/save",
-            json={},
+            "/api/command",
+            json=_command_request("smartFields.save", {}),
             headers={"X-Session-Token": server.session_token},
         )
         assert resp.status == 400
@@ -345,7 +362,7 @@ async def test_save_smart_field_route_returns_400_on_validation_error(monkeypatc
 
 
 @pytest.mark.asyncio
-async def test_delete_smart_field_route(monkeypatch):
+async def test_delete_smart_field_command_dispatch(monkeypatch):
     fake_commands, fake_dto = _patch_command_route_deps(monkeypatch)
     ref = MagicMock(note_type_id=1, deck_id=2, target_field_name="Back")
     fake_dto.parse_smart_field_ref.return_value = ref
@@ -353,8 +370,11 @@ async def test_delete_smart_field_route(monkeypatch):
     server = _make_server()
     async with TestClient(TestServer(_make_app(server))) as client:
         resp = await client.post(
-            "/api/commands/smart-fields/delete",
-            json={"noteTypeId": 1, "deckId": 2, "targetFieldName": "Back"},
+            "/api/command",
+            json=_command_request(
+                "smartFields.delete",
+                {"noteTypeId": 1, "deckId": 2, "targetFieldName": "Back"},
+            ),
             headers={"X-Session-Token": server.session_token},
         )
         assert resp.status == 200
@@ -362,7 +382,7 @@ async def test_delete_smart_field_route(monkeypatch):
 
 
 @pytest.mark.asyncio
-async def test_save_defaults_route(monkeypatch):
+async def test_save_defaults_command_dispatch(monkeypatch):
     fake_commands, fake_dto = _patch_command_route_deps(monkeypatch)
     parsed = object()
     fake_dto.parse_generation_defaults.return_value = parsed
@@ -370,8 +390,10 @@ async def test_save_defaults_route(monkeypatch):
     server = _make_server()
     async with TestClient(TestServer(_make_app(server))) as client:
         resp = await client.post(
-            "/api/commands/defaults/save",
-            json={"chat": {}, "tts": {}, "image": {}},
+            "/api/command",
+            json=_command_request(
+                "defaults.save", {"chat": {}, "tts": {}, "image": {}}
+            ),
             headers={"X-Session-Token": server.session_token},
         )
         assert resp.status == 200
