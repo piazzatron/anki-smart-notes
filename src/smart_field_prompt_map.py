@@ -37,6 +37,7 @@ from .models.smart_fields import (
     TTSSmartFieldSettings,
 )
 from .services.smart_field_service import smart_field_service
+from .web import commands
 
 # Temporary compatibility layer for the existing smart field UI. The major UI
 # refactor should remove this prompt-map shape and talk to smart fields directly.
@@ -82,7 +83,9 @@ def list_for_note_type(
 
 def replace_from_prompt_map(prompt_map: PromptMap) -> None:
     logger.debug("Smart fields DB: replacing all smart fields from prompt map")
-    smart_field_service.replace_all_smart_fields(
+    # Through the command layer (not the service) so the write publishes a
+    # state invalidation to any open webview.
+    commands.replace_all_smart_fields(
         smart_field_creates_from_prompt_map(
             prompt_map,
             smart_field_service.get_generation_defaults(),

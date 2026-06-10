@@ -56,6 +56,7 @@ from ..logger import logger
 from ..models import (
     ChatGenerationSettings,
     FieldExtras,
+    GenerationDefaults,
     ImageGenerationSettings,
     OpenAIModels,
     PromptMap,
@@ -71,6 +72,7 @@ from ..tasks import run_async_in_background
 from ..telemetry import track_event
 from ..utils import get_fields, get_version
 from ..utils.notes_utils import get_note_type_id_from_name
+from ..web import commands
 from .account_options import AccountOptions
 from .chat_options import ChatOptions, models_map as chat_models_display
 from .image_options import ImageOptions, image_models_display
@@ -686,7 +688,7 @@ class AddonOptionsDialog(QDialog):
         if note_type_id is None:
             show_message_box("Note type does not exist or field not in note type!")
             return
-        smart_field_service.delete_smart_field(note_type_id, deck_id, field)
+        commands.delete_smart_field(note_type_id, deck_id, field)
         self.state.update({"prompts_map": list_prompt_map(), "selected_row": None})
 
     def on_accept(self) -> None:
@@ -735,25 +737,23 @@ class AddonOptionsDialog(QDialog):
             OpenAIModels, self.state.s["legacy_openai_model"]
         )
 
-        smart_field_service.save_chat_defaults(
-            ChatGenerationSettings(
-                provider=self.chat_options.state.s["chat_provider"],
-                model=self.chat_options.state.s["chat_model"],
-                reasoning_level=self.chat_options.state.s["chat_reasoning_level"],
-                web_search_enabled=self.chat_options.state.s["chat_web_search"],
-            )
-        )
-        smart_field_service.save_tts_defaults(
-            TTSGenerationSettings(
-                provider=self.tts_options.state.s["tts_provider"],
-                model=self.tts_options.state.s["tts_model"],
-                voice_id=self.tts_options.state.s["tts_voice"],
-            )
-        )
-        smart_field_service.save_image_defaults(
-            ImageGenerationSettings(
-                provider=self.image_options.state.s["image_provider"],
-                model=self.image_options.state.s["image_model"],
+        commands.save_generation_defaults(
+            GenerationDefaults(
+                chat=ChatGenerationSettings(
+                    provider=self.chat_options.state.s["chat_provider"],
+                    model=self.chat_options.state.s["chat_model"],
+                    reasoning_level=self.chat_options.state.s["chat_reasoning_level"],
+                    web_search_enabled=self.chat_options.state.s["chat_web_search"],
+                ),
+                tts=TTSGenerationSettings(
+                    provider=self.tts_options.state.s["tts_provider"],
+                    model=self.tts_options.state.s["tts_model"],
+                    voice_id=self.tts_options.state.s["tts_voice"],
+                ),
+                image=ImageGenerationSettings(
+                    provider=self.image_options.state.s["image_provider"],
+                    model=self.image_options.state.s["image_model"],
+                ),
             )
         )
 
@@ -784,7 +784,7 @@ class AddonOptionsDialog(QDialog):
 
     def on_restore_defaults(self) -> None:
         config.restore_defaults()
-        smart_field_service.restore_generation_defaults()
+        commands.restore_generation_defaults()
         self.state.update(self.make_initial_state())  # type: ignore
 
     def on_send_feedback(self) -> None:

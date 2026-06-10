@@ -33,7 +33,7 @@ from .config import config
 from .constants import SITE_URL_DEV
 from .logger import logger
 from .sentry import sentry
-from .web import dto
+from .web import commands, dto
 from .web.event_bus import (
     BrowserSelectionChanged,
     StateInvalidated,
@@ -105,6 +105,13 @@ class LocalServer:
         app.router.add_get("/ping", self._handle_loopback_ping)
         app.router.add_options("/ping", self._handle_ping_preflight)
         app.router.add_get("/api/events", self._handle_events)
+        app.router.add_post(
+            "/api/commands/smart-fields/save", self._handle_save_smart_field
+        )
+        app.router.add_post(
+            "/api/commands/smart-fields/delete", self._handle_delete_smart_field
+        )
+        app.router.add_post("/api/commands/defaults/save", self._handle_save_defaults)
         app.router.add_get("/app", self._handle_app_index)
         app.router.add_get("/app/", self._handle_app_index)
         if WEB_APP_STATIC_DIR.exists():
@@ -265,6 +272,54 @@ class LocalServer:
         self, response: web.StreamResponse, event: str, data: Any
     ) -> None:
         await response.write(f"event: {event}\ndata: {json.dumps(data)}\n\n".encode())
+
+    async def _handle_save_smart_field(self, request: web.Request) -> web.Response:
+        return await self._run_command(
+            request,
+            lambda payload: commands.save_smart_field(
+                dto.parse_smart_field_create(payload)
+            ),
+        )
+
+    async def _handle_delete_smart_field(self, request: web.Request) -> web.Response:
+        def run(payload: dict[str, Any]) -> None:
+            ref = dto.parse_smart_field_ref(payload)
+            commands.delete_smart_field(
+                ref.note_type_id, ref.deck_id, ref.target_field_name
+            )
+
+        return await self._run_command(request, run)
+
+    async def _handle_save_defaults(self, request: web.Request) -> web.Response:
+        return await self._run_command(
+            request,
+            lambda payload: commands.save_generation_defaults(
+                dto.parse_generation_defaults(payload)
+            ),
+        )
+
+    async def _run_command(self, request: web.Request, run: Any) -> web.Response:
+        # Commands return only ack/validation errors: clients learn the new
+        # state from the event stream, never from command responses.
+        denied = self._check_api_auth(request)
+        if denied is not None:
+            return denied
+
+        try:
+            payload = await request.json()
+        except Exception:
+            return web.json_response({"ok": False, "error": "invalid_json"}, status=400)
+
+        try:
+            # Parsing and the command both read/write domain state, so the
+            # whole unit runs on the main thread; the executor hop keeps the
+            # wait from blocking this event loop.
+            await asyncio.get_running_loop().run_in_executor(
+                None, lambda: _run_on_main_sync(lambda: run(payload))
+            )
+        except ValueError as e:
+            return web.json_response({"ok": False, "error": str(e)}, status=400)
+        return web.json_response({"ok": True})
 
     async def _handle_app_index(self, request: web.Request) -> web.StreamResponse:
         index = WEB_APP_STATIC_DIR / "index.html"
