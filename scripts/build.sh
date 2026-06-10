@@ -236,21 +236,11 @@ launch-anki-sandbox () {
   wait "$ANKI_LAUNCH_PID"
 }
 
-# Build the React web app into src/web/static so the local server can serve
-# it at /app. Installs node deps on first run.
-build-web () {
-  echo "Building web app..."
-  if [ ! -d web/node_modules ]; then
-    (cd web && bun install)
-  fi
-  (cd web && bun run build)
-}
-
-# Main profile, live-linked dev source, local backend.
+# Main profile, live-linked dev source, local backend. The webview loads the
+# Vite dev server in dev builds — start it with `make web`.
 anki-local () {
   clean-links
   link-dev
-  build-web
   launch-anki-main
 }
 
@@ -277,7 +267,6 @@ anki-prod () {
 sandbox-local () {
   clean-links
   link-dev
-  build-web
   launch-anki-sandbox LOCAL_AUTH_TOKEN
 }
 

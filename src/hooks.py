@@ -23,7 +23,6 @@ Setup the hooks for the Anki plugin
 
 
 import logging
-import os
 from collections.abc import Callable, Sequence
 from typing import Any, Optional
 
@@ -32,8 +31,10 @@ from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
 from aqt.addcards import AddCards
 from aqt.browser.sidebar.item import SidebarItemType
 
+from . import env
 from .app_state import app_state, is_capacity_remaining_or_legacy
 from .config import config
+from .constants import WEB_APP_DEV_URL
 from .database.migrations import run_migrations
 from .decks import deck_id_to_name_map
 from .feature_flags import refresh_feature_flags
@@ -350,11 +351,12 @@ def on_open_web_app() -> None:
     # Lazy import to match how LocalServer itself is imported in this module.
     from .local_server import LOCAL_SERVER_HOST, LOCAL_SERVER_PORT
 
-    # Dev override: point the webview at the Vite dev server for HMR.
-    base_url = os.environ.get(
-        "SMART_NOTES_WEB_APP_URL",
-        f"http://{LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}/app",
-    )
+    # Dev builds always load the Vite dev server for HMR (`make web`); the
+    # bundled static app is only served in packaged builds.
+    if env.environment == "DEV":
+        base_url = WEB_APP_DEV_URL
+    else:
+        base_url = f"http://{LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}/app"
     url = f"{base_url}?token={_local_server.session_token}"
     _web_app_dialog = WebAppDialog(url, mw)
     _web_app_dialog.show()
