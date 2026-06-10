@@ -171,3 +171,7 @@ user_files/*
 !user_files/README.txt
 
 todo*.md
+
+# Web app
+web/node_modules/
+src/web/static/

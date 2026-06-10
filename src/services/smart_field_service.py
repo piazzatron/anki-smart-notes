@@ -27,6 +27,7 @@ from anki.decks import DeckId
 from .. import utils
 from ..constants import GLOBAL_DECK_ID
 from ..database.connection import open_database
+from ..event_bus import republish_state
 from ..logger import logger
 from ..models import (
     ChatGenerationSettings,
@@ -92,6 +93,7 @@ class SmartFieldService:
             raise RuntimeError("Missing default text generation settings row")
         return _chat_generation_settings_from_row(row)
 
+    @republish_state
     def save_chat_defaults(self, settings: ChatGenerationSettings) -> None:
         with open_database() as conn:
             conn.execute(
@@ -127,6 +129,7 @@ class SmartFieldService:
             raise RuntimeError("Missing default TTS generation settings row")
         return _tts_generation_settings_from_row(row)
 
+    @republish_state
     def save_tts_defaults(self, settings: TTSGenerationSettings) -> None:
         with open_database() as conn:
             conn.execute(
@@ -156,6 +159,7 @@ class SmartFieldService:
             raise RuntimeError("Missing default image generation settings row")
         return _image_generation_settings_from_row(row)
 
+    @republish_state
     def save_image_defaults(self, settings: ImageGenerationSettings) -> None:
         with open_database() as conn:
             conn.execute(
@@ -171,6 +175,7 @@ class SmartFieldService:
                 (settings.provider, settings.model),
             )
 
+    @republish_state
     def restore_generation_defaults(self) -> None:
         self.save_chat_defaults(DEFAULT_TEXT_GENERATION_SETTINGS)
         self.save_tts_defaults(DEFAULT_TTS_GENERATION_SETTINGS)
@@ -282,6 +287,7 @@ class SmartFieldService:
             ).fetchall()
         return [self._smart_field_from_row(row) for row in rows]
 
+    @republish_state
     def save_smart_field(self, smart_field: SmartFieldCreate) -> None:
         profile_name = self._get_profile_name()
         logger.debug(
@@ -293,6 +299,7 @@ class SmartFieldService:
             smart_field_id = self._save_smart_field(conn, smart_field, profile_name)
         logger.debug(f"Smart fields DB: saved smart_field_id={smart_field_id}")
 
+    @republish_state
     def replace_all_smart_fields(
         self,
         smart_fields: list[SmartFieldCreate],
@@ -319,6 +326,7 @@ class SmartFieldService:
             for smart_field in deduped_fields.values():
                 self._insert_smart_field(conn, smart_field, profile_name)
 
+    @republish_state
     def delete_smart_field(
         self,
         note_type_id: int,
