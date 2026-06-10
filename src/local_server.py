@@ -19,9 +19,12 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import asyncio
 import concurrent.futures
+import json
+import secrets
 import threading
 import traceback
 from collections.abc import Mapping
+from pathlib import Path
 from typing import Any, Optional, TypedDict, cast
 
 from aiohttp import web
@@ -64,6 +67,13 @@ from .smart_field_prompt_map import list_prompt_map, replace_from_prompt_map
 from .ui.prompt_dialog import PromptDialog
 from .utils import get_fields
 from .utils.notes_utils import get_note_type_id_from_name
+from .web import dto
+from .web.event_bus import (
+    BrowserSelectionChanged,
+    StateInvalidated,
+    WebEvent,
+    event_bus,
+)
 
 # -- Request param types --
 
@@ -153,6 +163,8 @@ LOCAL_SERVER_PORT = 8766
 LOCAL_SERVER_HOST = "127.0.0.1"
 API_VERSION = 1
 
+WEB_APP_STATIC_DIR = Path(__file__).parent / "web" / "static"
+
 ALLOWED_ORIGINS = {
     "https://smart-notes.xyz",
     "https://www.smart-notes.xyz",
@@ -193,6 +205,9 @@ def _get_deck_id(params: Mapping[str, Any]) -> DeckId:
 class LocalServer:
     def __init__(self, processor: NoteProcessor) -> None:
         self._processor = processor
+        # Per-profile-load secret gating /api/*. Any local process or webpage
+        # can reach this port; only the webview we open knows the token.
+        self.session_token = secrets.token_urlsafe(32)
         self._thread: Optional[threading.Thread] = None
         self._loop: Optional[asyncio.AbstractEventLoop] = None
         self._runner: Optional[web.AppRunner] = None
@@ -236,10 +251,23 @@ class LocalServer:
         app.router.add_options("/subscription/refresh", self._handle_auth_preflight)
         app.router.add_get("/ping", self._handle_loopback_ping)
         app.router.add_options("/ping", self._handle_ping_preflight)
+        app.router.add_get("/api/events", self._handle_events)
+        app.router.add_get("/app", self._handle_app_index)
+        app.router.add_get("/app/", self._handle_app_index)
+        if WEB_APP_STATIC_DIR.exists():
+            app.router.add_static("/app", WEB_APP_STATIC_DIR)
         self._runner = web.AppRunner(app)
         await self._runner.setup()
         try:
-            site = web.TCPSite(self._runner, LOCAL_SERVER_HOST, LOCAL_SERVER_PORT)
+            # Short shutdown timeout: open SSE streams never finish on their
+            # own and would otherwise hold graceful shutdown for 60s while
+            # stop() only waits 5.
+            site = web.TCPSite(
+                self._runner,
+                LOCAL_SERVER_HOST,
+                LOCAL_SERVER_PORT,
+                shutdown_timeout=0.5,
+            )
             await site.start()
             logger.info(
                 f"Local server started on http://{LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}"
@@ -314,6 +342,85 @@ class LocalServer:
     async def _handle_ping_preflight(self, request: web.Request) -> web.Response:
         origin = request.headers.get("Origin", "*")
         return web.Response(status=204, headers=self._cors_headers(origin))
+
+    def _check_api_auth(self, request: web.Request) -> Optional[web.Response]:
+        # Hostname check defeats DNS rebinding: a malicious page can point its
+        # own hostname at 127.0.0.1, but the browser still sends that hostname
+        # in the Host header.
+        hostname = request.host.rsplit(":", 1)[0]
+        if hostname not in ("127.0.0.1", "localhost"):
+            return web.Response(status=403)
+
+        # Query param because EventSource can't set headers; header for the
+        # rest of /api/*.
+        token = request.query.get("token") or request.headers.get("X-Session-Token")
+        if not token or not secrets.compare_digest(token, self.session_token):
+            return web.Response(status=401)
+        return None
+
+    async def _handle_events(self, request: web.Request) -> web.StreamResponse:
+        # web.Response is a MutableMapping, and an empty one is falsy — the
+        # None check is load-bearing.
+        denied = self._check_api_auth(request)
+        if denied is not None:
+            return denied
+
+        response = web.StreamResponse(
+            headers={
+                "Content-Type": "text/event-stream",
+                "Cache-Control": "no-cache",
+            }
+        )
+        await response.prepare(request)
+
+        queue: asyncio.Queue[WebEvent] = asyncio.Queue()
+        event_bus.subscribe(asyncio.get_running_loop(), queue)
+        try:
+            # The snapshot is the head of the stream: clients build their
+            # entire model from this connection, so no read endpoints exist.
+            await self._send_state(response)
+
+            while True:
+                # Drain the queue as a batch so rapid invalidations coalesce
+                # into a single state push.
+                events = [await queue.get()]
+                while not queue.empty():
+                    events.append(queue.get_nowait())
+
+                for event in events:
+                    if isinstance(event, BrowserSelectionChanged):
+                        await self._send_sse(
+                            response, "anki.browserSelectionChanged", event.payload
+                        )
+                if any(isinstance(e, StateInvalidated) for e in events):
+                    await self._send_state(response)
+        except (ConnectionResetError, ConnectionError):
+            pass  # Client disconnected
+        finally:
+            event_bus.unsubscribe(queue)
+        return response
+
+    async def _send_state(self, response: web.StreamResponse) -> None:
+        # build_state reads Anki/domain state, so it runs on the main thread;
+        # the executor hop keeps the wait from blocking this event loop.
+        state = await asyncio.get_running_loop().run_in_executor(
+            None, lambda: _run_on_main_sync(dto.build_state)
+        )
+        await self._send_sse(response, "state", state)
+
+    async def _send_sse(
+        self, response: web.StreamResponse, event: str, data: Any
+    ) -> None:
+        await response.write(f"event: {event}\ndata: {json.dumps(data)}\n\n".encode())
+
+    async def _handle_app_index(self, request: web.Request) -> web.StreamResponse:
+        index = WEB_APP_STATIC_DIR / "index.html"
+        if not index.exists():
+            return web.Response(
+                status=404,
+                text="Smart Notes web app is not built. Run `npm run build` in web/.",
+            )
+        return web.FileResponse(index)
 
     async def _handle_request(self, request: web.Request) -> web.Response:
         try:
