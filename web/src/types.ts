@@ -1,15 +1,44 @@
 // Mirrors the wire format defined in src/web/dto.py — that module is the
 // source of truth for these shapes.
 
-export interface SmartField {
+export interface ChatSmartFieldSettings {
+  promptText: string
+  provider: string
+  model: string
+  reasoningLevel: string
+  webSearchEnabled: boolean
+  usesDefaultGenerationSettings: boolean
+}
+
+export interface TTSSmartFieldSettings {
+  sourceFieldName: string
+  provider: string
+  model: string
+  voiceId: string
+  usesDefaultGenerationSettings: boolean
+}
+
+export interface ImageSmartFieldSettings {
+  promptText: string
+  provider: string
+  model: string
+  usesDefaultGenerationSettings: boolean
+}
+
+interface SmartFieldBase {
   id: string
   noteTypeId: number
   deckId: number
   targetFieldName: string
-  fieldType: "chat" | "tts" | "image"
   enabled: boolean
-  settings: Record<string, unknown>
 }
+
+// Discriminated on fieldType, matching the typed settings union in
+// src/models/smart_fields.py.
+export type SmartField =
+  | (SmartFieldBase & { fieldType: "chat"; settings: ChatSmartFieldSettings })
+  | (SmartFieldBase & { fieldType: "tts"; settings: TTSSmartFieldSettings })
+  | (SmartFieldBase & { fieldType: "image"; settings: ImageSmartFieldSettings })
 
 export interface NoteType {
   id: number
@@ -22,6 +51,30 @@ export interface Deck {
   name: string
 }
 
+export interface ChatGenerationDefaults {
+  provider: string
+  model: string
+  reasoningLevel: string
+  webSearchEnabled: boolean
+}
+
+export interface TTSGenerationDefaults {
+  provider: string
+  model: string
+  voiceId: string
+}
+
+export interface ImageGenerationDefaults {
+  provider: string
+  model: string
+}
+
+export interface GenerationDefaults {
+  chat: ChatGenerationDefaults
+  tts: TTSGenerationDefaults
+  image: ImageGenerationDefaults
+}
+
 export interface AppState {
   schemaVersion: number
   smartFields: SmartField[]
@@ -29,7 +82,7 @@ export interface AppState {
   decks: Deck[]
   // The pseudo-deck meaning "applies to all decks".
   globalDeckId: number
-  defaults: Record<string, Record<string, unknown>>
+  defaults: GenerationDefaults
 }
 
 export interface SelectedNote {

@@ -395,3 +395,31 @@ def test_get_image_defaults_fails_when_seed_row_is_missing() -> None:
         RuntimeError, match="Missing default image generation settings row"
     ):
         smart_field_service_for_profile().get_image_defaults()
+
+
+def test_mutations_publish_state_invalidation(monkeypatch) -> None:
+    import src.event_bus
+    from src.event_bus import StateInvalidated
+
+    published: list = []
+    monkeypatch.setattr(src.event_bus.event_bus, "publish", published.append)
+
+    service = smart_field_service_for_profile()
+    service.save_smart_field(
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=GLOBAL_DECK_ID,
+            target_field_name="Back",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="Define {{Front}}",
+                provider="openai",
+                model="gpt-5",
+                web_search_enabled=False,
+            ),
+        )
+    )
+    service.delete_smart_field(NOTE_TYPE_ID, GLOBAL_DECK_ID, "Back")
+
+    assert len(published) == 2
+    assert all(isinstance(event, StateInvalidated) for event in published)

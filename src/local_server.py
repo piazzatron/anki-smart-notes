@@ -32,15 +32,16 @@ from aqt import mw
 from .app_state import app_state
 from .config import config
 from .constants import SITE_URL_DEV
-from .logger import logger
-from .sentry import sentry
-from .web import commands, dto
-from .web.event_bus import (
+from .event_bus import (
     BrowserSelectionChanged,
     StateInvalidated,
     WebEvent,
     event_bus,
 )
+from .logger import logger
+from .sentry import sentry
+from .services.smart_field_service import smart_field_service
+from .web import dto
 
 LOCAL_SERVER_PORT = 8766
 LOCAL_SERVER_HOST = "127.0.0.1"
@@ -236,17 +237,21 @@ class LocalServer:
             await self._send_state(response)
 
             while True:
-                # Drain the queue as a batch so rapid invalidations coalesce
-                # into a single state push.
+                # Drain the queue as a batch and coalesce: only the newest
+                # selection matters, and any number of invalidations becomes
+                # a single state push.
                 events = [await queue.get()]
                 while not queue.empty():
                     events.append(queue.get_nowait())
 
-                for event in events:
-                    if isinstance(event, BrowserSelectionChanged):
-                        await self._send_sse(
-                            response, "anki.browserSelectionChanged", event.payload
-                        )
+                selections = [
+                    e for e in events if isinstance(e, BrowserSelectionChanged)
+                ]
+                if selections:
+                    payload = json.dumps(selections[-1].payload)
+                    await response.write(
+                        f"event: anki.browserSelectionChanged\ndata: {payload}\n\n".encode()
+                    )
                 if any(isinstance(e, StateInvalidated) for e in events):
                     await self._send_state(response)
         except (ConnectionResetError, ConnectionError):
@@ -261,12 +266,7 @@ class LocalServer:
         state = await asyncio.get_running_loop().run_in_executor(
             None, lambda: _run_on_main_sync(dto.build_state)
         )
-        await self._send_sse(response, "state", state)
-
-    async def _send_sse(
-        self, response: web.StreamResponse, event: str, data: Any
-    ) -> None:
-        await response.write(f"event: {event}\ndata: {json.dumps(data)}\n\n".encode())
+        await response.write(f"event: state\ndata: {json.dumps(state)}\n\n".encode())
 
     async def _handle_command(self, request: web.Request) -> web.Response:
         # Commands return only ack/validation errors: clients learn the new
@@ -316,21 +316,27 @@ class LocalServer:
         return web.FileResponse(index)
 
 
-# -- Command dispatch: wire payload → dto parse → command. Each runner must be
-# called on the main thread; ValueError surfaces as a 400. --
+# -- Command dispatch: wire payload → dto parse → service call. Each runner
+# must be called on the main thread; ValueError surfaces as a 400. The
+# service's @republish_state decorator pushes fresh state to clients. --
 
 
 def _run_save_smart_field(payload: dict[str, Any]) -> None:
-    commands.save_smart_field(dto.parse_smart_field_create(payload))
+    smart_field_service.save_smart_field(dto.parse_smart_field_create(payload))
 
 
 def _run_delete_smart_field(payload: dict[str, Any]) -> None:
     ref = dto.parse_smart_field_ref(payload)
-    commands.delete_smart_field(ref.note_type_id, ref.deck_id, ref.target_field_name)
+    smart_field_service.delete_smart_field(
+        ref.note_type_id, ref.deck_id, ref.target_field_name
+    )
 
 
 def _run_save_defaults(payload: dict[str, Any]) -> None:
-    commands.save_generation_defaults(dto.parse_generation_defaults(payload))
+    defaults = dto.parse_generation_defaults(payload)
+    smart_field_service.save_chat_defaults(defaults.chat)
+    smart_field_service.save_tts_defaults(defaults.tts)
+    smart_field_service.save_image_defaults(defaults.image)
 
 
 # Command names are namespaced like event names (state, anki.*): the protocol

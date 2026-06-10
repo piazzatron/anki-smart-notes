@@ -25,6 +25,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
+from src.event_bus import EventBus, StateInvalidated, event_bus, republish_state
 from src.models.smart_fields import (
     ChatGenerationSettings,
     ChatSmartFieldSettings,
@@ -34,8 +35,7 @@ from src.models.smart_fields import (
     TTSGenerationSettings,
     TTSSmartFieldSettings,
 )
-from src.web import commands, dto
-from src.web.event_bus import EventBus, StateInvalidated
+from src.web import dto
 from tests.fixtures import DECK_ID, NOTE_TYPE_ID, MockNote
 
 GENERATION_DEFAULTS = GenerationDefaults(
@@ -299,68 +299,36 @@ def test_parse_generation_defaults_round_trips():
     assert parsed == GENERATION_DEFAULTS
 
 
-# -- Commands --
+# -- republish_state --
 
 
-def _patch_command_deps(monkeypatch):
-    service = MagicMock()
-    bus = MagicMock()
-    monkeypatch.setattr(commands, "smart_field_service", service)
-    monkeypatch.setattr(commands, "event_bus", bus)
-    return service, bus
+def test_republish_state_publishes_after_call(monkeypatch):
+    published = []
+    monkeypatch.setattr(event_bus, "publish", published.append)
+
+    @republish_state
+    def mutate(value: int) -> int:
+        # Publish must happen after the mutation, not before.
+        assert published == []
+        return value * 2
+
+    assert mutate(21) == 42
+    assert len(published) == 1
+    assert isinstance(published[0], StateInvalidated)
+    assert mutate.__name__ == "mutate"
 
 
-def _assert_published_invalidation(bus: MagicMock) -> None:
-    bus.publish.assert_called_once()
-    assert isinstance(bus.publish.call_args.args[0], StateInvalidated)
+def test_republish_state_does_not_publish_on_exception(monkeypatch):
+    published = []
+    monkeypatch.setattr(event_bus, "publish", published.append)
 
+    @republish_state
+    def explode() -> None:
+        raise ValueError("boom")
 
-def test_save_smart_field_command(monkeypatch):
-    service, bus = _patch_command_deps(monkeypatch)
-    create = MagicMock()
-
-    commands.save_smart_field(create)
-
-    service.save_smart_field.assert_called_once_with(create)
-    _assert_published_invalidation(bus)
-
-
-def test_replace_all_smart_fields_command(monkeypatch):
-    service, bus = _patch_command_deps(monkeypatch)
-
-    commands.replace_all_smart_fields([])
-
-    service.replace_all_smart_fields.assert_called_once_with([])
-    _assert_published_invalidation(bus)
-
-
-def test_delete_smart_field_command(monkeypatch):
-    service, bus = _patch_command_deps(monkeypatch)
-
-    commands.delete_smart_field(NOTE_TYPE_ID, DECK_ID, "Back")
-
-    service.delete_smart_field.assert_called_once_with(NOTE_TYPE_ID, DECK_ID, "Back")
-    _assert_published_invalidation(bus)
-
-
-def test_save_generation_defaults_command(monkeypatch):
-    service, bus = _patch_command_deps(monkeypatch)
-
-    commands.save_generation_defaults(GENERATION_DEFAULTS)
-
-    service.save_chat_defaults.assert_called_once_with(GENERATION_DEFAULTS.chat)
-    service.save_tts_defaults.assert_called_once_with(GENERATION_DEFAULTS.tts)
-    service.save_image_defaults.assert_called_once_with(GENERATION_DEFAULTS.image)
-    _assert_published_invalidation(bus)
-
-
-def test_restore_generation_defaults_command(monkeypatch):
-    service, bus = _patch_command_deps(monkeypatch)
-
-    commands.restore_generation_defaults()
-
-    service.restore_generation_defaults.assert_called_once_with()
-    _assert_published_invalidation(bus)
+    with pytest.raises(ValueError):
+        explode()
+    assert published == []
 
 
 # -- Hook adapters --
@@ -373,7 +341,7 @@ def test_operation_did_execute_publishes_on_notetype_or_deck_change(monkeypatch)
 
     bus = MagicMock()
     monkeypatch.setattr(hook_adapters, "event_bus", bus)
-    monkeypatch.setattr(hook_adapters, "invalidate_deck_cache", lambda: None)
+    monkeypatch.setattr(hook_adapters, "rebuild_deck_cache", lambda: None)
 
     hook_adapters.on_operation_did_execute(
         SimpleNamespace(notetype=False, deck=False), None

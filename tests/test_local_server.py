@@ -250,8 +250,8 @@ async def test_events_rejects_non_localhost_host_header():
 @pytest.mark.asyncio
 async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
     import src.local_server
+    from src.event_bus import BrowserSelectionChanged, StateInvalidated, event_bus
     from src.web import dto
-    from src.web.event_bus import BrowserSelectionChanged, StateInvalidated, event_bus
 
     fake_state = {"schemaVersion": 1, "smartFields": []}
     monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
@@ -287,12 +287,12 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
 def _patch_command_route_deps(monkeypatch):
     import src.local_server
 
-    fake_commands = MagicMock()
+    fake_service = MagicMock()
     fake_dto = MagicMock()
-    monkeypatch.setattr(src.local_server, "commands", fake_commands)
+    monkeypatch.setattr(src.local_server, "smart_field_service", fake_service)
     monkeypatch.setattr(src.local_server, "dto", fake_dto)
     monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
-    return fake_commands, fake_dto
+    return fake_service, fake_dto
 
 
 def _command_request(command: str, payload: dict[str, Any]) -> dict[str, Any]:
@@ -327,7 +327,7 @@ async def test_command_rejects_unknown_command_and_lists_valid_ones(monkeypatch)
 
 @pytest.mark.asyncio
 async def test_save_smart_field_command_dispatch(monkeypatch):
-    fake_commands, fake_dto = _patch_command_route_deps(monkeypatch)
+    fake_service, fake_dto = _patch_command_route_deps(monkeypatch)
     parsed = object()
     fake_dto.parse_smart_field_create.return_value = parsed
 
@@ -341,12 +341,12 @@ async def test_save_smart_field_command_dispatch(monkeypatch):
         assert resp.status == 200
         assert (await resp.json()) == {"ok": True}
         fake_dto.parse_smart_field_create.assert_called_once_with({"any": "payload"})
-        fake_commands.save_smart_field.assert_called_once_with(parsed)
+        fake_service.save_smart_field.assert_called_once_with(parsed)
 
 
 @pytest.mark.asyncio
 async def test_command_returns_400_on_validation_error(monkeypatch):
-    fake_commands, fake_dto = _patch_command_route_deps(monkeypatch)
+    fake_service, fake_dto = _patch_command_route_deps(monkeypatch)
     fake_dto.parse_smart_field_create.side_effect = ValueError("Missing promptText")
 
     server = _make_server()
@@ -358,12 +358,12 @@ async def test_command_returns_400_on_validation_error(monkeypatch):
         )
         assert resp.status == 400
         assert (await resp.json()) == {"ok": False, "error": "Missing promptText"}
-        fake_commands.save_smart_field.assert_not_called()
+        fake_service.save_smart_field.assert_not_called()
 
 
 @pytest.mark.asyncio
 async def test_delete_smart_field_command_dispatch(monkeypatch):
-    fake_commands, fake_dto = _patch_command_route_deps(monkeypatch)
+    fake_service, fake_dto = _patch_command_route_deps(monkeypatch)
     ref = MagicMock(note_type_id=1, deck_id=2, target_field_name="Back")
     fake_dto.parse_smart_field_ref.return_value = ref
 
@@ -378,13 +378,13 @@ async def test_delete_smart_field_command_dispatch(monkeypatch):
             headers={"X-Session-Token": server.session_token},
         )
         assert resp.status == 200
-        fake_commands.delete_smart_field.assert_called_once_with(1, 2, "Back")
+        fake_service.delete_smart_field.assert_called_once_with(1, 2, "Back")
 
 
 @pytest.mark.asyncio
 async def test_save_defaults_command_dispatch(monkeypatch):
-    fake_commands, fake_dto = _patch_command_route_deps(monkeypatch)
-    parsed = object()
+    fake_service, fake_dto = _patch_command_route_deps(monkeypatch)
+    parsed = MagicMock()
     fake_dto.parse_generation_defaults.return_value = parsed
 
     server = _make_server()
@@ -397,4 +397,6 @@ async def test_save_defaults_command_dispatch(monkeypatch):
             headers={"X-Session-Token": server.session_token},
         )
         assert resp.status == 200
-        fake_commands.save_generation_defaults.assert_called_once_with(parsed)
+        fake_service.save_chat_defaults.assert_called_once_with(parsed.chat)
+        fake_service.save_tts_defaults.assert_called_once_with(parsed.tts)
+        fake_service.save_image_defaults.assert_called_once_with(parsed.image)

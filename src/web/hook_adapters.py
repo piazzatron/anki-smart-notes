@@ -26,10 +26,10 @@ from anki.collection import OpChanges
 from aqt import gui_hooks, mw
 from aqt.browser.browser import Browser
 
-from ..decks import invalidate_deck_cache
+from ..decks import rebuild_deck_cache
+from ..event_bus import BrowserSelectionChanged, StateInvalidated, event_bus
 from ..logger import logger
 from . import dto
-from .event_bus import BrowserSelectionChanged, StateInvalidated, event_bus
 
 
 def setup_web_hooks() -> None:
@@ -39,9 +39,9 @@ def setup_web_hooks() -> None:
 
 def on_operation_did_execute(changes: OpChanges, handler: Optional[object]) -> None:
     # Note type and deck creates/renames/deletes change the names the web UI
-    # renders. Smart-field writes already invalidate via the command layer.
+    # renders. Smart-field writes already publish via @republish_state.
     if changes.notetype or changes.deck:
-        invalidate_deck_cache()
+        rebuild_deck_cache()
         event_bus.publish(StateInvalidated())
 
 

@@ -18,9 +18,11 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import asyncio
+import functools
 import threading
+from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Any, Union
+from typing import Any, TypeVar, Union
 
 
 @dataclass(frozen=True)
@@ -70,3 +72,23 @@ class EventBus:
 
 
 event_bus = EventBus()
+
+F = TypeVar("F", bound=Callable[..., Any])
+
+
+def republish_state(fn: F) -> F:
+    """Marks a function as mutating domain state the web UI renders: after it
+    runs, the full state is republished to connected clients.
+
+    The publish travels with the function, so every caller — Qt dialogs, HTTP
+    commands, future code — keeps webviews live without routing through a
+    dedicated write path. Redundant publishes are fine: the SSE layer
+    coalesces them into a single state push."""
+
+    @functools.wraps(fn)
+    def wrapper(*args: Any, **kwargs: Any) -> Any:
+        result = fn(*args, **kwargs)
+        event_bus.publish(StateInvalidated())
+        return result
+
+    return wrapper  # type: ignore[return-value]
