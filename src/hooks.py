@@ -335,7 +335,7 @@ def on_main_window(processor: NoteProcessor):
     # webview would then use).
     global _local_server
     if _local_server is None:
-        _local_server = LocalServer(processor)
+        _local_server = LocalServer()
         _local_server.start()
 
 
@@ -360,15 +360,15 @@ def on_open_web_app() -> None:
     _web_app_dialog.show()
 
 
-@_with_processor  # type: ignore
-def on_profile_did_open(processor: NoteProcessor) -> None:
+@with_sentry
+def on_profile_did_open() -> None:
     global _local_server
     if _local_server is not None:
         return
 
     from .local_server import LocalServer
 
-    _local_server = LocalServer(processor)
+    _local_server = LocalServer()
     _local_server.start()
 
 
@@ -565,7 +565,7 @@ def setup_hooks(processor: NoteProcessor):
         lambda *_: evaluate_review_time_generation()
     )
     gui_hooks.main_window_did_init.append(on_main_window(processor))
-    gui_hooks.profile_did_open.append(on_profile_did_open(processor))
+    gui_hooks.profile_did_open.append(on_profile_did_open)
     gui_hooks.profile_will_close.append(cleanup)
     gui_hooks.addon_manager_will_install_addon.append(
         on_addon_manager_will_install_addon
