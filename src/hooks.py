@@ -31,8 +31,10 @@ from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
 from aqt.addcards import AddCards
 from aqt.browser.sidebar.item import SidebarItemType
 
+from . import env
 from .app_state import app_state, is_capacity_remaining_or_legacy
 from .config import config
+from .constants import WEB_APP_DEV_URL
 from .database.migrations import run_migrations
 from .decks import deck_id_to_name_map
 from .feature_flags import refresh_feature_flags
@@ -45,16 +47,19 @@ from .ui.addon_options_dialog import AddonOptionsDialog
 from .ui.changelog import ChangeLogDialog, is_new_major_or_minor_version
 from .ui.field_menu import FieldMenu
 from .ui.ui_utils import show_message_box
+from .ui.web_app_dialog import WebAppDialog
 from .utils import get_version
 from .utils.notes_utils import (
     get_field_from_index,
     is_ai_field,
     is_card_fully_processed,
 )
+from .web.hook_adapters import setup_web_hooks
 
 _local_server: Any = None
 _review_time_evaluator: Optional[ReviewTimeEvaluator] = None
 _open_options_dialog: Optional[AddonOptionsDialog] = None
+_web_app_dialog: Optional[WebAppDialog] = None
 
 
 def _with_processor(fn: Any):
@@ -312,25 +317,60 @@ def on_main_window(processor: NoteProcessor):
     mw.form.menuTools.addAction(options_action)
     mw.addonManager.setConfigAction(__name__, on_options(processor))
 
+    web_app_action = QAction("Smart Notes (Beta UI)", mw)
+    web_app_action.triggered.connect(lambda _: on_open_web_app())
+    mw.form.menuTools.addAction(web_app_action)
+
     _on_start_actions()
     # Show either the first load window or the changelog if it's a new version
     _stamp_version_and_show_first_load_window(processor)
 
+    from .local_server import LocalServer
+
     global _review_time_evaluator
     _review_time_evaluator = ReviewTimeEvaluator(processor)
 
+    # profile_did_open fires before main_window_did_init at startup, so a
+    # server usually exists already. Starting another would fail to bind and
+    # clobber _local_server with a dead instance (whose session token the
+    # webview would then use).
+    global _local_server
+    if _local_server is None:
+        _local_server = LocalServer()
+        _local_server.start()
 
-@_with_processor  # type: ignore
-def on_profile_did_open(processor: NoteProcessor) -> None:
-    # on_profile_did_open starts before on_main_window,
-    # so bind the local server here.
+
+@with_sentry
+def on_open_web_app() -> None:
+    global _web_app_dialog
+
+    if _local_server is None:
+        show_message_box("Smart Notes is still starting up — try again in a moment.")
+        return
+
+    # Lazy import to match how LocalServer itself is imported in this module.
+    from .local_server import LOCAL_SERVER_HOST, LOCAL_SERVER_PORT
+
+    # Dev builds always load the Vite dev server for HMR (`make web`); the
+    # bundled static app is only served in packaged builds.
+    if env.environment == "DEV":
+        base_url = WEB_APP_DEV_URL
+    else:
+        base_url = f"http://{LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}/app"
+    url = f"{base_url}?token={_local_server.session_token}"
+    _web_app_dialog = WebAppDialog(url, mw)
+    _web_app_dialog.show()
+
+
+@with_sentry
+def on_profile_did_open() -> None:
     global _local_server
     if _local_server is not None:
         return
 
     from .local_server import LocalServer
 
-    _local_server = LocalServer(processor)
+    _local_server = LocalServer()
     _local_server.start()
 
 
@@ -516,6 +556,7 @@ def evaluate_review_time_generation() -> None:
 
 @with_sentry
 def setup_hooks(processor: NoteProcessor):
+    setup_web_hooks()
     gui_hooks.browser_will_show_context_menu.append(on_browser_context(processor))
     gui_hooks.browser_sidebar_will_show_context_menu.append(add_deck_option(processor))
     gui_hooks.editor_did_init_buttons.append(add_editor_top_button(processor))
@@ -528,7 +569,7 @@ def setup_hooks(processor: NoteProcessor):
         lambda *_: evaluate_review_time_generation()
     )
     gui_hooks.main_window_did_init.append(on_main_window(processor))
-    gui_hooks.profile_did_open.append(on_profile_did_open(processor))
+    gui_hooks.profile_did_open.append(on_profile_did_open)
     gui_hooks.profile_will_close.append(cleanup)
     gui_hooks.addon_manager_will_install_addon.append(
         on_addon_manager_will_install_addon

@@ -29,6 +29,9 @@ SERVER_URL_DEV = "http://localhost:3000"
 SITE_URL_PROD = "https://smart-notes.xyz"
 SITE_URL_DEV = "http://localhost:3001"
 
+# Vite dev server for the web app (`make web`); port pinned in vite.config.ts.
+WEB_APP_DEV_URL = "http://localhost:5173"
+
 RETRY_BASE_SECONDS = 1
 MAX_RETRIES = 3
 CHAT_CLIENT_TIMEOUT_SEC = 60
