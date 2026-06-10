@@ -28,6 +28,8 @@ from typing import Any, Optional, cast
 from anki.decks import DeckId
 from anki.notes import Note
 
+from ..constants import GLOBAL_DECK_ID
+from ..decks import deck_id_to_name_map
 from ..models import (
     ChatModels,
     ChatProviders,
@@ -50,6 +52,7 @@ from ..models.smart_fields import (
     TTSSmartFieldSettings,
 )
 from ..services.smart_field_service import smart_field_service
+from ..utils.notes_utils import get_note_types_with_fields
 
 SCHEMA_VERSION = 1
 
@@ -64,6 +67,21 @@ def build_state() -> dict[str, Any]:
             _smart_field_dto(field)
             for field in smart_field_service.get_all_smart_fields()
         ],
+        # Note types and decks let the UI render names for the IDs that smart
+        # fields and selection events carry (and feed authoring pickers).
+        "noteTypes": [
+            {"id": note_type_id, "name": name, "fields": fields}
+            for note_type_id, name, fields in get_note_types_with_fields()
+        ],
+        "decks": [
+            {"id": deck_id, "name": name}
+            for deck_id, name in sorted(
+                deck_id_to_name_map().items(), key=lambda item: item[1]
+            )
+        ],
+        # The pseudo-deck meaning "applies to all decks" — present in `decks`
+        # with a friendly name, but scoping UI needs to special-case it.
+        "globalDeckId": GLOBAL_DECK_ID,
         "defaults": {
             "chat": _camelize_keys(dataclasses.asdict(defaults.chat)),
             "tts": _camelize_keys(dataclasses.asdict(defaults.tts)),

@@ -1,5 +1,5 @@
 import { useStore } from "./store"
-import type { Selection, SmartField } from "./types"
+import type { AppState, Selection, SmartField } from "./types"
 
 // Deliberately unstyled-skeleton UI: this proves the data flow end-to-end.
 // Real screens replace this wholesale.
@@ -25,7 +25,7 @@ export default function App() {
         ) : (
           <ul>
             {state.smartFields.map((field) => (
-              <SmartFieldRow key={field.id} field={field} />
+              <SmartFieldRow key={field.id} field={field} state={state} />
             ))}
           </ul>
         )}
@@ -33,10 +33,18 @@ export default function App() {
 
       <section>
         <h2>Anki Browser Selection</h2>
-        <SelectionPanel selection={selection} />
+        <SelectionPanel selection={selection} state={state} />
       </section>
     </main>
   )
+}
+
+function noteTypeName(state: AppState, id: number): string {
+  return state.noteTypes.find((nt) => nt.id === id)?.name ?? `#${id}`
+}
+
+function deckName(state: AppState, id: number): string {
+  return state.decks.find((d) => d.id === id)?.name ?? `#${id}`
 }
 
 function ConnectionBadge({ connection }: { connection: string }) {
@@ -48,10 +56,12 @@ function ConnectionBadge({ connection }: { connection: string }) {
   )
 }
 
-function SmartFieldRow({ field }: { field: SmartField }) {
+function SmartFieldRow({ field, state }: { field: SmartField; state: AppState }) {
   return (
     <li>
-      <strong>{field.targetFieldName}</strong> — {field.fieldType}
+      <strong>{noteTypeName(state, field.noteTypeId)}</strong> ›{" "}
+      <strong>{field.targetFieldName}</strong> — {field.fieldType} ·{" "}
+      {deckName(state, field.deckId)}
       {field.enabled ? "" : " (disabled)"}
       <details>
         <summary>settings</summary>
@@ -63,17 +73,38 @@ function SmartFieldRow({ field }: { field: SmartField }) {
   )
 }
 
-function SelectionPanel({ selection }: { selection: Selection | null }) {
+function SelectionPanel({
+  selection,
+  state,
+}: {
+  selection: Selection | null
+  state: AppState | null
+}) {
   if (selection === null) {
     return <p>Select a note in the Anki browser to see it here.</p>
   }
   if (selection.note === null) {
     return <p>{selection.count} notes selected.</p>
   }
+  const note = selection.note
+  return (
+    <>
+      {state !== null && (
+        <p>
+          {noteTypeName(state, note.noteTypeId)}
+          {note.deckId !== null && <> · {deckName(state, note.deckId)}</>}
+        </p>
+      )}
+      <NoteFieldsTable fields={note.fields} />
+    </>
+  )
+}
+
+function NoteFieldsTable({ fields }: { fields: Record<string, string> }) {
   return (
     <table style={{ borderCollapse: "collapse" }}>
       <tbody>
-        {Object.entries(selection.note.fields).map(([name, value]) => (
+        {Object.entries(fields).map(([name, value]) => (
           <tr key={name}>
             <td style={{ border: "1px solid #d4d4d8", padding: "0.25rem 0.75rem", fontWeight: 600 }}>
               {name}

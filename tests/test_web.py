@@ -50,6 +50,15 @@ GENERATION_DEFAULTS = GenerationDefaults(
 )
 
 
+def _patch_state_sources(monkeypatch) -> None:
+    monkeypatch.setattr(
+        dto,
+        "get_note_types_with_fields",
+        lambda: [(NOTE_TYPE_ID, "Basic", ["Front", "Back"])],
+    )
+    monkeypatch.setattr(dto, "deck_id_to_name_map", lambda: {DECK_ID: "Spanish::Verbs"})
+
+
 def _patch_service_defaults(monkeypatch) -> None:
     monkeypatch.setattr(
         dto.smart_field_service,
@@ -123,6 +132,7 @@ def _chat_smart_field() -> SmartField:
 
 def test_build_state_shape(monkeypatch):
     _patch_service_defaults(monkeypatch)
+    _patch_state_sources(monkeypatch)
     monkeypatch.setattr(
         dto.smart_field_service, "get_all_smart_fields", lambda: [_chat_smart_field()]
     )
@@ -130,6 +140,11 @@ def test_build_state_shape(monkeypatch):
     state = dto.build_state()
 
     assert state["schemaVersion"] == dto.SCHEMA_VERSION
+    assert state["noteTypes"] == [
+        {"id": NOTE_TYPE_ID, "name": "Basic", "fields": ["Front", "Back"]}
+    ]
+    assert state["decks"] == [{"id": DECK_ID, "name": "Spanish::Verbs"}]
+    assert state["globalDeckId"] == dto.GLOBAL_DECK_ID
     assert state["defaults"] == {
         "chat": {
             "provider": "openai",
@@ -346,3 +361,27 @@ def test_restore_generation_defaults_command(monkeypatch):
 
     service.restore_generation_defaults.assert_called_once_with()
     _assert_published_invalidation(bus)
+
+
+# -- Hook adapters --
+
+
+def test_operation_did_execute_publishes_on_notetype_or_deck_change(monkeypatch):
+    from types import SimpleNamespace
+
+    from src.web import hook_adapters
+
+    bus = MagicMock()
+    monkeypatch.setattr(hook_adapters, "event_bus", bus)
+    monkeypatch.setattr(hook_adapters, "invalidate_deck_cache", lambda: None)
+
+    hook_adapters.on_operation_did_execute(
+        SimpleNamespace(notetype=False, deck=False), None
+    )
+    bus.publish.assert_not_called()
+
+    hook_adapters.on_operation_did_execute(
+        SimpleNamespace(notetype=False, deck=True), None
+    )
+    bus.publish.assert_called_once()
+    assert isinstance(bus.publish.call_args.args[0], StateInvalidated)

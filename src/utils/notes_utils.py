@@ -68,6 +68,16 @@ def get_note_types() -> list[str]:
     return [model["name"] for model in models]
 
 
+def get_note_types_with_fields() -> list[tuple[int, str, list[str]]]:
+    """(id, name, field names) for every note type."""
+    if not mw or not mw.col:
+        return []
+    return [
+        (int(model["id"]), str(model["name"]), get_fields(str(model["name"])))
+        for model in mw.col.models.all()
+    ]
+
+
 def is_card_fully_processed(card: Card) -> bool:
     note = card.note()
     note_type = get_note_type(note)

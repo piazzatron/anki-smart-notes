@@ -28,6 +28,13 @@ from .logger import logger
 cached_leaf_decks: dict[DeckId, str] = {}
 
 
+def invalidate_deck_cache() -> None:
+    """Call when decks change (create/rename/delete) so the next
+    deck_id_to_name_map() rebuilds from the collection."""
+    global cached_leaf_decks
+    cached_leaf_decks = {}
+
+
 # Slow af even with just a handful of decks, so cached and run off the main thread initially in hooks
 # Theoretically probably a race condition
 

@@ -11,9 +11,25 @@ export interface SmartField {
   settings: Record<string, unknown>
 }
 
+export interface NoteType {
+  id: number
+  name: string
+  fields: string[]
+}
+
+export interface Deck {
+  id: number
+  name: string
+}
+
 export interface AppState {
   schemaVersion: number
   smartFields: SmartField[]
+  noteTypes: NoteType[]
+  decks: Deck[]
+  // The pseudo-deck meaning "applies to all decks".
+  globalDeckId: number
+  defaults: Record<string, Record<string, unknown>>
 }
 
 export interface SelectedNote {
