@@ -20,8 +20,9 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 # How Smart Fields migrations work (and why they're weird)
 # =========================================================
 #
-# See specs/smart-field-sqlite-generation-settings.md in the top-level repo for
-# the full design.
+# This comment is the canonical story for Smart Fields migrations; the specs in
+# the top-level repo point here. specs/migration-design.md covers the general
+# upgrade-pipeline philosophy.
 #
 # There are two unusual things about this migration setup:
 #
