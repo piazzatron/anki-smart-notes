@@ -322,10 +322,8 @@ def on_main_window(processor: NoteProcessor):
 
 @_with_processor  # type: ignore
 def on_profile_did_open(processor: NoteProcessor) -> None:
-    # Sole start site for the local server. profile_did_open fires on the
-    # initial profile load (which can happen *before* main_window_did_init)
-    # and after every profile switch; profile_will_close stops the server.
-    # Starting it anywhere else double-binds port 8766.
+    # on_profile_did_open starts before on_main_window, 
+    # so bind the local server here.
     global _local_server
     if _local_server is not None:
         return
