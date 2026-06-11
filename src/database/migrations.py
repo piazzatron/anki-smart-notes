@@ -17,6 +17,70 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+# How Smart Fields migrations work (and why they're weird)
+# =========================================================
+#
+# See specs/smart-field-sqlite-generation-settings.md in the top-level repo for
+# the full design.
+#
+# There are two unusual things about this migration setup:
+#
+# 1. The run order interleaves SQL and Python. run_migrations() applies the
+#    bootstrap migration (0001, schema only), then runs the legacy config.json
+#    import (Python — it needs mw and the Anki collection to resolve note type
+#    names to ids, so it can't be a yoyo migration), then applies the remaining
+#    SQL data migrations (0002+). Data migrations must run AFTER the import so
+#    that imported rows get backfilled too: a user who jumps several versions at
+#    once gets their config imported first, then every backfill in order. The idea
+#    is that model migrations etc (chatgpt 4 -> 5 -> 6)
+#    in a single place (the SQL); get users into a clean state, move their data over,
+#    then let the SQL do the rest.
+#
+# 2. Migration 0001 was rewritten after it shipped. The v2.22.x bootstrap
+#    created smart_fields WITHOUT profile_name; v2.23.0 edited 0001 in place
+#    to include it. Editing an applied migration is normally forbidden — this
+#    is the bug that forced it:
+#
+#    The legacy prompts_map was keyed by note type NAME. Names are portable
+#    across Anki profiles, but note type ids are NOT: the same note type name
+#    resolves to a DIFFERENT id in every profile (deck ids are profile-local
+#    too). So a name-keyed smart field "existed" in whichever profile had a
+#    note type with that name. The v2.22.x import collapsed the name-keyed
+#    data into ids resolved against ONLY the currently open profile — names
+#    missing from that profile were silently dropped, and even names that
+#    existed in several profiles got pinned to the open profile's ids, so
+#    every OTHER profile lost its smart fields. And because the import deletes
+#    the legacy config keys on success, the user was at that point fully
+#    migrated to SQL — unrecoverable beyond the config backup saved to
+#    user_files. That was the nasty bug.
+#
+#    The fix: make the schema profile-scoped from the FIRST migration, so the
+#    Python legacy import can be profile-aware — it fans each name-keyed entry
+#    out to every profile whose collection has that note type name (skipping
+#    deck ids that don't exist in that profile) and stamps profile_name on
+#    each row it writes.
+#
+#    - Fresh installs and not-yet-imported upgraders: 0001 creates the
+#      profile-scoped schema, the import fans out as above, and 0003 sees
+#      profile_name already present and no-ops.
+#    - Users who already ran the 2.22.x import: yoyo recorded 0001 as applied
+#      with the OLD schema, and their rows are bare (note_type_id, deck_id)
+#      pairs — the names are long gone, so the fan-out can't be replayed. 0003
+#      rebuilds their table best-effort from that lossy data: it scans every
+#      readable profile and keeps only rows whose ids it can place confidently
+#      (cloning rows that match multiple profiles, dropping rows no profile
+#      can claim).
+#
+#    The upshot: "0001 applied" means different schemas on different machines,
+#    and 0003 is the compatibility shim that converges them.
+#
+# The partial-upgrade guard below exists because of fork #2: a 2.22.x user
+# whose legacy import crashed (the completion flag is only set after a fully
+# successful import) still has the old unprofiled table recorded as bootstrapped.
+# For them the import would run before 0003 adds profile_name and crash
+# mid-write, so we fail fast instead. Their data is safe — legacy config keys
+# are only removed as the import's final step.
+
 from pathlib import Path
 from typing import Optional
 
@@ -30,10 +94,6 @@ from .legacy_config_migration import migrate_legacy_config_to_database
 
 
 def run_migrations() -> None:
-    # Bootstrap creates the schema only. Generation defaults and Smart Fields
-    # both come from legacy config.json, so import both before SQL data
-    # migrations. That keeps future model backfills simple: update the default
-    # row plus custom override rows, and inherited fields follow automatically.
     apply_database_bootstrap_migrations()
     _fail_if_legacy_import_would_use_unprofiled_schema()
     migrate_legacy_config_to_database()
@@ -41,9 +101,11 @@ def run_migrations() -> None:
 
 
 def _fail_if_legacy_import_would_use_unprofiled_schema() -> None:
-    # This should never happen in the supported runner: bootstrap and legacy
-    # import are treated as one upgrade unit. If the user is here, support needs
-    # to inspect and repair the partial upgrade state instead of continuing.
+    # Detects the partial 2.22.x upgrade described at the top of this file:
+    # import pending but the table predates profile_name. Continuing would
+    # crash mid-import, so stop with a support-directed message instead. The
+    # user's Smart Fields are still intact in legacy config.json; support can
+    # recover them by deleting the database file and restarting.
     if not config.did_migrate_smart_fields_to_sqlite:
         database_path = connection.get_database_path()
         if Path(database_path).exists():
