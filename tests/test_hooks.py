@@ -56,6 +56,47 @@ def test_profile_did_open_restarts_local_server_after_profile_switch(
     ]
 
 
+def test_local_server_lifecycle_across_profile_switch(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls: list[str] = []
+
+    class FakeLocalServer:
+        def __init__(self, processor: object) -> None:
+            calls.append("server_init")
+
+        def start(self) -> None:
+            calls.append("server_start")
+
+        def stop(self) -> None:
+            calls.append("server_stop")
+
+    monkeypatch.setattr(hooks, "_local_server", None)
+    monkeypatch.setattr(hooks, "_open_options_dialog", None)
+    monkeypatch.setattr(hooks, "_review_time_evaluator", None)
+    monkeypatch.setattr(hooks, "cleanup_logger", lambda: None)
+    monkeypatch.setitem(
+        sys.modules,
+        "src.local_server",
+        SimpleNamespace(LocalServer=FakeLocalServer),
+    )
+
+    # Profile open starts the server; profile close stops it; the next
+    # profile open starts a fresh one.
+    processor = cast(NoteProcessor, object())
+    hooks.on_profile_did_open(processor)()
+    hooks.cleanup()
+    hooks.on_profile_did_open(processor)()
+
+    assert calls == [
+        "server_init",
+        "server_start",
+        "server_stop",
+        "server_init",
+        "server_start",
+    ]
+
+
 def test_profile_did_open_hook_is_registered() -> None:
     assert hasattr(hooks.gui_hooks, "profile_did_open")
 

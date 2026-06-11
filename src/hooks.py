@@ -316,18 +316,14 @@ def on_main_window(processor: NoteProcessor):
     # Show either the first load window or the changelog if it's a new version
     _stamp_version_and_show_first_load_window(processor)
 
-    from .local_server import LocalServer
-
     global _review_time_evaluator
     _review_time_evaluator = ReviewTimeEvaluator(processor)
-
-    global _local_server
-    _local_server = LocalServer(processor)
-    _local_server.start()
 
 
 @_with_processor  # type: ignore
 def on_profile_did_open(processor: NoteProcessor) -> None:
+    # on_profile_did_open starts before on_main_window,
+    # so bind the local server here.
     global _local_server
     if _local_server is not None:
         return
