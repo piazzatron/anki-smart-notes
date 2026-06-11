@@ -41,7 +41,8 @@ from .tasks import run_async_in_background
 from .ui.ui_utils import show_message_box
 from .utils import get_version, is_production
 
-dsn = os.getenv("SENTRY_DSN")
+# DSNs are public identifiers, not secrets.
+SENTRY_DSN = "https://6fc6fd1120bfa44bdd2a360b9742bfbb@o4507868891119616.ingest.us.sentry.io/4507868896886784"
 
 
 def _get_user_id_from_jwt(token: str) -> Optional[str]:
@@ -214,13 +215,12 @@ def _init_sentry() -> Optional[Sentry]:
         if os.getenv("IS_TEST"):
             return None
 
-        dsn = os.getenv("SENTRY_DSN")
         release = get_version()
-        if not dsn or not release:
-            logger.error("Sentry: no sentry DSN or release")
+        if not release:
+            logger.error("Sentry: no release")
             return None
 
-        sentry = Sentry(dsn, release, env.environment)
+        sentry = Sentry(SENTRY_DSN, release, env.environment)
 
         return sentry
     except Exception as e:
