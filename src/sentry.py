@@ -256,28 +256,42 @@ def is_client_timeout_exception(e: Exception) -> bool:
     )
 
 
-def is_external_tts_exception(e: Exception) -> bool:
-    return _contains_external_tts_source(
-        "".join(traceback.format_exception(type(e), e, e.__traceback__))
-    ) or _contains_external_tts_source(f"{type(e).__module__}.{type(e).__name__}")
-
-
 def should_skip_sentry_exception(e: Exception) -> bool:
-    return is_client_timeout_exception(e) or is_external_tts_exception(e)
+    return is_client_timeout_exception(e)
 
 
 def _should_send_event(event: Any) -> bool:
     if not is_production():
         return False
 
-    if "logger" in event and event["logger"] != "smart_notes":
+    logger_name = event.get("logger")
+    if logger_name and logger_name != "smart_notes":
         return False
 
-    return not _contains_external_tts_source(json.dumps(event, default=str))
+    if logger_name == "smart_notes":
+        return True
+
+    return _has_smartnotes_frame(event)
 
 
-def _contains_external_tts_source(text: str) -> bool:
-    return "hypertts_addon" in text
+def _has_smartnotes_frame(event: Any) -> bool:
+    exception_values = event.get("exception", {}).get("values", [])
+    for exception_value in exception_values:
+        frames = exception_value.get("stacktrace", {}).get("frames", [])
+        if any(_is_smartnotes_frame(frame) for frame in frames):
+            return True
+
+    return False
+
+
+def _is_smartnotes_frame(frame: dict[str, Any]) -> bool:
+    module = str(frame.get("module", ""))
+    frame_text = json.dumps(frame, default=str)
+    return (
+        "1531888719" in frame_text
+        or "smart-notes" in frame_text
+        or module.startswith("src.")
+    )
 
 
 def run_async_in_background_with_sentry(

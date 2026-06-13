@@ -71,15 +71,52 @@ async def test_wrap_async_reraises_timeout_without_reporting(
     assert shown == []
 
 
-def test_should_send_event_filters_external_hypertts_logs(
+def test_should_send_event_filters_non_smart_notes_exception_event(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     monkeypatch.setattr(sentry_module, "is_production", lambda: True)
 
     assert not sentry_module._should_send_event(
         {
-            "logger": "smart_notes",
-            "message": "Traceback from hypertts_addon/services/service_google.py",
+            "exception": {
+                "values": [
+                    {
+                        "stacktrace": {
+                            "frames": [
+                                {
+                                    "filename": "hypertts_addon\\services\\service_google.py",
+                                    "module": "hypertts_addon.services.service_google",
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+        }
+    )
+
+
+def test_should_send_event_keeps_smart_notes_exception_event(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(sentry_module, "is_production", lambda: True)
+
+    assert sentry_module._should_send_event(
+        {
+            "exception": {
+                "values": [
+                    {
+                        "stacktrace": {
+                            "frames": [
+                                {
+                                    "filename": "1531888719\\src\\note_proccessor.py",
+                                    "module": "src.note_proccessor",
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
         }
     )
 

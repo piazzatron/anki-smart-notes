@@ -45,7 +45,6 @@ from .logger import logger
 from .nodes import FieldNode
 from .sentry import (
     is_client_timeout_exception,
-    is_external_tts_exception,
     run_async_in_background_with_sentry,
 )
 from .services.smart_field_service import smart_field_service
@@ -273,10 +272,6 @@ class NoteProcessor:
             elif isinstance(result, Exception):
                 if is_client_timeout_exception(result):
                     logger.warning(f"Timed out processing note {note_ids[i]}: {result}")
-                elif is_external_tts_exception(result):
-                    logger.warning(
-                        f"External TTS service failed processing note {note_ids[i]}: {result}"
-                    )
                 else:
                     logger.error(
                         f"Error processing note {note_ids[i]}: {result}, {''.join(traceback.format_exception(type(result), result, result.__traceback__))}"
@@ -455,11 +450,6 @@ class NoteProcessor:
         if is_client_timeout_exception(e):
             logger.warning(f"Timed out during Smart Notes generation: {e}")
             show_message_box("Smart Notes timed out. Please try again in a moment.")
-            return
-
-        if is_external_tts_exception(e):
-            logger.warning(f"External TTS service failed: {e}")
-            show_message_box(f"TTS service error: {e}")
             return
 
         openai_failure_map = {
