@@ -66,12 +66,10 @@ class Sentry:
         logger.debug(f"release: {release}, env: {env}")
 
         def before_send(event: Any, _: dict[str, Any]) -> Optional[Any]:
-            if not is_production():
-                return None
-
-            if "logger" in event and event["logger"] != "smart_notes":
+            if not _should_send_event(event):
                 logger.debug("Not sending event to sentry")
                 return None
+
             logger.debug("Sending event to sentry...")
             return event
 
@@ -238,6 +236,37 @@ def with_sentry(fn: Callable[..., Any]) -> Callable[..., Any]:
 
 
 sentry = _init_sentry()
+
+
+def _should_send_event(event: Any) -> bool:
+    if not is_production():
+        return False
+
+    logger_name = event.get("logger")
+    if logger_name:
+        return logger_name == "smart_notes"
+
+    exception_values = event.get("exception", {}).get("values")
+    if not exception_values:
+        return True
+
+    for exception_value in exception_values:
+        value = str(exception_value.get("value", ""))
+        if "1531888719" in value or "smart-notes" in value:
+            return True
+
+        frames = exception_value.get("stacktrace", {}).get("frames", [])
+        for frame in frames:
+            module = str(frame.get("module", ""))
+            frame_text = json.dumps(frame, default=str)
+            if (
+                module.startswith("src.")
+                or "1531888719" in frame_text
+                or "smart-notes" in frame_text
+            ):
+                return True
+
+    return False
 
 
 def run_async_in_background_with_sentry(
