@@ -163,6 +163,7 @@ class Sentry:
 
                     self.capture_exception(e)
                     self._show_error_message(e)
+                    raise
                 else:
                     raise e
 

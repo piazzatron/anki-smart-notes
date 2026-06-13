@@ -22,6 +22,30 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 import pytest
 
 import src.sentry as sentry_module
+from src.sentry import Sentry
+
+
+@pytest.mark.asyncio
+async def test_wrap_async_reraises_after_reporting_in_production(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    captured: list[Exception] = []
+    shown: list[Exception] = []
+    error = RuntimeError("smart-notes async failure")
+    sentry = object.__new__(Sentry)
+
+    monkeypatch.setattr(sentry_module, "is_production", lambda: True)
+    monkeypatch.setattr(sentry, "capture_exception", lambda e: captured.append(e))
+    monkeypatch.setattr(sentry, "_show_error_message", lambda e: shown.append(e))
+
+    async def op() -> None:
+        raise error
+
+    with pytest.raises(RuntimeError, match="smart-notes async failure"):
+        await sentry.wrap_async(op)()
+
+    assert captured == [error]
+    assert shown == [error]
 
 
 def test_should_send_event_filters_non_smart_notes_logs(
