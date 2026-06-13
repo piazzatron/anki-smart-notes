@@ -35,7 +35,7 @@ from .constants import (
     PAID_PLAN_ENDED_EXPIRED_NO_API_KEY,
 )
 from .logger import logger
-from .sentry import run_async_in_background_with_sentry
+from .sentry import is_client_timeout_exception, run_async_in_background_with_sentry
 from .subscription_provider import (
     PlanInfo,
     SubscriptionState,
@@ -80,6 +80,10 @@ class AppStateManager:
             return
 
         def on_failure(exc: Optional[Exception]) -> None:
+            if exc and is_client_timeout_exception(exc):
+                logger.warning(f"Timed out getting new status: {exc}")
+                return
+
             logger.error(f"Got failure getting new status: {exc}")
             # Self-heal: a stale/invalid token blocks the signin UI's logout
             # button. Clear it so the user can re-auth without manual steps.

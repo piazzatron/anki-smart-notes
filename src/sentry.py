@@ -19,6 +19,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 # pyright: reportPrivateUsage=false
 
+import asyncio
 import base64
 import json
 import logging
@@ -28,6 +29,7 @@ import traceback
 from collections.abc import Callable, Coroutine
 from typing import Any, Optional
 
+import aiohttp
 import sentry_sdk
 from aqt import mw
 from sentry_sdk.integrations.logging import LoggingIntegration
@@ -66,12 +68,10 @@ class Sentry:
         logger.debug(f"release: {release}, env: {env}")
 
         def before_send(event: Any, _: dict[str, Any]) -> Optional[Any]:
-            if not is_production():
-                return None
-
-            if "logger" in event and event["logger"] != "smart_notes":
+            if not _should_send_event(event):
                 logger.debug("Not sending event to sentry")
                 return None
+
             logger.debug("Sending event to sentry...")
             return event
 
@@ -132,6 +132,10 @@ class Sentry:
     def capture_exception(self, e: Exception) -> None:
         client, scope = self.hub._stack[-1]
         if scope and client:
+            if should_skip_sentry_exception(e):
+                logger.debug(f"Sentry: not capturing expected exception {e}")
+                return
+
             if not self._is_smartnotes_exception(e):
                 logger.debug(f"Sentry: not capturing exception {e}")
                 return
@@ -161,12 +165,12 @@ class Sentry:
                 raise
             except Exception as e:
                 if is_production():
-                    logger.debug(f"Sentry: capturing exception {e}")
-
-                    self.capture_exception(e)
-                    self._show_error_message(e)
-                else:
-                    raise e
+                    if not should_skip_sentry_exception(e):
+                        logger.debug(f"Sentry: capturing exception {e}")
+                        self.capture_exception(e)
+                        self._show_error_message(e)
+                    raise
+                raise
 
         return wrapped
 
@@ -176,11 +180,12 @@ class Sentry:
                 return fn(*args, **kwargs)
             except Exception as e:
                 if is_production():
-                    logger.debug(f"Sentry: capturing exception {e}")
-                    self.capture_exception(e)
-                    self._show_error_message(e)
-                else:
-                    raise e
+                    if not should_skip_sentry_exception(e):
+                        logger.debug(f"Sentry: capturing exception {e}")
+                        self.capture_exception(e)
+                        self._show_error_message(e)
+                    return None
+                raise
 
         return wrapped
 
@@ -238,6 +243,41 @@ def with_sentry(fn: Callable[..., Any]) -> Callable[..., Any]:
 
 
 sentry = _init_sentry()
+
+
+def is_client_timeout_exception(e: Exception) -> bool:
+    return isinstance(
+        e,
+        (
+            TimeoutError,
+            asyncio.TimeoutError,
+            aiohttp.ServerTimeoutError,
+        ),
+    )
+
+
+def is_external_tts_exception(e: Exception) -> bool:
+    return _contains_external_tts_source(
+        "".join(traceback.format_exception(type(e), e, e.__traceback__))
+    ) or _contains_external_tts_source(f"{type(e).__module__}.{type(e).__name__}")
+
+
+def should_skip_sentry_exception(e: Exception) -> bool:
+    return is_client_timeout_exception(e) or is_external_tts_exception(e)
+
+
+def _should_send_event(event: Any) -> bool:
+    if not is_production():
+        return False
+
+    if "logger" in event and event["logger"] != "smart_notes":
+        return False
+
+    return not _contains_external_tts_source(json.dumps(event, default=str))
+
+
+def _contains_external_tts_source(text: str) -> bool:
+    return "hypertts_addon" in text
 
 
 def run_async_in_background_with_sentry(
