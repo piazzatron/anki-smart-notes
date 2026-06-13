@@ -155,11 +155,10 @@ class Sentry:
         async def wrapped(*args: Any, **kwargs: Any):
             try:
                 return await fn(*args, **kwargs)
-            except OutOfCreditsError:
+            except (OutOfCreditsError, TimeoutError):
+                # These expected failures are reraised without Sentry reporting.
                 raise
             except Exception as e:
-                if isinstance(e, TimeoutError):
-                    raise
                 if is_production():
                     logger.debug(f"Sentry: capturing exception {e}")
 
