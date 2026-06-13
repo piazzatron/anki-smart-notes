@@ -48,6 +48,29 @@ async def test_wrap_async_reraises_after_reporting_in_production(
     assert shown == [error]
 
 
+@pytest.mark.asyncio
+async def test_wrap_async_reraises_timeout_without_reporting_in_production(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    captured: list[Exception] = []
+    shown: list[Exception] = []
+    error = TimeoutError("provider timed out")
+    sentry = object.__new__(Sentry)
+
+    monkeypatch.setattr(sentry_module, "is_production", lambda: True)
+    monkeypatch.setattr(sentry, "capture_exception", lambda e: captured.append(e))
+    monkeypatch.setattr(sentry, "_show_error_message", lambda e: shown.append(e))
+
+    async def op() -> None:
+        raise error
+
+    with pytest.raises(TimeoutError, match="provider timed out"):
+        await sentry.wrap_async(op)()
+
+    assert captured == []
+    assert shown == []
+
+
 def test_should_send_event_filters_non_smart_notes_logs(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
