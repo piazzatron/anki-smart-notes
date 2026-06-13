@@ -158,6 +158,8 @@ class Sentry:
             except OutOfCreditsError:
                 raise
             except Exception as e:
+                if isinstance(e, TimeoutError):
+                    raise
                 if is_production():
                     logger.debug(f"Sentry: capturing exception {e}")
 
