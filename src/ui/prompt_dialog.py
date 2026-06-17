@@ -702,6 +702,10 @@ class PromptDialog(QDialog):
             return generate_prompt()
 
         def on_success(prompt: str) -> None:
+            if not prompt:
+                self.state["is_generating_prompt"] = False
+                return
+
             self.state.update({"prompt": prompt, "is_generating_prompt": False})
 
         def on_failure(e: Exception) -> None:

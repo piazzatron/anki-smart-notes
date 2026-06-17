@@ -61,6 +61,7 @@ class APIClient:
             "Content-Type": "application/json",
             "x-sn-plugin-version": get_version(),
             "x-sn-source": "anki-plugin",
+            "x-sn-supports-empty-prompt-noop": "1",
         }
 
         if note_id is not None:
