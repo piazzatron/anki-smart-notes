@@ -90,7 +90,6 @@ async def test_api_requests_include_plugin_version(
         "Content-Type": "application/json",
         "x-sn-plugin-version": "1.2.3",
         "x-sn-source": "anki-plugin",
-        "x-sn-supports-empty-prompt-noop": "1",
     }
     assert fake_session.calls[0]["json"] == {"event": "test_event"}
 
