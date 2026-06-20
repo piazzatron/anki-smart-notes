@@ -10,6 +10,11 @@
 - Prefix private top level helper defs with `_`. Keep public APIs, Anki hook callbacks, Qt signal callbacks, and other framework entry points unprefixed.
 - Avoid unnecessary abstractions. Don't extract helper functions or add parameters unless the operation is actually reused. Prefer inlining logic with a brief comment over creating a single-use helper. Extra parameters that just proxy a check (e.g. passing `self.mode == "edit"` as a bool arg) add indirection — just check the condition directly in the method body.
 
+## Logging Levels
+- Prefer `info` for lifecycle and support-diagnostic events that help debug real user sessions: startup, shutdown, migrations, retries, auth flow milestones, feature flag refreshes, profile/config transitions, and external-service request outcomes.
+- Use `debug` for sensitive data, verbose payloads, prompt/model contents, provider response bodies, API request arguments, stack traces, UI state churn, per-keystroke updates, per-field processing details, and any log that can fire extremely frequently during normal interaction.
+- When promoting a log from `debug` to `info`, check whether the message exposes user content, tokens, identifiers, or noisy internals. Prefer redacted summaries at `info` and keep full details at `debug` only when useful.
+
 # Important Commands
 - Use `./scripts/build.sh check` to run all code quality checks (format, lint, typecheck)
 - Use `./scripts/build.sh typecheck` to run only type checking
