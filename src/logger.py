@@ -47,8 +47,9 @@ def setup_logger() -> None:
 
     if not os.getenv("IS_TEST"):
         try:
-            # File logging is useful for support, but it should never block
-            # startup if a user's add-on folder has broken permissions.
+            # We've seen occasional reports of unwritable log files, 
+            # so make sure this doesn't block startup. See Sentry issue
+            # 7548235574 - something do with a shared Anki folder.
             file_handler = logging.FileHandler(
                 get_file_path("smart-notes.log"), mode="w", encoding="utf-8"
             )
