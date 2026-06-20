@@ -18,12 +18,16 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import sqlite3
+from collections.abc import Iterator
+from contextlib import contextmanager
 from pathlib import Path
+from typing import Any
 
 import pytest
 import yoyo.backends.base
 from yoyo import read_migrations
 
+import src.database.migrations as migrations_module
 from src.database import (
     get_database_path,
     get_sqlite_backend,
@@ -80,6 +84,41 @@ def test_apply_database_migrations_does_not_require_yoyo_entry_points(
     monkeypatch.setattr(yoyo.backends.base, "entry_points", lambda group: {})
 
     apply_database_migrations(str(tmp_path / "smart_notes.sqlite3"))
+
+
+def test_apply_database_migrations_closes_backend_when_no_migrations(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    calls: list[str] = []
+
+    class FakeBackend:
+        def __enter__(self) -> "FakeBackend":
+            calls.append("enter")
+            return self
+
+        def __exit__(self, *_: Any) -> None:
+            calls.append("exit")
+
+        @contextmanager
+        def lock(self) -> Iterator[None]:
+            calls.append("lock")
+            yield
+
+        def to_apply(self, _: object) -> list[object]:
+            calls.append("to_apply")
+            return []
+
+    monkeypatch.setattr(
+        migrations_module.connection,
+        "get_sqlite_backend",
+        lambda _: FakeBackend(),
+    )
+    monkeypatch.setattr(migrations_module, "read_migrations", lambda _: [])
+
+    apply_database_migrations(str(tmp_path / "smart_notes.sqlite3"))
+
+    assert calls == ["enter", "lock", "to_apply", "exit"]
 
 
 def test_open_database_closes_connection_after_context(tmp_path: Path) -> None:

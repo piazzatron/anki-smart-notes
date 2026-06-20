@@ -153,21 +153,21 @@ def _apply_migrations(
     Path(resolved_database_path).parent.mkdir(parents=True, exist_ok=True)
 
     logger.debug(f"Smart fields DB: preparing migrations for {resolved_database_path}")
-    backend = connection.get_sqlite_backend(resolved_database_path)
-    migrations_path = Path(__file__).with_name("db_migrations")
-    logger.debug(f"Smart fields DB: reading migrations from {migrations_path}")
-    migrations = read_migrations(str(migrations_path))
-    if bootstrap_only:
-        migrations = migrations[:1]
+    with connection.get_sqlite_backend(resolved_database_path) as backend:
+        migrations_path = Path(__file__).with_name("db_migrations")
+        logger.debug(f"Smart fields DB: reading migrations from {migrations_path}")
+        migrations = read_migrations(str(migrations_path))
+        if bootstrap_only:
+            migrations = migrations[:1]
 
-    with backend.lock():
-        pending_migrations = backend.to_apply(migrations)
-        if not pending_migrations:
-            logger.debug("Smart fields DB: no pending migrations")
-            return
+        with backend.lock():
+            pending_migrations = backend.to_apply(migrations)
+            if not pending_migrations:
+                logger.debug("Smart fields DB: no pending migrations")
+                return
 
-        logger.info(
-            f"Smart fields DB: applying {len(pending_migrations)} database migration(s)"
-        )
-        backend.apply_migrations(pending_migrations)
-        logger.info("Smart fields DB: database migrations applied")
+            logger.info(
+                f"Smart fields DB: applying {len(pending_migrations)} database migration(s)"
+            )
+            backend.apply_migrations(pending_migrations)
+            logger.info("Smart fields DB: database migrations applied")
