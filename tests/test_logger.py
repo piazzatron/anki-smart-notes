@@ -64,6 +64,37 @@ def test_cleanup_logger_closes_log_file_handler(
     assert stream.closed
 
 
+def test_setup_logger_continues_when_log_file_cannot_be_opened(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    def raise_permission_error(*_args: object, **_kwargs: object) -> None:
+        raise PermissionError("permission denied")
+
+    monkeypatch.delenv("IS_TEST", raising=False)
+    monkeypatch.setattr(
+        logger_module,
+        "mw",
+        SimpleNamespace(
+            addonManager=SimpleNamespace(getConfig=lambda _: {"debug": False})
+        ),
+    )
+    monkeypatch.setattr(logger_module, "get_file_path", lambda _: "smart-notes.log")
+    monkeypatch.setattr(logger_module.logging, "FileHandler", raise_permission_error)
+
+    try:
+        logger_module.setup_logger()
+        captured = capsys.readouterr()
+
+        assert "Could not open Smart Notes log file" in captured.out
+        assert "Starting app with info logging enabled" in captured.out
+        assert len(logger_module.logger.handlers) == 1
+        assert isinstance(
+            logger_module.logger.handlers[0], logger_module.logging.StreamHandler
+        )
+    finally:
+        logger_module.cleanup_logger()
+
+
 def test_cleanup_logger_removes_stream_handlers() -> None:
     try:
         logger_module.logger.addHandler(logger_module.logging.StreamHandler())

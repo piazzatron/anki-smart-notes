@@ -43,21 +43,30 @@ def setup_logger() -> None:
 
     is_debug = bool(config.get("debug"))
     logger.setLevel(logging.DEBUG if is_debug else logging.INFO)
+    logger.addHandler(stream_handler)
 
     if not os.getenv("IS_TEST"):
-        file_handler = logging.FileHandler(
-            get_file_path("smart-notes.log"), mode="w", encoding="utf-8"
-        )
-        file_handler.setFormatter(formatter)
-        logger.addHandler(file_handler)
+        try:
+            # We've seen occasional reports of unwritable log files,
+            # so make sure this doesn't block startup. See Sentry issue
+            # 7548235574 - something do with a shared Anki folder.
+            file_handler = logging.FileHandler(
+                get_file_path("smart-notes.log"), mode="w", encoding="utf-8"
+            )
+        except OSError as exc:
+            logger.warning(
+                "Could not open Smart Notes log file; "
+                f"continuing with console logging only: {exc}"
+            )
+        else:
+            file_handler.setFormatter(formatter)
+            logger.addHandler(file_handler)
 
         logger.info(
             "Starting app with debug logging enabled"
             if is_debug
             else "Starting app with info logging enabled"
         )
-
-    logger.addHandler(stream_handler)
 
 
 def cleanup_logger() -> None:
