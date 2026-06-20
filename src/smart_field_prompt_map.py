@@ -81,7 +81,7 @@ def list_for_note_type(
 
 
 def replace_from_prompt_map(prompt_map: PromptMap) -> None:
-    logger.debug("Smart fields DB: replacing all smart fields from prompt map")
+    logger.info("Smart fields DB: replacing all smart fields from prompt map")
     smart_field_service.replace_all_smart_fields(
         smart_field_creates_from_prompt_map(
             prompt_map,

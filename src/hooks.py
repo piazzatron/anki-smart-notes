@@ -434,7 +434,7 @@ def cleanup() -> None:
         # A profile switch changes the note types, decks, and profile-scoped
         # Smart Field rows backing this UI. Close instead of refreshing so stale
         # dialog state cannot be saved into the next profile.
-        logger.debug("Closing Smart Notes options dialog before profile close")
+        logger.info("Closing Smart Notes options dialog before profile close")
         dialog = _open_options_dialog
         _open_options_dialog = None
         dialog.close()
@@ -447,7 +447,7 @@ def cleanup() -> None:
     global _review_time_evaluator
     _review_time_evaluator = None
 
-    logger.debug("Shutting down loggers")
+    logger.info("Shutting down loggers")
     # Ridiculous hack to fix this sentry logger error:
     # I don't quite understand it but the stream handler setup in sentry_sdk
     # isn't torn down correctly.

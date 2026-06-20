@@ -62,15 +62,15 @@ class Sentry:
     # For some reason, I need to not list hub here as an instance var for typechecking to work? idk
 
     def __init__(self, dsn: str, release: str, env: str) -> None:
-        logger.debug("Initializing sentry...")
-        logger.debug(f"release: {release}, env: {env}")
+        logger.info("Initializing sentry...")
+        logger.info(f"release: {release}, env: {env}")
 
         def before_send(event: Any, _: dict[str, Any]) -> Optional[Any]:
             if not _should_send_event(event):
-                logger.debug("Not sending event to sentry")
+                logger.info("Not sending event to sentry")
                 return None
 
-            logger.debug("Sending event to sentry...")
+            logger.info("Sending event to sentry...")
             return event
 
         client = sentry_sdk.Client(
@@ -83,7 +83,7 @@ class Sentry:
         )
         hub = sentry_sdk.Hub(client)
         self.hub = hub
-        logger.debug("Sentry initialized...")
+        logger.info("Sentry initialized...")
 
     def configure_scope(self) -> None:
         self._monekypatch_sys_excepthook()
@@ -97,7 +97,7 @@ class Sentry:
             if jwt_user_id:
                 user_id = jwt_user_id
 
-        logger.debug(f"Setting sentry user to {user_id}")
+        logger.info(f"Setting sentry user: authenticated={user_id is not None}")
         with self.hub.configure_scope() as scope:
             if user_id:
                 scope.user = {"id": user_id}
@@ -119,7 +119,7 @@ class Sentry:
             logger.error(f"Error getting sys.excepthook: {e}")
 
     def end_session(self) -> None:
-        logger.debug("Sentry: ending session")
+        logger.info("Sentry: ending session")
         client, scope = self.hub._stack[-1]
         session = scope._session
 
@@ -131,10 +131,10 @@ class Sentry:
         client, scope = self.hub._stack[-1]
         if scope and client:
             if not self._is_smartnotes_exception(e):
-                logger.debug(f"Sentry: not capturing exception {e}")
+                logger.info("Sentry: not capturing non-Smart Notes exception")
                 return
 
-            logger.debug(f"Sentry: capturing exception {e}")
+            logger.info("Sentry: capturing Smart Notes exception")
             scope.capture_exception(e)
             if scope._session:
                 scope._session.update(status="crashed")

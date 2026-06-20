@@ -115,7 +115,7 @@ class _ProfileSmartField:
 
 def migrate_legacy_config_to_database() -> None:
     if config.did_migrate_smart_fields_to_sqlite:
-        logger.debug("Legacy config DB migration: already completed")
+        logger.info("Legacy config DB migration: already completed")
         return
 
     try:
@@ -137,7 +137,7 @@ def migrate_legacy_config_to_database() -> None:
                 addon_config.get("prompts_map") or {"note_types": {}},
             )
         )
-        logger.debug(
+        logger.info(
             "Legacy config DB migration: importing "
             f"{len(legacy_prompt_map.get('note_types', {}))} note types"
         )
@@ -501,7 +501,7 @@ def _finish_legacy_config_migration(addon_config: dict[str, object]) -> None:
 
     for key in CONFIG_KEYS_TO_REMOVE_AFTER_IMPORT:
         if key in addon_config:
-            logger.debug(f"Legacy config DB migration: removing config key {key}")
+            logger.info(f"Legacy config DB migration: removing config key {key}")
             addon_config.pop(key)
     addon_config["did_migrate_smart_fields_to_sqlite"] = True
     mw.addonManager.writeConfig(config_module.__name__, addon_config)

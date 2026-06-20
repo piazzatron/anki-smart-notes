@@ -59,7 +59,7 @@ def refresh_feature_flags() -> None:
 
     def on_success(payload: FeatureFlagsPayload) -> None:
         flags.review_free_month = bool(payload.get("review_free_month", False))
-        logger.debug(
+        logger.info(
             f"Feature flags updated: review_free_month={flags.review_free_month}"
         )
 

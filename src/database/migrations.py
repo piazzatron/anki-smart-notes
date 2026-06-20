@@ -152,10 +152,10 @@ def _apply_migrations(
     resolved_database_path = database_path or connection.get_database_path()
     Path(resolved_database_path).parent.mkdir(parents=True, exist_ok=True)
 
-    logger.debug(f"Smart fields DB: preparing migrations for {resolved_database_path}")
+    logger.info(f"Smart fields DB: preparing migrations for {resolved_database_path}")
     with connection.get_sqlite_backend(resolved_database_path) as backend:
         migrations_path = Path(__file__).with_name("db_migrations")
-        logger.debug(f"Smart fields DB: reading migrations from {migrations_path}")
+        logger.info(f"Smart fields DB: reading migrations from {migrations_path}")
         migrations = read_migrations(str(migrations_path))
         if bootstrap_only:
             migrations = migrations[:1]
@@ -163,7 +163,7 @@ def _apply_migrations(
         with backend.lock():
             pending_migrations = backend.to_apply(migrations)
             if not pending_migrations:
-                logger.debug("Smart fields DB: no pending migrations")
+                logger.info("Smart fields DB: no pending migrations")
                 return
 
             logger.info(

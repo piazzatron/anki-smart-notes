@@ -75,7 +75,7 @@ class AppStateManager:
 
     def update_subscription_state(self) -> None:
         if not config.auth_token:
-            logger.debug("User is not authenticated")
+            logger.info("User is not authenticated")
             self._state.update({"subscription": "UNAUTHENTICATED", "plan": None})
             return
 
@@ -165,7 +165,7 @@ class AppStateManager:
         did_transition = old_state != new_state
         did_functionality_degrade = did_transition and new_state not in active_states
         if did_functionality_degrade:
-            logger.debug(
+            logger.info(
                 f"Functionality degraded, transitioned from {old_state} to {new_state}"
             )
         return did_functionality_degrade

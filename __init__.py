@@ -55,7 +55,7 @@ def _init_addon():
         # https://stackoverflow.com/questions/45600579/asyncio-event-loop-is-closed-when-getting-loop
         # https://github.com/piazzatron/anki-smart-notes/issues/5
         if platform.system() == "Windows":
-            logger.debug(
+            logger.info(
                 "Running in windows environment, setting event loop to selector policy"
             )
             asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())  # type: ignore

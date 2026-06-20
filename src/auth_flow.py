@@ -101,7 +101,7 @@ ERROR_MESSAGES = {
 
 async def _exchange_code(code: str) -> ExchangeResult:
     url = f"{get_server_url()}/auth/code/exchange"
-    logger.debug(f"Auth code exchange: POST {url}")
+    logger.info(f"Auth code exchange: POST {url}")
     timeout = aiohttp.ClientTimeout(total=10)
     try:
         async with (
@@ -111,7 +111,7 @@ async def _exchange_code(code: str) -> ExchangeResult:
             ) as resp,
         ):
             body = await resp.json()
-            logger.debug(f"Auth code exchange: response status={resp.status}")
+            logger.info(f"Auth code exchange: response status={resp.status}")
             if resp.status != 200:
                 raw = body.get("error")
                 logger.warning(
@@ -124,7 +124,7 @@ async def _exchange_code(code: str) -> ExchangeResult:
             if not isinstance(jwt, str) or not jwt:
                 logger.warning("Auth code exchange: 200 but response missing jwt field")
                 return ExchangeError("Server returned an invalid response.")
-            logger.debug(f"Auth code exchange: got jwt (len={len(jwt)})")
+            logger.info(f"Auth code exchange: got jwt (len={len(jwt)})")
             return ExchangeSuccess(jwt)
     except Exception as e:
         logger.error(f"Auth code exchange failed: {e}")
