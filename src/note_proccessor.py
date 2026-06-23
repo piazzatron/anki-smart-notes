@@ -30,7 +30,7 @@ from anki.decks import DeckId
 from anki.notes import Note, NoteId
 from aqt import mw
 
-from .api_client import OutOfCreditsError
+from .api_client import ClientFacingAPIError, OutOfCreditsError
 from .app_state import (
     app_state,
     has_api_key,
@@ -76,6 +76,7 @@ class NoteProcessor:
         self.config = config
         self.batch_in_progress = False
         self._cancelled = threading.Event()
+        self._batch_client_error_message: Optional[str] = None
 
     def process_cards_with_progress(
         self,
@@ -111,6 +112,7 @@ class NoteProcessor:
 
         self.batch_in_progress = True
         self._cancelled.clear()
+        self._batch_client_error_message = None
 
         def wrapped_on_success(res: tuple[list[Note], list[Note], list[Note]]) -> None:
             updated, failed, skipped = res
@@ -214,6 +216,13 @@ class NoteProcessor:
             if hit_out_of_credits:
                 raise OutOfCreditsError()
 
+            if self._batch_client_error_message:
+                run_on_main(
+                    lambda message=self._batch_client_error_message: show_message_box(
+                        message
+                    )
+                )
+
             return total_updated, total_failed, total_skipped
 
         run_async_in_background_with_sentry(op, wrapped_on_success, on_failure)
@@ -267,6 +276,12 @@ class NoteProcessor:
                 hit_out_of_credits = True
                 failed.append(note)
             elif isinstance(result, Exception):
+                if (
+                    isinstance(result, ClientFacingAPIError)
+                    and self.batch_in_progress
+                    and self._batch_client_error_message is None
+                ):
+                    self._batch_client_error_message = str(result)
                 logger.error(
                     f"Error processing note {note_ids[i]}: {result}, {''.join(traceback.format_exception(type(result), result, result.__traceback__))}"
                 )
@@ -439,6 +454,10 @@ class NoteProcessor:
 
         if isinstance(e, OutOfCreditsError):
             app_state.update_subscription_state()
+            return
+
+        if isinstance(e, ClientFacingAPIError):
+            show_message_box(str(e))
             return
 
         openai_failure_map = {

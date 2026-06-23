@@ -19,6 +19,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 # pyright: reportPrivateUsage=false
 
+import asyncio
 import base64
 import json
 import logging
@@ -34,7 +35,7 @@ from sentry_sdk.integrations.logging import LoggingIntegration
 from sentry_sdk.session import Session
 
 from . import env
-from .api_client import OutOfCreditsError
+from .api_client import ClientFacingAPIError, OutOfCreditsError
 from .config import config
 from .logger import logger
 from .tasks import run_async_in_background
@@ -155,7 +156,12 @@ class Sentry:
         async def wrapped(*args: Any, **kwargs: Any):
             try:
                 return await fn(*args, **kwargs)
-            except (OutOfCreditsError, TimeoutError):
+            except (
+                ClientFacingAPIError,
+                OutOfCreditsError,
+                TimeoutError,
+                asyncio.TimeoutError,
+            ):
                 # These expected failures are reraised without Sentry reporting.
                 raise
             except Exception as e:

@@ -32,6 +32,10 @@ class OutOfCreditsError(Exception):
     pass
 
 
+class ClientFacingAPIError(Exception):
+    pass
+
+
 class APIClient:
     async def get_api_response(
         self,
@@ -85,6 +89,11 @@ class APIClient:
                 json = await response.json()
                 logger.error(json)
                 raise Exception(f"Validation error: {json['error']}")
+            if response.status == 413:
+                json = await response.json()
+                message = json.get("message")
+                if isinstance(message, str):
+                    raise ClientFacingAPIError(message)
             response.raise_for_status()
 
             # Read it all into memory

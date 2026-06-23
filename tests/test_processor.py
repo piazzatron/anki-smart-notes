@@ -19,9 +19,12 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import asyncio
+
 import pytest
 from fixtures import NOTE_TYPE_ID, NOTE_TYPE_NAME, MockCard, MockConfig, MockNote
 
+from src.api_client import ClientFacingAPIError
 from src.database.migrations import apply_database_migrations
 
 
@@ -29,6 +32,10 @@ def p(str) -> str:
     # Avoid underscores so markdown-to-html conversion (always-on) is a no-op
     # on the simulated chat output.
     return f"p-{str}"
+
+
+async def _raise_client_facing_error(message: str) -> bool:
+    raise ClientFacingAPIError(message)
 
 
 class MockOpenAIClient:
@@ -542,6 +549,143 @@ def test_process_cards_with_progress_noops_during_batch(monkeypatch):
 
     assert calls == []
     assert processor.batch_in_progress
+
+
+@pytest.mark.asyncio
+async def test_process_notes_batch_records_one_client_facing_error(monkeypatch):
+    import src.note_proccessor
+    from src.note_proccessor import NoteProcessor
+
+    message = (
+        "This request is too long for Google Voice. Please try a different provider."
+    )
+    notes = {
+        1: MockNote({"f1": "1"}, note_id=1),
+        2: MockNote({"f1": "2"}, note_id=2),
+    }
+
+    class MockCollection:
+        def get_note(self, note_id):
+            return notes[note_id]
+
+    class MockMw:
+        col = MockCollection()
+
+    processor = NoteProcessor(  # type: ignore
+        field_resolver=None,
+        config=MockConfig(prompts_map={}, allow_empty_fields=False),
+    )
+    processor.batch_in_progress = True
+    monkeypatch.setattr(src.note_proccessor, "mw", MockMw())
+    monkeypatch.setattr(
+        src.note_proccessor.smart_field_service,
+        "get_smart_fields_for_note",
+        lambda *args, **kwargs: [object()],
+    )
+    monkeypatch.setattr(
+        processor,
+        "process_note",
+        lambda *args, **kwargs: _raise_client_facing_error(message),
+    )
+
+    updated, failed, skipped, out_of_credits = await processor._process_notes_batch(
+        [1, 2],
+        overwrite_fields=False,
+        did_map={1: 1, 2: 1},
+    )
+
+    assert updated == []
+    assert failed == [notes[1], notes[2]]
+    assert skipped == []
+    assert not out_of_credits
+    assert processor._batch_client_error_message == message
+
+
+@pytest.mark.asyncio
+async def test_process_cards_with_progress_shows_one_client_facing_error(
+    monkeypatch,
+):
+    import src.note_proccessor
+    from src.note_proccessor import NoteProcessor
+
+    message = (
+        "This request is too long for Google Voice. Please try a different provider."
+    )
+    notes = {
+        1: MockNote({"f1": "1"}, note_id=1),
+        2: MockNote({"f1": "2"}, note_id=2),
+    }
+    cards = {
+        1: MockCard(id=1, did=1, note=notes[1]),
+        2: MockCard(id=2, did=1, note=notes[2]),
+    }
+    cards[1].nid = 1
+    cards[2].nid = 2
+    shown_messages = []
+
+    class MockCollection:
+        def get_card(self, card_id):
+            return cards[card_id]
+
+        def update_notes(self, updated):
+            pass
+
+    class MockProgress:
+        def start(self, **kwargs):
+            pass
+
+        def finish(self):
+            pass
+
+        def update(self, **kwargs):
+            pass
+
+        def want_cancel(self):
+            return False
+
+    class MockMw:
+        col = MockCollection()
+        progress = MockProgress()
+
+    async def process_notes_batch(*args, **kwargs):
+        processor._batch_client_error_message = message
+        return [], [notes[1], notes[2]], [], False
+
+    async def run_background(op, on_success, on_failure=None, **kwargs):
+        try:
+            on_success(await op())
+        except Exception as exc:
+            if on_failure:
+                on_failure(exc)
+
+    processor = NoteProcessor(  # type: ignore
+        field_resolver=None,
+        config=MockConfig(prompts_map={}, allow_empty_fields=False),
+    )
+    monkeypatch.setattr(src.note_proccessor, "mw", MockMw())
+    monkeypatch.setattr(processor, "_assert_valid_app_mode", lambda: True)
+    monkeypatch.setattr(src.note_proccessor, "bump_usage_counter", lambda: None)
+    monkeypatch.setattr(
+        src.note_proccessor,
+        "is_capacity_remaining_or_legacy",
+        lambda show_box=False: True,
+    )
+    monkeypatch.setattr(src.note_proccessor, "is_capacity_remaining", lambda: True)
+    monkeypatch.setattr(src.note_proccessor, "run_on_main", lambda work: work())
+    monkeypatch.setattr(
+        src.note_proccessor,
+        "run_async_in_background_with_sentry",
+        lambda op, on_success, on_failure=None, **kwargs: asyncio.create_task(
+            run_background(op, on_success, on_failure, **kwargs)
+        ),
+    )
+    monkeypatch.setattr(src.note_proccessor, "show_message_box", shown_messages.append)
+    monkeypatch.setattr(processor, "_process_notes_batch", process_notes_batch)
+
+    processor.process_cards_with_progress([1, 2], on_success=None)
+    await asyncio.sleep(0)
+
+    assert shown_messages == [message]
 
 
 @pytest.mark.asyncio
