@@ -51,7 +51,7 @@ def test_run_migrations_imports_legacy_config_after_bootstrap(
         lambda: calls.append("legacy_config"),
     )
     monkeypatch.setattr(
-        "src.database.migrations._fail_if_legacy_import_would_use_unprofiled_schema",
+        "src.database.migrations._recover_legacy_import_pending_unprofiled_schema",
         lambda: calls.append("schema_check"),
     )
 
@@ -180,7 +180,7 @@ def test_run_migrations_updates_inherited_fields_through_sql_default_row(
     assert smart_fields[0].settings.model == "auto"
 
 
-def test_run_migrations_fails_for_old_bootstrap_only_schema_before_legacy_import(
+def test_run_migrations_recovers_old_bootstrap_only_schema_before_legacy_import(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
 ) -> None:
@@ -233,24 +233,42 @@ def test_run_migrations_fails_for_old_bootstrap_only_schema_before_legacy_import
     apply_database_bootstrap_migrations(str(database_path))
     replace_smart_fields_with_old_unprofiled_bootstrap_schema(database_path)
 
-    with pytest.raises(
-        RuntimeError,
-        match=("legacy config import is pending, but smart_fields lacks profile_name"),
-    ):
-        run_migrations()
+    run_migrations()
 
     with sqlite3.connect(database_path) as conn:
+        smart_field_row = conn.execute(
+            """
+            SELECT profile_name, note_type_id, deck_id, target_field_name
+            FROM smart_fields
+            """
+        ).fetchone()
         applied_migrations = {
             row[0] for row in conn.execute("SELECT migration_id FROM _yoyo_migration")
+        }
+        columns = {row[1] for row in conn.execute("PRAGMA table_info(smart_fields)")}
+
+    backup_paths = list(tmp_path.glob("smart_notes.sqlite3.partial-upgrade-backup-*"))
+    assert len(backup_paths) == 1
+
+    with sqlite3.connect(backup_paths[0]) as conn:
+        backup_columns = {
+            row[1] for row in conn.execute("PRAGMA table_info(smart_fields)")
         }
 
     assert messages == [
         (
-            "Smart Notes could not finish upgrading your Smart Fields.",
-            "Please email support@smart-notes.xyz and include your smart-notes.log file.",
+            "Smart Notes recovered your Smart Fields upgrade.",
+            "Smart Notes backed up an incomplete Smart Fields database and will "
+            "continue upgrading from your saved settings.",
         )
     ]
-    assert applied_migrations == {"0001_initial_smart_fields_schema"}
+    assert "profile_name" not in backup_columns
+    assert smart_field_row == ("__test__", NOTE_TYPE_ID, int(DECK_ID), "Back")
+    assert "profile_name" in columns
+    assert {
+        "0001_initial_smart_fields_schema",
+        "0003_scope_smart_fields_to_profile",
+    }.issubset(applied_migrations)
 
 
 def test_run_migrations_profiles_old_sql_rows_after_legacy_import_completed(
