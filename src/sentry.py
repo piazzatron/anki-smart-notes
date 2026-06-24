@@ -19,6 +19,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 # pyright: reportPrivateUsage=false
 
+import asyncio
 import base64
 import json
 import logging
@@ -155,8 +156,9 @@ class Sentry:
         async def wrapped(*args: Any, **kwargs: Any):
             try:
                 return await fn(*args, **kwargs)
-            except (OutOfCreditsError, TimeoutError):
-                # These expected failures are reraised without Sentry reporting.
+            except (OutOfCreditsError, TimeoutError, asyncio.TimeoutError):
+                # Older Anki runtimes may raise asyncio.TimeoutError as a
+                # distinct class from built-in TimeoutError.
                 raise
             except Exception as e:
                 if is_production():

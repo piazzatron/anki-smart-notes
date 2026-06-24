@@ -19,6 +19,8 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 # pyright: reportPrivateUsage=false
 
+import types
+
 import pytest
 
 import src.sentry as sentry_module
@@ -65,6 +67,39 @@ async def test_wrap_async_reraises_timeout_without_reporting_in_production(
         raise error
 
     with pytest.raises(TimeoutError, match="provider timed out"):
+        await sentry.wrap_async(op)()
+
+    assert captured == []
+    assert shown == []
+
+
+@pytest.mark.asyncio
+async def test_wrap_async_reraises_legacy_asyncio_timeout_without_reporting(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    class LegacyAsyncioTimeoutError(Exception):
+        pass
+
+    captured: list[Exception] = []
+    shown: list[Exception] = []
+    error = LegacyAsyncioTimeoutError("feature flags timed out")
+    sentry = object.__new__(Sentry)
+
+    # Simulate older Anki runtimes where asyncio.TimeoutError is not an alias
+    # for built-in TimeoutError.
+    monkeypatch.setattr(
+        sentry_module,
+        "asyncio",
+        types.SimpleNamespace(TimeoutError=LegacyAsyncioTimeoutError),
+    )
+    monkeypatch.setattr(sentry_module, "is_production", lambda: True)
+    monkeypatch.setattr(sentry, "capture_exception", lambda e: captured.append(e))
+    monkeypatch.setattr(sentry, "_show_error_message", lambda e: shown.append(e))
+
+    async def op() -> None:
+        raise error
+
+    with pytest.raises(LegacyAsyncioTimeoutError, match="feature flags timed out"):
         await sentry.wrap_async(op)()
 
     assert captured == []
