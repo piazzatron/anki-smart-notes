@@ -35,7 +35,7 @@ from sentry_sdk.integrations.logging import LoggingIntegration
 from sentry_sdk.session import Session
 
 from . import env
-from .api_client import OutOfCreditsError
+from .api_client import ClientFacingAPIError, OutOfCreditsError
 from .config import config
 from .logger import logger
 from .tasks import run_async_in_background
@@ -156,9 +156,15 @@ class Sentry:
         async def wrapped(*args: Any, **kwargs: Any):
             try:
                 return await fn(*args, **kwargs)
-            except (OutOfCreditsError, TimeoutError, asyncio.TimeoutError):
+            except (
+                ClientFacingAPIError,
+                OutOfCreditsError,
+                TimeoutError,
+                asyncio.TimeoutError,
+            ):
                 # Older Anki runtimes may raise asyncio.TimeoutError as a
-                # distinct class from built-in TimeoutError.
+                # distinct class from built-in TimeoutError. All errors here
+                # are expected control flow and should not be reported.
                 raise
             except Exception as e:
                 if is_production():

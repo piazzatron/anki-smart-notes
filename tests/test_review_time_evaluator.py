@@ -22,6 +22,8 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 import pytest
 from fixtures import MockCard, MockConfig, MockProcessor
 
+from src.api_client import ClientFacingAPIError
+
 
 class MockQueuedCard:
     def __init__(self, card: MockCard) -> None:
@@ -354,3 +356,37 @@ async def test_run_batch_updates_state_for_each_card(monkeypatch):
     assert evaluator.in_flight == set()
     assert processor.processed_cards == [10, 20]
     assert len(redraws) == 2
+
+
+@pytest.mark.asyncio
+async def test_run_card_task_logs_client_facing_errors_without_error_level(
+    monkeypatch,
+):
+    class FailingProcessor(MockProcessor):
+        async def process_note(self, *args, **kwargs) -> bool:
+            raise ClientFacingAPIError("Try a different provider.")
+
+    evaluator, _, review_time_evaluator = setup_review_time_evaluator(
+        monkeypatch,
+        current=MockCard(id=1),
+        queued=[],
+    )
+    evaluator.processor = FailingProcessor()  # type: ignore[assignment]
+    evaluator.in_flight.add(1)
+    error_logs = []
+    info_logs = []
+    redraws = []
+    monkeypatch.setattr(review_time_evaluator.logger, "error", error_logs.append)
+    monkeypatch.setattr(review_time_evaluator.logger, "info", info_logs.append)
+    monkeypatch.setattr(
+        review_time_evaluator, "run_on_main", lambda work: redraws.append(work)
+    )
+
+    await evaluator.run_card_task(MockCard(id=1, did=10))
+
+    assert evaluator.in_flight == set()
+    assert error_logs == []
+    assert info_logs == [
+        "Client-facing error prepping card 1: Try a different provider."
+    ]
+    assert len(redraws) == 1

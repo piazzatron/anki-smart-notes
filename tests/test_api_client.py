@@ -29,6 +29,7 @@ from src import api_client
 class FakeResponse:
     def __init__(self, status: int = 204) -> None:
         self.status = status
+        self.json_body: dict[str, object] = {}
 
     async def __aenter__(self) -> "FakeResponse":
         return self
@@ -49,9 +50,13 @@ class FakeResponse:
     async def read(self) -> bytes:
         return b""
 
+    async def json(self) -> dict[str, object]:
+        return self.json_body
+
 
 class FakeSession:
     response_status = 204
+    response_json: dict[str, object] = {}
     request_error: Optional[Exception] = None
 
     def __init__(self) -> None:
@@ -67,7 +72,9 @@ class FakeSession:
         self.calls.append({"endpoint": endpoint, **kwargs})
         if self.request_error:
             raise self.request_error
-        return FakeResponse(self.response_status)
+        response = FakeResponse(self.response_status)
+        response.json_body = self.response_json
+        return response
 
 
 @pytest.mark.asyncio
@@ -111,6 +118,98 @@ async def test_api_client_does_not_retry_server_rate_limits(
         await api_client.APIClient().get_api_response("chat", {"message": "hello"})
 
     assert len(fake_session.calls) == 1
+
+
+@pytest.mark.asyncio
+async def test_api_client_raises_client_facing_message_for_server_message(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    message = (
+        "This request is too long for Google TTS. Please try a different provider."
+    )
+    fake_session = FakeSession()
+    fake_session.response_status = 413
+    fake_session.response_json = {"message": message}
+    monkeypatch.setattr(api_client.aiohttp, "ClientSession", lambda: fake_session)
+    monkeypatch.setattr(
+        api_client, "config", type("Config", (), {"auth_token": "test-token"})()
+    )
+    monkeypatch.setattr(api_client, "get_server_url", lambda: "https://server.test")
+    monkeypatch.setattr(api_client, "get_version", lambda: "1.2.3")
+
+    with pytest.raises(api_client.ClientFacingAPIError, match=message):
+        await api_client.APIClient().get_api_response("tts", {"message": "hello"})
+
+    assert len(fake_session.calls) == 1
+
+
+@pytest.mark.asyncio
+async def test_api_client_raises_client_facing_message_for_server_error_field(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    fake_session = FakeSession()
+    fake_session.response_status = 500
+    fake_session.response_json = {"error": "The provider rejected this request."}
+    monkeypatch.setattr(api_client.aiohttp, "ClientSession", lambda: fake_session)
+    monkeypatch.setattr(
+        api_client, "config", type("Config", (), {"auth_token": "test-token"})()
+    )
+    monkeypatch.setattr(api_client, "get_server_url", lambda: "https://server.test")
+    monkeypatch.setattr(api_client, "get_version", lambda: "1.2.3")
+
+    with pytest.raises(
+        api_client.ClientFacingAPIError,
+        match="The provider rejected this request.",
+    ):
+        await api_client.APIClient().get_api_response("tts", {"message": "hello"})
+
+    assert len(fake_session.calls) == 1
+
+
+@pytest.mark.asyncio
+async def test_api_client_raises_client_facing_message_for_validation_errors(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    error_logs: list[object] = []
+    fake_session = FakeSession()
+    fake_session.response_status = 400
+    fake_session.response_json = {"error": "Provider is required"}
+    monkeypatch.setattr(api_client.aiohttp, "ClientSession", lambda: fake_session)
+    monkeypatch.setattr(
+        api_client, "config", type("Config", (), {"auth_token": "test-token"})()
+    )
+    monkeypatch.setattr(api_client, "get_server_url", lambda: "https://server.test")
+    monkeypatch.setattr(api_client, "get_version", lambda: "1.2.3")
+    monkeypatch.setattr(api_client.logger, "error", error_logs.append)
+
+    with pytest.raises(api_client.ClientFacingAPIError, match="Provider is required"):
+        await api_client.APIClient().get_api_response("tts", {"message": "hello"})
+
+    assert len(fake_session.calls) == 1
+    assert error_logs == []
+
+
+@pytest.mark.asyncio
+async def test_api_client_logs_non_client_facing_validation_errors(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    error_logs: list[object] = []
+    fake_session = FakeSession()
+    fake_session.response_status = 400
+    fake_session.response_json = {"details": "invalid request"}
+    monkeypatch.setattr(api_client.aiohttp, "ClientSession", lambda: fake_session)
+    monkeypatch.setattr(
+        api_client, "config", type("Config", (), {"auth_token": "test-token"})()
+    )
+    monkeypatch.setattr(api_client, "get_server_url", lambda: "https://server.test")
+    monkeypatch.setattr(api_client, "get_version", lambda: "1.2.3")
+    monkeypatch.setattr(api_client.logger, "error", error_logs.append)
+
+    with pytest.raises(aiohttp.ClientResponseError):
+        await api_client.APIClient().get_api_response("tts", {"message": "hello"})
+
+    assert len(fake_session.calls) == 1
+    assert error_logs == [{"details": "invalid request"}]
 
 
 @pytest.mark.asyncio

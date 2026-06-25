@@ -30,7 +30,7 @@ from anki.decks import DeckId
 from anki.notes import Note, NoteId
 from aqt import mw
 
-from .api_client import OutOfCreditsError
+from .api_client import ClientFacingAPIError, OutOfCreditsError
 from .app_state import (
     app_state,
     has_api_key,
@@ -266,6 +266,13 @@ class NoteProcessor:
             if isinstance(result, OutOfCreditsError):
                 hit_out_of_credits = True
                 failed.append(note)
+            elif isinstance(result, ClientFacingAPIError):
+                # Keep this below error level so expected per-note failures do not
+                # become Sentry events through the logging integration.
+                logger.info(
+                    f"Client-facing error processing note {note_ids[i]}: {result}"
+                )
+                failed.append(note)
             elif isinstance(result, Exception):
                 logger.error(
                     f"Error processing note {note_ids[i]}: {result}, {''.join(traceback.format_exception(type(result), result, result.__traceback__))}"
@@ -306,7 +313,7 @@ class NoteProcessor:
             on_success(updated)
 
         def wrapped_failure(e: Exception) -> None:
-            self._handle_failure(e)
+            self._handle_single_card_failure(e)
             if on_failure:
                 on_failure(e)
 
@@ -434,11 +441,15 @@ class NoteProcessor:
 
         return did_update
 
-    def _handle_failure(self, e: Exception) -> None:
+    def _handle_single_card_failure(self, e: Exception) -> None:
         logger.debug("Handling failure")
 
         if isinstance(e, OutOfCreditsError):
             app_state.update_subscription_state()
+            return
+
+        if isinstance(e, ClientFacingAPIError):
+            show_message_box(str(e))
             return
 
         openai_failure_map = {

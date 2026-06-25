@@ -24,6 +24,7 @@ import types
 import pytest
 
 import src.sentry as sentry_module
+from src.api_client import ClientFacingAPIError
 from src.sentry import Sentry
 
 
@@ -67,6 +68,31 @@ async def test_wrap_async_reraises_timeout_without_reporting_in_production(
         raise error
 
     with pytest.raises(TimeoutError, match="provider timed out"):
+        await sentry.wrap_async(op)()
+
+    assert captured == []
+    assert shown == []
+
+
+@pytest.mark.asyncio
+async def test_wrap_async_reraises_client_facing_api_error_without_reporting(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    captured: list[Exception] = []
+    shown: list[Exception] = []
+    error = ClientFacingAPIError(
+        "This request is too long for Google TTS. Please try a different provider."
+    )
+    sentry = object.__new__(Sentry)
+
+    monkeypatch.setattr(sentry_module, "is_production", lambda: True)
+    monkeypatch.setattr(sentry, "capture_exception", lambda e: captured.append(e))
+    monkeypatch.setattr(sentry, "_show_error_message", lambda e: shown.append(e))
+
+    async def op() -> None:
+        raise error
+
+    with pytest.raises(ClientFacingAPIError, match="Google TTS"):
         await sentry.wrap_async(op)()
 
     assert captured == []
