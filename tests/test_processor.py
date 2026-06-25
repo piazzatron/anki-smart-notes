@@ -552,7 +552,7 @@ def test_process_cards_with_progress_noops_during_batch(monkeypatch):
 
 
 @pytest.mark.asyncio
-async def test_process_notes_batch_records_one_client_facing_error(monkeypatch):
+async def test_process_notes_batch_marks_client_facing_errors_as_failed(monkeypatch):
     import src.note_proccessor
     from src.note_proccessor import NoteProcessor
 
@@ -602,7 +602,6 @@ async def test_process_notes_batch_records_one_client_facing_error(monkeypatch):
     assert failed == [notes[1], notes[2]]
     assert skipped == []
     assert not out_of_credits
-    assert processor._batch_client_error_message == message
     assert error_logs == []
     assert info_logs == [
         "Client-facing error processing note 1",
@@ -611,15 +610,12 @@ async def test_process_notes_batch_records_one_client_facing_error(monkeypatch):
 
 
 @pytest.mark.asyncio
-async def test_process_cards_with_progress_shows_one_client_facing_error(
+async def test_process_cards_with_progress_does_not_show_client_facing_error(
     monkeypatch,
 ):
     import src.note_proccessor
     from src.note_proccessor import NoteProcessor
 
-    message = (
-        "This request is too long for Google TTS. Please try a different provider."
-    )
     notes = {
         1: MockNote({"f1": "1"}, note_id=1),
         2: MockNote({"f1": "2"}, note_id=2),
@@ -657,7 +653,6 @@ async def test_process_cards_with_progress_shows_one_client_facing_error(
         progress = MockProgress()
 
     async def process_notes_batch(*args, **kwargs):
-        processor._batch_client_error_message = message
         return [], [notes[1], notes[2]], [], False
 
     async def run_background(op, on_success, on_failure=None, **kwargs):
@@ -694,7 +689,7 @@ async def test_process_cards_with_progress_shows_one_client_facing_error(
     processor.process_cards_with_progress([1, 2], on_success=None)
     await asyncio.sleep(0)
 
-    assert shown_messages == [message]
+    assert shown_messages == []
 
 
 @pytest.mark.asyncio

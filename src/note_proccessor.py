@@ -76,7 +76,6 @@ class NoteProcessor:
         self.config = config
         self.batch_in_progress = False
         self._cancelled = threading.Event()
-        self._batch_client_error_message: Optional[str] = None
 
     def process_cards_with_progress(
         self,
@@ -112,7 +111,6 @@ class NoteProcessor:
 
         self.batch_in_progress = True
         self._cancelled.clear()
-        self._batch_client_error_message = None
 
         def wrapped_on_success(res: tuple[list[Note], list[Note], list[Note]]) -> None:
             updated, failed, skipped = res
@@ -216,13 +214,6 @@ class NoteProcessor:
             if hit_out_of_credits:
                 raise OutOfCreditsError()
 
-            if self._batch_client_error_message:
-                run_on_main(
-                    lambda message=self._batch_client_error_message: show_message_box(
-                        message
-                    )
-                )
-
             return total_updated, total_failed, total_skipped
 
         run_async_in_background_with_sentry(op, wrapped_on_success, on_failure)
@@ -277,11 +268,6 @@ class NoteProcessor:
                 failed.append(note)
             elif isinstance(result, Exception):
                 if isinstance(result, ClientFacingAPIError):
-                    if (
-                        self.batch_in_progress
-                        and self._batch_client_error_message is None
-                    ):
-                        self._batch_client_error_message = str(result)
                     logger.info(f"Client-facing error processing note {note_ids[i]}")
                     failed.append(note)
                     continue
