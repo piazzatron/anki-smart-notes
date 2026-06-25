@@ -192,6 +192,8 @@ class ReviewTimeEvaluator:
             raise
         except Exception as e:
             if isinstance(e, ClientFacingAPIError):
+                # Keep this below error level so expected per-card failures do not
+                # become Sentry events through the logging integration.
                 logger.info(f"Client-facing error prepping card {card.id}")
             else:
                 logger.error(

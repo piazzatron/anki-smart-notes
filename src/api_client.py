@@ -92,12 +92,12 @@ class APIClient:
                     json = None
 
                 if isinstance(json, dict):
-                    if response.status == 400:
-                        logger.error(json)
-
                     message = json.get("message") or json.get("error")
                     if isinstance(message, str):
                         raise ClientFacingAPIError(message)
+
+                    if response.status == 400:
+                        logger.error(json)
 
             response.raise_for_status()
 
