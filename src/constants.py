@@ -23,7 +23,7 @@ from anki.decks import DeckId
 
 from . import env
 
-SERVER_URL_PROD = "https://anki-smart-notes-server-production.up.railway.app"
+SERVER_URL_PROD = "https://api.smart-notes.xyz"
 SERVER_URL_DEV = "http://localhost:3000"
 
 SITE_URL_PROD = "https://smart-notes.xyz"
