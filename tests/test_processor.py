@@ -557,7 +557,7 @@ async def test_process_notes_batch_records_one_client_facing_error(monkeypatch):
     from src.note_proccessor import NoteProcessor
 
     message = (
-        "This request is too long for Google Voice. Please try a different provider."
+        "This request is too long for Google TTS. Please try a different provider."
     )
     notes = {
         1: MockNote({"f1": "1"}, note_id=1),
@@ -575,8 +575,12 @@ async def test_process_notes_batch_records_one_client_facing_error(monkeypatch):
         field_resolver=None,
         config=MockConfig(prompts_map={}, allow_empty_fields=False),
     )
+    error_logs = []
+    info_logs = []
     processor.batch_in_progress = True
     monkeypatch.setattr(src.note_proccessor, "mw", MockMw())
+    monkeypatch.setattr(src.note_proccessor.logger, "error", error_logs.append)
+    monkeypatch.setattr(src.note_proccessor.logger, "info", info_logs.append)
     monkeypatch.setattr(
         src.note_proccessor.smart_field_service,
         "get_smart_fields_for_note",
@@ -599,6 +603,11 @@ async def test_process_notes_batch_records_one_client_facing_error(monkeypatch):
     assert skipped == []
     assert not out_of_credits
     assert processor._batch_client_error_message == message
+    assert error_logs == []
+    assert info_logs == [
+        "Client-facing error processing note 1",
+        "Client-facing error processing note 2",
+    ]
 
 
 @pytest.mark.asyncio
@@ -609,7 +618,7 @@ async def test_process_cards_with_progress_shows_one_client_facing_error(
     from src.note_proccessor import NoteProcessor
 
     message = (
-        "This request is too long for Google Voice. Please try a different provider."
+        "This request is too long for Google TTS. Please try a different provider."
     )
     notes = {
         1: MockNote({"f1": "1"}, note_id=1),

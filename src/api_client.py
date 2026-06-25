@@ -85,15 +85,20 @@ class APIClient:
             logger.debug(f"Got response from {path}: {response.status}")
             if response.status == 402:
                 raise OutOfCreditsError()
-            if response.status == 400:
-                json = await response.json()
-                logger.error(json)
-                raise Exception(f"Validation error: {json['error']}")
-            if response.status == 413:
-                json = await response.json()
-                message = json.get("message")
-                if isinstance(message, str):
-                    raise ClientFacingAPIError(message)
+            if response.status >= 400:
+                try:
+                    json = await response.json()
+                except Exception:
+                    json = None
+
+                if isinstance(json, dict):
+                    if response.status == 400:
+                        logger.error(json)
+
+                    message = json.get("message") or json.get("error")
+                    if isinstance(message, str):
+                        raise ClientFacingAPIError(message)
+
             response.raise_for_status()
 
             # Read it all into memory

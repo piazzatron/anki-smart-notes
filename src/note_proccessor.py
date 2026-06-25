@@ -276,12 +276,16 @@ class NoteProcessor:
                 hit_out_of_credits = True
                 failed.append(note)
             elif isinstance(result, Exception):
-                if (
-                    isinstance(result, ClientFacingAPIError)
-                    and self.batch_in_progress
-                    and self._batch_client_error_message is None
-                ):
-                    self._batch_client_error_message = str(result)
+                if isinstance(result, ClientFacingAPIError):
+                    if (
+                        self.batch_in_progress
+                        and self._batch_client_error_message is None
+                    ):
+                        self._batch_client_error_message = str(result)
+                    logger.info(f"Client-facing error processing note {note_ids[i]}")
+                    failed.append(note)
+                    continue
+
                 logger.error(
                     f"Error processing note {note_ids[i]}: {result}, {''.join(traceback.format_exception(type(result), result, result.__traceback__))}"
                 )

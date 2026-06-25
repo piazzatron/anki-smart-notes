@@ -80,7 +80,9 @@ async def test_wrap_async_reraises_client_facing_api_error_without_reporting(
 ) -> None:
     captured: list[Exception] = []
     shown: list[Exception] = []
-    error = ClientFacingAPIError("This request is too long for Google Voice.")
+    error = ClientFacingAPIError(
+        "This request is too long for Google TTS. Please try a different provider."
+    )
     sentry = object.__new__(Sentry)
 
     monkeypatch.setattr(sentry_module, "is_production", lambda: True)
@@ -90,7 +92,7 @@ async def test_wrap_async_reraises_client_facing_api_error_without_reporting(
     async def op() -> None:
         raise error
 
-    with pytest.raises(ClientFacingAPIError, match="Google Voice"):
+    with pytest.raises(ClientFacingAPIError, match="Google TTS"):
         await sentry.wrap_async(op)()
 
     assert captured == []
@@ -109,6 +111,8 @@ async def test_wrap_async_reraises_legacy_asyncio_timeout_without_reporting(
     error = LegacyAsyncioTimeoutError("feature flags timed out")
     sentry = object.__new__(Sentry)
 
+    # Simulate older Anki runtimes where asyncio.TimeoutError is not an alias
+    # for built-in TimeoutError.
     monkeypatch.setattr(
         sentry_module,
         "asyncio",

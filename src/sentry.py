@@ -162,7 +162,9 @@ class Sentry:
                 TimeoutError,
                 asyncio.TimeoutError,
             ):
-                # These expected failures are reraised without Sentry reporting.
+                # Older Anki runtimes may raise asyncio.TimeoutError as a
+                # distinct class from built-in TimeoutError. All errors here
+                # are expected control flow and should not be reported.
                 raise
             except Exception as e:
                 if is_production():

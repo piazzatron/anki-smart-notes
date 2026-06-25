@@ -75,13 +75,15 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 #    The upshot: "0001 applied" means different schemas on different machines,
 #    and 0003 is the compatibility shim that converges them.
 #
-# The partial-upgrade guard below exists because of fork #2: a 2.22.x user
+# The partial-upgrade recovery below exists because of fork #2: a 2.22.x user
 # whose legacy import crashed (the completion flag is only set after a fully
 # successful import) still has the old unprofiled table recorded as bootstrapped.
 # For them the import would run before 0003 adds profile_name and crash
-# mid-write, so we fail fast instead. Their data is safe — legacy config keys
-# are only removed as the import's final step.
+# mid-write. Their data is safe because legacy config keys are only removed as
+# the import's final step, so we back up the stale partial DB, recreate the
+# profile-aware bootstrap, and run the normal legacy import.
 
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
@@ -96,44 +98,52 @@ from .legacy_config_migration import migrate_legacy_config_to_database
 
 def run_migrations() -> None:
     apply_database_bootstrap_migrations()
-    _fail_if_legacy_import_would_use_unprofiled_schema()
+    _recover_legacy_import_pending_unprofiled_schema()
     migrate_legacy_config_to_database()
     apply_database_migrations()
 
 
-def _fail_if_legacy_import_would_use_unprofiled_schema() -> None:
+def _recover_legacy_import_pending_unprofiled_schema() -> None:
     # Detects the partial 2.22.x upgrade described at the top of this file:
-    # import pending but the table predates profile_name. Continuing would
-    # crash mid-import, so stop with a support-directed message instead. The
-    # user's Smart Fields are still intact in legacy config.json; support can
-    # recover them by deleting the database file and restarting.
-    if not config.did_migrate_smart_fields_to_sqlite:
-        database_path = connection.get_database_path()
-        if Path(database_path).exists():
-            with connection.open_database(database_path) as conn:
-                has_smart_fields = (
-                    conn.execute(
-                        "SELECT 1 FROM sqlite_master "
-                        "WHERE type = 'table' AND name = 'smart_fields'"
-                    ).fetchone()
-                    is not None
-                )
-                if has_smart_fields:
-                    columns = {
-                        row[1]
-                        for row in conn.execute("PRAGMA table_info(smart_fields)")
-                    }
-                    if "profile_name" not in columns:
-                        show_message_box(
-                            "Smart Notes could not finish upgrading your Smart Fields.",
-                            "Please email support@smart-notes.xyz and include your "
-                            "smart-notes.log file.",
-                        )
-                        raise RuntimeError(
-                            "Smart Fields SQLite migration is in an unsupported "
-                            "partial upgrade state: legacy config import is pending, "
-                            "but smart_fields lacks profile_name"
-                        )
+    # import pending but the table predates profile_name. Legacy config remains
+    # authoritative until the import succeeds, so a stale partial DB can be
+    # backed up and recreated before the profile-aware import runs.
+    if config.did_migrate_smart_fields_to_sqlite:
+        return
+
+    database_path = Path(connection.get_database_path())
+    if not database_path.exists():
+        return
+
+    with connection.open_database(str(database_path)) as conn:
+        has_smart_fields = (
+            conn.execute(
+                "SELECT 1 FROM sqlite_master "
+                "WHERE type = 'table' AND name = 'smart_fields'"
+            ).fetchone()
+            is not None
+        )
+        if not has_smart_fields:
+            return
+
+        columns = {row[1] for row in conn.execute("PRAGMA table_info(smart_fields)")}
+        if "profile_name" in columns:
+            return
+
+    backup_path = _partial_upgrade_backup_path(database_path)
+    logger.info(
+        "Smart fields DB: recovering legacy-import-pending unprofiled schema "
+        f"by backing up {database_path} to {backup_path}"
+    )
+    database_path.replace(backup_path)
+    apply_database_bootstrap_migrations(str(database_path))
+    logger.info("Smart fields DB: recreated profiled bootstrap after partial upgrade")
+
+    show_message_box(
+        "Smart Notes recovered your Smart Fields upgrade.",
+        "Smart Notes backed up an incomplete Smart Fields database and will "
+        "continue upgrading from your saved settings.",
+    )
 
 
 def apply_database_bootstrap_migrations(database_path: Optional[str] = None) -> None:
@@ -171,3 +181,11 @@ def _apply_migrations(
             )
             backend.apply_migrations(pending_migrations)
             logger.info("Smart fields DB: database migrations applied")
+
+
+def _partial_upgrade_backup_path(database_path: Path) -> Path:
+    timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+    # Keep this backup for support diagnostics instead of treating it as a temp file.
+    return database_path.with_name(
+        f"{database_path.name}.partial-upgrade-backup-{timestamp}"
+    )

@@ -121,11 +121,11 @@ async def test_api_client_does_not_retry_server_rate_limits(
 
 
 @pytest.mark.asyncio
-async def test_api_client_raises_client_facing_message_for_payload_too_large(
+async def test_api_client_raises_client_facing_message_for_server_message(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     message = (
-        "This request is too long for Google Voice. Please try a different provider."
+        "This request is too long for Google TTS. Please try a different provider."
     )
     fake_session = FakeSession()
     fake_session.response_status = 413
@@ -138,6 +138,49 @@ async def test_api_client_raises_client_facing_message_for_payload_too_large(
     monkeypatch.setattr(api_client, "get_version", lambda: "1.2.3")
 
     with pytest.raises(api_client.ClientFacingAPIError, match=message):
+        await api_client.APIClient().get_api_response("tts", {"message": "hello"})
+
+    assert len(fake_session.calls) == 1
+
+
+@pytest.mark.asyncio
+async def test_api_client_raises_client_facing_message_for_server_error_field(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    fake_session = FakeSession()
+    fake_session.response_status = 500
+    fake_session.response_json = {"error": "The provider rejected this request."}
+    monkeypatch.setattr(api_client.aiohttp, "ClientSession", lambda: fake_session)
+    monkeypatch.setattr(
+        api_client, "config", type("Config", (), {"auth_token": "test-token"})()
+    )
+    monkeypatch.setattr(api_client, "get_server_url", lambda: "https://server.test")
+    monkeypatch.setattr(api_client, "get_version", lambda: "1.2.3")
+
+    with pytest.raises(
+        api_client.ClientFacingAPIError,
+        match="The provider rejected this request.",
+    ):
+        await api_client.APIClient().get_api_response("tts", {"message": "hello"})
+
+    assert len(fake_session.calls) == 1
+
+
+@pytest.mark.asyncio
+async def test_api_client_raises_client_facing_message_for_validation_errors(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    fake_session = FakeSession()
+    fake_session.response_status = 400
+    fake_session.response_json = {"error": "Provider is required"}
+    monkeypatch.setattr(api_client.aiohttp, "ClientSession", lambda: fake_session)
+    monkeypatch.setattr(
+        api_client, "config", type("Config", (), {"auth_token": "test-token"})()
+    )
+    monkeypatch.setattr(api_client, "get_server_url", lambda: "https://server.test")
+    monkeypatch.setattr(api_client, "get_version", lambda: "1.2.3")
+
+    with pytest.raises(api_client.ClientFacingAPIError, match="Provider is required"):
         await api_client.APIClient().get_api_response("tts", {"message": "hello"})
 
     assert len(fake_session.calls) == 1
