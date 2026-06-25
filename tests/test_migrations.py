@@ -225,10 +225,10 @@ def test_run_migrations_recovers_old_bootstrap_only_schema_before_legacy_import(
         "get_database_path",
         lambda: str(database_path),
     )
-    messages: list[tuple[object, ...]] = []
+    tracked_events: list[str] = []
     monkeypatch.setattr(
-        "src.database.migrations.show_message_box",
-        lambda *args: messages.append(args),
+        "src.database.migrations.track_event",
+        lambda event: tracked_events.append(event),
     )
     apply_database_bootstrap_migrations(str(database_path))
     replace_smart_fields_with_old_unprofiled_bootstrap_schema(database_path)
@@ -255,13 +255,7 @@ def test_run_migrations_recovers_old_bootstrap_only_schema_before_legacy_import(
             row[1] for row in conn.execute("PRAGMA table_info(smart_fields)")
         }
 
-    assert messages == [
-        (
-            "Smart Notes recovered your Smart Fields upgrade.",
-            "Smart Notes backed up an incomplete Smart Fields database and will "
-            "continue upgrading from your saved settings.",
-        )
-    ]
+    assert tracked_events == ["smart_fields_partial_migration_recovered"]
     assert "profile_name" not in backup_columns
     assert smart_field_row == ("__test__", NOTE_TYPE_ID, int(DECK_ID), "Back")
     assert "profile_name" in columns

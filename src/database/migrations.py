@@ -91,7 +91,7 @@ from yoyo import read_migrations
 
 from ..config import config
 from ..logger import logger
-from ..ui.ui_utils import show_message_box
+from ..telemetry import track_event
 from . import connection
 from .legacy_config_migration import migrate_legacy_config_to_database
 
@@ -138,12 +138,7 @@ def _recover_legacy_import_pending_unprofiled_schema() -> None:
     database_path.replace(backup_path)
     apply_database_bootstrap_migrations(str(database_path))
     logger.info("Smart fields DB: recreated profiled bootstrap after partial upgrade")
-
-    show_message_box(
-        "Smart Notes recovered your Smart Fields upgrade.",
-        "Smart Notes backed up an incomplete Smart Fields database and will "
-        "continue upgrading from your saved settings.",
-    )
+    track_event("smart_fields_partial_migration_recovered")
 
 
 def apply_database_bootstrap_migrations(database_path: Optional[str] = None) -> None:
