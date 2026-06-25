@@ -386,5 +386,7 @@ async def test_run_card_task_logs_client_facing_errors_without_error_level(
 
     assert evaluator.in_flight == set()
     assert error_logs == []
-    assert info_logs == ["Client-facing error prepping card 1"]
+    assert info_logs == [
+        "Client-facing error prepping card 1: Try a different provider."
+    ]
     assert len(redraws) == 1

@@ -269,7 +269,9 @@ class NoteProcessor:
             elif isinstance(result, ClientFacingAPIError):
                 # Keep this below error level so expected per-note failures do not
                 # become Sentry events through the logging integration.
-                logger.info(f"Client-facing error processing note {note_ids[i]}")
+                logger.info(
+                    f"Client-facing error processing note {note_ids[i]}: {result}"
+                )
                 failed.append(note)
             elif isinstance(result, Exception):
                 logger.error(

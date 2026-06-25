@@ -604,8 +604,8 @@ async def test_process_notes_batch_marks_client_facing_errors_as_failed(monkeypa
     assert not out_of_credits
     assert error_logs == []
     assert info_logs == [
-        "Client-facing error processing note 1",
-        "Client-facing error processing note 2",
+        f"Client-facing error processing note 1: {message}",
+        f"Client-facing error processing note 2: {message}",
     ]
 
 
