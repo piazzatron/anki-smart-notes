@@ -237,6 +237,72 @@ def test_deprecated_default_chat_model_migrates_to_auto(tmp_path: Path) -> None:
     assert row == ("auto", "auto")
 
 
+def test_deprecated_image_models_migrate_to_z_image_turbo(tmp_path: Path) -> None:
+    database_path = tmp_path / "smart_notes.sqlite3"
+    migrations_path = Path(__file__).parents[1] / "src" / "database" / "db_migrations"
+    migrations = read_migrations(str(migrations_path))
+    backend = get_sqlite_backend(str(database_path))
+
+    with backend.lock():
+        backend.apply_migrations(migrations[:1])
+
+    conn = sqlite3.connect(database_path)
+    try:
+        conn.execute(
+            """
+            UPDATE default_image_generation_settings
+            SET provider = 'replicate', model = 'flux-schnell'
+            WHERE id = 1
+            """
+        )
+        conn.execute(
+            """
+            INSERT INTO smart_fields (
+                id, profile_name, note_type_id, deck_id, target_field_name, field_type,
+                enabled, created_at, updated_at
+            )
+            VALUES ('image-field', '__test__', 1, 1, 'Image', 'image', 1, 'now', 'now')
+            """
+        )
+        conn.execute(
+            """
+            INSERT INTO image_smart_field_settings (
+                smart_field_id, prompt_text, uses_default_generation_settings,
+                provider, model
+            )
+            VALUES ('image-field', 'draw {{Front}}', 0, 'replicate', 'flux-schnell')
+            """
+        )
+        conn.commit()
+    finally:
+        conn.close()
+
+    with backend.lock():
+        backend.apply_migrations(migrations[1:])
+
+    conn = sqlite3.connect(database_path)
+    try:
+        default_row = conn.execute(
+            """
+            SELECT provider, model
+            FROM default_image_generation_settings
+            WHERE id = 1
+            """
+        ).fetchone()
+        custom_row = conn.execute(
+            """
+            SELECT provider, model
+            FROM image_smart_field_settings
+            WHERE smart_field_id = 'image-field'
+            """
+        ).fetchone()
+    finally:
+        conn.close()
+
+    assert default_row == ("replicate", "z-image-turbo")
+    assert custom_row == ("replicate", "z-image-turbo")
+
+
 def test_profile_scope_migration_allows_same_field_in_different_profiles(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,

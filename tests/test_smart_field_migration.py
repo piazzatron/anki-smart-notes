@@ -34,7 +34,10 @@ from fixtures import (
 )
 
 from src.database.legacy_config_migration import migrate_legacy_config_to_database
-from src.database.migrations import apply_database_bootstrap_migrations
+from src.database.migrations import (
+    apply_database_bootstrap_migrations,
+    apply_database_migrations,
+)
 from src.models import DEFAULT_EXTRAS, FieldExtras
 
 SECOND_PROFILE_NOTE_TYPE_ID = 456
@@ -201,6 +204,56 @@ def test_migrate_legacy_smart_field_config_imports_shared_note_type_name_across_
         ),
         ("__test__", NOTE_TYPE_ID, int(DECK_ID), "Back", "{{Front}}"),
     ]
+
+
+def test_migrate_legacy_smart_field_config_backfills_deprecated_image_models(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    image_field_extras = image_extras()
+    image_field_extras["image_provider"] = "replicate"
+    image_field_extras["image_model"] = "flux-schnell"
+
+    addon_config = {
+        "prompts_map": {
+            "note_types": {
+                "Basic": {
+                    "1": {
+                        "fields": {"Image": "draw {{Front}}"},
+                        "extras": {"Image": image_field_extras},
+                    }
+                }
+            }
+        },
+        "image_provider": "replicate",
+        "image_model": "flux-schnell",
+        "did_migrate_smart_fields_to_sqlite": False,
+    }
+    install_fake_anki(monkeypatch, addon_config, tmp_path)
+    install_migration_alert(monkeypatch, [])
+
+    migrate_legacy_config_to_database()
+    apply_database_migrations()
+
+    with sqlite3.connect(tmp_path / "smart_notes.sqlite3") as conn:
+        default_row = conn.execute(
+            """
+            SELECT provider, model
+            FROM default_image_generation_settings
+            WHERE id = 1
+            """
+        ).fetchone()
+        custom_row = conn.execute(
+            """
+            SELECT image.provider, image.model
+            FROM smart_fields sf
+            JOIN image_smart_field_settings image ON image.smart_field_id = sf.id
+            WHERE sf.target_field_name = 'Image'
+            """
+        ).fetchone()
+
+    assert default_row == ("replicate", "z-image-turbo")
+    assert custom_row == ("replicate", "z-image-turbo")
 
 
 def test_migrate_legacy_smart_field_config_imports_global_rows_for_each_matching_profile(
