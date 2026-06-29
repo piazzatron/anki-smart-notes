@@ -210,7 +210,7 @@ def test_migrate_legacy_smart_field_config_backfills_deprecated_image_models(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
 ) -> None:
-    image_field_extras = image_extras()
+    image_field_extras = cast(Any, image_extras())
     image_field_extras["image_provider"] = "replicate"
     image_field_extras["image_model"] = "flux-schnell"
 
