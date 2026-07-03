@@ -30,6 +30,7 @@ from anki.notes import NoteId
 from aqt import mw
 from aqt.qt import QDialog
 
+from .api_client import ClientFacingAPIError
 from .app_state import app_state
 from .config import config
 from .constants import GLOBAL_DECK_ID, SITE_URL_DEV
@@ -61,6 +62,7 @@ from .prompt_helpers import get_extras, get_prompts_for_note
 from .sentry import sentry
 from .services.smart_field_service import smart_field_service
 from .smart_field_prompt_map import list_prompt_map, replace_from_prompt_map
+from .ui.custom_prompt import CustomImagePrompt
 from .ui.prompt_dialog import PromptDialog
 from .utils import get_fields
 from .utils.notes_utils import get_note_type_id_from_name
@@ -196,6 +198,7 @@ class LocalServer:
         self._thread: Optional[threading.Thread] = None
         self._loop: Optional[asyncio.AbstractEventLoop] = None
         self._runner: Optional[web.AppRunner] = None
+        self._custom_image_prompt: Optional[CustomImagePrompt] = None
         self._actions: dict[str, Any] = {
             "ping": self._handle_ping,
             "getSmartFields": self._handle_get_smart_fields,
@@ -206,6 +209,7 @@ class LocalServer:
             "generateNotes": self._handle_generate_notes,
             "uiEditSmartField": self._handle_ui_edit_smart_field,
             "uiNewSmartField": self._handle_ui_new_smart_field,
+            "uiCustomImagePrompt": self._handle_ui_custom_image_prompt,
         }
 
     def start(self) -> None:
@@ -336,6 +340,9 @@ class LocalServer:
         try:
             result = await self._actions[action](params)
             return web.json_response(result)
+        except ClientFacingAPIError as e:
+            logger.info(f"Local server client-facing error handling {action}: {e}")
+            return web.json_response(_err(str(e)))
         except Exception as e:
             logger.error(
                 f"Local server error handling {action}: "
@@ -603,6 +610,7 @@ class LocalServer:
             updated_notes,
             failed_notes,
             skipped_notes,
+            _hit_out_of_credits,
         ) = await self._processor._process_notes_batch(  # type: ignore
             note_ids,
             overwrite_fields=overwrite,
@@ -689,3 +697,53 @@ class LocalServer:
 
         accepted = _run_on_main_sync(open_dialog)
         return _ok(accepted)
+
+    async def _handle_ui_custom_image_prompt(
+        self, params: dict[str, Any]
+    ) -> ApiResponse:
+        note_id_raw = params.get("noteId")
+        field = params.get("field")
+
+        if note_id_raw is None or not field:
+            return _err("noteId and field are required")
+
+        if not mw or not mw.col:
+            return _err("Anki collection not available")
+
+        note = mw.col.get_note(cast(NoteId, int(note_id_raw)))
+        if field not in note.keys():  # noqa: SIM118
+            return _err("Field does not exist on note")
+
+        deck_id: Optional[DeckId] = None
+        raw_deck = params.get("deckId")
+        if raw_deck is not None:
+            deck_id = cast(DeckId, int(raw_deck))
+        else:
+            cards = note.cards()
+            if cards:
+                deck_id = cards[0].did
+
+        if deck_id is None:
+            return _err("Could not determine deckId for note")
+
+        def open_dialog() -> bool:
+            def on_success(res: Optional[str]) -> None:
+                if res is None:
+                    return
+                note[field] = res
+                mw.col.update_note(note)  # type: ignore[union-attr]
+
+            self._custom_image_prompt = CustomImagePrompt(
+                note=note,
+                deck_id=deck_id,
+                field_upper=field,
+                on_success=on_success,
+                parent=mw,
+            )
+            self._custom_image_prompt.finished.connect(
+                lambda _: setattr(self, "_custom_image_prompt", None)
+            )
+            self._custom_image_prompt.show()
+            return True
+
+        return _ok(_run_on_main_sync(open_dialog))

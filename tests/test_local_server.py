@@ -107,6 +107,43 @@ async def test_unknown_action():
 
 
 @pytest.mark.asyncio
+async def test_client_facing_error_logs_below_error(monkeypatch):
+    import src.local_server
+    from src.api_client import ClientFacingAPIError
+
+    server = _make_server()
+    error_logs = []
+    info_logs = []
+
+    async def raise_client_facing_error(_params):
+        raise ClientFacingAPIError("Try rewording the image prompt.")
+
+    server._actions["clientFacing"] = raise_client_facing_error
+    app = web.Application()
+    app.router.add_post("/", server._handle_request)
+
+    monkeypatch.setattr(
+        src.local_server.logger,
+        "error",
+        lambda *args, **kwargs: error_logs.append(args),
+    )
+    monkeypatch.setattr(
+        src.local_server.logger, "info", lambda *args, **kwargs: info_logs.append(args)
+    )
+
+    async with TestClient(TestServer(app)) as client:
+        data = await _post(client, make_request("clientFacing", {}))
+
+    assert data == _err("Try rewording the image prompt.")
+    assert error_logs == []
+    assert info_logs == [
+        (
+            "Local server client-facing error handling clientFacing: Try rewording the image prompt.",
+        )
+    ]
+
+
+@pytest.mark.asyncio
 async def test_get_smart_fields_missing_note_type():
     async with TestClient(TestServer(_make_app())) as client:
         data = await _post(client, make_request("getSmartFields", {}))
@@ -386,6 +423,101 @@ async def test_generate_notes_missing_note_ids():
 
 
 @pytest.mark.asyncio
+async def test_ui_custom_image_prompt_missing_params():
+    async with TestClient(TestServer(_make_app())) as client:
+        data = await _post(client, make_request("uiCustomImagePrompt", {}))
+        assert data == _err("noteId and field are required")
+
+
+@pytest.mark.asyncio
+async def test_ui_custom_image_prompt_no_collection(monkeypatch):
+    import src.local_server
+
+    monkeypatch.setattr(src.local_server, "mw", None)
+
+    async with TestClient(TestServer(_make_app())) as client:
+        data = await _post(
+            client, make_request("uiCustomImagePrompt", {"noteId": 1, "field": "Back"})
+        )
+        assert data == _err("Anki collection not available")
+
+
+@pytest.mark.asyncio
+async def test_ui_custom_image_prompt_opens_dialog(monkeypatch):
+    import src.local_server
+
+    class FakeCard:
+        did = 123
+
+    class FakeNote:
+        def __init__(self) -> None:
+            self.updated_fields: dict[str, str] = {}
+
+        def keys(self):
+            return ["Front", "Back"]
+
+        def cards(self):
+            return [FakeCard()]
+
+        def __setitem__(self, field: str, value: str) -> None:
+            self.updated_fields[field] = value
+
+    class FakeCollection:
+        def __init__(self, note: FakeNote) -> None:
+            self.note = note
+            self.updated_notes = []
+
+        def get_note(self, note_id):
+            assert note_id == 42
+            return self.note
+
+        def update_note(self, note):
+            self.updated_notes.append(note)
+
+    class FakeSignal:
+        def connect(self, _callback):
+            return None
+
+    class FakeCustomImagePrompt:
+        def __init__(self, **kwargs) -> None:
+            opened_dialogs.append(self)
+            self.kwargs = kwargs
+            self.finished = FakeSignal()
+            self.did_show = False
+
+        def show(self) -> None:
+            self.did_show = True
+
+    note = FakeNote()
+    fake_mw = MagicMock()
+    fake_mw.col = FakeCollection(note)
+    opened_dialogs = []
+
+    monkeypatch.setattr(src.local_server, "mw", fake_mw)
+    monkeypatch.setattr(src.local_server, "CustomImagePrompt", FakeCustomImagePrompt)
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+
+    async with TestClient(TestServer(_make_app())) as client:
+        data = await _post(
+            client,
+            make_request("uiCustomImagePrompt", {"noteId": 42, "field": "Back"}),
+        )
+
+    assert data == _ok(True)
+    assert len(opened_dialogs) == 1
+    assert opened_dialogs[0].did_show is True
+    assert opened_dialogs[0].kwargs["note"] is note
+    assert opened_dialogs[0].kwargs["deck_id"] == 123
+    assert opened_dialogs[0].kwargs["field_upper"] == "Back"
+    assert opened_dialogs[0].kwargs["parent"] is fake_mw
+
+    opened_dialogs[0].kwargs["on_success"]("image.webp")
+
+    assert note.updated_fields == {"Back": "image.webp"}
+    assert fake_mw.col.updated_notes == [note]
+
+
+@pytest.mark.asyncio
 async def test_generate_notes_no_collection(monkeypatch):
     import src.local_server
 
@@ -394,6 +526,55 @@ async def test_generate_notes_no_collection(monkeypatch):
     async with TestClient(TestServer(_make_app())) as client:
         data = await _post(client, make_request("generateNotes", {"noteIds": [1, 2]}))
         assert data["error"] == "Anki collection not available"
+
+
+@pytest.mark.asyncio
+async def test_generate_notes_returns_batch_failures(monkeypatch):
+    import src.local_server
+
+    class FakeCard:
+        did = 123
+
+    class FakeNote:
+        def __init__(self, note_id: int) -> None:
+            self.id = note_id
+
+        def cards(self):
+            return [FakeCard()]
+
+    updated_note = FakeNote(1)
+    failed_note = FakeNote(2)
+    skipped_note = FakeNote(3)
+    collection = MagicMock()
+    collection.get_note.side_effect = lambda note_id: FakeNote(note_id)
+    fake_mw = MagicMock()
+    fake_mw.col = collection
+    monkeypatch.setattr(src.local_server, "mw", fake_mw)
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+
+    server = _make_server()
+
+    async def process_batch(note_ids, *, overwrite_fields, did_map):
+        assert note_ids == [1, 2, 3]
+        assert overwrite_fields is True
+        assert did_map == {1: 123, 2: 123, 3: 123}
+        return [updated_note], [failed_note], [skipped_note], False
+
+    server._processor._process_notes_batch = process_batch
+    app = web.Application()
+    app.router.add_post("/", server._handle_request)
+
+    async with TestClient(TestServer(app)) as client:
+        data = await _post(
+            client,
+            make_request(
+                "generateNotes",
+                {"noteIds": [1, 2, 3], "overwrite": True},
+            ),
+        )
+
+    assert data == _ok({"updated": [1], "failed": [2], "skipped": [3]})
+    collection.update_notes.assert_called_once_with([updated_note])
 
 
 # -- /auth/callback --
