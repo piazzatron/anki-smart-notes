@@ -252,6 +252,27 @@ def test_tick_ignores_non_review_states(monkeypatch):
     assert not evaluator.wave_in_progress
 
 
+def test_tick_ignores_stopped_evaluator(monkeypatch):
+    started_batches = []
+    evaluator, _, review_time_evaluator = setup_review_time_evaluator(
+        monkeypatch,
+        current=MockCard(id=99),
+        queued=[MockCard(id=1)],
+    )
+    monkeypatch.setattr(
+        review_time_evaluator,
+        "run_async_in_background_with_sentry",
+        lambda *args, **kwargs: started_batches.append(args),
+    )
+
+    evaluator.stop()
+    evaluator.tick()
+
+    assert started_batches == []
+    assert evaluator.in_flight == set()
+    assert not evaluator.wave_in_progress
+
+
 def test_current_card_bypasses_top_off_gate(monkeypatch):
     started_batches = []
     queued = [MockCard(id=i, processed=True) for i in range(1, 11)]
@@ -294,6 +315,29 @@ def test_pending_tick_refires_after_completion(monkeypatch):
     assert evaluator.wave_in_progress
     assert evaluator.in_flight == {1}
     assert len(started_batches) == 1
+
+
+def test_stopped_evaluator_drops_pending_tick(monkeypatch):
+    started_batches = []
+    evaluator, _, review_time_evaluator = setup_review_time_evaluator(
+        monkeypatch,
+        current=MockCard(id=1),
+        queued=[],
+    )
+    monkeypatch.setattr(
+        review_time_evaluator,
+        "run_async_in_background_with_sentry",
+        lambda *args, **kwargs: started_batches.append(args),
+    )
+    evaluator.pending_tick = True
+
+    evaluator.stop()
+    evaluator.on_complete(None)
+
+    assert not evaluator.pending_tick
+    assert not evaluator.wave_in_progress
+    assert evaluator.in_flight == set()
+    assert started_batches == []
 
 
 def test_tick_clears_stale_pending_tick_when_starting_batch(monkeypatch):
@@ -390,3 +434,35 @@ async def test_run_card_task_logs_client_facing_errors_without_error_level(
         "Client-facing error prepping card 1: Try a different provider."
     ]
     assert len(redraws) == 1
+
+
+@pytest.mark.asyncio
+async def test_run_card_task_suppresses_shutdown_errors(monkeypatch):
+    evaluator, _, review_time_evaluator = setup_review_time_evaluator(
+        monkeypatch,
+        current=MockCard(id=1),
+        queued=[],
+    )
+
+    class ClosingProcessor(MockProcessor):
+        async def process_note(self, *args, **kwargs) -> bool:
+            evaluator.stop()
+            raise RuntimeError("CollectionNotOpen")
+
+    evaluator.processor = ClosingProcessor()  # type: ignore[assignment]
+    evaluator.in_flight.add(1)
+    error_logs = []
+    info_logs = []
+    redraws = []
+    monkeypatch.setattr(review_time_evaluator.logger, "error", error_logs.append)
+    monkeypatch.setattr(review_time_evaluator.logger, "info", info_logs.append)
+    monkeypatch.setattr(
+        review_time_evaluator, "run_on_main", lambda work: redraws.append(work)
+    )
+
+    await evaluator.run_card_task(MockCard(id=1, did=10))
+
+    assert evaluator.in_flight == set()
+    assert error_logs == []
+    assert info_logs == ["Stopped review-time card task 1 during profile cleanup"]
+    assert redraws == []
