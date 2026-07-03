@@ -125,6 +125,31 @@ def test_profile_cleanup_closes_open_options_dialog(
     assert did_close
 
 
+def test_profile_cleanup_stops_review_time_evaluator(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    did_stop = False
+
+    class FakeReviewTimeEvaluator:
+        def stop(self) -> None:
+            nonlocal did_stop
+            did_stop = True
+
+    monkeypatch.setattr(hooks, "_open_options_dialog", None)
+    monkeypatch.setattr(hooks, "_local_server", None)
+    monkeypatch.setattr(
+        hooks,
+        "_review_time_evaluator",
+        cast(Any, FakeReviewTimeEvaluator()),
+    )
+    monkeypatch.setattr(hooks, "cleanup_logger", lambda: None)
+
+    hooks.cleanup()
+
+    assert did_stop
+    assert vars(hooks)["_review_time_evaluator"] is None
+
+
 def test_addon_install_hook_cleans_up_current_addon(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:

@@ -445,6 +445,8 @@ def cleanup() -> None:
         _local_server = None
 
     global _review_time_evaluator
+    if _review_time_evaluator is not None:
+        _review_time_evaluator.stop()
     _review_time_evaluator = None
 
     logger.info("Shutting down loggers")

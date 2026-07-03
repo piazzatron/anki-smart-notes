@@ -56,6 +56,13 @@ class ReviewTimeEvaluator:
         self.in_flight: set[CardId] = set()
         self.wave_in_progress = False
         self.pending_tick = False
+        self.is_stopped = False
+
+    def stop(self) -> None:
+        self.is_stopped = True
+        self.pending_tick = False
+        self.wave_in_progress = False
+        self.in_flight.clear()
 
     def tick(self) -> None:
         # Overview and review hooks call tick() when the deck overview loads or
@@ -70,6 +77,9 @@ class ReviewTimeEvaluator:
         # completes. Otherwise, wait until enough uncovered cards have accumulated,
         # unless the scheduler returned fewer than LOOKAHEAD cards and this wave should
         # flush the end-of-queue leftovers.
+        if self.is_stopped:
+            return
+
         if not mw or not mw.col or mw.state not in {"overview", "review"}:
             return
 
@@ -174,23 +184,41 @@ class ReviewTimeEvaluator:
         return not is_card_fully_processed(card)
 
     async def run_batch(self, candidates: list[Card]) -> None:
+        if self.is_stopped:
+            return
+
         logger.info(f"Starting review-time evaluation wave for {len(candidates)} cards")
         results = await asyncio.gather(
             *[self.run_card_task(card) for card in candidates],
             return_exceptions=True,
         )
+        if self.is_stopped:
+            return
+
         if any(isinstance(result, OutOfCreditsError) for result in results):
             raise OutOfCreditsError()
 
     async def run_card_task(self, card: Card) -> None:
+        if self.is_stopped:
+            self.in_flight.discard(card.id)
+            return
+
         did_change = False
         try:
             did_change = await self.processor.process_note(
                 card.note(), deck_id=card.did, overwrite_fields=False
             )
         except OutOfCreditsError:
+            if self.is_stopped:
+                return
             raise
         except Exception as e:
+            if self.is_stopped:
+                logger.info(
+                    f"Stopped review-time card task {card.id} during profile cleanup"
+                )
+                return
+
             if isinstance(e, ClientFacingAPIError):
                 # Keep this below error level so expected per-card failures do not
                 # become Sentry events through the logging integration.
@@ -202,6 +230,9 @@ class ReviewTimeEvaluator:
         finally:
             self.in_flight.discard(card.id)
 
+        if self.is_stopped:
+            return
+
         run_on_main(
             lambda card_id=card.id,
             did_change=did_change: self.maybe_redraw_and_sparkle(card_id, did_change)
@@ -209,15 +240,23 @@ class ReviewTimeEvaluator:
 
     def on_complete(self, _: Any) -> None:
         self.wave_in_progress = False
+        if self.is_stopped:
+            return
         self.process_pending_tick()
 
     def on_complete_error(self, e: Exception) -> None:
         self.wave_in_progress = False
+        if self.is_stopped:
+            return
         if isinstance(e, OutOfCreditsError):
             app_state.update_subscription_state()
         self.process_pending_tick()
 
     def process_pending_tick(self) -> None:
+        if self.is_stopped:
+            self.pending_tick = False
+            return
+
         if not self.pending_tick:
             return
 
