@@ -42,7 +42,7 @@ from aqt import (
     mw,
 )
 
-from ..api_client import api
+from ..api_client import ClientFacingAPIError, api
 from ..app_state import (
     is_app_legacy,
     is_capacity_remaining,
@@ -705,7 +705,10 @@ class PromptDialog(QDialog):
             self.state.update({"prompt": prompt, "is_generating_prompt": False})
 
         def on_failure(e: Exception) -> None:
-            show_message_box(f"Failed to generate prompt: {e}")
+            if isinstance(e, ClientFacingAPIError):
+                show_message_box(str(e))
+            else:
+                show_message_box(f"Failed to generate prompt: {e}")
             self.state["is_generating_prompt"] = False
 
         run_async_in_background_with_sentry(generate_fn, on_success, on_failure)
