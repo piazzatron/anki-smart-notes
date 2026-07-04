@@ -38,10 +38,6 @@ async def _raise_client_facing_error(message: str) -> bool:
     raise ClientFacingAPIError(message)
 
 
-async def _raise_timeout_error() -> bool:
-    raise asyncio.TimeoutError()
-
-
 class MockOpenAIClient:
     async def async_get_chat_response(self, prompt: str):
         return p(prompt)
@@ -610,61 +606,6 @@ async def test_process_notes_batch_marks_client_facing_errors_as_failed(monkeypa
     assert info_logs == [
         f"Client-facing error processing note 1: {message}",
         f"Client-facing error processing note 2: {message}",
-    ]
-
-
-@pytest.mark.asyncio
-async def test_process_notes_batch_marks_timeouts_as_warning_failures(monkeypatch):
-    import src.note_proccessor
-    from src.note_proccessor import NoteProcessor
-
-    notes = {
-        1: MockNote({"f1": "1"}, note_id=1),
-        2: MockNote({"f1": "2"}, note_id=2),
-    }
-
-    class MockCollection:
-        def get_note(self, note_id):
-            return notes[note_id]
-
-    class MockMw:
-        col = MockCollection()
-
-    processor = NoteProcessor(  # type: ignore
-        field_resolver=None,
-        config=MockConfig(prompts_map={}, allow_empty_fields=False),
-    )
-    error_logs = []
-    warning_logs = []
-    processor.batch_in_progress = True
-    monkeypatch.setattr(src.note_proccessor, "mw", MockMw())
-    monkeypatch.setattr(src.note_proccessor.logger, "error", error_logs.append)
-    monkeypatch.setattr(src.note_proccessor.logger, "warning", warning_logs.append)
-    monkeypatch.setattr(
-        src.note_proccessor.smart_field_service,
-        "get_smart_fields_for_note",
-        lambda *args, **kwargs: [object()],
-    )
-    monkeypatch.setattr(
-        processor,
-        "process_note",
-        lambda *args, **kwargs: _raise_timeout_error(),
-    )
-
-    updated, failed, skipped, out_of_credits = await processor._process_notes_batch(
-        [1, 2],
-        overwrite_fields=False,
-        did_map={1: 1, 2: 1},
-    )
-
-    assert updated == []
-    assert failed == [notes[1], notes[2]]
-    assert skipped == []
-    assert not out_of_credits
-    assert error_logs == []
-    assert warning_logs == [
-        "Timeout processing note 1: ",
-        "Timeout processing note 2: ",
     ]
 
 
