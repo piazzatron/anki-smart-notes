@@ -273,6 +273,9 @@ class NoteProcessor:
                     f"Client-facing error processing note {note_ids[i]}: {result}"
                 )
                 failed.append(note)
+            elif isinstance(result, (TimeoutError, asyncio.TimeoutError)):
+                logger.warning(f"Timeout processing note {note_ids[i]}: {result}")
+                failed.append(note)
             elif isinstance(result, Exception):
                 logger.error(
                     f"Error processing note {note_ids[i]}: {result}, {''.join(traceback.format_exception(type(result), result, result.__traceback__))}"
