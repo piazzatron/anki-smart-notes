@@ -118,14 +118,16 @@ class FieldMenu:
             if res is None:
                 return
 
-            note = self.card.note()
+            note = (
+                self.editor.note if self.editor.note is not None else self.card.note()
+            )
             note[self.field_upper] = res
 
             # Persist only if already in collection
             if note.id:
                 mw.col.update_note(note)  # type: ignore
 
-            self.editor.loadNote()
+            self.editor.loadNoteKeepingFocus()
 
             parent = self.editor.parentWindow
             if isinstance(parent, browser.Browser) and getattr(  # type: ignore
