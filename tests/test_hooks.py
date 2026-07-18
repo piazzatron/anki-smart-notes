@@ -142,6 +142,48 @@ def test_addon_delete_hook_cleans_up_current_addon(
     assert calls == ["cleanup"]
 
 
+def test_setup_hooks_supports_anki_without_addon_install_hook(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    fake_gui_hooks = _fake_gui_hooks(
+        addons_dialog_will_delete_addons=[],
+    )
+    monkeypatch.setattr(hooks, "gui_hooks", fake_gui_hooks)
+
+    hooks.setup_hooks(cast(NoteProcessor, object()))
+
+    assert fake_gui_hooks.addons_dialog_will_delete_addons == [
+        hooks.on_addons_dialog_will_delete_addons
+    ]
+
+
+def test_setup_hooks_supports_anki_without_addon_cleanup_hooks(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(hooks, "gui_hooks", _fake_gui_hooks())
+
+    hooks.setup_hooks(cast(NoteProcessor, object()))
+
+
+def test_setup_hooks_registers_available_addon_cleanup_hooks(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    fake_gui_hooks = _fake_gui_hooks(
+        addon_manager_will_install_addon=[],
+        addons_dialog_will_delete_addons=[],
+    )
+    monkeypatch.setattr(hooks, "gui_hooks", fake_gui_hooks)
+
+    hooks.setup_hooks(cast(NoteProcessor, object()))
+
+    assert fake_gui_hooks.addon_manager_will_install_addon == [
+        hooks.on_addon_manager_will_install_addon
+    ]
+    assert fake_gui_hooks.addons_dialog_will_delete_addons == [
+        hooks.on_addons_dialog_will_delete_addons
+    ]
+
+
 def test_cleanup_before_addon_files_change_releases_non_ui_resources(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -165,3 +207,19 @@ def test_cleanup_before_addon_files_change_releases_non_ui_resources(
         "logger_cleanup",
     ]
     assert vars(hooks)["_local_server"] is None
+
+
+def _fake_gui_hooks(**addon_hooks: list[Any]) -> SimpleNamespace:
+    return SimpleNamespace(
+        browser_will_show_context_menu=[],
+        browser_sidebar_will_show_context_menu=[],
+        editor_did_init_buttons=[],
+        editor_will_show_context_menu=[],
+        overview_did_refresh=[],
+        reviewer_did_show_question=[],
+        reviewer_did_answer_card=[],
+        main_window_did_init=[],
+        profile_did_open=[],
+        profile_will_close=[],
+        **addon_hooks,
+    )
