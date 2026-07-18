@@ -530,9 +530,13 @@ def setup_hooks(processor: NoteProcessor):
     gui_hooks.main_window_did_init.append(on_main_window(processor))
     gui_hooks.profile_did_open.append(on_profile_did_open(processor))
     gui_hooks.profile_will_close.append(cleanup)
-    gui_hooks.addon_manager_will_install_addon.append(
-        on_addon_manager_will_install_addon
-    )
-    gui_hooks.addons_dialog_will_delete_addons.append(
-        on_addons_dialog_will_delete_addons
-    )
+
+    # These cleanup hooks were added in different Anki versions.
+    if hasattr(gui_hooks, "addon_manager_will_install_addon"):
+        gui_hooks.addon_manager_will_install_addon.append(
+            on_addon_manager_will_install_addon
+        )
+    if hasattr(gui_hooks, "addons_dialog_will_delete_addons"):
+        gui_hooks.addons_dialog_will_delete_addons.append(
+            on_addons_dialog_will_delete_addons
+        )
