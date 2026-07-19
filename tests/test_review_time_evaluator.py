@@ -163,6 +163,48 @@ def test_tick_filters_in_flight_and_processed_cards(monkeypatch):
     assert started_batches[0][1] is False
 
 
+def test_tick_caps_wave_at_ten_cards_without_reducing_scheduler_lookahead(
+    monkeypatch,
+):
+    started_batches = []
+    evaluator, _, review_time_evaluator = setup_review_time_evaluator(
+        monkeypatch,
+        current=MockCard(id=100),
+        queued=[MockCard(id=i) for i in range(1, 26)],
+    )
+    monkeypatch.setattr(
+        review_time_evaluator,
+        "run_async_in_background_with_sentry",
+        lambda *args, **kwargs: started_batches.append(args),
+    )
+
+    evaluator.tick()
+
+    assert review_time_evaluator.mw.col.sched.fetch_limits == [25]
+    assert evaluator.in_flight == {100, *range(1, 10)}
+    assert len(started_batches) == 1
+
+
+def test_tick_caps_queued_only_wave_at_ten_cards(monkeypatch):
+    started_batches = []
+    evaluator, _, review_time_evaluator = setup_review_time_evaluator(
+        monkeypatch,
+        current=None,
+        queued=[MockCard(id=i) for i in range(1, 26)],
+        state="overview",
+    )
+    monkeypatch.setattr(
+        review_time_evaluator,
+        "run_async_in_background_with_sentry",
+        lambda *args, **kwargs: started_batches.append(args),
+    )
+
+    evaluator.tick()
+
+    assert evaluator.in_flight == set(range(1, 11))
+    assert len(started_batches) == 1
+
+
 def test_tick_skips_tiny_top_off_when_queue_has_more_cards(monkeypatch):
     started_batches = []
     queued = [

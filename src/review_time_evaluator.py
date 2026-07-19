@@ -38,6 +38,9 @@ from .utils.notes_utils import is_card_fully_processed
 # Number of upcoming scheduler cards to inspect on each review tick.
 LOOKAHEAD = 25
 
+# Maximum number of cards processed concurrently in one review-time wave.
+MAX_WAVE_SIZE = 10
+
 # Minimum number of uncovered queued cards required before firing a normal
 # top-off batch. Smaller batches still run when they flush the end of the queue.
 MIN_BATCH_SIZE = 5
@@ -149,6 +152,7 @@ class ReviewTimeEvaluator:
 
         candidates: list[Card] = []
         candidate_ids = set(existing_candidate_ids)
+        available_slots = MAX_WAVE_SIZE - len(existing_candidate_ids)
         scheduler = cast(Scheduler, mw.col.sched)
 
         queued_cards = scheduler.get_queued_cards(fetch_limit=LOOKAHEAD).cards
@@ -175,6 +179,8 @@ class ReviewTimeEvaluator:
 
             candidates.append(card)
             candidate_ids.add(card.id)
+            if len(candidates) >= available_slots:
+                break
 
         return (candidates, hit_end_of_queue)
 
