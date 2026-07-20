@@ -17,6 +17,8 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import json
+from pathlib import Path
 from typing import cast
 
 import pytest
@@ -66,6 +68,20 @@ def test_format_tts_voice_label_falls_back_to_voice_id_for_stale_data(
         tts_options.format_tts_voice_label("google", "standard", "missing-voice")
         == "Google (missing-voice)"
     )
+
+
+def test_eleven_voice_catalog_includes_stefanos() -> None:
+    catalog_path = Path(__file__).parents[1] / "eleven_voices.json"
+    voices = json.loads(catalog_path.read_text(encoding="utf-8"))
+
+    assert {
+        "voice_id": "20zUtLxCwVzsFDWub4sB",
+        "name": "Stefanos (Athenian)",
+        "gender": "male",
+        "country": "el",
+        "preview_url": "",
+        "language": "Greek",
+    } in voices
 
 
 def _sample_voices() -> list[TTSMeta]:

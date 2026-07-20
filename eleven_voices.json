@@ -134,5 +134,13 @@
     "country": "vi",
     "preview_url": "",
     "language": "Vietnamese (North)"
+  },
+  {
+    "voice_id": "20zUtLxCwVzsFDWub4sB",
+    "name": "Stefanos (Athenian)",
+    "gender": "male",
+    "country": "el",
+    "preview_url": "",
+    "language": "Greek"
   }
 ]
