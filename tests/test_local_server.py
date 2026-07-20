@@ -254,8 +254,10 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
     from src.web import dto
 
     fake_state = {"schemaVersion": 1, "smartFields": []}
+    fake_catalog = {"schemaVersion": 1, "chat": {}, "image": {}}
     monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
     monkeypatch.setattr(dto, "build_state", lambda: fake_state)
+    monkeypatch.setattr(dto, "build_catalog", lambda: fake_catalog)
 
     server = _make_server()
     async with TestClient(TestServer(_make_app(server))) as client:
@@ -267,6 +269,10 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
         event = await _read_sse_event(resp)
         assert event["event"] == "state"
         assert json.loads(event["data"]) == fake_state
+
+        event = await _read_sse_event(resp)
+        assert event["event"] == "catalog"
+        assert json.loads(event["data"]) == fake_catalog
 
         # Ephemeral events are forwarded with their payload.
         event_bus.publish(BrowserSelectionChanged({"note": None, "count": 2}))

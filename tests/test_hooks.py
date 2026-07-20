@@ -24,6 +24,7 @@ from typing import Any, cast
 import pytest
 
 import src.hooks as hooks
+from src.note_proccessor import NoteProcessor
 
 
 def test_profile_did_open_restarts_local_server_after_profile_switch(

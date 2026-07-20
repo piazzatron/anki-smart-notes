@@ -9,6 +9,7 @@
     "env",
     ".venv",
     "builds",
+    "web/node_modules",
     "**/__pycache__",
     "**/*.pyc"
   ],

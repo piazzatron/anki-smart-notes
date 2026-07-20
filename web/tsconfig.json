@@ -10,7 +10,12 @@
     "noUnusedParameters": true,
     "noEmit": true,
     "skipLibCheck": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "types": ["bun"]
   },
   "include": ["src"]
 }

@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #141416;
+  --color-sidebar: #101012;
+  --color-panel: #151519;
+  --color-panel-raised: #1b1b20;
+  --color-ink: #f4f4f6;
+  --color-ink-muted: #9696a1;
+  --color-ink-faint: #686873;
+  --color-indigo: #7c8dff;
+  --color-indigo-soft: #c7d2ff;
+  --color-mint: #5fe3b0;
+  --color-amber: #ffd27a;
+  --color-danger: #f3a0a0;
+}
+
+:root {
+  color: var(--color-ink);
+  background: var(--color-canvas);
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto,
+    system-ui, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-indigo) 78%, white);
+  outline-offset: 2px;
+}
+
+button:not(:disabled),
+a[href],
+[role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+
+button:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+* {
+  scrollbar-color: rgba(255, 255, 255, 0.13) transparent;
+  scrollbar-width: thin;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
