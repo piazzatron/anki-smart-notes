@@ -19,7 +19,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import asyncio
 import traceback
-from typing import Any, cast
+from typing import Any, Optional, cast
 
 from anki.cards import Card, CardId
 from anki.scheduler.v3 import Scheduler
@@ -101,27 +101,31 @@ class ReviewTimeEvaluator:
 
         reviewer = mw.reviewer if mw.state == "review" else None
         current_card = reviewer.card if reviewer else None
-        current_card_candidates = (
-            [current_card]
+        current_card_candidate = (
+            current_card
             if current_card and self.is_card_eligible(current_card)
-            else []
+            else None
         )
         queued_card_candidates, hit_end_of_queue = self.get_queued_card_candidates(
-            existing_candidate_ids={card.id for card in current_card_candidates}
+            current_card_candidate
         )
 
         logger.debug(
-            f"Found {len(current_card_candidates)} eligible current card(s) and {len(queued_card_candidates)} eligible queued card(s) for review-time evaluation"
+            f"Current card eligible={current_card_candidate is not None}; found {len(queued_card_candidates)} eligible queued card(s) for review-time evaluation"
         )
 
-        candidates = current_card_candidates + queued_card_candidates
+        candidates = (
+            [current_card_candidate, *queued_card_candidates]
+            if current_card_candidate is not None
+            else queued_card_candidates
+        )
 
         if not candidates:
             logger.info("Zero eligible cards found for review-time evaluation")
             return
 
         if (
-            not current_card_candidates
+            current_card_candidate is None
             and len(queued_card_candidates) < MIN_BATCH_SIZE
             and not hit_end_of_queue
         ):
@@ -145,14 +149,16 @@ class ReviewTimeEvaluator:
         )
 
     def get_queued_card_candidates(
-        self, existing_candidate_ids: set[CardId]
+        self, current_card_candidate: Optional[Card]
     ) -> tuple[list[Card], bool]:
         if not mw or not mw.col:
             return ([], False)
 
         candidates: list[Card] = []
-        candidate_ids = set(existing_candidate_ids)
-        available_slots = MAX_WAVE_SIZE - len(existing_candidate_ids)
+        candidate_ids = (
+            {current_card_candidate.id} if current_card_candidate is not None else set()
+        )
+        available_slots = MAX_WAVE_SIZE - len(candidate_ids)
         scheduler = cast(Scheduler, mw.col.sched)
 
         queued_cards = scheduler.get_queued_cards(fetch_limit=LOOKAHEAD).cards

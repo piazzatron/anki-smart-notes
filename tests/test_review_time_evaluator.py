@@ -109,8 +109,7 @@ def test_tick_sets_pending_tick_when_wave_in_progress(monkeypatch):
     assert evaluator.pending_tick
 
 
-def test_get_queued_card_candidates_does_not_mutate_existing_ids(monkeypatch):
-    existing_candidate_ids = {1}
+def test_get_queued_card_candidates_excludes_current_card(monkeypatch):
     evaluator, _, _ = setup_review_time_evaluator(
         monkeypatch,
         current=None,
@@ -122,13 +121,10 @@ def test_get_queued_card_candidates_does_not_mutate_existing_ids(monkeypatch):
     )
     evaluator.in_flight.add(4)
 
-    candidates, hit_end_of_queue = evaluator.get_queued_card_candidates(
-        existing_candidate_ids
-    )
+    candidates, hit_end_of_queue = evaluator.get_queued_card_candidates(MockCard(id=1))
 
     assert [card.id for card in candidates] == [2]
     assert hit_end_of_queue
-    assert existing_candidate_ids == {1}
 
 
 def test_tick_filters_in_flight_and_processed_cards(monkeypatch):
