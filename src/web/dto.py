@@ -28,6 +28,7 @@ from typing import Any, Optional, cast
 from anki.decks import DeckId
 from anki.notes import Note
 
+from ..app_state import app_state
 from ..constants import GLOBAL_DECK_ID
 from ..decks import deck_id_to_name_map
 from ..models import (
@@ -38,6 +39,8 @@ from ..models import (
     ImageProviders,
     TTSModels,
     TTSProviders,
+    image_provider_model_map,
+    provider_model_map,
 )
 from ..models.smart_fields import (
     ChatGenerationSettings,
@@ -55,37 +58,67 @@ from ..services.smart_field_service import smart_field_service
 from ..utils.notes_utils import get_note_types_with_fields
 
 SCHEMA_VERSION = 1
+CHAT_REASONING_LEVELS: list[ChatReasoningLevel] = ["off", "low", "high"]
 
 
 def build_state() -> dict[str, Any]:
     """The full `state` event payload. Whole-state push: every state event
     carries everything, so consumers replace their model wholesale."""
     defaults = smart_field_service.get_generation_defaults()
+    note_types = get_note_types_with_fields()
+    decks = deck_id_to_name_map()
+    note_type_ids = {note_type_id for note_type_id, _, _ in note_types}
+    deck_ids = set(decks)
+
     return {
         "schemaVersion": SCHEMA_VERSION,
         "smartFields": [
             _smart_field_dto(field)
             for field in smart_field_service.get_all_smart_fields()
+            if field.note_type_id in note_type_ids and field.deck_id in deck_ids
         ],
         # Note types and decks let the UI render names for the IDs that smart
         # fields and selection events carry (and feed authoring pickers).
         "noteTypes": [
             {"id": note_type_id, "name": name, "fields": fields}
-            for note_type_id, name, fields in get_note_types_with_fields()
+            for note_type_id, name, fields in note_types
         ],
         "decks": [
             {"id": deck_id, "name": name}
-            for deck_id, name in sorted(
-                deck_id_to_name_map().items(), key=lambda item: item[1]
-            )
+            for deck_id, name in sorted(decks.items(), key=lambda item: item[1])
         ],
         # The pseudo-deck meaning "applies to all decks" — present in `decks`
         # with a friendly name, but scoping UI needs to special-case it.
         "globalDeckId": GLOBAL_DECK_ID,
+        "account": app_state.state,
         "defaults": {
             "chat": _camelize_keys(dataclasses.asdict(defaults.chat)),
             "tts": _camelize_keys(dataclasses.asdict(defaults.tts)),
             "image": _camelize_keys(dataclasses.asdict(defaults.image)),
+        },
+    }
+
+
+def build_catalog() -> dict[str, Any]:
+    """Static model facts sent once when an SSE connection is established."""
+    return {
+        "schemaVersion": SCHEMA_VERSION,
+        "chat": {
+            "providers": list(provider_model_map),
+            "models": [
+                {"id": model, "provider": provider}
+                for provider, models in provider_model_map.items()
+                for model in models
+            ],
+            "reasoningLevels": CHAT_REASONING_LEVELS,
+        },
+        "image": {
+            "providers": list(image_provider_model_map),
+            "models": [
+                {"id": model, "provider": provider}
+                for provider, models in image_provider_model_map.items()
+                for model in models
+            ],
         },
     }
 

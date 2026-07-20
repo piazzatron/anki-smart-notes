@@ -34,6 +34,7 @@ from .constants import (
     PAID_PLAN_ENDED_EXPIRED_API_KEY,
     PAID_PLAN_ENDED_EXPIRED_NO_API_KEY,
 )
+from .event_bus import StateInvalidated, event_bus
 from .logger import logger
 from .sentry import run_async_in_background_with_sentry
 from .subscription_provider import (
@@ -56,6 +57,7 @@ class AppStateManager:
 
     def __init__(self) -> None:
         self._state = StateManager[AppState]({"subscription": "LOADING", "plan": None})
+        self._state.state_changed.connect(self._publish_web_state)
 
     @property
     def state(self) -> AppState:
@@ -64,6 +66,10 @@ class AppStateManager:
     def bind(self, widget: Any) -> None:
         """Bind a widget to state changes."""
         self._state.bind(widget)
+
+    def _publish_web_state(self, _state: AppState) -> None:
+        """Keep connected webviews current when subscription state changes."""
+        event_bus.publish(StateInvalidated())
 
     def is_free_trial(self) -> bool:
         free_trial_states: list[SubscriptionState] = [

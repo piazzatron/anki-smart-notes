@@ -21,10 +21,13 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import asyncio
 import threading
+from dataclasses import replace
+from types import SimpleNamespace
 from unittest.mock import MagicMock
 
 import pytest
 
+from src.app_state import AppStateManager
 from src.event_bus import EventBus, StateInvalidated, event_bus, republish_state
 from src.models.smart_fields import (
     ChatGenerationSettings,
@@ -109,6 +112,17 @@ async def test_event_bus_unsubscribe_stops_delivery():
     assert queue.empty()
 
 
+def test_subscription_state_change_invalidates_web_state(monkeypatch):
+    publish = MagicMock()
+    monkeypatch.setattr("src.app_state.event_bus.publish", publish)
+    monkeypatch.setattr("src.app_state.config", SimpleNamespace(auth_token=None))
+
+    manager = AppStateManager()
+    manager.update_subscription_state()
+
+    assert isinstance(publish.call_args.args[0], StateInvalidated)
+
+
 # -- DTOs --
 
 
@@ -136,6 +150,30 @@ def test_build_state_shape(monkeypatch):
     monkeypatch.setattr(
         dto.smart_field_service, "get_all_smart_fields", lambda: [_chat_smart_field()]
     )
+    monkeypatch.setattr(
+        dto,
+        "app_state",
+        SimpleNamespace(
+            state={
+                "subscription": "FREE_TRIAL_ACTIVE",
+                "plan": {
+                    "planId": "free",
+                    "planName": "Free Trial",
+                    "notesUsed": 12,
+                    "notesLimit": 50,
+                    "daysLeft": 5,
+                    "textCreditsUsed": 20,
+                    "textCreditsCapacity": 100,
+                    "voiceCreditsUsed": 10,
+                    "voiceCreditsCapacity": 100,
+                    "imageCreditsUsed": 0,
+                    "imageCreditsCapacity": 100,
+                    "totalCreditsUsed": 30,
+                    "totalCreditsCapacity": 300,
+                },
+            }
+        ),
+    )
 
     state = dto.build_state()
 
@@ -145,6 +183,24 @@ def test_build_state_shape(monkeypatch):
     ]
     assert state["decks"] == [{"id": DECK_ID, "name": "Spanish::Verbs"}]
     assert state["globalDeckId"] == dto.GLOBAL_DECK_ID
+    assert state["account"] == {
+        "subscription": "FREE_TRIAL_ACTIVE",
+        "plan": {
+            "planId": "free",
+            "planName": "Free Trial",
+            "notesUsed": 12,
+            "notesLimit": 50,
+            "daysLeft": 5,
+            "textCreditsUsed": 20,
+            "textCreditsCapacity": 100,
+            "voiceCreditsUsed": 10,
+            "voiceCreditsCapacity": 100,
+            "imageCreditsUsed": 0,
+            "imageCreditsCapacity": 100,
+            "totalCreditsUsed": 30,
+            "totalCreditsCapacity": 300,
+        },
+    }
     assert state["defaults"] == {
         "chat": {
             "provider": "openai",
@@ -173,6 +229,61 @@ def test_build_state_shape(monkeypatch):
             },
         }
     ]
+
+
+def test_build_state_excludes_smart_fields_with_missing_anki_references(monkeypatch):
+    _patch_service_defaults(monkeypatch)
+    _patch_state_sources(monkeypatch)
+    valid_field = _chat_smart_field()
+    monkeypatch.setattr(
+        dto.smart_field_service,
+        "get_all_smart_fields",
+        lambda: [
+            valid_field,
+            replace(valid_field, id="missing-note-type", note_type_id=999),
+            replace(valid_field, id="missing-deck", deck_id=999),
+        ],
+    )
+    monkeypatch.setattr(dto, "app_state", SimpleNamespace(state=None))
+
+    state = dto.build_state()
+
+    assert [field["id"] for field in state["smartFields"]] == ["sf-1"]
+
+
+def test_build_catalog_shape():
+    assert dto.build_catalog() == {
+        "schemaVersion": dto.SCHEMA_VERSION,
+        "chat": {
+            "providers": ["auto", "openai", "anthropic", "google"],
+            "models": [
+                {"id": "auto", "provider": "auto"},
+                {"id": "auto-max", "provider": "auto"},
+                {"id": "gpt-5-mini", "provider": "openai"},
+                {"id": "gpt-5-chat-latest", "provider": "openai"},
+                {"id": "gpt-5", "provider": "openai"},
+                {"id": "claude-haiku-4-5", "provider": "anthropic"},
+                {"id": "claude-sonnet-4-6", "provider": "anthropic"},
+                {"id": "claude-opus-4-6", "provider": "anthropic"},
+                {"id": "gemini-3.1-flash-lite", "provider": "google"},
+                {"id": "gemini-3-flash", "provider": "google"},
+                {"id": "gemini-3.1-pro", "provider": "google"},
+            ],
+            "reasoningLevels": ["off", "low", "high"],
+        },
+        "image": {
+            "providers": ["openai", "google", "replicate"],
+            "models": [
+                {"id": "gpt-image-1.5-low", "provider": "openai"},
+                {"id": "gpt-image-2-low", "provider": "openai"},
+                {"id": "gpt-image-1.5-medium", "provider": "openai"},
+                {"id": "gpt-image-2-medium", "provider": "openai"},
+                {"id": "nano-banana-2", "provider": "google"},
+                {"id": "z-image-turbo", "provider": "replicate"},
+                {"id": "flux-dev", "provider": "replicate"},
+            ],
+        },
+    }
 
 
 def test_build_selection_changed():

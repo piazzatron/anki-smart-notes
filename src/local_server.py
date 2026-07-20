@@ -235,6 +235,7 @@ class LocalServer:
             # The snapshot is the head of the stream: clients build their
             # entire model from this connection, so no read endpoints exist.
             await self._send_state(response)
+            await self._send_catalog(response)
 
             while True:
                 # Drain the queue as a batch and coalesce: only the newest
@@ -267,6 +268,11 @@ class LocalServer:
             None, lambda: _run_on_main_sync(dto.build_state)
         )
         await response.write(f"event: state\ndata: {json.dumps(state)}\n\n".encode())
+
+    async def _send_catalog(self, response: web.StreamResponse) -> None:
+        await response.write(
+            f"event: catalog\ndata: {json.dumps(dto.build_catalog())}\n\n".encode()
+        )
 
     async def _handle_command(self, request: web.Request) -> web.Response:
         # Commands return only ack/validation errors: clients learn the new
