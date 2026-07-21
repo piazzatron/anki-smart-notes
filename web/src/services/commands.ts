@@ -2,9 +2,13 @@ import type {
   ChatDefaultsSavePayload,
   CommandName,
   CommandResponse,
+  FeedbackSendPayload,
   ImageDefaultsSavePayload,
   ImagePromptTestArgs,
   MediaTestResult,
+  PromptGenerateArgs,
+  PromptGenerateResult,
+  Settings,
   SmartField,
   SmartFieldDeletePayload,
   TextPromptTestArgs,
@@ -66,6 +70,25 @@ export const saveTTSDefaults = async (
   defaults: TTSDefaultsSavePayload,
 ): Promise<void> => {
   await sendCommand("defaults.tts.save", defaults)
+}
+
+export const saveSettings = async (settings: Settings): Promise<void> => {
+  await sendCommand("settings.save", settings)
+}
+
+export const generatePrompt = async (
+  args: PromptGenerateArgs,
+): Promise<PromptGenerateResult> =>
+  sendCommand<PromptGenerateResult>("prompts.generate", args)
+
+export const sendFeedback = async (
+  payload: FeedbackSendPayload,
+): Promise<void> => {
+  await sendCommand("support.sendFeedback", payload)
+}
+
+export const logout = async (): Promise<void> => {
+  await sendCommand("auth.logout", {})
 }
 
 export const testTextPrompt = async (

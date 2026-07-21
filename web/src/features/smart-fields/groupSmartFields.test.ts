@@ -23,6 +23,7 @@ const field = (id: string, noteTypeId: number, deckId: number): SmartField => ({
 
 const stateWith = (smartFields: SmartField[]): AppState => ({
   schemaVersion: 1,
+  appVersion: "test",
   smartFields,
   noteTypes: [
     { id: 10, name: "Japanese", fields: ["Reading"] },
@@ -43,6 +44,15 @@ const stateWith = (smartFields: SmartField[]): AppState => ({
     },
     tts: { provider: "google", model: "standard", voiceId: "voice" },
     image: { provider: "openai", model: "gpt-image-1.5-low" },
+  },
+  settings: {
+    generateAtReview: false,
+    regenerateWhenBatching: false,
+    debug: false,
+    legacyOpenAiKey: null,
+    legacyOpenAiModel: "gpt-5-mini",
+    legacyOpenAiHost: null,
+    showWizardCompletion: true,
   },
 })
 

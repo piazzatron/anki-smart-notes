@@ -132,14 +132,26 @@ export interface GenerationDefaults {
   image: ImageGenerationSettings
 }
 
+export interface Settings {
+  generateAtReview: boolean
+  regenerateWhenBatching: boolean
+  debug: boolean
+  legacyOpenAiKey: string | null
+  legacyOpenAiModel: string
+  legacyOpenAiHost: string | null
+  showWizardCompletion: boolean
+}
+
 export interface AppState {
   schemaVersion: number
+  appVersion: string
   smartFields: SmartField[]
   noteTypes: NoteType[]
   decks: Deck[]
   globalDeckId: number
   account: AccountState
   defaults: GenerationDefaults
+  settings: Settings
 }
 
 export interface CatalogModel {
@@ -200,6 +212,10 @@ export type CommandName =
   | "images.test"
   | "tts.test"
   | "tts.preview"
+  | "settings.save"
+  | "prompts.generate"
+  | "support.sendFeedback"
+  | "auth.logout"
   | "ui.openBrowser"
 
 export type SmartFieldSavePayload =
@@ -227,6 +243,22 @@ export interface TextPromptTestArgs {
 
 export interface TextPromptTestResult {
   text: string
+}
+
+export interface PromptGenerateArgs {
+  noteTypeId: number
+  deckId: number
+  targetFieldName: string
+  fieldType: "chat" | "image"
+  generationPrompt: string
+}
+
+export interface PromptGenerateResult {
+  prompt: string
+}
+
+export interface FeedbackSendPayload {
+  message: string
 }
 
 export interface ImagePromptTestArgs {

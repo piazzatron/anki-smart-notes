@@ -2,15 +2,33 @@ import { bootOptions } from "@/lib/boot"
 import type { CommandSender } from "@/services/commands"
 import { useAppStore } from "@/store/appStore"
 import type {
+  AccountState,
   AppState,
   Catalog,
   CommandName,
+  PlanInfo,
   Selection,
   SmartField,
   VoiceCatalog,
 } from "@/types/api"
 
 const GLOBAL_DECK_ID = 1
+
+const HEALTHY_TRIAL_PLAN: PlanInfo = {
+  planId: "free",
+  planName: "Free Trial",
+  notesUsed: 12,
+  notesLimit: 50,
+  daysLeft: 5,
+  textCreditsUsed: 36,
+  textCreditsCapacity: 100,
+  voiceCreditsUsed: 14,
+  voiceCreditsCapacity: 100,
+  imageCreditsUsed: 8,
+  imageCreditsCapacity: 100,
+  totalCreditsUsed: 58,
+  totalCreditsCapacity: 300,
+}
 
 const POPULATED_FIELDS: SmartField[] = [
   {
@@ -95,6 +113,7 @@ const POPULATED_FIELDS: SmartField[] = [
 
 const BASE_STATE: AppState = {
   schemaVersion: 1,
+  appVersion: "1.5.0-dev",
   smartFields: POPULATED_FIELDS,
   noteTypes: [
     {
@@ -118,21 +137,7 @@ const BASE_STATE: AppState = {
   globalDeckId: GLOBAL_DECK_ID,
   account: {
     subscription: "FREE_TRIAL_ACTIVE",
-    plan: {
-      planId: "free",
-      planName: "Free Trial",
-      notesUsed: 12,
-      notesLimit: 50,
-      daysLeft: 5,
-      textCreditsUsed: 36,
-      textCreditsCapacity: 100,
-      voiceCreditsUsed: 14,
-      voiceCreditsCapacity: 100,
-      imageCreditsUsed: 8,
-      imageCreditsCapacity: 100,
-      totalCreditsUsed: 58,
-      totalCreditsCapacity: 300,
-    },
+    plan: HEALTHY_TRIAL_PLAN,
   },
   defaults: {
     chat: {
@@ -144,6 +149,117 @@ const BASE_STATE: AppState = {
     tts: { provider: "google", model: "standard", voiceId: "en-US-Casual-K" },
     image: { provider: "openai", model: "gpt-image-1.5-low" },
   },
+  settings: {
+    generateAtReview: true,
+    regenerateWhenBatching: false,
+    debug: false,
+    legacyOpenAiKey: null,
+    legacyOpenAiModel: "gpt-5-mini",
+    legacyOpenAiHost: null,
+    showWizardCompletion: true,
+  },
+}
+
+const withTrialPlan = (updates: Partial<PlanInfo>): PlanInfo => ({
+  ...HEALTHY_TRIAL_PLAN,
+  ...updates,
+})
+
+export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
+  "pre-trial": { subscription: "NO_SUBSCRIPTION", plan: null },
+  "trial-healthy": {
+    subscription: "FREE_TRIAL_ACTIVE",
+    plan: HEALTHY_TRIAL_PLAN,
+  },
+  "trial-ending": {
+    subscription: "FREE_TRIAL_ACTIVE",
+    plan: withTrialPlan({
+      daysLeft: 2,
+      notesUsed: 42,
+      textCreditsUsed: 85,
+      voiceCreditsUsed: 75,
+      imageCreditsUsed: 86,
+      totalCreditsUsed: 246,
+    }),
+  },
+  "trial-expired": {
+    subscription: "FREE_TRIAL_EXPIRED",
+    plan: withTrialPlan({ daysLeft: 0, notesUsed: 50 }),
+  },
+  "trial-capacity": {
+    subscription: "FREE_TRIAL_CAPACITY",
+    plan: withTrialPlan({
+      notesUsed: 50,
+      textCreditsUsed: 100,
+      voiceCreditsUsed: 100,
+      imageCreditsUsed: 100,
+      totalCreditsUsed: 300,
+    }),
+  },
+  free: {
+    subscription: "FREE_TRIAL_ACTIVE",
+    plan: withTrialPlan({
+      planName: "Free",
+      notesUsed: null,
+      notesLimit: null,
+      daysLeft: 8,
+      textCreditsUsed: 40,
+      textCreditsCapacity: 70,
+      voiceCreditsUsed: 12,
+      voiceCreditsCapacity: 20,
+      imageCreditsUsed: 10,
+      imageCreditsCapacity: 10,
+      totalCreditsUsed: 62,
+      totalCreditsCapacity: 100,
+    }),
+  },
+  paid: {
+    subscription: "PAID_PLAN_ACTIVE",
+    plan: withTrialPlan({
+      planId: "standard",
+      planName: "Standard",
+      notesUsed: null,
+      notesLimit: null,
+      daysLeft: 18,
+      textCreditsUsed: 70,
+      textCreditsCapacity: 250,
+      voiceCreditsUsed: 3,
+      voiceCreditsCapacity: 100,
+      imageCreditsUsed: 97,
+      imageCreditsCapacity: 150,
+      totalCreditsUsed: 170,
+      totalCreditsCapacity: 500,
+    }),
+  },
+  "paid-expired": {
+    subscription: "PAID_PLAN_EXPIRED",
+    plan: withTrialPlan({
+      planId: "standard",
+      planName: "Standard",
+      notesUsed: null,
+      notesLimit: null,
+      daysLeft: 0,
+    }),
+  },
+  "paid-capacity": {
+    subscription: "PAID_PLAN_CAPACITY",
+    plan: withTrialPlan({
+      planId: "standard",
+      planName: "Standard",
+      notesUsed: null,
+      notesLimit: null,
+      textCreditsUsed: 250,
+      textCreditsCapacity: 250,
+      voiceCreditsUsed: 100,
+      voiceCreditsCapacity: 100,
+      imageCreditsUsed: 150,
+      imageCreditsCapacity: 150,
+      totalCreditsUsed: 500,
+      totalCreditsCapacity: 500,
+    }),
+  },
+  "signed-out": { subscription: "UNAUTHENTICATED", plan: null },
+  loading: { subscription: "LOADING", plan: null },
 }
 
 export const MOCK_CATALOG: Catalog = {
@@ -263,23 +379,8 @@ export const setMockFixture = (fixture: string): void => {
   const state = structuredClone(BASE_STATE)
 
   if (fixture === "empty") state.smartFields = []
-  if (fixture === "signed-out") {
-    state.account = { subscription: "UNAUTHENTICATED", plan: null }
-  }
-  if (fixture === "paid") {
-    state.account = {
-      subscription: "PAID_PLAN_ACTIVE",
-      plan: {
-        ...state.account.plan!,
-        planId: "standard",
-        planName: "Standard",
-        notesUsed: null,
-        notesLimit: null,
-        daysLeft: 18,
-        totalCreditsUsed: 96,
-        totalCreditsCapacity: 500,
-      },
-    }
+  if (fixture in MOCK_ACCOUNT_FIXTURES) {
+    state.account = structuredClone(MOCK_ACCOUNT_FIXTURES[fixture])
   }
 
   useAppStore.setState({
@@ -324,6 +425,38 @@ export const sendMockCommand: CommandSender = async <Result = void>(
 
   if (command === "tts.test" || command === "tts.preview") {
     return { dataUrl: MOCK_AUDIO_DATA_URL } as Result
+  }
+
+  if (command === "prompts.generate") {
+    await new Promise((resolve) => setTimeout(resolve, 600))
+    return {
+      prompt:
+        commandPayload.fieldType === "image"
+          ? "A vivid, memorable scene illustrating {{Expression}}. No text or labels."
+          : "Translate {{Expression}} into natural English. Return only the translation.",
+    } as Result
+  }
+
+  if (command === "settings.save") {
+    useAppStore.setState({
+      state: {
+        ...state,
+        settings: commandPayload as unknown as AppState["settings"],
+      },
+    })
+    return undefined as Result
+  }
+
+  if (command === "support.sendFeedback") return undefined as Result
+
+  if (command === "auth.logout") {
+    useAppStore.setState({
+      state: {
+        ...state,
+        account: { subscription: "UNAUTHENTICATED", plan: null },
+      },
+    })
+    return undefined as Result
   }
 
   if (command === "defaults.chat.save") {
