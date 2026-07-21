@@ -10,6 +10,8 @@ import type { NoteTypeGroup } from "../groupSmartFields"
 interface NoteTypeCardProps {
   group: NoteTypeGroup
   onDelete: (field: SmartField) => Promise<void>
+  onDuplicate: (field: SmartField) => void
+  onEdit: (field: SmartField) => void
   onToggleEnabled: (field: SmartField) => Promise<void>
   onError: (message: string) => void
 }
@@ -17,6 +19,8 @@ interface NoteTypeCardProps {
 export const NoteTypeCard = ({
   group,
   onDelete,
+  onDuplicate,
+  onEdit,
   onToggleEnabled,
   onError,
 }: NoteTypeCardProps) => {
@@ -66,6 +70,8 @@ export const NoteTypeCard = ({
               field={field}
               key={field.id}
               onDelete={onDelete}
+              onDuplicate={onDuplicate}
+              onEdit={onEdit}
               onError={onError}
               onToggleEnabled={onToggleEnabled}
             />

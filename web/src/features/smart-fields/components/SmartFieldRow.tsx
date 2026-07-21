@@ -12,6 +12,8 @@ import type { SmartField } from "@/types/api"
 interface SmartFieldRowProps {
   field: SmartField
   onDelete: (field: SmartField) => Promise<void>
+  onDuplicate: (field: SmartField) => void
+  onEdit: (field: SmartField) => void
   onToggleEnabled: (field: SmartField) => Promise<void>
   onError: (message: string) => void
 }
@@ -19,6 +21,8 @@ interface SmartFieldRowProps {
 export const SmartFieldRow = ({
   field,
   onDelete,
+  onDuplicate,
+  onEdit,
   onToggleEnabled,
   onError,
 }: SmartFieldRowProps) => {
@@ -131,6 +135,27 @@ export const SmartFieldRow = ({
               </div>
             ) : (
               <>
+                <button
+                  className="w-full rounded px-2.5 py-1.5 text-left text-xs text-zinc-300 hover:bg-white/[0.07]"
+                  role="menuitem"
+                  onClick={() => {
+                    setMenuOpen(false)
+                    onEdit(field)
+                  }}
+                >
+                  Edit
+                </button>
+                <button
+                  className="w-full rounded px-2.5 py-1.5 text-left text-xs text-zinc-300 hover:bg-white/[0.07]"
+                  role="menuitem"
+                  onClick={() => {
+                    setMenuOpen(false)
+                    onDuplicate(field)
+                  }}
+                >
+                  Duplicate
+                </button>
+                <div className="my-1 border-t border-white/[0.07]" />
                 <button
                   className="w-full rounded px-2.5 py-1.5 text-left text-xs text-zinc-300 hover:bg-white/[0.07]"
                   disabled={pending}

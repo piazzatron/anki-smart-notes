@@ -7,19 +7,42 @@ import { FieldsSkeleton } from "./components/FieldsSkeleton"
 import { groupSmartFields } from "./groupSmartFields"
 
 import { Button } from "@/components/ui/Button"
+import {
+  FieldEditorModal,
+  type FieldEditorRequest,
+} from "@/features/field-editor/FieldEditorModal"
 import { deleteSmartField, setSmartFieldEnabled } from "@/services/commands"
 import type { AppState, SmartField } from "@/types/api"
 
-interface SmartFieldsScreenProps {
+export interface SmartFieldsScreenProps {
+  initialEditor?: FieldEditorRequest
   state: AppState | null
 }
 
-export const SmartFieldsScreen = ({ state }: SmartFieldsScreenProps) => {
+export const SmartFieldsScreen = ({
+  initialEditor,
+  state,
+}: SmartFieldsScreenProps) => {
   const [error, setError] = useState<string | null>(null)
+  const [editorState, setEditorState] = useState<FieldEditorRequest | null>(
+    null,
+  )
+  const [initialEditorDismissed, setInitialEditorDismissed] = useState(false)
   const groups = useMemo(
     () => (state === null ? [] : groupSmartFields(state)),
     [state],
   )
+
+  const initialField =
+    initialEditor?.mode === "create" ? undefined : state?.smartFields[0]
+  const resolvedInitialEditor =
+    !initialEditorDismissed &&
+    initialEditor !== undefined &&
+    state !== null &&
+    (initialEditor.mode === "create" || initialField !== undefined)
+      ? { ...initialEditor, field: initialField }
+      : null
+  const activeEditor = editorState ?? resolvedInitialEditor
 
   const toggleEnabled = (field: SmartField) =>
     setSmartFieldEnabled(field, !field.enabled)
@@ -42,18 +65,13 @@ export const SmartFieldsScreen = ({ state }: SmartFieldsScreenProps) => {
           </p>
         </div>
         <Button
-          aria-describedby="new-field-status"
           className="shrink-0"
-          disabled
-          title="The field editor is the next rebuild slice"
+          onClick={() => setEditorState({ mode: "create" })}
           variant="primary"
         >
           <Plus aria-hidden className="size-3.5" />
           New Smart Field
         </Button>
-        <span className="sr-only" id="new-field-status">
-          The field editor is not available in this build yet.
-        </span>
       </header>
 
       {error !== null && (
@@ -70,7 +88,9 @@ export const SmartFieldsScreen = ({ state }: SmartFieldsScreenProps) => {
         {state === null ? (
           <FieldsSkeleton />
         ) : state.smartFields.length === 0 ? (
-          <FieldsEmptyState />
+          <FieldsEmptyState
+            onCreate={() => setEditorState({ mode: "create" })}
+          />
         ) : (
           <div className="px-6 py-5">
             {groups.map((group) => (
@@ -78,6 +98,10 @@ export const SmartFieldsScreen = ({ state }: SmartFieldsScreenProps) => {
                 group={group}
                 key={group.deck.id}
                 onDelete={deleteSmartField}
+                onDuplicate={(field) =>
+                  setEditorState({ field, mode: "duplicate" })
+                }
+                onEdit={(field) => setEditorState({ field, mode: "edit" })}
                 onError={setError}
                 onToggleEnabled={toggleEnabled}
               />
@@ -85,6 +109,16 @@ export const SmartFieldsScreen = ({ state }: SmartFieldsScreenProps) => {
           </div>
         )}
       </div>
+      {state !== null && activeEditor !== null && (
+        <FieldEditorModal
+          {...activeEditor}
+          onClose={() => {
+            setEditorState(null)
+            setInitialEditorDismissed(true)
+          }}
+          state={state}
+        />
+      )}
     </section>
   )
 }

@@ -11,6 +11,7 @@ import type {
   Settings,
   SmartField,
   SmartFieldDeletePayload,
+  SmartFieldSavePayload,
   TextPromptTestArgs,
   TextPromptTestResult,
   TTSDefaultsSavePayload,
@@ -44,6 +45,12 @@ export const setSmartFieldEnabled = async (
     enabled,
     settings: field.settings,
   })
+}
+
+export const saveSmartField = async (
+  field: SmartFieldSavePayload,
+): Promise<void> => {
+  await sendCommand("smartFields.save", field)
 }
 
 export const deleteSmartField = async (field: SmartField): Promise<void> => {
