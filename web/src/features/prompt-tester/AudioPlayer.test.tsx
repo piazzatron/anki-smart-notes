@@ -17,29 +17,15 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, test } from "bun:test"
+import { expect, test } from "bun:test"
+import { renderToStaticMarkup } from "react-dom/server"
 
-Object.defineProperty(globalThis, "window", {
-  value: { location: { search: "" } },
-})
+import { AudioPlayer } from "./AudioPlayer"
 
-const { getVisiblePromptTestResult } = await import("./usePromptTester")
+test("generated audio requests playback when the result player mounts", () => {
+  const markup = renderToStaticMarkup(
+    <AudioPlayer autoPlay dataUrl="data:audio/wav;base64,AAAA" />,
+  )
 
-const result = {
-  cardId: 42,
-  latencyMs: 125,
-  prompt: "Define {{Front}}",
-  value: { text: "Generated text" },
-}
-
-describe("usePromptTester", () => {
-  test("only exposes a result for the currently selected card", () => {
-    expect(getVisiblePromptTestResult(result, 42)).toEqual({
-      latencyMs: 125,
-      prompt: "Define {{Front}}",
-      value: { text: "Generated text" },
-    })
-    expect(getVisiblePromptTestResult(result, 7)).toBeNull()
-    expect(getVisiblePromptTestResult(result, null)).toBeNull()
-  })
+  expect(markup).toContain('autoPlay=""')
 })

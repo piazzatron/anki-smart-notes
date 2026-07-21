@@ -7,6 +7,7 @@ import type {
   CommandName,
   Selection,
   SmartField,
+  VoiceCatalog,
 } from "@/types/api"
 
 const GLOBAL_DECK_ID = 1
@@ -161,11 +162,81 @@ export const MOCK_CATALOG: Catalog = {
     providers: ["openai", "google", "replicate"],
     models: [
       { id: "gpt-image-1.5-low", provider: "openai" },
+      { id: "gpt-image-2-low", provider: "openai" },
+      { id: "gpt-image-1.5-medium", provider: "openai" },
+      { id: "gpt-image-2-medium", provider: "openai" },
       { id: "nano-banana-2", provider: "google" },
       { id: "z-image-turbo", provider: "replicate" },
+      { id: "flux-dev", provider: "replicate" },
     ],
   },
 }
+
+export const MOCK_VOICE_CATALOG: VoiceCatalog = {
+  schemaVersion: 1,
+  voices: [
+    {
+      provider: "google",
+      voiceId: "en-US-Casual-K",
+      model: "standard",
+      name: "English (United States) - Male (Standard)",
+      gender: "Male",
+      language: "English (United States)",
+      priceTier: "low",
+    },
+    {
+      provider: "google",
+      voiceId: "ja-JP-Neural2-B",
+      model: "neural",
+      name: "Japanese - Female (Neural)",
+      gender: "Female",
+      language: "Japanese",
+      priceTier: "standard",
+    },
+    {
+      provider: "openai",
+      voiceId: "coral",
+      model: "gpt-4o-mini-tts",
+      name: "Coral (4o-mini)",
+      gender: "Female",
+      language: "All",
+      priceTier: "standard",
+    },
+    {
+      provider: "elevenLabs",
+      voiceId: "EXAVITQu4vr4xnSDxMaL",
+      model: "eleven_multilingual_v2",
+      name: "Sarah (Multilingual V2)",
+      gender: "Female",
+      language: "English (United States)",
+      priceTier: "ultra-high",
+    },
+    {
+      provider: "azure",
+      voiceId: "en-US-JennyNeural",
+      model: "neural",
+      name: "Jenny (Neural)",
+      gender: "Female",
+      language: "English",
+      priceTier: "standard",
+    },
+    {
+      provider: "voicevox",
+      voiceId: "2",
+      model: "voicevox",
+      name: "Shikoku Metan (Normal)",
+      gender: "Female",
+      language: "Japanese",
+      priceTier: "free",
+    },
+  ],
+}
+
+const MOCK_IMAGE_DATA_URL =
+  "data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='960' height='640' viewBox='0 0 960 640'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%232b3149'/%3E%3Cstop offset='1' stop-color='%23121825'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='960' height='640' fill='url(%23g)'/%3E%3Ccircle cx='720' cy='190' r='100' fill='%238bd3a8' opacity='.78'/%3E%3Cpath d='M120 500 Q330 220 500 500 T900 500' fill='none' stroke='%239ba8ff' stroke-width='28' stroke-linecap='round'/%3E%3Ctext x='70' y='105' fill='%23f4f4f5' font-family='sans-serif' font-size='42' font-weight='700'%3EA memorable scene for 食べる%3C/text%3E%3C/svg%3E"
+
+const MOCK_AUDIO_DATA_URL =
+  "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA="
 
 const MOCK_SELECTIONS: Record<string, Selection> = {
   selected: {
@@ -215,7 +286,12 @@ export const setMockFixture = (fixture: string): void => {
     state,
     catalog: MOCK_CATALOG,
     selection:
-      MOCK_SELECTIONS[bootOptions.selection] ?? MOCK_SELECTIONS.selected,
+      bootOptions.tryState === "empty"
+        ? MOCK_SELECTIONS.none
+        : bootOptions.tryState === "picked" || bootOptions.tryState === "result"
+          ? MOCK_SELECTIONS.selected
+          : (MOCK_SELECTIONS[bootOptions.selection] ??
+            MOCK_SELECTIONS.selected),
     connection: fixture === "reconnecting" ? "reconnecting" : "connected",
   })
 }
@@ -230,6 +306,8 @@ export const sendMockCommand: CommandSender = async <Result = void>(
   command: CommandName,
   payload: object,
 ): Promise<Result> => {
+  if (command === "ui.openBrowser") return undefined as Result
+
   const state = useAppStore.getState().state
   if (state === null) return undefined as Result
   const commandPayload = payload as Record<string, unknown>
@@ -240,6 +318,14 @@ export const sendMockCommand: CommandSender = async <Result = void>(
     } as Result
   }
 
+  if (command === "images.test") {
+    return { dataUrl: MOCK_IMAGE_DATA_URL } as Result
+  }
+
+  if (command === "tts.test" || command === "tts.preview") {
+    return { dataUrl: MOCK_AUDIO_DATA_URL } as Result
+  }
+
   if (command === "defaults.chat.save") {
     useAppStore.setState({
       state: {
@@ -247,6 +333,32 @@ export const sendMockCommand: CommandSender = async <Result = void>(
         defaults: {
           ...state.defaults,
           chat: commandPayload as unknown as AppState["defaults"]["chat"],
+        },
+      },
+    })
+    return undefined as Result
+  }
+
+  if (command === "defaults.image.save") {
+    useAppStore.setState({
+      state: {
+        ...state,
+        defaults: {
+          ...state.defaults,
+          image: commandPayload as unknown as AppState["defaults"]["image"],
+        },
+      },
+    })
+    return undefined as Result
+  }
+
+  if (command === "defaults.tts.save") {
+    useAppStore.setState({
+      state: {
+        ...state,
+        defaults: {
+          ...state.defaults,
+          tts: commandPayload as unknown as AppState["defaults"]["tts"],
         },
       },
     })

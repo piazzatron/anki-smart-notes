@@ -19,36 +19,64 @@
 
 import { useState } from "react"
 
-import { testTextPrompt } from "@/services/commands"
 import { useAppStore } from "@/store/appStore"
-import type { ChatGenerationSettings } from "@/types/api"
+import type { SelectedNote, Selection } from "@/types/api"
 
-interface PromptTestResult {
+interface PromptTestResult<R> {
   cardId: number
   latencyMs: number
-  model: string
-  text: string
+  prompt: string
+  value: R
 }
 
-interface PromptTesterState {
+interface PromptTesterState<R> {
   error: string | null
   isTesting: boolean
   prompt: string
-  result: PromptTestResult | null
+  result: PromptTestResult<R> | null
 }
 
-export const getVisiblePromptTestResult = (
-  result: PromptTestResult | null,
-  selectedCardId: number | null,
-): PromptTestResult | null =>
-  result?.cardId === selectedCardId ? result : null
+interface UsePromptTesterArgs<R> {
+  fallbackError: string
+  initialPrompt: string
+  run: (args: { cardId: number; prompt: string }) => Promise<R>
+}
 
-export const usePromptTester = (settings: ChatGenerationSettings) => {
+export interface PromptTesterControls<R> {
+  dismissError: () => void
+  error: string | null
+  isTesting: boolean
+  prompt: string
+  result: Omit<PromptTestResult<R>, "cardId"> | null
+  runTest: () => Promise<void>
+  selection: Selection | null
+  selectedNote: SelectedNote | null
+  setPrompt: (prompt: string) => void
+}
+
+export const getVisiblePromptTestResult = <R>(
+  result: PromptTestResult<R> | null,
+  selectedCardId: number | null,
+): Omit<PromptTestResult<R>, "cardId"> | null => {
+  if (result?.cardId !== selectedCardId) return null
+
+  return {
+    latencyMs: result.latencyMs,
+    prompt: result.prompt,
+    value: result.value,
+  }
+}
+
+export const usePromptTester = <R>({
+  fallbackError,
+  initialPrompt,
+  run,
+}: UsePromptTesterArgs<R>): PromptTesterControls<R> => {
   const selection = useAppStore((store) => store.selection)
-  const [tester, setTester] = useState<PromptTesterState>({
+  const [tester, setTester] = useState<PromptTesterState<R>>({
     error: null,
     isTesting: false,
-    prompt: "Translate {{Expression}} into natural English.",
+    prompt: initialPrompt,
     result: null,
   })
   const selectedNote = selection?.note ?? null
@@ -56,32 +84,28 @@ export const usePromptTester = (settings: ChatGenerationSettings) => {
     tester.result,
     selectedNote?.cardId ?? null,
   )
-  const patchTester = (updates: Partial<PromptTesterState>) =>
+  const patchTester = (updates: Partial<PromptTesterState<R>>) =>
     setTester((current) => ({ ...current, ...updates }))
 
   const runTest = async () => {
     if (selectedNote === null) return
 
+    const prompt = tester.prompt
     patchTester({ error: null, isTesting: true })
     const startedAt = performance.now()
     try {
-      const result = await testTextPrompt({
-        cardId: selectedNote.cardId,
-        prompt: tester.prompt,
-        settings,
-      })
+      const value = await run({ cardId: selectedNote.cardId, prompt })
       patchTester({
         result: {
           cardId: selectedNote.cardId,
           latencyMs: Math.max(1, Math.round(performance.now() - startedAt)),
-          model: settings.model,
-          text: result.text,
+          prompt,
+          value,
         },
       })
     } catch (error) {
       patchTester({
-        error:
-          error instanceof Error ? error.message : "Could not test this prompt",
+        error: error instanceof Error ? error.message : fallbackError,
       })
     } finally {
       patchTester({ isTesting: false })

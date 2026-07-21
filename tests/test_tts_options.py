@@ -89,10 +89,10 @@ def _sample_voices() -> list[TTSMeta]:
         cast(
             TTSMeta,
             {
-                "tts_provider": "openai",
-                "voice": "alloy",
+                "provider": "openai",
+                "voice_id": "alloy",
                 "model": "gpt-4o-mini-tts",
-                "friendly_voice": "Alloy (4o-mini)",
+                "name": "Alloy (4o-mini)",
                 "gender": "Female",
                 "language": "All",
                 "price_tier": "standard",
@@ -101,10 +101,10 @@ def _sample_voices() -> list[TTSMeta]:
         cast(
             TTSMeta,
             {
-                "tts_provider": "google",
-                "voice": "en-US-Standard-C",
+                "provider": "google",
+                "voice_id": "en-US-Standard-C",
                 "model": "standard",
-                "friendly_voice": "English - Female (Standard)",
+                "name": "English - Female (Standard)",
                 "gender": "Female",
                 "language": "English",
                 "price_tier": "low",
@@ -113,10 +113,10 @@ def _sample_voices() -> list[TTSMeta]:
         cast(
             TTSMeta,
             {
-                "tts_provider": "elevenLabs",
-                "voice": "EXAVITQu4vr4xnSDxMaL",
+                "provider": "elevenLabs",
+                "voice_id": "EXAVITQu4vr4xnSDxMaL",
                 "model": "eleven_multilingual_v2",
-                "friendly_voice": "Sarah (Multilingual V2)",
+                "name": "Sarah (Multilingual V2)",
                 "gender": "Female",
                 "language": "English (United States)",
                 "price_tier": "ultra-high",
@@ -125,10 +125,10 @@ def _sample_voices() -> list[TTSMeta]:
         cast(
             TTSMeta,
             {
-                "tts_provider": "azure",
-                "voice": "en-US-JennyNeural",
+                "provider": "azure",
+                "voice_id": "en-US-JennyNeural",
                 "model": "neural",
-                "friendly_voice": "Jenny (Neural)",
+                "name": "Jenny (Neural)",
                 "gender": "Female",
                 "language": "English",
                 "price_tier": "standard",
@@ -137,10 +137,10 @@ def _sample_voices() -> list[TTSMeta]:
         cast(
             TTSMeta,
             {
-                "tts_provider": "voicevox",
-                "voice": "2",
+                "provider": "voicevox",
+                "voice_id": "2",
                 "model": "voicevox",
-                "friendly_voice": "Shikoku Metan (Normal)",
+                "name": "Shikoku Metan (Normal)",
                 "gender": "Female",
                 "language": "Japanese",
                 "price_tier": "free",

@@ -19,7 +19,11 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 from typing import Optional
 
-from aqt import QFont, QFormLayout, QMessageBox, QPushButton, Qt
+from aqt import QFont, QFormLayout, QMessageBox, QPushButton, Qt, dialogs, mw
+
+
+def open_anki_browser() -> None:
+    dialogs.open("Browser", mw)
 
 
 def show_message_box(

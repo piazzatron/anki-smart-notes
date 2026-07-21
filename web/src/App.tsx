@@ -2,8 +2,10 @@ import { lazy, Suspense, useState, type ComponentType } from "react"
 
 import { AppShell } from "@/components/shared/AppShell"
 import { PlaceholderScreen } from "@/components/shared/PlaceholderScreen"
+import { ImageDefaultsScreen } from "@/features/image-defaults/ImageDefaultsScreen"
 import { SmartFieldsScreen } from "@/features/smart-fields/SmartFieldsScreen"
 import { TextDefaultsScreen } from "@/features/text-defaults/TextDefaultsScreen"
+import { VoiceDefaultsScreen } from "@/features/voice-defaults/VoiceDefaultsScreen"
 import { bootOptions, type ScreenId } from "@/lib/boot"
 import { useAppStore } from "@/store/appStore"
 import type { AccountState } from "@/types/api"
@@ -26,6 +28,8 @@ const SmartFieldsRoute = () => {
 const SCREENS: Partial<Record<ScreenId, ComponentType<ScreenProps>>> = {
   fields: SmartFieldsRoute,
   "defaults-text": TextDefaultsScreen,
+  "defaults-images": ImageDefaultsScreen,
+  "defaults-voice": VoiceDefaultsScreen,
 }
 
 const App = () => {

@@ -56,7 +56,7 @@ GENERATION_DEFAULTS = GenerationDefaults(
         web_search_enabled=False,
     ),
     tts=TTSGenerationSettings(provider="openai", model="tts-1", voice_id="alloy"),
-    image=ImageGenerationSettings(provider="replicate", model="flux-schnell"),
+    image=ImageGenerationSettings(provider="replicate", model="flux-dev"),
 )
 
 
@@ -191,7 +191,7 @@ def test_build_state_shape():
             "webSearchEnabled": False,
         },
         "tts": {"provider": "openai", "model": "tts-1", "voiceId": "alloy"},
-        "image": {"provider": "replicate", "model": "flux-schnell"},
+        "image": {"provider": "replicate", "model": "flux-dev"},
     }
     assert state["smartFields"] == [
         {
@@ -463,7 +463,7 @@ def test_parse_generation_defaults_round_trips():
                 "webSearchEnabled": False,
             },
             "tts": {"provider": "openai", "model": "tts-1", "voiceId": "alloy"},
-            "image": {"provider": "replicate", "model": "flux-schnell"},
+            "image": {"provider": "replicate", "model": "flux-dev"},
         }
     )
     assert parsed == GENERATION_DEFAULTS
@@ -507,6 +507,69 @@ def test_parse_text_prompt_test_rejects_model_provider_mismatch():
                 },
             }
         )
+
+
+def test_parse_image_prompt_test_validates_settings():
+    parsed = dto.parse_image_prompt_test(
+        {
+            "cardId": 99,
+            "prompt": "Illustrate {{Front}}",
+            "settings": {"provider": "openai", "model": "gpt-image-1.5-low"},
+        }
+    )
+
+    assert parsed.card_id == 99
+    assert parsed.prompt == "Illustrate {{Front}}"
+    assert parsed.settings == ImageGenerationSettings(
+        provider="openai", model="gpt-image-1.5-low"
+    )
+
+
+def test_parse_tts_prompt_test_requires_known_voice_combination():
+    parsed = dto.parse_tts_prompt_test(
+        {
+            "cardId": 99,
+            "text": "{{Front}}",
+            "settings": {
+                "provider": "openai",
+                "model": "tts-1",
+                "voiceId": "alloy",
+            },
+        }
+    )
+
+    assert parsed.card_id == 99
+    assert parsed.settings == TTSGenerationSettings(
+        provider="openai", model="tts-1", voice_id="alloy"
+    )
+
+    with pytest.raises(ValueError, match="Unknown provider, model, and voice"):
+        dto.parse_tts_preview(
+            {
+                "text": "Hello",
+                "settings": {
+                    "provider": "openai",
+                    "model": "tts-1",
+                    "voiceId": "missing",
+                },
+            }
+        )
+
+
+def test_build_voice_catalog_uses_wire_names():
+    catalog = dto.build_voice_catalog()
+
+    assert catalog["schemaVersion"] == dto.SCHEMA_VERSION
+    assert catalog["voices"]
+    assert set(catalog["voices"][0]) == {
+        "provider",
+        "voiceId",
+        "model",
+        "name",
+        "gender",
+        "language",
+        "priceTier",
+    }
 
 
 # -- republish_state --
@@ -604,6 +667,7 @@ def test_browser_selection_counts_selected_rows(monkeypatch):
 async def test_text_prompt_service_refetches_card_and_runs_without_writing(monkeypatch):
     from src.services import prompt_test_service
 
+    monkeypatch.setattr(prompt_test_service, "is_capacity_remaining", lambda: True)
     note = MockNote({"Front": "dog"}, note_id=42)
     card = MockCard(id=99, did=7, note=note)
     request = dto.parse_text_prompt_test(
@@ -644,3 +708,83 @@ async def test_text_prompt_service_refetches_card_and_runs_without_writing(monke
     assert get_chat_response.call_args.kwargs["generation_source"] == "prompt_test"
     assert get_chat_response.call_args.kwargs["should_convert_to_html"] is False
     assert get_chat_response.call_args.kwargs["should_embed_images"] is False
+
+
+@pytest.mark.asyncio
+async def test_image_prompt_service_returns_data_url_without_writing(monkeypatch):
+    from src.services import prompt_test_service
+
+    monkeypatch.setattr(prompt_test_service, "is_capacity_remaining", lambda: True)
+    note = MockNote({"Front": "dog"}, note_id=42)
+    card = MockCard(id=99, did=7, note=note)
+    request = dto.parse_image_prompt_test(
+        {
+            "cardId": 99,
+            "prompt": "Illustrate {{Front}}",
+            "settings": {"provider": "openai", "model": "gpt-image-1.5-low"},
+        }
+    )
+    monkeypatch.setattr(
+        prompt_test_service,
+        "mw",
+        SimpleNamespace(col=SimpleNamespace(get_card=lambda card_id: card)),
+    )
+
+    async def fake_get_image_response(**kwargs):
+        assert kwargs["note"] is note
+        assert kwargs["show_error_box"] is False
+        return {"data": b"image", "content_type": "image/png"}
+
+    monkeypatch.setattr(
+        prompt_test_service.field_resolver,
+        "get_image_response",
+        fake_get_image_response,
+    )
+
+    result = await prompt_test_service.run_image_prompt_test(
+        prompt_test_service.prepare_image_prompt_test(request)
+    )
+
+    assert result == {"dataUrl": "data:image/png;base64,aW1hZ2U="}
+
+
+@pytest.mark.asyncio
+async def test_tts_prompt_service_returns_audio_data_url_without_writing(monkeypatch):
+    from src.services import prompt_test_service
+
+    monkeypatch.setattr(prompt_test_service, "is_capacity_remaining", lambda: True)
+    note = MockNote({"Front": "dog"}, note_id=42)
+    card = MockCard(id=99, did=7, note=note)
+    request = dto.parse_tts_prompt_test(
+        {
+            "cardId": 99,
+            "text": "{{Front}}",
+            "settings": {
+                "provider": "openai",
+                "model": "tts-1",
+                "voiceId": "alloy",
+            },
+        }
+    )
+    monkeypatch.setattr(
+        prompt_test_service,
+        "mw",
+        SimpleNamespace(col=SimpleNamespace(get_card=lambda card_id: card)),
+    )
+
+    async def fake_get_tts_response(**kwargs):
+        assert kwargs["note"] is note
+        assert kwargs["show_error_box"] is False
+        return b"audio"
+
+    monkeypatch.setattr(
+        prompt_test_service.field_resolver,
+        "get_tts_response",
+        fake_get_tts_response,
+    )
+
+    result = await prompt_test_service.run_tts_prompt_test(
+        prompt_test_service.prepare_tts_prompt_test(request)
+    )
+
+    assert result == {"dataUrl": "data:audio/mpeg;base64,YXVkaW8="}

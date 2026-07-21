@@ -164,6 +164,21 @@ export interface Catalog {
   image: ImageModelCatalog
 }
 
+export interface VoiceCatalogItem {
+  provider: string
+  voiceId: string
+  model: string
+  name: string
+  gender: "Male" | "Female" | "All"
+  language: string
+  priceTier: "free" | "low" | "standard" | "high" | "ultra-high"
+}
+
+export interface VoiceCatalog {
+  schemaVersion: number
+  voices: VoiceCatalogItem[]
+}
+
 export interface SelectedNote {
   cardId: number
   id: number
@@ -179,7 +194,13 @@ export type CommandName =
   | "smartFields.delete"
   | "defaults.save"
   | "defaults.chat.save"
+  | "defaults.image.save"
+  | "defaults.tts.save"
   | "prompts.test"
+  | "images.test"
+  | "tts.test"
+  | "tts.preview"
+  | "ui.openBrowser"
 
 export type SmartFieldSavePayload =
   | Omit<Extract<SmartField, { fieldType: "chat" }>, "id">
@@ -195,6 +216,8 @@ export interface SmartFieldDeletePayload {
 export type GenerationDefaultsSavePayload = GenerationDefaults
 
 export type ChatDefaultsSavePayload = ChatGenerationSettings
+export type ImageDefaultsSavePayload = ImageGenerationSettings
+export type TTSDefaultsSavePayload = TTSGenerationSettings
 
 export interface TextPromptTestArgs {
   cardId: number
@@ -205,6 +228,29 @@ export interface TextPromptTestArgs {
 export interface TextPromptTestResult {
   text: string
 }
+
+export interface ImagePromptTestArgs {
+  cardId: number
+  prompt: string
+  settings: ImageGenerationSettings
+}
+
+export interface TTSPromptTestArgs {
+  cardId: number
+  text: string
+  settings: TTSGenerationSettings
+}
+
+export interface TTSPreviewArgs {
+  text: string
+  settings: TTSGenerationSettings
+}
+
+export interface MediaTestResult {
+  dataUrl: string
+}
+
+export type UiOpenBrowserPayload = Record<string, never>
 
 export interface CommandResponse {
   ok: boolean

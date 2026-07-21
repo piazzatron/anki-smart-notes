@@ -24,12 +24,14 @@ interface BootOptions {
   mock: boolean
   fixture: string
   selection: string
+  tryState: "empty" | "picked" | "result" | null
   token: string
 }
 
 const readBootOptions = (): BootOptions => {
   const params = new URLSearchParams(window.location.search)
   const requestedScreen = params.get("screen")
+  const requestedTryState = params.get("try")
 
   return {
     screen:
@@ -39,6 +41,12 @@ const readBootOptions = (): BootOptions => {
     mock: import.meta.env.DEV && params.get("mock") === "1",
     fixture: params.get("fixture") ?? "populated",
     selection: params.get("selection") ?? "selected",
+    tryState:
+      requestedTryState === "empty" ||
+      requestedTryState === "picked" ||
+      requestedTryState === "result"
+        ? requestedTryState
+        : null,
     token: params.get("token") ?? "",
   }
 }

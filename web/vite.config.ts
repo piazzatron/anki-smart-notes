@@ -25,6 +25,10 @@ export default defineConfig({
       // Dev: the app runs on the Vite server but talks to the plugin's local
       // server. changeOrigin satisfies its localhost Host check.
       "/api": { target: "http://127.0.0.1:8766", changeOrigin: true },
+      "/app/voice-catalog.json": {
+        target: "http://127.0.0.1:8766",
+        changeOrigin: true,
+      },
     },
   },
 })

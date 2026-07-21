@@ -17,34 +17,43 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { modelLabel } from "@/lib/catalog"
-import { testTextPrompt } from "@/services/commands"
-import type { ChatGenerationSettings } from "@/types/api"
+import { testTTSPrompt } from "@/services/commands"
+import type { TTSGenerationSettings } from "@/types/api"
 
+import { AudioPlayer } from "./AudioPlayer"
 import { PromptTesterPanel, ResolvedPrompt } from "./PromptTesterPanel"
 import { usePromptTester } from "./usePromptTester"
 
-interface PromptTesterProps {
-  settings: ChatGenerationSettings
+interface VoicePromptTesterProps {
+  settings: TTSGenerationSettings
+  voiceName: string
 }
 
-export const PromptTester = ({ settings }: PromptTesterProps) => {
+export const VoicePromptTester = ({
+  settings,
+  voiceName,
+}: VoicePromptTesterProps) => {
   const tester = usePromptTester({
-    fallbackError: "Could not test this prompt",
-    initialPrompt: "Translate {{Expression}} into natural English.",
-    run: ({ cardId, prompt }) => testTextPrompt({ cardId, prompt, settings }),
+    fallbackError: "Could not generate audio",
+    initialPrompt: "{{Expression}}",
+    run: ({ cardId, prompt }) =>
+      testTTSPrompt({ cardId, settings, text: prompt }),
   })
 
   return (
     <PromptTesterPanel
-      promptLabel="Prompt"
-      runLabel={`Run with ${modelLabel(settings.model)}`}
-      runningLabel="Running…"
-      subtitle="Select a card in the Anki Browser, then run your prompt against it to test the selected model."
+      promptLabel="Text to speak"
+      runLabel={`Run with ${voiceName}`}
+      runningLabel="Generating…"
+      subtitle="Select a card in the Anki Browser, then hear the selected voice read it."
       tester={tester}
-      textareaId="text-prompt-tester-prompt"
+      textareaId="voice-prompt-tester-text"
     >
-      {tester.result !== null && tester.selectedNote !== null && (
+      {tester.result === null || tester.selectedNote === null ? (
+        <div className="mt-[15px] rounded-lg border border-dashed border-white/[0.18] px-3 py-5 text-center text-[11px] text-ink-faint">
+          Your generated audio appears here
+        </div>
+      ) : (
         <div className="mt-[15px]">
           <p className="mb-2 text-[10px] font-semibold tracking-[0.05em] text-ink-faint uppercase">
             Result
@@ -53,12 +62,11 @@ export const PromptTester = ({ settings }: PromptTesterProps) => {
             note={tester.selectedNote}
             prompt={tester.result.prompt}
           />
-          <p className="rounded-[7px] border border-white/[0.06] bg-white/[0.03] px-3 py-2.5 text-xs leading-[1.55] whitespace-pre-wrap text-zinc-200">
-            {tester.result.value.text}
-          </p>
-          <p className="mt-[7px] text-[10.5px] text-ink-faint">
-            {modelLabel(settings.model)} · {tester.result.latencyMs}ms
-          </p>
+          <AudioPlayer
+            autoPlay
+            dataUrl={tester.result.value.dataUrl}
+            label={voiceName}
+          />
         </div>
       )}
     </PromptTesterPanel>

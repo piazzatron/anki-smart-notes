@@ -2,10 +2,17 @@ import type {
   ChatDefaultsSavePayload,
   CommandName,
   CommandResponse,
+  ImageDefaultsSavePayload,
+  ImagePromptTestArgs,
+  MediaTestResult,
   SmartField,
   SmartFieldDeletePayload,
   TextPromptTestArgs,
   TextPromptTestResult,
+  TTSDefaultsSavePayload,
+  TTSPromptTestArgs,
+  TTSPreviewArgs,
+  UiOpenBrowserPayload,
 } from "@/types/api"
 
 import { bootOptions } from "@/lib/boot"
@@ -49,10 +56,38 @@ export const saveChatDefaults = async (
   await sendCommand("defaults.chat.save", defaults)
 }
 
+export const saveImageDefaults = async (
+  defaults: ImageDefaultsSavePayload,
+): Promise<void> => {
+  await sendCommand("defaults.image.save", defaults)
+}
+
+export const saveTTSDefaults = async (
+  defaults: TTSDefaultsSavePayload,
+): Promise<void> => {
+  await sendCommand("defaults.tts.save", defaults)
+}
+
 export const testTextPrompt = async (
   args: TextPromptTestArgs,
 ): Promise<TextPromptTestResult> =>
   sendCommand<TextPromptTestResult>("prompts.test", args)
+
+export const testImagePrompt = async (
+  args: ImagePromptTestArgs,
+): Promise<MediaTestResult> => sendCommand<MediaTestResult>("images.test", args)
+
+export const testTTSPrompt = async (
+  args: TTSPromptTestArgs,
+): Promise<MediaTestResult> => sendCommand<MediaTestResult>("tts.test", args)
+
+export const previewTTSVoice = async (
+  args: TTSPreviewArgs,
+): Promise<MediaTestResult> => sendCommand<MediaTestResult>("tts.preview", args)
+
+export const openAnkiBrowser = async (): Promise<void> => {
+  await sendCommand("ui.openBrowser", {} satisfies UiOpenBrowserPayload)
+}
 
 async function sendCommandToAnki<Result = void>(
   command: CommandName,

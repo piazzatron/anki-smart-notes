@@ -17,15 +17,24 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import base64
 from dataclasses import dataclass
 
+from anki.cards import CardId
 from anki.decks import DeckId
 from anki.errors import NotFoundError
 from anki.notes import Note
 from aqt import mw
 
+from ..app_state import is_capacity_remaining
 from ..field_resolver import field_resolver
-from ..models.smart_fields import TextPromptTestRequest
+from ..models.smart_fields import (
+    ImagePromptTestRequest,
+    TextPromptTestRequest,
+    TTSPreviewRequest,
+    TTSPromptTestRequest,
+)
+from ..tts_provider import tts_provider
 
 
 @dataclass(frozen=True)
@@ -35,6 +44,22 @@ class TextPromptTestContext:
     note: Note
     deck_id: DeckId
     request: TextPromptTestRequest
+
+
+@dataclass(frozen=True)
+class ImagePromptTestContext:
+    """Card data captured on Anki's main thread for an async image test."""
+
+    note: Note
+    request: ImagePromptTestRequest
+
+
+@dataclass(frozen=True)
+class TTSPromptTestContext:
+    """Card data captured on Anki's main thread for an async voice test."""
+
+    note: Note
+    request: TTSPromptTestRequest
 
 
 def prepare_text_prompt_test(request: TextPromptTestRequest) -> TextPromptTestContext:
@@ -54,8 +79,24 @@ def prepare_text_prompt_test(request: TextPromptTestRequest) -> TextPromptTestCo
     )
 
 
+def prepare_image_prompt_test(
+    request: ImagePromptTestRequest,
+) -> ImagePromptTestContext:
+    return ImagePromptTestContext(
+        note=_get_selected_card_note(request.card_id), request=request
+    )
+
+
+def prepare_tts_prompt_test(request: TTSPromptTestRequest) -> TTSPromptTestContext:
+    return TTSPromptTestContext(
+        note=_get_selected_card_note(request.card_id), request=request
+    )
+
+
 async def run_text_prompt_test(context: TextPromptTestContext) -> dict[str, str]:
     """Generate a text preview without writing anything back to the card."""
+    if not is_capacity_remaining():
+        raise ValueError("Generation is unavailable for this account")
     settings = context.request.settings
     text = await field_resolver.get_chat_response(
         note=context.note,
@@ -75,3 +116,74 @@ async def run_text_prompt_test(context: TextPromptTestContext) -> dict[str, str]
         raise ValueError("No response received")
 
     return {"text": text}
+
+
+async def run_image_prompt_test(context: ImagePromptTestContext) -> dict[str, str]:
+    """Generate an image preview without adding media or changing the card."""
+    if not is_capacity_remaining():
+        raise ValueError("Generation is unavailable for this account")
+    settings = context.request.settings
+    response = await field_resolver.get_image_response(
+        note=context.note,
+        input_text=context.request.prompt,
+        model=settings.model,
+        provider=settings.provider,
+        show_error_box=False,
+        generation_source="prompt_test",
+    )
+    if not response:
+        raise ValueError("No response received")
+    return {"dataUrl": _data_url(response["data"], response["content_type"])}
+
+
+async def run_tts_prompt_test(context: TTSPromptTestContext) -> dict[str, str]:
+    """Generate an audio preview without adding media or changing the card."""
+    if not is_capacity_remaining():
+        raise ValueError("Generation is unavailable for this account")
+    settings = context.request.settings
+    audio = await field_resolver.get_tts_response(
+        note=context.note,
+        input_text=context.request.text,
+        model=settings.model,
+        provider=settings.provider,
+        voice=settings.voice_id,
+        show_error_box=False,
+        generation_source="prompt_test",
+    )
+    if not audio:
+        raise ValueError("No response received")
+    return {"dataUrl": _data_url(audio, _tts_content_type(settings.provider))}
+
+
+async def run_tts_preview(request: TTSPreviewRequest) -> dict[str, str]:
+    """Generate a short catalog preview for one voice."""
+    if not is_capacity_remaining():
+        raise ValueError("Generation is unavailable for this account")
+    settings = request.settings
+    audio = await tts_provider.async_get_tts_response(
+        input=request.text,
+        model=settings.model,
+        provider=settings.provider,
+        voice=settings.voice_id,
+        generation_source="prompt_test",
+    )
+    if not audio:
+        raise ValueError("No response received")
+    return {"dataUrl": _data_url(audio, _tts_content_type(settings.provider))}
+
+
+def _get_selected_card_note(card_id: CardId) -> Note:
+    if not mw or not mw.col:
+        raise ValueError("Anki collection is not available")
+    try:
+        return mw.col.get_card(card_id).note()
+    except NotFoundError as error:
+        raise ValueError("The selected card no longer exists") from error
+
+
+def _data_url(data: bytes, content_type: str) -> str:
+    return f"data:{content_type};base64,{base64.b64encode(data).decode('ascii')}"
+
+
+def _tts_content_type(provider: str) -> str:
+    return "audio/wav" if provider == "voicevox" else "audio/mpeg"

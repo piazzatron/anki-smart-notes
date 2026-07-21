@@ -43,6 +43,7 @@ def _make_app(server=None):
     app.router.add_options("/ping", server._handle_ping_preflight)
     app.router.add_get("/api/events", server._handle_events)
     app.router.add_post("/api/command", server._handle_command)
+    app.router.add_get("/app/voice-catalog.json", server._handle_voice_catalog)
     return app
 
 
@@ -470,6 +471,37 @@ async def test_save_chat_defaults_only_updates_chat(monkeypatch):
 
 
 @pytest.mark.asyncio
+@pytest.mark.parametrize(
+    ("command", "parser", "service_method"),
+    [
+        (
+            "defaults.image.save",
+            "parse_image_generation_settings",
+            "save_image_defaults",
+        ),
+        ("defaults.tts.save", "parse_tts_generation_settings", "save_tts_defaults"),
+    ],
+)
+async def test_modality_default_commands_only_update_their_setting(
+    monkeypatch, command, parser, service_method
+):
+    fake_service, fake_dto = _patch_command_route_deps(monkeypatch)
+    parsed = object()
+    getattr(fake_dto, parser).return_value = parsed
+
+    server = _make_server()
+    async with TestClient(TestServer(_make_app(server))) as client:
+        resp = await client.post(
+            "/api/command",
+            json=_command_request(command, {"provider": "provider"}),
+            headers={"X-Session-Token": server.session_token},
+        )
+
+        assert resp.status == 200
+        getattr(fake_service, service_method).assert_called_once_with(parsed)
+
+
+@pytest.mark.asyncio
 async def test_prompt_test_command_returns_ephemeral_result(monkeypatch):
     import src.local_server
 
@@ -502,3 +534,76 @@ async def test_prompt_test_command_returns_ephemeral_result(monkeypatch):
             "ok": True,
             "result": {"text": "A domesticated canine"},
         }
+
+
+@pytest.mark.asyncio
+async def test_image_test_command_returns_ephemeral_result(monkeypatch):
+    import src.local_server
+
+    request = object()
+    context = object()
+    monkeypatch.setattr(
+        src.local_server.dto, "parse_image_prompt_test", lambda _: request
+    )
+    monkeypatch.setattr(
+        src.local_server, "prepare_image_prompt_test", lambda parsed: context
+    )
+
+    async def run_image_prompt_test(prepared):
+        assert prepared is context
+        return {"dataUrl": "data:image/png;base64,aW1hZ2U="}
+
+    monkeypatch.setattr(
+        src.local_server, "run_image_prompt_test", run_image_prompt_test
+    )
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+
+    server = _make_server()
+    async with TestClient(TestServer(_make_app(server))) as client:
+        resp = await client.post(
+            "/api/command",
+            json=_command_request("images.test", {"cardId": 99}),
+            headers={"X-Session-Token": server.session_token},
+        )
+
+        assert resp.status == 200
+        assert (await resp.json())["result"]["dataUrl"].startswith("data:image/")
+
+
+@pytest.mark.asyncio
+async def test_voice_catalog_is_available_without_api_token(monkeypatch):
+    import src.local_server
+
+    monkeypatch.setattr(
+        src.local_server.dto,
+        "build_voice_catalog",
+        lambda: {"schemaVersion": 1, "voices": [{"name": "Alloy"}]},
+    )
+
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.get("/app/voice-catalog.json")
+
+        assert resp.status == 200
+        assert (await resp.json())["voices"] == [{"name": "Alloy"}]
+
+
+@pytest.mark.asyncio
+async def test_open_browser_command_dispatch(monkeypatch):
+    import src.local_server
+
+    _, fake_dto = _patch_command_route_deps(monkeypatch)
+    open_anki_browser = MagicMock()
+    monkeypatch.setattr(src.local_server, "open_anki_browser", open_anki_browser)
+
+    server = _make_server()
+    async with TestClient(TestServer(_make_app(server))) as client:
+        resp = await client.post(
+            "/api/command",
+            json=_command_request("ui.openBrowser", {}),
+            headers={"X-Session-Token": server.session_token},
+        )
+
+        assert resp.status == 200
+        assert (await resp.json()) == {"ok": True}
+        fake_dto.parse_ui_open_browser.assert_called_once_with({})
+        open_anki_browser.assert_called_once_with()

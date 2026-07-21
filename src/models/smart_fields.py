@@ -73,6 +73,32 @@ class TextPromptTestRequest:
 
 
 @dataclass(frozen=True)
+class ImagePromptTestRequest:
+    """Validated image prompt test intent from the web UI."""
+
+    card_id: CardId
+    prompt: str
+    settings: ImageGenerationSettings
+
+
+@dataclass(frozen=True)
+class TTSPromptTestRequest:
+    """Validated card-backed voice test intent from the web UI."""
+
+    card_id: CardId
+    text: str
+    settings: TTSGenerationSettings
+
+
+@dataclass(frozen=True)
+class TTSPreviewRequest:
+    """Validated standalone voice preview intent from the web UI."""
+
+    text: str
+    settings: TTSGenerationSettings
+
+
+@dataclass(frozen=True)
 class ChatSmartFieldSettings:
     prompt_text: str
     provider: ChatProviders

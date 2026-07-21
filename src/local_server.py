@@ -43,10 +43,16 @@ from .event_bus import (
 from .logger import logger
 from .sentry import sentry
 from .services.prompt_test_service import (
+    prepare_image_prompt_test,
     prepare_text_prompt_test,
+    prepare_tts_prompt_test,
+    run_image_prompt_test,
     run_text_prompt_test,
+    run_tts_preview,
+    run_tts_prompt_test,
 )
 from .services.smart_field_service import smart_field_service
+from .ui.ui_utils import open_anki_browser
 from .utils.notes_utils import get_note_types_with_fields
 from .web import dto
 
@@ -115,6 +121,7 @@ class LocalServer:
         app.router.add_options("/ping", self._handle_ping_preflight)
         app.router.add_get("/api/events", self._handle_events)
         app.router.add_post("/api/command", self._handle_command)
+        app.router.add_get("/app/voice-catalog.json", self._handle_voice_catalog)
         app.router.add_get("/app", self._handle_app_index)
         app.router.add_get("/app/", self._handle_app_index)
         if WEB_APP_STATIC_DIR.exists():
@@ -346,6 +353,9 @@ class LocalServer:
             )
         return web.FileResponse(index)
 
+    async def _handle_voice_catalog(self, request: web.Request) -> web.Response:
+        return web.json_response(dto.build_voice_catalog())
+
 
 # -- Command dispatch: wire payload → dto parse → service call. Each runner
 # must be called on the main thread; ValueError surfaces as a 400. The
@@ -374,6 +384,16 @@ def _run_save_chat_defaults(payload: dict[str, Any]) -> None:
     smart_field_service.save_chat_defaults(dto.parse_chat_generation_settings(payload))
 
 
+def _run_save_image_defaults(payload: dict[str, Any]) -> None:
+    smart_field_service.save_image_defaults(
+        dto.parse_image_generation_settings(payload)
+    )
+
+
+def _run_save_tts_defaults(payload: dict[str, Any]) -> None:
+    smart_field_service.save_tts_defaults(dto.parse_tts_generation_settings(payload))
+
+
 async def _run_test_prompt(payload: dict[str, Any]) -> dict[str, str]:
     request = dto.parse_text_prompt_test(payload)
     context = await asyncio.get_running_loop().run_in_executor(
@@ -383,6 +403,33 @@ async def _run_test_prompt(payload: dict[str, Any]) -> dict[str, str]:
     return await run_text_prompt_test(context)
 
 
+async def _run_test_image(payload: dict[str, Any]) -> dict[str, str]:
+    request = dto.parse_image_prompt_test(payload)
+    context = await asyncio.get_running_loop().run_in_executor(
+        None,
+        lambda: _run_on_main_sync(lambda: prepare_image_prompt_test(request)),
+    )
+    return await run_image_prompt_test(context)
+
+
+async def _run_test_tts(payload: dict[str, Any]) -> dict[str, str]:
+    request = dto.parse_tts_prompt_test(payload)
+    context = await asyncio.get_running_loop().run_in_executor(
+        None,
+        lambda: _run_on_main_sync(lambda: prepare_tts_prompt_test(request)),
+    )
+    return await run_tts_prompt_test(context)
+
+
+async def _run_preview_tts(payload: dict[str, Any]) -> dict[str, str]:
+    return await run_tts_preview(dto.parse_tts_preview(payload))
+
+
+def _run_open_browser(payload: dict[str, Any]) -> None:
+    dto.parse_ui_open_browser(payload)
+    open_anki_browser()
+
+
 # Command names are namespaced like event names (state, anki.*): the protocol
 # is typed messages in both directions over one channel each way.
 COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
@@ -390,5 +437,11 @@ COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
     "smartFields.delete": _run_delete_smart_field,
     "defaults.save": _run_save_defaults,
     "defaults.chat.save": _run_save_chat_defaults,
+    "defaults.image.save": _run_save_image_defaults,
+    "defaults.tts.save": _run_save_tts_defaults,
     "prompts.test": _run_test_prompt,
+    "images.test": _run_test_image,
+    "tts.test": _run_test_tts,
+    "tts.preview": _run_preview_tts,
+    "ui.openBrowser": _run_open_browser,
 }

@@ -46,14 +46,18 @@ from ..models.smart_fields import (
     ChatSmartFieldSettings,
     GenerationDefaults,
     ImageGenerationSettings,
+    ImagePromptTestRequest,
     ImageSmartFieldSettings,
     SmartField,
     SmartFieldCreate,
     SmartFieldSettings,
     TextPromptTestRequest,
     TTSGenerationSettings,
+    TTSPreviewRequest,
+    TTSPromptTestRequest,
     TTSSmartFieldSettings,
 )
+from ..voice_catalog import VoiceGender, VoicePriceTier, get_voice_catalog
 
 if TYPE_CHECKING:
     from anki.notes import Note
@@ -140,6 +144,25 @@ def build_catalog() -> dict[str, Any]:
             ],
         },
     }
+
+
+def build_voice_catalog() -> VoiceCatalogDto:
+    """Large, static voice reference loaded lazily by the voice screen."""
+    return VoiceCatalogDto(
+        schemaVersion=SCHEMA_VERSION,
+        voices=[
+            VoiceCatalogItemDto(
+                provider=voice["provider"],
+                voiceId=voice["voice_id"],
+                model=voice["model"],
+                name=voice["name"],
+                gender=voice["gender"],
+                language=voice["language"],
+                priceTier=voice["price_tier"],
+            )
+            for voice in get_voice_catalog()
+        ],
+    )
 
 
 def build_selection_changed(
@@ -230,15 +253,8 @@ def parse_generation_defaults(payload: dict[str, Any]) -> GenerationDefaults:
     image = _require(payload, "image")
     return GenerationDefaults(
         chat=parse_chat_generation_settings(chat),
-        tts=TTSGenerationSettings(
-            provider=cast(TTSProviders, _require(tts, "provider")),
-            model=cast(TTSModels, _require(tts, "model")),
-            voice_id=_require(tts, "voiceId"),
-        ),
-        image=ImageGenerationSettings(
-            provider=cast(ImageProviders, _require(image, "provider")),
-            model=cast(ImageModels, _require(image, "model")),
-        ),
+        tts=parse_tts_generation_settings(tts),
+        image=parse_image_generation_settings(image),
     )
 
 
@@ -259,6 +275,34 @@ def parse_text_prompt_test(payload: dict[str, Any]) -> TextPromptTestRequest:
         prompt=prompt,
         settings=parse_chat_generation_settings(settings),
     )
+
+
+def parse_image_prompt_test(payload: dict[str, Any]) -> ImagePromptTestRequest:
+    return ImagePromptTestRequest(
+        card_id=_parse_card_id(payload),
+        prompt=_parse_non_empty_string(payload, "prompt"),
+        settings=parse_image_generation_settings(_require_object(payload, "settings")),
+    )
+
+
+def parse_tts_prompt_test(payload: dict[str, Any]) -> TTSPromptTestRequest:
+    return TTSPromptTestRequest(
+        card_id=_parse_card_id(payload),
+        text=_parse_non_empty_string(payload, "text"),
+        settings=parse_tts_generation_settings(_require_object(payload, "settings")),
+    )
+
+
+def parse_tts_preview(payload: dict[str, Any]) -> TTSPreviewRequest:
+    return TTSPreviewRequest(
+        text=_parse_non_empty_string(payload, "text"),
+        settings=parse_tts_generation_settings(_require_object(payload, "settings")),
+    )
+
+
+def parse_ui_open_browser(payload: object) -> None:
+    if not isinstance(payload, dict) or payload:
+        raise ValueError("ui.openBrowser payload must be an empty object")
 
 
 @dataclass(frozen=True)
@@ -365,6 +409,21 @@ class StateDto(TypedDict):
     defaults: GenerationDefaultsDto
 
 
+class VoiceCatalogDto(TypedDict):
+    schemaVersion: Literal[1]
+    voices: list[VoiceCatalogItemDto]
+
+
+class VoiceCatalogItemDto(TypedDict):
+    provider: TTSProviders
+    voiceId: str
+    model: str
+    name: str
+    gender: VoiceGender
+    language: str
+    priceTier: VoicePriceTier
+
+
 def _require(payload: dict[str, Any], key: str) -> Any:
     if key not in payload:
         raise ValueError(f"Missing required field: {key}")
@@ -392,6 +451,59 @@ def parse_chat_generation_settings(payload: dict[str, Any]) -> ChatGenerationSet
         reasoning_level=reasoning_level,
         web_search_enabled=web_search_enabled,
     )
+
+
+def parse_image_generation_settings(payload: dict[str, Any]) -> ImageGenerationSettings:
+    provider = _require(payload, "provider")
+    model = _require(payload, "model")
+    if not isinstance(provider, str) or provider not in image_provider_model_map:
+        raise ValueError(f"Unknown image provider: {provider}")
+    if not isinstance(model, str) or model not in image_provider_model_map[provider]:
+        raise ValueError(f"Model {model} is not available for provider {provider}")
+    return ImageGenerationSettings(provider=provider, model=model)
+
+
+def parse_tts_generation_settings(payload: dict[str, Any]) -> TTSGenerationSettings:
+    provider = _require(payload, "provider")
+    model = _require(payload, "model")
+    voice_id = _require(payload, "voiceId")
+    if not isinstance(provider, str) or not isinstance(model, str):
+        raise ValueError("Voice provider and model must be strings")
+    if not isinstance(voice_id, str) or not voice_id:
+        raise ValueError("voiceId must be a non-empty string")
+    if not any(
+        voice["provider"] == provider
+        and voice["model"] == model
+        and voice["voice_id"] == voice_id
+        for voice in get_voice_catalog()
+    ):
+        raise ValueError("Unknown provider, model, and voice combination")
+    return TTSGenerationSettings(
+        provider=cast(TTSProviders, provider),
+        model=cast(TTSModels, model),
+        voice_id=voice_id,
+    )
+
+
+def _parse_card_id(payload: dict[str, Any]) -> CardId:
+    card_id = _require(payload, "cardId")
+    if isinstance(card_id, bool) or not isinstance(card_id, int):
+        raise ValueError("cardId must be an integer")
+    return cast(CardId, card_id)
+
+
+def _parse_non_empty_string(payload: dict[str, Any], key: str) -> str:
+    value = _require(payload, key)
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"{key} must be a non-empty string")
+    return value
+
+
+def _require_object(payload: dict[str, Any], key: str) -> dict[str, Any]:
+    value = _require(payload, key)
+    if not isinstance(value, dict):
+        raise ValueError(f"{key} must be an object")
+    return value
 
 
 def _smart_field_dto(field: SmartField) -> SmartFieldDto:

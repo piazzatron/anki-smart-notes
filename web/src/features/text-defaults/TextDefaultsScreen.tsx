@@ -1,26 +1,24 @@
-import {
-  AlertCircle,
-  ChevronDown,
-  MessageSquareText,
-  Search,
-  X,
-  Zap,
-} from "lucide-react"
+import { AlertCircle, X } from "lucide-react"
 
 import { Button } from "@/components/ui/Button"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/Select"
+import { getDefaultUsage } from "@/features/defaults/defaultUsage"
+import { useDefaultsForm } from "@/features/defaults/useDefaultsForm"
 import { PromptTester } from "@/features/prompt-tester/PromptTester"
-import { modelLabel, providerLabel } from "@/lib/catalog"
+import { modelCostLabel, modelLabel, providerLabel } from "@/lib/catalog"
+import { saveChatDefaults } from "@/services/commands"
 import { useAppStore } from "@/store/appStore"
 import type { AppState, Catalog } from "@/types/api"
 
-import { getProviderForModel, getTextDefaultUsage } from "./textDefaults"
-import { useTextDefaultsState } from "./useTextDefaultsState"
-
-const REASONING_LABELS: Record<string, string> = {
-  off: "Off",
-  low: "Low",
-  high: "High",
-}
+import { getProviderForModel } from "./textDefaults"
 
 export const TextDefaultsScreen = () => {
   const state = useAppStore((store) => store.state)
@@ -56,10 +54,12 @@ const LoadedTextDefaultsScreen = ({
   catalog,
   state,
 }: LoadedTextDefaultsScreenProps) => {
-  const controls = useTextDefaultsState({
+  const controls = useDefaultsForm({
+    fallbackError: "Could not save text defaults",
+    save: saveChatDefaults,
     serverDefaults: state.defaults.chat,
   })
-  const usage = getTextDefaultUsage(state.smartFields)
+  const usage = getDefaultUsage(state.smartFields, "chat")
 
   return (
     <section
@@ -69,10 +69,9 @@ const LoadedTextDefaultsScreen = ({
       <header className="flex shrink-0 items-center justify-between gap-6 border-b border-white/[0.065] px-6 py-5">
         <div className="min-w-0">
           <div className="flex items-center gap-2">
-            <MessageSquareText
-              aria-hidden
-              className="size-5 text-indigo-soft"
-            />
+            <span aria-hidden className="text-lg leading-none">
+              💬
+            </span>
             <h1 className="truncate text-[21px] leading-tight font-bold tracking-[-0.025em] text-zinc-100">
               Default Text Model
             </h1>
@@ -108,87 +107,54 @@ const LoadedTextDefaultsScreen = ({
             >
               Default model
             </label>
-            <div className="relative">
-              <select
-                className="h-11 w-full cursor-pointer appearance-none rounded-lg border border-white/10 bg-white/[0.035] px-3 pr-9 text-xs font-medium text-zinc-100 transition outline-none hover:border-white/16 focus:border-indigo/50"
-                id="default-text-model"
-                onChange={(event) =>
-                  controls.patchDraft({
-                    model: event.target.value,
-                    provider: getProviderForModel(catalog, event.target.value),
-                  })
-                }
-                value={controls.form.values.model}
-              >
+            <Select
+              onValueChange={(model) =>
+                controls.patchDraft({
+                  model,
+                  provider: getProviderForModel(catalog, model),
+                })
+              }
+              value={controls.form.values.model}
+            >
+              <SelectTrigger id="default-text-model">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
                 {catalog.chat.providers.map((provider) => (
-                  <optgroup key={provider} label={providerLabel(provider)}>
+                  <SelectGroup key={provider}>
+                    <SelectLabel>{providerLabel(provider)}</SelectLabel>
                     {catalog.chat.models
                       .filter((model) => model.provider === provider)
-                      .map((model) => (
-                        <option key={model.id} value={model.id}>
-                          {modelLabel(model.id)}
-                        </option>
-                      ))}
-                  </optgroup>
+                      .map((model) => {
+                        const costLabel = modelCostLabel(model.id)
+                        return (
+                          <SelectItem key={model.id} value={model.id}>
+                            <span className="min-w-0 flex-1 truncate font-semibold text-zinc-100">
+                              {modelLabel(model.id)}
+                            </span>
+                            {costLabel !== undefined && (
+                              <span className="shrink-0 rounded bg-white/[0.06] px-2 py-0.5 text-[10px] font-semibold whitespace-nowrap text-zinc-400">
+                                {costLabel}
+                              </span>
+                            )}
+                          </SelectItem>
+                        )
+                      })}
+                  </SelectGroup>
                 ))}
-              </select>
-              <ChevronDown
-                aria-hidden
-                className="pointer-events-none absolute top-3.5 right-3 size-4 text-ink-faint"
-              />
-            </div>
-            {controls.form.values.provider === "auto" && (
-              <p className="mt-2 text-[11px] leading-4 text-ink-muted">
-                Smart routing chooses the best model for each card.
-              </p>
-            )}
+              </SelectContent>
+            </Select>
 
-            {controls.form.values.provider === "auto" && (
-              <div className="mt-7">
-                <p className="text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
-                  Reasoning
-                </p>
-                <div className="mt-2 grid grid-cols-3 gap-1 rounded-lg border border-white/[0.08] bg-white/[0.025] p-1">
-                  {catalog.chat.reasoningLevels.map((level) => (
-                    <button
-                      aria-pressed={
-                        controls.form.values.reasoningLevel === level
-                      }
-                      className={`rounded-md px-3 py-2 text-[11px] font-semibold transition ${
-                        controls.form.values.reasoningLevel === level
-                          ? "bg-indigo/18 text-indigo-soft"
-                          : "text-zinc-500 hover:bg-white/[0.045] hover:text-zinc-300"
-                      }`}
-                      key={level}
-                      onClick={() =>
-                        controls.patchDraft({ reasoningLevel: level })
-                      }
-                    >
-                      {REASONING_LABELS[level] ?? level}
-                    </button>
-                  ))}
-                </div>
-                <p className="mt-2 text-[10.5px] leading-4 text-amber/80">
-                  Higher reasoning can improve harder generations but uses more
-                  credits.
-                </p>
-              </div>
-            )}
-
-            <div className="mt-7 flex items-start gap-4 border-t border-white/[0.065] pt-6">
-              <Search
-                aria-hidden
-                className="mt-0.5 size-4 shrink-0 text-zinc-500"
-              />
+            <div className="mt-4 flex items-start gap-4 border-t border-white/[0.065] pt-4">
               <div className="min-w-0 flex-1">
                 <p className="text-xs font-semibold text-zinc-200">
                   Web Search
                 </p>
                 <p className="mt-1 text-[11px] leading-4 text-ink-muted">
-                  Let text generations pull in fresh information from the web.
+                  Let text generations pull in fresh info from the web.
                 </p>
                 <p className="mt-1.5 text-[10.5px] text-amber/80">
-                  Search is expensive; monitor your usage.
+                  ⚠️ Search is expensive; monitor your credits.
                 </p>
               </div>
               <button
@@ -219,12 +185,27 @@ const LoadedTextDefaultsScreen = ({
 
           {controls.hasPendingChanges && (
             <div className="mt-4 flex shrink-0 items-center gap-2.5 rounded-lg border border-amber/20 bg-amber/[0.065] p-3">
-              <Zap aria-hidden className="size-4 shrink-0 text-amber" />
+              <span aria-hidden className="shrink-0 text-sm">
+                ⚡
+              </span>
               <p className="min-w-0 flex-1 text-[10.5px] leading-4 text-zinc-300">
-                Updates <strong>{usage.following} default-backed fields</strong>
+                This updates{" "}
+                <strong>
+                  {usage.following} field{usage.following === 1 ? "" : "s"}
+                </strong>{" "}
+                following the text default
                 {usage.pinned > 0 && (
-                  <> · {usage.pinned} pinned won&apos;t change</>
+                  <>
+                    {" "}
+                    ·{" "}
+                    <strong>
+                      {usage.pinned} pinned field
+                      {usage.pinned === 1 ? "" : "s"}
+                    </strong>{" "}
+                    won&apos;t change
+                  </>
                 )}
+                .
               </p>
               <Button
                 className="px-2.5 py-1.5"

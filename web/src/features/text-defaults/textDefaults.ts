@@ -1,17 +1,4 @@
-import type { Catalog, SmartField } from "@/types/api"
-
-export const getTextDefaultUsage = (smartFields: SmartField[]) => {
-  const textFields = smartFields.filter((field) => field.fieldType === "chat")
-
-  return {
-    following: textFields.filter(
-      (field) => field.settings.usesDefaultGenerationSettings,
-    ).length,
-    pinned: textFields.filter(
-      (field) => !field.settings.usesDefaultGenerationSettings,
-    ).length,
-  }
-}
+import type { Catalog } from "@/types/api"
 
 export const getProviderForModel = (
   catalog: Catalog,

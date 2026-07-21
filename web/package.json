@@ -11,6 +11,7 @@
     "test": "bun test"
   },
   "dependencies": {
+    "@radix-ui/react-select": "^2.3.4",
     "lucide-react": "^1.25.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

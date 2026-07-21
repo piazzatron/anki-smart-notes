@@ -19,7 +19,14 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 from typing import Optional
 
-from aqt.qt import QDialog, QUrl, QVBoxLayout, QWebEngineView, QWidget
+from aqt.qt import (
+    QDialog,
+    QUrl,
+    QVBoxLayout,
+    QWebEngineSettings,
+    QWebEngineView,
+    QWidget,
+)
 
 
 class WebAppDialog(QDialog):
@@ -35,5 +42,14 @@ class WebAppDialog(QDialog):
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
         self._web_view = QWebEngineView(self)
+        # Media previews finish after an async provider request, outside the
+        # original Run-button gesture. Allow the requested result to play.
+        web_settings = self._web_view.settings()
+        if web_settings is None:
+            raise RuntimeError("Smart Notes webview settings are unavailable")
+        web_settings.setAttribute(
+            QWebEngineSettings.WebAttribute.PlaybackRequiresUserGesture,
+            False,
+        )
         self._web_view.setUrl(QUrl(url))
         layout.addWidget(self._web_view)
