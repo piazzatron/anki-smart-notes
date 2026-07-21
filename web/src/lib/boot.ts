@@ -23,6 +23,8 @@ interface BootOptions {
   fixture: string
   selection: string
   tryState: "empty" | "picked" | "result" | null
+  editor: "create" | "edit" | "duplicate" | null
+  editorStep: 1 | 2 | 3 | null
   token: string
 }
 
@@ -30,6 +32,8 @@ const readBootOptions = (): BootOptions => {
   const params = new URLSearchParams(window.location.search)
   const requestedScreen = params.get("screen")
   const requestedTryState = params.get("try")
+  const requestedEditor = params.get("editor")
+  const requestedEditorStep = Number(params.get("step"))
 
   return {
     screen:
@@ -44,6 +48,18 @@ const readBootOptions = (): BootOptions => {
       requestedTryState === "picked" ||
       requestedTryState === "result"
         ? requestedTryState
+        : null,
+    editor:
+      requestedEditor === "create" ||
+      requestedEditor === "edit" ||
+      requestedEditor === "duplicate"
+        ? requestedEditor
+        : null,
+    editorStep:
+      requestedEditorStep === 1 ||
+      requestedEditorStep === 2 ||
+      requestedEditorStep === 3
+        ? requestedEditorStep
         : null,
     token: params.get("token") ?? "",
   }

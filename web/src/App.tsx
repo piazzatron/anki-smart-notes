@@ -2,6 +2,7 @@ import { lazy, Suspense, useState, type ComponentType } from "react"
 
 import { AppShell } from "@/components/shared/AppShell"
 import { PlaceholderScreen } from "@/components/shared/PlaceholderScreen"
+import type { FieldEditorRequest } from "@/features/field-editor/FieldEditorModal"
 import { ImageDefaultsScreen } from "@/features/image-defaults/ImageDefaultsScreen"
 import { SmartFieldsScreen } from "@/features/smart-fields/SmartFieldsScreen"
 import { TextDefaultsScreen } from "@/features/text-defaults/TextDefaultsScreen"
@@ -20,12 +21,18 @@ const LOADING_ACCOUNT: AccountState = { subscription: "LOADING", plan: null }
 
 interface ScreenProps {
   screen: ScreenId
+  initialEditor?: FieldEditorRequest
 }
 
-const SmartFieldsRoute = () => {
+interface EditorRequest {
+  id: number
+  editor?: FieldEditorRequest
+}
+
+const SmartFieldsRoute = ({ initialEditor }: ScreenProps) => {
   const state = useAppStore((store) => store.state)
 
-  return <SmartFieldsScreen state={state} />
+  return <SmartFieldsScreen initialEditor={initialEditor} state={state} />
 }
 
 const SCREENS: Partial<Record<ScreenId, ComponentType<ScreenProps>>> = {
@@ -40,9 +47,27 @@ const SCREENS: Partial<Record<ScreenId, ComponentType<ScreenProps>>> = {
 
 const App = () => {
   const [activeScreen, setActiveScreen] = useState<ScreenId>(bootOptions.screen)
+  const [editorRequest, setEditorRequest] = useState<EditorRequest>(() => ({
+    id: 0,
+    editor:
+      !bootOptions.mock ||
+      bootOptions.screen !== "fields" ||
+      bootOptions.editor === null
+        ? undefined
+        : {
+            mode: bootOptions.editor,
+            step: bootOptions.editorStep ?? undefined,
+          },
+  }))
   const connection = useAppStore((store) => store.connection)
   const state = useAppStore((store) => store.state)
   const ActiveScreen = SCREENS[activeScreen] ?? PlaceholderScreen
+  const navigateTo = (screen: ScreenId) => {
+    setActiveScreen(screen)
+    if (screen !== "fields") {
+      setEditorRequest((request) => ({ ...request, editor: undefined }))
+    }
+  }
 
   return (
     <>
@@ -51,13 +76,25 @@ const App = () => {
         activeScreen={activeScreen}
         appVersion={state?.appVersion ?? null}
         connection={connection}
-        onNavigate={setActiveScreen}
+        onNavigate={navigateTo}
       >
-        <ActiveScreen screen={activeScreen} />
+        <ActiveScreen
+          initialEditor={editorRequest.editor}
+          key={`${activeScreen}-${editorRequest.id}`}
+          screen={activeScreen}
+        />
       </AppShell>
       {MockPanel !== null && bootOptions.mock && (
         <Suspense fallback={null}>
-          <MockPanel />
+          <MockPanel
+            onOpenEditor={(editor) => {
+              setActiveScreen("fields")
+              setEditorRequest((request) => ({
+                id: request.id + 1,
+                editor,
+              }))
+            }}
+          />
         </Suspense>
       )}
     </>

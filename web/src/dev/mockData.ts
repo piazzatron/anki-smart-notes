@@ -9,6 +9,7 @@ import type {
   PlanInfo,
   Selection,
   SmartField,
+  SmartFieldSavePayload,
   VoiceCatalog,
 } from "@/types/api"
 
@@ -493,6 +494,35 @@ export const sendMockCommand: CommandSender = async <Result = void>(
           ...state.defaults,
           tts: commandPayload as unknown as AppState["defaults"]["tts"],
         },
+      },
+    })
+    return undefined as Result
+  }
+
+  if (command === "smartFields.save") {
+    const savedField = payload as SmartFieldSavePayload
+    const existingField = state.smartFields.find(
+      (field) =>
+        field.noteTypeId === savedField.noteTypeId &&
+        field.deckId === savedField.deckId &&
+        field.targetFieldName === savedField.targetFieldName,
+    )
+    const fieldWithId: SmartField = {
+      ...savedField,
+      id:
+        existingField?.id ??
+        `mock-${savedField.noteTypeId}-${savedField.deckId}-${savedField.targetFieldName}`,
+    }
+
+    useAppStore.setState({
+      state: {
+        ...state,
+        smartFields:
+          existingField === undefined
+            ? [...state.smartFields, fieldWithId]
+            : state.smartFields.map((field) =>
+                field.id === existingField.id ? fieldWithId : field,
+              ),
       },
     })
     return undefined as Result
