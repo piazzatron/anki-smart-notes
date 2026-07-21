@@ -1,10 +1,10 @@
-import { lazy, Suspense, useState } from "react"
+import { lazy, Suspense, useState, type ComponentType } from "react"
 
 import { AppShell } from "@/components/shared/AppShell"
 import { PlaceholderScreen } from "@/components/shared/PlaceholderScreen"
 import { SmartFieldsScreen } from "@/features/smart-fields/SmartFieldsScreen"
 import { TextDefaultsScreen } from "@/features/text-defaults/TextDefaultsScreen"
-import { readBootOptions, type ScreenId } from "@/lib/boot"
+import { bootOptions, type ScreenId } from "@/lib/boot"
 import { useAppStore } from "@/store/appStore"
 import type { AccountState } from "@/types/api"
 
@@ -13,11 +13,26 @@ const MockPanel = import.meta.env.DEV
   : null
 const LOADING_ACCOUNT: AccountState = { subscription: "LOADING", plan: null }
 
+interface ScreenProps {
+  screen: ScreenId
+}
+
+const SmartFieldsRoute = () => {
+  const state = useAppStore((store) => store.state)
+
+  return <SmartFieldsScreen state={state} />
+}
+
+const SCREENS: Partial<Record<ScreenId, ComponentType<ScreenProps>>> = {
+  fields: SmartFieldsRoute,
+  "defaults-text": TextDefaultsScreen,
+}
+
 const App = () => {
-  const bootOptions = readBootOptions()
   const [activeScreen, setActiveScreen] = useState<ScreenId>(bootOptions.screen)
   const connection = useAppStore((store) => store.connection)
   const state = useAppStore((store) => store.state)
+  const ActiveScreen = SCREENS[activeScreen] ?? PlaceholderScreen
 
   return (
     <>
@@ -27,11 +42,7 @@ const App = () => {
         connection={connection}
         onNavigate={setActiveScreen}
       >
-        {activeScreen === "fields" && <SmartFieldsScreen state={state} />}
-        {activeScreen === "defaults-text" && <TextDefaultsScreen />}
-        {activeScreen !== "fields" && activeScreen !== "defaults-text" && (
-          <PlaceholderScreen screen={activeScreen} />
-        )}
+        <ActiveScreen screen={activeScreen} />
       </AppShell>
       {MockPanel !== null && bootOptions.mock && (
         <Suspense fallback={null}>

@@ -1,5 +1,13 @@
+import { bootOptions } from "@/lib/boot"
+import type { CommandSender } from "@/services/commands"
 import { useAppStore } from "@/store/appStore"
-import type { AppState, Catalog, Selection, SmartField } from "@/types/api"
+import type {
+  AppState,
+  Catalog,
+  CommandName,
+  Selection,
+  SmartField,
+} from "@/types/api"
 
 const GLOBAL_DECK_ID = 1
 
@@ -207,10 +215,7 @@ export const setMockFixture = (fixture: string): void => {
     state,
     catalog: MOCK_CATALOG,
     selection:
-      MOCK_SELECTIONS[
-        new URLSearchParams(window.location.search).get("selection") ??
-          "selected"
-      ] ?? MOCK_SELECTIONS.selected,
+      MOCK_SELECTIONS[bootOptions.selection] ?? MOCK_SELECTIONS.selected,
     connection: fixture === "reconnecting" ? "reconnecting" : "connected",
   })
 }
@@ -221,18 +226,18 @@ export const setMockSelection = (selection: string): void => {
   })
 }
 
-export const handleMockCommand = (
-  command: string,
+export const sendMockCommand: CommandSender = async <Result = void>(
+  command: CommandName,
   payload: object,
-): unknown => {
+): Promise<Result> => {
   const state = useAppStore.getState().state
-  if (state === null) return
+  if (state === null) return undefined as Result
   const commandPayload = payload as Record<string, unknown>
 
   if (command === "prompts.test") {
     return {
       text: "To eat — the act of consuming food, as in りんごを食べる (to eat an apple).",
-    }
+    } as Result
   }
 
   if (command === "defaults.chat.save") {
@@ -245,7 +250,7 @@ export const handleMockCommand = (
         },
       },
     })
-    return
+    return undefined as Result
   }
 
   const matchesPayload = (field: SmartField) =>
@@ -263,4 +268,5 @@ export const handleMockCommand = (
         )
 
   useAppStore.setState({ state: { ...state, smartFields } })
+  return undefined as Result
 }

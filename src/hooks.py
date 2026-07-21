@@ -39,6 +39,7 @@ from .database.migrations import run_migrations
 from .decks import deck_id_to_name_map
 from .event_bus import event_bus
 from .feature_flags import refresh_feature_flags
+from .local_server import LOCAL_SERVER_HOST, LOCAL_SERVER_PORT, LocalServer
 from .logger import cleanup_logger, logger, setup_logger
 from .note_proccessor import NoteProcessor
 from .review_time_evaluator import ReviewTimeEvaluator
@@ -57,10 +58,24 @@ from .utils.notes_utils import (
 )
 from .web.hook_adapters import setup_web_hooks
 
-_local_server: Any = None
+_local_server: Optional[LocalServer] = None
 _review_time_evaluator: Optional[ReviewTimeEvaluator] = None
 _open_options_dialog: Optional[AddonOptionsDialog] = None
 _web_app_dialog: Optional[WebAppDialog] = None
+
+
+def _ensure_local_server_started() -> LocalServer:
+    global _local_server
+
+    # profile_did_open fires before main_window_did_init at startup, so a
+    # server usually exists already. Starting another would fail to bind and
+    # clobber _local_server with a dead instance (whose session token the
+    # webview would then use).
+    if _local_server is None:
+        _local_server = LocalServer()
+        _local_server.start()
+
+    return _local_server
 
 
 def _with_processor(fn: Any):
@@ -326,19 +341,10 @@ def on_main_window(processor: NoteProcessor):
     # Show either the first load window or the changelog if it's a new version
     _stamp_version_and_show_first_load_window(processor)
 
-    from .local_server import LocalServer
-
     global _review_time_evaluator
     _review_time_evaluator = ReviewTimeEvaluator(processor)
 
-    # profile_did_open fires before main_window_did_init at startup, so a
-    # server usually exists already. Starting another would fail to bind and
-    # clobber _local_server with a dead instance (whose session token the
-    # webview would then use).
-    global _local_server
-    if _local_server is None:
-        _local_server = LocalServer()
-        _local_server.start()
+    _ensure_local_server_started()
 
 
 @with_sentry
@@ -349,8 +355,7 @@ def on_open_web_app() -> None:
         show_message_box("Smart Notes is still starting up — try again in a moment.")
         return
 
-    # Lazy import to match how LocalServer itself is imported in this module.
-    from .local_server import LOCAL_SERVER_HOST, LOCAL_SERVER_PORT
+    local_server = _ensure_local_server_started()
 
     # Dev builds always load the Vite dev server for HMR (`make web`); the
     # bundled static app is only served in packaged builds.
@@ -358,21 +363,14 @@ def on_open_web_app() -> None:
         base_url = WEB_APP_DEV_URL
     else:
         base_url = f"http://{LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}/app"
-    url = f"{base_url}?token={_local_server.session_token}"
+    url = f"{base_url}?token={local_server.session_token}"
     _web_app_dialog = WebAppDialog(url, mw)
     _web_app_dialog.show()
 
 
 @with_sentry
 def on_profile_did_open() -> None:
-    global _local_server
-    if _local_server is not None:
-        return
-
-    from .local_server import LocalServer
-
-    _local_server = LocalServer()
-    _local_server.start()
+    _ensure_local_server_started()
 
 
 @_with_processor  # type: ignore

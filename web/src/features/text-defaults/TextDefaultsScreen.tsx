@@ -1,20 +1,17 @@
 import {
   AlertCircle,
   ChevronDown,
-  FileText,
-  LoaderCircle,
   MessageSquareText,
   Search,
-  Sparkles,
   X,
   Zap,
 } from "lucide-react"
 
-import { hasGenerationAccess } from "@/components/shared/planPresentation"
 import { Button } from "@/components/ui/Button"
+import { PromptTester } from "@/features/prompt-tester/PromptTester"
 import { modelLabel, providerLabel } from "@/lib/catalog"
 import { useAppStore } from "@/store/appStore"
-import type { AppState, Catalog, Selection } from "@/types/api"
+import type { AppState, Catalog } from "@/types/api"
 
 import { getProviderForModel, getTextDefaultUsage } from "./textDefaults"
 import { useTextDefaultsState } from "./useTextDefaultsState"
@@ -28,7 +25,6 @@ const REASONING_LABELS: Record<string, string> = {
 export const TextDefaultsScreen = () => {
   const state = useAppStore((store) => store.state)
   const catalog = useAppStore((store) => store.catalog)
-  const selection = useAppStore((store) => store.selection)
 
   if (state === null || catalog === null) {
     return (
@@ -48,42 +44,22 @@ export const TextDefaultsScreen = () => {
     )
   }
 
-  return (
-    <LoadedTextDefaultsScreen
-      catalog={catalog}
-      selection={selection}
-      state={state}
-    />
-  )
+  return <LoadedTextDefaultsScreen catalog={catalog} state={state} />
 }
 
 interface LoadedTextDefaultsScreenProps {
   catalog: Catalog
-  selection: Selection | null
   state: AppState
 }
 
 const LoadedTextDefaultsScreen = ({
   catalog,
-  selection,
   state,
 }: LoadedTextDefaultsScreenProps) => {
   const controls = useTextDefaultsState({
     serverDefaults: state.defaults.chat,
   })
   const usage = getTextDefaultUsage(state.smartFields)
-  const selectedNote = selection?.note ?? null
-  const selectedDeck = state.decks.find(
-    (deck) => deck.id === selectedNote?.deckId,
-  )
-  const firstField =
-    selectedNote === null
-      ? null
-      : (Object.values(selectedNote.fields)[0] ?? "(empty card)")
-  const visibleResult =
-    controls.form.result?.cardId === selectedNote?.cardId
-      ? controls.form.result
-      : null
 
   return (
     <section
@@ -142,7 +118,7 @@ const LoadedTextDefaultsScreen = ({
                     provider: getProviderForModel(catalog, event.target.value),
                   })
                 }
-                value={controls.form.draft.model}
+                value={controls.form.values.model}
               >
                 {catalog.chat.providers.map((provider) => (
                   <optgroup key={provider} label={providerLabel(provider)}>
@@ -161,13 +137,13 @@ const LoadedTextDefaultsScreen = ({
                 className="pointer-events-none absolute top-3.5 right-3 size-4 text-ink-faint"
               />
             </div>
-            {controls.form.draft.provider === "auto" && (
+            {controls.form.values.provider === "auto" && (
               <p className="mt-2 text-[11px] leading-4 text-ink-muted">
                 Smart routing chooses the best model for each card.
               </p>
             )}
 
-            {controls.form.draft.provider === "auto" && (
+            {controls.form.values.provider === "auto" && (
               <div className="mt-7">
                 <p className="text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
                   Reasoning
@@ -176,10 +152,10 @@ const LoadedTextDefaultsScreen = ({
                   {catalog.chat.reasoningLevels.map((level) => (
                     <button
                       aria-pressed={
-                        controls.form.draft.reasoningLevel === level
+                        controls.form.values.reasoningLevel === level
                       }
                       className={`rounded-md px-3 py-2 text-[11px] font-semibold transition ${
-                        controls.form.draft.reasoningLevel === level
+                        controls.form.values.reasoningLevel === level
                           ? "bg-indigo/18 text-indigo-soft"
                           : "text-zinc-500 hover:bg-white/[0.045] hover:text-zinc-300"
                       }`}
@@ -216,23 +192,23 @@ const LoadedTextDefaultsScreen = ({
                 </p>
               </div>
               <button
-                aria-checked={controls.form.draft.webSearchEnabled}
+                aria-checked={controls.form.values.webSearchEnabled}
                 aria-label="Enable Web Search"
                 className={`relative mt-0.5 h-5 w-9 shrink-0 rounded-full transition ${
-                  controls.form.draft.webSearchEnabled
+                  controls.form.values.webSearchEnabled
                     ? "bg-indigo"
                     : "bg-white/10"
                 }`}
                 onClick={() =>
                   controls.patchDraft({
-                    webSearchEnabled: !controls.form.draft.webSearchEnabled,
+                    webSearchEnabled: !controls.form.values.webSearchEnabled,
                   })
                 }
                 role="switch"
               >
                 <span
                   className={`absolute top-0.5 size-4 rounded-full bg-white shadow transition ${
-                    controls.form.draft.webSearchEnabled
+                    controls.form.values.webSearchEnabled
                       ? "left-[18px]"
                       : "left-0.5"
                   }`}
@@ -270,96 +246,7 @@ const LoadedTextDefaultsScreen = ({
         </div>
 
         <div className="min-h-0 overflow-y-auto pl-6 max-[820px]:mt-6 max-[820px]:border-t max-[820px]:border-white/[0.07] max-[820px]:pt-6 max-[820px]:pl-0">
-          <p className="text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
-            Try it
-          </p>
-          <label
-            className="mt-4 block text-[10.5px] font-medium text-zinc-400"
-            htmlFor="text-default-test-prompt"
-          >
-            Test prompt
-          </label>
-          <textarea
-            className="mt-2 min-h-24 w-full resize-y rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2.5 font-mono text-xs leading-5 text-zinc-200 transition outline-none placeholder:text-zinc-700 focus:border-indigo/45"
-            id="text-default-test-prompt"
-            onChange={(event) => controls.setPrompt(event.target.value)}
-            value={controls.form.prompt}
-          />
-
-          <div className="mt-4">
-            {selectedNote === null ? (
-              <div className="flex items-center gap-3 rounded-lg border border-dashed border-white/[0.13] px-3 py-3">
-                <FileText
-                  aria-hidden
-                  className="size-4 shrink-0 text-zinc-500"
-                />
-                <div>
-                  <p className="text-xs font-semibold text-zinc-300">
-                    Pick one card in the Anki Browser
-                  </p>
-                  <p className="mt-1 text-[10.5px] text-ink-muted">
-                    {selection !== null &&
-                    selection.note === null &&
-                    selection.count > 1
-                      ? `${selection.count} cards selected — narrow it to one.`
-                      : "Your selection appears here automatically."}
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <div className="flex items-center gap-3">
-                <div className="min-w-0 flex-1">
-                  <p className="truncate font-mono text-xs font-medium text-zinc-100">
-                    {firstField}
-                  </p>
-                  <p className="mt-1 truncate text-[10.5px] text-ink-faint">
-                    {selectedDeck?.name ?? "Selected card"}
-                  </p>
-                </div>
-                <span className="text-[10px] text-ink-faint">
-                  Change in Anki Browser
-                </span>
-                <Button
-                  disabled={
-                    !hasGenerationAccess(state.account) ||
-                    controls.form.isTesting ||
-                    controls.form.prompt.trim() === ""
-                  }
-                  onClick={() => void controls.runTest(selectedNote.cardId)}
-                >
-                  {controls.form.isTesting ? (
-                    <LoaderCircle
-                      aria-hidden
-                      className="size-3.5 animate-spin"
-                    />
-                  ) : (
-                    <Sparkles aria-hidden className="size-3.5" />
-                  )}
-                  {controls.form.isTesting
-                    ? "Running…"
-                    : visibleResult === null
-                      ? "Run"
-                      : "Run again"}
-                </Button>
-              </div>
-            )}
-          </div>
-
-          {visibleResult !== null && (
-            <div className="mt-4 rounded-lg border border-white/[0.08] bg-white/[0.025] p-4">
-              <div className="flex items-center gap-2 text-[10px] font-semibold tracking-[0.08em] text-indigo-soft uppercase">
-                <Sparkles aria-hidden className="size-3.5" />
-                Result
-              </div>
-              <p className="mt-3 text-[12.5px] leading-5 whitespace-pre-wrap text-zinc-200">
-                {visibleResult.text}
-              </p>
-              <p className="mt-3 border-t border-white/[0.06] pt-2.5 text-[10px] text-ink-faint">
-                {modelLabel(visibleResult.model)} · {visibleResult.latencyMs}ms
-                · switch the model and run again to compare
-              </p>
-            </div>
-          )}
+          <PromptTester settings={controls.form.values} />
         </div>
       </div>
     </section>

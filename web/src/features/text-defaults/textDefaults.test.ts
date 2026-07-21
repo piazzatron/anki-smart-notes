@@ -1,8 +1,8 @@
 import { describe, expect, test } from "bun:test"
 
-import type { AppState, SmartField } from "@/types/api"
+import type { SmartField } from "@/types/api"
 
-import { getTextDefaultUsage, textDefaultsMatch } from "./textDefaults"
+import { getTextDefaultUsage } from "./textDefaults"
 
 const textField = (
   id: string,
@@ -33,19 +33,5 @@ describe("Text Defaults", () => {
         textField("three", false),
       ]),
     ).toEqual({ following: 2, pinned: 1 })
-  })
-
-  test("compares every persisted text setting", () => {
-    const defaults: AppState["defaults"]["chat"] = {
-      provider: "auto",
-      model: "auto",
-      reasoningLevel: "off",
-      webSearchEnabled: false,
-    }
-
-    expect(textDefaultsMatch(defaults, { ...defaults })).toBe(true)
-    expect(
-      textDefaultsMatch(defaults, { ...defaults, webSearchEnabled: true }),
-    ).toBe(false)
   })
 })

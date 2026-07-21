@@ -65,10 +65,4 @@ describe("groupSmartFields", () => {
       "Basic",
     ])
   })
-
-  test("fails fast when a field references a missing deck", () => {
-    expect(() =>
-      groupSmartFields(stateWith([field("broken", 10, 999)])),
-    ).toThrow("references missing deck 999")
-  })
 })

@@ -23,9 +23,11 @@ interface BootOptions {
   screen: ScreenId
   mock: boolean
   fixture: string
+  selection: string
+  token: string
 }
 
-export const readBootOptions = (): BootOptions => {
+const readBootOptions = (): BootOptions => {
   const params = new URLSearchParams(window.location.search)
   const requestedScreen = params.get("screen")
 
@@ -36,5 +38,9 @@ export const readBootOptions = (): BootOptions => {
         : "fields",
     mock: import.meta.env.DEV && params.get("mock") === "1",
     fixture: params.get("fixture") ?? "populated",
+    selection: params.get("selection") ?? "selected",
+    token: params.get("token") ?? "",
   }
 }
+
+export const bootOptions = Object.freeze(readBootOptions())

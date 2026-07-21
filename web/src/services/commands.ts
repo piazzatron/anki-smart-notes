@@ -8,11 +8,18 @@ import type {
   TextPromptTestResult,
 } from "@/types/api"
 
-const sessionToken =
-  new URLSearchParams(window.location.search).get("token") ?? ""
-const isMockMode =
-  import.meta.env.DEV &&
-  new URLSearchParams(window.location.search).get("mock") === "1"
+import { bootOptions } from "@/lib/boot"
+
+export type CommandSender = <Result = void>(
+  command: CommandName,
+  payload: object,
+) => Promise<Result>
+
+let sendCommand: CommandSender = sendCommandToAnki
+
+export const setCommandSender = (sender: CommandSender): void => {
+  sendCommand = sender
+}
 
 export const setSmartFieldEnabled = async (
   field: SmartField,
@@ -47,20 +54,15 @@ export const testTextPrompt = async (
 ): Promise<TextPromptTestResult> =>
   sendCommand<TextPromptTestResult>("prompts.test", args)
 
-const sendCommand = async <Result = void>(
+async function sendCommandToAnki<Result = void>(
   command: CommandName,
   payload: object,
-): Promise<Result> => {
-  if (isMockMode) {
-    const { handleMockCommand } = await import("@/dev/mockData")
-    return handleMockCommand(command, payload) as Result
-  }
-
+): Promise<Result> {
   const response = await fetch("/api/command", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-Session-Token": sessionToken,
+      "X-Session-Token": bootOptions.token,
     },
     body: JSON.stringify({ command, payload }),
   })

@@ -17,7 +17,6 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import sys
 from types import SimpleNamespace
 from typing import Any, cast
 
@@ -40,11 +39,7 @@ def test_profile_did_open_restarts_local_server_after_profile_switch(
             calls.append("server_start")
 
     monkeypatch.setattr(hooks, "_local_server", None)
-    monkeypatch.setitem(
-        sys.modules,
-        "src.local_server",
-        SimpleNamespace(LocalServer=FakeLocalServer),
-    )
+    monkeypatch.setattr(hooks, "LocalServer", FakeLocalServer)
 
     hooks.on_profile_did_open()
     hooks.on_profile_did_open()

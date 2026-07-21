@@ -1,4 +1,4 @@
-import type { AppState, Catalog, SmartField } from "@/types/api"
+import type { Catalog, SmartField } from "@/types/api"
 
 export const getTextDefaultUsage = (smartFields: SmartField[]) => {
   const textFields = smartFields.filter((field) => field.fieldType === "chat")
@@ -12,15 +12,6 @@ export const getTextDefaultUsage = (smartFields: SmartField[]) => {
     ).length,
   }
 }
-
-export const textDefaultsMatch = (
-  left: AppState["defaults"]["chat"],
-  right: AppState["defaults"]["chat"],
-): boolean =>
-  left.provider === right.provider &&
-  left.model === right.model &&
-  left.reasoningLevel === right.reasoningLevel &&
-  left.webSearchEnabled === right.webSearchEnabled
 
 export const getProviderForModel = (
   catalog: Catalog,

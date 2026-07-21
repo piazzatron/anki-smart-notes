@@ -22,17 +22,6 @@ export const groupSmartFields = (state: AppState): DeckGroup[] => {
   const groups = new Map<number, Map<number, SmartField[]>>()
 
   for (const field of state.smartFields) {
-    if (!decksById.has(field.deckId)) {
-      throw new Error(
-        `Smart Field ${field.id} references missing deck ${field.deckId}`,
-      )
-    }
-    if (!noteTypesById.has(field.noteTypeId)) {
-      throw new Error(
-        `Smart Field ${field.id} references missing note type ${field.noteTypeId}`,
-      )
-    }
-
     const deckFields =
       groups.get(field.deckId) ?? new Map<number, SmartField[]>()
     const noteTypeFields = deckFields.get(field.noteTypeId) ?? []

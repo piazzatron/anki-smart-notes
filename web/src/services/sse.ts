@@ -1,8 +1,6 @@
+import { bootOptions } from "@/lib/boot"
 import { useAppStore } from "@/store/appStore"
 import type { AppState, Catalog, Selection } from "@/types/api"
-
-const sessionToken =
-  new URLSearchParams(window.location.search).get("token") ?? ""
 
 export const connectToAnki = (): (() => void) => {
   let source: EventSource | null = null
@@ -11,7 +9,7 @@ export const connectToAnki = (): (() => void) => {
 
   const connect = () => {
     source = new EventSource(
-      `/api/events?token=${encodeURIComponent(sessionToken)}`,
+      `/api/events?token=${encodeURIComponent(bootOptions.token)}`,
     )
 
     source.addEventListener("state", (event) => {
@@ -29,7 +27,6 @@ export const connectToAnki = (): (() => void) => {
       useAppStore.setState({ selection: JSON.parse(event.data) as Selection })
     })
 
-    source.onopen = () => useAppStore.setState({ connection: "connected" })
     source.onerror = () => {
       useAppStore.setState({ connection: "reconnecting" })
       if (source?.readyState === EventSource.CLOSED && !stopped) {

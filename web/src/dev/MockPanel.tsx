@@ -1,6 +1,8 @@
 import { FlaskConical } from "lucide-react"
 import { useState } from "react"
 
+import { bootOptions } from "@/lib/boot"
+
 import { setMockFixture, setMockSelection } from "./mockData"
 
 const FIXTURES = [
@@ -18,15 +20,8 @@ const SELECTIONS = [
 ]
 
 const MockPanel = () => {
-  const [activeFixture, setActiveFixture] = useState(
-    () =>
-      new URLSearchParams(window.location.search).get("fixture") ?? "populated",
-  )
-  const [activeSelection, setActiveSelection] = useState(
-    () =>
-      new URLSearchParams(window.location.search).get("selection") ??
-      "selected",
-  )
+  const [activeFixture, setActiveFixture] = useState(bootOptions.fixture)
+  const [activeSelection, setActiveSelection] = useState(bootOptions.selection)
 
   return (
     <aside className="fixed right-3 bottom-3 z-50 w-48 rounded-lg border border-indigo/25 bg-panel-raised/95 p-2.5 shadow-2xl shadow-black/60 backdrop-blur">
