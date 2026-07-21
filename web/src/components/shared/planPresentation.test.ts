@@ -3,9 +3,10 @@ import { describe, expect, test } from "bun:test"
 import type { AccountState, SubscriptionState } from "@/types/api"
 
 import {
+  getCreditSegments,
   getPlanPresentation,
   hasGenerationAccess,
-  type PlanPresentation,
+  pctLabel,
 } from "./planPresentation"
 
 const PLAN: NonNullable<AccountState["plan"]> = {
@@ -24,129 +25,92 @@ const PLAN: NonNullable<AccountState["plan"]> = {
   totalCreditsCapacity: 300,
 }
 
-const SIGNED_OUT_PRESENTATION: PlanPresentation = {
-  title: "Signed out",
-  detail: "Sign in to use Smart Notes.",
-  usagePercent: null,
-  tone: "neutral",
-  actionLabel: "Sign in",
-}
-
-const TRIAL_PRESENTATION: PlanPresentation = {
-  title: "Trial",
-  detail: "5 days left · 12/50 notes",
-  usagePercent: 15,
-  tone: "success",
-  actionLabel: "Upgrade",
-}
-
-const PAID_PRESENTATION: PlanPresentation = {
-  title: "Free Trial",
-  detail: "15% of credits used",
-  usagePercent: 15,
-  tone: "neutral",
-  actionLabel: "Manage",
-}
-
-const PRESENTATION_CASES: Array<{
+const VARIANT_CASES: Array<{
   subscription: SubscriptionState
-  plan: AccountState["plan"]
-  expected: PlanPresentation
+  variant: ReturnType<typeof getPlanPresentation>["variant"]
+  warning: boolean
 }> = [
-  {
-    subscription: "LOADING",
-    plan: null,
-    expected: {
-      title: "Checking plan…",
-      detail: "",
-      usagePercent: null,
-      tone: "neutral",
-      actionLabel: "Subscription",
-    },
-  },
+  { subscription: "LOADING", variant: "loading", warning: false },
   {
     subscription: "UNAUTHENTICATED",
-    plan: null,
-    expected: { ...SIGNED_OUT_PRESENTATION, tone: "signedOut" },
+    variant: "signed-out",
+    warning: false,
   },
-  {
-    subscription: "NO_SUBSCRIPTION",
-    plan: null,
-    expected: SIGNED_OUT_PRESENTATION,
-  },
-  {
-    subscription: "FREE_TRIAL_ACTIVE",
-    plan: PLAN,
-    expected: TRIAL_PRESENTATION,
-  },
-  {
-    subscription: "FREE_TRIAL_EXPIRED",
-    plan: PLAN,
-    expected: { ...TRIAL_PRESENTATION, tone: "warning" },
-  },
-  {
-    subscription: "FREE_TRIAL_CAPACITY",
-    plan: PLAN,
-    expected: { ...TRIAL_PRESENTATION, tone: "warning" },
-  },
-  {
-    subscription: "PAID_PLAN_ACTIVE",
-    plan: PLAN,
-    expected: PAID_PRESENTATION,
-  },
-  {
-    subscription: "PAID_PLAN_EXPIRED",
-    plan: PLAN,
-    expected: { ...PAID_PRESENTATION, tone: "warning" },
-  },
-  {
-    subscription: "PAID_PLAN_CAPACITY",
-    plan: PLAN,
-    expected: { ...PAID_PRESENTATION, tone: "warning" },
-  },
+  { subscription: "NO_SUBSCRIPTION", variant: "free-cta", warning: false },
+  { subscription: "FREE_TRIAL_ACTIVE", variant: "trial", warning: false },
+  { subscription: "FREE_TRIAL_EXPIRED", variant: "trial", warning: true },
+  { subscription: "FREE_TRIAL_CAPACITY", variant: "trial", warning: true },
+  { subscription: "PAID_PLAN_ACTIVE", variant: "paid", warning: false },
+  { subscription: "PAID_PLAN_EXPIRED", variant: "paid", warning: true },
+  { subscription: "PAID_PLAN_CAPACITY", variant: "paid", warning: true },
 ]
 
 describe("getPlanPresentation", () => {
-  for (const { subscription, plan, expected } of PRESENTATION_CASES) {
+  for (const { subscription, variant, warning } of VARIANT_CASES) {
     test(`presents ${subscription}`, () => {
-      expect(getPlanPresentation({ subscription, plan })).toEqual(expected)
+      const plan =
+        subscription === "LOADING" ||
+        subscription === "UNAUTHENTICATED" ||
+        subscription === "NO_SUBSCRIPTION"
+          ? null
+          : PLAN
+      expect(getPlanPresentation({ subscription, plan })).toMatchObject({
+        variant,
+        warning,
+      })
     })
   }
 
-  test("warns when an active trial is near expiry", () => {
+  test("warns when an active trial is near expiry or credit capacity", () => {
     expect(
       getPlanPresentation({
         subscription: "FREE_TRIAL_ACTIVE",
         plan: { ...PLAN, daysLeft: 2 },
-      }).tone,
-    ).toBe("warning")
+      }).warning,
+    ).toBe(true)
+    expect(
+      getPlanPresentation({
+        subscription: "FREE_TRIAL_ACTIVE",
+        plan: { ...PLAN, totalCreditsUsed: 240 },
+      }).warning,
+    ).toBe(true)
+  })
+
+  test("supports the post-trial free presentation when plan data is present", () => {
+    expect(
+      getPlanPresentation({
+        subscription: "FREE_TRIAL_ACTIVE",
+        plan: { ...PLAN, notesUsed: null, notesLimit: null, planName: "Free" },
+      }),
+    ).toMatchObject({ variant: "free-usage", usagePercent: 15 })
+  })
+})
+
+describe("credit formatting", () => {
+  test("never rounds a nonzero usage down to zero", () => {
+    expect(pctLabel(0)).toBe("0%")
+    expect(pctLabel(0.4)).toBe("<1%")
+    expect(pctLabel(40.6)).toBe("41%")
+  })
+
+  test("segments use the shared total capacity", () => {
+    expect(getCreditSegments(PLAN).map((segment) => segment.percent)).toEqual([
+      10 / 3,
+      5 / 3,
+      0,
+    ])
   })
 })
 
 describe("hasGenerationAccess", () => {
   test("allows only active trial and paid subscriptions", () => {
-    const available = ["FREE_TRIAL_ACTIVE", "PAID_PLAN_ACTIVE"] satisfies Array<
-      AccountState["subscription"]
-    >
-    const unavailable = [
-      "LOADING",
-      "UNAUTHENTICATED",
-      "NO_SUBSCRIPTION",
-      "FREE_TRIAL_EXPIRED",
-      "FREE_TRIAL_CAPACITY",
-      "PAID_PLAN_EXPIRED",
-      "PAID_PLAN_CAPACITY",
-    ] satisfies Array<AccountState["subscription"]>
-
+    const states: SubscriptionState[] = VARIANT_CASES.map(
+      ({ subscription }) => subscription,
+    )
     expect(
-      available.map((subscription) =>
+      states.filter((subscription) =>
         hasGenerationAccess({ subscription, plan: null }),
       ),
-    ).toEqual([true, true])
-    expect(
-      unavailable.map((subscription) =>
-        hasGenerationAccess({ subscription, plan: null }),
-      ),
-    ).toEqual([false, false, false, false, false, false, false])
+    ).toEqual(["FREE_TRIAL_ACTIVE", "PAID_PLAN_ACTIVE"])
   })
 })

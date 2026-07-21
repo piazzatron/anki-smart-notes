@@ -3,8 +3,7 @@ export type ScreenId =
   | "defaults-text"
   | "defaults-images"
   | "defaults-voice"
-  | "generation"
-  | "advanced"
+  | "settings"
   | "subscription"
   | "support"
 
@@ -13,8 +12,7 @@ const SCREEN_IDS = new Set<ScreenId>([
   "defaults-text",
   "defaults-images",
   "defaults-voice",
-  "generation",
-  "advanced",
+  "settings",
   "subscription",
   "support",
 ])

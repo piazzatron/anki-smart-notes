@@ -5,8 +5,7 @@ const SCREEN_LABELS: Record<ScreenId, string> = {
   "defaults-text": "Text Defaults",
   "defaults-images": "Image Defaults",
   "defaults-voice": "Voice Defaults",
-  generation: "Generation",
-  advanced: "Advanced",
+  settings: "Settings",
   subscription: "Subscription",
   support: "Support & Bugs",
 }

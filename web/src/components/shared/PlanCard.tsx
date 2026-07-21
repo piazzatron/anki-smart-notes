@@ -1,93 +1,205 @@
+import { Sparkles } from "lucide-react"
+
+import { openSiteLink, SITE_LINKS } from "@/lib/siteLinks"
 import type { AccountState } from "@/types/api"
 
-import { getPlanPresentation } from "./planPresentation"
+import { getPlanPresentation, pctLabel } from "./planPresentation"
 
 interface PlanCardProps {
   account: AccountState
   onOpenSubscription: () => void
 }
 
-const TONE_CLASSES = {
-  neutral: "bg-indigo",
-  signedOut: "bg-mint",
-  success: "bg-mint",
-  warning: "bg-amber",
-}
-
-const CARD_CLASSES = {
-  neutral: "border-white/[0.07] bg-white/[0.025]",
-  signedOut: "border-mint/25 bg-mint/[0.06]",
-  success: "border-white/[0.07] bg-white/[0.025]",
-  warning: "border-white/[0.07] bg-white/[0.025]",
-}
-
-const TITLE_CLASSES = {
-  neutral: "text-zinc-300",
-  signedOut: "text-mint",
-  success: "text-zinc-300",
-  warning: "text-zinc-300",
-}
-
-const DETAIL_CLASSES = {
-  neutral: "truncate text-ink-faint",
-  signedOut: "text-zinc-200",
-  success: "truncate text-ink-faint",
-  warning: "truncate text-ink-faint",
-}
-
-const BUTTON_CLASSES = {
-  neutral:
-    "border border-white/10 bg-white/[0.04] text-zinc-200 hover:bg-white/[0.07]",
-  signedOut: "bg-mint text-emerald-950 hover:bg-emerald-300",
-  success: "bg-mint text-emerald-950 hover:bg-emerald-300",
-  warning:
-    "border border-white/10 bg-white/[0.04] text-zinc-200 hover:bg-white/[0.07]",
-}
-
 export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
   const presentation = getPlanPresentation(account)
 
-  return (
-    <section
-      className={`rounded-lg border p-3 ${CARD_CLASSES[presentation.tone]}`}
-      data-testid="plan-card"
-    >
-      <div className="flex items-center justify-between gap-3">
-        <span
-          className={`text-[11px] font-semibold ${TITLE_CLASSES[presentation.tone]}`}
-        >
-          {presentation.title}
-        </span>
-        {presentation.usagePercent !== null && (
-          <span className="text-[11px] font-semibold text-zinc-200">
-            {presentation.usagePercent}%
-          </span>
-        )}
+  if (presentation.variant === "loading") {
+    return (
+      <div
+        aria-label="Checking subscription"
+        className="animate-pulse space-y-2 px-0.5 py-1"
+        data-testid="plan-card"
+      >
+        <div className="h-2.5 w-20 rounded bg-white/[0.06]" />
+        <div className="h-1 w-full rounded bg-white/[0.04]" />
       </div>
+    )
+  }
 
-      {presentation.usagePercent !== null && (
-        <div className="mt-2 h-1 overflow-hidden rounded-sm bg-white/[0.07]">
-          <div
-            className={`h-full rounded-sm ${TONE_CLASSES[presentation.tone]}`}
-            style={{ width: `${presentation.usagePercent}%` }}
+  if (presentation.variant === "signed-out") {
+    return (
+      <section
+        className="rounded-[10px] border border-white/[0.08] bg-white/[0.02] p-3"
+        data-testid="plan-card"
+      >
+        <p className="text-xs font-semibold text-zinc-200">Signed out</p>
+        <p className="mt-1 text-[10.5px] leading-[1.45] text-ink-muted">
+          Generation is paused until you sign in.
+        </p>
+        <button
+          className="mt-2.5 w-full rounded-md border border-white/10 bg-white/[0.06] px-2 py-2 text-xs font-semibold text-zinc-200 transition hover:bg-white/[0.09]"
+          onClick={() => openSiteLink(SITE_LINKS.signIn)}
+        >
+          Sign In
+        </button>
+      </section>
+    )
+  }
+
+  if (presentation.variant === "free-cta") {
+    return (
+      <section
+        className="rounded-[10px] border border-mint/25 bg-mint/[0.065] p-3.5"
+        data-testid="plan-card"
+      >
+        <p className="text-xs font-bold text-mint">
+          You&apos;re on the free plan
+        </p>
+        <p className="mt-1 text-[10.5px] leading-[1.45] text-ink-muted">
+          Unlock unlimited text, voice &amp; images.
+        </p>
+        <button
+          className="mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-[10px] border border-mint/60 bg-gradient-to-b from-emerald-300 to-mint px-2 py-3 text-[12.5px] font-extrabold text-emerald-950 shadow-[inset_0_1px_rgba(255,255,255,0.34),0_10px_24px_-8px_rgba(31,212,125,0.6)] transition hover:brightness-105"
+          onClick={() => openSiteLink(SITE_LINKS.startTrial)}
+        >
+          <Sparkles aria-hidden className="size-3.5" />
+          Start Free Trial
+        </button>
+      </section>
+    )
+  }
+
+  if (presentation.variant === "trial") {
+    const notesPercent =
+      presentation.notesLimit !== null && presentation.notesLimit > 0
+        ? Math.min(
+            100,
+            ((presentation.notesUsed ?? 0) / presentation.notesLimit) * 100,
+          )
+        : 100
+    const meterColor = presentation.warning ? "bg-amber" : "bg-mint"
+    const statusColor = presentation.warning ? "text-amber" : "text-mint"
+
+    return (
+      <section
+        className="rounded-[10px] border border-mint/20 bg-mint/[0.045] p-3"
+        data-testid="plan-card"
+      >
+        <div className="flex items-center justify-between">
+          <span className="text-[9.5px] font-bold tracking-[0.06em] text-mint uppercase">
+            Free Trial
+          </span>
+          <span className={`text-[10.5px] font-semibold ${statusColor}`}>
+            {presentation.daysLeft} days left
+          </span>
+        </div>
+        <div className="mt-2.5 space-y-2.5">
+          <Meter
+            colorClass={meterColor}
+            label="Notes"
+            percent={notesPercent}
+            value={`${presentation.notesUsed} of ${presentation.notesLimit}`}
+          />
+          <Meter
+            colorClass={meterColor}
+            label="Credits"
+            percent={presentation.usagePercent ?? 100}
+            value={`${pctLabel(presentation.usagePercent ?? 100)} used`}
           />
         </div>
-      )}
-
-      {presentation.detail && (
-        <p
-          className={`mt-2 text-[10px] leading-4 ${DETAIL_CLASSES[presentation.tone]}`}
+        <button
+          className="mt-3 w-full rounded-md bg-mint px-2 py-2 text-xs font-semibold text-emerald-950 transition hover:bg-emerald-300"
+          onClick={() => openSiteLink(SITE_LINKS.upgrade)}
         >
-          {presentation.detail}
-        </p>
-      )}
+          Upgrade Now
+        </button>
+      </section>
+    )
+  }
 
+  const usage = presentation.usagePercent ?? 0
+  const warning = presentation.warning || usage >= 80
+  const colorClass = warning ? "bg-amber" : "bg-zinc-500"
+  const textColor = warning ? "text-amber" : "text-zinc-300"
+
+  if (presentation.variant === "paid") {
+    return (
       <button
-        className={`mt-3 w-full rounded-md px-3 py-2 text-xs font-semibold transition ${BUTTON_CLASSES[presentation.tone]}`}
+        className="block w-full px-0.5 py-1 text-left"
+        data-testid="plan-card"
         onClick={onOpenSubscription}
       >
-        {presentation.actionLabel}
+        <span className="flex items-center justify-between text-[11px]">
+          <span className="text-ink-muted">{presentation.planName} plan</span>
+          <span className={`font-medium ${textColor}`}>{pctLabel(usage)}</span>
+        </span>
+        <span className="mt-1.5 block h-[3px] overflow-hidden rounded-full bg-white/[0.07]">
+          <span
+            className={`block h-full rounded-full ${colorClass}`}
+            style={{ width: `${usage}%` }}
+          />
+        </span>
+        {presentation.warning && (
+          <span className="mt-1.5 block text-[10px] text-amber">
+            Generation is paused — review your plan.
+          </span>
+        )}
       </button>
-    </section>
+    )
+  }
+
+  return (
+    <button
+      className={`block w-full rounded-[10px] border p-3 text-left ${
+        warning
+          ? "border-amber/25 bg-white/[0.02]"
+          : "border-white/[0.08] bg-white/[0.02]"
+      }`}
+      data-testid="plan-card"
+      onClick={onOpenSubscription}
+    >
+      <span className="flex items-center justify-between">
+        <span className="text-[11px] font-medium text-ink-muted">
+          Free plan
+        </span>
+        <span className={`text-xs font-semibold ${textColor}`}>
+          {pctLabel(usage)}
+        </span>
+      </span>
+      <span className="mt-1.5 block h-1 overflow-hidden rounded-full bg-white/[0.08]">
+        <span
+          className={`block h-full rounded-full ${colorClass}`}
+          style={{ width: `${usage}%` }}
+        />
+      </span>
+      <span className="mt-1.5 block text-[11px] text-ink-faint">
+        Resets in {presentation.daysLeft ?? 0} days
+      </span>
+      <span className="mt-2.5 block rounded-md bg-mint px-2 py-2 text-center text-xs font-semibold text-emerald-950">
+        Upgrade
+      </span>
+    </button>
   )
 }
+
+interface MeterProps {
+  colorClass: string
+  label: string
+  percent: number
+  value: string
+}
+
+const Meter = ({ colorClass, label, percent, value }: MeterProps) => (
+  <div>
+    <div className="mb-1 flex justify-between text-[10.5px] leading-none text-ink-muted">
+      <span>{label}</span>
+      <span className="font-medium text-zinc-300">{value}</span>
+    </div>
+    <div className="h-[3px] overflow-hidden rounded-full bg-white/[0.08]">
+      <div
+        className={`h-full rounded-full ${colorClass}`}
+        style={{ width: `${Math.min(100, percent)}%` }}
+      />
+    </div>
+  </div>
+)

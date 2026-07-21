@@ -6,6 +6,9 @@ import { ImageDefaultsScreen } from "@/features/image-defaults/ImageDefaultsScre
 import { SmartFieldsScreen } from "@/features/smart-fields/SmartFieldsScreen"
 import { TextDefaultsScreen } from "@/features/text-defaults/TextDefaultsScreen"
 import { VoiceDefaultsScreen } from "@/features/voice-defaults/VoiceDefaultsScreen"
+import { SettingsScreen } from "@/features/settings/SettingsScreen"
+import { SubscriptionScreen } from "@/features/subscription/SubscriptionScreen"
+import { SupportScreen } from "@/features/support/SupportScreen"
 import { bootOptions, type ScreenId } from "@/lib/boot"
 import { useAppStore } from "@/store/appStore"
 import type { AccountState } from "@/types/api"
@@ -30,6 +33,9 @@ const SCREENS: Partial<Record<ScreenId, ComponentType<ScreenProps>>> = {
   "defaults-text": TextDefaultsScreen,
   "defaults-images": ImageDefaultsScreen,
   "defaults-voice": VoiceDefaultsScreen,
+  settings: SettingsScreen,
+  subscription: SubscriptionScreen,
+  support: SupportScreen,
 }
 
 const App = () => {
@@ -43,6 +49,7 @@ const App = () => {
       <AppShell
         account={state?.account ?? LOADING_ACCOUNT}
         activeScreen={activeScreen}
+        appVersion={state?.appVersion ?? null}
         connection={connection}
         onNavigate={setActiveScreen}
       >

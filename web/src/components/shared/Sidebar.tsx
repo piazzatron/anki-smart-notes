@@ -6,12 +6,12 @@ import {
   MessageSquare,
   MessageSquareText,
   MessagesSquare,
-  Settings,
   SlidersHorizontal,
   Volume2,
 } from "lucide-react"
-import type { ComponentType } from "react"
+import { useState, type ComponentType } from "react"
 
+import { FeedbackPopover } from "./FeedbackPopover"
 import { PlanCard } from "./PlanCard"
 
 import type { ScreenId } from "@/lib/boot"
@@ -20,6 +20,7 @@ import type { AccountState } from "@/types/api"
 interface SidebarProps {
   account: AccountState
   activeScreen: ScreenId
+  appVersion: string | null
   onNavigate: (screen: ScreenId) => void
 }
 
@@ -29,110 +30,146 @@ interface NavItem {
   icon: ComponentType<{ className?: string; "aria-hidden"?: boolean }>
 }
 
-interface NavGroup {
-  label: string
-  items: NavItem[]
+const SMART_FIELDS_ITEM: NavItem = {
+  id: "fields",
+  label: "Smart Fields",
+  icon: Layers3,
 }
 
-const NAV_GROUPS: NavGroup[] = [
-  {
-    label: "Home",
-    items: [{ id: "fields", label: "Smart Fields", icon: Layers3 }],
-  },
-  {
-    label: "Defaults",
-    items: [
-      { id: "defaults-text", label: "Text", icon: MessageSquareText },
-      { id: "defaults-images", label: "Images", icon: Image },
-      { id: "defaults-voice", label: "Voice", icon: Volume2 },
-    ],
-  },
-  {
-    label: "Settings",
-    items: [
-      { id: "generation", label: "Generation", icon: SlidersHorizontal },
-      { id: "advanced", label: "Advanced", icon: Settings },
-    ],
-  },
-  {
-    label: "Account",
-    items: [
-      { id: "subscription", label: "Subscription", icon: CreditCard },
-      { id: "support", label: "Support & Bugs", icon: LifeBuoy },
-    ],
-  },
+const DEFAULT_ITEMS: NavItem[] = [
+  { id: "defaults-text", label: "Text", icon: MessageSquareText },
+  { id: "defaults-images", label: "Images", icon: Image },
+  { id: "defaults-voice", label: "Voice", icon: Volume2 },
+]
+
+const SECONDARY_ITEMS: NavItem[] = [
+  { id: "settings", label: "Settings", icon: SlidersHorizontal },
+  { id: "subscription", label: "Subscription", icon: CreditCard },
+  { id: "support", label: "Support & Bugs", icon: LifeBuoy },
 ]
 
 export const Sidebar = ({
   account,
   activeScreen,
+  appVersion,
   onNavigate,
-}: SidebarProps) => (
-  <aside className="flex min-h-0 w-52 shrink-0 flex-col border-r border-white/[0.065] bg-sidebar px-2.5 py-3.5 max-[760px]:w-44">
-    <nav
-      aria-label="Smart Notes sections"
-      className="min-h-0 flex-1 overflow-y-auto"
-    >
-      {NAV_GROUPS.map((group) => (
-        <section className="mb-3.5" key={group.label}>
-          <h2 className="mb-1 px-2 text-[9px] font-semibold tracking-[0.12em] text-ink-faint uppercase">
-            {group.label}
-          </h2>
-          <div className="space-y-0.5">
-            {group.items.map((item) => {
-              const Icon = item.icon
-              const isActive = item.id === activeScreen
+}: SidebarProps) => {
+  const [feedbackOpen, setFeedbackOpen] = useState(false)
+  const email = (account as AccountState & { email?: string | null }).email
 
-              return (
-                <button
-                  aria-current={isActive ? "page" : undefined}
-                  className={`flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[12.5px] font-medium transition ${
-                    isActive
-                      ? "bg-indigo/14 text-indigo-soft"
-                      : "text-zinc-400 hover:bg-white/[0.045] hover:text-zinc-100"
-                  }`}
-                  key={item.id}
-                  onClick={() => onNavigate(item.id)}
-                >
-                  <Icon
-                    aria-hidden
-                    className="size-[17px] shrink-0 opacity-85"
-                  />
-                  <span className="truncate">{item.label}</span>
-                </button>
-              )
-            })}
-          </div>
-        </section>
-      ))}
-    </nav>
+  return (
+    <aside className="flex min-h-0 w-52 shrink-0 flex-col border-r border-white/[0.065] bg-sidebar px-2.5 pt-2 pb-0 max-[760px]:w-44">
+      <nav
+        aria-label="Smart Notes sections"
+        className="min-h-0 flex-1 overflow-y-auto pb-2"
+      >
+        <NavButton
+          activeScreen={activeScreen}
+          item={SMART_FIELDS_ITEM}
+          onNavigate={onNavigate}
+        />
 
-    <div className="mt-2 space-y-2.5">
-      <PlanCard
-        account={account}
-        onOpenSubscription={() => onNavigate("subscription")}
-      />
-      <div className="grid grid-cols-2 gap-1.5">
-        <a
-          className="inline-flex items-center justify-center gap-1.5 rounded-md border border-white/[0.07] px-2 py-1.5 text-[10px] text-ink-faint transition hover:border-white/12 hover:text-zinc-300"
-          href="https://discord.gg/kxGaWpkTGr"
-          rel="noreferrer"
-          target="_blank"
-        >
-          <MessagesSquare aria-hidden className="size-3" />
-          Discord
-        </a>
-        <button
-          className="inline-flex items-center justify-center gap-1.5 rounded-md border border-white/[0.07] px-2 py-1.5 text-[10px] text-ink-faint transition hover:border-white/12 hover:text-zinc-300"
-          onClick={() => onNavigate("support")}
-        >
-          <MessageSquare aria-hidden className="size-3" />
-          Feedback
-        </button>
+        <h2 className="mt-4 mb-1 px-2 text-[9px] font-semibold tracking-[0.12em] text-ink-faint uppercase">
+          Defaults
+        </h2>
+        <div className="space-y-0.5">
+          {DEFAULT_ITEMS.map((item) => (
+            <NavButton
+              activeScreen={activeScreen}
+              item={item}
+              key={item.id}
+              onNavigate={onNavigate}
+            />
+          ))}
+        </div>
+
+        <div className="mx-2 my-2.5 border-t border-white/[0.06]" />
+        <div className="space-y-0.5">
+          {SECONDARY_ITEMS.map((item) => (
+            <NavButton
+              activeScreen={activeScreen}
+              item={item}
+              key={item.id}
+              onNavigate={onNavigate}
+            />
+          ))}
+        </div>
+      </nav>
+
+      <div className="space-y-2.5 px-0 pb-0">
+        <PlanCard
+          account={account}
+          onOpenSubscription={() => onNavigate("subscription")}
+        />
+        <div className="relative grid grid-cols-2 gap-1.5">
+          <a
+            className="inline-flex items-center justify-center gap-1.5 rounded-md border border-white/[0.07] px-2 py-1.5 text-[10px] text-ink-faint transition hover:border-white/12 hover:text-zinc-300"
+            href="https://discord.gg/kxGaWpkTGr"
+            rel="noreferrer"
+            target="_blank"
+          >
+            <MessagesSquare aria-hidden className="size-3" />
+            Discord
+          </a>
+          <button
+            className="inline-flex items-center justify-center gap-1.5 rounded-md border border-white/[0.07] px-2 py-1.5 text-[10px] text-ink-faint transition hover:border-white/12 hover:text-zinc-300"
+            onClick={() => setFeedbackOpen((open) => !open)}
+          >
+            <MessageSquare aria-hidden className="size-3" />
+            Feedback
+          </button>
+          {feedbackOpen && (
+            <FeedbackPopover
+              onClose={() => setFeedbackOpen(false)}
+              onOpenSupport={() => onNavigate("support")}
+            />
+          )}
+        </div>
+
+        {email != null && (
+          <button
+            className="block w-full truncate px-2 pt-0.5 text-center text-[11px] text-ink-muted hover:text-zinc-300"
+            onClick={() => onNavigate("subscription")}
+            title={email}
+          >
+            {email}
+          </button>
+        )}
+        {appVersion !== null && (
+          <button
+            className="block w-full pb-2 text-center font-mono text-[10px] text-zinc-600 hover:text-zinc-400"
+            onClick={() => onNavigate("support")}
+          >
+            Smart Notes v{appVersion}
+          </button>
+        )}
       </div>
-      <p className="text-center text-[9px] tracking-wide text-zinc-700 uppercase">
-        Beta UI
-      </p>
-    </div>
-  </aside>
-)
+    </aside>
+  )
+}
+
+interface NavButtonProps {
+  activeScreen: ScreenId
+  item: NavItem
+  onNavigate: (screen: ScreenId) => void
+}
+
+const NavButton = ({ activeScreen, item, onNavigate }: NavButtonProps) => {
+  const Icon = item.icon
+  const isActive = item.id === activeScreen
+
+  return (
+    <button
+      aria-current={isActive ? "page" : undefined}
+      className={`flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[12.5px] font-medium transition ${
+        isActive
+          ? "bg-indigo/14 text-indigo-soft"
+          : "text-zinc-400 hover:bg-white/[0.045] hover:text-zinc-100"
+      }`}
+      onClick={() => onNavigate(item.id)}
+    >
+      <Icon aria-hidden className="size-[17px] shrink-0 opacity-85" />
+      <span className="truncate">{item.label}</span>
+    </button>
+  )
+}

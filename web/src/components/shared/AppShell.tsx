@@ -10,6 +10,7 @@ import type { AccountState } from "@/types/api"
 interface AppShellProps {
   account: AccountState
   activeScreen: ScreenId
+  appVersion: string | null
   connection: Connection
   children: ReactNode
   onNavigate: (screen: ScreenId) => void
@@ -18,6 +19,7 @@ interface AppShellProps {
 export const AppShell = ({
   account,
   activeScreen,
+  appVersion,
   connection,
   children,
   onNavigate,
@@ -26,6 +28,7 @@ export const AppShell = ({
     <Sidebar
       account={account}
       activeScreen={activeScreen}
+      appVersion={appVersion}
       onNavigate={onNavigate}
     />
     <main className="flex min-w-0 flex-1 flex-col bg-canvas">

@@ -1,11 +1,23 @@
 import type { AccountState, PlanInfo, SubscriptionState } from "@/types/api"
 
+export type PlanVariant =
+  "loading" | "signed-out" | "free-cta" | "trial" | "free-usage" | "paid"
+
 export interface PlanPresentation {
-  title: string
-  detail: string
+  variant: PlanVariant
+  planName: string
   usagePercent: number | null
-  tone: "neutral" | "signedOut" | "success" | "warning"
-  actionLabel: string
+  warning: boolean
+  daysLeft: number | null
+  notesUsed: number | null
+  notesLimit: number | null
+}
+
+export interface CreditSegment {
+  key: "text" | "voice" | "images"
+  label: string
+  percent: number
+  color: string
 }
 
 export const hasGenerationAccess = (account: AccountState): boolean =>
@@ -15,82 +27,106 @@ export const hasGenerationAccess = (account: AccountState): boolean =>
 export const getPlanPresentation = (account: AccountState): PlanPresentation =>
   PLAN_PRESENTATIONS[account.subscription](account.plan)
 
+export const getCreditUsagePercent = (plan: PlanInfo | null): number => {
+  if (plan === null || plan.totalCreditsCapacity <= 0) return 0
+  return Math.min(
+    100,
+    (plan.totalCreditsUsed / plan.totalCreditsCapacity) * 100,
+  )
+}
+
+export const pctLabel = (percent: number): string => {
+  if (percent > 0 && percent < 1) return "<1%"
+  return `${Math.round(percent)}%`
+}
+
+export const getCreditSegments = (plan: PlanInfo): CreditSegment[] => {
+  const capacity = plan.totalCreditsCapacity
+  const toPercent = (used: number) =>
+    capacity > 0 ? Math.min(100, (used / capacity) * 100) : 0
+
+  return [
+    {
+      key: "text",
+      label: "Text",
+      percent: toPercent(plan.textCreditsUsed),
+      color: "#9a9aa4",
+    },
+    {
+      key: "voice",
+      label: "Voice",
+      percent: toPercent(plan.voiceCreditsUsed),
+      color: "#5fe3b0",
+    },
+    {
+      key: "images",
+      label: "Images",
+      percent: toPercent(plan.imageCreditsUsed),
+      color: "#7c8dff",
+    },
+  ]
+}
+
 type PlanPresentationFactory = (plan: PlanInfo | null) => PlanPresentation
 
 const PLAN_PRESENTATIONS: Record<SubscriptionState, PlanPresentationFactory> = {
-  LOADING: () => ({
-    title: "Checking plan…",
-    detail: "",
-    usagePercent: null,
-    tone: "neutral",
-    actionLabel: "Subscription",
-  }),
-  UNAUTHENTICATED: () => ({
-    ...SIGNED_OUT_PRESENTATION,
-    tone: "signedOut",
-  }),
-  NO_SUBSCRIPTION: (plan) => getPaidPresentation(plan, "neutral"),
+  LOADING: () => presentation("loading"),
+  UNAUTHENTICATED: () => presentation("signed-out"),
+  NO_SUBSCRIPTION: (plan) =>
+    plan === null
+      ? presentation("free-cta")
+      : paidOrFreePresentation("free-usage", plan, false),
   FREE_TRIAL_ACTIVE: (plan) =>
-    getTrialPresentation(
-      plan,
-      plan !== null && plan.daysLeft <= 2 ? "warning" : "success",
-    ),
-  FREE_TRIAL_EXPIRED: (plan) => getTrialPresentation(plan, "warning"),
-  FREE_TRIAL_CAPACITY: (plan) => getTrialPresentation(plan, "warning"),
-  PAID_PLAN_ACTIVE: (plan) => getPaidPresentation(plan, "neutral"),
-  PAID_PLAN_EXPIRED: (plan) => getPaidPresentation(plan, "warning"),
-  PAID_PLAN_CAPACITY: (plan) => getPaidPresentation(plan, "warning"),
+    plan?.notesLimit === null
+      ? paidOrFreePresentation("free-usage", plan, false)
+      : trialPresentation(plan, false),
+  FREE_TRIAL_EXPIRED: (plan) => trialPresentation(plan, true),
+  FREE_TRIAL_CAPACITY: (plan) => trialPresentation(plan, true),
+  PAID_PLAN_ACTIVE: (plan) => paidOrFreePresentation("paid", plan, false),
+  PAID_PLAN_EXPIRED: (plan) => paidOrFreePresentation("paid", plan, true),
+  PAID_PLAN_CAPACITY: (plan) => paidOrFreePresentation("paid", plan, true),
 }
 
-const SIGNED_OUT_PRESENTATION: PlanPresentation = {
-  title: "Signed out",
-  detail: "Sign in to use Smart Notes.",
+const presentation = (variant: PlanVariant): PlanPresentation => ({
+  variant,
+  planName: "",
   usagePercent: null,
-  tone: "neutral",
-  actionLabel: "Sign in",
-}
+  warning: false,
+  daysLeft: null,
+  notesUsed: null,
+  notesLimit: null,
+})
 
-const getTrialPresentation = (
+const trialPresentation = (
   plan: PlanInfo | null,
-  tone: PlanPresentation["tone"],
+  ended: boolean,
 ): PlanPresentation => {
-  if (plan === null) return SIGNED_OUT_PRESENTATION
-
-  const noteUsage =
-    plan.notesUsed !== null && plan.notesLimit !== null
-      ? ` · ${plan.notesUsed}/${plan.notesLimit} notes`
-      : ""
+  const usagePercent = ended ? 100 : getCreditUsagePercent(plan)
+  const notesLimit = plan?.notesLimit ?? 50
+  const notesUsed = ended ? notesLimit : (plan?.notesUsed ?? 0)
+  const daysLeft = ended ? 0 : Math.max(0, plan?.daysLeft ?? 0)
 
   return {
-    title: "Trial",
-    detail: `${Math.max(0, plan.daysLeft)} days left${noteUsage}`,
-    usagePercent: getUsagePercent(plan),
-    tone,
-    actionLabel: "Upgrade",
-  }
-}
-
-const getPaidPresentation = (
-  plan: PlanInfo | null,
-  tone: PlanPresentation["tone"],
-): PlanPresentation => {
-  if (plan === null) return SIGNED_OUT_PRESENTATION
-
-  const usagePercent = getUsagePercent(plan)
-
-  return {
-    title: plan.planName,
-    detail: `${usagePercent}% of credits used`,
+    variant: "trial",
+    planName: plan?.planName ?? "Free Trial",
     usagePercent,
-    tone,
-    actionLabel: "Manage",
+    warning: ended || daysLeft <= 2 || usagePercent >= 80,
+    daysLeft,
+    notesUsed,
+    notesLimit,
   }
 }
 
-const getUsagePercent = (plan: PlanInfo): number =>
-  plan.totalCreditsCapacity > 0
-    ? Math.min(
-        100,
-        Math.round((plan.totalCreditsUsed / plan.totalCreditsCapacity) * 100),
-      )
-    : 0
+const paidOrFreePresentation = (
+  variant: "free-usage" | "paid",
+  plan: PlanInfo | null,
+  warning: boolean,
+): PlanPresentation => ({
+  variant,
+  planName: plan?.planName ?? (variant === "free-usage" ? "Free" : "Paid"),
+  usagePercent: getCreditUsagePercent(plan),
+  warning,
+  daysLeft: plan === null ? null : Math.max(0, plan.daysLeft),
+  notesUsed: plan?.notesUsed ?? null,
+  notesLimit: plan?.notesLimit ?? null,
+})
