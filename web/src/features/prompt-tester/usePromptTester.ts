@@ -39,6 +39,7 @@ interface PromptTesterState<R> {
 interface UsePromptTesterArgs<R> {
   fallbackError: string
   initialPrompt: string
+  prompt?: string
   run: (args: { cardId: number; prompt: string }) => Promise<R>
 }
 
@@ -70,6 +71,7 @@ export const getVisiblePromptTestResult = <R>(
 export const usePromptTester = <R>({
   fallbackError,
   initialPrompt,
+  prompt: controlledPrompt,
   run,
 }: UsePromptTesterArgs<R>): PromptTesterControls<R> => {
   const selection = useAppStore((store) => store.selection)
@@ -80,6 +82,7 @@ export const usePromptTester = <R>({
     result: null,
   })
   const selectedNote = selection?.note ?? null
+  const prompt = controlledPrompt ?? tester.prompt
   const visibleResult = getVisiblePromptTestResult(
     tester.result,
     selectedNote?.cardId ?? null,
@@ -90,7 +93,6 @@ export const usePromptTester = <R>({
   const runTest = async () => {
     if (selectedNote === null) return
 
-    const prompt = tester.prompt
     patchTester({ error: null, isTesting: true })
     const startedAt = performance.now()
     try {
@@ -116,11 +118,13 @@ export const usePromptTester = <R>({
     dismissError: () => patchTester({ error: null }),
     error: tester.error,
     isTesting: tester.isTesting,
-    prompt: tester.prompt,
+    prompt,
     result: visibleResult,
     runTest,
     selection,
     selectedNote,
-    setPrompt: (prompt: string) => patchTester({ prompt }),
+    setPrompt: (prompt: string) => {
+      if (controlledPrompt === undefined) patchTester({ prompt })
+    },
   }
 }

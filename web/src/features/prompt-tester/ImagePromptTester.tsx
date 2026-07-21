@@ -27,10 +27,16 @@ import { PromptTesterPanel, ResolvedPrompt } from "./PromptTesterPanel"
 import { usePromptTester } from "./usePromptTester"
 
 interface ImagePromptTesterProps {
+  hidePromptInput?: boolean
+  prompt?: string
   settings: ImageGenerationSettings
 }
 
-export const ImagePromptTester = ({ settings }: ImagePromptTesterProps) => {
+export const ImagePromptTester = ({
+  hidePromptInput,
+  prompt,
+  settings,
+}: ImagePromptTesterProps) => {
   const [dimensions, setDimensions] = useState<{
     height: number
     width: number
@@ -39,6 +45,7 @@ export const ImagePromptTester = ({ settings }: ImagePromptTesterProps) => {
   const tester = usePromptTester({
     fallbackError: "Could not generate an image",
     initialPrompt: "A memorable scene illustrating {{Expression}}.",
+    prompt,
     run: async ({ cardId, prompt }) => {
       const result = await testImagePrompt({ cardId, prompt, settings })
       setDimensions(null)
@@ -48,6 +55,7 @@ export const ImagePromptTester = ({ settings }: ImagePromptTesterProps) => {
 
   return (
     <PromptTesterPanel
+      hidePromptInput={hidePromptInput}
       promptLabel="Prompt"
       runLabel={`Run with ${modelLabel(settings.model)}`}
       runningLabel="Running…"

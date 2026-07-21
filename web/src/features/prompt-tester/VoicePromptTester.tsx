@@ -25,23 +25,29 @@ import { PromptTesterPanel, ResolvedPrompt } from "./PromptTesterPanel"
 import { usePromptTester } from "./usePromptTester"
 
 interface VoicePromptTesterProps {
+  hidePromptInput?: boolean
+  prompt?: string
   settings: TTSGenerationSettings
   voiceName: string
 }
 
 export const VoicePromptTester = ({
+  hidePromptInput,
+  prompt,
   settings,
   voiceName,
 }: VoicePromptTesterProps) => {
   const tester = usePromptTester({
     fallbackError: "Could not generate audio",
     initialPrompt: "{{Expression}}",
+    prompt,
     run: ({ cardId, prompt }) =>
       testTTSPrompt({ cardId, settings, text: prompt }),
   })
 
   return (
     <PromptTesterPanel
+      hidePromptInput={hidePromptInput}
       promptLabel="Text to speak"
       runLabel={`Run with ${voiceName}`}
       runningLabel="Generating…"

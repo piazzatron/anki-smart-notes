@@ -32,6 +32,7 @@ export const FIELD_REFERENCE_PATTERN = /\{\{([^{}]+)\}\}/g
 
 interface PromptTesterPanelProps<R> {
   children: ReactNode
+  hidePromptInput?: boolean
   promptLabel: string
   runLabel: string
   runningLabel: string
@@ -42,6 +43,7 @@ interface PromptTesterPanelProps<R> {
 
 export const PromptTesterPanel = <R,>({
   children,
+  hidePromptInput = false,
   promptLabel,
   runLabel,
   runningLabel,
@@ -102,21 +104,25 @@ export const PromptTesterPanel = <R,>({
         selection={tester.selection}
       />
 
-      <label
-        className="mt-4 mb-2 block text-[10px] font-semibold tracking-[0.05em] text-ink-faint uppercase"
-        htmlFor={textareaId}
-      >
-        {promptLabel}
-      </label>
-      <textarea
-        className="min-h-20 w-full resize-y rounded-[7px] border border-white/10 bg-white/[0.03] px-[11px] py-[9px] font-mono text-xs leading-[1.55] text-zinc-200 transition outline-none placeholder:text-zinc-700 focus:border-indigo/45"
-        id={textareaId}
-        onChange={(event) => tester.setPrompt(event.target.value)}
-        value={tester.prompt}
-      />
+      {!hidePromptInput && (
+        <>
+          <label
+            className="mt-4 mb-2 block text-[10px] font-semibold tracking-[0.05em] text-ink-faint uppercase"
+            htmlFor={textareaId}
+          >
+            {promptLabel}
+          </label>
+          <textarea
+            className="min-h-20 w-full resize-y rounded-[7px] border border-white/10 bg-white/[0.03] px-[11px] py-[9px] font-mono text-xs leading-[1.55] text-zinc-200 transition outline-none placeholder:text-zinc-700 focus:border-indigo/45"
+            id={textareaId}
+            onChange={(event) => tester.setPrompt(event.target.value)}
+            value={tester.prompt}
+          />
+        </>
+      )}
 
       <Button
-        className="mt-3 w-full py-2 text-[12.5px] disabled:cursor-default disabled:opacity-35"
+        className={`${hidePromptInput ? "mt-4" : "mt-3"} w-full py-2 text-[12.5px] disabled:cursor-default disabled:opacity-35`}
         disabled={runDisabled}
         onClick={() => void tester.runTest()}
         variant="primary"

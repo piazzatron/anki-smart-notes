@@ -25,18 +25,26 @@ import { PromptTesterPanel, ResolvedPrompt } from "./PromptTesterPanel"
 import { usePromptTester } from "./usePromptTester"
 
 interface PromptTesterProps {
+  hidePromptInput?: boolean
+  prompt?: string
   settings: ChatGenerationSettings
 }
 
-export const PromptTester = ({ settings }: PromptTesterProps) => {
+export const PromptTester = ({
+  hidePromptInput,
+  prompt,
+  settings,
+}: PromptTesterProps) => {
   const tester = usePromptTester({
     fallbackError: "Could not test this prompt",
     initialPrompt: "Translate {{Expression}} into natural English.",
+    prompt,
     run: ({ cardId, prompt }) => testTextPrompt({ cardId, prompt, settings }),
   })
 
   return (
     <PromptTesterPanel
+      hidePromptInput={hidePromptInput}
       promptLabel="Prompt"
       runLabel={`Run with ${modelLabel(settings.model)}`}
       runningLabel="Running…"

@@ -1,15 +1,8 @@
 import { AlertCircle, LoaderCircle, Play, X } from "lucide-react"
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import { hasGenerationAccess } from "@/components/shared/planPresentation"
 import { Button } from "@/components/ui/Button"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/Select"
 import { getDefaultUsage } from "@/features/defaults/defaultUsage"
 import { useDefaultsForm } from "@/features/defaults/useDefaultsForm"
 import { VoicePromptTester } from "@/features/prompt-tester/VoicePromptTester"
@@ -18,12 +11,8 @@ import { previewTTSVoice, saveTTSDefaults } from "@/services/commands"
 import { useAppStore } from "@/store/appStore"
 import type { AppState, VoiceCatalog, VoiceCatalogItem } from "@/types/api"
 
-import {
-  filterVoices,
-  previewTextForLanguage,
-  voiceKey,
-  voiceMatchesSettings,
-} from "./voiceDefaults"
+import { VoicePicker } from "./VoicePicker"
+import { previewTextForLanguage, voiceMatchesSettings } from "./voiceDefaults"
 import { useVoiceCatalog } from "./useVoiceCatalog"
 
 const VOICE_GENDER_SYMBOLS: Record<string, string> = {
@@ -76,16 +65,10 @@ const LoadedVoiceDefaultsScreen = ({
   const selectedVoice = catalog.voices.find((voice) =>
     voiceMatchesSettings(voice, controls.form.values),
   )
-  const [filters, setFilters] = useState({
-    gender: "All",
-    language: selectedVoice?.language ?? "All",
-    provider: "All",
-    search: "",
-  })
   const [previewState, setPreviewState] = useState<{
     error: string | null
-    loadingKey: string | null
-  }>({ error: null, loadingKey: null })
+    isLoading: boolean
+  }>({ error: null, isLoading: false })
   const previewAudio = useRef<HTMLAudioElement | null>(null)
 
   useEffect(
@@ -94,33 +77,9 @@ const LoadedVoiceDefaultsScreen = ({
     },
     [],
   )
-  const languages = useMemo(
-    () =>
-      [
-        "All",
-        ...new Set(
-          catalog.voices
-            .map((voice) => voice.language)
-            .filter((language) => language !== "All"),
-        ),
-      ].sort((a, b) =>
-        a === "All" ? -1 : b === "All" ? 1 : a.localeCompare(b),
-      ),
-    [catalog.voices],
-  )
-  const providers = useMemo(
-    () => ["All", ...new Set(catalog.voices.map((voice) => voice.provider))],
-    [catalog.voices],
-  )
-  const visibleVoices = useMemo(
-    () => filterVoices(catalog.voices, filters),
-    [catalog.voices, filters],
-  )
-
   const previewVoice = async (voice: VoiceCatalogItem) => {
-    const key = voiceKey(voice)
     previewAudio.current?.pause()
-    setPreviewState({ error: null, loadingKey: key })
+    setPreviewState({ error: null, isLoading: true })
     try {
       const result = await previewTTSVoice({
         text: previewTextForLanguage(voice.language),
@@ -138,11 +97,11 @@ const LoadedVoiceDefaultsScreen = ({
           error instanceof Error
             ? error.message
             : "Could not preview this voice",
-        loadingKey: null,
+        isLoading: false,
       })
       return
     }
-    setPreviewState({ error: null, loadingKey: null })
+    setPreviewState({ error: null, isLoading: false })
   }
 
   return (
@@ -203,15 +162,14 @@ const LoadedVoiceDefaultsScreen = ({
               disabled={
                 selectedVoice === undefined ||
                 !accountCanGenerate ||
-                previewState.loadingKey !== null
+                previewState.isLoading
               }
               onClick={() => {
                 if (selectedVoice !== undefined)
                   void previewVoice(selectedVoice)
               }}
             >
-              {selectedVoice !== undefined &&
-              previewState.loadingKey === voiceKey(selectedVoice) ? (
+              {previewState.isLoading ? (
                 <LoaderCircle aria-hidden className="size-3 animate-spin" />
               ) : (
                 <Play aria-hidden className="ml-0.5 size-3 fill-current" />
@@ -236,122 +194,12 @@ const LoadedVoiceDefaultsScreen = ({
           <p className="mb-2 text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
             Browse voices
           </p>
-          <div className="grid grid-cols-3 gap-2">
-            <VoiceFilter
-              label="Language"
-              options={languages}
-              value={filters.language}
-              onChange={(language) =>
-                setFilters((current) => ({ ...current, language }))
-              }
-            />
-            <VoiceFilter
-              label="Gender"
-              options={["All", "Female", "Male"]}
-              value={filters.gender}
-              onChange={(gender) =>
-                setFilters((current) => ({ ...current, gender }))
-              }
-            />
-            <VoiceFilter
-              label="Provider"
-              options={providers}
-              renderOption={(provider) =>
-                provider === "All" ? "All" : providerLabel(provider)
-              }
-              value={filters.provider}
-              onChange={(provider) =>
-                setFilters((current) => ({ ...current, provider }))
-              }
-            />
-          </div>
-
-          <input
-            aria-label="Search voices"
-            className="mt-2 h-9 w-full rounded-md border border-white/[0.09] bg-white/[0.035] px-3 text-xs text-zinc-200 transition outline-none placeholder:text-zinc-600 focus:border-indigo/45"
-            onChange={(event) =>
-              setFilters((current) => ({
-                ...current,
-                search: event.target.value,
-              }))
-            }
-            placeholder={`🔍 Search ${catalog.voices.length} voices…`}
-            value={filters.search}
+          <VoicePicker
+            canPreview={accountCanGenerate}
+            catalog={catalog}
+            onSelect={controls.patchDraft}
+            value={controls.form.values}
           />
-
-          <div className="mt-2 flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-white/[0.08] bg-black/10">
-            <div className="min-h-48 flex-1 overflow-y-auto p-1.5">
-              {visibleVoices.length === 0 ? (
-                <p className="py-12 text-center text-xs text-ink-faint">
-                  No voices match these filters.
-                </p>
-              ) : (
-                visibleVoices.map((voice) => {
-                  const key = voiceKey(voice)
-                  const isSelected = voiceMatchesSettings(
-                    voice,
-                    controls.form.values,
-                  )
-                  return (
-                    <div
-                      className={`group flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 transition ${isSelected ? "bg-indigo/14" : "hover:bg-white/[0.045]"}`}
-                      key={key}
-                      onClick={() =>
-                        controls.patchDraft({
-                          provider: voice.provider,
-                          model: voice.model,
-                          voiceId: voice.voiceId,
-                        })
-                      }
-                      role="button"
-                      tabIndex={0}
-                      onKeyDown={(event) => {
-                        if (event.key === "Enter" || event.key === " ") {
-                          event.preventDefault()
-                          controls.patchDraft({
-                            provider: voice.provider,
-                            model: voice.model,
-                            voiceId: voice.voiceId,
-                          })
-                        }
-                      }}
-                    >
-                      <button
-                        aria-label={`Preview ${voice.name}`}
-                        className="flex size-4 shrink-0 cursor-pointer items-center justify-center text-zinc-500 transition hover:text-indigo-soft disabled:cursor-not-allowed disabled:opacity-35"
-                        disabled={
-                          !accountCanGenerate ||
-                          previewState.loadingKey !== null
-                        }
-                        onClick={(event) => {
-                          event.stopPropagation()
-                          void previewVoice(voice)
-                        }}
-                      >
-                        {previewState.loadingKey === key ? (
-                          <LoaderCircle
-                            aria-hidden
-                            className="size-3 animate-spin"
-                          />
-                        ) : (
-                          <Play
-                            aria-hidden
-                            className="ml-0.5 size-2.5 fill-current"
-                          />
-                        )}
-                      </button>
-                      <span className="min-w-0 flex-1 truncate text-xs font-semibold text-zinc-200">
-                        {voice.name}
-                      </span>
-                      <span className="shrink-0 rounded bg-white/[0.045] px-2 py-0.5 text-[9.5px] text-ink-faint">
-                        {providerLabel(voice.provider)}
-                      </span>
-                    </div>
-                  )
-                })
-              )}
-            </div>
-          </div>
 
           {controls.hasPendingChanges && (
             <div className="mt-4 flex shrink-0 items-center gap-2.5 rounded-lg border border-amber/20 bg-amber/[0.065] p-3">
@@ -406,37 +254,3 @@ const LoadedVoiceDefaultsScreen = ({
     </section>
   )
 }
-
-interface VoiceFilterProps {
-  label: string
-  onChange: (value: string) => void
-  options: string[]
-  renderOption?: (value: string) => string
-  value: string
-}
-
-const VoiceFilter = ({
-  label,
-  onChange,
-  options,
-  renderOption = (value) => value,
-  value,
-}: VoiceFilterProps) => (
-  <Select onValueChange={onChange} value={value}>
-    <SelectTrigger aria-label={label} className="h-9 min-h-9 px-2.5 py-1.5">
-      <span className="flex min-w-0 items-center gap-1 whitespace-nowrap">
-        <span className="shrink-0 text-ink-muted">{label}:</span>
-        <span className="truncate">
-          <SelectValue />
-        </span>
-      </span>
-    </SelectTrigger>
-    <SelectContent>
-      {options.map((option) => (
-        <SelectItem key={option} value={option}>
-          {renderOption(option)}
-        </SelectItem>
-      ))}
-    </SelectContent>
-  </Select>
-)
