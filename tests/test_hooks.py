@@ -40,11 +40,13 @@ def test_profile_did_open_restarts_local_server_after_profile_switch(
 
     monkeypatch.setattr(hooks, "_local_server", None)
     monkeypatch.setattr(hooks, "LocalServer", FakeLocalServer)
+    monkeypatch.setattr(hooks, "migrate_config", lambda: calls.append("config_migrate"))
 
     hooks.on_profile_did_open()
     hooks.on_profile_did_open()
 
     assert calls == [
+        "config_migrate",
         "server_init",
         "server_start",
     ]

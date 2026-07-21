@@ -62,12 +62,8 @@ interface LoadedSettingsScreenProps {
 const LoadedSettingsScreen = ({ settings }: LoadedSettingsScreenProps) => {
   const controls = useSettings(settings)
   const [legacyOpen, setLegacyOpen] = useState(false)
-  const saveOnEnter = (
-    event: KeyboardEvent<HTMLInputElement>,
-    update: () => void,
-  ) => {
+  const saveOnEnter = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key !== "Enter") return
-    update()
     event.currentTarget.blur()
   }
 
@@ -161,15 +157,7 @@ const LoadedSettingsScreen = ({ settings }: LoadedSettingsScreenProps) => {
                       legacyOpenAiKey: event.currentTarget.value || null,
                     })
                   }
-                  onKeyDown={(event) =>
-                    saveOnEnter(
-                      event,
-                      () =>
-                        void controls.update({
-                          legacyOpenAiKey: event.currentTarget.value || null,
-                        }),
-                    )
-                  }
+                  onKeyDown={saveOnEnter}
                   type="password"
                 />
               </label>
@@ -221,15 +209,7 @@ const LoadedSettingsScreen = ({ settings }: LoadedSettingsScreenProps) => {
                       legacyOpenAiHost: event.currentTarget.value || null,
                     })
                   }
-                  onKeyDown={(event) =>
-                    saveOnEnter(
-                      event,
-                      () =>
-                        void controls.update({
-                          legacyOpenAiHost: event.currentTarget.value || null,
-                        }),
-                    )
-                  }
+                  onKeyDown={saveOnEnter}
                   placeholder="https://api.openai.com"
                 />
               </label>

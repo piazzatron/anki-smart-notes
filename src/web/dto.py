@@ -130,12 +130,16 @@ def build_state(
 
 def build_settings() -> SettingsDto:
     """Build the web settings projection from the persisted Anki config."""
+    legacy_openai_model = config.legacy_openai_model
+    if legacy_openai_model is None:
+        raise RuntimeError("Legacy OpenAI model config migration has not run")
+
     return SettingsDto(
         generateAtReview=config.generate_at_review,
         regenerateWhenBatching=config.regenerate_notes_when_batching,
         debug=config.debug,
         legacyOpenAiKey=config.openai_api_key,
-        legacyOpenAiModel=config.legacy_openai_model,
+        legacyOpenAiModel=legacy_openai_model,
         legacyOpenAiHost=config.openai_endpoint,
         showWizardCompletion=config.show_wizard_completion,
     )

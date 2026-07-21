@@ -33,7 +33,7 @@ from aqt.browser.sidebar.item import SidebarItemType
 
 from . import env
 from .app_state import app_state, is_capacity_remaining_or_legacy
-from .config import config
+from .config import config, migrate_config
 from .constants import WEB_APP_DEV_URL
 from .database.migrations import run_migrations
 from .decks import deck_id_to_name_map
@@ -72,6 +72,7 @@ def _ensure_local_server_started() -> LocalServer:
     # clobber _local_server with a dead instance (whose session token the
     # webview would then use).
     if _local_server is None:
+        migrate_config()
         _local_server = LocalServer()
         _local_server.start()
 

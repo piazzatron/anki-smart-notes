@@ -23,6 +23,8 @@ from aqt import addons, mw
 
 from .utils import USES_BEFORE_RATE_DIALOG
 
+LEGACY_OPENAI_MODEL_DEFAULT = "gpt-5-chat-latest"
+
 
 class Config:
     """Fancy config class that uses the Anki addon manager to store config values."""
@@ -51,7 +53,7 @@ class Config:
     did_show_capacity_threshold_this_cycle: bool
 
     # Deprecated fields:
-    legacy_openai_model: str
+    legacy_openai_model: Optional[str]
 
     def __getattr__(self, key: str) -> object:
         if not mw:
@@ -91,6 +93,12 @@ class Config:
 
 
 config = Config()
+
+
+def migrate_config() -> None:
+    """Persist upgrades for historical values that violate current config contracts."""
+    if config.legacy_openai_model is None:
+        config.legacy_openai_model = LEGACY_OPENAI_MODEL_DEFAULT
 
 
 def bump_usage_counter() -> None:

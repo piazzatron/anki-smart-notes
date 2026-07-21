@@ -268,6 +268,28 @@ def test_build_settings_reads_config(monkeypatch):
     }
 
 
+def test_migrate_config_replaces_historical_null_legacy_model(monkeypatch):
+    import src.config as config_module
+
+    persisted_config = SimpleNamespace(legacy_openai_model=None)
+    monkeypatch.setattr(config_module, "config", persisted_config)
+
+    config_module.migrate_config()
+
+    assert persisted_config.legacy_openai_model == "gpt-5-chat-latest"
+
+
+def test_migrate_config_preserves_selected_legacy_model(monkeypatch):
+    import src.config as config_module
+
+    persisted_config = SimpleNamespace(legacy_openai_model="gpt-5-mini")
+    monkeypatch.setattr(config_module, "config", persisted_config)
+
+    config_module.migrate_config()
+
+    assert persisted_config.legacy_openai_model == "gpt-5-mini"
+
+
 def test_build_catalog_shape():
     assert dto.build_catalog() == {
         "schemaVersion": dto.SCHEMA_VERSION,

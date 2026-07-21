@@ -23,6 +23,7 @@ import { useState } from "react"
 import {
   getCreditSegments,
   getCreditUsagePercent,
+  getPlanPresentation,
   pctLabel,
 } from "@/components/shared/planPresentation"
 import { openSiteLink, SITE_LINKS } from "@/lib/siteLinks"
@@ -46,9 +47,8 @@ const LoadedSubscriptionScreen = ({
 }: LoadedSubscriptionScreenProps) => {
   const [logoutError, setLogoutError] = useState<string | null>(null)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
-  const email = (account as AccountState & { email?: string | null }).email
-  const isSignedOut = account.subscription === "UNAUTHENTICATED"
-  const isPaid = account.subscription.startsWith("PAID_PLAN")
+  const planPresentation = getPlanPresentation(account)
+  const isSignedOut = planPresentation.variant === "signed-out"
 
   const runLogout = async () => {
     setLogoutError(null)
@@ -77,9 +77,6 @@ const LoadedSubscriptionScreen = ({
               Subscription
             </h1>
           </div>
-          {email != null && (
-            <p className="mt-1.5 truncate text-xs text-ink-muted">{email}</p>
-          )}
         </div>
         {!isSignedOut && (
           <button
@@ -100,9 +97,17 @@ const LoadedSubscriptionScreen = ({
       )}
 
       <div className="min-h-0 flex-1 overflow-y-auto px-6 py-5">
-        {isSignedOut ? (
+        {planPresentation.variant === "loading" ? (
+          <div
+            aria-label="Checking subscription"
+            className="animate-pulse space-y-3"
+          >
+            <div className="h-24 max-w-[760px] rounded-xl bg-white/[0.025]" />
+            <div className="h-36 max-w-[760px] rounded-xl bg-white/[0.025]" />
+          </div>
+        ) : isSignedOut ? (
           <SignedOutSubscription />
-        ) : isPaid ? (
+        ) : planPresentation.variant === "paid" ? (
           <PaidSubscription account={account} />
         ) : (
           <FreeSubscription account={account} />

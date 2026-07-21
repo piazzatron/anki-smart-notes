@@ -768,6 +768,10 @@ class AddonOptionsDialog(QDialog):
         self.write_config()
 
     def make_initial_state(self) -> State:
+        legacy_openai_model = config.legacy_openai_model
+        if legacy_openai_model is None:
+            raise RuntimeError("Legacy OpenAI model config migration has not run")
+
         return {
             "openai_api_key": config.openai_api_key,
             "prompts_map": list_prompt_map(),
@@ -778,7 +782,7 @@ class AddonOptionsDialog(QDialog):
             "allow_empty_fields": config.allow_empty_fields,
             "debug": config.debug,
             # Legacy OpenAI
-            "legacy_openai_model": config.legacy_openai_model,
+            "legacy_openai_model": legacy_openai_model,
             "legacy_openai_models": legacy_openai_chat_models,
         }
 

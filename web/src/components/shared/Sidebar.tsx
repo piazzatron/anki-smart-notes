@@ -55,7 +55,6 @@ export const Sidebar = ({
   onNavigate,
 }: SidebarProps) => {
   const [feedbackOpen, setFeedbackOpen] = useState(false)
-  const email = (account as AccountState & { email?: string | null }).email
 
   return (
     <aside className="flex min-h-0 w-52 shrink-0 flex-col border-r border-white/[0.065] bg-sidebar px-2.5 pt-2 pb-0 max-[760px]:w-44">
@@ -113,6 +112,7 @@ export const Sidebar = ({
           </a>
           <button
             className="inline-flex items-center justify-center gap-1.5 rounded-md border border-white/[0.07] px-2 py-1.5 text-[10px] text-ink-faint transition hover:border-white/12 hover:text-zinc-300"
+            onMouseDown={(event) => event.stopPropagation()}
             onClick={() => setFeedbackOpen((open) => !open)}
           >
             <MessageSquare aria-hidden className="size-3" />
@@ -126,15 +126,6 @@ export const Sidebar = ({
           )}
         </div>
 
-        {email != null && (
-          <button
-            className="block w-full truncate px-2 pt-0.5 text-center text-[11px] text-ink-muted hover:text-zinc-300"
-            onClick={() => onNavigate("subscription")}
-            title={email}
-          >
-            {email}
-          </button>
-        )}
         {appVersion !== null && (
           <button
             className="block w-full pb-2 text-center font-mono text-[10px] text-zinc-600 hover:text-zinc-400"
