@@ -29,6 +29,7 @@ from typing import TYPE_CHECKING, Any, Literal, TypedDict, Union, cast
 from anki.cards import CardId
 from anki.decks import DeckId
 
+from ..config import config
 from ..constants import GLOBAL_DECK_ID
 from ..models import (
     ChatModels,
@@ -57,6 +58,7 @@ from ..models.smart_fields import (
     TTSPromptTestRequest,
     TTSSmartFieldSettings,
 )
+from ..services.settings_service import Settings
 from ..voice_catalog import VoiceGender, VoicePriceTier, get_voice_catalog
 
 if TYPE_CHECKING:
@@ -75,6 +77,8 @@ def build_state(
     decks: dict[DeckId, str],
     smart_fields: list[SmartField],
     account: AppState,
+    settings: SettingsDto,
+    app_version: str,
 ) -> StateDto:
     """The full `state` event payload. Whole-state push: every state event
     carries everything, so consumers replace their model wholesale."""
@@ -102,6 +106,8 @@ def build_state(
         # with a friendly name, but scoping UI needs to special-case it.
         globalDeckId=GLOBAL_DECK_ID,
         account=account,
+        settings=settings,
+        appVersion=app_version,
         defaults=GenerationDefaultsDto(
             chat=ChatGenerationSettingsDto(
                 provider=defaults.chat.provider,
@@ -119,6 +125,19 @@ def build_state(
                 model=defaults.image.model,
             ),
         ),
+    )
+
+
+def build_settings() -> SettingsDto:
+    """Build the web settings projection from the persisted Anki config."""
+    return SettingsDto(
+        generateAtReview=config.generate_at_review,
+        regenerateWhenBatching=config.regenerate_notes_when_batching,
+        debug=config.debug,
+        legacyOpenAiKey=config.openai_api_key,
+        legacyOpenAiModel=config.legacy_openai_model,
+        legacyOpenAiHost=config.openai_endpoint,
+        showWizardCompletion=config.show_wizard_completion,
     )
 
 
@@ -300,6 +319,57 @@ def parse_tts_preview(payload: dict[str, Any]) -> TTSPreviewRequest:
     )
 
 
+def parse_settings(payload: dict[str, Any]) -> Settings:
+    generate_at_review = _require_boolean(payload, "generateAtReview")
+    regenerate_when_batching = _require_boolean(payload, "regenerateWhenBatching")
+    debug = _require_boolean(payload, "debug")
+    legacy_openai_key = _require_optional_string(payload, "legacyOpenAiKey")
+    legacy_openai_model = _require_string(payload, "legacyOpenAiModel")
+    legacy_openai_host = _require_optional_string(payload, "legacyOpenAiHost")
+    show_wizard_completion = _require_boolean(payload, "showWizardCompletion")
+
+    return Settings(
+        generate_at_review=generate_at_review,
+        regenerate_when_batching=regenerate_when_batching,
+        debug=debug,
+        legacy_openai_key=legacy_openai_key,
+        legacy_openai_model=legacy_openai_model,
+        legacy_openai_host=legacy_openai_host,
+        show_wizard_completion=show_wizard_completion,
+    )
+
+
+def parse_prompt_generate(payload: dict[str, Any]) -> PromptGenerateRequest:
+    note_type_id = _require_integer(payload, "noteTypeId")
+    deck_id = _require_integer(payload, "deckId")
+    target_field_name = _require_string(payload, "targetFieldName")
+    field_type = _require_string(payload, "fieldType")
+    generation_prompt = _require_string(payload, "generationPrompt")
+
+    if field_type not in ("chat", "image"):
+        raise ValueError("fieldType must be chat or image")
+
+    return PromptGenerateRequest(
+        note_type_id=note_type_id,
+        deck_id=cast(DeckId, deck_id),
+        target_field_name=target_field_name,
+        field_type=field_type,
+        generation_prompt=generation_prompt,
+    )
+
+
+def parse_feedback_message(payload: dict[str, Any]) -> str:
+    message = _require_string(payload, "message").strip()
+    if not message:
+        raise ValueError("message must be a non-empty string")
+    return message
+
+
+def parse_auth_logout(payload: object) -> None:
+    if not isinstance(payload, dict) or payload:
+        raise ValueError("auth.logout payload must be an empty object")
+
+
 def parse_ui_open_browser(payload: object) -> None:
     if not isinstance(payload, dict) or payload:
         raise ValueError("ui.openBrowser payload must be an empty object")
@@ -312,6 +382,15 @@ class SmartFieldRef:
     note_type_id: int
     deck_id: DeckId
     target_field_name: str
+
+
+@dataclass(frozen=True)
+class PromptGenerateRequest:
+    note_type_id: int
+    deck_id: DeckId
+    target_field_name: str
+    field_type: Literal["chat", "image"]
+    generation_prompt: str
 
 
 class NoteTypeDto(TypedDict):
@@ -347,6 +426,16 @@ class GenerationDefaultsDto(TypedDict):
     chat: ChatGenerationSettingsDto
     tts: TTSGenerationSettingsDto
     image: ImageGenerationSettingsDto
+
+
+class SettingsDto(TypedDict):
+    generateAtReview: bool
+    regenerateWhenBatching: bool
+    debug: bool
+    legacyOpenAiKey: str | None
+    legacyOpenAiModel: str
+    legacyOpenAiHost: str | None
+    showWizardCompletion: bool
 
 
 class ChatSmartFieldSettingsDto(TypedDict):
@@ -406,6 +495,8 @@ class StateDto(TypedDict):
     decks: list[DeckDto]
     globalDeckId: DeckId
     account: AppState
+    settings: SettingsDto
+    appVersion: str
     defaults: GenerationDefaultsDto
 
 
@@ -428,6 +519,34 @@ def _require(payload: dict[str, Any], key: str) -> Any:
     if key not in payload:
         raise ValueError(f"Missing required field: {key}")
     return payload[key]
+
+
+def _require_boolean(payload: dict[str, Any], key: str) -> bool:
+    value = _require(payload, key)
+    if not isinstance(value, bool):
+        raise ValueError(f"{key} must be a boolean")
+    return value
+
+
+def _require_integer(payload: dict[str, Any], key: str) -> int:
+    value = _require(payload, key)
+    if isinstance(value, bool) or not isinstance(value, int):
+        raise ValueError(f"{key} must be an integer")
+    return value
+
+
+def _require_string(payload: dict[str, Any], key: str) -> str:
+    value = _require(payload, key)
+    if not isinstance(value, str):
+        raise ValueError(f"{key} must be a string")
+    return value
+
+
+def _require_optional_string(payload: dict[str, Any], key: str) -> str | None:
+    value = _require(payload, key)
+    if value is not None and not isinstance(value, str):
+        raise ValueError(f"{key} must be a string or null")
+    return value
 
 
 def parse_chat_generation_settings(payload: dict[str, Any]) -> ChatGenerationSettings:

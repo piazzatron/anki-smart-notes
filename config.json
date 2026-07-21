@@ -11,10 +11,11 @@
   "debug": false,
   "auth_token": null,
   "legacy_support": null,
-  "legacy_openai_model": null,
+  "legacy_openai_model": "gpt-5-chat-latest",
   "did_show_chained_error_dialog": false,
   "did_show_premium_tts_dialog": false,
   "did_click_rate_link": false,
   "did_show_capacity_threshold_this_cycle": false,
-  "did_migrate_smart_fields_to_sqlite": false
+  "did_migrate_smart_fields_to_sqlite": false,
+  "show_wizard_completion": true
 }

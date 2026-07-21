@@ -21,7 +21,6 @@ from typing import Any, Optional
 
 from aqt import addons, mw
 
-from .models import OpenAIModels
 from .utils import USES_BEFORE_RATE_DIALOG
 
 
@@ -39,6 +38,7 @@ class Config:
     debug: bool
     auth_token: Optional[str]
     legacy_support: Optional[bool]
+    show_wizard_completion: bool
 
     # Dialogs / Migrations
     did_show_chained_error_dialog: bool
@@ -51,7 +51,7 @@ class Config:
     did_show_capacity_threshold_this_cycle: bool
 
     # Deprecated fields:
-    legacy_openai_model: OpenAIModels
+    legacy_openai_model: str
 
     def __getattr__(self, key: str) -> object:
         if not mw:

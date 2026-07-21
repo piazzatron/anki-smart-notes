@@ -58,6 +58,15 @@ GENERATION_DEFAULTS = GenerationDefaults(
     tts=TTSGenerationSettings(provider="openai", model="tts-1", voice_id="alloy"),
     image=ImageGenerationSettings(provider="replicate", model="flux-dev"),
 )
+SETTINGS_DTO: dto.SettingsDto = {
+    "generateAtReview": True,
+    "regenerateWhenBatching": False,
+    "debug": False,
+    "legacyOpenAiKey": None,
+    "legacyOpenAiModel": "gpt-5",
+    "legacyOpenAiHost": None,
+    "showWizardCompletion": True,
+}
 
 
 # -- EventBus --
@@ -174,6 +183,8 @@ def test_build_state_shape():
         decks={DECK_ID: "Spanish::Verbs"},
         smart_fields=[_chat_smart_field()],
         account=account,
+        settings=SETTINGS_DTO,
+        app_version="2.23.9",
     )
 
     assert state["schemaVersion"] == dto.SCHEMA_VERSION
@@ -183,6 +194,8 @@ def test_build_state_shape():
     assert state["decks"] == [{"id": DECK_ID, "name": "Spanish::Verbs"}]
     assert state["globalDeckId"] == dto.GLOBAL_DECK_ID
     assert state["account"] == account
+    assert state["settings"] == SETTINGS_DTO
+    assert state["appVersion"] == "2.23.9"
     assert state["defaults"] == {
         "chat": {
             "provider": "openai",
@@ -225,9 +238,34 @@ def test_build_state_excludes_smart_fields_with_missing_anki_references():
             replace(valid_field, id="missing-deck", deck_id=999),
         ],
         account={"subscription": "UNAUTHENTICATED", "plan": None},
+        settings=SETTINGS_DTO,
+        app_version="2.23.9",
     )
 
     assert [field["id"] for field in state["smartFields"]] == ["sf-1"]
+
+
+def test_build_settings_reads_config(monkeypatch):
+    config = SimpleNamespace(
+        generate_at_review=False,
+        regenerate_notes_when_batching=True,
+        debug=True,
+        openai_api_key="sk-test",
+        legacy_openai_model="gpt-5-mini",
+        openai_endpoint="https://example.com",
+        show_wizard_completion=False,
+    )
+    monkeypatch.setattr(dto, "config", config)
+
+    assert dto.build_settings() == {
+        "generateAtReview": False,
+        "regenerateWhenBatching": True,
+        "debug": True,
+        "legacyOpenAiKey": "sk-test",
+        "legacyOpenAiModel": "gpt-5-mini",
+        "legacyOpenAiHost": "https://example.com",
+        "showWizardCompletion": False,
+    }
 
 
 def test_build_catalog_shape():
@@ -467,6 +505,135 @@ def test_parse_generation_defaults_round_trips():
         }
     )
     assert parsed == GENERATION_DEFAULTS
+
+
+def test_parse_settings_round_trips():
+    parsed = dto.parse_settings(SETTINGS_DTO)
+
+    assert parsed.generate_at_review is True
+    assert parsed.regenerate_when_batching is False
+    assert parsed.debug is False
+    assert parsed.legacy_openai_key is None
+    assert parsed.legacy_openai_model == "gpt-5"
+    assert parsed.legacy_openai_host is None
+    assert parsed.show_wizard_completion is True
+
+
+def test_save_settings_persists_every_field_and_republishes(monkeypatch):
+    from src.services import settings_service
+
+    config = SimpleNamespace()
+    published = []
+    monkeypatch.setattr(settings_service, "config", config)
+    monkeypatch.setattr(event_bus, "publish", published.append)
+
+    settings_service.save_settings(dto.parse_settings(SETTINGS_DTO))
+
+    assert config.generate_at_review is True
+    assert config.regenerate_notes_when_batching is False
+    assert config.debug is False
+    assert config.openai_api_key is None
+    assert config.legacy_openai_model == "gpt-5"
+    assert config.openai_endpoint is None
+    assert config.show_wizard_completion is True
+    assert len(published) == 1
+    assert isinstance(published[0], StateInvalidated)
+
+
+@pytest.mark.parametrize(
+    ("key", "value", "message"),
+    [
+        ("generateAtReview", 1, "must be a boolean"),
+        ("regenerateWhenBatching", None, "must be a boolean"),
+        ("debug", "false", "must be a boolean"),
+        ("legacyOpenAiKey", False, "must be a string or null"),
+        ("legacyOpenAiModel", None, "must be a string"),
+        ("legacyOpenAiHost", 42, "must be a string or null"),
+        ("showWizardCompletion", 0, "must be a boolean"),
+    ],
+)
+def test_parse_settings_validates_every_field_type(key, value, message):
+    payload = {**SETTINGS_DTO, key: value}
+
+    with pytest.raises(ValueError, match=message):
+        dto.parse_settings(payload)
+
+
+def test_parse_prompt_generate():
+    parsed = dto.parse_prompt_generate(
+        {
+            "noteTypeId": NOTE_TYPE_ID,
+            "deckId": int(DECK_ID),
+            "targetFieldName": "Back",
+            "fieldType": "chat",
+            "generationPrompt": "Write a concise definition",
+        }
+    )
+
+    assert parsed.note_type_id == NOTE_TYPE_ID
+    assert parsed.deck_id == DECK_ID
+    assert parsed.target_field_name == "Back"
+    assert parsed.field_type == "chat"
+    assert parsed.generation_prompt == "Write a concise definition"
+
+
+@pytest.mark.parametrize(
+    ("key", "value", "message"),
+    [
+        ("noteTypeId", True, "must be an integer"),
+        ("deckId", "1", "must be an integer"),
+        ("targetFieldName", None, "must be a string"),
+        ("fieldType", "tts", "must be chat or image"),
+        ("generationPrompt", 42, "must be a string"),
+    ],
+)
+def test_parse_prompt_generate_validates_payload(key, value, message):
+    payload = {
+        "noteTypeId": NOTE_TYPE_ID,
+        "deckId": int(DECK_ID),
+        "targetFieldName": "Back",
+        "fieldType": "image",
+        "generationPrompt": "Create an illustration prompt",
+        key: value,
+    }
+
+    with pytest.raises(ValueError, match=message):
+        dto.parse_prompt_generate(payload)
+
+
+def test_parse_feedback_message_strips_and_requires_content():
+    assert dto.parse_feedback_message({"message": "  Please help  "}) == "Please help"
+
+    with pytest.raises(ValueError, match="non-empty"):
+        dto.parse_feedback_message({"message": "   "})
+    with pytest.raises(ValueError, match="must be a string"):
+        dto.parse_feedback_message({"message": None})
+
+
+def test_parse_auth_logout_requires_empty_object():
+    assert dto.parse_auth_logout({}) is None
+
+    with pytest.raises(ValueError, match="empty object"):
+        dto.parse_auth_logout({"unexpected": True})
+    with pytest.raises(ValueError, match="empty object"):
+        dto.parse_auth_logout(None)
+
+
+def test_logout_clears_auth_and_refreshes_subscription(monkeypatch):
+    from src.services import auth_service
+
+    config = SimpleNamespace(auth_token="signed-in")
+    app_state = MagicMock()
+    sentry = MagicMock()
+    monkeypatch.setattr(auth_service, "config", config)
+    monkeypatch.setattr(auth_service, "app_state", app_state)
+    monkeypatch.setattr(auth_service, "sentry", sentry)
+
+    auth_service.logout()
+
+    assert config.auth_token is None
+    sentry.set_user.assert_called_once_with()
+    app_state.update_subscription_state.assert_called_once_with()
 
 
 def test_parse_text_prompt_test_validates_card_and_settings():

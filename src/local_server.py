@@ -22,6 +22,7 @@ import concurrent.futures
 import inspect
 import json
 import secrets
+import sys
 import threading
 from collections.abc import Callable
 from pathlib import Path
@@ -30,6 +31,7 @@ from typing import Any, Optional
 from aiohttp import web
 from aqt import mw
 
+from .api_client import api
 from .app_state import app_state
 from .config import config
 from .constants import SITE_URL_DEV
@@ -42,6 +44,7 @@ from .event_bus import (
 )
 from .logger import logger
 from .sentry import sentry
+from .services import auth_service, settings_service
 from .services.prompt_test_service import (
     prepare_image_prompt_test,
     prepare_text_prompt_test,
@@ -53,6 +56,7 @@ from .services.prompt_test_service import (
 )
 from .services.smart_field_service import smart_field_service
 from .ui.ui_utils import open_anki_browser
+from .utils import get_version
 from .utils.notes_utils import get_note_types_with_fields
 from .web import dto
 
@@ -287,6 +291,8 @@ class LocalServer:
                     decks=deck_id_to_name_map(),
                     smart_fields=smart_field_service.get_all_smart_fields(),
                     account=app_state.state,
+                    settings=dto.build_settings(),
+                    app_version=get_version(),
                 )
             ),
         )
@@ -394,6 +400,10 @@ def _run_save_tts_defaults(payload: dict[str, Any]) -> None:
     smart_field_service.save_tts_defaults(dto.parse_tts_generation_settings(payload))
 
 
+def _run_save_settings(payload: dict[str, Any]) -> None:
+    settings_service.save_settings(dto.parse_settings(payload))
+
+
 async def _run_test_prompt(payload: dict[str, Any]) -> dict[str, str]:
     request = dto.parse_text_prompt_test(payload)
     context = await asyncio.get_running_loop().run_in_executor(
@@ -425,6 +435,37 @@ async def _run_preview_tts(payload: dict[str, Any]) -> dict[str, str]:
     return await run_tts_preview(dto.parse_tts_preview(payload))
 
 
+async def _run_generate_prompt(payload: dict[str, Any]) -> dict[str, str]:
+    request = dto.parse_prompt_generate(payload)
+    args = await asyncio.get_running_loop().run_in_executor(
+        None,
+        lambda: _run_on_main_sync(lambda: _prepare_prompt_generate_args(request)),
+    )
+    response = await api.get_api_response(
+        path="prompt/generate",
+        args=args,
+        timeout_sec=30,
+    )
+    body = await response.json()
+    if not isinstance(body, dict) or not isinstance(body.get("prompt"), str):
+        raise RuntimeError("Prompt generation returned an invalid response")
+    return {"prompt": body["prompt"]}
+
+
+async def _run_send_feedback(payload: dict[str, Any]) -> None:
+    message = dto.parse_feedback_message(payload)
+    args = await asyncio.get_running_loop().run_in_executor(
+        None,
+        lambda: _run_on_main_sync(lambda: _prepare_feedback_args(message)),
+    )
+    await api.get_api_response(path="feedback", args=args)
+
+
+def _run_logout(payload: dict[str, Any]) -> None:
+    dto.parse_auth_logout(payload)
+    auth_service.logout()
+
+
 def _run_open_browser(payload: dict[str, Any]) -> None:
     dto.parse_ui_open_browser(payload)
     open_anki_browser()
@@ -439,9 +480,52 @@ COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
     "defaults.chat.save": _run_save_chat_defaults,
     "defaults.image.save": _run_save_image_defaults,
     "defaults.tts.save": _run_save_tts_defaults,
+    "settings.save": _run_save_settings,
+    "prompts.generate": _run_generate_prompt,
     "prompts.test": _run_test_prompt,
     "images.test": _run_test_image,
     "tts.test": _run_test_tts,
     "tts.preview": _run_preview_tts,
+    "support.sendFeedback": _run_send_feedback,
+    "auth.logout": _run_logout,
     "ui.openBrowser": _run_open_browser,
 }
+
+
+def _prepare_prompt_generate_args(
+    request: dto.PromptGenerateRequest,
+) -> dict[str, Any]:
+    note_type = next(
+        (
+            (name, fields)
+            for note_type_id, name, fields in get_note_types_with_fields()
+            if note_type_id == request.note_type_id
+        ),
+        None,
+    )
+    if note_type is None:
+        raise ValueError(f"Unknown noteTypeId: {request.note_type_id}")
+
+    deck_name = deck_id_to_name_map().get(request.deck_id)
+    if deck_name is None:
+        raise ValueError(f"Unknown deckId: {request.deck_id}")
+
+    note_type_name, fields = note_type
+    return {
+        "note_type": note_type_name,
+        "deck_name": deck_name,
+        "target_field": request.target_field_name,
+        "field_type": request.field_type,
+        "fields": fields,
+        "generation_prompt": request.generation_prompt,
+    }
+
+
+def _prepare_feedback_args(message: str) -> dict[str, str]:
+    if not config.auth_token:
+        raise ValueError("You must be signed in to send feedback")
+    return {
+        "message": message,
+        "version": get_version(),
+        "platform": sys.platform,
+    }

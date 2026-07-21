@@ -21,7 +21,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import json
 from typing import Any
-from unittest.mock import MagicMock
+from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 from aiohttp import web
@@ -261,6 +261,7 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
     fake_decks = {1: "Default"}
     fake_smart_fields = [MagicMock()]
     fake_account = {"subscription": "UNAUTHENTICATED", "plan": None}
+    fake_settings = {"generateAtReview": True}
     build_state = MagicMock(return_value=fake_state)
     monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
     monkeypatch.setattr(
@@ -289,7 +290,9 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
         MagicMock(state=fake_account),
     )
     monkeypatch.setattr(dto, "build_state", build_state)
+    monkeypatch.setattr(dto, "build_settings", lambda: fake_settings)
     monkeypatch.setattr(dto, "build_catalog", lambda: fake_catalog)
+    monkeypatch.setattr(src.local_server, "get_version", lambda: "2.23.9")
 
     server = _make_server()
     async with TestClient(TestServer(_make_app(server))) as client:
@@ -308,6 +311,8 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
             decks=fake_decks,
             smart_fields=fake_smart_fields,
             account=fake_account,
+            settings=fake_settings,
+            app_version="2.23.9",
         )
 
         event = await _read_sse_event(resp)
@@ -502,6 +507,32 @@ async def test_modality_default_commands_only_update_their_setting(
 
 
 @pytest.mark.asyncio
+async def test_save_settings_command_dispatch(monkeypatch):
+    import src.local_server
+
+    _, fake_dto = _patch_command_route_deps(monkeypatch)
+    parsed = object()
+    fake_dto.parse_settings.return_value = parsed
+    save_settings = MagicMock()
+    monkeypatch.setattr(
+        src.local_server.settings_service, "save_settings", save_settings
+    )
+
+    server = _make_server()
+    async with TestClient(TestServer(_make_app(server))) as client:
+        resp = await client.post(
+            "/api/command",
+            json=_command_request("settings.save", {"generateAtReview": True}),
+            headers={"X-Session-Token": server.session_token},
+        )
+
+        assert resp.status == 200
+        assert (await resp.json()) == {"ok": True}
+        fake_dto.parse_settings.assert_called_once_with({"generateAtReview": True})
+        save_settings.assert_called_once_with(parsed)
+
+
+@pytest.mark.asyncio
 async def test_prompt_test_command_returns_ephemeral_result(monkeypatch):
     import src.local_server
 
@@ -534,6 +565,153 @@ async def test_prompt_test_command_returns_ephemeral_result(monkeypatch):
             "ok": True,
             "result": {"text": "A domesticated canine"},
         }
+
+
+@pytest.mark.asyncio
+async def test_prompt_generate_command_prepares_names_and_returns_prompt(monkeypatch):
+    import src.local_server
+    from src.web.dto import PromptGenerateRequest
+
+    request = PromptGenerateRequest(
+        note_type_id=123,
+        deck_id=1,
+        target_field_name="Back",
+        field_type="chat",
+        generation_prompt="Write a concise definition",
+    )
+    monkeypatch.setattr(
+        src.local_server.dto, "parse_prompt_generate", lambda _: request
+    )
+    monkeypatch.setattr(
+        src.local_server,
+        "get_note_types_with_fields",
+        lambda: [(123, "Basic", ["Front", "Back"])],
+    )
+    monkeypatch.setattr(src.local_server, "deck_id_to_name_map", lambda: {1: "Default"})
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+    response = MagicMock()
+    response.json = AsyncMock(return_value={"prompt": "Define {{Front}}"})
+    get_api_response = AsyncMock(return_value=response)
+    monkeypatch.setattr(
+        src.local_server, "api", MagicMock(get_api_response=get_api_response)
+    )
+
+    server = _make_server()
+    async with TestClient(TestServer(_make_app(server))) as client:
+        resp = await client.post(
+            "/api/command",
+            json=_command_request("prompts.generate", {"noteTypeId": 123}),
+            headers={"X-Session-Token": server.session_token},
+        )
+
+        assert resp.status == 200
+        assert (await resp.json()) == {
+            "ok": True,
+            "result": {"prompt": "Define {{Front}}"},
+        }
+        get_api_response.assert_awaited_once_with(
+            path="prompt/generate",
+            args={
+                "note_type": "Basic",
+                "deck_name": "Default",
+                "target_field": "Back",
+                "field_type": "chat",
+                "fields": ["Front", "Back"],
+                "generation_prompt": "Write a concise definition",
+            },
+            timeout_sec=30,
+        )
+
+
+@pytest.mark.asyncio
+async def test_send_feedback_command_posts_plugin_context(monkeypatch):
+    import src.local_server
+
+    monkeypatch.setattr(
+        src.local_server.dto,
+        "parse_feedback_message",
+        lambda _: "Please add a shortcut",
+    )
+    monkeypatch.setattr(src.local_server, "config", MagicMock(auth_token="signed-in"))
+    monkeypatch.setattr(src.local_server, "get_version", lambda: "2.23.9")
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+    get_api_response = AsyncMock(return_value=MagicMock())
+    monkeypatch.setattr(
+        src.local_server, "api", MagicMock(get_api_response=get_api_response)
+    )
+
+    server = _make_server()
+    async with TestClient(TestServer(_make_app(server))) as client:
+        resp = await client.post(
+            "/api/command",
+            json=_command_request("support.sendFeedback", {"message": "anything"}),
+            headers={"X-Session-Token": server.session_token},
+        )
+
+        assert resp.status == 200
+        assert (await resp.json()) == {"ok": True}
+        get_api_response.assert_awaited_once_with(
+            path="feedback",
+            args={
+                "message": "Please add a shortcut",
+                "version": "2.23.9",
+                "platform": src.local_server.sys.platform,
+            },
+        )
+
+
+@pytest.mark.asyncio
+async def test_send_feedback_command_requires_authentication(monkeypatch):
+    import src.local_server
+
+    monkeypatch.setattr(
+        src.local_server.dto, "parse_feedback_message", lambda _: "Please help"
+    )
+    monkeypatch.setattr(src.local_server, "config", MagicMock(auth_token=None))
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+    get_api_response = AsyncMock()
+    monkeypatch.setattr(
+        src.local_server, "api", MagicMock(get_api_response=get_api_response)
+    )
+
+    server = _make_server()
+    async with TestClient(TestServer(_make_app(server))) as client:
+        resp = await client.post(
+            "/api/command",
+            json=_command_request("support.sendFeedback", {"message": "Please help"}),
+            headers={"X-Session-Token": server.session_token},
+        )
+
+        assert resp.status == 400
+        assert (await resp.json()) == {
+            "ok": False,
+            "error": "You must be signed in to send feedback",
+        }
+        get_api_response.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+async def test_logout_command_clears_auth_and_refreshes_state(monkeypatch):
+    import src.local_server
+
+    logout = MagicMock()
+    parse_auth_logout = MagicMock()
+    monkeypatch.setattr(src.local_server.auth_service, "logout", logout)
+    monkeypatch.setattr(src.local_server.dto, "parse_auth_logout", parse_auth_logout)
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+
+    server = _make_server()
+    async with TestClient(TestServer(_make_app(server))) as client:
+        resp = await client.post(
+            "/api/command",
+            json=_command_request("auth.logout", {}),
+            headers={"X-Session-Token": server.session_token},
+        )
+
+        assert resp.status == 200
+        assert (await resp.json()) == {"ok": True}
+        parse_auth_logout.assert_called_once_with({})
+        logout.assert_called_once_with()
 
 
 @pytest.mark.asyncio
