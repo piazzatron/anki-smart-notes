@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, Optional
+from typing import Any, Optional, cast
 
 from aqt import addons, mw
 
@@ -53,7 +53,7 @@ class Config:
     did_show_capacity_threshold_this_cycle: bool
 
     # Deprecated fields:
-    legacy_openai_model: Optional[str]
+    legacy_openai_model: str
 
     def __getattr__(self, key: str) -> object:
         if not mw:
@@ -97,7 +97,8 @@ config = Config()
 
 def migrate_config() -> None:
     """Persist upgrades for historical values that violate current config contracts."""
-    if config.legacy_openai_model is None:
+    # Persisted configs can still contain the historical null despite today's type.
+    if cast(Optional[str], config.legacy_openai_model) is None:
         config.legacy_openai_model = LEGACY_OPENAI_MODEL_DEFAULT
 
 
