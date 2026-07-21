@@ -1,8 +1,8 @@
 import { describe, expect, test } from "bun:test"
 
-import type { AccountState } from "./planPresentation"
+import type { AccountState } from "@/types/api"
 
-import { getPlanPresentation } from "./planPresentation"
+import { getPlanPresentation, hasGenerationAccess } from "./planPresentation"
 
 const PLAN: NonNullable<AccountState["plan"]> = {
   planId: "free",
@@ -41,10 +41,38 @@ describe("getPlanPresentation", () => {
       getPlanPresentation({ subscription: "UNAUTHENTICATED", plan: null }),
     ).toEqual({
       title: "Signed out",
-      detail: "Generation is paused",
+      detail: "Sign in to use Smart Notes.",
       usagePercent: null,
       tone: "neutral",
       actionLabel: "Sign in",
     })
+  })
+})
+
+describe("hasGenerationAccess", () => {
+  test("allows only active trial and paid subscriptions", () => {
+    const available = ["FREE_TRIAL_ACTIVE", "PAID_PLAN_ACTIVE"] satisfies Array<
+      AccountState["subscription"]
+    >
+    const unavailable = [
+      "LOADING",
+      "UNAUTHENTICATED",
+      "NO_SUBSCRIPTION",
+      "FREE_TRIAL_EXPIRED",
+      "FREE_TRIAL_CAPACITY",
+      "PAID_PLAN_EXPIRED",
+      "PAID_PLAN_CAPACITY",
+    ] satisfies Array<AccountState["subscription"]>
+
+    expect(
+      available.map((subscription) =>
+        hasGenerationAccess({ subscription, plan: null }),
+      ),
+    ).toEqual([true, true])
+    expect(
+      unavailable.map((subscription) =>
+        hasGenerationAccess({ subscription, plan: null }),
+      ),
+    ).toEqual([false, false, false, false, false, false, false])
   })
 })

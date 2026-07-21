@@ -28,18 +28,25 @@ from unittest.mock import MagicMock
 import pytest
 
 from src.app_state import AppStateManager
-from src.event_bus import EventBus, StateInvalidated, event_bus, republish_state
+from src.event_bus import (
+    BrowserSelectionChanged,
+    EventBus,
+    StateInvalidated,
+    event_bus,
+    republish_state,
+)
 from src.models.smart_fields import (
     ChatGenerationSettings,
     ChatSmartFieldSettings,
     GenerationDefaults,
     ImageGenerationSettings,
+    ImageSmartFieldSettings,
     SmartField,
     TTSGenerationSettings,
     TTSSmartFieldSettings,
 )
 from src.web import dto
-from tests.fixtures import DECK_ID, NOTE_TYPE_ID, MockNote
+from tests.fixtures import DECK_ID, NOTE_TYPE_ID, MockCard, MockNote
 
 GENERATION_DEFAULTS = GenerationDefaults(
     chat=ChatGenerationSettings(
@@ -51,34 +58,6 @@ GENERATION_DEFAULTS = GenerationDefaults(
     tts=TTSGenerationSettings(provider="openai", model="tts-1", voice_id="alloy"),
     image=ImageGenerationSettings(provider="replicate", model="flux-schnell"),
 )
-
-
-def _patch_state_sources(monkeypatch) -> None:
-    monkeypatch.setattr(
-        dto,
-        "get_note_types_with_fields",
-        lambda: [(NOTE_TYPE_ID, "Basic", ["Front", "Back"])],
-    )
-    monkeypatch.setattr(dto, "deck_id_to_name_map", lambda: {DECK_ID: "Spanish::Verbs"})
-
-
-def _patch_service_defaults(monkeypatch) -> None:
-    monkeypatch.setattr(
-        dto.smart_field_service,
-        "get_generation_defaults",
-        lambda: GENERATION_DEFAULTS,
-    )
-    monkeypatch.setattr(
-        dto.smart_field_service, "get_chat_defaults", lambda: GENERATION_DEFAULTS.chat
-    )
-    monkeypatch.setattr(
-        dto.smart_field_service, "get_tts_defaults", lambda: GENERATION_DEFAULTS.tts
-    )
-    monkeypatch.setattr(
-        dto.smart_field_service,
-        "get_image_defaults",
-        lambda: GENERATION_DEFAULTS.image,
-    )
 
 
 # -- EventBus --
@@ -109,6 +88,31 @@ async def test_event_bus_unsubscribe_stops_delivery():
 
     bus.publish(StateInvalidated())
     await asyncio.sleep(0)
+    assert queue.empty()
+
+
+@pytest.mark.asyncio
+async def test_event_bus_replays_latest_browser_selection_to_new_subscribers():
+    bus = EventBus()
+    selection = BrowserSelectionChanged({"note": {"cardId": 42}})
+    bus.publish(selection)
+    queue: asyncio.Queue = asyncio.Queue()
+
+    bus.subscribe(asyncio.get_running_loop(), queue)
+
+    assert await asyncio.wait_for(queue.get(), timeout=2) == selection
+
+
+@pytest.mark.asyncio
+async def test_event_bus_can_clear_replayed_browser_selection():
+    bus = EventBus()
+    bus.publish(BrowserSelectionChanged({"note": {"cardId": 42}}))
+    bus.clear_browser_selection()
+    queue: asyncio.Queue = asyncio.Queue()
+
+    bus.subscribe(asyncio.get_running_loop(), queue)
+    await asyncio.sleep(0)
+
     assert queue.empty()
 
 
@@ -144,46 +148,8 @@ def _chat_smart_field() -> SmartField:
     )
 
 
-def test_build_state_shape(monkeypatch):
-    _patch_service_defaults(monkeypatch)
-    _patch_state_sources(monkeypatch)
-    monkeypatch.setattr(
-        dto.smart_field_service, "get_all_smart_fields", lambda: [_chat_smart_field()]
-    )
-    monkeypatch.setattr(
-        dto,
-        "app_state",
-        SimpleNamespace(
-            state={
-                "subscription": "FREE_TRIAL_ACTIVE",
-                "plan": {
-                    "planId": "free",
-                    "planName": "Free Trial",
-                    "notesUsed": 12,
-                    "notesLimit": 50,
-                    "daysLeft": 5,
-                    "textCreditsUsed": 20,
-                    "textCreditsCapacity": 100,
-                    "voiceCreditsUsed": 10,
-                    "voiceCreditsCapacity": 100,
-                    "imageCreditsUsed": 0,
-                    "imageCreditsCapacity": 100,
-                    "totalCreditsUsed": 30,
-                    "totalCreditsCapacity": 300,
-                },
-            }
-        ),
-    )
-
-    state = dto.build_state()
-
-    assert state["schemaVersion"] == dto.SCHEMA_VERSION
-    assert state["noteTypes"] == [
-        {"id": NOTE_TYPE_ID, "name": "Basic", "fields": ["Front", "Back"]}
-    ]
-    assert state["decks"] == [{"id": DECK_ID, "name": "Spanish::Verbs"}]
-    assert state["globalDeckId"] == dto.GLOBAL_DECK_ID
-    assert state["account"] == {
+def test_build_state_shape():
+    account = {
         "subscription": "FREE_TRIAL_ACTIVE",
         "plan": {
             "planId": "free",
@@ -201,6 +167,22 @@ def test_build_state_shape(monkeypatch):
             "totalCreditsCapacity": 300,
         },
     }
+
+    state = dto.build_state(
+        defaults=GENERATION_DEFAULTS,
+        note_types=[(NOTE_TYPE_ID, "Basic", ["Front", "Back"])],
+        decks={DECK_ID: "Spanish::Verbs"},
+        smart_fields=[_chat_smart_field()],
+        account=account,
+    )
+
+    assert state["schemaVersion"] == dto.SCHEMA_VERSION
+    assert state["noteTypes"] == [
+        {"id": NOTE_TYPE_ID, "name": "Basic", "fields": ["Front", "Back"]}
+    ]
+    assert state["decks"] == [{"id": DECK_ID, "name": "Spanish::Verbs"}]
+    assert state["globalDeckId"] == dto.GLOBAL_DECK_ID
+    assert state["account"] == account
     assert state["defaults"] == {
         "chat": {
             "provider": "openai",
@@ -231,22 +213,19 @@ def test_build_state_shape(monkeypatch):
     ]
 
 
-def test_build_state_excludes_smart_fields_with_missing_anki_references(monkeypatch):
-    _patch_service_defaults(monkeypatch)
-    _patch_state_sources(monkeypatch)
+def test_build_state_excludes_smart_fields_with_missing_anki_references():
     valid_field = _chat_smart_field()
-    monkeypatch.setattr(
-        dto.smart_field_service,
-        "get_all_smart_fields",
-        lambda: [
+    state = dto.build_state(
+        defaults=GENERATION_DEFAULTS,
+        note_types=[(NOTE_TYPE_ID, "Basic", ["Front", "Back"])],
+        decks={DECK_ID: "Spanish::Verbs"},
+        smart_fields=[
             valid_field,
             replace(valid_field, id="missing-note-type", note_type_id=999),
             replace(valid_field, id="missing-deck", deck_id=999),
         ],
+        account={"subscription": "UNAUTHENTICATED", "plan": None},
     )
-    monkeypatch.setattr(dto, "app_state", SimpleNamespace(state=None))
-
-    state = dto.build_state()
 
     assert [field["id"] for field in state["smartFields"]] == ["sf-1"]
 
@@ -289,10 +268,11 @@ def test_build_catalog_shape():
 def test_build_selection_changed():
     note = MockNote({"Front": "dog", "Back": ""}, note_id=42)
 
-    payload = dto.build_selection_changed(note, deck_id=7)
+    payload = dto.build_selection_changed(note, card_id=99, deck_id=7)
 
     assert payload == {
         "note": {
+            "cardId": 99,
             "id": 42,
             "noteTypeId": NOTE_TYPE_ID,
             "deckId": 7,
@@ -308,16 +288,22 @@ def test_build_selection_cleared():
 # -- Command payload parsing --
 
 
-def test_parse_smart_field_create_chat_fills_defaults(monkeypatch):
-    _patch_service_defaults(monkeypatch)
-
+def test_parse_smart_field_create_chat():
     create = dto.parse_smart_field_create(
         {
             "noteTypeId": NOTE_TYPE_ID,
             "deckId": int(DECK_ID),
             "targetFieldName": "Back",
             "fieldType": "chat",
-            "settings": {"promptText": "Define {{Front}}"},
+            "enabled": True,
+            "settings": {
+                "promptText": "Define {{Front}}",
+                "provider": "openai",
+                "model": "gpt-5",
+                "reasoningLevel": "off",
+                "webSearchEnabled": False,
+                "usesDefaultGenerationSettings": True,
+            },
         }
     )
 
@@ -335,9 +321,7 @@ def test_parse_smart_field_create_chat_fills_defaults(monkeypatch):
     )
 
 
-def test_parse_smart_field_create_tts(monkeypatch):
-    _patch_service_defaults(monkeypatch)
-
+def test_parse_smart_field_create_tts():
     create = dto.parse_smart_field_create(
         {
             "noteTypeId": NOTE_TYPE_ID,
@@ -345,7 +329,13 @@ def test_parse_smart_field_create_tts(monkeypatch):
             "targetFieldName": "Audio",
             "fieldType": "tts",
             "enabled": False,
-            "settings": {"sourceFieldName": "Front", "voiceId": "echo"},
+            "settings": {
+                "sourceFieldName": "Front",
+                "provider": "openai",
+                "model": "tts-1",
+                "voiceId": "echo",
+                "usesDefaultGenerationSettings": True,
+            },
         }
     )
 
@@ -359,9 +349,72 @@ def test_parse_smart_field_create_tts(monkeypatch):
     )
 
 
-def test_parse_smart_field_create_rejects_missing_prompt(monkeypatch):
-    _patch_service_defaults(monkeypatch)
+def test_parse_smart_field_create_image():
+    create = dto.parse_smart_field_create(
+        {
+            "noteTypeId": NOTE_TYPE_ID,
+            "deckId": int(DECK_ID),
+            "targetFieldName": "Image",
+            "fieldType": "image",
+            "enabled": True,
+            "settings": {
+                "promptText": "Illustrate {{Front}}",
+                "provider": "replicate",
+                "model": "flux-dev",
+                "usesDefaultGenerationSettings": False,
+            },
+        }
+    )
 
+    assert create.settings == ImageSmartFieldSettings(
+        prompt_text="Illustrate {{Front}}",
+        provider="replicate",
+        model="flux-dev",
+        uses_default_generation_settings=False,
+    )
+
+
+def test_parse_smart_field_create_rejects_missing_setting():
+    with pytest.raises(ValueError, match="provider"):
+        dto.parse_smart_field_create(
+            {
+                "noteTypeId": NOTE_TYPE_ID,
+                "deckId": int(DECK_ID),
+                "targetFieldName": "Back",
+                "fieldType": "chat",
+                "enabled": True,
+                "settings": {
+                    "promptText": "Define {{Front}}",
+                    "model": "gpt-5",
+                    "reasoningLevel": "off",
+                    "webSearchEnabled": False,
+                    "usesDefaultGenerationSettings": True,
+                },
+            }
+        )
+
+
+def test_parse_smart_field_create_rejects_missing_enabled():
+    with pytest.raises(ValueError, match="enabled"):
+        dto.parse_smart_field_create(
+            {
+                "noteTypeId": NOTE_TYPE_ID,
+                "deckId": int(DECK_ID),
+                "targetFieldName": "Back",
+                "fieldType": "chat",
+                "settings": {
+                    "promptText": "Define {{Front}}",
+                    "provider": "openai",
+                    "model": "gpt-5",
+                    "reasoningLevel": "off",
+                    "webSearchEnabled": False,
+                    "usesDefaultGenerationSettings": True,
+                },
+            }
+        )
+
+
+def test_parse_smart_field_create_rejects_missing_prompt():
     with pytest.raises(ValueError, match="promptText"):
         dto.parse_smart_field_create(
             {
@@ -369,14 +422,19 @@ def test_parse_smart_field_create_rejects_missing_prompt(monkeypatch):
                 "deckId": int(DECK_ID),
                 "targetFieldName": "Back",
                 "fieldType": "chat",
-                "settings": {},
+                "enabled": True,
+                "settings": {
+                    "provider": "openai",
+                    "model": "gpt-5",
+                    "reasoningLevel": "off",
+                    "webSearchEnabled": False,
+                    "usesDefaultGenerationSettings": True,
+                },
             }
         )
 
 
-def test_parse_smart_field_create_rejects_unknown_type(monkeypatch):
-    _patch_service_defaults(monkeypatch)
-
+def test_parse_smart_field_create_rejects_unknown_type():
     with pytest.raises(ValueError, match="Unknown fieldType"):
         dto.parse_smart_field_create(
             {
@@ -384,6 +442,7 @@ def test_parse_smart_field_create_rejects_unknown_type(monkeypatch):
                 "deckId": int(DECK_ID),
                 "targetFieldName": "Back",
                 "fieldType": "video",
+                "enabled": True,
                 "settings": {},
             }
         )
@@ -408,6 +467,46 @@ def test_parse_generation_defaults_round_trips():
         }
     )
     assert parsed == GENERATION_DEFAULTS
+
+
+def test_parse_text_prompt_test_validates_card_and_settings():
+    parsed = dto.parse_text_prompt_test(
+        {
+            "cardId": 99,
+            "prompt": "Define {{Front}}",
+            "settings": {
+                "provider": "openai",
+                "model": "gpt-5",
+                "reasoningLevel": "high",
+                "webSearchEnabled": True,
+            },
+        }
+    )
+
+    assert parsed.card_id == 99
+    assert parsed.prompt == "Define {{Front}}"
+    assert parsed.settings == ChatGenerationSettings(
+        provider="openai",
+        model="gpt-5",
+        reasoning_level="high",
+        web_search_enabled=True,
+    )
+
+
+def test_parse_text_prompt_test_rejects_model_provider_mismatch():
+    with pytest.raises(ValueError, match="not available for provider"):
+        dto.parse_text_prompt_test(
+            {
+                "cardId": 99,
+                "prompt": "Define {{Front}}",
+                "settings": {
+                    "provider": "anthropic",
+                    "model": "gpt-5",
+                    "reasoningLevel": "off",
+                    "webSearchEnabled": False,
+                },
+            }
+        )
 
 
 # -- republish_state --
@@ -464,3 +563,84 @@ def test_operation_did_execute_publishes_on_notetype_or_deck_change(monkeypatch)
     )
     bus.publish.assert_called_once()
     assert isinstance(bus.publish.call_args.args[0], StateInvalidated)
+
+
+def test_browser_selection_uses_representative_card_for_one_selected_row(monkeypatch):
+    from src.web import hook_adapters
+
+    note = MockNote({"Front": "dog"}, note_id=42)
+    card = MockCard(id=99, did=7, note=note)
+    browser = MagicMock()
+    browser.table.len_selection.return_value = 1
+    browser.table.get_single_selected_card.return_value = card
+    monkeypatch.setattr(
+        hook_adapters,
+        "mw",
+        SimpleNamespace(col=MagicMock()),
+    )
+
+    payload = hook_adapters._build_selection_payload(browser)
+
+    assert payload["note"]["cardId"] == 99
+    assert payload["note"]["deckId"] == 7
+    browser.selected_cards.assert_not_called()
+
+
+def test_browser_selection_counts_selected_rows(monkeypatch):
+    from src.web import hook_adapters
+
+    browser = MagicMock()
+    browser.table.len_selection.return_value = 2
+    browser.table.get_single_selected_card.return_value = None
+    monkeypatch.setattr(hook_adapters, "mw", SimpleNamespace(col=MagicMock()))
+
+    assert hook_adapters._build_selection_payload(browser) == {
+        "note": None,
+        "count": 2,
+    }
+
+
+@pytest.mark.asyncio
+async def test_text_prompt_service_refetches_card_and_runs_without_writing(monkeypatch):
+    from src.services import prompt_test_service
+
+    note = MockNote({"Front": "dog"}, note_id=42)
+    card = MockCard(id=99, did=7, note=note)
+    request = dto.parse_text_prompt_test(
+        {
+            "cardId": 99,
+            "prompt": "Define {{Front}}",
+            "settings": {
+                "provider": "openai",
+                "model": "gpt-5",
+                "reasoningLevel": "off",
+                "webSearchEnabled": False,
+            },
+        }
+    )
+    monkeypatch.setattr(
+        prompt_test_service,
+        "mw",
+        SimpleNamespace(col=SimpleNamespace(get_card=lambda card_id: card)),
+    )
+    get_chat_response = MagicMock(return_value="A domesticated canine")
+
+    async def fake_get_chat_response(**kwargs):
+        get_chat_response(**kwargs)
+        return "A domesticated canine"
+
+    monkeypatch.setattr(
+        prompt_test_service.field_resolver,
+        "get_chat_response",
+        fake_get_chat_response,
+    )
+
+    context = prompt_test_service.prepare_text_prompt_test(request)
+    result = await prompt_test_service.run_text_prompt_test(context)
+
+    assert result == {"text": "A domesticated canine"}
+    assert get_chat_response.call_args.kwargs["note"] is note
+    assert get_chat_response.call_args.kwargs["deck_id"] == 7
+    assert get_chat_response.call_args.kwargs["generation_source"] == "prompt_test"
+    assert get_chat_response.call_args.kwargs["should_convert_to_html"] is False
+    assert get_chat_response.call_args.kwargs["should_embed_images"] is False

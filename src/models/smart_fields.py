@@ -20,6 +20,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 from dataclasses import dataclass
 from typing import Union
 
+from anki.cards import CardId
 from anki.decks import DeckId
 
 from .providers import (
@@ -60,6 +61,15 @@ class GenerationDefaults:
     chat: ChatGenerationSettings
     tts: TTSGenerationSettings
     image: ImageGenerationSettings
+
+
+@dataclass(frozen=True)
+class TextPromptTestRequest:
+    """Validated text prompt test intent from the web UI."""
+
+    card_id: CardId
+    prompt: str
+    settings: ChatGenerationSettings
 
 
 @dataclass(frozen=True)

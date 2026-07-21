@@ -1,34 +1,4 @@
-type SubscriptionState =
-  | "LOADING"
-  | "UNAUTHENTICATED"
-  | "NO_SUBSCRIPTION"
-  | "FREE_TRIAL_ACTIVE"
-  | "FREE_TRIAL_EXPIRED"
-  | "FREE_TRIAL_CAPACITY"
-  | "PAID_PLAN_ACTIVE"
-  | "PAID_PLAN_EXPIRED"
-  | "PAID_PLAN_CAPACITY"
-
-interface PlanInfo {
-  planId: string
-  planName: string
-  notesUsed: number | null
-  notesLimit: number | null
-  daysLeft: number
-  textCreditsUsed: number
-  textCreditsCapacity: number
-  voiceCreditsUsed: number
-  voiceCreditsCapacity: number
-  imageCreditsUsed: number
-  imageCreditsCapacity: number
-  totalCreditsUsed: number
-  totalCreditsCapacity: number
-}
-
-export interface AccountState {
-  subscription: SubscriptionState
-  plan: PlanInfo | null
-}
+import type { AccountState } from "@/types/api"
 
 interface PlanPresentation {
   title: string
@@ -37,6 +7,10 @@ interface PlanPresentation {
   tone: "neutral" | "success" | "warning"
   actionLabel: string
 }
+
+export const hasGenerationAccess = (account: AccountState): boolean =>
+  account.subscription === "FREE_TRIAL_ACTIVE" ||
+  account.subscription === "PAID_PLAN_ACTIVE"
 
 export const getPlanPresentation = (
   account: AccountState,
@@ -56,7 +30,7 @@ export const getPlanPresentation = (
   if (plan === null) {
     return {
       title: "Signed out",
-      detail: "Generation is paused",
+      detail: "Sign in to use Smart Notes.",
       usagePercent: null,
       tone: "neutral",
       actionLabel: "Sign in",

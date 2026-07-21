@@ -1,6 +1,5 @@
 import { modelLabel, providerLabel } from "@/lib/catalog"
-
-import type { SmartField } from "./types"
+import type { SmartField } from "@/types/api"
 
 export const smartFieldDescription = (field: SmartField): string => {
   if (field.fieldType === "tts") {

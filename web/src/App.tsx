@@ -1,11 +1,12 @@
 import { lazy, Suspense, useState } from "react"
 
 import { AppShell } from "@/components/shared/AppShell"
-import type { AccountState } from "@/components/shared/planPresentation"
 import { PlaceholderScreen } from "@/components/shared/PlaceholderScreen"
 import { SmartFieldsScreen } from "@/features/smart-fields/SmartFieldsScreen"
+import { TextDefaultsScreen } from "@/features/text-defaults/TextDefaultsScreen"
 import { readBootOptions, type ScreenId } from "@/lib/boot"
 import { useAppStore } from "@/store/appStore"
+import type { AccountState } from "@/types/api"
 
 const MockPanel = import.meta.env.DEV
   ? lazy(() => import("@/dev/MockPanel"))
@@ -26,9 +27,9 @@ const App = () => {
         connection={connection}
         onNavigate={setActiveScreen}
       >
-        {activeScreen === "fields" ? (
-          <SmartFieldsScreen state={state} />
-        ) : (
+        {activeScreen === "fields" && <SmartFieldsScreen state={state} />}
+        {activeScreen === "defaults-text" && <TextDefaultsScreen />}
+        {activeScreen !== "fields" && activeScreen !== "defaults-text" && (
           <PlaceholderScreen screen={activeScreen} />
         )}
       </AppShell>

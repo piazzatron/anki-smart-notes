@@ -1,6 +1,6 @@
 import { Image, MessageSquareText, Volume2 } from "lucide-react"
 
-import type { SmartField } from "../types"
+import type { SmartField } from "@/types/api"
 
 interface FieldTypeIconProps {
   fieldType: SmartField["fieldType"]

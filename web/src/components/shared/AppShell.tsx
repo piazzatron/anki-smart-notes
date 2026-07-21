@@ -5,8 +5,7 @@ import { Sidebar } from "./Sidebar"
 
 import type { Connection } from "@/store/appStore"
 import type { ScreenId } from "@/lib/boot"
-
-import type { AccountState } from "./planPresentation"
+import type { AccountState } from "@/types/api"
 
 interface AppShellProps {
   account: AccountState

@@ -1,9 +1,4 @@
-import type { AppState } from "@/store/appStore"
-
-import type { SmartField } from "./types"
-
-type Deck = AppState["decks"][number]
-type NoteType = AppState["noteTypes"][number]
+import type { AppState, Deck, NoteType, SmartField } from "@/types/api"
 
 export interface NoteTypeGroup {
   noteType: NoteType

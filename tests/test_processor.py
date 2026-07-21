@@ -20,9 +20,17 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import asyncio
+from unittest.mock import AsyncMock
 
 import pytest
-from fixtures import NOTE_TYPE_ID, NOTE_TYPE_NAME, MockCard, MockConfig, MockNote
+from fixtures import (
+    DECK_ID,
+    NOTE_TYPE_ID,
+    NOTE_TYPE_NAME,
+    MockCard,
+    MockConfig,
+    MockNote,
+)
 
 from src.api_client import ClientFacingAPIError
 from src.database.migrations import apply_database_migrations
@@ -154,6 +162,41 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     monkeypatch.setattr(src.field_resolver, "config", c, raising=False)
 
     return p
+
+
+@pytest.mark.asyncio
+async def test_chat_preview_can_skip_web_search_image_embedding(monkeypatch):
+    import src.field_resolver
+    import src.prompt_helpers
+    from src.field_resolver import FieldResolver
+
+    chat = MockChatClient()
+    resolver = FieldResolver(
+        openai_provider=MockOpenAIClient(),
+        chat_provider=chat,
+        tts_provider=chat,
+        image_provider=chat,
+    )  # type: ignore
+    embed_images = AsyncMock(return_value="embedded response")
+    monkeypatch.setattr(src.prompt_helpers, "config", MockConfig())
+    monkeypatch.setattr(src.field_resolver, "is_capacity_remaining", lambda: True)
+    monkeypatch.setattr(src.field_resolver, "download_and_embed_images", embed_images)
+
+    response = await resolver.get_chat_response(
+        note=MockNote({"Front": "dog"}),
+        deck_id=DECK_ID,
+        prompt="Define {{Front}}",
+        model="auto",
+        provider="auto",
+        field_lower="smart-notes-test",
+        should_convert_to_html=False,
+        should_embed_images=False,
+        web_search=True,
+        generation_source="prompt_test",
+    )
+
+    assert response == "p-Define dog"
+    embed_images.assert_not_awaited()
 
 
 """

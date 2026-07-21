@@ -1,11 +1,12 @@
-import type { SmartField } from "@/features/smart-fields/types"
-
-type CommandName = "smartFields.save" | "smartFields.delete" | "defaults.save"
-
-interface CommandResponse {
-  ok: boolean
-  error?: string
-}
+import type {
+  ChatDefaultsSavePayload,
+  CommandName,
+  CommandResponse,
+  SmartField,
+  SmartFieldDeletePayload,
+  TextPromptTestArgs,
+  TextPromptTestResult,
+} from "@/types/api"
 
 const sessionToken =
   new URLSearchParams(window.location.search).get("token") ?? ""
@@ -32,17 +33,27 @@ export const deleteSmartField = async (field: SmartField): Promise<void> => {
     noteTypeId: field.noteTypeId,
     deckId: field.deckId,
     targetFieldName: field.targetFieldName,
-  })
+  } satisfies SmartFieldDeletePayload)
 }
 
-const sendCommand = async (
-  command: CommandName,
-  payload: Record<string, unknown>,
+export const saveChatDefaults = async (
+  defaults: ChatDefaultsSavePayload,
 ): Promise<void> => {
+  await sendCommand("defaults.chat.save", defaults)
+}
+
+export const testTextPrompt = async (
+  args: TextPromptTestArgs,
+): Promise<TextPromptTestResult> =>
+  sendCommand<TextPromptTestResult>("prompts.test", args)
+
+const sendCommand = async <Result = void>(
+  command: CommandName,
+  payload: object,
+): Promise<Result> => {
   if (isMockMode) {
     const { handleMockCommand } = await import("@/dev/mockData")
-    handleMockCommand(command, payload)
-    return
+    return handleMockCommand(command, payload) as Result
   }
 
   const response = await fetch("/api/command", {
@@ -60,4 +71,6 @@ const sendCommand = async (
       result.error ?? `Command failed with status ${response.status}`,
     )
   }
+
+  return result.result as Result
 }

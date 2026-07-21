@@ -1,9 +1,8 @@
 import { describe, expect, test } from "bun:test"
 
-import type { AppState } from "@/store/appStore"
+import type { AppState, SmartField } from "@/types/api"
 
 import { groupSmartFields } from "./groupSmartFields"
-import type { SmartField } from "./types"
 
 const field = (id: string, noteTypeId: number, deckId: number): SmartField => ({
   id,

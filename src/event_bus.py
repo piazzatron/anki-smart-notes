@@ -22,7 +22,7 @@ import functools
 import threading
 from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Any, TypeVar, Union
+from typing import Any, Optional, TypeVar, Union
 
 
 @dataclass(frozen=True)
@@ -51,12 +51,17 @@ class EventBus:
         self._subscribers: list[
             tuple[asyncio.AbstractEventLoop, asyncio.Queue[WebEvent]]
         ] = []
+        self._latest_browser_selection: Optional[BrowserSelectionChanged] = None
 
     def subscribe(
         self, loop: asyncio.AbstractEventLoop, queue: asyncio.Queue[WebEvent]
     ) -> None:
         with self._lock:
             self._subscribers.append((loop, queue))
+            if self._latest_browser_selection is not None:
+                loop.call_soon_threadsafe(
+                    queue.put_nowait, self._latest_browser_selection
+                )
 
     def unsubscribe(self, queue: asyncio.Queue[WebEvent]) -> None:
         with self._lock:
@@ -66,9 +71,15 @@ class EventBus:
 
     def publish(self, event: WebEvent) -> None:
         with self._lock:
+            if isinstance(event, BrowserSelectionChanged):
+                self._latest_browser_selection = event
             subscribers = list(self._subscribers)
         for loop, queue in subscribers:
             loop.call_soon_threadsafe(queue.put_nowait, event)
+
+    def clear_browser_selection(self) -> None:
+        with self._lock:
+            self._latest_browser_selection = None
 
 
 event_bus = EventBus()

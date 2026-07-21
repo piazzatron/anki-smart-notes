@@ -3,8 +3,9 @@ import { useState } from "react"
 
 import { SmartFieldRow } from "./SmartFieldRow"
 
+import type { SmartField } from "@/types/api"
+
 import type { NoteTypeGroup } from "../groupSmartFields"
-import type { SmartField } from "../types"
 
 interface NoteTypeCardProps {
   group: NoteTypeGroup

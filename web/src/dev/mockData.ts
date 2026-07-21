@@ -1,6 +1,5 @@
 import { useAppStore } from "@/store/appStore"
-import type { SmartField } from "@/features/smart-fields/types"
-import type { AppState, Catalog } from "@/store/appStore"
+import type { AppState, Catalog, Selection, SmartField } from "@/types/api"
 
 const GLOBAL_DECK_ID = 1
 
@@ -160,6 +159,27 @@ export const MOCK_CATALOG: Catalog = {
   },
 }
 
+const MOCK_SELECTIONS: Record<string, Selection> = {
+  selected: {
+    note: {
+      cardId: 9001,
+      id: 501,
+      noteTypeId: 100,
+      deckId: 20,
+      fields: {
+        Expression: "食べる",
+        Reading: "たべる",
+        Meaning: "to eat",
+        Example: "りんごを食べる。",
+        Example_TTS: "",
+        Image: "",
+      },
+    },
+  },
+  none: { note: null, count: 0 },
+  multiple: { note: null, count: 3 },
+}
+
 export const setMockFixture = (fixture: string): void => {
   const state = structuredClone(BASE_STATE)
 
@@ -186,28 +206,59 @@ export const setMockFixture = (fixture: string): void => {
   useAppStore.setState({
     state,
     catalog: MOCK_CATALOG,
+    selection:
+      MOCK_SELECTIONS[
+        new URLSearchParams(window.location.search).get("selection") ??
+          "selected"
+      ] ?? MOCK_SELECTIONS.selected,
     connection: fixture === "reconnecting" ? "reconnecting" : "connected",
+  })
+}
+
+export const setMockSelection = (selection: string): void => {
+  useAppStore.setState({
+    selection: MOCK_SELECTIONS[selection] ?? MOCK_SELECTIONS.selected,
   })
 }
 
 export const handleMockCommand = (
   command: string,
-  payload: Record<string, unknown>,
-): void => {
+  payload: object,
+): unknown => {
   const state = useAppStore.getState().state
   if (state === null) return
+  const commandPayload = payload as Record<string, unknown>
+
+  if (command === "prompts.test") {
+    return {
+      text: "To eat — the act of consuming food, as in りんごを食べる (to eat an apple).",
+    }
+  }
+
+  if (command === "defaults.chat.save") {
+    useAppStore.setState({
+      state: {
+        ...state,
+        defaults: {
+          ...state.defaults,
+          chat: commandPayload as unknown as AppState["defaults"]["chat"],
+        },
+      },
+    })
+    return
+  }
 
   const matchesPayload = (field: SmartField) =>
-    field.noteTypeId === payload.noteTypeId &&
-    field.deckId === payload.deckId &&
-    field.targetFieldName === payload.targetFieldName
+    field.noteTypeId === commandPayload.noteTypeId &&
+    field.deckId === commandPayload.deckId &&
+    field.targetFieldName === commandPayload.targetFieldName
 
   const smartFields =
     command === "smartFields.delete"
       ? state.smartFields.filter((field) => !matchesPayload(field))
       : state.smartFields.map((field) =>
           matchesPayload(field)
-            ? { ...field, enabled: Boolean(payload.enabled) }
+            ? { ...field, enabled: Boolean(commandPayload.enabled) }
             : field,
         )
 

@@ -54,11 +54,9 @@ def on_browser_row_changed(browser: Browser) -> None:
 
 
 def _build_selection_payload(browser: Browser) -> dict[str, Any]:
-    note_ids = browser.selected_notes()
-    if not mw or not mw.col or len(note_ids) != 1:
-        return dto.build_selection_cleared(len(note_ids))
+    selected_row_count = browser.table.len_selection()
+    card = browser.table.get_single_selected_card()
+    if not mw or not mw.col or card is None:
+        return dto.build_selection_cleared(selected_row_count)
 
-    note = mw.col.get_note(note_ids[0])
-    cards = note.cards()
-    deck_id = cards[0].did if cards else None
-    return dto.build_selection_changed(note, deck_id)
+    return dto.build_selection_changed(card.note(), card.id, card.did)

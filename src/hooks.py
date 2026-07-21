@@ -37,6 +37,7 @@ from .config import config
 from .constants import WEB_APP_DEV_URL
 from .database.migrations import run_migrations
 from .decks import deck_id_to_name_map
+from .event_bus import event_bus
 from .feature_flags import refresh_feature_flags
 from .logger import cleanup_logger, logger, setup_logger
 from .note_proccessor import NoteProcessor
@@ -469,6 +470,8 @@ def add_deck_option(
 
 @with_sentry
 def cleanup() -> None:
+    event_bus.clear_browser_selection()
+
     global _open_options_dialog
     if _open_options_dialog is not None:
         # A profile switch changes the note types, decks, and profile-scoped

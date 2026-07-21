@@ -255,8 +255,39 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
 
     fake_state = {"schemaVersion": 1, "smartFields": []}
     fake_catalog = {"schemaVersion": 1, "chat": {}, "image": {}}
+    fake_defaults = MagicMock()
+    fake_note_types = [(1, "Basic", ["Front", "Back"])]
+    fake_decks = {1: "Default"}
+    fake_smart_fields = [MagicMock()]
+    fake_account = {"subscription": "UNAUTHENTICATED", "plan": None}
+    build_state = MagicMock(return_value=fake_state)
     monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
-    monkeypatch.setattr(dto, "build_state", lambda: fake_state)
+    monkeypatch.setattr(
+        src.local_server.smart_field_service,
+        "get_generation_defaults",
+        MagicMock(return_value=fake_defaults),
+    )
+    monkeypatch.setattr(
+        src.local_server.smart_field_service,
+        "get_all_smart_fields",
+        MagicMock(return_value=fake_smart_fields),
+    )
+    monkeypatch.setattr(
+        src.local_server,
+        "get_note_types_with_fields",
+        MagicMock(return_value=fake_note_types),
+    )
+    monkeypatch.setattr(
+        src.local_server,
+        "deck_id_to_name_map",
+        MagicMock(return_value=fake_decks),
+    )
+    monkeypatch.setattr(
+        src.local_server,
+        "app_state",
+        MagicMock(state=fake_account),
+    )
+    monkeypatch.setattr(dto, "build_state", build_state)
     monkeypatch.setattr(dto, "build_catalog", lambda: fake_catalog)
 
     server = _make_server()
@@ -269,6 +300,14 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
         event = await _read_sse_event(resp)
         assert event["event"] == "state"
         assert json.loads(event["data"]) == fake_state
+
+        build_state.assert_called_with(
+            defaults=fake_defaults,
+            note_types=fake_note_types,
+            decks=fake_decks,
+            smart_fields=fake_smart_fields,
+            account=fake_account,
+        )
 
         event = await _read_sse_event(resp)
         assert event["event"] == "catalog"
@@ -329,6 +368,8 @@ async def test_command_rejects_unknown_command_and_lists_valid_ones(monkeypatch)
         assert "smartFields.save" in error
         assert "smartFields.delete" in error
         assert "defaults.save" in error
+        assert "defaults.chat.save" in error
+        assert "prompts.test" in error
 
 
 @pytest.mark.asyncio
@@ -406,3 +447,58 @@ async def test_save_defaults_command_dispatch(monkeypatch):
         fake_service.save_chat_defaults.assert_called_once_with(parsed.chat)
         fake_service.save_tts_defaults.assert_called_once_with(parsed.tts)
         fake_service.save_image_defaults.assert_called_once_with(parsed.image)
+
+
+@pytest.mark.asyncio
+async def test_save_chat_defaults_only_updates_chat(monkeypatch):
+    fake_service, fake_dto = _patch_command_route_deps(monkeypatch)
+    parsed = MagicMock()
+    fake_dto.parse_chat_generation_settings.return_value = parsed
+
+    server = _make_server()
+    async with TestClient(TestServer(_make_app(server))) as client:
+        resp = await client.post(
+            "/api/command",
+            json=_command_request("defaults.chat.save", {"provider": "auto"}),
+            headers={"X-Session-Token": server.session_token},
+        )
+
+        assert resp.status == 200
+        fake_service.save_chat_defaults.assert_called_once_with(parsed)
+        fake_service.save_tts_defaults.assert_not_called()
+        fake_service.save_image_defaults.assert_not_called()
+
+
+@pytest.mark.asyncio
+async def test_prompt_test_command_returns_ephemeral_result(monkeypatch):
+    import src.local_server
+
+    request = object()
+    context = object()
+    monkeypatch.setattr(
+        src.local_server.dto, "parse_text_prompt_test", lambda _: request
+    )
+    monkeypatch.setattr(
+        src.local_server, "prepare_text_prompt_test", lambda parsed: context
+    )
+
+    async def run_text_prompt_test(prepared):
+        assert prepared is context
+        return {"text": "A domesticated canine"}
+
+    monkeypatch.setattr(src.local_server, "run_text_prompt_test", run_text_prompt_test)
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+
+    server = _make_server()
+    async with TestClient(TestServer(_make_app(server))) as client:
+        resp = await client.post(
+            "/api/command",
+            json=_command_request("prompts.test", {"cardId": 99}),
+            headers={"X-Session-Token": server.session_token},
+        )
+
+        assert resp.status == 200
+        assert (await resp.json()) == {
+            "ok": True,
+            "result": {"text": "A domesticated canine"},
+        }

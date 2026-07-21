@@ -1,7 +1,8 @@
 import type { ScreenId } from "@/lib/boot"
 
-const SCREEN_LABELS: Record<Exclude<ScreenId, "fields">, string> = {
-  "defaults-text": "Text Defaults",
+type PlaceholderScreenId = Exclude<ScreenId, "fields" | "defaults-text">
+
+const SCREEN_LABELS: Record<PlaceholderScreenId, string> = {
   "defaults-images": "Image Defaults",
   "defaults-voice": "Voice Defaults",
   generation: "Generation",
@@ -11,7 +12,7 @@ const SCREEN_LABELS: Record<Exclude<ScreenId, "fields">, string> = {
 }
 
 interface PlaceholderScreenProps {
-  screen: Exclude<ScreenId, "fields">
+  screen: PlaceholderScreenId
 }
 
 export const PlaceholderScreen = ({ screen }: PlaceholderScreenProps) => (

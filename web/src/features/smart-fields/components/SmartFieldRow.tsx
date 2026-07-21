@@ -7,7 +7,7 @@ import {
   smartFieldDescription,
   smartFieldModelLabel,
 } from "../fieldPresentation"
-import type { SmartField } from "../types"
+import type { SmartField } from "@/types/api"
 
 interface SmartFieldRowProps {
   field: SmartField

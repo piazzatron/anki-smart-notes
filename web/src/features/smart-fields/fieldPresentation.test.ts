@@ -1,10 +1,11 @@
 import { describe, expect, test } from "bun:test"
 
+import type { SmartField } from "@/types/api"
+
 import {
   smartFieldDescription,
   smartFieldModelLabel,
 } from "./fieldPresentation"
-import type { SmartField } from "./types"
 
 describe("Smart Field presentation", () => {
   test("shows default Auto as the routing choice", () => {

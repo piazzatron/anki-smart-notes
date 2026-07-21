@@ -1,5 +1,5 @@
 import { useAppStore } from "@/store/appStore"
-import type { AppState, Catalog, Selection } from "@/store/appStore"
+import type { AppState, Catalog, Selection } from "@/types/api"
 
 const sessionToken =
   new URLSearchParams(window.location.search).get("token") ?? ""

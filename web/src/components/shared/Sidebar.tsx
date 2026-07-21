@@ -15,8 +15,7 @@ import type { ComponentType } from "react"
 import { PlanCard } from "./PlanCard"
 
 import type { ScreenId } from "@/lib/boot"
-
-import type { AccountState } from "./planPresentation"
+import type { AccountState } from "@/types/api"
 
 interface SidebarProps {
   account: AccountState

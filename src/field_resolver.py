@@ -187,6 +187,7 @@ class FieldResolver:
         web_search: bool = False,
         reasoning_level: ChatReasoningLevel = "off",
         show_error_box: bool = True,
+        should_embed_images: bool = True,
     ) -> Optional[str]:
         interpolated_prompt = interpolate_prompt(prompt, note)
 
@@ -224,7 +225,7 @@ class FieldResolver:
                 run_on_main(lambda: show_message_box(GENERIC_CREDITS_MESSAGE))
             return None
 
-        if resp and web_search:
+        if resp and web_search and should_embed_images:
             resp = await download_and_embed_images(
                 resp, note, field_lower, show_error_box=show_error_box
             )

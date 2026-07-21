@@ -19,6 +19,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import asyncio
 import concurrent.futures
+import inspect
 import json
 import secrets
 import threading
@@ -32,6 +33,7 @@ from aqt import mw
 from .app_state import app_state
 from .config import config
 from .constants import SITE_URL_DEV
+from .decks import deck_id_to_name_map
 from .event_bus import (
     BrowserSelectionChanged,
     StateInvalidated,
@@ -40,7 +42,12 @@ from .event_bus import (
 )
 from .logger import logger
 from .sentry import sentry
+from .services.prompt_test_service import (
+    prepare_text_prompt_test,
+    run_text_prompt_test,
+)
 from .services.smart_field_service import smart_field_service
+from .utils.notes_utils import get_note_types_with_fields
 from .web import dto
 
 LOCAL_SERVER_PORT = 8766
@@ -262,10 +269,19 @@ class LocalServer:
         return response
 
     async def _send_state(self, response: web.StreamResponse) -> None:
-        # build_state reads Anki/domain state, so it runs on the main thread;
-        # the executor hop keeps the wait from blocking this event loop.
+        # Gather one coherent domain snapshot on Anki's main thread; the
+        # executor hop keeps the wait from blocking this event loop.
         state = await asyncio.get_running_loop().run_in_executor(
-            None, lambda: _run_on_main_sync(dto.build_state)
+            None,
+            lambda: _run_on_main_sync(
+                lambda: dto.build_state(
+                    defaults=smart_field_service.get_generation_defaults(),
+                    note_types=get_note_types_with_fields(),
+                    decks=deck_id_to_name_map(),
+                    smart_fields=smart_field_service.get_all_smart_fields(),
+                    account=app_state.state,
+                )
+            ),
         )
         await response.write(f"event: state\ndata: {json.dumps(state)}\n\n".encode())
 
@@ -302,15 +318,24 @@ class LocalServer:
         logger.debug(f"Web command: {command}")
         payload = body.get("payload", {})
         try:
-            # Parsing and the command both read/write domain state, so the
-            # whole unit runs on the main thread; the executor hop keeps the
-            # wait from blocking this event loop.
-            await asyncio.get_running_loop().run_in_executor(
-                None, lambda: _run_on_main_sync(lambda: handler(payload))
-            )
+            # Synchronous handlers run as one main-thread unit. Async handlers
+            # own their narrower main-thread hops around Anki state access.
+            if inspect.iscoroutinefunction(handler):
+                result = await handler(payload)
+            else:
+                result = await asyncio.get_running_loop().run_in_executor(
+                    None, lambda: _run_on_main_sync(lambda: handler(payload))
+                )
         except ValueError as e:
             return web.json_response({"ok": False, "error": str(e)}, status=400)
-        return web.json_response({"ok": True})
+        except Exception as e:
+            logger.exception(f"Web command failed: {command}")
+            return web.json_response({"ok": False, "error": str(e)}, status=500)
+
+        response: dict[str, Any] = {"ok": True}
+        if result is not None:
+            response["result"] = result
+        return web.json_response(response)
 
     async def _handle_app_index(self, request: web.Request) -> web.StreamResponse:
         index = WEB_APP_STATIC_DIR / "index.html"
@@ -345,10 +370,25 @@ def _run_save_defaults(payload: dict[str, Any]) -> None:
     smart_field_service.save_image_defaults(defaults.image)
 
 
+def _run_save_chat_defaults(payload: dict[str, Any]) -> None:
+    smart_field_service.save_chat_defaults(dto.parse_chat_generation_settings(payload))
+
+
+async def _run_test_prompt(payload: dict[str, Any]) -> dict[str, str]:
+    request = dto.parse_text_prompt_test(payload)
+    context = await asyncio.get_running_loop().run_in_executor(
+        None,
+        lambda: _run_on_main_sync(lambda: prepare_text_prompt_test(request)),
+    )
+    return await run_text_prompt_test(context)
+
+
 # Command names are namespaced like event names (state, anki.*): the protocol
 # is typed messages in both directions over one channel each way.
-COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], None]] = {
+COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
     "smartFields.save": _run_save_smart_field,
     "smartFields.delete": _run_delete_smart_field,
     "defaults.save": _run_save_defaults,
+    "defaults.chat.save": _run_save_chat_defaults,
+    "prompts.test": _run_test_prompt,
 }

@@ -5,11 +5,10 @@ import { DeckGroup } from "./components/DeckGroup"
 import { FieldsEmptyState } from "./components/FieldsEmptyState"
 import { FieldsSkeleton } from "./components/FieldsSkeleton"
 import { groupSmartFields } from "./groupSmartFields"
-import type { SmartField } from "./types"
 
 import { Button } from "@/components/ui/Button"
 import { deleteSmartField, setSmartFieldEnabled } from "@/services/commands"
-import type { AppState } from "@/store/appStore"
+import type { AppState, SmartField } from "@/types/api"
 
 interface SmartFieldsScreenProps {
   state: AppState | null

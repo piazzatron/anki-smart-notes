@@ -1,7 +1,8 @@
 import { NoteTypeCard } from "./NoteTypeCard"
 
+import type { SmartField } from "@/types/api"
+
 import type { DeckGroup as DeckGroupModel } from "../groupSmartFields"
-import type { SmartField } from "../types"
 
 interface DeckGroupProps {
   group: DeckGroupModel
