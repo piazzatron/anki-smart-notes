@@ -97,6 +97,7 @@ export const SmartFieldsScreen = ({
               <DeckGroup
                 group={group}
                 key={group.deck.id}
+                onCreate={() => setEditorState({ mode: "create" })}
                 onDelete={deleteSmartField}
                 onDuplicate={(field) =>
                   setEditorState({ field, mode: "duplicate" })

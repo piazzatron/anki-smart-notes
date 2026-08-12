@@ -6,6 +6,7 @@ import type { DeckGroup as DeckGroupModel } from "../groupSmartFields"
 
 interface DeckGroupProps {
   group: DeckGroupModel
+  onCreate: () => void
   onDelete: (field: SmartField) => Promise<void>
   onDuplicate: (field: SmartField) => void
   onEdit: (field: SmartField) => void
@@ -15,6 +16,7 @@ interface DeckGroupProps {
 
 export const DeckGroup = ({
   group,
+  onCreate,
   onDelete,
   onDuplicate,
   onEdit,
@@ -35,6 +37,7 @@ export const DeckGroup = ({
       <NoteTypeCard
         group={noteTypeGroup}
         key={noteTypeGroup.noteType.id}
+        onCreate={onCreate}
         onDelete={onDelete}
         onDuplicate={onDuplicate}
         onEdit={onEdit}
