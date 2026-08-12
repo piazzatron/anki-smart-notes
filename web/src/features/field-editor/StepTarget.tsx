@@ -17,8 +17,6 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Image, MessageSquareText, Volume2 } from "lucide-react"
-
 import {
   Select,
   SelectContent,
@@ -38,13 +36,13 @@ interface StepTargetProps {
 }
 
 const FIELD_TYPES: Array<{
-  Icon: typeof MessageSquareText
+  emoji: string
   label: string
   value: FieldType
 }> = [
-  { Icon: MessageSquareText, label: "Text", value: "chat" },
-  { Icon: Volume2, label: "Audio", value: "tts" },
-  { Icon: Image, label: "Image", value: "image" },
+  { emoji: "💬", label: "Text", value: "chat" },
+  { emoji: "🔈", label: "Audio", value: "tts" },
+  { emoji: "🖼️", label: "Image", value: "image" },
 ]
 
 export const StepTarget = ({ controls, state }: StepTargetProps) => {
@@ -60,125 +58,121 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
     })
 
   return (
-    <div className="mx-auto max-w-[580px]">
-      <div className="mb-6 text-center">
-        <h2 className="text-lg font-bold tracking-[-0.02em] text-zinc-100">
-          What are we generating?
-        </h2>
-        <p className="mt-1.5 text-xs text-ink-muted">
-          Pick the note type and field this Smart Field fills.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-[1.45fr_1fr] gap-3">
-        <FieldLabel label="Note Type">
-          <Select
-            onValueChange={(value) =>
-              controls.setTarget({ noteTypeId: Number(value) })
-            }
-            value={String(target.noteTypeId)}
-          >
-            <SelectTrigger aria-label="Note Type">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {state.noteTypes.map((item) => (
-                <SelectItem key={item.id} value={String(item.id)}>
-                  {item.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </FieldLabel>
-
-        <FieldLabel label="Deck" optional>
-          <Select
-            onValueChange={(value) =>
-              controls.setTarget({ deckId: Number(value) })
-            }
-            value={String(target.deckId)}
-          >
-            <SelectTrigger aria-label="Deck">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {state.decks.map((deck) => (
-                <SelectItem key={deck.id} value={String(deck.id)}>
-                  {deck.id === state.globalDeckId ? "All Decks" : deck.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </FieldLabel>
-      </div>
-
-      <div className="mt-5">
-        <p className="mb-2 text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
-          Type
-        </p>
-        <div className="grid grid-cols-3 gap-2" role="radiogroup">
-          {FIELD_TYPES.map(({ Icon, label, value }) => {
+    <div className="mx-auto w-full max-w-[600px]">
+      <Question label="What do you want to generate?">
+        <div className="flex gap-1.5" role="radiogroup">
+          {FIELD_TYPES.map(({ emoji, label, value }) => {
             const selected = target.fieldType === value
             return (
               <button
                 aria-checked={selected}
-                className={`flex min-h-11 items-center justify-center gap-2 rounded-md border text-xs font-semibold transition ${
+                className={`flex flex-1 items-center justify-center gap-[7px] rounded-md border py-[11px] text-[12.5px] font-semibold transition ${
                   selected
-                    ? "border-indigo/45 bg-indigo/14 text-indigo-soft"
-                    : "border-white/[0.09] bg-white/[0.03] text-zinc-400 hover:border-white/15 hover:text-zinc-200"
+                    ? "border-white/25 bg-white/[0.07] text-zinc-100"
+                    : "border-white/[0.08] bg-white/[0.025] text-zinc-400 hover:border-white/15 hover:text-zinc-200"
                 }`}
                 key={value}
                 onClick={() => controls.setTarget({ fieldType: value })}
                 role="radio"
               >
-                <Icon aria-hidden className="size-3.5" />
+                <span
+                  aria-hidden
+                  className={`text-[15px] leading-none ${selected ? "" : "opacity-70"}`}
+                >
+                  {emoji}
+                </span>
                 {label}
               </button>
             )
           })}
         </div>
-      </div>
+      </Question>
 
-      <div className="mt-5">
-        <FieldLabel label="Field">
-          <Select
-            onValueChange={(targetFieldName) => {
-              controls.setTarget({ targetFieldName })
-              if (targetFieldName === controls.form.sourceFieldName) {
-                controls.update({
-                  sourceFieldName: getFirstSourceField(
-                    noteType,
-                    targetFieldName,
-                  ),
-                })
+      <Question className="mt-7" label="Which notes?">
+        <div className="grid grid-cols-[1.6fr_1fr] gap-3">
+          <FieldLabel label="Note Type">
+            <Select
+              onValueChange={(value) =>
+                controls.setTarget({ noteTypeId: Number(value) })
               }
-            }}
-            value={target.targetFieldName}
-          >
-            <SelectTrigger aria-label="Field">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {noteType?.fields.map((fieldName) => {
-                const bound = fieldIsBound(fieldName)
-                return (
-                  <SelectItem
-                    disabled={bound}
-                    key={fieldName}
-                    value={fieldName}
-                  >
-                    {fieldName}
-                    {bound && (
-                      <span className="ml-auto text-[10px] text-ink-faint">
-                        · already smart
-                      </span>
-                    )}
+              value={String(target.noteTypeId)}
+            >
+              <SelectTrigger aria-label="Note Type" className="min-h-9 py-1.5">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {state.noteTypes.map((item) => (
+                  <SelectItem key={item.id} value={String(item.id)}>
+                    {item.name}
                   </SelectItem>
-                )
-              })}
-            </SelectContent>
-          </Select>
-        </FieldLabel>
+                ))}
+              </SelectContent>
+            </Select>
+          </FieldLabel>
+
+          <FieldLabel label="Deck" optional>
+            <Select
+              onValueChange={(value) =>
+                controls.setTarget({ deckId: Number(value) })
+              }
+              value={String(target.deckId)}
+            >
+              <SelectTrigger aria-label="Deck" className="min-h-9 py-1.5">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {state.decks.map((deck) => (
+                  <SelectItem key={deck.id} value={String(deck.id)}>
+                    {deck.id === state.globalDeckId ? "All Decks" : deck.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </FieldLabel>
+        </div>
+      </Question>
+
+      <Question className="mt-7" label="Which field should it fill?">
+        <Select
+          onValueChange={(targetFieldName) => {
+            controls.setTarget({ targetFieldName })
+            if (targetFieldName === controls.form.sourceFieldName) {
+              controls.update({
+                sourceFieldName: getFirstSourceField(noteType, targetFieldName),
+              })
+            }
+          }}
+          value={target.targetFieldName}
+        >
+          <SelectTrigger
+            aria-label="Field"
+            className="py-[11px] font-mono text-sm font-semibold"
+          >
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {noteType?.fields.map((fieldName) => {
+              const bound = fieldIsBound(fieldName)
+              return (
+                <SelectItem
+                  className="font-mono text-[13px]"
+                  disabled={bound}
+                  key={fieldName}
+                  suffix={
+                    bound ? (
+                      <span className="ml-3 shrink-0 text-[11px] text-zinc-300">
+                        — already smart
+                      </span>
+                    ) : undefined
+                  }
+                  value={fieldName}
+                >
+                  {fieldName}
+                </SelectItem>
+              )
+            })}
+          </SelectContent>
+        </Select>
         {collision && (
           <p className="mt-2 text-[11px] leading-4 text-amber/85">
             <strong className="font-semibold">{target.targetFieldName}</strong>{" "}
@@ -186,10 +180,25 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
             type
           </p>
         )}
-      </div>
+      </Question>
     </div>
   )
 }
+
+interface QuestionProps {
+  children: React.ReactNode
+  className?: string
+  label: string
+}
+
+const Question = ({ children, className = "", label }: QuestionProps) => (
+  <section className={className}>
+    <h2 className="mb-2.5 text-[15px] leading-tight font-semibold text-zinc-100">
+      {label}
+    </h2>
+    {children}
+  </section>
+)
 
 interface FieldLabelProps {
   children: React.ReactNode
