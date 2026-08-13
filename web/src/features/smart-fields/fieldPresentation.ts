@@ -10,15 +10,14 @@ export const smartFieldDescription = (field: SmartField): string => {
 }
 
 export const smartFieldModelLabel = (field: SmartField): string => {
-  const isDefault = field.settings.usesDefaultGenerationSettings
+  if (field.settings.usesDefaultGenerationSettings) {
+    return "Default"
+  }
 
   if (field.fieldType === "tts") {
     const voice = field.settings.voiceId
-    const label = `${providerLabel(field.settings.provider)} · ${voice}`
-    return isDefault ? `Default · ${label}` : label
+    return `${providerLabel(field.settings.provider)} · ${voice}`
   }
 
-  const label = modelLabel(field.settings.model)
-  if (isDefault && field.settings.model === "auto") return "✦ Auto"
-  return isDefault ? `Default · ${label}` : label
+  return modelLabel(field.settings.model)
 }

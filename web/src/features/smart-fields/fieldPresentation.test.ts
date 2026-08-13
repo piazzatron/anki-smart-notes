@@ -8,7 +8,7 @@ import {
 } from "./fieldPresentation"
 
 describe("Smart Field presentation", () => {
-  test("shows default Auto as the routing choice", () => {
+  test("shows Default when the field follows generation defaults", () => {
     const field: SmartField = {
       id: "reading",
       noteTypeId: 1,
@@ -26,7 +26,7 @@ describe("Smart Field presentation", () => {
       },
     }
 
-    expect(smartFieldModelLabel(field)).toBe("✦ Auto")
+    expect(smartFieldModelLabel(field)).toBe("Default")
     expect(smartFieldDescription(field)).toBe("Generate {{Front}}")
   })
 
