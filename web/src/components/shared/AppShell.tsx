@@ -24,14 +24,14 @@ export const AppShell = ({
   children,
   onNavigate,
 }: AppShellProps) => (
-  <div className="flex h-full min-h-0 w-full bg-canvas text-ink">
+  <div className="flex h-full min-h-0 w-full bg-sidebar text-ink">
     <Sidebar
       account={account}
       activeScreen={activeScreen}
       appVersion={appVersion}
       onNavigate={onNavigate}
     />
-    <main className="flex min-w-0 flex-1 flex-col bg-canvas">
+    <main className="m-2 ml-0 flex min-w-0 flex-1 flex-col overflow-hidden rounded-2xl bg-canvas">
       <ConnectionNotice connection={connection} />
       {children}
     </main>

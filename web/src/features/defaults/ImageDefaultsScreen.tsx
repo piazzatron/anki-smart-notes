@@ -63,7 +63,7 @@ const LoadedImageDefaultsScreen = ({
       )}
 
       <div className="min-h-0 flex-1 overflow-y-auto px-6 py-5">
-        <div className="mx-auto w-full max-w-[640px]">
+        <div className="w-full max-w-[480px]">
           <label
             className="mb-2 block text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase"
             htmlFor="default-image-model"

@@ -104,7 +104,7 @@ const LoadedVoiceDefaultsScreen = ({
       {/* A flex column rather than a scrolling one: the voice list fills whatever is
           left and scrolls inside its own box. */}
       <div className="flex min-h-0 flex-1 flex-col px-6 py-5">
-        <div className="mx-auto flex min-h-0 w-full max-w-[640px] flex-1 flex-col">
+        <div className="flex min-h-0 w-full max-w-[560px] flex-1 flex-col">
           <p className="mb-2 text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
             Current default
           </p>

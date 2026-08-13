@@ -50,7 +50,7 @@ export const DefaultsScreenLayout = ({
     />
     {children}
     <div className="shrink-0 border-t border-white/[0.06] px-6 py-4">
-      <div className="mx-auto w-full max-w-[640px]">{tester}</div>
+      <div className="w-full max-w-[640px]">{tester}</div>
     </div>
   </section>
 )

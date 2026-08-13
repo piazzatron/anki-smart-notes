@@ -55,7 +55,10 @@ export const Sidebar = ({
   onNavigate,
 }: SidebarProps) => {
   return (
-    <aside className="flex min-h-0 w-52 shrink-0 flex-col border-r border-white/[0.065] bg-sidebar px-2.5 pt-4 pb-0 max-[760px]:w-44">
+    <aside className="flex min-h-0 w-52 shrink-0 flex-col bg-sidebar px-2.5 pt-4 pb-0 max-[760px]:w-44">
+      <div className="mb-4 px-2 text-[16px] font-bold text-zinc-100">
+        Smart Notes
+      </div>
       <nav
         aria-label="Smart Notes sections"
         className="min-h-0 flex-1 overflow-y-auto pb-2"
@@ -144,8 +147,8 @@ const NavButton = ({ activeScreen, item, onNavigate }: NavButtonProps) => {
       aria-current={isActive ? "page" : undefined}
       className={`flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[14px] font-medium transition ${
         isActive
-          ? "bg-indigo/14 text-indigo-soft"
-          : "text-zinc-300 hover:bg-white/[0.055] hover:text-zinc-100"
+          ? "bg-white/[0.075] text-zinc-100"
+          : "text-zinc-400 hover:bg-white/[0.055] hover:text-zinc-100"
       }`}
       onClick={() => onNavigate(item.id)}
     >
