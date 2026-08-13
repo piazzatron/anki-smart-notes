@@ -2,9 +2,9 @@ import type { ScreenId } from "@/lib/boot"
 
 const SCREEN_LABELS: Record<ScreenId, string> = {
   fields: "Smart Fields",
-  "defaults-text": "Text Defaults",
-  "defaults-images": "Image Defaults",
-  "defaults-voice": "Voice Defaults",
+  "defaults-text": "Default Text Settings",
+  "defaults-images": "Default Image Settings",
+  "defaults-voice": "Default Voice Settings",
   settings: "Settings",
   subscription: "Subscription",
   support: "Support & Bugs",

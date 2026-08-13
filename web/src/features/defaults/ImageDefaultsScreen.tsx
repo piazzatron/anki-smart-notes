@@ -17,7 +17,7 @@ export const ImageDefaultsScreen = () => {
   const state = useAppStore((store) => store.state)
   const catalog = useAppStore((store) => store.catalog)
   if (state === null || catalog === null) {
-    return <DefaultsScreenLoading label="Loading Image Defaults" />
+    return <DefaultsScreenLoading label="Loading Default Image Settings" />
   }
 
   return <LoadedImageDefaultsScreen catalog={catalog} state={state} />
@@ -48,11 +48,9 @@ const LoadedImageDefaultsScreen = ({
         </span>
       }
       subtitle="The model your image Smart Fields use unless a field pins its own."
-      tester={
-        <ImagePromptTester settings={controls.form.values} title="Try it" />
-      }
+      tester={<ImagePromptTester settings={controls.form.values} />}
       testId="image-defaults-screen"
-      title="Default Image Model"
+      title="Default Image Settings"
     >
       {controls.form.error !== null && (
         <ErrorBanner

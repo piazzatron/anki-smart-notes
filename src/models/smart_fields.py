@@ -18,7 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 from dataclasses import dataclass
-from typing import Union
+from typing import Optional, Union
 
 from anki.cards import CardId
 from anki.decks import DeckId
@@ -83,17 +83,9 @@ class ImagePromptTestRequest:
 
 @dataclass(frozen=True)
 class TTSPromptTestRequest:
-    """Validated card-backed voice test intent from the web UI."""
+    """Validated voice test intent, optionally using a card for interpolation."""
 
-    card_id: CardId
-    text: str
-    settings: TTSGenerationSettings
-
-
-@dataclass(frozen=True)
-class TTSPreviewRequest:
-    """Validated standalone voice preview intent from the web UI."""
-
+    card_id: Optional[CardId]
     text: str
     settings: TTSGenerationSettings
 

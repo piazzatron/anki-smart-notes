@@ -47,6 +47,7 @@ const NOTE: SelectedNote = {
 const testerControls = (
   overrides: Partial<PromptTesterControls<unknown>> = {},
 ): PromptTesterControls<unknown> => ({
+  canRunWithoutCard: false,
   dismissError: () => undefined,
   error: null,
   hasNoteTypeMismatch: false,
@@ -103,6 +104,23 @@ describe("getPromptTestCardState", () => {
         .runDisabled,
     ).toBe(true)
     expect(cardState({}, null).runDisabled).toBe(true)
+  })
+
+  test("allows literal text but not field references without a selected card", () => {
+    expect(
+      cardState({
+        canRunWithoutCard: true,
+        prompt: "This is a voice test.",
+        selectedNote: null,
+      }).runDisabled,
+    ).toBe(false)
+    expect(
+      cardState({
+        canRunWithoutCard: true,
+        prompt: "Speak {{Front}}",
+        selectedNote: null,
+      }).runDisabled,
+    ).toBe(true)
   })
 })
 

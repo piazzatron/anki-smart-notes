@@ -25,6 +25,7 @@ import { ScreenHeader } from "@/components/shared/ScreenHeader"
 interface DefaultsScreenLayoutProps {
   accessory: ReactNode
   children: ReactNode
+  contentFillsHeight?: boolean
   icon: ReactNode
   subtitle: string
   tester: ReactNode
@@ -35,6 +36,7 @@ interface DefaultsScreenLayoutProps {
 export const DefaultsScreenLayout = ({
   accessory,
   children,
+  contentFillsHeight = false,
   icon,
   subtitle,
   tester,
@@ -48,9 +50,18 @@ export const DefaultsScreenLayout = ({
       subtitle={subtitle}
       title={title}
     />
-    {children}
-    <div className="shrink-0 border-t border-white/[0.06] px-6 py-4">
-      <div className="w-full max-w-[640px]">{tester}</div>
+    <div
+      className={`min-h-0 flex-1 overflow-y-auto ${contentFillsHeight ? "flex flex-col" : ""}`}
+    >
+      {children}
+      <div className="px-6 pt-2 pb-6">
+        <h2 className="mb-3 text-[17px] leading-tight font-bold text-zinc-100">
+          Try it
+        </h2>
+        <div className="w-full rounded-xl border border-white/[0.08] bg-white/[0.025] p-4">
+          {tester}
+        </div>
+      </div>
     </div>
   </section>
 )

@@ -20,7 +20,6 @@
 import { LoaderCircle, Settings2 } from "lucide-react"
 import { useState, type ReactNode } from "react"
 
-import { hasGenerationAccess } from "@/components/shared/planPresentation"
 import { Button } from "@/components/ui/Button"
 import {
   Dialog,
@@ -130,7 +129,6 @@ export const ModelSettingsSection = ({
                 </div>
               ) : (
                 <VoicePicker
-                  canPreview={hasGenerationAccess(state.account)}
                   catalog={voiceCatalog}
                   listMaxHeight={260}
                   onSelect={controls.setPinnedTTS}

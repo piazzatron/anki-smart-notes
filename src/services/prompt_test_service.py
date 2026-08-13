@@ -37,9 +37,9 @@ from ..models.smart_fields import (
     ImagePromptTestRequest,
     SaveTestResultRequest,
     TextPromptTestRequest,
-    TTSPreviewRequest,
     TTSPromptTestRequest,
 )
+from ..prompt_fields import get_prompt_fields
 from ..tts_provider import tts_provider
 
 EXPIRED_TEST_RESULT_MESSAGE = "This result has expired — run the test again"
@@ -66,7 +66,7 @@ class ImagePromptTestContext:
 class TTSPromptTestContext:
     """Card data captured on Anki's main thread for an async voice test."""
 
-    note: Note
+    note: Optional[Note]
     request: TTSPromptTestRequest
 
 
@@ -124,6 +124,11 @@ def prepare_image_prompt_test(
 
 
 def prepare_tts_prompt_test(request: TTSPromptTestRequest) -> TTSPromptTestContext:
+    if request.card_id is None:
+        if get_prompt_fields(request.text):
+            raise ValueError("Select a card to use field references in this test")
+        return TTSPromptTestContext(note=None, request=request)
+
     return TTSPromptTestContext(
         note=_get_selected_card_note(request.card_id), request=request
     )
@@ -197,19 +202,32 @@ async def run_tts_prompt_test(context: TTSPromptTestContext) -> dict[str, str]:
     if not is_capacity_remaining():
         raise ValueError("Generation is unavailable for this account")
     settings = context.request.settings
-    audio = await field_resolver.get_tts_response(
-        note=context.note,
-        input_text=context.request.text,
-        model=settings.model,
-        provider=settings.provider,
-        voice=settings.voice_id,
-        show_error_box=False,
-        generation_source="prompt_test",
-    )
+    if context.note is None:
+        audio = await tts_provider.async_get_tts_response(
+            input=context.request.text,
+            model=settings.model,
+            provider=settings.provider,
+            voice=settings.voice_id,
+            generation_source="prompt_test",
+        )
+    else:
+        audio = await field_resolver.get_tts_response(
+            note=context.note,
+            input_text=context.request.text,
+            model=settings.model,
+            provider=settings.provider,
+            voice=settings.voice_id,
+            show_error_box=False,
+            generation_source="prompt_test",
+        )
     if not audio:
         raise ValueError("No response received")
 
     content_type = _tts_content_type(settings.provider)
+    result = {"dataUrl": _data_url(audio, content_type)}
+    if context.request.card_id is None:
+        return result
+
     token = _remember_test_artifact(
         MediaTestArtifact(
             token=_new_result_token(),
@@ -219,24 +237,7 @@ async def run_tts_prompt_test(context: TTSPromptTestContext) -> dict[str, str]:
             content_type=content_type,
         )
     )
-    return {"dataUrl": _data_url(audio, content_type), "resultToken": token}
-
-
-async def run_tts_preview(request: TTSPreviewRequest) -> dict[str, str]:
-    """Generate a short catalog preview for one voice."""
-    if not is_capacity_remaining():
-        raise ValueError("Generation is unavailable for this account")
-    settings = request.settings
-    audio = await tts_provider.async_get_tts_response(
-        input=request.text,
-        model=settings.model,
-        provider=settings.provider,
-        voice=settings.voice_id,
-        generation_source="prompt_test",
-    )
-    if not audio:
-        raise ValueError("No response received")
-    return {"dataUrl": _data_url(audio, _tts_content_type(settings.provider))}
+    return {**result, "resultToken": token}
 
 
 def save_test_result(request: SaveTestResultRequest) -> None:

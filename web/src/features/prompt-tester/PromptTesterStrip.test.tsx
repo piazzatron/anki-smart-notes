@@ -69,7 +69,7 @@ describe("PromptTesterStrip", () => {
 
     expect(markup).toContain("Test your Smart Field")
     expect(markup).toContain("Pick a card in the Anki Browser")
-    expect(markup).toContain("Open Anki Browser")
+    expect(markup).toContain("Select a new card in the browser")
     expect(markup).toContain('disabled=""')
     expect(markup).toContain(">Test</button>")
     expect(markup).not.toContain("This field runs on")
@@ -111,6 +111,7 @@ describe("PromptTesterStrip", () => {
     expect(markup).toContain("食べる")
     expect(markup).toContain("Selected note type · Selected deck")
     expect(markup).toContain("View result")
+    expect(markup).toContain("Select a new card in the browser")
     expect(markup).toContain("border-white/10")
     expect(markup).toContain("bg-white/[0.02]")
     expect(markup.match(/h-\[54px\]/g)).toHaveLength(2)
@@ -142,6 +143,41 @@ describe("PromptTesterStrip", () => {
 })
 
 describe("PromptTesterStrip owning its prompt", () => {
+  test("offers a card picker when the tester can run without one", () => {
+    const markup = renderToStaticMarkup(
+      <PromptTesterStrip
+        promptLabel="Text to speak"
+        provenance="Sage"
+        tester={{
+          canRunWithoutCard: true,
+          dismissError: () => undefined,
+          error: null,
+          hasNoteTypeMismatch: false,
+          isPromptEditable: true,
+          isTesting: false,
+          prompt: "This is an example of your selected Smart Notes voice.",
+          requiredNoteTypeId: null,
+          result: null,
+          runTest: async () => undefined,
+          selection: { note: null, count: 0 },
+          selectedNote: null,
+          setError: () => undefined,
+          setPrompt: () => undefined,
+        }}
+      >
+        <p>Result</p>
+      </PromptTesterStrip>,
+    )
+
+    expect(markup).toContain(
+      "This is an example of your selected Smart Notes voice.",
+    )
+    expect(markup).toContain(">Test</button>")
+    expect(markup).toContain("Pick a card in the Anki Browser")
+    expect(markup).toContain("Select a new card in the browser")
+    expect(markup).not.toContain("Reference fields with:")
+  })
+
   test("offers a prompt editor and still keeps the result out of the page", () => {
     const markup = renderToStaticMarkup(
       <PromptTesterStrip
@@ -174,9 +210,14 @@ describe("PromptTesterStrip owning its prompt", () => {
 
     expect(markup).toContain("Try it")
     expect(markup).toContain("Text to speak")
+    expect(markup).toContain("Reference fields with:")
+    expect(markup).toContain("{{Expression}} · {{Meaning}}")
+    expect(markup).toContain("invisible")
+    expect(markup).toContain("group-focus-within:visible")
     expect(markup).toContain("<textarea")
     expect(markup).toContain(">Test</button>")
     expect(markup).not.toContain("Inline result sentinel")
+    expect(markup).not.toContain("Valid fields:")
     expect(markup).not.toContain("125ms")
   })
 

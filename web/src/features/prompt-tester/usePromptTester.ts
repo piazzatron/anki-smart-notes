@@ -26,7 +26,7 @@ import { getMissingPromptFieldNames } from "./promptTestCard"
 import type { SelectedNote, Selection } from "@/types/api"
 
 interface PromptTestResult<R> {
-  cardId: number
+  cardId: number | null
   latencyMs: number
   prompt: string
   value: R
@@ -40,14 +40,16 @@ interface PromptTesterState<R> {
 }
 
 interface UsePromptTesterArgs<R> {
+  canRunWithoutCard?: boolean
   fallbackError: string
   initialPrompt: string
   prompt?: string
   requiredNoteTypeId?: number
-  run: (args: { cardId: number; prompt: string }) => Promise<R>
+  run: (args: { cardId: number | null; prompt: string }) => Promise<R>
 }
 
 export interface PromptTesterControls<R> {
+  canRunWithoutCard: boolean
   dismissError: () => void
   error: string | null
   hasNoteTypeMismatch: boolean
@@ -124,6 +126,7 @@ export const getInitialPromptTestSelection = ({
 }
 
 export const usePromptTester = <R>({
+  canRunWithoutCard = false,
   fallbackError,
   initialPrompt,
   prompt: controlledPrompt,
@@ -168,15 +171,16 @@ export const usePromptTester = <R>({
     setTester((current) => ({ ...current, ...updates }))
 
   const runTest = async () => {
-    if (selectedNote === null || hasNoteTypeMismatch) return
+    if (!canRunWithoutCard && (selectedNote === null || hasNoteTypeMismatch))
+      return
 
     patchTester({ error: null, isTesting: true })
     const startedAt = performance.now()
     try {
-      const value = await run({ cardId: selectedNote.cardId, prompt })
+      const value = await run({ cardId: selectedNote?.cardId ?? null, prompt })
       patchTester({
         result: {
-          cardId: selectedNote.cardId,
+          cardId: selectedNote?.cardId ?? null,
           latencyMs: Math.max(1, Math.round(performance.now() - startedAt)),
           prompt,
           value,
@@ -192,6 +196,7 @@ export const usePromptTester = <R>({
   }
 
   return {
+    canRunWithoutCard,
     dismissError: () => patchTester({ error: null }),
     error: tester.error,
     hasNoteTypeMismatch,

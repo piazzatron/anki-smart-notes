@@ -443,12 +443,10 @@ export const sendMockCommand: CommandSender = async <Result = void>(
   if (command === "tts.test") {
     return {
       dataUrl: MOCK_AUDIO_DATA_URL,
-      resultToken: `mock-token-${Date.now()}`,
+      ...(commandPayload.cardId === undefined
+        ? {}
+        : { resultToken: `mock-token-${Date.now()}` }),
     } as Result
-  }
-
-  if (command === "tts.preview") {
-    return { dataUrl: MOCK_AUDIO_DATA_URL } as Result
   }
 
   if (command === "notes.saveTestResult") {

@@ -51,7 +51,6 @@ from .services.prompt_test_service import (
     prepare_tts_prompt_test,
     run_image_prompt_test,
     run_text_prompt_test,
-    run_tts_preview,
     run_tts_prompt_test,
     save_test_result,
 )
@@ -437,10 +436,6 @@ def _run_save_test_result(payload: dict[str, Any]) -> None:
     save_test_result(dto.parse_save_test_result(payload))
 
 
-async def _run_preview_tts(payload: dict[str, Any]) -> dict[str, str]:
-    return await run_tts_preview(dto.parse_tts_preview(payload))
-
-
 async def _run_generate_prompt(payload: dict[str, Any]) -> dict[str, str]:
     request = dto.parse_prompt_generate(payload)
     args = await asyncio.get_running_loop().run_in_executor(
@@ -492,7 +487,6 @@ COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
     "prompts.test": _run_test_prompt,
     "images.test": _run_test_image,
     "tts.test": _run_test_tts,
-    "tts.preview": _run_preview_tts,
     "notes.saveTestResult": _run_save_test_result,
     "support.sendFeedback": _run_send_feedback,
     "auth.logout": _run_logout,

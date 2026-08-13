@@ -19,7 +19,6 @@ import type {
   TextPromptTestResult,
   TTSDefaultsSavePayload,
   TTSPromptTestArgs,
-  TTSPreviewArgs,
   UiOpenBrowserPayload,
 } from "@/types/api"
 
@@ -109,12 +108,8 @@ export const testImagePrompt = async (
 
 export const testTTSPrompt = async (
   args: TTSPromptTestArgs,
-): Promise<MediaTestResult> => sendCommand<MediaTestResult>("tts.test", args)
-
-export const previewTTSVoice = async (
-  args: TTSPreviewArgs,
-): Promise<MediaPreviewResult> =>
-  sendCommand<MediaPreviewResult>("tts.preview", args)
+): Promise<MediaTestResult | MediaPreviewResult> =>
+  sendCommand<MediaTestResult | MediaPreviewResult>("tts.test", args)
 
 export const saveTestResultToCard = async (
   payload: SaveTestResultPayload,

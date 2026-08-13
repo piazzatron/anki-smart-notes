@@ -86,7 +86,8 @@ export const getPromptTestCardState = <R>({
       (noteType) => noteType.id === tester.requiredNoteTypeId,
     )?.name,
     runDisabled:
-      selectedNote === null ||
+      (selectedNote === null &&
+        (!tester.canRunWithoutCard || referencedFieldNames.size > 0)) ||
       tester.hasNoteTypeMismatch ||
       missingFieldNames.length > 0 ||
       account === null ||

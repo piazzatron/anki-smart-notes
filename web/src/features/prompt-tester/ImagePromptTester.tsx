@@ -33,7 +33,7 @@ interface ImagePromptTesterProps {
   settings: ImageGenerationSettings
   // Only a tester bound to a Smart Field can write its result back to the card.
   targetFieldName?: string
-  title: string
+  title?: string
 }
 
 export const ImagePromptTester = ({
@@ -53,7 +53,7 @@ export const ImagePromptTester = ({
     prompt,
     requiredNoteTypeId,
     run: async ({ cardId, prompt }) => {
-      const result = await testImagePrompt({ cardId, prompt, settings })
+      const result = await testImagePrompt({ cardId: cardId!, prompt, settings })
       setDimensions(null)
       return result
     },

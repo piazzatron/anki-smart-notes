@@ -728,8 +728,20 @@ def test_parse_tts_prompt_test_requires_known_voice_combination():
         provider="openai", model="tts-1", voice_id="alloy"
     )
 
+    without_card = dto.parse_tts_prompt_test(
+        {
+            "text": "Hello",
+            "settings": {
+                "provider": "openai",
+                "model": "tts-1",
+                "voiceId": "alloy",
+            },
+        }
+    )
+    assert without_card.card_id is None
+
     with pytest.raises(ValueError, match="Unknown provider, model, and voice"):
-        dto.parse_tts_preview(
+        dto.parse_tts_prompt_test(
             {
                 "text": "Hello",
                 "settings": {
@@ -980,6 +992,57 @@ async def test_tts_prompt_service_returns_audio_data_url_without_writing(monkeyp
     artifact = prompt_test_service._last_test_artifact
     assert result["resultToken"] == artifact.token
     assert (artifact.kind, artifact.data, artifact.card_id) == ("audio", b"audio", 99)
+
+
+@pytest.mark.asyncio
+async def test_tts_prompt_service_runs_literal_text_without_a_card(monkeypatch):
+    from src.services import prompt_test_service
+
+    monkeypatch.setattr(prompt_test_service, "is_capacity_remaining", lambda: True)
+    request = dto.parse_tts_prompt_test(
+        {
+            "text": "This is a voice test.",
+            "settings": {
+                "provider": "openai",
+                "model": "tts-1",
+                "voiceId": "alloy",
+            },
+        }
+    )
+
+    async def fake_get_tts_response(**kwargs):
+        assert kwargs["input"] == "This is a voice test."
+        return b"audio"
+
+    monkeypatch.setattr(
+        prompt_test_service.tts_provider,
+        "async_get_tts_response",
+        fake_get_tts_response,
+    )
+
+    result = await prompt_test_service.run_tts_prompt_test(
+        prompt_test_service.prepare_tts_prompt_test(request)
+    )
+
+    assert result == {"dataUrl": "data:audio/mpeg;base64,YXVkaW8="}
+
+
+def test_tts_prompt_service_requires_a_card_for_field_references():
+    from src.services import prompt_test_service
+
+    request = dto.parse_tts_prompt_test(
+        {
+            "text": "{{Front}}",
+            "settings": {
+                "provider": "openai",
+                "model": "tts-1",
+                "voiceId": "alloy",
+            },
+        }
+    )
+
+    with pytest.raises(ValueError, match="Select a card to use field references"):
+        prompt_test_service.prepare_tts_prompt_test(request)
 
 
 def _saveable_note_and_card(monkeypatch, fields):

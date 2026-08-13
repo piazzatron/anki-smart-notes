@@ -50,7 +50,7 @@ export const SelectedTestCard = ({
           className="shrink-0 px-3 py-[5px] text-[11.5px]"
           onClick={() => void openAnkiBrowser()}
         >
-          Open Anki Browser
+          Select a new card in the browser
         </Button>
       </div>
     )
@@ -98,7 +98,7 @@ export const SelectedTestCard = ({
           className="shrink-0 px-3 py-[5px] text-[11.5px]"
           onClick={() => void openAnkiBrowser()}
         >
-          Open Anki Browser
+          Select a new card in the browser
         </Button>
       </div>
     )
@@ -106,19 +106,27 @@ export const SelectedTestCard = ({
 
   if (compact && !cannotRun) {
     return (
-      <div className="h-[54px] min-w-0 rounded-lg border border-white/10 bg-white/[0.02] px-3 pt-[7px] pb-2">
-        <p className="mb-[3px] text-[10px] font-medium tracking-[0.04em] text-ink-muted uppercase">
-          Currently selected card
-        </p>
-        <div className="flex min-w-0 items-baseline gap-2">
-          <p className="min-w-0 shrink truncate font-mono text-[12.5px] text-ink">
-            {cardTitle}
+      <div className="flex h-[54px] min-w-0 items-center gap-3 rounded-lg border border-white/10 bg-white/[0.02] px-3">
+        <div className="min-w-0 flex-1">
+          <p className="mb-[3px] text-[10px] font-medium tracking-[0.04em] text-ink-muted uppercase">
+            Currently selected card
           </p>
-          <p className="min-w-0 shrink-[2] truncate text-[11px] text-zinc-500">
-            · {noteTypeName} · {deckName}
-          </p>
-          {compactAction}
+          <div className="flex min-w-0 items-baseline gap-2">
+            <p className="min-w-0 shrink truncate font-mono text-[12.5px] text-ink">
+              {cardTitle}
+            </p>
+            <p className="min-w-0 shrink-[2] truncate text-[11px] text-zinc-500">
+              · {noteTypeName} · {deckName}
+            </p>
+            {compactAction}
+          </div>
         </div>
+        <Button
+          className="shrink-0 px-3 py-[5px] text-[11.5px]"
+          onClick={() => void openAnkiBrowser()}
+        >
+          Select a new card in the browser
+        </Button>
       </div>
     )
   }
@@ -208,7 +216,7 @@ const CardProblem = ({
       className="shrink-0 self-center px-3 py-[5px] text-[11.5px]"
       onClick={() => void openAnkiBrowser()}
     >
-      Open Anki Browser
+      Select a new card in the browser
     </Button>
   </div>
 )

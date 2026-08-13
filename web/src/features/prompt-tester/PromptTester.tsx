@@ -31,7 +31,7 @@ interface PromptTesterProps {
   settings: ChatGenerationSettings
   // Only a tester bound to a Smart Field can write its result back to the card.
   targetFieldName?: string
-  title: string
+  title?: string
 }
 
 export const PromptTester = ({
@@ -46,7 +46,8 @@ export const PromptTester = ({
     initialPrompt: "Translate {{Expression}} into natural English.",
     prompt,
     requiredNoteTypeId,
-    run: ({ cardId, prompt }) => testTextPrompt({ cardId, prompt, settings }),
+    run: ({ cardId, prompt }) =>
+      testTextPrompt({ cardId: cardId!, prompt, settings }),
   })
   const result = tester.result !== null && tester.selectedNote !== null && (
     <>

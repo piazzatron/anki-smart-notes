@@ -212,7 +212,6 @@ export type CommandName =
   | "prompts.test"
   | "images.test"
   | "tts.test"
-  | "tts.preview"
   | "notes.saveTestResult"
   | "settings.save"
   | "prompts.generate"
@@ -271,12 +270,7 @@ export interface ImagePromptTestArgs {
 }
 
 export interface TTSPromptTestArgs {
-  cardId: number
-  text: string
-  settings: TTSGenerationSettings
-}
-
-export interface TTSPreviewArgs {
+  cardId?: number
   text: string
   settings: TTSGenerationSettings
 }

@@ -20,6 +20,7 @@
 import { Toggle } from "@/components/ui/Toggle"
 import { ChatModelSelect } from "@/features/text-generation/ChatModelSelect"
 import { ReasoningLevelSelect } from "@/features/text-generation/ReasoningLevelSelect"
+import { TextModelGuidance } from "@/features/text-generation/TextModelGuidance"
 import type { ChatGenerationSettings, ChatModelCatalog } from "@/types/api"
 
 interface TextModelSettingsProps {
@@ -47,17 +48,7 @@ export const TextModelSettings = ({
           }
           value={settings.model}
         />
-        <span className="mt-3 block rounded-lg border border-indigo/15 bg-indigo/[0.055] p-3.5">
-          <span className="block text-xs font-semibold text-zinc-200">
-            💡 Picking a model
-          </span>
-          <span className="mt-2 block text-[11px] leading-4 text-ink-muted">
-            <ModelName>Auto</ModelName> and <ModelName>Auto MAX</ModelName> are
-            the Smart Notes recommended models that balance performance and
-            cost. Choose <ModelName>Auto</ModelName> for standard tasks and
-            upgrade to <ModelName>Auto MAX</ModelName> if needed.
-          </span>
-        </span>
+        <TextModelGuidance />
       </label>
 
       {settings.provider === "auto" && (
@@ -98,7 +89,3 @@ export const TextModelSettings = ({
     </div>
   )
 }
-
-const ModelName = ({ children }: { children: string }) => (
-  <strong className="font-semibold text-indigo-soft">{children}</strong>
-)

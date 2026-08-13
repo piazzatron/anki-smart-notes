@@ -17,8 +17,7 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { LoaderCircle, Play } from "lucide-react"
-import { useMemo, useState } from "react"
+import { useMemo, useState, type ReactNode } from "react"
 
 import {
   Select,
@@ -27,24 +26,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select"
-import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { providerLabel } from "@/lib/catalog"
 import type { TTSGenerationSettings, VoiceCatalog } from "@/types/api"
 
 import { filterVoices, voiceKey, voiceMatchesSettings } from "./voiceDefaults"
-import { useVoicePreview } from "./useVoicePreview"
-
 interface VoicePickerProps {
-  canPreview: boolean
   catalog: VoiceCatalog
+  children?: ReactNode
+  layout?: "columns" | "stacked"
+  listHeight?: number
   listMaxHeight?: number
   onSelect: (settings: TTSGenerationSettings) => void
   value: TTSGenerationSettings
 }
 
 export const VoicePicker = ({
-  canPreview,
   catalog,
+  children,
+  layout = "stacked",
+  listHeight,
   listMaxHeight,
   onSelect,
   value,
@@ -58,7 +58,6 @@ export const VoicePicker = ({
     provider: "All",
     search: "",
   })
-  const voicePreview = useVoicePreview()
   const languages = useMemo(
     () =>
       [
@@ -81,67 +80,59 @@ export const VoicePicker = ({
     () => filterVoices(catalog.voices, filters),
     [catalog.voices, filters],
   )
-
-  return (
+  const filterControls = (
+    <div className={`grid gap-2 ${layout === "stacked" ? "grid-cols-3" : ""}`}>
+      <VoiceFilter
+        label="Language"
+        options={languages}
+        value={filters.language}
+        onChange={(language) =>
+          setFilters((current) => ({ ...current, language }))
+        }
+      />
+      <VoiceFilter
+        label="Gender"
+        options={["All", "Female", "Male"]}
+        value={filters.gender}
+        onChange={(gender) =>
+          setFilters((current) => ({ ...current, gender }))
+        }
+      />
+      <VoiceFilter
+        label="Provider"
+        options={providers}
+        renderOption={(provider) =>
+          provider === "All" ? "All" : providerLabel(provider)
+        }
+        value={filters.provider}
+        onChange={(provider) =>
+          setFilters((current) => ({ ...current, provider }))
+        }
+      />
+    </div>
+  )
+  const searchAndList = (
     <>
-      {voicePreview.error !== null && (
-        <ErrorBanner
-          className="mb-3"
-          message={voicePreview.error}
-          onDismiss={voicePreview.dismissError}
-        />
-      )}
-
-      <div className="grid grid-cols-3 gap-2">
-        <VoiceFilter
-          label="Language"
-          options={languages}
-          value={filters.language}
-          onChange={(language) =>
-            setFilters((current) => ({ ...current, language }))
-          }
-        />
-        <VoiceFilter
-          label="Gender"
-          options={["All", "Female", "Male"]}
-          value={filters.gender}
-          onChange={(gender) =>
-            setFilters((current) => ({ ...current, gender }))
-          }
-        />
-        <VoiceFilter
-          label="Provider"
-          options={providers}
-          renderOption={(provider) =>
-            provider === "All" ? "All" : providerLabel(provider)
-          }
-          value={filters.provider}
-          onChange={(provider) =>
-            setFilters((current) => ({ ...current, provider }))
-          }
-        />
-      </div>
-
       <input
         aria-label="Search voices"
-        className="mt-2 h-9 w-full rounded-md border border-white/[0.09] bg-white/[0.035] px-3 text-xs text-zinc-200 transition outline-none placeholder:text-zinc-600 focus:border-indigo/45"
+        className={`${layout === "stacked" ? "mt-2" : ""} h-9 w-full rounded-lg border border-white/[0.09] bg-white/[0.035] px-3 text-xs text-zinc-200 transition outline-none placeholder:text-zinc-600 focus:border-indigo/45`}
         onChange={(event) =>
           setFilters((current) => ({
             ...current,
             search: event.target.value,
           }))
         }
-        placeholder={`🔍 Search ${catalog.voices.length} voices…`}
+        placeholder="🔍 Search voices…"
         value={filters.search}
       />
 
       <div className="mt-2 flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-white/[0.08] bg-black/10">
         <div
-          className="min-h-48 flex-1 overflow-y-auto p-1.5"
+          className={`min-h-48 overflow-y-auto p-1.5 ${listHeight === undefined ? "flex-1" : "flex-none"}`}
           style={
-            listMaxHeight === undefined
+            listHeight === undefined && listMaxHeight === undefined
               ? undefined
-              : { maxHeight: listMaxHeight }
+              : { height: listHeight, maxHeight: listMaxHeight }
           }
         >
           {visibleVoices.length === 0 ? (
@@ -172,27 +163,6 @@ export const VoicePicker = ({
                     }
                   }}
                 >
-                  <button
-                    aria-label={`Preview ${voice.name}`}
-                    className="flex size-4 shrink-0 cursor-pointer items-center justify-center text-zinc-500 transition hover:text-indigo-soft disabled:cursor-not-allowed disabled:opacity-35"
-                    disabled={!canPreview || voicePreview.loadingKey !== null}
-                    onClick={(event) => {
-                      event.stopPropagation()
-                      void voicePreview.preview(voice)
-                    }}
-                  >
-                    {voicePreview.loadingKey === key ? (
-                      <LoaderCircle
-                        aria-hidden
-                        className="size-3 animate-spin"
-                      />
-                    ) : (
-                      <Play
-                        aria-hidden
-                        className="ml-0.5 size-2.5 fill-current"
-                      />
-                    )}
-                  </button>
                   <span className="min-w-0 flex-1 truncate text-xs font-semibold text-zinc-200">
                     {voice.name}
                   </span>
@@ -205,6 +175,33 @@ export const VoicePicker = ({
           )}
         </div>
       </div>
+    </>
+  )
+
+  return (
+    <>
+      {layout === "columns" ? (
+        <div className="grid min-h-0 flex-1 grid-cols-[minmax(260px,0.8fr)_minmax(0,1.2fr)] items-stretch gap-6">
+          <div className="flex min-h-0 flex-col">
+            {children}
+            <p className="mt-5 mb-2 text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
+              Filter voices
+            </p>
+            {filterControls}
+          </div>
+          <div className="flex min-h-0 flex-col">
+            <p className="mb-2 text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
+              Browse voices ({visibleVoices.length.toLocaleString()})
+            </p>
+            {searchAndList}
+          </div>
+        </div>
+      ) : (
+        <>
+          {filterControls}
+          {searchAndList}
+        </>
+      )}
     </>
   )
 }

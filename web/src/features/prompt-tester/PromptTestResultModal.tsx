@@ -53,12 +53,15 @@ export const PromptTestResultModal = <R,>({
   const firstFieldValue = Object.values(
     tester.selectedNote?.fields ?? {},
   )[0]?.trim()
-  const subtitle = [
-    firstFieldValue === undefined || firstFieldValue === ""
-      ? "Selected card"
-      : firstFieldValue,
-    provenance,
-  ].join(" · ")
+  const subtitle =
+    tester.selectedNote === null
+      ? provenance
+      : [
+        firstFieldValue === undefined || firstFieldValue === ""
+          ? "Selected card"
+          : firstFieldValue,
+        provenance,
+        ].join(" · ")
 
   return (
     <Dialog

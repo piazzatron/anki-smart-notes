@@ -237,7 +237,6 @@ const ControlledTester = ({
       prompt={`{{${controls.form.sourceFieldName}}}`}
       requiredNoteTypeId={controls.form.target.noteTypeId}
       settings={settings}
-      targetFieldName={controls.form.target.targetFieldName}
       title="Test your Smart Field"
       voiceName={voiceName}
     />

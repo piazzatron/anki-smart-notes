@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from "react-dom/server"
 
 import type { AppState, Catalog, SmartField } from "@/types/api"
 
+import { DefaultUsagePill } from "./DefaultUsagePill"
 import { getDefaultUsage } from "./defaultUsage"
 
 const catalog: Catalog = {
@@ -68,6 +69,23 @@ const textField = (
 })
 
 describe("Text Defaults", () => {
+  test("hides usage when no fields follow the default", () => {
+    expect(
+      renderToStaticMarkup(
+        <DefaultUsagePill usage={{ following: 0, pinned: 1 }} />,
+      ),
+    ).toBe("")
+  })
+
+  test("does not include pinned fields in the usage label", () => {
+    const markup = renderToStaticMarkup(
+      <DefaultUsagePill usage={{ following: 2, pinned: 1 }} />,
+    )
+
+    expect(markup).toContain("Applies to 2 fields")
+    expect(markup).not.toContain("pinned")
+  })
+
   test("counts fields following defaults separately from pinned fields", () => {
     expect(
       getDefaultUsage(
@@ -86,7 +104,9 @@ describe("Text Defaults", () => {
 
     expect(markup).toContain('aria-label="Default reasoning level"')
     expect(markup).toContain('role="combobox"')
+    expect(markup).toContain("Picking a model")
     expect(markup).toContain("Higher reasoning can improve harder generations")
+    expect(markup.match(/Try it/g)).toHaveLength(1)
   })
 
   test("hides reasoning levels for models that do not support them", async () => {

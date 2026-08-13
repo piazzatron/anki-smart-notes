@@ -17,11 +17,15 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { testTTSPrompt } from "@/services/commands"
-import type { TTSGenerationSettings } from "@/types/api"
+import { useEffect } from "react"
 
-import { AudioPlayer } from "./AudioPlayer"
-import { ResolvedPrompt } from "./PromptTestResultModal"
+import { testTTSPrompt } from "@/services/commands"
+import type {
+  MediaPreviewResult,
+  MediaTestResult,
+  TTSGenerationSettings,
+} from "@/types/api"
+
 import { PromptTesterStrip } from "./PromptTesterStrip"
 import { usePromptTester } from "./usePromptTester"
 
@@ -29,9 +33,7 @@ interface VoicePromptTesterProps {
   prompt?: string
   requiredNoteTypeId?: number
   settings: TTSGenerationSettings
-  // Only a tester bound to a Smart Field can write its result back to the card.
-  targetFieldName?: string
-  title: string
+  title?: string
   voiceName: string
 }
 
@@ -39,41 +41,36 @@ export const VoicePromptTester = ({
   prompt,
   requiredNoteTypeId,
   settings,
-  targetFieldName,
   title,
   voiceName,
 }: VoicePromptTesterProps) => {
-  const tester = usePromptTester({
+  const canRunWithoutCard = prompt === undefined
+  const tester = usePromptTester<MediaTestResult | MediaPreviewResult>({
+    canRunWithoutCard,
     fallbackError: "Could not generate audio",
-    initialPrompt: "{{Expression}}",
+    initialPrompt: "This is an example of your selected Smart Notes voice.",
     prompt,
     requiredNoteTypeId,
     run: ({ cardId, prompt }) =>
-      testTTSPrompt({ cardId, settings, text: prompt }),
+      testTTSPrompt({ cardId: cardId ?? undefined, settings, text: prompt }),
   })
-  const result = tester.result !== null && tester.selectedNote !== null && (
-    <>
-      <ResolvedPrompt
-        note={tester.selectedNote}
-        prompt={tester.result.prompt}
-      />
-      <AudioPlayer
-        autoPlay
-        dataUrl={tester.result.value.dataUrl}
-        label={voiceName}
-      />
-    </>
-  )
+  const resultValue = tester.result?.value
+
+  useEffect(() => {
+    if (resultValue === undefined) return
+
+    const audio = new Audio(resultValue.dataUrl)
+    void audio.play()
+    return () => audio.pause()
+  }, [resultValue])
 
   return (
     <PromptTesterStrip
       promptLabel="Text to speak"
       provenance={voiceName}
-      saveTargetFieldName={targetFieldName}
+      showResultModal={false}
       tester={tester}
       title={title}
-    >
-      {result}
-    </PromptTesterStrip>
+    />
   )
 }

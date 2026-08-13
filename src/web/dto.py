@@ -55,7 +55,6 @@ from ..models.smart_fields import (
     SmartFieldSettings,
     TextPromptTestRequest,
     TTSGenerationSettings,
-    TTSPreviewRequest,
     TTSPromptTestRequest,
     TTSSmartFieldSettings,
 )
@@ -315,14 +314,7 @@ def parse_image_prompt_test(payload: dict[str, Any]) -> ImagePromptTestRequest:
 
 def parse_tts_prompt_test(payload: dict[str, Any]) -> TTSPromptTestRequest:
     return TTSPromptTestRequest(
-        card_id=_parse_card_id(payload),
-        text=_parse_non_empty_string(payload, "text"),
-        settings=parse_tts_generation_settings(_require_object(payload, "settings")),
-    )
-
-
-def parse_tts_preview(payload: dict[str, Any]) -> TTSPreviewRequest:
-    return TTSPreviewRequest(
+        card_id=_parse_optional_card_id(payload),
         text=_parse_non_empty_string(payload, "text"),
         settings=parse_tts_generation_settings(_require_object(payload, "settings")),
     )
@@ -614,6 +606,15 @@ def parse_tts_generation_settings(payload: dict[str, Any]) -> TTSGenerationSetti
 
 def _parse_card_id(payload: dict[str, Any]) -> CardId:
     card_id = _require(payload, "cardId")
+    if isinstance(card_id, bool) or not isinstance(card_id, int):
+        raise ValueError("cardId must be an integer")
+    return cast(CardId, card_id)
+
+
+def _parse_optional_card_id(payload: dict[str, Any]) -> CardId | None:
+    card_id = payload.get("cardId")
+    if card_id is None:
+        return None
     if isinstance(card_id, bool) or not isinstance(card_id, int):
         raise ValueError("cardId must be an integer")
     return cast(CardId, card_id)
