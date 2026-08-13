@@ -67,6 +67,9 @@ DEFAULT_IMAGE_GENERATION_SETTINGS = ImageGenerationSettings(
     provider="openai",
     model="gpt-image-1.5-low",
 )
+SMART_FIELD_TARGET_COLLISION_ERROR = (
+    "A Smart Field already exists for that note type, deck, and field"
+)
 
 
 class SmartFieldService:
@@ -288,16 +291,51 @@ class SmartFieldService:
         return [self._smart_field_from_row(row) for row in rows]
 
     @republish_state
-    def save_smart_field(self, smart_field: SmartFieldCreate) -> None:
+    def create_smart_field(self, smart_field: SmartFieldCreate) -> None:
+        """Creates a Smart Field with a new UUID."""
         profile_name = self._get_profile_name()
         logger.debug(
-            f"Smart fields DB: saving {smart_field.field_type} field "
+            f"Smart fields DB: creating {smart_field.field_type} field "
             f"{profile_name}/{smart_field.note_type_id}/{smart_field.deck_id}/"
             f"{smart_field.target_field_name}"
         )
         with open_database() as conn:
-            smart_field_id = self._save_smart_field(conn, smart_field, profile_name)
-        logger.debug(f"Smart fields DB: saved smart_field_id={smart_field_id}")
+            collision = conn.execute(
+                """
+                SELECT id FROM smart_fields
+                WHERE profile_name = ?
+                    AND note_type_id = ?
+                    AND deck_id = ?
+                    AND lower(target_field_name) = lower(?)
+                """,
+                (
+                    profile_name,
+                    smart_field.note_type_id,
+                    int(smart_field.deck_id),
+                    smart_field.target_field_name,
+                ),
+            ).fetchone()
+            if collision is not None:
+                raise ValueError(SMART_FIELD_TARGET_COLLISION_ERROR)
+
+            try:
+                smart_field_id = self._insert_smart_field(
+                    conn, smart_field, profile_name
+                )
+            except sqlite3.IntegrityError as e:
+                raise ValueError(SMART_FIELD_TARGET_COLLISION_ERROR) from e
+        logger.debug(f"Smart fields DB: created smart_field_id={smart_field_id}")
+
+    @republish_state
+    def update_smart_field(self, smart_field: SmartField) -> None:
+        """Updates the profile-scoped Smart Field identified by its UUID."""
+        profile_name = self._get_profile_name()
+        logger.debug(
+            f"Smart fields DB: updating smart_field_id={smart_field.id} "
+            f"for profile={profile_name}"
+        )
+        with open_database() as conn:
+            self._update_smart_field(conn, smart_field, profile_name)
 
     @republish_state
     def replace_all_smart_fields(
@@ -327,64 +365,75 @@ class SmartFieldService:
                 self._insert_smart_field(conn, smart_field, profile_name)
 
     @republish_state
-    def delete_smart_field(
-        self,
-        note_type_id: int,
-        deck_id: DeckId,
-        target_field: str,
-    ) -> None:
+    def delete_smart_field(self, smart_field_id: str) -> None:
         profile_name = self._get_profile_name()
         logger.debug(
-            f"Smart fields DB: removing {profile_name}/{note_type_id}/"
-            f"{deck_id}/{target_field}"
+            f"Smart fields DB: removing smart_field_id={smart_field_id} "
+            f"for profile={profile_name}"
         )
         with open_database() as conn:
-            conn.execute(
+            cursor = conn.execute(
                 """
                 DELETE FROM smart_fields
-                WHERE profile_name = ?
-                    AND note_type_id = ?
-                    AND deck_id = ?
-                    AND lower(target_field_name) = lower(?)
+                WHERE id = ? AND profile_name = ?
                 """,
-                (profile_name, note_type_id, int(deck_id), target_field),
+                (smart_field_id, profile_name),
             )
+            if cursor.rowcount != 1:
+                raise ValueError(f"Smart Field not found: {smart_field_id}")
 
-    def _save_smart_field(
+    def _update_smart_field(
         self,
         conn: sqlite3.Connection,
-        smart_field: SmartFieldCreate,
+        smart_field: SmartField,
         profile_name: str,
-    ) -> str:
-        existing_id = self._get_existing_id(
-            conn,
-            profile_name,
-            smart_field.note_type_id,
-            smart_field.deck_id,
-            smart_field.target_field_name,
-        )
-
-        if not existing_id:
-            return self._insert_smart_field(conn, smart_field, profile_name)
-
-        now = _utc_now_iso()
-        conn.execute(
+    ) -> None:
+        collision = conn.execute(
             """
-            UPDATE smart_fields
-            SET target_field_name = ?, field_type = ?, enabled = ?, updated_at = ?
-            WHERE id = ?
+            SELECT id FROM smart_fields
+            WHERE profile_name = ?
+                AND note_type_id = ?
+                AND deck_id = ?
+                AND lower(target_field_name) = lower(?)
+                AND id != ?
             """,
             (
+                profile_name,
+                smart_field.note_type_id,
+                int(smart_field.deck_id),
                 smart_field.target_field_name,
-                smart_field.field_type,
-                int(smart_field.enabled),
-                now,
-                existing_id,
+                smart_field.id,
             ),
-        )
-        self._delete_settings(conn, existing_id)
-        self._insert_settings(conn, existing_id, smart_field.settings)
-        return existing_id
+        ).fetchone()
+        if collision is not None:
+            raise ValueError(SMART_FIELD_TARGET_COLLISION_ERROR)
+
+        try:
+            cursor = conn.execute(
+                """
+                UPDATE smart_fields
+                SET note_type_id = ?, deck_id = ?, target_field_name = ?,
+                    field_type = ?, enabled = ?, updated_at = ?
+                WHERE id = ? AND profile_name = ?
+                """,
+                (
+                    smart_field.note_type_id,
+                    int(smart_field.deck_id),
+                    smart_field.target_field_name,
+                    smart_field.field_type,
+                    int(smart_field.enabled),
+                    _utc_now_iso(),
+                    smart_field.id,
+                    profile_name,
+                ),
+            )
+        except sqlite3.IntegrityError as e:
+            raise ValueError(SMART_FIELD_TARGET_COLLISION_ERROR) from e
+        if cursor.rowcount != 1:
+            raise ValueError(f"Smart Field not found: {smart_field.id}")
+
+        self._delete_settings(conn, smart_field.id)
+        self._insert_settings(conn, smart_field.id, smart_field.settings)
 
     def _insert_smart_field(
         self,
@@ -452,26 +501,6 @@ class SmartFieldService:
             enabled=bool(row["enabled"]),
             settings=settings,
         )
-
-    def _get_existing_id(
-        self,
-        conn: sqlite3.Connection,
-        profile_name: str,
-        note_type_id: int,
-        deck_id: DeckId,
-        target_field: str,
-    ) -> Optional[str]:
-        row = conn.execute(
-            """
-            SELECT id FROM smart_fields
-            WHERE profile_name = ?
-                AND note_type_id = ?
-                AND deck_id = ?
-                AND lower(target_field_name) = lower(?)
-            """,
-            (profile_name, note_type_id, int(deck_id), target_field),
-        ).fetchone()
-        return cast(str, row["id"]) if row else None
 
     def _delete_settings(self, conn: sqlite3.Connection, smart_field_id: str) -> None:
         conn.execute(

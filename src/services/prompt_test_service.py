@@ -18,23 +18,31 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import base64
+import secrets
 from dataclasses import dataclass
+from typing import Literal, Optional, Union
 
 from anki.cards import CardId
 from anki.decks import DeckId
 from anki.errors import NotFoundError
 from anki.notes import Note
 from aqt import mw
+from aqt.operations.note import update_note
 
 from ..app_state import is_capacity_remaining
 from ..field_resolver import field_resolver
+from ..markdown import convert_markdown_to_html
+from ..media_utils import ext_from_content_type, get_media_path, write_media
 from ..models.smart_fields import (
     ImagePromptTestRequest,
+    SaveTestResultRequest,
     TextPromptTestRequest,
     TTSPreviewRequest,
     TTSPromptTestRequest,
 )
 from ..tts_provider import tts_provider
+
+EXPIRED_TEST_RESULT_MESSAGE = "This result has expired — run the test again"
 
 
 @dataclass(frozen=True)
@@ -60,6 +68,34 @@ class TTSPromptTestContext:
 
     note: Note
     request: TTSPromptTestRequest
+
+
+@dataclass(frozen=True)
+class TextTestArtifact:
+    """A text test result, kept only so the user can save it to the card."""
+
+    token: str
+    card_id: CardId
+    text: str
+
+
+@dataclass(frozen=True)
+class MediaTestArtifact:
+    """An image or audio test result, kept only so it can be saved to the card."""
+
+    token: str
+    card_id: CardId
+    kind: Literal["image", "audio"]
+    data: bytes
+    content_type: str
+
+
+TestArtifact = Union[TextTestArtifact, MediaTestArtifact]
+
+# One slot, deliberately: only the newest test result is savable. Every test
+# overwrites it, and the web UI's result token is what proves a save request
+# refers to the artifact still sitting here.
+_last_test_artifact: Optional[TestArtifact] = None
 
 
 def prepare_text_prompt_test(request: TextPromptTestRequest) -> TextPromptTestContext:
@@ -115,7 +151,14 @@ async def run_text_prompt_test(context: TextPromptTestContext) -> dict[str, str]
     if not text:
         raise ValueError("No response received")
 
-    return {"text": text}
+    token = _remember_test_artifact(
+        TextTestArtifact(
+            token=_new_result_token(),
+            card_id=context.request.card_id,
+            text=text,
+        )
+    )
+    return {"text": text, "resultToken": token}
 
 
 async def run_image_prompt_test(context: ImagePromptTestContext) -> dict[str, str]:
@@ -133,7 +176,20 @@ async def run_image_prompt_test(context: ImagePromptTestContext) -> dict[str, st
     )
     if not response:
         raise ValueError("No response received")
-    return {"dataUrl": _data_url(response["data"], response["content_type"])}
+
+    token = _remember_test_artifact(
+        MediaTestArtifact(
+            token=_new_result_token(),
+            card_id=context.request.card_id,
+            kind="image",
+            data=response["data"],
+            content_type=response["content_type"],
+        )
+    )
+    return {
+        "dataUrl": _data_url(response["data"], response["content_type"]),
+        "resultToken": token,
+    }
 
 
 async def run_tts_prompt_test(context: TTSPromptTestContext) -> dict[str, str]:
@@ -152,7 +208,18 @@ async def run_tts_prompt_test(context: TTSPromptTestContext) -> dict[str, str]:
     )
     if not audio:
         raise ValueError("No response received")
-    return {"dataUrl": _data_url(audio, _tts_content_type(settings.provider))}
+
+    content_type = _tts_content_type(settings.provider)
+    token = _remember_test_artifact(
+        MediaTestArtifact(
+            token=_new_result_token(),
+            card_id=context.request.card_id,
+            kind="audio",
+            data=audio,
+            content_type=content_type,
+        )
+    )
+    return {"dataUrl": _data_url(audio, content_type), "resultToken": token}
 
 
 async def run_tts_preview(request: TTSPreviewRequest) -> dict[str, str]:
@@ -170,6 +237,59 @@ async def run_tts_preview(request: TTSPreviewRequest) -> dict[str, str]:
     if not audio:
         raise ValueError("No response received")
     return {"dataUrl": _data_url(audio, _tts_content_type(settings.provider))}
+
+
+def save_test_result(request: SaveTestResultRequest) -> None:
+    """Write the newest test result into a note field. Main thread only."""
+    if not mw or not mw.col:
+        raise ValueError("Anki collection is not available")
+
+    artifact = _last_test_artifact
+    if (
+        artifact is None
+        or not secrets.compare_digest(artifact.token, request.token)
+        or artifact.card_id != request.card_id
+    ):
+        raise ValueError(EXPIRED_TEST_RESULT_MESSAGE)
+
+    # Refetch by id so the write never trusts the client's copy of the note.
+    note = _get_selected_card_note(request.card_id)
+    if request.field_name not in note:
+        raise ValueError(f"This note has no field named {request.field_name}")
+
+    note[request.field_name] = _render_artifact(artifact, note, request.field_name)
+
+    # CollectionOp gives the write an undo entry and refreshes every open Anki
+    # window, which the local server has no handle on otherwise.
+    update_note(parent=mw, note=note).run_in_background()
+
+
+def _render_artifact(artifact: TestArtifact, note: Note, field_name: str) -> str:
+    """Turn a test artifact into exactly what real generation would have written."""
+    if isinstance(artifact, TextTestArtifact):
+        # Tests render raw model output; generation writes converted HTML.
+        return convert_markdown_to_html(artifact.text)
+
+    extension = (
+        ext_from_content_type(artifact.content_type)
+        if artifact.kind == "image"
+        else ("wav" if artifact.content_type == "audio/wav" else "mp3")
+    )
+    path = write_media(get_media_path(note, field_name, extension), artifact.data)
+    if not path:
+        raise ValueError("Could not write the media file")
+
+    return f'<img src="{path}"/>' if artifact.kind == "image" else f"[sound:{path}]"
+
+
+def _remember_test_artifact(artifact: TestArtifact) -> str:
+    global _last_test_artifact
+    _last_test_artifact = artifact
+    return artifact.token
+
+
+def _new_result_token() -> str:
+    return secrets.token_urlsafe(16)
 
 
 def _get_selected_card_note(card_id: CardId) -> Note:

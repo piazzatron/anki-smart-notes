@@ -23,7 +23,11 @@ Object.defineProperty(globalThis, "window", {
   value: { location: { search: "" } },
 })
 
-const { getVisiblePromptTestResult } = await import("./usePromptTester")
+const {
+  getInitialPromptTestSelection,
+  getPromptTestSelection,
+  getVisiblePromptTestResult,
+} = await import("./usePromptTester")
 
 const result = {
   cardId: 42,
@@ -41,5 +45,96 @@ describe("usePromptTester", () => {
     })
     expect(getVisiblePromptTestResult(result, 7)).toBeNull()
     expect(getVisiblePromptTestResult(result, null)).toBeNull()
+  })
+
+  test("flags a selected card from a different required note type", () => {
+    const selection = {
+      note: {
+        cardId: 42,
+        deckId: 1,
+        fields: { Front: "Bonjour" },
+        id: 7,
+        noteTypeId: 20,
+      },
+    }
+
+    // The mismatched note stays visible — the panel shows what is picked and why it
+    // cannot run.
+    expect(getPromptTestSelection(selection, 10)).toEqual({
+      hasNoteTypeMismatch: true,
+      selectedNote: selection.note,
+    })
+    expect(getPromptTestSelection(selection, 20)).toEqual({
+      hasNoteTypeMismatch: false,
+      selectedNote: selection.note,
+    })
+    expect(getPromptTestSelection(selection)).toEqual({
+      hasNoteTypeMismatch: false,
+      selectedNote: selection.note,
+    })
+  })
+
+  test("adopts an inherited selection only when it matches the required note type", () => {
+    const selection = {
+      note: {
+        cardId: 42,
+        deckId: 1,
+        fields: { Front: "Bonjour" },
+        id: 7,
+        noteTypeId: 20,
+      },
+    }
+
+    expect(
+      getInitialPromptTestSelection({
+        prompt: "Define {{Front}}",
+        requiredNoteTypeId: 20,
+        selection,
+      }),
+    ).toBe(selection)
+    expect(
+      getInitialPromptTestSelection({
+        prompt: "Define {{Front}}",
+        requiredNoteTypeId: 10,
+        selection,
+      }),
+    ).toBeNull()
+  })
+
+  test("keeps inherited selections for unbound Defaults testers", () => {
+    const selection = {
+      note: {
+        cardId: 42,
+        deckId: 1,
+        fields: { Front: "Bonjour" },
+        id: 7,
+        noteTypeId: 20,
+      },
+    }
+
+    expect(
+      getInitialPromptTestSelection({ prompt: "Define {{Front}}", selection }),
+    ).toBe(selection)
+  })
+
+  test("drops an inherited card the prompt cannot run against", () => {
+    const selection = {
+      note: {
+        cardId: 42,
+        deckId: 1,
+        fields: { Front: "Bonjour" },
+        id: 7,
+        noteTypeId: 20,
+      },
+    }
+
+    // Nothing was picked for this tester, so it asks for a card rather than
+    // complaining about one the user never chose here.
+    expect(
+      getInitialPromptTestSelection({
+        prompt: "Translate {{Expression}}",
+        selection,
+      }),
+    ).toBeNull()
   })
 })

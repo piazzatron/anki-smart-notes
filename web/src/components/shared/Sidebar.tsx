@@ -9,7 +9,7 @@ import {
   SlidersHorizontal,
   Volume2,
 } from "lucide-react"
-import { useState, type ComponentType } from "react"
+import type { ComponentType } from "react"
 
 import { FeedbackPopover } from "./FeedbackPopover"
 import { PlanCard } from "./PlanCard"
@@ -54,10 +54,8 @@ export const Sidebar = ({
   appVersion,
   onNavigate,
 }: SidebarProps) => {
-  const [feedbackOpen, setFeedbackOpen] = useState(false)
-
   return (
-    <aside className="flex min-h-0 w-52 shrink-0 flex-col border-r border-white/[0.065] bg-sidebar px-2.5 pt-2 pb-0 max-[760px]:w-44">
+    <aside className="flex min-h-0 w-52 shrink-0 flex-col border-r border-white/[0.065] bg-sidebar px-2.5 pt-4 pb-0 max-[760px]:w-44">
       <nav
         aria-label="Smart Notes sections"
         className="min-h-0 flex-1 overflow-y-auto pb-2"
@@ -68,7 +66,7 @@ export const Sidebar = ({
           onNavigate={onNavigate}
         />
 
-        <h2 className="mt-4 mb-1 px-2 text-[9px] font-semibold tracking-[0.12em] text-ink-faint uppercase">
+        <h2 className="mt-4 mb-1 px-2 text-[10px] font-semibold tracking-[0.12em] text-zinc-500 uppercase">
           Defaults
         </h2>
         <div className="space-y-0.5">
@@ -110,20 +108,12 @@ export const Sidebar = ({
             <MessagesSquare aria-hidden className="size-3" />
             Discord
           </a>
-          <button
-            className="inline-flex items-center justify-center gap-1.5 rounded-md border border-white/[0.07] px-2 py-1.5 text-[10px] text-ink-faint transition hover:border-white/12 hover:text-zinc-300"
-            onMouseDown={(event) => event.stopPropagation()}
-            onClick={() => setFeedbackOpen((open) => !open)}
-          >
-            <MessageSquare aria-hidden className="size-3" />
-            Feedback
-          </button>
-          {feedbackOpen && (
-            <FeedbackPopover
-              onClose={() => setFeedbackOpen(false)}
-              onOpenSupport={() => onNavigate("support")}
-            />
-          )}
+          <FeedbackPopover onOpenSupport={() => onNavigate("support")}>
+            <button className="inline-flex items-center justify-center gap-1.5 rounded-md border border-white/[0.07] px-2 py-1.5 text-[10px] text-ink-faint transition hover:border-white/12 hover:text-zinc-300">
+              <MessageSquare aria-hidden className="size-3" />
+              Feedback
+            </button>
+          </FeedbackPopover>
         </div>
 
         {appVersion !== null && (
@@ -152,10 +142,10 @@ const NavButton = ({ activeScreen, item, onNavigate }: NavButtonProps) => {
   return (
     <button
       aria-current={isActive ? "page" : undefined}
-      className={`flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[12.5px] font-medium transition ${
+      className={`flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[14px] font-medium transition ${
         isActive
           ? "bg-indigo/14 text-indigo-soft"
-          : "text-zinc-400 hover:bg-white/[0.045] hover:text-zinc-100"
+          : "text-zinc-300 hover:bg-white/[0.055] hover:text-zinc-100"
       }`}
       onClick={() => onNavigate(item.id)}
     >

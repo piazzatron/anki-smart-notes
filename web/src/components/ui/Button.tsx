@@ -2,12 +2,14 @@ import type { ButtonHTMLAttributes, ReactNode } from "react"
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
-  variant?: "primary" | "quiet" | "danger"
+  variant?: "primary" | "quiet" | "danger" | "success"
 }
 
 const VARIANT_CLASSES = {
   primary:
     "border-indigo/45 bg-indigo/14 text-indigo-soft hover:border-indigo/65 hover:bg-indigo/20",
+  success:
+    "border-mint/50 bg-mint text-emerald-950 hover:border-mint hover:bg-mint/90",
   quiet:
     "border-white/10 bg-white/[0.035] text-zinc-300 hover:border-white/16 hover:bg-white/[0.065]",
   danger:

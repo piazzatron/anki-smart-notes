@@ -26,6 +26,10 @@ import {
   getPlanPresentation,
   pctLabel,
 } from "@/components/shared/planPresentation"
+import { ScreenSkeleton } from "@/components/shared/ScreenSkeleton"
+import { ErrorBanner } from "@/components/ui/ErrorBanner"
+import { ProgressBar } from "@/components/ui/ProgressBar"
+import { errorMessage } from "@/lib/errors"
 import { openSiteLink, SITE_LINKS } from "@/lib/siteLinks"
 import { logout } from "@/services/commands"
 import { useAppStore } from "@/store/appStore"
@@ -33,7 +37,14 @@ import type { AccountState } from "@/types/api"
 
 export const SubscriptionScreen = () => {
   const state = useAppStore((store) => store.state)
-  if (state === null) return <SubscriptionSkeleton />
+  if (state === null)
+    return (
+      <ScreenSkeleton
+        ariaLabel="Loading Subscription"
+        contentClassName="h-40 max-w-[760px]"
+        showSubtitle={false}
+      />
+    )
 
   return <LoadedSubscriptionScreen account={state.account} />
 }
@@ -56,9 +67,7 @@ const LoadedSubscriptionScreen = ({
     try {
       await logout()
     } catch (error) {
-      setLogoutError(
-        error instanceof Error ? error.message : "Could not log out",
-      )
+      setLogoutError(errorMessage(error, "Could not log out"))
     } finally {
       setIsLoggingOut(false)
     }
@@ -91,9 +100,11 @@ const LoadedSubscriptionScreen = ({
       </header>
 
       {logoutError !== null && (
-        <p className="mx-6 mt-3 rounded-lg border border-red-300/15 bg-red-300/[0.06] px-3 py-2 text-xs text-danger">
-          {logoutError}
-        </p>
+        <ErrorBanner
+          className="mx-6 mt-3"
+          message={logoutError}
+          onDismiss={() => setLogoutError(null)}
+        />
       )}
 
       <div className="min-h-0 flex-1 overflow-y-auto px-6 py-5">
@@ -192,12 +203,12 @@ const FreeSubscription = ({ account }: { account: AccountState }) => {
             of monthly credits used
           </span>
         </div>
-        <div className="mt-3 h-2.5 overflow-hidden rounded-full bg-white/[0.06]">
-          <div
-            className={`h-full rounded-full ${warning ? "bg-amber" : "bg-zinc-500"}`}
-            style={{ width: `${usage}%` }}
-          />
-        </div>
+        <ProgressBar
+          colorClass={warning ? "bg-amber" : "bg-zinc-500"}
+          heightClass="h-2.5"
+          percent={usage}
+          trackClass="mt-3 bg-white/[0.06]"
+        />
         {warning && (
           <p className="mt-2 flex items-center gap-1.5 text-[11px] text-amber">
             <AlertTriangle aria-hidden className="size-3" />
@@ -317,18 +328,4 @@ const PlanFact = ({
     <span className="text-ink-muted">{label}</span>
     <span className="font-medium text-zinc-200">{value}</span>
   </div>
-)
-
-const SubscriptionSkeleton = () => (
-  <section
-    aria-label="Loading Subscription"
-    className="flex min-h-0 flex-1 animate-pulse flex-col"
-  >
-    <div className="h-[86px] border-b border-white/[0.065] px-6 py-5">
-      <div className="h-5 w-44 rounded bg-white/[0.06]" />
-    </div>
-    <div className="p-6">
-      <div className="h-40 max-w-[760px] rounded-xl bg-white/[0.025]" />
-    </div>
-  </section>
 )

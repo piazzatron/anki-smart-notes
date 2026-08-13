@@ -53,6 +53,7 @@ from .services.prompt_test_service import (
     run_text_prompt_test,
     run_tts_preview,
     run_tts_prompt_test,
+    save_test_result,
 )
 from .services.smart_field_service import smart_field_service
 from .ui.ui_utils import open_anki_browser
@@ -368,15 +369,16 @@ class LocalServer:
 # service's @republish_state decorator pushes fresh state to clients. --
 
 
-def _run_save_smart_field(payload: dict[str, Any]) -> None:
-    smart_field_service.save_smart_field(dto.parse_smart_field_create(payload))
+def _run_create_smart_field(payload: dict[str, Any]) -> None:
+    smart_field_service.create_smart_field(dto.parse_smart_field_create(payload))
+
+
+def _run_update_smart_field(payload: dict[str, Any]) -> None:
+    smart_field_service.update_smart_field(dto.parse_smart_field_update(payload))
 
 
 def _run_delete_smart_field(payload: dict[str, Any]) -> None:
-    ref = dto.parse_smart_field_ref(payload)
-    smart_field_service.delete_smart_field(
-        ref.note_type_id, ref.deck_id, ref.target_field_name
-    )
+    smart_field_service.delete_smart_field(dto.parse_smart_field_id(payload))
 
 
 def _run_save_defaults(payload: dict[str, Any]) -> None:
@@ -431,6 +433,10 @@ async def _run_test_tts(payload: dict[str, Any]) -> dict[str, str]:
     return await run_tts_prompt_test(context)
 
 
+def _run_save_test_result(payload: dict[str, Any]) -> None:
+    save_test_result(dto.parse_save_test_result(payload))
+
+
 async def _run_preview_tts(payload: dict[str, Any]) -> dict[str, str]:
     return await run_tts_preview(dto.parse_tts_preview(payload))
 
@@ -474,7 +480,8 @@ def _run_open_browser(payload: dict[str, Any]) -> None:
 # Command names are namespaced like event names (state, anki.*): the protocol
 # is typed messages in both directions over one channel each way.
 COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
-    "smartFields.save": _run_save_smart_field,
+    "smartFields.create": _run_create_smart_field,
+    "smartFields.update": _run_update_smart_field,
     "smartFields.delete": _run_delete_smart_field,
     "defaults.save": _run_save_defaults,
     "defaults.chat.save": _run_save_chat_defaults,
@@ -486,6 +493,7 @@ COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
     "images.test": _run_test_image,
     "tts.test": _run_test_tts,
     "tts.preview": _run_preview_tts,
+    "notes.saveTestResult": _run_save_test_result,
     "support.sendFeedback": _run_send_feedback,
     "auth.logout": _run_logout,
     "ui.openBrowser": _run_open_browser,

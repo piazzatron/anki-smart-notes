@@ -1,5 +1,6 @@
 import { Sparkles } from "lucide-react"
 
+import { ProgressBar } from "@/components/ui/ProgressBar"
 import { openSiteLink, SITE_LINKS } from "@/lib/siteLinks"
 import type { AccountState } from "@/types/api"
 
@@ -133,12 +134,12 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
           <span className="text-ink-muted">{presentation.planName} plan</span>
           <span className={`font-medium ${textColor}`}>{pctLabel(usage)}</span>
         </span>
-        <span className="mt-1.5 block h-[3px] overflow-hidden rounded-full bg-white/[0.07]">
-          <span
-            className={`block h-full rounded-full ${colorClass}`}
-            style={{ width: `${usage}%` }}
-          />
-        </span>
+        <ProgressBar
+          colorClass={colorClass}
+          heightClass="h-[3px]"
+          percent={usage}
+          trackClass="mt-1.5 bg-white/[0.07]"
+        />
         {presentation.warning && (
           <span className="mt-1.5 block text-[10px] text-amber">
             Generation is paused — review your plan.
@@ -166,12 +167,11 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
           {pctLabel(usage)}
         </span>
       </span>
-      <span className="mt-1.5 block h-1 overflow-hidden rounded-full bg-white/[0.08]">
-        <span
-          className={`block h-full rounded-full ${colorClass}`}
-          style={{ width: `${usage}%` }}
-        />
-      </span>
+      <ProgressBar
+        colorClass={colorClass}
+        percent={usage}
+        trackClass="mt-1.5 bg-white/[0.08]"
+      />
       <span className="mt-1.5 block text-[11px] text-ink-faint">
         Resets in {presentation.daysLeft ?? 0} days
       </span>
@@ -195,11 +195,10 @@ const Meter = ({ colorClass, label, percent, value }: MeterProps) => (
       <span>{label}</span>
       <span className="font-medium text-zinc-300">{value}</span>
     </div>
-    <div className="h-[3px] overflow-hidden rounded-full bg-white/[0.08]">
-      <div
-        className={`h-full rounded-full ${colorClass}`}
-        style={{ width: `${Math.min(100, percent)}%` }}
-      />
-    </div>
+    <ProgressBar
+      colorClass={colorClass}
+      heightClass="h-[3px]"
+      percent={percent}
+    />
   </div>
 )

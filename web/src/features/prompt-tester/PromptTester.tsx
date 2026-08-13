@@ -21,54 +21,54 @@ import { modelLabel } from "@/lib/catalog"
 import { testTextPrompt } from "@/services/commands"
 import type { ChatGenerationSettings } from "@/types/api"
 
-import { PromptTesterPanel, ResolvedPrompt } from "./PromptTesterPanel"
+import { ResolvedPrompt } from "./PromptTestResultModal"
+import { PromptTesterStrip } from "./PromptTesterStrip"
 import { usePromptTester } from "./usePromptTester"
 
 interface PromptTesterProps {
-  hidePromptInput?: boolean
   prompt?: string
+  requiredNoteTypeId?: number
   settings: ChatGenerationSettings
+  // Only a tester bound to a Smart Field can write its result back to the card.
+  targetFieldName?: string
+  title: string
 }
 
 export const PromptTester = ({
-  hidePromptInput,
   prompt,
+  requiredNoteTypeId,
   settings,
+  targetFieldName,
+  title,
 }: PromptTesterProps) => {
   const tester = usePromptTester({
     fallbackError: "Could not test this prompt",
     initialPrompt: "Translate {{Expression}} into natural English.",
     prompt,
+    requiredNoteTypeId,
     run: ({ cardId, prompt }) => testTextPrompt({ cardId, prompt, settings }),
   })
+  const result = tester.result !== null && tester.selectedNote !== null && (
+    <>
+      <ResolvedPrompt
+        note={tester.selectedNote}
+        prompt={tester.result.prompt}
+      />
+      <p className="text-[13px] leading-[1.6] whitespace-pre-wrap text-zinc-100">
+        {tester.result.value.text}
+      </p>
+    </>
+  )
 
   return (
-    <PromptTesterPanel
-      hidePromptInput={hidePromptInput}
+    <PromptTesterStrip
       promptLabel="Prompt"
-      runLabel={`Run with ${modelLabel(settings.model)}`}
-      runningLabel="Running…"
-      subtitle="Select a card in the Anki Browser, then run your prompt against it to test the selected model."
+      provenance={modelLabel(settings.model)}
+      saveTargetFieldName={targetFieldName}
       tester={tester}
-      textareaId="text-prompt-tester-prompt"
+      title={title}
     >
-      {tester.result !== null && tester.selectedNote !== null && (
-        <div className="mt-[15px]">
-          <p className="mb-2 text-[10px] font-semibold tracking-[0.05em] text-ink-faint uppercase">
-            Result
-          </p>
-          <ResolvedPrompt
-            note={tester.selectedNote}
-            prompt={tester.result.prompt}
-          />
-          <p className="rounded-[7px] border border-white/[0.06] bg-white/[0.03] px-3 py-2.5 text-xs leading-[1.55] whitespace-pre-wrap text-zinc-200">
-            {tester.result.value.text}
-          </p>
-          <p className="mt-[7px] text-[10.5px] text-ink-faint">
-            {modelLabel(settings.model)} · {tester.result.latencyMs}ms
-          </p>
-        </div>
-      )}
-    </PromptTesterPanel>
+      {result}
+    </PromptTesterStrip>
   )
 }

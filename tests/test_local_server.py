@@ -365,13 +365,14 @@ async def test_command_rejects_unknown_command_and_lists_valid_ones(monkeypatch)
     async with TestClient(TestServer(_make_app(server))) as client:
         resp = await client.post(
             "/api/command",
-            json=_command_request("smartfields.save", {}),
+            json=_command_request("smartFields.save", {}),
             headers={"X-Session-Token": server.session_token},
         )
         assert resp.status == 400
         error = (await resp.json())["error"]
-        assert "Unknown command: smartfields.save" in error
-        assert "smartFields.save" in error
+        assert "Unknown command: smartFields.save" in error
+        assert "smartFields.create" in error
+        assert "smartFields.update" in error
         assert "smartFields.delete" in error
         assert "defaults.save" in error
         assert "defaults.chat.save" in error
@@ -379,7 +380,7 @@ async def test_command_rejects_unknown_command_and_lists_valid_ones(monkeypatch)
 
 
 @pytest.mark.asyncio
-async def test_save_smart_field_command_dispatch(monkeypatch):
+async def test_create_smart_field_command_dispatch(monkeypatch):
     fake_service, fake_dto = _patch_command_route_deps(monkeypatch)
     parsed = object()
     fake_dto.parse_smart_field_create.return_value = parsed
@@ -388,13 +389,36 @@ async def test_save_smart_field_command_dispatch(monkeypatch):
     async with TestClient(TestServer(_make_app(server))) as client:
         resp = await client.post(
             "/api/command",
-            json=_command_request("smartFields.save", {"any": "payload"}),
+            json=_command_request("smartFields.create", {"any": "payload"}),
             headers={"X-Session-Token": server.session_token},
         )
         assert resp.status == 200
         assert (await resp.json()) == {"ok": True}
         fake_dto.parse_smart_field_create.assert_called_once_with({"any": "payload"})
-        fake_service.save_smart_field.assert_called_once_with(parsed)
+        fake_service.create_smart_field.assert_called_once_with(parsed)
+
+
+@pytest.mark.asyncio
+async def test_update_smart_field_command_dispatch(monkeypatch):
+    fake_service, fake_dto = _patch_command_route_deps(monkeypatch)
+    parsed = object()
+    fake_dto.parse_smart_field_update.return_value = parsed
+
+    server = _make_server()
+    async with TestClient(TestServer(_make_app(server))) as client:
+        resp = await client.post(
+            "/api/command",
+            json=_command_request(
+                "smartFields.update", {"id": "existing-smart-field-id"}
+            ),
+            headers={"X-Session-Token": server.session_token},
+        )
+        assert resp.status == 200
+        assert (await resp.json()) == {"ok": True}
+        fake_dto.parse_smart_field_update.assert_called_once_with(
+            {"id": "existing-smart-field-id"}
+        )
+        fake_service.update_smart_field.assert_called_once_with(parsed)
 
 
 @pytest.mark.asyncio
@@ -406,19 +430,18 @@ async def test_command_returns_400_on_validation_error(monkeypatch):
     async with TestClient(TestServer(_make_app(server))) as client:
         resp = await client.post(
             "/api/command",
-            json=_command_request("smartFields.save", {}),
+            json=_command_request("smartFields.create", {}),
             headers={"X-Session-Token": server.session_token},
         )
         assert resp.status == 400
         assert (await resp.json()) == {"ok": False, "error": "Missing promptText"}
-        fake_service.save_smart_field.assert_not_called()
+        fake_service.create_smart_field.assert_not_called()
 
 
 @pytest.mark.asyncio
 async def test_delete_smart_field_command_dispatch(monkeypatch):
     fake_service, fake_dto = _patch_command_route_deps(monkeypatch)
-    ref = MagicMock(note_type_id=1, deck_id=2, target_field_name="Back")
-    fake_dto.parse_smart_field_ref.return_value = ref
+    fake_dto.parse_smart_field_id.return_value = "existing-smart-field-id"
 
     server = _make_server()
     async with TestClient(TestServer(_make_app(server))) as client:
@@ -426,12 +449,17 @@ async def test_delete_smart_field_command_dispatch(monkeypatch):
             "/api/command",
             json=_command_request(
                 "smartFields.delete",
-                {"noteTypeId": 1, "deckId": 2, "targetFieldName": "Back"},
+                {"id": "existing-smart-field-id"},
             ),
             headers={"X-Session-Token": server.session_token},
         )
         assert resp.status == 200
-        fake_service.delete_smart_field.assert_called_once_with(1, 2, "Back")
+        fake_dto.parse_smart_field_id.assert_called_once_with(
+            {"id": "existing-smart-field-id"}
+        )
+        fake_service.delete_smart_field.assert_called_once_with(
+            "existing-smart-field-id"
+        )
 
 
 @pytest.mark.asyncio
@@ -746,6 +774,64 @@ async def test_image_test_command_returns_ephemeral_result(monkeypatch):
 
         assert resp.status == 200
         assert (await resp.json())["result"]["dataUrl"].startswith("data:image/")
+
+
+@pytest.mark.asyncio
+async def test_save_test_result_command_dispatch(monkeypatch):
+    import src.local_server
+
+    parsed = object()
+    monkeypatch.setattr(
+        src.local_server.dto, "parse_save_test_result", lambda _: parsed
+    )
+    save_test_result = MagicMock()
+    monkeypatch.setattr(src.local_server, "save_test_result", save_test_result)
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+
+    server = _make_server()
+    async with TestClient(TestServer(_make_app(server))) as client:
+        resp = await client.post(
+            "/api/command",
+            json=_command_request(
+                "notes.saveTestResult",
+                {"token": "token-1", "cardId": 99, "fieldName": "Back"},
+            ),
+            headers={"X-Session-Token": server.session_token},
+        )
+
+        assert resp.status == 200
+        assert (await resp.json()) == {"ok": True}
+        save_test_result.assert_called_once_with(parsed)
+
+
+@pytest.mark.asyncio
+async def test_save_test_result_command_surfaces_an_expired_result(monkeypatch):
+    import src.local_server
+    from src.services.prompt_test_service import EXPIRED_TEST_RESULT_MESSAGE
+
+    monkeypatch.setattr(
+        src.local_server.dto, "parse_save_test_result", lambda _: object()
+    )
+
+    def expired(_):
+        raise ValueError(EXPIRED_TEST_RESULT_MESSAGE)
+
+    monkeypatch.setattr(src.local_server, "save_test_result", expired)
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+
+    server = _make_server()
+    async with TestClient(TestServer(_make_app(server))) as client:
+        resp = await client.post(
+            "/api/command",
+            json=_command_request("notes.saveTestResult", {"token": "stale"}),
+            headers={"X-Session-Token": server.session_token},
+        )
+
+        assert resp.status == 400
+        assert (await resp.json()) == {
+            "ok": False,
+            "error": EXPIRED_TEST_RESULT_MESSAGE,
+        }
 
 
 @pytest.mark.asyncio

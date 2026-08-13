@@ -66,11 +66,15 @@ from ..models import (
 from ..note_proccessor import NoteProcessor
 from ..prompt_helpers import get_all_prompts, get_extras, get_prompts_for_note
 from ..services.smart_field_service import smart_field_service
-from ..smart_field_prompt_map import list_prompt_map, replace_from_prompt_map
+from ..smart_field_prompt_map import (
+    list_prompt_map,
+    prompt_map_from_smart_fields,
+    replace_from_prompt_map,
+)
 from ..tasks import run_async_in_background
 from ..telemetry import track_event
 from ..utils import get_fields, get_version
-from ..utils.notes_utils import get_note_type_id_from_name
+from ..utils.notes_utils import get_note_types_with_fields
 from .account_options import AccountOptions
 from .chat_options import ChatOptions, models_map as chat_models_display
 from .image_options import ImageOptions, image_models_display
@@ -360,13 +364,32 @@ class AddonOptionsDialog(QDialog):
         self.table.setRowCount(0)
 
         row = 0
-        all_prompts = get_all_prompts()
+        note_type_names = {
+            note_type_id: name for note_type_id, name, _ in get_note_types_with_fields()
+        }
+        note_type_ids = {
+            name: note_type_id for note_type_id, name in note_type_names.items()
+        }
+        smart_fields = smart_field_service.get_all_smart_fields()
+        prompts_map = prompt_map_from_smart_fields(smart_fields, note_type_names)
+        smart_field_ids = {
+            (
+                smart_field.note_type_id,
+                int(smart_field.deck_id),
+                smart_field.target_field_name,
+            ): smart_field.id
+            for smart_field in smart_fields
+        }
+        all_prompts = get_all_prompts(override_prompts_map=prompts_map)
         for note_type, deck_prompts in all_prompts.items():
             for deck_id, field_prompts in deck_prompts.items():
                 for field, prompt in field_prompts.items():
                     # TODO: show deck col
                     extras = get_extras(
-                        note_type=note_type, field=field, deck_id=deck_id
+                        note_type=note_type,
+                        field=field,
+                        deck_id=deck_id,
+                        prompts=prompts_map,
                     )
 
                     if not extras:
@@ -408,6 +431,21 @@ class AddonOptionsDialog(QDialog):
                                 f"{provider_label} ({elided_voice_label})"
                             )
 
+                    note_type_id = note_type_ids.get(note_type)
+                    if note_type_id is None:
+                        raise RuntimeError(
+                            f"Smart Field references missing note type: {note_type}"
+                        )
+                    smart_field_id = smart_field_ids.get(
+                        (note_type_id, int(deck_id), field)
+                    )
+                    if smart_field_id is None:
+                        raise RuntimeError(
+                            "Smart Fields table row is missing its persisted id"
+                        )
+                    field_item = QTableWidgetItem(field)
+                    field_item.setData(Qt.ItemDataRole.UserRole, smart_field_id)
+
                     items = {
                         SMART_FIELDS_TABLE_TYPE_COLUMN: QTableWidgetItem(
                             {"chat": "💬", "tts": "🔈", "image": "🖼️"}[type]
@@ -416,7 +454,7 @@ class AddonOptionsDialog(QDialog):
                             note_type
                         ),
                         SMART_FIELDS_TABLE_DECK_COLUMN: deck_item,
-                        SMART_FIELDS_TABLE_FIELD_COLUMN: QTableWidgetItem(field),
+                        SMART_FIELDS_TABLE_FIELD_COLUMN: field_item,
                         SMART_FIELDS_TABLE_MODEL_COLUMN: model_item,
                         SMART_FIELDS_TABLE_PROMPT_COLUMN: QTableWidgetItem(
                             {
@@ -679,14 +717,12 @@ class AddonOptionsDialog(QDialog):
             # Should never happen
             return
 
-        note_type = self.table.item(row, SMART_FIELDS_TABLE_NOTE_TYPE_COLUMN).text()  # type: ignore
-        deck_id = _deck_id_from_table_row(self.table, row)
-        field = self.table.item(row, SMART_FIELDS_TABLE_FIELD_COLUMN).text()  # type: ignore
-        note_type_id = get_note_type_id_from_name(note_type)
-        if note_type_id is None:
-            show_message_box("Note type does not exist or field not in note type!")
-            return
-        smart_field_service.delete_smart_field(note_type_id, deck_id, field)
+        try:
+            smart_field_service.delete_smart_field(
+                _smart_field_id_from_table_row(self.table, row)
+            )
+        except ValueError:
+            show_message_box("This Smart Field no longer exists. Refreshing the table.")
         self.state.update({"prompts_map": list_prompt_map(), "selected_row": None})
 
     def on_accept(self) -> None:
@@ -864,6 +900,16 @@ def _deck_id_from_table_row(table: QTableWidget, row: int) -> DeckId:
     if deck_id is None:
         raise RuntimeError("Smart Fields table row is missing deck id data")
     return cast(DeckId, int(deck_id))
+
+
+def _smart_field_id_from_table_row(table: QTableWidget, row: int) -> str:
+    field_item = table.item(row, SMART_FIELDS_TABLE_FIELD_COLUMN)
+    if field_item is None:
+        raise RuntimeError("Smart Fields table row is missing field item data")
+    smart_field_id = field_item.data(Qt.ItemDataRole.UserRole)
+    if not isinstance(smart_field_id, str):
+        raise RuntimeError("Smart Fields table row is missing persisted id data")
+    return smart_field_id
 
 
 def _compact_model_label(label: object) -> str:

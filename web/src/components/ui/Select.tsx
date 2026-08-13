@@ -21,7 +21,7 @@ import * as SelectPrimitive from "@radix-ui/react-select"
 import { Check, ChevronDown } from "lucide-react"
 import { forwardRef } from "react"
 
-import type { ComponentPropsWithoutRef, ElementRef } from "react"
+import type { ComponentPropsWithoutRef, ElementRef, ReactNode } from "react"
 
 export const Select = SelectPrimitive.Root
 export const SelectGroup = SelectPrimitive.Group
@@ -50,7 +50,7 @@ export const SelectContent = forwardRef<
 >(({ children, className = "", position = "popper", ...props }, ref) => (
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
-      className={`z-50 max-h-[var(--radix-select-content-available-height)] min-w-[var(--radix-select-trigger-width)] overflow-hidden rounded-lg border border-white/10 bg-panel-raised text-zinc-100 shadow-[0_18px_40px_-12px_rgba(0,0,0,0.75)] ${className}`}
+      className={`z-[80] max-h-[var(--radix-select-content-available-height)] min-w-[var(--radix-select-trigger-width)] overflow-hidden rounded-lg border border-white/10 bg-panel-raised text-zinc-100 shadow-[0_18px_40px_-12px_rgba(0,0,0,0.75)] ${className}`}
       position={position}
       ref={ref}
       sideOffset={6}
@@ -76,10 +76,16 @@ export const SelectLabel = forwardRef<
 ))
 SelectLabel.displayName = SelectPrimitive.Label.displayName
 
+interface SelectItemProps extends ComponentPropsWithoutRef<
+  typeof SelectPrimitive.Item
+> {
+  suffix?: ReactNode
+}
+
 export const SelectItem = forwardRef<
   ElementRef<typeof SelectPrimitive.Item>,
-  ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
->(({ children, className = "", ...props }, ref) => (
+  SelectItemProps
+>(({ children, className = "", suffix, ...props }, ref) => (
   <SelectPrimitive.Item
     className={`relative flex min-h-9 w-full cursor-pointer items-center rounded-md py-2 pr-2.5 pl-8 text-xs transition outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-40 data-[highlighted]:bg-white/[0.06] data-[state=checked]:bg-indigo/14 ${className}`}
     ref={ref}
@@ -91,8 +97,9 @@ export const SelectItem = forwardRef<
       </SelectPrimitive.ItemIndicator>
     </span>
     <SelectPrimitive.ItemText asChild>
-      <span className="flex min-w-0 flex-1 items-center gap-3">{children}</span>
+      <span className="min-w-0 flex-1 truncate">{children}</span>
     </SelectPrimitive.ItemText>
+    {suffix}
   </SelectPrimitive.Item>
 ))
 SelectItem.displayName = SelectPrimitive.Item.displayName

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 
+import { errorMessage } from "@/lib/errors"
 import { getVoiceCatalog } from "@/services/voiceCatalog"
 import type { VoiceCatalog } from "@/types/api"
 
@@ -15,9 +16,7 @@ export const useVoiceCatalog = () => {
       })
       .catch((reason: unknown) => {
         if (active) {
-          setError(
-            reason instanceof Error ? reason.message : "Could not load voices",
-          )
+          setError(errorMessage(reason, "Could not load voices"))
         }
       })
     return () => {

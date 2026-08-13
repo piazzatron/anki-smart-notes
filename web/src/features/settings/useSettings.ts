@@ -19,6 +19,7 @@
 
 import { useState } from "react"
 
+import { errorMessage } from "@/lib/errors"
 import { saveSettings } from "@/services/commands"
 import type { Settings } from "@/types/api"
 
@@ -46,8 +47,7 @@ export const useSettings = (serverSettings: Settings) => {
       patch({ draft: null })
     } catch (error) {
       patch({
-        error:
-          error instanceof Error ? error.message : "Could not save settings",
+        error: errorMessage(error, "Could not save settings"),
       })
     } finally {
       patch({ isSaving: false })

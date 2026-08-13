@@ -1,4 +1,4 @@
-import { AlertCircle, Plus, Sparkles, X } from "lucide-react"
+import { Plus, Sparkles } from "lucide-react"
 import { useMemo, useState } from "react"
 
 import { DeckGroup } from "./components/DeckGroup"
@@ -7,10 +7,12 @@ import { FieldsSkeleton } from "./components/FieldsSkeleton"
 import { groupSmartFields } from "./groupSmartFields"
 
 import { Button } from "@/components/ui/Button"
+import { ScreenHeader } from "@/components/shared/ScreenHeader"
+import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import {
-  FieldEditorModal,
+  FieldEditorScreen,
   type FieldEditorRequest,
-} from "@/features/field-editor/FieldEditorModal"
+} from "@/features/field-editor/FieldEditorScreen"
 import { deleteSmartField, setSmartFieldEnabled } from "@/services/commands"
 import type { AppState, SmartField } from "@/types/api"
 
@@ -52,36 +54,28 @@ export const SmartFieldsScreen = ({
       className="flex min-h-0 flex-1 flex-col"
       data-testid="smart-fields-screen"
     >
-      <header className="flex shrink-0 items-center justify-between gap-6 border-b border-white/[0.065] px-6 py-5">
-        <div className="min-w-0">
-          <div className="flex items-center gap-2">
-            <Sparkles aria-hidden className="size-5 text-amber" />
-            <h1 className="truncate text-[21px] leading-tight font-bold tracking-[-0.025em] text-zinc-100">
-              Smart Fields
-            </h1>
-          </div>
-          <p className="mt-1.5 truncate text-xs text-ink-muted">
-            Text, voice, and images — generated on your cards, automatically.
-          </p>
-        </div>
-        <Button
-          className="shrink-0"
-          onClick={() => setEditorState({ mode: "create" })}
-          variant="primary"
-        >
-          <Plus aria-hidden className="size-3.5" />
-          New Smart Field
-        </Button>
-      </header>
+      <ScreenHeader
+        accessory={
+          <Button
+            className="shrink-0"
+            onClick={() => setEditorState({ mode: "create" })}
+            variant="primary"
+          >
+            <Plus aria-hidden className="size-3.5" />
+            New Smart Field
+          </Button>
+        }
+        icon={<Sparkles aria-hidden className="size-5 text-amber" />}
+        subtitle="Add automatically generated text, voice, and images to your notes."
+        title="Smart Fields"
+      />
 
       {error !== null && (
-        <div className="mx-6 mt-4 flex items-start gap-2 rounded-lg border border-red-300/15 bg-red-300/[0.06] px-3 py-2.5 text-xs text-danger">
-          <AlertCircle aria-hidden className="mt-0.5 size-3.5 shrink-0" />
-          <p className="min-w-0 flex-1">{error}</p>
-          <button aria-label="Dismiss error" onClick={() => setError(null)}>
-            <X aria-hidden className="size-3.5" />
-          </button>
-        </div>
+        <ErrorBanner
+          className="mx-6 mt-4"
+          message={error}
+          onDismiss={() => setError(null)}
+        />
       )}
 
       <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
@@ -97,7 +91,9 @@ export const SmartFieldsScreen = ({
               <DeckGroup
                 group={group}
                 key={group.deck.id}
-                onCreate={() => setEditorState({ mode: "create" })}
+                onCreate={(initialNoteTypeId) =>
+                  setEditorState({ initialNoteTypeId, mode: "create" })
+                }
                 onDelete={deleteSmartField}
                 onDuplicate={(field) =>
                   setEditorState({ field, mode: "duplicate" })
@@ -111,7 +107,7 @@ export const SmartFieldsScreen = ({
         )}
       </div>
       {state !== null && activeEditor !== null && (
-        <FieldEditorModal
+        <FieldEditorScreen
           {...activeEditor}
           onClose={() => {
             setEditorState(null)

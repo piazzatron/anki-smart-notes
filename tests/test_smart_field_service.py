@@ -27,6 +27,7 @@ from src.database.migrations import apply_database_migrations
 from src.models.smart_fields import (
     ChatSmartFieldSettings,
     ImageSmartFieldSettings,
+    SmartField,
     SmartFieldCreate,
     TTSSmartFieldSettings,
 )
@@ -57,7 +58,7 @@ def sqlite_database(tmp_path, monkeypatch):
 def test_round_trips_typed_smart_fields() -> None:
     service = smart_field_service_for_profile()
 
-    service.save_smart_field(
+    service.create_smart_field(
         SmartFieldCreate(
             note_type_id=NOTE_TYPE_ID,
             deck_id=1,
@@ -71,7 +72,7 @@ def test_round_trips_typed_smart_fields() -> None:
             ),
         ),
     )
-    service.save_smart_field(
+    service.create_smart_field(
         SmartFieldCreate(
             note_type_id=NOTE_TYPE_ID,
             deck_id=1,
@@ -85,7 +86,7 @@ def test_round_trips_typed_smart_fields() -> None:
             ),
         ),
     )
-    service.save_smart_field(
+    service.create_smart_field(
         SmartFieldCreate(
             note_type_id=NOTE_TYPE_ID,
             deck_id=1,
@@ -120,7 +121,7 @@ def test_round_trips_typed_smart_fields() -> None:
 def test_get_smart_fields_for_note_applies_global_fallback_with_deck_override() -> None:
     service = smart_field_service_for_profile()
 
-    service.save_smart_field(
+    service.create_smart_field(
         SmartFieldCreate(
             note_type_id=NOTE_TYPE_ID,
             deck_id=GLOBAL_DECK_ID,
@@ -134,7 +135,7 @@ def test_get_smart_fields_for_note_applies_global_fallback_with_deck_override() 
             ),
         ),
     )
-    service.save_smart_field(
+    service.create_smart_field(
         SmartFieldCreate(
             note_type_id=NOTE_TYPE_ID,
             deck_id=GLOBAL_DECK_ID,
@@ -148,7 +149,7 @@ def test_get_smart_fields_for_note_applies_global_fallback_with_deck_override() 
             ),
         ),
     )
-    service.save_smart_field(
+    service.create_smart_field(
         SmartFieldCreate(
             note_type_id=NOTE_TYPE_ID,
             deck_id=1,
@@ -177,10 +178,10 @@ def test_get_smart_fields_for_note_applies_global_fallback_with_deck_override() 
     assert smart_fields["Extra"].settings.prompt_text == "global extra"
 
 
-def test_save_and_delete_match_target_fields_case_insensitively() -> None:
+def test_delete_smart_field_uses_id() -> None:
     service = smart_field_service_for_profile()
 
-    service.save_smart_field(
+    service.create_smart_field(
         SmartFieldCreate(
             note_type_id=NOTE_TYPE_ID,
             deck_id=1,
@@ -194,39 +195,151 @@ def test_save_and_delete_match_target_fields_case_insensitively() -> None:
             ),
         ),
     )
-    service.save_smart_field(
+    smart_field_id = service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)[0].id
+    service.delete_smart_field(smart_field_id)
+
+    assert service.get_smart_fields_for_note(NOTE_TYPE_ID, 1) == []
+
+
+def test_delete_smart_field_rejects_id_from_another_profile() -> None:
+    profile_1_service = smart_field_service_for_profile("Profile 1")
+    profile_2_service = smart_field_service_for_profile("Profile 2")
+    profile_1_service.create_smart_field(
         SmartFieldCreate(
             note_type_id=NOTE_TYPE_ID,
             deck_id=1,
-            target_field_name="back",
-            enabled=False,
+            target_field_name="Back",
+            enabled=True,
             settings=ChatSmartFieldSettings(
-                prompt_text="updated",
+                prompt_text="original",
                 provider="openai",
                 model="gpt-4o-mini",
-                web_search_enabled=True,
+                web_search_enabled=False,
             ),
-        ),
+        )
+    )
+    smart_field_id = profile_1_service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)[0].id
+
+    with pytest.raises(ValueError, match="Smart Field not found"):
+        profile_2_service.delete_smart_field(smart_field_id)
+
+    assert len(profile_1_service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)) == 1
+
+
+def test_update_smart_field_uses_id_when_target_changes() -> None:
+    service = smart_field_service_for_profile()
+    service.create_smart_field(
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=1,
+            target_field_name="Back",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="original",
+                provider="openai",
+                model="gpt-4o-mini",
+                web_search_enabled=False,
+            ),
+        )
+    )
+    existing = service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)[0]
+
+    service.update_smart_field(
+        SmartField(
+            id=existing.id,
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=2,
+            target_field_name="Meaning",
+            enabled=False,
+            settings=ImageSmartFieldSettings(
+                prompt_text="updated",
+                provider="openai",
+                model="gpt-image-1.5-low",
+            ),
+        )
     )
 
-    smart_fields = service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)
-
-    assert len(smart_fields) == 1
-    assert smart_fields[0].target_field_name == "back"
-    assert smart_fields[0].enabled is False
-    assert isinstance(smart_fields[0].settings, ChatSmartFieldSettings)
-    assert smart_fields[0].settings.prompt_text == "updated"
-
-    service.delete_smart_field(NOTE_TYPE_ID, 1, "BACK")
-
     assert service.get_smart_fields_for_note(NOTE_TYPE_ID, 1) == []
+    updated = service.get_smart_fields_for_note(NOTE_TYPE_ID, 2)[0]
+    assert updated.id == existing.id
+    assert updated.target_field_name == "Meaning"
+    assert updated.enabled is False
+    assert isinstance(updated.settings, ImageSmartFieldSettings)
+    assert updated.settings.prompt_text == "updated"
+
+
+def test_create_rejects_case_insensitive_target_collision() -> None:
+    service = smart_field_service_for_profile()
+    settings = ChatSmartFieldSettings(
+        prompt_text="original",
+        provider="openai",
+        model="gpt-4o-mini",
+        web_search_enabled=False,
+    )
+    service.create_smart_field(
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=1,
+            target_field_name="Back",
+            enabled=True,
+            settings=settings,
+        )
+    )
+
+    with pytest.raises(ValueError, match="already exists"):
+        service.create_smart_field(
+            SmartFieldCreate(
+                note_type_id=NOTE_TYPE_ID,
+                deck_id=1,
+                target_field_name="back",
+                enabled=True,
+                settings=settings,
+            )
+        )
+
+
+def test_update_rejects_case_insensitive_target_collision() -> None:
+    service = smart_field_service_for_profile()
+    settings = ChatSmartFieldSettings(
+        prompt_text="original",
+        provider="openai",
+        model="gpt-4o-mini",
+        web_search_enabled=False,
+    )
+    for target_field_name in ("Back", "Extra"):
+        service.create_smart_field(
+            SmartFieldCreate(
+                note_type_id=NOTE_TYPE_ID,
+                deck_id=1,
+                target_field_name=target_field_name,
+                enabled=True,
+                settings=settings,
+            )
+        )
+    extra = next(
+        field
+        for field in service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)
+        if field.target_field_name == "Extra"
+    )
+
+    with pytest.raises(ValueError, match="already exists"):
+        service.update_smart_field(
+            SmartField(
+                id=extra.id,
+                note_type_id=NOTE_TYPE_ID,
+                deck_id=1,
+                target_field_name="back",
+                enabled=True,
+                settings=settings,
+            )
+        )
 
 
 def test_smart_fields_are_scoped_to_profile() -> None:
     profile_1_service = smart_field_service_for_profile("Profile 1")
     profile_2_service = smart_field_service_for_profile("Profile 2")
 
-    profile_1_service.save_smart_field(
+    profile_1_service.create_smart_field(
         SmartFieldCreate(
             note_type_id=NOTE_TYPE_ID,
             deck_id=1,
@@ -240,7 +353,7 @@ def test_smart_fields_are_scoped_to_profile() -> None:
             ),
         ),
     )
-    profile_2_service.save_smart_field(
+    profile_2_service.create_smart_field(
         SmartFieldCreate(
             note_type_id=NOTE_TYPE_ID,
             deck_id=1,
@@ -283,15 +396,18 @@ def test_profile_scoping_applies_to_replacements_and_deletes() -> None:
         ),
     )
 
-    profile_1_service.save_smart_field(shared_field)
-    profile_2_service.save_smart_field(shared_field)
+    profile_1_service.create_smart_field(shared_field)
+    profile_2_service.create_smart_field(shared_field)
 
     profile_1_service.replace_all_smart_fields([])
 
     assert profile_1_service.get_smart_fields_for_note(NOTE_TYPE_ID, 1) == []
     assert len(profile_2_service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)) == 1
 
-    profile_2_service.delete_smart_field(NOTE_TYPE_ID, 1, "Back")
+    profile_2_field_id = profile_2_service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)[
+        0
+    ].id
+    profile_2_service.delete_smart_field(profile_2_field_id)
 
     assert profile_2_service.get_smart_fields_for_note(NOTE_TYPE_ID, 1) == []
 
@@ -350,7 +466,7 @@ def test_get_chat_defaults_fails_when_seed_row_is_missing() -> None:
 
 def test_get_all_smart_fields_fails_when_default_seed_row_is_missing() -> None:
     service = smart_field_service_for_profile()
-    service.save_smart_field(
+    service.create_smart_field(
         SmartFieldCreate(
             note_type_id=NOTE_TYPE_ID,
             deck_id=1,
@@ -405,7 +521,7 @@ def test_mutations_publish_state_invalidation(monkeypatch) -> None:
     monkeypatch.setattr(src.event_bus.event_bus, "publish", published.append)
 
     service = smart_field_service_for_profile()
-    service.save_smart_field(
+    service.create_smart_field(
         SmartFieldCreate(
             note_type_id=NOTE_TYPE_ID,
             deck_id=GLOBAL_DECK_ID,
@@ -419,7 +535,10 @@ def test_mutations_publish_state_invalidation(monkeypatch) -> None:
             ),
         )
     )
-    service.delete_smart_field(NOTE_TYPE_ID, GLOBAL_DECK_ID, "Back")
+    smart_field_id = service.get_smart_fields_for_note(NOTE_TYPE_ID, GLOBAL_DECK_ID)[
+        0
+    ].id
+    service.delete_smart_field(smart_field_id)
 
     assert len(published) == 2
     assert all(isinstance(event, StateInvalidated) for event in published)

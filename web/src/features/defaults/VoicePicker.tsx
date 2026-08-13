@@ -17,8 +17,8 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AlertCircle, LoaderCircle, Play, X } from "lucide-react"
-import { useEffect, useMemo, useRef, useState } from "react"
+import { LoaderCircle, Play } from "lucide-react"
+import { useMemo, useState } from "react"
 
 import {
   Select,
@@ -27,20 +27,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select"
+import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { providerLabel } from "@/lib/catalog"
-import { previewTTSVoice } from "@/services/commands"
-import type {
-  TTSGenerationSettings,
-  VoiceCatalog,
-  VoiceCatalogItem,
-} from "@/types/api"
+import type { TTSGenerationSettings, VoiceCatalog } from "@/types/api"
 
-import {
-  filterVoices,
-  previewTextForLanguage,
-  voiceKey,
-  voiceMatchesSettings,
-} from "./voiceDefaults"
+import { filterVoices, voiceKey, voiceMatchesSettings } from "./voiceDefaults"
+import { useVoicePreview } from "./useVoicePreview"
 
 interface VoicePickerProps {
   canPreview: boolean
@@ -66,18 +58,7 @@ export const VoicePicker = ({
     provider: "All",
     search: "",
   })
-  const [previewState, setPreviewState] = useState<{
-    error: string | null
-    loadingKey: string | null
-  }>({ error: null, loadingKey: null })
-  const previewAudio = useRef<HTMLAudioElement | null>(null)
-
-  useEffect(
-    () => () => {
-      previewAudio.current?.pause()
-    },
-    [],
-  )
+  const voicePreview = useVoicePreview()
   const languages = useMemo(
     () =>
       [
@@ -101,50 +82,14 @@ export const VoicePicker = ({
     [catalog.voices, filters],
   )
 
-  const previewVoice = async (voice: VoiceCatalogItem) => {
-    const key = voiceKey(voice)
-    previewAudio.current?.pause()
-    setPreviewState({ error: null, loadingKey: key })
-    try {
-      const result = await previewTTSVoice({
-        text: previewTextForLanguage(voice.language),
-        settings: {
-          provider: voice.provider,
-          model: voice.model,
-          voiceId: voice.voiceId,
-        },
-      })
-      previewAudio.current = new Audio(result.dataUrl)
-      await previewAudio.current.play()
-    } catch (error) {
-      setPreviewState({
-        error:
-          error instanceof Error
-            ? error.message
-            : "Could not preview this voice",
-        loadingKey: null,
-      })
-      return
-    }
-    setPreviewState({ error: null, loadingKey: null })
-  }
-
   return (
     <>
-      {previewState.error !== null && (
-        <div className="mb-3 flex items-start gap-2 rounded-lg border border-red-300/15 bg-red-300/[0.06] px-3 py-2.5 text-xs text-danger">
-          <AlertCircle aria-hidden className="mt-0.5 size-3.5 shrink-0" />
-          <p className="min-w-0 flex-1">{previewState.error}</p>
-          <button
-            aria-label="Dismiss error"
-            className="cursor-pointer"
-            onClick={() =>
-              setPreviewState((current) => ({ ...current, error: null }))
-            }
-          >
-            <X aria-hidden className="size-3.5" />
-          </button>
-        </div>
+      {voicePreview.error !== null && (
+        <ErrorBanner
+          className="mb-3"
+          message={voicePreview.error}
+          onDismiss={voicePreview.dismissError}
+        />
       )}
 
       <div className="grid grid-cols-3 gap-2">
@@ -230,13 +175,13 @@ export const VoicePicker = ({
                   <button
                     aria-label={`Preview ${voice.name}`}
                     className="flex size-4 shrink-0 cursor-pointer items-center justify-center text-zinc-500 transition hover:text-indigo-soft disabled:cursor-not-allowed disabled:opacity-35"
-                    disabled={!canPreview || previewState.loadingKey !== null}
+                    disabled={!canPreview || voicePreview.loadingKey !== null}
                     onClick={(event) => {
                       event.stopPropagation()
-                      void previewVoice(voice)
+                      void voicePreview.preview(voice)
                     }}
                   >
-                    {previewState.loadingKey === key ? (
+                    {voicePreview.loadingKey === key ? (
                       <LoaderCircle
                         aria-hidden
                         className="size-3 animate-spin"

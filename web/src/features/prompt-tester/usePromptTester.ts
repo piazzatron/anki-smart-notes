@@ -17,9 +17,12 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
+import { errorMessage } from "@/lib/errors"
 import { useAppStore } from "@/store/appStore"
+
+import { getMissingPromptFieldNames } from "./promptTestCard"
 import type { SelectedNote, Selection } from "@/types/api"
 
 interface PromptTestResult<R> {
@@ -40,18 +43,25 @@ interface UsePromptTesterArgs<R> {
   fallbackError: string
   initialPrompt: string
   prompt?: string
+  requiredNoteTypeId?: number
   run: (args: { cardId: number; prompt: string }) => Promise<R>
 }
 
 export interface PromptTesterControls<R> {
   dismissError: () => void
   error: string | null
+  hasNoteTypeMismatch: boolean
+  // True when this tester owns its prompt rather than being handed one, so whoever
+  // renders it may offer an editor for it.
+  isPromptEditable: boolean
   isTesting: boolean
   prompt: string
+  requiredNoteTypeId: number | null
   result: Omit<PromptTestResult<R>, "cardId"> | null
   runTest: () => Promise<void>
   selection: Selection | null
   selectedNote: SelectedNote | null
+  setError: (error: string) => void
   setPrompt: (prompt: string) => void
 }
 
@@ -68,20 +78,87 @@ export const getVisiblePromptTestResult = <R>(
   }
 }
 
+export const getPromptTestSelection = (
+  selection: Selection | null,
+  requiredNoteTypeId?: number,
+): {
+  hasNoteTypeMismatch: boolean
+  selectedNote: SelectedNote | null
+} => {
+  const selectedNote = selection?.note ?? null
+  const hasNoteTypeMismatch =
+    selectedNote !== null &&
+    requiredNoteTypeId !== undefined &&
+    selectedNote.noteTypeId !== requiredNoteTypeId
+
+  // The picked note is returned even on a mismatch: the panel shows which card is
+  // selected and why it can't run. Running is gated separately.
+  return { hasNoteTypeMismatch, selectedNote }
+}
+
+// A card picked before this tester opened was not picked for it. If the prompt cannot
+// run against that card, ask for one instead of complaining about it — only a card
+// picked while the tester is open is an answer to the tester.
+export const getInitialPromptTestSelection = ({
+  prompt,
+  requiredNoteTypeId,
+  selection,
+}: {
+  prompt: string
+  requiredNoteTypeId?: number
+  selection: Selection | null
+}): Selection | null => {
+  const { hasNoteTypeMismatch, selectedNote } = getPromptTestSelection(
+    selection,
+    requiredNoteTypeId,
+  )
+  if (hasNoteTypeMismatch) return null
+  if (
+    selectedNote !== null &&
+    getMissingPromptFieldNames(prompt, selectedNote).length > 0
+  ) {
+    return null
+  }
+
+  return selection
+}
+
 export const usePromptTester = <R>({
   fallbackError,
   initialPrompt,
   prompt: controlledPrompt,
+  requiredNoteTypeId,
   run,
 }: UsePromptTesterArgs<R>): PromptTesterControls<R> => {
-  const selection = useAppStore((store) => store.selection)
+  const [inheritedSelection] = useState(() => useAppStore.getState().selection)
+  const [selection, setSelection] = useState(() =>
+    getInitialPromptTestSelection({
+      prompt: controlledPrompt ?? initialPrompt,
+      requiredNoteTypeId,
+      selection: inheritedSelection,
+    }),
+  )
   const [tester, setTester] = useState<PromptTesterState<R>>({
     error: null,
     isTesting: false,
     prompt: initialPrompt,
     result: null,
   })
-  const selectedNote = selection?.note ?? null
+
+  useEffect(() => {
+    // The retained SSE value predates this tester. Once the store receives a new
+    // selection object, every selection is live user feedback and stays unfiltered.
+    return useAppStore.subscribe((store, previousStore) => {
+      if (store.selection !== previousStore.selection) {
+        setSelection(store.selection)
+      }
+    })
+  }, [])
+
+  const { hasNoteTypeMismatch, selectedNote } = getPromptTestSelection(
+    selection,
+    requiredNoteTypeId,
+  )
   const prompt = controlledPrompt ?? tester.prompt
   const visibleResult = getVisiblePromptTestResult(
     tester.result,
@@ -91,7 +168,7 @@ export const usePromptTester = <R>({
     setTester((current) => ({ ...current, ...updates }))
 
   const runTest = async () => {
-    if (selectedNote === null) return
+    if (selectedNote === null || hasNoteTypeMismatch) return
 
     patchTester({ error: null, isTesting: true })
     const startedAt = performance.now()
@@ -107,7 +184,7 @@ export const usePromptTester = <R>({
       })
     } catch (error) {
       patchTester({
-        error: error instanceof Error ? error.message : fallbackError,
+        error: errorMessage(error, fallbackError),
       })
     } finally {
       patchTester({ isTesting: false })
@@ -117,12 +194,18 @@ export const usePromptTester = <R>({
   return {
     dismissError: () => patchTester({ error: null }),
     error: tester.error,
+    hasNoteTypeMismatch,
+    isPromptEditable: controlledPrompt === undefined,
     isTesting: tester.isTesting,
     prompt,
+    requiredNoteTypeId: requiredNoteTypeId ?? null,
     result: visibleResult,
     runTest,
     selection,
     selectedNote,
+    // Failures of actions built on top of a result (saving it to the card) report
+    // through the same dismissable banner as a failed run.
+    setError: (error: string) => patchTester({ error }),
     setPrompt: (prompt: string) => {
       if (controlledPrompt === undefined) patchTester({ prompt })
     },

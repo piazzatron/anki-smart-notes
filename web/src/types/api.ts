@@ -202,7 +202,8 @@ export interface SelectedNote {
 export type Selection = { note: SelectedNote } | { note: null; count: number }
 
 export type CommandName =
-  | "smartFields.save"
+  | "smartFields.create"
+  | "smartFields.update"
   | "smartFields.delete"
   | "defaults.save"
   | "defaults.chat.save"
@@ -212,21 +213,22 @@ export type CommandName =
   | "images.test"
   | "tts.test"
   | "tts.preview"
+  | "notes.saveTestResult"
   | "settings.save"
   | "prompts.generate"
   | "support.sendFeedback"
   | "auth.logout"
   | "ui.openBrowser"
 
-export type SmartFieldSavePayload =
+export type SmartFieldCreatePayload =
   | Omit<Extract<SmartField, { fieldType: "chat" }>, "id">
   | Omit<Extract<SmartField, { fieldType: "tts" }>, "id">
   | Omit<Extract<SmartField, { fieldType: "image" }>, "id">
 
+export type SmartFieldUpdatePayload = SmartField
+
 export interface SmartFieldDeletePayload {
-  noteTypeId: number
-  deckId: number
-  targetFieldName: string
+  id: string
 }
 
 export type GenerationDefaultsSavePayload = GenerationDefaults
@@ -243,6 +245,7 @@ export interface TextPromptTestArgs {
 
 export interface TextPromptTestResult {
   text: string
+  resultToken: string
 }
 
 export interface PromptGenerateArgs {
@@ -278,8 +281,19 @@ export interface TTSPreviewArgs {
   settings: TTSGenerationSettings
 }
 
-export interface MediaTestResult {
+export interface MediaPreviewResult {
   dataUrl: string
+}
+
+/** A card-backed media test: the token names the artifact a save may write back. */
+export interface MediaTestResult extends MediaPreviewResult {
+  resultToken: string
+}
+
+export interface SaveTestResultPayload {
+  token: string
+  cardId: number
+  fieldName: string
 }
 
 export type UiOpenBrowserPayload = Record<string, never>

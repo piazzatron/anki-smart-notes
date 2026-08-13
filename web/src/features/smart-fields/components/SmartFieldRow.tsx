@@ -1,5 +1,5 @@
 import { MoreHorizontal } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import { useState } from "react"
 
 import { FieldTypeIcon } from "./FieldTypeIcon"
 
@@ -7,6 +7,14 @@ import {
   smartFieldDescription,
   smartFieldModelLabel,
 } from "../fieldPresentation"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/DropdownMenu"
+import { errorMessage } from "@/lib/errors"
 import type { SmartField } from "@/types/api"
 
 interface SmartFieldRowProps {
@@ -27,38 +35,15 @@ export const SmartFieldRow = ({
   onError,
 }: SmartFieldRowProps) => {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [confirmingDelete, setConfirmingDelete] = useState(false)
   const [pending, setPending] = useState(false)
-  const menuRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!menuOpen) return
-
-    const closeOnOutsideClick = (event: MouseEvent) => {
-      if (!menuRef.current?.contains(event.target as Node)) setMenuOpen(false)
-    }
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false)
-    }
-
-    document.addEventListener("mousedown", closeOnOutsideClick)
-    document.addEventListener("keydown", closeOnEscape)
-    return () => {
-      document.removeEventListener("mousedown", closeOnOutsideClick)
-      document.removeEventListener("keydown", closeOnEscape)
-    }
-  }, [menuOpen])
 
   const runAction = async (action: () => Promise<void>) => {
     setPending(true)
     try {
       await action()
       setMenuOpen(false)
-      setConfirmingDelete(false)
     } catch (error) {
-      onError(
-        error instanceof Error ? error.message : "Smart Field command failed",
-      )
+      onError(errorMessage(error, "Smart Field command failed"))
     } finally {
       setPending(false)
     }
@@ -92,90 +77,45 @@ export const SmartFieldRow = ({
         </span>
       </span>
 
-      <div className="relative justify-self-end" ref={menuRef}>
-        <button
-          aria-expanded={menuOpen}
-          aria-haspopup="menu"
-          aria-label={`Actions for ${field.targetFieldName}`}
-          className="inline-flex size-7 items-center justify-center rounded-md text-ink-faint transition hover:bg-white/[0.07] hover:text-zinc-300"
-          disabled={pending}
-          onClick={() => {
-            setConfirmingDelete(false)
-            setMenuOpen((open) => !open)
-          }}
-        >
-          <MoreHorizontal aria-hidden className="size-4" />
-        </button>
-
-        {menuOpen && (
-          <div
-            className="absolute top-8 right-0 z-20 min-w-40 rounded-lg border border-white/10 bg-panel-raised p-1 shadow-2xl shadow-black/50"
-            role="menu"
+      <DropdownMenu onOpenChange={setMenuOpen} open={menuOpen}>
+        <DropdownMenuTrigger asChild>
+          <button
+            aria-label={`Actions for ${field.targetFieldName}`}
+            className="inline-flex size-7 items-center justify-center justify-self-end rounded-md text-ink-faint transition hover:bg-white/[0.07] hover:text-zinc-300"
+            disabled={pending}
           >
-            {confirmingDelete ? (
-              <div className="p-2">
-                <p className="max-w-44 text-[11px] leading-4 text-zinc-300">
-                  Delete <strong>{field.targetFieldName}</strong>?
-                </p>
-                <div className="mt-2 flex justify-end gap-1.5">
-                  <button
-                    className="rounded px-2 py-1 text-[10px] text-zinc-400 hover:bg-white/[0.06]"
-                    onClick={() => setConfirmingDelete(false)}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    className="rounded bg-red-300/10 px-2 py-1 text-[10px] font-semibold text-danger hover:bg-red-300/15"
-                    disabled={pending}
-                    onClick={() => void runAction(() => onDelete(field))}
-                  >
-                    {pending ? "Deleting…" : "Delete"}
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <>
-                <button
-                  className="w-full rounded px-2.5 py-1.5 text-left text-xs text-zinc-300 hover:bg-white/[0.07]"
-                  role="menuitem"
-                  onClick={() => {
-                    setMenuOpen(false)
-                    onEdit(field)
-                  }}
-                >
-                  Edit
-                </button>
-                <button
-                  className="w-full rounded px-2.5 py-1.5 text-left text-xs text-zinc-300 hover:bg-white/[0.07]"
-                  role="menuitem"
-                  onClick={() => {
-                    setMenuOpen(false)
-                    onDuplicate(field)
-                  }}
-                >
-                  Duplicate
-                </button>
-                <div className="my-1 border-t border-white/[0.07]" />
-                <button
-                  className="w-full rounded px-2.5 py-1.5 text-left text-xs text-zinc-300 hover:bg-white/[0.07]"
-                  disabled={pending}
-                  role="menuitem"
-                  onClick={() => void runAction(() => onToggleEnabled(field))}
-                >
-                  {field.enabled ? "Disable" : "Enable"}
-                </button>
-                <button
-                  className="w-full rounded px-2.5 py-1.5 text-left text-xs text-danger hover:bg-white/[0.07]"
-                  role="menuitem"
-                  onClick={() => setConfirmingDelete(true)}
-                >
-                  Delete
-                </button>
-              </>
-            )}
-          </div>
-        )}
-      </div>
+            <MoreHorizontal aria-hidden className="size-4" />
+          </button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem onSelect={() => onEdit(field)}>
+            Edit
+          </DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => onDuplicate(field)}>
+            Duplicate
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
+            disabled={pending}
+            onSelect={(event) => {
+              event.preventDefault()
+              void runAction(() => onToggleEnabled(field))
+            }}
+          >
+            {field.enabled ? "Disable" : "Enable"}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            className="text-danger"
+            disabled={pending}
+            onSelect={(event) => {
+              event.preventDefault()
+              void runAction(() => onDelete(field))
+            }}
+          >
+            {pending ? "Deleting…" : "Delete"}
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   )
 }

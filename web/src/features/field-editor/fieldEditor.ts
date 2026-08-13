@@ -23,7 +23,7 @@ import type {
   ImageGenerationSettings,
   NoteType,
   SmartField,
-  SmartFieldSavePayload,
+  SmartFieldCreatePayload,
   TTSGenerationSettings,
 } from "@/types/api"
 
@@ -45,6 +45,9 @@ export interface PinnedGenerationSettings {
 }
 
 export interface FieldEditorDraft {
+  // The field being edited, so target collision checks can ignore its own binding.
+  // Null while creating or duplicating, where every binding is somebody else's.
+  editingFieldId: string | null
   error: string | null
   isGenerating: boolean
   isSaving: boolean
@@ -54,17 +57,24 @@ export interface FieldEditorDraft {
   sourceFieldName: string
   step: FieldEditorStep
   target: FieldTargetDraft
+  validPromptFieldsRevealed: boolean
   writePrompt: string
+}
+
+interface CreateFieldEditorDraftArgs {
+  field?: SmartField
+  initialNoteTypeId?: number
+  initialStep?: FieldEditorStep
+  mode: FieldEditorMode
 }
 
 export const createFieldEditorDraft = (
   state: AppState,
-  mode: FieldEditorMode,
-  field?: SmartField,
-  initialStep?: FieldEditorStep,
+  { field, initialNoteTypeId, initialStep, mode }: CreateFieldEditorDraftArgs,
 ): FieldEditorDraft => {
   const noteType =
     state.noteTypes.find((item) => item.id === field?.noteTypeId) ??
+    state.noteTypes.find((item) => item.id === initialNoteTypeId) ??
     state.noteTypes[0]
   const deckId = field?.deckId ?? state.globalDeckId
   const targetFieldName =
@@ -73,6 +83,7 @@ export const createFieldEditorDraft = (
   const fieldType = field?.fieldType ?? "chat"
 
   return {
+    editingFieldId: mode === "edit" ? (field?.id ?? null) : null,
     error: null,
     isGenerating: false,
     isSaving: false,
@@ -86,13 +97,15 @@ export const createFieldEditorDraft = (
       field?.fieldType === "tts"
         ? field.settings.sourceFieldName
         : getFirstSourceField(noteType, targetFieldName),
-    step: mode === "edit" ? 2 : (initialStep ?? 1),
+    // Editing starts on step 1 too — the target is as changeable as the prompt.
+    step: initialStep ?? 1,
     target: {
       deckId,
       fieldType,
       noteTypeId: noteType?.id ?? 0,
       targetFieldName,
     },
+    validPromptFieldsRevealed: false,
     writePrompt: "",
   }
 }
@@ -124,9 +137,11 @@ export const getFirstSourceField = (
 export const hasSmartFieldCollision = (
   fields: SmartField[],
   target: Pick<FieldTargetDraft, "deckId" | "noteTypeId" | "targetFieldName">,
+  ignoreFieldId?: string | null,
 ): boolean =>
   fields.some(
     (field) =>
+      field.id !== ignoreFieldId &&
       field.noteTypeId === target.noteTypeId &&
       field.deckId === target.deckId &&
       field.targetFieldName === target.targetFieldName,
@@ -138,7 +153,7 @@ export const validateFieldEditorDraft = (
 ): string | null => {
   if (draft.target.noteTypeId === 0) return "Choose a note type"
   if (draft.target.targetFieldName.trim() === "") return "Choose a field"
-  if (draft.mode !== "edit" && hasSmartFieldCollision(fields, draft.target)) {
+  if (hasSmartFieldCollision(fields, draft.target, draft.editingFieldId)) {
     return `${draft.target.targetFieldName} already has a Smart Field`
   }
   if (draft.target.fieldType === "tts" && draft.sourceFieldName.trim() === "") {
@@ -151,11 +166,11 @@ export const validateFieldEditorDraft = (
   return null
 }
 
-export const buildSmartFieldSavePayload = (
+export const buildSmartFieldPayload = (
   draft: FieldEditorDraft,
   defaults: AppState["defaults"],
   originalField?: SmartField,
-): SmartFieldSavePayload => {
+): SmartFieldCreatePayload => {
   const base = {
     noteTypeId: draft.target.noteTypeId,
     deckId: draft.target.deckId,

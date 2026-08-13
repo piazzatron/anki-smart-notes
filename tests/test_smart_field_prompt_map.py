@@ -54,7 +54,7 @@ def test_replace_from_prompt_map_does_not_delete_existing_fields_if_conversion_f
     None
 ):
     service = SmartFieldService()
-    service.save_smart_field(
+    service.create_smart_field(
         SmartFieldCreate(
             note_type_id=NOTE_TYPE_ID,
             deck_id=DECK_ID,
@@ -93,7 +93,7 @@ def test_replace_from_prompt_map_does_not_delete_existing_fields_if_conversion_f
 
 def test_replace_from_prompt_map_replaces_fields_after_successful_conversion() -> None:
     service = SmartFieldService()
-    service.save_smart_field(
+    service.create_smart_field(
         SmartFieldCreate(
             note_type_id=NOTE_TYPE_ID,
             deck_id=DECK_ID,
@@ -171,7 +171,7 @@ def test_prompt_map_preserves_default_backed_generation_settings() -> None:
         ),
     )
     service = SmartFieldService()
-    service.save_smart_field(smart_field)
+    service.create_smart_field(smart_field)
 
     prompt_map = prompt_map_from_smart_fields(
         service.get_smart_fields_for_note(NOTE_TYPE_ID, DECK_ID),

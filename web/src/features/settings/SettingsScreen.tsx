@@ -17,9 +17,11 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AlertCircle, ChevronRight, SlidersHorizontal, X } from "lucide-react"
+import { ChevronRight, SlidersHorizontal } from "lucide-react"
 import { useState, type KeyboardEvent } from "react"
 
+import { ScreenSkeleton } from "@/components/shared/ScreenSkeleton"
+import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { Toggle } from "@/components/ui/Toggle"
 import {
   Select,
@@ -51,7 +53,13 @@ const LEGACY_OPENAI_MODELS = [
 
 export const SettingsScreen = () => {
   const state = useAppStore((store) => store.state)
-  if (state === null) return <SettingsSkeleton />
+  if (state === null)
+    return (
+      <ScreenSkeleton
+        ariaLabel="Loading Settings"
+        contentClassName="h-36 max-w-[680px]"
+      />
+    )
   return <LoadedSettingsScreen settings={state.settings} />
 }
 
@@ -85,13 +93,11 @@ const LoadedSettingsScreen = ({ settings }: LoadedSettingsScreenProps) => {
       </header>
 
       {controls.error !== null && (
-        <div className="mx-6 mt-3 flex items-start gap-2 rounded-lg border border-red-300/15 bg-red-300/[0.06] px-3 py-2 text-xs text-danger">
-          <AlertCircle aria-hidden className="mt-0.5 size-3.5 shrink-0" />
-          <p className="min-w-0 flex-1">{controls.error}</p>
-          <button aria-label="Dismiss error" onClick={controls.dismissError}>
-            <X aria-hidden className="size-3.5" />
-          </button>
-        </div>
+        <ErrorBanner
+          className="mx-6 mt-3"
+          message={controls.error}
+          onDismiss={controls.dismissError}
+        />
       )}
 
       <div className="min-h-0 flex-1 overflow-y-auto px-6 py-4">
@@ -273,19 +279,4 @@ const SectionLabel = ({
   >
     {children}
   </h2>
-)
-
-const SettingsSkeleton = () => (
-  <section
-    aria-label="Loading Settings"
-    className="flex min-h-0 flex-1 animate-pulse flex-col"
-  >
-    <div className="h-[86px] border-b border-white/[0.065] px-6 py-5">
-      <div className="h-5 w-36 rounded bg-white/[0.06]" />
-      <div className="mt-3 h-3 w-80 rounded bg-white/[0.035]" />
-    </div>
-    <div className="p-6">
-      <div className="h-36 max-w-[680px] rounded-xl bg-white/[0.025]" />
-    </div>
-  </section>
 )

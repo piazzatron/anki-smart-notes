@@ -23,93 +23,75 @@ import { modelLabel } from "@/lib/catalog"
 import { testImagePrompt } from "@/services/commands"
 import type { ImageGenerationSettings } from "@/types/api"
 
-import { PromptTesterPanel, ResolvedPrompt } from "./PromptTesterPanel"
+import { ResolvedPrompt } from "./PromptTestResultModal"
+import { PromptTesterStrip } from "./PromptTesterStrip"
 import { usePromptTester } from "./usePromptTester"
 
 interface ImagePromptTesterProps {
-  hidePromptInput?: boolean
   prompt?: string
+  requiredNoteTypeId?: number
   settings: ImageGenerationSettings
+  // Only a tester bound to a Smart Field can write its result back to the card.
+  targetFieldName?: string
+  title: string
 }
 
 export const ImagePromptTester = ({
-  hidePromptInput,
   prompt,
+  requiredNoteTypeId,
   settings,
+  targetFieldName,
+  title,
 }: ImagePromptTesterProps) => {
   const [dimensions, setDimensions] = useState<{
     height: number
     width: number
   } | null>(null)
-  const [isExpanded, setIsExpanded] = useState(false)
   const tester = usePromptTester({
     fallbackError: "Could not generate an image",
     initialPrompt: "A memorable scene illustrating {{Expression}}.",
     prompt,
+    requiredNoteTypeId,
     run: async ({ cardId, prompt }) => {
       const result = await testImagePrompt({ cardId, prompt, settings })
       setDimensions(null)
       return result
     },
   })
+  const result = tester.result !== null && tester.selectedNote !== null && (
+    <>
+      <ResolvedPrompt
+        note={tester.selectedNote}
+        prompt={tester.result.prompt}
+      />
+      <img
+        alt="Generated image preview"
+        className="max-h-[50vh] w-full rounded-lg border border-white/[0.1] bg-black/20 object-contain"
+        onLoad={(event) =>
+          setDimensions({
+            height: event.currentTarget.naturalHeight,
+            width: event.currentTarget.naturalWidth,
+          })
+        }
+        src={tester.result.value.dataUrl}
+      />
+      {dimensions !== null && (
+        <p className="mt-2 text-right text-[10.5px] text-ink-faint">
+          {dimensions.width} × {dimensions.height}
+        </p>
+      )}
+    </>
+  )
 
   return (
-    <PromptTesterPanel
-      hidePromptInput={hidePromptInput}
+    <PromptTesterStrip
       promptLabel="Prompt"
-      runLabel={`Run with ${modelLabel(settings.model)}`}
-      runningLabel="Running…"
-      subtitle="Select a card in the Anki Browser, then run your prompt against it to test the selected model."
+      provenance={modelLabel(settings.model)}
+      saveTargetFieldName={targetFieldName}
       tester={tester}
-      textareaId="image-prompt-tester-prompt"
+      title={title}
     >
-      {tester.result !== null && tester.selectedNote !== null && (
-        <div className="mt-[15px]">
-          <p className="mb-2 text-[10px] font-semibold tracking-[0.05em] text-ink-faint uppercase">
-            Result
-          </p>
-          <ResolvedPrompt
-            note={tester.selectedNote}
-            prompt={tester.result.prompt}
-          />
-          <button
-            aria-label="Enlarge generated image"
-            className="block w-full cursor-pointer overflow-hidden rounded-lg border border-white/[0.1] bg-black/20"
-            onClick={() => setIsExpanded(true)}
-          >
-            <img
-              alt="Generated image preview"
-              className="max-h-72 w-full object-contain"
-              onLoad={(event) =>
-                setDimensions({
-                  height: event.currentTarget.naturalHeight,
-                  width: event.currentTarget.naturalWidth,
-                })
-              }
-              src={tester.result.value.dataUrl}
-            />
-          </button>
-          {dimensions !== null && (
-            <p className="mt-[7px] text-right text-[10.5px] text-ink-faint">
-              {dimensions.width} × {dimensions.height} · click to enlarge
-            </p>
-          )}
-        </div>
-      )}
-
-      {isExpanded && tester.result !== null && (
-        <button
-          aria-label="Close enlarged image"
-          className="fixed inset-0 z-[80] flex cursor-zoom-out items-center justify-center bg-black/85 p-8"
-          onClick={() => setIsExpanded(false)}
-        >
-          <img
-            alt="Generated image preview enlarged"
-            className="max-h-full max-w-full rounded-lg object-contain shadow-2xl"
-            src={tester.result.value.dataUrl}
-          />
-        </button>
-      )}
-    </PromptTesterPanel>
+      {result}
+    </PromptTesterStrip>
   )
 }

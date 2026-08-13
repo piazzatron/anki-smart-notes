@@ -5,13 +5,16 @@ import type {
   FeedbackSendPayload,
   ImageDefaultsSavePayload,
   ImagePromptTestArgs,
+  MediaPreviewResult,
   MediaTestResult,
   PromptGenerateArgs,
   PromptGenerateResult,
+  SaveTestResultPayload,
   Settings,
   SmartField,
+  SmartFieldCreatePayload,
   SmartFieldDeletePayload,
-  SmartFieldSavePayload,
+  SmartFieldUpdatePayload,
   TextPromptTestArgs,
   TextPromptTestResult,
   TTSDefaultsSavePayload,
@@ -37,27 +40,24 @@ export const setSmartFieldEnabled = async (
   field: SmartField,
   enabled: boolean,
 ): Promise<void> => {
-  await sendCommand("smartFields.save", {
-    noteTypeId: field.noteTypeId,
-    deckId: field.deckId,
-    targetFieldName: field.targetFieldName,
-    fieldType: field.fieldType,
-    enabled,
-    settings: field.settings,
-  })
+  await updateSmartField({ ...field, enabled })
 }
 
-export const saveSmartField = async (
-  field: SmartFieldSavePayload,
+export const createSmartField = async (
+  field: SmartFieldCreatePayload,
 ): Promise<void> => {
-  await sendCommand("smartFields.save", field)
+  await sendCommand("smartFields.create", field)
+}
+
+export const updateSmartField = async (
+  field: SmartFieldUpdatePayload,
+): Promise<void> => {
+  await sendCommand("smartFields.update", field)
 }
 
 export const deleteSmartField = async (field: SmartField): Promise<void> => {
   await sendCommand("smartFields.delete", {
-    noteTypeId: field.noteTypeId,
-    deckId: field.deckId,
-    targetFieldName: field.targetFieldName,
+    id: field.id,
   } satisfies SmartFieldDeletePayload)
 }
 
@@ -113,7 +113,14 @@ export const testTTSPrompt = async (
 
 export const previewTTSVoice = async (
   args: TTSPreviewArgs,
-): Promise<MediaTestResult> => sendCommand<MediaTestResult>("tts.preview", args)
+): Promise<MediaPreviewResult> =>
+  sendCommand<MediaPreviewResult>("tts.preview", args)
+
+export const saveTestResultToCard = async (
+  payload: SaveTestResultPayload,
+): Promise<void> => {
+  await sendCommand("notes.saveTestResult", payload)
+}
 
 export const openAnkiBrowser = async (): Promise<void> => {
   await sendCommand("ui.openBrowser", {} satisfies UiOpenBrowserPayload)

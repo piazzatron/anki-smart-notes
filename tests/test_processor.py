@@ -106,7 +106,7 @@ def seed_smart_fields(prompts_map, options):
     from src.services.smart_field_service import smart_field_service
 
     for field, prompt in prompts_map.items():
-        smart_field_service.save_smart_field(
+        smart_field_service.create_smart_field(
             SmartFieldCreate(
                 note_type_id=NOTE_TYPE_ID,
                 deck_id=1,

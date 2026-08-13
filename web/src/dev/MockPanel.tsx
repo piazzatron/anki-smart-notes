@@ -1,7 +1,7 @@
 import { FlaskConical } from "lucide-react"
 import { useState } from "react"
 
-import type { FieldEditorRequest } from "@/features/field-editor/FieldEditorModal"
+import type { FieldEditorRequest } from "@/features/field-editor/FieldEditorScreen"
 import { bootOptions } from "@/lib/boot"
 
 import { setMockFixture, setMockSelection } from "./mockData"
@@ -27,6 +27,7 @@ const SELECTIONS = [
   { id: "selected", label: "One card" },
   { id: "none", label: "No card" },
   { id: "multiple", label: "3 cards" },
+  { id: "mismatch", label: "Wrong note type" },
 ]
 
 interface MockPanelProps {

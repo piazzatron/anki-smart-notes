@@ -19,10 +19,11 @@
 
 import { useState } from "react"
 
+import { errorMessage } from "@/lib/errors"
+
 interface DefaultsFormState<T> {
   draft: Partial<T> | null
   error: string | null
-  isSaving: boolean
 }
 
 interface UseDefaultsFormArgs<T> {
@@ -31,6 +32,9 @@ interface UseDefaultsFormArgs<T> {
   serverDefaults: T
 }
 
+/** A defaults screen's settings. Every change is saved as it is made — there is nothing
+ *  to confirm, so the screen shows the change immediately and the draft only stands in
+ *  until the server state catches up. */
 export const useDefaultsForm = <T extends object>({
   fallbackError,
   save: saveDefaults,
@@ -39,37 +43,31 @@ export const useDefaultsForm = <T extends object>({
   const [form, setForm] = useState<DefaultsFormState<T>>({
     draft: null,
     error: null,
-    isSaving: false,
   })
   const values = { ...serverDefaults, ...form.draft }
   const patchForm = (updates: Partial<DefaultsFormState<T>>) =>
     setForm((current) => ({ ...current, ...updates }))
-  const patchDraft = (updates: Partial<T>) =>
-    setForm((current) => ({
-      ...current,
-      draft: { ...current.draft, ...updates },
-    }))
 
-  const save = async () => {
-    patchForm({ error: null, isSaving: true })
+  const updateDefault = async (updates: Partial<T>) => {
+    setForm((current) => ({
+      draft: { ...current.draft, ...updates },
+      error: null,
+    }))
     try {
-      await saveDefaults(values)
-      patchForm({ draft: null })
+      await saveDefaults({ ...values, ...updates })
     } catch (error) {
+      // Drop the draft on a failed save, so the screen never shows a setting the
+      // server did not take.
       patchForm({
-        error: error instanceof Error ? error.message : fallbackError,
+        draft: null,
+        error: errorMessage(error, fallbackError),
       })
-    } finally {
-      patchForm({ isSaving: false })
     }
   }
 
   return {
-    cancel: () => patchForm({ draft: null }),
     dismissError: () => patchForm({ error: null }),
-    form: { error: form.error, isSaving: form.isSaving, values },
-    hasPendingChanges: form.draft !== null,
-    patchDraft,
-    save,
+    form: { error: form.error, values },
+    updateDefault,
   }
 }

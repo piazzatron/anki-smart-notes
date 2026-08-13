@@ -99,6 +99,15 @@ class TTSPreviewRequest:
 
 
 @dataclass(frozen=True)
+class SaveTestResultRequest:
+    """Validated intent to write the last test result into a note field."""
+
+    token: str
+    card_id: CardId
+    field_name: str
+
+
+@dataclass(frozen=True)
 class ChatSmartFieldSettings:
     prompt_text: str
     provider: ChatProviders

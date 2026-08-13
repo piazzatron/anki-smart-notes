@@ -22,7 +22,7 @@ import { describe, expect, test } from "bun:test"
 import type { AppState, SmartField } from "@/types/api"
 
 import {
-  buildSmartFieldSavePayload,
+  buildSmartFieldPayload,
   createFieldEditorDraft,
   getFirstAvailableField,
   hasSmartFieldCollision,
@@ -82,7 +82,8 @@ describe("field editor helpers", () => {
   })
 
   test("validates prompts and TTS source fields", () => {
-    const chatDraft = createFieldEditorDraft(appState, "create")
+    const chatDraft = createFieldEditorDraft(appState, { mode: "create" })
+    expect(chatDraft.validPromptFieldsRevealed).toBe(false)
     expect(validateFieldEditorDraft(chatDraft, [])).toBe("Write a prompt")
 
     chatDraft.target.fieldType = "image"
@@ -96,7 +97,10 @@ describe("field editor helpers", () => {
   })
 
   test("requires duplicate fields to be retargeted", () => {
-    const draft = createFieldEditorDraft(appState, "duplicate", existingField)
+    const draft = createFieldEditorDraft(appState, {
+      field: existingField,
+      mode: "duplicate",
+    })
 
     expect(validateFieldEditorDraft(draft, [existingField])).toContain(
       "already has a Smart Field",
@@ -104,10 +108,10 @@ describe("field editor helpers", () => {
   })
 
   test("snapshots current defaults when following defaults", () => {
-    const draft = createFieldEditorDraft(appState, "create")
+    const draft = createFieldEditorDraft(appState, { mode: "create" })
     draft.prompt = "Explain {{Front}}"
 
-    expect(buildSmartFieldSavePayload(draft, defaults)).toEqual({
+    expect(buildSmartFieldPayload(draft, defaults)).toEqual({
       noteTypeId: 10,
       deckId: 1,
       targetFieldName: "Front",
@@ -121,8 +125,41 @@ describe("field editor helpers", () => {
     })
   })
 
+  test("starts a new field on the requested existing note type", () => {
+    const requestedNoteTypeField: SmartField = {
+      ...existingField,
+      id: "expression",
+      noteTypeId: 20,
+      targetFieldName: "Expression",
+    }
+    const state = {
+      ...appState,
+      noteTypes: [
+        ...appState.noteTypes,
+        {
+          fields: ["Expression", "Meaning", "Audio"],
+          id: 20,
+          name: "Japanese",
+        },
+      ],
+      smartFields: [existingField, requestedNoteTypeField],
+    }
+
+    const draft = createFieldEditorDraft(state, {
+      initialNoteTypeId: 20,
+      mode: "create",
+    })
+
+    expect(draft.target.noteTypeId).toBe(20)
+    expect(draft.target.targetFieldName).toBe("Meaning")
+    expect(draft.sourceFieldName).toBe("Expression")
+  })
+
   test("uses pinned image settings and enables a duplicate", () => {
-    const draft = createFieldEditorDraft(appState, "duplicate", existingField)
+    const draft = createFieldEditorDraft(appState, {
+      field: existingField,
+      mode: "duplicate",
+    })
     draft.target = {
       deckId: 1,
       fieldType: "image",
@@ -135,7 +172,7 @@ describe("field editor helpers", () => {
       model: "flux-dev",
     }
 
-    expect(buildSmartFieldSavePayload(draft, defaults, existingField)).toEqual({
+    expect(buildSmartFieldPayload(draft, defaults, existingField)).toEqual({
       noteTypeId: 10,
       deckId: 1,
       targetFieldName: "Audio",
@@ -151,11 +188,11 @@ describe("field editor helpers", () => {
   })
 
   test("builds a complete TTS payload from current defaults", () => {
-    const draft = createFieldEditorDraft(appState, "create")
+    const draft = createFieldEditorDraft(appState, { mode: "create" })
     draft.target.fieldType = "tts"
     draft.sourceFieldName = "Meaning"
 
-    expect(buildSmartFieldSavePayload(draft, defaults)).toEqual({
+    expect(buildSmartFieldPayload(draft, defaults)).toEqual({
       noteTypeId: 10,
       deckId: 1,
       targetFieldName: "Front",
@@ -170,11 +207,24 @@ describe("field editor helpers", () => {
   })
 
   test("preserves enabled state when editing", () => {
-    const draft = createFieldEditorDraft(appState, "edit", existingField)
+    const draft = createFieldEditorDraft(appState, {
+      field: existingField,
+      mode: "edit",
+    })
 
-    expect(draft.step).toBe(2)
-    expect(
-      buildSmartFieldSavePayload(draft, defaults, existingField).enabled,
-    ).toBe(false)
+    expect(buildSmartFieldPayload(draft, defaults, existingField).enabled).toBe(
+      false,
+    )
+  })
+
+  test("editing opens on step 1 and does not collide with its own binding", () => {
+    const draft = createFieldEditorDraft(appState, {
+      field: existingField,
+      mode: "edit",
+    })
+
+    expect(draft.step).toBe(1)
+    expect(draft.editingFieldId).toBe(existingField.id)
+    expect(validateFieldEditorDraft(draft, [existingField])).toBeNull()
   })
 })

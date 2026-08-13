@@ -35,6 +35,7 @@ from src.event_bus import (
     event_bus,
     republish_state,
 )
+from src.markdown import convert_markdown_to_html
 from src.models.smart_fields import (
     ChatGenerationSettings,
     ChatSmartFieldSettings,
@@ -508,11 +509,6 @@ def test_parse_smart_field_create_rejects_unknown_type():
         )
 
 
-def test_parse_smart_field_ref_requires_keys():
-    with pytest.raises(ValueError, match="targetFieldName"):
-        dto.parse_smart_field_ref({"noteTypeId": 1, "deckId": 2})
-
-
 def test_parse_generation_defaults_round_trips():
     parsed = dto.parse_generation_defaults(
         {
@@ -891,7 +887,8 @@ async def test_text_prompt_service_refetches_card_and_runs_without_writing(monke
     context = prompt_test_service.prepare_text_prompt_test(request)
     result = await prompt_test_service.run_text_prompt_test(context)
 
-    assert result == {"text": "A domesticated canine"}
+    assert result["text"] == "A domesticated canine"
+    assert result["resultToken"] == prompt_test_service._last_test_artifact.token
     assert get_chat_response.call_args.kwargs["note"] is note
     assert get_chat_response.call_args.kwargs["deck_id"] == 7
     assert get_chat_response.call_args.kwargs["generation_source"] == "prompt_test"
@@ -934,7 +931,10 @@ async def test_image_prompt_service_returns_data_url_without_writing(monkeypatch
         prompt_test_service.prepare_image_prompt_test(request)
     )
 
-    assert result == {"dataUrl": "data:image/png;base64,aW1hZ2U="}
+    assert result["dataUrl"] == "data:image/png;base64,aW1hZ2U="
+    artifact = prompt_test_service._last_test_artifact
+    assert result["resultToken"] == artifact.token
+    assert (artifact.kind, artifact.data, artifact.card_id) == ("image", b"image", 99)
 
 
 @pytest.mark.asyncio
@@ -976,4 +976,209 @@ async def test_tts_prompt_service_returns_audio_data_url_without_writing(monkeyp
         prompt_test_service.prepare_tts_prompt_test(request)
     )
 
-    assert result == {"dataUrl": "data:audio/mpeg;base64,YXVkaW8="}
+    assert result["dataUrl"] == "data:audio/mpeg;base64,YXVkaW8="
+    artifact = prompt_test_service._last_test_artifact
+    assert result["resultToken"] == artifact.token
+    assert (artifact.kind, artifact.data, artifact.card_id) == ("audio", b"audio", 99)
+
+
+def _saveable_note_and_card(monkeypatch, fields):
+    """A note the save path will refetch, plus a recorder for the note it writes."""
+    from src.services import prompt_test_service
+
+    note = MockNote(fields, note_id=42)
+    card = MockCard(id=99, did=7, note=note)
+    saved = []
+    monkeypatch.setattr(
+        prompt_test_service,
+        "mw",
+        SimpleNamespace(col=SimpleNamespace(get_card=lambda card_id: card)),
+    )
+    monkeypatch.setattr(
+        prompt_test_service,
+        "update_note",
+        lambda *, parent, note: SimpleNamespace(
+            run_in_background=lambda: saved.append(note)
+        ),
+    )
+    return note, saved
+
+
+def test_save_test_result_writes_text_as_generation_would(monkeypatch):
+    from src.services import prompt_test_service
+
+    note, saved = _saveable_note_and_card(monkeypatch, {"Front": "dog", "Back": ""})
+    monkeypatch.setattr(
+        prompt_test_service,
+        "_last_test_artifact",
+        prompt_test_service.TextTestArtifact(
+            token="token-1", card_id=99, text="**A domesticated canine**"
+        ),
+    )
+
+    prompt_test_service.save_test_result(
+        dto.parse_save_test_result(
+            {"token": "token-1", "cardId": 99, "fieldName": "Back"}
+        )
+    )
+
+    # Same markdown conversion real generation applies before it writes.
+    assert note["Back"] == convert_markdown_to_html("**A domesticated canine**")
+    assert saved == [note]
+
+
+def test_save_test_result_writes_image_media_and_tag(monkeypatch):
+    from src.services import prompt_test_service
+
+    note, saved = _saveable_note_and_card(monkeypatch, {"Front": "dog", "Image": ""})
+    monkeypatch.setattr(
+        prompt_test_service,
+        "_last_test_artifact",
+        prompt_test_service.MediaTestArtifact(
+            token="token-1",
+            card_id=99,
+            kind="image",
+            data=b"image",
+            content_type="image/png",
+        ),
+    )
+    written = {}
+
+    def fake_write_media(file_name, file):
+        written[file_name] = file
+        return file_name
+
+    monkeypatch.setattr(prompt_test_service, "write_media", fake_write_media)
+
+    prompt_test_service.save_test_result(
+        dto.parse_save_test_result(
+            {"token": "token-1", "cardId": 99, "fieldName": "Image"}
+        )
+    )
+
+    assert written == {"note_type_1-Image-42.png": b"image"}
+    assert note["Image"] == '<img src="note_type_1-Image-42.png"/>'
+    assert saved == [note]
+
+
+def test_save_test_result_writes_audio_media_and_sound_tag(monkeypatch):
+    from src.services import prompt_test_service
+
+    note, saved = _saveable_note_and_card(monkeypatch, {"Front": "dog", "Audio": ""})
+    monkeypatch.setattr(
+        prompt_test_service,
+        "_last_test_artifact",
+        prompt_test_service.MediaTestArtifact(
+            token="token-1",
+            card_id=99,
+            kind="audio",
+            data=b"audio",
+            content_type="audio/mpeg",
+        ),
+    )
+    monkeypatch.setattr(
+        prompt_test_service, "write_media", lambda file_name, file: file_name
+    )
+
+    prompt_test_service.save_test_result(
+        dto.parse_save_test_result(
+            {"token": "token-1", "cardId": 99, "fieldName": "Audio"}
+        )
+    )
+
+    assert note["Audio"] == "[sound:note_type_1-Audio-42.mp3]"
+    assert saved == [note]
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {"token": "stale-token", "cardId": 99, "fieldName": "Back"},
+        {"token": "token-1", "cardId": 100, "fieldName": "Back"},
+    ],
+    ids=["wrong token", "wrong card"],
+)
+def test_save_test_result_rejects_anything_but_the_single_slot(monkeypatch, payload):
+    from src.services import prompt_test_service
+
+    note, saved = _saveable_note_and_card(monkeypatch, {"Front": "dog", "Back": ""})
+    monkeypatch.setattr(
+        prompt_test_service,
+        "_last_test_artifact",
+        prompt_test_service.TextTestArtifact(
+            token="token-1", card_id=99, text="A domesticated canine"
+        ),
+    )
+
+    with pytest.raises(ValueError, match="expired"):
+        prompt_test_service.save_test_result(dto.parse_save_test_result(payload))
+
+    assert note["Back"] == ""
+    assert saved == []
+
+
+def test_save_test_result_rejects_an_empty_slot(monkeypatch):
+    from src.services import prompt_test_service
+
+    _saveable_note_and_card(monkeypatch, {"Front": "dog", "Back": ""})
+    monkeypatch.setattr(prompt_test_service, "_last_test_artifact", None)
+
+    with pytest.raises(ValueError, match="expired"):
+        prompt_test_service.save_test_result(
+            dto.parse_save_test_result(
+                {"token": "token-1", "cardId": 99, "fieldName": "Back"}
+            )
+        )
+
+
+def test_save_test_result_rejects_a_field_the_note_does_not_have(monkeypatch):
+    from src.services import prompt_test_service
+
+    _, saved = _saveable_note_and_card(monkeypatch, {"Front": "dog", "Back": ""})
+    monkeypatch.setattr(
+        prompt_test_service,
+        "_last_test_artifact",
+        prompt_test_service.TextTestArtifact(
+            token="token-1", card_id=99, text="A domesticated canine"
+        ),
+    )
+
+    with pytest.raises(ValueError, match="no field named Meaning"):
+        prompt_test_service.save_test_result(
+            dto.parse_save_test_result(
+                {"token": "token-1", "cardId": 99, "fieldName": "Meaning"}
+            )
+        )
+
+    assert saved == []
+
+
+def test_a_later_test_overwrites_the_single_slot(monkeypatch):
+    from src.services import prompt_test_service
+
+    first = prompt_test_service._remember_test_artifact(
+        prompt_test_service.TextTestArtifact(token="a", card_id=99, text="first")
+    )
+    second = prompt_test_service._remember_test_artifact(
+        prompt_test_service.TextTestArtifact(token="b", card_id=99, text="second")
+    )
+
+    assert (first, second) == ("a", "b")
+    assert prompt_test_service._last_test_artifact.text == "second"
+
+
+def test_parse_save_test_result_requires_a_token_card_and_field():
+    parsed = dto.parse_save_test_result(
+        {"token": "token-1", "cardId": 99, "fieldName": "Back"}
+    )
+
+    assert (parsed.token, parsed.card_id, parsed.field_name) == ("token-1", 99, "Back")
+
+    with pytest.raises(ValueError, match="token"):
+        dto.parse_save_test_result({"token": "", "cardId": 99, "fieldName": "Back"})
+    with pytest.raises(ValueError, match="cardId"):
+        dto.parse_save_test_result(
+            {"token": "token-1", "cardId": "99", "fieldName": "Back"}
+        )
+    with pytest.raises(ValueError, match="fieldName"):
+        dto.parse_save_test_result({"token": "token-1", "cardId": 99, "fieldName": ""})

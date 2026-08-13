@@ -49,6 +49,7 @@ from ..models.smart_fields import (
     ImageGenerationSettings,
     ImagePromptTestRequest,
     ImageSmartFieldSettings,
+    SaveTestResultRequest,
     SmartField,
     SmartFieldCreate,
     SmartFieldSettings,
@@ -258,12 +259,20 @@ def parse_smart_field_create(payload: dict[str, Any]) -> SmartFieldCreate:
     )
 
 
-def parse_smart_field_ref(payload: dict[str, Any]) -> SmartFieldRef:
-    return SmartFieldRef(
-        note_type_id=int(_require(payload, "noteTypeId")),
-        deck_id=cast(DeckId, int(_require(payload, "deckId"))),
-        target_field_name=_require(payload, "targetFieldName"),
+def parse_smart_field_update(payload: dict[str, Any]) -> SmartField:
+    smart_field = parse_smart_field_create(payload)
+    return SmartField(
+        id=_require_string(payload, "id"),
+        note_type_id=smart_field.note_type_id,
+        deck_id=smart_field.deck_id,
+        target_field_name=smart_field.target_field_name,
+        enabled=smart_field.enabled,
+        settings=smart_field.settings,
     )
+
+
+def parse_smart_field_id(payload: dict[str, Any]) -> str:
+    return _require_string(payload, "id")
 
 
 def parse_generation_defaults(payload: dict[str, Any]) -> GenerationDefaults:
@@ -316,6 +325,14 @@ def parse_tts_preview(payload: dict[str, Any]) -> TTSPreviewRequest:
     return TTSPreviewRequest(
         text=_parse_non_empty_string(payload, "text"),
         settings=parse_tts_generation_settings(_require_object(payload, "settings")),
+    )
+
+
+def parse_save_test_result(payload: dict[str, Any]) -> SaveTestResultRequest:
+    return SaveTestResultRequest(
+        token=_parse_non_empty_string(payload, "token"),
+        card_id=_parse_card_id(payload),
+        field_name=_parse_non_empty_string(payload, "fieldName"),
     )
 
 
@@ -373,15 +390,6 @@ def parse_auth_logout(payload: object) -> None:
 def parse_ui_open_browser(payload: object) -> None:
     if not isinstance(payload, dict) or payload:
         raise ValueError("ui.openBrowser payload must be an empty object")
-
-
-@dataclass(frozen=True)
-class SmartFieldRef:
-    """Wire identity of a smart field, used by the delete command."""
-
-    note_type_id: int
-    deck_id: DeckId
-    target_field_name: str
 
 
 @dataclass(frozen=True)

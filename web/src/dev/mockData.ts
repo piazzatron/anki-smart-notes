@@ -9,7 +9,8 @@ import type {
   PlanInfo,
   Selection,
   SmartField,
-  SmartFieldSavePayload,
+  SmartFieldCreatePayload,
+  SmartFieldUpdatePayload,
   VoiceCatalog,
 } from "@/types/api"
 
@@ -372,6 +373,17 @@ const MOCK_SELECTIONS: Record<string, Selection> = {
       },
     },
   },
+  // A Basic note — the wrong note type for the Japanese smart fields, so the tester
+  // shows its wrong-note-type state.
+  mismatch: {
+    note: {
+      cardId: 9002,
+      id: 502,
+      noteTypeId: 200,
+      deckId: 20,
+      fields: { Front: "eat", Back: "食べる", JP_Audio: "" },
+    },
+  },
   none: { note: null, count: 0 },
   multiple: { note: null, count: 3 },
 }
@@ -417,15 +429,31 @@ export const sendMockCommand: CommandSender = async <Result = void>(
   if (command === "prompts.test") {
     return {
       text: "To eat — the act of consuming food, as in りんごを食べる (to eat an apple).",
+      resultToken: `mock-token-${Date.now()}`,
     } as Result
   }
 
   if (command === "images.test") {
-    return { dataUrl: MOCK_IMAGE_DATA_URL } as Result
+    return {
+      dataUrl: MOCK_IMAGE_DATA_URL,
+      resultToken: `mock-token-${Date.now()}`,
+    } as Result
   }
 
-  if (command === "tts.test" || command === "tts.preview") {
+  if (command === "tts.test") {
+    return {
+      dataUrl: MOCK_AUDIO_DATA_URL,
+      resultToken: `mock-token-${Date.now()}`,
+    } as Result
+  }
+
+  if (command === "tts.preview") {
     return { dataUrl: MOCK_AUDIO_DATA_URL } as Result
+  }
+
+  if (command === "notes.saveTestResult") {
+    await new Promise((resolve) => setTimeout(resolve, 400))
+    return undefined as Result
   }
 
   if (command === "prompts.generate") {
@@ -499,45 +527,40 @@ export const sendMockCommand: CommandSender = async <Result = void>(
     return undefined as Result
   }
 
-  if (command === "smartFields.save") {
-    const savedField = payload as SmartFieldSavePayload
-    const existingField = state.smartFields.find(
-      (field) =>
-        field.noteTypeId === savedField.noteTypeId &&
-        field.deckId === savedField.deckId &&
-        field.targetFieldName === savedField.targetFieldName,
-    )
+  if (command === "smartFields.create") {
+    const createdField = payload as SmartFieldCreatePayload
     const fieldWithId: SmartField = {
-      ...savedField,
-      id:
-        existingField?.id ??
-        `mock-${savedField.noteTypeId}-${savedField.deckId}-${savedField.targetFieldName}`,
+      ...createdField,
+      id: `mock-${createdField.noteTypeId}-${createdField.deckId}-${createdField.targetFieldName}`,
     }
 
     useAppStore.setState({
       state: {
         ...state,
-        smartFields:
-          existingField === undefined
-            ? [...state.smartFields, fieldWithId]
-            : state.smartFields.map((field) =>
-                field.id === existingField.id ? fieldWithId : field,
-              ),
+        smartFields: [...state.smartFields, fieldWithId],
       },
     })
     return undefined as Result
   }
 
-  const matchesPayload = (field: SmartField) =>
-    field.noteTypeId === commandPayload.noteTypeId &&
-    field.deckId === commandPayload.deckId &&
-    field.targetFieldName === commandPayload.targetFieldName
+  if (command === "smartFields.update") {
+    const updatedField = payload as SmartFieldUpdatePayload
+    useAppStore.setState({
+      state: {
+        ...state,
+        smartFields: state.smartFields.map((field) =>
+          field.id === updatedField.id ? updatedField : field,
+        ),
+      },
+    })
+    return undefined as Result
+  }
 
   const smartFields =
     command === "smartFields.delete"
-      ? state.smartFields.filter((field) => !matchesPayload(field))
+      ? state.smartFields.filter((field) => field.id !== commandPayload.id)
       : state.smartFields.map((field) =>
-          matchesPayload(field)
+          field.id === commandPayload.id
             ? { ...field, enabled: Boolean(commandPayload.enabled) }
             : field,
         )

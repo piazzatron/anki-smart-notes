@@ -13,6 +13,78 @@
   --color-mint: #5fe3b0;
   --color-amber: #ffd27a;
   --color-danger: #f3a0a0;
+
+  --animate-fade-in: fade-in 0.25s ease-out;
+  /* The field editor arriving over, and leaving, the screen behind it. */
+  --animate-zoom-in: zoom-in 0.14s ease-out;
+  --animate-zoom-out: zoom-out 0.12s ease-in forwards;
+  /* Modal dialogs: the backdrop fades, the card springs up under it. */
+  --animate-overlay-in: fade-in 0.14s ease-out;
+  --animate-overlay-out: fade-out 0.12s ease-in;
+  --animate-dialog-in: dialog-in 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-dialog-out: dialog-out 0.12s ease-in;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes dialog-in {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes dialog-out {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+  }
+
+  @keyframes zoom-in {
+    from {
+      opacity: 0;
+      transform: scale(0.985);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes zoom-out {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.985);
+    }
+  }
 }
 
 :root {

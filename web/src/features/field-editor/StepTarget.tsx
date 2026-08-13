@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/Select"
 import type { AppState } from "@/types/api"
 
+import { EditorSection } from "./EditorSection"
 import { getFirstSourceField, hasSmartFieldCollision } from "./fieldEditor"
 import type { FieldType } from "./fieldEditor"
 import type { FieldEditorControls } from "./useFieldEditor"
@@ -48,18 +49,26 @@ const FIELD_TYPES: Array<{
 export const StepTarget = ({ controls, state }: StepTargetProps) => {
   const { target } = controls.form
   const noteType = state.noteTypes.find((item) => item.id === target.noteTypeId)
-  const collision = hasSmartFieldCollision(state.smartFields, target)
+  const collision = hasSmartFieldCollision(
+    state.smartFields,
+    target,
+    controls.form.editingFieldId,
+  )
 
   const fieldIsBound = (fieldName: string) =>
-    hasSmartFieldCollision(state.smartFields, {
-      deckId: target.deckId,
-      noteTypeId: target.noteTypeId,
-      targetFieldName: fieldName,
-    })
+    hasSmartFieldCollision(
+      state.smartFields,
+      {
+        deckId: target.deckId,
+        noteTypeId: target.noteTypeId,
+        targetFieldName: fieldName,
+      },
+      controls.form.editingFieldId,
+    )
 
   return (
     <div className="mx-auto w-full max-w-[600px]">
-      <Question label="What do you want to generate?">
+      <EditorSection label="What do you want to generate?">
         <div className="flex gap-1.5" role="radiogroup">
           {FIELD_TYPES.map(({ emoji, label, value }) => {
             const selected = target.fieldType === value
@@ -86,9 +95,9 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
             )
           })}
         </div>
-      </Question>
+      </EditorSection>
 
-      <Question className="mt-7" label="Which notes?">
+      <EditorSection className="mt-7" label="On which notes?">
         <div className="grid grid-cols-[1.6fr_1fr] gap-3">
           <FieldLabel label="Note Type">
             <Select
@@ -130,9 +139,9 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
             </Select>
           </FieldLabel>
         </div>
-      </Question>
+      </EditorSection>
 
-      <Question className="mt-7" label="Which field should it fill?">
+      <EditorSection className="mt-7" label="Which field should it fill?">
         <Select
           onValueChange={(targetFieldName) => {
             controls.setTarget({ targetFieldName })
@@ -161,7 +170,7 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
                   suffix={
                     bound ? (
                       <span className="ml-3 shrink-0 text-[11px] text-zinc-300">
-                        — already smart
+                        Already a Smart Field ✨
                       </span>
                     ) : undefined
                   }
@@ -180,25 +189,10 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
             type
           </p>
         )}
-      </Question>
+      </EditorSection>
     </div>
   )
 }
-
-interface QuestionProps {
-  children: React.ReactNode
-  className?: string
-  label: string
-}
-
-const Question = ({ children, className = "", label }: QuestionProps) => (
-  <section className={className}>
-    <h2 className="mb-2.5 text-[15px] leading-tight font-semibold text-zinc-100">
-      {label}
-    </h2>
-    {children}
-  </section>
-)
 
 interface FieldLabelProps {
   children: React.ReactNode

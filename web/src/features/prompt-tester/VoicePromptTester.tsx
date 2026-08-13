@@ -21,60 +21,59 @@ import { testTTSPrompt } from "@/services/commands"
 import type { TTSGenerationSettings } from "@/types/api"
 
 import { AudioPlayer } from "./AudioPlayer"
-import { PromptTesterPanel, ResolvedPrompt } from "./PromptTesterPanel"
+import { ResolvedPrompt } from "./PromptTestResultModal"
+import { PromptTesterStrip } from "./PromptTesterStrip"
 import { usePromptTester } from "./usePromptTester"
 
 interface VoicePromptTesterProps {
-  hidePromptInput?: boolean
   prompt?: string
+  requiredNoteTypeId?: number
   settings: TTSGenerationSettings
+  // Only a tester bound to a Smart Field can write its result back to the card.
+  targetFieldName?: string
+  title: string
   voiceName: string
 }
 
 export const VoicePromptTester = ({
-  hidePromptInput,
   prompt,
+  requiredNoteTypeId,
   settings,
+  targetFieldName,
+  title,
   voiceName,
 }: VoicePromptTesterProps) => {
   const tester = usePromptTester({
     fallbackError: "Could not generate audio",
     initialPrompt: "{{Expression}}",
     prompt,
+    requiredNoteTypeId,
     run: ({ cardId, prompt }) =>
       testTTSPrompt({ cardId, settings, text: prompt }),
   })
+  const result = tester.result !== null && tester.selectedNote !== null && (
+    <>
+      <ResolvedPrompt
+        note={tester.selectedNote}
+        prompt={tester.result.prompt}
+      />
+      <AudioPlayer
+        autoPlay
+        dataUrl={tester.result.value.dataUrl}
+        label={voiceName}
+      />
+    </>
+  )
 
   return (
-    <PromptTesterPanel
-      hidePromptInput={hidePromptInput}
+    <PromptTesterStrip
       promptLabel="Text to speak"
-      runLabel={`Run with ${voiceName}`}
-      runningLabel="Generating…"
-      subtitle="Select a card in the Anki Browser, then hear the selected voice read it."
+      provenance={voiceName}
+      saveTargetFieldName={targetFieldName}
       tester={tester}
-      textareaId="voice-prompt-tester-text"
+      title={title}
     >
-      {tester.result === null || tester.selectedNote === null ? (
-        <div className="mt-[15px] rounded-lg border border-dashed border-white/[0.18] px-3 py-5 text-center text-[11px] text-ink-faint">
-          Your generated audio appears here
-        </div>
-      ) : (
-        <div className="mt-[15px]">
-          <p className="mb-2 text-[10px] font-semibold tracking-[0.05em] text-ink-faint uppercase">
-            Result
-          </p>
-          <ResolvedPrompt
-            note={tester.selectedNote}
-            prompt={tester.result.prompt}
-          />
-          <AudioPlayer
-            autoPlay
-            dataUrl={tester.result.value.dataUrl}
-            label={voiceName}
-          />
-        </div>
-      )}
-    </PromptTesterPanel>
+      {result}
+    </PromptTesterStrip>
   )
 }

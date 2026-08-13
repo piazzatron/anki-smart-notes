@@ -2,11 +2,12 @@ import { lazy, Suspense, useState, type ComponentType } from "react"
 
 import { AppShell } from "@/components/shared/AppShell"
 import { PlaceholderScreen } from "@/components/shared/PlaceholderScreen"
-import type { FieldEditorRequest } from "@/features/field-editor/FieldEditorModal"
-import { ImageDefaultsScreen } from "@/features/image-defaults/ImageDefaultsScreen"
+import { getInitialEditorRequest } from "@/dev/initialEditor"
+import { ImageDefaultsScreen } from "@/features/defaults/ImageDefaultsScreen"
+import { TextDefaultsScreen } from "@/features/defaults/TextDefaultsScreen"
+import { VoiceDefaultsScreen } from "@/features/defaults/VoiceDefaultsScreen"
+import type { FieldEditorRequest } from "@/features/field-editor/FieldEditorScreen"
 import { SmartFieldsScreen } from "@/features/smart-fields/SmartFieldsScreen"
-import { TextDefaultsScreen } from "@/features/text-defaults/TextDefaultsScreen"
-import { VoiceDefaultsScreen } from "@/features/voice-defaults/VoiceDefaultsScreen"
 import { SettingsScreen } from "@/features/settings/SettingsScreen"
 import { SubscriptionScreen } from "@/features/subscription/SubscriptionScreen"
 import { SupportScreen } from "@/features/support/SupportScreen"
@@ -19,8 +20,7 @@ const MockPanel = import.meta.env.DEV
   : null
 const LOADING_ACCOUNT: AccountState = { subscription: "LOADING", plan: null }
 
-interface ScreenProps {
-  screen: ScreenId
+interface SmartFieldsRouteProps {
   initialEditor?: FieldEditorRequest
 }
 
@@ -29,14 +29,13 @@ interface EditorRequest {
   editor?: FieldEditorRequest
 }
 
-const SmartFieldsRoute = ({ initialEditor }: ScreenProps) => {
+const SmartFieldsRoute = ({ initialEditor }: SmartFieldsRouteProps) => {
   const state = useAppStore((store) => store.state)
 
   return <SmartFieldsScreen initialEditor={initialEditor} state={state} />
 }
 
-const SCREENS: Partial<Record<ScreenId, ComponentType<ScreenProps>>> = {
-  fields: SmartFieldsRoute,
+const SCREENS: Partial<Record<ScreenId, ComponentType>> = {
   "defaults-text": TextDefaultsScreen,
   "defaults-images": ImageDefaultsScreen,
   "defaults-voice": VoiceDefaultsScreen,
@@ -48,20 +47,13 @@ const SCREENS: Partial<Record<ScreenId, ComponentType<ScreenProps>>> = {
 const App = () => {
   const [activeScreen, setActiveScreen] = useState<ScreenId>(bootOptions.screen)
   const [editorRequest, setEditorRequest] = useState<EditorRequest>(() => ({
+    editor: getInitialEditorRequest(),
     id: 0,
-    editor:
-      !bootOptions.mock ||
-      bootOptions.screen !== "fields" ||
-      bootOptions.editor === null
-        ? undefined
-        : {
-            mode: bootOptions.editor,
-            step: bootOptions.editorStep ?? undefined,
-          },
   }))
   const connection = useAppStore((store) => store.connection)
   const state = useAppStore((store) => store.state)
-  const ActiveScreen = SCREENS[activeScreen] ?? PlaceholderScreen
+  const ActiveScreen = SCREENS[activeScreen]
+  const screenKey = `${activeScreen}-${editorRequest.id}`
   const navigateTo = (screen: ScreenId) => {
     setActiveScreen(screen)
     if (screen !== "fields") {
@@ -78,11 +70,16 @@ const App = () => {
         connection={connection}
         onNavigate={navigateTo}
       >
-        <ActiveScreen
-          initialEditor={editorRequest.editor}
-          key={`${activeScreen}-${editorRequest.id}`}
-          screen={activeScreen}
-        />
+        {activeScreen === "fields" ? (
+          <SmartFieldsRoute
+            initialEditor={editorRequest.editor}
+            key={screenKey}
+          />
+        ) : ActiveScreen === undefined ? (
+          <PlaceholderScreen key={screenKey} screen={activeScreen} />
+        ) : (
+          <ActiveScreen key={screenKey} />
+        )}
       </AppShell>
       {MockPanel !== null && bootOptions.mock && (
         <Suspense fallback={null}>

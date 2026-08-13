@@ -17,21 +17,13 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/Select"
 import { Toggle } from "@/components/ui/Toggle"
-import { modelCostLabel, modelLabel, providerLabel } from "@/lib/catalog"
-import type { Catalog, ChatGenerationSettings } from "@/types/api"
+import { ChatModelSelect } from "@/features/text-generation/ChatModelSelect"
+import { ReasoningLevelSelect } from "@/features/text-generation/ReasoningLevelSelect"
+import type { ChatGenerationSettings, ChatModelCatalog } from "@/types/api"
 
 interface TextModelSettingsProps {
-  catalog: Catalog
+  catalog: ChatModelCatalog
   onChange: (settings: ChatGenerationSettings) => void
   value: ChatGenerationSettings
 }
@@ -39,90 +31,74 @@ interface TextModelSettingsProps {
 export const TextModelSettings = ({
   catalog,
   onChange,
-  value,
-}: TextModelSettingsProps) => (
-  <div className="space-y-4">
-    <label className="block">
-      <span className="mb-2 block text-[10px] font-semibold tracking-[0.06em] text-ink-faint uppercase">
-        Model
-      </span>
-      <Select
-        onValueChange={(model) => {
-          const selected = catalog.chat.models.find((item) => item.id === model)
-          if (selected === undefined)
-            throw new Error(`Chat catalog is missing model ${model}`)
-          onChange({ ...value, model, provider: selected.provider })
-        }}
-        value={value.model}
-      >
-        <SelectTrigger aria-label="Text model">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          {catalog.chat.providers.map((provider) => (
-            <SelectGroup key={provider}>
-              <SelectLabel>{providerLabel(provider)}</SelectLabel>
-              {catalog.chat.models
-                .filter((model) => model.provider === provider)
-                .map((model) => (
-                  <SelectItem key={model.id} value={model.id}>
-                    <span className="min-w-0 flex-1 truncate font-semibold text-zinc-100">
-                      {modelLabel(model.id)}
-                    </span>
-                    {modelCostLabel(model.id) !== undefined && (
-                      <span className="shrink-0 rounded bg-white/[0.06] px-2 py-0.5 text-[10px] font-semibold text-zinc-400">
-                        {modelCostLabel(model.id)}
-                      </span>
-                    )}
-                  </SelectItem>
-                ))}
-            </SelectGroup>
-          ))}
-        </SelectContent>
-      </Select>
-    </label>
-
-    {value.provider === "auto" && (
+  value: settings,
+}: TextModelSettingsProps) => {
+  return (
+    <div className="space-y-4">
       <label className="block">
         <span className="mb-2 block text-[10px] font-semibold tracking-[0.06em] text-ink-faint uppercase">
-          Reasoning level
+          Model
         </span>
-        <Select
-          onValueChange={(reasoningLevel) =>
-            onChange({ ...value, reasoningLevel })
+        <ChatModelSelect
+          ariaLabel="Text model"
+          catalog={catalog}
+          onValueChange={(model) =>
+            onChange({ ...settings, model: model.id, provider: model.provider })
           }
-          value={value.reasoningLevel}
-        >
-          <SelectTrigger aria-label="Reasoning level">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {catalog.chat.reasoningLevels.map((level) => (
-              <SelectItem key={level} value={level}>
-                {level === "off"
-                  ? "Off"
-                  : `${level.charAt(0).toUpperCase()}${level.slice(1)}`}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          value={settings.model}
+        />
+        <span className="mt-3 block rounded-lg border border-indigo/15 bg-indigo/[0.055] p-3.5">
+          <span className="block text-xs font-semibold text-zinc-200">
+            💡 Picking a model
+          </span>
+          <span className="mt-2 block text-[11px] leading-4 text-ink-muted">
+            <ModelName>Auto</ModelName> and <ModelName>Auto MAX</ModelName> are
+            the Smart Notes recommended models that balance performance and
+            cost. Choose <ModelName>Auto</ModelName> for standard tasks and
+            upgrade to <ModelName>Auto MAX</ModelName> if needed.
+          </span>
+        </span>
       </label>
-    )}
 
-    <div className="flex items-start justify-between gap-5 border-t border-white/[0.065] pt-4">
-      <div>
-        <p className="text-xs font-semibold text-zinc-200">Web search</p>
-        <p className="mt-1 text-[11px] leading-4 text-ink-muted">
-          Let this field use fresh information from the web.
-        </p>
+      {settings.provider === "auto" && (
+        <label className="block">
+          <span className="mb-2 block text-[10px] font-semibold tracking-[0.06em] text-ink-faint uppercase">
+            Reasoning level
+          </span>
+          <ReasoningLevelSelect
+            ariaLabel="Reasoning level"
+            levels={catalog.reasoningLevels}
+            onValueChange={(reasoningLevel) =>
+              onChange({ ...settings, reasoningLevel })
+            }
+            value={settings.reasoningLevel}
+          />
+          <span className="mt-2 block text-[10.5px] leading-4 text-ink-muted">
+            Higher reasoning can improve harder generations, but uses more
+            credits.
+          </span>
+        </label>
+      )}
+
+      <div className="flex items-start justify-between gap-5 border-t border-white/[0.065] pt-4">
+        <div>
+          <p className="text-xs font-semibold text-zinc-200">Web search</p>
+          <p className="mt-1 text-[11px] leading-4 text-ink-muted">
+            Let this field use fresh information from the web.
+          </p>
+        </div>
+        <Toggle
+          aria-label="Use web search for this field"
+          checked={settings.webSearchEnabled}
+          onCheckedChange={(webSearchEnabled) =>
+            onChange({ ...settings, webSearchEnabled })
+          }
+        />
       </div>
-      <Toggle
-        aria-label="Use web search for this field"
-        checked={value.webSearchEnabled}
-        onCheckedChange={(webSearchEnabled) =>
-          onChange({ ...value, webSearchEnabled })
-        }
-      />
     </div>
-  </div>
+  )
+}
+
+const ModelName = ({ children }: { children: string }) => (
+  <strong className="font-semibold text-indigo-soft">{children}</strong>
 )

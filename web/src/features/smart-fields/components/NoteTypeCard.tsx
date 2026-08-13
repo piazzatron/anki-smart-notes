@@ -9,7 +9,7 @@ import type { NoteTypeGroup } from "../groupSmartFields"
 
 interface NoteTypeCardProps {
   group: NoteTypeGroup
-  onCreate: () => void
+  onCreate: (noteTypeId: number) => void
   onDelete: (field: SmartField) => Promise<void>
   onDuplicate: (field: SmartField) => void
   onEdit: (field: SmartField) => void
@@ -47,7 +47,7 @@ export const NoteTypeCard = ({
         <button
           aria-label={`Add Smart Field to ${group.noteType.name}`}
           className="inline-flex size-6 items-center justify-center rounded text-zinc-500 transition hover:bg-white/[0.05] hover:text-zinc-300"
-          onClick={onCreate}
+          onClick={() => onCreate(group.noteType.id)}
         >
           <Plus aria-hidden className="size-3.5" />
         </button>

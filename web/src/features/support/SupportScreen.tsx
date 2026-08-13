@@ -17,10 +17,11 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AlertCircle, LifeBuoy, X } from "lucide-react"
-import { useState } from "react"
+import { LifeBuoy } from "lucide-react"
 
-import { sendFeedback } from "@/services/commands"
+import { ScreenSkeleton } from "@/components/shared/ScreenSkeleton"
+import { useFeedbackForm } from "@/components/shared/useFeedbackForm"
+import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { useAppStore } from "@/store/appStore"
 
 const SUPPORT_LINKS = [
@@ -46,39 +47,16 @@ const SUPPORT_LINKS = [
   },
 ]
 
-interface FeedbackFormState {
-  message: string
-  error: string | null
-  isSending: boolean
-  sent: boolean
-}
-
 export const SupportScreen = () => {
   const state = useAppStore((store) => store.state)
-  const [form, setForm] = useState<FeedbackFormState>({
-    message: "",
-    error: null,
-    isSending: false,
-    sent: false,
+  const form = useFeedbackForm({
+    clearMessageOnSuccess: true,
   })
-  const patch = (partial: Partial<FeedbackFormState>) =>
-    setForm((current) => ({ ...current, ...partial }))
 
-  if (state === null) return <SupportSkeleton />
-
-  const submit = async () => {
-    patch({ error: null, isSending: true, sent: false })
-    try {
-      await sendFeedback({ message: form.message.trim() })
-      patch({ message: "", isSending: false, sent: true })
-    } catch (error) {
-      patch({
-        error:
-          error instanceof Error ? error.message : "Could not send feedback",
-        isSending: false,
-      })
-    }
-  }
+  if (state === null)
+    return (
+      <ScreenSkeleton ariaLabel="Loading Support" contentClassName="h-64" />
+    )
 
   return (
     <section
@@ -103,40 +81,35 @@ export const SupportScreen = () => {
             Send us a message
           </h2>
           <div className="p-4">
-            {form.error !== null && (
-              <div className="mb-3 flex items-start gap-2 rounded-lg border border-red-300/15 bg-red-300/[0.06] px-3 py-2 text-xs text-danger">
-                <AlertCircle aria-hidden className="mt-0.5 size-3.5 shrink-0" />
-                <p className="min-w-0 flex-1">{form.error}</p>
-                <button
-                  aria-label="Dismiss error"
-                  onClick={() => patch({ error: null })}
-                >
-                  <X aria-hidden className="size-3.5" />
-                </button>
-              </div>
+            {form.state.error !== null && (
+              <ErrorBanner
+                className="mb-3"
+                message={form.state.error}
+                onDismiss={() => form.patch({ error: null })}
+              />
             )}
             <textarea
               className="min-h-[116px] w-full resize-y rounded-md border border-white/10 bg-white/[0.03] px-3 py-2.5 text-xs leading-[1.5] text-zinc-200 outline-none placeholder:text-zinc-600 focus:border-indigo/45"
               onChange={(event) =>
-                patch({ message: event.target.value, sent: false })
+                form.setMessage(event.target.value, { resetSent: true })
               }
               placeholder="What's up? Bugs, ideas, questions — it goes straight to the developer."
-              value={form.message}
+              value={form.state.message}
             />
             <div className="mt-3 flex items-center justify-between">
               <p
-                className={`text-[11px] ${form.sent ? "text-mint" : "text-ink-faint"}`}
+                className={`text-[11px] ${form.state.sent ? "text-mint" : "text-ink-faint"}`}
               >
-                {form.sent
+                {form.state.sent
                   ? "Sent — thanks!"
                   : "Goes straight to the developer."}
               </p>
               <button
                 className="rounded-md border border-white/10 bg-white/[0.07] px-4 py-2 text-xs font-semibold text-zinc-200 hover:bg-white/10 disabled:opacity-45"
-                disabled={form.isSending || form.message.trim() === ""}
-                onClick={() => void submit()}
+                disabled={form.isSubmitDisabled}
+                onClick={() => void form.submit()}
               >
-                {form.isSending ? "Sending…" : "Send"}
+                {form.state.isSending ? "Sending…" : "Send"}
               </button>
             </div>
           </div>
@@ -181,18 +154,3 @@ export const SupportScreen = () => {
     </section>
   )
 }
-
-const SupportSkeleton = () => (
-  <section
-    aria-label="Loading Support"
-    className="flex min-h-0 flex-1 animate-pulse flex-col"
-  >
-    <div className="h-[86px] border-b border-white/[0.065] px-6 py-5">
-      <div className="h-5 w-44 rounded bg-white/[0.06]" />
-      <div className="mt-3 h-3 w-80 rounded bg-white/[0.035]" />
-    </div>
-    <div className="p-6">
-      <div className="h-64 rounded-xl bg-white/[0.025]" />
-    </div>
-  </section>
-)

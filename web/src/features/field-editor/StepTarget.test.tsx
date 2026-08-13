@@ -55,15 +55,16 @@ describe("StepTarget", () => {
   test("asks the three wizard questions in task order", () => {
     const markup = renderStep()
 
-    expect(markup.indexOf("What do you want to generate?")).toBeLessThan(
-      markup.indexOf("Which notes?"),
-    )
-    expect(markup.indexOf("Which notes?")).toBeLessThan(
-      markup.indexOf("Which field should it fill?"),
-    )
+    expect(markup).toContain('role="radiogroup"')
     expect(markup).toContain('aria-label="Note Type"')
     expect(markup).toContain('aria-label="Deck"')
     expect(markup).toContain('aria-label="Field"')
+    expect(markup.indexOf('role="radiogroup"')).toBeLessThan(
+      markup.indexOf('aria-label="Note Type"'),
+    )
+    expect(markup.indexOf('aria-label="Deck"')).toBeLessThan(
+      markup.indexOf('aria-label="Field"'),
+    )
   })
 
   test("marks only the selected type badge as checked", () => {
@@ -86,7 +87,9 @@ const renderStep = (
   fieldType: FieldType = "chat",
   targetFieldName = "Front",
 ): string => {
-  const draft: FieldEditorDraft = createFieldEditorDraft(appState, "create")
+  const draft: FieldEditorDraft = createFieldEditorDraft(appState, {
+    mode: "create",
+  })
   const controls = {
     form: { ...draft, target: { ...draft.target, fieldType, targetFieldName } },
     setTarget: () => undefined,

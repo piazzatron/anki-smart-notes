@@ -19,10 +19,12 @@
 
 import { useState } from "react"
 
+import { errorMessage } from "@/lib/errors"
 import {
+  createSmartField,
   generatePrompt,
   saveSettings,
-  saveSmartField,
+  updateSmartField,
 } from "@/services/commands"
 import type {
   AppState,
@@ -33,7 +35,7 @@ import type {
 } from "@/types/api"
 
 import {
-  buildSmartFieldSavePayload,
+  buildSmartFieldPayload,
   createFieldEditorDraft,
   getFirstAvailableField,
   getFirstSourceField,
@@ -48,6 +50,7 @@ import type {
 
 interface UseFieldEditorArgs {
   field?: SmartField
+  initialNoteTypeId?: number
   initialStep?: FieldEditorStep
   mode: FieldEditorMode
   onClose: () => void
@@ -70,13 +73,19 @@ export interface FieldEditorControls {
 
 export const useFieldEditor = ({
   field,
+  initialNoteTypeId,
   initialStep,
   mode,
   onClose,
   state,
 }: UseFieldEditorArgs): FieldEditorControls => {
   const [form, setForm] = useState(() =>
-    createFieldEditorDraft(state, mode, field, initialStep),
+    createFieldEditorDraft(state, {
+      field,
+      initialNoteTypeId,
+      initialStep,
+      mode,
+    }),
   )
   const update = (updates: Partial<FieldEditorDraft>) =>
     setForm((current) => ({ ...current, ...updates }))
@@ -137,8 +146,7 @@ export const useFieldEditor = ({
       update({ prompt: result.prompt })
     } catch (error) {
       update({
-        error:
-          error instanceof Error ? error.message : "Could not write the prompt",
+        error: errorMessage(error, "Could not write the prompt"),
       })
     } finally {
       update({ isGenerating: false })
@@ -154,9 +162,15 @@ export const useFieldEditor = ({
 
     update({ error: null, isSaving: true })
     try {
-      await saveSmartField(
-        buildSmartFieldSavePayload(form, state.defaults, field),
-      )
+      const payload = buildSmartFieldPayload(form, state.defaults, field)
+      if (mode === "edit") {
+        if (field === undefined) {
+          throw new Error("Cannot update a Smart Field without its id")
+        }
+        await updateSmartField({ ...payload, id: field.id })
+      } else {
+        await createSmartField(payload)
+      }
       if (mode === "edit" || !state.settings.showWizardCompletion) {
         onClose()
         return
@@ -164,8 +178,7 @@ export const useFieldEditor = ({
       update({ isSaving: false, step: 3 })
     } catch (error) {
       update({
-        error:
-          error instanceof Error ? error.message : "Could not save Smart Field",
+        error: errorMessage(error, "Could not save Smart Field"),
         isSaving: false,
       })
     }
@@ -176,10 +189,7 @@ export const useFieldEditor = ({
       await saveSettings({ ...state.settings, showWizardCompletion: false })
     } catch (error) {
       update({
-        error:
-          error instanceof Error
-            ? error.message
-            : "Could not update wizard settings",
+        error: errorMessage(error, "Could not update wizard settings"),
       })
     }
   }
