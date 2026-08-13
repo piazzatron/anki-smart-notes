@@ -83,10 +83,10 @@ export const PromptTesterStrip = <R extends { resultToken?: string }>({
   }
   const testButton = (
     <Button
-      className="h-[54px] shrink-0 px-4 text-[12.5px] disabled:cursor-default disabled:opacity-40"
+      className="h-[54px] shrink-0 px-4 text-[12.5px] disabled:cursor-default"
       disabled={card.runDisabled}
       onClick={() => void runTestAndShowResult()}
-      variant="flat"
+      variant="primary"
     >
       {tester.isTesting ? (
         <LoaderCircle aria-hidden className="size-3.5 animate-spin" />
@@ -139,7 +139,7 @@ export const PromptTesterStrip = <R extends { resultToken?: string }>({
         </div>
       )}
 
-      <div className="flex items-center gap-3">
+      <div className="flex h-[54px] items-stretch gap-3">
         <div className="min-w-0 flex-1">
           <SelectedTestCard
             compact

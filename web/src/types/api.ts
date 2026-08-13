@@ -275,12 +275,14 @@ export interface TTSPromptTestArgs {
   settings: TTSGenerationSettings
 }
 
-export interface MediaPreviewResult {
+export interface TTSMediaTestResult {
   dataUrl: string
+  resultToken?: string
 }
 
 /** A card-backed media test: the token names the artifact a save may write back. */
-export interface MediaTestResult extends MediaPreviewResult {
+export interface MediaTestResult {
+  dataUrl: string
   resultToken: string
 }
 

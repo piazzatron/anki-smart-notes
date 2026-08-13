@@ -94,9 +94,7 @@ export const VoicePicker = ({
         label="Gender"
         options={["All", "Female", "Male"]}
         value={filters.gender}
-        onChange={(gender) =>
-          setFilters((current) => ({ ...current, gender }))
-        }
+        onChange={(gender) => setFilters((current) => ({ ...current, gender }))}
       />
       <VoiceFilter
         label="Provider"

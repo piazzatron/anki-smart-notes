@@ -21,7 +21,13 @@ const VOICE_GENDER_SYMBOLS: Record<string, string> = {
   Male: "♂",
 }
 
-export const VoiceDefaultsScreen = () => {
+interface VoiceDefaultsScreenProps {
+  onDirtyChange?: (isDirty: boolean) => void
+}
+
+export const VoiceDefaultsScreen = ({
+  onDirtyChange,
+}: VoiceDefaultsScreenProps) => {
   const state = useAppStore((store) => store.state)
   const voiceCatalog = useVoiceCatalog()
 
@@ -40,21 +46,28 @@ export const VoiceDefaultsScreen = () => {
   }
 
   return (
-    <LoadedVoiceDefaultsScreen catalog={voiceCatalog.catalog} state={state} />
+    <LoadedVoiceDefaultsScreen
+      catalog={voiceCatalog.catalog}
+      onDirtyChange={onDirtyChange}
+      state={state}
+    />
   )
 }
 
 interface LoadedVoiceDefaultsScreenProps {
   catalog: VoiceCatalog
+  onDirtyChange?: (isDirty: boolean) => void
   state: AppState
 }
 
 const LoadedVoiceDefaultsScreen = ({
   catalog,
+  onDirtyChange,
   state,
 }: LoadedVoiceDefaultsScreenProps) => {
   const controls = useDefaultsForm({
     fallbackError: "Could not save voice defaults",
+    onDirtyChange,
     save: saveTTSDefaults,
     serverDefaults: state.defaults.tts,
   })
@@ -72,6 +85,9 @@ const LoadedVoiceDefaultsScreen = ({
           🔈
         </span>
       }
+      isDirty={controls.form.isDirty}
+      isSaving={controls.form.isSaving}
+      onSave={() => void controls.saveChanges()}
       subtitle="The voice your TTS Smart Fields use unless a field pins its own."
       tester={
         <VoicePromptTester
@@ -102,7 +118,7 @@ const LoadedVoiceDefaultsScreen = ({
               Current default
             </p>
             <div className="flex h-9 items-center gap-2.5 rounded-lg border border-white/[0.09] bg-white/[0.03] px-3">
-              <p className="min-w-0 flex-1 truncate whitespace-nowrap text-[12.5px] font-medium text-zinc-100">
+              <p className="min-w-0 flex-1 truncate text-[12.5px] font-medium whitespace-nowrap text-zinc-100">
                 {providerLabel(controls.form.values.provider)}
                 {selectedVoice === undefined ? (
                   <> · {controls.form.values.voiceId}</>

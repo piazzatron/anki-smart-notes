@@ -16,7 +16,13 @@ import { DefaultUsagePill } from "./DefaultUsagePill"
 import { getDefaultUsage } from "./defaultUsage"
 import { useDefaultsForm } from "./useDefaultsForm"
 
-export const TextDefaultsScreen = () => {
+interface TextDefaultsScreenProps {
+  onDirtyChange?: (isDirty: boolean) => void
+}
+
+export const TextDefaultsScreen = ({
+  onDirtyChange,
+}: TextDefaultsScreenProps) => {
   const state = useAppStore((store) => store.state)
   const catalog = useAppStore((store) => store.catalog)
 
@@ -24,20 +30,29 @@ export const TextDefaultsScreen = () => {
     return <DefaultsScreenLoading label="Loading Default Text Settings" />
   }
 
-  return <LoadedTextDefaultsScreen catalog={catalog} state={state} />
+  return (
+    <LoadedTextDefaultsScreen
+      catalog={catalog}
+      onDirtyChange={onDirtyChange}
+      state={state}
+    />
+  )
 }
 
 interface LoadedTextDefaultsScreenProps {
   catalog: Catalog
+  onDirtyChange?: (isDirty: boolean) => void
   state: AppState
 }
 
 export const LoadedTextDefaultsScreen = ({
   catalog,
+  onDirtyChange,
   state,
 }: LoadedTextDefaultsScreenProps) => {
   const controls = useDefaultsForm({
     fallbackError: "Could not save text defaults",
+    onDirtyChange,
     save: saveChatDefaults,
     serverDefaults: state.defaults.chat,
   })
@@ -51,6 +66,9 @@ export const LoadedTextDefaultsScreen = ({
           💬
         </span>
       }
+      isDirty={controls.form.isDirty}
+      isSaving={controls.form.isSaving}
+      onSave={() => void controls.saveChanges()}
       subtitle="The model your text Smart Fields use unless a field pins its own."
       tester={<PromptTester settings={controls.form.values} />}
       testId="text-defaults-screen"

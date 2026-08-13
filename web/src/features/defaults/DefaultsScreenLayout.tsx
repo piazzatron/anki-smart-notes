@@ -21,12 +21,17 @@ import { LoaderCircle } from "lucide-react"
 import type { ReactNode } from "react"
 
 import { ScreenHeader } from "@/components/shared/ScreenHeader"
+import { Button } from "@/components/ui/Button"
+import { Card } from "@/components/ui/Card"
 
 interface DefaultsScreenLayoutProps {
   accessory: ReactNode
   children: ReactNode
   contentFillsHeight?: boolean
   icon: ReactNode
+  isDirty: boolean
+  isSaving: boolean
+  onSave: () => void
   subtitle: string
   tester: ReactNode
   testId: string
@@ -38,6 +43,9 @@ export const DefaultsScreenLayout = ({
   children,
   contentFillsHeight = false,
   icon,
+  isDirty,
+  isSaving,
+  onSave,
   subtitle,
   tester,
   testId,
@@ -45,7 +53,16 @@ export const DefaultsScreenLayout = ({
 }: DefaultsScreenLayoutProps) => (
   <section className="flex min-h-0 flex-1 flex-col" data-testid={testId}>
     <ScreenHeader
-      accessory={accessory}
+      accessory={
+        <div className="flex items-center gap-3">
+          {accessory}
+          {isDirty && (
+            <Button disabled={isSaving} onClick={onSave} variant="primary">
+              {isSaving ? "Saving…" : "Save changes"}
+            </Button>
+          )}
+        </div>
+      }
       icon={icon}
       subtitle={subtitle}
       title={title}
@@ -58,9 +75,7 @@ export const DefaultsScreenLayout = ({
         <h2 className="mb-3 text-[17px] leading-tight font-bold text-zinc-100">
           Try it
         </h2>
-        <div className="w-full rounded-xl border border-white/[0.08] bg-white/[0.025] p-4">
-          {tester}
-        </div>
+        <Card className="w-full p-4">{tester}</Card>
       </div>
     </div>
   </section>

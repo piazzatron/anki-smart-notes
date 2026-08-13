@@ -17,57 +17,86 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { errorMessage } from "@/lib/errors"
 
 interface DefaultsFormState<T> {
   draft: Partial<T> | null
   error: string | null
+  isSaving: boolean
 }
 
 interface UseDefaultsFormArgs<T> {
   fallbackError: string
+  onDirtyChange?: (isDirty: boolean) => void
   save: (values: T) => Promise<void>
   serverDefaults: T
 }
 
-/** A defaults screen's settings. Every change is saved as it is made — there is nothing
- *  to confirm, so the screen shows the change immediately and the draft only stands in
- *  until the server state catches up. */
+/** Keeps defaults edits local until the user explicitly saves them. */
 export const useDefaultsForm = <T extends object>({
   fallbackError,
+  onDirtyChange,
   save: saveDefaults,
   serverDefaults,
 }: UseDefaultsFormArgs<T>) => {
   const [form, setForm] = useState<DefaultsFormState<T>>({
     draft: null,
     error: null,
+    isSaving: false,
   })
   const values = { ...serverDefaults, ...form.draft }
+  const isDirty = !defaultsMatch(values, serverDefaults)
   const patchForm = (updates: Partial<DefaultsFormState<T>>) =>
     setForm((current) => ({ ...current, ...updates }))
 
-  const updateDefault = async (updates: Partial<T>) => {
+  useEffect(() => {
+    onDirtyChange?.(isDirty)
+
+    return () => onDirtyChange?.(false)
+  }, [isDirty, onDirtyChange])
+
+  const updateDefault = (updates: Partial<T>) => {
     setForm((current) => ({
+      ...current,
       draft: { ...current.draft, ...updates },
       error: null,
     }))
+  }
+
+  const saveChanges = async () => {
+    if (!isDirty || form.isSaving) return
+
+    patchForm({ error: null, isSaving: true })
     try {
-      await saveDefaults({ ...values, ...updates })
+      await saveDefaults(values)
+      patchForm({ draft: null, isSaving: false })
     } catch (error) {
-      // Drop the draft on a failed save, so the screen never shows a setting the
-      // server did not take.
       patchForm({
-        draft: null,
         error: errorMessage(error, fallbackError),
+        isSaving: false,
       })
     }
   }
 
   return {
     dismissError: () => patchForm({ error: null }),
-    form: { error: form.error, values },
+    form: {
+      error: form.error,
+      isDirty,
+      isSaving: form.isSaving,
+      values,
+    },
+    saveChanges,
     updateDefault,
   }
+}
+
+const defaultsMatch = <T extends object>(left: T, right: T): boolean => {
+  const keys = new Set([...Object.keys(left), ...Object.keys(right)])
+
+  return [...keys].every(
+    (key) => left[key as keyof T] === right[key as keyof T],
+  )
 }

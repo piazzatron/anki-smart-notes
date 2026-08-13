@@ -20,11 +20,7 @@
 import { useEffect } from "react"
 
 import { testTTSPrompt } from "@/services/commands"
-import type {
-  MediaPreviewResult,
-  MediaTestResult,
-  TTSGenerationSettings,
-} from "@/types/api"
+import type { TTSGenerationSettings, TTSMediaTestResult } from "@/types/api"
 
 import { PromptTesterStrip } from "./PromptTesterStrip"
 import { usePromptTester } from "./usePromptTester"
@@ -45,7 +41,7 @@ export const VoicePromptTester = ({
   voiceName,
 }: VoicePromptTesterProps) => {
   const canRunWithoutCard = prompt === undefined
-  const tester = usePromptTester<MediaTestResult | MediaPreviewResult>({
+  const tester = usePromptTester<TTSMediaTestResult>({
     canRunWithoutCard,
     fallbackError: "Could not generate audio",
     initialPrompt: "This is an example of your selected Smart Notes voice.",

@@ -47,6 +47,7 @@ describe("PromptTesterStrip", () => {
         provenance="Auto"
         saveTargetFieldName="Meaning"
         tester={{
+          canRunWithoutCard: false,
           dismissError: () => undefined,
           error: null,
           hasNoteTypeMismatch: false,
@@ -72,6 +73,7 @@ describe("PromptTesterStrip", () => {
     expect(markup).toContain("Select a new card in the browser")
     expect(markup).toContain('disabled=""')
     expect(markup).toContain(">Test</button>")
+    expect(markup.match(/h-\[54px\]/g)).toHaveLength(3)
     expect(markup).not.toContain("This field runs on")
     expect(markup).not.toContain("Your selection appears here automatically")
   })
@@ -83,6 +85,7 @@ describe("PromptTesterStrip", () => {
         provenance="Auto"
         saveTargetFieldName="Meaning"
         tester={{
+          canRunWithoutCard: false,
           dismissError: () => undefined,
           error: null,
           hasNoteTypeMismatch: false,
@@ -114,7 +117,7 @@ describe("PromptTesterStrip", () => {
     expect(markup).toContain("Select a new card in the browser")
     expect(markup).toContain("border-white/10")
     expect(markup).toContain("bg-white/[0.02]")
-    expect(markup.match(/h-\[54px\]/g)).toHaveLength(2)
+    expect(markup.match(/h-\[54px\]/g)).toHaveLength(3)
     expect(markup).not.toContain("Change")
   })
 
@@ -184,6 +187,7 @@ describe("PromptTesterStrip owning its prompt", () => {
         promptLabel="Text to speak"
         provenance="Auto"
         tester={{
+          canRunWithoutCard: true,
           dismissError: () => undefined,
           error: null,
           hasNoteTypeMismatch: false,
@@ -228,6 +232,7 @@ describe("PromptTesterStrip owning its prompt", () => {
         provenance="Auto"
         saveTargetFieldName="Meaning"
         tester={{
+          canRunWithoutCard: false,
           dismissError: () => undefined,
           error: null,
           hasNoteTypeMismatch: false,

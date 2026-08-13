@@ -19,18 +19,21 @@
 
 import type { ReactNode } from "react"
 
-export const TextModelGuidance = () => (
-  <div className="mt-3 rounded-lg border border-indigo/15 bg-indigo/[0.055] p-3.5">
-    <p className="text-xs font-semibold text-zinc-200">💡 Picking a model</p>
-    <p className="mt-2 text-[11px] leading-4 text-ink-muted">
-      <ModelName>Auto</ModelName> and <ModelName>Auto MAX</ModelName> are the
-      Smart Notes recommended models that balance performance and cost. Choose{" "}
-      <ModelName>Auto</ModelName> for standard tasks and upgrade to{" "}
-      <ModelName>Auto MAX</ModelName> if needed.
-    </p>
-  </div>
-)
+interface CardProps {
+  as?: "div" | "section"
+  children: ReactNode
+  className?: string
+}
 
-const ModelName = ({ children }: { children: ReactNode }) => (
-  <strong className="font-semibold text-indigo-soft">{children}</strong>
+/** The quiet bordered surface shared by content cards across the app. */
+export const Card = ({
+  as: Component = "div",
+  children,
+  className = "",
+}: CardProps) => (
+  <Component
+    className={`rounded-xl border border-white/[0.03] bg-white/[0.025] ${className}`}
+  >
+    {children}
+  </Component>
 )

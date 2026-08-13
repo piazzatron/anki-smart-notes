@@ -53,7 +53,11 @@ export const ImagePromptTester = ({
     prompt,
     requiredNoteTypeId,
     run: async ({ cardId, prompt }) => {
-      const result = await testImagePrompt({ cardId: cardId!, prompt, settings })
+      const result = await testImagePrompt({
+        cardId: cardId!,
+        prompt,
+        settings,
+      })
       setDimensions(null)
       return result
     },

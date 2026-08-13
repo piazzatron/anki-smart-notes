@@ -3,6 +3,7 @@ import { useState } from "react"
 
 import { SmartFieldRow } from "./SmartFieldRow"
 
+import { Card } from "@/components/ui/Card"
 import type { SmartField } from "@/types/api"
 
 import type { NoteTypeGroup } from "../groupSmartFields"
@@ -29,10 +30,10 @@ export const NoteTypeCard = ({
   const [collapsed, setCollapsed] = useState(false)
 
   return (
-    <section className="mb-5 rounded-lg border border-white/[0.09] bg-white/[0.022]">
+    <Card as="section" className="mb-5">
       <header
         className={`flex items-center gap-2.5 bg-white/[0.035] px-3.5 py-2.5 ${
-          collapsed ? "rounded-lg" : "rounded-t-lg border-b border-white/[0.07]"
+          collapsed ? "rounded-xl" : "rounded-t-xl border-b border-white/[0.07]"
         }`}
       >
         <FileText aria-hidden className="size-3.5 text-zinc-500" />
@@ -79,6 +80,6 @@ export const NoteTypeCard = ({
           ))}
         </div>
       )}
-    </section>
+    </Card>
   )
 }

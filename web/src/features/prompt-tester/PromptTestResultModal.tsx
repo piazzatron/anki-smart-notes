@@ -57,10 +57,10 @@ export const PromptTestResultModal = <R,>({
     tester.selectedNote === null
       ? provenance
       : [
-        firstFieldValue === undefined || firstFieldValue === ""
-          ? "Selected card"
-          : firstFieldValue,
-        provenance,
+          firstFieldValue === undefined || firstFieldValue === ""
+            ? "Selected card"
+            : firstFieldValue,
+          provenance,
         ].join(" · ")
 
   return (

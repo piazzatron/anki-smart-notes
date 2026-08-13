@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-canvas: #141416;
+  --color-canvas: #18181b;
   --color-sidebar: #0d0d0f;
   --color-panel: #151519;
   --color-panel-raised: #1b1b20;

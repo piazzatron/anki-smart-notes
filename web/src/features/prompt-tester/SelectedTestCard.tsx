@@ -37,7 +37,7 @@ export const SelectedTestCard = ({
   if (note === null) {
     return (
       <div
-        className={`flex items-center gap-2.5 rounded-lg border border-dashed border-white/[0.18] px-3 ${compact ? "py-2" : "py-2.5"}`}
+        className={`flex items-center gap-2.5 rounded-lg border border-dashed border-white/[0.18] px-3 ${compact ? "h-[54px]" : "py-2.5"}`}
       >
         <FileText aria-hidden className="size-3.5 shrink-0 text-ink-muted" />
         <div className="min-w-0 flex-1">

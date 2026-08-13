@@ -122,7 +122,7 @@ export const StepPrompt = ({
                   value={controls.form.writePrompt}
                 />
                 <Button
-                  className="h-11 shrink-0 !border-indigo !bg-indigo px-4 !text-white hover:!border-indigo-soft hover:!bg-indigo/90"
+                  className="h-11 shrink-0 px-4"
                   disabled={
                     controls.form.writePrompt.trim() === "" ||
                     controls.form.isGenerating
