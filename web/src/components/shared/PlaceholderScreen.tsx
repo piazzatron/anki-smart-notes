@@ -7,7 +7,7 @@ const SCREEN_LABELS: Record<ScreenId, string> = {
   "defaults-voice": "Default Voice Settings",
   settings: "Settings",
   subscription: "Subscription",
-  support: "Support & Bugs",
+  support: "Support",
 }
 
 interface PlaceholderScreenProps {

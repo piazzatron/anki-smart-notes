@@ -17,31 +17,5 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import type { ReactNode } from "react"
-
-import { PageTitle } from "./PageTitle"
-
-interface ScreenHeaderProps {
-  accessory?: ReactNode
-  icon?: ReactNode
-  subtitle: string
-  title: string
-}
-
-export const ScreenHeader = ({
-  accessory,
-  icon,
-  subtitle,
-  title,
-}: ScreenHeaderProps) => (
-  <header className="flex shrink-0 items-center justify-between gap-6 border-b border-white/[0.065] px-6 py-5">
-    <div className="min-w-0">
-      <div className="flex items-center gap-2">
-        {icon}
-        <PageTitle>{title}</PageTitle>
-      </div>
-      <p className="mt-1.5 truncate text-xs text-ink-muted">{subtitle}</p>
-    </div>
-    {accessory}
-  </header>
-)
+export const DISCORD_URL = "https://discord.gg/kxGaWpkTGr"
+export const SUPPORT_EMAIL = "support@smart-notes.xyz"

@@ -32,7 +32,7 @@ export const SelectTrigger = forwardRef<
   ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
 >(({ children, className = "", ...props }, ref) => (
   <SelectPrimitive.Trigger
-    className={`flex min-h-11 w-full cursor-pointer items-center gap-2 rounded-md border border-white/[0.09] bg-white/[0.04] px-3 py-2 text-left text-xs font-medium text-zinc-100 transition outline-none hover:border-white/16 focus-visible:border-indigo/50 focus-visible:ring-2 focus-visible:ring-indigo/25 disabled:cursor-not-allowed disabled:opacity-45 data-[state=open]:border-indigo/50 data-[state=open]:ring-2 data-[state=open]:ring-indigo/25 ${className}`}
+    className={`flex min-h-11 w-full cursor-pointer items-center gap-2 rounded-lg border border-white/[0.09] bg-white/[0.04] px-3 py-2 text-left text-xs font-medium text-zinc-100 transition outline-none hover:border-white/16 focus-visible:border-indigo/50 focus-visible:ring-2 focus-visible:ring-indigo/25 disabled:cursor-not-allowed disabled:opacity-45 data-[state=open]:border-indigo/50 data-[state=open]:ring-2 data-[state=open]:ring-indigo/25 ${className}`}
     ref={ref}
     {...props}
   >
@@ -50,7 +50,7 @@ export const SelectContent = forwardRef<
 >(({ children, className = "", position = "popper", ...props }, ref) => (
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
-      className={`z-[80] max-h-[var(--radix-select-content-available-height)] min-w-[var(--radix-select-trigger-width)] overflow-hidden rounded-lg border border-white/10 bg-panel-raised text-zinc-100 shadow-[0_18px_40px_-12px_rgba(0,0,0,0.75)] ${className}`}
+      className={`z-[80] max-h-[var(--radix-select-content-available-height)] min-w-[var(--radix-select-trigger-width)] origin-[var(--radix-select-content-transform-origin)] overflow-hidden rounded-lg border border-white/10 bg-panel-raised text-zinc-100 shadow-[0_18px_40px_-12px_rgba(0,0,0,0.75)] duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 ${className}`}
       position={position}
       ref={ref}
       sideOffset={6}

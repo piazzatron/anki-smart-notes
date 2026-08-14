@@ -12,8 +12,8 @@ import {
   DefaultsScreenLayout,
   DefaultsScreenLoading,
 } from "./DefaultsScreenLayout"
-import { DefaultUsagePill } from "./DefaultUsagePill"
 import { getDefaultUsage } from "./defaultUsage"
+import { DefaultUsagePill } from "./DefaultUsagePill"
 import { useDefaultsForm } from "./useDefaultsForm"
 
 interface TextDefaultsScreenProps {
@@ -69,10 +69,10 @@ export const LoadedTextDefaultsScreen = ({
       isDirty={controls.form.isDirty}
       isSaving={controls.form.isSaving}
       onSave={() => void controls.saveChanges()}
-      subtitle="The model your text Smart Fields use unless a field pins its own."
+      subtitle="Default settings for text generation. Individual Smart Fields can override these values."
       tester={<PromptTester settings={controls.form.values} />}
       testId="text-defaults-screen"
-      title="Default Text Settings"
+      title="Text Generation Settings"
     >
       {controls.form.error !== null && (
         <ErrorBanner
@@ -89,7 +89,7 @@ export const LoadedTextDefaultsScreen = ({
               className="mb-2 block text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase"
               htmlFor="default-text-model"
             >
-              Default model
+              Default Text Model
             </label>
             <ChatModelSelect
               catalog={catalog.chat}

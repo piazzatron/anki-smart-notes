@@ -24,6 +24,7 @@ import { forwardRef } from "react"
 import type { ComponentPropsWithoutRef, ElementRef } from "react"
 
 export const Dialog = DialogPrimitive.Root
+export const DialogTrigger = DialogPrimitive.Trigger
 
 // The modal shell: a dimmed backdrop, a centered card that scales in and out, and the
 // dismiss affordance every dialog gets. Callers set the card's size and fill it.

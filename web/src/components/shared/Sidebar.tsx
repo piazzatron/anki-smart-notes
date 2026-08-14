@@ -3,18 +3,18 @@ import {
   Image,
   Layers3,
   LifeBuoy,
-  MessageSquare,
   MessageSquareText,
-  MessagesSquare,
   SlidersHorizontal,
   Volume2,
 } from "lucide-react"
 import type { ComponentType } from "react"
 
-import { FeedbackPopover } from "./FeedbackPopover"
+import { DiscordMark } from "./DiscordMark"
+import { FeedbackDialog } from "./FeedbackDialog"
 import { PlanCard } from "./PlanCard"
 
 import type { ScreenId } from "@/lib/boot"
+import { DISCORD_URL } from "@/lib/helpChannels"
 import type { AccountState } from "@/types/api"
 
 interface SidebarProps {
@@ -30,22 +30,17 @@ interface NavItem {
   icon: ComponentType<{ className?: string; "aria-hidden"?: boolean }>
 }
 
-const SMART_FIELDS_ITEM: NavItem = {
-  id: "fields",
-  label: "Smart Fields",
-  icon: Layers3,
-}
-
-const DEFAULT_ITEMS: NavItem[] = [
+const PRIMARY_ITEMS: NavItem[] = [
+  { id: "fields", label: "Smart Fields", icon: Layers3 },
   { id: "defaults-text", label: "Text", icon: MessageSquareText },
-  { id: "defaults-images", label: "Images", icon: Image },
-  { id: "defaults-voice", label: "Voice", icon: Volume2 },
+  { id: "defaults-voice", label: "Voice ", icon: Volume2 },
+  { id: "defaults-images", label: "Image", icon: Image },
+  { id: "settings", label: "Advanced Settings", icon: SlidersHorizontal },
 ]
 
 const SECONDARY_ITEMS: NavItem[] = [
-  { id: "settings", label: "Settings", icon: SlidersHorizontal },
-  { id: "subscription", label: "Subscription", icon: CreditCard },
-  { id: "support", label: "Support & Bugs", icon: LifeBuoy },
+  { id: "support", label: "Support", icon: LifeBuoy },
+  { id: "subscription", label: "Account and Usage", icon: CreditCard },
 ]
 
 export const Sidebar = ({
@@ -56,24 +51,15 @@ export const Sidebar = ({
 }: SidebarProps) => {
   return (
     <aside className="flex min-h-0 w-52 shrink-0 flex-col bg-sidebar px-2.5 pt-4 pb-0 max-[760px]:w-44">
-      <div className="mb-4 px-2 text-[16px] font-bold text-zinc-100">
+      <div className="mb-3 px-2 text-[16px] font-bold text-zinc-100">
         Smart Notes
       </div>
       <nav
         aria-label="Smart Notes sections"
         className="min-h-0 flex-1 overflow-y-auto pb-2"
       >
-        <NavButton
-          activeScreen={activeScreen}
-          item={SMART_FIELDS_ITEM}
-          onNavigate={onNavigate}
-        />
-
-        <h2 className="mt-4 mb-1 px-2 text-[10px] font-semibold tracking-[0.12em] text-zinc-500 uppercase">
-          Defaults
-        </h2>
         <div className="space-y-0.5">
-          {DEFAULT_ITEMS.map((item) => (
+          {PRIMARY_ITEMS.map((item) => (
             <NavButton
               activeScreen={activeScreen}
               item={item}
@@ -83,7 +69,7 @@ export const Sidebar = ({
           ))}
         </div>
 
-        <div className="mx-2 my-2.5 border-t border-white/[0.06]" />
+        <div className="mx-2 my-2 border-t border-white/[0.06]" />
         <div className="space-y-0.5">
           {SECONDARY_ITEMS.map((item) => (
             <NavButton
@@ -103,20 +89,25 @@ export const Sidebar = ({
         />
         <div className="relative grid grid-cols-2 gap-1.5">
           <a
-            className="inline-flex items-center justify-center gap-1.5 rounded-md border border-white/[0.07] px-2 py-1.5 text-[10px] text-ink-faint transition hover:border-white/12 hover:text-zinc-300"
-            href="https://discord.gg/kxGaWpkTGr"
+            className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-white/[0.06] py-[7px] text-[11px] font-semibold text-zinc-400 transition hover:bg-white/10 hover:text-zinc-200"
+            href={DISCORD_URL}
             rel="noreferrer"
             target="_blank"
           >
-            <MessagesSquare aria-hidden className="size-3" />
+            <DiscordMark className="text-zinc-300" size={13} />
             Discord
           </a>
-          <FeedbackPopover onOpenSupport={() => onNavigate("support")}>
-            <button className="inline-flex items-center justify-center gap-1.5 rounded-md border border-white/[0.07] px-2 py-1.5 text-[10px] text-ink-faint transition hover:border-white/12 hover:text-zinc-300">
-              <MessageSquare aria-hidden className="size-3" />
+          <FeedbackDialog>
+            <button
+              className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-white/[0.06] py-[7px] text-[11px] font-semibold text-zinc-400 transition hover:bg-white/10 hover:text-zinc-200"
+              type="button"
+            >
+              <span aria-hidden className="text-xs leading-none">
+                💡
+              </span>
               Feedback
             </button>
-          </FeedbackPopover>
+          </FeedbackDialog>
         </div>
 
         {appVersion !== null && (
@@ -145,10 +136,10 @@ const NavButton = ({ activeScreen, item, onNavigate }: NavButtonProps) => {
   return (
     <button
       aria-current={isActive ? "page" : undefined}
-      className={`flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[14px] font-medium transition ${
+      className={`flex w-full items-center gap-2.5 rounded-lg px-2 py-1 text-left text-[14px] font-medium transition-[background-color,color,opacity] duration-150 ease-out ${
         isActive
-          ? "bg-white/[0.075] text-zinc-100"
-          : "text-zinc-400 hover:bg-white/[0.055] hover:text-zinc-100"
+          ? "bg-white/[0.075] text-white opacity-100"
+          : "text-zinc-400 opacity-80 hover:bg-white/[0.055] hover:text-zinc-100 hover:opacity-100"
       }`}
       onClick={() => onNavigate(item.id)}
     >
