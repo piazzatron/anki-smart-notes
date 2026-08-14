@@ -26,7 +26,6 @@ from aqt import mw
 
 from ..constants import GLOBAL_DECK_ID
 from ..decks import deck_id_to_name_map
-from ..models import PromptMap
 from ..models.smart_fields import ChatSmartFieldSettings
 from ..prompt_fields import get_prompt_fields
 from ..services.smart_field_service import smart_field_service
@@ -197,7 +196,6 @@ def get_valid_fields_for_prompt(
     selected_note_type: str,
     deck_id: DeckId,
     selected_note_field: Optional[str] = None,
-    prompts_map: Optional[PromptMap] = None,
 ) -> list[str]:
     """Gets all fields excluding the selected one, if one is selected"""
     fields = get_fields(selected_note_type)

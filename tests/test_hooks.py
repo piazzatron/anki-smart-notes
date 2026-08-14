@@ -19,7 +19,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 from types import SimpleNamespace
 from typing import Any, cast
-from unittest.mock import MagicMock
+from unittest.mock import ANY, MagicMock
 
 import pytest
 
@@ -71,10 +71,29 @@ def test_open_web_app_refreshes_subscription(monkeypatch: pytest.MonkeyPatch) ->
     hooks.on_open_web_app()
 
     account_state.update_account_state.assert_called_once_with()
+    dialog.finished.connect.assert_called_once_with(ANY)
     dialog.show.assert_called_once_with()
 
 
-def test_profile_cleanup_closes_open_options_dialog(
+def test_open_web_app_raises_existing_dialog(monkeypatch: pytest.MonkeyPatch) -> None:
+    server = SimpleNamespace(session_token="session-token")
+    dialog = MagicMock()
+    dialog_factory = MagicMock()
+
+    monkeypatch.setattr(hooks, "_local_server", server)
+    monkeypatch.setattr(hooks, "_ensure_local_server_started", lambda: server)
+    monkeypatch.setattr(hooks, "_web_app_dialog", dialog)
+    monkeypatch.setattr(hooks, "app_state", MagicMock())
+    monkeypatch.setattr(hooks, "WebAppDialog", dialog_factory)
+
+    hooks.on_open_web_app()
+
+    dialog.raise_.assert_called_once_with()
+    dialog.activateWindow.assert_called_once_with()
+    dialog_factory.assert_not_called()
+
+
+def test_profile_cleanup_closes_open_web_app_dialog(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     did_close = False
@@ -86,7 +105,7 @@ def test_profile_cleanup_closes_open_options_dialog(
 
     monkeypatch.setattr(
         hooks,
-        "_open_options_dialog",
+        "_web_app_dialog",
         cast(Any, FakeDialog()),
     )
 
@@ -108,7 +127,7 @@ def test_profile_cleanup_stops_review_time_evaluator(
             nonlocal did_stop
             did_stop = True
 
-    monkeypatch.setattr(hooks, "_open_options_dialog", None)
+    monkeypatch.setattr(hooks, "_web_app_dialog", None)
     monkeypatch.setattr(hooks, "_local_server", None)
     monkeypatch.setattr(
         hooks,

@@ -19,6 +19,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 from aqt import QDialog, QDialogButtonBox, QFont, QLabel, Qt, QVBoxLayout
 
+from ..app_state import app_state
 from ..feature_flags import flags
 
 STANDARD_MSG = "You've used Smart Notes 20 times! 🥳<br><br>If you're finding it useful and can spare a minute of your time, consider leaving a review on <a href='https://ankiweb.net/shared/info/1531888719'>AnkiWeb</a> to help other people find it."
@@ -30,9 +31,13 @@ class RateDialog(QDialog):
 
     def __init__(self) -> None:
         super().__init__()
-        # The popup is already gated to free-trial users in bump_usage_counter,
-        # so is_free_trial() is implicit at this point — only the server flag needs checking.
-        msg = FREE_MONTH_MSG if flags.review_free_month else STANDARD_MSG
+        # The free-month offer is a trial-conversion incentive; paid users see
+        # the standard review message.
+        msg = (
+            FREE_MONTH_MSG
+            if flags.review_free_month and app_state.is_free_trial()
+            else STANDARD_MSG
+        )
         font = QFont()
         font.setBold(True)
         text = QLabel(msg)

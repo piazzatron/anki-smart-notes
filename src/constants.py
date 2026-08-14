@@ -41,10 +41,6 @@ IMAGE_PROVIDER_TIMEOUT_SEC = 45
 STANDARD_BATCH_LIMIT = 10
 
 # Errors
-UNPAID_PROVIDER_ERROR = (
-    "Only ChatGPT is supported for users without a Smart Notes subscription!"
-)
-
 APP_LOCKED_ERROR = (
     "Smart Notes: this option cannot be completed without a subscription or trial."
 )

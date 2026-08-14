@@ -19,7 +19,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import sqlite3
 from datetime import datetime, timezone
-from typing import Callable, Optional, cast
+from typing import Callable, Optional, Union, cast
 from uuid import uuid4
 
 from anki.decks import DeckId
@@ -51,6 +51,7 @@ from ..models.smart_fields import (
     SmartFieldSettings,
     TTSSmartFieldSettings,
 )
+from ..prompt_fields import get_prompt_fields
 
 DEFAULT_TEXT_GENERATION_SETTINGS = ChatGenerationSettings(
     provider="auto",
@@ -69,6 +70,9 @@ DEFAULT_IMAGE_GENERATION_SETTINGS = ImageGenerationSettings(
 )
 SMART_FIELD_TARGET_COLLISION_ERROR = (
     "A Smart Field already exists for that note type, deck, and field"
+)
+SMART_FIELD_CYCLE_ERROR = (
+    "Smart fields referencing other smart fields cannot make a cycle! 🔁"
 )
 
 
@@ -318,6 +322,8 @@ class SmartFieldService:
             if collision is not None:
                 raise ValueError(SMART_FIELD_TARGET_COLLISION_ERROR)
 
+            self._validate_no_cycle(smart_field)
+
             try:
                 smart_field_id = self._insert_smart_field(
                     conn, smart_field, profile_name
@@ -335,6 +341,7 @@ class SmartFieldService:
             f"for profile={profile_name}"
         )
         with open_database() as conn:
+            self._validate_no_cycle(smart_field, replaced_smart_field_id=smart_field.id)
             self._update_smart_field(conn, smart_field, profile_name)
 
     @republish_state
@@ -434,6 +441,96 @@ class SmartFieldService:
 
         self._delete_settings(conn, smart_field.id)
         self._insert_settings(conn, smart_field.id, smart_field.settings)
+
+    def _validate_no_cycle(
+        self,
+        smart_field: Union[SmartField, SmartFieldCreate],
+        replaced_smart_field_id: Optional[str] = None,
+    ) -> None:
+        existing_fields = self.get_all_smart_fields()
+        replaced_smart_field = next(
+            (field for field in existing_fields if field.id == replaced_smart_field_id),
+            None,
+        )
+
+        if replaced_smart_field_id and replaced_smart_field is None:
+            return
+
+        new_effective_fields = self._get_prospective_effective_fields(
+            existing_fields,
+            smart_field.note_type_id,
+            smart_field.deck_id,
+            replaced_smart_field_id,
+            smart_field,
+        )
+        self._raise_for_cycle(new_effective_fields)
+
+        if (
+            replaced_smart_field is None
+            or replaced_smart_field.deck_id == GLOBAL_DECK_ID
+            or (
+                replaced_smart_field.note_type_id == smart_field.note_type_id
+                and replaced_smart_field.deck_id == smart_field.deck_id
+            )
+        ):
+            return
+
+        old_effective_fields = self._get_prospective_effective_fields(
+            existing_fields,
+            replaced_smart_field.note_type_id,
+            replaced_smart_field.deck_id,
+            replaced_smart_field_id,
+        )
+        self._raise_for_cycle(old_effective_fields)
+
+    def _get_prospective_effective_fields(
+        self,
+        existing_fields: list[SmartField],
+        note_type_id: int,
+        deck_id: DeckId,
+        replaced_smart_field_id: Optional[str],
+        mutation: Optional[Union[SmartField, SmartFieldCreate]] = None,
+    ) -> dict[str, Union[SmartField, SmartFieldCreate]]:
+        global_fields: dict[str, Union[SmartField, SmartFieldCreate]] = {}
+        deck_fields: dict[str, Union[SmartField, SmartFieldCreate]] = {}
+        for existing_field in existing_fields:
+            if existing_field.id == replaced_smart_field_id:
+                continue
+            if existing_field.note_type_id != note_type_id:
+                continue
+
+            field_key = existing_field.target_field_name.lower()
+            if existing_field.deck_id == GLOBAL_DECK_ID:
+                global_fields[field_key] = existing_field
+            elif existing_field.deck_id == deck_id:
+                deck_fields[field_key] = existing_field
+
+        effective_fields = dict(global_fields)
+        if deck_id != GLOBAL_DECK_ID:
+            effective_fields.update(deck_fields)
+        if mutation is not None:
+            effective_fields[mutation.target_field_name.lower()] = mutation
+        return effective_fields
+
+    def _raise_for_cycle(
+        self,
+        effective_fields: dict[str, Union[SmartField, SmartFieldCreate]],
+    ) -> None:
+        dependencies: dict[str, list[str]] = {}
+        for target_field, effective_field in effective_fields.items():
+            settings = effective_field.settings
+            if isinstance(settings, TTSSmartFieldSettings):
+                input_fields = [settings.source_field_name.lower()]
+            else:
+                input_fields = get_prompt_fields(settings.prompt_text)
+            dependencies[target_field] = [
+                input_field
+                for input_field in input_fields
+                if input_field in effective_fields
+            ]
+
+        if _has_cycle(dependencies):
+            raise ValueError(SMART_FIELD_CYCLE_ERROR)
 
     def _insert_smart_field(
         self,
@@ -599,6 +696,26 @@ class SmartFieldService:
 
 def _utc_now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
+
+
+def _has_cycle(dependencies: dict[str, list[str]]) -> bool:
+    visiting: set[str] = set()
+    visited: set[str] = set()
+
+    def visit(field: str) -> bool:
+        if field in visiting:
+            return True
+        if field in visited:
+            return False
+
+        visiting.add(field)
+        if any(visit(dependency) for dependency in dependencies[field]):
+            return True
+        visiting.remove(field)
+        visited.add(field)
+        return False
+
+    return any(visit(field) for field in dependencies)
 
 
 def _chat_generation_settings_from_row(row: sqlite3.Row) -> ChatGenerationSettings:

@@ -44,10 +44,15 @@ from ..field_resolver import field_resolver
 from ..image_provider import ImageResponse
 from ..logger import logger
 from ..media_utils import ext_from_content_type, get_media_path, write_media
-from ..prompt_helpers import get_prompts_for_note
+from ..models.smart_fields import TTSSmartFieldSettings
 from ..sentry import run_async_in_background_with_sentry
+from ..services.smart_field_service import smart_field_service
 from ..tts_utils import play_audio
-from ..utils.notes_utils import get_note_type, get_valid_fields_for_prompt
+from ..utils.notes_utils import (
+    get_note_type,
+    get_note_type_id,
+    get_valid_fields_for_prompt,
+)
 from .chat_options import ChatOptions
 from .image_displayer import ImageDisplayer
 from .image_options import ImageOptions
@@ -77,15 +82,24 @@ class CustomPrompt(QDialog):
         parent: Optional[QWidget] = None,
     ) -> None:
         super().__init__(parent=parent)
-        all_prompts = get_prompts_for_note(
-            note_type=get_note_type(note),
-            deck_id=deck_id,
-            to_lower=False,
-            fallback_to_global_deck=True,
+        matching_smart_field = next(
+            (
+                smart_field
+                for smart_field in smart_field_service.get_smart_fields_for_note(
+                    get_note_type_id(note), deck_id, include_global=True
+                )
+                if smart_field.target_field_name.lower() == field_upper.lower()
+            ),
+            None,
         )
-        self._initial_prompt = (
-            all_prompts.get(field_upper, None) if all_prompts else None
-        )
+        if matching_smart_field is None:
+            self._initial_prompt = None
+        elif isinstance(matching_smart_field.settings, TTSSmartFieldSettings):
+            self._initial_prompt = (
+                "{{" + matching_smart_field.settings.source_field_name + "}}"
+            )
+        else:
+            self._initial_prompt = matching_smart_field.settings.prompt_text
         self._note = note
         self._deck_id = deck_id
         self._field_upper = field_upper

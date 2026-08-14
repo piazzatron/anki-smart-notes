@@ -45,7 +45,6 @@ from .note_proccessor import NoteProcessor
 from .review_time_evaluator import ReviewTimeEvaluator
 from .sentry import sentry, with_sentry
 from .tasks import run_async_in_background
-from .ui.addon_options_dialog import AddonOptionsDialog
 from .ui.changelog import ChangeLogDialog, is_new_major_or_minor_version
 from .ui.field_menu import FieldMenu
 from .ui.ui_utils import show_message_box
@@ -60,7 +59,6 @@ from .web.hook_adapters import setup_web_hooks
 
 _local_server: Optional[LocalServer] = None
 _review_time_evaluator: Optional[ReviewTimeEvaluator] = None
-_open_options_dialog: Optional[AddonOptionsDialog] = None
 _web_app_dialog: Optional[WebAppDialog] = None
 
 
@@ -91,38 +89,6 @@ def _with_processor(fn: Any):
         return inner
 
     return wrapper
-
-
-@_with_processor  # type: ignore
-def on_options(processor: NoteProcessor):
-    global _open_options_dialog
-
-    app_state.update_account_state()
-    if not mw:
-        return
-    if _open_options_dialog is not None:
-        _open_options_dialog.raise_()
-        _open_options_dialog.activateWindow()
-        return
-
-    # The options dialog snapshots profile-scoped Smart Field state. Keep the
-    # singleton reference so profile-close cleanup can close it before that state
-    # becomes stale.
-    dialog = AddonOptionsDialog(processor)
-    _open_options_dialog = dialog
-
-    def clear_open_options_dialog(_: object) -> None:
-        global _open_options_dialog
-        if _open_options_dialog is dialog:
-            _open_options_dialog = None
-
-    dialog.finished.connect(clear_open_options_dialog)
-    # Use show() instead of exec() so the dialog is non-modal; nested webview
-    # dialogs (sign-in, upgrade) can't be shown cleanly while an app-modal is
-    # running on macOS. garbage_collect_on_dialog_finish keeps the dialog alive
-    # and cleans it up when closed.
-    mw.garbage_collect_on_dialog_finish(dialog)
-    dialog.show()
 
 
 @_with_processor  # type: ignore
@@ -295,7 +261,7 @@ def _on_start_actions() -> None:
     run_async_in_background(cache_leaf_decks_map)
 
 
-def _stamp_version_and_show_first_load_window(processor: NoteProcessor) -> None:
+def _stamp_version_and_show_first_load_window() -> None:
     try:
         current_version = get_version()
         prior_version = config.last_seen_version
@@ -309,7 +275,7 @@ def _stamp_version_and_show_first_load_window(processor: NoteProcessor) -> None:
             return
 
         if not prior_version:
-            on_options(processor)()
+            on_open_web_app()
             return
 
         if is_new_major_or_minor_version(current_version, prior_version):
@@ -329,23 +295,20 @@ def on_main_window(processor: NoteProcessor):
 
     # Add options to Anki Menu
     options_action = QAction("Smart Notes", mw)
-    # Triggered passes a bool, so we need to use a lambda to pass the processor
-    options_action.triggered.connect(lambda _: on_options(processor)())
+    options_action.triggered.connect(lambda _: on_open_web_app())
     mw.form.menuTools.addAction(options_action)
-    mw.addonManager.setConfigAction(__name__, on_options(processor))
-
-    web_app_action = QAction("Smart Notes (Beta UI)", mw)
-    web_app_action.triggered.connect(lambda _: on_open_web_app())
-    mw.form.menuTools.addAction(web_app_action)
+    mw.addonManager.setConfigAction(__name__, on_open_web_app)
 
     _on_start_actions()
-    # Show either the first load window or the changelog if it's a new version
-    _stamp_version_and_show_first_load_window(processor)
 
     global _review_time_evaluator
     _review_time_evaluator = ReviewTimeEvaluator(processor)
 
     _ensure_local_server_started()
+
+    # Show either the first load window or the changelog once the web app's
+    # local server is ready.
+    _stamp_version_and_show_first_load_window()
 
 
 @with_sentry
@@ -358,6 +321,10 @@ def on_open_web_app() -> None:
 
     local_server = _ensure_local_server_started()
     app_state.update_account_state()
+    if _web_app_dialog is not None:
+        _web_app_dialog.raise_()
+        _web_app_dialog.activateWindow()
+        return
 
     # Dev builds always load the Vite dev server for HMR (`make web`); the
     # bundled static app is only served in packaged builds.
@@ -366,8 +333,16 @@ def on_open_web_app() -> None:
     else:
         base_url = f"http://{LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}/app"
     url = f"{base_url}?token={local_server.session_token}"
-    _web_app_dialog = WebAppDialog(url, mw)
-    _web_app_dialog.show()
+    dialog = WebAppDialog(url, mw)
+    _web_app_dialog = dialog
+
+    def clear_web_app_dialog(_: object) -> None:
+        global _web_app_dialog
+        if _web_app_dialog is dialog:
+            _web_app_dialog = None
+
+    dialog.finished.connect(clear_web_app_dialog)
+    dialog.show()
 
 
 @with_sentry
@@ -472,14 +447,13 @@ def add_deck_option(
 def cleanup() -> None:
     event_bus.clear_browser_selection()
 
-    global _open_options_dialog
-    if _open_options_dialog is not None:
-        # A profile switch changes the note types, decks, and profile-scoped
-        # Smart Field rows backing this UI. Close instead of refreshing so stale
-        # dialog state cannot be saved into the next profile.
-        logger.info("Closing Smart Notes options dialog before profile close")
-        dialog = _open_options_dialog
-        _open_options_dialog = None
+    global _web_app_dialog
+    if _web_app_dialog is not None:
+        # The local session token changes on profile load, so close the webview
+        # before its token becomes stale.
+        logger.info("Closing Smart Notes web app before profile close")
+        dialog = _web_app_dialog
+        _web_app_dialog = None
         dialog.close()
 
     global _local_server

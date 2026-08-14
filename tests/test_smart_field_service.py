@@ -335,6 +335,262 @@ def test_update_rejects_case_insensitive_target_collision() -> None:
         )
 
 
+def test_create_rejects_cycle() -> None:
+    service = smart_field_service_for_profile()
+    service.create_smart_field(
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=1,
+            target_field_name="Back",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="{{Extra}}",
+                provider="openai",
+                model="gpt-4o-mini",
+                web_search_enabled=False,
+            ),
+        )
+    )
+
+    with pytest.raises(ValueError, match="cannot make a cycle"):
+        service.create_smart_field(
+            SmartFieldCreate(
+                note_type_id=NOTE_TYPE_ID,
+                deck_id=1,
+                target_field_name="Extra",
+                enabled=True,
+                settings=ChatSmartFieldSettings(
+                    prompt_text="{{Back}}",
+                    provider="openai",
+                    model="gpt-4o-mini",
+                    web_search_enabled=False,
+                ),
+            )
+        )
+
+
+def test_update_rejects_cycle() -> None:
+    service = smart_field_service_for_profile()
+    for target_field_name in ("Back", "Extra"):
+        service.create_smart_field(
+            SmartFieldCreate(
+                note_type_id=NOTE_TYPE_ID,
+                deck_id=1,
+                target_field_name=target_field_name,
+                enabled=True,
+                settings=ChatSmartFieldSettings(
+                    prompt_text="original",
+                    provider="openai",
+                    model="gpt-4o-mini",
+                    web_search_enabled=False,
+                ),
+            )
+        )
+    back = next(
+        field
+        for field in service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)
+        if field.target_field_name == "Back"
+    )
+    extra = next(
+        field
+        for field in service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)
+        if field.target_field_name == "Extra"
+    )
+    service.update_smart_field(
+        SmartField(
+            id=back.id,
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=1,
+            target_field_name="Back",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="{{Extra}}",
+                provider="openai",
+                model="gpt-4o-mini",
+                web_search_enabled=False,
+            ),
+        )
+    )
+
+    with pytest.raises(ValueError, match="cannot make a cycle"):
+        service.update_smart_field(
+            SmartField(
+                id=extra.id,
+                note_type_id=NOTE_TYPE_ID,
+                deck_id=1,
+                target_field_name="Extra",
+                enabled=True,
+                settings=ChatSmartFieldSettings(
+                    prompt_text="{{Back}}",
+                    provider="openai",
+                    model="gpt-4o-mini",
+                    web_search_enabled=False,
+                ),
+            )
+        )
+
+
+def test_update_rejects_cycle_exposed_in_previous_deck() -> None:
+    service = smart_field_service_for_profile()
+    fields = [
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=GLOBAL_DECK_ID,
+            target_field_name="A",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="{{B}}",
+                provider="openai",
+                model="gpt-4o-mini",
+                web_search_enabled=False,
+            ),
+        ),
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=1,
+            target_field_name="A",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="plain",
+                provider="openai",
+                model="gpt-4o-mini",
+                web_search_enabled=False,
+            ),
+        ),
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=1,
+            target_field_name="B",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="{{C}}",
+                provider="openai",
+                model="gpt-4o-mini",
+                web_search_enabled=False,
+            ),
+        ),
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=1,
+            target_field_name="C",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="{{A}}",
+                provider="openai",
+                model="gpt-4o-mini",
+                web_search_enabled=False,
+            ),
+        ),
+    ]
+    for field in fields:
+        service.create_smart_field(field)
+    deck_override = next(
+        field
+        for field in service.get_smart_fields_for_note(NOTE_TYPE_ID, 1)
+        if field.target_field_name == "A"
+    )
+
+    with pytest.raises(ValueError, match="cannot make a cycle"):
+        service.update_smart_field(
+            SmartField(
+                id=deck_override.id,
+                note_type_id=NOTE_TYPE_ID,
+                deck_id=2,
+                target_field_name="A",
+                enabled=True,
+                settings=deck_override.settings,
+            )
+        )
+
+
+def test_create_cycle_validation_applies_deck_over_global_merge() -> None:
+    service = smart_field_service_for_profile()
+    service.create_smart_field(
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=GLOBAL_DECK_ID,
+            target_field_name="Back",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="{{Extra}}",
+                provider="openai",
+                model="gpt-4o-mini",
+                web_search_enabled=False,
+            ),
+        )
+    )
+
+    with pytest.raises(ValueError, match="cannot make a cycle"):
+        service.create_smart_field(
+            SmartFieldCreate(
+                note_type_id=NOTE_TYPE_ID,
+                deck_id=1,
+                target_field_name="Extra",
+                enabled=True,
+                settings=ChatSmartFieldSettings(
+                    prompt_text="{{Back}}",
+                    provider="openai",
+                    model="gpt-4o-mini",
+                    web_search_enabled=False,
+                ),
+            )
+        )
+
+
+def test_create_rejects_tts_source_cycle() -> None:
+    service = smart_field_service_for_profile()
+    service.create_smart_field(
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=1,
+            target_field_name="Back",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="{{Audio}}",
+                provider="openai",
+                model="gpt-4o-mini",
+                web_search_enabled=False,
+            ),
+        )
+    )
+
+    with pytest.raises(ValueError, match="cannot make a cycle"):
+        service.create_smart_field(
+            SmartFieldCreate(
+                note_type_id=NOTE_TYPE_ID,
+                deck_id=1,
+                target_field_name="Audio",
+                enabled=True,
+                settings=TTSSmartFieldSettings(
+                    source_field_name="Back",
+                    provider="openai",
+                    model="tts-1",
+                    voice_id="alloy",
+                ),
+            )
+        )
+
+
+def test_create_rejects_self_reference() -> None:
+    service = smart_field_service_for_profile()
+
+    with pytest.raises(ValueError, match="cannot make a cycle"):
+        service.create_smart_field(
+            SmartFieldCreate(
+                note_type_id=NOTE_TYPE_ID,
+                deck_id=1,
+                target_field_name="Back",
+                enabled=True,
+                settings=ChatSmartFieldSettings(
+                    prompt_text="{{Back}}",
+                    provider="openai",
+                    model="gpt-4o-mini",
+                    web_search_enabled=False,
+                ),
+            )
+        )
+
+
 def test_smart_fields_are_scoped_to_profile() -> None:
     profile_1_service = smart_field_service_for_profile("Profile 1")
     profile_2_service = smart_field_service_for_profile("Profile 2")

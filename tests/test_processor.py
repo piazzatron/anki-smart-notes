@@ -548,7 +548,7 @@ def test_process_card_forwards_use_collection(monkeypatch):
     calls = []
     processor = NoteProcessor(  # type: ignore
         field_resolver=None,
-        config=MockConfig(prompts_map={}, allow_empty_fields=False),
+        config=MockConfig(allow_empty_fields=False),
     )
     monkeypatch.setattr(processor, "_assert_preconditions", lambda: True)
     monkeypatch.setattr("src.note_proccessor.bump_usage_counter", lambda: None)
@@ -583,7 +583,7 @@ def test_process_cards_with_progress_noops_during_batch(monkeypatch):
     calls = []
     processor = NoteProcessor(  # type: ignore
         field_resolver=None,
-        config=MockConfig(prompts_map={}, allow_empty_fields=False),
+        config=MockConfig(allow_empty_fields=False),
     )
     processor.batch_in_progress = True
     monkeypatch.setattr(src.note_proccessor, "mw", MockMw())
@@ -620,7 +620,7 @@ async def test_process_notes_batch_marks_client_facing_errors_as_failed(monkeypa
 
     processor = NoteProcessor(  # type: ignore
         field_resolver=None,
-        config=MockConfig(prompts_map={}, allow_empty_fields=False),
+        config=MockConfig(allow_empty_fields=False),
     )
     error_logs = []
     info_logs = []
@@ -711,7 +711,7 @@ async def test_process_cards_with_progress_does_not_show_client_facing_error(
 
     processor = NoteProcessor(  # type: ignore
         field_resolver=None,
-        config=MockConfig(prompts_map={}, allow_empty_fields=False),
+        config=MockConfig(allow_empty_fields=False),
     )
     monkeypatch.setattr(src.note_proccessor, "mw", MockMw())
     monkeypatch.setattr(processor, "_assert_valid_app_mode", lambda: True)
@@ -774,64 +774,6 @@ async def test_process_note_updates_collection_on_main_thread(monkeypatch):
     await p.process_note(n, deck_id=1)
 
     assert mw.col.updated_notes == [n]
-
-
-"""
-test_cycle Parameters:
-    note: dict[str, str] - Note field data
-    prompts_map: dict[str, str] - Field prompts that may contain cycles
-    expected: bool - Whether a cycle should be detected
-
-Example: ({"f1": "1", "f2": ""}, {"f2": "{{f1}} {{f4}}", "f4": "{{f2}}"}, True)
-"""
-
-
-@pytest.mark.asyncio
-@pytest.mark.parametrize(
-    "note, prompts_map, expected",
-    [
-        # No cycle
-        (
-            {"f1": "1", "f2": "2", "f3": "", "f4": ""},
-            {"f3": "{{f1}}", "f4": "{{f2}}"},
-            False,
-        ),
-        # Cycle
-        # f1 -> f2 -> f3 -> f4
-        # .     ^-----------|
-        (
-            {"f1": "1", "f2": "2", "f3": "", "f4": ""},
-            {"f2": "{{f1}} {{f4}}", "f3": "{{f2}}", "f4": "{{f3}}"},
-            True,
-        ),
-        # Diamond shaped DAG - no cycle
-        # f1 -> f2 -> f4
-        # f1 -> f3 -> f4
-        (
-            {"f1": "1", "f2": "", "f3": "", "f4": ""},
-            {"f2": "{{f1}}", "f3": "{{f1}}", "f4": "{{f2}} {{f3}}"},
-            False,
-        ),
-    ],
-)
-async def test_cycle(note, prompts_map, expected, monkeypatch):
-    import src.dag
-
-    n = MockNote(note, note_type=NOTE_TYPE_NAME)
-    smart_fields = seed_smart_fields(prompts_map, {})
-
-    # Mock get_fields like in setup_data
-    monkeypatch.setattr(
-        src.dag,
-        "get_fields",
-        lambda _: n.fields(),
-    )
-
-    dag = src.dag.generate_fields_dag(
-        n, smart_fields=smart_fields, overwrite_fields=True
-    )
-    cycle = src.dag.has_cycle(dag)
-    assert cycle == expected
 
 
 """

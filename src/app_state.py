@@ -18,7 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 from copy import deepcopy
-from typing import Any, Literal, Optional, TypedDict, Union
+from typing import Literal, Optional, TypedDict, Union
 
 import aiohttp
 
@@ -90,10 +90,6 @@ class AppStateManager:
     @property
     def state(self) -> AppState:
         return deepcopy(self._state.s)
-
-    def bind(self, widget: Any) -> None:
-        """Bind a widget to state changes."""
-        self._state.bind(widget)
 
     def _publish_web_state(self, _state: AppState) -> None:
         """Keep connected webviews current when account state changes."""

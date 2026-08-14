@@ -112,7 +112,7 @@ def bump_usage_counter() -> None:
     if (
         config.times_used > USES_BEFORE_RATE_DIALOG
         and not config.did_show_rate_dialog
-        and app_state.is_free_trial()
+        and app_state.state["status"] == "AUTHENTICATED"
     ):
         from .ui.rate_dialog import RateDialog
 

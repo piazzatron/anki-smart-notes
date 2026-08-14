@@ -72,9 +72,3 @@ def _build_leaf_deck_map() -> dict[DeckId, str]:
 
 def deck_name_to_id_map() -> dict[str, DeckId]:
     return {v: k for k, v in deck_id_to_name_map().items()}
-
-
-def get_all_deck_ids() -> list[DeckId]:
-    decks_map = deck_id_to_name_map().copy()
-    decks_map.pop(GLOBAL_DECK_ID)
-    return [GLOBAL_DECK_ID] + sorted(decks_map.keys())

@@ -28,7 +28,6 @@ import src.database.connection
 import src.database.legacy_config_migration
 import src.database.migrations
 import src.sentry
-import src.smart_field_prompt_map
 import src.utils
 import src.utils.notes_utils
 
@@ -78,10 +77,8 @@ class MockConfig:
         self,
         *,
         allow_empty_fields: bool = False,
-        prompts_map: Any = None,
     ) -> None:
         self.allow_empty_fields = allow_empty_fields
-        self.prompts_map = prompts_map
 
     chat_provider = "auto"
     chat_model = "auto"
@@ -267,7 +264,6 @@ def install_fake_anki(
 
     monkeypatch.setattr(aqt, "mw", fake_mw)
     monkeypatch.setattr(src.database.legacy_config_migration, "mw", fake_mw)
-    monkeypatch.setattr(src.smart_field_prompt_map, "mw", fake_mw)
     monkeypatch.setattr(src.utils, "mw", fake_mw)
     monkeypatch.setattr(src.utils.notes_utils, "mw", fake_mw)
 
@@ -304,18 +300,6 @@ def install_fake_anki(
         "show_message_box",
         show_message_box or (lambda *args: None),
     )
-    return fake_mw
-
-
-def install_prompt_map_collection(
-    monkeypatch: pytest.MonkeyPatch,
-    *,
-    note_types: Optional[dict[str, int]] = None,
-) -> FakeMw:
-    fake_mw = FakeMw(note_types=note_types)
-    monkeypatch.setattr(src.smart_field_prompt_map, "mw", fake_mw)
-    monkeypatch.setattr(src.utils, "mw", fake_mw)
-    monkeypatch.setattr(src.utils.notes_utils, "mw", fake_mw)
     return fake_mw
 
 
