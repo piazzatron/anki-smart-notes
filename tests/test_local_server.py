@@ -57,23 +57,25 @@ def _patch_auth_callback_deps(monkeypatch):
     """Replace config/sentry/app_state so _handle_auth_callback is pure."""
     import src.local_server
 
-    written: dict[str, Any] = {"jwt": None}
+    written: dict[str, Any] = {"jwt": None, "did_refresh": False}
 
     class FakeConfig:
         auth_token = None
 
     fake_config = FakeConfig()
+    fake_app_state = MagicMock()
 
     def fake_run_on_main(fn):
         fn()
         written["jwt"] = fake_config.auth_token
+        written["did_refresh"] = fake_app_state.update_account_state.call_count == 1
 
     fake_mw = MagicMock()
     fake_mw.taskman.run_on_main = fake_run_on_main
     monkeypatch.setattr(src.local_server, "config", fake_config)
     monkeypatch.setattr(src.local_server, "mw", fake_mw)
     monkeypatch.setattr(src.local_server, "sentry", None)
-    monkeypatch.setattr(src.local_server, "app_state", MagicMock())
+    monkeypatch.setattr(src.local_server, "app_state", fake_app_state)
     return written
 
 
@@ -91,6 +93,7 @@ async def test_auth_callback_happy_path(monkeypatch):
         assert (await resp.json()) == {"ok": True}
         assert resp.headers["Access-Control-Allow-Origin"] == ALLOWED_ORIGIN
         assert written["jwt"] == "abc.def.ghi"
+        assert written["did_refresh"] is True
 
 
 @pytest.mark.asyncio
@@ -260,7 +263,7 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
     fake_note_types = [(1, "Basic", ["Front", "Back"])]
     fake_decks = {1: "Default"}
     fake_smart_fields = [MagicMock()]
-    fake_account = {"subscription": "UNAUTHENTICATED", "plan": None}
+    fake_account = {"status": "UNAUTHENTICATED", "plan": None, "email": None}
     fake_settings = {"generateAtReview": True}
     build_state = MagicMock(return_value=fake_state)
     monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
@@ -740,6 +743,34 @@ async def test_logout_command_clears_auth_and_refreshes_state(monkeypatch):
         assert (await resp.json()) == {"ok": True}
         parse_auth_logout.assert_called_once_with({})
         logout.assert_called_once_with()
+
+
+@pytest.mark.asyncio
+async def test_refresh_account_command_fetches_account_state(monkeypatch):
+    import src.local_server
+
+    refresh_account = MagicMock()
+    parse_account_refresh = MagicMock()
+    monkeypatch.setattr(
+        src.local_server.auth_service, "refresh_account", refresh_account
+    )
+    monkeypatch.setattr(
+        src.local_server.dto, "parse_account_refresh", parse_account_refresh
+    )
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+
+    server = _make_server()
+    async with TestClient(TestServer(_make_app(server))) as client:
+        resp = await client.post(
+            "/api/command",
+            json=_command_request("account.refresh", {}),
+            headers={"X-Session-Token": server.session_token},
+        )
+
+        assert resp.status == 200
+        assert (await resp.json()) == {"ok": True}
+        parse_account_refresh.assert_called_once_with({})
+        refresh_account.assert_called_once_with()
 
 
 @pytest.mark.asyncio

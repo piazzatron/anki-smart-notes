@@ -97,7 +97,7 @@ def _with_processor(fn: Any):
 def on_options(processor: NoteProcessor):
     global _open_options_dialog
 
-    app_state.update_subscription_state()
+    app_state.update_account_state()
     if not mw:
         return
     if _open_options_dialog is not None:
@@ -285,7 +285,7 @@ def on_browser_context(processor: NoteProcessor, browser: browser.Browser, menu:
 def _on_start_actions() -> None:
     refresh_feature_flags()
 
-    app_state.update_subscription_state()
+    app_state.update_account_state()
     if sentry:
         sentry.configure_scope()
 
@@ -357,6 +357,7 @@ def on_open_web_app() -> None:
         return
 
     local_server = _ensure_local_server_started()
+    app_state.update_account_state()
 
     # Dev builds always load the Vite dev server for HMR (`make web`); the
     # bundled static app is only served in packaged builds.

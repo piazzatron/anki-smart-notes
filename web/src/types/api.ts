@@ -22,27 +22,8 @@
 // and every `POST /api/command` payload. Mirrors `src/web/dto.py` on the Python
 // side. Presentation and app types do not belong here.
 
-export type SubscriptionState =
-  | "LOADING"
-  | "UNAUTHENTICATED"
-  | "FREE_TRIAL_ACTIVE"
-  | "FREE_TRIAL_EXPIRED"
-  | "FREE_TRIAL_CAPACITY"
-  | "PAID_PLAN_ACTIVE"
-  | "PAID_PLAN_EXPIRED"
-  | "PAID_PLAN_CAPACITY"
-
-export type AuthenticatedSubscriptionState = Exclude<
-  SubscriptionState,
-  "LOADING" | "UNAUTHENTICATED"
->
-
 export type LegacyPlanId =
-  | "free"
-  | "free_mini_1"
-  | "small1"
-  | "medium1"
-  | "large1"
+  "free" | "free_mini_1" | "small1" | "medium1" | "large1"
 export type PlanType = "trial" | "freemium" | "small" | "medium" | "large"
 export type PlanName = "Free Trial" | "Free" | "Lite" | "Standard" | "Pro"
 
@@ -66,12 +47,12 @@ export interface PlanInfo {
 
 export type AccountState =
   | {
-      subscription: "LOADING" | "UNAUTHENTICATED"
+      status: "LOADING" | "UNAUTHENTICATED"
       plan: null
       email: null
     }
   | {
-      subscription: AuthenticatedSubscriptionState
+      status: "AUTHENTICATED"
       plan: PlanInfo
       email: string
     }
@@ -225,6 +206,7 @@ export interface SelectedNote {
 export type Selection = { note: SelectedNote } | { note: null; count: number }
 
 export type CommandName =
+  | "account.refresh"
   | "smartFields.create"
   | "smartFields.update"
   | "smartFields.delete"

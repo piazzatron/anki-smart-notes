@@ -124,7 +124,7 @@ class NoteProcessor:
         def on_failure(e: Exception) -> None:
             self.batch_in_progress = False
             if isinstance(e, OutOfCreditsError):
-                app_state.update_subscription_state()
+                app_state.update_account_state()
             else:
                 show_message_box(f"Error: {e}")
 
@@ -445,7 +445,7 @@ class NoteProcessor:
         logger.debug("Handling failure")
 
         if isinstance(e, OutOfCreditsError):
-            app_state.update_subscription_state()
+            app_state.update_account_state()
             return
 
         if isinstance(e, ClientFacingAPIError):
@@ -469,7 +469,7 @@ class NoteProcessor:
                     logger.debug(
                         "Saw 4xx error, something wrong with some subscription"
                     )
-                    app_state.update_subscription_state()
+                    app_state.update_account_state()
                     return
                 else:
                     logger.error(f"Got 500 error: {e}")

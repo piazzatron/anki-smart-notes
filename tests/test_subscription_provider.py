@@ -59,11 +59,11 @@ async def test_requires_plan_and_email(monkeypatch: pytest.MonkeyPatch) -> None:
     )
 
     with pytest.raises(RuntimeError, match="required plan"):
-        await UserInfoProvider().get_subscription_status()
+        await UserInfoProvider().get_user_status()
 
     get_api_response.return_value = FakeResponse({"plan": PLAN, "email": None})
     with pytest.raises(RuntimeError, match="required email"):
-        await UserInfoProvider().get_subscription_status()
+        await UserInfoProvider().get_user_status()
 
 
 @pytest.mark.asyncio
@@ -80,7 +80,7 @@ async def test_rejects_internal_plan_identifiers(
     )
 
     with pytest.raises(RuntimeError, match="Unexpected public plan details for trial"):
-        await UserInfoProvider().get_subscription_status()
+        await UserInfoProvider().get_user_status()
 
 
 @pytest.mark.asyncio
@@ -102,6 +102,6 @@ async def test_accepts_freemium_plan_type(monkeypatch: pytest.MonkeyPatch) -> No
         ),
     )
 
-    status = await UserInfoProvider().get_subscription_status()
+    status = await UserInfoProvider().get_user_status()
 
     assert status["plan"]["planType"] == "freemium"

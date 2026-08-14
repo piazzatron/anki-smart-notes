@@ -22,9 +22,14 @@ from ..config import config
 from ..sentry import sentry
 
 
+def refresh_account() -> None:
+    """Fetch the latest subscription and credit usage from the API."""
+    app_state.update_account_state()
+
+
 def logout() -> None:
     """Clear authentication and immediately project the signed-out state."""
     config.auth_token = None
     if sentry:
         sentry.set_user()
-    app_state.update_subscription_state()
+    app_state.update_account_state()

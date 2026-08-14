@@ -39,7 +39,6 @@ from .logger import logger
 from .sentry import run_async_in_background_with_sentry
 from .subscription_provider import (
     PlanInfo,
-    SubscriptionState,
     UserStatus,
     subscription_provider,
 )
@@ -48,20 +47,13 @@ from .ui.ui_utils import show_message_box
 
 
 class PendingAccountState(TypedDict):
-    subscription: Literal["LOADING", "UNAUTHENTICATED"]
+    status: Literal["LOADING", "UNAUTHENTICATED"]
     plan: None
     email: None
 
 
 class AuthenticatedAccountState(TypedDict):
-    subscription: Literal[
-        "FREE_TRIAL_ACTIVE",
-        "FREE_TRIAL_EXPIRED",
-        "FREE_TRIAL_CAPACITY",
-        "PAID_PLAN_ACTIVE",
-        "PAID_PLAN_EXPIRED",
-        "PAID_PLAN_CAPACITY",
-    ]
+    status: Literal["AUTHENTICATED"]
     plan: PlanInfo
     email: str
 
@@ -69,12 +61,29 @@ class AuthenticatedAccountState(TypedDict):
 AppState = Union[PendingAccountState, AuthenticatedAccountState]
 
 
+class PlanConditions(TypedDict):
+    expired: bool
+    note_limit_reached: bool
+    credit_limit_reached: bool
+
+
+def get_plan_conditions(plan: PlanInfo) -> PlanConditions:
+    notes_used = plan["notesUsed"] or 0
+    notes_limit = plan["notesLimit"]
+    return {
+        "expired": plan["daysLeft"] <= 0,
+        "note_limit_reached": notes_limit is not None and notes_used >= notes_limit,
+        "credit_limit_reached": plan["totalCreditsUsed"]
+        >= plan["totalCreditsCapacity"],
+    }
+
+
 class AppStateManager:
     _state: StateManager[AppState]
 
     def __init__(self) -> None:
         self._state = StateManager[AppState](
-            {"subscription": "LOADING", "plan": None, "email": None}
+            {"status": "LOADING", "plan": None, "email": None}
         )
         self._state.state_changed.connect(self._publish_web_state)
 
@@ -87,22 +96,20 @@ class AppStateManager:
         self._state.bind(widget)
 
     def _publish_web_state(self, _state: AppState) -> None:
-        """Keep connected webviews current when subscription state changes."""
+        """Keep connected webviews current when account state changes."""
         event_bus.publish(StateInvalidated())
 
     def is_free_trial(self) -> bool:
-        free_trial_states: list[SubscriptionState] = [
-            "FREE_TRIAL_ACTIVE",
-            "FREE_TRIAL_CAPACITY",
-            "FREE_TRIAL_EXPIRED",
-        ]
-        return self._state.s["subscription"] in free_trial_states
+        state = self._state.s
+        return (
+            state["status"] == "AUTHENTICATED" and state["plan"]["planType"] == "trial"
+        )
 
-    def update_subscription_state(self) -> None:
+    def update_account_state(self) -> None:
         if not config.auth_token:
             logger.info("User is not authenticated")
             self._state.update(
-                {"subscription": "UNAUTHENTICATED", "plan": None, "email": None}
+                {"status": "UNAUTHENTICATED", "plan": None, "email": None}
             )
             return
 
@@ -115,14 +122,14 @@ class AppStateManager:
                 config.auth_token = None
                 self._state.update(
                     {
-                        "subscription": "UNAUTHENTICATED",
+                        "status": "UNAUTHENTICATED",
                         "plan": None,
                         "email": None,
                     }
                 )
 
         def on_new_status(status: Optional[UserStatus]) -> None:
-            logger.debug(f"Got new subscription status: {status}")
+            logger.debug(f"Got new account status: {status}")
 
             if not status:
                 logger.error(
@@ -136,120 +143,63 @@ class AppStateManager:
             email = status["email"]
 
             old_state = self._state.s.copy()
-
-            new_sub_state = self._make_subscription_state(plan)
-            old_sub_state = old_state["subscription"]
-
-            sub_did_end = self._did_functionality_degrade(old_sub_state, new_sub_state)
+            plan_conditions = get_plan_conditions(plan)
+            functionality_degraded = self._did_functionality_degrade(
+                old_state, plan_conditions
+            )
 
             self._state.update(
                 {
-                    "subscription": new_sub_state,
+                    "status": "AUTHENTICATED",
                     "plan": plan,
                     "email": email,
                 }
             )
 
-            if sub_did_end:
-                self._handle_subscription_did_transition(new_sub_state, plan)
+            if functionality_degraded:
+                self._handle_plan_became_blocked(plan, plan_conditions)
 
             self._check_capacity_threshold(plan)
 
         run_async_in_background_with_sentry(
-            subscription_provider.get_subscription_status,
+            subscription_provider.get_user_status,
             on_new_status,
             on_failure,
             use_collection=False,
         )
 
-    def _make_subscription_state(self, sub: PlanInfo) -> SubscriptionState:
-        is_trial = sub["planType"] == "trial"
-
-        if (
-            is_trial
-            and sub["notesLimit"]
-            and sub["notesUsed"]
-            and sub["notesUsed"] >= sub["notesLimit"]
-        ):
-            return "FREE_TRIAL_CAPACITY"
-
-        if sub["daysLeft"] <= 0:
-            return "FREE_TRIAL_EXPIRED" if is_trial else "PAID_PLAN_EXPIRED"
-
-        if sub["totalCreditsUsed"] >= sub["totalCreditsCapacity"]:
-            return "FREE_TRIAL_CAPACITY" if is_trial else "PAID_PLAN_CAPACITY"
-
-        return "FREE_TRIAL_ACTIVE" if is_trial else "PAID_PLAN_ACTIVE"
-
     def _did_functionality_degrade(
-        self, old_state: SubscriptionState, new_state: SubscriptionState
+        self, old_state: AppState, new_conditions: PlanConditions
     ) -> bool:
-        # Never show it on first load
-
-        if old_state == "LOADING":
+        if old_state["status"] != "AUTHENTICATED":
             return False
 
-        # Only show warning if new state isn't an active state
-        active_states: list[SubscriptionState] = [
-            "PAID_PLAN_ACTIVE",
-            "FREE_TRIAL_ACTIVE",
-        ]
-
-        did_transition = old_state != new_state
-        did_functionality_degrade = did_transition and new_state not in active_states
-        if did_functionality_degrade:
+        old_conditions = get_plan_conditions(old_state["plan"])
+        had_access = not any(old_conditions.values())
+        is_blocked = any(new_conditions.values())
+        if had_access and is_blocked:
             logger.info(
-                f"Functionality degraded, transitioned from {old_state} to {new_state}"
+                f"Functionality degraded, new plan conditions: {new_conditions}"
             )
-        return did_functionality_degrade
+        return had_access and is_blocked
 
-    def _handle_subscription_did_transition(
-        self, new_sub: SubscriptionState, plan: Optional[PlanInfo]
+    def _handle_plan_became_blocked(
+        self, plan: PlanInfo, conditions: PlanConditions
     ) -> None:
-        plan_type = "trial" if "FREE" in new_sub else "paid"
-        end_type: str
-
-        if new_sub in ["FREE_TRIAL_CAPACITY", "PAID_PLAN_CAPACITY"]:
-            end_type = "capacity"
-        elif new_sub in ["FREE_TRIAL_EXPIRED", "PAID_PLAN_EXPIRED"]:
-            end_type = "expired"
-        else:
-            logger.error(f"Unexpected subscription state: {new_sub}")
-            return
-
-        err: Optional[str] = None
+        plan_type = "trial" if plan["planType"] == "trial" else "paid"
+        end_type = "expired" if conditions["expired"] else "capacity"
         is_api_key = has_api_key()
-
-        if end_type == "capacity":
-            if plan_type == "trial":
-                if is_api_key:
-                    err = FREE_TRIAL_ENDED_CAPACITY_API_KEY
-                else:
-                    err = FREE_TRIAL_ENDED_CAPACITY_NO_API_KEY
-            else:
-                if is_api_key:
-                    err = PAID_PLAN_ENDED_CAPACITY_API_KEY
-                else:
-                    err = PAID_PLAN_ENDED_CAPACITY_NO_API_KEY
-        elif end_type == "expired":
-            if plan_type == "trial":
-                if is_api_key:
-                    err = FREE_TRIAL_ENDED_EXPIRED_API_KEY
-                else:
-                    err = FREE_TRIAL_ENDED_EXPIRED_NO_API_KEY
-            else:
-                if is_api_key:
-                    err = PAID_PLAN_ENDED_EXPIRED_API_KEY
-                else:
-                    err = PAID_PLAN_ENDED_EXPIRED_NO_API_KEY
-
-        if not err:
-            logger.error(
-                f"Unexpectedly couldnt find error for {plan_type}, {end_type}, {is_api_key}"
-            )
-            return
-        else:
-            show_message_box(err)
+        messages = {
+            ("trial", "capacity", False): FREE_TRIAL_ENDED_CAPACITY_NO_API_KEY,
+            ("trial", "capacity", True): FREE_TRIAL_ENDED_CAPACITY_API_KEY,
+            ("trial", "expired", False): FREE_TRIAL_ENDED_EXPIRED_NO_API_KEY,
+            ("trial", "expired", True): FREE_TRIAL_ENDED_EXPIRED_API_KEY,
+            ("paid", "capacity", False): PAID_PLAN_ENDED_CAPACITY_NO_API_KEY,
+            ("paid", "capacity", True): PAID_PLAN_ENDED_CAPACITY_API_KEY,
+            ("paid", "expired", False): PAID_PLAN_ENDED_EXPIRED_NO_API_KEY,
+            ("paid", "expired", True): PAID_PLAN_ENDED_EXPIRED_API_KEY,
+        }
+        show_message_box(messages[(plan_type, end_type, is_api_key)])
 
     def _check_capacity_threshold(self, plan: Optional[PlanInfo]) -> None:
         """Alert user when they cross 50% capacity threshold."""
@@ -276,13 +226,10 @@ app_state = AppStateManager()
 
 
 def is_capacity_remaining(show_box: bool = False) -> bool:
-    state = app_state.state["subscription"]
-    unlocked_states: list[SubscriptionState] = [
-        "FREE_TRIAL_ACTIVE",
-        "PAID_PLAN_ACTIVE",
-    ]
-
-    unlocked = state in unlocked_states
+    state = app_state.state
+    unlocked = state["status"] == "AUTHENTICATED" and not any(
+        get_plan_conditions(state["plan"]).values()
+    )
     if not unlocked and show_box:
         show_message_box(APP_LOCKED_ERROR)
     return unlocked

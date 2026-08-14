@@ -65,7 +65,7 @@ const state: AppState = {
   smartFields: [],
   globalDeckId: 1,
   account: {
-    subscription: "FREE_TRIAL_ACTIVE",
+    status: "AUTHENTICATED",
     plan,
     email: "person@example.com",
   },

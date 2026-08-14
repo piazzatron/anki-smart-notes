@@ -18,6 +18,7 @@ import { SmartFieldsScreen } from "@/features/smart-fields/SmartFieldsScreen"
 import { SettingsScreen } from "@/features/settings/SettingsScreen"
 import { SubscriptionScreen } from "@/features/subscription/SubscriptionScreen"
 import { SupportScreen } from "@/features/support/SupportScreen"
+import { WelcomeScreen } from "@/features/welcome/WelcomeScreen"
 import { bootOptions, type ScreenId } from "@/lib/boot"
 import { useAppStore } from "@/store/appStore"
 import type { AccountState } from "@/types/api"
@@ -26,7 +27,7 @@ const MockPanel = import.meta.env.DEV
   ? lazy(() => import("@/dev/MockPanel"))
   : null
 const LOADING_ACCOUNT: AccountState = {
-  subscription: "LOADING",
+  status: "LOADING",
   plan: null,
   email: null,
 }
@@ -77,6 +78,9 @@ const App = () => {
   const ActiveScreen = SCREENS[activeScreen]
   const ActiveDefaultsScreen = DEFAULT_SCREENS[activeScreen]
   const screenKey = `${activeScreen}-${editorRequest.id}`
+  const showWelcome =
+    state?.account.status === "UNAUTHENTICATED" &&
+    state.smartFields.length === 0
 
   const completeNavigation = (screen: ScreenId) => {
     setActiveScreen(screen)
@@ -97,29 +101,33 @@ const App = () => {
 
   return (
     <>
-      <AppShell
-        account={state?.account ?? LOADING_ACCOUNT}
-        activeScreen={activeScreen}
-        appVersion={state?.appVersion ?? null}
-        connection={connection}
-        onNavigate={navigateTo}
-      >
-        {activeScreen === "fields" ? (
-          <SmartFieldsRoute
-            initialEditor={editorRequest.editor}
-            key={screenKey}
-          />
-        ) : ActiveDefaultsScreen !== undefined ? (
-          <ActiveDefaultsScreen
-            key={screenKey}
-            onDirtyChange={setHasUnsavedDefaults}
-          />
-        ) : ActiveScreen === undefined ? (
-          <PlaceholderScreen key={screenKey} screen={activeScreen} />
-        ) : (
-          <ActiveScreen key={screenKey} />
-        )}
-      </AppShell>
+      {showWelcome ? (
+        <WelcomeScreen connection={connection} />
+      ) : (
+        <AppShell
+          account={state?.account ?? LOADING_ACCOUNT}
+          activeScreen={activeScreen}
+          appVersion={state?.appVersion ?? null}
+          connection={connection}
+          onNavigate={navigateTo}
+        >
+          {activeScreen === "fields" ? (
+            <SmartFieldsRoute
+              initialEditor={editorRequest.editor}
+              key={screenKey}
+            />
+          ) : ActiveDefaultsScreen !== undefined ? (
+            <ActiveDefaultsScreen
+              key={screenKey}
+              onDirtyChange={setHasUnsavedDefaults}
+            />
+          ) : ActiveScreen === undefined ? (
+            <PlaceholderScreen key={screenKey} screen={activeScreen} />
+          ) : (
+            <ActiveScreen key={screenKey} />
+          )}
+        </AppShell>
+      )}
       {MockPanel !== null && bootOptions.mock && (
         <Suspense fallback={null}>
           <MockPanel

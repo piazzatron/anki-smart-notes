@@ -19,6 +19,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 from types import SimpleNamespace
 from typing import Any, cast
+from unittest.mock import MagicMock
 
 import pytest
 
@@ -54,6 +55,23 @@ def test_profile_did_open_restarts_local_server_after_profile_switch(
 
 def test_profile_did_open_hook_is_registered() -> None:
     assert hasattr(hooks.gui_hooks, "profile_did_open")
+
+
+def test_open_web_app_refreshes_subscription(monkeypatch: pytest.MonkeyPatch) -> None:
+    server = SimpleNamespace(session_token="session-token")
+    dialog = MagicMock()
+    account_state = MagicMock()
+
+    monkeypatch.setattr(hooks, "_local_server", server)
+    monkeypatch.setattr(hooks, "_ensure_local_server_started", lambda: server)
+    monkeypatch.setattr(hooks, "app_state", account_state)
+    monkeypatch.setattr(hooks, "WebAppDialog", MagicMock(return_value=dialog))
+    monkeypatch.setattr(hooks.env, "environment", "DEV")
+
+    hooks.on_open_web_app()
+
+    account_state.update_account_state.assert_called_once_with()
+    dialog.show.assert_called_once_with()
 
 
 def test_profile_cleanup_closes_open_options_dialog(

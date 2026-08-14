@@ -382,6 +382,11 @@ def parse_auth_logout(payload: object) -> None:
         raise ValueError("auth.logout payload must be an empty object")
 
 
+def parse_account_refresh(payload: object) -> None:
+    if not isinstance(payload, dict) or payload:
+        raise ValueError("account.refresh payload must be an empty object")
+
+
 def parse_ui_open_browser(payload: object) -> None:
     if not isinstance(payload, dict) or payload:
         raise ValueError("ui.openBrowser payload must be an empty object")

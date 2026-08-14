@@ -192,7 +192,7 @@ class LocalServer:
             config.auth_token = jwt
             if sentry:
                 sentry.set_user()
-            app_state.update_subscription_state()
+            app_state.update_account_state()
 
         if mw:
             mw.taskman.run_on_main(write_token)
@@ -203,7 +203,7 @@ class LocalServer:
         if origin not in ALLOWED_ORIGINS:
             return web.json_response({"ok": False, "error": "forbidden"}, status=403)
         if mw:
-            mw.taskman.run_on_main(app_state.update_subscription_state)
+            mw.taskman.run_on_main(app_state.update_account_state)
         return web.json_response({"ok": True}, headers=self._cors_headers(origin))
 
     async def _handle_loopback_ping(self, request: web.Request) -> web.Response:
@@ -467,6 +467,11 @@ def _run_logout(payload: dict[str, Any]) -> None:
     auth_service.logout()
 
 
+def _run_refresh_account(payload: dict[str, Any]) -> None:
+    dto.parse_account_refresh(payload)
+    auth_service.refresh_account()
+
+
 def _run_open_browser(payload: dict[str, Any]) -> None:
     dto.parse_ui_open_browser(payload)
     open_anki_browser()
@@ -489,6 +494,7 @@ COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
     "tts.test": _run_test_tts,
     "notes.saveTestResult": _run_save_test_result,
     "support.sendFeedback": _run_send_feedback,
+    "account.refresh": _run_refresh_account,
     "auth.logout": _run_logout,
     "ui.openBrowser": _run_open_browser,
 }

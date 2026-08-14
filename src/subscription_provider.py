@@ -21,18 +21,6 @@ from typing import Any, Literal, Optional, TypedDict, cast
 
 from .api_client import api
 
-SubscriptionState = Literal[
-    "LOADING",
-    "UNAUTHENTICATED",  # This is not returned, jic there's no JWT
-    "FREE_TRIAL_ACTIVE",
-    "FREE_TRIAL_EXPIRED",
-    "FREE_TRIAL_CAPACITY",
-    "PAID_PLAN_ACTIVE",
-    "PAID_PLAN_EXPIRED",
-    "PAID_PLAN_CAPACITY",
-]
-
-
 LegacyPlanId = Literal["free", "free_mini_1", "small1", "medium1", "large1"]
 PlanType = Literal["trial", "freemium", "small", "medium", "large"]
 PlanName = Literal["Free Trial", "Free", "Lite", "Standard", "Pro"]
@@ -70,7 +58,7 @@ class UserStatus(TypedDict):
 
 
 class UserInfoProvider:
-    async def get_subscription_status(self) -> UserStatus:
+    async def get_user_status(self) -> UserStatus:
         response = await api.get_api_response(
             path="user",
             method="GET",

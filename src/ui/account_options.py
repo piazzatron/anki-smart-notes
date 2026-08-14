@@ -206,4 +206,4 @@ class AccountOptions(QWidget):
         if sentry:
             sentry.set_user()
         self.logoutButton.setEnabled(False)
-        app_state.update_subscription_state()
+        app_state.update_account_state()

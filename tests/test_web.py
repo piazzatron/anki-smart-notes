@@ -23,11 +23,12 @@ import asyncio
 import threading
 from dataclasses import replace
 from types import SimpleNamespace
+from typing import TYPE_CHECKING
 from unittest.mock import MagicMock
 
 import pytest
 
-from src.app_state import AppStateManager
+from src.app_state import AppStateManager, get_plan_conditions
 from src.event_bus import (
     BrowserSelectionChanged,
     EventBus,
@@ -48,6 +49,9 @@ from src.models.smart_fields import (
 )
 from src.web import dto
 from tests.fixtures import DECK_ID, NOTE_TYPE_ID, MockCard, MockNote
+
+if TYPE_CHECKING:
+    from src.subscription_provider import PlanInfo
 
 GENERATION_DEFAULTS = GenerationDefaults(
     chat=ChatGenerationSettings(
@@ -127,18 +131,18 @@ async def test_event_bus_can_clear_replayed_browser_selection():
     assert queue.empty()
 
 
-def test_subscription_state_change_invalidates_web_state(monkeypatch):
+def test_account_state_change_invalidates_web_state(monkeypatch):
     publish = MagicMock()
     monkeypatch.setattr("src.app_state.event_bus.publish", publish)
     monkeypatch.setattr("src.app_state.config", SimpleNamespace(auth_token=None))
 
     manager = AppStateManager()
-    manager.update_subscription_state()
+    manager.update_account_state()
 
     assert isinstance(publish.call_args.args[0], StateInvalidated)
 
 
-def test_subscription_state_includes_email_and_invalidates_web_state(monkeypatch):
+def test_authenticated_account_includes_email_and_invalidates_web_state(monkeypatch):
     publish = MagicMock()
     monkeypatch.setattr(
         "src.app_state.config", SimpleNamespace(auth_token="auth-token")
@@ -174,11 +178,36 @@ def test_subscription_state_includes_email_and_invalidates_web_state(monkeypatch
     )
 
     manager = AppStateManager()
-    manager.update_subscription_state()
+    manager.update_account_state()
 
-    assert manager.state["subscription"] == "FREE_TRIAL_ACTIVE"
+    assert manager.state["status"] == "AUTHENTICATED"
     assert manager.state["email"] == "person@example.com"
     assert isinstance(publish.call_args.args[0], StateInvalidated)
+
+
+def test_plan_conditions_can_coexist() -> None:
+    plan: PlanInfo = {
+        "planId": "free",
+        "planType": "trial",
+        "planName": "Free Trial",
+        "notesUsed": 50,
+        "notesLimit": 50,
+        "daysLeft": 0,
+        "textCreditsUsed": 300,
+        "textCreditsCapacity": 100,
+        "voiceCreditsUsed": 0,
+        "voiceCreditsCapacity": 100,
+        "imageCreditsUsed": 0,
+        "imageCreditsCapacity": 100,
+        "totalCreditsUsed": 300,
+        "totalCreditsCapacity": 300,
+    }
+
+    assert get_plan_conditions(plan) == {
+        "expired": True,
+        "note_limit_reached": True,
+        "credit_limit_reached": True,
+    }
 
 
 # -- DTOs --
@@ -204,7 +233,7 @@ def _chat_smart_field() -> SmartField:
 
 def test_build_state_shape():
     account = {
-        "subscription": "FREE_TRIAL_ACTIVE",
+        "status": "AUTHENTICATED",
         "email": "person@example.com",
         "plan": {
             "planId": "free",
@@ -284,7 +313,7 @@ def test_build_state_excludes_smart_fields_with_missing_anki_references():
             replace(valid_field, id="missing-note-type", note_type_id=999),
             replace(valid_field, id="missing-deck", deck_id=999),
         ],
-        account={"subscription": "UNAUTHENTICATED", "plan": None, "email": None},
+        account={"status": "UNAUTHENTICATED", "plan": None, "email": None},
         settings=SETTINGS_DTO,
         app_version="2.23.9",
     )
@@ -692,6 +721,26 @@ def test_parse_auth_logout_requires_empty_object():
         dto.parse_auth_logout(None)
 
 
+def test_parse_account_refresh_requires_empty_object():
+    assert dto.parse_account_refresh({}) is None
+
+    with pytest.raises(ValueError, match="empty object"):
+        dto.parse_account_refresh({"unexpected": True})
+    with pytest.raises(ValueError, match="empty object"):
+        dto.parse_account_refresh(None)
+
+
+def test_refresh_account_updates_account_state(monkeypatch):
+    from src.services import auth_service
+
+    account_state = MagicMock()
+    monkeypatch.setattr(auth_service, "app_state", account_state)
+
+    auth_service.refresh_account()
+
+    account_state.update_account_state.assert_called_once_with()
+
+
 def test_logout_clears_auth_and_refreshes_subscription(monkeypatch):
     from src.services import auth_service
 
@@ -706,7 +755,7 @@ def test_logout_clears_auth_and_refreshes_subscription(monkeypatch):
 
     assert config.auth_token is None
     sentry.set_user.assert_called_once_with()
-    app_state.update_subscription_state.assert_called_once_with()
+    app_state.update_account_state.assert_called_once_with()
 
 
 def test_parse_text_prompt_test_validates_card_and_settings():

@@ -140,7 +140,7 @@ const BASE_STATE: AppState = {
   ],
   globalDeckId: GLOBAL_DECK_ID,
   account: {
-    subscription: "FREE_TRIAL_ACTIVE",
+    status: "AUTHENTICATED",
     plan: HEALTHY_TRIAL_PLAN,
     email: MOCK_ACCOUNT_EMAIL,
   },
@@ -173,17 +173,17 @@ const withTrialPlan = (updates: Partial<PlanInfo>): PlanInfo => ({
 
 export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
   "signed-out-empty": {
-    subscription: "UNAUTHENTICATED",
+    status: "UNAUTHENTICATED",
     plan: null,
     email: null,
   },
   "trial-healthy": {
-    subscription: "FREE_TRIAL_ACTIVE",
+    status: "AUTHENTICATED",
     plan: HEALTHY_TRIAL_PLAN,
     email: MOCK_ACCOUNT_EMAIL,
   },
   "trial-ending": {
-    subscription: "FREE_TRIAL_ACTIVE",
+    status: "AUTHENTICATED",
     email: MOCK_ACCOUNT_EMAIL,
     plan: withTrialPlan({
       daysLeft: 2,
@@ -195,12 +195,12 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
     }),
   },
   "trial-expired": {
-    subscription: "FREE_TRIAL_EXPIRED",
+    status: "AUTHENTICATED",
     plan: withTrialPlan({ daysLeft: 0, notesUsed: 50 }),
     email: MOCK_ACCOUNT_EMAIL,
   },
   "trial-capacity": {
-    subscription: "FREE_TRIAL_CAPACITY",
+    status: "AUTHENTICATED",
     email: MOCK_ACCOUNT_EMAIL,
     plan: withTrialPlan({
       notesUsed: 50,
@@ -211,7 +211,7 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
     }),
   },
   free: {
-    subscription: "PAID_PLAN_ACTIVE",
+    status: "AUTHENTICATED",
     email: MOCK_ACCOUNT_EMAIL,
     plan: withTrialPlan({
       planId: "free_mini_1",
@@ -231,7 +231,7 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
     }),
   },
   paid: {
-    subscription: "PAID_PLAN_ACTIVE",
+    status: "AUTHENTICATED",
     email: MOCK_ACCOUNT_EMAIL,
     plan: withTrialPlan({
       planId: "medium1",
@@ -251,7 +251,7 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
     }),
   },
   "paid-expired": {
-    subscription: "PAID_PLAN_EXPIRED",
+    status: "AUTHENTICATED",
     email: MOCK_ACCOUNT_EMAIL,
     plan: withTrialPlan({
       planId: "medium1",
@@ -263,7 +263,7 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
     }),
   },
   "paid-capacity": {
-    subscription: "PAID_PLAN_CAPACITY",
+    status: "AUTHENTICATED",
     email: MOCK_ACCOUNT_EMAIL,
     plan: withTrialPlan({
       planId: "large1",
@@ -281,8 +281,8 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
       totalCreditsCapacity: 500,
     }),
   },
-  "signed-out": { subscription: "UNAUTHENTICATED", plan: null, email: null },
-  loading: { subscription: "LOADING", plan: null, email: null },
+  "signed-out": { status: "UNAUTHENTICATED", plan: null, email: null },
+  loading: { status: "LOADING", plan: null, email: null },
 }
 
 export const MOCK_CATALOG: Catalog = {
@@ -499,11 +499,13 @@ export const sendMockCommand: CommandSender = async <Result = void>(
 
   if (command === "support.sendFeedback") return undefined as Result
 
+  if (command === "account.refresh") return undefined as Result
+
   if (command === "auth.logout") {
     useAppStore.setState({
       state: {
         ...state,
-        account: { subscription: "UNAUTHENTICATED", plan: null, email: null },
+        account: { status: "UNAUTHENTICATED", plan: null, email: null },
       },
     })
     return undefined as Result

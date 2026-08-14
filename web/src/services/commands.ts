@@ -97,6 +97,10 @@ export const logout = async (): Promise<void> => {
   await sendCommand("auth.logout", {})
 }
 
+export const refreshAccount = async (): Promise<void> => {
+  await sendCommand("account.refresh", {})
+}
+
 export const testTextPrompt = async (
   args: TextPromptTestArgs,
 ): Promise<TextPromptTestResult> =>

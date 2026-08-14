@@ -46,6 +46,21 @@ if (!("window" in globalThis)) {
 }
 
 describe("Smart Field commands", () => {
+  test("requests an account refresh", async () => {
+    const { refreshAccount, setCommandSender } = await import("./commands")
+    const sentCommands: { command: CommandName; payload: object }[] = []
+    setCommandSender(
+      async <Result = void>(command: CommandName, payload: object) => {
+        sentCommands.push({ command, payload })
+        return undefined as Result
+      },
+    )
+
+    await refreshAccount()
+
+    expect(sentCommands).toEqual([{ command: "account.refresh", payload: {} }])
+  })
+
   test("updates enabled state with the existing UUID", async () => {
     const { setCommandSender, setSmartFieldEnabled } =
       await import("./commands")

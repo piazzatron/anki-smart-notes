@@ -1,4 +1,4 @@
-import type { AccountState, PlanInfo, SubscriptionState } from "@/types/api"
+import type { AccountState, PlanInfo } from "@/types/api"
 
 export type PlanVariant =
   "loading" | "signed-out" | "trial" | "free-usage" | "paid"
@@ -20,12 +20,44 @@ export interface CreditSegment {
   color: string
 }
 
-export const hasGenerationAccess = (account: AccountState): boolean =>
-  account.subscription === "FREE_TRIAL_ACTIVE" ||
-  account.subscription === "PAID_PLAN_ACTIVE"
+export interface PlanConditions {
+  expired: boolean
+  noteLimitReached: boolean
+  creditLimitReached: boolean
+  hasGenerationAccess: boolean
+}
 
-export const getPlanPresentation = (account: AccountState): PlanPresentation =>
-  PLAN_PRESENTATIONS[account.subscription](account.plan)
+export const getPlanConditions = (plan: PlanInfo): PlanConditions => {
+  const expired = plan.daysLeft <= 0
+  const noteLimitReached =
+    plan.notesLimit !== null && (plan.notesUsed ?? 0) >= plan.notesLimit
+  const creditLimitReached = plan.totalCreditsUsed >= plan.totalCreditsCapacity
+
+  return {
+    expired,
+    noteLimitReached,
+    creditLimitReached,
+    hasGenerationAccess: !expired && !noteLimitReached && !creditLimitReached,
+  }
+}
+
+export const hasGenerationAccess = (account: AccountState): boolean =>
+  account.status === "AUTHENTICATED" &&
+  getPlanConditions(account.plan).hasGenerationAccess
+
+export const getPlanPresentation = (
+  account: AccountState,
+): PlanPresentation => {
+  if (account.status !== "AUTHENTICATED") {
+    return presentation(account.status === "LOADING" ? "loading" : "signed-out")
+  }
+
+  const conditions = getPlanConditions(account.plan)
+  if (account.plan.planType === "trial") {
+    return trialPresentation(account.plan, conditions)
+  }
+  return paidOrFreePresentation(account.plan, conditions)
+}
 
 export const getCreditUsagePercent = (plan: PlanInfo | null): number => {
   if (plan === null || plan.totalCreditsCapacity <= 0) return 0
@@ -53,31 +85,18 @@ export const getCreditSegments = (plan: PlanInfo): CreditSegment[] => {
       color: "#9a9aa4",
     },
     {
-      key: "voice",
-      label: "Voice",
-      percent: toPercent(plan.voiceCreditsUsed),
-      color: "#5fe3b0",
-    },
-    {
       key: "images",
       label: "Images",
       percent: toPercent(plan.imageCreditsUsed),
       color: "#7c8dff",
     },
+    {
+      key: "voice",
+      label: "Voice",
+      percent: toPercent(plan.voiceCreditsUsed),
+      color: "#5fe3b0",
+    },
   ]
-}
-
-type PlanPresentationFactory = (plan: PlanInfo | null) => PlanPresentation
-
-const PLAN_PRESENTATIONS: Record<SubscriptionState, PlanPresentationFactory> = {
-  LOADING: () => presentation("loading"),
-  UNAUTHENTICATED: () => presentation("signed-out"),
-  FREE_TRIAL_ACTIVE: (plan) => trialPresentation(plan, false),
-  FREE_TRIAL_EXPIRED: (plan) => trialPresentation(plan, true),
-  FREE_TRIAL_CAPACITY: (plan) => trialPresentation(plan, true),
-  PAID_PLAN_ACTIVE: (plan) => paidOrFreePresentation(plan, false),
-  PAID_PLAN_EXPIRED: (plan) => paidOrFreePresentation(plan, true),
-  PAID_PLAN_CAPACITY: (plan) => paidOrFreePresentation(plan, true),
 }
 
 const presentation = (variant: PlanVariant): PlanPresentation => ({
@@ -91,37 +110,37 @@ const presentation = (variant: PlanVariant): PlanPresentation => ({
 })
 
 const trialPresentation = (
-  plan: PlanInfo | null,
-  ended: boolean,
+  plan: PlanInfo,
+  conditions: PlanConditions,
 ): PlanPresentation => {
-  const usagePercent = ended ? 100 : getCreditUsagePercent(plan)
-  const notesLimit = plan?.notesLimit ?? 50
-  const notesUsed = ended ? notesLimit : (plan?.notesUsed ?? 0)
-  const daysLeft = ended ? 0 : Math.max(0, plan?.daysLeft ?? 0)
+  const usagePercent = getCreditUsagePercent(plan)
+  const daysLeft = Math.max(0, plan.daysLeft)
 
   return {
     variant: "trial",
-    planName: plan?.planName ?? "Free Trial",
+    planName: plan.planName,
     usagePercent,
-    warning: ended || daysLeft <= 2 || usagePercent >= 80,
+    warning:
+      !conditions.hasGenerationAccess || daysLeft <= 2 || usagePercent >= 80,
     daysLeft,
-    notesUsed,
-    notesLimit,
+    notesUsed: plan.notesUsed,
+    notesLimit: plan.notesLimit,
   }
 }
 
 const paidOrFreePresentation = (
-  plan: PlanInfo | null,
-  warning: boolean,
+  plan: PlanInfo,
+  conditions: PlanConditions,
 ): PlanPresentation => {
-  const variant = plan?.planType === "freemium" ? "free-usage" : "paid"
+  const variant = plan.planType === "freemium" ? "free-usage" : "paid"
+  const usagePercent = getCreditUsagePercent(plan)
   return {
     variant,
-    planName: plan?.planName ?? (variant === "free-usage" ? "Free" : "Paid"),
-    usagePercent: getCreditUsagePercent(plan),
-    warning,
-    daysLeft: plan === null ? null : Math.max(0, plan.daysLeft),
-    notesUsed: plan?.notesUsed ?? null,
-    notesLimit: plan?.notesLimit ?? null,
+    planName: plan.planName,
+    usagePercent,
+    warning: !conditions.hasGenerationAccess || usagePercent >= 80,
+    daysLeft: Math.max(0, plan.daysLeft),
+    notesUsed: plan.notesUsed,
+    notesLimit: plan.notesLimit,
   }
 }

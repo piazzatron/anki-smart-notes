@@ -47,7 +47,7 @@ const ACCOUNT: AccountState = {
     totalCreditsUsed: 0,
     totalCreditsCapacity: 300,
   },
-  subscription: "PAID_PLAN_ACTIVE",
+  status: "AUTHENTICATED",
   email: "person@example.com",
 }
 const DECKS = [{ id: 1, name: "Japanese" }]
@@ -119,8 +119,13 @@ describe("getPromptTestCardState", () => {
     expect(cardState({ prompt: "   " }).runDisabled).toBe(true)
     expect(cardState({ isTesting: true }).runDisabled).toBe(true)
     expect(
-      cardState({}, { ...ACCOUNT, subscription: "FREE_TRIAL_EXPIRED" })
-        .runDisabled,
+      cardState(
+        {},
+        {
+          ...ACCOUNT,
+          plan: { ...ACCOUNT.plan, daysLeft: 0 },
+        },
+      ).runDisabled,
     ).toBe(true)
     expect(cardState({}, null).runDisabled).toBe(true)
   })

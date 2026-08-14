@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, Literal, TypedDict, Union
+from typing import Any
 
 from aqt import (
     QGroupBox,
@@ -33,14 +33,8 @@ from aqt import (
 from ..app_state import AppState, app_state
 from ..auth_flow import open_browser
 from ..constants import get_site_url
-from ..subscription_provider import SubscriptionState
 from .manage_subscription import ManageSubscription
 from .ui_utils import font_bold, font_small
-
-
-class State(TypedDict):
-    subscription: Union[SubscriptionState, Literal["Loading"]]
-
 
 start_trial_style = """
             QPushButton {
@@ -117,15 +111,10 @@ class SubscriptionBox(QWidget):
     def __init__(self) -> None:
         super().__init__()
 
-        self.ui_map: dict[Union[SubscriptionState, Literal["Loading"]], QWidget] = {
+        self.ui_map: dict[str, QWidget] = {
             "LOADING": self._render_loading(),
             "UNAUTHENTICATED": self._render_start_trial(),
-            "FREE_TRIAL_ACTIVE": self._render_free_trial_active(),
-            "FREE_TRIAL_EXPIRED": self._render_upgrade(False),
-            "FREE_TRIAL_CAPACITY": self._render_upgrade(False),
-            "PAID_PLAN_ACTIVE": self._render_active(),
-            "PAID_PLAN_CAPACITY": self._render_upgrade(True),
-            "PAID_PLAN_EXPIRED": self._render_paid_lapsed(),
+            "AUTHENTICATED": self._render_active(),
         }
 
         self._setup_ui()
@@ -145,30 +134,6 @@ class SubscriptionBox(QWidget):
             self.group_box_layout.addWidget(v)
             v.hide()
 
-        # Helpful combo picker to try out different states
-        # combo_picker = QComboBox()
-        # combo_picker.addItems(
-        #     [
-        #         "LOADING",
-        #         "UNAUTHENTICATED",
-        #         "FREE_TRIAL_ACTIVE",
-        #         "FREE_TRIAL_EXPIRED",
-        #         "FREE_TRIAL_CAPACITY",
-        #         "FREE_TRIAL_TEXT_CAPACITY",
-        #         "FREE_TRIAL_VOICE_CAPACITY",
-        #         "PAID_PLAN_ACTIVE",
-        #         "PAID_PLAN_CAPACITY",
-        #         "PAID_PLAN_TEXT_CAPACITY",
-        #         "PAID_PLAN_VOICE_CAPACITY",
-        #         "PAID_PLAN_EXPIRED",
-        #     ]
-        # )
-        # combo_picker.currentIndexChanged.connect(
-        #     lambda _: app_state._state.update(
-        #         {"subscription": combo_picker.currentText()}
-        #     )
-        # )
-        # layout.addWidget(combo_picker
         app_state.bind(self)
 
     def upgrade_now_clicked(self) -> None:
@@ -180,7 +145,7 @@ class SubscriptionBox(QWidget):
     def update_from_state(self, state: AppState) -> None:
         for k, v in self.ui_map.items():
             self.group_box_layout.addWidget(v)
-            if k == state["subscription"]:
+            if k == state["status"]:
                 v.show()
             else:
                 v.hide()

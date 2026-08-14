@@ -70,7 +70,7 @@ class MockAppState:
     """Mock app state that simulates an unlocked app with unlimited capacity"""
 
     state = {
-        "subscription": "PAID_PLAN_ACTIVE",  # Unlocked state
+        "status": "AUTHENTICATED",
         "email": "person@example.com",
         "plan": {
             "planId": "medium1",
@@ -85,6 +85,8 @@ class MockAppState:
             "voiceCreditsCapacity": 1000,
             "imageCreditsUsed": 0,
             "imageCreditsCapacity": 1000,
+            "totalCreditsUsed": 0,
+            "totalCreditsCapacity": 3000,
         },
     }
 

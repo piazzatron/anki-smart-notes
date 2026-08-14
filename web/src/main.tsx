@@ -17,5 +17,6 @@ const startDataSource = async () => {
   connectToAnki()
 }
 
-void startDataSource()
-createRoot(document.getElementById("root")!).render(<App />)
+void startDataSource().then(() => {
+  createRoot(document.getElementById("root")!).render(<App />)
+})

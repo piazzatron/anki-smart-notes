@@ -8,7 +8,7 @@ import { setMockFixture, setMockSelection } from "./mockData"
 
 const FIXTURES = [
   { id: "populated", label: "Trial (default)" },
-  { id: "pre-trial", label: "Pre-trial" },
+  { id: "signed-out-empty", label: "Welcome" },
   { id: "trial-healthy", label: "Trial · healthy" },
   { id: "trial-ending", label: "Trial · ending" },
   { id: "trial-expired", label: "Trial · expired" },

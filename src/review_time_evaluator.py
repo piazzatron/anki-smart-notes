@@ -261,7 +261,7 @@ class ReviewTimeEvaluator:
         if self.is_stopped:
             return
         if isinstance(e, OutOfCreditsError):
-            app_state.update_subscription_state()
+            app_state.update_account_state()
         self.process_pending_tick()
 
     def process_pending_tick(self) -> None:

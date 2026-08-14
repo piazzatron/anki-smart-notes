@@ -62,7 +62,7 @@ def submit_code(
         config.auth_token = result.jwt
         if sentry:
             sentry.set_user()
-        app_state.update_subscription_state()
+        app_state.update_account_state()
         on_result(None)
 
     run_async_in_background(

@@ -17,18 +17,10 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-const SITE_URL = import.meta.env.DEV
-  ? "http://localhost:3001"
-  : "https://smart-notes.xyz"
+import type { ReactNode } from "react"
 
-export const SITE_LINKS = {
-  account: `${SITE_URL}/account`,
-  signIn: `${SITE_URL}/sign-in?utm_source=plugin`,
-  startTrial: `${SITE_URL}/trial?utm_source=plugin`,
-  topUp: `${SITE_URL}/top-up?utm_source=plugin`,
-  upgrade: `${SITE_URL}/upgrade/sign-in?utm_source=plugin`,
-} as const
-
-export const openSiteLink = (url: string): void => {
-  window.open(url, "_blank", "noopener,noreferrer")
-}
+export const PageTitle = ({ children }: { children: ReactNode }) => (
+  <h1 className="min-w-0 truncate text-[26px] leading-tight font-semibold tracking-[-0.025em] text-white">
+    {children}
+  </h1>
+)
