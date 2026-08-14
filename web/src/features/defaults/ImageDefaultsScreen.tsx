@@ -59,7 +59,7 @@ const LoadedImageDefaultsScreen = ({
       accessory={<DefaultUsagePill usage={usage} />}
       icon={
         <span aria-hidden className="text-lg leading-none">
-          🖼️
+          🎨
         </span>
       }
       isDirty={controls.form.isDirty}

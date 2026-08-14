@@ -19,6 +19,7 @@ import type { SmartField } from "@/types/api"
 
 interface SmartFieldRowProps {
   field: SmartField
+  hasDivider: boolean
   onDelete: (field: SmartField) => Promise<void>
   onDuplicate: (field: SmartField) => void
   onEdit: (field: SmartField) => void
@@ -28,6 +29,7 @@ interface SmartFieldRowProps {
 
 export const SmartFieldRow = ({
   field,
+  hasDivider,
   onDelete,
   onDuplicate,
   onEdit,
@@ -51,23 +53,32 @@ export const SmartFieldRow = ({
 
   return (
     <div
-      className={`relative grid min-h-11 cursor-pointer grid-cols-[22px_minmax(80px,120px)_minmax(80px,1fr)_minmax(110px,150px)_28px] items-center gap-2.5 rounded-md px-2.5 py-2 transition hover:bg-white/[0.04] max-[800px]:grid-cols-[22px_minmax(80px,1fr)_minmax(100px,130px)_28px] ${
+      className={`relative grid min-h-11 grid-cols-[22px_120px_minmax(80px,1fr)_132px_28px] items-center gap-[9px] rounded-[7px] py-2 pr-2.5 pl-[18px] max-[800px]:grid-cols-[22px_minmax(80px,1fr)_minmax(100px,130px)_28px] ${
         field.enabled ? "" : "opacity-40"
+      } ${
+        hasDivider
+          ? "before:absolute before:top-0 before:right-2.5 before:left-2.5 before:h-px before:bg-white/[0.05]"
+          : ""
       }`}
     >
+      <button
+        aria-label={`Edit ${field.targetFieldName} Smart Field`}
+        className="absolute inset-0 rounded-[7px] transition hover:bg-white/[0.05]"
+        onClick={() => onEdit(field)}
+      />
       <FieldTypeIcon fieldType={field.fieldType} />
-      <span className="truncate font-mono text-xs text-zinc-200">
+      <span className="pointer-events-none truncate text-[13px] font-medium text-[#cfcfd6]">
         {field.targetFieldName}
       </span>
-      <span className="truncate text-[11px] text-ink-muted max-[800px]:hidden">
+      <span className="pointer-events-none truncate text-[11px] text-ink-muted max-[800px]:hidden">
         {smartFieldDescription(field)}
       </span>
-      <span className="min-w-0 justify-self-end text-right">
-        <span className="block text-[8px] leading-none font-semibold tracking-[0.1em] text-ink-faint uppercase">
+      <span className="pointer-events-none min-w-0 justify-self-end text-right">
+        <span className="block text-[9px] leading-none font-semibold tracking-[0.055em] text-ink-faint uppercase">
           Model
         </span>
         <span
-          className={`mt-1 block truncate text-[10.5px] ${
+          className={`mt-[3px] block truncate text-[11px] ${
             field.settings.usesDefaultGenerationSettings
               ? "text-indigo-soft"
               : "text-zinc-400"
@@ -81,7 +92,7 @@ export const SmartFieldRow = ({
         <DropdownMenuTrigger asChild>
           <button
             aria-label={`Actions for ${field.targetFieldName}`}
-            className="inline-flex size-7 items-center justify-center justify-self-end rounded-md text-ink-faint transition hover:bg-white/[0.07] hover:text-zinc-300"
+            className="relative z-10 inline-flex size-7 items-center justify-center justify-self-end rounded-md text-ink-faint transition hover:bg-white/[0.07] hover:text-zinc-300"
             disabled={pending}
           >
             <MoreHorizontal aria-hidden className="size-4" />

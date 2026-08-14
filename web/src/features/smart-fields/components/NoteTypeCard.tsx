@@ -1,15 +1,15 @@
-import { ChevronDown, FileText, Plus } from "lucide-react"
-import { useState } from "react"
+import { Plus } from "lucide-react"
 
 import { SmartFieldRow } from "./SmartFieldRow"
 
-import { Card } from "@/components/ui/Card"
 import type { SmartField } from "@/types/api"
 
 import type { NoteTypeGroup } from "../groupSmartFields"
 
 interface NoteTypeCardProps {
+  deckName: string
   group: NoteTypeGroup
+  isDeckOverride: boolean
   onCreate: (noteTypeId: number) => void
   onDelete: (field: SmartField) => Promise<void>
   onDuplicate: (field: SmartField) => void
@@ -19,67 +19,52 @@ interface NoteTypeCardProps {
 }
 
 export const NoteTypeCard = ({
+  deckName,
   group,
+  isDeckOverride,
   onCreate,
   onDelete,
   onDuplicate,
   onEdit,
   onToggleEnabled,
   onError,
-}: NoteTypeCardProps) => {
-  const [collapsed, setCollapsed] = useState(false)
-
-  return (
-    <Card as="section" className="mb-5">
-      <header
-        className={`flex items-center gap-2.5 bg-white/[0.035] px-3.5 py-2.5 ${
-          collapsed ? "rounded-xl" : "rounded-t-xl border-b border-white/[0.07]"
+}: NoteTypeCardProps) => (
+  <section className="mb-5">
+    <header className="flex items-center px-1 pt-0.5 pb-2.5">
+      <h3 className="truncate text-[17px] leading-[1.2] font-extrabold tracking-[-0.018em] text-ink">
+        {group.noteType.name}
+      </h3>
+      <span
+        className={`ml-2.5 inline-flex shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold tracking-[0.03em] ${
+          isDeckOverride
+            ? "bg-amber/10 text-amber"
+            : "bg-indigo/15 text-indigo-soft"
         }`}
       >
-        <FileText aria-hidden className="size-3.5 text-zinc-500" />
-        <div className="min-w-0 flex-1">
-          <p className="text-[8px] leading-none font-semibold tracking-[0.1em] text-ink-faint uppercase">
-            Note type
-          </p>
-          <h3 className="mt-1 truncate text-[12.5px] leading-none font-semibold text-zinc-100">
-            {group.noteType.name}
-          </h3>
-        </div>
-        <button
-          aria-label={`Add Smart Field to ${group.noteType.name}`}
-          className="inline-flex size-6 items-center justify-center rounded text-zinc-500 transition hover:bg-white/[0.05] hover:text-zinc-300"
-          onClick={() => onCreate(group.noteType.id)}
-        >
-          <Plus aria-hidden className="size-3.5" />
-        </button>
-        <button
-          aria-expanded={!collapsed}
-          aria-label={`${collapsed ? "Expand" : "Collapse"} ${group.noteType.name}`}
-          className="inline-flex size-6 items-center justify-center rounded text-zinc-500 transition hover:bg-white/[0.05] hover:text-zinc-300"
-          onClick={() => setCollapsed((value) => !value)}
-        >
-          <ChevronDown
-            aria-hidden
-            className={`size-3.5 transition ${collapsed ? "-rotate-90" : ""}`}
-          />
-        </button>
-      </header>
+        {deckName}
+      </span>
+      <button
+        aria-label={`Add Smart Field to ${group.noteType.name}`}
+        className="ml-1.5 inline-flex size-6 items-center justify-center rounded-md text-zinc-500 transition hover:bg-white/[0.05] hover:text-zinc-300"
+        onClick={() => onCreate(group.noteType.id)}
+      >
+        <Plus aria-hidden className="size-3.5" />
+      </button>
+    </header>
 
-      {!collapsed && (
-        <div className="p-1">
-          {group.fields.map((field) => (
-            <SmartFieldRow
-              field={field}
-              key={field.id}
-              onDelete={onDelete}
-              onDuplicate={onDuplicate}
-              onEdit={onEdit}
-              onError={onError}
-              onToggleEnabled={onToggleEnabled}
-            />
-          ))}
-        </div>
-      )}
-    </Card>
-  )
-}
+    <div className="rounded-xl bg-white/[0.05] px-2 py-1.5">
+      {group.fields.map((field, index) => (
+        <SmartFieldRow
+          field={field}
+          hasDivider={index > 0}
+          key={field.id}
+          onDelete={onDelete}
+          onDuplicate={onDuplicate}
+          onEdit={onEdit}
+          onError={onError}
+          onToggleEnabled={onToggleEnabled}
+        />
+      ))}
+    </div>
+  </section>
+)

@@ -1,5 +1,3 @@
-import { Image, MessageSquareText, Volume2 } from "lucide-react"
-
 import type { SmartField } from "@/types/api"
 
 interface FieldTypeIconProps {
@@ -7,21 +5,17 @@ interface FieldTypeIconProps {
 }
 
 const ICONS = {
-  chat: { icon: MessageSquareText, classes: "text-indigo-soft" },
-  tts: { icon: Volume2, classes: "text-mint" },
-  image: { icon: Image, classes: "text-amber" },
+  chat: "💬",
+  image: "🎨",
+  tts: "🔈",
 }
 
-export const FieldTypeIcon = ({ fieldType }: FieldTypeIconProps) => {
-  const { icon: Icon, classes } = ICONS[fieldType]
-
-  return (
-    <span
-      aria-label={`${fieldType} Smart Field`}
-      className={`inline-flex size-[22px] items-center justify-center ${classes}`}
-      role="img"
-    >
-      <Icon aria-hidden className="size-[15px]" />
-    </span>
-  )
-}
+export const FieldTypeIcon = ({ fieldType }: FieldTypeIconProps) => (
+  <span
+    aria-label={`${fieldType} Smart Field`}
+    className="pointer-events-none inline-flex size-[22px] items-center justify-center text-[15px]"
+    role="img"
+  >
+    {ICONS[fieldType]}
+  </span>
+)

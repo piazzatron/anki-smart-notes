@@ -1,4 +1,4 @@
-import { Plus, Sparkles } from "lucide-react"
+import { Plus } from "lucide-react"
 import { useMemo, useState } from "react"
 
 import { DeckGroup } from "./components/DeckGroup"
@@ -7,8 +7,8 @@ import { FieldsEmptyState } from "./components/FieldsEmptyState"
 import { FieldsSkeleton } from "./components/FieldsSkeleton"
 import { groupSmartFields } from "./groupSmartFields"
 
-import { Button } from "@/components/ui/Button"
 import { ScreenHeader } from "@/components/shared/ScreenHeader"
+import { Button } from "@/components/ui/Button"
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import {
   FieldEditorScreen,
@@ -73,15 +73,14 @@ export const SmartFieldsScreen = ({
       <ScreenHeader
         accessory={
           <Button
-            className="h-11 shrink-0 px-5 text-sm"
+            className="h-auto shrink-0 !rounded-[9px] !border-[#1fd47d]/60 !bg-gradient-to-b !from-[#4cf0a8] !to-[#1fd47d] !px-[18px] !py-2.5 !text-[13px] !font-extrabold !text-[#06281a] shadow-[inset_0_1px_0_rgba(255,255,255,0.34),0_10px_24px_-8px_rgba(31,212,125,0.55)] hover:!border-[#1fd47d]/60 hover:brightness-105"
             onClick={() => setEditorState({ mode: "create" })}
-            variant="primary"
+            variant="success"
           >
             <Plus aria-hidden className="size-4" />
             New Smart Field
           </Button>
         }
-        //icon={<Sparkles aria-hidden className="size-5 text-amber" />}
         subtitle="Add automatically generated text, voice, and images to your notes."
         title="✨ Smart Fields"
       />
