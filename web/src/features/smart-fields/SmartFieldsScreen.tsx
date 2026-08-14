@@ -2,6 +2,7 @@ import { Plus, Sparkles } from "lucide-react"
 import { useMemo, useState } from "react"
 
 import { DeckGroup } from "./components/DeckGroup"
+import { DiscordPrompt } from "./components/DiscordPrompt"
 import { FieldsEmptyState } from "./components/FieldsEmptyState"
 import { FieldsSkeleton } from "./components/FieldsSkeleton"
 import { groupSmartFields } from "./groupSmartFields"
@@ -13,7 +14,11 @@ import {
   FieldEditorScreen,
   type FieldEditorRequest,
 } from "@/features/field-editor/FieldEditorScreen"
-import { deleteSmartField, setSmartFieldEnabled } from "@/services/commands"
+import {
+  deleteSmartField,
+  saveSettings,
+  setSmartFieldEnabled,
+} from "@/services/commands"
 import type { AppState, SmartField } from "@/types/api"
 
 export interface SmartFieldsScreenProps {
@@ -30,6 +35,7 @@ export const SmartFieldsScreen = ({
     null,
   )
   const [initialEditorDismissed, setInitialEditorDismissed] = useState(false)
+  const [discordPromptHidden, setDiscordPromptHidden] = useState(false)
   const groups = useMemo(
     () => (state === null ? [] : groupSmartFields(state)),
     [state],
@@ -49,6 +55,16 @@ export const SmartFieldsScreen = ({
   const toggleEnabled = (field: SmartField) =>
     setSmartFieldEnabled(field, !field.enabled)
 
+  const dismissDiscordPrompt = () => {
+    if (state === null) return
+
+    setDiscordPromptHidden(true)
+    void saveSettings({
+      ...state.settings,
+      didDismissDiscordPrompt: true,
+    })
+  }
+
   return (
     <section
       className="flex min-h-0 flex-1 flex-col"
@@ -57,17 +73,17 @@ export const SmartFieldsScreen = ({
       <ScreenHeader
         accessory={
           <Button
-            className="shrink-0"
+            className="h-11 shrink-0 px-5 text-sm"
             onClick={() => setEditorState({ mode: "create" })}
             variant="primary"
           >
-            <Plus aria-hidden className="size-3.5" />
+            <Plus aria-hidden className="size-4" />
             New Smart Field
           </Button>
         }
-        icon={<Sparkles aria-hidden className="size-5 text-amber" />}
+        //icon={<Sparkles aria-hidden className="size-5 text-amber" />}
         subtitle="Add automatically generated text, voice, and images to your notes."
-        title="Smart Fields"
+        title="✨ Smart Fields"
       />
 
       {error !== null && (
@@ -87,6 +103,10 @@ export const SmartFieldsScreen = ({
           />
         ) : (
           <div className="px-6 py-5">
+            {!state.settings.didDismissDiscordPrompt &&
+              !discordPromptHidden && (
+                <DiscordPrompt onDismiss={dismissDiscordPrompt} />
+              )}
             {groups.map((group) => (
               <DeckGroup
                 group={group}

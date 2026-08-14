@@ -23,10 +23,12 @@ from aqt.qt import (
     QDialog,
     QUrl,
     QVBoxLayout,
+    QWebEnginePage,
     QWebEngineSettings,
     QWebEngineView,
     QWidget,
 )
+from aqt.utils import openLink
 
 
 class WebAppDialog(QDialog):
@@ -41,7 +43,8 @@ class WebAppDialog(QDialog):
 
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
-        self._web_view = QWebEngineView(self)
+        app_url = QUrl(url)
+        self._web_view = _SmartNotesWebView(app_url, self)
         # Media previews finish after an async provider request, outside the
         # original Run-button gesture. Allow the requested result to play.
         web_settings = self._web_view.settings()
@@ -51,5 +54,48 @@ class WebAppDialog(QDialog):
             QWebEngineSettings.WebAttribute.PlaybackRequiresUserGesture,
             False,
         )
-        self._web_view.setUrl(QUrl(url))
+        self._web_view.setUrl(app_url)
         layout.addWidget(self._web_view)
+
+
+class _SmartNotesWebPage(QWebEnginePage):
+    """Keep Smart Notes navigation local and send external URLs to the OS."""
+
+    def __init__(self, app_url: QUrl, parent: QWidget) -> None:
+        super().__init__(parent)
+        self._app_url = app_url
+
+    def acceptNavigationRequest(
+        self,
+        url: QUrl,
+        type: QWebEnginePage.NavigationType,
+        isMainFrame: bool,
+    ) -> bool:
+        if (
+            isMainFrame
+            and url.scheme() in {"http", "https", "mailto"}
+            and not self._is_app_url(url)
+        ):
+            openLink(url)
+            return False
+
+        return super().acceptNavigationRequest(url, type, isMainFrame)
+
+    def _is_app_url(self, url: QUrl) -> bool:
+        return (
+            url.scheme() == self._app_url.scheme()
+            and url.host() == self._app_url.host()
+            and url.port() == self._app_url.port()
+        )
+
+
+class _SmartNotesWebView(QWebEngineView):
+    """Create invisible child pages so target=_blank links reach our page policy."""
+
+    def __init__(self, app_url: QUrl, parent: QWidget) -> None:
+        super().__init__(parent)
+        self._app_url = app_url
+        self.setPage(_SmartNotesWebPage(app_url, self))
+
+    def createWindow(self, type: QWebEnginePage.WebWindowType) -> QWebEngineView:
+        return _SmartNotesWebView(self._app_url, self)

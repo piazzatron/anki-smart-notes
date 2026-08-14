@@ -41,6 +41,7 @@ class Config:
     auth_token: Optional[str]
     legacy_support: Optional[bool]
     show_wizard_completion: bool
+    did_dismiss_discord_prompt: bool
 
     # Dialogs / Migrations
     did_show_chained_error_dialog: bool
@@ -100,6 +101,8 @@ def migrate_config() -> None:
     # Persisted configs can still contain the historical null despite today's type.
     if cast(Optional[str], config.legacy_openai_model) is None:
         config.legacy_openai_model = LEGACY_OPENAI_MODEL_DEFAULT
+    if getattr(config, "did_dismiss_discord_prompt", None) is None:
+        config.did_dismiss_discord_prompt = False
 
 
 def bump_usage_counter() -> None:

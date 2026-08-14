@@ -140,6 +140,7 @@ export interface Settings {
   legacyOpenAiModel: string
   legacyOpenAiHost: string | null
   showWizardCompletion: boolean
+  didDismissDiscordPrompt: boolean
 }
 
 export interface AppState {

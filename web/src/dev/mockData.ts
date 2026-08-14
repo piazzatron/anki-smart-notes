@@ -159,6 +159,7 @@ const BASE_STATE: AppState = {
     legacyOpenAiModel: "gpt-5-mini",
     legacyOpenAiHost: null,
     showWizardCompletion: true,
+    didDismissDiscordPrompt: false,
   },
 }
 

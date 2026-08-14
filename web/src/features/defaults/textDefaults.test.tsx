@@ -45,6 +45,7 @@ const state: AppState = {
     legacyOpenAiModel: "gpt-5-mini",
     regenerateWhenBatching: false,
     showWizardCompletion: true,
+    didDismissDiscordPrompt: false,
   },
 }
 
