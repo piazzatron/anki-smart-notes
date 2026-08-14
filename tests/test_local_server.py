@@ -746,6 +746,38 @@ async def test_logout_command_clears_auth_and_refreshes_state(monkeypatch):
 
 
 @pytest.mark.asyncio
+async def test_exchange_auth_code_command_stores_token_and_refreshes_state(monkeypatch):
+    import src.local_server
+
+    exchange_auth_code = AsyncMock(return_value="abc.def.ghi")
+    fake_config = MagicMock(auth_token=None)
+    fake_sentry = MagicMock()
+    fake_app_state = MagicMock()
+    monkeypatch.setattr(
+        src.local_server.auth_service, "exchange_auth_code", exchange_auth_code
+    )
+    monkeypatch.setattr(src.local_server, "config", fake_config)
+    monkeypatch.setattr(src.local_server, "sentry", fake_sentry)
+    monkeypatch.setattr(src.local_server, "app_state", fake_app_state)
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+
+    server = _make_server()
+    async with TestClient(TestServer(_make_app(server))) as client:
+        resp = await client.post(
+            "/api/command",
+            json=_command_request("auth.exchangeCode", {"code": " abc123 "}),
+            headers={"X-Session-Token": server.session_token},
+        )
+
+        assert resp.status == 200
+        assert (await resp.json()) == {"ok": True}
+        exchange_auth_code.assert_awaited_once_with("ABC123")
+        assert fake_config.auth_token == "abc.def.ghi"
+        fake_sentry.set_user.assert_called_once_with()
+        fake_app_state.update_account_state.assert_called_once_with()
+
+
+@pytest.mark.asyncio
 async def test_refresh_account_command_fetches_account_state(monkeypatch):
     import src.local_server
 

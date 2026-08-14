@@ -102,7 +102,10 @@ const App = () => {
   return (
     <>
       {showWelcome ? (
-        <WelcomeScreen connection={connection} />
+        <WelcomeScreen
+          appVersion={state?.appVersion ?? null}
+          connection={connection}
+        />
       ) : (
         <AppShell
           account={state?.account ?? LOADING_ACCOUNT}

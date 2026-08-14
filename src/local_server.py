@@ -467,6 +467,22 @@ def _run_logout(payload: dict[str, Any]) -> None:
     auth_service.logout()
 
 
+async def _run_exchange_auth_code(payload: dict[str, Any]) -> None:
+    jwt = await auth_service.exchange_auth_code(dto.parse_auth_exchange_code(payload))
+
+    # Authentication state belongs to Anki's main thread even though the code
+    # exchange itself is an ordinary async network request.
+    def store_token() -> None:
+        config.auth_token = jwt
+        if sentry:
+            sentry.set_user()
+        app_state.update_account_state()
+
+    await asyncio.get_running_loop().run_in_executor(
+        None, lambda: _run_on_main_sync(store_token)
+    )
+
+
 def _run_refresh_account(payload: dict[str, Any]) -> None:
     dto.parse_account_refresh(payload)
     auth_service.refresh_account()
@@ -495,6 +511,7 @@ COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
     "notes.saveTestResult": _run_save_test_result,
     "support.sendFeedback": _run_send_feedback,
     "account.refresh": _run_refresh_account,
+    "auth.exchangeCode": _run_exchange_auth_code,
     "auth.logout": _run_logout,
     "ui.openBrowser": _run_open_browser,
 }

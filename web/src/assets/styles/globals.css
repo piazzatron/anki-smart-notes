@@ -1,8 +1,9 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 @theme {
-  --color-canvas: #18181b;
-  --color-sidebar: #0d0d0f;
+  --color-canvas: #141416;
+  --color-sidebar: #101012;
   --color-panel: #151519;
   --color-panel-raised: #1b1b20;
   --color-ink: #f4f4f6;
@@ -85,6 +86,22 @@
       transform: scale(0.985);
     }
   }
+
+  @keyframes welcome-enter {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.welcome-enter {
+  opacity: 0;
+  animation: welcome-enter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 :root {

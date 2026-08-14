@@ -1,4 +1,5 @@
 import type {
+  AuthExchangeCodePayload,
   ChatDefaultsSavePayload,
   CommandName,
   CommandResponse,
@@ -95,6 +96,12 @@ export const sendFeedback = async (
 
 export const logout = async (): Promise<void> => {
   await sendCommand("auth.logout", {})
+}
+
+export const exchangeAuthCode = async (code: string): Promise<void> => {
+  await sendCommand("auth.exchangeCode", {
+    code,
+  } satisfies AuthExchangeCodePayload)
 }
 
 export const refreshAccount = async (): Promise<void> => {

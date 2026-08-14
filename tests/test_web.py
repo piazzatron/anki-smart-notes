@@ -721,6 +721,13 @@ def test_parse_auth_logout_requires_empty_object():
         dto.parse_auth_logout(None)
 
 
+def test_parse_auth_exchange_code_normalizes_code():
+    assert dto.parse_auth_exchange_code({"code": " abc-123 "}) == "ABC-123"
+
+    with pytest.raises(ValueError, match="Please enter a code"):
+        dto.parse_auth_exchange_code({"code": "   "})
+
+
 def test_parse_account_refresh_requires_empty_object():
     assert dto.parse_account_refresh({}) is None
 

@@ -46,6 +46,23 @@ if (!("window" in globalThis)) {
 }
 
 describe("Smart Field commands", () => {
+  test("exchanges a browser auth code through Anki", async () => {
+    const { exchangeAuthCode, setCommandSender } = await import("./commands")
+    const sentCommands: { command: CommandName; payload: object }[] = []
+    setCommandSender(
+      async <Result = void>(command: CommandName, payload: object) => {
+        sentCommands.push({ command, payload })
+        return undefined as Result
+      },
+    )
+
+    await exchangeAuthCode("ABC123")
+
+    expect(sentCommands).toEqual([
+      { command: "auth.exchangeCode", payload: { code: "ABC123" } },
+    ])
+  })
+
   test("requests an account refresh", async () => {
     const { refreshAccount, setCommandSender } = await import("./commands")
     const sentCommands: { command: CommandName; payload: object }[] = []

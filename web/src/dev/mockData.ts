@@ -449,6 +449,17 @@ export const sendMockCommand: CommandSender = async <Result = void>(
   if (state === null) return undefined as Result
   const commandPayload = payload as Record<string, unknown>
 
+  if (command === "auth.exchangeCode") {
+    await new Promise((resolve) => setTimeout(resolve, 500))
+    useAppStore.setState({
+      state: {
+        ...state,
+        account: structuredClone(MOCK_ACCOUNT_FIXTURES["trial-healthy"]),
+      },
+    })
+    return undefined as Result
+  }
+
   if (command === "prompts.test") {
     return {
       text: "To eat — the act of consuming food, as in りんごを食べる (to eat an apple).",

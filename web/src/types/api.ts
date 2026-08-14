@@ -207,6 +207,7 @@ export type Selection = { note: SelectedNote } | { note: null; count: number }
 
 export type CommandName =
   | "account.refresh"
+  | "auth.exchangeCode"
   | "smartFields.create"
   | "smartFields.update"
   | "smartFields.delete"
@@ -233,6 +234,10 @@ export type SmartFieldUpdatePayload = SmartField
 
 export interface SmartFieldDeletePayload {
   id: string
+}
+
+export interface AuthExchangeCodePayload {
+  code: string
 }
 
 export type GenerationDefaultsSavePayload = GenerationDefaults

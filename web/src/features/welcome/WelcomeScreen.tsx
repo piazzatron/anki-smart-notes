@@ -17,44 +17,179 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { useState } from "react"
+
 import { ConnectionNotice } from "@/components/shared/ConnectionNotice"
+import { errorMessage } from "@/lib/errors"
 import { openSiteLink, SITE_LINKS } from "@/lib/siteLinks"
+import { exchangeAuthCode } from "@/services/commands"
 import type { Connection } from "@/store/appStore"
 
 interface WelcomeScreenProps {
+  appVersion: string | null
   connection: Connection
 }
 
-export const WelcomeScreen = ({ connection }: WelcomeScreenProps) => (
-  <main className="flex h-full min-h-0 flex-col bg-canvas text-ink">
-    <ConnectionNotice connection={connection} />
-    <div className="flex min-h-0 flex-1 items-center justify-center px-6 py-10 text-center">
-      <div className="w-full max-w-sm">
-        <p className="text-[32px] font-extrabold tracking-[-0.04em] text-zinc-100">
-          Smart Notes ✨
-        </p>
-        <h1 className="mt-6 text-xl font-bold text-zinc-100">
-          Welcome to Smart Notes
-        </h1>
-        <p className="mt-2 text-sm leading-6 text-ink-muted">
-          Create an account to start adding generated text, voice, and images to
-          your Anki cards.
-        </p>
-        <button
-          className="mt-7 w-full rounded-xl bg-mint px-5 py-3 text-sm font-extrabold text-emerald-950 transition hover:bg-emerald-300"
-          onClick={() => openSiteLink(SITE_LINKS.startTrial)}
-          type="button"
-        >
-          Start Free Trial
-        </button>
-        <button
-          className="mt-4 text-xs font-semibold text-indigo-soft transition hover:text-white"
-          onClick={() => openSiteLink(SITE_LINKS.signIn)}
-          type="button"
-        >
-          Already have an account? Sign in
-        </button>
+export const WelcomeScreen = ({
+  appVersion,
+  connection,
+}: WelcomeScreenProps) => {
+  const [code, setCode] = useState("")
+  const [codeError, setCodeError] = useState<string | null>(null)
+  const [isSubmittingCode, setIsSubmittingCode] = useState(false)
+  const [isWaitingForBrowser, setIsWaitingForBrowser] = useState(false)
+
+  const openOnboarding = (url: string) => {
+    setIsWaitingForBrowser(true)
+    openSiteLink(url)
+  }
+
+  const submitCode = async () => {
+    setCodeError(null)
+    setIsSubmittingCode(true)
+    try {
+      await exchangeAuthCode(code)
+    } catch (error) {
+      setCodeError(errorMessage(error, "Could not connect with that code"))
+      setIsSubmittingCode(false)
+    }
+  }
+
+  return (
+    <main className="relative isolate flex h-full min-h-0 flex-col overflow-hidden bg-canvas text-ink">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(640px 440px at 50% 68%, rgba(31,212,125,0.05), transparent 70%), radial-gradient(620px 420px at 50% 30%, rgba(124,141,255,0.04), transparent 70%)",
+        }}
+      />
+      <ConnectionNotice connection={connection} />
+      <div className="relative z-10 flex min-h-0 flex-1 items-center justify-center px-6 py-12 text-center">
+        {isWaitingForBrowser ? (
+          <div className="w-full max-w-[360px]">
+            <div className="welcome-enter">
+              <div className="mx-auto size-[46px] animate-spin rounded-full border-[2.5px] border-indigo/15 border-t-indigo" />
+            </div>
+            <h1
+              className="welcome-enter mt-[22px] text-lg font-semibold tracking-[-0.2px] text-[#f4f4f6]"
+              style={{ animationDelay: "70ms" }}
+            >
+              Finish up in your browser
+            </h1>
+            <p
+              className="welcome-enter mx-auto mt-2 max-w-[330px] text-[12.5px] leading-[1.6] text-[#8b8b94]"
+              style={{ animationDelay: "140ms" }}
+            >
+              Complete sign-in in the browser we opened. This window will update
+              automatically.
+            </p>
+
+            <form
+              className="welcome-enter mt-7 rounded-[11px] border border-white/[0.07] bg-black/20 p-4 text-left"
+              onSubmit={(event) => {
+                event.preventDefault()
+                void submitCode()
+              }}
+              style={{ animationDelay: "210ms" }}
+            >
+              <label
+                className="text-[11.5px] font-medium text-[#b4b4be]"
+                htmlFor="welcome-auth-code"
+              >
+                Have a code from the website?
+              </label>
+              <div className="mt-2 flex gap-2">
+                <input
+                  autoCapitalize="characters"
+                  autoComplete="off"
+                  className="min-w-0 flex-1 rounded-lg border border-white/[0.08] bg-white/[0.04] px-3 py-2.5 font-mono text-xs tracking-[0.08em] text-zinc-100 transition outline-none focus:border-indigo/55 focus:ring-2 focus:ring-indigo/15"
+                  disabled={isSubmittingCode}
+                  id="welcome-auth-code"
+                  onChange={(event) =>
+                    setCode(event.target.value.toUpperCase())
+                  }
+                  placeholder="Paste your code"
+                  spellCheck={false}
+                  value={code}
+                />
+                <button
+                  className="rounded-lg bg-indigo px-4 py-2.5 text-xs font-bold text-white transition hover:bg-[#8a99ff] disabled:opacity-40"
+                  disabled={!code.trim() || isSubmittingCode}
+                  type="submit"
+                >
+                  {isSubmittingCode ? "Connecting…" : "Connect"}
+                </button>
+              </div>
+              {codeError !== null && (
+                <p className="mt-2 text-[11px] leading-4 text-danger">
+                  {codeError}
+                </p>
+              )}
+            </form>
+          </div>
+        ) : (
+          <div className="w-full max-w-[380px]">
+            <h1 className="welcome-enter text-[38px] leading-none font-extrabold tracking-[-0.037em] text-[#f6f6f8]">
+              Smart Notes
+              <span
+                aria-hidden
+                className="ml-1 inline-block translate-y-[-6px] text-[26px] font-normal"
+              >
+                ✨
+              </span>
+            </h1>
+
+            <p
+              className="welcome-enter mt-[13px] text-[14.5px] leading-[1.55] font-semibold text-[#eaeaef]"
+              style={{ animationDelay: "80ms" }}
+            >
+              Add text, speech, and images to individual cards or your entire
+              deck in one click.
+            </p>
+
+            <div
+              className="welcome-enter mx-auto mt-8 w-full max-w-[356px]"
+              style={{ animationDelay: "160ms" }}
+            >
+              <button
+                className="w-full rounded-[14px] border border-[#1fd47d]/60 bg-gradient-to-b from-[#4cf0a8] to-[#1fd47d] px-5 py-[19px] text-[17px] font-extrabold tracking-[0.1px] text-[#06281a] shadow-[inset_0_1px_0_rgba(255,255,255,0.36),0_16px_36px_-10px_rgba(31,212,125,0.66)] transition-[filter,transform] duration-150 hover:scale-[1.01] hover:brightness-105"
+                onClick={() => openOnboarding(SITE_LINKS.startTrial)}
+                type="button"
+              >
+                ✨ Start Free Trial ✨
+              </button>
+              <p className="mt-[15px] text-xs text-[#b6b6bf]">
+                Free for 7 days · every feature · no credit card
+              </p>
+            </div>
+
+            <p
+              className="welcome-enter mt-7 text-[12.5px] text-[#8b8b94]"
+              style={{ animationDelay: "240ms" }}
+            >
+              Already have an account?{" "}
+              <button
+                className="font-medium text-[#a5b4ff] transition-colors hover:text-white"
+                onClick={() => openOnboarding(SITE_LINKS.signIn)}
+                type="button"
+              >
+                Sign in
+              </button>
+            </p>
+          </div>
+        )}
       </div>
-    </div>
-  </main>
-)
+
+      {appVersion !== null && (
+        <p
+          className="welcome-enter absolute right-0 bottom-3.5 left-0 z-10 text-center font-mono text-[10px] text-[#5c5c66]"
+          style={{ animationDelay: "320ms" }}
+        >
+          Smart Notes v{appVersion}
+        </p>
+      )}
+    </main>
+  )
+}

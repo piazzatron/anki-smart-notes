@@ -382,6 +382,13 @@ def parse_auth_logout(payload: object) -> None:
         raise ValueError("auth.logout payload must be an empty object")
 
 
+def parse_auth_exchange_code(payload: dict[str, Any]) -> str:
+    code = _require_string(payload, "code").strip().upper()
+    if not code:
+        raise ValueError("Please enter a code.")
+    return code
+
+
 def parse_account_refresh(payload: object) -> None:
     if not isinstance(payload, dict) or payload:
         raise ValueError("account.refresh payload must be an empty object")
