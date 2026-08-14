@@ -25,7 +25,6 @@
 export type SubscriptionState =
   | "LOADING"
   | "UNAUTHENTICATED"
-  | "NO_SUBSCRIPTION"
   | "FREE_TRIAL_ACTIVE"
   | "FREE_TRIAL_EXPIRED"
   | "FREE_TRIAL_CAPACITY"
@@ -33,9 +32,25 @@ export type SubscriptionState =
   | "PAID_PLAN_EXPIRED"
   | "PAID_PLAN_CAPACITY"
 
+export type AuthenticatedSubscriptionState = Exclude<
+  SubscriptionState,
+  "LOADING" | "UNAUTHENTICATED"
+>
+
+export type LegacyPlanId =
+  | "free"
+  | "free_mini_1"
+  | "small1"
+  | "medium1"
+  | "large1"
+export type PlanType = "trial" | "freemium" | "small" | "medium" | "large"
+export type PlanName = "Free Trial" | "Free" | "Lite" | "Standard" | "Pro"
+
 export interface PlanInfo {
-  planId: string
-  planName: string
+  /** @deprecated Use planType. Retained for compatibility with older clients. */
+  planId: LegacyPlanId
+  planType: PlanType
+  planName: PlanName
   notesUsed: number | null
   notesLimit: number | null
   daysLeft: number
@@ -49,10 +64,17 @@ export interface PlanInfo {
   totalCreditsCapacity: number
 }
 
-export interface AccountState {
-  subscription: SubscriptionState
-  plan: PlanInfo | null
-}
+export type AccountState =
+  | {
+      subscription: "LOADING" | "UNAUTHENTICATED"
+      plan: null
+      email: null
+    }
+  | {
+      subscription: AuthenticatedSubscriptionState
+      plan: PlanInfo
+      email: string
+    }
 
 export interface ChatSmartFieldSettings {
   promptText: string

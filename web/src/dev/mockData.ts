@@ -15,9 +15,11 @@ import type {
 } from "@/types/api"
 
 const GLOBAL_DECK_ID = 1
+const MOCK_ACCOUNT_EMAIL = "geniie.dev@gmail.com"
 
 const HEALTHY_TRIAL_PLAN: PlanInfo = {
   planId: "free",
+  planType: "trial",
   planName: "Free Trial",
   notesUsed: 12,
   notesLimit: 50,
@@ -140,6 +142,7 @@ const BASE_STATE: AppState = {
   account: {
     subscription: "FREE_TRIAL_ACTIVE",
     plan: HEALTHY_TRIAL_PLAN,
+    email: MOCK_ACCOUNT_EMAIL,
   },
   defaults: {
     chat: {
@@ -169,13 +172,19 @@ const withTrialPlan = (updates: Partial<PlanInfo>): PlanInfo => ({
 })
 
 export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
-  "pre-trial": { subscription: "NO_SUBSCRIPTION", plan: null },
+  "signed-out-empty": {
+    subscription: "UNAUTHENTICATED",
+    plan: null,
+    email: null,
+  },
   "trial-healthy": {
     subscription: "FREE_TRIAL_ACTIVE",
     plan: HEALTHY_TRIAL_PLAN,
+    email: MOCK_ACCOUNT_EMAIL,
   },
   "trial-ending": {
     subscription: "FREE_TRIAL_ACTIVE",
+    email: MOCK_ACCOUNT_EMAIL,
     plan: withTrialPlan({
       daysLeft: 2,
       notesUsed: 42,
@@ -188,9 +197,11 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
   "trial-expired": {
     subscription: "FREE_TRIAL_EXPIRED",
     plan: withTrialPlan({ daysLeft: 0, notesUsed: 50 }),
+    email: MOCK_ACCOUNT_EMAIL,
   },
   "trial-capacity": {
     subscription: "FREE_TRIAL_CAPACITY",
+    email: MOCK_ACCOUNT_EMAIL,
     plan: withTrialPlan({
       notesUsed: 50,
       textCreditsUsed: 100,
@@ -200,8 +211,11 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
     }),
   },
   free: {
-    subscription: "FREE_TRIAL_ACTIVE",
+    subscription: "PAID_PLAN_ACTIVE",
+    email: MOCK_ACCOUNT_EMAIL,
     plan: withTrialPlan({
+      planId: "free_mini_1",
+      planType: "freemium",
       planName: "Free",
       notesUsed: null,
       notesLimit: null,
@@ -218,8 +232,10 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
   },
   paid: {
     subscription: "PAID_PLAN_ACTIVE",
+    email: MOCK_ACCOUNT_EMAIL,
     plan: withTrialPlan({
-      planId: "standard",
+      planId: "medium1",
+      planType: "medium",
       planName: "Standard",
       notesUsed: null,
       notesLimit: null,
@@ -236,8 +252,10 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
   },
   "paid-expired": {
     subscription: "PAID_PLAN_EXPIRED",
+    email: MOCK_ACCOUNT_EMAIL,
     plan: withTrialPlan({
-      planId: "standard",
+      planId: "medium1",
+      planType: "medium",
       planName: "Standard",
       notesUsed: null,
       notesLimit: null,
@@ -246,9 +264,11 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
   },
   "paid-capacity": {
     subscription: "PAID_PLAN_CAPACITY",
+    email: MOCK_ACCOUNT_EMAIL,
     plan: withTrialPlan({
-      planId: "standard",
-      planName: "Standard",
+      planId: "large1",
+      planType: "large",
+      planName: "Pro",
       notesUsed: null,
       notesLimit: null,
       textCreditsUsed: 250,
@@ -261,8 +281,8 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
       totalCreditsCapacity: 500,
     }),
   },
-  "signed-out": { subscription: "UNAUTHENTICATED", plan: null },
-  loading: { subscription: "LOADING", plan: null },
+  "signed-out": { subscription: "UNAUTHENTICATED", plan: null, email: null },
+  loading: { subscription: "LOADING", plan: null, email: null },
 }
 
 export const MOCK_CATALOG: Catalog = {
@@ -392,7 +412,9 @@ const MOCK_SELECTIONS: Record<string, Selection> = {
 export const setMockFixture = (fixture: string): void => {
   const state = structuredClone(BASE_STATE)
 
-  if (fixture === "empty") state.smartFields = []
+  if (fixture === "empty" || fixture === "signed-out-empty") {
+    state.smartFields = []
+  }
   if (fixture in MOCK_ACCOUNT_FIXTURES) {
     state.account = structuredClone(MOCK_ACCOUNT_FIXTURES[fixture])
   }
@@ -481,7 +503,7 @@ export const sendMockCommand: CommandSender = async <Result = void>(
     useAppStore.setState({
       state: {
         ...state,
-        account: { subscription: "UNAUTHENTICATED", plan: null },
+        account: { subscription: "UNAUTHENTICATED", plan: null, email: null },
       },
     })
     return undefined as Result

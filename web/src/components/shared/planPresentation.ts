@@ -1,7 +1,7 @@
 import type { AccountState, PlanInfo, SubscriptionState } from "@/types/api"
 
 export type PlanVariant =
-  "loading" | "signed-out" | "free-cta" | "trial" | "free-usage" | "paid"
+  "loading" | "signed-out" | "trial" | "free-usage" | "paid"
 
 export interface PlanPresentation {
   variant: PlanVariant
@@ -72,19 +72,12 @@ type PlanPresentationFactory = (plan: PlanInfo | null) => PlanPresentation
 const PLAN_PRESENTATIONS: Record<SubscriptionState, PlanPresentationFactory> = {
   LOADING: () => presentation("loading"),
   UNAUTHENTICATED: () => presentation("signed-out"),
-  NO_SUBSCRIPTION: (plan) =>
-    plan === null
-      ? presentation("free-cta")
-      : paidOrFreePresentation("free-usage", plan, false),
-  FREE_TRIAL_ACTIVE: (plan) =>
-    plan?.notesLimit === null
-      ? paidOrFreePresentation("free-usage", plan, false)
-      : trialPresentation(plan, false),
+  FREE_TRIAL_ACTIVE: (plan) => trialPresentation(plan, false),
   FREE_TRIAL_EXPIRED: (plan) => trialPresentation(plan, true),
   FREE_TRIAL_CAPACITY: (plan) => trialPresentation(plan, true),
-  PAID_PLAN_ACTIVE: (plan) => paidOrFreePresentation("paid", plan, false),
-  PAID_PLAN_EXPIRED: (plan) => paidOrFreePresentation("paid", plan, true),
-  PAID_PLAN_CAPACITY: (plan) => paidOrFreePresentation("paid", plan, true),
+  PAID_PLAN_ACTIVE: (plan) => paidOrFreePresentation(plan, false),
+  PAID_PLAN_EXPIRED: (plan) => paidOrFreePresentation(plan, true),
+  PAID_PLAN_CAPACITY: (plan) => paidOrFreePresentation(plan, true),
 }
 
 const presentation = (variant: PlanVariant): PlanPresentation => ({
@@ -118,15 +111,17 @@ const trialPresentation = (
 }
 
 const paidOrFreePresentation = (
-  variant: "free-usage" | "paid",
   plan: PlanInfo | null,
   warning: boolean,
-): PlanPresentation => ({
-  variant,
-  planName: plan?.planName ?? (variant === "free-usage" ? "Free" : "Paid"),
-  usagePercent: getCreditUsagePercent(plan),
-  warning,
-  daysLeft: plan === null ? null : Math.max(0, plan.daysLeft),
-  notesUsed: plan?.notesUsed ?? null,
-  notesLimit: plan?.notesLimit ?? null,
-})
+): PlanPresentation => {
+  const variant = plan?.planType === "freemium" ? "free-usage" : "paid"
+  return {
+    variant,
+    planName: plan?.planName ?? (variant === "free-usage" ? "Free" : "Paid"),
+    usagePercent: getCreditUsagePercent(plan),
+    warning,
+    daysLeft: plan === null ? null : Math.max(0, plan.daysLeft),
+    notesUsed: plan?.notesUsed ?? null,
+    notesLimit: plan?.notesLimit ?? null,
+  }
+}

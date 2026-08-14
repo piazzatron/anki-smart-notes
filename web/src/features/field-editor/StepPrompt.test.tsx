@@ -20,7 +20,7 @@
 import { describe, expect, test } from "bun:test"
 import { renderToStaticMarkup } from "react-dom/server"
 
-import type { AppState, Catalog } from "@/types/api"
+import type { AppState, Catalog, PlanInfo } from "@/types/api"
 
 import { createFieldEditorDraft } from "./fieldEditor"
 import type { FieldEditorControls } from "./useFieldEditor"
@@ -33,6 +33,23 @@ if (!("window" in globalThis)) {
 }
 
 const { StepPrompt } = await import("./StepPrompt")
+
+const plan: PlanInfo = {
+  planId: "free",
+  planType: "trial",
+  planName: "Free Trial",
+  notesUsed: 0,
+  notesLimit: 50,
+  daysLeft: 5,
+  textCreditsUsed: 0,
+  textCreditsCapacity: 100,
+  voiceCreditsUsed: 0,
+  voiceCreditsCapacity: 100,
+  imageCreditsUsed: 0,
+  imageCreditsCapacity: 100,
+  totalCreditsUsed: 0,
+  totalCreditsCapacity: 300,
+}
 
 const state: AppState = {
   schemaVersion: 1,
@@ -47,7 +64,11 @@ const state: AppState = {
   decks: [{ id: 1, name: "All Decks" }],
   smartFields: [],
   globalDeckId: 1,
-  account: { subscription: "FREE_TRIAL_ACTIVE", plan: null },
+  account: {
+    subscription: "FREE_TRIAL_ACTIVE",
+    plan,
+    email: "person@example.com",
+  },
   defaults: {
     chat: {
       provider: "auto",

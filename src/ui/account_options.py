@@ -178,7 +178,7 @@ class AccountOptions(QWidget):
         credits_breakdown = f"Text 💬: {text_percent}%  |  Voice 🎤: {voice_percent}%  |  Image 🖼️: {image_percent}%"
 
         days = plan["daysLeft"]
-        days_remaining = f"{days} day{'s' if days > 1 else ''} left{' in cycle' if plan['planId'] == 'free' else ''}."
+        days_remaining = f"{days} day{'s' if days > 1 else ''} left{' in cycle' if plan['planType'] == 'trial' else ''}."
 
         if plan["notesLimit"]:
             notes_limit = f"{plan['notesUsed']}/{plan['notesLimit']}"

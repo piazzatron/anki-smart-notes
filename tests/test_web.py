@@ -138,6 +138,49 @@ def test_subscription_state_change_invalidates_web_state(monkeypatch):
     assert isinstance(publish.call_args.args[0], StateInvalidated)
 
 
+def test_subscription_state_includes_email_and_invalidates_web_state(monkeypatch):
+    publish = MagicMock()
+    monkeypatch.setattr(
+        "src.app_state.config", SimpleNamespace(auth_token="auth-token")
+    )
+    monkeypatch.setattr("src.app_state.event_bus.publish", publish)
+
+    def complete_request(_operation, on_success, _on_failure, **_kwargs):
+        on_success(
+            {
+                "plan": {
+                    "planId": "free",
+                    "planType": "trial",
+                    "planName": "Free Trial",
+                    "notesUsed": 12,
+                    "notesLimit": 50,
+                    "daysLeft": 5,
+                    "textCreditsUsed": 20,
+                    "textCreditsCapacity": 100,
+                    "voiceCreditsUsed": 10,
+                    "voiceCreditsCapacity": 100,
+                    "imageCreditsUsed": 0,
+                    "imageCreditsCapacity": 100,
+                    "totalCreditsUsed": 30,
+                    "totalCreditsCapacity": 300,
+                },
+                "email": "person@example.com",
+                "error": None,
+            }
+        )
+
+    monkeypatch.setattr(
+        "src.app_state.run_async_in_background_with_sentry", complete_request
+    )
+
+    manager = AppStateManager()
+    manager.update_subscription_state()
+
+    assert manager.state["subscription"] == "FREE_TRIAL_ACTIVE"
+    assert manager.state["email"] == "person@example.com"
+    assert isinstance(publish.call_args.args[0], StateInvalidated)
+
+
 # -- DTOs --
 
 
@@ -162,8 +205,10 @@ def _chat_smart_field() -> SmartField:
 def test_build_state_shape():
     account = {
         "subscription": "FREE_TRIAL_ACTIVE",
+        "email": "person@example.com",
         "plan": {
             "planId": "free",
+            "planType": "trial",
             "planName": "Free Trial",
             "notesUsed": 12,
             "notesLimit": 50,
@@ -239,7 +284,7 @@ def test_build_state_excludes_smart_fields_with_missing_anki_references():
             replace(valid_field, id="missing-note-type", note_type_id=999),
             replace(valid_field, id="missing-deck", deck_id=999),
         ],
-        account={"subscription": "UNAUTHENTICATED", "plan": None},
+        account={"subscription": "UNAUTHENTICATED", "plan": None, "email": None},
         settings=SETTINGS_DTO,
         app_version="2.23.9",
     )

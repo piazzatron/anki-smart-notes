@@ -26,7 +26,7 @@ const state: AppState = {
   noteTypes: [],
   decks: [],
   globalDeckId: 1,
-  account: { subscription: "NO_SUBSCRIPTION", plan: null },
+  account: { subscription: "UNAUTHENTICATED", plan: null, email: null },
   defaults: {
     chat: {
       provider: "auto",

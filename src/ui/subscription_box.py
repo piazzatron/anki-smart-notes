@@ -120,7 +120,6 @@ class SubscriptionBox(QWidget):
         self.ui_map: dict[Union[SubscriptionState, Literal["Loading"]], QWidget] = {
             "LOADING": self._render_loading(),
             "UNAUTHENTICATED": self._render_start_trial(),
-            "NO_SUBSCRIPTION": self._render_start_trial(),
             "FREE_TRIAL_ACTIVE": self._render_free_trial_active(),
             "FREE_TRIAL_EXPIRED": self._render_upgrade(False),
             "FREE_TRIAL_CAPACITY": self._render_upgrade(False),
@@ -152,7 +151,6 @@ class SubscriptionBox(QWidget):
         #     [
         #         "LOADING",
         #         "UNAUTHENTICATED",
-        #         "NO_SUBSCRIPTION",
         #         "FREE_TRIAL_ACTIVE",
         #         "FREE_TRIAL_EXPIRED",
         #         "FREE_TRIAL_CAPACITY",

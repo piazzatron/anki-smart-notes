@@ -71,9 +71,11 @@ class MockAppState:
 
     state = {
         "subscription": "PAID_PLAN_ACTIVE",  # Unlocked state
+        "email": "person@example.com",
         "plan": {
-            "planId": "test_plan",
-            "planName": "Test Plan",
+            "planId": "medium1",
+            "planType": "medium",
+            "planName": "Standard",
             "notesUsed": 0,
             "notesLimit": 1000,
             "daysLeft": 30,

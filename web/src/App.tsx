@@ -25,7 +25,11 @@ import type { AccountState } from "@/types/api"
 const MockPanel = import.meta.env.DEV
   ? lazy(() => import("@/dev/MockPanel"))
   : null
-const LOADING_ACCOUNT: AccountState = { subscription: "LOADING", plan: null }
+const LOADING_ACCOUNT: AccountState = {
+  subscription: "LOADING",
+  plan: null,
+  email: null,
+}
 
 interface SmartFieldsRouteProps {
   initialEditor?: FieldEditorRequest

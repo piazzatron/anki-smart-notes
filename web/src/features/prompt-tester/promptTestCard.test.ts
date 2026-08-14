@@ -30,7 +30,26 @@ Object.defineProperty(globalThis, "window", {
 const { getPromptTestCardState, getSaveTestResultTarget } =
   await import("./promptTestCard")
 
-const ACCOUNT: AccountState = { plan: null, subscription: "PAID_PLAN_ACTIVE" }
+const ACCOUNT: AccountState = {
+  plan: {
+    planId: "medium1",
+    planType: "medium",
+    planName: "Standard",
+    notesUsed: null,
+    notesLimit: null,
+    daysLeft: 20,
+    textCreditsUsed: 0,
+    textCreditsCapacity: 100,
+    voiceCreditsUsed: 0,
+    voiceCreditsCapacity: 100,
+    imageCreditsUsed: 0,
+    imageCreditsCapacity: 100,
+    totalCreditsUsed: 0,
+    totalCreditsCapacity: 300,
+  },
+  subscription: "PAID_PLAN_ACTIVE",
+  email: "person@example.com",
+}
 const DECKS = [{ id: 1, name: "Japanese" }]
 const NOTE_TYPES = [
   { fields: ["Front", "Back"], id: 10, name: "Basic" },
@@ -100,7 +119,7 @@ describe("getPromptTestCardState", () => {
     expect(cardState({ prompt: "   " }).runDisabled).toBe(true)
     expect(cardState({ isTesting: true }).runDisabled).toBe(true)
     expect(
-      cardState({}, { plan: null, subscription: "FREE_TRIAL_EXPIRED" })
+      cardState({}, { ...ACCOUNT, subscription: "FREE_TRIAL_EXPIRED" })
         .runDisabled,
     ).toBe(true)
     expect(cardState({}, null).runDisabled).toBe(true)

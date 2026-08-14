@@ -18,7 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 from copy import deepcopy
-from typing import Any, Optional, TypedDict
+from typing import Any, Literal, Optional, TypedDict, Union
 
 import aiohttp
 
@@ -47,16 +47,35 @@ from .ui.state_manager import StateManager
 from .ui.ui_utils import show_message_box
 
 
-class AppState(TypedDict):
-    subscription: SubscriptionState
-    plan: Optional[PlanInfo]
+class PendingAccountState(TypedDict):
+    subscription: Literal["LOADING", "UNAUTHENTICATED"]
+    plan: None
+    email: None
+
+
+class AuthenticatedAccountState(TypedDict):
+    subscription: Literal[
+        "FREE_TRIAL_ACTIVE",
+        "FREE_TRIAL_EXPIRED",
+        "FREE_TRIAL_CAPACITY",
+        "PAID_PLAN_ACTIVE",
+        "PAID_PLAN_EXPIRED",
+        "PAID_PLAN_CAPACITY",
+    ]
+    plan: PlanInfo
+    email: str
+
+
+AppState = Union[PendingAccountState, AuthenticatedAccountState]
 
 
 class AppStateManager:
     _state: StateManager[AppState]
 
     def __init__(self) -> None:
-        self._state = StateManager[AppState]({"subscription": "LOADING", "plan": None})
+        self._state = StateManager[AppState](
+            {"subscription": "LOADING", "plan": None, "email": None}
+        )
         self._state.state_changed.connect(self._publish_web_state)
 
     @property
@@ -82,7 +101,9 @@ class AppStateManager:
     def update_subscription_state(self) -> None:
         if not config.auth_token:
             logger.info("User is not authenticated")
-            self._state.update({"subscription": "UNAUTHENTICATED", "plan": None})
+            self._state.update(
+                {"subscription": "UNAUTHENTICATED", "plan": None, "email": None}
+            )
             return
 
         def on_failure(exc: Optional[Exception]) -> None:
@@ -92,7 +113,13 @@ class AppStateManager:
             if isinstance(exc, aiohttp.ClientResponseError) and exc.status == 401:
                 logger.info("Auth token rejected by server, clearing")
                 config.auth_token = None
-                self._state.update({"subscription": "UNAUTHENTICATED", "plan": None})
+                self._state.update(
+                    {
+                        "subscription": "UNAUTHENTICATED",
+                        "plan": None,
+                        "email": None,
+                    }
+                )
 
         def on_new_status(status: Optional[UserStatus]) -> None:
             logger.debug(f"Got new subscription status: {status}")
@@ -105,25 +132,28 @@ class AppStateManager:
                 on_failure(None)
                 return
 
-            if not status.get("plan"):
-                if status.get("error"):
-                    logger.error(f"Saw error in app_state: ${status['error']}")
-                    on_failure(None)
-                return
+            plan = status["plan"]
+            email = status["email"]
 
             old_state = self._state.s.copy()
 
-            new_sub_state = self._make_subscription_state(status["plan"])
+            new_sub_state = self._make_subscription_state(plan)
             old_sub_state = old_state["subscription"]
 
             sub_did_end = self._did_functionality_degrade(old_sub_state, new_sub_state)
 
-            self._state.update({"subscription": new_sub_state, "plan": status["plan"]})
+            self._state.update(
+                {
+                    "subscription": new_sub_state,
+                    "plan": plan,
+                    "email": email,
+                }
+            )
 
             if sub_did_end:
-                self._handle_subscription_did_transition(new_sub_state, status["plan"])
+                self._handle_subscription_did_transition(new_sub_state, plan)
 
-            self._check_capacity_threshold(status["plan"])
+            self._check_capacity_threshold(plan)
 
         run_async_in_background_with_sentry(
             subscription_provider.get_subscription_status,
@@ -132,14 +162,11 @@ class AppStateManager:
             use_collection=False,
         )
 
-    def _make_subscription_state(self, sub: Optional[PlanInfo]) -> SubscriptionState:
-        if not sub:
-            return "NO_SUBSCRIPTION"
-
-        is_free = sub["planId"] == "free"
+    def _make_subscription_state(self, sub: PlanInfo) -> SubscriptionState:
+        is_trial = sub["planType"] == "trial"
 
         if (
-            is_free
+            is_trial
             and sub["notesLimit"]
             and sub["notesUsed"]
             and sub["notesUsed"] >= sub["notesLimit"]
@@ -147,12 +174,12 @@ class AppStateManager:
             return "FREE_TRIAL_CAPACITY"
 
         if sub["daysLeft"] <= 0:
-            return "FREE_TRIAL_EXPIRED" if is_free else "PAID_PLAN_EXPIRED"
+            return "FREE_TRIAL_EXPIRED" if is_trial else "PAID_PLAN_EXPIRED"
 
         if sub["totalCreditsUsed"] >= sub["totalCreditsCapacity"]:
-            return "FREE_TRIAL_CAPACITY" if is_free else "PAID_PLAN_CAPACITY"
+            return "FREE_TRIAL_CAPACITY" if is_trial else "PAID_PLAN_CAPACITY"
 
-        return "FREE_TRIAL_ACTIVE" if is_free else "PAID_PLAN_ACTIVE"
+        return "FREE_TRIAL_ACTIVE" if is_trial else "PAID_PLAN_ACTIVE"
 
     def _did_functionality_degrade(
         self, old_state: SubscriptionState, new_state: SubscriptionState
@@ -226,7 +253,7 @@ class AppStateManager:
 
     def _check_capacity_threshold(self, plan: Optional[PlanInfo]) -> None:
         """Alert user when they cross 50% capacity threshold."""
-        if not plan or plan["planId"] == "free":
+        if not plan or plan["planType"] == "trial":
             return
 
         capacity_percent = plan["totalCreditsUsed"] / plan["totalCreditsCapacity"] * 100

@@ -11,6 +11,7 @@ import {
 
 const PLAN: NonNullable<AccountState["plan"]> = {
   planId: "free",
+  planType: "trial",
   planName: "Free Trial",
   notesUsed: 12,
   notesLimit: 50,
@@ -36,7 +37,6 @@ const VARIANT_CASES: Array<{
     variant: "signed-out",
     warning: false,
   },
-  { subscription: "NO_SUBSCRIPTION", variant: "free-cta", warning: false },
   { subscription: "FREE_TRIAL_ACTIVE", variant: "trial", warning: false },
   { subscription: "FREE_TRIAL_EXPIRED", variant: "trial", warning: true },
   { subscription: "FREE_TRIAL_CAPACITY", variant: "trial", warning: true },
@@ -45,16 +45,18 @@ const VARIANT_CASES: Array<{
   { subscription: "PAID_PLAN_CAPACITY", variant: "paid", warning: true },
 ]
 
+const accountFor = (subscription: SubscriptionState): AccountState => {
+  if (subscription === "LOADING" || subscription === "UNAUTHENTICATED") {
+    return { subscription, plan: null, email: null }
+  }
+
+  return { subscription, plan: PLAN, email: "person@example.com" }
+}
+
 describe("getPlanPresentation", () => {
   for (const { subscription, variant, warning } of VARIANT_CASES) {
     test(`presents ${subscription}`, () => {
-      const plan =
-        subscription === "LOADING" ||
-        subscription === "UNAUTHENTICATED" ||
-        subscription === "NO_SUBSCRIPTION"
-          ? null
-          : PLAN
-      expect(getPlanPresentation({ subscription, plan })).toMatchObject({
+      expect(getPlanPresentation(accountFor(subscription))).toMatchObject({
         variant,
         warning,
       })
@@ -66,12 +68,14 @@ describe("getPlanPresentation", () => {
       getPlanPresentation({
         subscription: "FREE_TRIAL_ACTIVE",
         plan: { ...PLAN, daysLeft: 2 },
+        email: "person@example.com",
       }).warning,
     ).toBe(true)
     expect(
       getPlanPresentation({
         subscription: "FREE_TRIAL_ACTIVE",
         plan: { ...PLAN, totalCreditsUsed: 240 },
+        email: "person@example.com",
       }).warning,
     ).toBe(true)
   })
@@ -79,8 +83,16 @@ describe("getPlanPresentation", () => {
   test("supports the post-trial free presentation when plan data is present", () => {
     expect(
       getPlanPresentation({
-        subscription: "FREE_TRIAL_ACTIVE",
-        plan: { ...PLAN, notesUsed: null, notesLimit: null, planName: "Free" },
+        subscription: "PAID_PLAN_ACTIVE",
+        plan: {
+          ...PLAN,
+          planId: "free_mini_1",
+          planType: "freemium",
+          notesUsed: null,
+          notesLimit: null,
+          planName: "Free",
+        },
+        email: "person@example.com",
       }),
     ).toMatchObject({ variant: "free-usage", usagePercent: 15 })
   })
@@ -109,7 +121,7 @@ describe("hasGenerationAccess", () => {
     )
     expect(
       states.filter((subscription) =>
-        hasGenerationAccess({ subscription, plan: null }),
+        hasGenerationAccess(accountFor(subscription)),
       ),
     ).toEqual(["FREE_TRIAL_ACTIVE", "PAID_PLAN_ACTIVE"])
   })
