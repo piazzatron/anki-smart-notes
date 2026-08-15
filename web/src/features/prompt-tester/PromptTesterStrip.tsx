@@ -78,8 +78,8 @@ export const PromptTesterStrip = <R extends { resultToken?: string }>({
   const isResultVisible = isResultOpen && (hasResult || tester.isTesting)
 
   const runTestAndShowResult = async () => {
-    if (showResultModal) setIsResultOpen(true)
     await tester.runTest()
+    if (showResultModal) setIsResultOpen(true)
   }
   const testButton = (
     <Button
