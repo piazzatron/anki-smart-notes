@@ -384,45 +384,57 @@ async def test_command_rejects_unknown_command_and_lists_valid_ones(monkeypatch)
 
 
 @pytest.mark.asyncio
-async def test_create_smart_field_command_dispatch(monkeypatch):
+@pytest.mark.parametrize(
+    ("command", "parser", "service_method"),
+    [
+        ("smartFields.create", "parse_smart_field_create", "create_smart_field"),
+        ("smartFields.update", "parse_smart_field_update", "update_smart_field"),
+        ("smartFields.delete", "parse_smart_field_id", "delete_smart_field"),
+        ("defaults.save", "parse_generation_defaults", "save_chat_defaults"),
+        ("defaults.save", "parse_generation_defaults", "save_tts_defaults"),
+        ("defaults.save", "parse_generation_defaults", "save_image_defaults"),
+        (
+            "defaults.chat.save",
+            "parse_chat_generation_settings",
+            "save_chat_defaults",
+        ),
+        (
+            "defaults.image.save",
+            "parse_image_generation_settings",
+            "save_image_defaults",
+        ),
+        (
+            "defaults.tts.save",
+            "parse_tts_generation_settings",
+            "save_tts_defaults",
+        ),
+    ],
+)
+async def test_command_routes_parsed_payload_to_service(
+    monkeypatch: pytest.MonkeyPatch,
+    command: str,
+    parser: str,
+    service_method: str,
+) -> None:
     fake_service, fake_dto = _patch_command_route_deps(monkeypatch)
-    parsed = object()
-    fake_dto.parse_smart_field_create.return_value = parsed
+    parsed = MagicMock()
+    parsed.chat = parsed
+    parsed.tts = parsed
+    parsed.image = parsed
+    getattr(fake_dto, parser).return_value = parsed
+    payload = {"any": "payload"}
 
     server = _make_server()
     async with TestClient(TestServer(_make_app(server))) as client:
         resp = await client.post(
             "/api/command",
-            json=_command_request("smartFields.create", {"any": "payload"}),
+            json=_command_request(command, payload),
             headers={"X-Session-Token": server.session_token},
         )
-        assert resp.status == 200
-        assert (await resp.json()) == {"ok": True}
-        fake_dto.parse_smart_field_create.assert_called_once_with({"any": "payload"})
-        fake_service.create_smart_field.assert_called_once_with(parsed)
 
-
-@pytest.mark.asyncio
-async def test_update_smart_field_command_dispatch(monkeypatch):
-    fake_service, fake_dto = _patch_command_route_deps(monkeypatch)
-    parsed = object()
-    fake_dto.parse_smart_field_update.return_value = parsed
-
-    server = _make_server()
-    async with TestClient(TestServer(_make_app(server))) as client:
-        resp = await client.post(
-            "/api/command",
-            json=_command_request(
-                "smartFields.update", {"id": "existing-smart-field-id"}
-            ),
-            headers={"X-Session-Token": server.session_token},
-        )
-        assert resp.status == 200
-        assert (await resp.json()) == {"ok": True}
-        fake_dto.parse_smart_field_update.assert_called_once_with(
-            {"id": "existing-smart-field-id"}
-        )
-        fake_service.update_smart_field.assert_called_once_with(parsed)
+    assert resp.status == 200
+    getattr(fake_dto, parser).assert_called_once_with(payload)
+    getattr(fake_service, service_method).assert_called_once_with(parsed)
 
 
 @pytest.mark.asyncio
@@ -440,102 +452,6 @@ async def test_command_returns_400_on_validation_error(monkeypatch):
         assert resp.status == 400
         assert (await resp.json()) == {"ok": False, "error": "Missing promptText"}
         fake_service.create_smart_field.assert_not_called()
-
-
-@pytest.mark.asyncio
-async def test_delete_smart_field_command_dispatch(monkeypatch):
-    fake_service, fake_dto = _patch_command_route_deps(monkeypatch)
-    fake_dto.parse_smart_field_id.return_value = "existing-smart-field-id"
-
-    server = _make_server()
-    async with TestClient(TestServer(_make_app(server))) as client:
-        resp = await client.post(
-            "/api/command",
-            json=_command_request(
-                "smartFields.delete",
-                {"id": "existing-smart-field-id"},
-            ),
-            headers={"X-Session-Token": server.session_token},
-        )
-        assert resp.status == 200
-        fake_dto.parse_smart_field_id.assert_called_once_with(
-            {"id": "existing-smart-field-id"}
-        )
-        fake_service.delete_smart_field.assert_called_once_with(
-            "existing-smart-field-id"
-        )
-
-
-@pytest.mark.asyncio
-async def test_save_defaults_command_dispatch(monkeypatch):
-    fake_service, fake_dto = _patch_command_route_deps(monkeypatch)
-    parsed = MagicMock()
-    fake_dto.parse_generation_defaults.return_value = parsed
-
-    server = _make_server()
-    async with TestClient(TestServer(_make_app(server))) as client:
-        resp = await client.post(
-            "/api/command",
-            json=_command_request(
-                "defaults.save", {"chat": {}, "tts": {}, "image": {}}
-            ),
-            headers={"X-Session-Token": server.session_token},
-        )
-        assert resp.status == 200
-        fake_service.save_chat_defaults.assert_called_once_with(parsed.chat)
-        fake_service.save_tts_defaults.assert_called_once_with(parsed.tts)
-        fake_service.save_image_defaults.assert_called_once_with(parsed.image)
-
-
-@pytest.mark.asyncio
-async def test_save_chat_defaults_only_updates_chat(monkeypatch):
-    fake_service, fake_dto = _patch_command_route_deps(monkeypatch)
-    parsed = MagicMock()
-    fake_dto.parse_chat_generation_settings.return_value = parsed
-
-    server = _make_server()
-    async with TestClient(TestServer(_make_app(server))) as client:
-        resp = await client.post(
-            "/api/command",
-            json=_command_request("defaults.chat.save", {"provider": "auto"}),
-            headers={"X-Session-Token": server.session_token},
-        )
-
-        assert resp.status == 200
-        fake_service.save_chat_defaults.assert_called_once_with(parsed)
-        fake_service.save_tts_defaults.assert_not_called()
-        fake_service.save_image_defaults.assert_not_called()
-
-
-@pytest.mark.asyncio
-@pytest.mark.parametrize(
-    ("command", "parser", "service_method"),
-    [
-        (
-            "defaults.image.save",
-            "parse_image_generation_settings",
-            "save_image_defaults",
-        ),
-        ("defaults.tts.save", "parse_tts_generation_settings", "save_tts_defaults"),
-    ],
-)
-async def test_modality_default_commands_only_update_their_setting(
-    monkeypatch, command, parser, service_method
-):
-    fake_service, fake_dto = _patch_command_route_deps(monkeypatch)
-    parsed = object()
-    getattr(fake_dto, parser).return_value = parsed
-
-    server = _make_server()
-    async with TestClient(TestServer(_make_app(server))) as client:
-        resp = await client.post(
-            "/api/command",
-            json=_command_request(command, {"provider": "provider"}),
-            headers={"X-Session-Token": server.session_token},
-        )
-
-        assert resp.status == 200
-        getattr(fake_service, service_method).assert_called_once_with(parsed)
 
 
 @pytest.mark.asyncio

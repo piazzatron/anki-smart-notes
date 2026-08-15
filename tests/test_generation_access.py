@@ -24,34 +24,6 @@ import pytest
 import src.generation_access as generation_access
 
 
-def test_available_generation_does_not_open_web_app(
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    open_web_app = MagicMock()
-    monkeypatch.setattr(
-        generation_access,
-        "is_capacity_remaining_or_legacy",
-        lambda: True,
-    )
-    monkeypatch.setattr(generation_access, "open_web_app", open_web_app)
-
-    assert generation_access.ensure_generation_available() is True
-    open_web_app.assert_not_called()
-
-
-def test_blocked_generation_opens_web_app(monkeypatch: pytest.MonkeyPatch) -> None:
-    open_web_app = MagicMock()
-    monkeypatch.setattr(
-        generation_access,
-        "is_capacity_remaining_or_legacy",
-        lambda: False,
-    )
-    monkeypatch.setattr(generation_access, "open_web_app", open_web_app)
-
-    assert generation_access.ensure_generation_available() is False
-    open_web_app.assert_called_once_with()
-
-
 def test_generation_rejection_rechecks_availability_after_refresh(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:

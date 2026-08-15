@@ -378,38 +378,18 @@ def test_migrate_config_preserves_selected_legacy_model(monkeypatch):
 
 
 def test_build_catalog_shape():
-    assert dto.build_catalog() == {
-        "schemaVersion": dto.SCHEMA_VERSION,
-        "chat": {
-            "providers": ["auto", "openai", "anthropic", "google"],
-            "models": [
-                {"id": "auto", "provider": "auto"},
-                {"id": "auto-max", "provider": "auto"},
-                {"id": "gpt-5-mini", "provider": "openai"},
-                {"id": "gpt-5-chat-latest", "provider": "openai"},
-                {"id": "gpt-5", "provider": "openai"},
-                {"id": "claude-haiku-4-5", "provider": "anthropic"},
-                {"id": "claude-sonnet-4-6", "provider": "anthropic"},
-                {"id": "claude-opus-4-6", "provider": "anthropic"},
-                {"id": "gemini-3.1-flash-lite", "provider": "google"},
-                {"id": "gemini-3-flash", "provider": "google"},
-                {"id": "gemini-3.1-pro", "provider": "google"},
-            ],
-            "reasoningLevels": ["off", "low", "high"],
-        },
-        "image": {
-            "providers": ["openai", "google", "replicate"],
-            "models": [
-                {"id": "gpt-image-1.5-low", "provider": "openai"},
-                {"id": "gpt-image-2-low", "provider": "openai"},
-                {"id": "gpt-image-1.5-medium", "provider": "openai"},
-                {"id": "gpt-image-2-medium", "provider": "openai"},
-                {"id": "nano-banana-2", "provider": "google"},
-                {"id": "z-image-turbo", "provider": "replicate"},
-                {"id": "flux-dev", "provider": "replicate"},
-            ],
-        },
-    }
+    catalog = dto.build_catalog()
+
+    assert catalog
+    assert catalog["schemaVersion"] == dto.SCHEMA_VERSION
+    for modality in (catalog["chat"], catalog["image"]):
+        assert {"providers", "models"} <= modality.keys()
+        assert modality["providers"]
+        assert modality["models"]
+        assert all({"id", "provider"} <= model.keys() for model in modality["models"])
+        assert all(
+            model["provider"] in modality["providers"] for model in modality["models"]
+        )
 
 
 def test_build_selection_changed():

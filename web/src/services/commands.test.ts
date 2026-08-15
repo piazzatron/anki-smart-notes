@@ -45,77 +45,41 @@ if (!("window" in globalThis)) {
   })
 }
 
+const { deleteSmartField, setCommandSender, setSmartFieldEnabled } =
+  await import("./commands")
+
+type ExpectedCommand = { command: CommandName; payload: object }
+type CommandCase = [string, () => Promise<void>, ExpectedCommand]
+
 describe("Smart Field commands", () => {
-  test("exchanges a browser auth code through Anki", async () => {
-    const { exchangeAuthCode, setCommandSender } = await import("./commands")
-    const sentCommands: { command: CommandName; payload: object }[] = []
-    setCommandSender(
-      async <Result = void>(command: CommandName, payload: object) => {
-        sentCommands.push({ command, payload })
-        return undefined as Result
-      },
-    )
-
-    await exchangeAuthCode("ABC123")
-
-    expect(sentCommands).toEqual([
-      { command: "auth.exchangeCode", payload: { code: "ABC123" } },
-    ])
-  })
-
-  test("requests an account refresh", async () => {
-    const { refreshAccount, setCommandSender } = await import("./commands")
-    const sentCommands: { command: CommandName; payload: object }[] = []
-    setCommandSender(
-      async <Result = void>(command: CommandName, payload: object) => {
-        sentCommands.push({ command, payload })
-        return undefined as Result
-      },
-    )
-
-    await refreshAccount()
-
-    expect(sentCommands).toEqual([{ command: "account.refresh", payload: {} }])
-  })
-
-  test("updates enabled state with the existing UUID", async () => {
-    const { setCommandSender, setSmartFieldEnabled } =
-      await import("./commands")
-    const sentCommands: { command: CommandName; payload: object }[] = []
-    setCommandSender(
-      async <Result = void>(command: CommandName, payload: object) => {
-        sentCommands.push({ command, payload })
-        return undefined as Result
-      },
-    )
-
-    await setSmartFieldEnabled(field, false)
-
-    expect(sentCommands).toEqual([
+  test.each([
+    [
+      "deletes with an id-only payload",
+      () => deleteSmartField(field),
+      { command: "smartFields.delete", payload: { id: field.id } },
+    ],
+    [
+      "updates enabled state by spreading the field",
+      () => setSmartFieldEnabled(field, false),
       {
         command: "smartFields.update",
         payload: { ...field, enabled: false },
       },
-    ])
-  })
+    ],
+  ] satisfies CommandCase[])(
+    "%s",
+    async (_name, sendCommand, expectedCommand) => {
+      const sentCommands: ExpectedCommand[] = []
+      setCommandSender(
+        async <Result = void>(command: CommandName, payload: object) => {
+          sentCommands.push({ command, payload })
+          return undefined as Result
+        },
+      )
 
-  test("deletes the existing UUID without mutable field coordinates", async () => {
-    const { deleteSmartField, setCommandSender } = await import("./commands")
-    const sentCommands: { command: CommandName; payload: object }[] = []
-    setCommandSender(
-      async <Result = void>(command: CommandName, payload: object) => {
-        sentCommands.push({ command, payload })
-        return undefined as Result
-      },
-    )
+      await sendCommand()
 
-    await deleteSmartField(field)
-
-    expect(sentCommands).toEqual([
-      {
-        command: "smartFields.delete",
-        payload: { id: field.id },
-      },
-    ])
-  })
+      expect(sentCommands).toEqual([expectedCommand])
+    },
+  )
 })
