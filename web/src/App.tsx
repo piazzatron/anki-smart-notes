@@ -1,7 +1,7 @@
 import { lazy, Suspense, useState, type ComponentType } from "react"
 
 import { AppShell } from "@/components/shared/AppShell"
-import { getPlanConditions } from "@/components/shared/planPresentation"
+import { shouldShowTrialEndedTakeover } from "@/components/shared/planPresentation"
 import { PlaceholderScreen } from "@/components/shared/PlaceholderScreen"
 import { Button } from "@/components/ui/Button"
 import {
@@ -84,9 +84,8 @@ const App = () => {
     state?.account.status === "UNAUTHENTICATED" &&
     state.smartFields.length === 0
   const trialEndedReviewOffer =
-    state?.account.status === "AUTHENTICATED" &&
-    state.account.plan.planType === "trial" &&
-    !getPlanConditions(state.account.plan).hasGenerationAccess
+    state !== null &&
+    shouldShowTrialEndedTakeover(state.account, state.settings)
       ? state.featureFlags.reviewFreeMonth
       : null
 

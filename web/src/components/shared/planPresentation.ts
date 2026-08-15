@@ -1,4 +1,4 @@
-import type { AccountState, PlanInfo } from "@/types/api"
+import type { AccountState, PlanInfo, Settings } from "@/types/api"
 
 export type PlanVariant =
   "loading" | "signed-out" | "trial" | "free-usage" | "paid"
@@ -44,6 +44,17 @@ export const getPlanConditions = (plan: PlanInfo): PlanConditions => {
 export const hasGenerationAccess = (account: AccountState): boolean =>
   account.status === "AUTHENTICATED" &&
   getPlanConditions(account.plan).hasGenerationAccess
+
+export const shouldShowTrialEndedTakeover = (
+  account: AccountState,
+  settings: Pick<Settings, "legacyOpenAiEnabled">,
+): boolean => {
+  if (account.status !== "AUTHENTICATED") return false
+  if (account.plan.planType !== "trial") return false
+  if (settings.legacyOpenAiEnabled) return false
+
+  return !getPlanConditions(account.plan).hasGenerationAccess
+}
 
 export const getPlanPresentation = (
   account: AccountState,

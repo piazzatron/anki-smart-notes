@@ -23,7 +23,7 @@ from anki.decks import DeckId
 from anki.notes import Note
 from aqt import mw
 
-from .app_state import has_api_key, is_capacity_remaining
+from .app_state import has_legacy_openai_access, is_capacity_remaining
 from .chat_provider import ChatProvider, chat_provider
 from .image_provider import ImageProvider, ImageResponse, image_provider
 from .image_utils import download_and_embed_images
@@ -203,7 +203,7 @@ class FieldResolver:
                 reasoning_level=reasoning_level,
                 generation_source=generation_source,
             )
-        elif has_api_key():
+        elif has_legacy_openai_access():
             logger.debug("On legacy path....")
             chained_fields = get_chained_ai_fields(
                 note_type=get_note_type(note), deck_id=deck_id

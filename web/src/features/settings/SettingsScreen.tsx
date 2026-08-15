@@ -70,7 +70,9 @@ interface LoadedSettingsScreenProps {
   settings: Settings
 }
 
-const LoadedSettingsScreen = ({ settings }: LoadedSettingsScreenProps) => {
+export const LoadedSettingsScreen = ({
+  settings,
+}: LoadedSettingsScreenProps) => {
   const controls = useSettings(settings)
   const [legacyOpen, setLegacyOpen] = useState(false)
   const saveOnEnter = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -127,101 +129,109 @@ const LoadedSettingsScreen = ({ settings }: LoadedSettingsScreenProps) => {
         />
       </div>
 
-      <button
-        aria-expanded={legacyOpen}
-        className="flex w-full items-center gap-4 border-b border-white/[0.065] py-4 text-left"
-        onClick={() => setLegacyOpen((open) => !open)}
-      >
-        <div className="min-w-0 flex-1">
-          <p className="text-[15px] font-semibold text-zinc-100">
-            Use my own OpenAI key
-          </p>
-          <p className="mt-1 text-[13px] leading-5 text-ink-muted">
-            Connect a paid API key and choose a legacy OpenAI model.
-          </p>
-        </div>
-        <ChevronRight
-          aria-hidden
-          className={`size-5 shrink-0 text-zinc-500 transition-transform ${legacyOpen ? "rotate-90" : ""}`}
-        />
-      </button>
-
-      {legacyOpen && (
-        <div className="grid grid-cols-2 gap-4 border-b border-white/[0.065] py-5">
-          <label className="block">
-            <span className="text-xs font-semibold text-zinc-300">
-              OpenAI API key
-            </span>
-            <input
-              className="mt-2 h-10 w-full rounded-lg border border-white/[0.09] bg-white/[0.035] px-3 text-xs text-zinc-200 outline-none focus:border-indigo/45"
-              defaultValue={controls.values.legacyOpenAiKey ?? ""}
-              onBlur={(event) =>
-                void controls.update({
-                  legacyOpenAiKey: event.currentTarget.value || null,
-                })
-              }
-              onKeyDown={saveOnEnter}
-              type="password"
+      {settings.legacyOpenAiEnabled && (
+        <>
+          <button
+            aria-expanded={legacyOpen}
+            className="flex w-full items-center gap-4 border-b border-white/[0.065] py-4 text-left"
+            onClick={() => setLegacyOpen((open) => !open)}
+            type="button"
+          >
+            <div className="min-w-0 flex-1">
+              <p className="text-[15px] font-semibold text-zinc-100">
+                Use my own OpenAI key
+              </p>
+              <p className="mt-1 text-[13px] leading-5 text-ink-muted">
+                Connect a paid API key and choose a legacy OpenAI model.
+              </p>
+            </div>
+            <ChevronRight
+              aria-hidden
+              className={`size-5 shrink-0 text-zinc-500 transition-transform ${legacyOpen ? "rotate-90" : ""}`}
             />
-            <p className="mt-1.5 text-[11px] text-ink-muted">
-              A paid OpenAI API key is required.{" "}
-              <a
-                className="text-indigo-soft hover:underline"
-                href="https://platform.openai.com/account/api-keys/"
-                rel="noreferrer"
-                target="_blank"
-              >
-                Get an API key
-              </a>
-            </p>
-          </label>
+          </button>
 
-          <div>
-            <label
-              className="block text-xs font-semibold text-zinc-300"
-              htmlFor="legacy-openai-model"
-            >
-              OpenAI model
-            </label>
-            <Select
-              onValueChange={(legacyOpenAiModel) =>
-                void controls.update({ legacyOpenAiModel })
-              }
-              value={controls.values.legacyOpenAiModel}
-            >
-              <SelectTrigger className="mt-2 min-h-10" id="legacy-openai-model">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {LEGACY_OPENAI_MODELS.map((model) => (
-                  <SelectItem key={model} value={model}>
-                    {model}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+          {legacyOpen && (
+            <div className="grid grid-cols-2 gap-4 border-b border-white/[0.065] py-5">
+              <label className="block">
+                <span className="text-xs font-semibold text-zinc-300">
+                  OpenAI API key
+                </span>
+                <input
+                  className="mt-2 h-10 w-full rounded-lg border border-white/[0.09] bg-white/[0.035] px-3 text-xs text-zinc-200 outline-none focus:border-indigo/45"
+                  defaultValue={controls.values.legacyOpenAiKey ?? ""}
+                  onBlur={(event) =>
+                    void controls.update({
+                      legacyOpenAiKey: event.currentTarget.value || null,
+                    })
+                  }
+                  onKeyDown={saveOnEnter}
+                  type="password"
+                />
+                <p className="mt-1.5 text-[11px] text-ink-muted">
+                  A paid OpenAI API key is required.{" "}
+                  <a
+                    className="text-indigo-soft hover:underline"
+                    href="https://platform.openai.com/account/api-keys/"
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    Get an API key
+                  </a>
+                </p>
+              </label>
 
-          <label className="col-span-2 block">
-            <span className="text-xs font-semibold text-zinc-300">
-              OpenAI host
-            </span>
-            <input
-              className="mt-2 h-10 w-full rounded-lg border border-white/[0.09] bg-white/[0.035] px-3 text-xs text-zinc-200 outline-none placeholder:text-zinc-600 focus:border-indigo/45"
-              defaultValue={controls.values.legacyOpenAiHost ?? ""}
-              onBlur={(event) =>
-                void controls.update({
-                  legacyOpenAiHost: event.currentTarget.value || null,
-                })
-              }
-              onKeyDown={saveOnEnter}
-              placeholder="https://api.openai.com"
-            />
-            <p className="mt-1.5 text-[11px] text-ink-muted">
-              Provide an alternative endpoint to the OpenAI API.
-            </p>
-          </label>
-        </div>
+              <div>
+                <label
+                  className="block text-xs font-semibold text-zinc-300"
+                  htmlFor="legacy-openai-model"
+                >
+                  OpenAI model
+                </label>
+                <Select
+                  onValueChange={(legacyOpenAiModel) =>
+                    void controls.update({ legacyOpenAiModel })
+                  }
+                  value={controls.values.legacyOpenAiModel}
+                >
+                  <SelectTrigger
+                    className="mt-2 min-h-10"
+                    id="legacy-openai-model"
+                  >
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {LEGACY_OPENAI_MODELS.map((model) => (
+                      <SelectItem key={model} value={model}>
+                        {model}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <label className="col-span-2 block">
+                <span className="text-xs font-semibold text-zinc-300">
+                  OpenAI host
+                </span>
+                <input
+                  className="mt-2 h-10 w-full rounded-lg border border-white/[0.09] bg-white/[0.035] px-3 text-xs text-zinc-200 outline-none placeholder:text-zinc-600 focus:border-indigo/45"
+                  defaultValue={controls.values.legacyOpenAiHost ?? ""}
+                  onBlur={(event) =>
+                    void controls.update({
+                      legacyOpenAiHost: event.currentTarget.value || null,
+                    })
+                  }
+                  onKeyDown={saveOnEnter}
+                  placeholder="https://api.openai.com"
+                />
+                <p className="mt-1.5 text-[11px] text-ink-muted">
+                  Provide an alternative endpoint to the OpenAI API.
+                </p>
+              </label>
+            </div>
+          )}
+        </>
       )}
     </PageLayout>
   )

@@ -8,6 +8,7 @@ import {
   getPlanPresentation,
   hasGenerationAccess,
   pctLabel,
+  shouldShowTrialEndedTakeover,
 } from "./planPresentation"
 
 const PLAN: NonNullable<AccountState["plan"]> = {
@@ -144,5 +145,27 @@ describe("hasGenerationAccess", () => {
     expect(hasGenerationAccess(authenticated({ ...PLAN, daysLeft: 0 }))).toBe(
       false,
     )
+  })
+})
+
+describe("shouldShowTrialEndedTakeover", () => {
+  test("does not take over the app for legacy-entitled users", () => {
+    const endedTrial = authenticated({ ...PLAN, daysLeft: 0 })
+
+    expect(
+      shouldShowTrialEndedTakeover(endedTrial, {
+        legacyOpenAiEnabled: false,
+      }),
+    ).toBe(true)
+    expect(
+      shouldShowTrialEndedTakeover(endedTrial, {
+        legacyOpenAiEnabled: true,
+      }),
+    ).toBe(false)
+    expect(
+      shouldShowTrialEndedTakeover(authenticated(), {
+        legacyOpenAiEnabled: false,
+      }),
+    ).toBe(false)
   })
 })

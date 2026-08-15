@@ -50,6 +50,7 @@ const stateWith = (smartFields: SmartField[]): AppState => ({
     generateAtReview: false,
     regenerateWhenBatching: false,
     debug: false,
+    legacyOpenAiEnabled: false,
     legacyOpenAiKey: null,
     legacyOpenAiModel: "gpt-5-mini",
     legacyOpenAiHost: null,

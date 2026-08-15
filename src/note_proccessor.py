@@ -31,7 +31,7 @@ from anki.notes import Note, NoteId
 from aqt import mw
 
 from .api_client import ClientFacingAPIError, OutOfCreditsError
-from .app_state import has_api_key, is_capacity_remaining
+from .app_state import has_legacy_openai_access, is_capacity_remaining
 from .config import Config, bump_usage_counter
 from .constants import STANDARD_BATCH_LIMIT
 from .dag import generate_fields_dag
@@ -471,7 +471,7 @@ class NoteProcessor:
                 else:
                     logger.error(f"Got 500 error: {e}")
                     show_message_box(unknown_error)
-            elif has_api_key():
+            elif has_legacy_openai_access():
                 if status in openai_failure_map:
                     show_message_box(openai_failure_map[status])
                 else:

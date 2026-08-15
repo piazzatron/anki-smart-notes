@@ -162,13 +162,13 @@ def is_capacity_remaining() -> bool:
     )
 
 
-def has_api_key() -> bool:
-    return bool(config.openai_api_key)
+def has_legacy_openai_access() -> bool:
+    return config.legacy_support is True and bool(config.openai_api_key)
 
 
 def is_app_legacy() -> bool:
-    return not is_capacity_remaining() and has_api_key()
+    return not is_capacity_remaining() and has_legacy_openai_access()
 
 
 def is_capacity_remaining_or_legacy() -> bool:
-    return is_capacity_remaining() or has_api_key()
+    return is_capacity_remaining() or has_legacy_openai_access()
