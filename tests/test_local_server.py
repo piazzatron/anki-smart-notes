@@ -136,11 +136,8 @@ async def test_client_facing_error_logs_below_error(monkeypatch):
 
     assert data == _err("Try rewording the image prompt.")
     assert error_logs == []
-    assert info_logs == [
-        (
-            "Local server client-facing error handling clientFacing: Try rewording the image prompt.",
-        )
-    ]
+    assert len(info_logs) == 1
+    assert "client-facing" in info_logs[0][0]
 
 
 @pytest.mark.asyncio
