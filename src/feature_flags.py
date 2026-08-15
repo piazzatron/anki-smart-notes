@@ -22,6 +22,7 @@ from typing import TypedDict
 import aiohttp
 
 from .constants import get_server_url
+from .event_bus import StateInvalidated, event_bus
 from .logger import logger
 from .sentry import run_async_in_background_with_sentry
 
@@ -62,6 +63,7 @@ def refresh_feature_flags() -> None:
         logger.info(
             f"Feature flags updated: review_free_month={flags.review_free_month}"
         )
+        event_bus.publish(StateInvalidated())
 
     def on_failure(e: Exception) -> None:
         logger.warning(f"Failed to fetch feature flags: {e}")

@@ -18,4 +18,5 @@
  */
 
 export const DISCORD_URL = "https://discord.gg/kxGaWpkTGr"
+export const ANKIWEB_REVIEW_URL = "https://ankiweb.net/shared/info/1531888719"
 export const SUPPORT_EMAIL = "support@smart-notes.xyz"

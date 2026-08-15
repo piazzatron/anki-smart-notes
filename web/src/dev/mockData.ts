@@ -144,6 +144,7 @@ const BASE_STATE: AppState = {
     plan: HEALTHY_TRIAL_PLAN,
     email: MOCK_ACCOUNT_EMAIL,
   },
+  featureFlags: { reviewFreeMonth: true },
   defaults: {
     chat: {
       provider: "auto",

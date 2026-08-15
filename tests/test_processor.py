@@ -20,7 +20,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import asyncio
-from unittest.mock import AsyncMock
+from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 from fixtures import (
@@ -32,7 +32,7 @@ from fixtures import (
     MockNote,
 )
 
-from src.api_client import ClientFacingAPIError
+from src.api_client import ClientFacingAPIError, OutOfCreditsError
 from src.database.migrations import apply_database_migrations
 
 
@@ -570,6 +570,26 @@ def test_process_card_forwards_use_collection(monkeypatch):
     assert calls == [False]
 
 
+def test_out_of_credits_refreshes_account_then_opens_blocked_ui(monkeypatch):
+    import src.note_proccessor
+    from src.note_proccessor import NoteProcessor
+
+    refresh_account = MagicMock()
+    monkeypatch.setattr(
+        src.note_proccessor,
+        "refresh_account_after_generation_rejected",
+        refresh_account,
+    )
+    processor = NoteProcessor(  # type: ignore
+        field_resolver=None,
+        config=MockConfig(allow_empty_fields=False),
+    )
+
+    processor._handle_single_card_failure(OutOfCreditsError())
+
+    refresh_account.assert_called_once_with()
+
+
 def test_process_cards_with_progress_noops_during_batch(monkeypatch):
     import src.note_proccessor
     from src.note_proccessor import NoteProcessor
@@ -716,11 +736,6 @@ async def test_process_cards_with_progress_does_not_show_client_facing_error(
     monkeypatch.setattr(src.note_proccessor, "mw", MockMw())
     monkeypatch.setattr(processor, "_assert_valid_app_mode", lambda: True)
     monkeypatch.setattr(src.note_proccessor, "bump_usage_counter", lambda: None)
-    monkeypatch.setattr(
-        src.note_proccessor,
-        "is_capacity_remaining_or_legacy",
-        lambda show_box=False: True,
-    )
     monkeypatch.setattr(src.note_proccessor, "is_capacity_remaining", lambda: True)
     monkeypatch.setattr(src.note_proccessor, "run_on_main", lambda work: work())
     monkeypatch.setattr(

@@ -65,6 +65,7 @@ if TYPE_CHECKING:
     from anki.notes import Note
 
     from ..app_state import AppState
+    from ..feature_flags import FeatureFlags
 
 SCHEMA_VERSION: Literal[1] = 1
 CHAT_REASONING_LEVELS: list[ChatReasoningLevel] = ["off", "low", "high"]
@@ -77,6 +78,7 @@ def build_state(
     decks: dict[DeckId, str],
     smart_fields: list[SmartField],
     account: AppState,
+    feature_flags: FeatureFlags,
     settings: SettingsDto,
     app_version: str,
 ) -> StateDto:
@@ -106,6 +108,9 @@ def build_state(
         # with a friendly name, but scoping UI needs to special-case it.
         globalDeckId=GLOBAL_DECK_ID,
         account=account,
+        featureFlags=FeatureFlagsDto(
+            reviewFreeMonth=feature_flags.review_free_month,
+        ),
         settings=settings,
         appVersion=app_version,
         defaults=GenerationDefaultsDto(
@@ -504,6 +509,10 @@ class ImageSmartFieldDto(SmartFieldBaseDto):
 SmartFieldDto = Union[ChatSmartFieldDto, TTSSmartFieldDto, ImageSmartFieldDto]
 
 
+class FeatureFlagsDto(TypedDict):
+    reviewFreeMonth: bool
+
+
 class StateDto(TypedDict):
     schemaVersion: Literal[1]
     smartFields: list[SmartFieldDto]
@@ -511,6 +520,7 @@ class StateDto(TypedDict):
     decks: list[DeckDto]
     globalDeckId: DeckId
     account: AppState
+    featureFlags: FeatureFlagsDto
     settings: SettingsDto
     appVersion: str
     defaults: GenerationDefaultsDto

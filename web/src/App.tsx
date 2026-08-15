@@ -1,6 +1,7 @@
 import { lazy, Suspense, useState, type ComponentType } from "react"
 
 import { AppShell } from "@/components/shared/AppShell"
+import { getPlanConditions } from "@/components/shared/planPresentation"
 import { PlaceholderScreen } from "@/components/shared/PlaceholderScreen"
 import { Button } from "@/components/ui/Button"
 import {
@@ -18,6 +19,7 @@ import { SmartFieldsScreen } from "@/features/smart-fields/SmartFieldsScreen"
 import { SettingsScreen } from "@/features/settings/SettingsScreen"
 import { SubscriptionScreen } from "@/features/subscription/SubscriptionScreen"
 import { SupportScreen } from "@/features/support/SupportScreen"
+import { TrialEndedScreen } from "@/features/trial-ended/TrialEndedScreen"
 import { WelcomeScreen } from "@/features/welcome/WelcomeScreen"
 import { bootOptions, type ScreenId } from "@/lib/boot"
 import { useAppStore } from "@/store/appStore"
@@ -81,6 +83,12 @@ const App = () => {
   const showWelcome =
     state?.account.status === "UNAUTHENTICATED" &&
     state.smartFields.length === 0
+  const trialEndedReviewOffer =
+    state?.account.status === "AUTHENTICATED" &&
+    state.account.plan.planType === "trial" &&
+    !getPlanConditions(state.account.plan).hasGenerationAccess
+      ? state.featureFlags.reviewFreeMonth
+      : null
 
   const completeNavigation = (screen: ScreenId) => {
     setActiveScreen(screen)
@@ -106,6 +114,8 @@ const App = () => {
           appVersion={state?.appVersion ?? null}
           connection={connection}
         />
+      ) : trialEndedReviewOffer !== null ? (
+        <TrialEndedScreen reviewFreeMonthEnabled={trialEndedReviewOffer} />
       ) : (
         <AppShell
           account={state?.account ?? LOADING_ACCOUNT}

@@ -50,9 +50,6 @@ class Config:
     did_click_rate_link: bool
     did_migrate_smart_fields_to_sqlite: bool
 
-    # Capacity alerts
-    did_show_capacity_threshold_this_cycle: bool
-
     # Deprecated fields:
     legacy_openai_model: str
 

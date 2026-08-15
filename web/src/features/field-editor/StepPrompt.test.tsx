@@ -69,6 +69,7 @@ const state: AppState = {
     plan,
     email: "person@example.com",
   },
+  featureFlags: { reviewFreeMonth: false },
   defaults: {
     chat: {
       provider: "auto",

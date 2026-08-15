@@ -19,7 +19,7 @@
 
 import { useEffect, useState } from "react"
 
-import { PageTitle } from "@/components/shared/PageTitle"
+import { PageLayout } from "@/components/shared/PageLayout"
 import {
   getCreditSegments,
   getCreditUsagePercent,
@@ -51,6 +51,7 @@ export const SubscriptionScreen = () => {
         ariaLabel="Loading Subscription"
         contentClassName="h-40"
         showSubtitle={false}
+        title="Account and Usage"
       />
     )
   }
@@ -77,20 +78,9 @@ const LoadedSubscriptionScreen = ({ account }: { account: AccountState }) => {
   }
 
   return (
-    <section
-      className="flex min-h-0 flex-1 flex-col"
-      data-testid="subscription-screen"
-    >
-      <header className="flex shrink-0 items-center justify-between gap-6 border-b border-white/[0.065] px-6 py-5">
-        <div className="min-w-0">
-          <PageTitle>Account and Usage</PageTitle>
-          {!isSignedOut && account.email !== null && (
-            <p className="mt-1.5 truncate text-xs text-ink-muted">
-              {account.email}
-            </p>
-          )}
-        </div>
-        {!isSignedOut && (
+    <PageLayout
+      actions={
+        !isSignedOut && (
           <button
             className="rounded-md border border-white/[0.08] bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-zinc-400 transition hover:bg-white/[0.07] hover:text-zinc-200"
             disabled={isLoggingOut}
@@ -99,33 +89,36 @@ const LoadedSubscriptionScreen = ({ account }: { account: AccountState }) => {
           >
             {isLoggingOut ? "Logging out…" : "Log out"}
           </button>
-        )}
-      </header>
-
+        )
+      }
+      subtitle={
+        !isSignedOut && account.email !== null ? account.email : undefined
+      }
+      testId="subscription-screen"
+      title="Account and Usage"
+    >
       {logoutError !== null && (
         <ErrorBanner
-          className="mx-6 mt-3"
+          className="mb-3"
           message={logoutError}
           onDismiss={() => setLogoutError(null)}
         />
       )}
 
-      <div className="min-h-0 flex-1 overflow-y-auto px-6 py-5">
-        {presentation.variant === "loading" ? (
-          <div
-            aria-label="Checking subscription"
-            className="animate-pulse space-y-2.5"
-          >
-            <div className="h-28 rounded-[13px] bg-white/[0.04]" />
-            <div className="h-40 rounded-[13px] bg-white/[0.04]" />
-          </div>
-        ) : isSignedOut ? (
-          <SignedOutSubscription />
-        ) : (
-          <SubscriptionDetails account={account} />
-        )}
-      </div>
-    </section>
+      {presentation.variant === "loading" ? (
+        <div
+          aria-label="Checking subscription"
+          className="animate-pulse space-y-2.5"
+        >
+          <div className="h-28 rounded-[13px] bg-white/[0.04]" />
+          <div className="h-40 rounded-[13px] bg-white/[0.04]" />
+        </div>
+      ) : isSignedOut ? (
+        <SignedOutSubscription />
+      ) : (
+        <SubscriptionDetails account={account} />
+      )}
+    </PageLayout>
   )
 }
 

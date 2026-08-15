@@ -35,6 +35,7 @@ const stateWith = (smartFields: SmartField[]): AppState => ({
   ],
   globalDeckId: 1,
   account: { status: "UNAUTHENTICATED", plan: null, email: null },
+  featureFlags: { reviewFreeMonth: false },
   defaults: {
     chat: {
       provider: "auto",

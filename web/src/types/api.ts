@@ -146,6 +146,10 @@ export interface Settings {
   didDismissDiscordPrompt: boolean
 }
 
+export interface FeatureFlags {
+  reviewFreeMonth: boolean
+}
+
 export interface AppState {
   schemaVersion: number
   appVersion: string
@@ -154,6 +158,7 @@ export interface AppState {
   decks: Deck[]
   globalDeckId: number
   account: AccountState
+  featureFlags: FeatureFlags
   defaults: GenerationDefaults
   settings: Settings
 }

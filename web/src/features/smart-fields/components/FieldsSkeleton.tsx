@@ -1,5 +1,5 @@
 export const FieldsSkeleton = () => (
-  <div aria-label="Loading Smart Fields" className="space-y-5 px-6 py-5">
+  <div aria-label="Loading Smart Fields" className="space-y-5">
     {[0, 1].map((group) => (
       <div className="animate-pulse" key={group}>
         <div className="mb-2.5 h-2.5 w-20 rounded bg-white/[0.05]" />

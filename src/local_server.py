@@ -42,6 +42,7 @@ from .event_bus import (
     WebEvent,
     event_bus,
 )
+from .feature_flags import flags
 from .logger import logger
 from .sentry import sentry
 from .services import auth_service, settings_service
@@ -291,6 +292,7 @@ class LocalServer:
                     decks=deck_id_to_name_map(),
                     smart_fields=smart_field_service.get_all_smart_fields(),
                     account=app_state.state,
+                    feature_flags=flags,
                     settings=dto.build_settings(),
                     app_version=get_version(),
                 )

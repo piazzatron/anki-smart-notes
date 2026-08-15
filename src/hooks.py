@@ -31,15 +31,13 @@ from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
 from aqt.addcards import AddCards
 from aqt.browser.sidebar.item import SidebarItemType
 
-from . import env
-from .app_state import app_state, is_capacity_remaining_or_legacy
-from .config import config, migrate_config
-from .constants import WEB_APP_DEV_URL
+from .app_state import app_state
+from .config import config
 from .database.migrations import run_migrations
 from .decks import deck_id_to_name_map
 from .event_bus import event_bus
 from .feature_flags import refresh_feature_flags
-from .local_server import LOCAL_SERVER_HOST, LOCAL_SERVER_PORT, LocalServer
+from .generation_access import ensure_generation_available
 from .logger import cleanup_logger, logger, setup_logger
 from .note_proccessor import NoteProcessor
 from .review_time_evaluator import ReviewTimeEvaluator
@@ -48,7 +46,6 @@ from .tasks import run_async_in_background
 from .ui.changelog import ChangeLogDialog, is_new_major_or_minor_version
 from .ui.field_menu import FieldMenu
 from .ui.ui_utils import show_message_box
-from .ui.web_app_dialog import WebAppDialog
 from .utils import get_version
 from .utils.notes_utils import (
     get_field_from_index,
@@ -56,25 +53,14 @@ from .utils.notes_utils import (
     is_card_fully_processed,
 )
 from .web.hook_adapters import setup_web_hooks
+from .web_app import (
+    close_web_app,
+    ensure_local_server_started,
+    open_web_app,
+    stop_local_server,
+)
 
-_local_server: Optional[LocalServer] = None
 _review_time_evaluator: Optional[ReviewTimeEvaluator] = None
-_web_app_dialog: Optional[WebAppDialog] = None
-
-
-def _ensure_local_server_started() -> LocalServer:
-    global _local_server
-
-    # profile_did_open fires before main_window_did_init at startup, so a
-    # server usually exists already. Starting another would fail to bind and
-    # clobber _local_server with a dead instance (whose session token the
-    # webview would then use).
-    if _local_server is None:
-        migrate_config()
-        _local_server = LocalServer()
-        _local_server.start()
-
-    return _local_server
 
 
 def _with_processor(fn: Any):
@@ -100,7 +86,7 @@ def add_editor_top_button(
         if not mw:
             return
 
-        if not is_capacity_remaining_or_legacy(show_box=True):
+        if not ensure_generation_available():
             return
 
         card = editor.card
@@ -233,10 +219,7 @@ def on_browser_context(processor: NoteProcessor, browser: browser.Browser, menu:
     cards = browser.selected_cards()
 
     def wrapped():
-        if not is_capacity_remaining_or_legacy(show_box=True):
-            return
-
-        if not _prevent_batches_on_free_trial(cards):
+        if not ensure_generation_available():
             return
 
         processor.process_cards_with_progress(
@@ -275,7 +258,7 @@ def _stamp_version_and_show_first_load_window() -> None:
             return
 
         if not prior_version:
-            on_open_web_app()
+            open_web_app()
             return
 
         if is_new_major_or_minor_version(current_version, prior_version):
@@ -295,16 +278,16 @@ def on_main_window(processor: NoteProcessor):
 
     # Add options to Anki Menu
     options_action = QAction("Smart Notes", mw)
-    options_action.triggered.connect(lambda _: on_open_web_app())
+    options_action.triggered.connect(lambda _: open_web_app())
     mw.form.menuTools.addAction(options_action)
-    mw.addonManager.setConfigAction(__name__, on_open_web_app)
+    mw.addonManager.setConfigAction(__name__, open_web_app)
 
     _on_start_actions()
 
     global _review_time_evaluator
     _review_time_evaluator = ReviewTimeEvaluator(processor)
 
-    _ensure_local_server_started()
+    ensure_local_server_started()
 
     # Show either the first load window or the changelog once the web app's
     # local server is ready.
@@ -312,42 +295,8 @@ def on_main_window(processor: NoteProcessor):
 
 
 @with_sentry
-def on_open_web_app() -> None:
-    global _web_app_dialog
-
-    if _local_server is None:
-        show_message_box("Smart Notes is still starting up — try again in a moment.")
-        return
-
-    local_server = _ensure_local_server_started()
-    app_state.update_account_state()
-    if _web_app_dialog is not None:
-        _web_app_dialog.raise_()
-        _web_app_dialog.activateWindow()
-        return
-
-    # Dev builds always load the Vite dev server for HMR (`make web`); the
-    # bundled static app is only served in packaged builds.
-    if env.environment == "DEV":
-        base_url = WEB_APP_DEV_URL
-    else:
-        base_url = f"http://{LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}/app"
-    url = f"{base_url}?token={local_server.session_token}"
-    dialog = WebAppDialog(url, mw)
-    _web_app_dialog = dialog
-
-    def clear_web_app_dialog(_: object) -> None:
-        global _web_app_dialog
-        if _web_app_dialog is dialog:
-            _web_app_dialog = None
-
-    dialog.finished.connect(clear_web_app_dialog)
-    dialog.show()
-
-
-@with_sentry
 def on_profile_did_open() -> None:
-    _ensure_local_server_started()
+    ensure_local_server_started()
 
 
 @_with_processor  # type: ignore
@@ -429,11 +378,8 @@ def add_deck_option(
     menu.addAction(item)
 
     def wrapped():
-        if not is_capacity_remaining_or_legacy(show_box=True):
+        if not ensure_generation_available():
             return
-        if not _prevent_batches_on_free_trial(cards):
-            return
-
         processor.process_cards_with_progress(
             cards,
             on_success=_make_on_batch_success(tree_view.browser),
@@ -446,20 +392,8 @@ def add_deck_option(
 @with_sentry
 def cleanup() -> None:
     event_bus.clear_browser_selection()
-
-    global _web_app_dialog
-    if _web_app_dialog is not None:
-        # The local session token changes on profile load, so close the webview
-        # before its token becomes stale.
-        logger.info("Closing Smart Notes web app before profile close")
-        dialog = _web_app_dialog
-        _web_app_dialog = None
-        dialog.close()
-
-    global _local_server
-    if _local_server is not None:
-        _local_server.stop()
-        _local_server = None
+    close_web_app()
+    stop_local_server()
 
     global _review_time_evaluator
     if _review_time_evaluator is not None:
@@ -501,11 +435,8 @@ def _cleanup_before_addon_files_change() -> None:
     # non-UI resources instead of calling full profile-close cleanup.
     logger.info("Preparing Smart Notes for add-on file replacement")
 
-    global _local_server
-    if _local_server is not None:
-        logger.info("Stopping Smart Notes local server before add-on file replacement")
-        _local_server.stop()
-        _local_server = None
+    logger.info("Stopping Smart Notes local server before add-on file replacement")
+    stop_local_server()
 
     logger.info("Closing Smart Notes log handlers before add-on file replacement")
     cleanup_logger()
@@ -513,16 +444,6 @@ def _cleanup_before_addon_files_change() -> None:
 
 def _is_current_addon_package(package: str) -> bool:
     return package == __name__.split(".", maxsplit=1)[0]
-
-
-def _prevent_batches_on_free_trial(notes: Any) -> bool:
-    if app_state.is_free_trial() and len(notes) > 50:
-        did_accept: bool = show_message_box(
-            "Warning: your free trial allows a limited number of cards. Continue?",
-            show_cancel=True,
-        )
-        return did_accept
-    return True
 
 
 @with_sentry

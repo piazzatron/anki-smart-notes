@@ -25,7 +25,6 @@ from aqt import mw
 
 from .app_state import has_api_key, is_capacity_remaining
 from .chat_provider import ChatProvider, chat_provider
-from .constants import GENERIC_CREDITS_MESSAGE
 from .image_provider import ImageProvider, ImageResponse, image_provider
 from .image_utils import download_and_embed_images
 from .logger import logger
@@ -53,8 +52,6 @@ from .nodes import FieldNode
 from .open_ai_client import OpenAIClient, openai_provider
 from .prompt_helpers import interpolate_prompt
 from .tts_provider import TTSProvider, tts_provider
-from .ui.ui_utils import show_message_box
-from .utils import run_on_main
 from .utils.notes_utils import get_chained_ai_fields, get_note_type
 
 
@@ -221,8 +218,6 @@ class FieldResolver:
             )
         else:
             logger.error("App is at capacity + no API key")
-            if show_error_box:
-                run_on_main(lambda: show_message_box(GENERIC_CREDITS_MESSAGE))
             return None
 
         if resp and web_search and should_embed_images:
@@ -254,8 +249,6 @@ class FieldResolver:
 
         if not is_capacity_remaining():
             logger.debug("App at capacity, returning early")
-            if show_error_box:
-                run_on_main(lambda: show_message_box(GENERIC_CREDITS_MESSAGE))
             return None
 
         return await self.tts_provider.async_get_tts_response(
@@ -278,8 +271,6 @@ class FieldResolver:
     ) -> Optional[ImageResponse]:
         if not is_capacity_remaining():
             logger.debug("App at capacity, returning early")
-            if show_error_box:
-                run_on_main(lambda: show_message_box(GENERIC_CREDITS_MESSAGE))
             return None
 
         interpolated_prompt = interpolate_prompt(input_text, note)

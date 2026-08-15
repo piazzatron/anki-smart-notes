@@ -23,7 +23,17 @@ export const ImageDefaultsScreen = ({
   const state = useAppStore((store) => store.state)
   const catalog = useAppStore((store) => store.catalog)
   if (state === null || catalog === null) {
-    return <DefaultsScreenLoading label="Loading Default Image Settings" />
+    return (
+      <DefaultsScreenLoading
+        icon={
+          <span aria-hidden className="text-lg leading-none">
+            🎨
+          </span>
+        }
+        label="Loading Default Image Settings"
+        title="Default Image Settings"
+      />
+    )
   }
 
   return (
@@ -72,13 +82,13 @@ const LoadedImageDefaultsScreen = ({
     >
       {controls.form.error !== null && (
         <ErrorBanner
-          className="mx-6 mt-4"
+          className="mb-4"
           message={controls.form.error}
           onDismiss={controls.dismissError}
         />
       )}
 
-      <div className="min-h-0 flex-1 overflow-y-auto px-6 py-5">
+      <div>
         <div className="w-full max-w-[480px]">
           <label
             className="mb-2 block text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase"

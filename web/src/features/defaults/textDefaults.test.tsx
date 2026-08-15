@@ -27,6 +27,7 @@ const state: AppState = {
   decks: [],
   globalDeckId: 1,
   account: { status: "UNAUTHENTICATED", plan: null, email: null },
+  featureFlags: { reviewFreeMonth: false },
   defaults: {
     chat: {
       provider: "auto",

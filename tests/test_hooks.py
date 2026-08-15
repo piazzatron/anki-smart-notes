@@ -19,7 +19,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 from types import SimpleNamespace
 from typing import Any, cast
-from unittest.mock import ANY, MagicMock
+from unittest.mock import MagicMock
 
 import pytest
 
@@ -30,91 +30,32 @@ from src.note_proccessor import NoteProcessor
 def test_profile_did_open_restarts_local_server_after_profile_switch(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    calls: list[str] = []
-
-    class FakeLocalServer:
-        def __init__(self) -> None:
-            calls.append("server_init")
-
-        def start(self) -> None:
-            calls.append("server_start")
-
-    monkeypatch.setattr(hooks, "_local_server", None)
-    monkeypatch.setattr(hooks, "LocalServer", FakeLocalServer)
-    monkeypatch.setattr(hooks, "migrate_config", lambda: calls.append("config_migrate"))
+    ensure_started = MagicMock()
+    monkeypatch.setattr(hooks, "ensure_local_server_started", ensure_started)
 
     hooks.on_profile_did_open()
     hooks.on_profile_did_open()
 
-    assert calls == [
-        "config_migrate",
-        "server_init",
-        "server_start",
-    ]
+    assert ensure_started.call_count == 2
 
 
 def test_profile_did_open_hook_is_registered() -> None:
     assert hasattr(hooks.gui_hooks, "profile_did_open")
 
 
-def test_open_web_app_refreshes_subscription(monkeypatch: pytest.MonkeyPatch) -> None:
-    server = SimpleNamespace(session_token="session-token")
-    dialog = MagicMock()
-    account_state = MagicMock()
-
-    monkeypatch.setattr(hooks, "_local_server", server)
-    monkeypatch.setattr(hooks, "_ensure_local_server_started", lambda: server)
-    monkeypatch.setattr(hooks, "app_state", account_state)
-    monkeypatch.setattr(hooks, "WebAppDialog", MagicMock(return_value=dialog))
-    monkeypatch.setattr(hooks.env, "environment", "DEV")
-
-    hooks.on_open_web_app()
-
-    account_state.update_account_state.assert_called_once_with()
-    dialog.finished.connect.assert_called_once_with(ANY)
-    dialog.show.assert_called_once_with()
-
-
-def test_open_web_app_raises_existing_dialog(monkeypatch: pytest.MonkeyPatch) -> None:
-    server = SimpleNamespace(session_token="session-token")
-    dialog = MagicMock()
-    dialog_factory = MagicMock()
-
-    monkeypatch.setattr(hooks, "_local_server", server)
-    monkeypatch.setattr(hooks, "_ensure_local_server_started", lambda: server)
-    monkeypatch.setattr(hooks, "_web_app_dialog", dialog)
-    monkeypatch.setattr(hooks, "app_state", MagicMock())
-    monkeypatch.setattr(hooks, "WebAppDialog", dialog_factory)
-
-    hooks.on_open_web_app()
-
-    dialog.raise_.assert_called_once_with()
-    dialog.activateWindow.assert_called_once_with()
-    dialog_factory.assert_not_called()
-
-
 def test_profile_cleanup_closes_open_web_app_dialog(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    did_close = False
-
-    class FakeDialog:
-        def close(self) -> None:
-            nonlocal did_close
-            did_close = True
-
-    monkeypatch.setattr(
-        hooks,
-        "_web_app_dialog",
-        cast(Any, FakeDialog()),
-    )
-
-    monkeypatch.setattr(hooks, "_local_server", None)
+    close_web_app = MagicMock()
+    stop_local_server = MagicMock()
+    monkeypatch.setattr(hooks, "close_web_app", close_web_app)
+    monkeypatch.setattr(hooks, "stop_local_server", stop_local_server)
     monkeypatch.setattr(hooks, "_review_time_evaluator", None)
 
     hooks.cleanup()
 
-    assert did_close
+    close_web_app.assert_called_once_with()
+    stop_local_server.assert_called_once_with()
 
 
 def test_profile_cleanup_stops_review_time_evaluator(
@@ -127,8 +68,8 @@ def test_profile_cleanup_stops_review_time_evaluator(
             nonlocal did_stop
             did_stop = True
 
-    monkeypatch.setattr(hooks, "_web_app_dialog", None)
-    monkeypatch.setattr(hooks, "_local_server", None)
+    monkeypatch.setattr(hooks, "close_web_app", lambda: None)
+    monkeypatch.setattr(hooks, "stop_local_server", lambda: None)
     monkeypatch.setattr(
         hooks,
         "_review_time_evaluator",
@@ -223,12 +164,11 @@ def test_cleanup_before_addon_files_change_releases_non_ui_resources(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     calls: list[str] = []
-
-    class FakeLocalServer:
-        def stop(self) -> None:
-            calls.append("server_stop")
-
-    monkeypatch.setattr(hooks, "_local_server", FakeLocalServer())
+    monkeypatch.setattr(
+        hooks,
+        "stop_local_server",
+        lambda: calls.append("server_stop"),
+    )
     monkeypatch.setattr(hooks.logger, "info", lambda message: calls.append(message))
     monkeypatch.setattr(hooks, "cleanup_logger", lambda: calls.append("logger_cleanup"))
 
@@ -241,7 +181,6 @@ def test_cleanup_before_addon_files_change_releases_non_ui_resources(
         "Closing Smart Notes log handlers before add-on file replacement",
         "logger_cleanup",
     ]
-    assert vars(hooks)["_local_server"] is None
 
 
 def _fake_gui_hooks(**addon_hooks: list[Any]) -> SimpleNamespace:

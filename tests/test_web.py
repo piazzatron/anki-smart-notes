@@ -144,6 +144,7 @@ def test_account_state_change_invalidates_web_state(monkeypatch):
 
 def test_authenticated_account_includes_email_and_invalidates_web_state(monkeypatch):
     publish = MagicMock()
+    on_updated = MagicMock()
     monkeypatch.setattr(
         "src.app_state.config", SimpleNamespace(auth_token="auth-token")
     )
@@ -178,10 +179,11 @@ def test_authenticated_account_includes_email_and_invalidates_web_state(monkeypa
     )
 
     manager = AppStateManager()
-    manager.update_account_state()
+    manager.update_account_state(on_updated=on_updated)
 
     assert manager.state["status"] == "AUTHENTICATED"
     assert manager.state["email"] == "person@example.com"
+    on_updated.assert_called_once_with(manager.state)
     assert isinstance(publish.call_args.args[0], StateInvalidated)
 
 
@@ -259,6 +261,7 @@ def test_build_state_shape():
         decks={DECK_ID: "Spanish::Verbs"},
         smart_fields=[_chat_smart_field()],
         account=account,
+        feature_flags=SimpleNamespace(review_free_month=True),
         settings=SETTINGS_DTO,
         app_version="2.23.9",
     )
@@ -270,6 +273,7 @@ def test_build_state_shape():
     assert state["decks"] == [{"id": DECK_ID, "name": "Spanish::Verbs"}]
     assert state["globalDeckId"] == dto.GLOBAL_DECK_ID
     assert state["account"] == account
+    assert state["featureFlags"] == {"reviewFreeMonth": True}
     assert state["settings"] == SETTINGS_DTO
     assert state["appVersion"] == "2.23.9"
     assert state["defaults"] == {
@@ -314,6 +318,7 @@ def test_build_state_excludes_smart_fields_with_missing_anki_references():
             replace(valid_field, id="missing-deck", deck_id=999),
         ],
         account={"status": "UNAUTHENTICATED", "plan": None, "email": None},
+        feature_flags=SimpleNamespace(review_free_month=False),
         settings=SETTINGS_DTO,
         app_version="2.23.9",
     )

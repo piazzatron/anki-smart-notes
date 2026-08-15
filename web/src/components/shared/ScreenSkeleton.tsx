@@ -17,29 +17,35 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { PageLayout } from "./PageLayout"
+
 interface ScreenSkeletonProps {
   ariaLabel: string
+  className?: string
   contentClassName: string
   showSubtitle?: boolean
+  title: string
 }
 
 export const ScreenSkeleton = ({
   ariaLabel,
+  className,
   contentClassName,
   showSubtitle = true,
+  title,
 }: ScreenSkeletonProps) => (
-  <section
-    aria-label={ariaLabel}
-    className="flex min-h-0 flex-1 animate-pulse flex-col"
+  <PageLayout
+    className={className}
+    subtitle={
+      showSubtitle ? (
+        <span className="block h-3 w-80 animate-pulse rounded bg-white/[0.035]" />
+      ) : undefined
+    }
+    testId="screen-skeleton"
+    title={title}
   >
-    <div className="h-[86px] border-b border-white/[0.065] px-6 py-5">
-      <div className="h-5 w-44 rounded bg-white/[0.06]" />
-      {showSubtitle && (
-        <div className="mt-3 h-3 w-80 rounded bg-white/[0.035]" />
-      )}
-    </div>
-    <div className="p-6">
+    <div aria-label={ariaLabel} className="animate-pulse">
       <div className={`rounded-xl bg-white/[0.025] ${contentClassName}`} />
     </div>
-  </section>
+  </PageLayout>
 )

@@ -17,23 +17,13 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from collections.abc import Callable
 from copy import deepcopy
 from typing import Literal, Optional, TypedDict, Union
 
 import aiohttp
 
 from .config import config
-from .constants import (
-    APP_LOCKED_ERROR,
-    FREE_TRIAL_ENDED_CAPACITY_API_KEY,
-    FREE_TRIAL_ENDED_CAPACITY_NO_API_KEY,
-    FREE_TRIAL_ENDED_EXPIRED_API_KEY,
-    FREE_TRIAL_ENDED_EXPIRED_NO_API_KEY,
-    PAID_PLAN_ENDED_CAPACITY_API_KEY,
-    PAID_PLAN_ENDED_CAPACITY_NO_API_KEY,
-    PAID_PLAN_ENDED_EXPIRED_API_KEY,
-    PAID_PLAN_ENDED_EXPIRED_NO_API_KEY,
-)
 from .event_bus import StateInvalidated, event_bus
 from .logger import logger
 from .sentry import run_async_in_background_with_sentry
@@ -43,7 +33,6 @@ from .subscription_provider import (
     subscription_provider,
 )
 from .ui.state_manager import StateManager
-from .ui.ui_utils import show_message_box
 
 
 class PendingAccountState(TypedDict):
@@ -101,12 +90,17 @@ class AppStateManager:
             state["status"] == "AUTHENTICATED" and state["plan"]["planType"] == "trial"
         )
 
-    def update_account_state(self) -> None:
+    def update_account_state(
+        self,
+        on_updated: Optional[Callable[[AppState], None]] = None,
+    ) -> None:
         if not config.auth_token:
             logger.info("User is not authenticated")
             self._state.update(
                 {"status": "UNAUTHENTICATED", "plan": None, "email": None}
             )
+            if on_updated is not None:
+                on_updated(self.state)
             return
 
         def on_failure(exc: Optional[Exception]) -> None:
@@ -138,12 +132,6 @@ class AppStateManager:
             plan = status["plan"]
             email = status["email"]
 
-            old_state = self._state.s.copy()
-            plan_conditions = get_plan_conditions(plan)
-            functionality_degraded = self._did_functionality_degrade(
-                old_state, plan_conditions
-            )
-
             self._state.update(
                 {
                     "status": "AUTHENTICATED",
@@ -151,11 +139,8 @@ class AppStateManager:
                     "email": email,
                 }
             )
-
-            if functionality_degraded:
-                self._handle_plan_became_blocked(plan, plan_conditions)
-
-            self._check_capacity_threshold(plan)
+            if on_updated is not None:
+                on_updated(self.state)
 
         run_async_in_background_with_sentry(
             subscription_provider.get_user_status,
@@ -164,71 +149,17 @@ class AppStateManager:
             use_collection=False,
         )
 
-    def _did_functionality_degrade(
-        self, old_state: AppState, new_conditions: PlanConditions
-    ) -> bool:
-        if old_state["status"] != "AUTHENTICATED":
-            return False
-
-        old_conditions = get_plan_conditions(old_state["plan"])
-        had_access = not any(old_conditions.values())
-        is_blocked = any(new_conditions.values())
-        if had_access and is_blocked:
-            logger.info(
-                f"Functionality degraded, new plan conditions: {new_conditions}"
-            )
-        return had_access and is_blocked
-
-    def _handle_plan_became_blocked(
-        self, plan: PlanInfo, conditions: PlanConditions
-    ) -> None:
-        plan_type = "trial" if plan["planType"] == "trial" else "paid"
-        end_type = "expired" if conditions["expired"] else "capacity"
-        is_api_key = has_api_key()
-        messages = {
-            ("trial", "capacity", False): FREE_TRIAL_ENDED_CAPACITY_NO_API_KEY,
-            ("trial", "capacity", True): FREE_TRIAL_ENDED_CAPACITY_API_KEY,
-            ("trial", "expired", False): FREE_TRIAL_ENDED_EXPIRED_NO_API_KEY,
-            ("trial", "expired", True): FREE_TRIAL_ENDED_EXPIRED_API_KEY,
-            ("paid", "capacity", False): PAID_PLAN_ENDED_CAPACITY_NO_API_KEY,
-            ("paid", "capacity", True): PAID_PLAN_ENDED_CAPACITY_API_KEY,
-            ("paid", "expired", False): PAID_PLAN_ENDED_EXPIRED_NO_API_KEY,
-            ("paid", "expired", True): PAID_PLAN_ENDED_EXPIRED_API_KEY,
-        }
-        show_message_box(messages[(plan_type, end_type, is_api_key)])
-
-    def _check_capacity_threshold(self, plan: Optional[PlanInfo]) -> None:
-        """Alert user when they cross 50% capacity threshold."""
-        if not plan or plan["planType"] == "trial":
-            return
-
-        capacity_percent = plan["totalCreditsUsed"] / plan["totalCreditsCapacity"] * 100
-        did_show = config.did_show_capacity_threshold_this_cycle
-
-        if capacity_percent < 50 and did_show:
-            config.did_show_capacity_threshold_this_cycle = False
-            return
-
-        if capacity_percent >= 50 and not did_show:
-            config.did_show_capacity_threshold_this_cycle = True
-            show_message_box(
-                "Smart Notes: You've used 50% of your credits this period. Check the account tab to see your usage breakdown."
-            )
-
 
 app_state = AppStateManager()
 
 # Mode selection stuff
 
 
-def is_capacity_remaining(show_box: bool = False) -> bool:
+def is_capacity_remaining() -> bool:
     state = app_state.state
-    unlocked = state["status"] == "AUTHENTICATED" and not any(
+    return state["status"] == "AUTHENTICATED" and not any(
         get_plan_conditions(state["plan"]).values()
     )
-    if not unlocked and show_box:
-        show_message_box(APP_LOCKED_ERROR)
-    return unlocked
 
 
 def has_api_key() -> bool:
@@ -239,8 +170,5 @@ def is_app_legacy() -> bool:
     return not is_capacity_remaining() and has_api_key()
 
 
-def is_capacity_remaining_or_legacy(show_box: bool = False) -> bool:
-    allowed = is_capacity_remaining() or has_api_key()
-    if not allowed and show_box:
-        show_message_box(APP_LOCKED_ERROR)
-    return allowed
+def is_capacity_remaining_or_legacy() -> bool:
+    return is_capacity_remaining() or has_api_key()

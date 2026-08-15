@@ -1,6 +1,7 @@
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { VoicePromptTester } from "@/features/prompt-tester/VoicePromptTester"
 import { providerLabel } from "@/lib/catalog"
+import { PageLayout } from "@/components/shared/PageLayout"
 import { saveTTSDefaults } from "@/services/commands"
 import { useAppStore } from "@/store/appStore"
 import type { AppState, VoiceCatalog } from "@/types/api"
@@ -33,15 +34,33 @@ export const VoiceDefaultsScreen = ({
 
   if (state === null || voiceCatalog.catalog === null) {
     if (voiceCatalog.error === null) {
-      return <DefaultsScreenLoading label="Loading Default Voice Settings" />
+      return (
+        <DefaultsScreenLoading
+          icon={
+            <span aria-hidden className="text-lg leading-none">
+              🔈
+            </span>
+          }
+          label="Loading Default Voice Settings"
+          title="Default Voice Settings"
+        />
+      )
     }
 
     return (
-      <section className="flex min-h-0 flex-1 items-center justify-center">
+      <PageLayout
+        icon={
+          <span aria-hidden className="text-lg leading-none">
+            🔈
+          </span>
+        }
+        testId="voice-defaults-screen"
+        title="Default Voice Settings"
+      >
         <p className="rounded-lg border border-red-300/15 bg-red-300/[0.06] px-4 py-3 text-xs text-danger">
           {voiceCatalog.error}
         </p>
-      </section>
+      </PageLayout>
     )
   }
 
@@ -100,14 +119,14 @@ const LoadedVoiceDefaultsScreen = ({
     >
       {controls.form.error !== null && (
         <ErrorBanner
-          className="mx-6 mt-4"
+          className="mb-4"
           message={controls.form.error}
           onDismiss={controls.dismissError}
         />
       )}
 
-      <div className="flex min-h-0 flex-1 flex-col px-6 py-5">
-        <div className="flex min-h-0 w-full max-w-[900px] flex-1 flex-col">
+      <div className="flex min-h-0 flex-1 flex-col">
+        <div className="flex min-h-0 w-full flex-1 flex-col">
           <VoicePicker
             catalog={catalog}
             layout="columns"

@@ -314,6 +314,7 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
             decks=fake_decks,
             smart_fields=fake_smart_fields,
             account=fake_account,
+            feature_flags=src.local_server.flags,
             settings=fake_settings,
             app_version="2.23.9",
         )

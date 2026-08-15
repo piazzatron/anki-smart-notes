@@ -23,7 +23,7 @@ from typing import Optional
 from anki.cards import Card
 from aqt import QAction, QMenu, browser, editor, mw
 
-from ..app_state import is_capacity_remaining_or_legacy
+from ..generation_access import ensure_generation_available
 from ..note_proccessor import NoteProcessor
 from .custom_prompt import CustomImagePrompt, CustomTextPrompt, CustomTTSPrompt
 
@@ -71,7 +71,7 @@ class FieldMenu:
         generate_item = QAction("✨ Generate Smart Field", self.menu)
 
         def wrapped() -> None:
-            if not is_capacity_remaining_or_legacy(show_box=True):
+            if not ensure_generation_available():
                 return
 
             def on_success(_: bool):
@@ -136,6 +136,9 @@ class FieldMenu:
         return _on_success
 
     def _on_custom_text(self, _: bool) -> None:
+        if not ensure_generation_available():
+            return
+
         CustomTextPrompt(
             note=self.card.note(),
             deck_id=self.card.did,
@@ -144,6 +147,9 @@ class FieldMenu:
         ).exec()
 
     def _on_custom_image(self, _: bool) -> None:
+        if not ensure_generation_available():
+            return
+
         # This should be called with exec instead of show, but
         # for some reason having a webview inside of this dialog
         # causes UI bugs when using exec
@@ -156,6 +162,9 @@ class FieldMenu:
         ).show()
 
     def _on_custom_tts(self, _: bool) -> None:
+        if not ensure_generation_available():
+            return
+
         CustomTTSPrompt(
             note=self.card.note(),
             deck_id=self.card.did,

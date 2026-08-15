@@ -27,7 +27,17 @@ export const TextDefaultsScreen = ({
   const catalog = useAppStore((store) => store.catalog)
 
   if (state === null || catalog === null) {
-    return <DefaultsScreenLoading label="Loading Default Text Settings" />
+    return (
+      <DefaultsScreenLoading
+        icon={
+          <span aria-hidden className="text-lg leading-none">
+            💬
+          </span>
+        }
+        label="Loading Default Text Settings"
+        title="Text Generation Settings"
+      />
+    )
   }
 
   return (
@@ -76,14 +86,14 @@ export const LoadedTextDefaultsScreen = ({
     >
       {controls.form.error !== null && (
         <ErrorBanner
-          className="mx-6 mt-4"
+          className="mb-4"
           message={controls.form.error}
           onDismiss={controls.dismissError}
         />
       )}
 
-      <div className="min-h-0 flex-1 overflow-y-auto px-6 py-5">
-        <div className="grid w-full max-w-[900px] gap-6 lg:grid-cols-2">
+      <div>
+        <div className="grid w-full gap-6 lg:grid-cols-2">
           <div>
             <label
               className="mb-2 block text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase"

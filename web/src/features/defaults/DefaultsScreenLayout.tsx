@@ -20,7 +20,7 @@
 import { LoaderCircle } from "lucide-react"
 import type { ReactNode } from "react"
 
-import { ScreenHeader } from "@/components/shared/ScreenHeader"
+import { PageLayout } from "@/components/shared/PageLayout"
 import { Button } from "@/components/ui/Button"
 import { Card } from "@/components/ui/Card"
 
@@ -51,41 +51,48 @@ export const DefaultsScreenLayout = ({
   testId,
   title,
 }: DefaultsScreenLayoutProps) => (
-  <section className="flex min-h-0 flex-1 flex-col" data-testid={testId}>
-    <ScreenHeader
-      accessory={
-        <div className="flex items-center gap-3">
-          {accessory}
-          {isDirty && (
-            <Button disabled={isSaving} onClick={onSave} variant="primary">
-              {isSaving ? "Saving…" : "Save changes"}
-            </Button>
-          )}
-        </div>
-      }
-      icon={icon}
-      subtitle={subtitle}
-      title={title}
-    />
-    <div
-      className={`min-h-0 flex-1 overflow-y-auto ${contentFillsHeight ? "flex flex-col" : ""}`}
-    >
-      {children}
-      <div className="px-6 pt-2 pb-6">
-        <h2 className="mb-3 text-[17px] leading-tight font-bold text-zinc-100">
-          Try it
-        </h2>
-        <Card className="w-full p-4">{tester}</Card>
+  <PageLayout
+    actions={
+      <div className="flex items-center gap-3">
+        {accessory}
+        {isDirty && (
+          <Button disabled={isSaving} onClick={onSave} variant="primary">
+            {isSaving ? "Saving…" : "Save changes"}
+          </Button>
+        )}
       </div>
+    }
+    className={contentFillsHeight ? "h-full" : undefined}
+    icon={icon}
+    subtitle={subtitle}
+    testId={testId}
+    title={title}
+  >
+    {children}
+    <div className={contentFillsHeight ? "mt-auto pt-8" : "mt-8"}>
+      <h2 className="mb-3 text-[17px] leading-tight font-bold text-zinc-100">
+        Try it
+      </h2>
+      <Card className="w-full p-4">{tester}</Card>
     </div>
-  </section>
+  </PageLayout>
 )
 
-export const DefaultsScreenLoading = ({ label }: { label: string }) => (
-  <section className="flex min-h-0 flex-1 items-center justify-center">
-    <LoaderCircle
-      aria-label={label}
-      className="size-5 animate-spin text-indigo-soft"
-    />
-  </section>
+export const DefaultsScreenLoading = ({
+  icon,
+  label,
+  title,
+}: {
+  icon: ReactNode
+  label: string
+  title: string
+}) => (
+  <PageLayout icon={icon} testId="defaults-screen-loading" title={title}>
+    <div className="flex flex-1 items-center justify-center">
+      <LoaderCircle
+        aria-label={label}
+        className="size-5 animate-spin text-indigo-soft"
+      />
+    </div>
+  </PageLayout>
 )

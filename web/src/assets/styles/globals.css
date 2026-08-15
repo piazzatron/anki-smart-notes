@@ -104,6 +104,20 @@
   animation: welcome-enter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+@keyframes review-offer-sheen {
+  0% {
+    transform: translateX(-120%);
+  }
+  60%,
+  100% {
+    transform: translateX(360%);
+  }
+}
+
+.review-offer-sheen {
+  animation: review-offer-sheen 3.8s ease-in-out infinite;
+}
+
 /* A one-shot celebration behind the field-editor completion screen. */
 @keyframes completion-confetti-burst {
   0% {
