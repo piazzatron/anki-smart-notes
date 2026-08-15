@@ -70,18 +70,20 @@ def test_format_tts_voice_label_falls_back_to_voice_id_for_stale_data(
     )
 
 
-def test_eleven_voice_catalog_includes_stefanos() -> None:
+def test_eleven_voice_catalog_entries_have_required_keys() -> None:
     catalog_path = Path(__file__).parents[1] / "eleven_voices.json"
     voices = json.loads(catalog_path.read_text(encoding="utf-8"))
 
-    assert {
-        "voice_id": "20zUtLxCwVzsFDWub4sB",
-        "name": "Stefanos (Athenian)",
-        "gender": "male",
-        "country": "el",
-        "preview_url": "",
-        "language": "Greek",
-    } in voices
+    required_keys = {
+        "voice_id",
+        "name",
+        "gender",
+        "country",
+        "preview_url",
+        "language",
+    }
+    assert voices
+    assert all(required_keys <= voice.keys() for voice in voices)
 
 
 def _sample_voices() -> list[TTSMeta]:

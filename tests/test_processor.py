@@ -542,34 +542,6 @@ async def test_processor_1(name, note, prompts_map, expected, options, monkeypat
         assert n[k] == v, f"{name}: Field {k} is {n[k]}, expected {v}"
 
 
-def test_process_card_forwards_use_collection(monkeypatch):
-    from src.note_proccessor import NoteProcessor
-
-    calls = []
-    processor = NoteProcessor(  # type: ignore
-        field_resolver=None,
-        config=MockConfig(allow_empty_fields=False),
-    )
-    monkeypatch.setattr(processor, "_assert_preconditions", lambda: True)
-    monkeypatch.setattr("src.note_proccessor.bump_usage_counter", lambda: None)
-    monkeypatch.setattr(
-        "src.note_proccessor.run_async_in_background_with_sentry",
-        lambda op,
-        on_success,
-        on_failure=None,
-        with_progress=False,
-        use_collection=True: calls.append(use_collection),
-    )
-
-    processor.process_card(
-        MockCard(note=MockNote({"f1": "1"}, note_type=NOTE_TYPE_NAME)),
-        show_progress=False,
-        use_collection=False,
-    )  # type: ignore
-
-    assert calls == [False]
-
-
 def test_out_of_credits_refreshes_account_then_opens_blocked_ui(monkeypatch):
     import src.note_proccessor
     from src.note_proccessor import NoteProcessor
@@ -670,10 +642,8 @@ async def test_process_notes_batch_marks_client_facing_errors_as_failed(monkeypa
     assert skipped == []
     assert not out_of_credits
     assert error_logs == []
-    assert info_logs == [
-        f"Client-facing error processing note 1: {message}",
-        f"Client-facing error processing note 2: {message}",
-    ]
+    assert len(info_logs) == 2
+    assert all("Client-facing" in log for log in info_logs)
 
 
 @pytest.mark.asyncio

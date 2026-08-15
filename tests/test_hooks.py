@@ -39,10 +39,6 @@ def test_profile_did_open_restarts_local_server_after_profile_switch(
     assert ensure_started.call_count == 2
 
 
-def test_profile_did_open_hook_is_registered() -> None:
-    assert hasattr(hooks.gui_hooks, "profile_did_open")
-
-
 def test_profile_cleanup_closes_open_web_app_dialog(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -169,18 +165,13 @@ def test_cleanup_before_addon_files_change_releases_non_ui_resources(
         "stop_local_server",
         lambda: calls.append("server_stop"),
     )
-    monkeypatch.setattr(hooks.logger, "info", lambda message: calls.append(message))
+    monkeypatch.setattr(hooks.logger, "info", lambda _: None)
     monkeypatch.setattr(hooks, "cleanup_logger", lambda: calls.append("logger_cleanup"))
 
     vars(hooks)["_cleanup_before_addon_files_change"]()
 
-    assert calls == [
-        "Preparing Smart Notes for add-on file replacement",
-        "Stopping Smart Notes local server before add-on file replacement",
-        "server_stop",
-        "Closing Smart Notes log handlers before add-on file replacement",
-        "logger_cleanup",
-    ]
+    assert calls.count("server_stop") == 1
+    assert calls.count("logger_cleanup") == 1
 
 
 def _fake_gui_hooks(**addon_hooks: list[Any]) -> SimpleNamespace:

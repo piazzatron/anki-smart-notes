@@ -28,15 +28,43 @@ from src.api_client import ClientFacingAPIError
 from src.sentry import Sentry
 
 
+class _LegacyAsyncioTimeoutError(Exception):
+    pass
+
+
+@pytest.mark.parametrize(
+    ("error", "should_report", "uses_legacy_timeout"),
+    [
+        (RuntimeError("smart-notes async failure"), True, False),
+        (TimeoutError("provider timed out"), False, False),
+        (
+            ClientFacingAPIError(
+                "This request is too long for Google TTS. Please try a different provider."
+            ),
+            False,
+            False,
+        ),
+        (_LegacyAsyncioTimeoutError("feature flags timed out"), False, True),
+    ],
+    ids=["unexpected", "timeout", "client-facing", "legacy-timeout"],
+)
 @pytest.mark.asyncio
-async def test_wrap_async_reraises_after_reporting_in_production(
+async def test_wrap_async_reraises_and_reports_only_unexpected_errors(
     monkeypatch: pytest.MonkeyPatch,
+    error: Exception,
+    should_report: bool,
+    uses_legacy_timeout: bool,
 ) -> None:
     captured: list[Exception] = []
     shown: list[Exception] = []
-    error = RuntimeError("smart-notes async failure")
     sentry = object.__new__(Sentry)
 
+    if uses_legacy_timeout:
+        monkeypatch.setattr(
+            sentry_module,
+            "asyncio",
+            types.SimpleNamespace(TimeoutError=_LegacyAsyncioTimeoutError),
+        )
     monkeypatch.setattr(sentry_module, "is_production", lambda: True)
     monkeypatch.setattr(sentry, "capture_exception", lambda e: captured.append(e))
     monkeypatch.setattr(sentry, "_show_error_message", lambda e: shown.append(e))
@@ -44,92 +72,13 @@ async def test_wrap_async_reraises_after_reporting_in_production(
     async def op() -> None:
         raise error
 
-    with pytest.raises(RuntimeError, match="smart-notes async failure"):
+    with pytest.raises(type(error)) as exc_info:
         await sentry.wrap_async(op)()
 
-    assert captured == [error]
-    assert shown == [error]
-
-
-@pytest.mark.asyncio
-async def test_wrap_async_reraises_timeout_without_reporting_in_production(
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    captured: list[Exception] = []
-    shown: list[Exception] = []
-    error = TimeoutError("provider timed out")
-    sentry = object.__new__(Sentry)
-
-    monkeypatch.setattr(sentry_module, "is_production", lambda: True)
-    monkeypatch.setattr(sentry, "capture_exception", lambda e: captured.append(e))
-    monkeypatch.setattr(sentry, "_show_error_message", lambda e: shown.append(e))
-
-    async def op() -> None:
-        raise error
-
-    with pytest.raises(TimeoutError, match="provider timed out"):
-        await sentry.wrap_async(op)()
-
-    assert captured == []
-    assert shown == []
-
-
-@pytest.mark.asyncio
-async def test_wrap_async_reraises_client_facing_api_error_without_reporting(
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    captured: list[Exception] = []
-    shown: list[Exception] = []
-    error = ClientFacingAPIError(
-        "This request is too long for Google TTS. Please try a different provider."
-    )
-    sentry = object.__new__(Sentry)
-
-    monkeypatch.setattr(sentry_module, "is_production", lambda: True)
-    monkeypatch.setattr(sentry, "capture_exception", lambda e: captured.append(e))
-    monkeypatch.setattr(sentry, "_show_error_message", lambda e: shown.append(e))
-
-    async def op() -> None:
-        raise error
-
-    with pytest.raises(ClientFacingAPIError, match="Google TTS"):
-        await sentry.wrap_async(op)()
-
-    assert captured == []
-    assert shown == []
-
-
-@pytest.mark.asyncio
-async def test_wrap_async_reraises_legacy_asyncio_timeout_without_reporting(
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    class LegacyAsyncioTimeoutError(Exception):
-        pass
-
-    captured: list[Exception] = []
-    shown: list[Exception] = []
-    error = LegacyAsyncioTimeoutError("feature flags timed out")
-    sentry = object.__new__(Sentry)
-
-    # Simulate older Anki runtimes where asyncio.TimeoutError is not an alias
-    # for built-in TimeoutError.
-    monkeypatch.setattr(
-        sentry_module,
-        "asyncio",
-        types.SimpleNamespace(TimeoutError=LegacyAsyncioTimeoutError),
-    )
-    monkeypatch.setattr(sentry_module, "is_production", lambda: True)
-    monkeypatch.setattr(sentry, "capture_exception", lambda e: captured.append(e))
-    monkeypatch.setattr(sentry, "_show_error_message", lambda e: shown.append(e))
-
-    async def op() -> None:
-        raise error
-
-    with pytest.raises(LegacyAsyncioTimeoutError, match="feature flags timed out"):
-        await sentry.wrap_async(op)()
-
-    assert captured == []
-    assert shown == []
+    expected_reports = [error] if should_report else []
+    assert exc_info.value is error
+    assert captured == expected_reports
+    assert shown == expected_reports
 
 
 def test_should_send_event_filters_non_smart_notes_logs(
