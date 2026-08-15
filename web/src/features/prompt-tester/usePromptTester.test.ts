@@ -38,11 +38,7 @@ const result = {
 
 describe("usePromptTester", () => {
   test("only exposes a result for the currently selected card", () => {
-    expect(getVisiblePromptTestResult(result, 42)).toEqual({
-      latencyMs: 125,
-      prompt: "Define {{Front}}",
-      value: { text: "Generated text" },
-    })
+    expect(getVisiblePromptTestResult(result, 42)).toEqual(result)
     expect(getVisiblePromptTestResult(result, 7)).toBeNull()
     expect(getVisiblePromptTestResult(result, null)).toBeNull()
   })

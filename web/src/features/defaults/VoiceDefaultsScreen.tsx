@@ -1,5 +1,8 @@
+import { useState } from "react"
+
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
-import { VoicePromptTester } from "@/features/prompt-tester/VoicePromptTester"
+import { PromptTesterStrip } from "@/features/prompt-tester/PromptTesterStrip"
+import { usePromptTester } from "@/features/prompt-tester/usePromptTester"
 import { providerLabel } from "@/lib/catalog"
 import { PageLayout } from "@/components/shared/PageLayout"
 import { saveTTSDefaults } from "@/services/commands"
@@ -95,6 +98,18 @@ const LoadedVoiceDefaultsScreen = ({
     voiceMatchesSettings(voice, controls.form.values),
   )
 
+  // The tester owns its own scratch text here: nothing else on the page writes one.
+  const [prompt, setPrompt] = useState(
+    "This is an example of your selected Smart Notes voice.",
+  )
+  const tester = usePromptTester({
+    fieldType: "tts",
+    onPromptChange: setPrompt,
+    prompt,
+    settings: controls.form.values,
+    voiceName: selectedVoice?.name ?? controls.form.values.voiceId,
+  })
+
   return (
     <DefaultsScreenLayout
       accessory={<DefaultUsagePill usage={usage} />}
@@ -108,12 +123,7 @@ const LoadedVoiceDefaultsScreen = ({
       isSaving={controls.form.isSaving}
       onSave={() => void controls.saveChanges()}
       subtitle="The voice your TTS Smart Fields use unless a field pins its own."
-      tester={
-        <VoicePromptTester
-          settings={controls.form.values}
-          voiceName={selectedVoice?.name ?? controls.form.values.voiceId}
-        />
-      }
+      tester={<PromptTesterStrip field={tester} />}
       testId="voice-defaults-screen"
       title="Default Voice Settings"
     >

@@ -28,6 +28,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
+import src.app_state as app_state_module
 from src.app_state import AppStateManager, get_plan_conditions
 from src.event_bus import (
     BrowserSelectionChanged,
@@ -67,6 +68,7 @@ SETTINGS_DTO: dto.SettingsDto = {
     "generateAtReview": True,
     "regenerateWhenBatching": False,
     "debug": False,
+    "legacyOpenAiEnabled": False,
     "legacyOpenAiKey": None,
     "legacyOpenAiModel": "gpt-5",
     "legacyOpenAiHost": None,
@@ -76,6 +78,30 @@ SETTINGS_DTO: dto.SettingsDto = {
 
 
 # -- EventBus --
+
+
+@pytest.mark.parametrize(
+    ("legacy_support", "api_key", "expected"),
+    [
+        (True, "sk-test", True),
+        (False, "sk-test", False),
+        (None, "sk-test", False),
+        (True, "", False),
+    ],
+)
+def test_legacy_openai_access_requires_support_and_api_key(
+    monkeypatch: pytest.MonkeyPatch,
+    legacy_support: bool | None,
+    api_key: str,
+    expected: bool,
+) -> None:
+    monkeypatch.setattr(
+        app_state_module,
+        "config",
+        SimpleNamespace(legacy_support=legacy_support, openai_api_key=api_key),
+    )
+
+    assert app_state_module.has_legacy_openai_access() is expected
 
 
 @pytest.mark.asyncio
@@ -331,6 +357,7 @@ def test_build_settings_reads_config(monkeypatch):
         generate_at_review=False,
         regenerate_notes_when_batching=True,
         debug=True,
+        legacy_support=True,
         openai_api_key="sk-test",
         legacy_openai_model="gpt-5-mini",
         openai_endpoint="https://example.com",
@@ -343,6 +370,7 @@ def test_build_settings_reads_config(monkeypatch):
         "generateAtReview": False,
         "regenerateWhenBatching": True,
         "debug": True,
+        "legacyOpenAiEnabled": True,
         "legacyOpenAiKey": "sk-test",
         "legacyOpenAiModel": "gpt-5-mini",
         "legacyOpenAiHost": "https://example.com",
@@ -1121,6 +1149,76 @@ async def test_tts_prompt_service_runs_literal_text_without_a_card(monkeypatch):
     )
 
     assert result == {"dataUrl": "data:audio/mpeg;base64,YXVkaW8="}
+
+
+@pytest.mark.asyncio
+async def test_text_prompt_service_runs_without_a_card(monkeypatch):
+    """A prompt that reads no fields has nothing to read them from."""
+    from src.services import prompt_test_service
+
+    request = dto.parse_text_prompt_test(
+        {
+            "prompt": "Write one example sentence.",
+            "settings": {
+                "provider": "openai",
+                "model": "gpt-5-mini",
+                "reasoningLevel": "off",
+                "webSearchEnabled": False,
+            },
+        }
+    )
+
+    async def fake_get_chat_response(prompt, **kwargs):
+        assert prompt == "Write one example sentence."
+        assert kwargs["note_id"] is None
+        return "An example."
+
+    monkeypatch.setattr(prompt_test_service, "is_capacity_remaining", lambda: True)
+    monkeypatch.setattr(
+        prompt_test_service.chat_provider,
+        "async_get_chat_response",
+        fake_get_chat_response,
+    )
+
+    result = await prompt_test_service.run_text_prompt_test(
+        prompt_test_service.prepare_text_prompt_test(request)
+    )
+
+    # No card means nothing to save the result into, so no token is minted.
+    assert result == {"text": "An example."}
+
+
+def test_text_prompt_service_requires_a_card_for_field_references():
+    from src.services import prompt_test_service
+
+    request = dto.parse_text_prompt_test(
+        {
+            "prompt": "Translate {{Front}}",
+            "settings": {
+                "provider": "openai",
+                "model": "gpt-5-mini",
+                "reasoningLevel": "off",
+                "webSearchEnabled": False,
+            },
+        }
+    )
+
+    with pytest.raises(ValueError, match="Select a card to use field references"):
+        prompt_test_service.prepare_text_prompt_test(request)
+
+
+def test_image_prompt_service_requires_a_card_for_field_references():
+    from src.services import prompt_test_service
+
+    request = dto.parse_image_prompt_test(
+        {
+            "prompt": "A scene showing {{Front}}",
+            "settings": {"provider": "openai", "model": "gpt-image-1.5-low"},
+        }
+    )
+
+    with pytest.raises(ValueError, match="Select a card to use field references"):
+        prompt_test_service.prepare_image_prompt_test(request)
 
 
 def test_tts_prompt_service_requires_a_card_for_field_references():

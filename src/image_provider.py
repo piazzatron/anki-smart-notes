@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, TypedDict
+from typing import Any, Optional, TypedDict
 
 from .api_client import api
 from .constants import IMAGE_PROVIDER_TIMEOUT_SEC
@@ -35,7 +35,7 @@ class ImageProvider:
         prompt: str,
         model: ImageModels,
         provider: ImageProviders,
-        note_id: int,
+        note_id: Optional[int],
         generation_source: GenerationSource,
     ) -> ImageResponse:
         args: dict[str, Any] = {

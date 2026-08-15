@@ -1,6 +1,9 @@
+import { useState } from "react"
+
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { Toggle } from "@/components/ui/Toggle"
-import { PromptTester } from "@/features/prompt-tester/PromptTester"
+import { PromptTesterStrip } from "@/features/prompt-tester/PromptTesterStrip"
+import { usePromptTester } from "@/features/prompt-tester/usePromptTester"
 import { ChatModelSelect } from "@/features/text-generation/ChatModelSelect"
 import { ReasoningLevelSelect } from "@/features/text-generation/ReasoningLevelSelect"
 import { TextModelGuidance } from "@/features/text-generation/TextModelGuidance"
@@ -67,6 +70,16 @@ export const LoadedTextDefaultsScreen = ({
     serverDefaults: state.defaults.chat,
   })
   const usage = getDefaultUsage(state.smartFields, "chat")
+  // The tester owns its own scratch prompt here: nothing else on the page writes one.
+  const [prompt, setPrompt] = useState(
+    "Translate {{Expression}} into natural English.",
+  )
+  const tester = usePromptTester({
+    fieldType: "chat",
+    onPromptChange: setPrompt,
+    prompt,
+    settings: controls.form.values,
+  })
 
   return (
     <DefaultsScreenLayout
@@ -80,7 +93,7 @@ export const LoadedTextDefaultsScreen = ({
       isSaving={controls.form.isSaving}
       onSave={() => void controls.saveChanges()}
       subtitle="Default settings for text generation. Individual Smart Fields can override these values."
-      tester={<PromptTester settings={controls.form.values} />}
+      tester={<PromptTesterStrip field={tester} />}
       testId="text-defaults-screen"
       title="Text Generation Settings"
     >

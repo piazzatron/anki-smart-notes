@@ -18,7 +18,7 @@
  */
 
 import { Check, LoaderCircle, Play } from "lucide-react"
-import { useId, useState, type ReactNode } from "react"
+import { useId, useState } from "react"
 
 import { Button } from "@/components/ui/Button"
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
@@ -31,71 +31,41 @@ import {
 } from "./promptTestCard"
 import { PromptTestResultModal } from "./PromptTestResultModal"
 import { SelectedTestCard } from "./SelectedTestCard"
-import type { PromptTesterControls } from "./usePromptTester"
+import type { PromptTester } from "./usePromptTester"
 
-interface PromptTesterStripProps<R extends { resultToken?: string }> {
-  children?: ReactNode
-  promptLabel: string
-  provenance: string
+interface PromptTesterStripProps {
+  field: PromptTester
   // Only a tester bound to a Smart Field can write its result back to the card.
   saveTargetFieldName?: string
-  showResultModal?: boolean
-  tester: PromptTesterControls<R>
   title?: string
 }
 
 // The one tester: a titled zone with the card to run against and an always-present Test
 // button, plus the prompt itself where nothing else on the screen owns it. Text and image
 // results open in a modal; voice results play without presenting another surface.
-export const PromptTesterStrip = <R extends { resultToken?: string }>({
-  children,
-  promptLabel,
-  provenance,
+export const PromptTesterStrip = ({
+  field,
   saveTargetFieldName,
-  showResultModal = true,
-  tester,
   title,
-}: PromptTesterStripProps<R>) => {
+}: PromptTesterStripProps) => {
   const promptFieldId = useId()
-  const card = usePromptTestCardState(tester)
-  const [isResultOpen, setIsResultOpen] = useState(false)
-  const hasResult =
-    tester.result !== null &&
-    (tester.canRunWithoutCard || tester.selectedNote !== null)
-  const resultToken = tester.result?.value.resultToken
+  const { isResultOpen, setIsResultOpen, showResultModal } = field
+  const card = usePromptTestCardState(field)
+  // Only a run with something to show counts: a failed one leaves the node null.
+  const hasResult = field.resultNode !== null
   const saveTarget =
     saveTargetFieldName === undefined ||
-    resultToken === undefined ||
-    tester.selectedNote === null
+    field.resultToken === null ||
+    field.selectedNote === null
       ? null
       : getSaveTestResultTarget({
           fieldName: saveTargetFieldName,
-          selectedNote: tester.selectedNote,
-          token: resultToken,
+          selectedNote: field.selectedNote,
+          token: field.resultToken,
         })
   // A failed run leaves nothing to show, and picking another card drops the result, so
   // the modal only stands while there is a result (or one on the way).
-  const isResultVisible = isResultOpen && (hasResult || tester.isTesting)
-
-  const runTestAndShowResult = async () => {
-    await tester.runTest()
-    if (showResultModal) setIsResultOpen(true)
-  }
-  const testButton = (
-    <Button
-      className="h-[54px] shrink-0 px-4 text-[12.5px] disabled:cursor-default"
-      disabled={card.runDisabled}
-      onClick={() => void runTestAndShowResult()}
-      variant="primary"
-    >
-      {tester.isTesting ? (
-        <LoaderCircle aria-hidden className="size-3.5 animate-spin" />
-      ) : (
-        <Play aria-hidden className="size-3.5 fill-current" />
-      )}
-      {tester.isTesting ? "Testing…" : "Test"}
-    </Button>
-  )
+  const isResultVisible = isResultOpen && (hasResult || field.isTesting)
 
   return (
     <div className="w-full">
@@ -105,25 +75,25 @@ export const PromptTesterStrip = <R extends { resultToken?: string }>({
         </h2>
       )}
 
-      {!isResultVisible && tester.error !== null && (
+      {!isResultVisible && field.error !== null && (
         <ErrorBanner
           className="mb-3"
-          message={tester.error}
-          onDismiss={tester.dismissError}
+          message={field.error}
+          onDismiss={field.dismissError}
         />
       )}
 
       {/* Nothing above this tester owns the prompt, so it does. */}
-      {tester.isPromptEditable && (
+      {field.setPrompt !== null && (
         <div className="group mb-3">
           <div className="mb-1.5 flex min-w-0 items-center gap-3 text-[11px]">
             <label className="shrink-0 text-ink-muted" htmlFor={promptFieldId}>
-              {promptLabel}
+              {field.promptLabel}
             </label>
-            {tester.selectedNote !== null && (
+            {field.selectedNote !== null && (
               <p className="invisible min-w-0 flex-1 truncate text-left font-mono text-indigo-soft group-focus-within:visible">
                 <span className="font-sans">Reference fields with: </span>
-                {Object.keys(tester.selectedNote.fields)
+                {Object.keys(field.selectedNote.fields)
                   .map((fieldName) => `{{${fieldName}}}`)
                   .join(" · ")}
               </p>
@@ -132,9 +102,9 @@ export const PromptTesterStrip = <R extends { resultToken?: string }>({
           <textarea
             className="min-h-16 w-full resize-y rounded-md border border-white/10 bg-white/[0.03] px-3 py-2.5 font-mono text-[12px] leading-[1.55] text-zinc-200 transition outline-none placeholder:text-zinc-700 focus:border-indigo/45"
             id={promptFieldId}
-            onChange={(event) => tester.setPrompt(event.target.value)}
+            onChange={(event) => field.setPrompt?.(event.target.value)}
             rows={2}
-            value={tester.prompt}
+            value={field.prompt}
           />
         </div>
       )}
@@ -155,15 +125,18 @@ export const PromptTesterStrip = <R extends { resultToken?: string }>({
             }
             deckName={card.deckName}
             missingFieldNames={card.missingFieldNames}
-            note={tester.selectedNote}
+            note={field.selectedNote}
             noteTypeName={card.noteTypeName}
             referencedFieldNames={card.referencedFieldNames}
             requiredNoteTypeName={card.requiredNoteTypeName}
-            selection={tester.selection}
-            showNoteTypeMismatch={tester.hasNoteTypeMismatch}
+            selection={field.selection}
+            showNoteTypeMismatch={field.hasNoteTypeMismatch}
           />
         </div>
-        {testButton}
+        <PromptTestButton
+          className="h-[54px] shrink-0 px-4 text-[12.5px]"
+          field={field}
+        />
       </div>
 
       {showResultModal && (
@@ -171,7 +144,7 @@ export const PromptTesterStrip = <R extends { resultToken?: string }>({
         <PromptTestResultModal
           onClose={() => setIsResultOpen(false)}
           open={isResultVisible}
-          provenance={provenance}
+          provenance={field.provenance}
           saveAction={
             saveTarget === null ? null : (
               // Keyed by token: a new run mints a new one, and the previous save no
@@ -180,17 +153,46 @@ export const PromptTesterStrip = <R extends { resultToken?: string }>({
                 cardId={saveTarget.cardId}
                 fieldName={saveTarget.fieldName}
                 key={saveTarget.token}
-                onError={tester.setError}
+                onError={field.setError}
                 token={saveTarget.token}
               />
             )
           }
-          tester={tester}
+          tester={field}
         >
-          {children}
+          {field.resultNode}
         </PromptTestResultModal>
       )}
     </div>
+  )
+}
+
+interface PromptTestButtonProps {
+  className?: string
+  field: PromptTester
+}
+
+// Runs the field's one tester, wherever the user happens to be standing when they ask.
+export const PromptTestButton = ({
+  className = "",
+  field,
+}: PromptTestButtonProps) => {
+  const card = usePromptTestCardState(field)
+
+  return (
+    <Button
+      className={`disabled:cursor-default ${className}`}
+      disabled={card.runDisabled}
+      onClick={() => void field.runTest()}
+      variant="primary"
+    >
+      {field.isTesting ? (
+        <LoaderCircle aria-hidden className="size-3.5 animate-spin" />
+      ) : (
+        <Play aria-hidden className="size-3.5 fill-current" />
+      )}
+      {field.isTesting ? "Testing…" : "Test"}
+    </Button>
   )
 }
 
@@ -226,7 +228,7 @@ export const SaveResultButton = ({
     <Button
       disabled={status !== "idle"}
       onClick={() => void save()}
-      variant="success"
+      variant="primary"
     >
       {status === "saving" && (
         <LoaderCircle aria-hidden className="size-3.5 animate-spin" />

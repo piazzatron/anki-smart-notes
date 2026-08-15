@@ -21,7 +21,7 @@ import { describe, expect, test } from "bun:test"
 
 import type { AccountState, SelectedNote } from "@/types/api"
 
-import type { PromptTesterControls } from "./usePromptTester"
+import type { PromptTester } from "./usePromptTester"
 
 Object.defineProperty(globalThis, "window", {
   value: { location: { search: "" } },
@@ -64,27 +64,31 @@ const NOTE: SelectedNote = {
 }
 
 const testerControls = (
-  overrides: Partial<PromptTesterControls<unknown>> = {},
-): PromptTesterControls<unknown> => ({
-  canRunWithoutCard: false,
+  overrides: Partial<PromptTester> = {},
+): PromptTester => ({
   dismissError: () => undefined,
   error: null,
   hasNoteTypeMismatch: false,
-  isPromptEditable: false,
+  isResultOpen: false,
   isTesting: false,
   prompt: "Translate {{Front}}",
+  promptLabel: "Prompt",
+  provenance: "Auto",
   requiredNoteTypeId: 10,
-  result: null,
+  resultNode: null,
+  resultToken: null,
   runTest: async () => undefined,
   selectedNote: NOTE,
   selection: { note: NOTE },
   setError: () => undefined,
+  setIsResultOpen: () => undefined,
   setPrompt: () => undefined,
+  showResultModal: true,
   ...overrides,
 })
 
 const cardState = (
-  overrides: Partial<PromptTesterControls<unknown>> = {},
+  overrides: Partial<PromptTester> = {},
   account: AccountState | null = ACCOUNT,
 ) =>
   getPromptTestCardState({
@@ -131,16 +135,16 @@ describe("getPromptTestCardState", () => {
   })
 
   test("allows literal text but not field references without a selected card", () => {
+    // Every field type may run cardless; only the prompt decides whether a card is
+    // needed, because a field reference has nothing to read from without one.
     expect(
       cardState({
-        canRunWithoutCard: true,
         prompt: "This is a voice test.",
         selectedNote: null,
       }).runDisabled,
     ).toBe(false)
     expect(
       cardState({
-        canRunWithoutCard: true,
         prompt: "Speak {{Front}}",
         selectedNote: null,
       }).runDisabled,

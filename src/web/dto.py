@@ -139,6 +139,7 @@ def build_settings() -> SettingsDto:
         generateAtReview=config.generate_at_review,
         regenerateWhenBatching=config.regenerate_notes_when_batching,
         debug=config.debug,
+        legacyOpenAiEnabled=config.legacy_support is True,
         legacyOpenAiKey=config.openai_api_key,
         legacyOpenAiModel=config.legacy_openai_model,
         legacyOpenAiHost=config.openai_endpoint,
@@ -292,27 +293,16 @@ def parse_generation_defaults(payload: dict[str, Any]) -> GenerationDefaults:
 
 
 def parse_text_prompt_test(payload: dict[str, Any]) -> TextPromptTestRequest:
-    card_id = _require(payload, "cardId")
-    prompt = _require(payload, "prompt")
-    settings = _require(payload, "settings")
-
-    if isinstance(card_id, bool) or not isinstance(card_id, int):
-        raise ValueError("cardId must be an integer")
-    if not isinstance(prompt, str) or not prompt.strip():
-        raise ValueError("prompt must be a non-empty string")
-    if not isinstance(settings, dict):
-        raise ValueError("settings must be an object")
-
     return TextPromptTestRequest(
-        card_id=cast(CardId, card_id),
-        prompt=prompt,
-        settings=parse_chat_generation_settings(settings),
+        card_id=_parse_optional_card_id(payload),
+        prompt=_parse_non_empty_string(payload, "prompt"),
+        settings=parse_chat_generation_settings(_require_object(payload, "settings")),
     )
 
 
 def parse_image_prompt_test(payload: dict[str, Any]) -> ImagePromptTestRequest:
     return ImagePromptTestRequest(
-        card_id=_parse_card_id(payload),
+        card_id=_parse_optional_card_id(payload),
         prompt=_parse_non_empty_string(payload, "prompt"),
         settings=parse_image_generation_settings(_require_object(payload, "settings")),
     )
@@ -452,6 +442,7 @@ class SettingsDto(TypedDict):
     generateAtReview: bool
     regenerateWhenBatching: bool
     debug: bool
+    legacyOpenAiEnabled: bool
     legacyOpenAiKey: str | None
     legacyOpenAiModel: str
     legacyOpenAiHost: str | None

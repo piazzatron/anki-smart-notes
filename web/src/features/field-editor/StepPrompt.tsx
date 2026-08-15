@@ -28,9 +28,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select"
-import { ImagePromptTester } from "@/features/prompt-tester/ImagePromptTester"
-import { PromptTester } from "@/features/prompt-tester/PromptTester"
-import { VoicePromptTester } from "@/features/prompt-tester/VoicePromptTester"
+import { PromptTesterStrip } from "@/features/prompt-tester/PromptTesterStrip"
+import {
+  usePromptTester,
+  type PromptTesterArgs,
+} from "@/features/prompt-tester/usePromptTester"
 import { voiceMatchesSettings } from "@/features/defaults/voiceDefaults"
 import { getValidPromptFields } from "@/lib/promptFields"
 import type { AppState, Catalog, VoiceCatalog } from "@/types/api"
@@ -63,6 +65,11 @@ export const StepPrompt = ({
 }: StepPromptProps) => {
   const { target } = controls.form
   const noteType = state.noteTypes.find((item) => item.id === target.noteTypeId)
+  // One tester for the whole step. The model modal runs the same one as the strip below,
+  // so a model can be tried without closing it and the result survives the trip back.
+  const field = usePromptTester(
+    getTesterArgs({ controls, state, voiceCatalog }),
+  )
 
   return (
     <div>
@@ -182,6 +189,7 @@ export const StepPrompt = ({
           <ModelSettingsSection
             catalog={catalog}
             controls={controls}
+            field={field}
             state={state}
             voiceCatalog={voiceCatalog}
           />
@@ -189,56 +197,57 @@ export const StepPrompt = ({
       </div>
 
       <div className="mt-7 border-t border-white/[0.06] pt-6">
-        <ControlledTester
-          controls={controls}
-          state={state}
-          voiceCatalog={voiceCatalog}
+        <PromptTesterStrip
+          field={field}
+          saveTargetFieldName={
+            target.fieldType === "tts" ? undefined : target.targetFieldName
+          }
+          title="Test your Smart Field"
         />
       </div>
     </div>
   )
 }
 
-const ControlledTester = ({
+// The tester this step runs: the prompt the editor already owns, against the settings the
+// field would generate with.
+const getTesterArgs = ({
   controls,
   state,
   voiceCatalog,
-}: Pick<StepPromptProps, "controls" | "state" | "voiceCatalog">) => {
-  const { fieldType } = controls.form.target
-  if (fieldType === "chat") {
-    return (
-      <PromptTester
-        prompt={controls.form.prompt}
-        requiredNoteTypeId={controls.form.target.noteTypeId}
-        settings={controls.form.pinnedSettings.chat ?? state.defaults.chat}
-        targetFieldName={controls.form.target.targetFieldName}
-        title="Test your Smart Field"
-      />
-    )
+}: Pick<
+  StepPromptProps,
+  "controls" | "state" | "voiceCatalog"
+>): PromptTesterArgs => {
+  const { pinnedSettings, prompt, sourceFieldName, target } = controls.form
+  const requiredNoteTypeId = target.noteTypeId
+
+  if (target.fieldType === "chat") {
+    return {
+      fieldType: "chat",
+      prompt,
+      requiredNoteTypeId,
+      settings: pinnedSettings.chat ?? state.defaults.chat,
+    }
   }
-  if (fieldType === "image") {
-    return (
-      <ImagePromptTester
-        prompt={controls.form.prompt}
-        requiredNoteTypeId={controls.form.target.noteTypeId}
-        settings={controls.form.pinnedSettings.image ?? state.defaults.image}
-        targetFieldName={controls.form.target.targetFieldName}
-        title="Test your Smart Field"
-      />
-    )
+  if (target.fieldType === "image") {
+    return {
+      fieldType: "image",
+      prompt,
+      requiredNoteTypeId,
+      settings: pinnedSettings.image ?? state.defaults.image,
+    }
   }
 
-  const settings = controls.form.pinnedSettings.tts ?? state.defaults.tts
-  const voiceName =
-    voiceCatalog?.voices.find((voice) => voiceMatchesSettings(voice, settings))
-      ?.name ?? settings.voiceId
-  return (
-    <VoicePromptTester
-      prompt={`{{${controls.form.sourceFieldName}}}`}
-      requiredNoteTypeId={controls.form.target.noteTypeId}
-      settings={settings}
-      title="Test your Smart Field"
-      voiceName={voiceName}
-    />
-  )
+  const settings = pinnedSettings.tts ?? state.defaults.tts
+  return {
+    fieldType: "tts",
+    prompt: `{{${sourceFieldName}}}`,
+    requiredNoteTypeId,
+    settings,
+    voiceName:
+      voiceCatalog?.voices.find((voice) =>
+        voiceMatchesSettings(voice, settings),
+      )?.name ?? settings.voiceId,
+  }
 }

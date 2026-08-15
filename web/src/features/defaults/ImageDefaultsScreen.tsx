@@ -1,6 +1,9 @@
+import { useState } from "react"
+
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { ImageModelSelect } from "@/features/image-generation/ImageModelSelect"
-import { ImagePromptTester } from "@/features/prompt-tester/ImagePromptTester"
+import { PromptTesterStrip } from "@/features/prompt-tester/PromptTesterStrip"
+import { usePromptTester } from "@/features/prompt-tester/usePromptTester"
 import { saveImageDefaults } from "@/services/commands"
 import { useAppStore } from "@/store/appStore"
 import type { AppState, Catalog } from "@/types/api"
@@ -63,6 +66,16 @@ const LoadedImageDefaultsScreen = ({
     serverDefaults: state.defaults.image,
   })
   const usage = getDefaultUsage(state.smartFields, "image")
+  // The tester owns its own scratch prompt here: nothing else on the page writes one.
+  const [prompt, setPrompt] = useState(
+    "A memorable scene illustrating {{Expression}}.",
+  )
+  const tester = usePromptTester({
+    fieldType: "image",
+    onPromptChange: setPrompt,
+    prompt,
+    settings: controls.form.values,
+  })
 
   return (
     <DefaultsScreenLayout
@@ -76,7 +89,7 @@ const LoadedImageDefaultsScreen = ({
       isSaving={controls.form.isSaving}
       onSave={() => void controls.saveChanges()}
       subtitle="The model your image Smart Fields use unless a field pins its own."
-      tester={<ImagePromptTester settings={controls.form.values} />}
+      tester={<PromptTesterStrip field={tester} />}
       testId="image-defaults-screen"
       title="Default Image Settings"
     >

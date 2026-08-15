@@ -30,7 +30,9 @@ from aqt import mw
 from aqt.operations.note import update_note
 
 from ..app_state import is_capacity_remaining
+from ..chat_provider import chat_provider
 from ..field_resolver import field_resolver
+from ..image_provider import image_provider
 from ..markdown import convert_markdown_to_html
 from ..media_utils import ext_from_content_type, get_media_path, write_media
 from ..models.smart_fields import (
@@ -47,18 +49,23 @@ EXPIRED_TEST_RESULT_MESSAGE = "This result has expired — run the test again"
 
 @dataclass(frozen=True)
 class TextPromptTestContext:
-    """Card data captured on Anki's main thread for an async prompt test."""
+    """Card data captured on Anki's main thread for an async prompt test.
 
-    note: Note
-    deck_id: DeckId
+    Both are None for a test run with no card picked, which the prompt is
+    checked for beforehand."""
+
+    note: Optional[Note]
+    deck_id: Optional[DeckId]
     request: TextPromptTestRequest
 
 
 @dataclass(frozen=True)
 class ImagePromptTestContext:
-    """Card data captured on Anki's main thread for an async image test."""
+    """Card data captured on Anki's main thread for an async image test.
 
-    note: Note
+    None for a test run with no card picked."""
+
+    note: Optional[Note]
     request: ImagePromptTestRequest
 
 
@@ -99,7 +106,13 @@ _last_test_artifact: Optional[TestArtifact] = None
 
 
 def prepare_text_prompt_test(request: TextPromptTestRequest) -> TextPromptTestContext:
-    """Refetch the requested card so tests never trust client-supplied note data."""
+    """Refetch the requested card so tests never trust client-supplied note data.
+
+    Checked before the collection is touched, since a cardless test never reads it."""
+    if request.card_id is None:
+        _reject_field_references_without_card(request.prompt)
+        return TextPromptTestContext(note=None, deck_id=None, request=request)
+
     if not mw or not mw.col:
         raise ValueError("Anki collection is not available")
 
@@ -118,6 +131,10 @@ def prepare_text_prompt_test(request: TextPromptTestRequest) -> TextPromptTestCo
 def prepare_image_prompt_test(
     request: ImagePromptTestRequest,
 ) -> ImagePromptTestContext:
+    if request.card_id is None:
+        _reject_field_references_without_card(request.prompt)
+        return ImagePromptTestContext(note=None, request=request)
+
     return ImagePromptTestContext(
         note=_get_selected_card_note(request.card_id), request=request
     )
@@ -125,8 +142,7 @@ def prepare_image_prompt_test(
 
 def prepare_tts_prompt_test(request: TTSPromptTestRequest) -> TTSPromptTestContext:
     if request.card_id is None:
-        if get_prompt_fields(request.text):
-            raise ValueError("Select a card to use field references in this test")
+        _reject_field_references_without_card(request.text)
         return TTSPromptTestContext(note=None, request=request)
 
     return TTSPromptTestContext(
@@ -134,27 +150,51 @@ def prepare_tts_prompt_test(request: TTSPromptTestRequest) -> TTSPromptTestConte
     )
 
 
+def _reject_field_references_without_card(prompt: str) -> None:
+    """A prompt that reads fields needs a card to read them from."""
+    if get_prompt_fields(prompt):
+        raise ValueError("Select a card to use field references in this test")
+
+
 async def run_text_prompt_test(context: TextPromptTestContext) -> dict[str, str]:
     """Generate a text preview without writing anything back to the card."""
     if not is_capacity_remaining():
         raise ValueError("Generation is unavailable for this account")
     settings = context.request.settings
-    text = await field_resolver.get_chat_response(
-        note=context.note,
-        deck_id=context.deck_id,
-        prompt=context.request.prompt,
-        model=settings.model,
-        provider=settings.provider,
-        field_lower="smart-notes-test",
-        should_convert_to_html=False,
-        should_embed_images=False,
-        web_search=settings.web_search_enabled,
-        reasoning_level=settings.reasoning_level,
-        show_error_box=False,
-        generation_source="prompt_test",
-    )
+    if context.note is None or context.deck_id is None:
+        # No card to read fields from, so nothing to interpolate — ask the provider
+        # for the prompt as written.
+        text = await chat_provider.async_get_chat_response(
+            context.request.prompt,
+            model=settings.model,
+            provider=settings.provider,
+            note_id=None,
+            web_search=settings.web_search_enabled,
+            reasoning_level=settings.reasoning_level,
+            generation_source="prompt_test",
+        )
+    else:
+        text = await field_resolver.get_chat_response(
+            note=context.note,
+            deck_id=context.deck_id,
+            prompt=context.request.prompt,
+            model=settings.model,
+            provider=settings.provider,
+            field_lower="smart-notes-test",
+            should_convert_to_html=False,
+            should_embed_images=False,
+            web_search=settings.web_search_enabled,
+            reasoning_level=settings.reasoning_level,
+            show_error_box=False,
+            generation_source="prompt_test",
+        )
     if not text:
         raise ValueError("No response received")
+
+    # A cardless run has no card to write back to, so it mints no savable artifact.
+    result = {"text": text}
+    if context.request.card_id is None:
+        return result
 
     token = _remember_test_artifact(
         TextTestArtifact(
@@ -163,7 +203,7 @@ async def run_text_prompt_test(context: TextPromptTestContext) -> dict[str, str]
             text=text,
         )
     )
-    return {"text": text, "resultToken": token}
+    return {**result, "resultToken": token}
 
 
 async def run_image_prompt_test(context: ImagePromptTestContext) -> dict[str, str]:
@@ -171,16 +211,32 @@ async def run_image_prompt_test(context: ImagePromptTestContext) -> dict[str, st
     if not is_capacity_remaining():
         raise ValueError("Generation is unavailable for this account")
     settings = context.request.settings
-    response = await field_resolver.get_image_response(
-        note=context.note,
-        input_text=context.request.prompt,
-        model=settings.model,
-        provider=settings.provider,
-        show_error_box=False,
-        generation_source="prompt_test",
-    )
+    if context.note is None:
+        # No card to read fields from, so nothing to interpolate — ask the provider
+        # for the prompt as written.
+        response = await image_provider.async_get_image_response(
+            prompt=context.request.prompt,
+            model=settings.model,
+            provider=settings.provider,
+            note_id=None,
+            generation_source="prompt_test",
+        )
+    else:
+        response = await field_resolver.get_image_response(
+            note=context.note,
+            input_text=context.request.prompt,
+            model=settings.model,
+            provider=settings.provider,
+            show_error_box=False,
+            generation_source="prompt_test",
+        )
     if not response:
         raise ValueError("No response received")
+
+    # A cardless run has no card to write back to, so it mints no savable artifact.
+    result = {"dataUrl": _data_url(response["data"], response["content_type"])}
+    if context.request.card_id is None:
+        return result
 
     token = _remember_test_artifact(
         MediaTestArtifact(
@@ -191,10 +247,7 @@ async def run_image_prompt_test(context: ImagePromptTestContext) -> dict[str, st
             content_type=response["content_type"],
         )
     )
-    return {
-        "dataUrl": _data_url(response["data"], response["content_type"]),
-        "resultToken": token,
-    }
+    return {**result, "resultToken": token}
 
 
 async def run_tts_prompt_test(context: TTSPromptTestContext) -> dict[str, str]:

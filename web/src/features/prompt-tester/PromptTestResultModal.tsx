@@ -29,27 +29,27 @@ import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import type { SelectedNote } from "@/types/api"
 
 import { FIELD_REFERENCE_PATTERN } from "./promptTestCard"
-import type { PromptTesterControls } from "./usePromptTester"
+import type { PromptTester } from "./usePromptTester"
 
-interface PromptTestResultModalProps<R> {
+interface PromptTestResultModalProps {
   children: ReactNode
   onClose: () => void
   open: boolean
   provenance: string
   saveAction?: ReactNode
-  tester: PromptTesterControls<R>
+  tester: PromptTester
 }
 
 // Every tester presents its result through this dialog. The surrounding panel or
 // strip owns how a test is configured; this component owns result presentation.
-export const PromptTestResultModal = <R,>({
+export const PromptTestResultModal = ({
   children,
   onClose,
   open,
   provenance,
   saveAction = null,
   tester,
-}: PromptTestResultModalProps<R>) => {
+}: PromptTestResultModalProps) => {
   const firstFieldValue = Object.values(
     tester.selectedNote?.fields ?? {},
   )[0]?.trim()

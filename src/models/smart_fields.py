@@ -67,7 +67,7 @@ class GenerationDefaults:
 class TextPromptTestRequest:
     """Validated text prompt test intent from the web UI."""
 
-    card_id: CardId
+    card_id: Optional[CardId]
     prompt: str
     settings: ChatGenerationSettings
 
@@ -76,7 +76,7 @@ class TextPromptTestRequest:
 class ImagePromptTestRequest:
     """Validated image prompt test intent from the web UI."""
 
-    card_id: CardId
+    card_id: Optional[CardId]
     prompt: str
     settings: ImageGenerationSettings
 

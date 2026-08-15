@@ -139,6 +139,7 @@ export interface Settings {
   generateAtReview: boolean
   regenerateWhenBatching: boolean
   debug: boolean
+  legacyOpenAiEnabled: boolean
   legacyOpenAiKey: string | null
   legacyOpenAiModel: string
   legacyOpenAiHost: string | null
@@ -252,14 +253,14 @@ export type ImageDefaultsSavePayload = ImageGenerationSettings
 export type TTSDefaultsSavePayload = TTSGenerationSettings
 
 export interface TextPromptTestArgs {
-  cardId: number
+  cardId?: number
   prompt: string
   settings: ChatGenerationSettings
 }
 
 export interface TextPromptTestResult {
   text: string
-  resultToken: string
+  resultToken?: string
 }
 
 export interface PromptGenerateArgs {
@@ -279,7 +280,7 @@ export interface FeedbackSendPayload {
 }
 
 export interface ImagePromptTestArgs {
-  cardId: number
+  cardId?: number
   prompt: string
   settings: ImageGenerationSettings
 }
@@ -298,7 +299,7 @@ export interface TTSMediaTestResult {
 /** A card-backed media test: the token names the artifact a save may write back. */
 export interface MediaTestResult {
   dataUrl: string
-  resultToken: string
+  resultToken?: string
 }
 
 export interface SaveTestResultPayload {

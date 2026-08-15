@@ -21,7 +21,7 @@ import { hasGenerationAccess } from "@/components/shared/planPresentation"
 import { useAppStore } from "@/store/appStore"
 import type { AccountState, Deck, NoteType, SelectedNote } from "@/types/api"
 
-import type { PromptTesterControls } from "./usePromptTester"
+import type { PromptTester } from "./usePromptTester"
 
 export const FIELD_REFERENCE_PATTERN = /\{\{([^{}]+)\}\}/g
 
@@ -46,21 +46,21 @@ export interface PromptTestCardState {
   runDisabled: boolean
 }
 
-interface PromptTestCardArgs<R> {
+interface PromptTestCardArgs {
   account: AccountState | null
   decks: Deck[] | null
   noteTypes: NoteType[] | null
-  tester: PromptTesterControls<R>
+  tester: PromptTester
 }
 
 // What both tester layouts need to know about the card a run would use: how to name it,
 // and whether the run may happen at all.
-export const getPromptTestCardState = <R>({
+export const getPromptTestCardState = ({
   account,
   decks,
   noteTypes,
   tester,
-}: PromptTestCardArgs<R>): PromptTestCardState => {
+}: PromptTestCardArgs): PromptTestCardState => {
   const selectedNote = tester.selectedNote
   const referencedFieldNames = new Set(
     [...tester.prompt.matchAll(FIELD_REFERENCE_PATTERN)].map(
@@ -85,9 +85,9 @@ export const getPromptTestCardState = <R>({
     requiredNoteTypeName: noteTypes?.find(
       (noteType) => noteType.id === tester.requiredNoteTypeId,
     )?.name,
+    // A card is needed only when the prompt reads fields off one.
     runDisabled:
-      (selectedNote === null &&
-        (!tester.canRunWithoutCard || referencedFieldNames.size > 0)) ||
+      (selectedNote === null && referencedFieldNames.size > 0) ||
       tester.hasNoteTypeMismatch ||
       missingFieldNames.length > 0 ||
       account === null ||
@@ -119,8 +119,8 @@ export const getSaveTestResultTarget = ({
   return { cardId: selectedNote.cardId, fieldName, token }
 }
 
-export const usePromptTestCardState = <R>(
-  tester: PromptTesterControls<R>,
+export const usePromptTestCardState = (
+  tester: PromptTester,
 ): PromptTestCardState => {
   const account = useAppStore((store) => store.state?.account ?? null)
   const decks = useAppStore((store) => store.state?.decks ?? null)
