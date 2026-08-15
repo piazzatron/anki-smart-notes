@@ -104,6 +104,95 @@
   animation: welcome-enter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* A one-shot celebration behind the field-editor completion screen. */
+@keyframes completion-confetti-burst {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.25) rotate(0deg);
+    animation-timing-function: cubic-bezier(0.12, 0.72, 0.22, 1);
+  }
+  5% {
+    opacity: 1;
+  }
+  38% {
+    opacity: 0.95;
+    transform: translate3d(var(--confetti-burst-x), var(--confetti-burst-y), 0)
+      scale(1) rotate(var(--confetti-mid-turn));
+    animation-timing-function: cubic-bezier(0.35, 0, 0.7, 1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--confetti-end-x), var(--confetti-end-y), 0)
+      rotate(var(--confetti-turn));
+  }
+}
+
+@keyframes completion-confetti-flash {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.15);
+  }
+  12% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.completion-confetti {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.completion-confetti::after {
+  position: absolute;
+  top: 68px;
+  left: 50%;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.78),
+    rgba(255, 210, 122, 0.26) 34%,
+    transparent 70%
+  );
+  content: "";
+  animation: completion-confetti-flash 0.55s ease-out both;
+}
+
+.completion-confetti-piece {
+  position: absolute;
+  top: 68px;
+  left: 50%;
+  width: 7px;
+  height: 12px;
+  border-radius: 2px;
+  background: var(--confetti-color);
+  box-shadow: 0 0 10px
+    color-mix(in srgb, var(--confetti-color) 35%, transparent);
+  opacity: 0;
+  animation: completion-confetti-burst var(--confetti-duration) linear
+    var(--confetti-delay) both;
+}
+
+.completion-confetti-piece:nth-child(3n + 2) {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.completion-confetti-piece:nth-child(4n) {
+  width: 11px;
+  height: 4px;
+  border-radius: 999px;
+}
+
 :root {
   color: var(--color-ink);
   background: var(--color-canvas);

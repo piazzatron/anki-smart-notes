@@ -34,7 +34,7 @@ import type {
   FieldEditorMode,
   FieldEditorStep,
 } from "./fieldEditor"
-import { StepDone } from "./StepDone"
+import { CompletionConfetti, StepDone } from "./StepDone"
 import { StepPrompt } from "./StepPrompt"
 import { StepTarget } from "./StepTarget"
 import { useFieldEditor } from "./useFieldEditor"
@@ -89,6 +89,10 @@ export const FieldEditorScreen = ({
     (controls.form.target.fieldType === "tts"
       ? controls.form.sourceFieldName.trim() === ""
       : controls.form.prompt.trim() === "")
+  const targetNoteTypeName =
+    state.noteTypes.find(
+      (noteType) => noteType.id === controls.form.target.noteTypeId,
+    )?.name ?? ""
 
   return (
     <Dialog onOpenChange={setIsOpen} open={isOpen}>
@@ -110,77 +114,82 @@ export const FieldEditorScreen = ({
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_8%,rgba(124,141,255,0.12),transparent_32%),radial-gradient(circle_at_16%_88%,rgba(95,227,176,0.07),transparent_28%),linear-gradient(rgba(20,20,24,0.3),rgba(11,11,14,0.6))]"
         />
+        {controls.form.step === 3 && <CompletionConfetti />}
 
         {/* One header contract for every step, shaped like a native titlebar and kept to a
           single row: dismiss or back as one icon button leading, title and target
           breadcrumb centered, sign-off trailing. */}
-        <header className="relative grid min-h-[52px] shrink-0 grid-cols-[1fr_auto_1fr] items-center gap-4 border-b border-white/[0.07] bg-black/10 px-4 py-2 backdrop-blur-md">
-          <div className="flex min-w-0 items-center justify-start">
-            {controls.form.step === 1 && (
-              <HeaderIconButton label="Cancel" onClick={close}>
-                <X aria-hidden className="size-[18px]" />
-              </HeaderIconButton>
-            )}
-            {controls.form.step === 2 && (
-              <HeaderIconButton
-                label="Back"
-                onClick={() => controls.setStep(1)}
-              >
-                <ChevronLeft aria-hidden className="size-[18px]" />
-              </HeaderIconButton>
-            )}
-          </div>
+        {controls.form.step === 3 && (
+          <DialogTitle className="sr-only">Smart Field created</DialogTitle>
+        )}
+        {controls.form.step !== 3 && (
+          <header className="relative grid min-h-[52px] shrink-0 grid-cols-[1fr_auto_1fr] items-center gap-4 border-b border-white/[0.07] bg-black/10 px-4 py-2 backdrop-blur-md">
+            <div className="flex min-w-0 items-center justify-start">
+              {controls.form.step === 1 && (
+                <HeaderIconButton label="Cancel" onClick={close}>
+                  <X aria-hidden className="size-[18px]" />
+                </HeaderIconButton>
+              )}
+              {controls.form.step === 2 && (
+                <HeaderIconButton
+                  label="Back"
+                  onClick={() => controls.setStep(1)}
+                >
+                  <ChevronLeft aria-hidden className="size-[18px]" />
+                </HeaderIconButton>
+              )}
+            </div>
 
-          <div className="flex min-w-0 items-center justify-center gap-2.5">
-            {/* Titlebar chrome, not content — it names the window and then gets out of
+            <div className="flex min-w-0 items-center justify-center gap-2.5">
+              {/* Titlebar chrome, not content — it names the window and then gets out of
               the way, so it stays quieter than anything in the body. */}
-            <DialogTitle asChild>
-              <h1 className="shrink-0 text-[12.5px] leading-5 font-medium text-ink-muted">
-                {controls.form.step === 3
-                  ? "Smart Field created"
-                  : TITLES[mode]}
-              </h1>
-            </DialogTitle>
-            {controls.form.step === 2 && (
-              <>
-                <span aria-hidden className="h-3.5 w-px shrink-0 bg-white/15" />
-                <TargetBreadcrumb form={controls.form} state={state} />
-              </>
-            )}
-          </div>
+              <DialogTitle asChild>
+                <h1 className="shrink-0 text-[12.5px] leading-5 font-medium text-ink-muted">
+                  {TITLES[mode]}
+                </h1>
+              </DialogTitle>
+              {controls.form.step === 2 && (
+                <>
+                  <span
+                    aria-hidden
+                    className="h-3.5 w-px shrink-0 bg-white/15"
+                  />
+                  <TargetBreadcrumb form={controls.form} state={state} />
+                </>
+              )}
+            </div>
 
-          <div className="flex justify-end">
-            {controls.form.step === 1 && (
-              <Button
-                className="px-5"
-                disabled={
-                  collision || controls.form.target.targetFieldName === ""
-                }
-                onClick={() => controls.setStep(2)}
-              >
-                Next ›
-              </Button>
-            )}
-            {controls.form.step === 2 && (
-              <Button
-                className="px-5"
-                disabled={stepTwoInvalid || catalog === null}
-                variant="success"
-                onClick={() => void controls.save()}
-              >
-                {controls.form.isSaving && (
-                  <LoaderCircle aria-hidden className="size-3.5 animate-spin" />
-                )}
-                {controls.form.isSaving ? "Saving…" : "Save Smart Field"}
-              </Button>
-            )}
-            {controls.form.step === 3 && (
-              <Button className="px-5" variant="success" onClick={close}>
-                Done
-              </Button>
-            )}
-          </div>
-        </header>
+            <div className="flex justify-end">
+              {controls.form.step === 1 && (
+                <Button
+                  className="px-5"
+                  disabled={
+                    collision || controls.form.target.targetFieldName === ""
+                  }
+                  onClick={() => controls.setStep(2)}
+                >
+                  Next ›
+                </Button>
+              )}
+              {controls.form.step === 2 && (
+                <Button
+                  className="px-5"
+                  disabled={stepTwoInvalid || catalog === null}
+                  variant="success"
+                  onClick={() => void controls.save()}
+                >
+                  {controls.form.isSaving && (
+                    <LoaderCircle
+                      aria-hidden
+                      className="size-3.5 animate-spin"
+                    />
+                  )}
+                  {controls.form.isSaving ? "Saving…" : "Save Smart Field"}
+                </Button>
+              )}
+            </div>
+          </header>
+        )}
 
         {controls.form.error !== null && (
           <ErrorBanner
@@ -196,7 +205,7 @@ export const FieldEditorScreen = ({
               ? "overflow-y-auto px-6 py-8"
               : controls.form.step === 2
                 ? "overflow-y-auto px-6 py-6"
-                : "overflow-y-auto px-6 py-5"
+                : "overflow-y-auto px-6 py-8"
           }`}
         >
           {controls.form.step === 1 ? (
@@ -204,23 +213,11 @@ export const FieldEditorScreen = ({
               <StepTarget controls={controls} state={state} />
             </div>
           ) : controls.form.step === 3 ? (
-            <div className="mx-auto w-full max-w-[700px]">
+            <div className="relative z-10 mx-auto w-full max-w-[800px] pt-[18px]">
               <StepDone
+                noteTypeName={targetNoteTypeName}
                 targetFieldName={controls.form.target.targetFieldName}
               />
-              <label className="mt-8 flex w-fit cursor-pointer items-center gap-2 text-[11px] text-ink-muted">
-                <input
-                  checked={hideCompletion}
-                  className="size-3.5 accent-emerald-400"
-                  onChange={(event) => {
-                    setHideCompletion(event.target.checked)
-                    if (event.target.checked)
-                      void controls.setWizardCompletionHidden()
-                  }}
-                  type="checkbox"
-                />
-                Don&apos;t show this again
-              </label>
             </div>
           ) : catalog === null ? (
             <div className="flex h-full min-h-56 items-center justify-center gap-2 text-xs text-ink-muted">
@@ -246,6 +243,27 @@ export const FieldEditorScreen = ({
             </div>
           )}
         </div>
+
+        {controls.form.step === 3 && (
+          <footer className="relative z-10 flex shrink-0 items-center justify-between border-t border-white/[0.07] bg-black/20 px-5 py-2.5 backdrop-blur-md">
+            <label className="flex cursor-pointer items-center gap-2 text-xs text-ink-muted select-none">
+              <input
+                checked={hideCompletion}
+                className="m-0 size-3.5 cursor-pointer accent-indigo"
+                onChange={(event) => {
+                  setHideCompletion(event.target.checked)
+                  if (event.target.checked)
+                    void controls.setWizardCompletionHidden()
+                }}
+                type="checkbox"
+              />
+              Don’t show this again
+            </label>
+            <Button className="px-5" variant="success" onClick={close}>
+              Done
+            </Button>
+          </footer>
+        )}
       </DialogTakeover>
     </Dialog>
   )
