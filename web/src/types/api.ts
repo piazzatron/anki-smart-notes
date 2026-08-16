@@ -144,6 +144,7 @@ export interface Settings {
   legacyOpenAiModel: string
   legacyOpenAiHost: string | null
   showWizardCompletion: boolean
+  didDismissReviewPrompt: boolean
   didDismissDiscordPrompt: boolean
 }
 

@@ -144,6 +144,7 @@ def build_settings() -> SettingsDto:
         legacyOpenAiModel=config.legacy_openai_model,
         legacyOpenAiHost=config.openai_endpoint,
         showWizardCompletion=config.show_wizard_completion,
+        didDismissReviewPrompt=config.did_dismiss_review_prompt,
         didDismissDiscordPrompt=config.did_dismiss_discord_prompt,
     )
 
@@ -332,6 +333,7 @@ def parse_settings(payload: dict[str, Any]) -> Settings:
     legacy_openai_model = _require_string(payload, "legacyOpenAiModel")
     legacy_openai_host = _require_optional_string(payload, "legacyOpenAiHost")
     show_wizard_completion = _require_boolean(payload, "showWizardCompletion")
+    did_dismiss_review_prompt = _require_boolean(payload, "didDismissReviewPrompt")
     did_dismiss_discord_prompt = _require_boolean(payload, "didDismissDiscordPrompt")
 
     return Settings(
@@ -342,6 +344,7 @@ def parse_settings(payload: dict[str, Any]) -> Settings:
         legacy_openai_model=legacy_openai_model,
         legacy_openai_host=legacy_openai_host,
         show_wizard_completion=show_wizard_completion,
+        did_dismiss_review_prompt=did_dismiss_review_prompt,
         did_dismiss_discord_prompt=did_dismiss_discord_prompt,
     )
 
@@ -447,6 +450,7 @@ class SettingsDto(TypedDict):
     legacyOpenAiModel: str
     legacyOpenAiHost: str | None
     showWizardCompletion: bool
+    didDismissReviewPrompt: bool
     didDismissDiscordPrompt: bool
 
 

@@ -42,7 +42,7 @@ const MockPanel = ({ onOpenEditor }: MockPanelProps) => {
   )
 
   return (
-    <aside className="fixed right-3 bottom-3 z-50 w-48 rounded-lg border border-indigo/25 bg-panel-raised/95 p-2.5 shadow-2xl shadow-black/60 backdrop-blur">
+    <aside className="fixed right-3 bottom-3 z-50 w-48 rounded-lg border border-indigo/25 bg-panel-raised/95 p-2.5 shadow-2xl shadow-black/60">
       <div className="mb-2 flex items-center gap-1.5 text-[10px] font-semibold tracking-wide text-indigo-soft uppercase">
         <FlaskConical aria-hidden className="size-3.5" />
         Mock state

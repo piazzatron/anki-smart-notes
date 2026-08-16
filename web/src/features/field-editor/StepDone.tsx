@@ -33,7 +33,7 @@ const GENERATION_METHODS = [
     image: generateInBrowserImage,
     imageAlt:
       "Anki Browser context menu with Generate Smart Fields highlighted",
-    imagePosition: "origin-bottom-left scale-[2.15] object-[30%_bottom]",
+    imagePosition: "object-center",
     title: "In bulk, from the Browser",
     caption: "Select notes or deck → right-click → ✨ Generate Smart Fields.",
   },

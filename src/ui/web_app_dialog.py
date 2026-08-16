@@ -30,6 +30,10 @@ from aqt.qt import (
 )
 from aqt.utils import openLink
 
+PREFERRED_DIALOG_WIDTH = 1100
+PREFERRED_DIALOG_HEIGHT = 800
+MAX_SCREEN_USAGE_RATIO = 0.9
+
 
 class WebAppDialog(QDialog):
     """Chrome around the Smart Notes web app — just a webview pointed at the
@@ -39,7 +43,21 @@ class WebAppDialog(QDialog):
     def __init__(self, url: str, parent: Optional[QWidget] = None) -> None:
         super().__init__(parent)
         self.setWindowTitle("Smart Notes")
-        self.resize(1100, 800)
+        screen = self.screen()
+        if screen is None:
+            raise RuntimeError("Smart Notes dialog screen is unavailable")
+
+        available_size = screen.availableGeometry().size()
+        self.resize(
+            min(
+                PREFERRED_DIALOG_WIDTH,
+                int(available_size.width() * MAX_SCREEN_USAGE_RATIO),
+            ),
+            min(
+                PREFERRED_DIALOG_HEIGHT,
+                int(available_size.height() * MAX_SCREEN_USAGE_RATIO),
+            ),
+        )
 
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)

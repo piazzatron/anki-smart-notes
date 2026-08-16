@@ -15,6 +15,11 @@ export default defineConfig({
   build: {
     outDir: "../src/web/static",
     emptyOutDir: true,
+    // QtWebEngine 6.8.2 on Windows intermittently rejects the one-line
+    // minified bundle as invalid JavaScript. The app is served locally, so the
+    // larger transfer is negligible.
+    minify: false,
+    cssMinify: true,
   },
   server: {
     // The plugin's webview hardcodes this port (WEB_APP_DEV_URL) — fail

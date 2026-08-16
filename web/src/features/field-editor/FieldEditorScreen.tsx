@@ -99,7 +99,7 @@ export const FieldEditorScreen = ({
       <DialogTakeover
         // No subtitle to point at, and a save in flight is not interruptible.
         aria-describedby={undefined}
-        className="z-[60] bg-[#0d0d11]/55 backdrop-blur-[18px]"
+        className="z-[60] bg-[#0d0d11]"
         data-testid="field-editor"
         onEscapeKeyDown={(event) => {
           if (controls.form.isSaving) event.preventDefault()
@@ -110,10 +110,6 @@ export const FieldEditorScreen = ({
           if (!isOpen && event.target === event.currentTarget) onClose()
         }}
       >
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_8%,rgba(124,141,255,0.12),transparent_32%),radial-gradient(circle_at_16%_88%,rgba(95,227,176,0.07),transparent_28%),linear-gradient(rgba(20,20,24,0.3),rgba(11,11,14,0.6))]"
-        />
         {controls.form.step === 3 && <CompletionConfetti />}
 
         {/* One header contract for every step, shaped like a native titlebar and kept to a
@@ -123,7 +119,7 @@ export const FieldEditorScreen = ({
           <DialogTitle className="sr-only">Smart Field created</DialogTitle>
         )}
         {controls.form.step !== 3 && (
-          <header className="relative grid min-h-[52px] shrink-0 grid-cols-[1fr_auto_1fr] items-center gap-4 border-b border-white/[0.07] bg-black/10 px-4 py-2 backdrop-blur-md">
+          <header className="relative grid min-h-[52px] shrink-0 grid-cols-[1fr_auto_1fr] items-center gap-4 border-b border-white/[0.07] bg-black/10 px-4 py-2">
             <div className="flex min-w-0 items-center justify-start">
               {controls.form.step === 1 && (
                 <HeaderIconButton label="Cancel" onClick={close}>
@@ -245,7 +241,7 @@ export const FieldEditorScreen = ({
         </div>
 
         {controls.form.step === 3 && (
-          <footer className="relative z-10 flex shrink-0 items-center justify-between border-t border-white/[0.07] bg-black/20 px-5 py-2.5 backdrop-blur-md">
+          <footer className="relative z-10 flex shrink-0 items-center justify-between border-t border-white/[0.07] bg-black/20 px-5 py-2.5">
             <label className="flex cursor-pointer items-center gap-2 text-xs text-ink-muted select-none">
               <input
                 checked={hideCompletion}

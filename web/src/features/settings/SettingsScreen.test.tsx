@@ -33,6 +33,7 @@ const SETTINGS: Settings = {
   legacyOpenAiModel: "gpt-5-mini",
   legacyOpenAiHost: null,
   showWizardCompletion: true,
+  didDismissReviewPrompt: false,
   didDismissDiscordPrompt: false,
 }
 

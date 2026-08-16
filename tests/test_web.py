@@ -73,6 +73,7 @@ SETTINGS_DTO: dto.SettingsDto = {
     "legacyOpenAiModel": "gpt-5",
     "legacyOpenAiHost": None,
     "showWizardCompletion": True,
+    "didDismissReviewPrompt": False,
     "didDismissDiscordPrompt": False,
 }
 
@@ -362,6 +363,7 @@ def test_build_settings_reads_config(monkeypatch):
         legacy_openai_model="gpt-5-mini",
         openai_endpoint="https://example.com",
         show_wizard_completion=False,
+        did_dismiss_review_prompt=True,
         did_dismiss_discord_prompt=True,
     )
     monkeypatch.setattr(dto, "config", config)
@@ -375,6 +377,7 @@ def test_build_settings_reads_config(monkeypatch):
         "legacyOpenAiModel": "gpt-5-mini",
         "legacyOpenAiHost": "https://example.com",
         "showWizardCompletion": False,
+        "didDismissReviewPrompt": True,
         "didDismissDiscordPrompt": True,
     }
 
@@ -388,6 +391,7 @@ def test_migrate_config_replaces_historical_null_legacy_model(monkeypatch):
     config_module.migrate_config()
 
     assert persisted_config.legacy_openai_model == "gpt-5-chat-latest"
+    assert persisted_config.did_dismiss_review_prompt is False
     assert persisted_config.did_dismiss_discord_prompt is False
 
 
@@ -395,13 +399,16 @@ def test_migrate_config_preserves_selected_legacy_model(monkeypatch):
     import src.config as config_module
 
     persisted_config = SimpleNamespace(
-        legacy_openai_model="gpt-5-mini", did_dismiss_discord_prompt=True
+        legacy_openai_model="gpt-5-mini",
+        did_dismiss_review_prompt=True,
+        did_dismiss_discord_prompt=True,
     )
     monkeypatch.setattr(config_module, "config", persisted_config)
 
     config_module.migrate_config()
 
     assert persisted_config.legacy_openai_model == "gpt-5-mini"
+    assert persisted_config.did_dismiss_review_prompt is True
     assert persisted_config.did_dismiss_discord_prompt is True
 
 
@@ -629,6 +636,7 @@ def test_parse_settings_round_trips():
     assert parsed.legacy_openai_model == "gpt-5"
     assert parsed.legacy_openai_host is None
     assert parsed.show_wizard_completion is True
+    assert parsed.did_dismiss_review_prompt is False
     assert parsed.did_dismiss_discord_prompt is False
 
 
@@ -649,6 +657,7 @@ def test_save_settings_persists_every_field_and_republishes(monkeypatch):
     assert config.legacy_openai_model == "gpt-5"
     assert config.openai_endpoint is None
     assert config.show_wizard_completion is True
+    assert config.did_dismiss_review_prompt is False
     assert config.did_dismiss_discord_prompt is False
     assert len(published) == 1
     assert isinstance(published[0], StateInvalidated)
@@ -664,6 +673,7 @@ def test_save_settings_persists_every_field_and_republishes(monkeypatch):
         ("legacyOpenAiModel", None, "must be a string"),
         ("legacyOpenAiHost", 42, "must be a string or null"),
         ("showWizardCompletion", 0, "must be a boolean"),
+        ("didDismissReviewPrompt", None, "must be a boolean"),
         ("didDismissDiscordPrompt", None, "must be a boolean"),
     ],
 )

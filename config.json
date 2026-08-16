@@ -17,5 +17,6 @@
   "did_click_rate_link": false,
   "did_migrate_smart_fields_to_sqlite": false,
   "show_wizard_completion": true,
+  "did_dismiss_review_prompt": false,
   "did_dismiss_discord_prompt": false
 }

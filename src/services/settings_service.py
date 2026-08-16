@@ -35,6 +35,7 @@ def save_settings(settings: Settings) -> None:
     config.legacy_openai_model = settings.legacy_openai_model
     config.openai_endpoint = settings.legacy_openai_host
     config.show_wizard_completion = settings.show_wizard_completion
+    config.did_dismiss_review_prompt = settings.did_dismiss_review_prompt
     config.did_dismiss_discord_prompt = settings.did_dismiss_discord_prompt
 
 
@@ -47,4 +48,5 @@ class Settings:
     legacy_openai_model: str
     legacy_openai_host: str | None
     show_wizard_completion: bool
+    did_dismiss_review_prompt: bool
     did_dismiss_discord_prompt: bool

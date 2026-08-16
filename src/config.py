@@ -41,6 +41,7 @@ class Config:
     auth_token: Optional[str]
     legacy_support: Optional[bool]
     show_wizard_completion: bool
+    did_dismiss_review_prompt: bool
     did_dismiss_discord_prompt: bool
 
     # Dialogs / Migrations
@@ -100,6 +101,8 @@ def migrate_config() -> None:
         config.legacy_openai_model = LEGACY_OPENAI_MODEL_DEFAULT
     if getattr(config, "did_dismiss_discord_prompt", None) is None:
         config.did_dismiss_discord_prompt = False
+    if getattr(config, "did_dismiss_review_prompt", None) is None:
+        config.did_dismiss_review_prompt = False
 
 
 def bump_usage_counter() -> None:
