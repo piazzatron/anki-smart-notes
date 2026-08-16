@@ -21,6 +21,13 @@ set -e
 
 
 build () {
+  echo "Building web app..."
+  (
+    cd web
+    [ -d node_modules ] || bun install --frozen-lockfile
+    bun run build
+  )
+
   echo "Building..."
   rm -rf dist
   mkdir -p dist/vendor
