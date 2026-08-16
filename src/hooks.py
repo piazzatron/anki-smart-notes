@@ -276,10 +276,11 @@ def on_main_window(processor: NoteProcessor):
     setup_logger()
     run_migrations()
 
-    # Add options to Anki Menu
-    options_action = QAction("Smart Notes", mw)
+    smart_notes_menu = QMenu("Smart Notes", mw)
+    options_action = QAction("Open Smart Notes", mw)
     options_action.triggered.connect(lambda _: open_web_app())
-    mw.form.menuTools.addAction(options_action)
+    smart_notes_menu.addAction(options_action)
+    mw.form.menubar.addAction(smart_notes_menu.menuAction())
     mw.addonManager.setConfigAction(__name__, open_web_app)
 
     _on_start_actions()
