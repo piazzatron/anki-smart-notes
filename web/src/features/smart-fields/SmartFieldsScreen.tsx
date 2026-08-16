@@ -1,10 +1,12 @@
 import { Plus } from "lucide-react"
 import { useMemo, useState } from "react"
 
+import { selectBannerPrompt } from "./bannerPrompt"
 import { DeckGroup } from "./components/DeckGroup"
 import { DiscordPrompt } from "./components/DiscordPrompt"
 import { FieldsEmptyState } from "./components/FieldsEmptyState"
 import { FieldsSkeleton } from "./components/FieldsSkeleton"
+import { ReviewPrompt } from "./components/ReviewPrompt"
 import { groupSmartFields } from "./groupSmartFields"
 
 import { PageLayout } from "@/components/shared/PageLayout"
@@ -35,6 +37,7 @@ export const SmartFieldsScreen = ({
     null,
   )
   const [initialEditorDismissed, setInitialEditorDismissed] = useState(false)
+  const [reviewPromptHidden, setReviewPromptHidden] = useState(false)
   const [discordPromptHidden, setDiscordPromptHidden] = useState(false)
   const groups = useMemo(
     () => (state === null ? [] : groupSmartFields(state)),
@@ -52,6 +55,14 @@ export const SmartFieldsScreen = ({
       : null
   const activeEditor = editorState ?? resolvedInitialEditor
 
+  const bannerPrompt = selectBannerPrompt({
+    hasState: state !== null,
+    didDismissReviewPrompt: state?.settings.didDismissReviewPrompt ?? false,
+    didDismissDiscordPrompt: state?.settings.didDismissDiscordPrompt ?? false,
+    reviewDismissedThisSession: reviewPromptHidden,
+    discordDismissedThisSession: discordPromptHidden,
+  })
+
   const toggleEnabled = (field: SmartField) =>
     setSmartFieldEnabled(field, !field.enabled)
 
@@ -65,12 +76,22 @@ export const SmartFieldsScreen = ({
     })
   }
 
+  const completeReviewPrompt = () => {
+    if (state === null) return
+
+    setReviewPromptHidden(true)
+    void saveSettings({
+      ...state.settings,
+      didDismissReviewPrompt: true,
+    })
+  }
+
   return (
     <>
       <PageLayout
         actions={
           <Button
-            className="h-auto shrink-0 !rounded-[9px] !border-[#1fd47d]/60 !bg-gradient-to-b !from-[#4cf0a8] !to-[#1fd47d] !px-[18px] !py-2.5 !text-[13px] !font-extrabold !text-[#06281a] shadow-[inset_0_1px_0_rgba(255,255,255,0.34),0_10px_24px_-8px_rgba(31,212,125,0.55)] hover:!border-[#1fd47d]/60 hover:brightness-105"
+            className="h-auto shrink-0 self-center !rounded-lg !border-[#1fd47d]/60 !bg-gradient-to-b !from-[#4cf0a8] !to-[#1fd47d] !px-[18px] !py-2.5 !text-[13px] !font-extrabold !text-[#06281a] shadow-[inset_0_1px_0_rgba(255,255,255,0.34),0_10px_24px_-8px_rgba(31,212,125,0.55)] hover:!border-[#1fd47d]/60 hover:brightness-105"
             onClick={() => setEditorState({ mode: "create" })}
             variant="success"
           >
@@ -90,16 +111,19 @@ export const SmartFieldsScreen = ({
           />
         )}
 
+        {bannerPrompt === "review" && (
+          <ReviewPrompt onComplete={completeReviewPrompt} />
+        )}
+        {bannerPrompt === "discord" && (
+          <DiscordPrompt onDismiss={dismissDiscordPrompt} />
+        )}
+
         {state === null ? (
           <FieldsSkeleton />
         ) : state.smartFields.length === 0 ? (
           <FieldsEmptyState />
         ) : (
           <div>
-            {!state.settings.didDismissDiscordPrompt &&
-              !discordPromptHidden && (
-                <DiscordPrompt onDismiss={dismissDiscordPrompt} />
-              )}
             {groups.map((group) => (
               <DeckGroup
                 group={group}
