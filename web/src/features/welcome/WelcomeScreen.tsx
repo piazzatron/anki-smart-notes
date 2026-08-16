@@ -30,6 +30,31 @@ interface WelcomeScreenProps {
   connection: Connection
 }
 
+// Grouped and organic, not a mirror: a loose crown arcs above the wordmark
+// (weighted center-right, toward the ✨), a light pair sits off to the left, a
+// denser group gathers up near the title sparkle, and a small pair trails
+// lower-right. The weight leans right without any side clumping in a corner.
+const WELCOME_SPARKLES = [
+  // Crown above the wordmark
+  { delay: "-1.7s", duration: "15s", size: "6px", left: "9%", top: "7%" },
+  { delay: "-0.6s", duration: "18s", size: "8px", left: "44%", top: "8%" },
+  { delay: "-2.9s", duration: "13s", size: "10px", left: "57%", top: "4%" },
+  { delay: "-1.3s", duration: "16s", size: "6px", left: "67%", top: "10%" },
+  // Left pair
+  { delay: "-0.3s", duration: "17s", size: "9px", left: "14%", top: "20%" },
+  { delay: "-2.4s", duration: "19s", size: "6px", left: "5%", top: "34%" },
+  // Right group, near the title sparkle
+  { delay: "-3.2s", duration: "16s", size: "14px", left: "86%", top: "14%" },
+  { delay: "-0.8s", duration: "13s", size: "8px", left: "93%", top: "24%" },
+  { delay: "-1.9s", duration: "18s", size: "7px", left: "78%", top: "22%" },
+  { delay: "-3.6s", duration: "15s", size: "6px", left: "95%", top: "37%" },
+  // Lower-right pair
+  { delay: "-0.5s", duration: "20s", size: "9px", left: "88%", top: "74%" },
+  { delay: "-2.1s", duration: "17s", size: "6px", left: "81%", top: "86%" },
+  // Lower-left straggler
+  { delay: "-1.5s", duration: "16s", size: "7px", left: "14%", top: "82%" },
+] as const
+
 export const WelcomeScreen = ({
   appVersion,
   connection,
@@ -130,16 +155,41 @@ export const WelcomeScreen = ({
             </form>
           </div>
         ) : (
-          <div className="w-full max-w-[380px]">
-            <h1 className="welcome-enter text-[38px] leading-none font-extrabold tracking-[-0.037em] text-[#f6f6f8]">
-              Smart Notes
-              <span
-                aria-hidden
-                className="ml-1 inline-block translate-y-[-6px] text-[26px] font-normal"
-              >
-                ✨
-              </span>
-            </h1>
+          <div className="relative w-full max-w-[380px]">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-[430px] w-[560px] -translate-x-1/2 -translate-y-1/2"
+            >
+              {WELCOME_SPARKLES.map((sparkle) => (
+                <span
+                  className="welcome-sparkle"
+                  key={`${sparkle.left}-${sparkle.top}`}
+                  style={
+                    {
+                      "--welcome-sparkle-delay": sparkle.delay,
+                      "--welcome-sparkle-duration": sparkle.duration,
+                      fontSize: sparkle.size,
+                      left: sparkle.left,
+                      top: sparkle.top,
+                    } as React.CSSProperties
+                  }
+                >
+                  <span className="welcome-sparkle-glyph">✦</span>
+                </span>
+              ))}
+            </div>
+
+            <div className="relative mx-auto w-fit">
+              <h1 className="welcome-enter text-[38px] leading-none font-extrabold tracking-[-0.037em] text-[#f6f6f8]">
+                Smart Notes
+                <span
+                  aria-hidden
+                  className="ml-1 inline-block translate-y-[-6px] text-[26px] font-normal"
+                >
+                  ✨
+                </span>
+              </h1>
+            </div>
 
             <p
               className="welcome-enter mt-[13px] text-[14.5px] leading-[1.55] font-semibold text-[#eaeaef]"
