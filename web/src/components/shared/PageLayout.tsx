@@ -44,7 +44,7 @@ export const PageLayout = ({
   <section className="flex min-h-0 flex-1 flex-col" data-testid={testId}>
     <div className="min-h-0 flex-1 overflow-y-auto px-8 py-7">
       <div className={`flex min-h-full w-full flex-col ${className}`}>
-        <header className="flex shrink-0 items-start justify-between gap-6">
+        <header className="flex shrink-0 items-start justify-between gap-6 border-b border-white/[0.07] pb-5">
           <div className="min-w-0">
             <div className="flex items-center gap-2">
               {icon}
@@ -58,7 +58,7 @@ export const PageLayout = ({
           </div>
           {actions}
         </header>
-        <div className="mt-9 flex min-h-0 flex-1 flex-col">{children}</div>
+        <div className="mt-6 flex min-h-0 flex-1 flex-col">{children}</div>
       </div>
     </div>
   </section>
