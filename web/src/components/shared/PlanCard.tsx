@@ -13,7 +13,7 @@ interface PlanCardProps {
   onOpenSubscription: () => void
 }
 
-const UPGRADE_BUTTON_CLASS =
+const PLAN_ACTION_BUTTON_CLASS =
   "mt-3 block w-full rounded-lg border border-[#1fd47d]/60 bg-gradient-to-b from-[#4cf0a8] to-[#1fd47d] px-2 py-2.5 text-center text-xs font-extrabold text-[#06281a] shadow-[inset_0_1px_rgba(255,255,255,0.34),0_10px_22px_-8px_rgba(31,212,125,0.55)] transition hover:brightness-105"
 
 export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
@@ -38,12 +38,20 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
         className="rounded-[11px] bg-white/[0.05] p-3"
         data-testid="plan-card"
       >
-        <p className="text-xs font-semibold text-zinc-200">Signed out</p>
-        <p className="mt-1 text-[10.5px] leading-[1.45] text-ink-muted">
+        <div className="flex items-center gap-2">
+          <span
+            aria-hidden
+            className="size-1.5 rounded-full bg-amber shadow-[0_0_8px_rgba(255,210,122,0.65)]"
+          />
+          <p className="text-sm font-bold tracking-[-0.1px] text-zinc-100">
+            Signed out
+          </p>
+        </div>
+        <p className="mt-1.5 text-[10.5px] leading-[1.45] text-zinc-400">
           Generation is paused until you sign in.
         </p>
         <button
-          className="mt-2.5 w-full rounded-lg bg-mint px-2 py-2 text-xs font-bold text-emerald-950 transition hover:bg-emerald-300"
+          className={PLAN_ACTION_BUTTON_CLASS}
           onClick={() => openSiteLink(SITE_LINKS.signIn)}
         >
           Sign In
@@ -98,7 +106,10 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
           percent={Math.min(100, (daysLeft / 7) * 100)}
           trackClass="mt-2.5 bg-white/[0.08]"
         />
-        <button className={UPGRADE_BUTTON_CLASS} onClick={onOpenSubscription}>
+        <button
+          className={PLAN_ACTION_BUTTON_CLASS}
+          onClick={onOpenSubscription}
+        >
           ✨ Upgrade ✨
         </button>
       </section>
@@ -181,7 +192,7 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
             ? "Most of this month's credits are used"
             : `Resets in ${presentation.daysLeft ?? 0} days`}
       </span>
-      <span className={UPGRADE_BUTTON_CLASS}>✨ Upgrade ✨</span>
+      <span className={PLAN_ACTION_BUTTON_CLASS}>✨ Upgrade ✨</span>
     </button>
   )
 }
@@ -216,7 +227,7 @@ const OutOfCreditsCard = ({
       trackClass="mt-2.5 bg-white/[0.08]"
     />
     <p className="mt-2 text-[10.5px] leading-[1.45] text-ink-muted">{note}</p>
-    <button className={UPGRADE_BUTTON_CLASS} onClick={onOpenSubscription}>
+    <button className={PLAN_ACTION_BUTTON_CLASS} onClick={onOpenSubscription}>
       ✨ Upgrade ✨
     </button>
   </section>
