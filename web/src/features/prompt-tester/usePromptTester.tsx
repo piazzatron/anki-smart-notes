@@ -72,6 +72,7 @@ export type PromptTesterArgs = {
 export interface PromptTester {
   dismissError: () => void
   error: string | null
+  fieldType: PromptTesterArgs["fieldType"]
   hasNoteTypeMismatch: boolean
   isResultOpen: boolean
   isTesting: boolean
@@ -180,6 +181,7 @@ export const usePromptTester = (args: PromptTesterArgs): PromptTester => {
   return {
     dismissError: () => patchState({ error: null }),
     error: state.error,
+    fieldType,
     hasNoteTypeMismatch,
     isResultOpen,
     isTesting: state.isTesting,

@@ -98,10 +98,8 @@ const LoadedVoiceDefaultsScreen = ({
     voiceMatchesSettings(voice, controls.form.values),
   )
 
-  // The tester owns its own scratch text here: nothing else on the page writes one.
-  const [prompt, setPrompt] = useState(
-    "This is an example of your selected Smart Notes voice.",
-  )
+  // The tester reads whichever card field the user picks below.
+  const [prompt, setPrompt] = useState("")
   const tester = usePromptTester({
     fieldType: "tts",
     onPromptChange: setPrompt,

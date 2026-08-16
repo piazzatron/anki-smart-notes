@@ -20,9 +20,9 @@
 import { Check, LoaderCircle, Play } from "lucide-react"
 import { useId, useState } from "react"
 
+import { ValidPromptFields } from "@/components/shared/ValidPromptFields"
 import { Button } from "@/components/ui/Button"
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
-import { ValidPromptFields } from "@/components/shared/ValidPromptFields"
 import { errorMessage } from "@/lib/errors"
 import { saveTestResultToCard } from "@/services/commands"
 
@@ -84,8 +84,43 @@ export const PromptTesterStrip = ({
         />
       )}
 
+      {field.fieldType === "tts" &&
+        field.setPrompt !== null &&
+        field.selectedNote !== null && (
+          <div className="mb-3">
+            <p className="mb-1.5 text-[11px] text-ink-muted">
+              Select a Field to read aloud
+            </p>
+            <div
+              aria-label="Select a field to read aloud"
+              className="flex flex-wrap gap-1.5"
+              role="group"
+            >
+              {Object.keys(field.selectedNote.fields).map((fieldName) => {
+                const isSelected = field.prompt === `{{${fieldName}}}`
+
+                return (
+                  <button
+                    aria-pressed={isSelected}
+                    className={`cursor-pointer rounded-full px-2.5 py-1.5 font-mono text-[11px] transition ${
+                      isSelected
+                        ? "bg-indigo text-white"
+                        : "bg-zinc-800 text-zinc-300 hover:bg-zinc-700 hover:text-white"
+                    }`}
+                    key={fieldName}
+                    onClick={() => field.setPrompt?.(`{{${fieldName}}}`)}
+                    type="button"
+                  >
+                    {fieldName}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
       {/* Nothing above this tester owns the prompt, so it does. */}
-      {field.setPrompt !== null && (
+      {field.fieldType !== "tts" && field.setPrompt !== null && (
         <div className="mb-3">
           <label
             className="mb-1.5 block text-[11px] text-ink-muted"

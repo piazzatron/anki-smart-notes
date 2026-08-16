@@ -68,6 +68,7 @@ const testerControls = (
 ): PromptTester => ({
   dismissError: () => undefined,
   error: null,
+  fieldType: "chat",
   hasNoteTypeMismatch: false,
   isResultOpen: false,
   isTesting: false,
