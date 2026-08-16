@@ -93,9 +93,7 @@ export const SmartFieldsScreen = ({
         {state === null ? (
           <FieldsSkeleton />
         ) : state.smartFields.length === 0 ? (
-          <FieldsEmptyState
-            onCreate={() => setEditorState({ mode: "create" })}
-          />
+          <FieldsEmptyState />
         ) : (
           <div>
             {!state.settings.didDismissDiscordPrompt &&

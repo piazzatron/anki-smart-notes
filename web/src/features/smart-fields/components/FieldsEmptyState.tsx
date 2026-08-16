@@ -1,28 +1,42 @@
-import { Layers3, Plus } from "lucide-react"
-
-import { Button } from "@/components/ui/Button"
-
-interface FieldsEmptyStateProps {
-  onCreate: () => void
-}
-
-export const FieldsEmptyState = ({ onCreate }: FieldsEmptyStateProps) => (
-  <div className="flex flex-1 items-center justify-center p-8 text-center">
-    <div className="max-w-sm">
-      <span className="mx-auto inline-flex size-11 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-indigo-soft">
-        <Layers3 aria-hidden className="size-5" />
+export const FieldsEmptyState = () => (
+  <div className="smart-fields-empty">
+    <div aria-hidden className="smart-fields-empty-illustration">
+      <span className="smart-fields-empty-spark smart-fields-empty-spark-one">
+        ✦
       </span>
-      <h2 className="mt-4 text-base font-semibold text-zinc-100">
-        Create your first Smart Field
-      </h2>
-      <p className="mt-1.5 text-xs leading-5 text-ink-muted">
-        Choose a field on your cards and Smart Notes will fill it with text,
-        audio, or an image.
-      </p>
-      <Button className="mt-4" onClick={onCreate} variant="primary">
-        <Plus aria-hidden className="size-3.5" />
-        New Smart Field
-      </Button>
+      <span className="smart-fields-empty-spark smart-fields-empty-spark-two">
+        ✦
+      </span>
+      <span className="smart-fields-empty-bubble smart-fields-empty-bubble-text">
+        💬
+      </span>
+      <span className="smart-fields-empty-bubble smart-fields-empty-bubble-audio">
+        🔈
+      </span>
+      <span className="smart-fields-empty-bubble smart-fields-empty-bubble-image">
+        🎨
+      </span>
+
+      <div className="smart-fields-empty-card">
+        <div className="smart-fields-empty-card-topline">
+          <span>FRONT</span>
+          <span className="smart-fields-empty-card-dot" />
+        </div>
+        <div className="smart-fields-empty-card-prompt">bonjour</div>
+        <div className="smart-fields-empty-card-divider" />
+        <div className="smart-fields-empty-card-answer">
+          <span className="smart-fields-empty-card-magic">✨</span>
+          <span>Hello</span>
+          <span className="smart-fields-empty-card-cursor" />
+        </div>
+      </div>
     </div>
+
+    <h2 className="smart-fields-empty-title">
+      Your notes are looking a little empty
+    </h2>
+    <p className="smart-fields-empty-copy">
+      Add Smart Fields to add text, audio, and images to your cards.
+    </p>
   </div>
 )
