@@ -307,7 +307,7 @@ const renderTestResult = ({
   run: TestRun | null
   selectedNote: SelectedNote | null
 }): ReactNode => {
-  if (run === null || selectedNote === null) return null
+  if (run === null) return null
 
   if ("text" in run.value) {
     return (
@@ -340,7 +340,7 @@ const GeneratedImage = ({
   prompt,
 }: {
   dataUrl: string
-  note: SelectedNote
+  note: SelectedNote | null
   prompt: string
 }) => {
   const [dimensions, setDimensions] = useState<{

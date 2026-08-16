@@ -31,6 +31,7 @@ from typing import Any, Optional
 from aiohttp import web
 from aqt import mw
 
+from . import env
 from .api_client import api
 from .app_state import app_state
 from .config import config
@@ -90,8 +91,8 @@ def _run_on_main_sync(fn: Any) -> Any:
 
 class LocalServer:
     def __init__(self) -> None:
-        # Per-profile-load secret gating /api/*. Any local process or webpage
-        # can reach this port; only the webview we open knows the token.
+        # Production webviews use a per-profile capability token. Dev builds
+        # deliberately allow browser-driven testing through the fixed port.
         self.session_token = secrets.token_urlsafe(32)
         self._thread: Optional[threading.Thread] = None
         self._loop: Optional[asyncio.AbstractEventLoop] = None
@@ -225,6 +226,15 @@ class LocalServer:
         hostname = request.host.rsplit(":", 1)[0]
         if hostname not in ("127.0.0.1", "localhost"):
             return web.Response(status=403)
+
+        # Dev builds are driven directly from Vite in a browser. The fixed
+        # loopback port identifies the real plugin server while test servers
+        # and production builds continue through session authentication.
+        if env.environment == "DEV" and request.host in {
+            f"127.0.0.1:{LOCAL_SERVER_PORT}",
+            f"localhost:{LOCAL_SERVER_PORT}",
+        }:
+            return None
 
         # Query param because EventSource can't set headers; header for the
         # rest of /api/*.

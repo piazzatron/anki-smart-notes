@@ -68,10 +68,12 @@ def open_web_app() -> None:
     # Dev builds always load the Vite dev server for HMR (`make web`); the
     # bundled static app is only served in packaged builds.
     if env.environment == "DEV":
-        base_url = WEB_APP_DEV_URL
+        url = WEB_APP_DEV_URL
     else:
-        base_url = f"http://{LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}/app"
-    url = f"{base_url}?token={local_server.session_token}"
+        url = (
+            f"http://{LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}/app"
+            f"?token={local_server.session_token}"
+        )
     dialog = WebAppDialog(url, mw)
     _web_app_dialog = dialog
 
@@ -90,8 +92,8 @@ def close_web_app() -> None:
     if _web_app_dialog is None:
         return
 
-    # The local session token changes on profile load, so close the webview
-    # before its token becomes stale.
+    # Close the webview before its Anki profile state becomes stale. Production
+    # sessions also receive a new local API token on the next profile load.
     logger.info("Closing Smart Notes web app before profile close")
     dialog = _web_app_dialog
     _web_app_dialog = None

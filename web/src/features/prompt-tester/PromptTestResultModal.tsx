@@ -102,7 +102,7 @@ export const PromptTestResultModal = ({
 }
 
 interface ResolvedPromptProps {
-  note: SelectedNote
+  note: SelectedNote | null
   prompt: string
 }
 
@@ -118,7 +118,7 @@ export const ResolvedPrompt = ({ note, prompt }: ResolvedPromptProps) => {
     }
     fragments.push(
       <span className="text-indigo-soft" key={`${matchIndex}-${match[0]}`}>
-        {note.fields[match[1]!] ?? match[0]}
+        {note?.fields[match[1]!] ?? match[0]}
       </span>,
     )
     previousEnd = matchIndex + match[0].length

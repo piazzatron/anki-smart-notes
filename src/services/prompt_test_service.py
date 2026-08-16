@@ -262,6 +262,7 @@ async def run_tts_prompt_test(context: TTSPromptTestContext) -> dict[str, str]:
             provider=settings.provider,
             voice=settings.voice_id,
             generation_source="prompt_test",
+            note_id=None,
         )
     else:
         audio = await field_resolver.get_tts_response(

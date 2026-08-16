@@ -48,17 +48,19 @@ def test_local_server_starts_once(monkeypatch: pytest.MonkeyPatch) -> None:
 def test_open_web_app_refreshes_account(monkeypatch: pytest.MonkeyPatch) -> None:
     server = SimpleNamespace(session_token="session-token")
     dialog = MagicMock()
+    dialog_factory = MagicMock(return_value=dialog)
     account_state = MagicMock()
     monkeypatch.setattr(web_app, "_local_server", server)
     monkeypatch.setattr(web_app, "_web_app_dialog", None)
     monkeypatch.setattr(web_app, "ensure_local_server_started", lambda: server)
     monkeypatch.setattr(web_app, "app_state", account_state)
-    monkeypatch.setattr(web_app, "WebAppDialog", MagicMock(return_value=dialog))
+    monkeypatch.setattr(web_app, "WebAppDialog", dialog_factory)
     monkeypatch.setattr(web_app.env, "environment", "DEV")
 
     web_app.open_web_app()
 
     account_state.update_account_state.assert_called_once_with()
+    dialog_factory.assert_called_once_with(web_app.WEB_APP_DEV_URL, web_app.mw)
     dialog.finished.connect.assert_called_once_with(ANY)
     dialog.show.assert_called_once_with()
 

@@ -1136,6 +1136,7 @@ async def test_tts_prompt_service_runs_literal_text_without_a_card(monkeypatch):
 
     async def fake_get_tts_response(**kwargs):
         assert kwargs["input"] == "This is a voice test."
+        assert kwargs["note_id"] is None
         return b"audio"
 
     monkeypatch.setattr(
