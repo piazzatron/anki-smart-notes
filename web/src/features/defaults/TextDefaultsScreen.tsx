@@ -58,6 +58,8 @@ interface LoadedTextDefaultsScreenProps {
   state: AppState
 }
 
+const DEFAULT_TEXT_PROMPT = "What is a Spaced Repetition System (SRS)?"
+
 export const LoadedTextDefaultsScreen = ({
   catalog,
   onDirtyChange,
@@ -71,9 +73,7 @@ export const LoadedTextDefaultsScreen = ({
   })
   const usage = getDefaultUsage(state.smartFields, "chat")
   // The tester owns its own scratch prompt here: nothing else on the page writes one.
-  const [prompt, setPrompt] = useState(
-    "Translate {{Expression}} into natural English.",
-  )
+  const [prompt, setPrompt] = useState(DEFAULT_TEXT_PROMPT)
   const tester = usePromptTester({
     fieldType: "chat",
     onPromptChange: setPrompt,

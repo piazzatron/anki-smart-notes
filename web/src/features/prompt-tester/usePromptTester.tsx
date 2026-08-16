@@ -117,14 +117,20 @@ export const usePromptTester = (args: PromptTesterArgs): PromptTester => {
   const showResultModal = fieldType !== "tts"
 
   useEffect(() => {
+    // A defaults screen mounted after the card was picked should also start fresh.
+    if (inheritedSelection?.note != null) onPromptChange?.("")
+
     // The retained SSE value predates this tester. Once the store receives a new
     // selection object, every selection is live user feedback and stays unfiltered.
     return useAppStore.subscribe((store, previousStore) => {
       if (store.selection !== previousStore.selection) {
         setSelection(store.selection)
+
+        // Scratch testers should start fresh when the user picks a card.
+        if (store.selection?.note != null) onPromptChange?.("")
       }
     })
-  }, [])
+  }, [inheritedSelection, onPromptChange])
 
   const { hasNoteTypeMismatch, selectedNote } = getPromptTestSelection(
     selection,

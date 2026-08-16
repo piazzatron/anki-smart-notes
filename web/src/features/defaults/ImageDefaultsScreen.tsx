@@ -12,8 +12,8 @@ import {
   DefaultsScreenLayout,
   DefaultsScreenLoading,
 } from "./DefaultsScreenLayout"
-import { DefaultUsagePill } from "./DefaultUsagePill"
 import { getDefaultUsage } from "./defaultUsage"
+import { DefaultUsagePill } from "./DefaultUsagePill"
 import { useDefaultsForm } from "./useDefaultsForm"
 
 interface ImageDefaultsScreenProps {
@@ -54,6 +54,9 @@ interface LoadedImageDefaultsScreenProps {
   state: AppState
 }
 
+const DEFAULT_IMAGE_PROMPT =
+  "Generate an image of a student studying hard with Anki and passing their tests."
+
 const LoadedImageDefaultsScreen = ({
   catalog,
   onDirtyChange,
@@ -67,9 +70,7 @@ const LoadedImageDefaultsScreen = ({
   })
   const usage = getDefaultUsage(state.smartFields, "image")
   // The tester owns its own scratch prompt here: nothing else on the page writes one.
-  const [prompt, setPrompt] = useState(
-    "A memorable scene illustrating {{Expression}}.",
-  )
+  const [prompt, setPrompt] = useState(DEFAULT_IMAGE_PROMPT)
   const tester = usePromptTester({
     fieldType: "image",
     onPromptChange: setPrompt,

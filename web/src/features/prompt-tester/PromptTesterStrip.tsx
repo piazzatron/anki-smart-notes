@@ -22,6 +22,7 @@ import { useId, useState } from "react"
 
 import { Button } from "@/components/ui/Button"
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
+import { ValidPromptFields } from "@/components/shared/ValidPromptFields"
 import { errorMessage } from "@/lib/errors"
 import { saveTestResultToCard } from "@/services/commands"
 
@@ -85,27 +86,26 @@ export const PromptTesterStrip = ({
 
       {/* Nothing above this tester owns the prompt, so it does. */}
       {field.setPrompt !== null && (
-        <div className="group mb-3">
-          <div className="mb-1.5 flex min-w-0 items-center gap-3 text-[11px]">
-            <label className="shrink-0 text-ink-muted" htmlFor={promptFieldId}>
-              {field.promptLabel}
-            </label>
-            {field.selectedNote !== null && (
-              <p className="invisible min-w-0 flex-1 truncate text-left font-mono text-indigo-soft group-focus-within:visible">
-                <span className="font-sans">Reference fields with: </span>
-                {Object.keys(field.selectedNote.fields)
-                  .map((fieldName) => `{{${fieldName}}}`)
-                  .join(" · ")}
-              </p>
-            )}
-          </div>
+        <div className="mb-3">
+          <label
+            className="mb-1.5 block text-[11px] text-ink-muted"
+            htmlFor={promptFieldId}
+          >
+            {field.promptLabel}
+          </label>
           <textarea
-            className="min-h-16 w-full resize-y rounded-md border border-white/10 bg-white/[0.03] px-3 py-2.5 font-mono text-[12px] leading-[1.55] text-zinc-200 transition outline-none placeholder:text-zinc-700 focus:border-indigo/45"
+            className="min-h-16 w-full resize-y rounded-md border border-white/10 bg-white/[0.03] px-3 py-2.5 font-mono text-[12px] leading-[1.55] text-zinc-200 transition outline-none placeholder:text-zinc-600 focus:border-indigo/45"
             id={promptFieldId}
             onChange={(event) => field.setPrompt?.(event.target.value)}
+            placeholder="Write a test prompt, referencing fields on your card with {{ double curly brackets }}."
             rows={2}
             value={field.prompt}
           />
+          {field.selectedNote !== null && (
+            <ValidPromptFields
+              fieldNames={Object.keys(field.selectedNote.fields)}
+            />
+          )}
         </div>
       )}
 
