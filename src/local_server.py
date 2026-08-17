@@ -351,7 +351,8 @@ class LocalServer:
                 result = await asyncio.get_running_loop().run_in_executor(
                     None, lambda: _run_on_main_sync(lambda: handler(payload))
                 )
-        except ValueError as e:
+        except (ValueError, KeyError) as e:
+            # KeyError: a trusted-client payload missing an expected wire key.
             return web.json_response({"ok": False, "error": str(e)}, status=400)
         except Exception as e:
             logger.exception(f"Web command failed: {command}")

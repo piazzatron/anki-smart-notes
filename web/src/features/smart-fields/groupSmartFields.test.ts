@@ -22,7 +22,6 @@ const field = (id: string, noteTypeId: number, deckId: number): SmartField => ({
 })
 
 const stateWith = (smartFields: SmartField[]): AppState => ({
-  schemaVersion: 1,
   appVersion: "test",
   smartFields,
   noteTypes: [

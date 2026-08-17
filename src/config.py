@@ -17,13 +17,11 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, Optional, cast
+from typing import Any, Optional
 
 from aqt import addons, mw
 
 from .utils import USES_BEFORE_RATE_DIALOG
-
-LEGACY_OPENAI_MODEL_DEFAULT = "gpt-5-chat-latest"
 
 
 class Config:
@@ -92,17 +90,6 @@ class Config:
 
 
 config = Config()
-
-
-def migrate_config() -> None:
-    """Persist upgrades for historical values that violate current config contracts."""
-    # Persisted configs can still contain the historical null despite today's type.
-    if cast(Optional[str], config.legacy_openai_model) is None:
-        config.legacy_openai_model = LEGACY_OPENAI_MODEL_DEFAULT
-    if getattr(config, "did_dismiss_discord_prompt", None) is None:
-        config.did_dismiss_discord_prompt = False
-    if getattr(config, "did_dismiss_review_prompt", None) is None:
-        config.did_dismiss_review_prompt = False
 
 
 def bump_usage_counter() -> None:

@@ -116,7 +116,6 @@ const POPULATED_FIELDS: SmartField[] = [
 ]
 
 const BASE_STATE: AppState = {
-  schemaVersion: 1,
   appVersion: "1.5.0-dev",
   smartFields: POPULATED_FIELDS,
   noteTypes: [
@@ -289,7 +288,6 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
 }
 
 export const MOCK_CATALOG: Catalog = {
-  schemaVersion: 1,
   chat: {
     providers: ["auto", "openai", "anthropic", "google"],
     models: [
@@ -315,7 +313,6 @@ export const MOCK_CATALOG: Catalog = {
 }
 
 export const MOCK_VOICE_CATALOG: VoiceCatalog = {
-  schemaVersion: 1,
   voices: [
     {
       provider: "google",

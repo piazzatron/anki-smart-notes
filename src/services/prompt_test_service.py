@@ -17,6 +17,14 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+"""
+Runs one-off prompt tests for the web UI.
+
+Refetches the selected card so tests never trust client note data, generates a
+text, image, or audio preview through the providers, and keeps only the newest
+result as a token-guarded artifact that the user can save into a note field.
+"""
+
 import base64
 import secrets
 from dataclasses import dataclass

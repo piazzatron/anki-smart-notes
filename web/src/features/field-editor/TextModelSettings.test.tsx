@@ -25,7 +25,6 @@ import type { Catalog, ChatGenerationSettings } from "@/types/api"
 import { TextModelSettings } from "./TextModelSettings"
 
 const catalog: Catalog = {
-  schemaVersion: 1,
   chat: {
     providers: ["auto", "openai"],
     models: [

@@ -17,6 +17,14 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+"""
+Persists Smart Field rules and global generation defaults.
+
+Reads and writes per-profile Smart Fields and the default chat, TTS, and image
+generation settings in the SQLite database. Guards against duplicate field
+targets and dependency cycles, and republishes state after each write.
+"""
+
 import sqlite3
 from datetime import datetime, timezone
 from typing import Callable, Optional, Union, cast

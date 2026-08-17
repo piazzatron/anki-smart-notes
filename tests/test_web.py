@@ -23,7 +23,7 @@ import asyncio
 import threading
 from dataclasses import replace
 from types import SimpleNamespace
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any, cast
 from unittest.mock import MagicMock
 
 import pytest
@@ -48,6 +48,7 @@ from src.models.smart_fields import (
     TTSGenerationSettings,
     TTSSmartFieldSettings,
 )
+from src.services.settings_service import Settings
 from src.web import dto
 from tests.fixtures import DECK_ID, NOTE_TYPE_ID, MockCard, MockNote
 
@@ -293,7 +294,6 @@ def test_build_state_shape():
         app_version="2.23.9",
     )
 
-    assert state["schemaVersion"] == dto.SCHEMA_VERSION
     assert state["noteTypes"] == [
         {"id": NOTE_TYPE_ID, "name": "Basic", "fields": ["Front", "Back"]}
     ]
@@ -366,7 +366,7 @@ def test_build_settings_reads_config(monkeypatch):
         did_dismiss_review_prompt=True,
         did_dismiss_discord_prompt=True,
     )
-    monkeypatch.setattr(dto, "config", config)
+    monkeypatch.setattr(dto.builders, "config", config)
 
     assert dto.build_settings() == {
         "generateAtReview": False,
@@ -382,41 +382,10 @@ def test_build_settings_reads_config(monkeypatch):
     }
 
 
-def test_migrate_config_replaces_historical_null_legacy_model(monkeypatch):
-    import src.config as config_module
-
-    persisted_config = SimpleNamespace(legacy_openai_model=None)
-    monkeypatch.setattr(config_module, "config", persisted_config)
-
-    config_module.migrate_config()
-
-    assert persisted_config.legacy_openai_model == "gpt-5-chat-latest"
-    assert persisted_config.did_dismiss_review_prompt is False
-    assert persisted_config.did_dismiss_discord_prompt is False
-
-
-def test_migrate_config_preserves_selected_legacy_model(monkeypatch):
-    import src.config as config_module
-
-    persisted_config = SimpleNamespace(
-        legacy_openai_model="gpt-5-mini",
-        did_dismiss_review_prompt=True,
-        did_dismiss_discord_prompt=True,
-    )
-    monkeypatch.setattr(config_module, "config", persisted_config)
-
-    config_module.migrate_config()
-
-    assert persisted_config.legacy_openai_model == "gpt-5-mini"
-    assert persisted_config.did_dismiss_review_prompt is True
-    assert persisted_config.did_dismiss_discord_prompt is True
-
-
 def test_build_catalog_shape():
     catalog = dto.build_catalog()
 
     assert catalog
-    assert catalog["schemaVersion"] == dto.SCHEMA_VERSION
     for modality in (catalog["chat"], catalog["image"]):
         assert {"providers", "models"} <= modality.keys()
         assert modality["providers"]
@@ -537,7 +506,7 @@ def test_parse_smart_field_create_image():
 
 
 def test_parse_smart_field_create_rejects_missing_setting():
-    with pytest.raises(ValueError, match="provider"):
+    with pytest.raises(KeyError, match="provider"):
         dto.parse_smart_field_create(
             {
                 "noteTypeId": NOTE_TYPE_ID,
@@ -557,7 +526,7 @@ def test_parse_smart_field_create_rejects_missing_setting():
 
 
 def test_parse_smart_field_create_rejects_missing_enabled():
-    with pytest.raises(ValueError, match="enabled"):
+    with pytest.raises(KeyError, match="enabled"):
         dto.parse_smart_field_create(
             {
                 "noteTypeId": NOTE_TYPE_ID,
@@ -577,7 +546,7 @@ def test_parse_smart_field_create_rejects_missing_enabled():
 
 
 def test_parse_smart_field_create_rejects_missing_prompt():
-    with pytest.raises(ValueError, match="promptText"):
+    with pytest.raises(KeyError, match="promptText"):
         dto.parse_smart_field_create(
             {
                 "noteTypeId": NOTE_TYPE_ID,
@@ -640,6 +609,103 @@ def test_parse_settings_round_trips():
     assert parsed.did_dismiss_discord_prompt is False
 
 
+# -- Build/parse round trips. The client round-trips these objects (receives a
+# DTO, edits it, posts it back), so parse(build(x)) must reconstruct x. One test
+# per symmetric endpoint; adding a field to both sides keeps it green, dropping
+# one side fails it. --
+
+
+@pytest.mark.parametrize(
+    "field",
+    [
+        SmartField(
+            id="sf-chat",
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=DECK_ID,
+            target_field_name="Back",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="Define {{Front}}",
+                provider="openai",
+                model="gpt-5",
+                reasoning_level="off",
+                web_search_enabled=False,
+                uses_default_generation_settings=True,
+            ),
+        ),
+        SmartField(
+            id="sf-tts",
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=DECK_ID,
+            target_field_name="Audio",
+            enabled=False,
+            settings=TTSSmartFieldSettings(
+                source_field_name="Front",
+                provider="openai",
+                model="tts-1",
+                voice_id="echo",
+                uses_default_generation_settings=True,
+            ),
+        ),
+        SmartField(
+            id="sf-image",
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=DECK_ID,
+            target_field_name="Image",
+            enabled=True,
+            settings=ImageSmartFieldSettings(
+                prompt_text="Illustrate {{Front}}",
+                provider="replicate",
+                model="flux-dev",
+                uses_default_generation_settings=False,
+            ),
+        ),
+    ],
+    ids=["chat", "tts", "image"],
+)
+def test_smart_field_survives_build_parse_round_trip(field):
+    wire = dto.builders._smart_field_dto(field)
+    assert dto.parse_smart_field_update(cast("dict[str, Any]", wire)) == field
+
+
+def test_generation_defaults_survive_build_parse_round_trip():
+    wire = dto.build_generation_defaults(GENERATION_DEFAULTS)
+    assert (
+        dto.parse_generation_defaults(cast("dict[str, Any]", wire))
+        == GENERATION_DEFAULTS
+    )
+
+
+def test_settings_survive_build_parse_round_trip(monkeypatch):
+    config = SimpleNamespace(
+        generate_at_review=True,
+        regenerate_notes_when_batching=False,
+        debug=True,
+        legacy_support=True,
+        openai_api_key="sk-test",
+        legacy_openai_model="gpt-5-mini",
+        openai_endpoint="https://example.com",
+        show_wizard_completion=False,
+        did_dismiss_review_prompt=True,
+        did_dismiss_discord_prompt=False,
+    )
+    monkeypatch.setattr(dto.builders, "config", config)
+
+    settings = dto.parse_settings(cast("dict[str, Any]", dto.build_settings()))
+
+    assert settings == Settings(
+        generate_at_review=True,
+        regenerate_when_batching=False,
+        debug=True,
+        legacy_openai_key="sk-test",
+        legacy_openai_model="gpt-5-mini",
+        legacy_openai_host="https://example.com",
+        show_wizard_completion=False,
+        did_dismiss_review_prompt=True,
+        did_dismiss_discord_prompt=False,
+    )
+
+
 def test_save_settings_persists_every_field_and_republishes(monkeypatch):
     from src.services import settings_service
 
@@ -663,27 +729,6 @@ def test_save_settings_persists_every_field_and_republishes(monkeypatch):
     assert isinstance(published[0], StateInvalidated)
 
 
-@pytest.mark.parametrize(
-    ("key", "value", "message"),
-    [
-        ("generateAtReview", 1, "must be a boolean"),
-        ("regenerateWhenBatching", None, "must be a boolean"),
-        ("debug", "false", "must be a boolean"),
-        ("legacyOpenAiKey", False, "must be a string or null"),
-        ("legacyOpenAiModel", None, "must be a string"),
-        ("legacyOpenAiHost", 42, "must be a string or null"),
-        ("showWizardCompletion", 0, "must be a boolean"),
-        ("didDismissReviewPrompt", None, "must be a boolean"),
-        ("didDismissDiscordPrompt", None, "must be a boolean"),
-    ],
-)
-def test_parse_settings_validates_every_field_type(key, value, message):
-    payload = {**SETTINGS_DTO, key: value}
-
-    with pytest.raises(ValueError, match=message):
-        dto.parse_settings(payload)
-
-
 def test_parse_prompt_generate():
     parsed = dto.parse_prompt_generate(
         {
@@ -702,27 +747,16 @@ def test_parse_prompt_generate():
     assert parsed.generation_prompt == "Write a concise definition"
 
 
-@pytest.mark.parametrize(
-    ("key", "value", "message"),
-    [
-        ("noteTypeId", True, "must be an integer"),
-        ("deckId", "1", "must be an integer"),
-        ("targetFieldName", None, "must be a string"),
-        ("fieldType", "tts", "must be chat or image"),
-        ("generationPrompt", 42, "must be a string"),
-    ],
-)
-def test_parse_prompt_generate_validates_payload(key, value, message):
+def test_parse_prompt_generate_rejects_non_chat_image_field_type():
     payload = {
         "noteTypeId": NOTE_TYPE_ID,
         "deckId": int(DECK_ID),
         "targetFieldName": "Back",
-        "fieldType": "image",
+        "fieldType": "tts",
         "generationPrompt": "Create an illustration prompt",
-        key: value,
     }
 
-    with pytest.raises(ValueError, match=message):
+    with pytest.raises(ValueError, match="must be chat or image"):
         dto.parse_prompt_generate(payload)
 
 
@@ -731,8 +765,6 @@ def test_parse_feedback_message_strips_and_requires_content():
 
     with pytest.raises(ValueError, match="non-empty"):
         dto.parse_feedback_message({"message": "   "})
-    with pytest.raises(ValueError, match="must be a string"):
-        dto.parse_feedback_message({"message": None})
 
 
 def test_parse_auth_logout_requires_empty_object():
@@ -812,22 +844,6 @@ def test_parse_text_prompt_test_validates_card_and_settings():
     )
 
 
-def test_parse_text_prompt_test_rejects_model_provider_mismatch():
-    with pytest.raises(ValueError, match="not available for provider"):
-        dto.parse_text_prompt_test(
-            {
-                "cardId": 99,
-                "prompt": "Define {{Front}}",
-                "settings": {
-                    "provider": "anthropic",
-                    "model": "gpt-5",
-                    "reasoningLevel": "off",
-                    "webSearchEnabled": False,
-                },
-            }
-        )
-
-
 def test_parse_image_prompt_test_validates_settings():
     parsed = dto.parse_image_prompt_test(
         {
@@ -844,7 +860,7 @@ def test_parse_image_prompt_test_validates_settings():
     )
 
 
-def test_parse_tts_prompt_test_requires_known_voice_combination():
+def test_parse_tts_prompt_test_parses_card_and_settings():
     parsed = dto.parse_tts_prompt_test(
         {
             "cardId": 99,
@@ -874,23 +890,10 @@ def test_parse_tts_prompt_test_requires_known_voice_combination():
     )
     assert without_card.card_id is None
 
-    with pytest.raises(ValueError, match="Unknown provider, model, and voice"):
-        dto.parse_tts_prompt_test(
-            {
-                "text": "Hello",
-                "settings": {
-                    "provider": "openai",
-                    "model": "tts-1",
-                    "voiceId": "missing",
-                },
-            }
-        )
-
 
 def test_build_voice_catalog_uses_wire_names():
     catalog = dto.build_voice_catalog()
 
-    assert catalog["schemaVersion"] == dto.SCHEMA_VERSION
     assert catalog["voices"]
     assert set(catalog["voices"][0]) == {
         "provider",
@@ -1435,18 +1438,12 @@ def test_a_later_test_overwrites_the_single_slot(monkeypatch):
     assert prompt_test_service._last_test_artifact.text == "second"
 
 
-def test_parse_save_test_result_requires_a_token_card_and_field():
+def test_parse_save_test_result_reads_token_card_and_field():
     parsed = dto.parse_save_test_result(
         {"token": "token-1", "cardId": 99, "fieldName": "Back"}
     )
 
     assert (parsed.token, parsed.card_id, parsed.field_name) == ("token-1", 99, "Back")
 
-    with pytest.raises(ValueError, match="token"):
-        dto.parse_save_test_result({"token": "", "cardId": 99, "fieldName": "Back"})
-    with pytest.raises(ValueError, match="cardId"):
-        dto.parse_save_test_result(
-            {"token": "token-1", "cardId": "99", "fieldName": "Back"}
-        )
-    with pytest.raises(ValueError, match="fieldName"):
-        dto.parse_save_test_result({"token": "token-1", "cardId": 99, "fieldName": ""})
+    with pytest.raises(KeyError, match="cardId"):
+        dto.parse_save_test_result({"token": "token-1", "fieldName": "Back"})

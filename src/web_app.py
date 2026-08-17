@@ -23,7 +23,6 @@ from aqt import mw
 
 from . import env
 from .app_state import app_state
-from .config import migrate_config
 from .constants import WEB_APP_DEV_URL
 from .local_server import LOCAL_SERVER_HOST, LOCAL_SERVER_PORT, LocalServer
 from .logger import logger
@@ -43,7 +42,6 @@ def ensure_local_server_started() -> LocalServer:
     # clobber _local_server with a dead instance (whose session token the
     # webview would then use).
     if _local_server is None:
-        migrate_config()
         _local_server = LocalServer()
         _local_server.start()
 

@@ -17,6 +17,9 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+# Persists the web settings form into config and republishes state to connected
+# webviews.
+
 from __future__ import annotations
 
 from dataclasses import dataclass

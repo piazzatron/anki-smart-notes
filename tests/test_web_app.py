@@ -37,12 +37,11 @@ def test_local_server_starts_once(monkeypatch: pytest.MonkeyPatch) -> None:
 
     monkeypatch.setattr(web_app, "_local_server", None)
     monkeypatch.setattr(web_app, "LocalServer", FakeLocalServer)
-    monkeypatch.setattr(web_app, "migrate_config", lambda: calls.append("migrate"))
 
     web_app.ensure_local_server_started()
     web_app.ensure_local_server_started()
 
-    assert calls == ["migrate", "server_init", "server_start"]
+    assert calls == ["server_init", "server_start"]
 
 
 def test_open_web_app_refreshes_account(monkeypatch: pytest.MonkeyPatch) -> None:

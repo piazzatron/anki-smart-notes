@@ -153,7 +153,6 @@ export interface FeatureFlags {
 }
 
 export interface AppState {
-  schemaVersion: number
   appVersion: string
   smartFields: SmartField[]
   noteTypes: NoteType[]
@@ -182,7 +181,6 @@ export interface ImageModelCatalog {
 }
 
 export interface Catalog {
-  schemaVersion: number
   chat: ChatModelCatalog
   image: ImageModelCatalog
 }
@@ -198,7 +196,6 @@ export interface VoiceCatalogItem {
 }
 
 export interface VoiceCatalog {
-  schemaVersion: number
   voices: VoiceCatalogItem[]
 }
 

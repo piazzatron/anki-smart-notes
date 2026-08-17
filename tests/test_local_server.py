@@ -257,8 +257,8 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
     from src.event_bus import BrowserSelectionChanged, StateInvalidated, event_bus
     from src.web import dto
 
-    fake_state = {"schemaVersion": 1, "smartFields": []}
-    fake_catalog = {"schemaVersion": 1, "chat": {}, "image": {}}
+    fake_state = {"smartFields": []}
+    fake_catalog = {"chat": {}, "image": {}}
     fake_defaults = MagicMock()
     fake_note_types = [(1, "Basic", ["Front", "Back"])]
     fake_decks = {1: "Default"}
@@ -821,7 +821,7 @@ async def test_voice_catalog_is_available_without_api_token(monkeypatch):
     monkeypatch.setattr(
         src.local_server.dto,
         "build_voice_catalog",
-        lambda: {"schemaVersion": 1, "voices": [{"name": "Alloy"}]},
+        lambda: {"voices": [{"name": "Alloy"}]},
     )
 
     async with TestClient(TestServer(_make_app())) as client:

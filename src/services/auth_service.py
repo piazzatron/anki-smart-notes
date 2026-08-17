@@ -17,6 +17,14 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+"""
+Authentication actions for the plugin.
+
+Exchanges a browser-issued single-use code for a token from the Smart Notes
+server, refreshes the account's subscription and usage, and logs out by
+clearing the token and projecting the signed-out state.
+"""
+
 from typing import Any
 
 import aiohttp

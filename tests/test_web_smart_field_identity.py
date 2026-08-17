@@ -52,31 +52,9 @@ def test_parse_smart_field_update_includes_existing_id():
 
 
 def test_parse_smart_field_update_requires_id():
-    with pytest.raises(ValueError, match="id"):
+    with pytest.raises(KeyError, match="id"):
         dto.parse_smart_field_update(
             {
-                "noteTypeId": NOTE_TYPE_ID,
-                "deckId": int(DECK_ID),
-                "targetFieldName": "Back",
-                "fieldType": "chat",
-                "enabled": True,
-                "settings": {
-                    "promptText": "Define {{Front}}",
-                    "provider": "openai",
-                    "model": "gpt-5",
-                    "reasoningLevel": "off",
-                    "webSearchEnabled": False,
-                    "usesDefaultGenerationSettings": True,
-                },
-            }
-        )
-
-
-def test_parse_smart_field_update_requires_string_id():
-    with pytest.raises(ValueError, match="id must be a string"):
-        dto.parse_smart_field_update(
-            {
-                "id": 123,
                 "noteTypeId": NOTE_TYPE_ID,
                 "deckId": int(DECK_ID),
                 "targetFieldName": "Back",
@@ -95,7 +73,7 @@ def test_parse_smart_field_update_requires_string_id():
 
 
 def test_parse_smart_field_id_requires_id():
-    with pytest.raises(ValueError, match="id"):
+    with pytest.raises(KeyError, match="id"):
         dto.parse_smart_field_id({})
 
 
