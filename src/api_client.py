@@ -85,6 +85,8 @@ class APIClient:
             logger.debug(f"Got response from {path}: {response.status}")
             if response.status == 402:
                 raise OutOfCreditsError()
+            if response.status == 401:
+                response.raise_for_status()
             if response.status >= 400:
                 try:
                     json = await response.json()

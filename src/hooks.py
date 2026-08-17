@@ -31,17 +31,18 @@ from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
 from aqt.addcards import AddCards
 from aqt.browser.sidebar.item import SidebarItemType
 
-from .app_state import app_state, is_capacity_remaining_or_legacy
+from .app_state import app_state
 from .config import config
 from .database.migrations import run_migrations
 from .decks import deck_id_to_name_map
+from .event_bus import event_bus
 from .feature_flags import refresh_feature_flags
+from .generation_access import ensure_generation_available
 from .logger import cleanup_logger, logger, setup_logger
 from .note_proccessor import NoteProcessor
 from .review_time_evaluator import ReviewTimeEvaluator
 from .sentry import sentry, with_sentry
 from .tasks import run_async_in_background
-from .ui.addon_options_dialog import AddonOptionsDialog
 from .ui.changelog import ChangeLogDialog, is_new_major_or_minor_version
 from .ui.field_menu import FieldMenu
 from .ui.ui_utils import show_message_box
@@ -51,10 +52,15 @@ from .utils.notes_utils import (
     is_ai_field,
     is_card_fully_processed,
 )
+from .web.hook_adapters import setup_web_hooks
+from .web_app import (
+    close_web_app,
+    ensure_local_server_started,
+    open_web_app,
+    stop_local_server,
+)
 
-_local_server: Any = None
 _review_time_evaluator: Optional[ReviewTimeEvaluator] = None
-_open_options_dialog: Optional[AddonOptionsDialog] = None
 
 
 def _with_processor(fn: Any):
@@ -72,38 +78,6 @@ def _with_processor(fn: Any):
 
 
 @_with_processor  # type: ignore
-def on_options(processor: NoteProcessor):
-    global _open_options_dialog
-
-    app_state.update_subscription_state()
-    if not mw:
-        return
-    if _open_options_dialog is not None:
-        _open_options_dialog.raise_()
-        _open_options_dialog.activateWindow()
-        return
-
-    # The options dialog snapshots profile-scoped Smart Field state. Keep the
-    # singleton reference so profile-close cleanup can close it before that state
-    # becomes stale.
-    dialog = AddonOptionsDialog(processor)
-    _open_options_dialog = dialog
-
-    def clear_open_options_dialog(_: object) -> None:
-        global _open_options_dialog
-        if _open_options_dialog is dialog:
-            _open_options_dialog = None
-
-    dialog.finished.connect(clear_open_options_dialog)
-    # Use show() instead of exec() so the dialog is non-modal; nested webview
-    # dialogs (sign-in, upgrade) can't be shown cleanly while an app-modal is
-    # running on macOS. garbage_collect_on_dialog_finish keeps the dialog alive
-    # and cleans it up when closed.
-    mw.garbage_collect_on_dialog_finish(dialog)
-    dialog.show()
-
-
-@_with_processor  # type: ignore
 def add_editor_top_button(
     processor: NoteProcessor, buttons: list[str], e: editor.Editor
 ):
@@ -112,7 +86,7 @@ def add_editor_top_button(
         if not mw:
             return
 
-        if not is_capacity_remaining_or_legacy(show_box=True):
+        if not ensure_generation_available():
             return
 
         card = editor.card
@@ -245,10 +219,7 @@ def on_browser_context(processor: NoteProcessor, browser: browser.Browser, menu:
     cards = browser.selected_cards()
 
     def wrapped():
-        if not is_capacity_remaining_or_legacy(show_box=True):
-            return
-
-        if not _prevent_batches_on_free_trial(cards):
+        if not ensure_generation_available():
             return
 
         processor.process_cards_with_progress(
@@ -263,7 +234,7 @@ def on_browser_context(processor: NoteProcessor, browser: browser.Browser, menu:
 def _on_start_actions() -> None:
     refresh_feature_flags()
 
-    app_state.update_subscription_state()
+    app_state.update_account_state()
     if sentry:
         sentry.configure_scope()
 
@@ -273,7 +244,7 @@ def _on_start_actions() -> None:
     run_async_in_background(cache_leaf_decks_map)
 
 
-def _stamp_version_and_show_first_load_window(processor: NoteProcessor) -> None:
+def _stamp_version_and_show_first_load_window() -> None:
     try:
         current_version = get_version()
         prior_version = config.last_seen_version
@@ -287,7 +258,7 @@ def _stamp_version_and_show_first_load_window(processor: NoteProcessor) -> None:
             return
 
         if not prior_version:
-            on_options(processor)()
+            open_web_app()
             return
 
         if is_new_major_or_minor_version(current_version, prior_version):
@@ -305,33 +276,28 @@ def on_main_window(processor: NoteProcessor):
     setup_logger()
     run_migrations()
 
-    # Add options to Anki Menu
-    options_action = QAction("Smart Notes", mw)
-    # Triggered passes a bool, so we need to use a lambda to pass the processor
-    options_action.triggered.connect(lambda _: on_options(processor)())
-    mw.form.menuTools.addAction(options_action)
-    mw.addonManager.setConfigAction(__name__, on_options(processor))
+    smart_notes_menu = QMenu("Smart Notes", mw)
+    options_action = QAction("Open Smart Notes", mw)
+    options_action.triggered.connect(lambda _: open_web_app())
+    smart_notes_menu.addAction(options_action)
+    mw.form.menubar.addAction(smart_notes_menu.menuAction())
+    mw.addonManager.setConfigAction(__name__, open_web_app)
 
     _on_start_actions()
-    # Show either the first load window or the changelog if it's a new version
-    _stamp_version_and_show_first_load_window(processor)
 
     global _review_time_evaluator
     _review_time_evaluator = ReviewTimeEvaluator(processor)
 
+    ensure_local_server_started()
 
-@_with_processor  # type: ignore
-def on_profile_did_open(processor: NoteProcessor) -> None:
-    # on_profile_did_open starts before on_main_window,
-    # so bind the local server here.
-    global _local_server
-    if _local_server is not None:
-        return
+    # Show either the first load window or the changelog once the web app's
+    # local server is ready.
+    _stamp_version_and_show_first_load_window()
 
-    from .local_server import LocalServer
 
-    _local_server = LocalServer(processor)
-    _local_server.start()
+@with_sentry
+def on_profile_did_open() -> None:
+    ensure_local_server_started()
 
 
 @_with_processor  # type: ignore
@@ -413,11 +379,8 @@ def add_deck_option(
     menu.addAction(item)
 
     def wrapped():
-        if not is_capacity_remaining_or_legacy(show_box=True):
+        if not ensure_generation_available():
             return
-        if not _prevent_batches_on_free_trial(cards):
-            return
-
         processor.process_cards_with_progress(
             cards,
             on_success=_make_on_batch_success(tree_view.browser),
@@ -429,20 +392,9 @@ def add_deck_option(
 
 @with_sentry
 def cleanup() -> None:
-    global _open_options_dialog
-    if _open_options_dialog is not None:
-        # A profile switch changes the note types, decks, and profile-scoped
-        # Smart Field rows backing this UI. Close instead of refreshing so stale
-        # dialog state cannot be saved into the next profile.
-        logger.info("Closing Smart Notes options dialog before profile close")
-        dialog = _open_options_dialog
-        _open_options_dialog = None
-        dialog.close()
-
-    global _local_server
-    if _local_server is not None:
-        _local_server.stop()
-        _local_server = None
+    event_bus.clear_browser_selection()
+    close_web_app()
+    stop_local_server()
 
     global _review_time_evaluator
     if _review_time_evaluator is not None:
@@ -484,11 +436,8 @@ def _cleanup_before_addon_files_change() -> None:
     # non-UI resources instead of calling full profile-close cleanup.
     logger.info("Preparing Smart Notes for add-on file replacement")
 
-    global _local_server
-    if _local_server is not None:
-        logger.info("Stopping Smart Notes local server before add-on file replacement")
-        _local_server.stop()
-        _local_server = None
+    logger.info("Stopping Smart Notes local server before add-on file replacement")
+    stop_local_server()
 
     logger.info("Closing Smart Notes log handlers before add-on file replacement")
     cleanup_logger()
@@ -496,16 +445,6 @@ def _cleanup_before_addon_files_change() -> None:
 
 def _is_current_addon_package(package: str) -> bool:
     return package == __name__.split(".", maxsplit=1)[0]
-
-
-def _prevent_batches_on_free_trial(notes: Any) -> bool:
-    if app_state.is_free_trial() and len(notes) > 50:
-        did_accept: bool = show_message_box(
-            "Warning: your free trial allows a limited number of cards. Continue?",
-            show_cancel=True,
-        )
-        return did_accept
-    return True
 
 
 @with_sentry
@@ -516,6 +455,7 @@ def evaluate_review_time_generation() -> None:
 
 @with_sentry
 def setup_hooks(processor: NoteProcessor):
+    setup_web_hooks()
     gui_hooks.browser_will_show_context_menu.append(on_browser_context(processor))
     gui_hooks.browser_sidebar_will_show_context_menu.append(add_deck_option(processor))
     gui_hooks.editor_did_init_buttons.append(add_editor_top_button(processor))
@@ -528,7 +468,7 @@ def setup_hooks(processor: NoteProcessor):
         lambda *_: evaluate_review_time_generation()
     )
     gui_hooks.main_window_did_init.append(on_main_window(processor))
-    gui_hooks.profile_did_open.append(on_profile_did_open(processor))
+    gui_hooks.profile_did_open.append(on_profile_did_open)
     gui_hooks.profile_will_close.append(cleanup)
 
     # These cleanup hooks were added in different Anki versions.

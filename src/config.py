@@ -21,7 +21,6 @@ from typing import Any, Optional
 
 from aqt import addons, mw
 
-from .models import OpenAIModels
 from .utils import USES_BEFORE_RATE_DIALOG
 
 
@@ -39,6 +38,9 @@ class Config:
     debug: bool
     auth_token: Optional[str]
     legacy_support: Optional[bool]
+    show_wizard_completion: bool
+    did_dismiss_review_prompt: bool
+    did_dismiss_discord_prompt: bool
 
     # Dialogs / Migrations
     did_show_chained_error_dialog: bool
@@ -47,11 +49,8 @@ class Config:
     did_click_rate_link: bool
     did_migrate_smart_fields_to_sqlite: bool
 
-    # Capacity alerts
-    did_show_capacity_threshold_this_cycle: bool
-
     # Deprecated fields:
-    legacy_openai_model: OpenAIModels
+    legacy_openai_model: str
 
     def __getattr__(self, key: str) -> object:
         if not mw:
@@ -100,7 +99,7 @@ def bump_usage_counter() -> None:
     if (
         config.times_used > USES_BEFORE_RATE_DIALOG
         and not config.did_show_rate_dialog
-        and app_state.is_free_trial()
+        and app_state.state["status"] == "AUTHENTICATED"
     ):
         from .ui.rate_dialog import RateDialog
 

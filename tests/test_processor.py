@@ -20,11 +20,19 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import asyncio
+from unittest.mock import AsyncMock, MagicMock
 
 import pytest
-from fixtures import NOTE_TYPE_ID, NOTE_TYPE_NAME, MockCard, MockConfig, MockNote
+from fixtures import (
+    DECK_ID,
+    NOTE_TYPE_ID,
+    NOTE_TYPE_NAME,
+    MockCard,
+    MockConfig,
+    MockNote,
+)
 
-from src.api_client import ClientFacingAPIError
+from src.api_client import ClientFacingAPIError, OutOfCreditsError
 from src.database.migrations import apply_database_migrations
 
 
@@ -62,10 +70,12 @@ class MockAppState:
     """Mock app state that simulates an unlocked app with unlimited capacity"""
 
     state = {
-        "subscription": "PAID_PLAN_ACTIVE",  # Unlocked state
+        "status": "AUTHENTICATED",
+        "email": "person@example.com",
         "plan": {
-            "planId": "test_plan",
-            "planName": "Test Plan",
+            "planId": "medium1",
+            "planType": "medium",
+            "planName": "Standard",
             "notesUsed": 0,
             "notesLimit": 1000,
             "daysLeft": 30,
@@ -75,6 +85,8 @@ class MockAppState:
             "voiceCreditsCapacity": 1000,
             "imageCreditsUsed": 0,
             "imageCreditsCapacity": 1000,
+            "totalCreditsUsed": 0,
+            "totalCreditsCapacity": 3000,
         },
     }
 
@@ -98,7 +110,7 @@ def seed_smart_fields(prompts_map, options):
     from src.services.smart_field_service import smart_field_service
 
     for field, prompt in prompts_map.items():
-        smart_field_service.save_smart_field(
+        smart_field_service.create_smart_field(
             SmartFieldCreate(
                 note_type_id=NOTE_TYPE_ID,
                 deck_id=1,
@@ -154,6 +166,41 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     monkeypatch.setattr(src.field_resolver, "config", c, raising=False)
 
     return p
+
+
+@pytest.mark.asyncio
+async def test_chat_preview_can_skip_web_search_image_embedding(monkeypatch):
+    import src.field_resolver
+    import src.prompt_helpers
+    from src.field_resolver import FieldResolver
+
+    chat = MockChatClient()
+    resolver = FieldResolver(
+        openai_provider=MockOpenAIClient(),
+        chat_provider=chat,
+        tts_provider=chat,
+        image_provider=chat,
+    )  # type: ignore
+    embed_images = AsyncMock(return_value="embedded response")
+    monkeypatch.setattr(src.prompt_helpers, "config", MockConfig())
+    monkeypatch.setattr(src.field_resolver, "is_capacity_remaining", lambda: True)
+    monkeypatch.setattr(src.field_resolver, "download_and_embed_images", embed_images)
+
+    response = await resolver.get_chat_response(
+        note=MockNote({"Front": "dog"}),
+        deck_id=DECK_ID,
+        prompt="Define {{Front}}",
+        model="auto",
+        provider="auto",
+        field_lower="smart-notes-test",
+        should_convert_to_html=False,
+        should_embed_images=False,
+        web_search=True,
+        generation_source="prompt_test",
+    )
+
+    assert response == "p-Define dog"
+    embed_images.assert_not_awaited()
 
 
 """
@@ -495,6 +542,26 @@ async def test_processor_1(name, note, prompts_map, expected, options, monkeypat
         assert n[k] == v, f"{name}: Field {k} is {n[k]}, expected {v}"
 
 
+def test_out_of_credits_refreshes_account_then_opens_blocked_ui(monkeypatch):
+    import src.note_proccessor
+    from src.note_proccessor import NoteProcessor
+
+    refresh_account = MagicMock()
+    monkeypatch.setattr(
+        src.note_proccessor,
+        "refresh_account_after_generation_rejected",
+        refresh_account,
+    )
+    processor = NoteProcessor(  # type: ignore
+        field_resolver=None,
+        config=MockConfig(allow_empty_fields=False),
+    )
+
+    processor._handle_single_card_failure(OutOfCreditsError())
+
+    refresh_account.assert_called_once_with()
+
+
 def test_process_cards_with_progress_noops_during_batch(monkeypatch):
     import src.note_proccessor
     from src.note_proccessor import NoteProcessor
@@ -508,7 +575,7 @@ def test_process_cards_with_progress_noops_during_batch(monkeypatch):
     calls = []
     processor = NoteProcessor(  # type: ignore
         field_resolver=None,
-        config=MockConfig(prompts_map={}, allow_empty_fields=False),
+        config=MockConfig(allow_empty_fields=False),
     )
     processor.batch_in_progress = True
     monkeypatch.setattr(src.note_proccessor, "mw", MockMw())
@@ -545,7 +612,7 @@ async def test_process_notes_batch_marks_client_facing_errors_as_failed(monkeypa
 
     processor = NoteProcessor(  # type: ignore
         field_resolver=None,
-        config=MockConfig(prompts_map={}, allow_empty_fields=False),
+        config=MockConfig(allow_empty_fields=False),
     )
     error_logs = []
     info_logs = []
@@ -634,16 +701,11 @@ async def test_process_cards_with_progress_does_not_show_client_facing_error(
 
     processor = NoteProcessor(  # type: ignore
         field_resolver=None,
-        config=MockConfig(prompts_map={}, allow_empty_fields=False),
+        config=MockConfig(allow_empty_fields=False),
     )
     monkeypatch.setattr(src.note_proccessor, "mw", MockMw())
     monkeypatch.setattr(processor, "_assert_valid_app_mode", lambda: True)
     monkeypatch.setattr(src.note_proccessor, "bump_usage_counter", lambda: None)
-    monkeypatch.setattr(
-        src.note_proccessor,
-        "is_capacity_remaining_or_legacy",
-        lambda show_box=False: True,
-    )
     monkeypatch.setattr(src.note_proccessor, "is_capacity_remaining", lambda: True)
     monkeypatch.setattr(src.note_proccessor, "run_on_main", lambda work: work())
     monkeypatch.setattr(
@@ -697,64 +759,6 @@ async def test_process_note_updates_collection_on_main_thread(monkeypatch):
     await p.process_note(n, deck_id=1)
 
     assert mw.col.updated_notes == [n]
-
-
-"""
-test_cycle Parameters:
-    note: dict[str, str] - Note field data
-    prompts_map: dict[str, str] - Field prompts that may contain cycles
-    expected: bool - Whether a cycle should be detected
-
-Example: ({"f1": "1", "f2": ""}, {"f2": "{{f1}} {{f4}}", "f4": "{{f2}}"}, True)
-"""
-
-
-@pytest.mark.asyncio
-@pytest.mark.parametrize(
-    "note, prompts_map, expected",
-    [
-        # No cycle
-        (
-            {"f1": "1", "f2": "2", "f3": "", "f4": ""},
-            {"f3": "{{f1}}", "f4": "{{f2}}"},
-            False,
-        ),
-        # Cycle
-        # f1 -> f2 -> f3 -> f4
-        # .     ^-----------|
-        (
-            {"f1": "1", "f2": "2", "f3": "", "f4": ""},
-            {"f2": "{{f1}} {{f4}}", "f3": "{{f2}}", "f4": "{{f3}}"},
-            True,
-        ),
-        # Diamond shaped DAG - no cycle
-        # f1 -> f2 -> f4
-        # f1 -> f3 -> f4
-        (
-            {"f1": "1", "f2": "", "f3": "", "f4": ""},
-            {"f2": "{{f1}}", "f3": "{{f1}}", "f4": "{{f2}} {{f3}}"},
-            False,
-        ),
-    ],
-)
-async def test_cycle(note, prompts_map, expected, monkeypatch):
-    import src.dag
-
-    n = MockNote(note, note_type=NOTE_TYPE_NAME)
-    smart_fields = seed_smart_fields(prompts_map, {})
-
-    # Mock get_fields like in setup_data
-    monkeypatch.setattr(
-        src.dag,
-        "get_fields",
-        lambda _: n.fields(),
-    )
-
-    dag = src.dag.generate_fields_dag(
-        n, smart_fields=smart_fields, overwrite_fields=True
-    )
-    cycle = src.dag.has_cycle(dag)
-    assert cycle == expected
 
 
 """

@@ -20,14 +20,9 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 import traceback
 from typing import Optional
 
-from anki.decks import DeckId
 from anki.notes import Note
 
-from .database.legacy_config_migration import (
-    smart_field_settings_from_prompt_parts,
-)
 from .logger import logger
-from .models import DEFAULT_EXTRAS, PromptMap
 from .models.smart_fields import (
     ChatSmartFieldSettings,
     SmartField,
@@ -35,8 +30,6 @@ from .models.smart_fields import (
 )
 from .nodes import FieldNode
 from .prompt_fields import get_prompt_fields
-from .prompt_helpers import get_extras
-from .services.smart_field_service import smart_field_service
 from .utils import get_fields
 from .utils.notes_utils import get_note_type
 
@@ -135,98 +128,3 @@ def generate_fields_dag(
         logger.error(f"Error creating dag: {e}")
         logger.error(traceback.format_exc())
         return {}
-
-
-def has_cycle(dag: dict[str, FieldNode]) -> bool:
-    """Tests for cycles in a DAG. Returns True if there are cycles, False if there are not."""
-    dag = dag.copy()
-    for start in dag.values():
-        # track both current node and path taken to get there
-        explore = [(start, set())]
-        while len(explore):
-            cur, path = explore.pop()
-            if cur.field in path:
-                return True
-            new_path = path.copy()
-            new_path.add(cur.field)
-            explore.extend((node, new_path) for node in cur.out_nodes)
-
-    return False
-
-
-# Lives in here bc there is cycle detection. Not the best place but meh
-def prompt_has_error(
-    prompt: str,
-    note: Note,
-    deck_id: DeckId,
-    target_field: Optional[str] = None,
-    prompts_map: Optional[PromptMap] = None,
-) -> Optional[str]:
-    """Checks if a prompt has an error. Returns the error message if there is one."""
-    note_type = get_note_type(note)
-    note_fields = {field.lower() for field in get_fields(note_type)}
-    prompt_fields = get_prompt_fields(prompt)
-
-    # Check for referencing invalid fields
-    for prompt_field in prompt_fields:
-        if prompt_field not in note_fields:
-            return f"Invalid field in prompt: {prompt_field}"
-
-        extras = get_extras(note_type, prompt_field, deck_id, prompts_map)
-        if extras and extras["type"] in ["tts", "image"]:
-            return "Cannot reference TTS or image fields in prompts"
-
-    # Can't reference itself
-    if target_field and target_field.lower() in prompt_fields:
-        return "Cannot reference the target field in the prompt."
-
-    if prompts_map:
-        note_type_model = note.note_type()
-        note_type_id = int(note_type_model["id"]) if note_type_model else -1
-        try:
-            smart_fields = smart_fields_from_prompt_map(
-                note_type, note_type_id, deck_id, prompts_map
-            )
-        except ValueError as error:
-            return str(error)
-
-        dag = generate_fields_dag(
-            note,
-            smart_fields=smart_fields,
-            overwrite_fields=False,
-        )
-        if has_cycle(dag):
-            return (
-                "Smart fields referencing other smart fields cannot make a cycle!! 🔁"
-            )
-
-    return None
-
-
-# TODO: Delete these prompt-map conversion helpers during the smart fields UI
-# rewrite. They only exist so the legacy PromptDialog can validate unsaved edits
-# before those edits are written to SQLite.
-def smart_fields_from_prompt_map(
-    note_type: str, note_type_id: int, deck_id: DeckId, prompts_map: PromptMap
-) -> list[SmartField]:
-    note_type_map = prompts_map["note_types"].get(note_type, {})
-    deck_map = note_type_map.get(str(deck_id), {})
-    fields = deck_map.get("fields", {})
-    extras_by_field = deck_map.get("extras", {})
-    generation_defaults = smart_field_service.get_generation_defaults()
-
-    return [
-        SmartField(
-            id=f"prompt-map:{field}",
-            note_type_id=note_type_id,
-            deck_id=deck_id,
-            target_field_name=field,
-            enabled=(extras_by_field.get(field) or DEFAULT_EXTRAS)["automatic"],
-            settings=smart_field_settings_from_prompt_parts(
-                prompt=prompt,
-                extras=extras_by_field.get(field) or DEFAULT_EXTRAS,
-                generation_defaults=generation_defaults,
-            ),
-        )
-        for field, prompt in fields.items()
-    ]

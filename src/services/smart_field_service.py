@@ -17,9 +17,17 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+"""
+Persists Smart Field rules and global generation defaults.
+
+Reads and writes per-profile Smart Fields and the default chat, TTS, and image
+generation settings in the SQLite database. Guards against duplicate field
+targets and dependency cycles, and republishes state after each write.
+"""
+
 import sqlite3
 from datetime import datetime, timezone
-from typing import Callable, Optional, cast
+from typing import Callable, Optional, Union, cast
 from uuid import uuid4
 
 from anki.decks import DeckId
@@ -27,6 +35,7 @@ from anki.decks import DeckId
 from .. import utils
 from ..constants import GLOBAL_DECK_ID
 from ..database.connection import open_database
+from ..event_bus import republish_state
 from ..logger import logger
 from ..models import (
     ChatGenerationSettings,
@@ -50,6 +59,7 @@ from ..models.smart_fields import (
     SmartFieldSettings,
     TTSSmartFieldSettings,
 )
+from ..prompt_fields import get_prompt_fields
 
 DEFAULT_TEXT_GENERATION_SETTINGS = ChatGenerationSettings(
     provider="auto",
@@ -65,6 +75,12 @@ DEFAULT_TTS_GENERATION_SETTINGS = TTSGenerationSettings(
 DEFAULT_IMAGE_GENERATION_SETTINGS = ImageGenerationSettings(
     provider="openai",
     model="gpt-image-1.5-low",
+)
+SMART_FIELD_TARGET_COLLISION_ERROR = (
+    "A Smart Field already exists for that note type, deck, and field"
+)
+SMART_FIELD_CYCLE_ERROR = (
+    "Smart fields referencing other smart fields cannot make a cycle! 🔁"
 )
 
 
@@ -92,6 +108,7 @@ class SmartFieldService:
             raise RuntimeError("Missing default text generation settings row")
         return _chat_generation_settings_from_row(row)
 
+    @republish_state
     def save_chat_defaults(self, settings: ChatGenerationSettings) -> None:
         with open_database() as conn:
             conn.execute(
@@ -127,6 +144,7 @@ class SmartFieldService:
             raise RuntimeError("Missing default TTS generation settings row")
         return _tts_generation_settings_from_row(row)
 
+    @republish_state
     def save_tts_defaults(self, settings: TTSGenerationSettings) -> None:
         with open_database() as conn:
             conn.execute(
@@ -156,6 +174,7 @@ class SmartFieldService:
             raise RuntimeError("Missing default image generation settings row")
         return _image_generation_settings_from_row(row)
 
+    @republish_state
     def save_image_defaults(self, settings: ImageGenerationSettings) -> None:
         with open_database() as conn:
             conn.execute(
@@ -171,6 +190,7 @@ class SmartFieldService:
                 (settings.provider, settings.model),
             )
 
+    @republish_state
     def restore_generation_defaults(self) -> None:
         self.save_chat_defaults(DEFAULT_TEXT_GENERATION_SETTINGS)
         self.save_tts_defaults(DEFAULT_TTS_GENERATION_SETTINGS)
@@ -282,17 +302,57 @@ class SmartFieldService:
             ).fetchall()
         return [self._smart_field_from_row(row) for row in rows]
 
-    def save_smart_field(self, smart_field: SmartFieldCreate) -> None:
+    @republish_state
+    def create_smart_field(self, smart_field: SmartFieldCreate) -> None:
+        """Creates a Smart Field with a new UUID."""
         profile_name = self._get_profile_name()
         logger.debug(
-            f"Smart fields DB: saving {smart_field.field_type} field "
+            f"Smart fields DB: creating {smart_field.field_type} field "
             f"{profile_name}/{smart_field.note_type_id}/{smart_field.deck_id}/"
             f"{smart_field.target_field_name}"
         )
         with open_database() as conn:
-            smart_field_id = self._save_smart_field(conn, smart_field, profile_name)
-        logger.debug(f"Smart fields DB: saved smart_field_id={smart_field_id}")
+            collision = conn.execute(
+                """
+                SELECT id FROM smart_fields
+                WHERE profile_name = ?
+                    AND note_type_id = ?
+                    AND deck_id = ?
+                    AND lower(target_field_name) = lower(?)
+                """,
+                (
+                    profile_name,
+                    smart_field.note_type_id,
+                    int(smart_field.deck_id),
+                    smart_field.target_field_name,
+                ),
+            ).fetchone()
+            if collision is not None:
+                raise ValueError(SMART_FIELD_TARGET_COLLISION_ERROR)
 
+            self._validate_no_cycle(smart_field)
+
+            try:
+                smart_field_id = self._insert_smart_field(
+                    conn, smart_field, profile_name
+                )
+            except sqlite3.IntegrityError as e:
+                raise ValueError(SMART_FIELD_TARGET_COLLISION_ERROR) from e
+        logger.debug(f"Smart fields DB: created smart_field_id={smart_field_id}")
+
+    @republish_state
+    def update_smart_field(self, smart_field: SmartField) -> None:
+        """Updates the profile-scoped Smart Field identified by its UUID."""
+        profile_name = self._get_profile_name()
+        logger.debug(
+            f"Smart fields DB: updating smart_field_id={smart_field.id} "
+            f"for profile={profile_name}"
+        )
+        with open_database() as conn:
+            self._validate_no_cycle(smart_field, replaced_smart_field_id=smart_field.id)
+            self._update_smart_field(conn, smart_field, profile_name)
+
+    @republish_state
     def replace_all_smart_fields(
         self,
         smart_fields: list[SmartFieldCreate],
@@ -319,64 +379,166 @@ class SmartFieldService:
             for smart_field in deduped_fields.values():
                 self._insert_smart_field(conn, smart_field, profile_name)
 
-    def delete_smart_field(
-        self,
-        note_type_id: int,
-        deck_id: DeckId,
-        target_field: str,
-    ) -> None:
+    @republish_state
+    def delete_smart_field(self, smart_field_id: str) -> None:
         profile_name = self._get_profile_name()
         logger.debug(
-            f"Smart fields DB: removing {profile_name}/{note_type_id}/"
-            f"{deck_id}/{target_field}"
+            f"Smart fields DB: removing smart_field_id={smart_field_id} "
+            f"for profile={profile_name}"
         )
         with open_database() as conn:
-            conn.execute(
+            cursor = conn.execute(
                 """
                 DELETE FROM smart_fields
-                WHERE profile_name = ?
-                    AND note_type_id = ?
-                    AND deck_id = ?
-                    AND lower(target_field_name) = lower(?)
+                WHERE id = ? AND profile_name = ?
                 """,
-                (profile_name, note_type_id, int(deck_id), target_field),
+                (smart_field_id, profile_name),
             )
+            if cursor.rowcount != 1:
+                raise ValueError(f"Smart Field not found: {smart_field_id}")
 
-    def _save_smart_field(
+    def _update_smart_field(
         self,
         conn: sqlite3.Connection,
-        smart_field: SmartFieldCreate,
+        smart_field: SmartField,
         profile_name: str,
-    ) -> str:
-        existing_id = self._get_existing_id(
-            conn,
-            profile_name,
-            smart_field.note_type_id,
-            smart_field.deck_id,
-            smart_field.target_field_name,
-        )
-
-        if not existing_id:
-            return self._insert_smart_field(conn, smart_field, profile_name)
-
-        now = _utc_now_iso()
-        conn.execute(
+    ) -> None:
+        collision = conn.execute(
             """
-            UPDATE smart_fields
-            SET target_field_name = ?, field_type = ?, enabled = ?, updated_at = ?
-            WHERE id = ?
+            SELECT id FROM smart_fields
+            WHERE profile_name = ?
+                AND note_type_id = ?
+                AND deck_id = ?
+                AND lower(target_field_name) = lower(?)
+                AND id != ?
             """,
             (
+                profile_name,
+                smart_field.note_type_id,
+                int(smart_field.deck_id),
                 smart_field.target_field_name,
-                smart_field.field_type,
-                int(smart_field.enabled),
-                now,
-                existing_id,
+                smart_field.id,
             ),
+        ).fetchone()
+        if collision is not None:
+            raise ValueError(SMART_FIELD_TARGET_COLLISION_ERROR)
+
+        try:
+            cursor = conn.execute(
+                """
+                UPDATE smart_fields
+                SET note_type_id = ?, deck_id = ?, target_field_name = ?,
+                    field_type = ?, enabled = ?, updated_at = ?
+                WHERE id = ? AND profile_name = ?
+                """,
+                (
+                    smart_field.note_type_id,
+                    int(smart_field.deck_id),
+                    smart_field.target_field_name,
+                    smart_field.field_type,
+                    int(smart_field.enabled),
+                    _utc_now_iso(),
+                    smart_field.id,
+                    profile_name,
+                ),
+            )
+        except sqlite3.IntegrityError as e:
+            raise ValueError(SMART_FIELD_TARGET_COLLISION_ERROR) from e
+        if cursor.rowcount != 1:
+            raise ValueError(f"Smart Field not found: {smart_field.id}")
+
+        self._delete_settings(conn, smart_field.id)
+        self._insert_settings(conn, smart_field.id, smart_field.settings)
+
+    def _validate_no_cycle(
+        self,
+        smart_field: Union[SmartField, SmartFieldCreate],
+        replaced_smart_field_id: Optional[str] = None,
+    ) -> None:
+        existing_fields = self.get_all_smart_fields()
+        replaced_smart_field = next(
+            (field for field in existing_fields if field.id == replaced_smart_field_id),
+            None,
         )
-        self._delete_settings(conn, existing_id)
-        self._insert_settings(conn, existing_id, smart_field.settings)
-        return existing_id
+
+        if replaced_smart_field_id and replaced_smart_field is None:
+            return
+
+        new_effective_fields = self._get_prospective_effective_fields(
+            existing_fields,
+            smart_field.note_type_id,
+            smart_field.deck_id,
+            replaced_smart_field_id,
+            smart_field,
+        )
+        self._raise_for_cycle(new_effective_fields)
+
+        if (
+            replaced_smart_field is None
+            or replaced_smart_field.deck_id == GLOBAL_DECK_ID
+            or (
+                replaced_smart_field.note_type_id == smart_field.note_type_id
+                and replaced_smart_field.deck_id == smart_field.deck_id
+            )
+        ):
+            return
+
+        old_effective_fields = self._get_prospective_effective_fields(
+            existing_fields,
+            replaced_smart_field.note_type_id,
+            replaced_smart_field.deck_id,
+            replaced_smart_field_id,
+        )
+        self._raise_for_cycle(old_effective_fields)
+
+    def _get_prospective_effective_fields(
+        self,
+        existing_fields: list[SmartField],
+        note_type_id: int,
+        deck_id: DeckId,
+        replaced_smart_field_id: Optional[str],
+        mutation: Optional[Union[SmartField, SmartFieldCreate]] = None,
+    ) -> dict[str, Union[SmartField, SmartFieldCreate]]:
+        global_fields: dict[str, Union[SmartField, SmartFieldCreate]] = {}
+        deck_fields: dict[str, Union[SmartField, SmartFieldCreate]] = {}
+        for existing_field in existing_fields:
+            if existing_field.id == replaced_smart_field_id:
+                continue
+            if existing_field.note_type_id != note_type_id:
+                continue
+
+            field_key = existing_field.target_field_name.lower()
+            if existing_field.deck_id == GLOBAL_DECK_ID:
+                global_fields[field_key] = existing_field
+            elif existing_field.deck_id == deck_id:
+                deck_fields[field_key] = existing_field
+
+        effective_fields = dict(global_fields)
+        if deck_id != GLOBAL_DECK_ID:
+            effective_fields.update(deck_fields)
+        if mutation is not None:
+            effective_fields[mutation.target_field_name.lower()] = mutation
+        return effective_fields
+
+    def _raise_for_cycle(
+        self,
+        effective_fields: dict[str, Union[SmartField, SmartFieldCreate]],
+    ) -> None:
+        dependencies: dict[str, list[str]] = {}
+        for target_field, effective_field in effective_fields.items():
+            settings = effective_field.settings
+            if isinstance(settings, TTSSmartFieldSettings):
+                input_fields = [settings.source_field_name.lower()]
+            else:
+                input_fields = get_prompt_fields(settings.prompt_text)
+            dependencies[target_field] = [
+                input_field
+                for input_field in input_fields
+                if input_field in effective_fields
+            ]
+
+        if _has_cycle(dependencies):
+            raise ValueError(SMART_FIELD_CYCLE_ERROR)
 
     def _insert_smart_field(
         self,
@@ -444,26 +606,6 @@ class SmartFieldService:
             enabled=bool(row["enabled"]),
             settings=settings,
         )
-
-    def _get_existing_id(
-        self,
-        conn: sqlite3.Connection,
-        profile_name: str,
-        note_type_id: int,
-        deck_id: DeckId,
-        target_field: str,
-    ) -> Optional[str]:
-        row = conn.execute(
-            """
-            SELECT id FROM smart_fields
-            WHERE profile_name = ?
-                AND note_type_id = ?
-                AND deck_id = ?
-                AND lower(target_field_name) = lower(?)
-            """,
-            (profile_name, note_type_id, int(deck_id), target_field),
-        ).fetchone()
-        return cast(str, row["id"]) if row else None
 
     def _delete_settings(self, conn: sqlite3.Connection, smart_field_id: str) -> None:
         conn.execute(
@@ -562,6 +704,26 @@ class SmartFieldService:
 
 def _utc_now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
+
+
+def _has_cycle(dependencies: dict[str, list[str]]) -> bool:
+    visiting: set[str] = set()
+    visited: set[str] = set()
+
+    def visit(field: str) -> bool:
+        if field in visiting:
+            return True
+        if field in visited:
+            return False
+
+        visiting.add(field)
+        if any(visit(dependency) for dependency in dependencies[field]):
+            return True
+        visiting.remove(field)
+        visited.add(field)
+        return False
+
+    return any(visit(field) for field in dependencies)
 
 
 def _chat_generation_settings_from_row(row: sqlite3.Row) -> ChatGenerationSettings:

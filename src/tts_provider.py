@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any
+from typing import Any, Optional
 
 from .api_client import api
 from .constants import TTS_PROVIDER_TIMEOUT_SEC
@@ -32,7 +32,7 @@ class TTSProvider:
         provider: TTSProviders,
         voice: str,
         generation_source: GenerationSource,
-        note_id: int = -1,
+        note_id: Optional[int] = None,
     ) -> bytes:
         args: dict[str, Any] = {
             "provider": provider,

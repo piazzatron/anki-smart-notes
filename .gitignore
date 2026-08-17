@@ -15,8 +15,6 @@ builds/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
 parts/
 sdist/
 var/
@@ -171,3 +169,8 @@ user_files/*
 !user_files/README.txt
 
 todo*.md
+
+# Web app
+web/node_modules/
+src/web/static/
+.playwright-mcp/

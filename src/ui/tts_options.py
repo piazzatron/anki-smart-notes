@@ -17,7 +17,6 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import json
 from typing import Any, Literal, Optional, TypedDict, Union, cast
 
 from aqt import (
@@ -52,16 +51,16 @@ from ..sentry import run_async_in_background_with_sentry
 from ..services.smart_field_service import smart_field_service
 from ..tts_provider import TTSProvider
 from ..tts_utils import play_audio
-from ..utils import load_file
+from ..voice_catalog import ALL_LANGUAGES as ALL, TTSVoice as TTSMeta, get_voice_catalog
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_edit_text import ReactiveEditText
 from .reactive_line_edit import ReactiveLineEdit
 from .state_manager import StateManager
 from .ui_utils import default_form_layout, font_bold, show_message_box
 
-ALL: Literal["All"] = "All"
-
 AllTTSProviders = Union[Literal["All"], TTSProviders]
+
+voices = get_voice_catalog()
 
 Gender = Literal["All", "Male", "Female"]
 default_texts: dict[str, str] = {
@@ -83,18 +82,6 @@ TTS_PROVIDER_LABELS = {
     "elevenLabs": "ElevenLabs",
     "voicevox": "VoiceVox",
 }
-
-PriceTiers = Literal["free", "low", "standard", "high", "ultra-high"]
-
-
-class TTSMeta(TypedDict):
-    tts_provider: TTSProviders
-    voice: str
-    model: str
-    friendly_voice: str
-    gender: Literal["Male", "Female", "All"]
-    language: str
-    price_tier: PriceTiers
 
 
 class TTSState(TypedDict):
@@ -119,177 +106,6 @@ class TTSState(TypedDict):
     search_text: str
 
 
-openai_voice_defs: list[dict[str, str]] = [
-    {"voice": "alloy", "gender": "Female"},
-    {"voice": "ash", "gender": "Male"},
-    {"voice": "coral", "gender": "Female"},
-    {"voice": "echo", "gender": "Male"},
-    {"voice": "fable", "gender": "Female"},
-    {"voice": "nova", "gender": "Female"},
-    {"voice": "onyx", "gender": "Male"},
-    {"voice": "sage", "gender": "Female"},
-    {"voice": "shimmer", "gender": "Female"},
-]
-
-openai_tts_models: list[dict[str, str]] = [
-    {"model": "gpt-4o-mini-tts", "friendly_model": "4o-mini"},
-    {"model": "tts-1", "friendly_model": "TTS-1"},
-]
-
-openai_voices: list[TTSMeta] = [
-    cast(
-        TTSMeta,
-        {
-            "tts_provider": "openai",
-            "voice": v["voice"],
-            "model": m["model"],
-            "friendly_voice": f"{v['voice'].capitalize()} ({m['friendly_model']})",
-            "gender": v["gender"],
-            "language": ALL,
-            "price_tier": "standard",
-        },
-    )
-    for v in openai_voice_defs
-    for m in openai_tts_models
-]
-
-
-class GoogleVoice(TypedDict):
-    gender: Literal["Male", "Female"]
-    languageCode: str
-    language: str
-    name: str
-    type: Literal["Standard", "Wavenet", "Neural", "Chirp"]
-
-
-def _get_google_voices() -> list[TTSMeta]:
-    s = load_file("google_voices.json", test_override="[]")
-    google_voices: list[GoogleVoice] = json.loads(s)
-    voices: list[TTSMeta] = []
-    tiers = {
-        "Standard": "low",
-        "Wavenet": "standard",
-        "Neural": "standard",
-        "Chirp": "standard",
-    }
-    for voice in google_voices:
-        voices.append(
-            {
-                "tts_provider": "google",
-                "language": voice["language"],
-                "gender": voice["gender"],
-                "voice": voice["name"],
-                "model": voice["type"].lower(),
-                "friendly_voice": f"{voice['language'].capitalize()} - {voice['gender'].capitalize()} ({voice['type']})",
-                "price_tier": tiers[voice["type"]],  # type: ignore
-            }
-        )
-    return voices
-
-
-def _get_eleven_voices() -> list[TTSMeta]:
-    s = load_file("eleven_voices.json", test_override="[]")
-    eleven_voices = json.loads(s)
-    voices: list[TTSMeta] = []
-
-    models: list[dict[str, str]] = [
-        {"model": "eleven_v3", "price_tier": "ultra-high"},
-        {"model": "eleven_multilingual_v2", "price_tier": "ultra-high"},
-        {"model": "eleven_flash_v2_5", "price_tier": "high"},
-    ]
-
-    friendly_models = {
-        "eleven_v3": "V3",
-        "eleven_multilingual_v2": "Multilingual V2",
-        "eleven_flash_v2_5": "Flash V2.5",
-    }
-
-    for voice in eleven_voices:
-        for model in models:
-            ttsMeta: TTSMeta = {
-                "tts_provider": "elevenLabs",
-                "language": voice["language"],
-                "voice": voice["voice_id"],
-                "model": model["model"],
-                "friendly_voice": f"{voice['name'].capitalize()} ({friendly_models[model['model']]})",
-                "gender": voice["gender"],
-                "price_tier": cast(PriceTiers, model["price_tier"]),
-            }
-
-            voices.append(ttsMeta)
-
-    return voices
-
-
-class AzureVoice(TypedDict):
-    name: str
-    displayName: str
-    locale: str
-    language: str
-    gender: Literal["Male", "Female"]
-    voiceType: Literal["Neural", "NeuralHD"]
-    styleList: list[str]
-    sampleRateHertz: str
-
-
-def _get_azure_voices() -> list[TTSMeta]:
-    s = load_file("azure_voices.json", test_override="[]")
-    azure_voices: list[AzureVoice] = json.loads(s)
-    voices: list[TTSMeta] = []
-    tiers: dict[str, Literal["low", "standard", "high", "ultra-high"]] = {
-        "Neural": "standard",
-        "NeuralHD": "standard",
-    }
-    for voice in azure_voices:
-        voices.append(
-            {
-                "tts_provider": "azure",
-                "language": voice["language"],
-                "gender": voice["gender"],
-                "voice": voice["name"],
-                "model": voice["voiceType"].lower(),
-                "friendly_voice": f"{voice['displayName'].title()} ({voice['voiceType']})",
-                "price_tier": tiers[voice["voiceType"]],
-            }
-        )
-    return voices
-
-
-class VoiceVoxVoice(TypedDict):
-    name: str
-    styleId: int
-    styleName: str
-    gender: Literal["Male", "Female"]
-
-
-def _get_voicevox_voices() -> list[TTSMeta]:
-    s = load_file("voicevox_voices.json", test_override="[]")
-    voicevox_voices: list[VoiceVoxVoice] = json.loads(s)
-    voices: list[TTSMeta] = []
-    for voice in voicevox_voices:
-        voices.append(
-            {
-                "tts_provider": "voicevox",
-                "language": "Japanese",
-                "gender": voice["gender"],
-                "voice": str(voice["styleId"]),
-                "model": "voicevox",
-                "friendly_voice": f"{voice['name']} ({voice['styleName']})",
-                "price_tier": "free",
-            }
-        )
-    return voices
-
-
-# Combine all voices
-voices = (
-    _get_google_voices()
-    + openai_voices
-    + _get_eleven_voices()
-    + _get_azure_voices()
-    + _get_voicevox_voices()
-)
-
 languages: list[str] = [ALL] + sorted({voice["language"] for voice in voices} - {ALL})
 providers: list[AllTTSProviders] = [
     ALL,
@@ -303,11 +119,11 @@ providers: list[AllTTSProviders] = [
 
 def _format_voice(voice: TTSMeta) -> str:
     language_display = "Multilingual" if voice["language"] == ALL else voice["language"]
-    return f"{voice['tts_provider'].capitalize()} - {language_display} - {voice['gender'].capitalize()} - {voice['friendly_voice']} ({price_tier_copy[voice['price_tier']]})"
+    return f"{voice['provider'].capitalize()} - {language_display} - {voice['gender'].capitalize()} - {voice['name']} ({price_tier_copy[voice['price_tier']]})"
 
 
 voice_search_cache: dict[tuple[str, str, str], list[str]] = {
-    (v["tts_provider"], v["voice"], v["model"]): _format_voice(v).lower().split()
+    (v["provider"], v["voice_id"], v["model"]): _format_voice(v).lower().split()
     for v in voices
 }
 
@@ -317,14 +133,14 @@ def format_tts_voice_label(provider: object, model: object, voice_id: object) ->
         (
             voice
             for voice in voices
-            if voice["tts_provider"] == provider
+            if voice["provider"] == provider
             and voice["model"] == model
-            and voice["voice"] == voice_id
+            and voice["voice_id"] == voice_id
         ),
         None,
     )
 
-    voice_label = matching_voice["friendly_voice"] if matching_voice else str(voice_id)
+    voice_label = matching_voice["name"] if matching_voice else str(voice_id)
     return f"{TTS_PROVIDER_LABELS.get(str(provider), str(provider))} ({voice_label})"
 
 
@@ -499,9 +315,9 @@ class TTSOptions(QWidget):
             logger.debug(f"Selected voice: {selected_voice}")
             self.state.update(
                 {
-                    "voice": selected_voice["voice"],
-                    "tts_provider": selected_voice["tts_provider"],
-                    "tts_voice": selected_voice["voice"],
+                    "voice": selected_voice["voice_id"],
+                    "tts_provider": selected_voice["provider"],
+                    "tts_voice": selected_voice["voice_id"],
                     "tts_model": selected_voice["model"],
                 }
             )
@@ -530,8 +346,8 @@ class TTSOptions(QWidget):
             (
                 v
                 for v in voices
-                if v["voice"] == voice
-                and v["tts_provider"] == provider
+                if v["voice_id"] == voice
+                and v["provider"] == provider
                 and v["model"] == model
             ),
             None,
@@ -625,7 +441,7 @@ class TTSOptions(QWidget):
         for voice in voices:
             matches_provider = (
                 self.state.s["selected_provider"] == ALL
-                or voice["tts_provider"] == self.state.s["selected_provider"]
+                or voice["provider"] == self.state.s["selected_provider"]
             )
             if not matches_provider:
                 continue
@@ -651,7 +467,7 @@ class TTSOptions(QWidget):
             # voice display text into words. Each search term must match (via substring)
             # at least one word in the voice. All search terms must match for inclusion.
             # The voice_search_cache contains pre-split words from _format_voice() output.
-            voice_key = (voice["tts_provider"], voice["voice"], voice["model"])
+            voice_key = (voice["provider"], voice["voice_id"], voice["model"])
             voice_words = voice_search_cache[voice_key]
             matches_search = not search_terms or all(
                 any(term in word for word in voice_words) for term in search_terms
