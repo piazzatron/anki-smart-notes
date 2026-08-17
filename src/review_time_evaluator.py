@@ -89,7 +89,7 @@ class ReviewTimeEvaluator:
         if not config.generate_at_review:
             return
 
-        if not is_capacity_remaining_or_legacy(show_box=False):
+        if not is_capacity_remaining_or_legacy():
             return
 
         if self.wave_in_progress:
@@ -261,7 +261,7 @@ class ReviewTimeEvaluator:
         if self.is_stopped:
             return
         if isinstance(e, OutOfCreditsError):
-            app_state.update_subscription_state()
+            app_state.update_account_state()
         self.process_pending_tick()
 
     def process_pending_tick(self) -> None:

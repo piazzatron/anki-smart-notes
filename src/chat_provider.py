@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Any, cast
+from typing import Any, Optional, cast
 
 from .api_client import api
 from .constants import CHAT_CLIENT_TIMEOUT_SEC
@@ -31,7 +31,7 @@ class ChatProvider:
         prompt: str,
         model: ChatModels,
         provider: ChatProviders,
-        note_id: int,
+        note_id: Optional[int],
         generation_source: GenerationSource,
         web_search: bool = False,
         reasoning_level: ChatReasoningLevel = "off",

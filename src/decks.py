@@ -28,6 +28,12 @@ from .logger import logger
 cached_leaf_decks: dict[DeckId, str] = {}
 
 
+def rebuild_deck_cache() -> None:
+    """Call when decks change (create/rename/delete)."""
+    global cached_leaf_decks
+    cached_leaf_decks = _build_leaf_deck_map()
+
+
 # Slow af even with just a handful of decks, so cached and run off the main thread initially in hooks
 # Theoretically probably a race condition
 
@@ -35,35 +41,34 @@ cached_leaf_decks: dict[DeckId, str] = {}
 def deck_id_to_name_map() -> dict[DeckId, str]:
     global cached_leaf_decks
 
-    if not mw or not mw.col:
-        return {}
-
-    if not len(cached_leaf_decks):
-        leaves: list[DeckTreeNode] = []
-        nodes = [mw.col.decks.deck_tree()]
-
-        # Find the leaves of the deck tree
-        while nodes:
-            node = nodes.pop()
-            if node.children:
-                for child in node.children:
-                    nodes.append(child)
-            else:
-                leaves.append(node)
-
-        cached_leaf_decks = {cast(DeckId, node.deck_id): node.name for node in leaves}
-        cached_leaf_decks[GLOBAL_DECK_ID] = GLOBAL_DECK_NAME
-        logger.debug("Cached leaf decks map")
-        logger.debug(cached_leaf_decks)
+    if not cached_leaf_decks:
+        cached_leaf_decks = _build_leaf_deck_map()
 
     return cached_leaf_decks
 
 
+def _build_leaf_deck_map() -> dict[DeckId, str]:
+    if not mw or not mw.col:
+        return {}
+
+    leaves: list[DeckTreeNode] = []
+    nodes = [mw.col.decks.deck_tree()]
+
+    # Find the leaves of the deck tree
+    while nodes:
+        node = nodes.pop()
+        if node.children:
+            for child in node.children:
+                nodes.append(child)
+        else:
+            leaves.append(node)
+
+    deck_map = {cast(DeckId, node.deck_id): node.name for node in leaves}
+    deck_map[GLOBAL_DECK_ID] = GLOBAL_DECK_NAME
+    logger.debug("Cached leaf decks map")
+    logger.debug(deck_map)
+    return deck_map
+
+
 def deck_name_to_id_map() -> dict[str, DeckId]:
     return {v: k for k, v in deck_id_to_name_map().items()}
-
-
-def get_all_deck_ids() -> list[DeckId]:
-    decks_map = deck_id_to_name_map().copy()
-    decks_map.pop(GLOBAL_DECK_ID)
-    return [GLOBAL_DECK_ID] + sorted(decks_map.keys())

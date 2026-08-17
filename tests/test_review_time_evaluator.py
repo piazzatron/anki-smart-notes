@@ -81,7 +81,7 @@ def setup_review_time_evaluator(monkeypatch, current=None, queued=None, state="r
     monkeypatch.setattr(
         src.review_time_evaluator,
         "is_capacity_remaining_or_legacy",
-        lambda show_box=False: True,
+        lambda: True,
     )
     monkeypatch.setattr(
         src.review_time_evaluator,

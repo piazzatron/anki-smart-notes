@@ -86,9 +86,13 @@ legacy_openai_chat_models: list[str] = [
 ]
 
 OpenAITTSModels = Literal["tts-1", "gpt-4o-mini-tts"]
-ElevenTTSModels = Literal["eleven_multilingual_v2"]
-GoogleModels = Literal["standard", "wavenet", "neural"]
-AzureModels = Literal["standard", "neural"]
+ElevenTTSModels = Literal[
+    "eleven_multilingual_v2",
+    "eleven_v3",
+    "eleven_flash_v2_5",
+]
+GoogleModels = Literal["standard", "wavenet", "neural", "chirp"]
+AzureModels = Literal["standard", "neural", "neuralhd"]
 VoiceVoxModels = Literal["voicevox"]
 TTSModels = Union[
     OpenAITTSModels, ElevenTTSModels, GoogleModels, AzureModels, VoiceVoxModels

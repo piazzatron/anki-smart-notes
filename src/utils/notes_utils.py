@@ -26,7 +26,6 @@ from aqt import mw
 
 from ..constants import GLOBAL_DECK_ID
 from ..decks import deck_id_to_name_map
-from ..models import PromptMap
 from ..models.smart_fields import ChatSmartFieldSettings
 from ..prompt_fields import get_prompt_fields
 from ..services.smart_field_service import smart_field_service
@@ -66,6 +65,16 @@ def get_note_types() -> list[str]:
         return []
     models = mw.col.models.all()
     return [model["name"] for model in models]
+
+
+def get_note_types_with_fields() -> list[tuple[int, str, list[str]]]:
+    """(id, name, field names) for every note type."""
+    if not mw or not mw.col:
+        return []
+    return [
+        (int(model["id"]), str(model["name"]), get_fields(str(model["name"])))
+        for model in mw.col.models.all()
+    ]
 
 
 def is_card_fully_processed(card: Card) -> bool:
@@ -187,7 +196,6 @@ def get_valid_fields_for_prompt(
     selected_note_type: str,
     deck_id: DeckId,
     selected_note_field: Optional[str] = None,
-    prompts_map: Optional[PromptMap] = None,
 ) -> list[str]:
     """Gets all fields excluding the selected one, if one is selected"""
     fields = get_fields(selected_note_type)

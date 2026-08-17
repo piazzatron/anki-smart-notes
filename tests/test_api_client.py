@@ -76,6 +76,9 @@ class FakeSession:
         response.json_body = self.response_json
         return response
 
+    def get(self, endpoint: str, **kwargs: Any) -> FakeResponse:
+        return self.post(endpoint, **kwargs)
+
 
 @pytest.mark.asyncio
 async def test_api_requests_include_plugin_version(
@@ -117,6 +120,27 @@ async def test_api_client_does_not_retry_server_rate_limits(
     with pytest.raises(aiohttp.ClientResponseError):
         await api_client.APIClient().get_api_response("chat", {"message": "hello"})
 
+    assert len(fake_session.calls) == 1
+
+
+@pytest.mark.asyncio
+async def test_api_client_preserves_unauthorized_response_status(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    fake_session = FakeSession()
+    fake_session.response_status = 401
+    fake_session.response_json = {"error": "Unauthorized"}
+    monkeypatch.setattr(api_client.aiohttp, "ClientSession", lambda: fake_session)
+    monkeypatch.setattr(
+        api_client, "config", type("Config", (), {"auth_token": "bad-token"})()
+    )
+    monkeypatch.setattr(api_client, "get_server_url", lambda: "https://server.test")
+    monkeypatch.setattr(api_client, "get_version", lambda: "1.2.3")
+
+    with pytest.raises(aiohttp.ClientResponseError) as error:
+        await api_client.APIClient().get_api_response("user", method="GET")
+
+    assert error.value.status == 401
     assert len(fake_session.calls) == 1
 
 

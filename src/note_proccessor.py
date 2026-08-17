@@ -31,16 +31,16 @@ from anki.notes import Note, NoteId
 from aqt import mw
 
 from .api_client import ClientFacingAPIError, OutOfCreditsError
-from .app_state import (
-    app_state,
-    has_api_key,
-    is_capacity_remaining,
-    is_capacity_remaining_or_legacy,
-)
+from .app_state import has_legacy_openai_access, is_capacity_remaining
 from .config import Config, bump_usage_counter
 from .constants import STANDARD_BATCH_LIMIT
 from .dag import generate_fields_dag
 from .field_resolver import FieldResolver
+from .generation_access import (
+    ensure_generation_available,
+    open_generation_blocked_ui,
+    refresh_account_after_generation_rejected,
+)
 from .logger import logger
 from .nodes import FieldNode
 from .sentry import run_async_in_background_with_sentry
@@ -106,9 +106,6 @@ class NoteProcessor:
 
         logger.debug("Processing notes...")
 
-        if not is_capacity_remaining_or_legacy(show_box=False):
-            return
-
         self.batch_in_progress = True
         self._cancelled.clear()
 
@@ -124,7 +121,7 @@ class NoteProcessor:
         def on_failure(e: Exception) -> None:
             self.batch_in_progress = False
             if isinstance(e, OutOfCreditsError):
-                app_state.update_subscription_state()
+                refresh_account_after_generation_rejected()
             else:
                 show_message_box(f"Error: {e}")
 
@@ -445,7 +442,7 @@ class NoteProcessor:
         logger.debug("Handling failure")
 
         if isinstance(e, OutOfCreditsError):
-            app_state.update_subscription_state()
+            refresh_account_after_generation_rejected()
             return
 
         if isinstance(e, ClientFacingAPIError):
@@ -469,19 +466,19 @@ class NoteProcessor:
                     logger.debug(
                         "Saw 4xx error, something wrong with some subscription"
                     )
-                    app_state.update_subscription_state()
+                    refresh_account_after_generation_rejected()
                     return
                 else:
                     logger.error(f"Got 500 error: {e}")
                     show_message_box(unknown_error)
-            elif has_api_key():
+            elif has_legacy_openai_access():
                 if status in openai_failure_map:
                     show_message_box(openai_failure_map[status])
                 else:
                     show_message_box(unknown_error)
             else:
                 logger.error("Got 4xx error but app is locked & no API key")
-                show_message_box(unknown_error)
+                open_generation_blocked_ui()
         else:
             logger.error(f"Got non-HTTP error: {e}")
             show_message_box(f"Smart Notes Error: Unknown error: {e}")
@@ -507,7 +504,7 @@ class NoteProcessor:
             self._check_cancel()
 
     def _assert_valid_app_mode(self) -> bool:
-        return is_capacity_remaining() or has_api_key()
+        return ensure_generation_available()
 
     async def _process_node(
         self, node: FieldNode, note: Note, show_error_message_box: bool

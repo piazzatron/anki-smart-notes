@@ -18,8 +18,9 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 from dataclasses import dataclass
-from typing import Union
+from typing import Optional, Union
 
+from anki.cards import CardId
 from anki.decks import DeckId
 
 from .providers import (
@@ -60,6 +61,42 @@ class GenerationDefaults:
     chat: ChatGenerationSettings
     tts: TTSGenerationSettings
     image: ImageGenerationSettings
+
+
+@dataclass(frozen=True)
+class TextPromptTestRequest:
+    """Validated text prompt test intent from the web UI."""
+
+    card_id: Optional[CardId]
+    prompt: str
+    settings: ChatGenerationSettings
+
+
+@dataclass(frozen=True)
+class ImagePromptTestRequest:
+    """Validated image prompt test intent from the web UI."""
+
+    card_id: Optional[CardId]
+    prompt: str
+    settings: ImageGenerationSettings
+
+
+@dataclass(frozen=True)
+class TTSPromptTestRequest:
+    """Validated voice test intent, optionally using a card for interpolation."""
+
+    card_id: Optional[CardId]
+    text: str
+    settings: TTSGenerationSettings
+
+
+@dataclass(frozen=True)
+class SaveTestResultRequest:
+    """Validated intent to write the last test result into a note field."""
+
+    token: str
+    card_id: CardId
+    field_name: str
 
 
 @dataclass(frozen=True)

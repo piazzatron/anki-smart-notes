@@ -21,6 +21,13 @@ set -e
 
 
 build () {
+  echo "Building web app..."
+  (
+    cd web
+    [ -d node_modules ] || bun install --frozen-lockfile
+    bun run build
+  )
+
   echo "Building..."
   rm -rf dist
   mkdir -p dist/vendor
@@ -236,7 +243,8 @@ launch-anki-sandbox () {
   wait "$ANKI_LAUNCH_PID"
 }
 
-# Main profile, live-linked dev source, local backend.
+# Main profile, live-linked dev source, local backend. The webview loads the
+# Vite dev server in dev builds — start it with `make web`.
 anki-local () {
   clean-links
   link-dev

@@ -1,0 +1,85 @@
+/*
+ * Copyright (C) 2024 Michael Piazza
+ *
+ * This file is part of Smart Notes.
+ *
+ * Smart Notes is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Smart Notes is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+import { describe, expect, test } from "bun:test"
+
+import type { CommandName, SmartField } from "@/types/api"
+
+const field: SmartField = {
+  id: "existing-smart-field-id",
+  noteTypeId: 10,
+  deckId: 1,
+  targetFieldName: "Meaning",
+  fieldType: "chat",
+  enabled: true,
+  settings: {
+    promptText: "Translate {{Front}}",
+    provider: "auto",
+    model: "auto",
+    reasoningLevel: "off",
+    webSearchEnabled: false,
+    usesDefaultGenerationSettings: true,
+  },
+}
+
+if (!("window" in globalThis)) {
+  Object.defineProperty(globalThis, "window", {
+    configurable: true,
+    value: { location: { search: "" } },
+  })
+}
+
+const { deleteSmartField, setCommandSender, setSmartFieldEnabled } =
+  await import("./commands")
+
+type ExpectedCommand = { command: CommandName; payload: object }
+type CommandCase = [string, () => Promise<void>, ExpectedCommand]
+
+describe("Smart Field commands", () => {
+  test.each([
+    [
+      "deletes with an id-only payload",
+      () => deleteSmartField(field),
+      { command: "smartFields.delete", payload: { id: field.id } },
+    ],
+    [
+      "updates enabled state by spreading the field",
+      () => setSmartFieldEnabled(field, false),
+      {
+        command: "smartFields.update",
+        payload: { ...field, enabled: false },
+      },
+    ],
+  ] satisfies CommandCase[])(
+    "%s",
+    async (_name, sendCommand, expectedCommand) => {
+      const sentCommands: ExpectedCommand[] = []
+      setCommandSender(
+        async <Result = void>(command: CommandName, payload: object) => {
+          sentCommands.push({ command, payload })
+          return undefined as Result
+        },
+      )
+
+      await sendCommand()
+
+      expect(sentCommands).toEqual([expectedCommand])
+    },
+  )
+})

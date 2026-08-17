@@ -20,260 +20,32 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """Helpful functions for working with prompts and cards"""
 
 import re
-from copy import deepcopy
-from typing import Optional, Union, cast
+from typing import Optional
 
-from anki.decks import DeckId
 from anki.notes import Note
 
 from .config import config
-from .constants import GLOBAL_DECK_ID
-from .decks import deck_id_to_name_map
 from .logger import logger
-from .models import (
-    DEFAULT_EXTRAS,
-    FieldExtras,
-    OverridableChatOptionsDict,
-    OverridableImageOptionsDict,
-    OverrideableTTSOptionsDict,
-    PromptMap,
-    SmartFieldType,
-    overridable_chat_options,
-    overridable_image_options,
-    overridable_tts_options,
-)
 from .prompt_fields import FIELD_PATTERN, get_prompt_fields
-from .smart_field_prompt_map import (
-    list_for_note_type,
-    list_prompt_map,
-)
 from .utils import to_lowercase_dict
-
-EXTRAS_DEFAULT_AUTOMATIC = True
-
-
-def get_prompts_for_note(
-    note_type: str,
-    deck_id: DeckId,
-    to_lower: bool = False,
-    override_prompts_map: Optional[PromptMap] = None,
-    fallback_to_global_deck: bool = True,
-) -> Optional[dict[str, str]]:
-    if override_prompts_map is None:
-        fields = {
-            field: prompt
-            for field, (prompt, _) in list_for_note_type(
-                note_type,
-                deck_id,
-                fallback_to_global_deck=fallback_to_global_deck,
-            ).items()
-        }
-        if to_lower:
-            return to_lowercase_dict(fields)
-        return fields
-
-    all_prompts = get_all_prompts(to_lower, override_prompts_map)
-    prompts_for_note_type = all_prompts.get(note_type, {})
-    deck_prompts = deepcopy(prompts_for_note_type.get(deck_id, {}))
-    global_prompts = deepcopy(prompts_for_note_type.get(GLOBAL_DECK_ID, {}))
-
-    # Add any missing global prompts
-    if fallback_to_global_deck:
-        for field, prompt in global_prompts.items():
-            if field not in deck_prompts:
-                deck_prompts[field] = prompt
-
-    return deck_prompts
-
-
-# If for some reason extras don't exist for this note type, return None
-def get_extras(
-    note_type: str,
-    field: str,
-    deck_id: DeckId,
-    prompts: Optional[PromptMap] = None,
-    fallback_to_global_deck: bool = True,
-) -> Optional[FieldExtras]:
-    if prompts is None:
-        smart_fields = list_for_note_type(
-            note_type,
-            deck_id,
-            fallback_to_global_deck=fallback_to_global_deck,
-        )
-        field_data = smart_fields.get(field) or smart_fields.get(field.lower())
-        return field_data[1] if field_data else None
-
-    # Lowercase the field names
-    deck_extras = to_lowercase_dict(
-        (prompts or config.prompts_map)["note_types"]  # type: ignore
-        .get(note_type, {})
-        .get(str(deck_id), {})
-        .get("extras", {})
-    )
-
-    global_extras = to_lowercase_dict(
-        (prompts or config.prompts_map)["note_types"]  # type: ignore
-        .get(note_type, {})
-        .get(str(GLOBAL_DECK_ID), {})
-        .get("extras", {})
-    )
-
-    return deck_extras.get(field.lower()) or (
-        global_extras.get(field.lower()) if fallback_to_global_deck else None
-    )
-
-
-def get_all_prompts(
-    to_lower: bool = False, override_prompts_map: Optional[PromptMap] = None
-) -> dict[str, dict[DeckId, dict[str, str]]]:
-    """Gets the prompts map. Maps note_type -> deck -> {field -> prompt}"""
-    if override_prompts_map is None:
-        override_prompts_map = list_prompt_map()
-
-    prompts_map = {
-        note_type: {
-            # Tricky str -> int convert here
-            cast(DeckId, int(deck)): dict(note_type_map.get("fields", {}))
-            for deck, note_type_map in decks_dict.items()
-        }
-        for note_type, decks_dict in (override_prompts_map or config.prompts_map)[
-            "note_types"
-        ].items()
-    }
-
-    # Lowercase just the field names
-    if to_lower:
-        prompts_map = {
-            note_type: {
-                deck: to_lowercase_dict(fields) for deck, fields in deck.items()
-            }
-            for note_type, deck in prompts_map.items()
-        }
-
-    return prompts_map
 
 
 def interpolate_prompt(prompt: str, note: Note) -> Optional[str]:
-    """Interpolates a prompt. Returns none if all source field are empty, or if some are empty and we're not allowing empty fields."""
-    # Bunch of extra logic to make this whole process case insensitive
-
+    """Interpolates a prompt. Returns none if required source fields are empty."""
     fields = get_prompt_fields(prompt)
     if not fields:
         return prompt
 
-    # field.lower() -> value map
     all_note_fields = to_lowercase_dict(note)  # type: ignore[arg-type]
 
-    # Lowercase field references inside {{}} while preserving cloze deletions
+    # Lowercase field references inside {{}} while preserving cloze deletions.
     prompt = re.sub(FIELD_PATTERN, lambda x: "{{" + x.group(1).lower() + "}}", prompt)
 
-    allow_empty = config.allow_empty_fields
-
-    # Sub values in prompt
     values = [all_note_fields.get(field, "") for field in fields]
-
-    if any(values) and (allow_empty or all(values)):
+    if any(values) and (config.allow_empty_fields or all(values)):
         for field, value in zip(fields, values):
             prompt = prompt.replace("{{" + field + "}}", value)
         return prompt
 
     logger.debug("Prompt has empty fields")
     return None
-
-
-def add_or_update_prompts(
-    prompts_map: PromptMap,
-    note_type: str,
-    deck_id: DeckId,
-    field: str,
-    prompt: str,
-    is_automatic: bool,
-    is_custom_model: bool,
-    type: SmartFieldType,
-    tts_options: OverrideableTTSOptionsDict,
-    chat_options: OverridableChatOptionsDict,
-    image_options: OverridableImageOptionsDict,
-) -> PromptMap:
-    new_prompts_map = deepcopy(prompts_map)
-
-    logger.debug(f"Trying to set prompt for {note_type}, {field}, {prompt}")
-
-    # If note type does not exist, add
-    if not new_prompts_map["note_types"].get(note_type):
-        new_prompts_map["note_types"][note_type] = {}
-
-    # If deck type does not exist within the note type, add
-    if not new_prompts_map["note_types"][note_type].get(str(deck_id)):
-        new_prompts_map["note_types"][note_type][str(deck_id)] = {
-            "fields": {},
-            "extras": {},
-        }
-
-    new_prompts_map["note_types"][note_type][str(deck_id)]["fields"][field] = prompt
-
-    # Write out extras
-    extras = (
-        get_extras(
-            prompts=new_prompts_map,
-            note_type=note_type,
-            field=field,
-            deck_id=deck_id,
-            fallback_to_global_deck=False,
-        )
-        or DEFAULT_EXTRAS
-    )
-
-    # Set common fields
-    extras["type"] = type
-    extras["automatic"] = is_automatic
-    extras["use_custom_model"] = is_custom_model
-
-    # If we're doing custom settings, write out extra config
-    if is_custom_model:
-        overrideable_options: Union[
-            OverridableChatOptionsDict,
-            OverridableImageOptionsDict,
-            OverrideableTTSOptionsDict,
-        ] = {  # type: ignore
-            "chat": chat_options,
-            "tts": tts_options,
-            "image": image_options,
-        }[type]
-
-        # Overwrite any extras fields if they have been passed in
-        for k, v in overrideable_options.items():
-            extras[k] = v if v is not None else extras[k]  # type: ignore
-
-    # Otherwise need to delete any custom config if it's not being used
-    else:
-        for k in (
-            overridable_chat_options
-            + overridable_tts_options
-            + overridable_image_options
-        ):
-            extras[k] = None
-
-    # Write em out
-    new_prompts_map["note_types"][note_type][str(deck_id)]["extras"][field] = extras
-    return new_prompts_map
-
-
-def remove_prompt(
-    prompts_map: PromptMap, note_type: str, deck_id: DeckId, field: str
-) -> PromptMap:
-    removed_map = deepcopy(prompts_map)
-
-    logger.debug(f"Removing {note_type}, {field}, {deck_id_to_name_map()[deck_id]}")
-
-    removed_map["note_types"][note_type][str(deck_id)]["fields"].pop(field)
-    removed_map["note_types"][note_type][str(deck_id)]["extras"].pop(field)
-
-    # If there are no more fields for this deck, pop the deck
-    if not len(removed_map["note_types"][note_type][str(deck_id)]["fields"]):
-        removed_map["note_types"][note_type].pop(str(deck_id))
-
-    # If no more decks for this note, pop the note
-    if not len(removed_map["note_types"][note_type]):
-        removed_map["note_types"].pop(note_type)
-
-    return removed_map
