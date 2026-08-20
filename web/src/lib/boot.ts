@@ -6,6 +6,7 @@ export type ScreenId =
   | "settings"
   | "subscription"
   | "support"
+  | "assistant"
 
 const SCREEN_IDS = new Set<ScreenId>([
   "fields",
@@ -15,6 +16,7 @@ const SCREEN_IDS = new Set<ScreenId>([
   "settings",
   "subscription",
   "support",
+  "assistant",
 ])
 
 interface BootOptions {

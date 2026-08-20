@@ -169,6 +169,13 @@ const BASE_STATE: AppState = {
     didDismissReviewPrompt: false,
     didDismissDiscordPrompt: false,
   },
+  assistantPrompts: [
+    {
+      id: "explain",
+      label: "Explain this card",
+      prompt: "Explain this card to me.",
+    },
+  ],
 }
 
 const withTrialPlan = (updates: Partial<PlanInfo>): PlanInfo => ({

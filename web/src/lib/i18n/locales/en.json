@@ -61,6 +61,7 @@
     "discord": "Discord",
     "feedback": "Feedback",
     "nav": {
+      "chat": "Chat",
       "defaultsImages": "Default Image Settings",
       "defaultsText": "Default Text Settings",
       "defaultsVoice": "Default Voice Settings",

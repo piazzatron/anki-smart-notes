@@ -34,6 +34,7 @@ from ...voice_catalog import get_voice_catalog
 from .models import (
     CHAT_REASONING_LEVELS,
     AccountDto,
+    AssistantPromptDto,
     ChatGenerationSettingsDto,
     ChatSmartFieldDto,
     ChatSmartFieldSettingsDto,
@@ -73,6 +74,7 @@ def build_state(
     auth_token: str | None,
     feature_flags: FeatureFlags,
     settings: SettingsDto,
+    assistant_prompts: list[AssistantPromptDto],
     app_version: str,
 ) -> StateDto:
     """The full `state` event payload. Whole-state push: every state event
@@ -111,6 +113,7 @@ def build_state(
         settings=settings,
         appVersion=app_version,
         defaults=build_generation_defaults(defaults),
+        assistantPrompts=assistant_prompts,
     )
 
 
@@ -152,6 +155,16 @@ def build_settings() -> SettingsDto:
     )
 
 
+def build_assistant_prompts() -> list[AssistantPromptDto]:
+    """The saved chat prompts, in wire form."""
+    return [
+        AssistantPromptDto(
+            id=prompt["id"], label=prompt["label"], prompt=prompt["prompt"]
+        )
+        for prompt in config.assistant_prompts
+    ]
+
+
 def build_catalog() -> dict[str, Any]:
     """Static model facts sent once when an SSE connection is established."""
     return {
@@ -191,6 +204,32 @@ def build_voice_catalog() -> VoiceCatalogDto:
             for voice in get_voice_catalog()
         ],
     )
+
+
+def build_reviewer_card_changed(
+    note: Note, card_id: int, deck_id: int
+) -> dict[str, Any]:
+    """`anki.reviewerCardChanged` payload. Only the first field's value rides
+    along; the assistant reads any other field on demand via assistant.getField,
+    because card values can be large."""
+    field_names = list(note.keys())
+    first_field_name = field_names[0] if field_names else ""
+
+    return {
+        "card": {
+            "cardId": card_id,
+            "noteTypeId": note.mid,
+            "deckId": deck_id,
+            "fieldNames": field_names,
+            "firstFieldName": first_field_name,
+            "firstFieldValue": note[first_field_name] if first_field_name else "",
+        }
+    }
+
+
+def build_reviewer_card_cleared() -> dict[str, Any]:
+    """`anki.reviewerCardChanged` payload for leaving the reviewer."""
+    return {"card": None}
 
 
 def build_selection_changed(

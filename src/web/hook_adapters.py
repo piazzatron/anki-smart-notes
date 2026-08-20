@@ -22,12 +22,19 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 from typing import Any, Optional
 
+from anki.cards import Card
 from anki.collection import OpChanges
 from aqt import gui_hooks, mw
 from aqt.browser.browser import Browser
+from aqt.main import MainWindowState
 
 from ..decks import rebuild_deck_cache
-from ..event_bus import BrowserSelectionChanged, StateInvalidated, event_bus
+from ..event_bus import (
+    BrowserSelectionChanged,
+    ReviewerCardChanged,
+    StateInvalidated,
+    event_bus,
+)
 from ..logger import logger
 from . import dto
 
@@ -35,6 +42,8 @@ from . import dto
 def setup_web_hooks() -> None:
     gui_hooks.browser_did_change_row.append(on_browser_row_changed)
     gui_hooks.operation_did_execute.append(on_operation_did_execute)
+    gui_hooks.reviewer_did_show_question.append(on_reviewer_did_show_question)
+    gui_hooks.state_did_change.append(on_state_did_change)
 
 
 def on_operation_did_execute(changes: OpChanges, handler: Optional[object]) -> None:
@@ -43,6 +52,24 @@ def on_operation_did_execute(changes: OpChanges, handler: Optional[object]) -> N
     if changes.notetype or changes.deck:
         rebuild_deck_cache()
         event_bus.publish(StateInvalidated())
+
+
+def on_reviewer_did_show_question(card: Card) -> None:
+    try:
+        event_bus.publish(
+            ReviewerCardChanged(
+                dto.build_reviewer_card_changed(card.note(), card.id, card.did)
+            )
+        )
+    except Exception as e:
+        # Reviewer eventing is best-effort; never break review over it.
+        logger.warning(f"Failed to publish reviewer card event: {e}")
+
+
+def on_state_did_change(new_state: MainWindowState, old_state: MainWindowState) -> None:
+    # The assistant is card-scoped, so leaving review clears its context.
+    if old_state == "review" and new_state != "review":
+        event_bus.publish(ReviewerCardChanged(dto.build_reviewer_card_cleared()))
 
 
 def on_browser_row_changed(browser: Browser) -> None:

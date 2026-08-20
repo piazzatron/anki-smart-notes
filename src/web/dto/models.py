@@ -23,6 +23,7 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING, Any, Literal, TypedDict, Union
 
 if TYPE_CHECKING:
+    from anki.cards import CardId
     from anki.decks import DeckId
 
     from ...models import (
@@ -168,6 +169,7 @@ class StateDto(TypedDict):
     settings: SettingsDto
     appVersion: str
     defaults: GenerationDefaultsDto
+    assistantPrompts: list[AssistantPromptDto]
 
 
 class VoiceCatalogDto(TypedDict):
@@ -250,3 +252,40 @@ class PromptGenerateRequest:
     target_field_name: str
     field_type: Literal["chat", "image"]
     generation_prompt: str
+
+
+# -- Assistant: the chat transcript journal. `message` is the exact wire-format
+# message the backend accepts, so a reopened session can continue rather than
+# only be re-read. --
+
+
+class AssistantPromptDto(TypedDict):
+    id: str
+    label: str
+    prompt: str
+
+
+class AssistantRecordDto(TypedDict):
+    sessionId: str
+    cardId: int | None
+    deckId: int | None
+    noteTypeId: int | None
+    seq: int
+    message: dict[str, Any]
+
+
+class AssistantHistoryDto(TypedDict):
+    records: list[AssistantRecordDto]
+    nextCursor: int | None
+
+
+@dataclass(frozen=True)
+class AssistantGetFieldRequest:
+    card_id: CardId
+    field_name: str
+
+
+@dataclass(frozen=True)
+class AssistantHistoryRequest:
+    limit: int
+    cursor: int | None

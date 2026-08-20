@@ -11,6 +11,7 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/Dialog"
+import { AssistantScreen } from "@/features/assistant/AssistantScreen"
 import { getInitialEditorRequest } from "@/dev/initialEditor"
 import { ImageDefaultsScreen } from "@/features/defaults/ImageDefaultsScreen"
 import { TextDefaultsScreen } from "@/features/defaults/TextDefaultsScreen"
@@ -52,6 +53,7 @@ const SmartFieldsRoute = ({ initialEditor }: SmartFieldsRouteProps) => {
 }
 
 const SCREENS: Partial<Record<ScreenId, ComponentType>> = {
+  assistant: AssistantScreen,
   settings: SettingsScreen,
   subscription: SubscriptionScreen,
   support: SupportScreen,
@@ -108,6 +110,11 @@ const App = () => {
 
     completeNavigation(screen)
   }
+
+  // Booting straight to the assistant means the separate assistant window,
+  // which is only the conversation: no shell, no nav, no takeovers. Reached
+  // through the sidebar it is an ordinary screen.
+  if (bootOptions.screen === "assistant") return <AssistantScreen />
 
   return (
     <>

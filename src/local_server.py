@@ -39,6 +39,7 @@ from .constants import SITE_URL_DEV
 from .decks import deck_id_to_name_map
 from .event_bus import (
     BrowserSelectionChanged,
+    ReviewerCardChanged,
     StateInvalidated,
     WebEvent,
     event_bus,
@@ -47,6 +48,7 @@ from .feature_flags import flags
 from .logger import logger
 from .sentry import sentry
 from .services import auth_service, settings_service
+from .services.assistant_journal import assistant_journal
 from .services.prompt_test_service import (
     prepare_image_prompt_test,
     prepare_text_prompt_test,
@@ -282,6 +284,14 @@ class LocalServer:
                     await response.write(
                         f"event: anki.browserSelectionChanged\ndata: {payload}\n\n".encode()
                     )
+                reviewer_cards = [
+                    e for e in events if isinstance(e, ReviewerCardChanged)
+                ]
+                if reviewer_cards:
+                    payload = json.dumps(reviewer_cards[-1].payload)
+                    await response.write(
+                        f"event: anki.reviewerCardChanged\ndata: {payload}\n\n".encode()
+                    )
                 if any(isinstance(e, StateInvalidated) for e in events):
                     await self._send_state(response)
         except (ConnectionResetError, ConnectionError):
@@ -305,6 +315,7 @@ class LocalServer:
                     auth_token=config.auth_token,
                     feature_flags=flags,
                     settings=dto.build_settings(),
+                    assistant_prompts=dto.build_assistant_prompts(),
                     app_version=get_version(),
                 )
             ),
@@ -419,6 +430,10 @@ def _run_save_settings(payload: dict[str, Any]) -> None:
     settings_service.save_settings(dto.parse_settings(payload))
 
 
+def _run_save_assistant_prompts(payload: dict[str, Any]) -> None:
+    settings_service.save_assistant_prompts(dto.parse_assistant_prompts(payload))
+
+
 async def _run_test_prompt(payload: dict[str, Any]) -> dict[str, str]:
     request = dto.parse_text_prompt_test(payload)
     context = await asyncio.get_running_loop().run_in_executor(
@@ -502,6 +517,31 @@ def _run_refresh_account(payload: dict[str, Any]) -> None:
     auth_service.refresh_account()
 
 
+def _run_assistant_get_field(payload: dict[str, Any]) -> dict[str, str]:
+    request = dto.parse_assistant_get_field(payload)
+    if not mw or not mw.col:
+        raise RuntimeError("Anki collection is unavailable")
+
+    note = mw.col.get_card(request.card_id).note()
+    field_names = list(note.keys())  # noqa: SIM118
+    if request.field_name not in field_names:
+        # Name the valid fields so the model self-corrects in one round trip.
+        raise ValueError(
+            f"Unknown field: {request.field_name}. "
+            f"Valid fields: {', '.join(field_names)}"
+        )
+    return {"value": note[request.field_name]}
+
+
+async def _run_assistant_append(payload: dict[str, Any]) -> dto.AssistantRecordDto:
+    return assistant_journal.append(dto.parse_assistant_append(payload))
+
+
+async def _run_assistant_history(payload: dict[str, Any]) -> dto.AssistantHistoryDto:
+    request = dto.parse_assistant_history(payload)
+    return assistant_journal.history(request.limit, request.cursor)
+
+
 def _run_open_browser(payload: dict[str, Any]) -> None:
     dto.parse_ui_open_browser(payload)
     open_anki_browser()
@@ -528,6 +568,10 @@ COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
     "auth.exchangeCode": _run_exchange_auth_code,
     "auth.logout": _run_logout,
     "ui.openBrowser": _run_open_browser,
+    "assistant.getField": _run_assistant_get_field,
+    "assistant.append": _run_assistant_append,
+    "assistant.history": _run_assistant_history,
+    "assistant.savePrompts": _run_save_assistant_prompts,
 }
 
 

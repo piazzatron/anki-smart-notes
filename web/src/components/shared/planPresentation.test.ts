@@ -32,6 +32,7 @@ const PLAN: NonNullable<AccountState["plan"]> = {
 
 const authenticated = (plan: PlanInfo = PLAN): AccountState => ({
   status: "AUTHENTICATED",
+  authToken: null,
   plan,
   email: "person@example.com",
   authToken: null,

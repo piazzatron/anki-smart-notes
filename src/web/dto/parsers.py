@@ -42,6 +42,10 @@ from ...models.smart_fields import (
 )
 from ...services.settings_service import Settings
 from .models import (
+    AssistantGetFieldRequest,
+    AssistantHistoryRequest,
+    AssistantPromptDto,
+    AssistantRecordDto,
     AuthExchangeCodePayload,
     ChatGenerationSettingsDto,
     ChatSmartFieldSettingsDto,
@@ -270,3 +274,59 @@ def _card_id(payload: dict[str, Any]) -> CardId:
 def _optional_card_id(payload: dict[str, Any]) -> CardId | None:
     card_id = payload.get("cardId")
     return None if card_id is None else cast(CardId, card_id)
+
+
+def parse_assistant_get_field(payload: dict[str, Any]) -> AssistantGetFieldRequest:
+    field_name = payload["fieldName"]
+    if not isinstance(field_name, str) or not field_name.strip():
+        raise ValueError("fieldName is required")
+    return AssistantGetFieldRequest(card_id=_card_id(payload), field_name=field_name)
+
+
+def parse_assistant_append(payload: dict[str, Any]) -> AssistantRecordDto:
+    session_id = payload["sessionId"]
+    if not isinstance(session_id, str) or not session_id:
+        raise ValueError("sessionId is required")
+    message = payload["message"]
+    if not isinstance(message, dict):
+        raise ValueError("message must be an object")
+
+    return AssistantRecordDto(
+        sessionId=session_id,
+        cardId=payload.get("cardId"),
+        deckId=payload.get("deckId"),
+        noteTypeId=payload.get("noteTypeId"),
+        seq=0,  # Assigned by the journal, which owns ordering.
+        message=message,
+    )
+
+
+def parse_assistant_prompts(payload: dict[str, Any]) -> list[AssistantPromptDto]:
+    prompts = payload["prompts"]
+    if not isinstance(prompts, list):
+        raise ValueError("prompts must be a list")
+
+    parsed: list[AssistantPromptDto] = []
+    for prompt in prompts:
+        label = prompt.get("label", "")
+        text = prompt.get("prompt", "")
+        if not isinstance(label, str) or not label.strip():
+            raise ValueError("every prompt needs a label")
+        if not isinstance(text, str) or not text.strip():
+            raise ValueError("every prompt needs prompt text")
+        parsed.append(
+            AssistantPromptDto(
+                id=prompt["id"], label=label.strip(), prompt=text.strip()
+            )
+        )
+    return parsed
+
+
+def parse_assistant_history(payload: dict[str, Any]) -> AssistantHistoryRequest:
+    limit = payload.get("limit", 50)
+    if not isinstance(limit, int) or limit <= 0:
+        raise ValueError("limit must be a positive integer")
+    cursor = payload.get("cursor")
+    if cursor is not None and not isinstance(cursor, int):
+        raise ValueError("cursor must be an integer")
+    return AssistantHistoryRequest(limit=min(limit, 200), cursor=cursor)

@@ -169,6 +169,7 @@ export interface AppState {
   featureFlags: FeatureFlags
   defaults: GenerationDefaults
   settings: Settings
+  assistantPrompts: AssistantPrompt[]
 }
 
 export interface CatalogModel {
@@ -235,6 +236,10 @@ export type CommandName =
   | "support.sendFeedback"
   | "auth.logout"
   | "ui.openBrowser"
+  | "assistant.getField"
+  | "assistant.append"
+  | "assistant.history"
+  | "assistant.savePrompts"
 
 export type SmartFieldCreatePayload =
   | Omit<Extract<SmartField, { fieldType: "chat" }>, "id">
@@ -319,4 +324,74 @@ export interface CommandResponse {
   ok: boolean
   error?: string
   result?: unknown
+}
+
+// -- Assistant --
+
+/** The card the reviewer is showing, from `anki.reviewerCardChanged`. */
+export interface ReviewerCard {
+  cardId: number
+  noteTypeId: number
+  deckId: number
+  fieldNames: string[]
+  firstFieldName: string
+  firstFieldValue: string
+}
+
+export interface ReviewerCardEvent {
+  card: ReviewerCard | null
+}
+
+/**
+ * One conversation entry, in the exact shape the backend accepts. Journaling
+ * the wire format means a reopened session can be continued, not just re-read.
+ */
+export type AssistantMessage =
+  | { role: "user" | "assistant"; content: string }
+  | { type: "function_call"; name: string; arguments: string; call_id: string }
+  | { type: "function_call_output"; call_id: string; output: string }
+
+export interface AssistantRecord {
+  sessionId: string
+  cardId: number | null
+  deckId: number | null
+  noteTypeId: number | null
+  seq: number
+  message: AssistantMessage
+}
+
+export type AssistantAppendPayload = Omit<AssistantRecord, "seq">
+
+export interface AssistantHistoryPayload {
+  limit: number
+  cursor: number | null
+}
+
+export interface AssistantHistoryResult {
+  records: AssistantRecord[]
+  nextCursor: number | null
+}
+
+export interface AssistantGetFieldPayload {
+  cardId: number
+  fieldName: string
+}
+
+export interface AssistantGetFieldResult {
+  value: string
+}
+
+/** Token spend for one completed turn, as reported by the backend. */
+export interface AssistantTurnUsage {
+  inputTokens: number
+  outputTokens: number
+  reasoningTokens?: number
+  credits: number
+}
+
+/** A saved prompt the chat surfaces as a one-click button. */
+export interface AssistantPrompt {
+  id: string
+  label: string
+  prompt: string
 }

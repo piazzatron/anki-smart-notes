@@ -55,8 +55,10 @@ from .utils.notes_utils import (
 )
 from .web.hook_adapters import setup_web_hooks
 from .web_app import (
+    close_assistant,
     close_web_app,
     ensure_local_server_started,
+    open_assistant,
     open_web_app,
     stop_local_server,
 )
@@ -281,6 +283,9 @@ def on_main_window(processor: NoteProcessor):
     options_action = QAction(native_action_text("open_smart_notes"), mw)
     options_action.triggered.connect(lambda _: open_web_app())
     smart_notes_menu.addAction(options_action)
+    assistant_action = QAction("Open Assistant", mw)
+    assistant_action.triggered.connect(lambda _: open_assistant())
+    smart_notes_menu.addAction(assistant_action)
     mw.form.menubar.addAction(smart_notes_menu.menuAction())
     mw.addonManager.setConfigAction(__name__, open_web_app)
 
@@ -394,6 +399,7 @@ def add_deck_option(
 @with_sentry
 def cleanup() -> None:
     event_bus.clear_browser_selection()
+    close_assistant()
     close_web_app()
     stop_local_server()
 

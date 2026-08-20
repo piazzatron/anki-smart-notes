@@ -20,6 +20,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import json
+from types import SimpleNamespace
 from typing import Any
 from unittest.mock import AsyncMock, MagicMock
 
@@ -299,6 +300,7 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
     )
     monkeypatch.setattr(dto, "build_state", build_state)
     monkeypatch.setattr(dto, "build_settings", lambda: fake_settings)
+    monkeypatch.setattr(dto, "build_assistant_prompts", list)
     monkeypatch.setattr(dto, "build_catalog", lambda: fake_catalog)
     monkeypatch.setattr(src.local_server, "get_version", lambda: "2.23.9")
 
@@ -322,6 +324,7 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
             auth_token="jwt-from-plugin-config",
             feature_flags=src.local_server.flags,
             settings=fake_settings,
+            assistant_prompts=[],
             app_version="2.23.9",
         )
 

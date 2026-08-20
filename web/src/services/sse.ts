@@ -1,6 +1,11 @@
 import { bootOptions } from "@/lib/boot"
 import { useAppStore } from "@/store/appStore"
-import type { AppState, Catalog, Selection } from "@/types/api"
+import type {
+  AppState,
+  Catalog,
+  ReviewerCardEvent,
+  Selection,
+} from "@/types/api"
 
 export const connectToAnki = (): (() => void) => {
   let source: EventSource | null = null
@@ -25,6 +30,12 @@ export const connectToAnki = (): (() => void) => {
 
     source.addEventListener("anki.browserSelectionChanged", (event) => {
       useAppStore.setState({ selection: JSON.parse(event.data) as Selection })
+    })
+
+    source.addEventListener("anki.reviewerCardChanged", (event) => {
+      useAppStore.setState({
+        reviewerCard: (JSON.parse(event.data) as ReviewerCardEvent).card,
+      })
     })
 
     source.onerror = () => {

@@ -1,4 +1,11 @@
 import type {
+  AssistantAppendPayload,
+  AssistantGetFieldPayload,
+  AssistantGetFieldResult,
+  AssistantHistoryPayload,
+  AssistantHistoryResult,
+  AssistantPrompt,
+  AssistantRecord,
   AuthExchangeCodePayload,
   ChatDefaultsSavePayload,
   CommandName,
@@ -126,6 +133,27 @@ export const saveTestResultToCard = async (
   payload: SaveTestResultPayload,
 ): Promise<void> => {
   await sendCommand("notes.saveTestResult", payload)
+}
+
+export const getAssistantField = async (
+  payload: AssistantGetFieldPayload,
+): Promise<AssistantGetFieldResult> =>
+  sendCommand<AssistantGetFieldResult>("assistant.getField", payload)
+
+export const appendAssistantRecord = async (
+  record: AssistantAppendPayload,
+): Promise<AssistantRecord> =>
+  sendCommand<AssistantRecord>("assistant.append", record)
+
+export const loadAssistantHistory = async (
+  payload: AssistantHistoryPayload,
+): Promise<AssistantHistoryResult> =>
+  sendCommand<AssistantHistoryResult>("assistant.history", payload)
+
+export const saveAssistantPrompts = async (
+  prompts: AssistantPrompt[],
+): Promise<void> => {
+  await sendCommand("assistant.savePrompts", { prompts })
 }
 
 export const openAnkiBrowser = async (): Promise<void> => {

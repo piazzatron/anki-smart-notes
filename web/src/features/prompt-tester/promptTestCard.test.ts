@@ -50,6 +50,7 @@ const ACCOUNT: AccountState = {
     subscriptionStatus: "active",
   },
   status: "AUTHENTICATED",
+  authToken: null,
   email: "person@example.com",
 }
 const DECKS = [{ id: 1, name: "Japanese" }]

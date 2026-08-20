@@ -23,9 +23,14 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
 from ..config import config
 from ..event_bus import republish_state
+
+if TYPE_CHECKING:
+    # Import-time only: `web.dto.parsers` imports Settings from this module.
+    from ..web.dto.models import AssistantPromptDto
 
 
 @republish_state
@@ -41,6 +46,16 @@ def save_settings(settings: Settings) -> None:
     config.show_wizard_completion = settings.show_wizard_completion
     config.did_dismiss_review_prompt = settings.did_dismiss_review_prompt
     config.did_dismiss_discord_prompt = settings.did_dismiss_discord_prompt
+
+
+@republish_state
+def save_assistant_prompts(prompts: list[AssistantPromptDto]) -> None:
+    """Persist the chat's saved prompt buttons and refresh connected webviews."""
+    # Config holds plain JSON, so the wire shape is rebuilt as ordinary dicts.
+    config.assistant_prompts = [
+        {"id": prompt["id"], "label": prompt["label"], "prompt": prompt["prompt"]}
+        for prompt in prompts
+    ]
 
 
 @dataclass(frozen=True)

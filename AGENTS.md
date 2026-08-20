@@ -24,7 +24,7 @@
 
 ## Web UI Visual Testing
 
-- For Smart Notes web UI layout and interaction verification, follow the shared `anki-ui-testing` skill at `../skills/anki-ui-testing/SKILL.md`.
+- For seeding Anki test data and verifying Smart Notes web UI layout and interaction, follow the shared `anki` skill at `../skills/anki/SKILL.md`.
 
 # Code Structure
 - This is a Python3 codebase which takes full advantage of strong typing for static analysis.

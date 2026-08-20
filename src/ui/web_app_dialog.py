@@ -62,7 +62,7 @@ class WebAppDialog(QDialog):
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
         app_url = QUrl(url)
-        self._web_view = _SmartNotesWebView(app_url, self)
+        self._web_view = SmartNotesWebView(app_url, self)
         # Media previews finish after an async provider request, outside the
         # original Run-button gesture. Allow the requested result to play.
         web_settings = self._web_view.settings()
@@ -107,7 +107,7 @@ class _SmartNotesWebPage(QWebEnginePage):
         )
 
 
-class _SmartNotesWebView(QWebEngineView):
+class SmartNotesWebView(QWebEngineView):
     """Create invisible child pages so target=_blank links reach our page policy."""
 
     def __init__(self, app_url: QUrl, parent: QWidget) -> None:
@@ -116,4 +116,4 @@ class _SmartNotesWebView(QWebEngineView):
         self.setPage(_SmartNotesWebPage(app_url, self))
 
     def createWindow(self, type: QWebEnginePage.WebWindowType) -> QWebEngineView:
-        return _SmartNotesWebView(self._app_url, self)
+        return SmartNotesWebView(self._app_url, self)

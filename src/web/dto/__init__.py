@@ -24,8 +24,11 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 from ...constants import GLOBAL_DECK_ID
 from .builders import (
+    build_assistant_prompts,
     build_catalog,
     build_generation_defaults,
+    build_reviewer_card_changed,
+    build_reviewer_card_cleared,
     build_selection_changed,
     build_selection_cleared,
     build_settings,
@@ -34,6 +37,9 @@ from .builders import (
 )
 from .models import (
     CHAT_REASONING_LEVELS,
+    AssistantHistoryDto,
+    AssistantPromptDto,
+    AssistantRecordDto,
     PromptGenerateRequest,
     SettingsDto,
     SmartFieldDto,
@@ -42,6 +48,10 @@ from .models import (
 )
 from .parsers import (
     parse_account_refresh,
+    parse_assistant_append,
+    parse_assistant_get_field,
+    parse_assistant_history,
+    parse_assistant_prompts,
     parse_auth_exchange_code,
     parse_auth_logout,
     parse_chat_generation_settings,
@@ -64,19 +74,29 @@ from .parsers import (
 __all__ = [
     "GLOBAL_DECK_ID",
     "CHAT_REASONING_LEVELS",
+    "AssistantHistoryDto",
+    "AssistantPromptDto",
+    "AssistantRecordDto",
     "PromptGenerateRequest",
     "SettingsDto",
     "SmartFieldDto",
     "StateDto",
     "VoiceCatalogDto",
+    "build_assistant_prompts",
     "build_catalog",
     "build_generation_defaults",
+    "build_reviewer_card_changed",
+    "build_reviewer_card_cleared",
     "build_selection_changed",
     "build_selection_cleared",
     "build_settings",
     "build_state",
     "build_voice_catalog",
     "parse_account_refresh",
+    "parse_assistant_append",
+    "parse_assistant_get_field",
+    "parse_assistant_history",
+    "parse_assistant_prompts",
     "parse_auth_exchange_code",
     "parse_auth_logout",
     "parse_chat_generation_settings",
