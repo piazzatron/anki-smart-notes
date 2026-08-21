@@ -15,6 +15,8 @@ interface PlanCardProps {
 
 const PLAN_ACTION_BUTTON_CLASS =
   "mt-3 block w-full rounded-lg border border-[#1fd47d]/60 bg-gradient-to-b from-[#4cf0a8] to-[#1fd47d] px-2 py-2.5 text-center text-xs font-extrabold text-[#06281a] shadow-[inset_0_1px_rgba(255,255,255,0.34),0_10px_22px_-8px_rgba(31,212,125,0.55)] transition hover:brightness-105"
+const TRIAL_ACTION_BUTTON_CLASS =
+  "mt-3 block w-full rounded-lg border border-indigo/40 bg-indigo/80 px-2 py-2.5 text-center text-xs font-extrabold text-white shadow-[inset_0_1px_rgba(255,255,255,0.24),0_10px_22px_-8px_rgba(124,141,255,0.42)] transition hover:bg-indigo/90"
 
 export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
   const presentation = getPlanPresentation(account)
@@ -107,10 +109,10 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
           trackClass="mt-2.5 bg-white/[0.08]"
         />
         <button
-          className={PLAN_ACTION_BUTTON_CLASS}
+          className={TRIAL_ACTION_BUTTON_CLASS}
           onClick={onOpenSubscription}
         >
-          ✨ Upgrade ✨
+          Upgrade
         </button>
       </section>
     )
