@@ -12,6 +12,7 @@ import type {
   SaveTestResultPayload,
   Settings,
   SmartField,
+  SmartFieldAnalyticsEvent,
   SmartFieldCreatePayload,
   SmartFieldDeletePayload,
   SmartFieldUpdatePayload,
@@ -106,6 +107,12 @@ export const exchangeAuthCode = async (code: string): Promise<void> => {
 
 export const refreshAccount = async (): Promise<void> => {
   await sendCommand("account.refresh", {})
+}
+
+export const trackAnalyticsEvent = async (
+  event: SmartFieldAnalyticsEvent,
+): Promise<void> => {
+  await sendCommand("analytics.track", event)
 }
 
 export const testTextPrompt = async (

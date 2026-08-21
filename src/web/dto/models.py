@@ -232,6 +232,18 @@ class AuthExchangeCodePayload(TypedDict):
     code: str
 
 
+AnalyticsEventName = Literal["smart_field_saved", "smart_field_completion_shown"]
+
+
+class AnalyticsEventPropertiesDto(TypedDict):
+    field_type: str
+
+
+class AnalyticsEventPayload(TypedDict):
+    event: str
+    properties: AnalyticsEventPropertiesDto
+
+
 @dataclass(frozen=True)
 class PromptGenerateRequest:
     note_type_id: int

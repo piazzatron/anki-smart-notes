@@ -42,6 +42,8 @@ from ...models.smart_fields import (
 )
 from ...services.settings_service import Settings
 from .models import (
+    AnalyticsEventName,
+    AnalyticsEventPayload,
     AuthExchangeCodePayload,
     ChatGenerationSettingsDto,
     ChatSmartFieldSettingsDto,
@@ -221,6 +223,21 @@ def parse_auth_exchange_code(payload: dict[str, Any]) -> str:
     if not code:
         raise ValueError("Please enter a code.")
     return code
+
+
+def parse_analytics_event(
+    payload: dict[str, Any],
+) -> tuple[AnalyticsEventName, dict[str, str]]:
+    raw = cast(AnalyticsEventPayload, payload)
+    event = raw["event"]
+    if event not in ("smart_field_saved", "smart_field_completion_shown"):
+        raise ValueError(f"Unknown analytics event: {event}")
+
+    field_type = raw["properties"]["field_type"]
+    if field_type not in ("chat", "tts", "image"):
+        raise ValueError(f"Unknown field_type: {field_type}")
+
+    return event, {"field_type": field_type}
 
 
 def parse_auth_logout(payload: object) -> None:

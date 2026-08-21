@@ -57,6 +57,7 @@ from .services.prompt_test_service import (
     save_test_result,
 )
 from .services.smart_field_service import smart_field_service
+from .telemetry import track_event
 from .ui.ui_utils import open_anki_browser
 from .utils import get_version
 from .utils.notes_utils import get_note_types_with_fields
@@ -506,6 +507,11 @@ def _run_open_browser(payload: dict[str, Any]) -> None:
     open_anki_browser()
 
 
+def _run_track_analytics_event(payload: dict[str, Any]) -> None:
+    event, properties = dto.parse_analytics_event(payload)
+    track_event(event, properties)
+
+
 # Command names are namespaced like event names (state, anki.*): the protocol
 # is typed messages in both directions over one channel each way.
 COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
@@ -527,6 +533,7 @@ COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
     "auth.exchangeCode": _run_exchange_auth_code,
     "auth.logout": _run_logout,
     "ui.openBrowser": _run_open_browser,
+    "analytics.track": _run_track_analytics_event,
 }
 
 

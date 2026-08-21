@@ -211,8 +211,10 @@ export const FieldEditorScreen = ({
           ) : controls.form.step === 3 ? (
             <div className="relative z-10 mx-auto w-full max-w-[800px] pt-[18px]">
               <StepDone
+                fieldType={controls.form.target.fieldType}
                 noteTypeName={targetNoteTypeName}
                 targetFieldName={controls.form.target.targetFieldName}
+                trackCreation={mode === "create"}
               />
             </div>
           ) : catalog === null ? (

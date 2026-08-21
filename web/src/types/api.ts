@@ -211,6 +211,7 @@ export type Selection = { note: SelectedNote } | { note: null; count: number }
 
 export type CommandName =
   | "account.refresh"
+  | "analytics.track"
   | "auth.exchangeCode"
   | "smartFields.create"
   | "smartFields.update"
@@ -242,6 +243,11 @@ export interface SmartFieldDeletePayload {
 
 export interface AuthExchangeCodePayload {
   code: string
+}
+
+export type SmartFieldAnalyticsEvent = {
+  event: "smart_field_saved" | "smart_field_completion_shown"
+  properties: { field_type: SmartField["fieldType"] }
 }
 
 export type GenerationDefaultsSavePayload = GenerationDefaults

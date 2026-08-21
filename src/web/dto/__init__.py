@@ -42,6 +42,7 @@ from .models import (
 )
 from .parsers import (
     parse_account_refresh,
+    parse_analytics_event,
     parse_auth_exchange_code,
     parse_auth_logout,
     parse_chat_generation_settings,
@@ -77,6 +78,7 @@ __all__ = [
     "build_state",
     "build_voice_catalog",
     "parse_account_refresh",
+    "parse_analytics_event",
     "parse_auth_exchange_code",
     "parse_auth_logout",
     "parse_chat_generation_settings",

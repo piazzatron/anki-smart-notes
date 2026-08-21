@@ -24,6 +24,7 @@ import {
   createSmartField,
   generatePrompt,
   saveSettings,
+  trackAnalyticsEvent,
   updateSmartField,
 } from "@/services/commands"
 import type {
@@ -170,6 +171,12 @@ export const useFieldEditor = ({
         await updateSmartField({ ...payload, id: field.id })
       } else {
         await createSmartField(payload)
+        if (mode === "create") {
+          await trackAnalyticsEvent({
+            event: "smart_field_saved",
+            properties: { field_type: form.target.fieldType },
+          }).catch(() => undefined)
+        }
       }
       if (mode === "edit" || !state.settings.showWizardCompletion) {
         onClose()
