@@ -19,46 +19,53 @@
 
 import type { SmartField } from "@/types/api"
 
-interface TrackSmartFieldActivationArgs {
+export type AnalyticsEvent =
+  | {
+      event: "smart_field_saved"
+      properties: { field_type: SmartField["fieldType"] }
+    }
+  | {
+      event: "smart_field_completion_shown"
+      properties: { field_type: SmartField["fieldType"] }
+    }
+
+interface TrackAnalyticsEventArgs {
   appVersion: string
   authToken: string | null
-  fieldType: SmartField["fieldType"]
+  event: AnalyticsEvent
 }
 
-export const trackSmartFieldSaved = (
-  args: TrackSmartFieldActivationArgs,
-): Promise<void> => trackAnalyticsEvent({ ...args, event: "smart_field_saved" })
-
-export const trackSmartFieldCompletionShown = (
-  args: TrackSmartFieldActivationArgs,
-): Promise<void> =>
-  trackAnalyticsEvent({ ...args, event: "smart_field_completion_shown" })
-
-interface TrackAnalyticsEventArgs extends TrackSmartFieldActivationArgs {
-  event: "smart_field_saved" | "smart_field_completion_shown"
-}
-
-const trackAnalyticsEvent = async ({
+export const trackAnalyticsEvent = async ({
   appVersion,
   authToken,
   event,
-  fieldType,
 }: TrackAnalyticsEventArgs): Promise<void> => {
   if (authToken === null) return
 
-  await fetch(`${SERVER_URL}/api/events`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${authToken}`,
-      "Content-Type": "application/json",
-      "x-sn-plugin-version": appVersion,
-      "x-sn-source": "anki-plugin",
-    },
-    body: JSON.stringify({
-      event,
-      properties: { field_type: fieldType },
-    }),
-  })
+  try {
+    const response = await fetch(`${SERVER_URL}/api/events`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+        "Content-Type": "application/json",
+        "x-sn-plugin-version": appVersion,
+        "x-sn-source": "anki-plugin",
+      },
+      body: JSON.stringify(event),
+    })
+
+    if (!response.ok) {
+      console.debug("Analytics event request failed", {
+        event: event.event,
+        status: response.status,
+      })
+    }
+  } catch (error) {
+    console.debug("Analytics event request failed", {
+      error,
+      event: event.event,
+    })
+  }
 }
 
 const SERVER_URL = import.meta.env.DEV

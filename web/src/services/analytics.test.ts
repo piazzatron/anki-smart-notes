@@ -19,42 +19,44 @@
 
 import { afterEach, describe, expect, mock, test } from "bun:test"
 
-import {
-  trackSmartFieldCompletionShown,
-  trackSmartFieldSaved,
-} from "./analytics"
+import { trackAnalyticsEvent, type AnalyticsEvent } from "./analytics"
 
 const originalFetch = global.fetch
+const originalConsoleDebug = console.debug
 
 afterEach(() => {
   global.fetch = originalFetch
+  console.debug = originalConsoleDebug
 })
 
-describe("Smart Field activation analytics", () => {
+const EVENTS: AnalyticsEvent[] = [
+  {
+    event: "smart_field_saved",
+    properties: { field_type: "chat" },
+  },
+  {
+    event: "smart_field_completion_shown",
+    properties: { field_type: "tts" },
+  },
+]
+
+describe("trackAnalyticsEvent", () => {
   test.each([
-    {
-      expectedEvent: "smart_field_saved",
-      fieldType: "chat" as const,
-      track: trackSmartFieldSaved,
-    },
-    {
-      expectedEvent: "smart_field_completion_shown",
-      fieldType: "tts" as const,
-      track: trackSmartFieldCompletionShown,
-    },
+    ["smart_field_saved", EVENTS[0]],
+    ["smart_field_completion_shown", EVENTS[1]],
   ])(
-    "posts $expectedEvent to the authenticated Smart Notes event endpoint",
-    async ({ expectedEvent, fieldType, track }) => {
+    "posts %s to the authenticated Smart Notes event endpoint",
+    async (_name, event) => {
       const requests: Array<{ init: RequestInit; url: string }> = []
       global.fetch = mock(async (url: string, init: RequestInit) => {
         requests.push({ init, url })
         return new Response(null, { status: 204 })
       }) as unknown as typeof fetch
 
-      await track({
+      await trackAnalyticsEvent({
         appVersion: "2.24.0",
         authToken: "plugin-jwt",
-        fieldType,
+        event,
       })
 
       expect(requests).toHaveLength(1)
@@ -69,10 +71,7 @@ describe("Smart Field activation analytics", () => {
           "x-sn-source": "anki-plugin",
         }),
       )
-      expect(JSON.parse(init.body as string)).toEqual({
-        event: expectedEvent,
-        properties: { field_type: fieldType },
-      })
+      expect(JSON.parse(init.body as string)).toEqual(event)
     },
   )
 
@@ -80,12 +79,44 @@ describe("Smart Field activation analytics", () => {
     const fetchMock = mock(async () => new Response(null, { status: 204 }))
     global.fetch = fetchMock as unknown as typeof fetch
 
-    await trackSmartFieldSaved({
+    await trackAnalyticsEvent({
       appVersion: "2.24.0",
       authToken: null,
-      fieldType: "image",
+      event: EVENTS[0],
     })
 
     expect(fetchMock).not.toHaveBeenCalled()
+  })
+
+  test("does not reject when the backend rejects an event", async () => {
+    const debugMock = mock()
+    console.debug = debugMock
+    global.fetch = mock(
+      async () => new Response(null, { status: 400 }),
+    ) as unknown as typeof fetch
+
+    await trackAnalyticsEvent({
+      appVersion: "2.24.0",
+      authToken: "plugin-jwt",
+      event: EVENTS[0],
+    })
+
+    expect(debugMock).toHaveBeenCalledTimes(1)
+  })
+
+  test("does not reject when the request fails", async () => {
+    const debugMock = mock()
+    console.debug = debugMock
+    global.fetch = mock(async () => {
+      throw new Error("network unavailable")
+    }) as unknown as typeof fetch
+
+    await trackAnalyticsEvent({
+      appVersion: "2.24.0",
+      authToken: "plugin-jwt",
+      event: EVENTS[1],
+    })
+
+    expect(debugMock).toHaveBeenCalledTimes(1)
   })
 })

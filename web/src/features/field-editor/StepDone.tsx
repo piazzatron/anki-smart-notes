@@ -20,7 +20,7 @@
 import type { CSSProperties } from "react"
 import { useEffect, useRef } from "react"
 
-import { trackSmartFieldCompletionShown } from "@/services/analytics"
+import { trackAnalyticsEvent } from "@/services/analytics"
 import type { SmartField } from "@/types/api"
 
 import generateFieldImage from "./assets/generate-field.png"
@@ -133,11 +133,14 @@ const CompletionTelemetry = ({
     if (!trackCreation || didTrackCompletion.current) return
 
     didTrackCompletion.current = true
-    void trackSmartFieldCompletionShown({
+    void trackAnalyticsEvent({
       appVersion,
       authToken,
-      fieldType,
-    }).catch(() => undefined)
+      event: {
+        event: "smart_field_completion_shown",
+        properties: { field_type: fieldType },
+      },
+    })
   }, [appVersion, authToken, fieldType, trackCreation])
 
   return null
