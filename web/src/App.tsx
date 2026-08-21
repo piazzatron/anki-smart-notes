@@ -32,6 +32,7 @@ const LOADING_ACCOUNT: AccountState = {
   status: "LOADING",
   plan: null,
   email: null,
+  authToken: null,
 }
 
 interface SmartFieldsRouteProps {

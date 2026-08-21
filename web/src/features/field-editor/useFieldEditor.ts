@@ -20,6 +20,7 @@
 import { useState } from "react"
 
 import { errorMessage } from "@/lib/errors"
+import { trackAnalyticsEvent } from "@/services/analytics"
 import {
   createSmartField,
   generatePrompt,
@@ -170,6 +171,12 @@ export const useFieldEditor = ({
         await updateSmartField({ ...payload, id: field.id })
       } else {
         await createSmartField(payload)
+        if (mode === "create") {
+          void trackAnalyticsEvent({
+            event: "smart_field_saved",
+            properties: { field_type: form.target.fieldType },
+          })
+        }
       }
       if (mode === "edit" || !state.settings.showWizardCompletion) {
         onClose()

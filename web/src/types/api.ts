@@ -45,7 +45,10 @@ export interface PlanInfo {
   totalCreditsCapacity: number
 }
 
-export type AccountState =
+export type AccountState = {
+  /** The Smart Notes backend JWT used for direct authenticated API requests. */
+  authToken: string | null
+} & (
   | {
       status: "LOADING" | "UNAUTHENTICATED"
       plan: null
@@ -56,6 +59,7 @@ export type AccountState =
       plan: PlanInfo
       email: string
     }
+)
 
 export interface ChatSmartFieldSettings {
   promptText: string

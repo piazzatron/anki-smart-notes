@@ -302,6 +302,7 @@ class LocalServer:
                     decks=deck_id_to_name_map(),
                     smart_fields=smart_field_service.get_all_smart_fields(),
                     account=app_state.state,
+                    auth_token=config.auth_token,
                     feature_flags=flags,
                     settings=dto.build_settings(),
                     app_version=get_version(),

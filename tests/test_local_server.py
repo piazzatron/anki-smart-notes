@@ -292,6 +292,11 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
         "app_state",
         MagicMock(state=fake_account),
     )
+    monkeypatch.setattr(
+        src.local_server,
+        "config",
+        MagicMock(auth_token="jwt-from-plugin-config"),
+    )
     monkeypatch.setattr(dto, "build_state", build_state)
     monkeypatch.setattr(dto, "build_settings", lambda: fake_settings)
     monkeypatch.setattr(dto, "build_catalog", lambda: fake_catalog)
@@ -314,6 +319,7 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
             decks=fake_decks,
             smart_fields=fake_smart_fields,
             account=fake_account,
+            auth_token="jwt-from-plugin-config",
             feature_flags=src.local_server.flags,
             settings=fake_settings,
             app_version="2.23.9",
