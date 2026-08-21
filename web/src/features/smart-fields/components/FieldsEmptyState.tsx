@@ -1,4 +1,10 @@
-export const FieldsEmptyState = () => (
+import { Button } from "@/components/ui/Button"
+
+interface FieldsEmptyStateProps {
+  onCreate: () => void
+}
+
+export const FieldsEmptyState = ({ onCreate }: FieldsEmptyStateProps) => (
   <div className="smart-fields-empty">
     <div aria-hidden className="smart-fields-empty-illustration">
       <span className="smart-fields-empty-spark smart-fields-empty-spark-one">
@@ -38,5 +44,12 @@ export const FieldsEmptyState = () => (
     <p className="smart-fields-empty-copy">
       Add Smart Fields to add text, audio, and images to your cards.
     </p>
+    <Button
+      className="smart-fields-empty-cta mt-5 h-auto shrink-0 !rounded-lg !border-[#1fd47d]/60 !bg-gradient-to-b !from-[#4cf0a8] !to-[#1fd47d] !px-8 !py-4 !text-base !font-extrabold !text-[#06281a] hover:!border-[#1fd47d]/60 hover:brightness-105"
+      onClick={onCreate}
+      variant="success"
+    >
+      New Smart Field
+    </Button>
   </div>
 )

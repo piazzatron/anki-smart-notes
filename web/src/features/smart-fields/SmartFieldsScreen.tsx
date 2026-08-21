@@ -1,4 +1,3 @@
-import { Plus } from "lucide-react"
 import { useMemo, useState } from "react"
 
 import { selectBannerPrompt } from "./bannerPrompt"
@@ -95,7 +94,6 @@ export const SmartFieldsScreen = ({
             onClick={() => setEditorState({ mode: "create" })}
             variant="success"
           >
-            <Plus aria-hidden className="size-4" />
             New Smart Field
           </Button>
         }
@@ -121,7 +119,9 @@ export const SmartFieldsScreen = ({
         {state === null ? (
           <FieldsSkeleton />
         ) : state.smartFields.length === 0 ? (
-          <FieldsEmptyState />
+          <FieldsEmptyState
+            onCreate={() => setEditorState({ mode: "create" })}
+          />
         ) : (
           <div>
             {groups.map((group) => (
