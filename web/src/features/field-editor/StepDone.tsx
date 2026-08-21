@@ -28,8 +28,6 @@ import generateInBrowserImage from "./assets/generate-in-browser.png"
 import generateNoteImage from "./assets/generate-note.png"
 
 interface StepDoneProps {
-  appVersion: string
-  authToken: string | null
   fieldType: SmartField["fieldType"]
   noteTypeName: string
   targetFieldName: string
@@ -119,14 +117,9 @@ export const CompletionConfetti = () => (
 )
 
 const CompletionTelemetry = ({
-  appVersion,
-  authToken,
   fieldType,
   trackCreation,
-}: Pick<
-  StepDoneProps,
-  "appVersion" | "authToken" | "fieldType" | "trackCreation"
->) => {
+}: Pick<StepDoneProps, "fieldType" | "trackCreation">) => {
   const didTrackCompletion = useRef(false)
 
   useEffect(() => {
@@ -134,33 +127,22 @@ const CompletionTelemetry = ({
 
     didTrackCompletion.current = true
     void trackAnalyticsEvent({
-      appVersion,
-      authToken,
-      event: {
-        event: "smart_field_completion_shown",
-        properties: { field_type: fieldType },
-      },
+      event: "smart_field_completion_shown",
+      properties: { field_type: fieldType },
     })
-  }, [appVersion, authToken, fieldType, trackCreation])
+  }, [fieldType, trackCreation])
 
   return null
 }
 
 export const StepDone = ({
-  appVersion,
-  authToken,
   fieldType,
   noteTypeName,
   targetFieldName,
   trackCreation,
 }: StepDoneProps) => (
   <div>
-    <CompletionTelemetry
-      appVersion={appVersion}
-      authToken={authToken}
-      fieldType={fieldType}
-      trackCreation={trackCreation}
-    />
+    <CompletionTelemetry fieldType={fieldType} trackCreation={trackCreation} />
     <div className="text-center">
       <h2 className="text-[27px] leading-[1.1] font-extrabold tracking-[-0.8px] text-[#f6f6f8]">
         Your Smart Field is live

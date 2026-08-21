@@ -19,14 +19,19 @@
 
 import { afterEach, describe, expect, mock, test } from "bun:test"
 
+import { useAppStore } from "@/store/appStore"
+import type { AccountState, AppState, PlanInfo } from "@/types/api"
+
 import { trackAnalyticsEvent, type AnalyticsEvent } from "./analytics"
 
 const originalFetch = global.fetch
 const originalConsoleDebug = console.debug
+const originalStore = useAppStore.getState()
 
 afterEach(() => {
   global.fetch = originalFetch
   console.debug = originalConsoleDebug
+  useAppStore.setState(originalStore, true)
 })
 
 const EVENTS: AnalyticsEvent[] = [
@@ -40,6 +45,72 @@ const EVENTS: AnalyticsEvent[] = [
   },
 ]
 
+const TEST_PLAN: PlanInfo = {
+  planId: "free",
+  planType: "trial",
+  planName: "Free Trial",
+  notesUsed: 0,
+  notesLimit: 50,
+  daysLeft: 7,
+  textCreditsUsed: 0,
+  textCreditsCapacity: 100,
+  voiceCreditsUsed: 0,
+  voiceCreditsCapacity: 100,
+  imageCreditsUsed: 0,
+  imageCreditsCapacity: 100,
+  totalCreditsUsed: 0,
+  totalCreditsCapacity: 300,
+}
+
+const stateWithAccount = (
+  account: AccountState,
+  appVersion = "2.24.0",
+): AppState => ({
+  appVersion,
+  smartFields: [],
+  noteTypes: [],
+  decks: [],
+  globalDeckId: 1,
+  account,
+  featureFlags: { reviewFreeMonth: false },
+  defaults: {
+    chat: {
+      provider: "auto",
+      model: "auto",
+      reasoningLevel: "off",
+      webSearchEnabled: false,
+    },
+    tts: { provider: "google", model: "standard", voiceId: "voice" },
+    image: { provider: "openai", model: "gpt-image-1.5-low" },
+  },
+  settings: {
+    generateAtReview: false,
+    regenerateWhenBatching: false,
+    debug: false,
+    legacyOpenAiEnabled: false,
+    legacyOpenAiKey: null,
+    legacyOpenAiModel: "gpt-5-mini",
+    legacyOpenAiHost: null,
+    showWizardCompletion: true,
+    didDismissReviewPrompt: false,
+    didDismissDiscordPrompt: false,
+  },
+})
+
+const setAuthenticatedState = () => {
+  useAppStore.setState({
+    state: stateWithAccount(
+      {
+        status: "AUTHENTICATED",
+        plan: TEST_PLAN,
+        email: "test@example.com",
+        authToken: "current-plugin-jwt",
+      },
+      "2.24.7",
+    ),
+  })
+}
+
 describe("trackAnalyticsEvent", () => {
   test.each([
     ["smart_field_saved", EVENTS[0]],
@@ -47,17 +118,14 @@ describe("trackAnalyticsEvent", () => {
   ])(
     "posts %s to the authenticated Smart Notes event endpoint",
     async (_name, event) => {
+      setAuthenticatedState()
       const requests: Array<{ init: RequestInit; url: string }> = []
       global.fetch = mock(async (url: string, init: RequestInit) => {
         requests.push({ init, url })
         return new Response(null, { status: 204 })
       }) as unknown as typeof fetch
 
-      await trackAnalyticsEvent({
-        appVersion: "2.24.0",
-        authToken: "plugin-jwt",
-        event,
-      })
+      await trackAnalyticsEvent(event)
 
       expect(requests).toHaveLength(1)
       const [{ init, url }] = requests
@@ -65,9 +133,9 @@ describe("trackAnalyticsEvent", () => {
       expect(init.method).toBe("POST")
       expect(new Headers(init.headers)).toEqual(
         new Headers({
-          Authorization: "Bearer plugin-jwt",
+          Authorization: "Bearer current-plugin-jwt",
           "Content-Type": "application/json",
-          "x-sn-plugin-version": "2.24.0",
+          "x-sn-plugin-version": "2.24.7",
           "x-sn-source": "anki-plugin",
         }),
       )
@@ -75,47 +143,55 @@ describe("trackAnalyticsEvent", () => {
     },
   )
 
-  test("does nothing when the user is signed out", async () => {
+  test("does nothing before the app state has loaded", async () => {
+    useAppStore.setState({ state: null })
     const fetchMock = mock(async () => new Response(null, { status: 204 }))
     global.fetch = fetchMock as unknown as typeof fetch
 
-    await trackAnalyticsEvent({
-      appVersion: "2.24.0",
-      authToken: null,
-      event: EVENTS[0],
+    await trackAnalyticsEvent(EVENTS[0])
+
+    expect(fetchMock).not.toHaveBeenCalled()
+  })
+
+  test("does nothing when the user is signed out", async () => {
+    useAppStore.setState({
+      state: stateWithAccount({
+        status: "UNAUTHENTICATED",
+        plan: null,
+        email: null,
+        authToken: null,
+      }),
     })
+    const fetchMock = mock(async () => new Response(null, { status: 204 }))
+    global.fetch = fetchMock as unknown as typeof fetch
+
+    await trackAnalyticsEvent(EVENTS[0])
 
     expect(fetchMock).not.toHaveBeenCalled()
   })
 
   test("does not reject when the backend rejects an event", async () => {
+    setAuthenticatedState()
     const debugMock = mock()
     console.debug = debugMock
     global.fetch = mock(
       async () => new Response(null, { status: 400 }),
     ) as unknown as typeof fetch
 
-    await trackAnalyticsEvent({
-      appVersion: "2.24.0",
-      authToken: "plugin-jwt",
-      event: EVENTS[0],
-    })
+    await trackAnalyticsEvent(EVENTS[0])
 
     expect(debugMock).toHaveBeenCalledTimes(1)
   })
 
   test("does not reject when the request fails", async () => {
+    setAuthenticatedState()
     const debugMock = mock()
     console.debug = debugMock
     global.fetch = mock(async () => {
       throw new Error("network unavailable")
     }) as unknown as typeof fetch
 
-    await trackAnalyticsEvent({
-      appVersion: "2.24.0",
-      authToken: "plugin-jwt",
-      event: EVENTS[1],
-    })
+    await trackAnalyticsEvent(EVENTS[1])
 
     expect(debugMock).toHaveBeenCalledTimes(1)
   })

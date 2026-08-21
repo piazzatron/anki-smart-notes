@@ -17,6 +17,7 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { useAppStore } from "@/store/appStore"
 import type { SmartField } from "@/types/api"
 
 export type AnalyticsEvent =
@@ -29,26 +30,19 @@ export type AnalyticsEvent =
       properties: { field_type: SmartField["fieldType"] }
     }
 
-interface TrackAnalyticsEventArgs {
-  appVersion: string
-  authToken: string | null
-  event: AnalyticsEvent
-}
-
-export const trackAnalyticsEvent = async ({
-  appVersion,
-  authToken,
-  event,
-}: TrackAnalyticsEventArgs): Promise<void> => {
-  if (authToken === null) return
+export const trackAnalyticsEvent = async (
+  event: AnalyticsEvent,
+): Promise<void> => {
+  const state = useAppStore.getState().state
+  if (state === null || state.account.authToken === null) return
 
   try {
     const response = await fetch(`${SERVER_URL}/api/events`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${authToken}`,
+        Authorization: `Bearer ${state.account.authToken}`,
         "Content-Type": "application/json",
-        "x-sn-plugin-version": appVersion,
+        "x-sn-plugin-version": state.appVersion,
         "x-sn-source": "anki-plugin",
       },
       body: JSON.stringify(event),

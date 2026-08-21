@@ -173,12 +173,8 @@ export const useFieldEditor = ({
         await createSmartField(payload)
         if (mode === "create") {
           void trackAnalyticsEvent({
-            appVersion: state.appVersion,
-            authToken: state.account.authToken,
-            event: {
-              event: "smart_field_saved",
-              properties: { field_type: form.target.fieldType },
-            },
+            event: "smart_field_saved",
+            properties: { field_type: form.target.fieldType },
           })
         }
       }
