@@ -187,6 +187,8 @@ export const useAssistantSession = (
             authToken,
             model,
             reasoningLevel,
+            responseLanguage:
+              state?.assistantSettings.responseLanguage ?? "auto",
             showReasoning,
             messages: [...sessionMessages, userMessage],
             context: buildAssistantContext(reviewerCard, state),

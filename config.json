@@ -19,12 +19,5 @@
   "did_migrate_smart_fields_to_sqlite": false,
   "show_wizard_completion": true,
   "did_dismiss_review_prompt": false,
-  "did_dismiss_discord_prompt": false,
-  "assistant_prompts": [
-    {
-      "id": "explain-this-card",
-      "label": "Explain this card",
-      "prompt": "Explain this card to me."
-    }
-  ]
+  "did_dismiss_discord_prompt": false
 }

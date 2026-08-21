@@ -40,11 +40,12 @@ from ...models.smart_fields import (
     TTSPromptTestRequest,
     TTSSmartFieldSettings,
 )
+from ...services.assistant_prompt_service import AssistantPrompt
+from ...services.assistant_settings_service import AssistantSettings
 from ...services.settings_service import Settings
 from .models import (
     AssistantGetFieldRequest,
     AssistantHistoryRequest,
-    AssistantPromptDto,
     AssistantRecordDto,
     AuthExchangeCodePayload,
     ChatGenerationSettingsDto,
@@ -301,12 +302,19 @@ def parse_assistant_append(payload: dict[str, Any]) -> AssistantRecordDto:
     )
 
 
-def parse_assistant_prompts(payload: dict[str, Any]) -> list[AssistantPromptDto]:
+def parse_assistant_settings(payload: dict[str, Any]) -> AssistantSettings:
+    language = payload["responseLanguage"]
+    if not isinstance(language, str) or not language.strip():
+        raise ValueError("responseLanguage is required")
+    return AssistantSettings(response_language=language)
+
+
+def parse_assistant_prompts(payload: dict[str, Any]) -> list[AssistantPrompt]:
     prompts = payload["prompts"]
     if not isinstance(prompts, list):
         raise ValueError("prompts must be a list")
 
-    parsed: list[AssistantPromptDto] = []
+    parsed: list[AssistantPrompt] = []
     for prompt in prompts:
         label = prompt.get("label", "")
         text = prompt.get("prompt", "")
@@ -315,9 +323,7 @@ def parse_assistant_prompts(payload: dict[str, Any]) -> list[AssistantPromptDto]
         if not isinstance(text, str) or not text.strip():
             raise ValueError("every prompt needs prompt text")
         parsed.append(
-            AssistantPromptDto(
-                id=prompt["id"], label=label.strip(), prompt=text.strip()
-            )
+            AssistantPrompt(id=prompt["id"], label=label.strip(), prompt=text.strip())
         )
     return parsed
 

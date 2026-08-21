@@ -170,6 +170,7 @@ class StateDto(TypedDict):
     appVersion: str
     defaults: GenerationDefaultsDto
     assistantPrompts: list[AssistantPromptDto]
+    assistantSettings: AssistantSettingsDto
 
 
 class VoiceCatalogDto(TypedDict):
@@ -257,6 +258,10 @@ class PromptGenerateRequest:
 # -- Assistant: the chat transcript journal. `message` is the exact wire-format
 # message the backend accepts, so a reopened session can continue rather than
 # only be re-read. --
+
+
+class AssistantSettingsDto(TypedDict):
+    responseLanguage: str
 
 
 class AssistantPromptDto(TypedDict):

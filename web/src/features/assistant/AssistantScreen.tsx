@@ -13,7 +13,6 @@ import { ChatModelSelect } from "@/features/text-generation/ChatModelSelect"
 import { ReasoningLevelSelect } from "@/features/text-generation/ReasoningLevelSelect"
 import { useAppStore } from "@/store/appStore"
 
-import { AssistantPromptButtons } from "./AssistantPromptButtons"
 import { AssistantTranscript } from "./AssistantTranscript"
 import {
   useAssistantSession,
@@ -21,8 +20,8 @@ import {
 } from "./useAssistantSession"
 
 /**
- * The chat assistant. Runs both as its own window and as a tab in the main
- * window, so it fills its container rather than the viewport.
+ * The chat assistant conversation, shown in its own window. Its settings live
+ * on the Chat page in the main window.
  */
 export const AssistantScreen = () => {
   const catalog = useAppStore((store) => store.catalog)
@@ -146,11 +145,19 @@ export const AssistantScreen = () => {
           </p>
         ) : (
           <>
-            <AssistantPromptButtons
-              disabled={!session.canSend}
-              onSend={submit}
-              prompts={state?.assistantPrompts ?? []}
-            />
+            {/* Edited on the Chat settings page, not here. */}
+            <div className="mb-2 flex flex-wrap gap-1.5">
+              {(state?.assistantPrompts ?? []).map((prompt) => (
+                <Button
+                  disabled={!session.canSend}
+                  key={prompt.id}
+                  onClick={() => submit(prompt.prompt)}
+                  title={prompt.prompt}
+                >
+                  {prompt.label}
+                </Button>
+              ))}
+            </div>
             <form className="flex items-end gap-2" onSubmit={onSubmit}>
               <textarea
                 className="max-h-40 min-h-[38px] flex-1 resize-none rounded-md border border-white/10 bg-white/[0.035] px-3 py-2 text-sm text-ink placeholder:text-ink-faint focus:border-white/20 focus:outline-none"

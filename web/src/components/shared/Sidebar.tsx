@@ -25,7 +25,7 @@ interface NavItem {
 // better at nav size than the field rows' quieter 🔈.
 const PRIMARY_ITEMS: NavItem[] = [
   { id: "fields", labelKey: "smartFields", emoji: "✨" },
-  { id: "assistant", labelKey: "chat", emoji: "🤖" },
+  { id: "chat-settings", labelKey: "chat", emoji: "🤖" },
   { id: "defaults-text", labelKey: "text", emoji: "💬" },
   { id: "defaults-voice", labelKey: "voice", emoji: "🔊" },
   { id: "defaults-images", labelKey: "image", emoji: "🎨" },

@@ -30,11 +30,14 @@ from ...models.smart_fields import (
     SmartField,
     TTSSmartFieldSettings,
 )
+from ...services.assistant_prompt_service import assistant_prompt_service
+from ...services.assistant_settings_service import assistant_settings_service
 from ...voice_catalog import get_voice_catalog
 from .models import (
     CHAT_REASONING_LEVELS,
     AccountDto,
     AssistantPromptDto,
+    AssistantSettingsDto,
     ChatGenerationSettingsDto,
     ChatSmartFieldDto,
     ChatSmartFieldSettingsDto,
@@ -75,6 +78,7 @@ def build_state(
     feature_flags: FeatureFlags,
     settings: SettingsDto,
     assistant_prompts: list[AssistantPromptDto],
+    assistant_settings: AssistantSettingsDto,
     app_version: str,
 ) -> StateDto:
     """The full `state` event payload. Whole-state push: every state event
@@ -114,6 +118,7 @@ def build_state(
         appVersion=app_version,
         defaults=build_generation_defaults(defaults),
         assistantPrompts=assistant_prompts,
+        assistantSettings=assistant_settings,
     )
 
 
@@ -156,13 +161,17 @@ def build_settings() -> SettingsDto:
 
 
 def build_assistant_prompts() -> list[AssistantPromptDto]:
-    """The saved chat prompts, in wire form."""
+    """The open profile's saved chat prompts, in wire form."""
     return [
-        AssistantPromptDto(
-            id=prompt["id"], label=prompt["label"], prompt=prompt["prompt"]
-        )
-        for prompt in config.assistant_prompts
+        AssistantPromptDto(id=prompt.id, label=prompt.label, prompt=prompt.prompt)
+        for prompt in assistant_prompt_service.get_assistant_prompts()
     ]
+
+
+def build_assistant_settings() -> AssistantSettingsDto:
+    """The open profile's assistant settings, in wire form."""
+    settings = assistant_settings_service.get_assistant_settings()
+    return AssistantSettingsDto(responseLanguage=settings.response_language)
 
 
 def build_catalog() -> dict[str, Any]:

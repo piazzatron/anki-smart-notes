@@ -170,6 +170,7 @@ export interface AppState {
   defaults: GenerationDefaults
   settings: Settings
   assistantPrompts: AssistantPrompt[]
+  assistantSettings: AssistantSettings
 }
 
 export interface CatalogModel {
@@ -240,6 +241,7 @@ export type CommandName =
   | "assistant.append"
   | "assistant.history"
   | "assistant.savePrompts"
+  | "assistant.saveSettings"
 
 export type SmartFieldCreatePayload =
   | Omit<Extract<SmartField, { fieldType: "chat" }>, "id">
@@ -394,4 +396,9 @@ export interface AssistantPrompt {
   id: string
   label: string
   prompt: string
+}
+
+/** How the assistant behaves. `responseLanguage` is a code, "auto" to match the user. */
+export interface AssistantSettings {
+  responseLanguage: string
 }

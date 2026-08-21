@@ -6,6 +6,7 @@ import type {
   AssistantHistoryResult,
   AssistantPrompt,
   AssistantRecord,
+  AssistantSettings,
   AuthExchangeCodePayload,
   ChatDefaultsSavePayload,
   CommandName,
@@ -154,6 +155,12 @@ export const saveAssistantPrompts = async (
   prompts: AssistantPrompt[],
 ): Promise<void> => {
   await sendCommand("assistant.savePrompts", { prompts })
+}
+
+export const saveAssistantSettings = async (
+  settings: AssistantSettings,
+): Promise<void> => {
+  await sendCommand("assistant.saveSettings", settings)
 }
 
 export const openAnkiBrowser = async (): Promise<void> => {

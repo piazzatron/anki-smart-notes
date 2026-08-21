@@ -35,7 +35,6 @@ const authenticated = (plan: PlanInfo = PLAN): AccountState => ({
   authToken: null,
   plan,
   email: "person@example.com",
-  authToken: null,
 })
 
 describe("getPlanPresentation", () => {

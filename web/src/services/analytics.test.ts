@@ -97,6 +97,8 @@ const stateWithAccount = (
     didDismissReviewPrompt: false,
     didDismissDiscordPrompt: false,
   },
+  assistantPrompts: [],
+  assistantSettings: { responseLanguage: "auto" },
 })
 
 const setAuthenticatedState = () => {

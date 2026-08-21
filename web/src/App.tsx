@@ -12,6 +12,7 @@ import {
   DialogTitle,
 } from "@/components/ui/Dialog"
 import { AssistantScreen } from "@/features/assistant/AssistantScreen"
+import { ChatSettingsScreen } from "@/features/assistant/ChatSettingsScreen"
 import { getInitialEditorRequest } from "@/dev/initialEditor"
 import { ImageDefaultsScreen } from "@/features/defaults/ImageDefaultsScreen"
 import { TextDefaultsScreen } from "@/features/defaults/TextDefaultsScreen"
@@ -53,7 +54,6 @@ const SmartFieldsRoute = ({ initialEditor }: SmartFieldsRouteProps) => {
 }
 
 const SCREENS: Partial<Record<ScreenId, ComponentType>> = {
-  assistant: AssistantScreen,
   settings: SettingsScreen,
   subscription: SubscriptionScreen,
   support: SupportScreen,
@@ -63,9 +63,11 @@ interface DefaultsScreenProps {
   onDirtyChange: (isDirty: boolean) => void
 }
 
+// Screens that own unsaved edits, and so report dirty state to the shell.
 const DEFAULT_SCREENS: Partial<
   Record<ScreenId, ComponentType<DefaultsScreenProps>>
 > = {
+  "chat-settings": ChatSettingsScreen,
   "defaults-text": TextDefaultsScreen,
   "defaults-images": ImageDefaultsScreen,
   "defaults-voice": VoiceDefaultsScreen,
@@ -173,10 +175,10 @@ const App = () => {
           <div className="px-5 pe-12 pt-5 pb-4">
             <DialogTitle className="text-sm font-bold text-zinc-100">
               {t("common.discardUnsavedChanges.title")}
-            </DialogTitle>
-            <DialogDescription className="mt-1.5 text-xs leading-5 text-ink-muted">
-              {t("common.discardUnsavedChanges.description")}
-            </DialogDescription>
+              </DialogTitle>
+              <DialogDescription className="mt-1.5 text-xs leading-5 text-ink-muted">
+                {t("common.discardUnsavedChanges.description")}
+              </DialogDescription>
           </div>
           <div className="flex justify-end gap-2 border-t border-white/[0.08] px-5 py-4">
             <Button onClick={() => setPendingScreen(null)}>

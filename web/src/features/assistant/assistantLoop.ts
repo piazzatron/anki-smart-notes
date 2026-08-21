@@ -43,6 +43,8 @@ interface RunAssistantTurnArgs {
   authToken: string
   model: string
   reasoningLevel: string
+  /** Language code the reply must be in, or "auto" to match the user. */
+  responseLanguage: string
   /** Ask the backend to forward the model's reasoning text. */
   showReasoning: boolean
   messages: AssistantMessage[]
@@ -70,6 +72,7 @@ export const runAssistantTurn = async ({
   authToken,
   model,
   reasoningLevel,
+  responseLanguage,
   showReasoning,
   messages,
   context,
@@ -94,6 +97,7 @@ export const runAssistantTurn = async ({
       body: JSON.stringify({
         model,
         reasoning_level: reasoningLevel,
+        response_language: responseLanguage,
         stream_reasoning: showReasoning,
         messages: conversation,
         tools: ASSISTANT_TOOLS,

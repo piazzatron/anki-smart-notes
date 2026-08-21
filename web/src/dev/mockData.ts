@@ -176,6 +176,7 @@ const BASE_STATE: AppState = {
       prompt: "Explain this card to me.",
     },
   ],
+  assistantSettings: { responseLanguage: "auto" },
 }
 
 const withTrialPlan = (updates: Partial<PlanInfo>): PlanInfo => ({

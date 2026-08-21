@@ -49,6 +49,8 @@ from .logger import logger
 from .sentry import sentry
 from .services import auth_service, settings_service
 from .services.assistant_journal import assistant_journal
+from .services.assistant_prompt_service import assistant_prompt_service
+from .services.assistant_settings_service import assistant_settings_service
 from .services.prompt_test_service import (
     prepare_image_prompt_test,
     prepare_text_prompt_test,
@@ -316,6 +318,7 @@ class LocalServer:
                     feature_flags=flags,
                     settings=dto.build_settings(),
                     assistant_prompts=dto.build_assistant_prompts(),
+                    assistant_settings=dto.build_assistant_settings(),
                     app_version=get_version(),
                 )
             ),
@@ -430,8 +433,16 @@ def _run_save_settings(payload: dict[str, Any]) -> None:
     settings_service.save_settings(dto.parse_settings(payload))
 
 
+def _run_save_assistant_settings(payload: dict[str, Any]) -> None:
+    assistant_settings_service.save_assistant_settings(
+        dto.parse_assistant_settings(payload)
+    )
+
+
 def _run_save_assistant_prompts(payload: dict[str, Any]) -> None:
-    settings_service.save_assistant_prompts(dto.parse_assistant_prompts(payload))
+    assistant_prompt_service.save_assistant_prompts(
+        dto.parse_assistant_prompts(payload)
+    )
 
 
 async def _run_test_prompt(payload: dict[str, Any]) -> dict[str, str]:
@@ -572,6 +583,7 @@ COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
     "assistant.append": _run_assistant_append,
     "assistant.history": _run_assistant_history,
     "assistant.savePrompts": _run_save_assistant_prompts,
+    "assistant.saveSettings": _run_save_assistant_settings,
 }
 
 

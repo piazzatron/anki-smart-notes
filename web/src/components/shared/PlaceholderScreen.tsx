@@ -12,6 +12,7 @@ const SCREEN_LABELS: Record<ScreenId, string> = {
   subscription: "subscription",
   support: "support",
   assistant: "chat",
+  "chat-settings": "chat",
 }
 
 interface PlaceholderScreenProps {

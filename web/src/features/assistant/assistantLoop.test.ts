@@ -57,6 +57,7 @@ const runTurn = async (
     authToken: "jwt",
     model: "auto",
     reasoningLevel: showReasoning ? "high" : "off",
+    responseLanguage: "auto",
     showReasoning,
     messages: [...messages, { role: "user", content: "what is this?" }],
     context: null,

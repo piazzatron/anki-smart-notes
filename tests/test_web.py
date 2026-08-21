@@ -297,6 +297,7 @@ def test_build_state_shape():
         feature_flags=SimpleNamespace(review_free_month=True),
         settings=SETTINGS_DTO,
         assistant_prompts=[],
+        assistant_settings={"responseLanguage": "auto"},
         app_version="2.23.9",
     )
 
@@ -355,6 +356,7 @@ def test_build_state_excludes_smart_fields_with_missing_anki_references():
         feature_flags=SimpleNamespace(review_free_month=False),
         settings=SETTINGS_DTO,
         assistant_prompts=[],
+        assistant_settings={"responseLanguage": "auto"},
         app_version="2.23.9",
     )
 
