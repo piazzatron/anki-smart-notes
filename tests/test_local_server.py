@@ -292,6 +292,11 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
         "app_state",
         MagicMock(state=fake_account),
     )
+    monkeypatch.setattr(
+        src.local_server,
+        "config",
+        MagicMock(auth_token="jwt-from-plugin-config"),
+    )
     monkeypatch.setattr(dto, "build_state", build_state)
     monkeypatch.setattr(dto, "build_settings", lambda: fake_settings)
     monkeypatch.setattr(dto, "build_catalog", lambda: fake_catalog)
@@ -314,6 +319,7 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
             decks=fake_decks,
             smart_fields=fake_smart_fields,
             account=fake_account,
+            auth_token="jwt-from-plugin-config",
             feature_flags=src.local_server.flags,
             settings=fake_settings,
             app_version="2.23.9",
@@ -478,57 +484,6 @@ async def test_save_settings_command_dispatch(monkeypatch):
         assert (await resp.json()) == {"ok": True}
         fake_dto.parse_settings.assert_called_once_with({"generateAtReview": True})
         save_settings.assert_called_once_with(parsed)
-
-
-@pytest.mark.asyncio
-@pytest.mark.parametrize("event", ["smart_field_saved", "smart_field_completion_shown"])
-async def test_analytics_command_tracks_valid_smart_field_events(monkeypatch, event):
-    import src.local_server
-
-    tracked = MagicMock()
-    monkeypatch.setattr(src.local_server, "track_event", tracked)
-    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
-
-    server = _make_server()
-    async with TestClient(TestServer(_make_app(server))) as client:
-        resp = await client.post(
-            "/api/command",
-            json=_command_request(
-                "analytics.track",
-                {"event": event, "properties": {"field_type": "chat"}},
-            ),
-            headers={"X-Session-Token": server.session_token},
-        )
-
-    assert resp.status == 200
-    tracked.assert_called_once_with(event, {"field_type": "chat"})
-
-
-@pytest.mark.asyncio
-@pytest.mark.parametrize(
-    "payload",
-    [
-        {"event": "unknown", "properties": {"field_type": "chat"}},
-        {"event": "smart_field_saved", "properties": {"field_type": "video"}},
-    ],
-)
-async def test_analytics_command_rejects_invalid_payloads(monkeypatch, payload):
-    import src.local_server
-
-    tracked = MagicMock()
-    monkeypatch.setattr(src.local_server, "track_event", tracked)
-    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
-
-    server = _make_server()
-    async with TestClient(TestServer(_make_app(server))) as client:
-        resp = await client.post(
-            "/api/command",
-            json=_command_request("analytics.track", payload),
-            headers={"X-Session-Token": server.session_token},
-        )
-
-    assert resp.status == 400
-    tracked.assert_not_called()
 
 
 @pytest.mark.asyncio

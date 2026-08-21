@@ -33,6 +33,7 @@ from ...models.smart_fields import (
 from ...voice_catalog import get_voice_catalog
 from .models import (
     CHAT_REASONING_LEVELS,
+    AccountDto,
     ChatGenerationSettingsDto,
     ChatSmartFieldDto,
     ChatSmartFieldSettingsDto,
@@ -69,6 +70,7 @@ def build_state(
     decks: dict[DeckId, str],
     smart_fields: list[SmartField],
     account: AppState,
+    auth_token: str | None,
     feature_flags: FeatureFlags,
     settings: SettingsDto,
     app_version: str,
@@ -97,7 +99,12 @@ def build_state(
         # The pseudo-deck meaning "applies to all decks" — present in `decks`
         # with a friendly name, but scoping UI needs to special-case it.
         globalDeckId=GLOBAL_DECK_ID,
-        account=account,
+        account=AccountDto(
+            status=account["status"],
+            plan=account["plan"],
+            email=account["email"],
+            authToken=auth_token,
+        ),
         featureFlags=FeatureFlagsDto(
             reviewFreeMonth=feature_flags.review_free_month,
         ),

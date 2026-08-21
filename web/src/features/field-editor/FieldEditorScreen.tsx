@@ -211,6 +211,8 @@ export const FieldEditorScreen = ({
           ) : controls.form.step === 3 ? (
             <div className="relative z-10 mx-auto w-full max-w-[800px] pt-[18px]">
               <StepDone
+                appVersion={state.appVersion}
+                authToken={state.account.authToken}
                 fieldType={controls.form.target.fieldType}
                 noteTypeName={targetNoteTypeName}
                 targetFieldName={controls.form.target.targetFieldName}

@@ -31,6 +31,7 @@ const { getPromptTestCardState, getSaveTestResultTarget } =
   await import("./promptTestCard")
 
 const ACCOUNT: AccountState = {
+  authToken: null,
   plan: {
     planId: "medium1",
     planType: "medium",

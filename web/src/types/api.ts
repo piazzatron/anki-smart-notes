@@ -45,7 +45,10 @@ export interface PlanInfo {
   totalCreditsCapacity: number
 }
 
-export type AccountState =
+export type AccountState = {
+  /** The Smart Notes backend JWT used for direct authenticated API requests. */
+  authToken: string | null
+} & (
   | {
       status: "LOADING" | "UNAUTHENTICATED"
       plan: null
@@ -56,6 +59,7 @@ export type AccountState =
       plan: PlanInfo
       email: string
     }
+)
 
 export interface ChatSmartFieldSettings {
   promptText: string
@@ -211,7 +215,6 @@ export type Selection = { note: SelectedNote } | { note: null; count: number }
 
 export type CommandName =
   | "account.refresh"
-  | "analytics.track"
   | "auth.exchangeCode"
   | "smartFields.create"
   | "smartFields.update"
@@ -243,11 +246,6 @@ export interface SmartFieldDeletePayload {
 
 export interface AuthExchangeCodePayload {
   code: string
-}
-
-export type SmartFieldAnalyticsEvent = {
-  event: "smart_field_saved" | "smart_field_completion_shown"
-  properties: { field_type: SmartField["fieldType"] }
 }
 
 export type GenerationDefaultsSavePayload = GenerationDefaults

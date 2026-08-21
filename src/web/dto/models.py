@@ -25,7 +25,6 @@ from typing import TYPE_CHECKING, Any, Literal, TypedDict, Union
 if TYPE_CHECKING:
     from anki.decks import DeckId
 
-    from ...app_state import AppState
     from ...models import (
         ChatModels,
         ChatProviders,
@@ -35,6 +34,7 @@ if TYPE_CHECKING:
         TTSModels,
         TTSProviders,
     )
+    from ...subscription_provider import PlanInfo
     from ...voice_catalog import VoiceGender, VoicePriceTier
 
 CHAT_REASONING_LEVELS: list[ChatReasoningLevel] = ["off", "low", "high"]
@@ -147,12 +147,22 @@ class FeatureFlagsDto(TypedDict):
     reviewFreeMonth: bool
 
 
+class AccountDto(TypedDict):
+    """Account state exposed to the web UI, including the backend JWT needed
+    for direct authenticated API requests."""
+
+    status: Literal["LOADING", "UNAUTHENTICATED", "AUTHENTICATED"]
+    plan: PlanInfo | None
+    email: str | None
+    authToken: str | None
+
+
 class StateDto(TypedDict):
     smartFields: list[SmartFieldDto]
     noteTypes: list[NoteTypeDto]
     decks: list[DeckDto]
     globalDeckId: DeckId
-    account: AppState
+    account: AccountDto
     featureFlags: FeatureFlagsDto
     settings: SettingsDto
     appVersion: str
@@ -230,18 +240,6 @@ class FeedbackPayload(TypedDict):
 
 class AuthExchangeCodePayload(TypedDict):
     code: str
-
-
-AnalyticsEventName = Literal["smart_field_saved", "smart_field_completion_shown"]
-
-
-class AnalyticsEventPropertiesDto(TypedDict):
-    field_type: str
-
-
-class AnalyticsEventPayload(TypedDict):
-    event: str
-    properties: AnalyticsEventPropertiesDto
 
 
 @dataclass(frozen=True)

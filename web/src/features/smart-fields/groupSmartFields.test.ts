@@ -33,7 +33,12 @@ const stateWith = (smartFields: SmartField[]): AppState => ({
     { id: 2, name: "JLPT N5" },
   ],
   globalDeckId: 1,
-  account: { status: "UNAUTHENTICATED", plan: null, email: null },
+  account: {
+    status: "UNAUTHENTICATED",
+    plan: null,
+    email: null,
+    authToken: null,
+  },
   featureFlags: { reviewFreeMonth: false },
   defaults: {
     chat: {

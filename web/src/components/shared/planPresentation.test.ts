@@ -32,18 +32,25 @@ const authenticated = (plan: PlanInfo = PLAN): AccountState => ({
   status: "AUTHENTICATED",
   plan,
   email: "person@example.com",
+  authToken: null,
 })
 
 describe("getPlanPresentation", () => {
   test("presents pending account states", () => {
     expect(
-      getPlanPresentation({ status: "LOADING", plan: null, email: null }),
+      getPlanPresentation({
+        status: "LOADING",
+        plan: null,
+        email: null,
+        authToken: null,
+      }),
     ).toMatchObject({ variant: "loading", warning: false })
     expect(
       getPlanPresentation({
         status: "UNAUTHENTICATED",
         plan: null,
         email: null,
+        authToken: null,
       }),
     ).toMatchObject({ variant: "signed-out", warning: false })
   })
@@ -140,6 +147,7 @@ describe("hasGenerationAccess", () => {
         status: "UNAUTHENTICATED",
         plan: null,
         email: null,
+        authToken: null,
       }),
     ).toBe(false)
     expect(hasGenerationAccess(authenticated({ ...PLAN, daysLeft: 0 }))).toBe(

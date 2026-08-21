@@ -289,6 +289,7 @@ def test_build_state_shape():
         decks={DECK_ID: "Spanish::Verbs"},
         smart_fields=[_chat_smart_field()],
         account=account,
+        auth_token="jwt-for-analytics",
         feature_flags=SimpleNamespace(review_free_month=True),
         settings=SETTINGS_DTO,
         app_version="2.23.9",
@@ -299,7 +300,7 @@ def test_build_state_shape():
     ]
     assert state["decks"] == [{"id": DECK_ID, "name": "Spanish::Verbs"}]
     assert state["globalDeckId"] == dto.GLOBAL_DECK_ID
-    assert state["account"] == account
+    assert state["account"] == {**account, "authToken": "jwt-for-analytics"}
     assert state["featureFlags"] == {"reviewFreeMonth": True}
     assert state["settings"] == SETTINGS_DTO
     assert state["appVersion"] == "2.23.9"
@@ -345,6 +346,7 @@ def test_build_state_excludes_smart_fields_with_missing_anki_references():
             replace(valid_field, id="missing-deck", deck_id=999),
         ],
         account={"status": "UNAUTHENTICATED", "plan": None, "email": None},
+        auth_token=None,
         feature_flags=SimpleNamespace(review_free_month=False),
         settings=SETTINGS_DTO,
         app_version="2.23.9",
