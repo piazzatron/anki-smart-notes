@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client"
+import { DirectionProvider } from "@radix-ui/react-direction"
 import { useTranslation } from "react-i18next"
-import { Direction } from "radix-ui"
 
 import App from "./App"
 import "@/assets/styles/globals.css"
@@ -24,9 +24,9 @@ const startDataSource = async () => {
 const AppRoot = () => {
   const { i18n } = useTranslation()
   return (
-    <Direction.Provider dir={getLocaleDirection(i18n.language)}>
+    <DirectionProvider dir={getLocaleDirection(i18n.language)}>
       <App />
-    </Direction.Provider>
+    </DirectionProvider>
   )
 }
 

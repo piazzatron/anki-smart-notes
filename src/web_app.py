@@ -35,20 +35,6 @@ from .ui.web_app_dialog import WebAppDialog
 _local_server: Optional[LocalServer] = None
 _web_app_dialog: Optional[WebAppDialog] = None
 
-ANKI_LOCALE_TO_CATALOG = {
-    "zh_CN": "zh-CN",
-    "zh_TW": "zh-TW",
-    "pt_BR": "pt-BR",
-    "pt_PT": "pt-PT",
-    "en_GB": "en",
-    "en_US": "en",
-}
-
-
-def normalize_anki_locale(locale: str) -> str:
-    """Convert Anki locale identifiers to the web catalog identifiers."""
-    return ANKI_LOCALE_TO_CATALOG.get(locale, locale.split("_", 1)[0])
-
 
 def ensure_local_server_started() -> LocalServer:
     global _local_server
@@ -84,15 +70,15 @@ def open_web_app() -> None:
     if env.environment == "DEV":
         url = WEB_APP_DEV_URL
     else:
-        anki_locale = normalize_anki_locale(lang.current_lang)
         requested_locale = (
             lang.current_lang if config.language == "auto" else config.language
         )
+        # The web app's matchCatalogLocale owns locale normalization and fallback.
         url = (
             f"http://{LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}/app"
             f"?token={local_server.session_token}"
-            f"&locale={normalize_anki_locale(requested_locale)}"
-            f"&ankiLocale={anki_locale}"
+            f"&locale={requested_locale}"
+            f"&ankiLocale={lang.current_lang}"
         )
     dialog = WebAppDialog(url, mw)
     _web_app_dialog = dialog

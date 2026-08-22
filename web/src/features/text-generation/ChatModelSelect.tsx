@@ -25,6 +25,7 @@ import {
   SelectLabel,
   SelectTrigger,
 } from "@/components/ui/Select"
+import { useTranslation } from "react-i18next"
 import { modelCostLabel, modelLabel, providerLabel } from "@/lib/catalog"
 import i18next from "@/lib/i18n"
 import type { CatalogModel, ChatModelCatalog } from "@/types/api"
@@ -45,30 +46,34 @@ export const ChatModelSelect = ({
   id,
   onValueChange,
   value,
-}: ChatModelSelectProps) => (
-  <Select
-    onValueChange={(modelId) => onValueChange(getChatModel(catalog, modelId))}
-    value={value}
-  >
-    <SelectTrigger aria-label={ariaLabel} id={id}>
-      <ChatModelOption model={getChatModel(catalog, value)} />
-    </SelectTrigger>
-    <SelectContent>
-      {catalog.providers.map((provider) => (
-        <SelectGroup key={provider}>
-          <SelectLabel>{providerLabel(provider)}</SelectLabel>
-          {catalog.models
-            .filter((model) => model.provider === provider)
-            .map((model) => (
-              <SelectItem key={model.id} value={model.id}>
-                <ChatModelOption model={model} />
-              </SelectItem>
-            ))}
-        </SelectGroup>
-      ))}
-    </SelectContent>
-  </Select>
-)
+}: ChatModelSelectProps) => {
+  useTranslation()
+
+  return (
+    <Select
+      onValueChange={(modelId) => onValueChange(getChatModel(catalog, modelId))}
+      value={value}
+    >
+      <SelectTrigger aria-label={ariaLabel} id={id}>
+        <ChatModelOption model={getChatModel(catalog, value)} />
+      </SelectTrigger>
+      <SelectContent>
+        {catalog.providers.map((provider) => (
+          <SelectGroup key={provider}>
+            <SelectLabel>{providerLabel(provider)}</SelectLabel>
+            {catalog.models
+              .filter((model) => model.provider === provider)
+              .map((model) => (
+                <SelectItem key={model.id} value={model.id}>
+                  <ChatModelOption model={model} />
+                </SelectItem>
+              ))}
+          </SelectGroup>
+        ))}
+      </SelectContent>
+    </Select>
+  )
+}
 
 const ChatModelOption = ({ model }: { model: CatalogModel }) => {
   const costLabel = modelCostLabel(model.id)

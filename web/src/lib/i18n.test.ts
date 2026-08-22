@@ -12,12 +12,14 @@
 import { describe, expect, test } from "bun:test"
 
 import english from "../locales/en.json"
-import { flattenCatalog, sourceForLocale, type Catalog } from "./catalogSchema"
+import {
+  flattenCatalog,
+  placeholders,
+  sourceForLocale,
+  type Catalog,
+} from "./catalogSchema"
 import { LANGUAGES } from "./languages"
 import { getLocaleDirection, matchCatalogLocale } from "./locale"
-
-const placeholders = (value: string): string[] =>
-  [...value.matchAll(/{{[^{}]+}}/g)].map(([placeholder]) => placeholder).sort()
 
 describe("locale selection", () => {
   test.each([

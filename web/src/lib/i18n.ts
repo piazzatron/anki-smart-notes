@@ -13,6 +13,7 @@ import i18next from "i18next"
 import { initReactI18next } from "react-i18next"
 
 import { bootOptions } from "@/lib/boot"
+import { catalogLoaders } from "@/lib/catalogLoaders"
 import type { CatalogLocale } from "@/lib/languages"
 import { getLocaleDirection, matchCatalogLocale } from "@/lib/locale"
 import english from "@/locales/en.json"
@@ -21,7 +22,6 @@ const loadCatalog = async (locale: CatalogLocale) => {
   if (locale === "en" || i18next.hasResourceBundle(locale, "translation"))
     return
 
-  const { catalogLoaders } = await import("@/lib/catalogLoaders")
   const load = catalogLoaders[`../locales/${locale}.json`]
   if (load === undefined)
     throw new Error(`Missing translation catalog: ${locale}`)

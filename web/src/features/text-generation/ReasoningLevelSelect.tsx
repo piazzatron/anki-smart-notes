@@ -50,9 +50,7 @@ export const ReasoningLevelSelect = ({
       {levels.map((level) => (
         <SelectItem key={level} value={level}>
           <span className="font-semibold text-zinc-100 capitalize">
-            {i18next.t(`defaults.text.reasoningValues.${level}`, {
-              defaultValue: level,
-            })}
+            {i18next.t(`defaults.text.reasoningValues.${level}`)}
           </span>
         </SelectItem>
       ))}

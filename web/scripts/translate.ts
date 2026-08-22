@@ -13,6 +13,7 @@ import Anthropic from "@anthropic-ai/sdk"
 
 import {
   flattenCatalog,
+  placeholders,
   sourceForLocale,
   type Catalog,
   type FlatCatalog,
@@ -67,9 +68,6 @@ const extractJson = (response: string): FlatCatalog => {
   return JSON.parse(response.slice(firstBrace, lastBrace + 1)) as FlatCatalog
 }
 
-const placeholders = (value: string): string[] =>
-  [...value.matchAll(/{{[^{}]+}}/g)].map(([placeholder]) => placeholder).sort()
-
 const PROTECTED_TERMS = [
   "Smart Notes",
   "Smart Fields",
@@ -109,18 +107,20 @@ const translate = async (
   language: (typeof targetLanguages)[number],
   source: FlatCatalog,
 ): Promise<FlatCatalog> => {
-  const response = await new Anthropic().messages.create({
-    model: MODEL,
-    max_tokens: 32_000,
-    system:
-      "You translate UI copy for Smart Notes, an Anki add-on. Return only one JSON object with exactly the input keys. Preserve every {{placeholder}} byte-for-byte. Never translate the product terms Smart Notes, Smart Fields, Anki, provider names, or model names. Match the source sentence casing and keep the tone concise and natural for software UI.",
-    messages: [
-      {
-        role: "user",
-        content: `Translate this JSON from English to ${language.nativeName} (${language.bcp47}):\n${JSON.stringify(source, null, 2)}`,
-      },
-    ],
-  })
+  const response = await new Anthropic().messages
+    .stream({
+      model: MODEL,
+      max_tokens: 32_000,
+      system:
+        "You translate UI copy for Smart Notes, an Anki add-on. Return only one JSON object with exactly the input keys. Preserve every {{placeholder}} and component markup tag byte-for-byte. Never translate the product terms Smart Notes, Smart Fields, Anki, provider names, or model names. Match the source sentence casing and keep the tone concise and natural for software UI.",
+      messages: [
+        {
+          role: "user",
+          content: `Translate this JSON from English to ${language.nativeName} (${language.bcp47}):\n${JSON.stringify(source, null, 2)}`,
+        },
+      ],
+    })
+    .finalMessage()
   const text = response.content
     .filter((block) => block.type === "text")
     .map((block) => block.text)

@@ -1,7 +1,7 @@
 import { AlertCircle, FileText } from "lucide-react"
 import i18next from "i18next"
 import { Fragment, type ReactNode } from "react"
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 
 import { Button } from "@/components/ui/Button"
 import { openAnkiBrowser } from "@/services/commands"
@@ -81,17 +81,14 @@ export const SelectedTestCard = ({
             ellipsizes — what the card is missing leads, where it always survives. */}
         <p className="min-w-0 flex-1 truncate text-[11.5px] text-ink-muted">
           {showNoteTypeMismatch ? (
-            <>
-              {t("promptTester.selectNoteType", {
-                noteType: "",
-              })}{" "}
-              <NoteTypeName
-                name={
-                  requiredNoteTypeName ??
-                  i18next.t("promptTester.anotherNoteType")
-                }
-              />
-            </>
+            <Trans
+              components={{ noteTypeName: <NoteTypeName /> }}
+              i18nKey="promptTester.selectRequiredNoteType"
+              values={{
+                noteType:
+                  requiredNoteTypeName ?? t("promptTester.anotherNoteType"),
+              }}
+            />
           ) : (
             <>
               {t("promptTester.needsFields", {
@@ -186,11 +183,13 @@ export const SelectedTestCard = ({
 
       {showNoteTypeMismatch && (
         <CardProblem title={t("promptTester.wrongNoteType")}>
-          {t("promptTester.fieldRunsOn")}{" "}
-          <NoteTypeName
-            name={
-              requiredNoteTypeName ?? i18next.t("promptTester.anotherNoteType")
-            }
+          <Trans
+            components={{ noteTypeName: <NoteTypeName /> }}
+            i18nKey="promptTester.fieldRunsOnNoteType"
+            values={{
+              noteType:
+                requiredNoteTypeName ?? t("promptTester.anotherNoteType"),
+            }}
           />
         </CardProblem>
       )}
@@ -201,8 +200,10 @@ export const SelectedTestCard = ({
             count: missingFieldNames.length,
           })}
         >
-          {t("promptTester.selectCardWith")}{" "}
-          {t("promptTester.fieldWord", { count: missingFieldNames.length })}{" "}
+          <Trans
+            count={missingFieldNames.length}
+            i18nKey="promptTester.selectCardWithFields"
+          />
           {missingFieldNames.map((fieldName) => (
             <FieldName key={fieldName} name={fieldName} />
           ))}
@@ -265,17 +266,20 @@ const emptySlotHint = ({
 
   return (
     <p className="mt-1 flex flex-wrap items-baseline gap-x-1.5 gap-y-1 text-[11px] leading-[1.5] text-ink-muted">
-      {i18next.t("promptTester.fieldRunsOn")}{" "}
-      <NoteTypeName name={requiredNoteTypeName} />
+      <Trans
+        components={{ noteTypeName: <NoteTypeName /> }}
+        i18nKey="promptTester.fieldRunsOnNoteType"
+        values={{ noteType: requiredNoteTypeName }}
+      />
     </p>
   )
 }
 
 // Anki note-type names get long and parenthesized ("Japanese (recognition) (japanese
 // support)"), so a name is set apart from the sentence around it and wraps as one unit.
-const NoteTypeName = ({ name }: { name: string }) => (
+const NoteTypeName = ({ children }: { children?: ReactNode }) => (
   <span className="rounded border border-white/10 bg-white/[0.06] px-1.5 py-px font-medium text-ink">
-    {name}
+    {children}
   </span>
 )
 

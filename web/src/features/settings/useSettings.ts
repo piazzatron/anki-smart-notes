@@ -49,12 +49,19 @@ export const useSettings = (serverSettings: Settings) => {
     patch({ draft: next, error: null, isSaving: true })
     try {
       await saveSettings(next)
-      if (afterSave !== undefined) await afterSave()
-      patch({ draft: null })
     } catch (error) {
       patch({
         error: errorMessage(error, t("settings.saveError")),
+        isSaving: false,
       })
+      return
+    }
+
+    patch({ draft: null })
+    try {
+      if (afterSave !== undefined) await afterSave()
+    } catch (error) {
+      console.error("Could not apply settings after saving", error)
     } finally {
       patch({ isSaving: false })
     }

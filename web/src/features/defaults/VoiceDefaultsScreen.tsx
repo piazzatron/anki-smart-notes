@@ -159,9 +159,6 @@ const LoadedVoiceDefaultsScreen = ({
                     {VOICE_GENDER_SYMBOLS[selectedVoice.gender] ??
                       t(
                         `defaults.voice.filters.${selectedVoice.gender.toLowerCase()}`,
-                        {
-                          defaultValue: selectedVoice.gender,
-                        },
                       )}{" "}
                     · {selectedVoice.name}
                   </>

@@ -24,6 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select"
+import { useTranslation } from "react-i18next"
 import { modelLabel } from "@/lib/catalog"
 import i18next from "@/lib/i18n"
 import type { ImageGenerationSettings, ImageModelCatalog } from "@/types/api"
@@ -42,30 +43,34 @@ export const ImageModelSelect = ({
   id,
   onValueChange,
   value,
-}: ImageModelSelectProps) => (
-  <Select
-    onValueChange={(model) => {
-      const selected = catalog.models.find((item) => item.id === model)
-      if (selected === undefined) {
-        throw new Error(
-          i18next.t("defaults.errors.missingImageModel", { model }),
-        )
-      }
-      onValueChange({ model, provider: selected.provider })
-    }}
-    value={value}
-  >
-    <SelectTrigger aria-label={ariaLabel} id={id}>
-      <SelectValue />
-    </SelectTrigger>
-    <SelectContent>
-      {catalog.models.map((model) => (
-        <SelectItem key={`${model.provider}:${model.id}`} value={model.id}>
-          <span className="min-w-0 flex-1 truncate font-semibold text-zinc-100">
-            {modelLabel(model.id)}
-          </span>
-        </SelectItem>
-      ))}
-    </SelectContent>
-  </Select>
-)
+}: ImageModelSelectProps) => {
+  useTranslation()
+
+  return (
+    <Select
+      onValueChange={(model) => {
+        const selected = catalog.models.find((item) => item.id === model)
+        if (selected === undefined) {
+          throw new Error(
+            i18next.t("defaults.errors.missingImageModel", { model }),
+          )
+        }
+        onValueChange({ model, provider: selected.provider })
+      }}
+      value={value}
+    >
+      <SelectTrigger aria-label={ariaLabel} id={id}>
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        {catalog.models.map((model) => (
+          <SelectItem key={`${model.provider}:${model.id}`} value={model.id}>
+            <span className="min-w-0 flex-1 truncate font-semibold text-zinc-100">
+              {modelLabel(model.id)}
+            </span>
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  )
+}

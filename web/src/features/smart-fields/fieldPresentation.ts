@@ -5,7 +5,6 @@ import type { SmartField } from "@/types/api"
 export const smartFieldDescription = (field: SmartField): string => {
   if (field.fieldType === "tts") {
     return i18next.t("smartFields.readsAloud", {
-      defaultValue: "Reads {{field}} aloud",
       field: `{{${field.settings.sourceFieldName}}}`,
     })
   }
@@ -15,7 +14,7 @@ export const smartFieldDescription = (field: SmartField): string => {
 
 export const smartFieldModelLabel = (field: SmartField): string => {
   if (field.settings.usesDefaultGenerationSettings) {
-    return i18next.t("common.default", { defaultValue: "Default" })
+    return i18next.t("common.default")
   }
 
   if (field.fieldType === "tts") {

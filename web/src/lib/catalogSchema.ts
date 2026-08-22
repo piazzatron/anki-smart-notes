@@ -26,6 +26,11 @@ export const flattenCatalog = (catalog: Catalog, prefix = ""): FlatCatalog =>
     }),
   )
 
+export const placeholders = (value: string): string[] =>
+  [...value.matchAll(/{{[^{}]+}}|<\/?[A-Za-z][A-Za-z0-9]*>/g)]
+    .map(([placeholder]) => placeholder)
+    .sort()
+
 export const sourceForLocale = (
   source: FlatCatalog,
   locale: string,

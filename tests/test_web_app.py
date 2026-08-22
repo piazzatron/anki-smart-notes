@@ -65,20 +65,6 @@ def test_open_web_app_refreshes_account(monkeypatch: pytest.MonkeyPatch) -> None
 
 
 @pytest.mark.parametrize(
-    ("anki_locale", "expected"),
-    [
-        ("ja_JP", "ja"),
-        ("zh_CN", "zh-CN"),
-        ("pt_PT", "pt-PT"),
-        ("en_GB", "en"),
-        ("tl", "tl"),
-    ],
-)
-def test_normalize_anki_locale(anki_locale: str, expected: str) -> None:
-    assert web_app.normalize_anki_locale(anki_locale) == expected
-
-
-@pytest.mark.parametrize(
     ("language", "expected_locale"),
     [("pt-BR", "pt-BR"), ("auto", "ja")],
 )
@@ -94,7 +80,7 @@ def test_production_web_app_url_uses_effective_locale(
     monkeypatch.setattr(web_app, "WebAppDialog", dialog_factory)
     monkeypatch.setattr(web_app.env, "environment", "PROD")
     monkeypatch.setattr(web_app, "config", SimpleNamespace(language=language))
-    monkeypatch.setattr(web_app.lang, "current_lang", "ja_JP")
+    monkeypatch.setattr(web_app.lang, "current_lang", "ja")
 
     web_app.open_web_app()
 

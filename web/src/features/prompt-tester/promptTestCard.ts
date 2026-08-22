@@ -78,7 +78,7 @@ export const getPromptTestCardState = ({
 
   return {
     deckName:
-      selectedNote?.deckId === globalDeckId
+      selectedNote !== null && selectedNote?.deckId === globalDeckId
         ? i18next.t("common.allDecks")
         : (decks?.find((deck) => deck.id === selectedNote?.deckId)?.name ??
           i18next.t("promptTester.selectedDeck")),

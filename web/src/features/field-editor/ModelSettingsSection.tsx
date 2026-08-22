@@ -341,7 +341,9 @@ const getModelSummary = ({
   const extras = [
     settings.provider === "auto" && settings.reasoningLevel !== "off"
       ? i18next.t("fieldEditor.modelSettings.reasoning", {
-          level: settings.reasoningLevel,
+          level: i18next.t(
+            `defaults.text.reasoningValues.${settings.reasoningLevel}`,
+          ),
         })
       : null,
     settings.webSearchEnabled

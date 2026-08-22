@@ -153,30 +153,21 @@ export const validateFieldEditorDraft = (
   fields: SmartField[],
 ): string | null => {
   if (draft.target.noteTypeId === 0) {
-    return i18next.t("fieldEditor.validation.chooseNoteType", {
-      defaultValue: "Choose a note type",
-    })
+    return i18next.t("fieldEditor.validation.chooseNoteType")
   }
   if (draft.target.targetFieldName.trim() === "") {
-    return i18next.t("fieldEditor.validation.chooseField", {
-      defaultValue: "Choose a field",
-    })
+    return i18next.t("fieldEditor.validation.chooseField")
   }
   if (hasSmartFieldCollision(fields, draft.target, draft.editingFieldId)) {
     return i18next.t("fieldEditor.validation.fieldAlreadyHasSmartField", {
-      defaultValue: "{{field}} already has a Smart Field",
       field: draft.target.targetFieldName,
     })
   }
   if (draft.target.fieldType === "tts" && draft.sourceFieldName.trim() === "") {
-    return i18next.t("fieldEditor.validation.chooseSourceField", {
-      defaultValue: "Choose a source field",
-    })
+    return i18next.t("fieldEditor.validation.chooseSourceField")
   }
   if (draft.target.fieldType !== "tts" && draft.prompt.trim() === "") {
-    return i18next.t("fieldEditor.validation.writePrompt", {
-      defaultValue: "Write a prompt",
-    })
+    return i18next.t("fieldEditor.validation.writePrompt")
   }
 
   return null

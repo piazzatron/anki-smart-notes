@@ -9,10 +9,13 @@
  * (at your option) any later version.
  */
 
+import { mock } from "bun:test"
 import i18next from "i18next"
 import { initReactI18next } from "react-i18next"
 
 import english from "@/locales/en.json"
+
+mock.module("@/lib/catalogLoaders", () => ({ catalogLoaders: {} }))
 
 void i18next.use(initReactI18next).init({
   fallbackLng: "en",
