@@ -26,6 +26,7 @@ from aqt import QAction, QMenu, browser, editor, mw
 from ..generation_access import ensure_generation_available
 from ..note_proccessor import NoteProcessor
 from .custom_prompt import CustomImagePrompt, CustomTextPrompt, CustomTTSPrompt
+from .i18n import native_action_text
 
 
 class FieldMenu:
@@ -68,7 +69,9 @@ class FieldMenu:
     # ------------------------------------------------------------------
 
     def _add_generate_field_action(self) -> None:
-        generate_item = QAction("✨ Generate Smart Field", self.menu)
+        generate_item = QAction(
+            f"✨ {native_action_text('generate_smart_field')}", self.menu
+        )
 
         def wrapped() -> None:
             if not ensure_generation_available():
@@ -99,9 +102,9 @@ class FieldMenu:
     # ------------------------------------------------------------------
 
     def _add_custom_actions(self) -> None:
-        text_item = QAction("💬 Custom Text", self.menu)
-        tts_item = QAction("📣 Custom TTS", self.menu)
-        image_item = QAction("🖼️ Custom Image", self.menu)
+        text_item = QAction(f"💬 {native_action_text('custom_text')}", self.menu)
+        tts_item = QAction(f"📣 {native_action_text('custom_tts')}", self.menu)
+        image_item = QAction(f"🖼️ {native_action_text('custom_image')}", self.menu)
 
         text_item.triggered.connect(self._on_custom_text)
         tts_item.triggered.connect(self._on_custom_tts)
