@@ -18,6 +18,7 @@
  */
 
 import { useEffect, useState, type ReactNode } from "react"
+import { useTranslation } from "react-i18next"
 
 import { modelLabel } from "@/lib/catalog"
 import { errorMessage } from "@/lib/errors"
@@ -99,6 +100,7 @@ export interface PromptTester {
 // every place that offers to run it, so the picked card, the last result, the error and
 // whether the result modal stands are shared rather than duplicated per Test button.
 export const usePromptTester = (args: PromptTesterArgs): PromptTester => {
+  const { t } = useTranslation()
   const { fieldType, onPromptChange, prompt, requiredNoteTypeId } = args
   const [inheritedSelection] = useState(() => useAppStore.getState().selection)
   const [selection, setSelection] = useState(() =>
@@ -172,7 +174,7 @@ export const usePromptTester = (args: PromptTesterArgs): PromptTester => {
       })
       if (showResultModal) setIsResultOpen(true)
     } catch (error) {
-      patchState({ error: errorMessage(error, FAILURES[fieldType]) })
+      patchState({ error: errorMessage(error, t(FAILURES[fieldType])) })
     } finally {
       patchState({ isTesting: false })
     }
@@ -186,7 +188,8 @@ export const usePromptTester = (args: PromptTesterArgs): PromptTester => {
     isResultOpen,
     isTesting: state.isTesting,
     prompt,
-    promptLabel: fieldType === "tts" ? "Text to speak" : "Prompt",
+    promptLabel:
+      fieldType === "tts" ? t("promptTester.textToSpeak") : t("common.prompt"),
     provenance:
       args.fieldType === "tts"
         ? args.voiceName
@@ -259,9 +262,9 @@ export const getInitialPromptTestSelection = ({
 }
 
 const FAILURES: Record<PromptTesterArgs["fieldType"], string> = {
-  chat: "Could not test this prompt",
-  image: "Could not generate an image",
-  tts: "Could not generate audio",
+  chat: "promptTester.errors.testPrompt",
+  image: "promptTester.errors.generateImage",
+  tts: "promptTester.errors.generateAudio",
 }
 
 // Timing lives out here rather than in the hook body, where reading the clock counts as
@@ -351,6 +354,7 @@ const GeneratedImage = ({
   note: SelectedNote | null
   prompt: string
 }) => {
+  const { t } = useTranslation()
   const [dimensions, setDimensions] = useState<{
     height: number
     width: number
@@ -360,7 +364,7 @@ const GeneratedImage = ({
     <>
       <ResolvedPrompt note={note} prompt={prompt} />
       <img
-        alt="Generated image preview"
+        alt={t("promptTester.generatedImagePreview")}
         className="max-h-[50vh] w-full rounded-lg border border-white/[0.1] bg-black/20 object-contain"
         onLoad={(event) =>
           setDimensions({

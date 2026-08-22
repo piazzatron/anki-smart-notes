@@ -18,6 +18,7 @@
  */
 
 import type { ReactNode } from "react"
+import { useTranslation } from "react-i18next"
 
 import {
   Dialog,
@@ -50,6 +51,7 @@ export const PromptTestResultModal = ({
   saveAction = null,
   tester,
 }: PromptTestResultModalProps) => {
+  const { t } = useTranslation()
   const firstFieldValue = Object.values(
     tester.selectedNote?.fields ?? {},
   )[0]?.trim()
@@ -58,7 +60,7 @@ export const PromptTestResultModal = ({
       ? provenance
       : [
           firstFieldValue === undefined || firstFieldValue === ""
-            ? "Selected card"
+            ? t("promptTester.selectedCard")
             : firstFieldValue,
           provenance,
         ].join(" · ")
@@ -71,9 +73,9 @@ export const PromptTestResultModal = ({
       open={open}
     >
       <DialogContent className="max-h-[84vh] w-[min(760px,92vw)]">
-        <header className="shrink-0 border-b border-white/[0.07] py-3.5 pr-10 pl-5">
+        <header className="shrink-0 border-b border-white/[0.07] py-3.5 ps-5 pe-10">
           <DialogTitle className="text-[13px] font-bold text-ink">
-            Test result
+            {t("promptTester.testResult")}
           </DialogTitle>
           <DialogDescription className="mt-0.5 truncate text-[11px] text-ink-faint">
             {subtitle}
@@ -108,6 +110,7 @@ interface ResolvedPromptProps {
 
 /** The prompt as it was actually sent: field references swapped for the card's text. */
 export const ResolvedPrompt = ({ note, prompt }: ResolvedPromptProps) => {
+  const { t } = useTranslation()
   const fragments: ReactNode[] = []
   let previousEnd = 0
 
@@ -127,7 +130,9 @@ export const ResolvedPrompt = ({ note, prompt }: ResolvedPromptProps) => {
 
   return (
     <p className="mb-2 font-mono text-[11px] leading-[1.5] text-ink-muted">
-      <span className="font-sans text-[10.5px] text-ink-faint">Sent · </span>
+      <span className="font-sans text-[10.5px] text-ink-faint">
+        {t("promptTester.sent")} ·{" "}
+      </span>
       {fragments}
     </p>
   )

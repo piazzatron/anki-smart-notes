@@ -1,0 +1,499 @@
+{
+  "common": {
+    "allDecks": "همه عرشه ها",
+    "auto": "خودکار",
+    "autoMax": "Auto MAX",
+    "back": "برگشت",
+    "bestValueCost": "بهترین ارزش، 0.3× هزینه",
+    "cancel": "لغو کنید",
+    "close": "بستن",
+    "connection": {
+      "connecting": "در حال اتصال به Anki…",
+      "reconnecting": "در حال اتصال مجدد به Anki…"
+    },
+    "days_one": "1 روز",
+    "days_other": "روز {{count}}",
+    "deck": "عرشه",
+    "default": "پیش فرض",
+    "delete": "حذف کنید",
+    "done": "انجام شد",
+    "duplicate": "تکراری",
+    "edit": "ویرایش کنید",
+    "empty": "خالی",
+    "field": "میدان",
+    "free": "رایگان",
+    "discardChanges": "تغییرات را کنار بگذارید",
+    "discardUnsavedChanges": {
+      "description": "تغییرات شما در این تنظیمات پیش فرض ذخیره نشده است.",
+      "title": "از تغییرات ذخیره نشده صرفنظر شود؟"
+    },
+    "dismissError": "رد کردن خطا",
+    "feedback": {
+      "description": "گزارش اشکال، درخواست ویژگی یا بازخوردهای دیگر را برای توسعه دهنده ارسال کنید.",
+      "error": "بازخورد ارسال نشد",
+      "label": "بازخورد",
+      "placeholder": "یک اشکال، یک ایده، هر چیزی - مستقیماً به توسعه‌دهنده می‌رود.",
+      "send": "ارسال کنید",
+      "sending": "در حال ارسال…",
+      "sent": "بازخورد ارسال شد. به زودی در تماس خواهیم بود.",
+      "title": "ارسال بازخورد"
+    },
+    "notNow": "الان نه",
+    "other": "دیگر",
+    "placeholderScreen": "این صفحه نمایش بعدی در بازسازی است.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "وارد شوید",
+    "signInLower": "وارد شوید",
+    "unlimited": "نامحدود",
+    "upgrade": "ارتقاء",
+    "upgradeSparkles": "✨ ارتقاء ✨",
+    "multiplierCost": "{{multiplier}}× هزینه",
+    "next": "بعدی",
+    "noteType": "نوع یادداشت",
+    "optional": "اختیاری",
+    "prompt": "اعلان",
+    "saving": "در حال ذخیره…",
+    "test": "تست کنید",
+    "validFields": "فیلدهای معتبر:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "بازخورد",
+    "nav": {
+      "defaultsImages": "تنظیمات تصویر پیش فرض",
+      "defaultsText": "تنظیمات متن پیش‌فرض",
+      "defaultsVoice": "تنظیمات صوتی پیش فرض",
+      "image": "تصویر",
+      "settings": "تنظیمات",
+      "smartFields": "Smart Fields",
+      "subscription": "حساب و استفاده",
+      "support": "پشتیبانی کنید",
+      "text": "متن",
+      "voice": "صدا"
+    },
+    "sections": "بخش های Smart Notes",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "گزارش دقیق برای کمک به تشخیص مشکلات. این گزارش‌ها را هنگام ثبت یک باگ وارد کنید.",
+      "label": "حالت اشکال زدایی"
+    },
+    "generateAtReview": {
+      "description": "فیلدهای هوشمند گمشده را به‌طور خودکار پر کنید تا کارت‌ها در بازبینی ظاهر شوند.",
+      "label": "در حین بررسی، فیلدها را ایجاد کنید"
+    },
+    "language": {
+      "description": "زبان Smart Notes را انتخاب کنید یا با زبان Anki مطابقت دهید.",
+      "label": "زبان",
+      "matchAnki": "با Anki مطابقت دهید"
+    },
+    "legacy": {
+      "apiKey": "کلید OpenAI API",
+      "apiKeyRequired": "یک کلید OpenAI API پولی مورد نیاز است.",
+      "description": "یک کلید API پولی وصل کنید و یک مدل قدیمی OpenAI انتخاب کنید.",
+      "getApiKey": "یک کلید API دریافت کنید",
+      "host": "میزبان OpenAI",
+      "hostDescription": "یک نقطه پایانی جایگزین برای OpenAI API ارائه کنید.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "مدل OpenAI",
+      "title": "از کلید OpenAI خودم استفاده کنید"
+    },
+    "loading": "در حال بارگیری تنظیمات",
+    "regenerateWhenBatching": {
+      "description": "هنگام پردازش دسته ای گروهی از یادداشت ها، به جای پر کردن قسمت های خالی، هر فیلد هوشمند را از ابتدا بازسازی کنید.",
+      "label": "در هنگام پردازش دسته ای، همه زمینه های هوشمند را بازسازی کنید"
+    },
+    "saveError": "تنظیمات ذخیره نشد",
+    "sections": {
+      "advanced": "پیشرفته",
+      "general": "ژنرال",
+      "generation": "نسل"
+    },
+    "title": "تنظیمات"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "قبلا Smart Field ✨",
+    "collisionHint": "قبلاً یک Smart Field دارد - یک فیلد، عرشه یا نوع یادداشت متفاوت را انتخاب کنید",
+    "completion": {
+      "descriptionAfter": "یادداشت ها هر زمان که آن را ایجاد کنید پر می شود.",
+      "descriptionBefore": "در",
+      "methods": {
+        "bulk": {
+          "caption": "یادداشت ها یا عرشه را انتخاب کنید → کلیک راست کنید → ✨ ایجاد Smart Fields.",
+          "imageAlt": "منوی زمینه مرورگر Anki با مشخص شده Generate Smart Fields",
+          "title": "به صورت عمده، از مرورگر"
+        },
+        "card": {
+          "caption": "روی دکمه ✨ در نوار ابزار ویرایشگر کلیک کنید یا ⌘⇧G را تایپ کنید.",
+          "imageAlt": "نوار ابزار ویرایشگر Anki با دکمه Smart Notes برجسته شده است",
+          "title": "یک کارت در یک زمان"
+        },
+        "field": {
+          "caption": "روی هر فیلدی کلیک راست کنید → Generate Smart Field.",
+          "imageAlt": "منوی زمینه فیلد Anki با مشخص شده Generate Smart Field",
+          "title": "یک میدان واحد"
+        }
+      },
+      "title": "Smart Field شما فعال است",
+      "waysToGenerate": "چند راه برای تولید آن:"
+    },
+    "created": "Smart Field ایجاد شد",
+    "dontShowAgain": "این را دیگر نشان نده",
+    "errors": {
+      "save": "Smart Field ذخیره نشد",
+      "updateWizardSettings": "تنظیمات جادوگر به‌روزرسانی نشد",
+      "writePrompt": "نمی توان دستور را نوشت"
+    },
+    "fieldTypes": {
+      "audio": "صوتی",
+      "image": "تصویر",
+      "text": "متن"
+    },
+    "loadingModelCatalog": "در حال بارگیری کاتالوگ مدل…",
+    "modelSettings": {
+      "appliesOnlyToField": "فقط برای این Smart Field اعمال می شود.",
+      "defaultWithValue": "پیش‌فرض ({{value}})",
+      "defaultsImages": "پیش فرض ها › تصاویر",
+      "defaultsText": "پیش فرض ها › متن",
+      "defaultsVoice": "پیش فرض ها › صدا",
+      "descriptionChat": "هوش مصنوعی را تنظیم کنید که این فیلد را بنویسد. اکثر فیلدها می توانند روی حالت پیش فرض باقی بمانند.",
+      "descriptionImage": "هوش مصنوعی را تنظیم کنید که این فیلد را ترسیم کند. اکثر فیلدها می توانند روی حالت پیش فرض باقی بمانند.",
+      "descriptionTts": "صدایی را تنظیم کنید که این قسمت را بخواند. اکثر فیلدها می توانند روی حالت پیش فرض باقی بمانند.",
+      "imageDefault": "تصویر پیش فرض",
+      "imageModel": "مدل تصویر",
+      "loadingVoices": "در حال بارگیری صداها…",
+      "model": "مدل",
+      "pickCustom": "یک مدل سفارشی برای این زمینه انتخاب کنید",
+      "reasoning": "استدلال {{level}}",
+      "reasoningHint": "استدلال بالاتر می تواند نسل های سخت تر را بهبود بخشد، اما از اعتبارات بیشتری استفاده می کند.",
+      "reasoningLevel": "سطح استدلال",
+      "sharedByEveryField": "{{modality}} شما توسط هر Smart Field که از آن استفاده می کند به اشتراک گذاشته می شود. آن را تغییر دهید",
+      "textDefault": "متن پیش فرض",
+      "textModel": "مدل متن",
+      "useMy": "از {{modality}} من استفاده کنید",
+      "useWebSearch": "برای این قسمت از جستجوی وب استفاده کنید",
+      "voice": "صدا",
+      "voiceDefault": "صدای پیش فرض",
+      "webSearch": "جستجوی وب",
+      "webSearchHint": "اجازه دهید این قسمت از اطلاعات تازه وب استفاده کند."
+    },
+    "save": "Smart Field را ذخیره کنید",
+    "sections": {
+      "onWhichNotes": "روی کدام یادداشت ها؟",
+      "whatToGenerate": "چه چیزی را می خواهید تولید کنید؟",
+      "whichFieldToFill": "کدام قسمت را باید پر کند؟",
+      "whichFieldToSpeak": "کدام رشته باید صحبت کند؟"
+    },
+    "sourceField": "فیلد منبع",
+    "targetAriaLabel": "هدف Smart Field",
+    "testSmartField": "Smart Field خود را تست کنید",
+    "titles": {
+      "create": "Smart Field جدید ✨",
+      "duplicate": "تکراری Smart Field",
+      "edit": "ویرایش Smart Field"
+    },
+    "validation": {
+      "chooseField": "یک رشته را انتخاب کنید",
+      "chooseNoteType": "نوع یادداشت را انتخاب کنید",
+      "chooseSourceField": "یک فیلد منبع را انتخاب کنید",
+      "fieldAlreadyHasSmartField": "{{field}} قبلاً یک Smart Field دارد",
+      "writePrompt": "یک اعلان بنویسید"
+    },
+    "writePrompt": "Prompt را بنویسید",
+    "writePromptForMe": "درخواست من را برای من بنویسید",
+    "writePromptForMeHint": "آنچه را که می خواهید به زبان انگلیسی ساده بگویید - ما دستور را در زیر می نویسیم.",
+    "writePromptPlaceholder": "«ترجمه به انگلیسی طبیعی…»",
+    "writing": "نوشتن…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "اقدامات برای {{field}}",
+    "addToNoteType": "Smart Field را به {{noteType}} اضافه کنید",
+    "disable": "غیر فعال کردن",
+    "deleting": "در حال حذف…",
+    "discord": {
+      "dismissAriaLabel": "دعوت Discord را رد کنید",
+      "join": "بپیوندید",
+      "joinAriaLabel": "به Smart Notes Discord بپیوندید",
+      "subtitle": "- تعویض دستورات و ویژگی های درخواست.",
+      "title": "بیا در Discord سلام بگو"
+    },
+    "editAriaLabel": "ویرایش {{field}} Smart Field",
+    "emptyState": {
+      "description": "Smart Fields را برای اضافه کردن متن، صدا و تصاویر به کارت های خود اضافه کنید.",
+      "exampleAnswer": "سلام",
+      "exampleField": "جلو",
+      "examplePrompt": "افتخار",
+      "spark": "✦",
+      "title": "یادداشت های شما کمی خالی به نظر می رسند"
+    },
+    "enable": "فعال کردن",
+    "errors": {
+      "commandFailed": "دستور Smart Field ناموفق بود"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "متن",
+      "image": "تصویر",
+      "tts": "صوتی"
+    },
+    "loadingAriaLabel": "در حال بارگیری Smart Fields",
+    "newSmartField": "Smart Field جدید",
+    "readsAloud": "{{field}} را با صدای بلند می خواند",
+    "review": {
+      "ariaLabel": "Smart Notes را در AnkiWeb مرور کنید",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "رد کردن دعوت برای بازبینی",
+      "subtitle": "برای کمک به دیگر کاربران Anki در یافتن آن، نظری را در مورد AnkiWeb ارسال کنید.",
+      "title": "از Smart Notes لذت می برید؟"
+    },
+    "subtitle": "متن، صدا و تصاویر تولید شده به صورت خودکار را به یادداشت های خود اضافه کنید.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "کاتالوگ گپ وجود ندارد مدل {{model}}",
+      "missingImageModel": "کاتالوگ تصویر موجود نیست مدل {{model}}"
+    },
+    "image": {
+      "cannotFindModel": "کاتالوگ تصویر موجود نیست مدل {{model}}",
+      "defaultModel": "مدل پیش فرض",
+      "gptImage15Low": "بهترین کیفیت / سرعت معاوضه.",
+      "gptImage2": "هزینه مشابه، کندتر، کیفیت بالاتر.",
+      "loadingLabel": "در حال بارگیری تنظیمات تصویر پیش فرض",
+      "loadingTitle": "تنظیمات تصویر پیش فرض",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (کم / متوسط)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 انتخاب مدل تصویر",
+      "samplePrompt": "تصویری از دانش آموزی ایجاد کنید که به سختی با Anki درس می خواند و تست های خود را می گذراند.",
+      "saveError": "پیش فرض های تصویر ذخیره نشد",
+      "subtitle": "مدلی که تصویر شما Smart Fields استفاده می‌کند مگر اینکه فیلدی خودش را پین کند.",
+      "title": "تنظیمات تصویر پیش فرض",
+      "zImageTurbo": "سریع ترین و ارزان ترین"
+    },
+    "layout": {
+      "saveChanges": "ذخیره تغییرات",
+      "saving": "در حال ذخیره…",
+      "tryIt": "آن را امتحان کنید"
+    },
+    "text": {
+      "cannotInheritModel": "پیش فرض های متنی نمی توانند مدل دیگری را به ارث ببرند",
+      "defaultModel": "مدل متن پیش‌فرض",
+      "defaultReasoningLevel": "سطح استدلال پیش فرض",
+      "enableWebSearch": "جستجوی وب را فعال کنید",
+      "higherReasoning": "استدلال بالاتر می تواند نسل های سخت تر را بهبود بخشد، اما از اعتبارات بیشتری استفاده می کند.",
+      "loadingLabel": "بارگیری تنظیمات متن پیش‌فرض",
+      "loadingTitle": "تنظیمات تولید متن",
+      "modelGuidance": "{{auto}} و {{autoMax}} مدل های توصیه شده Smart Notes هستند که عملکرد و هزینه را متعادل می کنند. {{auto}} را برای کارهای استاندارد انتخاب کنید و در صورت نیاز به {{autoMax}} ارتقا دهید.",
+      "pickingModel": "💡 انتخاب مدل",
+      "reasoningLevel": "سطح استدلال",
+      "reasoningValues": {
+        "high": "بالا",
+        "low": "کم",
+        "off": "خاموش"
+      },
+      "samplePrompt": "سیستم تکرار فاصله ای (SRS) چیست؟",
+      "saveError": "پیش‌فرض متن ذخیره نشد",
+      "subtitle": "تنظیمات پیش فرض برای تولید متن Smart Fields فردی می تواند این مقادیر را نادیده بگیرد.",
+      "title": "تنظیمات تولید متن",
+      "webSearch": "جستجوی وب",
+      "webSearchDescription": "اجازه دهید نسل‌های متنی اطلاعات تازه‌ای را از وب دریافت کنند.",
+      "webSearchWarning": "⚠️ جستجو گران است. اعتبارات خود را کنترل کنید"
+    },
+    "usage": {
+      "fields_one": "برای فیلد {{count}} اعمال می شود",
+      "fields_other": "برای فیلدهای {{count}} اعمال می شود"
+    },
+    "voice": {
+      "browseVoices": "مرور صداها ({{count}})",
+      "cannotLoad": "صداها بارگیری نشد",
+      "currentDefault": "پیش فرض فعلی",
+      "filters": {
+        "all": "همه",
+        "female": "زن",
+        "gender": "جنسیت",
+        "language": "زبان",
+        "male": "مرد",
+        "provider": "ارائه دهنده"
+      },
+      "filterVoices": "صداها را فیلتر کنید",
+      "loadingLabel": "در حال بارگیری تنظیمات صوتی پیش فرض",
+      "loadingTitle": "تنظیمات صوتی پیش فرض",
+      "noVoices": "هیچ صدایی با این فیلترها مطابقت ندارد.",
+      "saveError": "پیش‌فرض‌های صوتی ذخیره نشد",
+      "searchPlaceholder": "🔍 جستجوی صداها…",
+      "searchVoices": "جستجوی صداها",
+      "subtitle": "صدایی که TTS Smart Fields شما استفاده می کند مگر اینکه فیلدی صدای خودش را پین کند.",
+      "title": "تنظیمات صوتی پیش فرض"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "یک نوع یادداشت دیگر",
+    "currentlySelectedCard": "کارت در حال حاضر انتخاب شده است",
+    "emptyCard": "(کارت خالی)",
+    "errors": {
+      "generateAudio": "صدا تولید نشد",
+      "generateImage": "تصویر ایجاد نشد",
+      "saveResult": "این نتیجه در کارت ذخیره نشد",
+      "testPrompt": "این درخواست آزمایش نشد"
+    },
+    "fieldRunsOnNoteType": "این فیلد روی <noteTypeName>{{noteType}}</noteTypeName> اجرا می‌شود",
+    "generatedImagePreview": "پیش نمایش تصویر ایجاد شده است",
+    "missingFieldsTitle_one": "زمینه گم شده",
+    "missingFieldsTitle_other": "زمینه های گم شده",
+    "needsFields_one": "به فیلد {{count}} نیاز دارد",
+    "needsFields_other": "به فیلدهای {{count}} نیاز دارد",
+    "notesSelected_one": "یادداشت {{count}} انتخاب شد - آن را به یک محدود کنید.",
+    "notesSelected_other": "یادداشت های {{count}} انتخاب شده است - آن را به یک محدود کنید.",
+    "pickCard": "کارتی را در مرورگر Anki انتخاب کنید",
+    "promptPlaceholder": "یک خط آزمایشی بنویسید و فیلدهای کارت خود را با {{braces}} ارجاع دهید.",
+    "saveToCard": "ذخیره در کارت",
+    "savedTo": "در {{field}} ذخیره شد",
+    "selectCardWithFields_one": "لطفاً کارتی را انتخاب کنید که این فیلد را داشته باشد",
+    "selectCardWithFields_other": "لطفاً کارتی را انتخاب کنید که این فیلدها را داشته باشد",
+    "selectFieldToReadAloud": "فیلدی را برای خواندن با صدای بلند انتخاب کنید",
+    "selectNewCard": "یک کارت جدید در مرورگر انتخاب کنید",
+    "selectRequiredNoteType": "لطفاً یادداشتی از نوع <noteTypeName>{{noteType}}</noteTypeName> را انتخاب کنید",
+    "selectedCard": "کارت انتخاب شده",
+    "selectedDeck": "عرشه انتخاب شده",
+    "selectedNoteType": "نوع یادداشت انتخاب شده",
+    "selectionAppearsAutomatically": "انتخاب شما به طور خودکار در اینجا ظاهر می شود.",
+    "sent": "ارسال شد",
+    "testing": "تست…",
+    "testResult": "نتیجه آزمایش",
+    "textToSpeak": "متن برای صحبت کردن",
+    "viewResult": "مشاهده نتیجه",
+    "wrongNoteType": "نوع یادداشت اشتباه است"
+  },
+  "subscription": {
+    "checking": "بررسی اشتراک",
+    "creditTypes": {
+      "images": "تصاویر",
+      "text": "متن",
+      "voice": "صدا"
+    },
+    "creditUsage": "استفاده از اعتبار",
+    "creditsReset": "اعتبارات بازنشانی می شود",
+    "daysLeft_one": "روز گذشته",
+    "daysLeft_other": "{{count}} روز باقی مانده است",
+    "errors": {
+      "logout": "نمی توان از سیستم خارج شد"
+    },
+    "freePlan": "طرح رایگان",
+    "freeTrial": "آزمایشی رایگان",
+    "hero": {
+      "buyCredits": "اعتبار بیشتری بخرید",
+      "freeCreditsResetting": "اعتبار رایگان شما در حال بازنشانی است",
+      "freePlan": "شما در طرح رایگان هستید",
+      "noteLimit": "شما به حد مجاز یادداشت خود رسیده اید",
+      "outOfCredits": "اعتبار شما در این ماه تمام شده است",
+      "outOfFreeCredits": "اعتبار رایگان شما در این ماه تمام شده است",
+      "outOfTrialCredits": "اعتبار آزمایشی شما تمام شده است",
+      "planExpired": "برنامه شما منقضی شده است",
+      "rollover": "اعتبارات پرداختی هر ماه - برای همیشه از آن شماست.",
+      "trialDaysLeft_one": "آزمایش شما امروز به پایان می رسد",
+      "trialDaysLeft_other": "{{count}} چند روز از دوره آزمایشی شما باقی مانده است",
+      "trialEnded": "محاکمه شما به پایان رسیده است",
+      "trialNoteLimit": "شما به حد مجاز یادداشت آزمایشی خود رسیده اید",
+      "upgradeCollection": "ارتقا - کل مجموعه شما به صورت خودکار",
+      "upgradeCredits": "برای اعتبارات بیشتر ارتقا دهید",
+      "upgradePaid": "✨ ارتقا به پولی"
+    },
+    "inDays_one": "امروز",
+    "inDays_other": "در روزهای {{count}}",
+    "loading": "بارگیری اشتراک",
+    "loggingOut": "خروج از سیستم…",
+    "logOut": "از سیستم خارج شوید",
+    "manageDescription": "طرح را تغییر دهید، پرداخت را به‌روزرسانی کنید یا لغو کنید.",
+    "manageOrUpgrade": "برنامه را مدیریت یا ارتقا دهید",
+    "managePlan": "برنامه را مدیریت کنید",
+    "monthlyCreditsUsed": "از اعتبارات ماهانه استفاده شده",
+    "mostCreditsUsed": "بیشتر اعتبارات این ماه استفاده می شود",
+    "noteLimitReached": "به حد مجاز یادداشت رسیده است",
+    "notes": "یادداشت ها",
+    "notesUsed": "یادداشت های استفاده شده",
+    "notesUsedValue": "{{used}}/{{limit}} استفاده شده است",
+    "outOfCredits": "خارج از اعتبار",
+    "pausedUntilReset": "تا زمانی که اعتبار شما بازنشانی شود، تولید موقتاً متوقف می شود.",
+    "plan": "برنامه ریزی کنید",
+    "planInactive": "طرح غیر فعال",
+    "resetsIn": "بازنشانی می شود",
+    "resetsInDays_one": "بازنشانی در 1 روز",
+    "resetsInDays_other": "در روزهای {{count}} بازنشانی می‌شود",
+    "signedOut": {
+      "localStorage": "فیلدها و تنظیمات هوشمند شما در این دستگاه ذخیره می شوند.",
+      "manage": "برای مدیریت طرح خود وارد شوید",
+      "paused": "تا زمانی که وارد سیستم شوید، نسل متوقف می‌شود.",
+      "title": "از سیستم خارج شد"
+    },
+    "title": "حساب و استفاده",
+    "trialCreditsUsed": "از اعتبارات آزمایشی استفاده شده",
+    "trialEnded": "محاکمه به پایان رسید",
+    "trialEnds": "محاکمه به پایان می رسد",
+    "trialNoteLimitReached": "به حد مجاز یادداشت آزمایشی رسیده است",
+    "upgradeToKeepGenerating": "برای ادامه تولید، ارتقا دهید.",
+    "usage": "استفاده"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "نظر بدهید / اسناد را ببینید.",
+    "byline": "توسط Michael Piazza / Rosebud Labs, LLC.",
+    "changelog": "تغییرات",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "سریعترین راه برای دریافت کمک، درخواست یک ویژگی یا گزارش یک اشکال.",
+      "join": "بپیوندید",
+      "title": "به Discord بپیوندید"
+    },
+    "emailUs": "به ما ایمیل بزنید",
+    "feedback": {
+      "description": "چیزی شکسته یا اشتباه؟ مستقیماً به توسعه دهنده ضعیف پیام دهید.",
+      "send": "بفرست",
+      "title": "ارسال یک اشکال / درخواست یک ویژگی"
+    },
+    "github": "GitHub",
+    "loading": "در حال بارگذاری پشتیبانی",
+    "title": "پشتیبانی کنید"
+  },
+  "welcome": {
+    "alreadyAccount": "از قبل حساب کاربری دارید؟",
+    "codePlaceholder": "کد خود را جایگذاری کنید",
+    "connect": "اتصال",
+    "connecting": "در حال اتصال…",
+    "description": "متن، گفتار و تصاویر را با یک کلیک به کارت های فردی یا کل عرشه خود اضافه کنید.",
+    "errors": {
+      "code": "نمی توان با آن کد ارتباط برقرار کرد"
+    },
+    "finishDescription": "ورود به سیستم را در مرورگری که باز کردیم کامل کنید. این پنجره به طور خودکار به روز می شود.",
+    "finishInBrowser": "کار را در مرورگر خود به پایان برسانید",
+    "haveCode": "کدی از وب سایت دارید؟",
+    "startTrial": "✨ شروع آزمایشی رایگان ✨",
+    "trialDetails": "رایگان به مدت 7 روز · هر ویژگی · بدون کارت اعتباری"
+  },
+  "trialEnded": {
+    "description": "دوره های آزمایشی 7 روز یا تا زمانی که اعتبار آزمایشی شما تمام شود اجرا می شود.",
+    "features": {
+      "ariaLabel": "آنچه ارتقاء نگه می دارد",
+      "batch": "در کل مجموعه خود دسته بندی کنید",
+      "images": "تولید تصویر",
+      "premium": "هر مدل و صدای ممتاز",
+      "review": "در حین بررسی ایجاد کنید"
+    },
+    "reviewOffer": {
+      "ariaLabel": "پیشنهاد ماهانه رایگان",
+      "description": "یک بررسی سریع AnkiWeb بگذارید، یک ماه از ما بهره مند شوید.",
+      "dialogDescription": "یک بررسی سریع درباره AnkiWeb بگذارید، سپس به ما ایمیل بزنید — ما یک ماه رایگان Smart Notes به حساب شما اضافه خواهیم کرد.",
+      "dialogTitle": "ماه رایگان خود را دریافت کنید",
+      "leaveAnkiWebReview": "نظری در مورد AnkiWeb بگذارید",
+      "leaveReview": "نظر بدهید",
+      "title": "یک ماه رایگان Smart Notes دریافت کنید"
+    },
+    "thanks": "با تشکر از استفاده از Smart Notes ✨",
+    "title": "دوره آزمایشی رایگان شما به پایان رسیده است",
+    "upgradeNow": "اکنون ارتقا دهید"
+  }
+}

@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { Toggle } from "@/components/ui/Toggle"
@@ -26,6 +27,7 @@ interface TextDefaultsScreenProps {
 export const TextDefaultsScreen = ({
   onDirtyChange,
 }: TextDefaultsScreenProps) => {
+  const { t } = useTranslation()
   const state = useAppStore((store) => store.state)
   const catalog = useAppStore((store) => store.catalog)
 
@@ -37,8 +39,8 @@ export const TextDefaultsScreen = ({
             💬
           </span>
         }
-        label="Loading Default Text Settings"
-        title="Text Generation Settings"
+        label={t("defaults.text.loadingLabel")}
+        title={t("defaults.text.loadingTitle")}
       />
     )
   }
@@ -58,22 +60,21 @@ interface LoadedTextDefaultsScreenProps {
   state: AppState
 }
 
-const DEFAULT_TEXT_PROMPT = "What is a Spaced Repetition System (SRS)?"
-
 export const LoadedTextDefaultsScreen = ({
   catalog,
   onDirtyChange,
   state,
 }: LoadedTextDefaultsScreenProps) => {
+  const { t } = useTranslation()
   const controls = useDefaultsForm({
-    fallbackError: "Could not save text defaults",
+    fallbackError: t("defaults.text.saveError"),
     onDirtyChange,
     save: saveChatDefaults,
     serverDefaults: state.defaults.chat,
   })
   const usage = getDefaultUsage(state.smartFields, "chat")
   // The tester owns its own scratch prompt here: nothing else on the page writes one.
-  const [prompt, setPrompt] = useState(DEFAULT_TEXT_PROMPT)
+  const [prompt, setPrompt] = useState(() => t("defaults.text.samplePrompt"))
   const tester = usePromptTester({
     fieldType: "chat",
     onPromptChange: setPrompt,
@@ -92,10 +93,10 @@ export const LoadedTextDefaultsScreen = ({
       isDirty={controls.form.isDirty}
       isSaving={controls.form.isSaving}
       onSave={() => void controls.saveChanges()}
-      subtitle="Default settings for text generation. Individual Smart Fields can override these values."
+      subtitle={t("defaults.text.subtitle")}
       tester={<PromptTesterStrip field={tester} />}
       testId="text-defaults-screen"
-      title="Text Generation Settings"
+      title={t("defaults.text.title")}
     >
       {controls.form.error !== null && (
         <ErrorBanner
@@ -112,14 +113,14 @@ export const LoadedTextDefaultsScreen = ({
               className="mb-2 block text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase"
               htmlFor="default-text-model"
             >
-              Default Text Model
+              {t("defaults.text.defaultModel")}
             </label>
             <ChatModelSelect
               catalog={catalog.chat}
               id="default-text-model"
               onValueChange={(model) => {
                 if (model === null) {
-                  throw new Error("Text defaults cannot inherit another model")
+                  throw new Error(t("defaults.text.cannotInheritModel"))
                 }
                 void controls.updateDefault({
                   model: model.id,
@@ -135,10 +136,10 @@ export const LoadedTextDefaultsScreen = ({
             {controls.form.values.provider === "auto" && (
               <label className="block">
                 <span className="mb-2 block text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
-                  Reasoning level
+                  {t("defaults.text.reasoningLevel")}
                 </span>
                 <ReasoningLevelSelect
-                  ariaLabel="Default reasoning level"
+                  ariaLabel={t("defaults.text.defaultReasoningLevel")}
                   levels={catalog.chat.reasoningLevels}
                   onValueChange={(reasoningLevel) =>
                     void controls.updateDefault({ reasoningLevel })
@@ -146,8 +147,7 @@ export const LoadedTextDefaultsScreen = ({
                   value={controls.form.values.reasoningLevel}
                 />
                 <span className="mt-2 block text-[10.5px] leading-4 text-ink-muted">
-                  Higher reasoning can improve harder generations, but uses more
-                  credits.
+                  {t("defaults.text.higherReasoning")}
                 </span>
               </label>
             )}
@@ -157,18 +157,18 @@ export const LoadedTextDefaultsScreen = ({
             >
               <div className="min-w-0 flex-1">
                 <p className="text-xs font-semibold text-zinc-200">
-                  Web Search
+                  {t("defaults.text.webSearch")}
                 </p>
                 <p className="mt-1 text-[11px] leading-4 text-ink-muted">
-                  Let text generations pull in fresh info from the web.
+                  {t("defaults.text.webSearchDescription")}
                 </p>
                 <p className="mt-1.5 text-[10.5px] text-amber/80">
-                  ⚠️ Search is expensive; monitor your credits.
+                  {t("defaults.text.webSearchWarning")}
                 </p>
               </div>
               <div className="mt-0.5">
                 <Toggle
-                  aria-label="Enable Web Search"
+                  aria-label={t("defaults.text.enableWebSearch")}
                   checked={controls.form.values.webSearchEnabled}
                   onCheckedChange={(webSearchEnabled) =>
                     void controls.updateDefault({

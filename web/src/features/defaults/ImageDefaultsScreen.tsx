@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { ImageModelSelect } from "@/features/image-generation/ImageModelSelect"
@@ -23,6 +24,7 @@ interface ImageDefaultsScreenProps {
 export const ImageDefaultsScreen = ({
   onDirtyChange,
 }: ImageDefaultsScreenProps) => {
+  const { t } = useTranslation()
   const state = useAppStore((store) => store.state)
   const catalog = useAppStore((store) => store.catalog)
   if (state === null || catalog === null) {
@@ -33,8 +35,8 @@ export const ImageDefaultsScreen = ({
             🎨
           </span>
         }
-        label="Loading Default Image Settings"
-        title="Default Image Settings"
+        label={t("defaults.image.loadingLabel")}
+        title={t("defaults.image.loadingTitle")}
       />
     )
   }
@@ -54,23 +56,21 @@ interface LoadedImageDefaultsScreenProps {
   state: AppState
 }
 
-const DEFAULT_IMAGE_PROMPT =
-  "Generate an image of a student studying hard with Anki and passing their tests."
-
 const LoadedImageDefaultsScreen = ({
   catalog,
   onDirtyChange,
   state,
 }: LoadedImageDefaultsScreenProps) => {
+  const { t } = useTranslation()
   const controls = useDefaultsForm({
-    fallbackError: "Could not save image defaults",
+    fallbackError: t("defaults.image.saveError"),
     onDirtyChange,
     save: saveImageDefaults,
     serverDefaults: state.defaults.image,
   })
   const usage = getDefaultUsage(state.smartFields, "image")
   // The tester owns its own scratch prompt here: nothing else on the page writes one.
-  const [prompt, setPrompt] = useState(DEFAULT_IMAGE_PROMPT)
+  const [prompt, setPrompt] = useState(() => t("defaults.image.samplePrompt"))
   const tester = usePromptTester({
     fieldType: "image",
     onPromptChange: setPrompt,
@@ -89,10 +89,10 @@ const LoadedImageDefaultsScreen = ({
       isDirty={controls.form.isDirty}
       isSaving={controls.form.isSaving}
       onSave={() => void controls.saveChanges()}
-      subtitle="The model your image Smart Fields use unless a field pins its own."
+      subtitle={t("defaults.image.subtitle")}
       tester={<PromptTesterStrip field={tester} />}
       testId="image-defaults-screen"
-      title="Default Image Settings"
+      title={t("defaults.image.title")}
     >
       {controls.form.error !== null && (
         <ErrorBanner
@@ -108,7 +108,7 @@ const LoadedImageDefaultsScreen = ({
             className="mb-2 block text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase"
             htmlFor="default-image-model"
           >
-            Default model
+            {t("defaults.image.defaultModel")}
           </label>
           <ImageModelSelect
             catalog={catalog.image}
@@ -119,22 +119,26 @@ const LoadedImageDefaultsScreen = ({
 
           <div className="mt-3 rounded-lg border border-indigo/15 bg-indigo/[0.055] p-3.5">
             <p className="text-xs font-semibold text-zinc-200">
-              💡 Picking an image model
+              {t("defaults.image.pickingModel")}
             </p>
-            <ul className="mt-2 list-disc space-y-1 pl-5 text-[11px] leading-4 text-ink-muted">
+            <ul className="mt-2 list-disc space-y-1 ps-5 text-[11px] leading-4 text-ink-muted">
               <li>
-                <strong className="text-zinc-300">GPT Image 1.5 Low</strong> —
-                best quality / speed tradeoff.
+                <strong className="text-zinc-300">
+                  {t("defaults.image.models.gptImage15Low")}
+                </strong>{" "}
+                — {t("defaults.image.gptImage15Low")}
               </li>
               <li>
                 <strong className="text-zinc-300">
-                  GPT Image 2 (Low / Medium)
+                  {t("defaults.image.models.gptImage2")}
                 </strong>{" "}
-                — same cost, slower, higher quality.
+                — {t("defaults.image.gptImage2")}
               </li>
               <li>
-                <strong className="text-zinc-300">Z-Image Turbo</strong> —
-                fastest and cheapest.
+                <strong className="text-zinc-300">
+                  {t("defaults.image.models.zImageTurbo")}
+                </strong>{" "}
+                — {t("defaults.image.zImageTurbo")}
               </li>
             </ul>
           </div>

@@ -1,0 +1,509 @@
+{
+  "common": {
+    "allDecks": "כל החפיסות",
+    "auto": "אוטומטי",
+    "autoMax": "Auto MAX",
+    "back": "בְּחֲזָרָה",
+    "bestValueCost": "התמורה הטובה ביותר, 0.3× עלות",
+    "cancel": "לְבַטֵל",
+    "close": "לִסְגוֹר",
+    "connection": {
+      "connecting": "מתחבר ל-Anki...",
+      "reconnecting": "מתחבר מחדש ל-Anki..."
+    },
+    "days_one": "יום אחד",
+    "days_two": "{{count}} ימים",
+    "days_other": "{{count}} ימים",
+    "deck": "סִיפּוּן",
+    "default": "בְּרִירַת מֶחדָל",
+    "delete": "לִמְחוֹק",
+    "done": "נַעֲשָׂה",
+    "duplicate": "לְשַׁכְפֵּל",
+    "edit": "לַעֲרוֹך",
+    "empty": "רֵיק",
+    "field": "שָׂדֶה",
+    "free": "לְשַׁחְרֵר",
+    "discardChanges": "בטל שינויים",
+    "discardUnsavedChanges": {
+      "description": "השינויים שלך בהגדרות ברירת המחדל לא נשמרו.",
+      "title": "למחוק שינויים שלא נשמרו?"
+    },
+    "dismissError": "בטל שגיאה",
+    "feedback": {
+      "description": "שלח למפתח דוח באג, בקשת תכונה או משוב אחר.",
+      "error": "לא ניתן לשלוח משוב",
+      "label": "מָשׁוֹב",
+      "placeholder": "באג, רעיון, כל דבר - זה עובר ישר למפתח.",
+      "send": "לִשְׁלוֹחַ",
+      "sending": "שְׁלִיחָה…",
+      "sent": "נשלח משוב. נהיה בקשר בקרוב.",
+      "title": "שלח משוב"
+    },
+    "notNow": "לא עכשיו",
+    "other": "אַחֵר",
+    "placeholderScreen": "מסך זה הוא הבא בבנייה מחדש.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "היכנס",
+    "signInLower": "היכנס",
+    "unlimited": "בִּלתִי מוּגבָּל",
+    "upgrade": "שדרוג",
+    "upgradeSparkles": "✨ שדרוג ✨",
+    "multiplierCost": "{{multiplier}}× עלות",
+    "next": "הַבָּא",
+    "noteType": "סוג הערה",
+    "optional": "אופציונלי",
+    "prompt": "לְעוֹרֵר",
+    "saving": "חִסָכוֹן…",
+    "test": "מִבְחָן",
+    "validFields": "שדות חוקיים:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "מָשׁוֹב",
+    "nav": {
+      "defaultsImages": "הגדרות תמונה ברירת מחדל",
+      "defaultsText": "הגדרות טקסט ברירת מחדל",
+      "defaultsVoice": "הגדרות קול ברירת מחדל",
+      "image": "תְמוּנָה",
+      "settings": "הגדרות",
+      "smartFields": "Smart Fields",
+      "subscription": "חשבון ושימוש",
+      "support": "תְמִיכָה",
+      "text": "טֶקסט",
+      "voice": "קוֹל"
+    },
+    "sections": "קטעי Smart Notes",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "רישום מפורט כדי לסייע באבחון בעיות. כלול יומנים אלה בעת הגשת באג.",
+      "label": "מצב ניפוי באגים"
+    },
+    "generateAtReview": {
+      "description": "מלא שדות חכמים חסרים באופן אוטומטי כאשר כרטיסים עולים בבדיקה.",
+      "label": "צור שדות במהלך הבדיקה"
+    },
+    "language": {
+      "description": "בחר את השפה עבור Smart Notes, או התאם את השפה של Anki.",
+      "label": "שָׂפָה",
+      "matchAnki": "התאם את Anki"
+    },
+    "legacy": {
+      "apiKey": "מפתח API של OpenAI",
+      "apiKeyRequired": "נדרש מפתח API בתשלום OpenAI.",
+      "description": "חבר מפתח API בתשלום ובחר דגם OpenAI מדור קודם.",
+      "getApiKey": "קבל מפתח API",
+      "host": "מארח OpenAI",
+      "hostDescription": "ספק נקודת קצה חלופית ל-OpenAI API.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "דגם OpenAI",
+      "title": "השתמש במפתח OpenAI שלי"
+    },
+    "loading": "טוען הגדרות",
+    "regenerateWhenBatching": {
+      "description": "בעת עיבוד אצווה של קבוצת הערות, צור מחדש כל שדה חכם מאפס במקום למלא רק שדה ריקים.",
+      "label": "צור מחדש את כל השדות החכמים בעת עיבוד אצווה"
+    },
+    "saveError": "לא ניתן לשמור הגדרות",
+    "sections": {
+      "advanced": "מִתקַדֵם",
+      "general": "כְּלָלִי",
+      "generation": "דוֹר"
+    },
+    "title": "הגדרות"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "כבר שדה חכם ✨",
+    "collisionHint": "כבר יש שדה חכם - בחר שדה, חפיסה או סוג אחר",
+    "completion": {
+      "descriptionAfter": "הערות מתמלא בכל פעם שאתה יוצר אותו.",
+      "descriptionBefore": "עַל",
+      "methods": {
+        "bulk": {
+          "caption": "בחר הערות או חפיסה → לחץ לחיצה ימנית → ✨ צור Smart Fields.",
+          "imageAlt": "Anki תפריט ההקשר של הדפדפן עם יצירת Smart Fields מודגש",
+          "title": "בכמויות גדולות, מהדפדפן"
+        },
+        "card": {
+          "caption": "לחץ על הלחצן ✨ בסרגל הכלים של העורך או הקלד ⌘⇧G.",
+          "imageAlt": "סרגל הכלים של עורך Anki עם הלחצן Smart Notes מסומן",
+          "title": "כרטיס אחד בכל פעם"
+        },
+        "field": {
+          "caption": "לחץ לחיצה ימנית על שדה כלשהו ← צור שדה חכם.",
+          "imageAlt": "תפריט ההקשר של שדה Anki עם יצירת שדה חכם מודגש",
+          "title": "שדה בודד"
+        }
+      },
+      "title": "השדה החכם שלך פעיל",
+      "waysToGenerate": "כמה דרכים ליצור אותו:"
+    },
+    "created": "שדה חכם נוצר",
+    "dontShowAgain": "אל תראה את זה שוב",
+    "errors": {
+      "save": "לא ניתן לשמור את Smart Field",
+      "updateWizardSettings": "לא ניתן היה לעדכן את הגדרות האשף",
+      "writePrompt": "לא ניתן היה לכתוב את ההנחיה"
+    },
+    "fieldTypes": {
+      "audio": "שֶׁמַע",
+      "image": "תְמוּנָה",
+      "text": "טֶקסט"
+    },
+    "loadingModelCatalog": "טוען קטלוג דגמים...",
+    "modelSettings": {
+      "appliesOnlyToField": "חל על שדה חכם זה בלבד.",
+      "defaultWithValue": "ברירת מחדל ({{value}})",
+      "defaultsImages": "ברירות מחדל › תמונות",
+      "defaultsText": "ברירות מחדל › טקסט",
+      "defaultsVoice": "ברירות מחדל › קול",
+      "descriptionChat": "הגדר את ה-AI שכותב את השדה הזה. רוב השדות יכולים להישאר על ברירת המחדל.",
+      "descriptionImage": "הגדר את ה-AI שמצייר את השדה הזה. רוב השדות יכולים להישאר על ברירת המחדל.",
+      "descriptionTts": "הגדר את הקול שקורא את השדה הזה. רוב השדות יכולים להישאר על ברירת המחדל.",
+      "imageDefault": "ברירת המחדל של תמונה",
+      "imageModel": "דגם תמונה",
+      "loadingVoices": "טוען קולות...",
+      "model": "דֶגֶם",
+      "pickCustom": "בחר דגם מותאם אישית עבור שדה זה",
+      "reasoning": "נימוק {{level}}",
+      "reasoningHint": "הגיון גבוה יותר יכול לשפר דורות קשים יותר, אבל משתמש ביותר קרדיטים.",
+      "reasoningLevel": "רמת הנמקה",
+      "sharedByEveryField": "ה-{{modality}} שלך משותף לכל שדה חכם שמשתמש בו. שנה את זה",
+      "textDefault": "ברירת המחדל של טקסט",
+      "textModel": "דגם טקסט",
+      "useMy": "השתמש ב-{{modality}} שלי",
+      "useWebSearch": "השתמש בחיפוש אינטרנט עבור שדה זה",
+      "voice": "קוֹל",
+      "voiceDefault": "ברירת המחדל של קול",
+      "webSearch": "חיפוש באינטרנט",
+      "webSearchHint": "אפשר לשדה זה להשתמש במידע חדש מהאינטרנט."
+    },
+    "save": "שמור שדה חכם",
+    "sections": {
+      "onWhichNotes": "באילו פתקים?",
+      "whatToGenerate": "מה אתה רוצה לייצר?",
+      "whichFieldToFill": "איזה שדה צריך למלא?",
+      "whichFieldToSpeak": "באיזה תחום זה אמור לדבר?"
+    },
+    "sourceField": "שדה מקור",
+    "targetAriaLabel": "יעד שדה חכם",
+    "testSmartField": "בדוק את השדה החכם שלך",
+    "titles": {
+      "create": "שדה חכם חדש ✨",
+      "duplicate": "שכפל שדה חכם",
+      "edit": "ערוך שדה חכם"
+    },
+    "validation": {
+      "chooseField": "בחר שדה",
+      "chooseNoteType": "בחר סוג הערה",
+      "chooseSourceField": "בחר שדה מקור",
+      "fieldAlreadyHasSmartField": "ל-{{field}} כבר יש שדה חכם",
+      "writePrompt": "כתוב הנחיה"
+    },
+    "writePrompt": "כתוב הנחיה",
+    "writePromptForMe": "כתוב את ההנחיה שלי עבורי",
+    "writePromptForMeHint": "אמור מה שאתה רוצה באנגלית פשוטה - נכתוב את ההנחיה למטה.",
+    "writePromptPlaceholder": "\"תרגם לאנגלית טבעית...\"",
+    "writing": "כְּתִיבָה…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "פעולות עבור {{field}}",
+    "addToNoteType": "הוסף Smart Field ל-{{noteType}}",
+    "disable": "השבת",
+    "deleting": "מוחק...",
+    "discord": {
+      "dismissAriaLabel": "דחה את ההזמנה של Discord",
+      "join": "לְהִצְטַרֵף",
+      "joinAriaLabel": "הצטרף ל-Smart Notes Discord",
+      "subtitle": "- החלפת הנחיות ותכונות בקשה.",
+      "title": "בוא להגיד שלום ב-Discord"
+    },
+    "editAriaLabel": "ערוך את {{field}} שדה חכם",
+    "emptyState": {
+      "description": "הוסף את Smart Fields כדי להוסיף טקסט, אודיו ותמונות לכרטיסים שלך.",
+      "exampleAnswer": "שלום",
+      "exampleField": "חֲזִית",
+      "examplePrompt": "בונז'ור",
+      "spark": "✦",
+      "title": "ההערות שלך נראות ריקות מעט"
+    },
+    "enable": "לְאַפשֵׁר",
+    "errors": {
+      "commandFailed": "פקודת שדה חכם נכשלה"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} שדה חכם",
+    "fieldTypes": {
+      "chat": "טֶקסט",
+      "image": "תְמוּנָה",
+      "tts": "שֶׁמַע"
+    },
+    "loadingAriaLabel": "טוען Smart Fields",
+    "newSmartField": "שדה חכם חדש",
+    "readsAloud": "קורא {{field}} בקול",
+    "review": {
+      "ariaLabel": "סקור את Smart Notes ב-AnkiWeb",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "דחה את ההזמנה לביקורת",
+      "subtitle": "השאירו ביקורת על AnkiWeb כדי לעזור למשתמשים אחרים של Anki למצוא אותו.",
+      "title": "נהנה מ-Smart Notes?"
+    },
+    "subtitle": "הוסף טקסט, קול ותמונות שנוצרו באופן אוטומטי להערות שלך.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "בקטלוג הצ'אט חסר דגם {{model}}",
+      "missingImageModel": "בקטלוג התמונות חסר דגם {{model}}"
+    },
+    "image": {
+      "cannotFindModel": "בקטלוג התמונות חסר דגם {{model}}",
+      "defaultModel": "דגם ברירת מחדל",
+      "gptImage15Low": "פשרה באיכות / מהירות הטובה ביותר.",
+      "gptImage2": "אותה עלות, איטית יותר, איכותית יותר.",
+      "loadingLabel": "טוען את הגדרות ברירת המחדל של תמונה",
+      "loadingTitle": "הגדרות תמונה ברירת מחדל",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (נמוך / בינוני)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 בחירת דגם תמונה",
+      "samplePrompt": "צור תמונה של תלמיד לומד קשה עם Anki ועובר את המבחנים שלו.",
+      "saveError": "לא ניתן לשמור את ברירת המחדל של התמונה",
+      "subtitle": "הדגם שבו משתמשת התמונה שלך Smart Fields, אלא אם כן שדה מצמיד את שלו.",
+      "title": "הגדרות תמונה ברירת מחדל",
+      "zImageTurbo": "הכי מהיר והכי זול."
+    },
+    "layout": {
+      "saveChanges": "שמור שינויים",
+      "saving": "חִסָכוֹן…",
+      "tryIt": "נסה את זה"
+    },
+    "text": {
+      "cannotInheritModel": "ברירת המחדל של טקסט אינה יכולה לרשת דגם אחר",
+      "defaultModel": "מודל טקסט ברירת מחדל",
+      "defaultReasoningLevel": "רמת הנמקה ברירת מחדל",
+      "enableWebSearch": "אפשר חיפוש באינטרנט",
+      "higherReasoning": "הגיון גבוה יותר יכול לשפר דורות קשים יותר, אבל משתמש ביותר קרדיטים.",
+      "loadingLabel": "טוען הגדרות טקסט ברירת מחדל",
+      "loadingTitle": "הגדרות יצירת טקסט",
+      "modelGuidance": "{{auto}} ו-{{autoMax}} הם הדגמים המומלצים של Smart Notes שמאזנים בין ביצועים לעלות. בחר {{auto}} עבור משימות סטנדרטיות ושדרג ל-{{autoMax}} במידת הצורך.",
+      "pickingModel": "💡 בחירת דגם",
+      "reasoningLevel": "רמת הנמקה",
+      "reasoningValues": {
+        "high": "גָבוֹהַ",
+        "low": "נָמוּך",
+        "off": "כבוי"
+      },
+      "samplePrompt": "מהי מערכת חזרות מרווחת (SRS)?",
+      "saveError": "לא ניתן לשמור ברירות מחדל של טקסט",
+      "subtitle": "הגדרות ברירת מחדל ליצירת טקסט. Smart Fields בודד יכול לעקוף ערכים אלה.",
+      "title": "הגדרות יצירת טקסט",
+      "webSearch": "חיפוש באינטרנט",
+      "webSearchDescription": "אפשר לדורות טקסט למשוך מידע חדש מהאינטרנט.",
+      "webSearchWarning": "⚠️ החיפוש יקר; לעקוב אחר הקרדיטים שלך."
+    },
+    "usage": {
+      "fields_one": "חל על שדה {{count}}",
+      "fields_two": "חל על {{count}} שדות",
+      "fields_other": "חל על שדות {{count}}"
+    },
+    "voice": {
+      "browseVoices": "עיון בקולות ({{count}})",
+      "cannotLoad": "לא ניתן לטעון קולות",
+      "currentDefault": "ברירת המחדל הנוכחית",
+      "filters": {
+        "all": "כֹּל",
+        "female": "נְקֵבָה",
+        "gender": "מִין",
+        "language": "שָׂפָה",
+        "male": "זָכָר",
+        "provider": "ספק"
+      },
+      "filterVoices": "סינון קולות",
+      "loadingLabel": "טוען הגדרות קול ברירת מחדל",
+      "loadingTitle": "הגדרות קול ברירת מחדל",
+      "noVoices": "אין קולות שתואמים למסננים האלה.",
+      "saveError": "לא ניתן לשמור את ברירת המחדל של הקול",
+      "searchPlaceholder": "🔍 חפש קולות...",
+      "searchVoices": "חפש קולות",
+      "subtitle": "הקול שבו ה-TTS שלך Smart Fields משתמש אלא אם כן שדה מצמיד את שלו.",
+      "title": "הגדרות קול ברירת מחדל"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "סוג פתק אחר",
+    "currentlySelectedCard": "כרטיס שנבחר כעת",
+    "emptyCard": "(כרטיס ריק)",
+    "errors": {
+      "generateAudio": "לא ניתן ליצור אודיו",
+      "generateImage": "לא ניתן ליצור תמונה",
+      "saveResult": "לא ניתן לשמור תוצאה זו בכרטיס",
+      "testPrompt": "לא ניתן היה לבדוק הודעה זו"
+    },
+    "fieldRunsOnNoteType": "שדה זה פועל על <noteTypeName>{{noteType}}</noteTypeName>",
+    "generatedImagePreview": "תצוגה מקדימה של תמונה שנוצרה",
+    "missingFieldsTitle_one": "שדה חסר",
+    "missingFieldsTitle_two": "שני שדות חסרים",
+    "missingFieldsTitle_other": "שדות חסרים",
+    "needsFields_one": "צריך שדה {{count}}",
+    "needsFields_two": "צריך {{count}} שדות",
+    "needsFields_other": "צריך שדות {{count}}",
+    "notesSelected_one": "הערה {{count}} נבחרה - צמצם אותה לאחד.",
+    "notesSelected_two": "{{count}} הערות נבחרו - צמצמו אותן לאחת.",
+    "notesSelected_other": "הערות {{count}} שנבחרו - צמצמו אותו לאחד.",
+    "pickCard": "בחר כרטיס בדפדפן Anki",
+    "promptPlaceholder": "כתוב הודעת בדיקה, תוך התייחסות לשדות בכרטיס שלך עם {{braces}}.",
+    "saveToCard": "שמור בכרטיס",
+    "savedTo": "נשמר ב-{{field}}",
+    "selectCardWithFields_one": "בחר כרטיס עם השדה",
+    "selectCardWithFields_two": "בחר כרטיס עם השדות",
+    "selectCardWithFields_other": "בחר כרטיס עם השדות",
+    "selectFieldToReadAloud": "בחר שדה לקריאה בקול רם",
+    "selectNewCard": "בחר כרטיס חדש בדפדפן",
+    "selectRequiredNoteType": "בחר הערה מסוג <noteTypeName>{{noteType}}</noteTypeName>",
+    "selectedCard": "כרטיס נבחר",
+    "selectedDeck": "סיפון נבחר",
+    "selectedNoteType": "סוג הערה נבחר",
+    "selectionAppearsAutomatically": "הבחירה שלך מופיעה כאן באופן אוטומטי.",
+    "sent": "נשלח",
+    "testing": "בּוֹחֵן…",
+    "testResult": "תוצאת הבדיקה",
+    "textToSpeak": "טקסט לדבר",
+    "viewResult": "צפה בתוצאה",
+    "wrongNoteType": "סוג פתק שגוי"
+  },
+  "subscription": {
+    "checking": "בודק מנוי",
+    "creditTypes": {
+      "images": "תמונות",
+      "text": "טֶקסט",
+      "voice": "קוֹל"
+    },
+    "creditUsage": "שימוש באשראי",
+    "creditsReset": "זיכויים מאופסים",
+    "daysLeft_one": "יום אחרון",
+    "daysLeft_two": "נותרו {{count}} ימים",
+    "daysLeft_other": "{{count}} ימים נותרו",
+    "errors": {
+      "logout": "לא ניתן היה להתנתק"
+    },
+    "freePlan": "תוכנית חינם",
+    "freeTrial": "ניסיון חינם",
+    "hero": {
+      "buyCredits": "קנה יותר קרדיטים",
+      "freeCreditsResetting": "הזיכויים החינמיים שלך מתאפסים",
+      "freePlan": "אתה בתוכנית בחינם",
+      "noteLimit": "הגעת למגבלת ההערות שלך",
+      "outOfCredits": "נגמר לך הקרדיטים החודש",
+      "outOfFreeCredits": "נגמרו לך הזיכויים בחינם החודש",
+      "outOfTrialCredits": "נגמרו לך הקרדיטים לניסיון",
+      "planExpired": "פג תוקף התוכנית שלך",
+      "rollover": "זיכויים של תשלום לפי דרכו מתגלגלים מדי חודש - שלך לנצח.",
+      "trialDaysLeft_one": "תקופת הניסיון שלך מסתיימת היום",
+      "trialDaysLeft_two": "נותרו {{count}} ימים לתקופת הניסיון שלך",
+      "trialDaysLeft_other": "{{count}} ימים נותרו לתקופת הניסיון שלך",
+      "trialEnded": "הניסיון שלך הסתיים",
+      "trialNoteLimit": "הגעת למגבלת הערות הניסיון שלך",
+      "upgradeCollection": "שדרג - כל האוסף שלך, באופן אוטומטי",
+      "upgradeCredits": "שדרג לקבלת קרדיטים נוספים",
+      "upgradePaid": "✨ שדרג לתשלום"
+    },
+    "inDays_one": "הַיוֹם",
+    "inDays_two": "בעוד {{count}} ימים",
+    "inDays_other": "בעוד {{count}} ימים",
+    "loading": "טוען מנוי",
+    "loggingOut": "מתנתק...",
+    "logOut": "התנתק",
+    "manageDescription": "שנה תוכנית, עדכן תשלום או בטל.",
+    "manageOrUpgrade": "נהל או שדרג תוכנית",
+    "managePlan": "נהל תוכנית",
+    "monthlyCreditsUsed": "של זיכויים חודשיים בשימוש",
+    "mostCreditsUsed": "רוב הקרדיטים של החודש מנוצלים",
+    "noteLimitReached": "הגעת למגבלת הערות",
+    "notes": "הערות",
+    "notesUsed": "נעשה שימוש בהערות",
+    "notesUsedValue": "{{used}}/{{limit}} בשימוש",
+    "outOfCredits": "נגמרו הקרדיטים",
+    "pausedUntilReset": "הדור מושהה עד לאיפוס הזיכויים שלך.",
+    "plan": "לְתַכְנֵן",
+    "planInactive": "תוכנית לא פעילה",
+    "resetsIn": "מתאפס ב",
+    "resetsInDays_one": "מתאפס תוך יום אחד",
+    "resetsInDays_two": "מתאפס בעוד {{count}} ימים",
+    "resetsInDays_other": "מתאפס בעוד {{count}} ימים",
+    "signedOut": {
+      "localStorage": "השדות וההגדרות החכמים שלך מאוחסנים במכשיר זה.",
+      "manage": "היכנס כדי לנהל את התוכנית שלך",
+      "paused": "הדור מושהה עד שתיכנס.",
+      "title": "יצא"
+    },
+    "title": "חשבון ושימוש",
+    "trialCreditsUsed": "של נקודות ניסיון בשימוש",
+    "trialEnded": "המשפט הסתיים",
+    "trialEnds": "המשפט מסתיים",
+    "trialNoteLimitReached": "הגעת למגבלת הערות ניסיון",
+    "upgradeToKeepGenerating": "שדרג כדי להמשיך לייצר.",
+    "usage": "נוֹהָג"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "השאירו ביקורת / ראה מסמכים.",
+    "byline": "מאת Michael Piazza / Rosebud Labs, LLC.",
+    "changelog": "יומן שינויים",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "הדרך המהירה ביותר לקבל עזרה, לבקש תכונה או לדווח על באג.",
+      "join": "לְהִצְטַרֵף",
+      "title": "הצטרף ל-Discord"
+    },
+    "emailUs": "שלח לנו דוא\"ל",
+    "feedback": {
+      "description": "משהו שבור או לא בסדר? שלח הודעה ישירות למפתח המסכן.",
+      "send": "שלח את זה",
+      "title": "שלח באג / בקש תכונה"
+    },
+    "github": "GitHub",
+    "loading": "תמיכה בטעינה",
+    "title": "תְמִיכָה"
+  },
+  "welcome": {
+    "alreadyAccount": "יש לך כבר חשבון?",
+    "codePlaceholder": "הדבק את הקוד שלך",
+    "connect": "לְחַבֵּר",
+    "connecting": "מְקַשֵׁר…",
+    "description": "הוסף טקסט, דיבור ותמונות לכרטיסים בודדים או לחפיסה כולה שלך בלחיצה אחת.",
+    "errors": {
+      "code": "לא ניתן להתחבר לקוד הזה"
+    },
+    "finishDescription": "השלם כניסה בדפדפן שפתחנו. חלון זה יתעדכן אוטומטית.",
+    "finishInBrowser": "סיים בדפדפן שלך",
+    "haveCode": "יש לך קוד מהאתר?",
+    "startTrial": "✨ התחל ניסיון חינם ✨",
+    "trialDetails": "חינם למשך 7 ימים · כל תכונה · ללא כרטיס אשראי"
+  },
+  "trialEnded": {
+    "description": "תקופת הניסיון נמשכת 7 ימים או עד שנגמר הזיכויים לניסיון.",
+    "features": {
+      "ariaLabel": "מה שדרוג שומר",
+      "batch": "אצווה על פני כל האוסף שלך",
+      "images": "יצירת תמונות",
+      "premium": "כל דגם וקול פרימיום",
+      "review": "צור במהלך סקירה"
+    },
+    "reviewOffer": {
+      "ariaLabel": "מבצע חודש חינם",
+      "description": "השאירו סקירה מהירה של AnkiWeb, קבלו חודש עלינו.",
+      "dialogDescription": "השאירו סקירה מהירה על AnkiWeb, ואז שלח לנו דוא\"ל - נוסיף חודש חינם של Smart Notes לחשבון שלך.",
+      "dialogTitle": "קבל את החודש בחינם",
+      "leaveAnkiWebReview": "השאירו ביקורת על AnkiWeb",
+      "leaveReview": "השאירו ביקורת",
+      "title": "קבל חודש חינם של Smart Notes"
+    },
+    "thanks": "תודה על השימוש ב-Smart Notes ✨",
+    "title": "תקופת הניסיון בחינם שלך הסתיימה",
+    "upgradeNow": "שדרג עכשיו"
+  }
+}

@@ -1,0 +1,499 @@
+{
+  "common": {
+    "allDecks": "Всички колоди",
+    "auto": "Авто",
+    "autoMax": "Auto MAX",
+    "back": "Назад",
+    "bestValueCost": "Най-добра стойност, 0,3 × цена",
+    "cancel": "Отказ",
+    "close": "затвори",
+    "connection": {
+      "connecting": "Свързване към Anki...",
+      "reconnecting": "Повторно свързване към Anki..."
+    },
+    "days_one": "1 ден",
+    "days_other": "{{count}} дни",
+    "deck": "Палуба",
+    "default": "По подразбиране",
+    "delete": "Изтриване",
+    "done": "Готово",
+    "duplicate": "Дубликат",
+    "edit": "Редактиране",
+    "empty": "празен",
+    "field": "Поле",
+    "free": "безплатно",
+    "discardChanges": "Отхвърляне на промените",
+    "discardUnsavedChanges": {
+      "description": "Вашите промени в тези настройки по подразбиране не са запазени.",
+      "title": "Отхвърляне на незапазените промени?"
+    },
+    "dismissError": "Отхвърляне на грешка",
+    "feedback": {
+      "description": "Изпратете доклад за грешка, заявка за функция или друга обратна връзка до разработчика.",
+      "error": "Не можа да се изпрати обратна връзка",
+      "label": "Обратна връзка",
+      "placeholder": "Грешка, идея, каквото и да е - отива направо при програмиста.",
+      "send": "Изпратете",
+      "sending": "Изпращане...",
+      "sent": "Отзивите са изпратени. Ще се свържем скоро.",
+      "title": "Изпратете обратна връзка"
+    },
+    "notNow": "Не сега",
+    "other": "други",
+    "placeholderScreen": "Този екран е следващият в реконструкцията.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "Вход",
+    "signInLower": "влезте",
+    "unlimited": "Неограничен",
+    "upgrade": "Надграждане",
+    "upgradeSparkles": "✨ Надграждане ✨",
+    "multiplierCost": "{{multiplier}}× цена",
+    "next": "Следваща",
+    "noteType": "Тип бележка",
+    "optional": "по желание",
+    "prompt": "подкана",
+    "saving": "Запазва се...",
+    "test": "Тест",
+    "validFields": "Валидни полета:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Обратна връзка",
+    "nav": {
+      "defaultsImages": "Настройки на изображението по подразбиране",
+      "defaultsText": "Текстови настройки по подразбиране",
+      "defaultsVoice": "Гласови настройки по подразбиране",
+      "image": "Изображение",
+      "settings": "Настройки",
+      "smartFields": "Smart Fields",
+      "subscription": "Акаунт и използване",
+      "support": "поддръжка",
+      "text": "Текст",
+      "voice": "глас"
+    },
+    "sections": "Smart Notes секции",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Подробно регистриране за помощ при диагностициране на проблеми. Включете тези регистрационни файлове, когато подавате бъг.",
+      "label": "Режим на отстраняване на грешки"
+    },
+    "generateAtReview": {
+      "description": "Попълвайте автоматично липсващите интелигентни полета, докато картите се появяват при преглед.",
+      "label": "Генерирайте полета по време на преглед"
+    },
+    "language": {
+      "description": "Изберете езика за Smart Notes или съответствайте на езика на Anki.",
+      "label": "език",
+      "matchAnki": "Съвпадение на Anki"
+    },
+    "legacy": {
+      "apiKey": "OpenAI API ключ",
+      "apiKeyRequired": "Изисква се платен OpenAI API ключ.",
+      "description": "Свържете платен API ключ и изберете наследен модел OpenAI.",
+      "getApiKey": "Вземете API ключ",
+      "host": "OpenAI хост",
+      "hostDescription": "Осигурете алтернативна крайна точка на OpenAI API.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "модел OpenAI",
+      "title": "Използвайте моя собствен ключ OpenAI"
+    },
+    "loading": "Настройките се зареждат",
+    "regenerateWhenBatching": {
+      "description": "Когато групово обработвате група бележки, генерирайте отново всяко смарт поле от нулата, вместо да попълвате само празни.",
+      "label": "Регенерирайте всички интелигентни полета при групова обработка"
+    },
+    "saveError": "Настройките не можаха да бъдат запазени",
+    "sections": {
+      "advanced": "Разширено",
+      "general": "генерал",
+      "generation": "поколение"
+    },
+    "title": "Настройки"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Вече е Smart Field ✨",
+    "collisionHint": "вече има Smart Field — изберете различно поле, тесте или тип бележка",
+    "completion": {
+      "descriptionAfter": "бележки се попълва всеки път, когато го генерирате.",
+      "descriptionBefore": "на",
+      "methods": {
+        "bulk": {
+          "caption": "Изберете бележки или колода → щракнете с десния бутон → ✨ Генериране на Smart Fields.",
+          "imageAlt": "Anki Контекстно меню на браузъра с подчертано Генериране на Smart Fields",
+          "title": "На едро, от браузъра"
+        },
+        "card": {
+          "caption": "Щракнете върху бутона ✨ в лентата с инструменти на редактора или напишете ⌘⇧G.",
+          "imageAlt": "лента с инструменти на редактора Anki с подчертан бутон Smart Notes",
+          "title": "Една карта наведнъж"
+        },
+        "field": {
+          "caption": "Щракнете с десния бутон върху всяко поле → Генериране на интелигентно поле.",
+          "imageAlt": "Контекстно меню на поле Anki с маркирано Генериране на интелигентно поле",
+          "title": "Едно поле"
+        }
+      },
+      "title": "Вашето Smart Field е на живо",
+      "waysToGenerate": "Няколко начина да го генерирате:"
+    },
+    "created": "Създадено интелигентно поле",
+    "dontShowAgain": "Не показвайте това отново",
+    "errors": {
+      "save": "Не можа да се запази Smart Field",
+      "updateWizardSettings": "Настройките на съветника не можаха да се актуализират",
+      "writePrompt": "Подканата не можа да бъде написана"
+    },
+    "fieldTypes": {
+      "audio": "аудио",
+      "image": "Изображение",
+      "text": "Текст"
+    },
+    "loadingModelCatalog": "Каталогът с модели се зарежда...",
+    "modelSettings": {
+      "appliesOnlyToField": "Прилага се само за това интелигентно поле.",
+      "defaultWithValue": "По подразбиране ({{value}})",
+      "defaultsImages": "По подразбиране › Изображения",
+      "defaultsText": "По подразбиране › Текст",
+      "defaultsVoice": "По подразбиране › Глас",
+      "descriptionChat": "Задайте AI, който записва това поле. Повечето полета могат да останат по подразбиране.",
+      "descriptionImage": "Задайте AI, който чертае това поле. Повечето полета могат да останат по подразбиране.",
+      "descriptionTts": "Задайте гласа, който чете това поле. Повечето полета могат да останат по подразбиране.",
+      "imageDefault": "изображение по подразбиране",
+      "imageModel": "Модел на изображението",
+      "loadingVoices": "Гласовете се зареждат...",
+      "model": "Модел",
+      "pickCustom": "Изберете персонализиран модел за това поле",
+      "reasoning": "{{level}} разсъждение",
+      "reasoningHint": "По-високото разсъждение може да подобри по-трудните поколения, но използва повече кредити.",
+      "reasoningLevel": "Ниво на разсъждение",
+      "sharedByEveryField": "Вашият {{modality}} се споделя от всяко Smart Field, което го използва. Променете го",
+      "textDefault": "текст по подразбиране",
+      "textModel": "Текстов модел",
+      "useMy": "Използвайте моя {{modality}}",
+      "useWebSearch": "Използвайте уеб търсене за това поле",
+      "voice": "глас",
+      "voiceDefault": "глас по подразбиране",
+      "webSearch": "Търсене в мрежата",
+      "webSearchHint": "Нека това поле използва свежа информация от мрежата."
+    },
+    "save": "Запазете интелигентно поле",
+    "sections": {
+      "onWhichNotes": "На кои бележки?",
+      "whatToGenerate": "Какво искате да генерирате?",
+      "whichFieldToFill": "Кое поле трябва да попълни?",
+      "whichFieldToSpeak": "Кое поле трябва да говори?"
+    },
+    "sourceField": "Поле източник",
+    "targetAriaLabel": "Цел на интелигентното поле",
+    "testSmartField": "Тествайте вашето Smart Field",
+    "titles": {
+      "create": "Ново интелигентно поле ✨",
+      "duplicate": "Дублиране на интелигентно поле",
+      "edit": "Редактиране на смарт поле"
+    },
+    "validation": {
+      "chooseField": "Изберете поле",
+      "chooseNoteType": "Изберете тип бележка",
+      "chooseSourceField": "Изберете поле източник",
+      "fieldAlreadyHasSmartField": "{{field}} вече има Smart Field",
+      "writePrompt": "Напишете подкана"
+    },
+    "writePrompt": "Подкана за писане",
+    "writePromptForMe": "Напиши моята подкана вместо мен",
+    "writePromptForMeHint": "Кажете каквото искате на обикновен английски – ние ще напишем подканата по-долу.",
+    "writePromptPlaceholder": "„Превод на естествен английски…“",
+    "writing": "Писане..."
+  },
+  "smartFields": {
+    "actionsAriaLabel": "Действия за {{field}}",
+    "addToNoteType": "Добавете Smart Field към {{noteType}}",
+    "disable": "Деактивиране",
+    "deleting": "Изтриване...",
+    "discord": {
+      "dismissAriaLabel": "Отхвърлете поканата за Discord",
+      "join": "Присъединете се",
+      "joinAriaLabel": "Присъединете се към Smart Notes Discord",
+      "subtitle": "— размяна на подкани и функции за заявки.",
+      "title": "Ела да кажеш здрасти в Discord"
+    },
+    "editAriaLabel": "Редактирайте {{field}} Smart Field",
+    "emptyState": {
+      "description": "Добавете Smart Fields, за да добавите текст, аудио и изображения към вашите карти.",
+      "exampleAnswer": "здравей",
+      "exampleField": "ПРЕДНА",
+      "examplePrompt": "Бонжур",
+      "spark": "✦",
+      "title": "Вашите бележки изглеждат малко празни"
+    },
+    "enable": "Активиране",
+    "errors": {
+      "commandFailed": "Командата Smart Field е неуспешна"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Интелигентно поле",
+    "fieldTypes": {
+      "chat": "Текст",
+      "image": "Изображение",
+      "tts": "аудио"
+    },
+    "loadingAriaLabel": "Зарежда се Smart Fields",
+    "newSmartField": "Ново интелигентно поле",
+    "readsAloud": "Чете {{field}} на глас",
+    "review": {
+      "ariaLabel": "Преглед на Smart Notes на AnkiWeb",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "Отхвърляне на поканата за преглед",
+      "subtitle": "Оставете преглед на AnkiWeb, за да помогнете на други потребители на Anki да го намерят.",
+      "title": "Харесвате ли Smart Notes?"
+    },
+    "subtitle": "Добавете автоматично генериран текст, глас и изображения към вашите бележки.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "В чат каталога липсва модел {{model}}",
+      "missingImageModel": "В каталога с изображения липсва модел {{model}}"
+    },
+    "image": {
+      "cannotFindModel": "В каталога с изображения липсва модел {{model}}",
+      "defaultModel": "Модел по подразбиране",
+      "gptImage15Low": "най-добър компромис качество/скорост.",
+      "gptImage2": "същата цена, по-бавно, по-високо качество.",
+      "loadingLabel": "Зареждат се настройките на изображението по подразбиране",
+      "loadingTitle": "Настройки на изображението по подразбиране",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (нисък / среден)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Избор на модел на изображение",
+      "samplePrompt": "Генерирайте изображение на ученик, който учи упорито с Anki и преминава своите тестове.",
+      "saveError": "Неуспешно запазване на изображенията по подразбиране",
+      "subtitle": "Моделът, който използва вашето изображение Smart Fields, освен ако някое поле не закачи свое собствено.",
+      "title": "Настройки на изображението по подразбиране",
+      "zImageTurbo": "най-бързо и най-евтино."
+    },
+    "layout": {
+      "saveChanges": "Запазете промените",
+      "saving": "Запазва се...",
+      "tryIt": "Опитайте го"
+    },
+    "text": {
+      "cannotInheritModel": "Текстовите настройки по подразбиране не могат да наследяват друг модел",
+      "defaultModel": "Текстов модел по подразбиране",
+      "defaultReasoningLevel": "Ниво на мотивиране по подразбиране",
+      "enableWebSearch": "Активирайте уеб търсенето",
+      "higherReasoning": "По-високото разсъждение може да подобри по-трудните поколения, но използва повече кредити.",
+      "loadingLabel": "Зареждат се настройките за текст по подразбиране",
+      "loadingTitle": "Настройки за генериране на текст",
+      "modelGuidance": "{{auto}} и {{autoMax}} са препоръчаните от Smart Notes модели, които балансират производителност и цена. Изберете {{auto}} за стандартни задачи и надстройте до {{autoMax}}, ако е необходимо.",
+      "pickingModel": "💡 Избор на модел",
+      "reasoningLevel": "Ниво на разсъждение",
+      "reasoningValues": {
+        "high": "високо",
+        "low": "ниско",
+        "off": "Изкл"
+      },
+      "samplePrompt": "Какво е система за повторение с интервали (SRS)?",
+      "saveError": "Текстът по подразбиране не можа да бъде запазен",
+      "subtitle": "Настройки по подразбиране за генериране на текст. Индивидуалните Smart Fields могат да заменят тези стойности.",
+      "title": "Настройки за генериране на текст",
+      "webSearch": "Търсене в мрежата",
+      "webSearchDescription": "Нека текстовите поколения изтеглят свежа информация от мрежата.",
+      "webSearchWarning": "⚠️ Търсенето е скъпо; наблюдавайте вашите кредити."
+    },
+    "usage": {
+      "fields_one": "Отнася се за полето {{count}}",
+      "fields_other": "Отнася се за полета {{count}}"
+    },
+    "voice": {
+      "browseVoices": "Преглед на гласове ({{count}})",
+      "cannotLoad": "Гласовете не можаха да се заредят",
+      "currentDefault": "Текущо по подразбиране",
+      "filters": {
+        "all": "Всички",
+        "female": "женски",
+        "gender": "Пол",
+        "language": "език",
+        "male": "мъжки",
+        "provider": "Доставчик"
+      },
+      "filterVoices": "Филтриране на гласове",
+      "loadingLabel": "Зареждат се гласовите настройки по подразбиране",
+      "loadingTitle": "Гласови настройки по подразбиране",
+      "noVoices": "Няма гласове, които отговарят на тези филтри.",
+      "saveError": "Гласовите настройки по подразбиране не можаха да бъдат запазени",
+      "searchPlaceholder": "🔍 Търсете гласове...",
+      "searchVoices": "Търсете гласове",
+      "subtitle": "Гласът, който вашият TTS Smart Fields използва, освен ако някое поле не закачи собствено.",
+      "title": "Гласови настройки по подразбиране"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "друг тип бележка",
+    "currentlySelectedCard": "Текущо избрана карта",
+    "emptyCard": "(празна карта)",
+    "errors": {
+      "generateAudio": "Не може да се генерира аудио",
+      "generateImage": "Не можа да се генерира изображение",
+      "saveResult": "Този резултат не можа да бъде запазен в картата",
+      "testPrompt": "Не можах да тествам тази подкана"
+    },
+    "fieldRunsOnNoteType": "Това поле работи на <noteTypeName>{{noteType}}</noteTypeName>",
+    "generatedImagePreview": "Визуализация на генерирано изображение",
+    "missingFieldsTitle_one": "Липсващо поле",
+    "missingFieldsTitle_other": "Липсващи полета",
+    "needsFields_one": "Изисква поле {{count}}",
+    "needsFields_other": "Нужни са полета {{count}}",
+    "notesSelected_one": "{{count}} избрана бележка — стеснете я до една.",
+    "notesSelected_other": "{{count}} избрани бележки — стеснете ги до една.",
+    "pickCard": "Изберете карта в браузъра Anki",
+    "promptPlaceholder": "Напишете тестова подкана, препращайки към полетата на вашата карта с {{braces}}.",
+    "saveToCard": "Запазване в картата",
+    "savedTo": "Запазено в {{field}}",
+    "selectCardWithFields_one": "Моля, изберете карта с полето",
+    "selectCardWithFields_other": "Моля, изберете карта с полетата",
+    "selectFieldToReadAloud": "Изберете поле за четене на глас",
+    "selectNewCard": "Изберете нова карта в браузъра",
+    "selectRequiredNoteType": "Моля, изберете бележка от тип <noteTypeName>{{noteType}}</noteTypeName>",
+    "selectedCard": "Избрана карта",
+    "selectedDeck": "Избрано тесте",
+    "selectedNoteType": "Избран тип бележка",
+    "selectionAppearsAutomatically": "Вашият избор се появява тук автоматично.",
+    "sent": "Изпратено",
+    "testing": "Тестване...",
+    "testResult": "Резултат от теста",
+    "textToSpeak": "Текст за изговаряне",
+    "viewResult": "Вижте резултата",
+    "wrongNoteType": "Грешен тип бележка"
+  },
+  "subscription": {
+    "checking": "Проверка на абонамента",
+    "creditTypes": {
+      "images": "Изображения",
+      "text": "Текст",
+      "voice": "глас"
+    },
+    "creditUsage": "Използване на кредит",
+    "creditsReset": "Нулиране на кредити",
+    "daysLeft_one": "Последен ден",
+    "daysLeft_other": "остават {{count}} дни",
+    "errors": {
+      "logout": "Не можах да изляза"
+    },
+    "freePlan": "Безплатен план",
+    "freeTrial": "Безплатна пробна версия",
+    "hero": {
+      "buyCredits": "Купете повече кредити",
+      "freeCreditsResetting": "Вашите безплатни кредити се нулират",
+      "freePlan": "Вие сте на безплатния план",
+      "noteLimit": "Достигнахте лимита си за бележки",
+      "outOfCredits": "Свършихте кредитите този месец",
+      "outOfFreeCredits": "Свършихте безплатните кредити този месец",
+      "outOfTrialCredits": "Свършихте пробните кредити",
+      "planExpired": "Вашият план е изтекъл",
+      "rollover": "Разходоплатните кредити се прехвърлят всеки месец — ваши завинаги.",
+      "trialDaysLeft_one": "Вашият пробен период приключва днес",
+      "trialDaysLeft_other": "{{count}} оставащи дни до изпитанието ви",
+      "trialEnded": "Пробният ви период приключи",
+      "trialNoteLimit": "Достигнахте лимита си за пробни бележки",
+      "upgradeCollection": "Надграждане — цялата ви колекция автоматично",
+      "upgradeCredits": "Надстройте за повече кредити",
+      "upgradePaid": "✨ Надградете до платено"
+    },
+    "inDays_one": "Днес",
+    "inDays_other": "За {{count}} дни",
+    "loading": "Зареждане на абонамента",
+    "loggingOut": "Излизам...",
+    "logOut": "Излезте",
+    "manageDescription": "Променете плана, актуализирайте плащането или анулирайте.",
+    "manageOrUpgrade": "Управлявайте или надграждайте плана",
+    "managePlan": "Управление на плана",
+    "monthlyCreditsUsed": "използвани месечни кредити",
+    "mostCreditsUsed": "Повечето от кредитите за този месец са използвани",
+    "noteLimitReached": "Лимитът за бележки е достигнат",
+    "notes": "Бележки",
+    "notesUsed": "Използвани бележки",
+    "notesUsedValue": "използвани {{used}}/{{limit}}",
+    "outOfCredits": "Изчерпани кредити",
+    "pausedUntilReset": "Генерирането е на пауза, докато кредитите ви не бъдат нулирани.",
+    "plan": "Планирайте",
+    "planInactive": "Планът е неактивен",
+    "resetsIn": "Нулира в",
+    "resetsInDays_one": "Нулира за 1 ден",
+    "resetsInDays_other": "Нулира след {{count}} дни",
+    "signedOut": {
+      "localStorage": "Вашите интелигентни полета и настройки се съхраняват на това устройство.",
+      "manage": "Влезте, за да управлявате своя план",
+      "paused": "Генерирането е на пауза, докато не влезете.",
+      "title": "Излязъл"
+    },
+    "title": "Акаунт и използване",
+    "trialCreditsUsed": "използвани пробни кредити",
+    "trialEnded": "Пробата приключи",
+    "trialEnds": "Пробният период приключва",
+    "trialNoteLimitReached": "Лимитът за пробни бележки е достигнат",
+    "upgradeToKeepGenerating": "Надстройте, за да продължите да генерирате.",
+    "usage": "Използване"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Оставете преглед / вижте документи.",
+    "byline": "от Майкъл Пиаца / Rosebud Labs, LLC.",
+    "changelog": "Дневник на промените",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "Най-бързият начин да получите помощ, да поискате функция или да докладвате за грешка.",
+      "join": "Присъединете се",
+      "title": "Присъединете се към Discord"
+    },
+    "emailUs": "Пишете ни",
+    "feedback": {
+      "description": "Нещо счупено или нередно? Изпратете съобщение директно на бедния разработчик.",
+      "send": "Изпратете го",
+      "title": "Изпратете грешка / поискайте функция"
+    },
+    "github": "GitHub",
+    "loading": "Поддръжка за зареждане",
+    "title": "поддръжка"
+  },
+  "welcome": {
+    "alreadyAccount": "Вече имате акаунт?",
+    "codePlaceholder": "Поставете вашия код",
+    "connect": "Свържете се",
+    "connecting": "Свързване...",
+    "description": "Добавете текст, реч и изображения към отделни карти или цялото си тесте с едно кликване.",
+    "errors": {
+      "code": "Не може да се свърже с този код"
+    },
+    "finishDescription": "Завършете влизането в браузъра, който отворихме. Този прозорец ще се актуализира автоматично.",
+    "finishInBrowser": "Завършете във вашия браузър",
+    "haveCode": "Имате ли код от уебсайта?",
+    "startTrial": "✨ Започнете безплатен пробен период ✨",
+    "trialDetails": "Безплатно за 7 дни · всяка функция · без кредитна карта"
+  },
+  "trialEnded": {
+    "description": "Пробните периоди продължават 7 дни или до изчерпване на вашите пробни кредити.",
+    "features": {
+      "ariaLabel": "Какво запазва надстройката",
+      "batch": "Групирайте в цялата си колекция",
+      "images": "Генериране на изображения",
+      "premium": "Всеки първокласен модел и глас",
+      "review": "Генериране по време на преглед"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Безплатна месечна оферта",
+      "description": "Оставете бърз преглед на AnkiWeb, получете месец безплатно.",
+      "dialogDescription": "Оставете бърз преглед на AnkiWeb, след което ни изпратете имейл — ние ще добавим безплатен месец Smart Notes към вашия акаунт.",
+      "dialogTitle": "Вземете своя безплатен месец",
+      "leaveAnkiWebReview": "Оставете отзив на AnkiWeb",
+      "leaveReview": "Оставете отзив",
+      "title": "Вземете безплатен месец на Smart Notes"
+    },
+    "thanks": "Благодарим ви, че използвате Smart Notes ✨",
+    "title": "Вашият безплатен пробен период приключи",
+    "upgradeNow": "Надстройте сега"
+  }
+}

@@ -1,0 +1,509 @@
+{
+  "common": {
+    "allDecks": "Totes les cobertes",
+    "auto": "Automàtic",
+    "autoMax": "Auto MAX",
+    "back": "Enrere",
+    "bestValueCost": "Millor relació qualitat-preu, 0,3 × cost",
+    "cancel": "Cancel·la",
+    "close": "Tancar",
+    "connection": {
+      "connecting": "S'està connectant a Anki...",
+      "reconnecting": "S'està tornant a connectar a Anki..."
+    },
+    "days_one": "1 dia",
+    "days_many": "{{count}} dies",
+    "days_other": "{{count}} dies",
+    "deck": "coberta",
+    "default": "Per defecte",
+    "delete": "Suprimeix",
+    "done": "Fet",
+    "duplicate": "Duplicat",
+    "edit": "Edita",
+    "empty": "buit",
+    "field": "Camp",
+    "free": "Gratuït",
+    "discardChanges": "Descartar els canvis",
+    "discardUnsavedChanges": {
+      "description": "Els vostres canvis a aquesta configuració predeterminada no s'han desat.",
+      "title": "Vols descartar els canvis no desats?"
+    },
+    "dismissError": "Ignora l'error",
+    "feedback": {
+      "description": "Envieu un informe d'error, una sol·licitud de funcions o altres comentaris al desenvolupador.",
+      "error": "No s'han pogut enviar comentaris",
+      "label": "Feedback",
+      "placeholder": "Un error, una idea, qualsevol cosa: va directament al desenvolupador.",
+      "send": "Enviar",
+      "sending": "S'està enviant…",
+      "sent": "Comentaris enviats. Ens posarem en contacte aviat.",
+      "title": "Envieu comentaris"
+    },
+    "notNow": "Ara no",
+    "other": "Altres",
+    "placeholderScreen": "Aquesta pantalla és la següent a la reconstrucció.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "Inicieu la sessió",
+    "signInLower": "Inicia sessió",
+    "unlimited": "Il·limitat",
+    "upgrade": "Actualitza",
+    "upgradeSparkles": "✨ Actualitza ✨",
+    "multiplierCost": "{{multiplier}}× cost",
+    "next": "A continuació",
+    "noteType": "Tipus de nota",
+    "optional": "opcional",
+    "prompt": "Avís",
+    "saving": "S'està desant…",
+    "test": "Prova",
+    "validFields": "Camps vàlids:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Feedback",
+    "nav": {
+      "defaultsImages": "Configuració d'imatge per defecte",
+      "defaultsText": "Configuració de text predeterminada",
+      "defaultsVoice": "Configuració de veu per defecte",
+      "image": "Imatge",
+      "settings": "Configuració",
+      "smartFields": "Smart Fields",
+      "subscription": "Compte i ús",
+      "support": "Suport",
+      "text": "Text",
+      "voice": "Veu"
+    },
+    "sections": "Smart Notes seccions",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Registre detallat per ajudar a diagnosticar problemes. Incloeu aquests registres quan enregistreu un error.",
+      "label": "Mode de depuració"
+    },
+    "generateAtReview": {
+      "description": "Empleneu automàticament els camps intel·ligents que falten a mesura que es revisen les targetes.",
+      "label": "Generar camps durant la revisió"
+    },
+    "language": {
+      "description": "Trieu l'idioma per a Smart Notes o feu coincidir l'idioma d'Anki.",
+      "label": "Llengua",
+      "matchAnki": "Coincideix amb Anki"
+    },
+    "legacy": {
+      "apiKey": "Clau de l'API OpenAI",
+      "apiKeyRequired": "Cal una clau d'API OpenAI de pagament.",
+      "description": "Connecteu una clau API de pagament i trieu un model OpenAI heretat.",
+      "getApiKey": "Obteniu una clau API",
+      "host": "Amfitrió OpenAI",
+      "hostDescription": "Proporcioneu un punt final alternatiu a l'API OpenAI.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "Model OpenAI",
+      "title": "Utilitzeu la meva pròpia clau OpenAI"
+    },
+    "loading": "S'està carregant la configuració",
+    "regenerateWhenBatching": {
+      "description": "Quan processeu un grup de notes per lots, regenera tots els camps intel·ligents des de zero en lloc d'omplir només els buits.",
+      "label": "Regenera tots els camps intel·ligents durant el processament per lots"
+    },
+    "saveError": "No s'ha pogut desar la configuració",
+    "sections": {
+      "advanced": "Avançat",
+      "general": "General",
+      "generation": "Generació"
+    },
+    "title": "Configuració"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Ja ets un Smart Field ✨",
+    "collisionHint": "ja té un Smart Field: trieu un camp, una plataforma o un tipus de nota diferent",
+    "completion": {
+      "descriptionAfter": "notes s'omplen sempre que les genereu.",
+      "descriptionBefore": "activat",
+      "methods": {
+        "bulk": {
+          "caption": "Seleccioneu notes o plató → feu clic amb el botó dret → ✨ Genera Smart Fields.",
+          "imageAlt": "Anki Menú contextual del navegador amb Genera Smart Fields ressaltat",
+          "title": "A granel, des del navegador"
+        },
+        "card": {
+          "caption": "Feu clic al botó ✨ a la barra d'eines de l'editor o escriviu ⌘⇧G.",
+          "imageAlt": "Barra d'eines de l'editor Anki amb el botó Smart Notes ressaltat",
+          "title": "Una targeta a la vegada"
+        },
+        "field": {
+          "caption": "Feu clic amb el botó dret a qualsevol camp → Genera Smart Field.",
+          "imageAlt": "Menú contextual del camp Anki amb Genera Smart Field ressaltat",
+          "title": "Un sol camp"
+        }
+      },
+      "title": "El vostre Smart Field està en directe",
+      "waysToGenerate": "Algunes maneres de generar-lo:"
+    },
+    "created": "Smart Field creat",
+    "dontShowAgain": "No tornis a mostrar això",
+    "errors": {
+      "save": "No s'ha pogut desar Smart Field",
+      "updateWizardSettings": "No s'ha pogut actualitzar la configuració de l'assistent",
+      "writePrompt": "No s'ha pogut escriure la sol·licitud"
+    },
+    "fieldTypes": {
+      "audio": "Àudio",
+      "image": "Imatge",
+      "text": "Text"
+    },
+    "loadingModelCatalog": "S'està carregant el catàleg de models...",
+    "modelSettings": {
+      "appliesOnlyToField": "S'aplica només a aquest Smart Field.",
+      "defaultWithValue": "Per defecte ({{value}})",
+      "defaultsImages": "Per defecte › Imatges",
+      "defaultsText": "Per defecte › Text",
+      "defaultsVoice": "Per defecte › Veu",
+      "descriptionChat": "Estableix l'IA que escriu aquest camp. La majoria dels camps poden mantenir-se per defecte.",
+      "descriptionImage": "Estableix l'IA que dibuixa aquest camp. La majoria dels camps poden mantenir-se per defecte.",
+      "descriptionTts": "Estableix la veu que llegeix aquest camp. La majoria dels camps poden mantenir-se per defecte.",
+      "imageDefault": "imatge per defecte",
+      "imageModel": "Model d'imatge",
+      "loadingVoices": "S'estan carregant veus...",
+      "model": "Model",
+      "pickCustom": "Trieu un model personalitzat per a aquest camp",
+      "reasoning": "{{level}} raonament",
+      "reasoningHint": "Un raonament més alt pot millorar les generacions més dures, però utilitza més crèdits.",
+      "reasoningLevel": "Nivell de raonament",
+      "sharedByEveryField": "El vostre {{modality}} és compartit per tots els Smart Field que l'utilitzin. Canvia-ho",
+      "textDefault": "text predeterminat",
+      "textModel": "Model de text",
+      "useMy": "Utilitzeu el meu {{modality}}",
+      "useWebSearch": "Utilitzeu la cerca web per a aquest camp",
+      "voice": "Veu",
+      "voiceDefault": "veu per defecte",
+      "webSearch": "Cerca web",
+      "webSearchHint": "Permet que aquest camp utilitzi informació actual del web."
+    },
+    "save": "Desa Smart Field",
+    "sections": {
+      "onWhichNotes": "En quines notes?",
+      "whatToGenerate": "Què vols generar?",
+      "whichFieldToFill": "Quin camp ha d'omplir?",
+      "whichFieldToSpeak": "De quin camp hauria de parlar?"
+    },
+    "sourceField": "Camp d'origen",
+    "targetAriaLabel": "Objectiu Smart Field",
+    "testSmartField": "Prova el teu Smart Field",
+    "titles": {
+      "create": "Nou Smart Field ✨",
+      "duplicate": "Duplicar Smart Field",
+      "edit": "Edita Smart Field"
+    },
+    "validation": {
+      "chooseField": "Trieu un camp",
+      "chooseNoteType": "Trieu un tipus de nota",
+      "chooseSourceField": "Trieu un camp d'origen",
+      "fieldAlreadyHasSmartField": "{{field}} ja té un Smart Field",
+      "writePrompt": "Escriu una indicació"
+    },
+    "writePrompt": "Escriu el missatge",
+    "writePromptForMe": "Escriu el meu missatge per a mi",
+    "writePromptForMeHint": "Digues el que vulguis en anglès senzill; escriurem el missatge a continuació.",
+    "writePromptPlaceholder": "\"Tradueix a l'anglès natural...\"",
+    "writing": "S'està escrivint…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "Accions per a {{field}}",
+    "addToNoteType": "Afegeix Smart Field a {{noteType}}",
+    "disable": "Desactivar",
+    "deleting": "S'està suprimint…",
+    "discord": {
+      "dismissAriaLabel": "Ignora la invitació Discord",
+      "join": "Uneix-te",
+      "joinAriaLabel": "Uneix-te a Smart Notes Discord",
+      "subtitle": "— Intercanviar les indicacions i sol·licitar funcions.",
+      "title": "Vine a saludar a Discord"
+    },
+    "editAriaLabel": "Edita {{field}} Smart Field",
+    "emptyState": {
+      "description": "Afegiu Smart Fields per afegir text, àudio i imatges a les vostres targetes.",
+      "exampleAnswer": "hola",
+      "exampleField": "FRONT",
+      "examplePrompt": "bonjour",
+      "spark": "✦",
+      "title": "Les teves notes semblen una mica buides"
+    },
+    "enable": "Activa",
+    "errors": {
+      "commandFailed": "L'ordre Smart Field ha fallat"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "Text",
+      "image": "Imatge",
+      "tts": "Àudio"
+    },
+    "loadingAriaLabel": "S'està carregant Smart Fields",
+    "newSmartField": "Nou Smart Field",
+    "readsAloud": "Llegeix {{field}} en veu alta",
+    "review": {
+      "ariaLabel": "Revisa Smart Notes a AnkiWeb",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "Ignora la invitació de revisió",
+      "subtitle": "Deixa una revisió sobre AnkiWeb per ajudar altres usuaris de Anki a trobar-lo.",
+      "title": "Us agrada Smart Notes?"
+    },
+    "subtitle": "Afegiu text, veu i imatges generats automàticament a les vostres notes.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "Falta el model {{model}} del catàleg de xat",
+      "missingImageModel": "Falta el model {{model}} del catàleg d'imatges"
+    },
+    "image": {
+      "cannotFindModel": "Falta el model {{model}} del catàleg d'imatges",
+      "defaultModel": "Model per defecte",
+      "gptImage15Low": "millor equilibri qualitat/velocitat.",
+      "gptImage2": "mateix cost, més lent, de major qualitat.",
+      "loadingLabel": "S'està carregant la configuració d'imatge predeterminada",
+      "loadingTitle": "Configuració d'imatge per defecte",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (Baix/Mitjà)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Escollint un model d'imatge",
+      "samplePrompt": "Genereu una imatge d'un estudiant estudiant molt amb Anki i aprovant les seves proves.",
+      "saveError": "No s'han pogut desar els valors predeterminats de la imatge",
+      "subtitle": "El model que utilitzeu la vostra imatge Smart Fields tret que un camp fixi el seu.",
+      "title": "Configuració d'imatge per defecte",
+      "zImageTurbo": "més ràpid i barat."
+    },
+    "layout": {
+      "saveChanges": "Desa els canvis",
+      "saving": "S'està desant…",
+      "tryIt": "Prova-ho"
+    },
+    "text": {
+      "cannotInheritModel": "Els valors predeterminats del text no poden heretar un altre model",
+      "defaultModel": "Model de text predeterminat",
+      "defaultReasoningLevel": "Nivell de raonament predeterminat",
+      "enableWebSearch": "Activa la cerca web",
+      "higherReasoning": "Un raonament més alt pot millorar les generacions més dures, però utilitza més crèdits.",
+      "loadingLabel": "S'està carregant la configuració de text predeterminada",
+      "loadingTitle": "Configuració de generació de text",
+      "modelGuidance": "{{auto}} i {{autoMax}} són els models recomanats per Smart Notes que equilibren el rendiment i el cost. Trieu {{auto}} per a tasques estàndard i actualitzeu-lo a {{autoMax}} si cal.",
+      "pickingModel": "💡 Escollint un model",
+      "reasoningLevel": "Nivell de raonament",
+      "reasoningValues": {
+        "high": "Alt",
+        "low": "Baixa",
+        "off": "Apagat"
+      },
+      "samplePrompt": "Què és un sistema de repetició espaciada (SRS)?",
+      "saveError": "No s'han pogut desar els valors predeterminats del text",
+      "subtitle": "Configuració per defecte per a la generació de text. Un Smart Fields individual pot substituir aquests valors.",
+      "title": "Configuració de generació de text",
+      "webSearch": "Cerca web",
+      "webSearchDescription": "Permet que les generacions de text obtinguin informació nova del web.",
+      "webSearchWarning": "⚠️ La cerca és cara; supervisa els teus crèdits."
+    },
+    "usage": {
+      "fields_one": "S'aplica al camp {{count}}",
+      "fields_many": "S'aplica als camps {{count}}",
+      "fields_other": "S'aplica als camps {{count}}"
+    },
+    "voice": {
+      "browseVoices": "Navega per veus ({{count}})",
+      "cannotLoad": "No s'han pogut carregar les veus",
+      "currentDefault": "Per defecte actual",
+      "filters": {
+        "all": "Tots",
+        "female": "Dona",
+        "gender": "Gènere",
+        "language": "Llengua",
+        "male": "Mascle",
+        "provider": "Proveïdor"
+      },
+      "filterVoices": "Filtra les veus",
+      "loadingLabel": "S'està carregant la configuració de veu predeterminada",
+      "loadingTitle": "Configuració de veu per defecte",
+      "noVoices": "Cap veu no coincideix amb aquests filtres.",
+      "saveError": "No s'han pogut desar els valors predeterminats de veu",
+      "searchPlaceholder": "🔍 Cerca veus...",
+      "searchVoices": "Cerca veus",
+      "subtitle": "La veu que utilitzeu el vostre TTS Smart Fields tret que un camp fixi el seu.",
+      "title": "Configuració de veu per defecte"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "un altre tipus de nota",
+    "currentlySelectedCard": "Targeta seleccionada actualment",
+    "emptyCard": "(targeta buida)",
+    "errors": {
+      "generateAudio": "No s'ha pogut generar l'àudio",
+      "generateImage": "No s'ha pogut generar una imatge",
+      "saveResult": "No s'ha pogut desar aquest resultat a la targeta",
+      "testPrompt": "No s'ha pogut provar aquest missatge"
+    },
+    "fieldRunsOnNoteType": "Aquest camp s'executa en <noteTypeName>{{noteType}}</noteTypeName>",
+    "generatedImagePreview": "Vista prèvia de la imatge generada",
+    "missingFieldsTitle_one": "Falta camp",
+    "missingFieldsTitle_many": "Falten camps",
+    "missingFieldsTitle_other": "Falten camps",
+    "needsFields_one": "Necessita camp {{count}}",
+    "needsFields_many": "Necessita camps {{count}}",
+    "needsFields_other": "Necessita camps {{count}}",
+    "notesSelected_one": "{{count}} nota seleccionada: reduïu-la a un.",
+    "notesSelected_many": "Notes {{count}} seleccionades: reduïu-les a un.",
+    "notesSelected_other": "Notes {{count}} seleccionades: reduïu-les a un.",
+    "pickCard": "Trieu una targeta al navegador Anki",
+    "promptPlaceholder": "Escriviu una indicació de prova, fent referència als camps de la vostra targeta amb {{braces}}.",
+    "saveToCard": "Desa a la targeta",
+    "savedTo": "Desat a {{field}}",
+    "selectCardWithFields_one": "Si us plau, seleccioneu una targeta amb el camp",
+    "selectCardWithFields_many": "Si us plau, seleccioneu una targeta amb els camps",
+    "selectCardWithFields_other": "Si us plau, seleccioneu una targeta amb els camps",
+    "selectFieldToReadAloud": "Seleccioneu un camp per llegir en veu alta",
+    "selectNewCard": "Seleccioneu una targeta nova al navegador",
+    "selectRequiredNoteType": "Si us plau, seleccioneu una nota de tipus <noteTypeName>{{noteType}}</noteTypeName>",
+    "selectedCard": "Targeta seleccionada",
+    "selectedDeck": "Baralla seleccionada",
+    "selectedNoteType": "Tipus de nota seleccionat",
+    "selectionAppearsAutomatically": "La vostra selecció apareix aquí automàticament.",
+    "sent": "Enviat",
+    "testing": "S'està provant…",
+    "testResult": "Resultat de la prova",
+    "textToSpeak": "Text per parlar",
+    "viewResult": "Veure resultat",
+    "wrongNoteType": "Tipus de nota incorrecte"
+  },
+  "subscription": {
+    "checking": "Comprovant la subscripció",
+    "creditTypes": {
+      "images": "Imatges",
+      "text": "Text",
+      "voice": "Veu"
+    },
+    "creditUsage": "Ús de crèdit",
+    "creditsReset": "Restabliment de crèdits",
+    "daysLeft_one": "Últim dia",
+    "daysLeft_many": "Queden {{count}} dies",
+    "daysLeft_other": "Queden {{count}} dies",
+    "errors": {
+      "logout": "No s'ha pogut tancar la sessió"
+    },
+    "freePlan": "Pla gratuït",
+    "freeTrial": "Prova gratuïta",
+    "hero": {
+      "buyCredits": "Compra més crèdits",
+      "freeCreditsResetting": "Els teus crèdits gratuïts s'estan restablint",
+      "freePlan": "Estàs al pla gratuït",
+      "noteLimit": "Heu arribat al vostre límit de notes",
+      "outOfCredits": "T'has quedat sense crèdits aquest mes",
+      "outOfFreeCredits": "T'has quedat sense crèdits gratuïts aquest mes",
+      "outOfTrialCredits": "T'has quedat sense crèdits de prova",
+      "planExpired": "El teu pla ha caducat",
+      "rollover": "Els crèdits de pagament per consum es passen cada mes, els vostres per sempre.",
+      "trialDaysLeft_one": "El teu judici acaba avui",
+      "trialDaysLeft_many": "Queden {{count}} dies per a la prova",
+      "trialDaysLeft_other": "Queden {{count}} dies per a la prova",
+      "trialEnded": "El vostre judici ha acabat",
+      "trialNoteLimit": "Heu assolit el vostre límit de notes de prova",
+      "upgradeCollection": "Actualitza: tota la teva col·lecció, automàticament",
+      "upgradeCredits": "Actualitza per obtenir més crèdits",
+      "upgradePaid": "✨ Actualitza a de pagament"
+    },
+    "inDays_one": "Avui",
+    "inDays_many": "En dies {{count}}",
+    "inDays_other": "En dies {{count}}",
+    "loading": "Carregant la subscripció",
+    "loggingOut": "Tancant la sessió...",
+    "logOut": "Tanca la sessió",
+    "manageDescription": "Canvia el pla, actualitza el pagament o cancel·la.",
+    "manageOrUpgrade": "Gestioneu o actualitzeu el pla",
+    "managePlan": "Gestionar el pla",
+    "monthlyCreditsUsed": "dels crèdits mensuals utilitzats",
+    "mostCreditsUsed": "La majoria dels crèdits d'aquest mes s'utilitzen",
+    "noteLimitReached": "S'ha arribat al límit de notes",
+    "notes": "Notes",
+    "notesUsed": "Notes utilitzades",
+    "notesUsedValue": "{{used}}/{{limit}} utilitzat",
+    "outOfCredits": "Sense crèdits",
+    "pausedUntilReset": "La generació s'atura fins que els vostres crèdits es restableixin.",
+    "plan": "Pla",
+    "planInactive": "Pla inactiu",
+    "resetsIn": "Es reinicia",
+    "resetsInDays_one": "Es reinicia en 1 dia",
+    "resetsInDays_many": "Es restableix en dies {{count}}",
+    "resetsInDays_other": "Es restableix en dies {{count}}",
+    "signedOut": {
+      "localStorage": "Els vostres camps intel·ligents i la vostra configuració s'emmagatzemen en aquest dispositiu.",
+      "manage": "Inicieu la sessió per gestionar el vostre pla",
+      "paused": "La generació s'atura fins que inicieu la sessió.",
+      "title": "Tancat la sessió"
+    },
+    "title": "Compte i ús",
+    "trialCreditsUsed": "dels crèdits de prova utilitzats",
+    "trialEnded": "El judici ha acabat",
+    "trialEnds": "Acaba el judici",
+    "trialNoteLimitReached": "S'ha arribat al límit de notes de prova",
+    "upgradeToKeepGenerating": "Actualitza per seguir generant.",
+    "usage": "Ús"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Deixa una ressenya / consulta els documents.",
+    "byline": "per Michael Piazza / Rosebud Labs, LLC.",
+    "changelog": "Registre de canvis",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "La manera més ràpida d'obtenir ajuda, sol·licitar una funció o informar d'un error.",
+      "join": "Uneix-te",
+      "title": "Uneix-te a Discord"
+    },
+    "emailUs": "Envieu-nos un correu electrònic",
+    "feedback": {
+      "description": "Alguna cosa trencada o malament? Envieu un missatge directament al desenvolupador pobre.",
+      "send": "Envieu-lo",
+      "title": "Envia un error / sol·licita una funció"
+    },
+    "github": "GitHub",
+    "loading": "Suport de càrrega",
+    "title": "Suport"
+  },
+  "welcome": {
+    "alreadyAccount": "Ja tens un compte?",
+    "codePlaceholder": "Enganxeu el vostre codi",
+    "connect": "Connecta't",
+    "connecting": "S'està connectant…",
+    "description": "Afegeix text, veu i imatges a targetes individuals o a tota la teva baralla amb un sol clic.",
+    "errors": {
+      "code": "No s'ha pogut connectar amb aquest codi"
+    },
+    "finishDescription": "Completa la sessió al navegador que hem obert. Aquesta finestra s'actualitzarà automàticament.",
+    "finishInBrowser": "Acabeu al vostre navegador",
+    "haveCode": "Tens un codi del lloc web?",
+    "startTrial": "✨ Comença la prova gratuïta ✨",
+    "trialDetails": "Gratuït durant 7 dies · totes les funcions · sense targeta de crèdit"
+  },
+  "trialEnded": {
+    "description": "Les proves s'executen durant 7 dies o fins que s'esgotin els crèdits de prova.",
+    "features": {
+      "ariaLabel": "Quina actualització manté",
+      "batch": "Agrupa tota la teva col·lecció",
+      "images": "Generació d'imatges",
+      "premium": "Tots els models i veus premium",
+      "review": "Generar durant la revisió"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Oferta mensual gratuïta",
+      "description": "Deixa una revisió ràpida de AnkiWeb, gaudeix d'un mes.",
+      "dialogDescription": "Feu una revisió ràpida sobre AnkiWeb i, a continuació, envieu-nos un correu electrònic: afegirem un mes gratuït d'Smart Notes al vostre compte.",
+      "dialogTitle": "Aconsegueix el teu mes gratuït",
+      "leaveAnkiWebReview": "Deixa una ressenya sobre AnkiWeb",
+      "leaveReview": "Deixa una ressenya",
+      "title": "Aconsegueix un mes gratuït d'Smart Notes"
+    },
+    "thanks": "Gràcies per utilitzar Smart Notes ✨",
+    "title": "La teva prova gratuïta ha finalitzat",
+    "upgradeNow": "Actualitza ara"
+  }
+}

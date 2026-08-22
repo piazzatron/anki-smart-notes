@@ -18,6 +18,7 @@
  */
 
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
 import { ConnectionNotice } from "@/components/shared/ConnectionNotice"
 import { errorMessage } from "@/lib/errors"
@@ -59,6 +60,7 @@ export const WelcomeScreen = ({
   appVersion,
   connection,
 }: WelcomeScreenProps) => {
+  const { t } = useTranslation()
   const [code, setCode] = useState("")
   const [codeError, setCodeError] = useState<string | null>(null)
   const [isSubmittingCode, setIsSubmittingCode] = useState(false)
@@ -75,7 +77,7 @@ export const WelcomeScreen = ({
     try {
       await exchangeAuthCode(code)
     } catch (error) {
-      setCodeError(errorMessage(error, "Could not connect with that code"))
+      setCodeError(errorMessage(error, t("welcome.errors.code")))
       setIsSubmittingCode(false)
     }
   }
@@ -101,18 +103,17 @@ export const WelcomeScreen = ({
               className="welcome-enter mt-[22px] text-lg font-semibold tracking-[-0.2px] text-[#f4f4f6]"
               style={{ animationDelay: "70ms" }}
             >
-              Finish up in your browser
+              {t("welcome.finishInBrowser")}
             </h1>
             <p
               className="welcome-enter mx-auto mt-2 max-w-[330px] text-[12.5px] leading-[1.6] text-[#8b8b94]"
               style={{ animationDelay: "140ms" }}
             >
-              Complete sign-in in the browser we opened. This window will update
-              automatically.
+              {t("welcome.finishDescription")}
             </p>
 
             <form
-              className="welcome-enter mt-7 rounded-[11px] border border-white/[0.07] bg-black/20 p-4 text-left"
+              className="welcome-enter mt-7 rounded-[11px] border border-white/[0.07] bg-black/20 p-4 text-start"
               onSubmit={(event) => {
                 event.preventDefault()
                 void submitCode()
@@ -123,7 +124,7 @@ export const WelcomeScreen = ({
                 className="text-[11.5px] font-medium text-[#b4b4be]"
                 htmlFor="welcome-auth-code"
               >
-                Have a code from the website?
+                {t("welcome.haveCode")}
               </label>
               <div className="mt-2 flex gap-2">
                 <input
@@ -135,7 +136,7 @@ export const WelcomeScreen = ({
                   onChange={(event) =>
                     setCode(event.target.value.toUpperCase())
                   }
-                  placeholder="Paste your code"
+                  placeholder={t("welcome.codePlaceholder")}
                   spellCheck={false}
                   value={code}
                 />
@@ -144,7 +145,9 @@ export const WelcomeScreen = ({
                   disabled={!code.trim() || isSubmittingCode}
                   type="submit"
                 >
-                  {isSubmittingCode ? "Connecting…" : "Connect"}
+                  {isSubmittingCode
+                    ? t("welcome.connecting")
+                    : t("welcome.connect")}
                 </button>
               </div>
               {codeError !== null && (
@@ -158,7 +161,7 @@ export const WelcomeScreen = ({
           <div className="relative w-full max-w-[380px]">
             <div
               aria-hidden
-              className="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-[430px] w-[560px] -translate-x-1/2 -translate-y-1/2"
+              className="pointer-events-none absolute start-1/2 top-1/2 -z-10 h-[430px] w-[560px] -translate-x-1/2 -translate-y-1/2"
             >
               {WELCOME_SPARKLES.map((sparkle) => (
                 <span
@@ -174,17 +177,21 @@ export const WelcomeScreen = ({
                     } as React.CSSProperties
                   }
                 >
-                  <span className="welcome-sparkle-glyph">✦</span>
+                  {/* Decorative glyph; it has no language-specific meaning. */}
+                  {/* eslint-disable-next-line i18next/no-literal-string */}
+                  <span className="welcome-sparkle-glyph" aria-hidden>
+                    ✦
+                  </span>
                 </span>
               ))}
             </div>
 
             <div className="relative mx-auto w-fit">
               <h1 className="welcome-enter text-[38px] leading-none font-extrabold tracking-[-0.037em] text-[#f6f6f8]">
-                Smart Notes
+                {t("common.productName")}
                 <span
                   aria-hidden
-                  className="ml-1 inline-block translate-y-[-6px] text-[26px] font-normal"
+                  className="ms-1 inline-block translate-y-[-6px] text-[26px] font-normal"
                 >
                   ✨
                 </span>
@@ -195,8 +202,7 @@ export const WelcomeScreen = ({
               className="welcome-enter mt-[13px] text-[14.5px] leading-[1.55] font-semibold text-[#eaeaef]"
               style={{ animationDelay: "80ms" }}
             >
-              Add text, speech, and images to individual cards or your entire
-              deck in one click.
+              {t("welcome.description")}
             </p>
 
             <div
@@ -208,10 +214,10 @@ export const WelcomeScreen = ({
                 onClick={() => openOnboarding(SITE_LINKS.startTrial)}
                 type="button"
               >
-                ✨ Start Free Trial ✨
+                {t("welcome.startTrial")}
               </button>
               <p className="mt-[15px] text-xs text-[#b6b6bf]">
-                Free for 7 days · every feature · no credit card
+                {t("welcome.trialDetails")}
               </p>
             </div>
 
@@ -219,13 +225,13 @@ export const WelcomeScreen = ({
               className="welcome-enter mt-7 text-[12.5px] text-[#8b8b94]"
               style={{ animationDelay: "240ms" }}
             >
-              Already have an account?{" "}
+              {t("welcome.alreadyAccount")}{" "}
               <button
                 className="font-medium text-[#a5b4ff] transition-colors hover:text-white"
                 onClick={() => openOnboarding(SITE_LINKS.signIn)}
                 type="button"
               >
-                Sign in
+                {t("common.signInLower")}
               </button>
             </p>
           </div>
@@ -234,10 +240,10 @@ export const WelcomeScreen = ({
 
       {appVersion !== null && (
         <p
-          className="welcome-enter absolute right-0 bottom-3.5 left-0 z-10 text-center font-mono text-[10px] text-[#5c5c66]"
+          className="welcome-enter absolute start-0 end-0 bottom-3.5 z-10 text-center font-mono text-[10px] text-[#5c5c66]"
           style={{ animationDelay: "320ms" }}
         >
-          Smart Notes v{appVersion}
+          {t("common.productVersion", { version: appVersion })}
         </p>
       )}
     </main>

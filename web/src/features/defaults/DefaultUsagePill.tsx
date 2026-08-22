@@ -18,22 +18,20 @@
  */
 
 import type { getDefaultUsage } from "./defaultUsage"
+import { useTranslation } from "react-i18next"
 
 type DefaultUsage = ReturnType<typeof getDefaultUsage>
 
 /** How far this default reaches, for the screen header. A default no field uses is not
  *  worth a badge, so it gets none. */
 export const DefaultUsagePill = ({ usage }: { usage: DefaultUsage }) => {
+  const { t } = useTranslation()
+
   if (usage.following === 0) return null
 
   return (
     <span className="shrink-0 rounded-full border border-white/[0.08] bg-white/[0.025] px-3 py-1.5 text-[10.5px] text-zinc-400">
-      {usage.following > 0 && (
-        <>
-          Applies to {usage.following} field
-          {usage.following === 1 ? "" : "s"}
-        </>
-      )}
+      {t("defaults.usage.fields", { count: usage.following })}
     </span>
   )
 }

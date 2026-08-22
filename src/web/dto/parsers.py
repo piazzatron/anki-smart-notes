@@ -142,6 +142,7 @@ def parse_settings(payload: dict[str, Any]) -> Settings:
         generate_at_review=raw["generateAtReview"],
         regenerate_when_batching=raw["regenerateWhenBatching"],
         debug=raw["debug"],
+        language=raw["language"],
         legacy_openai_key=raw["legacyOpenAiKey"],
         legacy_openai_model=raw["legacyOpenAiModel"],
         legacy_openai_host=raw["legacyOpenAiHost"],

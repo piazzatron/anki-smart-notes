@@ -1,6 +1,7 @@
 import { DiscordMark } from "./DiscordMark"
 import { FeedbackDialog } from "./FeedbackDialog"
 import { PlanCard } from "./PlanCard"
+import { useTranslation } from "react-i18next"
 
 import type { ScreenId } from "@/lib/boot"
 import { DISCORD_URL } from "@/lib/helpChannels"
@@ -15,7 +16,7 @@ interface SidebarProps {
 
 interface NavItem {
   id: ScreenId
-  label: string
+  labelKey: string
   emoji: string
 }
 
@@ -23,16 +24,16 @@ interface NavItem {
 // to echo the "Smart Fields" page title; Voice uses the louder 🔊, which reads
 // better at nav size than the field rows' quieter 🔈.
 const PRIMARY_ITEMS: NavItem[] = [
-  { id: "fields", label: "Smart Fields", emoji: "✨" },
-  { id: "defaults-text", label: "Text", emoji: "💬" },
-  { id: "defaults-voice", label: "Voice ", emoji: "🔊" },
-  { id: "defaults-images", label: "Image", emoji: "🎨" },
-  { id: "settings", label: "Settings", emoji: "⚙️" },
+  { id: "fields", labelKey: "smartFields", emoji: "✨" },
+  { id: "defaults-text", labelKey: "text", emoji: "💬" },
+  { id: "defaults-voice", labelKey: "voice", emoji: "🔊" },
+  { id: "defaults-images", labelKey: "image", emoji: "🎨" },
+  { id: "settings", labelKey: "settings", emoji: "⚙️" },
 ]
 
 const SECONDARY_ITEMS: NavItem[] = [
-  { id: "support", label: "Support", emoji: "🛟" },
-  { id: "subscription", label: "Account and Usage", emoji: "💳" },
+  { id: "support", labelKey: "support", emoji: "🛟" },
+  { id: "subscription", labelKey: "subscription", emoji: "💳" },
 ]
 
 export const Sidebar = ({
@@ -41,13 +42,15 @@ export const Sidebar = ({
   appVersion,
   onNavigate,
 }: SidebarProps) => {
+  const { t } = useTranslation()
+
   return (
     <aside className="flex min-h-0 w-[236px] shrink-0 flex-col bg-sidebar px-3 pt-4 pb-0 max-[760px]:w-48">
       <div className="mb-3.5 px-[7px] text-[18px] font-bold text-zinc-100">
-        Smart Notes
+        {t("common.productName")}
       </div>
       <nav
-        aria-label="Smart Notes sections"
+        aria-label={t("sidebar.sections")}
         className="min-h-0 flex-1 overflow-y-auto pb-2"
       >
         <div className="space-y-px">
@@ -87,7 +90,7 @@ export const Sidebar = ({
             target="_blank"
           >
             <DiscordMark className="text-zinc-300" size={14} />
-            Discord
+            {t("sidebar.discord")}
           </a>
           <FeedbackDialog>
             <button
@@ -97,7 +100,7 @@ export const Sidebar = ({
               <span aria-hidden className="text-sm leading-none">
                 💡
               </span>
-              Feedback
+              {t("sidebar.feedback")}
             </button>
           </FeedbackDialog>
         </div>
@@ -107,7 +110,7 @@ export const Sidebar = ({
             className="block w-full pb-2 text-center font-mono text-[11px] text-zinc-600 hover:text-zinc-400"
             onClick={() => onNavigate("support")}
           >
-            Smart Notes v{appVersion}
+            {t("sidebar.version", { version: appVersion })}
           </button>
         )}
       </div>
@@ -122,12 +125,13 @@ interface NavButtonProps {
 }
 
 const NavButton = ({ activeScreen, item, onNavigate }: NavButtonProps) => {
+  const { t } = useTranslation()
   const isActive = item.id === activeScreen
 
   return (
     <button
       aria-current={isActive ? "page" : undefined}
-      className={`flex w-full items-center gap-[10px] rounded-lg px-[10px] py-[5px] text-left text-[14px] font-medium transition-[background-color,color,opacity] duration-150 ease-out ${
+      className={`flex w-full items-center gap-[10px] rounded-lg px-[10px] py-[5px] text-start text-[14px] font-medium transition-[background-color,color,opacity] duration-150 ease-out ${
         isActive
           ? "bg-[#7882ff]/[0.14] text-indigo-soft opacity-100"
           : "text-zinc-400 opacity-80 hover:bg-white/[0.055] hover:text-zinc-100 hover:opacity-100"
@@ -140,7 +144,7 @@ const NavButton = ({ activeScreen, item, onNavigate }: NavButtonProps) => {
       >
         {item.emoji}
       </span>
-      <span className="truncate">{item.label}</span>
+      <span className="truncate">{t(`sidebar.nav.${item.labelKey}`)}</span>
     </button>
   )
 }

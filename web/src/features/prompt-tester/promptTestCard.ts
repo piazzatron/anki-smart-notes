@@ -18,6 +18,7 @@
  */
 
 import { hasGenerationAccess } from "@/components/shared/planPresentation"
+import i18next from "i18next"
 import { useAppStore } from "@/store/appStore"
 import type { AccountState, Deck, NoteType, SelectedNote } from "@/types/api"
 
@@ -51,6 +52,7 @@ interface PromptTestCardArgs {
   decks: Deck[] | null
   noteTypes: NoteType[] | null
   tester: PromptTester
+  globalDeckId?: number
 }
 
 // What both tester layouts need to know about the card a run would use: how to name it,
@@ -60,6 +62,7 @@ export const getPromptTestCardState = ({
   decks,
   noteTypes,
   tester,
+  globalDeckId,
 }: PromptTestCardArgs): PromptTestCardState => {
   const selectedNote = tester.selectedNote
   const referencedFieldNames = new Set(
@@ -75,12 +78,14 @@ export const getPromptTestCardState = ({
 
   return {
     deckName:
-      decks?.find((deck) => deck.id === selectedNote?.deckId)?.name ??
-      "Selected deck",
+      selectedNote !== null && selectedNote?.deckId === globalDeckId
+        ? i18next.t("common.allDecks")
+        : (decks?.find((deck) => deck.id === selectedNote?.deckId)?.name ??
+          i18next.t("promptTester.selectedDeck")),
     missingFieldNames,
     noteTypeName:
       noteTypes?.find((noteType) => noteType.id === selectedNote?.noteTypeId)
-        ?.name ?? "Selected note type",
+        ?.name ?? i18next.t("promptTester.selectedNoteType"),
     referencedFieldNames,
     requiredNoteTypeName: noteTypes?.find(
       (noteType) => noteType.id === tester.requiredNoteTypeId,
@@ -125,6 +130,13 @@ export const usePromptTestCardState = (
   const account = useAppStore((store) => store.state?.account ?? null)
   const decks = useAppStore((store) => store.state?.decks ?? null)
   const noteTypes = useAppStore((store) => store.state?.noteTypes ?? null)
+  const globalDeckId = useAppStore((store) => store.state?.globalDeckId)
 
-  return getPromptTestCardState({ account, decks, noteTypes, tester })
+  return getPromptTestCardState({
+    account,
+    decks,
+    globalDeckId,
+    noteTypes,
+    tester,
+  })
 }

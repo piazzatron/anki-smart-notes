@@ -34,6 +34,7 @@ def save_settings(settings: Settings) -> None:
     config.generate_at_review = settings.generate_at_review
     config.regenerate_notes_when_batching = settings.regenerate_when_batching
     config.debug = settings.debug
+    config.language = settings.language
     config.openai_api_key = settings.legacy_openai_key
     config.legacy_openai_model = settings.legacy_openai_model
     config.openai_endpoint = settings.legacy_openai_host
@@ -47,6 +48,7 @@ class Settings:
     generate_at_review: bool
     regenerate_when_batching: bool
     debug: bool
+    language: str
     legacy_openai_key: str | None
     legacy_openai_model: str
     legacy_openai_host: str | None

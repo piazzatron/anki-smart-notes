@@ -18,6 +18,7 @@
  */
 
 import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 
 import { PageLayout } from "@/components/shared/PageLayout"
 import {
@@ -30,6 +31,7 @@ import {
 import { ScreenSkeleton } from "@/components/shared/ScreenSkeleton"
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { errorMessage } from "@/lib/errors"
+import i18next from "@/lib/i18n"
 import { openSiteLink, SITE_LINKS } from "@/lib/siteLinks"
 import { logout, refreshAccount } from "@/services/commands"
 import { useAppStore } from "@/store/appStore"
@@ -39,6 +41,7 @@ const CARD_CLASS = "rounded-[13px] bg-white/[0.05]"
 type AuthenticatedAccount = Extract<AccountState, { status: "AUTHENTICATED" }>
 
 export const SubscriptionScreen = () => {
+  const { t } = useTranslation()
   const state = useAppStore((store) => store.state)
 
   useEffect(() => {
@@ -48,10 +51,10 @@ export const SubscriptionScreen = () => {
   if (state === null) {
     return (
       <ScreenSkeleton
-        ariaLabel="Loading Subscription"
+        ariaLabel={t("subscription.loading")}
         contentClassName="h-40"
         showSubtitle={false}
-        title="Account and Usage"
+        title={t("subscription.title")}
       />
     )
   }
@@ -60,6 +63,7 @@ export const SubscriptionScreen = () => {
 }
 
 const LoadedSubscriptionScreen = ({ account }: { account: AccountState }) => {
+  const { t } = useTranslation()
   const [logoutError, setLogoutError] = useState<string | null>(null)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
   const presentation = getPlanPresentation(account)
@@ -71,7 +75,7 @@ const LoadedSubscriptionScreen = ({ account }: { account: AccountState }) => {
     try {
       await logout()
     } catch (error) {
-      setLogoutError(errorMessage(error, "Could not log out"))
+      setLogoutError(errorMessage(error, t("subscription.errors.logout")))
     } finally {
       setIsLoggingOut(false)
     }
@@ -87,7 +91,9 @@ const LoadedSubscriptionScreen = ({ account }: { account: AccountState }) => {
             onClick={() => void runLogout()}
             type="button"
           >
-            {isLoggingOut ? "Logging out…" : "Log out"}
+            {isLoggingOut
+              ? t("subscription.loggingOut")
+              : t("subscription.logOut")}
           </button>
         )
       }
@@ -95,7 +101,7 @@ const LoadedSubscriptionScreen = ({ account }: { account: AccountState }) => {
         !isSignedOut && account.email !== null ? account.email : undefined
       }
       testId="subscription-screen"
-      title="Account and Usage"
+      title={t("subscription.title")}
     >
       {logoutError !== null && (
         <ErrorBanner
@@ -107,7 +113,7 @@ const LoadedSubscriptionScreen = ({ account }: { account: AccountState }) => {
 
       {presentation.variant === "loading" ? (
         <div
-          aria-label="Checking subscription"
+          aria-label={t("subscription.checking")}
           className="animate-pulse space-y-2.5"
         >
           <div className="h-28 rounded-[13px] bg-white/[0.04]" />
@@ -148,25 +154,28 @@ const SubscriptionDetails = ({ account }: { account: AccountState }) => {
   )
 }
 
-const SignedOutSubscription = () => (
-  <div className="flex min-h-full items-center justify-center p-6 text-center">
-    <div>
-      <h2 className="text-[19px] font-bold text-zinc-100">
-        Sign in to manage your plan
-      </h2>
-      <p className="mt-1.5 text-xs text-ink-muted">
-        Your smart fields and settings are stored on this device.
-      </p>
-      <button
-        className="mt-4 rounded-lg bg-white/[0.09] px-5 py-2.5 text-xs font-bold text-zinc-200 transition hover:bg-white/[0.12]"
-        onClick={() => openSiteLink(SITE_LINKS.signIn)}
-        type="button"
-      >
-        Sign In
-      </button>
+const SignedOutSubscription = () => {
+  const { t } = useTranslation()
+  return (
+    <div className="flex min-h-full items-center justify-center p-6 text-center">
+      <div>
+        <h2 className="text-[19px] font-bold text-zinc-100">
+          {t("subscription.signedOut.manage")}
+        </h2>
+        <p className="mt-1.5 text-xs text-ink-muted">
+          {t("subscription.signedOut.localStorage")}
+        </p>
+        <button
+          className="mt-4 rounded-lg bg-white/[0.09] px-5 py-2.5 text-xs font-bold text-zinc-200 transition hover:bg-white/[0.12]"
+          onClick={() => openSiteLink(SITE_LINKS.signIn)}
+          type="button"
+        >
+          {t("common.signIn")}
+        </button>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 interface HeroContent {
   context: string
@@ -183,13 +192,13 @@ const getHeroContent = (account: AuthenticatedAccount): HeroContent | null => {
   if (presentation.variant === "free-usage") {
     return {
       context: conditions.creditLimitReached
-        ? "You're out of free credits this month"
+        ? i18next.t("subscription.hero.outOfFreeCredits")
         : conditions.noteLimitReached
-          ? "You've reached your note limit"
+          ? i18next.t("subscription.hero.noteLimit")
           : conditions.expired
-            ? "Your free credits are resetting"
-            : "You're on the Free plan",
-      cta: "Upgrade — your whole collection, automatically",
+            ? i18next.t("subscription.hero.freeCreditsResetting")
+            : i18next.t("subscription.hero.freePlan"),
+      cta: i18next.t("subscription.hero.upgradeCollection"),
       tone: "indigo",
       url: SITE_LINKS.upgrade,
     }
@@ -199,15 +208,15 @@ const getHeroContent = (account: AuthenticatedAccount): HeroContent | null => {
     const daysLeft = presentation.daysLeft ?? 0
     return {
       context: conditions.creditLimitReached
-        ? "You're out of trial credits"
+        ? i18next.t("subscription.hero.outOfTrialCredits")
         : conditions.noteLimitReached
-          ? "You've reached your trial note limit"
+          ? i18next.t("subscription.hero.trialNoteLimit")
           : conditions.expired
-            ? "Your trial has ended"
-            : daysLeft === 1
-              ? "Your trial ends today"
-              : `${daysLeft} days left in your trial`,
-      cta: "✨ Upgrade to paid",
+            ? i18next.t("subscription.hero.trialEnded")
+            : i18next.t("subscription.hero.trialDaysLeft", {
+                count: daysLeft,
+              }),
+      cta: i18next.t("subscription.hero.upgradePaid"),
       tone: "mint",
       url: SITE_LINKS.upgrade,
     }
@@ -219,8 +228,8 @@ const getHeroContent = (account: AuthenticatedAccount): HeroContent | null => {
 
   if (conditions.expired) {
     return {
-      context: "Your plan has expired",
-      cta: "Manage your plan",
+      context: i18next.t("subscription.hero.planExpired"),
+      cta: i18next.t("subscription.managePlan"),
       tone: "mint",
       url: SITE_LINKS.account,
     }
@@ -229,12 +238,14 @@ const getHeroContent = (account: AuthenticatedAccount): HeroContent | null => {
   const topTier = isTopTier(account.plan)
   return {
     context: conditions.noteLimitReached
-      ? "You've reached your note limit"
-      : "You're out of credits this month",
-    cta: topTier ? "Buy more credits" : "Upgrade for more credits",
+      ? i18next.t("subscription.hero.noteLimit")
+      : i18next.t("subscription.hero.outOfCredits"),
+    cta: topTier
+      ? i18next.t("subscription.hero.buyCredits")
+      : i18next.t("subscription.hero.upgradeCredits"),
     ...(topTier
       ? {
-          note: "Pay-as-you-go credits roll over every month — yours forever.",
+          note: i18next.t("subscription.hero.rollover"),
         }
       : {}),
     tone: "mint",
@@ -282,7 +293,7 @@ const PlanHero = ({ context, cta, note, tone, url }: HeroContent) => {
         className="mt-1 text-[23px] font-extrabold tracking-[-0.4px]"
         style={{ color: styles.ink }}
       >
-        {cta} <span className="font-bold">→</span>
+        {cta} <span className="inline-block font-bold rtl:rotate-180">→</span>
       </span>
       {note !== undefined && (
         <span
@@ -307,6 +318,7 @@ const UsageModule = ({
   plan: PlanInfo
   usage: number
 }) => {
+  const { t } = useTranslation()
   const segments = getCreditSegments(plan).filter(
     (segment) => segment.percent > 0,
   )
@@ -316,10 +328,13 @@ const UsageModule = ({
     <section className={`${CARD_CLASS} p-[18px]`}>
       <div className="flex items-baseline justify-between">
         <h2 className="text-xs font-semibold tracking-[0.4px] text-zinc-200 uppercase">
-          Credit Usage
+          {t("subscription.creditUsage")}
         </h2>
         <p className="text-[11px] text-ink-muted">
-          Resets in <span className="text-zinc-200">{daysLeft} days</span>
+          {t("subscription.resetsIn")}{" "}
+          <span className="text-zinc-200">
+            {t("common.days", { count: daysLeft })}
+          </span>
         </p>
       </div>
       <div className="mt-3.5 flex items-end gap-2.5">
@@ -329,7 +344,9 @@ const UsageModule = ({
           {pctLabel(usage)}
         </span>
         <span className="pb-[3px] text-[13px] text-ink-muted">
-          of {period === "trial" ? "trial" : "monthly"} credits used
+          {period === "trial"
+            ? t("subscription.trialCreditsUsed")
+            : t("subscription.monthlyCreditsUsed")}
         </span>
       </div>
       <div className="mt-3 flex h-2.5 overflow-hidden rounded-full bg-white/[0.06]">
@@ -375,24 +392,44 @@ const getPlanFacts = ({
   if (isTrial) {
     const daysLeft = plan?.daysLeft ?? 0
     return [
-      ["Plan", "Free trial"],
-      ["Trial ends", daysLeft === 1 ? "Today" : `In ${daysLeft} days`],
-      ["Notes", `${plan?.notesUsed ?? 0}/${plan?.notesLimit ?? 50} used`],
+      [i18next.t("subscription.plan"), i18next.t("subscription.freeTrial")],
+      [
+        i18next.t("subscription.trialEnds"),
+        i18next.t("subscription.inDays", { count: daysLeft }),
+      ],
+      [
+        i18next.t("subscription.notes"),
+        i18next.t("subscription.notesUsedValue", {
+          used: plan?.notesUsed ?? 0,
+          limit: plan?.notesLimit ?? 50,
+        }),
+      ],
     ]
   }
 
   if (isPaid && plan !== null) {
     return [
-      ["Plan", plan.planName],
-      ["Credits reset", `In ${plan.daysLeft} days`],
-      ["Notes used", "Unlimited"],
+      [i18next.t("subscription.plan"), plan.planName],
+      [
+        i18next.t("subscription.creditsReset"),
+        i18next.t("subscription.inDays", { count: plan.daysLeft }),
+      ],
+      [i18next.t("subscription.notesUsed"), i18next.t("common.unlimited")],
     ]
   }
 
   return [
-    ["Plan", isFree ? "Free" : (plan?.planName ?? "Free")],
-    ["Credits reset", `In ${plan?.daysLeft ?? 0} days`],
-    ["Notes used", "Unlimited"],
+    [
+      i18next.t("subscription.plan"),
+      isFree
+        ? i18next.t("common.free")
+        : (plan?.planName ?? i18next.t("common.free")),
+    ],
+    [
+      i18next.t("subscription.creditsReset"),
+      i18next.t("subscription.inDays", { count: plan?.daysLeft ?? 0 }),
+    ],
+    [i18next.t("subscription.notesUsed"), i18next.t("common.unlimited")],
   ]
 }
 
@@ -412,22 +449,29 @@ const PlanFacts = ({ facts }: { facts: Array<[string, string]> }) => (
   </div>
 )
 
-const ManageRow = ({ topTier }: { topTier: boolean }) => (
-  <button
-    className={`${CARD_CLASS} flex w-full items-center justify-between gap-4 px-[18px] py-[15px] text-left transition hover:bg-white/[0.07]`}
-    onClick={() => openSiteLink(SITE_LINKS.account)}
-    type="button"
-  >
-    <span className="min-w-0">
-      <span className="block text-[13.5px] font-bold text-zinc-100">
-        {topTier ? "Manage plan" : "Manage or upgrade plan"}
+const ManageRow = ({ topTier }: { topTier: boolean }) => {
+  const { t } = useTranslation()
+  return (
+    <button
+      className={`${CARD_CLASS} flex w-full items-center justify-between gap-4 px-[18px] py-[15px] text-start transition hover:bg-white/[0.07]`}
+      onClick={() => openSiteLink(SITE_LINKS.account)}
+      type="button"
+    >
+      <span className="min-w-0">
+        <span className="block text-[13.5px] font-bold text-zinc-100">
+          {topTier
+            ? t("subscription.managePlan")
+            : t("subscription.manageOrUpgrade")}
+        </span>
+        <span className="mt-[3px] block text-[11.5px] text-ink-muted">
+          {t("subscription.manageDescription")}
+        </span>
       </span>
-      <span className="mt-[3px] block text-[11.5px] text-ink-muted">
-        Change plan, update payment, or cancel.
+      <span className="shrink-0 text-[17px] text-ink-muted rtl:rotate-180">
+        →
       </span>
-    </span>
-    <span className="shrink-0 text-[17px] text-ink-muted">→</span>
-  </button>
-)
+    </button>
+  )
+}
 
 const isTopTier = (plan: PlanInfo): boolean => plan.planType === "large"

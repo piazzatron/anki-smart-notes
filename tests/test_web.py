@@ -69,6 +69,7 @@ SETTINGS_DTO: dto.SettingsDto = {
     "generateAtReview": True,
     "regenerateWhenBatching": False,
     "debug": False,
+    "language": "auto",
     "legacyOpenAiEnabled": False,
     "legacyOpenAiKey": None,
     "legacyOpenAiModel": "gpt-5",
@@ -360,6 +361,7 @@ def test_build_settings_reads_config(monkeypatch):
         generate_at_review=False,
         regenerate_notes_when_batching=True,
         debug=True,
+        language="ja",
         legacy_support=True,
         openai_api_key="sk-test",
         legacy_openai_model="gpt-5-mini",
@@ -374,6 +376,7 @@ def test_build_settings_reads_config(monkeypatch):
         "generateAtReview": False,
         "regenerateWhenBatching": True,
         "debug": True,
+        "language": "ja",
         "legacyOpenAiEnabled": True,
         "legacyOpenAiKey": "sk-test",
         "legacyOpenAiModel": "gpt-5-mini",
@@ -603,6 +606,7 @@ def test_parse_settings_round_trips():
     assert parsed.generate_at_review is True
     assert parsed.regenerate_when_batching is False
     assert parsed.debug is False
+    assert parsed.language == "auto"
     assert parsed.legacy_openai_key is None
     assert parsed.legacy_openai_model == "gpt-5"
     assert parsed.legacy_openai_host is None
@@ -683,6 +687,7 @@ def test_settings_survive_build_parse_round_trip(monkeypatch):
         generate_at_review=True,
         regenerate_notes_when_batching=False,
         debug=True,
+        language="ar",
         legacy_support=True,
         openai_api_key="sk-test",
         legacy_openai_model="gpt-5-mini",
@@ -699,6 +704,7 @@ def test_settings_survive_build_parse_round_trip(monkeypatch):
         generate_at_review=True,
         regenerate_when_batching=False,
         debug=True,
+        language="ar",
         legacy_openai_key="sk-test",
         legacy_openai_model="gpt-5-mini",
         legacy_openai_host="https://example.com",
@@ -721,6 +727,7 @@ def test_save_settings_persists_every_field_and_republishes(monkeypatch):
     assert config.generate_at_review is True
     assert config.regenerate_notes_when_batching is False
     assert config.debug is False
+    assert config.language == "auto"
     assert config.openai_api_key is None
     assert config.legacy_openai_model == "gpt-5"
     assert config.openai_endpoint is None

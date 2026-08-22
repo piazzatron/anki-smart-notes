@@ -18,6 +18,7 @@
  */
 
 import { useMemo, useState, type ReactNode } from "react"
+import { useTranslation } from "react-i18next"
 
 import {
   Select,
@@ -30,6 +31,8 @@ import { providerLabel } from "@/lib/catalog"
 import type { TTSGenerationSettings, VoiceCatalog } from "@/types/api"
 
 import { filterVoices, voiceKey, voiceMatchesSettings } from "./voiceDefaults"
+
+const VOICE_GENDER_OPTIONS = ["All", "Female", "Male"]
 interface VoicePickerProps {
   catalog: VoiceCatalog
   children?: ReactNode
@@ -49,6 +52,7 @@ export const VoicePicker = ({
   onSelect,
   value,
 }: VoicePickerProps) => {
+  const { i18n, t } = useTranslation()
   const selectedVoice = catalog.voices.find((voice) =>
     voiceMatchesSettings(voice, value),
   )
@@ -83,24 +87,34 @@ export const VoicePicker = ({
   const filterControls = (
     <div className={`grid gap-2 ${layout === "stacked" ? "grid-cols-3" : ""}`}>
       <VoiceFilter
-        label="Language"
+        label={t("defaults.voice.filters.language")}
         options={languages}
+        renderOption={(language) =>
+          language === "All" ? t("defaults.voice.filters.all") : language
+        }
         value={filters.language}
         onChange={(language) =>
           setFilters((current) => ({ ...current, language }))
         }
       />
       <VoiceFilter
-        label="Gender"
-        options={["All", "Female", "Male"]}
+        label={t("defaults.voice.filters.gender")}
+        options={VOICE_GENDER_OPTIONS}
+        renderOption={(gender) => {
+          if (gender === "All") return t("defaults.voice.filters.all")
+          if (gender === "Female") return t("defaults.voice.filters.female")
+          return t("defaults.voice.filters.male")
+        }}
         value={filters.gender}
         onChange={(gender) => setFilters((current) => ({ ...current, gender }))}
       />
       <VoiceFilter
-        label="Provider"
+        label={t("defaults.voice.filters.provider")}
         options={providers}
         renderOption={(provider) =>
-          provider === "All" ? "All" : providerLabel(provider)
+          provider === "All"
+            ? t("defaults.voice.filters.all")
+            : providerLabel(provider)
         }
         value={filters.provider}
         onChange={(provider) =>
@@ -112,7 +126,7 @@ export const VoicePicker = ({
   const searchAndList = (
     <>
       <input
-        aria-label="Search voices"
+        aria-label={t("defaults.voice.searchVoices")}
         className={`${layout === "stacked" ? "mt-2" : ""} h-9 w-full rounded-lg border border-white/[0.09] bg-white/[0.035] px-3 text-xs text-zinc-200 transition outline-none placeholder:text-zinc-600 focus:border-indigo/45`}
         onChange={(event) =>
           setFilters((current) => ({
@@ -120,7 +134,7 @@ export const VoicePicker = ({
             search: event.target.value,
           }))
         }
-        placeholder="🔍 Search voices…"
+        placeholder={t("defaults.voice.searchPlaceholder")}
         value={filters.search}
       />
 
@@ -135,7 +149,7 @@ export const VoicePicker = ({
         >
           {visibleVoices.length === 0 ? (
             <p className="py-12 text-center text-xs text-ink-faint">
-              No voices match these filters.
+              {t("defaults.voice.noVoices")}
             </p>
           ) : (
             visibleVoices.map((voice) => {
@@ -183,13 +197,15 @@ export const VoicePicker = ({
           <div className="flex min-h-0 flex-col">
             {children}
             <p className="mt-5 mb-2 text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
-              Filter voices
+              {t("defaults.voice.filterVoices")}
             </p>
             {filterControls}
           </div>
           <div className="flex min-h-0 flex-col">
             <p className="mb-2 text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
-              Browse voices ({visibleVoices.length.toLocaleString()})
+              {t("defaults.voice.browseVoices", {
+                count: visibleVoices.length.toLocaleString(i18n.language),
+              })}
             </p>
             {searchAndList}
           </div>

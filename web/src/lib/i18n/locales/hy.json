@@ -1,0 +1,499 @@
+{
+  "common": {
+    "allDecks": "Բոլոր տախտակամածները",
+    "auto": "Ավտոմատ",
+    "autoMax": "Auto MAX",
+    "back": "Ետ",
+    "bestValueCost": "Լավագույն արժեքը, 0.3× արժեքը",
+    "cancel": "Չեղարկել",
+    "close": "Փակել",
+    "connection": {
+      "connecting": "Միանում է Anki-ին…",
+      "reconnecting": "Վերամիացում Anki-ին…"
+    },
+    "days_one": "1 օր",
+    "days_other": "{{count}} օր",
+    "deck": "Տախտակամած",
+    "default": "Կանխադրված",
+    "delete": "Ջնջել",
+    "done": "Կատարված է",
+    "duplicate": "Կրկնօրինակեք",
+    "edit": "Խմբագրել",
+    "empty": "դատարկ",
+    "field": "Դաշտ",
+    "free": "Անվճար",
+    "discardChanges": "Չեղարկել փոփոխությունները",
+    "discardUnsavedChanges": {
+      "description": "Այս լռելյայն կարգավորումների ձեր փոփոխությունները չեն պահպանվել:",
+      "title": "Չեղարկե՞լ չպահված փոփոխությունները:"
+    },
+    "dismissError": "Անտեսել սխալը",
+    "feedback": {
+      "description": "Ուղարկեք վրիպակի մասին զեկույց, գործառույթի հարցում կամ այլ կարծիք մշակողին:",
+      "error": "Չհաջողվեց հետադարձ կապ ուղարկել",
+      "label": "Հետադարձ կապ",
+      "placeholder": "Սխալ, գաղափար, ցանկացած բան՝ այն գնում է անմիջապես մշակողի մոտ:",
+      "send": "Ուղարկել",
+      "sending": "Ուղարկում…",
+      "sent": "Հետադարձ կապ ուղարկվեց: Մենք շուտով կապի մեջ կլինենք:",
+      "title": "Ուղարկել կարծիք"
+    },
+    "notNow": "Ոչ հիմա",
+    "other": "Այլ",
+    "placeholderScreen": "Այս էկրանը վերակառուցման հաջորդն է:",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "Մուտք գործեք",
+    "signInLower": "Մուտք գործեք",
+    "unlimited": "Անսահմանափակ",
+    "upgrade": "Թարմացնել",
+    "upgradeSparkles": "✨ Թարմացնել ✨",
+    "multiplierCost": "{{multiplier}}× արժեքը",
+    "next": "Հաջորդը",
+    "noteType": "Նշման տեսակը",
+    "optional": "ընտրովի",
+    "prompt": "Հուշել",
+    "saving": "Պահվում է…",
+    "test": "Փորձարկում",
+    "validFields": "Վավեր դաշտեր."
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Հետադարձ կապ",
+    "nav": {
+      "defaultsImages": "Պատկերի կանխադրված կարգավորումներ",
+      "defaultsText": "Տեքստի կանխադրված կարգավորումներ",
+      "defaultsVoice": "Ձայնի կանխադրված կարգավորումներ",
+      "image": "Պատկեր",
+      "settings": "Կարգավորումներ",
+      "smartFields": "Smart Fields",
+      "subscription": "Հաշիվ և օգտագործում",
+      "support": "Աջակցություն",
+      "text": "Տեքստ",
+      "voice": "Ձայն"
+    },
+    "sections": "Smart Notes բաժինները",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Խնդիրների ախտորոշումը օգնելու համար մանրամասն գրանցում: Ներառեք այս տեղեկամատյանները սխալ ներկայացնելիս:",
+      "label": "Վրիպազերծման ռեժիմ"
+    },
+    "generateAtReview": {
+      "description": "Լրացրեք բացակայող խելացի դաշտերը ավտոմատ կերպով, երբ քարտերը հայտնվում են վերանայման ժամանակ:",
+      "label": "Ստեղծեք դաշտեր վերանայման ընթացքում"
+    },
+    "language": {
+      "description": "Ընտրեք լեզուն Smart Notes-ի համար կամ համապատասխանեք Anki-ի լեզվին:",
+      "label": "Լեզու",
+      "matchAnki": "Համընկնում Anki"
+    },
+    "legacy": {
+      "apiKey": "OpenAI API բանալի",
+      "apiKeyRequired": "Պահանջվում է վճարովի OpenAI API բանալի:",
+      "description": "Միացրեք վճարովի API բանալի և ընտրեք հին OpenAI մոդելը:",
+      "getApiKey": "Ստացեք API բանալի",
+      "host": "OpenAI հյուրընկալող",
+      "hostDescription": "Տրամադրեք այլընտրանքային վերջնակետ OpenAI API-ին:",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "OpenAI մոդելը",
+      "title": "Օգտագործեք իմ սեփական OpenAI բանալին"
+    },
+    "loading": "Կարգավորումների բեռնում",
+    "regenerateWhenBatching": {
+      "description": "Երբ խմբաքանակով մշակում եք մի խումբ նշումներ, զրոյից վերականգնեք յուրաքանչյուր խելացի դաշտ, այլ ոչ միայն լրացնելով դատարկերը:",
+      "label": "Վերականգնեք բոլոր խելացի դաշտերը խմբաքանակի մշակման ժամանակ"
+    },
+    "saveError": "Չհաջողվեց պահել կարգավորումները",
+    "sections": {
+      "advanced": "Ընդլայնված",
+      "general": "Գեներալ",
+      "generation": "Սերունդ"
+    },
+    "title": "Կարգավորումներ"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Արդեն խելացի դաշտ ✨",
+    "collisionHint": "արդեն ունի Smart Field – ընտրեք այլ դաշտ, տախտակամած կամ նշումի տեսակ",
+    "completion": {
+      "descriptionAfter": "նշումները լրացվում են ամեն անգամ, երբ այն ստեղծում եք:",
+      "descriptionBefore": "վրա",
+      "methods": {
+        "bulk": {
+          "caption": "Ընտրեք նշումներ կամ տախտակամած → աջ սեղմեք → ✨ Ստեղծեք Smart Fields:",
+          "imageAlt": "Anki Զննարկչի համատեքստային ընտրացանկ՝ ընդգծված Generate Smart Fields",
+          "title": "Մեծաքանակ՝ դիտարկիչից"
+        },
+        "card": {
+          "caption": "Սեղմեք ✨ կոճակը խմբագրիչի գործիքագոտում կամ մուտքագրեք ⌘⇧G:",
+          "imageAlt": "Anki խմբագրիչի գործիքագոտին՝ ընդգծված Smart Notes կոճակով",
+          "title": "Մի անգամ մեկ քարտ"
+        },
+        "field": {
+          "caption": "Աջ սեղմեք ցանկացած դաշտ → Ստեղծեք խելացի դաշտ:",
+          "imageAlt": "Anki դաշտի համատեքստային ընտրացանկ՝ ընդգծված Generate Smart Field",
+          "title": "Մեկ դաշտ"
+        }
+      },
+      "title": "Ձեր Smart Field-ը ուղիղ եթերում է",
+      "waysToGenerate": "Այն ստեղծելու մի քանի եղանակ."
+    },
+    "created": "Ստեղծվել է Smart Field",
+    "dontShowAgain": "Այլևս մի ցուցադրեք սա",
+    "errors": {
+      "save": "Չհաջողվեց պահել Smart Field-ը",
+      "updateWizardSettings": "Չհաջողվեց թարմացնել հրաշագործի կարգավորումները",
+      "writePrompt": "Չհաջողվեց գրել հուշումը"
+    },
+    "fieldTypes": {
+      "audio": "Աուդիո",
+      "image": "Պատկեր",
+      "text": "Տեքստ"
+    },
+    "loadingModelCatalog": "Մոդելների կատալոգի բեռնում…",
+    "modelSettings": {
+      "appliesOnlyToField": "Կիրառվում է միայն այս Smart Field-ի համար:",
+      "defaultWithValue": "Կանխադրված ({{value}})",
+      "defaultsImages": "Նախնականներ › Պատկերներ",
+      "defaultsText": "Նախնականներ › Տեքստ",
+      "defaultsVoice": "Կանխադրվածներ › Ձայն",
+      "descriptionChat": "Սահմանեք AI-ն, որը գրում է այս դաշտը: Շատ դաշտեր կարող են մնալ լռելյայն:",
+      "descriptionImage": "Սահմանեք AI-ն, որը նկարում է այս դաշտը: Շատ դաշտեր կարող են մնալ լռելյայն:",
+      "descriptionTts": "Սահմանեք ձայնը, որը կարդում է այս դաշտը: Շատ դաշտեր կարող են մնալ լռելյայն:",
+      "imageDefault": "պատկերի լռելյայն",
+      "imageModel": "Պատկերի մոդել",
+      "loadingVoices": "Ձայների բեռնում…",
+      "model": "Մոդել",
+      "pickCustom": "Ընտրեք հատուկ մոդել այս դաշտի համար",
+      "reasoning": "{{level}} հիմնավորում",
+      "reasoningHint": "Ավելի բարձր դատողությունը կարող է բարելավել ավելի դժվար սերունդները, բայց օգտագործում է ավելի շատ վարկեր:",
+      "reasoningLevel": "Պատճառաբանության մակարդակ",
+      "sharedByEveryField": "Ձեր {{modality}}-ը համօգտագործվում է այն օգտագործող յուրաքանչյուր Smart Field-ի կողմից: Փոխեք այն",
+      "textDefault": "տեքստի լռելյայն",
+      "textModel": "Տեքստի մոդել",
+      "useMy": "Օգտագործեք իմ {{modality}}",
+      "useWebSearch": "Օգտագործեք վեբ որոնումը այս դաշտի համար",
+      "voice": "Ձայն",
+      "voiceDefault": "ձայնային լռելյայն",
+      "webSearch": "Վեբ որոնում",
+      "webSearchHint": "Թույլ տվեք, որ այս դաշտը օգտագործի համացանցից թարմ տեղեկություններ:"
+    },
+    "save": "Պահպանեք խելացի դաշտը",
+    "sections": {
+      "onWhichNotes": "Ո՞ր նշումների վրա:",
+      "whatToGenerate": "Ի՞նչ եք ուզում առաջացնել:",
+      "whichFieldToFill": "Ո՞ր դաշտը պետք է լրացնի:",
+      "whichFieldToSpeak": "Ո՞ր դաշտը պետք է խոսի:"
+    },
+    "sourceField": "Աղբյուրի դաշտ",
+    "targetAriaLabel": "Smart Field թիրախ",
+    "testSmartField": "Փորձեք ձեր խելացի դաշտը",
+    "titles": {
+      "create": "Նոր Smart Field ✨",
+      "duplicate": "Կրկնվող խելացի դաշտ",
+      "edit": "Խմբագրել խելացի դաշտը"
+    },
+    "validation": {
+      "chooseField": "Ընտրեք դաշտ",
+      "chooseNoteType": "Ընտրեք նշումի տեսակը",
+      "chooseSourceField": "Ընտրեք աղբյուրի դաշտը",
+      "fieldAlreadyHasSmartField": "{{field}}-ն արդեն ունի Smart Field",
+      "writePrompt": "Գրեք հուշում"
+    },
+    "writePrompt": "Գրեք հուշում",
+    "writePromptForMe": "Գրեք իմ հուշումը ինձ համար",
+    "writePromptForMeHint": "Ասա այն, ինչ ուզում ես պարզ անգլերենով. մենք կգրենք հուշումը ստորև:",
+    "writePromptPlaceholder": "«Թարգմանել բնական անգլերեն…»",
+    "writing": "Գրում…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "Գործողություններ {{field}}-ի համար",
+    "addToNoteType": "Ավելացնել Smart Field {{noteType}}-ին",
+    "disable": "Անջատել",
+    "deleting": "Ջնջվում է…",
+    "discord": {
+      "dismissAriaLabel": "Մերժել Discord հրավերը",
+      "join": "Միանալ",
+      "joinAriaLabel": "Միացեք Smart Notes Discord-ին",
+      "subtitle": "— Փոխանակեք հուշումները և պահանջելու հնարավորությունները:",
+      "title": "Եկեք բարև ասեք Discord-ում"
+    },
+    "editAriaLabel": "Խմբագրել {{field}} խելացի դաշտը",
+    "emptyState": {
+      "description": "Ավելացրեք Smart Fields՝ ձեր քարտերին տեքստ, աուդիո և պատկերներ ավելացնելու համար:",
+      "exampleAnswer": "Ողջույն",
+      "exampleField": "ՃԱԿԱՏ",
+      "examplePrompt": "բոնժուր",
+      "spark": "✦",
+      "title": "Ձեր գրառումները մի փոքր դատարկ տեսք ունեն"
+    },
+    "enable": "Միացնել",
+    "errors": {
+      "commandFailed": "Smart Field հրամանը ձախողվեց"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "Տեքստ",
+      "image": "Պատկեր",
+      "tts": "Աուդիո"
+    },
+    "loadingAriaLabel": "Բեռնվում է Smart Fields",
+    "newSmartField": "Նոր խելացի դաշտ",
+    "readsAloud": "Բարձրաձայն կարդում է {{field}}",
+    "review": {
+      "ariaLabel": "Վերանայեք Smart Notes AnkiWeb-ում",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "Մերժել վերանայման հրավերը",
+      "subtitle": "Թողեք ակնարկ AnkiWeb-ի վերաբերյալ, որպեսզի օգնեք մյուս Anki օգտվողներին գտնել այն:",
+      "title": "Վայելու՞մ եք Smart Notes:"
+    },
+    "subtitle": "Ձեր նշումներին ավելացրեք ինքնաբերաբար ստեղծված տեքստ, ձայն և պատկերներ:",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "Զրույցի կատալոգում բացակայում է {{model}} մոդելը",
+      "missingImageModel": "Պատկերների կատալոգում բացակայում է {{model}} մոդելը"
+    },
+    "image": {
+      "cannotFindModel": "Պատկերների կատալոգում բացակայում է {{model}} մոդելը",
+      "defaultModel": "Կանխադրված մոդել",
+      "gptImage15Low": "լավագույն որակի / արագության փոխզիջում:",
+      "gptImage2": "նույն արժեքը, ավելի դանդաղ, ավելի որակյալ:",
+      "loadingLabel": "Պատկերի կանխադրված կարգավորումների բեռնում",
+      "loadingTitle": "Պատկերի կանխադրված կարգավորումներ",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (ցածր / միջին)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Պատկերի մոդելի ընտրություն",
+      "samplePrompt": "Ստեղծեք աշակերտի պատկեր, որը շատ է սովորում Anki-ով և հանձնում թեստերը:",
+      "saveError": "Չհաջողվեց պահպանել պատկերների կանխադրվածները",
+      "subtitle": "Ձեր պատկերի Smart Fields մոդելը, եթե դաշտը չի ամրացնում իր սեփականը:",
+      "title": "Պատկերի կանխադրված կարգավորումներ",
+      "zImageTurbo": "ամենաարագ և ամենաէժան:"
+    },
+    "layout": {
+      "saveChanges": "Պահպանել փոփոխությունները",
+      "saving": "Պահվում է…",
+      "tryIt": "Փորձեք այն"
+    },
+    "text": {
+      "cannotInheritModel": "Տեքստի կանխադրվածները չեն կարող ժառանգել այլ մոդել",
+      "defaultModel": "Տեքստի կանխադրված մոդել",
+      "defaultReasoningLevel": "Կանխադրված պատճառաբանության մակարդակ",
+      "enableWebSearch": "Միացնել վեբ որոնումը",
+      "higherReasoning": "Ավելի բարձր դատողությունը կարող է բարելավել ավելի դժվար սերունդները, բայց օգտագործում է ավելի շատ վարկեր:",
+      "loadingLabel": "Տեքստի կանխադրված կարգավորումների բեռնում",
+      "loadingTitle": "Տեքստի ստեղծման կարգավորումներ",
+      "modelGuidance": "{{auto}}-ը և {{autoMax}}-ը Smart Notes առաջարկվող մոդելներն են, որոնք հավասարակշռում են արդյունավետությունն ու արժեքը: Ընտրեք {{auto}} ստանդարտ առաջադրանքների համար և անհրաժեշտության դեպքում թարմացրեք {{autoMax}}:",
+      "pickingModel": "💡 Մոդելի ընտրություն",
+      "reasoningLevel": "Պատճառաբանության մակարդակ",
+      "reasoningValues": {
+        "high": "Բարձր",
+        "low": "Ցածր",
+        "off": "Անջատված"
+      },
+      "samplePrompt": "Ի՞նչ է Spaced Repetition System (SRS):",
+      "saveError": "Չհաջողվեց պահպանել տեքստի կանխադրված կարգավորումները",
+      "subtitle": "Տեքստի ստեղծման լռելյայն կարգավորումներ: Անհատական ​​Smart Fields կարող է վերացնել այս արժեքները:",
+      "title": "Տեքստի ստեղծման կարգավորումներ",
+      "webSearch": "Վեբ որոնում",
+      "webSearchDescription": "Թույլ տվեք տեքստային սերունդներին թարմ տեղեկություններ ստանալ համացանցից:",
+      "webSearchWarning": "⚠️ Որոնումը թանկ է; վերահսկել ձեր վարկերը."
+    },
+    "usage": {
+      "fields_one": "Կիրառվում է {{count}} դաշտին",
+      "fields_other": "Կիրառվում է {{count}} դաշտերին"
+    },
+    "voice": {
+      "browseVoices": "Զննեք ձայները ({{count}})",
+      "cannotLoad": "Չհաջողվեց բեռնել ձայները",
+      "currentDefault": "Ընթացիկ լռելյայն",
+      "filters": {
+        "all": "Բոլորը",
+        "female": "Իգական",
+        "gender": "Սեռ",
+        "language": "Լեզու",
+        "male": "Արական",
+        "provider": "Մատակարար"
+      },
+      "filterVoices": "Զտել ձայները",
+      "loadingLabel": "Ձայնի կանխադրված կարգավորումների բեռնում",
+      "loadingTitle": "Ձայնի կանխադրված կարգավորումներ",
+      "noVoices": "Ոչ մի ձայն չի համապատասխանում այս զտիչներին:",
+      "saveError": "Չհաջողվեց պահպանել ձայնային կանխադրված կարգավորումները",
+      "searchPlaceholder": "🔍 Որոնել ձայները…",
+      "searchVoices": "Որոնել ձայները",
+      "subtitle": "Ձայնը, որն օգտագործում է ձեր TTS Smart Fields-ը, եթե դաշտը չի ամրացնում իր սեփականը:",
+      "title": "Ձայնի կանխադրված կարգավորումներ"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "մեկ այլ նշումի տեսակ",
+    "currentlySelectedCard": "Ներկայումս ընտրված քարտը",
+    "emptyCard": "(դատարկ քարտ)",
+    "errors": {
+      "generateAudio": "Չհաջողվեց ստեղծել աուդիո",
+      "generateImage": "Չհաջողվեց ստեղծել պատկեր",
+      "saveResult": "Չհաջողվեց պահել այս արդյունքը քարտում",
+      "testPrompt": "Չհաջողվեց ստուգել այս հուշումը"
+    },
+    "fieldRunsOnNoteType": "Այս դաշտը գործում է <noteTypeName>{{noteType}}</noteTypeName> վրա",
+    "generatedImagePreview": "Ստեղծված պատկերի նախադիտում",
+    "missingFieldsTitle_one": "Բացակայող դաշտ",
+    "missingFieldsTitle_other": "Բացակայող դաշտեր",
+    "needsFields_one": "Անհրաժեշտ է {{count}} դաշտ",
+    "needsFields_other": "Անհրաժեշտ են {{count}} դաշտեր",
+    "notesSelected_one": "Ընտրված է {{count}} նշումը. նեղացրեք այն մեկին:",
+    "notesSelected_other": "{{count}} նշումներ են ընտրված — նեղացրեք այն մեկին:",
+    "pickCard": "Ընտրեք քարտ Anki զննարկիչում",
+    "promptPlaceholder": "Գրեք թեստային հուշում, հղում կատարելով ձեր քարտի դաշտերին {{braces}}-ով:",
+    "saveToCard": "Պահել քարտում",
+    "savedTo": "Պահված է {{field}}-ում",
+    "selectCardWithFields_one": "Խնդրում ենք ընտրել քարտ այս դաշտով",
+    "selectCardWithFields_other": "Խնդրում ենք ընտրել քարտ այս դաշտերով",
+    "selectFieldToReadAloud": "Ընտրեք դաշտ՝ բարձրաձայն կարդալու համար",
+    "selectNewCard": "Ընտրեք նոր քարտ զննարկիչում",
+    "selectRequiredNoteType": "Խնդրում ենք ընտրել <noteTypeName>{{noteType}}</noteTypeName> տիպի նշում",
+    "selectedCard": "Ընտրված քարտ",
+    "selectedDeck": "Ընտրված տախտակամած",
+    "selectedNoteType": "Նշման ընտրված տեսակը",
+    "selectionAppearsAutomatically": "Ձեր ընտրությունը հայտնվում է այստեղ ինքնաբերաբար:",
+    "sent": "Ուղարկված",
+    "testing": "Փորձարկում…",
+    "testResult": "Փորձարկման արդյունք",
+    "textToSpeak": "Տեքստ խոսելու համար",
+    "viewResult": "Դիտել արդյունքը",
+    "wrongNoteType": "Նշման սխալ տեսակ"
+  },
+  "subscription": {
+    "checking": "Ստուգվում է բաժանորդագրությունը",
+    "creditTypes": {
+      "images": "Պատկերներ",
+      "text": "Տեքստ",
+      "voice": "Ձայն"
+    },
+    "creditUsage": "Վարկի օգտագործում",
+    "creditsReset": "Վարկերի վերակայում",
+    "daysLeft_one": "Վերջին օրը",
+    "daysLeft_other": "{{count}} մնացին օրեր",
+    "errors": {
+      "logout": "Չհաջողվեց դուրս գալ"
+    },
+    "freePlan": "Անվճար պլան",
+    "freeTrial": "Անվճար փորձարկում",
+    "hero": {
+      "buyCredits": "Գնեք ավելի շատ վարկեր",
+      "freeCreditsResetting": "Ձեր անվճար վարկերը վերակայվում են",
+      "freePlan": "Դուք անվճար պլանում եք",
+      "noteLimit": "Դուք հասել եք ձեր նշումների սահմանաչափին",
+      "outOfCredits": "Այս ամիս ձեր վարկերը սպառվել են",
+      "outOfFreeCredits": "Այս ամիս ձեր անվճար վարկերը սպառվել են",
+      "outOfTrialCredits": "Ձեր փորձնական վարկերը սպառվել են",
+      "planExpired": "Ձեր պլանի ժամկետը սպառվել է",
+      "rollover": "Վճարովի վարկերը փոխվում են ամեն ամիս՝ ընդմիշտ ձերը:",
+      "trialDaysLeft_one": "Ձեր փորձաշրջանն ավարտվում է այսօր",
+      "trialDaysLeft_other": "Ձեր փորձաշրջանին մնացել են {{count}} օրեր",
+      "trialEnded": "Ձեր փորձաշրջանն ավարտվել է",
+      "trialNoteLimit": "Դուք հասել եք ձեր փորձնական նշումների սահմանաչափին",
+      "upgradeCollection": "Թարմացրեք՝ ձեր ամբողջ հավաքածուն՝ ավտոմատ կերպով",
+      "upgradeCredits": "Թարմացրեք ավելի շատ վարկերի համար",
+      "upgradePaid": "✨ Թարմացրեք վճարովի"
+    },
+    "inDays_one": "Այսօր",
+    "inDays_other": "{{count}} օրվա ընթացքում",
+    "loading": "Բեռնվում է բաժանորդագրությունը",
+    "loggingOut": "Դուրս գալ…",
+    "logOut": "Դուրս գալ",
+    "manageDescription": "Փոխել պլանը, թարմացնել վճարումը կամ չեղարկել:",
+    "manageOrUpgrade": "Կառավարեք կամ արդիականացրեք պլանը",
+    "managePlan": "Կառավարեք պլանը",
+    "monthlyCreditsUsed": "օգտագործված ամսական վարկերի մասին",
+    "mostCreditsUsed": "Այս ամսվա վարկերի մեծ մասն օգտագործվում է",
+    "noteLimitReached": "Նշումների սահմանաչափը հասել է",
+    "notes": "Նշումներ",
+    "notesUsed": "Օգտագործված նշումներ",
+    "notesUsedValue": "{{used}}/{{limit}} օգտագործված",
+    "outOfCredits": "Վարկերից դուրս",
+    "pausedUntilReset": "Սերունդը դադարեցված է մինչև ձեր վարկերի վերականգնումը:",
+    "plan": "Պլանավորել",
+    "planInactive": "Պլանը ոչ ակտիվ է",
+    "resetsIn": "Վերականգնվում է",
+    "resetsInDays_one": "Վերականգնվում է 1 օրում",
+    "resetsInDays_other": "Վերականգնվում է {{count}} օրվա ընթացքում",
+    "signedOut": {
+      "localStorage": "Ձեր խելացի դաշտերը և կարգավորումները պահվում են այս սարքում:",
+      "manage": "Մուտք գործեք՝ ձեր պլանը կառավարելու համար",
+      "paused": "Սերունդը դադարեցված է մինչև մուտք գործեք:",
+      "title": "Դուրս է եկել"
+    },
+    "title": "Հաշիվ և օգտագործում",
+    "trialCreditsUsed": "օգտագործված փորձնական վարկերի",
+    "trialEnded": "Դատավարությունն ավարտվեց",
+    "trialEnds": "Դատավարությունն ավարտվում է",
+    "trialNoteLimitReached": "Փորձնական նշումների սահմանաչափը հասել է",
+    "upgradeToKeepGenerating": "Թարմացրեք՝ շարունակելու գեներացնել:",
+    "usage": "Օգտագործումը"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Թողեք ակնարկ / տես փաստաթղթերը:",
+    "byline": "Մայքլ Պիացայի կողմից / Rosebud Labs, LLC:",
+    "changelog": "Փոփոխությունների օրագիր",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "Օգնություն ստանալու, գործառույթ պահանջելու կամ սխալի մասին հայտնելու ամենաարագ ճանապարհը:",
+      "join": "Միանալ",
+      "title": "Միացեք Discord-ին"
+    },
+    "emailUs": "Ուղարկել մեզ էլ",
+    "feedback": {
+      "description": "Ինչ-որ բան կոտրվել է, թե սխալ: Ուղիղ հաղորդագրություն ուղարկեք աղքատ ծրագրավորողին:",
+      "send": "Ուղարկեք այն",
+      "title": "Ներկայացրեք վրիպակ / պահանջեք որևէ հատկանիշ"
+    },
+    "github": "GitHub",
+    "loading": "Աջակցություն բեռնում",
+    "title": "Աջակցություն"
+  },
+  "welcome": {
+    "alreadyAccount": "Արդեն ունե՞ք հաշիվ:",
+    "codePlaceholder": "Տեղադրեք ձեր կոդը",
+    "connect": "Միացնել",
+    "connecting": "Միացում…",
+    "description": "Մեկ սեղմումով ավելացրեք տեքստ, խոսք և պատկերներ առանձին քարտերին կամ ձեր ամբողջ տախտակամածին:",
+    "errors": {
+      "code": "Չհաջողվեց կապվել այդ կոդի հետ"
+    },
+    "finishDescription": "Լրացրեք մուտքը մեր բացած բրաուզերում: Այս պատուհանը ինքնաբերաբար կթարմացվի:",
+    "finishInBrowser": "Ավարտեք ձեր բրաուզերում",
+    "haveCode": "Կոդ ունե՞ք կայքից:",
+    "startTrial": "✨ Սկսեք անվճար փորձաշրջան ✨",
+    "trialDetails": "Անվճար 7 օր · յուրաքանչյուր հնարավորություն · վարկային քարտ չկա"
+  },
+  "trialEnded": {
+    "description": "Փորձարկումները տևում են 7 օր կամ մինչև ձեր փորձնական վարկերը սպառվեն:",
+    "features": {
+      "ariaLabel": "Ինչ արդիականացում է պահպանվում",
+      "batch": "Խմբաքանակ ձեր ամբողջ հավաքածուի մեջ",
+      "images": "Պատկերի գեներացիա",
+      "premium": "Յուրաքանչյուր պրեմիում մոդել և ձայն",
+      "review": "Ստեղծեք վերանայման ընթացքում"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Ամսվա անվճար առաջարկ",
+      "description": "Թողեք արագ AnkiWeb ակնարկ, ստացեք մեկ ամիս մեզանից:",
+      "dialogDescription": "Արագ ակնարկ թողեք AnkiWeb-ի վերաբերյալ, այնուհետև էլեկտրոնային փոստով մեզ. մենք ձեր հաշվին կավելացնենք Smart Notes անվճար ամիս:",
+      "dialogTitle": "Ստացեք ձեր անվճար ամիսը",
+      "leaveAnkiWebReview": "Թողեք ակնարկ AnkiWeb-ի վերաբերյալ",
+      "leaveReview": "Թողնել կարծիք",
+      "title": "Ստացեք անվճար Smart Notes ամիս"
+    },
+    "thanks": "Շնորհակալություն Smart Notes ✨ օգտագործելու համար",
+    "title": "Ձեր անվճար փորձաշրջանն ավարտվել է",
+    "upgradeNow": "Թարմացրեք հիմա"
+  }
+}

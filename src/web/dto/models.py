@@ -84,6 +84,7 @@ class SettingsDto(TypedDict):
     generateAtReview: bool
     regenerateWhenBatching: bool
     debug: bool
+    language: str
     legacyOpenAiEnabled: bool
     legacyOpenAiKey: str | None
     legacyOpenAiModel: str

@@ -28,38 +28,40 @@ import {
   SUPPORT_EMAIL,
 } from "@/lib/helpChannels"
 import { useAppStore } from "@/store/appStore"
+import { useTranslation } from "react-i18next"
 
 const REFERENCE_LINKS = [
   {
     href: `mailto:${SUPPORT_EMAIL}`,
-    label: "Email us",
+    labelKey: "support.emailUs",
     mark: <span className="text-[19px]">✉️</span>,
     sub: SUPPORT_EMAIL,
   },
   {
     href: ANKIWEB_REVIEW_URL,
-    label: "AnkiWeb",
+    labelKey: "support.ankiWeb",
     mark: <AnkiMark />,
-    sub: "Leave a review / see docs.",
+    subKey: "support.ankiWebDescription",
   },
   {
     href: "https://github.com/piazzatron/anki-smart-notes",
-    label: "GitHub",
+    labelKey: "support.github",
     mark: <GithubMark />,
     sub: undefined,
   },
 ]
 
 export const SupportScreen = () => {
+  const { t } = useTranslation()
   const state = useAppStore((store) => store.state)
 
   if (state === null)
     return (
       <ScreenSkeleton
-        ariaLabel="Loading Support"
+        ariaLabel={t("support.loading")}
         className="max-w-[800px]"
         contentClassName="h-64"
-        title="Support"
+        title={t("support.title")}
       />
     )
 
@@ -67,17 +69,17 @@ export const SupportScreen = () => {
     <PageLayout
       className="max-w-[800px]"
       testId="support-screen"
-      title="Support"
+      title={t("support.title")}
     >
-      <div className="relative flex items-center gap-[15px] overflow-hidden rounded-[13px] bg-[linear-gradient(100deg,#3C45A5_0%,#5865F2_42%,#9B4DFF_100%)] py-[17px] pr-4 pl-[19px]">
+      <div className="relative flex items-center gap-[15px] overflow-hidden rounded-[13px] bg-[linear-gradient(100deg,#3C45A5_0%,#5865F2_42%,#9B4DFF_100%)] py-[17px] ps-[19px] pe-4">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(460px_140px_at_10%_-40%,rgba(180,200,255,0.3),transparent_72%)]" />
         <DiscordMark className="relative text-white" size={31} />
         <div className="relative min-w-0 flex-1">
           <h2 className="text-base font-extrabold tracking-[-0.01em] text-white">
-            Join the Discord
+            {t("support.discord.title")}
           </h2>
           <p className="mt-[3px] text-[12.5px] text-white/80">
-            The fastest way to get help, request a feature, or report a bug.
+            {t("support.discord.description")}
           </p>
         </div>
         <a
@@ -86,20 +88,20 @@ export const SupportScreen = () => {
           rel="noreferrer"
           target="_blank"
         >
-          Join
+          {t("support.discord.join")}
         </a>
       </div>
 
-      <div className="mt-[9px] flex items-center gap-[15px] rounded-[13px] bg-white/[0.07] py-4 pr-4 pl-[19px]">
+      <div className="mt-[9px] flex items-center gap-[15px] rounded-[13px] bg-white/[0.07] py-4 ps-[19px] pe-4">
         <span aria-hidden className="shrink-0 text-2xl leading-none">
           🐛
         </span>
         <div className="min-w-0 flex-1">
           <h2 className="text-base font-extrabold tracking-[-0.01em] text-zinc-100">
-            Submit a bug / request a feature
+            {t("support.feedback.title")}
           </h2>
           <p className="mt-[3px] text-[12.5px] text-zinc-400">
-            Something broken or wrong? Message the poor developer directly.
+            {t("support.feedback.description")}
           </p>
         </div>
         <FeedbackDialog>
@@ -107,7 +109,7 @@ export const SupportScreen = () => {
             className="shrink-0 rounded-[9px] bg-[#5b6fe8] px-5 py-2.5 text-[13px] font-extrabold text-white"
             type="button"
           >
-            Send it
+            {t("support.feedback.send")}
           </button>
         </FeedbackDialog>
       </div>
@@ -117,7 +119,7 @@ export const SupportScreen = () => {
           <a
             className="flex min-w-0 items-center gap-3 rounded-[13px] bg-white/[0.05] px-4 py-3.5"
             href={link.href}
-            key={link.label}
+            key={link.labelKey}
             rel="noreferrer"
             target="_blank"
           >
@@ -126,10 +128,10 @@ export const SupportScreen = () => {
             </span>
             <span className="min-w-0">
               <span className="block text-sm font-bold text-zinc-100">
-                {link.label}
+                {t(link.labelKey)}
               </span>
               <span className="mt-0.5 block truncate text-[11.5px] text-zinc-400">
-                {link.sub}
+                {link.subKey === undefined ? link.sub : t(link.subKey)}
               </span>
             </span>
           </a>
@@ -144,19 +146,19 @@ export const SupportScreen = () => {
             rel="noreferrer"
             target="_blank"
           >
-            Smart Notes
+            {t("common.productName")}
           </a>{" "}
-          by Michael Piazza / Rosebud Labs, LLC.
+          {t("support.byline")}
         </p>
         <p className="mt-2.5 text-[11px] text-zinc-600">
-          © 2026 · v{state.appVersion} ·{" "}
+          {t("support.copyright", { version: state.appVersion })}{" "}
           <a
             className="text-zinc-400 hover:text-zinc-200"
             href="https://docs.smart-notes.xyz"
             rel="noreferrer"
             target="_blank"
           >
-            Changelog
+            {t("support.changelog")}
           </a>
         </p>
       </footer>

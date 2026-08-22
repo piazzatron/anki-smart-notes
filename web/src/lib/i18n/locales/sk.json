@@ -1,0 +1,519 @@
+{
+  "common": {
+    "allDecks": "Všetky paluby",
+    "auto": "Auto",
+    "autoMax": "Auto MAX",
+    "back": "Späť",
+    "bestValueCost": "Najlepšia hodnota, 0,3× cena",
+    "cancel": "Zrušiť",
+    "close": "Zavrieť",
+    "connection": {
+      "connecting": "Pripája sa k Anki…",
+      "reconnecting": "Opätovné pripojenie k Anki…"
+    },
+    "days_one": "1 deň",
+    "days_few": "{{count}} dni",
+    "days_many": "{{count}} dňa",
+    "days_other": "{{count}} dní",
+    "deck": "Paluba",
+    "default": "Predvolené",
+    "delete": "Odstrániť",
+    "done": "Hotovo",
+    "duplicate": "Duplicitné",
+    "edit": "Upraviť",
+    "empty": "prázdny",
+    "field": "Pole",
+    "free": "Zadarmo",
+    "discardChanges": "Zahoďte zmeny",
+    "discardUnsavedChanges": {
+      "description": "Vaše zmeny týchto predvolených nastavení neboli uložené.",
+      "title": "Zahodiť neuložené zmeny?"
+    },
+    "dismissError": "Chyba odmietnutia",
+    "feedback": {
+      "description": "Pošlite vývojárovi správu o chybe, žiadosť o funkciu alebo inú spätnú väzbu.",
+      "error": "Nepodarilo sa odoslať spätnú väzbu",
+      "label": "Spätná väzba",
+      "placeholder": "Chyba, nápad, čokoľvek – ide to priamo k vývojárovi.",
+      "send": "Odoslať",
+      "sending": "Odosiela sa…",
+      "sent": "Spätná väzba bola odoslaná. Čoskoro sa vám ozveme.",
+      "title": "Odoslať spätnú väzbu"
+    },
+    "notNow": "Teraz nie",
+    "other": "Iné",
+    "placeholderScreen": "Táto obrazovka je ďalšou v prestavbe.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "Prihlásiť sa",
+    "signInLower": "Prihláste sa",
+    "unlimited": "Neobmedzené",
+    "upgrade": "Upgrade",
+    "upgradeSparkles": "✨ Upgrade ✨",
+    "multiplierCost": "Náklady na {{multiplier}}×",
+    "next": "Ďalej",
+    "noteType": "Typ poznámky",
+    "optional": "voliteľné",
+    "prompt": "Prompt",
+    "saving": "Ukladá sa…",
+    "test": "Test",
+    "validFields": "Platné polia:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Spätná väzba",
+    "nav": {
+      "defaultsImages": "Predvolené nastavenia obrazu",
+      "defaultsText": "Predvolené nastavenia textu",
+      "defaultsVoice": "Predvolené nastavenia hlasu",
+      "image": "Obrázok",
+      "settings": "Nastavenia",
+      "smartFields": "Smart Fields",
+      "subscription": "Účet a použitie",
+      "support": "Podpora",
+      "text": "Text",
+      "voice": "Hlas"
+    },
+    "sections": "Sekcie Smart Notes",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Podrobné protokolovanie na pomoc pri diagnostike problémov. Pri hlásení chyby zahrňte tieto protokoly.",
+      "label": "Režim ladenia"
+    },
+    "generateAtReview": {
+      "description": "Vyplňte chýbajúce inteligentné polia automaticky, keď sa karty objavia pri kontrole.",
+      "label": "Počas kontroly generujte polia"
+    },
+    "language": {
+      "description": "Vyberte jazyk pre Smart Notes alebo sa zhodujte s jazykom Anki.",
+      "label": "Jazyk",
+      "matchAnki": "Zápas Anki"
+    },
+    "legacy": {
+      "apiKey": "Kľúč API OpenAI",
+      "apiKeyRequired": "Vyžaduje sa platený kľúč API OpenAI.",
+      "description": "Pripojte platený kľúč API a vyberte si starší model OpenAI.",
+      "getApiKey": "Získajte kľúč API",
+      "host": "Hostiteľ OpenAI",
+      "hostDescription": "Poskytnite alternatívny koncový bod k OpenAI API.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "Model OpenAI",
+      "title": "Použiť môj vlastný kľúč OpenAI"
+    },
+    "loading": "Načítavajú sa nastavenia",
+    "regenerateWhenBatching": {
+      "description": "Pri dávkovom spracovaní skupiny poznámok vygenerujte každé inteligentné pole od začiatku namiesto toho, aby ste vyplnili iba prázdne.",
+      "label": "Obnovte všetky inteligentné polia pri dávkovom spracovaní"
+    },
+    "saveError": "Nastavenia sa nepodarilo uložiť",
+    "sections": {
+      "advanced": "Pokročilé",
+      "general": "generál",
+      "generation": "generácie"
+    },
+    "title": "Nastavenia"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Už Smart Field ✨",
+    "collisionHint": "už má Smart Field — vyberte iné pole, balíček alebo typ noty",
+    "completion": {
+      "descriptionAfter": "poznámky sa vyplnia vždy, keď ich vygenerujete.",
+      "descriptionBefore": "na",
+      "methods": {
+        "bulk": {
+          "caption": "Vyberte noty alebo balíček → kliknite pravým tlačidlom myši → ✨ Generovať Smart Fields.",
+          "imageAlt": "Anki Kontextová ponuka prehliadača so zvýraznenou možnosťou Generovať Smart Fields",
+          "title": "Hromadne z prehliadača"
+        },
+        "card": {
+          "caption": "Kliknite na tlačidlo ✨ na paneli nástrojov editora alebo napíšte ⌘⇧G.",
+          "imageAlt": "Panel nástrojov editora Anki so zvýrazneným tlačidlom Smart Notes",
+          "title": "Jedna karta naraz"
+        },
+        "field": {
+          "caption": "Kliknite pravým tlačidlom myši na ľubovoľné pole → Generovať Smart Field.",
+          "imageAlt": "Kontextová ponuka poľa Anki so zvýraznenou možnosťou Generovať Smart Field",
+          "title": "Jedno pole"
+        }
+      },
+      "title": "Váš Smart Field je aktívny",
+      "waysToGenerate": "Niekoľko spôsobov, ako ho vygenerovať:"
+    },
+    "created": "Smart Field vytvorený",
+    "dontShowAgain": "Toto už nezobrazovať",
+    "errors": {
+      "save": "Smart Field sa nepodarilo uložiť",
+      "updateWizardSettings": "Nepodarilo sa aktualizovať nastavenia sprievodcu",
+      "writePrompt": "Nepodarilo sa napísať výzvu"
+    },
+    "fieldTypes": {
+      "audio": "Zvuk",
+      "image": "Obrázok",
+      "text": "Text"
+    },
+    "loadingModelCatalog": "Načítava sa katalóg modelov…",
+    "modelSettings": {
+      "appliesOnlyToField": "Platí len pre tento Smart Field.",
+      "defaultWithValue": "Predvolené ({{value}})",
+      "defaultsImages": "Predvolené › Obrázky",
+      "defaultsText": "Predvolené › Text",
+      "defaultsVoice": "Predvolené › Hlas",
+      "descriptionChat": "Nastavte AI, ktorá zapisuje toto pole. Väčšina polí môže zostať v predvolenom nastavení.",
+      "descriptionImage": "Nastavte AI, ktorá vykreslí toto pole. Väčšina polí môže zostať v predvolenom nastavení.",
+      "descriptionTts": "Nastavte hlas, ktorý číta toto pole. Väčšina polí môže zostať v predvolenom nastavení.",
+      "imageDefault": "predvolený obrázok",
+      "imageModel": "Obrazový model",
+      "loadingVoices": "Načítavajú sa hlasy…",
+      "model": "Model",
+      "pickCustom": "Vyberte si vlastný model pre toto pole",
+      "reasoning": "Úvaha {{level}}",
+      "reasoningHint": "Vyššie uvažovanie môže zlepšiť ťažšie generácie, ale používa viac kreditov.",
+      "reasoningLevel": "Úroveň uvažovania",
+      "sharedByEveryField": "Váš {{modality}} zdieľa každý Smart Field, ktorý ho používa. Zmeňte to",
+      "textDefault": "text predvolene",
+      "textModel": "Textový model",
+      "useMy": "Použite môj {{modality}}",
+      "useWebSearch": "Pre toto pole použite vyhľadávanie na webe",
+      "voice": "Hlas",
+      "voiceDefault": "predvolené nastavenie hlasu",
+      "webSearch": "vyhľadávanie na webe",
+      "webSearchHint": "Nechajte toto pole používať čerstvé informácie z webu."
+    },
+    "save": "Uložiť Smart Field",
+    "sections": {
+      "onWhichNotes": "Na ktorých notách?",
+      "whatToGenerate": "Čo chcete generovať?",
+      "whichFieldToFill": "Ktoré pole má vyplniť?",
+      "whichFieldToSpeak": "Ktoré pole by malo hovoriť?"
+    },
+    "sourceField": "Zdrojové pole",
+    "targetAriaLabel": "Cieľ Smart Field",
+    "testSmartField": "Otestujte svoj Smart Field",
+    "titles": {
+      "create": "Nový Smart Field ✨",
+      "duplicate": "Duplikát Smart Field",
+      "edit": "Upraviť Smart Field"
+    },
+    "validation": {
+      "chooseField": "Vyberte pole",
+      "chooseNoteType": "Vyberte typ poznámky",
+      "chooseSourceField": "Vyberte zdrojové pole",
+      "fieldAlreadyHasSmartField": "{{field}} už má Smart Field",
+      "writePrompt": "Napíšte výzvu"
+    },
+    "writePrompt": "Napíšte výzvu",
+    "writePromptForMe": "Napíšte moju výzvu za mňa",
+    "writePromptForMeHint": "Povedzte, čo chcete, jednoduchou angličtinou – výzvu napíšeme nižšie.",
+    "writePromptPlaceholder": "\"Preložiť do prirodzenej angličtiny...\"",
+    "writing": "Píše sa…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "Akcie pre {{field}}",
+    "addToNoteType": "Pridajte Smart Field k {{noteType}}",
+    "disable": "Zakázať",
+    "deleting": "Odstraňuje sa…",
+    "discord": {
+      "dismissAriaLabel": "Odmietnuť pozvánku Discord",
+      "join": "Pripojte sa",
+      "joinAriaLabel": "Pripojte sa k Smart Notes Discord",
+      "subtitle": "— Výzvy na výmenu a vyžiadanie funkcií.",
+      "title": "Príďte pozdraviť do Discord"
+    },
+    "editAriaLabel": "Upraviť {{field}} Smart Field",
+    "emptyState": {
+      "description": "Pridajte Smart Fields a pridajte na svoje karty text, zvuk a obrázky.",
+      "exampleAnswer": "Dobrý deň",
+      "exampleField": "PREDNÁ",
+      "examplePrompt": "bonjour",
+      "spark": "✦",
+      "title": "Vaše poznámky vyzerajú trochu prázdne"
+    },
+    "enable": "Povoliť",
+    "errors": {
+      "commandFailed": "Príkaz Smart Field zlyhal"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "Text",
+      "image": "Obrázok",
+      "tts": "Zvuk"
+    },
+    "loadingAriaLabel": "Načítava sa Smart Fields",
+    "newSmartField": "Nový Smart Field",
+    "readsAloud": "Číta {{field}} nahlas",
+    "review": {
+      "ariaLabel": "Recenzia Smart Notes na AnkiWeb",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "Odmietnuť pozvánku na kontrolu",
+      "subtitle": "Napíšte recenziu na AnkiWeb, aby ste pomohli ostatným používateľom Anki nájsť ho.",
+      "title": "Páči sa vám Smart Notes?"
+    },
+    "subtitle": "Pridajte do poznámok automaticky generovaný text, hlas a obrázky.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "V katalógu četov chýba model {{model}}",
+      "missingImageModel": "V katalógu obrázkov chýba model {{model}}"
+    },
+    "image": {
+      "cannotFindModel": "V katalógu obrázkov chýba model {{model}}",
+      "defaultModel": "Predvolený model",
+      "gptImage15Low": "najlepší kompromis medzi kvalitou a rýchlosťou.",
+      "gptImage2": "rovnaké náklady, pomalšie, kvalitnejšie.",
+      "loadingLabel": "Načítavajú sa predvolené nastavenia obrázka",
+      "loadingTitle": "Predvolené nastavenia obrazu",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Výber obrazového modelu",
+      "samplePrompt": "Vytvorte si obraz študenta, ktorý tvrdo študuje so Anki a zloží svoje testy.",
+      "saveError": "Nepodarilo sa uložiť predvolené nastavenia obrázka",
+      "subtitle": "Model, ktorý používa váš obrázok Smart Fields, pokiaľ pole nepripne svoje vlastné.",
+      "title": "Predvolené nastavenia obrazu",
+      "zImageTurbo": "najrýchlejší a najlacnejší."
+    },
+    "layout": {
+      "saveChanges": "Uložiť zmeny",
+      "saving": "Ukladá sa…",
+      "tryIt": "Skúste to"
+    },
+    "text": {
+      "cannotInheritModel": "Predvolené nastavenia textu nemôžu zdediť iný model",
+      "defaultModel": "Predvolený textový model",
+      "defaultReasoningLevel": "Predvolená úroveň uvažovania",
+      "enableWebSearch": "Povoliť vyhľadávanie na webe",
+      "higherReasoning": "Vyššie uvažovanie môže zlepšiť ťažšie generácie, ale používa viac kreditov.",
+      "loadingLabel": "Načítavajú sa predvolené nastavenia textu",
+      "loadingTitle": "Nastavenia generovania textu",
+      "modelGuidance": "{{auto}} a {{autoMax}} sú Smart Notes odporúčané modely, ktoré vyvažujú výkon a cenu. Pre štandardné úlohy zvoľte {{auto}} a v prípade potreby inovujte na {{autoMax}}.",
+      "pickingModel": "💡 Výber modelu",
+      "reasoningLevel": "Úroveň uvažovania",
+      "reasoningValues": {
+        "high": "Vysoká",
+        "low": "Nízka",
+        "off": "Vypnuté"
+      },
+      "samplePrompt": "Čo je systém priestorového opakovania (SRS)?",
+      "saveError": "Nepodarilo sa uložiť predvolené nastavenia textu",
+      "subtitle": "Predvolené nastavenia pre generovanie textu. Jednotlivé Smart Fields môžu tieto hodnoty prepísať.",
+      "title": "Nastavenia generovania textu",
+      "webSearch": "Vyhľadávanie na webe",
+      "webSearchDescription": "Umožnite generáciám textu čerpať čerstvé informácie z webu.",
+      "webSearchWarning": "⚠️ Vyhľadávanie je drahé; sledovať svoje kredity."
+    },
+    "usage": {
+      "fields_one": "Platí pre {{count}} pole",
+      "fields_few": "Platí pre {{count}} polia",
+      "fields_many": "Platí pre {{count}} poľa",
+      "fields_other": "Platí pre {{count}} polí"
+    },
+    "voice": {
+      "browseVoices": "Prehliadať hlasy ({{count}})",
+      "cannotLoad": "Hlasy sa nepodarilo načítať",
+      "currentDefault": "Aktuálne predvolené",
+      "filters": {
+        "all": "Všetky",
+        "female": "Žena",
+        "gender": "Pohlavie",
+        "language": "Jazyk",
+        "male": "Mužský",
+        "provider": "Poskytovateľ"
+      },
+      "filterVoices": "Filtrovať hlasy",
+      "loadingLabel": "Načítavajú sa predvolené nastavenia hlasu",
+      "loadingTitle": "Predvolené nastavenia hlasu",
+      "noVoices": "Týmto filtrom nevyhovujú žiadne hlasy.",
+      "saveError": "Predvolené nastavenia hlasu sa nepodarilo uložiť",
+      "searchPlaceholder": "🔍 Hľadať hlasy…",
+      "searchVoices": "Hľadajte hlasy",
+      "subtitle": "Hlas, ktorý používa váš TTS Smart Fields, pokiaľ pole nepripne svoje vlastné.",
+      "title": "Predvolené nastavenia hlasu"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "iný typ poznámky",
+    "currentlySelectedCard": "Aktuálne vybratá karta",
+    "emptyCard": "(prázdna karta)",
+    "errors": {
+      "generateAudio": "Zvuk sa nepodarilo vygenerovať",
+      "generateImage": "Nepodarilo sa vygenerovať obrázok",
+      "saveResult": "Tento výsledok sa nepodarilo uložiť na kartu",
+      "testPrompt": "Túto výzvu sa nepodarilo otestovať"
+    },
+    "fieldRunsOnNoteType": "Toto pole beží na <noteTypeName>{{noteType}}</noteTypeName>",
+    "generatedImagePreview": "Vygenerovaný náhľad obrázka",
+    "missingFieldsTitle_one": "Chýbajúce pole",
+    "missingFieldsTitle_few": "Chýbajúce polia",
+    "missingFieldsTitle_many": "Chýbajúce polia",
+    "missingFieldsTitle_other": "Chýbajúce polia",
+    "needsFields_one": "Vyžaduje {{count}} pole",
+    "needsFields_few": "Vyžaduje {{count}} polia",
+    "needsFields_many": "Vyžaduje {{count}} poľa",
+    "needsFields_other": "Vyžaduje {{count}} polí",
+    "notesSelected_one": "Vybraná {{count}} poznámka — zúžte výber na jednu.",
+    "notesSelected_few": "Vybrané {{count}} poznámky — zúžte výber na jednu.",
+    "notesSelected_many": "Vybraných {{count}} poznámky — zúžte výber na jednu.",
+    "notesSelected_other": "Vybraných {{count}} poznámok — zúžte výber na jednu.",
+    "pickCard": "Vyberte kartu v prehliadači Anki",
+    "promptPlaceholder": "Napíšte testovaciu výzvu s odkazom na polia na vašej karte pomocou {{braces}}.",
+    "saveToCard": "Uložiť na kartu",
+    "savedTo": "Uložené do {{field}}",
+    "selectCardWithFields_one": "Prosím, vyberte kartu s polom",
+    "selectCardWithFields_few": "Prosím, vyberte kartu s poľami",
+    "selectCardWithFields_many": "Prosím, vyberte kartu s poľami",
+    "selectCardWithFields_other": "Prosím, vyberte kartu s poľami",
+    "selectFieldToReadAloud": "Vyberte pole, ktoré chcete čítať nahlas",
+    "selectNewCard": "V prehliadači vyberte novú kartu",
+    "selectRequiredNoteType": "Prosím, vyberte poznámku typu <noteTypeName>{{noteType}}</noteTypeName>",
+    "selectedCard": "Vybraná karta",
+    "selectedDeck": "Vybraná paluba",
+    "selectedNoteType": "Vybraný typ poznámky",
+    "selectionAppearsAutomatically": "Váš výber sa tu zobrazí automaticky.",
+    "sent": "Odoslané",
+    "testing": "Testuje sa…",
+    "testResult": "Výsledok testu",
+    "textToSpeak": "Text na hovorenie",
+    "viewResult": "Zobraziť výsledok",
+    "wrongNoteType": "Nesprávny typ poznámky"
+  },
+  "subscription": {
+    "checking": "Kontrola predplatného",
+    "creditTypes": {
+      "images": "Obrázky",
+      "text": "Text",
+      "voice": "Hlas"
+    },
+    "creditUsage": "Využitie kreditu",
+    "creditsReset": "Kredity boli resetované",
+    "daysLeft_one": "Posledný deň",
+    "daysLeft_few": "Zostávajú {{count}} dni",
+    "daysLeft_many": "Zostáva {{count}} dňa",
+    "daysLeft_other": "Zostáva {{count}} dní",
+    "errors": {
+      "logout": "Nepodarilo sa odhlásiť"
+    },
+    "freePlan": "Voľný plán",
+    "freeTrial": "Bezplatná skúšobná verzia",
+    "hero": {
+      "buyCredits": "Kúpte si viac kreditov",
+      "freeCreditsResetting": "Vaše bezplatné kredity sa resetujú",
+      "freePlan": "Máte bezplatný plán",
+      "noteLimit": "Dosiahli ste limit poznámok",
+      "outOfCredits": "Tento mesiac vám došli kredity",
+      "outOfFreeCredits": "Tento mesiac vám došli bezplatné kredity",
+      "outOfTrialCredits": "Došli vám skúšobné kredity",
+      "planExpired": "Platnosť vášho plánu vypršala",
+      "rollover": "Priebežné kredity sa menia každý mesiac – vaše navždy.",
+      "trialDaysLeft_one": "Vaša skúšobná verzia sa dnes končí",
+      "trialDaysLeft_few": "Do konca skúšobného obdobia zostávajú {{count}} dni",
+      "trialDaysLeft_many": "Do konca skúšobného obdobia zostáva {{count}} dňa",
+      "trialDaysLeft_other": "Do konca skúšobného obdobia zostáva {{count}} dní",
+      "trialEnded": "Vaša skúšobná verzia sa skončila",
+      "trialNoteLimit": "Dosiahli ste limit skúšobnej verzie poznámok",
+      "upgradeCollection": "Upgrade — celá vaša zbierka, automaticky",
+      "upgradeCredits": "Inovujte a získajte viac kreditov",
+      "upgradePaid": "✨ Inovujte na platené"
+    },
+    "inDays_one": "Dnes",
+    "inDays_few": "O {{count}} dni",
+    "inDays_many": "O {{count}} dňa",
+    "inDays_other": "Za {{count}} dní",
+    "loading": "Načítava sa predplatné",
+    "loggingOut": "Prebieha odhlasovanie…",
+    "logOut": "Odhláste sa",
+    "manageDescription": "Zmeňte plán, aktualizujte platbu alebo zrušte.",
+    "manageOrUpgrade": "Spravujte alebo inovujte plán",
+    "managePlan": "Spravovať plán",
+    "monthlyCreditsUsed": "mesačných použitých kreditov",
+    "mostCreditsUsed": "Väčšina kreditov za tento mesiac je využitá",
+    "noteLimitReached": "Dosiahnutý limit poznámok",
+    "notes": "Poznámky",
+    "notesUsed": "Použité poznámky",
+    "notesUsedValue": "Použité {{used}}/{{limit}}",
+    "outOfCredits": "Bez kreditov",
+    "pausedUntilReset": "Generovanie je pozastavené, kým sa vaše kredity nevynulujú.",
+    "plan": "Plán",
+    "planInactive": "Plán je neaktívny",
+    "resetsIn": "Resetuje sa",
+    "resetsInDays_one": "Resetuje sa o 1 deň",
+    "resetsInDays_few": "Resetuje sa o {{count}} dni",
+    "resetsInDays_many": "Resetuje sa o {{count}} dňa",
+    "resetsInDays_other": "Resetuje sa o {{count}} dní",
+    "signedOut": {
+      "localStorage": "Vaše inteligentné polia a nastavenia sú uložené v tomto zariadení.",
+      "manage": "Ak chcete spravovať svoj plán, prihláste sa",
+      "paused": "Generovanie je pozastavené, kým sa neprihlásite.",
+      "title": "Odhlásený"
+    },
+    "title": "Účet a použitie",
+    "trialCreditsUsed": "skúšobných kreditov",
+    "trialEnded": "Súdny proces skončil",
+    "trialEnds": "Skúška končí",
+    "trialNoteLimitReached": "Dosiahli ste limit skúšobnej poznámky",
+    "upgradeToKeepGenerating": "Ak chcete pokračovať vo vytváraní, inovujte.",
+    "usage": "Použitie"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Zanechajte recenziu / pozrite si dokumenty.",
+    "byline": "Autor: Michael Piazza / Rosebud Labs, LLC.",
+    "changelog": "Denník zmien",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "Najrýchlejší spôsob, ako získať pomoc, požiadať o funkciu alebo nahlásiť chybu.",
+      "join": "Pripojte sa",
+      "title": "Pripojte sa k Discord"
+    },
+    "emailUs": "Napíšte nám",
+    "feedback": {
+      "description": "Niečo zlomené alebo nesprávne? Pošlite správu priamo chudobnému vývojárovi.",
+      "send": "Pošlite to",
+      "title": "Odoslať chybu / požiadať o funkciu"
+    },
+    "github": "GitHub",
+    "loading": "Načítava sa podpora",
+    "title": "Podpora"
+  },
+  "welcome": {
+    "alreadyAccount": "Už máte účet?",
+    "codePlaceholder": "Prilepte svoj kód",
+    "connect": "Pripojte sa",
+    "connecting": "Pripája sa…",
+    "description": "Pridajte text, reč a obrázky na jednotlivé karty alebo celý balíček jedným kliknutím.",
+    "errors": {
+      "code": "S týmto kódom sa nepodarilo spojiť"
+    },
+    "finishDescription": "Dokončite prihlásenie v prehliadači, ktorý sme otvorili. Toto okno sa automaticky aktualizuje.",
+    "finishInBrowser": "Dokončite vo svojom prehliadači",
+    "haveCode": "Máte kód z webovej stránky?",
+    "startTrial": "✨ Začnite bezplatnú skúšobnú verziu ✨",
+    "trialDetails": "Zadarmo na 7 dní · všetky funkcie · žiadna kreditná karta"
+  },
+  "trialEnded": {
+    "description": "Skúšobné verzie trvajú 7 dní alebo do vyčerpania skúšobných kreditov.",
+    "features": {
+      "ariaLabel": "Čo inovácia zachováva",
+      "batch": "Dávka v celej vašej zbierke",
+      "images": "Generovanie obrazu",
+      "premium": "Každý prémiový model a hlas",
+      "review": "Generovať počas kontroly"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Ponuka na mesiac zadarmo",
+      "description": "Zanechajte rýchlu recenziu AnkiWeb a získajte mesiac zdarma.",
+      "dialogDescription": "Zanechajte rýchlu recenziu na AnkiWeb a potom nám pošlite e-mail – na váš účet pridáme bezplatný mesiac Smart Notes.",
+      "dialogTitle": "Získajte svoj bezplatný mesiac",
+      "leaveAnkiWebReview": "Napíšte recenziu na AnkiWeb",
+      "leaveReview": "Napíšte recenziu",
+      "title": "Získajte mesiac zadarmo Smart Notes"
+    },
+    "thanks": "Ďakujeme, že používate Smart Notes ✨",
+    "title": "Vaša bezplatná skúšobná verzia sa skončila",
+    "upgradeNow": "Inovujte teraz"
+  }
+}

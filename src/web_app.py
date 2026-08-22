@@ -19,10 +19,12 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 from typing import Optional
 
+from anki import lang
 from aqt import mw
 
 from . import env
 from .app_state import app_state
+from .config import config
 from .constants import WEB_APP_DEV_URL
 from .local_server import LOCAL_SERVER_HOST, LOCAL_SERVER_PORT, LocalServer
 from .logger import logger
@@ -68,9 +70,15 @@ def open_web_app() -> None:
     if env.environment == "DEV":
         url = WEB_APP_DEV_URL
     else:
+        requested_locale = (
+            lang.current_lang if config.language == "auto" else config.language
+        )
+        # The web app's matchCatalogLocale owns locale normalization and fallback.
         url = (
             f"http://{LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}/app"
             f"?token={local_server.session_token}"
+            f"&locale={requested_locale}"
+            f"&ankiLocale={lang.current_lang}"
         )
     dialog = WebAppDialog(url, mw)
     _web_app_dialog = dialog

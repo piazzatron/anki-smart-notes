@@ -1,0 +1,499 @@
+{
+  "common": {
+    "allDecks": "Tüm Desteler",
+    "auto": "Otomatik",
+    "autoMax": "Auto MAX",
+    "back": "Geri",
+    "bestValueCost": "En İyi Değer, 0,3× maliyet",
+    "cancel": "İptal etmek",
+    "close": "Kapalı",
+    "connection": {
+      "connecting": "Anki'e bağlanılıyor…",
+      "reconnecting": "Anki'e yeniden bağlanılıyor…"
+    },
+    "days_one": "1 gün",
+    "days_other": "{{count}} gün",
+    "deck": "Güverte",
+    "default": "Varsayılan",
+    "delete": "Silmek",
+    "done": "Tamamlamak",
+    "duplicate": "Kopyalamak",
+    "edit": "Düzenlemek",
+    "empty": "boş",
+    "field": "Alan",
+    "free": "Özgür",
+    "discardChanges": "Değişiklikleri sil",
+    "discardUnsavedChanges": {
+      "description": "Bu varsayılan ayarlarda yaptığınız değişiklikler kaydedilmedi.",
+      "title": "Kaydedilmemiş değişiklikler silinsin mi?"
+    },
+    "dismissError": "Hatayı reddet",
+    "feedback": {
+      "description": "Geliştiriciye bir hata raporu, özellik isteği veya başka bir geri bildirim gönderin.",
+      "error": "Geri bildirim gönderilemedi",
+      "label": "Geri bildirim",
+      "placeholder": "Bir hata, bir fikir, herhangi bir şey; doğrudan geliştiriciye gider.",
+      "send": "Göndermek",
+      "sending": "Gönderiliyor…",
+      "sent": "Geri bildirim gönderildi. Yakında iletişime geçeceğiz.",
+      "title": "Geri bildirim gönder"
+    },
+    "notNow": "Şimdi değil",
+    "other": "Diğer",
+    "placeholderScreen": "Bu ekran yeniden oluşturmanın bir sonraki ekranıdır.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "Oturum aç",
+    "signInLower": "Oturum aç",
+    "unlimited": "Sınırsız",
+    "upgrade": "Yükseltme",
+    "upgradeSparkles": "✨ Yükseltme ✨",
+    "multiplierCost": "{{multiplier}}× maliyet",
+    "next": "Sonraki",
+    "noteType": "Not Türü",
+    "optional": "isteğe bağlı",
+    "prompt": "Çabuk",
+    "saving": "Kaydediliyor…",
+    "test": "Test",
+    "validFields": "Geçerli alanlar:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Geri bildirim",
+    "nav": {
+      "defaultsImages": "Varsayılan Görüntü Ayarları",
+      "defaultsText": "Varsayılan Metin Ayarları",
+      "defaultsVoice": "Varsayılan Ses Ayarları",
+      "image": "Resim",
+      "settings": "Ayarlar",
+      "smartFields": "Smart Fields",
+      "subscription": "Hesap ve Kullanım",
+      "support": "Destek",
+      "text": "Metin",
+      "voice": "Ses"
+    },
+    "sections": "Smart Notes bölümleri",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Sorunların teşhis edilmesine yardımcı olacak ayrıntılı günlük kaydı. Bir hata bildirirken bu günlükleri ekleyin.",
+      "label": "Hata ayıklama modu"
+    },
+    "generateAtReview": {
+      "description": "Kartlar incelemede göründükçe eksik akıllı alanları otomatik olarak doldurun.",
+      "label": "İnceleme sırasında alanlar oluştur"
+    },
+    "language": {
+      "description": "Smart Notes için dili seçin veya Anki'in diliyle eşleştirin.",
+      "label": "Dil",
+      "matchAnki": "Anki'i eşleştirin"
+    },
+    "legacy": {
+      "apiKey": "OpenAI API anahtarı",
+      "apiKeyRequired": "Ücretli bir OpenAI API anahtarı gereklidir.",
+      "description": "Ücretli bir API anahtarı bağlayın ve eski bir OpenAI modelini seçin.",
+      "getApiKey": "API anahtarı edinin",
+      "host": "OpenAI ana bilgisayarı",
+      "hostDescription": "OpenAI API'sine alternatif bir uç nokta sağlayın.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "OpenAI modeli",
+      "title": "Kendi OpenAI anahtarımı kullan"
+    },
+    "loading": "Ayarlar Yükleniyor",
+    "regenerateWhenBatching": {
+      "description": "Bir grup notu toplu olarak işlerken, yalnızca boş olanları doldurmak yerine her akıllı alanı sıfırdan yeniden oluşturun.",
+      "label": "Toplu işleme sırasında tüm akıllı alanları yeniden oluşturun"
+    },
+    "saveError": "Ayarlar kaydedilemedi",
+    "sections": {
+      "advanced": "Gelişmiş",
+      "general": "Genel",
+      "generation": "Nesil"
+    },
+    "title": "Ayarlar"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Zaten bir Smart Field ✨",
+    "collisionHint": "zaten bir Smart Field'iniz var — farklı bir alan, deste veya not türü seçin",
+    "completion": {
+      "descriptionAfter": "notlar onu oluşturduğunuzda doldurulur.",
+      "descriptionBefore": "Açık",
+      "methods": {
+        "bulk": {
+          "caption": "Notaları veya desteyi seçin → sağ tıklayın → ✨ Smart Fields oluşturun.",
+          "imageAlt": "Smart Fields Oluştur vurgulanmış Anki Tarayıcı içerik menüsü",
+          "title": "Tarayıcıdan toplu olarak"
+        },
+        "card": {
+          "caption": "Düzenleyici araç çubuğundaki ✨ düğmesine tıklayın veya ⌘⇧G yazın.",
+          "imageAlt": "Smart Notes düğmesinin vurgulandığı Anki düzenleyici araç çubuğu",
+          "title": "Bir seferde bir kart"
+        },
+        "field": {
+          "caption": "Herhangi bir alana sağ tıklayın → Smart Field Oluştur.",
+          "imageAlt": "Smart Field Oluştur vurgulanmış Anki alan içerik menüsü",
+          "title": "Tek bir alan"
+        }
+      },
+      "title": "Smart Field'iniz yayında",
+      "waysToGenerate": "Bunu oluşturmanın birkaç yolu:"
+    },
+    "created": "Smart Field oluşturuldu",
+    "dontShowAgain": "Bunu bir daha gösterme",
+    "errors": {
+      "save": "Smart Field kaydedilemedi",
+      "updateWizardSettings": "Sihirbaz ayarları güncellenemedi",
+      "writePrompt": "İstemi yazılamadı"
+    },
+    "fieldTypes": {
+      "audio": "Ses",
+      "image": "Resim",
+      "text": "Metin"
+    },
+    "loadingModelCatalog": "Model kataloğu yükleniyor…",
+    "modelSettings": {
+      "appliesOnlyToField": "Yalnızca bu Smart Field için geçerlidir.",
+      "defaultWithValue": "Varsayılan ({{value}})",
+      "defaultsImages": "Varsayılanlar › Resimler",
+      "defaultsText": "Varsayılanlar › Metin",
+      "defaultsVoice": "Varsayılanlar › Ses",
+      "descriptionChat": "Bu alanı yazan yapay zekayı ayarlayın. Çoğu alan varsayılanda kalabilir.",
+      "descriptionImage": "Bu alanı çizen yapay zekayı ayarlayın. Çoğu alan varsayılanda kalabilir.",
+      "descriptionTts": "Bu alanı okuyan sesi ayarlayın. Çoğu alan varsayılanda kalabilir.",
+      "imageDefault": "görüntü varsayılanı",
+      "imageModel": "Resim modeli",
+      "loadingVoices": "Sesler yükleniyor…",
+      "model": "Modeli",
+      "pickCustom": "Bu alan için özel bir model seçin",
+      "reasoning": "{{level}} muhakemesi",
+      "reasoningHint": "Daha yüksek akıl yürütme, daha zorlu nesilleri geliştirebilir, ancak daha fazla kredi kullanır.",
+      "reasoningLevel": "Muhakeme düzeyi",
+      "sharedByEveryField": "{{modality}}'iniz, onu kullanan her Smart Field tarafından paylaşılır. Değiştir",
+      "textDefault": "metin varsayılanı",
+      "textModel": "Metin modeli",
+      "useMy": "{{modality}}'imi kullan",
+      "useWebSearch": "Bu alan için web aramasını kullanın",
+      "voice": "Ses",
+      "voiceDefault": "ses varsayılanı",
+      "webSearch": "Web araması",
+      "webSearchHint": "Bu alanın web'deki yeni bilgileri kullanmasına izin verin."
+    },
+    "save": "Smart Field'i kaydedin",
+    "sections": {
+      "onWhichNotes": "Hangi notalarda?",
+      "whatToGenerate": "Ne üretmek istiyorsunuz?",
+      "whichFieldToFill": "Hangi alanı doldurmalı?",
+      "whichFieldToSpeak": "Hangi alanda konuşmalı?"
+    },
+    "sourceField": "Kaynak alanı",
+    "targetAriaLabel": "Smart Field hedefi",
+    "testSmartField": "Smart Field'inizi test edin",
+    "titles": {
+      "create": "Yeni Smart Field ✨",
+      "duplicate": "Smart Field'i çoğaltın",
+      "edit": "Smart Field'i düzenleyin"
+    },
+    "validation": {
+      "chooseField": "Bir alan seçin",
+      "chooseNoteType": "Bir not türü seçin",
+      "chooseSourceField": "Bir kaynak alanı seçin",
+      "fieldAlreadyHasSmartField": "{{field}}'in zaten bir Smart Field'i var",
+      "writePrompt": "Bir istem yaz"
+    },
+    "writePrompt": "İstem Yaz",
+    "writePromptForMe": "Benim için istemimi yaz",
+    "writePromptForMeHint": "Sade bir İngilizceyle ne istediğinizi söyleyin; istemi aşağıya yazacağız.",
+    "writePromptPlaceholder": "\"Doğal İngilizceye çevir...\"",
+    "writing": "Yazıyor…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "{{field}} için eylemler",
+    "addToNoteType": "Smart Field'i {{noteType}}'e ekleyin",
+    "disable": "Devre dışı bırakmak",
+    "deleting": "Siliniyor…",
+    "discord": {
+      "dismissAriaLabel": "Discord davetini reddet",
+      "join": "Katılmak",
+      "joinAriaLabel": "Smart Notes Discord'e katılın",
+      "subtitle": "— istemleri değiştirin ve özellikleri isteyin.",
+      "title": "Gelin Discord'e merhaba deyin"
+    },
+    "editAriaLabel": "{{field}} Smart Field'i düzenleyin",
+    "emptyState": {
+      "description": "Kartlarınıza metin, ses ve görüntü eklemek için Smart Fields'i ekleyin.",
+      "exampleAnswer": "Merhaba",
+      "exampleField": "ÖN",
+      "examplePrompt": "iyi eğlenceler",
+      "spark": "✦",
+      "title": "Notlarınız biraz boş görünüyor"
+    },
+    "enable": "Olanak vermek",
+    "errors": {
+      "commandFailed": "Smart Field komutu başarısız oldu"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "Metin",
+      "image": "Resim",
+      "tts": "Ses"
+    },
+    "loadingAriaLabel": "Smart Fields yükleniyor",
+    "newSmartField": "Yeni Smart Field",
+    "readsAloud": "{{field}}'i yüksek sesle okur",
+    "review": {
+      "ariaLabel": "AnkiWeb'te Smart Notes'i inceleyin",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "İnceleme davetini reddet",
+      "subtitle": "Diğer Anki kullanıcılarının bulmasına yardımcı olmak için AnkiWeb hakkında bir inceleme bırakın.",
+      "title": "Smart Notes'ten memnun musunuz?"
+    },
+    "subtitle": "Notlarınıza otomatik olarak oluşturulan metin, ses ve görüntüleri ekleyin.",
+    "title": "✨Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "Sohbet kataloğunda {{model}} modeli eksik",
+      "missingImageModel": "Resim kataloğunda {{model}} modeli eksik"
+    },
+    "image": {
+      "cannotFindModel": "Resim kataloğunda {{model}} modeli eksik",
+      "defaultModel": "Varsayılan model",
+      "gptImage15Low": "en iyi kalite/hız dengesi.",
+      "gptImage2": "aynı maliyet, daha yavaş, daha yüksek kalite.",
+      "loadingLabel": "Varsayılan Görüntü Ayarlarını Yükleme",
+      "loadingTitle": "Varsayılan Görüntü Ayarları",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Bir görüntü modeli seçme",
+      "samplePrompt": "Anki ile sıkı çalışan ve sınavlarını geçen bir öğrencinin görüntüsünü oluşturun.",
+      "saveError": "Resim varsayılanları kaydedilemedi",
+      "subtitle": "Bir alan kendisini sabitlemediği sürece görüntünüz Smart Fields'in kullandığı model.",
+      "title": "Varsayılan Görüntü Ayarları",
+      "zImageTurbo": "en hızlı ve en ucuz."
+    },
+    "layout": {
+      "saveChanges": "Değişiklikleri kaydet",
+      "saving": "Kaydediliyor…",
+      "tryIt": "Deneyin"
+    },
+    "text": {
+      "cannotInheritModel": "Metin varsayılanları başka bir modeli devralamaz",
+      "defaultModel": "Varsayılan Metin Modeli",
+      "defaultReasoningLevel": "Varsayılan muhakeme düzeyi",
+      "enableWebSearch": "Web Aramasını Etkinleştir",
+      "higherReasoning": "Daha yüksek akıl yürütme, daha zorlu nesilleri geliştirebilir, ancak daha fazla kredi kullanır.",
+      "loadingLabel": "Varsayılan Metin Ayarlarını Yükleme",
+      "loadingTitle": "Metin Oluşturma Ayarları",
+      "modelGuidance": "{{auto}} ve {{autoMax}}, performans ve maliyeti dengeleyen Smart Notes tarafından önerilen modellerdir. Standart görevler için {{auto}} seçeneğini seçin ve gerekirse {{autoMax}} sürümüne yükseltin.",
+      "pickingModel": "💡 Bir model seçmek",
+      "reasoningLevel": "Muhakeme düzeyi",
+      "reasoningValues": {
+        "high": "Yüksek",
+        "low": "Düşük",
+        "off": "Kapalı"
+      },
+      "samplePrompt": "Aralıklı Tekrarlama Sistemi (SRS) Nedir?",
+      "saveError": "Metin varsayılanları kaydedilemedi",
+      "subtitle": "Metin oluşturma için varsayılan ayarlar. Bireysel Smart Fields bu değerleri geçersiz kılabilir.",
+      "title": "Metin Oluşturma Ayarları",
+      "webSearch": "Web Araması",
+      "webSearchDescription": "Metin nesillerinin web'den yeni bilgiler almasına izin verin.",
+      "webSearchWarning": "⚠️ Arama pahalıdır; kredilerinizi izleyin."
+    },
+    "usage": {
+      "fields_one": "{{count}} alanı için geçerlidir",
+      "fields_other": "{{count}} alanları için geçerlidir"
+    },
+    "voice": {
+      "browseVoices": "Seslere göz atın ({{count}})",
+      "cannotLoad": "Sesler yüklenemedi",
+      "currentDefault": "Mevcut varsayılan",
+      "filters": {
+        "all": "Tüm",
+        "female": "Dişi",
+        "gender": "Cinsiyet",
+        "language": "Dil",
+        "male": "Erkek",
+        "provider": "sağlayıcı"
+      },
+      "filterVoices": "Sesleri filtrele",
+      "loadingLabel": "Varsayılan Ses Ayarlarını Yükleme",
+      "loadingTitle": "Varsayılan Ses Ayarları",
+      "noVoices": "Bu filtrelerle eşleşen ses yok.",
+      "saveError": "Ses varsayılanları kaydedilemedi",
+      "searchPlaceholder": "🔍 Sesleri arayın…",
+      "searchVoices": "Sesleri ara",
+      "subtitle": "Bir alan kendine ait olmadığı sürece TTS Smart Fields'inizin kullandığı ses.",
+      "title": "Varsayılan Ses Ayarları"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "başka bir not türü",
+    "currentlySelectedCard": "Şu anda seçili kart",
+    "emptyCard": "(boş kart)",
+    "errors": {
+      "generateAudio": "Ses oluşturulamadı",
+      "generateImage": "Resim oluşturulamadı",
+      "saveResult": "Bu sonuç karta kaydedilemedi",
+      "testPrompt": "Bu istem test edilemedi"
+    },
+    "fieldRunsOnNoteType": "Bu alan <noteTypeName>{{noteType}}</noteTypeName> üzerinde çalışır",
+    "generatedImagePreview": "Oluşturulan resim önizlemesi",
+    "missingFieldsTitle_one": "Eksik alan",
+    "missingFieldsTitle_other": "Eksik alanlar",
+    "needsFields_one": "{{count}} alanına ihtiyaç var",
+    "needsFields_other": "{{count}} alanlarına ihtiyaç var",
+    "notesSelected_one": "{{count}} notu seçildi — onu bire daraltın.",
+    "notesSelected_other": "Seçilen {{count}} notları — onu bire daraltın.",
+    "pickCard": "Anki Tarayıcısında bir kart seçin",
+    "promptPlaceholder": "{{braces}} ile kartınızdaki alanlara referans veren bir test istemi yazın.",
+    "saveToCard": "Karta kaydet",
+    "savedTo": "{{field}}'e kaydedildi",
+    "selectCardWithFields_one": "Lütfen alanı içeren bir kart seçin",
+    "selectCardWithFields_other": "Lütfen alanları içeren bir kart seçin",
+    "selectFieldToReadAloud": "Yüksek sesle okumak için bir alan seçin",
+    "selectNewCard": "Tarayıcıda yeni bir kart seçin",
+    "selectRequiredNoteType": "Lütfen <noteTypeName>{{noteType}}</noteTypeName> türünde bir not seçin",
+    "selectedCard": "Seçilen kart",
+    "selectedDeck": "Seçilen deste",
+    "selectedNoteType": "Seçilen not türü",
+    "selectionAppearsAutomatically": "Seçiminiz burada otomatik olarak görünür.",
+    "sent": "Gönderilmiş",
+    "testing": "Test…",
+    "testResult": "Test sonucu",
+    "textToSpeak": "Konuşmak için metin",
+    "viewResult": "Sonucu görüntüle",
+    "wrongNoteType": "Yanlış not türü"
+  },
+  "subscription": {
+    "checking": "Abonelik kontrol ediliyor",
+    "creditTypes": {
+      "images": "Görseller",
+      "text": "Metin",
+      "voice": "Ses"
+    },
+    "creditUsage": "Kredi Kullanımı",
+    "creditsReset": "Krediler sıfırlandı",
+    "daysLeft_one": "Son gün",
+    "daysLeft_other": "{{count}} gün kaldı",
+    "errors": {
+      "logout": "Oturum kapatılamadı"
+    },
+    "freePlan": "Ücretsiz plan",
+    "freeTrial": "Ücretsiz deneme",
+    "hero": {
+      "buyCredits": "Daha fazla kredi satın alın",
+      "freeCreditsResetting": "Ücretsiz kredileriniz sıfırlanıyor",
+      "freePlan": "Ücretsiz plandasınız",
+      "noteLimit": "Not sınırınıza ulaştınız",
+      "outOfCredits": "Bu ay krediniz bitti",
+      "outOfFreeCredits": "Bu ay ücretsiz krediniz bitti",
+      "outOfTrialCredits": "Deneme krediniz bitti",
+      "planExpired": "Planınızın süresi doldu",
+      "rollover": "Kullandıkça öde kredileri her ay devredilir; sonsuza kadar sizindir.",
+      "trialDaysLeft_one": "Deneme süreniz bugün sona eriyor",
+      "trialDaysLeft_other": "Deneme sürenizde {{count}} gün kaldı",
+      "trialEnded": "Deneme süreniz sona erdi",
+      "trialNoteLimit": "Deneme notu sınırınıza ulaştınız",
+      "upgradeCollection": "Yükseltme — tüm koleksiyonunuz otomatik olarak",
+      "upgradeCredits": "Daha fazla kredi için yükseltme yapın",
+      "upgradePaid": "✨ Ücretli sürüme yükseltin"
+    },
+    "inDays_one": "Bugün",
+    "inDays_other": "{{count}} gün içinde",
+    "loading": "Abonelik Yükleniyor",
+    "loggingOut": "Oturum kapatılıyor…",
+    "logOut": "Oturumu kapat",
+    "manageDescription": "Planı değiştirin, ödemeyi güncelleyin veya iptal edin.",
+    "manageOrUpgrade": "Planı yönetin veya yükseltin",
+    "managePlan": "Planı yönet",
+    "monthlyCreditsUsed": "kullanılan aylık kredi sayısı",
+    "mostCreditsUsed": "Bu ayki kredilerin çoğu kullanıldı",
+    "noteLimitReached": "Not sınırına ulaşıldı",
+    "notes": "Notlar",
+    "notesUsed": "Kullanılan notlar",
+    "notesUsedValue": "{{used}}/{{limit}} kullanıldı",
+    "outOfCredits": "Kredi bitti",
+    "pausedUntilReset": "Kredileriniz sıfırlanana kadar oluşturma duraklatılır.",
+    "plan": "Planı",
+    "planInactive": "Plan etkin değil",
+    "resetsIn": "Sıfırlama süresi",
+    "resetsInDays_one": "1 günde sıfırlanır",
+    "resetsInDays_other": "{{count}} gün içinde sıfırlanır",
+    "signedOut": {
+      "localStorage": "Akıllı alanlarınız ve ayarlarınız bu cihazda saklanır.",
+      "manage": "Planınızı yönetmek için oturum açın",
+      "paused": "Siz oturum açana kadar oluşturma duraklatılır.",
+      "title": "Oturumu kapattım"
+    },
+    "title": "Hesap ve Kullanım",
+    "trialCreditsUsed": "kullanılan deneme kredileri",
+    "trialEnded": "Deneme sona erdi",
+    "trialEnds": "Deneme sona eriyor",
+    "trialNoteLimitReached": "Deneme notu sınırına ulaşıldı",
+    "upgradeToKeepGenerating": "Üretmeye devam etmek için yükseltin.",
+    "usage": "Kullanım"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Bir inceleme bırakın / dokümanlara bakın.",
+    "byline": "Michael Piazza / Rosebud Labs, LLC tarafından.",
+    "changelog": "Değişiklik günlüğü",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "Yardım almanın, özellik istemenin veya hata bildirmenin en hızlı yolu.",
+      "join": "Katılmak",
+      "title": "Discord'e katılın"
+    },
+    "emailUs": "Bize e-posta gönderin",
+    "feedback": {
+      "description": "Kırık veya yanlış bir şey mi var? Fakir geliştiriciye doğrudan mesaj gönderin.",
+      "send": "Gönder",
+      "title": "Bir hata gönderin / özellik isteyin"
+    },
+    "github": "GitHub",
+    "loading": "Yükleme Desteği",
+    "title": "Destek"
+  },
+  "welcome": {
+    "alreadyAccount": "Zaten bir hesabınız var mı?",
+    "codePlaceholder": "Kodunuzu yapıştırın",
+    "connect": "Bağlamak",
+    "connecting": "Bağlanıyor…",
+    "description": "Tek tıklamayla tek tek kartlara veya destenizin tamamına metin, konuşma ve resimler ekleyin.",
+    "errors": {
+      "code": "Bu kodla bağlantı kurulamadı"
+    },
+    "finishDescription": "Açtığımız tarayıcıda oturum açma işlemini tamamlayın. Bu pencere otomatik olarak güncellenecektir.",
+    "finishInBrowser": "Tarayıcınızda işlemi tamamlayın",
+    "haveCode": "Web sitesinden kodunuz var mı?",
+    "startTrial": "✨ Ücretsiz Denemeyi Başlatın ✨",
+    "trialDetails": "7 gün boyunca ücretsiz · tüm özellikler · kredi kartı yok"
+  },
+  "trialEnded": {
+    "description": "Denemeler 7 gün boyunca veya deneme kredileriniz bitene kadar devam eder.",
+    "features": {
+      "ariaLabel": "Yükseltme neyi korur?",
+      "batch": "Koleksiyonunuzun tamamını toplu olarak kullanın",
+      "images": "Görüntü oluşturma",
+      "premium": "Her premium model ve ses",
+      "review": "İnceleme sırasında oluştur"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Ücretsiz ay teklifi",
+      "description": "Hızlı bir AnkiWeb incelemesi bırakın, bir ay bizden kazanın.",
+      "dialogDescription": "AnkiWeb hakkında hızlı bir inceleme bırakın, ardından bize e-posta gönderin; hesabınıza bir aylık ücretsiz Smart Notes ekleyeceğiz.",
+      "dialogTitle": "Ücretsiz ayınızı alın",
+      "leaveAnkiWebReview": "AnkiWeb hakkında yorum bırakın",
+      "leaveReview": "Yorum bırakın",
+      "title": "Bir ay ücretsiz Smart Notes edinin"
+    },
+    "thanks": "Smart Notes'i kullandığınız için teşekkür ederiz ✨",
+    "title": "Ücretsiz deneme süreniz sona erdi",
+    "upgradeNow": "Şimdi yükseltin"
+  }
+}

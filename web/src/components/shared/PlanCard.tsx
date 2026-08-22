@@ -1,6 +1,7 @@
 import { ProgressBar } from "@/components/ui/ProgressBar"
 import { openSiteLink, SITE_LINKS } from "@/lib/siteLinks"
 import type { AccountState } from "@/types/api"
+import { useTranslation } from "react-i18next"
 
 import {
   getPlanConditions,
@@ -19,12 +20,13 @@ const TRIAL_ACTION_BUTTON_CLASS =
   "mt-3 block w-full rounded-lg border border-indigo/40 bg-indigo/80 px-2 py-2.5 text-center text-xs font-extrabold text-white shadow-[inset_0_1px_rgba(255,255,255,0.24),0_10px_22px_-8px_rgba(124,141,255,0.42)] transition hover:bg-indigo/90"
 
 export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
+  const { t } = useTranslation()
   const presentation = getPlanPresentation(account)
 
   if (presentation.variant === "loading") {
     return (
       <div
-        aria-label="Checking subscription"
+        aria-label={t("subscription.checking")}
         className="animate-pulse space-y-2 px-0.5 py-1"
         data-testid="plan-card"
       >
@@ -46,17 +48,17 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
             className="size-1.5 rounded-full bg-amber shadow-[0_0_8px_rgba(255,210,122,0.65)]"
           />
           <p className="text-sm font-bold tracking-[-0.1px] text-zinc-100">
-            Signed out
+            {t("subscription.signedOut.title")}
           </p>
         </div>
         <p className="mt-1.5 text-[10.5px] leading-[1.45] text-zinc-400">
-          Generation is paused until you sign in.
+          {t("subscription.signedOut.paused")}
         </p>
         <button
           className={PLAN_ACTION_BUTTON_CLASS}
           onClick={() => openSiteLink(SITE_LINKS.signIn)}
         >
-          Sign In
+          {t("common.signIn")}
         </button>
       </section>
     )
@@ -70,13 +72,13 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
   if (presentation.variant === "trial") {
     if (!conditions.hasGenerationAccess) {
       const title = conditions.creditLimitReached
-        ? "Out of credits"
+        ? t("subscription.outOfCredits")
         : conditions.noteLimitReached
-          ? "Trial note limit reached"
-          : "Trial ended"
+          ? t("subscription.trialNoteLimitReached")
+          : t("subscription.trialEnded")
       return (
         <OutOfCreditsCard
-          note="Upgrade to keep generating."
+          note={t("subscription.upgradeToKeepGenerating")}
           onOpenSubscription={onOpenSubscription}
           title={title}
           usage={usage}
@@ -96,10 +98,10 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
       >
         <div className="flex items-center justify-between">
           <span className="text-[9.5px] font-bold tracking-[0.06em] text-ink-muted uppercase">
-            Free Trial
+            {t("subscription.freeTrial")}
           </span>
           <span className={`text-[11.5px] font-bold ${accentClass}`}>
-            {daysLeft === 1 ? "Last day" : `${daysLeft} days left`}
+            {t("subscription.daysLeft", { count: daysLeft })}
           </span>
         </div>
         <ProgressBar
@@ -112,7 +114,7 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
           className={TRIAL_ACTION_BUTTON_CLASS}
           onClick={onOpenSubscription}
         >
-          Upgrade
+          {t("common.upgrade")}
         </button>
       </section>
     )
@@ -122,14 +124,14 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
     if (!conditions.hasGenerationAccess) {
       return (
         <OutOfCreditsCard
-          note="Generation is paused until your credits reset."
+          note={t("subscription.pausedUntilReset")}
           onOpenSubscription={onOpenSubscription}
           title={
             conditions.creditLimitReached
-              ? "Out of credits"
+              ? t("subscription.outOfCredits")
               : conditions.noteLimitReached
-                ? "Note limit reached"
-                : "Plan inactive"
+                ? t("subscription.noteLimitReached")
+                : t("subscription.planInactive")
           }
           usage={usage}
         />
@@ -138,12 +140,12 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
 
     return (
       <button
-        className="block w-full px-0.5 py-1 text-left"
+        className="block w-full px-0.5 py-1 text-start"
         data-testid="plan-card"
         onClick={onOpenSubscription}
       >
         <span className="flex items-center justify-between text-[11px]">
-          <span className="text-ink-muted">Usage</span>
+          <span className="text-ink-muted">{t("subscription.usage")}</span>
           <span className="font-medium text-zinc-400">{pctLabel(usage)}</span>
         </span>
         <ProgressBar
@@ -167,7 +169,7 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
 
   return (
     <button
-      className="block w-full rounded-[11px] bg-white/[0.05] p-3 text-left"
+      className="block w-full rounded-[11px] bg-white/[0.05] p-3 text-start"
       data-testid="plan-card"
       onClick={onOpenSubscription}
     >
@@ -175,7 +177,7 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
         <span
           className={`text-[11px] ${out ? "font-bold text-[#ff7a7a]" : "font-medium text-ink-muted"}`}
         >
-          {out ? "Out of credits" : "Free plan"}
+          {out ? t("subscription.outOfCredits") : t("subscription.freePlan")}
         </span>
         <span className={`text-xs font-semibold ${accentClass}`}>
           {pctLabel(usage)}
@@ -189,12 +191,16 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
       />
       <span className="mt-2 block text-[10.5px] leading-[1.45] text-ink-muted">
         {out
-          ? "Generation is paused until your credits reset."
+          ? t("subscription.pausedUntilReset")
           : warning
-            ? "Most of this month's credits are used"
-            : `Resets in ${presentation.daysLeft ?? 0} days`}
+            ? t("subscription.mostCreditsUsed")
+            : t("subscription.resetsInDays", {
+                count: presentation.daysLeft ?? 0,
+              })}
       </span>
-      <span className={PLAN_ACTION_BUTTON_CLASS}>✨ Upgrade ✨</span>
+      <span className={PLAN_ACTION_BUTTON_CLASS}>
+        {t("common.upgradeSparkles")}
+      </span>
     </button>
   )
 }
@@ -202,35 +208,39 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
 interface OutOfCreditsCardProps {
   note: string
   onOpenSubscription: () => void
-  title?: string
+  title: string
   usage: number
 }
 
 const OutOfCreditsCard = ({
   note,
   onOpenSubscription,
-  title = "Out of credits",
+  title,
   usage,
-}: OutOfCreditsCardProps) => (
-  <section
-    className="rounded-[11px] bg-white/[0.05] p-3"
-    data-testid="plan-card"
-  >
-    <div className="flex items-center justify-between">
-      <span className="text-[11px] font-bold text-[#ff7a7a]">{title}</span>
-      <span className="text-[11.5px] font-bold text-[#ff7a7a]">
-        {pctLabel(usage)}
-      </span>
-    </div>
-    <ProgressBar
-      colorClass="bg-[#ff7a7a]"
-      heightClass="h-1"
-      percent={usage}
-      trackClass="mt-2.5 bg-white/[0.08]"
-    />
-    <p className="mt-2 text-[10.5px] leading-[1.45] text-ink-muted">{note}</p>
-    <button className={PLAN_ACTION_BUTTON_CLASS} onClick={onOpenSubscription}>
-      ✨ Upgrade ✨
-    </button>
-  </section>
-)
+}: OutOfCreditsCardProps) => {
+  const { t } = useTranslation()
+
+  return (
+    <section
+      className="rounded-[11px] bg-white/[0.05] p-3"
+      data-testid="plan-card"
+    >
+      <div className="flex items-center justify-between">
+        <span className="text-[11px] font-bold text-[#ff7a7a]">{title}</span>
+        <span className="text-[11.5px] font-bold text-[#ff7a7a]">
+          {pctLabel(usage)}
+        </span>
+      </div>
+      <ProgressBar
+        colorClass="bg-[#ff7a7a]"
+        heightClass="h-1"
+        percent={usage}
+        trackClass="mt-2.5 bg-white/[0.08]"
+      />
+      <p className="mt-2 text-[10.5px] leading-[1.45] text-ink-muted">{note}</p>
+      <button className={PLAN_ACTION_BUTTON_CLASS} onClick={onOpenSubscription}>
+        {t("common.upgradeSparkles")}
+      </button>
+    </section>
+  )
+}

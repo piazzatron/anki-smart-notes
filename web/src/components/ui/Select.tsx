@@ -32,7 +32,7 @@ export const SelectTrigger = forwardRef<
   ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
 >(({ children, className = "", ...props }, ref) => (
   <SelectPrimitive.Trigger
-    className={`flex min-h-11 w-full cursor-pointer items-center gap-2 rounded-lg border border-white/[0.09] bg-white/[0.04] px-3 py-2 text-left text-xs font-medium text-zinc-100 transition outline-none hover:border-white/16 focus-visible:border-indigo/50 focus-visible:ring-2 focus-visible:ring-indigo/25 disabled:cursor-not-allowed disabled:opacity-45 data-[state=open]:border-indigo/50 data-[state=open]:ring-2 data-[state=open]:ring-indigo/25 ${className}`}
+    className={`flex min-h-11 w-full cursor-pointer items-center gap-2 rounded-lg border border-white/[0.09] bg-white/[0.04] px-3 py-2 text-start text-xs font-medium text-zinc-100 transition outline-none hover:border-white/16 focus-visible:border-indigo/50 focus-visible:ring-2 focus-visible:ring-indigo/25 disabled:cursor-not-allowed disabled:opacity-45 data-[state=open]:border-indigo/50 data-[state=open]:ring-2 data-[state=open]:ring-indigo/25 ${className}`}
     ref={ref}
     {...props}
   >
@@ -87,11 +87,11 @@ export const SelectItem = forwardRef<
   SelectItemProps
 >(({ children, className = "", suffix, ...props }, ref) => (
   <SelectPrimitive.Item
-    className={`relative flex min-h-9 w-full cursor-pointer items-center rounded-md py-2 pr-2.5 pl-8 text-xs transition outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-40 data-[highlighted]:bg-white/[0.06] data-[state=checked]:bg-indigo/14 ${className}`}
+    className={`relative flex min-h-9 w-full cursor-pointer items-center rounded-md py-2 ps-8 pe-2.5 text-xs transition outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-40 data-[highlighted]:bg-white/[0.06] data-[state=checked]:bg-indigo/14 ${className}`}
     ref={ref}
     {...props}
   >
-    <span className="absolute left-2.5 flex size-3.5 items-center justify-center text-indigo-soft">
+    <span className="absolute start-2.5 flex size-3.5 items-center justify-center text-indigo-soft">
       <SelectPrimitive.ItemIndicator>
         <Check aria-hidden className="size-3.5" />
       </SelectPrimitive.ItemIndicator>

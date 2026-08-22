@@ -18,6 +18,7 @@
  */
 
 import { X } from "lucide-react"
+import { useTranslation } from "react-i18next"
 
 import { DiscordMark } from "@/components/shared/DiscordMark"
 import { DISCORD_URL } from "@/lib/helpChannels"
@@ -26,39 +27,43 @@ interface DiscordPromptProps {
   onDismiss: () => void
 }
 
-export const DiscordPrompt = ({ onDismiss }: DiscordPromptProps) => (
-  <div className="relative mb-5 flex cursor-pointer items-center gap-3 overflow-hidden rounded-[13px] bg-[linear-gradient(100deg,#3C45A5_0%,#5865F2_42%,#9B4DFF_100%)] py-3.5 pr-3.5 pl-[17px] transition-transform duration-150 ease-out hover:scale-[1.006]">
-    <a
-      aria-label="Join the Smart Notes Discord"
-      className="absolute inset-0 z-10 rounded-[13px]"
-      href={DISCORD_URL}
-      rel="noreferrer"
-      target="_blank"
-    />
-    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(460px_140px_at_10%_-40%,rgba(180,200,255,0.3),transparent_72%)]" />
-    <DiscordMark className="relative text-white" size={23} />
-    <p className="relative min-w-0 flex-1 text-[14.5px] leading-[1.35] font-extrabold tracking-[-0.01em] text-white">
-      Come say hi in the Discord
-      <span className="text-[13px] font-medium text-white/80">
-        {" "}
-        — swap prompts and request features.
-      </span>
-    </p>
-    <a
-      className="relative z-20 inline-flex shrink-0 items-center rounded-lg bg-white px-[18px] py-2 text-[12.5px] font-extrabold text-[#6B3FD4] no-underline transition-transform duration-150 ease-out hover:scale-[1.035]"
-      href={DISCORD_URL}
-      rel="noreferrer"
-      target="_blank"
-    >
-      Join
-    </a>
-    <button
-      aria-label="Dismiss Discord invitation"
-      className="relative z-20 inline-flex size-6 shrink-0 items-center justify-center rounded-md text-white/60 transition hover:bg-white/10 hover:text-white"
-      onClick={onDismiss}
-      type="button"
-    >
-      <X aria-hidden className="size-3.5" />
-    </button>
-  </div>
-)
+export const DiscordPrompt = ({ onDismiss }: DiscordPromptProps) => {
+  const { t } = useTranslation()
+
+  return (
+    <div className="relative mb-5 flex cursor-pointer items-center gap-3 overflow-hidden rounded-[13px] bg-[linear-gradient(100deg,#3C45A5_0%,#5865F2_42%,#9B4DFF_100%)] py-3.5 ps-[17px] pe-3.5 transition-transform duration-150 ease-out hover:scale-[1.006]">
+      <a
+        aria-label={t("smartFields.discord.joinAriaLabel")}
+        className="absolute inset-0 z-10 rounded-[13px]"
+        href={DISCORD_URL}
+        rel="noreferrer"
+        target="_blank"
+      />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(460px_140px_at_10%_-40%,rgba(180,200,255,0.3),transparent_72%)]" />
+      <DiscordMark className="relative text-white" size={23} />
+      <p className="relative min-w-0 flex-1 text-[14.5px] leading-[1.35] font-extrabold tracking-[-0.01em] text-white">
+        {t("smartFields.discord.title")}
+        <span className="text-[13px] font-medium text-white/80">
+          {" "}
+          {t("smartFields.discord.subtitle")}
+        </span>
+      </p>
+      <a
+        className="relative z-20 inline-flex shrink-0 items-center rounded-lg bg-white px-[18px] py-2 text-[12.5px] font-extrabold text-[#6B3FD4] no-underline transition-transform duration-150 ease-out hover:scale-[1.035]"
+        href={DISCORD_URL}
+        rel="noreferrer"
+        target="_blank"
+      >
+        {t("smartFields.discord.join")}
+      </a>
+      <button
+        aria-label={t("smartFields.discord.dismissAriaLabel")}
+        className="relative z-20 inline-flex size-6 shrink-0 items-center justify-center rounded-md text-white/60 transition hover:bg-white/10 hover:text-white"
+        onClick={onDismiss}
+        type="button"
+      >
+        <X aria-hidden className="size-3.5" />
+      </button>
+    </div>
+  )
+}

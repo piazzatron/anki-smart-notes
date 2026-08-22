@@ -18,7 +18,9 @@
  */
 
 import { LoaderCircle, Settings2 } from "lucide-react"
+import i18next from "i18next"
 import { useState, type ReactNode } from "react"
+import { useTranslation } from "react-i18next"
 
 import { Button } from "@/components/ui/Button"
 import {
@@ -56,6 +58,7 @@ export const ModelSettingsSection = ({
   state,
   voiceCatalog,
 }: ModelSettingsSectionProps) => {
+  const { t } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
   const { fieldType } = controls.form.target
   const summary = getModelSummary({ controls, state, voiceCatalog })
@@ -64,7 +67,7 @@ export const ModelSettingsSection = ({
     <>
       <button
         aria-haspopup="dialog"
-        className="flex min-h-11 w-full cursor-pointer items-center gap-3 rounded-md border border-white/[0.09] bg-white/[0.04] px-3 py-2 text-left transition hover:border-white/16"
+        className="flex min-h-11 w-full cursor-pointer items-center gap-3 rounded-md border border-white/[0.09] bg-white/[0.04] px-3 py-2 text-start transition hover:border-white/16"
         onClick={() => setIsOpen(true)}
       >
         <span className="min-w-0 flex-1 truncate text-xs font-semibold text-zinc-100">
@@ -81,9 +84,13 @@ export const ModelSettingsSection = ({
       <SettingsDialog
         onOpenChange={setIsOpen}
         open={isOpen}
-        subtitle="Applies to this Smart Field only."
+        subtitle={t("fieldEditor.modelSettings.appliesOnlyToField")}
         testAction={<PromptTestButton field={field} />}
-        title={fieldType === "tts" ? "Voice" : "Model"}
+        title={
+          fieldType === "tts"
+            ? t("fieldEditor.modelSettings.voice")
+            : t("fieldEditor.modelSettings.model")
+        }
       >
         <PinnedOrDefault
           controls={controls}
@@ -94,10 +101,11 @@ export const ModelSettingsSection = ({
 
         {controls.form.pinnedSettings[fieldType] === null ? (
           <p className="mt-3 text-[11px] leading-4 text-ink-muted">
-            Your {MODALITIES[fieldType].name} is shared by every Smart Field
-            that uses it. Change it in{" "}
+            {t("fieldEditor.modelSettings.sharedByEveryField", {
+              modality: getModalityName(fieldType),
+            })}{" "}
             <span className="font-semibold text-indigo-soft">
-              {MODALITIES[fieldType].where}
+              {i18next.t(MODALITIES[fieldType].whereKey)}
             </span>
             .
           </p>
@@ -115,10 +123,10 @@ export const ModelSettingsSection = ({
               controls.form.pinnedSettings.image !== null && (
                 <label className="block">
                   <span className="mb-2 block text-[10px] font-semibold tracking-[0.06em] text-ink-faint uppercase">
-                    Model
+                    {t("fieldEditor.modelSettings.model")}
                   </span>
                   <ImageModelSelect
-                    ariaLabel="Image model"
+                    ariaLabel={t("fieldEditor.modelSettings.imageModel")}
                     catalog={catalog.image}
                     onValueChange={controls.setPinnedImage}
                     value={controls.form.pinnedSettings.image.model}
@@ -130,7 +138,7 @@ export const ModelSettingsSection = ({
               (voiceCatalog === null ? (
                 <div className="flex items-center justify-center gap-2 py-8 text-xs text-ink-muted">
                   <LoaderCircle aria-hidden className="size-4 animate-spin" />
-                  Loading voices…
+                  {t("fieldEditor.modelSettings.loadingVoices")}
                 </div>
               ) : (
                 <VoicePicker
@@ -164,7 +172,7 @@ const SettingsDialog = ({
 }) => (
   <Dialog onOpenChange={onOpenChange} open={open}>
     <DialogContent className="max-h-[80vh] w-[min(520px,92vw)]">
-      <header className="shrink-0 border-b border-white/[0.07] py-3.5 pr-10 pl-5">
+      <header className="shrink-0 border-b border-white/[0.07] py-3.5 ps-5 pe-10">
         <DialogTitle className="text-[13px] font-bold text-ink">
           {title}
         </DialogTitle>
@@ -179,7 +187,7 @@ const SettingsDialog = ({
       <footer className="flex shrink-0 items-center justify-between border-t border-white/[0.07] px-5 py-3">
         {testAction}
         <Button onClick={() => onOpenChange(false)} variant="success">
-          Done
+          {i18next.t("common.done")}
         </Button>
       </footer>
     </DialogContent>
@@ -227,13 +235,15 @@ const PinnedOrDefault = ({
         >
           {useDefault ? (
             <>
-              Use my {MODALITIES[fieldType].name}
+              {i18next.t("fieldEditor.modelSettings.useMy", {
+                modality: getModalityName(fieldType),
+              })}
               <span className="mt-0.5 block truncate text-[10px] font-medium opacity-75">
                 {defaultLabel}
               </span>
             </>
           ) : (
-            "Pick a custom model for this field"
+            i18next.t("fieldEditor.modelSettings.pickCustom")
           )}
         </button>
       ))}
@@ -241,11 +251,23 @@ const PinnedOrDefault = ({
   )
 }
 
-const MODALITIES: Record<FieldType, { name: string; where: string }> = {
-  chat: { name: "text default", where: "Defaults › Text" },
-  image: { name: "image default", where: "Defaults › Images" },
-  tts: { name: "voice default", where: "Defaults › Voice" },
+const MODALITIES: Record<FieldType, { nameKey: string; whereKey: string }> = {
+  chat: {
+    nameKey: "fieldEditor.modelSettings.textDefault",
+    whereKey: "fieldEditor.modelSettings.defaultsText",
+  },
+  image: {
+    nameKey: "fieldEditor.modelSettings.imageDefault",
+    whereKey: "fieldEditor.modelSettings.defaultsImages",
+  },
+  tts: {
+    nameKey: "fieldEditor.modelSettings.voiceDefault",
+    whereKey: "fieldEditor.modelSettings.defaultsVoice",
+  },
 }
+
+const getModalityName = (fieldType: FieldType): string =>
+  i18next.t(MODALITIES[fieldType].nameKey)
 
 // The value a field inherits when it follows its default.
 const getDefaultLabel = ({
@@ -289,7 +311,12 @@ const getModelSummary = ({
     const label = modelLabel(settings.model)
     return {
       detail: null,
-      label: pinnedSettings.image === null ? `Default (${label})` : label,
+      label:
+        pinnedSettings.image === null
+          ? i18next.t("fieldEditor.modelSettings.defaultWithValue", {
+              value: label,
+            })
+          : label,
     }
   }
 
@@ -301,23 +328,36 @@ const getModelSummary = ({
       )?.name ?? settings.voiceId
     return {
       detail: null,
-      label: pinnedSettings.tts === null ? `Default (${label})` : label,
+      label:
+        pinnedSettings.tts === null
+          ? i18next.t("fieldEditor.modelSettings.defaultWithValue", {
+              value: label,
+            })
+          : label,
     }
   }
 
   const settings = pinnedSettings.chat ?? state.defaults.chat
   const extras = [
     settings.provider === "auto" && settings.reasoningLevel !== "off"
-      ? `${settings.reasoningLevel} reasoning`
+      ? i18next.t("fieldEditor.modelSettings.reasoning", {
+          level: i18next.t(
+            `defaults.text.reasoningValues.${settings.reasoningLevel}`,
+          ),
+        })
       : null,
-    settings.webSearchEnabled ? "web search" : null,
+    settings.webSearchEnabled
+      ? i18next.t("fieldEditor.modelSettings.webSearch")
+      : null,
   ].filter((extra) => extra !== null)
 
   return {
     detail: extras.length === 0 ? null : extras.join(" · "),
     label:
       pinnedSettings.chat === null
-        ? `Default (${modelLabel(settings.model)})`
+        ? i18next.t("fieldEditor.modelSettings.defaultWithValue", {
+            value: modelLabel(settings.model),
+          })
         : modelLabel(settings.model),
   }
 }

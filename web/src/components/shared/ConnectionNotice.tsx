@@ -1,4 +1,5 @@
 import { LoaderCircle, WifiOff } from "lucide-react"
+import { useTranslation } from "react-i18next"
 
 import type { Connection } from "@/store/appStore"
 
@@ -7,6 +8,7 @@ interface ConnectionNoticeProps {
 }
 
 export const ConnectionNotice = ({ connection }: ConnectionNoticeProps) => {
+  const { t } = useTranslation()
   if (connection === "connected") return null
 
   return (
@@ -17,8 +19,8 @@ export const ConnectionNotice = ({ connection }: ConnectionNoticeProps) => {
         <WifiOff aria-hidden className="size-3.5" />
       )}
       {connection === "connecting"
-        ? "Connecting to Anki…"
-        : "Reconnecting to Anki…"}
+        ? t("common.connection.connecting")
+        : t("common.connection.reconnecting")}
     </div>
   )
 }

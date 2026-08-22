@@ -1,4 +1,5 @@
 import { lazy, Suspense, useState, type ComponentType } from "react"
+import { useTranslation } from "react-i18next"
 
 import { AppShell } from "@/components/shared/AppShell"
 import { shouldShowTrialEndedTakeover } from "@/components/shared/planPresentation"
@@ -69,6 +70,7 @@ const DEFAULT_SCREENS: Partial<
 }
 
 const App = () => {
+  const { t } = useTranslation()
   const [activeScreen, setActiveScreen] = useState<ScreenId>(bootOptions.screen)
   const [hasUnsavedDefaults, setHasUnsavedDefaults] = useState(false)
   const [pendingScreen, setPendingScreen] = useState<ScreenId | null>(null)
@@ -161,16 +163,18 @@ const App = () => {
         open={pendingScreen !== null}
       >
         <DialogContent className="w-[min(420px,92vw)]">
-          <div className="px-5 pt-5 pr-12 pb-4">
+          <div className="px-5 pe-12 pt-5 pb-4">
             <DialogTitle className="text-sm font-bold text-zinc-100">
-              Discard unsaved changes?
+              {t("common.discardUnsavedChanges.title")}
             </DialogTitle>
             <DialogDescription className="mt-1.5 text-xs leading-5 text-ink-muted">
-              Your changes to these default settings have not been saved.
+              {t("common.discardUnsavedChanges.description")}
             </DialogDescription>
           </div>
           <div className="flex justify-end gap-2 border-t border-white/[0.08] px-5 py-4">
-            <Button onClick={() => setPendingScreen(null)}>Cancel</Button>
+            <Button onClick={() => setPendingScreen(null)}>
+              {t("common.cancel")}
+            </Button>
             <Button
               onClick={() => {
                 if (pendingScreen === null) return
@@ -181,7 +185,7 @@ const App = () => {
               }}
               variant="danger"
             >
-              Discard changes
+              {t("common.discardChanges")}
             </Button>
           </div>
         </DialogContent>

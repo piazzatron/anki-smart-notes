@@ -143,6 +143,7 @@ export interface Settings {
   generateAtReview: boolean
   regenerateWhenBatching: boolean
   debug: boolean
+  language: string
   legacyOpenAiEnabled: boolean
   legacyOpenAiKey: string | null
   legacyOpenAiModel: string

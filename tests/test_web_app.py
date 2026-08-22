@@ -64,6 +64,33 @@ def test_open_web_app_refreshes_account(monkeypatch: pytest.MonkeyPatch) -> None
     dialog.show.assert_called_once_with()
 
 
+@pytest.mark.parametrize(
+    ("language", "expected_locale"),
+    [("pt-BR", "pt-BR"), ("auto", "ja")],
+)
+def test_production_web_app_url_uses_effective_locale(
+    monkeypatch: pytest.MonkeyPatch, language: str, expected_locale: str
+) -> None:
+    server = SimpleNamespace(session_token="session-token")
+    dialog_factory = MagicMock(return_value=MagicMock())
+    monkeypatch.setattr(web_app, "_local_server", server)
+    monkeypatch.setattr(web_app, "_web_app_dialog", None)
+    monkeypatch.setattr(web_app, "ensure_local_server_started", lambda: server)
+    monkeypatch.setattr(web_app, "app_state", MagicMock())
+    monkeypatch.setattr(web_app, "WebAppDialog", dialog_factory)
+    monkeypatch.setattr(web_app.env, "environment", "PROD")
+    monkeypatch.setattr(web_app, "config", SimpleNamespace(language=language))
+    monkeypatch.setattr(web_app.lang, "current_lang", "ja")
+
+    web_app.open_web_app()
+
+    dialog_factory.assert_called_once_with(
+        "http://127.0.0.1:8766/app?token=session-token"
+        f"&locale={expected_locale}&ankiLocale=ja",
+        web_app.mw,
+    )
+
+
 def test_open_web_app_raises_existing_dialog(monkeypatch: pytest.MonkeyPatch) -> None:
     server = SimpleNamespace(session_token="session-token")
     dialog = MagicMock()

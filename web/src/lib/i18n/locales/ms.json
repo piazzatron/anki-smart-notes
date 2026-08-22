@@ -1,0 +1,489 @@
+{
+  "common": {
+    "allDecks": "Semua Dek",
+    "auto": "Auto",
+    "autoMax": "Auto MAX",
+    "back": "belakang",
+    "bestValueCost": "Nilai Terbaik, 0.3× kos",
+    "cancel": "Batal",
+    "close": "tutup",
+    "connection": {
+      "connecting": "Menyambung ke Anki…",
+      "reconnecting": "Menyambung semula ke Anki…"
+    },
+    "days_other": "{{count}} hari",
+    "deck": "dek",
+    "default": "Lalai",
+    "delete": "Padam",
+    "done": "Selesai",
+    "duplicate": "Pendua",
+    "edit": "Sunting",
+    "empty": "kosong",
+    "field": "Padang",
+    "free": "Percuma",
+    "discardChanges": "Buang perubahan",
+    "discardUnsavedChanges": {
+      "description": "Perubahan anda pada tetapan lalai ini belum disimpan.",
+      "title": "Buang perubahan yang belum disimpan?"
+    },
+    "dismissError": "Tolak ralat",
+    "feedback": {
+      "description": "Hantar laporan pepijat, permintaan ciri atau maklum balas lain kepada pembangun.",
+      "error": "Tidak dapat menghantar maklum balas",
+      "label": "Maklum balas",
+      "placeholder": "Pepijat, idea, apa sahaja — ia terus kepada pembangun.",
+      "send": "Hantar",
+      "sending": "Menghantar…",
+      "sent": "Maklum balas dihantar. Kami akan berhubung tidak lama lagi.",
+      "title": "Hantar maklum balas"
+    },
+    "notNow": "bukan sekarang",
+    "other": "Lain-lain",
+    "placeholderScreen": "Skrin ini seterusnya dalam pembinaan semula.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "Log Masuk",
+    "signInLower": "Log masuk",
+    "unlimited": "Tidak terhad",
+    "upgrade": "Naik taraf",
+    "upgradeSparkles": "✨ Naik taraf ✨",
+    "multiplierCost": "{{multiplier}}× kos",
+    "next": "Seterusnya",
+    "noteType": "Jenis Nota",
+    "optional": "pilihan",
+    "prompt": "Prompt",
+    "saving": "Menyimpan…",
+    "test": "Ujian",
+    "validFields": "Medan yang sah:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Maklum balas",
+    "nav": {
+      "defaultsImages": "Tetapan Imej Lalai",
+      "defaultsText": "Tetapan Teks Lalai",
+      "defaultsVoice": "Tetapan Suara Lalai",
+      "image": "Imej",
+      "settings": "tetapan",
+      "smartFields": "Smart Fields",
+      "subscription": "Akaun dan Penggunaan",
+      "support": "Sokongan",
+      "text": "Teks",
+      "voice": "Suara"
+    },
+    "sections": "Bahagian Smart Notes",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Pengelogan bertele-tele untuk membantu mendiagnosis isu. Sertakan log ini semasa memfailkan pepijat.",
+      "label": "Mod nyahpepijat"
+    },
+    "generateAtReview": {
+      "description": "Isikan medan pintar yang hilang secara automatik apabila kad muncul dalam semakan.",
+      "label": "Hasilkan medan semasa semakan"
+    },
+    "language": {
+      "description": "Pilih bahasa untuk Smart Notes atau padankan bahasa Anki.",
+      "label": "Bahasa",
+      "matchAnki": "Padankan Anki"
+    },
+    "legacy": {
+      "apiKey": "Kunci API OpenAI",
+      "apiKeyRequired": "Kunci API OpenAI berbayar diperlukan.",
+      "description": "Sambungkan kunci API berbayar dan pilih model OpenAI lama.",
+      "getApiKey": "Dapatkan kunci API",
+      "host": "hos OpenAI",
+      "hostDescription": "Sediakan titik akhir alternatif kepada API OpenAI.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "Model OpenAI",
+      "title": "Gunakan kunci OpenAI saya sendiri"
+    },
+    "loading": "Memuatkan Tetapan",
+    "regenerateWhenBatching": {
+      "description": "Apabila kumpulan memproses sekumpulan nota, jana semula setiap medan pintar dari awal dan bukannya hanya mengisi yang kosong.",
+      "label": "Menjana semula semua medan pintar semasa pemprosesan kelompok"
+    },
+    "saveError": "Tidak dapat menyimpan tetapan",
+    "sections": {
+      "advanced": "Maju",
+      "general": "Umum",
+      "generation": "Generasi"
+    },
+    "title": "tetapan"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Sudah Smart Field ✨",
+    "collisionHint": "sudah mempunyai Smart Field — pilih medan, dek atau jenis nota yang berbeza",
+    "completion": {
+      "descriptionAfter": "nota diisi setiap kali anda menjananya.",
+      "descriptionBefore": "pada",
+      "methods": {
+        "bulk": {
+          "caption": "Pilih nota atau dek → klik kanan → ✨ Jana Smart Fields.",
+          "imageAlt": "Menu konteks Pelayar Anki dengan Generate Smart Fields diserlahkan",
+          "title": "Secara pukal, daripada Pelayar"
+        },
+        "card": {
+          "caption": "Klik butang ✨ dalam bar alat editor atau taip ⌘⇧G.",
+          "imageAlt": "Bar alat editor Anki dengan butang Smart Notes diserlahkan",
+          "title": "Satu kad pada satu masa"
+        },
+        "field": {
+          "caption": "Klik kanan mana-mana medan → Jana Smart Field.",
+          "imageAlt": "Menu konteks medan Anki dengan Generate Smart Field diserlahkan",
+          "title": "Satu bidang"
+        }
+      },
+      "title": "Smart Field anda bersiaran langsung",
+      "waysToGenerate": "Beberapa cara untuk menjananya:"
+    },
+    "created": "Smart Field dicipta",
+    "dontShowAgain": "Jangan tunjukkan ini lagi",
+    "errors": {
+      "save": "Tidak dapat menyimpan Smart Field",
+      "updateWizardSettings": "Tidak dapat mengemas kini tetapan wizard",
+      "writePrompt": "Tidak dapat menulis gesaan"
+    },
+    "fieldTypes": {
+      "audio": "Audio",
+      "image": "Imej",
+      "text": "Teks"
+    },
+    "loadingModelCatalog": "Memuatkan katalog model…",
+    "modelSettings": {
+      "appliesOnlyToField": "Terpakai untuk Smart Field ini sahaja.",
+      "defaultWithValue": "Lalai ({{value}})",
+      "defaultsImages": "Lalai › Imej",
+      "defaultsText": "Lalai › Teks",
+      "defaultsVoice": "Lalai › Suara",
+      "descriptionChat": "Tetapkan AI yang menulis medan ini. Kebanyakan medan boleh kekal pada lalai.",
+      "descriptionImage": "Tetapkan AI yang melukis medan ini. Kebanyakan medan boleh kekal pada lalai.",
+      "descriptionTts": "Tetapkan suara yang membaca medan ini. Kebanyakan medan boleh kekal pada lalai.",
+      "imageDefault": "lalai imej",
+      "imageModel": "Model imej",
+      "loadingVoices": "Memuatkan suara…",
+      "model": "Model",
+      "pickCustom": "Pilih model tersuai untuk medan ini",
+      "reasoning": "{{level}} penaakulan",
+      "reasoningHint": "Penaakulan yang lebih tinggi boleh meningkatkan generasi yang lebih sukar, tetapi menggunakan lebih banyak kredit.",
+      "reasoningLevel": "Tahap penaakulan",
+      "sharedByEveryField": "{{modality}} anda dikongsi oleh setiap Smart Field yang menggunakannya. Tukar masuk",
+      "textDefault": "lalai teks",
+      "textModel": "Model teks",
+      "useMy": "Gunakan {{modality}} saya",
+      "useWebSearch": "Gunakan carian web untuk medan ini",
+      "voice": "Suara",
+      "voiceDefault": "lalai suara",
+      "webSearch": "Carian web",
+      "webSearchHint": "Biarkan medan ini menggunakan maklumat baharu daripada web."
+    },
+    "save": "Jimat Smart Field",
+    "sections": {
+      "onWhichNotes": "Pada nota yang mana?",
+      "whatToGenerate": "Apa yang anda ingin hasilkan?",
+      "whichFieldToFill": "Medan manakah yang patut diisi?",
+      "whichFieldToSpeak": "Bidang mana yang patut diperkatakan?"
+    },
+    "sourceField": "Medan sumber",
+    "targetAriaLabel": "Sasaran Smart Field",
+    "testSmartField": "Uji Smart Field anda",
+    "titles": {
+      "create": "Smart Field baharu ✨",
+      "duplicate": "Pendua Smart Field",
+      "edit": "Edit Smart Field"
+    },
+    "validation": {
+      "chooseField": "Pilih medan",
+      "chooseNoteType": "Pilih jenis nota",
+      "chooseSourceField": "Pilih medan sumber",
+      "fieldAlreadyHasSmartField": "{{field}} sudah mempunyai Smart Field",
+      "writePrompt": "Tulis gesaan"
+    },
+    "writePrompt": "Tulis Prompt",
+    "writePromptForMe": "Tulis gesaan saya untuk saya",
+    "writePromptForMeHint": "Sebut apa yang anda mahu dalam bahasa Inggeris biasa — kami akan menulis gesaan di bawah.",
+    "writePromptPlaceholder": "\"Terjemah ke bahasa Inggeris semula jadi…\"",
+    "writing": "Menulis…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "Tindakan untuk {{field}}",
+    "addToNoteType": "Tambahkan Smart Field kepada {{noteType}}",
+    "disable": "Lumpuhkan",
+    "deleting": "Memadamkan…",
+    "discord": {
+      "dismissAriaLabel": "Tolak jemputan Discord",
+      "join": "Sertai",
+      "joinAriaLabel": "Sertai Smart Notes Discord",
+      "subtitle": "— tukar gesaan dan ciri permintaan.",
+      "title": "Datang bertanya khabar dalam Discord"
+    },
+    "editAriaLabel": "Edit {{field}} Smart Field",
+    "emptyState": {
+      "description": "Tambahkan Smart Fields untuk menambahkan teks, audio dan imej pada kad anda.",
+      "exampleAnswer": "Hello",
+      "exampleField": "DEPAN",
+      "examplePrompt": "bonjour",
+      "spark": "✦",
+      "title": "Nota anda kelihatan kosong sedikit"
+    },
+    "enable": "Dayakan",
+    "errors": {
+      "commandFailed": "Arahan Smart Field gagal"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "Teks",
+      "image": "Imej",
+      "tts": "Audio"
+    },
+    "loadingAriaLabel": "Memuatkan Smart Fields",
+    "newSmartField": "Smart Field baharu",
+    "readsAloud": "Membaca {{field}} dengan kuat",
+    "review": {
+      "ariaLabel": "Semak Smart Notes pada AnkiWeb",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "Tolak jemputan semakan",
+      "subtitle": "Tinggalkan ulasan tentang AnkiWeb untuk membantu pengguna Anki lain menemuinya.",
+      "title": "Menikmati Smart Notes?"
+    },
+    "subtitle": "Tambahkan teks, suara dan imej yang dijana secara automatik pada nota anda.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "Katalog sembang tiada model {{model}}",
+      "missingImageModel": "Katalog imej tiada model {{model}}"
+    },
+    "image": {
+      "cannotFindModel": "Katalog imej tiada model {{model}}",
+      "defaultModel": "Model lalai",
+      "gptImage15Low": "kualiti terbaik / pertukaran kelajuan.",
+      "gptImage2": "kos yang sama, lebih perlahan, kualiti yang lebih tinggi.",
+      "loadingLabel": "Memuatkan Tetapan Imej Lalai",
+      "loadingTitle": "Tetapan Imej Lalai",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (Rendah / Sederhana)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Memilih model imej",
+      "samplePrompt": "Hasilkan imej pelajar yang belajar bersungguh-sungguh dengan Anki dan lulus ujian mereka.",
+      "saveError": "Tidak dapat menyimpan lalai imej",
+      "subtitle": "Model imej anda Smart Fields gunakan melainkan medan menyematnya sendiri.",
+      "title": "Tetapan Imej Lalai",
+      "zImageTurbo": "terpantas dan termurah."
+    },
+    "layout": {
+      "saveChanges": "Simpan perubahan",
+      "saving": "Menyimpan…",
+      "tryIt": "Cubalah"
+    },
+    "text": {
+      "cannotInheritModel": "Lalai teks tidak boleh mewarisi model lain",
+      "defaultModel": "Model Teks Lalai",
+      "defaultReasoningLevel": "Tahap penaakulan lalai",
+      "enableWebSearch": "Dayakan Carian Web",
+      "higherReasoning": "Penaakulan yang lebih tinggi boleh meningkatkan generasi yang lebih sukar, tetapi menggunakan lebih banyak kredit.",
+      "loadingLabel": "Memuatkan Tetapan Teks Lalai",
+      "loadingTitle": "Tetapan Penjanaan Teks",
+      "modelGuidance": "{{auto}} dan {{autoMax}} ialah model disyorkan Smart Notes yang mengimbangi prestasi dan kos. Pilih {{auto}} untuk tugas standard dan naik taraf kepada {{autoMax}} jika perlu.",
+      "pickingModel": "💡 Memilih model",
+      "reasoningLevel": "Tahap penaakulan",
+      "reasoningValues": {
+        "high": "tinggi",
+        "low": "rendah",
+        "off": "Mati"
+      },
+      "samplePrompt": "Apakah itu Sistem Ulangan Berjarak (SRS)?",
+      "saveError": "Tidak dapat menyimpan lalai teks",
+      "subtitle": "Tetapan lalai untuk penjanaan teks. Smart Fields individu boleh mengatasi nilai ini.",
+      "title": "Tetapan Penjanaan Teks",
+      "webSearch": "Carian Web",
+      "webSearchDescription": "Biarkan generasi teks menarik maklumat baharu daripada web.",
+      "webSearchWarning": "⚠️ Carian mahal; memantau kredit anda."
+    },
+    "usage": {
+      "fields_other": "Terpakai pada medan {{count}}"
+    },
+    "voice": {
+      "browseVoices": "Semak imbas suara ({{count}})",
+      "cannotLoad": "Tidak dapat memuatkan suara",
+      "currentDefault": "Lalai semasa",
+      "filters": {
+        "all": "Semua",
+        "female": "perempuan",
+        "gender": "Jantina",
+        "language": "Bahasa",
+        "male": "jantan",
+        "provider": "Pembekal"
+      },
+      "filterVoices": "Tapis suara",
+      "loadingLabel": "Memuatkan Tetapan Suara Lalai",
+      "loadingTitle": "Tetapan Suara Lalai",
+      "noVoices": "Tiada suara yang sepadan dengan penapis ini.",
+      "saveError": "Tidak dapat menyimpan lalai suara",
+      "searchPlaceholder": "🔍 Cari suara…",
+      "searchVoices": "Cari suara",
+      "subtitle": "Suara yang digunakan oleh TTS Smart Fields anda melainkan medan menyematnya sendiri.",
+      "title": "Tetapan Suara Lalai"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "jenis nota lain",
+    "currentlySelectedCard": "Kad yang dipilih pada masa ini",
+    "emptyCard": "(kad kosong)",
+    "errors": {
+      "generateAudio": "Tidak dapat menjana audio",
+      "generateImage": "Tidak dapat menjana imej",
+      "saveResult": "Tidak dapat menyimpan hasil ini pada kad",
+      "testPrompt": "Tidak dapat menguji gesaan ini"
+    },
+    "fieldRunsOnNoteType": "Medan ini berjalan pada <noteTypeName>{{noteType}}</noteTypeName>",
+    "generatedImagePreview": "Pratonton imej yang dihasilkan",
+    "missingFieldsTitle_other": "Medan hilang",
+    "needsFields_other": "Memerlukan medan {{count}}",
+    "notesSelected_other": "Nota {{count}} dipilih — sempitkannya kepada satu.",
+    "pickCard": "Pilih kad dalam Pelayar Anki",
+    "promptPlaceholder": "Tulis gesaan ujian, merujuk medan pada kad anda dengan {{braces}}.",
+    "saveToCard": "Simpan ke kad",
+    "savedTo": "Disimpan ke {{field}}",
+    "selectCardWithFields_other": "Sila pilih kad dengan medan tersebut",
+    "selectFieldToReadAloud": "Pilih medan untuk dibaca dengan lantang",
+    "selectNewCard": "Pilih kad baharu dalam penyemak imbas",
+    "selectRequiredNoteType": "Sila pilih nota jenis <noteTypeName>{{noteType}}</noteTypeName>",
+    "selectedCard": "Kad yang dipilih",
+    "selectedDeck": "Dek terpilih",
+    "selectedNoteType": "Jenis nota yang dipilih",
+    "selectionAppearsAutomatically": "Pilihan anda muncul di sini secara automatik.",
+    "sent": "Dihantar",
+    "testing": "Menguji…",
+    "testResult": "Keputusan ujian",
+    "textToSpeak": "Teks untuk bercakap",
+    "viewResult": "Lihat hasil",
+    "wrongNoteType": "Jenis nota yang salah"
+  },
+  "subscription": {
+    "checking": "Menyemak langganan",
+    "creditTypes": {
+      "images": "Imej",
+      "text": "Teks",
+      "voice": "Suara"
+    },
+    "creditUsage": "Penggunaan Kredit",
+    "creditsReset": "Kredit ditetapkan semula",
+    "daysLeft_other": "{{count}} hari lagi",
+    "errors": {
+      "logout": "Tidak dapat log keluar"
+    },
+    "freePlan": "Pelan percuma",
+    "freeTrial": "Percubaan percuma",
+    "hero": {
+      "buyCredits": "Beli lebih banyak kredit",
+      "freeCreditsResetting": "Kredit percuma anda ditetapkan semula",
+      "freePlan": "Anda menggunakan pelan Percuma",
+      "noteLimit": "Anda telah mencapai had nota anda",
+      "outOfCredits": "Anda kehabisan kredit bulan ini",
+      "outOfFreeCredits": "Anda kehabisan kredit percuma bulan ini",
+      "outOfTrialCredits": "Anda kehabisan kredit percubaan",
+      "planExpired": "Pelan anda telah tamat tempoh",
+      "rollover": "Kredit bayar sambil anda pergi setiap bulan — milik anda selama-lamanya.",
+      "trialDaysLeft_other": "Tinggal {{count}} hari dalam percubaan anda",
+      "trialEnded": "Percubaan anda telah tamat",
+      "trialNoteLimit": "Anda telah mencapai had nota percubaan anda",
+      "upgradeCollection": "Naik taraf — keseluruhan koleksi anda, secara automatik",
+      "upgradeCredits": "Naik taraf untuk lebih banyak kredit",
+      "upgradePaid": "✨ Naik taraf kepada berbayar"
+    },
+    "inDays_other": "Dalam {{count}} hari",
+    "loading": "Memuatkan Langganan",
+    "loggingOut": "Log keluar…",
+    "logOut": "Log keluar",
+    "manageDescription": "Tukar pelan, kemas kini pembayaran atau batalkan.",
+    "manageOrUpgrade": "Urus atau naik taraf pelan",
+    "managePlan": "Urus rancangan",
+    "monthlyCreditsUsed": "daripada kredit bulanan yang digunakan",
+    "mostCreditsUsed": "Kebanyakan kredit bulan ini digunakan",
+    "noteLimitReached": "Had nota dicapai",
+    "notes": "Nota",
+    "notesUsed": "Nota yang digunakan",
+    "notesUsedValue": "{{used}}/{{limit}} digunakan",
+    "outOfCredits": "Habis kredit",
+    "pausedUntilReset": "Penjanaan dijeda sehingga kredit anda ditetapkan semula.",
+    "plan": "Rancang",
+    "planInactive": "Pelan tidak aktif",
+    "resetsIn": "Ditetapkan semula dalam",
+    "resetsInDays_other": "Ditetapkan semula dalam {{count}} hari",
+    "signedOut": {
+      "localStorage": "Medan dan tetapan pintar anda disimpan pada peranti ini.",
+      "manage": "Log masuk untuk mengurus rancangan anda",
+      "paused": "Penjanaan dijeda sehingga anda log masuk.",
+      "title": "Log keluar"
+    },
+    "title": "Akaun dan Penggunaan",
+    "trialCreditsUsed": "daripada kredit percubaan yang digunakan",
+    "trialEnded": "Percubaan tamat",
+    "trialEnds": "Percubaan berakhir",
+    "trialNoteLimitReached": "Had nota percubaan dicapai",
+    "upgradeToKeepGenerating": "Tingkatkan untuk terus menjana.",
+    "usage": "Penggunaan"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Tinggalkan ulasan / lihat dokumen.",
+    "byline": "oleh Michael Piazza / Rosebud Labs, LLC.",
+    "changelog": "Changelog",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "Cara terpantas untuk mendapatkan bantuan, meminta ciri atau melaporkan pepijat.",
+      "join": "Sertai",
+      "title": "Sertai Discord"
+    },
+    "emailUs": "Email kami",
+    "feedback": {
+      "description": "Sesuatu yang rosak atau salah? Hantar mesej terus kepada pembangun miskin.",
+      "send": "Hantarkan",
+      "title": "Hantar pepijat / minta ciri"
+    },
+    "github": "GitHub",
+    "loading": "Memuatkan Sokongan",
+    "title": "Sokongan"
+  },
+  "welcome": {
+    "alreadyAccount": "Sudah mempunyai akaun?",
+    "codePlaceholder": "Tampal kod anda",
+    "connect": "Sambung",
+    "connecting": "Menyambung…",
+    "description": "Tambahkan teks, pertuturan dan imej pada kad individu atau keseluruhan dek anda dalam satu klik.",
+    "errors": {
+      "code": "Tidak dapat menyambung dengan kod itu"
+    },
+    "finishDescription": "Log masuk lengkap dalam penyemak imbas yang kami buka. Tetingkap ini akan dikemas kini secara automatik.",
+    "finishInBrowser": "Selesaikan dalam penyemak imbas anda",
+    "haveCode": "Ada kod dari tapak web?",
+    "startTrial": "✨ Mulakan Percubaan Percuma ✨",
+    "trialDetails": "Percuma selama 7 hari · setiap ciri · tiada kad kredit"
+  },
+  "trialEnded": {
+    "description": "Percubaan berjalan 7 hari atau sehingga kredit percubaan anda habis.",
+    "features": {
+      "ariaLabel": "Apa yang disimpan oleh peningkatan",
+      "batch": "Kelompok merentas keseluruhan koleksi anda",
+      "images": "Penjanaan imej",
+      "premium": "Setiap model & suara premium",
+      "review": "Hasilkan semasa semakan"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Tawaran bulan percuma",
+      "description": "Tinggalkan ulasan AnkiWeb pantas, dapatkan sebulan percuma.",
+      "dialogDescription": "Tinggalkan ulasan pantas tentang AnkiWeb, kemudian e-mel kepada kami — kami akan menambah sebulan percuma Smart Notes ke akaun anda.",
+      "dialogTitle": "Dapatkan bulan percuma anda",
+      "leaveAnkiWebReview": "Tinggalkan ulasan tentang AnkiWeb",
+      "leaveReview": "Tinggalkan ulasan",
+      "title": "Dapatkan sebulan percuma sebanyak Smart Notes"
+    },
+    "thanks": "Terima kasih kerana menggunakan Smart Notes ✨",
+    "title": "Percubaan percuma anda telah tamat",
+    "upgradeNow": "Tingkatkan sekarang"
+  }
+}

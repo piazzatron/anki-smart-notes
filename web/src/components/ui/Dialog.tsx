@@ -20,6 +20,7 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
 import { forwardRef } from "react"
+import { useTranslation } from "react-i18next"
 
 import type { ComponentPropsWithoutRef, ElementRef } from "react"
 
@@ -31,24 +32,28 @@ export const DialogTrigger = DialogPrimitive.Trigger
 export const DialogContent = forwardRef<
   ElementRef<typeof DialogPrimitive.Content>,
   ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->(({ children, className = "", ...props }, ref) => (
-  <DialogPrimitive.Portal>
-    <DialogPrimitive.Overlay className="fixed inset-0 z-[70] bg-black/70 data-[state=closed]:animate-overlay-out data-[state=open]:animate-overlay-in" />
-    <DialogPrimitive.Content
-      className={`fixed top-1/2 left-1/2 z-[70] flex -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-xl border border-white/[0.12] bg-[#16161b] shadow-2xl shadow-black/70 outline-none data-[state=closed]:animate-dialog-out data-[state=open]:animate-dialog-in ${className}`}
-      ref={ref}
-      {...props}
-    >
-      {children}
-      <DialogPrimitive.Close
-        aria-label="Close"
-        className="absolute top-3.5 right-4 cursor-pointer text-zinc-500 transition hover:text-zinc-200"
+>(({ children, className = "", ...props }, ref) => {
+  const { t } = useTranslation()
+
+  return (
+    <DialogPrimitive.Portal>
+      <DialogPrimitive.Overlay className="fixed inset-0 z-[70] bg-black/70 data-[state=closed]:animate-overlay-out data-[state=open]:animate-overlay-in" />
+      <DialogPrimitive.Content
+        className={`fixed top-1/2 left-1/2 z-[70] flex -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-xl border border-white/[0.12] bg-[#16161b] shadow-2xl shadow-black/70 outline-none data-[state=closed]:animate-dialog-out data-[state=open]:animate-dialog-in ${className}`}
+        ref={ref}
+        {...props}
       >
-        <X aria-hidden className="size-4" />
-      </DialogPrimitive.Close>
-    </DialogPrimitive.Content>
-  </DialogPrimitive.Portal>
-))
+        {children}
+        <DialogPrimitive.Close
+          aria-label={t("common.close")}
+          className="absolute end-4 top-3.5 cursor-pointer text-zinc-500 transition hover:text-zinc-200"
+        >
+          <X aria-hidden className="size-4" />
+        </DialogPrimitive.Close>
+      </DialogPrimitive.Content>
+    </DialogPrimitive.Portal>
+  )
+})
 DialogContent.displayName = DialogPrimitive.Content.displayName
 
 // A dialog that takes the whole window rather than sitting in the middle of it: same

@@ -1,0 +1,499 @@
+{
+  "common": {
+    "allDecks": "Minden fedélzet",
+    "auto": "Auto",
+    "autoMax": "Auto MAX",
+    "back": "Vissza",
+    "bestValueCost": "Legjobb érték, 0,3× költség",
+    "cancel": "Mégse",
+    "close": "Közeli",
+    "connection": {
+      "connecting": "Csatlakozás az Anki-hoz…",
+      "reconnecting": "Újracsatlakozás az Anki-hoz…"
+    },
+    "days_one": "1 nap",
+    "days_other": "{{count}} nap",
+    "deck": "Fedélzet",
+    "default": "Alapértelmezett",
+    "delete": "Töröl",
+    "done": "Kész",
+    "duplicate": "Másolat",
+    "edit": "Szerkesztés",
+    "empty": "üres",
+    "field": "Mező",
+    "free": "Ingyenes",
+    "discardChanges": "A változtatások elvetése",
+    "discardUnsavedChanges": {
+      "description": "Az alapértelmezett beállítások módosításait nem mentette a rendszer.",
+      "title": "Elveti a nem mentett módosításokat?"
+    },
+    "dismissError": "Elvetési hiba",
+    "feedback": {
+      "description": "Hibajelentést, funkciókérést vagy egyéb visszajelzést küldhet a fejlesztőnek.",
+      "error": "Nem sikerült visszajelzést küldeni",
+      "label": "Visszacsatolás",
+      "placeholder": "Egy hiba, egy ötlet, bármi – egyenesen a fejlesztőhöz kerül.",
+      "send": "Elküld",
+      "sending": "Küldés…",
+      "sent": "Visszajelzés elküldve. Hamarosan felvesszük a kapcsolatot.",
+      "title": "Visszajelzés küldése"
+    },
+    "notNow": "Most nem",
+    "other": "Más",
+    "placeholderScreen": "Ez a képernyő a következő az átépítésben.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "Jelentkezzen be",
+    "signInLower": "Jelentkezzen be",
+    "unlimited": "Korlátlan",
+    "upgrade": "Frissítés",
+    "upgradeSparkles": "✨ Frissítés ✨",
+    "multiplierCost": "{{multiplier}}× költség",
+    "next": "Következő",
+    "noteType": "Megjegyzés típusa",
+    "optional": "választható",
+    "prompt": "Gyors",
+    "saving": "Megtakarítás…",
+    "test": "Teszt",
+    "validFields": "Érvényes mezők:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Visszacsatolás",
+    "nav": {
+      "defaultsImages": "Alapértelmezett képbeállítások",
+      "defaultsText": "Alapértelmezett szövegbeállítások",
+      "defaultsVoice": "Alapértelmezett hangbeállítások",
+      "image": "Kép",
+      "settings": "Beállítások elemre",
+      "smartFields": "Smart Fields",
+      "subscription": "Fiók és használat",
+      "support": "Támogatás",
+      "text": "Szöveg",
+      "voice": "Hang"
+    },
+    "sections": "Smart Notes szakaszok",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Részletes naplózás a problémák diagnosztizálásához. A hiba bejelentésekor vegye fel ezeket a naplókat.",
+      "label": "Hibakeresési mód"
+    },
+    "generateAtReview": {
+      "description": "Töltse ki automatikusan a hiányzó intelligens mezőket, amikor a kártyák megjelennek az ellenőrzés során.",
+      "label": "Az ellenőrzés során generáljon mezőket"
+    },
+    "language": {
+      "description": "Válassza ki az Smart Notes nyelvét, vagy egyeztesse az Anki nyelvével.",
+      "label": "Nyelv",
+      "matchAnki": "Egyezzen Anki"
+    },
+    "legacy": {
+      "apiKey": "OpenAI API kulcs",
+      "apiKeyRequired": "Fizetett OpenAI API-kulcs szükséges.",
+      "description": "Csatlakoztasson egy fizetős API-kulcsot, és válasszon egy régebbi OpenAI modellt.",
+      "getApiKey": "Szerezzen be egy API-kulcsot",
+      "host": "OpenAI gazdagép",
+      "hostDescription": "Adjon meg egy alternatív végpontot az OpenAI API-hoz.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "OpenAI modell",
+      "title": "Használja a saját OpenAI kulcsomat"
+    },
+    "loading": "Beállítások betöltése",
+    "regenerateWhenBatching": {
+      "description": "Egy jegyzetcsoport kötegelt feldolgozásakor minden intelligens mezőt a semmiből állítson elő újra, ahelyett, hogy csak az üreseket töltené ki.",
+      "label": "Kötegelt feldolgozás során generálja újra az összes intelligens mezőt"
+    },
+    "saveError": "Nem sikerült menteni a beállításokat",
+    "sections": {
+      "advanced": "Fejlett",
+      "general": "Általános",
+      "generation": "Generáció"
+    },
+    "title": "Beállítások elemre"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Már egy Smart Field ✨",
+    "collisionHint": "már rendelkezik Smart Field-val – válasszon másik mezőt, paklit vagy hangjegytípust",
+    "completion": {
+      "descriptionAfter": "A jegyzetek mindig kitöltődnek, amikor létrehozza.",
+      "descriptionBefore": "-on",
+      "methods": {
+        "bulk": {
+          "caption": "Válassza ki a hangjegyeket vagy a paklit → kattintson a jobb gombbal → ✨ Smart Fields generálása.",
+          "imageAlt": "Anki Böngésző helyi menüje az Smart Fields létrehozása kiemelve",
+          "title": "Tömegesen, a böngészőből"
+        },
+        "card": {
+          "caption": "Kattintson a ✨ gombra a szerkesztő eszköztárában, vagy írja be a ⌘⇧G parancsot.",
+          "imageAlt": "Anki szerkesztő eszköztár az Smart Notes gombbal",
+          "title": "Egyszerre egy kártya"
+        },
+        "field": {
+          "caption": "Kattintson a jobb gombbal bármelyik mezőre → Smart Field létrehozása.",
+          "imageAlt": "Anki mező helyi menüje az Smart Field létrehozása kiemelve",
+          "title": "Egyetlen mező"
+        }
+      },
+      "title": "Smart Field élő adásban van",
+      "waysToGenerate": "Néhány módszer a létrehozására:"
+    },
+    "created": "Smart Field létrehozva",
+    "dontShowAgain": "Ne jelenítse meg ezt újra",
+    "errors": {
+      "save": "Nem sikerült menteni az Smart Field fájlt",
+      "updateWizardSettings": "Nem sikerült frissíteni a varázsló beállításait",
+      "writePrompt": "Nem sikerült megírni a felszólítást"
+    },
+    "fieldTypes": {
+      "audio": "Hang",
+      "image": "Kép",
+      "text": "Szöveg"
+    },
+    "loadingModelCatalog": "Modellkatalógus betöltése…",
+    "modelSettings": {
+      "appliesOnlyToField": "Csak erre az Smart Field-ra vonatkozik.",
+      "defaultWithValue": "Alapértelmezett ({{value}})",
+      "defaultsImages": "Alapértelmezések › Képek",
+      "defaultsText": "Alapértelmezések › Szöveg",
+      "defaultsVoice": "Alapértelmezések › Hang",
+      "descriptionChat": "Állítsa be az AI-t, amely ezt a mezőt írja. A legtöbb mező maradhat az alapértelmezett.",
+      "descriptionImage": "Állítsa be az AI-t, amely ezt a mezőt rajzolja. A legtöbb mező maradhat az alapértelmezett.",
+      "descriptionTts": "Állítsa be a hangot, amely ezt a mezőt olvassa. A legtöbb mező maradhat az alapértelmezett.",
+      "imageDefault": "kép alapértelmezett",
+      "imageModel": "Képmodell",
+      "loadingVoices": "Hangok betöltése…",
+      "model": "Modell",
+      "pickCustom": "Válasszon egyéni modellt ehhez a mezőhöz",
+      "reasoning": "{{level}} érvelés",
+      "reasoningHint": "A magasabb érvelés javíthatja a keményebb generációkat, de több kreditet használ fel.",
+      "reasoningLevel": "Érvelési szint",
+      "sharedByEveryField": "Az {{modality}}-ját minden azt használó Smart Field megosztja. Cserélje ki",
+      "textDefault": "szöveg alapértelmezett",
+      "textModel": "Szöveges modell",
+      "useMy": "Használd az {{modality}}-mat",
+      "useWebSearch": "Ehhez a mezőhöz használja a webes keresést",
+      "voice": "Hang",
+      "voiceDefault": "hang alapértelmezett",
+      "webSearch": "Webes keresés",
+      "webSearchHint": "Hagyja, hogy ez a mező friss információkat használjon az internetről."
+    },
+    "save": "Mentse el az Smart Field-t",
+    "sections": {
+      "onWhichNotes": "Melyik jegyzeteken?",
+      "whatToGenerate": "Mit szeretnél generálni?",
+      "whichFieldToFill": "Melyik mezőt kell kitölteni?",
+      "whichFieldToSpeak": "Melyik területen kell beszélnie?"
+    },
+    "sourceField": "Forrás mező",
+    "targetAriaLabel": "Smart Field cél",
+    "testSmartField": "Tesztelje az Smart Field-ját",
+    "titles": {
+      "create": "Új Smart Field ✨",
+      "duplicate": "Smart Field másodpéldánya",
+      "edit": "Szerkessze Smart Field"
+    },
+    "validation": {
+      "chooseField": "Válasszon egy mezőt",
+      "chooseNoteType": "Válasszon jegyzettípust",
+      "chooseSourceField": "Válasszon egy forrásmezőt",
+      "fieldAlreadyHasSmartField": "Az {{field}}-nak már van Smart Field-ja",
+      "writePrompt": "Írjon felszólítást"
+    },
+    "writePrompt": "Írja fel a promptot",
+    "writePromptForMe": "Írd meg nekem a felszólításomat",
+    "writePromptForMeHint": "Mondja ki, amit akar, egyszerű angol nyelven – mi lent írjuk a felszólítást.",
+    "writePromptPlaceholder": "\"Fordítsd le természetes angolra...\"",
+    "writing": "Írás…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "Műveletek a következőhöz: {{field}}",
+    "addToNoteType": "Adja hozzá az Smart Field-t az {{noteType}}-hoz",
+    "disable": "Letiltás",
+    "deleting": "Törlés…",
+    "discord": {
+      "dismissAriaLabel": "Az Discord meghívó elvetése",
+      "join": "Csatlakozik",
+      "joinAriaLabel": "Csatlakozzon az Smart Notes Discord-hoz",
+      "subtitle": "— cserélje ki a promptokat és kérjen funkciókat.",
+      "title": "Gyere és köszönj az Discord-ban"
+    },
+    "editAriaLabel": "{{field}} Smart Field szerkesztése",
+    "emptyState": {
+      "description": "Adja hozzá az Smart Fields-t, hogy szöveget, hangot és képeket adjon a kártyákhoz.",
+      "exampleAnswer": "Helló",
+      "exampleField": "ELÜLSŐ",
+      "examplePrompt": "bonjour",
+      "spark": "✦",
+      "title": "A jegyzetei kissé üresnek tűnnek"
+    },
+    "enable": "Engedélyezés",
+    "errors": {
+      "commandFailed": "Az Smart Field parancs nem sikerült"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "Szöveg",
+      "image": "Kép",
+      "tts": "Hang"
+    },
+    "loadingAriaLabel": "Smart Fields betöltése",
+    "newSmartField": "Új Smart Field",
+    "readsAloud": "Hangosan felolvassa az {{field}}-t",
+    "review": {
+      "ariaLabel": "Tekintse át az Smart Notes-t az AnkiWeb-n",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "Ellenőrzési meghívó elvetése",
+      "subtitle": "Hagyjon értékelést a AnkiWeb-ról, hogy segítsen más Anki felhasználóknak megtalálni.",
+      "title": "Élvezed az Smart Notes-t?"
+    },
+    "subtitle": "Adjon hozzá automatikusan generált szöveget, hangot és képeket a jegyzeteihez.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "A chat-katalógusból hiányzik az {{model}} modell",
+      "missingImageModel": "A képkatalógusból hiányzik az {{model}} modell"
+    },
+    "image": {
+      "cannotFindModel": "A képkatalógusból hiányzik az {{model}} modell",
+      "defaultModel": "Alapértelmezett modell",
+      "gptImage15Low": "legjobb minőség / sebesség kompromisszum.",
+      "gptImage2": "ugyanaz a költség, lassabb, jobb minőség.",
+      "loadingLabel": "Az alapértelmezett képbeállítások betöltése",
+      "loadingTitle": "Alapértelmezett képbeállítások",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (alacsony / közepes)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Képmodell kiválasztása",
+      "samplePrompt": "Készítsen képet egy diákról, aki keményen tanul az Anki-val, és sikeresen teljesíti a teszteket.",
+      "saveError": "Nem sikerült menteni a kép alapértelmezett beállításait",
+      "subtitle": "Az Smart Fields kép által használt modell, hacsak egy mező nem rögzíti a sajátját.",
+      "title": "Alapértelmezett képbeállítások",
+      "zImageTurbo": "leggyorsabb és legolcsóbb."
+    },
+    "layout": {
+      "saveChanges": "Módosítások mentése",
+      "saving": "Megtakarítás…",
+      "tryIt": "Próbáld ki"
+    },
+    "text": {
+      "cannotInheritModel": "A szöveges alapértelmezések nem örökölhetnek másik modellt",
+      "defaultModel": "Alapértelmezett szövegmodell",
+      "defaultReasoningLevel": "Alapértelmezett érvelési szint",
+      "enableWebSearch": "Webes keresés engedélyezése",
+      "higherReasoning": "A magasabb érvelés javíthatja a keményebb generációkat, de több kreditet használ fel.",
+      "loadingLabel": "Alapértelmezett szövegbeállítások betöltése",
+      "loadingTitle": "Szöveggenerálási beállítások",
+      "modelGuidance": "Az {{auto}} és az {{autoMax}} az Smart Notes által ajánlott modellek, amelyek egyensúlyban tartják a teljesítményt és a költségeket. A normál feladatokhoz válassza az {{auto}} lehetőséget, és szükség esetén frissítsen {{autoMax}}-ra.",
+      "pickingModel": "💡 Modellválasztás",
+      "reasoningLevel": "Érvelési szint",
+      "reasoningValues": {
+        "high": "Magas",
+        "low": "Alacsony",
+        "off": "Le"
+      },
+      "samplePrompt": "Mi az a térközös ismétlési rendszer (SRS)?",
+      "saveError": "Nem sikerült menteni az alapértelmezett szöveges beállításokat",
+      "subtitle": "A szöveggenerálás alapértelmezett beállításai. Az egyes Smart Fields felülírhatja ezeket az értékeket.",
+      "title": "Szöveggenerálási beállítások",
+      "webSearch": "Webes keresés",
+      "webSearchDescription": "Hagyja, hogy a szöveges generációk friss információkat szerezzenek be az internetről.",
+      "webSearchWarning": "⚠️ A keresés drága; figyelje a hiteleit."
+    },
+    "usage": {
+      "fields_one": "Az {{count}} mezőre vonatkozik",
+      "fields_other": "Az {{count}} mezőkre vonatkozik"
+    },
+    "voice": {
+      "browseVoices": "Hangok böngészése ({{count}})",
+      "cannotLoad": "Nem sikerült betölteni a hangokat",
+      "currentDefault": "Jelenlegi alapértelmezett",
+      "filters": {
+        "all": "Minden",
+        "female": "Női",
+        "gender": "Nem",
+        "language": "Nyelv",
+        "male": "Férfi",
+        "provider": "Szolgáltató"
+      },
+      "filterVoices": "Hangok szűrése",
+      "loadingLabel": "Az alapértelmezett hangbeállítások betöltése",
+      "loadingTitle": "Alapértelmezett hangbeállítások",
+      "noVoices": "Egyetlen hang sem felel meg ezeknek a szűrőknek.",
+      "saveError": "Nem sikerült menteni az alapértelmezett hangbeállításokat",
+      "searchPlaceholder": "🔍 Hangok keresése…",
+      "searchVoices": "Hangok keresése",
+      "subtitle": "A hang, amelyet a TTS Smart Fields használ, hacsak egy mező nem rögzíti a sajátját.",
+      "title": "Alapértelmezett hangbeállítások"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "egy másik hangjegytípus",
+    "currentlySelectedCard": "Jelenleg kiválasztott kártya",
+    "emptyCard": "(üres kártya)",
+    "errors": {
+      "generateAudio": "Nem sikerült hangot generálni",
+      "generateImage": "Nem sikerült képet létrehozni",
+      "saveResult": "Ezt az eredményt nem sikerült menteni a kártyára",
+      "testPrompt": "Nem sikerült tesztelni ezt a prompt"
+    },
+    "fieldRunsOnNoteType": "Ez a mező a <noteTypeName>{{noteType}}</noteTypeName> típuson fut",
+    "generatedImagePreview": "Létrehozott kép előnézet",
+    "missingFieldsTitle_one": "Hiányzó mező",
+    "missingFieldsTitle_other": "Hiányzó mezők",
+    "needsFields_one": "{{count}} mező szükséges",
+    "needsFields_other": "{{count}} mezőket igényel",
+    "notesSelected_one": "{{count}} jegyzet kiválasztva – szűkítse egyre.",
+    "notesSelected_other": "{{count}} jegyzetek kijelölve – szűkítse egyre.",
+    "pickCard": "Válasszon egy kártyát az Anki böngészőben",
+    "promptPlaceholder": "Írjon egy tesztkérdést, hivatkozva a mezőkre az {{braces}}-val.",
+    "saveToCard": "Mentés kártyára",
+    "savedTo": "Mentve az {{field}}-ba",
+    "selectCardWithFields_one": "Kérjük, válasszon egy kártyát a mezővel",
+    "selectCardWithFields_other": "Kérjük, válasszon egy kártyát a mezőkkel",
+    "selectFieldToReadAloud": "Válasszon ki egy mezőt a felolvasáshoz",
+    "selectNewCard": "Válasszon új kártyát a böngészőben",
+    "selectRequiredNoteType": "Kérjük, válasszon egy jegyzetet a <noteTypeName>{{noteType}}</noteTypeName> típusból",
+    "selectedCard": "Kiválasztott kártya",
+    "selectedDeck": "Kiválasztott fedélzet",
+    "selectedNoteType": "Kiválasztott jegyzettípus",
+    "selectionAppearsAutomatically": "Kiválasztása automatikusan megjelenik itt.",
+    "sent": "Küldött",
+    "testing": "Tesztelés…",
+    "testResult": "Teszt eredménye",
+    "textToSpeak": "Szöveg a beszédhez",
+    "viewResult": "Eredmény megtekintése",
+    "wrongNoteType": "Hibás jegyzettípus"
+  },
+  "subscription": {
+    "checking": "Az előfizetés ellenőrzése",
+    "creditTypes": {
+      "images": "Képek",
+      "text": "Szöveg",
+      "voice": "Hang"
+    },
+    "creditUsage": "Hitelhasználat",
+    "creditsReset": "A kreditek visszaállítása",
+    "daysLeft_one": "Utolsó nap",
+    "daysLeft_other": "{{count}} nap van hátra",
+    "errors": {
+      "logout": "Nem sikerült kijelentkezni"
+    },
+    "freePlan": "Ingyenes terv",
+    "freeTrial": "Ingyenes próbaverzió",
+    "hero": {
+      "buyCredits": "Vásároljon több kreditet",
+      "freeCreditsResetting": "Ingyenes kreditjei visszaállítás alatt állnak",
+      "freePlan": "Ön az ingyenes csomagban van",
+      "noteLimit": "Elérte a jegyzetek korlátját",
+      "outOfCredits": "Ebben a hónapban elfogyott a kreditje",
+      "outOfFreeCredits": "Ebben a hónapban elfogy az ingyenes kredit",
+      "outOfTrialCredits": "Kifogyott a próbaidőszakból",
+      "planExpired": "Tervje lejárt",
+      "rollover": "A felosztó-kirovó jóváírások minden hónapban áthaladnak – örökre a tiéd.",
+      "trialDaysLeft_one": "A próbaidő ma véget ér",
+      "trialDaysLeft_other": "{{count}} nap van hátra a próbaidőszakból",
+      "trialEnded": "A próbaidőszak véget ért",
+      "trialNoteLimit": "Elérte a próbajegyzetek korlátját",
+      "upgradeCollection": "Frissítés – a teljes gyűjtemény, automatikusan",
+      "upgradeCredits": "Frissítsen több kreditért",
+      "upgradePaid": "✨ Frissítés fizetősre"
+    },
+    "inDays_one": "Ma",
+    "inDays_other": "{{count}} napokban",
+    "loading": "Előfizetés betöltése",
+    "loggingOut": "Kijelentkezés…",
+    "logOut": "Jelentkezzen ki",
+    "manageDescription": "Terv módosítása, fizetés frissítése vagy lemondás.",
+    "manageOrUpgrade": "Terv kezelése vagy frissítése",
+    "managePlan": "Terv kezelése",
+    "monthlyCreditsUsed": "a felhasznált havi kreditekből",
+    "mostCreditsUsed": "Az e havi kreditek nagy részét felhasználták",
+    "noteLimitReached": "Elérte a jegyzetkorlátot",
+    "notes": "Megjegyzések",
+    "notesUsed": "Felhasznált jegyzetek",
+    "notesUsedValue": "{{used}}/{{limit}} használt",
+    "outOfCredits": "Elfogyott a kredit",
+    "pausedUntilReset": "A generálás szünetel a kreditek visszaállításáig.",
+    "plan": "Terv",
+    "planInactive": "Terv inaktív",
+    "resetsIn": "Visszaállítja",
+    "resetsInDays_one": "1 nap alatt visszaáll",
+    "resetsInDays_other": "{{count}} napon belül visszaáll",
+    "signedOut": {
+      "localStorage": "Intelligens mezőit és beállításait a rendszer ezen az eszközön tárolja.",
+      "manage": "Jelentkezzen be a terv kezeléséhez",
+      "paused": "A generálás szünetel, amíg be nem jelentkezik.",
+      "title": "Kijelentkezve"
+    },
+    "title": "Fiók és használat",
+    "trialCreditsUsed": "a felhasznált próbakreditekből",
+    "trialEnded": "A tárgyalás véget ért",
+    "trialEnds": "A tárgyalás véget ér",
+    "trialNoteLimitReached": "Elérte a próbajegyzetek korlátját",
+    "upgradeToKeepGenerating": "Frissítsen a generálás folytatásához.",
+    "usage": "Használat"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Írjon véleményt / nézze meg a dokumentumokat.",
+    "byline": "szerző: Michael Piazza / Rosebud Labs, LLC.",
+    "changelog": "Változásnapló",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "A leggyorsabb módja annak, hogy segítséget kérjen, funkciót kérjen vagy hibajelentést tegyen.",
+      "join": "Csatlakozik",
+      "title": "Csatlakozzon az Discord-hoz"
+    },
+    "emailUs": "Írjon nekünk e-mailt",
+    "feedback": {
+      "description": "Valami elromlott vagy rossz? Írjon közvetlenül a szegény fejlesztőnek.",
+      "send": "Küldd el",
+      "title": "Hiba beküldése / funkció kérése"
+    },
+    "github": "GitHub",
+    "loading": "Támogatás betöltése",
+    "title": "Támogatás"
+  },
+  "welcome": {
+    "alreadyAccount": "Már van fiókja?",
+    "codePlaceholder": "Illessze be a kódot",
+    "connect": "Csatlakozás",
+    "connecting": "Csatlakozás…",
+    "description": "Adjon hozzá szöveget, beszédet és képeket az egyes kártyákhoz vagy a teljes paklihoz egyetlen kattintással.",
+    "errors": {
+      "code": "Nem sikerült csatlakozni ehhez a kódhoz"
+    },
+    "finishDescription": "Fejezze be a bejelentkezést a megnyitott böngészőben. Ez az ablak automatikusan frissül.",
+    "finishInBrowser": "Fejezze be a böngészőben",
+    "haveCode": "Van kódja a webhelyről?",
+    "startTrial": "✨ Indítsa el az ingyenes próbaverziót ✨",
+    "trialDetails": "7 napig ingyenes · minden funkció · hitelkártya nélkül"
+  },
+  "trialEnded": {
+    "description": "A próbaverziók 7 napig tartanak, vagy amíg el nem fogynak a próbaidőszak.",
+    "features": {
+      "ariaLabel": "Amit a frissítés megtart",
+      "batch": "Kötegelje a teljes gyűjteményt",
+      "images": "Képgenerálás",
+      "premium": "Minden prémium modell és hang",
+      "review": "Létrehozás a felülvizsgálat során"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Ingyenes havi ajánlat",
+      "description": "Írjon egy gyors AnkiWeb-értékelést, és egy hónapot mi állunk rendelkezésére.",
+      "dialogDescription": "Hagyjon rövid áttekintést az AnkiWeb-ról, majd írjon nekünk e-mailt – egy hónapnyi ingyenes Smart Notes-t adunk fiókjához.",
+      "dialogTitle": "Szerezze meg ingyenes hónapját",
+      "leaveAnkiWebReview": "Írjon véleményt az AnkiWeb-ról",
+      "leaveReview": "Hagyjon véleményt",
+      "title": "Kap egy hónap ingyenes Smart Notes-t"
+    },
+    "thanks": "Köszönjük, hogy az Smart Notes-t használja ✨",
+    "title": "Az ingyenes próbaidőszak véget ért",
+    "upgradeNow": "Frissítsen most"
+  }
+}

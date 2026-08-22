@@ -1,0 +1,499 @@
+{
+  "common": {
+    "allDecks": "Kaikki kannet",
+    "auto": "Auto",
+    "autoMax": "Auto MAX",
+    "back": "Takaisin",
+    "bestValueCost": "Paras hinta-laatusuhde, 0,3× hinta",
+    "cancel": "Peruuttaa",
+    "close": "Lähellä",
+    "connection": {
+      "connecting": "Yhdistetään Anki:ään…",
+      "reconnecting": "Yhdistetään uudelleen Anki:ään…"
+    },
+    "days_one": "1 päivä",
+    "days_other": "{{count}} päivää",
+    "deck": "Kansi",
+    "default": "Oletus",
+    "delete": "Poistaa",
+    "done": "Tehty",
+    "duplicate": "Kopioi",
+    "edit": "Muokata",
+    "empty": "tyhjä",
+    "field": "Ala",
+    "free": "Ilmainen",
+    "discardChanges": "Hylkää muutokset",
+    "discardUnsavedChanges": {
+      "description": "Muutoksiasi näihin oletusasetuksiin ei ole tallennettu.",
+      "title": "Hylätäänkö tallentamattomat muutokset?"
+    },
+    "dismissError": "Hylkää virhe",
+    "feedback": {
+      "description": "Lähetä virheraportti, ominaisuuspyyntö tai muu palaute kehittäjälle.",
+      "error": "Palautetta ei voitu lähettää",
+      "label": "Palaute",
+      "placeholder": "Virhe, idea, mikä tahansa – se menee suoraan kehittäjälle.",
+      "send": "Lähetä",
+      "sending": "Lähetetään…",
+      "sent": "Palaute lähetetty. Otamme pian yhteyttä.",
+      "title": "Lähetä palautetta"
+    },
+    "notNow": "Ei nyt",
+    "other": "Muut",
+    "placeholderScreen": "Tämä näyttö on seuraavaksi uudistuksessa.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "Kirjaudu sisään",
+    "signInLower": "Kirjaudu sisään",
+    "unlimited": "Rajoittamaton",
+    "upgrade": "Päivitä",
+    "upgradeSparkles": "✨ Päivitä ✨",
+    "multiplierCost": "{{multiplier}}× hinta",
+    "next": "Seuraavaksi",
+    "noteType": "Huomautus tyyppi",
+    "optional": "valinnainen",
+    "prompt": "Kehote",
+    "saving": "Tallennetaan…",
+    "test": "Testata",
+    "validFields": "Kelvolliset kentät:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Palaute",
+    "nav": {
+      "defaultsImages": "Kuvan oletusasetukset",
+      "defaultsText": "Tekstin oletusasetukset",
+      "defaultsVoice": "Äänen oletusasetukset",
+      "image": "Kuva",
+      "settings": "Asetukset",
+      "smartFields": "Smart Fields",
+      "subscription": "Tili ja käyttö",
+      "support": "Tukea",
+      "text": "Teksti",
+      "voice": "Ääni"
+    },
+    "sections": "Smart Notes osat",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Monisanainen lokikirjaus ongelmien diagnosoimiseksi. Sisällytä nämä lokit, kun ilmoitat virheestä.",
+      "label": "Virheenkorjaustila"
+    },
+    "generateAtReview": {
+      "description": "Täytä puuttuvat älykkäät kentät automaattisesti korttien tarkistuksen yhteydessä.",
+      "label": "Luo kenttiä tarkistuksen aikana"
+    },
+    "language": {
+      "description": "Valitse Smart Notes:n kieli tai vastaa Anki:n kieleen.",
+      "label": "Kieli",
+      "matchAnki": "Vastaa Anki"
+    },
+    "legacy": {
+      "apiKey": "OpenAI API-avain",
+      "apiKeyRequired": "Maksettu OpenAI API-avain vaaditaan.",
+      "description": "Yhdistä maksettu API-avain ja valitse vanha OpenAI-malli.",
+      "getApiKey": "Hanki API-avain",
+      "host": "OpenAI isäntä",
+      "hostDescription": "Anna vaihtoehtoinen päätepiste OpenAI API:lle.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "OpenAI malli",
+      "title": "Käytä omaa OpenAI-avainta"
+    },
+    "loading": "Ladataan asetuksia",
+    "regenerateWhenBatching": {
+      "description": "Kun käsittelet erää muistiinpanoryhmää, luo kaikki älykkäät kentät uudelleen tyhjästä sen sijaan, että täytät vain tyhjiä.",
+      "label": "Luo kaikki älykkäät kentät uudelleen eräkäsittelyn aikana"
+    },
+    "saveError": "Asetuksia ei voitu tallentaa",
+    "sections": {
+      "advanced": "Edistynyt",
+      "general": "Kenraali",
+      "generation": "Sukupolvi"
+    },
+    "title": "Asetukset"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Jo Smart Field ✨",
+    "collisionHint": "sinulla on jo Smart Field – valitse eri kenttä-, dekki- tai nuottityyppi",
+    "completion": {
+      "descriptionAfter": "muistiinpanot täyttyvät aina, kun luot sen.",
+      "descriptionBefore": "päällä",
+      "methods": {
+        "bulk": {
+          "caption": "Valitse nuotit tai dekki → napsauta hiiren kakkospainikkeella → ✨ Luo Smart Fields.",
+          "imageAlt": "Anki Selaimen kontekstivalikko, jossa Luo Smart Fields on korostettuna",
+          "title": "Irtotavarana selaimesta"
+        },
+        "card": {
+          "caption": "Napsauta ✨-painiketta editorin työkalupalkissa tai kirjoita ⌘⇧G.",
+          "imageAlt": "Anki-editorin työkalupalkki, jossa Smart Notes-painike on korostettuna",
+          "title": "Kortti kerrallaan"
+        },
+        "field": {
+          "caption": "Napsauta hiiren kakkospainikkeella mitä tahansa kenttää → Luo Smart Field.",
+          "imageAlt": "Anki-kentän kontekstivalikko, jossa Generate Smart Field on korostettuna",
+          "title": "Yksi kenttä"
+        }
+      },
+      "title": "Smart Field on live-tilassa",
+      "waysToGenerate": "Muutama tapa luoda se:"
+    },
+    "created": "Smart Field luotu",
+    "dontShowAgain": "Älä näytä tätä uudelleen",
+    "errors": {
+      "save": "Smart Field:n tallentaminen epäonnistui",
+      "updateWizardSettings": "Ohjatun toiminnon asetuksia ei voitu päivittää",
+      "writePrompt": "Kehotteen kirjoittaminen ei onnistunut"
+    },
+    "fieldTypes": {
+      "audio": "Audio",
+      "image": "Kuva",
+      "text": "Teksti"
+    },
+    "loadingModelCatalog": "Ladataan malliluetteloa…",
+    "modelSettings": {
+      "appliesOnlyToField": "Koskee vain tätä Smart Field.",
+      "defaultWithValue": "Oletus ({{value}})",
+      "defaultsImages": "Oletusasetukset › Kuvat",
+      "defaultsText": "Oletusasetukset › Teksti",
+      "defaultsVoice": "Oletusasetukset › Voice",
+      "descriptionChat": "Aseta tekoäly, joka kirjoittaa tämän kentän. Useimmat kentät voivat pysyä oletusasetuksissa.",
+      "descriptionImage": "Aseta tekoäly, joka piirtää tämän kentän. Useimmat kentät voivat pysyä oletusasetuksissa.",
+      "descriptionTts": "Aseta ääni, joka lukee tämän kentän. Useimmat kentät voivat pysyä oletusasetuksissa.",
+      "imageDefault": "kuvan oletusarvo",
+      "imageModel": "Kuvan malli",
+      "loadingVoices": "Ladataan ääniä…",
+      "model": "Malli",
+      "pickCustom": "Valitse mukautettu malli tälle kentälle",
+      "reasoning": "{{level}} perustelut",
+      "reasoningHint": "Korkeampi päättely voi parantaa kovempia sukupolvia, mutta käyttää enemmän krediittejä.",
+      "reasoningLevel": "Päättelyn taso",
+      "sharedByEveryField": "{{modality}} jaetaan kaikkien sitä käyttävien Smart Field-laitteiden kanssa. Vaihda se sisään",
+      "textDefault": "teksti oletusarvo",
+      "textModel": "Teksti malli",
+      "useMy": "Käytä {{modality}}:täni",
+      "useWebSearch": "Käytä tähän kenttään verkkohakua",
+      "voice": "Ääni",
+      "voiceDefault": "äänen oletusarvo",
+      "webSearch": "Verkkohaku",
+      "webSearchHint": "Anna tämän kentän käyttää tuoretta tietoa verkosta."
+    },
+    "save": "Tallenna Smart Field",
+    "sections": {
+      "onWhichNotes": "Millä muistiinpanoilla?",
+      "whatToGenerate": "Mitä haluat tuottaa?",
+      "whichFieldToFill": "Mikä kenttä sen tulisi täyttää?",
+      "whichFieldToSpeak": "Millä alalla sen pitäisi puhua?"
+    },
+    "sourceField": "Lähdekenttä",
+    "targetAriaLabel": "Smart Field kohde",
+    "testSmartField": "Testaa Smart Field",
+    "titles": {
+      "create": "Uusi Smart Field ✨",
+      "duplicate": "Kopio Smart Field",
+      "edit": "Muokkaa Smart Field"
+    },
+    "validation": {
+      "chooseField": "Valitse kenttä",
+      "chooseNoteType": "Valitse muistiinpanon tyyppi",
+      "chooseSourceField": "Valitse lähdekenttä",
+      "fieldAlreadyHasSmartField": "{{field}}:llä on jo Smart Field",
+      "writePrompt": "Kirjoita kehote"
+    },
+    "writePrompt": "Kirjoita kehote",
+    "writePromptForMe": "Kirjoita kehotukseni puolestani",
+    "writePromptForMeHint": "Sano mitä haluat englanniksi – kirjoitamme kehotteen alle.",
+    "writePromptPlaceholder": "\"Käännä luonnolliseksi englanniksi...\"",
+    "writing": "Kirjoittaminen…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "{{field}}:n toiminnot",
+    "addToNoteType": "Lisää Smart Field kohtaan {{noteType}}",
+    "disable": "Poista käytöstä",
+    "deleting": "Poistetaan…",
+    "discord": {
+      "dismissAriaLabel": "Hylkää Discord-kutsu",
+      "join": "Liity",
+      "joinAriaLabel": "Liity Smart Notes Discord:n joukkoon",
+      "subtitle": "— Vaihda kehotteita ja pyydä ominaisuuksia.",
+      "title": "Tule tervehtimään Discord:ssä"
+    },
+    "editAriaLabel": "Muokkaa {{field}} Smart Field",
+    "emptyState": {
+      "description": "Lisää Smart Fields lisätäksesi tekstiä, ääntä ja kuvia kortteihisi.",
+      "exampleAnswer": "Hei",
+      "exampleField": "ETU",
+      "examplePrompt": "bonjour",
+      "spark": "✦",
+      "title": "Muistiinpanosi näyttävät hieman tyhjiltä"
+    },
+    "enable": "Ota käyttöön",
+    "errors": {
+      "commandFailed": "Smart Field-komento epäonnistui"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "Teksti",
+      "image": "Kuva",
+      "tts": "Audio"
+    },
+    "loadingAriaLabel": "Ladataan Smart Fields",
+    "newSmartField": "Uusi Smart Field",
+    "readsAloud": "Lukee {{field}} ääneen",
+    "review": {
+      "ariaLabel": "Tarkista Smart Notes AnkiWeb:ssä",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "Hylkää tarkistuskutsu",
+      "subtitle": "Jätä arvostelu tuotteesta AnkiWeb ja auta muita Anki käyttäjiä löytämään se.",
+      "title": "Pidätkö Smart Notes:stä?"
+    },
+    "subtitle": "Lisää muistiinpanoihisi automaattisesti luotua tekstiä, ääntä ja kuvia.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "Chat-luettelosta puuttuu malli {{model}}",
+      "missingImageModel": "Kuvaluettelosta puuttuu malli {{model}}"
+    },
+    "image": {
+      "cannotFindModel": "Kuvaluettelosta puuttuu malli {{model}}",
+      "defaultModel": "Oletusmalli",
+      "gptImage15Low": "paras laatu/nopeus kompromissi.",
+      "gptImage2": "sama hinta, hitaampi, korkeampi laatu.",
+      "loadingLabel": "Ladataan oletuskuvaasetuksia",
+      "loadingTitle": "Kuvan oletusasetukset",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Kuvamallin valinta",
+      "samplePrompt": "Luo kuva opiskelijasta, joka opiskelee ahkerasti Anki:n kanssa ja läpäisee kokeensa.",
+      "saveError": "Kuvan oletusasetuksia ei voitu tallentaa",
+      "subtitle": "Smart Fields-kuvasi käyttämä malli, ellei kenttä ole nastalla omaa.",
+      "title": "Kuvan oletusasetukset",
+      "zImageTurbo": "nopein ja halvin."
+    },
+    "layout": {
+      "saveChanges": "Tallenna muutokset",
+      "saving": "Tallennetaan…",
+      "tryIt": "Kokeile sitä"
+    },
+    "text": {
+      "cannotInheritModel": "Tekstin oletusasetukset eivät voi periä toista mallia",
+      "defaultModel": "Oletustekstimalli",
+      "defaultReasoningLevel": "Oletusarvostelutaso",
+      "enableWebSearch": "Ota verkkohaku käyttöön",
+      "higherReasoning": "Korkeampi päättely voi parantaa kovempia sukupolvia, mutta käyttää enemmän krediittejä.",
+      "loadingLabel": "Ladataan tekstin oletusasetuksia",
+      "loadingTitle": "Tekstin luontiasetukset",
+      "modelGuidance": "{{auto}} ja {{autoMax}} ovat Smart Notes:n suosittelemia malleja, jotka tasapainottavat suorituskykyä ja kustannuksia. Valitse tavallisille tehtäville {{auto}} ja päivitä {{autoMax}}-versioon tarvittaessa.",
+      "pickingModel": "💡 Mallin valinta",
+      "reasoningLevel": "Päättelyn taso",
+      "reasoningValues": {
+        "high": "Korkea",
+        "low": "Matala",
+        "off": "Pois"
+      },
+      "samplePrompt": "Mikä on jaksotettu toistojärjestelmä (SRS)?",
+      "saveError": "Tekstin oletusasetuksia ei voitu tallentaa",
+      "subtitle": "Tekstin luomisen oletusasetukset. Yksittäinen Smart Fields voi ohittaa nämä arvot.",
+      "title": "Tekstin luontiasetukset",
+      "webSearch": "Verkkohaku",
+      "webSearchDescription": "Anna tekstisukupolvien hakea uutta tietoa verkosta.",
+      "webSearchWarning": "⚠️ Haku on kallista; valvoa luottotietojasi."
+    },
+    "usage": {
+      "fields_one": "Koskee {{count}}-kenttää",
+      "fields_other": "Koskee {{count}}-kenttiä"
+    },
+    "voice": {
+      "browseVoices": "Selaa ääniä ({{count}})",
+      "cannotLoad": "Ääniä ei voitu ladata",
+      "currentDefault": "Nykyinen oletus",
+      "filters": {
+        "all": "Kaikki",
+        "female": "Naaras",
+        "gender": "Sukupuoli",
+        "language": "Kieli",
+        "male": "Uros",
+        "provider": "Palveluntarjoaja"
+      },
+      "filterVoices": "Suodata äänet",
+      "loadingLabel": "Ladataan oletusääniasetuksia",
+      "loadingTitle": "Äänen oletusasetukset",
+      "noVoices": "Yksikään ääni ei vastaa näitä suodattimia.",
+      "saveError": "Äänen oletusasetuksia ei voitu tallentaa",
+      "searchPlaceholder": "🔍 Hae ääniä…",
+      "searchVoices": "Etsi ääniä",
+      "subtitle": "Ääni, jota TTS Smart Fields käyttää, ellei kenttä liitä omaansa.",
+      "title": "Äänen oletusasetukset"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "toinen muistiinpanotyyppi",
+    "currentlySelectedCard": "Tällä hetkellä valittu kortti",
+    "emptyCard": "(tyhjä kortti)",
+    "errors": {
+      "generateAudio": "Ääntä ei voitu luoda",
+      "generateImage": "Kuvaa ei voitu luoda",
+      "saveResult": "Tulosta ei voitu tallentaa kortille",
+      "testPrompt": "Tätä kehotetta ei voitu testata"
+    },
+    "fieldRunsOnNoteType": "Tämä kenttä toimii muistiinpanotyypissä <noteTypeName>{{noteType}}</noteTypeName>",
+    "generatedImagePreview": "Luotu kuvan esikatselu",
+    "missingFieldsTitle_one": "Puuttuva kenttä",
+    "missingFieldsTitle_other": "Puuttuvat kentät",
+    "needsFields_one": "Tarvitsee {{count}}-kentän",
+    "needsFields_other": "Tarvitsee {{count}}-kentät",
+    "notesSelected_one": "{{count}} muistiinpano valittu – rajaa se yhteen.",
+    "notesSelected_other": "{{count}} muistiinpanot valittu – rajaa se yhteen.",
+    "pickCard": "Valitse kortti Anki-selaimesta",
+    "promptPlaceholder": "Kirjoita {{braces}}-kortillesi testikehote, jossa viitataan kenttiin.",
+    "saveToCard": "Tallenna kortille",
+    "savedTo": "Tallennettu tiedostoon {{field}}",
+    "selectCardWithFields_one": "Valitse kortti, jossa on kenttä",
+    "selectCardWithFields_other": "Valitse kortti, jossa on kentät",
+    "selectFieldToReadAloud": "Valitse ääneen luettava kenttä",
+    "selectNewCard": "Valitse uusi kortti selaimesta",
+    "selectRequiredNoteType": "Valitse muistiinpano tyypistä <noteTypeName>{{noteType}}</noteTypeName>",
+    "selectedCard": "Valittu kortti",
+    "selectedDeck": "Valittu kansi",
+    "selectedNoteType": "Valittu muistiinpanotyyppi",
+    "selectionAppearsAutomatically": "Valintasi näkyy täällä automaattisesti.",
+    "sent": "Lähetetty",
+    "testing": "Testaus…",
+    "testResult": "Testitulos",
+    "textToSpeak": "Teksti puhuttavaksi",
+    "viewResult": "Näytä tulos",
+    "wrongNoteType": "Väärä muistiinpanotyyppi"
+  },
+  "subscription": {
+    "checking": "Tarkistetaan tilausta",
+    "creditTypes": {
+      "images": "Kuvat",
+      "text": "Teksti",
+      "voice": "Ääni"
+    },
+    "creditUsage": "Luoton käyttö",
+    "creditsReset": "Krediitit nollattu",
+    "daysLeft_one": "Viimeinen päivä",
+    "daysLeft_other": "{{count}} päivää jäljellä",
+    "errors": {
+      "logout": "Ei voitu kirjautua ulos"
+    },
+    "freePlan": "Ilmainen suunnitelma",
+    "freeTrial": "Ilmainen kokeilu",
+    "hero": {
+      "buyCredits": "Osta lisää krediittejä",
+      "freeCreditsResetting": "Ilmaiset saldosi nollataan",
+      "freePlan": "Olet ilmaisessa paketissa",
+      "noteLimit": "Olet saavuttanut muistiinpanojen rajan",
+      "outOfCredits": "Sinulla ei ole luottoja tässä kuussa",
+      "outOfFreeCredits": "Ilmaiset luottosi ovat loppuneet tässä kuussa",
+      "outOfTrialCredits": "Kokeilupisteesi loppuvat",
+      "planExpired": "Suunnitelmasi on vanhentunut",
+      "rollover": "Jatkuvasti käytettävissä olevat hyvitykset jatkuvat joka kuukausi – sinun ikuisesti.",
+      "trialDaysLeft_one": "Kokeilujaksosi päättyy tänään",
+      "trialDaysLeft_other": "{{count}} päivää kokeilujaksoa jäljellä",
+      "trialEnded": "Kokeilujaksosi on päättynyt",
+      "trialNoteLimit": "Olet saavuttanut kokeilun muistiinpanojen rajan",
+      "upgradeCollection": "Päivitä – koko kokoelmasi automaattisesti",
+      "upgradeCredits": "Päivitä saadaksesi lisää krediittejä",
+      "upgradePaid": "✨ Päivitä maksulliseen"
+    },
+    "inDays_one": "Tänään",
+    "inDays_other": "{{count}} päivässä",
+    "loading": "Ladataan tilausta",
+    "loggingOut": "Kirjaudutaan ulos…",
+    "logOut": "Kirjaudu ulos",
+    "manageDescription": "Muuta suunnitelmaa, päivitä maksu tai peruuta.",
+    "manageOrUpgrade": "Hallinnoi tai päivitä suunnitelmaa",
+    "managePlan": "Hallinnoi suunnitelmaa",
+    "monthlyCreditsUsed": "käytetyistä kuukausittaisista luotoista",
+    "mostCreditsUsed": "Suurin osa tämän kuun luottoista on käytetty",
+    "noteLimitReached": "Huomautusraja saavutettu",
+    "notes": "Huomautuksia",
+    "notesUsed": "Käytetty muistiinpano",
+    "notesUsedValue": "{{used}}/{{limit}} käytetty",
+    "outOfCredits": "Krediitit loppu",
+    "pausedUntilReset": "Luonti on keskeytetty, kunnes saldosi nollataan.",
+    "plan": "Suunnitelma",
+    "planInactive": "Suunnitelma ei ole aktiivinen",
+    "resetsIn": "Nollautuu sisään",
+    "resetsInDays_one": "Nollautuu 1 päivässä",
+    "resetsInDays_other": "Nollautuu {{count}} päivässä",
+    "signedOut": {
+      "localStorage": "Älykkäät kentäsi ja asetuksesi tallennetaan tälle laitteelle.",
+      "manage": "Kirjaudu sisään hallitaksesi suunnitelmaasi",
+      "paused": "Luonti on keskeytetty, kunnes kirjaudut sisään.",
+      "title": "Kirjautunut ulos"
+    },
+    "title": "Tili ja käyttö",
+    "trialCreditsUsed": "käytetyistä kokeilupisteistä",
+    "trialEnded": "Oikeudenkäynti päättyi",
+    "trialEnds": "Oikeudenkäynti päättyy",
+    "trialNoteLimitReached": "Kokeilumuistiinpanojen raja saavutettu",
+    "upgradeToKeepGenerating": "Päivitä jatkaaksesi luomista.",
+    "usage": "Käyttö"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Jätä arvostelu / katso asiakirjoja.",
+    "byline": "Kirjailija: Michael Piazza / Rosebud Labs, LLC.",
+    "changelog": "Muutosloki",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "Nopein tapa saada apua, pyytää ominaisuutta tai ilmoittaa virheestä.",
+      "join": "Liity",
+      "title": "Liity Discord:ään"
+    },
+    "emailUs": "Lähetä meille sähköpostia",
+    "feedback": {
+      "description": "Jotain rikki tai vialla? Viesti suoraan huonolle kehittäjälle.",
+      "send": "Lähetä se",
+      "title": "Ilmoita virheestä / pyydä ominaisuus"
+    },
+    "github": "GitHub",
+    "loading": "Ladataan tuki",
+    "title": "Tukea"
+  },
+  "welcome": {
+    "alreadyAccount": "Onko sinulla jo tili?",
+    "codePlaceholder": "Liitä koodisi",
+    "connect": "Yhdistä",
+    "connecting": "Yhdistetään…",
+    "description": "Lisää tekstiä, puhetta ja kuvia yksittäisiin kortteihin tai koko pakkaan yhdellä napsautuksella.",
+    "errors": {
+      "code": "Ei voitu muodostaa yhteyttä kyseiseen koodiin"
+    },
+    "finishDescription": "Suorita kirjautuminen loppuun avaamallamme selaimella. Tämä ikkuna päivittyy automaattisesti.",
+    "finishInBrowser": "Viimeistele selaimessasi",
+    "haveCode": "Onko sinulla koodi verkkosivustolta?",
+    "startTrial": "✨ Aloita ilmainen kokeilujakso ✨",
+    "trialDetails": "Ilmainen 7 päivää · jokainen ominaisuus · ei luottokorttia"
+  },
+  "trialEnded": {
+    "description": "Kokeilujaksot kestävät 7 päivää tai kunnes kokeilujaksosi loppuvat.",
+    "features": {
+      "ariaLabel": "Mitä päivitys säilyttää",
+      "batch": "Erota koko kokoelmaasi",
+      "images": "Kuvan luominen",
+      "premium": "Jokainen premium-malli ja ääni",
+      "review": "Luo tarkistuksen aikana"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Ilmainen kuukauden tarjous",
+      "description": "Jätä nopea AnkiWeb-arvostelu, niin saat kuukauden maksutta.",
+      "dialogDescription": "Jätä nopea arvio AnkiWeb:stä ja lähetä meille sähköpostia – lisäämme tilillesi ilmaisen kuukauden Smart Notes.",
+      "dialogTitle": "Hanki ilmainen kuukausi",
+      "leaveAnkiWebReview": "Kirjoita arvostelu AnkiWeb:stä",
+      "leaveReview": "Jätä arvostelu",
+      "title": "Hanki ilmainen kuukausi Smart Notes"
+    },
+    "thanks": "Kiitos, että käytät Smart Notes:tä ✨",
+    "title": "Ilmainen kokeilujaksosi on päättynyt",
+    "upgradeNow": "Päivitä nyt"
+  }
+}

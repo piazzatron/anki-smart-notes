@@ -1,0 +1,489 @@
+{
+  "common": {
+    "allDecks": "所有套牌",
+    "auto": "汽車",
+    "autoMax": "Auto MAX",
+    "back": "後退",
+    "bestValueCost": "最佳價值，0.3×成本",
+    "cancel": "取消",
+    "close": "關閉",
+    "connection": {
+      "connecting": "正在連接到 Anki...",
+      "reconnecting": "正在重新連接到 Anki..."
+    },
+    "days_other": "{{count}}天",
+    "deck": "甲板",
+    "default": "預設",
+    "delete": "刪除",
+    "done": "完畢",
+    "duplicate": "複製",
+    "edit": "編輯",
+    "empty": "空的",
+    "field": "場地",
+    "free": "自由的",
+    "discardChanges": "放棄更改",
+    "discardUnsavedChanges": {
+      "description": "您對這些預設設定的變更尚未儲存。",
+      "title": "放棄未儲存的變更？"
+    },
+    "dismissError": "消除錯誤",
+    "feedback": {
+      "description": "向開發人員發送錯誤報告、功能請求或其他回饋。",
+      "error": "無法發送回饋",
+      "label": "回饋",
+      "placeholder": "一個錯誤、一個想法、任何東西——它都會直接發送給開發人員。",
+      "send": "傳送",
+      "sending": "正在發送...",
+      "sent": "反饋已發送。我們很快就會聯絡。",
+      "title": "傳送回饋"
+    },
+    "notNow": "現在不要",
+    "other": "其他",
+    "placeholderScreen": "此畫面是重建過程中的下一個畫面。",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "登入",
+    "signInLower": "登入",
+    "unlimited": "無限",
+    "upgrade": "升級",
+    "upgradeSparkles": "✨ 升級 ✨",
+    "multiplierCost": "{{multiplier}}×成本",
+    "next": "下一個",
+    "noteType": "註釋類型",
+    "optional": "選修的",
+    "prompt": "迅速的",
+    "saving": "保存…",
+    "test": "測試",
+    "validFields": "有效字段："
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "回饋",
+    "nav": {
+      "defaultsImages": "預設影像設定",
+      "defaultsText": "預設文字設定",
+      "defaultsVoice": "預設語音設定",
+      "image": "影像",
+      "settings": "設定",
+      "smartFields": "Smart Fields",
+      "subscription": "帳戶及使用情形",
+      "support": "支援",
+      "text": "文字",
+      "voice": "嗓音"
+    },
+    "sections": "Smart Notes 部分",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "詳細日誌記錄有助於診斷問題。提交錯誤時包括這些日誌。",
+      "label": "偵錯模式"
+    },
+    "generateAtReview": {
+      "description": "當卡片出現在審核中時，自動填寫缺少的智慧型欄位。",
+      "label": "審核期間產生字段"
+    },
+    "language": {
+      "description": "選擇 Smart Notes 的語言，或符合 Anki 的語言。",
+      "label": "語言",
+      "matchAnki": "匹配 Anki"
+    },
+    "legacy": {
+      "apiKey": "OpenAI API 金鑰",
+      "apiKeyRequired": "需要付費的 OpenAI API 金鑰。",
+      "description": "連接付費 API 金鑰並選擇舊版 OpenAI 型號。",
+      "getApiKey": "取得 API 金鑰",
+      "host": "OpenAI主機",
+      "hostDescription": "為 OpenAI API 提供替代端點。",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "OpenAI型號",
+      "title": "使用我自己的 OpenAI 金鑰"
+    },
+    "loading": "載入設定",
+    "regenerateWhenBatching": {
+      "description": "批次處理一組筆記時，從頭開始重新產生每個智慧字段，而不是僅填充空字段。",
+      "label": "批次時重新產生所有智慧字段"
+    },
+    "saveError": "無法儲存設定",
+    "sections": {
+      "advanced": "先進的",
+      "general": "一般的",
+      "generation": "世代"
+    },
+    "title": "設定"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "已經是 Smart Field ✨",
+    "collisionHint": "已經有 Smart Field — 選擇不同的欄位、牌組或音符類型",
+    "completion": {
+      "descriptionAfter": "每當您生成它時，註釋就會被填充。",
+      "descriptionBefore": "在",
+      "methods": {
+        "bulk": {
+          "caption": "選擇筆記或甲板→右鍵→✨產生Smart Fields。",
+          "imageAlt": "Anki 瀏覽器上下文選單，反白顯示“產生 Smart Fields”",
+          "title": "批量從瀏覽器"
+        },
+        "card": {
+          "caption": "點選編輯器工具列中的 ✨ 按鈕或輸入 ⌘⇧G。",
+          "imageAlt": "Anki 編輯器工具列，反白 Smart Notes 按鈕",
+          "title": "一次一張卡"
+        },
+        "field": {
+          "caption": "右鍵點選任意欄位 → 產生 Smart Field。",
+          "imageAlt": "Anki 欄位上下文選單，反白顯示“產生 Smart Field”",
+          "title": "單一字段"
+        }
+      },
+      "title": "您的 Smart Field 已上線",
+      "waysToGenerate": "產生它的幾種方法："
+    },
+    "created": "Smart Field 創建",
+    "dontShowAgain": "不要再顯示此內容",
+    "errors": {
+      "save": "無法儲存 Smart Field",
+      "updateWizardSettings": "無法更新嚮導設定",
+      "writePrompt": "無法寫入提示"
+    },
+    "fieldTypes": {
+      "audio": "聲音的",
+      "image": "影像",
+      "text": "文字"
+    },
+    "loadingModelCatalog": "正在載入模型目錄...",
+    "modelSettings": {
+      "appliesOnlyToField": "僅適用於此 Smart Field。",
+      "defaultWithValue": "預設（{{value}}）",
+      "defaultsImages": "預設設定 › 圖像",
+      "defaultsText": "預設值 › 文字",
+      "defaultsVoice": "預設設定 › 語音",
+      "descriptionChat": "設定寫入該欄位的AI。大多數欄位可以保留預設值。",
+      "descriptionImage": "設定繪製該欄位的AI。大多數欄位可以保留預設值。",
+      "descriptionTts": "設定讀取該字段的聲音。大多數欄位可以保留預設值。",
+      "imageDefault": "影像預設值",
+      "imageModel": "影像模型",
+      "loadingVoices": "正在加載聲音...",
+      "model": "模型",
+      "pickCustom": "為此欄位選擇自訂模型",
+      "reasoning": "{{level}}推理",
+      "reasoningHint": "更高的推理能力可以改善更難的世代，但會使用更多的學分。",
+      "reasoningLevel": "推理水平",
+      "sharedByEveryField": "您的 {{modality}} 被每個使用它的 Smart Field 共用。將其更改為",
+      "textDefault": "文字預設值",
+      "textModel": "文字模型",
+      "useMy": "使用我的 {{modality}}",
+      "useWebSearch": "使用網路搜尋該字段",
+      "voice": "嗓音",
+      "voiceDefault": "語音預設",
+      "webSearch": "網頁搜尋",
+      "webSearchHint": "讓這個欄位使用來自網路的新鮮資訊。"
+    },
+    "save": "儲存 Smart Field",
+    "sections": {
+      "onWhichNotes": "在哪些筆記上？",
+      "whatToGenerate": "你想生成什麼？",
+      "whichFieldToFill": "應該填寫哪個欄位？",
+      "whichFieldToSpeak": "該講哪個領域？"
+    },
+    "sourceField": "來源字段",
+    "targetAriaLabel": "Smart Field 目標",
+    "testSmartField": "測試您的 Smart Field",
+    "titles": {
+      "create": "新 Smart Field ✨",
+      "duplicate": "重複的 Smart Field",
+      "edit": "編輯 Smart Field"
+    },
+    "validation": {
+      "chooseField": "選擇一個領域",
+      "chooseNoteType": "選擇筆記類型",
+      "chooseSourceField": "選擇來源字段",
+      "fieldAlreadyHasSmartField": "{{field}} 已經有 Smart Field",
+      "writePrompt": "寫一個提示"
+    },
+    "writePrompt": "寫提示",
+    "writePromptForMe": "為我寫下我的提示",
+    "writePromptForMeHint": "用簡單的英語說出您想要的內容 - 我們將在下面編寫提示。",
+    "writePromptPlaceholder": "“翻譯成自然英文…”",
+    "writing": "寫作…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "{{field}} 的操作",
+    "addToNoteType": "將 Smart Field 加入 {{noteType}}",
+    "disable": "停用",
+    "deleting": "正在刪除...",
+    "discord": {
+      "dismissAriaLabel": "拒絕 Discord 邀請",
+      "join": "加入",
+      "joinAriaLabel": "加入Smart Notes Discord",
+      "subtitle": "— 交換提示和請求功能。",
+      "title": "來 Discord 打個招呼吧"
+    },
+    "editAriaLabel": "編輯 {{field}} Smart Field",
+    "emptyState": {
+      "description": "添加 Smart Fields 以將文字、音訊和圖像添加到您的卡片中。",
+      "exampleAnswer": "你好",
+      "exampleField": "正面",
+      "examplePrompt": "你好",
+      "spark": "✦",
+      "title": "你的筆記看起來有點空"
+    },
+    "enable": "使能夠",
+    "errors": {
+      "commandFailed": "Smart Field 指令失敗"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "文字",
+      "image": "影像",
+      "tts": "聲音的"
+    },
+    "loadingAriaLabel": "正在加載Smart Fields",
+    "newSmartField": "新Smart Field",
+    "readsAloud": "大聲朗讀 {{field}}",
+    "review": {
+      "ariaLabel": "在 AnkiWeb 上評論 Smart Notes",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "駁回審核邀請",
+      "subtitle": "在 AnkiWeb 上留下評論以幫助其他 Anki 用戶找到它。",
+      "title": "喜歡 Smart Notes 嗎？"
+    },
+    "subtitle": "將自動生成的文字、語音和圖像添加到您的筆記中。",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "聊天目錄缺少型號 {{model}}",
+      "missingImageModel": "影像目錄缺少型號 {{model}}"
+    },
+    "image": {
+      "cannotFindModel": "影像目錄缺少型號 {{model}}",
+      "defaultModel": "預設型號",
+      "gptImage15Low": "最佳質量/速度權衡。",
+      "gptImage2": "相同的成本，更慢，更高的品質。",
+      "loadingLabel": "載入預設圖像設定",
+      "loadingTitle": "預設影像設定",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 選擇圖像模型",
+      "samplePrompt": "產生學生使用 Anki 努力學習並通過測驗的圖像。",
+      "saveError": "無法儲存影像預設值",
+      "subtitle": "您的圖像 Smart Fields 使用的模型，除非欄位固定自己的模型。",
+      "title": "預設影像設定",
+      "zImageTurbo": "最快且最便宜。"
+    },
+    "layout": {
+      "saveChanges": "儲存變更",
+      "saving": "保存…",
+      "tryIt": "嘗試一下"
+    },
+    "text": {
+      "cannotInheritModel": "文字預設值不能繼承另一個模型",
+      "defaultModel": "預設文字模型",
+      "defaultReasoningLevel": "默認推理級別",
+      "enableWebSearch": "啟用網頁搜尋",
+      "higherReasoning": "更高的推理能力可以改善更難的世代，但會使用更多的學分。",
+      "loadingLabel": "載入預設文字設定",
+      "loadingTitle": "文字產生設定",
+      "modelGuidance": "{{auto}}和{{autoMax}}是Smart Notes推薦的平衡性能和成本的模型。為標準任務選擇 {{auto}}，並根據需要升級到 {{autoMax}}。",
+      "pickingModel": "💡 挑選模特",
+      "reasoningLevel": "推理水平",
+      "reasoningValues": {
+        "high": "高的",
+        "low": "低的",
+        "off": "離開"
+      },
+      "samplePrompt": "什麼是間隔重複系統（SRS）？",
+      "saveError": "無法儲存文字預設值",
+      "subtitle": "文字產生的預設設定。單一 Smart Fields 可以覆寫這些值。",
+      "title": "文字產生設定",
+      "webSearch": "網頁搜尋",
+      "webSearchDescription": "讓文字生成從網路中獲取新鮮資訊。",
+      "webSearchWarning": "⚠️ 搜尋成本高昂；監控您的信用。"
+    },
+    "usage": {
+      "fields_other": "適用於 {{count}} 字段"
+    },
+    "voice": {
+      "browseVoices": "瀏覽聲音（{{count}}）",
+      "cannotLoad": "無法載入語音",
+      "currentDefault": "目前預設值",
+      "filters": {
+        "all": "全部",
+        "female": "女性",
+        "gender": "性別",
+        "language": "語言",
+        "male": "男性",
+        "provider": "提供者"
+      },
+      "filterVoices": "過濾聲音",
+      "loadingLabel": "載入預設語音設定",
+      "loadingTitle": "預設語音設定",
+      "noVoices": "沒有聲音符合這些過濾器。",
+      "saveError": "無法儲存語音預設值",
+      "searchPlaceholder": "🔍 搜尋聲音...",
+      "searchVoices": "搜尋聲音",
+      "subtitle": "TTS Smart Fields 使用的語音，除非欄位固定自己的語音。",
+      "title": "預設語音設定"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "另一種筆記類型",
+    "currentlySelectedCard": "目前選擇的卡",
+    "emptyCard": "（空卡）",
+    "errors": {
+      "generateAudio": "無法產生音訊",
+      "generateImage": "無法產生影像",
+      "saveResult": "無法將此結果儲存到卡片中",
+      "testPrompt": "無法測試此提示"
+    },
+    "fieldRunsOnNoteType": "此欄位在 <noteTypeName>{{noteType}}</noteTypeName> 上執行",
+    "generatedImagePreview": "生成的圖像預覽",
+    "missingFieldsTitle_other": "缺失字段",
+    "needsFields_other": "需要 {{count}} 字段",
+    "notesSelected_other": "選定的 {{count}} 音符 - 將其縮小到一個。",
+    "pickCard": "在 Anki 瀏覽器中選擇一張卡",
+    "promptPlaceholder": "使用 {{braces}} 撰寫測試提示，引用卡片上的欄位。",
+    "saveToCard": "儲存到卡",
+    "savedTo": "儲存到 {{field}}",
+    "selectCardWithFields_other": "請選擇包含這些欄位的卡牌",
+    "selectFieldToReadAloud": "選擇要朗讀的字段",
+    "selectNewCard": "在瀏覽器中選擇一張新卡",
+    "selectRequiredNoteType": "請選擇 <noteTypeName>{{noteType}}</noteTypeName> 類型的筆記",
+    "selectedCard": "已選卡",
+    "selectedDeck": "選定的牌組",
+    "selectedNoteType": "選定的筆記類型",
+    "selectionAppearsAutomatically": "您的選擇會自動出現在此。",
+    "sent": "傳送",
+    "testing": "測試...",
+    "testResult": "測試結果",
+    "textToSpeak": "文字說話",
+    "viewResult": "查看結果",
+    "wrongNoteType": "註釋類型錯誤"
+  },
+  "subscription": {
+    "checking": "檢查訂閱狀況",
+    "creditTypes": {
+      "images": "圖片",
+      "text": "文字",
+      "voice": "嗓音"
+    },
+    "creditUsage": "信用使用",
+    "creditsReset": "積分重置",
+    "daysLeft_other": "{{count}} 剩餘天數",
+    "errors": {
+      "logout": "無法註銷"
+    },
+    "freePlan": "免費規劃",
+    "freeTrial": "免費試用",
+    "hero": {
+      "buyCredits": "購買更多積分",
+      "freeCreditsResetting": "您的免費積分正在重置",
+      "freePlan": "您使用的是免費計劃",
+      "noteLimit": "您已達到筆記限制",
+      "outOfCredits": "您本月的積分已用完",
+      "outOfFreeCredits": "您本月的免費積分已用完",
+      "outOfTrialCredits": "您的試用積分已用完",
+      "planExpired": "您的計劃已過期",
+      "rollover": "即用即付積分每個月都會滾動 — 永遠屬於您。",
+      "trialDaysLeft_other": "{{count}} 試用期還剩幾天",
+      "trialEnded": "您的試用已結束",
+      "trialNoteLimit": "您已達到試用筆記限制",
+      "upgradeCollection": "升級 — 自動升級您的整個收藏",
+      "upgradeCredits": "升級以獲得更多積分",
+      "upgradePaid": "✨ 升級付費"
+    },
+    "inDays_other": "在{{count}}天裡",
+    "loading": "正在加載訂閱",
+    "loggingOut": "正在退出…",
+    "logOut": "退出",
+    "manageDescription": "更改計劃、更新付款或取消。",
+    "manageOrUpgrade": "管理或升級計劃",
+    "managePlan": "管理計劃",
+    "monthlyCreditsUsed": "每月使用的積分數",
+    "mostCreditsUsed": "本月大部分積分已用完",
+    "noteLimitReached": "已達備註限制",
+    "notes": "筆記",
+    "notesUsed": "使用註釋",
+    "notesUsedValue": "使用 {{used}}/{{limit}}",
+    "outOfCredits": "積分用完",
+    "pausedUntilReset": "產生將暫停，直到您的積分重置。",
+    "plan": "計劃",
+    "planInactive": "計劃無效",
+    "resetsIn": "重置於",
+    "resetsInDays_other": "{{count}} 天后重置",
+    "signedOut": {
+      "localStorage": "您的智慧型欄位和設定儲存在此裝置上。",
+      "manage": "登入以管理您的計劃",
+      "paused": "生成將暫停，直到您登入。",
+      "title": "已退出"
+    },
+    "title": "帳戶及使用情形",
+    "trialCreditsUsed": "使用的試用積分",
+    "trialEnded": "審判結束",
+    "trialEnds": "審判結束",
+    "trialNoteLimitReached": "已達到試用筆記限制",
+    "upgradeToKeepGenerating": "升級以繼續生成。",
+    "usage": "用法"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "留下評論/查看文件。",
+    "byline": "作者：Michael Piazza / Rosebud Labs, LLC。",
+    "changelog": "變更日誌",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "取得協助、請求功能或報告錯誤的最快方式。",
+      "join": "加入",
+      "title": "加入Discord"
+    },
+    "emailUs": "給我們發電子郵件",
+    "feedback": {
+      "description": "有什麼損壞或錯誤嗎？直接給可憐的開發者發訊息。",
+      "send": "發送它",
+      "title": "提交錯誤/請求功能"
+    },
+    "github": "GitHub",
+    "loading": "載入支援",
+    "title": "支援"
+  },
+  "welcome": {
+    "alreadyAccount": "已經有帳戶？",
+    "codePlaceholder": "貼上您的程式碼",
+    "connect": "連接",
+    "connecting": "正在連線…",
+    "description": "一鍵將文字、語音和圖像加入單張卡片或整個卡片組。",
+    "errors": {
+      "code": "無法使用該代碼連接"
+    },
+    "finishDescription": "在我們開啟的瀏覽器中完成登入。該視窗將自動更新。",
+    "finishInBrowser": "在瀏覽器中完成",
+    "haveCode": "有網站上的程式碼嗎？",
+    "startTrial": "✨ 開始免費試用 ✨",
+    "trialDetails": "7 天免費 · 所有功能 · 無需信用卡"
+  },
+  "trialEnded": {
+    "description": "試用期為 7 天，或直到您的試用積分用完。",
+    "features": {
+      "ariaLabel": "升級保留了什麼",
+      "batch": "對整個集合進行批次處理",
+      "images": "影像生成",
+      "premium": "每個高級模型和聲音",
+      "review": "審核期間生成"
+    },
+    "reviewOffer": {
+      "ariaLabel": "免費月份優惠",
+      "description": "留下快速的 AnkiWeb 評論，即可享受一個月的優惠。",
+      "dialogDescription": "請對 AnkiWeb 進行快速評論，然後給我們發送電子郵件 — 我們將在您的帳戶中添加一個月免費的 Smart Notes。",
+      "dialogTitle": "獲得免費月份",
+      "leaveAnkiWebReview": "對 AnkiWeb 發表評論",
+      "leaveReview": "發表評論",
+      "title": "獲得一個月的免費 Smart Notes"
+    },
+    "thanks": "感謝您使用 Smart Notes ✨",
+    "title": "您的免費試用已結束",
+    "upgradeNow": "立即升級"
+  }
+}

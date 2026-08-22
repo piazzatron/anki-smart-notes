@@ -18,6 +18,7 @@
  */
 
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
 import { errorMessage } from "@/lib/errors"
 import { sendFeedback } from "@/services/commands"
@@ -47,6 +48,7 @@ const INITIAL_STATE: FeedbackFormState = {
 export const useFeedbackForm = ({
   clearMessageOnSuccess = false,
 }: UseFeedbackFormOptions = {}) => {
+  const { t } = useTranslation()
   const [state, setState] = useState<FeedbackFormState>(INITIAL_STATE)
   const patch = (partial: Partial<FeedbackFormState>) =>
     setState((current) => ({ ...current, ...partial }))
@@ -66,7 +68,7 @@ export const useFeedbackForm = ({
       })
     } catch (error) {
       patch({
-        error: errorMessage(error, "Could not send feedback"),
+        error: errorMessage(error, t("common.feedback.error")),
         isSending: false,
       })
     }

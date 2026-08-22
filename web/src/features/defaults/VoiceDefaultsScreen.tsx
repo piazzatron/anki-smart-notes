@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { PromptTesterStrip } from "@/features/prompt-tester/PromptTesterStrip"
@@ -32,6 +33,7 @@ interface VoiceDefaultsScreenProps {
 export const VoiceDefaultsScreen = ({
   onDirtyChange,
 }: VoiceDefaultsScreenProps) => {
+  const { t } = useTranslation()
   const state = useAppStore((store) => store.state)
   const voiceCatalog = useVoiceCatalog()
 
@@ -44,8 +46,8 @@ export const VoiceDefaultsScreen = ({
               🔈
             </span>
           }
-          label="Loading Default Voice Settings"
-          title="Default Voice Settings"
+          label={t("defaults.voice.loadingLabel")}
+          title={t("defaults.voice.loadingTitle")}
         />
       )
     }
@@ -58,7 +60,7 @@ export const VoiceDefaultsScreen = ({
           </span>
         }
         testId="voice-defaults-screen"
-        title="Default Voice Settings"
+        title={t("defaults.voice.title")}
       >
         <p className="rounded-lg border border-red-300/15 bg-red-300/[0.06] px-4 py-3 text-xs text-danger">
           {voiceCatalog.error}
@@ -87,8 +89,9 @@ const LoadedVoiceDefaultsScreen = ({
   onDirtyChange,
   state,
 }: LoadedVoiceDefaultsScreenProps) => {
+  const { t } = useTranslation()
   const controls = useDefaultsForm({
-    fallbackError: "Could not save voice defaults",
+    fallbackError: t("defaults.voice.saveError"),
     onDirtyChange,
     save: saveTTSDefaults,
     serverDefaults: state.defaults.tts,
@@ -120,10 +123,10 @@ const LoadedVoiceDefaultsScreen = ({
       isDirty={controls.form.isDirty}
       isSaving={controls.form.isSaving}
       onSave={() => void controls.saveChanges()}
-      subtitle="The voice your TTS Smart Fields use unless a field pins its own."
+      subtitle={t("defaults.voice.subtitle")}
       tester={<PromptTesterStrip field={tester} />}
       testId="voice-defaults-screen"
-      title="Default Voice Settings"
+      title={t("defaults.voice.title")}
     >
       {controls.form.error !== null && (
         <ErrorBanner
@@ -142,7 +145,7 @@ const LoadedVoiceDefaultsScreen = ({
             value={controls.form.values}
           >
             <p className="mb-2 text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
-              Current default
+              {t("defaults.voice.currentDefault")}
             </p>
             <div className="flex h-9 items-center gap-2.5 rounded-lg border border-white/[0.09] bg-white/[0.03] px-3">
               <p className="min-w-0 flex-1 truncate text-[12.5px] font-medium whitespace-nowrap text-zinc-100">
@@ -154,7 +157,9 @@ const LoadedVoiceDefaultsScreen = ({
                     {" "}
                     · {selectedVoice.language} ·{" "}
                     {VOICE_GENDER_SYMBOLS[selectedVoice.gender] ??
-                      selectedVoice.gender}{" "}
+                      t(
+                        `defaults.voice.filters.${selectedVoice.gender.toLowerCase()}`,
+                      )}{" "}
                     · {selectedVoice.name}
                   </>
                 )}

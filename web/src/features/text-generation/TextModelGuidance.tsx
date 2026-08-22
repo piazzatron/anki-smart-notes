@@ -17,20 +17,22 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import type { ReactNode } from "react"
+import { useTranslation } from "react-i18next"
 
-export const TextModelGuidance = () => (
-  <div className="mt-3 rounded-lg border border-indigo/15 bg-indigo/[0.055] p-3.5">
-    <p className="text-xs font-semibold text-zinc-200">💡 Picking a model</p>
-    <p className="mt-2 text-[11px] leading-4 text-ink-muted">
-      <ModelName>Auto</ModelName> and <ModelName>Auto MAX</ModelName> are the
-      Smart Notes recommended models that balance performance and cost. Choose{" "}
-      <ModelName>Auto</ModelName> for standard tasks and upgrade to{" "}
-      <ModelName>Auto MAX</ModelName> if needed.
-    </p>
-  </div>
-)
+export const TextModelGuidance = () => {
+  const { t } = useTranslation()
 
-const ModelName = ({ children }: { children: ReactNode }) => (
-  <strong className="font-semibold text-indigo-soft">{children}</strong>
-)
+  return (
+    <div className="mt-3 rounded-lg border border-indigo/15 bg-indigo/[0.055] p-3.5">
+      <p className="text-xs font-semibold text-zinc-200">
+        {t("defaults.text.pickingModel")}
+      </p>
+      <p className="mt-2 text-[11px] leading-4 text-ink-muted">
+        {t("defaults.text.modelGuidance", {
+          auto: "Auto",
+          autoMax: "Auto MAX",
+        })}
+      </p>
+    </div>
+  )
+}

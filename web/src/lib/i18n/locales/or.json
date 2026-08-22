@@ -1,0 +1,499 @@
+{
+  "common": {
+    "allDecks": "ସମସ୍ତ ଡ଼େକ୍",
+    "auto": "ଅଟୋ",
+    "autoMax": "Auto MAX",
+    "back": "ପଛକୁ",
+    "bestValueCost": "ସର୍ବୋତ୍ତମ ମୂଲ୍ୟ, 0.3 × ମୂଲ୍ୟ",
+    "cancel": "ବାତିଲ୍ କରନ୍ତୁ",
+    "close": "ବନ୍ଦ",
+    "connection": {
+      "connecting": "Anki ସହିତ ସଂଯୋଗ…",
+      "reconnecting": "Anki ସହିତ ପୁନ on ସଂଯୋଗ…"
+    },
+    "days_one": "1 ଦିନ",
+    "days_other": "{{count}} ଦିନ",
+    "deck": "ଡ଼େକ୍",
+    "default": "ଡିଫଲ୍ଟ",
+    "delete": "ବିଲୋପ କରନ୍ତୁ",
+    "done": "ସମାପ୍ତ",
+    "duplicate": "ନକଲ",
+    "edit": "ସଂପାଦନା କରନ୍ତୁ",
+    "empty": "ଖାଲି",
+    "field": "କ୍ଷେତ୍ର",
+    "free": "ମାଗଣା",
+    "discardChanges": "ପରିବର୍ତ୍ତନଗୁଡିକ ପରିତ୍ୟାଗ କରନ୍ତୁ",
+    "discardUnsavedChanges": {
+      "description": "ଏହି ଡିଫଲ୍ଟ ସେଟିଂସମୂହରେ ଆପଣଙ୍କର ପରିବର୍ତ୍ତନ ସଞ୍ଚୟ ହୋଇନାହିଁ",
+      "title": "ସଂରକ୍ଷିତ ପରିବର୍ତ୍ତନକୁ ପରିତ୍ୟାଗ କରନ୍ତୁ?"
+    },
+    "dismissError": "ତ୍ରୁଟି ତ୍ୟାଗ କରନ୍ତୁ",
+    "feedback": {
+      "description": "ଠିକାଦାରଙ୍କୁ ଏକ ତ୍ରୁଟି ରିପୋର୍ଟ, ବ feature ଶିଷ୍ଟ୍ୟ ଅନୁରୋଧ, କିମ୍ବା ଅନ୍ୟାନ୍ୟ ମତାମତ ପଠାନ୍ତୁ",
+      "error": "ମତାମତ ପଠାଇ ପାରିଲା ନାହିଁ",
+      "label": "ମତାମତ",
+      "placeholder": "ଏକ ତ୍ରୁଟି, ଏକ ଧାରଣା, ଯେକ anything ଣସି - ଏହା ସିଧା ସଳଖ ବିକାଶକାରୀଙ୍କ ନିକଟକୁ ଯାଏ",
+      "send": "ପଠାନ୍ତୁ",
+      "sending": "ପଠାଉଛି…",
+      "sent": "ମତାମତ ପଠାଯାଇଛି | ଆମେ ଶୀଘ୍ର ଯୋଗାଯୋଗ କରିବୁ",
+      "title": "ମତାମତ ପଠାନ୍ତୁ"
+    },
+    "notNow": "ବର୍ତ୍ତମାନ ନୁହେଁ",
+    "other": "ଅନ୍ୟମାନେ",
+    "placeholderScreen": "ଏହି ପରଦା ପୁନ build ନିର୍ମାଣରେ ଅଛି",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "ସାଇନ୍ ଇନ୍ କରନ୍ତୁ",
+    "signInLower": "ସାଇନ୍ ଇନ୍ କରନ୍ତୁ",
+    "unlimited": "ଅସୀମିତ",
+    "upgrade": "ନବୀକରଣ",
+    "upgradeSparkles": "✨ ନବୀକରଣ ✨",
+    "multiplierCost": "{{multiplier}} × ମୂଲ୍ୟ",
+    "next": "ପରବର୍ତ୍ତୀ",
+    "noteType": "ଟିପ୍ପଣୀ ପ୍ରକାର",
+    "optional": "ବ al କଳ୍ପିକ",
+    "prompt": "ପ୍ରମ୍ପ୍ଟ",
+    "saving": "ସଞ୍ଚୟ…",
+    "test": "ପରୀକ୍ଷା",
+    "validFields": "ବ id ଧ କ୍ଷେତ୍ର:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "ମତାମତ",
+    "nav": {
+      "defaultsImages": "ଡିଫଲ୍ଟ ପ୍ରତିଛବି ସେଟିଂସମୂହ",
+      "defaultsText": "ଡିଫଲ୍ଟ ପାଠ୍ୟ ସେଟିଂସମୂହ",
+      "defaultsVoice": "ଡିଫଲ୍ଟ ଭଏସ୍ ସେଟିଂସମୂହ",
+      "image": "ପ୍ରତିଛବି",
+      "settings": "ସେଟିଂସମୂହ",
+      "smartFields": "Smart Fields",
+      "subscription": "ଖାତା ଏବଂ ବ୍ୟବହାର",
+      "support": "ସମର୍ଥନ",
+      "text": "ପାଠ",
+      "voice": "ସ୍ୱର"
+    },
+    "sections": "Smart Notes ବିଭାଗଗୁଡିକ",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "ସମସ୍ୟା ନିର୍ଣ୍ଣୟ କରିବାରେ ସାହାଯ୍ୟ କରିବାକୁ ଭର୍ବୋଜ୍ ଲଗିଂ | ଏକ ତ୍ରୁଟି ଦାଖଲ କରିବା ସମୟରେ ଏହି ଲଗଗୁଡ଼ିକୁ ଅନ୍ତର୍ଭୁକ୍ତ କରନ୍ତୁ",
+      "label": "ତ୍ରୁଟି ନିବାରଣ ଧାରା"
+    },
+    "generateAtReview": {
+      "description": "କାର୍ଡ ସମୀକ୍ଷା ସମୟରେ ଆସିବା ପରେ ସ୍ୱୟଂଚାଳିତ ଭାବରେ ନିଖୋଜ ସ୍ମାର୍ଟ ଫିଲ୍ଡଗୁଡିକ ପୁରଣ କରନ୍ତୁ",
+      "label": "ସମୀକ୍ଷା ସମୟରେ କ୍ଷେତ୍ର ସୃଷ୍ଟି କରନ୍ତୁ"
+    },
+    "language": {
+      "description": "Smart Notes ପାଇଁ ଭାଷା ବାଛନ୍ତୁ, କିମ୍ବା Anki ର ଭାଷା ସହିତ ମେଳ କରନ୍ତୁ",
+      "label": "ଭାଷା",
+      "matchAnki": "Anki ସହିତ ମେଳ କରନ୍ତୁ"
+    },
+    "legacy": {
+      "apiKey": "OpenAI API କି",
+      "apiKeyRequired": "ଏକ ଦେୟଯୁକ୍ତ OpenAI API କି ଆବଶ୍ୟକ",
+      "description": "ଏକ ଦେୟଯୁକ୍ତ API କି କୁ ସଂଯୋଗ କରନ୍ତୁ ଏବଂ ଏକ ପୁରୁଣା OpenAI ମଡେଲ ବାଛନ୍ତୁ",
+      "getApiKey": "ଏକ API କି ପାଆନ୍ତୁ",
+      "host": "OpenAI ହୋଷ୍ଟ",
+      "hostDescription": "OpenAI API କୁ ଏକ ବିକଳ୍ପ ଶେଷ ପଏଣ୍ଟ ପ୍ରଦାନ କରନ୍ତୁ",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "OpenAI ମଡେଲ୍",
+      "title": "ମୋର ନିଜର OpenAI କି ବ୍ୟବହାର କରନ୍ତୁ"
+    },
+    "loading": "ସେଟିଂସମୂହ ଲୋଡିଙ୍ଗ୍",
+    "regenerateWhenBatching": {
+      "description": "ଯେତେବେଳେ ବ୍ୟାଚ୍ ଏକ ନୋଟ୍ ପ୍ରକ୍ରିୟାକରଣ କରେ, କେବଳ ଖାଲି ସ୍ଥାନ ପୂରଣ କରିବା ପରିବର୍ତ୍ତେ ପ୍ରତ୍ୟେକ ସ୍ମାର୍ଟ ଫିଲ୍ଡକୁ ଆରମ୍ଭରୁ ପୁନ ener ନିର୍ମାଣ କରନ୍ତୁ",
+      "label": "ବ୍ୟାଚ୍ ପ୍ରକ୍ରିୟାକରଣ ସମୟରେ ସମସ୍ତ ସ୍ମାର୍ଟ କ୍ଷେତ୍ରଗୁଡିକ ପୁନ ener ନିର୍ମାଣ କରନ୍ତୁ"
+    },
+    "saveError": "ସେଟିଂସମୂହ ସଞ୍ଚୟ କରିପାରିଲା ନାହିଁ",
+    "sections": {
+      "advanced": "ଉନ୍ନତ",
+      "general": "ଜେନେରାଲ୍",
+      "generation": "ପି Generation ଼ି"
+    },
+    "title": "ସେଟିଂସମୂହ"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "ପୂର୍ବରୁ ଏକ Smart Field ✨",
+    "collisionHint": "ପୂର୍ବରୁ Smart Field ଅଛି - ଏକ ଭିନ୍ନ କ୍ଷେତ୍ର, ଡେକ୍, କିମ୍ବା ନୋଟ୍ ପ୍ରକାର ବାଛ",
+    "completion": {
+      "descriptionAfter": "ଯେତେବେଳେ ଆପଣ ଏହାକୁ ସୃଷ୍ଟି କରନ୍ତି ନୋଟ୍ଗୁଡ଼ିକ ପୁରଣ କରେ",
+      "descriptionBefore": "ଉପରେ",
+      "methods": {
+        "bulk": {
+          "caption": "ନୋଟ୍ କିମ୍ବା ଡେକ୍ → ଡାହାଣ କ୍ଲିକ୍ → A Smart Fields ସୃଷ୍ଟି କରନ୍ତୁ",
+          "imageAlt": "Smart Fields ସୃଷ୍ଟି ସହିତ Anki ବ୍ରାଉଜର୍ ପ୍ରସଙ୍ଗ ମେନୁ ହାଇଲାଇଟ୍ ହୋଇଛି",
+          "title": "ବହୁଳ ଭାବରେ, ବ୍ରାଉଜରରୁ"
+        },
+        "card": {
+          "caption": "ଏଡିଟର୍ ଟୁଲ୍ ବାର୍ ରେ ✨ ବଟନ୍ କ୍ଲିକ୍ କରନ୍ତୁ କିମ୍ବା ⌘⇧G ଟାଇପ୍ କରନ୍ତୁ",
+          "imageAlt": "Smart Notes ବଟନ୍ ସହିତ Anki ଏଡିଟର୍ ଟୁଲ୍ ବାର୍ ହାଇଲାଇଟ୍ ହୋଇଛି",
+          "title": "ଗୋଟିଏ ଥରରେ ଗୋଟିଏ କାର୍ଡ"
+        },
+        "field": {
+          "caption": "ଯେକ any ଣସି କ୍ଷେତ୍ର ଉପରେ ଡାହାଣ କ୍ଲିକ୍ କରନ୍ତୁ A Smart Field ସୃଷ୍ଟି କରନ୍ତୁ",
+          "imageAlt": "Smart Field ସୃଷ୍ଟି ସହିତ Anki କ୍ଷେତ୍ର ପ୍ରସଙ୍ଗ ତାଲିକା ଆଲୋକିତ",
+          "title": "ଗୋଟିଏ କ୍ଷେତ୍ର"
+        }
+      },
+      "title": "ଆପଣଙ୍କର Smart Field ଲାଇଭ୍ ଅଟେ",
+      "waysToGenerate": "ଏହାକୁ ସୃଷ୍ଟି କରିବାର କିଛି ଉପାୟ:"
+    },
+    "created": "Smart Field ସୃଷ୍ଟି ହୋଇଛି",
+    "dontShowAgain": "ଏହାକୁ ଆଉ ଦେଖାନ୍ତୁ ନାହିଁ",
+    "errors": {
+      "save": "Smart Field ସଞ୍ଚୟ କରିପାରିଲା ନାହିଁ",
+      "updateWizardSettings": "ୱିଜାର୍ଡ ସେଟିଂସମୂହ ଅଦ୍ୟତନ କରିପାରିଲା ନାହିଁ",
+      "writePrompt": "ପ୍ରମ୍ପ୍ଟ ଲେଖି ପାରିଲା ନାହିଁ"
+    },
+    "fieldTypes": {
+      "audio": "ଅଡିଓ",
+      "image": "ପ୍ରତିଛବି",
+      "text": "ପାଠ"
+    },
+    "loadingModelCatalog": "ମଡେଲ୍ କାଟାଲଗ୍ ଲୋଡ୍ କରୁଛି…",
+    "modelSettings": {
+      "appliesOnlyToField": "କେବଳ ଏହି Smart Field ପାଇଁ ପ୍ରଯୁଜ୍ୟ",
+      "defaultWithValue": "ଡିଫଲ୍ଟ ({{value}})",
+      "defaultsImages": "ଡିଫଲ୍ଟ ›ପ୍ରତିଛବିଗୁଡ଼ିକ",
+      "defaultsText": "ଡିଫଲ୍ଟ ›ପାଠ୍ୟ",
+      "defaultsVoice": "ଡିଫଲ୍ଟ ›ସ୍ୱର",
+      "descriptionChat": "ଏହି କ୍ଷେତ୍ର ଲେଖୁଥିବା AI ସେଟ୍ କରନ୍ତୁ | ଅଧିକାଂଶ କ୍ଷେତ୍ର ଡିଫଲ୍ଟରେ ରହିପାରିବ",
+      "descriptionImage": "ଏହି କ୍ଷେତ୍ରକୁ ଟାଣୁଥିବା AI ସେଟ୍ କରନ୍ତୁ | ଅଧିକାଂଶ କ୍ଷେତ୍ର ଡିଫଲ୍ଟରେ ରହିପାରିବ",
+      "descriptionTts": "ଏହି କ୍ଷେତ୍ର ପ read ୁଥିବା ସ୍ୱର ସେଟ୍ କରନ୍ତୁ | ଅଧିକାଂଶ କ୍ଷେତ୍ର ଡିଫଲ୍ଟରେ ରହିପାରିବ",
+      "imageDefault": "ପ୍ରତିଛବି ଡିଫଲ୍ଟ",
+      "imageModel": "ପ୍ରତିଛବି ମଡେଲ୍",
+      "loadingVoices": "ସ୍ୱର ଲୋଡିଂ…",
+      "model": "ମଡେଲ୍",
+      "pickCustom": "ଏହି କ୍ଷେତ୍ର ପାଇଁ ଏକ କଷ୍ଟମ୍ ମଡେଲ୍ ବାଛନ୍ତୁ",
+      "reasoning": "{{level}} ଯୁକ୍ତି",
+      "reasoningHint": "ଉଚ୍ଚ ଯୁକ୍ତି କଠିନ ପି generations ିକୁ ଉନ୍ନତ କରିପାରିବ, କିନ୍ତୁ ଅଧିକ କ୍ରେଡିଟ୍ ବ୍ୟବହାର କରେ",
+      "reasoningLevel": "ଯୁକ୍ତି ସ୍ତର",
+      "sharedByEveryField": "ଆପଣଙ୍କର {{modality}} ପ୍ରତ୍ୟେକ Smart Field ଦ୍ୱାରା ଅଂଶୀଦାର ହୋଇଛି ଯାହା ଏହାକୁ ବ୍ୟବହାର କରେ | ଏହାକୁ ପରିବର୍ତ୍ତନ କରନ୍ତୁ",
+      "textDefault": "ପାଠ୍ୟ ଡିଫଲ୍ଟ",
+      "textModel": "ପାଠ୍ୟ ମଡେଲ୍",
+      "useMy": "ମୋର {{modality}} ବ୍ୟବହାର କରନ୍ତୁ",
+      "useWebSearch": "ଏହି କ୍ଷେତ୍ର ପାଇଁ ୱେବ୍ ସନ୍ଧାନ ବ୍ୟବହାର କରନ୍ତୁ",
+      "voice": "ସ୍ୱର",
+      "voiceDefault": "ସ୍ୱର ଡିଫଲ୍ଟ",
+      "webSearch": "ୱେବ୍ ସନ୍ଧାନ",
+      "webSearchHint": "ଏହି କ୍ଷେତ୍ର ୱେବରୁ ସତେଜ ସୂଚନା ବ୍ୟବହାର କରିବାକୁ ଦିଅ"
+    },
+    "save": "Smart Field ସଞ୍ଚୟ କରନ୍ତୁ",
+    "sections": {
+      "onWhichNotes": "କେଉଁ ନୋଟ୍ ଉପରେ?",
+      "whatToGenerate": "ଆପଣ କ’ଣ ସୃଷ୍ଟି କରିବାକୁ ଚାହୁଁଛନ୍ତି?",
+      "whichFieldToFill": "ଏହା କେଉଁ କ୍ଷେତ୍ର ପୂରଣ କରିବା ଉଚିତ୍?",
+      "whichFieldToSpeak": "ଏହା କେଉଁ କ୍ଷେତ୍ର କହିବା ଉଚିତ୍?"
+    },
+    "sourceField": "ଉତ୍ସ କ୍ଷେତ୍ର",
+    "targetAriaLabel": "Smart Field ଲକ୍ଷ୍ୟ",
+    "testSmartField": "ଆପଣଙ୍କର Smart Field ପରୀକ୍ଷା କରନ୍ତୁ",
+    "titles": {
+      "create": "ନୂତନ Smart Field ✨",
+      "duplicate": "Smart Field ନକଲ କରନ୍ତୁ",
+      "edit": "Smart Field ସଂପାଦନ କରନ୍ତୁ"
+    },
+    "validation": {
+      "chooseField": "ଏକ କ୍ଷେତ୍ର ବାଛନ୍ତୁ",
+      "chooseNoteType": "ଏକ ନୋଟ୍ ପ୍ରକାର ବାଛନ୍ତୁ",
+      "chooseSourceField": "ଏକ ଉତ୍ସ କ୍ଷେତ୍ର ବାଛନ୍ତୁ",
+      "fieldAlreadyHasSmartField": "{{field}} ପୂର୍ବରୁ Smart Field ଅଛି",
+      "writePrompt": "ଏକ ପ୍ରମ୍ପ୍ଟ ଲେଖ"
+    },
+    "writePrompt": "ପ୍ରମ୍ପ୍ଟ ଲେଖନ୍ତୁ",
+    "writePromptForMe": "ମୋ ପାଇଁ ମୋର ପ୍ରମ୍ପ୍ଟ ଲେଖ",
+    "writePromptForMeHint": "ସାଧା ଇଂରାଜୀରେ ଆପଣ ଯାହା ଚାହାଁନ୍ତି କୁହନ୍ତୁ - ଆମେ ନିମ୍ନରେ ପ୍ରମ୍ପ୍ଟ ଲେଖିବା",
+    "writePromptPlaceholder": "\"ପ୍ରାକୃତିକ ଇଂରାଜୀକୁ ଅନୁବାଦ କର ...\"",
+    "writing": "ଲେଖିବା…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "{{field}} ପାଇଁ କାର୍ଯ୍ୟ",
+    "addToNoteType": "Smart Field କୁ {{noteType}} ରେ ଯୋଡନ୍ତୁ",
+    "disable": "ଅକ୍ଷମ କରନ୍ତୁ",
+    "deleting": "ବିଲୋପ…",
+    "discord": {
+      "dismissAriaLabel": "Discord ନିମନ୍ତ୍ରଣକୁ ବରଖାସ୍ତ କରନ୍ତୁ",
+      "join": "ଯୋଗ ଦିଅନ୍ତୁ",
+      "joinAriaLabel": "Smart Notes Discord ରେ ଯୋଗ ଦିଅନ୍ତୁ",
+      "subtitle": "- ସ୍ ap ାପ୍ ପ୍ରମ୍ପ୍ଟ ଏବଂ ଅନୁରୋଧ ବ features ଶିଷ୍ଟ୍ୟଗୁଡିକ",
+      "title": "Discord ରେ ହାଏ କୁହନ୍ତୁ"
+    },
+    "editAriaLabel": "{{field}} Smart Field ସଂପାଦନ କରନ୍ତୁ",
+    "emptyState": {
+      "description": "ଆପଣଙ୍କ କାର୍ଡରେ ପାଠ, ଅଡିଓ, ଏବଂ ପ୍ରତିଛବି ଯୋଗ କରିବାକୁ Smart Fields ଯୋଡନ୍ତୁ",
+      "exampleAnswer": "ନମସ୍କାର",
+      "exampleField": "FRONT",
+      "examplePrompt": "bonjour",
+      "spark": "✦",
+      "title": "ତୁମର ନୋଟ୍ ଟିକେ ଖାଲି ଦେଖାଯାଉଛି"
+    },
+    "enable": "ସକ୍ଷମ କରନ୍ତୁ",
+    "errors": {
+      "commandFailed": "Smart Field ନିର୍ଦ୍ଦେଶ ବିଫଳ ହେଲା"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "ପାଠ",
+      "image": "ପ୍ରତିଛବି",
+      "tts": "ଅଡିଓ"
+    },
+    "loadingAriaLabel": "Smart Fields ଲୋଡ୍ କରୁଛି",
+    "newSmartField": "ନୂତନ Smart Field",
+    "readsAloud": "{{field}} ଉଚ୍ଚ ସ୍ୱରରେ ପ .େ",
+    "review": {
+      "ariaLabel": "AnkiWeb ଉପରେ Smart Notes ସମୀକ୍ଷା କରନ୍ତୁ",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "ନିମନ୍ତ୍ରଣକୁ ପ୍ରତ୍ୟାଖ୍ୟାନ କରନ୍ତୁ",
+      "subtitle": "ଅନ୍ୟ Anki ବ୍ୟବହାରକାରୀଙ୍କୁ ଏହାକୁ ଖୋଜିବାରେ ସାହାଯ୍ୟ କରିବାକୁ AnkiWeb ଉପରେ ଏକ ସମୀକ୍ଷା ଛାଡିଦିଅ",
+      "title": "Smart Notes ଉପଭୋଗ କରୁଛନ୍ତି?"
+    },
+    "subtitle": "ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଉତ୍ପାଦିତ ପାଠ୍ୟ, ସ୍ୱର, ଏବଂ ପ୍ରତିଛବିଗୁଡ଼ିକୁ ଆପଣଙ୍କର ନୋଟରେ ଯୋଡନ୍ତୁ",
+    "title": "A Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "ଚାଟ୍ କାଟାଲଗ୍ ମଡେଲ୍ {{model}} ହରାଉଛି",
+      "missingImageModel": "ପ୍ରତିଛବି କାଟାଲଗ୍ ମଡେଲ୍ {{model}} ହରାଉଛି"
+    },
+    "image": {
+      "cannotFindModel": "ପ୍ରତିଛବି କାଟାଲଗ୍ ମଡେଲ୍ {{model}} ହରାଉଛି",
+      "defaultModel": "ଡିଫଲ୍ଟ ମଡେଲ୍",
+      "gptImage15Low": "ସର୍ବୋତ୍ତମ ଗୁଣବତ୍ତା / ଗତି ବାଣିଜ୍ୟ",
+      "gptImage2": "ସମାନ ମୂଲ୍ୟ, ଧୀର, ଉଚ୍ଚ ଗୁଣ",
+      "loadingLabel": "ଡିଫଲ୍ଟ ପ୍ରତିଛବି ସେଟିଂସମୂହ ଲୋଡ୍ କରୁଛି",
+      "loadingTitle": "ଡିଫଲ୍ଟ ପ୍ରତିଛବି ସେଟିଂସମୂହ",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (ନିମ୍ନ / ମଧ୍ୟମ)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "An ଏକ ପ୍ରତିଛବି ମଡେଲ୍ ବାଛିବା",
+      "samplePrompt": "Anki ସହିତ କଠିନ ଅଧ୍ୟୟନ କରୁଥିବା ଏବଂ ସେମାନଙ୍କ ପରୀକ୍ଷା ପାସ୍ କରୁଥିବା ଛାତ୍ରଙ୍କ ପ୍ରତିଛବି ସୃଷ୍ଟି କରନ୍ତୁ",
+      "saveError": "ପ୍ରତିଛବି ଡିଫଲ୍ଟ ସଞ୍ଚୟ କରିପାରିଲା ନାହିଁ",
+      "subtitle": "ତୁମର ପ୍ରତିଛବି Smart Fields ବ୍ୟବହାର କରୁଥିବା ମଡେଲ୍ ଯଦି କ a ଣସି କ୍ଷେତ୍ର ଏହାର ପିନ ନଥାଏ",
+      "title": "ଡିଫଲ୍ଟ ପ୍ରତିଛବି ସେଟିଂସମୂହ",
+      "zImageTurbo": "ଦ୍ରୁତ ଏବଂ ଶସ୍ତା"
+    },
+    "layout": {
+      "saveChanges": "ପରିବର୍ତ୍ତନଗୁଡିକ ସଞ୍ଚୟ କରନ୍ତୁ",
+      "saving": "ସଞ୍ଚୟ…",
+      "tryIt": "ଏହାକୁ ଚେଷ୍ଟା କରନ୍ତୁ"
+    },
+    "text": {
+      "cannotInheritModel": "ପାଠ୍ୟ ଡିଫଲ୍ଟ ଅନ୍ୟ ଏକ ମଡେଲକୁ ଉତ୍ତରାଧିକାରୀ କରିପାରିବ ନାହିଁ",
+      "defaultModel": "ଡିଫଲ୍ଟ ପାଠ୍ୟ ମଡେଲ୍",
+      "defaultReasoningLevel": "ଡିଫଲ୍ଟ ଯୁକ୍ତି ସ୍ତର",
+      "enableWebSearch": "ୱେବ୍ ସନ୍ଧାନ ସକ୍ଷମ କରନ୍ତୁ",
+      "higherReasoning": "ଉଚ୍ଚ ଯୁକ୍ତି କଠିନ ପି generations ିକୁ ଉନ୍ନତ କରିପାରିବ, କିନ୍ତୁ ଅଧିକ କ୍ରେଡିଟ୍ ବ୍ୟବହାର କରେ",
+      "loadingLabel": "ଡିଫଲ୍ଟ ପାଠ୍ୟ ସେଟିଂସମୂହ ଧାରଣ କରୁଛି",
+      "loadingTitle": "ପାଠ୍ୟ ଜେନେରେସନ୍ ସେଟିଂସମୂହ",
+      "modelGuidance": "{{auto}} ଏବଂ {{autoMax}} ହେଉଛି Smart Notes ପରାମର୍ଶିତ ମଡେଲ ଯାହା କାର୍ଯ୍ୟଦକ୍ଷତା ଏବଂ ମୂଲ୍ୟକୁ ସନ୍ତୁଳିତ କରେ | ମାନକ କାର୍ଯ୍ୟ ପାଇଁ {{auto}} ବାଛନ୍ତୁ ଏବଂ ଆବଶ୍ୟକ ହେଲେ {{autoMax}} କୁ ନବୀକରଣ କରନ୍ତୁ",
+      "pickingModel": "A ଏକ ମଡେଲ୍ ବାଛିବା",
+      "reasoningLevel": "ଯୁକ୍ତି ସ୍ତର",
+      "reasoningValues": {
+        "high": "ଉଚ୍ଚ",
+        "low": "ନିମ୍ନ",
+        "off": "ବନ୍ଦ"
+      },
+      "samplePrompt": "ଏକ ସ୍ପେସ୍ ପୁନରାବୃତ୍ତି ସିଷ୍ଟମ୍ (SRS) କ’ଣ?",
+      "saveError": "ପାଠ୍ୟ ଡିଫଲ୍ଟ ସଞ୍ଚୟ କରିପାରିଲା ନାହିଁ",
+      "subtitle": "ପାଠ୍ୟ ଉତ୍ପାଦନ ପାଇଁ ଡିଫଲ୍ଟ ସେଟିଂସମୂହ | ବ୍ୟକ୍ତିଗତ Smart Fields ଏହି ମୂଲ୍ୟଗୁଡ଼ିକୁ ନବଲିଖନ କରିପାରିବ",
+      "title": "ପାଠ୍ୟ ଜେନେରେସନ୍ ସେଟିଂସମୂହ",
+      "webSearch": "ୱେବ୍ ସନ୍ଧାନ",
+      "webSearchDescription": "ପାଠ୍ୟ ପି generations ିକୁ ୱେବରୁ ତାଜା ସୂଚନା ଟାଣିବାକୁ ଦିଅନ୍ତୁ",
+      "webSearchWarning": "⚠️ ସନ୍ଧାନ ମହଙ୍ଗା; ତୁମର କ୍ରେଡିଟ୍ ଉପରେ ନଜର ରଖ"
+    },
+    "usage": {
+      "fields_one": "{{count}} କ୍ଷେତ୍ରରେ ପ୍ରଯୁଜ୍ୟ",
+      "fields_other": "{{count}} କ୍ଷେତ୍ରରେ ପ୍ରଯୁଜ୍ୟ"
+    },
+    "voice": {
+      "browseVoices": "ସ୍ୱର ବ୍ରାଉଜ୍ କରନ୍ତୁ ({{count}})",
+      "cannotLoad": "ସ୍ୱର ଲୋଡ୍ ହୋଇପାରିଲା ନାହିଁ",
+      "currentDefault": "ସାମ୍ପ୍ରତିକ ଡିଫଲ୍ଟ",
+      "filters": {
+        "all": "ସମସ୍ତ",
+        "female": "ମହିଳା",
+        "gender": "ଲିଙ୍ଗ",
+        "language": "ଭାଷା",
+        "male": "ପୁରୁଷ",
+        "provider": "ପ୍ରଦାନକାରୀ"
+      },
+      "filterVoices": "ସ୍ୱର ଫିଲ୍ଟର୍ କରନ୍ତୁ",
+      "loadingLabel": "ଡିଫଲ୍ଟ ଭଏସ୍ ସେଟିଙ୍ଗ୍ ଲୋଡ୍ କରୁଛି",
+      "loadingTitle": "ଡିଫଲ୍ଟ ଭଏସ୍ ସେଟିଂସମୂହ",
+      "noVoices": "କ fil ଣସି ସ୍ୱର ଏହି ଫିଲ୍ଟରଗୁଡିକ ସହିତ ମେଳ ଖାଉ ନାହିଁ",
+      "saveError": "ଭଏସ୍ ଡିଫଲ୍ଟ ସଞ୍ଚୟ କରିପାରିଲା ନାହିଁ",
+      "searchPlaceholder": "Vo ସନ୍ଧାନ ସ୍ୱର…",
+      "searchVoices": "ସ୍ୱର ସନ୍ଧାନ କରନ୍ତୁ",
+      "subtitle": "ତୁମର TTS Smart Fields ବ୍ୟବହାର କରୁଥିବା ସ୍ୱର ଯଦି କ a ଣସି କ୍ଷେତ୍ର ନିଜସ୍ୱ ପିନ ନଥାଏ",
+      "title": "ଡିଫଲ୍ଟ ଭଏସ୍ ସେଟିଂସମୂହ"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "ଅନ୍ୟ ଏକ ନୋଟ୍ ପ୍ରକାର",
+    "currentlySelectedCard": "ସମ୍ପ୍ରତି ମନୋନୀତ କାର୍ଡ",
+    "emptyCard": "(ଖାଲି କାର୍ଡ)",
+    "errors": {
+      "generateAudio": "ଅଡିଓ ସୃଷ୍ଟି କରିପାରିବ ନାହିଁ",
+      "generateImage": "ଏକ ପ୍ରତିଛବି ସୃଷ୍ଟି କରିପାରିବ ନାହିଁ",
+      "saveResult": "ଏହି ଫଳାଫଳକୁ କାର୍ଡରେ ସଞ୍ଚୟ କରିପାରିଲା ନାହିଁ",
+      "testPrompt": "ଏହି ପ୍ରମ୍ପ୍ଟ୍ ପରୀକ୍ଷା କରିପାରିଲା ନାହିଁ"
+    },
+    "fieldRunsOnNoteType": "ଏହି ଫିଲ୍ଡ <noteTypeName>{{noteType}}</noteTypeName> ରେ ଚାଲିଥାଏ",
+    "generatedImagePreview": "ପ୍ରତିଛବି ପୂର୍ବାବଲୋକନ",
+    "missingFieldsTitle_one": "ନିଖୋଜ କ୍ଷେତ୍ର",
+    "missingFieldsTitle_other": "ନିଖୋଜ କ୍ଷେତ୍ରଗୁଡିକ",
+    "needsFields_one": "{{count}} କ୍ଷେତ୍ର ଆବଶ୍ୟକ କରେ",
+    "needsFields_other": "{{count}} କ୍ଷେତ୍ର ଆବଶ୍ୟକ କରେ",
+    "notesSelected_one": "{{count}} ନୋଟ୍ ମନୋନୀତ - ଏହାକୁ ଗୋଟିଏକୁ ସଂକୀର୍ଣ୍ଣ କର",
+    "notesSelected_other": "{{count}} ନୋଟଗୁଡିକ ମନୋନୀତ ହୋଇଛି - ଏହାକୁ ଗୋଟିଏକୁ ସଂକୀର୍ଣ୍ଣ କରନ୍ତୁ",
+    "pickCard": "Anki ବ୍ରାଉଜରରେ ଏକ କାର୍ଡ ବାଛନ୍ତୁ",
+    "promptPlaceholder": "{{braces}} ସହିତ ଆପଣଙ୍କ କାର୍ଡରେ ଫିଲ୍ଡଗୁଡ଼ିକୁ ରେଫରେନ୍ସ କରି ଏକ ପରୀକ୍ଷା ପ୍ରମ୍ପ୍ଟ ଲେଖନ୍ତୁ",
+    "saveToCard": "କାର୍ଡରେ ସେଭ୍ କରନ୍ତୁ",
+    "savedTo": "{{field}} ରେ ସଞ୍ଚୟ ହୋଇଛି",
+    "selectCardWithFields_one": "ଦୟାକରି ଫିଲ୍ଡ ସହିତ ଏକ କାର୍ଡ ନିର୍ବାଚନ କରନ୍ତୁ",
+    "selectCardWithFields_other": "ଦୟାକରି ଫିଲ୍ଡଗୁଡ଼ିକ ସହିତ ଏକ କାର୍ଡ ନିର୍ବାଚନ କରନ୍ତୁ",
+    "selectFieldToReadAloud": "ଉଚ୍ଚ ସ୍ୱରରେ ପ read ିବାକୁ ଏକ କ୍ଷେତ୍ର ଚୟନ କରନ୍ତୁ",
+    "selectNewCard": "ବ୍ରାଉଜରରେ ଏକ ନୂତନ କାର୍ଡ ବାଛନ୍ତୁ",
+    "selectRequiredNoteType": "ଦୟାକରି <noteTypeName>{{noteType}}</noteTypeName> ପ୍ରକାରର ଏକ ନୋଟ ନିର୍ବାଚନ କରନ୍ତୁ",
+    "selectedCard": "ମନୋନୀତ କାର୍ଡ",
+    "selectedDeck": "ମନୋନୀତ ଡେକ୍",
+    "selectedNoteType": "ମନୋନୀତ ନୋଟ୍ ପ୍ରକାର",
+    "selectionAppearsAutomatically": "ତୁମର ଚୟନ ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଏଠାରେ ଦେଖାଯାଏ",
+    "sent": "ପଠାଯାଇଛି",
+    "testing": "ପରୀକ୍ଷା…",
+    "testResult": "ପରୀକ୍ଷା ଫଳାଫଳ",
+    "textToSpeak": "କହିବାକୁ ପାଠ",
+    "viewResult": "ଫଳାଫଳ ଦେଖନ୍ତୁ",
+    "wrongNoteType": "ଭୁଲ ନୋଟ୍ ପ୍ରକାର"
+  },
+  "subscription": {
+    "checking": "ସଦସ୍ୟତା ଯାଞ୍ଚ କରୁଛି",
+    "creditTypes": {
+      "images": "ପ୍ରତିଛବିଗୁଡିକ",
+      "text": "ପାଠ",
+      "voice": "ସ୍ୱର"
+    },
+    "creditUsage": "କ୍ରେଡିଟ୍ ବ୍ୟବହାର",
+    "creditsReset": "କ୍ରେଡିଟ୍ ପୁନ et ସେଟ୍",
+    "daysLeft_one": "ଗତ ଦିନ",
+    "daysLeft_other": "{{count}} ଦିନ ବାକି ଅଛି",
+    "errors": {
+      "logout": "ଲଗ୍ ଆଉଟ୍ ହୋଇପାରିଲା ନାହିଁ"
+    },
+    "freePlan": "ମାଗଣା ଯୋଜନା",
+    "freeTrial": "ମାଗଣା ପରୀକ୍ଷା",
+    "hero": {
+      "buyCredits": "ଅଧିକ କ୍ରେଡିଟ୍ କିଣନ୍ତୁ",
+      "freeCreditsResetting": "ଆପଣଙ୍କର ମାଗଣା କ୍ରେଡିଟ୍ ପୁନ res ସେଟ୍ କରୁଛି",
+      "freePlan": "ଆପଣ ମାଗଣା ଯୋଜନାରେ ଅଛନ୍ତି",
+      "noteLimit": "ତୁମେ ତୁମର ନୋଟ୍ ସୀମାରେ ପହଞ୍ଚିସାରିଛ",
+      "outOfCredits": "ଆପଣ ଏହି ମାସରେ କ୍ରେଡିଟ୍ ବାହାରେ ଅଛନ୍ତି",
+      "outOfFreeCredits": "ଆପଣ ଏହି ମାସରେ ମାଗଣା କ୍ରେଡିଟ୍ ବାହାରେ ଅଛନ୍ତି",
+      "outOfTrialCredits": "ଆପଣ ଟ୍ରାଏଲ୍ କ୍ରେଡିଟ୍ ବାହାରେ ଅଛନ୍ତି",
+      "planExpired": "ଆପଣଙ୍କର ଯୋଜନା ସମାପ୍ତ ହୋଇଛି",
+      "rollover": "ପେ-ଏସ୍-ତୁ-କ୍ରେଡିଟ୍ ପ୍ରତି ମାସରେ ଗତି କରେ - ତୁମର ସବୁଦିନ ପାଇଁ",
+      "trialDaysLeft_one": "ତୁମର ପରୀକ୍ଷା ଆଜି ଶେଷ ହେବ",
+      "trialDaysLeft_other": "ଆପଣଙ୍କ ପରୀକ୍ଷଣରେ {{count}} ଦିନ ବାକି ଅଛି",
+      "trialEnded": "ତୁମର ପରୀକ୍ଷା ସମାପ୍ତ ହୋଇଛି",
+      "trialNoteLimit": "ଆପଣ ଆପଣଙ୍କର ପରୀକ୍ଷା ନୋଟ୍ ସୀମାରେ ପହଞ୍ଚିସାରିଛନ୍ତି",
+      "upgradeCollection": "ଅପଗ୍ରେଡ୍ - ତୁମର ସମ୍ପୂର୍ଣ୍ଣ ସଂଗ୍ରହ, ସ୍ୱୟଂଚାଳିତ ଭାବରେ",
+      "upgradeCredits": "ଅଧିକ କ୍ରେଡିଟ୍ ପାଇଁ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ",
+      "upgradePaid": "Payed ଦେୟକୁ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ"
+    },
+    "inDays_one": "ଆଜି",
+    "inDays_other": "{{count}} ଦିନରେ",
+    "loading": "ସବସ୍କ୍ରିପସନ୍ ଲୋଡିଙ୍ଗ୍",
+    "loggingOut": "ଲଗ୍ ଆଉଟ୍…",
+    "logOut": "ଲଗ୍ ଆଉଟ୍ କରନ୍ତୁ",
+    "manageDescription": "ଯୋଜନା ପରିବର୍ତ୍ତନ କରନ୍ତୁ, ଦେୟ ଅଦ୍ୟତନ କରନ୍ତୁ କିମ୍ବା ବାତିଲ୍ କରନ୍ତୁ",
+    "manageOrUpgrade": "ଯୋଜନା ପରିଚାଳନା କିମ୍ବା ଅପଗ୍ରେଡ୍ କରନ୍ତୁ",
+    "managePlan": "ଯୋଜନା ପରିଚାଳନା କରନ୍ତୁ",
+    "monthlyCreditsUsed": "ବ୍ୟବହୃତ ମାସିକ କ୍ରେଡିଟ୍ ର",
+    "mostCreditsUsed": "ଏହି ମାସର ଅଧିକାଂଶ କ୍ରେଡିଟ୍ ବ୍ୟବହୃତ ହୁଏ",
+    "noteLimitReached": "ଟିପ୍ପଣୀ ସୀମା ପହ reached ୍ଚିଗଲା",
+    "notes": "ଟିପ୍ପଣୀ",
+    "notesUsed": "ବ୍ୟବହୃତ ଟିପ୍ପଣୀ",
+    "notesUsedValue": "ବ୍ୟବହୃତ {{used}} / {{limit}}",
+    "outOfCredits": "କ୍ରେଡିଟ୍ ବାହାରେ",
+    "pausedUntilReset": "ତୁମର କ୍ରେଡିଟ୍ ପୁନ et ସେଟ୍ ନହେବା ପର୍ଯ୍ୟନ୍ତ ଜେନେରେସନ୍ ବନ୍ଦ ହୋଇଯାଏ",
+    "plan": "ଯୋଜନା କରନ୍ତୁ",
+    "planInactive": "ନିଷ୍କ୍ରିୟ ଯୋଜନା କରନ୍ତୁ",
+    "resetsIn": "ପୁନ ets ସେଟ୍ କରେ",
+    "resetsInDays_one": "1 ଦିନରେ ପୁନ ets ସେଟ୍ କରନ୍ତୁ",
+    "resetsInDays_other": "{{count}} ଦିନରେ ପୁନ ets ସେଟ୍ କରେ",
+    "signedOut": {
+      "localStorage": "ଆପଣଙ୍କର ସ୍ମାର୍ଟ ଫିଲ୍ଡ ଏବଂ ସେଟିଂସମୂହ ଏହି ଡିଭାଇସରେ ଗଚ୍ଛିତ ଅଛି",
+      "manage": "ଆପଣଙ୍କର ଯୋଜନା ପରିଚାଳନା କରିବାକୁ ସାଇନ୍ ଇନ୍ କରନ୍ତୁ",
+      "paused": "ଆପଣ ସାଇନ୍ ଇନ୍ ନହେବା ପର୍ଯ୍ୟନ୍ତ ଜେନେରେସନ୍ ବିରତ",
+      "title": "ସାଇନ୍ ଆଉଟ୍"
+    },
+    "title": "ଖାତା ଏବଂ ବ୍ୟବହାର",
+    "trialCreditsUsed": "ବ୍ୟବହୃତ ଟ୍ରାଏଲ୍ କ୍ରେଡିଟ୍ ର",
+    "trialEnded": "ପରୀକ୍ଷା ଶେଷ ହେଲା",
+    "trialEnds": "ପରୀକ୍ଷା ଶେଷ",
+    "trialNoteLimitReached": "ପରୀକ୍ଷା ନୋଟ୍ ସୀମା ପହଞ୍ଚିଛି",
+    "upgradeToKeepGenerating": "ଉତ୍ପାଦନ ଜାରି ରଖିବାକୁ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ",
+    "usage": "ବ୍ୟବହାର"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "ଏକ ସମୀକ୍ଷା ଛାଡନ୍ତୁ / ଡକସ୍ ଦେଖନ୍ତୁ",
+    "byline": "ମାଇକେଲ୍ ପିଆଜା / ରୋଜବୁଡ୍ ଲ୍ୟାବ୍ସ, ଏଲ.ସି.",
+    "changelog": "ଚାଙ୍ଗେଲଗ୍",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "ସାହାଯ୍ୟ ପାଇବା, ଏକ ବ feature ଶିଷ୍ଟ୍ୟ ଅନୁରୋଧ କରିବା, କିମ୍ବା ଏକ ତ୍ରୁଟି ରିପୋର୍ଟ କରିବା ପାଇଁ ଦ୍ରୁତତମ ଉପାୟ",
+      "join": "ଯୋଗ ଦିଅନ୍ତୁ",
+      "title": "Discord ରେ ଯୋଗ ଦିଅନ୍ତୁ"
+    },
+    "emailUs": "ଆମକୁ ଇମେଲ୍ କରନ୍ତୁ",
+    "feedback": {
+      "description": "କିଛି ଭଙ୍ଗା କିମ୍ବା ଭୁଲ? ଗରିବ ବିକାଶକାରୀଙ୍କୁ ସିଧାସଳଖ ବାର୍ତ୍ତା ଦିଅନ୍ତୁ",
+      "send": "ଏହାକୁ ପଠାନ୍ତୁ",
+      "title": "ଏକ ବଗ୍ ଦାଖଲ କରନ୍ତୁ / ଏକ ବ feature ଶିଷ୍ଟ୍ୟ ଅନୁରୋଧ କରନ୍ତୁ"
+    },
+    "github": "GitHub",
+    "loading": "ସମର୍ଥନ ଲୋଡିଙ୍ଗ୍",
+    "title": "ସମର୍ଥନ"
+  },
+  "welcome": {
+    "alreadyAccount": "ପୂର୍ବରୁ ଏକ ଖାତା ଅଛି କି?",
+    "codePlaceholder": "ତୁମର କୋଡ୍ ଲେପନ କର",
+    "connect": "ସଂଯୋଗ କରନ୍ତୁ",
+    "connecting": "ସଂଯୋଗ…",
+    "description": "ଗୋଟିଏ କ୍ଲିକ୍ ରେ ବ୍ୟକ୍ତିଗତ କାର୍ଡ କିମ୍ବା ଆପଣଙ୍କର ସମଗ୍ର ଡେକ୍ରେ ପାଠ୍ୟ, ବକ୍ତବ୍ୟ, ଏବଂ ପ୍ରତିଛବିଗୁଡିକ ଯୋଡନ୍ତୁ",
+    "errors": {
+      "code": "ସେହି କୋଡ୍ ସହିତ ସଂଯୋଗ ହୋଇପାରିଲା ନାହିଁ"
+    },
+    "finishDescription": "ଆମେ ଖୋଲିଥିବା ବ୍ରାଉଜରରେ ସମ୍ପୂର୍ଣ୍ଣ ସାଇନ୍-ଇନ୍ | ଏହି ୱିଣ୍ଡୋ ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଅପଡେଟ୍ ହେବ",
+    "finishInBrowser": "ତୁମର ବ୍ରାଉଜରରେ ଶେଷ କର",
+    "haveCode": "ୱେବସାଇଟରୁ ଏକ କୋଡ୍ ଅଛି କି?",
+    "startTrial": "Free ମାଗଣା ପରୀକ୍ଷା ଆରମ୍ଭ ✨",
+    "trialDetails": "7 ଦିନ ପାଇଁ ମାଗଣା · ପ୍ରତ୍ୟେକ ବ feature ଶିଷ୍ଟ୍ୟ · କ credit ଣସି କ୍ରେଡିଟ୍ କାର୍ଡ ନାହିଁ"
+  },
+  "trialEnded": {
+    "description": "ପରୀକ୍ଷା 7 ଦିନ ଚାଲିବ କିମ୍ବା ତୁମର ଟ୍ରାଏଲ୍ କ୍ରେଡିଟ୍ ଶେଷ ନହେବା ପର୍ଯ୍ୟନ୍ତ",
+    "features": {
+      "ariaLabel": "କ’ଣ ଅପଗ୍ରେଡ୍ ରଖେ",
+      "batch": "ତୁମର ପୁରା ସଂଗ୍ରହରେ ବ୍ୟାଚ୍ କର",
+      "images": "ପ୍ରତିଛବି ସୃଷ୍ଟି",
+      "premium": "ପ୍ରତ୍ୟେକ ପ୍ରିମିୟମ୍ ମଡେଲ୍ ଏବଂ ସ୍ୱର",
+      "review": "ସମୀକ୍ଷା ସମୟରେ ସୃଷ୍ଟି କରନ୍ତୁ"
+    },
+    "reviewOffer": {
+      "ariaLabel": "ମାଗଣା ମାସ ଅଫର୍",
+      "description": "ଶୀଘ୍ର AnkiWeb ସମୀକ୍ଷା ଛାଡିଦିଅ, ଆମ ଉପରେ ଏକ ମାସ ପାଅ",
+      "dialogDescription": "AnkiWeb ରେ ଶୀଘ୍ର ସମୀକ୍ଷା ଛାଡିଦିଅ, ତାପରେ ଆମକୁ ଇମେଲ୍ କର - ଆମେ ତୁମ ଖାତାରେ Smart Notes ର ଏକ ମାଗଣା ମାସ ଯୋଗ କରିବୁ",
+      "dialogTitle": "ତୁମର ମାଗଣା ମାସ ପାଅ",
+      "leaveAnkiWebReview": "AnkiWeb ରେ ଏକ ସମୀକ୍ଷା ଛାଡିଦିଅ",
+      "leaveReview": "ଏକ ସମୀକ୍ଷା ଛାଡନ୍ତୁ",
+      "title": "Smart Notes ର ଏକ ମାଗଣା ମାସ ପାଆନ୍ତୁ"
+    },
+    "thanks": "Smart Notes using ବ୍ୟବହାର କରିଥିବାରୁ ଧନ୍ୟବାଦ",
+    "title": "ତୁମର ମାଗଣା ପରୀକ୍ଷା ଶେଷ ହୋଇଛି",
+    "upgradeNow": "ବର୍ତ୍ତମାନ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ"
+  }
+}

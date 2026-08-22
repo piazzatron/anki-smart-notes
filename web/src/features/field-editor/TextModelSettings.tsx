@@ -22,6 +22,7 @@ import { ChatModelSelect } from "@/features/text-generation/ChatModelSelect"
 import { ReasoningLevelSelect } from "@/features/text-generation/ReasoningLevelSelect"
 import { TextModelGuidance } from "@/features/text-generation/TextModelGuidance"
 import type { ChatGenerationSettings, ChatModelCatalog } from "@/types/api"
+import { useTranslation } from "react-i18next"
 
 interface TextModelSettingsProps {
   catalog: ChatModelCatalog
@@ -34,14 +35,15 @@ export const TextModelSettings = ({
   onChange,
   value: settings,
 }: TextModelSettingsProps) => {
+  const { t } = useTranslation()
   return (
     <div className="space-y-4">
       <label className="block">
         <span className="mb-2 block text-[10px] font-semibold tracking-[0.06em] text-ink-faint uppercase">
-          Model
+          {t("fieldEditor.modelSettings.model")}
         </span>
         <ChatModelSelect
-          ariaLabel="Text model"
+          ariaLabel={t("fieldEditor.modelSettings.textModel")}
           catalog={catalog}
           onValueChange={(model) =>
             onChange({ ...settings, model: model.id, provider: model.provider })
@@ -54,10 +56,10 @@ export const TextModelSettings = ({
       {settings.provider === "auto" && (
         <label className="block">
           <span className="mb-2 block text-[10px] font-semibold tracking-[0.06em] text-ink-faint uppercase">
-            Reasoning level
+            {t("fieldEditor.modelSettings.reasoningLevel")}
           </span>
           <ReasoningLevelSelect
-            ariaLabel="Reasoning level"
+            ariaLabel={t("fieldEditor.modelSettings.reasoningLevel")}
             levels={catalog.reasoningLevels}
             onValueChange={(reasoningLevel) =>
               onChange({ ...settings, reasoningLevel })
@@ -65,21 +67,22 @@ export const TextModelSettings = ({
             value={settings.reasoningLevel}
           />
           <span className="mt-2 block text-[10.5px] leading-4 text-ink-muted">
-            Higher reasoning can improve harder generations, but uses more
-            credits.
+            {t("fieldEditor.modelSettings.reasoningHint")}
           </span>
         </label>
       )}
 
       <div className="flex items-start justify-between gap-5 border-t border-white/[0.065] pt-4">
         <div>
-          <p className="text-xs font-semibold text-zinc-200">Web search</p>
+          <p className="text-xs font-semibold text-zinc-200">
+            {t("fieldEditor.modelSettings.webSearch")}
+          </p>
           <p className="mt-1 text-[11px] leading-4 text-ink-muted">
-            Let this field use fresh information from the web.
+            {t("fieldEditor.modelSettings.webSearchHint")}
           </p>
         </div>
         <Toggle
-          aria-label="Use web search for this field"
+          aria-label={t("fieldEditor.modelSettings.useWebSearch")}
           checked={settings.webSearchEnabled}
           onCheckedChange={(webSearchEnabled) =>
             onChange({ ...settings, webSearchEnabled })

@@ -19,6 +19,7 @@
 
 import { LoaderCircle } from "lucide-react"
 import type { ReactNode } from "react"
+import { useTranslation } from "react-i18next"
 
 import { PageLayout } from "@/components/shared/PageLayout"
 import { Button } from "@/components/ui/Button"
@@ -50,33 +51,39 @@ export const DefaultsScreenLayout = ({
   tester,
   testId,
   title,
-}: DefaultsScreenLayoutProps) => (
-  <PageLayout
-    actions={
-      <div className="flex items-center gap-3">
-        {accessory}
-        {isDirty && (
-          <Button disabled={isSaving} onClick={onSave} variant="primary">
-            {isSaving ? "Saving…" : "Save changes"}
-          </Button>
-        )}
+}: DefaultsScreenLayoutProps) => {
+  const { t } = useTranslation()
+
+  return (
+    <PageLayout
+      actions={
+        <div className="flex items-center gap-3">
+          {accessory}
+          {isDirty && (
+            <Button disabled={isSaving} onClick={onSave} variant="primary">
+              {isSaving
+                ? t("defaults.layout.saving")
+                : t("defaults.layout.saveChanges")}
+            </Button>
+          )}
+        </div>
+      }
+      className={contentFillsHeight ? "h-full" : undefined}
+      icon={icon}
+      subtitle={subtitle}
+      testId={testId}
+      title={title}
+    >
+      {children}
+      <div className={contentFillsHeight ? "mt-auto pt-8" : "mt-8"}>
+        <h2 className="mb-3 text-[17px] leading-tight font-bold text-zinc-100">
+          {t("defaults.layout.tryIt")}
+        </h2>
+        <Card className="w-full p-4">{tester}</Card>
       </div>
-    }
-    className={contentFillsHeight ? "h-full" : undefined}
-    icon={icon}
-    subtitle={subtitle}
-    testId={testId}
-    title={title}
-  >
-    {children}
-    <div className={contentFillsHeight ? "mt-auto pt-8" : "mt-8"}>
-      <h2 className="mb-3 text-[17px] leading-tight font-bold text-zinc-100">
-        Try it
-      </h2>
-      <Card className="w-full p-4">{tester}</Card>
-    </div>
-  </PageLayout>
-)
+    </PageLayout>
+  )
+}
 
 export const DefaultsScreenLoading = ({
   icon,

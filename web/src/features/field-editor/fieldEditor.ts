@@ -26,6 +26,7 @@ import type {
   SmartFieldCreatePayload,
   TTSGenerationSettings,
 } from "@/types/api"
+import i18next from "i18next"
 
 export type FieldEditorMode = "create" | "edit" | "duplicate"
 export type FieldEditorStep = 1 | 2 | 3
@@ -151,16 +152,22 @@ export const validateFieldEditorDraft = (
   draft: FieldEditorDraft,
   fields: SmartField[],
 ): string | null => {
-  if (draft.target.noteTypeId === 0) return "Choose a note type"
-  if (draft.target.targetFieldName.trim() === "") return "Choose a field"
+  if (draft.target.noteTypeId === 0) {
+    return i18next.t("fieldEditor.validation.chooseNoteType")
+  }
+  if (draft.target.targetFieldName.trim() === "") {
+    return i18next.t("fieldEditor.validation.chooseField")
+  }
   if (hasSmartFieldCollision(fields, draft.target, draft.editingFieldId)) {
-    return `${draft.target.targetFieldName} already has a Smart Field`
+    return i18next.t("fieldEditor.validation.fieldAlreadyHasSmartField", {
+      field: draft.target.targetFieldName,
+    })
   }
   if (draft.target.fieldType === "tts" && draft.sourceFieldName.trim() === "") {
-    return "Choose a source field"
+    return i18next.t("fieldEditor.validation.chooseSourceField")
   }
   if (draft.target.fieldType !== "tts" && draft.prompt.trim() === "") {
-    return "Write a prompt"
+    return i18next.t("fieldEditor.validation.writePrompt")
   }
 
   return null
