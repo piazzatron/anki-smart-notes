@@ -131,12 +131,16 @@ export const LoadedSettingsScreen = ({
                   {t("settings.language.matchAnki")}
                 </SelectItem>
                 {LANGUAGES.map((language) => (
-                  <SelectItem key={language.bcp47} value={language.bcp47}>
+                  <SelectItem
+                    key={language.bcp47}
+                    textValue={language.nativeName}
+                    value={language.bcp47}
+                  >
                     <span className="inline-flex items-center gap-2">
+                      <span>{language.nativeName}</span>
                       <span aria-hidden className="w-5 text-center text-base">
                         {language.flag}
                       </span>
-                      <span>{language.nativeName}</span>
                     </span>
                   </SelectItem>
                 ))}
