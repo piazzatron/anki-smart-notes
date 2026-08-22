@@ -33,3 +33,21 @@ jobs:
         export QT_QPA_PLATFORM=offscreen
         export DISPLAY=:99
         xvfb-run -a python -m pytest tests/ -v
+
+  web:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: web
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: oven-sh/setup-bun@v2
+
+    - run: bun install --frozen-lockfile
+
+    - run: bun run check
+
+    - run: bun test
