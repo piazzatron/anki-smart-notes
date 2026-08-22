@@ -24,6 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select"
+import i18next from "@/lib/i18n"
 
 interface ReasoningLevelSelectProps {
   ariaLabel: string
@@ -49,7 +50,9 @@ export const ReasoningLevelSelect = ({
       {levels.map((level) => (
         <SelectItem key={level} value={level}>
           <span className="font-semibold text-zinc-100 capitalize">
-            {level}
+            {i18next.t(`defaults.text.reasoningValues.${level}`, {
+              defaultValue: level,
+            })}
           </span>
         </SelectItem>
       ))}

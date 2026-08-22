@@ -1,0 +1,489 @@
+{
+  "common": {
+    "allDecks": "Totes los ponts",
+    "auto": "Auto",
+    "autoMax": "Auto MAX",
+    "back": "Arrièr",
+    "bestValueCost": "Lo melhor valor, 0,3× còst",
+    "cancel": "Anullar",
+    "close": "Barrar",
+    "connection": {
+      "connecting": "Se connectar a Anki...",
+      "reconnecting": "Reconnexion a Anki..."
+    },
+    "days_other": "{{count}} jorns",
+    "deck": "Pont",
+    "default": "Defaut",
+    "delete": "Escafar",
+    "done": "Fach",
+    "duplicate": "Duplicat",
+    "edit": "Modificar",
+    "empty": "vuèg",
+    "field": "Camp",
+    "free": "Liure",
+    "discardChanges": "Escartar las modificacions",
+    "discardUnsavedChanges": {
+      "description": "Vòstras modificacions a aquestes paramètres per defaut son pas estadas enregistradas.",
+      "title": "Escartar las modificacions pas enregistradas ?"
+    },
+    "dismissError": "Error de descart",
+    "feedback": {
+      "description": "Mandatz un rapòrt d'error, una demanda de foncionalitat o un autre comentari al desvolopaire.",
+      "error": "Poguèt pas mandar de retroaccion",
+      "label": "Retorn",
+      "placeholder": "Un bug, una idèa, tot — va dirèctament al desvolopaire.",
+      "send": "Mandar",
+      "sending": "Enviant…",
+      "sent": "Retroaccion mandada. Serem en contacte lèu.",
+      "title": "Mandar un comentari"
+    },
+    "notNow": "pas ara",
+    "other": "Autre",
+    "placeholderScreen": "Aqueste ecran es lo seguent dins la reconstruccion.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "Connectatz-vos",
+    "signInLower": "Connectatz-vos",
+    "unlimited": "Illimitat",
+    "upgradeSparkles": "✨ Actualizacion ✨",
+    "multiplierCost": "{{multiplier}}× còst",
+    "next": "Venent",
+    "noteType": "Tipe de nòta",
+    "optional": "opcional",
+    "prompt": "Pontual",
+    "saving": "En estalviant…",
+    "test": "Espròva",
+    "validFields": "Camps valids :"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Retorn",
+    "nav": {
+      "defaultsImages": "Paramètres d'imatge per defaut",
+      "defaultsText": "Paramètres de tèxte per defaut",
+      "defaultsVoice": "Paramètres de votz per defaut",
+      "image": "Imatge",
+      "settings": "Paramètres",
+      "smartFields": "Smart Fields",
+      "subscription": "Compte e Utilizacion",
+      "support": "Sosten",
+      "text": "Tèxt",
+      "voice": "Votz"
+    },
+    "sections": "Seccions Smart Notes",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Enregistrament verbos per ajudar a diagnosticar de problèmas. Inclutz aquestes jornals al moment de depausar un bug.",
+      "label": "Mòde de depuracion"
+    },
+    "generateAtReview": {
+      "description": "Emplenatz los camps intelligents mancants automaticament a mesura que las cartas venon en revista.",
+      "label": "Generar de camps pendent la revision"
+    },
+    "language": {
+      "description": "Causissètz la lenga per Smart Notes, o correspondètz a la lenga d'Anki.",
+      "label": "Lenga",
+      "matchAnki": "Compartir Anki"
+    },
+    "legacy": {
+      "apiKey": "Clau API OpenAI",
+      "apiKeyRequired": "Una clau API OpenAI pagada es requerida.",
+      "description": "Connectatz una clau API pagada e causissètz un modèl OpenAI ancian.",
+      "getApiKey": "Obténer una clau API",
+      "host": "OpenAI òste",
+      "hostDescription": "Provesir un ponch final alternatiu a l'API OpenAI.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "Modèl OpenAI",
+      "title": "Utilizar ma pròpria clau OpenAI"
+    },
+    "loading": "Paramètres de cargament",
+    "regenerateWhenBatching": {
+      "description": "Quand tractatz per lots un grop de nòtas, regeneratz cada camp intelligent dempuèi lo començament en luòc d'emplenar sonque los vuèges.",
+      "label": "Regenerar totes los camps intelligents al moment del tractament per lots"
+    },
+    "saveError": "Impossible de salvar los paramètres",
+    "sections": {
+      "advanced": "Avançat",
+      "general": "General",
+      "generation": "Generacion"
+    },
+    "title": "Paramètres"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Ya un Smart Field ✨ .",
+    "collisionHint": "a ja un Smart Field — causissètz un tipe de camp, de jòc o de nòta diferent",
+    "completion": {
+      "descriptionAfter": "las nòtas s'emplenan cada còp que la generatz.",
+      "descriptionBefore": "sus",
+      "methods": {
+        "bulk": {
+          "caption": "Seleccionatz de nòtas o de deck → clic drech → ✨ Generar Smart Fields.",
+          "imageAlt": "Menú de contèxte del navigador Anki amb Generar Smart Fields en evidéncia",
+          "title": "En gros, dempuèi lo Navigador"
+        },
+        "card": {
+          "caption": "Clicatz sul boton ✨ dins la barra d'aisinas de l'editor o picatz ⌘⇧G.",
+          "imageAlt": "Barra d'aisinas de l'editor Anki amb lo boton Smart Notes en evidéncia",
+          "title": "Una carta a la volta"
+        },
+        "field": {
+          "caption": "Clicatz amb lo boton drech sus quin camp que siá → Generar Smart Field.",
+          "imageAlt": "Menú de contèxte de camp Anki amb Generar Smart Field en evidéncia",
+          "title": "Un sol camp"
+        }
+      },
+      "title": "Tu Smart Field es en vivo",
+      "waysToGenerate": "Qualques biaisses de lo generar :"
+    },
+    "created": "Smart Field creat",
+    "dontShowAgain": "Tornatz pas mostrar aquò",
+    "errors": {
+      "save": "Poguèt pas salvar Smart Field",
+      "updateWizardSettings": "Impossible de metre a jorn los paramètres de l'assistent",
+      "writePrompt": "Poguèt pas escriure l'invitacion"
+    },
+    "fieldTypes": {
+      "audio": "Audio",
+      "image": "Imatge",
+      "text": "Tèxt"
+    },
+    "loadingModelCatalog": "En cargament del catalòg de modèls...",
+    "modelSettings": {
+      "appliesOnlyToField": "S'aplica a aqueste Smart Field solament.",
+      "defaultWithValue": "Per defaut ({{value}})",
+      "defaultsImages": "Per defaut › Imatges",
+      "defaultsText": "Per defaut › Tèxte",
+      "defaultsVoice": "Per defaut › Votz",
+      "descriptionChat": "Definissètz l'IA qu'escriu aqueste camp. La màger part dels camps pòdon demorar per defaut.",
+      "descriptionImage": "Definissètz l'IA que dessenha aqueste camp. La màger part dels camps pòdon demorar per defaut.",
+      "descriptionTts": "Definir la votz que legís aqueste camp. La màger part dels camps pòdon demorar per defaut.",
+      "imageDefault": "imatge per defaut",
+      "imageModel": "Modèl d'imatge",
+      "loadingVoices": "En cargament de votz...",
+      "model": "Modèl",
+      "pickCustom": "Causissètz un modèl personalizat per aqueste camp",
+      "reasoning": "{{level}} rasonament",
+      "reasoningHint": "Un rasonament mai naut pòt melhorar de generacions mai dificilas, mas utiliza mai de crèdits.",
+      "reasoningLevel": "Nivèl de rasonament",
+      "sharedByEveryField": "Vòstre {{modality}} es partejat per cada Smart Field que l'utiliza. Cambiatz-lo en",
+      "textDefault": "tèxte per defaut",
+      "textModel": "Modèl de tèxte",
+      "useMy": "Utiliza mon {{modality}}",
+      "useWebSearch": "Utilizar la recèrca web per aqueste camp",
+      "voice": "Votz",
+      "voiceDefault": "votz per defaut",
+      "webSearch": "Recèrca web",
+      "webSearchHint": "Daissatz aqueste camp utilizar d'informacions novèlas del web."
+    },
+    "save": "Salvar Smart Field",
+    "sections": {
+      "onWhichNotes": "Sus quinas nòtas?",
+      "whatToGenerate": "Qué volètz generar?",
+      "whichFieldToFill": "Quin camp deuriá emplenar?",
+      "whichFieldToSpeak": "Quin camp deuriá parlar?"
+    },
+    "sourceField": "Camp font",
+    "targetAriaLabel": "Smart Field cibla",
+    "testSmartField": "Prueba tu Smart Field",
+    "titles": {
+      "create": "Nova Smart Field ✨",
+      "duplicate": "Duplicat Smart Field",
+      "edit": "Modificar Smart Field"
+    },
+    "validation": {
+      "chooseField": "Causissètz un camp",
+      "chooseNoteType": "Causissètz un tipe de nòta",
+      "chooseSourceField": "Causissètz un camp font",
+      "fieldAlreadyHasSmartField": "{{field}} a ja un Smart Field",
+      "writePrompt": "Escrivètz una invitacion"
+    },
+    "writePrompt": "Invitacion d'escritura",
+    "writePromptForMe": "Escrivètz mon invitacion per ieu",
+    "writePromptForMeHint": "Digatz çò que volètz en anglés simple — escriurem l'invitacion çai-jos.",
+    "writePromptPlaceholder": "\"Traduire a l'anglés natural...\"",
+    "writing": "Escritura…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "Accions per {{field}}",
+    "addToNoteType": "Ajustar Smart Field a {{noteType}}",
+    "disable": "Desactivar",
+    "deleting": "Suprimir...",
+    "discord": {
+      "dismissAriaLabel": "Rechazar la invitacion Discord",
+      "join": "Rejónher",
+      "joinAriaLabel": "Unite a la Smart Notes Discord",
+      "subtitle": "— intercambiar de demandas e demandar de foncionalitats.",
+      "title": "Ven a dicir hola en la Discord"
+    },
+    "editAriaLabel": "Modificar {{field}} Smart Field",
+    "emptyState": {
+      "description": "Apondre Smart Fields per apondre de tèxte, d'àudio e d'imatges a vòstras cartas.",
+      "exampleAnswer": "Adieu",
+      "exampleField": "DAVANT",
+      "examplePrompt": "bonjour",
+      "spark": "✦",
+      "title": "Vòstras nòtas semblan un pauc voidas"
+    },
+    "enable": "Activar",
+    "errors": {
+      "commandFailed": "La comanda Smart Field a fracassat"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "Tèxt",
+      "image": "Imatge",
+      "tts": "Audio"
+    },
+    "loadingAriaLabel": "En cargament Smart Fields",
+    "newSmartField": "Nova Smart Field",
+    "readsAloud": "Legís {{field}} a votz nauta",
+    "review": {
+      "ariaLabel": "Review Smart Notes on AnkiWeb",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "Descartar l'invitacion de revista",
+      "subtitle": "Daissa una revista sus AnkiWeb per ajudar d'autres utilizaires d'Anki a la trobar.",
+      "title": "Disfrutas de Smart Notes?"
+    },
+    "subtitle": "Apondètz de tèxte, de votz e d'imatges generats automaticament a vòstras nòtas.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "Manca lo catalòg de chat lo modèl {{model}}",
+      "missingImageModel": "Lo catalòg d'imatges manca lo modèl {{model}}"
+    },
+    "image": {
+      "cannotFindModel": "Lo catalòg d'imatges manca lo modèl {{model}}",
+      "defaultModel": "Modèl per defaut",
+      "gptImage15Low": "melhor compromés de qualitat / velocitat.",
+      "gptImage2": "meteis còst, mai lent, qualitat mai nauta.",
+      "loadingLabel": "En cargament dels paramètres d'imatge per defaut",
+      "loadingTitle": "Paramètres d'imatge per defaut",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (Bas / Mejan)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Causir un modèl d'imatge",
+      "samplePrompt": "Generar una imatge d'un escolans qu'estudia fòrça amb Anki e que passa sos tèsts.",
+      "saveError": "Impossible d'enregistrar las valors per defaut de l'imatge",
+      "subtitle": "Lo modèl que vòstra imatge Smart Fields utilizatz levat se un camp fixa lo sieu.",
+      "title": "Paramètres d'imatge per defaut",
+      "zImageTurbo": "lo mai rapid e lo mai economic."
+    },
+    "layout": {
+      "saveChanges": "Enregistrar las modificacions",
+      "saving": "En estalviant…",
+      "tryIt": "Ensajatz-lo"
+    },
+    "text": {
+      "cannotInheritModel": "Los paramètres de tèxte pòdon pas eiretar un autre modèl",
+      "defaultModel": "Modèl de tèxte per defaut",
+      "defaultReasoningLevel": "Nivèl de rasonament per defaut",
+      "enableWebSearch": "Activar la recèrca web",
+      "higherReasoning": "Un rasonament mai naut pòt melhorar de generacions mai dificilas, mas utiliza mai de crèdits.",
+      "loadingLabel": "En cargament dels paramètres de tèxte per defaut",
+      "loadingTitle": "Paramètres de generacion de tèxte",
+      "modelGuidance": "{{auto}} e {{autoMax}} son los modèls recomandats per Smart Notes qu'equilibran lo rendiment e lo còst. Causissètz {{auto}} per las tòcas estandard e metètz a jorn a {{autoMax}} se necessari.",
+      "pickingModel": "💡 Causir un modèl",
+      "reasoningLevel": "Nivèl de rasonament",
+      "reasoningValues": {
+        "high": "Naut",
+        "low": "Bas",
+        "off": "Desactivat"
+      },
+      "samplePrompt": "Qu es un Sistema de Repeticion Espaciada (SRS)?",
+      "saveError": "Impossible d'enregistrar los tèxtes per defaut",
+      "subtitle": "Paramètres per defaut per la generacion de tèxte. Smart Fields individual pòt substituir aquelas valors.",
+      "title": "Paramètres de generacion de tèxte",
+      "webSearch": "Recèrca web",
+      "webSearchDescription": "Daissar las generacions de tèxte tirar d'informacions novèlas del web.",
+      "webSearchWarning": "⚠️ La recèrca es cara; susvelhar vòstres crèdits."
+    },
+    "usage": {
+      "fields_other": "S'aplica als camps {{count}}"
+    },
+    "voice": {
+      "browseVoices": "Navigar las votz ({{count}})",
+      "cannotLoad": "Poguèt pas cargar de votz",
+      "currentDefault": "Per defaut actual",
+      "filters": {
+        "all": "Tot",
+        "female": "Femna",
+        "gender": "Sexe",
+        "language": "Lenga",
+        "male": "Mascle",
+        "provider": "Provesidor"
+      },
+      "filterVoices": "Votz de filtratge",
+      "loadingLabel": "En cargament dels paramètres de votz per defaut",
+      "loadingTitle": "Paramètres de votz per defaut",
+      "noVoices": "Cap de votz correspond pas a aquestes filtres.",
+      "saveError": "Impossible d'enregistrar las valors per defaut de la votz",
+      "searchPlaceholder": "🔍 Votz de recèrca...",
+      "searchVoices": "Votz de recèrca",
+      "subtitle": "La votz que vòstre TTS Smart Fields utiliza levat qu'un camp fixe lo sieu.",
+      "title": "Paramètres de votz per defaut"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "un autre tipe de nòta",
+    "currentlySelectedCard": "Carta actualament seleccionada",
+    "emptyCard": "(carta voida)",
+    "errors": {
+      "generateAudio": "Impossible de generar àudio",
+      "generateImage": "Poguèt pas generar un imatge",
+      "saveResult": "Impossible d'enregistrar aqueste resultat sus la carta",
+      "testPrompt": "Poguèt pas testar aquesta demanda"
+    },
+    "fieldRunsOn": "Aqueste camp s'executa sus",
+    "fieldWord_other": "camps",
+    "generatedImagePreview": "Apercebut d'imatge generat",
+    "missingFieldsTitle_other": "Camps mancants",
+    "needsFields_other": "Necessita de camps {{count}}",
+    "notesSelected_other": "{{count}} nòtas seleccionadas — la restrenh a una.",
+    "pickCard": "Causissètz una carta dins lo navigador Anki",
+    "promptPlaceholder": "Escrivètz una indicacion de tèst, en fasent referéncia als camps sus vòstra carta amb {{braces}}.",
+    "saveToCard": "Enregistrar sus la carta",
+    "savedTo": "Enregistrat a {{field}}",
+    "selectCardWith": "Seleccionatz un tipe de carta amb",
+    "selectFieldToReadAloud": "Seleccionatz un camp de legir a votz nauta",
+    "selectNewCard": "Seleccionatz una carta novèla dins lo navigador",
+    "selectNoteType": "Seleccionatz una nòta de tipe",
+    "selectedCard": "Carta seleccionada",
+    "selectedDeck": "Deck seleccionat",
+    "selectedNoteType": "Tipe de nòta seleccionat",
+    "selectionAppearsAutomatically": "Vòstra seleccion apareis aicí automaticament.",
+    "sent": "Enviat",
+    "testing": "Ensages...",
+    "testResult": "Resultat del tèst",
+    "textToSpeak": "Tèxte per parlar",
+    "viewResult": "Veire lo resultat",
+    "wrongNoteType": "Tipe de nòta incorrècte"
+  },
+  "subscription": {
+    "checking": "Verificacion de l'abonament",
+    "creditTypes": {
+      "images": "Imatges",
+      "text": "Tèxt",
+      "voice": "Votz"
+    },
+    "creditUsage": "Utilizacion del crèdit",
+    "creditsReset": "Reïnicializar los crèdits",
+    "daysLeft_other": "{{count}} quedan dias",
+    "errors": {
+      "logout": "Poguèt pas se desconnectar"
+    },
+    "freePlan": "Plan gratuit",
+    "freeTrial": "Espròva gratuita",
+    "hero": {
+      "buyCredits": "Crompar mai de crèdits",
+      "freeCreditsResetting": "Vòstres crèdits gratuits son a reïnicializar",
+      "freePlan": "Sètz sul plan Gratuit",
+      "noteLimit": "Avètz atench vòstre limit de nòtas",
+      "outOfCredits": "Avètz fòra de crèdits aqueste mes",
+      "outOfFreeCredits": "Avètz fòra de crèdits gratuits aqueste mes",
+      "outOfTrialCredits": "Sètz fòra de crèdits d'espròva",
+      "planExpired": "Vòstre plan a expirat",
+      "rollover": "Los crèdits pagament-coma-anatz se desplaçan cada mes — vòstres per totjorn.",
+      "trialDaysLeft_other": "{{count}} jorns que demòran dins vòstre ensag",
+      "trialEnded": "Vòstre jutjament s'es acabat",
+      "trialNoteLimit": "Avètz atench vòstre limit de nòta d'espròva",
+      "upgradeCollection": "Metètz a jorn — vòstra colleccion entièra, automaticament",
+      "upgradeCredits": "Mesa a jorn per mai de crèdits",
+      "upgradePaid": "✨ Mesa a jorn a pagat"
+    },
+    "inDays_other": "En {{count}} dias",
+    "loading": "En cargament de l'abonament",
+    "loggingOut": "Se desconnectar...",
+    "logOut": "Desconnectar",
+    "manageDescription": "Cambiar lo plan, metre a jorn lo pagament, o anullar.",
+    "manageOrUpgrade": "Gerir o metre a jorn lo plan",
+    "managePlan": "Gerir lo plan",
+    "monthlyCreditsUsed": "de crèdits mensuals utilizats",
+    "mostCreditsUsed": "La màger part dels crèdits d'aqueste mes son utilizats",
+    "noteLimitReached": "Limit de nòta atench",
+    "notes": "Nòtas",
+    "notesUsed": "Nòtas utilizadas",
+    "notesUsedValue": "{{used}}/{{limit}} utilizat",
+    "outOfCredits": "Sens crèdits",
+    "pausedUntilReset": "La generacion es pausada fins que vòstres crèdits reïnicializar.",
+    "plan": "Plan",
+    "planInactive": "Plan inactiu",
+    "resetsIn": "Reïnicializar dins",
+    "resetsInDays_other": "Reïnicializar en jorns {{count}}",
+    "signedOut": {
+      "localStorage": "Vòstres camps e paramètres intelligents son enregistrats sus aqueste periferic.",
+      "manage": "Connectatz-vos per gerir vòstre plan",
+      "paused": "La generacion es pausada fins que vos connectatz.",
+      "title": "Desconnectat"
+    },
+    "title": "Compte e Utilizacion",
+    "trialCreditsUsed": "de crèdits d'assag utilizats",
+    "trialEnded": "Lo jutjament s'acabèt",
+    "trialEnds": "Lo jutjament s'acaba",
+    "trialNoteLimitReached": "Lo limit de nòta d'espròva atench",
+    "upgradeToKeepGenerating": "Mesa a jorn per contunhar de generar.",
+    "usage": "Utilizacion"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Daissar una revista / veire los documents.",
+    "byline": "per Michael Piazza / Rosebud Labs, LLC.",
+    "changelog": "Jornal de cambiaments",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "Lo biais mai rapid d'obténer d'ajuda, de demandar una foncionalitat o de raportar un bug.",
+      "join": "Rejónher",
+      "title": "Juntate a la Discord"
+    },
+    "emailUs": "Enviatz-nos un corrièl",
+    "feedback": {
+      "description": "Quicòm de trencat o de mal? Mandatz un messatge dirèctament al paure desvolopaire.",
+      "send": "Mandatz-lo",
+      "title": "Sometre un bug / demandar una foncionalitat"
+    },
+    "github": "GitHub",
+    "loading": "Supòrt en cargament",
+    "title": "Sosten"
+  },
+  "welcome": {
+    "alreadyAccount": "Avètz ja un compte?",
+    "codePlaceholder": "Pegatz vòstre còde",
+    "connect": "Connectar",
+    "connecting": "Connectar...",
+    "description": "Apondètz de tèxte, de discors e d'imatges a de cartas individualas o a vòstre jòc entièr en un clic.",
+    "errors": {
+      "code": "Poguèt pas se connectar amb aquel còde"
+    },
+    "finishDescription": "Connexion completa dins lo navigador qu'avèm dobèrt. Aquesta fenèstra se metrà a jorn automaticament.",
+    "finishInBrowser": "Acabatz dins vòstre navigador",
+    "haveCode": "Avètz un còde del sit web?",
+    "startTrial": "✨ Començatz l'espròva gratuita ✨",
+    "trialDetails": "Gratuit pendent 7 jorns · totas las foncionalitats · pas de carta de crèdit"
+  },
+  "trialEnded": {
+    "description": "Las pròvas duran 7 jorns o fins que vòstres crèdits d'espròva s'agoten.",
+    "features": {
+      "ariaLabel": "Çò que la mesa a jorn garda",
+      "batch": "Lot dins tota vòstra colleccion",
+      "images": "Generacion d'imatge",
+      "premium": "Cada modèl e votz premium",
+      "review": "Generar pendent la revista"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Ofèrta mensuala gratuita",
+      "description": "Daissatz una critica rapida AnkiWeb, prenètz un mes sus nosautres.",
+      "dialogDescription": "Daissatz una revista rapida sus AnkiWeb, puèi nos mandatz un corrièl — apondrem un mes gratuit d'Smart Notes a vòstre compte.",
+      "dialogTitle": "Obtenètz vòstre mes gratuit",
+      "leaveAnkiWebReview": "Daissar una critica sus AnkiWeb",
+      "leaveReview": "Daissar una revista",
+      "title": "Obtenga un mes gratis de Smart Notes"
+    },
+    "thanks": "Mercés d'utilizar Smart Notes ✨",
+    "title": "Vòstra espròva gratuita s'es acabada",
+    "upgradeNow": "Metètz a jorn ara"
+  }
+}

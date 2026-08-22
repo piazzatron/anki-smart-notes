@@ -18,6 +18,7 @@
  */
 
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
 import { errorMessage } from "@/lib/errors"
 import { saveSettings } from "@/services/commands"
@@ -30,6 +31,7 @@ interface SettingsFormState {
 }
 
 export const useSettings = (serverSettings: Settings) => {
+  const { t } = useTranslation()
   const [form, setForm] = useState<SettingsFormState>({
     draft: null,
     error: null,
@@ -39,15 +41,19 @@ export const useSettings = (serverSettings: Settings) => {
   const patch = (partial: Partial<SettingsFormState>) =>
     setForm((current) => ({ ...current, ...partial }))
 
-  const update = async (partial: Partial<Settings>) => {
+  const update = async (
+    partial: Partial<Settings>,
+    afterSave?: () => void | Promise<void>,
+  ) => {
     const next = { ...values, ...partial }
     patch({ draft: next, error: null, isSaving: true })
     try {
       await saveSettings(next)
+      if (afterSave !== undefined) await afterSave()
       patch({ draft: null })
     } catch (error) {
       patch({
-        error: errorMessage(error, "Could not save settings"),
+        error: errorMessage(error, t("settings.saveError")),
       })
     } finally {
       patch({ isSaving: false })

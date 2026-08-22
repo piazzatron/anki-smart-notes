@@ -1,0 +1,519 @@
+{
+  "common": {
+    "allDecks": "Усе калоды",
+    "auto": "Аўто",
+    "autoMax": "Auto MAX",
+    "back": "Назад",
+    "bestValueCost": "Найлепшае значэнне, 0,3× кошт",
+    "cancel": "Адмяніць",
+    "close": "Блізка",
+    "connection": {
+      "connecting": "Падключэнне да Anki…",
+      "reconnecting": "Паўторнае падключэнне да Anki…"
+    },
+    "days_one": "1 дзень",
+    "days_few": "{{count}} дні",
+    "days_many": "{{count}} дзён",
+    "days_other": "{{count}} дзён",
+    "deck": "Калода",
+    "default": "Па змаўчанні",
+    "delete": "Выдаліць",
+    "done": "Гатова",
+    "duplicate": "Дублікат",
+    "edit": "Рэдагаваць",
+    "empty": "пусты",
+    "field": "Палявы",
+    "free": "Бясплатна",
+    "discardChanges": "Адмяніць змены",
+    "discardUnsavedChanges": {
+      "description": "Вашы змены гэтых налад па змаўчанні не былі захаваны.",
+      "title": "Адхіліць незахаваныя змены?"
+    },
+    "dismissError": "Адхіліць памылку",
+    "feedback": {
+      "description": "Адпраўце распрацоўніку справаздачу аб памылцы, запыт аб функцыях або іншы водгук.",
+      "error": "Не атрымалася адправіць водгук",
+      "label": "Зваротная сувязь",
+      "placeholder": "Памылка, ідэя, усё, што заўгодна - усё ідзе адразу да распрацоўшчыка.",
+      "send": "Адправіць",
+      "sending": "Адпраўка…",
+      "sent": "Водгук адпраўлены. Хутка звяжамся.",
+      "title": "Адправіць водгук"
+    },
+    "notNow": "Не цяпер",
+    "other": "Іншае",
+    "placeholderScreen": "Гэты экран з'яўляецца наступным у перабудове.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "Увайдзіце",
+    "signInLower": "Увайдзіце ў сістэму",
+    "unlimited": "Неабмежаваны",
+    "upgradeSparkles": "✨ Абнаўленне ✨",
+    "multiplierCost": "Кошт {{multiplier}}×",
+    "next": "Далей",
+    "noteType": "Тып нататкі",
+    "optional": "неабавязковы",
+    "prompt": "Падкажыце",
+    "saving": "Захаванне…",
+    "test": "Тэст",
+    "validFields": "Дапушчальныя палі:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Зваротная сувязь",
+    "nav": {
+      "defaultsImages": "Налады выявы па змаўчанні",
+      "defaultsText": "Налады тэксту па змаўчанні",
+      "defaultsVoice": "Галасавыя налады па змаўчанні",
+      "image": "Малюнак",
+      "settings": "Налады",
+      "smartFields": "Smart Fields",
+      "subscription": "Уліковы запіс і выкарыстанне",
+      "support": "Падтрымка",
+      "text": "Тэкст",
+      "voice": "Голас"
+    },
+    "sections": "Раздзелы Smart Notes",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Падрабязная рэгістрацыя, якая дапамагае дыягнаставаць праблемы. Уключыце гэтыя журналы пры падачы паведамлення пра памылку.",
+      "label": "Рэжым адладкі"
+    },
+    "generateAtReview": {
+      "description": "Аўтаматычна запаўняйце прапушчаныя смарт-палі, калі карткі з'яўляюцца на праверцы.",
+      "label": "Генераваць палі падчас агляду"
+    },
+    "language": {
+      "description": "Выберыце мову для Smart Notes або адпавядайце мове Anki.",
+      "label": "мова",
+      "matchAnki": "Матч Anki"
+    },
+    "legacy": {
+      "apiKey": "Ключ API OpenAI",
+      "apiKeyRequired": "Патрабуецца платны ключ API OpenAI.",
+      "description": "Падключыце платны ключ API і абярыце старую мадэль OpenAI.",
+      "getApiKey": "Атрымаць ключ API",
+      "host": "Хост OpenAI",
+      "hostDescription": "Забяспечыць альтэрнатыўную канчатковую кропку для OpenAI API.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "Мадэль OpenAI",
+      "title": "Выкарыстоўвайце мой уласны ключ OpenAI"
+    },
+    "loading": "Загрузка налад",
+    "regenerateWhenBatching": {
+      "description": "Пры пакетнай апрацоўцы групы нататак стварыце кожнае разумнае поле з нуля, а не запаўняйце толькі пустыя.",
+      "label": "Аднавіць усе разумныя палі пры пакетнай апрацоўцы"
+    },
+    "saveError": "Не ўдалося захаваць налады",
+    "sections": {
+      "advanced": "Пашыраны",
+      "general": "Генерал",
+      "generation": "Пакаленне"
+    },
+    "title": "Налады"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Ужо Smart Field ✨",
+    "collisionHint": "ужо мае Smart Field — абярыце іншае поле, калоду або тып нататкі",
+    "completion": {
+      "descriptionAfter": "нататкі запаўняюцца кожны раз, калі вы іх ствараеце.",
+      "descriptionBefore": "на",
+      "methods": {
+        "bulk": {
+          "caption": "Выберыце ноты або калоду → пстрыкніце правай кнопкай мышы → ✨ Стварыце Smart Fields.",
+          "imageAlt": "Anki Кантэкстнае меню браўзера з вылучаным Generate Smart Fields",
+          "title": "Масам, з браўзера"
+        },
+        "card": {
+          "caption": "Націсніце кнопку ✨ на панэлі інструментаў рэдактара або ўвядзіце ⌘⇧G.",
+          "imageAlt": "Панэль інструментаў рэдактара Anki з вылучанай кнопкай Smart Notes",
+          "title": "Адна карта за раз"
+        },
+        "field": {
+          "caption": "Пстрыкніце правай кнопкай мышы любое поле → Стварыць Smart Field.",
+          "imageAlt": "Кантэкстнае меню поля Anki з вылучаным пунктам Generate Smart Field",
+          "title": "Адзінае поле"
+        }
+      },
+      "title": "Ваш Smart Field жывы",
+      "waysToGenerate": "Некалькі спосабаў яго стварэння:"
+    },
+    "created": "Smart Field створаны",
+    "dontShowAgain": "Не паказваць гэта зноў",
+    "errors": {
+      "save": "Не ўдалося захаваць Smart Field",
+      "updateWizardSettings": "Не атрымалася абнавіць налады майстра",
+      "writePrompt": "Не атрымалася напісаць падказку"
+    },
+    "fieldTypes": {
+      "audio": "Аўдыё",
+      "image": "Малюнак",
+      "text": "Тэкст"
+    },
+    "loadingModelCatalog": "Загрузка каталога мадэляў…",
+    "modelSettings": {
+      "appliesOnlyToField": "Прымяняецца толькі да гэтага Smart Field.",
+      "defaultWithValue": "Па змаўчанні ({{value}})",
+      "defaultsImages": "Па змаўчанні › Выявы",
+      "defaultsText": "Па змаўчанні › Тэкст",
+      "defaultsVoice": "Па змаўчанні › Голас",
+      "descriptionChat": "Усталюйце AI, які запісвае гэта поле. Большасць палёў могуць заставацца стандартнымі.",
+      "descriptionImage": "Усталюйце AI, які малюе гэта поле. Большасць палёў могуць заставацца стандартнымі.",
+      "descriptionTts": "Усталюйце голас, які чытае гэта поле. Большасць палёў могуць заставацца стандартнымі.",
+      "imageDefault": "малюнак па змаўчанні",
+      "imageModel": "Мадэль малюнка",
+      "loadingVoices": "Загрузка галасоў...",
+      "model": "мадэль",
+      "pickCustom": "Выберыце нестандартную мадэль для гэтага поля",
+      "reasoning": "{{level}} развагі",
+      "reasoningHint": "Высокія разважанні могуць палепшыць складаныя пакаленні, але выкарыстоўваюць больш крэдытаў.",
+      "reasoningLevel": "Узровень развагі",
+      "sharedByEveryField": "Вашым {{modality}} карыстаецца кожны Smart Field, які яго выкарыстоўвае. Змяніць яго",
+      "textDefault": "тэкст па змаўчанні",
+      "textModel": "Тэкставая мадэль",
+      "useMy": "Выкарыстоўвайце мой {{modality}}",
+      "useWebSearch": "Выкарыстоўвайце вэб-пошук для гэтага поля",
+      "voice": "Голас",
+      "voiceDefault": "голас па змаўчанні",
+      "webSearch": "Інтэрнэт-пошук",
+      "webSearchHint": "Дазвольце гэтаму полі выкарыстоўваць свежую інфармацыю з Інтэрнэту."
+    },
+    "save": "Захаваць Smart Field",
+    "sections": {
+      "onWhichNotes": "Па якіх нотах?",
+      "whatToGenerate": "Што вы хочаце стварыць?",
+      "whichFieldToFill": "Якое поле трэба запоўніць?",
+      "whichFieldToSpeak": "У якой сферы ён павінен гаварыць?"
+    },
+    "sourceField": "Зыходнае поле",
+    "targetAriaLabel": "Smart Field мэта",
+    "testSmartField": "Праверце свой Smart Field",
+    "titles": {
+      "create": "Новы Smart Field ✨",
+      "duplicate": "Дублікат Smart Field",
+      "edit": "Рэдагаваць Smart Field"
+    },
+    "validation": {
+      "chooseField": "Выберыце поле",
+      "chooseNoteType": "Выберыце тып нататкі",
+      "chooseSourceField": "Выберыце зыходнае поле",
+      "fieldAlreadyHasSmartField": "У {{field}} ужо ёсць Smart Field",
+      "writePrompt": "Напішыце падказку"
+    },
+    "writePrompt": "Напісаць падказку",
+    "writePromptForMe": "Напішы мне падказку",
+    "writePromptForMeHint": "Скажыце, што хочаце, на простай англійскай мове - мы напішам падказку ніжэй.",
+    "writePromptPlaceholder": "\"Перакласці на натуральную англійскую мову...\"",
+    "writing": "Пішу..."
+  },
+  "smartFields": {
+    "actionsAriaLabel": "Дзеянні для {{field}}",
+    "addToNoteType": "Дадайце Smart Field да {{noteType}}",
+    "disable": "Адключыць",
+    "deleting": "Выдаленне…",
+    "discord": {
+      "dismissAriaLabel": "Адхіліць запрашэнне Discord",
+      "join": "Далучайцеся",
+      "joinAriaLabel": "Далучайцеся да Smart Notes Discord",
+      "subtitle": "— памяняць падказкі і функцыі запыту.",
+      "title": "Прыходзьце сказаць прывітанне ў Discord"
+    },
+    "editAriaLabel": "Рэдагаваць {{field}} Smart Field",
+    "emptyState": {
+      "description": "Дадайце Smart Fields, каб дадаць тэкст, аўдыя і выявы на свае карткі.",
+      "exampleAnswer": "прывітанне",
+      "exampleField": "ФРАНТ",
+      "examplePrompt": "бонжур",
+      "spark": "✦",
+      "title": "Вашы нататкі выглядаюць крыху пустымі"
+    },
+    "enable": "Уключыць",
+    "errors": {
+      "commandFailed": "Збой каманды Smart Field"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "Тэкст",
+      "image": "Малюнак",
+      "tts": "Аўдыё"
+    },
+    "loadingAriaLabel": "Загрузка Smart Fields",
+    "newSmartField": "Новы Smart Field",
+    "readsAloud": "Чытае {{field}} услых",
+    "review": {
+      "ariaLabel": "Агляд Smart Notes на AnkiWeb",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "Адхіліць запрашэнне на агляд",
+      "subtitle": "Пакіньце водгук на AnkiWeb, каб дапамагчы іншым карыстальнікам Anki знайсці яго.",
+      "title": "Вам падабаецца Smart Notes?"
+    },
+    "subtitle": "Дадавайце ў свае нататкі аўтаматычна створаны тэкст, голас і выявы.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "У каталогу чатаў адсутнічае мадэль {{model}}",
+      "missingImageModel": "У каталогу малюнкаў адсутнічае мадэль {{model}}"
+    },
+    "image": {
+      "cannotFindModel": "У каталогу малюнкаў адсутнічае мадэль {{model}}",
+      "defaultModel": "Мадэль па змаўчанні",
+      "gptImage15Low": "найлепшая якасць / хуткасць кампраміс.",
+      "gptImage2": "той жа кошт, больш павольна, больш высокая якасць.",
+      "loadingLabel": "Загрузка налад выявы па змаўчанні",
+      "loadingTitle": "Налады выявы па змаўчанні",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (Нізкі / Сярэдні)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Выбар мадэлі іміджу",
+      "samplePrompt": "Стварыце выяву студэнта, які ўпарта вучыцца з Anki і здае свае тэсты.",
+      "saveError": "Немагчыма захаваць значэнні выявы па змаўчанні",
+      "subtitle": "Мадэль, якую выкарыстоўвае ваша выява Smart Fields, калі поле не замацоўвае сваё.",
+      "title": "Налады выявы па змаўчанні",
+      "zImageTurbo": "самы хуткі і танны."
+    },
+    "layout": {
+      "saveChanges": "Захавайце змены",
+      "saving": "Захаванне…",
+      "tryIt": "Паспрабуйце"
+    },
+    "text": {
+      "cannotInheritModel": "Тэкставыя значэнні па змаўчанні не могуць успадкаваць іншую мадэль",
+      "defaultModel": "Тэкставая мадэль па змаўчанні",
+      "defaultReasoningLevel": "Узровень аргументацыі па змаўчанні",
+      "enableWebSearch": "Уключыць вэб-пошук",
+      "higherReasoning": "Высокія разважанні могуць палепшыць складаныя пакаленні, але выкарыстоўваюць больш крэдытаў.",
+      "loadingLabel": "Загрузка налад тэксту па змаўчанні",
+      "loadingTitle": "Налады генерацыі тэксту",
+      "modelGuidance": "{{auto}} і {{autoMax}} - гэта рэкамендаваныя Smart Notes мадэлі, якія збалансуюць прадукцыйнасць і кошт. Выберыце {{auto}} для стандартных задач і абнавіцеся да {{autoMax}} пры неабходнасці.",
+      "pickingModel": "💡 Выбіраем мадэль",
+      "reasoningLevel": "Узровень развагі",
+      "reasoningValues": {
+        "high": "Высокі",
+        "low": "Нізкі",
+        "off": "Выкл"
+      },
+      "samplePrompt": "Што такое сістэма разнесенага паўтарэння (SRS)?",
+      "saveError": "Немагчыма захаваць тэкст па змаўчанні",
+      "subtitle": "Налады па змаўчанні для стварэння тэксту. Індывідуальны Smart Fields можа перавызначыць гэтыя значэнні.",
+      "title": "Налады генерацыі тэксту",
+      "webSearch": "Інтэрнэт-пошук",
+      "webSearchDescription": "Няхай тэкставыя пакаленні атрымліваюць свежую інфармацыю з Інтэрнэту.",
+      "webSearchWarning": "⚠️ Пошук дорага каштуе; кантралюйце свае крэдыты."
+    },
+    "usage": {
+      "fields_one": "Прымяняецца да поля {{count}}",
+      "fields_few": "Прымяняецца да {{count}} палёў",
+      "fields_many": "Прымяняецца да {{count}} палёў",
+      "fields_other": "Прымяняецца да палёў {{count}}"
+    },
+    "voice": {
+      "browseVoices": "Агляд галасоў ({{count}})",
+      "cannotLoad": "Не атрымалася загрузіць галасы",
+      "currentDefault": "Бягучае па змаўчанні",
+      "filters": {
+        "all": "Усе",
+        "female": "жаночы",
+        "gender": "Пол",
+        "language": "мова",
+        "male": "мужчынскі",
+        "provider": "Правайдэр"
+      },
+      "filterVoices": "Фільтраваць галасы",
+      "loadingLabel": "Загрузка галасавых налад па змаўчанні",
+      "loadingTitle": "Галасавыя налады па змаўчанні",
+      "noVoices": "Няма галасоў, якія адпавядаюць гэтым фільтрам.",
+      "saveError": "Не ўдалося захаваць галасавыя налады па змаўчанні",
+      "searchPlaceholder": "🔍 Пошук галасоў...",
+      "searchVoices": "Пошук галасоў",
+      "subtitle": "Голас, які выкарыстоўвае ваш TTS Smart Fields, калі поле не замацоўвае сваё.",
+      "title": "Галасавыя налады па змаўчанні"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "іншы тып нататкі",
+    "currentlySelectedCard": "Выбраная картка",
+    "emptyCard": "(пустая карта)",
+    "errors": {
+      "generateAudio": "Не ўдалося стварыць аўдыя",
+      "generateImage": "Не ўдалося стварыць выяву",
+      "saveResult": "Не ўдалося захаваць гэты вынік на картку",
+      "testPrompt": "Не ўдалося праверыць гэты запыт"
+    },
+    "fieldRunsOn": "Гэта поле працуе далей",
+    "fieldWord_one": "поле",
+    "fieldWord_few": "палі",
+    "fieldWord_many": "палёў",
+    "fieldWord_other": "палі",
+    "generatedImagePreview": "Папярэдні прагляд згенераванага малюнка",
+    "missingFieldsTitle_one": "Адсутнічае поле",
+    "missingFieldsTitle_few": "Адсутныя палі",
+    "missingFieldsTitle_many": "Адсутныя палі",
+    "missingFieldsTitle_other": "Адсутныя палі",
+    "needsFields_one": "Патрабуецца поле {{count}}",
+    "needsFields_few": "Патрэбна {{count}} палі",
+    "needsFields_many": "Патрэбна {{count}} палёў",
+    "needsFields_other": "Патрэбныя палі {{count}}",
+    "notesSelected_one": "Выбрана нота {{count}} — звузіце яе да адной.",
+    "notesSelected_few": "Выбрана {{count}} нататкі — звузіце да адной.",
+    "notesSelected_many": "Выбрана {{count}} нататак — звузіце да адной.",
+    "notesSelected_other": "Выбраныя нататкі {{count}} — звузіце іх да адной.",
+    "pickCard": "Выберыце картку ў браўзеры Anki",
+    "promptPlaceholder": "Напішыце тэставае падказку, спасылаючыся на палі на вашай картцы з {{braces}}.",
+    "saveToCard": "Захаваць на карту",
+    "savedTo": "Захавана ў {{field}}",
+    "selectCardWith": "Калі ласка, абярыце тып карты з",
+    "selectFieldToReadAloud": "Выберыце поле для чытання ўслых",
+    "selectNewCard": "Абярыце новую карту ў браўзеры",
+    "selectNoteType": "Выберыце тып нататкі",
+    "selectedCard": "Выбраная карта",
+    "selectedDeck": "Выбраная калода",
+    "selectedNoteType": "Выбраны тып нататкі",
+    "selectionAppearsAutomatically": "Ваш выбар з'явіцца тут аўтаматычна.",
+    "sent": "Адпраўлена",
+    "testing": "Тэставанне...",
+    "testResult": "Вынік тэсту",
+    "textToSpeak": "Тэкст для размовы",
+    "viewResult": "Паглядзець вынік",
+    "wrongNoteType": "Няправільны тып нататкі"
+  },
+  "subscription": {
+    "checking": "Праверка падпіскі",
+    "creditTypes": {
+      "images": "Малюнкі",
+      "text": "Тэкст",
+      "voice": "Голас"
+    },
+    "creditUsage": "Выкарыстанне крэдыту",
+    "creditsReset": "Скід крэдытаў",
+    "daysLeft_one": "Апошні дзень",
+    "daysLeft_few": "Засталося {{count}} дні",
+    "daysLeft_many": "Засталося {{count}} дзён",
+    "daysLeft_other": "Засталося {{count}} дзён",
+    "errors": {
+      "logout": "Не атрымалася выйсці"
+    },
+    "freePlan": "Бясплатны план",
+    "freeTrial": "Бясплатная пробная версія",
+    "hero": {
+      "buyCredits": "Купіце больш крэдытаў",
+      "freeCreditsResetting": "Вашы бясплатныя крэдыты скідаюцца",
+      "freePlan": "Вы карыстаецеся бясплатным планам",
+      "noteLimit": "Вы дасягнулі ліміту нататак",
+      "outOfCredits": "У гэтым месяцы ў вас скончыліся крэдыты",
+      "outOfFreeCredits": "У гэтым месяцы ў вас скончыліся бясплатныя крэдыты",
+      "outOfTrialCredits": "У вас скончыліся пробныя крэдыты",
+      "planExpired": "Тэрмін дзеяння вашага плана скончыўся",
+      "rollover": "Крэдыты з аплатай па меры выкарыстання кожны месяц - вашы назаўжды.",
+      "trialDaysLeft_one": "Ваш пробны перыяд заканчваецца сёння",
+      "trialDaysLeft_few": "Да канца пробнага перыяду засталося {{count}} дні",
+      "trialDaysLeft_many": "Да канца пробнага перыяду засталося {{count}} дзён",
+      "trialDaysLeft_other": "Да канца пробнага перыяду засталося {{count}} дзён",
+      "trialEnded": "Ваш пробны перыяд скончыўся",
+      "trialNoteLimit": "Вы дасягнулі ліміту пробных нататак",
+      "upgradeCollection": "Абнаўленне — уся ваша калекцыя аўтаматычна",
+      "upgradeCredits": "Абнавіце, каб атрымаць больш крэдытаў",
+      "upgradePaid": "✨ Абнаўленне да платнага"
+    },
+    "inDays_one": "сёння",
+    "inDays_few": "Праз {{count}} дні",
+    "inDays_many": "Праз {{count}} дзён",
+    "inDays_other": "У {{count}} дзён",
+    "loading": "Загрузка падпіскі",
+    "loggingOut": "Выхад…",
+    "logOut": "Выйсці",
+    "manageDescription": "Змяніце план, абнавіце аплату або адмяніце.",
+    "manageOrUpgrade": "Кіруйце планам або абнавіце яго",
+    "managePlan": "Кіраваць планам",
+    "monthlyCreditsUsed": "штомесячных выкарыстаных крэдытаў",
+    "mostCreditsUsed": "Большая частка крэдытаў у гэтым месяцы выкарыстана",
+    "noteLimitReached": "Дасягнуты ліміт нататак",
+    "notes": "Заўвагі",
+    "notesUsed": "Выкарыстоўваюцца ноты",
+    "notesUsedValue": "Выкарыстоўваецца {{used}}/{{limit}}",
+    "outOfCredits": "Скончыліся крэдыты",
+    "pausedUntilReset": "Генерацыя прыпынена да скіду крэдытаў.",
+    "plan": "План",
+    "planInactive": "План неактыўны",
+    "resetsIn": "Скідваецца ў",
+    "resetsInDays_one": "Скід праз 1 дзень",
+    "resetsInDays_few": "Скід праз {{count}} дні",
+    "resetsInDays_many": "Скід праз {{count}} дзён",
+    "resetsInDays_other": "Скід праз {{count}} дзён",
+    "signedOut": {
+      "localStorage": "Вашы разумныя палі і налады захоўваюцца на гэтай прыладзе.",
+      "manage": "Увайдзіце, каб кіраваць сваім планам",
+      "paused": "Генерацыя прыпынена, пакуль вы не ўвойдзеце.",
+      "title": "Выйшлі з сістэмы"
+    },
+    "title": "Уліковы запіс і выкарыстанне",
+    "trialCreditsUsed": "выкарыстаных пробных крэдытаў",
+    "trialEnded": "Суд скончыўся",
+    "trialEnds": "Выпрабаванне заканчваецца",
+    "trialNoteLimitReached": "Дасягнуты ліміт пробнай нататкі",
+    "upgradeToKeepGenerating": "Абнавіце, каб працягваць генераваць.",
+    "usage": "Выкарыстанне"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Пакінуць водгук / паглядзець дакументы.",
+    "byline": "Майкл Піаца / Rosebud Labs, LLC.",
+    "changelog": "Журнал змяненняў",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "Самы хуткі спосаб атрымаць дапамогу, запытаць функцыю або паведаміць пра памылку.",
+      "join": "Далучайцеся",
+      "title": "Далучайцеся да Discord"
+    },
+    "emailUs": "Напішыце нам",
+    "feedback": {
+      "description": "Штосьці зламалася ці не так? Напішыце непасрэднае паведамленне беднаму распрацоўшчыку.",
+      "send": "Адправіць",
+      "title": "Паведаміць пра памылку / запытаць функцыю"
+    },
+    "github": "GitHub",
+    "loading": "Загрузка падтрымкі",
+    "title": "Падтрымка"
+  },
+  "welcome": {
+    "alreadyAccount": "У вас ужо ёсць уліковы запіс?",
+    "codePlaceholder": "Устаўце свой код",
+    "connect": "Злучыцца",
+    "connecting": "Падключэнне...",
+    "description": "Дадайце тэкст, гаворка і малюнкі на асобныя карты або ўсю калоду ў адзін клік.",
+    "errors": {
+      "code": "Не ўдалося злучыцца з гэтым кодам"
+    },
+    "finishDescription": "Завяршыце ўваход у браўзер, які мы адкрылі. Гэта акно абновіцца аўтаматычна.",
+    "finishInBrowser": "Скончыце ў вашым браўзеры",
+    "haveCode": "У вас ёсць код з сайта?",
+    "startTrial": "✨ Пачніце бясплатную пробную версію ✨",
+    "trialDetails": "Бясплатна на 7 дзён · усе функцыі · без крэдытнай карты"
+  },
+  "trialEnded": {
+    "description": "Пробныя перыяды доўжацца 7 дзён або пакуль не скончацца крэдыты на пробны перыяд.",
+    "features": {
+      "ariaLabel": "Якая мадэрнізацыя захоўваецца",
+      "batch": "Пакетуйце ўсю вашу калекцыю",
+      "images": "Генерацыя выявы",
+      "premium": "Кожная прэміум-мадэль і голас",
+      "review": "Стварыць падчас агляду"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Бясплатны месяц",
+      "description": "Пакіньце кароткі агляд AnkiWeb, атрымайце месяц за наш кошт.",
+      "dialogDescription": "Пакіньце кароткі агляд на AnkiWeb, затым напішыце нам па электроннай пошце — мы дадамо бясплатны месяц Smart Notes да вашага ўліковага запісу.",
+      "dialogTitle": "Атрымайце бясплатны месяц",
+      "leaveAnkiWebReview": "Пакіньце водгук на AnkiWeb",
+      "leaveReview": "Пакінуць водгук",
+      "title": "Атрымайце бясплатны месяц Smart Notes"
+    },
+    "thanks": "Дзякуй за выкарыстанне Smart Notes ✨",
+    "title": "Ваш бясплатны пробны перыяд скончыўся",
+    "upgradeNow": "Абнавіце зараз"
+  }
+}

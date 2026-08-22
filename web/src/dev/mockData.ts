@@ -159,6 +159,7 @@ const BASE_STATE: AppState = {
     generateAtReview: true,
     regenerateWhenBatching: false,
     debug: false,
+    language: "auto",
     legacyOpenAiEnabled: false,
     legacyOpenAiKey: null,
     legacyOpenAiModel: "gpt-5-mini",

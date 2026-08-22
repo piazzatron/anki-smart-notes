@@ -43,7 +43,7 @@ export const Toggle = ({
   >
     <span
       className={`absolute top-0.5 size-4 rounded-full bg-white shadow transition ${
-        checked ? "left-[18px]" : "left-0.5"
+        checked ? "start-[18px]" : "start-0.5"
       }`}
     />
   </button>

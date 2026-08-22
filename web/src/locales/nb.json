@@ -1,0 +1,499 @@
+{
+  "common": {
+    "allDecks": "Alle dekk",
+    "auto": "Auto",
+    "autoMax": "Auto MAX",
+    "back": "Tilbake",
+    "bestValueCost": "Best verdi, 0,3× kostnad",
+    "cancel": "Kansellere",
+    "close": "Lukke",
+    "connection": {
+      "connecting": "Kobler til Anki …",
+      "reconnecting": "Kobler til Anki igjen …"
+    },
+    "days_one": "1 dag",
+    "days_other": "{{count}} dager",
+    "deck": "Dekk",
+    "default": "Misligholde",
+    "delete": "Slett",
+    "done": "Ferdig",
+    "duplicate": "Kopiere",
+    "edit": "Redigere",
+    "empty": "tømme",
+    "field": "Felt",
+    "free": "Gratis",
+    "discardChanges": "Forkast endringer",
+    "discardUnsavedChanges": {
+      "description": "Endringene dine i disse standardinnstillingene er ikke lagret.",
+      "title": "Vil du forkaste ulagrede endringer?"
+    },
+    "dismissError": "Avvis feil",
+    "feedback": {
+      "description": "Send en feilrapport, funksjonsforespørsel eller annen tilbakemelding til utvikleren.",
+      "error": "Kunne ikke sende tilbakemelding",
+      "label": "Tilbakemelding",
+      "placeholder": "En feil, en idé, hva som helst - det går rett til utvikleren.",
+      "send": "Sende",
+      "sending": "Sender …",
+      "sent": "Tilbakemelding sendt. Vi tar snart kontakt.",
+      "title": "Send tilbakemelding"
+    },
+    "notNow": "Ikke nå",
+    "other": "Annen",
+    "placeholderScreen": "Denne skjermen er neste i ombyggingen.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "Logg på",
+    "signInLower": "Logg på",
+    "unlimited": "Ubegrenset",
+    "upgradeSparkles": "✨ Oppgrader ✨",
+    "multiplierCost": "{{multiplier}}× kostnad",
+    "next": "Neste",
+    "noteType": "Merknad Type",
+    "optional": "valgfri",
+    "prompt": "Spør",
+    "saving": "Lagrer …",
+    "test": "Test",
+    "validFields": "Gyldige felt:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Tilbakemelding",
+    "nav": {
+      "defaultsImages": "Standard bildeinnstillinger",
+      "defaultsText": "Standard tekstinnstillinger",
+      "defaultsVoice": "Standard stemmeinnstillinger",
+      "image": "Bilde",
+      "settings": "Innstillinger",
+      "smartFields": "Smart Fields",
+      "subscription": "Konto og bruk",
+      "support": "Støtte",
+      "text": "Tekst",
+      "voice": "Stemme"
+    },
+    "sections": "Smart Notes seksjoner",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Utførlig logging for å hjelpe med å diagnostisere problemer. Inkluder disse loggene når du registrerer en feil.",
+      "label": "Feilsøkingsmodus"
+    },
+    "generateAtReview": {
+      "description": "Fyll ut manglende smartfelt automatisk etter hvert som kort kommer opp under vurdering.",
+      "label": "Generer felt under gjennomgang"
+    },
+    "language": {
+      "description": "Velg språket for Smart Notes, eller match Ankis språk.",
+      "label": "Språk",
+      "matchAnki": "Match Anki"
+    },
+    "legacy": {
+      "apiKey": "OpenAI API-nøkkel",
+      "apiKeyRequired": "En betalt OpenAI API-nøkkel kreves.",
+      "description": "Koble til en betalt API-nøkkel og velg en eldre OpenAI-modell.",
+      "getApiKey": "Få en API-nøkkel",
+      "host": "OpenAI vert",
+      "hostDescription": "Gi et alternativt endepunkt til OpenAI API.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "OpenAI modell",
+      "title": "Bruk min egen OpenAI-nøkkel"
+    },
+    "loading": "Laster innstillinger",
+    "regenerateWhenBatching": {
+      "description": "Når du batchbehandler en gruppe notater, må du regenerere hvert smartfelt fra bunnen av i stedet for bare å fylle tomme.",
+      "label": "Regenerer alle smarte felt ved batchbehandling"
+    },
+    "saveError": "Kunne ikke lagre innstillingene",
+    "sections": {
+      "advanced": "Avansert",
+      "general": "General",
+      "generation": "Generasjon"
+    },
+    "title": "Innstillinger"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Allerede en Smart Field ✨",
+    "collisionHint": "har allerede en Smart Field — velg et annet felt, kortstokk eller notetype",
+    "completion": {
+      "descriptionAfter": "notater fylles ut når du genererer det.",
+      "descriptionBefore": "på",
+      "methods": {
+        "bulk": {
+          "caption": "Velg notater eller kortstokk → høyreklikk → ✨ Generer Smart Fields.",
+          "imageAlt": "Anki Nettleser kontekstmeny med Generer Smart Fields uthevet",
+          "title": "I bulk, fra nettleseren"
+        },
+        "card": {
+          "caption": "Klikk på ✨-knappen i redigeringsverktøylinjen eller skriv inn ⌘⇧G.",
+          "imageAlt": "Anki-redigeringsverktøylinje med Smart Notes-knappen uthevet",
+          "title": "Ett kort om gangen"
+        },
+        "field": {
+          "caption": "Høyreklikk et felt → Generer Smart Field.",
+          "imageAlt": "Anki-felts kontekstmeny med Generer Smart Field uthevet",
+          "title": "Et enkelt felt"
+        }
+      },
+      "title": "Din Smart Field sender direkte",
+      "waysToGenerate": "Noen måter å generere det på:"
+    },
+    "created": "Smart Field opprettet",
+    "dontShowAgain": "Ikke vis dette igjen",
+    "errors": {
+      "save": "Kunne ikke lagre Smart Field",
+      "updateWizardSettings": "Kunne ikke oppdatere veiviserinnstillingene",
+      "writePrompt": "Kunne ikke skrive ledeteksten"
+    },
+    "fieldTypes": {
+      "audio": "Lyd",
+      "image": "Bilde",
+      "text": "Tekst"
+    },
+    "loadingModelCatalog": "Laster modellkatalog …",
+    "modelSettings": {
+      "appliesOnlyToField": "Gjelder kun denne Smart Field.",
+      "defaultWithValue": "Standard ({{value}})",
+      "defaultsImages": "Standarder › Bilder",
+      "defaultsText": "Standarder › Tekst",
+      "defaultsVoice": "Standarder › Stemme",
+      "descriptionChat": "Still inn AI som skriver dette feltet. De fleste felt kan forbli på standard.",
+      "descriptionImage": "Still inn AI som tegner dette feltet. De fleste felt kan forbli på standard.",
+      "descriptionTts": "Still inn stemmen som leser dette feltet. De fleste felt kan forbli på standard.",
+      "imageDefault": "standard bilde",
+      "imageModel": "Bildemodell",
+      "loadingVoices": "Laster inn stemmer …",
+      "model": "Modell",
+      "pickCustom": "Velg en tilpasset modell for dette feltet",
+      "reasoning": "{{level}} resonnement",
+      "reasoningHint": "Høyere resonnement kan forbedre hardere generasjoner, men bruker flere studiepoeng.",
+      "reasoningLevel": "Resonnementnivå",
+      "sharedByEveryField": "Din {{modality}} deles av alle Smart Field som bruker den. Bytt den inn",
+      "textDefault": "standard tekst",
+      "textModel": "Tekstmodell",
+      "useMy": "Bruk min {{modality}}",
+      "useWebSearch": "Bruk nettsøk for dette feltet",
+      "voice": "Stemme",
+      "voiceDefault": "stemme standard",
+      "webSearch": "Nettsøk",
+      "webSearchHint": "La dette feltet bruke fersk informasjon fra nettet."
+    },
+    "save": "Lagre Smart Field",
+    "sections": {
+      "onWhichNotes": "På hvilke lapper?",
+      "whatToGenerate": "Hva vil du generere?",
+      "whichFieldToFill": "Hvilket felt skal det fylles ut?",
+      "whichFieldToSpeak": "Hvilket felt skal det snakke?"
+    },
+    "sourceField": "Kildefelt",
+    "targetAriaLabel": "Smart Field mål",
+    "testSmartField": "Test din Smart Field",
+    "titles": {
+      "create": "Ny Smart Field ✨",
+      "duplicate": "Dupliser Smart Field",
+      "edit": "Rediger Smart Field"
+    },
+    "validation": {
+      "chooseField": "Velg et felt",
+      "chooseNoteType": "Velg en notattype",
+      "chooseSourceField": "Velg et kildefelt",
+      "fieldAlreadyHasSmartField": "{{field}} har allerede en Smart Field",
+      "writePrompt": "Skriv en melding"
+    },
+    "writePrompt": "Skriv spørsmål",
+    "writePromptForMe": "Skriv forespørselen min for meg",
+    "writePromptForMeHint": "Si hva du vil på vanlig engelsk - vi skriver spørsmålet nedenfor.",
+    "writePromptPlaceholder": "\"Oversett til naturlig engelsk...\"",
+    "writing": "Skriver …"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "Handlinger for {{field}}",
+    "addToNoteType": "Legg til Smart Field til {{noteType}}",
+    "disable": "Deaktiver",
+    "deleting": "Sletter …",
+    "discord": {
+      "dismissAriaLabel": "Avvis Discord-invitasjonen",
+      "join": "Bli med",
+      "joinAriaLabel": "Bli med i Smart Notes Discord",
+      "subtitle": "— bytt forespørsler og be om funksjoner.",
+      "title": "Kom og si hei i Discord"
+    },
+    "editAriaLabel": "Rediger {{field}} Smart Field",
+    "emptyState": {
+      "description": "Legg til Smart Fields for å legge til tekst, lyd og bilder på kortene dine.",
+      "exampleAnswer": "Hallo",
+      "exampleField": "FRONT",
+      "examplePrompt": "bonjour",
+      "spark": "✦",
+      "title": "Notatene dine ser litt tomme ut"
+    },
+    "enable": "Aktiver",
+    "errors": {
+      "commandFailed": "Smart Field-kommandoen mislyktes"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "Tekst",
+      "image": "Bilde",
+      "tts": "Lyd"
+    },
+    "loadingAriaLabel": "Laster inn Smart Fields",
+    "newSmartField": "Ny Smart Field",
+    "readsAloud": "Leser {{field}} høyt",
+    "review": {
+      "ariaLabel": "Gjennomgå Smart Notes på AnkiWeb",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "Avvis invitasjon til anmeldelse",
+      "subtitle": "Legg igjen en anmeldelse på AnkiWeb for å hjelpe andre Anki-brukere med å finne den.",
+      "title": "Liker du Smart Notes?"
+    },
+    "subtitle": "Legg til automatisk generert tekst, tale og bilder i notatene dine.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "Chat-katalogen mangler modell {{model}}",
+      "missingImageModel": "Bildekatalogen mangler modell {{model}}"
+    },
+    "image": {
+      "cannotFindModel": "Bildekatalogen mangler modell {{model}}",
+      "defaultModel": "Standardmodell",
+      "gptImage15Low": "beste kompromiss mellom kvalitet og hastighet.",
+      "gptImage2": "samme pris, langsommere, høyere kvalitet.",
+      "loadingLabel": "Laster inn standard bildeinnstillinger",
+      "loadingTitle": "Standard bildeinnstillinger",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Velge en bildemodell",
+      "samplePrompt": "Generer et bilde av en student som studerer hardt med Anki og består testene deres.",
+      "saveError": "Kunne ikke lagre bildestandarder",
+      "subtitle": "Modellen bildet ditt Smart Fields bruker med mindre et felt fester sitt eget.",
+      "title": "Standard bildeinnstillinger",
+      "zImageTurbo": "raskest og billigst."
+    },
+    "layout": {
+      "saveChanges": "Lagre endringer",
+      "saving": "Lagrer …",
+      "tryIt": "Prøv det"
+    },
+    "text": {
+      "cannotInheritModel": "Tekststandarder kan ikke arve en annen modell",
+      "defaultModel": "Standard tekstmodell",
+      "defaultReasoningLevel": "Standard resonnementnivå",
+      "enableWebSearch": "Aktiver nettsøk",
+      "higherReasoning": "Høyere resonnement kan forbedre hardere generasjoner, men bruker flere studiepoeng.",
+      "loadingLabel": "Laster inn standard tekstinnstillinger",
+      "loadingTitle": "Innstillinger for tekstgenerering",
+      "modelGuidance": "{{auto}} og {{autoMax}} er de Smart Notes anbefalte modellene som balanserer ytelse og kostnader. Velg {{auto}} for standardoppgaver og oppgrader til {{autoMax}} om nødvendig.",
+      "pickingModel": "💡 Velge en modell",
+      "reasoningLevel": "Resonnementnivå",
+      "reasoningValues": {
+        "high": "Høy",
+        "low": "Lav",
+        "off": "Av"
+      },
+      "samplePrompt": "Hva er et avstandsrepetisjonssystem (SRS)?",
+      "saveError": "Kunne ikke lagre tekststandarder",
+      "subtitle": "Standardinnstillinger for tekstgenerering. Individuell Smart Fields kan overstyre disse verdiene.",
+      "title": "Innstillinger for tekstgenerering",
+      "webSearch": "Nettsøk",
+      "webSearchDescription": "La tekstgenerasjoner hente inn fersk informasjon fra nettet.",
+      "webSearchWarning": "⚠️ Søk er dyrt; overvåke kredittene dine."
+    },
+    "usage": {
+      "fields_one": "Gjelder {{count}}-feltet",
+      "fields_other": "Gjelder {{count}} felt"
+    },
+    "voice": {
+      "browseVoices": "Bla gjennom stemmer ({{count}})",
+      "cannotLoad": "Kunne ikke laste inn stemmer",
+      "currentDefault": "Gjeldende standard",
+      "filters": {
+        "all": "Alle",
+        "female": "Hunn",
+        "gender": "Kjønn",
+        "language": "Språk",
+        "male": "Mann",
+        "provider": "Leverandør"
+      },
+      "filterVoices": "Filtrer stemmer",
+      "loadingLabel": "Laster inn standard stemmeinnstillinger",
+      "loadingTitle": "Standard stemmeinnstillinger",
+      "noVoices": "Ingen stemmer samsvarer med disse filtrene.",
+      "saveError": "Kunne ikke lagre stemmestandarder",
+      "searchPlaceholder": "🔍 Søk etter stemmer...",
+      "searchVoices": "Søk stemmer",
+      "subtitle": "Stemmen din TTS Smart Fields bruker med mindre et felt fester sin egen.",
+      "title": "Standard stemmeinnstillinger"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "en annen notetype",
+    "currentlySelectedCard": "Foreløpig valgt kort",
+    "emptyCard": "(tomt kort)",
+    "errors": {
+      "generateAudio": "Kunne ikke generere lyd",
+      "generateImage": "Kunne ikke generere et bilde",
+      "saveResult": "Kunne ikke lagre dette resultatet på kortet",
+      "testPrompt": "Kunne ikke teste denne forespørselen"
+    },
+    "fieldRunsOn": "Dette feltet går videre",
+    "fieldWord_one": "felt",
+    "fieldWord_other": "felt",
+    "generatedImagePreview": "Generert bildeforhåndsvisning",
+    "missingFieldsTitle_one": "Manglende felt",
+    "missingFieldsTitle_other": "Manglende felt",
+    "needsFields_one": "Trenger {{count}}-feltet",
+    "needsFields_other": "Trenger {{count}}-felt",
+    "notesSelected_one": "{{count}}-note valgt — avgrens den til én.",
+    "notesSelected_other": "{{count}}-noter valgt — begrense den til én.",
+    "pickCard": "Velg et kort i Anki-nettleseren",
+    "promptPlaceholder": "Skriv en testmelding, og referer til feltene på kortet ditt med {{braces}}.",
+    "saveToCard": "Lagre på kort",
+    "savedTo": "Lagret i {{field}}",
+    "selectCardWith": "Velg en korttype med",
+    "selectFieldToReadAloud": "Velg et felt for å lese høyt",
+    "selectNewCard": "Velg et nytt kort i nettleseren",
+    "selectNoteType": "Velg et notat av typen",
+    "selectedCard": "Valgt kort",
+    "selectedDeck": "Valgt dekk",
+    "selectedNoteType": "Valgt notattype",
+    "selectionAppearsAutomatically": "Valget ditt vises her automatisk.",
+    "sent": "Sendt",
+    "testing": "Tester …",
+    "testResult": "Testresultat",
+    "textToSpeak": "Tekst for å snakke",
+    "viewResult": "Se resultatet",
+    "wrongNoteType": "Feil notetype"
+  },
+  "subscription": {
+    "checking": "Sjekker abonnement",
+    "creditTypes": {
+      "images": "Bilder",
+      "text": "Tekst",
+      "voice": "Stemme"
+    },
+    "creditUsage": "Kredittbruk",
+    "creditsReset": "Kreditt tilbakestilt",
+    "daysLeft_one": "Siste dag",
+    "daysLeft_other": "{{count}} dager igjen",
+    "errors": {
+      "logout": "Kunne ikke logge ut"
+    },
+    "freePlan": "Gratis plan",
+    "freeTrial": "Gratis prøveversjon",
+    "hero": {
+      "buyCredits": "Kjøp flere kreditter",
+      "freeCreditsResetting": "Dine gratis kreditter tilbakestilles",
+      "freePlan": "Du er på gratisplanen",
+      "noteLimit": "Du har nådd notegrensen",
+      "outOfCredits": "Du er tom for kreditt denne måneden",
+      "outOfFreeCredits": "Du er tom for gratis kreditter denne måneden",
+      "outOfTrialCredits": "Du er tom for prøvekreditter",
+      "planExpired": "Planen din er utløpt",
+      "rollover": "Pay-as-you-go-kreditter ruller over hver måned – din for alltid.",
+      "trialDaysLeft_one": "Prøveperioden din avsluttes i dag",
+      "trialDaysLeft_other": "{{count}} dager igjen av prøveversjonen",
+      "trialEnded": "Prøveperioden din er avsluttet",
+      "trialNoteLimit": "Du har nådd grensen for prøvelapper",
+      "upgradeCollection": "Oppgrader – hele samlingen din, automatisk",
+      "upgradeCredits": "Oppgrader for flere kreditter",
+      "upgradePaid": "✨ Oppgrader til betalt"
+    },
+    "inDays_one": "I dag",
+    "inDays_other": "I {{count}} dager",
+    "loading": "Laster abonnement",
+    "loggingOut": "Logger ut …",
+    "logOut": "Logg ut",
+    "manageDescription": "Endre plan, oppdater betaling eller avbryt.",
+    "manageOrUpgrade": "Administrer eller oppgrader plan",
+    "managePlan": "Administrer plan",
+    "monthlyCreditsUsed": "av månedlige kreditter brukt",
+    "mostCreditsUsed": "De fleste av denne månedens studiepoeng er brukt",
+    "noteLimitReached": "Merknadsgrensen nådd",
+    "notes": "Notater",
+    "notesUsed": "Noter brukt",
+    "notesUsedValue": "{{used}}/{{limit}} brukt",
+    "outOfCredits": "Ute av studiepoeng",
+    "pausedUntilReset": "Generering er satt på pause til kredittene dine tilbakestilles.",
+    "plan": "Plan",
+    "planInactive": "Planen er inaktiv",
+    "resetsIn": "Tilbakestilles inn",
+    "resetsInDays_one": "Tilbakestilles om 1 dag",
+    "resetsInDays_other": "Tilbakestilles i {{count}} dager",
+    "signedOut": {
+      "localStorage": "Smartfeltene og innstillingene dine lagres på denne enheten.",
+      "manage": "Logg på for å administrere planen din",
+      "paused": "Generering er satt på pause til du logger på.",
+      "title": "Logget ut"
+    },
+    "title": "Konto og bruk",
+    "trialCreditsUsed": "av prøvepoeng brukt",
+    "trialEnded": "Rettssaken ble avsluttet",
+    "trialEnds": "Rettssaken avsluttes",
+    "trialNoteLimitReached": "Grensen for prøvenotat er nådd",
+    "upgradeToKeepGenerating": "Oppgrader for å fortsette å generere.",
+    "usage": "Bruk"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Legg igjen en anmeldelse / se dokumenter.",
+    "byline": "av Michael Piazza / Rosebud Labs, LLC.",
+    "changelog": "Endringslogg",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "Den raskeste måten å få hjelp, be om en funksjon eller rapportere en feil.",
+      "join": "Bli med",
+      "title": "Bli med i Discord"
+    },
+    "emailUs": "Send oss ​​en e-post",
+    "feedback": {
+      "description": "Noe ødelagt eller feil? Send melding til den stakkars utvikleren direkte.",
+      "send": "Send den",
+      "title": "Send inn en feil / be om en funksjon"
+    },
+    "github": "GitHub",
+    "loading": "Lastestøtte",
+    "title": "Støtte"
+  },
+  "welcome": {
+    "alreadyAccount": "Har du allerede en konto?",
+    "codePlaceholder": "Lim inn koden din",
+    "connect": "Koble til",
+    "connecting": "Kobler til …",
+    "description": "Legg til tekst, tale og bilder til individuelle kort eller hele kortstokken med ett klikk.",
+    "errors": {
+      "code": "Kunne ikke koble til den koden"
+    },
+    "finishDescription": "Fullfør påloggingen i nettleseren vi åpnet. Dette vinduet vil oppdateres automatisk.",
+    "finishInBrowser": "Fullfør i nettleseren din",
+    "haveCode": "Har du en kode fra nettsiden?",
+    "startTrial": "✨ Start gratis prøveversjon ✨",
+    "trialDetails": "Gratis i 7 dager · hver funksjon · ingen kredittkort"
+  },
+  "trialEnded": {
+    "description": "Prøveperioder varer i 7 dager eller til prøvekredittene dine går ut.",
+    "features": {
+      "ariaLabel": "Hva oppgradering beholder",
+      "batch": "Batch over hele samlingen din",
+      "images": "Bildegenerering",
+      "premium": "Hver førsteklasses modell og stemme",
+      "review": "Generer under gjennomgang"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Gratis månedstilbud",
+      "description": "Legg igjen en rask AnkiWeb anmeldelse, få en måned på oss.",
+      "dialogDescription": "Legg igjen en rask anmeldelse på AnkiWeb, og send oss ​​en e-post – vi legger til en gratis måned med Smart Notes på kontoen din.",
+      "dialogTitle": "Få din gratis måned",
+      "leaveAnkiWebReview": "Legg igjen en anmeldelse om AnkiWeb",
+      "leaveReview": "Legg igjen en anmeldelse",
+      "title": "Få en gratis måned med Smart Notes"
+    },
+    "thanks": "Takk for at du bruker Smart Notes ✨",
+    "title": "Din gratis prøveperiode er over",
+    "upgradeNow": "Oppgrader nå"
+  }
+}

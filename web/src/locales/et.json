@@ -1,0 +1,499 @@
+{
+  "common": {
+    "allDecks": "Kõik tekid",
+    "auto": "Automaatne",
+    "autoMax": "Auto MAX",
+    "back": "Tagasi",
+    "bestValueCost": "Parim väärtus, 0,3-kordne maksumus",
+    "cancel": "Tühista",
+    "close": "Sule",
+    "connection": {
+      "connecting": "Ühenduse loomine võrguga Anki…",
+      "reconnecting": "Uuesti ühendamine võrguga Anki…"
+    },
+    "days_one": "1 päev",
+    "days_other": "{{count}} päevad",
+    "deck": "Tekk",
+    "default": "Vaikimisi",
+    "delete": "Kustuta",
+    "done": "Valmis",
+    "duplicate": "Duplikaat",
+    "edit": "Muuda",
+    "empty": "tühi",
+    "field": "Väli",
+    "free": "Tasuta",
+    "discardChanges": "Loobu muudatustest",
+    "discardUnsavedChanges": {
+      "description": "Nende vaikeseadete muudatusi ei salvestatud.",
+      "title": "Kas loobuda salvestamata muudatustest?"
+    },
+    "dismissError": "Loobu viga",
+    "feedback": {
+      "description": "Saatke arendajale veaaruanne, funktsioonitaotlus või muu tagasiside.",
+      "error": "Tagasisidet ei saanud saata",
+      "label": "Tagasiside",
+      "placeholder": "Viga, idee, kõik – see läheb otse arendajale.",
+      "send": "Saada",
+      "sending": "Saatmine…",
+      "sent": "Tagasiside saadetud. Võtame varsti ühendust.",
+      "title": "Saatke tagasisidet"
+    },
+    "notNow": "Mitte praegu",
+    "other": "muud",
+    "placeholderScreen": "See ekraan on ümberehituses järgmine.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "Logi sisse",
+    "signInLower": "Logi sisse",
+    "unlimited": "Piiramatu",
+    "upgradeSparkles": "✨ Uuenda ✨",
+    "multiplierCost": "{{multiplier}}× maksumus",
+    "next": "Edasi",
+    "noteType": "Märkuse tüüp",
+    "optional": "valikuline",
+    "prompt": "Viip",
+    "saving": "Salvestamine…",
+    "test": "Test",
+    "validFields": "Kehtivad väljad:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Tagasiside",
+    "nav": {
+      "defaultsImages": "Pildi vaikesätted",
+      "defaultsText": "Teksti vaikeseaded",
+      "defaultsVoice": "Vaikimisi hääleseaded",
+      "image": "Pilt",
+      "settings": "Seaded",
+      "smartFields": "Smart Fields",
+      "subscription": "Konto ja kasutamine",
+      "support": "Toetus",
+      "text": "Tekst",
+      "voice": "Hääl"
+    },
+    "sections": "Smart Notes sektsioonid",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Üksikasjalik logimine, mis aitab probleeme diagnoosida. Kaasake need logid vea esitamisel.",
+      "label": "Silumisrežiim"
+    },
+    "generateAtReview": {
+      "description": "Täitke puuduvad nutikad väljad automaatselt, kui kaardid ülevaatamisel ilmuvad.",
+      "label": "Looge ülevaatuse ajal väljad"
+    },
+    "language": {
+      "description": "Valige Smart Notes keel või sobitage Anki keel.",
+      "label": "Keel",
+      "matchAnki": "Sobitage Anki"
+    },
+    "legacy": {
+      "apiKey": "OpenAI API võti",
+      "apiKeyRequired": "Vaja on tasulist OpenAI API-võtit.",
+      "description": "Ühendage tasuline API-võti ja valige pärandmudel OpenAI.",
+      "getApiKey": "Hankige API võti",
+      "host": "OpenAI host",
+      "hostDescription": "Esitage OpenAI API-le alternatiivne lõpp-punkt.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "OpenAI mudel",
+      "title": "Kasutage minu enda võtit OpenAI"
+    },
+    "loading": "Seadete laadimine",
+    "regenerateWhenBatching": {
+      "description": "Märkmete rühma paketttöötlemisel taastage kõik nutikad väljad tühjade väljade täitmise asemel nullist.",
+      "label": "Paketttöötlusel taasgenereerige kõik nutikad väljad"
+    },
+    "saveError": "Seadeid ei saanud salvestada",
+    "sections": {
+      "advanced": "Täpsemalt",
+      "general": "Kindral",
+      "generation": "Põlvkond"
+    },
+    "title": "Seaded"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Juba Smart Field ✨",
+    "collisionHint": "on juba Smart Field – valige mõni muu välja, teki või nooditüüp",
+    "completion": {
+      "descriptionAfter": "märkmed täidetakse alati, kui selle loote.",
+      "descriptionBefore": "sisse",
+      "methods": {
+        "bulk": {
+          "caption": "Valige noodid või teki → paremklõps → ✨ Genereeri Smart Fields.",
+          "imageAlt": "Anki Brauseri kontekstimenüü, kus on esile tõstetud Smart Fields loomine",
+          "title": "Hulgi, brauserist"
+        },
+        "card": {
+          "caption": "Klõpsake redaktori tööriistaribal nuppu ✨ või tippige ⌘⇧G.",
+          "imageAlt": "Anki redaktori tööriistariba, kus on esile tõstetud nupp Smart Notes",
+          "title": "Üks kaart korraga"
+        },
+        "field": {
+          "caption": "Paremklõpsake mis tahes välja → Genereeri Smart Field.",
+          "imageAlt": "Anki välja kontekstimenüü, kus on esile tõstetud Smart Field loomine",
+          "title": "Üks väli"
+        }
+      },
+      "title": "Teie Smart Field on otse-eetris",
+      "waysToGenerate": "Mõned viisid selle loomiseks:"
+    },
+    "created": "Smart Field loodud",
+    "dontShowAgain": "Ära seda enam näita",
+    "errors": {
+      "save": "Smart Field ei saanud salvestada",
+      "updateWizardSettings": "Nõustaja seadeid ei saanud värskendada",
+      "writePrompt": "Viipa ei saanud kirjutada"
+    },
+    "fieldTypes": {
+      "audio": "Heli",
+      "image": "Pilt",
+      "text": "Tekst"
+    },
+    "loadingModelCatalog": "Mudelikataloogi laadimine…",
+    "modelSettings": {
+      "appliesOnlyToField": "Kehtib ainult selle Smart Field puhul.",
+      "defaultWithValue": "Vaikimisi ({{value}})",
+      "defaultsImages": "Vaikimisi › Pildid",
+      "defaultsText": "Vaikeseaded › Tekst",
+      "defaultsVoice": "Vaikeseaded › Hääl",
+      "descriptionChat": "Määrake AI, mis selle välja kirjutab. Enamik välju võib jääda vaikeväärtustele.",
+      "descriptionImage": "Määrake AI, mis selle välja joonistab. Enamik välju võib jääda vaikeväärtustele.",
+      "descriptionTts": "Määrake hääl, mis seda välja loeb. Enamik välju võib jääda vaikeväärtustele.",
+      "imageDefault": "pildi vaikeseade",
+      "imageModel": "Pildi mudel",
+      "loadingVoices": "Häälte laadimine…",
+      "model": "Mudel",
+      "pickCustom": "Valige selle välja jaoks kohandatud mudel",
+      "reasoning": "{{level}} arutluskäik",
+      "reasoningHint": "Kõrgem arutluskäik võib parandada raskemaid põlvkondi, kuid kasutab rohkem krediite.",
+      "reasoningLevel": "Arutlusvõime tase",
+      "sharedByEveryField": "Teie {{modality}} jagavad kõik seda kasutavad Smart Field. Muutke see sisse",
+      "textDefault": "teksti vaikimisi",
+      "textModel": "Teksti mudel",
+      "useMy": "Kasutage minu {{modality}}",
+      "useWebSearch": "Kasutage selle välja jaoks veebiotsingut",
+      "voice": "Hääl",
+      "voiceDefault": "hääle vaikeseade",
+      "webSearch": "Veebiotsing",
+      "webSearchHint": "Las see väli kasutab värsket teavet veebist."
+    },
+    "save": "Salvestage Smart Field",
+    "sections": {
+      "onWhichNotes": "Millistel nootidel?",
+      "whatToGenerate": "Mida soovite genereerida?",
+      "whichFieldToFill": "Millise välja see peaks täitma?",
+      "whichFieldToSpeak": "Millises valdkonnas see peaks kõnelema?"
+    },
+    "sourceField": "Allika väli",
+    "targetAriaLabel": "Smart Field sihtmärk",
+    "testSmartField": "Testige oma Smart Field",
+    "titles": {
+      "create": "Uus Smart Field ✨",
+      "duplicate": "Smart Field duplikaat",
+      "edit": "Redigeeri Smart Field"
+    },
+    "validation": {
+      "chooseField": "Valige väli",
+      "chooseNoteType": "Valige märkme tüüp",
+      "chooseSourceField": "Valige lähteväli",
+      "fieldAlreadyHasSmartField": "{{field}}-l on juba Smart Field",
+      "writePrompt": "Kirjutage viip"
+    },
+    "writePrompt": "Kirjutage käsk",
+    "writePromptForMe": "Kirjutage mulle minu viip",
+    "writePromptForMeHint": "Öelge, mida soovite, lihtsas inglise keeles – me kirjutame allpool oleva viipa.",
+    "writePromptPlaceholder": "\"Tõlgi loomulikku inglise keelde...\"",
+    "writing": "Kirjutamine…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "{{field}} toimingud",
+    "addToNoteType": "Lisage Smart Field {{noteType}}-le",
+    "disable": "Keela",
+    "deleting": "Kustutamine…",
+    "discord": {
+      "dismissAriaLabel": "Loobu Discord kutsest",
+      "join": "Liitu",
+      "joinAriaLabel": "Liituge Smart Notes Discord",
+      "subtitle": "- vahetage viipasid ja taotlege funktsioone.",
+      "title": "Tule ütle tere Discord-s"
+    },
+    "editAriaLabel": "Redigeeri {{field}} Smart Field",
+    "emptyState": {
+      "description": "Lisage Smart Fields, et lisada oma kaartidele teksti, heli ja pilte.",
+      "exampleAnswer": "Tere",
+      "exampleField": "ESINE",
+      "examplePrompt": "bonjour",
+      "spark": "✦",
+      "title": "Teie märkmed tunduvad pisut tühjad"
+    },
+    "enable": "Luba",
+    "errors": {
+      "commandFailed": "Käsk Smart Field ebaõnnestus"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "Tekst",
+      "image": "Pilt",
+      "tts": "Heli"
+    },
+    "loadingAriaLabel": "Laadimine Smart Fields",
+    "newSmartField": "Uus Smart Field",
+    "readsAloud": "Loeb valjusti {{field}}",
+    "review": {
+      "ariaLabel": "Vaadake üle Smart Notes saidil AnkiWeb",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "Loobu ülevaatamise kutsest",
+      "subtitle": "Jätke AnkiWeb kohta ülevaade, et aidata teistel Anki kasutajatel see leida.",
+      "title": "Kas teile meeldib Smart Notes?"
+    },
+    "subtitle": "Lisage oma märkmetele automaatselt loodud tekst, hääl ja pildid.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "Vestluskataloogist puudub mudel {{model}}",
+      "missingImageModel": "Piltide kataloogist puudub mudel {{model}}"
+    },
+    "image": {
+      "cannotFindModel": "Piltide kataloogist puudub mudel {{model}}",
+      "defaultModel": "Vaikimisi mudel",
+      "gptImage15Low": "parima kvaliteedi / kiiruse kompromiss.",
+      "gptImage2": "sama hinnaga, aeglasem, kõrgem kvaliteet.",
+      "loadingLabel": "Pildi vaikeseadete laadimine",
+      "loadingTitle": "Pildi vaikesätted",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (madal / keskmine)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Pildimudeli valimine",
+      "samplePrompt": "Looge pilt õpilasest, kes õpib kõvasti Anki abil ja sooritab testid.",
+      "saveError": "Pildi vaikeseadeid ei saanud salvestada",
+      "subtitle": "Mudel, mida teie pilt Smart Fields kasutab, välja arvatud juhul, kui väli kinnitab oma.",
+      "title": "Pildi vaikesätted",
+      "zImageTurbo": "kiireim ja odavaim."
+    },
+    "layout": {
+      "saveChanges": "Salvestage muudatused",
+      "saving": "Salvestamine…",
+      "tryIt": "Proovi seda"
+    },
+    "text": {
+      "cannotInheritModel": "Teksti vaikeseaded ei saa pärida teist mudelit",
+      "defaultModel": "Vaikimisi tekstimudel",
+      "defaultReasoningLevel": "Vaikimisi arutlustase",
+      "enableWebSearch": "Luba veebiotsing",
+      "higherReasoning": "Kõrgem arutluskäik võib parandada raskemaid põlvkondi, kuid kasutab rohkem krediite.",
+      "loadingLabel": "Teksti vaikeseadete laadimine",
+      "loadingTitle": "Teksti genereerimise sätted",
+      "modelGuidance": "{{auto}} ja {{autoMax}} on Smart Notes soovitatavad mudelid, mis tasakaalustavad jõudlust ja kulusid. Valige standardülesannete jaoks {{auto}} ja vajadusel uuendage versioonile {{autoMax}}.",
+      "pickingModel": "💡 Modelli valimine",
+      "reasoningLevel": "Arutlusvõime tase",
+      "reasoningValues": {
+        "high": "Kõrge",
+        "low": "Madal",
+        "off": "Väljas"
+      },
+      "samplePrompt": "Mis on intervallide kordussüsteem (SRS)?",
+      "saveError": "Teksti vaikeseadeid ei saanud salvestada",
+      "subtitle": "Teksti genereerimise vaikesätted. Individuaalne Smart Fields võib need väärtused alistada.",
+      "title": "Teksti genereerimise sätted",
+      "webSearch": "Veebiotsing",
+      "webSearchDescription": "Laske tekstipõlvkondadel veebist värsket teavet hankida.",
+      "webSearchWarning": "⚠️ Otsing on kallis; jälgige oma krediiti."
+    },
+    "usage": {
+      "fields_one": "Kehtib väljale {{count}}",
+      "fields_other": "Kehtib {{count}} väljadele"
+    },
+    "voice": {
+      "browseVoices": "Sirvi hääli ({{count}})",
+      "cannotLoad": "Häälesid ei saanud laadida",
+      "currentDefault": "Praegune vaikeseade",
+      "filters": {
+        "all": "Kõik",
+        "female": "Naine",
+        "gender": "Sugu",
+        "language": "Keel",
+        "male": "Mees",
+        "provider": "Pakkuja"
+      },
+      "filterVoices": "Häälte filtreerimine",
+      "loadingLabel": "Vaikimisi hääleseadete laadimine",
+      "loadingTitle": "Vaikimisi hääleseaded",
+      "noVoices": "Nendele filtritele ei vasta ükski hääl.",
+      "saveError": "Hääle vaikeseadeid ei saanud salvestada",
+      "searchPlaceholder": "🔍 Otsi hääli…",
+      "searchVoices": "Otsige hääli",
+      "subtitle": "Hääl, mida teie TTS Smart Fields kasutab, välja arvatud juhul, kui väli kinnitab oma.",
+      "title": "Vaikimisi hääleseaded"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "teist nooditüüpi",
+    "currentlySelectedCard": "Hetkel valitud kaart",
+    "emptyCard": "(tühi kaart)",
+    "errors": {
+      "generateAudio": "Heli ei saanud luua",
+      "generateImage": "Pilti ei saanud luua",
+      "saveResult": "Seda tulemust ei saanud kaardile salvestada",
+      "testPrompt": "Seda viipa ei saanud testida"
+    },
+    "fieldRunsOn": "See väli töötab edasi",
+    "fieldWord_one": "valdkonnas",
+    "fieldWord_other": "väljad",
+    "generatedImagePreview": "Loodud pildi eelvaade",
+    "missingFieldsTitle_one": "Puuduv väli",
+    "missingFieldsTitle_other": "Puuduvad väljad",
+    "needsFields_one": "Vajab välja {{count}}",
+    "needsFields_other": "Vajab {{count}} välju",
+    "notesSelected_one": "{{count}} märkus on valitud – kitsendage see ühele.",
+    "notesSelected_other": "Valitud {{count}} märkmed – kitsendage see ühele.",
+    "pickCard": "Valige brauseris Anki kaart",
+    "promptPlaceholder": "Kirjutage {{braces}}-ga oma kaardi väljadele viidates testiviis.",
+    "saveToCard": "Salvesta kaardile",
+    "savedTo": "Salvestatud {{field}}",
+    "selectCardWith": "Palun valige kaardi tüüp",
+    "selectFieldToReadAloud": "Valige ettelugemiseks väli",
+    "selectNewCard": "Valige brauseris uus kaart",
+    "selectNoteType": "Valige märkme tüüp",
+    "selectedCard": "Valitud kaart",
+    "selectedDeck": "Valitud tekk",
+    "selectedNoteType": "Valitud märkme tüüp",
+    "selectionAppearsAutomatically": "Teie valik kuvatakse siin automaatselt.",
+    "sent": "Saadetud",
+    "testing": "Testimine…",
+    "testResult": "Testi tulemus",
+    "textToSpeak": "Tekst kõnelemiseks",
+    "viewResult": "Vaata tulemust",
+    "wrongNoteType": "Vale märkme tüüp"
+  },
+  "subscription": {
+    "checking": "Tellimuse kontrollimine",
+    "creditTypes": {
+      "images": "Pildid",
+      "text": "Tekst",
+      "voice": "Hääl"
+    },
+    "creditUsage": "Krediidikasutus",
+    "creditsReset": "Krediidid lähtestatakse",
+    "daysLeft_one": "Viimane päev",
+    "daysLeft_other": "{{count}} päeva jäänud",
+    "errors": {
+      "logout": "Ei saanud välja logida"
+    },
+    "freePlan": "Tasuta plaan",
+    "freeTrial": "Tasuta prooviperiood",
+    "hero": {
+      "buyCredits": "Osta rohkem krediiti",
+      "freeCreditsResetting": "Teie tasuta krediiti lähtestatakse",
+      "freePlan": "Olete tasuta paketis",
+      "noteLimit": "Olete jõudnud oma märkmete limiidini",
+      "outOfCredits": "Teie krediit on sel kuul otsas",
+      "outOfFreeCredits": "Teil on sel kuul tasuta krediit otsas",
+      "outOfTrialCredits": "Teie proovikrediit on otsas",
+      "planExpired": "Teie plaan on aegunud",
+      "rollover": "Jaotuskrediidid jätkuvad iga kuu – igaveseks sinu.",
+      "trialDaysLeft_one": "Teie prooviperiood lõpeb täna",
+      "trialDaysLeft_other": "Teie prooviperioodi on jäänud {{count}} päeva",
+      "trialEnded": "Teie prooviperiood on lõppenud",
+      "trialNoteLimit": "Olete jõudnud prooviperioodi märkmete limiidini",
+      "upgradeCollection": "Uuendage – kogu teie kollektsioon automaatselt",
+      "upgradeCredits": "Täiendage rohkem krediiti",
+      "upgradePaid": "✨ Minge üle tasulisele versioonile"
+    },
+    "inDays_one": "Täna",
+    "inDays_other": "{{count}} päevade jooksul",
+    "loading": "Tellimuse laadimine",
+    "loggingOut": "Väljalogimine…",
+    "logOut": "Logi välja",
+    "manageDescription": "Muutke plaani, värskendage makset või tühistage.",
+    "manageOrUpgrade": "Hallake või täiendage plaani",
+    "managePlan": "Halda plaani",
+    "monthlyCreditsUsed": "kasutatud igakuisest krediidist",
+    "mostCreditsUsed": "Suurem osa selle kuu krediite on kasutatud",
+    "noteLimitReached": "Märkmete limiit on täis",
+    "notes": "Märkmed",
+    "notesUsed": "Kasutatud märkmed",
+    "notesUsedValue": "Kasutatud {{used}}/{{limit}}",
+    "outOfCredits": "Krediidid otsas",
+    "pausedUntilReset": "Loomine on peatatud, kuni teie krediidid lähtestatakse.",
+    "plan": "Plaan",
+    "planInactive": "Plaan passiivne",
+    "resetsIn": "Lähtestab sisse",
+    "resetsInDays_one": "Lähtestub 1 päevaga",
+    "resetsInDays_other": "Lähtestub {{count}} päeva pärast",
+    "signedOut": {
+      "localStorage": "Teie nutikad väljad ja seaded salvestatakse sellesse seadmesse.",
+      "manage": "Plaani haldamiseks logige sisse",
+      "paused": "Loomine on peatatud kuni sisselogimiseni.",
+      "title": "Välja logitud"
+    },
+    "title": "Konto ja kasutamine",
+    "trialCreditsUsed": "kasutatud proovikrediitidest",
+    "trialEnded": "Kohtuprotsess lõppes",
+    "trialEnds": "Kohtuprotsess lõppeb",
+    "trialNoteLimitReached": "Proovimärkmete limiit on täis",
+    "upgradeToKeepGenerating": "Loomise jätkamiseks uuendage.",
+    "usage": "Kasutamine"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Jäta arvustus / vaata dokumente.",
+    "byline": "Michael Piazza / Rosebud Labs, LLC.",
+    "changelog": "Muudatuste logi",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "Kiireim viis abi saamiseks, funktsiooni taotlemiseks või veast teatamiseks.",
+      "join": "Liitu",
+      "title": "Liituge Discord-ga"
+    },
+    "emailUs": "Saada meile e-kiri",
+    "feedback": {
+      "description": "Midagi katki või valesti? Saatke vaesele arendajale otse sõnum.",
+      "send": "Saada see",
+      "title": "Esitage viga / taotlege funktsiooni"
+    },
+    "github": "GitHub",
+    "loading": "Laadimise tugi",
+    "title": "Toetus"
+  },
+  "welcome": {
+    "alreadyAccount": "Kas teil on juba konto?",
+    "codePlaceholder": "Kleepige oma kood",
+    "connect": "Ühendage",
+    "connecting": "Ühendamine…",
+    "description": "Lisage teksti, kõnet ja pilte üksikutele kaartidele või kogu kaardipakile ühe klõpsuga.",
+    "errors": {
+      "code": "Selle koodiga ei õnnestunud ühendust luua"
+    },
+    "finishDescription": "Lõpetage sisselogimine meie avatud brauseris. Seda akent värskendatakse automaatselt.",
+    "finishInBrowser": "Lõpetage oma brauseris",
+    "haveCode": "Kas teil on veebisaidilt kood?",
+    "startTrial": "✨ Alusta tasuta prooviperioodi ✨",
+    "trialDetails": "7 päeva tasuta · kõik funktsioonid · krediitkaarti pole"
+  },
+  "trialEnded": {
+    "description": "Prooviperioodid kestavad 7 päeva või kuni teie prooviperioodi krediidid otsa saavad.",
+    "features": {
+      "ariaLabel": "Mida uuendamine alles jätab",
+      "batch": "Koguge kogu oma kollektsiooni",
+      "images": "Pildi genereerimine",
+      "premium": "Iga esmaklassiline mudel ja hääl",
+      "review": "Loo ülevaatuse ajal"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Tasuta kuu pakkumine",
+      "description": "Jätke kiire AnkiWeb ülevaade ja kuu aega meie kulul.",
+      "dialogDescription": "Jätke AnkiWeb kohta kiire ülevaade ja seejärel saatke meile e-kiri – lisame teie kontole tasuta kuu aja Smart Notes.",
+      "dialogTitle": "Hankige oma tasuta kuu",
+      "leaveAnkiWebReview": "Jäta arvustus saidile AnkiWeb",
+      "leaveReview": "Jäta arvustus",
+      "title": "Hankige tasuta kuu aega Smart Notes"
+    },
+    "thanks": "Täname, et kasutasite Smart Notes ✨",
+    "title": "Teie tasuta prooviperiood on lõppenud",
+    "upgradeNow": "Uuendage kohe"
+  }
+}

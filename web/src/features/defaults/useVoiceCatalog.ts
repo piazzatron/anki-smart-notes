@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 
 import { errorMessage } from "@/lib/errors"
 import { getVoiceCatalog } from "@/services/voiceCatalog"
 import type { VoiceCatalog } from "@/types/api"
 
 export const useVoiceCatalog = () => {
+  const { t } = useTranslation()
   const [catalog, setCatalog] = useState<VoiceCatalog | null>(null)
   const [error, setError] = useState<string | null>(null)
 
@@ -16,13 +18,13 @@ export const useVoiceCatalog = () => {
       })
       .catch((reason: unknown) => {
         if (active) {
-          setError(errorMessage(reason, "Could not load voices"))
+          setError(errorMessage(reason, t("defaults.voice.cannotLoad")))
         }
       })
     return () => {
       active = false
     }
-  }, [])
+  }, [t])
 
   return { catalog, error }
 }

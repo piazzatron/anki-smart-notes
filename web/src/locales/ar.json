@@ -1,0 +1,539 @@
+{
+  "common": {
+    "allDecks": "جميع الطوابق",
+    "auto": "آلي",
+    "autoMax": "Auto MAX",
+    "back": "خلف",
+    "bestValueCost": "أفضل قيمة، 0.3× التكلفة",
+    "cancel": "يلغي",
+    "close": "يغلق",
+    "connection": {
+      "connecting": "جارٍ الاتصال بـ Anki...",
+      "reconnecting": "جارٍ إعادة الاتصال بـ Anki..."
+    },
+    "days_zero": "{{count}} أيام",
+    "days_one": "يوم واحد",
+    "days_two": "{{count}} يومان",
+    "days_few": "{{count}} أيام",
+    "days_many": "{{count}} يومًا",
+    "days_other": "أيام {{count}}",
+    "deck": "ظهر السفينة",
+    "default": "تقصير",
+    "delete": "يمسح",
+    "done": "منتهي",
+    "duplicate": "ينسخ",
+    "edit": "يحرر",
+    "empty": "فارغ",
+    "field": "مجال",
+    "free": "حر",
+    "discardChanges": "تجاهل التغييرات",
+    "discardUnsavedChanges": {
+      "description": "لم يتم حفظ التغييرات التي أجريتها على هذه الإعدادات الافتراضية.",
+      "title": "هل تريد تجاهل التغييرات غير المحفوظة؟"
+    },
+    "dismissError": "تجاهل الخطأ",
+    "feedback": {
+      "description": "أرسل تقرير خطأ أو طلب ميزة أو تعليقات أخرى إلى المطور.",
+      "error": "تعذر إرسال التعليقات",
+      "label": "تعليق",
+      "placeholder": "خطأ، فكرة، أي شيء - يذهب مباشرة إلى المطور.",
+      "send": "يرسل",
+      "sending": "إرسال…",
+      "sent": "تم إرسال التعليقات. سنكون على اتصال قريبا.",
+      "title": "إرسال ردود الفعل"
+    },
+    "notNow": "ليس الآن",
+    "other": "آخر",
+    "placeholderScreen": "هذه الشاشة هي التالية في إعادة البناء.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "تسجيل الدخول",
+    "signInLower": "تسجيل الدخول",
+    "unlimited": "غير محدود",
+    "upgradeSparkles": "✨ الترقية ✨",
+    "multiplierCost": "{{multiplier}}× التكلفة",
+    "next": "التالي",
+    "noteType": "نوع الملاحظة",
+    "optional": "خياري",
+    "prompt": "اِسْتَدْعَى",
+    "saving": "توفير…",
+    "test": "امتحان",
+    "validFields": "الحقول الصالحة:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "تعليق",
+    "nav": {
+      "defaultsImages": "إعدادات الصورة الافتراضية",
+      "defaultsText": "إعدادات النص الافتراضية",
+      "defaultsVoice": "إعدادات الصوت الافتراضية",
+      "image": "صورة",
+      "settings": "إعدادات",
+      "smartFields": "Smart Fields",
+      "subscription": "الحساب والاستخدام",
+      "support": "يدعم",
+      "text": "نص",
+      "voice": "صوت"
+    },
+    "sections": "أقسام Smart Notes",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "التسجيل المطول للمساعدة في تشخيص المشكلات. قم بتضمين هذه السجلات عند تقديم خطأ.",
+      "label": "وضع التصحيح"
+    },
+    "generateAtReview": {
+      "description": "املأ الحقول الذكية المفقودة تلقائيًا عند ظهور البطاقات قيد المراجعة.",
+      "label": "إنشاء الحقول أثناء المراجعة"
+    },
+    "language": {
+      "description": "اختر لغة Smart Notes، أو قم بمطابقة لغة Anki.",
+      "label": "لغة",
+      "matchAnki": "تطابق Anki"
+    },
+    "legacy": {
+      "apiKey": "مفتاح واجهة برمجة التطبيقات OpenAI",
+      "apiKeyRequired": "مطلوب مفتاح OpenAI API المدفوع.",
+      "description": "قم بتوصيل مفتاح API مدفوع واختيار نموذج OpenAI القديم.",
+      "getApiKey": "احصل على مفتاح API",
+      "host": "المضيف OpenAI",
+      "hostDescription": "قم بتوفير نقطة نهاية بديلة لواجهة برمجة تطبيقات OpenAI.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "نموذج OpenAI",
+      "title": "استخدم مفتاح OpenAI الخاص بي"
+    },
+    "loading": "تحميل الإعدادات",
+    "regenerateWhenBatching": {
+      "description": "عند معالجة مجموعة من الملاحظات دفعة واحدة، قم بإعادة إنشاء كل حقل ذكي من البداية بدلاً من ملء الحقول الفارغة فقط.",
+      "label": "قم بإعادة إنشاء جميع الحقول الذكية عند معالجة الدُفعات"
+    },
+    "saveError": "لا يمكن حفظ الإعدادات",
+    "sections": {
+      "advanced": "متقدم",
+      "general": "عام",
+      "generation": "جيل"
+    },
+    "title": "إعدادات"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "بالفعل حقل ذكي ✨",
+    "collisionHint": "يحتوي بالفعل على حقل ذكي - اختر حقلاً أو مجموعة أو نوع ملاحظة مختلفًا",
+    "completion": {
+      "descriptionAfter": "يتم ملء الملاحظات كلما قمت بإنشائها.",
+      "descriptionBefore": "على",
+      "methods": {
+        "bulk": {
+          "caption": "حدد الملاحظات أو المجموعة → انقر بزر الماوس الأيمن → ✨ قم بإنشاء Smart Fields.",
+          "imageAlt": "قائمة سياق المتصفح Anki مع تمييز إنشاء Smart Fields",
+          "title": "بكميات كبيرة، من المتصفح"
+        },
+        "card": {
+          "caption": "انقر فوق الزر ✨ في شريط أدوات المحرر أو اكتب ⌘⇧G.",
+          "imageAlt": "شريط أدوات محرر Anki مع تمييز الزر Smart Notes",
+          "title": "بطاقة واحدة في كل مرة"
+        },
+        "field": {
+          "caption": "انقر بزر الماوس الأيمن على أي حقل → إنشاء حقل ذكي.",
+          "imageAlt": "قائمة سياق الحقل Anki مع تمييز \"إنشاء حقل ذكي\".",
+          "title": "حقل واحد"
+        }
+      },
+      "title": "حقلك الذكي مباشر",
+      "waysToGenerate": "عدة طرق لإنشائها:"
+    },
+    "created": "تم إنشاء الحقل الذكي",
+    "dontShowAgain": "لا تظهر هذا مرة أخرى",
+    "errors": {
+      "save": "لا يمكن حفظ الحقل الذكي",
+      "updateWizardSettings": "لا يمكن تحديث إعدادات المعالج",
+      "writePrompt": "لا يمكن كتابة المطالبة"
+    },
+    "fieldTypes": {
+      "audio": "صوتي",
+      "image": "صورة",
+      "text": "نص"
+    },
+    "loadingModelCatalog": "جارٍ تحميل كتالوج النماذج...",
+    "modelSettings": {
+      "appliesOnlyToField": "ينطبق على هذا الحقل الذكي فقط.",
+      "defaultWithValue": "الافتراضي ({{value}})",
+      "defaultsImages": "الإعدادات الافتراضية › الصور",
+      "defaultsText": "الإعدادات الافتراضية › النص",
+      "defaultsVoice": "الإعدادات الافتراضية › الصوت",
+      "descriptionChat": "قم بتعيين الذكاء الاصطناعي الذي يكتب هذا الحقل. يمكن أن تظل معظم الحقول في الوضع الافتراضي.",
+      "descriptionImage": "قم بتعيين الذكاء الاصطناعي الذي يرسم هذا الحقل. يمكن أن تظل معظم الحقول في الوضع الافتراضي.",
+      "descriptionTts": "اضبط الصوت الذي يقرأ هذا الحقل. يمكن أن تظل معظم الحقول في الوضع الافتراضي.",
+      "imageDefault": "الصورة الافتراضية",
+      "imageModel": "نموذج الصورة",
+      "loadingVoices": "جارٍ تحميل الأصوات...",
+      "model": "نموذج",
+      "pickCustom": "اختر نموذجًا مخصصًا لهذا المجال",
+      "reasoning": "المنطق {{level}}",
+      "reasoningHint": "يمكن أن يؤدي التفكير الأعلى إلى تحسين الأجيال الأكثر صعوبة، ولكنه يستخدم المزيد من الاعتمادات.",
+      "reasoningLevel": "مستوى الاستدلال",
+      "sharedByEveryField": "تتم مشاركة {{modality}} الخاص بك بواسطة كل حقل ذكي يستخدمه. تغييره في",
+      "textDefault": "الافتراضي النص",
+      "textModel": "نموذج النص",
+      "useMy": "استخدم {{modality}} الخاص بي",
+      "useWebSearch": "استخدم بحث الويب لهذا المجال",
+      "voice": "صوت",
+      "voiceDefault": "الصوت الافتراضي",
+      "webSearch": "البحث على شبكة الإنترنت",
+      "webSearchHint": "دع هذا الحقل يستخدم معلومات جديدة من الويب."
+    },
+    "save": "حفظ الحقل الذكي",
+    "sections": {
+      "onWhichNotes": "على أي ملاحظات؟",
+      "whatToGenerate": "ماذا تريد أن تولد؟",
+      "whichFieldToFill": "ما الحقل الذي يجب ملؤه؟",
+      "whichFieldToSpeak": "في أي مجال يجب أن تتحدث؟"
+    },
+    "sourceField": "حقل المصدر",
+    "targetAriaLabel": "الهدف الميداني الذكي",
+    "testSmartField": "اختبر مجالك الذكي",
+    "titles": {
+      "create": "المجال الذكي الجديد ✨",
+      "duplicate": "تكرار الحقل الذكي",
+      "edit": "تحرير الحقل الذكي"
+    },
+    "validation": {
+      "chooseField": "اختر حقلاً",
+      "chooseNoteType": "اختر نوع الملاحظة",
+      "chooseSourceField": "اختر حقل المصدر",
+      "fieldAlreadyHasSmartField": "يحتوي {{field}} بالفعل على حقل ذكي",
+      "writePrompt": "اكتب موجه"
+    },
+    "writePrompt": "اكتب موجه",
+    "writePromptForMe": "اكتب مطالبتي بالنسبة لي",
+    "writePromptForMeHint": "قل ما تريد باللغة الإنجليزية البسيطة - سنكتب المطالبة أدناه.",
+    "writePromptPlaceholder": "\"الترجمة إلى اللغة الإنجليزية الطبيعية...\"",
+    "writing": "كتابة…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "إجراءات لـ {{field}}",
+    "addToNoteType": "أضف الحقل الذكي إلى {{noteType}}",
+    "disable": "إبطال",
+    "deleting": "جارٍ الحذف...",
+    "discord": {
+      "dismissAriaLabel": "رفض دعوة Discord",
+      "join": "ينضم",
+      "joinAriaLabel": "انضم إلى Smart Notes Discord",
+      "subtitle": "— مبادلة المطالبات وطلب الميزات.",
+      "title": "تعال وقل مرحبًا في Discord"
+    },
+    "editAriaLabel": "تحرير الحقل الذكي {{field}}",
+    "emptyState": {
+      "description": "أضف Smart Fields لإضافة نص وصوت وصور إلى بطاقاتك.",
+      "exampleAnswer": "مرحبًا",
+      "exampleField": "أمام",
+      "examplePrompt": "صباح الخير",
+      "spark": "✦",
+      "title": "ملاحظاتك تبدو فارغة بعض الشيء"
+    },
+    "enable": "يُمكَِن",
+    "errors": {
+      "commandFailed": "فشل أمر الحقل الذكي"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} المجال الذكي",
+    "fieldTypes": {
+      "chat": "نص",
+      "image": "صورة",
+      "tts": "صوتي"
+    },
+    "loadingAriaLabel": "جاري تحميل Smart Fields",
+    "newSmartField": "المجال الذكي الجديد",
+    "readsAloud": "يقرأ {{field}} بصوت عال",
+    "review": {
+      "ariaLabel": "مراجعة Smart Notes على AnkiWeb",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "رفض دعوة المراجعة",
+      "subtitle": "اترك تعليقًا على AnkiWeb لمساعدة مستخدمي Anki الآخرين في العثور عليه.",
+      "title": "تتمتع Smart Notes؟"
+    },
+    "subtitle": "أضف النص والصوت والصور التي يتم إنشاؤها تلقائيًا إلى ملاحظاتك.",
+    "title": "✨Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "يفتقد كتالوج الدردشة النموذج {{model}}",
+      "missingImageModel": "كتالوج الصور يفتقد الطراز {{model}}"
+    },
+    "image": {
+      "cannotFindModel": "كتالوج الصور يفتقد الطراز {{model}}",
+      "defaultModel": "النموذج الافتراضي",
+      "gptImage15Low": "أفضل جودة / سرعة المقايضة.",
+      "gptImage2": "نفس التكلفة، أبطأ، أعلى جودة.",
+      "loadingLabel": "جارٍ تحميل إعدادات الصورة الافتراضية",
+      "loadingTitle": "إعدادات الصورة الافتراضية",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (منخفض / متوسط)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 اختيار نموذج الصورة",
+      "samplePrompt": "قم بإنشاء صورة لطالب يدرس بجد باستخدام Anki ويجتاز اختباراته.",
+      "saveError": "لا يمكن حفظ الإعدادات الافتراضية للصورة",
+      "subtitle": "النموذج الذي تستخدمه صورتك Smart Fields ما لم يتم تثبيت حقل خاص به.",
+      "title": "إعدادات الصورة الافتراضية",
+      "zImageTurbo": "الأسرع والأرخص."
+    },
+    "layout": {
+      "saveChanges": "حفظ التغييرات",
+      "saving": "توفير…",
+      "tryIt": "جربه"
+    },
+    "text": {
+      "cannotInheritModel": "لا يمكن أن ترث الإعدادات الافتراضية للنص نموذجًا آخر",
+      "defaultModel": "نموذج النص الافتراضي",
+      "defaultReasoningLevel": "مستوى التفكير الافتراضي",
+      "enableWebSearch": "تمكين بحث الويب",
+      "higherReasoning": "يمكن أن يؤدي التفكير الأعلى إلى تحسين الأجيال الأكثر صعوبة، ولكنه يستخدم المزيد من الاعتمادات.",
+      "loadingLabel": "جارٍ تحميل إعدادات النص الافتراضية",
+      "loadingTitle": "إعدادات إنشاء النص",
+      "modelGuidance": "يعد {{auto}} و{{autoMax}} من النماذج الموصى بها من قبل Smart Notes والتي تعمل على تحقيق التوازن بين الأداء والتكلفة. اختر {{auto}} للمهام القياسية وقم بالترقية إلى {{autoMax}} إذا لزم الأمر.",
+      "pickingModel": "💡اختيار الموديل",
+      "reasoningLevel": "مستوى الاستدلال",
+      "reasoningValues": {
+        "high": "عالي",
+        "low": "قليل",
+        "off": "عن"
+      },
+      "samplePrompt": "ما هو نظام التكرار المتباعد (SRS)؟",
+      "saveError": "لا يمكن حفظ الإعدادات الافتراضية للنص",
+      "subtitle": "الإعدادات الافتراضية لإنشاء النص. يمكن لـ Smart Fields الفردي تجاوز هذه القيم.",
+      "title": "إعدادات إنشاء النص",
+      "webSearch": "بحث الويب",
+      "webSearchDescription": "اسمح للأجيال النصية بسحب معلومات جديدة من الويب.",
+      "webSearchWarning": "⚠️ البحث مكلف؛ مراقبة الاعتمادات الخاصة بك."
+    },
+    "usage": {
+      "fields_zero": "ينطبق على {{count}} حقول",
+      "fields_one": "ينطبق على الحقل {{count}}",
+      "fields_two": "ينطبق على {{count}} حقلين",
+      "fields_few": "ينطبق على {{count}} حقول",
+      "fields_many": "ينطبق على {{count}} حقلًا",
+      "fields_other": "ينطبق على حقول {{count}}"
+    },
+    "voice": {
+      "browseVoices": "تصفح الأصوات ({{count}})",
+      "cannotLoad": "لا يمكن تحميل الأصوات",
+      "currentDefault": "الافتراضي الحالي",
+      "filters": {
+        "all": "الجميع",
+        "female": "أنثى",
+        "gender": "جنس",
+        "language": "لغة",
+        "male": "ذكر",
+        "provider": "مزود"
+      },
+      "filterVoices": "تصفية الأصوات",
+      "loadingLabel": "جارٍ تحميل إعدادات الصوت الافتراضية",
+      "loadingTitle": "إعدادات الصوت الافتراضية",
+      "noVoices": "لا توجد أصوات تتطابق مع هذه المرشحات.",
+      "saveError": "تعذر حفظ إعدادات الصوت الافتراضية",
+      "searchPlaceholder": "🔍 البحث عن الأصوات...",
+      "searchVoices": "أصوات البحث",
+      "subtitle": "الصوت الذي تستخدمه TTS Smart Fields ما لم يتم تثبيت حقل خاص به.",
+      "title": "إعدادات الصوت الافتراضية"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "نوع ملاحظة آخر",
+    "currentlySelectedCard": "البطاقة المحددة حاليا",
+    "emptyCard": "(بطاقة فارغة)",
+    "errors": {
+      "generateAudio": "لا يمكن إنشاء الصوت",
+      "generateImage": "لا يمكن إنشاء صورة",
+      "saveResult": "تعذر حفظ هذه النتيجة على البطاقة",
+      "testPrompt": "تعذر اختبار هذه المطالبة"
+    },
+    "fieldRunsOn": "هذا المجال يعمل على",
+    "fieldWord_zero": "حقول",
+    "fieldWord_one": "مجال",
+    "fieldWord_two": "حقلان",
+    "fieldWord_few": "حقول",
+    "fieldWord_many": "حقلًا",
+    "fieldWord_other": "الحقول",
+    "generatedImagePreview": "معاينة الصورة التي تم إنشاؤها",
+    "missingFieldsTitle_zero": "لا توجد حقول مفقودة",
+    "missingFieldsTitle_one": "الحقل مفقود",
+    "missingFieldsTitle_two": "حقلان مفقودان",
+    "missingFieldsTitle_few": "حقول مفقودة",
+    "missingFieldsTitle_many": "حقول مفقودة",
+    "missingFieldsTitle_other": "الحقول المفقودة",
+    "needsFields_zero": "يحتاج إلى {{count}} حقول",
+    "needsFields_one": "يحتاج إلى حقل {{count}}",
+    "needsFields_two": "يحتاج إلى {{count}} حقلين",
+    "needsFields_few": "يحتاج إلى {{count}} حقول",
+    "needsFields_many": "يحتاج إلى {{count}} حقلًا",
+    "needsFields_other": "يحتاج إلى حقول {{count}}",
+    "notesSelected_zero": "تم تحديد {{count}} ملاحظات — اختر واحدة.",
+    "notesSelected_one": "ملاحظة {{count}} محددة - قم بتضييقها إلى واحدة.",
+    "notesSelected_two": "تم تحديد {{count}} ملاحظتين — اختر واحدة.",
+    "notesSelected_few": "تم تحديد {{count}} ملاحظات — اختر واحدة.",
+    "notesSelected_many": "تم تحديد {{count}} ملاحظة — اختر واحدة.",
+    "notesSelected_other": "تم تحديد ملاحظات {{count}} - قم بتضييقها إلى واحدة.",
+    "pickCard": "اختر بطاقة في متصفح Anki",
+    "promptPlaceholder": "اكتب موجه اختبار، مع الإشارة إلى الحقول الموجودة على بطاقتك باستخدام {{braces}}.",
+    "saveToCard": "حفظ إلى البطاقة",
+    "savedTo": "تم الحفظ في {{field}}",
+    "selectCardWith": "الرجاء تحديد نوع البطاقة مع",
+    "selectFieldToReadAloud": "حدد حقلاً للقراءة بصوت عالٍ",
+    "selectNewCard": "حدد بطاقة جديدة في المتصفح",
+    "selectNoteType": "الرجاء تحديد نوع الملاحظة",
+    "selectedCard": "البطاقة المختارة",
+    "selectedDeck": "سطح السفينة المختارة",
+    "selectedNoteType": "نوع الملاحظة المحدد",
+    "selectionAppearsAutomatically": "يظهر اختيارك هنا تلقائيًا.",
+    "sent": "مرسل",
+    "testing": "اختبار…",
+    "testResult": "نتيجة الاختبار",
+    "textToSpeak": "النص للتحدث",
+    "viewResult": "عرض النتيجة",
+    "wrongNoteType": "نوع ملاحظة خاطئ"
+  },
+  "subscription": {
+    "checking": "التحقق من الاشتراك",
+    "creditTypes": {
+      "images": "الصور",
+      "text": "نص",
+      "voice": "صوت"
+    },
+    "creditUsage": "استخدام الائتمان",
+    "creditsReset": "إعادة تعيين الاعتمادات",
+    "daysLeft_zero": "يتبقى {{count}} أيام",
+    "daysLeft_one": "اليوم الأخير",
+    "daysLeft_two": "يتبقى {{count}} يومين",
+    "daysLeft_few": "يتبقى {{count}} أيام",
+    "daysLeft_many": "يتبقى {{count}} يومًا",
+    "daysLeft_other": "أيام متبقية {{count}}",
+    "errors": {
+      "logout": "لا يمكن تسجيل الخروج"
+    },
+    "freePlan": "خطة مجانية",
+    "freeTrial": "تجربة مجانية",
+    "hero": {
+      "buyCredits": "شراء المزيد من الاعتمادات",
+      "freeCreditsResetting": "يتم إعادة تعيين الاعتمادات المجانية الخاصة بك",
+      "freePlan": "أنت مشترك في الخطة المجانية",
+      "noteLimit": "لقد وصلت إلى الحد المسموح به من الملاحظات",
+      "outOfCredits": "لقد نفدت الاعتمادات هذا الشهر",
+      "outOfFreeCredits": "لقد نفدت الاعتمادات المجانية هذا الشهر",
+      "outOfTrialCredits": "لقد نفدت رصيدك التجريبي",
+      "planExpired": "لقد انتهت صلاحية خطتك",
+      "rollover": "تتجدد أرصدة الدفع أولاً بأول كل شهر، وهي ملك لك إلى الأبد.",
+      "trialDaysLeft_zero": "يتبقى {{count}} أيام في الفترة التجريبية",
+      "trialDaysLeft_one": "محاكمتك تنتهي اليوم",
+      "trialDaysLeft_two": "يتبقى {{count}} يومين في الفترة التجريبية",
+      "trialDaysLeft_few": "يتبقى {{count}} أيام في الفترة التجريبية",
+      "trialDaysLeft_many": "يتبقى {{count}} يومًا في الفترة التجريبية",
+      "trialDaysLeft_other": "{{count}} أيام متبقية في الفترة التجريبية الخاصة بك",
+      "trialEnded": "انتهت محاكمتك",
+      "trialNoteLimit": "لقد وصلت إلى الحد الأقصى للملاحظة التجريبية",
+      "upgradeCollection": "الترقية - مجموعتك بأكملها تلقائيًا",
+      "upgradeCredits": "الترقية للحصول على المزيد من الاعتمادات",
+      "upgradePaid": "✨ الترقية إلى المدفوعة"
+    },
+    "inDays_zero": "بعد {{count}} أيام",
+    "inDays_one": "اليوم",
+    "inDays_two": "بعد {{count}} يومين",
+    "inDays_few": "بعد {{count}} أيام",
+    "inDays_many": "بعد {{count}} يومًا",
+    "inDays_other": "في أيام {{count}}",
+    "loading": "جارٍ تحميل الاشتراك",
+    "loggingOut": "تسجيل الخروج...",
+    "logOut": "تسجيل الخروج",
+    "manageDescription": "تغيير الخطة أو تحديث الدفع أو الإلغاء.",
+    "manageOrUpgrade": "إدارة أو ترقية الخطة",
+    "managePlan": "إدارة الخطة",
+    "monthlyCreditsUsed": "من الاعتمادات الشهرية المستخدمة",
+    "mostCreditsUsed": "يتم استخدام معظم الاعتمادات لهذا الشهر",
+    "noteLimitReached": "تم الوصول إلى حد الملاحظة",
+    "notes": "ملاحظات",
+    "notesUsed": "الملاحظات المستخدمة",
+    "notesUsedValue": "تم استخدام {{used}}/{{limit}}",
+    "outOfCredits": "نفاد الاعتمادات",
+    "pausedUntilReset": "يتم إيقاف الإنشاء مؤقتًا حتى يتم إعادة تعيين الاعتمادات الخاصة بك.",
+    "plan": "خطة",
+    "planInactive": "الخطة غير نشطة",
+    "resetsIn": "إعادة تعيين في",
+    "resetsInDays_zero": "تتم إعادة التعيين بعد {{count}} أيام",
+    "resetsInDays_one": "إعادة تعيين في 1 يوم",
+    "resetsInDays_two": "تتم إعادة التعيين بعد {{count}} يومين",
+    "resetsInDays_few": "تتم إعادة التعيين بعد {{count}} أيام",
+    "resetsInDays_many": "تتم إعادة التعيين بعد {{count}} يومًا",
+    "resetsInDays_other": "تتم إعادة التعيين خلال أيام {{count}}",
+    "signedOut": {
+      "localStorage": "يتم تخزين حقولك وإعداداتك الذكية على هذا الجهاز.",
+      "manage": "قم بتسجيل الدخول لإدارة خطتك",
+      "paused": "يتم إيقاف الإنشاء مؤقتًا حتى تقوم بتسجيل الدخول.",
+      "title": "تم تسجيل الخروج"
+    },
+    "title": "الحساب والاستخدام",
+    "trialCreditsUsed": "من الاعتمادات التجريبية المستخدمة",
+    "trialEnded": "انتهت المحاكمة",
+    "trialEnds": "تنتهي المحاكمة",
+    "trialNoteLimitReached": "تم الوصول إلى الحد الأقصى للملاحظة التجريبية",
+    "upgradeToKeepGenerating": "الترقية لمواصلة توليد.",
+    "usage": "الاستخدام"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "ترك التعليق / راجع المستندات.",
+    "byline": "بواسطة مايكل بيازا / Rosebud Labs، LLC.",
+    "changelog": "سجل التغيير",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "أسرع طريقة للحصول على المساعدة أو طلب ميزة أو الإبلاغ عن خطأ.",
+      "join": "ينضم",
+      "title": "انضم إلى Discord"
+    },
+    "emailUs": "راسلنا عبر البريد الإلكتروني",
+    "feedback": {
+      "description": "شيء مكسور أو خطأ؟ أرسل رسالة للمطور الفقير مباشرةً.",
+      "send": "أرسلها",
+      "title": "إرسال خطأ / طلب ميزة"
+    },
+    "github": "GitHub",
+    "loading": "تحميل الدعم",
+    "title": "الدعم"
+  },
+  "welcome": {
+    "alreadyAccount": "هل لديك حساب بالفعل؟",
+    "codePlaceholder": "الصق الرمز الخاص بك",
+    "connect": "الاتصال",
+    "connecting": "جارٍ الاتصال…",
+    "description": "أضف نصًا وكلامًا وصورًا إلى البطاقات الفردية أو مجموعتك بأكملها بنقرة واحدة.",
+    "errors": {
+      "code": "لا يمكن الاتصال بهذا الرمز"
+    },
+    "finishDescription": "أكمل تسجيل الدخول في المتصفح الذي فتحناه. سيتم تحديث هذه النافذة تلقائيًا.",
+    "finishInBrowser": "قم بإنهاء الأمر في متصفحك",
+    "haveCode": "هل لديك رمز من الموقع؟",
+    "startTrial": "✨ ابدأ النسخة التجريبية المجانية ✨",
+    "trialDetails": "مجانًا لمدة 7 أيام · كل الميزات · بدون بطاقة ائتمان"
+  },
+  "trialEnded": {
+    "description": "تستمر التجارب لمدة 7 أيام أو حتى نفاد الاعتمادات التجريبية الخاصة بك.",
+    "features": {
+      "ariaLabel": "ما يبقي الترقية",
+      "batch": "دفعة عبر مجموعتك بأكملها",
+      "images": "توليد الصورة",
+      "premium": "كل نموذج وصوت متميز",
+      "review": "إنشاء أثناء المراجعة"
+    },
+    "reviewOffer": {
+      "ariaLabel": "عرض شهر مجاني",
+      "description": "اترك مراجعة سريعة لـ AnkiWeb، واحصل على شهر مجانًا.",
+      "dialogDescription": "اترك مراجعة سريعة على AnkiWeb، ثم راسلنا عبر البريد الإلكتروني — سنضيف شهرًا مجانيًا من Smart Notes إلى حسابك.",
+      "dialogTitle": "احصل على شهرك المجاني",
+      "leaveAnkiWebReview": "ترك التعليق على AnkiWeb",
+      "leaveReview": "ترك التعليق",
+      "title": "احصل على شهر مجاني من Smart Notes"
+    },
+    "thanks": "شكرًا لاستخدامك Smart Notes ✨",
+    "title": "انتهت تجربتك المجانية",
+    "upgradeNow": "قم بالترقية الآن"
+  }
+}

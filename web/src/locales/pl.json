@@ -1,0 +1,519 @@
+{
+  "common": {
+    "allDecks": "Wszystkie pokłady",
+    "auto": "Automatyczny",
+    "autoMax": "Auto MAX",
+    "back": "Z powrotem",
+    "bestValueCost": "Najlepsza wartość, 0,3× koszt",
+    "cancel": "Anulować",
+    "close": "Zamknąć",
+    "connection": {
+      "connecting": "Łączenie z Anki…",
+      "reconnecting": "Ponowne łączenie z Anki…"
+    },
+    "days_one": "1 dzień",
+    "days_few": "{{count}} dni",
+    "days_many": "{{count}} dni",
+    "days_other": "{{count}} dnia",
+    "deck": "Pokład",
+    "default": "Domyślny",
+    "delete": "Usuwać",
+    "done": "Zrobione",
+    "duplicate": "Duplikat",
+    "edit": "Redagować",
+    "empty": "pusty",
+    "field": "Pole",
+    "free": "Bezpłatny",
+    "discardChanges": "Odrzuć zmiany",
+    "discardUnsavedChanges": {
+      "description": "Zmiany w ustawieniach domyślnych nie zostały zapisane.",
+      "title": "Odrzucić niezapisane zmiany?"
+    },
+    "dismissError": "Odrzuć błąd",
+    "feedback": {
+      "description": "Wyślij raport o błędzie, prośbę o dodanie funkcji lub inną opinię do programisty.",
+      "error": "Nie udało się wysłać opinii",
+      "label": "Informacja zwrotna",
+      "placeholder": "Błąd, pomysł, cokolwiek – trafia bezpośrednio do programisty.",
+      "send": "Wysłać",
+      "sending": "Przesyłka…",
+      "sent": "Opinia została wysłana. Wkrótce się skontaktujemy.",
+      "title": "Wyślij opinię"
+    },
+    "notNow": "Nie teraz",
+    "other": "Inny",
+    "placeholderScreen": "Ten ekran będzie następny w przebudowie.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "Zalogować się",
+    "signInLower": "Zalogować się",
+    "unlimited": "Nieograniczony",
+    "upgradeSparkles": "✨ Uaktualnij ✨",
+    "multiplierCost": "{{multiplier}}× koszt",
+    "next": "Następny",
+    "noteType": "Typ notatki",
+    "optional": "fakultatywny",
+    "prompt": "Podpowiedź",
+    "saving": "Oszczędność…",
+    "test": "Test",
+    "validFields": "Poprawne pola:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Informacja zwrotna",
+    "nav": {
+      "defaultsImages": "Domyślne ustawienia obrazu",
+      "defaultsText": "Domyślne ustawienia tekstu",
+      "defaultsVoice": "Domyślne ustawienia głosu",
+      "image": "Obraz",
+      "settings": "Ustawienia",
+      "smartFields": "Smart Fields",
+      "subscription": "Konto i użytkowanie",
+      "support": "Wsparcie",
+      "text": "Tekst",
+      "voice": "Głos"
+    },
+    "sections": "Sekcje Smart Notes",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Szczegółowe rejestrowanie ułatwiające diagnozowanie problemów. Dołącz te dzienniki podczas zgłaszania błędu.",
+      "label": "Tryb debugowania"
+    },
+    "generateAtReview": {
+      "description": "Automatycznie uzupełniaj brakujące inteligentne pola, gdy karty pojawiają się podczas sprawdzania.",
+      "label": "Generuj pola podczas przeglądu"
+    },
+    "language": {
+      "description": "Wybierz język dla Smart Notes lub dopasuj język Anki.",
+      "label": "Język",
+      "matchAnki": "Dopasuj Anki"
+    },
+    "legacy": {
+      "apiKey": "Klucz API OpenAI",
+      "apiKeyRequired": "Wymagany jest płatny klucz API OpenAI.",
+      "description": "Podłącz płatny klucz API i wybierz starszy model OpenAI.",
+      "getApiKey": "Zdobądź klucz API",
+      "host": "Host OpenAI",
+      "hostDescription": "Zapewnij alternatywny punkt końcowy dla API OpenAI.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "Model OpenAI",
+      "title": "Użyj mojego własnego klucza OpenAI"
+    },
+    "loading": "Ładowanie ustawień",
+    "regenerateWhenBatching": {
+      "description": "Podczas przetwarzania wsadowego grupy notatek należy zregenerować każde inteligentne pole od zera, zamiast wypełniać tylko puste.",
+      "label": "Zregeneruj wszystkie inteligentne pola podczas przetwarzania wsadowego"
+    },
+    "saveError": "Nie udało się zapisać ustawień",
+    "sections": {
+      "advanced": "Zaawansowany",
+      "general": "Ogólny",
+      "generation": "Generacja"
+    },
+    "title": "Ustawienia"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Już Smart Field ✨",
+    "collisionHint": "ma już Smart Field — wybierz inne pole, talię lub typ notatki",
+    "completion": {
+      "descriptionAfter": "notatki są wypełniane za każdym razem, gdy je generujesz.",
+      "descriptionBefore": "NA",
+      "methods": {
+        "bulk": {
+          "caption": "Wybierz notatki lub talię → kliknij prawym przyciskiem myszy → ✨ Wygeneruj Smart Fields.",
+          "imageAlt": "Anki Menu kontekstowe przeglądarki z podświetloną opcją Generuj Smart Fields",
+          "title": "Zbiorczo, z przeglądarki"
+        },
+        "card": {
+          "caption": "Kliknij przycisk ✨ na pasku narzędzi edytora lub wpisz ⌘⇧G.",
+          "imageAlt": "Pasek narzędzi edytora Anki z podświetlonym przyciskiem Smart Notes",
+          "title": "Jedna karta na raz"
+        },
+        "field": {
+          "caption": "Kliknij prawym przyciskiem myszy dowolne pole → Wygeneruj Smart Field.",
+          "imageAlt": "Menu kontekstowe pola Anki z podświetloną opcją Generuj Smart Field",
+          "title": "Jedno pole"
+        }
+      },
+      "title": "Twój Smart Field jest aktywny",
+      "waysToGenerate": "Kilka sposobów jego wygenerowania:"
+    },
+    "created": "Utworzono Smart Field",
+    "dontShowAgain": "Nie pokazuj tego więcej",
+    "errors": {
+      "save": "Nie można zapisać Smart Field",
+      "updateWizardSettings": "Nie można zaktualizować ustawień kreatora",
+      "writePrompt": "Nie można zapisać monitu"
+    },
+    "fieldTypes": {
+      "audio": "Audio",
+      "image": "Obraz",
+      "text": "Tekst"
+    },
+    "loadingModelCatalog": "Ładowanie katalogu modeli…",
+    "modelSettings": {
+      "appliesOnlyToField": "Dotyczy tylko tego Smart Field.",
+      "defaultWithValue": "Domyślny ({{value}})",
+      "defaultsImages": "Domyślne › Obrazy",
+      "defaultsText": "Domyślne › Tekst",
+      "defaultsVoice": "Domyślne › Głos",
+      "descriptionChat": "Ustaw sztuczną inteligencję, która zapisuje to pole. Większość pól może pozostać domyślna.",
+      "descriptionImage": "Ustaw sztuczną inteligencję, która rysuje to pole. Większość pól może pozostać domyślna.",
+      "descriptionTts": "Ustaw głos czytający to pole. Większość pól może pozostać domyślna.",
+      "imageDefault": "obraz domyślny",
+      "imageModel": "Model obrazu",
+      "loadingVoices": "Ładowanie głosów…",
+      "model": "Model",
+      "pickCustom": "Wybierz niestandardowy model dla tego pola",
+      "reasoning": "Rozumowanie {{level}}",
+      "reasoningHint": "Wyższe rozumowanie może ulepszyć trudniejsze pokolenia, ale wymaga większej liczby punktów.",
+      "reasoningLevel": "Poziom rozumowania",
+      "sharedByEveryField": "Twój {{modality}} jest współdzielony przez każdego Smart Field, który go używa. Zmień to",
+      "textDefault": "tekst domyślny",
+      "textModel": "Model tekstowy",
+      "useMy": "Użyj mojego {{modality}}",
+      "useWebSearch": "Użyj wyszukiwarki internetowej dla tego pola",
+      "voice": "Głos",
+      "voiceDefault": "głos domyślny",
+      "webSearch": "Wyszukiwanie w Internecie",
+      "webSearchHint": "Niech to pole korzysta ze świeżych informacji z sieci."
+    },
+    "save": "Zapisz Smart Field",
+    "sections": {
+      "onWhichNotes": "Na jakich nutach?",
+      "whatToGenerate": "Co chcesz wygenerować?",
+      "whichFieldToFill": "Które pole powinien wypełnić?",
+      "whichFieldToSpeak": "W jakim polu powinien mówić?"
+    },
+    "sourceField": "Pole źródłowe",
+    "targetAriaLabel": "Cel Smart Field",
+    "testSmartField": "Przetestuj swój Smart Field",
+    "titles": {
+      "create": "Nowy Smart Field ✨",
+      "duplicate": "Duplikat Smart Field",
+      "edit": "Edytuj Smart Field"
+    },
+    "validation": {
+      "chooseField": "Wybierz pole",
+      "chooseNoteType": "Wybierz typ notatki",
+      "chooseSourceField": "Wybierz pole źródłowe",
+      "fieldAlreadyHasSmartField": "{{field}} ma już Smart Field",
+      "writePrompt": "Napisz podpowiedź"
+    },
+    "writePrompt": "Napisz podpowiedź",
+    "writePromptForMe": "Napisz dla mnie monit",
+    "writePromptForMeHint": "Powiedz, czego chcesz, prostym angielskim — napiszemy monit poniżej.",
+    "writePromptPlaceholder": "„Przetłumacz na naturalny angielski…”",
+    "writing": "Pismo…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "Działania dla {{field}}",
+    "addToNoteType": "Dodaj Smart Field do {{noteType}}",
+    "disable": "Wyłączyć",
+    "deleting": "Usuwanie…",
+    "discord": {
+      "dismissAriaLabel": "Odrzuć zaproszenie Discord",
+      "join": "Dołączyć",
+      "joinAriaLabel": "Dołącz do Smart Notes Discord",
+      "subtitle": "— zamień podpowiedzi i funkcje żądań.",
+      "title": "Przyjdź się przywitać w Discord"
+    },
+    "editAriaLabel": "Edytuj {{field}} Smart Field",
+    "emptyState": {
+      "description": "Dodaj Smart Fields, aby dodać tekst, dźwięk i obrazy do swoich kart.",
+      "exampleAnswer": "Cześć",
+      "exampleField": "PRZÓD",
+      "examplePrompt": "bonjour",
+      "spark": "✦",
+      "title": "Twoje notatki wyglądają na trochę puste"
+    },
+    "enable": "Włączać",
+    "errors": {
+      "commandFailed": "Polecenie Smart Field nie powiodło się"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "Tekst",
+      "image": "Obraz",
+      "tts": "Audio"
+    },
+    "loadingAriaLabel": "Ładowanie Smart Fields",
+    "newSmartField": "Nowy Smart Field",
+    "readsAloud": "Czyta na głos {{field}}",
+    "review": {
+      "ariaLabel": "Przejrzyj Smart Notes na AnkiWeb",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "Odrzuć zaproszenie do recenzji",
+      "subtitle": "Zostaw recenzję na temat AnkiWeb, aby pomóc innym użytkownikom Anki ją znaleźć.",
+      "title": "Podoba Ci się Smart Notes?"
+    },
+    "subtitle": "Dodaj automatycznie wygenerowany tekst, głos i obrazy do swoich notatek.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "W katalogu czatów brakuje modelu {{model}}",
+      "missingImageModel": "W katalogu obrazów brakuje modelu {{model}}"
+    },
+    "image": {
+      "cannotFindModel": "W katalogu obrazów brakuje modelu {{model}}",
+      "defaultModel": "Domyślny model",
+      "gptImage15Low": "najlepszy kompromis jakość/szybkość.",
+      "gptImage2": "ten sam koszt, wolniejsza i wyższa jakość.",
+      "loadingLabel": "Ładowanie domyślnych ustawień obrazu",
+      "loadingTitle": "Domyślne ustawienia obrazu",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Wybór modelu obrazu",
+      "samplePrompt": "Wygeneruj obraz ucznia, który pilnie uczy się za pomocą Anki i zdaje egzaminy.",
+      "saveError": "Nie można zapisać domyślnych ustawień obrazu",
+      "subtitle": "Model, którego używa Twój obraz Smart Fields, chyba że pole przypina własne.",
+      "title": "Domyślne ustawienia obrazu",
+      "zImageTurbo": "najszybciej i najtaniej."
+    },
+    "layout": {
+      "saveChanges": "Zapisz zmiany",
+      "saving": "Oszczędność…",
+      "tryIt": "Spróbuj"
+    },
+    "text": {
+      "cannotInheritModel": "Domyślne ustawienia tekstu nie mogą dziedziczyć innego modelu",
+      "defaultModel": "Domyślny model tekstu",
+      "defaultReasoningLevel": "Domyślny poziom rozumowania",
+      "enableWebSearch": "Włącz wyszukiwanie w Internecie",
+      "higherReasoning": "Wyższe rozumowanie może ulepszyć trudniejsze pokolenia, ale wymaga większej liczby punktów.",
+      "loadingLabel": "Ładowanie domyślnych ustawień tekstu",
+      "loadingTitle": "Ustawienia generowania tekstu",
+      "modelGuidance": "{{auto}} i {{autoMax}} to modele zalecane przez Smart Notes, które równoważą wydajność i koszty. Wybierz {{auto}} do standardowych zadań i w razie potrzeby uaktualnij do {{autoMax}}.",
+      "pickingModel": "💡 Wybór modelu",
+      "reasoningLevel": "Poziom rozumowania",
+      "reasoningValues": {
+        "high": "Wysoki",
+        "low": "Niski",
+        "off": "Wyłączony"
+      },
+      "samplePrompt": "Co to jest system odstępowych powtórzeń (SRS)?",
+      "saveError": "Nie można zapisać domyślnych ustawień tekstu",
+      "subtitle": "Domyślne ustawienia generowania tekstu. Indywidualny Smart Fields może zastąpić te wartości.",
+      "title": "Ustawienia generowania tekstu",
+      "webSearch": "Wyszukiwanie w Internecie",
+      "webSearchDescription": "Pozwól pokoleniom tekstowym pobierać świeże informacje z Internetu.",
+      "webSearchWarning": "⚠️ Wyszukiwanie jest drogie; monitoruj swoje kredyty."
+    },
+    "usage": {
+      "fields_one": "Dotyczy {{count}} pola",
+      "fields_few": "Dotyczy {{count}} pól",
+      "fields_many": "Dotyczy {{count}} pól",
+      "fields_other": "Dotyczy {{count}} pola"
+    },
+    "voice": {
+      "browseVoices": "Przeglądaj głosy ({{count}})",
+      "cannotLoad": "Nie udało się załadować głosów",
+      "currentDefault": "Bieżąca wartość domyślna",
+      "filters": {
+        "all": "Wszystko",
+        "female": "Kobieta",
+        "gender": "Płeć",
+        "language": "Język",
+        "male": "Mężczyzna",
+        "provider": "Dostawca"
+      },
+      "filterVoices": "Filtruj głosy",
+      "loadingLabel": "Ładowanie domyślnych ustawień głosu",
+      "loadingTitle": "Domyślne ustawienia głosu",
+      "noVoices": "Żaden głos nie pasuje do tych filtrów.",
+      "saveError": "Nie można zapisać domyślnych ustawień głosu",
+      "searchPlaceholder": "🔍 Wyszukaj głosy…",
+      "searchVoices": "Szukaj głosów",
+      "subtitle": "Głos, którego używa Twój TTS Smart Fields, chyba że pole przypina własny.",
+      "title": "Domyślne ustawienia głosu"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "inny typ notatki",
+    "currentlySelectedCard": "Aktualnie wybrana karta",
+    "emptyCard": "(pusta karta)",
+    "errors": {
+      "generateAudio": "Nie można wygenerować dźwięku",
+      "generateImage": "Nie można wygenerować obrazu",
+      "saveResult": "Nie można zapisać tego wyniku na karcie",
+      "testPrompt": "Nie można przetestować tego monitu"
+    },
+    "fieldRunsOn": "To pole działa dalej",
+    "fieldWord_one": "pole",
+    "fieldWord_few": "pola",
+    "fieldWord_many": "pól",
+    "fieldWord_other": "pola",
+    "generatedImagePreview": "Wygenerowany podgląd obrazu",
+    "missingFieldsTitle_one": "Brakujące pole",
+    "missingFieldsTitle_few": "Brakujące pola",
+    "missingFieldsTitle_many": "Brakujące pola",
+    "missingFieldsTitle_other": "Brakujące pola",
+    "needsFields_one": "Wymaga {{count}} pola",
+    "needsFields_few": "Wymaga {{count}} pól",
+    "needsFields_many": "Wymaga {{count}} pól",
+    "needsFields_other": "Wymaga {{count}} pola",
+    "notesSelected_one": "Wybrano {{count}} notatkę — zawęź wybór do jednej.",
+    "notesSelected_few": "Wybrano {{count}} notatki — zawęź wybór do jednej.",
+    "notesSelected_many": "Wybrano {{count}} notatek — zawęź wybór do jednej.",
+    "notesSelected_other": "Wybrano {{count}} notatki — zawęź wybór do jednej.",
+    "pickCard": "Wybierz kartę w przeglądarce Anki",
+    "promptPlaceholder": "Napisz monit testowy, odwołując się do pól na karcie za pomocą {{braces}}.",
+    "saveToCard": "Zapisz na karcie",
+    "savedTo": "Zapisano w {{field}}",
+    "selectCardWith": "Proszę wybrać typ karty za pomocą",
+    "selectFieldToReadAloud": "Wybierz pole, aby przeczytać na głos",
+    "selectNewCard": "Wybierz nową kartę w przeglądarce",
+    "selectNoteType": "Proszę wybrać rodzaj notatki",
+    "selectedCard": "Wybrana karta",
+    "selectedDeck": "Wybrana talia",
+    "selectedNoteType": "Wybrany typ notatki",
+    "selectionAppearsAutomatically": "Twój wybór pojawi się tutaj automatycznie.",
+    "sent": "Wysłano",
+    "testing": "Testowanie…",
+    "testResult": "Wynik testu",
+    "textToSpeak": "Tekst do mówienia",
+    "viewResult": "Zobacz wynik",
+    "wrongNoteType": "Zły typ notatki"
+  },
+  "subscription": {
+    "checking": "Sprawdzam subskrypcję",
+    "creditTypes": {
+      "images": "Obrazy",
+      "text": "Tekst",
+      "voice": "Głos"
+    },
+    "creditUsage": "Wykorzystanie kredytu",
+    "creditsReset": "Kredyty zresetowane",
+    "daysLeft_one": "Ostatni dzień",
+    "daysLeft_few": "Pozostały {{count}} dni",
+    "daysLeft_many": "Pozostało {{count}} dni",
+    "daysLeft_other": "Pozostało {{count}} dnia",
+    "errors": {
+      "logout": "Nie można się wylogować"
+    },
+    "freePlan": "Darmowy plan",
+    "freeTrial": "Bezpłatny okres próbny",
+    "hero": {
+      "buyCredits": "Kup więcej kredytów",
+      "freeCreditsResetting": "Twoje darmowe środki zostaną zresetowane",
+      "freePlan": "Korzystasz z planu bezpłatnego",
+      "noteLimit": "Osiągnąłeś limit notatek",
+      "outOfCredits": "W tym miesiącu skończyły Ci się środki",
+      "outOfFreeCredits": "W tym miesiącu skończyły Ci się darmowe środki",
+      "outOfTrialCredits": "Skończyły Ci się środki próbne",
+      "planExpired": "Twój plan wygasł",
+      "rollover": "Kredyty typu pay-as-you-go odnawiają się co miesiąc — Twoje na zawsze.",
+      "trialDaysLeft_one": "Twój okres próbny kończy się dzisiaj",
+      "trialDaysLeft_few": "Pozostały {{count}} dni okresu próbnego",
+      "trialDaysLeft_many": "Pozostało {{count}} dni okresu próbnego",
+      "trialDaysLeft_other": "Pozostało {{count}} dnia okresu próbnego",
+      "trialEnded": "Twój okres próbny dobiegł końca",
+      "trialNoteLimit": "Osiągnąłeś limit notatek próbnych",
+      "upgradeCollection": "Uaktualnij — automatycznie całą swoją kolekcję",
+      "upgradeCredits": "Uaktualnij, aby uzyskać więcej kredytów",
+      "upgradePaid": "✨ Przejdź na wersję płatną"
+    },
+    "inDays_one": "Dzisiaj",
+    "inDays_few": "Za {{count}} dni",
+    "inDays_many": "Za {{count}} dni",
+    "inDays_other": "Za {{count}} dnia",
+    "loading": "Ładowanie subskrypcji",
+    "loggingOut": "Wylogowywanie…",
+    "logOut": "Wyloguj się",
+    "manageDescription": "Zmień plan, zaktualizuj płatność lub anuluj.",
+    "manageOrUpgrade": "Zarządzaj planem lub uaktualnij go",
+    "managePlan": "Zarządzaj planem",
+    "monthlyCreditsUsed": "wykorzystanych miesięcznych kredytów",
+    "mostCreditsUsed": "Większość środków z tego miesiąca została wykorzystana",
+    "noteLimitReached": "Osiągnięto limit notatek",
+    "notes": "Notatki",
+    "notesUsed": "Wykorzystane notatki",
+    "notesUsedValue": "Używany {{used}}/{{limit}}",
+    "outOfCredits": "Brak kredytów",
+    "pausedUntilReset": "Generowanie zostanie wstrzymane do czasu zresetowania kredytów.",
+    "plan": "Plan",
+    "planInactive": "Plan nieaktywny",
+    "resetsIn": "Resetuje się",
+    "resetsInDays_one": "Reset za 1 dzień",
+    "resetsInDays_few": "Reset za {{count}} dni",
+    "resetsInDays_many": "Reset za {{count}} dni",
+    "resetsInDays_other": "Reset za {{count}} dnia",
+    "signedOut": {
+      "localStorage": "Twoje inteligentne pola i ustawienia są przechowywane na tym urządzeniu.",
+      "manage": "Zaloguj się, aby zarządzać swoim planem",
+      "paused": "Generowanie zostanie wstrzymane do czasu zalogowania się.",
+      "title": "Wylogowałem się"
+    },
+    "title": "Konto i użytkowanie",
+    "trialCreditsUsed": "wykorzystanych kredytów próbnych",
+    "trialEnded": "Próba zakończyła się",
+    "trialEnds": "Okres próbny się kończy",
+    "trialNoteLimitReached": "Osiągnięto limit notatek próbnych",
+    "upgradeToKeepGenerating": "Uaktualnij, aby kontynuować generowanie.",
+    "usage": "Stosowanie"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Zostaw recenzję / zobacz dokumentację.",
+    "byline": "autorstwa Michaela Piazza / Rosebud Labs, LLC.",
+    "changelog": "Dziennik zmian",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "Najszybszy sposób uzyskania pomocy, zażądania funkcji lub zgłoszenia błędu.",
+      "join": "Dołączyć",
+      "title": "Dołącz do Discord"
+    },
+    "emailUs": "Napisz do nas",
+    "feedback": {
+      "description": "Coś jest uszkodzone lub nie tak? Wyślij wiadomość bezpośrednio do biednego programisty.",
+      "send": "Wyślij to",
+      "title": "Zgłoś błąd/poproś o funkcję"
+    },
+    "github": "GitHub",
+    "loading": "Wsparcie ładowania",
+    "title": "Wsparcie"
+  },
+  "welcome": {
+    "alreadyAccount": "Masz już konto?",
+    "codePlaceholder": "Wklej swój kod",
+    "connect": "Łączyć",
+    "connecting": "Złączony…",
+    "description": "Dodaj tekst, mowę i obrazy do poszczególnych kart lub całej talii jednym kliknięciem.",
+    "errors": {
+      "code": "Nie można połączyć się za pomocą tego kodu"
+    },
+    "finishDescription": "Dokończ logowanie w przeglądarce, którą otworzyliśmy. To okno zostanie zaktualizowane automatycznie.",
+    "finishInBrowser": "Dokończ w przeglądarce",
+    "haveCode": "Masz kod ze strony internetowej?",
+    "startTrial": "✨ Rozpocznij bezpłatny okres próbny ✨",
+    "trialDetails": "Bezpłatnie przez 7 dni · wszystkie funkcje · brak karty kredytowej"
+  },
+  "trialEnded": {
+    "description": "Okres próbny trwa 7 dni lub do wyczerpania się środków na okres próbny.",
+    "features": {
+      "ariaLabel": "Jakie uaktualnienie utrzymuje",
+      "batch": "Grupowo w całej swojej kolekcji",
+      "images": "Generowanie obrazu",
+      "premium": "Każdy model i głos premium",
+      "review": "Generuj podczas przeglądu"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Oferta na bezpłatny miesiąc",
+      "description": "Zostaw szybką recenzję AnkiWeb i zyskaj miesiąc za nas.",
+      "dialogDescription": "Zostaw krótką recenzję AnkiWeb, a następnie napisz do nas e-mail — dodamy darmowy miesiąc Smart Notes do Twojego konta.",
+      "dialogTitle": "Skorzystaj z darmowego miesiąca",
+      "leaveAnkiWebReview": "Zostaw recenzję na temat AnkiWeb",
+      "leaveReview": "Zostaw recenzję",
+      "title": "Zdobądź darmowy miesiąc Smart Notes"
+    },
+    "thanks": "Dziękujemy za korzystanie z Smart Notes ✨",
+    "title": "Twój bezpłatny okres próbny dobiegł końca",
+    "upgradeNow": "Uaktualnij teraz"
+  }
+}

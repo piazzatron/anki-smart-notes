@@ -26,10 +26,16 @@ interface BootOptions {
   editor: "create" | "edit" | "duplicate" | null
   editorStep: 1 | 2 | 3 | null
   token: string
+  locale: string
+  ankiLocale: string
 }
 
 const readBootOptions = (): BootOptions => {
-  const params = new URLSearchParams(window.location.search)
+  const params = new URLSearchParams(
+    typeof window === "undefined" ? "" : window.location.search,
+  )
+  const browserLocale =
+    typeof navigator === "undefined" ? "en" : navigator.language
   const requestedScreen = params.get("screen")
   const requestedTryState = params.get("try")
   const requestedEditor = params.get("editor")
@@ -62,6 +68,12 @@ const readBootOptions = (): BootOptions => {
         ? requestedEditorStep
         : null,
     token: params.get("token") ?? "",
+    locale:
+      params.get("locale") ?? (import.meta.env.DEV ? browserLocale : "en"),
+    ankiLocale:
+      params.get("ankiLocale") ??
+      params.get("locale") ??
+      (import.meta.env.DEV ? browserLocale : "en"),
   }
 }
 

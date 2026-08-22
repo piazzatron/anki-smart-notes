@@ -26,6 +26,7 @@ import {
   SelectTrigger,
 } from "@/components/ui/Select"
 import { modelCostLabel, modelLabel, providerLabel } from "@/lib/catalog"
+import i18next from "@/lib/i18n"
 import type { CatalogModel, ChatModelCatalog } from "@/types/api"
 
 interface ChatModelSelectProps {
@@ -95,7 +96,9 @@ const getChatModel = (
 ): CatalogModel => {
   const model = catalog.models.find((item) => item.id === modelId)
   if (model === undefined) {
-    throw new Error(`Chat catalog is missing model ${modelId}`)
+    throw new Error(
+      i18next.t("defaults.errors.missingChatModel", { model: modelId }),
+    )
   }
 
   return model

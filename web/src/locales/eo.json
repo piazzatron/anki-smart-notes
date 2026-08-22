@@ -1,0 +1,499 @@
+{
+  "common": {
+    "allDecks": "Ĉiuj Ferdekoj",
+    "auto": "Aŭtomate",
+    "autoMax": "Auto MAX",
+    "back": "Reen",
+    "bestValueCost": "Plej bona Valoro, 0.3× kosto",
+    "cancel": "Nuligi",
+    "close": "Fermu",
+    "connection": {
+      "connecting": "Konektante al Anki...",
+      "reconnecting": "Rekonektante al Anki..."
+    },
+    "days_one": "1 tago",
+    "days_other": "{{count}} tagoj",
+    "deck": "Ferdeko",
+    "default": "Defaŭlte",
+    "delete": "Forigi",
+    "done": "Farita",
+    "duplicate": "Duobligi",
+    "edit": "Redakti",
+    "empty": "malplena",
+    "field": "Kampo",
+    "free": "Senpaga",
+    "discardChanges": "Forĵeti ŝanĝojn",
+    "discardUnsavedChanges": {
+      "description": "Viaj ŝanĝoj al ĉi tiuj defaŭltaj agordoj ne estas konservitaj.",
+      "title": "Ĉu forĵeti nekonservitajn ŝanĝojn?"
+    },
+    "dismissError": "Forĵeti eraron",
+    "feedback": {
+      "description": "Sendu cimraporton, peton de funkcioj aŭ aliajn komentojn al la programisto.",
+      "error": "Ne eblis sendi komentojn",
+      "label": "Reago",
+      "placeholder": "Cimo, ideo, io ajn — ĝi iras rekte al la programisto.",
+      "send": "Sendu",
+      "sending": "Sendante…",
+      "sent": "Reago sendita. Ni baldaŭ kontaktos.",
+      "title": "Sendu komentojn"
+    },
+    "notNow": "Ne nun",
+    "other": "Aliaj",
+    "placeholderScreen": "Ĉi tiu ekrano estas la sekva en la rekonstruo.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "Ensalutu",
+    "signInLower": "Ensalutu",
+    "unlimited": "Senlima",
+    "upgradeSparkles": "✨ Ĝisdatigu ✨",
+    "multiplierCost": "{{multiplier}}× kosto",
+    "next": "Poste",
+    "noteType": "Noto Tipo",
+    "optional": "nedeviga",
+    "prompt": "Prompto",
+    "saving": "Konservante…",
+    "test": "Testo",
+    "validFields": "Validaj kampoj:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Reago",
+    "nav": {
+      "defaultsImages": "Defaŭltaj Bildaj Agordoj",
+      "defaultsText": "Defaŭltaj Tekstaj Agordoj",
+      "defaultsVoice": "Defaŭltaj Voĉaj Agordoj",
+      "image": "Bildo",
+      "settings": "Agordoj",
+      "smartFields": "Smart Fields",
+      "subscription": "Konto kaj Uzado",
+      "support": "Subteno",
+      "text": "Teksto",
+      "voice": "Voĉo"
+    },
+    "sections": "Smart Notes sekcioj",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Vorta registrado por helpi diagnozi problemojn. Inkluzivi ĉi tiujn protokolojn dum arkivado de cimo.",
+      "label": "Sencimiga reĝimo"
+    },
+    "generateAtReview": {
+      "description": "Plenigu mankantajn inteligentajn kampojn aŭtomate kiam kartoj aperas en revizio.",
+      "label": "Generu kampojn dum revizio"
+    },
+    "language": {
+      "description": "Elektu la lingvon por Smart Notes, aŭ kongruu kun la lingvo de Anki.",
+      "label": "Lingvo",
+      "matchAnki": "Kongruu Anki"
+    },
+    "legacy": {
+      "apiKey": "OpenAI API-ŝlosilo",
+      "apiKeyRequired": "Pagita OpenAI API-ŝlosilo estas postulata.",
+      "description": "Konektu pagitan API-ŝlosilon kaj elektu heredan modelon OpenAI.",
+      "getApiKey": "Akiru API-ŝlosilon",
+      "host": "OpenAI gastiganto",
+      "hostDescription": "Provizu alternativan finpunkton al la OpenAI API.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "OpenAI modelo",
+      "title": "Uzu mian propran OpenAI-ŝlosilon"
+    },
+    "loading": "Ŝarĝante Agordojn",
+    "regenerateWhenBatching": {
+      "description": "Kiam vi prilaboras grupon da notoj, regeneru ĉiun inteligentan kampon de nulo anstataŭ nur plenigi malplenajn.",
+      "label": "Regeneru ĉiujn inteligentajn kampojn dum bata prilaborado"
+    },
+    "saveError": "Ne eblis konservi agordojn",
+    "sections": {
+      "advanced": "Altnivela",
+      "general": "Generalo",
+      "generation": "Generacio"
+    },
+    "title": "Agordoj"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Jam Smart Field ✨",
+    "collisionHint": "jam havas Smart Field — elektu malsaman kampon, ferdekon aŭ noton",
+    "completion": {
+      "descriptionAfter": "notoj pleniĝas kiam ajn vi generas ĝin.",
+      "descriptionBefore": "on",
+      "methods": {
+        "bulk": {
+          "caption": "Elektu notojn aŭ ferdekon → dekstre alklaku → ✨ Generu Smart Fields.",
+          "imageAlt": "Anki Retumila kunteksta menuo kun Genera Smart Fields emfazita",
+          "title": "En amaso, de la Retumilo"
+        },
+        "card": {
+          "caption": "Alklaku la butonon ✨ en la ilobreto de la redaktilo aŭ tajpu ⌘⇧G.",
+          "imageAlt": "Anki-redaktila ilobreto kun la Smart Notes-butono emfazita",
+          "title": "Unu karto samtempe"
+        },
+        "field": {
+          "caption": "Dekstre alklaku iun ajn kampon → Generu Smart Field.",
+          "imageAlt": "Anki-kampa kunteksta menuo kun Generu Smart Field elstarigita",
+          "title": "Ununura kampo"
+        }
+      },
+      "title": "Via Smart Field estas viva",
+      "waysToGenerate": "Kelkaj manieroj generi ĝin:"
+    },
+    "created": "Smart Field kreita",
+    "dontShowAgain": "Ne montru ĉi tion denove",
+    "errors": {
+      "save": "Ne eblis konservi Smart Field",
+      "updateWizardSettings": "Ne eblis ĝisdatigi agordojn de la asistanto",
+      "writePrompt": "Ne eblis skribi la promptilon"
+    },
+    "fieldTypes": {
+      "audio": "Aŭdio",
+      "image": "Bildo",
+      "text": "Teksto"
+    },
+    "loadingModelCatalog": "Ŝargante modelo-katalogon...",
+    "modelSettings": {
+      "appliesOnlyToField": "Validas nur por ĉi tiu Smart Field.",
+      "defaultWithValue": "Defaŭlta ({{value}})",
+      "defaultsImages": "Defaŭltoj › Bildoj",
+      "defaultsText": "Defaŭltoj › Teksto",
+      "defaultsVoice": "Defaŭltoj › Voĉo",
+      "descriptionChat": "Agordu la AI, kiu skribas ĉi tiun kampon. Plej multaj kampoj povas resti defaŭltaj.",
+      "descriptionImage": "Agordu la AI, kiu desegnas ĉi tiun kampon. Plej multaj kampoj povas resti defaŭltaj.",
+      "descriptionTts": "Agordu la voĉon, kiu legas ĉi tiun kampon. Plej multaj kampoj povas resti defaŭltaj.",
+      "imageDefault": "bildo defaŭlte",
+      "imageModel": "Bilda modelo",
+      "loadingVoices": "Ŝargante voĉojn...",
+      "model": "Modelo",
+      "pickCustom": "Elektu kutiman modelon por ĉi tiu kampo",
+      "reasoning": "{{level}} rezonado",
+      "reasoningHint": "Pli alta rezonado povas plibonigi pli malfacilajn generaciojn, sed uzas pli da kreditoj.",
+      "reasoningLevel": "Rezona nivelo",
+      "sharedByEveryField": "Via {{modality}} estas dividita de ĉiu Smart Field kiu uzas ĝin. Ŝanĝu ĝin",
+      "textDefault": "teksto defaŭlte",
+      "textModel": "Teksta modelo",
+      "useMy": "Uzu mian {{modality}}",
+      "useWebSearch": "Uzu retserĉon por ĉi tiu kampo",
+      "voice": "Voĉo",
+      "voiceDefault": "voĉa defaŭlto",
+      "webSearch": "TTT-serĉo",
+      "webSearchHint": "Lasu ĉi tiun kampon uzi freŝajn informojn de la reto."
+    },
+    "save": "Konservu Smart Field",
+    "sections": {
+      "onWhichNotes": "Sur kiuj notoj?",
+      "whatToGenerate": "Kion vi volas generi?",
+      "whichFieldToFill": "Kiun kampon ĝi devas plenigi?",
+      "whichFieldToSpeak": "Kiun kampon ĝi parolu?"
+    },
+    "sourceField": "Fonta kampo",
+    "targetAriaLabel": "Smart Field celo",
+    "testSmartField": "Testu vian Smart Field",
+    "titles": {
+      "create": "Nova Smart Field ✨",
+      "duplicate": "Duobligi Smart Field",
+      "edit": "Redaktu Smart Field"
+    },
+    "validation": {
+      "chooseField": "Elektu kampon",
+      "chooseNoteType": "Elektu noton tipon",
+      "chooseSourceField": "Elektu fontan kampon",
+      "fieldAlreadyHasSmartField": "{{field}} jam havas Smart Field",
+      "writePrompt": "Skribu inviton"
+    },
+    "writePrompt": "Skribu Prompton",
+    "writePromptForMe": "Skribu mian instigon por mi",
+    "writePromptForMeHint": "Diru tion, kion vi volas en simpla angla — ni skribos la instigon sube.",
+    "writePromptPlaceholder": "\"Traduku al natura angla...\"",
+    "writing": "Skribante…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "Agoj por {{field}}",
+    "addToNoteType": "Aldonu Smart Field al {{noteType}}",
+    "disable": "Malebligu",
+    "deleting": "Forigante…",
+    "discord": {
+      "dismissAriaLabel": "Forĵeti Discord-inviton",
+      "join": "Aliĝu",
+      "joinAriaLabel": "Aliĝu al la Smart Notes Discord",
+      "subtitle": "- interŝanĝu invitojn kaj petu funkciojn.",
+      "title": "Venu saluti en la Discord"
+    },
+    "editAriaLabel": "Redaktu {{field}} Smart Field",
+    "emptyState": {
+      "description": "Aldonu Smart Fields por aldoni tekston, sonojn kaj bildojn al viaj kartoj.",
+      "exampleAnswer": "Saluton",
+      "exampleField": "FRONTO",
+      "examplePrompt": "bonjour",
+      "spark": "✦",
+      "title": "Viaj notoj aspektas iom malplenaj"
+    },
+    "enable": "Ebligu",
+    "errors": {
+      "commandFailed": "Smart Field-komando malsukcesis"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "Teksto",
+      "image": "Bildo",
+      "tts": "Aŭdio"
+    },
+    "loadingAriaLabel": "Ŝarĝante Smart Fields",
+    "newSmartField": "Nova Smart Field",
+    "readsAloud": "Laŭte legas {{field}}",
+    "review": {
+      "ariaLabel": "Revizu Smart Notes sur AnkiWeb",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "Forĵeti revizian inviton",
+      "subtitle": "Lasu recenzon pri AnkiWeb por helpi aliajn Anki-uzantojn trovi ĝin.",
+      "title": "Ĉu vi ĝuas Smart Notes?"
+    },
+    "subtitle": "Aldonu aŭtomate generitajn tekstojn, voĉojn kaj bildojn al viaj notoj.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "Babilkatalogo mankas modelo {{model}}",
+      "missingImageModel": "Bildkatalogo mankas modelo {{model}}"
+    },
+    "image": {
+      "cannotFindModel": "Bildkatalogo mankas modelo {{model}}",
+      "defaultModel": "Defaŭlta modelo",
+      "gptImage15Low": "plej bona kvalito/rapida kompromiso.",
+      "gptImage2": "sama kosto, pli malrapida, pli alta kvalito.",
+      "loadingLabel": "Ŝargante defaŭltajn bildajn agordojn",
+      "loadingTitle": "Defaŭltaj Bildaj Agordoj",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (Malalta / Meza)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Elektante bildomodelon",
+      "samplePrompt": "Generu bildon de studento, kiu forte studas kun Anki kaj trapasas siajn testojn.",
+      "saveError": "Ne eblis konservi bildodefaŭltojn",
+      "subtitle": "La modelo kiun via bildo Smart Fields uzas krom se kampo alpinglas sian propran.",
+      "title": "Defaŭltaj Bildaj Agordoj",
+      "zImageTurbo": "plej rapida kaj plej malmultekosta."
+    },
+    "layout": {
+      "saveChanges": "Konservu ŝanĝojn",
+      "saving": "Konservante…",
+      "tryIt": "Provu ĝin"
+    },
+    "text": {
+      "cannotInheritModel": "Tekstaj defaŭltoj ne povas heredi alian modelon",
+      "defaultModel": "Defaŭlta Teksta Modelo",
+      "defaultReasoningLevel": "Defaŭlta rezonnivelo",
+      "enableWebSearch": "Ebligu Retan Serĉon",
+      "higherReasoning": "Pli alta rezonado povas plibonigi pli malfacilajn generaciojn, sed uzas pli da kreditoj.",
+      "loadingLabel": "Ŝargante defaŭltajn tekstajn agordojn",
+      "loadingTitle": "Agordoj de Tekstaj Generacio",
+      "modelGuidance": "{{auto}} kaj {{autoMax}} estas la rekomenditaj modeloj de Smart Notes, kiuj ekvilibrigas rendimenton kaj koston. Elektu {{auto}} por normaj taskoj kaj ĝisdatigu al {{autoMax}} se necese.",
+      "pickingModel": "💡 Elektante modelon",
+      "reasoningLevel": "Rezona nivelo",
+      "reasoningValues": {
+        "high": "Alta",
+        "low": "Malalta",
+        "off": "Malŝaltita"
+      },
+      "samplePrompt": "Kio estas Spaca Ripeta Sistemo (SRS)?",
+      "saveError": "Ne eblis konservi tekstajn defaŭltojn",
+      "subtitle": "Defaŭltaj agordoj por tekstogenerado. Individua Smart Fields povas superregi ĉi tiujn valorojn.",
+      "title": "Agordoj de Tekstaj Generacio",
+      "webSearch": "TTT-serĉo",
+      "webSearchDescription": "Lasu tekstogeneraciojn enigi freŝajn informojn el la reto.",
+      "webSearchWarning": "⚠️ Serĉo estas multekosta; monitoru viajn kreditojn."
+    },
+    "usage": {
+      "fields_one": "Aplikas al {{count}}-kampo",
+      "fields_other": "Aplikas al {{count}}-kampoj"
+    },
+    "voice": {
+      "browseVoices": "Foliumi voĉojn ({{count}})",
+      "cannotLoad": "Ne eblis ŝargi voĉojn",
+      "currentDefault": "Nuna defaŭlto",
+      "filters": {
+        "all": "Ĉiuj",
+        "female": "Ino",
+        "gender": "Sekso",
+        "language": "Lingvo",
+        "male": "Male",
+        "provider": "Provizanto"
+      },
+      "filterVoices": "Filtri la voĉojn",
+      "loadingLabel": "Ŝargante Defaŭltajn Voĉajn Agordojn",
+      "loadingTitle": "Defaŭltaj Voĉaj Agordoj",
+      "noVoices": "Neniuj voĉoj kongruas kun ĉi tiuj filtriloj.",
+      "saveError": "Ne eblis konservi voĉajn defaŭltojn",
+      "searchPlaceholder": "🔍 Serĉu voĉojn...",
+      "searchVoices": "Serĉu voĉojn",
+      "subtitle": "La voĉo kiun via TTS Smart Fields uzas krom se kampo alpinglas sian propran.",
+      "title": "Defaŭltaj Voĉaj Agordoj"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "alia notspeco",
+    "currentlySelectedCard": "Nuntempe elektita karto",
+    "emptyCard": "(malplena karto)",
+    "errors": {
+      "generateAudio": "Ne eblis generi audio",
+      "generateImage": "Ne eblis generi bildon",
+      "saveResult": "Ne eblis konservi ĉi tiun rezulton al la karto",
+      "testPrompt": "Ne eblis testi ĉi tiun promptilon"
+    },
+    "fieldRunsOn": "Ĉi tiu kampo funkcias plu",
+    "fieldWord_one": "kampo",
+    "fieldWord_other": "kampoj",
+    "generatedImagePreview": "Generita bildo antaŭrigardo",
+    "missingFieldsTitle_one": "Mankas kampo",
+    "missingFieldsTitle_other": "Mankas kampoj",
+    "needsFields_one": "Bezonas {{count}}-kampon",
+    "needsFields_other": "Bezonas {{count}}-kampojn",
+    "notesSelected_one": "{{count}} noto elektita - mallarĝu ĝin al unu.",
+    "notesSelected_other": "{{count}} notoj elektitaj - mallarĝu ĝin al unu.",
+    "pickCard": "Elektu karton en la Anki-Retumilo",
+    "promptPlaceholder": "Skribu provon, referencante kampojn sur via karto kun {{braces}}.",
+    "saveToCard": "Konservu al karto",
+    "savedTo": "Konservite al {{field}}",
+    "selectCardWith": "Bonvolu elekti tipon de karto kun",
+    "selectFieldToReadAloud": "Elektu kampon por voĉlegi",
+    "selectNewCard": "Elektu novan karton en la retumilo",
+    "selectNoteType": "Bonvolu elekti noton de tipo",
+    "selectedCard": "Elektita karto",
+    "selectedDeck": "Elektita ferdeko",
+    "selectedNoteType": "Elektita nototipo",
+    "selectionAppearsAutomatically": "Via elekto aperas ĉi tie aŭtomate.",
+    "sent": "Sendita",
+    "testing": "Testante…",
+    "testResult": "Testrezulto",
+    "textToSpeak": "Teksto por paroli",
+    "viewResult": "Vidu rezulton",
+    "wrongNoteType": "Malĝusta nottipo"
+  },
+  "subscription": {
+    "checking": "Kontrolante abonon",
+    "creditTypes": {
+      "images": "Bildoj",
+      "text": "Teksto",
+      "voice": "Voĉo"
+    },
+    "creditUsage": "Kredita Uzado",
+    "creditsReset": "Kreditaĵoj rekomencigitaj",
+    "daysLeft_one": "Lasta tago",
+    "daysLeft_other": "{{count}} tagoj restas",
+    "errors": {
+      "logout": "Ne eblis elsaluti"
+    },
+    "freePlan": "Senpaga plano",
+    "freeTrial": "Senpaga provo",
+    "hero": {
+      "buyCredits": "Aĉetu pli da kreditoj",
+      "freeCreditsResetting": "Viaj senpagaj kreditoj rekomenciĝas",
+      "freePlan": "Vi estas sur la Senpaga plano",
+      "noteLimit": "Vi atingis vian notlimon",
+      "outOfCredits": "Vi estas sen kredito ĉi-monate",
+      "outOfFreeCredits": "Vi ne havas senpagajn kreditojn ĉi-monate",
+      "outOfTrialCredits": "Vi estas sen prova kredito",
+      "planExpired": "Via plano eksvalidiĝis",
+      "rollover": "Kreditaĵoj kun pagoj transiras ĉiun monaton — via por ĉiam.",
+      "trialDaysLeft_one": "Via proceso finiĝas hodiaŭ",
+      "trialDaysLeft_other": "{{count}} tagoj restas en via provo",
+      "trialEnded": "Via proceso finiĝis",
+      "trialNoteLimit": "Vi atingis la limon de via provnoto",
+      "upgradeCollection": "Altgradigo — via tuta kolekto, aŭtomate",
+      "upgradeCredits": "Ĝisdatigu por pli da kreditoj",
+      "upgradePaid": "✨ Ĝisdatigu al pagita"
+    },
+    "inDays_one": "Hodiaŭ",
+    "inDays_other": "En {{count}} tagoj",
+    "loading": "Ŝarĝante Abono",
+    "loggingOut": "Malsaluti...",
+    "logOut": "Elsaluti",
+    "manageDescription": "Ŝanĝu planon, ĝisdatigu pagon aŭ nuligi.",
+    "manageOrUpgrade": "Administri aŭ ĝisdatigi planon",
+    "managePlan": "Administri planon",
+    "monthlyCreditsUsed": "de monataj kreditoj uzataj",
+    "mostCreditsUsed": "La plej multaj el ĉi-monataj kreditoj estas uzataj",
+    "noteLimitReached": "Notolimo atingita",
+    "notes": "Notoj",
+    "notesUsed": "Notoj uzataj",
+    "notesUsedValue": "{{used}}/{{limit}} uzata",
+    "outOfCredits": "El kreditoj",
+    "pausedUntilReset": "Generacio estas paŭzita ĝis viaj kreditaĵoj rekomenciĝas.",
+    "plan": "Plano",
+    "planInactive": "Plano neaktiva",
+    "resetsIn": "Restarigas",
+    "resetsInDays_one": "Restarigas en 1 tago",
+    "resetsInDays_other": "Restarigas en {{count}} tagoj",
+    "signedOut": {
+      "localStorage": "Viaj inteligentaj kampoj kaj agordoj estas konservitaj en ĉi tiu aparato.",
+      "manage": "Ensalutu por administri vian planon",
+      "paused": "Generacio estas paŭzita ĝis vi ensalutos.",
+      "title": "Elsalutita"
+    },
+    "title": "Konto kaj Uzado",
+    "trialCreditsUsed": "de provaj kreditoj uzataj",
+    "trialEnded": "Provo finiĝis",
+    "trialEnds": "Provo finiĝas",
+    "trialNoteLimitReached": "Provonoto limo atingita",
+    "upgradeToKeepGenerating": "Ĝisdatigu por daŭre generi.",
+    "usage": "Uzado"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Lasu recenzon / vidu dokumentojn.",
+    "byline": "de Michael Piazza / Rosebud Labs, LLC.",
+    "changelog": "Ŝanĝprotokolo",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "La plej rapida maniero por ricevi helpon, peti funkcion aŭ raporti cimon.",
+      "join": "Aliĝu",
+      "title": "Aliĝu al la Discord"
+    },
+    "emailUs": "Retpoŝtu al ni",
+    "feedback": {
+      "description": "Ĉu io rompita aŭ malĝusta? Mesaĝu rekte al la malriĉa programisto.",
+      "send": "Sendu ĝin",
+      "title": "Sendu cimon / petu funkcion"
+    },
+    "github": "GitHub",
+    "loading": "Ŝarĝanta Subteno",
+    "title": "Subteno"
+  },
+  "welcome": {
+    "alreadyAccount": "Ĉu jam havas konton?",
+    "codePlaceholder": "Algluu vian kodon",
+    "connect": "Konekti",
+    "connecting": "Konektante…",
+    "description": "Aldonu tekston, paroladon kaj bildojn al individuaj kartoj aŭ al via tuta ludkartaro per unu klako.",
+    "errors": {
+      "code": "Ne eblis konekti kun tiu kodo"
+    },
+    "finishDescription": "Kompleta ensaluto en la retumilo, kiun ni malfermis. Ĉi tiu fenestro aŭtomate ĝisdatiĝos.",
+    "finishInBrowser": "Finu en via retumilo",
+    "haveCode": "Ĉu vi havas kodon de la retejo?",
+    "startTrial": "✨ Komencu Senpagan Provon ✨",
+    "trialDetails": "Senpaga dum 7 tagoj · ĉiu funkcio · neniu kreditkarto"
+  },
+  "trialEnded": {
+    "description": "Provoj daŭros 7 tagojn aŭ ĝis elĉerpiĝos de viaj provaj kreditoj.",
+    "features": {
+      "ariaLabel": "Kia ĝisdatigo konservas",
+      "batch": "Aro tra via tuta kolekto",
+      "images": "Bilda generacio",
+      "premium": "Ĉiu supera modelo kaj voĉo",
+      "review": "Generu dum revizio"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Senpaga monata oferto",
+      "description": "Lasu rapidan revizion de AnkiWeb, ricevu monaton ĉe ni.",
+      "dialogDescription": "Lasu rapidan recenzon pri AnkiWeb, tiam retpoŝtu al ni — ni aldonos senpagan monaton de Smart Notes al via konto.",
+      "dialogTitle": "Akiru vian senpagan monaton",
+      "leaveAnkiWebReview": "Lasu recenzon pri AnkiWeb",
+      "leaveReview": "Lasu recenzon",
+      "title": "Akiru senpagan monaton de Smart Notes"
+    },
+    "thanks": "Dankon pro uzi Smart Notes ✨",
+    "title": "Via senpaga provo finiĝis",
+    "upgradeNow": "Ĝisdatigu nun"
+  }
+}

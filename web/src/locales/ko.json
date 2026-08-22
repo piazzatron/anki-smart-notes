@@ -1,0 +1,489 @@
+{
+  "common": {
+    "allDecks": "모든 덱",
+    "auto": "자동",
+    "autoMax": "Auto MAX",
+    "back": "뒤쪽에",
+    "bestValueCost": "최고의 가치, 0.3배 비용",
+    "cancel": "취소",
+    "close": "닫다",
+    "connection": {
+      "connecting": "Anki에 연결하는 중…",
+      "reconnecting": "Anki에 다시 연결하는 중…"
+    },
+    "days_other": "{{count}}일",
+    "deck": "갑판",
+    "default": "기본",
+    "delete": "삭제",
+    "done": "완료",
+    "duplicate": "복제하다",
+    "edit": "편집하다",
+    "empty": "비어 있는",
+    "field": "필드",
+    "free": "무료",
+    "discardChanges": "변경사항 취소",
+    "discardUnsavedChanges": {
+      "description": "기본 설정에 대한 변경 사항이 저장되지 않았습니다.",
+      "title": "저장되지 않은 변경사항을 삭제하시겠습니까?"
+    },
+    "dismissError": "오류 무시",
+    "feedback": {
+      "description": "개발자에게 버그 보고서, 기능 요청 또는 기타 피드백을 보내세요.",
+      "error": "의견을 보낼 수 없습니다.",
+      "label": "피드백",
+      "placeholder": "버그, 아이디어 등 무엇이든 바로 개발자에게 전달됩니다.",
+      "send": "보내다",
+      "sending": "배상…",
+      "sent": "피드백이 전송되었습니다. 곧 연락드리겠습니다.",
+      "title": "피드백 보내기"
+    },
+    "notNow": "지금은 아님",
+    "other": "다른",
+    "placeholderScreen": "이 화면은 재구축의 다음 화면입니다.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "로그인",
+    "signInLower": "로그인",
+    "unlimited": "제한 없는",
+    "upgradeSparkles": "✨ 업그레이드 ✨",
+    "multiplierCost": "{{multiplier}}× 비용",
+    "next": "다음",
+    "noteType": "노트 유형",
+    "optional": "선택 과목",
+    "prompt": "즉각적인",
+    "saving": "절약…",
+    "test": "시험",
+    "validFields": "유효한 필드:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "피드백",
+    "nav": {
+      "defaultsImages": "기본 이미지 설정",
+      "defaultsText": "기본 텍스트 설정",
+      "defaultsVoice": "기본 음성 설정",
+      "image": "영상",
+      "settings": "설정",
+      "smartFields": "Smart Fields",
+      "subscription": "계정 및 사용량",
+      "support": "지원하다",
+      "text": "텍스트",
+      "voice": "목소리"
+    },
+    "sections": "Smart Notes 섹션",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "문제 진단에 도움이 되는 자세한 로깅. 버그를 신고할 때 이러한 로그를 포함하세요.",
+      "label": "디버그 모드"
+    },
+    "generateAtReview": {
+      "description": "검토 중인 카드가 나타나면 누락된 스마트 필드를 자동으로 채웁니다.",
+      "label": "검토 중 필드 생성"
+    },
+    "language": {
+      "description": "Smart Notes의 언어를 선택하거나 Anki의 언어와 일치하십시오.",
+      "label": "언어",
+      "matchAnki": "Anki와 일치"
+    },
+    "legacy": {
+      "apiKey": "OpenAI API 키",
+      "apiKeyRequired": "유료 OpenAI API 키가 필요합니다.",
+      "description": "유료 API 키를 연결하고 레거시 OpenAI 모델을 선택하세요.",
+      "getApiKey": "API 키 받기",
+      "host": "OpenAI 호스트",
+      "hostDescription": "OpenAI API에 대체 엔드포인트를 제공합니다.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "OpenAI 모델",
+      "title": "내 OpenAI 키 사용"
+    },
+    "loading": "설정 로드 중",
+    "regenerateWhenBatching": {
+      "description": "노트 그룹을 일괄 처리할 때 빈 필드만 채우는 대신 모든 스마트 필드를 처음부터 다시 생성하세요.",
+      "label": "일괄 처리 시 모든 스마트 필드 재생성"
+    },
+    "saveError": "설정을 저장할 수 없습니다.",
+    "sections": {
+      "advanced": "고급의",
+      "general": "일반적인",
+      "generation": "세대"
+    },
+    "title": "설정"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "이미 Smart Field입니다 ✨",
+    "collisionHint": "이미 Smart Field가 있습니다 — 다른 필드, 데크 또는 메모 유형을 선택하세요",
+    "completion": {
+      "descriptionAfter": "메모는 생성할 때마다 채워집니다.",
+      "descriptionBefore": "~에",
+      "methods": {
+        "bulk": {
+          "caption": "노트 또는 데크 선택 → 마우스 오른쪽 버튼 클릭 → ✨ Smart Fields 생성.",
+          "imageAlt": "Anki Smart Fields 생성이 강조 표시된 브라우저 컨텍스트 메뉴",
+          "title": "브라우저에서 대량으로"
+        },
+        "card": {
+          "caption": "편집기 도구 모음에서 ✨ 버튼을 클릭하거나 ⌘⇧G를 입력하세요.",
+          "imageAlt": "Smart Notes 버튼이 강조 표시된 Anki 편집기 도구 모음",
+          "title": "한 번에 하나의 카드"
+        },
+        "field": {
+          "caption": "필드를 마우스 오른쪽 버튼으로 클릭하고 → Smart Field를 생성합니다.",
+          "imageAlt": "Smart Field 생성이 강조 표시된 Anki 필드 상황에 맞는 메뉴",
+          "title": "단일 필드"
+        }
+      },
+      "title": "귀하의 Smart Field가 활성화되었습니다",
+      "waysToGenerate": "이를 생성하는 몇 가지 방법:"
+    },
+    "created": "Smart Field가 생성되었습니다.",
+    "dontShowAgain": "다시 표시하지 않음",
+    "errors": {
+      "save": "Smart Field를 저장할 수 없습니다.",
+      "updateWizardSettings": "마법사 설정을 업데이트할 수 없습니다.",
+      "writePrompt": "프롬프트를 작성할 수 없습니다."
+    },
+    "fieldTypes": {
+      "audio": "오디오",
+      "image": "영상",
+      "text": "텍스트"
+    },
+    "loadingModelCatalog": "모델 카탈로그 로드 중…",
+    "modelSettings": {
+      "appliesOnlyToField": "이 Smart Field에만 적용됩니다.",
+      "defaultWithValue": "기본값({{value}})",
+      "defaultsImages": "기본값 › 이미지",
+      "defaultsText": "기본값 › 텍스트",
+      "defaultsVoice": "기본값 › 음성",
+      "descriptionChat": "이 필드를 작성하는 AI를 설정합니다. 대부분의 필드는 기본값을 유지할 수 있습니다.",
+      "descriptionImage": "이 필드를 그리는 AI를 설정합니다. 대부분의 필드는 기본값을 유지할 수 있습니다.",
+      "descriptionTts": "이 필드를 읽는 음성을 설정합니다. 대부분의 필드는 기본값을 유지할 수 있습니다.",
+      "imageDefault": "이미지 기본값",
+      "imageModel": "이미지 모델",
+      "loadingVoices": "음성 로드 중…",
+      "model": "모델",
+      "pickCustom": "이 필드에 대한 맞춤 모델을 선택하세요.",
+      "reasoning": "{{level}} 추론",
+      "reasoningHint": "더 높은 추론은 더 어려운 세대를 향상시킬 수 있지만 더 많은 크레딧을 사용합니다.",
+      "reasoningLevel": "추론 수준",
+      "sharedByEveryField": "귀하의 {{modality}}는 이를 사용하는 모든 Smart Field에서 공유됩니다. 그것을 바꾸십시오",
+      "textDefault": "텍스트 기본값",
+      "textModel": "텍스트 모델",
+      "useMy": "내 {{modality}}를 사용하세요",
+      "useWebSearch": "이 필드에 대해 웹 검색을 사용하십시오.",
+      "voice": "목소리",
+      "voiceDefault": "음성 기본값",
+      "webSearch": "웹 검색",
+      "webSearchHint": "이 필드에서 웹의 최신 정보를 사용하도록 하세요."
+    },
+    "save": "저장하다 Smart Field",
+    "sections": {
+      "onWhichNotes": "어떤 음표에?",
+      "whatToGenerate": "무엇을 생성하고 싶나요?",
+      "whichFieldToFill": "어떤 필드를 채워야 하나요?",
+      "whichFieldToSpeak": "어떤 분야를 말해야 할까요?"
+    },
+    "sourceField": "소스 필드",
+    "targetAriaLabel": "Smart Field 대상",
+    "testSmartField": "Smart Field 테스트",
+    "titles": {
+      "create": "새로운 Smart Field ✨",
+      "duplicate": "Smart Field 중복",
+      "edit": "Smart Field 편집"
+    },
+    "validation": {
+      "chooseField": "분야를 선택하세요",
+      "chooseNoteType": "메모 유형을 선택하세요",
+      "chooseSourceField": "소스 필드 선택",
+      "fieldAlreadyHasSmartField": "{{field}}에는 이미 Smart Field가 있습니다.",
+      "writePrompt": "프롬프트 작성"
+    },
+    "writePrompt": "프롬프트 쓰기",
+    "writePromptForMe": "메시지를 작성해 주세요.",
+    "writePromptForMeHint": "원하는 것을 일반 영어로 말하세요. 아래 프롬프트를 작성해 드리겠습니다.",
+    "writePromptPlaceholder": "\"자연스러운 영어로 번역…\"",
+    "writing": "글쓰기…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "{{field}}에 대한 작업",
+    "addToNoteType": "{{noteType}}에 Smart Field 추가",
+    "disable": "장애를 입히다",
+    "deleting": "삭제 중…",
+    "discord": {
+      "dismissAriaLabel": "Discord 초대 닫기",
+      "join": "가입하다",
+      "joinAriaLabel": "Smart Notes Discord에 가입하세요",
+      "subtitle": "— 프롬프트 및 요청 기능을 교환합니다.",
+      "title": "Discord를 타고 인사해 보세요"
+    },
+    "editAriaLabel": "{{field}} Smart Field 편집",
+    "emptyState": {
+      "description": "Smart Fields를 추가하여 카드에 텍스트, 오디오, 이미지를 추가하세요.",
+      "exampleAnswer": "안녕하세요",
+      "exampleField": "앞쪽",
+      "examplePrompt": "봉쥬르",
+      "spark": "✦",
+      "title": "메모가 조금 비어 있는 것 같습니다."
+    },
+    "enable": "할 수 있게 하다",
+    "errors": {
+      "commandFailed": "Smart Field 명령이 실패했습니다."
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "텍스트",
+      "image": "영상",
+      "tts": "오디오"
+    },
+    "loadingAriaLabel": "Smart Fields 로드 중",
+    "newSmartField": "새로운 Smart Field",
+    "readsAloud": "{{field}}를 소리내어 읽습니다.",
+    "review": {
+      "ariaLabel": "AnkiWeb에서 Smart Notes 검토",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "검토 초대 닫기",
+      "subtitle": "다른 Anki 사용자가 찾을 수 있도록 AnkiWeb에 리뷰를 남겨주세요.",
+      "title": "Smart Notes를 즐기시나요?"
+    },
+    "subtitle": "자동으로 생성된 텍스트, 음성, 이미지를 노트에 추가하세요.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "채팅 카탈로그에 모델 {{model}}이(가) 없습니다.",
+      "missingImageModel": "이미지 카탈로그에 모델 {{model}}이(가) 없습니다."
+    },
+    "image": {
+      "cannotFindModel": "이미지 카탈로그에 모델 {{model}}이(가) 없습니다.",
+      "defaultModel": "기본 모델",
+      "gptImage15Low": "최고의 품질/속도 절충.",
+      "gptImage2": "동일한 비용, 더 느리고 더 높은 품질.",
+      "loadingLabel": "기본 이미지 설정 로드",
+      "loadingTitle": "기본 이미지 설정",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 이미지 모델 선택",
+      "samplePrompt": "Anki로 열심히 공부하고 시험에 합격하는 학생의 이미지를 생성합니다.",
+      "saveError": "이미지 기본값을 저장할 수 없습니다.",
+      "subtitle": "필드가 자체적으로 고정되지 않는 한 이미지 Smart Fields가 사용하는 모델입니다.",
+      "title": "기본 이미지 설정",
+      "zImageTurbo": "가장 빠르고 저렴합니다."
+    },
+    "layout": {
+      "saveChanges": "변경사항 저장",
+      "saving": "절약…",
+      "tryIt": "사용해 보세요"
+    },
+    "text": {
+      "cannotInheritModel": "텍스트 기본값은 다른 모델을 상속할 수 없습니다.",
+      "defaultModel": "기본 텍스트 모델",
+      "defaultReasoningLevel": "기본 추론 수준",
+      "enableWebSearch": "웹 검색 활성화",
+      "higherReasoning": "더 높은 추론은 더 어려운 세대를 향상시킬 수 있지만 더 많은 크레딧을 사용합니다.",
+      "loadingLabel": "기본 텍스트 설정 로드",
+      "loadingTitle": "텍스트 생성 설정",
+      "modelGuidance": "{{auto}} 및 {{autoMax}}는 성능과 비용의 균형을 맞춘 Smart Notes 권장 모델입니다. 표준 작업의 경우 {{auto}}를 선택하고 필요한 경우 {{autoMax}}로 업그레이드하세요.",
+      "pickingModel": "💡 모델 선택",
+      "reasoningLevel": "추론 수준",
+      "reasoningValues": {
+        "high": "높은",
+        "low": "낮은",
+        "off": "끄다"
+      },
+      "samplePrompt": "간격 반복 시스템(SRS)이란 무엇입니까?",
+      "saveError": "텍스트 기본값을 저장할 수 없습니다.",
+      "subtitle": "텍스트 생성을 위한 기본 설정입니다. 개별 Smart Fields는 이러한 값을 재정의할 수 있습니다.",
+      "title": "텍스트 생성 설정",
+      "webSearch": "웹 검색",
+      "webSearchDescription": "텍스트 세대가 웹에서 새로운 정보를 가져오도록 하세요.",
+      "webSearchWarning": "⚠️ 검색 비용이 많이 듭니다. 귀하의 크레딧을 모니터링하십시오."
+    },
+    "usage": {
+      "fields_other": "{{count}} 필드에 적용됩니다."
+    },
+    "voice": {
+      "browseVoices": "음성 찾아보기({{count}})",
+      "cannotLoad": "음성을 로드할 수 없습니다.",
+      "currentDefault": "현재 기본값",
+      "filters": {
+        "all": "모두",
+        "female": "여성",
+        "gender": "성별",
+        "language": "언어",
+        "male": "남성",
+        "provider": "공급자"
+      },
+      "filterVoices": "음성 필터링",
+      "loadingLabel": "기본 음성 설정 로드 중",
+      "loadingTitle": "기본 음성 설정",
+      "noVoices": "이 필터와 일치하는 음성이 없습니다.",
+      "saveError": "음성 기본값을 저장할 수 없습니다.",
+      "searchPlaceholder": "🔍 음성 검색…",
+      "searchVoices": "음성 검색",
+      "subtitle": "필드가 자체적으로 고정되지 않는 한 TTS Smart Fields가 사용하는 음성입니다.",
+      "title": "기본 음성 설정"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "다른 메모 유형",
+    "currentlySelectedCard": "현재 선택된 카드",
+    "emptyCard": "(빈 카드)",
+    "errors": {
+      "generateAudio": "오디오를 생성할 수 없습니다.",
+      "generateImage": "이미지를 생성할 수 없습니다.",
+      "saveResult": "이 결과를 카드에 저장할 수 없습니다.",
+      "testPrompt": "이 프롬프트를 테스트할 수 없습니다."
+    },
+    "fieldRunsOn": "이 필드는 다음에서 실행됩니다.",
+    "fieldWord_other": "전지",
+    "generatedImagePreview": "생성된 이미지 미리보기",
+    "missingFieldsTitle_other": "누락된 필드",
+    "needsFields_other": "{{count}} 필드가 필요합니다.",
+    "notesSelected_other": "{{count}} 메모가 선택되었습니다. 1개로 범위를 좁힙니다.",
+    "pickCard": "Anki 브라우저에서 카드를 선택하세요",
+    "promptPlaceholder": "{{braces}}를 사용하여 카드의 필드를 참조하여 테스트 프롬프트를 작성하세요.",
+    "saveToCard": "카드에 저장",
+    "savedTo": "{{field}}에 저장되었습니다.",
+    "selectCardWith": "다음과 같은 카드 유형을 선택하세요.",
+    "selectFieldToReadAloud": "소리내어 읽을 필드를 선택하세요.",
+    "selectNewCard": "브라우저에서 새 카드를 선택하세요.",
+    "selectNoteType": "메모 유형을 선택하세요.",
+    "selectedCard": "선택한 카드",
+    "selectedDeck": "선택한 데크",
+    "selectedNoteType": "선택한 메모 유형",
+    "selectionAppearsAutomatically": "선택 사항이 여기에 자동으로 나타납니다.",
+    "sent": "전송된",
+    "testing": "테스트 중…",
+    "testResult": "테스트 결과",
+    "textToSpeak": "말할 텍스트",
+    "viewResult": "결과 보기",
+    "wrongNoteType": "잘못된 메모 유형"
+  },
+  "subscription": {
+    "checking": "구독 확인 중",
+    "creditTypes": {
+      "images": "이미지",
+      "text": "텍스트",
+      "voice": "목소리"
+    },
+    "creditUsage": "크레딧 사용",
+    "creditsReset": "크레딧 재설정",
+    "daysLeft_other": "{{count}}일 남음",
+    "errors": {
+      "logout": "로그아웃할 수 없습니다."
+    },
+    "freePlan": "무료 플랜",
+    "freeTrial": "무료 평가판",
+    "hero": {
+      "buyCredits": "추가 크레딧 구매",
+      "freeCreditsResetting": "무료 크레딧이 재설정 중입니다.",
+      "freePlan": "무료 요금제를 사용 중입니다.",
+      "noteLimit": "메모 한도에 도달했습니다.",
+      "outOfCredits": "이번 달 크레딧이 소진되었습니다",
+      "outOfFreeCredits": "이번 달 무료 크레딧이 소진되었습니다",
+      "outOfTrialCredits": "평가판 크레딧이 부족합니다.",
+      "planExpired": "귀하의 요금제가 만료되었습니다",
+      "rollover": "종량제 크레딧은 매달 이월되며 영원히 사용할 수 있습니다.",
+      "trialDaysLeft_other": "평가판 기간이 {{count}}일 남았습니다.",
+      "trialEnded": "평가판이 종료되었습니다",
+      "trialNoteLimit": "평가판 메모 한도에 도달했습니다.",
+      "upgradeCollection": "업그레이드 - 전체 컬렉션을 자동으로",
+      "upgradeCredits": "더 많은 크레딧을 받으려면 업그레이드하세요.",
+      "upgradePaid": "✨ 유료로 업그레이드"
+    },
+    "inDays_other": "{{count}}일 후",
+    "loading": "구독 로드 중",
+    "loggingOut": "로그아웃 중…",
+    "logOut": "로그아웃",
+    "manageDescription": "요금제 변경, 결제 업데이트 또는 취소.",
+    "manageOrUpgrade": "계획 관리 또는 업그레이드",
+    "managePlan": "계획 관리",
+    "monthlyCreditsUsed": "월간 사용 크레딧",
+    "mostCreditsUsed": "이번 달 크레딧이 대부분 사용되었습니다.",
+    "noteLimitReached": "메모 한도에 도달했습니다.",
+    "notes": "메모",
+    "notesUsed": "사용된 메모",
+    "notesUsedValue": "{{used}}/{{limit}} 사용됨",
+    "outOfCredits": "크레딧 부족",
+    "pausedUntilReset": "크레딧이 재설정될 때까지 생성이 일시 중지됩니다.",
+    "plan": "계획",
+    "planInactive": "계획이 비활성화되었습니다",
+    "resetsIn": "다음 시간에 재설정됩니다.",
+    "resetsInDays_other": "{{count}}일 후에 재설정됩니다.",
+    "signedOut": {
+      "localStorage": "귀하의 스마트 필드와 설정은 이 장치에 저장됩니다.",
+      "manage": "계획을 관리하려면 로그인하세요.",
+      "paused": "로그인할 때까지 생성이 일시 중지됩니다.",
+      "title": "로그아웃됨"
+    },
+    "title": "계정 및 사용량",
+    "trialCreditsUsed": "사용된 평가판 크레딧 수",
+    "trialEnded": "평가판이 종료됨",
+    "trialEnds": "평가판 종료",
+    "trialNoteLimitReached": "평가판 메모 한도에 도달했습니다.",
+    "upgradeToKeepGenerating": "계속 생성하려면 업그레이드하세요.",
+    "usage": "용법"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "리뷰를 남기거나 문서를 참조하세요.",
+    "byline": "작성자: Michael Piazza / Rosebud Labs, LLC.",
+    "changelog": "변경 내역",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "도움을 받고, 기능을 요청하고, 버그를 보고하는 가장 빠른 방법입니다.",
+      "join": "가입하다",
+      "title": "Discord에 가입하세요"
+    },
+    "emailUs": "이메일을 보내주세요",
+    "feedback": {
+      "description": "뭔가 깨지거나 잘못된 것이 있나요? 불쌍한 개발자에게 직접 메시지를 보내세요.",
+      "send": "보내기",
+      "title": "버그 제출/기능 요청"
+    },
+    "github": "GitHub",
+    "loading": "로딩 지원",
+    "title": "지원하다"
+  },
+  "welcome": {
+    "alreadyAccount": "이미 계정이 있나요?",
+    "codePlaceholder": "코드를 붙여넣으세요",
+    "connect": "연결하다",
+    "connecting": "연결 중…",
+    "description": "한 번의 클릭으로 개별 카드나 전체 데크에 텍스트, 음성, 이미지를 추가할 수 있습니다.",
+    "errors": {
+      "code": "해당 코드로 연결할 수 없습니다"
+    },
+    "finishDescription": "우리가 연 브라우저에서 로그인을 완료하세요. 이 창은 자동으로 업데이트됩니다.",
+    "finishInBrowser": "브라우저에서 완료하세요.",
+    "haveCode": "웹사이트에서 코드를 받았나요?",
+    "startTrial": "✨ 무료 평가판 시작 ✨",
+    "trialDetails": "7일 동안 무료 · 모든 기능 · 신용카드 없음"
+  },
+  "trialEnded": {
+    "description": "평가판은 7일 동안 또는 평가판 크레딧이 소진될 때까지 실행됩니다.",
+    "features": {
+      "ariaLabel": "업그레이드하면 유지되는 것",
+      "batch": "전체 컬렉션에 대한 일괄 처리",
+      "images": "이미지 생성",
+      "premium": "모든 프리미엄 모델 및 음성",
+      "review": "검토 중 생성"
+    },
+    "reviewOffer": {
+      "ariaLabel": "한 달 무료 혜택",
+      "description": "간단한 AnkiWeb 리뷰를 남겨주시고 한 달간 무료로 이용해보세요.",
+      "dialogDescription": "AnkiWeb에 대한 간단한 리뷰를 남기고 이메일을 보내주시면 귀하의 계정에 Smart Notes 1개월 무료 이용권을 추가해 드립니다.",
+      "dialogTitle": "한 달 무료로 이용하세요",
+      "leaveAnkiWebReview": "AnkiWeb에 리뷰를 남겨주세요",
+      "leaveReview": "리뷰를 남겨주세요",
+      "title": "Smart Notes 1개월 무료 이용"
+    },
+    "thanks": "Smart Notes를 사용해 주셔서 감사합니다 ✨",
+    "title": "무료 평가판이 종료되었습니다",
+    "upgradeNow": "지금 업그레이드"
+  }
+}

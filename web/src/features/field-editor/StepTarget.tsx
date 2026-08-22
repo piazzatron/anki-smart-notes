@@ -24,7 +24,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select"
+import i18next from "i18next"
 import type { AppState } from "@/types/api"
+import { useTranslation } from "react-i18next"
 
 import { EditorSection } from "./EditorSection"
 import { getFirstSourceField, hasSmartFieldCollision } from "./fieldEditor"
@@ -38,15 +40,16 @@ interface StepTargetProps {
 
 const FIELD_TYPES: Array<{
   emoji: string
-  label: string
+  labelKey: string
   value: FieldType
 }> = [
-  { emoji: "💬", label: "Text", value: "chat" },
-  { emoji: "🔈", label: "Audio", value: "tts" },
-  { emoji: "🖼️", label: "Image", value: "image" },
+  { emoji: "💬", labelKey: "fieldEditor.fieldTypes.text", value: "chat" },
+  { emoji: "🔈", labelKey: "fieldEditor.fieldTypes.audio", value: "tts" },
+  { emoji: "🖼️", labelKey: "fieldEditor.fieldTypes.image", value: "image" },
 ]
 
 export const StepTarget = ({ controls, state }: StepTargetProps) => {
+  const { t } = useTranslation()
   const { target } = controls.form
   const noteType = state.noteTypes.find((item) => item.id === target.noteTypeId)
   const collision = hasSmartFieldCollision(
@@ -68,9 +71,9 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
 
   return (
     <div className="mx-auto w-full max-w-[600px]">
-      <EditorSection label="What do you want to generate?">
+      <EditorSection label={t("fieldEditor.sections.whatToGenerate")}>
         <div className="flex gap-1.5" role="radiogroup">
-          {FIELD_TYPES.map(({ emoji, label, value }) => {
+          {FIELD_TYPES.map(({ emoji, labelKey, value }) => {
             const selected = target.fieldType === value
             return (
               <button
@@ -90,23 +93,29 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
                 >
                   {emoji}
                 </span>
-                {label}
+                {t(labelKey)}
               </button>
             )
           })}
         </div>
       </EditorSection>
 
-      <EditorSection className="mt-7" label="On which notes?">
+      <EditorSection
+        className="mt-7"
+        label={t("fieldEditor.sections.onWhichNotes")}
+      >
         <div className="grid grid-cols-[1.6fr_1fr] gap-3">
-          <FieldLabel label="Note Type">
+          <FieldLabel label={t("common.noteType")}>
             <Select
               onValueChange={(value) =>
                 controls.setTarget({ noteTypeId: Number(value) })
               }
               value={String(target.noteTypeId)}
             >
-              <SelectTrigger aria-label="Note Type" className="min-h-9 py-1.5">
+              <SelectTrigger
+                aria-label={t("common.noteType")}
+                className="min-h-9 py-1.5"
+              >
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -119,20 +128,25 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
             </Select>
           </FieldLabel>
 
-          <FieldLabel label="Deck" optional>
+          <FieldLabel label={t("common.deck")} optional>
             <Select
               onValueChange={(value) =>
                 controls.setTarget({ deckId: Number(value) })
               }
               value={String(target.deckId)}
             >
-              <SelectTrigger aria-label="Deck" className="min-h-9 py-1.5">
+              <SelectTrigger
+                aria-label={t("common.deck")}
+                className="min-h-9 py-1.5"
+              >
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 {state.decks.map((deck) => (
                   <SelectItem key={deck.id} value={String(deck.id)}>
-                    {deck.id === state.globalDeckId ? "All Decks" : deck.name}
+                    {deck.id === state.globalDeckId
+                      ? t("common.allDecks")
+                      : deck.name}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -141,7 +155,10 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
         </div>
       </EditorSection>
 
-      <EditorSection className="mt-7" label="Which field should it fill?">
+      <EditorSection
+        className="mt-7"
+        label={t("fieldEditor.sections.whichFieldToFill")}
+      >
         <Select
           onValueChange={(targetFieldName) => {
             controls.setTarget({ targetFieldName })
@@ -154,7 +171,7 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
           value={target.targetFieldName}
         >
           <SelectTrigger
-            aria-label="Field"
+            aria-label={t("common.field")}
             className="py-[11px] font-mono text-sm font-semibold"
           >
             <SelectValue />
@@ -169,8 +186,8 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
                   key={fieldName}
                   suffix={
                     bound ? (
-                      <span className="ml-3 shrink-0 text-[11px] text-zinc-300">
-                        Already a Smart Field ✨
+                      <span className="ms-3 shrink-0 text-[11px] text-zinc-300">
+                        {t("fieldEditor.alreadySmartField")}
                       </span>
                     ) : undefined
                   }
@@ -185,8 +202,7 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
         {collision && (
           <p className="mt-2 text-[11px] leading-4 text-amber/85">
             <strong className="font-semibold">{target.targetFieldName}</strong>{" "}
-            already has a Smart Field — pick a different field, deck, or note
-            type
+            {t("fieldEditor.collisionHint")}
           </p>
         )}
       </EditorSection>
@@ -205,8 +221,8 @@ const FieldLabel = ({ children, label, optional }: FieldLabelProps) => (
     <span className="mb-2 block text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
       {label}
       {optional && (
-        <span className="ml-1 font-normal tracking-normal text-zinc-600 normal-case">
-          (optional)
+        <span className="ms-1 font-normal tracking-normal text-zinc-600 normal-case">
+          {i18next.t("common.optional")}
         </span>
       )}
     </span>

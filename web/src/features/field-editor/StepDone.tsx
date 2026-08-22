@@ -19,6 +19,7 @@
 
 import type { CSSProperties } from "react"
 import { useEffect, useRef } from "react"
+import { useTranslation } from "react-i18next"
 
 import { trackAnalyticsEvent } from "@/services/analytics"
 import type { SmartField } from "@/types/api"
@@ -37,25 +38,26 @@ interface StepDoneProps {
 const GENERATION_METHODS = [
   {
     image: generateInBrowserImage,
-    imageAlt:
-      "Anki Browser context menu with Generate Smart Fields highlighted",
+    imageAlt: "fieldEditor.completion.methods.bulk.imageAlt",
     imagePosition: "object-center",
-    title: "In bulk, from the Browser",
-    caption: "Select notes or deck → right-click → ✨ Generate Smart Fields.",
+    title: "fieldEditor.completion.methods.bulk.title",
+    caption: "fieldEditor.completion.methods.bulk.caption",
   },
   {
     image: generateNoteImage,
-    imageAlt: "Anki editor toolbar with the Smart Notes button highlighted",
-    imagePosition: "origin-top-right scale-[2.1] object-right",
-    title: "One card at a time",
-    caption: "Click the ✨ button in the editor toolbar or type ⌘⇧G.",
+    imageAlt: "fieldEditor.completion.methods.card.imageAlt",
+    imagePosition:
+      "origin-top-right rtl:origin-top-left scale-[2.1] object-right rtl:object-left",
+    title: "fieldEditor.completion.methods.card.title",
+    caption: "fieldEditor.completion.methods.card.caption",
   },
   {
     image: generateFieldImage,
-    imageAlt: "Anki field context menu with Generate Smart Field highlighted",
-    imagePosition: "origin-bottom-left scale-[1.15] object-bottom",
-    title: "A single field",
-    caption: "Right-click any field → Generate Smart Field.",
+    imageAlt: "fieldEditor.completion.methods.field.imageAlt",
+    imagePosition:
+      "origin-bottom-left rtl:origin-bottom-right scale-[1.15] object-bottom",
+    title: "fieldEditor.completion.methods.field.title",
+    caption: "fieldEditor.completion.methods.field.caption",
   },
 ]
 
@@ -140,57 +142,66 @@ export const StepDone = ({
   noteTypeName,
   targetFieldName,
   trackCreation,
-}: StepDoneProps) => (
-  <div>
-    <CompletionTelemetry fieldType={fieldType} trackCreation={trackCreation} />
-    <div className="text-center">
-      <h2 className="text-[27px] leading-[1.1] font-extrabold tracking-[-0.8px] text-[#f6f6f8]">
-        Your Smart Field is live
-        <span
-          aria-hidden
-          className="ml-1.5 inline-block translate-y-[-3px] text-lg font-normal"
-        >
-          🥳
-        </span>
-      </h2>
-      <p className="mx-auto mt-3 max-w-[430px] text-[13.5px] leading-[1.55] text-[#b4b4be]">
-        <strong className="font-semibold text-[#e6e6ea]">
-          {targetFieldName}
-        </strong>{" "}
-        on{" "}
-        <strong className="font-semibold text-[#e6e6ea]">{noteTypeName}</strong>{" "}
-        notes fills in whenever you generate it.
-      </p>
-    </div>
+}: StepDoneProps) => {
+  const { t } = useTranslation()
 
-    <div className="mt-[34px]">
-      <p className="mb-3.5 text-xs font-semibold text-[#8b8b94]">
-        A few ways to generate it:
-      </p>
-      <div className="flex flex-col gap-2.5">
-        {GENERATION_METHODS.map((method) => (
-          <div
-            className="grid grid-cols-[320px_1fr] items-center gap-[22px]"
-            key={method.title}
+  return (
+    <div>
+      <CompletionTelemetry
+        fieldType={fieldType}
+        trackCreation={trackCreation}
+      />
+      <div className="text-center">
+        <h2 className="text-[27px] leading-[1.1] font-extrabold tracking-[-0.8px] text-[#f6f6f8]">
+          {t("fieldEditor.completion.title")}
+          <span
+            aria-hidden
+            className="ms-1.5 inline-block translate-y-[-3px] text-lg font-normal"
           >
-            <div className="h-[156px] w-[320px] overflow-hidden rounded-lg border border-white/[0.08] bg-black/30">
-              <img
-                alt={method.imageAlt}
-                className={`size-full object-cover ${method.imagePosition}`}
-                src={method.image}
-              />
+            🥳
+          </span>
+        </h2>
+        <p className="mx-auto mt-3 max-w-[430px] text-[13.5px] leading-[1.55] text-[#b4b4be]">
+          <strong className="font-semibold text-[#e6e6ea]">
+            {targetFieldName}
+          </strong>{" "}
+          {t("fieldEditor.completion.descriptionBefore")}{" "}
+          <strong className="font-semibold text-[#e6e6ea]">
+            {noteTypeName}
+          </strong>{" "}
+          {t("fieldEditor.completion.descriptionAfter")}
+        </p>
+      </div>
+
+      <div className="mt-[34px]">
+        <p className="mb-3.5 text-xs font-semibold text-[#8b8b94]">
+          {t("fieldEditor.completion.waysToGenerate")}
+        </p>
+        <div className="flex flex-col gap-2.5">
+          {GENERATION_METHODS.map((method) => (
+            <div
+              className="grid grid-cols-[320px_1fr] items-center gap-[22px]"
+              key={method.title}
+            >
+              <div className="h-[156px] w-[320px] overflow-hidden rounded-lg border border-white/[0.08] bg-black/30">
+                <img
+                  alt={t(method.imageAlt)}
+                  className={`size-full object-cover ${method.imagePosition}`}
+                  src={method.image}
+                />
+              </div>
+              <div className="min-w-0">
+                <h3 className="text-[13px] font-semibold text-[#f4f4f6]">
+                  {t(method.title)}
+                </h3>
+                <p className="mt-[3px] text-[11.5px] leading-[1.5] text-[#8b8b94]">
+                  {t(method.caption)}
+                </p>
+              </div>
             </div>
-            <div className="min-w-0">
-              <h3 className="text-[13px] font-semibold text-[#f4f4f6]">
-                {method.title}
-              </h3>
-              <p className="mt-[3px] text-[11.5px] leading-[1.5] text-[#8b8b94]">
-                {method.caption}
-              </p>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
-  </div>
-)
+  )
+}

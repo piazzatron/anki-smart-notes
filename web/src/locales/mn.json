@@ -1,0 +1,499 @@
+{
+  "common": {
+    "allDecks": "Бүх тавцан",
+    "auto": "Автомат",
+    "autoMax": "Auto MAX",
+    "back": "Буцах",
+    "bestValueCost": "Хамгийн сайн үнэ цэнэ, 0.3х өртөг",
+    "cancel": "Цуцлах",
+    "close": "Хаах",
+    "connection": {
+      "connecting": "Anki-д холбогдож байна…",
+      "reconnecting": "Anki-д дахин холбогдож байна…"
+    },
+    "days_one": "1 өдөр",
+    "days_other": "{{count}} хоног",
+    "deck": "Тавцан",
+    "default": "Өгөгдмөл",
+    "delete": "Устгах",
+    "done": "Дууслаа",
+    "duplicate": "Давхардсан",
+    "edit": "Засварлах",
+    "empty": "хоосон",
+    "field": "Талбай",
+    "free": "Үнэгүй",
+    "discardChanges": "Өөрчлөлтүүдийг цуцлах",
+    "discardUnsavedChanges": {
+      "description": "Эдгээр өгөгдмөл тохиргоонд хийсэн таны өөрчлөлт хадгалагдаагүй байна.",
+      "title": "Хадгалаагүй өөрчлөлтүүдийг устгах уу?"
+    },
+    "dismissError": "Алдааг хэрэгсэхгүй болгох",
+    "feedback": {
+      "description": "Хөгжүүлэгч рүү алдааны тайлан, функцийн хүсэлт эсвэл бусад санал хүсэлтийг илгээнэ үү.",
+      "error": "Санал хүсэлт илгээж чадсангүй",
+      "label": "Санал хүсэлт",
+      "placeholder": "Алдаа, санаа, юу ч байсан - энэ нь хөгжүүлэгч рүү шууд очдог.",
+      "send": "Илгээх",
+      "sending": "Илгээж байна...",
+      "sent": "Санал хүсэлт илгээсэн. Бид удахгүй холбогдох болно.",
+      "title": "Санал хүсэлт илгээх"
+    },
+    "notNow": "Одоо биш",
+    "other": "Бусад",
+    "placeholderScreen": "Энэ дэлгэц нь дахин бүтээхэд дараагийнх юм.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "Нэвтрэх",
+    "signInLower": "Нэвтрэх",
+    "unlimited": "Хязгааргүй",
+    "upgradeSparkles": "✨ Шинэчлэх ✨",
+    "multiplierCost": "{{multiplier}}× зардал",
+    "next": "Дараа нь",
+    "noteType": "Тэмдэглэлийн төрөл",
+    "optional": "сонголттой",
+    "prompt": "Шуурхай",
+    "saving": "Хадгалж байна...",
+    "test": "Туршилт",
+    "validFields": "Хүчинтэй талбарууд:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Санал хүсэлт",
+    "nav": {
+      "defaultsImages": "Өгөгдмөл зургийн тохиргоо",
+      "defaultsText": "Өгөгдмөл текстийн тохиргоо",
+      "defaultsVoice": "Өгөгдмөл дуу хоолойн тохиргоо",
+      "image": "Зураг",
+      "settings": "Тохиргоо",
+      "smartFields": "Smart Fields",
+      "subscription": "Бүртгэл ба хэрэглээ",
+      "support": "Дэмжлэг",
+      "text": "Текст",
+      "voice": "Дуу хоолой"
+    },
+    "sections": "Smart Notes хэсгүүд",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Асуудлыг оношлоход туслах дэлгэрэнгүй бүртгэл. Алдаа гаргахдаа эдгээр бүртгэлийг оруулаарай.",
+      "label": "Дибаг хийх горим"
+    },
+    "generateAtReview": {
+      "description": "Хяналтад карт гарч ирэх үед дутуу ухаалаг талбаруудыг автоматаар бөглөнө үү.",
+      "label": "Хяналтын явцад талбар үүсгэх"
+    },
+    "language": {
+      "description": "Smart Notes хэлийг сонгох эсвэл Anki-н хэлийг тааруулна уу.",
+      "label": "Хэл",
+      "matchAnki": "Anki-тай таарна"
+    },
+    "legacy": {
+      "apiKey": "OpenAI API түлхүүр",
+      "apiKeyRequired": "Төлбөртэй OpenAI API түлхүүр шаардлагатай.",
+      "description": "Төлбөртэй API түлхүүрийг холбож, хуучин OpenAI загварыг сонгоно уу.",
+      "getApiKey": "API түлхүүр аваарай",
+      "host": "OpenAI хост",
+      "hostDescription": "OpenAI API-д өөр төгсгөлийн цэг өгнө үү.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "OpenAI загвар",
+      "title": "Миний өөрийн OpenAI түлхүүрийг ашигла"
+    },
+    "loading": "Тохиргоог ачаалж байна",
+    "regenerateWhenBatching": {
+      "description": "Бүлэг тэмдэглэл боловсруулахдаа зөвхөн хоосон хэсгийг бөглөхийн оронд ухаалаг талбар бүрийг эхнээс нь сэргээ.",
+      "label": "Багц боловсруулах үед бүх ухаалаг талбаруудыг сэргээнэ үү"
+    },
+    "saveError": "Тохиргоог хадгалж чадсангүй",
+    "sections": {
+      "advanced": "Дэвшилтэт",
+      "general": "Генерал",
+      "generation": "Үе үе"
+    },
+    "title": "Тохиргоо"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Аль хэдийн Ухаалаг талбар ✨",
+    "collisionHint": "аль хэдийн Ухаалаг талбартай болсон - өөр талбар, тавцан эсвэл тэмдэглэлийн төрлийг сонгоно уу",
+    "completion": {
+      "descriptionAfter": "Тэмдэглэлүүдийг үүсгэх болгонд бөглөнө.",
+      "descriptionBefore": "дээр",
+      "methods": {
+        "bulk": {
+          "caption": "Тэмдэглэл эсвэл тавцанг сонгоно уу → хулганы баруун товчийг дарна уу → ✨ Smart Fields үүсгэнэ үү.",
+          "imageAlt": "Anki Үүсгэх Smart Fields-г тодруулсан хөтчийн контекст цэс",
+          "title": "Бөөнөөр, Хөтөчөөс"
+        },
+        "card": {
+          "caption": "Редакторын хэрэгслийн самбар дээрх ✨ товчийг дарж эсвэл ⌘⇧G гэж бичнэ үү.",
+          "imageAlt": "Smart Notes товчийг тодруулсан Anki засварлагч хэрэгслийн самбар",
+          "title": "Нэг удаад нэг карт"
+        },
+        "field": {
+          "caption": "Дурын талбар дээр хулганы баруун товчийг дарна уу → Ухаалаг талбар үүсгэх.",
+          "imageAlt": "Ухаалаг талбар үүсгэхийг тодруулсан Anki талбарын контекст цэс",
+          "title": "Ганц талбар"
+        }
+      },
+      "title": "Таны Smart Field ажиллаж байна",
+      "waysToGenerate": "Үүнийг үүсгэх хэд хэдэн арга:"
+    },
+    "created": "Ухаалаг талбар үүсгэсэн",
+    "dontShowAgain": "Үүнийг дахиж бүү харуул",
+    "errors": {
+      "save": "Ухаалаг талбарыг хадгалж чадсангүй",
+      "updateWizardSettings": "Шидтэний тохиргоог шинэчилж чадсангүй",
+      "writePrompt": "Сануулга бичиж чадсангүй"
+    },
+    "fieldTypes": {
+      "audio": "Аудио",
+      "image": "Зураг",
+      "text": "Текст"
+    },
+    "loadingModelCatalog": "Загварын каталогийг ачаалж байна...",
+    "modelSettings": {
+      "appliesOnlyToField": "Зөвхөн энэ ухаалаг талбарт хамаарна.",
+      "defaultWithValue": "Өгөгдмөл ({{value}})",
+      "defaultsImages": "Өгөгдмөл › Зураг",
+      "defaultsText": "Өгөгдмөл › Текст",
+      "defaultsVoice": "Өгөгдмөл › Дуу хоолой",
+      "descriptionChat": "Энэ талбарыг бичих AI-г тохируулна уу. Ихэнх талбарууд анхдагчаар үлдэж болно.",
+      "descriptionImage": "Энэ талбарыг зурах AI-г тохируулна уу. Ихэнх талбарууд анхдагчаар үлдэж болно.",
+      "descriptionTts": "Энэ талбарыг уншдаг дуу хоолойг тохируулна уу. Ихэнх талбарууд анхдагчаар үлдэж болно.",
+      "imageDefault": "зургийн өгөгдмөл",
+      "imageModel": "Зургийн загвар",
+      "loadingVoices": "Дуу хоолойг ачаалж байна...",
+      "model": "Загвар",
+      "pickCustom": "Энэ талбарт тусгай загвар сонгоно уу",
+      "reasoning": "{{level}} үндэслэл",
+      "reasoningHint": "Өндөр үндэслэл нь илүү хэцүү үеийг сайжруулж чадна, гэхдээ илүү их кредит ашигладаг.",
+      "reasoningLevel": "Үндэслэл тогтоох түвшин",
+      "sharedByEveryField": "Таны {{modality}}-г ашигладаг Smart Field бүр хуваалцдаг. Үүнийг өөрчил",
+      "textDefault": "текст өгөгдмөл",
+      "textModel": "Текстийн загвар",
+      "useMy": "Миний {{modality}}-г ашигла",
+      "useWebSearch": "Энэ талбарт вэб хайлтыг ашиглана уу",
+      "voice": "Дуу хоолой",
+      "voiceDefault": "дуут өгөгдмөл",
+      "webSearch": "Вэб хайлт",
+      "webSearchHint": "Энэ талбарт вэбээс шинэ мэдээллийг ашиглахыг зөвшөөрнө үү."
+    },
+    "save": "Ухаалаг талбарыг хадгалах",
+    "sections": {
+      "onWhichNotes": "Аль тэмдэглэл дээр?",
+      "whatToGenerate": "Та юу үүсгэхийг хүсч байна вэ?",
+      "whichFieldToFill": "Аль талбарыг бөглөх ёстой вэ?",
+      "whichFieldToSpeak": "Энэ нь аль салбарт ярих ёстой вэ?"
+    },
+    "sourceField": "Эх сурвалж талбар",
+    "targetAriaLabel": "Ухаалаг талбайн зорилт",
+    "testSmartField": "Ухаалаг талбараа туршиж үзээрэй",
+    "titles": {
+      "create": "Шинэ ухаалаг талбай ✨",
+      "duplicate": "Ухаалаг талбарыг хуулбарлах",
+      "edit": "Ухаалаг талбарыг засах"
+    },
+    "validation": {
+      "chooseField": "Талбар сонгоно уу",
+      "chooseNoteType": "Тэмдэглэлийн төрлийг сонгоно уу",
+      "chooseSourceField": "Эх сурвалж талбарыг сонгоно уу",
+      "fieldAlreadyHasSmartField": "{{field}} аль хэдийн Ухаалаг талбартай болсон",
+      "writePrompt": "Сануулга бичнэ үү"
+    },
+    "writePrompt": "Сануулга бичих",
+    "writePromptForMe": "Миний хүсэлтийг надад бичээрэй",
+    "writePromptForMeHint": "Хүссэн зүйлээ энгийн англи хэлээр хэлээрэй - бид доорх тушаалыг бичих болно.",
+    "writePromptPlaceholder": "\"Байгалийн англи хэл рүү орчуулах ...\"",
+    "writing": "Бичиж байна..."
+  },
+  "smartFields": {
+    "actionsAriaLabel": "{{field}}-д зориулсан үйлдлүүд",
+    "addToNoteType": "{{noteType}}-д Smart Field нэмнэ үү",
+    "disable": "Идэвхгүй болгох",
+    "deleting": "Устгаж байна...",
+    "discord": {
+      "dismissAriaLabel": "Discord урилгыг хэрэгсэхгүй болгох",
+      "join": "Нэгдэх",
+      "joinAriaLabel": "Smart Notes Discord-д нэгдээрэй",
+      "subtitle": "- своп сануулга болон хүсэлтийн функцууд.",
+      "title": "Discord дээр сайн уу гэж хэлээрэй"
+    },
+    "editAriaLabel": "{{field}} ухаалаг талбарыг засварлах",
+    "emptyState": {
+      "description": "Картдаа текст, аудио, зураг нэмэхийн тулд Smart Fields нэмнэ үү.",
+      "exampleAnswer": "Сайн уу",
+      "exampleField": "УРД",
+      "examplePrompt": "bonjour",
+      "spark": "✦",
+      "title": "Таны тэмдэглэл бага зэрэг хоосон харагдаж байна"
+    },
+    "enable": "Идэвхжүүлэх",
+    "errors": {
+      "commandFailed": "Smart Field команд амжилтгүй боллоо"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Ухаалаг талбар",
+    "fieldTypes": {
+      "chat": "Текст",
+      "image": "Зураг",
+      "tts": "Аудио"
+    },
+    "loadingAriaLabel": "Smart Fields ачаалж байна",
+    "newSmartField": "Шинэ ухаалаг талбай",
+    "readsAloud": "{{field}}-г чангаар уншдаг",
+    "review": {
+      "ariaLabel": "Smart Notes-г AnkiWeb дээр хянана",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "Хяналтын урилгыг хэрэгсэхгүй болгох",
+      "subtitle": "Бусад Anki хэрэглэгчдэд үүнийг олоход нь туслахын тулд AnkiWeb дээр сэтгэгдэл үлдээнэ үү.",
+      "title": "Smart Notes таалагдаж байна уу?"
+    },
+    "subtitle": "Тэмдэглэлдээ автоматаар үүсгэсэн текст, дуу хоолой, зургийг нэмнэ үү.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "Чатын каталогид {{model}} загвар байхгүй байна",
+      "missingImageModel": "Зургийн каталогид {{model}} загвар байхгүй байна"
+    },
+    "image": {
+      "cannotFindModel": "Зургийн каталогид {{model}} загвар байхгүй байна",
+      "defaultModel": "Өгөгдмөл загвар",
+      "gptImage15Low": "хамгийн сайн чанар / хурдны солилцоо.",
+      "gptImage2": "ижил өртөгтэй, удаан, өндөр чанартай.",
+      "loadingLabel": "Өгөгдмөл зургийн тохиргоог ачаалж байна",
+      "loadingTitle": "Өгөгдмөл зургийн тохиргоо",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (Бага / Дунд)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Зургийн загвар сонгох",
+      "samplePrompt": "Anki-аар шаргуу суралцаж, шалгалтаа өгч буй оюутны дүр төрхийг бий болго.",
+      "saveError": "Зургийн өгөгдмөл тохиргоог хадгалж чадсангүй",
+      "subtitle": "Талбар нь өөрөө бэхлээгүй тохиолдолд таны зургийн Smart Fields ашиглах загвар.",
+      "title": "Өгөгдмөл зургийн тохиргоо",
+      "zImageTurbo": "хамгийн хурдан бөгөөд хямд."
+    },
+    "layout": {
+      "saveChanges": "Өөрчлөлтүүдийг хадгалах",
+      "saving": "Хадгалж байна...",
+      "tryIt": "Ороод үзээрэй"
+    },
+    "text": {
+      "cannotInheritModel": "Текстийн өгөгдмөл нь өөр загварыг өвлөх боломжгүй",
+      "defaultModel": "Өгөгдмөл текст загвар",
+      "defaultReasoningLevel": "Үндсэн үндэслэлийн түвшин",
+      "enableWebSearch": "Вэб хайлтыг идэвхжүүл",
+      "higherReasoning": "Өндөр үндэслэл нь илүү хэцүү үеийг сайжруулж чадна, гэхдээ илүү их кредит ашигладаг.",
+      "loadingLabel": "Өгөгдмөл текстийн тохиргоог ачаалж байна",
+      "loadingTitle": "Текст үүсгэх тохиргоо",
+      "modelGuidance": "{{auto}} болон {{autoMax}} нь гүйцэтгэл болон зардлыг тэнцвэржүүлдэг Smart Notes-г санал болгож буй загварууд юм. Стандарт даалгаврын хувьд {{auto}}-г сонгоод, шаардлагатай бол {{autoMax}} болгон сайжруул.",
+      "pickingModel": "💡 Загвар сонгох",
+      "reasoningLevel": "Үндэслэл тогтоох түвшин",
+      "reasoningValues": {
+        "high": "Өндөр",
+        "low": "Бага",
+        "off": "Унтраах"
+      },
+      "samplePrompt": "Зайтай давталтын систем (SRS) гэж юу вэ?",
+      "saveError": "Текстийн өгөгдмөл тохиргоог хадгалж чадсангүй",
+      "subtitle": "Текст үүсгэх үндсэн тохиргоо. Хувь Smart Fields эдгээр утгыг дарж болно.",
+      "title": "Текст үүсгэх тохиргоо",
+      "webSearch": "Вэб хайлт",
+      "webSearchDescription": "Текст үеийнхэнд вэбээс шинэ мэдээлэл авах боломжийг олгоорой.",
+      "webSearchWarning": "⚠️ Хайлт нь үнэтэй; зээлээ хянах."
+    },
+    "usage": {
+      "fields_one": "{{count}} талбарт хамаарна",
+      "fields_other": "{{count}} талбарт хамаарна"
+    },
+    "voice": {
+      "browseVoices": "Дууг хайх ({{count}})",
+      "cannotLoad": "Дууг ачаалж чадсангүй",
+      "currentDefault": "Одоогийн өгөгдмөл",
+      "filters": {
+        "all": "Бүгд",
+        "female": "Эмэгтэй",
+        "gender": "Хүйс",
+        "language": "Хэл",
+        "male": "Эрэгтэй",
+        "provider": "Үйлчилгээ үзүүлэгч"
+      },
+      "filterVoices": "Дуу хоолойг шүүх",
+      "loadingLabel": "Өгөгдмөл дуу хоолойн тохиргоог ачаалж байна",
+      "loadingTitle": "Өгөгдмөл дуу хоолойн тохиргоо",
+      "noVoices": "Эдгээр шүүлтүүрт тохирох дуу хоолой байхгүй.",
+      "saveError": "Дуу хоолойны өгөгдмөл тохиргоог хадгалж чадсангүй",
+      "searchPlaceholder": "🔍 Дуу хоолойг хайх...",
+      "searchVoices": "Дуу хоолойг хайх",
+      "subtitle": "Таны TTS Smart Fields талбар өөрөө тээглээгүй тохиолдолд ашигладаг дуу хоолой.",
+      "title": "Өгөгдмөл дуу хоолойн тохиргоо"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "өөр тэмдэглэлийн төрөл",
+    "currentlySelectedCard": "Одоогоор сонгосон карт",
+    "emptyCard": "(хоосон карт)",
+    "errors": {
+      "generateAudio": "Аудио үүсгэж чадсангүй",
+      "generateImage": "Зураг үүсгэж чадсангүй",
+      "saveResult": "Энэ үр дүнг картанд хадгалж чадсангүй",
+      "testPrompt": "Энэ сануулгыг шалгаж чадсангүй"
+    },
+    "fieldRunsOn": "Энэ талбар ажиллаж байна",
+    "fieldWord_one": "талбар",
+    "fieldWord_other": "талбайнууд",
+    "generatedImagePreview": "Үүсгэсэн зургийг урьдчилан харах",
+    "missingFieldsTitle_one": "Талбар алга",
+    "missingFieldsTitle_other": "Дутуу талбарууд",
+    "needsFields_one": "{{count}} талбар хэрэгтэй",
+    "needsFields_other": "{{count}} талбарууд хэрэгтэй",
+    "notesSelected_one": "{{count}} тэмдэглэл сонгосон — нэг болгож нарийсгана.",
+    "notesSelected_other": "{{count}} тэмдэглэл сонгосон — нэг болгож нарийсгана.",
+    "pickCard": "Anki хөтчөөс карт сонгоно уу",
+    "promptPlaceholder": "Картынхаа талбаруудыг {{braces}}-аар лавлаж, туршилтын сануулга бичнэ үү.",
+    "saveToCard": "Карт руу хадгалах",
+    "savedTo": "{{field}} руу хадгалсан",
+    "selectCardWith": "Картын төрлийг сонгоно уу",
+    "selectFieldToReadAloud": "Чанга унших талбарыг сонгоно уу",
+    "selectNewCard": "Хөтөч дээр шинэ карт сонгоно уу",
+    "selectNoteType": "Тэмдэглэлийн төрлийг сонгоно уу",
+    "selectedCard": "Сонгосон карт",
+    "selectedDeck": "Сонгосон тавцан",
+    "selectedNoteType": "Сонгосон тэмдэглэлийн төрөл",
+    "selectionAppearsAutomatically": "Таны сонголт энд автоматаар гарч ирнэ.",
+    "sent": "Илгээсэн",
+    "testing": "Туршилт хийж байна...",
+    "testResult": "Туршилтын үр дүн",
+    "textToSpeak": "Ярих текст",
+    "viewResult": "Үр дүнг харах",
+    "wrongNoteType": "Буруу тэмдэглэлийн төрөл"
+  },
+  "subscription": {
+    "checking": "Бүртгэлийг шалгаж байна",
+    "creditTypes": {
+      "images": "Зураг",
+      "text": "Текст",
+      "voice": "Дуу хоолой"
+    },
+    "creditUsage": "Зээлийн ашиглалт",
+    "creditsReset": "Зээлийг шинэчилсэн",
+    "daysLeft_one": "Сүүлийн өдөр",
+    "daysLeft_other": "{{count}} хоног үлдлээ",
+    "errors": {
+      "logout": "Гарч чадсангүй"
+    },
+    "freePlan": "Үнэгүй төлөвлөгөө",
+    "freeTrial": "Үнэгүй туршилт",
+    "hero": {
+      "buyCredits": "Илүү олон кредит худалдаж аваарай",
+      "freeCreditsResetting": "Таны үнэгүй кредитүүдийг шинэчилж байна",
+      "freePlan": "Та үнэгүй төлөвлөгөөнд хамрагдсан",
+      "noteLimit": "Та тэмдэглэлийнхээ хязгаарт хүрсэн байна",
+      "outOfCredits": "Таны зээл энэ сард дууслаа",
+      "outOfFreeCredits": "Таны үнэгүй кредит энэ сард дууслаа",
+      "outOfTrialCredits": "Таны туршилтын кредит дууслаа",
+      "planExpired": "Таны төлөвлөгөөний хугацаа дууссан",
+      "rollover": "Товчхондоо төлдөг кредитүүд сар бүр дамждаг бөгөөд таны үүрд мөнх болно.",
+      "trialDaysLeft_one": "Туршилтын хугацаа өнөөдөр дуусна",
+      "trialDaysLeft_other": "Таны туршилт дуусахад {{count}} хоног үлдлээ",
+      "trialEnded": "Таны шүүх хурал дууслаа",
+      "trialNoteLimit": "Та туршилтын тэмдэглэлийнхээ хязгаарт хүрсэн байна",
+      "upgradeCollection": "Шинэчлэх — таны цуглуулгыг бүхэлд нь автоматаар",
+      "upgradeCredits": "Илүү олон кредит авахын тулд шинэчилнэ үү",
+      "upgradePaid": "✨ Төлбөртэй болгож сайжруулна уу"
+    },
+    "inDays_one": "Өнөөдөр",
+    "inDays_other": "{{count}} хоногийн дотор",
+    "loading": "Бүртгэлийг ачаалж байна",
+    "loggingOut": "Гарч байна...",
+    "logOut": "Гарах",
+    "manageDescription": "Төлөвлөгөөгөө өөрчлөх, төлбөрийг шинэчлэх эсвэл цуцлах.",
+    "manageOrUpgrade": "Төлөвлөгөөг удирдах эсвэл шинэчлэх",
+    "managePlan": "Төлөвлөгөө удирдах",
+    "monthlyCreditsUsed": "ашигласан сарын зээлийн",
+    "mostCreditsUsed": "Энэ сарын зээлийн ихэнхийг ашигласан",
+    "noteLimitReached": "Тэмдэглэлийн хязгаарт хүрсэн",
+    "notes": "Тэмдэглэл",
+    "notesUsed": "Ашигласан тэмдэглэл",
+    "notesUsedValue": "{{used}}/{{limit}} ашигласан",
+    "outOfCredits": "Зээл дууссан",
+    "pausedUntilReset": "Таны кредитийг шинэчлэх хүртэл үүсгэхийг түр зогсооно.",
+    "plan": "Төлөвлөгөө",
+    "planInactive": "Төлөвлөгөө идэвхгүй байна",
+    "resetsIn": "Дахин тохируулна",
+    "resetsInDays_one": "1 өдрийн дотор дахин тохируулна",
+    "resetsInDays_other": "{{count}} хоногийн дотор дахин тохируулна",
+    "signedOut": {
+      "localStorage": "Таны ухаалаг талбарууд болон тохиргоонууд энэ төхөөрөмж дээр хадгалагдана.",
+      "manage": "Төлөвлөгөөгөө удирдахын тулд нэвтэрнэ үү",
+      "paused": "Таныг нэвтрэх хүртэл үүслийг түр зогсооно.",
+      "title": "Гарсан"
+    },
+    "title": "Бүртгэл ба хэрэглээ",
+    "trialCreditsUsed": "ашигласан туршилтын кредит",
+    "trialEnded": "Шүүх хурал дууссан",
+    "trialEnds": "Туршилт дуусна",
+    "trialNoteLimitReached": "Туршилтын тэмдэглэлийн хязгаарт хүрсэн",
+    "upgradeToKeepGenerating": "Үргэлжлүүлэн үүсгэхийн тулд шинэчилнэ үү.",
+    "usage": "Хэрэглээ"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Сэтгэгдэл үлдээх / баримт бичгийг үзнэ үү.",
+    "byline": "Майкл Пиазза / Rosebud Labs, LLC.",
+    "changelog": "Өөрчлөлтийн бүртгэл",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "Тусламж авах, функц хүсэх эсвэл алдаа мэдээлэх хамгийн хурдан арга.",
+      "join": "Нэгдэх",
+      "title": "Discord-д нэгдээрэй"
+    },
+    "emailUs": "Бидэнд имэйл илгээнэ үү",
+    "feedback": {
+      "description": "Ямар нэг зүйл эвдэрсэн эсвэл буруу байна уу? Муу хөгжүүлэгч рүү шууд мессеж бичээрэй.",
+      "send": "Илгээнэ үү",
+      "title": "Алдаа илгээх / функц хүсэх"
+    },
+    "github": "GitHub",
+    "loading": "Дэмжлэгийг ачаалж байна",
+    "title": "Дэмжлэг"
+  },
+  "welcome": {
+    "alreadyAccount": "Бүртгэлтэй юу?",
+    "codePlaceholder": "Кодоо буулгана уу",
+    "connect": "Холбох",
+    "connecting": "Холбож байна…",
+    "description": "Текст, яриа, дүрсийг нэг товшилтоор картууд эсвэл бүхэлд нь тавцан дээр нэмнэ үү.",
+    "errors": {
+      "code": "Энэ кодтой холбогдож чадсангүй"
+    },
+    "finishDescription": "Бидний нээсэн хөтөч дээр нэвтэрч дуусгана уу. Энэ цонх автоматаар шинэчлэгдэх болно.",
+    "finishInBrowser": "Хөтөч дээрээ дуусга",
+    "haveCode": "Вэбсайтаас код байна уу?",
+    "startTrial": "✨ Үнэгүй туршилтыг эхлүүлэх ✨",
+    "trialDetails": "7 хоногийн турш үнэ төлбөргүй · функц бүр · кредит картгүй"
+  },
+  "trialEnded": {
+    "description": "Туршилт 7 хоног эсвэл таны туршилтын кредит дуусах хүртэл үргэлжилнэ.",
+    "features": {
+      "ariaLabel": "Шинэчлэлт нь юу хэвээр үлддэг",
+      "batch": "Бүхэл бүтэн цуглуулгаа багцлан аваарай",
+      "images": "Зураг үүсгэх",
+      "premium": "Дээд зэрэглэлийн загвар, дуу хоолой бүр",
+      "review": "Хяналтын явцад үүсгэх"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Сарын үнэгүй санал",
+      "description": "Хурдан AnkiWeb тоймыг үлдээгээрэй, биднээс нэг сар аваарай.",
+      "dialogDescription": "AnkiWeb дээр хурдан сэтгэгдлээ үлдээгээд дараа нь бидэнд и-мэйл бичээрэй - бид таны дансанд Smart Notes-г үнэгүй сар нэмэх болно.",
+      "dialogTitle": "Сардаа үнэгүй аваарай",
+      "leaveAnkiWebReview": "AnkiWeb дээр сэтгэгдэл үлдээгээрэй",
+      "leaveReview": "Сэтгэгдэл үлдээгээрэй",
+      "title": "Smart Notes-г сар үнэгүй аваарай"
+    },
+    "thanks": "Smart Notes ✨ ашигласанд баярлалаа",
+    "title": "Таны үнэгүй туршилтын хугацаа дууслаа",
+    "upgradeNow": "Одоо шинэчил"
+  }
+}

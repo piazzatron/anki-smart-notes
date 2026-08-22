@@ -18,6 +18,7 @@
  */
 
 import { useState, type ReactNode } from "react"
+import { useTranslation } from "react-i18next"
 
 import { useFeedbackForm } from "./useFeedbackForm"
 
@@ -35,6 +36,7 @@ interface FeedbackDialogProps {
 }
 
 export const FeedbackDialog = ({ children }: FeedbackDialogProps) => {
+  const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const form = useFeedbackForm()
 
@@ -55,19 +57,18 @@ export const FeedbackDialog = ({ children }: FeedbackDialogProps) => {
     >
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="w-[min(440px,92vw)]">
-        <header className="shrink-0 border-b border-white/[0.07] py-3.5 pr-10 pl-5">
+        <header className="shrink-0 border-b border-white/[0.07] py-3.5 ps-5 pe-10">
           <DialogTitle className="text-[13px] font-bold text-ink">
-            Send feedback
+            {t("common.feedback.title")}
           </DialogTitle>
           <DialogDescription className="sr-only">
-            Send a bug report, feature request, or other feedback to the
-            developer.
+            {t("common.feedback.description")}
           </DialogDescription>
         </header>
 
         {form.state.sent ? (
           <p className="px-5 py-5 text-xs text-mint">
-            Feedback sent. We'll be in touch soon.
+            {t("common.feedback.sent")}
           </p>
         ) : (
           <>
@@ -80,21 +81,23 @@ export const FeedbackDialog = ({ children }: FeedbackDialogProps) => {
                 />
               )}
               <textarea
-                aria-label="Feedback"
+                aria-label={t("common.feedback.label")}
                 className="min-h-[112px] w-full resize-y rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2.5 text-xs leading-[1.5] text-zinc-200 outline-none placeholder:text-zinc-600 focus:border-indigo/45"
                 onChange={(event) => form.setMessage(event.target.value)}
-                placeholder="A bug, an idea, anything — it goes straight to the developer."
+                placeholder={t("common.feedback.placeholder")}
                 value={form.state.message}
               />
             </div>
             <footer className="flex shrink-0 items-center justify-between gap-3 border-t border-white/[0.07] px-5 py-3.5">
               <button
-                className="ml-auto rounded-md bg-mint px-4 py-2 text-xs font-semibold text-emerald-950 transition hover:bg-mint/90 disabled:cursor-not-allowed disabled:opacity-45"
+                className="ms-auto rounded-md bg-mint px-4 py-2 text-xs font-semibold text-emerald-950 transition hover:bg-mint/90 disabled:cursor-not-allowed disabled:opacity-45"
                 disabled={form.isSubmitDisabled}
                 onClick={() => void form.submit()}
                 type="button"
               >
-                {form.state.isSending ? "Sending…" : "Send"}
+                {form.state.isSending
+                  ? t("common.feedback.sending")
+                  : t("common.feedback.send")}
               </button>
             </footer>
           </>

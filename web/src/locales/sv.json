@@ -1,0 +1,499 @@
+{
+  "common": {
+    "allDecks": "Alla däck",
+    "auto": "Bil",
+    "autoMax": "Auto MAX",
+    "back": "Tillbaka",
+    "bestValueCost": "Bästa värde, 0,3× kostnad",
+    "cancel": "Avboka",
+    "close": "Nära",
+    "connection": {
+      "connecting": "Ansluter till Anki...",
+      "reconnecting": "Återansluter till Anki..."
+    },
+    "days_one": "1 dag",
+    "days_other": "{{count}} dagar",
+    "deck": "Däck",
+    "default": "Standard",
+    "delete": "Radera",
+    "done": "Gjort",
+    "duplicate": "Duplicera",
+    "edit": "Redigera",
+    "empty": "tömma",
+    "field": "Fält",
+    "free": "Gratis",
+    "discardChanges": "Släng ändringar",
+    "discardUnsavedChanges": {
+      "description": "Dina ändringar av dessa standardinställningar har inte sparats.",
+      "title": "Vill du ignorera osparade ändringar?"
+    },
+    "dismissError": "Avvisa fel",
+    "feedback": {
+      "description": "Skicka en felrapport, funktionsbegäran eller annan feedback till utvecklaren.",
+      "error": "Det gick inte att skicka feedback",
+      "label": "Feed-back",
+      "placeholder": "En bugg, en idé, vad som helst - det går direkt till utvecklaren.",
+      "send": "Skicka",
+      "sending": "Sändning…",
+      "sent": "Feedback har skickats. Vi hör av oss snart.",
+      "title": "Skicka feedback"
+    },
+    "notNow": "Inte nu",
+    "other": "Andra",
+    "placeholderScreen": "Den här skärmen är nästa i ombyggnaden.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "Logga in",
+    "signInLower": "Logga in",
+    "unlimited": "Obegränsat",
+    "upgradeSparkles": "✨ Uppgradera ✨",
+    "multiplierCost": "{{multiplier}}× kostnad",
+    "next": "Nästa",
+    "noteType": "Notera Typ",
+    "optional": "frivillig",
+    "prompt": "Prompt",
+    "saving": "Sparande…",
+    "test": "Testa",
+    "validFields": "Giltiga fält:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Feed-back",
+    "nav": {
+      "defaultsImages": "Standardbildinställningar",
+      "defaultsText": "Standardtextinställningar",
+      "defaultsVoice": "Standardröstinställningar",
+      "image": "Bild",
+      "settings": "Inställningar",
+      "smartFields": "Smart Fields",
+      "subscription": "Konto och användning",
+      "support": "Stöd",
+      "text": "Text",
+      "voice": "Röst"
+    },
+    "sections": "Smart Notes sektioner",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Utförlig loggning för att diagnostisera problem. Inkludera dessa loggar när du gör en bugg.",
+      "label": "Felsökningsläge"
+    },
+    "generateAtReview": {
+      "description": "Fyll i saknade smarta fält automatiskt när kort kommer upp under granskning.",
+      "label": "Generera fält under granskning"
+    },
+    "language": {
+      "description": "Välj språk för Smart Notes, eller matcha Anki:s språk.",
+      "label": "Språk",
+      "matchAnki": "Matcha Anki"
+    },
+    "legacy": {
+      "apiKey": "OpenAI API-nyckel",
+      "apiKeyRequired": "En betald OpenAI API-nyckel krävs.",
+      "description": "Anslut en betald API-nyckel och välj en äldre OpenAI-modell.",
+      "getApiKey": "Skaffa en API-nyckel",
+      "host": "OpenAI värd",
+      "hostDescription": "Tillhandahåll en alternativ slutpunkt till OpenAI API.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "Modell OpenAI",
+      "title": "Använd min egen OpenAI-nyckel"
+    },
+    "loading": "Laddar inställningar",
+    "regenerateWhenBatching": {
+      "description": "När du batchbearbetar en grupp av anteckningar, återskapa alla smarta fält från början istället för att bara fylla tomma.",
+      "label": "Återskapa alla smarta fält vid batchbearbetning"
+    },
+    "saveError": "Det gick inte att spara inställningarna",
+    "sections": {
+      "advanced": "Avancerad",
+      "general": "Allmän",
+      "generation": "Generation"
+    },
+    "title": "Inställningar"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Redan en Smart Field ✨",
+    "collisionHint": "har redan en Smart Field — välj ett annat fält, kortlek eller nottyp",
+    "completion": {
+      "descriptionAfter": "anteckningar fylls i när du genererar det.",
+      "descriptionBefore": "på",
+      "methods": {
+        "bulk": {
+          "caption": "Välj noter eller kortlek → högerklicka → ✨ Generera Smart Fields.",
+          "imageAlt": "Anki Webbläsarens sammanhangsmeny med Generera Smart Fields markerad",
+          "title": "I bulk, från webbläsaren"
+        },
+        "card": {
+          "caption": "Klicka på knappen ✨ i redigerarens verktygsfält eller skriv ⌘⇧G.",
+          "imageAlt": "Anki editor verktygsfält med Smart Notes knappen markerad",
+          "title": "Ett kort i taget"
+        },
+        "field": {
+          "caption": "Högerklicka på valfritt fält → Generera Smart Field.",
+          "imageAlt": "Anki-fältets snabbmeny med Generera Smart Field markerad",
+          "title": "Ett enda fält"
+        }
+      },
+      "title": "Din Smart Field är live",
+      "waysToGenerate": "Några sätt att generera det:"
+    },
+    "created": "Smart Field skapad",
+    "dontShowAgain": "Visa inte detta igen",
+    "errors": {
+      "save": "Det gick inte att spara Smart Field",
+      "updateWizardSettings": "Det gick inte att uppdatera guidens inställningar",
+      "writePrompt": "Det gick inte att skriva uppmaningen"
+    },
+    "fieldTypes": {
+      "audio": "Audio",
+      "image": "Bild",
+      "text": "Text"
+    },
+    "loadingModelCatalog": "Laddar modellkatalog...",
+    "modelSettings": {
+      "appliesOnlyToField": "Gäller endast denna Smart Field.",
+      "defaultWithValue": "Standard ({{value}})",
+      "defaultsImages": "Standardvärden › Bilder",
+      "defaultsText": "Standarder › Text",
+      "defaultsVoice": "Standardvärden › Röst",
+      "descriptionChat": "Ställ in AI som skriver detta fält. De flesta fält kan stanna på standardinställningen.",
+      "descriptionImage": "Ställ in AI som ritar detta fält. De flesta fält kan stanna på standardinställningen.",
+      "descriptionTts": "Ställ in rösten som läser detta fält. De flesta fält kan stanna på standardinställningen.",
+      "imageDefault": "bild standard",
+      "imageModel": "Bildmodell",
+      "loadingVoices": "Läser in röster...",
+      "model": "Modell",
+      "pickCustom": "Välj en anpassad modell för detta fält",
+      "reasoning": "{{level}} resonemang",
+      "reasoningHint": "Högre resonemang kan förbättra hårdare generationer, men använder fler poäng.",
+      "reasoningLevel": "Resonemangsnivå",
+      "sharedByEveryField": "Din {{modality}} delas av alla Smart Field som använder den. Byt in den",
+      "textDefault": "text standard",
+      "textModel": "Textmodell",
+      "useMy": "Använd min {{modality}}",
+      "useWebSearch": "Använd webbsökning för detta fält",
+      "voice": "Röst",
+      "voiceDefault": "röst standard",
+      "webSearch": "Webbsökning",
+      "webSearchHint": "Låt det här fältet använda färsk information från webben."
+    },
+    "save": "Spara Smart Field",
+    "sections": {
+      "onWhichNotes": "På vilka lappar?",
+      "whatToGenerate": "Vad vill du generera?",
+      "whichFieldToFill": "Vilket fält ska den fylla i?",
+      "whichFieldToSpeak": "Vilket fält ska det tala?"
+    },
+    "sourceField": "Källa fält",
+    "targetAriaLabel": "Smart Field mål",
+    "testSmartField": "Testa din Smart Field",
+    "titles": {
+      "create": "Ny Smart Field ✨",
+      "duplicate": "Duplicera Smart Field",
+      "edit": "Redigera Smart Field"
+    },
+    "validation": {
+      "chooseField": "Välj ett fält",
+      "chooseNoteType": "Välj en anteckningstyp",
+      "chooseSourceField": "Välj ett källfält",
+      "fieldAlreadyHasSmartField": "{{field}} har redan en Smart Field",
+      "writePrompt": "Skriv en uppmaning"
+    },
+    "writePrompt": "Skriv uppmaning",
+    "writePromptForMe": "Skriv min uppmaning åt mig",
+    "writePromptForMeHint": "Säg vad du vill på vanlig engelska - vi skriver uppmaningen nedan.",
+    "writePromptPlaceholder": "\"Översätt till naturlig engelska...\"",
+    "writing": "Handstil…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "Åtgärder för {{field}}",
+    "addToNoteType": "Lägg till Smart Field till {{noteType}}",
+    "disable": "Inaktivera",
+    "deleting": "Tar bort...",
+    "discord": {
+      "dismissAriaLabel": "Avvisa Discord-inbjudan",
+      "join": "Ansluta sig till",
+      "joinAriaLabel": "Gå med i Smart Notes Discord",
+      "subtitle": "— byta uppmaningar och begära funktioner.",
+      "title": "Kom och säg hej i Discord"
+    },
+    "editAriaLabel": "Redigera {{field}} Smart Field",
+    "emptyState": {
+      "description": "Lägg till Smart Fields för att lägga till text, ljud och bilder till dina kort.",
+      "exampleAnswer": "Hej",
+      "exampleField": "FRÄMRE",
+      "examplePrompt": "bonjour",
+      "spark": "✦",
+      "title": "Dina anteckningar ser lite tomma ut"
+    },
+    "enable": "Aktivera",
+    "errors": {
+      "commandFailed": "Smart Field-kommandot misslyckades"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "Text",
+      "image": "Bild",
+      "tts": "Audio"
+    },
+    "loadingAriaLabel": "Laddar Smart Fields",
+    "newSmartField": "Ny Smart Field",
+    "readsAloud": "Läser {{field}} högt",
+    "review": {
+      "ariaLabel": "Granska Smart Notes på AnkiWeb",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "Avvisa recensionsinbjudan",
+      "subtitle": "Lämna en recension om AnkiWeb för att hjälpa andra Anki-användare att hitta den.",
+      "title": "Gillar du Smart Notes?"
+    },
+    "subtitle": "Lägg till automatiskt genererad text, röst och bilder till dina anteckningar.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "Chattkatalogen saknar modell {{model}}",
+      "missingImageModel": "Bildkatalogen saknar modell {{model}}"
+    },
+    "image": {
+      "cannotFindModel": "Bildkatalogen saknar modell {{model}}",
+      "defaultModel": "Standardmodell",
+      "gptImage15Low": "bästa kvalité / hastighet.",
+      "gptImage2": "samma kostnad, långsammare, högre kvalitet.",
+      "loadingLabel": "Laddar standardbildinställningar",
+      "loadingTitle": "Standardbildinställningar",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Välja en bildmodell",
+      "samplePrompt": "Skapa en bild av en student som studerar hårt med Anki och klarar sina prov.",
+      "saveError": "Det gick inte att spara bildens standardinställningar",
+      "subtitle": "Modellen som din bild Smart Fields använder om inte ett fält fäster sitt eget.",
+      "title": "Standardbildinställningar",
+      "zImageTurbo": "snabbast och billigast."
+    },
+    "layout": {
+      "saveChanges": "Spara ändringar",
+      "saving": "Sparande…",
+      "tryIt": "Prova det"
+    },
+    "text": {
+      "cannotInheritModel": "Textstandard kan inte ärva en annan modell",
+      "defaultModel": "Standardtextmodell",
+      "defaultReasoningLevel": "Standardresonemangsnivå",
+      "enableWebSearch": "Aktivera webbsökning",
+      "higherReasoning": "Högre resonemang kan förbättra hårdare generationer, men använder fler poäng.",
+      "loadingLabel": "Laddar standardtextinställningar",
+      "loadingTitle": "Inställningar för textgenerering",
+      "modelGuidance": "{{auto}} och {{autoMax}} är de Smart Notes rekommenderade modellerna som balanserar prestanda och kostnad. Välj {{auto}} för standarduppgifter och uppgradera till {{autoMax}} om det behövs.",
+      "pickingModel": "💡 Att välja modell",
+      "reasoningLevel": "Resonemangsnivå",
+      "reasoningValues": {
+        "high": "Hög",
+        "low": "Låg",
+        "off": "Av"
+      },
+      "samplePrompt": "Vad är ett mellanrumsupprepningssystem (SRS)?",
+      "saveError": "Det gick inte att spara textens standardinställningar",
+      "subtitle": "Standardinställningar för textgenerering. Enskild Smart Fields kan åsidosätta dessa värden.",
+      "title": "Inställningar för textgenerering",
+      "webSearch": "Webbsökning",
+      "webSearchDescription": "Låt textgenerationer hämta färsk information från webben.",
+      "webSearchWarning": "⚠️ Sökning är dyrt; övervaka dina krediter."
+    },
+    "usage": {
+      "fields_one": "Gäller {{count}}-fältet",
+      "fields_other": "Gäller {{count}}-fält"
+    },
+    "voice": {
+      "browseVoices": "Bläddra bland röster ({{count}})",
+      "cannotLoad": "Det gick inte att ladda röster",
+      "currentDefault": "Aktuell standard",
+      "filters": {
+        "all": "Alla",
+        "female": "Kvinnlig",
+        "gender": "Kön",
+        "language": "Språk",
+        "male": "Manlig",
+        "provider": "Leverantör"
+      },
+      "filterVoices": "Filtrera röster",
+      "loadingLabel": "Laddar standardröstinställningar",
+      "loadingTitle": "Standardröstinställningar",
+      "noVoices": "Inga röster matchar dessa filter.",
+      "saveError": "Det gick inte att spara röststandarder",
+      "searchPlaceholder": "🔍 Sök efter röster...",
+      "searchVoices": "Sök röster",
+      "subtitle": "Rösten som din TTS Smart Fields använder om inte ett fält stiftar sin egen.",
+      "title": "Standardröstinställningar"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "en annan nottyp",
+    "currentlySelectedCard": "För närvarande valt kort",
+    "emptyCard": "(tomt kort)",
+    "errors": {
+      "generateAudio": "Kunde inte generera ljud",
+      "generateImage": "Det gick inte att skapa en bild",
+      "saveResult": "Det gick inte att spara detta resultat på kortet",
+      "testPrompt": "Det gick inte att testa denna prompt"
+    },
+    "fieldRunsOn": "Detta fält fortsätter",
+    "fieldWord_one": "fält",
+    "fieldWord_other": "fält",
+    "generatedImagePreview": "Genererad bildförhandsvisning",
+    "missingFieldsTitle_one": "Saknat fält",
+    "missingFieldsTitle_other": "Saknade fält",
+    "needsFields_one": "Behöver {{count}}-fält",
+    "needsFields_other": "Behöver {{count}}-fält",
+    "notesSelected_one": "{{count}} not vald — begränsa den till en.",
+    "notesSelected_other": "{{count}} anteckningar valda — begränsa den till en.",
+    "pickCard": "Välj ett kort i webbläsaren Anki",
+    "promptPlaceholder": "Skriv en testprompt och hänvisa till fälten på ditt kort med {{braces}}.",
+    "saveToCard": "Spara till kort",
+    "savedTo": "Sparad till {{field}}",
+    "selectCardWith": "Välj en korttyp med",
+    "selectFieldToReadAloud": "Välj ett fält att läsa upp",
+    "selectNewCard": "Välj ett nytt kort i webbläsaren",
+    "selectNoteType": "Vänligen välj en anteckning av typ",
+    "selectedCard": "Valt kort",
+    "selectedDeck": "Valt däck",
+    "selectedNoteType": "Vald anteckningstyp",
+    "selectionAppearsAutomatically": "Ditt val visas här automatiskt.",
+    "sent": "Skickat",
+    "testing": "Testning…",
+    "testResult": "Testresultat",
+    "textToSpeak": "Text att tala",
+    "viewResult": "Visa resultat",
+    "wrongNoteType": "Fel anteckningstyp"
+  },
+  "subscription": {
+    "checking": "Kontrollerar prenumeration",
+    "creditTypes": {
+      "images": "Bilder",
+      "text": "Text",
+      "voice": "Röst"
+    },
+    "creditUsage": "Kreditanvändning",
+    "creditsReset": "Krediter återställs",
+    "daysLeft_one": "Sista dagen",
+    "daysLeft_other": "{{count}} dagar kvar",
+    "errors": {
+      "logout": "Kunde inte logga ut"
+    },
+    "freePlan": "Gratis plan",
+    "freeTrial": "Gratis provperiod",
+    "hero": {
+      "buyCredits": "Köp fler krediter",
+      "freeCreditsResetting": "Dina gratiskrediter återställs",
+      "freePlan": "Du har gratisplanen",
+      "noteLimit": "Du har nått din anteckningsgräns",
+      "outOfCredits": "Du har slut på krediter den här månaden",
+      "outOfFreeCredits": "Du har slut på gratiskrediter den här månaden",
+      "outOfTrialCredits": "Du har slut på provkrediter",
+      "planExpired": "Din plan har löpt ut",
+      "rollover": "Pay-as-you-go-krediter rullar över varje månad - dina för alltid.",
+      "trialDaysLeft_one": "Din provperiod slutar i dag",
+      "trialDaysLeft_other": "{{count}} dagar kvar av din provperiod",
+      "trialEnded": "Din rättegång har avslutats",
+      "trialNoteLimit": "Du har nått gränsen för provanteckningar",
+      "upgradeCollection": "Uppgradera — hela din samling, automatiskt",
+      "upgradeCredits": "Uppgradera för fler krediter",
+      "upgradePaid": "✨ Uppgradera till betald"
+    },
+    "inDays_one": "I dag",
+    "inDays_other": "I {{count}} dagar",
+    "loading": "Laddar prenumeration",
+    "loggingOut": "Loggar ut...",
+    "logOut": "Logga ut",
+    "manageDescription": "Ändra plan, uppdatera betalning eller avbryt.",
+    "manageOrUpgrade": "Hantera eller uppgradera plan",
+    "managePlan": "Hantera plan",
+    "monthlyCreditsUsed": "av månatliga krediter som används",
+    "mostCreditsUsed": "De flesta av denna månads krediter används",
+    "noteLimitReached": "Notera gränsen nådd",
+    "notes": "Anteckningar",
+    "notesUsed": "Använda anteckningar",
+    "notesUsedValue": "{{used}}/{{limit}} används",
+    "outOfCredits": "Utan krediter",
+    "pausedUntilReset": "Generering pausas tills dina krediter återställs.",
+    "plan": "Planera",
+    "planInactive": "Plan inaktiv",
+    "resetsIn": "Återställs in",
+    "resetsInDays_one": "Återställs på 1 dag",
+    "resetsInDays_other": "Återställs om {{count}} dagar",
+    "signedOut": {
+      "localStorage": "Dina smarta fält och inställningar lagras på den här enheten.",
+      "manage": "Logga in för att hantera din plan",
+      "paused": "Generering pausas tills du loggar in.",
+      "title": "Utloggad"
+    },
+    "title": "Konto och användning",
+    "trialCreditsUsed": "av använda provkrediter",
+    "trialEnded": "Rättegången avslutades",
+    "trialEnds": "Rättegången avslutas",
+    "trialNoteLimitReached": "Gränsen för provanteckningar har nåtts",
+    "upgradeToKeepGenerating": "Uppgradera för att fortsätta generera.",
+    "usage": "Användande"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Lämna en recension / se dokument.",
+    "byline": "av Michael Piazza / Rosebud Labs, LLC.",
+    "changelog": "Ändringslogg",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "Det snabbaste sättet att få hjälp, begära en funktion eller rapportera ett fel.",
+      "join": "Ansluta sig till",
+      "title": "Gå med i Discord"
+    },
+    "emailUs": "Maila oss",
+    "feedback": {
+      "description": "Något trasigt eller fel? Skicka ett meddelande till den stackars utvecklaren direkt.",
+      "send": "Skicka den",
+      "title": "Skicka in en bugg / begär en funktion"
+    },
+    "github": "GitHub",
+    "loading": "Laddar support",
+    "title": "Stöd"
+  },
+  "welcome": {
+    "alreadyAccount": "Har du redan ett konto?",
+    "codePlaceholder": "Klistra in din kod",
+    "connect": "Ansluta",
+    "connecting": "Ansluter...",
+    "description": "Lägg till text, tal och bilder till enskilda kort eller hela din kortlek med ett klick.",
+    "errors": {
+      "code": "Det gick inte att ansluta till den koden"
+    },
+    "finishDescription": "Slutför inloggningen i webbläsaren vi öppnade. Detta fönster uppdateras automatiskt.",
+    "finishInBrowser": "Avsluta i din webbläsare",
+    "haveCode": "Har du en kod från hemsidan?",
+    "startTrial": "✨ Starta gratis provperiod ✨",
+    "trialDetails": "Gratis i 7 dagar · varje funktion · inget kreditkort"
+  },
+  "trialEnded": {
+    "description": "Provperioder pågår i 7 dagar eller tills dina provkrediter tar slut.",
+    "features": {
+      "ariaLabel": "Vad uppgraderingen behåller",
+      "batch": "Batch över hela din samling",
+      "images": "Bildgenerering",
+      "premium": "Varje premiummodell och röst",
+      "review": "Generera under granskning"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Gratis månadserbjudande",
+      "description": "Lämna en snabb AnkiWeb recension, få en månad på oss.",
+      "dialogDescription": "Lämna en snabb recension på AnkiWeb och maila oss sedan – vi lägger till en gratis månad med Smart Notes till ditt konto.",
+      "dialogTitle": "Få din gratis månad",
+      "leaveAnkiWebReview": "Lämna en recension om AnkiWeb",
+      "leaveReview": "Lämna en recension",
+      "title": "Få en gratis månad med Smart Notes"
+    },
+    "thanks": "Tack för att du använder Smart Notes ✨",
+    "title": "Din kostnadsfria provperiod har avslutats",
+    "upgradeNow": "Uppgradera nu"
+  }
+}

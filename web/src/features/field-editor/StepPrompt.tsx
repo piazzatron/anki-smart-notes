@@ -18,6 +18,7 @@
  */
 
 import { LoaderCircle, WandSparkles } from "lucide-react"
+import { useTranslation } from "react-i18next"
 
 import { ValidPromptFields } from "@/components/shared/ValidPromptFields"
 import { Button } from "@/components/ui/Button"
@@ -51,10 +52,9 @@ interface StepPromptProps {
 
 // Most people never touch this, so the section says so rather than explaining models.
 const MODEL_SECTION_DESCRIPTIONS: Record<FieldType, string> = {
-  chat: "Set the AI that writes this field. Most fields can stay on the default.",
-  image:
-    "Set the AI that draws this field. Most fields can stay on the default.",
-  tts: "Set the voice that reads this field. Most fields can stay on the default.",
+  chat: "fieldEditor.modelSettings.descriptionChat",
+  image: "fieldEditor.modelSettings.descriptionImage",
+  tts: "fieldEditor.modelSettings.descriptionTts",
 }
 
 export const StepPrompt = ({
@@ -63,6 +63,7 @@ export const StepPrompt = ({
   state,
   voiceCatalog,
 }: StepPromptProps) => {
+  const { t } = useTranslation()
   const { target } = controls.form
   const noteType = state.noteTypes.find((item) => item.id === target.noteTypeId)
   // One tester for the whole step. The model modal runs the same one as the strip below,
@@ -75,14 +76,14 @@ export const StepPrompt = ({
     <div>
       <div>
         {target.fieldType === "tts" ? (
-          <EditorSection label="Which field should it speak?">
+          <EditorSection label={t("fieldEditor.sections.whichFieldToSpeak")}>
             <Select
               onValueChange={(sourceFieldName) =>
                 controls.update({ sourceFieldName })
               }
               value={controls.form.sourceFieldName}
             >
-              <SelectTrigger aria-label="Source field">
+              <SelectTrigger aria-label={t("fieldEditor.sourceField")}>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -103,14 +104,13 @@ export const StepPrompt = ({
                 className="text-[15px] leading-tight font-semibold text-zinc-100"
                 htmlFor="field-editor-write-prompt"
               >
-                Write my prompt for me
-                <span aria-hidden className="ml-1.5">
+                {t("fieldEditor.writePromptForMe")}
+                <span aria-hidden className="ms-1.5">
                   ✨
                 </span>
               </label>
               <p className="mt-1 text-[12px] leading-[1.45] text-ink-muted">
-                Say what you want in plain English — we&apos;ll write the prompt
-                below.
+                {t("fieldEditor.writePromptForMeHint")}
               </p>
               <div className="mt-3 flex gap-2">
                 <input
@@ -125,7 +125,7 @@ export const StepPrompt = ({
                       void controls.generateDraftPrompt()
                     }
                   }}
-                  placeholder='"Translate to natural English…"'
+                  placeholder={t("fieldEditor.writePromptPlaceholder")}
                   value={controls.form.writePrompt}
                 />
                 <Button
@@ -145,12 +145,14 @@ export const StepPrompt = ({
                   ) : (
                     <WandSparkles aria-hidden className="size-3.5" />
                   )}
-                  {controls.form.isGenerating ? "Writing…" : "Write Prompt"}
+                  {controls.form.isGenerating
+                    ? t("fieldEditor.writing")
+                    : t("fieldEditor.writePrompt")}
                 </Button>
               </div>
             </div>
 
-            <EditorSection label="Prompt">
+            <EditorSection label={t("common.prompt")}>
               <textarea
                 className="max-h-[46vh] min-h-[150px] w-full resize-y rounded-md border border-white/10 bg-white/[0.03] px-3 py-2.5 font-mono text-[12px] leading-[1.55] text-zinc-200 outline-none placeholder:text-zinc-700 focus:border-indigo/45"
                 onChange={(event) =>
@@ -161,7 +163,7 @@ export const StepPrompt = ({
                     controls.update({ validPromptFieldsRevealed: true })
                   }
                 }}
-                aria-label="Prompt"
+                aria-label={t("common.prompt")}
                 rows={6}
                 value={controls.form.prompt}
               />
@@ -183,8 +185,8 @@ export const StepPrompt = ({
 
         <EditorSection
           className="mt-7"
-          description={MODEL_SECTION_DESCRIPTIONS[target.fieldType]}
-          label="Model"
+          description={t(MODEL_SECTION_DESCRIPTIONS[target.fieldType])}
+          label={t("fieldEditor.modelSettings.model")}
         >
           <ModelSettingsSection
             catalog={catalog}
@@ -202,7 +204,7 @@ export const StepPrompt = ({
           saveTargetFieldName={
             target.fieldType === "tts" ? undefined : target.targetFieldName
           }
-          title="Test your Smart Field"
+          title={t("fieldEditor.testSmartField")}
         />
       </div>
     </div>

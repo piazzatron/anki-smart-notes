@@ -19,6 +19,7 @@
 
 import { Check, LoaderCircle, Play } from "lucide-react"
 import { useId, useState } from "react"
+import { useTranslation } from "react-i18next"
 
 import { ValidPromptFields } from "@/components/shared/ValidPromptFields"
 import { Button } from "@/components/ui/Button"
@@ -49,6 +50,7 @@ export const PromptTesterStrip = ({
   saveTargetFieldName,
   title,
 }: PromptTesterStripProps) => {
+  const { t } = useTranslation()
   const promptFieldId = useId()
   const { isResultOpen, setIsResultOpen, showResultModal } = field
   const card = usePromptTestCardState(field)
@@ -89,10 +91,10 @@ export const PromptTesterStrip = ({
         field.selectedNote !== null && (
           <div className="mb-3">
             <p className="mb-1.5 text-[11px] text-ink-muted">
-              Select a Field to read aloud
+              {t("promptTester.selectFieldToReadAloud")}
             </p>
             <div
-              aria-label="Select a field to read aloud"
+              aria-label={t("promptTester.selectFieldToReadAloud")}
               className="flex flex-wrap gap-1.5"
               role="group"
             >
@@ -132,7 +134,9 @@ export const PromptTesterStrip = ({
             className="min-h-16 w-full resize-y rounded-md border border-white/10 bg-white/[0.03] px-3 py-2.5 font-mono text-[12px] leading-[1.55] text-zinc-200 transition outline-none placeholder:text-zinc-600 focus:border-indigo/45"
             id={promptFieldId}
             onChange={(event) => field.setPrompt?.(event.target.value)}
-            placeholder="Write a test prompt, referencing fields on your card with {{ double curly brackets }}."
+            placeholder={t("promptTester.promptPlaceholder", {
+              braces: "{{ double curly brackets }}",
+            })}
             rows={2}
             value={field.prompt}
           />
@@ -154,7 +158,7 @@ export const PromptTesterStrip = ({
                   className="shrink-0 cursor-pointer text-[11px] text-indigo-soft transition hover:text-indigo-soft/80"
                   onClick={() => setIsResultOpen(true)}
                 >
-                  View result
+                  {t("promptTester.viewResult")}
                 </button>
               ) : undefined
             }
@@ -212,6 +216,7 @@ export const PromptTestButton = ({
   className = "",
   field,
 }: PromptTestButtonProps) => {
+  const { t } = useTranslation()
   const card = usePromptTestCardState(field)
 
   return (
@@ -226,7 +231,7 @@ export const PromptTestButton = ({
       ) : (
         <Play aria-hidden className="size-3.5 fill-current" />
       )}
-      {field.isTesting ? "Testing…" : "Test"}
+      {field.isTesting ? t("promptTester.testing") : t("common.test")}
     </Button>
   )
 }
@@ -246,6 +251,7 @@ export const SaveResultButton = ({
   onError,
   token,
 }: SaveResultButtonProps) => {
+  const { t } = useTranslation()
   const [status, setStatus] = useState<"idle" | "saving" | "saved">("idle")
 
   const save = async () => {
@@ -255,7 +261,7 @@ export const SaveResultButton = ({
       setStatus("saved")
     } catch (error) {
       setStatus("idle")
-      onError(errorMessage(error, "Could not save this result to the card"))
+      onError(errorMessage(error, t("promptTester.errors.saveResult")))
     }
   }
 
@@ -270,10 +276,10 @@ export const SaveResultButton = ({
       )}
       {status === "saved" && <Check aria-hidden className="size-3.5" />}
       {status === "saved"
-        ? `Saved to ${fieldName}`
+        ? t("promptTester.savedTo", { field: fieldName })
         : status === "saving"
-          ? "Saving…"
-          : "Save to card"}
+          ? t("common.saving")
+          : t("promptTester.saveToCard")}
     </Button>
   )
 }

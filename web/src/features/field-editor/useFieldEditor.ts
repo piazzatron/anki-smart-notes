@@ -18,6 +18,7 @@
  */
 
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
 import { errorMessage } from "@/lib/errors"
 import { trackAnalyticsEvent } from "@/services/analytics"
@@ -80,6 +81,7 @@ export const useFieldEditor = ({
   onClose,
   state,
 }: UseFieldEditorArgs): FieldEditorControls => {
+  const { t } = useTranslation()
   const [form, setForm] = useState(() =>
     createFieldEditorDraft(state, {
       field,
@@ -147,7 +149,7 @@ export const useFieldEditor = ({
       update({ prompt: result.prompt })
     } catch (error) {
       update({
-        error: errorMessage(error, "Could not write the prompt"),
+        error: errorMessage(error, t("fieldEditor.errors.writePrompt")),
       })
     } finally {
       update({ isGenerating: false })
@@ -185,7 +187,7 @@ export const useFieldEditor = ({
       update({ isSaving: false, step: 3 })
     } catch (error) {
       update({
-        error: errorMessage(error, "Could not save Smart Field"),
+        error: errorMessage(error, t("fieldEditor.errors.save")),
         isSaving: false,
       })
     }
@@ -196,7 +198,10 @@ export const useFieldEditor = ({
       await saveSettings({ ...state.settings, showWizardCompletion: false })
     } catch (error) {
       update({
-        error: errorMessage(error, "Could not update wizard settings"),
+        error: errorMessage(
+          error,
+          t("fieldEditor.errors.updateWizardSettings"),
+        ),
       })
     }
   }

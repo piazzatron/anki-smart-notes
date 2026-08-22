@@ -1,5 +1,7 @@
 import { AlertCircle, FileText } from "lucide-react"
+import i18next from "i18next"
 import { Fragment, type ReactNode } from "react"
+import { useTranslation } from "react-i18next"
 
 import { Button } from "@/components/ui/Button"
 import { openAnkiBrowser } from "@/services/commands"
@@ -34,6 +36,7 @@ export const SelectedTestCard = ({
   selection,
   showNoteTypeMismatch,
 }: SelectedTestCardProps) => {
+  const { t } = useTranslation()
   if (note === null) {
     return (
       <div
@@ -42,7 +45,7 @@ export const SelectedTestCard = ({
         <FileText aria-hidden className="size-3.5 shrink-0 text-ink-muted" />
         <div className="min-w-0 flex-1">
           <p className="text-xs font-semibold text-ink">
-            Pick a card in the Anki Browser
+            {t("promptTester.pickCard")}
           </p>
           {!compact && emptySlotHint({ requiredNoteTypeName, selection })}
         </div>
@@ -50,7 +53,7 @@ export const SelectedTestCard = ({
           className="shrink-0 px-3 py-[5px] text-[11.5px]"
           onClick={() => void openAnkiBrowser()}
         >
-          Select a new card in the browser
+          {t("promptTester.selectNewCard")}
         </Button>
       </div>
     )
@@ -63,7 +66,9 @@ export const SelectedTestCard = ({
   const cannotRun = showNoteTypeMismatch || missingFieldNames.length > 0
   const cardTitle =
     firstFieldValue === undefined || firstFieldValue === "" ? (
-      <span className="text-zinc-600 italic">(empty card)</span>
+      <span className="text-zinc-600 italic">
+        {t("promptTester.emptyCard")}
+      </span>
     ) : (
       firstFieldValue
     )
@@ -77,14 +82,21 @@ export const SelectedTestCard = ({
         <p className="min-w-0 flex-1 truncate text-[11.5px] text-ink-muted">
           {showNoteTypeMismatch ? (
             <>
-              Please select a note of type{" "}
+              {t("promptTester.selectNoteType", {
+                noteType: "",
+              })}{" "}
               <NoteTypeName
-                name={requiredNoteTypeName ?? "another note type"}
+                name={
+                  requiredNoteTypeName ??
+                  i18next.t("promptTester.anotherNoteType")
+                }
               />
             </>
           ) : (
             <>
-              Needs {missingFieldNames.length === 1 ? "field" : "fields"}{" "}
+              {t("promptTester.needsFields", {
+                count: missingFieldNames.length,
+              })}{" "}
               {missingFieldNames.map((fieldName, index) => (
                 <Fragment key={fieldName}>
                   {index > 0 && " "}
@@ -98,7 +110,7 @@ export const SelectedTestCard = ({
           className="shrink-0 px-3 py-[5px] text-[11.5px]"
           onClick={() => void openAnkiBrowser()}
         >
-          Select a new card in the browser
+          {t("promptTester.selectNewCard")}
         </Button>
       </div>
     )
@@ -109,7 +121,7 @@ export const SelectedTestCard = ({
       <div className="flex h-[54px] min-w-0 items-center gap-3 rounded-lg border border-white/10 bg-white/[0.02] px-3">
         <div className="min-w-0 flex-1">
           <p className="mb-[3px] text-[10px] font-medium tracking-[0.04em] text-ink-muted uppercase">
-            Currently selected card
+            {t("promptTester.currentlySelectedCard")}
           </p>
           <div className="flex min-w-0 items-baseline gap-2">
             <p className="min-w-0 shrink truncate font-mono text-[12.5px] text-ink">
@@ -125,7 +137,7 @@ export const SelectedTestCard = ({
           className="shrink-0 px-3 py-[5px] text-[11.5px]"
           onClick={() => void openAnkiBrowser()}
         >
-          Select a new card in the browser
+          {t("promptTester.selectNewCard")}
         </Button>
       </div>
     )
@@ -140,13 +152,13 @@ export const SelectedTestCard = ({
       </p>
       <div className="flex gap-3.5 px-3 pt-1 pb-[9px] text-[11px] text-zinc-400">
         <span className={showNoteTypeMismatch ? "text-amber" : undefined}>
-          <span className="text-ink-faint">Note type</span>{" "}
+          <span className="text-ink-faint">{t("common.noteType")}</span>{" "}
           <span className={showNoteTypeMismatch ? "font-semibold" : undefined}>
             {noteTypeName}
           </span>
         </span>
         <span className="truncate">
-          <span className="text-ink-faint">Deck</span> {deckName}
+          <span className="text-ink-faint">{t("common.deck")}</span> {deckName}
         </span>
       </div>
 
@@ -161,7 +173,9 @@ export const SelectedTestCard = ({
                 {fieldName}
               </span>
               {value === "" ? (
-                <span className="text-zinc-600 italic">empty</span>
+                <span className="text-zinc-600 italic">
+                  {t("common.empty")}
+                </span>
               ) : (
                 <span className="truncate text-zinc-200">{value}</span>
               )}
@@ -171,18 +185,24 @@ export const SelectedTestCard = ({
       )}
 
       {showNoteTypeMismatch && (
-        <CardProblem title="Wrong note type">
-          This field runs on{" "}
-          <NoteTypeName name={requiredNoteTypeName ?? "another note type"} />
+        <CardProblem title={t("promptTester.wrongNoteType")}>
+          {t("promptTester.fieldRunsOn")}{" "}
+          <NoteTypeName
+            name={
+              requiredNoteTypeName ?? i18next.t("promptTester.anotherNoteType")
+            }
+          />
         </CardProblem>
       )}
 
       {!showNoteTypeMismatch && missingFieldNames.length > 0 && (
         <CardProblem
-          title={`Missing field${missingFieldNames.length === 1 ? "" : "s"}`}
+          title={t("promptTester.missingFieldsTitle", {
+            count: missingFieldNames.length,
+          })}
         >
-          Please select a card type with{" "}
-          {missingFieldNames.length === 1 ? "field" : "fields"}{" "}
+          {t("promptTester.selectCardWith")}{" "}
+          {t("promptTester.fieldWord", { count: missingFieldNames.length })}{" "}
           {missingFieldNames.map((fieldName) => (
             <FieldName key={fieldName} name={fieldName} />
           ))}
@@ -216,7 +236,7 @@ const CardProblem = ({
       className="shrink-0 self-center px-3 py-[5px] text-[11.5px]"
       onClick={() => void openAnkiBrowser()}
     >
-      Select a new card in the browser
+      {i18next.t("promptTester.selectNewCard")}
     </Button>
   </div>
 )
@@ -230,7 +250,7 @@ const emptySlotHint = ({
   if (selection !== null && selection.note === null && selection.count > 1) {
     return (
       <p className="mt-0.5 text-[11px] leading-[1.5] text-ink-muted">
-        {selection.count} notes selected — narrow it to one.
+        {i18next.t("promptTester.notesSelected", { count: selection.count })}
       </p>
     )
   }
@@ -238,14 +258,15 @@ const emptySlotHint = ({
   if (requiredNoteTypeName === undefined) {
     return (
       <p className="mt-0.5 text-[11px] leading-[1.5] text-ink-muted">
-        Your selection appears here automatically.
+        {i18next.t("promptTester.selectionAppearsAutomatically")}
       </p>
     )
   }
 
   return (
     <p className="mt-1 flex flex-wrap items-baseline gap-x-1.5 gap-y-1 text-[11px] leading-[1.5] text-ink-muted">
-      This field runs on <NoteTypeName name={requiredNoteTypeName} />
+      {i18next.t("promptTester.fieldRunsOn")}{" "}
+      <NoteTypeName name={requiredNoteTypeName} />
     </p>
   )
 }

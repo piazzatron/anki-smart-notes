@@ -1,0 +1,499 @@
+{
+  "common": {
+    "allDecks": "Alle dekke",
+    "auto": "Outo",
+    "autoMax": "Auto MAX",
+    "back": "Terug",
+    "bestValueCost": "Beste waarde, 0,3× koste",
+    "cancel": "Kanselleer",
+    "close": "Maak toe",
+    "connection": {
+      "connecting": "Koppel tans aan Anki …",
+      "reconnecting": "Herkoppel tans aan Anki …"
+    },
+    "days_one": "1 dag",
+    "days_other": "{{count}} dae",
+    "deck": "Dek",
+    "default": "Verstek",
+    "delete": "Vee uit",
+    "done": "Klaar",
+    "duplicate": "Duplikaat",
+    "edit": "Wysig",
+    "empty": "leeg",
+    "field": "Veld",
+    "free": "Gratis",
+    "discardChanges": "Gooi veranderinge weg",
+    "discardUnsavedChanges": {
+      "description": "Jou veranderinge aan hierdie verstekinstellings is nie gestoor nie.",
+      "title": "Gooi ongestoorde veranderinge weg?"
+    },
+    "dismissError": "Maak fout toe",
+    "feedback": {
+      "description": "Stuur 'n foutverslag, kenmerkversoek of ander terugvoer aan die ontwikkelaar.",
+      "error": "Kon nie terugvoer stuur nie",
+      "label": "Terugvoer",
+      "placeholder": "'n Fout, 'n idee, enigiets - dit gaan reguit na die ontwikkelaar.",
+      "send": "Stuur",
+      "sending": "Stuur tans …",
+      "sent": "Terugvoer gestuur. Ons sal binnekort kontak maak.",
+      "title": "Stuur terugvoer"
+    },
+    "notNow": "Nie nou nie",
+    "other": "Ander",
+    "placeholderScreen": "Hierdie skerm is volgende in die herbou.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "Meld aan",
+    "signInLower": "Meld aan",
+    "unlimited": "Onbeperk",
+    "upgradeSparkles": "✨ Gradeer op ✨",
+    "multiplierCost": "{{multiplier}}× koste",
+    "next": "Volgende",
+    "noteType": "Nota Tipe",
+    "optional": "opsioneel",
+    "prompt": "Prompt",
+    "saving": "Stoor tans …",
+    "test": "Toets",
+    "validFields": "Geldige velde:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Terugvoer",
+    "nav": {
+      "defaultsImages": "Standaard prentinstellings",
+      "defaultsText": "Verstek teks instellings",
+      "defaultsVoice": "Versteksteminstellings",
+      "image": "Beeld",
+      "settings": "Instellings",
+      "smartFields": "Smart Fields",
+      "subscription": "Rekening en gebruik",
+      "support": "Ondersteuning",
+      "text": "Teks",
+      "voice": "Stem"
+    },
+    "sections": "Smart Notes afdelings",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Uitgebreide aantekening om kwessies te help diagnoseer. Sluit hierdie logs in wanneer 'n fout ingedien word.",
+      "label": "Ontfoutmodus"
+    },
+    "generateAtReview": {
+      "description": "Vul ontbrekende slimvelde outomaties in soos kaarte ter sprake kom.",
+      "label": "Genereer velde tydens hersiening"
+    },
+    "language": {
+      "description": "Kies die taal vir Smart Notes, of pas by Anki se taal.",
+      "label": "Taal",
+      "matchAnki": "Pas Anki"
+    },
+    "legacy": {
+      "apiKey": "OpenAI API sleutel",
+      "apiKeyRequired": "'n Betaalde OpenAI API-sleutel word vereis.",
+      "description": "Koppel 'n betaalde API-sleutel en kies 'n verouderde OpenAI-model.",
+      "getApiKey": "Kry 'n API-sleutel",
+      "host": "OpenAI gasheer",
+      "hostDescription": "Verskaf 'n alternatiewe eindpunt vir die OpenAI API.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "OpenAI model",
+      "title": "Gebruik my eie OpenAI sleutel"
+    },
+    "loading": "Laai instellings",
+    "regenerateWhenBatching": {
+      "description": "Wanneer 'n groep notas in 'n bondel verwerk word, herskep elke slim veld van nuuts af in plaas daarvan om net leës te vul.",
+      "label": "Regenereer alle slim velde tydens bondelverwerking"
+    },
+    "saveError": "Kon nie instellings stoor nie",
+    "sections": {
+      "advanced": "Gevorderd",
+      "general": "Algemeen",
+      "generation": "Generasie"
+    },
+    "title": "Instellings"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Reeds 'n Smart Field ✨",
+    "collisionHint": "het reeds 'n Smart Field - kies 'n ander veld, dek of noottipe",
+    "completion": {
+      "descriptionAfter": "notas vul in wanneer jy dit genereer.",
+      "descriptionBefore": "aan",
+      "methods": {
+        "bulk": {
+          "caption": "Kies notas of dek → regskliek → ✨ Genereer Smart Fields.",
+          "imageAlt": "Anki Blaaier konteks kieslys met Genereer Smart Fields uitgelig",
+          "title": "In grootmaat, vanaf die blaaier"
+        },
+        "card": {
+          "caption": "Klik die ✨-knoppie in die redigeernutsbalk of tik ⌘⇧G.",
+          "imageAlt": "Anki redigeerdernutsbalk met die Smart Notes-knoppie uitgelig",
+          "title": "Een kaart op 'n slag"
+        },
+        "field": {
+          "caption": "Regskliek op enige veld → Genereer Smart Field.",
+          "imageAlt": "Anki veld konteks kieslys met Genereer Smart Field uitgelig",
+          "title": "Een veld"
+        }
+      },
+      "title": "Jou Smart Field is regstreeks",
+      "waysToGenerate": "'n Paar maniere om dit te genereer:"
+    },
+    "created": "Smart Field geskep",
+    "dontShowAgain": "Moenie dit weer wys nie",
+    "errors": {
+      "save": "Kon nie Smart Field stoor nie",
+      "updateWizardSettings": "Kon nie towenaarinstellings opdateer nie",
+      "writePrompt": "Kon nie die versoek skryf nie"
+    },
+    "fieldTypes": {
+      "audio": "Oudio",
+      "image": "Beeld",
+      "text": "Teks"
+    },
+    "loadingModelCatalog": "Laai tans modelkatalogus …",
+    "modelSettings": {
+      "appliesOnlyToField": "Slegs van toepassing op hierdie Smart Field.",
+      "defaultWithValue": "Verstek ({{value}})",
+      "defaultsImages": "Standaarde › Beelde",
+      "defaultsText": "Verstek › Teks",
+      "defaultsVoice": "Verstekste › Stem",
+      "descriptionChat": "Stel die KI wat hierdie veld skryf. Die meeste velde kan op die verstek bly.",
+      "descriptionImage": "Stel die KI wat hierdie veld teken. Die meeste velde kan op die verstek bly.",
+      "descriptionTts": "Stel die stem wat hierdie veld lees. Die meeste velde kan op die verstek bly.",
+      "imageDefault": "beeld verstek",
+      "imageModel": "Beeld model",
+      "loadingVoices": "Laai tans stemme …",
+      "model": "Model",
+      "pickCustom": "Kies 'n pasgemaakte model vir hierdie veld",
+      "reasoning": "{{level}} redenasie",
+      "reasoningHint": "Hoër redenasie kan moeiliker generasies verbeter, maar gebruik meer krediete.",
+      "reasoningLevel": "Redeneringsvlak",
+      "sharedByEveryField": "Jou {{modality}} word gedeel deur elke Smart Field wat dit gebruik. Verander dit in",
+      "textDefault": "teks verstek",
+      "textModel": "Teks model",
+      "useMy": "Gebruik my {{modality}}",
+      "useWebSearch": "Gebruik websoektog vir hierdie veld",
+      "voice": "Stem",
+      "voiceDefault": "stem verstek",
+      "webSearch": "Websoektog",
+      "webSearchHint": "Laat hierdie veld vars inligting van die web gebruik."
+    },
+    "save": "Stoor Smart Field",
+    "sections": {
+      "onWhichNotes": "Op watter note?",
+      "whatToGenerate": "Wat wil jy genereer?",
+      "whichFieldToFill": "Watter veld moet dit vul?",
+      "whichFieldToSpeak": "Watter veld moet dit praat?"
+    },
+    "sourceField": "Bron veld",
+    "targetAriaLabel": "Smart Field teiken",
+    "testSmartField": "Toets jou Smart Field",
+    "titles": {
+      "create": "Nuwe Smart Field ✨",
+      "duplicate": "Duplikaat Smart Field",
+      "edit": "Wysig Smart Field"
+    },
+    "validation": {
+      "chooseField": "Kies 'n veld",
+      "chooseNoteType": "Kies 'n notatipe",
+      "chooseSourceField": "Kies 'n bronveld",
+      "fieldAlreadyHasSmartField": "{{field}} het reeds 'n Smart Field",
+      "writePrompt": "Skryf 'n opdrag"
+    },
+    "writePrompt": "Skryf prompt",
+    "writePromptForMe": "Skryf my opdrag vir my",
+    "writePromptForMeHint": "Sê wat jy wil in gewone Engels - ons sal die opdrag hieronder skryf.",
+    "writePromptPlaceholder": "\"Vertaal na natuurlike Engels...\"",
+    "writing": "Skryf tans …"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "Aksies vir {{field}}",
+    "addToNoteType": "Voeg Smart Field by {{noteType}}",
+    "disable": "Deaktiveer",
+    "deleting": "Vee tans uit …",
+    "discord": {
+      "dismissAriaLabel": "Verwerp Discord-uitnodiging",
+      "join": "Sluit aan",
+      "joinAriaLabel": "Sluit aan by die Smart Notes Discord",
+      "subtitle": "- ruil opdragte en versoek kenmerke.",
+      "title": "Kom sê hallo in die Discord"
+    },
+    "editAriaLabel": "Wysig {{field}} Smart Field",
+    "emptyState": {
+      "description": "Voeg Smart Fields by om teks, oudio en beelde by jou kaarte te voeg.",
+      "exampleAnswer": "Hallo",
+      "exampleField": "VOOR",
+      "examplePrompt": "bonjour",
+      "spark": "✦",
+      "title": "Jou notas lyk 'n bietjie leeg"
+    },
+    "enable": "Aktiveer",
+    "errors": {
+      "commandFailed": "Smart Field opdrag het misluk"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "Teks",
+      "image": "Beeld",
+      "tts": "Oudio"
+    },
+    "loadingAriaLabel": "Laai tans Smart Fields",
+    "newSmartField": "Nuwe Smart Field",
+    "readsAloud": "Lees {{field}} hardop",
+    "review": {
+      "ariaLabel": "Hersien Smart Notes op AnkiWeb",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "Verwerp resensie-uitnodiging",
+      "subtitle": "Skryf 'n resensie oor AnkiWeb om ander Anki-gebruikers te help om dit te vind.",
+      "title": "Geniet jy Smart Notes?"
+    },
+    "subtitle": "Voeg outomaties gegenereerde teks, stem en beelde by jou notas.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "Kletskatalogus ontbreek model {{model}}",
+      "missingImageModel": "Beeldkatalogus ontbreek model {{model}}"
+    },
+    "image": {
+      "cannotFindModel": "Beeldkatalogus ontbreek model {{model}}",
+      "defaultModel": "Verstek model",
+      "gptImage15Low": "beste kwaliteit / spoed afweging.",
+      "gptImage2": "dieselfde koste, stadiger, hoër gehalte.",
+      "loadingLabel": "Laai tans verstekbeeldinstellings",
+      "loadingTitle": "Standaard prentinstellings",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (Laag / Medium)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Kies 'n beeldmodel",
+      "samplePrompt": "Genereer 'n beeld van 'n student wat hard met Anki studeer en hul toetse slaag.",
+      "saveError": "Kon nie prentverstekings stoor nie",
+      "subtitle": "Die model wat jou beeld Smart Fields gebruik, tensy 'n veld sy eie vaspen.",
+      "title": "Standaard prentinstellings",
+      "zImageTurbo": "vinnigste en goedkoopste."
+    },
+    "layout": {
+      "saveChanges": "Stoor veranderinge",
+      "saving": "Stoor tans …",
+      "tryIt": "Probeer dit"
+    },
+    "text": {
+      "cannotInheritModel": "Teks verstek kan nie 'n ander model erf nie",
+      "defaultModel": "Verstek teksmodel",
+      "defaultReasoningLevel": "Verstek redenasievlak",
+      "enableWebSearch": "Aktiveer websoektog",
+      "higherReasoning": "Hoër redenasie kan moeiliker generasies verbeter, maar gebruik meer krediete.",
+      "loadingLabel": "Laai verstek teksinstellings",
+      "loadingTitle": "Teksgenerasie-instellings",
+      "modelGuidance": "{{auto}} en {{autoMax}} is die Smart Notes aanbevole modelle wat prestasie en koste balanseer. Kies {{auto}} vir standaard take en gradeer op na {{autoMax}} indien nodig.",
+      "pickingModel": "💡 Kies 'n model",
+      "reasoningLevel": "Redeneringsvlak",
+      "reasoningValues": {
+        "high": "Hoog",
+        "low": "Laag",
+        "off": "Af"
+      },
+      "samplePrompt": "Wat is 'n gespasieerde herhalingstelsel (SRS)?",
+      "saveError": "Kon nie teksverstekings stoor nie",
+      "subtitle": "Verstekinstellings vir teksgenerering. Individuele Smart Fields kan hierdie waardes ignoreer.",
+      "title": "Teksgenerasie-instellings",
+      "webSearch": "Websoektog",
+      "webSearchDescription": "Laat teksgenerasies vars inligting van die web af intrek.",
+      "webSearchWarning": "⚠️ Soektog is duur; monitor jou krediete."
+    },
+    "usage": {
+      "fields_one": "Van toepassing op {{count}}-veld",
+      "fields_other": "Van toepassing op {{count}}-velde"
+    },
+    "voice": {
+      "browseVoices": "Blaai deur stemme ({{count}})",
+      "cannotLoad": "Kon nie stemme laai nie",
+      "currentDefault": "Huidige verstek",
+      "filters": {
+        "all": "Almal",
+        "female": "Vroulik",
+        "gender": "Geslag",
+        "language": "Taal",
+        "male": "Manlik",
+        "provider": "Verskaffer"
+      },
+      "filterVoices": "Filtreer stemme",
+      "loadingLabel": "Laai tans versteksteminstellings",
+      "loadingTitle": "Versteksteminstellings",
+      "noVoices": "Geen stemme pas by hierdie filters nie.",
+      "saveError": "Kon nie stem verstekke stoor nie",
+      "searchPlaceholder": "🔍 Soek stemme …",
+      "searchVoices": "Soek stemme",
+      "subtitle": "Die stem wat jou TTS Smart Fields gebruik, tensy 'n veld sy eie vaspen.",
+      "title": "Versteksteminstellings"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "'n ander noottipe",
+    "currentlySelectedCard": "Kaart wat tans gekies is",
+    "emptyCard": "(leë kaart)",
+    "errors": {
+      "generateAudio": "Kon nie oudio genereer nie",
+      "generateImage": "Kon nie 'n prent genereer nie",
+      "saveResult": "Kon nie hierdie resultaat op die kaart stoor nie",
+      "testPrompt": "Kon nie hierdie boodskap toets nie"
+    },
+    "fieldRunsOn": "Hierdie veld loop aan",
+    "fieldWord_one": "veld",
+    "fieldWord_other": "velde",
+    "generatedImagePreview": "Gegenereerde prentvoorskou",
+    "missingFieldsTitle_one": "Ontbrekende veld",
+    "missingFieldsTitle_other": "Ontbrekende velde",
+    "needsFields_one": "Benodig {{count}} veld",
+    "needsFields_other": "Benodig {{count}} velde",
+    "notesSelected_one": "{{count}} noot gekies - maak dit tot een beperk.",
+    "notesSelected_other": "{{count}} notas gekies - maak dit tot een beperk.",
+    "pickCard": "Kies 'n kaart in die Anki-blaaier",
+    "promptPlaceholder": "Skryf 'n toetsaanwysing, met verwysing na velde op jou kaart met {{braces}}.",
+    "saveToCard": "Stoor op kaart",
+    "savedTo": "Gestoor na {{field}}",
+    "selectCardWith": "Kies asseblief 'n kaarttipe met",
+    "selectFieldToReadAloud": "Kies 'n veld om hardop te lees",
+    "selectNewCard": "Kies 'n nuwe kaart in die blaaier",
+    "selectNoteType": "Kies asseblief 'n nota van tipe",
+    "selectedCard": "Geselekteerde kaart",
+    "selectedDeck": "Geselekteerde dek",
+    "selectedNoteType": "Geselekteerde notatipe",
+    "selectionAppearsAutomatically": "Jou keuse verskyn outomaties hier.",
+    "sent": "Gestuur",
+    "testing": "Toets tans …",
+    "testResult": "Toetsresultaat",
+    "textToSpeak": "Teks om te praat",
+    "viewResult": "Bekyk resultaat",
+    "wrongNoteType": "Verkeerde nota tipe"
+  },
+  "subscription": {
+    "checking": "Gaan tans intekening na",
+    "creditTypes": {
+      "images": "Beelde",
+      "text": "Teks",
+      "voice": "Stem"
+    },
+    "creditUsage": "Kredietgebruik",
+    "creditsReset": "Krediete teruggestel",
+    "daysLeft_one": "Laaste dag",
+    "daysLeft_other": "{{count}} dae oor",
+    "errors": {
+      "logout": "Kon nie uitteken nie"
+    },
+    "freePlan": "Gratis plan",
+    "freeTrial": "Gratis proeflopie",
+    "hero": {
+      "buyCredits": "Koop meer krediete",
+      "freeCreditsResetting": "Jou gratis krediete word teruggestel",
+      "freePlan": "Jy is op die gratis plan",
+      "noteLimit": "Jy het jou notalimiet bereik",
+      "outOfCredits": "Jy het hierdie maand sonder krediet",
+      "outOfFreeCredits": "Jy het hierdie maand nie meer gratis krediete nie",
+      "outOfTrialCredits": "Jy het nie proefkrediete nie",
+      "planExpired": "Jou plan het verval",
+      "rollover": "Betaal-soos-jy-gaan-krediete rol elke maand oor – joune vir altyd.",
+      "trialDaysLeft_one": "Jou proeftydperk eindig vandag",
+      "trialDaysLeft_other": "{{count}} dae oor in jou proeflopie",
+      "trialEnded": "Jou proeflopie het geëindig",
+      "trialNoteLimit": "Jy het jou proefnootlimiet bereik",
+      "upgradeCollection": "Gradeer op - jou hele versameling, outomaties",
+      "upgradeCredits": "Gradeer op vir meer krediete",
+      "upgradePaid": "✨ Gradeer op na betaald"
+    },
+    "inDays_one": "Vandag",
+    "inDays_other": "In {{count}} dae",
+    "loading": "Laai intekening",
+    "loggingOut": "Meld tans af …",
+    "logOut": "Teken uit",
+    "manageDescription": "Verander plan, dateer betaling op of kanselleer.",
+    "manageOrUpgrade": "Bestuur of gradeer plan op",
+    "managePlan": "Bestuur plan",
+    "monthlyCreditsUsed": "van maandelikse krediete gebruik",
+    "mostCreditsUsed": "Die meeste van hierdie maand se krediete word gebruik",
+    "noteLimitReached": "Notalimiet bereik",
+    "notes": "Notas",
+    "notesUsed": "Notas gebruik",
+    "notesUsedValue": "{{used}}/{{limit}} gebruik",
+    "outOfCredits": "Uit krediete",
+    "pausedUntilReset": "Generasie word onderbreek totdat jou krediete teruggestel is.",
+    "plan": "Beplan",
+    "planInactive": "Beplan onaktief",
+    "resetsIn": "Stel terug in",
+    "resetsInDays_one": "Stel oor 1 dag terug",
+    "resetsInDays_other": "Herstel in {{count}} dae",
+    "signedOut": {
+      "localStorage": "Jou slim velde en instellings word op hierdie toestel gestoor.",
+      "manage": "Meld aan om jou plan te bestuur",
+      "paused": "Generasie word onderbreek totdat jy aanmeld.",
+      "title": "Uitgemeld"
+    },
+    "title": "Rekening en gebruik",
+    "trialCreditsUsed": "van proefkrediete gebruik",
+    "trialEnded": "Verhoor geëindig",
+    "trialEnds": "Verhoor eindig",
+    "trialNoteLimitReached": "Proefnootlimiet bereik",
+    "upgradeToKeepGenerating": "Gradeer op om aan te hou genereer.",
+    "usage": "Gebruik"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Laat 'n resensie / sien dokumente.",
+    "byline": "deur Michael Piazza / Rosebud Labs, LLC.",
+    "changelog": "Veranderlogboek",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "Die vinnigste manier om hulp te kry, 'n kenmerk aan te vra of 'n fout aan te meld.",
+      "join": "Sluit aan",
+      "title": "Sluit aan by die Discord"
+    },
+    "emailUs": "E-pos ons",
+    "feedback": {
+      "description": "Iets stukkend of verkeerd? Stuur 'n boodskap aan die arme ontwikkelaar direk.",
+      "send": "Stuur dit",
+      "title": "Dien 'n fout in / versoek 'n kenmerk"
+    },
+    "github": "GitHub",
+    "loading": "Laai ondersteuning",
+    "title": "Ondersteuning"
+  },
+  "welcome": {
+    "alreadyAccount": "Het jy reeds 'n rekening?",
+    "codePlaceholder": "Plak jou kode",
+    "connect": "Koppel",
+    "connecting": "Koppel tans …",
+    "description": "Voeg teks, spraak en beelde by individuele kaarte of jou hele dek in een klik.",
+    "errors": {
+      "code": "Kon nie met daardie kode koppel nie"
+    },
+    "finishDescription": "Voltooi aanmelding in die blaaier wat ons oopgemaak het. Hierdie venster sal outomaties opgedateer word.",
+    "finishInBrowser": "Voltooi in jou blaaier",
+    "haveCode": "Het jy 'n kode van die webwerf af?",
+    "startTrial": "✨ Begin gratis proeflopie ✨",
+    "trialDetails": "Gratis vir 7 dae · elke kenmerk · geen kredietkaart nie"
+  },
+  "trialEnded": {
+    "description": "Proewe duur 7 dae of totdat jou proefkrediete opraak.",
+    "features": {
+      "ariaLabel": "Wat opgradering hou",
+      "batch": "Bondel oor jou hele versameling",
+      "images": "Beeld generasie",
+      "premium": "Elke premium model en stem",
+      "review": "Genereer tydens hersiening"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Gratis maand aanbod",
+      "description": "Laat 'n vinnige AnkiWeb-oorsig, kry 'n maand gratis.",
+      "dialogDescription": "Laat 'n vinnige resensie oor AnkiWeb, dan stuur 'n e-pos aan ons - ons sal 'n gratis maand van Smart Notes by jou rekening voeg.",
+      "dialogTitle": "Kry jou gratis maand",
+      "leaveAnkiWebReview": "Skryf 'n resensie oor AnkiWeb",
+      "leaveReview": "Laat 'n resensie",
+      "title": "Kry 'n gratis maand van Smart Notes"
+    },
+    "thanks": "Dankie dat jy Smart Notes gebruik ✨",
+    "title": "Jou gratis proeftydperk het geëindig",
+    "upgradeNow": "Gradeer nou op"
+  }
+}

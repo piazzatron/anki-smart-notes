@@ -20,6 +20,7 @@
 import { ChevronLeft, ChevronRight, LoaderCircle, X } from "lucide-react"
 import type { ReactNode } from "react"
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
 import { Button } from "@/components/ui/Button"
 import { Dialog, DialogTakeover, DialogTitle } from "@/components/ui/Dialog"
@@ -53,9 +54,9 @@ interface FieldEditorScreenProps extends FieldEditorRequest {
 
 // Creating one is the magic moment, so only that title carries the sparkle.
 const TITLES: Record<FieldEditorMode, string> = {
-  create: "New Smart Field ✨",
-  duplicate: "Duplicate Smart Field",
-  edit: "Edit Smart Field",
+  create: "fieldEditor.titles.create",
+  duplicate: "fieldEditor.titles.duplicate",
+  edit: "fieldEditor.titles.edit",
 }
 
 export const FieldEditorScreen = ({
@@ -66,6 +67,7 @@ export const FieldEditorScreen = ({
   state,
   step,
 }: FieldEditorScreenProps) => {
+  const { t } = useTranslation()
   const catalog = useAppStore((store) => store.catalog)
   const voiceCatalog = useVoiceCatalog()
   const [isOpen, setIsOpen] = useState(true)
@@ -116,22 +118,27 @@ export const FieldEditorScreen = ({
           single row: dismiss or back as one icon button leading, title and target
           breadcrumb centered, sign-off trailing. */}
         {controls.form.step === 3 && (
-          <DialogTitle className="sr-only">Smart Field created</DialogTitle>
+          <DialogTitle className="sr-only">
+            {t("fieldEditor.created")}
+          </DialogTitle>
         )}
         {controls.form.step !== 3 && (
           <header className="relative grid min-h-[52px] shrink-0 grid-cols-[1fr_auto_1fr] items-center gap-4 border-b border-white/[0.07] bg-black/10 px-4 py-2">
             <div className="flex min-w-0 items-center justify-start">
               {controls.form.step === 1 && (
-                <HeaderIconButton label="Cancel" onClick={close}>
+                <HeaderIconButton label={t("common.cancel")} onClick={close}>
                   <X aria-hidden className="size-[18px]" />
                 </HeaderIconButton>
               )}
               {controls.form.step === 2 && (
                 <HeaderIconButton
-                  label="Back"
+                  label={t("common.back")}
                   onClick={() => controls.setStep(1)}
                 >
-                  <ChevronLeft aria-hidden className="size-[18px]" />
+                  <ChevronLeft
+                    aria-hidden
+                    className="size-[18px] rtl:rotate-180"
+                  />
                 </HeaderIconButton>
               )}
             </div>
@@ -141,7 +148,7 @@ export const FieldEditorScreen = ({
               the way, so it stays quieter than anything in the body. */}
               <DialogTitle asChild>
                 <h1 className="shrink-0 text-[12.5px] leading-5 font-medium text-ink-muted">
-                  {TITLES[mode]}
+                  {t(TITLES[mode])}
                 </h1>
               </DialogTitle>
               {controls.form.step === 2 && (
@@ -164,7 +171,8 @@ export const FieldEditorScreen = ({
                   }
                   onClick={() => controls.setStep(2)}
                 >
-                  Next ›
+                  {t("common.next")}{" "}
+                  <span className="inline-block rtl:rotate-180">›</span>
                 </Button>
               )}
               {controls.form.step === 2 && (
@@ -180,7 +188,9 @@ export const FieldEditorScreen = ({
                       className="size-3.5 animate-spin"
                     />
                   )}
-                  {controls.form.isSaving ? "Saving…" : "Save Smart Field"}
+                  {controls.form.isSaving
+                    ? t("common.saving")
+                    : t("fieldEditor.save")}
                 </Button>
               )}
             </div>
@@ -220,7 +230,7 @@ export const FieldEditorScreen = ({
           ) : catalog === null ? (
             <div className="flex h-full min-h-56 items-center justify-center gap-2 text-xs text-ink-muted">
               <LoaderCircle aria-hidden className="size-4 animate-spin" />
-              Loading model catalog…
+              {t("fieldEditor.loadingModelCatalog")}
             </div>
           ) : (
             <div className="mx-auto w-full max-w-[820px]">
@@ -255,10 +265,10 @@ export const FieldEditorScreen = ({
                 }}
                 type="checkbox"
               />
-              Don’t show this again
+              {t("fieldEditor.dontShowAgain")}
             </label>
             <Button className="px-5" variant="success" onClick={close}>
-              Done
+              {t("common.done")}
             </Button>
           </footer>
         )}
@@ -282,6 +292,7 @@ const TargetBreadcrumb = ({
   form: FieldEditorDraft
   state: AppState
 }) => {
+  const { t } = useTranslation()
   const noteType = state.noteTypes.find(
     (item) => item.id === form.target.noteTypeId,
   )
@@ -291,7 +302,7 @@ const TargetBreadcrumb = ({
 
   return (
     <nav
-      aria-label="Smart Field target"
+      aria-label={t("fieldEditor.targetAriaLabel")}
       className="flex max-w-full min-w-0 items-center gap-1.5 text-[11.5px]"
     >
       <span className="max-w-[260px] truncate text-ink-muted">
@@ -307,7 +318,10 @@ const TargetBreadcrumb = ({
           </span>
         </>
       )}
-      <ChevronRight aria-hidden className="size-3 shrink-0 text-zinc-600" />
+      <ChevronRight
+        aria-hidden
+        className="size-3 shrink-0 text-zinc-600 rtl:rotate-180"
+      />
       <span aria-hidden className="shrink-0 text-[11px] leading-none">
         {TYPE_EMOJI[form.target.fieldType]}
       </span>
@@ -331,7 +345,7 @@ const HeaderIconButton = ({
 }) => (
   <button
     aria-label={label}
-    className="-ml-1 inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-md text-zinc-400 transition hover:bg-white/[0.06] hover:text-zinc-100"
+    className="-ms-1 inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-md text-zinc-400 transition hover:bg-white/[0.06] hover:text-zinc-100"
     onClick={onClick}
     title={label}
   >

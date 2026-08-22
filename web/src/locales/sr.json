@@ -1,0 +1,509 @@
+{
+  "common": {
+    "allDecks": "Алл Децкс",
+    "auto": "Ауто",
+    "autoMax": "Auto MAX",
+    "back": "Назад",
+    "bestValueCost": "Најбоља вредност, цена 0,3×",
+    "cancel": "Откажи",
+    "close": "Затвори",
+    "connection": {
+      "connecting": "Повезивање са Anki…",
+      "reconnecting": "Поновно повезивање са Anki…"
+    },
+    "days_one": "1 дан",
+    "days_few": "{{count}} дана",
+    "days_other": "{{count}} дана",
+    "deck": "Палуба",
+    "default": "Подразумевано",
+    "delete": "Избриши",
+    "done": "Готово",
+    "duplicate": "Дупликат",
+    "edit": "Уреди",
+    "empty": "празан",
+    "field": "Поље",
+    "free": "Бесплатно",
+    "discardChanges": "Одбаци промене",
+    "discardUnsavedChanges": {
+      "description": "Ваше промене ових подразумеваних подешавања нису сачуване.",
+      "title": "Желите ли да одбаците несачуване промене?"
+    },
+    "dismissError": "Одбаци грешку",
+    "feedback": {
+      "description": "Пошаљите извештај о грешци, захтев за функцију или друге повратне информације програмеру.",
+      "error": "Није могуће послати повратне информације",
+      "label": "Повратне информације",
+      "placeholder": "Грешка, идеја, било шта — иде директно програмеру.",
+      "send": "Пошаљи",
+      "sending": "Шаље се…",
+      "sent": "Повратне информације су послате. Ускоро ћемо се јавити.",
+      "title": "Пошаљите повратне информације"
+    },
+    "notNow": "Не сада",
+    "other": "Остало",
+    "placeholderScreen": "Овај екран је следећи у реконструкцији.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes в{{version}}",
+    "signIn": "Пријавите се",
+    "signInLower": "Пријавите се",
+    "unlimited": "Неограничено",
+    "upgradeSparkles": "✨ Надоградите ✨",
+    "multiplierCost": "{{multiplier}}× трошак",
+    "next": "Следеће",
+    "noteType": "Напомена Тип",
+    "optional": "опционо",
+    "prompt": "Промпт",
+    "saving": "Чување…",
+    "test": "Тест",
+    "validFields": "Важећа поља:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Повратне информације",
+    "nav": {
+      "defaultsImages": "Подразумевана подешавања слике",
+      "defaultsText": "Подразумевана подешавања текста",
+      "defaultsVoice": "Подразумевана подешавања гласа",
+      "image": "Слика",
+      "settings": "Подешавања",
+      "smartFields": "Smart Fields",
+      "subscription": "Рачун и употреба",
+      "support": "Подршка",
+      "text": "Текст",
+      "voice": "Глас"
+    },
+    "sections": "Smart Notes секције",
+    "version": "Smart Notes в{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Опширно евидентирање ради лакшег дијагностиковања проблема. Укључите ове евиденције када поднесете грешку.",
+      "label": "Режим за отклањање грешака"
+    },
+    "generateAtReview": {
+      "description": "Аутоматски попуните паметна поља која недостају када се картице појаве у прегледу.",
+      "label": "Генеришите поља током прегледа"
+    },
+    "language": {
+      "description": "Изаберите језик за Smart Notes или ускладите језик Anki.",
+      "label": "Језик",
+      "matchAnki": "Подударање Anki"
+    },
+    "legacy": {
+      "apiKey": "OpenAI АПИ кључ",
+      "apiKeyRequired": "Потребан је плаћени OpenAI АПИ кључ.",
+      "description": "Повежите плаћени АПИ кључ и изаберите застарели модел OpenAI.",
+      "getApiKey": "Набавите АПИ кључ",
+      "host": "OpenAI хост",
+      "hostDescription": "Обезбедите алтернативну крајњу тачку за OpenAI АПИ.",
+      "hostPlaceholder": "хттпс://апи.опенаи.цом",
+      "model": "OpenAI модел",
+      "title": "Користи мој сопствени кључ OpenAI"
+    },
+    "loading": "Учитавање подешавања",
+    "regenerateWhenBatching": {
+      "description": "Када групно обрађујете групу белешки, регенеришите свако паметно поље од почетка уместо да попуњавате само празна.",
+      "label": "Регенеришите сва паметна поља приликом групне обраде"
+    },
+    "saveError": "Није могуће сачувати подешавања",
+    "sections": {
+      "advanced": "Напредно",
+      "general": "генерал",
+      "generation": "Генератион"
+    },
+    "title": "Подешавања"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Већ паметно поље ✨",
+    "collisionHint": "већ има паметно поље — изаберите друго поље, шпил или тип белешке",
+    "completion": {
+      "descriptionAfter": "белешке се попуњавају кад год их генеришете.",
+      "descriptionBefore": "на",
+      "methods": {
+        "bulk": {
+          "caption": "Изаберите белешке или шпил → кликните десним тастером миша → ✨ Генериши Smart Fields.",
+          "imageAlt": "Anki Контекстни мени претраживача са означеним Генерисај Smart Fields",
+          "title": "На велико, из претраживача"
+        },
+        "card": {
+          "caption": "Кликните на дугме ✨ на траци са алаткама уређивача или унесите ⌘⇧G.",
+          "imageAlt": "трака са алаткама уређивача Anki са истакнутим дугметом Smart Notes",
+          "title": "Једна по једна карта"
+        },
+        "field": {
+          "caption": "Кликните десним тастером миша на било које поље → Генериши паметно поље.",
+          "imageAlt": "Контекстни мени поља Anki са истакнутим Генерисај паметно поље",
+          "title": "Једно поље"
+        }
+      },
+      "title": "Ваше Смарт Фиелд је уживо",
+      "waysToGenerate": "Неколико начина да га генеришете:"
+    },
+    "created": "Паметно поље је креирано",
+    "dontShowAgain": "Не приказуј ово поново",
+    "errors": {
+      "save": "Није могуће сачувати Смарт Фиелд",
+      "updateWizardSettings": "Није могуће ажурирати подешавања чаробњака",
+      "writePrompt": "Није могуће написати упит"
+    },
+    "fieldTypes": {
+      "audio": "Аудио",
+      "image": "Слика",
+      "text": "Текст"
+    },
+    "loadingModelCatalog": "Учитавање каталога модела…",
+    "modelSettings": {
+      "appliesOnlyToField": "Односи се само на ово паметно поље.",
+      "defaultWithValue": "Подразумевано ({{value}})",
+      "defaultsImages": "Подразумеване › Слике",
+      "defaultsText": "Подразумевана › Текст",
+      "defaultsVoice": "Подразумевана › Глас",
+      "descriptionChat": "Подесите АИ који уписује ово поље. Већина поља може остати на подразумеваној вредности.",
+      "descriptionImage": "Подесите АИ који црта ово поље. Већина поља може остати на подразумеваној вредности.",
+      "descriptionTts": "Подесите глас који чита ово поље. Већина поља може остати на подразумеваној вредности.",
+      "imageDefault": "подразумевана слика",
+      "imageModel": "Модел слике",
+      "loadingVoices": "Учитавање гласова…",
+      "model": "Модел",
+      "pickCustom": "Изаберите прилагођени модел за ово поље",
+      "reasoning": "{{level}} резоновање",
+      "reasoningHint": "Више размишљање може побољшати теже генерације, али користи више кредита.",
+      "reasoningLevel": "Ниво расуђивања",
+      "sharedByEveryField": "Ваш {{modality}} дели свако паметно поље које га користи. Промените га",
+      "textDefault": "подразумевани текст",
+      "textModel": "Текстуални модел",
+      "useMy": "Користи мој {{modality}}",
+      "useWebSearch": "Користите веб претрагу за ово поље",
+      "voice": "Глас",
+      "voiceDefault": "подразумевани глас",
+      "webSearch": "Веб претрага",
+      "webSearchHint": "Нека ово поље користи свеже информације са веба."
+    },
+    "save": "Сачувај паметно поље",
+    "sections": {
+      "onWhichNotes": "На којим нотама?",
+      "whatToGenerate": "Шта желите да генеришете?",
+      "whichFieldToFill": "Које поље треба да попуни?",
+      "whichFieldToSpeak": "Које поље треба да говори?"
+    },
+    "sourceField": "Изворно поље",
+    "targetAriaLabel": "Смарт Фиелд таргет",
+    "testSmartField": "Тестирајте своје Смарт Фиелд",
+    "titles": {
+      "create": "Ново паметно поље ✨",
+      "duplicate": "Дупликат паметног поља",
+      "edit": "Уредите паметно поље"
+    },
+    "validation": {
+      "chooseField": "Изаберите поље",
+      "chooseNoteType": "Изаберите тип белешке",
+      "chooseSourceField": "Изаберите изворно поље",
+      "fieldAlreadyHasSmartField": "{{field}} већ има Смарт Фиелд",
+      "writePrompt": "Напишите упит"
+    },
+    "writePrompt": "Врите Промпт",
+    "writePromptForMe": "Напишите мој упит за мене",
+    "writePromptForMeHint": "Реците шта желите на обичном енглеском - ми ћемо написати упит испод.",
+    "writePromptPlaceholder": "„Преведи на природни енглески…“",
+    "writing": "Писање…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "Акције за {{field}}",
+    "addToNoteType": "Додајте паметно поље у {{noteType}}",
+    "disable": "Онемогући",
+    "deleting": "Брисање…",
+    "discord": {
+      "dismissAriaLabel": "Одбаци позивницу за Discord",
+      "join": "Придружите се",
+      "joinAriaLabel": "Придружите се Smart Notes Discord",
+      "subtitle": "— заменити упите и функције захтева.",
+      "title": "Дођи да се поздравиш у Discord"
+    },
+    "editAriaLabel": "Уредите {{field}} Смарт Фиелд",
+    "emptyState": {
+      "description": "Додајте Smart Fields да додате текст, звук и слике на своје картице.",
+      "exampleAnswer": "Здраво",
+      "exampleField": "ФРОНТ",
+      "examplePrompt": "боњоур",
+      "spark": "✦",
+      "title": "Ваше белешке изгледају мало празно"
+    },
+    "enable": "Омогући",
+    "errors": {
+      "commandFailed": "Команда Смарт Фиелд није успела"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Паметно поље",
+    "fieldTypes": {
+      "chat": "Текст",
+      "image": "Слика",
+      "tts": "Аудио"
+    },
+    "loadingAriaLabel": "Учитавање Smart Fields",
+    "newSmartField": "Ново паметно поље",
+    "readsAloud": "Чита {{field}} наглас",
+    "review": {
+      "ariaLabel": "Прегледајте Smart Notes на AnkiWeb",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "Одбаците позивницу за преглед",
+      "subtitle": "Оставите рецензију о AnkiWeb да бисте помогли другим корисницима Anki да га пронађу.",
+      "title": "Уживате у Smart Notes?"
+    },
+    "subtitle": "Додајте аутоматски генерисани текст, глас и слике у своје белешке.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "Каталогу ћаскања недостаје модел {{model}}",
+      "missingImageModel": "Каталогу слика недостаје модел {{model}}"
+    },
+    "image": {
+      "cannotFindModel": "Каталогу слика недостаје модел {{model}}",
+      "defaultModel": "Подразумевани модел",
+      "gptImage15Low": "најбољи однос квалитета/брзине.",
+      "gptImage2": "исти трошак, спорији, квалитетнији.",
+      "loadingLabel": "Учитавање подразумеваних поставки слике",
+      "loadingTitle": "Подразумевана подешавања слике",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (низак/средњи)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Бирање модела слике",
+      "samplePrompt": "Генеришите слику ученика који вредно учи са Anki и полаже тестове.",
+      "saveError": "Није могуће сачувати подразумеване вредности слике",
+      "subtitle": "Модел који ваша слика користи Smart Fields осим ако поље не закачи своје.",
+      "title": "Подразумевана подешавања слике",
+      "zImageTurbo": "најбржи и најјефтинији."
+    },
+    "layout": {
+      "saveChanges": "Сачувај промене",
+      "saving": "Чување…",
+      "tryIt": "Пробај"
+    },
+    "text": {
+      "cannotInheritModel": "Подразумеване вредности текста не могу наследити други модел",
+      "defaultModel": "Подразумевани текстуални модел",
+      "defaultReasoningLevel": "Подразумевани ниво образложења",
+      "enableWebSearch": "Омогућите претрагу веба",
+      "higherReasoning": "Више размишљање може побољшати теже генерације, али користи више кредита.",
+      "loadingLabel": "Учитавање подразумеваних поставки текста",
+      "loadingTitle": "Подешавања генерисања текста",
+      "modelGuidance": "{{auto}} и {{autoMax}} су модели које препоручује Smart Notes који балансирају перформансе и цену. Изаберите {{auto}} за стандардне задатке и надоградите на {{autoMax}} ако је потребно.",
+      "pickingModel": "💡 Бирање модела",
+      "reasoningLevel": "Ниво расуђивања",
+      "reasoningValues": {
+        "high": "Високо",
+        "low": "Ниско",
+        "off": "Офф"
+      },
+      "samplePrompt": "Шта је систем размакнутог понављања (SRS)?",
+      "saveError": "Није могуће сачувати подразумеване текстуалне вредности",
+      "subtitle": "Подразумевана подешавања за генерисање текста. Појединачни Smart Fields може заменити ове вредности.",
+      "title": "Подешавања генерисања текста",
+      "webSearch": "Веб Сеарцх",
+      "webSearchDescription": "Нека генерације текста извуку свеже информације са веба.",
+      "webSearchWarning": "⚠ Претрага је скупа; пратите своје кредите."
+    },
+    "usage": {
+      "fields_one": "Односи се на поље {{count}}",
+      "fields_few": "Односи се на {{count}} поља",
+      "fields_other": "Односи се на {{count}} поља"
+    },
+    "voice": {
+      "browseVoices": "Прегледајте гласове ({{count}})",
+      "cannotLoad": "Није могуће учитати гласове",
+      "currentDefault": "Цуррент дефаулт",
+      "filters": {
+        "all": "Све",
+        "female": "Фемале",
+        "gender": "Пол",
+        "language": "Језик",
+        "male": "Мушко",
+        "provider": "Провајдер"
+      },
+      "filterVoices": "Филтрирајте гласове",
+      "loadingLabel": "Учитавање подразумеваних поставки гласа",
+      "loadingTitle": "Подразумевана подешавања гласа",
+      "noVoices": "Ниједан глас не одговара овим филтерима.",
+      "saveError": "Није могуће сачувати подразумеване гласовне поставке",
+      "searchPlaceholder": "🔍 Претражујте гласове…",
+      "searchVoices": "Тражи гласове",
+      "subtitle": "Глас који ваш ТТС Smart Fields користи осим ако поље не закачи своје.",
+      "title": "Подразумевана подешавања гласа"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "другу врсту нота",
+    "currentlySelectedCard": "Тренутно изабрана картица",
+    "emptyCard": "(празна картица)",
+    "errors": {
+      "generateAudio": "Није могуће генерисати звук",
+      "generateImage": "Није могуће генерисати слику",
+      "saveResult": "Није могуће сачувати овај резултат на картици",
+      "testPrompt": "Није могуће тестирати овај упит"
+    },
+    "fieldRunsOn": "Ово поље се наставља",
+    "fieldWord_one": "поље",
+    "fieldWord_few": "поља",
+    "fieldWord_other": "поља",
+    "generatedImagePreview": "Генерисани преглед слике",
+    "missingFieldsTitle_one": "Недостаје поље",
+    "missingFieldsTitle_few": "Недостајућа поља",
+    "missingFieldsTitle_other": "Недостајућа поља",
+    "needsFields_one": "Потребно је поље {{count}}",
+    "needsFields_few": "Потребна су {{count}} поља",
+    "needsFields_other": "Потребна су поља {{count}}",
+    "notesSelected_one": "{{count}} белешка је изабрана — сузите је на једну.",
+    "notesSelected_few": "{{count}} белешке су изабране — сузите их на једну.",
+    "notesSelected_other": "{{count}} белешке изабране — сузите их на једну.",
+    "pickCard": "Изаберите картицу у прегледачу Anki",
+    "promptPlaceholder": "Напишите пробни упит, позивајући се на поља на вашој картици помоћу {{braces}}.",
+    "saveToCard": "Сачувај на картицу",
+    "savedTo": "Сачувано у {{field}}",
+    "selectCardWith": "Изаберите тип картице са",
+    "selectFieldToReadAloud": "Изаберите поље за читање наглас",
+    "selectNewCard": "Изаберите нову картицу у претраживачу",
+    "selectNoteType": "Изаберите тип белешке",
+    "selectedCard": "Изабрана картица",
+    "selectedDeck": "Изабрани шпил",
+    "selectedNoteType": "Изабрани тип белешке",
+    "selectionAppearsAutomatically": "Ваш избор се аутоматски појављује овде.",
+    "sent": "Послано",
+    "testing": "Тестирање…",
+    "testResult": "Резултат теста",
+    "textToSpeak": "Текст за говор",
+    "viewResult": "Погледајте резултат",
+    "wrongNoteType": "Погрешна врста белешке"
+  },
+  "subscription": {
+    "checking": "Провера претплате",
+    "creditTypes": {
+      "images": "Слике",
+      "text": "Текст",
+      "voice": "Глас"
+    },
+    "creditUsage": "Употреба кредита",
+    "creditsReset": "Ресетовање кредита",
+    "daysLeft_one": "Последњи дан",
+    "daysLeft_few": "Остало је {{count}} дана",
+    "daysLeft_other": "Остало је {{count}} дана",
+    "errors": {
+      "logout": "Није могуће одјавити се"
+    },
+    "freePlan": "Бесплатан план",
+    "freeTrial": "Бесплатна пробна верзија",
+    "hero": {
+      "buyCredits": "Купите још кредита",
+      "freeCreditsResetting": "Ваши бесплатни кредити се ресетују",
+      "freePlan": "Ви сте на бесплатном плану",
+      "noteLimit": "Достигли сте ограничење за белешке",
+      "outOfCredits": "Нестало вам је кредита овог месеца",
+      "outOfFreeCredits": "Нестало вам је бесплатних кредита овог месеца",
+      "outOfTrialCredits": "Нестало вам је пробних кредита",
+      "planExpired": "Ваш план је истекао",
+      "rollover": "Плаћајући кредити се пребацују сваког месеца — ваши заувек.",
+      "trialDaysLeft_one": "Ваше суђење се завршава данас",
+      "trialDaysLeft_few": "{{count}} дана је преостало до краја пробног периода",
+      "trialDaysLeft_other": "{{count}} преосталих дана до пробног периода",
+      "trialEnded": "Ваше суђење је завршено",
+      "trialNoteLimit": "Достигли сте ограничење пробних белешки",
+      "upgradeCollection": "Надоградите — целу вашу колекцију, аутоматски",
+      "upgradeCredits": "Надоградите за више кредита",
+      "upgradePaid": "✨ Надоградите на плаћено"
+    },
+    "inDays_one": "данас",
+    "inDays_few": "За {{count}} дана",
+    "inDays_other": "За {{count}} дана",
+    "loading": "Учитавање претплате",
+    "loggingOut": "Одјава…",
+    "logOut": "Одјавите се",
+    "manageDescription": "Промените план, ажурирајте плаћање или откажите.",
+    "manageOrUpgrade": "Управљајте или надоградите план",
+    "managePlan": "Управљајте планом",
+    "monthlyCreditsUsed": "искоришћених месечних кредита",
+    "mostCreditsUsed": "Већина кредита овог месеца је искоришћена",
+    "noteLimitReached": "Достигнуто је ограничење за белешке",
+    "notes": "Напомене",
+    "notesUsed": "Коришћене белешке",
+    "notesUsedValue": "користи се {{used}}/{{limit}}",
+    "outOfCredits": "Без кредита",
+    "pausedUntilReset": "Генерисање је паузирано док се ваши кредити не ресетују.",
+    "plan": "План",
+    "planInactive": "План неактиван",
+    "resetsIn": "Ресетује се",
+    "resetsInDays_one": "Ресетује се за 1 дан",
+    "resetsInDays_few": "Ресетује се за {{count}} дана",
+    "resetsInDays_other": "Ресетује се за {{count}} дана",
+    "signedOut": {
+      "localStorage": "Ваша паметна поља и подешавања се чувају на овом уређају.",
+      "manage": "Пријавите се да бисте управљали својим планом",
+      "paused": "Генерисање је паузирано док се не пријавите.",
+      "title": "Одјављен/а"
+    },
+    "title": "Рачун и употреба",
+    "trialCreditsUsed": "коришћених пробних кредита",
+    "trialEnded": "Суђење је завршено",
+    "trialEnds": "Суђење се завршава",
+    "trialNoteLimitReached": "Достигнуто је ограничење пробних белешки",
+    "upgradeToKeepGenerating": "Надоградите да бисте наставили са генерисањем.",
+    "usage": "Употреба"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Оставите рецензију / погледајте документе.",
+    "byline": "од Мицхаел Пиазза / Росебуд Лабс, ЛЛЦ.",
+    "changelog": "Цхангелог",
+    "copyright": "© 2026 · в{{version}} ·",
+    "discord": {
+      "description": "Најбржи начин да добијете помоћ, затражите функцију или пријавите грешку.",
+      "join": "Придружите се",
+      "title": "Придружите се Discord"
+    },
+    "emailUs": "Пошаљите нам е-пошту",
+    "feedback": {
+      "description": "Нешто је покварено или није у реду? Пошаљите поруку лошем програмеру директно.",
+      "send": "Пошаљи то",
+      "title": "Пошаљите грешку / затражите функцију"
+    },
+    "github": "GitHub",
+    "loading": "Подршка за учитавање",
+    "title": "Подршка"
+  },
+  "welcome": {
+    "alreadyAccount": "Већ имате налог?",
+    "codePlaceholder": "Налепите свој код",
+    "connect": "Повежите се",
+    "connecting": "Повезивање…",
+    "description": "Додајте текст, говор и слике појединачним картицама или целом шпилу једним кликом.",
+    "errors": {
+      "code": "Повезивање са тим кодом није успело"
+    },
+    "finishDescription": "Завршите пријаву у прегледачу који смо отворили. Овај прозор ће се аутоматски ажурирати.",
+    "finishInBrowser": "Завршите у свом претраживачу",
+    "haveCode": "Имате код са веб локације?",
+    "startTrial": "✨ Започните бесплатну пробну верзију ✨",
+    "trialDetails": "Бесплатно 7 дана · свака функција · без кредитне картице"
+  },
+  "trialEnded": {
+    "description": "Пробни периоди трају 7 дана или док вам не потроше пробни кредити.",
+    "features": {
+      "ariaLabel": "Шта надоградња задржава",
+      "batch": "Скупите целу своју колекцију",
+      "images": "Генерисање слике",
+      "premium": "Сваки премиум модел и глас",
+      "review": "Генеришите током прегледа"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Бесплатна месечна понуда",
+      "description": "Оставите брзу рецензију AnkiWeb, добијте месец дана бесплатно.",
+      "dialogDescription": "Оставите брзу рецензију на AnkiWeb, а затим нам пошаљите е-пошту — додаћемо вам бесплатни месец Smart Notes на ваш налог.",
+      "dialogTitle": "Добијте свој бесплатни месец",
+      "leaveAnkiWebReview": "Оставите рецензију на AnkiWeb",
+      "leaveReview": "Оставите рецензију",
+      "title": "Добијте бесплатан месец дана Smart Notes"
+    },
+    "thanks": "Хвала што користите Smart Notes ✨",
+    "title": "Ваша бесплатна пробна верзија је завршена",
+    "upgradeNow": "Надоградите сада"
+  }
+}

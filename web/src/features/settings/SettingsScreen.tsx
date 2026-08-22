@@ -19,6 +19,7 @@
 
 import { ChevronRight } from "lucide-react"
 import { useState, type KeyboardEvent } from "react"
+import { useTranslation } from "react-i18next"
 
 import { PageLayout } from "@/components/shared/PageLayout"
 import { ScreenSkeleton } from "@/components/shared/ScreenSkeleton"
@@ -31,6 +32,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select"
+import { changeAppLanguage } from "@/lib/i18n"
+import { LANGUAGES } from "@/lib/languages"
 import { useAppStore } from "@/store/appStore"
 import type { Settings } from "@/types/api"
 
@@ -53,14 +56,15 @@ const LEGACY_OPENAI_MODELS = [
 ]
 
 export const SettingsScreen = () => {
+  const { t } = useTranslation()
   const state = useAppStore((store) => store.state)
   if (state === null)
     return (
       <ScreenSkeleton
-        ariaLabel="Loading Settings"
+        ariaLabel={t("settings.loading")}
         className="max-w-[800px]"
         contentClassName="h-36 max-w-[680px]"
-        title="Settings"
+        title={t("settings.title")}
       />
     )
   return <LoadedSettingsScreen settings={state.settings} />
@@ -73,6 +77,7 @@ interface LoadedSettingsScreenProps {
 export const LoadedSettingsScreen = ({
   settings,
 }: LoadedSettingsScreenProps) => {
+  const { t } = useTranslation()
   const controls = useSettings(settings)
   const [legacyOpen, setLegacyOpen] = useState(false)
   const saveOnEnter = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -84,7 +89,7 @@ export const LoadedSettingsScreen = ({
     <PageLayout
       className="max-w-[800px]"
       testId="settings-screen"
-      title="Settings"
+      title={t("settings.title")}
     >
       {controls.error !== null && (
         <ErrorBanner
@@ -95,22 +100,69 @@ export const LoadedSettingsScreen = ({
       )}
 
       <div>
-        <SectionLabel>Generation</SectionLabel>
+        <SectionLabel>{t("settings.sections.general")}</SectionLabel>
+        <div className="flex min-h-[76px] items-center gap-5 border-b border-white/[0.065] py-4">
+          <div className="min-w-0 flex-1">
+            <p className="text-[15px] font-semibold text-zinc-100">
+              {t("settings.language.label")}
+            </p>
+            <p className="mt-1 text-[13px] leading-5 text-ink-muted">
+              {t("settings.language.description")}
+            </p>
+          </div>
+          <div className="w-48 shrink-0">
+            <label className="sr-only" htmlFor="app-language">
+              {t("settings.language.label")}
+            </label>
+            <Select
+              disabled={controls.isSaving}
+              onValueChange={(language) =>
+                void controls.update({ language }, () =>
+                  changeAppLanguage(language),
+                )
+              }
+              value={controls.values.language}
+            >
+              <SelectTrigger id="app-language">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="auto">
+                  {t("settings.language.matchAnki")}
+                </SelectItem>
+                {LANGUAGES.map((language) => (
+                  <SelectItem key={language.bcp47} value={language.bcp47}>
+                    <span className="inline-flex items-center gap-2">
+                      <span aria-hidden className="w-5 text-center text-base">
+                        {language.flag}
+                      </span>
+                      <span>{language.nativeName}</span>
+                    </span>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <SectionLabel>{t("settings.sections.generation")}</SectionLabel>
         <div>
           <SettingRow
             checked={controls.values.generateAtReview}
-            description="Fill in missing smart fields automatically as cards come up in review."
+            description={t("settings.generateAtReview.description")}
             disabled={controls.isSaving}
-            label="Generate fields during review"
+            label={t("settings.generateAtReview.label")}
             onChange={(checked) =>
               void controls.update({ generateAtReview: checked })
             }
           />
           <SettingRow
             checked={controls.values.regenerateWhenBatching}
-            description="When batch processing a group of notes, regenerate every smart field from scratch instead of only filling empty ones."
+            description={t("settings.regenerateWhenBatching.description")}
             disabled={controls.isSaving}
-            label="Regenerate all smart fields when batch processing"
+            label={t("settings.regenerateWhenBatching.label")}
             onChange={(checked) =>
               void controls.update({ regenerateWhenBatching: checked })
             }
@@ -118,13 +170,15 @@ export const LoadedSettingsScreen = ({
         </div>
       </div>
 
-      <SectionLabel className="mt-8">Advanced</SectionLabel>
+      <SectionLabel className="mt-8">
+        {t("settings.sections.advanced")}
+      </SectionLabel>
       <div>
         <SettingRow
           checked={controls.values.debug}
-          description="Verbose logging to help diagnose issues. Include these logs when filing a bug."
+          description={t("settings.debug.description")}
           disabled={controls.isSaving}
-          label="Debug mode"
+          label={t("settings.debug.label")}
           onChange={(checked) => void controls.update({ debug: checked })}
         />
       </div>
@@ -133,21 +187,21 @@ export const LoadedSettingsScreen = ({
         <>
           <button
             aria-expanded={legacyOpen}
-            className="flex w-full items-center gap-4 border-b border-white/[0.065] py-4 text-left"
+            className="flex w-full items-center gap-4 border-b border-white/[0.065] py-4 text-start"
             onClick={() => setLegacyOpen((open) => !open)}
             type="button"
           >
             <div className="min-w-0 flex-1">
               <p className="text-[15px] font-semibold text-zinc-100">
-                Use my own OpenAI key
+                {t("settings.legacy.title")}
               </p>
               <p className="mt-1 text-[13px] leading-5 text-ink-muted">
-                Connect a paid API key and choose a legacy OpenAI model.
+                {t("settings.legacy.description")}
               </p>
             </div>
             <ChevronRight
               aria-hidden
-              className={`size-5 shrink-0 text-zinc-500 transition-transform ${legacyOpen ? "rotate-90" : ""}`}
+              className={`size-5 shrink-0 text-zinc-500 transition-transform ${legacyOpen ? "rotate-90 rtl:-rotate-90" : "rtl:rotate-180"}`}
             />
           </button>
 
@@ -155,7 +209,7 @@ export const LoadedSettingsScreen = ({
             <div className="grid grid-cols-2 gap-4 border-b border-white/[0.065] py-5">
               <label className="block">
                 <span className="text-xs font-semibold text-zinc-300">
-                  OpenAI API key
+                  {t("settings.legacy.apiKey")}
                 </span>
                 <input
                   className="mt-2 h-10 w-full rounded-lg border border-white/[0.09] bg-white/[0.035] px-3 text-xs text-zinc-200 outline-none focus:border-indigo/45"
@@ -169,14 +223,14 @@ export const LoadedSettingsScreen = ({
                   type="password"
                 />
                 <p className="mt-1.5 text-[11px] text-ink-muted">
-                  A paid OpenAI API key is required.{" "}
+                  {t("settings.legacy.apiKeyRequired")}{" "}
                   <a
                     className="text-indigo-soft hover:underline"
                     href="https://platform.openai.com/account/api-keys/"
                     rel="noreferrer"
                     target="_blank"
                   >
-                    Get an API key
+                    {t("settings.legacy.getApiKey")}
                   </a>
                 </p>
               </label>
@@ -186,7 +240,7 @@ export const LoadedSettingsScreen = ({
                   className="block text-xs font-semibold text-zinc-300"
                   htmlFor="legacy-openai-model"
                 >
-                  OpenAI model
+                  {t("settings.legacy.model")}
                 </label>
                 <Select
                   onValueChange={(legacyOpenAiModel) =>
@@ -212,7 +266,7 @@ export const LoadedSettingsScreen = ({
 
               <label className="col-span-2 block">
                 <span className="text-xs font-semibold text-zinc-300">
-                  OpenAI host
+                  {t("settings.legacy.host")}
                 </span>
                 <input
                   className="mt-2 h-10 w-full rounded-lg border border-white/[0.09] bg-white/[0.035] px-3 text-xs text-zinc-200 outline-none placeholder:text-zinc-600 focus:border-indigo/45"
@@ -223,10 +277,10 @@ export const LoadedSettingsScreen = ({
                     })
                   }
                   onKeyDown={saveOnEnter}
-                  placeholder="https://api.openai.com"
+                  placeholder={t("settings.legacy.hostPlaceholder")}
                 />
                 <p className="mt-1.5 text-[11px] text-ink-muted">
-                  Provide an alternative endpoint to the OpenAI API.
+                  {t("settings.legacy.hostDescription")}
                 </p>
               </label>
             </div>

@@ -1,0 +1,499 @@
+{
+  "common": {
+    "allDecks": "Lahat ng Deck",
+    "auto": "Auto",
+    "autoMax": "Auto MAX",
+    "back": "Bumalik",
+    "bestValueCost": "Pinakamahusay na Halaga, 0.3x na halaga",
+    "cancel": "Kanselahin",
+    "close": "Isara",
+    "connection": {
+      "connecting": "Kumokonekta sa Anki…",
+      "reconnecting": "Kumokonekta muli sa Anki…"
+    },
+    "days_one": "1 araw",
+    "days_other": "{{count}} araw",
+    "deck": "Deck",
+    "default": "Default",
+    "delete": "Tanggalin",
+    "done": "Tapos na",
+    "duplicate": "Duplicate",
+    "edit": "I-edit",
+    "empty": "walang laman",
+    "field": "Patlang",
+    "free": "Libre",
+    "discardChanges": "Itapon ang mga pagbabago",
+    "discardUnsavedChanges": {
+      "description": "Ang iyong mga pagbabago sa mga default na setting na ito ay hindi nai-save.",
+      "title": "Itapon ang mga hindi na-save na pagbabago?"
+    },
+    "dismissError": "I-dismiss ang error",
+    "feedback": {
+      "description": "Magpadala ng ulat ng bug, kahilingan sa feature, o iba pang feedback sa developer.",
+      "error": "Hindi makapagpadala ng feedback",
+      "label": "Feedback",
+      "placeholder": "Isang bug, isang ideya, kahit ano — dumiretso ito sa developer.",
+      "send": "Ipadala",
+      "sending": "Ipinapadala…",
+      "sent": "Ipinadala ang feedback. Malapit na tayong makipag-ugnayan.",
+      "title": "Magpadala ng feedback"
+    },
+    "notNow": "Hindi ngayon",
+    "other": "Iba pa",
+    "placeholderScreen": "Ang screen na ito ay susunod sa muling pagtatayo.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "Mag-sign In",
+    "signInLower": "Mag-sign in",
+    "unlimited": "Walang limitasyon",
+    "upgradeSparkles": "✨ Mag-upgrade ✨",
+    "multiplierCost": "{{multiplier}}× gastos",
+    "next": "Susunod",
+    "noteType": "Uri ng Tala",
+    "optional": "opsyonal",
+    "prompt": "Prompt",
+    "saving": "Sine-save...",
+    "test": "Pagsubok",
+    "validFields": "Mga wastong field:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Feedback",
+    "nav": {
+      "defaultsImages": "Default na Mga Setting ng Larawan",
+      "defaultsText": "Mga Default na Setting ng Teksto",
+      "defaultsVoice": "Default na Mga Setting ng Boses",
+      "image": "Imahe",
+      "settings": "Mga setting",
+      "smartFields": "Smart Fields",
+      "subscription": "Account at Paggamit",
+      "support": "Suporta",
+      "text": "Text",
+      "voice": "Boses"
+    },
+    "sections": "Smart Notes na mga seksyon",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Verbose logging para makatulong sa pag-diagnose ng mga isyu. Isama ang mga log na ito kapag nag-file ng bug.",
+      "label": "Debug mode"
+    },
+    "generateAtReview": {
+      "description": "Awtomatikong punan ang mga nawawalang smart field habang sinusuri ang mga card.",
+      "label": "Bumuo ng mga field sa panahon ng pagsusuri"
+    },
+    "language": {
+      "description": "Piliin ang wika para sa Smart Notes, o itugma ang wika ng Anki.",
+      "label": "Wika",
+      "matchAnki": "Itugma ang Anki"
+    },
+    "legacy": {
+      "apiKey": "OpenAI API key",
+      "apiKeyRequired": "Kinakailangan ang isang bayad na OpenAI API key.",
+      "description": "Ikonekta ang isang bayad na API key at pumili ng isang legacy na modelo ng OpenAI.",
+      "getApiKey": "Kumuha ng API key",
+      "host": "OpenAI host",
+      "hostDescription": "Magbigay ng alternatibong endpoint sa OpenAI API.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "OpenAI modelo",
+      "title": "Gamitin ang sarili kong OpenAI key"
+    },
+    "loading": "Nilo-load ang Mga Setting",
+    "regenerateWhenBatching": {
+      "description": "Kapag pinoproseso ng batch ang isang pangkat ng mga tala, i-regenerate ang bawat smart field mula sa simula sa halip na punan ang mga walang laman.",
+      "label": "I-regenerate ang lahat ng smart field kapag pinoproseso ang batch"
+    },
+    "saveError": "Hindi ma-save ang mga setting",
+    "sections": {
+      "advanced": "Advanced",
+      "general": "Heneral",
+      "generation": "henerasyon"
+    },
+    "title": "Mga setting"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Isa nang Smart Field ✨",
+    "collisionHint": "mayroon nang Smart Field — pumili ng ibang field, deck, o uri ng tala",
+    "completion": {
+      "descriptionAfter": "mapupuno ang mga tala sa tuwing bubuo ka nito.",
+      "descriptionBefore": "sa",
+      "methods": {
+        "bulk": {
+          "caption": "Pumili ng mga tala o deck → right-click → ✨ Bumuo ng Smart Fields.",
+          "imageAlt": "Anki Browser context menu na may naka-highlight na Bumuo ng Smart Fields",
+          "title": "Sa maramihan, mula sa Browser"
+        },
+        "card": {
+          "caption": "I-click ang button na ✨ sa toolbar ng editor o i-type ang ⌘⇧G.",
+          "imageAlt": "Anki editor toolbar na may naka-highlight na Smart Notes button",
+          "title": "Isang card sa isang pagkakataon"
+        },
+        "field": {
+          "caption": "I-right-click ang anumang field → Bumuo ng Smart Field.",
+          "imageAlt": "Anki field context menu na may naka-highlight na Bumuo ng Smart Field",
+          "title": "Isang field"
+        }
+      },
+      "title": "Live ang iyong Smart Field",
+      "waysToGenerate": "Ilang paraan upang mabuo ito:"
+    },
+    "created": "Nagawa ang Smart Field",
+    "dontShowAgain": "Huwag mo nang ipakita ito muli",
+    "errors": {
+      "save": "Hindi ma-save ang Smart Field",
+      "updateWizardSettings": "Hindi ma-update ang mga setting ng wizard",
+      "writePrompt": "Hindi maisulat ang prompt"
+    },
+    "fieldTypes": {
+      "audio": "Audio",
+      "image": "Imahe",
+      "text": "Text"
+    },
+    "loadingModelCatalog": "Nilo-load ang katalogo ng modelo...",
+    "modelSettings": {
+      "appliesOnlyToField": "Nalalapat lamang sa Smart Field na ito.",
+      "defaultWithValue": "Default ({{value}})",
+      "defaultsImages": "Mga Default › Mga Larawan",
+      "defaultsText": "Mga Default › Teksto",
+      "defaultsVoice": "Mga Default › Boses",
+      "descriptionChat": "Itakda ang AI na nagsusulat ng field na ito. Karamihan sa mga field ay maaaring manatili sa default.",
+      "descriptionImage": "Itakda ang AI na kumukuha ng field na ito. Karamihan sa mga field ay maaaring manatili sa default.",
+      "descriptionTts": "Itakda ang boses na nagbabasa ng field na ito. Karamihan sa mga field ay maaaring manatili sa default.",
+      "imageDefault": "default na larawan",
+      "imageModel": "Modelo ng larawan",
+      "loadingVoices": "Naglo-load ng mga boses…",
+      "model": "Modelo",
+      "pickCustom": "Pumili ng custom na modelo para sa field na ito",
+      "reasoning": "{{level}} pangangatwiran",
+      "reasoningHint": "Maaaring mapabuti ng mas mataas na pangangatwiran ang mas mahirap na henerasyon, ngunit gumagamit ng mas maraming kredito.",
+      "reasoningLevel": "Antas ng pangangatwiran",
+      "sharedByEveryField": "Ang iyong {{modality}} ay ibinabahagi ng bawat Smart Field na gumagamit nito. Palitan ito",
+      "textDefault": "default ng teksto",
+      "textModel": "Modelo ng teksto",
+      "useMy": "Gamitin ang aking {{modality}}",
+      "useWebSearch": "Gamitin ang paghahanap sa web para sa field na ito",
+      "voice": "Boses",
+      "voiceDefault": "default ng boses",
+      "webSearch": "Paghahanap sa web",
+      "webSearchHint": "Hayaang gumamit ang field na ito ng sariwang impormasyon mula sa web."
+    },
+    "save": "I-save ang Smart Field",
+    "sections": {
+      "onWhichNotes": "Sa aling mga tala?",
+      "whatToGenerate": "Ano ang gusto mong mabuo?",
+      "whichFieldToFill": "Aling field ang dapat nitong punan?",
+      "whichFieldToSpeak": "Aling larangan ang dapat nitong sabihin?"
+    },
+    "sourceField": "Field ng pinagmulan",
+    "targetAriaLabel": "Smart Field target",
+    "testSmartField": "Subukan ang iyong Smart Field",
+    "titles": {
+      "create": "Bagong Smart Field ✨",
+      "duplicate": "Duplicate na Smart Field",
+      "edit": "I-edit ang Smart Field"
+    },
+    "validation": {
+      "chooseField": "Pumili ng field",
+      "chooseNoteType": "Pumili ng uri ng tala",
+      "chooseSourceField": "Pumili ng source field",
+      "fieldAlreadyHasSmartField": "Ang {{field}} ay mayroon nang Smart Field",
+      "writePrompt": "Sumulat ng prompt"
+    },
+    "writePrompt": "Sumulat ng Prompt",
+    "writePromptForMe": "Isulat ang aking prompt para sa akin",
+    "writePromptForMeHint": "Sabihin kung ano ang gusto mo sa simpleng Ingles — isusulat namin ang prompt sa ibaba.",
+    "writePromptPlaceholder": "\"Isalin sa natural na Ingles…\"",
+    "writing": "Nagsusulat…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "Mga aksyon para sa {{field}}",
+    "addToNoteType": "Magdagdag ng Smart Field sa {{noteType}}",
+    "disable": "Huwag paganahin",
+    "deleting": "Tinatanggal…",
+    "discord": {
+      "dismissAriaLabel": "I-dismiss ang Discord na imbitasyon",
+      "join": "Sumali",
+      "joinAriaLabel": "Sumali sa Smart Notes Discord",
+      "subtitle": "— magpalit ng mga senyas at humiling ng mga tampok.",
+      "title": "Halika kamusta sa Discord"
+    },
+    "editAriaLabel": "I-edit ang {{field}} Smart Field",
+    "emptyState": {
+      "description": "Magdagdag ng Smart Fields upang magdagdag ng text, audio, at mga larawan sa iyong mga card.",
+      "exampleAnswer": "Hello",
+      "exampleField": "HARAP",
+      "examplePrompt": "bonjour",
+      "spark": "✦",
+      "title": "Medyo walang laman ang iyong mga tala"
+    },
+    "enable": "Paganahin",
+    "errors": {
+      "commandFailed": "Nabigo ang command na Smart Field"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "Text",
+      "image": "Imahe",
+      "tts": "Audio"
+    },
+    "loadingAriaLabel": "Nilo-load ang Smart Fields",
+    "newSmartField": "Bagong Smart Field",
+    "readsAloud": "Binabasa ang {{field}} nang malakas",
+    "review": {
+      "ariaLabel": "Suriin ang Smart Notes sa AnkiWeb",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "I-dismiss ang imbitasyon sa pagsusuri",
+      "subtitle": "Mag-iwan ng review sa AnkiWeb upang matulungan ang ibang mga gumagamit ng Anki na mahanap ito.",
+      "title": "Tinatangkilik ang Smart Notes?"
+    },
+    "subtitle": "Magdagdag ng awtomatikong nabuong teksto, boses, at mga larawan sa iyong mga tala.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "Ang catalog ng chat ay walang modelong {{model}}",
+      "missingImageModel": "Ang katalogo ng larawan ay walang modelong {{model}}"
+    },
+    "image": {
+      "cannotFindModel": "Ang katalogo ng larawan ay walang modelong {{model}}",
+      "defaultModel": "Default na modelo",
+      "gptImage15Low": "pinakamahusay na kalidad / bilis ng tradeoff.",
+      "gptImage2": "parehong gastos, mas mabagal, mas mataas na kalidad.",
+      "loadingLabel": "Nilo-load ang Default na Mga Setting ng Larawan",
+      "loadingTitle": "Default na Mga Setting ng Larawan",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (Mababa / Katamtaman)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Pagpili ng modelo ng larawan",
+      "samplePrompt": "Bumuo ng larawan ng isang mag-aaral na nag-aaral nang mabuti gamit ang Anki at pumasa sa kanilang mga pagsusulit.",
+      "saveError": "Hindi ma-save ang mga default na larawan",
+      "subtitle": "Ang modelong ginagamit ng iyong larawan na Smart Fields maliban kung ang isang field ay nag-pin ng sarili nitong.",
+      "title": "Default na Mga Setting ng Larawan",
+      "zImageTurbo": "pinakamabilis at pinakamura."
+    },
+    "layout": {
+      "saveChanges": "I-save ang mga pagbabago",
+      "saving": "Sine-save...",
+      "tryIt": "Subukan ito"
+    },
+    "text": {
+      "cannotInheritModel": "Ang mga default ng teksto ay hindi maaaring magmana ng isa pang modelo",
+      "defaultModel": "Default na Modelo ng Teksto",
+      "defaultReasoningLevel": "Default na antas ng pangangatwiran",
+      "enableWebSearch": "Paganahin ang Paghahanap sa Web",
+      "higherReasoning": "Maaaring mapabuti ng mas mataas na pangangatwiran ang mas mahirap na henerasyon, ngunit gumagamit ng mas maraming kredito.",
+      "loadingLabel": "Nilo-load ang Default na Mga Setting ng Teksto",
+      "loadingTitle": "Mga Setting ng Pagbuo ng Teksto",
+      "modelGuidance": "Ang {{auto}} at {{autoMax}} ay ang Smart Notes na inirerekomendang mga modelo na nagbabalanse sa performance at gastos. Piliin ang {{auto}} para sa mga karaniwang gawain at mag-upgrade sa {{autoMax}} kung kinakailangan.",
+      "pickingModel": "💡 Pagpili ng modelo",
+      "reasoningLevel": "Antas ng pangangatwiran",
+      "reasoningValues": {
+        "high": "Mataas",
+        "low": "Mababa",
+        "off": "Naka-off"
+      },
+      "samplePrompt": "Ano ang Spaced Repetition System (SRS)?",
+      "saveError": "Hindi ma-save ang mga default ng text",
+      "subtitle": "Mga default na setting para sa pagbuo ng teksto. Maaaring i-override ng indibidwal na Smart Fields ang mga value na ito.",
+      "title": "Mga Setting ng Pagbuo ng Teksto",
+      "webSearch": "Paghahanap sa Web",
+      "webSearchDescription": "Hayaan ang mga henerasyon ng text na kumuha ng bagong impormasyon mula sa web.",
+      "webSearchWarning": "⚠️ Mahal ang paghahanap; subaybayan ang iyong mga kredito."
+    },
+    "usage": {
+      "fields_one": "Nalalapat sa {{count}} field",
+      "fields_other": "Nalalapat sa mga field ng {{count}}"
+    },
+    "voice": {
+      "browseVoices": "Mag-browse ng mga boses ({{count}})",
+      "cannotLoad": "Hindi ma-load ang mga boses",
+      "currentDefault": "Kasalukuyang default",
+      "filters": {
+        "all": "Lahat",
+        "female": "Babae",
+        "gender": "Kasarian",
+        "language": "Wika",
+        "male": "Lalaki",
+        "provider": "Provider"
+      },
+      "filterVoices": "Salain ang mga boses",
+      "loadingLabel": "Nilo-load ang Default na Mga Setting ng Boses",
+      "loadingTitle": "Default na Mga Setting ng Boses",
+      "noVoices": "Walang boses na tumutugma sa mga filter na ito.",
+      "saveError": "Hindi ma-save ang mga default ng boses",
+      "searchPlaceholder": "🔍 Maghanap ng mga boses…",
+      "searchVoices": "Maghanap ng mga boses",
+      "subtitle": "Ang boses na ginagamit ng iyong TTS Smart Fields maliban kung ang isang field ay naka-pin ng sarili nitong.",
+      "title": "Default na Mga Setting ng Boses"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "ibang uri ng tala",
+    "currentlySelectedCard": "Kasalukuyang napiling card",
+    "emptyCard": "(walang laman na card)",
+    "errors": {
+      "generateAudio": "Hindi makabuo ng audio",
+      "generateImage": "Hindi makabuo ng larawan",
+      "saveResult": "Hindi ma-save ang resultang ito sa card",
+      "testPrompt": "Hindi masubukan ang prompt na ito"
+    },
+    "fieldRunsOn": "Tumatakbo ang field na ito",
+    "fieldWord_one": "patlang",
+    "fieldWord_other": "mga patlang",
+    "generatedImagePreview": "Nakabuo ng preview ng larawan",
+    "missingFieldsTitle_one": "Nawawalang field",
+    "missingFieldsTitle_other": "Mga nawawalang field",
+    "needsFields_one": "Kailangan ng {{count}} field",
+    "needsFields_other": "Nangangailangan ng mga field ng {{count}}",
+    "notesSelected_one": "{{count}} note ang napili — paliitin ito sa isa.",
+    "notesSelected_other": "{{count}} na mga tala ang napili — paliitin ito sa isa.",
+    "pickCard": "Pumili ng card sa Anki Browser",
+    "promptPlaceholder": "Sumulat ng test prompt, nagre-refer sa mga field sa iyong card gamit ang {{braces}}.",
+    "saveToCard": "I-save sa card",
+    "savedTo": "Na-save sa {{field}}",
+    "selectCardWith": "Mangyaring pumili ng uri ng card na may",
+    "selectFieldToReadAloud": "Pumili ng field na babasahin nang malakas",
+    "selectNewCard": "Pumili ng bagong card sa browser",
+    "selectNoteType": "Mangyaring pumili ng isang tala ng uri",
+    "selectedCard": "Napiling card",
+    "selectedDeck": "Napiling deck",
+    "selectedNoteType": "Napiling uri ng tala",
+    "selectionAppearsAutomatically": "Awtomatikong lalabas dito ang iyong pinili.",
+    "sent": "Ipinadala",
+    "testing": "Pagsubok…",
+    "testResult": "Resulta ng pagsubok",
+    "textToSpeak": "Text para magsalita",
+    "viewResult": "Tingnan ang resulta",
+    "wrongNoteType": "Maling uri ng tala"
+  },
+  "subscription": {
+    "checking": "Sinusuri ang subscription",
+    "creditTypes": {
+      "images": "Mga imahe",
+      "text": "Text",
+      "voice": "Boses"
+    },
+    "creditUsage": "Paggamit ng Credit",
+    "creditsReset": "I-reset ang mga kredito",
+    "daysLeft_one": "Huling araw",
+    "daysLeft_other": "{{count}} araw ang natitira",
+    "errors": {
+      "logout": "Hindi makapag-log out"
+    },
+    "freePlan": "Libreng plano",
+    "freeTrial": "Libreng pagsubok",
+    "hero": {
+      "buyCredits": "Bumili ng higit pang mga kredito",
+      "freeCreditsResetting": "Nire-reset ang iyong mga libreng kredito",
+      "freePlan": "Ikaw ay nasa Libreng plano",
+      "noteLimit": "Naabot mo na ang iyong limitasyon sa tala",
+      "outOfCredits": "Wala ka nang credit ngayong buwan",
+      "outOfFreeCredits": "Wala ka nang libreng credits ngayong buwan",
+      "outOfTrialCredits": "Wala ka nang trial credits",
+      "planExpired": "Nag-expire na ang iyong plano",
+      "rollover": "Ang mga credit na pay-as-you-go ay lumilipas bawat buwan — sa iyo magpakailanman.",
+      "trialDaysLeft_one": "Ang iyong pagsubok ay magtatapos ngayon",
+      "trialDaysLeft_other": "{{count}} araw ang natitira sa iyong pagsubok",
+      "trialEnded": "Natapos na ang iyong pagsubok",
+      "trialNoteLimit": "Naabot mo na ang iyong limitasyon sa tala sa pagsubok",
+      "upgradeCollection": "Mag-upgrade — ang iyong buong koleksyon, awtomatiko",
+      "upgradeCredits": "Mag-upgrade para sa higit pang mga kredito",
+      "upgradePaid": "✨ Mag-upgrade sa bayad"
+    },
+    "inDays_one": "Ngayong araw",
+    "inDays_other": "Sa {{count}} araw",
+    "loading": "Naglo-load ng Subscription",
+    "loggingOut": "Nagla-log out…",
+    "logOut": "Log out",
+    "manageDescription": "Baguhin ang plano, i-update ang pagbabayad, o kanselahin.",
+    "manageOrUpgrade": "Pamahalaan o i-upgrade ang plano",
+    "managePlan": "Pamahalaan ang plano",
+    "monthlyCreditsUsed": "ng buwanang mga kredito na ginamit",
+    "mostCreditsUsed": "Karamihan sa mga kredito ngayong buwan ay ginagamit",
+    "noteLimitReached": "Naabot na ang limitasyon ng tala",
+    "notes": "Mga Tala",
+    "notesUsed": "Mga tala na ginamit",
+    "notesUsedValue": "{{used}}/{{limit}} ang ginamit",
+    "outOfCredits": "Out of credits",
+    "pausedUntilReset": "Naka-pause ang pagbuo hanggang sa ma-reset ang iyong mga credit.",
+    "plan": "Plano",
+    "planInactive": "Hindi aktibo ang plano",
+    "resetsIn": "Nire-reset sa",
+    "resetsInDays_one": "Nire-reset sa loob ng 1 araw",
+    "resetsInDays_other": "Nire-reset sa {{count}} araw",
+    "signedOut": {
+      "localStorage": "Ang iyong mga smart field at setting ay naka-store sa device na ito.",
+      "manage": "Mag-sign in upang pamahalaan ang iyong plano",
+      "paused": "Naka-pause ang pagbuo hanggang sa mag-sign in ka.",
+      "title": "Naka-sign out"
+    },
+    "title": "Account at Paggamit",
+    "trialCreditsUsed": "ng mga trial credit na ginamit",
+    "trialEnded": "Natapos ang pagsubok",
+    "trialEnds": "Natapos ang pagsubok",
+    "trialNoteLimitReached": "Naabot na ang limitasyon sa tala ng pagsubok",
+    "upgradeToKeepGenerating": "Mag-upgrade para patuloy na makabuo.",
+    "usage": "Paggamit"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Mag-iwan ng pagsusuri / tingnan ang mga doc.",
+    "byline": "ni Michael Piazza / Rosebud Labs, LLC.",
+    "changelog": "Changelog",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "Ang pinakamabilis na paraan para humingi ng tulong, humiling ng feature, o mag-ulat ng bug.",
+      "join": "Sumali",
+      "title": "Sumali sa Discord"
+    },
+    "emailUs": "Mag-email sa amin",
+    "feedback": {
+      "description": "May sira o mali? Direktang mensahe ang mahinang developer.",
+      "send": "Ipadala ito",
+      "title": "Magsumite ng bug / humiling ng isang tampok"
+    },
+    "github": "GitHub",
+    "loading": "Naglo-load ng Suporta",
+    "title": "Suporta"
+  },
+  "welcome": {
+    "alreadyAccount": "Mayroon ka nang account?",
+    "codePlaceholder": "Idikit ang iyong code",
+    "connect": "Kumonekta",
+    "connecting": "Kumokonekta…",
+    "description": "Magdagdag ng teksto, pananalita, at mga larawan sa mga indibidwal na card o sa iyong buong deck sa isang click.",
+    "errors": {
+      "code": "Hindi makakonekta sa code na iyon"
+    },
+    "finishDescription": "Kumpletuhin ang pag-sign in sa browser na aming binuksan. Awtomatikong mag-a-update ang window na ito.",
+    "finishInBrowser": "Tapusin sa iyong browser",
+    "haveCode": "May code mula sa website?",
+    "startTrial": "✨ Simulan ang Libreng Pagsubok ✨",
+    "trialDetails": "Libre sa loob ng 7 araw · bawat feature · walang credit card"
+  },
+  "trialEnded": {
+    "description": "Tumatakbo ang mga pagsubok nang 7 araw o hanggang sa maubos ang iyong mga kredito sa pagsubok.",
+    "features": {
+      "ariaLabel": "Ano ang pinapanatili ng pag-upgrade",
+      "batch": "Batch sa iyong buong koleksyon",
+      "images": "Pagbuo ng imahe",
+      "premium": "Bawat premium na modelo at boses",
+      "review": "Bumuo sa panahon ng pagsusuri"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Libreng buwanang alok",
+      "description": "Mag-iwan ng isang mabilis na AnkiWeb na pagsusuri, makakuha ng isang buwan sa amin.",
+      "dialogDescription": "Mag-iwan ng mabilis na pagsusuri sa AnkiWeb, pagkatapos ay mag-email sa amin — magdaragdag kami ng libreng buwan ng Smart Notes sa iyong account.",
+      "dialogTitle": "Kunin ang iyong libreng buwan",
+      "leaveAnkiWebReview": "Mag-iwan ng review sa AnkiWeb",
+      "leaveReview": "Mag-iwan ng pagsusuri",
+      "title": "Kumuha ng libreng buwan ng Smart Notes"
+    },
+    "thanks": "Salamat sa paggamit ng Smart Notes ✨",
+    "title": "Natapos na ang iyong libreng pagsubok",
+    "upgradeNow": "Mag-upgrade ngayon"
+  }
+}

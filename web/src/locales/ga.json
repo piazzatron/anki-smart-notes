@@ -1,0 +1,529 @@
+{
+  "common": {
+    "allDecks": "Gach Deasc",
+    "auto": "Auto",
+    "autoMax": "Auto MAX",
+    "back": "Ar ais",
+    "bestValueCost": "Luach is Fearr, 0.3 × costas",
+    "cancel": "Cealaigh",
+    "close": "Dún",
+    "connection": {
+      "connecting": "Ag nascadh le Anki…",
+      "reconnecting": "Ag athcheangal le Anki…"
+    },
+    "days_one": "1 lá",
+    "days_two": "laethanta {{count}}",
+    "days_few": "laethanta {{count}}",
+    "days_many": "laethanta {{count}}",
+    "days_other": "laethanta {{count}}",
+    "deck": "Deic",
+    "default": "Réamhshocrú",
+    "delete": "Scrios",
+    "done": "Déanta",
+    "duplicate": "Dúblach",
+    "edit": "Cuir in eagar",
+    "empty": "folamh",
+    "field": "Réimse",
+    "free": "Saor",
+    "discardChanges": "Scrios na hathruithe",
+    "discardUnsavedChanges": {
+      "description": "Níor sábháladh d'athruithe ar na socruithe réamhshocraithe seo.",
+      "title": "An bhfuil fonn ort na hathruithe gan sábháil a scriosadh?"
+    },
+    "dismissError": "Earráid dhíbhe",
+    "feedback": {
+      "description": "Seol tuairisc fhabht, iarratas gné, nó aiseolas eile chuig an bhforbróir.",
+      "error": "Níorbh fhéidir aiseolas a sheoladh",
+      "label": "Aiseolas",
+      "placeholder": "A fabht, smaoineamh, rud ar bith - téann sé díreach chuig an bhforbróir.",
+      "send": "Seol",
+      "sending": "Á sheoladh…",
+      "sent": "Aiseolas seolta. Beidh muid i dteagmháil go luath.",
+      "title": "Seol aiseolas"
+    },
+    "notNow": "Ní anois",
+    "other": "Eile",
+    "placeholderScreen": "Is é an scáileán seo chugainn san atógáil.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "Sínigh Isteach",
+    "signInLower": "Sínigh isteach",
+    "unlimited": "Gan teorainn",
+    "upgradeSparkles": "✨ Uasghrádú ✨",
+    "multiplierCost": "{{multiplier}} × costas",
+    "next": "Ar aghaidh",
+    "noteType": "Cineál Nóta",
+    "optional": "roghnach",
+    "prompt": "Leid",
+    "saving": "Ag sábháil…",
+    "test": "Tástáil",
+    "validFields": "Réimsí bailí:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Aiseolas",
+    "nav": {
+      "defaultsImages": "Socruithe Réamhshocraithe Íomhá",
+      "defaultsText": "Socruithe Téacs Réamhshocraithe",
+      "defaultsVoice": "Socruithe Gutha Réamhshocraithe",
+      "image": "Íomhá",
+      "settings": "Socruithe",
+      "smartFields": "Smart Fields",
+      "subscription": "Cuntas agus Úsáid",
+      "support": "Tacaíocht",
+      "text": "Téacs",
+      "voice": "Guth"
+    },
+    "sections": "Ailt Smart Notes",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Logánú briathra chun cabhrú le saincheisteanna a dhiagnóiseadh. Cuir na logaí seo san áireamh agus fabht á chomhdú.",
+      "label": "Modh dífhabhtaithe"
+    },
+    "generateAtReview": {
+      "description": "Líon isteach réimsí cliste atá in easnamh go huathoibríoch de réir mar a thagann cártaí chun solais.",
+      "label": "Gin réimsí le linn athbhreithnithe"
+    },
+    "language": {
+      "description": "Roghnaigh an teanga le haghaidh Smart Notes, nó meaitseáil teanga Anki.",
+      "label": "Teanga",
+      "matchAnki": "Meaitseáil Anki"
+    },
+    "legacy": {
+      "apiKey": "Eochair API OpenAI",
+      "apiKeyRequired": "Tá eochair API OpenAI íoctha ag teastáil.",
+      "description": "Ceangail eochair API íoctha agus roghnaigh samhail oidhreachta OpenAI.",
+      "getApiKey": "Faigh eochair API",
+      "host": "óstach OpenAI",
+      "hostDescription": "Cuir críochphointe eile ar fáil don API OpenAI.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "Múnla OpenAI",
+      "title": "Bain úsáid as m'eochair OpenAI féin"
+    },
+    "loading": "Socruithe á Luchtú",
+    "regenerateWhenBatching": {
+      "description": "Agus grúpa nótaí á bpróiseáil ag baisceanna, athghin gach réimse cliste ón tús seachas líonadh ach cinn fholmha.",
+      "label": "Athghin gach réimse cliste agus próiseáil bhaisc"
+    },
+    "saveError": "Níorbh fhéidir na socruithe a shábháil",
+    "sections": {
+      "advanced": "Casta",
+      "general": "Ginearálta",
+      "generation": "Giniúint"
+    },
+    "title": "Socruithe"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Smart Field ✨ cheana féin",
+    "collisionHint": "tá Smart Field aige cheana féin — roghnaigh réimse eile, deic nó cineál nóta",
+    "completion": {
+      "descriptionAfter": "líonann nótaí isteach aon uair a ghineann tú é.",
+      "descriptionBefore": "ar",
+      "methods": {
+        "bulk": {
+          "caption": "Roghnaigh nótaí nó deic → deaschliceáil → ✨ Gin Smart Fields.",
+          "imageAlt": "Roghchlár comhthéacs Brabhsálaí Anki le Gin Smart Fields aibhsithe",
+          "title": "Ar an mórchóir, ón mBrabhsálaí"
+        },
+        "card": {
+          "caption": "Cliceáil an cnaipe ✨ sa bharra uirlisí eagarthóireachta nó clóscríobh ⌘⇧G.",
+          "imageAlt": "Barra uirlisí eagarthóireachta Anki leis an gcnaipe Smart Notes aibhsithe",
+          "title": "Cárta amháin ag an am"
+        },
+        "field": {
+          "caption": "Deaschliceáil ar aon réimse → Gin Smart Field.",
+          "imageAlt": "Roghchlár comhthéacs réimse Anki le Gin Smart Field aibhsithe",
+          "title": "Réimse amháin"
+        }
+      },
+      "title": "Tá do Smart Field ag craoladh beo",
+      "waysToGenerate": "Cúpla bealach chun é a ghiniúint:"
+    },
+    "created": "Smart Field cruthaithe",
+    "dontShowAgain": "Ná taispeáin seo arís",
+    "errors": {
+      "save": "Níorbh fhéidir Smart Field a shábháil",
+      "updateWizardSettings": "Níorbh fhéidir socruithe an draoi a nuashonrú",
+      "writePrompt": "Níorbh fhéidir an leid a scríobh"
+    },
+    "fieldTypes": {
+      "audio": "Fuaime",
+      "image": "Íomhá",
+      "text": "Téacs"
+    },
+    "loadingModelCatalog": "Catalóg samhlacha á lódáil…",
+    "modelSettings": {
+      "appliesOnlyToField": "Ní bhaineann sé seo ach leis an Smart Field seo.",
+      "defaultWithValue": "Réamhshocrú ({{value}})",
+      "defaultsImages": "Réamhshocrú › Íomhánna",
+      "defaultsText": "Réamhshocrú › Téacs",
+      "defaultsVoice": "Réamhshocruithe › Guth",
+      "descriptionChat": "Socraigh an AI a scríobhann an réimse seo. Is féidir le formhór na réimsí fanacht ar an réamhshocrú.",
+      "descriptionImage": "Socraigh an AI a tharraingíonn an réimse seo. Is féidir le formhór na réimsí fanacht ar an réamhshocrú.",
+      "descriptionTts": "Socraigh an guth a léann an réimse seo. Is féidir le formhór na réimsí fanacht ar an réamhshocrú.",
+      "imageDefault": "réamhshocraithe íomhá",
+      "imageModel": "Múnla íomhá",
+      "loadingVoices": "Guthanna á lódáil…",
+      "model": "Múnla",
+      "pickCustom": "Roghnaigh múnla saincheaptha don réimse seo",
+      "reasoning": "réasúnaíocht {{level}}",
+      "reasoningHint": "Is féidir le réasúnaíocht níos airde feabhas a chur ar na glúine níos deacra, ach úsáideann níos mó creidmheasanna.",
+      "reasoningLevel": "Leibhéal réasúnaíochta",
+      "sharedByEveryField": "Tá do {{modality}} roinnte ag gach Smart Field a úsáideann é. Athraigh isteach é",
+      "textDefault": "réamhshocraithe téacs",
+      "textModel": "Múnla téacs",
+      "useMy": "Bain úsáid as mo {{modality}}",
+      "useWebSearch": "Úsáid cuardach gréasáin don réimse seo",
+      "voice": "Guth",
+      "voiceDefault": "réamhshocraithe guth",
+      "webSearch": "Cuardach Gréasáin",
+      "webSearchHint": "Lig don réimse seo faisnéis úr a úsáid ón ngréasán."
+    },
+    "save": "Sábháil Smart Field",
+    "sections": {
+      "onWhichNotes": "Cad iad na nótaí?",
+      "whatToGenerate": "Cad ba mhaith leat a ghiniúint?",
+      "whichFieldToFill": "Cén réimse ar cheart dó a líonadh?",
+      "whichFieldToSpeak": "Cén réimse ar cheart dó labhairt?"
+    },
+    "sourceField": "Réimse foinse",
+    "targetAriaLabel": "Sprioc Smart Field",
+    "testSmartField": "Tástáil do Smart Field",
+    "titles": {
+      "create": "Smart Field nua ✨",
+      "duplicate": "Smart Field a dhúbailt",
+      "edit": "Cuir Smart Field in eagar"
+    },
+    "validation": {
+      "chooseField": "Roghnaigh réimse",
+      "chooseNoteType": "Roghnaigh cineál nóta",
+      "chooseSourceField": "Roghnaigh réimse foinse",
+      "fieldAlreadyHasSmartField": "Tá {{field}} Smart Field cheana féin",
+      "writePrompt": "Scríobh leid"
+    },
+    "writePrompt": "Scríobh Leid",
+    "writePromptForMe": "Scríobh mo leid dom",
+    "writePromptForMeHint": "Abair cad atá uait i mBéarla simplí - scríobhfaimid an leid thíos.",
+    "writePromptPlaceholder": "\"Aistrigh go Béarla nádúrtha...\"",
+    "writing": "Ag scríobh…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "Gníomhartha le haghaidh {{field}}",
+    "addToNoteType": "Cuir Smart Field le {{noteType}}",
+    "disable": "Díchumasaigh",
+    "deleting": "Ag scriosadh…",
+    "discord": {
+      "dismissAriaLabel": "Ruaig cuireadh Discord",
+      "join": "Bígí",
+      "joinAriaLabel": "Bí ar an Smart Notes Discord",
+      "subtitle": "— babhtáil leideanna agus iarr gnéithe.",
+      "title": "Tar abair Dia duit sa Discord"
+    },
+    "editAriaLabel": "Cuir {{field}} Smart Field in eagar",
+    "emptyState": {
+      "description": "Cuir Smart Fields leis chun téacs, fuaime agus íomhánna a chur le do chártaí.",
+      "exampleAnswer": "Dia duit",
+      "exampleField": "TOSAIGH",
+      "examplePrompt": "bonjour",
+      "spark": "✦",
+      "title": "Tá do chuid nótaí ag breathnú beagán folamh"
+    },
+    "enable": "Cumasaigh",
+    "errors": {
+      "commandFailed": "Theip ar ordú Smart Field"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "Téacs",
+      "image": "Íomhá",
+      "tts": "Fuaime"
+    },
+    "loadingAriaLabel": "Smart Fields á lódáil",
+    "newSmartField": "Smart Field nua",
+    "readsAloud": "Léann {{field}} os ard",
+    "review": {
+      "ariaLabel": "Déan athbhreithniú ar Smart Notes ar AnkiWeb",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "Ruaig an cuireadh athbhreithnithe",
+      "subtitle": "Fág léirmheas ar AnkiWeb chun cabhrú le húsáideoirí Anki eile é a aimsiú.",
+      "title": "Ag baint taitnimh as Smart Notes?"
+    },
+    "subtitle": "Cuir téacs, guth agus íomhánna a ghintear go huathoibríoch le do nótaí.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "Tá múnla {{model}} in easnamh ar chatalóg comhrá",
+      "missingImageModel": "Tá samhail {{model}} in easnamh ar chatalóg na n-íomhánna"
+    },
+    "image": {
+      "cannotFindModel": "Tá samhail {{model}} in easnamh ar chatalóg na n-íomhánna",
+      "defaultModel": "Múnla réamhshocraithe",
+      "gptImage15Low": "caighdeán is fearr / trádáil luas.",
+      "gptImage2": "costas céanna, níos moille, ar chaighdeán níos airde.",
+      "loadingLabel": "Socruithe Réamhshocraithe Íomhá á Luchtú",
+      "loadingTitle": "Socruithe Réamhshocraithe Íomhá",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (Íseal / Meánach)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Samhail íomhá á phiocadh",
+      "samplePrompt": "Gin íomhá de dhalta atá ag staidéar go dian le Anki agus ag dul thar a gcuid trialacha.",
+      "saveError": "Níorbh fhéidir réamhshocruithe na híomhá a shábháil",
+      "subtitle": "Úsáid múnla d’íomhá Smart Fields mura n-úsáideann páirc a chuid féin.",
+      "title": "Socruithe Réamhshocraithe Íomhá",
+      "zImageTurbo": "is tapúla agus is saoire."
+    },
+    "layout": {
+      "saveChanges": "Sábháil athruithe",
+      "saving": "Ag sábháil…",
+      "tryIt": "Bain triail as"
+    },
+    "text": {
+      "cannotInheritModel": "Ní féidir le réamhshocrú téacs a bheith mar oidhreacht ag samhail eile",
+      "defaultModel": "Múnla Téacs Réamhshocraithe",
+      "defaultReasoningLevel": "Leibhéal réasúnaíochta réamhshocraithe",
+      "enableWebSearch": "Cumasaigh Cuardach Gréasáin",
+      "higherReasoning": "Is féidir le réasúnaíocht níos airde feabhas a chur ar na glúine níos deacra, ach úsáideann níos mó creidmheasanna.",
+      "loadingLabel": "Socruithe Téacs Réamhshocraithe á Luchtú",
+      "loadingTitle": "Socruithe Giniúint Téacs",
+      "modelGuidance": "Is iad {{auto}} agus {{autoMax}} na samhlacha molta Smart Notes a chothromaíonn feidhmíocht agus costas. Roghnaigh {{auto}} le haghaidh tascanna caighdeánacha agus uasghrádú go {{autoMax}} más gá.",
+      "pickingModel": "💡 Samhail á phiocadh",
+      "reasoningLevel": "Leibhéal réasúnaíochta",
+      "reasoningValues": {
+        "high": "Ard",
+        "low": "Íseal",
+        "off": "as"
+      },
+      "samplePrompt": "Cad is Córas Athrá Spásáilte (SRS) ann?",
+      "saveError": "Níorbh fhéidir na réamhshocruithe téacs a shábháil",
+      "subtitle": "Socruithe réamhshocraithe do ghiniúint téacs. Is féidir le Smart Fields aonair na luachanna seo a shárú.",
+      "title": "Socruithe Giniúint Téacs",
+      "webSearch": "Cuardach Gréasáin",
+      "webSearchDescription": "Lig do ghlúine téacs faisnéis úr a tharraingt isteach ón ngréasán.",
+      "webSearchWarning": "⚠️ Tá an cuardach costasach; monatóireacht a dhéanamh ar do chreidmheasanna."
+    },
+    "usage": {
+      "fields_one": "Baineann sé seo le réimse {{count}}",
+      "fields_two": "Baineann sé seo le réimsí {{count}}",
+      "fields_few": "Baineann sé seo le réimsí {{count}}",
+      "fields_many": "Baineann sé seo le réimsí {{count}}",
+      "fields_other": "Baineann sé seo le réimsí {{count}}"
+    },
+    "voice": {
+      "browseVoices": "Brabhsáil guthanna ({{count}})",
+      "cannotLoad": "Níorbh fhéidir guthanna a lódáil",
+      "currentDefault": "Réamhshocrú reatha",
+      "filters": {
+        "all": "Gach",
+        "female": "Mná",
+        "gender": "Inscne",
+        "language": "Teanga",
+        "male": "Fireann",
+        "provider": "Soláthraí"
+      },
+      "filterVoices": "Scag guthanna",
+      "loadingLabel": "Socruithe Gutha Réamhshocraithe á Luchtú",
+      "loadingTitle": "Socruithe Gutha Réamhshocraithe",
+      "noVoices": "Ní mheaitseálann guthanna na scagairí seo.",
+      "saveError": "Níorbh fhéidir réamhshocruithe gutha a shábháil",
+      "searchPlaceholder": "🔍 Cuardach guthanna…",
+      "searchVoices": "Cuardaigh guthanna",
+      "subtitle": "An guth a úsáideann do TTS Smart Fields ach amháin má luíonn réimse a chuid féin.",
+      "title": "Socruithe Gutha Réamhshocraithe"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "cineál nóta eile",
+    "currentlySelectedCard": "Cárta roghnaithe faoi láthair",
+    "emptyCard": "(cárta folamh)",
+    "errors": {
+      "generateAudio": "Níorbh fhéidir an fhuaim a ghiniúint",
+      "generateImage": "Níorbh fhéidir íomhá a ghiniúint",
+      "saveResult": "Níorbh fhéidir an toradh seo a shábháil ar an gcárta",
+      "testPrompt": "Níorbh fhéidir an leid seo a thástáil"
+    },
+    "fieldRunsOn": "Ritheann an réimse seo ar aghaidh",
+    "fieldWord_one": "réimse",
+    "fieldWord_two": "réimsí",
+    "fieldWord_few": "réimsí",
+    "fieldWord_many": "réimsí",
+    "fieldWord_other": "réimsí",
+    "generatedImagePreview": "Réamhamharc íomhá ginte",
+    "missingFieldsTitle_one": "páirc ar iarraidh",
+    "missingFieldsTitle_two": "Réimsí ar iarraidh",
+    "missingFieldsTitle_few": "Réimsí ar iarraidh",
+    "missingFieldsTitle_many": "Réimsí ar iarraidh",
+    "missingFieldsTitle_other": "Réimsí ar iarraidh",
+    "needsFields_one": "Riachtanais réimse {{count}}",
+    "needsFields_two": "Riachtanais réimsí {{count}}",
+    "needsFields_few": "Riachtanais réimsí {{count}}",
+    "needsFields_many": "Riachtanais réimsí {{count}}",
+    "needsFields_other": "Riachtanais réimsí {{count}}",
+    "notesSelected_one": "Nóta {{count}} roghnaithe — caolaigh go ceann amháin é.",
+    "notesSelected_two": "Nótaí {{count}} roghnaithe — caolaigh go ceann amháin é.",
+    "notesSelected_few": "Nótaí {{count}} roghnaithe — caolaigh go ceann amháin é.",
+    "notesSelected_many": "Nótaí {{count}} roghnaithe — caolaigh go ceann amháin é.",
+    "notesSelected_other": "Nótaí {{count}} roghnaithe — caolaigh go ceann amháin é.",
+    "pickCard": "Roghnaigh cárta sa Bhrabhsálaí Anki",
+    "promptPlaceholder": "Scríobh leid tástála, ag tagairt do réimsí ar do chárta le {{braces}}.",
+    "saveToCard": "Sábháil ar chárta",
+    "savedTo": "Sábháilte go {{field}}",
+    "selectCardWith": "Roghnaigh cineál cárta le do thoil",
+    "selectFieldToReadAloud": "Roghnaigh réimse le léamh os ard",
+    "selectNewCard": "Roghnaigh cárta nua sa bhrabhsálaí",
+    "selectNoteType": "Roghnaigh nóta cineáil",
+    "selectedCard": "Cárta roghnaithe",
+    "selectedDeck": "Deic roghnaithe",
+    "selectedNoteType": "Cineál nóta roghnaithe",
+    "selectionAppearsAutomatically": "Taispeántar do rogha anseo go huathoibríoch.",
+    "sent": "Seolta",
+    "testing": "Ag tástáil…",
+    "testResult": "Toradh tástála",
+    "textToSpeak": "Téacs a labhairt",
+    "viewResult": "Féach ar an toradh",
+    "wrongNoteType": "Cineál nóta mícheart"
+  },
+  "subscription": {
+    "checking": "Síntiús á sheiceáil",
+    "creditTypes": {
+      "images": "Íomhánna",
+      "text": "Téacs",
+      "voice": "Guth"
+    },
+    "creditUsage": "Úsáid Creidmheasa",
+    "creditsReset": "Creidmheasanna a athshocrú",
+    "daysLeft_one": "Lá deiridh",
+    "daysLeft_two": "{{count}} laethanta fágtha",
+    "daysLeft_few": "{{count}} laethanta fágtha",
+    "daysLeft_many": "{{count}} laethanta fágtha",
+    "daysLeft_other": "{{count}} laethanta fágtha",
+    "errors": {
+      "logout": "Níorbh fhéidir logáil amach"
+    },
+    "freePlan": "Plean saor in aisce,",
+    "freeTrial": "Triail saor in aisce",
+    "hero": {
+      "buyCredits": "Ceannaigh creidmheasanna níos mó",
+      "freeCreditsResetting": "Tá do chreidmheasanna saor in aisce á n-athshocrú",
+      "freePlan": "Tá tú ar an plean saor in aisce,",
+      "noteLimit": "Tá teorainn do nótaí sroichte agat",
+      "outOfCredits": "Tá tú as creidmheasanna an mhí seo",
+      "outOfFreeCredits": "Níl creidmheasanna saor in aisce agat an mhí seo",
+      "outOfTrialCredits": "Níl creidmheasanna trialach agat",
+      "planExpired": "Tá do phlean imithe in éag",
+      "rollover": "Rollaíonn creidmheasanna íoc mar a úsáidtear gach mí — mise go deo.",
+      "trialDaysLeft_one": "Tagann deireadh le do thriail inniu",
+      "trialDaysLeft_two": "Laethanta {{count}} fágtha i do thriail",
+      "trialDaysLeft_few": "Laethanta {{count}} fágtha i do thriail",
+      "trialDaysLeft_many": "Laethanta {{count}} fágtha i do thriail",
+      "trialDaysLeft_other": "Laethanta {{count}} fágtha i do thriail",
+      "trialEnded": "Tá deireadh le do thriail",
+      "trialNoteLimit": "Tá teorainn do nótaí trialach sroichte agat",
+      "upgradeCollection": "Uasghrádú - do bhailiúchán iomlán, go huathoibríoch",
+      "upgradeCredits": "Uasghrádú le haghaidh tuilleadh creidmheasanna",
+      "upgradePaid": "✨ Uasghrádú go dtí íoctha"
+    },
+    "inDays_one": "Inniu",
+    "inDays_two": "I laethanta {{count}}",
+    "inDays_few": "I laethanta {{count}}",
+    "inDays_many": "I laethanta {{count}}",
+    "inDays_other": "I laethanta {{count}}",
+    "loading": "Síntiús á Luchtú",
+    "loggingOut": "Ag logáil amach…",
+    "logOut": "Logáil amach",
+    "manageDescription": "Athraigh an plean, nuashonraigh an íocaíocht nó cuir ar ceal.",
+    "manageOrUpgrade": "Bainistigh nó uasghrádaigh plean",
+    "managePlan": "Bainistigh plean",
+    "monthlyCreditsUsed": "de chreidmheasanna míosúla a úsáidtear",
+    "mostCreditsUsed": "Úsáidtear an chuid is mó de chreidmheasanna na míosa seo",
+    "noteLimitReached": "Teorainn nótaí bainte amach",
+    "notes": "Nótaí",
+    "notesUsed": "Nótaí a úsáideadh",
+    "notesUsedValue": "{{used}}/{{limit}} a úsáidtear",
+    "outOfCredits": "As creidmheasanna",
+    "pausedUntilReset": "Cuirtear giniúint ar sos go dtí go n-athshocraíonn do chreidmheasanna.",
+    "plan": "Plean",
+    "planInactive": "Plean neamhghníomhach",
+    "resetsIn": "Athshocraigh isteach",
+    "resetsInDays_one": "Athshocraigh i 1 lá",
+    "resetsInDays_two": "Athshocraigh i laethanta {{count}}",
+    "resetsInDays_few": "Athshocraigh i laethanta {{count}}",
+    "resetsInDays_many": "Athshocraigh i laethanta {{count}}",
+    "resetsInDays_other": "Athshocraigh i laethanta {{count}}",
+    "signedOut": {
+      "localStorage": "Stóráiltear do réimsí cliste agus socruithe ar an ngléas seo.",
+      "manage": "Sínigh isteach chun do phlean a bhainistiú",
+      "paused": "Cuirtear giniúint ar sos go dtí go síníonn tú isteach.",
+      "title": "Sínithe amach"
+    },
+    "title": "Cuntas agus Úsáid",
+    "trialCreditsUsed": "creidmheasanna trialach a úsáideadh",
+    "trialEnded": "Cuireadh deireadh leis an triail",
+    "trialEnds": "Críochnaíonn an triail",
+    "trialNoteLimitReached": "Baineadh amach teorainn na nótaí trialach",
+    "upgradeToKeepGenerating": "Uasghrádú chun leanúint ar aghaidh ag giniúint.",
+    "usage": "Úsáid"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Fág léirmheas/féach docs.",
+    "byline": "le Michael Piazza / Rosebud Labs, LLC.",
+    "changelog": "Loga athrú",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "An bealach is tapúla chun cabhair a fháil, gné a iarraidh, nó fabht a thuairisciú.",
+      "join": "Bígí",
+      "title": "Bí ar an Discord"
+    },
+    "emailUs": "Seol ríomhphost chugainn",
+    "feedback": {
+      "description": "Rud éigin briste nó mícheart? Cuir teachtaireacht díreach chuig an bhforbróir bocht.",
+      "send": "Seol é",
+      "title": "Cuir isteach fabht / iarr gné"
+    },
+    "github": "GitHub",
+    "loading": "Tacaíocht á Luchtú",
+    "title": "Tacaíocht"
+  },
+  "welcome": {
+    "alreadyAccount": "An bhfuil cuntas agat cheana féin?",
+    "codePlaceholder": "Greamaigh do chód",
+    "connect": "Ceangail",
+    "connecting": "Ag nascadh…",
+    "description": "Cuir téacs, urlabhra, agus íomhánna le cártaí aonair nó le do dheic iomlán i gcliceáil amháin.",
+    "errors": {
+      "code": "Níorbh fhéidir ceangal leis an gcód sin"
+    },
+    "finishDescription": "Comhlánaigh síniú isteach sa bhrabhsálaí a d'oscail muid. Déanfar an fhuinneog seo a nuashonrú go huathoibríoch.",
+    "finishInBrowser": "Críochnaigh suas i do bhrabhsálaí",
+    "haveCode": "An bhfuil cód agat ón suíomh Gréasáin?",
+    "startTrial": "✨ Tosaigh Triail Saor in Aisce ✨",
+    "trialDetails": "Saor in aisce ar feadh 7 lá · gach gné · gan cárta creidmheasa"
+  },
+  "trialEnded": {
+    "description": "Maireann trialacha 7 lá nó go dtí go n-ídíonn do chreidmheasanna trialach.",
+    "features": {
+      "ariaLabel": "Cad a choimeádann uasghrádú",
+      "batch": "Baisc thar do bhailiúchán iomlán",
+      "images": "Giniúint íomhá",
+      "premium": "Gach samhail préimhe & guth",
+      "review": "Gin le linn athbhreithnithe"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Tairiscint na míosa saor in aisce,",
+      "description": "Fág athbhreithniú tapa AnkiWeb, faigh mí uainn.",
+      "dialogDescription": "Fág léirmheas tapa ar AnkiWeb, ansin seol ríomhphost chugainn - cuirfimid mí saor in aisce de Smart Notes le do chuntas.",
+      "dialogTitle": "Faigh do mhí saor in aisce",
+      "leaveAnkiWebReview": "Fág léirmheas ar AnkiWeb",
+      "leaveReview": "Fág léirmheas",
+      "title": "Faigh mí saor in aisce de Smart Notes"
+    },
+    "thanks": "Go raibh maith agat as Smart Notes ✨ a úsáid",
+    "title": "Tá deireadh le do thriail saor in aisce",
+    "upgradeNow": "Uasghrádaigh anois"
+  }
+}

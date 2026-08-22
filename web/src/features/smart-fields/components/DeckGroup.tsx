@@ -1,4 +1,5 @@
 import { NoteTypeCard } from "./NoteTypeCard"
+import { useTranslation } from "react-i18next"
 
 import type { SmartField } from "@/types/api"
 
@@ -22,21 +23,25 @@ export const DeckGroup = ({
   onEdit,
   onToggleEnabled,
   onError,
-}: DeckGroupProps) => (
-  <section>
-    {group.noteTypes.map((noteTypeGroup) => (
-      <NoteTypeCard
-        deckName={group.isGlobal ? "All decks" : group.deck.name}
-        group={noteTypeGroup}
-        isDeckOverride={!group.isGlobal}
-        key={noteTypeGroup.noteType.id}
-        onCreate={onCreate}
-        onDelete={onDelete}
-        onDuplicate={onDuplicate}
-        onEdit={onEdit}
-        onError={onError}
-        onToggleEnabled={onToggleEnabled}
-      />
-    ))}
-  </section>
-)
+}: DeckGroupProps) => {
+  const { t } = useTranslation()
+
+  return (
+    <section>
+      {group.noteTypes.map((noteTypeGroup) => (
+        <NoteTypeCard
+          deckName={group.isGlobal ? t("common.allDecks") : group.deck.name}
+          group={noteTypeGroup}
+          isDeckOverride={!group.isGlobal}
+          key={noteTypeGroup.noteType.id}
+          onCreate={onCreate}
+          onDelete={onDelete}
+          onDuplicate={onDuplicate}
+          onEdit={onEdit}
+          onError={onError}
+          onToggleEnabled={onToggleEnabled}
+        />
+      ))}
+    </section>
+  )
+}

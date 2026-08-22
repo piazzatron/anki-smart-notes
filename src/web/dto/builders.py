@@ -141,6 +141,7 @@ def build_settings() -> SettingsDto:
         generateAtReview=config.generate_at_review,
         regenerateWhenBatching=config.regenerate_notes_when_batching,
         debug=config.debug,
+        language=config.language,
         legacyOpenAiEnabled=config.legacy_support is True,
         legacyOpenAiKey=config.openai_api_key,
         legacyOpenAiModel=config.legacy_openai_model,

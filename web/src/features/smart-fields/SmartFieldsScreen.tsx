@@ -1,5 +1,6 @@
 import { Plus } from "lucide-react"
 import { useMemo, useState } from "react"
+import { useTranslation } from "react-i18next"
 
 import { selectBannerPrompt } from "./bannerPrompt"
 import { DeckGroup } from "./components/DeckGroup"
@@ -32,6 +33,7 @@ export const SmartFieldsScreen = ({
   initialEditor,
   state,
 }: SmartFieldsScreenProps) => {
+  const { t } = useTranslation()
   const [error, setError] = useState<string | null>(null)
   const [editorState, setEditorState] = useState<FieldEditorRequest | null>(
     null,
@@ -96,12 +98,12 @@ export const SmartFieldsScreen = ({
             variant="success"
           >
             <Plus aria-hidden className="size-4" />
-            New Smart Field
+            {t("smartFields.newSmartField")}
           </Button>
         }
-        subtitle="Add automatically generated text, voice, and images to your notes."
+        subtitle={t("smartFields.subtitle")}
         testId="smart-fields-screen"
-        title="✨ Smart Fields"
+        title={t("smartFields.title")}
       >
         {error !== null && (
           <ErrorBanner

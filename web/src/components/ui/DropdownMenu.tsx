@@ -45,7 +45,7 @@ export const DropdownMenuItem = forwardRef<
   ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item>
 >(({ className = "", ...props }, ref) => (
   <DropdownMenuPrimitive.Item
-    className={`w-full cursor-pointer rounded px-2.5 py-1.5 text-left text-xs text-zinc-300 outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-45 data-[highlighted]:bg-white/[0.07] ${className}`}
+    className={`w-full cursor-pointer rounded px-2.5 py-1.5 text-start text-xs text-zinc-300 outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-45 data-[highlighted]:bg-white/[0.07] ${className}`}
     ref={ref}
     {...props}
   />

@@ -36,6 +36,7 @@ class Config:
     allow_empty_fields: bool
     last_message_id: int
     debug: bool
+    language: str
     auth_token: Optional[str]
     legacy_support: Optional[bool]
     show_wizard_completion: bool

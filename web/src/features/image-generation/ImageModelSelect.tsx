@@ -25,6 +25,7 @@ import {
   SelectValue,
 } from "@/components/ui/Select"
 import { modelLabel } from "@/lib/catalog"
+import i18next from "@/lib/i18n"
 import type { ImageGenerationSettings, ImageModelCatalog } from "@/types/api"
 
 interface ImageModelSelectProps {
@@ -46,7 +47,9 @@ export const ImageModelSelect = ({
     onValueChange={(model) => {
       const selected = catalog.models.find((item) => item.id === model)
       if (selected === undefined) {
-        throw new Error(`Image catalog is missing model ${model}`)
+        throw new Error(
+          i18next.t("defaults.errors.missingImageModel", { model }),
+        )
       }
       onValueChange({ model, provider: selected.provider })
     }}

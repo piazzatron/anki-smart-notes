@@ -2,6 +2,7 @@ import js from "@eslint/js"
 import react from "eslint-plugin-react"
 import reactHooks from "eslint-plugin-react-hooks"
 import globals from "globals"
+import i18next from "eslint-plugin-i18next"
 import tseslint from "typescript-eslint"
 
 export default tseslint.config(
@@ -32,6 +33,32 @@ export default tseslint.config(
       ],
       "react/jsx-uses-react": "off",
       "react/react-in-jsx-scope": "off",
+    },
+  },
+  {
+    files: ["src/**/*.{ts,tsx}"],
+    ignores: ["src/**/*.test.{ts,tsx}", "src/dev/**"],
+    plugins: { i18next },
+    rules: {
+      "i18next/no-literal-string": [
+        "error",
+        {
+          mode: "jsx-only",
+          "jsx-attributes": {
+            include: [
+              "alt",
+              "aria-label",
+              "ariaLabel",
+              "description",
+              "label",
+              "note",
+              "placeholder",
+              "subtitle",
+              "title",
+            ],
+          },
+        },
+      ],
     },
   },
 )

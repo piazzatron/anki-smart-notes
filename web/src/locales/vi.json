@@ -1,0 +1,489 @@
+{
+  "common": {
+    "allDecks": "Tất cả các bộ bài",
+    "auto": "Tự động",
+    "autoMax": "Auto MAX",
+    "back": "Mặt sau",
+    "bestValueCost": "Giá trị tốt nhất, chi phí 0,3×",
+    "cancel": "Hủy bỏ",
+    "close": "Đóng",
+    "connection": {
+      "connecting": "Đang kết nối với Anki…",
+      "reconnecting": "Đang kết nối lại với Anki…"
+    },
+    "days_other": "{{count}} ngày",
+    "deck": "Bộ bài",
+    "default": "Mặc định",
+    "delete": "Xóa bỏ",
+    "done": "Xong",
+    "duplicate": "Nhân bản",
+    "edit": "Biên tập",
+    "empty": "trống",
+    "field": "Cánh đồng",
+    "free": "Miễn phí",
+    "discardChanges": "Hủy thay đổi",
+    "discardUnsavedChanges": {
+      "description": "Những thay đổi của bạn đối với các cài đặt mặc định này chưa được lưu.",
+      "title": "Hủy các thay đổi chưa được lưu?"
+    },
+    "dismissError": "Lỗi loại bỏ",
+    "feedback": {
+      "description": "Gửi báo cáo lỗi, yêu cầu tính năng hoặc phản hồi khác cho nhà phát triển.",
+      "error": "Không thể gửi phản hồi",
+      "label": "Nhận xét",
+      "placeholder": "Một lỗi, một ý tưởng, bất cứ thứ gì - nó sẽ đến thẳng nhà phát triển.",
+      "send": "Gửi",
+      "sending": "Đang gửi…",
+      "sent": "Đã gửi phản hồi. Chúng tôi sẽ liên lạc sớm.",
+      "title": "Gửi phản hồi"
+    },
+    "notNow": "Không phải bây giờ",
+    "other": "Khác",
+    "placeholderScreen": "Màn hình này là màn hình tiếp theo trong quá trình xây dựng lại.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "Đăng nhập",
+    "signInLower": "Đăng nhập",
+    "unlimited": "Không giới hạn",
+    "upgradeSparkles": "✨ Nâng cấp ✨",
+    "multiplierCost": "chi phí {{multiplier}}×",
+    "next": "Kế tiếp",
+    "noteType": "Loại ghi chú",
+    "optional": "không bắt buộc",
+    "prompt": "Lời nhắc",
+    "saving": "Đang lưu…",
+    "test": "Bài kiểm tra",
+    "validFields": "Các trường hợp lệ:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Nhận xét",
+    "nav": {
+      "defaultsImages": "Cài đặt hình ảnh mặc định",
+      "defaultsText": "Cài đặt văn bản mặc định",
+      "defaultsVoice": "Cài đặt giọng nói mặc định",
+      "image": "Hình ảnh",
+      "settings": "Cài đặt",
+      "smartFields": "Smart Fields",
+      "subscription": "Tài khoản và cách sử dụng",
+      "support": "Ủng hộ",
+      "text": "Chữ",
+      "voice": "Tiếng nói"
+    },
+    "sections": "Phần Smart Notes",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Ghi nhật ký chi tiết để giúp chẩn đoán sự cố. Bao gồm các nhật ký này khi gửi lỗi.",
+      "label": "Chế độ gỡ lỗi"
+    },
+    "generateAtReview": {
+      "description": "Tự động điền vào các trường thông minh còn thiếu khi thẻ xuất hiện trong quá trình xem xét.",
+      "label": "Tạo các trường trong quá trình xem xét"
+    },
+    "language": {
+      "description": "Chọn ngôn ngữ cho Smart Notes hoặc khớp với ngôn ngữ của Anki.",
+      "label": "Ngôn ngữ",
+      "matchAnki": "Trận đấu Anki"
+    },
+    "legacy": {
+      "apiKey": "Khóa API OpenAI",
+      "apiKeyRequired": "Cần có khóa API OpenAI trả phí.",
+      "description": "Kết nối khóa API trả phí và chọn mô hình OpenAI cũ.",
+      "getApiKey": "Nhận khóa API",
+      "host": "Máy chủ OpenAI",
+      "hostDescription": "Cung cấp điểm cuối thay thế cho API OpenAI.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "Mô hình OpenAI",
+      "title": "Sử dụng khóa OpenAI của riêng tôi"
+    },
+    "loading": "Đang tải cài đặt",
+    "regenerateWhenBatching": {
+      "description": "Khi xử lý hàng loạt một nhóm ghi chú, hãy tạo lại mọi trường thông minh từ đầu thay vì chỉ điền vào những trường trống.",
+      "label": "Tái tạo tất cả các trường thông minh khi xử lý hàng loạt"
+    },
+    "saveError": "Không thể lưu cài đặt",
+    "sections": {
+      "advanced": "Trình độ cao",
+      "general": "Tổng quan",
+      "generation": "Thế hệ"
+    },
+    "title": "Cài đặt"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Đã là Smart Field ✨",
+    "collisionHint": "đã có Smart Field - chọn một trường, bộ bài hoặc loại ghi chú khác",
+    "completion": {
+      "descriptionAfter": "ghi chú sẽ điền vào bất cứ khi nào bạn tạo nó.",
+      "descriptionBefore": "TRÊN",
+      "methods": {
+        "bulk": {
+          "caption": "Chọn ghi chú hoặc bộ bài → nhấp chuột phải → ✨ Tạo Smart Fields.",
+          "imageAlt": "Menu ngữ cảnh của Trình duyệt Anki với Tạo Smart Fields được tô sáng",
+          "title": "Hàng loạt, từ Trình duyệt"
+        },
+        "card": {
+          "caption": "Nhấp vào nút ✨ trên thanh công cụ soạn thảo hoặc nhập ⌘⇧G.",
+          "imageAlt": "Thanh công cụ soạn thảo Anki với nút Smart Notes được tô sáng",
+          "title": "Mỗi lần một thẻ"
+        },
+        "field": {
+          "caption": "Nhấp chuột phải vào bất kỳ trường nào → Tạo Smart Field.",
+          "imageAlt": "Menu ngữ cảnh của trường Anki với Tạo Smart Field được tô sáng",
+          "title": "Một trường duy nhất"
+        }
+      },
+      "title": "Smart Field của bạn đang hoạt động",
+      "waysToGenerate": "Một số cách để tạo ra nó:"
+    },
+    "created": "Smart Field đã tạo",
+    "dontShowAgain": "Đừng hiển thị lại thông tin này",
+    "errors": {
+      "save": "Không thể lưu Smart Field",
+      "updateWizardSettings": "Không thể cập nhật cài đặt trình hướng dẫn",
+      "writePrompt": "Không thể viết lời nhắc"
+    },
+    "fieldTypes": {
+      "audio": "Âm thanh",
+      "image": "Hình ảnh",
+      "text": "Chữ"
+    },
+    "loadingModelCatalog": "Đang tải danh mục mô hình…",
+    "modelSettings": {
+      "appliesOnlyToField": "Chỉ áp dụng cho Smart Field này.",
+      "defaultWithValue": "Mặc định ({{value}})",
+      "defaultsImages": "Mặc định > Hình ảnh",
+      "defaultsText": "Mặc định > Văn bản",
+      "defaultsVoice": "Mặc định > Giọng nói",
+      "descriptionChat": "Đặt AI ghi trường này. Hầu hết các trường có thể giữ nguyên mặc định.",
+      "descriptionImage": "Đặt AI vẽ trường này. Hầu hết các trường có thể giữ nguyên mặc định.",
+      "descriptionTts": "Đặt giọng nói để đọc trường này. Hầu hết các trường có thể giữ nguyên mặc định.",
+      "imageDefault": "hình ảnh mặc định",
+      "imageModel": "Mô hình hình ảnh",
+      "loadingVoices": "Đang tải giọng nói…",
+      "model": "Người mẫu",
+      "pickCustom": "Chọn một mô hình tùy chỉnh cho trường này",
+      "reasoning": "Lý luận {{level}}",
+      "reasoningHint": "Lý luận cao hơn có thể cải thiện các thế hệ khó hơn nhưng sử dụng nhiều tín chỉ hơn.",
+      "reasoningLevel": "Mức độ lý luận",
+      "sharedByEveryField": "{{modality}} của bạn được chia sẻ bởi mọi Smart Field sử dụng nó. Thay đổi nó trong",
+      "textDefault": "văn bản mặc định",
+      "textModel": "Mẫu văn bản",
+      "useMy": "Sử dụng {{modality}} của tôi",
+      "useWebSearch": "Sử dụng tìm kiếm trên web cho trường này",
+      "voice": "Tiếng nói",
+      "voiceDefault": "mặc định bằng giọng nói",
+      "webSearch": "Tìm kiếm trên web",
+      "webSearchHint": "Hãy để trường này sử dụng thông tin mới từ web."
+    },
+    "save": "Lưu Smart Field",
+    "sections": {
+      "onWhichNotes": "Trên những ghi chú nào?",
+      "whatToGenerate": "Bạn muốn tạo ra cái gì?",
+      "whichFieldToFill": "Trường nào nên điền vào?",
+      "whichFieldToSpeak": "Lĩnh vực nào nó nên nói?"
+    },
+    "sourceField": "Trường nguồn",
+    "targetAriaLabel": "Mục tiêu Smart Field",
+    "testSmartField": "Kiểm tra Smart Field của bạn",
+    "titles": {
+      "create": "Smart Field mới ✨",
+      "duplicate": "Sao chép Smart Field",
+      "edit": "Chỉnh sửa Smart Field"
+    },
+    "validation": {
+      "chooseField": "Chọn một trường",
+      "chooseNoteType": "Chọn loại ghi chú",
+      "chooseSourceField": "Chọn trường nguồn",
+      "fieldAlreadyHasSmartField": "{{field}} đã có Smart Field",
+      "writePrompt": "Viết lời nhắc"
+    },
+    "writePrompt": "Viết lời nhắc",
+    "writePromptForMe": "Viết lời nhắc cho tôi",
+    "writePromptForMeHint": "Nói những gì bạn muốn bằng tiếng Anh đơn giản — chúng tôi sẽ viết lời nhắc bên dưới.",
+    "writePromptPlaceholder": "\"Dịch sang tiếng Anh tự nhiên...\"",
+    "writing": "Viết…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "Các hành động dành cho {{field}}",
+    "addToNoteType": "Thêm Smart Field vào {{noteType}}",
+    "disable": "Vô hiệu hóa",
+    "deleting": "Đang xóa…",
+    "discord": {
+      "dismissAriaLabel": "Loại bỏ lời mời Discord",
+      "join": "Tham gia",
+      "joinAriaLabel": "Tham gia Smart Notes Discord",
+      "subtitle": "- trao đổi lời nhắc và tính năng yêu cầu.",
+      "title": "Hãy đến chào trong Discord"
+    },
+    "editAriaLabel": "Chỉnh sửa {{field}} Smart Field",
+    "emptyState": {
+      "description": "Thêm Smart Fields để thêm văn bản, âm thanh và hình ảnh vào thẻ của bạn.",
+      "exampleAnswer": "Xin chào",
+      "exampleField": "ĐẰNG TRƯỚC",
+      "examplePrompt": "xin chào",
+      "spark": "✦",
+      "title": "Ghi chú của bạn có vẻ hơi trống rỗng"
+    },
+    "enable": "Cho phép",
+    "errors": {
+      "commandFailed": "Lệnh Smart Field không thành công"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "Chữ",
+      "image": "Hình ảnh",
+      "tts": "Âm thanh"
+    },
+    "loadingAriaLabel": "Đang tải Smart Fields",
+    "newSmartField": "Smart Field mới",
+    "readsAloud": "Đọc to {{field}}",
+    "review": {
+      "ariaLabel": "Đánh giá Smart Notes trên AnkiWeb",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "Loại bỏ lời mời đánh giá",
+      "subtitle": "Để lại đánh giá về AnkiWeb để giúp những người dùng Anki khác tìm thấy nó.",
+      "title": "Bạn đang thưởng thức Smart Notes?"
+    },
+    "subtitle": "Thêm văn bản, giọng nói và hình ảnh được tạo tự động vào ghi chú của bạn.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "Danh mục trò chuyện thiếu mẫu {{model}}",
+      "missingImageModel": "Danh mục hình ảnh thiếu mẫu {{model}}"
+    },
+    "image": {
+      "cannotFindModel": "Danh mục hình ảnh thiếu mẫu {{model}}",
+      "defaultModel": "Mô hình mặc định",
+      "gptImage15Low": "sự cân bằng chất lượng/tốc độ tốt nhất.",
+      "gptImage2": "cùng chi phí, chậm hơn, chất lượng cao hơn.",
+      "loadingLabel": "Đang tải cài đặt hình ảnh mặc định",
+      "loadingTitle": "Cài đặt hình ảnh mặc định",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Chọn mẫu hình ảnh",
+      "samplePrompt": "Tạo hình ảnh một học sinh đang học tập chăm chỉ với Anki và vượt qua các bài kiểm tra của họ.",
+      "saveError": "Không thể lưu mặc định hình ảnh",
+      "subtitle": "Mô hình mà hình ảnh Smart Fields của bạn sử dụng trừ khi một trường ghim trường của chính nó.",
+      "title": "Cài đặt hình ảnh mặc định",
+      "zImageTurbo": "nhanh nhất và rẻ nhất."
+    },
+    "layout": {
+      "saveChanges": "Lưu thay đổi",
+      "saving": "Đang lưu…",
+      "tryIt": "Hãy thử nó"
+    },
+    "text": {
+      "cannotInheritModel": "Mặc định văn bản không thể kế thừa mô hình khác",
+      "defaultModel": "Mẫu văn bản mặc định",
+      "defaultReasoningLevel": "Mức lý luận mặc định",
+      "enableWebSearch": "Bật tìm kiếm trên web",
+      "higherReasoning": "Lý luận cao hơn có thể cải thiện các thế hệ khó hơn nhưng sử dụng nhiều tín chỉ hơn.",
+      "loadingLabel": "Đang tải cài đặt văn bản mặc định",
+      "loadingTitle": "Cài đặt tạo văn bản",
+      "modelGuidance": "{{auto}} và {{autoMax}} là các mẫu Smart Notes được đề xuất nhằm cân bằng giữa hiệu suất và chi phí. Chọn {{auto}} cho các tác vụ tiêu chuẩn và nâng cấp lên {{autoMax}} nếu cần.",
+      "pickingModel": "💡 Chọn mẫu",
+      "reasoningLevel": "Mức độ lý luận",
+      "reasoningValues": {
+        "high": "Cao",
+        "low": "Thấp",
+        "off": "Tắt"
+      },
+      "samplePrompt": "Hệ thống lặp lại cách nhau (SRS) là gì?",
+      "saveError": "Không thể lưu mặc định văn bản",
+      "subtitle": "Cài đặt mặc định để tạo văn bản. Smart Fields riêng lẻ có thể ghi đè các giá trị này.",
+      "title": "Cài đặt tạo văn bản",
+      "webSearch": "Tìm kiếm trên web",
+      "webSearchDescription": "Hãy để các thế hệ văn bản lấy thông tin mới từ web.",
+      "webSearchWarning": "⚠️ Tìm kiếm tốn kém; theo dõi các khoản tín dụng của bạn."
+    },
+    "usage": {
+      "fields_other": "Áp dụng cho các trường {{count}}"
+    },
+    "voice": {
+      "browseVoices": "Duyệt giọng nói ({{count}})",
+      "cannotLoad": "Không thể tải giọng nói",
+      "currentDefault": "Mặc định hiện tại",
+      "filters": {
+        "all": "Tất cả",
+        "female": "Nữ giới",
+        "gender": "Giới tính",
+        "language": "Ngôn ngữ",
+        "male": "Nam giới",
+        "provider": "nhà cung cấp"
+      },
+      "filterVoices": "Lọc giọng nói",
+      "loadingLabel": "Đang tải cài đặt giọng nói mặc định",
+      "loadingTitle": "Cài đặt giọng nói mặc định",
+      "noVoices": "Không có giọng nói nào phù hợp với các bộ lọc này.",
+      "saveError": "Không thể lưu mặc định giọng nói",
+      "searchPlaceholder": "🔍 Tìm kiếm giọng nói…",
+      "searchVoices": "Tìm kiếm giọng nói",
+      "subtitle": "Giọng nói mà TTS Smart Fields của bạn sử dụng trừ khi một trường ghim giọng nói của chính nó.",
+      "title": "Cài đặt giọng nói mặc định"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "loại ghi chú khác",
+    "currentlySelectedCard": "Thẻ hiện được chọn",
+    "emptyCard": "(thẻ trống)",
+    "errors": {
+      "generateAudio": "Không thể tạo âm thanh",
+      "generateImage": "Không thể tạo hình ảnh",
+      "saveResult": "Không thể lưu kết quả này vào thẻ",
+      "testPrompt": "Không thể kiểm tra lời nhắc này"
+    },
+    "fieldRunsOn": "Trường này chạy trên",
+    "fieldWord_other": "lĩnh vực",
+    "generatedImagePreview": "Xem trước hình ảnh được tạo",
+    "missingFieldsTitle_other": "Thiếu trường",
+    "needsFields_other": "Cần các trường {{count}}",
+    "notesSelected_other": "Các ghi chú {{count}} đã chọn - thu hẹp nó thành một ghi chú.",
+    "pickCard": "Chọn một thẻ trong Trình duyệt Anki",
+    "promptPlaceholder": "Viết lời nhắc kiểm tra, tham chiếu các trường trên thẻ của bạn bằng {{braces}}.",
+    "saveToCard": "Lưu vào thẻ",
+    "savedTo": "Đã lưu vào {{field}}",
+    "selectCardWith": "Vui lòng chọn loại thẻ có",
+    "selectFieldToReadAloud": "Chọn một trường để đọc to",
+    "selectNewCard": "Chọn thẻ mới trong trình duyệt",
+    "selectNoteType": "Vui lòng chọn loại ghi chú",
+    "selectedCard": "Thẻ đã chọn",
+    "selectedDeck": "Bộ bài đã chọn",
+    "selectedNoteType": "Loại ghi chú đã chọn",
+    "selectionAppearsAutomatically": "Lựa chọn của bạn sẽ tự động xuất hiện ở đây.",
+    "sent": "Đã gửi",
+    "testing": "Đang thử nghiệm…",
+    "testResult": "Kết quả kiểm tra",
+    "textToSpeak": "Nhắn tin để nói",
+    "viewResult": "Xem kết quả",
+    "wrongNoteType": "Loại ghi chú sai"
+  },
+  "subscription": {
+    "checking": "Kiểm tra đăng ký",
+    "creditTypes": {
+      "images": "Hình ảnh",
+      "text": "Chữ",
+      "voice": "Tiếng nói"
+    },
+    "creditUsage": "Sử dụng tín dụng",
+    "creditsReset": "Đặt lại tín dụng",
+    "daysLeft_other": "{{count}} ngày còn lại",
+    "errors": {
+      "logout": "Không thể đăng xuất"
+    },
+    "freePlan": "Gói miễn phí",
+    "freeTrial": "Dùng thử miễn phí",
+    "hero": {
+      "buyCredits": "Mua thêm tín dụng",
+      "freeCreditsResetting": "Tín dụng miễn phí của bạn đang được đặt lại",
+      "freePlan": "Bạn đang sử dụng gói miễn phí",
+      "noteLimit": "Bạn đã đạt đến giới hạn ghi chú của mình",
+      "outOfCredits": "Bạn đã hết tín dụng tháng này",
+      "outOfFreeCredits": "Bạn đã hết tín dụng miễn phí trong tháng này",
+      "outOfTrialCredits": "Bạn đã hết tín dụng dùng thử",
+      "planExpired": "Gói của bạn đã hết hạn",
+      "rollover": "Tín dụng thanh toán theo mức sử dụng sẽ được chuyển đổi hàng tháng — là của bạn mãi mãi.",
+      "trialDaysLeft_other": "{{count}} số ngày còn lại trong thời gian dùng thử của bạn",
+      "trialEnded": "Thời gian dùng thử của bạn đã kết thúc",
+      "trialNoteLimit": "Bạn đã đạt đến giới hạn ghi chú dùng thử",
+      "upgradeCollection": "Tự động nâng cấp — toàn bộ bộ sưu tập của bạn",
+      "upgradeCredits": "Nâng cấp để có thêm tín dụng",
+      "upgradePaid": "✨ Nâng cấp lên trả phí"
+    },
+    "inDays_other": "Trong những ngày {{count}}",
+    "loading": "Đang tải đăng ký",
+    "loggingOut": "Đang đăng xuất…",
+    "logOut": "Đăng xuất",
+    "manageDescription": "Thay đổi gói, cập nhật thanh toán hoặc hủy.",
+    "manageOrUpgrade": "Quản lý hoặc nâng cấp gói",
+    "managePlan": "Quản lý kế hoạch",
+    "monthlyCreditsUsed": "số tín dụng hàng tháng được sử dụng",
+    "mostCreditsUsed": "Hầu hết các khoản tín dụng của tháng này được sử dụng",
+    "noteLimitReached": "Đã đạt đến giới hạn ghi chú",
+    "notes": "Ghi chú",
+    "notesUsed": "Ghi chú được sử dụng",
+    "notesUsedValue": "{{used}}/{{limit}} đã qua sử dụng",
+    "outOfCredits": "Hết tín dụng",
+    "pausedUntilReset": "Quá trình tạo bị tạm dừng cho đến khi tín dụng của bạn được đặt lại.",
+    "plan": "Kế hoạch",
+    "planInactive": "Kế hoạch không hoạt động",
+    "resetsIn": "Đặt lại trong",
+    "resetsInDays_other": "Đặt lại sau {{count}} ngày",
+    "signedOut": {
+      "localStorage": "Các trường thông minh và cài đặt của bạn được lưu trữ trên thiết bị này.",
+      "manage": "Đăng nhập để quản lý kế hoạch của bạn",
+      "paused": "Thế hệ bị tạm dừng cho đến khi bạn đăng nhập.",
+      "title": "Đã đăng xuất"
+    },
+    "title": "Tài khoản và cách sử dụng",
+    "trialCreditsUsed": "số tín dụng dùng thử đã sử dụng",
+    "trialEnded": "Thử nghiệm đã kết thúc",
+    "trialEnds": "Hết thời gian dùng thử",
+    "trialNoteLimitReached": "Đã đạt đến giới hạn ghi chú dùng thử",
+    "upgradeToKeepGenerating": "Nâng cấp để tiếp tục tạo ra.",
+    "usage": "Cách sử dụng"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Để lại đánh giá/xem tài liệu.",
+    "byline": "của Michael Piazza / Phòng thí nghiệm Rosebud, LLC.",
+    "changelog": "Nhật ký thay đổi",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "Cách nhanh nhất để nhận trợ giúp, yêu cầu tính năng hoặc báo cáo lỗi.",
+      "join": "Tham gia",
+      "title": "Tham gia Discord"
+    },
+    "emailUs": "Gửi email cho chúng tôi",
+    "feedback": {
+      "description": "Có gì đó bị hỏng hoặc sai? Nhắn tin trực tiếp cho nhà phát triển nghèo.",
+      "send": "Gửi nó",
+      "title": "Gửi lỗi/yêu cầu một tính năng"
+    },
+    "github": "GitHub",
+    "loading": "Đang tải hỗ trợ",
+    "title": "Ủng hộ"
+  },
+  "welcome": {
+    "alreadyAccount": "Đã có tài khoản?",
+    "codePlaceholder": "Dán mã của bạn",
+    "connect": "Kết nối",
+    "connecting": "Đang kết nối…",
+    "description": "Thêm văn bản, lời nói và hình ảnh vào từng thẻ hoặc toàn bộ bộ tài liệu của bạn chỉ bằng một cú nhấp chuột.",
+    "errors": {
+      "code": "Không thể kết nối với mã đó"
+    },
+    "finishDescription": "Hoàn tất đăng nhập vào trình duyệt chúng tôi đã mở. Cửa sổ này sẽ tự động cập nhật.",
+    "finishInBrowser": "Kết thúc trong trình duyệt của bạn",
+    "haveCode": "Có mã từ trang web?",
+    "startTrial": "✨ Bắt đầu dùng thử miễn phí ✨",
+    "trialDetails": "Miễn phí trong 7 ngày · mọi tính năng · không cần thẻ tín dụng"
+  },
+  "trialEnded": {
+    "description": "Bản dùng thử kéo dài 7 ngày hoặc cho đến khi hết tín dụng dùng thử.",
+    "features": {
+      "ariaLabel": "Nâng cấp gì giữ",
+      "batch": "Hàng loạt trên toàn bộ bộ sưu tập của bạn",
+      "images": "Tạo hình ảnh",
+      "premium": "Mọi model và giọng nói cao cấp",
+      "review": "Tạo trong quá trình xem xét"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Ưu đãi tháng miễn phí",
+      "description": "Để lại bài đánh giá nhanh về AnkiWeb, nhận miễn phí một tháng.",
+      "dialogDescription": "Để lại đánh giá nhanh về AnkiWeb, sau đó gửi email cho chúng tôi — chúng tôi sẽ thêm một tháng Smart Notes miễn phí vào tài khoản của bạn.",
+      "dialogTitle": "Nhận tháng miễn phí của bạn",
+      "leaveAnkiWebReview": "Để lại đánh giá về AnkiWeb",
+      "leaveReview": "Để lại đánh giá",
+      "title": "Nhận một tháng miễn phí Smart Notes"
+    },
+    "thanks": "Cảm ơn bạn đã sử dụng Smart Notes ✨",
+    "title": "Thời gian dùng thử miễn phí của bạn đã kết thúc",
+    "upgradeNow": "Nâng cấp ngay bây giờ"
+  }
+}

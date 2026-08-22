@@ -1,0 +1,509 @@
+{
+  "common": {
+    "allDecks": "Toate punțile",
+    "auto": "Auto",
+    "autoMax": "Auto MAX",
+    "back": "Spate",
+    "bestValueCost": "Cea mai bună valoare, 0,3× cost",
+    "cancel": "Anula",
+    "close": "Aproape",
+    "connection": {
+      "connecting": "Se conectează la Anki...",
+      "reconnecting": "Se reconecta la Anki..."
+    },
+    "days_one": "1 zi",
+    "days_few": "{{count}} zile",
+    "days_other": "{{count}} zile",
+    "deck": "Punte",
+    "default": "Implicit",
+    "delete": "Şterge",
+    "done": "Făcut",
+    "duplicate": "Duplicat",
+    "edit": "Edita",
+    "empty": "gol",
+    "field": "Domeniu",
+    "free": "Gratuit",
+    "discardChanges": "Renunțați la modificări",
+    "discardUnsavedChanges": {
+      "description": "Modificările dvs. la aceste setări implicite nu au fost salvate.",
+      "title": "Renunțați la modificările nesalvate?"
+    },
+    "dismissError": "Închideți eroarea",
+    "feedback": {
+      "description": "Trimiteți un raport de eroare, o solicitare de funcții sau alt feedback dezvoltatorului.",
+      "error": "Nu s-a putut trimite feedback",
+      "label": "Feedback",
+      "placeholder": "O eroare, o idee, orice - merge direct la dezvoltator.",
+      "send": "Trimite",
+      "sending": "Se trimite…",
+      "sent": "Feedback trimis. Vom lua legătura în curând.",
+      "title": "Trimite feedback"
+    },
+    "notNow": "Nu acum",
+    "other": "Alte",
+    "placeholderScreen": "Acest ecran este următorul în reconstrucție.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "Conectare",
+    "signInLower": "Conectare",
+    "unlimited": "Nelimitat",
+    "upgradeSparkles": "✨ Upgrade ✨",
+    "multiplierCost": "{{multiplier}}× cost",
+    "next": "Următorul",
+    "noteType": "Tip de notă",
+    "optional": "opțional",
+    "prompt": "Prompt",
+    "saving": "Economisire…",
+    "test": "Test",
+    "validFields": "Câmpuri valide:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Feedback",
+    "nav": {
+      "defaultsImages": "Setări implicite pentru imagine",
+      "defaultsText": "Setări implicite de text",
+      "defaultsVoice": "Setări implicite de voce",
+      "image": "Imagine",
+      "settings": "Setări",
+      "smartFields": "Smart Fields",
+      "subscription": "Cont și utilizare",
+      "support": "Sprijin",
+      "text": "Text",
+      "voice": "Voce"
+    },
+    "sections": "Smart Notes secțiuni",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Înregistrare detaliată pentru a ajuta la diagnosticarea problemelor. Includeți aceste jurnale atunci când depuneți o eroare.",
+      "label": "Modul de depanare"
+    },
+    "generateAtReview": {
+      "description": "Completați automat câmpurile inteligente care lipsesc pe măsură ce cardurile apar în examinare.",
+      "label": "Generați câmpuri în timpul examinării"
+    },
+    "language": {
+      "description": "Alegeți limba pentru Smart Notes sau potriviți limba Anki.",
+      "label": "Limbă",
+      "matchAnki": "Se potrivește cu Anki"
+    },
+    "legacy": {
+      "apiKey": "Cheia API OpenAI",
+      "apiKeyRequired": "Este necesară o cheie API OpenAI plătită.",
+      "description": "Conectați o cheie API plătită și alegeți un model vechi OpenAI.",
+      "getApiKey": "Obțineți o cheie API",
+      "host": "Gazdă OpenAI",
+      "hostDescription": "Furnizați un punct final alternativ pentru API-ul OpenAI.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "Modelul OpenAI",
+      "title": "Folosiți propria mea cheie OpenAI"
+    },
+    "loading": "Setări de încărcare",
+    "regenerateWhenBatching": {
+      "description": "Când procesați în lot un grup de note, regenerați fiecare câmp inteligent de la zero, în loc să le completați doar pe cele goale.",
+      "label": "Regenerați toate câmpurile inteligente atunci când procesați în loturi"
+    },
+    "saveError": "Nu s-au putut salva setările",
+    "sections": {
+      "advanced": "Avansat",
+      "general": "General",
+      "generation": "Generaţie"
+    },
+    "title": "Setări"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Deja un Smart Field ✨",
+    "collisionHint": "are deja un Smart Field — alegeți un alt câmp, pachet sau tip de notă",
+    "completion": {
+      "descriptionAfter": "notele se completează ori de câte ori le generați.",
+      "descriptionBefore": "pe",
+      "methods": {
+        "bulk": {
+          "caption": "Selectați note sau pachet → faceți clic dreapta → ✨ Generați Smart Fields.",
+          "imageAlt": "Anki Meniul contextual al browserului cu Generare Smart Fields evidențiat",
+          "title": "În vrac, din Browser"
+        },
+        "card": {
+          "caption": "Faceți clic pe butonul ✨ din bara de instrumente a editorului sau tastați ⌘⇧G.",
+          "imageAlt": "Bara de instrumente a editorului Anki cu butonul Smart Notes evidențiat",
+          "title": "O carte la un moment dat"
+        },
+        "field": {
+          "caption": "Faceți clic dreapta pe orice câmp → Generați Smart Field.",
+          "imageAlt": "Meniul contextual al câmpului Anki cu Generare Smart Field evidențiat",
+          "title": "Un singur câmp"
+        }
+      },
+      "title": "Smart Field dvs. este live",
+      "waysToGenerate": "Câteva moduri de a-l genera:"
+    },
+    "created": "Smart Field creat",
+    "dontShowAgain": "Nu mai arăta asta",
+    "errors": {
+      "save": "Nu s-a putut salva Smart Field",
+      "updateWizardSettings": "Nu s-au putut actualiza setările expertului",
+      "writePrompt": "Nu s-a putut scrie promptul"
+    },
+    "fieldTypes": {
+      "audio": "Audio",
+      "image": "Imagine",
+      "text": "Text"
+    },
+    "loadingModelCatalog": "Se încarcă catalogul de modele...",
+    "modelSettings": {
+      "appliesOnlyToField": "Se aplică numai acestui Smart Field.",
+      "defaultWithValue": "Implicit ({{value}})",
+      "defaultsImages": "Implicite › Imagini",
+      "defaultsText": "Setări implicite › Text",
+      "defaultsVoice": "Setări implicite › Voce",
+      "descriptionChat": "Setați AI care scrie acest câmp. Majoritatea câmpurilor pot rămâne implicite.",
+      "descriptionImage": "Setați IA care desenează acest câmp. Majoritatea câmpurilor pot rămâne implicite.",
+      "descriptionTts": "Setați vocea care citește acest câmp. Majoritatea câmpurilor pot rămâne implicite.",
+      "imageDefault": "imagine implicită",
+      "imageModel": "Model de imagine",
+      "loadingVoices": "Se încarcă vocile...",
+      "model": "Model",
+      "pickCustom": "Alegeți un model personalizat pentru acest câmp",
+      "reasoning": "{{level}} raționament",
+      "reasoningHint": "Raționamentul mai înalt poate îmbunătăți generațiile mai dure, dar utilizează mai multe credite.",
+      "reasoningLevel": "Nivel de raționament",
+      "sharedByEveryField": "{{modality}} dvs. este partajat de fiecare Smart Field care îl folosește. Schimbați-l",
+      "textDefault": "text implicit",
+      "textModel": "Model text",
+      "useMy": "Folosește-mi {{modality}}",
+      "useWebSearch": "Utilizați căutarea pe web pentru acest câmp",
+      "voice": "Voce",
+      "voiceDefault": "voce implicită",
+      "webSearch": "Căutare pe web",
+      "webSearchHint": "Lăsați acest câmp să folosească informații noi de pe web."
+    },
+    "save": "Salvați Smart Field",
+    "sections": {
+      "onWhichNotes": "Pe ce note?",
+      "whatToGenerate": "Ce vrei să generezi?",
+      "whichFieldToFill": "Ce câmp ar trebui să umple?",
+      "whichFieldToSpeak": "Ce domeniu ar trebui să vorbească?"
+    },
+    "sourceField": "Câmp sursă",
+    "targetAriaLabel": "țintă Smart Field",
+    "testSmartField": "Testați-vă Smart Field",
+    "titles": {
+      "create": "Smart Field nou ✨",
+      "duplicate": "Duplicați Smart Field",
+      "edit": "Editați Smart Field"
+    },
+    "validation": {
+      "chooseField": "Alegeți un câmp",
+      "chooseNoteType": "Alegeți un tip de notă",
+      "chooseSourceField": "Alegeți un câmp sursă",
+      "fieldAlreadyHasSmartField": "{{field}} are deja un Smart Field",
+      "writePrompt": "Scrieți o solicitare"
+    },
+    "writePrompt": "Scrieți Prompt",
+    "writePromptForMe": "Scrie-mi solicitarea pentru mine",
+    "writePromptForMeHint": "Spuneți ceea ce doriți într-o engleză simplă - vom scrie mesajul de mai jos.",
+    "writePromptPlaceholder": "„Traduceți în engleză naturală…”",
+    "writing": "Scris…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "Acțiuni pentru {{field}}",
+    "addToNoteType": "Adăugați Smart Field la {{noteType}}",
+    "disable": "Dezactivați",
+    "deleting": "Se șterge…",
+    "discord": {
+      "dismissAriaLabel": "Respinge invitația Discord",
+      "join": "Alăturați-vă",
+      "joinAriaLabel": "Alăturați-vă Smart Notes Discord",
+      "subtitle": "— schimbați solicitările și solicitați funcții.",
+      "title": "Vino să salută în Discord"
+    },
+    "editAriaLabel": "Editați {{field}} Smart Field",
+    "emptyState": {
+      "description": "Adăugați Smart Fields pentru a adăuga text, sunet și imagini pe cardurile dvs.",
+      "exampleAnswer": "Buna ziua",
+      "exampleField": "FAŢĂ",
+      "examplePrompt": "buna ziua",
+      "spark": "✦",
+      "title": "Notele tale par puțin goale"
+    },
+    "enable": "Permite",
+    "errors": {
+      "commandFailed": "Comanda Smart Field a eșuat"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "Text",
+      "image": "Imagine",
+      "tts": "Audio"
+    },
+    "loadingAriaLabel": "Se încarcă Smart Fields",
+    "newSmartField": "Smart Field nou",
+    "readsAloud": "Citește cu voce tare {{field}}",
+    "review": {
+      "ariaLabel": "Examinați Smart Notes pe AnkiWeb",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "Respinge invitația de revizuire",
+      "subtitle": "Lăsați o recenzie despre AnkiWeb pentru a ajuta alți utilizatori Anki să o găsească.",
+      "title": "Vă bucurați de Smart Notes?"
+    },
+    "subtitle": "Adăugați text, voce și imagini generate automat în notele dvs.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "Catalogul de chat lipsește modelul {{model}}",
+      "missingImageModel": "În catalogul de imagini lipsește modelul {{model}}"
+    },
+    "image": {
+      "cannotFindModel": "În catalogul de imagini lipsește modelul {{model}}",
+      "defaultModel": "Model implicit",
+      "gptImage15Low": "cel mai bun compromis calitate/viteză.",
+      "gptImage2": "același cost, mai lent, calitate superioară.",
+      "loadingLabel": "Se încarcă setările implicite pentru imagine",
+      "loadingTitle": "Setări implicite pentru imagine",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Alegerea unui model de imagine",
+      "samplePrompt": "Generați o imagine a unui student care studiază din greu cu Anki și își trece testele.",
+      "saveError": "Nu s-au putut salva valorile implicite ale imaginii",
+      "subtitle": "Modelul pe care îl folosește imaginea dvs. Smart Fields, cu excepția cazului în care un câmp își stabilește propriul.",
+      "title": "Setări implicite pentru imagine",
+      "zImageTurbo": "cel mai rapid si mai ieftin."
+    },
+    "layout": {
+      "saveChanges": "Salvați modificările",
+      "saving": "Economisire…",
+      "tryIt": "Încearcă"
+    },
+    "text": {
+      "cannotInheritModel": "Valorile implicite ale textului nu pot moșteni un alt model",
+      "defaultModel": "Model text implicit",
+      "defaultReasoningLevel": "Nivel de raționament implicit",
+      "enableWebSearch": "Activați căutarea pe web",
+      "higherReasoning": "Raționamentul mai înalt poate îmbunătăți generațiile mai dure, dar utilizează mai multe credite.",
+      "loadingLabel": "Se încarcă setările implicite de text",
+      "loadingTitle": "Setări de generare a textului",
+      "modelGuidance": "{{auto}} și {{autoMax}} sunt modelele recomandate de Smart Notes care echilibrează performanța și costul. Alegeți {{auto}} pentru sarcini standard și faceți upgrade la {{autoMax}} dacă este necesar.",
+      "pickingModel": "💡 Alegerea unui model",
+      "reasoningLevel": "Nivel de raționament",
+      "reasoningValues": {
+        "high": "Ridicat",
+        "low": "Scăzut",
+        "off": "Oprit"
+      },
+      "samplePrompt": "Ce este un sistem de repetiție la distanță (SRS)?",
+      "saveError": "Nu s-au putut salva valorile implicite ale textului",
+      "subtitle": "Setări implicite pentru generarea de text. Individul Smart Fields poate suprascrie aceste valori.",
+      "title": "Setări de generare a textului",
+      "webSearch": "Căutare pe Web",
+      "webSearchDescription": "Permiteți generațiilor de text să obțină informații noi de pe web.",
+      "webSearchWarning": "⚠️ Căutarea este costisitoare; monitorizați-vă creditele."
+    },
+    "usage": {
+      "fields_one": "Se aplică câmpului {{count}}",
+      "fields_few": "Se aplică la {{count}} câmpuri",
+      "fields_other": "Se aplică câmpurilor {{count}}"
+    },
+    "voice": {
+      "browseVoices": "Răsfoiți voci ({{count}})",
+      "cannotLoad": "Nu s-au putut încărca vocile",
+      "currentDefault": "Implicit curent",
+      "filters": {
+        "all": "Toate",
+        "female": "Femeie",
+        "gender": "Gen",
+        "language": "Limbă",
+        "male": "Bărbat",
+        "provider": "Furnizor"
+      },
+      "filterVoices": "Filtrați vocile",
+      "loadingLabel": "Se încarcă setările implicite de voce",
+      "loadingTitle": "Setări implicite de voce",
+      "noVoices": "Nicio voce nu se potrivește cu aceste filtre.",
+      "saveError": "Nu s-au putut salva valorile prestabilite pentru voce",
+      "searchPlaceholder": "🔍 Căutați voci...",
+      "searchVoices": "Caută voci",
+      "subtitle": "Vocea pe care o folosește TTS Smart Fields, cu excepția cazului în care un câmp își fixează propriul.",
+      "title": "Setări implicite de voce"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "alt tip de notă",
+    "currentlySelectedCard": "Card selectat în prezent",
+    "emptyCard": "(carte goală)",
+    "errors": {
+      "generateAudio": "Nu s-a putut genera sunet",
+      "generateImage": "Nu s-a putut genera o imagine",
+      "saveResult": "Nu s-a putut salva acest rezultat pe card",
+      "testPrompt": "Nu s-a putut testa acest prompt"
+    },
+    "fieldRunsOn": "Acest câmp rulează",
+    "fieldWord_one": "domeniu",
+    "fieldWord_few": "câmpuri",
+    "fieldWord_other": "câmpuri",
+    "generatedImagePreview": "Previzualizare imagine generată",
+    "missingFieldsTitle_one": "Câmp lipsește",
+    "missingFieldsTitle_few": "Câmpuri lipsă",
+    "missingFieldsTitle_other": "Câmpuri lipsă",
+    "needsFields_one": "Necesita câmp {{count}}",
+    "needsFields_few": "Necesită {{count}} câmpuri",
+    "needsFields_other": "Necesita câmpuri {{count}}",
+    "notesSelected_one": "{{count}} notă selectată — restrângeți-o la una.",
+    "notesSelected_few": "{{count}} note selectate — restrângeți selecția la una.",
+    "notesSelected_other": "Notele {{count}} selectate — restrângeți-l la unul.",
+    "pickCard": "Alegeți un card în browserul Anki",
+    "promptPlaceholder": "Scrieți o solicitare de testare, făcând referire la câmpurile de pe cardul dvs. cu {{braces}}.",
+    "saveToCard": "Salvați pe card",
+    "savedTo": "Salvat în {{field}}",
+    "selectCardWith": "Vă rugăm să selectați un tip de card cu",
+    "selectFieldToReadAloud": "Selectați un câmp pentru a citi cu voce tare",
+    "selectNewCard": "Selectați un card nou în browser",
+    "selectNoteType": "Vă rugăm să selectați o notă de tip",
+    "selectedCard": "Cartea selectată",
+    "selectedDeck": "Puntea selectată",
+    "selectedNoteType": "Tipul de notă selectat",
+    "selectionAppearsAutomatically": "Selecția dvs. apare aici automat.",
+    "sent": "Trimis",
+    "testing": "Se testează…",
+    "testResult": "Rezultatul testului",
+    "textToSpeak": "Text pentru a vorbi",
+    "viewResult": "Vedeți rezultatul",
+    "wrongNoteType": "Tip greșit de notă"
+  },
+  "subscription": {
+    "checking": "Se verifică abonamentul",
+    "creditTypes": {
+      "images": "Imagini",
+      "text": "Text",
+      "voice": "Voce"
+    },
+    "creditUsage": "Utilizarea creditului",
+    "creditsReset": "Creditele resetate",
+    "daysLeft_one": "Ultima zi",
+    "daysLeft_few": "Au rămas {{count}} zile",
+    "daysLeft_other": "{{count}} de zile rămase",
+    "errors": {
+      "logout": "Nu s-a putut deconecta"
+    },
+    "freePlan": "Plan gratuit",
+    "freeTrial": "Probă gratuită",
+    "hero": {
+      "buyCredits": "Cumpărați mai multe credite",
+      "freeCreditsResetting": "Creditele dvs. gratuite sunt resetate",
+      "freePlan": "Ești în planul Free",
+      "noteLimit": "Ați atins limita de note",
+      "outOfCredits": "Ai epuizat creditele luna aceasta",
+      "outOfFreeCredits": "Nu mai aveți credite gratuite luna aceasta",
+      "outOfTrialCredits": "Ai epuizat creditele de probă",
+      "planExpired": "Planul dvs. a expirat",
+      "rollover": "Creditele cu plata pe măsură ce se efectuează se transferă în fiecare lună – ale tale pentru totdeauna.",
+      "trialDaysLeft_one": "Procesul tău se încheie astăzi",
+      "trialDaysLeft_few": "Au rămas {{count}} zile din perioada de încercare",
+      "trialDaysLeft_other": "{{count}} zile rămase în perioada de încercare",
+      "trialEnded": "Procesul tău s-a încheiat",
+      "trialNoteLimit": "Ați atins limita pentru nota de încercare",
+      "upgradeCollection": "Upgrade — întreaga colecție, automat",
+      "upgradeCredits": "Upgrade pentru mai multe credite",
+      "upgradePaid": "✨ Faceți upgrade la plătit"
+    },
+    "inDays_one": "Astăzi",
+    "inDays_few": "Peste {{count}} zile",
+    "inDays_other": "În {{count}} zile",
+    "loading": "Se încarcă abonamentul",
+    "loggingOut": "Deconectare...",
+    "logOut": "Deconectați-vă",
+    "manageDescription": "Schimbați planul, actualizați plata sau anulați.",
+    "manageOrUpgrade": "Gestionați sau actualizați planul",
+    "managePlan": "Gestionați planul",
+    "monthlyCreditsUsed": "a creditelor lunare utilizate",
+    "mostCreditsUsed": "Majoritatea creditelor din această lună sunt folosite",
+    "noteLimitReached": "Limita de note a fost atinsă",
+    "notes": "Note",
+    "notesUsed": "Note folosite",
+    "notesUsedValue": "{{used}}/{{limit}} folosit",
+    "outOfCredits": "Din credite",
+    "pausedUntilReset": "Generarea este întreruptă până la resetarea creditelor.",
+    "plan": "Plan",
+    "planInactive": "Plan inactiv",
+    "resetsIn": "Se resetează",
+    "resetsInDays_one": "Se resetează în 1 zi",
+    "resetsInDays_few": "Se resetează peste {{count}} zile",
+    "resetsInDays_other": "Se resetează în {{count}} zile",
+    "signedOut": {
+      "localStorage": "Câmpurile și setările dvs. inteligente sunt stocate pe acest dispozitiv.",
+      "manage": "Conectați-vă pentru a vă gestiona planul",
+      "paused": "Generarea este întreruptă până când vă conectați.",
+      "title": "Deconectat"
+    },
+    "title": "Cont și utilizare",
+    "trialCreditsUsed": "a creditelor de probă utilizate",
+    "trialEnded": "Procesul s-a încheiat",
+    "trialEnds": "Procesul se termină",
+    "trialNoteLimitReached": "Limita notei de încercare a fost atinsă",
+    "upgradeToKeepGenerating": "Faceți upgrade pentru a continua să generați.",
+    "usage": "Utilizare"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Lasă o recenzie / vezi documente.",
+    "byline": "de Michael Piazza / Rosebud Labs, LLC.",
+    "changelog": "Jurnalul modificărilor",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "Cel mai rapid mod de a obține ajutor, de a solicita o funcție sau de a raporta o eroare.",
+      "join": "Alăturați-vă",
+      "title": "Alăturați-vă Discord"
+    },
+    "emailUs": "Trimite-ne un e-mail",
+    "feedback": {
+      "description": "Ceva stricat sau greșit? Trimite mesaj direct bietului dezvoltator.",
+      "send": "Trimite-l",
+      "title": "Trimiteți o eroare / solicitați o funcție"
+    },
+    "github": "GitHub",
+    "loading": "Suport de încărcare",
+    "title": "Sprijin"
+  },
+  "welcome": {
+    "alreadyAccount": "Aveți deja un cont?",
+    "codePlaceholder": "Lipiți codul dvs",
+    "connect": "Conectați-vă",
+    "connecting": "Se conectează…",
+    "description": "Adăugați text, vorbire și imagini pe cărți individuale sau pe întregul pachet cu un singur clic.",
+    "errors": {
+      "code": "Nu s-a putut conecta cu acel cod"
+    },
+    "finishDescription": "Autentificarea completă în browserul deschis. Această fereastră se va actualiza automat.",
+    "finishInBrowser": "Terminați în browser",
+    "haveCode": "Ai un cod de pe site?",
+    "startTrial": "✨ Începeți proba gratuită ✨",
+    "trialDetails": "Gratuit timp de 7 zile · fiecare caracteristică · fără card de credit"
+  },
+  "trialEnded": {
+    "description": "Testele durează 7 zile sau până când creditele dvs. de încercare se epuizează.",
+    "features": {
+      "ariaLabel": "Ce upgrade păstrează",
+      "batch": "Loturi în întreaga colecție",
+      "images": "Generarea imaginii",
+      "premium": "Fiecare model premium și voce",
+      "review": "Generați în timpul revizuirii"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Oferta lunara gratuita",
+      "description": "Lăsați o recenzie rapidă AnkiWeb, primiți o lună gratuit.",
+      "dialogDescription": "Lăsați o recenzie rapidă despre AnkiWeb, apoi trimiteți-ne un e-mail — vom adăuga o lună gratuită de Smart Notes în contul dvs.",
+      "dialogTitle": "Obțineți luna gratuită",
+      "leaveAnkiWebReview": "Lasă o recenzie pentru AnkiWeb",
+      "leaveReview": "Lasă o recenzie",
+      "title": "Primiți o lună gratuită de Smart Notes"
+    },
+    "thanks": "Vă mulțumim că folosiți Smart Notes ✨",
+    "title": "Perioada de încercare gratuită s-a încheiat",
+    "upgradeNow": "Faceți upgrade acum"
+  }
+}

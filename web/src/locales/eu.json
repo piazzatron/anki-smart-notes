@@ -1,0 +1,499 @@
+{
+  "common": {
+    "allDecks": "Barruti guztiak",
+    "auto": "Autoa",
+    "autoMax": "Auto MAX",
+    "back": "Itzuli",
+    "bestValueCost": "Balio onena, 0,3× kostua",
+    "cancel": "Utzi",
+    "close": "Itxi",
+    "connection": {
+      "connecting": "Ankira konektatzen…",
+      "reconnecting": "Anki-ra berriro konektatzen…"
+    },
+    "days_one": "1 egun",
+    "days_other": "{{count}} egunak",
+    "deck": "Oholtza",
+    "default": "Lehenetsia",
+    "delete": "Ezabatu",
+    "done": "Eginda",
+    "duplicate": "Bikoiztu",
+    "edit": "Editatu",
+    "empty": "hutsa",
+    "field": "Eremua",
+    "free": "Doan",
+    "discardChanges": "Baztertu aldaketak",
+    "discardUnsavedChanges": {
+      "description": "Ezarpen lehenetsi hauei egindako aldaketak ez dira gorde.",
+      "title": "Gorde gabeko aldaketak baztertu nahi dituzu?"
+    },
+    "dismissError": "Baztertu errorea",
+    "feedback": {
+      "description": "Bidali akatsen txostena, eginbideen eskaera edo bestelako iritzia garatzaileari.",
+      "error": "Ezin izan da iritzia bidali",
+      "label": "Iritzia",
+      "placeholder": "Akats bat, ideia bat, edozer gauza - zuzenean garatzailearengana doa.",
+      "send": "Bidali",
+      "sending": "Bidaltzen…",
+      "sent": "Iritzia bidali da. Laster jarriko gara harremanetan.",
+      "title": "Bidali iritzia"
+    },
+    "notNow": "Orain ez",
+    "other": "Bestela",
+    "placeholderScreen": "Pantaila hau berreraikitzean hurrengoa da.",
+    "productName": "Smart Notes",
+    "productVersion": "Smart Notes v{{version}}",
+    "signIn": "Hasi saioa",
+    "signInLower": "Hasi saioa",
+    "unlimited": "Mugagabea",
+    "upgradeSparkles": "✨ Berritu ✨",
+    "multiplierCost": "{{multiplier}}× kostua",
+    "next": "Hurrengoa",
+    "noteType": "Ohar mota",
+    "optional": "aukerakoa",
+    "prompt": "Galdera",
+    "saving": "Gordetzen…",
+    "test": "Proba",
+    "validFields": "Baliozko eremuak:"
+  },
+  "sidebar": {
+    "discord": "Discord",
+    "feedback": "Iritzia",
+    "nav": {
+      "defaultsImages": "Irudiaren ezarpen lehenetsiak",
+      "defaultsText": "Testu ezarpen lehenetsiak",
+      "defaultsVoice": "Ahotsaren ezarpen lehenetsiak",
+      "image": "Irudia",
+      "settings": "Ezarpenak",
+      "smartFields": "Smart Fields",
+      "subscription": "Kontua eta Erabilera",
+      "support": "Laguntza",
+      "text": "Testua",
+      "voice": "Ahotsa"
+    },
+    "sections": "Smart Notes atalak",
+    "version": "Smart Notes v{{version}}"
+  },
+  "settings": {
+    "debug": {
+      "description": "Hitzezko erregistroa arazoak diagnostikatzen laguntzeko. Sartu erregistro hauek akats bat idaztean.",
+      "label": "Arazte modua"
+    },
+    "generateAtReview": {
+      "description": "Bete automatikoki falta diren eremu adimendunak txartelak berrikusten diren heinean.",
+      "label": "Sortu eremuak berrikuspenean"
+    },
+    "language": {
+      "description": "Aukeratu Smart Notes-rako hizkuntza edo lotu Anki-ren hizkuntzarekin.",
+      "label": "Hizkuntza",
+      "matchAnki": "Lotu Anki"
+    },
+    "legacy": {
+      "apiKey": "OpenAI API gakoa",
+      "apiKeyRequired": "Ordaindutako OpenAI API gakoa behar da.",
+      "description": "Konektatu ordaindutako API gako bat eta aukeratu OpenAI eredu zaharra.",
+      "getApiKey": "Lortu API gako bat",
+      "host": "OpenAI ostalaria",
+      "hostDescription": "Eman amaiera-puntu alternatibo bat OpenAI APIari.",
+      "hostPlaceholder": "https://api.openai.com",
+      "model": "OpenAI eredua",
+      "title": "Erabili nire OpenAI gakoa"
+    },
+    "loading": "Ezarpenak kargatzen",
+    "regenerateWhenBatching": {
+      "description": "Ohar talde bat multzoka prozesatzen duzunean, birsortu eremu adimendun guztiak hutsetik hutsik daudenak bakarrik bete beharrean.",
+      "label": "Sortu eremu adimendun guztiak batch prozesatzen direnean"
+    },
+    "saveError": "Ezin izan dira gorde ezarpenak",
+    "sections": {
+      "advanced": "Aurreratua",
+      "general": "Orokorra",
+      "generation": "Belaunaldia"
+    },
+    "title": "Ezarpenak"
+  },
+  "fieldEditor": {
+    "alreadySmartField": "Dagoeneko Smart Field bat ✨",
+    "collisionHint": "dagoeneko Smart Field bat dauka — aukeratu beste eremu, multzo edo ohar mota bat",
+    "completion": {
+      "descriptionAfter": "oharrak sortzen dituzun bakoitzean betetzen dira.",
+      "descriptionBefore": "on",
+      "methods": {
+        "bulk": {
+          "caption": "Hautatu oharrak edo sorta → egin klik eskuineko botoiarekin → ✨ Sortu Smart Fields.",
+          "imageAlt": "Anki Arakatzailearen testuinguru-menua Sortu Smart Fields nabarmenduta",
+          "title": "Mailan, Arakatzailetik"
+        },
+        "card": {
+          "caption": "Egin klik editorearen tresna-barrako ✨ botoian edo idatzi ⌘⇧G.",
+          "imageAlt": "Anki editorearen tresna-barra Smart Notes botoia nabarmenduta",
+          "title": "Txartel bat aldi berean"
+        },
+        "field": {
+          "caption": "Egin klik eskuineko botoiarekin edozein eremu → Sortu Smart Field.",
+          "imageAlt": "Anki eremuko testuinguru-menua Sortu Smart Field nabarmenduta",
+          "title": "Eremu bakarra"
+        }
+      },
+      "title": "Zure Smart Field zuzenean dago",
+      "waysToGenerate": "Sortzeko modu batzuk:"
+    },
+    "created": "Smart Field sortu da",
+    "dontShowAgain": "Ez erakutsi hau berriro",
+    "errors": {
+      "save": "Ezin izan da Smart Field gorde",
+      "updateWizardSettings": "Ezin izan dira morroiaren ezarpenak eguneratu",
+      "writePrompt": "Ezin izan da gonbita idatzi"
+    },
+    "fieldTypes": {
+      "audio": "Audioa",
+      "image": "Irudia",
+      "text": "Testua"
+    },
+    "loadingModelCatalog": "Modeloen katalogoa kargatzen…",
+    "modelSettings": {
+      "appliesOnlyToField": "Smart Field honi bakarrik aplikatzen zaio.",
+      "defaultWithValue": "Lehenetsia ({{value}})",
+      "defaultsImages": "Lehenetsiak › Irudiak",
+      "defaultsText": "Lehenetsiak › Testua",
+      "defaultsVoice": "Lehenetsiak › Ahotsa",
+      "descriptionChat": "Ezarri eremu hau idazten duen AI. Eremu gehienak lehenetsitako moduan gera daitezke.",
+      "descriptionImage": "Ezarri eremu hau marrazten duen IA. Eremu gehienak lehenetsitako moduan gera daitezke.",
+      "descriptionTts": "Ezarri eremu hau irakurtzen duen ahotsa. Eremu gehienak lehenetsitako moduan gera daitezke.",
+      "imageDefault": "irudi lehenetsia",
+      "imageModel": "Irudi eredua",
+      "loadingVoices": "Ahotsak kargatzen…",
+      "model": "Eredua",
+      "pickCustom": "Aukeratu eredu pertsonalizatu bat eremu honetarako",
+      "reasoning": "{{level}} arrazoibidea",
+      "reasoningHint": "Goi mailako arrazoiketak belaunaldi gogorragoak hobe ditzake, baina kreditu gehiago erabiltzen ditu.",
+      "reasoningLevel": "Arrazoiketa maila",
+      "sharedByEveryField": "Zure {{modality}} erabiltzen duten Smart Field guztiek partekatzen dute. Aldatu ezazu",
+      "textDefault": "testu lehenetsia",
+      "textModel": "Testu eredua",
+      "useMy": "Erabili nire {{modality}}",
+      "useWebSearch": "Erabili web bilaketa eremu honetarako",
+      "voice": "Ahotsa",
+      "voiceDefault": "ahots lehenetsia",
+      "webSearch": "Web bilaketa",
+      "webSearchHint": "Eremu honek sareko informazio berria erabil dezala."
+    },
+    "save": "Gorde Smart Field",
+    "sections": {
+      "onWhichNotes": "Zein notetan?",
+      "whatToGenerate": "Zer sortu nahi duzu?",
+      "whichFieldToFill": "Zein eremu bete behar du?",
+      "whichFieldToSpeak": "Zein eremu hitz egin behar du?"
+    },
+    "sourceField": "Iturburu-eremua",
+    "targetAriaLabel": "Smart Field helburua",
+    "testSmartField": "Probatu zure Smart Field",
+    "titles": {
+      "create": "Smart Field berria ✨",
+      "duplicate": "Smart Field bikoiztu",
+      "edit": "Editatu Smart Field"
+    },
+    "validation": {
+      "chooseField": "Aukeratu eremu bat",
+      "chooseNoteType": "Aukeratu ohar mota bat",
+      "chooseSourceField": "Aukeratu iturri-eremu bat",
+      "fieldAlreadyHasSmartField": "{{field}} dagoeneko Smart Field bat dauka",
+      "writePrompt": "Idatzi gonbita"
+    },
+    "writePrompt": "Idatzi gonbita",
+    "writePromptForMe": "Idatzi nire gonbita",
+    "writePromptForMeHint": "Esan nahi duzuna ingelesez; behean idatziko dugu gonbita.",
+    "writePromptPlaceholder": "\"Itzuli ingeles naturalera...\"",
+    "writing": "Idazten…"
+  },
+  "smartFields": {
+    "actionsAriaLabel": "{{field}}ren ekintzak",
+    "addToNoteType": "Gehitu Smart Field {{noteType}}-ra",
+    "disable": "Desgaitu",
+    "deleting": "Ezabatzen…",
+    "discord": {
+      "dismissAriaLabel": "Baztertu Discord gonbidapena",
+      "join": "Sartu",
+      "joinAriaLabel": "Sartu Smart Notes Discord-ra",
+      "subtitle": "— Trukatu galderak eta eskatu eginbideak.",
+      "title": "Zatoz agurtzera Discord-n"
+    },
+    "editAriaLabel": "Editatu {{field}} Smart Field",
+    "emptyState": {
+      "description": "Gehitu Smart Fields zure txartelei testua, audioa eta irudiak gehitzeko.",
+      "exampleAnswer": "Kaixo",
+      "exampleField": "AURRERA",
+      "examplePrompt": "bonjour",
+      "spark": "✦",
+      "title": "Zure oharrak apur bat hutsik daude"
+    },
+    "enable": "Gaitu",
+    "errors": {
+      "commandFailed": "Smart Field komandoak huts egin du"
+    },
+    "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
+    "fieldTypes": {
+      "chat": "Testua",
+      "image": "Irudia",
+      "tts": "Audioa"
+    },
+    "loadingAriaLabel": "Smart Fields kargatzen",
+    "newSmartField": "Smart Field berria",
+    "readsAloud": "{{field}} ozen irakurtzen du",
+    "review": {
+      "ariaLabel": "Berrikusi Smart Notes AnkiWeb-n",
+      "button": "AnkiWeb",
+      "dismissAriaLabel": "Baztertu berrikusteko gonbidapena",
+      "subtitle": "Utzi berrikuspena AnkiWeb-ri beste Anki erabiltzaileei aurkitzen laguntzeko.",
+      "title": "Smart Notes gozatzen?"
+    },
+    "subtitle": "Gehitu automatikoki sortutako testua, ahotsa eta irudiak zure oharretan.",
+    "title": "✨ Smart Fields"
+  },
+  "defaults": {
+    "errors": {
+      "missingChatModel": "Txat-katalogoa {{model}} eredua falta da",
+      "missingImageModel": "Irudien katalogoa {{model}} eredua falta da"
+    },
+    "image": {
+      "cannotFindModel": "Irudien katalogoa {{model}} eredua falta da",
+      "defaultModel": "Eredu lehenetsia",
+      "gptImage15Low": "kalitate/abiadura onena.",
+      "gptImage2": "kostu bera, motelagoa, kalitate handiagoa.",
+      "loadingLabel": "Irudiaren ezarpen lehenetsiak kargatzen",
+      "loadingTitle": "Irudiaren ezarpen lehenetsiak",
+      "models": {
+        "gptImage15Low": "GPT Image 1.5 Low",
+        "gptImage2": "GPT Image 2 (Baxua/Ertaina)",
+        "zImageTurbo": "Z-Image Turbo"
+      },
+      "pickingModel": "💡 Irudi eredu bat hautatzea",
+      "samplePrompt": "Sortu Anki-rekin gogor ikasten eta probak gainditzen dituen ikasle baten irudia.",
+      "saveError": "Ezin izan dira gorde irudi lehenetsiak",
+      "subtitle": "Zure irudiak Smart Fields erabiltzen duen eredua eremu batek berea jartzen ez badu behintzat.",
+      "title": "Irudiaren ezarpen lehenetsiak",
+      "zImageTurbo": "azkarrena eta merkeena."
+    },
+    "layout": {
+      "saveChanges": "Gorde aldaketak",
+      "saving": "Gordetzen…",
+      "tryIt": "Probatu"
+    },
+    "text": {
+      "cannotInheritModel": "Testu lehenetsiek ezin dute beste eredu bat heredatu",
+      "defaultModel": "Testu-eredu lehenetsia",
+      "defaultReasoningLevel": "Arrazoitze maila lehenetsia",
+      "enableWebSearch": "Gaitu Web Bilaketa",
+      "higherReasoning": "Goi mailako arrazoiketak belaunaldi gogorragoak hobe ditzake, baina kreditu gehiago erabiltzen ditu.",
+      "loadingLabel": "Testu ezarpen lehenetsiak kargatzen",
+      "loadingTitle": "Testua sortzeko ezarpenak",
+      "modelGuidance": "{{auto}} eta {{autoMax}} errendimendua eta kostua orekatzen dituzten Smart Notes gomendatutako modeloak dira. Aukeratu {{auto}} zeregin estandarrak egiteko eta eguneratu {{autoMax}}ra behar izanez gero.",
+      "pickingModel": "💡 Modelo bat hautatzea",
+      "reasoningLevel": "Arrazoiketa maila",
+      "reasoningValues": {
+        "high": "Alta",
+        "low": "Baxua",
+        "off": "Desaktibatuta"
+      },
+      "samplePrompt": "Zer da Espazio Errepikapen Sistema (SRS)?",
+      "saveError": "Ezin izan dira gorde testu lehenetsiak",
+      "subtitle": "Testua sortzeko ezarpen lehenetsiak. Smart Fields indibidualak balio hauek gainidatzi ditzake.",
+      "title": "Testua sortzeko ezarpenak",
+      "webSearch": "Web Bilaketa",
+      "webSearchDescription": "Utzi testu-belaunaldiei sareko informazio berria eskuratzen.",
+      "webSearchWarning": "⚠️ Bilaketa garestia da; zure kredituak kontrolatu."
+    },
+    "usage": {
+      "fields_one": "{{count}} eremuari dagokio",
+      "fields_other": "{{count}} eremuetan aplikatzen da"
+    },
+    "voice": {
+      "browseVoices": "Arakatu ahotsak ({{count}})",
+      "cannotLoad": "Ezin izan dira ahotsak kargatu",
+      "currentDefault": "Uneko lehenetsia",
+      "filters": {
+        "all": "Denak",
+        "female": "Emakumezkoa",
+        "gender": "Generoa",
+        "language": "Hizkuntza",
+        "male": "Gizonezkoa",
+        "provider": "Hornitzailea"
+      },
+      "filterVoices": "Iragazi ahotsak",
+      "loadingLabel": "Ahots ezarpen lehenetsiak kargatzen",
+      "loadingTitle": "Ahotsaren ezarpen lehenetsiak",
+      "noVoices": "Ez dago ahotsik iragazki hauekin.",
+      "saveError": "Ezin izan dira gorde ahots lehenetsiak",
+      "searchPlaceholder": "🔍 Bilatu ahotsak…",
+      "searchVoices": "Bilatu ahotsak",
+      "subtitle": "Zure TTS Smart Fields-k erabiltzen duen ahotsa eremu batek berea jartzen ez badu behintzat.",
+      "title": "Ahotsaren ezarpen lehenetsiak"
+    }
+  },
+  "promptTester": {
+    "anotherNoteType": "beste ohar mota bat",
+    "currentlySelectedCard": "Une honetan hautatutako txartela",
+    "emptyCard": "(txartel hutsa)",
+    "errors": {
+      "generateAudio": "Ezin izan da audioa sortu",
+      "generateImage": "Ezin izan da irudirik sortu",
+      "saveResult": "Ezin izan da emaitza hau txartelean gorde",
+      "testPrompt": "Ezin izan da gonbita hau probatu"
+    },
+    "fieldRunsOn": "Eremu hau aurrera doa",
+    "fieldWord_one": "eremua",
+    "fieldWord_other": "eremuak",
+    "generatedImagePreview": "Sortutako irudiaren aurrebista",
+    "missingFieldsTitle_one": "Eremu falta",
+    "missingFieldsTitle_other": "Eremuak falta dira",
+    "needsFields_one": "{{count}} eremua behar du",
+    "needsFields_other": "{{count}} eremuak behar ditu",
+    "notesSelected_one": "{{count}} oharra hautatuta - murriztu bakar batera.",
+    "notesSelected_other": "{{count}} oharrak hautatuta - murriztu bakar batera.",
+    "pickCard": "Aukeratu txartel bat Anki arakatzailean",
+    "promptPlaceholder": "Idatzi proba-gonbita, zure txarteleko eremuei erreferentzia eginez {{braces}}-rekin.",
+    "saveToCard": "Gorde txartelean",
+    "savedTo": "{{field}}-n gorde da",
+    "selectCardWith": "Hautatu txartel mota batekin",
+    "selectFieldToReadAloud": "Hautatu ozen irakurtzeko eremu bat",
+    "selectNewCard": "Hautatu txartel berri bat arakatzailean",
+    "selectNoteType": "Mesedez, hautatu motako ohar bat",
+    "selectedCard": "Hautatutako txartela",
+    "selectedDeck": "Aukeratutako oholtza",
+    "selectedNoteType": "Hautatutako ohar mota",
+    "selectionAppearsAutomatically": "Zure hautaketa hemen automatikoki agertzen da.",
+    "sent": "Bidali",
+    "testing": "Proba egiten…",
+    "testResult": "Testaren emaitza",
+    "textToSpeak": "Hitz egiteko testua",
+    "viewResult": "Ikusi emaitza",
+    "wrongNoteType": "Ohar mota okerra"
+  },
+  "subscription": {
+    "checking": "Harpidetza egiaztatzen",
+    "creditTypes": {
+      "images": "Irudiak",
+      "text": "Testua",
+      "voice": "Ahotsa"
+    },
+    "creditUsage": "Kreditu erabilera",
+    "creditsReset": "Kredituak berrezarri",
+    "daysLeft_one": "Azken eguna",
+    "daysLeft_other": "{{count}} egun falta dira",
+    "errors": {
+      "logout": "Ezin izan da saioa amaitu"
+    },
+    "freePlan": "Doako plana",
+    "freeTrial": "Doako proba",
+    "hero": {
+      "buyCredits": "Erosi kreditu gehiago",
+      "freeCreditsResetting": "Doako kredituak berrezartzen ari dira",
+      "freePlan": "Free planean zaude",
+      "noteLimit": "Oharren mugara iritsi zara",
+      "outOfCredits": "Hilabete honetan krediturik gabe geratu zara",
+      "outOfFreeCredits": "Doako krediturik gabe geratu zara hilabete honetan",
+      "outOfTrialCredits": "Probako krediturik gabe geratu zara",
+      "planExpired": "Zure plana iraungi da",
+      "rollover": "Ordaintzeko kredituak hilero gehitzen dira, betirako zurea.",
+      "trialDaysLeft_one": "Zure epaiketa gaur amaituko da",
+      "trialDaysLeft_other": "{{count}} egun geratzen dira probarako",
+      "trialEnded": "Zure epaiketa amaitu da",
+      "trialNoteLimit": "Proba-oharraren mugara iritsi zara",
+      "upgradeCollection": "Berritu — zure bilduma osoa, automatikoki",
+      "upgradeCredits": "Berritu kreditu gehiago lortzeko",
+      "upgradePaid": "✨ Berritu ordainpekora"
+    },
+    "inDays_one": "Gaur",
+    "inDays_other": "{{count}} egunetan",
+    "loading": "Harpidetza kargatzen",
+    "loggingOut": "Saioa amaitzen…",
+    "logOut": "Amaitu saioa",
+    "manageDescription": "Aldatu plana, eguneratu ordainketa edo bertan behera utzi.",
+    "manageOrUpgrade": "Kudeatu edo berritu plana",
+    "managePlan": "Kudeatu plana",
+    "monthlyCreditsUsed": "erabilitako hileko kredituen kopurua",
+    "mostCreditsUsed": "Hilabete honetako kreditu gehienak erabiltzen dira",
+    "noteLimitReached": "Oharraren mugara iritsi da",
+    "notes": "Oharrak",
+    "notesUsed": "Erabilitako oharrak",
+    "notesUsedValue": "{{used}}/{{limit}} erabiltzen da",
+    "outOfCredits": "Kreditu gabe",
+    "pausedUntilReset": "Sorkuntza pausatzen da zure kredituak berrezarri arte.",
+    "plan": "Plana",
+    "planInactive": "Plan inaktibo",
+    "resetsIn": "Berrezarri egiten da",
+    "resetsInDays_one": "Egun batean berrezartzen da",
+    "resetsInDays_other": "{{count}} egunetan berrezartzen da",
+    "signedOut": {
+      "localStorage": "Zure eremu adimendunak eta ezarpenak gailu honetan gordetzen dira.",
+      "manage": "Hasi saioa zure plana kudeatzeko",
+      "paused": "Sorkuntza pausatzen da saioa hasi arte.",
+      "title": "Saioa amaituta"
+    },
+    "title": "Kontua eta Erabilera",
+    "trialCreditsUsed": "erabilitako proba-kredituen",
+    "trialEnded": "Epaiketa amaitu zen",
+    "trialEnds": "Epaiketa amaitzen da",
+    "trialNoteLimitReached": "Proba-oharraren mugara iritsi da",
+    "upgradeToKeepGenerating": "Berritu sortzen jarraitzeko.",
+    "usage": "Erabilera"
+  },
+  "support": {
+    "ankiWeb": "AnkiWeb",
+    "ankiWebDescription": "Utzi iritzia / ikusi dokumentuak.",
+    "byline": "Egilea: Michael Piazza / Rosebud Labs, LLC.",
+    "changelog": "Aldaketen erregistroa",
+    "copyright": "© 2026 · v{{version}} ·",
+    "discord": {
+      "description": "Laguntza lortzeko, eginbide bat eskatzeko edo akatsen berri emateko modurik azkarrena.",
+      "join": "Sartu",
+      "title": "Sartu Discord-n"
+    },
+    "emailUs": "Bidali mezu elektronikoa",
+    "feedback": {
+      "description": "Zerbait apurtuta ala gaizki? Bidali zuzenean garatzaile pobreari.",
+      "send": "Bidali",
+      "title": "Bidali akats bat / eskatu eginbide bat"
+    },
+    "github": "GitHub",
+    "loading": "Kargatzeko euskarria",
+    "title": "Laguntza"
+  },
+  "welcome": {
+    "alreadyAccount": "Dagoeneko kontu bat duzu?",
+    "codePlaceholder": "Itsatsi zure kodea",
+    "connect": "Konektatu",
+    "connecting": "Konektatzen…",
+    "description": "Gehitu testua, hizketa eta irudiak txartel indibidualetan edo zure sorta osoan klik bakarrean.",
+    "errors": {
+      "code": "Ezin izan da kode horrekin konektatu"
+    },
+    "finishDescription": "Osatu saioa ireki dugun arakatzailean. Leiho hau automatikoki eguneratuko da.",
+    "finishInBrowser": "Amaitu zure nabigatzailean",
+    "haveCode": "Webguneko koderik al duzu?",
+    "startTrial": "✨ Hasi doako proba ✨",
+    "trialDetails": "Doan 7 egunez · Ezaugarri guztiak · Kreditu-txartelik gabe"
+  },
+  "trialEnded": {
+    "description": "Probaldiak 7 egun iraungo ditu edo probako kredituak agortu arte.",
+    "features": {
+      "ariaLabel": "Zer eguneratzeak mantentzen duen",
+      "batch": "Bildu zure bilduma osoan",
+      "images": "Irudiak sortzea",
+      "premium": "Premium eredu eta ahots bakoitza",
+      "review": "Sortu berrikuspenean"
+    },
+    "reviewOffer": {
+      "ariaLabel": "Doako hilabeteko eskaintza",
+      "description": "Utzi AnkiWeb berrikuspen azkar bat, irabazi hilabete bat.",
+      "dialogDescription": "Utzi berrikuspen bizkor bat AnkiWeb-ri eta, gero, igor iezaguzu posta elektronikoz — Smart Notes doan hilabete bat gehituko dugu zure kontuan.",
+      "dialogTitle": "Eskuratu doako hilabetea",
+      "leaveAnkiWebReview": "Utzi iritzia AnkiWeb-en",
+      "leaveReview": "Utzi iritzia",
+      "title": "Lortu doan hilabete bat Smart Notes"
+    },
+    "thanks": "Eskerrik asko Smart Notes ✨ erabiltzeagatik",
+    "title": "Zure doako proba amaitu da",
+    "upgradeNow": "Berritu orain"
+  }
+}
