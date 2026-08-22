@@ -1,3 +1,13 @@
+# v2.25.0
+
+- Internationalize Smart Notes into 48 languages.
+
+# v2.24.0
+
+- Re-designed and rebuilt UI from the ground up.
+- New and improved prompt tester UI.
+- Smart Notes is now accessible from a top level menu (no more tools -> Smart Notes).
+
 # v2.23.0
 
 - Added proper Anki profiles support: Smart Fields are now bound to the profile from which they were created.
