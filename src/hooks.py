@@ -45,6 +45,7 @@ from .sentry import sentry, with_sentry
 from .tasks import run_async_in_background
 from .ui.changelog import ChangeLogDialog, is_new_major_or_minor_version
 from .ui.field_menu import FieldMenu
+from .ui.i18n import native_action_text
 from .ui.ui_utils import show_message_box
 from .utils import get_version
 from .utils.notes_utils import (
@@ -174,7 +175,7 @@ def add_editor_top_button(
         label="✨",
         func=fn,
         icon=None,
-        tip="Ctrl+Shift+G: Generate Smart Fields",
+        tip=f"Ctrl+Shift+G: {native_action_text('generate_smart_fields')}",
         id="generate_smart_fields",
         keys="Ctrl+Shift+G",
     )
@@ -212,7 +213,7 @@ def _make_on_batch_success(
 
 @_with_processor  # type: ignore
 def on_browser_context(processor: NoteProcessor, browser: browser.Browser, menu: QMenu):  # type: ignore
-    item = QAction("✨ Generate Smart Fields", menu)
+    item = QAction(f"✨ {native_action_text('generate_smart_fields')}", menu)
     menu.addSeparator()
     menu.addAction(item)
 
@@ -277,7 +278,7 @@ def on_main_window(processor: NoteProcessor):
     run_migrations()
 
     smart_notes_menu = QMenu("Smart Notes", mw)
-    options_action = QAction("Open Smart Notes", mw)
+    options_action = QAction(native_action_text("open_smart_notes"), mw)
     options_action.triggered.connect(lambda _: open_web_app())
     smart_notes_menu.addAction(options_action)
     mw.form.menubar.addAction(smart_notes_menu.menuAction())
@@ -374,7 +375,7 @@ def add_deck_option(
     else:
         return
 
-    item = QAction("✨ Generate Smart Fields", menu)
+    item = QAction(f"✨ {native_action_text('generate_smart_fields')}", menu)
     menu.addSeparator()
     menu.addAction(item)
 
