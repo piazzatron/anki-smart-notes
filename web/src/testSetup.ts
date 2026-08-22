@@ -13,9 +13,9 @@ import { mock } from "bun:test"
 import i18next from "i18next"
 import { initReactI18next } from "react-i18next"
 
-import english from "@/locales/en.json"
+import english from "@/lib/i18n/locales/en.json"
 
-mock.module("@/lib/catalogLoaders", () => ({ catalogLoaders: {} }))
+mock.module("@/lib/i18n/catalogLoaders", () => ({ catalogLoaders: {} }))
 
 void i18next.use(initReactI18next).init({
   fallbackLng: "en",

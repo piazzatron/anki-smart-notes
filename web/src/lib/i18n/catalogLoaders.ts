@@ -9,10 +9,10 @@
  * (at your option) any later version.
  */
 
-import english from "@/locales/en.json"
+import english from "./locales/en.json"
 
 type CatalogModule = { default: typeof english }
 
 export const catalogLoaders = import.meta.glob<CatalogModule>(
-  "../locales/*.json",
+  "./locales/*.json",
 )

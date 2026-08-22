@@ -9,7 +9,7 @@
  * (at your option) any later version.
  */
 
-import { CATALOG_LOCALES, type CatalogLocale } from "@/lib/languages"
+import { CATALOG_LOCALES, type CatalogLocale } from "./languages"
 
 const catalogLocaleSet = new Set<string>(CATALOG_LOCALES)
 const RTL_LOCALES = new Set(["ar", "he", "fa"])

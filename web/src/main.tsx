@@ -6,7 +6,7 @@ import App from "./App"
 import "@/assets/styles/globals.css"
 import { bootOptions } from "@/lib/boot"
 import { initializeI18n } from "@/lib/i18n"
-import { getLocaleDirection } from "@/lib/locale"
+import { getLocaleDirection } from "@/lib/i18n/locale"
 import { setCommandSender } from "@/services/commands"
 import { connectToAnki } from "@/services/sse"
 

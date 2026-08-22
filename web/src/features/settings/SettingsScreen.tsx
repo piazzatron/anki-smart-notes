@@ -33,7 +33,7 @@ import {
   SelectValue,
 } from "@/components/ui/Select"
 import { changeAppLanguage } from "@/lib/i18n"
-import { LANGUAGES } from "@/lib/languages"
+import { LANGUAGES } from "@/lib/i18n/languages"
 import { useAppStore } from "@/store/appStore"
 import type { Settings } from "@/types/api"
 

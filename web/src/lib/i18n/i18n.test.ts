@@ -11,7 +11,7 @@
 
 import { describe, expect, test } from "bun:test"
 
-import english from "../locales/en.json"
+import english from "./locales/en.json"
 import {
   flattenCatalog,
   placeholders,
@@ -60,7 +60,7 @@ describe("locale selection", () => {
           : sourceForLocale(flattenCatalog(english), bcp47)
       const catalog = flattenCatalog(
         (await Bun.file(
-          new URL(`../locales/${bcp47}.json`, import.meta.url),
+          new URL(`./locales/${bcp47}.json`, import.meta.url),
         ).json()) as Catalog,
       )
 

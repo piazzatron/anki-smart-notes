@@ -17,12 +17,12 @@ import {
   sourceForLocale,
   type Catalog,
   type FlatCatalog,
-} from "../src/lib/catalogSchema"
-import { LANGUAGES } from "../src/lib/languages"
-import english from "../src/locales/en.json"
+} from "../src/lib/i18n/catalogSchema"
+import { LANGUAGES } from "../src/lib/i18n/languages"
+import english from "../src/lib/i18n/locales/en.json"
 
 const MODEL = "claude-haiku-4-5-20251001"
-const LOCALES_DIRECTORY = new URL("../src/locales/", import.meta.url)
+const LOCALES_DIRECTORY = new URL("../src/lib/i18n/locales/", import.meta.url)
 const forceIndex = process.argv.indexOf("--force")
 const forcedLocale = forceIndex === -1 ? null : process.argv[forceIndex + 1]
 const targetLanguages = LANGUAGES.filter(({ bcp47 }) => bcp47 !== "en")
