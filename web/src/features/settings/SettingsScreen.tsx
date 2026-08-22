@@ -146,7 +146,7 @@ export const LoadedSettingsScreen = ({
         </div>
       </div>
 
-      <div>
+      <div className="mt-8">
         <SectionLabel>{t("settings.sections.generation")}</SectionLabel>
         <div>
           <SettingRow
