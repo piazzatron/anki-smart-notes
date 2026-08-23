@@ -29,6 +29,7 @@ import traceback
 from collections.abc import Callable, Coroutine
 from typing import Any, Optional
 
+import aiohttp
 import sentry_sdk
 from aqt import mw
 from sentry_sdk.integrations.logging import LoggingIntegration
@@ -161,10 +162,11 @@ class Sentry:
                 OutOfCreditsError,
                 TimeoutError,
                 asyncio.TimeoutError,
+                aiohttp.ClientConnectionError,
             ):
-                # Older Anki runtimes may raise asyncio.TimeoutError as a
-                # distinct class from built-in TimeoutError. All errors here
-                # are expected control flow and should not be reported.
+                # Expected failures belong to each operation's failure callback:
+                # user actions can explain them, while passive refreshes stay quiet.
+                # Older Anki runtimes may also use a distinct asyncio.TimeoutError.
                 raise
             except Exception as e:
                 if is_production():

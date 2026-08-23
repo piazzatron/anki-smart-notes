@@ -21,6 +21,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import types
 
+import aiohttp
 import pytest
 
 import src.sentry as sentry_module
@@ -37,6 +38,7 @@ class _LegacyAsyncioTimeoutError(Exception):
     [
         (RuntimeError("smart-notes async failure"), True, False),
         (TimeoutError("provider timed out"), False, False),
+        (aiohttp.ClientConnectionError("offline"), False, False),
         (
             ClientFacingAPIError(
                 "This request is too long for Google TTS. Please try a different provider."
@@ -46,7 +48,13 @@ class _LegacyAsyncioTimeoutError(Exception):
         ),
         (_LegacyAsyncioTimeoutError("feature flags timed out"), False, True),
     ],
-    ids=["unexpected", "timeout", "client-facing", "legacy-timeout"],
+    ids=[
+        "unexpected",
+        "timeout",
+        "offline",
+        "client-facing",
+        "legacy-timeout",
+    ],
 )
 @pytest.mark.asyncio
 async def test_wrap_async_reraises_and_reports_only_unexpected_errors(
