@@ -382,6 +382,9 @@
     "wrongNoteType": "Няправільны тып нататкі"
   },
   "subscription": {
+    "accessEnds": "Доступ завершаецца",
+    "activateAgain": "Активаваць зноў",
+    "endingSoon": "Завершыцца хутка",
     "checking": "Праверка падпіскі",
     "creditTypes": {
       "images": "Малюнкі",
@@ -397,6 +400,7 @@
     "errors": {
       "logout": "Не атрымалася выйсці"
     },
+    "expired": "Срок дзеяння скончыўся",
     "freePlan": "Бясплатны план",
     "freeTrial": "Бясплатная пробная версія",
     "hero": {
@@ -438,7 +442,9 @@
     "outOfCredits": "Скончыліся крэдыты",
     "pausedUntilReset": "Генерацыя прыпынена да скіду крэдытаў.",
     "plan": "План",
+    "planExpired": "Срок плана скончыўся",
     "planInactive": "План неактыўны",
+    "resubscribeToContinue": "Падпішыцеся паўторна, каб працягнуць генерацыю.",
     "resetsIn": "Скідваецца ў",
     "resetsInDays_one": "Скід праз 1 дзень",
     "resetsInDays_few": "Скід праз {{count}} дні",
@@ -451,6 +457,8 @@
       "title": "Выйшлі з сістэмы"
     },
     "title": "Уліковы запіс і выкарыстанне",
+    "status": "Статус",
+    "subscriptionEnded": "Падпіска завершана",
     "trialCreditsUsed": "выкарыстаных пробных крэдытаў",
     "trialEnded": "Суд скончыўся",
     "trialEnds": "Выпрабаванне заканчваецца",

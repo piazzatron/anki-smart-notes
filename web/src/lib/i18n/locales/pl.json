@@ -382,6 +382,9 @@
     "wrongNoteType": "Zły typ notatki"
   },
   "subscription": {
+    "accessEnds": "Dostęp kończy się",
+    "activateAgain": "Aktywuj ponownie",
+    "endingSoon": "Wkrótce wygasa",
     "checking": "Sprawdzam subskrypcję",
     "creditTypes": {
       "images": "Obrazy",
@@ -397,6 +400,7 @@
     "errors": {
       "logout": "Nie można się wylogować"
     },
+    "expired": "Wygasł",
     "freePlan": "Darmowy plan",
     "freeTrial": "Bezpłatny okres próbny",
     "hero": {
@@ -438,7 +442,9 @@
     "outOfCredits": "Brak kredytów",
     "pausedUntilReset": "Generowanie zostanie wstrzymane do czasu zresetowania kredytów.",
     "plan": "Plan",
+    "planExpired": "Plan wygasł",
     "planInactive": "Plan nieaktywny",
+    "resubscribeToContinue": "Przedłuż subskrypcję, aby kontynuować generowanie.",
     "resetsIn": "Resetuje się",
     "resetsInDays_one": "Reset za 1 dzień",
     "resetsInDays_few": "Reset za {{count}} dni",
@@ -451,6 +457,8 @@
       "title": "Wylogowałem się"
     },
     "title": "Konto i użytkowanie",
+    "status": "Stan",
+    "subscriptionEnded": "Subskrypcja wygasła",
     "trialCreditsUsed": "wykorzystanych kredytów próbnych",
     "trialEnded": "Próba zakończyła się",
     "trialEnds": "Okres próbny się kończy",

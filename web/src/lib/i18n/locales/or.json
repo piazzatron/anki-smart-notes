@@ -370,6 +370,9 @@
     "wrongNoteType": "ଭୁଲ ନୋଟ୍ ପ୍ରକାର"
   },
   "subscription": {
+    "accessEnds": "ପ୍ରବେଶାଧିକାର ସମାପ୍ତ ହୁଏ",
+    "activateAgain": "ପୁନର୍ବାର ସକ୍ରିୟ କରନ୍ତୁ",
+    "endingSoon": "ଶୀଘ୍ରେ ଶେଷ ହେବ",
     "checking": "ସଦସ୍ୟତା ଯାଞ୍ଚ କରୁଛି",
     "creditTypes": {
       "images": "ପ୍ରତିଛବିଗୁଡିକ",
@@ -383,6 +386,7 @@
     "errors": {
       "logout": "ଲଗ୍ ଆଉଟ୍ ହୋଇପାରିଲା ନାହିଁ"
     },
+    "expired": "ମେୟାଦ ଶେଷ",
     "freePlan": "ମାଗଣା ଯୋଜନା",
     "freeTrial": "ମାଗଣା ପରୀକ୍ଷା",
     "hero": {
@@ -420,7 +424,9 @@
     "outOfCredits": "କ୍ରେଡିଟ୍ ବାହାରେ",
     "pausedUntilReset": "ତୁମର କ୍ରେଡିଟ୍ ପୁନ et ସେଟ୍ ନହେବା ପର୍ଯ୍ୟନ୍ତ ଜେନେରେସନ୍ ବନ୍ଦ ହୋଇଯାଏ",
     "plan": "ଯୋଜନା କରନ୍ତୁ",
+    "planExpired": "ଯୋଜନା ମେୟାଦ ଶେଷ",
     "planInactive": "ନିଷ୍କ୍ରିୟ ଯୋଜନା କରନ୍ତୁ",
+    "resubscribeToContinue": "ସୃଜନ ଜାରି ରଖିବା ପାଇଁ ପୁନର୍ବାର ସଦସ୍ୟତା ନିଅନ୍ତୁ।",
     "resetsIn": "ପୁନ ets ସେଟ୍ କରେ",
     "resetsInDays_one": "1 ଦିନରେ ପୁନ ets ସେଟ୍ କରନ୍ତୁ",
     "resetsInDays_other": "{{count}} ଦିନରେ ପୁନ ets ସେଟ୍ କରେ",
@@ -431,6 +437,8 @@
       "title": "ସାଇନ୍ ଆଉଟ୍"
     },
     "title": "ଖାତା ଏବଂ ବ୍ୟବହାର",
+    "status": "ସ୍ଥିତି",
+    "subscriptionEnded": "ସଦସ୍ୟତା ସମାପ୍ତ",
     "trialCreditsUsed": "ବ୍ୟବହୃତ ଟ୍ରାଏଲ୍ କ୍ରେଡିଟ୍ ର",
     "trialEnded": "ପରୀକ୍ଷା ଶେଷ ହେଲା",
     "trialEnds": "ପରୀକ୍ଷା ଶେଷ",

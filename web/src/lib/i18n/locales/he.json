@@ -376,6 +376,9 @@
     "wrongNoteType": "סוג פתק שגוי"
   },
   "subscription": {
+    "accessEnds": "הגישה מסתיימת",
+    "activateAgain": "הפעל שוב",
+    "endingSoon": "תסתיים בקרוב",
     "checking": "בודק מנוי",
     "creditTypes": {
       "images": "תמונות",
@@ -390,6 +393,7 @@
     "errors": {
       "logout": "לא ניתן היה להתנתק"
     },
+    "expired": "פג",
     "freePlan": "תוכנית חינם",
     "freeTrial": "ניסיון חינם",
     "hero": {
@@ -429,7 +433,9 @@
     "outOfCredits": "נגמרו הקרדיטים",
     "pausedUntilReset": "הדור מושהה עד לאיפוס הזיכויים שלך.",
     "plan": "לְתַכְנֵן",
+    "planExpired": "התוכנית פגה",
     "planInactive": "תוכנית לא פעילה",
+    "resubscribeToContinue": "הירשם שוב כדי להמשיך בהפקה.",
     "resetsIn": "מתאפס ב",
     "resetsInDays_one": "מתאפס תוך יום אחד",
     "resetsInDays_two": "מתאפס בעוד {{count}} ימים",
@@ -441,6 +447,8 @@
       "title": "יצא"
     },
     "title": "חשבון ושימוש",
+    "status": "סטטוס",
+    "subscriptionEnded": "המנוי הסתיים",
     "trialCreditsUsed": "של נקודות ניסיון בשימוש",
     "trialEnded": "המשפט הסתיים",
     "trialEnds": "המשפט מסתיים",

@@ -364,6 +364,9 @@
     "wrongNoteType": "잘못된 메모 유형"
   },
   "subscription": {
+    "accessEnds": "액세스 종료",
+    "activateAgain": "다시 활성화",
+    "endingSoon": "곧 종료",
     "checking": "구독 확인 중",
     "creditTypes": {
       "images": "이미지",
@@ -376,6 +379,7 @@
     "errors": {
       "logout": "로그아웃할 수 없습니다."
     },
+    "expired": "만료됨",
     "freePlan": "무료 플랜",
     "freeTrial": "무료 평가판",
     "hero": {
@@ -411,7 +415,9 @@
     "outOfCredits": "크레딧 부족",
     "pausedUntilReset": "크레딧이 재설정될 때까지 생성이 일시 중지됩니다.",
     "plan": "계획",
+    "planExpired": "플랜 만료됨",
     "planInactive": "계획이 비활성화되었습니다",
+    "resubscribeToContinue": "생성을 계속하려면 재구독하세요.",
     "resetsIn": "다음 시간에 재설정됩니다.",
     "resetsInDays_other": "{{count}}일 후에 재설정됩니다.",
     "signedOut": {
@@ -421,6 +427,8 @@
       "title": "로그아웃됨"
     },
     "title": "계정 및 사용량",
+    "status": "상태",
+    "subscriptionEnded": "구독 종료됨",
     "trialCreditsUsed": "사용된 평가판 크레딧 수",
     "trialEnded": "평가판이 종료됨",
     "trialEnds": "평가판 종료",

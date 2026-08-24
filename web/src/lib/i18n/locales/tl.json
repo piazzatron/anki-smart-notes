@@ -370,6 +370,9 @@
     "wrongNoteType": "Maling uri ng tala"
   },
   "subscription": {
+    "accessEnds": "Nagtatapos ang access",
+    "activateAgain": "I-activate muli",
+    "endingSoon": "Magtatapos na kaagad",
     "checking": "Sinusuri ang subscription",
     "creditTypes": {
       "images": "Mga imahe",
@@ -383,6 +386,7 @@
     "errors": {
       "logout": "Hindi makapag-log out"
     },
+    "expired": "Nag-expire na",
     "freePlan": "Libreng plano",
     "freeTrial": "Libreng pagsubok",
     "hero": {
@@ -420,7 +424,9 @@
     "outOfCredits": "Out of credits",
     "pausedUntilReset": "Naka-pause ang pagbuo hanggang sa ma-reset ang iyong mga credit.",
     "plan": "Plano",
+    "planExpired": "Nag-expire na ang plan",
     "planInactive": "Hindi aktibo ang plano",
+    "resubscribeToContinue": "Mag-subscribe ulit upang magpatuloy sa paglikha.",
     "resetsIn": "Nire-reset sa",
     "resetsInDays_one": "Nire-reset sa loob ng 1 araw",
     "resetsInDays_other": "Nire-reset sa {{count}} araw",
@@ -431,6 +437,8 @@
       "title": "Naka-sign out"
     },
     "title": "Account at Paggamit",
+    "status": "Status",
+    "subscriptionEnded": "Nagtapos ang subscription",
     "trialCreditsUsed": "ng mga trial credit na ginamit",
     "trialEnded": "Natapos ang pagsubok",
     "trialEnds": "Natapos ang pagsubok",

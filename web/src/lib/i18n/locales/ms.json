@@ -364,6 +364,9 @@
     "wrongNoteType": "Jenis nota yang salah"
   },
   "subscription": {
+    "accessEnds": "Akses berakhir",
+    "activateAgain": "Aktifkan Semula",
+    "endingSoon": "Berakhir Segera",
     "checking": "Menyemak langganan",
     "creditTypes": {
       "images": "Imej",
@@ -376,6 +379,7 @@
     "errors": {
       "logout": "Tidak dapat log keluar"
     },
+    "expired": "Telah tamat tempoh",
     "freePlan": "Pelan percuma",
     "freeTrial": "Percubaan percuma",
     "hero": {
@@ -411,7 +415,9 @@
     "outOfCredits": "Habis kredit",
     "pausedUntilReset": "Penjanaan dijeda sehingga kredit anda ditetapkan semula.",
     "plan": "Rancang",
+    "planExpired": "Pelan telah tamat tempoh",
     "planInactive": "Pelan tidak aktif",
+    "resubscribeToContinue": "Langgani semula untuk terus menjana.",
     "resetsIn": "Ditetapkan semula dalam",
     "resetsInDays_other": "Ditetapkan semula dalam {{count}} hari",
     "signedOut": {
@@ -421,6 +427,8 @@
       "title": "Log keluar"
     },
     "title": "Akaun dan Penggunaan",
+    "status": "Status",
+    "subscriptionEnded": "Langganan telah berakhir",
     "trialCreditsUsed": "daripada kredit percubaan yang digunakan",
     "trialEnded": "Percubaan tamat",
     "trialEnds": "Percubaan berakhir",

@@ -370,6 +370,9 @@
     "wrongNoteType": "Fel anteckningstyp"
   },
   "subscription": {
+    "accessEnds": "Åtkomsten upphör",
+    "activateAgain": "Aktivera igen",
+    "endingSoon": "Slutar snart",
     "checking": "Kontrollerar prenumeration",
     "creditTypes": {
       "images": "Bilder",
@@ -383,6 +386,7 @@
     "errors": {
       "logout": "Kunde inte logga ut"
     },
+    "expired": "Utgånget",
     "freePlan": "Gratis plan",
     "freeTrial": "Gratis provperiod",
     "hero": {
@@ -420,7 +424,9 @@
     "outOfCredits": "Utan krediter",
     "pausedUntilReset": "Generering pausas tills dina krediter återställs.",
     "plan": "Planera",
+    "planExpired": "Plan utgånget",
     "planInactive": "Plan inaktiv",
+    "resubscribeToContinue": "Prenumerera igen för att fortsätta generera.",
     "resetsIn": "Återställs in",
     "resetsInDays_one": "Återställs på 1 dag",
     "resetsInDays_other": "Återställs om {{count}} dagar",
@@ -431,6 +437,8 @@
       "title": "Utloggad"
     },
     "title": "Konto och användning",
+    "status": "Status",
+    "subscriptionEnded": "Prenumerationen avslutad",
     "trialCreditsUsed": "av använda provkrediter",
     "trialEnded": "Rättegången avslutades",
     "trialEnds": "Rättegången avslutas",

@@ -376,6 +376,9 @@
     "wrongNoteType": "Погрешна врста белешке"
   },
   "subscription": {
+    "accessEnds": "Приступ се завршава",
+    "activateAgain": "Поново активирај",
+    "endingSoon": "Ускоро се завршава",
     "checking": "Провера претплате",
     "creditTypes": {
       "images": "Слике",
@@ -390,6 +393,7 @@
     "errors": {
       "logout": "Није могуће одјавити се"
     },
+    "expired": "Истекло",
     "freePlan": "Бесплатан план",
     "freeTrial": "Бесплатна пробна верзија",
     "hero": {
@@ -429,7 +433,9 @@
     "outOfCredits": "Без кредита",
     "pausedUntilReset": "Генерисање је паузирано док се ваши кредити не ресетују.",
     "plan": "План",
+    "planExpired": "План је истекао",
     "planInactive": "План неактиван",
+    "resubscribeToContinue": "Поново се пријавите да наставите са генерисањем.",
     "resetsIn": "Ресетује се",
     "resetsInDays_one": "Ресетује се за 1 дан",
     "resetsInDays_few": "Ресетује се за {{count}} дана",
@@ -441,6 +447,8 @@
       "title": "Одјављен/а"
     },
     "title": "Рачун и употреба",
+    "status": "Статус",
+    "subscriptionEnded": "Претплата је завршена",
     "trialCreditsUsed": "коришћених пробних кредита",
     "trialEnded": "Суђење је завршено",
     "trialEnds": "Суђење се завршава",

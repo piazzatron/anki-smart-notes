@@ -364,6 +364,9 @@
     "wrongNoteType": "注释类型错误"
   },
   "subscription": {
+    "accessEnds": "访问权限已结束",
+    "activateAgain": "重新激活",
+    "endingSoon": "即将结束",
     "checking": "检查订阅情况",
     "creditTypes": {
       "images": "图片",
@@ -376,6 +379,7 @@
     "errors": {
       "logout": "无法注销"
     },
+    "expired": "已过期",
     "freePlan": "免费计划",
     "freeTrial": "免费试用",
     "hero": {
@@ -411,7 +415,9 @@
     "outOfCredits": "积分用完",
     "pausedUntilReset": "生成将暂停，直到您的积分重置。",
     "plan": "计划",
+    "planExpired": "计划已过期",
     "planInactive": "计划无效",
+    "resubscribeToContinue": "重新订阅以继续生成。",
     "resetsIn": "重置于",
     "resetsInDays_other": "{{count}} 天后重置",
     "signedOut": {
@@ -421,6 +427,8 @@
       "title": "已退出"
     },
     "title": "账户及使用情况",
+    "status": "状态",
+    "subscriptionEnded": "订阅已结束",
     "trialCreditsUsed": "使用的试用积分",
     "trialEnded": "审判结束",
     "trialEnds": "审判结束",

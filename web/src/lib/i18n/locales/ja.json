@@ -364,6 +364,9 @@
     "wrongNoteType": "ノートの種類が間違っています"
   },
   "subscription": {
+    "accessEnds": "アクセス終了",
+    "activateAgain": "再度有効にする",
+    "endingSoon": "間もなく終了",
     "checking": "定期購入の確認",
     "creditTypes": {
       "images": "画像",
@@ -376,6 +379,7 @@
     "errors": {
       "logout": "ログアウトできませんでした"
     },
+    "expired": "期限切れ",
     "freePlan": "無料プラン",
     "freeTrial": "無料トライアル",
     "hero": {
@@ -411,7 +415,9 @@
     "outOfCredits": "クレジットが不足しています",
     "pausedUntilReset": "クレジットがリセットされるまで、生成は一時停止されます。",
     "plan": "プラン",
+    "planExpired": "プラン期限切れ",
     "planInactive": "プランが無効です",
+    "resubscribeToContinue": "生成を続けるために再度購読してください。",
     "resetsIn": "でリセットします",
     "resetsInDays_other": "{{count}} 日後にリセットされます",
     "signedOut": {
@@ -421,6 +427,8 @@
       "title": "サインアウトしました"
     },
     "title": "アカウントと使用方法",
+    "status": "ステータス",
+    "subscriptionEnded": "購読が終了しました",
     "trialCreditsUsed": "試用クレジットの使用量",
     "trialEnded": "トライアルは終了しました",
     "trialEnds": "トライアル終了",

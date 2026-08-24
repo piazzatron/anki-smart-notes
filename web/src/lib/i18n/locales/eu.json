@@ -370,6 +370,9 @@
     "wrongNoteType": "Ohar mota okerra"
   },
   "subscription": {
+    "accessEnds": "Sarbidea amaitu da",
+    "activateAgain": "Berriro aktibatu",
+    "endingSoon": "Laster amaitu",
     "checking": "Harpidetza egiaztatzen",
     "creditTypes": {
       "images": "Irudiak",
@@ -383,6 +386,7 @@
     "errors": {
       "logout": "Ezin izan da saioa amaitu"
     },
+    "expired": "Iraungita",
     "freePlan": "Doako plana",
     "freeTrial": "Doako proba",
     "hero": {
@@ -420,7 +424,9 @@
     "outOfCredits": "Kreditu gabe",
     "pausedUntilReset": "Sorkuntza pausatzen da zure kredituak berrezarri arte.",
     "plan": "Plana",
+    "planExpired": "Plana iraungita",
     "planInactive": "Plan inaktibo",
+    "resubscribeToContinue": "Harpidetu berriro sortzea jarraitzeko.",
     "resetsIn": "Berrezarri egiten da",
     "resetsInDays_one": "Egun batean berrezartzen da",
     "resetsInDays_other": "{{count}} egunetan berrezartzen da",
@@ -431,6 +437,8 @@
       "title": "Saioa amaituta"
     },
     "title": "Kontua eta Erabilera",
+    "status": "Egoera",
+    "subscriptionEnded": "Harpidetza amaitu da",
     "trialCreditsUsed": "erabilitako proba-kredituen",
     "trialEnded": "Epaiketa amaitu zen",
     "trialEnds": "Epaiketa amaitzen da",

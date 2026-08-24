@@ -376,6 +376,9 @@
     "wrongNoteType": "Mauvais type de note"
   },
   "subscription": {
+    "accessEnds": "L'accès se termine",
+    "activateAgain": "Réactiver",
+    "endingSoon": "Se termine bientôt",
     "checking": "Vérification de l'abonnement",
     "creditTypes": {
       "images": "Images",
@@ -390,6 +393,7 @@
     "errors": {
       "logout": "Impossible de se déconnecter"
     },
+    "expired": "Expiré",
     "freePlan": "Forfait gratuit",
     "freeTrial": "Essai gratuit",
     "hero": {
@@ -429,7 +433,9 @@
     "outOfCredits": "Plus de crédits",
     "pausedUntilReset": "La génération est suspendue jusqu'à ce que vos crédits soient réinitialisés.",
     "plan": "Plan",
+    "planExpired": "Forfait expiré",
     "planInactive": "Forfait inactif",
+    "resubscribeToContinue": "Réabonnez-vous pour continuer la génération.",
     "resetsIn": "Réinitialise dans",
     "resetsInDays_one": "Réinitialisation en 1 jour",
     "resetsInDays_many": "Réinitialisations dans les jours {{count}}",
@@ -441,6 +447,8 @@
       "title": "Déconnecté"
     },
     "title": "Compte et utilisation",
+    "status": "Statut",
+    "subscriptionEnded": "Abonnement terminé",
     "trialCreditsUsed": "des crédits d'essai utilisés",
     "trialEnded": "Essai terminé",
     "trialEnds": "Fin du procès",

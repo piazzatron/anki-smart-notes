@@ -370,6 +370,9 @@
     "wrongNoteType": "Vale märkme tüüp"
   },
   "subscription": {
+    "accessEnds": "Juurdepääs lõpeb",
+    "activateAgain": "Aktiveeri uuesti",
+    "endingSoon": "Lõpeb peagi",
     "checking": "Tellimuse kontrollimine",
     "creditTypes": {
       "images": "Pildid",
@@ -383,6 +386,7 @@
     "errors": {
       "logout": "Ei saanud välja logida"
     },
+    "expired": "Aegunud",
     "freePlan": "Tasuta plaan",
     "freeTrial": "Tasuta prooviperiood",
     "hero": {
@@ -420,7 +424,9 @@
     "outOfCredits": "Krediidid otsas",
     "pausedUntilReset": "Loomine on peatatud, kuni teie krediidid lähtestatakse.",
     "plan": "Plaan",
+    "planExpired": "Plaan on aegunud",
     "planInactive": "Plaan passiivne",
+    "resubscribeToContinue": "Jätkamiseks tellida uuesti.",
     "resetsIn": "Lähtestab sisse",
     "resetsInDays_one": "Lähtestub 1 päevaga",
     "resetsInDays_other": "Lähtestub {{count}} päeva pärast",
@@ -431,6 +437,8 @@
       "title": "Välja logitud"
     },
     "title": "Konto ja kasutamine",
+    "status": "Olek",
+    "subscriptionEnded": "Tellimus on lõppenud",
     "trialCreditsUsed": "kasutatud proovikrediitidest",
     "trialEnded": "Kohtuprotsess lõppes",
     "trialEnds": "Kohtuprotsess lõppeb",

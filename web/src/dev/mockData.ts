@@ -32,6 +32,7 @@ const HEALTHY_TRIAL_PLAN: PlanInfo = {
   imageCreditsCapacity: 100,
   totalCreditsUsed: 58,
   totalCreditsCapacity: 300,
+  subscriptionStatus: null,
 }
 
 const POPULATED_FIELDS: SmartField[] = [
@@ -259,6 +260,26 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
       imageCreditsCapacity: 150,
       totalCreditsUsed: 170,
       totalCreditsCapacity: 500,
+      subscriptionStatus: "active",
+    }),
+  },
+  "paid-canceling": {
+    status: "AUTHENTICATED",
+    authToken: null,
+    email: MOCK_ACCOUNT_EMAIL,
+    plan: withTrialPlan({
+      planId: "small1",
+      planType: "small",
+      planName: "Lite",
+      notesUsed: null,
+      notesLimit: null,
+      daysLeft: 30,
+      textCreditsUsed: 24,
+      voiceCreditsUsed: 0,
+      imageCreditsUsed: 0,
+      totalCreditsUsed: 24,
+      totalCreditsCapacity: 300,
+      subscriptionStatus: "canceling",
     }),
   },
   "paid-expired": {
@@ -272,6 +293,7 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
       notesUsed: null,
       notesLimit: null,
       daysLeft: 0,
+      subscriptionStatus: "expired",
     }),
   },
   "paid-capacity": {
@@ -292,6 +314,7 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
       imageCreditsCapacity: 150,
       totalCreditsUsed: 500,
       totalCreditsCapacity: 500,
+      subscriptionStatus: "active",
     }),
   },
   "signed-out": {

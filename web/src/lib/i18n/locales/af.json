@@ -370,6 +370,9 @@
     "wrongNoteType": "Verkeerde nota tipe"
   },
   "subscription": {
+    "accessEnds": "Toegang eindig",
+    "activateAgain": "Aktiveer weer",
+    "endingSoon": "Eindig binnekort",
     "checking": "Gaan tans intekening na",
     "creditTypes": {
       "images": "Beelde",
@@ -383,6 +386,7 @@
     "errors": {
       "logout": "Kon nie uitteken nie"
     },
+    "expired": "Verstreke",
     "freePlan": "Gratis plan",
     "freeTrial": "Gratis proeflopie",
     "hero": {
@@ -420,7 +424,9 @@
     "outOfCredits": "Uit krediete",
     "pausedUntilReset": "Generasie word onderbreek totdat jou krediete teruggestel is.",
     "plan": "Beplan",
+    "planExpired": "Plan verstreke",
     "planInactive": "Beplan onaktief",
+    "resubscribeToContinue": "Teken weer in om voort te gaan met generering.",
     "resetsIn": "Stel terug in",
     "resetsInDays_one": "Stel oor 1 dag terug",
     "resetsInDays_other": "Herstel in {{count}} dae",
@@ -431,6 +437,8 @@
       "title": "Uitgemeld"
     },
     "title": "Rekening en gebruik",
+    "status": "Status",
+    "subscriptionEnded": "Inskrywing beëindig",
     "trialCreditsUsed": "van proefkrediete gebruik",
     "trialEnded": "Verhoor geëindig",
     "trialEnds": "Verhoor eindig",

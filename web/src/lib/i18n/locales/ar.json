@@ -394,6 +394,9 @@
     "wrongNoteType": "نوع ملاحظة خاطئ"
   },
   "subscription": {
+    "accessEnds": "انتهاء الوصول",
+    "activateAgain": "تفعيل مجددا",
+    "endingSoon": "سينتهي قريبا",
     "checking": "التحقق من الاشتراك",
     "creditTypes": {
       "images": "الصور",
@@ -411,6 +414,7 @@
     "errors": {
       "logout": "لا يمكن تسجيل الخروج"
     },
+    "expired": "منتهية الصلاحية",
     "freePlan": "خطة مجانية",
     "freeTrial": "تجربة مجانية",
     "hero": {
@@ -456,7 +460,9 @@
     "outOfCredits": "نفاد الاعتمادات",
     "pausedUntilReset": "يتم إيقاف الإنشاء مؤقتًا حتى يتم إعادة تعيين الاعتمادات الخاصة بك.",
     "plan": "خطة",
+    "planExpired": "انتهت صلاحية الخطة",
     "planInactive": "الخطة غير نشطة",
+    "resubscribeToContinue": "أعد الاشتراك للمتابعة.",
     "resetsIn": "إعادة تعيين في",
     "resetsInDays_zero": "تتم إعادة التعيين بعد {{count}} أيام",
     "resetsInDays_one": "إعادة تعيين في 1 يوم",
@@ -471,6 +477,8 @@
       "title": "تم تسجيل الخروج"
     },
     "title": "الحساب والاستخدام",
+    "status": "الحالة",
+    "subscriptionEnded": "انتهى الاشتراك",
     "trialCreditsUsed": "من الاعتمادات التجريبية المستخدمة",
     "trialEnded": "انتهت المحاكمة",
     "trialEnds": "تنتهي المحاكمة",

@@ -28,6 +28,16 @@ export interface PlanConditions {
   hasGenerationAccess: boolean
 }
 
+export type PaidPlanCardState = "available" | "expired" | "paused"
+
+export const getPaidPlanCardState = (plan: PlanInfo): PaidPlanCardState => {
+  const conditions = getPlanConditions(plan)
+  if (conditions.expired) return "expired"
+  if (conditions.hasGenerationAccess) return "available"
+
+  return "paused"
+}
+
 export const getPlanConditions = (plan: PlanInfo): PlanConditions => {
   const expired = plan.daysLeft <= 0
   const noteLimitReached =

@@ -382,6 +382,9 @@
     "wrongNoteType": "Неправильний тип нотатки"
   },
   "subscription": {
+    "accessEnds": "Доступ закінчується",
+    "activateAgain": "Активувати знову",
+    "endingSoon": "Завершиться незабаром",
     "checking": "Перевірка підписки",
     "creditTypes": {
       "images": "Зображення",
@@ -397,6 +400,7 @@
     "errors": {
       "logout": "Не вдалося вийти"
     },
+    "expired": "Закінчилася дія",
     "freePlan": "Безкоштовний план",
     "freeTrial": "Безкоштовна пробна версія",
     "hero": {
@@ -438,7 +442,9 @@
     "outOfCredits": "Закінчилися кредити",
     "pausedUntilReset": "Генерація призупинена до скидання кредитів.",
     "plan": "План",
+    "planExpired": "План закінчив дію",
     "planInactive": "План неактивний",
+    "resubscribeToContinue": "Оновіть підписку, щоб продовжити генерування.",
     "resetsIn": "Скидання в",
     "resetsInDays_one": "Скидання через 1 день",
     "resetsInDays_few": "Скидання через {{count}} дні",
@@ -451,6 +457,8 @@
       "title": "Вийшов"
     },
     "title": "Обліковий запис і використання",
+    "status": "Статус",
+    "subscriptionEnded": "Підписка закінчилася",
     "trialCreditsUsed": "використаних пробних кредитів",
     "trialEnded": "Суд закінчився",
     "trialEnds": "Випробування закінчується",

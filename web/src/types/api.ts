@@ -26,6 +26,7 @@ export type LegacyPlanId =
   "free" | "free_mini_1" | "small1" | "medium1" | "large1"
 export type PlanType = "trial" | "freemium" | "small" | "medium" | "large"
 export type PlanName = "Free Trial" | "Free" | "Lite" | "Standard" | "Pro"
+export type SubscriptionStatus = "active" | "canceling" | "expired"
 
 export interface PlanInfo {
   /** @deprecated Use planType. Retained for compatibility with older clients. */
@@ -43,6 +44,7 @@ export interface PlanInfo {
   imageCreditsCapacity: number
   totalCreditsUsed: number
   totalCreditsCapacity: number
+  subscriptionStatus: SubscriptionStatus | null
 }
 
 export type AccountState = {

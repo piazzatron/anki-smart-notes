@@ -370,6 +370,9 @@
     "wrongNoteType": "نوع یادداشت اشتباه است"
   },
   "subscription": {
+    "accessEnds": "دسترسی پایان می‌یابد",
+    "activateAgain": "فعال کردن دوباره",
+    "endingSoon": "به زودی پایان می یابد",
     "checking": "بررسی اشتراک",
     "creditTypes": {
       "images": "تصاویر",
@@ -383,6 +386,7 @@
     "errors": {
       "logout": "نمی توان از سیستم خارج شد"
     },
+    "expired": "منقضی شده",
     "freePlan": "طرح رایگان",
     "freeTrial": "آزمایشی رایگان",
     "hero": {
@@ -420,7 +424,9 @@
     "outOfCredits": "خارج از اعتبار",
     "pausedUntilReset": "تا زمانی که اعتبار شما بازنشانی شود، تولید موقتاً متوقف می شود.",
     "plan": "برنامه ریزی کنید",
+    "planExpired": "طرح منقضی شده",
     "planInactive": "طرح غیر فعال",
+    "resubscribeToContinue": "برای ادامه تولید، دوباره مشترک شوید.",
     "resetsIn": "بازنشانی می شود",
     "resetsInDays_one": "بازنشانی در 1 روز",
     "resetsInDays_other": "در روزهای {{count}} بازنشانی می‌شود",
@@ -431,6 +437,8 @@
       "title": "از سیستم خارج شد"
     },
     "title": "حساب و استفاده",
+    "status": "وضعیت",
+    "subscriptionEnded": "اشتراک پایان یافت",
     "trialCreditsUsed": "از اعتبارات آزمایشی استفاده شده",
     "trialEnded": "محاکمه به پایان رسید",
     "trialEnds": "محاکمه به پایان می رسد",

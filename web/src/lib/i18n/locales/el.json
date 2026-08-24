@@ -370,6 +370,9 @@
     "wrongNoteType": "Λάθος τύπος σημείωσης"
   },
   "subscription": {
+    "accessEnds": "Λήξη πρόσβασης",
+    "activateAgain": "Ενεργοποίηση ξανά",
+    "endingSoon": "Λήγει σύντομα",
     "checking": "Έλεγχος συνδρομής",
     "creditTypes": {
       "images": "εικόνες",
@@ -383,6 +386,7 @@
     "errors": {
       "logout": "Δεν ήταν δυνατή η αποσύνδεση"
     },
+    "expired": "Έληξε",
     "freePlan": "Δωρεάν σχέδιο",
     "freeTrial": "Δωρεάν δοκιμή",
     "hero": {
@@ -420,7 +424,9 @@
     "outOfCredits": "Εκτός πιστώσεων",
     "pausedUntilReset": "Η δημιουργία τίθεται σε παύση μέχρι να γίνει επαναφορά των πιστώσεων σας.",
     "plan": "Σχέδιο",
+    "planExpired": "Το σχέδιο έληξε",
     "planInactive": "Σχέδιο ανενεργό",
+    "resubscribeToContinue": "Επανεγγραφή για συνέχιση της δημιουργίας.",
     "resetsIn": "Επαναφέρεται",
     "resetsInDays_one": "Επαναφέρεται σε 1 ημέρα",
     "resetsInDays_other": "Επαναφέρεται σε {{count}} ημέρες",
@@ -431,6 +437,8 @@
       "title": "Έγινε αποσύνδεση"
     },
     "title": "Λογαριασμός και χρήση",
+    "status": "Κατάσταση",
+    "subscriptionEnded": "Η συνδρομή τερματίστηκε",
     "trialCreditsUsed": "των δοκιμαστικών μονάδων που χρησιμοποιήθηκαν",
     "trialEnded": "Η δίκη έληξε",
     "trialEnds": "Η δοκιμή τελειώνει",

@@ -370,6 +370,9 @@
     "wrongNoteType": "Verkeerd notitietype"
   },
   "subscription": {
+    "accessEnds": "Toegang eindigt",
+    "activateAgain": "Opnieuw activeren",
+    "endingSoon": "Eindigt binnenkort",
     "checking": "Abonnement controleren",
     "creditTypes": {
       "images": "Afbeeldingen",
@@ -383,6 +386,7 @@
     "errors": {
       "logout": "Kon niet uitloggen"
     },
+    "expired": "Verlopen",
     "freePlan": "Gratis abonnement",
     "freeTrial": "Gratis proefperiode",
     "hero": {
@@ -420,7 +424,9 @@
     "outOfCredits": "Geen krediet meer",
     "pausedUntilReset": "Het genereren wordt gepauzeerd totdat uw tegoeden worden gereset.",
     "plan": "Plan",
+    "planExpired": "Plan verlopen",
     "planInactive": "Abonnement inactief",
+    "resubscribeToContinue": "Abonneer je opnieuw om door te gaan met genereren.",
     "resetsIn": "Reset binnen",
     "resetsInDays_one": "Reset binnen 1 dag",
     "resetsInDays_other": "Wordt gereset over {{count}} dagen",
@@ -431,6 +437,8 @@
       "title": "Uitgelogd"
     },
     "title": "Account en gebruik",
+    "status": "Status",
+    "subscriptionEnded": "Abonnement beëindigd",
     "trialCreditsUsed": "van de gebruikte proefkredieten",
     "trialEnded": "Proef beëindigd",
     "trialEnds": "Proef eindigt",

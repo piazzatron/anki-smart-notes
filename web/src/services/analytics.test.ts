@@ -60,6 +60,7 @@ const TEST_PLAN: PlanInfo = {
   imageCreditsCapacity: 100,
   totalCreditsUsed: 0,
   totalCreditsCapacity: 300,
+  subscriptionStatus: null,
 }
 
 const stateWithAccount = (

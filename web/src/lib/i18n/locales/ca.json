@@ -376,6 +376,9 @@
     "wrongNoteType": "Tipus de nota incorrecte"
   },
   "subscription": {
+    "accessEnds": "L'accés s'acaba",
+    "activateAgain": "Activar novament",
+    "endingSoon": "Finalitza aviat",
     "checking": "Comprovant la subscripció",
     "creditTypes": {
       "images": "Imatges",
@@ -390,6 +393,7 @@
     "errors": {
       "logout": "No s'ha pogut tancar la sessió"
     },
+    "expired": "Caducada",
     "freePlan": "Pla gratuït",
     "freeTrial": "Prova gratuïta",
     "hero": {
@@ -429,7 +433,9 @@
     "outOfCredits": "Sense crèdits",
     "pausedUntilReset": "La generació s'atura fins que els vostres crèdits es restableixin.",
     "plan": "Pla",
+    "planExpired": "Pla caducat",
     "planInactive": "Pla inactiu",
+    "resubscribeToContinue": "Resubscriu-te per continuar generant.",
     "resetsIn": "Es reinicia",
     "resetsInDays_one": "Es reinicia en 1 dia",
     "resetsInDays_many": "Es restableix en dies {{count}}",
@@ -441,6 +447,8 @@
       "title": "Tancat la sessió"
     },
     "title": "Compte i ús",
+    "status": "Estat",
+    "subscriptionEnded": "La subscripció s'ha acabat",
     "trialCreditsUsed": "dels crèdits de prova utilitzats",
     "trialEnded": "El judici ha acabat",
     "trialEnds": "Acaba el judici",

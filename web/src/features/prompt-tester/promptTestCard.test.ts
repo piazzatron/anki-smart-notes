@@ -47,6 +47,7 @@ const ACCOUNT: AccountState = {
     imageCreditsCapacity: 100,
     totalCreditsUsed: 0,
     totalCreditsCapacity: 300,
+    subscriptionStatus: "active",
   },
   status: "AUTHENTICATED",
   email: "person@example.com",
