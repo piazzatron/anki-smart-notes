@@ -178,9 +178,10 @@ const SignedOutSubscription = () => {
 }
 
 interface HeroContent {
-  context: string
+  context?: string
   cta: string
   note?: string
+  showArrow?: boolean
   tone: "indigo" | "mint"
   url: string
 }
@@ -222,9 +223,20 @@ const getHeroContent = (account: AuthenticatedAccount): HeroContent | null => {
     }
   }
 
-  if (presentation.variant !== "paid" || conditions.hasGenerationAccess) {
+  if (presentation.variant !== "paid") {
     return null
   }
+
+  if (account.plan.subscriptionStatus === "canceling") {
+    return {
+      cta: i18next.t("subscription.activateAgain"),
+      showArrow: false,
+      tone: "mint",
+      url: SITE_LINKS.account,
+    }
+  }
+
+  if (conditions.hasGenerationAccess) return null
 
   if (conditions.expired) {
     return {
@@ -272,7 +284,7 @@ const HERO_STYLES = {
   },
 } as const
 
-const PlanHero = ({ context, cta, note, tone, url }: HeroContent) => {
+const PlanHero = ({ context, cta, note, showArrow = true, tone, url }: HeroContent) => {
   const styles = HERO_STYLES[tone]
 
   return (
@@ -286,14 +298,25 @@ const PlanHero = ({ context, cta, note, tone, url }: HeroContent) => {
       }}
       type="button"
     >
-      <span className="text-[15px] font-semibold" style={{ color: styles.sub }}>
-        {context}
-      </span>
+      {context !== undefined && (
+        <span
+          className="text-[15px] font-semibold"
+          style={{ color: styles.sub }}
+        >
+          {context}
+        </span>
+      )}
       <span
-        className="mt-1 text-[23px] font-extrabold tracking-[-0.4px]"
+        className={`${context === undefined ? "" : "mt-1"} text-[23px] font-extrabold tracking-[-0.4px]`}
         style={{ color: styles.ink }}
       >
-        {cta} <span className="inline-block font-bold rtl:rotate-180">→</span>
+        {cta}
+        {showArrow && (
+          <>
+            {" "}
+            <span className="inline-block font-bold rtl:rotate-180">→</span>
+          </>
+        )}
       </span>
       {note !== undefined && (
         <span
@@ -323,6 +346,16 @@ const UsageModule = ({
     (segment) => segment.percent > 0,
   )
   const warning = usage >= 80
+  let periodLabel = t("subscription.resetsIn")
+  let periodValue: string | null = t("common.days", { count: daysLeft })
+  let periodSeparator = " "
+  if (plan.subscriptionStatus === "canceling") {
+    periodLabel = t("subscription.accessEnds")
+    periodSeparator = " · "
+  } else if (plan.subscriptionStatus === "expired") {
+    periodLabel = t("subscription.subscriptionEnded")
+    periodValue = null
+  }
 
   return (
     <section className={`${CARD_CLASS} p-[18px]`}>
@@ -331,10 +364,13 @@ const UsageModule = ({
           {t("subscription.creditUsage")}
         </h2>
         <p className="text-[11px] text-ink-muted">
-          {t("subscription.resetsIn")}{" "}
-          <span className="text-zinc-200">
-            {t("common.days", { count: daysLeft })}
-          </span>
+          {periodLabel}
+          {periodValue !== null && (
+            <>
+              {periodSeparator}
+              <span className="text-zinc-200">{periodValue}</span>
+            </>
+          )}
         </p>
       </div>
       <div className="mt-3.5 flex items-end gap-2.5">
@@ -408,12 +444,31 @@ const getPlanFacts = ({
   }
 
   if (isPaid && plan !== null) {
-    return [
-      [i18next.t("subscription.plan"), plan.planName],
-      [
+    if (plan.subscriptionStatus === null) {
+      throw new Error("Paid plan is missing its subscription status")
+    }
+
+    let periodFact: [string, string]
+    if (plan.subscriptionStatus === "active") {
+      periodFact = [
         i18next.t("subscription.creditsReset"),
         i18next.t("subscription.inDays", { count: plan.daysLeft }),
-      ],
+      ]
+    } else if (plan.subscriptionStatus === "canceling") {
+      periodFact = [
+        i18next.t("subscription.accessEnds"),
+        i18next.t("subscription.inDays", { count: plan.daysLeft }),
+      ]
+    } else {
+      periodFact = [
+        i18next.t("subscription.status"),
+        i18next.t("subscription.expired"),
+      ]
+    }
+
+    return [
+      [i18next.t("subscription.plan"), plan.planName],
+      periodFact,
       [i18next.t("subscription.notesUsed"), i18next.t("common.unlimited")],
     ]
   }

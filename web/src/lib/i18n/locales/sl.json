@@ -382,6 +382,9 @@
     "wrongNoteType": "Napačna vrsta beležke"
   },
   "subscription": {
+    "accessEnds": "Dostop se konča",
+    "activateAgain": "Znova aktiviraj",
+    "endingSoon": "Kmalu se konča",
     "checking": "Preverjanje naročnine",
     "creditTypes": {
       "images": "Slike",
@@ -397,6 +400,7 @@
     "errors": {
       "logout": "Ni bilo mogoče odjaviti"
     },
+    "expired": "Poteklo",
     "freePlan": "Brezplačni načrt",
     "freeTrial": "Brezplačna preizkusna različica",
     "hero": {
@@ -438,7 +442,9 @@
     "outOfCredits": "Brez kreditov",
     "pausedUntilReset": "Generiranje je zaustavljeno, dokler se vaši krediti ne ponastavijo.",
     "plan": "Načrtujte",
+    "planExpired": "Načrt je potekel",
     "planInactive": "Načrt neaktiven",
+    "resubscribeToContinue": "Ponovno se naročite, da nadaljujete z generiranjem.",
     "resetsIn": "Ponastavi v",
     "resetsInDays_one": "Ponastavi se čez 1 dan",
     "resetsInDays_two": "Ponastavi se čez {{count}} dni",
@@ -451,6 +457,8 @@
       "title": "Odjavljen"
     },
     "title": "Račun in uporaba",
+    "status": "Stanje",
+    "subscriptionEnded": "Naročnina je končana",
     "trialCreditsUsed": "uporabljenih poskusnih kreditov",
     "trialEnded": "Sojenje se je končalo",
     "trialEnds": "Preizkus se konča",

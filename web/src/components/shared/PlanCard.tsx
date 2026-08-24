@@ -4,6 +4,7 @@ import type { AccountState } from "@/types/api"
 import { useTranslation } from "react-i18next"
 
 import {
+  getPaidPlanCardState,
   getPlanConditions,
   getPlanPresentation,
   pctLabel,
@@ -121,10 +122,28 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
   }
 
   if (presentation.variant === "paid") {
-    if (!conditions.hasGenerationAccess) {
+    const cardState = getPaidPlanCardState(account.plan)
+    if (cardState !== "available") {
+      if (cardState === "expired") {
+        return (
+          <OutOfCreditsCard
+            actionLabel={t("subscription.managePlan")}
+            note={t("subscription.resubscribeToContinue")}
+            onOpenSubscription={onOpenSubscription}
+            showUsage={false}
+            title={t("subscription.planExpired")}
+            usage={usage}
+          />
+        )
+      }
+
       return (
         <OutOfCreditsCard
-          note={t("subscription.pausedUntilReset")}
+          note={
+            account.plan.subscriptionStatus === "canceling"
+              ? undefined
+              : t("subscription.pausedUntilReset")
+          }
           onOpenSubscription={onOpenSubscription}
           title={
             conditions.creditLimitReached
@@ -206,15 +225,19 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
 }
 
 interface OutOfCreditsCardProps {
-  note: string
+  actionLabel?: string
+  note?: string
   onOpenSubscription: () => void
+  showUsage?: boolean
   title: string
   usage: number
 }
 
 const OutOfCreditsCard = ({
+  actionLabel,
   note,
   onOpenSubscription,
+  showUsage = true,
   title,
   usage,
 }: OutOfCreditsCardProps) => {
@@ -227,19 +250,27 @@ const OutOfCreditsCard = ({
     >
       <div className="flex items-center justify-between">
         <span className="text-[11px] font-bold text-[#ff7a7a]">{title}</span>
-        <span className="text-[11.5px] font-bold text-[#ff7a7a]">
-          {pctLabel(usage)}
-        </span>
+        {showUsage && (
+          <span className="text-[11.5px] font-bold text-[#ff7a7a]">
+            {pctLabel(usage)}
+          </span>
+        )}
       </div>
-      <ProgressBar
-        colorClass="bg-[#ff7a7a]"
-        heightClass="h-1"
-        percent={usage}
-        trackClass="mt-2.5 bg-white/[0.08]"
-      />
-      <p className="mt-2 text-[10.5px] leading-[1.45] text-ink-muted">{note}</p>
+      {showUsage && (
+        <ProgressBar
+          colorClass="bg-[#ff7a7a]"
+          heightClass="h-1"
+          percent={usage}
+          trackClass="mt-2.5 bg-white/[0.08]"
+        />
+      )}
+      {note !== undefined && (
+        <p className="mt-2 text-[10.5px] leading-[1.45] text-ink-muted">
+          {note}
+        </p>
+      )}
       <button className={PLAN_ACTION_BUTTON_CLASS} onClick={onOpenSubscription}>
-        {t("common.upgradeSparkles")}
+        {actionLabel ?? t("common.upgradeSparkles")}
       </button>
     </section>
   )

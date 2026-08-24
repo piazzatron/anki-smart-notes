@@ -382,6 +382,9 @@
     "wrongNoteType": "Špatný typ poznámky"
   },
   "subscription": {
+    "accessEnds": "Přístup končí",
+    "activateAgain": "Znovu aktivovat",
+    "endingSoon": "Brzy skončí",
     "checking": "Kontrola předplatného",
     "creditTypes": {
       "images": "Obrázky",
@@ -397,6 +400,7 @@
     "errors": {
       "logout": "Nelze se odhlásit"
     },
+    "expired": "Vypršelo",
     "freePlan": "Volný plán",
     "freeTrial": "Bezplatná zkušební verze",
     "hero": {
@@ -438,7 +442,9 @@
     "outOfCredits": "Došly kredity",
     "pausedUntilReset": "Generování je pozastaveno, dokud nejsou vaše kredity resetovány.",
     "plan": "Plán",
+    "planExpired": "Plán vypršel",
     "planInactive": "Plán je neaktivní",
+    "resubscribeToContinue": "Chcete-li pokračovat v generování, obnovte předplatné.",
     "resetsIn": "Resetuje se za",
     "resetsInDays_one": "Resetuje se za 1 den",
     "resetsInDays_few": "Resetuje se za {{count}} dny",
@@ -451,6 +457,8 @@
       "title": "Odhlášen"
     },
     "title": "Účet a použití",
+    "status": "Stav",
+    "subscriptionEnded": "Předplatné skončilo",
     "trialCreditsUsed": "zkušebních kreditů",
     "trialEnded": "Soud skončil",
     "trialEnds": "Soud končí",

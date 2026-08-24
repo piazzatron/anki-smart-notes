@@ -370,6 +370,9 @@
     "wrongNoteType": "Väärä muistiinpanotyyppi"
   },
   "subscription": {
+    "accessEnds": "Pääsy loppuu",
+    "activateAgain": "Aktivoi uudelleen",
+    "endingSoon": "Päättyy pian",
     "checking": "Tarkistetaan tilausta",
     "creditTypes": {
       "images": "Kuvat",
@@ -383,6 +386,7 @@
     "errors": {
       "logout": "Ei voitu kirjautua ulos"
     },
+    "expired": "Vanhentunyt",
     "freePlan": "Ilmainen suunnitelma",
     "freeTrial": "Ilmainen kokeilu",
     "hero": {
@@ -420,7 +424,9 @@
     "outOfCredits": "Krediitit loppu",
     "pausedUntilReset": "Luonti on keskeytetty, kunnes saldosi nollataan.",
     "plan": "Suunnitelma",
+    "planExpired": "Suunnitelma vanhentuneet",
     "planInactive": "Suunnitelma ei ole aktiivinen",
+    "resubscribeToContinue": "Tilaa uudelleen jatkaaksesi luomista.",
     "resetsIn": "Nollautuu sisään",
     "resetsInDays_one": "Nollautuu 1 päivässä",
     "resetsInDays_other": "Nollautuu {{count}} päivässä",
@@ -431,6 +437,8 @@
       "title": "Kirjautunut ulos"
     },
     "title": "Tili ja käyttö",
+    "status": "Tila",
+    "subscriptionEnded": "Tilaus päättyi",
     "trialCreditsUsed": "käytetyistä kokeilupisteistä",
     "trialEnded": "Oikeudenkäynti päättyi",
     "trialEnds": "Oikeudenkäynti päättyy",

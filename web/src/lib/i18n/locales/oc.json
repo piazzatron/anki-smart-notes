@@ -364,6 +364,9 @@
     "wrongNoteType": "Tipe de nòta incorrècte"
   },
   "subscription": {
+    "accessEnds": "L'accès s'acabarà",
+    "activateAgain": "Reactivar",
+    "endingSoon": "Finís aviat",
     "checking": "Verificacion de l'abonament",
     "creditTypes": {
       "images": "Imatges",
@@ -376,6 +379,7 @@
     "errors": {
       "logout": "Poguèt pas se desconnectar"
     },
+    "expired": "Expirat",
     "freePlan": "Plan gratuit",
     "freeTrial": "Espròva gratuita",
     "hero": {
@@ -411,7 +415,9 @@
     "outOfCredits": "Sens crèdits",
     "pausedUntilReset": "La generacion es pausada fins que vòstres crèdits reïnicializar.",
     "plan": "Plan",
+    "planExpired": "Plan expirat",
     "planInactive": "Plan inactiu",
+    "resubscribeToContinue": "Vos reabonatz per contunhar de generar.",
     "resetsIn": "Reïnicializar dins",
     "resetsInDays_other": "Reïnicializar en jorns {{count}}",
     "signedOut": {
@@ -421,6 +427,8 @@
       "title": "Desconnectat"
     },
     "title": "Compte e Utilizacion",
+    "status": "Estat",
+    "subscriptionEnded": "L'abonament s'acabà",
     "trialCreditsUsed": "de crèdits d'assag utilizats",
     "trialEnded": "Lo jutjament s'acabèt",
     "trialEnds": "Lo jutjament s'acaba",

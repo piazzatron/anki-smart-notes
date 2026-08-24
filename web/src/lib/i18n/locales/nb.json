@@ -370,6 +370,9 @@
     "wrongNoteType": "Feil notetype"
   },
   "subscription": {
+    "accessEnds": "Tilgang slutter",
+    "activateAgain": "Aktiver på nytt",
+    "endingSoon": "Slutter snart",
     "checking": "Sjekker abonnement",
     "creditTypes": {
       "images": "Bilder",
@@ -383,6 +386,7 @@
     "errors": {
       "logout": "Kunne ikke logge ut"
     },
+    "expired": "Utløpt",
     "freePlan": "Gratis plan",
     "freeTrial": "Gratis prøveversjon",
     "hero": {
@@ -420,7 +424,9 @@
     "outOfCredits": "Ute av studiepoeng",
     "pausedUntilReset": "Generering er satt på pause til kredittene dine tilbakestilles.",
     "plan": "Plan",
+    "planExpired": "Plan utløpt",
     "planInactive": "Planen er inaktiv",
+    "resubscribeToContinue": "Abonnér på nytt for å fortsette generering.",
     "resetsIn": "Tilbakestilles inn",
     "resetsInDays_one": "Tilbakestilles om 1 dag",
     "resetsInDays_other": "Tilbakestilles i {{count}} dager",
@@ -431,6 +437,8 @@
       "title": "Logget ut"
     },
     "title": "Konto og bruk",
+    "status": "Status",
+    "subscriptionEnded": "Abonnement avsluttet",
     "trialCreditsUsed": "av prøvepoeng brukt",
     "trialEnded": "Rettssaken ble avsluttet",
     "trialEnds": "Rettssaken avsluttes",

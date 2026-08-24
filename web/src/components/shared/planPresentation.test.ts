@@ -4,6 +4,7 @@ import type { AccountState, PlanInfo } from "@/types/api"
 
 import {
   getCreditSegments,
+  getPaidPlanCardState,
   getPlanConditions,
   getPlanPresentation,
   hasGenerationAccess,
@@ -26,6 +27,7 @@ const PLAN: NonNullable<AccountState["plan"]> = {
   imageCreditsCapacity: 100,
   totalCreditsUsed: 45,
   totalCreditsCapacity: 300,
+  subscriptionStatus: null,
 }
 
 const authenticated = (plan: PlanInfo = PLAN): AccountState => ({
@@ -120,6 +122,43 @@ describe("getPlanConditions", () => {
       creditLimitReached: true,
       hasGenerationAccess: false,
     })
+  })
+})
+
+describe("getPaidPlanCardState", () => {
+  test("distinguishes available, paused, and expired paid access", () => {
+    const depletedPlan: PlanInfo = {
+      ...PLAN,
+      planId: "small1",
+      planType: "small",
+      planName: "Lite",
+      notesUsed: null,
+      notesLimit: null,
+      totalCreditsUsed: 300,
+      subscriptionStatus: "active",
+    }
+
+    expect(getPaidPlanCardState(depletedPlan)).toBe("paused")
+    expect(
+      getPaidPlanCardState({
+        ...depletedPlan,
+        subscriptionStatus: "canceling",
+      }),
+    ).toBe("paused")
+    expect(
+      getPaidPlanCardState({
+        ...depletedPlan,
+        totalCreditsUsed: 24,
+        subscriptionStatus: "canceling",
+      }),
+    ).toBe("available")
+    expect(
+      getPaidPlanCardState({
+        ...depletedPlan,
+        daysLeft: 0,
+        subscriptionStatus: "expired",
+      }),
+    ).toBe("expired")
   })
 })
 

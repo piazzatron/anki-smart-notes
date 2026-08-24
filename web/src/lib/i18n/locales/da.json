@@ -370,6 +370,9 @@
     "wrongNoteType": "Forkert notetype"
   },
   "subscription": {
+    "accessEnds": "Adgang slutter",
+    "activateAgain": "Aktivér igen",
+    "endingSoon": "Slutter snart",
     "checking": "Tjek abonnement",
     "creditTypes": {
       "images": "Billeder",
@@ -383,6 +386,7 @@
     "errors": {
       "logout": "Kunne ikke logge ud"
     },
+    "expired": "Udløbet",
     "freePlan": "Gratis plan",
     "freeTrial": "Gratis prøveversion",
     "hero": {
@@ -420,7 +424,9 @@
     "outOfCredits": "Ude af kreditter",
     "pausedUntilReset": "Generering er sat på pause, indtil dine kreditter nulstilles.",
     "plan": "Plan",
+    "planExpired": "Plan udløbet",
     "planInactive": "Plan inaktiv",
+    "resubscribeToContinue": "Tegn abonnement igen for at fortsætte med at generere.",
     "resetsIn": "Nulstiller i",
     "resetsInDays_one": "Nulstilles på 1 dag",
     "resetsInDays_other": "Nulstilles i {{count}} dage",
@@ -431,6 +437,8 @@
       "title": "Logget ud"
     },
     "title": "Konto og brug",
+    "status": "Status",
+    "subscriptionEnded": "Abonnement endt",
     "trialCreditsUsed": "af anvendte prøvekreditter",
     "trialEnded": "Retssagen sluttede",
     "trialEnds": "Retssagen slutter",

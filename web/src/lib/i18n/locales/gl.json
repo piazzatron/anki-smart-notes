@@ -370,6 +370,9 @@
     "wrongNoteType": "Tipo de nota incorrecto"
   },
   "subscription": {
+    "accessEnds": "O acceso finaliza",
+    "activateAgain": "Activar de novo",
+    "endingSoon": "Remata axiña",
     "checking": "Comprobando a subscrición",
     "creditTypes": {
       "images": "Imaxes",
@@ -383,6 +386,7 @@
     "errors": {
       "logout": "Non se puido pechar sesión"
     },
+    "expired": "Caducado",
     "freePlan": "Plan gratuíto",
     "freeTrial": "Proba gratuíta",
     "hero": {
@@ -420,7 +424,9 @@
     "outOfCredits": "Fóra de créditos",
     "pausedUntilReset": "A xeración está en pausa ata que se restablezan os teus créditos.",
     "plan": "Planificar",
+    "planExpired": "Plan caducado",
     "planInactive": "Plan inactivo",
+    "resubscribeToContinue": "Volve a subscribirte para continuar xerando.",
     "resetsIn": "Restablece en",
     "resetsInDays_one": "Restablece en 1 día",
     "resetsInDays_other": "Restablece en días {{count}}",
@@ -431,6 +437,8 @@
       "title": "Pechou sesión"
     },
     "title": "Conta e uso",
+    "status": "Estado",
+    "subscriptionEnded": "A subscrición finalizou",
     "trialCreditsUsed": "de créditos de proba utilizados",
     "trialEnded": "O xuízo rematou",
     "trialEnds": "Remata o xuízo",

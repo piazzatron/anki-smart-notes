@@ -376,6 +376,9 @@
     "wrongNoteType": "Tip greșit de notă"
   },
   "subscription": {
+    "accessEnds": "Accesul se încheie",
+    "activateAgain": "Reactivați",
+    "endingSoon": "Se încheie în curând",
     "checking": "Se verifică abonamentul",
     "creditTypes": {
       "images": "Imagini",
@@ -390,6 +393,7 @@
     "errors": {
       "logout": "Nu s-a putut deconecta"
     },
+    "expired": "Expirat",
     "freePlan": "Plan gratuit",
     "freeTrial": "Probă gratuită",
     "hero": {
@@ -429,7 +433,9 @@
     "outOfCredits": "Din credite",
     "pausedUntilReset": "Generarea este întreruptă până la resetarea creditelor.",
     "plan": "Plan",
+    "planExpired": "Planul a expirat",
     "planInactive": "Plan inactiv",
+    "resubscribeToContinue": "Reabonați-vă pentru a continua generarea.",
     "resetsIn": "Se resetează",
     "resetsInDays_one": "Se resetează în 1 zi",
     "resetsInDays_few": "Se resetează peste {{count}} zile",
@@ -441,6 +447,8 @@
       "title": "Deconectat"
     },
     "title": "Cont și utilizare",
+    "status": "Stare",
+    "subscriptionEnded": "Abonamentul s-a încheiat",
     "trialCreditsUsed": "a creditelor de probă utilizate",
     "trialEnded": "Procesul s-a încheiat",
     "trialEnds": "Procesul se termină",

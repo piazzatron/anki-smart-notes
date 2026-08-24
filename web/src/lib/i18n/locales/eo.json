@@ -370,6 +370,9 @@
     "wrongNoteType": "Malĝusta nottipo"
   },
   "subscription": {
+    "accessEnds": "Aliro finiĝas",
+    "activateAgain": "Reaktivigi",
+    "endingSoon": "Finiĝas baldaŭ",
     "checking": "Kontrolante abonon",
     "creditTypes": {
       "images": "Bildoj",
@@ -383,6 +386,7 @@
     "errors": {
       "logout": "Ne eblis elsaluti"
     },
+    "expired": "Eksvalidiĝis",
     "freePlan": "Senpaga plano",
     "freeTrial": "Senpaga provo",
     "hero": {
@@ -420,7 +424,9 @@
     "outOfCredits": "El kreditoj",
     "pausedUntilReset": "Generacio estas paŭzita ĝis viaj kreditaĵoj rekomenciĝas.",
     "plan": "Plano",
+    "planExpired": "Plano eksvalidiĝis",
     "planInactive": "Plano neaktiva",
+    "resubscribeToContinue": "Reabonu por daŭrigi generadon.",
     "resetsIn": "Restarigas",
     "resetsInDays_one": "Restarigas en 1 tago",
     "resetsInDays_other": "Restarigas en {{count}} tagoj",
@@ -431,6 +437,8 @@
       "title": "Elsalutita"
     },
     "title": "Konto kaj Uzado",
+    "status": "Stato",
+    "subscriptionEnded": "Abono finiĝis",
     "trialCreditsUsed": "de provaj kreditoj uzataj",
     "trialEnded": "Provo finiĝis",
     "trialEnds": "Provo finiĝas",

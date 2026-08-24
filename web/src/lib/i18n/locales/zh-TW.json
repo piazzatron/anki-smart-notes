@@ -364,6 +364,9 @@
     "wrongNoteType": "註釋類型錯誤"
   },
   "subscription": {
+    "accessEnds": "存取權限結束",
+    "activateAgain": "重新啟用",
+    "endingSoon": "即將結束",
     "checking": "檢查訂閱狀況",
     "creditTypes": {
       "images": "圖片",
@@ -376,6 +379,7 @@
     "errors": {
       "logout": "無法註銷"
     },
+    "expired": "已過期",
     "freePlan": "免費規劃",
     "freeTrial": "免費試用",
     "hero": {
@@ -411,7 +415,9 @@
     "outOfCredits": "積分用完",
     "pausedUntilReset": "產生將暫停，直到您的積分重置。",
     "plan": "計劃",
+    "planExpired": "方案已過期",
     "planInactive": "計劃無效",
+    "resubscribeToContinue": "重新訂閱以繼續生成。",
     "resetsIn": "重置於",
     "resetsInDays_other": "{{count}} 天后重置",
     "signedOut": {
@@ -421,6 +427,8 @@
       "title": "已退出"
     },
     "title": "帳戶及使用情形",
+    "status": "狀態",
+    "subscriptionEnded": "訂閱已結束",
     "trialCreditsUsed": "使用的試用積分",
     "trialEnded": "審判結束",
     "trialEnds": "審判結束",

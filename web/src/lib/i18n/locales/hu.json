@@ -370,6 +370,9 @@
     "wrongNoteType": "Hibás jegyzettípus"
   },
   "subscription": {
+    "accessEnds": "Hozzáférés vége",
+    "activateAgain": "Újra aktiválás",
+    "endingSoon": "Hamarosan lejár",
     "checking": "Az előfizetés ellenőrzése",
     "creditTypes": {
       "images": "Képek",
@@ -383,6 +386,7 @@
     "errors": {
       "logout": "Nem sikerült kijelentkezni"
     },
+    "expired": "Lejárt",
     "freePlan": "Ingyenes terv",
     "freeTrial": "Ingyenes próbaverzió",
     "hero": {
@@ -420,7 +424,9 @@
     "outOfCredits": "Elfogyott a kredit",
     "pausedUntilReset": "A generálás szünetel a kreditek visszaállításáig.",
     "plan": "Terv",
+    "planExpired": "Terv lejárt",
     "planInactive": "Terv inaktív",
+    "resubscribeToContinue": "Iratkozz fel újra a generálás folytatásához.",
     "resetsIn": "Visszaállítja",
     "resetsInDays_one": "1 nap alatt visszaáll",
     "resetsInDays_other": "{{count}} napon belül visszaáll",
@@ -431,6 +437,8 @@
       "title": "Kijelentkezve"
     },
     "title": "Fiók és használat",
+    "status": "Státusz",
+    "subscriptionEnded": "Előfizetés vége",
     "trialCreditsUsed": "a felhasznált próbakreditekből",
     "trialEnded": "A tárgyalás véget ért",
     "trialEnds": "A tárgyalás véget ér",

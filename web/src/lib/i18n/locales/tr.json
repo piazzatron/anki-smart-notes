@@ -370,6 +370,9 @@
     "wrongNoteType": "Yanlış not türü"
   },
   "subscription": {
+    "accessEnds": "Erişim sona eriyor",
+    "activateAgain": "Yeniden etkinleştir",
+    "endingSoon": "Yakında bitiyor",
     "checking": "Abonelik kontrol ediliyor",
     "creditTypes": {
       "images": "Görseller",
@@ -383,6 +386,7 @@
     "errors": {
       "logout": "Oturum kapatılamadı"
     },
+    "expired": "Süresi doldu",
     "freePlan": "Ücretsiz plan",
     "freeTrial": "Ücretsiz deneme",
     "hero": {
@@ -420,7 +424,9 @@
     "outOfCredits": "Kredi bitti",
     "pausedUntilReset": "Kredileriniz sıfırlanana kadar oluşturma duraklatılır.",
     "plan": "Planı",
+    "planExpired": "Plan süresi doldu",
     "planInactive": "Plan etkin değil",
+    "resubscribeToContinue": "Oluşturmaya devam etmek için yeniden abone olun.",
     "resetsIn": "Sıfırlama süresi",
     "resetsInDays_one": "1 günde sıfırlanır",
     "resetsInDays_other": "{{count}} gün içinde sıfırlanır",
@@ -431,6 +437,8 @@
       "title": "Oturumu kapattım"
     },
     "title": "Hesap ve Kullanım",
+    "status": "Durum",
+    "subscriptionEnded": "Abonelik sona erdi",
     "trialCreditsUsed": "kullanılan deneme kredileri",
     "trialEnded": "Deneme sona erdi",
     "trialEnds": "Deneme sona eriyor",

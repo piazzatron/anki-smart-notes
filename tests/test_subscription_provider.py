@@ -48,6 +48,7 @@ PLAN = {
     "imageCreditsCapacity": 100,
     "totalCreditsUsed": 0,
     "totalCreditsCapacity": 300,
+    "subscriptionStatus": None,
 }
 
 
@@ -105,3 +106,26 @@ async def test_accepts_freemium_plan_type(monkeypatch: pytest.MonkeyPatch) -> No
     status = await UserInfoProvider().get_user_status()
 
     assert status["plan"]["planType"] == "freemium"
+
+
+@pytest.mark.asyncio
+async def test_requires_paid_subscription_status(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    paid_plan = {
+        **PLAN,
+        "planId": "small1",
+        "planType": "small",
+        "planName": "Lite",
+    }
+    monkeypatch.setattr(
+        "src.subscription_provider.api.get_api_response",
+        AsyncMock(
+            return_value=FakeResponse(
+                {"plan": paid_plan, "email": "person@example.com"}
+            )
+        ),
+    )
+
+    with pytest.raises(RuntimeError, match="Unexpected paid subscription status"):
+        await UserInfoProvider().get_user_status()

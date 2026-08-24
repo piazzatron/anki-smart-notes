@@ -370,6 +370,9 @@
     "wrongNoteType": "Falscher Notiztyp"
   },
   "subscription": {
+    "accessEnds": "Zugriff endet",
+    "activateAgain": "Erneut aktivieren",
+    "endingSoon": "Endet bald",
     "checking": "Abonnement prüfen",
     "creditTypes": {
       "images": "Bilder",
@@ -383,6 +386,7 @@
     "errors": {
       "logout": "Konnte mich nicht abmelden"
     },
+    "expired": "Abgelaufen",
     "freePlan": "Kostenloser Plan",
     "freeTrial": "Kostenlose Testversion",
     "hero": {
@@ -420,7 +424,9 @@
     "outOfCredits": "Keine Credits mehr",
     "pausedUntilReset": "Die Generierung wird angehalten, bis Ihr Guthaben zurückgesetzt wird.",
     "plan": "Planen",
+    "planExpired": "Plan abgelaufen",
     "planInactive": "Plan inaktiv",
+    "resubscribeToContinue": "Erneut abonnieren, um die Generierung fortzusetzen.",
     "resetsIn": "Wird zurückgesetzt",
     "resetsInDays_one": "Wird in 1 Tag zurückgesetzt",
     "resetsInDays_other": "Wird in {{count}} Tagen zurückgesetzt",
@@ -431,6 +437,8 @@
       "title": "Abgemeldet"
     },
     "title": "Konto und Nutzung",
+    "status": "Status",
+    "subscriptionEnded": "Abonnement beendet",
     "trialCreditsUsed": "der genutzten Test-Credits",
     "trialEnded": "Der Prozess ist beendet",
     "trialEnds": "Der Prozess endet",

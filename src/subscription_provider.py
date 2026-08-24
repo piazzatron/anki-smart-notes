@@ -24,6 +24,7 @@ from .api_client import api
 LegacyPlanId = Literal["free", "free_mini_1", "small1", "medium1", "large1"]
 PlanType = Literal["trial", "freemium", "small", "medium", "large"]
 PlanName = Literal["Free Trial", "Free", "Lite", "Standard", "Pro"]
+SubscriptionStatus = Literal["active", "canceling", "expired"]
 
 PUBLIC_PLAN_DETAILS: dict[PlanType, tuple[LegacyPlanId, PlanName]] = {
     "trial": ("free", "Free Trial"),
@@ -32,6 +33,7 @@ PUBLIC_PLAN_DETAILS: dict[PlanType, tuple[LegacyPlanId, PlanName]] = {
     "medium": ("medium1", "Standard"),
     "large": ("large1", "Pro"),
 }
+PAID_PLAN_TYPES: set[PlanType] = {"small", "medium", "large"}
 
 
 class PlanInfo(TypedDict):
@@ -50,6 +52,7 @@ class PlanInfo(TypedDict):
     imageCreditsCapacity: int
     totalCreditsUsed: int
     totalCreditsCapacity: int
+    subscriptionStatus: Optional[SubscriptionStatus]
 
 
 class UserStatus(TypedDict):
@@ -80,12 +83,23 @@ class UserInfoProvider:
         plan_type = plan.get("planType")
         plan_id = plan.get("planId")
         plan_name = plan.get("planName")
+        subscription_status = plan.get("subscriptionStatus")
         if plan_type not in PUBLIC_PLAN_DETAILS:
             raise RuntimeError(f"Unexpected public plan type: {plan_type}")
         if (plan_id, plan_name) != PUBLIC_PLAN_DETAILS[plan_type]:
             raise RuntimeError(
                 f"Unexpected public plan details for {plan_type}: "
                 f"{plan_id}, {plan_name}"
+            )
+        if plan_type in PAID_PLAN_TYPES:
+            if subscription_status not in ("active", "canceling", "expired"):
+                raise RuntimeError(
+                    f"Unexpected paid subscription status: {subscription_status}"
+                )
+        elif subscription_status is not None:
+            raise RuntimeError(
+                f"Unexpected subscription status for {plan_type}: "
+                f"{subscription_status}"
             )
 
         return {"plan": cast(PlanInfo, plan), "email": email}

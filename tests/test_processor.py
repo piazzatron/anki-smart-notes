@@ -87,6 +87,7 @@ class MockAppState:
             "imageCreditsCapacity": 1000,
             "totalCreditsUsed": 0,
             "totalCreditsCapacity": 3000,
+            "subscriptionStatus": "active",
         },
     }
 

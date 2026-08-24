@@ -197,6 +197,7 @@ def test_authenticated_account_includes_email_and_invalidates_web_state(monkeypa
                     "imageCreditsCapacity": 100,
                     "totalCreditsUsed": 30,
                     "totalCreditsCapacity": 300,
+                    "subscriptionStatus": None,
                 },
                 "email": "person@example.com",
                 "error": None,
@@ -232,6 +233,7 @@ def test_plan_conditions_can_coexist() -> None:
         "imageCreditsCapacity": 100,
         "totalCreditsUsed": 300,
         "totalCreditsCapacity": 300,
+        "subscriptionStatus": None,
     }
 
     assert get_plan_conditions(plan) == {
@@ -281,6 +283,7 @@ def test_build_state_shape():
             "imageCreditsCapacity": 100,
             "totalCreditsUsed": 30,
             "totalCreditsCapacity": 300,
+            "subscriptionStatus": None,
         },
     }
 

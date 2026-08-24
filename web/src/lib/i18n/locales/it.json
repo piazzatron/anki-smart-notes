@@ -376,6 +376,9 @@
     "wrongNoteType": "Tipo di nota sbagliato"
   },
   "subscription": {
+    "accessEnds": "L'accesso termina",
+    "activateAgain": "Attiva di nuovo",
+    "endingSoon": "Termina presto",
     "checking": "Controllo dell'abbonamento",
     "creditTypes": {
       "images": "Immagini",
@@ -390,6 +393,7 @@
     "errors": {
       "logout": "Impossibile disconnettersi"
     },
+    "expired": "Scaduto",
     "freePlan": "Piano gratuito",
     "freeTrial": "Prova gratuita",
     "hero": {
@@ -429,7 +433,9 @@
     "outOfCredits": "Crediti esauriti",
     "pausedUntilReset": "La generazione viene sospesa fino al ripristino dei crediti.",
     "plan": "Piano",
+    "planExpired": "Piano scaduto",
     "planInactive": "Piano inattivo",
+    "resubscribeToContinue": "Ricevi nuovamente l'iscrizione per continuare la generazione.",
     "resetsIn": "Si reimposta",
     "resetsInDays_one": "Si ripristina in 1 giorno",
     "resetsInDays_many": "Si ripristina tra {{count}} giorni",
@@ -441,6 +447,8 @@
       "title": "Disconnesso"
     },
     "title": "Conto e utilizzo",
+    "status": "Stato",
+    "subscriptionEnded": "Iscrizione terminata",
     "trialCreditsUsed": "dei crediti di prova utilizzati",
     "trialEnded": "Il processo è terminato",
     "trialEnds": "La prova termina",

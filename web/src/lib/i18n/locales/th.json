@@ -364,6 +364,9 @@
     "wrongNoteType": "ประเภทบันทึกไม่ถูกต้อง"
   },
   "subscription": {
+    "accessEnds": "การเข้าถึงสิ้นสุด",
+    "activateAgain": "เปิดใช้งานอีกครั้ง",
+    "endingSoon": "กำลังจะสิ้นสุด",
     "checking": "กำลังตรวจสอบการสมัครสมาชิก",
     "creditTypes": {
       "images": "รูปภาพ",
@@ -376,6 +379,7 @@
     "errors": {
       "logout": "ไม่สามารถออกจากระบบได้"
     },
+    "expired": "หมดอายุ",
     "freePlan": "แผนฟรี",
     "freeTrial": "ทดลองใช้ฟรี",
     "hero": {
@@ -411,7 +415,9 @@
     "outOfCredits": "เครดิตหมด",
     "pausedUntilReset": "การสร้างจะถูกหยุดชั่วคราวจนกว่าเครดิตของคุณจะรีเซ็ต",
     "plan": "วางแผน",
+    "planExpired": "แผนหมดอายุ",
     "planInactive": "แผนไม่ได้ใช้งาน",
+    "resubscribeToContinue": "สมัครสมาชิกใหม่เพื่อดำเนินการสร้าง",
     "resetsIn": "รีเซ็ตเข้า",
     "resetsInDays_other": "รีเซ็ตใน {{count}} วัน",
     "signedOut": {
@@ -421,6 +427,8 @@
       "title": "ออกจากระบบแล้ว"
     },
     "title": "บัญชีและการใช้งาน",
+    "status": "สถานะ",
+    "subscriptionEnded": "การสมัครสมาชิกสิ้นสุด",
     "trialCreditsUsed": "ของเครดิตทดลองใช้ที่ใช้",
     "trialEnded": "การทดลองสิ้นสุดลงแล้ว",
     "trialEnds": "การทดลองสิ้นสุดลง",

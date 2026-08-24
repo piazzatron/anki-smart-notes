@@ -370,6 +370,9 @@
     "wrongNoteType": "Грешен тип бележка"
   },
   "subscription": {
+    "accessEnds": "Достъпът завършва",
+    "activateAgain": "Активирайте отново",
+    "endingSoon": "Завършва скоро",
     "checking": "Проверка на абонамента",
     "creditTypes": {
       "images": "Изображения",
@@ -383,6 +386,7 @@
     "errors": {
       "logout": "Не можах да изляза"
     },
+    "expired": "Изтекло",
     "freePlan": "Безплатен план",
     "freeTrial": "Безплатна пробна версия",
     "hero": {
@@ -420,7 +424,9 @@
     "outOfCredits": "Изчерпани кредити",
     "pausedUntilReset": "Генерирането е на пауза, докато кредитите ви не бъдат нулирани.",
     "plan": "Планирайте",
+    "planExpired": "Планът е изтекъл",
     "planInactive": "Планът е неактивен",
+    "resubscribeToContinue": "Възобновете абонамента, за да продължите генериране.",
     "resetsIn": "Нулира в",
     "resetsInDays_one": "Нулира за 1 ден",
     "resetsInDays_other": "Нулира след {{count}} дни",
@@ -431,6 +437,8 @@
       "title": "Излязъл"
     },
     "title": "Акаунт и използване",
+    "status": "Статус",
+    "subscriptionEnded": "Абонаментът завърши",
     "trialCreditsUsed": "използвани пробни кредити",
     "trialEnded": "Пробата приключи",
     "trialEnds": "Пробният период приключва",

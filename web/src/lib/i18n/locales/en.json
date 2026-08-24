@@ -356,6 +356,8 @@
     "wrongNoteType": "Wrong note type"
   },
   "subscription": {
+    "accessEnds": "Access ends",
+    "activateAgain": "Reactivate your subscription",
     "checking": "Checking subscription",
     "creditTypes": {
       "images": "Images",
@@ -367,6 +369,8 @@
     "daysLeft_one": "Last day",
     "daysLeft_other": "{{count}} days left",
     "errors": { "logout": "Could not log out" },
+    "endingSoon": "Ending soon",
+    "expired": "Expired",
     "freePlan": "Free plan",
     "freeTrial": "Free trial",
     "hero": {
@@ -404,7 +408,9 @@
     "outOfCredits": "Out of credits",
     "pausedUntilReset": "Generation is paused until your credits reset.",
     "plan": "Plan",
+    "planExpired": "Plan expired",
     "planInactive": "Plan inactive",
+    "resubscribeToContinue": "Resubscribe to continue generating.",
     "resetsIn": "Resets in",
     "resetsInDays_one": "Resets in 1 day",
     "resetsInDays_other": "Resets in {{count}} days",
@@ -415,6 +421,8 @@
       "title": "Signed out"
     },
     "title": "Account and Usage",
+    "status": "Status",
+    "subscriptionEnded": "Subscription ended",
     "trialCreditsUsed": "of trial credits used",
     "trialEnded": "Trial ended",
     "trialEnds": "Trial ends",

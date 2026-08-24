@@ -388,6 +388,9 @@
     "wrongNoteType": "Cineál nóta mícheart"
   },
   "subscription": {
+    "accessEnds": "Críochnaíonn an rochtain",
+    "activateAgain": "Gníomhachtaigh arís",
+    "endingSoon": "Deireadh a bheith ann go luath",
     "checking": "Síntiús á sheiceáil",
     "creditTypes": {
       "images": "Íomhánna",
@@ -404,6 +407,7 @@
     "errors": {
       "logout": "Níorbh fhéidir logáil amach"
     },
+    "expired": "Éadúil",
     "freePlan": "Plean saor in aisce,",
     "freeTrial": "Triail saor in aisce",
     "hero": {
@@ -447,7 +451,9 @@
     "outOfCredits": "As creidmheasanna",
     "pausedUntilReset": "Cuirtear giniúint ar sos go dtí go n-athshocraíonn do chreidmheasanna.",
     "plan": "Plean",
+    "planExpired": "Phlean éadúil",
     "planInactive": "Plean neamhghníomhach",
+    "resubscribeToContinue": "Athshuibscríobh chun leanúint ar aghaidh a ghiniúint.",
     "resetsIn": "Athshocraigh isteach",
     "resetsInDays_one": "Athshocraigh i 1 lá",
     "resetsInDays_two": "Athshocraigh i laethanta {{count}}",
@@ -461,6 +467,8 @@
       "title": "Sínithe amach"
     },
     "title": "Cuntas agus Úsáid",
+    "status": "Stádas",
+    "subscriptionEnded": "Deireadh an tsuibscríobhainn",
     "trialCreditsUsed": "creidmheasanna trialach a úsáideadh",
     "trialEnded": "Cuireadh deireadh leis an triail",
     "trialEnds": "Críochnaíonn an triail",

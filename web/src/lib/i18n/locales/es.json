@@ -376,6 +376,9 @@
     "wrongNoteType": "Tipo de nota incorrecto"
   },
   "subscription": {
+    "accessEnds": "El acceso termina",
+    "activateAgain": "Activar de nuevo",
+    "endingSoon": "Finaliza pronto",
     "checking": "Comprobando suscripción",
     "creditTypes": {
       "images": "Imágenes",
@@ -390,6 +393,7 @@
     "errors": {
       "logout": "No se pudo cerrar sesión"
     },
+    "expired": "Expirado",
     "freePlan": "Plan gratuito",
     "freeTrial": "Prueba gratuita",
     "hero": {
@@ -429,7 +433,9 @@
     "outOfCredits": "Sin créditos",
     "pausedUntilReset": "La generación se pausa hasta que se restablecen sus créditos.",
     "plan": "Plan",
+    "planExpired": "Plan expirado",
     "planInactive": "Plan inactivo",
+    "resubscribeToContinue": "Resubscribirse para continuar generando.",
     "resetsIn": "Se reinicia en",
     "resetsInDays_one": "Se reinicia en 1 día",
     "resetsInDays_many": "Se reinicia en días {{count}}",
@@ -441,6 +447,8 @@
       "title": "Cerrado sesión"
     },
     "title": "Cuenta y uso",
+    "status": "Estado",
+    "subscriptionEnded": "Suscripción finalizada",
     "trialCreditsUsed": "de créditos de prueba utilizados",
     "trialEnded": "Prueba finalizada",
     "trialEnds": "Finaliza el juicio",

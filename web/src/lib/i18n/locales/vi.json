@@ -364,6 +364,9 @@
     "wrongNoteType": "Loại ghi chú sai"
   },
   "subscription": {
+    "accessEnds": "Quyền truy cập kết thúc",
+    "activateAgain": "Kích hoạt lại",
+    "endingSoon": "Sắp kết thúc",
     "checking": "Kiểm tra đăng ký",
     "creditTypes": {
       "images": "Hình ảnh",
@@ -376,6 +379,7 @@
     "errors": {
       "logout": "Không thể đăng xuất"
     },
+    "expired": "Hết hạn",
     "freePlan": "Gói miễn phí",
     "freeTrial": "Dùng thử miễn phí",
     "hero": {
@@ -411,7 +415,9 @@
     "outOfCredits": "Hết tín dụng",
     "pausedUntilReset": "Quá trình tạo bị tạm dừng cho đến khi tín dụng của bạn được đặt lại.",
     "plan": "Kế hoạch",
+    "planExpired": "Gói dịch vụ hết hạn",
     "planInactive": "Kế hoạch không hoạt động",
+    "resubscribeToContinue": "Gia hạn để tiếp tục tạo.",
     "resetsIn": "Đặt lại trong",
     "resetsInDays_other": "Đặt lại sau {{count}} ngày",
     "signedOut": {
@@ -421,6 +427,8 @@
       "title": "Đã đăng xuất"
     },
     "title": "Tài khoản và cách sử dụng",
+    "status": "Trạng thái",
+    "subscriptionEnded": "Gói dịch vụ đã kết thúc",
     "trialCreditsUsed": "số tín dụng dùng thử đã sử dụng",
     "trialEnded": "Thử nghiệm đã kết thúc",
     "trialEnds": "Hết thời gian dùng thử",
