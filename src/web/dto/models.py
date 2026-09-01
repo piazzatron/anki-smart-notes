@@ -284,10 +284,71 @@ class AssistantHistoryDto(TypedDict):
     nextCursor: int | None
 
 
+class AssistantReviewTargetDto(TypedDict):
+    mode: Literal["review"]
+    cardId: int
+
+
+class AssistantAddTargetDto(TypedDict):
+    mode: Literal["add"]
+    bufferId: str
+
+
+class AssistantEditTargetDto(TypedDict):
+    mode: Literal["edit"]
+    noteId: int
+    bufferId: str
+
+
+AssistantTargetDto = Union[
+    AssistantReviewTargetDto,
+    AssistantAddTargetDto,
+    AssistantEditTargetDto,
+]
+
+
+class AssistantActiveTargetDto(TypedDict):
+    handle: AssistantTargetDto
+    noteTypeId: int
+    noteTypeName: str
+    deckId: int | None
+    deckName: str | None
+    fieldNames: list[str]
+    firstFieldName: str
+    firstFieldValue: str
+
+
+class AssistantActiveTargetEventDto(TypedDict):
+    target: AssistantActiveTargetDto | None
+
+
+@dataclass(frozen=True)
+class AssistantTarget:
+    mode: Literal["review", "add", "edit"]
+    card_id: CardId | None = None
+    note_id: int | None = None
+    buffer_id: str | None = None
+
+
 @dataclass(frozen=True)
 class AssistantGetFieldRequest:
-    card_id: CardId
+    target: AssistantTarget | None
     field_name: str
+
+
+@dataclass(frozen=True)
+class AssistantUpdateFieldRequest:
+    target: AssistantTarget | None
+    field_name: str
+    new_value: str
+
+
+@dataclass(frozen=True)
+class AssistantAddNoteRequest:
+    note_type: str
+    deck: str
+    fields: dict[str, str]
+    tags: list[str]
 
 
 @dataclass(frozen=True)

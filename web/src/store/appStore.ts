@@ -1,6 +1,11 @@
 import { create } from "zustand"
 
-import type { AppState, Catalog, ReviewerCard, Selection } from "@/types/api"
+import type {
+  AppState,
+  AssistantActiveTarget,
+  Catalog,
+  Selection,
+} from "@/types/api"
 
 export type Connection = "connecting" | "connected" | "reconnecting"
 
@@ -9,7 +14,7 @@ interface AppStore {
   state: AppState | null
   catalog: Catalog | null
   selection: Selection | null
-  reviewerCard: ReviewerCard | null
+  activeTarget: AssistantActiveTarget | null
 }
 
 export const useAppStore = create<AppStore>(() => ({
@@ -17,5 +22,5 @@ export const useAppStore = create<AppStore>(() => ({
   state: null,
   catalog: null,
   selection: null,
-  reviewerCard: null,
+  activeTarget: null,
 }))

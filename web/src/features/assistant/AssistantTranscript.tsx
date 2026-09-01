@@ -1,4 +1,6 @@
 import ReactMarkdown from "react-markdown"
+import type { TFunction } from "i18next"
+import { useTranslation } from "react-i18next"
 import remarkGfm from "remark-gfm"
 
 import { Bubble, BubbleContent } from "@/components/shadcn/bubble"
@@ -46,25 +48,28 @@ export const AssistantTranscript = ({
  * The model's reasoning while it is being produced. Open by default so the
  * point of turning it on is visible, and collapsible once it gets long.
  */
-const ThinkingBlock = ({ text }: { text: string }) => (
-  <MessageGroup>
-    <Message>
-      <MessageContent>
-        <details
-          className="rounded-md border border-white/[0.08] bg-white/[0.02] px-3 py-2"
-          open
-        >
-          <summary className="cursor-pointer text-xs font-semibold text-ink-faint select-none">
-            Thinking
-          </summary>
-          <div className="mt-1.5 max-h-56 overflow-y-auto text-xs leading-5 whitespace-pre-wrap text-ink-muted">
-            {text}
-          </div>
-        </details>
-      </MessageContent>
-    </Message>
-  </MessageGroup>
-)
+const ThinkingBlock = ({ text }: { text: string }) => {
+  const { t } = useTranslation()
+  return (
+    <MessageGroup>
+      <Message>
+        <MessageContent>
+          <details
+            className="rounded-md border border-white/[0.08] bg-white/[0.02] px-3 py-2"
+            open
+          >
+            <summary className="cursor-pointer text-xs font-semibold text-ink-faint select-none">
+              {t("assistant.thinking")}
+            </summary>
+            <div className="mt-1.5 max-h-56 overflow-y-auto text-xs leading-5 whitespace-pre-wrap text-ink-muted">
+              {text}
+            </div>
+          </details>
+        </MessageContent>
+      </Message>
+    </MessageGroup>
+  )
+}
 
 interface TranscriptEntryProps {
   record: AssistantRecord
@@ -72,6 +77,7 @@ interface TranscriptEntryProps {
 }
 
 const TranscriptEntry = ({ record, isNewSession }: TranscriptEntryProps) => {
+  const { t } = useTranslation()
   const { message } = record
 
   // Tool output is machinery, not conversation — the call itself is shown as a
@@ -84,7 +90,7 @@ const TranscriptEntry = ({ record, isNewSession }: TranscriptEntryProps) => {
         {isNewSession && <SessionSeparator />}
         <Marker>
           <MarkerContent className="text-xs text-ink-faint">
-            Read {describeFieldRead(message.arguments)}
+            {describeToolCall(message.name, message.arguments, t)}
           </MarkerContent>
         </Marker>
       </>
@@ -118,37 +124,59 @@ interface AssistantBubbleProps {
   isStreaming?: boolean
 }
 
-const AssistantBubble = ({ text, isStreaming }: AssistantBubbleProps) => (
-  <MessageGroup>
-    <Message>
-      <MessageContent>
-        <Bubble variant="ghost">
-          <BubbleContent className="text-sm leading-6 text-ink">
-            <div className="assistant-markdown">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{text}</ReactMarkdown>
-            </div>
-            {isStreaming === true && text.length === 0 && (
-              <span className="text-ink-faint">Thinking…</span>
-            )}
-          </BubbleContent>
-        </Bubble>
-      </MessageContent>
-    </Message>
-  </MessageGroup>
-)
+const AssistantBubble = ({ text, isStreaming }: AssistantBubbleProps) => {
+  const { t } = useTranslation()
+  return (
+    <MessageGroup>
+      <Message>
+        <MessageContent>
+          <Bubble variant="ghost">
+            <BubbleContent className="text-sm leading-6 text-ink">
+              <div className="assistant-markdown">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {text}
+                </ReactMarkdown>
+              </div>
+              {isStreaming === true && text.length === 0 && (
+                <span className="text-ink-faint">
+                  {t("assistant.thinkingPending")}
+                </span>
+              )}
+            </BubbleContent>
+          </Bubble>
+        </MessageContent>
+      </Message>
+    </MessageGroup>
+  )
+}
 
-const SessionSeparator = () => (
-  <Marker>
-    <MarkerContent className="text-[11px] tracking-wide text-ink-faint uppercase">
-      New card
-    </MarkerContent>
-  </Marker>
-)
+const SessionSeparator = () => {
+  const { t } = useTranslation()
+  return (
+    <Marker>
+      <MarkerContent className="text-[11px] tracking-wide text-ink-faint uppercase">
+        {t("assistant.newTarget")}
+      </MarkerContent>
+    </Marker>
+  )
+}
 
-const describeFieldRead = (args: string): string => {
+const describeToolCall = (name: string, args: string, t: TFunction): string => {
   try {
-    return `“${(JSON.parse(args) as { fieldName: string }).fieldName}”`
+    const parsed = JSON.parse(args) as {
+      fieldName?: string
+      deck?: string
+    }
+    if (name === "get_field")
+      return t("assistant.tool.getField", { field: parsed.fieldName })
+    if (name === "update_field")
+      return t("assistant.tool.updateField", { field: parsed.fieldName })
+    if (name === "create_note")
+      return t("assistant.tool.createNote", { deck: parsed.deck })
   } catch {
-    return "a field"
+    // Fall through to the stable tool name.
   }
+  if (name === "list_note_types") return t("assistant.tool.listNoteTypes")
+  if (name === "list_decks") return t("assistant.tool.listDecks")
+  return name
 }

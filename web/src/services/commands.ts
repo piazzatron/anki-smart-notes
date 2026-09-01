@@ -1,5 +1,7 @@
 import type {
   AssistantAppendPayload,
+  AssistantAddNotePayload,
+  AssistantAddNoteResult,
   AssistantGetFieldPayload,
   AssistantGetFieldResult,
   AssistantHistoryPayload,
@@ -7,6 +9,8 @@ import type {
   AssistantPrompt,
   AssistantRecord,
   AssistantSettings,
+  AssistantUpdateFieldPayload,
+  AssistantUpdateFieldResult,
   AuthExchangeCodePayload,
   ChatDefaultsSavePayload,
   CommandName,
@@ -140,6 +144,16 @@ export const getAssistantField = async (
   payload: AssistantGetFieldPayload,
 ): Promise<AssistantGetFieldResult> =>
   sendCommand<AssistantGetFieldResult>("assistant.getField", payload)
+
+export const updateAssistantField = async (
+  payload: AssistantUpdateFieldPayload,
+): Promise<AssistantUpdateFieldResult> =>
+  sendCommand<AssistantUpdateFieldResult>("assistant.updateField", payload)
+
+export const addAssistantNote = async (
+  payload: AssistantAddNotePayload,
+): Promise<AssistantAddNoteResult> =>
+  sendCommand<AssistantAddNoteResult>("assistant.addNote", payload)
 
 export const appendAssistantRecord = async (
   record: AssistantAppendPayload,

@@ -487,5 +487,53 @@
     "title": "Your free trial has ended",
     "upgradeNow": "Upgrade now"
   },
-  "assistant": {}
+  "assistant": {
+    "binding": {
+      "add": "Adding: {{target}}",
+      "edit": "Editing: {{target}}",
+      "none": "No active target",
+      "review": "Reviewing: {{target}}",
+      "untitled": "Untitled note"
+    },
+    "empty": "Ask about the active card, change its fields, or create a new note.",
+    "loadEarlier": "Load earlier sessions",
+    "loading": "Loading…",
+    "modelAriaLabel": "Assistant model",
+    "newTarget": "New target",
+    "placeholder": "Ask about or change the active card…",
+    "reasoningAriaLabel": "Assistant reasoning level",
+    "send": "Send",
+    "sending": "…",
+    "showThinkingAriaLabel": "Show the model's thinking",
+    "signIn": "Sign in to Smart Notes to use the assistant.",
+    "thinking": "Thinking",
+    "thinkingPending": "Thinking…",
+    "tool": {
+      "createNote": "Created a note in “{{deck}}”",
+      "getField": "Read “{{field}}”",
+      "listDecks": "Listed decks",
+      "listNoteTypes": "Listed note types",
+      "updateField": "Updated “{{field}}”"
+    },
+    "usage": "{{input}} in · {{output}} out{{thinking}} · {{credits}} credits · ~${{usd}}",
+    "usageThinking": " · {{count}} thinking"
+  },
+  "chatSettings": {
+    "addPrompt": "Add prompt",
+    "buttonLabel": "Button label",
+    "emptyPrompts": "No saved prompts yet.",
+    "invalidPrompt": "Every button needs a label and a prompt.",
+    "promptPlaceholder": "What to send when the button is pressed",
+    "promptTextAriaLabel": "Prompt text",
+    "remove": "Remove",
+    "responseLanguage": "Response language",
+    "responseLanguageAriaLabel": "Assistant response language",
+    "responseLanguageDescription": "The assistant replies in this language whatever the card is written in.",
+    "save": "Save changes",
+    "savedPrompts": "Saved prompts",
+    "savedPromptsDescription": "Each one becomes a button above the message box in the chat window.",
+    "saving": "Saving…",
+    "subtitle": "Configure the chat assistant",
+    "title": "Chat"
+  }
 }

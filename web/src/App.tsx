@@ -175,10 +175,10 @@ const App = () => {
           <div className="px-5 pe-12 pt-5 pb-4">
             <DialogTitle className="text-sm font-bold text-zinc-100">
               {t("common.discardUnsavedChanges.title")}
-              </DialogTitle>
-              <DialogDescription className="mt-1.5 text-xs leading-5 text-ink-muted">
-                {t("common.discardUnsavedChanges.description")}
-              </DialogDescription>
+            </DialogTitle>
+            <DialogDescription className="mt-1.5 text-xs leading-5 text-ink-muted">
+              {t("common.discardUnsavedChanges.description")}
+            </DialogDescription>
           </div>
           <div className="flex justify-end gap-2 border-t border-white/[0.08] px-5 py-4">
             <Button onClick={() => setPendingScreen(null)}>

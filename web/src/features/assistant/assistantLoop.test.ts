@@ -1,9 +1,10 @@
 import { afterEach, describe, expect, mock, test } from "bun:test"
 
 import type {
+  AppState,
+  AssistantActiveTarget,
   AssistantMessage,
   AssistantTurnUsage,
-  ReviewerCard,
 } from "@/types/api"
 
 // `commands` reads boot options from the URL at import time.
@@ -17,13 +18,24 @@ if (!("window" in globalThis)) {
 const { setCommandSender } = await import("@/services/commands")
 const { runAssistantTurn } = await import("./assistantLoop")
 
-const CARD: ReviewerCard = {
-  cardId: 42,
+const TARGET: AssistantActiveTarget = {
+  handle: { mode: "review", cardId: 42 },
   noteTypeId: 1,
+  noteTypeName: "Basic",
   deckId: 2,
+  deckName: "Biology",
   fieldNames: ["Front", "Back"],
   firstFieldName: "Front",
   firstFieldValue: "mitochondria",
+}
+
+const STATE: Pick<AppState, "noteTypes" | "decks" | "globalDeckId"> = {
+  noteTypes: [{ id: 1, name: "Basic", fields: ["Front", "Back"] }],
+  decks: [
+    { id: 0, name: "All Decks" },
+    { id: 2, name: "Biology" },
+  ],
+  globalDeckId: 0,
 }
 
 const sseResponse = (frames: string[]): Response =>
@@ -61,7 +73,8 @@ const runTurn = async (
     showReasoning,
     messages: [...messages, { role: "user", content: "what is this?" }],
     context: null,
-    card: CARD,
+    target: TARGET,
+    state: STATE,
     signal: new AbortController().signal,
     onDelta: (text) => deltas.push(text),
     onReasoningDelta: (text) => reasoning.push(text),
@@ -99,7 +112,10 @@ describe("runAssistantTurn", () => {
 
     setCommandSender(async (command, payload) => {
       expect(command).toBe("assistant.getField")
-      expect(payload).toEqual({ cardId: 42, fieldName: "Back" })
+      expect(payload).toEqual({
+        target: { mode: "review", cardId: 42 },
+        fieldName: "Back",
+      })
       return { value: "The powerhouse of the cell" } as never
     })
 
@@ -161,6 +177,104 @@ describe("runAssistantTurn", () => {
       role: "assistant",
       content: "That field does not exist.",
     })
+  })
+
+  test("updates the captured target and returns the previous value to the model", async () => {
+    let calls = 0
+    global.fetch = mock(async () => {
+      calls++
+      return calls === 1
+        ? sseResponse([
+            frame("tool_call", {
+              callId: "call_1",
+              name: "update_field",
+              arguments: '{"fieldName":"Back","newValue":"New answer"}',
+            }),
+            frame("done", { inputTokens: 1, outputTokens: 1 }),
+          ])
+        : sseResponse([
+            frame("delta", { text: "Updated." }),
+            frame("done", { inputTokens: 2, outputTokens: 2 }),
+          ])
+    }) as unknown as typeof fetch
+
+    setCommandSender(async (command, payload) => {
+      expect(command).toBe("assistant.updateField")
+      expect(payload).toEqual({
+        target: TARGET.handle,
+        fieldName: "Back",
+        newValue: "New answer",
+      })
+      return {
+        status: "updated",
+        fieldName: "Back",
+        previousValue: "Old answer",
+        value: "New answer",
+      } as never
+    })
+
+    const { produced } = await runTurn()
+    expect(JSON.parse((produced[1] as { output: string }).output)).toEqual({
+      status: "updated",
+      fieldName: "Back",
+      previousValue: "Old answer",
+      value: "New answer",
+    })
+  })
+
+  test("resolves an omitted create-note type from the captured target", async () => {
+    let calls = 0
+    global.fetch = mock(async () => {
+      calls++
+      return calls === 1
+        ? sseResponse([
+            frame("tool_call", {
+              callId: "call_1",
+              name: "create_note",
+              arguments: '{"deck":"Biology","fields":{"Front":"Cell"}}',
+            }),
+            frame("done", { inputTokens: 1, outputTokens: 1 }),
+          ])
+        : sseResponse([
+            frame("delta", { text: "Created." }),
+            frame("done", { inputTokens: 2, outputTokens: 2 }),
+          ])
+    }) as unknown as typeof fetch
+
+    setCommandSender(async (command, payload) => {
+      expect(command).toBe("assistant.addNote")
+      expect(payload).toEqual({
+        deck: "Biology",
+        fields: { Front: "Cell" },
+        noteType: "Basic",
+      })
+      return { noteId: 10, cardIds: [20], cardCount: 1 } as never
+    })
+
+    const { produced } = await runTurn()
+    expect(JSON.parse((produced[1] as { output: string }).output)).toEqual({
+      noteId: 10,
+      cardIds: [20],
+      cardCount: 1,
+    })
+  })
+
+  test("stops after twelve tool rounds", async () => {
+    let calls = 0
+    global.fetch = mock(async () => {
+      calls++
+      return sseResponse([
+        frame("tool_call", {
+          callId: `call_${calls}`,
+          name: "unknown",
+          arguments: "{}",
+        }),
+        frame("done", { inputTokens: 1, outputTokens: 1 }),
+      ])
+    }) as unknown as typeof fetch
+
+    await expect(runTurn()).rejects.toThrow("more than 12 rounds")
+    expect(calls).toBe(12)
   })
 
   test("accumulates streamed reasoning and reports usage per model call", async () => {

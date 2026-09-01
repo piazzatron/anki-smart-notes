@@ -238,6 +238,8 @@ export type CommandName =
   | "auth.logout"
   | "ui.openBrowser"
   | "assistant.getField"
+  | "assistant.updateField"
+  | "assistant.addNote"
   | "assistant.append"
   | "assistant.history"
   | "assistant.savePrompts"
@@ -330,18 +332,25 @@ export interface CommandResponse {
 
 // -- Assistant --
 
-/** The card the reviewer is showing, from `anki.reviewerCardChanged`. */
-export interface ReviewerCard {
-  cardId: number
+export type AssistantTargetHandle =
+  | { mode: "review"; cardId: number }
+  | { mode: "add"; bufferId: string }
+  | { mode: "edit"; noteId: number; bufferId: string }
+
+/** The reviewer note or editor buffer the assistant is currently bound to. */
+export interface AssistantActiveTarget {
+  handle: AssistantTargetHandle
   noteTypeId: number
-  deckId: number
+  noteTypeName: string
+  deckId: number | null
+  deckName: string | null
   fieldNames: string[]
   firstFieldName: string
   firstFieldValue: string
 }
 
-export interface ReviewerCardEvent {
-  card: ReviewerCard | null
+export interface AssistantActiveTargetEvent {
+  target: AssistantActiveTarget | null
 }
 
 /**
@@ -375,12 +384,37 @@ export interface AssistantHistoryResult {
 }
 
 export interface AssistantGetFieldPayload {
-  cardId: number
+  target: AssistantTargetHandle | null
   fieldName: string
 }
 
 export interface AssistantGetFieldResult {
   value: string
+}
+
+export interface AssistantUpdateFieldPayload extends AssistantGetFieldPayload {
+  newValue: string
+}
+
+export interface AssistantUpdateFieldResult {
+  status: "updated" | "buffered"
+  fieldName: string
+  previousValue: string
+  value: string
+  message?: string
+}
+
+export interface AssistantAddNotePayload {
+  noteType: string
+  deck: string
+  fields: Record<string, string>
+  tags?: string[]
+}
+
+export interface AssistantAddNoteResult {
+  noteId: number
+  cardIds: number[]
+  cardCount: number
 }
 
 /** Token spend for one completed turn, as reported by the backend. */

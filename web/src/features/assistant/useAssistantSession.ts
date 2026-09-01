@@ -59,7 +59,7 @@ export const useAssistantSession = (
   showReasoning: boolean,
 ): AssistantSessionState => {
   const state = useAppStore((store) => store.state)
-  const reviewerCard = useAppStore((store) => store.reviewerCard)
+  const activeTarget = useAppStore((store) => store.activeTarget)
 
   const [records, setRecords] = useState<AssistantRecord[]>([])
   const [streamingText, setStreamingText] = useState<string | null>(null)
@@ -73,9 +73,9 @@ export const useAssistantSession = (
   const [hasMoreHistory, setHasMoreHistory] = useState(false)
   const [isLoadingHistory, setIsLoadingHistory] = useState(false)
 
-  // A session is one card encounter. The same card seen again starts a new one,
-  // so the id is minted on first send after a card change, not derived from it.
-  const sessionRef = useRef<{ id: string; cardId: number | null } | null>(null)
+  // A session is one target encounter. The plugin-minted handle distinguishes
+  // repeat reviews and individual editor buffers without webapp mode routing.
+  const sessionRef = useRef<{ id: string; targetKey: string } | null>(null)
   const abortRef = useRef<AbortController | null>(null)
 
   useEffect(() => {
@@ -145,11 +145,17 @@ export const useAssistantSession = (
       const trimmed = text.trim()
       if (trimmed.length === 0 || isRunning || authToken === null) return
 
-      const cardId = reviewerCard?.cardId ?? null
-      if (sessionRef.current === null || sessionRef.current.cardId !== cardId) {
-        sessionRef.current = { id: crypto.randomUUID(), cardId }
+      const target = activeTarget
+      const targetKey = JSON.stringify(target?.handle ?? null)
+      if (
+        sessionRef.current === null ||
+        sessionRef.current.targetKey !== targetKey
+      ) {
+        sessionRef.current = { id: crypto.randomUUID(), targetKey }
       }
       const session = sessionRef.current
+      const cardId =
+        target?.handle.mode === "review" ? target.handle.cardId : null
 
       // Journal write-through: every finalized message is appended as it is
       // produced, so the transcript survives closing the window mid-turn.
@@ -157,8 +163,8 @@ export const useAssistantSession = (
         const stored = await appendAssistantRecord({
           sessionId: session.id,
           cardId,
-          deckId: reviewerCard?.deckId ?? null,
-          noteTypeId: reviewerCard?.noteTypeId ?? null,
+          deckId: target?.deckId ?? null,
+          noteTypeId: target?.noteTypeId ?? null,
           message,
         })
         setRecords((current) => [...current, stored])
@@ -191,8 +197,9 @@ export const useAssistantSession = (
               state?.assistantSettings.responseLanguage ?? "auto",
             showReasoning,
             messages: [...sessionMessages, userMessage],
-            context: buildAssistantContext(reviewerCard, state),
-            card: reviewerCard,
+            context: buildAssistantContext(target, state),
+            target,
+            state,
             signal: controller.signal,
             onDelta: setStreamingText,
             onReasoningDelta: setStreamingReasoning,
@@ -221,7 +228,7 @@ export const useAssistantSession = (
       model,
       reasoningLevel,
       records,
-      reviewerCard,
+      activeTarget,
       showReasoning,
       state,
     ],

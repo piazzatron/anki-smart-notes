@@ -39,14 +39,18 @@ class BrowserSelectionChanged:
 
 
 @dataclass(frozen=True)
-class ReviewerCardChanged:
-    """Ephemeral event carrying the card the reviewer is showing, or a cleared
-    payload when review ends (see web/dto)."""
+class ActiveTargetChanged:
+    """Ephemeral event carrying the note or editor buffer the assistant is
+    currently bound to, or a cleared payload when no eligible target is active."""
 
     payload: dict[str, Any]
 
 
-WebEvent = Union[StateInvalidated, BrowserSelectionChanged, ReviewerCardChanged]
+WebEvent = Union[
+    StateInvalidated,
+    BrowserSelectionChanged,
+    ActiveTargetChanged,
+]
 
 
 class EventBus:
@@ -60,7 +64,7 @@ class EventBus:
             tuple[asyncio.AbstractEventLoop, asyncio.Queue[WebEvent]]
         ] = []
         self._latest_browser_selection: Optional[BrowserSelectionChanged] = None
-        self._latest_reviewer_card: Optional[ReviewerCardChanged] = None
+        self._latest_active_target: Optional[ActiveTargetChanged] = None
 
     def subscribe(
         self, loop: asyncio.AbstractEventLoop, queue: asyncio.Queue[WebEvent]
@@ -71,8 +75,8 @@ class EventBus:
                 loop.call_soon_threadsafe(
                     queue.put_nowait, self._latest_browser_selection
                 )
-            if self._latest_reviewer_card is not None:
-                loop.call_soon_threadsafe(queue.put_nowait, self._latest_reviewer_card)
+            if self._latest_active_target is not None:
+                loop.call_soon_threadsafe(queue.put_nowait, self._latest_active_target)
 
     def unsubscribe(self, queue: asyncio.Queue[WebEvent]) -> None:
         with self._lock:
@@ -84,8 +88,8 @@ class EventBus:
         with self._lock:
             if isinstance(event, BrowserSelectionChanged):
                 self._latest_browser_selection = event
-            if isinstance(event, ReviewerCardChanged):
-                self._latest_reviewer_card = event
+            if isinstance(event, ActiveTargetChanged):
+                self._latest_active_target = event
             subscribers = list(self._subscribers)
         for loop, queue in subscribers:
             loop.call_soon_threadsafe(queue.put_nowait, event)

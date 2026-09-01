@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 
 import { PageLayout } from "@/components/shared/PageLayout"
 import { Button } from "@/components/ui/Button"
@@ -31,6 +32,7 @@ interface ChatSettingsScreenProps {
 export const ChatSettingsScreen = ({
   onDirtyChange,
 }: ChatSettingsScreenProps) => {
+  const { t } = useTranslation()
   const saved = useAppStore((store) => store.state?.assistantPrompts)
   const settings = useAppStore((store) => store.state?.assistantSettings)
   const [draft, setDraft] = useState<AssistantPrompt[] | null>(null)
@@ -56,7 +58,7 @@ export const ChatSettingsScreen = ({
       prompt: prompt.prompt.trim(),
     }))
     if (cleaned.some((prompt) => prompt.label === "" || prompt.prompt === "")) {
-      setError("Every button needs a label and a prompt.")
+      setError(t("chatSettings.invalidPrompt"))
       return
     }
 
@@ -81,7 +83,7 @@ export const ChatSettingsScreen = ({
             onClick={() => void save()}
             variant="primary"
           >
-            {isSaving ? "Saving…" : "Save changes"}
+            {isSaving ? t("chatSettings.saving") : t("chatSettings.save")}
           </Button>
         )
       }
@@ -90,15 +92,15 @@ export const ChatSettingsScreen = ({
           🤖
         </span>
       }
-      subtitle="Configure the chat assistant"
+      subtitle={t("chatSettings.subtitle")}
       testId="chat-settings-screen"
-      title="Chat"
+      title={t("chatSettings.title")}
     >
       <h2 className="mb-1 text-[17px] leading-tight font-bold text-zinc-100">
-        Response language
+        {t("chatSettings.responseLanguage")}
       </h2>
       <p className="mb-3 text-xs text-ink-muted">
-        The assistant replies in this language whatever the card is written in.
+        {t("chatSettings.responseLanguageDescription")}
       </p>
       <div className="mb-8 w-72">
         <Select
@@ -112,7 +114,9 @@ export const ChatSettingsScreen = ({
           }}
           value={settings?.responseLanguage ?? "auto"}
         >
-          <SelectTrigger aria-label="Assistant response language">
+          <SelectTrigger
+            aria-label={t("chatSettings.responseLanguageAriaLabel")}
+          >
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -131,10 +135,10 @@ export const ChatSettingsScreen = ({
       </div>
 
       <h2 className="mb-1 text-[17px] leading-tight font-bold text-zinc-100">
-        Saved prompts
+        {t("chatSettings.savedPrompts")}
       </h2>
       <p className="mb-4 text-xs text-ink-muted">
-        Each one becomes a button above the message box in the chat window.
+        {t("chatSettings.savedPromptsDescription")}
       </p>
 
       {error !== null && (
@@ -145,18 +149,20 @@ export const ChatSettingsScreen = ({
 
       <div className="space-y-3">
         {prompts.length === 0 && (
-          <p className="text-xs text-ink-muted">No saved prompts yet.</p>
+          <p className="text-xs text-ink-muted">
+            {t("chatSettings.emptyPrompts")}
+          </p>
         )}
         {prompts.map((prompt) => (
           <Card className="w-full space-y-2 p-4" key={prompt.id}>
             <div className="flex items-center gap-2">
               <input
-                aria-label="Button label"
+                aria-label={t("chatSettings.buttonLabel")}
                 className={FIELD_CLASSES}
                 onChange={(event) =>
                   update(prompt.id, { label: event.target.value })
                 }
-                placeholder="Button label"
+                placeholder={t("chatSettings.buttonLabel")}
                 value={prompt.label}
               />
               <Button
@@ -165,16 +171,16 @@ export const ChatSettingsScreen = ({
                 }
                 variant="danger"
               >
-                Remove
+                {t("chatSettings.remove")}
               </Button>
             </div>
             <textarea
-              aria-label="Prompt text"
+              aria-label={t("chatSettings.promptTextAriaLabel")}
               className={`${FIELD_CLASSES} min-h-[72px] resize-y`}
               onChange={(event) =>
                 update(prompt.id, { prompt: event.target.value })
               }
-              placeholder="What to send when the button is pressed"
+              placeholder={t("chatSettings.promptPlaceholder")}
               rows={3}
               value={prompt.prompt}
             />
@@ -188,7 +194,7 @@ export const ChatSettingsScreen = ({
             ])
           }
         >
-          Add prompt
+          {t("chatSettings.addPrompt")}
         </Button>
       </div>
     </PageLayout>

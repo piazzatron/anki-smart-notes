@@ -2,8 +2,8 @@ import { bootOptions } from "@/lib/boot"
 import { useAppStore } from "@/store/appStore"
 import type {
   AppState,
+  AssistantActiveTargetEvent,
   Catalog,
-  ReviewerCardEvent,
   Selection,
 } from "@/types/api"
 
@@ -32,9 +32,10 @@ export const connectToAnki = (): (() => void) => {
       useAppStore.setState({ selection: JSON.parse(event.data) as Selection })
     })
 
-    source.addEventListener("anki.reviewerCardChanged", (event) => {
+    source.addEventListener("anki.activeTargetChanged", (event) => {
       useAppStore.setState({
-        reviewerCard: (JSON.parse(event.data) as ReviewerCardEvent).card,
+        activeTarget: (JSON.parse(event.data) as AssistantActiveTargetEvent)
+          .target,
       })
     })
 

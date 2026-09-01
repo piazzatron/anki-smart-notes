@@ -44,9 +44,12 @@ from ...services.assistant_prompt_service import AssistantPrompt
 from ...services.assistant_settings_service import AssistantSettings
 from ...services.settings_service import Settings
 from .models import (
+    AssistantAddNoteRequest,
     AssistantGetFieldRequest,
     AssistantHistoryRequest,
     AssistantRecordDto,
+    AssistantTarget,
+    AssistantUpdateFieldRequest,
     AuthExchangeCodePayload,
     ChatGenerationSettingsDto,
     ChatSmartFieldSettingsDto,
@@ -281,7 +284,50 @@ def parse_assistant_get_field(payload: dict[str, Any]) -> AssistantGetFieldReque
     field_name = payload["fieldName"]
     if not isinstance(field_name, str) or not field_name.strip():
         raise ValueError("fieldName is required")
-    return AssistantGetFieldRequest(card_id=_card_id(payload), field_name=field_name)
+    return AssistantGetFieldRequest(
+        target=_parse_assistant_target(payload.get("target")),
+        field_name=field_name,
+    )
+
+
+def parse_assistant_update_field(
+    payload: dict[str, Any],
+) -> AssistantUpdateFieldRequest:
+    field_name = payload["fieldName"]
+    if not isinstance(field_name, str) or not field_name.strip():
+        raise ValueError("fieldName is required")
+    new_value = payload["newValue"]
+    if not isinstance(new_value, str):
+        raise ValueError("newValue must be a string")
+    return AssistantUpdateFieldRequest(
+        target=_parse_assistant_target(payload.get("target")),
+        field_name=field_name,
+        new_value=new_value,
+    )
+
+
+def parse_assistant_add_note(payload: dict[str, Any]) -> AssistantAddNoteRequest:
+    note_type = payload["noteType"]
+    deck = payload["deck"]
+    fields = payload["fields"]
+    tags = payload.get("tags", [])
+    if not isinstance(note_type, str) or not note_type.strip():
+        raise ValueError("noteType is required")
+    if not isinstance(deck, str) or not deck.strip():
+        raise ValueError("deck is required")
+    if not isinstance(fields, dict) or not all(
+        isinstance(name, str) and isinstance(value, str)
+        for name, value in fields.items()
+    ):
+        raise ValueError("fields must map field names to string values")
+    if not isinstance(tags, list) or not all(isinstance(tag, str) for tag in tags):
+        raise ValueError("tags must be a list of strings")
+    return AssistantAddNoteRequest(
+        note_type=note_type.strip(),
+        deck=deck.strip(),
+        fields=fields,
+        tags=tags,
+    )
 
 
 def parse_assistant_append(payload: dict[str, Any]) -> AssistantRecordDto:
@@ -336,3 +382,23 @@ def parse_assistant_history(payload: dict[str, Any]) -> AssistantHistoryRequest:
     if cursor is not None and not isinstance(cursor, int):
         raise ValueError("cursor must be an integer")
     return AssistantHistoryRequest(limit=min(limit, 200), cursor=cursor)
+
+
+def _parse_assistant_target(payload: object) -> AssistantTarget | None:
+    if payload is None:
+        return None
+    if not isinstance(payload, dict):
+        raise ValueError("target must be an object or null")
+
+    mode = payload.get("mode")
+    if mode == "review":
+        return AssistantTarget(mode="review", card_id=cast(CardId, payload["cardId"]))
+    if mode == "add":
+        return AssistantTarget(mode="add", buffer_id=str(payload["bufferId"]))
+    if mode == "edit":
+        return AssistantTarget(
+            mode="edit",
+            note_id=int(payload["noteId"]),
+            buffer_id=str(payload["bufferId"]),
+        )
+    raise ValueError(f"Unknown assistant target mode: {mode}")

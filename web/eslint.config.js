@@ -37,7 +37,11 @@ export default tseslint.config(
   },
   {
     files: ["src/**/*.{ts,tsx}"],
-    ignores: ["src/**/*.test.{ts,tsx}", "src/dev/**"],
+    ignores: [
+      "src/**/*.test.{ts,tsx}",
+      "src/components/shadcn/**",
+      "src/dev/**",
+    ],
     plugins: { i18next },
     rules: {
       "i18next/no-literal-string": [

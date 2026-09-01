@@ -1,21 +1,23 @@
 import type {
+  AssistantActiveTarget,
   AssistantMessage,
   AssistantTurnUsage,
-  ReviewerCard,
   AppState,
-  NoteType,
-  Deck,
 } from "@/types/api"
 
-import { getAssistantField } from "@/services/commands"
+import {
+  addAssistantNote,
+  getAssistantField,
+  updateAssistantField,
+} from "@/services/commands"
 
-/** Tools the assistant can call. v0.1 ships one: reading a field off the card. */
+/** Model-visible tools. Target routing stays entirely in the plugin. */
 export const ASSISTANT_TOOLS = [
   {
     type: "function" as const,
     name: "get_field",
     description:
-      "Read the current value of a field on the card the user is reviewing. Use this instead of guessing at field contents.",
+      "Read a field from the active reviewer note or editor buffer. Use this instead of guessing at field contents.",
     parameters: {
       type: "object",
       properties: {
@@ -28,16 +30,90 @@ export const ASSISTANT_TOOLS = [
       additionalProperties: false,
     },
   },
+  {
+    type: "function" as const,
+    name: "update_field",
+    description:
+      "Immediately update a field on the active target. Reviewer changes are saved to the collection. Add/edit changes fill the editor buffer and remain unsaved until the user saves or adds the note.",
+    parameters: {
+      type: "object",
+      properties: {
+        fieldName: {
+          type: "string",
+          description: "The exact name of the field to update.",
+        },
+        newValue: {
+          type: "string",
+          description: "The complete new HTML value for the field.",
+        },
+      },
+      required: ["fieldName", "newValue"],
+      additionalProperties: false,
+    },
+  },
+  {
+    type: "function" as const,
+    name: "create_note",
+    description:
+      "Create a new Anki note directly in the collection. Always confirm the destination deck with the user before calling. Omit noteType only when an active target supplies it.",
+    parameters: {
+      type: "object",
+      properties: {
+        noteType: {
+          type: "string",
+          description:
+            "Exact note type name. Optional only with an active target.",
+        },
+        deck: {
+          type: "string",
+          description: "Exact destination deck name confirmed by the user.",
+        },
+        fields: {
+          type: "object",
+          description: "Field names mapped to their complete HTML values.",
+          additionalProperties: { type: "string" },
+        },
+        tags: {
+          type: "array",
+          items: { type: "string" },
+        },
+      },
+      required: ["deck", "fields"],
+      additionalProperties: false,
+    },
+  },
+  {
+    type: "function" as const,
+    name: "list_note_types",
+    description: "List available note types and their field schemas.",
+    parameters: {
+      type: "object",
+      properties: {},
+      additionalProperties: false,
+    },
+  },
+  {
+    type: "function" as const,
+    name: "list_decks",
+    description: "List valid destination decks for create_note.",
+    parameters: {
+      type: "object",
+      properties: {},
+      additionalProperties: false,
+    },
+  },
 ]
 
 export interface AssistantContext {
-  mode: "review"
+  mode: "review" | "add" | "edit"
   noteType: string
   deck: string
   fieldNames: string[]
   firstFieldName: string
   firstFieldValue: string
 }
+
+type AssistantState = Pick<AppState, "noteTypes" | "decks" | "globalDeckId">
 
 interface RunAssistantTurnArgs {
   authToken: string
@@ -49,7 +125,8 @@ interface RunAssistantTurnArgs {
   showReasoning: boolean
   messages: AssistantMessage[]
   context: AssistantContext | null
-  card: ReviewerCard | null
+  target: AssistantActiveTarget | null
+  state: AssistantState | null
   signal: AbortSignal
   /** Streamed text for the reply in progress, re-sent on every token. */
   onDelta: (text: string) => void
@@ -76,7 +153,8 @@ export const runAssistantTurn = async ({
   showReasoning,
   messages,
   context,
-  card,
+  target,
+  state,
   signal,
   onDelta,
   onReasoningDelta,
@@ -153,7 +231,7 @@ export const runAssistantTurn = async ({
       const outputMessage: AssistantMessage = {
         type: "function_call_output",
         call_id: call.callId,
-        output: await executeTool(call, card),
+        output: await executeTool(call, target, state),
       }
       conversation.push(outputMessage)
       onMessage(outputMessage)
@@ -167,23 +245,18 @@ export const runAssistantTurn = async ({
 
 /** The card context block sent up front. Field values are fetched on demand. */
 export const buildAssistantContext = (
-  card: ReviewerCard | null,
-  state: AppState | null,
+  target: AssistantActiveTarget | null,
+  state: AssistantState | null,
 ): AssistantContext | null => {
-  if (card === null || state === null) return null
-
-  const noteType = state.noteTypes.find(
-    (item: NoteType) => item.id === card.noteTypeId,
-  )
-  const deck = state.decks.find((item: Deck) => item.id === card.deckId)
+  if (target === null || state === null) return null
 
   return {
-    mode: "review",
-    noteType: noteType?.name ?? "Unknown",
-    deck: deck?.name ?? "Unknown",
-    fieldNames: card.fieldNames,
-    firstFieldName: card.firstFieldName,
-    firstFieldValue: card.firstFieldValue,
+    mode: target.handle.mode,
+    noteType: target.noteTypeName,
+    deck: target.deckName ?? "Unknown",
+    fieldNames: target.fieldNames,
+    firstFieldName: target.firstFieldName,
+    firstFieldValue: target.firstFieldValue,
   }
 }
 
@@ -191,7 +264,7 @@ const SERVER_URL = import.meta.env.DEV
   ? "http://localhost:3003"
   : "https://api.smart-notes.xyz"
 
-const MAX_TOOL_STEPS = 6
+const MAX_TOOL_STEPS = 12
 
 interface ToolCallEvent {
   callId: string
@@ -206,27 +279,69 @@ interface SSEEvent {
 
 const executeTool = async (
   call: ToolCallEvent,
-  card: ReviewerCard | null,
+  target: AssistantActiveTarget | null,
+  state: AssistantState | null,
 ): Promise<string> => {
   // Tool failures are answers, not exceptions: the model should see what went
   // wrong and correct itself rather than the whole turn collapsing.
   try {
-    if (call.name !== "get_field") {
-      return `Error: unknown tool ${call.name}`
+    if (call.name === "get_field") {
+      const { fieldName } = JSON.parse(call.arguments) as { fieldName: string }
+      const { value } = await getAssistantField({
+        target: target?.handle ?? null,
+        fieldName,
+      })
+      return value.length > 0 ? value : "(this field is empty)"
     }
-    if (card === null) {
-      return "Error: no card is being reviewed right now."
+    if (call.name === "update_field") {
+      const args = JSON.parse(call.arguments) as {
+        fieldName: string
+        newValue: string
+      }
+      return JSON.stringify(
+        await updateAssistantField({
+          target: target?.handle ?? null,
+          ...args,
+        }),
+      )
     }
-
-    const { fieldName } = JSON.parse(call.arguments) as { fieldName: string }
-    const { value } = await getAssistantField({
-      cardId: card.cardId,
-      fieldName,
-    })
-    return value.length > 0 ? value : "(this field is empty)"
+    if (call.name === "create_note") {
+      const args = JSON.parse(call.arguments) as {
+        noteType?: string
+        deck: string
+        fields: Record<string, string>
+        tags?: string[]
+      }
+      const noteType = args.noteType ?? targetNoteType(target)
+      if (noteType === null) {
+        return "Error: noteType is required when there is no active target."
+      }
+      return JSON.stringify(await addAssistantNote({ ...args, noteType }))
+    }
+    if (call.name === "list_note_types") {
+      if (state === null) return "Error: Anki state is unavailable."
+      return JSON.stringify(
+        state.noteTypes.map(({ name, fields }) => ({ name, fields })),
+      )
+    }
+    if (call.name === "list_decks") {
+      if (state === null) return "Error: Anki state is unavailable."
+      return JSON.stringify(
+        state.decks
+          .filter((deck) => deck.id !== state.globalDeckId)
+          .map((deck) => deck.name),
+      )
+    }
+    return `Error: unknown tool ${call.name}`
   } catch (error) {
     return `Error: ${error instanceof Error ? error.message : String(error)}`
   }
+}
+
+const targetNoteType = (
+  target: AssistantActiveTarget | null,
+): string | null => {
+  return target?.noteTypeName ?? null
 }
 
 /**

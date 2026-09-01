@@ -4,6 +4,7 @@ import { useAppStore } from "@/store/appStore"
 import type {
   AccountState,
   AppState,
+  AssistantActiveTarget,
   Catalog,
   CommandName,
   PlanInfo,
@@ -466,23 +467,27 @@ export const setMockFixture = (fixture: string): void => {
     state.account = structuredClone(MOCK_ACCOUNT_FIXTURES[fixture])
   }
 
+  const selection =
+    bootOptions.tryState === "empty"
+      ? MOCK_SELECTIONS.none
+      : bootOptions.tryState === "picked" || bootOptions.tryState === "result"
+        ? MOCK_SELECTIONS.selected
+        : (MOCK_SELECTIONS[bootOptions.selection] ?? MOCK_SELECTIONS.selected)
+
   useAppStore.setState({
     state,
     catalog: MOCK_CATALOG,
-    selection:
-      bootOptions.tryState === "empty"
-        ? MOCK_SELECTIONS.none
-        : bootOptions.tryState === "picked" || bootOptions.tryState === "result"
-          ? MOCK_SELECTIONS.selected
-          : (MOCK_SELECTIONS[bootOptions.selection] ??
-            MOCK_SELECTIONS.selected),
+    selection,
+    activeTarget: mockActiveTarget(selection, state),
     connection: fixture === "reconnecting" ? "reconnecting" : "connected",
   })
 }
 
 export const setMockSelection = (selection: string): void => {
+  const nextSelection = MOCK_SELECTIONS[selection] ?? MOCK_SELECTIONS.selected
   useAppStore.setState({
-    selection: MOCK_SELECTIONS[selection] ?? MOCK_SELECTIONS.selected,
+    selection: nextSelection,
+    activeTarget: mockActiveTarget(nextSelection, useAppStore.getState().state),
   })
 }
 
@@ -495,6 +500,27 @@ export const sendMockCommand: CommandSender = async <Result = void>(
   const state = useAppStore.getState().state
   if (state === null) return undefined as Result
   const commandPayload = payload as Record<string, unknown>
+
+  if (command === "assistant.getField") {
+    const fieldName = String(commandPayload.fieldName)
+    const selected = MOCK_SELECTIONS.selected
+    return {
+      value: selected.note?.fields[fieldName] ?? "",
+    } as Result
+  }
+
+  if (command === "assistant.updateField") {
+    return {
+      status: "updated",
+      fieldName: commandPayload.fieldName,
+      previousValue: "Previous value",
+      value: commandPayload.newValue,
+    } as Result
+  }
+
+  if (command === "assistant.addNote") {
+    return { noteId: 7001, cardIds: [8001], cardCount: 1 } as Result
+  }
 
   if (command === "auth.exchangeCode") {
     await new Promise((resolve) => setTimeout(resolve, 500))
@@ -653,4 +679,29 @@ export const sendMockCommand: CommandSender = async <Result = void>(
 
   useAppStore.setState({ state: { ...state, smartFields } })
   return undefined as Result
+}
+
+const mockActiveTarget = (
+  selection: Selection,
+  state: AppState | null,
+): AssistantActiveTarget | null => {
+  if (selection.note === null || state === null) return null
+  const [firstFieldName, firstFieldValue] = Object.entries(
+    selection.note.fields,
+  )[0] ?? ["", ""]
+  return {
+    handle: { mode: "review", cardId: selection.note.cardId },
+    noteTypeId: selection.note.noteTypeId,
+    noteTypeName:
+      state.noteTypes.find(
+        (noteType) => noteType.id === selection.note?.noteTypeId,
+      )?.name ?? "Unknown",
+    deckId: selection.note.deckId,
+    deckName:
+      state.decks.find((deck) => deck.id === selection.note?.deckId)?.name ??
+      null,
+    fieldNames: Object.keys(selection.note.fields),
+    firstFieldName,
+    firstFieldValue,
+  }
 }

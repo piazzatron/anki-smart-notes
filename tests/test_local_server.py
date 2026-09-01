@@ -254,7 +254,12 @@ async def test_events_rejects_non_localhost_host_header():
 @pytest.mark.asyncio
 async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
     import src.local_server
-    from src.event_bus import BrowserSelectionChanged, StateInvalidated, event_bus
+    from src.event_bus import (
+        ActiveTargetChanged,
+        BrowserSelectionChanged,
+        StateInvalidated,
+        event_bus,
+    )
     from src.web import dto
 
     fake_state = {"smartFields": []}
@@ -340,6 +345,11 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
         event = await _read_sse_event(resp)
         assert event["event"] == "anki.browserSelectionChanged"
         assert json.loads(event["data"]) == {"note": None, "count": 2}
+
+        event_bus.publish(ActiveTargetChanged({"target": None}))
+        event = await _read_sse_event(resp)
+        assert event["event"] == "anki.activeTargetChanged"
+        assert json.loads(event["data"]) == {"target": None}
 
         # Invalidation triggers a fresh whole-state push.
         event_bus.publish(StateInvalidated())

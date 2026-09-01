@@ -1,4 +1,6 @@
 import { useState, type FormEvent, type KeyboardEvent } from "react"
+import type { TFunction } from "i18next"
+import { useTranslation } from "react-i18next"
 
 import {
   MessageScroller,
@@ -12,6 +14,7 @@ import { Toggle } from "@/components/ui/Toggle"
 import { ChatModelSelect } from "@/features/text-generation/ChatModelSelect"
 import { ReasoningLevelSelect } from "@/features/text-generation/ReasoningLevelSelect"
 import { useAppStore } from "@/store/appStore"
+import type { AssistantActiveTarget } from "@/types/api"
 
 import { AssistantTranscript } from "./AssistantTranscript"
 import {
@@ -24,8 +27,9 @@ import {
  * on the Chat page in the main window.
  */
 export const AssistantScreen = () => {
+  const { t } = useTranslation()
   const catalog = useAppStore((store) => store.catalog)
-  const reviewerCard = useAppStore((store) => store.reviewerCard)
+  const activeTarget = useAppStore((store) => store.activeTarget)
   const state = useAppStore((store) => store.state)
 
   // Deliberately independent of the smart-field generation defaults, and not
@@ -66,14 +70,12 @@ export const AssistantScreen = () => {
       <header className="shrink-0 border-b border-white/[0.08] px-3 py-2">
         <div className="flex items-center gap-2 pb-2">
           <div className="min-w-0 flex-1 truncate text-xs font-semibold text-ink-muted">
-            {reviewerCard === null
-              ? "No card in review"
-              : stripHtml(reviewerCard.firstFieldValue)}
+            {describeActiveTarget(activeTarget, t)}
           </div>
           <label className="flex shrink-0 items-center gap-1.5 text-xs text-ink-faint">
-            Thinking
+            {t("assistant.thinking")}
             <Toggle
-              aria-label="Show the model's thinking"
+              aria-label={t("assistant.showThinkingAriaLabel")}
               checked={showReasoning && isReasoning}
               disabled={!isReasoning}
               onCheckedChange={setShowReasoning}
@@ -84,7 +86,7 @@ export const AssistantScreen = () => {
           <div className="flex gap-2">
             <div className="min-w-0 flex-1">
               <ChatModelSelect
-                ariaLabel="Assistant model"
+                ariaLabel={t("assistant.modelAriaLabel")}
                 catalog={catalog.chat}
                 onValueChange={(next) => setModel(next.id)}
                 value={model}
@@ -92,7 +94,7 @@ export const AssistantScreen = () => {
             </div>
             <div className="w-28 shrink-0">
               <ReasoningLevelSelect
-                ariaLabel="Assistant reasoning level"
+                ariaLabel={t("assistant.reasoningAriaLabel")}
                 levels={catalog.chat.reasoningLevels}
                 onValueChange={setReasoningLevel}
                 value={reasoningLevel}
@@ -113,8 +115,8 @@ export const AssistantScreen = () => {
                     onClick={session.loadOlder}
                   >
                     {session.isLoadingHistory
-                      ? "Loading…"
-                      : "Load earlier sessions"}
+                      ? t("assistant.loading")
+                      : t("assistant.loadEarlier")}
                   </Button>
                 </div>
               )}
@@ -140,9 +142,7 @@ export const AssistantScreen = () => {
           </div>
         )}
         {state?.account.authToken === null ? (
-          <p className="text-xs text-ink-muted">
-            Sign in to Smart Notes to use the assistant.
-          </p>
+          <p className="text-xs text-ink-muted">{t("assistant.signIn")}</p>
         ) : (
           <>
             {/* Edited on the Chat settings page, not here. */}
@@ -163,7 +163,7 @@ export const AssistantScreen = () => {
                 className="max-h-40 min-h-[38px] flex-1 resize-none rounded-md border border-white/10 bg-white/[0.035] px-3 py-2 text-sm text-ink placeholder:text-ink-faint focus:border-white/20 focus:outline-none"
                 onChange={(event) => setDraft(event.target.value)}
                 onKeyDown={onKeyDown}
-                placeholder="Ask about this card…"
+                placeholder={t("assistant.placeholder")}
                 rows={1}
                 value={draft}
               />
@@ -172,10 +172,12 @@ export const AssistantScreen = () => {
                 type="submit"
                 variant="primary"
               >
-                {session.isRunning ? "…" : "Send"}
+                {session.isRunning
+                  ? t("assistant.sending")
+                  : t("assistant.send")}
               </Button>
             </form>
-            {import.meta.env.DEV && <UsageMeter usage={session.usage} />}
+            {import.meta.env.DEV && <UsageMeter t={t} usage={session.usage} />}
           </>
         )}
       </div>
@@ -183,24 +185,39 @@ export const AssistantScreen = () => {
   )
 }
 
-const EmptyState = () => (
-  <div className="px-2 py-8 text-center text-xs text-ink-muted">
-    Ask about the card you are reviewing. The assistant can read its fields.
-  </div>
-)
+const EmptyState = () => {
+  const { t } = useTranslation()
+  return (
+    <div className="px-2 py-8 text-center text-xs text-ink-muted">
+      {t("assistant.empty")}
+    </div>
+  )
+}
 
 /** Mirrors USD_PER_CREDIT in the server's `utils/credits.ts`. */
 const USD_PER_CREDIT = 0.00009
 
 /** What this window has spent since it opened. Dev builds only. */
-const UsageMeter = ({ usage }: { usage: AssistantSessionUsage }) => (
+const UsageMeter = ({
+  usage,
+  t,
+}: {
+  usage: AssistantSessionUsage
+  t: TFunction
+}) => (
   <p className="mt-2 font-mono text-[10px] text-ink-faint">
-    {usage.inputTokens.toLocaleString()} in ·{" "}
-    {usage.outputTokens.toLocaleString()} out
-    {usage.reasoningTokens > 0 &&
-      ` · ${usage.reasoningTokens.toLocaleString()} thinking`}{" "}
-    · {Math.round(usage.credits).toLocaleString()} credits · ~$
-    {(usage.credits * USD_PER_CREDIT).toFixed(4)}
+    {t("assistant.usage", {
+      input: usage.inputTokens.toLocaleString(),
+      output: usage.outputTokens.toLocaleString(),
+      thinking:
+        usage.reasoningTokens > 0
+          ? t("assistant.usageThinking", {
+              count: usage.reasoningTokens.toLocaleString(),
+            })
+          : "",
+      credits: Math.round(usage.credits).toLocaleString(),
+      usd: (usage.credits * USD_PER_CREDIT).toFixed(4),
+    })}
   </p>
 )
 
@@ -210,3 +227,15 @@ const stripHtml = (value: string): string =>
     .replace(/<[^>]*>/g, " ")
     .replace(/\s+/g, " ")
     .trim()
+
+const describeActiveTarget = (
+  target: AssistantActiveTarget | null,
+  t: TFunction,
+): string => {
+  if (target === null) return t("assistant.binding.none")
+  const preview =
+    stripHtml(target.firstFieldValue) ||
+    target.noteTypeName ||
+    t("assistant.binding.untitled")
+  return t(`assistant.binding.${target.handle.mode}`, { target: preview })
+}

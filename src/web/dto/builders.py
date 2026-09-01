@@ -36,8 +36,11 @@ from ...voice_catalog import get_voice_catalog
 from .models import (
     CHAT_REASONING_LEVELS,
     AccountDto,
+    AssistantActiveTargetDto,
+    AssistantActiveTargetEventDto,
     AssistantPromptDto,
     AssistantSettingsDto,
+    AssistantTargetDto,
     ChatGenerationSettingsDto,
     ChatSmartFieldDto,
     ChatSmartFieldSettingsDto,
@@ -215,30 +218,37 @@ def build_voice_catalog() -> VoiceCatalogDto:
     )
 
 
-def build_reviewer_card_changed(
-    note: Note, card_id: int, deck_id: int
-) -> dict[str, Any]:
-    """`anki.reviewerCardChanged` payload. Only the first field's value rides
-    along; the assistant reads any other field on demand via assistant.getField,
-    because card values can be large."""
+def build_assistant_active_target(
+    *,
+    handle: AssistantTargetDto,
+    note: Note,
+    deck_id: int | None,
+    deck_name: str | None,
+) -> AssistantActiveTargetEventDto:
+    """The assistant target plus its up-front context. Only the first field's
+    value rides the event; all other values remain tool-backed."""
     field_names = list(note.keys())
     first_field_name = field_names[0] if field_names else ""
+    note_type = note.note_type()
+    if note_type is None:
+        raise ValueError("Assistant target note has no note type")
 
-    return {
-        "card": {
-            "cardId": card_id,
-            "noteTypeId": note.mid,
-            "deckId": deck_id,
-            "fieldNames": field_names,
-            "firstFieldName": first_field_name,
-            "firstFieldValue": note[first_field_name] if first_field_name else "",
-        }
-    }
+    return AssistantActiveTargetEventDto(
+        target=AssistantActiveTargetDto(
+            handle=handle,
+            noteTypeId=note.mid,
+            noteTypeName=str(note_type["name"]),
+            deckId=deck_id,
+            deckName=deck_name,
+            fieldNames=field_names,
+            firstFieldName=first_field_name,
+            firstFieldValue=note[first_field_name] if first_field_name else "",
+        )
+    )
 
 
-def build_reviewer_card_cleared() -> dict[str, Any]:
-    """`anki.reviewerCardChanged` payload for leaving the reviewer."""
-    return {"card": None}
+def build_assistant_active_target_cleared() -> AssistantActiveTargetEventDto:
+    return AssistantActiveTargetEventDto(target=None)
 
 
 def build_selection_changed(
