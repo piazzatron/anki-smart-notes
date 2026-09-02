@@ -63,6 +63,7 @@
     "discord": "Discord",
     "feedback": "Zpětná vazba",
     "nav": {
+      "chat": "Chat",
       "defaultsImages": "Výchozí nastavení obrázku",
       "defaultsText": "Výchozí nastavení textu",
       "defaultsVoice": "Výchozí nastavení hlasu",
@@ -384,7 +385,6 @@
   "subscription": {
     "accessEnds": "Přístup končí",
     "activateAgain": "Znovu aktivovat",
-    "endingSoon": "Brzy skončí",
     "checking": "Kontrola předplatného",
     "creditTypes": {
       "images": "Obrázky",
@@ -400,6 +400,7 @@
     "errors": {
       "logout": "Nelze se odhlásit"
     },
+    "endingSoon": "Brzy skončí",
     "expired": "Vypršelo",
     "freePlan": "Volný plán",
     "freeTrial": "Bezplatná zkušební verze",
@@ -523,5 +524,54 @@
     "thanks": "Děkujeme, že používáte Smart Notes ✨",
     "title": "Vaše bezplatná zkušební verze skončila",
     "upgradeNow": "Upgradujte nyní"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Přidávání: {{target}}",
+      "edit": "Úprava: {{target}}",
+      "none": "Žádný aktivní cíl",
+      "review": "Kontrola: {{target}}",
+      "untitled": "Poznámka bez názvu"
+    },
+    "empty": "Ptejte se na aktivní kartu, měňte její pole nebo vytvořte novou poznámku.",
+    "loadEarlier": "Načíst dřívější relace",
+    "loading": "Načítání…",
+    "modelAriaLabel": "Model asistenta",
+    "newTarget": "Nový cíl",
+    "placeholder": "Zeptejte se na aktivní kartu nebo ji změňte…",
+    "reasoningAriaLabel": "Úroveň uvažování asistenta",
+    "send": "Poslat",
+    "sending": "…",
+    "showThinkingAriaLabel": "Zobrazit myšlení modelu",
+    "signIn": "Přihlaste se do Smart Notes, abyste mohli používat asistenta.",
+    "thinking": "Uvažování",
+    "thinkingPending": "Uvažování…",
+    "tool": {
+      "createNote": "Vytvořena poznámka v „{{deck}}",
+      "getField": "Přečíst \"{{field}}\"",
+      "listDecks": "Vypsané balíčky",
+      "listNoteTypes": "Vypsané typy poznámek",
+      "updateField": "Aktualizováno \"{{field}}\""
+    },
+    "usage": "{{input}} vstup · {{output}} výstup{{thinking}} · {{credits}} kredity · ~${{usd}}",
+    "usageThinking": " · {{count}} uvažování"
+  },
+  "chatSettings": {
+    "addPrompt": "Přidat výzvu",
+    "buttonLabel": "Popisek tlačítka",
+    "emptyPrompts": "Zatím nejsou uloženy žádné výzvy.",
+    "invalidPrompt": "Každé tlačítko potřebuje popisek a výzvu.",
+    "promptPlaceholder": "Co poslat, když se tlačítko stiskne",
+    "promptTextAriaLabel": "Text výzvy",
+    "remove": "Odstranit",
+    "responseLanguage": "Jazyk odpovědi",
+    "responseLanguageAriaLabel": "Jazyk asistentovy odpovědi",
+    "responseLanguageDescription": "Asistent odpovídá v tomto jazyce bez ohledu na to, v jakém jazyce je karta napsána.",
+    "save": "Uložit změny",
+    "savedPrompts": "Uložené výzvy",
+    "savedPromptsDescription": "Každá se stane tlačítkem nad polem zprávy v okně chatu.",
+    "saving": "Ukládání…",
+    "subtitle": "Nakonfigurujte chat asistenta",
+    "title": "Chat"
   }
 }

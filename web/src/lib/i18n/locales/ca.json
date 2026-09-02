@@ -62,6 +62,7 @@
     "discord": "Discord",
     "feedback": "Feedback",
     "nav": {
+      "chat": "Chat",
       "defaultsImages": "Configuració d'imatge per defecte",
       "defaultsText": "Configuració de text predeterminada",
       "defaultsVoice": "Configuració de veu per defecte",
@@ -378,7 +379,6 @@
   "subscription": {
     "accessEnds": "L'accés s'acaba",
     "activateAgain": "Activar novament",
-    "endingSoon": "Finalitza aviat",
     "checking": "Comprovant la subscripció",
     "creditTypes": {
       "images": "Imatges",
@@ -393,6 +393,7 @@
     "errors": {
       "logout": "No s'ha pogut tancar la sessió"
     },
+    "endingSoon": "Finalitza aviat",
     "expired": "Caducada",
     "freePlan": "Pla gratuït",
     "freeTrial": "Prova gratuïta",
@@ -513,5 +514,54 @@
     "thanks": "Gràcies per utilitzar Smart Notes ✨",
     "title": "La teva prova gratuïta ha finalitzat",
     "upgradeNow": "Actualitza ara"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Afegint: {{target}}",
+      "edit": "Editant: {{target}}",
+      "none": "Cap objectiu actiu",
+      "review": "Revisant: {{target}}",
+      "untitled": "Nota sense títol"
+    },
+    "empty": "Fes preguntes sobre la targeta activa, canvia els seus camps o crea una nota nova.",
+    "loadEarlier": "Carrega sessions anteriors",
+    "loading": "Carregant…",
+    "modelAriaLabel": "Model de l'assistent",
+    "newTarget": "Objectiu nou",
+    "placeholder": "Fes preguntes o canvia la targeta activa…",
+    "reasoningAriaLabel": "Nivell de raonament de l'assistent",
+    "send": "Envia",
+    "sending": "…",
+    "showThinkingAriaLabel": "Mostra el pensament del model",
+    "signIn": "Inicia sessió a Smart Notes per usar l'assistent.",
+    "thinking": "Pensant",
+    "thinkingPending": "Pensant…",
+    "tool": {
+      "createNote": "S'ha creat una nota a \"{{deck}}\"",
+      "getField": "S'ha llegit \"{{field}}\"",
+      "listDecks": "S'han llistat els paquets",
+      "listNoteTypes": "S'han llistat els tipus de nota",
+      "updateField": "S'ha actualitzat \"{{field}}\""
+    },
+    "usage": "{{input}} entrada · {{output}} sortida{{thinking}} · {{credits}} crèdits · ~${{usd}}",
+    "usageThinking": " · {{count}} pensament"
+  },
+  "chatSettings": {
+    "addPrompt": "Afegeix indicació",
+    "buttonLabel": "Etiqueta del botó",
+    "emptyPrompts": "Cap indicació guardada encara.",
+    "invalidPrompt": "Cada botó necessita una etiqueta i una indicació.",
+    "promptPlaceholder": "Què enviar quan es prem el botó",
+    "promptTextAriaLabel": "Text de l'indicació",
+    "remove": "Elimina",
+    "responseLanguage": "Llengua de resposta",
+    "responseLanguageAriaLabel": "Llengua de resposta de l'assistent",
+    "responseLanguageDescription": "L'assistent respon en aquesta llengua sigui com sigui en quin idioma estigui escrita la targeta.",
+    "save": "Desa els canvis",
+    "savedPrompts": "Indicacions guardades",
+    "savedPromptsDescription": "Cadascuna es converteix en un botó a sobre de la caixa de missatges a la finestra de xat.",
+    "saving": "Desant…",
+    "subtitle": "Configura l'assistent de xat",
+    "title": "Chat"
   }
 }

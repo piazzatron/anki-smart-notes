@@ -71,7 +71,8 @@
       "subscription": "חשבון ושימוש",
       "support": "תְמִיכָה",
       "text": "טֶקסט",
-      "voice": "קוֹל"
+      "voice": "קוֹל",
+      "chat": "צ'אט"
     },
     "sections": "קטעי Smart Notes",
     "version": "Smart Notes v{{version}}"
@@ -378,7 +379,6 @@
   "subscription": {
     "accessEnds": "הגישה מסתיימת",
     "activateAgain": "הפעל שוב",
-    "endingSoon": "תסתיים בקרוב",
     "checking": "בודק מנוי",
     "creditTypes": {
       "images": "תמונות",
@@ -393,6 +393,7 @@
     "errors": {
       "logout": "לא ניתן היה להתנתק"
     },
+    "endingSoon": "תסתיים בקרוב",
     "expired": "פג",
     "freePlan": "תוכנית חינם",
     "freeTrial": "ניסיון חינם",
@@ -513,5 +514,54 @@
     "thanks": "תודה על השימוש ב-Smart Notes ✨",
     "title": "תקופת הניסיון בחינם שלך הסתיימה",
     "upgradeNow": "שדרג עכשיו"
+  },
+  "assistant": {
+    "binding": {
+      "add": "הוספה: {{target}}",
+      "edit": "עריכה: {{target}}",
+      "none": "אין יעד פעיל",
+      "review": "חזרה: {{target}}",
+      "untitled": "הערה ללא כותרת"
+    },
+    "empty": "שאל על הכרטיס הפעיל, שנה את השדות שלו, או צור הערה חדשה.",
+    "loadEarlier": "טען שיחות קודמות",
+    "loading": "טוען…",
+    "modelAriaLabel": "מודל עוזר",
+    "newTarget": "יעד חדש",
+    "placeholder": "שאל על הכרטיס הפעיל או שנה אותו…",
+    "reasoningAriaLabel": "רמת חשיבה של העוזר",
+    "send": "שלח",
+    "sending": "…",
+    "showThinkingAriaLabel": "הצג את החשיבה של המודל",
+    "signIn": "היכנס ל-Smart Notes כדי להשתמש בעוזר.",
+    "thinking": "חושב",
+    "thinkingPending": "חושב…",
+    "tool": {
+      "createNote": "נוצרה הערה ב-\"{{deck}}\"",
+      "getField": "קריאת \"{{field}}\"",
+      "listDecks": "רשימת חפיסות הוצגה",
+      "listNoteTypes": "רשימת סוגי הערות הוצגה",
+      "updateField": "עודכן \"{{field}}\""
+    },
+    "usage": "{{input}} נכנסים · {{output}} יוצאים{{thinking}} · {{credits}} נקודות זכות · ~${{usd}}",
+    "usageThinking": " · {{count}} חשיבה"
+  },
+  "chatSettings": {
+    "addPrompt": "הוסף הנחיה",
+    "buttonLabel": "תווית כפתור",
+    "emptyPrompts": "אין הנחיות שמורות עדיין.",
+    "invalidPrompt": "כל כפתור צריך תווית והנחיה.",
+    "promptPlaceholder": "מה לשלוח כשלוחצים על הכפתור",
+    "promptTextAriaLabel": "טקסט ההנחיה",
+    "remove": "הסר",
+    "responseLanguage": "שפת התגובה",
+    "responseLanguageAriaLabel": "שפת תגובת העוזר",
+    "responseLanguageDescription": "העוזר עונה בשפה זו ללא קשר לשפה בה הכרטיס נכתב.",
+    "save": "שמור שינויים",
+    "savedPrompts": "הנחיות שמורות",
+    "savedPromptsDescription": "כל אחת הופכת לכפתור מעל תיבת ההודעות בחלון הצ'אט.",
+    "saving": "שומר…",
+    "subtitle": "הגדר את עוזר הצ'אט",
+    "title": "צ'אט"
   }
 }

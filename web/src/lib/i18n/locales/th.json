@@ -69,7 +69,8 @@
       "subscription": "บัญชีและการใช้งาน",
       "support": "สนับสนุน",
       "text": "ข้อความ",
-      "voice": "เสียง"
+      "voice": "เสียง",
+      "chat": "แชท"
     },
     "sections": "ส่วน Smart Notes",
     "version": "Smart Notes และ{{version}}"
@@ -366,7 +367,6 @@
   "subscription": {
     "accessEnds": "การเข้าถึงสิ้นสุด",
     "activateAgain": "เปิดใช้งานอีกครั้ง",
-    "endingSoon": "กำลังจะสิ้นสุด",
     "checking": "กำลังตรวจสอบการสมัครสมาชิก",
     "creditTypes": {
       "images": "รูปภาพ",
@@ -379,6 +379,7 @@
     "errors": {
       "logout": "ไม่สามารถออกจากระบบได้"
     },
+    "endingSoon": "กำลังจะสิ้นสุด",
     "expired": "หมดอายุ",
     "freePlan": "แผนฟรี",
     "freeTrial": "ทดลองใช้ฟรี",
@@ -493,5 +494,54 @@
     "thanks": "ขอบคุณที่ใช้ Smart Notes ✨",
     "title": "การทดลองใช้ฟรีของคุณสิ้นสุดลงแล้ว",
     "upgradeNow": "อัพเกรดตอนนี้"
+  },
+  "assistant": {
+    "binding": {
+      "add": "กำลังเพิ่ม: {{target}}",
+      "edit": "กำลังแก้ไข: {{target}}",
+      "none": "ไม่มีเป้าหมายที่ใช้งานอยู่",
+      "review": "กำลังทบทวน: {{target}}",
+      "untitled": "โน้ตไม่มีชื่อ"
+    },
+    "empty": "ถามเกี่ยวกับการ์ดที่ใช้งานอยู่ เปลี่ยนฟิลด์ หรือสร้างโน้ตใหม่",
+    "loadEarlier": "โหลดเซสชันก่อนหน้า",
+    "loading": "กำลังโหลด…",
+    "modelAriaLabel": "โมเดลผู้ช่วย",
+    "newTarget": "เป้าหมายใหม่",
+    "placeholder": "ถามหรือเปลี่ยนแปลงการ์ดที่เปิดอยู่…",
+    "reasoningAriaLabel": "ระดับการใช้เหตุผลของผู้ช่วย",
+    "send": "ส่ง",
+    "sending": "…",
+    "showThinkingAriaLabel": "แสดงความคิดของโมเดล",
+    "signIn": "เข้าสู่ระบบ Smart Notes เพื่อใช้ผู้ช่วย",
+    "thinking": "กำลังคิด",
+    "thinkingPending": "กำลังคิด…",
+    "tool": {
+      "createNote": "สร้างโน้ตใน \"{{deck}}\" แล้ว",
+      "getField": "อ่าน \"{{field}}\"",
+      "listDecks": "แสดงสำรับการ์ดแล้ว",
+      "listNoteTypes": "แสดงประเภทโน้ตแล้ว",
+      "updateField": "อัปเดต \"{{field}}\" แล้ว"
+    },
+    "usage": "{{input}} เข้า · {{output}} ออก{{thinking}} · {{credits}} เครดิต · ~${{usd}}",
+    "usageThinking": " · {{count}} การคิด"
+  },
+  "chatSettings": {
+    "addPrompt": "เพิ่มพรอมต์",
+    "buttonLabel": "ป้ายชื่อปุ่ม",
+    "emptyPrompts": "ยังไม่มีพรอมต์ที่บันทึกไว้",
+    "invalidPrompt": "ทุกปุ่มต้องมีป้ายชื่อและพรอมต์",
+    "promptPlaceholder": "สิ่งที่จะส่งเมื่อกดปุ่ม",
+    "promptTextAriaLabel": "ข้อความพรอมต์",
+    "remove": "ลบ",
+    "responseLanguage": "ภาษาตอบกลับ",
+    "responseLanguageAriaLabel": "ภาษาตอบกลับของผู้ช่วย",
+    "responseLanguageDescription": "ผู้ช่วยตอบกลับในภาษานี้ไม่ว่าการ์ดจะเขียนในภาษาใด",
+    "save": "บันทึกการเปลี่ยนแปลง",
+    "savedPrompts": "พรอมต์ที่บันทึกไว้",
+    "savedPromptsDescription": "แต่ละรายการจะกลายเป็นปุ่มด้านบนกล่องข้อความในหน้าต่างแชท",
+    "saving": "กำลังบันทึก…",
+    "subtitle": "กำหนดค่าผู้ช่วยแชท",
+    "title": "แชท"
   }
 }

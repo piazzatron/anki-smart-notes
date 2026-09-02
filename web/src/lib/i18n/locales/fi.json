@@ -61,6 +61,7 @@
     "discord": "Discord",
     "feedback": "Palaute",
     "nav": {
+      "chat": "Keskustelu",
       "defaultsImages": "Kuvan oletusasetukset",
       "defaultsText": "Tekstin oletusasetukset",
       "defaultsVoice": "Äänen oletusasetukset",
@@ -372,7 +373,6 @@
   "subscription": {
     "accessEnds": "Pääsy loppuu",
     "activateAgain": "Aktivoi uudelleen",
-    "endingSoon": "Päättyy pian",
     "checking": "Tarkistetaan tilausta",
     "creditTypes": {
       "images": "Kuvat",
@@ -386,6 +386,7 @@
     "errors": {
       "logout": "Ei voitu kirjautua ulos"
     },
+    "endingSoon": "Päättyy pian",
     "expired": "Vanhentunyt",
     "freePlan": "Ilmainen suunnitelma",
     "freeTrial": "Ilmainen kokeilu",
@@ -503,5 +504,54 @@
     "thanks": "Kiitos, että käytät Smart Notes:tä ✨",
     "title": "Ilmainen kokeilujaksosi on päättynyt",
     "upgradeNow": "Päivitä nyt"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Lisätään: {{target}}",
+      "edit": "Muokataan: {{target}}",
+      "none": "Ei aktiivista kohdetta",
+      "review": "Tarkastetaan: {{target}}",
+      "untitled": "Nimetön muistiinpano"
+    },
+    "empty": "Kysy aktiivisesta kortista, muuta sen kenttiä tai luo uusi muistiinpano.",
+    "loadEarlier": "Lataa aiemmat istunnot",
+    "loading": "Ladataan…",
+    "modelAriaLabel": "Avustajan malli",
+    "newTarget": "Uusi kohde",
+    "placeholder": "Kysy aktiivisesta kortista tai muuta sitä…",
+    "reasoningAriaLabel": "Avustajan perustelun taso",
+    "send": "Lähetä",
+    "sending": "…",
+    "showThinkingAriaLabel": "Näytä mallin ajattelu",
+    "signIn": "Kirjaudu sisään Smart Notesiin käyttääksesi avustajaa.",
+    "thinking": "Ajattelu",
+    "thinkingPending": "Ajattelu…",
+    "tool": {
+      "createNote": "Muistiinpano luotu pakettiin \"{{deck}}\"",
+      "getField": "Lue \"{{field}}\"",
+      "listDecks": "Listatut pakkaset",
+      "listNoteTypes": "Listatut muistiinpanojen tyypit",
+      "updateField": "Päivitetty \"{{field}}\""
+    },
+    "usage": "{{input}} sisään · {{output}} ulos{{thinking}} · {{credits}} krediittiä · ~${{usd}}",
+    "usageThinking": " · {{count}} ajattelu"
+  },
+  "chatSettings": {
+    "addPrompt": "Lisää kehote",
+    "buttonLabel": "Painikkeen nimike",
+    "emptyPrompts": "Ei tallennettuja kehotteita vielä.",
+    "invalidPrompt": "Jokainen painike vaatii nimen ja kehotteen.",
+    "promptPlaceholder": "Mitä lähettää painikkeen painamisen yhteydessä",
+    "promptTextAriaLabel": "Kehotteen teksti",
+    "remove": "Poista",
+    "responseLanguage": "Vastauksen kieli",
+    "responseLanguageAriaLabel": "Avustajan vastauksen kieli",
+    "responseLanguageDescription": "Avustaja vastaa tällä kielellä riippumatta siitä, millä kielellä kortti on kirjoitettu.",
+    "save": "Tallenna muutokset",
+    "savedPrompts": "Tallennetut kehoteet",
+    "savedPromptsDescription": "Jokainen niistä tulee painikkeeksi viestikentän yläpuolelle keskusteluikkunassa.",
+    "saving": "Tallennetaan…",
+    "subtitle": "Konfiguroi chat-avustaja",
+    "title": "Chat"
   }
 }

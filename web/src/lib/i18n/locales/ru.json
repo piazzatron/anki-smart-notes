@@ -63,6 +63,7 @@
     "discord": "Discord",
     "feedback": "Обратная связь",
     "nav": {
+      "chat": "Чат",
       "defaultsImages": "Настройки изображения по умолчанию",
       "defaultsText": "Настройки текста по умолчанию",
       "defaultsVoice": "Голосовые настройки по умолчанию",
@@ -384,7 +385,6 @@
   "subscription": {
     "accessEnds": "Доступ заканчивается",
     "activateAgain": "Активировать снова",
-    "endingSoon": "Завершится вскоре",
     "checking": "Проверка подписки",
     "creditTypes": {
       "images": "Изображения",
@@ -400,6 +400,7 @@
     "errors": {
       "logout": "Не удалось выйти из системы"
     },
+    "endingSoon": "Завершится вскоре",
     "expired": "Истёк",
     "freePlan": "Бесплатный план",
     "freeTrial": "Бесплатная пробная версия",
@@ -523,5 +524,54 @@
     "thanks": "Спасибо за использование Smart Notes ✨",
     "title": "Ваша бесплатная пробная версия закончилась",
     "upgradeNow": "Обновите сейчас"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Добавление: {{target}}",
+      "edit": "Редактирование: {{target}}",
+      "none": "Нет активной цели",
+      "review": "Рецензирование: {{target}}",
+      "untitled": "Заметка без названия"
+    },
+    "empty": "Задавайте вопросы об активной карточке, изменяйте её поля или создавайте новую заметку.",
+    "loadEarlier": "Загрузить более ранние сеансы",
+    "loading": "Загрузка…",
+    "modelAriaLabel": "Модель помощника",
+    "newTarget": "Новая цель",
+    "placeholder": "Спросите или измените активную карточку…",
+    "reasoningAriaLabel": "Уровень рассуждений ассистента",
+    "send": "Отправить",
+    "sending": "…",
+    "showThinkingAriaLabel": "Показать размышления модели",
+    "signIn": "Войдите в Smart Notes, чтобы использовать ассистента.",
+    "thinking": "Размышление",
+    "thinkingPending": "Размышление…",
+    "tool": {
+      "createNote": "Создана заметка в \"{{deck}}\"",
+      "getField": "Прочитать \"{{field}}\"",
+      "listDecks": "Список колод",
+      "listNoteTypes": "Список типов заметок",
+      "updateField": "Обновлено \"{{field}}\""
+    },
+    "usage": "{{input}} вход · {{output}} выход{{thinking}} · {{credits}} кредиты · ~${{usd}}",
+    "usageThinking": " · {{count}} размышления"
+  },
+  "chatSettings": {
+    "addPrompt": "Добавить подсказку",
+    "buttonLabel": "Текст кнопки",
+    "emptyPrompts": "Сохраненные подсказки отсутствуют.",
+    "invalidPrompt": "Каждой кнопке нужны метка и подсказка.",
+    "promptPlaceholder": "Что отправить при нажатии кнопки",
+    "promptTextAriaLabel": "Текст запроса",
+    "remove": "Удалить",
+    "responseLanguage": "Язык ответа",
+    "responseLanguageAriaLabel": "Язык ответа помощника",
+    "responseLanguageDescription": "Помощник отвечает на этом языке независимо от языка карточки.",
+    "save": "Сохранить изменения",
+    "savedPrompts": "Сохранённые запросы",
+    "savedPromptsDescription": "Каждый из них становится кнопкой над полем сообщения в окне чата.",
+    "saving": "Сохранение…",
+    "subtitle": "Настройте помощника чата",
+    "title": "Чат"
   }
 }

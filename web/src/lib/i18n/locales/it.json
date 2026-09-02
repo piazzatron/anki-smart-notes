@@ -62,6 +62,7 @@
     "discord": "Discord",
     "feedback": "Feedback",
     "nav": {
+      "chat": "Chat",
       "defaultsImages": "Impostazioni immagine predefinite",
       "defaultsText": "Impostazioni di testo predefinite",
       "defaultsVoice": "Impostazioni vocali predefinite",
@@ -378,7 +379,6 @@
   "subscription": {
     "accessEnds": "L'accesso termina",
     "activateAgain": "Attiva di nuovo",
-    "endingSoon": "Termina presto",
     "checking": "Controllo dell'abbonamento",
     "creditTypes": {
       "images": "Immagini",
@@ -393,6 +393,7 @@
     "errors": {
       "logout": "Impossibile disconnettersi"
     },
+    "endingSoon": "Termina presto",
     "expired": "Scaduto",
     "freePlan": "Piano gratuito",
     "freeTrial": "Prova gratuita",
@@ -513,5 +514,54 @@
     "thanks": "Grazie per aver utilizzato Smart Notes ✨",
     "title": "La tua prova gratuita è terminata",
     "upgradeNow": "Aggiorna ora"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Aggiunta: {{target}}",
+      "edit": "Modifica: {{target}}",
+      "none": "Nessuna destinazione attiva",
+      "review": "Revisione: {{target}}",
+      "untitled": "Nota senza titolo"
+    },
+    "empty": "Fai domande sulla carta attiva, modifica i suoi campi o crea una nuova nota.",
+    "loadEarlier": "Carica sessioni precedenti",
+    "loading": "Caricamento…",
+    "modelAriaLabel": "Modello assistente",
+    "newTarget": "Nuovo target",
+    "placeholder": "Fai domande o modifica la carta attiva…",
+    "reasoningAriaLabel": "Livello di ragionamento dell'assistente",
+    "send": "Invia",
+    "sending": "…",
+    "showThinkingAriaLabel": "Mostra il ragionamento del modello",
+    "signIn": "Accedi a Smart Notes per utilizzare l'assistente.",
+    "thinking": "In elaborazione",
+    "thinkingPending": "In elaborazione…",
+    "tool": {
+      "createNote": "Nota creata in \"{{deck}}\"",
+      "getField": "Leggi \"{{field}}\"",
+      "listDecks": "Mazzi elencati",
+      "listNoteTypes": "Tipi di nota elencati",
+      "updateField": "Aggiornato \"{{field}}\""
+    },
+    "usage": "{{input}} in · {{output}} out{{thinking}} · {{credits}} crediti · ~${{usd}}",
+    "usageThinking": " · {{count}} pensiero"
+  },
+  "chatSettings": {
+    "addPrompt": "Aggiungi prompt",
+    "buttonLabel": "Etichetta pulsante",
+    "emptyPrompts": "Nessun prompt salvato ancora.",
+    "invalidPrompt": "Ogni pulsante necessita di un'etichetta e un prompt.",
+    "promptPlaceholder": "Cosa inviare quando il pulsante viene premuto",
+    "promptTextAriaLabel": "Testo del prompt",
+    "remove": "Rimuovi",
+    "responseLanguage": "Lingua della risposta",
+    "responseLanguageAriaLabel": "Lingua della risposta dell'assistente",
+    "responseLanguageDescription": "L'assistente risponde in questa lingua indipendentemente dalla lingua in cui è scritta la scheda.",
+    "save": "Salva le modifiche",
+    "savedPrompts": "Prompt salvati",
+    "savedPromptsDescription": "Ognuno diventa un pulsante sopra la casella dei messaggi nella finestra della chat.",
+    "saving": "Salvataggio in corso…",
+    "subtitle": "Configura l'assistente chat",
+    "title": "Chat"
   }
 }

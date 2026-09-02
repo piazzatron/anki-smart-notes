@@ -70,7 +70,8 @@
       "subscription": "حساب و استفاده",
       "support": "پشتیبانی کنید",
       "text": "متن",
-      "voice": "صدا"
+      "voice": "صدا",
+      "chat": "چت"
     },
     "sections": "بخش های Smart Notes",
     "version": "Smart Notes v{{version}}"
@@ -372,7 +373,6 @@
   "subscription": {
     "accessEnds": "دسترسی پایان می‌یابد",
     "activateAgain": "فعال کردن دوباره",
-    "endingSoon": "به زودی پایان می یابد",
     "checking": "بررسی اشتراک",
     "creditTypes": {
       "images": "تصاویر",
@@ -386,6 +386,7 @@
     "errors": {
       "logout": "نمی توان از سیستم خارج شد"
     },
+    "endingSoon": "به زودی پایان می یابد",
     "expired": "منقضی شده",
     "freePlan": "طرح رایگان",
     "freeTrial": "آزمایشی رایگان",
@@ -503,5 +504,54 @@
     "thanks": "با تشکر از استفاده از Smart Notes ✨",
     "title": "دوره آزمایشی رایگان شما به پایان رسیده است",
     "upgradeNow": "اکنون ارتقا دهید"
+  },
+  "assistant": {
+    "binding": {
+      "add": "در حال افزودن: {{target}}",
+      "edit": "در حال ویرایش: {{target}}",
+      "none": "هدف فعالی وجود ندارد",
+      "review": "در حال مرور: {{target}}",
+      "untitled": "یادداشت بدون عنوان"
+    },
+    "empty": "درباره کارت فعال بپرسید، فیلدهای آن را تغییر دهید، یا یادداشت جدیدی ایجاد کنید.",
+    "loadEarlier": "بارگذاری جلسات قبلی",
+    "loading": "در حال بارگذاری…",
+    "modelAriaLabel": "مدل دستیار",
+    "newTarget": "هدف جدید",
+    "placeholder": "درباره کارت فعال سوال کنید یا آن را تغییر دهید…",
+    "reasoningAriaLabel": "سطح استدلال دستیار",
+    "send": "ارسال",
+    "sending": "…",
+    "showThinkingAriaLabel": "نمایش فرآیند تفکر مدل",
+    "signIn": "برای استفاده از دستیار، وارد Smart Notes شوید.",
+    "thinking": "در حال فکر کردن",
+    "thinkingPending": "در حال فکر کردن…",
+    "tool": {
+      "createNote": "یادداشتی در \"{{deck}}\" ایجاد شد",
+      "getField": "خواندن \"{{field}}\"",
+      "listDecks": "دسته‌ها فهرست شدند",
+      "listNoteTypes": "انواع یادداشت فهرست شدند",
+      "updateField": "به‌روزرسانی \"{{field}}\""
+    },
+    "usage": "{{input}} ورودی · {{output}} خروجی{{thinking}} · {{credits}} اعتبار · ~${{usd}}",
+    "usageThinking": " · {{count}} تفکر"
+  },
+  "chatSettings": {
+    "addPrompt": "افزودن دستور",
+    "buttonLabel": "برچسب دکمه",
+    "emptyPrompts": "هنوز دستوری ذخیره نشده است.",
+    "invalidPrompt": "هر دکمه به یک برچسب و یک دستور نیاز دارد.",
+    "promptPlaceholder": "چه چیزی هنگام فشردن دکمه ارسال شود",
+    "promptTextAriaLabel": "متن درخواست",
+    "remove": "حذف",
+    "responseLanguage": "زبان پاسخ",
+    "responseLanguageAriaLabel": "زبان پاسخ دستیار",
+    "responseLanguageDescription": "دستیار به این زبان پاسخ می‌دهد، صرف‌نظر از زبان کارت.",
+    "save": "ذخیره تغییرات",
+    "savedPrompts": "درخواست‌های ذخیره‌شده",
+    "savedPromptsDescription": "هر کدام به یک دکمه بالای جعبه پیام در پنجره گفتگو تبدیل می‌شود.",
+    "saving": "در حال ذخیره…",
+    "subtitle": "پیکربندی دستیار گفتگو",
+    "title": "گفتگو"
   }
 }

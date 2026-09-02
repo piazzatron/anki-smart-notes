@@ -61,6 +61,7 @@
     "discord": "Discord",
     "feedback": "Reago",
     "nav": {
+      "chat": "Ĉato",
       "defaultsImages": "Defaŭltaj Bildaj Agordoj",
       "defaultsText": "Defaŭltaj Tekstaj Agordoj",
       "defaultsVoice": "Defaŭltaj Voĉaj Agordoj",
@@ -372,7 +373,6 @@
   "subscription": {
     "accessEnds": "Aliro finiĝas",
     "activateAgain": "Reaktivigi",
-    "endingSoon": "Finiĝas baldaŭ",
     "checking": "Kontrolante abonon",
     "creditTypes": {
       "images": "Bildoj",
@@ -386,6 +386,7 @@
     "errors": {
       "logout": "Ne eblis elsaluti"
     },
+    "endingSoon": "Finiĝas baldaŭ",
     "expired": "Eksvalidiĝis",
     "freePlan": "Senpaga plano",
     "freeTrial": "Senpaga provo",
@@ -503,5 +504,54 @@
     "thanks": "Dankon pro uzi Smart Notes ✨",
     "title": "Via senpaga provo finiĝis",
     "upgradeNow": "Ĝisdatigu nun"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Aldono: {{target}}",
+      "edit": "Redakto: {{target}}",
+      "none": "Neniuj aktivaj ĉeloj",
+      "review": "Kontrolo: {{target}}",
+      "untitled": "Sennoma noto"
+    },
+    "empty": "Demandu pri la aktiva ĉelo, ŝanĝu ĝiajn kampojn, aŭ kreu novan noton.",
+    "loadEarlier": "Ŝargi pli fruajn seancojn",
+    "loading": "Ŝargado…",
+    "modelAriaLabel": "Asistanto-modelo",
+    "newTarget": "Nova celo",
+    "placeholder": "Demandu pri aŭ ŝanĝu la aktivan karton…",
+    "reasoningAriaLabel": "Nivelo de la asistanto-rezonado",
+    "send": "Sendi",
+    "sending": "…",
+    "showThinkingAriaLabel": "Montru la pensadon de la modelo",
+    "signIn": "Ensalutu al Smart Notes por uzi la asistanton.",
+    "thinking": "Pensado",
+    "thinkingPending": "Pensado…",
+    "tool": {
+      "createNote": "Kreis noto en \"{{deck}}\"",
+      "getField": "Legi \"{{field}}\"",
+      "listDecks": "Listo de senaroj",
+      "listNoteTypes": "Listo de notaj tipoj",
+      "updateField": "Ĝisdatigo de \"{{field}}\""
+    },
+    "usage": "{{input}} en · {{output}} el{{thinking}} · {{credits}} kredoj · ~${{usd}}",
+    "usageThinking": " · {{count}} pensa"
+  },
+  "chatSettings": {
+    "addPrompt": "Aldoni avizon",
+    "buttonLabel": "Butona etikedo",
+    "emptyPrompts": "Neniuj savitaj avisoj ankoraŭ.",
+    "invalidPrompt": "Ĉiu butono bezonas etikedon kaj avizon.",
+    "promptPlaceholder": "Kio sendi kiam la butono estas premita",
+    "promptTextAriaLabel": "Avizo-teksto",
+    "remove": "Forigi",
+    "responseLanguage": "Responda lingvo",
+    "responseLanguageAriaLabel": "Lingvo de asistanta respondo",
+    "responseLanguageDescription": "La asistanto respondas en ĉi tiu lingvo, kiel ajn la karto estas skribita.",
+    "save": "Konservi ŝanĝojn",
+    "savedPrompts": "Konservitaj avizioj",
+    "savedPromptsDescription": "Ĉiu iĝas butono super la mesaĝo-skatolo en la ĉatfenestro.",
+    "saving": "Konservado…",
+    "subtitle": "Agordu la ĉat-asistanton",
+    "title": "Ĉato"
   }
 }

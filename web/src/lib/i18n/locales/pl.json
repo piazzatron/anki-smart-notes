@@ -63,6 +63,7 @@
     "discord": "Discord",
     "feedback": "Informacja zwrotna",
     "nav": {
+      "chat": "Czat",
       "defaultsImages": "Domyślne ustawienia obrazu",
       "defaultsText": "Domyślne ustawienia tekstu",
       "defaultsVoice": "Domyślne ustawienia głosu",
@@ -384,7 +385,6 @@
   "subscription": {
     "accessEnds": "Dostęp kończy się",
     "activateAgain": "Aktywuj ponownie",
-    "endingSoon": "Wkrótce wygasa",
     "checking": "Sprawdzam subskrypcję",
     "creditTypes": {
       "images": "Obrazy",
@@ -400,6 +400,7 @@
     "errors": {
       "logout": "Nie można się wylogować"
     },
+    "endingSoon": "Wkrótce wygasa",
     "expired": "Wygasł",
     "freePlan": "Darmowy plan",
     "freeTrial": "Bezpłatny okres próbny",
@@ -523,5 +524,54 @@
     "thanks": "Dziękujemy za korzystanie z Smart Notes ✨",
     "title": "Twój bezpłatny okres próbny dobiegł końca",
     "upgradeNow": "Uaktualnij teraz"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Dodawanie: {{target}}",
+      "edit": "Edycja: {{target}}",
+      "none": "Brak aktywnego celu",
+      "review": "Przegląd: {{target}}",
+      "untitled": "Notatka bez nazwy"
+    },
+    "empty": "Pytaj o aktywną kartę, zmień jej pola lub utwórz nową notatkę.",
+    "loadEarlier": "Załaduj wcześniejsze sesje",
+    "loading": "Ładowanie…",
+    "modelAriaLabel": "Model asystenta",
+    "newTarget": "Nowy cel",
+    "placeholder": "Pytaj o aktywną kartę lub ją zmień…",
+    "reasoningAriaLabel": "Poziom rozumowania asystenta",
+    "send": "Wyślij",
+    "sending": "…",
+    "showThinkingAriaLabel": "Pokaż myślenie modelu",
+    "signIn": "Zaloguj się do Smart Notes, aby używać asystenta.",
+    "thinking": "Myślenie",
+    "thinkingPending": "Myślenie…",
+    "tool": {
+      "createNote": "Utworzono notatkę w \"{{deck}}\"",
+      "getField": "Odczyt \"{{field}}\"",
+      "listDecks": "Wyświetlone talię",
+      "listNoteTypes": "Wyświetlone typy notek",
+      "updateField": "Zaktualizowano \"{{field}}\""
+    },
+    "usage": "{{input}} w · {{output}} z{{thinking}} · {{credits}} kredyty · ~${{usd}}",
+    "usageThinking": " · {{count}} myślenia"
+  },
+  "chatSettings": {
+    "addPrompt": "Dodaj prompt",
+    "buttonLabel": "Etykieta przycisku",
+    "emptyPrompts": "Brak zapisanych promptów.",
+    "invalidPrompt": "Każdy przycisk wymaga etykiety i prompty.",
+    "promptPlaceholder": "Co wysłać po naciśnięciu przycisku",
+    "promptTextAriaLabel": "Tekst polecenia",
+    "remove": "Usuń",
+    "responseLanguage": "Język odpowiedzi",
+    "responseLanguageAriaLabel": "Język odpowiedzi asystenta",
+    "responseLanguageDescription": "Asystent odpowiada w tym języku niezależnie od języka karty.",
+    "save": "Zapisz zmiany",
+    "savedPrompts": "Zapisane polecenia",
+    "savedPromptsDescription": "Każde z nich staje się przyciskiem nad polem wiadomości w oknie czatu.",
+    "saving": "Zapisywanie…",
+    "subtitle": "Skonfiguruj asystenta czatu",
+    "title": "Czat"
   }
 }

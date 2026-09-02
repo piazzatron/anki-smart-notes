@@ -62,6 +62,7 @@
     "discord": "Discord",
     "feedback": "Opinião",
     "nav": {
+      "chat": "Chat",
       "defaultsImages": "Configurações de imagem padrão",
       "defaultsText": "Configurações de texto padrão",
       "defaultsVoice": "Configurações de voz padrão",
@@ -378,7 +379,6 @@
   "subscription": {
     "accessEnds": "O acesso termina",
     "activateAgain": "Ativar novamente",
-    "endingSoon": "Termina em breve",
     "checking": "Verificando assinatura",
     "creditTypes": {
       "images": "Imagens",
@@ -393,6 +393,7 @@
     "errors": {
       "logout": "Não foi possível sair"
     },
+    "endingSoon": "Termina em breve",
     "expired": "Expirado",
     "freePlan": "Plano grátis",
     "freeTrial": "Teste grátis",
@@ -513,5 +514,54 @@
     "thanks": "Obrigado por usar Smart Notes ✨",
     "title": "Seu teste gratuito terminou",
     "upgradeNow": "Atualize agora"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Adicionando: {{target}}",
+      "edit": "Editando: {{target}}",
+      "none": "Nenhum alvo ativo",
+      "review": "Revisando: {{target}}",
+      "untitled": "Nota sem título"
+    },
+    "empty": "Pergunte sobre o cartão ativo, altere seus campos ou crie uma nova nota.",
+    "loadEarlier": "Carregar sessões anteriores",
+    "loading": "Carregando…",
+    "modelAriaLabel": "Modelo do assistente",
+    "newTarget": "Novo destino",
+    "placeholder": "Pergunte sobre ou altere o cartão ativo…",
+    "reasoningAriaLabel": "Nível de raciocínio do assistente",
+    "send": "Enviar",
+    "sending": "…",
+    "showThinkingAriaLabel": "Mostrar o raciocínio do modelo",
+    "signIn": "Faça login no Smart Notes para usar o assistente.",
+    "thinking": "Pensando",
+    "thinkingPending": "Pensando…",
+    "tool": {
+      "createNote": "Nota criada em \"{{deck}}\"",
+      "getField": "Ler \"{{field}}\"",
+      "listDecks": "Decks listados",
+      "listNoteTypes": "Tipos de nota listados",
+      "updateField": "\"{{field}}\" atualizado"
+    },
+    "usage": "{{input}} entrada · {{output}} saída{{thinking}} · {{credits}} créditos · ~${{usd}}",
+    "usageThinking": " · {{count}} raciocínio"
+  },
+  "chatSettings": {
+    "addPrompt": "Adicionar prompt",
+    "buttonLabel": "Rótulo do botão",
+    "emptyPrompts": "Nenhum prompt salvo ainda.",
+    "invalidPrompt": "Cada botão precisa de um rótulo e um prompt.",
+    "promptPlaceholder": "O que enviar quando o botão for pressionado",
+    "promptTextAriaLabel": "Texto do prompt",
+    "remove": "Remover",
+    "responseLanguage": "Idioma da resposta",
+    "responseLanguageAriaLabel": "Idioma de resposta do assistente",
+    "responseLanguageDescription": "O assistente responde neste idioma, independentemente do idioma do cartão.",
+    "save": "Salvar alterações",
+    "savedPrompts": "Prompts salvos",
+    "savedPromptsDescription": "Cada um se torna um botão acima da caixa de mensagem na janela de bate-papo.",
+    "saving": "Salvando…",
+    "subtitle": "Configure o assistente de chat",
+    "title": "Chat"
   }
 }

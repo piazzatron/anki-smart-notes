@@ -61,6 +61,7 @@
     "discord": "Discord",
     "feedback": "Visszacsatolás",
     "nav": {
+      "chat": "Csevegés",
       "defaultsImages": "Alapértelmezett képbeállítások",
       "defaultsText": "Alapértelmezett szövegbeállítások",
       "defaultsVoice": "Alapértelmezett hangbeállítások",
@@ -372,7 +373,6 @@
   "subscription": {
     "accessEnds": "Hozzáférés vége",
     "activateAgain": "Újra aktiválás",
-    "endingSoon": "Hamarosan lejár",
     "checking": "Az előfizetés ellenőrzése",
     "creditTypes": {
       "images": "Képek",
@@ -386,6 +386,7 @@
     "errors": {
       "logout": "Nem sikerült kijelentkezni"
     },
+    "endingSoon": "Hamarosan lejár",
     "expired": "Lejárt",
     "freePlan": "Ingyenes terv",
     "freeTrial": "Ingyenes próbaverzió",
@@ -503,5 +504,54 @@
     "thanks": "Köszönjük, hogy az Smart Notes-t használja ✨",
     "title": "Az ingyenes próbaidőszak véget ért",
     "upgradeNow": "Frissítsen most"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Hozzáadás: {{target}}",
+      "edit": "Szerkesztés: {{target}}",
+      "none": "Nincs aktív cél",
+      "review": "Ellenőrzés: {{target}}",
+      "untitled": "Címsz nélküli jegyzet"
+    },
+    "empty": "Kérdezzen az aktív kártyáról, módosítsa a mezőket, vagy hozzon létre egy új jegyzetet.",
+    "loadEarlier": "Korábbi munkamenetek betöltése",
+    "loading": "Betöltés…",
+    "modelAriaLabel": "Asszisztens modell",
+    "newTarget": "Új cél",
+    "placeholder": "Kérdezz az aktív kártyáról vagy módosítsd…",
+    "reasoningAriaLabel": "Asszisztens érvelési szintje",
+    "send": "Küldés",
+    "sending": "…",
+    "showThinkingAriaLabel": "A modell gondolkodásának megjelenítése",
+    "signIn": "Jelentkezz be a Smart Notes-ba az asszisztens használatához.",
+    "thinking": "Gondolkodás",
+    "thinkingPending": "Gondolkodás…",
+    "tool": {
+      "createNote": "Jegyzet létrehozva ebben: \"{{deck}}\"",
+      "getField": "\"{{field}}\" olvasása",
+      "listDecks": "Paklik listázva",
+      "listNoteTypes": "Jegyzettípusok listázva",
+      "updateField": "\"{{field}}\" frissítve"
+    },
+    "usage": "{{input}} be · {{output}} ki{{thinking}} · {{credits}} kredit · ~${{usd}}",
+    "usageThinking": " · {{count}} gondolkodás"
+  },
+  "chatSettings": {
+    "addPrompt": "Prompt hozzáadása",
+    "buttonLabel": "Gomb címkéje",
+    "emptyPrompts": "Még nincsenek mentett promptok.",
+    "invalidPrompt": "Minden gombnak szüksége van egy címkére és egy promptra.",
+    "promptPlaceholder": "Mit küldj el a gomb megnyomásakor",
+    "promptTextAriaLabel": "Prompt szöveg",
+    "remove": "Eltávolítás",
+    "responseLanguage": "Válasz nyelve",
+    "responseLanguageAriaLabel": "Asszisztens válaszának nyelve",
+    "responseLanguageDescription": "Az asszisztens ezen a nyelven válaszol, függetlenül attól, hogy a kártya milyen nyelven van írva.",
+    "save": "Módosítások mentése",
+    "savedPrompts": "Mentett promptok",
+    "savedPromptsDescription": "Mindegyik egy gomb lesz az üzenetmező felett a csevegőablakban.",
+    "saving": "Mentés…",
+    "subtitle": "A csevegési asszisztens konfigurálása",
+    "title": "Csevegés"
   }
 }

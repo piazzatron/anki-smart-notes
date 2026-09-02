@@ -63,6 +63,7 @@
     "discord": "Discord",
     "feedback": "Spätná väzba",
     "nav": {
+      "chat": "Chat",
       "defaultsImages": "Predvolené nastavenia obrazu",
       "defaultsText": "Predvolené nastavenia textu",
       "defaultsVoice": "Predvolené nastavenia hlasu",
@@ -384,7 +385,6 @@
   "subscription": {
     "accessEnds": "Prístup končí",
     "activateAgain": "Znova aktivovať",
-    "endingSoon": "Skončí čoskoro",
     "checking": "Kontrola predplatného",
     "creditTypes": {
       "images": "Obrázky",
@@ -400,6 +400,7 @@
     "errors": {
       "logout": "Nepodarilo sa odhlásiť"
     },
+    "endingSoon": "Skončí čoskoro",
     "expired": "Vypršané",
     "freePlan": "Voľný plán",
     "freeTrial": "Bezplatná skúšobná verzia",
@@ -523,5 +524,54 @@
     "thanks": "Ďakujeme, že používate Smart Notes ✨",
     "title": "Vaša bezplatná skúšobná verzia sa skončila",
     "upgradeNow": "Inovujte teraz"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Pridávanie: {{target}}",
+      "edit": "Úprava: {{target}}",
+      "none": "Žiadny aktívny cieľ",
+      "review": "Preskúmavanie: {{target}}",
+      "untitled": "Bezmenná poznámka"
+    },
+    "empty": "Pýtajte sa na aktívnu kartu, zmeňte jej polia alebo vytvorte novú poznámku.",
+    "loadEarlier": "Načítať staršie relácie",
+    "loading": "Načítavanie…",
+    "modelAriaLabel": "Model asistenta",
+    "newTarget": "Nový cieľ",
+    "placeholder": "Opýtajte sa na aktívnu kartu alebo ju zmeňte…",
+    "reasoningAriaLabel": "Úroveň odôvodnenia asistenta",
+    "send": "Poslať",
+    "sending": "…",
+    "showThinkingAriaLabel": "Zobraziť myslenie modelu",
+    "signIn": "Prihláste sa do Smart Notes na použitie asistenta.",
+    "thinking": "Myslenie",
+    "thinkingPending": "Myslenie…",
+    "tool": {
+      "createNote": "Vytvorená poznámka v \"{{deck}}\"",
+      "getField": "Čítaj \"{{field}}\"",
+      "listDecks": "Zoznam balíčkov",
+      "listNoteTypes": "Zoznam typov poznámok",
+      "updateField": "Aktualizované \"{{field}}\""
+    },
+    "usage": "{{input}} vstup · {{output}} výstup{{thinking}} · {{credits}} kredity · ~${{usd}}",
+    "usageThinking": " · {{count}} myslenie"
+  },
+  "chatSettings": {
+    "addPrompt": "Pridať výzvu",
+    "buttonLabel": "Značka tlačidla",
+    "emptyPrompts": "Zatiaľ nie sú uložené žiadne výzvy.",
+    "invalidPrompt": "Každé tlačidlo potrebuje značku a výzvu.",
+    "promptPlaceholder": "Čo poslať pri stlačení tlačidla",
+    "promptTextAriaLabel": "Text výzvy",
+    "remove": "Odstrániť",
+    "responseLanguage": "Jazyk odpovede",
+    "responseLanguageAriaLabel": "Jazyk odpovede asistenta",
+    "responseLanguageDescription": "Asistent odpovedá v tomto jazyku bez ohľadu na jazyk, v ktorom je karta napísaná.",
+    "save": "Uložiť zmeny",
+    "savedPrompts": "Uložené výzvy",
+    "savedPromptsDescription": "Každá z nich sa stane tlačidlom nad poľom správy v okne chatu.",
+    "saving": "Ukladanie…",
+    "subtitle": "Konfigurácia chatového asistenta",
+    "title": "Chat"
   }
 }

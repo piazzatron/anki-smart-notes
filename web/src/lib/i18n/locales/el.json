@@ -61,6 +61,7 @@
     "discord": "Discord",
     "feedback": "Ανατροφοδότηση",
     "nav": {
+      "chat": "Συνομιλία",
       "defaultsImages": "Προεπιλεγμένες ρυθμίσεις εικόνας",
       "defaultsText": "Προεπιλεγμένες ρυθμίσεις κειμένου",
       "defaultsVoice": "Προεπιλεγμένες ρυθμίσεις φωνής",
@@ -372,7 +373,6 @@
   "subscription": {
     "accessEnds": "Λήξη πρόσβασης",
     "activateAgain": "Ενεργοποίηση ξανά",
-    "endingSoon": "Λήγει σύντομα",
     "checking": "Έλεγχος συνδρομής",
     "creditTypes": {
       "images": "εικόνες",
@@ -386,6 +386,7 @@
     "errors": {
       "logout": "Δεν ήταν δυνατή η αποσύνδεση"
     },
+    "endingSoon": "Λήγει σύντομα",
     "expired": "Έληξε",
     "freePlan": "Δωρεάν σχέδιο",
     "freeTrial": "Δωρεάν δοκιμή",
@@ -503,5 +504,54 @@
     "thanks": "Ευχαριστούμε που χρησιμοποιείτε το Smart Notes ✨",
     "title": "Η δωρεάν δοκιμή σας έληξε",
     "upgradeNow": "Αναβάθμιση τώρα"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Προσθήκη: {{target}}",
+      "edit": "Επεξεργασία: {{target}}",
+      "none": "Χωρίς ενεργό στόχο",
+      "review": "Αναθεώρηση: {{target}}",
+      "untitled": "Σημείωση χωρίς τίτλο"
+    },
+    "empty": "Ρωτήστε σχετικά με την ενεργή κάρτα, αλλάξτε τα πεδία της ή δημιουργήστε μια νέα σημείωση.",
+    "loadEarlier": "Φόρτωση προηγούμενων περιόδων",
+    "loading": "Φόρτωση…",
+    "modelAriaLabel": "Μοντέλο βοηθού",
+    "newTarget": "Νέος στόχος",
+    "placeholder": "Ρωτήστε ή αλλάξτε το ενεργό κάρτα…",
+    "reasoningAriaLabel": "Επίπεδο συλλογισμού Βοηθού",
+    "send": "Αποστολή",
+    "sending": "…",
+    "showThinkingAriaLabel": "Εμφάνιση της σκέψης του μοντέλου",
+    "signIn": "Συνδεθείτε στο Smart Notes για να χρησιμοποιήσετε τον Βοηθό.",
+    "thinking": "Σκέψη",
+    "thinkingPending": "Σκέψη…",
+    "tool": {
+      "createNote": "Δημιουργήθηκε σημείωση στο \"{{deck}}\"",
+      "getField": "Ανάγνωση \"{{field}}\"",
+      "listDecks": "Λίστα καταστρωμάτων",
+      "listNoteTypes": "Λίστα τύπων σημειώσεων",
+      "updateField": "Ενημέρωση \"{{field}}\""
+    },
+    "usage": "{{input}} in · {{output}} out{{thinking}} · {{credits}} credits · ~${{usd}}",
+    "usageThinking": " · {{count}} thinking"
+  },
+  "chatSettings": {
+    "addPrompt": "Προσθήκη προτροπής",
+    "buttonLabel": "Ετικέτα κουμπιού",
+    "emptyPrompts": "Δεν υπάρχουν αποθηκευμένες προτροπές ακόμα.",
+    "invalidPrompt": "Κάθε κουμπί χρειάζεται ετικέτα και προτροπή.",
+    "promptPlaceholder": "Τι θα σταλεί όταν πατηθεί το κουμπί",
+    "promptTextAriaLabel": "Κείμενο προτροπής",
+    "remove": "Αφαίρεση",
+    "responseLanguage": "Γλώσσα απάντησης",
+    "responseLanguageAriaLabel": "Γλώσσα απάντησης βοηθού",
+    "responseLanguageDescription": "Ο βοηθός απαντά σε αυτή τη γλώσσα ανεξάρτητα από τη γλώσσα του κάρτα.",
+    "save": "Αποθήκευση αλλαγών",
+    "savedPrompts": "Αποθηκευμένες προτροπές",
+    "savedPromptsDescription": "Κάθε μία γίνεται κουμπί πάνω από το πλαίσιο μηνύματος στο παράθυρο συζήτησης.",
+    "saving": "Αποθήκευση…",
+    "subtitle": "Διαμόρφωση του βοηθού συνομιλίας",
+    "title": "Συνομιλία"
   }
 }

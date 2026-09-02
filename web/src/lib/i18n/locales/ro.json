@@ -62,6 +62,7 @@
     "discord": "Discord",
     "feedback": "Feedback",
     "nav": {
+      "chat": "Chat",
       "defaultsImages": "Setări implicite pentru imagine",
       "defaultsText": "Setări implicite de text",
       "defaultsVoice": "Setări implicite de voce",
@@ -378,7 +379,6 @@
   "subscription": {
     "accessEnds": "Accesul se încheie",
     "activateAgain": "Reactivați",
-    "endingSoon": "Se încheie în curând",
     "checking": "Se verifică abonamentul",
     "creditTypes": {
       "images": "Imagini",
@@ -393,6 +393,7 @@
     "errors": {
       "logout": "Nu s-a putut deconecta"
     },
+    "endingSoon": "Se încheie în curând",
     "expired": "Expirat",
     "freePlan": "Plan gratuit",
     "freeTrial": "Probă gratuită",
@@ -513,5 +514,54 @@
     "thanks": "Vă mulțumim că folosiți Smart Notes ✨",
     "title": "Perioada de încercare gratuită s-a încheiat",
     "upgradeNow": "Faceți upgrade acum"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Se adaugă: {{target}}",
+      "edit": "Se editează: {{target}}",
+      "none": "Nicio țintă activă",
+      "review": "Se revizuiește: {{target}}",
+      "untitled": "Notă fără titlu"
+    },
+    "empty": "Întrebați despre cardul activ, modificați-i câmpurile sau creați o notă nouă.",
+    "loadEarlier": "Încărcați sesiuni anterioare",
+    "loading": "Se încarcă…",
+    "modelAriaLabel": "Model asistent",
+    "newTarget": "Țintă nouă",
+    "placeholder": "Întreabă sau schimbă cartela activă…",
+    "reasoningAriaLabel": "Nivelul de raționament al asistentului",
+    "send": "Trimite",
+    "sending": "…",
+    "showThinkingAriaLabel": "Afișează gândirea modelului",
+    "signIn": "Conectează-te la Smart Notes pentru a folosi asistentul.",
+    "thinking": "Gândire",
+    "thinkingPending": "Se gândește…",
+    "tool": {
+      "createNote": "O notă a fost creată în \"{{deck}}\"",
+      "getField": "Citire \"{{field}}\"",
+      "listDecks": "Pachete listate",
+      "listNoteTypes": "Tipuri de note listate",
+      "updateField": "Actualizare \"{{field}}\""
+    },
+    "usage": "{{input}} în · {{output}} out{{thinking}} · {{credits}} credite · ~${{usd}}",
+    "usageThinking": " · {{count}} gândire"
+  },
+  "chatSettings": {
+    "addPrompt": "Adăugare prompt",
+    "buttonLabel": "Etichetă buton",
+    "emptyPrompts": "Niciun prompt salvat încă.",
+    "invalidPrompt": "Fiecare buton necesită o etichetă și un prompt.",
+    "promptPlaceholder": "Ce să trimit când butonul este apăsat",
+    "promptTextAriaLabel": "Text solicitare",
+    "remove": "Elimină",
+    "responseLanguage": "Limba răspunsului",
+    "responseLanguageAriaLabel": "Limba răspunsului asistenului",
+    "responseLanguageDescription": "Asistentul răspunde în această limbă indiferent de limba în care este scrisă fișa.",
+    "save": "Salvează modificările",
+    "savedPrompts": "Solicitări salvate",
+    "savedPromptsDescription": "Fiecare devine un buton deasupra casetei de mesaje în fereastra chat.",
+    "saving": "Se salvează…",
+    "subtitle": "Configurați asistentul de chat",
+    "title": "Chat"
   }
 }

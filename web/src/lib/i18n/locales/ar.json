@@ -74,7 +74,8 @@
       "subscription": "الحساب والاستخدام",
       "support": "يدعم",
       "text": "نص",
-      "voice": "صوت"
+      "voice": "صوت",
+      "chat": "الدردشة"
     },
     "sections": "أقسام Smart Notes",
     "version": "Smart Notes v{{version}}"
@@ -396,7 +397,6 @@
   "subscription": {
     "accessEnds": "انتهاء الوصول",
     "activateAgain": "تفعيل مجددا",
-    "endingSoon": "سينتهي قريبا",
     "checking": "التحقق من الاشتراك",
     "creditTypes": {
       "images": "الصور",
@@ -414,6 +414,7 @@
     "errors": {
       "logout": "لا يمكن تسجيل الخروج"
     },
+    "endingSoon": "سينتهي قريبا",
     "expired": "منتهية الصلاحية",
     "freePlan": "خطة مجانية",
     "freeTrial": "تجربة مجانية",
@@ -543,5 +544,54 @@
     "thanks": "شكرًا لاستخدامك Smart Notes ✨",
     "title": "انتهت تجربتك المجانية",
     "upgradeNow": "قم بالترقية الآن"
+  },
+  "assistant": {
+    "binding": {
+      "add": "إضافة: {{target}}",
+      "edit": "تحرير: {{target}}",
+      "none": "لا يوجد هدف نشط",
+      "review": "مراجعة: {{target}}",
+      "untitled": "ملاحظة بدون عنوان"
+    },
+    "empty": "اسأل عن البطاقة النشطة أو عدّل حقولها أو أنشئ ملاحظة جديدة.",
+    "loadEarlier": "تحميل الجلسات السابقة",
+    "loading": "جارٍ التحميل…",
+    "modelAriaLabel": "نموذج المساعد",
+    "newTarget": "هدف جديد",
+    "placeholder": "اسأل عن البطاقة النشطة أو غيّرها…",
+    "reasoningAriaLabel": "مستوى تفكير المساعد",
+    "send": "إرسال",
+    "sending": "…",
+    "showThinkingAriaLabel": "عرض تفكير النموذج",
+    "signIn": "سجّل الدخول إلى Smart Notes لاستخدام المساعد.",
+    "thinking": "يفكر",
+    "thinkingPending": "يفكر…",
+    "tool": {
+      "createNote": "تم إنشاء ملاحظة في \"{{deck}}\"",
+      "getField": "قراءة \"{{field}}\"",
+      "listDecks": "تم سرد المجموعات",
+      "listNoteTypes": "تم سرد أنواع الملاحظات",
+      "updateField": "تم تحديث \"{{field}}\""
+    },
+    "usage": "{{input}} داخل · {{output}} خارج{{thinking}} · {{credits}} رصيد · ~${{usd}}",
+    "usageThinking": " · {{count}} تفكير"
+  },
+  "chatSettings": {
+    "addPrompt": "إضافة أمر",
+    "buttonLabel": "تسمية الزر",
+    "emptyPrompts": "لا توجد أوامر محفوظة بعد.",
+    "invalidPrompt": "كل زر يحتاج إلى تسمية وأمر.",
+    "promptPlaceholder": "ما يتم إرساله عند الضغط على الزر",
+    "promptTextAriaLabel": "نص الأمر",
+    "remove": "إزالة",
+    "responseLanguage": "لغة الرد",
+    "responseLanguageAriaLabel": "لغة رد المساعد",
+    "responseLanguageDescription": "يرد المساعد بهذه اللغة مهما كانت لغة البطاقة.",
+    "save": "حفظ التغييرات",
+    "savedPrompts": "الأوامر المحفوظة",
+    "savedPromptsDescription": "كل واحد يصبح زراً فوق مربع الرسالة في نافذة المحادثة.",
+    "saving": "جارٍ الحفظ…",
+    "subtitle": "تكوين مساعد الدردشة",
+    "title": "الدردشة"
   }
 }

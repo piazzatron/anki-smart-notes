@@ -72,7 +72,8 @@
       "subscription": "Обліковий запис і використання",
       "support": "Підтримка",
       "text": "текст",
-      "voice": "Голос"
+      "voice": "Голос",
+      "chat": "Чат"
     },
     "sections": "розділи Smart Notes",
     "version": "Smart Notes v{{version}}"
@@ -384,7 +385,6 @@
   "subscription": {
     "accessEnds": "Доступ закінчується",
     "activateAgain": "Активувати знову",
-    "endingSoon": "Завершиться незабаром",
     "checking": "Перевірка підписки",
     "creditTypes": {
       "images": "Зображення",
@@ -400,6 +400,7 @@
     "errors": {
       "logout": "Не вдалося вийти"
     },
+    "endingSoon": "Завершиться незабаром",
     "expired": "Закінчилася дія",
     "freePlan": "Безкоштовний план",
     "freeTrial": "Безкоштовна пробна версія",
@@ -523,5 +524,54 @@
     "thanks": "Дякуємо за використання Smart Notes ✨",
     "title": "Ваш безкоштовний пробний період закінчився",
     "upgradeNow": "Оновіть зараз"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Додавання: {{target}}",
+      "edit": "Редагування: {{target}}",
+      "none": "Немає активної цілі",
+      "review": "Перегляд: {{target}}",
+      "untitled": "Нотатка без назви"
+    },
+    "empty": "Запитайте про активну картку, змініть її поля або створіть нову нотатку.",
+    "loadEarlier": "Завантажити попередні сесії",
+    "loading": "Завантаження…",
+    "modelAriaLabel": "Модель асистента",
+    "newTarget": "Нова ціль",
+    "placeholder": "Запитайте про активну картку або змініть її…",
+    "reasoningAriaLabel": "Рівень міркування асистента",
+    "send": "Надіслати",
+    "sending": "…",
+    "showThinkingAriaLabel": "Показати міркування моделі",
+    "signIn": "Увійдіть у Smart Notes, щоб використовувати асистента.",
+    "thinking": "Міркування",
+    "thinkingPending": "Міркую…",
+    "tool": {
+      "createNote": "Створено нотатку в «{{deck}}»",
+      "getField": "Прочитано \"{{field}}\"",
+      "listDecks": "Перелік колод",
+      "listNoteTypes": "Перелік типів нотаток",
+      "updateField": "Оновлено \"{{field}}\""
+    },
+    "usage": "{{input}} вхід · {{output}} вихід{{thinking}} · {{credits}} кредитів · ~${{usd}}",
+    "usageThinking": " · {{count}} обробка"
+  },
+  "chatSettings": {
+    "addPrompt": "Додати запит",
+    "buttonLabel": "Напис кнопки",
+    "emptyPrompts": "Ще немає збережених запитів.",
+    "invalidPrompt": "Кожна кнопка потребує напису та запиту.",
+    "promptPlaceholder": "Що надсилати при натисканні кнопки",
+    "promptTextAriaLabel": "Текст запиту",
+    "remove": "Видалити",
+    "responseLanguage": "Мова відповіді",
+    "responseLanguageAriaLabel": "Мова відповіді асистента",
+    "responseLanguageDescription": "Асистент відповідає цією мовою незалежно від мови картки.",
+    "save": "Зберегти зміни",
+    "savedPrompts": "Збережені запити",
+    "savedPromptsDescription": "Кожен стає кнопкою над полем повідомлення у вікні чату.",
+    "saving": "Збереження…",
+    "subtitle": "Налаштувати чат-асистента",
+    "title": "Чат"
   }
 }

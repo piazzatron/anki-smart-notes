@@ -63,6 +63,7 @@
     "discord": "Discord",
     "feedback": "Povratne informacije",
     "nav": {
+      "chat": "Klepet",
       "defaultsImages": "Privzete nastavitve slike",
       "defaultsText": "Privzete nastavitve besedila",
       "defaultsVoice": "Privzete glasovne nastavitve",
@@ -384,7 +385,6 @@
   "subscription": {
     "accessEnds": "Dostop se konča",
     "activateAgain": "Znova aktiviraj",
-    "endingSoon": "Kmalu se konča",
     "checking": "Preverjanje naročnine",
     "creditTypes": {
       "images": "Slike",
@@ -400,6 +400,7 @@
     "errors": {
       "logout": "Ni bilo mogoče odjaviti"
     },
+    "endingSoon": "Kmalu se konča",
     "expired": "Poteklo",
     "freePlan": "Brezplačni načrt",
     "freeTrial": "Brezplačna preizkusna različica",
@@ -523,5 +524,54 @@
     "thanks": "Hvala, ker uporabljate Smart Notes ✨",
     "title": "Vaše brezplačno preskusno obdobje se je končalo",
     "upgradeNow": "Nadgradi zdaj"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Dodajanje: {{target}}",
+      "edit": "Urejanje: {{target}}",
+      "none": "Ni aktivnega cilja",
+      "review": "Pregledovanje: {{target}}",
+      "untitled": "Neimenovana opomba"
+    },
+    "empty": "Vprašajte o aktivni kartici, spremenite njene polje ali ustvarite novo opombo.",
+    "loadEarlier": "Naložite prejšnje seje",
+    "loading": "Nalaganje…",
+    "modelAriaLabel": "Model asistenta",
+    "newTarget": "Nova ciljna karta",
+    "placeholder": "Vprašajte ali spremenite aktivno karto…",
+    "reasoningAriaLabel": "Raven razmišljanja asistenta",
+    "send": "Pošlji",
+    "sending": "…",
+    "showThinkingAriaLabel": "Prikaži razmišljanje modela",
+    "signIn": "Prijavite se v Smart Notes, da uporabite asistenta.",
+    "thinking": "Razmišljanje",
+    "thinkingPending": "Razmišljanje…",
+    "tool": {
+      "createNote": "Ustvarjena je bila opomba v \"{{deck}}\"",
+      "getField": "Preberi »{{field}}«",
+      "listDecks": "Navedeni skladi",
+      "listNoteTypes": "Navedeni tipi beležk",
+      "updateField": "Posodobljen »{{field}}«"
+    },
+    "usage": "{{input}} v · {{output}} ven{{thinking}} · {{credits}} kreditov · ~${{usd}}",
+    "usageThinking": " · {{count}} razmišljanja"
+  },
+  "chatSettings": {
+    "addPrompt": "Dodaj nagovor",
+    "buttonLabel": "Oznaka gumba",
+    "emptyPrompts": "Ni shranenih nagovorov.",
+    "invalidPrompt": "Vsak gumb mora imeti oznako in nagovor.",
+    "promptPlaceholder": "Kaj poslati, ko je gumb pritisnjen",
+    "promptTextAriaLabel": "Besedilo poziva",
+    "remove": "Odstrani",
+    "responseLanguage": "Jezik odgovora",
+    "responseLanguageAriaLabel": "Jezik odgovora asistenta",
+    "responseLanguageDescription": "Asistent odgovori v tem jeziku, ne glede na to, v katerem jeziku je napisana kartica.",
+    "save": "Shrani spremembe",
+    "savedPrompts": "Shranjeni pozivi",
+    "savedPromptsDescription": "Vsak postane gumb nad poljem za sporočilo v oknu klepeta.",
+    "saving": "Shranjevanje…",
+    "subtitle": "Konfigurira pogovor z asistentom",
+    "title": "Pogovor"
   }
 }

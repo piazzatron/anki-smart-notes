@@ -61,6 +61,7 @@
     "discord": "Discord",
     "feedback": "Geri bildirim",
     "nav": {
+      "chat": "Sohbet",
       "defaultsImages": "Varsayılan Görüntü Ayarları",
       "defaultsText": "Varsayılan Metin Ayarları",
       "defaultsVoice": "Varsayılan Ses Ayarları",
@@ -372,7 +373,6 @@
   "subscription": {
     "accessEnds": "Erişim sona eriyor",
     "activateAgain": "Yeniden etkinleştir",
-    "endingSoon": "Yakında bitiyor",
     "checking": "Abonelik kontrol ediliyor",
     "creditTypes": {
       "images": "Görseller",
@@ -386,6 +386,7 @@
     "errors": {
       "logout": "Oturum kapatılamadı"
     },
+    "endingSoon": "Yakında bitiyor",
     "expired": "Süresi doldu",
     "freePlan": "Ücretsiz plan",
     "freeTrial": "Ücretsiz deneme",
@@ -503,5 +504,54 @@
     "thanks": "Smart Notes'i kullandığınız için teşekkür ederiz ✨",
     "title": "Ücretsiz deneme süreniz sona erdi",
     "upgradeNow": "Şimdi yükseltin"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Ekleniyor: {{target}}",
+      "edit": "Düzenleniyor: {{target}}",
+      "none": "Etkin hedef yok",
+      "review": "İnceleniyor: {{target}}",
+      "untitled": "Başlıksız not"
+    },
+    "empty": "Etkin kart hakkında sorular sorun, alanlarını değiştirin veya yeni bir not oluşturun.",
+    "loadEarlier": "Daha önceki oturumları yükle",
+    "loading": "Yükleniyor…",
+    "modelAriaLabel": "Asistan modeli",
+    "newTarget": "\nYeni hedef",
+    "placeholder": "\nAsistan'dan etkin kart hakkında soru sorun veya değişiklik yapın…",
+    "reasoningAriaLabel": "\nAsistan akıl yürütme seviyesi",
+    "send": "\nGönder",
+    "sending": "\n…",
+    "showThinkingAriaLabel": "\nModelin düşüncesini göster",
+    "signIn": "\nAsistan'ı kullanmak için Smart Notes'ta oturum açın.",
+    "thinking": "\nDüşünüyor",
+    "thinkingPending": "\nDüşünüyor…",
+    "tool": {
+      "createNote": "\n\"{{deck}}\" içinde not oluşturuldu",
+      "getField": "\"{{field}}\" Oku",
+      "listDecks": "Listelenen desteler",
+      "listNoteTypes": "Listelenen not türleri",
+      "updateField": "\"{{field}}\" Güncellendi"
+    },
+    "usage": "{{input}} girdi · {{output}} çıktı{{thinking}} · {{credits}} kredi · ~${{usd}}",
+    "usageThinking": " · {{count}} düşünme"
+  },
+  "chatSettings": {
+    "addPrompt": "İstem Ekle",
+    "buttonLabel": "Düğme etiketi",
+    "emptyPrompts": "Henüz kaydedilmiş istem yok.",
+    "invalidPrompt": "Her düğmenin bir etiketi ve bir istemi olması gerekir.",
+    "promptPlaceholder": "Düğmeye basıldığında gönderilecek metin",
+    "promptTextAriaLabel": "İstem metni",
+    "remove": "Kaldır",
+    "responseLanguage": "Yanıt dili",
+    "responseLanguageAriaLabel": "Asistan yanıt dili",
+    "responseLanguageDescription": "Asistan, kartın hangi dilde yazılı olursa olsun bu dilde yanıt verir.",
+    "save": "Değişiklikleri kaydet",
+    "savedPrompts": "Kaydedilmiş istemler",
+    "savedPromptsDescription": "Her biri sohbet penceresindeki ileti kutusunun üstündeki bir düğme haline gelir.",
+    "saving": "Kaydediliyor…",
+    "subtitle": "Sohbet asistanını yapılandır",
+    "title": "Sohbet"
   }
 }

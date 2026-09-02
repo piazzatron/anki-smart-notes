@@ -21,7 +21,9 @@ import {
 import { LANGUAGES } from "../src/lib/i18n/languages"
 import english from "../src/lib/i18n/locales/en.json"
 
-const MODEL = "claude-haiku-4-5-20251001"
+const MODEL = "claude-sonnet-4-5-20250929"
+const TRANSLATION_TOOL_NAME = "submit_translations"
+const TRANSLATION_BATCH_SIZE = 10
 const LOCALES_DIRECTORY = new URL("../src/lib/i18n/locales/", import.meta.url)
 const forceIndex = process.argv.indexOf("--force")
 const forcedLocale = forceIndex === -1 ? null : process.argv[forceIndex + 1]
@@ -59,15 +61,6 @@ const readCatalog = async (locale: string): Promise<FlatCatalog> => {
   return flattenCatalog((await file.json()) as Catalog)
 }
 
-const extractJson = (response: string): FlatCatalog => {
-  const firstBrace = response.indexOf("{")
-  const lastBrace = response.lastIndexOf("}")
-  if (firstBrace === -1 || lastBrace === -1) {
-    throw new Error("Claude returned no JSON object")
-  }
-  return JSON.parse(response.slice(firstBrace, lastBrace + 1)) as FlatCatalog
-}
-
 const PROTECTED_TERMS = [
   "Smart Notes",
   "Smart Fields",
@@ -93,7 +86,9 @@ const validateTranslations = (
       JSON.stringify(placeholders(value)) !==
       JSON.stringify(placeholders(translated[key]))
     ) {
-      throw new Error(`${locale}: placeholders changed for ${key}`)
+      throw new Error(
+        `${locale}: placeholders changed for ${key}: ${JSON.stringify(translated[key])}`,
+      )
     }
     for (const term of PROTECTED_TERMS) {
       if (value.includes(term) && !translated[key].includes(term)) {
@@ -107,27 +102,107 @@ const translate = async (
   language: (typeof targetLanguages)[number],
   source: FlatCatalog,
 ): Promise<FlatCatalog> => {
-  const response = await new Anthropic().messages
-    .stream({
-      model: MODEL,
-      max_tokens: 32_000,
-      system:
-        "You translate UI copy for Smart Notes, an Anki add-on. Return only one JSON object with exactly the input keys. Preserve every {{placeholder}} and component markup tag byte-for-byte. Never translate the product terms Smart Notes, Smart Fields, Anki, provider names, or model names. Match the source sentence casing and keep the tone concise and natural for software UI.",
-      messages: [
-        {
-          role: "user",
-          content: `Translate this JSON from English to ${language.nativeName} (${language.bcp47}):\n${JSON.stringify(source, null, 2)}`,
+  const entriesWithProtectedLiterals = Object.entries(source).map(
+    ([key, value]) => {
+      let protectedValue = value
+      const protectedTokens: Array<[string, string]> = []
+      for (const [index, placeholder] of placeholders(value).entries()) {
+        const token = `__SN_PLACEHOLDER_${index}__`
+        protectedValue = protectedValue.replace(placeholder, token)
+        protectedTokens.push([token, placeholder])
+      }
+      for (const term of PROTECTED_TERMS) {
+        while (protectedValue.includes(term)) {
+          const token = `__SN_TERM_${protectedTokens.length}__`
+          protectedValue = protectedValue.replace(term, token)
+          protectedTokens.push([token, term])
+        }
+      }
+      return { key, protectedValue, protectedTokens }
+    },
+  )
+  const response = await new Anthropic().messages.create({
+    model: MODEL,
+    max_tokens: 1_024,
+    system:
+      "You translate UI copy for Smart Notes, an Anki add-on. Call submit_translations exactly once with every input key translated. Preserve every {{placeholder}} and component markup tag byte-for-byte. Never translate the product terms Smart Notes, Smart Fields, Anki, provider names, or model names. Match the source sentence casing and keep the tone concise and natural for software UI.",
+    tools: [
+      {
+        name: TRANSLATION_TOOL_NAME,
+        description: "Submit the translated UI catalog.",
+        strict: true,
+        input_schema: {
+          type: "object",
+          properties: Object.fromEntries(
+            entriesWithProtectedLiterals.map(({ key }) => [
+              key,
+              { type: "string" },
+            ]),
+          ),
+          required: entriesWithProtectedLiterals.map(({ key }) => key),
+          additionalProperties: false,
         },
-      ],
-    })
-    .finalMessage()
-  const text = response.content
-    .filter((block) => block.type === "text")
-    .map((block) => block.text)
-    .join("")
-  const translated = extractJson(text)
+      },
+    ],
+    tool_choice: { type: "tool", name: TRANSLATION_TOOL_NAME },
+    messages: [
+      {
+        role: "user",
+        content: `Translate these English UI strings to ${language.nativeName} (${language.bcp47}). Preserve every __SN_PLACEHOLDER_N__ and __SN_TERM_N__ token exactly; the script will restore the original placeholder, markup, or product term afterward:\n${JSON.stringify(
+          entriesWithProtectedLiterals.map(({ key, protectedValue }) => ({
+            key,
+            value: protectedValue,
+          })),
+          null,
+          2,
+        )}`,
+      },
+    ],
+  })
+  const toolUse = response.content.find(
+    (block) =>
+      block.type === "tool_use" && block.name === TRANSLATION_TOOL_NAME,
+  )
+  if (toolUse?.type !== "tool_use") {
+    throw new Error("Claude returned no translation tool call")
+  }
+  const input = toolUse.input as FlatCatalog
+  const translated = Object.fromEntries(
+    entriesWithProtectedLiterals.map(({ key, protectedTokens }) => {
+      let value = input[key]
+      for (const [token, original] of protectedTokens) {
+        value = value.replace(token, original)
+      }
+      return [key, value]
+    }),
+  )
 
   validateTranslations(language.bcp47, source, translated)
+  return translated
+}
+
+const translateInBatches = async (
+  language: (typeof targetLanguages)[number],
+  source: FlatCatalog,
+): Promise<FlatCatalog> => {
+  const entries = Object.entries(source)
+  const translated: FlatCatalog = {}
+
+  for (let index = 0; index < entries.length; index += TRANSLATION_BATCH_SIZE) {
+    console.log(
+      `${language.bcp47}: translating ${Math.min(index + TRANSLATION_BATCH_SIZE, entries.length)}/${entries.length} strings`,
+    )
+    Object.assign(
+      translated,
+      await translate(
+        language,
+        Object.fromEntries(
+          entries.slice(index, index + TRANSLATION_BATCH_SIZE),
+        ),
+      ),
+    )
+  }
+
   return translated
 }
 
@@ -147,7 +222,9 @@ for (const language of targetLanguages) {
     Object.entries(source).filter(([key]) => !(key in preserved)),
   )
   const translated =
-    Object.keys(missing).length === 0 ? {} : await translate(language, missing)
+    Object.keys(missing).length === 0
+      ? {}
+      : await translateInBatches(language, missing)
   const completeCatalog = { ...preserved, ...translated }
   validateTranslations(language.bcp47, source, completeCatalog)
 

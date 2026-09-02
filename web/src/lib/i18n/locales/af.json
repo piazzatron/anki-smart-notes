@@ -61,6 +61,7 @@
     "discord": "Discord",
     "feedback": "Terugvoer",
     "nav": {
+      "chat": "Tjie",
       "defaultsImages": "Standaard prentinstellings",
       "defaultsText": "Verstek teks instellings",
       "defaultsVoice": "Versteksteminstellings",
@@ -372,7 +373,6 @@
   "subscription": {
     "accessEnds": "Toegang eindig",
     "activateAgain": "Aktiveer weer",
-    "endingSoon": "Eindig binnekort",
     "checking": "Gaan tans intekening na",
     "creditTypes": {
       "images": "Beelde",
@@ -386,6 +386,7 @@
     "errors": {
       "logout": "Kon nie uitteken nie"
     },
+    "endingSoon": "Eindig binnekort",
     "expired": "Verstreke",
     "freePlan": "Gratis plan",
     "freeTrial": "Gratis proeflopie",
@@ -503,5 +504,54 @@
     "thanks": "Dankie dat jy Smart Notes gebruik ✨",
     "title": "Jou gratis proeftydperk het geëindig",
     "upgradeNow": "Gradeer nou op"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Voeg by: {{target}}",
+      "edit": "Wysig: {{target}}",
+      "none": "Geen aktiewe teiken",
+      "review": "Hersien: {{target}}",
+      "untitled": "Naamlose aantekening"
+    },
+    "empty": "Vra oor die aktiewe kaart, wysig sy velde, of skep 'n nuwe aantekening.",
+    "loadEarlier": "Laai vroeër sessies",
+    "loading": "Laai tans…",
+    "modelAriaLabel": "Assistent-model",
+    "newTarget": "Nuwe teiken",
+    "placeholder": "Vra oor of wysig die aktiewe kaart…",
+    "reasoningAriaLabel": "Assistent se redenasievlak",
+    "send": "Stuur",
+    "sending": "…",
+    "showThinkingAriaLabel": "Wys die model se denke",
+    "signIn": "Meld aan by Smart Notes om die assistent te gebruik.",
+    "thinking": "Dink",
+    "thinkingPending": "Dink tans…",
+    "tool": {
+      "createNote": "Geskep 'n aantekening in \"{{deck}}\"",
+      "getField": "Lees \"{{field}}\"",
+      "listDecks": "Dekke gelys",
+      "listNoteTypes": "Aantekeningtipes gelys",
+      "updateField": "Opdateer \"{{field}}\""
+    },
+    "usage": "{{input}} in · {{output}} uit{{thinking}} · {{credits}} krediet · ~${{usd}}",
+    "usageThinking": " · {{count}} dink"
+  },
+  "chatSettings": {
+    "addPrompt": "Voeg lêsing by",
+    "buttonLabel": "Knopopskrif",
+    "emptyPrompts": "Geen bewaarde lêsings nog.",
+    "invalidPrompt": "Elke knop het 'n opskrif en 'n lêsing nodig.",
+    "promptPlaceholder": "Wat om te stuur wanneer die knop gedruk word",
+    "promptTextAriaLabel": "Lêsingteks",
+    "remove": "Verwyder",
+    "responseLanguage": "Antwoordtaal",
+    "responseLanguageAriaLabel": "Assistent se antwoordtaal",
+    "responseLanguageDescription": "Die assistent antwoord in hierdie taal ongeag waarin die kaart geskryf is.",
+    "save": "Stoor veranderinge",
+    "savedPrompts": "Bewaarde lêsings",
+    "savedPromptsDescription": "Elk word 'n knop bo die berichtkassie in die tjievenster.",
+    "saving": "Stoor tans…",
+    "subtitle": "Stel die tjie-assistent in",
+    "title": "Tjie"
   }
 }

@@ -61,6 +61,7 @@
     "discord": "Discord",
     "feedback": "Tilbakemelding",
     "nav": {
+      "chat": "Chat",
       "defaultsImages": "Standard bildeinnstillinger",
       "defaultsText": "Standard tekstinnstillinger",
       "defaultsVoice": "Standard stemmeinnstillinger",
@@ -372,7 +373,6 @@
   "subscription": {
     "accessEnds": "Tilgang slutter",
     "activateAgain": "Aktiver på nytt",
-    "endingSoon": "Slutter snart",
     "checking": "Sjekker abonnement",
     "creditTypes": {
       "images": "Bilder",
@@ -386,6 +386,7 @@
     "errors": {
       "logout": "Kunne ikke logge ut"
     },
+    "endingSoon": "Slutter snart",
     "expired": "Utløpt",
     "freePlan": "Gratis plan",
     "freeTrial": "Gratis prøveversjon",
@@ -503,5 +504,54 @@
     "thanks": "Takk for at du bruker Smart Notes ✨",
     "title": "Din gratis prøveperiode er over",
     "upgradeNow": "Oppgrader nå"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Legger til: {{target}}",
+      "edit": "Redigerer: {{target}}",
+      "none": "Ikke aktivt mål",
+      "review": "Gjennomgår: {{target}}",
+      "untitled": "Notat uten tittel"
+    },
+    "empty": "Spør om det aktive kortet, endre feltene eller opprett et nytt notat.",
+    "loadEarlier": "Last tidligere økter",
+    "loading": "Laster…",
+    "modelAriaLabel": "Assistentmodell",
+    "newTarget": "Nytt mål",
+    "placeholder": "Spør om eller endre det aktive kortet…",
+    "reasoningAriaLabel": "Assistentens resonneringsnivå",
+    "send": "Send",
+    "sending": "…",
+    "showThinkingAriaLabel": "Vis modellens tankegang",
+    "signIn": "Logg inn på Smart Notes for å bruke assistenten.",
+    "thinking": "Tenker",
+    "thinkingPending": "Tenker…",
+    "tool": {
+      "createNote": "Opprettet et notat i \"{{deck}}\"",
+      "getField": "Les \"{{field}}\"",
+      "listDecks": "Opplistede dekker",
+      "listNoteTypes": "Opplistede notattyper",
+      "updateField": "Oppdaterte \"{{field}}\""
+    },
+    "usage": "{{input}} inn · {{output}} ut{{thinking}} · {{credits}} kreditter · ~${{usd}}",
+    "usageThinking": " · {{count}} tenking"
+  },
+  "chatSettings": {
+    "addPrompt": "Legg til spørsmål",
+    "buttonLabel": "Knappetikett",
+    "emptyPrompts": "Ingen lagrede spørsmål ennå.",
+    "invalidPrompt": "Hver knapp må ha en etikett og et spørsmål.",
+    "promptPlaceholder": "Hva som skal sendes når knappen trykkes",
+    "promptTextAriaLabel": "Instruksjonstekst",
+    "remove": "Fjern",
+    "responseLanguage": "Responssspråk",
+    "responseLanguageAriaLabel": "Språk for assistentens svar",
+    "responseLanguageDescription": "Assistenten svarer på dette språket uavhengig av hvilket språk kortet er skrevet på.",
+    "save": "Lagre endringer",
+    "savedPrompts": "Lagrede instruksjoner",
+    "savedPromptsDescription": "Hver av dem blir en knapp over meldingsboksen i chatvinduet.",
+    "saving": "Lagrer…",
+    "subtitle": "Konfigurer chatassistenten",
+    "title": "Chat"
   }
 }

@@ -61,6 +61,7 @@
     "discord": "Discord",
     "feedback": "Tagasiside",
     "nav": {
+      "chat": "Vestlus",
       "defaultsImages": "Pildi vaikesätted",
       "defaultsText": "Teksti vaikeseaded",
       "defaultsVoice": "Vaikimisi hääleseaded",
@@ -372,7 +373,6 @@
   "subscription": {
     "accessEnds": "Juurdepääs lõpeb",
     "activateAgain": "Aktiveeri uuesti",
-    "endingSoon": "Lõpeb peagi",
     "checking": "Tellimuse kontrollimine",
     "creditTypes": {
       "images": "Pildid",
@@ -386,6 +386,7 @@
     "errors": {
       "logout": "Ei saanud välja logida"
     },
+    "endingSoon": "Lõpeb peagi",
     "expired": "Aegunud",
     "freePlan": "Tasuta plaan",
     "freeTrial": "Tasuta prooviperiood",
@@ -503,5 +504,54 @@
     "thanks": "Täname, et kasutasite Smart Notes ✨",
     "title": "Teie tasuta prooviperiood on lõppenud",
     "upgradeNow": "Uuendage kohe"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Lisamine: {{target}}",
+      "edit": "Redigeerimine: {{target}}",
+      "none": "Aktiivne sihtmärk puudub",
+      "review": "Läbivaatamine: {{target}}",
+      "untitled": "Nimeta märkus"
+    },
+    "empty": "Küsi aktiivse kaardi kohta, muuda selle väljasid või loo uus märkus.",
+    "loadEarlier": "Laadi varasemad seansid",
+    "loading": "Laadimine…",
+    "modelAriaLabel": "Assistendi mudel",
+    "newTarget": "Uus sihtmärk",
+    "placeholder": "Küsi aktiivse kaardi kohta või muuda seda…",
+    "reasoningAriaLabel": "Assistendi järeldamise tase",
+    "send": "Saada",
+    "sending": "…",
+    "showThinkingAriaLabel": "Kuva mudeli mõtlemine",
+    "signIn": "Logi sisse Smart Notes'i, et kasutada assistenti.",
+    "thinking": "Mõtlemine",
+    "thinkingPending": "Mõtlemine…",
+    "tool": {
+      "createNote": "Märkus loodud \"{{deck}}\" pakki",
+      "getField": "Loeti \"{{field}}\"",
+      "listDecks": "Pakkide loetelu koostatud",
+      "listNoteTypes": "Märkuste tüüpide loetelu koostatud",
+      "updateField": "Väli \"{{field}}\" värskendatud"
+    },
+    "usage": "{{input}} sisse · {{output}} välja{{thinking}} · {{credits}} krediiti · ~${{usd}}",
+    "usageThinking": " · {{count}} mõtlemine"
+  },
+  "chatSettings": {
+    "addPrompt": "Lisa viip",
+    "buttonLabel": "Nupu silt",
+    "emptyPrompts": "Salvestatud viipe pole veel.",
+    "invalidPrompt": "Iga nupp peab omama silti ja viipi.",
+    "promptPlaceholder": "Mida saata nupu vajutamisel",
+    "promptTextAriaLabel": "Viip tekst",
+    "remove": "Eemalda",
+    "responseLanguage": "Vastuse keel",
+    "responseLanguageAriaLabel": "Assistendi vastuse keel",
+    "responseLanguageDescription": "Assistent vastab selles keeles olenemata sellest, millises keeles kaart on kirjutatud.",
+    "save": "Salvesta muudatused",
+    "savedPrompts": "Salvestatud viibid",
+    "savedPromptsDescription": "Kõigist saavad nupud, mis kuvatakse vestlusaken ülaosas sõnumikasti kohal.",
+    "saving": "Salvestamine…",
+    "subtitle": "Konfigureerige vestlusassistenti",
+    "title": "Vestlus"
   }
 }

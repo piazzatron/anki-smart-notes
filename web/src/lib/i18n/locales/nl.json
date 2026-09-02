@@ -61,6 +61,7 @@
     "discord": "Discord",
     "feedback": "Feedback",
     "nav": {
+      "chat": "Chat",
       "defaultsImages": "Standaard beeldinstellingen",
       "defaultsText": "Standaard tekstinstellingen",
       "defaultsVoice": "Standaard steminstellingen",
@@ -372,7 +373,6 @@
   "subscription": {
     "accessEnds": "Toegang eindigt",
     "activateAgain": "Opnieuw activeren",
-    "endingSoon": "Eindigt binnenkort",
     "checking": "Abonnement controleren",
     "creditTypes": {
       "images": "Afbeeldingen",
@@ -386,6 +386,7 @@
     "errors": {
       "logout": "Kon niet uitloggen"
     },
+    "endingSoon": "Eindigt binnenkort",
     "expired": "Verlopen",
     "freePlan": "Gratis abonnement",
     "freeTrial": "Gratis proefperiode",
@@ -503,5 +504,54 @@
     "thanks": "Bedankt dat je Smart Notes gebruikt ✨",
     "title": "Uw gratis proefperiode is afgelopen",
     "upgradeNow": "Upgrade nu"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Toevoegen: {{target}}",
+      "edit": "Bewerken: {{target}}",
+      "none": "Geen actief doel",
+      "review": "Beoordelen: {{target}}",
+      "untitled": "Naamloze notitie"
+    },
+    "empty": "Stel vragen over de actieve kaart, wijzig de velden of maak een nieuwe notitie.",
+    "loadEarlier": "Eerdere sessies laden",
+    "loading": "Laden…",
+    "modelAriaLabel": "Assistentmodel",
+    "newTarget": "Nieuw doel",
+    "placeholder": "Stel een vraag over of wijzig de actieve kaart…",
+    "reasoningAriaLabel": "Redeneringsniveau assistent",
+    "send": "Verzenden",
+    "sending": "…",
+    "showThinkingAriaLabel": "Het denken van het model weergeven",
+    "signIn": "Meld je aan bij Smart Notes om de assistent te gebruiken.",
+    "thinking": "Denken",
+    "thinkingPending": "Denken…",
+    "tool": {
+      "createNote": "Een notitie gemaakt in \"{{deck}}\"",
+      "getField": "Lees \"{{field}}\"",
+      "listDecks": "Decks weergegeven",
+      "listNoteTypes": "Aantekeningtypen weergegeven",
+      "updateField": "\"{{field}}\" bijgewerkt"
+    },
+    "usage": "{{input}} in · {{output}} uit{{thinking}} · {{credits}} credits · ~${{usd}}",
+    "usageThinking": " · {{count}} thinking"
+  },
+  "chatSettings": {
+    "addPrompt": "Prompt toevoegen",
+    "buttonLabel": "Knoplabel",
+    "emptyPrompts": "Nog geen opgeslagen prompts.",
+    "invalidPrompt": "Elke knop moet een label en een prompt hebben.",
+    "promptPlaceholder": "Wat versturen wanneer de knop wordt ingedrukt",
+    "promptTextAriaLabel": "Prompttekst",
+    "remove": "Verwijderen",
+    "responseLanguage": "Antwoordtaal",
+    "responseLanguageAriaLabel": "Taal van het assistentantwoord",
+    "responseLanguageDescription": "De assistent antwoordt in deze taal, ongeacht in welke taal de kaart is geschreven.",
+    "save": "Wijzigingen opslaan",
+    "savedPrompts": "Opgeslagen prompts",
+    "savedPromptsDescription": "Elk wordt een knop boven het berichtenvak in het chatvenster.",
+    "saving": "Opslaan…",
+    "subtitle": "Configureer de chatassistent",
+    "title": "Chat"
   }
 }

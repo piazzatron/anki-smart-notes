@@ -73,7 +73,8 @@
       "subscription": "Cuntas agus Úsáid",
       "support": "Tacaíocht",
       "text": "Téacs",
-      "voice": "Guth"
+      "voice": "Guth",
+      "chat": "Comhrá"
     },
     "sections": "Ailt Smart Notes",
     "version": "Smart Notes v{{version}}"
@@ -390,7 +391,6 @@
   "subscription": {
     "accessEnds": "Críochnaíonn an rochtain",
     "activateAgain": "Gníomhachtaigh arís",
-    "endingSoon": "Deireadh a bheith ann go luath",
     "checking": "Síntiús á sheiceáil",
     "creditTypes": {
       "images": "Íomhánna",
@@ -407,6 +407,7 @@
     "errors": {
       "logout": "Níorbh fhéidir logáil amach"
     },
+    "endingSoon": "Deireadh a bheith ann go luath",
     "expired": "Éadúil",
     "freePlan": "Plean saor in aisce,",
     "freeTrial": "Triail saor in aisce",
@@ -533,5 +534,54 @@
     "thanks": "Go raibh maith agat as Smart Notes ✨ a úsáid",
     "title": "Tá deireadh le do thriail saor in aisce",
     "upgradeNow": "Uasghrádaigh anois"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Ag cur leis: {{target}}",
+      "edit": "Ag eagrú: {{target}}",
+      "none": "Níl sprioc ghníomhach ann",
+      "review": "Ag athbhreithniú: {{target}}",
+      "untitled": "Nóta gan teideal"
+    },
+    "empty": "Fiafraigh faoin gcárta gníomhach, athraigh a réimsí, nó cruthaigh nóta nua.",
+    "loadEarlier": "Luchtaigh seisiúin níos luaithe",
+    "loading": "Á luchtú…",
+    "modelAriaLabel": "Samhail chúntóra",
+    "newTarget": "Sprioc nua",
+    "placeholder": "Fiafraigh faoi nó athraigh an cárta gníomhach…",
+    "reasoningAriaLabel": "Leibhéal réasúnaíochta an chúntóra",
+    "send": "Seol",
+    "sending": "…",
+    "showThinkingAriaLabel": "Taispeáin smaoineamh an mhúnla",
+    "signIn": "Sínigh isteach le Smart Notes chun an cúntóir a úsáid.",
+    "thinking": "Ag smaoineamh",
+    "thinkingPending": "Ag smaoineamh…",
+    "tool": {
+      "createNote": "Nóta cruthaithe i \"{{deck}}\"",
+      "getField": "Léigh \"{{field}}\"",
+      "listDecks": "Piacanna liostaithe",
+      "listNoteTypes": "Cineálacha nótaí liostaithe",
+      "updateField": "Nuashonraíodh \"{{field}}\""
+    },
+    "usage": "{{input}} isteach · {{output}} amach{{thinking}} · {{credits}} creidmheasanna · ~${{usd}}",
+    "usageThinking": " · {{count}} ag smaoineamh"
+  },
+  "chatSettings": {
+    "addPrompt": "Cuir leid leis",
+    "buttonLabel": "Lipéad cnaipe",
+    "emptyPrompts": "Níl aon leideanna sábháilte fós.",
+    "invalidPrompt": "Ní mór lipéad agus leid a bheith ag gach cnaipe.",
+    "promptPlaceholder": "Cad le seoladh nuair a bhrúitear an cnaipe",
+    "promptTextAriaLabel": "Téacs an leide",
+    "remove": "Bain",
+    "responseLanguage": "Teanga na freagartha",
+    "responseLanguageAriaLabel": "Teanga freagartha an chúntóra",
+    "responseLanguageDescription": "Freagraíonn an cúntóir sa teanga seo is cuma cén teanga ina bhfuil an cárta scríofa.",
+    "save": "Sábháil athruithe",
+    "savedPrompts": "Leideanna sábháilte",
+    "savedPromptsDescription": "Éiríonn gach ceann ina chnaipe os cionn an bhosca teachtaireachtaí san fhuinneog chomhrá.",
+    "saving": "Á shábháil…",
+    "subtitle": "Cumraigh an cúntóir comhrá",
+    "title": "Comhrá"
   }
 }

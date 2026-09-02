@@ -60,6 +60,7 @@
     "discord": "Discord",
     "feedback": "Nhận xét",
     "nav": {
+      "chat": "Chat",
       "defaultsImages": "Cài đặt hình ảnh mặc định",
       "defaultsText": "Cài đặt văn bản mặc định",
       "defaultsVoice": "Cài đặt giọng nói mặc định",
@@ -366,7 +367,6 @@
   "subscription": {
     "accessEnds": "Quyền truy cập kết thúc",
     "activateAgain": "Kích hoạt lại",
-    "endingSoon": "Sắp kết thúc",
     "checking": "Kiểm tra đăng ký",
     "creditTypes": {
       "images": "Hình ảnh",
@@ -379,6 +379,7 @@
     "errors": {
       "logout": "Không thể đăng xuất"
     },
+    "endingSoon": "Sắp kết thúc",
     "expired": "Hết hạn",
     "freePlan": "Gói miễn phí",
     "freeTrial": "Dùng thử miễn phí",
@@ -493,5 +494,54 @@
     "thanks": "Cảm ơn bạn đã sử dụng Smart Notes ✨",
     "title": "Thời gian dùng thử miễn phí của bạn đã kết thúc",
     "upgradeNow": "Nâng cấp ngay bây giờ"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Đang thêm: {{target}}",
+      "edit": "Đang chỉnh sửa: {{target}}",
+      "none": "Không có đích tiêu đang hoạt động",
+      "review": "Đang xem xét: {{target}}",
+      "untitled": "Ghi chú không có tiêu đề"
+    },
+    "empty": "Hỏi về thẻ đang hoạt động, thay đổi các trường của nó hoặc tạo một ghi chú mới.",
+    "loadEarlier": "Tải các phiên làm việc trước đó",
+    "loading": "Đang tải…",
+    "modelAriaLabel": "Mô hình trợ lý",
+    "newTarget": "Mục tiêu mới",
+    "placeholder": "Hỏi về hoặc thay đổi thẻ đang hoạt động…",
+    "reasoningAriaLabel": "Mức độ lý luận của trợ lý",
+    "send": "Gửi",
+    "sending": "…",
+    "showThinkingAriaLabel": "Hiển thị quá trình suy nghĩ của mô hình",
+    "signIn": "Đăng nhập vào Smart Notes để sử dụng trợ lý.",
+    "thinking": "Đang suy nghĩ",
+    "thinkingPending": "Đang suy nghĩ…",
+    "tool": {
+      "createNote": "Đã tạo một ghi chú trong \"{{deck}}\"",
+      "getField": "Đọc \"{{field}}\"",
+      "listDecks": "Danh sách các bộ thẻ",
+      "listNoteTypes": "Danh sách các loại ghi chú",
+      "updateField": "Đã cập nhật \"{{field}}\""
+    },
+    "usage": "{{input}} vào · {{output}} ra{{thinking}} · {{credits}} tín chỉ · ~${{usd}}",
+    "usageThinking": " · {{count}} suy nghĩ"
+  },
+  "chatSettings": {
+    "addPrompt": "Thêm lời nhắc",
+    "buttonLabel": "Nhãn nút",
+    "emptyPrompts": "Chưa có lời nhắc được lưu.",
+    "invalidPrompt": "Mỗi nút cần phải có một nhãn và một lời nhắc.",
+    "promptPlaceholder": "Nội dung sẽ gửi khi nút được nhấn",
+    "promptTextAriaLabel": "Văn bản lời nhắc",
+    "remove": "Xóa",
+    "responseLanguage": "Ngôn ngữ phản hồi",
+    "responseLanguageAriaLabel": "Ngôn ngữ phản hồi của trợ lý",
+    "responseLanguageDescription": "Trợ lý sẽ trả lời bằng ngôn ngữ này bất kể thẻ được viết bằng ngôn ngữ nào.",
+    "save": "Lưu thay đổi",
+    "savedPrompts": "Lời nhắc đã lưu",
+    "savedPromptsDescription": "Mỗi lời nhắc sẽ trở thành một nút phía trên hộp tin nhắn trong cửa sổ trò chuyện.",
+    "saving": "Đang lưu…",
+    "subtitle": "Cấu hình trợ lý trò chuyện",
+    "title": "Trò chuyện"
   }
 }

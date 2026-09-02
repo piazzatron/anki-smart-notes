@@ -60,6 +60,7 @@
     "discord": "Discord",
     "feedback": "피드백",
     "nav": {
+      "chat": "채팅",
       "defaultsImages": "기본 이미지 설정",
       "defaultsText": "기본 텍스트 설정",
       "defaultsVoice": "기본 음성 설정",
@@ -366,7 +367,6 @@
   "subscription": {
     "accessEnds": "액세스 종료",
     "activateAgain": "다시 활성화",
-    "endingSoon": "곧 종료",
     "checking": "구독 확인 중",
     "creditTypes": {
       "images": "이미지",
@@ -379,6 +379,7 @@
     "errors": {
       "logout": "로그아웃할 수 없습니다."
     },
+    "endingSoon": "곧 종료",
     "expired": "만료됨",
     "freePlan": "무료 플랜",
     "freeTrial": "무료 평가판",
@@ -493,5 +494,54 @@
     "thanks": "Smart Notes를 사용해 주셔서 감사합니다 ✨",
     "title": "무료 평가판이 종료되었습니다",
     "upgradeNow": "지금 업그레이드"
+  },
+  "assistant": {
+    "binding": {
+      "add": "추가 중: {{target}}",
+      "edit": "편집 중: {{target}}",
+      "none": "활성 대상 없음",
+      "review": "검토 중: {{target}}",
+      "untitled": "제목 없는 노트"
+    },
+    "empty": "활성 카드에 대해 질문하거나, 필드를 변경하거나, 새로운 노트를 만들어보세요.",
+    "loadEarlier": "이전 세션 불러오기",
+    "loading": "로딩 중…",
+    "modelAriaLabel": "어시스턴트 모델",
+    "newTarget": "새 대상",
+    "placeholder": "활성 카드에 대해 물어보거나 변경하세요…",
+    "reasoningAriaLabel": "어시스턴트 추론 수준",
+    "send": "보내기",
+    "sending": "…",
+    "showThinkingAriaLabel": "모델의 생각 표시",
+    "signIn": "Smart Notes에 로그인하여 어시스턴트를 사용하세요.",
+    "thinking": "생각 중",
+    "thinkingPending": "생각 중…",
+    "tool": {
+      "createNote": "\"{{deck}}\"에 노트를 생성했습니다",
+      "getField": "{{field}} 읽기",
+      "listDecks": "덱 나열됨",
+      "listNoteTypes": "노트 타입 나열됨",
+      "updateField": "{{field}} 업데이트됨"
+    },
+    "usage": "{{input}} 입력 · {{output}} 출력{{thinking}} · {{credits}} 크레딧 · ~${{usd}}",
+    "usageThinking": " · {{count}} 사고"
+  },
+  "chatSettings": {
+    "addPrompt": "프롬프트 추가",
+    "buttonLabel": "버튼 레이블",
+    "emptyPrompts": "저장된 프롬프트가 없습니다.",
+    "invalidPrompt": "모든 버튼에는 레이블과 프롬프트가 필요합니다.",
+    "promptPlaceholder": "버튼을 눌렀을 때 전송할 내용",
+    "promptTextAriaLabel": "프롬프트 텍스트",
+    "remove": "제거",
+    "responseLanguage": "응답 언어",
+    "responseLanguageAriaLabel": "어시스턴트 응답 언어",
+    "responseLanguageDescription": "어시스턴트는 카드가 어떤 언어로 작성되었든 이 언어로 응답합니다.",
+    "save": "변경 사항 저장",
+    "savedPrompts": "저장된 프롬프트",
+    "savedPromptsDescription": "각각은 채팅 창의 메시지 상자 위에 버튼으로 표시됩니다.",
+    "saving": "저장 중…",
+    "subtitle": "채팅 도우미 구성",
+    "title": "채팅"
   }
 }

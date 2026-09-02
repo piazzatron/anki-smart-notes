@@ -70,7 +70,8 @@
       "subscription": "Հաշիվ և օգտագործում",
       "support": "Աջակցություն",
       "text": "Տեքստ",
-      "voice": "Ձայն"
+      "voice": "Ձայն",
+      "chat": "Զրույց"
     },
     "sections": "Smart Notes բաժինները",
     "version": "Smart Notes v{{version}}"
@@ -372,7 +373,6 @@
   "subscription": {
     "accessEnds": "Մուտքը ավարտվում է",
     "activateAgain": "Կրկին ակտիվացնել",
-    "endingSoon": "Շուտով ավարտվելու է",
     "checking": "Ստուգվում է բաժանորդագրությունը",
     "creditTypes": {
       "images": "Պատկերներ",
@@ -386,6 +386,7 @@
     "errors": {
       "logout": "Չհաջողվեց դուրս գալ"
     },
+    "endingSoon": "Շուտով ավարտվելու է",
     "expired": "Ժամկետանց",
     "freePlan": "Անվճար պլան",
     "freeTrial": "Անվճար փորձարկում",
@@ -503,5 +504,54 @@
     "thanks": "Շնորհակալություն Smart Notes ✨ օգտագործելու համար",
     "title": "Ձեր անվճար փորձաշրջանն ավարտվել է",
     "upgradeNow": "Թարմացրեք հիմա"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Ավելացում՝ {{target}}",
+      "edit": "Խմբագրում՝ {{target}}",
+      "none": "Ակտիվ թիրախ չկա",
+      "review": "Վերանայում՝ {{target}}",
+      "untitled": "Անանուն նշում"
+    },
+    "empty": "Հարցրեք ակտիվ քարտի մասին, փոխեք դաշտերը կամ ստեղծեք նոր նշում։",
+    "loadEarlier": "Բեռնել նախորդ սեսիաները",
+    "loading": "Բեռնում…",
+    "modelAriaLabel": "Օգնականի մոդել",
+    "newTarget": "Նոր թիրախ",
+    "placeholder": "Հարցրեք ակտիվ քարտի մասին կամ փոխեք այն…",
+    "reasoningAriaLabel": "Օգնականի մտածողության մակարդակ",
+    "send": "Ուղարկել",
+    "sending": "…",
+    "showThinkingAriaLabel": "Ցույց տալ մոդելի մտածողությունը",
+    "signIn": "Մուտք գործեք Smart Notes՝ օգնականն օգտագործելու համար։",
+    "thinking": "Մտածում է",
+    "thinkingPending": "Մտածում է…",
+    "tool": {
+      "createNote": "Ստեղծվել է նշում «{{deck}}»-ում",
+      "getField": "Կարդալ \"{{field}}\"",
+      "listDecks": "Թվարկված փաթեթներ",
+      "listNoteTypes": "Թվարկված նոթերի տեսակներ",
+      "updateField": "Թարմացված \"{{field}}\""
+    },
+    "usage": "{{input}} մուտք · {{output}} ելք{{thinking}} · {{credits}} կրեդիտներ · ~${{usd}}",
+    "usageThinking": " · {{count}} մտածում"
+  },
+  "chatSettings": {
+    "addPrompt": "Ավելացնել հրահանգ",
+    "buttonLabel": "Կոճակի պիտակ",
+    "emptyPrompts": "Դեռ չկան պահված հրահանգներ։",
+    "invalidPrompt": "Յուրաքանչյուր կոճակ պետք է ունենա պիտակ և հրահանգ։",
+    "promptPlaceholder": "Ինչ ուղարկել, երբ կոճակը սեղմված է",
+    "promptTextAriaLabel": "Հարցման տեքստ",
+    "remove": "Հեռացնել",
+    "responseLanguage": "Պատասխանի լեզու",
+    "responseLanguageAriaLabel": "Օգնականի պատասխանի լեզու",
+    "responseLanguageDescription": "Օգնականը պատասխանում է այս լեզվով՝ անկախ քարտի լեզվից։",
+    "save": "Պահպանել փոփոխությունները",
+    "savedPrompts": "Պահպանված հարցումներ",
+    "savedPromptsDescription": "Յուրաքանչյուրը դառնում է կոճակ զրույցի պատուհանի հաղորդագրության վանդակի վերևում։",
+    "saving": "Պահպանվում է…",
+    "subtitle": "Կարգավորել զրույցի օգնականը",
+    "title": "Զրույց"
   }
 }

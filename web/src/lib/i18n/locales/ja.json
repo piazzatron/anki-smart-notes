@@ -60,6 +60,7 @@
     "discord": "Discord",
     "feedback": "フィードバック",
     "nav": {
+      "chat": " チャット",
       "defaultsImages": "デフォルトの画像設定",
       "defaultsText": "デフォルトのテキスト設定",
       "defaultsVoice": "デフォルトの音声設定",
@@ -366,7 +367,6 @@
   "subscription": {
     "accessEnds": "アクセス終了",
     "activateAgain": "再度有効にする",
-    "endingSoon": "間もなく終了",
     "checking": "定期購入の確認",
     "creditTypes": {
       "images": "画像",
@@ -379,6 +379,7 @@
     "errors": {
       "logout": "ログアウトできませんでした"
     },
+    "endingSoon": "間もなく終了",
     "expired": "期限切れ",
     "freePlan": "無料プラン",
     "freeTrial": "無料トライアル",
@@ -493,5 +494,54 @@
     "thanks": "Smart Notesをご利用いただきありがとうございます✨",
     "title": "無料トライアルは終了しました",
     "upgradeNow": "今すぐアップグレードしてください"
+  },
+  "assistant": {
+    "binding": {
+      "add": "追加中: {{target}}",
+      "edit": "編集中: {{target}}",
+      "none": "アクティブなターゲットなし",
+      "review": "レビュー中: {{target}}",
+      "untitled": "無題のノート"
+    },
+    "empty": "アクティブなカードについて質問したり、フィールドを変更したり、新しいノートを作成したりできます。",
+    "loadEarlier": "以前のセッションを読み込む",
+    "loading": "読み込み中…",
+    "modelAriaLabel": "アシスタントモデル",
+    "newTarget": "新しいターゲット",
+    "placeholder": "アクティブなカードについて質問または変更してください…",
+    "reasoningAriaLabel": "アシスタントの推論レベル",
+    "send": "送信",
+    "sending": "…",
+    "showThinkingAriaLabel": "モデルの思考を表示",
+    "signIn": "Smart Notesにサインインしてアシスタントを使用してください。",
+    "thinking": "思考中",
+    "thinkingPending": "思考中…",
+    "tool": {
+      "createNote": "\"{{deck}}\"にノートを作成しました",
+      "getField": "「{{field}}」を読む",
+      "listDecks": "デッキ一覧",
+      "listNoteTypes": "ノートタイプ一覧",
+      "updateField": "「{{field}}」を更新"
+    },
+    "usage": "{{input}} in · {{output}} out{{thinking}} · {{credits}} クレジット · ~${{usd}}",
+    "usageThinking": " · {{count}} 思考"
+  },
+  "chatSettings": {
+    "addPrompt": "プロンプトを追加",
+    "buttonLabel": "ボタンラベル",
+    "emptyPrompts": "保存されたプロンプトがありません。",
+    "invalidPrompt": "すべてのボタンにラベルとプロンプトが必要です。",
+    "promptPlaceholder": "ボタンを押したときに送信する内容",
+    "promptTextAriaLabel": "プロンプトテキスト",
+    "remove": "削除",
+    "responseLanguage": "応答言語",
+    "responseLanguageAriaLabel": "アシスタント応答言語",
+    "responseLanguageDescription": "カードがどのような言語で書かれていても、アシスタントはこの言語で返信します。",
+    "save": "変更を保存",
+    "savedPrompts": "保存済みプロンプト",
+    "savedPromptsDescription": "各プロンプトがチャットウィンドウのメッセージボックス上のボタンになります。",
+    "saving": "保存中…",
+    "subtitle": "チャットアシスタントを設定",
+    "title": "チャット"
   }
 }

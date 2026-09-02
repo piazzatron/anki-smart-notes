@@ -61,6 +61,7 @@
     "discord": "Discord",
     "feedback": "Feedback",
     "nav": {
+      "chat": "Chat",
       "defaultsImages": "Standard billedindstillinger",
       "defaultsText": "Standard tekstindstillinger",
       "defaultsVoice": "Standard stemmeindstillinger",
@@ -372,7 +373,6 @@
   "subscription": {
     "accessEnds": "Adgang slutter",
     "activateAgain": "Aktivér igen",
-    "endingSoon": "Slutter snart",
     "checking": "Tjek abonnement",
     "creditTypes": {
       "images": "Billeder",
@@ -386,6 +386,7 @@
     "errors": {
       "logout": "Kunne ikke logge ud"
     },
+    "endingSoon": "Slutter snart",
     "expired": "Udløbet",
     "freePlan": "Gratis plan",
     "freeTrial": "Gratis prøveversion",
@@ -503,5 +504,54 @@
     "thanks": "Tak, fordi du bruger Smart Notes ✨",
     "title": "Din gratis prøveperiode er slut",
     "upgradeNow": "Opgrader nu"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Tilføjer: {{target}}",
+      "edit": "Redigerer: {{target}}",
+      "none": "Intet aktivt mål",
+      "review": "Gennemgår: {{target}}",
+      "untitled": "Unavngivet note"
+    },
+    "empty": "Spørg om kortet, ændre dets felter, eller opret en ny note.",
+    "loadEarlier": "Indlæs tidligere sessioner",
+    "loading": "Indlæser…",
+    "modelAriaLabel": "Assistentmodel",
+    "newTarget": "Nyt mål",
+    "placeholder": "Spørg om eller ændre det aktive kort…",
+    "reasoningAriaLabel": "Assistentens ræsonnementsniveau",
+    "send": "Send",
+    "sending": "…",
+    "showThinkingAriaLabel": "Vis modellens tankegang",
+    "signIn": "Log ind på Smart Notes for at bruge assistenten.",
+    "thinking": "Tænker",
+    "thinkingPending": "Tænker…",
+    "tool": {
+      "createNote": "Oprettede en note i \"{{deck}}\"",
+      "getField": "Læste \"{{field}}\"",
+      "listDecks": "Oplistede bunker",
+      "listNoteTypes": "Oplistede notityper",
+      "updateField": "Opdaterede \"{{field}}\""
+    },
+    "usage": "{{input}} ind · {{output}} ud{{thinking}} · {{credits}} kredit · ~${{usd}}",
+    "usageThinking": " · {{count}} tankegang"
+  },
+  "chatSettings": {
+    "addPrompt": "Tilføj prompt",
+    "buttonLabel": "Knappetiket",
+    "emptyPrompts": "Ingen gemte prompts endnu.",
+    "invalidPrompt": "Hver knap skal have en etiket og en prompt.",
+    "promptPlaceholder": "Hvad der skal sendes, når knappen trykkes",
+    "promptTextAriaLabel": "Prompttekst",
+    "remove": "Fjern",
+    "responseLanguage": "Responsssprog",
+    "responseLanguageAriaLabel": "Assistentens responsssprog",
+    "responseLanguageDescription": "Assistenten svarer på dette sprog, uanset hvilket sprog kortet er skrevet på.",
+    "save": "Gem ændringer",
+    "savedPrompts": "Gemte prompts",
+    "savedPromptsDescription": "Hver bliver til en knap over beskedfeltet i chatvinduet.",
+    "saving": "Gemmer…",
+    "subtitle": "Konfigurer chatassistenten",
+    "title": "Chat"
   }
 }

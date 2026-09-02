@@ -70,7 +70,8 @@
       "subscription": "ଖାତା ଏବଂ ବ୍ୟବହାର",
       "support": "ସମର୍ଥନ",
       "text": "ପାଠ",
-      "voice": "ସ୍ୱର"
+      "voice": "ସ୍ୱର",
+      "chat": "ଚାଟ୍"
     },
     "sections": "Smart Notes ବିଭାଗଗୁଡିକ",
     "version": "Smart Notes v{{version}}"
@@ -372,7 +373,6 @@
   "subscription": {
     "accessEnds": "ପ୍ରବେଶାଧିକାର ସମାପ୍ତ ହୁଏ",
     "activateAgain": "ପୁନର୍ବାର ସକ୍ରିୟ କରନ୍ତୁ",
-    "endingSoon": "ଶୀଘ୍ରେ ଶେଷ ହେବ",
     "checking": "ସଦସ୍ୟତା ଯାଞ୍ଚ କରୁଛି",
     "creditTypes": {
       "images": "ପ୍ରତିଛବିଗୁଡିକ",
@@ -386,6 +386,7 @@
     "errors": {
       "logout": "ଲଗ୍ ଆଉଟ୍ ହୋଇପାରିଲା ନାହିଁ"
     },
+    "endingSoon": "ଶୀଘ୍ରେ ଶେଷ ହେବ",
     "expired": "ମେୟାଦ ଶେଷ",
     "freePlan": "ମାଗଣା ଯୋଜନା",
     "freeTrial": "ମାଗଣା ପରୀକ୍ଷା",
@@ -503,5 +504,54 @@
     "thanks": "Smart Notes using ବ୍ୟବହାର କରିଥିବାରୁ ଧନ୍ୟବାଦ",
     "title": "ତୁମର ମାଗଣା ପରୀକ୍ଷା ଶେଷ ହୋଇଛି",
     "upgradeNow": "ବର୍ତ୍ତମାନ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ"
+  },
+  "assistant": {
+    "binding": {
+      "add": "ଯୋଗ କରୁଛି: {{target}}",
+      "edit": "ସମ୍ପାଦନା କରୁଛି: {{target}}",
+      "none": "କୌଣସି ସକ୍ରିୟ ଟାର୍ଗେଟ୍ ନାହିଁ",
+      "review": "ସମୀକ୍ଷା କରୁଛି: {{target}}",
+      "untitled": "ଶୀର୍ଷକହୀନ ନୋଟ୍"
+    },
+    "empty": "ସକ୍ରିୟ କାର୍ଡ ବିଷୟରେ ପଚାରନ୍ତୁ, ଏହାର ଫିଲ୍ଡ ପରିବର୍ତ୍ତନ କରନ୍ତୁ, କିମ୍ବା ଏକ ନୂତନ ନୋଟ୍ ତିଆରି କରନ୍ତୁ।",
+    "loadEarlier": "ପୂର୍ବ ସେସନ୍ ଲୋଡ୍ କରନ୍ତୁ",
+    "loading": "ଲୋଡ୍ ହେଉଛି…",
+    "modelAriaLabel": "ସହାୟକ ମଡେଲ୍",
+    "newTarget": "ନୂତନ ଲକ୍ଷ୍ୟ",
+    "placeholder": "ସକ୍ରିୟ କାର୍ଡ ବିଷୟରେ ପଚାରନ୍ତୁ କିମ୍ବା ପରିବର୍ତ୍ତନ କରନ୍ତୁ…",
+    "reasoningAriaLabel": "ସହାୟକ ଯୁକ୍ତି ସ୍ତର",
+    "send": "ପଠାନ୍ତୁ",
+    "sending": "…",
+    "showThinkingAriaLabel": "ମଡେଲର ଚିନ୍ତନ ଦେଖାନ୍ତୁ",
+    "signIn": "ସହାୟକ ବ୍ୟବହାର କରିବାକୁ Smart Notes ରେ ସାଇନ୍ ଇନ୍ କରନ୍ତୁ।",
+    "thinking": "ଚିନ୍ତନ କରୁଛି",
+    "thinkingPending": "ଚିନ୍ତନ କରୁଛି…",
+    "tool": {
+      "createNote": "\"{{deck}}\" ରେ ଏକ ନୋଟ୍ ସୃଷ୍ଟି କରାଯାଇଛି",
+      "getField": "\"{{field}}\" ପଢ଼ନ୍ତୁ",
+      "listDecks": "ଡେକ୍‌ଗୁଡ଼ିକ ତାଲିକାଭୁକ୍ତ",
+      "listNoteTypes": "ନୋଟ୍ ପ୍ରକାରଗୁଡ଼ିକ ତାଲିକାଭୁକ୍ତ",
+      "updateField": "\"{{field}}\" ଅପଡେଟ୍ କରାଗଲା"
+    },
+    "usage": "{{input}} ଇନ୍ · {{output}} ଆଉଟ୍{{thinking}} · {{credits}} କ୍ରେଡିଟ୍ · ~${{usd}}",
+    "usageThinking": " · {{count}} ଚିନ୍ତନ"
+  },
+  "chatSettings": {
+    "addPrompt": "ପ୍ରମ୍ପ୍ଟ୍ ଯୋଗ କରନ୍ତୁ",
+    "buttonLabel": "ବଟନ୍ ଲେବଲ୍",
+    "emptyPrompts": "ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ସଞ୍ଚିତ ପ୍ରମ୍ପ୍ଟ୍ ନାହିଁ।",
+    "invalidPrompt": "ପ୍ରତ୍ୟେକ ବଟନ୍‌ରେ ଏକ ଲେବଲ୍ ଏବଂ ଏକ ପ୍ରମ୍ପ୍ଟ୍ ଆବଶ୍ୟକ।",
+    "promptPlaceholder": "ବଟନ୍ ଦବାଇବା ସମୟରେ କଣ ପଠାଯିବ",
+    "promptTextAriaLabel": "ପ୍ରମ୍ପ୍ଟ ଟେକ୍ସଟ୍",
+    "remove": "ହଟାନ୍ତୁ",
+    "responseLanguage": "ପ୍ରତିକ୍ରିୟା ଭାଷା",
+    "responseLanguageAriaLabel": "ସହାୟକ ପ୍ରତିକ୍ରିୟା ଭାଷା",
+    "responseLanguageDescription": "କାର୍ଡ କେଉଁ ଭାଷାରେ ଲେଖା ହୋଇଛି ତାହା ଯାହା ହେଉ, ସହାୟକ ଏହି ଭାଷାରେ ଉତ୍ତର ଦିଅନ୍ତି।",
+    "save": "ପରିବର୍ତ୍ତନ ସଂରକ୍ଷଣ କରନ୍ତୁ",
+    "savedPrompts": "ସଂରକ୍ଷିତ ପ୍ରମ୍ପ୍ଟଗୁଡ଼ିକ",
+    "savedPromptsDescription": "ପ୍ରତ୍ୟେକଟି ଚାଟ୍ ୱିଣ୍ଡୋରେ ମେସେଜ୍ ବକ୍ସ ଉପରେ ଏକ ବଟନ୍ ହୋଇଯାଏ।",
+    "saving": "ସଂରକ୍ଷଣ କରାଯାଉଛି…",
+    "subtitle": "ଚାଟ୍ ସହାୟକକୁ ବିନ୍ୟାସ କରନ୍ତୁ",
+    "title": "ଚାଟ୍"
   }
 }

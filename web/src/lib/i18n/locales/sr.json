@@ -71,7 +71,8 @@
       "subscription": "Рачун и употреба",
       "support": "Подршка",
       "text": "Текст",
-      "voice": "Глас"
+      "voice": "Глас",
+      "chat": "Ћаскање"
     },
     "sections": "Smart Notes секције",
     "version": "Smart Notes в{{version}}"
@@ -378,7 +379,6 @@
   "subscription": {
     "accessEnds": "Приступ се завршава",
     "activateAgain": "Поново активирај",
-    "endingSoon": "Ускоро се завршава",
     "checking": "Провера претплате",
     "creditTypes": {
       "images": "Слике",
@@ -393,6 +393,7 @@
     "errors": {
       "logout": "Није могуће одјавити се"
     },
+    "endingSoon": "Ускоро се завршава",
     "expired": "Истекло",
     "freePlan": "Бесплатан план",
     "freeTrial": "Бесплатна пробна верзија",
@@ -513,5 +514,54 @@
     "thanks": "Хвала што користите Smart Notes ✨",
     "title": "Ваша бесплатна пробна верзија је завршена",
     "upgradeNow": "Надоградите сада"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Додавање: {{target}}",
+      "edit": "Уређивање: {{target}}",
+      "none": "Нема активног циља",
+      "review": "Прегледање: {{target}}",
+      "untitled": "Белешка без наслова"
+    },
+    "empty": "Питајте о активној картици, измените њена поља или направите нову белешку.",
+    "loadEarlier": "Учитај раније сесије",
+    "loading": "Учитавање…",
+    "modelAriaLabel": "Модел асистента",
+    "newTarget": "Нова мета",
+    "placeholder": "Питајте о активној картици или је измените…",
+    "reasoningAriaLabel": "Ниво резоновања асистента",
+    "send": "Пошаљи",
+    "sending": "…",
+    "showThinkingAriaLabel": "Прикажи размишљање модела",
+    "signIn": "Пријавите се на Smart Notes да бисте користили асистента.",
+    "thinking": "Размишља",
+    "thinkingPending": "Размишља…",
+    "tool": {
+      "createNote": "Направљена белешка у \"{{deck}}\"",
+      "getField": "Прочитано \"{{field}}\"",
+      "listDecks": "Приказане шпилове",
+      "listNoteTypes": "Приказани типови белешки",
+      "updateField": "Ажурирано \"{{field}}\""
+    },
+    "usage": "{{input}} ул. · {{output}} изл.{{thinking}} · {{credits}} кредита · ~${{usd}}",
+    "usageThinking": " · {{count}} размишљање"
+  },
+  "chatSettings": {
+    "addPrompt": "Додај упит",
+    "buttonLabel": "Ознака дугмета",
+    "emptyPrompts": "Још нема сачуваних упита.",
+    "invalidPrompt": "Свако дугме треба да има ознаку и упит.",
+    "promptPlaceholder": "Шта послати када се притисне дугме",
+    "promptTextAriaLabel": "Текст упита",
+    "remove": "Уклони",
+    "responseLanguage": "Језик одговора",
+    "responseLanguageAriaLabel": "Језик одговора асистента",
+    "responseLanguageDescription": "Асистент одговара на овом језику без обзира на којем је језику написана картица.",
+    "save": "Сачувај измене",
+    "savedPrompts": "Сачувани упити",
+    "savedPromptsDescription": "Сваки постаје дугме изнад поља за поруке у прозору за ћаскање.",
+    "saving": "Чување…",
+    "subtitle": "Подесите асистента за ћаскање",
+    "title": "Ћаскање"
   }
 }

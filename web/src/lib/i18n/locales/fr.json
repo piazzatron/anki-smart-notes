@@ -62,6 +62,7 @@
     "discord": "Discord",
     "feedback": "Retour",
     "nav": {
+      "chat": "Chat",
       "defaultsImages": "Paramètres d'image par défaut",
       "defaultsText": "Paramètres de texte par défaut",
       "defaultsVoice": "Paramètres vocaux par défaut",
@@ -378,7 +379,6 @@
   "subscription": {
     "accessEnds": "L'accès se termine",
     "activateAgain": "Réactiver",
-    "endingSoon": "Se termine bientôt",
     "checking": "Vérification de l'abonnement",
     "creditTypes": {
       "images": "Images",
@@ -393,6 +393,7 @@
     "errors": {
       "logout": "Impossible de se déconnecter"
     },
+    "endingSoon": "Se termine bientôt",
     "expired": "Expiré",
     "freePlan": "Forfait gratuit",
     "freeTrial": "Essai gratuit",
@@ -513,5 +514,54 @@
     "thanks": "Merci d'utiliser Smart Notes ✨",
     "title": "Votre essai gratuit est terminé",
     "upgradeNow": "Mettre à niveau maintenant"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Ajout : {{target}}",
+      "edit": "Édition : {{target}}",
+      "none": "Aucune cible active",
+      "review": "Examen : {{target}}",
+      "untitled": "Note sans titre"
+    },
+    "empty": "Posez une question sur la carte active, modifiez ses champs ou créez une nouvelle note.",
+    "loadEarlier": "Charger les sessions précédentes",
+    "loading": "Chargement…",
+    "modelAriaLabel": "Modèle d'assistant",
+    "newTarget": "Nouvelle cible",
+    "placeholder": "Posez une question ou modifiez la carte active…",
+    "reasoningAriaLabel": "Niveau de raisonnement de l'assistant",
+    "send": "Envoyer",
+    "sending": "…",
+    "showThinkingAriaLabel": "Afficher la réflexion du modèle",
+    "signIn": "Connectez-vous à Smart Notes pour utiliser l'assistant.",
+    "thinking": "Réflexion",
+    "thinkingPending": "Réflexion…",
+    "tool": {
+      "createNote": "Une note a été créée dans « {{deck}} »",
+      "getField": "Lire « {{field}} »",
+      "listDecks": "Paquets listés",
+      "listNoteTypes": "Types de notes listés",
+      "updateField": "« {{field}} » mis à jour"
+    },
+    "usage": "{{input}} entrée · {{output}} sortie{{thinking}} · {{credits}} crédits · ~${{usd}}",
+    "usageThinking": " · {{count}} réflexion"
+  },
+  "chatSettings": {
+    "addPrompt": "Ajouter une demande",
+    "buttonLabel": "Étiquette du bouton",
+    "emptyPrompts": "Aucune demande enregistrée pour le moment.",
+    "invalidPrompt": "Chaque bouton a besoin d'une étiquette et d'une demande.",
+    "promptPlaceholder": "Ce qu'il faut envoyer quand le bouton est pressé",
+    "promptTextAriaLabel": "Texte de l'invite",
+    "remove": "Supprimer",
+    "responseLanguage": "Langue de réponse",
+    "responseLanguageAriaLabel": "Langue de réponse de l'assistant",
+    "responseLanguageDescription": "L'assistant répond dans cette langue quel que soit la langue dans laquelle la carte est écrite.",
+    "save": "Enregistrer les modifications",
+    "savedPrompts": "Invites enregistrées",
+    "savedPromptsDescription": "Chacune devient un bouton au-dessus de la boîte de message dans la fenêtre de chat.",
+    "saving": "Enregistrement…",
+    "subtitle": "Configurez l'assistant de chat",
+    "title": "Chat"
   }
 }

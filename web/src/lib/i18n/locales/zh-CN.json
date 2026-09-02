@@ -60,6 +60,7 @@
     "discord": "Discord",
     "feedback": "反馈",
     "nav": {
+      "chat": "聊天",
       "defaultsImages": "默认图像设置",
       "defaultsText": "默认文本设置",
       "defaultsVoice": "默认语音设置",
@@ -366,7 +367,6 @@
   "subscription": {
     "accessEnds": "访问权限已结束",
     "activateAgain": "重新激活",
-    "endingSoon": "即将结束",
     "checking": "检查订阅情况",
     "creditTypes": {
       "images": "图片",
@@ -379,6 +379,7 @@
     "errors": {
       "logout": "无法注销"
     },
+    "endingSoon": "即将结束",
     "expired": "已过期",
     "freePlan": "免费计划",
     "freeTrial": "免费试用",
@@ -493,5 +494,54 @@
     "thanks": "感谢您使用 Smart Notes ✨",
     "title": "您的免费试用已结束",
     "upgradeNow": "立即升级"
+  },
+  "assistant": {
+    "binding": {
+      "add": "添加中：{{target}}",
+      "edit": "编辑中：{{target}}",
+      "none": "无活跃目标",
+      "review": "复习中：{{target}}",
+      "untitled": "无标题笔记"
+    },
+    "empty": "询问活跃卡片、更改其字段或创建新笔记。",
+    "loadEarlier": "加载早期会话",
+    "loading": "加载中…",
+    "modelAriaLabel": "助手模型",
+    "newTarget": " 新目标",
+    "placeholder": "询问或更改活动卡片…",
+    "reasoningAriaLabel": "助手推理级别",
+    "send": "发送",
+    "sending": "…",
+    "showThinkingAriaLabel": "显示模型的思考过程",
+    "signIn": "登录 Smart Notes 以使用助手。",
+    "thinking": "思考中",
+    "thinkingPending": "思考中…",
+    "tool": {
+      "createNote": "在\"{{deck}}\"中创建了笔记",
+      "getField": "读取 \"{{field}}\"",
+      "listDecks": "已列出牌组",
+      "listNoteTypes": "已列出笔记类型",
+      "updateField": "已更新 \"{{field}}\""
+    },
+    "usage": "{{input}} 输入 · {{output}} 输出{{thinking}} · {{credits}} 额度 · ~${{usd}}",
+    "usageThinking": " · {{count}} 思考"
+  },
+  "chatSettings": {
+    "addPrompt": "添加提示",
+    "buttonLabel": "按钮标签",
+    "emptyPrompts": "暂无保存的提示。",
+    "invalidPrompt": "每个按钮都需要标签和提示。",
+    "promptPlaceholder": "按下按钮时发送的内容",
+    "promptTextAriaLabel": "提示文本",
+    "remove": "移除",
+    "responseLanguage": "响应语言",
+    "responseLanguageAriaLabel": "助手响应语言",
+    "responseLanguageDescription": "无论卡片用什么语言写的,助手都用这种语言回复。",
+    "save": "保存更改",
+    "savedPrompts": "已保存的提示",
+    "savedPromptsDescription": "每个提示在聊天窗口中都会成为消息框上方的一个按钮。",
+    "saving": "保存中…",
+    "subtitle": "配置聊天助手",
+    "title": "聊天"
   }
 }

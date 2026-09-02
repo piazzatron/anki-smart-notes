@@ -60,6 +60,7 @@
     "discord": "Discord",
     "feedback": "Maklum balas",
     "nav": {
+      "chat": "Sembang",
       "defaultsImages": "Tetapan Imej Lalai",
       "defaultsText": "Tetapan Teks Lalai",
       "defaultsVoice": "Tetapan Suara Lalai",
@@ -366,7 +367,6 @@
   "subscription": {
     "accessEnds": "Akses berakhir",
     "activateAgain": "Aktifkan Semula",
-    "endingSoon": "Berakhir Segera",
     "checking": "Menyemak langganan",
     "creditTypes": {
       "images": "Imej",
@@ -379,6 +379,7 @@
     "errors": {
       "logout": "Tidak dapat log keluar"
     },
+    "endingSoon": "Berakhir Segera",
     "expired": "Telah tamat tempoh",
     "freePlan": "Pelan percuma",
     "freeTrial": "Percubaan percuma",
@@ -493,5 +494,54 @@
     "thanks": "Terima kasih kerana menggunakan Smart Notes ✨",
     "title": "Percubaan percuma anda telah tamat",
     "upgradeNow": "Tingkatkan sekarang"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Menambah: {{target}}",
+      "edit": "Mengedit: {{target}}",
+      "none": "Tiada sasaran aktif",
+      "review": "Menyemak: {{target}}",
+      "untitled": "Nota tanpa tajuk"
+    },
+    "empty": "Tanya tentang kad aktif, ubah medan-medannya, atau buat nota baru.",
+    "loadEarlier": "Muatkan sesi lebih awal",
+    "loading": "Memuatkan…",
+    "modelAriaLabel": "Model pembantu",
+    "newTarget": "Sasaran baru",
+    "placeholder": "Tanya atau ubah kad aktif…",
+    "reasoningAriaLabel": "Tahap penalaran pembantu",
+    "send": "Hantar",
+    "sending": "…",
+    "showThinkingAriaLabel": "Tunjukkan pemikiran model",
+    "signIn": "Daftar masuk ke Smart Notes untuk menggunakan pembantu.",
+    "thinking": "Berfikir",
+    "thinkingPending": "Sedang berfikir…",
+    "tool": {
+      "createNote": "Nota dibuat dalam \"{{deck}}\"",
+      "getField": "Membaca \"{{field}}\"",
+      "listDecks": "Dek disenaraikan",
+      "listNoteTypes": "Jenis nota disenaraikan",
+      "updateField": "\"{{field}}\" dikemas kini"
+    },
+    "usage": "{{input}} masuk · {{output}} keluar{{thinking}} · {{credits}} kredit · ~${{usd}}",
+    "usageThinking": " · {{count}} berfikir"
+  },
+  "chatSettings": {
+    "addPrompt": "Tambah prompt",
+    "buttonLabel": "Label butang",
+    "emptyPrompts": "Tiada prompt tersimpan lagi.",
+    "invalidPrompt": "Setiap butang memerlukan label dan prompt.",
+    "promptPlaceholder": "Apa yang perlu dihantar apabila butang ditekan",
+    "promptTextAriaLabel": "Teks prompt",
+    "remove": "Buang",
+    "responseLanguage": "Bahasa respons",
+    "responseLanguageAriaLabel": "Bahasa respons pembantu",
+    "responseLanguageDescription": "Pembantu menjawab dalam bahasa ini apa pun bahasa yang digunakan kad.",
+    "save": "Simpan perubahan",
+    "savedPrompts": "Prompt tersimpan",
+    "savedPromptsDescription": "Setiap satu menjadi butang di atas kotak mesej dalam tetingkap sembang.",
+    "saving": "Menyimpan…",
+    "subtitle": "Konfigurasi pembantu sembang",
+    "title": "Sembang"
   }
 }

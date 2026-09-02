@@ -61,6 +61,7 @@
     "discord": "Discord",
     "feedback": "Feed-back",
     "nav": {
+      "chat": "Chatt",
       "defaultsImages": "Standardbildinställningar",
       "defaultsText": "Standardtextinställningar",
       "defaultsVoice": "Standardröstinställningar",
@@ -372,7 +373,6 @@
   "subscription": {
     "accessEnds": "Åtkomsten upphör",
     "activateAgain": "Aktivera igen",
-    "endingSoon": "Slutar snart",
     "checking": "Kontrollerar prenumeration",
     "creditTypes": {
       "images": "Bilder",
@@ -386,6 +386,7 @@
     "errors": {
       "logout": "Kunde inte logga ut"
     },
+    "endingSoon": "Slutar snart",
     "expired": "Utgånget",
     "freePlan": "Gratis plan",
     "freeTrial": "Gratis provperiod",
@@ -503,5 +504,54 @@
     "thanks": "Tack för att du använder Smart Notes ✨",
     "title": "Din kostnadsfria provperiod har avslutats",
     "upgradeNow": "Uppgradera nu"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Lägger till: {{target}}",
+      "edit": "Redigerar: {{target}}",
+      "none": "Inget aktivt mål",
+      "review": "Granskar: {{target}}",
+      "untitled": "Namnlös anteckning"
+    },
+    "empty": "Fråga om det aktiva kortet, ändra dess fält eller skapa en ny anteckning.",
+    "loadEarlier": "Läs in tidigare sessioner",
+    "loading": "Läser in…",
+    "modelAriaLabel": "Assistentmodell",
+    "newTarget": "Nytt mål",
+    "placeholder": "Fråga om eller ändra det aktiva kortet…",
+    "reasoningAriaLabel": "Assistentens resonemangsnivå",
+    "send": "Skicka",
+    "sending": "…",
+    "showThinkingAriaLabel": "Visa modellens tankeprocess",
+    "signIn": "Logga in på Smart Notes för att använda assistenten.",
+    "thinking": "Tänker",
+    "thinkingPending": "Tänker…",
+    "tool": {
+      "createNote": "Skapade en anteckning i \"{{deck}}\"",
+      "getField": "Läs \"{{field}}\"",
+      "listDecks": "Listad kortlekar",
+      "listNoteTypes": "Listade anteckningstyper",
+      "updateField": "Uppdaterad \"{{field}}\""
+    },
+    "usage": "{{input}} in · {{output}} ut{{thinking}} · {{credits}} credits · ~${{usd}}",
+    "usageThinking": " · {{count}} thinking"
+  },
+  "chatSettings": {
+    "addPrompt": "Lägg till prompt",
+    "buttonLabel": "Knapptext",
+    "emptyPrompts": "Inga sparade prompts ännu.",
+    "invalidPrompt": "Varje knapp behöver en text och en prompt.",
+    "promptPlaceholder": "Vad som ska skickas när knappen trycks",
+    "promptTextAriaLabel": "Prompttext",
+    "remove": "Ta bort",
+    "responseLanguage": "Svarsspråk",
+    "responseLanguageAriaLabel": "Assistentens svarsspråk",
+    "responseLanguageDescription": "Assistenten svarar på det här språket oavsett vilket språk kortet är skrivet på.",
+    "save": "Spara ändringar",
+    "savedPrompts": "Sparade prompter",
+    "savedPromptsDescription": "Var och en blir en knapp ovanför meddelanderutan i chattfönstret.",
+    "saving": "Sparar…",
+    "subtitle": "Konfigurera chattassistenten",
+    "title": "Chatt"
   }
 }

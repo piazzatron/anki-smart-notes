@@ -61,6 +61,7 @@
     "discord": "Discord",
     "feedback": "Санал хүсэлт",
     "nav": {
+      "chat": "Чат",
       "defaultsImages": "Өгөгдмөл зургийн тохиргоо",
       "defaultsText": "Өгөгдмөл текстийн тохиргоо",
       "defaultsVoice": "Өгөгдмөл дуу хоолойн тохиргоо",
@@ -372,7 +373,6 @@
   "subscription": {
     "accessEnds": "Хандалт дуусна",
     "activateAgain": "Дахин идэвхжүүлэх",
-    "endingSoon": "Удалгүй дуусна",
     "checking": "Бүртгэлийг шалгаж байна",
     "creditTypes": {
       "images": "Зураг",
@@ -386,6 +386,7 @@
     "errors": {
       "logout": "Гарч чадсангүй"
     },
+    "endingSoon": "Удалгүй дуусна",
     "expired": "Хүчингүй болсон",
     "freePlan": "Үнэгүй төлөвлөгөө",
     "freeTrial": "Үнэгүй туршилт",
@@ -503,5 +504,54 @@
     "thanks": "Smart Notes ✨ ашигласанд баярлалаа",
     "title": "Таны үнэгүй туршилтын хугацаа дууслаа",
     "upgradeNow": "Одоо шинэчил"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Нэмэх: {{target}}",
+      "edit": "Засах: {{target}}",
+      "none": "Идэвхтэй зорилго байхгүй",
+      "review": "Шалгах: {{target}}",
+      "untitled": "Нээлттэй тэмдэглэл"
+    },
+    "empty": "Идэвхтэй карт хөрвүүлэх, түүний талбарыг өөрчлөх эсвэл шинэ тэмдэглэл үүсгэх.",
+    "loadEarlier": "Өмнөх сеанс ачаалах",
+    "loading": "Ачаалаж байна…",
+    "modelAriaLabel": "Туслах загвар",
+    "newTarget": "Шинэ зорилго",
+    "placeholder": "Идэвхтэй картийн талаар асуух эсвэл өөрчлөх…",
+    "reasoningAriaLabel": "Туслагчийн сэтгэлгээний түвшин",
+    "send": "Илгээх",
+    "sending": "…",
+    "showThinkingAriaLabel": "Загварын бодлыг харуулах",
+    "signIn": "Smart Notes-т нэвтэрэх замаар туслагчийг ашиглана уу.",
+    "thinking": "Бодож байна",
+    "thinkingPending": "Бодож байна…",
+    "tool": {
+      "createNote": "\"{{deck}}\" дээр тэмдэглэл үүсгэсэн",
+      "getField": "Read \"{{field}}\"",
+      "listDecks": "Decks-ууд жагсаалт гарга",
+      "listNoteTypes": "Note types-ууд жагсаалт гарга",
+      "updateField": "Updated \"{{field}}\""
+    },
+    "usage": "{{input}} in · {{output}} out{{thinking}} · {{credits}} credits · ~${{usd}}",
+    "usageThinking": " · {{count}} бодох"
+  },
+  "chatSettings": {
+    "addPrompt": "Prompt нэмэх",
+    "buttonLabel": "Товчны шошго",
+    "emptyPrompts": "Хаяглагдсан prompt байхгүй байна.",
+    "invalidPrompt": "Төрөл бүрийн товчонд шошго болон prompt шаардлагатай.",
+    "promptPlaceholder": "Товч дарагдаж дарахад илгээх зүйл",
+    "promptTextAriaLabel": "Асуулга текст",
+    "remove": "Устгах",
+    "responseLanguage": "Хариулт өгөх хэл",
+    "responseLanguageAriaLabel": "Туслагч хариулт өгөх хэл",
+    "responseLanguageDescription": "Туслагч энэ хэлээр картын хэл ямар ч байсан хариулт өгнө.",
+    "save": "Өөрчлөлтийг хадгалах",
+    "savedPrompts": "Хадгалсан асуулгууд",
+    "savedPromptsDescription": "Харилцан солилцооны цонхон дээрх мессежийн хоор дээр товч болж хувирна.",
+    "saving": "Хадгалж байна…",
+    "subtitle": "Чат туслагч тохируулах",
+    "title": "Чат"
   }
 }

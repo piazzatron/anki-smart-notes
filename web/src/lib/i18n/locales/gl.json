@@ -61,6 +61,7 @@
     "discord": "Discord",
     "feedback": "Comentarios",
     "nav": {
+      "chat": "Chat",
       "defaultsImages": "Configuración predeterminada da imaxe",
       "defaultsText": "Configuración de texto predeterminada",
       "defaultsVoice": "Configuración de voz predeterminada",
@@ -372,7 +373,6 @@
   "subscription": {
     "accessEnds": "O acceso finaliza",
     "activateAgain": "Activar de novo",
-    "endingSoon": "Remata axiña",
     "checking": "Comprobando a subscrición",
     "creditTypes": {
       "images": "Imaxes",
@@ -386,6 +386,7 @@
     "errors": {
       "logout": "Non se puido pechar sesión"
     },
+    "endingSoon": "Remata axiña",
     "expired": "Caducado",
     "freePlan": "Plan gratuíto",
     "freeTrial": "Proba gratuíta",
@@ -503,5 +504,54 @@
     "thanks": "Grazas por usar Smart Notes ✨",
     "title": "A túa proba gratuíta rematou",
     "upgradeNow": "Actualiza agora"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Engadindo: {{target}}",
+      "edit": "Editando: {{target}}",
+      "none": "Sen obxectivo activo",
+      "review": "Revisando: {{target}}",
+      "untitled": "Nota sen título"
+    },
+    "empty": "Pregunta sobre a tarxeta activa, cambia os seus campos ou crea unha nota nova.",
+    "loadEarlier": "Cargar sesións anteriores",
+    "loading": "Cargando…",
+    "modelAriaLabel": "Modelo do asistente",
+    "newTarget": "Novo obxectivo",
+    "placeholder": "Pregunta sobre ou cambia a tarxeta activa…",
+    "reasoningAriaLabel": "Nivel de razoamento do asistente",
+    "send": "Enviar",
+    "sending": "…",
+    "showThinkingAriaLabel": "Mostrar o pensamento do modelo",
+    "signIn": "Inicia sesión en Smart Notes para usar o asistente.",
+    "thinking": "Pensando",
+    "thinkingPending": "Pensando…",
+    "tool": {
+      "createNote": "Creouse unha nota en \"{{deck}}\"",
+      "getField": "Ler \"{{field}}\"",
+      "listDecks": "Mazos listados",
+      "listNoteTypes": "Tipos de nota listados",
+      "updateField": "Actualizado \"{{field}}\""
+    },
+    "usage": "{{input}} en · {{output}} fora{{thinking}} · {{credits}} créditos · ~${{usd}}",
+    "usageThinking": " · {{count}} pensamento"
+  },
+  "chatSettings": {
+    "addPrompt": "Engadir indicación",
+    "buttonLabel": "Etiqueta do botón",
+    "emptyPrompts": "Aínda non hai indicacións gardadas.",
+    "invalidPrompt": "Cada botón necesita unha etiqueta e unha indicación.",
+    "promptPlaceholder": "Que enviar cando se prema o botón",
+    "promptTextAriaLabel": "Texto do indicador",
+    "remove": "Eliminar",
+    "responseLanguage": "Idioma da resposta",
+    "responseLanguageAriaLabel": "Idioma da resposta do asistente",
+    "responseLanguageDescription": "O asistente responde neste idioma sen importar en que idioma esté escrita a tarxeta.",
+    "save": "Gardar cambios",
+    "savedPrompts": "Indicadores gardados",
+    "savedPromptsDescription": "Cada un convértese nun botón enriba da caixa de mensaxes na xanela de chat.",
+    "saving": "Gardando…",
+    "subtitle": "Configurar o asistente de chat",
+    "title": "Chat"
   }
 }

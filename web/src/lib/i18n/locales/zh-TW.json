@@ -60,6 +60,7 @@
     "discord": "Discord",
     "feedback": "回饋",
     "nav": {
+      "chat": "聊天",
       "defaultsImages": "預設影像設定",
       "defaultsText": "預設文字設定",
       "defaultsVoice": "預設語音設定",
@@ -366,7 +367,6 @@
   "subscription": {
     "accessEnds": "存取權限結束",
     "activateAgain": "重新啟用",
-    "endingSoon": "即將結束",
     "checking": "檢查訂閱狀況",
     "creditTypes": {
       "images": "圖片",
@@ -379,6 +379,7 @@
     "errors": {
       "logout": "無法註銷"
     },
+    "endingSoon": "即將結束",
     "expired": "已過期",
     "freePlan": "免費規劃",
     "freeTrial": "免費試用",
@@ -493,5 +494,54 @@
     "thanks": "感謝您使用 Smart Notes ✨",
     "title": "您的免費試用已結束",
     "upgradeNow": "立即升級"
+  },
+  "assistant": {
+    "binding": {
+      "add": "新增: {{target}}",
+      "edit": "編輯: {{target}}",
+      "none": "沒有活躍目標",
+      "review": "審查: {{target}}",
+      "untitled": "無標題筆記"
+    },
+    "empty": "詢問有關活躍卡片的問題、變更其欄位，或建立新筆記。",
+    "loadEarlier": "載入較早的工作階段",
+    "loading": "載入中…",
+    "modelAriaLabel": "助手模型",
+    "newTarget": "新目標",
+    "placeholder": "詢問或變更現用卡片…",
+    "reasoningAriaLabel": "助手推理等級",
+    "send": "傳送",
+    "sending": "…",
+    "showThinkingAriaLabel": "顯示模型的思考過程",
+    "signIn": "登入 Smart Notes 以使用助手",
+    "thinking": "思考中",
+    "thinkingPending": "思考中…",
+    "tool": {
+      "createNote": "已在「{{deck}}」建立筆記",
+      "getField": " 讀取 \"{{field}}\"",
+      "listDecks": "已列出卡組",
+      "listNoteTypes": "已列出筆記類型",
+      "updateField": "已更新 \"{{field}}\""
+    },
+    "usage": "{{input}} 輸入 · {{output}} 輸出{{thinking}} · {{credits}} 點數 · ~${{usd}}",
+    "usageThinking": " · {{count}} 思考"
+  },
+  "chatSettings": {
+    "addPrompt": "新增提示詞",
+    "buttonLabel": "按鈕標籤",
+    "emptyPrompts": "還沒有儲存任何提示詞。",
+    "invalidPrompt": "每個按鈕都需要一個標籤和一個提示詞。",
+    "promptPlaceholder": "按下按鈕時要傳送的內容",
+    "promptTextAriaLabel": "提示文字",
+    "remove": "移除",
+    "responseLanguage": "回應語言",
+    "responseLanguageAriaLabel": "助手回應語言",
+    "responseLanguageDescription": "助手將使用此語言回應，無論卡片是用什麼語言編寫的。",
+    "save": "儲存變更",
+    "savedPrompts": "已儲存的提示",
+    "savedPromptsDescription": "每個提示在聊天視窗的訊息框上方都會變成一個按鈕。",
+    "saving": "儲存中…",
+    "subtitle": "設定聊天助手",
+    "title": "聊天"
   }
 }

@@ -72,7 +72,8 @@
       "subscription": "Уліковы запіс і выкарыстанне",
       "support": "Падтрымка",
       "text": "Тэкст",
-      "voice": "Голас"
+      "voice": "Голас",
+      "chat": "Чат"
     },
     "sections": "Раздзелы Smart Notes",
     "version": "Smart Notes v{{version}}"
@@ -384,7 +385,6 @@
   "subscription": {
     "accessEnds": "Доступ завершаецца",
     "activateAgain": "Активаваць зноў",
-    "endingSoon": "Завершыцца хутка",
     "checking": "Праверка падпіскі",
     "creditTypes": {
       "images": "Малюнкі",
@@ -400,6 +400,7 @@
     "errors": {
       "logout": "Не атрымалася выйсці"
     },
+    "endingSoon": "Завершыцца хутка",
     "expired": "Срок дзеяння скончыўся",
     "freePlan": "Бясплатны план",
     "freeTrial": "Бясплатная пробная версія",
@@ -523,5 +524,54 @@
     "thanks": "Дзякуй за выкарыстанне Smart Notes ✨",
     "title": "Ваш бясплатны пробны перыяд скончыўся",
     "upgradeNow": "Абнавіце зараз"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Даданне: {{target}}",
+      "edit": "Рэдагаванне: {{target}}",
+      "none": "Няма актыўнай мэты",
+      "review": "Паўтарэнне: {{target}}",
+      "untitled": "Нататка без назвы"
+    },
+    "empty": "Задайце пытанне пра актыўную картку, змяніце яе палі або стварыце новую нататку.",
+    "loadEarlier": "Загрузіць папярэднія сеансы",
+    "loading": "Загрузка…",
+    "modelAriaLabel": "Модэль асістэнта",
+    "newTarget": "Новая мэта",
+    "placeholder": "Запытаць пра актыўную картку або змяніць яе…",
+    "reasoningAriaLabel": "Узровень разважання асістэнта",
+    "send": "Адправіць",
+    "sending": "…",
+    "showThinkingAriaLabel": "Паказаць разважанні мадэлі",
+    "signIn": "Увайдзіце ў Smart Notes, каб выкарыстоўваць асістэнта.",
+    "thinking": "Разважанне",
+    "thinkingPending": "Разважае…",
+    "tool": {
+      "createNote": "Створана нататка ў \"{{deck}}\"",
+      "getField": "Прачытана \"{{field}}\"",
+      "listDecks": "Спіс калод паказаны",
+      "listNoteTypes": "Спіс тыпаў нататак паказаны",
+      "updateField": "Абноўлена \"{{field}}\""
+    },
+    "usage": "{{input}} уваход · {{output}} выхад{{thinking}} · {{credits}} крэдытаў · ~${{usd}}",
+    "usageThinking": " · {{count}} разважанне"
+  },
+  "chatSettings": {
+    "addPrompt": "Дадаць запыт",
+    "buttonLabel": "Назва кнопкі",
+    "emptyPrompts": "Пока няма захаваных запытаў.",
+    "invalidPrompt": "Кожная кнопка павінна мець назву і запыт.",
+    "promptPlaceholder": "Што адправіць пры націску кнопкі",
+    "promptTextAriaLabel": "Текст запыту",
+    "remove": "Выдаліць",
+    "responseLanguage": "Мова адказу",
+    "responseLanguageAriaLabel": "Мова адказу асістэнта",
+    "responseLanguageDescription": "Асістэнт адказвае на гэтай мове незалежна ад таго, на якой мове напісана картка.",
+    "save": "Захаваць змены",
+    "savedPrompts": "Захаваныя запыты",
+    "savedPromptsDescription": "Кожны з іх становіцца кнопкай над полем паведамленняў у акне чата.",
+    "saving": "Захаванне…",
+    "subtitle": "Наладзіць памочніка чата",
+    "title": "Чат"
   }
 }

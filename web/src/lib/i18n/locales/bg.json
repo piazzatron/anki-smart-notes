@@ -61,6 +61,7 @@
     "discord": "Discord",
     "feedback": "Обратна връзка",
     "nav": {
+      "chat": "Чат",
       "defaultsImages": "Настройки на изображението по подразбиране",
       "defaultsText": "Текстови настройки по подразбиране",
       "defaultsVoice": "Гласови настройки по подразбиране",
@@ -372,7 +373,6 @@
   "subscription": {
     "accessEnds": "Достъпът завършва",
     "activateAgain": "Активирайте отново",
-    "endingSoon": "Завършва скоро",
     "checking": "Проверка на абонамента",
     "creditTypes": {
       "images": "Изображения",
@@ -386,6 +386,7 @@
     "errors": {
       "logout": "Не можах да изляза"
     },
+    "endingSoon": "Завършва скоро",
     "expired": "Изтекло",
     "freePlan": "Безплатен план",
     "freeTrial": "Безплатна пробна версия",
@@ -503,5 +504,54 @@
     "thanks": "Благодарим ви, че използвате Smart Notes ✨",
     "title": "Вашият безплатен пробен период приключи",
     "upgradeNow": "Надстройте сега"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Добавяне: {{target}}",
+      "edit": "Редактиране: {{target}}",
+      "none": "Няма активна цел",
+      "review": "Преглед: {{target}}",
+      "untitled": "Без заглавие"
+    },
+    "empty": "Попитайте за активната карта, променете нейните полета или създайте нова бележка.",
+    "loadEarlier": "Зареди предишни сесии",
+    "loading": "Зареждане…",
+    "modelAriaLabel": "Модел на асистент",
+    "newTarget": "Нова цел",
+    "placeholder": "Попитайте или променете активната карта…",
+    "reasoningAriaLabel": "Ниво на разсъждение на асистента",
+    "send": "Изпрати",
+    "sending": "…",
+    "showThinkingAriaLabel": "Покажи мисленето на модела",
+    "signIn": "Влезте в Smart Notes, за да използвате асистента.",
+    "thinking": "Мисля",
+    "thinkingPending": "Мисля…",
+    "tool": {
+      "createNote": "Създадена бележка в \"{{deck}}\"",
+      "getField": " Прочети \"{{field}}\"",
+      "listDecks": "Изброени тестета",
+      "listNoteTypes": "Изброени видове бележки",
+      "updateField": "Актуализиран \"{{field}}\""
+    },
+    "usage": "{{input}} в · {{output}} вън{{thinking}} · {{credits}} кредита · ~${{usd}}",
+    "usageThinking": " · {{count}} размисъл"
+  },
+  "chatSettings": {
+    "addPrompt": "Добави подсказка",
+    "buttonLabel": "Етикет на бутона",
+    "emptyPrompts": "Няма запазени подсказки.",
+    "invalidPrompt": "Всеки бутон трябва да има етикет и подсказка.",
+    "promptPlaceholder": "Какво да се изпрати при натискане на бутона",
+    "promptTextAriaLabel": "Текст на подсказката",
+    "remove": "Премахни",
+    "responseLanguage": "Език на отговора",
+    "responseLanguageAriaLabel": "Език на отговора на асистента",
+    "responseLanguageDescription": "Асистентът отговаря на този език, независимо на какъв език е написана карточката.",
+    "save": "Запази промените",
+    "savedPrompts": "Запазени подсказки",
+    "savedPromptsDescription": "Всяка една се превръща в бутон над полето за съобщение в прозореца на чата.",
+    "saving": "Запазване…",
+    "subtitle": "Конфигурирайте чат асистента",
+    "title": "Чат"
   }
 }

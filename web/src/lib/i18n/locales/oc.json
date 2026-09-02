@@ -60,6 +60,7 @@
     "discord": "Discord",
     "feedback": "Retorn",
     "nav": {
+      "chat": "Conversacion",
       "defaultsImages": "Paramètres d'imatge per defaut",
       "defaultsText": "Paramètres de tèxte per defaut",
       "defaultsVoice": "Paramètres de votz per defaut",
@@ -366,7 +367,6 @@
   "subscription": {
     "accessEnds": "L'accès s'acabarà",
     "activateAgain": "Reactivar",
-    "endingSoon": "Finís aviat",
     "checking": "Verificacion de l'abonament",
     "creditTypes": {
       "images": "Imatges",
@@ -379,6 +379,7 @@
     "errors": {
       "logout": "Poguèt pas se desconnectar"
     },
+    "endingSoon": "Finís aviat",
     "expired": "Expirat",
     "freePlan": "Plan gratuit",
     "freeTrial": "Espròva gratuita",
@@ -493,5 +494,54 @@
     "thanks": "Mercés d'utilizar Smart Notes ✨",
     "title": "Vòstra espròva gratuita s'es acabada",
     "upgradeNow": "Metètz a jorn ara"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Ajustament: {{target}}",
+      "edit": "Modificacion: {{target}}",
+      "none": "Pas de cibla activa",
+      "review": "Revision: {{target}}",
+      "untitled": "Nòta sens títol"
+    },
+    "empty": "Demandar sus la carta activa, cambiar los sós camps, o crear una nòta novèla.",
+    "loadEarlier": "Cargar las sessions anterioras",
+    "loading": "Cargament…",
+    "modelAriaLabel": "Modèl d'assistent",
+    "newTarget": "Nòu objectiu",
+    "placeholder": "Demandar sus o cambiar la carta activa…",
+    "reasoningAriaLabel": "Nivèl de razonament de l'assistent",
+    "send": "Mandar",
+    "sending": "…",
+    "showThinkingAriaLabel": "Mostrar lo pensament del modèl",
+    "signIn": "Connectar-se a Smart Notes per utilizar l'assistent.",
+    "thinking": "En pensament",
+    "thinkingPending": "En pensament…",
+    "tool": {
+      "createNote": "Una nòta a estat creada en \"{{deck}}\"",
+      "getField": "Legir \"{{field}}\"",
+      "listDecks": "Decks listats",
+      "listNoteTypes": "Tipes de nòtas listats",
+      "updateField": "\"{{field}}\" actualizat"
+    },
+    "usage": "{{input}} in · {{output}} out{{thinking}} · {{credits}} crèdits · ~${{usd}}",
+    "usageThinking": " · {{count}} pensament"
+  },
+  "chatSettings": {
+    "addPrompt": "Apondre prompt",
+    "buttonLabel": "Etiqueta del boton",
+    "emptyPrompts": "Cap de promps salvats pel moment.",
+    "invalidPrompt": "Cada boton a besoin d'una etiqueta e d'un prompt.",
+    "promptPlaceholder": "Quò mandar quand lo boton se prem",
+    "promptTextAriaLabel": "Tèxte de demanda",
+    "remove": "Tirar",
+    "responseLanguage": "Lenga de la resposta",
+    "responseLanguageAriaLabel": "Lenga de resposta de l'assistent",
+    "responseLanguageDescription": "L'assistent respond en aquesta lenga quina que siá la lenga en que la carta es escrita.",
+    "save": "Gardar los cambiaments",
+    "savedPrompts": "Demandas gardadas",
+    "savedPromptsDescription": "Cada una devén un boton al dessus de la bòstia de messatge en la fenèstra de chat.",
+    "saving": "Gardada...",
+    "subtitle": "Configurar l'assistent de chat",
+    "title": "Chat"
   }
 }

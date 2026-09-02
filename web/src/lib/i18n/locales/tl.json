@@ -70,7 +70,8 @@
       "subscription": "Account at Paggamit",
       "support": "Suporta",
       "text": "Text",
-      "voice": "Boses"
+      "voice": "Boses",
+      "chat": "Chat"
     },
     "sections": "Smart Notes na mga seksyon",
     "version": "Smart Notes v{{version}}"
@@ -372,7 +373,6 @@
   "subscription": {
     "accessEnds": "Nagtatapos ang access",
     "activateAgain": "I-activate muli",
-    "endingSoon": "Magtatapos na kaagad",
     "checking": "Sinusuri ang subscription",
     "creditTypes": {
       "images": "Mga imahe",
@@ -386,6 +386,7 @@
     "errors": {
       "logout": "Hindi makapag-log out"
     },
+    "endingSoon": "Magtatapos na kaagad",
     "expired": "Nag-expire na",
     "freePlan": "Libreng plano",
     "freeTrial": "Libreng pagsubok",
@@ -503,5 +504,54 @@
     "thanks": "Salamat sa paggamit ng Smart Notes ✨",
     "title": "Natapos na ang iyong libreng pagsubok",
     "upgradeNow": "Mag-upgrade ngayon"
+  },
+  "assistant": {
+    "binding": {
+      "add": "Idinadagdag: {{target}}",
+      "edit": "Inee-edit: {{target}}",
+      "none": "Walang aktibong target",
+      "review": "Nirereview: {{target}}",
+      "untitled": "Walang pamagat na note"
+    },
+    "empty": "Magtanong tungkol sa aktibong card, baguhin ang mga field nito, o lumikha ng bagong note.",
+    "loadEarlier": "I-load ang mas naunang mga session",
+    "loading": "Nilo-load…",
+    "modelAriaLabel": "Assistant model",
+    "newTarget": "Bagong target",
+    "placeholder": "Magtanong tungkol sa o baguhin ang aktibong card…",
+    "reasoningAriaLabel": "Antas ng pag-iisip ng assistant",
+    "send": "Ipadala",
+    "sending": "…",
+    "showThinkingAriaLabel": "Ipakita ang pag-iisip ng model",
+    "signIn": "Mag-sign in sa Smart Notes upang gamitin ang assistant.",
+    "thinking": "Nag-iisip",
+    "thinkingPending": "Nag-iisip…",
+    "tool": {
+      "createNote": "Lumikha ng note sa \"{{deck}}\"",
+      "getField": "Binasa ang \"{{field}}\"",
+      "listDecks": "Nailista ang mga deck",
+      "listNoteTypes": "Nailista ang mga uri ng note",
+      "updateField": "Na-update ang \"{{field}}\""
+    },
+    "usage": "{{input}} in · {{output}} out{{thinking}} · {{credits}} credits · ~${{usd}}",
+    "usageThinking": " · {{count}} thinking"
+  },
+  "chatSettings": {
+    "addPrompt": "Magdagdag ng prompt",
+    "buttonLabel": "Label ng button",
+    "emptyPrompts": "Walang naka-save na prompts pa.",
+    "invalidPrompt": "Bawat button ay nangangailangan ng label at prompt.",
+    "promptPlaceholder": "Ano ang isesend kapag pinindot ang button",
+    "promptTextAriaLabel": "Teksto ng prompt",
+    "remove": "Alisin",
+    "responseLanguage": "Wika ng tugon",
+    "responseLanguageAriaLabel": "Wika ng tugon ng assistant",
+    "responseLanguageDescription": "Tumutugon ang assistant sa wikang ito anuman ang wika ng card.",
+    "save": "I-save ang mga pagbabago",
+    "savedPrompts": "Mga naka-save na prompt",
+    "savedPromptsDescription": "Ang bawat isa ay magiging button sa ibabaw ng message box sa chat window.",
+    "saving": "Nag-se-save…",
+    "subtitle": "I-configure ang chat assistant",
+    "title": "Chat"
   }
 }
