@@ -108,7 +108,7 @@ describe("getPromptTestCardState", () => {
     expect(state.deckName).toBe("Japanese")
     expect(state.noteTypeName).toBe("Basic")
     expect(state.requiredNoteTypeName).toBe("Basic")
-    expect([...state.referencedFieldNames]).toEqual(["Front"])
+    expect(state.referencedFields).toEqual([["Front", "eat"]])
     expect(state.missingFieldNames).toEqual([])
     expect(state.runDisabled).toBe(false)
   })
@@ -119,6 +119,17 @@ describe("getPromptTestCardState", () => {
     expect(state.missingFieldNames).toEqual(["Reading"])
     expect(state.runDisabled).toBe(true)
   })
+
+  test.each(["front", "Front", "FRONT", "fRoNt"])(
+    "allows %s to reference the selected card's Front field",
+    (fieldName) => {
+      const state = cardState({ prompt: `Translate {{${fieldName}}}` })
+
+      expect(state.missingFieldNames).toEqual([])
+      expect(state.runDisabled).toBe(false)
+      expect(state.referencedFields).toEqual([["Front", "eat"]])
+    },
+  )
 
   test("blocks the run on no card, a note-type mismatch, an empty prompt, a run in flight, or no generation access", () => {
     expect(cardState({ selectedNote: null }).runDisabled).toBe(true)
