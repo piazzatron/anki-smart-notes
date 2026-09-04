@@ -39,7 +39,7 @@ import type {
   TTSMediaTestResult,
 } from "@/types/api"
 
-import { getMissingPromptFieldNames } from "./promptTestCard"
+import { resolvePromptReferences } from "./resolvePromptReferences"
 import { ResolvedPrompt } from "./PromptTestResultModal"
 
 type TestValue = MediaTestResult | TextPromptTestResult | TTSMediaTestResult
@@ -253,7 +253,8 @@ export const getInitialPromptTestSelection = ({
   if (hasNoteTypeMismatch) return null
   if (
     selectedNote !== null &&
-    getMissingPromptFieldNames(prompt, selectedNote).length > 0
+    resolvePromptReferences(prompt, selectedNote.fields).missingFieldNames
+      .length > 0
   ) {
     return null
   }

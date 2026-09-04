@@ -108,7 +108,7 @@ describe("getPromptTestCardState", () => {
     expect(state.deckName).toBe("Japanese")
     expect(state.noteTypeName).toBe("Basic")
     expect(state.requiredNoteTypeName).toBe("Basic")
-    expect([...state.referencedFieldNames]).toEqual(["front"])
+    expect(state.referencedFields).toEqual([["Front", "eat"]])
     expect(state.missingFieldNames).toEqual([])
     expect(state.runDisabled).toBe(false)
   })
@@ -127,7 +127,7 @@ describe("getPromptTestCardState", () => {
 
       expect(state.missingFieldNames).toEqual([])
       expect(state.runDisabled).toBe(false)
-      expect(state.referencedFieldNames.has("front")).toBe(true)
+      expect(state.referencedFields).toEqual([["Front", "eat"]])
     },
   )
 

@@ -14,7 +14,7 @@ interface SelectedTestCardProps {
   missingFieldNames: string[]
   note: SelectedNote | null
   noteTypeName: string
-  referencedFieldNames: Set<string>
+  referencedFields: [string, string][]
   requiredNoteTypeName?: string
   selection: Selection | null
   showNoteTypeMismatch: boolean
@@ -31,7 +31,7 @@ export const SelectedTestCard = ({
   missingFieldNames,
   note,
   noteTypeName,
-  referencedFieldNames,
+  referencedFields,
   requiredNoteTypeName,
   selection,
   showNoteTypeMismatch,
@@ -59,9 +59,6 @@ export const SelectedTestCard = ({
     )
   }
 
-  const referencedFields = Object.entries(note.fields).filter(([fieldName]) =>
-    referencedFieldNames.has(fieldName.toLowerCase()),
-  )
   const firstFieldValue = Object.values(note.fields)[0]?.trim()
   const cannotRun = showNoteTypeMismatch || missingFieldNames.length > 0
   const cardTitle =

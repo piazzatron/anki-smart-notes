@@ -29,7 +29,7 @@ import {
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import type { SelectedNote } from "@/types/api"
 
-import { FIELD_REFERENCE_PATTERN } from "./promptTestCard"
+import { resolvePromptReferences } from "./resolvePromptReferences"
 import type { PromptTester } from "./usePromptTester"
 
 interface PromptTestResultModalProps {
@@ -111,29 +111,22 @@ interface ResolvedPromptProps {
 /** The prompt as it was actually sent: field references swapped for the card's text. */
 export const ResolvedPrompt = ({ note, prompt }: ResolvedPromptProps) => {
   const { t } = useTranslation()
-  const fragments: ReactNode[] = []
-  let previousEnd = 0
-
-  for (const match of prompt.matchAll(FIELD_REFERENCE_PATTERN)) {
-    const matchIndex = match.index
-    if (matchIndex > previousEnd) {
-      fragments.push(prompt.slice(previousEnd, matchIndex))
-    }
-    fragments.push(
-      <span className="text-indigo-soft" key={`${matchIndex}-${match[0]}`}>
-        {note?.fields[match[1]!] ?? match[0]}
-      </span>,
-    )
-    previousEnd = matchIndex + match[0].length
-  }
-  if (previousEnd < prompt.length) fragments.push(prompt.slice(previousEnd))
+  const { parts } = resolvePromptReferences(prompt, note?.fields ?? {})
 
   return (
     <p className="mb-2 font-mono text-[11px] leading-[1.5] text-ink-muted">
       <span className="font-sans text-[10.5px] text-ink-faint">
         {t("promptTester.sent")} ·{" "}
       </span>
-      {fragments}
+      {parts.map((part, index) =>
+        part.isReference ? (
+          <span className="text-indigo-soft" key={index}>
+            {part.text}
+          </span>
+        ) : (
+          part.text
+        ),
+      )}
     </p>
   )
 }

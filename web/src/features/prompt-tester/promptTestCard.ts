@@ -22,32 +22,14 @@ import i18next from "i18next"
 import { useAppStore } from "@/store/appStore"
 import type { AccountState, Deck, NoteType, SelectedNote } from "@/types/api"
 
+import { resolvePromptReferences } from "./resolvePromptReferences"
 import type { PromptTester } from "./usePromptTester"
-
-export const FIELD_REFERENCE_PATTERN = /\{\{([^{}]+)\}\}/g
-
-// Fields the prompt references that the note doesn't have — the run would substitute
-// nothing, so it is blocked before it costs a generation.
-export const getMissingPromptFieldNames = (
-  prompt: string,
-  note: SelectedNote,
-): string[] => {
-  // Match generation's case-insensitive field interpolation.
-  const noteFieldNames = new Set(
-    Object.keys(note.fields).map((fieldName) => fieldName.toLowerCase()),
-  )
-  return [
-    ...new Set(
-      [...prompt.matchAll(FIELD_REFERENCE_PATTERN)].map((match) => match[1]!),
-    ),
-  ].filter((fieldName) => !noteFieldNames.has(fieldName.toLowerCase()))
-}
 
 export interface PromptTestCardState {
   deckName: string
   missingFieldNames: string[]
   noteTypeName: string
-  referencedFieldNames: Set<string>
+  referencedFields: [string, string][]
   requiredNoteTypeName: string | undefined
   runDisabled: boolean
 }
@@ -70,16 +52,12 @@ export const getPromptTestCardState = ({
   globalDeckId,
 }: PromptTestCardArgs): PromptTestCardState => {
   const selectedNote = tester.selectedNote
-  const referencedFieldNames = new Set(
-    [...tester.prompt.matchAll(FIELD_REFERENCE_PATTERN)].map((match) =>
-      match[1]!.toLowerCase(),
-    ),
+  const references = resolvePromptReferences(
+    tester.prompt,
+    selectedNote?.fields ?? {},
   )
-
   const missingFieldNames =
-    selectedNote === null
-      ? []
-      : getMissingPromptFieldNames(tester.prompt, selectedNote)
+    selectedNote === null ? [] : references.missingFieldNames
 
   return {
     deckName:
@@ -91,13 +69,13 @@ export const getPromptTestCardState = ({
     noteTypeName:
       noteTypes?.find((noteType) => noteType.id === selectedNote?.noteTypeId)
         ?.name ?? i18next.t("promptTester.selectedNoteType"),
-    referencedFieldNames,
+    referencedFields: references.referencedFields,
     requiredNoteTypeName: noteTypes?.find(
       (noteType) => noteType.id === tester.requiredNoteTypeId,
     )?.name,
     // A card is needed only when the prompt reads fields off one.
     runDisabled:
-      (selectedNote === null && referencedFieldNames.size > 0) ||
+      (selectedNote === null && references.hasFieldReferences) ||
       tester.hasNoteTypeMismatch ||
       missingFieldNames.length > 0 ||
       account === null ||
