@@ -31,12 +31,17 @@ export const FIELD_REFERENCE_PATTERN = /\{\{([^{}]+)\}\}/g
 export const getMissingPromptFieldNames = (
   prompt: string,
   note: SelectedNote,
-): string[] =>
-  [
+): string[] => {
+  // Match generation's case-insensitive field interpolation.
+  const noteFieldNames = new Set(
+    Object.keys(note.fields).map((fieldName) => fieldName.toLowerCase()),
+  )
+  return [
     ...new Set(
       [...prompt.matchAll(FIELD_REFERENCE_PATTERN)].map((match) => match[1]!),
     ),
-  ].filter((fieldName) => !(fieldName in note.fields))
+  ].filter((fieldName) => !noteFieldNames.has(fieldName.toLowerCase()))
+}
 
 export interface PromptTestCardState {
   deckName: string
@@ -66,8 +71,8 @@ export const getPromptTestCardState = ({
 }: PromptTestCardArgs): PromptTestCardState => {
   const selectedNote = tester.selectedNote
   const referencedFieldNames = new Set(
-    [...tester.prompt.matchAll(FIELD_REFERENCE_PATTERN)].map(
-      (match) => match[1]!,
+    [...tester.prompt.matchAll(FIELD_REFERENCE_PATTERN)].map((match) =>
+      match[1]!.toLowerCase(),
     ),
   )
 

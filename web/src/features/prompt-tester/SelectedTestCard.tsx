@@ -60,7 +60,7 @@ export const SelectedTestCard = ({
   }
 
   const referencedFields = Object.entries(note.fields).filter(([fieldName]) =>
-    referencedFieldNames.has(fieldName),
+    referencedFieldNames.has(fieldName.toLowerCase()),
   )
   const firstFieldValue = Object.values(note.fields)[0]?.trim()
   const cannotRun = showNoteTypeMismatch || missingFieldNames.length > 0
