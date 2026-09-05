@@ -284,7 +284,14 @@ const HERO_STYLES = {
   },
 } as const
 
-const PlanHero = ({ context, cta, note, showArrow = true, tone, url }: HeroContent) => {
+const PlanHero = ({
+  context,
+  cta,
+  note,
+  showArrow = true,
+  tone,
+  url,
+}: HeroContent) => {
   const styles = HERO_STYLES[tone]
 
   return (
