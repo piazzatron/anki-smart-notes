@@ -79,6 +79,8 @@ class Sentry:
             dsn=dsn,
             release=release,
             default_integrations=False,
+            # Traceback locals can contain JWTs, headers, and private note contents.
+            include_local_variables=False,
             environment="production" if is_production() else "development",
             integrations=[LoggingIntegration(level=logging.DEBUG)],
             before_send=before_send,

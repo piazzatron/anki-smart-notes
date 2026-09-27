@@ -446,7 +446,7 @@ async def test_run_card_task_logs_client_facing_errors_without_error_level(
 ):
     class FailingProcessor(MockProcessor):
         async def process_note(self, *args, **kwargs) -> bool:
-            raise ClientFacingAPIError("Try a different provider.")
+            raise ClientFacingAPIError("Try a different provider.", status=400)
 
     evaluator, _, review_time_evaluator = setup_review_time_evaluator(
         monkeypatch,

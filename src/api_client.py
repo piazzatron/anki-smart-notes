@@ -33,7 +33,11 @@ class OutOfCreditsError(Exception):
 
 
 class ClientFacingAPIError(Exception):
-    pass
+    """An API error with a displayable message and its original HTTP status."""
+
+    def __init__(self, message: str, *, status: int) -> None:
+        super().__init__(message)
+        self.status = status
 
 
 class APIClient:
@@ -96,7 +100,7 @@ class APIClient:
                 if isinstance(json, dict):
                     message = json.get("message") or json.get("error")
                     if isinstance(message, str):
-                        raise ClientFacingAPIError(message)
+                        raise ClientFacingAPIError(message, status=response.status)
 
                     if response.status == 400:
                         logger.error(json)

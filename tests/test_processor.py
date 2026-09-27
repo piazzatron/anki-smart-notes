@@ -43,7 +43,7 @@ def p(str) -> str:
 
 
 async def _raise_client_facing_error(message: str) -> bool:
-    raise ClientFacingAPIError(message)
+    raise ClientFacingAPIError(message, status=400)
 
 
 class MockOpenAIClient:

@@ -40,7 +40,8 @@ def test_custom_image_prompt_shows_client_facing_errors_directly(
     ) -> None:
         on_error(
             ClientFacingAPIError(
-                "The image provider rejected this prompt due to sensitive content. Try rewording it or using a different image prompt."
+                "The image provider rejected this prompt due to sensitive content. Try rewording it or using a different image prompt.",
+                status=400,
             )
         )
 

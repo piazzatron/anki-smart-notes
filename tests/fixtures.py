@@ -19,10 +19,12 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 from copy import deepcopy
 from pathlib import Path
-from typing import Any, Callable, Optional, cast
+from typing import TYPE_CHECKING, Any, Callable, Optional, cast
 
 import pytest
 from anki.decks import DeckId
+from sentry_sdk.envelope import Envelope
+from sentry_sdk.transport import Transport
 
 import src.database.connection
 import src.database.legacy_config_migration
@@ -31,10 +33,26 @@ import src.sentry
 import src.utils
 import src.utils.notes_utils
 
+if TYPE_CHECKING:
+    from sentry_sdk._types import Event
+
 NOTE_TYPE_NAME = "note_type_1"
 BASIC_NOTE_TYPE_NAME = "Basic"
 NOTE_TYPE_ID = 123
 DECK_ID = cast(DeckId, 1)
+
+
+class RecordingSentryTransport(Transport):
+    """Collect real SDK events without sending them to Sentry."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.events: list[Event] = []
+
+    def capture_envelope(self, envelope: Envelope) -> None:
+        event = envelope.get_event()
+        if event is not None:
+            self.events.append(event)
 
 
 class MockNote:
