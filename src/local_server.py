@@ -32,7 +32,7 @@ from aiohttp import web
 from aqt import mw
 
 from . import env
-from .api_client import api
+from .api_client import UserDisplayableError, api
 from .app_state import app_state
 from .config import config
 from .constants import SITE_URL_DEV
@@ -355,6 +355,9 @@ class LocalServer:
         except (ValueError, KeyError) as e:
             # KeyError: a trusted-client payload missing an expected wire key.
             return web.json_response({"ok": False, "error": str(e)}, status=400)
+        except UserDisplayableError as e:
+            logger.info(f"Web command rejected: {command} (HTTP {e.status})")
+            return web.json_response({"ok": False, "error": str(e)}, status=e.status)
         except Exception as e:
             logger.exception(f"Web command failed: {command}")
             return web.json_response({"ok": False, "error": str(e)}, status=500)

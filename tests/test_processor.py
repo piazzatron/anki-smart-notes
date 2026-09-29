@@ -32,7 +32,7 @@ from fixtures import (
     MockNote,
 )
 
-from src.api_client import ClientFacingAPIError, OutOfCreditsError
+from src.api_client import OutOfCreditsError, UserDisplayableError
 from src.database.migrations import apply_database_migrations
 
 
@@ -42,8 +42,8 @@ def p(str) -> str:
     return f"p-{str}"
 
 
-async def _raise_client_facing_error(message: str) -> bool:
-    raise ClientFacingAPIError(message)
+async def _raise_user_displayable_error(message: str) -> bool:
+    raise UserDisplayableError(message, status=400)
 
 
 class MockOpenAIClient:
@@ -592,7 +592,7 @@ def test_process_cards_with_progress_noops_during_batch(monkeypatch):
 
 
 @pytest.mark.asyncio
-async def test_process_notes_batch_marks_client_facing_errors_as_failed(monkeypatch):
+async def test_process_notes_batch_marks_user_displayable_errors_as_failed(monkeypatch):
     import src.note_proccessor
     from src.note_proccessor import NoteProcessor
 
@@ -629,7 +629,7 @@ async def test_process_notes_batch_marks_client_facing_errors_as_failed(monkeypa
     monkeypatch.setattr(
         processor,
         "process_note",
-        lambda *args, **kwargs: _raise_client_facing_error(message),
+        lambda *args, **kwargs: _raise_user_displayable_error(message),
     )
 
     updated, failed, skipped, out_of_credits = await processor._process_notes_batch(
@@ -644,11 +644,11 @@ async def test_process_notes_batch_marks_client_facing_errors_as_failed(monkeypa
     assert not out_of_credits
     assert error_logs == []
     assert len(info_logs) == 2
-    assert all("Client-facing" in log for log in info_logs)
+    assert all("User-displayable" in log for log in info_logs)
 
 
 @pytest.mark.asyncio
-async def test_process_cards_with_progress_does_not_show_client_facing_error(
+async def test_process_cards_with_progress_does_not_show_user_displayable_error(
     monkeypatch,
 ):
     import src.note_proccessor

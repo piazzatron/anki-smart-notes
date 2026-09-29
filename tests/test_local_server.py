@@ -20,12 +20,17 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import json
+import logging
 from typing import Any
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 from aiohttp import web
 from aiohttp.test_utils import TestClient, TestServer
+
+import src.api_client
+import src.local_server
+from tests.fixtures import MockConfig
 
 
 def _make_server():
@@ -575,6 +580,73 @@ async def test_prompt_generate_command_prepares_names_and_returns_prompt(monkeyp
             },
             timeout_sec=30,
         )
+
+
+@pytest.mark.parametrize("upstream_status", [400, 403, 413, 429, 500, 503])
+@pytest.mark.asyncio
+async def test_prompt_generate_preserves_api_errors_and_reports_only_server_failures(
+    monkeypatch, caplog, upstream_status
+):
+    config = MockConfig()
+    config.auth_token = "synthetic-auth-token"
+    monkeypatch.setattr(src.api_client, "config", config)
+    monkeypatch.setattr(src.api_client, "get_version", lambda: "test")
+    monkeypatch.setattr(
+        src.local_server,
+        "get_note_types_with_fields",
+        lambda: [(123, "Basic", ["Front", "Back"])],
+    )
+    monkeypatch.setattr(src.local_server, "deck_id_to_name_map", lambda: {1: "Default"})
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+
+    async def reject_prompt(request):
+        assert (await request.json())["target_field"] == "Back"
+        return web.json_response(
+            {"message": "upstream-error-sentinel"}, status=upstream_status
+        )
+
+    upstream = web.Application()
+    upstream.router.add_post("/api/prompt/generate", reject_prompt)
+    server = _make_server()
+    async with (
+        TestServer(upstream) as backend,
+        TestClient(TestServer(_make_app(server))) as client,
+    ):
+        monkeypatch.setattr(
+            src.api_client, "get_server_url", lambda: str(backend.make_url(""))
+        )
+        with caplog.at_level(logging.ERROR, logger="smart_notes"):
+            response = await client.post(
+                "/api/command",
+                json=_command_request(
+                    "prompts.generate",
+                    {
+                        "noteTypeId": 123,
+                        "deckId": 1,
+                        "targetFieldName": "Back",
+                        "fieldType": "chat",
+                        "generationPrompt": "Define the term",
+                    },
+                ),
+                headers={"X-Session-Token": server.session_token},
+            )
+
+        body = await response.json()
+        assert body["ok"] is False
+        if upstream_status < 500:
+            assert response.status == upstream_status
+            assert body["error"] == "upstream-error-sentinel"
+        else:
+            assert response.status == 500
+            assert body["error"] == "Something went wrong. Please try again soon."
+        reports = [
+            record
+            for record in caplog.records
+            if record.name == "smart_notes" and record.levelno >= logging.ERROR
+        ]
+        assert bool(reports) == (upstream_status >= 500)
+        if reports:
+            assert reports[0].exc_info is not None
 
 
 @pytest.mark.asyncio

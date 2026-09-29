@@ -22,12 +22,12 @@ from typing import Any
 
 import pytest
 
-from src.api_client import ClientFacingAPIError
+from src.api_client import UserDisplayableError
 from src.ui import custom_prompt
 from src.ui.custom_prompt import CustomImagePrompt
 
 
-def test_custom_image_prompt_shows_client_facing_errors_directly(
+def test_custom_image_prompt_shows_user_displayable_errors_directly(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     shown_messages: list[str] = []
@@ -39,8 +39,9 @@ def test_custom_image_prompt_shows_client_facing_errors_directly(
         on_error: Callable[[Exception], None],
     ) -> None:
         on_error(
-            ClientFacingAPIError(
-                "The image provider rejected this prompt due to sensitive content. Try rewording it or using a different image prompt."
+            UserDisplayableError(
+                "The image provider rejected this prompt due to sensitive content. Try rewording it or using a different image prompt.",
+                status=400,
             )
         )
 

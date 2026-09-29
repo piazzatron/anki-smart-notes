@@ -36,7 +36,7 @@ from sentry_sdk.integrations.logging import LoggingIntegration
 from sentry_sdk.session import Session
 
 from . import env
-from .api_client import ClientFacingAPIError, OutOfCreditsError
+from .api_client import OutOfCreditsError, UserDisplayableError
 from .config import config
 from .logger import logger
 from .tasks import run_async_in_background
@@ -79,6 +79,8 @@ class Sentry:
             dsn=dsn,
             release=release,
             default_integrations=False,
+            # Traceback locals can contain JWTs, headers, and private note contents.
+            include_local_variables=False,
             environment="production" if is_production() else "development",
             integrations=[LoggingIntegration(level=logging.DEBUG)],
             before_send=before_send,
@@ -158,7 +160,7 @@ class Sentry:
             try:
                 return await fn(*args, **kwargs)
             except (
-                ClientFacingAPIError,
+                UserDisplayableError,
                 OutOfCreditsError,
                 TimeoutError,
                 asyncio.TimeoutError,

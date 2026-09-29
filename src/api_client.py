@@ -32,8 +32,33 @@ class OutOfCreditsError(Exception):
     pass
 
 
-class ClientFacingAPIError(Exception):
-    pass
+class UserDisplayableError(Exception):
+    """A 4xx server rejection whose message is written for the user.
+
+    The server decides which failures users should see (moderation blocks,
+    plan restrictions, input too long, rate limits) by returning a 4xx with a
+    JSON `message` or `error` string. Callers show that message and treat the
+    failure as expected, so it is logged below error level and never reported
+    to Sentry. 5xx responses are server failures and raise `ServerError`
+    instead, even when they carry a message.
+    """
+
+    def __init__(self, message: str, *, status: int) -> None:
+        super().__init__(message)
+        self.status = status
+
+
+class ServerError(Exception):
+    """A 5xx server failure, worded generically so it is safe to show users.
+
+    Unlike `UserDisplayableError`, this is an unexpected failure and callers
+    report it.
+    """
+
+    def __init__(self, *, status: int, path: str) -> None:
+        super().__init__("Something went wrong. Please try again soon.")
+        self.status = status
+        self.path = path
 
 
 class APIClient:
@@ -87,6 +112,8 @@ class APIClient:
                 raise OutOfCreditsError()
             if response.status == 401:
                 response.raise_for_status()
+            if response.status >= 500:
+                raise ServerError(status=response.status, path=path)
             if response.status >= 400:
                 try:
                     json = await response.json()
@@ -96,7 +123,7 @@ class APIClient:
                 if isinstance(json, dict):
                     message = json.get("message") or json.get("error")
                     if isinstance(message, str):
-                        raise ClientFacingAPIError(message)
+                        raise UserDisplayableError(message, status=response.status)
 
                     if response.status == 400:
                         logger.error(json)

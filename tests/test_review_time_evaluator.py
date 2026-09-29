@@ -22,7 +22,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 import pytest
 from fixtures import MockCard, MockConfig, MockProcessor
 
-from src.api_client import ClientFacingAPIError
+from src.api_client import UserDisplayableError
 
 
 class MockQueuedCard:
@@ -441,12 +441,12 @@ async def test_run_batch_updates_state_for_each_card(monkeypatch):
 
 
 @pytest.mark.asyncio
-async def test_run_card_task_logs_client_facing_errors_without_error_level(
+async def test_run_card_task_logs_user_displayable_errors_without_error_level(
     monkeypatch,
 ):
     class FailingProcessor(MockProcessor):
         async def process_note(self, *args, **kwargs) -> bool:
-            raise ClientFacingAPIError("Try a different provider.")
+            raise UserDisplayableError("Try a different provider.", status=400)
 
     evaluator, _, review_time_evaluator = setup_review_time_evaluator(
         monkeypatch,
@@ -469,7 +469,7 @@ async def test_run_card_task_logs_client_facing_errors_without_error_level(
     assert evaluator.in_flight == set()
     assert error_logs == []
     assert len(info_logs) == 1
-    assert "Client-facing" in info_logs[0]
+    assert "User-displayable" in info_logs[0]
     assert len(redraws) == 1
 
 

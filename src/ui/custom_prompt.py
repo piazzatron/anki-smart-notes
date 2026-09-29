@@ -39,7 +39,7 @@ from aqt import (
     QWidget,
 )
 
-from ..api_client import ClientFacingAPIError
+from ..api_client import UserDisplayableError
 from ..field_resolver import field_resolver
 from ..image_provider import ImageResponse
 from ..logger import logger
@@ -312,8 +312,8 @@ class CustomImagePrompt(CustomPrompt):
             self._update_ui_states()
 
         def on_error(error: Exception):
-            if isinstance(error, ClientFacingAPIError):
-                logger.info(f"Client-facing image generation error: {error}")
+            if isinstance(error, UserDisplayableError):
+                logger.info(f"User-displayable image generation error: {error}")
                 show_message_box(str(error))
                 self._loading = False
                 self._update_ui_states()

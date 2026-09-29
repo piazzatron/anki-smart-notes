@@ -19,14 +19,48 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 # pyright: reportPrivateUsage=false
 
+import json
 import types
+from uuid import uuid4
 
 import aiohttp
 import pytest
 
 import src.sentry as sentry_module
-from src.api_client import ClientFacingAPIError
+from src.api_client import UserDisplayableError
 from src.sentry import Sentry
+from tests.fixtures import RecordingSentryTransport
+
+
+@pytest.mark.parametrize("capture_method", ["logging", "direct"])
+def test_captured_exceptions_keep_stack_without_local_credentials(
+    monkeypatch: pytest.MonkeyPatch, capture_method: str
+) -> None:
+    transport = RecordingSentryTransport()
+    monkeypatch.setattr("sentry_sdk.client.make_transport", lambda _: transport)
+    monkeypatch.setattr(sentry_module, "is_production", lambda: True)
+    sentry = Sentry("https://public@example.invalid/1", "test", "production")
+    jwt = uuid4().hex
+
+    with sentry.hub:
+        try:
+            raise RuntimeError("smart-notes synthetic failure")
+        except RuntimeError as error:
+            if capture_method == "logging":
+                sentry_module.logger.exception("Synthetic command failed")
+            else:
+                sentry.capture_exception(error)
+
+    assert sentry.hub.client is not None
+    sentry.hub.client.close()
+
+    assert len(transport.events) == 1
+    event = transport.events[0]
+    assert "exception" in event
+    frames = event["exception"]["values"][0]["stacktrace"]["frames"]
+    assert frames
+    assert all(not frame.get("vars") for frame in frames)
+    assert jwt not in json.dumps(event)
 
 
 class _LegacyAsyncioTimeoutError(Exception):
@@ -40,8 +74,9 @@ class _LegacyAsyncioTimeoutError(Exception):
         (TimeoutError("provider timed out"), False, False),
         (aiohttp.ClientConnectionError("offline"), False, False),
         (
-            ClientFacingAPIError(
-                "This request is too long for Google TTS. Please try a different provider."
+            UserDisplayableError(
+                "This request is too long for Google TTS. Please try a different provider.",
+                status=413,
             ),
             False,
             False,
@@ -52,7 +87,7 @@ class _LegacyAsyncioTimeoutError(Exception):
         "unexpected",
         "timeout",
         "offline",
-        "client-facing",
+        "user-displayable",
         "legacy-timeout",
     ],
 )
