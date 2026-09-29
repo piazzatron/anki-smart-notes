@@ -25,7 +25,7 @@ from anki.cards import Card, CardId
 from anki.scheduler.v3 import Scheduler
 from aqt import mw
 
-from .api_client import ClientFacingAPIError, OutOfCreditsError
+from .api_client import OutOfCreditsError, UserDisplayableError
 from .app_state import app_state, is_capacity_remaining_or_legacy
 from .config import config
 from .logger import logger
@@ -231,10 +231,10 @@ class ReviewTimeEvaluator:
                 )
                 return
 
-            if isinstance(e, ClientFacingAPIError):
+            if isinstance(e, UserDisplayableError):
                 # Keep this below error level so expected per-card failures do not
                 # become Sentry events through the logging integration.
-                logger.info(f"Client-facing error prepping card {card.id}: {e}")
+                logger.info(f"User-displayable error prepping card {card.id}: {e}")
             else:
                 logger.error(
                     f"Error prepping card {card.id}: {e}, {''.join(traceback.format_exception(type(e), e, e.__traceback__))}"

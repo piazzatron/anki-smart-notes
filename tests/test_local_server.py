@@ -631,10 +631,14 @@ async def test_prompt_generate_preserves_api_errors_and_reports_only_server_fail
                 headers={"X-Session-Token": server.session_token},
             )
 
-        assert response.status == upstream_status
         body = await response.json()
         assert body["ok"] is False
-        assert "upstream-error-sentinel" in body["error"]
+        if upstream_status < 500:
+            assert response.status == upstream_status
+            assert body["error"] == "upstream-error-sentinel"
+        else:
+            assert response.status == 500
+            assert body["error"] == "Something went wrong. Please try again soon."
         reports = [
             record
             for record in caplog.records

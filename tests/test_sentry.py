@@ -27,7 +27,7 @@ import aiohttp
 import pytest
 
 import src.sentry as sentry_module
-from src.api_client import ClientFacingAPIError
+from src.api_client import UserDisplayableError
 from src.sentry import Sentry
 from tests.fixtures import RecordingSentryTransport
 
@@ -74,7 +74,7 @@ class _LegacyAsyncioTimeoutError(Exception):
         (TimeoutError("provider timed out"), False, False),
         (aiohttp.ClientConnectionError("offline"), False, False),
         (
-            ClientFacingAPIError(
+            UserDisplayableError(
                 "This request is too long for Google TTS. Please try a different provider.",
                 status=413,
             ),
@@ -87,7 +87,7 @@ class _LegacyAsyncioTimeoutError(Exception):
         "unexpected",
         "timeout",
         "offline",
-        "client-facing",
+        "user-displayable",
         "legacy-timeout",
     ],
 )

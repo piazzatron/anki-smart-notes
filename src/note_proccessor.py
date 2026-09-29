@@ -30,7 +30,7 @@ from anki.decks import DeckId
 from anki.notes import Note, NoteId
 from aqt import mw
 
-from .api_client import ClientFacingAPIError, OutOfCreditsError
+from .api_client import OutOfCreditsError, ServerError, UserDisplayableError
 from .app_state import has_legacy_openai_access, is_capacity_remaining
 from .config import Config, bump_usage_counter
 from .constants import STANDARD_BATCH_LIMIT
@@ -263,11 +263,11 @@ class NoteProcessor:
             if isinstance(result, OutOfCreditsError):
                 hit_out_of_credits = True
                 failed.append(note)
-            elif isinstance(result, ClientFacingAPIError):
+            elif isinstance(result, UserDisplayableError):
                 # Keep this below error level so expected per-note failures do not
                 # become Sentry events through the logging integration.
                 logger.info(
-                    f"Client-facing error processing note {note_ids[i]}: {result}"
+                    f"User-displayable error processing note {note_ids[i]}: {result}"
                 )
                 failed.append(note)
             elif isinstance(result, Exception):
@@ -445,7 +445,12 @@ class NoteProcessor:
             refresh_account_after_generation_rejected()
             return
 
-        if isinstance(e, ClientFacingAPIError):
+        if isinstance(e, UserDisplayableError):
+            show_message_box(str(e))
+            return
+
+        if isinstance(e, ServerError):
+            logger.error(f"Got {e.status} error from {e.path}")
             show_message_box(str(e))
             return
 

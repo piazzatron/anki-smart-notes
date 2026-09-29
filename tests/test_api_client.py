@@ -145,7 +145,7 @@ async def test_api_client_preserves_unauthorized_response_status(
 
 
 @pytest.mark.asyncio
-async def test_api_client_raises_client_facing_message_for_server_message(
+async def test_api_client_raises_user_displayable_message_for_server_message(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     message = (
@@ -161,18 +161,18 @@ async def test_api_client_raises_client_facing_message_for_server_message(
     monkeypatch.setattr(api_client, "get_server_url", lambda: "https://server.test")
     monkeypatch.setattr(api_client, "get_version", lambda: "1.2.3")
 
-    with pytest.raises(api_client.ClientFacingAPIError, match=message):
+    with pytest.raises(api_client.UserDisplayableError, match=message):
         await api_client.APIClient().get_api_response("tts", {"message": "hello"})
 
     assert len(fake_session.calls) == 1
 
 
 @pytest.mark.asyncio
-async def test_api_client_raises_client_facing_message_for_server_error_field(
+async def test_api_client_raises_user_displayable_message_for_server_error_field(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     fake_session = FakeSession()
-    fake_session.response_status = 500
+    fake_session.response_status = 403
     fake_session.response_json = {"error": "The provider rejected this request."}
     monkeypatch.setattr(api_client.aiohttp, "ClientSession", lambda: fake_session)
     monkeypatch.setattr(
@@ -182,7 +182,7 @@ async def test_api_client_raises_client_facing_message_for_server_error_field(
     monkeypatch.setattr(api_client, "get_version", lambda: "1.2.3")
 
     with pytest.raises(
-        api_client.ClientFacingAPIError,
+        api_client.UserDisplayableError,
         match="The provider rejected this request.",
     ):
         await api_client.APIClient().get_api_response("tts", {"message": "hello"})
@@ -191,7 +191,29 @@ async def test_api_client_raises_client_facing_message_for_server_error_field(
 
 
 @pytest.mark.asyncio
-async def test_api_client_raises_client_facing_message_for_validation_errors(
+async def test_api_client_raises_http_error_for_server_failure_with_message(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    fake_session = FakeSession()
+    fake_session.response_status = 500
+    fake_session.response_json = {"error": "Error generating image"}
+    monkeypatch.setattr(api_client.aiohttp, "ClientSession", lambda: fake_session)
+    monkeypatch.setattr(
+        api_client, "config", type("Config", (), {"auth_token": "test-token"})()
+    )
+    monkeypatch.setattr(api_client, "get_server_url", lambda: "https://server.test")
+    monkeypatch.setattr(api_client, "get_version", lambda: "1.2.3")
+
+    with pytest.raises(
+        api_client.ServerError, match="Something went wrong. Please try again soon."
+    ) as error:
+        await api_client.APIClient().get_api_response("images", {"prompt": "hello"})
+
+    assert error.value.status == 500
+
+
+@pytest.mark.asyncio
+async def test_api_client_raises_user_displayable_message_for_validation_errors(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     error_logs: list[object] = []
@@ -206,7 +228,7 @@ async def test_api_client_raises_client_facing_message_for_validation_errors(
     monkeypatch.setattr(api_client, "get_version", lambda: "1.2.3")
     monkeypatch.setattr(api_client.logger, "error", error_logs.append)
 
-    with pytest.raises(api_client.ClientFacingAPIError, match="Provider is required"):
+    with pytest.raises(api_client.UserDisplayableError, match="Provider is required"):
         await api_client.APIClient().get_api_response("tts", {"message": "hello"})
 
     assert len(fake_session.calls) == 1
@@ -214,7 +236,7 @@ async def test_api_client_raises_client_facing_message_for_validation_errors(
 
 
 @pytest.mark.asyncio
-async def test_api_client_logs_non_client_facing_validation_errors(
+async def test_api_client_logs_non_user_displayable_validation_errors(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     error_logs: list[object] = []
