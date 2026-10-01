@@ -12,6 +12,7 @@ import { groupSmartFields } from "./groupSmartFields"
 import { PageLayout } from "@/components/shared/PageLayout"
 import { Button } from "@/components/ui/Button"
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
+import { trackAnalyticsEvent } from "@/services/analytics"
 import {
   FieldEditorScreen,
   type FieldEditorRequest,
@@ -64,6 +65,11 @@ export const SmartFieldsScreen = ({
     discordDismissedThisSession: discordPromptHidden,
   })
 
+  const openCreateEditor = (initialNoteTypeId?: number) => {
+    void trackAnalyticsEvent({ event: "clicked_add_smart_field" })
+    setEditorState({ initialNoteTypeId, mode: "create" })
+  }
+
   const toggleEnabled = (field: SmartField) =>
     setSmartFieldEnabled(field, !field.enabled)
 
@@ -93,7 +99,7 @@ export const SmartFieldsScreen = ({
         actions={
           <Button
             className="h-auto shrink-0 self-center !rounded-lg !border-[#1fd47d]/60 !bg-gradient-to-b !from-[#4cf0a8] !to-[#1fd47d] !px-[18px] !py-2.5 !text-[13px] !font-extrabold !text-[#06281a] shadow-[inset_0_1px_0_rgba(255,255,255,0.34),0_10px_24px_-8px_rgba(31,212,125,0.55)] hover:!border-[#1fd47d]/60 hover:brightness-105"
-            onClick={() => setEditorState({ mode: "create" })}
+            onClick={() => openCreateEditor()}
             variant="success"
           >
             {t("smartFields.newSmartField")}
@@ -121,18 +127,14 @@ export const SmartFieldsScreen = ({
         {state === null ? (
           <FieldsSkeleton />
         ) : state.smartFields.length === 0 ? (
-          <FieldsEmptyState
-            onCreate={() => setEditorState({ mode: "create" })}
-          />
+          <FieldsEmptyState onCreate={() => openCreateEditor()} />
         ) : (
           <div>
             {groups.map((group) => (
               <DeckGroup
                 group={group}
                 key={group.deck.id}
-                onCreate={(initialNoteTypeId) =>
-                  setEditorState({ initialNoteTypeId, mode: "create" })
-                }
+                onCreate={openCreateEditor}
                 onDelete={deleteSmartField}
                 onDuplicate={(field) =>
                   setEditorState({ field, mode: "duplicate" })
