@@ -29,6 +29,7 @@ from .constants import WEB_APP_DEV_URL
 from .local_server import LOCAL_SERVER_HOST, LOCAL_SERVER_PORT, LocalServer
 from .logger import logger
 from .sentry import with_sentry
+from .telemetry import track_event
 from .ui.ui_utils import show_message_box
 from .ui.web_app_dialog import WebAppDialog
 
@@ -90,6 +91,7 @@ def open_web_app() -> None:
 
     dialog.finished.connect(clear_web_app_dialog)
     dialog.show()
+    track_event("smart_notes_window_opened")
 
 
 def close_web_app() -> None:

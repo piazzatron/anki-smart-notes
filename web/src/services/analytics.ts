@@ -21,6 +21,7 @@ import { useAppStore } from "@/store/appStore"
 import type { SmartField } from "@/types/api"
 
 export type AnalyticsEvent =
+  | { event: "clicked_add_smart_field" }
   | {
       event: "smart_field_saved"
       properties: { field_type: SmartField["fieldType"] }
