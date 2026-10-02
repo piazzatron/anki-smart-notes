@@ -259,13 +259,11 @@
     "image": {
       "cannotFindModel": "Bildkatalogen saknar modell {{model}}",
       "defaultModel": "Standardmodell",
-      "gptImage15Low": "bästa kvalité / hastighet.",
-      "gptImage2": "samma kostnad, långsammare, högre kvalitet.",
+      "gptImage25": "bästa all-round-modell — skarp text, rena diagram.",
       "loadingLabel": "Laddar standardbildinställningar",
       "loadingTitle": "Standardbildinställningar",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Välja en bildmodell",
@@ -273,7 +271,8 @@
       "saveError": "Det gick inte att spara bildens standardinställningar",
       "subtitle": "Modellen som din bild Smart Fields använder om inte ett fält fäster sitt eget.",
       "title": "Standardbildinställningar",
-      "zImageTurbo": "snabbast och billigast."
+      "zImageTurbo": "snabbast och billigast.",
+      "extrasTip": "Börja med extra inaktiverat, aktivera det sedan om ett fält behöver mer detaljer."
     },
     "layout": {
       "saveChanges": "Spara ändringar",
@@ -331,6 +330,16 @@
       "title": "Standardröstinställningar"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× kostnad",
+    "extras": "Extras",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Ingen extra kostnad",
+    "richerDetail": "Rikare detaljer",
+    "richerDetailDescription": "Mer detaljer, fullare scener. Något långsammare.",
+    "maxQuality": "Maximal kvalitet",
+    "maxQualityDescription": "Skarpare och renare, särskilt små etiketter."
+  },
   "promptTester": {
     "anotherNoteType": "en annan nottyp",
     "currentlySelectedCard": "För närvarande valt kort",
@@ -372,7 +381,6 @@
   "subscription": {
     "accessEnds": "Åtkomsten upphör",
     "activateAgain": "Aktivera igen",
-    "endingSoon": "Slutar snart",
     "checking": "Kontrollerar prenumeration",
     "creditTypes": {
       "images": "Bilder",
@@ -386,6 +394,7 @@
     "errors": {
       "logout": "Kunde inte logga ut"
     },
+    "endingSoon": "Slutar snart",
     "expired": "Utgånget",
     "freePlan": "Gratis plan",
     "freeTrial": "Gratis provperiod",

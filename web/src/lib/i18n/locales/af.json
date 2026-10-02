@@ -259,13 +259,11 @@
     "image": {
       "cannotFindModel": "Beeldkatalogus ontbreek model {{model}}",
       "defaultModel": "Verstek model",
-      "gptImage15Low": "beste kwaliteit / spoed afweging.",
-      "gptImage2": "dieselfde koste, stadiger, hoër gehalte.",
+      "gptImage25": "beste alleskunner — skerp teks, skoon diagramme.",
       "loadingLabel": "Laai tans verstekbeeldinstellings",
       "loadingTitle": "Standaard prentinstellings",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Laag / Medium)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Kies 'n beeldmodel",
@@ -273,7 +271,8 @@
       "saveError": "Kon nie prentverstekings stoor nie",
       "subtitle": "Die model wat jou beeld Smart Fields gebruik, tensy 'n veld sy eie vaspen.",
       "title": "Standaard prentinstellings",
-      "zImageTurbo": "vinnigste en goedkoopste."
+      "zImageTurbo": "vinnigste en goedkoopste.",
+      "extrasTip": "Begin met ekstras af, en skakel dit aan as 'n veld meer detail nodig het."
     },
     "layout": {
       "saveChanges": "Stoor veranderinge",
@@ -331,6 +330,16 @@
       "title": "Versteksteminstellings"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× koste",
+    "extras": "Ekstra's",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Geen ekstra koste",
+    "richerDetail": "Ryker detail",
+    "richerDetailDescription": "Meer gedetailleerd, voller tonele. Effens stadiger.",
+    "maxQuality": "Maksimum kwaliteit",
+    "maxQualityDescription": "Skerper en skoner, veral klein etikette."
+  },
   "promptTester": {
     "anotherNoteType": "'n ander noottipe",
     "currentlySelectedCard": "Kaart wat tans gekies is",
@@ -372,7 +381,6 @@
   "subscription": {
     "accessEnds": "Toegang eindig",
     "activateAgain": "Aktiveer weer",
-    "endingSoon": "Eindig binnekort",
     "checking": "Gaan tans intekening na",
     "creditTypes": {
       "images": "Beelde",
@@ -386,6 +394,7 @@
     "errors": {
       "logout": "Kon nie uitteken nie"
     },
+    "endingSoon": "Eindig binnekort",
     "expired": "Verstreke",
     "freePlan": "Gratis plan",
     "freeTrial": "Gratis proeflopie",

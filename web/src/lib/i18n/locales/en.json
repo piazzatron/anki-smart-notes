@@ -249,13 +249,12 @@
     "image": {
       "cannotFindModel": "Image catalog is missing model {{model}}",
       "defaultModel": "Default model",
-      "gptImage15Low": "best quality / speed tradeoff.",
-      "gptImage2": "same cost, slower, higher quality.",
+      "extrasTip": "Start with extras off, then turn them on if a field needs more detail.",
+      "gptImage25": "best all-rounder — sharp text, clean diagrams.",
       "loadingLabel": "Loading Default Image Settings",
       "loadingTitle": "Default Image Settings",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Picking an image model",
@@ -316,6 +315,16 @@
       "subtitle": "The voice your TTS Smart Fields use unless a field pins its own.",
       "title": "Default Voice Settings"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× cost",
+    "extras": "Extras",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Max quality",
+    "maxQualityDescription": "Sharper and cleaner, especially small labels.",
+    "noExtraCost": "No extra cost",
+    "richerDetail": "Richer detail",
+    "richerDetailDescription": "More detailed, fuller scenes. A bit slower."
   },
   "promptTester": {
     "anotherNoteType": "another note type",

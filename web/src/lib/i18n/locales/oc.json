@@ -258,13 +258,11 @@
     "image": {
       "cannotFindModel": "Lo catalòg d'imatges manca lo modèl {{model}}",
       "defaultModel": "Modèl per defaut",
-      "gptImage15Low": "melhor compromés de qualitat / velocitat.",
-      "gptImage2": "meteis còst, mai lent, qualitat mai nauta.",
+      "gptImage25": "lo melhor de tot — tèxt nitid, diagramas nets.",
       "loadingLabel": "En cargament dels paramètres d'imatge per defaut",
       "loadingTitle": "Paramètres d'imatge per defaut",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Bas / Mejan)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Causir un modèl d'imatge",
@@ -272,7 +270,8 @@
       "saveError": "Impossible d'enregistrar las valors per defaut de l'imatge",
       "subtitle": "Lo modèl que vòstra imatge Smart Fields utilizatz levat se un camp fixa lo sieu.",
       "title": "Paramètres d'imatge per defaut",
-      "zImageTurbo": "lo mai rapid e lo mai economic."
+      "zImageTurbo": "lo mai rapid e lo mai economic.",
+      "extrasTip": "Començatz amb los extras desactivats, puèi activatz-los se un camp a besoin de mai de detalh."
     },
     "layout": {
       "saveChanges": "Enregistrar las modificacions",
@@ -329,6 +328,16 @@
       "title": "Paramètres de votz per defaut"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× de còst",
+    "extras": "Extres",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Pas de còst suplementari",
+    "richerDetail": "Detall pus ric",
+    "richerDetailDescription": "Pus detallat, escènas pus complètas. Un pauc pus lent.",
+    "maxQuality": "Qualitat maxima",
+    "maxQualityDescription": "Pus net e pus clar, especialament per las etiquetas petitas."
+  },
   "promptTester": {
     "anotherNoteType": "un autre tipe de nòta",
     "currentlySelectedCard": "Carta actualament seleccionada",
@@ -366,7 +375,6 @@
   "subscription": {
     "accessEnds": "L'accès s'acabarà",
     "activateAgain": "Reactivar",
-    "endingSoon": "Finís aviat",
     "checking": "Verificacion de l'abonament",
     "creditTypes": {
       "images": "Imatges",
@@ -379,6 +387,7 @@
     "errors": {
       "logout": "Poguèt pas se desconnectar"
     },
+    "endingSoon": "Finís aviat",
     "expired": "Expirat",
     "freePlan": "Plan gratuit",
     "freeTrial": "Espròva gratuita",

@@ -259,13 +259,11 @@
     "image": {
       "cannotFindModel": "Irudien katalogoa {{model}} eredua falta da",
       "defaultModel": "Eredu lehenetsia",
-      "gptImage15Low": "kalitate/abiadura onena.",
-      "gptImage2": "kostu bera, motelagoa, kalitate handiagoa.",
+      "gptImage25": "ondo orokorra — testu garbia, diagrama garbi eta txukun.",
       "loadingLabel": "Irudiaren ezarpen lehenetsiak kargatzen",
       "loadingTitle": "Irudiaren ezarpen lehenetsiak",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Baxua/Ertaina)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Irudi eredu bat hautatzea",
@@ -273,7 +271,8 @@
       "saveError": "Ezin izan dira gorde irudi lehenetsiak",
       "subtitle": "Zure irudiak Smart Fields erabiltzen duen eredua eremu batek berea jartzen ez badu behintzat.",
       "title": "Irudiaren ezarpen lehenetsiak",
-      "zImageTurbo": "azkarrena eta merkeena."
+      "zImageTurbo": "azkarrena eta merkeena.",
+      "extrasTip": "Hasi gehigarriak itzalita, eta aktibatu beharrezkoa bada zehaztasun gehiago behar duen eremu bat."
     },
     "layout": {
       "saveChanges": "Gorde aldaketak",
@@ -331,6 +330,16 @@
       "title": "Ahotsaren ezarpen lehenetsiak"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× kostua",
+    "extras": "Gehigarriak",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Kostu gehigarririk ez",
+    "richerDetail": "Xehetasun gehiago",
+    "richerDetailDescription": "Xeheago, eszenak beteak. Pixka bat motzagoa.",
+    "maxQuality": "Kalitate maximoa",
+    "maxQualityDescription": "Zehatzagoa eta garbiagoa, batez ere etiketa txikietan."
+  },
   "promptTester": {
     "anotherNoteType": "beste ohar mota bat",
     "currentlySelectedCard": "Une honetan hautatutako txartela",
@@ -372,7 +381,6 @@
   "subscription": {
     "accessEnds": "Sarbidea amaitu da",
     "activateAgain": "Berriro aktibatu",
-    "endingSoon": "Laster amaitu",
     "checking": "Harpidetza egiaztatzen",
     "creditTypes": {
       "images": "Irudiak",
@@ -386,6 +394,7 @@
     "errors": {
       "logout": "Ezin izan da saioa amaitu"
     },
+    "endingSoon": "Laster amaitu",
     "expired": "Iraungita",
     "freePlan": "Doako plana",
     "freeTrial": "Doako proba",

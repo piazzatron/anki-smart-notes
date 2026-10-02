@@ -259,13 +259,11 @@
     "image": {
       "cannotFindModel": "Bildkatalogo mankas modelo {{model}}",
       "defaultModel": "Defaŭlta modelo",
-      "gptImage15Low": "plej bona kvalito/rapida kompromiso.",
-      "gptImage2": "sama kosto, pli malrapida, pli alta kvalito.",
+      "gptImage25": "plej bona ĉiucela — akra teksto, puraj diagramoj.",
       "loadingLabel": "Ŝargante defaŭltajn bildajn agordojn",
       "loadingTitle": "Defaŭltaj Bildaj Agordoj",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Malalta / Meza)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Elektante bildomodelon",
@@ -273,7 +271,8 @@
       "saveError": "Ne eblis konservi bildodefaŭltojn",
       "subtitle": "La modelo kiun via bildo Smart Fields uzas krom se kampo alpinglas sian propran.",
       "title": "Defaŭltaj Bildaj Agordoj",
-      "zImageTurbo": "plej rapida kaj plej malmultekosta."
+      "zImageTurbo": "plej rapida kaj plej malmultekosta.",
+      "extrasTip": "Komenci kun ekstroj malŝaltitaj, poste ŝaltu ilin se kampo bezonas pli da detalo."
     },
     "layout": {
       "saveChanges": "Konservu ŝanĝojn",
@@ -331,6 +330,16 @@
       "title": "Defaŭltaj Voĉaj Agordoj"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× kosto",
+    "extras": "Aldonaĵoj",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Neniu aldonaĵa kosto",
+    "richerDetail": "Pli riĉa detalo",
+    "richerDetailDescription": "Pli detala, plenaj scenoj. Iom pli malrapida.",
+    "maxQuality": "Maksimuma kvalito",
+    "maxQualityDescription": "Pli akra kaj pura, ĉefe malgrandaj etikedoj."
+  },
   "promptTester": {
     "anotherNoteType": "alia notspeco",
     "currentlySelectedCard": "Nuntempe elektita karto",
@@ -372,7 +381,6 @@
   "subscription": {
     "accessEnds": "Aliro finiĝas",
     "activateAgain": "Reaktivigi",
-    "endingSoon": "Finiĝas baldaŭ",
     "checking": "Kontrolante abonon",
     "creditTypes": {
       "images": "Bildoj",
@@ -386,6 +394,7 @@
     "errors": {
       "logout": "Ne eblis elsaluti"
     },
+    "endingSoon": "Finiĝas baldaŭ",
     "expired": "Eksvalidiĝis",
     "freePlan": "Senpaga plano",
     "freeTrial": "Senpaga provo",

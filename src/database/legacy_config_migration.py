@@ -92,9 +92,10 @@ LEGACY_DEFAULT_TTS_GENERATION_SETTINGS = TTSGenerationSettings(
     model="standard",
     voice_id="en-US-Casual-K",
 )
+# The pre-SQLite default, imported as-is; migration 0005 moves it to GPT Image 2.5.
 LEGACY_DEFAULT_IMAGE_GENERATION_SETTINGS = ImageGenerationSettings(
     provider="openai",
-    model="gpt-image-1.5-low",
+    model=cast(ImageModels, "gpt-image-1.5-low"),
 )
 
 

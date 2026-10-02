@@ -259,13 +259,11 @@
     "image": {
       "cannotFindModel": "Kuvaluettelosta puuttuu malli {{model}}",
       "defaultModel": "Oletusmalli",
-      "gptImage15Low": "paras laatu/nopeus kompromissi.",
-      "gptImage2": "sama hinta, hitaampi, korkeampi laatu.",
+      "gptImage25": "paras yleiskäyttöjärjestelmä — terävä teksti, siistit kaaviot.",
       "loadingLabel": "Ladataan oletuskuvaasetuksia",
       "loadingTitle": "Kuvan oletusasetukset",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Kuvamallin valinta",
@@ -273,7 +271,8 @@
       "saveError": "Kuvan oletusasetuksia ei voitu tallentaa",
       "subtitle": "Smart Fields-kuvasi käyttämä malli, ellei kenttä ole nastalla omaa.",
       "title": "Kuvan oletusasetukset",
-      "zImageTurbo": "nopein ja halvin."
+      "zImageTurbo": "nopein ja halvin.",
+      "extrasTip": "Aloita lisäominaisuuksista pois, ota ne sitten käyttöön, jos kenttä tarvitsee lisätietoja."
     },
     "layout": {
       "saveChanges": "Tallenna muutokset",
@@ -331,6 +330,16 @@
       "title": "Äänen oletusasetukset"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× kustannukset",
+    "extras": "Lisäominaisuudet",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Ei lisäkustannuksia",
+    "richerDetail": "Rikkaampi yksityiskohtaisuus",
+    "richerDetailDescription": "Yksityiskohtaisempi, täydempi kohtaukset. Hieman hitaampi.",
+    "maxQuality": "Maksimaalinen laatu",
+    "maxQualityDescription": "Terävämpi ja puhtaampi, erityisesti pienet nimiöt."
+  },
   "promptTester": {
     "anotherNoteType": "toinen muistiinpanotyyppi",
     "currentlySelectedCard": "Tällä hetkellä valittu kortti",
@@ -372,7 +381,6 @@
   "subscription": {
     "accessEnds": "Pääsy loppuu",
     "activateAgain": "Aktivoi uudelleen",
-    "endingSoon": "Päättyy pian",
     "checking": "Tarkistetaan tilausta",
     "creditTypes": {
       "images": "Kuvat",
@@ -386,6 +394,7 @@
     "errors": {
       "logout": "Ei voitu kirjautua ulos"
     },
+    "endingSoon": "Päättyy pian",
     "expired": "Vanhentunyt",
     "freePlan": "Ilmainen suunnitelma",
     "freeTrial": "Ilmainen kokeilu",

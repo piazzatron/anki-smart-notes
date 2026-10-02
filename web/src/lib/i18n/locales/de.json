@@ -259,13 +259,11 @@
     "image": {
       "cannotFindModel": "Im Bildkatalog fehlt das Modell {{model}}",
       "defaultModel": "Standardmodell",
-      "gptImage15Low": "bester Kompromiss zwischen Qualität und Geschwindigkeit.",
-      "gptImage2": "gleiche Kosten, langsamer, höhere Qualität.",
+      "gptImage25": "Allrounder — scharfe Texte, saubere Diagramme.",
       "loadingLabel": "Laden der Standardbildeinstellungen",
       "loadingTitle": "Standardbildeinstellungen",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Niedrig / Mittel)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Wählen Sie ein Bildmodell aus",
@@ -273,7 +271,8 @@
       "saveError": "Bildstandardeinstellungen konnten nicht gespeichert werden",
       "subtitle": "Das Modell, das Ihr Bild Smart Fields verwendet, es sei denn, ein Feld heftet sein eigenes an.",
       "title": "Standardbildeinstellungen",
-      "zImageTurbo": "am schnellsten und günstigsten."
+      "zImageTurbo": "am schnellsten und günstigsten.",
+      "extrasTip": "Starten Sie mit deaktivierten Extras, aktivieren Sie diese dann, wenn ein Feld mehr Details benötigt."
     },
     "layout": {
       "saveChanges": "Änderungen speichern",
@@ -331,6 +330,16 @@
       "title": "Standard-Spracheinstellungen"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× Kosten",
+    "extras": "Extras",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Keine zusätzlichen Kosten",
+    "richerDetail": "Mehr Details",
+    "richerDetailDescription": "Detaillierter, vollere Szenen. Etwas langsamer.",
+    "maxQuality": "Maximale Qualität",
+    "maxQualityDescription": "Schärfer und sauberer, besonders bei kleinen Beschriftungen."
+  },
   "promptTester": {
     "anotherNoteType": "ein anderer Notiztyp",
     "currentlySelectedCard": "Derzeit ausgewählte Karte",
@@ -372,7 +381,6 @@
   "subscription": {
     "accessEnds": "Zugriff endet",
     "activateAgain": "Erneut aktivieren",
-    "endingSoon": "Endet bald",
     "checking": "Abonnement prüfen",
     "creditTypes": {
       "images": "Bilder",
@@ -386,6 +394,7 @@
     "errors": {
       "logout": "Konnte mich nicht abmelden"
     },
+    "endingSoon": "Endet bald",
     "expired": "Abgelaufen",
     "freePlan": "Kostenloser Plan",
     "freeTrial": "Kostenlose Testversion",

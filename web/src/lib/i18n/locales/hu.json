@@ -259,13 +259,11 @@
     "image": {
       "cannotFindModel": "A képkatalógusból hiányzik az {{model}} modell",
       "defaultModel": "Alapértelmezett modell",
-      "gptImage15Low": "legjobb minőség / sebesség kompromisszum.",
-      "gptImage2": "ugyanaz a költség, lassabb, jobb minőség.",
+      "gptImage25": "legjobb univerzális — éles szöveg, tiszta diagramok.",
       "loadingLabel": "Az alapértelmezett képbeállítások betöltése",
       "loadingTitle": "Alapértelmezett képbeállítások",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (alacsony / közepes)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Képmodell kiválasztása",
@@ -273,7 +271,8 @@
       "saveError": "Nem sikerült menteni a kép alapértelmezett beállításait",
       "subtitle": "Az Smart Fields kép által használt modell, hacsak egy mező nem rögzíti a sajátját.",
       "title": "Alapértelmezett képbeállítások",
-      "zImageTurbo": "leggyorsabb és legolcsóbb."
+      "zImageTurbo": "leggyorsabb és legolcsóbb.",
+      "extrasTip": "Kezdje a kiegészítéseket kikapcsolva, majd kapcsolja be őket, ha egy mező részletesebb megjelenítésre van szüksége."
     },
     "layout": {
       "saveChanges": "Módosítások mentése",
@@ -331,6 +330,16 @@
       "title": "Alapértelmezett hangbeállítások"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× költség",
+    "extras": "Kiegészítések",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Nincs extra költség",
+    "richerDetail": "Gazdagabb részletesség",
+    "richerDetailDescription": "Részletesebb, teljesebb jelenetek. Kicsit lassabb.",
+    "maxQuality": "Maximális minőség",
+    "maxQualityDescription": "Élesebb és tisztább, különösen a kis feliratok."
+  },
   "promptTester": {
     "anotherNoteType": "egy másik hangjegytípus",
     "currentlySelectedCard": "Jelenleg kiválasztott kártya",
@@ -372,7 +381,6 @@
   "subscription": {
     "accessEnds": "Hozzáférés vége",
     "activateAgain": "Újra aktiválás",
-    "endingSoon": "Hamarosan lejár",
     "checking": "Az előfizetés ellenőrzése",
     "creditTypes": {
       "images": "Képek",
@@ -386,6 +394,7 @@
     "errors": {
       "logout": "Nem sikerült kijelentkezni"
     },
+    "endingSoon": "Hamarosan lejár",
     "expired": "Lejárt",
     "freePlan": "Ingyenes terv",
     "freeTrial": "Ingyenes próbaverzió",

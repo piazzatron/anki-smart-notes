@@ -258,13 +258,11 @@
     "image": {
       "cannotFindModel": "Katalog imej tiada model {{model}}",
       "defaultModel": "Model lalai",
-      "gptImage15Low": "kualiti terbaik / pertukaran kelajuan.",
-      "gptImage2": "kos yang sama, lebih perlahan, kualiti yang lebih tinggi.",
+      "gptImage25": "pemenang semua aspek — teks tajam, rajah bersih.",
       "loadingLabel": "Memuatkan Tetapan Imej Lalai",
       "loadingTitle": "Tetapan Imej Lalai",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Rendah / Sederhana)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Memilih model imej",
@@ -272,7 +270,8 @@
       "saveError": "Tidak dapat menyimpan lalai imej",
       "subtitle": "Model imej anda Smart Fields gunakan melainkan medan menyematnya sendiri.",
       "title": "Tetapan Imej Lalai",
-      "zImageTurbo": "terpantas dan termurah."
+      "zImageTurbo": "terpantas dan termurah.",
+      "extrasTip": "Mulakan dengan extras dimatikan, kemudian hidupkannya jika medan memerlukan lebih banyak perincian."
     },
     "layout": {
       "saveChanges": "Simpan perubahan",
@@ -329,6 +328,16 @@
       "title": "Tetapan Suara Lalai"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× kos",
+    "extras": "Tambahan",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Tiada kos tambahan",
+    "richerDetail": "Detail lebih kaya",
+    "richerDetailDescription": "Lebih terperinci, pemandangan lebih lengkap. Sedikit lebih perlahan.",
+    "maxQuality": "Kualiti maksimum",
+    "maxQualityDescription": "Lebih tajam dan bersih, terutama label kecil."
+  },
   "promptTester": {
     "anotherNoteType": "jenis nota lain",
     "currentlySelectedCard": "Kad yang dipilih pada masa ini",
@@ -366,7 +375,6 @@
   "subscription": {
     "accessEnds": "Akses berakhir",
     "activateAgain": "Aktifkan Semula",
-    "endingSoon": "Berakhir Segera",
     "checking": "Menyemak langganan",
     "creditTypes": {
       "images": "Imej",
@@ -379,6 +387,7 @@
     "errors": {
       "logout": "Tidak dapat log keluar"
     },
+    "endingSoon": "Berakhir Segera",
     "expired": "Telah tamat tempoh",
     "freePlan": "Pelan percuma",
     "freeTrial": "Percubaan percuma",

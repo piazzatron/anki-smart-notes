@@ -259,13 +259,11 @@
     "image": {
       "cannotFindModel": "کاتالوگ تصویر موجود نیست مدل {{model}}",
       "defaultModel": "مدل پیش فرض",
-      "gptImage15Low": "بهترین کیفیت / سرعت معاوضه.",
-      "gptImage2": "هزینه مشابه، کندتر، کیفیت بالاتر.",
+      "gptImage25": "بهترین گزینه همه‌منظوره — متن تیز، نمودارهای تمیز.",
       "loadingLabel": "در حال بارگیری تنظیمات تصویر پیش فرض",
       "loadingTitle": "تنظیمات تصویر پیش فرض",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (کم / متوسط)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 انتخاب مدل تصویر",
@@ -273,7 +271,8 @@
       "saveError": "پیش فرض های تصویر ذخیره نشد",
       "subtitle": "مدلی که تصویر شما Smart Fields استفاده می‌کند مگر اینکه فیلدی خودش را پین کند.",
       "title": "تنظیمات تصویر پیش فرض",
-      "zImageTurbo": "سریع ترین و ارزان ترین"
+      "zImageTurbo": "سریع ترین و ارزان ترین",
+      "extrasTip": "با خاموش بودن extras شروع کنید، سپس اگر یک فیلد به جزئیات بیشتری نیاز داشت آن را روشن کنید."
     },
     "layout": {
       "saveChanges": "ذخیره تغییرات",
@@ -331,6 +330,16 @@
       "title": "تنظیمات صوتی پیش فرض"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "هزینه ۲ برابر",
+    "extras": "ویژگی‌های اضافی",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "بدون هزینه اضافی",
+    "richerDetail": "جزئیات بیشتر",
+    "richerDetailDescription": "جزئیات بیشتر، صحنه‌های کاملتر. کمی آهسته‌تر.",
+    "maxQuality": "کیفیت حداکثر",
+    "maxQualityDescription": "تیزتر و تمیزتر، به خصوص برچسب‌های کوچک."
+  },
   "promptTester": {
     "anotherNoteType": "یک نوع یادداشت دیگر",
     "currentlySelectedCard": "کارت در حال حاضر انتخاب شده است",
@@ -372,7 +381,6 @@
   "subscription": {
     "accessEnds": "دسترسی پایان می‌یابد",
     "activateAgain": "فعال کردن دوباره",
-    "endingSoon": "به زودی پایان می یابد",
     "checking": "بررسی اشتراک",
     "creditTypes": {
       "images": "تصاویر",
@@ -386,6 +394,7 @@
     "errors": {
       "logout": "نمی توان از سیستم خارج شد"
     },
+    "endingSoon": "به زودی پایان می یابد",
     "expired": "منقضی شده",
     "freePlan": "طرح رایگان",
     "freeTrial": "آزمایشی رایگان",

@@ -261,13 +261,11 @@
     "image": {
       "cannotFindModel": "У каталогу малюнкаў адсутнічае мадэль {{model}}",
       "defaultModel": "Мадэль па змаўчанні",
-      "gptImage15Low": "найлепшая якасць / хуткасць кампраміс.",
-      "gptImage2": "той жа кошт, больш павольна, больш высокая якасць.",
+      "gptImage25": "лучшы ўсёаблемны — чёткі тэкст, чыстыя дыяграмы.",
       "loadingLabel": "Загрузка налад выявы па змаўчанні",
       "loadingTitle": "Налады выявы па змаўчанні",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Нізкі / Сярэдні)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Выбар мадэлі іміджу",
@@ -275,7 +273,8 @@
       "saveError": "Немагчыма захаваць значэнні выявы па змаўчанні",
       "subtitle": "Мадэль, якую выкарыстоўвае ваша выява Smart Fields, калі поле не замацоўвае сваё.",
       "title": "Налады выявы па змаўчанні",
-      "zImageTurbo": "самы хуткі і танны."
+      "zImageTurbo": "самы хуткі і танны.",
+      "extrasTip": "Пачніце з выключэнымі дадатковымі опцыямі, потым уключыце іх, калі поле патрабуе больш дэталей."
     },
     "layout": {
       "saveChanges": "Захавайце змены",
@@ -335,6 +334,16 @@
       "title": "Галасавыя налады па змаўчанні"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× коштом",
+    "extras": "Дадатковы",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Без дадатковых затрат",
+    "richerDetail": "Больш дэталяў",
+    "richerDetailDescription": "Больш дэталізаваны, паўнейшыя сцэны. Крыху павольней.",
+    "maxQuality": "Максімальная якасць",
+    "maxQualityDescription": "Більш рэзкае і чыстае, асабліва маленькія меткі."
+  },
   "promptTester": {
     "anotherNoteType": "іншы тып нататкі",
     "currentlySelectedCard": "Выбраная картка",
@@ -384,7 +393,6 @@
   "subscription": {
     "accessEnds": "Доступ завершаецца",
     "activateAgain": "Активаваць зноў",
-    "endingSoon": "Завершыцца хутка",
     "checking": "Праверка падпіскі",
     "creditTypes": {
       "images": "Малюнкі",
@@ -400,6 +408,7 @@
     "errors": {
       "logout": "Не атрымалася выйсці"
     },
+    "endingSoon": "Завершыцца хутка",
     "expired": "Срок дзеяння скончыўся",
     "freePlan": "Бясплатны план",
     "freeTrial": "Бясплатная пробная версія",

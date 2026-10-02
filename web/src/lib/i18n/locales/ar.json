@@ -263,13 +263,11 @@
     "image": {
       "cannotFindModel": "كتالوج الصور يفتقد الطراز {{model}}",
       "defaultModel": "النموذج الافتراضي",
-      "gptImage15Low": "أفضل جودة / سرعة المقايضة.",
-      "gptImage2": "نفس التكلفة، أبطأ، أعلى جودة.",
+      "gptImage25": "الخيار الأمثل — نصوص حادة، رسوم بيانية نظيفة.",
       "loadingLabel": "جارٍ تحميل إعدادات الصورة الافتراضية",
       "loadingTitle": "إعدادات الصورة الافتراضية",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (منخفض / متوسط)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 اختيار نموذج الصورة",
@@ -277,7 +275,8 @@
       "saveError": "لا يمكن حفظ الإعدادات الافتراضية للصورة",
       "subtitle": "النموذج الذي تستخدمه صورتك Smart Fields ما لم يتم تثبيت حقل خاص به.",
       "title": "إعدادات الصورة الافتراضية",
-      "zImageTurbo": "الأسرع والأرخص."
+      "zImageTurbo": "الأسرع والأرخص.",
+      "extrasTip": "ابدأ بإيقاف الإضافات، ثم قم بتفعيلها إذا كان الحقل يحتاج إلى المزيد من التفاصيل."
     },
     "layout": {
       "saveChanges": "حفظ التغييرات",
@@ -339,6 +338,16 @@
       "title": "إعدادات الصوت الافتراضية"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "تكلفة مضاعفة",
+    "extras": "إضافيات",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "بدون تكلفة إضافية",
+    "richerDetail": "تفاصيل أغنى",
+    "richerDetailDescription": "أكثر تفصيلاً وأكمل للمشاهد. أبطأ قليلاً.",
+    "maxQuality": "أقصى جودة",
+    "maxQualityDescription": "أكثر حدة ووضوحاً، خاصة للنصوص الصغيرة."
+  },
   "promptTester": {
     "anotherNoteType": "نوع ملاحظة آخر",
     "currentlySelectedCard": "البطاقة المحددة حاليا",
@@ -396,7 +405,6 @@
   "subscription": {
     "accessEnds": "انتهاء الوصول",
     "activateAgain": "تفعيل مجددا",
-    "endingSoon": "سينتهي قريبا",
     "checking": "التحقق من الاشتراك",
     "creditTypes": {
       "images": "الصور",
@@ -414,6 +422,7 @@
     "errors": {
       "logout": "لا يمكن تسجيل الخروج"
     },
+    "endingSoon": "سينتهي قريبا",
     "expired": "منتهية الصلاحية",
     "freePlan": "خطة مجانية",
     "freeTrial": "تجربة مجانية",

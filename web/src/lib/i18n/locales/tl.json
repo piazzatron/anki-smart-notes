@@ -259,13 +259,11 @@
     "image": {
       "cannotFindModel": "Ang katalogo ng larawan ay walang modelong {{model}}",
       "defaultModel": "Default na modelo",
-      "gptImage15Low": "pinakamahusay na kalidad / bilis ng tradeoff.",
-      "gptImage2": "parehong gastos, mas mabagal, mas mataas na kalidad.",
+      "gptImage25": "best all-rounder — sharp text, clean diagrams.",
       "loadingLabel": "Nilo-load ang Default na Mga Setting ng Larawan",
       "loadingTitle": "Default na Mga Setting ng Larawan",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Mababa / Katamtaman)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Pagpili ng modelo ng larawan",
@@ -273,7 +271,8 @@
       "saveError": "Hindi ma-save ang mga default na larawan",
       "subtitle": "Ang modelong ginagamit ng iyong larawan na Smart Fields maliban kung ang isang field ay nag-pin ng sarili nitong.",
       "title": "Default na Mga Setting ng Larawan",
-      "zImageTurbo": "pinakamabilis at pinakamura."
+      "zImageTurbo": "pinakamabilis at pinakamura.",
+      "extrasTip": "Magsimula na may extras off, pagkatapos i-turn on kung kailangan ng mas maraming detalye ang isang field."
     },
     "layout": {
       "saveChanges": "I-save ang mga pagbabago",
@@ -331,6 +330,16 @@
       "title": "Default na Mga Setting ng Boses"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× cost",
+    "extras": "Mga Karagdagan",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Walang dagdag na bayad",
+    "richerDetail": "Mas mayamang detalye",
+    "richerDetailDescription": "Mas detalyado, mas puno ng mga eksena. Bahagyang mas mabagal.",
+    "maxQuality": "Max quality",
+    "maxQualityDescription": "Mas malinaw at mas malinis, lalo na sa mga maliit na label."
+  },
   "promptTester": {
     "anotherNoteType": "ibang uri ng tala",
     "currentlySelectedCard": "Kasalukuyang napiling card",
@@ -372,7 +381,6 @@
   "subscription": {
     "accessEnds": "Nagtatapos ang access",
     "activateAgain": "I-activate muli",
-    "endingSoon": "Magtatapos na kaagad",
     "checking": "Sinusuri ang subscription",
     "creditTypes": {
       "images": "Mga imahe",
@@ -386,6 +394,7 @@
     "errors": {
       "logout": "Hindi makapag-log out"
     },
+    "endingSoon": "Magtatapos na kaagad",
     "expired": "Nag-expire na",
     "freePlan": "Libreng plano",
     "freeTrial": "Libreng pagsubok",

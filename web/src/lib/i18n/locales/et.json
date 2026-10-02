@@ -259,13 +259,11 @@
     "image": {
       "cannotFindModel": "Piltide kataloogist puudub mudel {{model}}",
       "defaultModel": "Vaikimisi mudel",
-      "gptImage15Low": "parima kvaliteedi / kiiruse kompromiss.",
-      "gptImage2": "sama hinnaga, aeglasem, kõrgem kvaliteet.",
+      "gptImage25": "parim universaalne valik — terav tekst, puhtad diagrammid.",
       "loadingLabel": "Pildi vaikeseadete laadimine",
       "loadingTitle": "Pildi vaikesätted",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (madal / keskmine)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Pildimudeli valimine",
@@ -273,7 +271,8 @@
       "saveError": "Pildi vaikeseadeid ei saanud salvestada",
       "subtitle": "Mudel, mida teie pilt Smart Fields kasutab, välja arvatud juhul, kui väli kinnitab oma.",
       "title": "Pildi vaikesätted",
-      "zImageTurbo": "kiireim ja odavaim."
+      "zImageTurbo": "kiireim ja odavaim.",
+      "extrasTip": "Alustage ekstrastega välja lülitatuna, seejärel lülitage need sisse, kui väli nõuab rohkem detaile."
     },
     "layout": {
       "saveChanges": "Salvestage muudatused",
@@ -331,6 +330,16 @@
       "title": "Vaikimisi hääleseaded"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× kulu",
+    "extras": "Täiendused",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Ilma lisatasuita",
+    "richerDetail": "Rohkem detaile",
+    "richerDetailDescription": "Üksikasjalikum, täielikumad stseenid. Pisut aeglasem.",
+    "maxQuality": "Maksimaalne kvaliteet",
+    "maxQualityDescription": "Teravamad ja puhtamad, eriti väikesed sildid."
+  },
   "promptTester": {
     "anotherNoteType": "teist nooditüüpi",
     "currentlySelectedCard": "Hetkel valitud kaart",
@@ -372,7 +381,6 @@
   "subscription": {
     "accessEnds": "Juurdepääs lõpeb",
     "activateAgain": "Aktiveeri uuesti",
-    "endingSoon": "Lõpeb peagi",
     "checking": "Tellimuse kontrollimine",
     "creditTypes": {
       "images": "Pildid",
@@ -386,6 +394,7 @@
     "errors": {
       "logout": "Ei saanud välja logida"
     },
+    "endingSoon": "Lõpeb peagi",
     "expired": "Aegunud",
     "freePlan": "Tasuta plaan",
     "freeTrial": "Tasuta prooviperiood",

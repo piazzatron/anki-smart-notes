@@ -260,13 +260,11 @@
     "image": {
       "cannotFindModel": "בקטלוג התמונות חסר דגם {{model}}",
       "defaultModel": "דגם ברירת מחדל",
-      "gptImage15Low": "פשרה באיכות / מהירות הטובה ביותר.",
-      "gptImage2": "אותה עלות, איטית יותר, איכותית יותר.",
+      "gptImage25": "הטוב ביותר בכל תחום — טקסט חד וסרטוטים נקיים.",
       "loadingLabel": "טוען את הגדרות ברירת המחדל של תמונה",
       "loadingTitle": "הגדרות תמונה ברירת מחדל",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (נמוך / בינוני)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 בחירת דגם תמונה",
@@ -274,7 +272,8 @@
       "saveError": "לא ניתן לשמור את ברירת המחדל של התמונה",
       "subtitle": "הדגם שבו משתמשת התמונה שלך Smart Fields, אלא אם כן שדה מצמיד את שלו.",
       "title": "הגדרות תמונה ברירת מחדל",
-      "zImageTurbo": "הכי מהיר והכי זול."
+      "zImageTurbo": "הכי מהיר והכי זול.",
+      "extrasTip": "התחל עם extras בכיבוי, ואז הפעל אותם אם שדה זקוק לפרטים נוספים."
     },
     "layout": {
       "saveChanges": "שמור שינויים",
@@ -333,6 +332,16 @@
       "title": "הגדרות קול ברירת מחדל"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "עלות כפולה",
+    "extras": "תוספות",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "ללא עלות נוספת",
+    "richerDetail": "פרט עשיר יותר",
+    "richerDetailDescription": "מפורט יותר, סצנות מלאות יותר. קצת יותר איטי.",
+    "maxQuality": "איכות מקסימלית",
+    "maxQualityDescription": "חד וניקי יותר, במיוחד עבור תוויות קטנות."
+  },
   "promptTester": {
     "anotherNoteType": "סוג פתק אחר",
     "currentlySelectedCard": "כרטיס שנבחר כעת",
@@ -378,7 +387,6 @@
   "subscription": {
     "accessEnds": "הגישה מסתיימת",
     "activateAgain": "הפעל שוב",
-    "endingSoon": "תסתיים בקרוב",
     "checking": "בודק מנוי",
     "creditTypes": {
       "images": "תמונות",
@@ -393,6 +401,7 @@
     "errors": {
       "logout": "לא ניתן היה להתנתק"
     },
+    "endingSoon": "תסתיים בקרוב",
     "expired": "פג",
     "freePlan": "תוכנית חינם",
     "freeTrial": "ניסיון חינם",

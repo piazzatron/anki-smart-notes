@@ -260,13 +260,11 @@
     "image": {
       "cannotFindModel": "U katalogu slika nedostaje model {{model}}",
       "defaultModel": "Zadani model",
-      "gptImage15Low": "najbolji kompromis između kvalitete i brzine.",
-      "gptImage2": "ista cijena, sporije, kvalitetnije.",
+      "gptImage25": "najbolji svestranski — oštar tekst, čisti dijagrami.",
       "loadingLabel": "Učitavanje zadanih postavki slike",
       "loadingTitle": "Zadane postavke slike",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (nisko / srednje)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Odabir modela slike",
@@ -274,7 +272,8 @@
       "saveError": "Nije moguće spremiti zadane postavke slike",
       "subtitle": "Model koji vaša slika koristi Smart Fields osim ako polje ne prikvači svoje.",
       "title": "Zadane postavke slike",
-      "zImageTurbo": "najbrže i najjeftinije."
+      "zImageTurbo": "najbrže i najjeftinije.",
+      "extrasTip": "Počnite s isključenim ekstrasima, zatim ih uključite ako polje treba više detalja."
     },
     "layout": {
       "saveChanges": "Spremite promjene",
@@ -333,6 +332,16 @@
       "title": "Zadane postavke glasa"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× cijena",
+    "extras": "Dodaci",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Bez dodatne cijene",
+    "richerDetail": "Bogatiji detalji",
+    "richerDetailDescription": "Detaljnije, bogatije scene. Malo sporije.",
+    "maxQuality": "Maksimalna kvaliteta",
+    "maxQualityDescription": "Oštrije i čišće, posebno male oznake."
+  },
   "promptTester": {
     "anotherNoteType": "drugu vrstu bilješke",
     "currentlySelectedCard": "Trenutno odabrana kartica",
@@ -378,7 +387,6 @@
   "subscription": {
     "accessEnds": "Pristup završava",
     "activateAgain": "Ponovno aktiviraj",
-    "endingSoon": "Uskoro završava",
     "checking": "Provjera pretplate",
     "creditTypes": {
       "images": "Slike",
@@ -393,6 +401,7 @@
     "errors": {
       "logout": "Nije moguće odjaviti se"
     },
+    "endingSoon": "Uskoro završava",
     "expired": "Isteklo",
     "freePlan": "Besplatni plan",
     "freeTrial": "Besplatna proba",

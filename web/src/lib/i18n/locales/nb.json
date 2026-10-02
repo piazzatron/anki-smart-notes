@@ -259,13 +259,11 @@
     "image": {
       "cannotFindModel": "Bildekatalogen mangler modell {{model}}",
       "defaultModel": "Standardmodell",
-      "gptImage15Low": "beste kompromiss mellom kvalitet og hastighet.",
-      "gptImage2": "samme pris, langsommere, høyere kvalitet.",
+      "gptImage25": "best all-rounder — sharp text, clean diagrams.",
       "loadingLabel": "Laster inn standard bildeinnstillinger",
       "loadingTitle": "Standard bildeinnstillinger",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Velge en bildemodell",
@@ -273,7 +271,8 @@
       "saveError": "Kunne ikke lagre bildestandarder",
       "subtitle": "Modellen bildet ditt Smart Fields bruker med mindre et felt fester sitt eget.",
       "title": "Standard bildeinnstillinger",
-      "zImageTurbo": "raskest og billigst."
+      "zImageTurbo": "raskest og billigst.",
+      "extrasTip": "Start med extras av, og slå dem på hvis et felt trenger mer detalj."
     },
     "layout": {
       "saveChanges": "Lagre endringer",
@@ -331,6 +330,16 @@
       "title": "Standard stemmeinnstillinger"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× kostnad",
+    "extras": "Ekstra",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Ingen ekstra kostnad",
+    "richerDetail": "Rikere detaljer",
+    "richerDetailDescription": "Mer detaljert, fullere scener. Litt tregere.",
+    "maxQuality": "Maksimal kvalitet",
+    "maxQualityDescription": "Skarpere og renere, spesielt små etiketter."
+  },
   "promptTester": {
     "anotherNoteType": "en annen notetype",
     "currentlySelectedCard": "Foreløpig valgt kort",
@@ -372,7 +381,6 @@
   "subscription": {
     "accessEnds": "Tilgang slutter",
     "activateAgain": "Aktiver på nytt",
-    "endingSoon": "Slutter snart",
     "checking": "Sjekker abonnement",
     "creditTypes": {
       "images": "Bilder",
@@ -386,6 +394,7 @@
     "errors": {
       "logout": "Kunne ikke logge ut"
     },
+    "endingSoon": "Slutter snart",
     "expired": "Utløpt",
     "freePlan": "Gratis plan",
     "freeTrial": "Gratis prøveversjon",

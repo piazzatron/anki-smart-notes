@@ -261,13 +261,11 @@
     "image": {
       "cannotFindModel": "W katalogu obrazów brakuje modelu {{model}}",
       "defaultModel": "Domyślny model",
-      "gptImage15Low": "najlepszy kompromis jakość/szybkość.",
-      "gptImage2": "ten sam koszt, wolniejsza i wyższa jakość.",
+      "gptImage25": "najlepszy wszechstronnie — ostry tekst, czyste diagramy.",
       "loadingLabel": "Ładowanie domyślnych ustawień obrazu",
       "loadingTitle": "Domyślne ustawienia obrazu",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Wybór modelu obrazu",
@@ -275,7 +273,8 @@
       "saveError": "Nie można zapisać domyślnych ustawień obrazu",
       "subtitle": "Model, którego używa Twój obraz Smart Fields, chyba że pole przypina własne.",
       "title": "Domyślne ustawienia obrazu",
-      "zImageTurbo": "najszybciej i najtaniej."
+      "zImageTurbo": "najszybciej i najtaniej.",
+      "extrasTip": "Zacznij bez dodatków, a następnie włącz je, jeśli pole wymaga więcej szczegółów."
     },
     "layout": {
       "saveChanges": "Zapisz zmiany",
@@ -335,6 +334,16 @@
       "title": "Domyślne ustawienia głosu"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× koszt",
+    "extras": "Dodatki",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Bez dodatkowych kosztów",
+    "richerDetail": "Bogatsze szczegóły",
+    "richerDetailDescription": "Bardziej szczegółowe, bogatsze sceny. Nieco wolniejsze.",
+    "maxQuality": "Maksymalna jakość",
+    "maxQualityDescription": "Ostrzejsze i czystsze, szczególnie małe etykiety."
+  },
   "promptTester": {
     "anotherNoteType": "inny typ notatki",
     "currentlySelectedCard": "Aktualnie wybrana karta",
@@ -384,7 +393,6 @@
   "subscription": {
     "accessEnds": "Dostęp kończy się",
     "activateAgain": "Aktywuj ponownie",
-    "endingSoon": "Wkrótce wygasa",
     "checking": "Sprawdzam subskrypcję",
     "creditTypes": {
       "images": "Obrazy",
@@ -400,6 +408,7 @@
     "errors": {
       "logout": "Nie można się wylogować"
     },
+    "endingSoon": "Wkrótce wygasa",
     "expired": "Wygasł",
     "freePlan": "Darmowy plan",
     "freeTrial": "Bezpłatny okres próbny",

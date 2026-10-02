@@ -258,13 +258,11 @@
     "image": {
       "cannotFindModel": "影像目錄缺少型號 {{model}}",
       "defaultModel": "預設型號",
-      "gptImage15Low": "最佳質量/速度權衡。",
-      "gptImage2": "相同的成本，更慢，更高的品質。",
+      "gptImage25": "全能選手 — 銳利的文字、整潔的圖表。",
       "loadingLabel": "載入預設圖像設定",
       "loadingTitle": "預設影像設定",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 選擇圖像模型",
@@ -272,7 +270,8 @@
       "saveError": "無法儲存影像預設值",
       "subtitle": "您的圖像 Smart Fields 使用的模型，除非欄位固定自己的模型。",
       "title": "預設影像設定",
-      "zImageTurbo": "最快且最便宜。"
+      "zImageTurbo": "最快且最便宜。",
+      "extrasTip": "建議先關閉額外選項，如果某個欄位需要更多細節再開啟。"
     },
     "layout": {
       "saveChanges": "儲存變更",
@@ -329,6 +328,16 @@
       "title": "預設語音設定"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× 成本",
+    "extras": "額外選項",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "無額外成本",
+    "richerDetail": "更豐富的細節",
+    "richerDetailDescription": "更詳細、更飽滿的場景。速度稍慢。",
+    "maxQuality": "最高品質",
+    "maxQualityDescription": "更清晰細緻，特別是小標籤部分。"
+  },
   "promptTester": {
     "anotherNoteType": "另一種筆記類型",
     "currentlySelectedCard": "目前選擇的卡",
@@ -366,7 +375,6 @@
   "subscription": {
     "accessEnds": "存取權限結束",
     "activateAgain": "重新啟用",
-    "endingSoon": "即將結束",
     "checking": "檢查訂閱狀況",
     "creditTypes": {
       "images": "圖片",
@@ -379,6 +387,7 @@
     "errors": {
       "logout": "無法註銷"
     },
+    "endingSoon": "即將結束",
     "expired": "已過期",
     "freePlan": "免費規劃",
     "freeTrial": "免費試用",

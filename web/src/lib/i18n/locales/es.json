@@ -260,13 +260,11 @@
     "image": {
       "cannotFindModel": "Falta catálogo de imágenes modelo {{model}}",
       "defaultModel": "Modelo predeterminado",
-      "gptImage15Low": "mejor relación calidad/velocidad.",
-      "gptImage2": "Mismo costo, más lento, mayor calidad.",
+      "gptImage25": "el mejor en general — texto nítido, diagramas limpios.",
       "loadingLabel": "Cargando la configuración de imagen predeterminada",
       "loadingTitle": "Configuración de imagen predeterminada",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Bajo / Medio)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Elegir un modelo de imagen",
@@ -274,7 +272,8 @@
       "saveError": "No se pudieron guardar los valores predeterminados de la imagen",
       "subtitle": "El modelo que utiliza su imagen Smart Fields a menos que un campo fije el suyo.",
       "title": "Configuración de imagen predeterminada",
-      "zImageTurbo": "más rápido y más barato."
+      "zImageTurbo": "más rápido y más barato.",
+      "extrasTip": "Comienza con extras desactivados, luego actívalos si un campo necesita más detalle."
     },
     "layout": {
       "saveChanges": "Guardar cambios",
@@ -333,6 +332,16 @@
       "title": "Configuración de voz predeterminada"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× costo",
+    "extras": "Extras",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Sin costo adicional",
+    "richerDetail": "Más detalle",
+    "richerDetailDescription": "Más detallado, escenas más completas. Un poco más lento.",
+    "maxQuality": "Máxima calidad",
+    "maxQualityDescription": "Más nítido y limpio, especialmente etiquetas pequeñas."
+  },
   "promptTester": {
     "anotherNoteType": "otro tipo de nota",
     "currentlySelectedCard": "Tarjeta actualmente seleccionada",
@@ -378,7 +387,6 @@
   "subscription": {
     "accessEnds": "El acceso termina",
     "activateAgain": "Activar de nuevo",
-    "endingSoon": "Finaliza pronto",
     "checking": "Comprobando suscripción",
     "creditTypes": {
       "images": "Imágenes",
@@ -393,6 +401,7 @@
     "errors": {
       "logout": "No se pudo cerrar sesión"
     },
+    "endingSoon": "Finaliza pronto",
     "expired": "Expirado",
     "freePlan": "Plan gratuito",
     "freeTrial": "Prueba gratuita",

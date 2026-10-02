@@ -258,13 +258,11 @@
     "image": {
       "cannotFindModel": "画像カタログにモデル {{model}} がありません",
       "defaultModel": "デフォルトモデル",
-      "gptImage15Low": "最高の品質と速度のトレードオフ。",
-      "gptImage2": "同じコスト、より遅い、より高い品質。",
+      "gptImage25": "万能型 — シャープなテキスト、クリーンな図表。",
       "loadingLabel": "デフォルトの画像設定をロードする",
       "loadingTitle": "デフォルトの画像設定",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 画像モデルの選択",
@@ -272,7 +270,8 @@
       "saveError": "画像のデフォルトを保存できませんでした",
       "subtitle": "フィールドが独自に固定していない限り、画像 Smart Fields が使用するモデル。",
       "title": "デフォルトの画像設定",
-      "zImageTurbo": "最速かつ最安。"
+      "zImageTurbo": "最速かつ最安。",
+      "extrasTip": "最初はエクストラをオフにして、フィールドに詳細が必要な場合はオンにしてください。"
     },
     "layout": {
       "saveChanges": "変更を保存する",
@@ -329,6 +328,16 @@
       "title": "デフォルトの音声設定"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2倍のコスト",
+    "extras": "エクストラ",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "追加コストなし",
+    "richerDetail": "リッチなディテール",
+    "richerDetailDescription": "より詳細で豊かなシーン。少し遅くなります。",
+    "maxQuality": "最高品質",
+    "maxQualityDescription": "より鮮明でクリーンな画像、特に小さなラベルに対応します。"
+  },
   "promptTester": {
     "anotherNoteType": "別のノートタイプ",
     "currentlySelectedCard": "現在選択されているカード",
@@ -366,7 +375,6 @@
   "subscription": {
     "accessEnds": "アクセス終了",
     "activateAgain": "再度有効にする",
-    "endingSoon": "間もなく終了",
     "checking": "定期購入の確認",
     "creditTypes": {
       "images": "画像",
@@ -379,6 +387,7 @@
     "errors": {
       "logout": "ログアウトできませんでした"
     },
+    "endingSoon": "間もなく終了",
     "expired": "期限切れ",
     "freePlan": "無料プラン",
     "freeTrial": "無料トライアル",

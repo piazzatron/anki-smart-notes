@@ -258,13 +258,11 @@
     "image": {
       "cannotFindModel": "이미지 카탈로그에 모델 {{model}}이(가) 없습니다.",
       "defaultModel": "기본 모델",
-      "gptImage15Low": "최고의 품질/속도 절충.",
-      "gptImage2": "동일한 비용, 더 느리고 더 높은 품질.",
+      "gptImage25": "최고의 올라운더 — 선명한 텍스트, 깔끔한 다이어그램.",
       "loadingLabel": "기본 이미지 설정 로드",
       "loadingTitle": "기본 이미지 설정",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 이미지 모델 선택",
@@ -272,7 +270,8 @@
       "saveError": "이미지 기본값을 저장할 수 없습니다.",
       "subtitle": "필드가 자체적으로 고정되지 않는 한 이미지 Smart Fields가 사용하는 모델입니다.",
       "title": "기본 이미지 설정",
-      "zImageTurbo": "가장 빠르고 저렴합니다."
+      "zImageTurbo": "가장 빠르고 저렴합니다.",
+      "extrasTip": "기본적으로 extras를 끄고 시작한 후, 필드에서 더 자세한 정보가 필요하면 켜세요."
     },
     "layout": {
       "saveChanges": "변경사항 저장",
@@ -329,6 +328,16 @@
       "title": "기본 음성 설정"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× 비용",
+    "extras": "추가 옵션",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "추가 비용 없음",
+    "richerDetail": "더 풍부한 디테일",
+    "richerDetailDescription": "더 상세한, 완성도 높은 이미지. 약간 더 느립니다.",
+    "maxQuality": "최고 품질",
+    "maxQualityDescription": "더 선명하고 깔끔함, 특히 작은 레이블에 효과적입니다."
+  },
   "promptTester": {
     "anotherNoteType": "다른 메모 유형",
     "currentlySelectedCard": "현재 선택된 카드",
@@ -366,7 +375,6 @@
   "subscription": {
     "accessEnds": "액세스 종료",
     "activateAgain": "다시 활성화",
-    "endingSoon": "곧 종료",
     "checking": "구독 확인 중",
     "creditTypes": {
       "images": "이미지",
@@ -379,6 +387,7 @@
     "errors": {
       "logout": "로그아웃할 수 없습니다."
     },
+    "endingSoon": "곧 종료",
     "expired": "만료됨",
     "freePlan": "무료 플랜",
     "freeTrial": "무료 평가판",

@@ -260,13 +260,11 @@
     "image": {
       "cannotFindModel": "Каталогу слика недостаје модел {{model}}",
       "defaultModel": "Подразумевани модел",
-      "gptImage15Low": "најбољи однос квалитета/брзине.",
-      "gptImage2": "исти трошак, спорији, квалитетнији.",
+      "gptImage25": "најбољи универзалец — оштар текст, чисти дијаграми.",
       "loadingLabel": "Учитавање подразумеваних поставки слике",
       "loadingTitle": "Подразумевана подешавања слике",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (низак/средњи)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Бирање модела слике",
@@ -274,7 +272,8 @@
       "saveError": "Није могуће сачувати подразумеване вредности слике",
       "subtitle": "Модел који ваша слика користи Smart Fields осим ако поље не закачи своје.",
       "title": "Подразумевана подешавања слике",
-      "zImageTurbo": "најбржи и најјефтинији."
+      "zImageTurbo": "најбржи и најјефтинији.",
+      "extrasTip": "Почните са искљученим екстрама, затим их укључите ако поље захтева више детаља."
     },
     "layout": {
       "saveChanges": "Сачувај промене",
@@ -333,6 +332,16 @@
       "title": "Подразумевана подешавања гласа"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× цена",
+    "extras": "Додаци",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Без додатне цене",
+    "richerDetail": "Богатији детаљ",
+    "richerDetailDescription": "Више детаља, пуније сцене. Мало спорије.",
+    "maxQuality": "Максимална квалитета",
+    "maxQualityDescription": "Оштрије и чишће, посебно мале налепнице."
+  },
   "promptTester": {
     "anotherNoteType": "другу врсту нота",
     "currentlySelectedCard": "Тренутно изабрана картица",
@@ -378,7 +387,6 @@
   "subscription": {
     "accessEnds": "Приступ се завршава",
     "activateAgain": "Поново активирај",
-    "endingSoon": "Ускоро се завршава",
     "checking": "Провера претплате",
     "creditTypes": {
       "images": "Слике",
@@ -393,6 +401,7 @@
     "errors": {
       "logout": "Није могуће одјавити се"
     },
+    "endingSoon": "Ускоро се завршава",
     "expired": "Истекло",
     "freePlan": "Бесплатан план",
     "freeTrial": "Бесплатна пробна верзија",

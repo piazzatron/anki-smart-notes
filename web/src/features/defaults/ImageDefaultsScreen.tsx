@@ -124,16 +124,11 @@ const LoadedImageDefaultsScreen = ({
             <ul className="mt-2 list-disc space-y-1 ps-5 text-[11px] leading-4 text-ink-muted">
               <li>
                 <strong className="text-zinc-300">
-                  {t("defaults.image.models.gptImage15Low")}
+                  {t("defaults.image.models.gptImage25")}
                 </strong>{" "}
-                — {t("defaults.image.gptImage15Low")}
+                — {t("defaults.image.gptImage25")}
               </li>
-              <li>
-                <strong className="text-zinc-300">
-                  {t("defaults.image.models.gptImage2")}
-                </strong>{" "}
-                — {t("defaults.image.gptImage2")}
-              </li>
+              <li>{t("defaults.image.extrasTip")}</li>
               <li>
                 <strong className="text-zinc-300">
                   {t("defaults.image.models.zImageTurbo")}

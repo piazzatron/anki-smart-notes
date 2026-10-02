@@ -259,13 +259,11 @@
     "image": {
       "cannotFindModel": "Зургийн каталогид {{model}} загвар байхгүй байна",
       "defaultModel": "Өгөгдмөл загвар",
-      "gptImage15Low": "хамгийн сайн чанар / хурдны солилцоо.",
-      "gptImage2": "ижил өртөгтэй, удаан, өндөр чанартай.",
+      "gptImage25": "сайн сонголт — ил текст, цэвэр диаграмм.",
       "loadingLabel": "Өгөгдмөл зургийн тохиргоог ачаалж байна",
       "loadingTitle": "Өгөгдмөл зургийн тохиргоо",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Бага / Дунд)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Зургийн загвар сонгох",
@@ -273,7 +271,8 @@
       "saveError": "Зургийн өгөгдмөл тохиргоог хадгалж чадсангүй",
       "subtitle": "Талбар нь өөрөө бэхлээгүй тохиолдолд таны зургийн Smart Fields ашиглах загвар.",
       "title": "Өгөгдмөл зургийн тохиргоо",
-      "zImageTurbo": "хамгийн хурдан бөгөөд хямд."
+      "zImageTurbo": "хамгийн хурдан бөгөөд хямд.",
+      "extrasTip": "Нэмэлт функцийг эхэндээ унтраасан байлгаж, талбарт илүү дэлгэрэнгүй мэдээлэл хэрэгтэй болвол асаана уу."
     },
     "layout": {
       "saveChanges": "Өөрчлөлтүүдийг хадгалах",
@@ -331,6 +330,16 @@
       "title": "Өгөгдмөл дуу хоолойн тохиргоо"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× зардал",
+    "extras": "Нэмэлт",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Нэмэлт зардал байхгүй",
+    "richerDetail": "Нийлмэл дэлгэрэнгүй",
+    "richerDetailDescription": "Илүү дэлгэрэнгүй, бүтэн сахал. Арай удаан.",
+    "maxQuality": "Хамгийн дээд чанар",
+    "maxQualityDescription": "Илүү хөнгөн байдал, ялангуяа жижиг шошгонуудын хувьд."
+  },
   "promptTester": {
     "anotherNoteType": "өөр тэмдэглэлийн төрөл",
     "currentlySelectedCard": "Одоогоор сонгосон карт",
@@ -372,7 +381,6 @@
   "subscription": {
     "accessEnds": "Хандалт дуусна",
     "activateAgain": "Дахин идэвхжүүлэх",
-    "endingSoon": "Удалгүй дуусна",
     "checking": "Бүртгэлийг шалгаж байна",
     "creditTypes": {
       "images": "Зураг",
@@ -386,6 +394,7 @@
     "errors": {
       "logout": "Гарч чадсангүй"
     },
+    "endingSoon": "Удалгүй дуусна",
     "expired": "Хүчингүй болсон",
     "freePlan": "Үнэгүй төлөвлөгөө",
     "freeTrial": "Үнэгүй туршилт",

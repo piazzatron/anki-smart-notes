@@ -38,7 +38,7 @@ from src.database.migrations import (
     apply_database_bootstrap_migrations,
     apply_database_migrations,
 )
-from src.models import DEFAULT_EXTRAS, FieldExtras
+from src.models import DEFAULT_EXTRAS, FieldExtras, ImageModels
 
 SECOND_PROFILE_NOTE_TYPE_ID = 456
 
@@ -785,5 +785,5 @@ def image_extras() -> FieldExtras:
     extras["type"] = "image"
     extras["use_custom_model"] = True
     extras["image_provider"] = "openai"
-    extras["image_model"] = "gpt-image-1.5-low"
+    extras["image_model"] = cast(ImageModels, "gpt-image-1.5-low")
     return extras

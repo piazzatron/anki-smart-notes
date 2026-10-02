@@ -260,13 +260,11 @@
     "image": {
       "cannotFindModel": "Falta el model {{model}} del catàleg d'imatges",
       "defaultModel": "Model per defecte",
-      "gptImage15Low": "millor equilibri qualitat/velocitat.",
-      "gptImage2": "mateix cost, més lent, de major qualitat.",
+      "gptImage25": "millor opció versàtil — text nítid, diagrames nets.",
       "loadingLabel": "S'està carregant la configuració d'imatge predeterminada",
       "loadingTitle": "Configuració d'imatge per defecte",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Baix/Mitjà)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Escollint un model d'imatge",
@@ -274,7 +272,8 @@
       "saveError": "No s'han pogut desar els valors predeterminats de la imatge",
       "subtitle": "El model que utilitzeu la vostra imatge Smart Fields tret que un camp fixi el seu.",
       "title": "Configuració d'imatge per defecte",
-      "zImageTurbo": "més ràpid i barat."
+      "zImageTurbo": "més ràpid i barat.",
+      "extrasTip": "Comença amb els complements desactivats i activa'ls si un camp necessita més detall."
     },
     "layout": {
       "saveChanges": "Desa els canvis",
@@ -333,6 +332,16 @@
       "title": "Configuració de veu per defecte"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× cost",
+    "extras": "Extras",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Sense cost addicional",
+    "richerDetail": "Més detall",
+    "richerDetailDescription": "Més detallat, escenes més completes. Una mica més lent.",
+    "maxQuality": "Qualitat màxima",
+    "maxQualityDescription": "Més nítid i net, especialment les etiquetes petites."
+  },
   "promptTester": {
     "anotherNoteType": "un altre tipus de nota",
     "currentlySelectedCard": "Targeta seleccionada actualment",
@@ -378,7 +387,6 @@
   "subscription": {
     "accessEnds": "L'accés s'acaba",
     "activateAgain": "Activar novament",
-    "endingSoon": "Finalitza aviat",
     "checking": "Comprovant la subscripció",
     "creditTypes": {
       "images": "Imatges",
@@ -393,6 +401,7 @@
     "errors": {
       "logout": "No s'ha pogut tancar la sessió"
     },
+    "endingSoon": "Finalitza aviat",
     "expired": "Caducada",
     "freePlan": "Pla gratuït",
     "freeTrial": "Prova gratuïta",

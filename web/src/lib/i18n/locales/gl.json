@@ -259,13 +259,11 @@
     "image": {
       "cannotFindModel": "Falta o modelo {{model}} do catálogo de imaxes",
       "defaultModel": "Modelo predeterminado",
-      "gptImage15Low": "mellor compensación calidade/velocidade.",
-      "gptImage2": "mesmo custo, máis lento, de maior calidade.",
+      "gptImage25": "o mellor de todo — texto nítido, diagramas limpios.",
       "loadingLabel": "Cargando a configuración predeterminada da imaxe",
       "loadingTitle": "Configuración predeterminada da imaxe",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Baixo/Medio)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Escollendo un modelo de imaxe",
@@ -273,7 +271,8 @@
       "saveError": "Non se puideron gardar os valores predeterminados da imaxe",
       "subtitle": "O modelo que usa a túa imaxe Smart Fields a non ser que un campo fixe o seu.",
       "title": "Configuración predeterminada da imaxe",
-      "zImageTurbo": "máis rápido e máis barato."
+      "zImageTurbo": "máis rápido e máis barato.",
+      "extrasTip": "Comeza cos extras desactivados e actívaos se un campo precisa máis detalle."
     },
     "layout": {
       "saveChanges": "Garda os cambios",
@@ -331,6 +330,16 @@
       "title": "Configuración de voz predeterminada"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× custo",
+    "extras": "Extras",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Sen custo adicional",
+    "richerDetail": "Máis detalle",
+    "richerDetailDescription": "Máis detallado, escenas máis completas. Un pouco máis lento.",
+    "maxQuality": "Calidade máxima",
+    "maxQualityDescription": "Máis nítido e limpo, especialmente as etiquetas pequenas."
+  },
   "promptTester": {
     "anotherNoteType": "outro tipo de nota",
     "currentlySelectedCard": "Tarxeta seleccionada actualmente",
@@ -372,7 +381,6 @@
   "subscription": {
     "accessEnds": "O acceso finaliza",
     "activateAgain": "Activar de novo",
-    "endingSoon": "Remata axiña",
     "checking": "Comprobando a subscrición",
     "creditTypes": {
       "images": "Imaxes",
@@ -386,6 +394,7 @@
     "errors": {
       "logout": "Non se puido pechar sesión"
     },
+    "endingSoon": "Remata axiña",
     "expired": "Caducado",
     "freePlan": "Plan gratuíto",
     "freeTrial": "Proba gratuíta",

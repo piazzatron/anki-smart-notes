@@ -259,13 +259,11 @@
     "image": {
       "cannotFindModel": "Resim kataloğunda {{model}} modeli eksik",
       "defaultModel": "Varsayılan model",
-      "gptImage15Low": "en iyi kalite/hız dengesi.",
-      "gptImage2": "aynı maliyet, daha yavaş, daha yüksek kalite.",
+      "gptImage25": "en iyi genel amaçlı — keskin metinler, temiz diyagramlar.",
       "loadingLabel": "Varsayılan Görüntü Ayarlarını Yükleme",
       "loadingTitle": "Varsayılan Görüntü Ayarları",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Bir görüntü modeli seçme",
@@ -273,7 +271,8 @@
       "saveError": "Resim varsayılanları kaydedilemedi",
       "subtitle": "Bir alan kendisini sabitlemediği sürece görüntünüz Smart Fields'in kullandığı model.",
       "title": "Varsayılan Görüntü Ayarları",
-      "zImageTurbo": "en hızlı ve en ucuz."
+      "zImageTurbo": "en hızlı ve en ucuz.",
+      "extrasTip": "Ekstraları kapalı başlayın, ardından bir alan daha fazla ayrıntı gerektirirse açın."
     },
     "layout": {
       "saveChanges": "Değişiklikleri kaydet",
@@ -331,6 +330,16 @@
       "title": "Varsayılan Ses Ayarları"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× maliyet",
+    "extras": "Ekstralar",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Ek maliyet yok",
+    "richerDetail": "Daha zengin detay",
+    "richerDetailDescription": "Daha detaylı, tam sahneler. Biraz daha yavaş.",
+    "maxQuality": "Maksimum kalite",
+    "maxQualityDescription": "Daha keskin ve temiz, özellikle küçük etiketler için."
+  },
   "promptTester": {
     "anotherNoteType": "başka bir not türü",
     "currentlySelectedCard": "Şu anda seçili kart",
@@ -372,7 +381,6 @@
   "subscription": {
     "accessEnds": "Erişim sona eriyor",
     "activateAgain": "Yeniden etkinleştir",
-    "endingSoon": "Yakında bitiyor",
     "checking": "Abonelik kontrol ediliyor",
     "creditTypes": {
       "images": "Görseller",
@@ -386,6 +394,7 @@
     "errors": {
       "logout": "Oturum kapatılamadı"
     },
+    "endingSoon": "Yakında bitiyor",
     "expired": "Süresi doldu",
     "freePlan": "Ücretsiz plan",
     "freeTrial": "Ücretsiz deneme",

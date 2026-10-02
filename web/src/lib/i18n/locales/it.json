@@ -260,13 +260,11 @@
     "image": {
       "cannotFindModel": "Nel catalogo immagini manca il modello {{model}}",
       "defaultModel": "Modello predefinito",
-      "gptImage15Low": "miglior compromesso qualità/velocità.",
-      "gptImage2": "stesso costo, più lento, qualità migliore.",
+      "gptImage25": "versatile — testo nitido, diagrammi puliti.",
       "loadingLabel": "Caricamento delle impostazioni immagine predefinite",
       "loadingTitle": "Impostazioni immagine predefinite",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Basso/Medio)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Scegliere un modello di immagine",
@@ -274,7 +272,8 @@
       "saveError": "Impossibile salvare le impostazioni predefinite dell'immagine",
       "subtitle": "Il modello utilizzato dalla tua immagine Smart Fields a meno che un campo non ne specifichi uno proprio.",
       "title": "Impostazioni immagine predefinite",
-      "zImageTurbo": "più veloce ed economico."
+      "zImageTurbo": "più veloce ed economico.",
+      "extrasTip": "Inizia con i dettagli extra disattivati, quindi attivali se un campo ha bisogno di più dettagli."
     },
     "layout": {
       "saveChanges": "Salva modifiche",
@@ -333,6 +332,16 @@
       "title": "Impostazioni vocali predefinite"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× costo",
+    "extras": "Extra",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Nessun costo aggiuntivo",
+    "richerDetail": "Dettagli più ricchi",
+    "richerDetailDescription": "Più dettagliato, scene più complete. Un po' più lento.",
+    "maxQuality": "Qualità massima",
+    "maxQualityDescription": "Più nitido e pulito, soprattutto le etichette piccole."
+  },
   "promptTester": {
     "anotherNoteType": "un altro tipo di nota",
     "currentlySelectedCard": "Carta attualmente selezionata",
@@ -378,7 +387,6 @@
   "subscription": {
     "accessEnds": "L'accesso termina",
     "activateAgain": "Attiva di nuovo",
-    "endingSoon": "Termina presto",
     "checking": "Controllo dell'abbonamento",
     "creditTypes": {
       "images": "Immagini",
@@ -393,6 +401,7 @@
     "errors": {
       "logout": "Impossibile disconnettersi"
     },
+    "endingSoon": "Termina presto",
     "expired": "Scaduto",
     "freePlan": "Piano gratuito",
     "freeTrial": "Prova gratuita",

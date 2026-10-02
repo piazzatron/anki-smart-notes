@@ -121,7 +121,7 @@ export const ModelSettingsSection = ({
               )}
             {fieldType === "image" &&
               controls.form.pinnedSettings.image !== null && (
-                <label className="block">
+                <div>
                   <span className="mb-2 block text-[10px] font-semibold tracking-[0.06em] text-ink-faint uppercase">
                     {t("fieldEditor.modelSettings.model")}
                   </span>
@@ -131,7 +131,7 @@ export const ModelSettingsSection = ({
                     onValueChange={controls.setPinnedImage}
                     value={controls.form.pinnedSettings.image.model}
                   />
-                </label>
+                </div>
               )}
             {fieldType === "tts" &&
               controls.form.pinnedSettings.tts !== null &&

@@ -258,13 +258,11 @@
     "image": {
       "cannotFindModel": "แค็ตตาล็อกรูปภาพไม่มีโมเดล {{model}}",
       "defaultModel": "โมเดลเริ่มต้น",
-      "gptImage15Low": "การแลกเปลี่ยนคุณภาพ / ความเร็วที่ดีที่สุด",
-      "gptImage2": "ต้นทุนเท่าเดิม ช้ากว่า คุณภาพสูงกว่า",
+      "gptImage25": "ตัวเลือกที่ดีที่สุดสำหรับทุกกรณี — ข้อความชัด ไดอะแกรมสะอาด",
       "loadingLabel": "กำลังโหลดการตั้งค่ารูปภาพเริ่มต้น",
       "loadingTitle": "การตั้งค่าภาพเริ่มต้น",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (ต่ำ / ปานกลาง)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 การเลือกโมเดลรูปภาพ",
@@ -272,7 +270,8 @@
       "saveError": "ไม่สามารถบันทึกค่าเริ่มต้นของรูปภาพได้",
       "subtitle": "โมเดลที่อิมเมจของคุณ Smart Fields ใช้ เว้นแต่ว่าฟิลด์จะปักหมุดตัวมันเอง",
       "title": "การตั้งค่าภาพเริ่มต้น",
-      "zImageTurbo": "เร็วที่สุดและถูกที่สุด"
+      "zImageTurbo": "เร็วที่สุดและถูกที่สุด",
+      "extrasTip": "เริ่มต้นโดยปิดส่วนเพิ่มเติม จากนั้นเปิดใช้หากต้องการรายละเอียดเพิ่มเติมในฟิลด์"
     },
     "layout": {
       "saveChanges": "บันทึกการเปลี่ยนแปลง",
@@ -329,6 +328,16 @@
       "title": "การตั้งค่าเสียงเริ่มต้น"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "ราคา 2 เท่า",
+    "extras": "ตัวเลือกเพิ่มเติม",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "ไม่มีค่าใช้พิเศษ",
+    "richerDetail": "รายละเอียดที่풍풍ชื่น",
+    "richerDetailDescription": "รายละเอียดมากขึ้น ฉากที่สมบูรณ์ยิ่งขึ้น ช้าลงเล็กน้อย",
+    "maxQuality": "คุณภาพสูงสุด",
+    "maxQualityDescription": "ชัดเจนและสะอาดยิ่งขึ้น โดยเฉพาะป้ายกำกับขนาดเล็ก"
+  },
   "promptTester": {
     "anotherNoteType": "บันทึกประเภทอื่น",
     "currentlySelectedCard": "บัตรที่เลือกในปัจจุบัน",
@@ -366,7 +375,6 @@
   "subscription": {
     "accessEnds": "การเข้าถึงสิ้นสุด",
     "activateAgain": "เปิดใช้งานอีกครั้ง",
-    "endingSoon": "กำลังจะสิ้นสุด",
     "checking": "กำลังตรวจสอบการสมัครสมาชิก",
     "creditTypes": {
       "images": "รูปภาพ",
@@ -379,6 +387,7 @@
     "errors": {
       "logout": "ไม่สามารถออกจากระบบได้"
     },
+    "endingSoon": "กำลังจะสิ้นสุด",
     "expired": "หมดอายุ",
     "freePlan": "แผนฟรี",
     "freeTrial": "ทดลองใช้ฟรี",

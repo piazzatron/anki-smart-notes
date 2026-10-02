@@ -260,13 +260,11 @@
     "image": {
       "cannotFindModel": "În catalogul de imagini lipsește modelul {{model}}",
       "defaultModel": "Model implicit",
-      "gptImage15Low": "cel mai bun compromis calitate/viteză.",
-      "gptImage2": "același cost, mai lent, calitate superioară.",
+      "gptImage25": "cel mai bun — text ascuțit, diagrame curate.",
       "loadingLabel": "Se încarcă setările implicite pentru imagine",
       "loadingTitle": "Setări implicite pentru imagine",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Alegerea unui model de imagine",
@@ -274,7 +272,8 @@
       "saveError": "Nu s-au putut salva valorile implicite ale imaginii",
       "subtitle": "Modelul pe care îl folosește imaginea dvs. Smart Fields, cu excepția cazului în care un câmp își stabilește propriul.",
       "title": "Setări implicite pentru imagine",
-      "zImageTurbo": "cel mai rapid si mai ieftin."
+      "zImageTurbo": "cel mai rapid si mai ieftin.",
+      "extrasTip": "Pornești cu extras-urile dezactivate, apoi le activezi dacă un câmp necesită mai multe detalii."
     },
     "layout": {
       "saveChanges": "Salvați modificările",
@@ -333,6 +332,16 @@
       "title": "Setări implicite de voce"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "Cost 2×",
+    "extras": "Opțiuni suplimentare",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Fără cost suplimentar",
+    "richerDetail": "Detalii mai bogate",
+    "richerDetailDescription": "Mai detaliat, scene mai complete. Puțin mai lent.",
+    "maxQuality": "Calitate maximă",
+    "maxQualityDescription": "Mai ascuțit și mai curat, în special etichetele mici."
+  },
   "promptTester": {
     "anotherNoteType": "alt tip de notă",
     "currentlySelectedCard": "Card selectat în prezent",
@@ -378,7 +387,6 @@
   "subscription": {
     "accessEnds": "Accesul se încheie",
     "activateAgain": "Reactivați",
-    "endingSoon": "Se încheie în curând",
     "checking": "Se verifică abonamentul",
     "creditTypes": {
       "images": "Imagini",
@@ -393,6 +401,7 @@
     "errors": {
       "logout": "Nu s-a putut deconecta"
     },
+    "endingSoon": "Se încheie în curând",
     "expired": "Expirat",
     "freePlan": "Plan gratuit",
     "freeTrial": "Probă gratuită",

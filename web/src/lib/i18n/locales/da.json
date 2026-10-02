@@ -259,13 +259,11 @@
     "image": {
       "cannotFindModel": "Billedkatalog mangler model {{model}}",
       "defaultModel": "Standardmodel",
-      "gptImage15Low": "bedste kvalitet / hastighed afvejning.",
-      "gptImage2": "samme pris, langsommere, højere kvalitet.",
+      "gptImage25": "bedst til alt — skarpt tekst, rene diagrammer.",
       "loadingLabel": "Indlæser standard billedindstillinger",
       "loadingTitle": "Standard billedindstillinger",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Lav/Middel)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 At vælge en billedmodel",
@@ -273,7 +271,8 @@
       "saveError": "Billedstandarder kunne ikke gemmes",
       "subtitle": "Modellen dit billede Smart Fields bruger, medmindre et felt fastgør sit eget.",
       "title": "Standard billedindstillinger",
-      "zImageTurbo": "hurtigste og billigste."
+      "zImageTurbo": "hurtigste og billigste.",
+      "extrasTip": "Start med extras slået fra, og tænd dem derefter, hvis et felt har brug for mere detaljer."
     },
     "layout": {
       "saveChanges": "Gem ændringer",
@@ -331,6 +330,16 @@
       "title": "Standard stemmeindstillinger"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× omkostning",
+    "extras": "Ekstra",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Ingen ekstra omkostning",
+    "richerDetail": "Rigere detaljer",
+    "richerDetailDescription": "Mere detaljeret, fyldigere scener. Lidt langsommere.",
+    "maxQuality": "Maksimal kvalitet",
+    "maxQualityDescription": "Skarpere og renere, især små labels."
+  },
   "promptTester": {
     "anotherNoteType": "en anden nodetype",
     "currentlySelectedCard": "Det valgte kort i øjeblikket",
@@ -372,7 +381,6 @@
   "subscription": {
     "accessEnds": "Adgang slutter",
     "activateAgain": "Aktivér igen",
-    "endingSoon": "Slutter snart",
     "checking": "Tjek abonnement",
     "creditTypes": {
       "images": "Billeder",
@@ -386,6 +394,7 @@
     "errors": {
       "logout": "Kunne ikke logge ud"
     },
+    "endingSoon": "Slutter snart",
     "expired": "Udløbet",
     "freePlan": "Gratis plan",
     "freeTrial": "Gratis prøveversion",

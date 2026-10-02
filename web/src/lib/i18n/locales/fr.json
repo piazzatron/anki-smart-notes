@@ -260,13 +260,11 @@
     "image": {
       "cannotFindModel": "Le catalogue d'images ne contient pas le modèle {{model}}.",
       "defaultModel": "Modèle par défaut",
-      "gptImage15Low": "meilleur compromis qualité/vitesse.",
-      "gptImage2": "même coût, plus lent, meilleure qualité.",
+      "gptImage25": "meilleur équilibre — texte net, diagrammes épurés.",
       "loadingLabel": "Chargement des paramètres d'image par défaut",
       "loadingTitle": "Paramètres d'image par défaut",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (faible/moyen)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Choisir un modèle d'image",
@@ -274,7 +272,8 @@
       "saveError": "Impossible d'enregistrer les paramètres par défaut de l'image",
       "subtitle": "Le modèle que votre image Smart Fields utilise à moins qu'un champ n'épingle le sien.",
       "title": "Paramètres d'image par défaut",
-      "zImageTurbo": "le plus rapide et le moins cher."
+      "zImageTurbo": "le plus rapide et le moins cher.",
+      "extrasTip": "Commencez avec les extras désactivés, puis activez-les si un champ a besoin de plus de détails."
     },
     "layout": {
       "saveChanges": "Enregistrer les modifications",
@@ -333,6 +332,16 @@
       "title": "Paramètres vocaux par défaut"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "2× le coût",
+    "extras": "Options supplémentaires",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Aucun coût supplémentaire",
+    "richerDetail": "Détail enrichi",
+    "richerDetailDescription": "Plus détaillé, scènes plus complètes. Un peu plus lent.",
+    "maxQuality": "Qualité maximale",
+    "maxQualityDescription": "Plus net et plus propre, surtout pour les petits labels."
+  },
   "promptTester": {
     "anotherNoteType": "un autre type de note",
     "currentlySelectedCard": "Carte actuellement sélectionnée",
@@ -378,7 +387,6 @@
   "subscription": {
     "accessEnds": "L'accès se termine",
     "activateAgain": "Réactiver",
-    "endingSoon": "Se termine bientôt",
     "checking": "Vérification de l'abonnement",
     "creditTypes": {
       "images": "Images",
@@ -393,6 +401,7 @@
     "errors": {
       "logout": "Impossible de se déconnecter"
     },
+    "endingSoon": "Se termine bientôt",
     "expired": "Expiré",
     "freePlan": "Forfait gratuit",
     "freeTrial": "Essai gratuit",

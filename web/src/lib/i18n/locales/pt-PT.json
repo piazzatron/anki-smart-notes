@@ -260,13 +260,11 @@
     "image": {
       "cannotFindModel": "Falta o modelo {{model}} no catálogo de imagens",
       "defaultModel": "Modelo padrão",
-      "gptImage15Low": "melhor relação qualidade/velocidade.",
-      "gptImage2": "mesmo custo, mais lento e de maior qualidade.",
+      "gptImage25": "melhor tudo-em-um — texto nítido, diagramas limpos.",
       "loadingLabel": "Carregando configurações de imagem padrão",
       "loadingTitle": "Configurações de imagem padrão",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Escolhendo um modelo de imagem",
@@ -274,7 +272,8 @@
       "saveError": "Não foi possível salvar os padrões de imagem",
       "subtitle": "O modelo que a sua imagem Smart Fields utiliza, a menos que um campo fixe o seu próprio.",
       "title": "Configurações de imagem padrão",
-      "zImageTurbo": "mais rápido e mais barato."
+      "zImageTurbo": "mais rápido e mais barato.",
+      "extrasTip": "Comece com extras desativados e ative-os se um campo precisar de mais detalhe."
     },
     "layout": {
       "saveChanges": "Salvar alterações",
@@ -333,6 +332,16 @@
       "title": "Configurações de voz padrão"
     }
   },
+  "imageGeneration": {
+    "doubleCost": "Custo 2×",
+    "extras": "Extras",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Sem custo adicional",
+    "richerDetail": "Mais detalhes",
+    "richerDetailDescription": "Mais detalhado, cenas mais completas. Um pouco mais lento.",
+    "maxQuality": "Qualidade máxima",
+    "maxQualityDescription": "Mais nítido e limpo, especialmente em etiquetas pequenas."
+  },
   "promptTester": {
     "anotherNoteType": "outro tipo de nota",
     "currentlySelectedCard": "Cartão atualmente selecionado",
@@ -378,7 +387,6 @@
   "subscription": {
     "accessEnds": "Acesso termina",
     "activateAgain": "Ativar novamente",
-    "endingSoon": "Termina em breve",
     "checking": "Verificando assinatura",
     "creditTypes": {
       "images": "Imagens",
@@ -393,6 +401,7 @@
     "errors": {
       "logout": "Não foi possível sair"
     },
+    "endingSoon": "Termina em breve",
     "expired": "Expirado",
     "freePlan": "Plano grátis",
     "freeTrial": "Teste grátis",
