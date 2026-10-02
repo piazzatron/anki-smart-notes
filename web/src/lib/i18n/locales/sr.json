@@ -260,11 +260,12 @@
     "image": {
       "cannotFindModel": "Каталогу слика недостаје модел {{model}}",
       "defaultModel": "Подразумевани модел",
+      "gptImage25": "најбољи универзалец — оштар текст, чисти дијаграми.",
       "loadingLabel": "Учитавање подразумеваних поставки слике",
       "loadingTitle": "Подразумевана подешавања слике",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Бирање модела слике",
       "samplePrompt": "Генеришите слику ученика који вредно учи са Anki и полаже тестове.",
@@ -272,7 +273,7 @@
       "subtitle": "Модел који ваша слика користи Smart Fields осим ако поље не закачи своје.",
       "title": "Подразумевана подешавања слике",
       "zImageTurbo": "најбржи и најјефтинији.",
-      "gptImage25": "најбољи универзалец — оштар текст, чисти дијаграми."
+      "extrasTip": "Почните са искљученим екстрама, затим их укључите ако поље захтева више детаља."
     },
     "layout": {
       "saveChanges": "Сачувај промене",
@@ -330,6 +331,16 @@
       "subtitle": "Глас који ваш ТТС Smart Fields користи осим ако поље не закачи своје.",
       "title": "Подразумевана подешавања гласа"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× цена",
+    "extras": "Додаци",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Без додатне цене",
+    "richerDetail": "Богатији детаљ",
+    "richerDetailDescription": "Више детаља, пуније сцене. Мало спорије.",
+    "maxQuality": "Максимална квалитета",
+    "maxQualityDescription": "Оштрије и чишће, посебно мале налепнице."
   },
   "promptTester": {
     "anotherNoteType": "другу врсту нота",
@@ -511,15 +522,5 @@
     "thanks": "Хвала што користите Smart Notes ✨",
     "title": "Ваша бесплатна пробна верзија је завршена",
     "upgradeNow": "Надоградите сада"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× цена",
-    "extras": "Додаци",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Висока квалитета",
-    "highQualityDescription": "Оштрије и чишће, нарочито мале етикете.",
-    "noExtraCost": "Без додатне цене",
-    "richerDetail": "Богатији детаљ",
-    "richerDetailDescription": "Више детаља, пуније сцене. Мало спорије."
   }
 }

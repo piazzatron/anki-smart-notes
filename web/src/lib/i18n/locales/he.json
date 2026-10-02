@@ -260,11 +260,12 @@
     "image": {
       "cannotFindModel": "בקטלוג התמונות חסר דגם {{model}}",
       "defaultModel": "דגם ברירת מחדל",
+      "gptImage25": "הטוב ביותר בכל תחום — טקסט חד וסרטוטים נקיים.",
       "loadingLabel": "טוען את הגדרות ברירת המחדל של תמונה",
       "loadingTitle": "הגדרות תמונה ברירת מחדל",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 בחירת דגם תמונה",
       "samplePrompt": "צור תמונה של תלמיד לומד קשה עם Anki ועובר את המבחנים שלו.",
@@ -272,7 +273,7 @@
       "subtitle": "הדגם שבו משתמשת התמונה שלך Smart Fields, אלא אם כן שדה מצמיד את שלו.",
       "title": "הגדרות תמונה ברירת מחדל",
       "zImageTurbo": "הכי מהיר והכי זול.",
-      "gptImage25": "הטוב ביותר בכל תחום — טקסט חד וסרטוטים נקיים."
+      "extrasTip": "התחל עם extras בכיבוי, ואז הפעל אותם אם שדה זקוק לפרטים נוספים."
     },
     "layout": {
       "saveChanges": "שמור שינויים",
@@ -330,6 +331,16 @@
       "subtitle": "הקול שבו ה-TTS שלך Smart Fields משתמש אלא אם כן שדה מצמיד את שלו.",
       "title": "הגדרות קול ברירת מחדל"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "עלות כפולה",
+    "extras": "תוספות",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "ללא עלות נוספת",
+    "richerDetail": "פרט עשיר יותר",
+    "richerDetailDescription": "מפורט יותר, סצנות מלאות יותר. קצת יותר איטי.",
+    "maxQuality": "איכות מקסימלית",
+    "maxQualityDescription": "חד וניקי יותר, במיוחד עבור תוויות קטנות."
   },
   "promptTester": {
     "anotherNoteType": "סוג פתק אחר",
@@ -511,15 +522,5 @@
     "thanks": "תודה על השימוש ב-Smart Notes ✨",
     "title": "תקופת הניסיון בחינם שלך הסתיימה",
     "upgradeNow": "שדרג עכשיו"
-  },
-  "imageGeneration": {
-    "doubleCost": "עלות כפולה",
-    "extras": "תוספות",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "איכות גבוהה",
-    "highQualityDescription": "חד וניקי יותר, במיוחד תוויות קטנות.",
-    "noExtraCost": "ללא עלות נוספת",
-    "richerDetail": "פרט עשיר יותר",
-    "richerDetailDescription": "מפורט יותר, סצנות מלאות יותר. קצת יותר איטי."
   }
 }

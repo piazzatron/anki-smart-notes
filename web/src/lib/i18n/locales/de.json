@@ -259,11 +259,12 @@
     "image": {
       "cannotFindModel": "Im Bildkatalog fehlt das Modell {{model}}",
       "defaultModel": "Standardmodell",
+      "gptImage25": "Allrounder — scharfe Texte, saubere Diagramme.",
       "loadingLabel": "Laden der Standardbildeinstellungen",
       "loadingTitle": "Standardbildeinstellungen",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Wählen Sie ein Bildmodell aus",
       "samplePrompt": "Erstellen Sie ein Bild eines Studenten, der mit Anki fleißig lernt und seine Prüfungen besteht.",
@@ -271,7 +272,7 @@
       "subtitle": "Das Modell, das Ihr Bild Smart Fields verwendet, es sei denn, ein Feld heftet sein eigenes an.",
       "title": "Standardbildeinstellungen",
       "zImageTurbo": "am schnellsten und günstigsten.",
-      "gptImage25": "Allrounder — scharfe Texte, saubere Diagramme."
+      "extrasTip": "Starten Sie mit deaktivierten Extras, aktivieren Sie diese dann, wenn ein Feld mehr Details benötigt."
     },
     "layout": {
       "saveChanges": "Änderungen speichern",
@@ -328,6 +329,16 @@
       "subtitle": "Die Stimme, die Ihr TTS Smart Fields verwendet, es sei denn, ein Feld legt seine eigene fest.",
       "title": "Standard-Spracheinstellungen"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× Kosten",
+    "extras": "Extras",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Keine zusätzlichen Kosten",
+    "richerDetail": "Mehr Details",
+    "richerDetailDescription": "Detaillierter, vollere Szenen. Etwas langsamer.",
+    "maxQuality": "Maximale Qualität",
+    "maxQualityDescription": "Schärfer und sauberer, besonders bei kleinen Beschriftungen."
   },
   "promptTester": {
     "anotherNoteType": "ein anderer Notiztyp",
@@ -501,15 +512,5 @@
     "thanks": "Vielen Dank, dass Sie Smart Notes verwenden ✨",
     "title": "Ihre kostenlose Testversion ist beendet",
     "upgradeNow": "Jetzt upgraden"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× Kosten",
-    "extras": "Extras",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Hohe Qualität",
-    "highQualityDescription": "Schärfer und sauberer, besonders bei kleinen Beschriftungen.",
-    "noExtraCost": "Keine zusätzlichen Kosten",
-    "richerDetail": "Mehr Details",
-    "richerDetailDescription": "Detaillierter, vollere Szenen. Etwas langsamer."
   }
 }

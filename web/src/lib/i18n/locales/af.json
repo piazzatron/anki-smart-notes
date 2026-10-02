@@ -259,11 +259,12 @@
     "image": {
       "cannotFindModel": "Beeldkatalogus ontbreek model {{model}}",
       "defaultModel": "Verstek model",
+      "gptImage25": "beste alleskunner — skerp teks, skoon diagramme.",
       "loadingLabel": "Laai tans verstekbeeldinstellings",
       "loadingTitle": "Standaard prentinstellings",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Kies 'n beeldmodel",
       "samplePrompt": "Genereer 'n beeld van 'n student wat hard met Anki studeer en hul toetse slaag.",
@@ -271,7 +272,7 @@
       "subtitle": "Die model wat jou beeld Smart Fields gebruik, tensy 'n veld sy eie vaspen.",
       "title": "Standaard prentinstellings",
       "zImageTurbo": "vinnigste en goedkoopste.",
-      "gptImage25": "beste alleskunner — skerp teks, skoon diagramme."
+      "extrasTip": "Begin met ekstras af, en skakel dit aan as 'n veld meer detail nodig het."
     },
     "layout": {
       "saveChanges": "Stoor veranderinge",
@@ -328,6 +329,16 @@
       "subtitle": "Die stem wat jou TTS Smart Fields gebruik, tensy 'n veld sy eie vaspen.",
       "title": "Versteksteminstellings"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× koste",
+    "extras": "Ekstra's",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Geen ekstra koste",
+    "richerDetail": "Ryker detail",
+    "richerDetailDescription": "Meer gedetailleerd, voller tonele. Effens stadiger.",
+    "maxQuality": "Maksimum kwaliteit",
+    "maxQualityDescription": "Skerper en skoner, veral klein etikette."
   },
   "promptTester": {
     "anotherNoteType": "'n ander noottipe",
@@ -501,15 +512,5 @@
     "thanks": "Dankie dat jy Smart Notes gebruik ✨",
     "title": "Jou gratis proeftydperk het geëindig",
     "upgradeNow": "Gradeer nou op"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× koste",
-    "extras": "Ekstra's",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Hoë kwaliteit",
-    "highQualityDescription": "Skerper en skoner, veral klein etikette.",
-    "noExtraCost": "Geen ekstra koste",
-    "richerDetail": "Ryker detail",
-    "richerDetailDescription": "Meer gedetailleerd, voller tonele. Effens stadiger."
   }
 }

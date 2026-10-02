@@ -258,11 +258,12 @@
     "image": {
       "cannotFindModel": "图像目录缺少型号 {{model}}",
       "defaultModel": "默认型号",
+      "gptImage25": "全能型 — 文字锐利，图表清晰。",
       "loadingLabel": "加载默认图像设置",
       "loadingTitle": "默认图像设置",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 选择图像模型",
       "samplePrompt": "生成学生使用 Anki 努力学习并通过测试的图像。",
@@ -270,7 +271,7 @@
       "subtitle": "您的图像 Smart Fields 使用的模型，除非字段固定其自己的模型。",
       "title": "默认图像设置",
       "zImageTurbo": "最快且最便宜。",
-      "gptImage25": "全能型 — 文字锐利，图表清晰。"
+      "extrasTip": "先关闭额外功能，如果某个字段需要更多细节时再打开。"
     },
     "layout": {
       "saveChanges": "保存更改",
@@ -326,6 +327,16 @@
       "subtitle": "TTS Smart Fields 使用的语音，除非字段固定其自己的语音。",
       "title": "默认语音设置"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× 费用",
+    "extras": "高级选项",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "无额外费用",
+    "richerDetail": "更丰富细节",
+    "richerDetailDescription": "更详细，场景更完整。处理速度稍慢。",
+    "maxQuality": "最高质量",
+    "maxQualityDescription": "更清晰锐利，特别是对小标签效果更好。"
   },
   "promptTester": {
     "anotherNoteType": "另一种笔记类型",
@@ -491,15 +502,5 @@
     "thanks": "感谢您使用 Smart Notes ✨",
     "title": "您的免费试用已结束",
     "upgradeNow": "立即升级"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× 费用",
-    "extras": "高级选项",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "高质量",
-    "highQualityDescription": "更锐利更清晰，尤其是小标签。",
-    "noExtraCost": "无额外费用",
-    "richerDetail": "更丰富细节",
-    "richerDetailDescription": "更详细，场景更完整。处理速度稍慢。"
   }
 }

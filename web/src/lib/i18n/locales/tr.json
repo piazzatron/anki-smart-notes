@@ -259,11 +259,12 @@
     "image": {
       "cannotFindModel": "Resim kataloğunda {{model}} modeli eksik",
       "defaultModel": "Varsayılan model",
+      "gptImage25": "en iyi genel amaçlı — keskin metinler, temiz diyagramlar.",
       "loadingLabel": "Varsayılan Görüntü Ayarlarını Yükleme",
       "loadingTitle": "Varsayılan Görüntü Ayarları",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Bir görüntü modeli seçme",
       "samplePrompt": "Anki ile sıkı çalışan ve sınavlarını geçen bir öğrencinin görüntüsünü oluşturun.",
@@ -271,7 +272,7 @@
       "subtitle": "Bir alan kendisini sabitlemediği sürece görüntünüz Smart Fields'in kullandığı model.",
       "title": "Varsayılan Görüntü Ayarları",
       "zImageTurbo": "en hızlı ve en ucuz.",
-      "gptImage25": "en iyi genel amaçlı — keskin metinler, temiz diyagramlar."
+      "extrasTip": "Ekstraları kapalı başlayın, ardından bir alan daha fazla ayrıntı gerektirirse açın."
     },
     "layout": {
       "saveChanges": "Değişiklikleri kaydet",
@@ -328,6 +329,16 @@
       "subtitle": "Bir alan kendine ait olmadığı sürece TTS Smart Fields'inizin kullandığı ses.",
       "title": "Varsayılan Ses Ayarları"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× maliyet",
+    "extras": "Ekstralar",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Ek maliyet yok",
+    "richerDetail": "Daha zengin detay",
+    "richerDetailDescription": "Daha detaylı, tam sahneler. Biraz daha yavaş.",
+    "maxQuality": "Maksimum kalite",
+    "maxQualityDescription": "Daha keskin ve temiz, özellikle küçük etiketler için."
   },
   "promptTester": {
     "anotherNoteType": "başka bir not türü",
@@ -501,15 +512,5 @@
     "thanks": "Smart Notes'i kullandığınız için teşekkür ederiz ✨",
     "title": "Ücretsiz deneme süreniz sona erdi",
     "upgradeNow": "Şimdi yükseltin"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× maliyet",
-    "extras": "Ekstralar",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Yüksek kalite",
-    "highQualityDescription": "Daha keskin ve temiz, özellikle küçük etiketler.",
-    "noExtraCost": "Ek maliyet yok",
-    "richerDetail": "Daha zengin detay",
-    "richerDetailDescription": "Daha detaylı, tam sahneler. Biraz daha yavaş."
   }
 }

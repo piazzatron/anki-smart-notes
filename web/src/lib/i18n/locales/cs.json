@@ -261,11 +261,12 @@
     "image": {
       "cannotFindModel": "V katalogu obrázků chybí model {{model}}",
       "defaultModel": "Výchozí model",
+      "gptImage25": "nejlepší univerzál — ostrý text, čisté diagramy.",
       "loadingLabel": "Načítání výchozího nastavení obrázku",
       "loadingTitle": "Výchozí nastavení obrázku",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Výběr obrazového modelu",
       "samplePrompt": "Vytvořte si obrázek studenta, který pilně studuje se Anki a složí své testy.",
@@ -273,7 +274,7 @@
       "subtitle": "Model, který váš obrázek používá Smart Fields, pokud pole nepřipíná své vlastní.",
       "title": "Výchozí nastavení obrázku",
       "zImageTurbo": "nejrychlejší a nejlevnější.",
-      "gptImage25": "nejlepší univerzál — ostrý text, čisté diagramy."
+      "extrasTip": "Začněte s vypnutými doplňky, poté je zapněte, pokud pole potřebuje více detailů."
     },
     "layout": {
       "saveChanges": "Uložte změny",
@@ -332,6 +333,16 @@
       "subtitle": "Hlas, který váš TTS Smart Fields používá, pokud pole nepřipíná své vlastní.",
       "title": "Výchozí nastavení hlasu"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× cena",
+    "extras": "Extras",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Bez další ceny",
+    "richerDetail": "Bohatší detaily",
+    "richerDetailDescription": "Více detailů, plnější scény. Trochu pomalejší.",
+    "maxQuality": "Maximální kvalita",
+    "maxQualityDescription": "Ostřejší a čistší, zejména malé popisky."
   },
   "promptTester": {
     "anotherNoteType": "jiný typ poznámky",
@@ -521,15 +532,5 @@
     "thanks": "Děkujeme, že používáte Smart Notes ✨",
     "title": "Vaše bezplatná zkušební verze skončila",
     "upgradeNow": "Upgradujte nyní"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× cena",
-    "extras": "Extras",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Vysoká kvalita",
-    "highQualityDescription": "Ostřejší a čistší, zvláště malé popisky.",
-    "noExtraCost": "Bez další ceny",
-    "richerDetail": "Bohatší detaily",
-    "richerDetailDescription": "Více detailů, plnější scény. Trochu pomalejší."
   }
 }

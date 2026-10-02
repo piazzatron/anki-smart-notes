@@ -258,11 +258,12 @@
     "image": {
       "cannotFindModel": "Lo catalòg d'imatges manca lo modèl {{model}}",
       "defaultModel": "Modèl per defaut",
+      "gptImage25": "lo melhor de tot — tèxt nitid, diagramas nets.",
       "loadingLabel": "En cargament dels paramètres d'imatge per defaut",
       "loadingTitle": "Paramètres d'imatge per defaut",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Causir un modèl d'imatge",
       "samplePrompt": "Generar una imatge d'un escolans qu'estudia fòrça amb Anki e que passa sos tèsts.",
@@ -270,7 +271,7 @@
       "subtitle": "Lo modèl que vòstra imatge Smart Fields utilizatz levat se un camp fixa lo sieu.",
       "title": "Paramètres d'imatge per defaut",
       "zImageTurbo": "lo mai rapid e lo mai economic.",
-      "gptImage25": "lo melhor de tot — tèxt nitid, diagramas nets."
+      "extrasTip": "Començatz amb los extras desactivats, puèi activatz-los se un camp a besoin de mai de detalh."
     },
     "layout": {
       "saveChanges": "Enregistrar las modificacions",
@@ -326,6 +327,16 @@
       "subtitle": "La votz que vòstre TTS Smart Fields utiliza levat qu'un camp fixe lo sieu.",
       "title": "Paramètres de votz per defaut"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× de còst",
+    "extras": "Extres",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Pas de còst suplementari",
+    "richerDetail": "Detall pus ric",
+    "richerDetailDescription": "Pus detallat, escènas pus complètas. Un pauc pus lent.",
+    "maxQuality": "Qualitat maxima",
+    "maxQualityDescription": "Pus net e pus clar, especialament per las etiquetas petitas."
   },
   "promptTester": {
     "anotherNoteType": "un autre tipe de nòta",
@@ -491,15 +502,5 @@
     "thanks": "Mercés d'utilizar Smart Notes ✨",
     "title": "Vòstra espròva gratuita s'es acabada",
     "upgradeNow": "Metètz a jorn ara"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× de còst",
-    "extras": "Extres",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Qualitat superiora",
-    "highQualityDescription": "Pus nitid e pus net, especialament las etiquetas petitas.",
-    "noExtraCost": "Pas de còst suplementari",
-    "richerDetail": "Detall pus ric",
-    "richerDetailDescription": "Pus detallat, escènas pus complètas. Un pauc pus lent."
   }
 }

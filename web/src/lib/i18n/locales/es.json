@@ -260,11 +260,12 @@
     "image": {
       "cannotFindModel": "Falta catálogo de imágenes modelo {{model}}",
       "defaultModel": "Modelo predeterminado",
+      "gptImage25": "el mejor en general — texto nítido, diagramas limpios.",
       "loadingLabel": "Cargando la configuración de imagen predeterminada",
       "loadingTitle": "Configuración de imagen predeterminada",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Elegir un modelo de imagen",
       "samplePrompt": "Genera una imagen de un estudiante estudiando mucho con Anki y aprobando sus exámenes.",
@@ -272,7 +273,7 @@
       "subtitle": "El modelo que utiliza su imagen Smart Fields a menos que un campo fije el suyo.",
       "title": "Configuración de imagen predeterminada",
       "zImageTurbo": "más rápido y más barato.",
-      "gptImage25": "el mejor en general — texto nítido, diagramas limpios."
+      "extrasTip": "Comienza con extras desactivados, luego actívalos si un campo necesita más detalle."
     },
     "layout": {
       "saveChanges": "Guardar cambios",
@@ -330,6 +331,16 @@
       "subtitle": "La voz que usa su TTS Smart Fields a menos que un campo fije el suyo.",
       "title": "Configuración de voz predeterminada"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× costo",
+    "extras": "Extras",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Sin costo adicional",
+    "richerDetail": "Más detalle",
+    "richerDetailDescription": "Más detallado, escenas más completas. Un poco más lento.",
+    "maxQuality": "Máxima calidad",
+    "maxQualityDescription": "Más nítido y limpio, especialmente etiquetas pequeñas."
   },
   "promptTester": {
     "anotherNoteType": "otro tipo de nota",
@@ -511,15 +522,5 @@
     "thanks": "Gracias por usar Smart Notes ✨",
     "title": "Tu prueba gratuita ha finalizado",
     "upgradeNow": "Actualiza ahora"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× costo",
-    "extras": "Extras",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Alta calidad",
-    "highQualityDescription": "Más nítido y limpio, especialmente etiquetas pequeñas.",
-    "noExtraCost": "Sin costo adicional",
-    "richerDetail": "Más detalle",
-    "richerDetailDescription": "Más detallado, escenas más completas. Un poco más lento."
   }
 }

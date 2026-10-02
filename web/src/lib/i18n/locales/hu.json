@@ -259,11 +259,12 @@
     "image": {
       "cannotFindModel": "A képkatalógusból hiányzik az {{model}} modell",
       "defaultModel": "Alapértelmezett modell",
+      "gptImage25": "legjobb univerzális — éles szöveg, tiszta diagramok.",
       "loadingLabel": "Az alapértelmezett képbeállítások betöltése",
       "loadingTitle": "Alapértelmezett képbeállítások",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Képmodell kiválasztása",
       "samplePrompt": "Készítsen képet egy diákról, aki keményen tanul az Anki-val, és sikeresen teljesíti a teszteket.",
@@ -271,7 +272,7 @@
       "subtitle": "Az Smart Fields kép által használt modell, hacsak egy mező nem rögzíti a sajátját.",
       "title": "Alapértelmezett képbeállítások",
       "zImageTurbo": "leggyorsabb és legolcsóbb.",
-      "gptImage25": "legjobb univerzális — éles szöveg, tiszta diagramok."
+      "extrasTip": "Kezdje a kiegészítéseket kikapcsolva, majd kapcsolja be őket, ha egy mező részletesebb megjelenítésre van szüksége."
     },
     "layout": {
       "saveChanges": "Módosítások mentése",
@@ -328,6 +329,16 @@
       "subtitle": "A hang, amelyet a TTS Smart Fields használ, hacsak egy mező nem rögzíti a sajátját.",
       "title": "Alapértelmezett hangbeállítások"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× költség",
+    "extras": "Kiegészítések",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Nincs extra költség",
+    "richerDetail": "Gazdagabb részletesség",
+    "richerDetailDescription": "Részletesebb, teljesebb jelenetek. Kicsit lassabb.",
+    "maxQuality": "Maximális minőség",
+    "maxQualityDescription": "Élesebb és tisztább, különösen a kis feliratok."
   },
   "promptTester": {
     "anotherNoteType": "egy másik hangjegytípus",
@@ -501,15 +512,5 @@
     "thanks": "Köszönjük, hogy az Smart Notes-t használja ✨",
     "title": "Az ingyenes próbaidőszak véget ért",
     "upgradeNow": "Frissítsen most"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× költség",
-    "extras": "Kiegészítések",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Magas minőség",
-    "highQualityDescription": "Élesebb és tisztább, főleg kis feliratok esetén.",
-    "noExtraCost": "Nincs extra költség",
-    "richerDetail": "Gazdagabb részletesség",
-    "richerDetailDescription": "Részletesebb, teljesebb jelenetek. Kicsit lassabb."
   }
 }

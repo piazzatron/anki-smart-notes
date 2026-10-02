@@ -261,11 +261,12 @@
     "image": {
       "cannotFindModel": "V katalógu obrázkov chýba model {{model}}",
       "defaultModel": "Predvolený model",
+      "gptImage25": "najlepší všestranný — ostré texty, čisté diagramy.",
       "loadingLabel": "Načítavajú sa predvolené nastavenia obrázka",
       "loadingTitle": "Predvolené nastavenia obrazu",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Výber obrazového modelu",
       "samplePrompt": "Vytvorte si obraz študenta, ktorý tvrdo študuje so Anki a zloží svoje testy.",
@@ -273,7 +274,7 @@
       "subtitle": "Model, ktorý používa váš obrázok Smart Fields, pokiaľ pole nepripne svoje vlastné.",
       "title": "Predvolené nastavenia obrazu",
       "zImageTurbo": "najrýchlejší a najlacnejší.",
-      "gptImage25": "najlepší všestranný — ostré texty, čisté diagramy."
+      "extrasTip": "Začnite s vypnutými doplnkami, potom ich zapnite, ak pole potrebuje viac podrobností."
     },
     "layout": {
       "saveChanges": "Uložiť zmeny",
@@ -332,6 +333,16 @@
       "subtitle": "Hlas, ktorý používa váš TTS Smart Fields, pokiaľ pole nepripne svoje vlastné.",
       "title": "Predvolené nastavenia hlasu"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× cena",
+    "extras": "Doplnky",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Bez dodatočných nákladov",
+    "richerDetail": "Bohatší detail",
+    "richerDetailDescription": "Podrobnejšie, plnejšie scény. Trochu pomalšie.",
+    "maxQuality": "Maximálna kvalita",
+    "maxQualityDescription": "Ostrejšie a čistejšie, najmä malé štítky."
   },
   "promptTester": {
     "anotherNoteType": "iný typ poznámky",
@@ -521,15 +532,5 @@
     "thanks": "Ďakujeme, že používate Smart Notes ✨",
     "title": "Vaša bezplatná skúšobná verzia sa skončila",
     "upgradeNow": "Inovujte teraz"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× cena",
-    "extras": "Doplnky",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Vysoká kvalita",
-    "highQualityDescription": "Ostrejšie a čistejšie, obzvlášť malé štítky.",
-    "noExtraCost": "Bez dodatočných nákladov",
-    "richerDetail": "Bohatší detail",
-    "richerDetailDescription": "Podrobnejšie, plnejšie scény. Trochu pomalšie."
   }
 }

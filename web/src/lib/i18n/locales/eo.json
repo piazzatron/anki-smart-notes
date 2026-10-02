@@ -259,11 +259,12 @@
     "image": {
       "cannotFindModel": "Bildkatalogo mankas modelo {{model}}",
       "defaultModel": "Defaŭlta modelo",
+      "gptImage25": "plej bona ĉiucela — akra teksto, puraj diagramoj.",
       "loadingLabel": "Ŝargante defaŭltajn bildajn agordojn",
       "loadingTitle": "Defaŭltaj Bildaj Agordoj",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Elektante bildomodelon",
       "samplePrompt": "Generu bildon de studento, kiu forte studas kun Anki kaj trapasas siajn testojn.",
@@ -271,7 +272,7 @@
       "subtitle": "La modelo kiun via bildo Smart Fields uzas krom se kampo alpinglas sian propran.",
       "title": "Defaŭltaj Bildaj Agordoj",
       "zImageTurbo": "plej rapida kaj plej malmultekosta.",
-      "gptImage25": "plej bona ĉiucela — akra teksto, puraj diagramoj."
+      "extrasTip": "Komenci kun ekstroj malŝaltitaj, poste ŝaltu ilin se kampo bezonas pli da detalo."
     },
     "layout": {
       "saveChanges": "Konservu ŝanĝojn",
@@ -328,6 +329,16 @@
       "subtitle": "La voĉo kiun via TTS Smart Fields uzas krom se kampo alpinglas sian propran.",
       "title": "Defaŭltaj Voĉaj Agordoj"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× kosto",
+    "extras": "Aldonaĵoj",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Neniu aldonaĵa kosto",
+    "richerDetail": "Pli riĉa detalo",
+    "richerDetailDescription": "Pli detala, plenaj scenoj. Iom pli malrapida.",
+    "maxQuality": "Maksimuma kvalito",
+    "maxQualityDescription": "Pli akra kaj pura, ĉefe malgrandaj etikedoj."
   },
   "promptTester": {
     "anotherNoteType": "alia notspeco",
@@ -501,15 +512,5 @@
     "thanks": "Dankon pro uzi Smart Notes ✨",
     "title": "Via senpaga provo finiĝis",
     "upgradeNow": "Ĝisdatigu nun"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× kosto",
-    "extras": "Aldonaĵoj",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Alta kvalito",
-    "highQualityDescription": "Pli akra kaj pura, precipe malgrandaj etikedoj.",
-    "noExtraCost": "Neniu aldonaĵa kosto",
-    "richerDetail": "Pli riĉa detalo",
-    "richerDetailDescription": "Pli detala, plenaj scenoj. Iom pli malrapida."
   }
 }

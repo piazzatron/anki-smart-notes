@@ -259,11 +259,12 @@
     "image": {
       "cannotFindModel": "Kuvaluettelosta puuttuu malli {{model}}",
       "defaultModel": "Oletusmalli",
+      "gptImage25": "paras yleiskäyttöjärjestelmä — terävä teksti, siistit kaaviot.",
       "loadingLabel": "Ladataan oletuskuvaasetuksia",
       "loadingTitle": "Kuvan oletusasetukset",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Kuvamallin valinta",
       "samplePrompt": "Luo kuva opiskelijasta, joka opiskelee ahkerasti Anki:n kanssa ja läpäisee kokeensa.",
@@ -271,7 +272,7 @@
       "subtitle": "Smart Fields-kuvasi käyttämä malli, ellei kenttä ole nastalla omaa.",
       "title": "Kuvan oletusasetukset",
       "zImageTurbo": "nopein ja halvin.",
-      "gptImage25": "paras yleiskäyttöjärjestelmä — terävä teksti, siistit kaaviot."
+      "extrasTip": "Aloita lisäominaisuuksista pois, ota ne sitten käyttöön, jos kenttä tarvitsee lisätietoja."
     },
     "layout": {
       "saveChanges": "Tallenna muutokset",
@@ -328,6 +329,16 @@
       "subtitle": "Ääni, jota TTS Smart Fields käyttää, ellei kenttä liitä omaansa.",
       "title": "Äänen oletusasetukset"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× kustannukset",
+    "extras": "Lisäominaisuudet",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Ei lisäkustannuksia",
+    "richerDetail": "Rikkaampi yksityiskohtaisuus",
+    "richerDetailDescription": "Yksityiskohtaisempi, täydempi kohtaukset. Hieman hitaampi.",
+    "maxQuality": "Maksimaalinen laatu",
+    "maxQualityDescription": "Terävämpi ja puhtaampi, erityisesti pienet nimiöt."
   },
   "promptTester": {
     "anotherNoteType": "toinen muistiinpanotyyppi",
@@ -501,15 +512,5 @@
     "thanks": "Kiitos, että käytät Smart Notes:tä ✨",
     "title": "Ilmainen kokeilujaksosi on päättynyt",
     "upgradeNow": "Päivitä nyt"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× kustannukset",
-    "extras": "Lisäominaisuudet",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Korkea laatu",
-    "highQualityDescription": "Terävämpi ja siistimpi, erityisesti pienet tekstit.",
-    "noExtraCost": "Ei lisäkustannuksia",
-    "richerDetail": "Rikkaampi yksityiskohtaisuus",
-    "richerDetailDescription": "Yksityiskohtaisempi, täydempi kohtaukset. Hieman hitaampi."
   }
 }

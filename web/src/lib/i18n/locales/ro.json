@@ -260,11 +260,12 @@
     "image": {
       "cannotFindModel": "În catalogul de imagini lipsește modelul {{model}}",
       "defaultModel": "Model implicit",
+      "gptImage25": "cel mai bun — text ascuțit, diagrame curate.",
       "loadingLabel": "Se încarcă setările implicite pentru imagine",
       "loadingTitle": "Setări implicite pentru imagine",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Alegerea unui model de imagine",
       "samplePrompt": "Generați o imagine a unui student care studiază din greu cu Anki și își trece testele.",
@@ -272,7 +273,7 @@
       "subtitle": "Modelul pe care îl folosește imaginea dvs. Smart Fields, cu excepția cazului în care un câmp își stabilește propriul.",
       "title": "Setări implicite pentru imagine",
       "zImageTurbo": "cel mai rapid si mai ieftin.",
-      "gptImage25": "cel mai bun — text ascuțit, diagrame curate."
+      "extrasTip": "Pornești cu extras-urile dezactivate, apoi le activezi dacă un câmp necesită mai multe detalii."
     },
     "layout": {
       "saveChanges": "Salvați modificările",
@@ -330,6 +331,16 @@
       "subtitle": "Vocea pe care o folosește TTS Smart Fields, cu excepția cazului în care un câmp își fixează propriul.",
       "title": "Setări implicite de voce"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "Cost 2×",
+    "extras": "Opțiuni suplimentare",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Fără cost suplimentar",
+    "richerDetail": "Detalii mai bogate",
+    "richerDetailDescription": "Mai detaliat, scene mai complete. Puțin mai lent.",
+    "maxQuality": "Calitate maximă",
+    "maxQualityDescription": "Mai ascuțit și mai curat, în special etichetele mici."
   },
   "promptTester": {
     "anotherNoteType": "alt tip de notă",
@@ -511,15 +522,5 @@
     "thanks": "Vă mulțumim că folosiți Smart Notes ✨",
     "title": "Perioada de încercare gratuită s-a încheiat",
     "upgradeNow": "Faceți upgrade acum"
-  },
-  "imageGeneration": {
-    "doubleCost": "Cost 2×",
-    "extras": "Opțiuni suplimentare",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Calitate înaltă",
-    "highQualityDescription": "Mai ascuțit și mai curat, în special etichetele mici.",
-    "noExtraCost": "Fără cost suplimentar",
-    "richerDetail": "Detalii mai bogate",
-    "richerDetailDescription": "Mai detaliat, scene mai complete. Puțin mai lent."
   }
 }

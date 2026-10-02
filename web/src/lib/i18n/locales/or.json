@@ -259,11 +259,12 @@
     "image": {
       "cannotFindModel": "ପ୍ରତିଛବି କାଟାଲଗ୍ ମଡେଲ୍ {{model}} ହରାଉଛି",
       "defaultModel": "ଡିଫଲ୍ଟ ମଡେଲ୍",
+      "gptImage25": "ସର୍ବୋତ୍ତମ ସର୍ବାଙ୍ଗୀନ — ତୀକ୍ଷ୍ଣ ପାଠ୍ୟ, ସ୍ଵଚ୍ଛ ଚିତ୍ର।",
       "loadingLabel": "ଡିଫଲ୍ଟ ପ୍ରତିଛବି ସେଟିଂସମୂହ ଲୋଡ୍ କରୁଛି",
       "loadingTitle": "ଡିଫଲ୍ଟ ପ୍ରତିଛବି ସେଟିଂସମୂହ",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "An ଏକ ପ୍ରତିଛବି ମଡେଲ୍ ବାଛିବା",
       "samplePrompt": "Anki ସହିତ କଠିନ ଅଧ୍ୟୟନ କରୁଥିବା ଏବଂ ସେମାନଙ୍କ ପରୀକ୍ଷା ପାସ୍ କରୁଥିବା ଛାତ୍ରଙ୍କ ପ୍ରତିଛବି ସୃଷ୍ଟି କରନ୍ତୁ",
@@ -271,7 +272,7 @@
       "subtitle": "ତୁମର ପ୍ରତିଛବି Smart Fields ବ୍ୟବହାର କରୁଥିବା ମଡେଲ୍ ଯଦି କ a ଣସି କ୍ଷେତ୍ର ଏହାର ପିନ ନଥାଏ",
       "title": "ଡିଫଲ୍ଟ ପ୍ରତିଛବି ସେଟିଂସମୂହ",
       "zImageTurbo": "ଦ୍ରୁତ ଏବଂ ଶସ୍ତା",
-      "gptImage25": "ସର୍ବୋତ୍ତମ ସର୍ବାଙ୍ଗୀନ — ତୀକ୍ଷ୍ଣ ପାଠ୍ୟ, ସ୍ଵଚ୍ଛ ଚିତ୍ର।"
+      "extrasTip": "ଅତିରିକ୍ତ ବିକଳ୍ପ ବନ୍ଦ ରଖି ଆରମ୍ଭ କରନ୍ତୁ, ତାପରେ ଯଦି ଏକ ଫିଲ୍ଡକୁ ଅଧିକ ବିବରଣ ଆବଶ୍ୟକ ହୁଏ ତେବେ ସେଗୁଡିକୁ ଚାଲୁ କରନ୍ତୁ।"
     },
     "layout": {
       "saveChanges": "ପରିବର୍ତ୍ତନଗୁଡିକ ସଞ୍ଚୟ କରନ୍ତୁ",
@@ -328,6 +329,16 @@
       "subtitle": "ତୁମର TTS Smart Fields ବ୍ୟବହାର କରୁଥିବା ସ୍ୱର ଯଦି କ a ଣସି କ୍ଷେତ୍ର ନିଜସ୍ୱ ପିନ ନଥାଏ",
       "title": "ଡିଫଲ୍ଟ ଭଏସ୍ ସେଟିଂସମୂହ"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "୨× ଖର୍ଚ୍ଚ",
+    "extras": "ଅତିରିକ୍ତ",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "କୌଣସି ଅତିରିକ୍ତ ଖର୍ଚ୍ଚ ନାହିଁ",
+    "richerDetail": "ଅଧିକ ସମୃଦ୍ଧ ବିବରଣ",
+    "richerDetailDescription": "ଅଧିକ ବିସ୍ତୃତ, ପୂର୍ଣ୍ଣ ଦୃଶ୍ୟ। ଟିକିଏ ମନ୍ଥର।",
+    "maxQuality": "ସର୍ବାଧିକ ଗୁଣବତ୍ତା",
+    "maxQualityDescription": "ଅଧିକ ତୀକ୍ଷ୍ଣ ଏବଂ ଶୁଦ୍ଧ, ବିଶେଷତଃ ଛୋଟ ଲେବେଲଗୁଡ଼ିକ ପାଇଁ।"
   },
   "promptTester": {
     "anotherNoteType": "ଅନ୍ୟ ଏକ ନୋଟ୍ ପ୍ରକାର",
@@ -501,15 +512,5 @@
     "thanks": "Smart Notes using ବ୍ୟବହାର କରିଥିବାରୁ ଧନ୍ୟବାଦ",
     "title": "ତୁମର ମାଗଣା ପରୀକ୍ଷା ଶେଷ ହୋଇଛି",
     "upgradeNow": "ବର୍ତ୍ତମାନ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ"
-  },
-  "imageGeneration": {
-    "doubleCost": "୨× ଖର୍ଚ୍ଚ",
-    "extras": "ଅତିରିକ୍ତ",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "ଉଚ୍ଚ ଗୁଣମାନ",
-    "highQualityDescription": "ତୀକ୍ଷ୍ଣ ଏବଂ ପରିଷ୍କାର, ବିଶେଷତ ଛୋଟ ଲେବେଲଗୁଡ଼ିକ।",
-    "noExtraCost": "କୌଣସି ଅତିରିକ୍ତ ଖର୍ଚ୍ଚ ନାହିଁ",
-    "richerDetail": "ଅଧିକ ସମୃଦ୍ଧ ବିବରଣ",
-    "richerDetailDescription": "ଅଧିକ ବିସ୍ତୃତ, ପୂର୍ଣ୍ଣ ଦୃଶ୍ୟ। ଟିକିଏ ମନ୍ଥର।"
   }
 }

@@ -21,21 +21,21 @@ import type { CatalogModel } from "@/types/api"
 
 /**
  * The UI presents the four GPT Image 2.5 wire models as one "GPT Image 2.5"
- * choice plus two switches: Richer detail (Sunburst) and High quality (medium).
+ * choice plus two switches: Richer detail (Sunburst) and Max quality (medium).
  */
 export interface GptImage25Options {
   richerDetail: boolean
-  highQuality: boolean
+  maxQuality: boolean
 }
 
 /** Select value standing in for every GPT Image 2.5 model. */
 export const GPT_IMAGE_25 = "gpt-image-2.5"
 
 const GPT_IMAGE_25_MODELS: Record<string, GptImage25Options> = {
-  "gpt-image-2.5-flare-low": { richerDetail: false, highQuality: false },
-  "gpt-image-2.5-flare-medium": { richerDetail: false, highQuality: true },
-  "gpt-image-2.5-sunburst-low": { richerDetail: true, highQuality: false },
-  "gpt-image-2.5-sunburst-medium": { richerDetail: true, highQuality: true },
+  "gpt-image-2.5-flare-low": { richerDetail: false, maxQuality: false },
+  "gpt-image-2.5-flare-medium": { richerDetail: false, maxQuality: true },
+  "gpt-image-2.5-sunburst-low": { richerDetail: true, maxQuality: false },
+  "gpt-image-2.5-sunburst-medium": { richerDetail: true, maxQuality: true },
 }
 
 export const gptImage25Options = (model: string): GptImage25Options | null =>
@@ -45,7 +45,7 @@ export const gptImage25Model = (options: GptImage25Options): string => {
   const match = Object.entries(GPT_IMAGE_25_MODELS).find(
     ([, candidate]) =>
       candidate.richerDetail === options.richerDetail &&
-      candidate.highQuality === options.highQuality,
+      candidate.maxQuality === options.maxQuality,
   )
   if (match === undefined) throw new Error("Unknown GPT Image 2.5 options")
   return match[0]

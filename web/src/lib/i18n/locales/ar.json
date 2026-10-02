@@ -263,11 +263,12 @@
     "image": {
       "cannotFindModel": "كتالوج الصور يفتقد الطراز {{model}}",
       "defaultModel": "النموذج الافتراضي",
+      "gptImage25": "الخيار الأمثل — نصوص حادة، رسوم بيانية نظيفة.",
       "loadingLabel": "جارٍ تحميل إعدادات الصورة الافتراضية",
       "loadingTitle": "إعدادات الصورة الافتراضية",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 اختيار نموذج الصورة",
       "samplePrompt": "قم بإنشاء صورة لطالب يدرس بجد باستخدام Anki ويجتاز اختباراته.",
@@ -275,7 +276,7 @@
       "subtitle": "النموذج الذي تستخدمه صورتك Smart Fields ما لم يتم تثبيت حقل خاص به.",
       "title": "إعدادات الصورة الافتراضية",
       "zImageTurbo": "الأسرع والأرخص.",
-      "gptImage25": "الخيار الأمثل — نصوص حادة، رسوم بيانية نظيفة."
+      "extrasTip": "ابدأ بإيقاف الإضافات، ثم قم بتفعيلها إذا كان الحقل يحتاج إلى المزيد من التفاصيل."
     },
     "layout": {
       "saveChanges": "حفظ التغييرات",
@@ -336,6 +337,16 @@
       "subtitle": "الصوت الذي تستخدمه TTS Smart Fields ما لم يتم تثبيت حقل خاص به.",
       "title": "إعدادات الصوت الافتراضية"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "تكلفة مضاعفة",
+    "extras": "إضافيات",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "بدون تكلفة إضافية",
+    "richerDetail": "تفاصيل أغنى",
+    "richerDetailDescription": "أكثر تفصيلاً وأكمل للمشاهد. أبطأ قليلاً.",
+    "maxQuality": "أقصى جودة",
+    "maxQualityDescription": "أكثر حدة ووضوحاً، خاصة للنصوص الصغيرة."
   },
   "promptTester": {
     "anotherNoteType": "نوع ملاحظة آخر",
@@ -541,15 +552,5 @@
     "thanks": "شكرًا لاستخدامك Smart Notes ✨",
     "title": "انتهت تجربتك المجانية",
     "upgradeNow": "قم بالترقية الآن"
-  },
-  "imageGeneration": {
-    "doubleCost": "تكلفة مضاعفة",
-    "extras": "إضافيات",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "جودة عالية",
-    "highQualityDescription": "أكثر حدة ونظافة، خاصة للعلامات الصغيرة.",
-    "noExtraCost": "بدون تكلفة إضافية",
-    "richerDetail": "تفاصيل أغنى",
-    "richerDetailDescription": "أكثر تفصيلاً وأكمل للمشاهد. أبطأ قليلاً."
   }
 }

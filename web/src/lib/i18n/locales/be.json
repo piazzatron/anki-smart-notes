@@ -261,11 +261,12 @@
     "image": {
       "cannotFindModel": "У каталогу малюнкаў адсутнічае мадэль {{model}}",
       "defaultModel": "Мадэль па змаўчанні",
+      "gptImage25": "лучшы ўсёаблемны — чёткі тэкст, чыстыя дыяграмы.",
       "loadingLabel": "Загрузка налад выявы па змаўчанні",
       "loadingTitle": "Налады выявы па змаўчанні",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Выбар мадэлі іміджу",
       "samplePrompt": "Стварыце выяву студэнта, які ўпарта вучыцца з Anki і здае свае тэсты.",
@@ -273,7 +274,7 @@
       "subtitle": "Мадэль, якую выкарыстоўвае ваша выява Smart Fields, калі поле не замацоўвае сваё.",
       "title": "Налады выявы па змаўчанні",
       "zImageTurbo": "самы хуткі і танны.",
-      "gptImage25": "лучшы ўсёаблемны — чёткі тэкст, чыстыя дыяграмы."
+      "extrasTip": "Пачніце з выключэнымі дадатковымі опцыямі, потым уключыце іх, калі поле патрабуе больш дэталей."
     },
     "layout": {
       "saveChanges": "Захавайце змены",
@@ -332,6 +333,16 @@
       "subtitle": "Голас, які выкарыстоўвае ваш TTS Smart Fields, калі поле не замацоўвае сваё.",
       "title": "Галасавыя налады па змаўчанні"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× коштом",
+    "extras": "Дадатковы",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Без дадатковых затрат",
+    "richerDetail": "Больш дэталяў",
+    "richerDetailDescription": "Больш дэталізаваны, паўнейшыя сцэны. Крыху павольней.",
+    "maxQuality": "Максімальная якасць",
+    "maxQualityDescription": "Більш рэзкае і чыстае, асабліва маленькія меткі."
   },
   "promptTester": {
     "anotherNoteType": "іншы тып нататкі",
@@ -521,15 +532,5 @@
     "thanks": "Дзякуй за выкарыстанне Smart Notes ✨",
     "title": "Ваш бясплатны пробны перыяд скончыўся",
     "upgradeNow": "Абнавіце зараз"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× коштом",
-    "extras": "Дадатковы",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Высокая якасць",
-    "highQualityDescription": "Чётчэйшы і чыстэйшы, асабліва дробныя метачкі.",
-    "noExtraCost": "Без дадатковых затрат",
-    "richerDetail": "Больш дэталяў",
-    "richerDetailDescription": "Больш дэталізаваны, паўнейшыя сцэны. Крыху павольней."
   }
 }

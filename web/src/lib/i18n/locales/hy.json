@@ -259,11 +259,12 @@
     "image": {
       "cannotFindModel": "Պատկերների կատալոգում բացակայում է {{model}} մոդելը",
       "defaultModel": "Կանխադրված մոդել",
+      "gptImage25": "լավագույն բազմակողմանի տարբերակ — սուր տեքստ, մաքուր դիագրամներ:",
       "loadingLabel": "Պատկերի կանխադրված կարգավորումների բեռնում",
       "loadingTitle": "Պատկերի կանխադրված կարգավորումներ",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Պատկերի մոդելի ընտրություն",
       "samplePrompt": "Ստեղծեք աշակերտի պատկեր, որը շատ է սովորում Anki-ով և հանձնում թեստերը:",
@@ -271,7 +272,7 @@
       "subtitle": "Ձեր պատկերի Smart Fields մոդելը, եթե դաշտը չի ամրացնում իր սեփականը:",
       "title": "Պատկերի կանխադրված կարգավորումներ",
       "zImageTurbo": "ամենաարագ և ամենաէժան:",
-      "gptImage25": "լավագույն բազմակողմանի տարբերակ — սուր տեքստ, մաքուր դիագրամներ:"
+      "extrasTip": "Սկսեք լրավճարները անջատված վիճակով, այնուհետև միացրեք դրանք, եթե դաշտին անհրաժեշտ է ավելի շատ մանրամասն:"
     },
     "layout": {
       "saveChanges": "Պահպանել փոփոխությունները",
@@ -328,6 +329,16 @@
       "subtitle": "Ձայնը, որն օգտագործում է ձեր TTS Smart Fields-ը, եթե դաշտը չի ամրացնում իր սեփականը:",
       "title": "Ձայնի կանխադրված կարգավորումներ"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× ծախս",
+    "extras": "Extras",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Լրացուցիչ ծախս չկա",
+    "richerDetail": "Ավելի մանրամասն",
+    "richerDetailDescription": "Ավելի մանրամասն, ամբողջական տեսարաններ: Մի փոքր ավելի դանդաղ:",
+    "maxQuality": "Առավելագույն որակ",
+    "maxQualityDescription": "Սուր և մաքուր, հատկապես փոքր պիտակների համար:"
   },
   "promptTester": {
     "anotherNoteType": "մեկ այլ նշումի տեսակ",
@@ -501,15 +512,5 @@
     "thanks": "Շնորհակալություն Smart Notes ✨ օգտագործելու համար",
     "title": "Ձեր անվճար փորձաշրջանն ավարտվել է",
     "upgradeNow": "Թարմացրեք հիմա"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× ծախս",
-    "extras": "Extras",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Բարձր որակ",
-    "highQualityDescription": "Ավելի սուր և մաքուր, հատկապես փոքր պիտակների համար:",
-    "noExtraCost": "Լրացուցիչ ծախս չկա",
-    "richerDetail": "Ավելի մանրամասն",
-    "richerDetailDescription": "Ավելի մանրամասն, ամբողջական տեսարաններ: Մի փոքր ավելի դանդաղ:"
   }
 }

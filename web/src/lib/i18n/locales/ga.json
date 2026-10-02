@@ -262,11 +262,12 @@
     "image": {
       "cannotFindModel": "Tá samhail {{model}} in easnamh ar chatalóg na n-íomhánna",
       "defaultModel": "Múnla réamhshocraithe",
+      "gptImage25": "an roghnóir is fearr ar fad — téacs geal, léaráidí glan.",
       "loadingLabel": "Socruithe Réamhshocraithe Íomhá á Luchtú",
       "loadingTitle": "Socruithe Réamhshocraithe Íomhá",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Samhail íomhá á phiocadh",
       "samplePrompt": "Gin íomhá de dhalta atá ag staidéar go dian le Anki agus ag dul thar a gcuid trialacha.",
@@ -274,7 +275,7 @@
       "subtitle": "Úsáid múnla d’íomhá Smart Fields mura n-úsáideann páirc a chuid féin.",
       "title": "Socruithe Réamhshocraithe Íomhá",
       "zImageTurbo": "is tapúla agus is saoire.",
-      "gptImage25": "an roghnóir is fearr ar fad — téacs geal, léaráidí glan."
+      "extrasTip": "Tosaigh le breiseanna imithe, ansin cuir ar siúl iad má theastaíonn níos mó sonraí ó réimse."
     },
     "layout": {
       "saveChanges": "Sábháil athruithe",
@@ -334,6 +335,16 @@
       "subtitle": "An guth a úsáideann do TTS Smart Fields ach amháin má luíonn réimse a chuid féin.",
       "title": "Socruithe Gutha Réamhshocraithe"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× costas",
+    "extras": "Breiseanna",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Gan costas breise",
+    "richerDetail": "Saibhre sonraí",
+    "richerDetailDescription": "Níos mionsonraithe, radhairc níos líofa. Beagáinín níos moille.",
+    "maxQuality": "Uachtar ar an gcáilíochta",
+    "maxQualityDescription": "Níos géire agus níos geal, go háirithe lipéid bheaga."
   },
   "promptTester": {
     "anotherNoteType": "cineál nóta eile",
@@ -531,15 +542,5 @@
     "thanks": "Go raibh maith agat as Smart Notes ✨ a úsáid",
     "title": "Tá deireadh le do thriail saor in aisce",
     "upgradeNow": "Uasghrádaigh anois"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× costas",
-    "extras": "Breiseanna",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Ardcháilíochta",
-    "highQualityDescription": "Níos géire agus níos geal, go háirithe lipéid bheaga.",
-    "noExtraCost": "Gan costas breise",
-    "richerDetail": "Saibhre sonraí",
-    "richerDetailDescription": "Níos mionsonraithe, radhairc níos líofa. Beagáinín níos moille."
   }
 }

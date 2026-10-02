@@ -10,8 +10,8 @@ import {
 describe("GPT Image 2.5 options", () => {
   test("every switch combination round-trips through its wire model", () => {
     for (const richerDetail of [false, true]) {
-      for (const highQuality of [false, true]) {
-        const options = { richerDetail, highQuality }
+      for (const maxQuality of [false, true]) {
+        const options = { richerDetail, maxQuality }
         expect(gptImage25Options(gptImage25Model(options))).toEqual(options)
       }
     }

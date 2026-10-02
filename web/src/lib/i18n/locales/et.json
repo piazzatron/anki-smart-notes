@@ -259,11 +259,12 @@
     "image": {
       "cannotFindModel": "Piltide kataloogist puudub mudel {{model}}",
       "defaultModel": "Vaikimisi mudel",
+      "gptImage25": "parim universaalne valik — terav tekst, puhtad diagrammid.",
       "loadingLabel": "Pildi vaikeseadete laadimine",
       "loadingTitle": "Pildi vaikesätted",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Pildimudeli valimine",
       "samplePrompt": "Looge pilt õpilasest, kes õpib kõvasti Anki abil ja sooritab testid.",
@@ -271,7 +272,7 @@
       "subtitle": "Mudel, mida teie pilt Smart Fields kasutab, välja arvatud juhul, kui väli kinnitab oma.",
       "title": "Pildi vaikesätted",
       "zImageTurbo": "kiireim ja odavaim.",
-      "gptImage25": "parim universaalne valik — terav tekst, puhtad diagrammid."
+      "extrasTip": "Alustage ekstrastega välja lülitatuna, seejärel lülitage need sisse, kui väli nõuab rohkem detaile."
     },
     "layout": {
       "saveChanges": "Salvestage muudatused",
@@ -328,6 +329,16 @@
       "subtitle": "Hääl, mida teie TTS Smart Fields kasutab, välja arvatud juhul, kui väli kinnitab oma.",
       "title": "Vaikimisi hääleseaded"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× kulu",
+    "extras": "Täiendused",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Ilma lisatasuita",
+    "richerDetail": "Rohkem detaile",
+    "richerDetailDescription": "Üksikasjalikum, täielikumad stseenid. Pisut aeglasem.",
+    "maxQuality": "Maksimaalne kvaliteet",
+    "maxQualityDescription": "Teravamad ja puhtamad, eriti väikesed sildid."
   },
   "promptTester": {
     "anotherNoteType": "teist nooditüüpi",
@@ -501,15 +512,5 @@
     "thanks": "Täname, et kasutasite Smart Notes ✨",
     "title": "Teie tasuta prooviperiood on lõppenud",
     "upgradeNow": "Uuendage kohe"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× kulu",
-    "extras": "Täiendused",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Kõrge kvaliteet",
-    "highQualityDescription": "Teravam ja puhtam, eriti väikesed sildid.",
-    "noExtraCost": "Ilma lisatasuita",
-    "richerDetail": "Rohkem detaile",
-    "richerDetailDescription": "Üksikasjalikum, täielikumad stseenid. Pisut aeglasem."
   }
 }

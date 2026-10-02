@@ -261,11 +261,12 @@
     "image": {
       "cannotFindModel": "V katalogu slik manjka model {{model}}",
       "defaultModel": "Privzeti model",
+      "gptImage25": "najboljši splošni model — ostre besedilo, čiste diagrame.",
       "loadingLabel": "Nalaganje privzetih nastavitev slike",
       "loadingTitle": "Privzete nastavitve slike",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Izbira slikovnega modela",
       "samplePrompt": "Ustvarite sliko študenta, ki se pridno uči z Anki in opravlja teste.",
@@ -273,7 +274,7 @@
       "subtitle": "Model, ki ga vaša slika uporablja Smart Fields, razen če polje pripne svojega.",
       "title": "Privzete nastavitve slike",
       "zImageTurbo": "najhitrejši in najcenejši.",
-      "gptImage25": "najboljši splošni model — ostre besedilo, čiste diagrame."
+      "extrasTip": "Začnite z izklopljenim dodatkami, nato jih vklopite, če polje potrebuje več podrobnosti."
     },
     "layout": {
       "saveChanges": "Shranite spremembe",
@@ -332,6 +333,16 @@
       "subtitle": "Glas, ki ga uporablja vaš TTS Smart Fields, razen če polje pripne svojega.",
       "title": "Privzete glasovne nastavitve"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× stroški",
+    "extras": "Dodatki",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Brez dodatnih stroškov",
+    "richerDetail": "Bogatejši detajli",
+    "richerDetailDescription": "Bolj podrobno, polnejše scene. Malo počasnejše.",
+    "maxQuality": "Najvišja kakovost",
+    "maxQualityDescription": "Ostrejše in čistejše, še posebej majhne oznake."
   },
   "promptTester": {
     "anotherNoteType": "drugo vrsto beležke",
@@ -521,15 +532,5 @@
     "thanks": "Hvala, ker uporabljate Smart Notes ✨",
     "title": "Vaše brezplačno preskusno obdobje se je končalo",
     "upgradeNow": "Nadgradi zdaj"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× stroški",
-    "extras": "Dodatki",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Visoka kvaliteta",
-    "highQualityDescription": "Bolj ostre in čiste, posebej pri malih napisih.",
-    "noExtraCost": "Brez dodatnih stroškov",
-    "richerDetail": "Bogatejši detajli",
-    "richerDetailDescription": "Bolj podrobno, polnejše scene. Malo počasnejše."
   }
 }

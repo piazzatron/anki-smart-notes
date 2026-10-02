@@ -260,11 +260,12 @@
     "image": {
       "cannotFindModel": "Falta o modelo {{model}} no catálogo de imagens",
       "defaultModel": "Modelo padrão",
+      "gptImage25": "melhor custo-benefício — texto nítido, diagramas limpos.",
       "loadingLabel": "Carregando configurações de imagem padrão",
       "loadingTitle": "Configurações de imagem padrão",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Escolhendo um modelo de imagem",
       "samplePrompt": "Gere a imagem de um aluno estudando muito com Anki e passando nas provas.",
@@ -272,7 +273,7 @@
       "subtitle": "O modelo que sua imagem Smart Fields usa, a menos que um campo fixe seu próprio.",
       "title": "Configurações de imagem padrão",
       "zImageTurbo": "mais rápido e mais barato.",
-      "gptImage25": "melhor custo-benefício — texto nítido, diagramas limpos."
+      "extrasTip": "Comece com extras desativados e ative-os se um campo precisar de mais detalhes."
     },
     "layout": {
       "saveChanges": "Salvar alterações",
@@ -330,6 +331,16 @@
       "subtitle": "A voz que seu TTS Smart Fields usa, a menos que um campo fixe o seu próprio.",
       "title": "Configurações de voz padrão"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "Custo 2×",
+    "extras": "Extras",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Sem custo adicional",
+    "richerDetail": "Mais detalhado",
+    "richerDetailDescription": "Mais detalhado, cenas mais completas. Um pouco mais lento.",
+    "maxQuality": "Qualidade máxima",
+    "maxQualityDescription": "Mais nítido e limpo, especialmente rótulos pequenos."
   },
   "promptTester": {
     "anotherNoteType": "outro tipo de nota",
@@ -511,15 +522,5 @@
     "thanks": "Obrigado por usar Smart Notes ✨",
     "title": "Seu teste gratuito terminou",
     "upgradeNow": "Atualize agora"
-  },
-  "imageGeneration": {
-    "doubleCost": "Custo 2×",
-    "extras": "Extras",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Alta qualidade",
-    "highQualityDescription": "Mais nítido e limpo, especialmente rótulos pequenos.",
-    "noExtraCost": "Sem custo adicional",
-    "richerDetail": "Mais detalhado",
-    "richerDetailDescription": "Mais detalhado, cenas mais completas. Um pouco mais lento."
   }
 }

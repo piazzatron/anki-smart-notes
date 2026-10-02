@@ -258,11 +258,12 @@
     "image": {
       "cannotFindModel": "Katalog imej tiada model {{model}}",
       "defaultModel": "Model lalai",
+      "gptImage25": "pemenang semua aspek — teks tajam, rajah bersih.",
       "loadingLabel": "Memuatkan Tetapan Imej Lalai",
       "loadingTitle": "Tetapan Imej Lalai",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Memilih model imej",
       "samplePrompt": "Hasilkan imej pelajar yang belajar bersungguh-sungguh dengan Anki dan lulus ujian mereka.",
@@ -270,7 +271,7 @@
       "subtitle": "Model imej anda Smart Fields gunakan melainkan medan menyematnya sendiri.",
       "title": "Tetapan Imej Lalai",
       "zImageTurbo": "terpantas dan termurah.",
-      "gptImage25": "pemenang semua aspek — teks tajam, rajah bersih."
+      "extrasTip": "Mulakan dengan extras dimatikan, kemudian hidupkannya jika medan memerlukan lebih banyak perincian."
     },
     "layout": {
       "saveChanges": "Simpan perubahan",
@@ -326,6 +327,16 @@
       "subtitle": "Suara yang digunakan oleh TTS Smart Fields anda melainkan medan menyematnya sendiri.",
       "title": "Tetapan Suara Lalai"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× kos",
+    "extras": "Tambahan",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Tiada kos tambahan",
+    "richerDetail": "Detail lebih kaya",
+    "richerDetailDescription": "Lebih terperinci, pemandangan lebih lengkap. Sedikit lebih perlahan.",
+    "maxQuality": "Kualiti maksimum",
+    "maxQualityDescription": "Lebih tajam dan bersih, terutama label kecil."
   },
   "promptTester": {
     "anotherNoteType": "jenis nota lain",
@@ -491,15 +502,5 @@
     "thanks": "Terima kasih kerana menggunakan Smart Notes ✨",
     "title": "Percubaan percuma anda telah tamat",
     "upgradeNow": "Tingkatkan sekarang"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× kos",
-    "extras": "Tambahan",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Kualiti tinggi",
-    "highQualityDescription": "Lebih tajam dan bersih, terutama label kecil.",
-    "noExtraCost": "Tiada kos tambahan",
-    "richerDetail": "Detail lebih kaya",
-    "richerDetailDescription": "Lebih terperinci, pemandangan lebih lengkap. Sedikit lebih perlahan."
   }
 }

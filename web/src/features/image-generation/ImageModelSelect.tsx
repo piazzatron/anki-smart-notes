@@ -77,9 +77,9 @@ export const ImageModelSelect = ({
       premium: false,
     },
     {
-      key: "highQuality",
-      label: t("imageGeneration.highQuality"),
-      description: t("imageGeneration.highQualityDescription"),
+      key: "maxQuality",
+      label: t("imageGeneration.maxQuality"),
+      description: t("imageGeneration.maxQualityDescription"),
       cost: t("imageGeneration.doubleCost"),
       premium: true,
     },
@@ -91,7 +91,7 @@ export const ImageModelSelect = ({
         onValueChange={(choice) =>
           selectModel(
             choice === GPT_IMAGE_25
-              ? gptImage25Model({ richerDetail: false, highQuality: false })
+              ? gptImage25Model({ richerDetail: false, maxQuality: false })
               : choice,
           )
         }

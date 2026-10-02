@@ -258,11 +258,12 @@
     "image": {
       "cannotFindModel": "Danh mục hình ảnh thiếu mẫu {{model}}",
       "defaultModel": "Mô hình mặc định",
+      "gptImage25": "toàn năng nhất — văn bản sắc nét, biểu đồ sạch sẽ.",
       "loadingLabel": "Đang tải cài đặt hình ảnh mặc định",
       "loadingTitle": "Cài đặt hình ảnh mặc định",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Chọn mẫu hình ảnh",
       "samplePrompt": "Tạo hình ảnh một học sinh đang học tập chăm chỉ với Anki và vượt qua các bài kiểm tra của họ.",
@@ -270,7 +271,7 @@
       "subtitle": "Mô hình mà hình ảnh Smart Fields của bạn sử dụng trừ khi một trường ghim trường của chính nó.",
       "title": "Cài đặt hình ảnh mặc định",
       "zImageTurbo": "nhanh nhất và rẻ nhất.",
-      "gptImage25": "toàn năng nhất — văn bản sắc nét, biểu đồ sạch sẽ."
+      "extrasTip": "Bắt đầu với extras tắt, sau đó bật chúng nếu một trường cần chi tiết hơn."
     },
     "layout": {
       "saveChanges": "Lưu thay đổi",
@@ -326,6 +327,16 @@
       "subtitle": "Giọng nói mà TTS Smart Fields của bạn sử dụng trừ khi một trường ghim giọng nói của chính nó.",
       "title": "Cài đặt giọng nói mặc định"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "Chi phí gấp 2×",
+    "extras": "Tính năng bổ sung",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Không chi phí thêm",
+    "richerDetail": "Chi tiết phong phú hơn",
+    "richerDetailDescription": "Chi tiết hơn, cảnh đầy đủ hơn. Chậm hơn một chút.",
+    "maxQuality": "Chất lượng tối đa",
+    "maxQualityDescription": "Rõ nét và sạch hơn, đặc biệt là các nhãn nhỏ."
   },
   "promptTester": {
     "anotherNoteType": "loại ghi chú khác",
@@ -491,15 +502,5 @@
     "thanks": "Cảm ơn bạn đã sử dụng Smart Notes ✨",
     "title": "Thời gian dùng thử miễn phí của bạn đã kết thúc",
     "upgradeNow": "Nâng cấp ngay bây giờ"
-  },
-  "imageGeneration": {
-    "doubleCost": "Chi phí gấp 2×",
-    "extras": "Tính năng bổ sung",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Chất lượng cao",
-    "highQualityDescription": "Sắc nét và sạch sẽ hơn, đặc biệt với các nhãn nhỏ.",
-    "noExtraCost": "Không chi phí thêm",
-    "richerDetail": "Chi tiết phong phú hơn",
-    "richerDetailDescription": "Chi tiết hơn, cảnh đầy đủ hơn. Chậm hơn một chút."
   }
 }

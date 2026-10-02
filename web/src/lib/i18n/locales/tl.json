@@ -259,11 +259,12 @@
     "image": {
       "cannotFindModel": "Ang katalogo ng larawan ay walang modelong {{model}}",
       "defaultModel": "Default na modelo",
+      "gptImage25": "best all-rounder — sharp text, clean diagrams.",
       "loadingLabel": "Nilo-load ang Default na Mga Setting ng Larawan",
       "loadingTitle": "Default na Mga Setting ng Larawan",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Pagpili ng modelo ng larawan",
       "samplePrompt": "Bumuo ng larawan ng isang mag-aaral na nag-aaral nang mabuti gamit ang Anki at pumasa sa kanilang mga pagsusulit.",
@@ -271,7 +272,7 @@
       "subtitle": "Ang modelong ginagamit ng iyong larawan na Smart Fields maliban kung ang isang field ay nag-pin ng sarili nitong.",
       "title": "Default na Mga Setting ng Larawan",
       "zImageTurbo": "pinakamabilis at pinakamura.",
-      "gptImage25": "best all-rounder — sharp text, clean diagrams."
+      "extrasTip": "Magsimula na may extras off, pagkatapos i-turn on kung kailangan ng mas maraming detalye ang isang field."
     },
     "layout": {
       "saveChanges": "I-save ang mga pagbabago",
@@ -328,6 +329,16 @@
       "subtitle": "Ang boses na ginagamit ng iyong TTS Smart Fields maliban kung ang isang field ay naka-pin ng sarili nitong.",
       "title": "Default na Mga Setting ng Boses"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× cost",
+    "extras": "Mga Karagdagan",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Walang dagdag na bayad",
+    "richerDetail": "Mas mayamang detalye",
+    "richerDetailDescription": "Mas detalyado, mas puno ng mga eksena. Bahagyang mas mabagal.",
+    "maxQuality": "Max quality",
+    "maxQualityDescription": "Mas malinaw at mas malinis, lalo na sa mga maliit na label."
   },
   "promptTester": {
     "anotherNoteType": "ibang uri ng tala",
@@ -501,15 +512,5 @@
     "thanks": "Salamat sa paggamit ng Smart Notes ✨",
     "title": "Natapos na ang iyong libreng pagsubok",
     "upgradeNow": "Mag-upgrade ngayon"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× cost",
-    "extras": "Mga Karagdagan",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Mataas na kalidad",
-    "highQualityDescription": "Mas malinaw at malinis, lalo na ang maliliit na label.",
-    "noExtraCost": "Walang dagdag na bayad",
-    "richerDetail": "Mas mayamang detalye",
-    "richerDetailDescription": "Mas detalyado, mas puno ng mga eksena. Bahagyang mas mabagal."
   }
 }

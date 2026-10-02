@@ -258,11 +258,12 @@
     "image": {
       "cannotFindModel": "影像目錄缺少型號 {{model}}",
       "defaultModel": "預設型號",
+      "gptImage25": "全能選手 — 銳利的文字、整潔的圖表。",
       "loadingLabel": "載入預設圖像設定",
       "loadingTitle": "預設影像設定",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 選擇圖像模型",
       "samplePrompt": "產生學生使用 Anki 努力學習並通過測驗的圖像。",
@@ -270,7 +271,7 @@
       "subtitle": "您的圖像 Smart Fields 使用的模型，除非欄位固定自己的模型。",
       "title": "預設影像設定",
       "zImageTurbo": "最快且最便宜。",
-      "gptImage25": "全能選手 — 銳利的文字、整潔的圖表。"
+      "extrasTip": "建議先關閉額外選項，如果某個欄位需要更多細節再開啟。"
     },
     "layout": {
       "saveChanges": "儲存變更",
@@ -326,6 +327,16 @@
       "subtitle": "TTS Smart Fields 使用的語音，除非欄位固定自己的語音。",
       "title": "預設語音設定"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× 成本",
+    "extras": "額外選項",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "無額外成本",
+    "richerDetail": "更豐富的細節",
+    "richerDetailDescription": "更詳細、更飽滿的場景。速度稍慢。",
+    "maxQuality": "最高品質",
+    "maxQualityDescription": "更清晰細緻，特別是小標籤部分。"
   },
   "promptTester": {
     "anotherNoteType": "另一種筆記類型",
@@ -491,15 +502,5 @@
     "thanks": "感謝您使用 Smart Notes ✨",
     "title": "您的免費試用已結束",
     "upgradeNow": "立即升級"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× 成本",
-    "extras": "額外選項",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "高品質",
-    "highQualityDescription": "更銳利清晰，特別是小標籤。",
-    "noExtraCost": "無額外成本",
-    "richerDetail": "更豐富的細節",
-    "richerDetailDescription": "更詳細、更飽滿的場景。速度稍慢。"
   }
 }

@@ -259,11 +259,12 @@
     "image": {
       "cannotFindModel": "Irudien katalogoa {{model}} eredua falta da",
       "defaultModel": "Eredu lehenetsia",
+      "gptImage25": "ondo orokorra — testu garbia, diagrama garbi eta txukun.",
       "loadingLabel": "Irudiaren ezarpen lehenetsiak kargatzen",
       "loadingTitle": "Irudiaren ezarpen lehenetsiak",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Irudi eredu bat hautatzea",
       "samplePrompt": "Sortu Anki-rekin gogor ikasten eta probak gainditzen dituen ikasle baten irudia.",
@@ -271,7 +272,7 @@
       "subtitle": "Zure irudiak Smart Fields erabiltzen duen eredua eremu batek berea jartzen ez badu behintzat.",
       "title": "Irudiaren ezarpen lehenetsiak",
       "zImageTurbo": "azkarrena eta merkeena.",
-      "gptImage25": "ondo orokorra — testu garbia, diagrama garbi eta txukun."
+      "extrasTip": "Hasi gehigarriak itzalita, eta aktibatu beharrezkoa bada zehaztasun gehiago behar duen eremu bat."
     },
     "layout": {
       "saveChanges": "Gorde aldaketak",
@@ -328,6 +329,16 @@
       "subtitle": "Zure TTS Smart Fields-k erabiltzen duen ahotsa eremu batek berea jartzen ez badu behintzat.",
       "title": "Ahotsaren ezarpen lehenetsiak"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× kostua",
+    "extras": "Gehigarriak",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Kostu gehigarririk ez",
+    "richerDetail": "Xehetasun gehiago",
+    "richerDetailDescription": "Xeheago, eszenak beteak. Pixka bat motzagoa.",
+    "maxQuality": "Kalitate maximoa",
+    "maxQualityDescription": "Zehatzagoa eta garbiagoa, batez ere etiketa txikietan."
   },
   "promptTester": {
     "anotherNoteType": "beste ohar mota bat",
@@ -501,15 +512,5 @@
     "thanks": "Eskerrik asko Smart Notes ✨ erabiltzeagatik",
     "title": "Zure doako proba amaitu da",
     "upgradeNow": "Berritu orain"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× kostua",
-    "extras": "Gehigarriak",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Kalitate altua",
-    "highQualityDescription": "Zorrotzagoa eta garbiagoa, bereziki etiketa txikiak.",
-    "noExtraCost": "Kostu gehigarririk ez",
-    "richerDetail": "Xehetasun gehiago",
-    "richerDetailDescription": "Xeheago, eszenak beteak. Pixka bat motzagoa."
   }
 }

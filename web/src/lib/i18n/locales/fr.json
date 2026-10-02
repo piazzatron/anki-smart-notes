@@ -260,11 +260,12 @@
     "image": {
       "cannotFindModel": "Le catalogue d'images ne contient pas le modèle {{model}}.",
       "defaultModel": "Modèle par défaut",
+      "gptImage25": "meilleur équilibre — texte net, diagrammes épurés.",
       "loadingLabel": "Chargement des paramètres d'image par défaut",
       "loadingTitle": "Paramètres d'image par défaut",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Choisir un modèle d'image",
       "samplePrompt": "Générez l'image d'un étudiant qui étudie dur avec Anki et réussit ses tests.",
@@ -272,7 +273,7 @@
       "subtitle": "Le modèle que votre image Smart Fields utilise à moins qu'un champ n'épingle le sien.",
       "title": "Paramètres d'image par défaut",
       "zImageTurbo": "le plus rapide et le moins cher.",
-      "gptImage25": "meilleur équilibre — texte net, diagrammes épurés."
+      "extrasTip": "Commencez avec les extras désactivés, puis activez-les si un champ a besoin de plus de détails."
     },
     "layout": {
       "saveChanges": "Enregistrer les modifications",
@@ -330,6 +331,16 @@
       "subtitle": "La voix que votre TTS Smart Fields utilise à moins qu'un champ n'épingle le sien.",
       "title": "Paramètres vocaux par défaut"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× le coût",
+    "extras": "Options supplémentaires",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Aucun coût supplémentaire",
+    "richerDetail": "Détail enrichi",
+    "richerDetailDescription": "Plus détaillé, scènes plus complètes. Un peu plus lent.",
+    "maxQuality": "Qualité maximale",
+    "maxQualityDescription": "Plus net et plus propre, surtout pour les petits labels."
   },
   "promptTester": {
     "anotherNoteType": "un autre type de note",
@@ -511,15 +522,5 @@
     "thanks": "Merci d'utiliser Smart Notes ✨",
     "title": "Votre essai gratuit est terminé",
     "upgradeNow": "Mettre à niveau maintenant"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× le coût",
-    "extras": "Options supplémentaires",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Haute qualité",
-    "highQualityDescription": "Plus net et plus épuré, particulièrement les petits libellés.",
-    "noExtraCost": "Aucun coût supplémentaire",
-    "richerDetail": "Détail enrichi",
-    "richerDetailDescription": "Plus détaillé, scènes plus complètes. Un peu plus lent."
   }
 }

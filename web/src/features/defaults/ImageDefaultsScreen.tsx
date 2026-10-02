@@ -128,6 +128,7 @@ const LoadedImageDefaultsScreen = ({
                 </strong>{" "}
                 — {t("defaults.image.gptImage25")}
               </li>
+              <li>{t("defaults.image.extrasTip")}</li>
               <li>
                 <strong className="text-zinc-300">
                   {t("defaults.image.models.zImageTurbo")}

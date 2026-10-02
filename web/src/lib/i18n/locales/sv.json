@@ -259,11 +259,12 @@
     "image": {
       "cannotFindModel": "Bildkatalogen saknar modell {{model}}",
       "defaultModel": "Standardmodell",
+      "gptImage25": "bästa all-round-modell — skarp text, rena diagram.",
       "loadingLabel": "Laddar standardbildinställningar",
       "loadingTitle": "Standardbildinställningar",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
       "pickingModel": "💡 Välja en bildmodell",
       "samplePrompt": "Skapa en bild av en student som studerar hårt med Anki och klarar sina prov.",
@@ -271,7 +272,7 @@
       "subtitle": "Modellen som din bild Smart Fields använder om inte ett fält fäster sitt eget.",
       "title": "Standardbildinställningar",
       "zImageTurbo": "snabbast och billigast.",
-      "gptImage25": "bästa all-round-modell — skarp text, rena diagram."
+      "extrasTip": "Börja med extra inaktiverat, aktivera det sedan om ett fält behöver mer detaljer."
     },
     "layout": {
       "saveChanges": "Spara ändringar",
@@ -328,6 +329,16 @@
       "subtitle": "Rösten som din TTS Smart Fields använder om inte ett fält stiftar sin egen.",
       "title": "Standardröstinställningar"
     }
+  },
+  "imageGeneration": {
+    "doubleCost": "2× kostnad",
+    "extras": "Extras",
+    "gptImage25": "GPT Image 2.5",
+    "noExtraCost": "Ingen extra kostnad",
+    "richerDetail": "Rikare detaljer",
+    "richerDetailDescription": "Mer detaljer, fullare scener. Något långsammare.",
+    "maxQuality": "Maximal kvalitet",
+    "maxQualityDescription": "Skarpare och renare, särskilt små etiketter."
   },
   "promptTester": {
     "anotherNoteType": "en annan nottyp",
@@ -501,15 +512,5 @@
     "thanks": "Tack för att du använder Smart Notes ✨",
     "title": "Din kostnadsfria provperiod har avslutats",
     "upgradeNow": "Uppgradera nu"
-  },
-  "imageGeneration": {
-    "doubleCost": "2× kostnad",
-    "extras": "Extras",
-    "gptImage25": "GPT Image 2.5",
-    "highQuality": "Högkvalitet",
-    "highQualityDescription": "Skarpare och renare, särskilt små etiketter.",
-    "noExtraCost": "Ingen extra kostnad",
-    "richerDetail": "Rikare detaljer",
-    "richerDetailDescription": "Mer detaljer, fullare scener. Något långsammare."
   }
 }
