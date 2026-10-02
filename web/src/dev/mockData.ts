@@ -80,7 +80,7 @@ const POPULATED_FIELDS: SmartField[] = [
     settings: {
       promptText: "A memorable scene illustrating {{Expression}}.",
       provider: "openai",
-      model: "gpt-image-1.5-low",
+      model: "gpt-image-2.5-flare-low",
       usesDefaultGenerationSettings: false,
     },
   },
@@ -154,7 +154,7 @@ const BASE_STATE: AppState = {
       webSearchEnabled: false,
     },
     tts: { provider: "google", model: "standard", voiceId: "en-US-Casual-K" },
-    image: { provider: "openai", model: "gpt-image-1.5-low" },
+    image: { provider: "openai", model: "gpt-image-2.5-flare-low" },
   },
   settings: {
     generateAtReview: true,
@@ -340,13 +340,12 @@ export const MOCK_CATALOG: Catalog = {
   image: {
     providers: ["openai", "google", "replicate"],
     models: [
-      { id: "gpt-image-1.5-low", provider: "openai" },
-      { id: "gpt-image-2-low", provider: "openai" },
-      { id: "gpt-image-1.5-medium", provider: "openai" },
-      { id: "gpt-image-2-medium", provider: "openai" },
+      { id: "gpt-image-2.5-flare-low", provider: "openai" },
+      { id: "gpt-image-2.5-flare-medium", provider: "openai" },
+      { id: "gpt-image-2.5-sunburst-low", provider: "openai" },
+      { id: "gpt-image-2.5-sunburst-medium", provider: "openai" },
       { id: "nano-banana-2", provider: "google" },
       { id: "z-image-turbo", provider: "replicate" },
-      { id: "flux-dev", provider: "replicate" },
     ],
   },
 }

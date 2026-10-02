@@ -260,21 +260,19 @@
     "image": {
       "cannotFindModel": "Каталогу слика недостаје модел {{model}}",
       "defaultModel": "Подразумевани модел",
-      "gptImage15Low": "најбољи однос квалитета/брзине.",
-      "gptImage2": "исти трошак, спорији, квалитетнији.",
       "loadingLabel": "Учитавање подразумеваних поставки слике",
       "loadingTitle": "Подразумевана подешавања слике",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (низак/средњи)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 Бирање модела слике",
       "samplePrompt": "Генеришите слику ученика који вредно учи са Anki и полаже тестове.",
       "saveError": "Није могуће сачувати подразумеване вредности слике",
       "subtitle": "Модел који ваша слика користи Smart Fields осим ако поље не закачи своје.",
       "title": "Подразумевана подешавања слике",
-      "zImageTurbo": "најбржи и најјефтинији."
+      "zImageTurbo": "најбржи и најјефтинији.",
+      "gptImage25": "најбољи универзалец — оштар текст, чисти дијаграми."
     },
     "layout": {
       "saveChanges": "Сачувај промене",
@@ -378,7 +376,6 @@
   "subscription": {
     "accessEnds": "Приступ се завршава",
     "activateAgain": "Поново активирај",
-    "endingSoon": "Ускоро се завршава",
     "checking": "Провера претплате",
     "creditTypes": {
       "images": "Слике",
@@ -393,6 +390,7 @@
     "errors": {
       "logout": "Није могуће одјавити се"
     },
+    "endingSoon": "Ускоро се завршава",
     "expired": "Истекло",
     "freePlan": "Бесплатан план",
     "freeTrial": "Бесплатна пробна верзија",
@@ -513,5 +511,15 @@
     "thanks": "Хвала што користите Smart Notes ✨",
     "title": "Ваша бесплатна пробна верзија је завршена",
     "upgradeNow": "Надоградите сада"
+  },
+  "imageGeneration": {
+    "doubleCost": "2× цена",
+    "extras": "Додаци",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "Висока квалитета",
+    "highQualityDescription": "Оштрије и чишће, нарочито мале етикете.",
+    "noExtraCost": "Без додатне цене",
+    "richerDetail": "Богатији детаљ",
+    "richerDetailDescription": "Више детаља, пуније сцене. Мало спорије."
   }
 }

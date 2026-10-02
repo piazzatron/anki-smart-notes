@@ -261,21 +261,19 @@
     "image": {
       "cannotFindModel": "V katalogu obrázků chybí model {{model}}",
       "defaultModel": "Výchozí model",
-      "gptImage15Low": "nejlepší kompromis mezi kvalitou a rychlostí.",
-      "gptImage2": "stejná cena, pomalejší, kvalitnější.",
       "loadingLabel": "Načítání výchozího nastavení obrázku",
       "loadingTitle": "Výchozí nastavení obrázku",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 Výběr obrazového modelu",
       "samplePrompt": "Vytvořte si obrázek studenta, který pilně studuje se Anki a složí své testy.",
       "saveError": "Nepodařilo se uložit výchozí nastavení obrázku",
       "subtitle": "Model, který váš obrázek používá Smart Fields, pokud pole nepřipíná své vlastní.",
       "title": "Výchozí nastavení obrázku",
-      "zImageTurbo": "nejrychlejší a nejlevnější."
+      "zImageTurbo": "nejrychlejší a nejlevnější.",
+      "gptImage25": "nejlepší univerzál — ostrý text, čisté diagramy."
     },
     "layout": {
       "saveChanges": "Uložte změny",
@@ -384,7 +382,6 @@
   "subscription": {
     "accessEnds": "Přístup končí",
     "activateAgain": "Znovu aktivovat",
-    "endingSoon": "Brzy skončí",
     "checking": "Kontrola předplatného",
     "creditTypes": {
       "images": "Obrázky",
@@ -400,6 +397,7 @@
     "errors": {
       "logout": "Nelze se odhlásit"
     },
+    "endingSoon": "Brzy skončí",
     "expired": "Vypršelo",
     "freePlan": "Volný plán",
     "freeTrial": "Bezplatná zkušební verze",
@@ -523,5 +521,15 @@
     "thanks": "Děkujeme, že používáte Smart Notes ✨",
     "title": "Vaše bezplatná zkušební verze skončila",
     "upgradeNow": "Upgradujte nyní"
+  },
+  "imageGeneration": {
+    "doubleCost": "2× cena",
+    "extras": "Extras",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "Vysoká kvalita",
+    "highQualityDescription": "Ostřejší a čistší, zvláště malé popisky.",
+    "noExtraCost": "Bez další ceny",
+    "richerDetail": "Bohatší detaily",
+    "richerDetailDescription": "Více detailů, plnější scény. Trochu pomalejší."
   }
 }

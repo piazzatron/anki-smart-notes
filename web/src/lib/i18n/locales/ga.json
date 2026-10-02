@@ -262,21 +262,19 @@
     "image": {
       "cannotFindModel": "Tá samhail {{model}} in easnamh ar chatalóg na n-íomhánna",
       "defaultModel": "Múnla réamhshocraithe",
-      "gptImage15Low": "caighdeán is fearr / trádáil luas.",
-      "gptImage2": "costas céanna, níos moille, ar chaighdeán níos airde.",
       "loadingLabel": "Socruithe Réamhshocraithe Íomhá á Luchtú",
       "loadingTitle": "Socruithe Réamhshocraithe Íomhá",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Íseal / Meánach)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 Samhail íomhá á phiocadh",
       "samplePrompt": "Gin íomhá de dhalta atá ag staidéar go dian le Anki agus ag dul thar a gcuid trialacha.",
       "saveError": "Níorbh fhéidir réamhshocruithe na híomhá a shábháil",
       "subtitle": "Úsáid múnla d’íomhá Smart Fields mura n-úsáideann páirc a chuid féin.",
       "title": "Socruithe Réamhshocraithe Íomhá",
-      "zImageTurbo": "is tapúla agus is saoire."
+      "zImageTurbo": "is tapúla agus is saoire.",
+      "gptImage25": "an roghnóir is fearr ar fad — téacs geal, léaráidí glan."
     },
     "layout": {
       "saveChanges": "Sábháil athruithe",
@@ -390,7 +388,6 @@
   "subscription": {
     "accessEnds": "Críochnaíonn an rochtain",
     "activateAgain": "Gníomhachtaigh arís",
-    "endingSoon": "Deireadh a bheith ann go luath",
     "checking": "Síntiús á sheiceáil",
     "creditTypes": {
       "images": "Íomhánna",
@@ -407,6 +404,7 @@
     "errors": {
       "logout": "Níorbh fhéidir logáil amach"
     },
+    "endingSoon": "Deireadh a bheith ann go luath",
     "expired": "Éadúil",
     "freePlan": "Plean saor in aisce,",
     "freeTrial": "Triail saor in aisce",
@@ -533,5 +531,15 @@
     "thanks": "Go raibh maith agat as Smart Notes ✨ a úsáid",
     "title": "Tá deireadh le do thriail saor in aisce",
     "upgradeNow": "Uasghrádaigh anois"
+  },
+  "imageGeneration": {
+    "doubleCost": "2× costas",
+    "extras": "Breiseanna",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "Ardcháilíochta",
+    "highQualityDescription": "Níos géire agus níos geal, go háirithe lipéid bheaga.",
+    "noExtraCost": "Gan costas breise",
+    "richerDetail": "Saibhre sonraí",
+    "richerDetailDescription": "Níos mionsonraithe, radhairc níos líofa. Beagáinín níos moille."
   }
 }

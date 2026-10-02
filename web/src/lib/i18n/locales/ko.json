@@ -258,21 +258,19 @@
     "image": {
       "cannotFindModel": "이미지 카탈로그에 모델 {{model}}이(가) 없습니다.",
       "defaultModel": "기본 모델",
-      "gptImage15Low": "최고의 품질/속도 절충.",
-      "gptImage2": "동일한 비용, 더 느리고 더 높은 품질.",
       "loadingLabel": "기본 이미지 설정 로드",
       "loadingTitle": "기본 이미지 설정",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 이미지 모델 선택",
       "samplePrompt": "Anki로 열심히 공부하고 시험에 합격하는 학생의 이미지를 생성합니다.",
       "saveError": "이미지 기본값을 저장할 수 없습니다.",
       "subtitle": "필드가 자체적으로 고정되지 않는 한 이미지 Smart Fields가 사용하는 모델입니다.",
       "title": "기본 이미지 설정",
-      "zImageTurbo": "가장 빠르고 저렴합니다."
+      "zImageTurbo": "가장 빠르고 저렴합니다.",
+      "gptImage25": "최고의 올라운더 — 선명한 텍스트, 깔끔한 다이어그램."
     },
     "layout": {
       "saveChanges": "변경사항 저장",
@@ -366,7 +364,6 @@
   "subscription": {
     "accessEnds": "액세스 종료",
     "activateAgain": "다시 활성화",
-    "endingSoon": "곧 종료",
     "checking": "구독 확인 중",
     "creditTypes": {
       "images": "이미지",
@@ -379,6 +376,7 @@
     "errors": {
       "logout": "로그아웃할 수 없습니다."
     },
+    "endingSoon": "곧 종료",
     "expired": "만료됨",
     "freePlan": "무료 플랜",
     "freeTrial": "무료 평가판",
@@ -493,5 +491,15 @@
     "thanks": "Smart Notes를 사용해 주셔서 감사합니다 ✨",
     "title": "무료 평가판이 종료되었습니다",
     "upgradeNow": "지금 업그레이드"
+  },
+  "imageGeneration": {
+    "doubleCost": "2× 비용",
+    "extras": "추가 옵션",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "고품질",
+    "highQualityDescription": "더욱 선명하고 깔끔함, 특히 작은 텍스트.",
+    "noExtraCost": "추가 비용 없음",
+    "richerDetail": "더 풍부한 디테일",
+    "richerDetailDescription": "더 상세한, 완성도 높은 이미지. 약간 더 느립니다."
   }
 }

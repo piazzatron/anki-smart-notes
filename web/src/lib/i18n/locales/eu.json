@@ -259,21 +259,19 @@
     "image": {
       "cannotFindModel": "Irudien katalogoa {{model}} eredua falta da",
       "defaultModel": "Eredu lehenetsia",
-      "gptImage15Low": "kalitate/abiadura onena.",
-      "gptImage2": "kostu bera, motelagoa, kalitate handiagoa.",
       "loadingLabel": "Irudiaren ezarpen lehenetsiak kargatzen",
       "loadingTitle": "Irudiaren ezarpen lehenetsiak",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Baxua/Ertaina)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 Irudi eredu bat hautatzea",
       "samplePrompt": "Sortu Anki-rekin gogor ikasten eta probak gainditzen dituen ikasle baten irudia.",
       "saveError": "Ezin izan dira gorde irudi lehenetsiak",
       "subtitle": "Zure irudiak Smart Fields erabiltzen duen eredua eremu batek berea jartzen ez badu behintzat.",
       "title": "Irudiaren ezarpen lehenetsiak",
-      "zImageTurbo": "azkarrena eta merkeena."
+      "zImageTurbo": "azkarrena eta merkeena.",
+      "gptImage25": "ondo orokorra — testu garbia, diagrama garbi eta txukun."
     },
     "layout": {
       "saveChanges": "Gorde aldaketak",
@@ -372,7 +370,6 @@
   "subscription": {
     "accessEnds": "Sarbidea amaitu da",
     "activateAgain": "Berriro aktibatu",
-    "endingSoon": "Laster amaitu",
     "checking": "Harpidetza egiaztatzen",
     "creditTypes": {
       "images": "Irudiak",
@@ -386,6 +383,7 @@
     "errors": {
       "logout": "Ezin izan da saioa amaitu"
     },
+    "endingSoon": "Laster amaitu",
     "expired": "Iraungita",
     "freePlan": "Doako plana",
     "freeTrial": "Doako proba",
@@ -503,5 +501,15 @@
     "thanks": "Eskerrik asko Smart Notes ✨ erabiltzeagatik",
     "title": "Zure doako proba amaitu da",
     "upgradeNow": "Berritu orain"
+  },
+  "imageGeneration": {
+    "doubleCost": "2× kostua",
+    "extras": "Gehigarriak",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "Kalitate altua",
+    "highQualityDescription": "Zorrotzagoa eta garbiagoa, bereziki etiketa txikiak.",
+    "noExtraCost": "Kostu gehigarririk ez",
+    "richerDetail": "Xehetasun gehiago",
+    "richerDetailDescription": "Xeheago, eszenak beteak. Pixka bat motzagoa."
   }
 }

@@ -260,21 +260,19 @@
     "image": {
       "cannotFindModel": "Falta o modelo {{model}} no catálogo de imagens",
       "defaultModel": "Modelo padrão",
-      "gptImage15Low": "melhor relação qualidade/velocidade.",
-      "gptImage2": "mesmo custo, mais lento e de maior qualidade.",
       "loadingLabel": "Carregando configurações de imagem padrão",
       "loadingTitle": "Configurações de imagem padrão",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 Escolhendo um modelo de imagem",
       "samplePrompt": "Gere a imagem de um aluno estudando muito com Anki e passando nas provas.",
       "saveError": "Não foi possível salvar os padrões de imagem",
       "subtitle": "O modelo que sua imagem Smart Fields usa, a menos que um campo fixe seu próprio.",
       "title": "Configurações de imagem padrão",
-      "zImageTurbo": "mais rápido e mais barato."
+      "zImageTurbo": "mais rápido e mais barato.",
+      "gptImage25": "melhor custo-benefício — texto nítido, diagramas limpos."
     },
     "layout": {
       "saveChanges": "Salvar alterações",
@@ -378,7 +376,6 @@
   "subscription": {
     "accessEnds": "O acesso termina",
     "activateAgain": "Ativar novamente",
-    "endingSoon": "Termina em breve",
     "checking": "Verificando assinatura",
     "creditTypes": {
       "images": "Imagens",
@@ -393,6 +390,7 @@
     "errors": {
       "logout": "Não foi possível sair"
     },
+    "endingSoon": "Termina em breve",
     "expired": "Expirado",
     "freePlan": "Plano grátis",
     "freeTrial": "Teste grátis",
@@ -513,5 +511,15 @@
     "thanks": "Obrigado por usar Smart Notes ✨",
     "title": "Seu teste gratuito terminou",
     "upgradeNow": "Atualize agora"
+  },
+  "imageGeneration": {
+    "doubleCost": "Custo 2×",
+    "extras": "Extras",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "Alta qualidade",
+    "highQualityDescription": "Mais nítido e limpo, especialmente rótulos pequenos.",
+    "noExtraCost": "Sem custo adicional",
+    "richerDetail": "Mais detalhado",
+    "richerDetailDescription": "Mais detalhado, cenas mais completas. Um pouco mais lento."
   }
 }

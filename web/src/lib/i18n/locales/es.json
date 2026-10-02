@@ -260,21 +260,19 @@
     "image": {
       "cannotFindModel": "Falta catálogo de imágenes modelo {{model}}",
       "defaultModel": "Modelo predeterminado",
-      "gptImage15Low": "mejor relación calidad/velocidad.",
-      "gptImage2": "Mismo costo, más lento, mayor calidad.",
       "loadingLabel": "Cargando la configuración de imagen predeterminada",
       "loadingTitle": "Configuración de imagen predeterminada",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Bajo / Medio)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 Elegir un modelo de imagen",
       "samplePrompt": "Genera una imagen de un estudiante estudiando mucho con Anki y aprobando sus exámenes.",
       "saveError": "No se pudieron guardar los valores predeterminados de la imagen",
       "subtitle": "El modelo que utiliza su imagen Smart Fields a menos que un campo fije el suyo.",
       "title": "Configuración de imagen predeterminada",
-      "zImageTurbo": "más rápido y más barato."
+      "zImageTurbo": "más rápido y más barato.",
+      "gptImage25": "el mejor en general — texto nítido, diagramas limpios."
     },
     "layout": {
       "saveChanges": "Guardar cambios",
@@ -378,7 +376,6 @@
   "subscription": {
     "accessEnds": "El acceso termina",
     "activateAgain": "Activar de nuevo",
-    "endingSoon": "Finaliza pronto",
     "checking": "Comprobando suscripción",
     "creditTypes": {
       "images": "Imágenes",
@@ -393,6 +390,7 @@
     "errors": {
       "logout": "No se pudo cerrar sesión"
     },
+    "endingSoon": "Finaliza pronto",
     "expired": "Expirado",
     "freePlan": "Plan gratuito",
     "freeTrial": "Prueba gratuita",
@@ -513,5 +511,15 @@
     "thanks": "Gracias por usar Smart Notes ✨",
     "title": "Tu prueba gratuita ha finalizado",
     "upgradeNow": "Actualiza ahora"
+  },
+  "imageGeneration": {
+    "doubleCost": "2× costo",
+    "extras": "Extras",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "Alta calidad",
+    "highQualityDescription": "Más nítido y limpio, especialmente etiquetas pequeñas.",
+    "noExtraCost": "Sin costo adicional",
+    "richerDetail": "Más detalle",
+    "richerDetailDescription": "Más detallado, escenas más completas. Un poco más lento."
   }
 }

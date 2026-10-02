@@ -258,21 +258,19 @@
     "image": {
       "cannotFindModel": "影像目錄缺少型號 {{model}}",
       "defaultModel": "預設型號",
-      "gptImage15Low": "最佳質量/速度權衡。",
-      "gptImage2": "相同的成本，更慢，更高的品質。",
       "loadingLabel": "載入預設圖像設定",
       "loadingTitle": "預設影像設定",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 選擇圖像模型",
       "samplePrompt": "產生學生使用 Anki 努力學習並通過測驗的圖像。",
       "saveError": "無法儲存影像預設值",
       "subtitle": "您的圖像 Smart Fields 使用的模型，除非欄位固定自己的模型。",
       "title": "預設影像設定",
-      "zImageTurbo": "最快且最便宜。"
+      "zImageTurbo": "最快且最便宜。",
+      "gptImage25": "全能選手 — 銳利的文字、整潔的圖表。"
     },
     "layout": {
       "saveChanges": "儲存變更",
@@ -366,7 +364,6 @@
   "subscription": {
     "accessEnds": "存取權限結束",
     "activateAgain": "重新啟用",
-    "endingSoon": "即將結束",
     "checking": "檢查訂閱狀況",
     "creditTypes": {
       "images": "圖片",
@@ -379,6 +376,7 @@
     "errors": {
       "logout": "無法註銷"
     },
+    "endingSoon": "即將結束",
     "expired": "已過期",
     "freePlan": "免費規劃",
     "freeTrial": "免費試用",
@@ -493,5 +491,15 @@
     "thanks": "感謝您使用 Smart Notes ✨",
     "title": "您的免費試用已結束",
     "upgradeNow": "立即升級"
+  },
+  "imageGeneration": {
+    "doubleCost": "2× 成本",
+    "extras": "額外選項",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "高品質",
+    "highQualityDescription": "更銳利清晰，特別是小標籤。",
+    "noExtraCost": "無額外成本",
+    "richerDetail": "更豐富的細節",
+    "richerDetailDescription": "更詳細、更飽滿的場景。速度稍慢。"
   }
 }

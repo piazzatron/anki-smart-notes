@@ -261,21 +261,19 @@
     "image": {
       "cannotFindModel": "W katalogu obrazów brakuje modelu {{model}}",
       "defaultModel": "Domyślny model",
-      "gptImage15Low": "najlepszy kompromis jakość/szybkość.",
-      "gptImage2": "ten sam koszt, wolniejsza i wyższa jakość.",
       "loadingLabel": "Ładowanie domyślnych ustawień obrazu",
       "loadingTitle": "Domyślne ustawienia obrazu",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 Wybór modelu obrazu",
       "samplePrompt": "Wygeneruj obraz ucznia, który pilnie uczy się za pomocą Anki i zdaje egzaminy.",
       "saveError": "Nie można zapisać domyślnych ustawień obrazu",
       "subtitle": "Model, którego używa Twój obraz Smart Fields, chyba że pole przypina własne.",
       "title": "Domyślne ustawienia obrazu",
-      "zImageTurbo": "najszybciej i najtaniej."
+      "zImageTurbo": "najszybciej i najtaniej.",
+      "gptImage25": "najlepszy wszechstronnie — ostry tekst, czyste diagramy."
     },
     "layout": {
       "saveChanges": "Zapisz zmiany",
@@ -384,7 +382,6 @@
   "subscription": {
     "accessEnds": "Dostęp kończy się",
     "activateAgain": "Aktywuj ponownie",
-    "endingSoon": "Wkrótce wygasa",
     "checking": "Sprawdzam subskrypcję",
     "creditTypes": {
       "images": "Obrazy",
@@ -400,6 +397,7 @@
     "errors": {
       "logout": "Nie można się wylogować"
     },
+    "endingSoon": "Wkrótce wygasa",
     "expired": "Wygasł",
     "freePlan": "Darmowy plan",
     "freeTrial": "Bezpłatny okres próbny",
@@ -523,5 +521,15 @@
     "thanks": "Dziękujemy za korzystanie z Smart Notes ✨",
     "title": "Twój bezpłatny okres próbny dobiegł końca",
     "upgradeNow": "Uaktualnij teraz"
+  },
+  "imageGeneration": {
+    "doubleCost": "2× koszt",
+    "extras": "Dodatki",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "Wysoka jakość",
+    "highQualityDescription": "Ostrzejsze i czystsze, szczególnie małe etykiety.",
+    "noExtraCost": "Bez dodatkowych kosztów",
+    "richerDetail": "Bogatsze szczegóły",
+    "richerDetailDescription": "Bardziej szczegółowe, bogatsze sceny. Nieco wolniejsze."
   }
 }

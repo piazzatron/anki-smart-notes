@@ -258,21 +258,19 @@
     "image": {
       "cannotFindModel": "Danh mục hình ảnh thiếu mẫu {{model}}",
       "defaultModel": "Mô hình mặc định",
-      "gptImage15Low": "sự cân bằng chất lượng/tốc độ tốt nhất.",
-      "gptImage2": "cùng chi phí, chậm hơn, chất lượng cao hơn.",
       "loadingLabel": "Đang tải cài đặt hình ảnh mặc định",
       "loadingTitle": "Cài đặt hình ảnh mặc định",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 Chọn mẫu hình ảnh",
       "samplePrompt": "Tạo hình ảnh một học sinh đang học tập chăm chỉ với Anki và vượt qua các bài kiểm tra của họ.",
       "saveError": "Không thể lưu mặc định hình ảnh",
       "subtitle": "Mô hình mà hình ảnh Smart Fields của bạn sử dụng trừ khi một trường ghim trường của chính nó.",
       "title": "Cài đặt hình ảnh mặc định",
-      "zImageTurbo": "nhanh nhất và rẻ nhất."
+      "zImageTurbo": "nhanh nhất và rẻ nhất.",
+      "gptImage25": "toàn năng nhất — văn bản sắc nét, biểu đồ sạch sẽ."
     },
     "layout": {
       "saveChanges": "Lưu thay đổi",
@@ -366,7 +364,6 @@
   "subscription": {
     "accessEnds": "Quyền truy cập kết thúc",
     "activateAgain": "Kích hoạt lại",
-    "endingSoon": "Sắp kết thúc",
     "checking": "Kiểm tra đăng ký",
     "creditTypes": {
       "images": "Hình ảnh",
@@ -379,6 +376,7 @@
     "errors": {
       "logout": "Không thể đăng xuất"
     },
+    "endingSoon": "Sắp kết thúc",
     "expired": "Hết hạn",
     "freePlan": "Gói miễn phí",
     "freeTrial": "Dùng thử miễn phí",
@@ -493,5 +491,15 @@
     "thanks": "Cảm ơn bạn đã sử dụng Smart Notes ✨",
     "title": "Thời gian dùng thử miễn phí của bạn đã kết thúc",
     "upgradeNow": "Nâng cấp ngay bây giờ"
+  },
+  "imageGeneration": {
+    "doubleCost": "Chi phí gấp 2×",
+    "extras": "Tính năng bổ sung",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "Chất lượng cao",
+    "highQualityDescription": "Sắc nét và sạch sẽ hơn, đặc biệt với các nhãn nhỏ.",
+    "noExtraCost": "Không chi phí thêm",
+    "richerDetail": "Chi tiết phong phú hơn",
+    "richerDetailDescription": "Chi tiết hơn, cảnh đầy đủ hơn. Chậm hơn một chút."
   }
 }

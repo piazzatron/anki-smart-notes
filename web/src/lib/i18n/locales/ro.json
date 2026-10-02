@@ -260,21 +260,19 @@
     "image": {
       "cannotFindModel": "În catalogul de imagini lipsește modelul {{model}}",
       "defaultModel": "Model implicit",
-      "gptImage15Low": "cel mai bun compromis calitate/viteză.",
-      "gptImage2": "același cost, mai lent, calitate superioară.",
       "loadingLabel": "Se încarcă setările implicite pentru imagine",
       "loadingTitle": "Setări implicite pentru imagine",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 Alegerea unui model de imagine",
       "samplePrompt": "Generați o imagine a unui student care studiază din greu cu Anki și își trece testele.",
       "saveError": "Nu s-au putut salva valorile implicite ale imaginii",
       "subtitle": "Modelul pe care îl folosește imaginea dvs. Smart Fields, cu excepția cazului în care un câmp își stabilește propriul.",
       "title": "Setări implicite pentru imagine",
-      "zImageTurbo": "cel mai rapid si mai ieftin."
+      "zImageTurbo": "cel mai rapid si mai ieftin.",
+      "gptImage25": "cel mai bun — text ascuțit, diagrame curate."
     },
     "layout": {
       "saveChanges": "Salvați modificările",
@@ -378,7 +376,6 @@
   "subscription": {
     "accessEnds": "Accesul se încheie",
     "activateAgain": "Reactivați",
-    "endingSoon": "Se încheie în curând",
     "checking": "Se verifică abonamentul",
     "creditTypes": {
       "images": "Imagini",
@@ -393,6 +390,7 @@
     "errors": {
       "logout": "Nu s-a putut deconecta"
     },
+    "endingSoon": "Se încheie în curând",
     "expired": "Expirat",
     "freePlan": "Plan gratuit",
     "freeTrial": "Probă gratuită",
@@ -513,5 +511,15 @@
     "thanks": "Vă mulțumim că folosiți Smart Notes ✨",
     "title": "Perioada de încercare gratuită s-a încheiat",
     "upgradeNow": "Faceți upgrade acum"
+  },
+  "imageGeneration": {
+    "doubleCost": "Cost 2×",
+    "extras": "Opțiuni suplimentare",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "Calitate înaltă",
+    "highQualityDescription": "Mai ascuțit și mai curat, în special etichetele mici.",
+    "noExtraCost": "Fără cost suplimentar",
+    "richerDetail": "Detalii mai bogate",
+    "richerDetailDescription": "Mai detaliat, scene mai complete. Puțin mai lent."
   }
 }

@@ -259,21 +259,19 @@
     "image": {
       "cannotFindModel": "Kuvaluettelosta puuttuu malli {{model}}",
       "defaultModel": "Oletusmalli",
-      "gptImage15Low": "paras laatu/nopeus kompromissi.",
-      "gptImage2": "sama hinta, hitaampi, korkeampi laatu.",
       "loadingLabel": "Ladataan oletuskuvaasetuksia",
       "loadingTitle": "Kuvan oletusasetukset",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 Kuvamallin valinta",
       "samplePrompt": "Luo kuva opiskelijasta, joka opiskelee ahkerasti Anki:n kanssa ja läpäisee kokeensa.",
       "saveError": "Kuvan oletusasetuksia ei voitu tallentaa",
       "subtitle": "Smart Fields-kuvasi käyttämä malli, ellei kenttä ole nastalla omaa.",
       "title": "Kuvan oletusasetukset",
-      "zImageTurbo": "nopein ja halvin."
+      "zImageTurbo": "nopein ja halvin.",
+      "gptImage25": "paras yleiskäyttöjärjestelmä — terävä teksti, siistit kaaviot."
     },
     "layout": {
       "saveChanges": "Tallenna muutokset",
@@ -372,7 +370,6 @@
   "subscription": {
     "accessEnds": "Pääsy loppuu",
     "activateAgain": "Aktivoi uudelleen",
-    "endingSoon": "Päättyy pian",
     "checking": "Tarkistetaan tilausta",
     "creditTypes": {
       "images": "Kuvat",
@@ -386,6 +383,7 @@
     "errors": {
       "logout": "Ei voitu kirjautua ulos"
     },
+    "endingSoon": "Päättyy pian",
     "expired": "Vanhentunyt",
     "freePlan": "Ilmainen suunnitelma",
     "freeTrial": "Ilmainen kokeilu",
@@ -503,5 +501,15 @@
     "thanks": "Kiitos, että käytät Smart Notes:tä ✨",
     "title": "Ilmainen kokeilujaksosi on päättynyt",
     "upgradeNow": "Päivitä nyt"
+  },
+  "imageGeneration": {
+    "doubleCost": "2× kustannukset",
+    "extras": "Lisäominaisuudet",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "Korkea laatu",
+    "highQualityDescription": "Terävämpi ja siistimpi, erityisesti pienet tekstit.",
+    "noExtraCost": "Ei lisäkustannuksia",
+    "richerDetail": "Rikkaampi yksityiskohtaisuus",
+    "richerDetailDescription": "Yksityiskohtaisempi, täydempi kohtaukset. Hieman hitaampi."
   }
 }

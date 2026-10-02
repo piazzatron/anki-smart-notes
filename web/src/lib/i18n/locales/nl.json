@@ -259,21 +259,19 @@
     "image": {
       "cannotFindModel": "Afbeeldingscatalogus ontbreekt model {{model}}",
       "defaultModel": "Standaardmodel",
-      "gptImage15Low": "beste verhouding tussen kwaliteit en snelheid.",
-      "gptImage2": "dezelfde kosten, langzamer, hogere kwaliteit.",
       "loadingLabel": "Standaard beeldinstellingen laden",
       "loadingTitle": "Standaard beeldinstellingen",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (laag / gemiddeld)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 Een beeldmodel kiezen",
       "samplePrompt": "Genereer een beeld van een student die hard studeert met Anki en slaagt voor zijn tests.",
       "saveError": "Kan de standaardinstellingen voor afbeeldingen niet opslaan",
       "subtitle": "Het model dat uw afbeelding Smart Fields gebruikt, tenzij een veld zijn eigen veld vastzet.",
       "title": "Standaard beeldinstellingen",
-      "zImageTurbo": "snelste en goedkoopste."
+      "zImageTurbo": "snelste en goedkoopste.",
+      "gptImage25": "allrounder — scherpe tekst, schone diagrammen."
     },
     "layout": {
       "saveChanges": "Wijzigingen opslaan",
@@ -372,7 +370,6 @@
   "subscription": {
     "accessEnds": "Toegang eindigt",
     "activateAgain": "Opnieuw activeren",
-    "endingSoon": "Eindigt binnenkort",
     "checking": "Abonnement controleren",
     "creditTypes": {
       "images": "Afbeeldingen",
@@ -386,6 +383,7 @@
     "errors": {
       "logout": "Kon niet uitloggen"
     },
+    "endingSoon": "Eindigt binnenkort",
     "expired": "Verlopen",
     "freePlan": "Gratis abonnement",
     "freeTrial": "Gratis proefperiode",
@@ -503,5 +501,15 @@
     "thanks": "Bedankt dat je Smart Notes gebruikt ✨",
     "title": "Uw gratis proefperiode is afgelopen",
     "upgradeNow": "Upgrade nu"
+  },
+  "imageGeneration": {
+    "doubleCost": "2× kosten",
+    "extras": "Extra's",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "Hoge kwaliteit",
+    "highQualityDescription": "Scherper en schoner, vooral kleine labels.",
+    "noExtraCost": "Geen extra kosten",
+    "richerDetail": "Meer detail",
+    "richerDetailDescription": "Meer gedetailleerd, vollere scènes. Iets langzamer."
   }
 }

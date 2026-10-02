@@ -261,21 +261,19 @@
     "image": {
       "cannotFindModel": "V katalogu slik manjka model {{model}}",
       "defaultModel": "Privzeti model",
-      "gptImage15Low": "najboljši kompromis med kakovostjo in hitrostjo.",
-      "gptImage2": "ista cena, počasneje, boljša kakovost.",
       "loadingLabel": "Nalaganje privzetih nastavitev slike",
       "loadingTitle": "Privzete nastavitve slike",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 Izbira slikovnega modela",
       "samplePrompt": "Ustvarite sliko študenta, ki se pridno uči z Anki in opravlja teste.",
       "saveError": "Ni bilo mogoče shraniti privzetih nastavitev slike",
       "subtitle": "Model, ki ga vaša slika uporablja Smart Fields, razen če polje pripne svojega.",
       "title": "Privzete nastavitve slike",
-      "zImageTurbo": "najhitrejši in najcenejši."
+      "zImageTurbo": "najhitrejši in najcenejši.",
+      "gptImage25": "najboljši splošni model — ostre besedilo, čiste diagrame."
     },
     "layout": {
       "saveChanges": "Shranite spremembe",
@@ -384,7 +382,6 @@
   "subscription": {
     "accessEnds": "Dostop se konča",
     "activateAgain": "Znova aktiviraj",
-    "endingSoon": "Kmalu se konča",
     "checking": "Preverjanje naročnine",
     "creditTypes": {
       "images": "Slike",
@@ -400,6 +397,7 @@
     "errors": {
       "logout": "Ni bilo mogoče odjaviti"
     },
+    "endingSoon": "Kmalu se konča",
     "expired": "Poteklo",
     "freePlan": "Brezplačni načrt",
     "freeTrial": "Brezplačna preizkusna različica",
@@ -523,5 +521,15 @@
     "thanks": "Hvala, ker uporabljate Smart Notes ✨",
     "title": "Vaše brezplačno preskusno obdobje se je končalo",
     "upgradeNow": "Nadgradi zdaj"
+  },
+  "imageGeneration": {
+    "doubleCost": "2× stroški",
+    "extras": "Dodatki",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "Visoka kvaliteta",
+    "highQualityDescription": "Bolj ostre in čiste, posebej pri malih napisih.",
+    "noExtraCost": "Brez dodatnih stroškov",
+    "richerDetail": "Bogatejši detajli",
+    "richerDetailDescription": "Bolj podrobno, polnejše scene. Malo počasnejše."
   }
 }

@@ -259,21 +259,19 @@
     "image": {
       "cannotFindModel": "Bildkatalogo mankas modelo {{model}}",
       "defaultModel": "Defaŭlta modelo",
-      "gptImage15Low": "plej bona kvalito/rapida kompromiso.",
-      "gptImage2": "sama kosto, pli malrapida, pli alta kvalito.",
       "loadingLabel": "Ŝargante defaŭltajn bildajn agordojn",
       "loadingTitle": "Defaŭltaj Bildaj Agordoj",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Malalta / Meza)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 Elektante bildomodelon",
       "samplePrompt": "Generu bildon de studento, kiu forte studas kun Anki kaj trapasas siajn testojn.",
       "saveError": "Ne eblis konservi bildodefaŭltojn",
       "subtitle": "La modelo kiun via bildo Smart Fields uzas krom se kampo alpinglas sian propran.",
       "title": "Defaŭltaj Bildaj Agordoj",
-      "zImageTurbo": "plej rapida kaj plej malmultekosta."
+      "zImageTurbo": "plej rapida kaj plej malmultekosta.",
+      "gptImage25": "plej bona ĉiucela — akra teksto, puraj diagramoj."
     },
     "layout": {
       "saveChanges": "Konservu ŝanĝojn",
@@ -372,7 +370,6 @@
   "subscription": {
     "accessEnds": "Aliro finiĝas",
     "activateAgain": "Reaktivigi",
-    "endingSoon": "Finiĝas baldaŭ",
     "checking": "Kontrolante abonon",
     "creditTypes": {
       "images": "Bildoj",
@@ -386,6 +383,7 @@
     "errors": {
       "logout": "Ne eblis elsaluti"
     },
+    "endingSoon": "Finiĝas baldaŭ",
     "expired": "Eksvalidiĝis",
     "freePlan": "Senpaga plano",
     "freeTrial": "Senpaga provo",
@@ -503,5 +501,15 @@
     "thanks": "Dankon pro uzi Smart Notes ✨",
     "title": "Via senpaga provo finiĝis",
     "upgradeNow": "Ĝisdatigu nun"
+  },
+  "imageGeneration": {
+    "doubleCost": "2× kosto",
+    "extras": "Aldonaĵoj",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "Alta kvalito",
+    "highQualityDescription": "Pli akra kaj pura, precipe malgrandaj etikedoj.",
+    "noExtraCost": "Neniu aldonaĵa kosto",
+    "richerDetail": "Pli riĉa detalo",
+    "richerDetailDescription": "Pli detala, plenaj scenoj. Iom pli malrapida."
   }
 }

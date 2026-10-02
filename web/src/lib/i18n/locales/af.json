@@ -259,21 +259,19 @@
     "image": {
       "cannotFindModel": "Beeldkatalogus ontbreek model {{model}}",
       "defaultModel": "Verstek model",
-      "gptImage15Low": "beste kwaliteit / spoed afweging.",
-      "gptImage2": "dieselfde koste, stadiger, hoër gehalte.",
       "loadingLabel": "Laai tans verstekbeeldinstellings",
       "loadingTitle": "Standaard prentinstellings",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Laag / Medium)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 Kies 'n beeldmodel",
       "samplePrompt": "Genereer 'n beeld van 'n student wat hard met Anki studeer en hul toetse slaag.",
       "saveError": "Kon nie prentverstekings stoor nie",
       "subtitle": "Die model wat jou beeld Smart Fields gebruik, tensy 'n veld sy eie vaspen.",
       "title": "Standaard prentinstellings",
-      "zImageTurbo": "vinnigste en goedkoopste."
+      "zImageTurbo": "vinnigste en goedkoopste.",
+      "gptImage25": "beste alleskunner — skerp teks, skoon diagramme."
     },
     "layout": {
       "saveChanges": "Stoor veranderinge",
@@ -372,7 +370,6 @@
   "subscription": {
     "accessEnds": "Toegang eindig",
     "activateAgain": "Aktiveer weer",
-    "endingSoon": "Eindig binnekort",
     "checking": "Gaan tans intekening na",
     "creditTypes": {
       "images": "Beelde",
@@ -386,6 +383,7 @@
     "errors": {
       "logout": "Kon nie uitteken nie"
     },
+    "endingSoon": "Eindig binnekort",
     "expired": "Verstreke",
     "freePlan": "Gratis plan",
     "freeTrial": "Gratis proeflopie",
@@ -503,5 +501,15 @@
     "thanks": "Dankie dat jy Smart Notes gebruik ✨",
     "title": "Jou gratis proeftydperk het geëindig",
     "upgradeNow": "Gradeer nou op"
+  },
+  "imageGeneration": {
+    "doubleCost": "2× koste",
+    "extras": "Ekstra's",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "Hoë kwaliteit",
+    "highQualityDescription": "Skerper en skoner, veral klein etikette.",
+    "noExtraCost": "Geen ekstra koste",
+    "richerDetail": "Ryker detail",
+    "richerDetailDescription": "Meer gedetailleerd, voller tonele. Effens stadiger."
   }
 }

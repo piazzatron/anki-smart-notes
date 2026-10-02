@@ -259,21 +259,19 @@
     "image": {
       "cannotFindModel": "Resim kataloğunda {{model}} modeli eksik",
       "defaultModel": "Varsayılan model",
-      "gptImage15Low": "en iyi kalite/hız dengesi.",
-      "gptImage2": "aynı maliyet, daha yavaş, daha yüksek kalite.",
       "loadingLabel": "Varsayılan Görüntü Ayarlarını Yükleme",
       "loadingTitle": "Varsayılan Görüntü Ayarları",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 Bir görüntü modeli seçme",
       "samplePrompt": "Anki ile sıkı çalışan ve sınavlarını geçen bir öğrencinin görüntüsünü oluşturun.",
       "saveError": "Resim varsayılanları kaydedilemedi",
       "subtitle": "Bir alan kendisini sabitlemediği sürece görüntünüz Smart Fields'in kullandığı model.",
       "title": "Varsayılan Görüntü Ayarları",
-      "zImageTurbo": "en hızlı ve en ucuz."
+      "zImageTurbo": "en hızlı ve en ucuz.",
+      "gptImage25": "en iyi genel amaçlı — keskin metinler, temiz diyagramlar."
     },
     "layout": {
       "saveChanges": "Değişiklikleri kaydet",
@@ -372,7 +370,6 @@
   "subscription": {
     "accessEnds": "Erişim sona eriyor",
     "activateAgain": "Yeniden etkinleştir",
-    "endingSoon": "Yakında bitiyor",
     "checking": "Abonelik kontrol ediliyor",
     "creditTypes": {
       "images": "Görseller",
@@ -386,6 +383,7 @@
     "errors": {
       "logout": "Oturum kapatılamadı"
     },
+    "endingSoon": "Yakında bitiyor",
     "expired": "Süresi doldu",
     "freePlan": "Ücretsiz plan",
     "freeTrial": "Ücretsiz deneme",
@@ -503,5 +501,15 @@
     "thanks": "Smart Notes'i kullandığınız için teşekkür ederiz ✨",
     "title": "Ücretsiz deneme süreniz sona erdi",
     "upgradeNow": "Şimdi yükseltin"
+  },
+  "imageGeneration": {
+    "doubleCost": "2× maliyet",
+    "extras": "Ekstralar",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "Yüksek kalite",
+    "highQualityDescription": "Daha keskin ve temiz, özellikle küçük etiketler.",
+    "noExtraCost": "Ek maliyet yok",
+    "richerDetail": "Daha zengin detay",
+    "richerDetailDescription": "Daha detaylı, tam sahneler. Biraz daha yavaş."
   }
 }

@@ -259,21 +259,19 @@
     "image": {
       "cannotFindModel": "ପ୍ରତିଛବି କାଟାଲଗ୍ ମଡେଲ୍ {{model}} ହରାଉଛି",
       "defaultModel": "ଡିଫଲ୍ଟ ମଡେଲ୍",
-      "gptImage15Low": "ସର୍ବୋତ୍ତମ ଗୁଣବତ୍ତା / ଗତି ବାଣିଜ୍ୟ",
-      "gptImage2": "ସମାନ ମୂଲ୍ୟ, ଧୀର, ଉଚ୍ଚ ଗୁଣ",
       "loadingLabel": "ଡିଫଲ୍ଟ ପ୍ରତିଛବି ସେଟିଂସମୂହ ଲୋଡ୍ କରୁଛି",
       "loadingTitle": "ଡିଫଲ୍ଟ ପ୍ରତିଛବି ସେଟିଂସମୂହ",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (ନିମ୍ନ / ମଧ୍ୟମ)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "An ଏକ ପ୍ରତିଛବି ମଡେଲ୍ ବାଛିବା",
       "samplePrompt": "Anki ସହିତ କଠିନ ଅଧ୍ୟୟନ କରୁଥିବା ଏବଂ ସେମାନଙ୍କ ପରୀକ୍ଷା ପାସ୍ କରୁଥିବା ଛାତ୍ରଙ୍କ ପ୍ରତିଛବି ସୃଷ୍ଟି କରନ୍ତୁ",
       "saveError": "ପ୍ରତିଛବି ଡିଫଲ୍ଟ ସଞ୍ଚୟ କରିପାରିଲା ନାହିଁ",
       "subtitle": "ତୁମର ପ୍ରତିଛବି Smart Fields ବ୍ୟବହାର କରୁଥିବା ମଡେଲ୍ ଯଦି କ a ଣସି କ୍ଷେତ୍ର ଏହାର ପିନ ନଥାଏ",
       "title": "ଡିଫଲ୍ଟ ପ୍ରତିଛବି ସେଟିଂସମୂହ",
-      "zImageTurbo": "ଦ୍ରୁତ ଏବଂ ଶସ୍ତା"
+      "zImageTurbo": "ଦ୍ରୁତ ଏବଂ ଶସ୍ତା",
+      "gptImage25": "ସର୍ବୋତ୍ତମ ସର୍ବାଙ୍ଗୀନ — ତୀକ୍ଷ୍ଣ ପାଠ୍ୟ, ସ୍ଵଚ୍ଛ ଚିତ୍ର।"
     },
     "layout": {
       "saveChanges": "ପରିବର୍ତ୍ତନଗୁଡିକ ସଞ୍ଚୟ କରନ୍ତୁ",
@@ -372,7 +370,6 @@
   "subscription": {
     "accessEnds": "ପ୍ରବେଶାଧିକାର ସମାପ୍ତ ହୁଏ",
     "activateAgain": "ପୁନର୍ବାର ସକ୍ରିୟ କରନ୍ତୁ",
-    "endingSoon": "ଶୀଘ୍ରେ ଶେଷ ହେବ",
     "checking": "ସଦସ୍ୟତା ଯାଞ୍ଚ କରୁଛି",
     "creditTypes": {
       "images": "ପ୍ରତିଛବିଗୁଡିକ",
@@ -386,6 +383,7 @@
     "errors": {
       "logout": "ଲଗ୍ ଆଉଟ୍ ହୋଇପାରିଲା ନାହିଁ"
     },
+    "endingSoon": "ଶୀଘ୍ରେ ଶେଷ ହେବ",
     "expired": "ମେୟାଦ ଶେଷ",
     "freePlan": "ମାଗଣା ଯୋଜନା",
     "freeTrial": "ମାଗଣା ପରୀକ୍ଷା",
@@ -503,5 +501,15 @@
     "thanks": "Smart Notes using ବ୍ୟବହାର କରିଥିବାରୁ ଧନ୍ୟବାଦ",
     "title": "ତୁମର ମାଗଣା ପରୀକ୍ଷା ଶେଷ ହୋଇଛି",
     "upgradeNow": "ବର୍ତ୍ତମାନ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ"
+  },
+  "imageGeneration": {
+    "doubleCost": "୨× ଖର୍ଚ୍ଚ",
+    "extras": "ଅତିରିକ୍ତ",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "ଉଚ୍ଚ ଗୁଣମାନ",
+    "highQualityDescription": "ତୀକ୍ଷ୍ଣ ଏବଂ ପରିଷ୍କାର, ବିଶେଷତ ଛୋଟ ଲେବେଲଗୁଡ଼ିକ।",
+    "noExtraCost": "କୌଣସି ଅତିରିକ୍ତ ଖର୍ଚ୍ଚ ନାହିଁ",
+    "richerDetail": "ଅଧିକ ସମୃଦ୍ଧ ବିବରଣ",
+    "richerDetailDescription": "ଅଧିକ ବିସ୍ତୃତ, ପୂର୍ଣ୍ଣ ଦୃଶ୍ୟ। ଟିକିଏ ମନ୍ଥର।"
   }
 }

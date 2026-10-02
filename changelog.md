@@ -1,3 +1,8 @@
+# v2.26.0
+
+- Add GPT Image 2.5, with optional Richer detail and High quality extras.
+- Migrate GPT Image 1.5, GPT Image 2, and Flux Dev to GPT Image 2.5.
+
 # v2.25.0
 
 - Internationalize Smart Notes into 48 languages.

@@ -114,28 +114,28 @@ ElevenVoices = Literal["male-1", "male-2", "female-1", "female-2"]
 
 SmartFieldType = Literal["chat", "tts", "image"]
 
-ReplicateImageModels = Literal["flux-dev", "z-image-turbo"]
+ReplicateImageModels = Literal["z-image-turbo"]
 GoogleImageModels = Literal["nano-banana-2"]
 OpenAIImageModels = Literal[
-    "gpt-image-1.5-medium",
-    "gpt-image-1.5-low",
-    "gpt-image-2-medium",
-    "gpt-image-2-low",
+    "gpt-image-2.5-flare-low",
+    "gpt-image-2.5-flare-medium",
+    "gpt-image-2.5-sunburst-low",
+    "gpt-image-2.5-sunburst-medium",
 ]
 ImageModels = Union[ReplicateImageModels, GoogleImageModels, OpenAIImageModels]
 
 ImageProviders = Literal["replicate", "google", "openai"]
 
 openai_image_models: list[ImageModels] = [
-    "gpt-image-1.5-low",
-    "gpt-image-2-low",
-    "gpt-image-1.5-medium",
-    "gpt-image-2-medium",
+    "gpt-image-2.5-flare-low",
+    "gpt-image-2.5-flare-medium",
+    "gpt-image-2.5-sunburst-low",
+    "gpt-image-2.5-sunburst-medium",
 ]
 
 google_image_models: list[ImageModels] = ["nano-banana-2"]
 
-replicate_image_models: list[ImageModels] = ["z-image-turbo", "flux-dev"]
+replicate_image_models: list[ImageModels] = ["z-image-turbo"]
 
 image_provider_model_map: dict[ImageProviders, list[ImageModels]] = {
     "openai": openai_image_models,
@@ -146,20 +146,18 @@ image_provider_model_map: dict[ImageProviders, list[ImageModels]] = {
 # Ordered from cheapest to most expensive.
 all_image_models: list[ImageModels] = [
     "z-image-turbo",
-    "gpt-image-1.5-low",
-    "gpt-image-2-low",
-    "flux-dev",
-    "gpt-image-1.5-medium",
-    "gpt-image-2-medium",
+    "gpt-image-2.5-flare-low",
+    "gpt-image-2.5-sunburst-low",
+    "gpt-image-2.5-flare-medium",
+    "gpt-image-2.5-sunburst-medium",
     "nano-banana-2",
 ]
 
 image_model_to_provider: dict[ImageModels, ImageProviders] = {
-    "flux-dev": "replicate",
     "z-image-turbo": "replicate",
     "nano-banana-2": "google",
-    "gpt-image-1.5-low": "openai",
-    "gpt-image-1.5-medium": "openai",
-    "gpt-image-2-low": "openai",
-    "gpt-image-2-medium": "openai",
+    "gpt-image-2.5-flare-low": "openai",
+    "gpt-image-2.5-flare-medium": "openai",
+    "gpt-image-2.5-sunburst-low": "openai",
+    "gpt-image-2.5-sunburst-medium": "openai",
 }

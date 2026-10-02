@@ -261,21 +261,19 @@
     "image": {
       "cannotFindModel": "V katalógu obrázkov chýba model {{model}}",
       "defaultModel": "Predvolený model",
-      "gptImage15Low": "najlepší kompromis medzi kvalitou a rýchlosťou.",
-      "gptImage2": "rovnaké náklady, pomalšie, kvalitnejšie.",
       "loadingLabel": "Načítavajú sa predvolené nastavenia obrázka",
       "loadingTitle": "Predvolené nastavenia obrazu",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 Výber obrazového modelu",
       "samplePrompt": "Vytvorte si obraz študenta, ktorý tvrdo študuje so Anki a zloží svoje testy.",
       "saveError": "Nepodarilo sa uložiť predvolené nastavenia obrázka",
       "subtitle": "Model, ktorý používa váš obrázok Smart Fields, pokiaľ pole nepripne svoje vlastné.",
       "title": "Predvolené nastavenia obrazu",
-      "zImageTurbo": "najrýchlejší a najlacnejší."
+      "zImageTurbo": "najrýchlejší a najlacnejší.",
+      "gptImage25": "najlepší všestranný — ostré texty, čisté diagramy."
     },
     "layout": {
       "saveChanges": "Uložiť zmeny",
@@ -384,7 +382,6 @@
   "subscription": {
     "accessEnds": "Prístup končí",
     "activateAgain": "Znova aktivovať",
-    "endingSoon": "Skončí čoskoro",
     "checking": "Kontrola predplatného",
     "creditTypes": {
       "images": "Obrázky",
@@ -400,6 +397,7 @@
     "errors": {
       "logout": "Nepodarilo sa odhlásiť"
     },
+    "endingSoon": "Skončí čoskoro",
     "expired": "Vypršané",
     "freePlan": "Voľný plán",
     "freeTrial": "Bezplatná skúšobná verzia",
@@ -523,5 +521,15 @@
     "thanks": "Ďakujeme, že používate Smart Notes ✨",
     "title": "Vaša bezplatná skúšobná verzia sa skončila",
     "upgradeNow": "Inovujte teraz"
+  },
+  "imageGeneration": {
+    "doubleCost": "2× cena",
+    "extras": "Doplnky",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "Vysoká kvalita",
+    "highQualityDescription": "Ostrejšie a čistejšie, obzvlášť malé štítky.",
+    "noExtraCost": "Bez dodatočných nákladov",
+    "richerDetail": "Bohatší detail",
+    "richerDetailDescription": "Podrobnejšie, plnejšie scény. Trochu pomalšie."
   }
 }

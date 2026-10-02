@@ -260,21 +260,19 @@
     "image": {
       "cannotFindModel": "Falta el model {{model}} del catàleg d'imatges",
       "defaultModel": "Model per defecte",
-      "gptImage15Low": "millor equilibri qualitat/velocitat.",
-      "gptImage2": "mateix cost, més lent, de major qualitat.",
       "loadingLabel": "S'està carregant la configuració d'imatge predeterminada",
       "loadingTitle": "Configuració d'imatge per defecte",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Baix/Mitjà)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 Escollint un model d'imatge",
       "samplePrompt": "Genereu una imatge d'un estudiant estudiant molt amb Anki i aprovant les seves proves.",
       "saveError": "No s'han pogut desar els valors predeterminats de la imatge",
       "subtitle": "El model que utilitzeu la vostra imatge Smart Fields tret que un camp fixi el seu.",
       "title": "Configuració d'imatge per defecte",
-      "zImageTurbo": "més ràpid i barat."
+      "zImageTurbo": "més ràpid i barat.",
+      "gptImage25": "millor opció versàtil — text nítid, diagrames nets."
     },
     "layout": {
       "saveChanges": "Desa els canvis",
@@ -378,7 +376,6 @@
   "subscription": {
     "accessEnds": "L'accés s'acaba",
     "activateAgain": "Activar novament",
-    "endingSoon": "Finalitza aviat",
     "checking": "Comprovant la subscripció",
     "creditTypes": {
       "images": "Imatges",
@@ -393,6 +390,7 @@
     "errors": {
       "logout": "No s'ha pogut tancar la sessió"
     },
+    "endingSoon": "Finalitza aviat",
     "expired": "Caducada",
     "freePlan": "Pla gratuït",
     "freeTrial": "Prova gratuïta",
@@ -513,5 +511,15 @@
     "thanks": "Gràcies per utilitzar Smart Notes ✨",
     "title": "La teva prova gratuïta ha finalitzat",
     "upgradeNow": "Actualitza ara"
+  },
+  "imageGeneration": {
+    "doubleCost": "2× cost",
+    "extras": "Extras",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "Alta qualitat",
+    "highQualityDescription": "Més nitid i net, especialment etiquetes petites.",
+    "noExtraCost": "Sense cost addicional",
+    "richerDetail": "Més detall",
+    "richerDetailDescription": "Més detallat, escenes més completes. Una mica més lent."
   }
 }

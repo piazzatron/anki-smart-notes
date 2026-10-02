@@ -259,21 +259,19 @@
     "image": {
       "cannotFindModel": "Bildkatalogen saknar modell {{model}}",
       "defaultModel": "Standardmodell",
-      "gptImage15Low": "bästa kvalité / hastighet.",
-      "gptImage2": "samma kostnad, långsammare, högre kvalitet.",
       "loadingLabel": "Laddar standardbildinställningar",
       "loadingTitle": "Standardbildinställningar",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 Välja en bildmodell",
       "samplePrompt": "Skapa en bild av en student som studerar hårt med Anki och klarar sina prov.",
       "saveError": "Det gick inte att spara bildens standardinställningar",
       "subtitle": "Modellen som din bild Smart Fields använder om inte ett fält fäster sitt eget.",
       "title": "Standardbildinställningar",
-      "zImageTurbo": "snabbast och billigast."
+      "zImageTurbo": "snabbast och billigast.",
+      "gptImage25": "bästa all-round-modell — skarp text, rena diagram."
     },
     "layout": {
       "saveChanges": "Spara ändringar",
@@ -372,7 +370,6 @@
   "subscription": {
     "accessEnds": "Åtkomsten upphör",
     "activateAgain": "Aktivera igen",
-    "endingSoon": "Slutar snart",
     "checking": "Kontrollerar prenumeration",
     "creditTypes": {
       "images": "Bilder",
@@ -386,6 +383,7 @@
     "errors": {
       "logout": "Kunde inte logga ut"
     },
+    "endingSoon": "Slutar snart",
     "expired": "Utgånget",
     "freePlan": "Gratis plan",
     "freeTrial": "Gratis provperiod",
@@ -503,5 +501,15 @@
     "thanks": "Tack för att du använder Smart Notes ✨",
     "title": "Din kostnadsfria provperiod har avslutats",
     "upgradeNow": "Uppgradera nu"
+  },
+  "imageGeneration": {
+    "doubleCost": "2× kostnad",
+    "extras": "Extras",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "Högkvalitet",
+    "highQualityDescription": "Skarpare och renare, särskilt små etiketter.",
+    "noExtraCost": "Ingen extra kostnad",
+    "richerDetail": "Rikare detaljer",
+    "richerDetailDescription": "Mer detaljer, fullare scener. Något långsammare."
   }
 }

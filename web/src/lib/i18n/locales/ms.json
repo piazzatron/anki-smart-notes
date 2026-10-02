@@ -258,21 +258,19 @@
     "image": {
       "cannotFindModel": "Katalog imej tiada model {{model}}",
       "defaultModel": "Model lalai",
-      "gptImage15Low": "kualiti terbaik / pertukaran kelajuan.",
-      "gptImage2": "kos yang sama, lebih perlahan, kualiti yang lebih tinggi.",
       "loadingLabel": "Memuatkan Tetapan Imej Lalai",
       "loadingTitle": "Tetapan Imej Lalai",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Rendah / Sederhana)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 Memilih model imej",
       "samplePrompt": "Hasilkan imej pelajar yang belajar bersungguh-sungguh dengan Anki dan lulus ujian mereka.",
       "saveError": "Tidak dapat menyimpan lalai imej",
       "subtitle": "Model imej anda Smart Fields gunakan melainkan medan menyematnya sendiri.",
       "title": "Tetapan Imej Lalai",
-      "zImageTurbo": "terpantas dan termurah."
+      "zImageTurbo": "terpantas dan termurah.",
+      "gptImage25": "pemenang semua aspek — teks tajam, rajah bersih."
     },
     "layout": {
       "saveChanges": "Simpan perubahan",
@@ -366,7 +364,6 @@
   "subscription": {
     "accessEnds": "Akses berakhir",
     "activateAgain": "Aktifkan Semula",
-    "endingSoon": "Berakhir Segera",
     "checking": "Menyemak langganan",
     "creditTypes": {
       "images": "Imej",
@@ -379,6 +376,7 @@
     "errors": {
       "logout": "Tidak dapat log keluar"
     },
+    "endingSoon": "Berakhir Segera",
     "expired": "Telah tamat tempoh",
     "freePlan": "Pelan percuma",
     "freeTrial": "Percubaan percuma",
@@ -493,5 +491,15 @@
     "thanks": "Terima kasih kerana menggunakan Smart Notes ✨",
     "title": "Percubaan percuma anda telah tamat",
     "upgradeNow": "Tingkatkan sekarang"
+  },
+  "imageGeneration": {
+    "doubleCost": "2× kos",
+    "extras": "Tambahan",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "Kualiti tinggi",
+    "highQualityDescription": "Lebih tajam dan bersih, terutama label kecil.",
+    "noExtraCost": "Tiada kos tambahan",
+    "richerDetail": "Detail lebih kaya",
+    "richerDetailDescription": "Lebih terperinci, pemandangan lebih lengkap. Sedikit lebih perlahan."
   }
 }

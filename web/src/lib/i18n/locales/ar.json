@@ -263,21 +263,19 @@
     "image": {
       "cannotFindModel": "كتالوج الصور يفتقد الطراز {{model}}",
       "defaultModel": "النموذج الافتراضي",
-      "gptImage15Low": "أفضل جودة / سرعة المقايضة.",
-      "gptImage2": "نفس التكلفة، أبطأ، أعلى جودة.",
       "loadingLabel": "جارٍ تحميل إعدادات الصورة الافتراضية",
       "loadingTitle": "إعدادات الصورة الافتراضية",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (منخفض / متوسط)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 اختيار نموذج الصورة",
       "samplePrompt": "قم بإنشاء صورة لطالب يدرس بجد باستخدام Anki ويجتاز اختباراته.",
       "saveError": "لا يمكن حفظ الإعدادات الافتراضية للصورة",
       "subtitle": "النموذج الذي تستخدمه صورتك Smart Fields ما لم يتم تثبيت حقل خاص به.",
       "title": "إعدادات الصورة الافتراضية",
-      "zImageTurbo": "الأسرع والأرخص."
+      "zImageTurbo": "الأسرع والأرخص.",
+      "gptImage25": "الخيار الأمثل — نصوص حادة، رسوم بيانية نظيفة."
     },
     "layout": {
       "saveChanges": "حفظ التغييرات",
@@ -396,7 +394,6 @@
   "subscription": {
     "accessEnds": "انتهاء الوصول",
     "activateAgain": "تفعيل مجددا",
-    "endingSoon": "سينتهي قريبا",
     "checking": "التحقق من الاشتراك",
     "creditTypes": {
       "images": "الصور",
@@ -414,6 +411,7 @@
     "errors": {
       "logout": "لا يمكن تسجيل الخروج"
     },
+    "endingSoon": "سينتهي قريبا",
     "expired": "منتهية الصلاحية",
     "freePlan": "خطة مجانية",
     "freeTrial": "تجربة مجانية",
@@ -543,5 +541,15 @@
     "thanks": "شكرًا لاستخدامك Smart Notes ✨",
     "title": "انتهت تجربتك المجانية",
     "upgradeNow": "قم بالترقية الآن"
+  },
+  "imageGeneration": {
+    "doubleCost": "تكلفة مضاعفة",
+    "extras": "إضافيات",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "جودة عالية",
+    "highQualityDescription": "أكثر حدة ونظافة، خاصة للعلامات الصغيرة.",
+    "noExtraCost": "بدون تكلفة إضافية",
+    "richerDetail": "تفاصيل أغنى",
+    "richerDetailDescription": "أكثر تفصيلاً وأكمل للمشاهد. أبطأ قليلاً."
   }
 }

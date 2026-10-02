@@ -259,21 +259,19 @@
     "image": {
       "cannotFindModel": "کاتالوگ تصویر موجود نیست مدل {{model}}",
       "defaultModel": "مدل پیش فرض",
-      "gptImage15Low": "بهترین کیفیت / سرعت معاوضه.",
-      "gptImage2": "هزینه مشابه، کندتر، کیفیت بالاتر.",
       "loadingLabel": "در حال بارگیری تنظیمات تصویر پیش فرض",
       "loadingTitle": "تنظیمات تصویر پیش فرض",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (کم / متوسط)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 انتخاب مدل تصویر",
       "samplePrompt": "تصویری از دانش آموزی ایجاد کنید که به سختی با Anki درس می خواند و تست های خود را می گذراند.",
       "saveError": "پیش فرض های تصویر ذخیره نشد",
       "subtitle": "مدلی که تصویر شما Smart Fields استفاده می‌کند مگر اینکه فیلدی خودش را پین کند.",
       "title": "تنظیمات تصویر پیش فرض",
-      "zImageTurbo": "سریع ترین و ارزان ترین"
+      "zImageTurbo": "سریع ترین و ارزان ترین",
+      "gptImage25": "بهترین گزینه همه‌منظوره — متن تیز، نمودارهای تمیز."
     },
     "layout": {
       "saveChanges": "ذخیره تغییرات",
@@ -372,7 +370,6 @@
   "subscription": {
     "accessEnds": "دسترسی پایان می‌یابد",
     "activateAgain": "فعال کردن دوباره",
-    "endingSoon": "به زودی پایان می یابد",
     "checking": "بررسی اشتراک",
     "creditTypes": {
       "images": "تصاویر",
@@ -386,6 +383,7 @@
     "errors": {
       "logout": "نمی توان از سیستم خارج شد"
     },
+    "endingSoon": "به زودی پایان می یابد",
     "expired": "منقضی شده",
     "freePlan": "طرح رایگان",
     "freeTrial": "آزمایشی رایگان",
@@ -503,5 +501,15 @@
     "thanks": "با تشکر از استفاده از Smart Notes ✨",
     "title": "دوره آزمایشی رایگان شما به پایان رسیده است",
     "upgradeNow": "اکنون ارتقا دهید"
+  },
+  "imageGeneration": {
+    "doubleCost": "هزینه ۲ برابر",
+    "extras": "ویژگی‌های اضافی",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "کیفیت بالا",
+    "highQualityDescription": "تیزتر و تمیزتر، به‌ویژه برچسب‌های کوچک.",
+    "noExtraCost": "بدون هزینه اضافی",
+    "richerDetail": "جزئیات بیشتر",
+    "richerDetailDescription": "جزئیات بیشتر، صحنه‌های کاملتر. کمی آهسته‌تر."
   }
 }

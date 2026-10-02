@@ -261,21 +261,19 @@
     "image": {
       "cannotFindModel": "У каталогу малюнкаў адсутнічае мадэль {{model}}",
       "defaultModel": "Мадэль па змаўчанні",
-      "gptImage15Low": "найлепшая якасць / хуткасць кампраміс.",
-      "gptImage2": "той жа кошт, больш павольна, больш высокая якасць.",
       "loadingLabel": "Загрузка налад выявы па змаўчанні",
       "loadingTitle": "Налады выявы па змаўчанні",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Нізкі / Сярэдні)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 Выбар мадэлі іміджу",
       "samplePrompt": "Стварыце выяву студэнта, які ўпарта вучыцца з Anki і здае свае тэсты.",
       "saveError": "Немагчыма захаваць значэнні выявы па змаўчанні",
       "subtitle": "Мадэль, якую выкарыстоўвае ваша выява Smart Fields, калі поле не замацоўвае сваё.",
       "title": "Налады выявы па змаўчанні",
-      "zImageTurbo": "самы хуткі і танны."
+      "zImageTurbo": "самы хуткі і танны.",
+      "gptImage25": "лучшы ўсёаблемны — чёткі тэкст, чыстыя дыяграмы."
     },
     "layout": {
       "saveChanges": "Захавайце змены",
@@ -384,7 +382,6 @@
   "subscription": {
     "accessEnds": "Доступ завершаецца",
     "activateAgain": "Активаваць зноў",
-    "endingSoon": "Завершыцца хутка",
     "checking": "Праверка падпіскі",
     "creditTypes": {
       "images": "Малюнкі",
@@ -400,6 +397,7 @@
     "errors": {
       "logout": "Не атрымалася выйсці"
     },
+    "endingSoon": "Завершыцца хутка",
     "expired": "Срок дзеяння скончыўся",
     "freePlan": "Бясплатны план",
     "freeTrial": "Бясплатная пробная версія",
@@ -523,5 +521,15 @@
     "thanks": "Дзякуй за выкарыстанне Smart Notes ✨",
     "title": "Ваш бясплатны пробны перыяд скончыўся",
     "upgradeNow": "Абнавіце зараз"
+  },
+  "imageGeneration": {
+    "doubleCost": "2× коштом",
+    "extras": "Дадатковы",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "Высокая якасць",
+    "highQualityDescription": "Чётчэйшы і чыстэйшы, асабліва дробныя метачкі.",
+    "noExtraCost": "Без дадатковых затрат",
+    "richerDetail": "Больш дэталяў",
+    "richerDetailDescription": "Больш дэталізаваны, паўнейшыя сцэны. Крыху павольней."
   }
 }

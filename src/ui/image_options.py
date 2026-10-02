@@ -34,12 +34,11 @@ from .ui_utils import default_form_layout, font_bold, font_small
 
 image_models_display: dict[str, str] = {
     "z-image-turbo": "Z-Image Turbo (0.3x Cost)",
-    "flux-dev": "Flux Dev (3x Cost)",
     "nano-banana-2": "Nano Banana 2 (5x Cost)",
-    "gpt-image-1.5-medium": "GPT Image 1.5 Medium (4x Cost)",
-    "gpt-image-1.5-low": "GPT Image 1.5 Low (1x Cost)",
-    "gpt-image-2-medium": "GPT Image 2 Medium (4x Cost)",
-    "gpt-image-2-low": "GPT Image 2 Low (1x Cost)",
+    "gpt-image-2.5-flare-low": "GPT Image 2.5 (1x Cost)",
+    "gpt-image-2.5-flare-medium": "GPT Image 2.5 High Quality (2x Cost)",
+    "gpt-image-2.5-sunburst-low": "GPT Image 2.5 Richer Detail (1x Cost)",
+    "gpt-image-2.5-sunburst-medium": "GPT Image 2.5 Richer Detail, High Quality (2x Cost)",
 }
 
 providers_map: dict[ImageProviders, str] = {

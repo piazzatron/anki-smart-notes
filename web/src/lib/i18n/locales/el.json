@@ -259,21 +259,19 @@
     "image": {
       "cannotFindModel": "Λείπει ο κατάλογος εικόνων μοντέλο {{model}}",
       "defaultModel": "Προεπιλεγμένο μοντέλο",
-      "gptImage15Low": "καλύτερη ποιότητα/ταχύτητα αντάλλαγμα.",
-      "gptImage2": "ίδιο κόστος, πιο αργό, υψηλότερη ποιότητα.",
       "loadingLabel": "Φόρτωση προεπιλεγμένων ρυθμίσεων εικόνας",
       "loadingTitle": "Προεπιλεγμένες ρυθμίσεις εικόνας",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Χαμηλό / Μεσαίο)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 Επιλέγοντας ένα μοντέλο εικόνας",
       "samplePrompt": "Δημιουργήστε μια εικόνα ενός μαθητή που μελετά σκληρά με το Anki και περνά τις δοκιμασίες του.",
       "saveError": "Δεν ήταν δυνατή η αποθήκευση των προεπιλογών εικόνας",
       "subtitle": "Το μοντέλο που χρησιμοποιεί η εικόνα σας Smart Fields, εκτός εάν ένα πεδίο καρφιτσώσει το δικό του.",
       "title": "Προεπιλεγμένες ρυθμίσεις εικόνας",
-      "zImageTurbo": "ταχύτερο και φθηνότερο."
+      "zImageTurbo": "ταχύτερο και φθηνότερο.",
+      "gptImage25": "καλύτερος σε όλα — οξύ κείμενο, καθαρά διαγράμματα."
     },
     "layout": {
       "saveChanges": "Αποθήκευση αλλαγών",
@@ -372,7 +370,6 @@
   "subscription": {
     "accessEnds": "Λήξη πρόσβασης",
     "activateAgain": "Ενεργοποίηση ξανά",
-    "endingSoon": "Λήγει σύντομα",
     "checking": "Έλεγχος συνδρομής",
     "creditTypes": {
       "images": "εικόνες",
@@ -386,6 +383,7 @@
     "errors": {
       "logout": "Δεν ήταν δυνατή η αποσύνδεση"
     },
+    "endingSoon": "Λήγει σύντομα",
     "expired": "Έληξε",
     "freePlan": "Δωρεάν σχέδιο",
     "freeTrial": "Δωρεάν δοκιμή",
@@ -503,5 +501,15 @@
     "thanks": "Ευχαριστούμε που χρησιμοποιείτε το Smart Notes ✨",
     "title": "Η δωρεάν δοκιμή σας έληξε",
     "upgradeNow": "Αναβάθμιση τώρα"
+  },
+  "imageGeneration": {
+    "doubleCost": "2× κόστος",
+    "extras": "Επιπλέον",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "Υψηλή ποιότητα",
+    "highQualityDescription": "Πιο οξύ και καθαρό, ιδιαίτερα για μικρές ετικέτες.",
+    "noExtraCost": "Χωρίς επιπλέον κόστος",
+    "richerDetail": "Περισσότερη λεπτομέρεια",
+    "richerDetailDescription": "Περισσότερη λεπτομέρεια, πληρέστερες σκηνές. Λίγο πιο αργό."
   }
 }

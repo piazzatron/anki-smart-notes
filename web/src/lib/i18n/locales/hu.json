@@ -259,21 +259,19 @@
     "image": {
       "cannotFindModel": "A képkatalógusból hiányzik az {{model}} modell",
       "defaultModel": "Alapértelmezett modell",
-      "gptImage15Low": "legjobb minőség / sebesség kompromisszum.",
-      "gptImage2": "ugyanaz a költség, lassabb, jobb minőség.",
       "loadingLabel": "Az alapértelmezett képbeállítások betöltése",
       "loadingTitle": "Alapértelmezett képbeállítások",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (alacsony / közepes)",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
       "pickingModel": "💡 Képmodell kiválasztása",
       "samplePrompt": "Készítsen képet egy diákról, aki keményen tanul az Anki-val, és sikeresen teljesíti a teszteket.",
       "saveError": "Nem sikerült menteni a kép alapértelmezett beállításait",
       "subtitle": "Az Smart Fields kép által használt modell, hacsak egy mező nem rögzíti a sajátját.",
       "title": "Alapértelmezett képbeállítások",
-      "zImageTurbo": "leggyorsabb és legolcsóbb."
+      "zImageTurbo": "leggyorsabb és legolcsóbb.",
+      "gptImage25": "legjobb univerzális — éles szöveg, tiszta diagramok."
     },
     "layout": {
       "saveChanges": "Módosítások mentése",
@@ -372,7 +370,6 @@
   "subscription": {
     "accessEnds": "Hozzáférés vége",
     "activateAgain": "Újra aktiválás",
-    "endingSoon": "Hamarosan lejár",
     "checking": "Az előfizetés ellenőrzése",
     "creditTypes": {
       "images": "Képek",
@@ -386,6 +383,7 @@
     "errors": {
       "logout": "Nem sikerült kijelentkezni"
     },
+    "endingSoon": "Hamarosan lejár",
     "expired": "Lejárt",
     "freePlan": "Ingyenes terv",
     "freeTrial": "Ingyenes próbaverzió",
@@ -503,5 +501,15 @@
     "thanks": "Köszönjük, hogy az Smart Notes-t használja ✨",
     "title": "Az ingyenes próbaidőszak véget ért",
     "upgradeNow": "Frissítsen most"
+  },
+  "imageGeneration": {
+    "doubleCost": "2× költség",
+    "extras": "Kiegészítések",
+    "gptImage25": "GPT Image 2.5",
+    "highQuality": "Magas minőség",
+    "highQualityDescription": "Élesebb és tisztább, főleg kis feliratok esetén.",
+    "noExtraCost": "Nincs extra költség",
+    "richerDetail": "Gazdagabb részletesség",
+    "richerDetailDescription": "Részletesebb, teljesebb jelenetek. Kicsit lassabb."
   }
 }
