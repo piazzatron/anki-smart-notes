@@ -115,7 +115,7 @@ export const ImageModelSelect = ({
           the underlying model, so users never see Flare vs Sunburst. */}
       {options !== null && (
         <div className="mt-4">
-          <p className="mb-1 flex items-center justify-between text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
+          <p className="mb-1 flex items-center gap-1.5 text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
             {t("imageGeneration.extras")}
             <InfoTip
               defaultOpen={openExtrasTip}

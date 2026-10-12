@@ -119,9 +119,7 @@ const LoadedImageDefaultsScreen = ({
 
       <div>
         <div className="w-full max-w-[480px]">
-          {/* The ⓘ sits at the column's right edge so its tip opens into the empty space
-              beside the settings instead of over the picker. */}
-          <div className="mb-2 flex items-center justify-between">
+          <div className="mb-2 flex items-center gap-1.5">
             <label
               className="text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase"
               htmlFor="default-image-model"
