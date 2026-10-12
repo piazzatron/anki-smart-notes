@@ -261,6 +261,7 @@
     "image": {
       "cannotFindModel": "У каталогу малюнкаў адсутнічае мадэль {{model}}",
       "defaultModel": "Мадэль па змаўчанні",
+      "extrasTip": "Пачніце з выключэнымі дадатковымі опцыямі, потым уключыце іх, калі поле патрабуе больш дэталей.",
       "gptImage25": "лучшы ўсёаблемны — чёткі тэкст, чыстыя дыяграмы.",
       "loadingLabel": "Загрузка налад выявы па змаўчанні",
       "loadingTitle": "Налады выявы па змаўчанні",
@@ -273,8 +274,7 @@
       "saveError": "Немагчыма захаваць значэнні выявы па змаўчанні",
       "subtitle": "Мадэль, якую выкарыстоўвае ваша выява Smart Fields, калі поле не замацоўвае сваё.",
       "title": "Налады выявы па змаўчанні",
-      "zImageTurbo": "самы хуткі і танны.",
-      "extrasTip": "Пачніце з выключэнымі дадатковымі опцыямі, потым уключыце іх, калі поле патрабуе больш дэталей."
+      "zImageTurbo": "самы хуткі і танны."
     },
     "layout": {
       "saveChanges": "Захавайце змены",
@@ -338,11 +338,11 @@
     "doubleCost": "2× коштом",
     "extras": "Дадатковы",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Максімальная якасць",
+    "maxQualityDescription": "Більш рэзкае і чыстае, асабліва маленькія меткі.",
     "noExtraCost": "Без дадатковых затрат",
     "richerDetail": "Больш дэталяў",
-    "richerDetailDescription": "Больш дэталізаваны, паўнейшыя сцэны. Крыху павольней.",
-    "maxQuality": "Максімальная якасць",
-    "maxQualityDescription": "Більш рэзкае і чыстае, асабліва маленькія меткі."
+    "richerDetailDescription": "Больш дэталізаваны, паўнейшыя сцэны. Крыху павольней."
   },
   "promptTester": {
     "anotherNoteType": "іншы тып нататкі",
@@ -356,6 +356,7 @@
     },
     "fieldRunsOnNoteType": "Гэтае поле працуе на <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Папярэдні прагляд згенераванага малюнка",
+    "generatedIn": "Згенерявана за {{seconds}}s",
     "missingFieldsTitle_one": "Адсутнічае поле",
     "missingFieldsTitle_few": "Адсутныя палі",
     "missingFieldsTitle_many": "Адсутныя палі",
@@ -368,7 +369,6 @@
     "notesSelected_few": "Выбрана {{count}} нататкі — звузіце да адной.",
     "notesSelected_many": "Выбрана {{count}} нататак — звузіце да адной.",
     "notesSelected_other": "Выбраныя нататкі {{count}} — звузіце іх да адной.",
-    "pickCard": "Выберыце картку ў браўзеры Anki",
     "promptPlaceholder": "Напішыце тэставае падказку, спасылаючыся на палі на вашай картцы з {{braces}}.",
     "saveToCard": "Захаваць на карту",
     "savedTo": "Захавана ў {{field}}",
@@ -388,7 +388,9 @@
     "testResult": "Вынік тэсту",
     "textToSpeak": "Тэкст для размовы",
     "viewResult": "Паглядзець вынік",
-    "wrongNoteType": "Няправільны тып нататкі"
+    "wrongNoteType": "Няправільны тып нататкі",
+    "or": "або",
+    "selectCardInBrowser": "Выберыце картку ў аглядальніку, каб праверыць"
   },
   "subscription": {
     "accessEnds": "Доступ завершаецца",

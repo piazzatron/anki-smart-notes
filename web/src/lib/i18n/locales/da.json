@@ -259,6 +259,7 @@
     "image": {
       "cannotFindModel": "Billedkatalog mangler model {{model}}",
       "defaultModel": "Standardmodel",
+      "extrasTip": "Start med extras slået fra, og tænd dem derefter, hvis et felt har brug for mere detaljer.",
       "gptImage25": "bedst til alt — skarpt tekst, rene diagrammer.",
       "loadingLabel": "Indlæser standard billedindstillinger",
       "loadingTitle": "Standard billedindstillinger",
@@ -271,8 +272,7 @@
       "saveError": "Billedstandarder kunne ikke gemmes",
       "subtitle": "Modellen dit billede Smart Fields bruger, medmindre et felt fastgør sit eget.",
       "title": "Standard billedindstillinger",
-      "zImageTurbo": "hurtigste og billigste.",
-      "extrasTip": "Start med extras slået fra, og tænd dem derefter, hvis et felt har brug for mere detaljer."
+      "zImageTurbo": "hurtigste og billigste."
     },
     "layout": {
       "saveChanges": "Gem ændringer",
@@ -334,11 +334,11 @@
     "doubleCost": "2× omkostning",
     "extras": "Ekstra",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maksimal kvalitet",
+    "maxQualityDescription": "Skarpere og renere, især små labels.",
     "noExtraCost": "Ingen ekstra omkostning",
     "richerDetail": "Rigere detaljer",
-    "richerDetailDescription": "Mere detaljeret, fyldigere scener. Lidt langsommere.",
-    "maxQuality": "Maksimal kvalitet",
-    "maxQualityDescription": "Skarpere og renere, især små labels."
+    "richerDetailDescription": "Mere detaljeret, fyldigere scener. Lidt langsommere."
   },
   "promptTester": {
     "anotherNoteType": "en anden nodetype",
@@ -352,13 +352,13 @@
     },
     "fieldRunsOnNoteType": "Dette felt kører på <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Genereret billedforhåndsvisning",
+    "generatedIn": "Genereret på {{seconds}}s",
     "missingFieldsTitle_one": "Manglende felt",
     "missingFieldsTitle_other": "Manglende felter",
     "needsFields_one": "Kræver {{count}} felt",
     "needsFields_other": "Har brug for {{count}} felter",
     "notesSelected_one": "{{count}} note valgt — indsnæv den til én.",
     "notesSelected_other": "{{count}} noter valgt — indsnæv den til én.",
-    "pickCard": "Vælg et kort i Anki-browseren",
     "promptPlaceholder": "Skriv en testprompt, og referer til felter på dit kort med {{braces}}.",
     "saveToCard": "Gem på kort",
     "savedTo": "Gemt til {{field}}",
@@ -376,7 +376,9 @@
     "testResult": "Testresultat",
     "textToSpeak": "Tekst til tale",
     "viewResult": "Se resultat",
-    "wrongNoteType": "Forkert notetype"
+    "wrongNoteType": "Forkert notetype",
+    "or": "eller",
+    "selectCardInBrowser": "Vælg et kort i browseren for at teste"
   },
   "subscription": {
     "accessEnds": "Adgang slutter",

@@ -259,6 +259,7 @@
     "image": {
       "cannotFindModel": "В каталога с изображения липсва модел {{model}}",
       "defaultModel": "Модел по подразбиране",
+      "extrasTip": "Начнете с деактивирани допълнения, после ги включете, ако поле има нужда от повече детайли.",
       "gptImage25": "най-универсален — остър текст, чисти диаграми.",
       "loadingLabel": "Зареждат се настройките на изображението по подразбиране",
       "loadingTitle": "Настройки на изображението по подразбиране",
@@ -271,8 +272,7 @@
       "saveError": "Неуспешно запазване на изображенията по подразбиране",
       "subtitle": "Моделът, който използва вашето изображение Smart Fields, освен ако някое поле не закачи свое собствено.",
       "title": "Настройки на изображението по подразбиране",
-      "zImageTurbo": "най-бързо и най-евтино.",
-      "extrasTip": "Начнете с деактивирани допълнения, после ги включете, ако поле има нужда от повече детайли."
+      "zImageTurbo": "най-бързо и най-евтино."
     },
     "layout": {
       "saveChanges": "Запазете промените",
@@ -334,11 +334,11 @@
     "doubleCost": "2× цена",
     "extras": "Допълнителни опции",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Максимално качество",
+    "maxQualityDescription": "По-остро и чисто, особено малки етикети.",
     "noExtraCost": "Без допълнителна цена",
     "richerDetail": "По-богато на детайли",
-    "richerDetailDescription": "По-детайлни, пълноценни сцени. Малко по-бавно.",
-    "maxQuality": "Максимално качество",
-    "maxQualityDescription": "По-остро и чисто, особено малки етикети."
+    "richerDetailDescription": "По-детайлни, пълноценни сцени. Малко по-бавно."
   },
   "promptTester": {
     "anotherNoteType": "друг тип бележка",
@@ -352,13 +352,13 @@
     },
     "fieldRunsOnNoteType": "Това поле работи на <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Визуализация на генерирано изображение",
+    "generatedIn": "Генериран в {{seconds}}s",
     "missingFieldsTitle_one": "Липсващо поле",
     "missingFieldsTitle_other": "Липсващи полета",
     "needsFields_one": "Изисква поле {{count}}",
     "needsFields_other": "Нужни са полета {{count}}",
     "notesSelected_one": "{{count}} избрана бележка — стеснете я до една.",
     "notesSelected_other": "{{count}} избрани бележки — стеснете ги до една.",
-    "pickCard": "Изберете карта в браузъра Anki",
     "promptPlaceholder": "Напишете тестова подкана, препращайки към полетата на вашата карта с {{braces}}.",
     "saveToCard": "Запазване в картата",
     "savedTo": "Запазено в {{field}}",
@@ -376,7 +376,9 @@
     "testResult": "Резултат от теста",
     "textToSpeak": "Текст за изговаряне",
     "viewResult": "Вижте резултата",
-    "wrongNoteType": "Грешен тип бележка"
+    "wrongNoteType": "Грешен тип бележка",
+    "or": "или",
+    "selectCardInBrowser": "Изберете карта в браузъра, за да тествате"
   },
   "subscription": {
     "accessEnds": "Достъпът завършва",

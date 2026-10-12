@@ -259,6 +259,7 @@
     "image": {
       "cannotFindModel": "A képkatalógusból hiányzik az {{model}} modell",
       "defaultModel": "Alapértelmezett modell",
+      "extrasTip": "Kezdje a kiegészítéseket kikapcsolva, majd kapcsolja be őket, ha egy mező részletesebb megjelenítésre van szüksége.",
       "gptImage25": "legjobb univerzális — éles szöveg, tiszta diagramok.",
       "loadingLabel": "Az alapértelmezett képbeállítások betöltése",
       "loadingTitle": "Alapértelmezett képbeállítások",
@@ -271,8 +272,7 @@
       "saveError": "Nem sikerült menteni a kép alapértelmezett beállításait",
       "subtitle": "Az Smart Fields kép által használt modell, hacsak egy mező nem rögzíti a sajátját.",
       "title": "Alapértelmezett képbeállítások",
-      "zImageTurbo": "leggyorsabb és legolcsóbb.",
-      "extrasTip": "Kezdje a kiegészítéseket kikapcsolva, majd kapcsolja be őket, ha egy mező részletesebb megjelenítésre van szüksége."
+      "zImageTurbo": "leggyorsabb és legolcsóbb."
     },
     "layout": {
       "saveChanges": "Módosítások mentése",
@@ -334,11 +334,11 @@
     "doubleCost": "2× költség",
     "extras": "Kiegészítések",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maximális minőség",
+    "maxQualityDescription": "Élesebb és tisztább, különösen a kis feliratok.",
     "noExtraCost": "Nincs extra költség",
     "richerDetail": "Gazdagabb részletesség",
-    "richerDetailDescription": "Részletesebb, teljesebb jelenetek. Kicsit lassabb.",
-    "maxQuality": "Maximális minőség",
-    "maxQualityDescription": "Élesebb és tisztább, különösen a kis feliratok."
+    "richerDetailDescription": "Részletesebb, teljesebb jelenetek. Kicsit lassabb."
   },
   "promptTester": {
     "anotherNoteType": "egy másik hangjegytípus",
@@ -352,13 +352,13 @@
     },
     "fieldRunsOnNoteType": "Ez a mező a <noteTypeName>{{noteType}}</noteTypeName> típuson fut",
     "generatedImagePreview": "Létrehozott kép előnézet",
+    "generatedIn": "Generálva {{seconds}}s alatt",
     "missingFieldsTitle_one": "Hiányzó mező",
     "missingFieldsTitle_other": "Hiányzó mezők",
     "needsFields_one": "{{count}} mező szükséges",
     "needsFields_other": "{{count}} mezőket igényel",
     "notesSelected_one": "{{count}} jegyzet kiválasztva – szűkítse egyre.",
     "notesSelected_other": "{{count}} jegyzetek kijelölve – szűkítse egyre.",
-    "pickCard": "Válasszon egy kártyát az Anki böngészőben",
     "promptPlaceholder": "Írjon egy tesztkérdést, hivatkozva a mezőkre az {{braces}}-val.",
     "saveToCard": "Mentés kártyára",
     "savedTo": "Mentve az {{field}}-ba",
@@ -376,7 +376,9 @@
     "testResult": "Teszt eredménye",
     "textToSpeak": "Szöveg a beszédhez",
     "viewResult": "Eredmény megtekintése",
-    "wrongNoteType": "Hibás jegyzettípus"
+    "wrongNoteType": "Hibás jegyzettípus",
+    "or": "vagy",
+    "selectCardInBrowser": "Válassz ki egy kártyát a böngészőben a teszteléshez"
   },
   "subscription": {
     "accessEnds": "Hozzáférés vége",

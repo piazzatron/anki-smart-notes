@@ -259,6 +259,7 @@
     "image": {
       "cannotFindModel": "Bildkatalogo mankas modelo {{model}}",
       "defaultModel": "Defaŭlta modelo",
+      "extrasTip": "Komenci kun ekstroj malŝaltitaj, poste ŝaltu ilin se kampo bezonas pli da detalo.",
       "gptImage25": "plej bona ĉiucela — akra teksto, puraj diagramoj.",
       "loadingLabel": "Ŝargante defaŭltajn bildajn agordojn",
       "loadingTitle": "Defaŭltaj Bildaj Agordoj",
@@ -271,8 +272,7 @@
       "saveError": "Ne eblis konservi bildodefaŭltojn",
       "subtitle": "La modelo kiun via bildo Smart Fields uzas krom se kampo alpinglas sian propran.",
       "title": "Defaŭltaj Bildaj Agordoj",
-      "zImageTurbo": "plej rapida kaj plej malmultekosta.",
-      "extrasTip": "Komenci kun ekstroj malŝaltitaj, poste ŝaltu ilin se kampo bezonas pli da detalo."
+      "zImageTurbo": "plej rapida kaj plej malmultekosta."
     },
     "layout": {
       "saveChanges": "Konservu ŝanĝojn",
@@ -334,11 +334,11 @@
     "doubleCost": "2× kosto",
     "extras": "Aldonaĵoj",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maksimuma kvalito",
+    "maxQualityDescription": "Pli akra kaj pura, ĉefe malgrandaj etikedoj.",
     "noExtraCost": "Neniu aldonaĵa kosto",
     "richerDetail": "Pli riĉa detalo",
-    "richerDetailDescription": "Pli detala, plenaj scenoj. Iom pli malrapida.",
-    "maxQuality": "Maksimuma kvalito",
-    "maxQualityDescription": "Pli akra kaj pura, ĉefe malgrandaj etikedoj."
+    "richerDetailDescription": "Pli detala, plenaj scenoj. Iom pli malrapida."
   },
   "promptTester": {
     "anotherNoteType": "alia notspeco",
@@ -352,13 +352,13 @@
     },
     "fieldRunsOnNoteType": "Ĉi tiu kampo funkcias sur <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Generita bildo antaŭrigardo",
+    "generatedIn": "Generita en {{seconds}}s",
     "missingFieldsTitle_one": "Mankas kampo",
     "missingFieldsTitle_other": "Mankas kampoj",
     "needsFields_one": "Bezonas {{count}}-kampon",
     "needsFields_other": "Bezonas {{count}}-kampojn",
     "notesSelected_one": "{{count}} noto elektita - mallarĝu ĝin al unu.",
     "notesSelected_other": "{{count}} notoj elektitaj - mallarĝu ĝin al unu.",
-    "pickCard": "Elektu karton en la Anki-Retumilo",
     "promptPlaceholder": "Skribu provon, referencante kampojn sur via karto kun {{braces}}.",
     "saveToCard": "Konservu al karto",
     "savedTo": "Konservite al {{field}}",
@@ -376,7 +376,9 @@
     "testResult": "Testrezulto",
     "textToSpeak": "Teksto por paroli",
     "viewResult": "Vidu rezulton",
-    "wrongNoteType": "Malĝusta nottipo"
+    "wrongNoteType": "Malĝusta nottipo",
+    "or": "aŭ",
+    "selectCardInBrowser": "Elektu karton en la foliumilo por testi"
   },
   "subscription": {
     "accessEnds": "Aliro finiĝas",

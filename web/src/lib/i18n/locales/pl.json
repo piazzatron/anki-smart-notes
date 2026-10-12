@@ -261,6 +261,7 @@
     "image": {
       "cannotFindModel": "W katalogu obrazów brakuje modelu {{model}}",
       "defaultModel": "Domyślny model",
+      "extrasTip": "Zacznij bez dodatków, a następnie włącz je, jeśli pole wymaga więcej szczegółów.",
       "gptImage25": "najlepszy wszechstronnie — ostry tekst, czyste diagramy.",
       "loadingLabel": "Ładowanie domyślnych ustawień obrazu",
       "loadingTitle": "Domyślne ustawienia obrazu",
@@ -273,8 +274,7 @@
       "saveError": "Nie można zapisać domyślnych ustawień obrazu",
       "subtitle": "Model, którego używa Twój obraz Smart Fields, chyba że pole przypina własne.",
       "title": "Domyślne ustawienia obrazu",
-      "zImageTurbo": "najszybciej i najtaniej.",
-      "extrasTip": "Zacznij bez dodatków, a następnie włącz je, jeśli pole wymaga więcej szczegółów."
+      "zImageTurbo": "najszybciej i najtaniej."
     },
     "layout": {
       "saveChanges": "Zapisz zmiany",
@@ -338,11 +338,11 @@
     "doubleCost": "2× koszt",
     "extras": "Dodatki",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maksymalna jakość",
+    "maxQualityDescription": "Ostrzejsze i czystsze, szczególnie małe etykiety.",
     "noExtraCost": "Bez dodatkowych kosztów",
     "richerDetail": "Bogatsze szczegóły",
-    "richerDetailDescription": "Bardziej szczegółowe, bogatsze sceny. Nieco wolniejsze.",
-    "maxQuality": "Maksymalna jakość",
-    "maxQualityDescription": "Ostrzejsze i czystsze, szczególnie małe etykiety."
+    "richerDetailDescription": "Bardziej szczegółowe, bogatsze sceny. Nieco wolniejsze."
   },
   "promptTester": {
     "anotherNoteType": "inny typ notatki",
@@ -356,6 +356,7 @@
     },
     "fieldRunsOnNoteType": "To pole działa na <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Wygenerowany podgląd obrazu",
+    "generatedIn": "Wygenerowano w {{seconds}}s",
     "missingFieldsTitle_one": "Brakujące pole",
     "missingFieldsTitle_few": "Brakujące pola",
     "missingFieldsTitle_many": "Brakujące pola",
@@ -368,7 +369,6 @@
     "notesSelected_few": "Wybrano {{count}} notatki — zawęź wybór do jednej.",
     "notesSelected_many": "Wybrano {{count}} notatek — zawęź wybór do jednej.",
     "notesSelected_other": "Wybrano {{count}} notatki — zawęź wybór do jednej.",
-    "pickCard": "Wybierz kartę w przeglądarce Anki",
     "promptPlaceholder": "Napisz monit testowy, odwołując się do pól na karcie za pomocą {{braces}}.",
     "saveToCard": "Zapisz na karcie",
     "savedTo": "Zapisano w {{field}}",
@@ -388,7 +388,9 @@
     "testResult": "Wynik testu",
     "textToSpeak": "Tekst do mówienia",
     "viewResult": "Zobacz wynik",
-    "wrongNoteType": "Zły typ notatki"
+    "wrongNoteType": "Zły typ notatki",
+    "or": "lub",
+    "selectCardInBrowser": "Wybierz kartę w przeglądarce, aby ją przetestować"
   },
   "subscription": {
     "accessEnds": "Dostęp kończy się",

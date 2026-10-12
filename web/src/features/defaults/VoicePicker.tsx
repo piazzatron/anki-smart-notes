@@ -27,6 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select"
+import { Pill } from "@/components/ui/Pill"
 import { providerLabel } from "@/lib/catalog"
 import type { TTSGenerationSettings, VoiceCatalog } from "@/types/api"
 
@@ -178,9 +179,7 @@ export const VoicePicker = ({
                   <span className="min-w-0 flex-1 truncate text-xs font-semibold text-zinc-200">
                     {voice.name}
                   </span>
-                  <span className="shrink-0 rounded bg-white/[0.045] px-2 py-0.5 text-[9.5px] text-ink-faint">
-                    {providerLabel(voice.provider)}
-                  </span>
+                  <Pill>{providerLabel(voice.provider)}</Pill>
                 </div>
               )
             })

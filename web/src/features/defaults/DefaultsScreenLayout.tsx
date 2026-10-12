@@ -57,7 +57,9 @@ export const DefaultsScreenLayout = ({
   return (
     <PageLayout
       actions={
-        <div className="flex items-center gap-3">
+        // Matches the title's line height so the usage pill centers on the title
+        // whether or not the save button is showing.
+        <div className="flex min-h-8 items-center gap-3">
           {accessory}
           {isDirty && (
             <Button disabled={isSaving} onClick={onSave} variant="primary">

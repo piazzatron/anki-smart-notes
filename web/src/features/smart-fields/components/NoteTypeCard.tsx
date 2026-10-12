@@ -1,6 +1,8 @@
 import { Plus } from "lucide-react"
 import { useTranslation } from "react-i18next"
 
+import { Pill } from "@/components/ui/Pill"
+
 import { SmartFieldRow } from "./SmartFieldRow"
 
 import type { SmartField } from "@/types/api"
@@ -38,15 +40,9 @@ export const NoteTypeCard = ({
         <h3 className="truncate text-[17px] leading-[1.2] font-extrabold tracking-[-0.018em] text-ink">
           {group.noteType.name}
         </h3>
-        <span
-          className={`ms-2.5 inline-flex shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold tracking-[0.03em] ${
-            isDeckOverride
-              ? "bg-amber/10 text-amber"
-              : "bg-indigo/15 text-indigo-soft"
-          }`}
-        >
+        <Pill className="ms-2.5" tone={isDeckOverride ? "amber" : "indigo"}>
           {deckName}
-        </span>
+        </Pill>
         <button
           aria-label={t("smartFields.addToNoteType", {
             noteType: group.noteType.name,

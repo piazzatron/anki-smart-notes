@@ -260,6 +260,7 @@
     "image": {
       "cannotFindModel": "Каталогу слика недостаје модел {{model}}",
       "defaultModel": "Подразумевани модел",
+      "extrasTip": "Почните са искљученим екстрама, затим их укључите ако поље захтева више детаља.",
       "gptImage25": "најбољи универзалец — оштар текст, чисти дијаграми.",
       "loadingLabel": "Учитавање подразумеваних поставки слике",
       "loadingTitle": "Подразумевана подешавања слике",
@@ -272,8 +273,7 @@
       "saveError": "Није могуће сачувати подразумеване вредности слике",
       "subtitle": "Модел који ваша слика користи Smart Fields осим ако поље не закачи своје.",
       "title": "Подразумевана подешавања слике",
-      "zImageTurbo": "најбржи и најјефтинији.",
-      "extrasTip": "Почните са искљученим екстрама, затим их укључите ако поље захтева више детаља."
+      "zImageTurbo": "најбржи и најјефтинији."
     },
     "layout": {
       "saveChanges": "Сачувај промене",
@@ -336,11 +336,11 @@
     "doubleCost": "2× цена",
     "extras": "Додаци",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Максимална квалитета",
+    "maxQualityDescription": "Оштрије и чишће, посебно мале налепнице.",
     "noExtraCost": "Без додатне цене",
     "richerDetail": "Богатији детаљ",
-    "richerDetailDescription": "Више детаља, пуније сцене. Мало спорије.",
-    "maxQuality": "Максимална квалитета",
-    "maxQualityDescription": "Оштрије и чишће, посебно мале налепнице."
+    "richerDetailDescription": "Више детаља, пуније сцене. Мало спорије."
   },
   "promptTester": {
     "anotherNoteType": "другу врсту нота",
@@ -354,6 +354,7 @@
     },
     "fieldRunsOnNoteType": "Ово поље се покреће на <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Генерисани преглед слике",
+    "generatedIn": "Генерисано за {{seconds}}s",
     "missingFieldsTitle_one": "Недостаје поље",
     "missingFieldsTitle_few": "Недостајућа поља",
     "missingFieldsTitle_other": "Недостајућа поља",
@@ -363,7 +364,6 @@
     "notesSelected_one": "{{count}} белешка је изабрана — сузите је на једну.",
     "notesSelected_few": "{{count}} белешке су изабране — сузите их на једну.",
     "notesSelected_other": "{{count}} белешке изабране — сузите их на једну.",
-    "pickCard": "Изаберите картицу у прегледачу Anki",
     "promptPlaceholder": "Напишите пробни упит, позивајући се на поља на вашој картици помоћу {{braces}}.",
     "saveToCard": "Сачувај на картицу",
     "savedTo": "Сачувано у {{field}}",
@@ -382,7 +382,9 @@
     "testResult": "Резултат теста",
     "textToSpeak": "Текст за говор",
     "viewResult": "Погледајте резултат",
-    "wrongNoteType": "Погрешна врста белешке"
+    "wrongNoteType": "Погрешна врста белешке",
+    "or": "или",
+    "selectCardInBrowser": "Изаберите картицу у прегледачу за тестирање"
   },
   "subscription": {
     "accessEnds": "Приступ се завршава",

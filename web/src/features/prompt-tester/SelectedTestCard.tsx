@@ -39,23 +39,16 @@ export const SelectedTestCard = ({
   const { t } = useTranslation()
   if (note === null) {
     return (
-      <div
-        className={`flex items-center gap-2.5 rounded-lg border border-dashed border-white/[0.18] px-3 ${compact ? "h-[54px]" : "py-2.5"}`}
-      >
-        <FileText aria-hidden className="size-3.5 shrink-0 text-ink-muted" />
-        <div className="min-w-0 flex-1">
-          <p className="text-xs font-semibold text-ink">
-            {t("promptTester.pickCard")}
-          </p>
-          {!compact && emptySlotHint({ requiredNoteTypeName, selection })}
-        </div>
+      <>
         <Button
-          className="shrink-0 px-3 py-[5px] text-[11.5px]"
+          className={`w-full gap-2 text-[12px] ${compact ? "h-full" : "py-2.5"}`}
           onClick={() => void openAnkiBrowser()}
         >
-          {t("promptTester.selectNewCard")}
+          <FileText aria-hidden className="size-3.5 shrink-0" />
+          {t("promptTester.selectCardInBrowser")}
         </Button>
-      </div>
+        {!compact && emptySlotHint({ requiredNoteTypeName, selection })}
+      </>
     )
   }
 
@@ -239,7 +232,7 @@ const CardProblem = ({
   </div>
 )
 
-// The line under "Pick a card in the Anki Browser". A multi-note selection is the most
+// The line under the select-a-card button. A multi-note selection is the most
 // actionable thing to say; otherwise the panel states which note type this field needs.
 const emptySlotHint = ({
   requiredNoteTypeName,

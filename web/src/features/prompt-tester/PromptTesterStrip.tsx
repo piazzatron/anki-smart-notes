@@ -145,6 +145,12 @@ export const PromptTesterStrip = ({
               fieldNames={Object.keys(field.selectedNote.fields)}
             />
           )}
+          {/* With no card picked, the prompt above runs on its own or against a card. */}
+          {field.selectedNote === null && (
+            <p className="mt-1.5 text-center text-[11px] text-ink-faint">
+              {t("promptTester.or")}
+            </p>
+          )}
         </div>
       )}
 

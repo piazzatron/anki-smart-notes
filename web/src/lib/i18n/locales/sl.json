@@ -261,6 +261,7 @@
     "image": {
       "cannotFindModel": "V katalogu slik manjka model {{model}}",
       "defaultModel": "Privzeti model",
+      "extrasTip": "Začnite z izklopljenim dodatkami, nato jih vklopite, če polje potrebuje več podrobnosti.",
       "gptImage25": "najboljši splošni model — ostre besedilo, čiste diagrame.",
       "loadingLabel": "Nalaganje privzetih nastavitev slike",
       "loadingTitle": "Privzete nastavitve slike",
@@ -273,8 +274,7 @@
       "saveError": "Ni bilo mogoče shraniti privzetih nastavitev slike",
       "subtitle": "Model, ki ga vaša slika uporablja Smart Fields, razen če polje pripne svojega.",
       "title": "Privzete nastavitve slike",
-      "zImageTurbo": "najhitrejši in najcenejši.",
-      "extrasTip": "Začnite z izklopljenim dodatkami, nato jih vklopite, če polje potrebuje več podrobnosti."
+      "zImageTurbo": "najhitrejši in najcenejši."
     },
     "layout": {
       "saveChanges": "Shranite spremembe",
@@ -338,11 +338,11 @@
     "doubleCost": "2× stroški",
     "extras": "Dodatki",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Najvišja kakovost",
+    "maxQualityDescription": "Ostrejše in čistejše, še posebej majhne oznake.",
     "noExtraCost": "Brez dodatnih stroškov",
     "richerDetail": "Bogatejši detajli",
-    "richerDetailDescription": "Bolj podrobno, polnejše scene. Malo počasnejše.",
-    "maxQuality": "Najvišja kakovost",
-    "maxQualityDescription": "Ostrejše in čistejše, še posebej majhne oznake."
+    "richerDetailDescription": "Bolj podrobno, polnejše scene. Malo počasnejše."
   },
   "promptTester": {
     "anotherNoteType": "drugo vrsto beležke",
@@ -356,6 +356,7 @@
     },
     "fieldRunsOnNoteType": "To polje se izvaja na <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Predogled ustvarjene slike",
+    "generatedIn": "Generirano v {{seconds}}s",
     "missingFieldsTitle_one": "Manjkajoče polje",
     "missingFieldsTitle_two": "Manjkajoči polji",
     "missingFieldsTitle_few": "Manjkajoča polja",
@@ -368,7 +369,6 @@
     "notesSelected_two": "Izbrani sta {{count}} opombi — zožite izbor na eno.",
     "notesSelected_few": "Izbrane so {{count}} opombe — zožite izbor na eno.",
     "notesSelected_other": "Izbranih je {{count}} opomb — zožite izbor na eno.",
-    "pickCard": "Izberite kartico v brskalniku Anki",
     "promptPlaceholder": "Napišite testni poziv in navedite polja na vaši kartici z {{braces}}.",
     "saveToCard": "Shrani na kartico",
     "savedTo": "Shranjeno v {{field}}",
@@ -388,7 +388,9 @@
     "testResult": "Rezultat testa",
     "textToSpeak": "Besedilo za govor",
     "viewResult": "Ogled rezultata",
-    "wrongNoteType": "Napačna vrsta beležke"
+    "wrongNoteType": "Napačna vrsta beležke",
+    "or": "ali",
+    "selectCardInBrowser": "Za preizkus izberite kartico v brskalniku"
   },
   "subscription": {
     "accessEnds": "Dostop se konča",

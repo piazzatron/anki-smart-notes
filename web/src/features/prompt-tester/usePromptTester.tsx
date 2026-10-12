@@ -17,8 +17,11 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import i18next from "i18next"
 import { useEffect, useState, type ReactNode } from "react"
 import { useTranslation } from "react-i18next"
+
+import { gptImage25Options } from "@/features/image-generation/gptImage25"
 
 import { modelLabel } from "@/lib/catalog"
 import { errorMessage } from "@/lib/errors"
@@ -44,10 +47,18 @@ import { ResolvedPrompt } from "./PromptTestResultModal"
 
 type TestValue = MediaTestResult | TextPromptTestResult | TTSMediaTestResult
 
+/** What a test ran with: the model or voice, plus any GPT Image 2.5 extras. */
+export interface Provenance {
+  extras: string[]
+  primary: string
+}
+
 interface TestRun {
   cardId: number | null
   latencyMs: number
   prompt: string
+  // Captured at run time so later settings changes don't relabel the result.
+  provenance: Provenance
   value: TestValue
 }
 
@@ -79,7 +90,7 @@ export interface PromptTester {
   isTesting: boolean
   prompt: string
   promptLabel: string
-  provenance: string
+  provenance: Provenance | null
   requiredNoteTypeId: number | null
   // What a finished run has to show. Voice has none: it plays instead.
   resultNode: ReactNode
@@ -190,10 +201,7 @@ export const usePromptTester = (args: PromptTesterArgs): PromptTester => {
     prompt,
     promptLabel:
       fieldType === "tts" ? t("promptTester.textToSpeak") : t("common.prompt"),
-    provenance:
-      args.fieldType === "tts"
-        ? args.voiceName
-        : modelLabel(args.settings.model),
+    provenance: run?.provenance ?? null,
     requiredNoteTypeId: requiredNoteTypeId ?? null,
     resultNode: renderTestResult({ fieldType, run, selectedNote }),
     resultToken: resultValue?.resultToken ?? null,
@@ -275,6 +283,7 @@ const runTimedTest = async (args: {
   cardId: number | null
   prompt: string
 }): Promise<TestRun> => {
+  const provenance = getProvenance(args.args)
   const startedAt = performance.now()
   const value = await runTestForFieldType(args)
 
@@ -282,8 +291,25 @@ const runTimedTest = async (args: {
     cardId: args.cardId,
     latencyMs: Math.max(1, Math.round(performance.now() - startedAt)),
     prompt: args.prompt,
+    provenance,
     value,
   }
+}
+
+const getProvenance = (args: PromptTesterArgs): Provenance => {
+  if (args.fieldType === "tts") return { extras: [], primary: args.voiceName }
+
+  const extras: string[] = []
+  if (args.fieldType === "image") {
+    const options = gptImage25Options(args.settings.model)
+    if (options?.richerDetail) {
+      extras.push(i18next.t("imageGeneration.richerDetail"))
+    }
+    if (options?.maxQuality) {
+      extras.push(i18next.t("imageGeneration.maxQuality"))
+    }
+  }
+  return { extras, primary: modelLabel(args.settings.model) }
 }
 
 // The card is optional everywhere: the server only needs one when the prompt reads
@@ -337,29 +363,25 @@ const renderTestResult = ({
   return (
     <GeneratedImage
       dataUrl={run.value.dataUrl}
-      key={run.value.resultToken}
+      latencyMs={run.latencyMs}
       note={selectedNote}
       prompt={run.prompt}
     />
   )
 }
 
-// Keyed by the run that produced it, so the reported size never describes the image
-// from the previous run.
 const GeneratedImage = ({
   dataUrl,
+  latencyMs,
   note,
   prompt,
 }: {
   dataUrl: string
+  latencyMs: number
   note: SelectedNote | null
   prompt: string
 }) => {
   const { t } = useTranslation()
-  const [dimensions, setDimensions] = useState<{
-    height: number
-    width: number
-  } | null>(null)
 
   return (
     <>
@@ -367,19 +389,13 @@ const GeneratedImage = ({
       <img
         alt={t("promptTester.generatedImagePreview")}
         className="max-h-[50vh] w-full rounded-lg border border-white/[0.1] bg-black/20 object-contain"
-        onLoad={(event) =>
-          setDimensions({
-            height: event.currentTarget.naturalHeight,
-            width: event.currentTarget.naturalWidth,
-          })
-        }
         src={dataUrl}
       />
-      {dimensions !== null && (
-        <p className="mt-2 text-right text-[10.5px] text-ink-faint">
-          {dimensions.width} × {dimensions.height}
-        </p>
-      )}
+      <p className="mt-2 text-right text-[10.5px] text-ink-faint">
+        {t("promptTester.generatedIn", {
+          seconds: (latencyMs / 1000).toFixed(1),
+        })}
+      </p>
     </>
   )
 }

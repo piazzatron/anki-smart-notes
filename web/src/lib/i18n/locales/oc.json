@@ -258,6 +258,7 @@
     "image": {
       "cannotFindModel": "Lo catalòg d'imatges manca lo modèl {{model}}",
       "defaultModel": "Modèl per defaut",
+      "extrasTip": "Començatz amb los extras desactivats, puèi activatz-los se un camp a besoin de mai de detalh.",
       "gptImage25": "lo melhor de tot — tèxt nitid, diagramas nets.",
       "loadingLabel": "En cargament dels paramètres d'imatge per defaut",
       "loadingTitle": "Paramètres d'imatge per defaut",
@@ -270,8 +271,7 @@
       "saveError": "Impossible d'enregistrar las valors per defaut de l'imatge",
       "subtitle": "Lo modèl que vòstra imatge Smart Fields utilizatz levat se un camp fixa lo sieu.",
       "title": "Paramètres d'imatge per defaut",
-      "zImageTurbo": "lo mai rapid e lo mai economic.",
-      "extrasTip": "Començatz amb los extras desactivats, puèi activatz-los se un camp a besoin de mai de detalh."
+      "zImageTurbo": "lo mai rapid e lo mai economic."
     },
     "layout": {
       "saveChanges": "Enregistrar las modificacions",
@@ -332,11 +332,11 @@
     "doubleCost": "2× de còst",
     "extras": "Extres",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Qualitat maxima",
+    "maxQualityDescription": "Pus net e pus clar, especialament per las etiquetas petitas.",
     "noExtraCost": "Pas de còst suplementari",
     "richerDetail": "Detall pus ric",
-    "richerDetailDescription": "Pus detallat, escènas pus complètas. Un pauc pus lent.",
-    "maxQuality": "Qualitat maxima",
-    "maxQualityDescription": "Pus net e pus clar, especialament per las etiquetas petitas."
+    "richerDetailDescription": "Pus detallat, escènas pus complètas. Un pauc pus lent."
   },
   "promptTester": {
     "anotherNoteType": "un autre tipe de nòta",
@@ -350,10 +350,10 @@
     },
     "fieldRunsOnNoteType": "Aqueste champ s'executa sus <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Apercebut d'imatge generat",
+    "generatedIn": "Generat en {{seconds}}s",
     "missingFieldsTitle_other": "Camps mancants",
     "needsFields_other": "Necessita de camps {{count}}",
     "notesSelected_other": "{{count}} nòtas seleccionadas — la restrenh a una.",
-    "pickCard": "Causissètz una carta dins lo navigador Anki",
     "promptPlaceholder": "Escrivètz una indicacion de tèst, en fasent referéncia als camps sus vòstra carta amb {{braces}}.",
     "saveToCard": "Enregistrar sus la carta",
     "savedTo": "Enregistrat a {{field}}",
@@ -370,7 +370,9 @@
     "testResult": "Resultat del tèst",
     "textToSpeak": "Tèxte per parlar",
     "viewResult": "Veire lo resultat",
-    "wrongNoteType": "Tipe de nòta incorrècte"
+    "wrongNoteType": "Tipe de nòta incorrècte",
+    "or": "o",
+    "selectCardInBrowser": "Seleccionatz una carta dins lo navigador per la testar"
   },
   "subscription": {
     "accessEnds": "L'accès s'acabarà",

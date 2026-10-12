@@ -259,6 +259,7 @@
     "image": {
       "cannotFindModel": "Irudien katalogoa {{model}} eredua falta da",
       "defaultModel": "Eredu lehenetsia",
+      "extrasTip": "Hasi gehigarriak itzalita, eta aktibatu beharrezkoa bada zehaztasun gehiago behar duen eremu bat.",
       "gptImage25": "ondo orokorra — testu garbia, diagrama garbi eta txukun.",
       "loadingLabel": "Irudiaren ezarpen lehenetsiak kargatzen",
       "loadingTitle": "Irudiaren ezarpen lehenetsiak",
@@ -271,8 +272,7 @@
       "saveError": "Ezin izan dira gorde irudi lehenetsiak",
       "subtitle": "Zure irudiak Smart Fields erabiltzen duen eredua eremu batek berea jartzen ez badu behintzat.",
       "title": "Irudiaren ezarpen lehenetsiak",
-      "zImageTurbo": "azkarrena eta merkeena.",
-      "extrasTip": "Hasi gehigarriak itzalita, eta aktibatu beharrezkoa bada zehaztasun gehiago behar duen eremu bat."
+      "zImageTurbo": "azkarrena eta merkeena."
     },
     "layout": {
       "saveChanges": "Gorde aldaketak",
@@ -334,11 +334,11 @@
     "doubleCost": "2× kostua",
     "extras": "Gehigarriak",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Kalitate maximoa",
+    "maxQualityDescription": "Zehatzagoa eta garbiagoa, batez ere etiketa txikietan.",
     "noExtraCost": "Kostu gehigarririk ez",
     "richerDetail": "Xehetasun gehiago",
-    "richerDetailDescription": "Xeheago, eszenak beteak. Pixka bat motzagoa.",
-    "maxQuality": "Kalitate maximoa",
-    "maxQualityDescription": "Zehatzagoa eta garbiagoa, batez ere etiketa txikietan."
+    "richerDetailDescription": "Xeheago, eszenak beteak. Pixka bat motzagoa."
   },
   "promptTester": {
     "anotherNoteType": "beste ohar mota bat",
@@ -352,13 +352,13 @@
     },
     "fieldRunsOnNoteType": "Eremu hau <noteTypeName>{{noteType}}</noteTypeName> nota-motetan exekutatzen da",
     "generatedImagePreview": "Sortutako irudiaren aurrebista",
+    "generatedIn": "{{seconds}}s-tan sortua",
     "missingFieldsTitle_one": "Eremu falta",
     "missingFieldsTitle_other": "Eremuak falta dira",
     "needsFields_one": "{{count}} eremua behar du",
     "needsFields_other": "{{count}} eremuak behar ditu",
     "notesSelected_one": "{{count}} oharra hautatuta - murriztu bakar batera.",
     "notesSelected_other": "{{count}} oharrak hautatuta - murriztu bakar batera.",
-    "pickCard": "Aukeratu txartel bat Anki arakatzailean",
     "promptPlaceholder": "Idatzi proba-gonbita, zure txarteleko eremuei erreferentzia eginez {{braces}}-rekin.",
     "saveToCard": "Gorde txartelean",
     "savedTo": "{{field}}-n gorde da",
@@ -376,7 +376,9 @@
     "testResult": "Testaren emaitza",
     "textToSpeak": "Hitz egiteko testua",
     "viewResult": "Ikusi emaitza",
-    "wrongNoteType": "Ohar mota okerra"
+    "wrongNoteType": "Ohar mota okerra",
+    "or": "edo",
+    "selectCardInBrowser": "Hautatu arakatzailean txartel bat probatzeko"
   },
   "subscription": {
     "accessEnds": "Sarbidea amaitu da",

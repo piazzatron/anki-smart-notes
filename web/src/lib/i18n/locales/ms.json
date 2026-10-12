@@ -258,6 +258,7 @@
     "image": {
       "cannotFindModel": "Katalog imej tiada model {{model}}",
       "defaultModel": "Model lalai",
+      "extrasTip": "Mulakan dengan extras dimatikan, kemudian hidupkannya jika medan memerlukan lebih banyak perincian.",
       "gptImage25": "pemenang semua aspek — teks tajam, rajah bersih.",
       "loadingLabel": "Memuatkan Tetapan Imej Lalai",
       "loadingTitle": "Tetapan Imej Lalai",
@@ -270,8 +271,7 @@
       "saveError": "Tidak dapat menyimpan lalai imej",
       "subtitle": "Model imej anda Smart Fields gunakan melainkan medan menyematnya sendiri.",
       "title": "Tetapan Imej Lalai",
-      "zImageTurbo": "terpantas dan termurah.",
-      "extrasTip": "Mulakan dengan extras dimatikan, kemudian hidupkannya jika medan memerlukan lebih banyak perincian."
+      "zImageTurbo": "terpantas dan termurah."
     },
     "layout": {
       "saveChanges": "Simpan perubahan",
@@ -332,11 +332,11 @@
     "doubleCost": "2× kos",
     "extras": "Tambahan",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Kualiti maksimum",
+    "maxQualityDescription": "Lebih tajam dan bersih, terutama label kecil.",
     "noExtraCost": "Tiada kos tambahan",
     "richerDetail": "Detail lebih kaya",
-    "richerDetailDescription": "Lebih terperinci, pemandangan lebih lengkap. Sedikit lebih perlahan.",
-    "maxQuality": "Kualiti maksimum",
-    "maxQualityDescription": "Lebih tajam dan bersih, terutama label kecil."
+    "richerDetailDescription": "Lebih terperinci, pemandangan lebih lengkap. Sedikit lebih perlahan."
   },
   "promptTester": {
     "anotherNoteType": "jenis nota lain",
@@ -350,10 +350,10 @@
     },
     "fieldRunsOnNoteType": "Medan ini berjalan pada <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Pratonton imej yang dihasilkan",
+    "generatedIn": "Dijana dalam {{seconds}}s",
     "missingFieldsTitle_other": "Medan hilang",
     "needsFields_other": "Memerlukan medan {{count}}",
     "notesSelected_other": "Nota {{count}} dipilih — sempitkannya kepada satu.",
-    "pickCard": "Pilih kad dalam Pelayar Anki",
     "promptPlaceholder": "Tulis gesaan ujian, merujuk medan pada kad anda dengan {{braces}}.",
     "saveToCard": "Simpan ke kad",
     "savedTo": "Disimpan ke {{field}}",
@@ -370,7 +370,9 @@
     "testResult": "Keputusan ujian",
     "textToSpeak": "Teks untuk bercakap",
     "viewResult": "Lihat hasil",
-    "wrongNoteType": "Jenis nota yang salah"
+    "wrongNoteType": "Jenis nota yang salah",
+    "or": "atau",
+    "selectCardInBrowser": "Pilih kad dalam pelayar untuk diuji"
   },
   "subscription": {
     "accessEnds": "Akses berakhir",

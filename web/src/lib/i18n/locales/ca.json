@@ -260,6 +260,7 @@
     "image": {
       "cannotFindModel": "Falta el model {{model}} del catàleg d'imatges",
       "defaultModel": "Model per defecte",
+      "extrasTip": "Comença amb els complements desactivats i activa'ls si un camp necessita més detall.",
       "gptImage25": "millor opció versàtil — text nítid, diagrames nets.",
       "loadingLabel": "S'està carregant la configuració d'imatge predeterminada",
       "loadingTitle": "Configuració d'imatge per defecte",
@@ -272,8 +273,7 @@
       "saveError": "No s'han pogut desar els valors predeterminats de la imatge",
       "subtitle": "El model que utilitzeu la vostra imatge Smart Fields tret que un camp fixi el seu.",
       "title": "Configuració d'imatge per defecte",
-      "zImageTurbo": "més ràpid i barat.",
-      "extrasTip": "Comença amb els complements desactivats i activa'ls si un camp necessita més detall."
+      "zImageTurbo": "més ràpid i barat."
     },
     "layout": {
       "saveChanges": "Desa els canvis",
@@ -336,11 +336,11 @@
     "doubleCost": "2× cost",
     "extras": "Extras",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Qualitat màxima",
+    "maxQualityDescription": "Més nítid i net, especialment les etiquetes petites.",
     "noExtraCost": "Sense cost addicional",
     "richerDetail": "Més detall",
-    "richerDetailDescription": "Més detallat, escenes més completes. Una mica més lent.",
-    "maxQuality": "Qualitat màxima",
-    "maxQualityDescription": "Més nítid i net, especialment les etiquetes petites."
+    "richerDetailDescription": "Més detallat, escenes més completes. Una mica més lent."
   },
   "promptTester": {
     "anotherNoteType": "un altre tipus de nota",
@@ -354,6 +354,7 @@
     },
     "fieldRunsOnNoteType": "Aquest camp s'executa en <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Vista prèvia de la imatge generada",
+    "generatedIn": "Generat en {{seconds}}s",
     "missingFieldsTitle_one": "Falta camp",
     "missingFieldsTitle_many": "Falten camps",
     "missingFieldsTitle_other": "Falten camps",
@@ -363,7 +364,6 @@
     "notesSelected_one": "{{count}} nota seleccionada: reduïu-la a un.",
     "notesSelected_many": "Notes {{count}} seleccionades: reduïu-les a un.",
     "notesSelected_other": "Notes {{count}} seleccionades: reduïu-les a un.",
-    "pickCard": "Trieu una targeta al navegador Anki",
     "promptPlaceholder": "Escriviu una indicació de prova, fent referència als camps de la vostra targeta amb {{braces}}.",
     "saveToCard": "Desa a la targeta",
     "savedTo": "Desat a {{field}}",
@@ -382,7 +382,9 @@
     "testResult": "Resultat de la prova",
     "textToSpeak": "Text per parlar",
     "viewResult": "Veure resultat",
-    "wrongNoteType": "Tipus de nota incorrecte"
+    "wrongNoteType": "Tipus de nota incorrecte",
+    "or": "o",
+    "selectCardInBrowser": "Selecciona una targeta al navegador per provar-ho"
   },
   "subscription": {
     "accessEnds": "L'accés s'acaba",

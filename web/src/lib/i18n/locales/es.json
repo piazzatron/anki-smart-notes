@@ -260,6 +260,7 @@
     "image": {
       "cannotFindModel": "Falta catálogo de imágenes modelo {{model}}",
       "defaultModel": "Modelo predeterminado",
+      "extrasTip": "Comienza con extras desactivados, luego actívalos si un campo necesita más detalle.",
       "gptImage25": "el mejor en general — texto nítido, diagramas limpios.",
       "loadingLabel": "Cargando la configuración de imagen predeterminada",
       "loadingTitle": "Configuración de imagen predeterminada",
@@ -272,8 +273,7 @@
       "saveError": "No se pudieron guardar los valores predeterminados de la imagen",
       "subtitle": "El modelo que utiliza su imagen Smart Fields a menos que un campo fije el suyo.",
       "title": "Configuración de imagen predeterminada",
-      "zImageTurbo": "más rápido y más barato.",
-      "extrasTip": "Comienza con extras desactivados, luego actívalos si un campo necesita más detalle."
+      "zImageTurbo": "más rápido y más barato."
     },
     "layout": {
       "saveChanges": "Guardar cambios",
@@ -336,11 +336,11 @@
     "doubleCost": "2× costo",
     "extras": "Extras",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Máxima calidad",
+    "maxQualityDescription": "Más nítido y limpio, especialmente etiquetas pequeñas.",
     "noExtraCost": "Sin costo adicional",
     "richerDetail": "Más detalle",
-    "richerDetailDescription": "Más detallado, escenas más completas. Un poco más lento.",
-    "maxQuality": "Máxima calidad",
-    "maxQualityDescription": "Más nítido y limpio, especialmente etiquetas pequeñas."
+    "richerDetailDescription": "Más detallado, escenas más completas. Un poco más lento."
   },
   "promptTester": {
     "anotherNoteType": "otro tipo de nota",
@@ -354,6 +354,7 @@
     },
     "fieldRunsOnNoteType": "Este campo se ejecuta en <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Vista previa de la imagen generada",
+    "generatedIn": "Generado en {{seconds}}s",
     "missingFieldsTitle_one": "Campo faltante",
     "missingFieldsTitle_many": "Campos faltantes",
     "missingFieldsTitle_other": "Campos faltantes",
@@ -363,7 +364,6 @@
     "notesSelected_one": "Nota {{count}} seleccionada: limítela a una.",
     "notesSelected_many": "Notas {{count}} seleccionadas: limítelas a una.",
     "notesSelected_other": "Notas {{count}} seleccionadas: limítelas a una.",
-    "pickCard": "Elija una tarjeta en el navegador Anki",
     "promptPlaceholder": "Escriba un mensaje de prueba, haciendo referencia a los campos de su tarjeta con {{braces}}.",
     "saveToCard": "Guardar en tarjeta",
     "savedTo": "Guardado en {{field}}",
@@ -382,7 +382,9 @@
     "testResult": "Resultado de la prueba",
     "textToSpeak": "Texto para hablar",
     "viewResult": "Ver resultado",
-    "wrongNoteType": "Tipo de nota incorrecto"
+    "wrongNoteType": "Tipo de nota incorrecto",
+    "or": "o",
+    "selectCardInBrowser": "Selecciona una tarjeta en el explorador para probar"
   },
   "subscription": {
     "accessEnds": "El acceso termina",

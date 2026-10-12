@@ -258,6 +258,7 @@
     "image": {
       "cannotFindModel": "Danh mục hình ảnh thiếu mẫu {{model}}",
       "defaultModel": "Mô hình mặc định",
+      "extrasTip": "Bắt đầu với extras tắt, sau đó bật chúng nếu một trường cần chi tiết hơn.",
       "gptImage25": "toàn năng nhất — văn bản sắc nét, biểu đồ sạch sẽ.",
       "loadingLabel": "Đang tải cài đặt hình ảnh mặc định",
       "loadingTitle": "Cài đặt hình ảnh mặc định",
@@ -270,8 +271,7 @@
       "saveError": "Không thể lưu mặc định hình ảnh",
       "subtitle": "Mô hình mà hình ảnh Smart Fields của bạn sử dụng trừ khi một trường ghim trường của chính nó.",
       "title": "Cài đặt hình ảnh mặc định",
-      "zImageTurbo": "nhanh nhất và rẻ nhất.",
-      "extrasTip": "Bắt đầu với extras tắt, sau đó bật chúng nếu một trường cần chi tiết hơn."
+      "zImageTurbo": "nhanh nhất và rẻ nhất."
     },
     "layout": {
       "saveChanges": "Lưu thay đổi",
@@ -332,11 +332,11 @@
     "doubleCost": "Chi phí gấp 2×",
     "extras": "Tính năng bổ sung",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Chất lượng tối đa",
+    "maxQualityDescription": "Rõ nét và sạch hơn, đặc biệt là các nhãn nhỏ.",
     "noExtraCost": "Không chi phí thêm",
     "richerDetail": "Chi tiết phong phú hơn",
-    "richerDetailDescription": "Chi tiết hơn, cảnh đầy đủ hơn. Chậm hơn một chút.",
-    "maxQuality": "Chất lượng tối đa",
-    "maxQualityDescription": "Rõ nét và sạch hơn, đặc biệt là các nhãn nhỏ."
+    "richerDetailDescription": "Chi tiết hơn, cảnh đầy đủ hơn. Chậm hơn một chút."
   },
   "promptTester": {
     "anotherNoteType": "loại ghi chú khác",
@@ -350,10 +350,10 @@
     },
     "fieldRunsOnNoteType": "Trường này chạy trên <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Xem trước hình ảnh được tạo",
+    "generatedIn": "Được tạo ra trong {{seconds}}s",
     "missingFieldsTitle_other": "Thiếu trường",
     "needsFields_other": "Cần các trường {{count}}",
     "notesSelected_other": "Các ghi chú {{count}} đã chọn - thu hẹp nó thành một ghi chú.",
-    "pickCard": "Chọn một thẻ trong Trình duyệt Anki",
     "promptPlaceholder": "Viết lời nhắc kiểm tra, tham chiếu các trường trên thẻ của bạn bằng {{braces}}.",
     "saveToCard": "Lưu vào thẻ",
     "savedTo": "Đã lưu vào {{field}}",
@@ -370,7 +370,9 @@
     "testResult": "Kết quả kiểm tra",
     "textToSpeak": "Nhắn tin để nói",
     "viewResult": "Xem kết quả",
-    "wrongNoteType": "Loại ghi chú sai"
+    "wrongNoteType": "Loại ghi chú sai",
+    "or": "hoặc",
+    "selectCardInBrowser": "Chọn một thẻ trong trình duyệt để kiểm tra"
   },
   "subscription": {
     "accessEnds": "Quyền truy cập kết thúc",

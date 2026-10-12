@@ -260,6 +260,7 @@
     "image": {
       "cannotFindModel": "În catalogul de imagini lipsește modelul {{model}}",
       "defaultModel": "Model implicit",
+      "extrasTip": "Pornești cu extras-urile dezactivate, apoi le activezi dacă un câmp necesită mai multe detalii.",
       "gptImage25": "cel mai bun — text ascuțit, diagrame curate.",
       "loadingLabel": "Se încarcă setările implicite pentru imagine",
       "loadingTitle": "Setări implicite pentru imagine",
@@ -272,8 +273,7 @@
       "saveError": "Nu s-au putut salva valorile implicite ale imaginii",
       "subtitle": "Modelul pe care îl folosește imaginea dvs. Smart Fields, cu excepția cazului în care un câmp își stabilește propriul.",
       "title": "Setări implicite pentru imagine",
-      "zImageTurbo": "cel mai rapid si mai ieftin.",
-      "extrasTip": "Pornești cu extras-urile dezactivate, apoi le activezi dacă un câmp necesită mai multe detalii."
+      "zImageTurbo": "cel mai rapid si mai ieftin."
     },
     "layout": {
       "saveChanges": "Salvați modificările",
@@ -336,11 +336,11 @@
     "doubleCost": "Cost 2×",
     "extras": "Opțiuni suplimentare",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Calitate maximă",
+    "maxQualityDescription": "Mai ascuțit și mai curat, în special etichetele mici.",
     "noExtraCost": "Fără cost suplimentar",
     "richerDetail": "Detalii mai bogate",
-    "richerDetailDescription": "Mai detaliat, scene mai complete. Puțin mai lent.",
-    "maxQuality": "Calitate maximă",
-    "maxQualityDescription": "Mai ascuțit și mai curat, în special etichetele mici."
+    "richerDetailDescription": "Mai detaliat, scene mai complete. Puțin mai lent."
   },
   "promptTester": {
     "anotherNoteType": "alt tip de notă",
@@ -354,6 +354,7 @@
     },
     "fieldRunsOnNoteType": "Acest câmp se execută pe <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Previzualizare imagine generată",
+    "generatedIn": "Generat în {{seconds}}s",
     "missingFieldsTitle_one": "Câmp lipsește",
     "missingFieldsTitle_few": "Câmpuri lipsă",
     "missingFieldsTitle_other": "Câmpuri lipsă",
@@ -363,7 +364,6 @@
     "notesSelected_one": "{{count}} notă selectată — restrângeți-o la una.",
     "notesSelected_few": "{{count}} note selectate — restrângeți selecția la una.",
     "notesSelected_other": "Notele {{count}} selectate — restrângeți-l la unul.",
-    "pickCard": "Alegeți un card în browserul Anki",
     "promptPlaceholder": "Scrieți o solicitare de testare, făcând referire la câmpurile de pe cardul dvs. cu {{braces}}.",
     "saveToCard": "Salvați pe card",
     "savedTo": "Salvat în {{field}}",
@@ -382,7 +382,9 @@
     "testResult": "Rezultatul testului",
     "textToSpeak": "Text pentru a vorbi",
     "viewResult": "Vedeți rezultatul",
-    "wrongNoteType": "Tip greșit de notă"
+    "wrongNoteType": "Tip greșit de notă",
+    "or": "sau",
+    "selectCardInBrowser": "Selectează un card în browser pentru a testa"
   },
   "subscription": {
     "accessEnds": "Accesul se încheie",

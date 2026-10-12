@@ -259,6 +259,7 @@
     "image": {
       "cannotFindModel": "Falta o modelo {{model}} do catálogo de imaxes",
       "defaultModel": "Modelo predeterminado",
+      "extrasTip": "Comeza cos extras desactivados e actívaos se un campo precisa máis detalle.",
       "gptImage25": "o mellor de todo — texto nítido, diagramas limpios.",
       "loadingLabel": "Cargando a configuración predeterminada da imaxe",
       "loadingTitle": "Configuración predeterminada da imaxe",
@@ -271,8 +272,7 @@
       "saveError": "Non se puideron gardar os valores predeterminados da imaxe",
       "subtitle": "O modelo que usa a túa imaxe Smart Fields a non ser que un campo fixe o seu.",
       "title": "Configuración predeterminada da imaxe",
-      "zImageTurbo": "máis rápido e máis barato.",
-      "extrasTip": "Comeza cos extras desactivados e actívaos se un campo precisa máis detalle."
+      "zImageTurbo": "máis rápido e máis barato."
     },
     "layout": {
       "saveChanges": "Garda os cambios",
@@ -334,11 +334,11 @@
     "doubleCost": "2× custo",
     "extras": "Extras",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Calidade máxima",
+    "maxQualityDescription": "Máis nítido e limpo, especialmente as etiquetas pequenas.",
     "noExtraCost": "Sen custo adicional",
     "richerDetail": "Máis detalle",
-    "richerDetailDescription": "Máis detallado, escenas máis completas. Un pouco máis lento.",
-    "maxQuality": "Calidade máxima",
-    "maxQualityDescription": "Máis nítido e limpo, especialmente as etiquetas pequenas."
+    "richerDetailDescription": "Máis detallado, escenas máis completas. Un pouco máis lento."
   },
   "promptTester": {
     "anotherNoteType": "outro tipo de nota",
@@ -352,13 +352,13 @@
     },
     "fieldRunsOnNoteType": "Este campo execútase en <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Vista previa da imaxe xerada",
+    "generatedIn": "Xerado en {{seconds}}s",
     "missingFieldsTitle_one": "Falta campo",
     "missingFieldsTitle_other": "Faltan campos",
     "needsFields_one": "Necesita campo {{count}}",
     "needsFields_other": "Necesita campos {{count}}",
     "notesSelected_one": "{{count}} nota seleccionada: restrinxea a unha.",
     "notesSelected_other": "Notas {{count}} seleccionadas: restrinxeo a un.",
-    "pickCard": "Escolle unha tarxeta no navegador Anki",
     "promptPlaceholder": "Escribe unha solicitude de proba, facendo referencia aos campos da túa tarxeta con {{braces}}.",
     "saveToCard": "Gardar na tarxeta",
     "savedTo": "Gardado en {{field}}",
@@ -376,7 +376,9 @@
     "testResult": "Resultado da proba",
     "textToSpeak": "Texto para falar",
     "viewResult": "Ver resultado",
-    "wrongNoteType": "Tipo de nota incorrecto"
+    "wrongNoteType": "Tipo de nota incorrecto",
+    "or": "ou",
+    "selectCardInBrowser": "Selecciona unha tarxeta no navegador para probar"
   },
   "subscription": {
     "accessEnds": "O acceso finaliza",

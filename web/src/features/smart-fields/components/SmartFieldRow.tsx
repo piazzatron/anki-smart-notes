@@ -98,7 +98,7 @@ export const SmartFieldRow = ({
             aria-label={t("smartFields.actionsAriaLabel", {
               field: field.targetFieldName,
             })}
-            className="relative z-10 inline-flex size-7 items-center justify-center justify-self-end rounded-md text-ink-faint transition hover:bg-white/[0.07] hover:text-zinc-300"
+            className="relative z-10 inline-flex size-7 items-center justify-center justify-self-end rounded-md text-ink-faint transition hover:bg-white/[0.07] hover:text-zinc-300 data-[state=open]:bg-white/[0.07] data-[state=open]:text-zinc-300"
             disabled={pending}
           >
             <MoreHorizontal aria-hidden className="size-4" />

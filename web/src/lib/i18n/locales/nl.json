@@ -259,6 +259,7 @@
     "image": {
       "cannotFindModel": "Afbeeldingscatalogus ontbreekt model {{model}}",
       "defaultModel": "Standaardmodel",
+      "extrasTip": "Start met extras uit, zet ze vervolgens aan als een veld meer detail nodig heeft.",
       "gptImage25": "allrounder — scherpe tekst, schone diagrammen.",
       "loadingLabel": "Standaard beeldinstellingen laden",
       "loadingTitle": "Standaard beeldinstellingen",
@@ -271,8 +272,7 @@
       "saveError": "Kan de standaardinstellingen voor afbeeldingen niet opslaan",
       "subtitle": "Het model dat uw afbeelding Smart Fields gebruikt, tenzij een veld zijn eigen veld vastzet.",
       "title": "Standaard beeldinstellingen",
-      "zImageTurbo": "snelste en goedkoopste.",
-      "extrasTip": "Start met extras uit, zet ze vervolgens aan als een veld meer detail nodig heeft."
+      "zImageTurbo": "snelste en goedkoopste."
     },
     "layout": {
       "saveChanges": "Wijzigingen opslaan",
@@ -334,11 +334,11 @@
     "doubleCost": "2× kosten",
     "extras": "Extra's",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maximale kwaliteit",
+    "maxQualityDescription": "Scherper en schoner, vooral kleine labels.",
     "noExtraCost": "Geen extra kosten",
     "richerDetail": "Meer detail",
-    "richerDetailDescription": "Meer gedetailleerd, vollere scènes. Iets langzamer.",
-    "maxQuality": "Maximale kwaliteit",
-    "maxQualityDescription": "Scherper en schoner, vooral kleine labels."
+    "richerDetailDescription": "Meer gedetailleerd, vollere scènes. Iets langzamer."
   },
   "promptTester": {
     "anotherNoteType": "een ander notitietype",
@@ -352,13 +352,13 @@
     },
     "fieldRunsOnNoteType": "Dit veld wordt uitgevoerd op <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Gegenereerd afbeeldingsvoorbeeld",
+    "generatedIn": "Gegenereerd in {{seconds}}s",
     "missingFieldsTitle_one": "Ontbrekend veld",
     "missingFieldsTitle_other": "Ontbrekende velden",
     "needsFields_one": "Heeft het veld {{count}} nodig",
     "needsFields_other": "Heeft {{count}}-velden nodig",
     "notesSelected_one": "{{count}}-noot geselecteerd — beperk deze tot één.",
     "notesSelected_other": "{{count}}-notities geselecteerd: beperk het tot één.",
-    "pickCard": "Kies een kaart in de Anki-browser",
     "promptPlaceholder": "Schrijf een testprompt en verwijs naar de velden op uw kaart met {{braces}}.",
     "saveToCard": "Opslaan op kaart",
     "savedTo": "Opgeslagen in {{field}}",
@@ -376,7 +376,9 @@
     "testResult": "Testresultaat",
     "textToSpeak": "Tekst om uit te spreken",
     "viewResult": "Bekijk resultaat",
-    "wrongNoteType": "Verkeerd notitietype"
+    "wrongNoteType": "Verkeerd notitietype",
+    "or": "of",
+    "selectCardInBrowser": "Selecteer een kaart in de browser om te testen"
   },
   "subscription": {
     "accessEnds": "Toegang eindigt",

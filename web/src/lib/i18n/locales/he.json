@@ -260,6 +260,7 @@
     "image": {
       "cannotFindModel": "בקטלוג התמונות חסר דגם {{model}}",
       "defaultModel": "דגם ברירת מחדל",
+      "extrasTip": "התחל עם extras בכיבוי, ואז הפעל אותם אם שדה זקוק לפרטים נוספים.",
       "gptImage25": "הטוב ביותר בכל תחום — טקסט חד וסרטוטים נקיים.",
       "loadingLabel": "טוען את הגדרות ברירת המחדל של תמונה",
       "loadingTitle": "הגדרות תמונה ברירת מחדל",
@@ -272,8 +273,7 @@
       "saveError": "לא ניתן לשמור את ברירת המחדל של התמונה",
       "subtitle": "הדגם שבו משתמשת התמונה שלך Smart Fields, אלא אם כן שדה מצמיד את שלו.",
       "title": "הגדרות תמונה ברירת מחדל",
-      "zImageTurbo": "הכי מהיר והכי זול.",
-      "extrasTip": "התחל עם extras בכיבוי, ואז הפעל אותם אם שדה זקוק לפרטים נוספים."
+      "zImageTurbo": "הכי מהיר והכי זול."
     },
     "layout": {
       "saveChanges": "שמור שינויים",
@@ -336,11 +336,11 @@
     "doubleCost": "עלות כפולה",
     "extras": "תוספות",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "איכות מקסימלית",
+    "maxQualityDescription": "חד וניקי יותר, במיוחד עבור תוויות קטנות.",
     "noExtraCost": "ללא עלות נוספת",
     "richerDetail": "פרט עשיר יותר",
-    "richerDetailDescription": "מפורט יותר, סצנות מלאות יותר. קצת יותר איטי.",
-    "maxQuality": "איכות מקסימלית",
-    "maxQualityDescription": "חד וניקי יותר, במיוחד עבור תוויות קטנות."
+    "richerDetailDescription": "מפורט יותר, סצנות מלאות יותר. קצת יותר איטי."
   },
   "promptTester": {
     "anotherNoteType": "סוג פתק אחר",
@@ -354,6 +354,7 @@
     },
     "fieldRunsOnNoteType": "שדה זה פועל על <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "תצוגה מקדימה של תמונה שנוצרה",
+    "generatedIn": "נוצר ב-{{seconds}}s",
     "missingFieldsTitle_one": "שדה חסר",
     "missingFieldsTitle_two": "שני שדות חסרים",
     "missingFieldsTitle_other": "שדות חסרים",
@@ -363,7 +364,6 @@
     "notesSelected_one": "הערה {{count}} נבחרה - צמצם אותה לאחד.",
     "notesSelected_two": "{{count}} הערות נבחרו - צמצמו אותן לאחת.",
     "notesSelected_other": "הערות {{count}} שנבחרו - צמצמו אותו לאחד.",
-    "pickCard": "בחר כרטיס בדפדפן Anki",
     "promptPlaceholder": "כתוב הודעת בדיקה, תוך התייחסות לשדות בכרטיס שלך עם {{braces}}.",
     "saveToCard": "שמור בכרטיס",
     "savedTo": "נשמר ב-{{field}}",
@@ -382,7 +382,9 @@
     "testResult": "תוצאת הבדיקה",
     "textToSpeak": "טקסט לדבר",
     "viewResult": "צפה בתוצאה",
-    "wrongNoteType": "סוג פתק שגוי"
+    "wrongNoteType": "סוג פתק שגוי",
+    "or": "או",
+    "selectCardInBrowser": "בחרו כרטיס בדפדפן לבדיקה"
   },
   "subscription": {
     "accessEnds": "הגישה מסתיימת",

@@ -76,7 +76,7 @@ const testerControls = (
   isTesting: false,
   prompt: "Translate {{Front}}",
   promptLabel: "Prompt",
-  provenance: "Auto",
+  provenance: { extras: [], primary: "Auto" },
   requiredNoteTypeId: 10,
   resultNode: null,
   resultToken: null,

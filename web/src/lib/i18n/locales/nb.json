@@ -259,6 +259,7 @@
     "image": {
       "cannotFindModel": "Bildekatalogen mangler modell {{model}}",
       "defaultModel": "Standardmodell",
+      "extrasTip": "Start med extras av, og slå dem på hvis et felt trenger mer detalj.",
       "gptImage25": "best all-rounder — sharp text, clean diagrams.",
       "loadingLabel": "Laster inn standard bildeinnstillinger",
       "loadingTitle": "Standard bildeinnstillinger",
@@ -271,8 +272,7 @@
       "saveError": "Kunne ikke lagre bildestandarder",
       "subtitle": "Modellen bildet ditt Smart Fields bruker med mindre et felt fester sitt eget.",
       "title": "Standard bildeinnstillinger",
-      "zImageTurbo": "raskest og billigst.",
-      "extrasTip": "Start med extras av, og slå dem på hvis et felt trenger mer detalj."
+      "zImageTurbo": "raskest og billigst."
     },
     "layout": {
       "saveChanges": "Lagre endringer",
@@ -334,11 +334,11 @@
     "doubleCost": "2× kostnad",
     "extras": "Ekstra",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maksimal kvalitet",
+    "maxQualityDescription": "Skarpere og renere, spesielt små etiketter.",
     "noExtraCost": "Ingen ekstra kostnad",
     "richerDetail": "Rikere detaljer",
-    "richerDetailDescription": "Mer detaljert, fullere scener. Litt tregere.",
-    "maxQuality": "Maksimal kvalitet",
-    "maxQualityDescription": "Skarpere og renere, spesielt små etiketter."
+    "richerDetailDescription": "Mer detaljert, fullere scener. Litt tregere."
   },
   "promptTester": {
     "anotherNoteType": "en annen notetype",
@@ -352,13 +352,13 @@
     },
     "fieldRunsOnNoteType": "Dette feltet kjører på <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Generert bildeforhåndsvisning",
+    "generatedIn": "Generert på {{seconds}}s",
     "missingFieldsTitle_one": "Manglende felt",
     "missingFieldsTitle_other": "Manglende felt",
     "needsFields_one": "Trenger {{count}}-feltet",
     "needsFields_other": "Trenger {{count}}-felt",
     "notesSelected_one": "{{count}}-note valgt — avgrens den til én.",
     "notesSelected_other": "{{count}}-noter valgt — begrense den til én.",
-    "pickCard": "Velg et kort i Anki-nettleseren",
     "promptPlaceholder": "Skriv en testmelding, og referer til feltene på kortet ditt med {{braces}}.",
     "saveToCard": "Lagre på kort",
     "savedTo": "Lagret i {{field}}",
@@ -376,7 +376,9 @@
     "testResult": "Testresultat",
     "textToSpeak": "Tekst for å snakke",
     "viewResult": "Se resultatet",
-    "wrongNoteType": "Feil notetype"
+    "wrongNoteType": "Feil notetype",
+    "or": "eller",
+    "selectCardInBrowser": "Velg et kort i nettleseren for å teste"
   },
   "subscription": {
     "accessEnds": "Tilgang slutter",

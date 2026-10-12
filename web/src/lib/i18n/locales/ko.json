@@ -258,6 +258,7 @@
     "image": {
       "cannotFindModel": "이미지 카탈로그에 모델 {{model}}이(가) 없습니다.",
       "defaultModel": "기본 모델",
+      "extrasTip": "기본적으로 extras를 끄고 시작한 후, 필드에서 더 자세한 정보가 필요하면 켜세요.",
       "gptImage25": "최고의 올라운더 — 선명한 텍스트, 깔끔한 다이어그램.",
       "loadingLabel": "기본 이미지 설정 로드",
       "loadingTitle": "기본 이미지 설정",
@@ -270,8 +271,7 @@
       "saveError": "이미지 기본값을 저장할 수 없습니다.",
       "subtitle": "필드가 자체적으로 고정되지 않는 한 이미지 Smart Fields가 사용하는 모델입니다.",
       "title": "기본 이미지 설정",
-      "zImageTurbo": "가장 빠르고 저렴합니다.",
-      "extrasTip": "기본적으로 extras를 끄고 시작한 후, 필드에서 더 자세한 정보가 필요하면 켜세요."
+      "zImageTurbo": "가장 빠르고 저렴합니다."
     },
     "layout": {
       "saveChanges": "변경사항 저장",
@@ -332,11 +332,11 @@
     "doubleCost": "2× 비용",
     "extras": "추가 옵션",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "최고 품질",
+    "maxQualityDescription": "더 선명하고 깔끔함, 특히 작은 레이블에 효과적입니다.",
     "noExtraCost": "추가 비용 없음",
     "richerDetail": "더 풍부한 디테일",
-    "richerDetailDescription": "더 상세한, 완성도 높은 이미지. 약간 더 느립니다.",
-    "maxQuality": "최고 품질",
-    "maxQualityDescription": "더 선명하고 깔끔함, 특히 작은 레이블에 효과적입니다."
+    "richerDetailDescription": "더 상세한, 완성도 높은 이미지. 약간 더 느립니다."
   },
   "promptTester": {
     "anotherNoteType": "다른 메모 유형",
@@ -350,10 +350,10 @@
     },
     "fieldRunsOnNoteType": "이 필드는 <noteTypeName>{{noteType}}</noteTypeName>에서 실행됩니다",
     "generatedImagePreview": "생성된 이미지 미리보기",
+    "generatedIn": "{{seconds}}s에 생성됨",
     "missingFieldsTitle_other": "누락된 필드",
     "needsFields_other": "{{count}} 필드가 필요합니다.",
     "notesSelected_other": "{{count}} 메모가 선택되었습니다. 1개로 범위를 좁힙니다.",
-    "pickCard": "Anki 브라우저에서 카드를 선택하세요",
     "promptPlaceholder": "{{braces}}를 사용하여 카드의 필드를 참조하여 테스트 프롬프트를 작성하세요.",
     "saveToCard": "카드에 저장",
     "savedTo": "{{field}}에 저장되었습니다.",
@@ -370,7 +370,9 @@
     "testResult": "테스트 결과",
     "textToSpeak": "말할 텍스트",
     "viewResult": "결과 보기",
-    "wrongNoteType": "잘못된 메모 유형"
+    "wrongNoteType": "잘못된 메모 유형",
+    "or": "또는",
+    "selectCardInBrowser": "테스트하려면 브라우저에서 카드를 선택하세요"
   },
   "subscription": {
     "accessEnds": "액세스 종료",

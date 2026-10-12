@@ -263,6 +263,7 @@
     "image": {
       "cannotFindModel": "كتالوج الصور يفتقد الطراز {{model}}",
       "defaultModel": "النموذج الافتراضي",
+      "extrasTip": "ابدأ بإيقاف الإضافات، ثم قم بتفعيلها إذا كان الحقل يحتاج إلى المزيد من التفاصيل.",
       "gptImage25": "الخيار الأمثل — نصوص حادة، رسوم بيانية نظيفة.",
       "loadingLabel": "جارٍ تحميل إعدادات الصورة الافتراضية",
       "loadingTitle": "إعدادات الصورة الافتراضية",
@@ -275,8 +276,7 @@
       "saveError": "لا يمكن حفظ الإعدادات الافتراضية للصورة",
       "subtitle": "النموذج الذي تستخدمه صورتك Smart Fields ما لم يتم تثبيت حقل خاص به.",
       "title": "إعدادات الصورة الافتراضية",
-      "zImageTurbo": "الأسرع والأرخص.",
-      "extrasTip": "ابدأ بإيقاف الإضافات، ثم قم بتفعيلها إذا كان الحقل يحتاج إلى المزيد من التفاصيل."
+      "zImageTurbo": "الأسرع والأرخص."
     },
     "layout": {
       "saveChanges": "حفظ التغييرات",
@@ -342,11 +342,11 @@
     "doubleCost": "تكلفة مضاعفة",
     "extras": "إضافيات",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "أقصى جودة",
+    "maxQualityDescription": "أكثر حدة ووضوحاً، خاصة للنصوص الصغيرة.",
     "noExtraCost": "بدون تكلفة إضافية",
     "richerDetail": "تفاصيل أغنى",
-    "richerDetailDescription": "أكثر تفصيلاً وأكمل للمشاهد. أبطأ قليلاً.",
-    "maxQuality": "أقصى جودة",
-    "maxQualityDescription": "أكثر حدة ووضوحاً، خاصة للنصوص الصغيرة."
+    "richerDetailDescription": "أكثر تفصيلاً وأكمل للمشاهد. أبطأ قليلاً."
   },
   "promptTester": {
     "anotherNoteType": "نوع ملاحظة آخر",
@@ -360,6 +360,7 @@
     },
     "fieldRunsOnNoteType": "هذا الحقل يعمل على <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "معاينة الصورة التي تم إنشاؤها",
+    "generatedIn": "تم إنشاؤه في {{seconds}}s",
     "missingFieldsTitle_zero": "لا توجد حقول مفقودة",
     "missingFieldsTitle_one": "الحقل مفقود",
     "missingFieldsTitle_two": "حقلان مفقودان",
@@ -378,7 +379,6 @@
     "notesSelected_few": "تم تحديد {{count}} ملاحظات — اختر واحدة.",
     "notesSelected_many": "تم تحديد {{count}} ملاحظة — اختر واحدة.",
     "notesSelected_other": "تم تحديد ملاحظات {{count}} - قم بتضييقها إلى واحدة.",
-    "pickCard": "اختر بطاقة في متصفح Anki",
     "promptPlaceholder": "اكتب موجه اختبار، مع الإشارة إلى الحقول الموجودة على بطاقتك باستخدام {{braces}}.",
     "saveToCard": "حفظ إلى البطاقة",
     "savedTo": "تم الحفظ في {{field}}",
@@ -400,7 +400,9 @@
     "testResult": "نتيجة الاختبار",
     "textToSpeak": "النص للتحدث",
     "viewResult": "عرض النتيجة",
-    "wrongNoteType": "نوع ملاحظة خاطئ"
+    "wrongNoteType": "نوع ملاحظة خاطئ",
+    "or": "أو",
+    "selectCardInBrowser": "حدد بطاقة في المتصفح للاختبار"
   },
   "subscription": {
     "accessEnds": "انتهاء الوصول",

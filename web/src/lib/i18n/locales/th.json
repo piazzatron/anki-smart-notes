@@ -258,6 +258,7 @@
     "image": {
       "cannotFindModel": "แค็ตตาล็อกรูปภาพไม่มีโมเดล {{model}}",
       "defaultModel": "โมเดลเริ่มต้น",
+      "extrasTip": "เริ่มต้นโดยปิดส่วนเพิ่มเติม จากนั้นเปิดใช้หากต้องการรายละเอียดเพิ่มเติมในฟิลด์",
       "gptImage25": "ตัวเลือกที่ดีที่สุดสำหรับทุกกรณี — ข้อความชัด ไดอะแกรมสะอาด",
       "loadingLabel": "กำลังโหลดการตั้งค่ารูปภาพเริ่มต้น",
       "loadingTitle": "การตั้งค่าภาพเริ่มต้น",
@@ -270,8 +271,7 @@
       "saveError": "ไม่สามารถบันทึกค่าเริ่มต้นของรูปภาพได้",
       "subtitle": "โมเดลที่อิมเมจของคุณ Smart Fields ใช้ เว้นแต่ว่าฟิลด์จะปักหมุดตัวมันเอง",
       "title": "การตั้งค่าภาพเริ่มต้น",
-      "zImageTurbo": "เร็วที่สุดและถูกที่สุด",
-      "extrasTip": "เริ่มต้นโดยปิดส่วนเพิ่มเติม จากนั้นเปิดใช้หากต้องการรายละเอียดเพิ่มเติมในฟิลด์"
+      "zImageTurbo": "เร็วที่สุดและถูกที่สุด"
     },
     "layout": {
       "saveChanges": "บันทึกการเปลี่ยนแปลง",
@@ -332,11 +332,11 @@
     "doubleCost": "ราคา 2 เท่า",
     "extras": "ตัวเลือกเพิ่มเติม",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "คุณภาพสูงสุด",
+    "maxQualityDescription": "ชัดเจนและสะอาดยิ่งขึ้น โดยเฉพาะป้ายกำกับขนาดเล็ก",
     "noExtraCost": "ไม่มีค่าใช้พิเศษ",
     "richerDetail": "รายละเอียดที่풍풍ชื่น",
-    "richerDetailDescription": "รายละเอียดมากขึ้น ฉากที่สมบูรณ์ยิ่งขึ้น ช้าลงเล็กน้อย",
-    "maxQuality": "คุณภาพสูงสุด",
-    "maxQualityDescription": "ชัดเจนและสะอาดยิ่งขึ้น โดยเฉพาะป้ายกำกับขนาดเล็ก"
+    "richerDetailDescription": "รายละเอียดมากขึ้น ฉากที่สมบูรณ์ยิ่งขึ้น ช้าลงเล็กน้อย"
   },
   "promptTester": {
     "anotherNoteType": "บันทึกประเภทอื่น",
@@ -350,10 +350,10 @@
     },
     "fieldRunsOnNoteType": "ฟิลด์นี้ทำงานบน <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "ตัวอย่างภาพที่สร้างขึ้น",
+    "generatedIn": "สร้างใน {{seconds}}s",
     "missingFieldsTitle_other": "ช่องที่ขาดหายไป",
     "needsFields_other": "ต้องการฟิลด์ {{count}}",
     "notesSelected_other": "โน้ต {{count}} ที่เลือก — จำกัดให้เหลือหนึ่งโน้ต",
-    "pickCard": "เลือกการ์ดในเบราว์เซอร์ Anki",
     "promptPlaceholder": "เขียนพรอมต์ทดสอบโดยอ้างอิงฟิลด์บนการ์ดของคุณด้วย {{braces}}",
     "saveToCard": "บันทึกลงในการ์ด",
     "savedTo": "บันทึกไปที่ {{field}} แล้ว",
@@ -370,7 +370,9 @@
     "testResult": "ผลการทดสอบ",
     "textToSpeak": "ข้อความที่จะพูด",
     "viewResult": "ดูผลลัพธ์",
-    "wrongNoteType": "ประเภทบันทึกไม่ถูกต้อง"
+    "wrongNoteType": "ประเภทบันทึกไม่ถูกต้อง",
+    "or": "หรือ",
+    "selectCardInBrowser": "เลือกการ์ดในเบราว์เซอร์เพื่อทดสอบ"
   },
   "subscription": {
     "accessEnds": "การเข้าถึงสิ้นสุด",

@@ -259,6 +259,7 @@
     "image": {
       "cannotFindModel": "Beeldkatalogus ontbreek model {{model}}",
       "defaultModel": "Verstek model",
+      "extrasTip": "Begin met ekstras af, en skakel dit aan as 'n veld meer detail nodig het.",
       "gptImage25": "beste alleskunner — skerp teks, skoon diagramme.",
       "loadingLabel": "Laai tans verstekbeeldinstellings",
       "loadingTitle": "Standaard prentinstellings",
@@ -271,8 +272,7 @@
       "saveError": "Kon nie prentverstekings stoor nie",
       "subtitle": "Die model wat jou beeld Smart Fields gebruik, tensy 'n veld sy eie vaspen.",
       "title": "Standaard prentinstellings",
-      "zImageTurbo": "vinnigste en goedkoopste.",
-      "extrasTip": "Begin met ekstras af, en skakel dit aan as 'n veld meer detail nodig het."
+      "zImageTurbo": "vinnigste en goedkoopste."
     },
     "layout": {
       "saveChanges": "Stoor veranderinge",
@@ -334,11 +334,11 @@
     "doubleCost": "2× koste",
     "extras": "Ekstra's",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maksimum kwaliteit",
+    "maxQualityDescription": "Skerper en skoner, veral klein etikette.",
     "noExtraCost": "Geen ekstra koste",
     "richerDetail": "Ryker detail",
-    "richerDetailDescription": "Meer gedetailleerd, voller tonele. Effens stadiger.",
-    "maxQuality": "Maksimum kwaliteit",
-    "maxQualityDescription": "Skerper en skoner, veral klein etikette."
+    "richerDetailDescription": "Meer gedetailleerd, voller tonele. Effens stadiger."
   },
   "promptTester": {
     "anotherNoteType": "'n ander noottipe",
@@ -352,13 +352,13 @@
     },
     "fieldRunsOnNoteType": "Hierdie veld loop op <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Gegenereerde prentvoorskou",
+    "generatedIn": "Gegenereer in {{seconds}}s",
     "missingFieldsTitle_one": "Ontbrekende veld",
     "missingFieldsTitle_other": "Ontbrekende velde",
     "needsFields_one": "Benodig {{count}} veld",
     "needsFields_other": "Benodig {{count}} velde",
     "notesSelected_one": "{{count}} noot gekies - maak dit tot een beperk.",
     "notesSelected_other": "{{count}} notas gekies - maak dit tot een beperk.",
-    "pickCard": "Kies 'n kaart in die Anki-blaaier",
     "promptPlaceholder": "Skryf 'n toetsaanwysing, met verwysing na velde op jou kaart met {{braces}}.",
     "saveToCard": "Stoor op kaart",
     "savedTo": "Gestoor na {{field}}",
@@ -376,7 +376,9 @@
     "testResult": "Toetsresultaat",
     "textToSpeak": "Teks om te praat",
     "viewResult": "Bekyk resultaat",
-    "wrongNoteType": "Verkeerde nota tipe"
+    "wrongNoteType": "Verkeerde nota tipe",
+    "or": "of",
+    "selectCardInBrowser": "Kies 'n kaart in die bladeraar om te toets"
   },
   "subscription": {
     "accessEnds": "Toegang eindig",

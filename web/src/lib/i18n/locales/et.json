@@ -259,6 +259,7 @@
     "image": {
       "cannotFindModel": "Piltide kataloogist puudub mudel {{model}}",
       "defaultModel": "Vaikimisi mudel",
+      "extrasTip": "Alustage ekstrastega välja lülitatuna, seejärel lülitage need sisse, kui väli nõuab rohkem detaile.",
       "gptImage25": "parim universaalne valik — terav tekst, puhtad diagrammid.",
       "loadingLabel": "Pildi vaikeseadete laadimine",
       "loadingTitle": "Pildi vaikesätted",
@@ -271,8 +272,7 @@
       "saveError": "Pildi vaikeseadeid ei saanud salvestada",
       "subtitle": "Mudel, mida teie pilt Smart Fields kasutab, välja arvatud juhul, kui väli kinnitab oma.",
       "title": "Pildi vaikesätted",
-      "zImageTurbo": "kiireim ja odavaim.",
-      "extrasTip": "Alustage ekstrastega välja lülitatuna, seejärel lülitage need sisse, kui väli nõuab rohkem detaile."
+      "zImageTurbo": "kiireim ja odavaim."
     },
     "layout": {
       "saveChanges": "Salvestage muudatused",
@@ -334,11 +334,11 @@
     "doubleCost": "2× kulu",
     "extras": "Täiendused",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maksimaalne kvaliteet",
+    "maxQualityDescription": "Teravamad ja puhtamad, eriti väikesed sildid.",
     "noExtraCost": "Ilma lisatasuita",
     "richerDetail": "Rohkem detaile",
-    "richerDetailDescription": "Üksikasjalikum, täielikumad stseenid. Pisut aeglasem.",
-    "maxQuality": "Maksimaalne kvaliteet",
-    "maxQualityDescription": "Teravamad ja puhtamad, eriti väikesed sildid."
+    "richerDetailDescription": "Üksikasjalikum, täielikumad stseenid. Pisut aeglasem."
   },
   "promptTester": {
     "anotherNoteType": "teist nooditüüpi",
@@ -352,13 +352,13 @@
     },
     "fieldRunsOnNoteType": "See väli töötab tüübil <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Loodud pildi eelvaade",
+    "generatedIn": "Loodud {{seconds}}s jooksul",
     "missingFieldsTitle_one": "Puuduv väli",
     "missingFieldsTitle_other": "Puuduvad väljad",
     "needsFields_one": "Vajab välja {{count}}",
     "needsFields_other": "Vajab {{count}} välju",
     "notesSelected_one": "{{count}} märkus on valitud – kitsendage see ühele.",
     "notesSelected_other": "Valitud {{count}} märkmed – kitsendage see ühele.",
-    "pickCard": "Valige brauseris Anki kaart",
     "promptPlaceholder": "Kirjutage {{braces}}-ga oma kaardi väljadele viidates testiviis.",
     "saveToCard": "Salvesta kaardile",
     "savedTo": "Salvestatud {{field}}",
@@ -376,7 +376,9 @@
     "testResult": "Testi tulemus",
     "textToSpeak": "Tekst kõnelemiseks",
     "viewResult": "Vaata tulemust",
-    "wrongNoteType": "Vale märkme tüüp"
+    "wrongNoteType": "Vale märkme tüüp",
+    "or": "või",
+    "selectCardInBrowser": "Testimiseks vali brauseris kaart"
   },
   "subscription": {
     "accessEnds": "Juurdepääs lõpeb",

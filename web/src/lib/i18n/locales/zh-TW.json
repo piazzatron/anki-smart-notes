@@ -258,6 +258,7 @@
     "image": {
       "cannotFindModel": "影像目錄缺少型號 {{model}}",
       "defaultModel": "預設型號",
+      "extrasTip": "建議先關閉額外選項，如果某個欄位需要更多細節再開啟。",
       "gptImage25": "全能選手 — 銳利的文字、整潔的圖表。",
       "loadingLabel": "載入預設圖像設定",
       "loadingTitle": "預設影像設定",
@@ -270,8 +271,7 @@
       "saveError": "無法儲存影像預設值",
       "subtitle": "您的圖像 Smart Fields 使用的模型，除非欄位固定自己的模型。",
       "title": "預設影像設定",
-      "zImageTurbo": "最快且最便宜。",
-      "extrasTip": "建議先關閉額外選項，如果某個欄位需要更多細節再開啟。"
+      "zImageTurbo": "最快且最便宜。"
     },
     "layout": {
       "saveChanges": "儲存變更",
@@ -332,11 +332,11 @@
     "doubleCost": "2× 成本",
     "extras": "額外選項",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "最高品質",
+    "maxQualityDescription": "更清晰細緻，特別是小標籤部分。",
     "noExtraCost": "無額外成本",
     "richerDetail": "更豐富的細節",
-    "richerDetailDescription": "更詳細、更飽滿的場景。速度稍慢。",
-    "maxQuality": "最高品質",
-    "maxQualityDescription": "更清晰細緻，特別是小標籤部分。"
+    "richerDetailDescription": "更詳細、更飽滿的場景。速度稍慢。"
   },
   "promptTester": {
     "anotherNoteType": "另一種筆記類型",
@@ -350,10 +350,10 @@
     },
     "fieldRunsOnNoteType": "此欄位在 <noteTypeName>{{noteType}}</noteTypeName> 上執行",
     "generatedImagePreview": "生成的圖像預覽",
+    "generatedIn": "生成於 {{seconds}}s",
     "missingFieldsTitle_other": "缺失字段",
     "needsFields_other": "需要 {{count}} 字段",
     "notesSelected_other": "選定的 {{count}} 音符 - 將其縮小到一個。",
-    "pickCard": "在 Anki 瀏覽器中選擇一張卡",
     "promptPlaceholder": "使用 {{braces}} 撰寫測試提示，引用卡片上的欄位。",
     "saveToCard": "儲存到卡",
     "savedTo": "儲存到 {{field}}",
@@ -370,7 +370,9 @@
     "testResult": "測試結果",
     "textToSpeak": "文字說話",
     "viewResult": "查看結果",
-    "wrongNoteType": "註釋類型錯誤"
+    "wrongNoteType": "註釋類型錯誤",
+    "or": "或",
+    "selectCardInBrowser": "請在瀏覽器中選取一張卡片以進行測試"
   },
   "subscription": {
     "accessEnds": "存取權限結束",

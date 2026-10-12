@@ -259,6 +259,7 @@
     "image": {
       "cannotFindModel": "Kuvaluettelosta puuttuu malli {{model}}",
       "defaultModel": "Oletusmalli",
+      "extrasTip": "Aloita lisäominaisuuksista pois, ota ne sitten käyttöön, jos kenttä tarvitsee lisätietoja.",
       "gptImage25": "paras yleiskäyttöjärjestelmä — terävä teksti, siistit kaaviot.",
       "loadingLabel": "Ladataan oletuskuvaasetuksia",
       "loadingTitle": "Kuvan oletusasetukset",
@@ -271,8 +272,7 @@
       "saveError": "Kuvan oletusasetuksia ei voitu tallentaa",
       "subtitle": "Smart Fields-kuvasi käyttämä malli, ellei kenttä ole nastalla omaa.",
       "title": "Kuvan oletusasetukset",
-      "zImageTurbo": "nopein ja halvin.",
-      "extrasTip": "Aloita lisäominaisuuksista pois, ota ne sitten käyttöön, jos kenttä tarvitsee lisätietoja."
+      "zImageTurbo": "nopein ja halvin."
     },
     "layout": {
       "saveChanges": "Tallenna muutokset",
@@ -334,11 +334,11 @@
     "doubleCost": "2× kustannukset",
     "extras": "Lisäominaisuudet",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maksimaalinen laatu",
+    "maxQualityDescription": "Terävämpi ja puhtaampi, erityisesti pienet nimiöt.",
     "noExtraCost": "Ei lisäkustannuksia",
     "richerDetail": "Rikkaampi yksityiskohtaisuus",
-    "richerDetailDescription": "Yksityiskohtaisempi, täydempi kohtaukset. Hieman hitaampi.",
-    "maxQuality": "Maksimaalinen laatu",
-    "maxQualityDescription": "Terävämpi ja puhtaampi, erityisesti pienet nimiöt."
+    "richerDetailDescription": "Yksityiskohtaisempi, täydempi kohtaukset. Hieman hitaampi."
   },
   "promptTester": {
     "anotherNoteType": "toinen muistiinpanotyyppi",
@@ -352,13 +352,13 @@
     },
     "fieldRunsOnNoteType": "Tämä kenttä toimii muistiinpanotyypissä <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Luotu kuvan esikatselu",
+    "generatedIn": "Luotu {{seconds}}s:ssa",
     "missingFieldsTitle_one": "Puuttuva kenttä",
     "missingFieldsTitle_other": "Puuttuvat kentät",
     "needsFields_one": "Tarvitsee {{count}}-kentän",
     "needsFields_other": "Tarvitsee {{count}}-kentät",
     "notesSelected_one": "{{count}} muistiinpano valittu – rajaa se yhteen.",
     "notesSelected_other": "{{count}} muistiinpanot valittu – rajaa se yhteen.",
-    "pickCard": "Valitse kortti Anki-selaimesta",
     "promptPlaceholder": "Kirjoita {{braces}}-kortillesi testikehote, jossa viitataan kenttiin.",
     "saveToCard": "Tallenna kortille",
     "savedTo": "Tallennettu tiedostoon {{field}}",
@@ -376,7 +376,9 @@
     "testResult": "Testitulos",
     "textToSpeak": "Teksti puhuttavaksi",
     "viewResult": "Näytä tulos",
-    "wrongNoteType": "Väärä muistiinpanotyyppi"
+    "wrongNoteType": "Väärä muistiinpanotyyppi",
+    "or": "tai",
+    "selectCardInBrowser": "Valitse testattava kortti selaimessa"
   },
   "subscription": {
     "accessEnds": "Pääsy loppuu",

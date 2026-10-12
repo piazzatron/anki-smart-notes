@@ -20,6 +20,8 @@
 import type { getDefaultUsage } from "./defaultUsage"
 import { useTranslation } from "react-i18next"
 
+import { Pill } from "@/components/ui/Pill"
+
 type DefaultUsage = ReturnType<typeof getDefaultUsage>
 
 /** How far this default reaches, for the screen header. A default no field uses is not
@@ -29,9 +31,5 @@ export const DefaultUsagePill = ({ usage }: { usage: DefaultUsage }) => {
 
   if (usage.following === 0) return null
 
-  return (
-    <span className="shrink-0 rounded-full border border-white/[0.08] bg-white/[0.025] px-3 py-1.5 text-[10.5px] text-zinc-400">
-      {t("defaults.usage.fields", { count: usage.following })}
-    </span>
-  )
+  return <Pill>{t("defaults.usage.fields", { count: usage.following })}</Pill>
 }

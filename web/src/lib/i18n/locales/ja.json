@@ -258,6 +258,7 @@
     "image": {
       "cannotFindModel": "画像カタログにモデル {{model}} がありません",
       "defaultModel": "デフォルトモデル",
+      "extrasTip": "最初はエクストラをオフにして、フィールドに詳細が必要な場合はオンにしてください。",
       "gptImage25": "万能型 — シャープなテキスト、クリーンな図表。",
       "loadingLabel": "デフォルトの画像設定をロードする",
       "loadingTitle": "デフォルトの画像設定",
@@ -270,8 +271,7 @@
       "saveError": "画像のデフォルトを保存できませんでした",
       "subtitle": "フィールドが独自に固定していない限り、画像 Smart Fields が使用するモデル。",
       "title": "デフォルトの画像設定",
-      "zImageTurbo": "最速かつ最安。",
-      "extrasTip": "最初はエクストラをオフにして、フィールドに詳細が必要な場合はオンにしてください。"
+      "zImageTurbo": "最速かつ最安。"
     },
     "layout": {
       "saveChanges": "変更を保存する",
@@ -332,11 +332,11 @@
     "doubleCost": "2倍のコスト",
     "extras": "エクストラ",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "最高品質",
+    "maxQualityDescription": "より鮮明でクリーンな画像、特に小さなラベルに対応します。",
     "noExtraCost": "追加コストなし",
     "richerDetail": "リッチなディテール",
-    "richerDetailDescription": "より詳細で豊かなシーン。少し遅くなります。",
-    "maxQuality": "最高品質",
-    "maxQualityDescription": "より鮮明でクリーンな画像、特に小さなラベルに対応します。"
+    "richerDetailDescription": "より詳細で豊かなシーン。少し遅くなります。"
   },
   "promptTester": {
     "anotherNoteType": "別のノートタイプ",
@@ -350,10 +350,10 @@
     },
     "fieldRunsOnNoteType": "このフィールドは <noteTypeName>{{noteType}}</noteTypeName> で実行されます",
     "generatedImagePreview": "生成された画像のプレビュー",
+    "generatedIn": "{{seconds}}s で生成されました",
     "missingFieldsTitle_other": "欠落しているフィールド",
     "needsFields_other": "{{count}} フィールドが必要です",
     "notesSelected_other": "{{count}} ノートが選択されています — 1 つに絞り込みます。",
-    "pickCard": "Anki ブラウザでカードを選択します",
     "promptPlaceholder": "{{braces}} を使用してカード上のフィールドを参照して、テスト プロンプトを作成します。",
     "saveToCard": "カードに保存",
     "savedTo": "{{field}}に保存されました",
@@ -370,7 +370,9 @@
     "testResult": "試験結果",
     "textToSpeak": "話すテキスト",
     "viewResult": "結果を見る",
-    "wrongNoteType": "ノートの種類が間違っています"
+    "wrongNoteType": "ノートの種類が間違っています",
+    "or": "または",
+    "selectCardInBrowser": "テストするカードをブラウザーで選択してください"
   },
   "subscription": {
     "accessEnds": "アクセス終了",

@@ -259,6 +259,7 @@
     "image": {
       "cannotFindModel": "Պատկերների կատալոգում բացակայում է {{model}} մոդելը",
       "defaultModel": "Կանխադրված մոդել",
+      "extrasTip": "Սկսեք լրավճարները անջատված վիճակով, այնուհետև միացրեք դրանք, եթե դաշտին անհրաժեշտ է ավելի շատ մանրամասն:",
       "gptImage25": "լավագույն բազմակողմանի տարբերակ — սուր տեքստ, մաքուր դիագրամներ:",
       "loadingLabel": "Պատկերի կանխադրված կարգավորումների բեռնում",
       "loadingTitle": "Պատկերի կանխադրված կարգավորումներ",
@@ -271,8 +272,7 @@
       "saveError": "Չհաջողվեց պահպանել պատկերների կանխադրվածները",
       "subtitle": "Ձեր պատկերի Smart Fields մոդելը, եթե դաշտը չի ամրացնում իր սեփականը:",
       "title": "Պատկերի կանխադրված կարգավորումներ",
-      "zImageTurbo": "ամենաարագ և ամենաէժան:",
-      "extrasTip": "Սկսեք լրավճարները անջատված վիճակով, այնուհետև միացրեք դրանք, եթե դաշտին անհրաժեշտ է ավելի շատ մանրամասն:"
+      "zImageTurbo": "ամենաարագ և ամենաէժան:"
     },
     "layout": {
       "saveChanges": "Պահպանել փոփոխությունները",
@@ -334,11 +334,11 @@
     "doubleCost": "2× ծախս",
     "extras": "Extras",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Առավելագույն որակ",
+    "maxQualityDescription": "Սուր և մաքուր, հատկապես փոքր պիտակների համար:",
     "noExtraCost": "Լրացուցիչ ծախս չկա",
     "richerDetail": "Ավելի մանրամասն",
-    "richerDetailDescription": "Ավելի մանրամասն, ամբողջական տեսարաններ: Մի փոքր ավելի դանդաղ:",
-    "maxQuality": "Առավելագույն որակ",
-    "maxQualityDescription": "Սուր և մաքուր, հատկապես փոքր պիտակների համար:"
+    "richerDetailDescription": "Ավելի մանրամասն, ամբողջական տեսարաններ: Մի փոքր ավելի դանդաղ:"
   },
   "promptTester": {
     "anotherNoteType": "մեկ այլ նշումի տեսակ",
@@ -352,13 +352,13 @@
     },
     "fieldRunsOnNoteType": "Այս դաշտը գործում է <noteTypeName>{{noteType}}</noteTypeName> վրա",
     "generatedImagePreview": "Ստեղծված պատկերի նախադիտում",
+    "generatedIn": "Ստեղծվել է {{seconds}}s-ում",
     "missingFieldsTitle_one": "Բացակայող դաշտ",
     "missingFieldsTitle_other": "Բացակայող դաշտեր",
     "needsFields_one": "Անհրաժեշտ է {{count}} դաշտ",
     "needsFields_other": "Անհրաժեշտ են {{count}} դաշտեր",
     "notesSelected_one": "Ընտրված է {{count}} նշումը. նեղացրեք այն մեկին:",
     "notesSelected_other": "{{count}} նշումներ են ընտրված — նեղացրեք այն մեկին:",
-    "pickCard": "Ընտրեք քարտ Anki զննարկիչում",
     "promptPlaceholder": "Գրեք թեստային հուշում, հղում կատարելով ձեր քարտի դաշտերին {{braces}}-ով:",
     "saveToCard": "Պահել քարտում",
     "savedTo": "Պահված է {{field}}-ում",
@@ -376,7 +376,9 @@
     "testResult": "Փորձարկման արդյունք",
     "textToSpeak": "Տեքստ խոսելու համար",
     "viewResult": "Դիտել արդյունքը",
-    "wrongNoteType": "Նշման սխալ տեսակ"
+    "wrongNoteType": "Նշման սխալ տեսակ",
+    "or": "կամ",
+    "selectCardInBrowser": "Ընտրեք քարտ զննարկիչում՝ փորձարկելու համար"
   },
   "subscription": {
     "accessEnds": "Մուտքը ավարտվում է",

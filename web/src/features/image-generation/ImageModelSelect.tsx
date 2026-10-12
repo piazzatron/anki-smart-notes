@@ -24,6 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select"
+import { Pill } from "@/components/ui/Pill"
 import { Toggle } from "@/components/ui/Toggle"
 import { useTranslation } from "react-i18next"
 import { modelLabel } from "@/lib/catalog"
@@ -128,15 +129,9 @@ export const ImageModelSelect = ({
               <div className="min-w-0 flex-1">
                 <p className="flex items-center gap-2 text-xs font-semibold text-zinc-200">
                   {extra.label}
-                  <span
-                    className={`rounded px-1.5 py-px text-[10px] font-semibold whitespace-nowrap ${
-                      extra.premium
-                        ? "bg-indigo/14 text-indigo-soft"
-                        : "bg-white/[0.06] text-ink-muted"
-                    }`}
-                  >
+                  <Pill tone={extra.premium ? "indigo" : "neutral"}>
                     {extra.cost}
-                  </span>
+                  </Pill>
                 </p>
                 <p className="mt-1 text-[11px] leading-4 text-ink-muted">
                   {extra.description}

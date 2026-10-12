@@ -259,6 +259,7 @@
     "image": {
       "cannotFindModel": "Ang katalogo ng larawan ay walang modelong {{model}}",
       "defaultModel": "Default na modelo",
+      "extrasTip": "Magsimula na may extras off, pagkatapos i-turn on kung kailangan ng mas maraming detalye ang isang field.",
       "gptImage25": "best all-rounder — sharp text, clean diagrams.",
       "loadingLabel": "Nilo-load ang Default na Mga Setting ng Larawan",
       "loadingTitle": "Default na Mga Setting ng Larawan",
@@ -271,8 +272,7 @@
       "saveError": "Hindi ma-save ang mga default na larawan",
       "subtitle": "Ang modelong ginagamit ng iyong larawan na Smart Fields maliban kung ang isang field ay nag-pin ng sarili nitong.",
       "title": "Default na Mga Setting ng Larawan",
-      "zImageTurbo": "pinakamabilis at pinakamura.",
-      "extrasTip": "Magsimula na may extras off, pagkatapos i-turn on kung kailangan ng mas maraming detalye ang isang field."
+      "zImageTurbo": "pinakamabilis at pinakamura."
     },
     "layout": {
       "saveChanges": "I-save ang mga pagbabago",
@@ -334,11 +334,11 @@
     "doubleCost": "2× cost",
     "extras": "Mga Karagdagan",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Max quality",
+    "maxQualityDescription": "Mas malinaw at mas malinis, lalo na sa mga maliit na label.",
     "noExtraCost": "Walang dagdag na bayad",
     "richerDetail": "Mas mayamang detalye",
-    "richerDetailDescription": "Mas detalyado, mas puno ng mga eksena. Bahagyang mas mabagal.",
-    "maxQuality": "Max quality",
-    "maxQualityDescription": "Mas malinaw at mas malinis, lalo na sa mga maliit na label."
+    "richerDetailDescription": "Mas detalyado, mas puno ng mga eksena. Bahagyang mas mabagal."
   },
   "promptTester": {
     "anotherNoteType": "ibang uri ng tala",
@@ -352,13 +352,13 @@
     },
     "fieldRunsOnNoteType": "Ang field na ito ay tumatakbo sa <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Nakabuo ng preview ng larawan",
+    "generatedIn": "Nabuo sa {{seconds}}s",
     "missingFieldsTitle_one": "Nawawalang field",
     "missingFieldsTitle_other": "Mga nawawalang field",
     "needsFields_one": "Kailangan ng {{count}} field",
     "needsFields_other": "Nangangailangan ng mga field ng {{count}}",
     "notesSelected_one": "{{count}} note ang napili — paliitin ito sa isa.",
     "notesSelected_other": "{{count}} na mga tala ang napili — paliitin ito sa isa.",
-    "pickCard": "Pumili ng card sa Anki Browser",
     "promptPlaceholder": "Sumulat ng test prompt, nagre-refer sa mga field sa iyong card gamit ang {{braces}}.",
     "saveToCard": "I-save sa card",
     "savedTo": "Na-save sa {{field}}",
@@ -376,7 +376,9 @@
     "testResult": "Resulta ng pagsubok",
     "textToSpeak": "Text para magsalita",
     "viewResult": "Tingnan ang resulta",
-    "wrongNoteType": "Maling uri ng tala"
+    "wrongNoteType": "Maling uri ng tala",
+    "or": "o",
+    "selectCardInBrowser": "Pumili ng card sa browser para subukan"
   },
   "subscription": {
     "accessEnds": "Nagtatapos ang access",

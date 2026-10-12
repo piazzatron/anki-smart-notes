@@ -262,6 +262,7 @@
     "image": {
       "cannotFindModel": "Tá samhail {{model}} in easnamh ar chatalóg na n-íomhánna",
       "defaultModel": "Múnla réamhshocraithe",
+      "extrasTip": "Tosaigh le breiseanna imithe, ansin cuir ar siúl iad má theastaíonn níos mó sonraí ó réimse.",
       "gptImage25": "an roghnóir is fearr ar fad — téacs geal, léaráidí glan.",
       "loadingLabel": "Socruithe Réamhshocraithe Íomhá á Luchtú",
       "loadingTitle": "Socruithe Réamhshocraithe Íomhá",
@@ -274,8 +275,7 @@
       "saveError": "Níorbh fhéidir réamhshocruithe na híomhá a shábháil",
       "subtitle": "Úsáid múnla d’íomhá Smart Fields mura n-úsáideann páirc a chuid féin.",
       "title": "Socruithe Réamhshocraithe Íomhá",
-      "zImageTurbo": "is tapúla agus is saoire.",
-      "extrasTip": "Tosaigh le breiseanna imithe, ansin cuir ar siúl iad má theastaíonn níos mó sonraí ó réimse."
+      "zImageTurbo": "is tapúla agus is saoire."
     },
     "layout": {
       "saveChanges": "Sábháil athruithe",
@@ -340,11 +340,11 @@
     "doubleCost": "2× costas",
     "extras": "Breiseanna",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Uachtar ar an gcáilíochta",
+    "maxQualityDescription": "Níos géire agus níos geal, go háirithe lipéid bheaga.",
     "noExtraCost": "Gan costas breise",
     "richerDetail": "Saibhre sonraí",
-    "richerDetailDescription": "Níos mionsonraithe, radhairc níos líofa. Beagáinín níos moille.",
-    "maxQuality": "Uachtar ar an gcáilíochta",
-    "maxQualityDescription": "Níos géire agus níos geal, go háirithe lipéid bheaga."
+    "richerDetailDescription": "Níos mionsonraithe, radhairc níos líofa. Beagáinín níos moille."
   },
   "promptTester": {
     "anotherNoteType": "cineál nóta eile",
@@ -358,6 +358,7 @@
     },
     "fieldRunsOnNoteType": "Rithíonn an réimse seo ar <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Réamhamharc íomhá ginte",
+    "generatedIn": "Ginte in {{seconds}}s",
     "missingFieldsTitle_one": "páirc ar iarraidh",
     "missingFieldsTitle_two": "Réimsí ar iarraidh",
     "missingFieldsTitle_few": "Réimsí ar iarraidh",
@@ -373,7 +374,6 @@
     "notesSelected_few": "Nótaí {{count}} roghnaithe — caolaigh go ceann amháin é.",
     "notesSelected_many": "Nótaí {{count}} roghnaithe — caolaigh go ceann amháin é.",
     "notesSelected_other": "Nótaí {{count}} roghnaithe — caolaigh go ceann amháin é.",
-    "pickCard": "Roghnaigh cárta sa Bhrabhsálaí Anki",
     "promptPlaceholder": "Scríobh leid tástála, ag tagairt do réimsí ar do chárta le {{braces}}.",
     "saveToCard": "Sábháil ar chárta",
     "savedTo": "Sábháilte go {{field}}",
@@ -394,7 +394,9 @@
     "testResult": "Toradh tástála",
     "textToSpeak": "Téacs a labhairt",
     "viewResult": "Féach ar an toradh",
-    "wrongNoteType": "Cineál nóta mícheart"
+    "wrongNoteType": "Cineál nóta mícheart",
+    "or": "nó",
+    "selectCardInBrowser": "Roghnaigh cárta sa bhrabhsálaí le tástáil"
   },
   "subscription": {
     "accessEnds": "Críochnaíonn an rochtain",

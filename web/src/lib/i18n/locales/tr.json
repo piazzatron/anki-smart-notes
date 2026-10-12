@@ -259,6 +259,7 @@
     "image": {
       "cannotFindModel": "Resim kataloğunda {{model}} modeli eksik",
       "defaultModel": "Varsayılan model",
+      "extrasTip": "Ekstraları kapalı başlayın, ardından bir alan daha fazla ayrıntı gerektirirse açın.",
       "gptImage25": "en iyi genel amaçlı — keskin metinler, temiz diyagramlar.",
       "loadingLabel": "Varsayılan Görüntü Ayarlarını Yükleme",
       "loadingTitle": "Varsayılan Görüntü Ayarları",
@@ -271,8 +272,7 @@
       "saveError": "Resim varsayılanları kaydedilemedi",
       "subtitle": "Bir alan kendisini sabitlemediği sürece görüntünüz Smart Fields'in kullandığı model.",
       "title": "Varsayılan Görüntü Ayarları",
-      "zImageTurbo": "en hızlı ve en ucuz.",
-      "extrasTip": "Ekstraları kapalı başlayın, ardından bir alan daha fazla ayrıntı gerektirirse açın."
+      "zImageTurbo": "en hızlı ve en ucuz."
     },
     "layout": {
       "saveChanges": "Değişiklikleri kaydet",
@@ -334,11 +334,11 @@
     "doubleCost": "2× maliyet",
     "extras": "Ekstralar",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maksimum kalite",
+    "maxQualityDescription": "Daha keskin ve temiz, özellikle küçük etiketler için.",
     "noExtraCost": "Ek maliyet yok",
     "richerDetail": "Daha zengin detay",
-    "richerDetailDescription": "Daha detaylı, tam sahneler. Biraz daha yavaş.",
-    "maxQuality": "Maksimum kalite",
-    "maxQualityDescription": "Daha keskin ve temiz, özellikle küçük etiketler için."
+    "richerDetailDescription": "Daha detaylı, tam sahneler. Biraz daha yavaş."
   },
   "promptTester": {
     "anotherNoteType": "başka bir not türü",
@@ -352,13 +352,13 @@
     },
     "fieldRunsOnNoteType": "Bu alan <noteTypeName>{{noteType}}</noteTypeName> üzerinde çalışır",
     "generatedImagePreview": "Oluşturulan resim önizlemesi",
+    "generatedIn": "{{seconds}}s içinde oluşturuldu",
     "missingFieldsTitle_one": "Eksik alan",
     "missingFieldsTitle_other": "Eksik alanlar",
     "needsFields_one": "{{count}} alanına ihtiyaç var",
     "needsFields_other": "{{count}} alanlarına ihtiyaç var",
     "notesSelected_one": "{{count}} notu seçildi — onu bire daraltın.",
     "notesSelected_other": "Seçilen {{count}} notları — onu bire daraltın.",
-    "pickCard": "Anki Tarayıcısında bir kart seçin",
     "promptPlaceholder": "{{braces}} ile kartınızdaki alanlara referans veren bir test istemi yazın.",
     "saveToCard": "Karta kaydet",
     "savedTo": "{{field}}'e kaydedildi",
@@ -376,7 +376,9 @@
     "testResult": "Test sonucu",
     "textToSpeak": "Konuşmak için metin",
     "viewResult": "Sonucu görüntüle",
-    "wrongNoteType": "Yanlış not türü"
+    "wrongNoteType": "Yanlış not türü",
+    "or": "veya",
+    "selectCardInBrowser": "Test etmek için tarayıcıda bir kart seçin"
   },
   "subscription": {
     "accessEnds": "Erişim sona eriyor",

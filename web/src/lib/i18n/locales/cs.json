@@ -261,6 +261,7 @@
     "image": {
       "cannotFindModel": "V katalogu obrázků chybí model {{model}}",
       "defaultModel": "Výchozí model",
+      "extrasTip": "Začněte s vypnutými doplňky, poté je zapněte, pokud pole potřebuje více detailů.",
       "gptImage25": "nejlepší univerzál — ostrý text, čisté diagramy.",
       "loadingLabel": "Načítání výchozího nastavení obrázku",
       "loadingTitle": "Výchozí nastavení obrázku",
@@ -273,8 +274,7 @@
       "saveError": "Nepodařilo se uložit výchozí nastavení obrázku",
       "subtitle": "Model, který váš obrázek používá Smart Fields, pokud pole nepřipíná své vlastní.",
       "title": "Výchozí nastavení obrázku",
-      "zImageTurbo": "nejrychlejší a nejlevnější.",
-      "extrasTip": "Začněte s vypnutými doplňky, poté je zapněte, pokud pole potřebuje více detailů."
+      "zImageTurbo": "nejrychlejší a nejlevnější."
     },
     "layout": {
       "saveChanges": "Uložte změny",
@@ -338,11 +338,11 @@
     "doubleCost": "2× cena",
     "extras": "Extras",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maximální kvalita",
+    "maxQualityDescription": "Ostřejší a čistší, zejména malé popisky.",
     "noExtraCost": "Bez další ceny",
     "richerDetail": "Bohatší detaily",
-    "richerDetailDescription": "Více detailů, plnější scény. Trochu pomalejší.",
-    "maxQuality": "Maximální kvalita",
-    "maxQualityDescription": "Ostřejší a čistší, zejména malé popisky."
+    "richerDetailDescription": "Více detailů, plnější scény. Trochu pomalejší."
   },
   "promptTester": {
     "anotherNoteType": "jiný typ poznámky",
@@ -356,6 +356,7 @@
     },
     "fieldRunsOnNoteType": "Toto pole běží na <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Vygenerovaný náhled obrázku",
+    "generatedIn": "Vygenerováno za {{seconds}}s",
     "missingFieldsTitle_one": "Chybějící pole",
     "missingFieldsTitle_few": "Chybějící pole",
     "missingFieldsTitle_many": "Chybějící pole",
@@ -368,7 +369,6 @@
     "notesSelected_few": "Vybrány {{count}} poznámky — zužte výběr na jednu.",
     "notesSelected_many": "Vybráno {{count}} poznámky — zužte výběr na jednu.",
     "notesSelected_other": "Vybráno {{count}} poznámek — zužte výběr na jednu.",
-    "pickCard": "Vyberte kartu v prohlížeči Anki",
     "promptPlaceholder": "Napište testovací výzvu s odkazem na pole na vaší kartě pomocí {{braces}}.",
     "saveToCard": "Uložit na kartu",
     "savedTo": "Uloženo do {{field}}",
@@ -388,7 +388,9 @@
     "testResult": "Výsledek testu",
     "textToSpeak": "Text k mluvení",
     "viewResult": "Zobrazit výsledek",
-    "wrongNoteType": "Špatný typ poznámky"
+    "wrongNoteType": "Špatný typ poznámky",
+    "or": "nebo",
+    "selectCardInBrowser": "Vyberte kartu v prohlížeči pro otestování"
   },
   "subscription": {
     "accessEnds": "Přístup končí",

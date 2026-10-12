@@ -259,6 +259,7 @@
     "image": {
       "cannotFindModel": "Зургийн каталогид {{model}} загвар байхгүй байна",
       "defaultModel": "Өгөгдмөл загвар",
+      "extrasTip": "Нэмэлт функцийг эхэндээ унтраасан байлгаж, талбарт илүү дэлгэрэнгүй мэдээлэл хэрэгтэй болвол асаана уу.",
       "gptImage25": "сайн сонголт — ил текст, цэвэр диаграмм.",
       "loadingLabel": "Өгөгдмөл зургийн тохиргоог ачаалж байна",
       "loadingTitle": "Өгөгдмөл зургийн тохиргоо",
@@ -271,8 +272,7 @@
       "saveError": "Зургийн өгөгдмөл тохиргоог хадгалж чадсангүй",
       "subtitle": "Талбар нь өөрөө бэхлээгүй тохиолдолд таны зургийн Smart Fields ашиглах загвар.",
       "title": "Өгөгдмөл зургийн тохиргоо",
-      "zImageTurbo": "хамгийн хурдан бөгөөд хямд.",
-      "extrasTip": "Нэмэлт функцийг эхэндээ унтраасан байлгаж, талбарт илүү дэлгэрэнгүй мэдээлэл хэрэгтэй болвол асаана уу."
+      "zImageTurbo": "хамгийн хурдан бөгөөд хямд."
     },
     "layout": {
       "saveChanges": "Өөрчлөлтүүдийг хадгалах",
@@ -334,11 +334,11 @@
     "doubleCost": "2× зардал",
     "extras": "Нэмэлт",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Хамгийн дээд чанар",
+    "maxQualityDescription": "Илүү хөнгөн байдал, ялангуяа жижиг шошгонуудын хувьд.",
     "noExtraCost": "Нэмэлт зардал байхгүй",
     "richerDetail": "Нийлмэл дэлгэрэнгүй",
-    "richerDetailDescription": "Илүү дэлгэрэнгүй, бүтэн сахал. Арай удаан.",
-    "maxQuality": "Хамгийн дээд чанар",
-    "maxQualityDescription": "Илүү хөнгөн байдал, ялангуяа жижиг шошгонуудын хувьд."
+    "richerDetailDescription": "Илүү дэлгэрэнгүй, бүтэн сахал. Арай удаан."
   },
   "promptTester": {
     "anotherNoteType": "өөр тэмдэглэлийн төрөл",
@@ -352,13 +352,13 @@
     },
     "fieldRunsOnNoteType": "Энэ талбар <noteTypeName>{{noteType}}</noteTypeName> дээр ажилладаг",
     "generatedImagePreview": "Үүсгэсэн зургийг урьдчилан харах",
+    "generatedIn": "{{seconds}}s-д үүсгэгдсэн",
     "missingFieldsTitle_one": "Талбар алга",
     "missingFieldsTitle_other": "Дутуу талбарууд",
     "needsFields_one": "{{count}} талбар хэрэгтэй",
     "needsFields_other": "{{count}} талбарууд хэрэгтэй",
     "notesSelected_one": "{{count}} тэмдэглэл сонгосон — нэг болгож нарийсгана.",
     "notesSelected_other": "{{count}} тэмдэглэл сонгосон — нэг болгож нарийсгана.",
-    "pickCard": "Anki хөтчөөс карт сонгоно уу",
     "promptPlaceholder": "Картынхаа талбаруудыг {{braces}}-аар лавлаж, туршилтын сануулга бичнэ үү.",
     "saveToCard": "Карт руу хадгалах",
     "savedTo": "{{field}} руу хадгалсан",
@@ -376,7 +376,9 @@
     "testResult": "Туршилтын үр дүн",
     "textToSpeak": "Ярих текст",
     "viewResult": "Үр дүнг харах",
-    "wrongNoteType": "Буруу тэмдэглэлийн төрөл"
+    "wrongNoteType": "Буруу тэмдэглэлийн төрөл",
+    "or": "эсвэл",
+    "selectCardInBrowser": "Туршиж үзэх карт сонгоно уу"
   },
   "subscription": {
     "accessEnds": "Хандалт дуусна",

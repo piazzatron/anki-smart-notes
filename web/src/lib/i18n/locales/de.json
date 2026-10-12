@@ -259,6 +259,7 @@
     "image": {
       "cannotFindModel": "Im Bildkatalog fehlt das Modell {{model}}",
       "defaultModel": "Standardmodell",
+      "extrasTip": "Starten Sie mit deaktivierten Extras, aktivieren Sie diese dann, wenn ein Feld mehr Details benötigt.",
       "gptImage25": "Allrounder — scharfe Texte, saubere Diagramme.",
       "loadingLabel": "Laden der Standardbildeinstellungen",
       "loadingTitle": "Standardbildeinstellungen",
@@ -271,8 +272,7 @@
       "saveError": "Bildstandardeinstellungen konnten nicht gespeichert werden",
       "subtitle": "Das Modell, das Ihr Bild Smart Fields verwendet, es sei denn, ein Feld heftet sein eigenes an.",
       "title": "Standardbildeinstellungen",
-      "zImageTurbo": "am schnellsten und günstigsten.",
-      "extrasTip": "Starten Sie mit deaktivierten Extras, aktivieren Sie diese dann, wenn ein Feld mehr Details benötigt."
+      "zImageTurbo": "am schnellsten und günstigsten."
     },
     "layout": {
       "saveChanges": "Änderungen speichern",
@@ -334,11 +334,11 @@
     "doubleCost": "2× Kosten",
     "extras": "Extras",
     "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maximale Qualität",
+    "maxQualityDescription": "Schärfer und sauberer, besonders bei kleinen Beschriftungen.",
     "noExtraCost": "Keine zusätzlichen Kosten",
     "richerDetail": "Mehr Details",
-    "richerDetailDescription": "Detaillierter, vollere Szenen. Etwas langsamer.",
-    "maxQuality": "Maximale Qualität",
-    "maxQualityDescription": "Schärfer und sauberer, besonders bei kleinen Beschriftungen."
+    "richerDetailDescription": "Detaillierter, vollere Szenen. Etwas langsamer."
   },
   "promptTester": {
     "anotherNoteType": "ein anderer Notiztyp",
@@ -352,13 +352,13 @@
     },
     "fieldRunsOnNoteType": "Dieses Feld läuft auf <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Erzeugte Bildvorschau",
+    "generatedIn": "In {{seconds}} s generiert",
     "missingFieldsTitle_one": "Fehlendes Feld",
     "missingFieldsTitle_other": "Fehlende Felder",
     "needsFields_one": "Benötigt das Feld {{count}}",
     "needsFields_other": "Benötigt {{count}}-Felder",
     "notesSelected_one": "{{count}}-Note ausgewählt – auf eine beschränken.",
     "notesSelected_other": "{{count}}-Notizen ausgewählt – auf eine beschränken.",
-    "pickCard": "Wählen Sie eine Karte im Anki-Browser aus",
     "promptPlaceholder": "Schreiben Sie eine Testaufforderung und verweisen Sie dabei auf Felder auf Ihrer Karte mit {{braces}}.",
     "saveToCard": "Auf Karte speichern",
     "savedTo": "Gespeichert unter {{field}}",
@@ -376,7 +376,9 @@
     "testResult": "Testergebnis",
     "textToSpeak": "Text zum Sprechen",
     "viewResult": "Ergebnis ansehen",
-    "wrongNoteType": "Falscher Notiztyp"
+    "wrongNoteType": "Falscher Notiztyp",
+    "or": "oder",
+    "selectCardInBrowser": "Wähle eine Karte im Browser aus, um sie zu testen"
   },
   "subscription": {
     "accessEnds": "Zugriff endet",

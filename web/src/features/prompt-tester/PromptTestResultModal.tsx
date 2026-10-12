@@ -27,16 +27,17 @@ import {
   DialogTitle,
 } from "@/components/ui/Dialog"
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
+import { Pill } from "@/components/ui/Pill"
 import type { SelectedNote } from "@/types/api"
 
 import { resolvePromptReferences } from "./resolvePromptReferences"
-import type { PromptTester } from "./usePromptTester"
+import type { PromptTester, Provenance } from "./usePromptTester"
 
 interface PromptTestResultModalProps {
   children: ReactNode
   onClose: () => void
   open: boolean
-  provenance: string
+  provenance: Provenance | null
   saveAction?: ReactNode
   tester: PromptTester
 }
@@ -55,15 +56,12 @@ export const PromptTestResultModal = ({
   const firstFieldValue = Object.values(
     tester.selectedNote?.fields ?? {},
   )[0]?.trim()
-  const subtitle =
+  const cardName =
     tester.selectedNote === null
-      ? provenance
-      : [
-          firstFieldValue === undefined || firstFieldValue === ""
-            ? t("promptTester.selectedCard")
-            : firstFieldValue,
-          provenance,
-        ].join(" · ")
+      ? null
+      : firstFieldValue === undefined || firstFieldValue === ""
+        ? t("promptTester.selectedCard")
+        : firstFieldValue
 
   return (
     <Dialog
@@ -77,8 +75,20 @@ export const PromptTestResultModal = ({
           <DialogTitle className="text-[13px] font-bold text-ink">
             {t("promptTester.testResult")}
           </DialogTitle>
-          <DialogDescription className="mt-0.5 truncate text-[11px] text-ink-faint">
-            {subtitle}
+          <DialogDescription className="mt-1.5 flex min-w-0 items-center gap-1.5 text-[11px] text-ink-faint">
+            {cardName !== null && (
+              <span className="min-w-0 truncate">{cardName} ·</span>
+            )}
+            {provenance !== null && (
+              <>
+                <Pill>{provenance.primary}</Pill>
+                {provenance.extras.map((extra) => (
+                  <Pill key={extra} tone="indigo">
+                    {extra}
+                  </Pill>
+                ))}
+              </>
+            )}
           </DialogDescription>
         </header>
 
