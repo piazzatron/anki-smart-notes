@@ -265,14 +265,16 @@
       "loadingTitle": "Configuración predeterminada da imaxe",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Escollendo un modelo de imaxe",
       "samplePrompt": "Xera unha imaxe dun alumno estudando moito con Anki e superando as súas probas.",
       "saveError": "Non se puideron gardar os valores predeterminados da imaxe",
       "subtitle": "O modelo que usa a túa imaxe Smart Fields a non ser que un campo fixe o seu.",
       "title": "Configuración predeterminada da imaxe",
-      "zImageTurbo": "máis rápido e máis barato."
+      "zImageTurbo": "máis rápido e máis barato.",
+      "modelTipLabel": "Sobre os modelos de imaxe",
+      "nanoBanana21": "escenas ricas e fotográficas."
     },
     "layout": {
       "saveChanges": "Garda os cambios",
@@ -337,7 +339,8 @@
     "maxQuality": "Calidade máxima",
     "maxQualityDescription": "Máis nítido e limpo, especialmente as etiquetas pequenas.",
     "richerDetail": "Máis detalle",
-    "richerDetailDescription": "Máis detallado, escenas máis completas. Un pouco máis lento."
+    "richerDetailDescription": "Máis detallado, escenas máis completas. Un pouco máis lento.",
+    "extrasTipLabel": "Sobre os extras"
   },
   "promptTester": {
     "anotherNoteType": "outro tipo de nota",
@@ -359,6 +362,7 @@
     "notesSelected_one": "{{count}} nota seleccionada: restrinxea a unha.",
     "notesSelected_other": "Notas {{count}} seleccionadas: restrinxeo a un.",
     "promptPlaceholder": "Escribe unha solicitude de proba, facendo referencia aos campos da túa tarxeta con {{braces}}.",
+    "rerunToSave": "Volve executar esta proba para gardala na tarxeta",
     "saveToCard": "Gardar na tarxeta",
     "savedTo": "Gardado en {{field}}",
     "selectCardWithFields_one": "Seleccione un cartafol co campo",
@@ -379,8 +383,7 @@
     "testResult": "Resultado da proba",
     "textToSpeak": "Texto para falar",
     "viewResult": "Ver resultado",
-    "wrongNoteType": "Tipo de nota incorrecto",
-    "rerunToSave": "Volve executar esta proba para gardala na tarxeta"
+    "wrongNoteType": "Tipo de nota incorrecto"
   },
   "subscription": {
     "accessEnds": "O acceso finaliza",

@@ -266,14 +266,16 @@
       "loadingTitle": "הגדרות תמונה ברירת מחדל",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 בחירת דגם תמונה",
       "samplePrompt": "צור תמונה של תלמיד לומד קשה עם Anki ועובר את המבחנים שלו.",
       "saveError": "לא ניתן לשמור את ברירת המחדל של התמונה",
       "subtitle": "הדגם שבו משתמשת התמונה שלך Smart Fields, אלא אם כן שדה מצמיד את שלו.",
       "title": "הגדרות תמונה ברירת מחדל",
-      "zImageTurbo": "הכי מהיר והכי זול."
+      "zImageTurbo": "הכי מהיר והכי זול.",
+      "modelTipLabel": "אודות מודלי התמונה",
+      "nanoBanana21": "סצנות עשירות וצילומיות."
     },
     "layout": {
       "saveChanges": "שמור שינויים",
@@ -339,7 +341,8 @@
     "maxQuality": "איכות מקסימלית",
     "maxQualityDescription": "חד וניקי יותר, במיוחד עבור תוויות קטנות.",
     "richerDetail": "פרט עשיר יותר",
-    "richerDetailDescription": "מפורט יותר, סצנות מלאות יותר. קצת יותר איטי."
+    "richerDetailDescription": "מפורט יותר, סצנות מלאות יותר. קצת יותר איטי.",
+    "extrasTipLabel": "אודות התוספות"
   },
   "promptTester": {
     "anotherNoteType": "סוג פתק אחר",
@@ -364,6 +367,7 @@
     "notesSelected_two": "{{count}} הערות נבחרו - צמצמו אותן לאחת.",
     "notesSelected_other": "הערות {{count}} שנבחרו - צמצמו אותו לאחד.",
     "promptPlaceholder": "כתוב הודעת בדיקה, תוך התייחסות לשדות בכרטיס שלך עם {{braces}}.",
+    "rerunToSave": "הרץ שוב את הבדיקה הזו כדי לשמור אותה לכרטיס",
     "saveToCard": "שמור בכרטיס",
     "savedTo": "נשמר ב-{{field}}",
     "selectCardWithFields_one": "בחר כרטיס עם השדה",
@@ -385,8 +389,7 @@
     "testResult": "תוצאת הבדיקה",
     "textToSpeak": "טקסט לדבר",
     "viewResult": "צפה בתוצאה",
-    "wrongNoteType": "סוג פתק שגוי",
-    "rerunToSave": "הרץ שוב את הבדיקה הזו כדי לשמור אותה לכרטיס"
+    "wrongNoteType": "סוג פתק שגוי"
   },
   "subscription": {
     "accessEnds": "הגישה מסתיימת",

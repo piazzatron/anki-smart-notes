@@ -265,14 +265,16 @@
       "loadingTitle": "Standaard prentinstellings",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Kies 'n beeldmodel",
       "samplePrompt": "Genereer 'n beeld van 'n student wat hard met Anki studeer en hul toetse slaag.",
       "saveError": "Kon nie prentverstekings stoor nie",
       "subtitle": "Die model wat jou beeld Smart Fields gebruik, tensy 'n veld sy eie vaspen.",
       "title": "Standaard prentinstellings",
-      "zImageTurbo": "vinnigste en goedkoopste."
+      "zImageTurbo": "vinnigste en goedkoopste.",
+      "modelTipLabel": "Oor die beeldmodelle",
+      "nanoBanana21": "ryk, fotografiese tonele."
     },
     "layout": {
       "saveChanges": "Stoor veranderinge",
@@ -337,7 +339,8 @@
     "maxQuality": "Maksimum kwaliteit",
     "maxQualityDescription": "Skerper en skoner, veral klein etikette.",
     "richerDetail": "Ryker detail",
-    "richerDetailDescription": "Meer gedetailleerd, voller tonele. Effens stadiger."
+    "richerDetailDescription": "Meer gedetailleerd, voller tonele. Effens stadiger.",
+    "extrasTipLabel": "Oor die ekstras"
   },
   "promptTester": {
     "anotherNoteType": "'n ander noottipe",
@@ -359,6 +362,7 @@
     "notesSelected_one": "{{count}} noot gekies - maak dit tot een beperk.",
     "notesSelected_other": "{{count}} notas gekies - maak dit tot een beperk.",
     "promptPlaceholder": "Skryf 'n toetsaanwysing, met verwysing na velde op jou kaart met {{braces}}.",
+    "rerunToSave": "Voer hierdie toets weer uit om dit op die kaart te stoor",
     "saveToCard": "Stoor op kaart",
     "savedTo": "Gestoor na {{field}}",
     "selectCardWithFields_one": "Kies asseblief 'n kaart met die veld",
@@ -379,8 +383,7 @@
     "testResult": "Toetsresultaat",
     "textToSpeak": "Teks om te praat",
     "viewResult": "Bekyk resultaat",
-    "wrongNoteType": "Verkeerde nota tipe",
-    "rerunToSave": "Voer hierdie toets weer uit om dit op die kaart te stoor"
+    "wrongNoteType": "Verkeerde nota tipe"
   },
   "subscription": {
     "accessEnds": "Toegang eindig",

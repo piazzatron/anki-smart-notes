@@ -265,14 +265,16 @@
       "loadingTitle": "Default na Mga Setting ng Larawan",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Pagpili ng modelo ng larawan",
       "samplePrompt": "Bumuo ng larawan ng isang mag-aaral na nag-aaral nang mabuti gamit ang Anki at pumasa sa kanilang mga pagsusulit.",
       "saveError": "Hindi ma-save ang mga default na larawan",
       "subtitle": "Ang modelong ginagamit ng iyong larawan na Smart Fields maliban kung ang isang field ay nag-pin ng sarili nitong.",
       "title": "Default na Mga Setting ng Larawan",
-      "zImageTurbo": "pinakamabilis at pinakamura."
+      "zImageTurbo": "pinakamabilis at pinakamura.",
+      "modelTipLabel": "Tungkol sa mga modelo ng larawan",
+      "nanoBanana21": "mayayamang eksenang parang litrato."
     },
     "layout": {
       "saveChanges": "I-save ang mga pagbabago",
@@ -337,7 +339,8 @@
     "maxQuality": "Max quality",
     "maxQualityDescription": "Mas malinaw at mas malinis, lalo na sa mga maliit na label.",
     "richerDetail": "Mas mayamang detalye",
-    "richerDetailDescription": "Mas detalyado, mas puno ng mga eksena. Bahagyang mas mabagal."
+    "richerDetailDescription": "Mas detalyado, mas puno ng mga eksena. Bahagyang mas mabagal.",
+    "extrasTipLabel": "Tungkol sa mga karagdagan"
   },
   "promptTester": {
     "anotherNoteType": "ibang uri ng tala",
@@ -359,6 +362,7 @@
     "notesSelected_one": "{{count}} note ang napili — paliitin ito sa isa.",
     "notesSelected_other": "{{count}} na mga tala ang napili — paliitin ito sa isa.",
     "promptPlaceholder": "Sumulat ng test prompt, nagre-refer sa mga field sa iyong card gamit ang {{braces}}.",
+    "rerunToSave": "Patakbuhin muli ang pagsubok na ito para i-save ito sa card",
     "saveToCard": "I-save sa card",
     "savedTo": "Na-save sa {{field}}",
     "selectCardWithFields_one": "Pumili ng card na may field",
@@ -379,8 +383,7 @@
     "testResult": "Resulta ng pagsubok",
     "textToSpeak": "Text para magsalita",
     "viewResult": "Tingnan ang resulta",
-    "wrongNoteType": "Maling uri ng tala",
-    "rerunToSave": "Patakbuhin muli ang pagsubok na ito para i-save ito sa card"
+    "wrongNoteType": "Maling uri ng tala"
   },
   "subscription": {
     "accessEnds": "Nagtatapos ang access",

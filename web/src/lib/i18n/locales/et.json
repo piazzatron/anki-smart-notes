@@ -265,14 +265,16 @@
       "loadingTitle": "Pildi vaikesätted",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Pildimudeli valimine",
       "samplePrompt": "Looge pilt õpilasest, kes õpib kõvasti Anki abil ja sooritab testid.",
       "saveError": "Pildi vaikeseadeid ei saanud salvestada",
       "subtitle": "Mudel, mida teie pilt Smart Fields kasutab, välja arvatud juhul, kui väli kinnitab oma.",
       "title": "Pildi vaikesätted",
-      "zImageTurbo": "kiireim ja odavaim."
+      "zImageTurbo": "kiireim ja odavaim.",
+      "modelTipLabel": "Pildimudelite kohta",
+      "nanoBanana21": "rikkalikud, fotorealistlikud stseenid."
     },
     "layout": {
       "saveChanges": "Salvestage muudatused",
@@ -337,7 +339,8 @@
     "maxQuality": "Maksimaalne kvaliteet",
     "maxQualityDescription": "Teravamad ja puhtamad, eriti väikesed sildid.",
     "richerDetail": "Rohkem detaile",
-    "richerDetailDescription": "Üksikasjalikum, täielikumad stseenid. Pisut aeglasem."
+    "richerDetailDescription": "Üksikasjalikum, täielikumad stseenid. Pisut aeglasem.",
+    "extrasTipLabel": "Lisavõimaluste kohta"
   },
   "promptTester": {
     "anotherNoteType": "teist nooditüüpi",
@@ -359,6 +362,7 @@
     "notesSelected_one": "{{count}} märkus on valitud – kitsendage see ühele.",
     "notesSelected_other": "Valitud {{count}} märkmed – kitsendage see ühele.",
     "promptPlaceholder": "Kirjutage {{braces}}-ga oma kaardi väljadele viidates testiviis.",
+    "rerunToSave": "Käivita see test uuesti, et salvestada see kaardile",
     "saveToCard": "Salvesta kaardile",
     "savedTo": "Salvestatud {{field}}",
     "selectCardWithFields_one": "Palun valige kaart väljaga",
@@ -379,8 +383,7 @@
     "testResult": "Testi tulemus",
     "textToSpeak": "Tekst kõnelemiseks",
     "viewResult": "Vaata tulemust",
-    "wrongNoteType": "Vale märkme tüüp",
-    "rerunToSave": "Käivita see test uuesti, et salvestada see kaardile"
+    "wrongNoteType": "Vale märkme tüüp"
   },
   "subscription": {
     "accessEnds": "Juurdepääs lõpeb",

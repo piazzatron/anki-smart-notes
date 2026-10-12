@@ -267,14 +267,16 @@
       "loadingTitle": "Параметри зображення за замовчуванням",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Вибір моделі іміджу",
       "samplePrompt": "Створіть зображення студента, який старанно навчається за допомогою Anki і здає свої тести.",
       "saveError": "Не вдалося зберегти зображення за замовчуванням",
       "subtitle": "Модель, яку використовує ваше зображення Smart Fields, якщо поле не закріплює власне.",
       "title": "Параметри зображення за замовчуванням",
-      "zImageTurbo": "найшвидший і найдешевший."
+      "zImageTurbo": "найшвидший і найдешевший.",
+      "modelTipLabel": "Про моделі зображень",
+      "nanoBanana21": "насичені фотографічні сцени."
     },
     "layout": {
       "saveChanges": "Зберегти зміни",
@@ -341,7 +343,8 @@
     "maxQuality": "Максимальна якість",
     "maxQualityDescription": "Гостріше та чистіше, особливо дрібні написи.",
     "richerDetail": "Більше деталей",
-    "richerDetailDescription": "Детальніше, багатіші сцени. Трохи повільніше."
+    "richerDetailDescription": "Детальніше, багатіші сцени. Трохи повільніше.",
+    "extrasTipLabel": "Про додаткові опції"
   },
   "promptTester": {
     "anotherNoteType": "інший тип нотаток",
@@ -369,6 +372,7 @@
     "notesSelected_many": "Вибрано {{count}} нотаток — звузьте до однієї.",
     "notesSelected_other": "вибрані нотатки {{count}} — звузити їх до однієї.",
     "promptPlaceholder": "Напишіть тестову підказку, посилаючись на поля вашої картки за допомогою {{braces}}.",
+    "rerunToSave": "Запустіть цей тест знову, щоб зберегти його в картку",
     "saveToCard": "Зберегти на картку",
     "savedTo": "Збережено в {{field}}",
     "selectCardWithFields_one": "Будь ласка, виберіть карту з полем",
@@ -391,8 +395,7 @@
     "testResult": "Результат тесту",
     "textToSpeak": "Текст для озвучення",
     "viewResult": "Переглянути результат",
-    "wrongNoteType": "Неправильний тип нотатки",
-    "rerunToSave": "Запустіть цей тест знову, щоб зберегти його в картку"
+    "wrongNoteType": "Неправильний тип нотатки"
   },
   "subscription": {
     "accessEnds": "Доступ закінчується",

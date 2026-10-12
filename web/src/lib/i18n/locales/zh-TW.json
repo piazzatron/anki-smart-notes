@@ -264,14 +264,16 @@
       "loadingTitle": "預設影像設定",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 選擇圖像模型",
       "samplePrompt": "產生學生使用 Anki 努力學習並通過測驗的圖像。",
       "saveError": "無法儲存影像預設值",
       "subtitle": "您的圖像 Smart Fields 使用的模型，除非欄位固定自己的模型。",
       "title": "預設影像設定",
-      "zImageTurbo": "最快且最便宜。"
+      "zImageTurbo": "最快且最便宜。",
+      "modelTipLabel": "關於圖像模型",
+      "nanoBanana21": "豐富、攝影風格的場景。"
     },
     "layout": {
       "saveChanges": "儲存變更",
@@ -335,7 +337,8 @@
     "maxQuality": "最高品質",
     "maxQualityDescription": "更清晰細緻，特別是小標籤部分。",
     "richerDetail": "更豐富的細節",
-    "richerDetailDescription": "更詳細、更飽滿的場景。速度稍慢。"
+    "richerDetailDescription": "更詳細、更飽滿的場景。速度稍慢。",
+    "extrasTipLabel": "關於附加功能"
   },
   "promptTester": {
     "anotherNoteType": "另一種筆記類型",
@@ -354,6 +357,7 @@
     "needsFields_other": "需要 {{count}} 字段",
     "notesSelected_other": "選定的 {{count}} 音符 - 將其縮小到一個。",
     "promptPlaceholder": "使用 {{braces}} 撰寫測試提示，引用卡片上的欄位。",
+    "rerunToSave": "重新執行此測試以將其儲存至卡片",
     "saveToCard": "儲存到卡",
     "savedTo": "儲存到 {{field}}",
     "selectCardWithFields_other": "請選擇包含這些欄位的卡牌",
@@ -373,8 +377,7 @@
     "testResult": "測試結果",
     "textToSpeak": "文字說話",
     "viewResult": "查看結果",
-    "wrongNoteType": "註釋類型錯誤",
-    "rerunToSave": "重新執行此測試以將其儲存至卡片"
+    "wrongNoteType": "註釋類型錯誤"
   },
   "subscription": {
     "accessEnds": "存取權限結束",

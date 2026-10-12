@@ -77,6 +77,7 @@ SETTINGS_DTO: dto.SettingsDto = {
     "showWizardCompletion": True,
     "didDismissReviewPrompt": False,
     "didDismissDiscordPrompt": False,
+    "didSeeImageModelTips": True,
 }
 
 
@@ -372,6 +373,7 @@ def test_build_settings_reads_config(monkeypatch):
         show_wizard_completion=False,
         did_dismiss_review_prompt=True,
         did_dismiss_discord_prompt=True,
+        did_see_image_model_tips=True,
     )
     monkeypatch.setattr(dto.builders, "config", config)
 
@@ -387,6 +389,7 @@ def test_build_settings_reads_config(monkeypatch):
         "showWizardCompletion": False,
         "didDismissReviewPrompt": True,
         "didDismissDiscordPrompt": True,
+        "didSeeImageModelTips": True,
     }
 
 
@@ -616,6 +619,7 @@ def test_parse_settings_round_trips():
     assert parsed.show_wizard_completion is True
     assert parsed.did_dismiss_review_prompt is False
     assert parsed.did_dismiss_discord_prompt is False
+    assert parsed.did_see_image_model_tips is True
 
 
 # -- Build/parse round trips. The client round-trips these objects (receives a
@@ -698,6 +702,7 @@ def test_settings_survive_build_parse_round_trip(monkeypatch):
         show_wizard_completion=False,
         did_dismiss_review_prompt=True,
         did_dismiss_discord_prompt=False,
+        did_see_image_model_tips=False,
     )
     monkeypatch.setattr(dto.builders, "config", config)
 
@@ -714,6 +719,7 @@ def test_settings_survive_build_parse_round_trip(monkeypatch):
         show_wizard_completion=False,
         did_dismiss_review_prompt=True,
         did_dismiss_discord_prompt=False,
+        did_see_image_model_tips=False,
     )
 
 
@@ -737,6 +743,7 @@ def test_save_settings_persists_every_field_and_republishes(monkeypatch):
     assert config.show_wizard_completion is True
     assert config.did_dismiss_review_prompt is False
     assert config.did_dismiss_discord_prompt is False
+    assert config.did_see_image_model_tips is True
     assert len(published) == 1
     assert isinstance(published[0], StateInvalidated)
 

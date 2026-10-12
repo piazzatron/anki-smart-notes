@@ -265,14 +265,16 @@
       "loadingTitle": "Standaard beeldinstellingen",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Een beeldmodel kiezen",
       "samplePrompt": "Genereer een beeld van een student die hard studeert met Anki en slaagt voor zijn tests.",
       "saveError": "Kan de standaardinstellingen voor afbeeldingen niet opslaan",
       "subtitle": "Het model dat uw afbeelding Smart Fields gebruikt, tenzij een veld zijn eigen veld vastzet.",
       "title": "Standaard beeldinstellingen",
-      "zImageTurbo": "snelste en goedkoopste."
+      "zImageTurbo": "snelste en goedkoopste.",
+      "modelTipLabel": "Over de beeldmodellen",
+      "nanoBanana21": "rijke, fotografische scènes."
     },
     "layout": {
       "saveChanges": "Wijzigingen opslaan",
@@ -337,7 +339,8 @@
     "maxQuality": "Maximale kwaliteit",
     "maxQualityDescription": "Scherper en schoner, vooral kleine labels.",
     "richerDetail": "Meer detail",
-    "richerDetailDescription": "Meer gedetailleerd, vollere scènes. Iets langzamer."
+    "richerDetailDescription": "Meer gedetailleerd, vollere scènes. Iets langzamer.",
+    "extrasTipLabel": "Over de extra's"
   },
   "promptTester": {
     "anotherNoteType": "een ander notitietype",
@@ -359,6 +362,7 @@
     "notesSelected_one": "{{count}}-noot geselecteerd — beperk deze tot één.",
     "notesSelected_other": "{{count}}-notities geselecteerd: beperk het tot één.",
     "promptPlaceholder": "Schrijf een testprompt en verwijs naar de velden op uw kaart met {{braces}}.",
+    "rerunToSave": "Voer deze test opnieuw uit om hem op de kaart op te slaan",
     "saveToCard": "Opslaan op kaart",
     "savedTo": "Opgeslagen in {{field}}",
     "selectCardWithFields_one": "Selecteer een kaart met het veld",
@@ -379,8 +383,7 @@
     "testResult": "Testresultaat",
     "textToSpeak": "Tekst om uit te spreken",
     "viewResult": "Bekijk resultaat",
-    "wrongNoteType": "Verkeerd notitietype",
-    "rerunToSave": "Voer deze test opnieuw uit om hem op de kaart op te slaan"
+    "wrongNoteType": "Verkeerd notitietype"
   },
   "subscription": {
     "accessEnds": "Toegang eindigt",

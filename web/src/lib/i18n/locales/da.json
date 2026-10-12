@@ -265,14 +265,16 @@
       "loadingTitle": "Standard billedindstillinger",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 At vælge en billedmodel",
       "samplePrompt": "Generer et billede af en studerende, der studerer hårdt med Anki og består deres prøver.",
       "saveError": "Billedstandarder kunne ikke gemmes",
       "subtitle": "Modellen dit billede Smart Fields bruger, medmindre et felt fastgør sit eget.",
       "title": "Standard billedindstillinger",
-      "zImageTurbo": "hurtigste og billigste."
+      "zImageTurbo": "hurtigste og billigste.",
+      "modelTipLabel": "Om billedmodellerne",
+      "nanoBanana21": "rige, fotografiske scener."
     },
     "layout": {
       "saveChanges": "Gem ændringer",
@@ -337,7 +339,8 @@
     "maxQuality": "Maksimal kvalitet",
     "maxQualityDescription": "Skarpere og renere, især små labels.",
     "richerDetail": "Rigere detaljer",
-    "richerDetailDescription": "Mere detaljeret, fyldigere scener. Lidt langsommere."
+    "richerDetailDescription": "Mere detaljeret, fyldigere scener. Lidt langsommere.",
+    "extrasTipLabel": "Om tilføjelser"
   },
   "promptTester": {
     "anotherNoteType": "en anden nodetype",
@@ -359,6 +362,7 @@
     "notesSelected_one": "{{count}} note valgt — indsnæv den til én.",
     "notesSelected_other": "{{count}} noter valgt — indsnæv den til én.",
     "promptPlaceholder": "Skriv en testprompt, og referer til felter på dit kort med {{braces}}.",
+    "rerunToSave": "Kør denne test igen for at gemme den på kortet",
     "saveToCard": "Gem på kort",
     "savedTo": "Gemt til {{field}}",
     "selectCardWithFields_one": "Vælg venligst et kort med feltet",
@@ -379,8 +383,7 @@
     "testResult": "Testresultat",
     "textToSpeak": "Tekst til tale",
     "viewResult": "Se resultat",
-    "wrongNoteType": "Forkert notetype",
-    "rerunToSave": "Kør denne test igen for at gemme den på kortet"
+    "wrongNoteType": "Forkert notetype"
   },
   "subscription": {
     "accessEnds": "Adgang slutter",

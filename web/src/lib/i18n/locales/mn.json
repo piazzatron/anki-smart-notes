@@ -265,14 +265,16 @@
       "loadingTitle": "Өгөгдмөл зургийн тохиргоо",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Зургийн загвар сонгох",
       "samplePrompt": "Anki-аар шаргуу суралцаж, шалгалтаа өгч буй оюутны дүр төрхийг бий болго.",
       "saveError": "Зургийн өгөгдмөл тохиргоог хадгалж чадсангүй",
       "subtitle": "Талбар нь өөрөө бэхлээгүй тохиолдолд таны зургийн Smart Fields ашиглах загвар.",
       "title": "Өгөгдмөл зургийн тохиргоо",
-      "zImageTurbo": "хамгийн хурдан бөгөөд хямд."
+      "zImageTurbo": "хамгийн хурдан бөгөөд хямд.",
+      "modelTipLabel": "Зургийн загваруудын тухай",
+      "nanoBanana21": "баян, гэрэл зургийн маягийн дүрс."
     },
     "layout": {
       "saveChanges": "Өөрчлөлтүүдийг хадгалах",
@@ -337,7 +339,8 @@
     "maxQuality": "Хамгийн дээд чанар",
     "maxQualityDescription": "Илүү хөнгөн байдал, ялангуяа жижиг шошгонуудын хувьд.",
     "richerDetail": "Нийлмэл дэлгэрэнгүй",
-    "richerDetailDescription": "Илүү дэлгэрэнгүй, бүтэн сахал. Арай удаан."
+    "richerDetailDescription": "Илүү дэлгэрэнгүй, бүтэн сахал. Арай удаан.",
+    "extrasTipLabel": "Нэмэлт зүйлсийн тухай"
   },
   "promptTester": {
     "anotherNoteType": "өөр тэмдэглэлийн төрөл",
@@ -359,6 +362,7 @@
     "notesSelected_one": "{{count}} тэмдэглэл сонгосон — нэг болгож нарийсгана.",
     "notesSelected_other": "{{count}} тэмдэглэл сонгосон — нэг болгож нарийсгана.",
     "promptPlaceholder": "Картынхаа талбаруудыг {{braces}}-аар лавлаж, туршилтын сануулга бичнэ үү.",
+    "rerunToSave": "Энэ туршилтыг дахин ажиллуулж картад хадгална уу",
     "saveToCard": "Карт руу хадгалах",
     "savedTo": "{{field}} руу хадгалсан",
     "selectCardWithFields_one": "Уг талбартай карт сонгоно уу",
@@ -379,8 +383,7 @@
     "testResult": "Туршилтын үр дүн",
     "textToSpeak": "Ярих текст",
     "viewResult": "Үр дүнг харах",
-    "wrongNoteType": "Буруу тэмдэглэлийн төрөл",
-    "rerunToSave": "Энэ туршилтыг дахин ажиллуулж картад хадгална уу"
+    "wrongNoteType": "Буруу тэмдэглэлийн төрөл"
   },
   "subscription": {
     "accessEnds": "Хандалт дуусна",

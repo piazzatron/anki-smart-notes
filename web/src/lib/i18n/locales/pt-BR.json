@@ -266,14 +266,16 @@
       "loadingTitle": "Configurações de imagem padrão",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Escolhendo um modelo de imagem",
       "samplePrompt": "Gere a imagem de um aluno estudando muito com Anki e passando nas provas.",
       "saveError": "Não foi possível salvar os padrões de imagem",
       "subtitle": "O modelo que sua imagem Smart Fields usa, a menos que um campo fixe seu próprio.",
       "title": "Configurações de imagem padrão",
-      "zImageTurbo": "mais rápido e mais barato."
+      "zImageTurbo": "mais rápido e mais barato.",
+      "modelTipLabel": "Sobre os modelos de imagem",
+      "nanoBanana21": "cenas ricas e fotográficas."
     },
     "layout": {
       "saveChanges": "Salvar alterações",
@@ -339,7 +341,8 @@
     "maxQuality": "Qualidade máxima",
     "maxQualityDescription": "Mais nítido e limpo, especialmente rótulos pequenos.",
     "richerDetail": "Mais detalhado",
-    "richerDetailDescription": "Mais detalhado, cenas mais completas. Um pouco mais lento."
+    "richerDetailDescription": "Mais detalhado, cenas mais completas. Um pouco mais lento.",
+    "extrasTipLabel": "Sobre os extras"
   },
   "promptTester": {
     "anotherNoteType": "outro tipo de nota",
@@ -364,6 +367,7 @@
     "notesSelected_many": "{{count}} notas selecionadas — reduza a seleção a uma.",
     "notesSelected_other": "Notas {{count}} selecionadas - reduza para uma.",
     "promptPlaceholder": "Escreva um prompt de teste, referenciando os campos do seu cartão com {{braces}}.",
+    "rerunToSave": "Execute este teste novamente para salvá-lo no cartão",
     "saveToCard": "Salvar no cartão",
     "savedTo": "Salvo em {{field}}",
     "selectCardWithFields_one": "Selecione um cartão com o campo",
@@ -385,8 +389,7 @@
     "testResult": "Resultado do teste",
     "textToSpeak": "Texto para falar",
     "viewResult": "Ver resultado",
-    "wrongNoteType": "Tipo de nota errado",
-    "rerunToSave": "Execute este teste novamente para salvá-lo no cartão"
+    "wrongNoteType": "Tipo de nota errado"
   },
   "subscription": {
     "accessEnds": "O acesso termina",

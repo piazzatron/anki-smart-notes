@@ -265,14 +265,16 @@
       "loadingTitle": "Kuvan oletusasetukset",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Kuvamallin valinta",
       "samplePrompt": "Luo kuva opiskelijasta, joka opiskelee ahkerasti Anki:n kanssa ja läpäisee kokeensa.",
       "saveError": "Kuvan oletusasetuksia ei voitu tallentaa",
       "subtitle": "Smart Fields-kuvasi käyttämä malli, ellei kenttä ole nastalla omaa.",
       "title": "Kuvan oletusasetukset",
-      "zImageTurbo": "nopein ja halvin."
+      "zImageTurbo": "nopein ja halvin.",
+      "modelTipLabel": "Tietoa kuvamalleista",
+      "nanoBanana21": "rikkaat, valokuvamaiset kuvat."
     },
     "layout": {
       "saveChanges": "Tallenna muutokset",
@@ -337,7 +339,8 @@
     "maxQuality": "Maksimaalinen laatu",
     "maxQualityDescription": "Terävämpi ja puhtaampi, erityisesti pienet nimiöt.",
     "richerDetail": "Rikkaampi yksityiskohtaisuus",
-    "richerDetailDescription": "Yksityiskohtaisempi, täydempi kohtaukset. Hieman hitaampi."
+    "richerDetailDescription": "Yksityiskohtaisempi, täydempi kohtaukset. Hieman hitaampi.",
+    "extrasTipLabel": "Tietoa lisäominaisuuksista"
   },
   "promptTester": {
     "anotherNoteType": "toinen muistiinpanotyyppi",
@@ -359,6 +362,7 @@
     "notesSelected_one": "{{count}} muistiinpano valittu – rajaa se yhteen.",
     "notesSelected_other": "{{count}} muistiinpanot valittu – rajaa se yhteen.",
     "promptPlaceholder": "Kirjoita {{braces}}-kortillesi testikehote, jossa viitataan kenttiin.",
+    "rerunToSave": "Suorita tämä testi uudelleen tallentaaksesi sen kortille",
     "saveToCard": "Tallenna kortille",
     "savedTo": "Tallennettu tiedostoon {{field}}",
     "selectCardWithFields_one": "Valitse kortti, jossa on kenttä",
@@ -379,8 +383,7 @@
     "testResult": "Testitulos",
     "textToSpeak": "Teksti puhuttavaksi",
     "viewResult": "Näytä tulos",
-    "wrongNoteType": "Väärä muistiinpanotyyppi",
-    "rerunToSave": "Suorita tämä testi uudelleen tallentaaksesi sen kortille"
+    "wrongNoteType": "Väärä muistiinpanotyyppi"
   },
   "subscription": {
     "accessEnds": "Pääsy loppuu",

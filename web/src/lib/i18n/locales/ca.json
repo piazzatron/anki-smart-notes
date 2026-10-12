@@ -266,14 +266,16 @@
       "loadingTitle": "Configuració d'imatge per defecte",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Escollint un model d'imatge",
       "samplePrompt": "Genereu una imatge d'un estudiant estudiant molt amb Anki i aprovant les seves proves.",
       "saveError": "No s'han pogut desar els valors predeterminats de la imatge",
       "subtitle": "El model que utilitzeu la vostra imatge Smart Fields tret que un camp fixi el seu.",
       "title": "Configuració d'imatge per defecte",
-      "zImageTurbo": "més ràpid i barat."
+      "zImageTurbo": "més ràpid i barat.",
+      "modelTipLabel": "Sobre els models d'imatge",
+      "nanoBanana21": "escenes riques i fotogràfiques."
     },
     "layout": {
       "saveChanges": "Desa els canvis",
@@ -339,7 +341,8 @@
     "maxQuality": "Qualitat màxima",
     "maxQualityDescription": "Més nítid i net, especialment les etiquetes petites.",
     "richerDetail": "Més detall",
-    "richerDetailDescription": "Més detallat, escenes més completes. Una mica més lent."
+    "richerDetailDescription": "Més detallat, escenes més completes. Una mica més lent.",
+    "extrasTipLabel": "Sobre les extres"
   },
   "promptTester": {
     "anotherNoteType": "un altre tipus de nota",
@@ -364,6 +367,7 @@
     "notesSelected_many": "Notes {{count}} seleccionades: reduïu-les a un.",
     "notesSelected_other": "Notes {{count}} seleccionades: reduïu-les a un.",
     "promptPlaceholder": "Escriviu una indicació de prova, fent referència als camps de la vostra targeta amb {{braces}}.",
+    "rerunToSave": "Torna a executar aquesta prova per desar-la a la targeta",
     "saveToCard": "Desa a la targeta",
     "savedTo": "Desat a {{field}}",
     "selectCardWithFields_one": "Si us plau, seleccioneu una targeta amb el camp",
@@ -385,8 +389,7 @@
     "testResult": "Resultat de la prova",
     "textToSpeak": "Text per parlar",
     "viewResult": "Veure resultat",
-    "wrongNoteType": "Tipus de nota incorrecte",
-    "rerunToSave": "Torna a executar aquesta prova per desar-la a la targeta"
+    "wrongNoteType": "Tipus de nota incorrecte"
   },
   "subscription": {
     "accessEnds": "L'accés s'acaba",

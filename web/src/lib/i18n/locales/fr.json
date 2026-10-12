@@ -266,14 +266,16 @@
       "loadingTitle": "Paramètres d'image par défaut",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Choisir un modèle d'image",
       "samplePrompt": "Générez l'image d'un étudiant qui étudie dur avec Anki et réussit ses tests.",
       "saveError": "Impossible d'enregistrer les paramètres par défaut de l'image",
       "subtitle": "Le modèle que votre image Smart Fields utilise à moins qu'un champ n'épingle le sien.",
       "title": "Paramètres d'image par défaut",
-      "zImageTurbo": "le plus rapide et le moins cher."
+      "zImageTurbo": "le plus rapide et le moins cher.",
+      "modelTipLabel": "À propos des modèles d'image",
+      "nanoBanana21": "scènes riches et photographiques."
     },
     "layout": {
       "saveChanges": "Enregistrer les modifications",
@@ -339,7 +341,8 @@
     "maxQuality": "Qualité maximale",
     "maxQualityDescription": "Plus net et plus propre, surtout pour les petits labels.",
     "richerDetail": "Détail enrichi",
-    "richerDetailDescription": "Plus détaillé, scènes plus complètes. Un peu plus lent."
+    "richerDetailDescription": "Plus détaillé, scènes plus complètes. Un peu plus lent.",
+    "extrasTipLabel": "À propos des options supplémentaires"
   },
   "promptTester": {
     "anotherNoteType": "un autre type de note",
@@ -364,6 +367,7 @@
     "notesSelected_many": "Notes {{count}} sélectionnées – réduisez-les à une.",
     "notesSelected_other": "Notes {{count}} sélectionnées – réduisez-les à une.",
     "promptPlaceholder": "Écrivez une invite de test en faisant référence aux champs de votre carte avec {{braces}}.",
+    "rerunToSave": "Relancez ce test pour l'enregistrer dans la carte",
     "saveToCard": "Enregistrer sur la carte",
     "savedTo": "Enregistré dans {{field}}",
     "selectCardWithFields_one": "Veuillez sélectionner une carte avec le champ",
@@ -385,8 +389,7 @@
     "testResult": "Résultat du test",
     "textToSpeak": "Texte pour parler",
     "viewResult": "Afficher le résultat",
-    "wrongNoteType": "Mauvais type de note",
-    "rerunToSave": "Relancez ce test pour l'enregistrer dans la carte"
+    "wrongNoteType": "Mauvais type de note"
   },
   "subscription": {
     "accessEnds": "L'accès se termine",

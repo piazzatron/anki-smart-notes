@@ -264,14 +264,16 @@
       "loadingTitle": "기본 이미지 설정",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 이미지 모델 선택",
       "samplePrompt": "Anki로 열심히 공부하고 시험에 합격하는 학생의 이미지를 생성합니다.",
       "saveError": "이미지 기본값을 저장할 수 없습니다.",
       "subtitle": "필드가 자체적으로 고정되지 않는 한 이미지 Smart Fields가 사용하는 모델입니다.",
       "title": "기본 이미지 설정",
-      "zImageTurbo": "가장 빠르고 저렴합니다."
+      "zImageTurbo": "가장 빠르고 저렴합니다.",
+      "modelTipLabel": "이미지 모델 정보",
+      "nanoBanana21": "풍부하고 사실적인 사진 같은 장면."
     },
     "layout": {
       "saveChanges": "변경사항 저장",
@@ -335,7 +337,8 @@
     "maxQuality": "최고 품질",
     "maxQualityDescription": "더 선명하고 깔끔함, 특히 작은 레이블에 효과적입니다.",
     "richerDetail": "더 풍부한 디테일",
-    "richerDetailDescription": "더 상세한, 완성도 높은 이미지. 약간 더 느립니다."
+    "richerDetailDescription": "더 상세한, 완성도 높은 이미지. 약간 더 느립니다.",
+    "extrasTipLabel": "추가 옵션 정보"
   },
   "promptTester": {
     "anotherNoteType": "다른 메모 유형",
@@ -354,6 +357,7 @@
     "needsFields_other": "{{count}} 필드가 필요합니다.",
     "notesSelected_other": "{{count}} 메모가 선택되었습니다. 1개로 범위를 좁힙니다.",
     "promptPlaceholder": "{{braces}}를 사용하여 카드의 필드를 참조하여 테스트 프롬프트를 작성하세요.",
+    "rerunToSave": "이 테스트를 다시 실행하여 카드에 저장하세요",
     "saveToCard": "카드에 저장",
     "savedTo": "{{field}}에 저장되었습니다.",
     "selectCardWithFields_other": "필드가 있는 카드를 선택해주세요",
@@ -373,8 +377,7 @@
     "testResult": "테스트 결과",
     "textToSpeak": "말할 텍스트",
     "viewResult": "결과 보기",
-    "wrongNoteType": "잘못된 메모 유형",
-    "rerunToSave": "이 테스트를 다시 실행하여 카드에 저장하세요"
+    "wrongNoteType": "잘못된 메모 유형"
   },
   "subscription": {
     "accessEnds": "액세스 종료",

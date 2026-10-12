@@ -265,14 +265,16 @@
       "loadingTitle": "Настройки на изображението по подразбиране",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Избор на модел на изображение",
       "samplePrompt": "Генерирайте изображение на ученик, който учи упорито с Anki и преминава своите тестове.",
       "saveError": "Неуспешно запазване на изображенията по подразбиране",
       "subtitle": "Моделът, който използва вашето изображение Smart Fields, освен ако някое поле не закачи свое собствено.",
       "title": "Настройки на изображението по подразбиране",
-      "zImageTurbo": "най-бързо и най-евтино."
+      "zImageTurbo": "най-бързо и най-евтино.",
+      "modelTipLabel": "Относно моделите за изображения",
+      "nanoBanana21": "богати, фотографски сцени."
     },
     "layout": {
       "saveChanges": "Запазете промените",
@@ -337,7 +339,8 @@
     "maxQuality": "Максимално качество",
     "maxQualityDescription": "По-остро и чисто, особено малки етикети.",
     "richerDetail": "По-богато на детайли",
-    "richerDetailDescription": "По-детайлни, пълноценни сцени. Малко по-бавно."
+    "richerDetailDescription": "По-детайлни, пълноценни сцени. Малко по-бавно.",
+    "extrasTipLabel": "Относно допълнителните опции"
   },
   "promptTester": {
     "anotherNoteType": "друг тип бележка",
@@ -359,6 +362,7 @@
     "notesSelected_one": "{{count}} избрана бележка — стеснете я до една.",
     "notesSelected_other": "{{count}} избрани бележки — стеснете ги до една.",
     "promptPlaceholder": "Напишете тестова подкана, препращайки към полетата на вашата карта с {{braces}}.",
+    "rerunToSave": "Стартирайте този тест отново, за да го запазите в картата",
     "saveToCard": "Запазване в картата",
     "savedTo": "Запазено в {{field}}",
     "selectCardWithFields_one": "Моля, изберете карта с полето",
@@ -379,8 +383,7 @@
     "testResult": "Резултат от теста",
     "textToSpeak": "Текст за изговаряне",
     "viewResult": "Вижте резултата",
-    "wrongNoteType": "Грешен тип бележка",
-    "rerunToSave": "Стартирайте този тест отново, за да го запазите в картата"
+    "wrongNoteType": "Грешен тип бележка"
   },
   "subscription": {
     "accessEnds": "Достъпът завършва",

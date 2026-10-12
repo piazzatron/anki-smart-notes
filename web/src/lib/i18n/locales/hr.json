@@ -266,14 +266,16 @@
       "loadingTitle": "Zadane postavke slike",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Odabir modela slike",
       "samplePrompt": "Generirajte sliku studenta koji vrijedno uči s Anki i polaže testove.",
       "saveError": "Nije moguće spremiti zadane postavke slike",
       "subtitle": "Model koji vaša slika koristi Smart Fields osim ako polje ne prikvači svoje.",
       "title": "Zadane postavke slike",
-      "zImageTurbo": "najbrže i najjeftinije."
+      "zImageTurbo": "najbrže i najjeftinije.",
+      "modelTipLabel": "O modelima slika",
+      "nanoBanana21": "bogate, fotografske scene."
     },
     "layout": {
       "saveChanges": "Spremite promjene",
@@ -339,7 +341,8 @@
     "maxQuality": "Maksimalna kvaliteta",
     "maxQualityDescription": "Oštrije i čišće, posebno male oznake.",
     "richerDetail": "Bogatiji detalji",
-    "richerDetailDescription": "Detaljnije, bogatije scene. Malo sporije."
+    "richerDetailDescription": "Detaljnije, bogatije scene. Malo sporije.",
+    "extrasTipLabel": "O dodacima"
   },
   "promptTester": {
     "anotherNoteType": "drugu vrstu bilješke",
@@ -364,6 +367,7 @@
     "notesSelected_few": "Odabrane bilješke {{count}} — suzite na jednu.",
     "notesSelected_other": "Odabrane bilješke {{count}} — suzite na jednu.",
     "promptPlaceholder": "Napišite prompt za testiranje, referencirajući polja na svojoj kartici s {{braces}}.",
+    "rerunToSave": "Ponovno pokrenite ovaj test kako biste ga spremili na karticu",
     "saveToCard": "Spremi na karticu",
     "savedTo": "Spremljeno u {{field}}",
     "selectCardWithFields_one": "Molimo odaberite karticu s poljem",
@@ -385,8 +389,7 @@
     "testResult": "Rezultat testa",
     "textToSpeak": "Tekst za govor",
     "viewResult": "Pogledajte rezultat",
-    "wrongNoteType": "Pogrešna vrsta bilješke",
-    "rerunToSave": "Ponovno pokrenite ovaj test kako biste ga spremili na karticu"
+    "wrongNoteType": "Pogrešna vrsta bilješke"
   },
   "subscription": {
     "accessEnds": "Pristup završava",

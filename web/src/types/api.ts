@@ -153,6 +153,7 @@ export interface Settings {
   showWizardCompletion: boolean
   didDismissReviewPrompt: boolean
   didDismissDiscordPrompt: boolean
+  didSeeImageModelTips: boolean
 }
 
 export interface FeatureFlags {

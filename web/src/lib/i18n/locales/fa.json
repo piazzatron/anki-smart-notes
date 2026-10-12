@@ -265,14 +265,16 @@
       "loadingTitle": "تنظیمات تصویر پیش فرض",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 انتخاب مدل تصویر",
       "samplePrompt": "تصویری از دانش آموزی ایجاد کنید که به سختی با Anki درس می خواند و تست های خود را می گذراند.",
       "saveError": "پیش فرض های تصویر ذخیره نشد",
       "subtitle": "مدلی که تصویر شما Smart Fields استفاده می‌کند مگر اینکه فیلدی خودش را پین کند.",
       "title": "تنظیمات تصویر پیش فرض",
-      "zImageTurbo": "سریع ترین و ارزان ترین"
+      "zImageTurbo": "سریع ترین و ارزان ترین",
+      "modelTipLabel": "درباره مدل‌های تصویر",
+      "nanoBanana21": "صحنه‌های غنی و عکاسی‌گونه."
     },
     "layout": {
       "saveChanges": "ذخیره تغییرات",
@@ -337,7 +339,8 @@
     "maxQuality": "کیفیت حداکثر",
     "maxQualityDescription": "تیزتر و تمیزتر، به خصوص برچسب‌های کوچک.",
     "richerDetail": "جزئیات بیشتر",
-    "richerDetailDescription": "جزئیات بیشتر، صحنه‌های کاملتر. کمی آهسته‌تر."
+    "richerDetailDescription": "جزئیات بیشتر، صحنه‌های کاملتر. کمی آهسته‌تر.",
+    "extrasTipLabel": "درباره افزودنی‌ها"
   },
   "promptTester": {
     "anotherNoteType": "یک نوع یادداشت دیگر",
@@ -359,6 +362,7 @@
     "notesSelected_one": "یادداشت {{count}} انتخاب شد - آن را به یک محدود کنید.",
     "notesSelected_other": "یادداشت های {{count}} انتخاب شده است - آن را به یک محدود کنید.",
     "promptPlaceholder": "یک خط آزمایشی بنویسید و فیلدهای کارت خود را با {{braces}} ارجاع دهید.",
+    "rerunToSave": "این آزمایش را دوباره اجرا کنید تا روی کارت ذخیره شود",
     "saveToCard": "ذخیره در کارت",
     "savedTo": "در {{field}} ذخیره شد",
     "selectCardWithFields_one": "لطفاً کارتی را انتخاب کنید که این فیلد را داشته باشد",
@@ -379,8 +383,7 @@
     "testResult": "نتیجه آزمایش",
     "textToSpeak": "متن برای صحبت کردن",
     "viewResult": "مشاهده نتیجه",
-    "wrongNoteType": "نوع یادداشت اشتباه است",
-    "rerunToSave": "این آزمایش را دوباره اجرا کنید تا روی کارت ذخیره شود"
+    "wrongNoteType": "نوع یادداشت اشتباه است"
   },
   "subscription": {
     "accessEnds": "دسترسی پایان می‌یابد",

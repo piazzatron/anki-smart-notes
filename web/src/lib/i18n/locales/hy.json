@@ -265,14 +265,16 @@
       "loadingTitle": "Պատկերի կանխադրված կարգավորումներ",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Պատկերի մոդելի ընտրություն",
       "samplePrompt": "Ստեղծեք աշակերտի պատկեր, որը շատ է սովորում Anki-ով և հանձնում թեստերը:",
       "saveError": "Չհաջողվեց պահպանել պատկերների կանխադրվածները",
       "subtitle": "Ձեր պատկերի Smart Fields մոդելը, եթե դաշտը չի ամրացնում իր սեփականը:",
       "title": "Պատկերի կանխադրված կարգավորումներ",
-      "zImageTurbo": "ամենաարագ և ամենաէժան:"
+      "zImageTurbo": "ամենաարագ և ամենաէժան:",
+      "modelTipLabel": "Պատկերի մոդելների մասին",
+      "nanoBanana21": "հարուստ, ֆոտոռեալիստական տեսարաններ."
     },
     "layout": {
       "saveChanges": "Պահպանել փոփոխությունները",
@@ -337,7 +339,8 @@
     "maxQuality": "Առավելագույն որակ",
     "maxQualityDescription": "Սուր և մաքուր, հատկապես փոքր պիտակների համար:",
     "richerDetail": "Ավելի մանրամասն",
-    "richerDetailDescription": "Ավելի մանրամասն, ամբողջական տեսարաններ: Մի փոքր ավելի դանդաղ:"
+    "richerDetailDescription": "Ավելի մանրամասն, ամբողջական տեսարաններ: Մի փոքր ավելի դանդաղ:",
+    "extrasTipLabel": "Լրացուցիչ տարրերի մասին"
   },
   "promptTester": {
     "anotherNoteType": "մեկ այլ նշումի տեսակ",
@@ -359,6 +362,7 @@
     "notesSelected_one": "Ընտրված է {{count}} նշումը. նեղացրեք այն մեկին:",
     "notesSelected_other": "{{count}} նշումներ են ընտրված — նեղացրեք այն մեկին:",
     "promptPlaceholder": "Գրեք թեստային հուշում, հղում կատարելով ձեր քարտի դաշտերին {{braces}}-ով:",
+    "rerunToSave": "Կրկին գործարկեք այս փորձարկումը՝ այն քարտում պահելու համար",
     "saveToCard": "Պահել քարտում",
     "savedTo": "Պահված է {{field}}-ում",
     "selectCardWithFields_one": "Խնդրում ենք ընտրել քարտ այս դաշտով",
@@ -379,8 +383,7 @@
     "testResult": "Փորձարկման արդյունք",
     "textToSpeak": "Տեքստ խոսելու համար",
     "viewResult": "Դիտել արդյունքը",
-    "wrongNoteType": "Նշման սխալ տեսակ",
-    "rerunToSave": "Կրկին գործարկեք այս փորձարկումը՝ այն քարտում պահելու համար"
+    "wrongNoteType": "Նշման սխալ տեսակ"
   },
   "subscription": {
     "accessEnds": "Մուտքը ավարտվում է",

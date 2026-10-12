@@ -265,14 +265,16 @@
       "loadingTitle": "Defaŭltaj Bildaj Agordoj",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Elektante bildomodelon",
       "samplePrompt": "Generu bildon de studento, kiu forte studas kun Anki kaj trapasas siajn testojn.",
       "saveError": "Ne eblis konservi bildodefaŭltojn",
       "subtitle": "La modelo kiun via bildo Smart Fields uzas krom se kampo alpinglas sian propran.",
       "title": "Defaŭltaj Bildaj Agordoj",
-      "zImageTurbo": "plej rapida kaj plej malmultekosta."
+      "zImageTurbo": "plej rapida kaj plej malmultekosta.",
+      "modelTipLabel": "Pri la bildmodeloj",
+      "nanoBanana21": "riĉaj, fotografiaj scenoj."
     },
     "layout": {
       "saveChanges": "Konservu ŝanĝojn",
@@ -337,7 +339,8 @@
     "maxQuality": "Maksimuma kvalito",
     "maxQualityDescription": "Pli akra kaj pura, ĉefe malgrandaj etikedoj.",
     "richerDetail": "Pli riĉa detalo",
-    "richerDetailDescription": "Pli detala, plenaj scenoj. Iom pli malrapida."
+    "richerDetailDescription": "Pli detala, plenaj scenoj. Iom pli malrapida.",
+    "extrasTipLabel": "Pri la aldonaĵoj"
   },
   "promptTester": {
     "anotherNoteType": "alia notspeco",
@@ -359,6 +362,7 @@
     "notesSelected_one": "{{count}} noto elektita - mallarĝu ĝin al unu.",
     "notesSelected_other": "{{count}} notoj elektitaj - mallarĝu ĝin al unu.",
     "promptPlaceholder": "Skribu provon, referencante kampojn sur via karto kun {{braces}}.",
+    "rerunToSave": "Ripetu ĉi tiun teston por konservi ĝin en la kartoj",
     "saveToCard": "Konservu al karto",
     "savedTo": "Konservite al {{field}}",
     "selectCardWithFields_one": "Bonvolu elekti karton kun la kampo",
@@ -379,8 +383,7 @@
     "testResult": "Testrezulto",
     "textToSpeak": "Teksto por paroli",
     "viewResult": "Vidu rezulton",
-    "wrongNoteType": "Malĝusta nottipo",
-    "rerunToSave": "Ripetu ĉi tiun teston por konservi ĝin en la kartoj"
+    "wrongNoteType": "Malĝusta nottipo"
   },
   "subscription": {
     "accessEnds": "Aliro finiĝas",

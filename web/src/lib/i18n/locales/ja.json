@@ -264,14 +264,16 @@
       "loadingTitle": "デフォルトの画像設定",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 画像モデルの選択",
       "samplePrompt": "Anki で熱心に勉強し、テストに合格する学生のイメージを生成します。",
       "saveError": "画像のデフォルトを保存できませんでした",
       "subtitle": "フィールドが独自に固定していない限り、画像 Smart Fields が使用するモデル。",
       "title": "デフォルトの画像設定",
-      "zImageTurbo": "最速かつ最安。"
+      "zImageTurbo": "最速かつ最安。",
+      "modelTipLabel": "画像モデルについて",
+      "nanoBanana21": "リッチで写真のようなシーンに適しています。"
     },
     "layout": {
       "saveChanges": "変更を保存する",
@@ -335,7 +337,8 @@
     "maxQuality": "最高品質",
     "maxQualityDescription": "より鮮明でクリーンな画像、特に小さなラベルに対応します。",
     "richerDetail": "リッチなディテール",
-    "richerDetailDescription": "より詳細で豊かなシーン。少し遅くなります。"
+    "richerDetailDescription": "より詳細で豊かなシーン。少し遅くなります。",
+    "extrasTipLabel": "追加機能について"
   },
   "promptTester": {
     "anotherNoteType": "別のノートタイプ",
@@ -354,6 +357,7 @@
     "needsFields_other": "{{count}} フィールドが必要です",
     "notesSelected_other": "{{count}} ノートが選択されています — 1 つに絞り込みます。",
     "promptPlaceholder": "{{braces}} を使用してカード上のフィールドを参照して、テスト プロンプトを作成します。",
+    "rerunToSave": "保存するには、このテストをもう一度実行してください",
     "saveToCard": "カードに保存",
     "savedTo": "{{field}}に保存されました",
     "selectCardWithFields_other": "フィールドを含むカードを選択してください",
@@ -373,8 +377,7 @@
     "testResult": "試験結果",
     "textToSpeak": "話すテキスト",
     "viewResult": "結果を見る",
-    "wrongNoteType": "ノートの種類が間違っています",
-    "rerunToSave": "保存するには、このテストをもう一度実行してください"
+    "wrongNoteType": "ノートの種類が間違っています"
   },
   "subscription": {
     "accessEnds": "アクセス終了",

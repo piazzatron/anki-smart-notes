@@ -266,14 +266,16 @@
       "loadingTitle": "Setări implicite pentru imagine",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Alegerea unui model de imagine",
       "samplePrompt": "Generați o imagine a unui student care studiază din greu cu Anki și își trece testele.",
       "saveError": "Nu s-au putut salva valorile implicite ale imaginii",
       "subtitle": "Modelul pe care îl folosește imaginea dvs. Smart Fields, cu excepția cazului în care un câmp își stabilește propriul.",
       "title": "Setări implicite pentru imagine",
-      "zImageTurbo": "cel mai rapid si mai ieftin."
+      "zImageTurbo": "cel mai rapid si mai ieftin.",
+      "modelTipLabel": "Despre modelele de imagini",
+      "nanoBanana21": "scene bogate, de tip fotografic."
     },
     "layout": {
       "saveChanges": "Salvați modificările",
@@ -339,7 +341,8 @@
     "maxQuality": "Calitate maximă",
     "maxQualityDescription": "Mai ascuțit și mai curat, în special etichetele mici.",
     "richerDetail": "Detalii mai bogate",
-    "richerDetailDescription": "Mai detaliat, scene mai complete. Puțin mai lent."
+    "richerDetailDescription": "Mai detaliat, scene mai complete. Puțin mai lent.",
+    "extrasTipLabel": "Despre opțiunile suplimentare"
   },
   "promptTester": {
     "anotherNoteType": "alt tip de notă",
@@ -364,6 +367,7 @@
     "notesSelected_few": "{{count}} note selectate — restrângeți selecția la una.",
     "notesSelected_other": "Notele {{count}} selectate — restrângeți-l la unul.",
     "promptPlaceholder": "Scrieți o solicitare de testare, făcând referire la câmpurile de pe cardul dvs. cu {{braces}}.",
+    "rerunToSave": "Rulează din nou acest test pentru a-l salva pe card",
     "saveToCard": "Salvați pe card",
     "savedTo": "Salvat în {{field}}",
     "selectCardWithFields_one": "Vă rugăm selectați o carte cu câmpul",
@@ -385,8 +389,7 @@
     "testResult": "Rezultatul testului",
     "textToSpeak": "Text pentru a vorbi",
     "viewResult": "Vedeți rezultatul",
-    "wrongNoteType": "Tip greșit de notă",
-    "rerunToSave": "Rulează din nou acest test pentru a-l salva pe card"
+    "wrongNoteType": "Tip greșit de notă"
   },
   "subscription": {
     "accessEnds": "Accesul se încheie",

@@ -265,14 +265,16 @@
       "loadingTitle": "ଡିଫଲ୍ଟ ପ୍ରତିଛବି ସେଟିଂସମୂହ",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "An ଏକ ପ୍ରତିଛବି ମଡେଲ୍ ବାଛିବା",
       "samplePrompt": "Anki ସହିତ କଠିନ ଅଧ୍ୟୟନ କରୁଥିବା ଏବଂ ସେମାନଙ୍କ ପରୀକ୍ଷା ପାସ୍ କରୁଥିବା ଛାତ୍ରଙ୍କ ପ୍ରତିଛବି ସୃଷ୍ଟି କରନ୍ତୁ",
       "saveError": "ପ୍ରତିଛବି ଡିଫଲ୍ଟ ସଞ୍ଚୟ କରିପାରିଲା ନାହିଁ",
       "subtitle": "ତୁମର ପ୍ରତିଛବି Smart Fields ବ୍ୟବହାର କରୁଥିବା ମଡେଲ୍ ଯଦି କ a ଣସି କ୍ଷେତ୍ର ଏହାର ପିନ ନଥାଏ",
       "title": "ଡିଫଲ୍ଟ ପ୍ରତିଛବି ସେଟିଂସମୂହ",
-      "zImageTurbo": "ଦ୍ରୁତ ଏବଂ ଶସ୍ତା"
+      "zImageTurbo": "ଦ୍ରୁତ ଏବଂ ଶସ୍ତା",
+      "modelTipLabel": "ଇମେଜ ମଡେଲ ବିଷୟରେ",
+      "nanoBanana21": "ସମୃଦ୍ଧ, ଫଟୋଗ୍ରାଫିକ୍ ଦୃଶ୍ୟ।"
     },
     "layout": {
       "saveChanges": "ପରିବର୍ତ୍ତନଗୁଡିକ ସଞ୍ଚୟ କରନ୍ତୁ",
@@ -337,7 +339,8 @@
     "maxQuality": "ସର୍ବାଧିକ ଗୁଣବତ୍ତା",
     "maxQualityDescription": "ଅଧିକ ତୀକ୍ଷ୍ଣ ଏବଂ ଶୁଦ୍ଧ, ବିଶେଷତଃ ଛୋଟ ଲେବେଲଗୁଡ଼ିକ ପାଇଁ।",
     "richerDetail": "ଅଧିକ ସମୃଦ୍ଧ ବିବରଣ",
-    "richerDetailDescription": "ଅଧିକ ବିସ୍ତୃତ, ପୂର୍ଣ୍ଣ ଦୃଶ୍ୟ। ଟିକିଏ ମନ୍ଥର।"
+    "richerDetailDescription": "ଅଧିକ ବିସ୍ତୃତ, ପୂର୍ଣ୍ଣ ଦୃଶ୍ୟ। ଟିକିଏ ମନ୍ଥର।",
+    "extrasTipLabel": "ଅତିରିକ୍ତ ବିଷୟରେ"
   },
   "promptTester": {
     "anotherNoteType": "ଅନ୍ୟ ଏକ ନୋଟ୍ ପ୍ରକାର",
@@ -359,6 +362,7 @@
     "notesSelected_one": "{{count}} ନୋଟ୍ ମନୋନୀତ - ଏହାକୁ ଗୋଟିଏକୁ ସଂକୀର୍ଣ୍ଣ କର",
     "notesSelected_other": "{{count}} ନୋଟଗୁଡିକ ମନୋନୀତ ହୋଇଛି - ଏହାକୁ ଗୋଟିଏକୁ ସଂକୀର୍ଣ୍ଣ କରନ୍ତୁ",
     "promptPlaceholder": "{{braces}} ସହିତ ଆପଣଙ୍କ କାର୍ଡରେ ଫିଲ୍ଡଗୁଡ଼ିକୁ ରେଫରେନ୍ସ କରି ଏକ ପରୀକ୍ଷା ପ୍ରମ୍ପ୍ଟ ଲେଖନ୍ତୁ",
+    "rerunToSave": "ଏହି ପରୀକ୍ଷାକୁ କାର୍ଡରେ ସେଭ୍ କରିବା ପାଇଁ ପୁଣି ଚଲାନ୍ତୁ",
     "saveToCard": "କାର୍ଡରେ ସେଭ୍ କରନ୍ତୁ",
     "savedTo": "{{field}} ରେ ସଞ୍ଚୟ ହୋଇଛି",
     "selectCardWithFields_one": "ଦୟାକରି ଫିଲ୍ଡ ସହିତ ଏକ କାର୍ଡ ନିର୍ବାଚନ କରନ୍ତୁ",
@@ -379,8 +383,7 @@
     "testResult": "ପରୀକ୍ଷା ଫଳାଫଳ",
     "textToSpeak": "କହିବାକୁ ପାଠ",
     "viewResult": "ଫଳାଫଳ ଦେଖନ୍ତୁ",
-    "wrongNoteType": "ଭୁଲ ନୋଟ୍ ପ୍ରକାର",
-    "rerunToSave": "ଏହି ପରୀକ୍ଷାକୁ କାର୍ଡରେ ସେଭ୍ କରିବା ପାଇଁ ପୁଣି ଚଲାନ୍ତୁ"
+    "wrongNoteType": "ଭୁଲ ନୋଟ୍ ପ୍ରକାର"
   },
   "subscription": {
     "accessEnds": "ପ୍ରବେଶାଧିକାର ସମାପ୍ତ ହୁଏ",

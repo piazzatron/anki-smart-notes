@@ -265,14 +265,16 @@
       "loadingTitle": "Standardbildeinstellungen",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Wählen Sie ein Bildmodell aus",
       "samplePrompt": "Erstellen Sie ein Bild eines Studenten, der mit Anki fleißig lernt und seine Prüfungen besteht.",
       "saveError": "Bildstandardeinstellungen konnten nicht gespeichert werden",
       "subtitle": "Das Modell, das Ihr Bild Smart Fields verwendet, es sei denn, ein Feld heftet sein eigenes an.",
       "title": "Standardbildeinstellungen",
-      "zImageTurbo": "am schnellsten und günstigsten."
+      "zImageTurbo": "am schnellsten und günstigsten.",
+      "modelTipLabel": "Info zu den Bildmodellen",
+      "nanoBanana21": "reiche, fotografische Szenen."
     },
     "layout": {
       "saveChanges": "Änderungen speichern",
@@ -337,7 +339,8 @@
     "maxQuality": "Maximale Qualität",
     "maxQualityDescription": "Schärfer und sauberer, besonders bei kleinen Beschriftungen.",
     "richerDetail": "Mehr Details",
-    "richerDetailDescription": "Detaillierter, vollere Szenen. Etwas langsamer."
+    "richerDetailDescription": "Detaillierter, vollere Szenen. Etwas langsamer.",
+    "extrasTipLabel": "Info zu den Extras"
   },
   "promptTester": {
     "anotherNoteType": "ein anderer Notiztyp",
@@ -359,6 +362,7 @@
     "notesSelected_one": "{{count}}-Note ausgewählt – auf eine beschränken.",
     "notesSelected_other": "{{count}}-Notizen ausgewählt – auf eine beschränken.",
     "promptPlaceholder": "Schreiben Sie eine Testaufforderung und verweisen Sie dabei auf Felder auf Ihrer Karte mit {{braces}}.",
+    "rerunToSave": "Diesen Test erneut ausführen, um ihn auf der Karte zu speichern",
     "saveToCard": "Auf Karte speichern",
     "savedTo": "Gespeichert unter {{field}}",
     "selectCardWithFields_one": "Bitte wählen Sie eine Karte mit dem Feld",
@@ -379,8 +383,7 @@
     "testResult": "Testergebnis",
     "textToSpeak": "Text zum Sprechen",
     "viewResult": "Ergebnis ansehen",
-    "wrongNoteType": "Falscher Notiztyp",
-    "rerunToSave": "Diesen Test erneut ausführen, um ihn auf der Karte zu speichern"
+    "wrongNoteType": "Falscher Notiztyp"
   },
   "subscription": {
     "accessEnds": "Zugriff endet",

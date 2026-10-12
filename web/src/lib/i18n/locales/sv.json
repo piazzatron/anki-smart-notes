@@ -265,14 +265,16 @@
       "loadingTitle": "Standardbildinställningar",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Välja en bildmodell",
       "samplePrompt": "Skapa en bild av en student som studerar hårt med Anki och klarar sina prov.",
       "saveError": "Det gick inte att spara bildens standardinställningar",
       "subtitle": "Modellen som din bild Smart Fields använder om inte ett fält fäster sitt eget.",
       "title": "Standardbildinställningar",
-      "zImageTurbo": "snabbast och billigast."
+      "zImageTurbo": "snabbast och billigast.",
+      "modelTipLabel": "Om bildmodellerna",
+      "nanoBanana21": "rika, fotografiska scener."
     },
     "layout": {
       "saveChanges": "Spara ändringar",
@@ -337,7 +339,8 @@
     "maxQuality": "Maximal kvalitet",
     "maxQualityDescription": "Skarpare och renare, särskilt små etiketter.",
     "richerDetail": "Rikare detaljer",
-    "richerDetailDescription": "Mer detaljer, fullare scener. Något långsammare."
+    "richerDetailDescription": "Mer detaljer, fullare scener. Något långsammare.",
+    "extrasTipLabel": "Om extrafunktionerna"
   },
   "promptTester": {
     "anotherNoteType": "en annan nottyp",
@@ -359,6 +362,7 @@
     "notesSelected_one": "{{count}} not vald — begränsa den till en.",
     "notesSelected_other": "{{count}} anteckningar valda — begränsa den till en.",
     "promptPlaceholder": "Skriv en testprompt och hänvisa till fälten på ditt kort med {{braces}}.",
+    "rerunToSave": "Kör testet igen för att spara det på kortet",
     "saveToCard": "Spara till kort",
     "savedTo": "Sparad till {{field}}",
     "selectCardWithFields_one": "Välj ett kort med fältet",
@@ -379,8 +383,7 @@
     "testResult": "Testresultat",
     "textToSpeak": "Text att tala",
     "viewResult": "Visa resultat",
-    "wrongNoteType": "Fel anteckningstyp",
-    "rerunToSave": "Kör testet igen för att spara det på kortet"
+    "wrongNoteType": "Fel anteckningstyp"
   },
   "subscription": {
     "accessEnds": "Åtkomsten upphör",

@@ -264,14 +264,16 @@
       "loadingTitle": "Cài đặt hình ảnh mặc định",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Chọn mẫu hình ảnh",
       "samplePrompt": "Tạo hình ảnh một học sinh đang học tập chăm chỉ với Anki và vượt qua các bài kiểm tra của họ.",
       "saveError": "Không thể lưu mặc định hình ảnh",
       "subtitle": "Mô hình mà hình ảnh Smart Fields của bạn sử dụng trừ khi một trường ghim trường của chính nó.",
       "title": "Cài đặt hình ảnh mặc định",
-      "zImageTurbo": "nhanh nhất và rẻ nhất."
+      "zImageTurbo": "nhanh nhất và rẻ nhất.",
+      "modelTipLabel": "Giới thiệu về các mô hình ảnh",
+      "nanoBanana21": "các cảnh giàu chi tiết, mang phong cách nhiếp ảnh."
     },
     "layout": {
       "saveChanges": "Lưu thay đổi",
@@ -335,7 +337,8 @@
     "maxQuality": "Chất lượng tối đa",
     "maxQualityDescription": "Rõ nét và sạch hơn, đặc biệt là các nhãn nhỏ.",
     "richerDetail": "Chi tiết phong phú hơn",
-    "richerDetailDescription": "Chi tiết hơn, cảnh đầy đủ hơn. Chậm hơn một chút."
+    "richerDetailDescription": "Chi tiết hơn, cảnh đầy đủ hơn. Chậm hơn một chút.",
+    "extrasTipLabel": "Giới thiệu về các tính năng bổ sung"
   },
   "promptTester": {
     "anotherNoteType": "loại ghi chú khác",
@@ -354,6 +357,7 @@
     "needsFields_other": "Cần các trường {{count}}",
     "notesSelected_other": "Các ghi chú {{count}} đã chọn - thu hẹp nó thành một ghi chú.",
     "promptPlaceholder": "Viết lời nhắc kiểm tra, tham chiếu các trường trên thẻ của bạn bằng {{braces}}.",
+    "rerunToSave": "Chạy lại thử nghiệm này để lưu vào thẻ",
     "saveToCard": "Lưu vào thẻ",
     "savedTo": "Đã lưu vào {{field}}",
     "selectCardWithFields_other": "Vui lòng chọn một thẻ có các trường",
@@ -373,8 +377,7 @@
     "testResult": "Kết quả kiểm tra",
     "textToSpeak": "Nhắn tin để nói",
     "viewResult": "Xem kết quả",
-    "wrongNoteType": "Loại ghi chú sai",
-    "rerunToSave": "Chạy lại thử nghiệm này để lưu vào thẻ"
+    "wrongNoteType": "Loại ghi chú sai"
   },
   "subscription": {
     "accessEnds": "Quyền truy cập kết thúc",

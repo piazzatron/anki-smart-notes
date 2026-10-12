@@ -264,14 +264,16 @@
       "loadingTitle": "Tetapan Imej Lalai",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Memilih model imej",
       "samplePrompt": "Hasilkan imej pelajar yang belajar bersungguh-sungguh dengan Anki dan lulus ujian mereka.",
       "saveError": "Tidak dapat menyimpan lalai imej",
       "subtitle": "Model imej anda Smart Fields gunakan melainkan medan menyematnya sendiri.",
       "title": "Tetapan Imej Lalai",
-      "zImageTurbo": "terpantas dan termurah."
+      "zImageTurbo": "terpantas dan termurah.",
+      "modelTipLabel": "Tentang model imej",
+      "nanoBanana21": "adegan yang kaya dan menyerupai fotografi."
     },
     "layout": {
       "saveChanges": "Simpan perubahan",
@@ -335,7 +337,8 @@
     "maxQuality": "Kualiti maksimum",
     "maxQualityDescription": "Lebih tajam dan bersih, terutama label kecil.",
     "richerDetail": "Detail lebih kaya",
-    "richerDetailDescription": "Lebih terperinci, pemandangan lebih lengkap. Sedikit lebih perlahan."
+    "richerDetailDescription": "Lebih terperinci, pemandangan lebih lengkap. Sedikit lebih perlahan.",
+    "extrasTipLabel": "Tentang tambahan"
   },
   "promptTester": {
     "anotherNoteType": "jenis nota lain",
@@ -354,6 +357,7 @@
     "needsFields_other": "Memerlukan medan {{count}}",
     "notesSelected_other": "Nota {{count}} dipilih — sempitkannya kepada satu.",
     "promptPlaceholder": "Tulis gesaan ujian, merujuk medan pada kad anda dengan {{braces}}.",
+    "rerunToSave": "Jalankan ujian ini semula untuk menyimpannya ke kad",
     "saveToCard": "Simpan ke kad",
     "savedTo": "Disimpan ke {{field}}",
     "selectCardWithFields_other": "Sila pilih kad dengan medan tersebut",
@@ -373,8 +377,7 @@
     "testResult": "Keputusan ujian",
     "textToSpeak": "Teks untuk bercakap",
     "viewResult": "Lihat hasil",
-    "wrongNoteType": "Jenis nota yang salah",
-    "rerunToSave": "Jalankan ujian ini semula untuk menyimpannya ke kad"
+    "wrongNoteType": "Jenis nota yang salah"
   },
   "subscription": {
     "accessEnds": "Akses berakhir",

@@ -265,14 +265,16 @@
       "loadingTitle": "Varsayılan Görüntü Ayarları",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Bir görüntü modeli seçme",
       "samplePrompt": "Anki ile sıkı çalışan ve sınavlarını geçen bir öğrencinin görüntüsünü oluşturun.",
       "saveError": "Resim varsayılanları kaydedilemedi",
       "subtitle": "Bir alan kendisini sabitlemediği sürece görüntünüz Smart Fields'in kullandığı model.",
       "title": "Varsayılan Görüntü Ayarları",
-      "zImageTurbo": "en hızlı ve en ucuz."
+      "zImageTurbo": "en hızlı ve en ucuz.",
+      "modelTipLabel": "Görsel modelleri hakkında",
+      "nanoBanana21": "zengin, fotoğrafik sahneler."
     },
     "layout": {
       "saveChanges": "Değişiklikleri kaydet",
@@ -337,7 +339,8 @@
     "maxQuality": "Maksimum kalite",
     "maxQualityDescription": "Daha keskin ve temiz, özellikle küçük etiketler için.",
     "richerDetail": "Daha zengin detay",
-    "richerDetailDescription": "Daha detaylı, tam sahneler. Biraz daha yavaş."
+    "richerDetailDescription": "Daha detaylı, tam sahneler. Biraz daha yavaş.",
+    "extrasTipLabel": "Ekstralar hakkında"
   },
   "promptTester": {
     "anotherNoteType": "başka bir not türü",
@@ -359,6 +362,7 @@
     "notesSelected_one": "{{count}} notu seçildi — onu bire daraltın.",
     "notesSelected_other": "Seçilen {{count}} notları — onu bire daraltın.",
     "promptPlaceholder": "{{braces}} ile kartınızdaki alanlara referans veren bir test istemi yazın.",
+    "rerunToSave": "Kaydetmek için bu testi yeniden çalıştırın",
     "saveToCard": "Karta kaydet",
     "savedTo": "{{field}}'e kaydedildi",
     "selectCardWithFields_one": "Lütfen alanı içeren bir kart seçin",
@@ -379,8 +383,7 @@
     "testResult": "Test sonucu",
     "textToSpeak": "Konuşmak için metin",
     "viewResult": "Sonucu görüntüle",
-    "wrongNoteType": "Yanlış not türü",
-    "rerunToSave": "Kaydetmek için bu testi yeniden çalıştırın"
+    "wrongNoteType": "Yanlış not türü"
   },
   "subscription": {
     "accessEnds": "Erişim sona eriyor",

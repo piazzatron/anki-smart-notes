@@ -264,14 +264,16 @@
       "loadingTitle": "Paramètres d'imatge per defaut",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Causir un modèl d'imatge",
       "samplePrompt": "Generar una imatge d'un escolans qu'estudia fòrça amb Anki e que passa sos tèsts.",
       "saveError": "Impossible d'enregistrar las valors per defaut de l'imatge",
       "subtitle": "Lo modèl que vòstra imatge Smart Fields utilizatz levat se un camp fixa lo sieu.",
       "title": "Paramètres d'imatge per defaut",
-      "zImageTurbo": "lo mai rapid e lo mai economic."
+      "zImageTurbo": "lo mai rapid e lo mai economic.",
+      "modelTipLabel": "A prepaus dels modèls d'imatge",
+      "nanoBanana21": "scènas ricas, fotograficas."
     },
     "layout": {
       "saveChanges": "Enregistrar las modificacions",
@@ -335,7 +337,8 @@
     "maxQuality": "Qualitat maxima",
     "maxQualityDescription": "Pus net e pus clar, especialament per las etiquetas petitas.",
     "richerDetail": "Detall pus ric",
-    "richerDetailDescription": "Pus detallat, escènas pus complètas. Un pauc pus lent."
+    "richerDetailDescription": "Pus detallat, escènas pus complètas. Un pauc pus lent.",
+    "extrasTipLabel": "A prepaus dels extras"
   },
   "promptTester": {
     "anotherNoteType": "un autre tipe de nòta",
@@ -354,6 +357,7 @@
     "needsFields_other": "Necessita de camps {{count}}",
     "notesSelected_other": "{{count}} nòtas seleccionadas — la restrenh a una.",
     "promptPlaceholder": "Escrivètz una indicacion de tèst, en fasent referéncia als camps sus vòstra carta amb {{braces}}.",
+    "rerunToSave": "Tornatz executar aqueste tèst per lo salvar dins la carta",
     "saveToCard": "Enregistrar sus la carta",
     "savedTo": "Enregistrat a {{field}}",
     "selectCardWithFields_other": "Causisse una carta amb los champs",
@@ -373,8 +377,7 @@
     "testResult": "Resultat del tèst",
     "textToSpeak": "Tèxte per parlar",
     "viewResult": "Veire lo resultat",
-    "wrongNoteType": "Tipe de nòta incorrècte",
-    "rerunToSave": "Tornatz executar aqueste tèst per lo salvar dins la carta"
+    "wrongNoteType": "Tipe de nòta incorrècte"
   },
   "subscription": {
     "accessEnds": "L'accès s'acabarà",

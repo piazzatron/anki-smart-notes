@@ -267,14 +267,16 @@
       "loadingTitle": "Domyślne ustawienia obrazu",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Wybór modelu obrazu",
       "samplePrompt": "Wygeneruj obraz ucznia, który pilnie uczy się za pomocą Anki i zdaje egzaminy.",
       "saveError": "Nie można zapisać domyślnych ustawień obrazu",
       "subtitle": "Model, którego używa Twój obraz Smart Fields, chyba że pole przypina własne.",
       "title": "Domyślne ustawienia obrazu",
-      "zImageTurbo": "najszybciej i najtaniej."
+      "zImageTurbo": "najszybciej i najtaniej.",
+      "modelTipLabel": "Informacje o modelach obrazów",
+      "nanoBanana21": "bogate, fotograficzne sceny."
     },
     "layout": {
       "saveChanges": "Zapisz zmiany",
@@ -341,7 +343,8 @@
     "maxQuality": "Maksymalna jakość",
     "maxQualityDescription": "Ostrzejsze i czystsze, szczególnie małe etykiety.",
     "richerDetail": "Bogatsze szczegóły",
-    "richerDetailDescription": "Bardziej szczegółowe, bogatsze sceny. Nieco wolniejsze."
+    "richerDetailDescription": "Bardziej szczegółowe, bogatsze sceny. Nieco wolniejsze.",
+    "extrasTipLabel": "Informacje o dodatkach"
   },
   "promptTester": {
     "anotherNoteType": "inny typ notatki",
@@ -369,6 +372,7 @@
     "notesSelected_many": "Wybrano {{count}} notatek — zawęź wybór do jednej.",
     "notesSelected_other": "Wybrano {{count}} notatki — zawęź wybór do jednej.",
     "promptPlaceholder": "Napisz monit testowy, odwołując się do pól na karcie za pomocą {{braces}}.",
+    "rerunToSave": "Uruchom ten test ponownie, aby zapisać go w karcie",
     "saveToCard": "Zapisz na karcie",
     "savedTo": "Zapisano w {{field}}",
     "selectCardWithFields_one": "Wybierz kartę z polem",
@@ -391,8 +395,7 @@
     "testResult": "Wynik testu",
     "textToSpeak": "Tekst do mówienia",
     "viewResult": "Zobacz wynik",
-    "wrongNoteType": "Zły typ notatki",
-    "rerunToSave": "Uruchom ten test ponownie, aby zapisać go w karcie"
+    "wrongNoteType": "Zły typ notatki"
   },
   "subscription": {
     "accessEnds": "Dostęp kończy się",

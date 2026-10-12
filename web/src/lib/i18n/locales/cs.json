@@ -267,14 +267,16 @@
       "loadingTitle": "Výchozí nastavení obrázku",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Výběr obrazového modelu",
       "samplePrompt": "Vytvořte si obrázek studenta, který pilně studuje se Anki a složí své testy.",
       "saveError": "Nepodařilo se uložit výchozí nastavení obrázku",
       "subtitle": "Model, který váš obrázek používá Smart Fields, pokud pole nepřipíná své vlastní.",
       "title": "Výchozí nastavení obrázku",
-      "zImageTurbo": "nejrychlejší a nejlevnější."
+      "zImageTurbo": "nejrychlejší a nejlevnější.",
+      "modelTipLabel": "O modelech pro obrázky",
+      "nanoBanana21": "bohaté, fotografické scény."
     },
     "layout": {
       "saveChanges": "Uložte změny",
@@ -341,7 +343,8 @@
     "maxQuality": "Maximální kvalita",
     "maxQualityDescription": "Ostřejší a čistší, zejména malé popisky.",
     "richerDetail": "Bohatší detaily",
-    "richerDetailDescription": "Více detailů, plnější scény. Trochu pomalejší."
+    "richerDetailDescription": "Více detailů, plnější scény. Trochu pomalejší.",
+    "extrasTipLabel": "O doplňcích"
   },
   "promptTester": {
     "anotherNoteType": "jiný typ poznámky",
@@ -369,6 +372,7 @@
     "notesSelected_many": "Vybráno {{count}} poznámky — zužte výběr na jednu.",
     "notesSelected_other": "Vybráno {{count}} poznámek — zužte výběr na jednu.",
     "promptPlaceholder": "Napište testovací výzvu s odkazem na pole na vaší kartě pomocí {{braces}}.",
+    "rerunToSave": "Spusťte tento test znovu, aby se uložil na kartu",
     "saveToCard": "Uložit na kartu",
     "savedTo": "Uloženo do {{field}}",
     "selectCardWithFields_one": "Prosím vyberte kartu s polem",
@@ -391,8 +395,7 @@
     "testResult": "Výsledek testu",
     "textToSpeak": "Text k mluvení",
     "viewResult": "Zobrazit výsledek",
-    "wrongNoteType": "Špatný typ poznámky",
-    "rerunToSave": "Spusťte tento test znovu, aby se uložil na kartu"
+    "wrongNoteType": "Špatný typ poznámky"
   },
   "subscription": {
     "accessEnds": "Přístup končí",

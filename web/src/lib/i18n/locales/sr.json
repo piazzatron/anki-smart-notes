@@ -266,14 +266,16 @@
       "loadingTitle": "Подразумевана подешавања слике",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Бирање модела слике",
       "samplePrompt": "Генеришите слику ученика који вредно учи са Anki и полаже тестове.",
       "saveError": "Није могуће сачувати подразумеване вредности слике",
       "subtitle": "Модел који ваша слика користи Smart Fields осим ако поље не закачи своје.",
       "title": "Подразумевана подешавања слике",
-      "zImageTurbo": "најбржи и најјефтинији."
+      "zImageTurbo": "најбржи и најјефтинији.",
+      "modelTipLabel": "О моделима слика",
+      "nanoBanana21": "богате, фотографске сцене."
     },
     "layout": {
       "saveChanges": "Сачувај промене",
@@ -339,7 +341,8 @@
     "maxQuality": "Максимална квалитета",
     "maxQualityDescription": "Оштрије и чишће, посебно мале налепнице.",
     "richerDetail": "Богатији детаљ",
-    "richerDetailDescription": "Више детаља, пуније сцене. Мало спорије."
+    "richerDetailDescription": "Више детаља, пуније сцене. Мало спорије.",
+    "extrasTipLabel": "О додацима"
   },
   "promptTester": {
     "anotherNoteType": "другу врсту нота",
@@ -364,6 +367,7 @@
     "notesSelected_few": "{{count}} белешке су изабране — сузите их на једну.",
     "notesSelected_other": "{{count}} белешке изабране — сузите их на једну.",
     "promptPlaceholder": "Напишите пробни упит, позивајући се на поља на вашој картици помоћу {{braces}}.",
+    "rerunToSave": "Поново покрените овај тест да бисте га сачували на картици",
     "saveToCard": "Сачувај на картицу",
     "savedTo": "Сачувано у {{field}}",
     "selectCardWithFields_one": "Молимо изаберите картицу са пољем",
@@ -385,8 +389,7 @@
     "testResult": "Резултат теста",
     "textToSpeak": "Текст за говор",
     "viewResult": "Погледајте резултат",
-    "wrongNoteType": "Погрешна врста белешке",
-    "rerunToSave": "Поново покрените овај тест да бисте га сачували на картици"
+    "wrongNoteType": "Погрешна врста белешке"
   },
   "subscription": {
     "accessEnds": "Приступ се завршава",

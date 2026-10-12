@@ -265,14 +265,16 @@
       "loadingTitle": "Standard bildeinnstillinger",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Velge en bildemodell",
       "samplePrompt": "Generer et bilde av en student som studerer hardt med Anki og består testene deres.",
       "saveError": "Kunne ikke lagre bildestandarder",
       "subtitle": "Modellen bildet ditt Smart Fields bruker med mindre et felt fester sitt eget.",
       "title": "Standard bildeinnstillinger",
-      "zImageTurbo": "raskest og billigst."
+      "zImageTurbo": "raskest og billigst.",
+      "modelTipLabel": "Om bildemodellene",
+      "nanoBanana21": "rike, fotografiske scener."
     },
     "layout": {
       "saveChanges": "Lagre endringer",
@@ -337,7 +339,8 @@
     "maxQuality": "Maksimal kvalitet",
     "maxQualityDescription": "Skarpere og renere, spesielt små etiketter.",
     "richerDetail": "Rikere detaljer",
-    "richerDetailDescription": "Mer detaljert, fullere scener. Litt tregere."
+    "richerDetailDescription": "Mer detaljert, fullere scener. Litt tregere.",
+    "extrasTipLabel": "Om tilleggene"
   },
   "promptTester": {
     "anotherNoteType": "en annen notetype",
@@ -359,6 +362,7 @@
     "notesSelected_one": "{{count}}-note valgt — avgrens den til én.",
     "notesSelected_other": "{{count}}-noter valgt — begrense den til én.",
     "promptPlaceholder": "Skriv en testmelding, og referer til feltene på kortet ditt med {{braces}}.",
+    "rerunToSave": "Kjør denne testen på nytt for å lagre den på kortet",
     "saveToCard": "Lagre på kort",
     "savedTo": "Lagret i {{field}}",
     "selectCardWithFields_one": "Vennligst velg et kort med feltet",
@@ -379,8 +383,7 @@
     "testResult": "Testresultat",
     "textToSpeak": "Tekst for å snakke",
     "viewResult": "Se resultatet",
-    "wrongNoteType": "Feil notetype",
-    "rerunToSave": "Kjør denne testen på nytt for å lagre den på kortet"
+    "wrongNoteType": "Feil notetype"
   },
   "subscription": {
     "accessEnds": "Tilgang slutter",

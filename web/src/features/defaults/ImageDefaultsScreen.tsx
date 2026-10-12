@@ -1,10 +1,12 @@
+import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
+import { InfoTip } from "@/components/ui/InfoTip"
 import { ImageModelSelect } from "@/features/image-generation/ImageModelSelect"
 import { PromptTesterStrip } from "@/features/prompt-tester/PromptTesterStrip"
 import { usePromptTester } from "@/features/prompt-tester/usePromptTester"
-import { saveImageDefaults } from "@/services/commands"
+import { saveImageDefaults, saveSettings } from "@/services/commands"
 import { useAppStore } from "@/store/appStore"
 import type { AppState, Catalog } from "@/types/api"
 
@@ -74,6 +76,16 @@ const LoadedImageDefaultsScreen = ({
     "image",
     t("defaults.image.samplePrompt"),
   )
+  // The model tips open by themselves the first time someone lands here.
+  const [isFirstVisit] = useState(() => !state.settings.didSeeImageModelTips)
+  useEffect(() => {
+    // Read settings from the store, not props: the save republishes state, and a
+    // settings dependency would save again on every republish.
+    const settings = useAppStore.getState().state?.settings
+    if (!isFirstVisit || settings === undefined) return
+    void saveSettings({ ...settings, didSeeImageModelTips: true })
+  }, [isFirstVisit])
+
   const tester = usePromptTester({
     fieldType: "image",
     onPromptChange: setPrompt,
@@ -107,41 +119,56 @@ const LoadedImageDefaultsScreen = ({
 
       <div>
         <div className="w-full max-w-[480px]">
-          <label
-            className="mb-2 block text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase"
-            htmlFor="default-image-model"
-          >
-            {t("defaults.image.defaultModel")}
-          </label>
+          {/* The ⓘ sits at the column's right edge so its tip opens into the empty space
+              beside the settings instead of over the picker. */}
+          <div className="mb-2 flex items-center justify-between">
+            <label
+              className="text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase"
+              htmlFor="default-image-model"
+            >
+              {t("defaults.image.defaultModel")}
+            </label>
+            <InfoTip
+              defaultOpen={isFirstVisit}
+              label={t("defaults.image.modelTipLabel")}
+            >
+              <ul className="space-y-1">
+                {MODEL_TIPS.map((tip) => (
+                  <li key={tip.name}>
+                    <strong className="font-semibold text-zinc-50">
+                      {t(tip.name)}
+                    </strong>{" "}
+                    — {t(tip.description)}
+                  </li>
+                ))}
+              </ul>
+            </InfoTip>
+          </div>
           <ImageModelSelect
             catalog={catalog.image}
             id="default-image-model"
             onValueChange={(settings) => void controls.updateDefault(settings)}
+            openExtrasTip={isFirstVisit}
             value={controls.form.values.model}
           />
-
-          <div className="mt-3 rounded-lg border border-indigo/15 bg-indigo/[0.055] p-3.5">
-            <p className="text-xs font-semibold text-zinc-200">
-              {t("defaults.image.pickingModel")}
-            </p>
-            <ul className="mt-2 list-disc space-y-1 ps-5 text-[11px] leading-4 text-ink-muted">
-              <li>
-                <strong className="text-zinc-300">
-                  {t("defaults.image.models.gptImage25")}
-                </strong>{" "}
-                — {t("defaults.image.gptImage25")}
-              </li>
-              <li>{t("defaults.image.extrasTip")}</li>
-              <li>
-                <strong className="text-zinc-300">
-                  {t("defaults.image.models.zImageTurbo")}
-                </strong>{" "}
-                — {t("defaults.image.zImageTurbo")}
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
     </DefaultsScreenLayout>
   )
 }
+
+// What each model is good at; the picker already shows what each costs.
+const MODEL_TIPS = [
+  {
+    name: "defaults.image.models.gptImage25",
+    description: "defaults.image.gptImage25",
+  },
+  {
+    name: "defaults.image.models.nanoBanana21",
+    description: "defaults.image.nanoBanana21",
+  },
+  {
+    name: "defaults.image.models.zImageTurbo",
+    description: "defaults.image.zImageTurbo",
+  },
+] as const

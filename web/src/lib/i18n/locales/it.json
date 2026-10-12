@@ -266,14 +266,16 @@
       "loadingTitle": "Impostazioni immagine predefinite",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Scegliere un modello di immagine",
       "samplePrompt": "Genera un'immagine di uno studente che studia intensamente con Anki e supera i test.",
       "saveError": "Impossibile salvare le impostazioni predefinite dell'immagine",
       "subtitle": "Il modello utilizzato dalla tua immagine Smart Fields a meno che un campo non ne specifichi uno proprio.",
       "title": "Impostazioni immagine predefinite",
-      "zImageTurbo": "più veloce ed economico."
+      "zImageTurbo": "più veloce ed economico.",
+      "modelTipLabel": "Informazioni sui modelli di immagini",
+      "nanoBanana21": "scene ricche e fotografiche."
     },
     "layout": {
       "saveChanges": "Salva modifiche",
@@ -339,7 +341,8 @@
     "maxQuality": "Qualità massima",
     "maxQualityDescription": "Più nitido e pulito, soprattutto le etichette piccole.",
     "richerDetail": "Dettagli più ricchi",
-    "richerDetailDescription": "Più dettagliato, scene più complete. Un po' più lento."
+    "richerDetailDescription": "Più dettagliato, scene più complete. Un po' più lento.",
+    "extrasTipLabel": "Informazioni sugli extra"
   },
   "promptTester": {
     "anotherNoteType": "un altro tipo di nota",
@@ -364,6 +367,7 @@
     "notesSelected_many": "{{count}} note selezionate: restringilo a uno.",
     "notesSelected_other": "{{count}} note selezionate: restringilo a uno.",
     "promptPlaceholder": "Scrivi un messaggio di prova, facendo riferimento ai campi sulla tua carta con {{braces}}.",
+    "rerunToSave": "Esegui di nuovo questo test per salvarlo nella scheda",
     "saveToCard": "Salva su carta",
     "savedTo": "Salvato in {{field}}",
     "selectCardWithFields_one": "Seleziona una scheda con il campo",
@@ -385,8 +389,7 @@
     "testResult": "Risultato del test",
     "textToSpeak": "Testo per parlare",
     "viewResult": "Visualizza risultato",
-    "wrongNoteType": "Tipo di nota sbagliato",
-    "rerunToSave": "Esegui di nuovo questo test per salvarlo nella scheda"
+    "wrongNoteType": "Tipo di nota sbagliato"
   },
   "subscription": {
     "accessEnds": "L'accesso termina",

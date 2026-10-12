@@ -268,14 +268,16 @@
       "loadingTitle": "Socruithe Réamhshocraithe Íomhá",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Samhail íomhá á phiocadh",
       "samplePrompt": "Gin íomhá de dhalta atá ag staidéar go dian le Anki agus ag dul thar a gcuid trialacha.",
       "saveError": "Níorbh fhéidir réamhshocruithe na híomhá a shábháil",
       "subtitle": "Úsáid múnla d’íomhá Smart Fields mura n-úsáideann páirc a chuid féin.",
       "title": "Socruithe Réamhshocraithe Íomhá",
-      "zImageTurbo": "is tapúla agus is saoire."
+      "zImageTurbo": "is tapúla agus is saoire.",
+      "modelTipLabel": "Faoi na samhlacha íomhá",
+      "nanoBanana21": "radharcanna saibhre, fótagrafach."
     },
     "layout": {
       "saveChanges": "Sábháil athruithe",
@@ -343,7 +345,8 @@
     "maxQuality": "Uachtar ar an gcáilíochta",
     "maxQualityDescription": "Níos géire agus níos geal, go háirithe lipéid bheaga.",
     "richerDetail": "Saibhre sonraí",
-    "richerDetailDescription": "Níos mionsonraithe, radhairc níos líofa. Beagáinín níos moille."
+    "richerDetailDescription": "Níos mionsonraithe, radhairc níos líofa. Beagáinín níos moille.",
+    "extrasTipLabel": "Faoi na breiseanna"
   },
   "promptTester": {
     "anotherNoteType": "cineál nóta eile",
@@ -374,6 +377,7 @@
     "notesSelected_many": "Nótaí {{count}} roghnaithe — caolaigh go ceann amháin é.",
     "notesSelected_other": "Nótaí {{count}} roghnaithe — caolaigh go ceann amháin é.",
     "promptPlaceholder": "Scríobh leid tástála, ag tagairt do réimsí ar do chárta le {{braces}}.",
+    "rerunToSave": "Rith an tástáil seo arís chun í a shábháil ar an gcárta",
     "saveToCard": "Sábháil ar chárta",
     "savedTo": "Sábháilte go {{field}}",
     "selectCardWithFields_one": "Roghnaigh carta le an réimse, le do thoil",
@@ -397,8 +401,7 @@
     "testResult": "Toradh tástála",
     "textToSpeak": "Téacs a labhairt",
     "viewResult": "Féach ar an toradh",
-    "wrongNoteType": "Cineál nóta mícheart",
-    "rerunToSave": "Rith an tástáil seo arís chun í a shábháil ar an gcárta"
+    "wrongNoteType": "Cineál nóta mícheart"
   },
   "subscription": {
     "accessEnds": "Críochnaíonn an rochtain",

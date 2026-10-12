@@ -265,14 +265,16 @@
       "loadingTitle": "Alapértelmezett képbeállítások",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "nanoBanana21": "Nano Banana 2.1"
       },
-      "pickingModel": "💡 Képmodell kiválasztása",
       "samplePrompt": "Készítsen képet egy diákról, aki keményen tanul az Anki-val, és sikeresen teljesíti a teszteket.",
       "saveError": "Nem sikerült menteni a kép alapértelmezett beállításait",
       "subtitle": "Az Smart Fields kép által használt modell, hacsak egy mező nem rögzíti a sajátját.",
       "title": "Alapértelmezett képbeállítások",
-      "zImageTurbo": "leggyorsabb és legolcsóbb."
+      "zImageTurbo": "leggyorsabb és legolcsóbb.",
+      "modelTipLabel": "A képmodellekről",
+      "nanoBanana21": "gazdag, fotórealisztikus jelenetekhez."
     },
     "layout": {
       "saveChanges": "Módosítások mentése",
@@ -337,7 +339,8 @@
     "maxQuality": "Maximális minőség",
     "maxQualityDescription": "Élesebb és tisztább, különösen a kis feliratok.",
     "richerDetail": "Gazdagabb részletesség",
-    "richerDetailDescription": "Részletesebb, teljesebb jelenetek. Kicsit lassabb."
+    "richerDetailDescription": "Részletesebb, teljesebb jelenetek. Kicsit lassabb.",
+    "extrasTipLabel": "A kiegészítőkről"
   },
   "promptTester": {
     "anotherNoteType": "egy másik hangjegytípus",
@@ -359,6 +362,7 @@
     "notesSelected_one": "{{count}} jegyzet kiválasztva – szűkítse egyre.",
     "notesSelected_other": "{{count}} jegyzetek kijelölve – szűkítse egyre.",
     "promptPlaceholder": "Írjon egy tesztkérdést, hivatkozva a mezőkre az {{braces}}-val.",
+    "rerunToSave": "Futtasd újra a tesztet, hogy elmentsd a kártyára",
     "saveToCard": "Mentés kártyára",
     "savedTo": "Mentve az {{field}}-ba",
     "selectCardWithFields_one": "Kérjük, válasszon egy kártyát a mezővel",
@@ -379,8 +383,7 @@
     "testResult": "Teszt eredménye",
     "textToSpeak": "Szöveg a beszédhez",
     "viewResult": "Eredmény megtekintése",
-    "wrongNoteType": "Hibás jegyzettípus",
-    "rerunToSave": "Futtasd újra a tesztet, hogy elmentsd a kártyára"
+    "wrongNoteType": "Hibás jegyzettípus"
   },
   "subscription": {
     "accessEnds": "Hozzáférés vége",

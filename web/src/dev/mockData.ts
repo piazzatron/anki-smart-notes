@@ -168,6 +168,7 @@ const BASE_STATE: AppState = {
     showWizardCompletion: true,
     didDismissReviewPrompt: false,
     didDismissDiscordPrompt: false,
+    didSeeImageModelTips: false,
   },
 }
 
