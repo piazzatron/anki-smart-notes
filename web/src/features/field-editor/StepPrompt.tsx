@@ -191,7 +191,6 @@ export const StepPrompt = ({
           <ModelSettingsSection
             catalog={catalog}
             controls={controls}
-            field={field}
             state={state}
             voiceCatalog={voiceCatalog}
           />

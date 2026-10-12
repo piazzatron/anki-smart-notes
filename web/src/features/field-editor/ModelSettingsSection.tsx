@@ -32,8 +32,6 @@ import {
 import { VoicePicker } from "@/features/defaults/VoicePicker"
 import { voiceMatchesSettings } from "@/features/defaults/voiceDefaults"
 import { ImageModelSelect } from "@/features/image-generation/ImageModelSelect"
-import { PromptTestButton } from "@/features/prompt-tester/PromptTesterStrip"
-import type { PromptTester } from "@/features/prompt-tester/usePromptTester"
 import { modelLabel } from "@/lib/catalog"
 import type { AppState, Catalog, VoiceCatalog } from "@/types/api"
 
@@ -44,7 +42,6 @@ import type { FieldEditorControls } from "./useFieldEditor"
 interface ModelSettingsSectionProps {
   catalog: Catalog
   controls: FieldEditorControls
-  field: PromptTester
   state: AppState
   voiceCatalog: VoiceCatalog | null
 }
@@ -54,7 +51,6 @@ interface ModelSettingsSectionProps {
 export const ModelSettingsSection = ({
   catalog,
   controls,
-  field,
   state,
   voiceCatalog,
 }: ModelSettingsSectionProps) => {
@@ -85,7 +81,6 @@ export const ModelSettingsSection = ({
         onOpenChange={setIsOpen}
         open={isOpen}
         subtitle={t("fieldEditor.modelSettings.appliesOnlyToField")}
-        testAction={<PromptTestButton field={field} />}
         title={
           fieldType === "tts"
             ? t("fieldEditor.modelSettings.voice")
@@ -160,14 +155,12 @@ const SettingsDialog = ({
   onOpenChange,
   open,
   subtitle,
-  testAction,
   title,
 }: {
   children: ReactNode
   onOpenChange: (open: boolean) => void
   open: boolean
   subtitle: string
-  testAction: ReactNode
   title: string
 }) => (
   <Dialog onOpenChange={onOpenChange} open={open}>
@@ -183,9 +176,7 @@ const SettingsDialog = ({
 
       <div className="min-h-0 flex-1 overflow-y-auto px-5 py-4">{children}</div>
 
-      {/* Trying a change is the point of being in here, so the test runs from here too. */}
-      <footer className="flex shrink-0 items-center justify-between border-t border-white/[0.07] px-5 py-3">
-        {testAction}
+      <footer className="flex shrink-0 items-center justify-end border-t border-white/[0.07] px-5 py-3">
         <Button onClick={() => onOpenChange(false)} variant="success">
           {i18next.t("common.done")}
         </Button>

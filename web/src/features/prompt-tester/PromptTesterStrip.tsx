@@ -260,11 +260,8 @@ interface PromptTestButtonProps {
   field: PromptTester
 }
 
-// Runs the field's one tester, wherever the user happens to be standing when they ask.
-export const PromptTestButton = ({
-  className = "",
-  field,
-}: PromptTestButtonProps) => {
+// Runs the field's tester.
+const PromptTestButton = ({ className = "", field }: PromptTestButtonProps) => {
   const { t } = useTranslation()
   const card = usePromptTestCardState(field)
 

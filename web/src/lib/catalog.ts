@@ -33,7 +33,7 @@ const MODEL_COSTS: Record<string, string> = {
   // Images, relative to plain GPT Image 2.5 (~$0.011 billed per image).
   "gpt-image-2.5": "1",
   "nano-banana": "4",
-  "z-image-turbo": "0.2",
+  "z-image-turbo": "0.3",
 }
 
 const PROVIDER_LABELS: Record<string, string> = {
