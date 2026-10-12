@@ -336,7 +336,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maksimal kvalitet",
     "maxQualityDescription": "Skarpere og renere, spesielt små etiketter.",
-    "noExtraCost": "Ingen ekstra kostnad",
     "richerDetail": "Rikere detaljer",
     "richerDetailDescription": "Mer detaljert, fullere scener. Litt tregere."
   },
@@ -366,6 +365,8 @@
     "selectCardWithFields_other": "Vennligst velg et kort med feltene",
     "selectFieldToReadAloud": "Velg et felt for å lese høyt",
     "selectNewCard": "Velg et nytt kort i nettleseren",
+    "or": "eller",
+    "selectCardInBrowser": "Velg et kort i nettleseren for å teste",
     "selectRequiredNoteType": "Vennligst velg et notat av typen <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Valgt kort",
     "selectedDeck": "Valgt dekk",
@@ -377,8 +378,8 @@
     "textToSpeak": "Tekst for å snakke",
     "viewResult": "Se resultatet",
     "wrongNoteType": "Feil notetype",
-    "or": "eller",
-    "selectCardInBrowser": "Velg et kort i nettleseren for å teste"
+    "openRecentImage": "Åpne bilde {{number}}",
+    "recentImages": "Nylig opprettede bilder"
   },
   "subscription": {
     "accessEnds": "Tilgang slutter",

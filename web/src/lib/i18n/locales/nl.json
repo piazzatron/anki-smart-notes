@@ -336,7 +336,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maximale kwaliteit",
     "maxQualityDescription": "Scherper en schoner, vooral kleine labels.",
-    "noExtraCost": "Geen extra kosten",
     "richerDetail": "Meer detail",
     "richerDetailDescription": "Meer gedetailleerd, vollere scènes. Iets langzamer."
   },
@@ -366,6 +365,8 @@
     "selectCardWithFields_other": "Selecteer een kaart met de velden",
     "selectFieldToReadAloud": "Selecteer een veld om voor te lezen",
     "selectNewCard": "Selecteer een nieuwe kaart in de browser",
+    "or": "of",
+    "selectCardInBrowser": "Selecteer een kaart in de browser om te testen",
     "selectRequiredNoteType": "Selecteer een notitie van het type <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Geselecteerde kaart",
     "selectedDeck": "Geselecteerd dek",
@@ -377,8 +378,8 @@
     "textToSpeak": "Tekst om uit te spreken",
     "viewResult": "Bekijk resultaat",
     "wrongNoteType": "Verkeerd notitietype",
-    "or": "of",
-    "selectCardInBrowser": "Selecteer een kaart in de browser om te testen"
+    "openRecentImage": "Afbeelding {{number}} openen",
+    "recentImages": "Recent gemaakte afbeeldingen"
   },
   "subscription": {
     "accessEnds": "Toegang eindigt",

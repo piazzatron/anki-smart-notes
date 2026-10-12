@@ -54,7 +54,9 @@ export const NoteTypeCard = ({
         </button>
       </header>
 
-      <div className="rounded-xl bg-white/[0.05] px-2 py-1.5">
+      {/* Rows run edge to edge so a hovered row highlights like a table row; the card
+          clips the corners. */}
+      <div className="overflow-hidden rounded-xl bg-white/[0.05]">
         {group.fields.map((field, index) => (
           <SmartFieldRow
             field={field}

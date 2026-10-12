@@ -334,7 +334,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Chất lượng tối đa",
     "maxQualityDescription": "Rõ nét và sạch hơn, đặc biệt là các nhãn nhỏ.",
-    "noExtraCost": "Không chi phí thêm",
     "richerDetail": "Chi tiết phong phú hơn",
     "richerDetailDescription": "Chi tiết hơn, cảnh đầy đủ hơn. Chậm hơn một chút."
   },
@@ -360,6 +359,8 @@
     "selectCardWithFields_other": "Vui lòng chọn một thẻ có các trường",
     "selectFieldToReadAloud": "Chọn một trường để đọc to",
     "selectNewCard": "Chọn thẻ mới trong trình duyệt",
+    "or": "hoặc",
+    "selectCardInBrowser": "Chọn một thẻ trong trình duyệt để kiểm tra",
     "selectRequiredNoteType": "Vui lòng chọn một ghi chú thuộc loại <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Thẻ đã chọn",
     "selectedDeck": "Bộ bài đã chọn",
@@ -371,8 +372,8 @@
     "textToSpeak": "Nhắn tin để nói",
     "viewResult": "Xem kết quả",
     "wrongNoteType": "Loại ghi chú sai",
-    "or": "hoặc",
-    "selectCardInBrowser": "Chọn một thẻ trong trình duyệt để kiểm tra"
+    "openRecentImage": "Mở ảnh {{number}}",
+    "recentImages": "Ảnh đã tạo gần đây"
   },
   "subscription": {
     "accessEnds": "Quyền truy cập kết thúc",

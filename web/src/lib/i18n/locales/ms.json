@@ -334,7 +334,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Kualiti maksimum",
     "maxQualityDescription": "Lebih tajam dan bersih, terutama label kecil.",
-    "noExtraCost": "Tiada kos tambahan",
     "richerDetail": "Detail lebih kaya",
     "richerDetailDescription": "Lebih terperinci, pemandangan lebih lengkap. Sedikit lebih perlahan."
   },
@@ -360,6 +359,8 @@
     "selectCardWithFields_other": "Sila pilih kad dengan medan tersebut",
     "selectFieldToReadAloud": "Pilih medan untuk dibaca dengan lantang",
     "selectNewCard": "Pilih kad baharu dalam penyemak imbas",
+    "or": "atau",
+    "selectCardInBrowser": "Pilih kad dalam pelayar untuk diuji",
     "selectRequiredNoteType": "Sila pilih nota jenis <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Kad yang dipilih",
     "selectedDeck": "Dek terpilih",
@@ -371,8 +372,8 @@
     "textToSpeak": "Teks untuk bercakap",
     "viewResult": "Lihat hasil",
     "wrongNoteType": "Jenis nota yang salah",
-    "or": "atau",
-    "selectCardInBrowser": "Pilih kad dalam pelayar untuk diuji"
+    "openRecentImage": "Buka imej {{number}}",
+    "recentImages": "Imej yang baru dibuat"
   },
   "subscription": {
     "accessEnds": "Akses berakhir",

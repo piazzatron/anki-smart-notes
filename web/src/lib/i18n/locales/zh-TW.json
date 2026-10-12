@@ -334,7 +334,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "最高品質",
     "maxQualityDescription": "更清晰細緻，特別是小標籤部分。",
-    "noExtraCost": "無額外成本",
     "richerDetail": "更豐富的細節",
     "richerDetailDescription": "更詳細、更飽滿的場景。速度稍慢。"
   },
@@ -360,6 +359,8 @@
     "selectCardWithFields_other": "請選擇包含這些欄位的卡牌",
     "selectFieldToReadAloud": "選擇要朗讀的字段",
     "selectNewCard": "在瀏覽器中選擇一張新卡",
+    "or": "或",
+    "selectCardInBrowser": "請在瀏覽器中選取一張卡片以進行測試",
     "selectRequiredNoteType": "請選擇 <noteTypeName>{{noteType}}</noteTypeName> 類型的筆記",
     "selectedCard": "已選卡",
     "selectedDeck": "選定的牌組",
@@ -371,8 +372,8 @@
     "textToSpeak": "文字說話",
     "viewResult": "查看結果",
     "wrongNoteType": "註釋類型錯誤",
-    "or": "或",
-    "selectCardInBrowser": "請在瀏覽器中選取一張卡片以進行測試"
+    "openRecentImage": "開啟圖片 {{number}}",
+    "recentImages": "最近建立的圖片"
   },
   "subscription": {
     "accessEnds": "存取權限結束",

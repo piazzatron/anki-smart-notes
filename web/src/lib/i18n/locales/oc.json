@@ -334,7 +334,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Qualitat maxima",
     "maxQualityDescription": "Pus net e pus clar, especialament per las etiquetas petitas.",
-    "noExtraCost": "Pas de còst suplementari",
     "richerDetail": "Detall pus ric",
     "richerDetailDescription": "Pus detallat, escènas pus complètas. Un pauc pus lent."
   },
@@ -360,6 +359,8 @@
     "selectCardWithFields_other": "Causisse una carta amb los champs",
     "selectFieldToReadAloud": "Seleccionatz un camp de legir a votz nauta",
     "selectNewCard": "Seleccionatz una carta novèla dins lo navigador",
+    "or": "o",
+    "selectCardInBrowser": "Seleccionatz una carta dins lo navigador per la testar",
     "selectRequiredNoteType": "Causisse una nòta del tipe <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Carta seleccionada",
     "selectedDeck": "Deck seleccionat",
@@ -371,8 +372,8 @@
     "textToSpeak": "Tèxte per parlar",
     "viewResult": "Veire lo resultat",
     "wrongNoteType": "Tipe de nòta incorrècte",
-    "or": "o",
-    "selectCardInBrowser": "Seleccionatz una carta dins lo navigador per la testar"
+    "openRecentImage": "Dobrir l'imatge {{number}}",
+    "recentImages": "Imatges creadas recentament"
   },
   "subscription": {
     "accessEnds": "L'accès s'acabarà",

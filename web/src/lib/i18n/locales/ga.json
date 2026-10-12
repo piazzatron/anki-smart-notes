@@ -342,7 +342,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Uachtar ar an gcáilíochta",
     "maxQualityDescription": "Níos géire agus níos geal, go háirithe lipéid bheaga.",
-    "noExtraCost": "Gan costas breise",
     "richerDetail": "Saibhre sonraí",
     "richerDetailDescription": "Níos mionsonraithe, radhairc níos líofa. Beagáinín níos moille."
   },
@@ -384,6 +383,8 @@
     "selectCardWithFields_other": "Roghnaigh carta leis na réimsí, le do thoil",
     "selectFieldToReadAloud": "Roghnaigh réimse le léamh os ard",
     "selectNewCard": "Roghnaigh cárta nua sa bhrabhsálaí",
+    "or": "nó",
+    "selectCardInBrowser": "Roghnaigh cárta sa bhrabhsálaí le tástáil",
     "selectRequiredNoteType": "Roghnaigh nóta den chineál <noteTypeName>{{noteType}}</noteTypeName>, le do thoil",
     "selectedCard": "Cárta roghnaithe",
     "selectedDeck": "Deic roghnaithe",
@@ -395,8 +396,8 @@
     "textToSpeak": "Téacs a labhairt",
     "viewResult": "Féach ar an toradh",
     "wrongNoteType": "Cineál nóta mícheart",
-    "or": "nó",
-    "selectCardInBrowser": "Roghnaigh cárta sa bhrabhsálaí le tástáil"
+    "openRecentImage": "Oscail íomhá {{number}}",
+    "recentImages": "Íomhánna a cruthaíodh le déanaí"
   },
   "subscription": {
     "accessEnds": "Críochnaíonn an rochtain",

@@ -338,7 +338,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maksimalna kvaliteta",
     "maxQualityDescription": "Oštrije i čišće, posebno male oznake.",
-    "noExtraCost": "Bez dodatne cijene",
     "richerDetail": "Bogatiji detalji",
     "richerDetailDescription": "Detaljnije, bogatije scene. Malo sporije."
   },
@@ -372,6 +371,8 @@
     "selectCardWithFields_other": "Molimo odaberite karticu s poljima",
     "selectFieldToReadAloud": "Odaberite polje za čitanje naglas",
     "selectNewCard": "Odaberite novu karticu u pregledniku",
+    "or": "ili",
+    "selectCardInBrowser": "Odaberite karticu u pregledniku za testiranje",
     "selectRequiredNoteType": "Molimo odaberite bilješku tipa <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Odabrana kartica",
     "selectedDeck": "Odabrani špil",
@@ -383,8 +384,8 @@
     "textToSpeak": "Tekst za govor",
     "viewResult": "Pogledajte rezultat",
     "wrongNoteType": "Pogrešna vrsta bilješke",
-    "or": "ili",
-    "selectCardInBrowser": "Odaberite karticu u pregledniku za testiranje"
+    "openRecentImage": "Otvori sliku {{number}}",
+    "recentImages": "Nedavno stvorene slike"
   },
   "subscription": {
     "accessEnds": "Pristup završava",

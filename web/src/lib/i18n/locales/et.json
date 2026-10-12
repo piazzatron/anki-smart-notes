@@ -336,7 +336,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maksimaalne kvaliteet",
     "maxQualityDescription": "Teravamad ja puhtamad, eriti väikesed sildid.",
-    "noExtraCost": "Ilma lisatasuita",
     "richerDetail": "Rohkem detaile",
     "richerDetailDescription": "Üksikasjalikum, täielikumad stseenid. Pisut aeglasem."
   },
@@ -366,6 +365,8 @@
     "selectCardWithFields_other": "Palun valige kaart väljadega",
     "selectFieldToReadAloud": "Valige ettelugemiseks väli",
     "selectNewCard": "Valige brauseris uus kaart",
+    "or": "või",
+    "selectCardInBrowser": "Testimiseks vali brauseris kaart",
     "selectRequiredNoteType": "Palun valige märkus tüübiga <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Valitud kaart",
     "selectedDeck": "Valitud tekk",
@@ -377,8 +378,8 @@
     "textToSpeak": "Tekst kõnelemiseks",
     "viewResult": "Vaata tulemust",
     "wrongNoteType": "Vale märkme tüüp",
-    "or": "või",
-    "selectCardInBrowser": "Testimiseks vali brauseris kaart"
+    "openRecentImage": "Ava pilt {{number}}",
+    "recentImages": "Hiljuti loodud pildid"
   },
   "subscription": {
     "accessEnds": "Juurdepääs lõpeb",

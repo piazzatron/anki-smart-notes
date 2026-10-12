@@ -336,7 +336,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maximális minőség",
     "maxQualityDescription": "Élesebb és tisztább, különösen a kis feliratok.",
-    "noExtraCost": "Nincs extra költség",
     "richerDetail": "Gazdagabb részletesség",
     "richerDetailDescription": "Részletesebb, teljesebb jelenetek. Kicsit lassabb."
   },
@@ -366,6 +365,8 @@
     "selectCardWithFields_other": "Kérjük, válasszon egy kártyát a mezőkkel",
     "selectFieldToReadAloud": "Válasszon ki egy mezőt a felolvasáshoz",
     "selectNewCard": "Válasszon új kártyát a böngészőben",
+    "or": "vagy",
+    "selectCardInBrowser": "Válassz ki egy kártyát a böngészőben a teszteléshez",
     "selectRequiredNoteType": "Kérjük, válasszon egy jegyzetet a <noteTypeName>{{noteType}}</noteTypeName> típusból",
     "selectedCard": "Kiválasztott kártya",
     "selectedDeck": "Kiválasztott fedélzet",
@@ -377,8 +378,8 @@
     "textToSpeak": "Szöveg a beszédhez",
     "viewResult": "Eredmény megtekintése",
     "wrongNoteType": "Hibás jegyzettípus",
-    "or": "vagy",
-    "selectCardInBrowser": "Válassz ki egy kártyát a böngészőben a teszteléshez"
+    "openRecentImage": "{{number}}. kép megnyitása",
+    "recentImages": "Nemrég létrehozott képek"
   },
   "subscription": {
     "accessEnds": "Hozzáférés vége",

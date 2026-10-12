@@ -158,8 +158,12 @@ export const PromptTesterStrip = ({
         <div className="min-w-0 flex-1">
           <SelectedTestCard
             compact
+            // Image testers reopen results from the numbered row below instead.
             compactAction={
-              showResultModal && hasResult && !isResultVisible ? (
+              showResultModal &&
+              field.fieldType !== "image" &&
+              hasResult &&
+              !isResultVisible ? (
                 <button
                   className="shrink-0 cursor-pointer text-[11px] text-indigo-soft transition hover:text-indigo-soft/80"
                   onClick={() => setIsResultOpen(true)}
@@ -183,6 +187,31 @@ export const PromptTesterStrip = ({
           field={field}
         />
       </div>
+
+      {/* Earlier image results stay a click away, numbered in the order they ran, so
+          settings can be compared without re-running. */}
+      {field.imageHistory.length > 0 && (
+        <div className="mt-3">
+          <p className="mb-1.5 text-[11px] text-ink-muted">
+            {t("promptTester.recentImages")}
+          </p>
+          <div className="flex flex-wrap gap-1.5">
+            {[...field.imageHistory].reverse().map((run, index) => (
+              <button
+                aria-label={t("promptTester.openRecentImage", {
+                  number: index + 1,
+                })}
+                className={`inline-flex h-[22px] min-w-[22px] items-center justify-center rounded-full px-1.5 text-[10.5px] leading-4 font-bold text-zinc-950 tabular-nums transition hover:scale-110 hover:brightness-110 ${RECENT_IMAGE_COLORS[index % RECENT_IMAGE_COLORS.length]}`}
+                key={run.id}
+                onClick={() => field.viewRun(run.id)}
+                type="button"
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {showResultModal && (
         // Kept mounted while enabled so the dialog can animate itself out on close.
@@ -211,6 +240,16 @@ export const PromptTesterStrip = ({
     </div>
   )
 }
+
+// A distinct pastel per recent image, so each reads as its own button.
+const RECENT_IMAGE_COLORS = [
+  "bg-pastel-sky",
+  "bg-pastel-pink",
+  "bg-pastel-mint",
+  "bg-pastel-butter",
+  "bg-pastel-lavender",
+  "bg-pastel-peach",
+]
 
 interface PromptTestButtonProps {
   className?: string

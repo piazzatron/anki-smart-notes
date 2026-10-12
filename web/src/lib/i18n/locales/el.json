@@ -336,7 +336,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Μέγιστη ποιότητα",
     "maxQualityDescription": "Πιο οξεία και καθαρή, ειδικά για μικρές ετικέτες.",
-    "noExtraCost": "Χωρίς επιπλέον κόστος",
     "richerDetail": "Περισσότερη λεπτομέρεια",
     "richerDetailDescription": "Περισσότερη λεπτομέρεια, πληρέστερες σκηνές. Λίγο πιο αργό."
   },
@@ -366,6 +365,8 @@
     "selectCardWithFields_other": "Παρακαλώ επιλέξτε μια κάρτα με τα πεδία",
     "selectFieldToReadAloud": "Επιλέξτε ένα πεδίο για ανάγνωση δυνατά",
     "selectNewCard": "Επιλέξτε μια νέα κάρτα στο πρόγραμμα περιήγησης",
+    "or": "ή",
+    "selectCardInBrowser": "Επιλέξτε μια κάρτα στο πρόγραμμα περιήγησης για δοκιμή",
     "selectRequiredNoteType": "Παρακαλώ επιλέξτε μια σημείωση τύπου <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Επιλεγμένη κάρτα",
     "selectedDeck": "Επιλεγμένο κατάστρωμα",
@@ -377,8 +378,8 @@
     "textToSpeak": "Κείμενο για ομιλία",
     "viewResult": "Δείτε το αποτέλεσμα",
     "wrongNoteType": "Λάθος τύπος σημείωσης",
-    "or": "ή",
-    "selectCardInBrowser": "Επιλέξτε μια κάρτα στο πρόγραμμα περιήγησης για δοκιμή"
+    "openRecentImage": "Άνοιγμα εικόνας {{number}}",
+    "recentImages": "Πρόσφατα δημιουργημένες εικόνες"
   },
   "subscription": {
     "accessEnds": "Λήξη πρόσβασης",

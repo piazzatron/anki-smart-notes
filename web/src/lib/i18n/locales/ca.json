@@ -338,7 +338,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Qualitat màxima",
     "maxQualityDescription": "Més nítid i net, especialment les etiquetes petites.",
-    "noExtraCost": "Sense cost addicional",
     "richerDetail": "Més detall",
     "richerDetailDescription": "Més detallat, escenes més completes. Una mica més lent."
   },
@@ -372,6 +371,8 @@
     "selectCardWithFields_other": "Si us plau, seleccioneu una targeta amb els camps",
     "selectFieldToReadAloud": "Seleccioneu un camp per llegir en veu alta",
     "selectNewCard": "Seleccioneu una targeta nova al navegador",
+    "or": "o",
+    "selectCardInBrowser": "Selecciona una targeta al navegador per provar-ho",
     "selectRequiredNoteType": "Si us plau, seleccioneu una nota de tipus <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Targeta seleccionada",
     "selectedDeck": "Baralla seleccionada",
@@ -383,8 +384,8 @@
     "textToSpeak": "Text per parlar",
     "viewResult": "Veure resultat",
     "wrongNoteType": "Tipus de nota incorrecte",
-    "or": "o",
-    "selectCardInBrowser": "Selecciona una targeta al navegador per provar-ho"
+    "openRecentImage": "Obre la imatge {{number}}",
+    "recentImages": "Imatges creades recentment"
   },
   "subscription": {
     "accessEnds": "L'accés s'acaba",

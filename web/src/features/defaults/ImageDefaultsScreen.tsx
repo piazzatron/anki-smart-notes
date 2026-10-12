@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
@@ -14,6 +13,7 @@ import {
   DefaultsScreenLoading,
 } from "./DefaultsScreenLayout"
 import { getDefaultUsage } from "./defaultUsage"
+import { useScratchPrompt } from "./scratchPrompts"
 import { DefaultUsagePill } from "./DefaultUsagePill"
 import { useDefaultsForm } from "./useDefaultsForm"
 
@@ -70,7 +70,10 @@ const LoadedImageDefaultsScreen = ({
   })
   const usage = getDefaultUsage(state.smartFields, "image")
   // The tester owns its own scratch prompt here: nothing else on the page writes one.
-  const [prompt, setPrompt] = useState(() => t("defaults.image.samplePrompt"))
+  const [prompt, setPrompt] = useScratchPrompt(
+    "image",
+    t("defaults.image.samplePrompt"),
+  )
   const tester = usePromptTester({
     fieldType: "image",
     onPromptChange: setPrompt,

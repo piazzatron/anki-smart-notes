@@ -336,7 +336,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maksimaalinen laatu",
     "maxQualityDescription": "Terävämpi ja puhtaampi, erityisesti pienet nimiöt.",
-    "noExtraCost": "Ei lisäkustannuksia",
     "richerDetail": "Rikkaampi yksityiskohtaisuus",
     "richerDetailDescription": "Yksityiskohtaisempi, täydempi kohtaukset. Hieman hitaampi."
   },
@@ -366,6 +365,8 @@
     "selectCardWithFields_other": "Valitse kortti, jossa on kentät",
     "selectFieldToReadAloud": "Valitse ääneen luettava kenttä",
     "selectNewCard": "Valitse uusi kortti selaimesta",
+    "or": "tai",
+    "selectCardInBrowser": "Valitse testattava kortti selaimessa",
     "selectRequiredNoteType": "Valitse muistiinpano tyypistä <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Valittu kortti",
     "selectedDeck": "Valittu kansi",
@@ -377,8 +378,8 @@
     "textToSpeak": "Teksti puhuttavaksi",
     "viewResult": "Näytä tulos",
     "wrongNoteType": "Väärä muistiinpanotyyppi",
-    "or": "tai",
-    "selectCardInBrowser": "Valitse testattava kortti selaimessa"
+    "openRecentImage": "Avaa kuva {{number}}",
+    "recentImages": "Äskettäin luodut kuvat"
   },
   "subscription": {
     "accessEnds": "Pääsy loppuu",

@@ -74,15 +74,13 @@ export const ImageModelSelect = ({
       key: "richerDetail",
       label: t("imageGeneration.richerDetail"),
       description: t("imageGeneration.richerDetailDescription"),
-      cost: t("imageGeneration.noExtraCost"),
-      premium: false,
+      cost: null,
     },
     {
       key: "maxQuality",
       label: t("imageGeneration.maxQuality"),
       description: t("imageGeneration.maxQualityDescription"),
       cost: t("imageGeneration.doubleCost"),
-      premium: true,
     },
   ] as const
 
@@ -129,9 +127,9 @@ export const ImageModelSelect = ({
               <div className="min-w-0 flex-1">
                 <p className="flex items-center gap-2 text-xs font-semibold text-zinc-200">
                   {extra.label}
-                  <Pill tone={extra.premium ? "indigo" : "neutral"}>
-                    {extra.cost}
-                  </Pill>
+                  {extra.cost !== null && (
+                    <Pill tone="warning">{extra.cost}</Pill>
+                  )}
                 </p>
                 <p className="mt-1 text-[11px] leading-4 text-ink-muted">
                   {extra.description}

@@ -340,7 +340,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maximálna kvalita",
     "maxQualityDescription": "Ostrejšie a čistejšie, najmä malé štítky.",
-    "noExtraCost": "Bez dodatočných nákladov",
     "richerDetail": "Bohatší detail",
     "richerDetailDescription": "Podrobnejšie, plnejšie scény. Trochu pomalšie."
   },
@@ -378,6 +377,8 @@
     "selectCardWithFields_other": "Prosím, vyberte kartu s poľami",
     "selectFieldToReadAloud": "Vyberte pole, ktoré chcete čítať nahlas",
     "selectNewCard": "V prehliadači vyberte novú kartu",
+    "or": "alebo",
+    "selectCardInBrowser": "Na testovanie vyberte kartu v prehliadači",
     "selectRequiredNoteType": "Prosím, vyberte poznámku typu <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Vybraná karta",
     "selectedDeck": "Vybraná paluba",
@@ -389,8 +390,8 @@
     "textToSpeak": "Text na hovorenie",
     "viewResult": "Zobraziť výsledok",
     "wrongNoteType": "Nesprávny typ poznámky",
-    "or": "alebo",
-    "selectCardInBrowser": "Na testovanie vyberte kartu v prehliadači"
+    "openRecentImage": "Otvoriť obrázok {{number}}",
+    "recentImages": "Nedávno vytvorené obrázky"
   },
   "subscription": {
     "accessEnds": "Prístup končí",

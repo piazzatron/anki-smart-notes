@@ -334,7 +334,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "最高品質",
     "maxQualityDescription": "より鮮明でクリーンな画像、特に小さなラベルに対応します。",
-    "noExtraCost": "追加コストなし",
     "richerDetail": "リッチなディテール",
     "richerDetailDescription": "より詳細で豊かなシーン。少し遅くなります。"
   },
@@ -360,6 +359,8 @@
     "selectCardWithFields_other": "フィールドを含むカードを選択してください",
     "selectFieldToReadAloud": "読み上げるフィールドを選択してください",
     "selectNewCard": "ブラウザで新しいカードを選択します",
+    "or": "または",
+    "selectCardInBrowser": "テストするカードをブラウザーで選択してください",
     "selectRequiredNoteType": "<noteTypeName>{{noteType}}</noteTypeName> タイプのノートを選択してください",
     "selectedCard": "選択したカード",
     "selectedDeck": "選択したデッキ",
@@ -371,8 +372,8 @@
     "textToSpeak": "話すテキスト",
     "viewResult": "結果を見る",
     "wrongNoteType": "ノートの種類が間違っています",
-    "or": "または",
-    "selectCardInBrowser": "テストするカードをブラウザーで選択してください"
+    "openRecentImage": "画像 {{number}} を開く",
+    "recentImages": "最近作成された画像"
   },
   "subscription": {
     "accessEnds": "アクセス終了",

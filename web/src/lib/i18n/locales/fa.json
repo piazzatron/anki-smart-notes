@@ -336,7 +336,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "کیفیت حداکثر",
     "maxQualityDescription": "تیزتر و تمیزتر، به خصوص برچسب‌های کوچک.",
-    "noExtraCost": "بدون هزینه اضافی",
     "richerDetail": "جزئیات بیشتر",
     "richerDetailDescription": "جزئیات بیشتر، صحنه‌های کاملتر. کمی آهسته‌تر."
   },
@@ -366,6 +365,8 @@
     "selectCardWithFields_other": "لطفاً کارتی را انتخاب کنید که این فیلدها را داشته باشد",
     "selectFieldToReadAloud": "فیلدی را برای خواندن با صدای بلند انتخاب کنید",
     "selectNewCard": "یک کارت جدید در مرورگر انتخاب کنید",
+    "or": "یا",
+    "selectCardInBrowser": "برای آزمایش، یک کارت را در مرورگر انتخاب کنید",
     "selectRequiredNoteType": "لطفاً یادداشتی از نوع <noteTypeName>{{noteType}}</noteTypeName> را انتخاب کنید",
     "selectedCard": "کارت انتخاب شده",
     "selectedDeck": "عرشه انتخاب شده",
@@ -377,8 +378,8 @@
     "textToSpeak": "متن برای صحبت کردن",
     "viewResult": "مشاهده نتیجه",
     "wrongNoteType": "نوع یادداشت اشتباه است",
-    "or": "یا",
-    "selectCardInBrowser": "برای آزمایش، یک کارت را در مرورگر انتخاب کنید"
+    "openRecentImage": "باز کردن تصویر {{number}}",
+    "recentImages": "تصاویر ایجادشده اخیر"
   },
   "subscription": {
     "accessEnds": "دسترسی پایان می‌یابد",

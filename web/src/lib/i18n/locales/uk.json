@@ -340,7 +340,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Максимальна якість",
     "maxQualityDescription": "Гостріше та чистіше, особливо дрібні написи.",
-    "noExtraCost": "Без додаткових витрат",
     "richerDetail": "Більше деталей",
     "richerDetailDescription": "Детальніше, багатіші сцени. Трохи повільніше."
   },
@@ -378,6 +377,8 @@
     "selectCardWithFields_other": "Будь ласка, виберіть карту з полями",
     "selectFieldToReadAloud": "Виберіть поле для читання вголос",
     "selectNewCard": "Виберіть нову картку в браузері",
+    "or": "або",
+    "selectCardInBrowser": "Виберіть картку в браузері для тестування",
     "selectRequiredNoteType": "Будь ласка, виберіть замітку типу <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Вибрана карта",
     "selectedDeck": "Вибрана колода",
@@ -389,8 +390,8 @@
     "textToSpeak": "Текст для озвучення",
     "viewResult": "Переглянути результат",
     "wrongNoteType": "Неправильний тип нотатки",
-    "or": "або",
-    "selectCardInBrowser": "Виберіть картку в браузері для тестування"
+    "openRecentImage": "Відкрити зображення {{number}}",
+    "recentImages": "Нещодавно створені зображення"
   },
   "subscription": {
     "accessEnds": "Доступ закінчується",

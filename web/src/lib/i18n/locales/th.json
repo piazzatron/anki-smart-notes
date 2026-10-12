@@ -334,7 +334,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "คุณภาพสูงสุด",
     "maxQualityDescription": "ชัดเจนและสะอาดยิ่งขึ้น โดยเฉพาะป้ายกำกับขนาดเล็ก",
-    "noExtraCost": "ไม่มีค่าใช้พิเศษ",
     "richerDetail": "รายละเอียดที่풍풍ชื่น",
     "richerDetailDescription": "รายละเอียดมากขึ้น ฉากที่สมบูรณ์ยิ่งขึ้น ช้าลงเล็กน้อย"
   },
@@ -360,6 +359,8 @@
     "selectCardWithFields_other": "โปรดเลือกการ์ดที่มีฟิลด์เหล่านี้",
     "selectFieldToReadAloud": "เลือกช่องที่จะอ่านออกเสียง",
     "selectNewCard": "เลือกการ์ดใหม่ในเบราว์เซอร์",
+    "or": "หรือ",
+    "selectCardInBrowser": "เลือกการ์ดในเบราว์เซอร์เพื่อทดสอบ",
     "selectRequiredNoteType": "โปรดเลือกบันทึกประเภท <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "บัตรที่เลือก",
     "selectedDeck": "สำรับที่เลือก",
@@ -371,8 +372,8 @@
     "textToSpeak": "ข้อความที่จะพูด",
     "viewResult": "ดูผลลัพธ์",
     "wrongNoteType": "ประเภทบันทึกไม่ถูกต้อง",
-    "or": "หรือ",
-    "selectCardInBrowser": "เลือกการ์ดในเบราว์เซอร์เพื่อทดสอบ"
+    "openRecentImage": "เปิดรูปภาพ {{number}}",
+    "recentImages": "รูปภาพที่สร้างล่าสุด"
   },
   "subscription": {
     "accessEnds": "การเข้าถึงสิ้นสุด",

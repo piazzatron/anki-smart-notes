@@ -338,7 +338,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Максимална квалитета",
     "maxQualityDescription": "Оштрије и чишће, посебно мале налепнице.",
-    "noExtraCost": "Без додатне цене",
     "richerDetail": "Богатији детаљ",
     "richerDetailDescription": "Више детаља, пуније сцене. Мало спорије."
   },
@@ -372,6 +371,8 @@
     "selectCardWithFields_other": "Молимо изаберите картицу са пољима",
     "selectFieldToReadAloud": "Изаберите поље за читање наглас",
     "selectNewCard": "Изаберите нову картицу у претраживачу",
+    "or": "или",
+    "selectCardInBrowser": "Изаберите картицу у прегледачу за тестирање",
     "selectRequiredNoteType": "Молимо изаберите белешку типа <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Изабрана картица",
     "selectedDeck": "Изабрани шпил",
@@ -383,8 +384,8 @@
     "textToSpeak": "Текст за говор",
     "viewResult": "Погледајте резултат",
     "wrongNoteType": "Погрешна врста белешке",
-    "or": "или",
-    "selectCardInBrowser": "Изаберите картицу у прегледачу за тестирање"
+    "openRecentImage": "Отвори слику {{number}}",
+    "recentImages": "Недавно створене слике"
   },
   "subscription": {
     "accessEnds": "Приступ се завршава",

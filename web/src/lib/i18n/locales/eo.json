@@ -336,7 +336,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maksimuma kvalito",
     "maxQualityDescription": "Pli akra kaj pura, ĉefe malgrandaj etikedoj.",
-    "noExtraCost": "Neniu aldonaĵa kosto",
     "richerDetail": "Pli riĉa detalo",
     "richerDetailDescription": "Pli detala, plenaj scenoj. Iom pli malrapida."
   },
@@ -366,6 +365,8 @@
     "selectCardWithFields_other": "Bonvolu elekti karton kun la kampoj",
     "selectFieldToReadAloud": "Elektu kampon por voĉlegi",
     "selectNewCard": "Elektu novan karton en la retumilo",
+    "or": "aŭ",
+    "selectCardInBrowser": "Elektu karton en la foliumilo por testi",
     "selectRequiredNoteType": "Bonvolu elekti noton de tipo <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Elektita karto",
     "selectedDeck": "Elektita ferdeko",
@@ -377,8 +378,8 @@
     "textToSpeak": "Teksto por paroli",
     "viewResult": "Vidu rezulton",
     "wrongNoteType": "Malĝusta nottipo",
-    "or": "aŭ",
-    "selectCardInBrowser": "Elektu karton en la foliumilo por testi"
+    "openRecentImage": "Malfermi bildon {{number}}",
+    "recentImages": "Lastatempe kreitaj bildoj"
   },
   "subscription": {
     "accessEnds": "Aliro finiĝas",

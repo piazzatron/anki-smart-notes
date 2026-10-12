@@ -26,21 +26,57 @@ Object.defineProperty(globalThis, "window", {
 const {
   getInitialPromptTestSelection,
   getPromptTestSelection,
-  getVisiblePromptTestResult,
+  selectPromptTestRuns,
 } = await import("./usePromptTester")
 
-const result = {
-  cardId: 42,
-  latencyMs: 125,
-  prompt: "Define {{Front}}",
-  value: { text: "Generated text" },
-}
+// Newest first, as the tester stores them.
+const runs = [
+  { cardId: 42, id: 3 },
+  { cardId: 7, id: 2 },
+  { cardId: 42, id: 1 },
+]
 
 describe("usePromptTester", () => {
-  test("only exposes a result for the currently selected card", () => {
-    expect(getVisiblePromptTestResult(result, 42)).toEqual(result)
-    expect(getVisiblePromptTestResult(result, 7)).toBeNull()
-    expect(getVisiblePromptTestResult(result, null)).toBeNull()
+  test("only exposes results for the currently selected card", () => {
+    const forCard = selectPromptTestRuns({
+      runs,
+      selectedCardId: 42,
+      viewedRunId: null,
+    })
+    expect(forCard.history.map((run) => run.id)).toEqual([3, 1])
+    expect(forCard.run?.id).toBe(3)
+
+    expect(
+      selectPromptTestRuns({ runs, selectedCardId: null, viewedRunId: null })
+        .run,
+    ).toBeNull()
+  })
+
+  test("shows an earlier run on request, but only the newest run overall can be saved", () => {
+    const earlier = selectPromptTestRuns({
+      runs,
+      selectedCardId: 42,
+      viewedRunId: 1,
+    })
+    expect(earlier.run?.id).toBe(1)
+    expect(earlier.isNewestRun).toBe(false)
+
+    expect(
+      selectPromptTestRuns({ runs, selectedCardId: 42, viewedRunId: 3 })
+        .isNewestRun,
+    ).toBe(true)
+    // Card 7's run is newest for that card but not overall: another test ran since.
+    expect(
+      selectPromptTestRuns({ runs, selectedCardId: 7, viewedRunId: null })
+        .isNewestRun,
+    ).toBe(false)
+  })
+
+  test("falls back to the newest run when the viewed one belongs to another card", () => {
+    expect(
+      selectPromptTestRuns({ runs, selectedCardId: 42, viewedRunId: 2 }).run
+        ?.id,
+    ).toBe(3)
   })
 
   test("flags a selected card from a different required note type", () => {

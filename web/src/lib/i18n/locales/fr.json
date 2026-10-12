@@ -338,7 +338,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Qualité maximale",
     "maxQualityDescription": "Plus net et plus propre, surtout pour les petits labels.",
-    "noExtraCost": "Aucun coût supplémentaire",
     "richerDetail": "Détail enrichi",
     "richerDetailDescription": "Plus détaillé, scènes plus complètes. Un peu plus lent."
   },
@@ -372,6 +371,8 @@
     "selectCardWithFields_other": "Veuillez sélectionner une carte avec les champs",
     "selectFieldToReadAloud": "Sélectionnez un champ à lire à haute voix",
     "selectNewCard": "Sélectionnez une nouvelle carte dans le navigateur",
+    "or": "ou",
+    "selectCardInBrowser": "Sélectionnez une carte dans le navigateur pour la tester",
     "selectRequiredNoteType": "Veuillez sélectionner une note de type <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Carte sélectionnée",
     "selectedDeck": "Pont sélectionné",
@@ -383,8 +384,8 @@
     "textToSpeak": "Texte pour parler",
     "viewResult": "Afficher le résultat",
     "wrongNoteType": "Mauvais type de note",
-    "or": "ou",
-    "selectCardInBrowser": "Sélectionnez une carte dans le navigateur pour la tester"
+    "openRecentImage": "Ouvrir l'image {{number}}",
+    "recentImages": "Images créées récemment"
   },
   "subscription": {
     "accessEnds": "L'accès se termine",

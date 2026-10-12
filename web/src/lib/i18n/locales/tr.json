@@ -336,7 +336,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maksimum kalite",
     "maxQualityDescription": "Daha keskin ve temiz, özellikle küçük etiketler için.",
-    "noExtraCost": "Ek maliyet yok",
     "richerDetail": "Daha zengin detay",
     "richerDetailDescription": "Daha detaylı, tam sahneler. Biraz daha yavaş."
   },
@@ -366,6 +365,8 @@
     "selectCardWithFields_other": "Lütfen alanları içeren bir kart seçin",
     "selectFieldToReadAloud": "Yüksek sesle okumak için bir alan seçin",
     "selectNewCard": "Tarayıcıda yeni bir kart seçin",
+    "or": "veya",
+    "selectCardInBrowser": "Test etmek için tarayıcıda bir kart seçin",
     "selectRequiredNoteType": "Lütfen <noteTypeName>{{noteType}}</noteTypeName> türünde bir not seçin",
     "selectedCard": "Seçilen kart",
     "selectedDeck": "Seçilen deste",
@@ -377,8 +378,8 @@
     "textToSpeak": "Konuşmak için metin",
     "viewResult": "Sonucu görüntüle",
     "wrongNoteType": "Yanlış not türü",
-    "or": "veya",
-    "selectCardInBrowser": "Test etmek için tarayıcıda bir kart seçin"
+    "openRecentImage": "{{number}} numaralı resmi aç",
+    "recentImages": "Son oluşturulan resimler"
   },
   "subscription": {
     "accessEnds": "Erişim sona eriyor",

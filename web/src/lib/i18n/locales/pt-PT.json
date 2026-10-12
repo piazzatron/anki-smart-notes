@@ -338,7 +338,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Qualidade máxima",
     "maxQualityDescription": "Mais nítido e limpo, especialmente em etiquetas pequenas.",
-    "noExtraCost": "Sem custo adicional",
     "richerDetail": "Mais detalhes",
     "richerDetailDescription": "Mais detalhado, cenas mais completas. Um pouco mais lento."
   },
@@ -372,6 +371,8 @@
     "selectCardWithFields_other": "Seleccione um cartão com os campos",
     "selectFieldToReadAloud": "Selecione um campo para ler em voz alta",
     "selectNewCard": "Selecione um novo cartão no navegador",
+    "or": "ou",
+    "selectCardInBrowser": "Selecione um cartão no navegador para testar",
     "selectRequiredNoteType": "Seleccione uma nota do tipo <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Cartão selecionado",
     "selectedDeck": "Baralho selecionado",
@@ -383,8 +384,8 @@
     "textToSpeak": "Texto para falar",
     "viewResult": "Ver resultado",
     "wrongNoteType": "Tipo de nota errado",
-    "or": "ou",
-    "selectCardInBrowser": "Selecione um cartão no navegador para testar"
+    "openRecentImage": "Abrir imagem {{number}}",
+    "recentImages": "Imagens criadas recentemente"
   },
   "subscription": {
     "accessEnds": "Acesso termina",

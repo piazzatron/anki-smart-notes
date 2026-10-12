@@ -338,7 +338,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "איכות מקסימלית",
     "maxQualityDescription": "חד וניקי יותר, במיוחד עבור תוויות קטנות.",
-    "noExtraCost": "ללא עלות נוספת",
     "richerDetail": "פרט עשיר יותר",
     "richerDetailDescription": "מפורט יותר, סצנות מלאות יותר. קצת יותר איטי."
   },
@@ -372,6 +371,8 @@
     "selectCardWithFields_other": "בחר כרטיס עם השדות",
     "selectFieldToReadAloud": "בחר שדה לקריאה בקול רם",
     "selectNewCard": "בחר כרטיס חדש בדפדפן",
+    "or": "או",
+    "selectCardInBrowser": "בחרו כרטיס בדפדפן לבדיקה",
     "selectRequiredNoteType": "בחר הערה מסוג <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "כרטיס נבחר",
     "selectedDeck": "סיפון נבחר",
@@ -383,8 +384,8 @@
     "textToSpeak": "טקסט לדבר",
     "viewResult": "צפה בתוצאה",
     "wrongNoteType": "סוג פתק שגוי",
-    "or": "או",
-    "selectCardInBrowser": "בחרו כרטיס בדפדפן לבדיקה"
+    "openRecentImage": "פתח תמונה {{number}}",
+    "recentImages": "תמונות שנוצרו לאחרונה"
   },
   "subscription": {
     "accessEnds": "הגישה מסתיימת",

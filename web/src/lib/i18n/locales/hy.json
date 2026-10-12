@@ -336,7 +336,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Առավելագույն որակ",
     "maxQualityDescription": "Սուր և մաքուր, հատկապես փոքր պիտակների համար:",
-    "noExtraCost": "Լրացուցիչ ծախս չկա",
     "richerDetail": "Ավելի մանրամասն",
     "richerDetailDescription": "Ավելի մանրամասն, ամբողջական տեսարաններ: Մի փոքր ավելի դանդաղ:"
   },
@@ -366,6 +365,8 @@
     "selectCardWithFields_other": "Խնդրում ենք ընտրել քարտ այս դաշտերով",
     "selectFieldToReadAloud": "Ընտրեք դաշտ՝ բարձրաձայն կարդալու համար",
     "selectNewCard": "Ընտրեք նոր քարտ զննարկիչում",
+    "or": "կամ",
+    "selectCardInBrowser": "Ընտրեք քարտ զննարկիչում՝ փորձարկելու համար",
     "selectRequiredNoteType": "Խնդրում ենք ընտրել <noteTypeName>{{noteType}}</noteTypeName> տիպի նշում",
     "selectedCard": "Ընտրված քարտ",
     "selectedDeck": "Ընտրված տախտակամած",
@@ -377,8 +378,8 @@
     "textToSpeak": "Տեքստ խոսելու համար",
     "viewResult": "Դիտել արդյունքը",
     "wrongNoteType": "Նշման սխալ տեսակ",
-    "or": "կամ",
-    "selectCardInBrowser": "Ընտրեք քարտ զննարկիչում՝ փորձարկելու համար"
+    "openRecentImage": "Բացել պատկերը {{number}}",
+    "recentImages": "Վերջերս ստեղծված պատկերներ"
   },
   "subscription": {
     "accessEnds": "Մուտքը ավարտվում է",

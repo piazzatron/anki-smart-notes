@@ -14,6 +14,14 @@
   --color-mint: #4ade80;
   --color-amber: #ffd27a;
   --color-danger: #f3a0a0;
+  /* The app's pastel palette for playful accents. Soft enough to sit on the dark
+     canvas without glaring; pair with dark text. */
+  --color-pastel-sky: #a9d4ff;
+  --color-pastel-pink: #ffb8d5;
+  --color-pastel-mint: #b4ebc9;
+  --color-pastel-butter: #ffe3a3;
+  --color-pastel-lavender: #cfc0ff;
+  --color-pastel-peach: #ffc7a8;
 
   --animate-fade-in: fade-in 0.25s ease-out;
   /* The field editor arriving over, and leaving, the screen behind it. */
@@ -422,6 +430,32 @@
   }
 }
 
+/* An occasional sweep of light across the promo banners: the band crosses in the
+   first ~1.2s of each 7s cycle and waits offscreen the rest of the time. */
+.banner-shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.42) 50%,
+    transparent 62%
+  );
+  transform: translateX(-100%);
+  animation: banner-shine 7s ease-in-out 1.5s infinite;
+}
+
+@keyframes banner-shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  18%,
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 @keyframes smart-fields-empty-cursor-blink {
   50% {
     opacity: 0;
@@ -553,6 +587,20 @@ body,
   height: 100%;
   margin: 0;
   overflow: hidden;
+}
+
+/* App chrome behaves like a native app: an arrow cursor and no text selection.
+   Fields people type in, and text they may want to copy, opt back in. */
+body {
+  cursor: default;
+  user-select: none;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+textarea,
+[contenteditable="true"] {
+  cursor: text;
+  user-select: text;
 }
 
 button:focus-visible,

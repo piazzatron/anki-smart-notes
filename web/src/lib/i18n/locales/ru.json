@@ -340,7 +340,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Максимальное качество",
     "maxQualityDescription": "Более четкое и чистое, особенно мелкие метки.",
-    "noExtraCost": "Без дополнительной стоимости",
     "richerDetail": "Больше деталей",
     "richerDetailDescription": "Более детально, полные сцены. Немного медленнее."
   },
@@ -378,6 +377,8 @@
     "selectCardWithFields_other": "Пожалуйста, выберите карточку с полями",
     "selectFieldToReadAloud": "Выберите поле для чтения вслух",
     "selectNewCard": "Выберите новую карту в браузере",
+    "or": "или",
+    "selectCardInBrowser": "Выберите карточку в браузере для проверки",
     "selectRequiredNoteType": "Пожалуйста, выберите заметку типа <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Выбранная карта",
     "selectedDeck": "Выбранная колода",
@@ -389,8 +390,8 @@
     "textToSpeak": "Текст для разговора",
     "viewResult": "Посмотреть результат",
     "wrongNoteType": "Неправильный тип заметки",
-    "or": "или",
-    "selectCardInBrowser": "Выберите карточку в браузере для проверки"
+    "openRecentImage": "Открыть изображение {{number}}",
+    "recentImages": "Недавно созданные изображения"
   },
   "subscription": {
     "accessEnds": "Доступ заканчивается",

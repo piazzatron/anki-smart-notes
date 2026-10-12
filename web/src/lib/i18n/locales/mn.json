@@ -336,7 +336,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Хамгийн дээд чанар",
     "maxQualityDescription": "Илүү хөнгөн байдал, ялангуяа жижиг шошгонуудын хувьд.",
-    "noExtraCost": "Нэмэлт зардал байхгүй",
     "richerDetail": "Нийлмэл дэлгэрэнгүй",
     "richerDetailDescription": "Илүү дэлгэрэнгүй, бүтэн сахал. Арай удаан."
   },
@@ -366,6 +365,8 @@
     "selectCardWithFields_other": "Эдгээр талбартай карт сонгоно уу",
     "selectFieldToReadAloud": "Чанга унших талбарыг сонгоно уу",
     "selectNewCard": "Хөтөч дээр шинэ карт сонгоно уу",
+    "or": "эсвэл",
+    "selectCardInBrowser": "Туршиж үзэх карт сонгоно уу",
     "selectRequiredNoteType": "<noteTypeName>{{noteType}}</noteTypeName> төрлийн тэмдэглэл сонгоно уу",
     "selectedCard": "Сонгосон карт",
     "selectedDeck": "Сонгосон тавцан",
@@ -377,8 +378,8 @@
     "textToSpeak": "Ярих текст",
     "viewResult": "Үр дүнг харах",
     "wrongNoteType": "Буруу тэмдэглэлийн төрөл",
-    "or": "эсвэл",
-    "selectCardInBrowser": "Туршиж үзэх карт сонгоно уу"
+    "openRecentImage": "Зураг {{number}}-г нээх",
+    "recentImages": "Саяхан үүсгэсэн зургууд"
   },
   "subscription": {
     "accessEnds": "Хандалт дуусна",

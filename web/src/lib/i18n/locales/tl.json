@@ -336,7 +336,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Max quality",
     "maxQualityDescription": "Mas malinaw at mas malinis, lalo na sa mga maliit na label.",
-    "noExtraCost": "Walang dagdag na bayad",
     "richerDetail": "Mas mayamang detalye",
     "richerDetailDescription": "Mas detalyado, mas puno ng mga eksena. Bahagyang mas mabagal."
   },
@@ -366,6 +365,8 @@
     "selectCardWithFields_other": "Pumili ng card na may mga field",
     "selectFieldToReadAloud": "Pumili ng field na babasahin nang malakas",
     "selectNewCard": "Pumili ng bagong card sa browser",
+    "or": "o",
+    "selectCardInBrowser": "Pumili ng card sa browser para subukan",
     "selectRequiredNoteType": "Pumili ng note na may uri <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Napiling card",
     "selectedDeck": "Napiling deck",
@@ -377,8 +378,8 @@
     "textToSpeak": "Text para magsalita",
     "viewResult": "Tingnan ang resulta",
     "wrongNoteType": "Maling uri ng tala",
-    "or": "o",
-    "selectCardInBrowser": "Pumili ng card sa browser para subukan"
+    "openRecentImage": "Buksan ang larawan {{number}}",
+    "recentImages": "Mga kamakailang nilikhang larawan"
   },
   "subscription": {
     "accessEnds": "Nagtatapos ang access",

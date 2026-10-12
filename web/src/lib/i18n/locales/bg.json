@@ -336,7 +336,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Максимално качество",
     "maxQualityDescription": "По-остро и чисто, особено малки етикети.",
-    "noExtraCost": "Без допълнителна цена",
     "richerDetail": "По-богато на детайли",
     "richerDetailDescription": "По-детайлни, пълноценни сцени. Малко по-бавно."
   },
@@ -366,6 +365,8 @@
     "selectCardWithFields_other": "Моля, изберете карта с полетата",
     "selectFieldToReadAloud": "Изберете поле за четене на глас",
     "selectNewCard": "Изберете нова карта в браузъра",
+    "or": "или",
+    "selectCardInBrowser": "Изберете карта в браузъра, за да тествате",
     "selectRequiredNoteType": "Моля, изберете бележка от тип <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Избрана карта",
     "selectedDeck": "Избрано тесте",
@@ -377,8 +378,8 @@
     "textToSpeak": "Текст за изговаряне",
     "viewResult": "Вижте резултата",
     "wrongNoteType": "Грешен тип бележка",
-    "or": "или",
-    "selectCardInBrowser": "Изберете карта в браузъра, за да тествате"
+    "openRecentImage": "Отвори изображение {{number}}",
+    "recentImages": "Наскоро създадени изображения"
   },
   "subscription": {
     "accessEnds": "Достъпът завършва",

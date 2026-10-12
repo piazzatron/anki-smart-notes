@@ -72,6 +72,7 @@ const testerControls = (
   error: null,
   fieldType: "chat",
   hasNoteTypeMismatch: false,
+  imageHistory: [],
   isResultOpen: false,
   isTesting: false,
   prompt: "Translate {{Front}}",
@@ -87,6 +88,7 @@ const testerControls = (
   setIsResultOpen: () => undefined,
   setPrompt: () => undefined,
   showResultModal: true,
+  viewRun: () => undefined,
   ...overrides,
 })
 

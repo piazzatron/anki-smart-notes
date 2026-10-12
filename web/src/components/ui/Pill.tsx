@@ -3,13 +3,15 @@ import type { ReactNode } from "react"
 interface PillProps {
   children: ReactNode
   className?: string
-  tone?: "neutral" | "indigo" | "amber"
+  tone?: "neutral" | "indigo" | "amber" | "warning"
 }
 
 const TONE_CLASSES = {
   neutral: "bg-white/[0.08] text-zinc-300",
   indigo: "bg-indigo/22 text-indigo-soft",
   amber: "bg-amber/[0.14] text-amber",
+  // Solid, for costs people must not miss.
+  warning: "bg-amber text-zinc-950",
 }
 
 /** The small rounded label shared across the app for metadata: decks, costs,

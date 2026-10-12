@@ -322,7 +322,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Max quality",
     "maxQualityDescription": "Sharper and cleaner, especially small labels.",
-    "noExtraCost": "No extra cost",
     "richerDetail": "Richer detail",
     "richerDetailDescription": "More detailed, fuller scenes. A bit slower."
   },
@@ -361,6 +360,8 @@
     "selectionAppearsAutomatically": "Your selection appears here automatically.",
     "sent": "Sent",
     "testing": "Testing…",
+    "openRecentImage": "Open image {{number}}",
+    "recentImages": "Recently created images",
     "testResult": "Test result",
     "textToSpeak": "Text to speak",
     "viewResult": "View result",

@@ -338,7 +338,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Calitate maximă",
     "maxQualityDescription": "Mai ascuțit și mai curat, în special etichetele mici.",
-    "noExtraCost": "Fără cost suplimentar",
     "richerDetail": "Detalii mai bogate",
     "richerDetailDescription": "Mai detaliat, scene mai complete. Puțin mai lent."
   },
@@ -372,6 +371,8 @@
     "selectCardWithFields_other": "Vă rugăm selectați o carte cu câmpurile",
     "selectFieldToReadAloud": "Selectați un câmp pentru a citi cu voce tare",
     "selectNewCard": "Selectați un card nou în browser",
+    "or": "sau",
+    "selectCardInBrowser": "Selectează un card în browser pentru a testa",
     "selectRequiredNoteType": "Vă rugăm selectați o notă de tip <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Cartea selectată",
     "selectedDeck": "Puntea selectată",
@@ -383,8 +384,8 @@
     "textToSpeak": "Text pentru a vorbi",
     "viewResult": "Vedeți rezultatul",
     "wrongNoteType": "Tip greșit de notă",
-    "or": "sau",
-    "selectCardInBrowser": "Selectează un card în browser pentru a testa"
+    "openRecentImage": "Deschide imaginea {{number}}",
+    "recentImages": "Imagini create recent"
   },
   "subscription": {
     "accessEnds": "Accesul se încheie",

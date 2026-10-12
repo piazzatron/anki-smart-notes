@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
@@ -17,6 +16,7 @@ import {
   DefaultsScreenLoading,
 } from "./DefaultsScreenLayout"
 import { getDefaultUsage } from "./defaultUsage"
+import { useScratchPrompt } from "./scratchPrompts"
 import { DefaultUsagePill } from "./DefaultUsagePill"
 import { useDefaultsForm } from "./useDefaultsForm"
 
@@ -74,7 +74,10 @@ export const LoadedTextDefaultsScreen = ({
   })
   const usage = getDefaultUsage(state.smartFields, "chat")
   // The tester owns its own scratch prompt here: nothing else on the page writes one.
-  const [prompt, setPrompt] = useState(() => t("defaults.text.samplePrompt"))
+  const [prompt, setPrompt] = useScratchPrompt(
+    "text",
+    t("defaults.text.samplePrompt"),
+  )
   const tester = usePromptTester({
     fieldType: "chat",
     onPromptChange: setPrompt,

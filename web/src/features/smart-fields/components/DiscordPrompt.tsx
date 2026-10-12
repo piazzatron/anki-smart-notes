@@ -40,6 +40,7 @@ export const DiscordPrompt = ({ onDismiss }: DiscordPromptProps) => {
         target="_blank"
       />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(460px_140px_at_10%_-40%,rgba(180,200,255,0.3),transparent_72%)]" />
+      <div aria-hidden className="banner-shine" />
       <DiscordMark className="relative text-white" size={23} />
       <p className="relative min-w-0 flex-1 text-[14.5px] leading-[1.35] font-extrabold tracking-[-0.01em] text-white">
         {t("smartFields.discord.title")}

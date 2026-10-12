@@ -340,7 +340,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maksymalna jakość",
     "maxQualityDescription": "Ostrzejsze i czystsze, szczególnie małe etykiety.",
-    "noExtraCost": "Bez dodatkowych kosztów",
     "richerDetail": "Bogatsze szczegóły",
     "richerDetailDescription": "Bardziej szczegółowe, bogatsze sceny. Nieco wolniejsze."
   },
@@ -378,6 +377,8 @@
     "selectCardWithFields_other": "Wybierz kartę z polami",
     "selectFieldToReadAloud": "Wybierz pole, aby przeczytać na głos",
     "selectNewCard": "Wybierz nową kartę w przeglądarce",
+    "or": "lub",
+    "selectCardInBrowser": "Wybierz kartę w przeglądarce, aby ją przetestować",
     "selectRequiredNoteType": "Wybierz notatkę typu <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Wybrana karta",
     "selectedDeck": "Wybrana talia",
@@ -389,8 +390,8 @@
     "textToSpeak": "Tekst do mówienia",
     "viewResult": "Zobacz wynik",
     "wrongNoteType": "Zły typ notatki",
-    "or": "lub",
-    "selectCardInBrowser": "Wybierz kartę w przeglądarce, aby ją przetestować"
+    "openRecentImage": "Otwórz obraz {{number}}",
+    "recentImages": "Ostatnio utworzone obrazy"
   },
   "subscription": {
     "accessEnds": "Dostęp kończy się",

@@ -344,7 +344,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "أقصى جودة",
     "maxQualityDescription": "أكثر حدة ووضوحاً، خاصة للنصوص الصغيرة.",
-    "noExtraCost": "بدون تكلفة إضافية",
     "richerDetail": "تفاصيل أغنى",
     "richerDetailDescription": "أكثر تفصيلاً وأكمل للمشاهد. أبطأ قليلاً."
   },
@@ -390,6 +389,8 @@
     "selectCardWithFields_other": "يرجى تحديد بطاقة تحتوي على الحقول",
     "selectFieldToReadAloud": "حدد حقلاً للقراءة بصوت عالٍ",
     "selectNewCard": "حدد بطاقة جديدة في المتصفح",
+    "or": "أو",
+    "selectCardInBrowser": "حدد بطاقة في المتصفح للاختبار",
     "selectRequiredNoteType": "يرجى تحديد ملاحظة من نوع <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "البطاقة المختارة",
     "selectedDeck": "سطح السفينة المختارة",
@@ -401,8 +402,8 @@
     "textToSpeak": "النص للتحدث",
     "viewResult": "عرض النتيجة",
     "wrongNoteType": "نوع ملاحظة خاطئ",
-    "or": "أو",
-    "selectCardInBrowser": "حدد بطاقة في المتصفح للاختبار"
+    "openRecentImage": "فتح الصورة {{number}}",
+    "recentImages": "الصور المُنشأة مؤخرًا"
   },
   "subscription": {
     "accessEnds": "انتهاء الوصول",

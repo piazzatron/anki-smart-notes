@@ -70,7 +70,11 @@ export const PromptTestResultModal = ({
       }}
       open={open}
     >
-      <DialogContent className="max-h-[84vh] w-[min(760px,92vw)]">
+      {/* An image result gets a narrower dialog that hugs the picture; text needs the
+          room to read. */}
+      <DialogContent
+        className={`max-h-[84vh] ${tester.fieldType === "image" ? "w-[min(520px,92vw)]" : "w-[min(760px,92vw)]"}`}
+      >
         <header className="shrink-0 border-b border-white/[0.07] py-3.5 ps-5 pe-10">
           <DialogTitle className="text-[13px] font-bold text-ink">
             {t("promptTester.testResult")}

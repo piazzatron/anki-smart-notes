@@ -336,7 +336,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Kalitate maximoa",
     "maxQualityDescription": "Zehatzagoa eta garbiagoa, batez ere etiketa txikietan.",
-    "noExtraCost": "Kostu gehigarririk ez",
     "richerDetail": "Xehetasun gehiago",
     "richerDetailDescription": "Xeheago, eszenak beteak. Pixka bat motzagoa."
   },
@@ -366,6 +365,8 @@
     "selectCardWithFields_other": "Mesedez, hautatu eremuen duten txartelaren bat",
     "selectFieldToReadAloud": "Hautatu ozen irakurtzeko eremu bat",
     "selectNewCard": "Hautatu txartel berri bat arakatzailean",
+    "or": "edo",
+    "selectCardInBrowser": "Hautatu arakatzailean txartel bat probatzeko",
     "selectRequiredNoteType": "Mesedez, hautatu <noteTypeName>{{noteType}}</noteTypeName> motako nota bat",
     "selectedCard": "Hautatutako txartela",
     "selectedDeck": "Aukeratutako oholtza",
@@ -377,8 +378,8 @@
     "textToSpeak": "Hitz egiteko testua",
     "viewResult": "Ikusi emaitza",
     "wrongNoteType": "Ohar mota okerra",
-    "or": "edo",
-    "selectCardInBrowser": "Hautatu arakatzailean txartel bat probatzeko"
+    "openRecentImage": "Ireki {{number}} irudia",
+    "recentImages": "Duela gutxi sortutako irudiak"
   },
   "subscription": {
     "accessEnds": "Sarbidea amaitu da",

@@ -334,7 +334,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "最高质量",
     "maxQualityDescription": "更清晰锐利，特别是对小标签效果更好。",
-    "noExtraCost": "无额外费用",
     "richerDetail": "更丰富细节",
     "richerDetailDescription": "更详细，场景更完整。处理速度稍慢。"
   },
@@ -360,6 +359,8 @@
     "selectCardWithFields_other": "请选择包含这些字段的卡片",
     "selectFieldToReadAloud": "选择要朗读的字段",
     "selectNewCard": "在浏览器中选择一张新卡",
+    "or": "或",
+    "selectCardInBrowser": "在浏览器中选择一张卡片以进行测试",
     "selectRequiredNoteType": "请选择 <noteTypeName>{{noteType}}</noteTypeName> 类型的笔记",
     "selectedCard": "已选卡",
     "selectedDeck": "选定的牌组",
@@ -371,8 +372,8 @@
     "textToSpeak": "文字说话",
     "viewResult": "查看结果",
     "wrongNoteType": "注释类型错误",
-    "or": "或",
-    "selectCardInBrowser": "在浏览器中选择一张卡片以进行测试"
+    "openRecentImage": "打开图片 {{number}}",
+    "recentImages": "最近生成的图片"
   },
   "subscription": {
     "accessEnds": "访问权限已结束",

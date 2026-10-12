@@ -340,7 +340,6 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Максімальная якасць",
     "maxQualityDescription": "Більш рэзкае і чыстае, асабліва маленькія меткі.",
-    "noExtraCost": "Без дадатковых затрат",
     "richerDetail": "Больш дэталяў",
     "richerDetailDescription": "Больш дэталізаваны, паўнейшыя сцэны. Крыху павольней."
   },
@@ -378,6 +377,8 @@
     "selectCardWithFields_other": "Калі ласка, выберыце карту з пазами",
     "selectFieldToReadAloud": "Выберыце поле для чытання ўслых",
     "selectNewCard": "Абярыце новую карту ў браўзеры",
+    "or": "або",
+    "selectCardInBrowser": "Выберыце картку ў аглядальніку, каб праверыць",
     "selectRequiredNoteType": "Калі ласка, выберыце нотатку тыпу <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Выбраная карта",
     "selectedDeck": "Выбраная калода",
@@ -389,8 +390,8 @@
     "textToSpeak": "Тэкст для размовы",
     "viewResult": "Паглядзець вынік",
     "wrongNoteType": "Няправільны тып нататкі",
-    "or": "або",
-    "selectCardInBrowser": "Выберыце картку ў аглядальніку, каб праверыць"
+    "openRecentImage": "Адкрыць малюнак {{number}}",
+    "recentImages": "Нядаўна створаныя малюнкі"
   },
   "subscription": {
     "accessEnds": "Доступ завершаецца",
