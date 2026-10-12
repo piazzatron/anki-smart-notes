@@ -265,7 +265,6 @@
       "modelTipLabel": "درباره مدل‌های تصویر",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "صحنه‌های غنی و عکاسی‌گونه.",
@@ -332,13 +331,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "تنظیمات اضافی",
     "doubleCost": "هزینه ۲ برابر",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "کیفیت حداکثر",
     "maxQualityDescription": "تیزتر و تمیزتر، به خصوص برچسب‌های کوچک.",
     "richerDetail": "جزئیات بیشتر",
     "richerDetailDescription": "جزئیات بیشتر، صحنه‌های کاملتر. کمی آهسته‌تر.",
-    "extraSettings": "تنظیمات اضافی"
+    "extraReasoning": "استدلال بیشتر",
+    "extraReasoningCost": "~۱٫۵× هزینه",
+    "extraReasoningDescription": "نمودارهای تمیزتر و متن خواناتر. حدود ۴× کندتر.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "حداکثر کیفیت: کیفیت متوسط به جای پایین",
+      "gptRicherDetail": "جزئیات غنی‌تر: GPT Image 2.5 Sunburst",
+      "gptStandard": "استاندارد: GPT Image 2.5 Flare با کیفیت پایین",
+      "nanoExtraReasoning": "استدلال بیشتر: Nano Banana 2.1",
+      "nanoStandard": "استاندارد: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "کدام مدل‌ها اجرا می‌شوند"
   },
   "promptTester": {
     "anotherNoteType": "یک نوع یادداشت دیگر",

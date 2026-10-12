@@ -265,7 +265,6 @@
       "modelTipLabel": "Oor die beeldmodelle",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "ryk, fotografiese tonele.",
@@ -332,13 +331,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "Bykomende instellings",
     "doubleCost": "2× koste",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maksimum kwaliteit",
     "maxQualityDescription": "Skerper en skoner, veral klein etikette.",
     "richerDetail": "Ryker detail",
     "richerDetailDescription": "Meer gedetailleerd, voller tonele. Effens stadiger.",
-    "extraSettings": "Bykomende instellings"
+    "extraReasoning": "Ekstra redenering",
+    "extraReasoningCost": "~1.5× koste",
+    "extraReasoningDescription": "Skoner diagramme en leesbaarder teks. Ongeveer 4× stadiger.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "Maksimum gehalte: medium-gehalte in plaas van low",
+      "gptRicherDetail": "Meer detail: GPT Image 2.5 Sunburst",
+      "gptStandard": "Standaard: GPT Image 2.5 Flare teen lae gehalte",
+      "nanoExtraReasoning": "Ekstra redenering: Nano Banana 2.1",
+      "nanoStandard": "Standaard: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Watter modelle loop"
   },
   "promptTester": {
     "anotherNoteType": "'n ander noottipe",

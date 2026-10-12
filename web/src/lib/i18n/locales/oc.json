@@ -264,7 +264,6 @@
       "modelTipLabel": "A prepaus dels modèls d'imatge",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "scènas ricas, fotograficas.",
@@ -330,13 +329,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "Paramètres Addicionals",
     "doubleCost": "2× de còst",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Qualitat maxima",
     "maxQualityDescription": "Pus net e pus clar, especialament per las etiquetas petitas.",
     "richerDetail": "Detall pus ric",
     "richerDetailDescription": "Pus detallat, escènas pus complètas. Un pauc pus lent.",
-    "extraSettings": "Paramètres Addicionals"
+    "extraReasoning": "Raonament suplementari",
+    "extraReasoningCost": "~1,5× cost",
+    "extraReasoningDescription": "Esquemas mai clars e tèxte mai lesible. Environ 4× mai lent.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "Qualitat maximala: qualitat mejana en lòc de bassa",
+      "gptRicherDetail": "Mai de detalh: GPT Image 2.5 Sunburst",
+      "gptStandard": "Estandard: GPT Image 2.5 Flare en qualitat bassa",
+      "nanoExtraReasoning": "Raonament suplementari: Nano Banana 2.1",
+      "nanoStandard": "Estandard: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Quins modèls se lancen"
   },
   "promptTester": {
     "anotherNoteType": "un autre tipe de nòta",

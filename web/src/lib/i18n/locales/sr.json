@@ -266,7 +266,6 @@
       "modelTipLabel": "О моделима слика",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "богате, фотографске сцене.",
@@ -334,13 +333,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "Додатна подешавања",
     "doubleCost": "2× цена",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Максимална квалитета",
     "maxQualityDescription": "Оштрије и чишће, посебно мале налепнице.",
     "richerDetail": "Богатији детаљ",
     "richerDetailDescription": "Више детаља, пуније сцене. Мало спорије.",
-    "extraSettings": "Додатна подешавања"
+    "extraReasoning": "Додатно резоновање",
+    "extraReasoningCost": "~1,5× трошак",
+    "extraReasoningDescription": "Чистији дијаграми и читљивији текст. Око 4× спорије.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "Максималан квалитет: средњи квалитет уместо ниског",
+      "gptRicherDetail": "Богатији детаљи: GPT Image 2.5 Sunburst",
+      "gptStandard": "Стандардно: GPT Image 2.5 Flare на ниском квалитету",
+      "nanoExtraReasoning": "Додатно резоновање: Nano Banana 2.1",
+      "nanoStandard": "Стандардно: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Који модели се покрећу"
   },
   "promptTester": {
     "anotherNoteType": "другу врсту нота",

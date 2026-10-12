@@ -266,7 +266,6 @@
       "modelTipLabel": "אודות מודלי התמונה",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "סצנות עשירות וצילומיות.",
@@ -334,13 +333,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "הגדרות נוספות",
     "doubleCost": "עלות כפולה",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "איכות מקסימלית",
     "maxQualityDescription": "חד וניקי יותר, במיוחד עבור תוויות קטנות.",
     "richerDetail": "פרט עשיר יותר",
     "richerDetailDescription": "מפורט יותר, סצנות מלאות יותר. קצת יותר איטי.",
-    "extraSettings": "הגדרות נוספות"
+    "extraReasoning": "הנמקה נוספת",
+    "extraReasoningCost": "~1.5× עלות",
+    "extraReasoningDescription": "תרשימים נקיים יותר וטקסט קריא יותר. איטי בערך פי 4.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "איכות מקסימלית: איכות בינונית במקום נמוכה",
+      "gptRicherDetail": "פירוט עשיר: GPT Image 2.5 Sunburst",
+      "gptStandard": "סטנדרטי: GPT Image 2.5 Flare באיכות נמוכה",
+      "nanoExtraReasoning": "הנמקה נוספת: Nano Banana 2.1",
+      "nanoStandard": "סטנדרטי: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "אילו מודלים פועלים"
   },
   "promptTester": {
     "anotherNoteType": "סוג פתק אחר",

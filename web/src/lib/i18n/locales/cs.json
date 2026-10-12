@@ -267,7 +267,6 @@
       "modelTipLabel": "O modelech pro obrázky",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "bohaté, fotografické scény.",
@@ -336,13 +335,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "Další nastavení",
     "doubleCost": "2× cena",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maximální kvalita",
     "maxQualityDescription": "Ostřejší a čistší, zejména malé popisky.",
     "richerDetail": "Bohatší detaily",
     "richerDetailDescription": "Více detailů, plnější scény. Trochu pomalejší.",
-    "extraSettings": "Další nastavení"
+    "extraReasoning": "Rozšířené uvažování",
+    "extraReasoningCost": "~1,5× náklady",
+    "extraReasoningDescription": "Čitelnější diagramy a text. Asi 4× pomalejší.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "Maximální kvalita: střední kvalita místo nízké",
+      "gptRicherDetail": "Bohatší detail: GPT Image 2.5 Sunburst",
+      "gptStandard": "Standardní: GPT Image 2.5 Flare v nízké kvalitě",
+      "nanoExtraReasoning": "Rozšířené uvažování: Nano Banana 2.1",
+      "nanoStandard": "Standardní: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Které modely se spouštějí"
   },
   "promptTester": {
     "anotherNoteType": "jiný typ poznámky",

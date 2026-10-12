@@ -265,7 +265,6 @@
       "modelTipLabel": "Tungkol sa mga modelo ng larawan",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "mayayamang eksenang parang litrato.",
@@ -332,13 +331,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "Karagdagang Setting",
     "doubleCost": "2× cost",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Max quality",
     "maxQualityDescription": "Mas malinaw at mas malinis, lalo na sa mga maliit na label.",
     "richerDetail": "Mas mayamang detalye",
     "richerDetailDescription": "Mas detalyado, mas puno ng mga eksena. Bahagyang mas mabagal.",
-    "extraSettings": "Karagdagang Setting"
+    "extraReasoning": "Karagdagang pangangatwiran",
+    "extraReasoningCost": "~1.5× ang gastos",
+    "extraReasoningDescription": "Mas malinis na diagram at mas madaling basahing teksto. Mga 4× na mas mabagal.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "Pinakamataas na kalidad: katamtamang kalidad sa halip na mababa",
+      "gptRicherDetail": "Mas detalyado: GPT Image 2.5 Sunburst",
+      "gptStandard": "Karaniwan: GPT Image 2.5 Flare sa mababang kalidad",
+      "nanoExtraReasoning": "Karagdagang pangangatwiran: Nano Banana 2.1",
+      "nanoStandard": "Karaniwan: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Aling mga modelo ang tumatakbo"
   },
   "promptTester": {
     "anotherNoteType": "ibang uri ng tala",

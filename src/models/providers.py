@@ -115,7 +115,7 @@ ElevenVoices = Literal["male-1", "male-2", "female-1", "female-2"]
 SmartFieldType = Literal["chat", "tts", "image"]
 
 ReplicateImageModels = Literal["z-image-turbo"]
-GoogleImageModels = Literal["nano-banana-2"]
+GoogleImageModels = Literal["nano-banana-2-lite", "nano-banana-2"]
 OpenAIImageModels = Literal[
     "gpt-image-2.5-flare-low",
     "gpt-image-2.5-flare-medium",
@@ -133,7 +133,7 @@ openai_image_models: list[ImageModels] = [
     "gpt-image-2.5-sunburst-medium",
 ]
 
-google_image_models: list[ImageModels] = ["nano-banana-2"]
+google_image_models: list[ImageModels] = ["nano-banana-2-lite", "nano-banana-2"]
 
 replicate_image_models: list[ImageModels] = ["z-image-turbo"]
 
@@ -150,11 +150,13 @@ all_image_models: list[ImageModels] = [
     "gpt-image-2.5-sunburst-low",
     "gpt-image-2.5-flare-medium",
     "gpt-image-2.5-sunburst-medium",
+    "nano-banana-2-lite",
     "nano-banana-2",
 ]
 
 image_model_to_provider: dict[ImageModels, ImageProviders] = {
     "z-image-turbo": "replicate",
+    "nano-banana-2-lite": "google",
     "nano-banana-2": "google",
     "gpt-image-2.5-flare-low": "openai",
     "gpt-image-2.5-flare-medium": "openai",

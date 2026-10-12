@@ -265,7 +265,6 @@
       "modelTipLabel": "Om bildmodellerna",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "rika, fotografiska scener.",
@@ -332,13 +331,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "Extra inställningar",
     "doubleCost": "2× kostnad",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maximal kvalitet",
     "maxQualityDescription": "Skarpare och renare, särskilt små etiketter.",
     "richerDetail": "Rikare detaljer",
     "richerDetailDescription": "Mer detaljer, fullare scener. Något långsammare.",
-    "extraSettings": "Extra inställningar"
+    "extraReasoning": "Extra resonemang",
+    "extraReasoningCost": "~1,5× kostnad",
+    "extraReasoningDescription": "Renare diagram och mer läsbar text. Ungefär 4× långsammare.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "Maximal kvalitet: medel kvalitet istället för låg",
+      "gptRicherDetail": "Mer detaljer: GPT Image 2.5 Sunburst",
+      "gptStandard": "Standard: GPT Image 2.5 Flare med låg kvalitet",
+      "nanoExtraReasoning": "Extra resonemang: Nano Banana 2.1",
+      "nanoStandard": "Standard: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Vilka modeller som körs"
   },
   "promptTester": {
     "anotherNoteType": "en annan nottyp",

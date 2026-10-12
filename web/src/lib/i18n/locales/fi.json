@@ -265,7 +265,6 @@
       "modelTipLabel": "Tietoa kuvamalleista",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "rikkaat, valokuvamaiset kuvat.",
@@ -332,13 +331,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "Lisäasetukset",
     "doubleCost": "2× kustannukset",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maksimaalinen laatu",
     "maxQualityDescription": "Terävämpi ja puhtaampi, erityisesti pienet nimiöt.",
     "richerDetail": "Rikkaampi yksityiskohtaisuus",
     "richerDetailDescription": "Yksityiskohtaisempi, täydempi kohtaukset. Hieman hitaampi.",
-    "extraSettings": "Lisäasetukset"
+    "extraReasoning": "Lisäpäättely",
+    "extraReasoningCost": "~1,5× kustannus",
+    "extraReasoningDescription": "Selkeämmät kaaviot ja luettavampi teksti. Noin 4× hitaampi.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "Maksimilaatu: keskitason laatu matalan sijaan",
+      "gptRicherDetail": "Rikkaampi yksityiskohtaisuus: GPT Image 2.5 Sunburst",
+      "gptStandard": "Vakio: GPT Image 2.5 Flare matalalla laadulla",
+      "nanoExtraReasoning": "Lisäpäättely: Nano Banana 2.1",
+      "nanoStandard": "Vakio: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Mitkä mallit ajetaan"
   },
   "promptTester": {
     "anotherNoteType": "toinen muistiinpanotyyppi",

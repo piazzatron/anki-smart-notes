@@ -264,7 +264,6 @@
       "modelTipLabel": "Tentang model imej",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "adegan yang kaya dan menyerupai fotografi.",
@@ -330,13 +329,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "Tetapan Tambahan",
     "doubleCost": "2× kos",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Kualiti maksimum",
     "maxQualityDescription": "Lebih tajam dan bersih, terutama label kecil.",
     "richerDetail": "Detail lebih kaya",
     "richerDetailDescription": "Lebih terperinci, pemandangan lebih lengkap. Sedikit lebih perlahan.",
-    "extraSettings": "Tetapan Tambahan"
+    "extraReasoning": "Penaakulan tambahan",
+    "extraReasoningCost": "~1.5× kos",
+    "extraReasoningDescription": "Gambar rajah yang lebih kemas dan teks yang lebih mudah dibaca. Kira-kira 4× lebih perlahan.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "Kualiti maksimum: kualiti sederhana dan bukannya rendah",
+      "gptRicherDetail": "Perincian lebih kaya: GPT Image 2.5 Sunburst",
+      "gptStandard": "Standard: GPT Image 2.5 Flare pada kualiti rendah",
+      "nanoExtraReasoning": "Penaakulan tambahan: Nano Banana 2.1",
+      "nanoStandard": "Standard: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Model yang dijalankan"
   },
   "promptTester": {
     "anotherNoteType": "jenis nota lain",

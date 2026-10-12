@@ -264,7 +264,6 @@
       "modelTipLabel": "เกี่ยวกับโมเดลสร้างภาพ",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "ฉากที่มีรายละเอียดสมจริงคล้ายภาพถ่าย",
@@ -330,13 +329,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "การตั้งค่าเพิ่มเติม",
     "doubleCost": "ราคา 2 เท่า",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "คุณภาพสูงสุด",
     "maxQualityDescription": "ชัดเจนและสะอาดยิ่งขึ้น โดยเฉพาะป้ายกำกับขนาดเล็ก",
     "richerDetail": "รายละเอียดที่풍풍ชื่น",
     "richerDetailDescription": "รายละเอียดมากขึ้น ฉากที่สมบูรณ์ยิ่งขึ้น ช้าลงเล็กน้อย",
-    "extraSettings": "การตั้งค่าเพิ่มเติม"
+    "extraReasoning": "การให้เหตุผลเพิ่มเติม",
+    "extraReasoningCost": "ค่าใช้จ่าย ~1.5×",
+    "extraReasoningDescription": "ไดอะแกรมชัดขึ้นและข้อความอ่านง่ายขึ้น ช้ากว่าประมาณ 4 เท่า",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "คุณภาพสูงสุด: คุณภาพปานกลางแทนคุณภาพต่ำ",
+      "gptRicherDetail": "รายละเอียดมากขึ้น: GPT Image 2.5 Sunburst",
+      "gptStandard": "มาตรฐาน: GPT Image 2.5 Flare ที่คุณภาพต่ำ",
+      "nanoExtraReasoning": "การให้เหตุผลเพิ่มเติม: Nano Banana 2.1",
+      "nanoStandard": "มาตรฐาน: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "โมเดลใดทำงานบ้าง"
   },
   "promptTester": {
     "anotherNoteType": "บันทึกประเภทอื่น",

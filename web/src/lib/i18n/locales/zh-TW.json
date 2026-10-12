@@ -264,7 +264,6 @@
       "modelTipLabel": "關於圖像模型",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "豐富、攝影風格的場景。",
@@ -330,13 +329,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "額外設定",
     "doubleCost": "2× 成本",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "最高品質",
     "maxQualityDescription": "更清晰細緻，特別是小標籤部分。",
     "richerDetail": "更豐富的細節",
     "richerDetailDescription": "更詳細、更飽滿的場景。速度稍慢。",
-    "extraSettings": "額外設定"
+    "extraReasoning": "額外推理",
+    "extraReasoningCost": "~1.5× 成本",
+    "extraReasoningDescription": "圖表更清晰,文字更易讀。速度約慢 4 倍。",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "最高品質:使用中等品質而非低品質",
+      "gptRicherDetail": "細節更豐富:GPT Image 2.5 Sunburst",
+      "gptStandard": "標準:GPT Image 2.5 Flare,低品質",
+      "nanoExtraReasoning": "額外推理:Nano Banana 2.1",
+      "nanoStandard": "標準:Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "執行的模型"
   },
   "promptTester": {
     "anotherNoteType": "另一種筆記類型",

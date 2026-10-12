@@ -23,6 +23,7 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/Select"
+import { InfoTip } from "@/components/ui/InfoTip"
 import { Pill } from "@/components/ui/Pill"
 import { Toggle } from "@/components/ui/Toggle"
 import { useTranslation } from "react-i18next"
@@ -30,12 +31,14 @@ import { modelCostLabel, modelLabel } from "@/lib/catalog"
 import i18next from "@/lib/i18n"
 import type { ImageGenerationSettings, ImageModelCatalog } from "@/types/api"
 import {
-  GPT_IMAGE_25,
-  type GptImage25Options,
-  gptImage25Model,
-  gptImage25Options,
+  IMAGE_MODEL_FAMILIES,
+  IMAGE_MODEL_SWITCHES,
+  type ImageModelSwitch,
+  familyModel,
+  getImageModelFamily,
   imageModelChoices,
-} from "./gptImage25"
+  isSwitchOn,
+} from "./imageModelFamilies"
 
 interface ImageModelSelectProps {
   ariaLabel?: string
@@ -53,7 +56,7 @@ export const ImageModelSelect = ({
   value,
 }: ImageModelSelectProps) => {
   const { t } = useTranslation()
-  const options = gptImage25Options(value)
+  const family = getImageModelFamily(value)
 
   const selectModel = (model: string) => {
     const selected = catalog.models.find((item) => item.id === model)
@@ -63,40 +66,29 @@ export const ImageModelSelect = ({
     onValueChange({ model, provider: selected.provider })
   }
 
-  const setOption = (change: Partial<GptImage25Options>) => {
-    if (options === null) return
-    selectModel(gptImage25Model({ ...options, ...change }))
+  const setSwitch = (key: ImageModelSwitch, checked: boolean) => {
+    if (family === null) return
+    const states = Object.fromEntries(
+      family.switches.map((other) => [other, isSwitchOn(family, value, other)]),
+    )
+    selectModel(familyModel(family, { ...states, [key]: checked }))
   }
-
-  const extras = [
-    {
-      key: "richerDetail",
-      label: t("imageGeneration.richerDetail"),
-      description: t("imageGeneration.richerDetailDescription"),
-      cost: null,
-    },
-    {
-      key: "maxQuality",
-      label: t("imageGeneration.maxQuality"),
-      description: t("imageGeneration.maxQualityDescription"),
-      cost: t("imageGeneration.doubleCost"),
-    },
-  ] as const
 
   return (
     <>
       <Select
-        onValueChange={(choice) =>
-          selectModel(
-            choice === GPT_IMAGE_25
-              ? gptImage25Model({ richerDetail: false, maxQuality: false })
-              : choice,
+        onValueChange={(choice) => {
+          const chosenFamily = IMAGE_MODEL_FAMILIES.find(
+            (candidate) => candidate.id === choice,
           )
-        }
-        value={options === null ? value : GPT_IMAGE_25}
+          selectModel(
+            chosenFamily === undefined ? choice : familyModel(chosenFamily, {}),
+          )
+        }}
+        value={family?.id ?? value}
       >
         <SelectTrigger aria-label={ariaLabel} id={id}>
-          <ImageModelOption modelId={options === null ? value : GPT_IMAGE_25} />
+          <ImageModelOption modelId={family?.id ?? value} />
         </SelectTrigger>
         <SelectContent>
           {imageModelChoices(catalog.models).map((model) => (
@@ -107,58 +99,65 @@ export const ImageModelSelect = ({
         </SelectContent>
       </Select>
 
-      {/* Plain GPT Image 2.5 is the default; extras are opt-in switches that pick
-          the underlying model, so users never see Flare vs Sunburst. */}
-      {options !== null && (
+      {/* A family's default is its plain model; switches are opt-in and pick the
+          underlying model, which the ⓘ names for anyone curious. */}
+      {family !== null && (
         <div className="mt-4">
-          <p className="mb-1 text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
+          <p className="mb-1 flex items-center gap-1.5 text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
             {t("imageGeneration.extraSettings")}
+            <InfoTip label={t("imageGeneration.underTheHoodLabel")}>
+              <ul className="space-y-1">
+                {family.underTheHood.map((line) => (
+                  <li key={line}>{t(line)}</li>
+                ))}
+              </ul>
+            </InfoTip>
           </p>
-          {extras.map((extra, index) => (
-            <div
-              className={`flex items-start gap-4 py-2.5 ${index > 0 ? "border-t border-white/[0.065]" : ""}`}
-              key={extra.key}
-            >
-              <div className="min-w-0 flex-1">
-                <p className="flex items-center gap-2 text-xs font-semibold text-zinc-200">
-                  {extra.label}
-                  {extra.cost !== null && (
-                    <Pill tone="warning">{extra.cost}</Pill>
-                  )}
-                </p>
-                <p className="mt-1 text-[11px] leading-4 text-ink-muted">
-                  {extra.description}
-                </p>
+          {family.switches.map((key, index) => {
+            const { cost, description, label } = IMAGE_MODEL_SWITCHES[key]
+            return (
+              <div
+                className={`flex items-start gap-4 py-2.5 ${index > 0 ? "border-t border-white/[0.065]" : ""}`}
+                key={key}
+              >
+                <div className="min-w-0 flex-1">
+                  <p className="flex items-center gap-2 text-xs font-semibold text-zinc-200">
+                    {t(label)}
+                    {cost !== null && <Pill tone="warning">{t(cost)}</Pill>}
+                  </p>
+                  <p className="mt-1 text-[11px] leading-4 text-ink-muted">
+                    {t(description)}
+                  </p>
+                </div>
+                <div className="mt-0.5">
+                  <Toggle
+                    aria-label={t(label)}
+                    checked={isSwitchOn(family, value, key)}
+                    onCheckedChange={(checked) => setSwitch(key, checked)}
+                  />
+                </div>
               </div>
-              <div className="mt-0.5">
-                <Toggle
-                  aria-label={extra.label}
-                  checked={options[extra.key]}
-                  onCheckedChange={(checked) =>
-                    setOption({ [extra.key]: checked })
-                  }
-                />
-              </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       )}
     </>
   )
 }
 
-// The model's name with its cost relative to plain GPT Image 2.5, as the text model
-// picker shows it.
+// The model's (or family's) name with its cost relative to plain GPT Image 2.5, as the
+// text model picker shows it.
 const ImageModelOption = ({ modelId }: { modelId: string }) => {
   const { t } = useTranslation()
   const costLabel = modelCostLabel(modelId)
+  const family = IMAGE_MODEL_FAMILIES.find(
+    (candidate) => candidate.id === modelId,
+  )
 
   return (
     <span className="flex min-w-0 items-center gap-2">
       <span className="min-w-0 flex-1 truncate font-semibold text-zinc-100">
-        {modelId === GPT_IMAGE_25
-          ? t("imageGeneration.gptImage25")
-          : modelLabel(modelId)}
+        {family === undefined ? modelLabel(modelId) : t(family.label)}
       </span>
       {costLabel !== undefined && <Pill>{costLabel}</Pill>}
     </span>

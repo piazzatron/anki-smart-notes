@@ -265,7 +265,6 @@
       "modelTipLabel": "Зургийн загваруудын тухай",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "баян, гэрэл зургийн маягийн дүрс.",
@@ -332,13 +331,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "Нэмэлт тохиргоо",
     "doubleCost": "2× зардал",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Хамгийн дээд чанар",
     "maxQualityDescription": "Илүү хөнгөн байдал, ялангуяа жижиг шошгонуудын хувьд.",
     "richerDetail": "Нийлмэл дэлгэрэнгүй",
     "richerDetailDescription": "Илүү дэлгэрэнгүй, бүтэн сахал. Арай удаан.",
-    "extraSettings": "Нэмэлт тохиргоо"
+    "extraReasoning": "Нэмэлт үндэслэл",
+    "extraReasoningCost": "~1.5× үнэ",
+    "extraReasoningDescription": "Цэвэрхэн диаграмм, илүү ойлгомжтой текст. Ойролцоогоор 4× удаан.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "Хамгийн өндөр чанар: бага биш, дунд чанар",
+      "gptRicherDetail": "Илүү дэлгэрэнгүй: GPT Image 2.5 Sunburst",
+      "gptStandard": "Стандарт: бага чанартай GPT Image 2.5 Flare",
+      "nanoExtraReasoning": "Нэмэлт үндэслэл: Nano Banana 2.1",
+      "nanoStandard": "Стандарт: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Аль загварууд ажиллах"
   },
   "promptTester": {
     "anotherNoteType": "өөр тэмдэглэлийн төрөл",

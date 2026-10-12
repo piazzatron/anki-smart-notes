@@ -265,7 +265,6 @@
       "modelTipLabel": "ଇମେଜ ମଡେଲ ବିଷୟରେ",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "ସମୃଦ୍ଧ, ଫଟୋଗ୍ରାଫିକ୍ ଦୃଶ୍ୟ।",
@@ -332,13 +331,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "ଅତିରିକ୍ତ ସେଟିଂସ୍",
     "doubleCost": "୨× ଖର୍ଚ୍ଚ",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "ସର୍ବାଧିକ ଗୁଣବତ୍ତା",
     "maxQualityDescription": "ଅଧିକ ତୀକ୍ଷ୍ଣ ଏବଂ ଶୁଦ୍ଧ, ବିଶେଷତଃ ଛୋଟ ଲେବେଲଗୁଡ଼ିକ ପାଇଁ।",
     "richerDetail": "ଅଧିକ ସମୃଦ୍ଧ ବିବରଣ",
     "richerDetailDescription": "ଅଧିକ ବିସ୍ତୃତ, ପୂର୍ଣ୍ଣ ଦୃଶ୍ୟ। ଟିକିଏ ମନ୍ଥର।",
-    "extraSettings": "ଅତିରିକ୍ତ ସେଟିଂସ୍"
+    "extraReasoning": "ଅତିରିକ୍ତ ଯୁକ୍ତିବିଚାର",
+    "extraReasoningCost": "~1.5× ଖର୍ଚ୍ଚ",
+    "extraReasoningDescription": "ସଫା ଚିତ୍ର ଓ ଅଧିକ ପଢ଼ିବା ଯୋଗ୍ୟ ଲେଖା। ପ୍ରାୟ 4× ଧୀର।",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "ସର୍ବାଧିକ ଗୁଣବତ୍ତା: କମ୍ ବଦଳରେ ମଧ୍ୟମ ଗୁଣବତ୍ତା",
+      "gptRicherDetail": "ଅଧିକ ବିବରଣୀ: GPT Image 2.5 Sunburst",
+      "gptStandard": "ସାଧାରଣ: କମ୍ ଗୁଣବତ୍ତାରେ GPT Image 2.5 Flare",
+      "nanoExtraReasoning": "ଅତିରିକ୍ତ ଯୁକ୍ତିବିଚାର: Nano Banana 2.1",
+      "nanoStandard": "ସାଧାରଣ: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "କେଉଁ ମଡେଲ ଚାଲେ"
   },
   "promptTester": {
     "anotherNoteType": "ଅନ୍ୟ ଏକ ନୋଟ୍ ପ୍ରକାର",

@@ -265,7 +265,6 @@
       "modelTipLabel": "Σχετικά με τα μοντέλα εικόνας",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "πλούσιες, φωτογραφικές σκηνές.",
@@ -332,13 +331,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "Επιπλέον ρυθμίσεις",
     "doubleCost": "2× κόστος",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Μέγιστη ποιότητα",
     "maxQualityDescription": "Πιο οξεία και καθαρή, ειδικά για μικρές ετικέτες.",
     "richerDetail": "Περισσότερη λεπτομέρεια",
     "richerDetailDescription": "Περισσότερη λεπτομέρεια, πληρέστερες σκηνές. Λίγο πιο αργό.",
-    "extraSettings": "Επιπλέον ρυθμίσεις"
+    "extraReasoning": "Επιπρόσθετος συλλογισμός",
+    "extraReasoningCost": "~1,5× κόστος",
+    "extraReasoningDescription": "Καθαρότερα διαγράμματα και πιο ευανάγνωστο κείμενο. Περίπου 4× πιο αργό.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "Μέγιστη ποιότητα: μέτρια ποιότητα αντί για χαμηλή",
+      "gptRicherDetail": "Περισσότερη λεπτομέρεια: GPT Image 2.5 Sunburst",
+      "gptStandard": "Τυπικό: GPT Image 2.5 Flare σε χαμηλή ποιότητα",
+      "nanoExtraReasoning": "Επιπρόσθετος συλλογισμός: Nano Banana 2.1",
+      "nanoStandard": "Τυπικό: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Ποια μοντέλα εκτελούνται"
   },
   "promptTester": {
     "anotherNoteType": "άλλος τύπος νότας",

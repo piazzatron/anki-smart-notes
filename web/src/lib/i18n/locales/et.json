@@ -265,7 +265,6 @@
       "modelTipLabel": "Pildimudelite kohta",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "rikkalikud, fotorealistlikud stseenid.",
@@ -332,13 +331,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "Täiendavad seaded",
     "doubleCost": "2× kulu",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maksimaalne kvaliteet",
     "maxQualityDescription": "Teravamad ja puhtamad, eriti väikesed sildid.",
     "richerDetail": "Rohkem detaile",
     "richerDetailDescription": "Üksikasjalikum, täielikumad stseenid. Pisut aeglasem.",
-    "extraSettings": "Täiendavad seaded"
+    "extraReasoning": "Põhjalikum arutlus",
+    "extraReasoningCost": "~1,5× kulu",
+    "extraReasoningDescription": "Puhtamad diagrammid ja loetavam tekst. Umbes 4× aeglasem.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "Maksimaalne kvaliteet: keskmine kvaliteet madala asemel",
+      "gptRicherDetail": "Rikkalikum detailsus: GPT Image 2.5 Sunburst",
+      "gptStandard": "Standardne: GPT Image 2.5 Flare madala kvaliteediga",
+      "nanoExtraReasoning": "Põhjalikum arutlus: Nano Banana 2.1",
+      "nanoStandard": "Standardne: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Milliseid mudeleid kasutatakse"
   },
   "promptTester": {
     "anotherNoteType": "teist nooditüüpi",

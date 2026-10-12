@@ -266,7 +266,6 @@
       "modelTipLabel": "Sobre els models d'imatge",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "escenes riques i fotogràfiques.",
@@ -334,13 +333,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "Configuració addicional",
     "doubleCost": "2× cost",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Qualitat màxima",
     "maxQualityDescription": "Més nítid i net, especialment les etiquetes petites.",
     "richerDetail": "Més detall",
     "richerDetailDescription": "Més detallat, escenes més completes. Una mica més lent.",
-    "extraSettings": "Configuració addicional"
+    "extraReasoning": "Raonament addicional",
+    "extraReasoningCost": "~1,5× cost",
+    "extraReasoningDescription": "Diagrames més nets i text més llegible. Unes 4× més lent.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "Qualitat màxima: qualitat mitjana en lloc de baixa",
+      "gptRicherDetail": "Més detall: GPT Image 2.5 Sunburst",
+      "gptStandard": "Estàndard: GPT Image 2.5 Flare amb qualitat baixa",
+      "nanoExtraReasoning": "Raonament addicional: Nano Banana 2.1",
+      "nanoStandard": "Estàndard: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Quins models s'executen"
   },
   "promptTester": {
     "anotherNoteType": "un altre tipus de nota",

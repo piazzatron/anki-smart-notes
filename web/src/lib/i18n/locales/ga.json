@@ -268,7 +268,6 @@
       "modelTipLabel": "Faoi na samhlacha íomhá",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "radharcanna saibhre, fótagrafach.",
@@ -338,13 +337,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "Socruithe breise",
     "doubleCost": "2× costas",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Uachtar ar an gcáilíochta",
     "maxQualityDescription": "Níos géire agus níos geal, go háirithe lipéid bheaga.",
     "richerDetail": "Saibhre sonraí",
     "richerDetailDescription": "Níos mionsonraithe, radhairc níos líofa. Beagáinín níos moille.",
-    "extraSettings": "Socruithe breise"
+    "extraReasoning": "Réasúnaíocht bhreise",
+    "extraReasoningCost": "~1.5× costas",
+    "extraReasoningDescription": "Léaráidí níos glaine agus téacs níos inléite. Thart ar 4× níos moille.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "Cáilíocht uasta: cáilíocht mheánach in ionad ísil",
+      "gptRicherDetail": "Mionsonraí níos saibhre: GPT Image 2.5 Sunburst",
+      "gptStandard": "Caighdeánach: GPT Image 2.5 Flare ag cáilíocht ísil",
+      "nanoExtraReasoning": "Réasúnaíocht bhreise: Nano Banana 2.1",
+      "nanoStandard": "Caighdeánach: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Cé na samhlacha a rithfidh"
   },
   "promptTester": {
     "anotherNoteType": "cineál nóta eile",

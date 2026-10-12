@@ -264,7 +264,6 @@
       "modelTipLabel": "Giới thiệu về các mô hình ảnh",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "các cảnh giàu chi tiết, mang phong cách nhiếp ảnh.",
@@ -330,13 +329,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "Cài đặt bổ sung",
     "doubleCost": "Chi phí gấp 2×",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Chất lượng tối đa",
     "maxQualityDescription": "Rõ nét và sạch hơn, đặc biệt là các nhãn nhỏ.",
     "richerDetail": "Chi tiết phong phú hơn",
     "richerDetailDescription": "Chi tiết hơn, cảnh đầy đủ hơn. Chậm hơn một chút.",
-    "extraSettings": "Cài đặt bổ sung"
+    "extraReasoning": "Suy luận mở rộng",
+    "extraReasoningCost": "Chi phí ~1,5×",
+    "extraReasoningDescription": "Sơ đồ rõ ràng hơn và văn bản dễ đọc hơn. Chậm hơn khoảng 4×.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "Chất lượng tối đa: chất lượng trung bình thay vì thấp",
+      "gptRicherDetail": "Chi tiết phong phú hơn: GPT Image 2.5 Sunburst",
+      "gptStandard": "Tiêu chuẩn: GPT Image 2.5 Flare ở chất lượng thấp",
+      "nanoExtraReasoning": "Suy luận mở rộng: Nano Banana 2.1",
+      "nanoStandard": "Tiêu chuẩn: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Mô hình nào sẽ chạy"
   },
   "promptTester": {
     "anotherNoteType": "loại ghi chú khác",

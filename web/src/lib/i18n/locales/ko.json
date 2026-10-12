@@ -264,7 +264,6 @@
       "modelTipLabel": "이미지 모델 정보",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "풍부하고 사실적인 사진 같은 장면.",
@@ -330,13 +329,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "추가 설정",
     "doubleCost": "2× 비용",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "최고 품질",
     "maxQualityDescription": "더 선명하고 깔끔함, 특히 작은 레이블에 효과적입니다.",
     "richerDetail": "더 풍부한 디테일",
     "richerDetailDescription": "더 상세한, 완성도 높은 이미지. 약간 더 느립니다.",
-    "extraSettings": "추가 설정"
+    "extraReasoning": "추가 추론",
+    "extraReasoningCost": "비용 약 1.5배",
+    "extraReasoningDescription": "더 깔끔한 다이어그램과 더 읽기 쉬운 텍스트. 약 4배 느림.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "최고 품질: 낮음 대신 중간 품질",
+      "gptRicherDetail": "더 풍부한 디테일: GPT Image 2.5 Sunburst",
+      "gptStandard": "표준: 낮은 품질의 GPT Image 2.5 Flare",
+      "nanoExtraReasoning": "추가 추론: Nano Banana 2.1",
+      "nanoStandard": "표준: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "실행되는 모델"
   },
   "promptTester": {
     "anotherNoteType": "다른 메모 유형",

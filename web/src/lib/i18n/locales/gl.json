@@ -265,7 +265,6 @@
       "modelTipLabel": "Sobre os modelos de imaxe",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "escenas ricas e fotográficas.",
@@ -332,13 +331,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "Configuración adicional",
     "doubleCost": "2× custo",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Calidade máxima",
     "maxQualityDescription": "Máis nítido e limpo, especialmente as etiquetas pequenas.",
     "richerDetail": "Máis detalle",
     "richerDetailDescription": "Máis detallado, escenas máis completas. Un pouco máis lento.",
-    "extraSettings": "Configuración adicional"
+    "extraReasoning": "Razoamento extra",
+    "extraReasoningCost": "~1,5× o custo",
+    "extraReasoningDescription": "Diagramas máis limpos e texto máis lexible. Uns 4× máis lento.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "Calidade máxima: calidade media en lugar de baixa",
+      "gptRicherDetail": "Máis detalle: GPT Image 2.5 Sunburst",
+      "gptStandard": "Estándar: GPT Image 2.5 Flare con calidade baixa",
+      "nanoExtraReasoning": "Razoamento extra: Nano Banana 2.1",
+      "nanoStandard": "Estándar: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Que modelos se usan"
   },
   "promptTester": {
     "anotherNoteType": "outro tipo de nota",

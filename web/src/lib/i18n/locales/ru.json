@@ -267,7 +267,6 @@
       "modelTipLabel": "О моделях изображений",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "богатые фотореалистичные сцены.",
@@ -336,13 +335,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "Дополнительные настройки",
     "doubleCost": "2× стоимость",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Максимальное качество",
     "maxQualityDescription": "Более четкое и чистое, особенно мелкие метки.",
     "richerDetail": "Больше деталей",
     "richerDetailDescription": "Более детально, полные сцены. Немного медленнее.",
-    "extraSettings": "Дополнительные настройки"
+    "extraReasoning": "Расширенное рассуждение",
+    "extraReasoningCost": "~1,5× стоимость",
+    "extraReasoningDescription": "Более чистые диаграммы и более читаемый текст. Примерно в 4× медленнее.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "Максимальное качество: среднее вместо низкого",
+      "gptRicherDetail": "Больше деталей: GPT Image 2.5 Sunburst",
+      "gptStandard": "Стандартный: GPT Image 2.5 Flare с низким качеством",
+      "nanoExtraReasoning": "Расширенное рассуждение: Nano Banana 2.1",
+      "nanoStandard": "Стандартный: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Какие модели используются"
   },
   "promptTester": {
     "anotherNoteType": "другой тип заметки",

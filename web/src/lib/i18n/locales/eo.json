@@ -265,7 +265,6 @@
       "modelTipLabel": "Pri la bildmodeloj",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "riĉaj, fotografiaj scenoj.",
@@ -332,13 +331,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "Ekstraj agordoj",
     "doubleCost": "2× kosto",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maksimuma kvalito",
     "maxQualityDescription": "Pli akra kaj pura, ĉefe malgrandaj etikedoj.",
     "richerDetail": "Pli riĉa detalo",
     "richerDetailDescription": "Pli detala, plenaj scenoj. Iom pli malrapida.",
-    "extraSettings": "Ekstraj agordoj"
+    "extraReasoning": "Plia rezonado",
+    "extraReasoningCost": "~1,5× kosto",
+    "extraReasoningDescription": "Pli puraj diagramoj kaj pli legebla teksto. Proksimume 4× pli malrapida.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "Maksimuma kvalito: meza kvalito anstataŭ malalta",
+      "gptRicherDetail": "Pli riĉa detalo: GPT Image 2.5 Sunburst",
+      "gptStandard": "Norma: GPT Image 2.5 Flare kun malalta kvalito",
+      "nanoExtraReasoning": "Plia rezonado: Nano Banana 2.1",
+      "nanoStandard": "Norma: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Kiuj modeloj funkcias"
   },
   "promptTester": {
     "anotherNoteType": "alia notspeco",

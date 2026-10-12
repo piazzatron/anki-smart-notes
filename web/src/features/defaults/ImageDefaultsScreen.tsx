@@ -147,7 +147,7 @@ const MODEL_TIPS = [
     description: "defaults.image.gptImage25",
   },
   {
-    name: "defaults.image.models.nanoBanana21",
+    name: "imageGeneration.nanoBanana",
     description: "defaults.image.nanoBanana21",
   },
   {

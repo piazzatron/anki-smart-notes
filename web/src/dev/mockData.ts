@@ -344,6 +344,7 @@ export const MOCK_CATALOG: Catalog = {
       { id: "gpt-image-2.5-flare-medium", provider: "openai" },
       { id: "gpt-image-2.5-sunburst-low", provider: "openai" },
       { id: "gpt-image-2.5-sunburst-medium", provider: "openai" },
+      { id: "nano-banana-2-lite", provider: "google" },
       { id: "nano-banana-2", provider: "google" },
       { id: "z-image-turbo", provider: "replicate" },
     ],

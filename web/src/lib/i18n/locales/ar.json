@@ -269,7 +269,6 @@
       "modelTipLabel": "حول نماذج الصور",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "مشاهد غنية وفوتوغرافية.",
@@ -340,13 +339,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "إعدادات إضافية",
     "doubleCost": "تكلفة مضاعفة",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "أقصى جودة",
     "maxQualityDescription": "أكثر حدة ووضوحاً، خاصة للنصوص الصغيرة.",
     "richerDetail": "تفاصيل أغنى",
     "richerDetailDescription": "أكثر تفصيلاً وأكمل للمشاهد. أبطأ قليلاً.",
-    "extraSettings": "إعدادات إضافية"
+    "extraReasoning": "استدلال إضافي",
+    "extraReasoningCost": "تكلفة ~1.5×",
+    "extraReasoningDescription": "رسوم بيانية أوضح ونص أسهل قراءة. أبطأ بنحو 4×.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "أقصى جودة: جودة متوسطة بدلاً من المنخفضة",
+      "gptRicherDetail": "تفاصيل أغنى: GPT Image 2.5 Sunburst",
+      "gptStandard": "قياسي: GPT Image 2.5 Flare بجودة منخفضة",
+      "nanoExtraReasoning": "استدلال إضافي: Nano Banana 2.1",
+      "nanoStandard": "قياسي: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "النماذج المستخدمة"
   },
   "promptTester": {
     "anotherNoteType": "نوع ملاحظة آخر",

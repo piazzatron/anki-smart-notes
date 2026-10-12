@@ -21,7 +21,11 @@ import i18next from "i18next"
 import { useEffect, useState, type ReactNode } from "react"
 import { useTranslation } from "react-i18next"
 
-import { gptImage25Options } from "@/features/image-generation/gptImage25"
+import {
+  IMAGE_MODEL_SWITCHES,
+  getImageModelFamily,
+  isSwitchOn,
+} from "@/features/image-generation/imageModelFamilies"
 
 import { modelLabel } from "@/lib/catalog"
 import { errorMessage } from "@/lib/errors"
@@ -349,17 +353,15 @@ const runTimedTest = async (args: {
 const getProvenance = (args: PromptTesterArgs): Provenance => {
   if (args.fieldType === "tts") return { extras: [], primary: args.voiceName }
 
-  const extras: string[] = []
-  if (args.fieldType === "image") {
-    const options = gptImage25Options(args.settings.model)
-    if (options?.richerDetail) {
-      extras.push(i18next.t("imageGeneration.richerDetail"))
-    }
-    if (options?.maxQuality) {
-      extras.push(i18next.t("imageGeneration.maxQuality"))
-    }
-  }
-  return { extras, primary: modelLabel(args.settings.model) }
+  const { model } = args.settings
+  const family = args.fieldType === "image" ? getImageModelFamily(model) : null
+  const extras =
+    family === null
+      ? []
+      : family.switches
+          .filter((key) => isSwitchOn(family, model, key))
+          .map((key) => i18next.t(IMAGE_MODEL_SWITCHES[key].label))
+  return { extras, primary: modelLabel(model) }
 }
 
 // The card is optional everywhere: the server only needs one when the prompt reads

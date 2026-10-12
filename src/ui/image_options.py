@@ -34,6 +34,7 @@ from .ui_utils import default_form_layout, font_bold, font_small
 
 image_models_display: dict[str, str] = {
     "z-image-turbo": "Z-Image Turbo (0.2x Cost)",
+    "nano-banana-2-lite": "Nano Banana 2 Lite (4x Cost)",
     "nano-banana-2": "Nano Banana 2.1 (5x Cost)",
     "gpt-image-2.5-flare-low": "GPT Image 2.5 (1x Cost)",
     "gpt-image-2.5-flare-medium": "GPT Image 2.5 Max Quality (2x Cost)",

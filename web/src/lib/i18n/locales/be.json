@@ -267,7 +267,6 @@
       "modelTipLabel": "Пра мадэлі малюнкаў",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "насычаныя фатаграфічныя сцэны.",
@@ -336,13 +335,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "Дадатковыя налады",
     "doubleCost": "2× коштом",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Максімальная якасць",
     "maxQualityDescription": "Більш рэзкае і чыстае, асабліва маленькія меткі.",
     "richerDetail": "Больш дэталяў",
     "richerDetailDescription": "Больш дэталізаваны, паўнейшыя сцэны. Крыху павольней.",
-    "extraSettings": "Дадатковыя налады"
+    "extraReasoning": "Дадатковае разважанне",
+    "extraReasoningCost": "~1,5× кошт",
+    "extraReasoningDescription": "Больш выразныя схемы і лепш чытэльны тэкст. Прыблізна ў 4× павольней.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "Максімальная якасць: сярэдняя замест нізкай",
+      "gptRicherDetail": "Больш дэталяў: GPT Image 2.5 Sunburst",
+      "gptStandard": "Стандартная: GPT Image 2.5 Flare з нізкай якасцю",
+      "nanoExtraReasoning": "Дадатковае разважанне: Nano Banana 2.1",
+      "nanoStandard": "Стандартная: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Якія мадэлі запускаюцца"
   },
   "promptTester": {
     "anotherNoteType": "іншы тып нататкі",

@@ -266,7 +266,6 @@
       "modelTipLabel": "Despre modelele de imagini",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "nanoBanana21": "Nano Banana 2.1",
         "zImageTurbo": "Z-Image Turbo"
       },
       "nanoBanana21": "scene bogate, de tip fotografic.",
@@ -334,13 +333,25 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "Setări suplimentare",
     "doubleCost": "Cost 2×",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Calitate maximă",
     "maxQualityDescription": "Mai ascuțit și mai curat, în special etichetele mici.",
     "richerDetail": "Detalii mai bogate",
     "richerDetailDescription": "Mai detaliat, scene mai complete. Puțin mai lent.",
-    "extraSettings": "Setări suplimentare"
+    "extraReasoning": "Raționament extins",
+    "extraReasoningCost": "~1,5× cost",
+    "extraReasoningDescription": "Diagrame mai curate și text mai ușor de citit. Aproximativ de 4× mai lent.",
+    "nanoBanana": "Nano Banana (Google)",
+    "underTheHood": {
+      "gptMaxQuality": "Calitate maximă: calitate medie în loc de scăzută",
+      "gptRicherDetail": "Detalii mai bogate: GPT Image 2.5 Sunburst",
+      "gptStandard": "Standard: GPT Image 2.5 Flare la calitate scăzută",
+      "nanoExtraReasoning": "Raționament extins: Nano Banana 2.1",
+      "nanoStandard": "Standard: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Ce modele rulează"
   },
   "promptTester": {
     "anotherNoteType": "alt tip de notă",
