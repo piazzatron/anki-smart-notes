@@ -23,7 +23,6 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/Select"
-import { InfoTip } from "@/components/ui/InfoTip"
 import { Pill } from "@/components/ui/Pill"
 import { Toggle } from "@/components/ui/Toggle"
 import { useTranslation } from "react-i18next"
@@ -43,8 +42,6 @@ interface ImageModelSelectProps {
   catalog: ImageModelCatalog
   id?: string
   onValueChange: (settings: ImageGenerationSettings) => void
-  // Opens the extras tip on first render, alongside the screen's own model tip.
-  openExtrasTip?: boolean
   value: string
 }
 
@@ -53,7 +50,6 @@ export const ImageModelSelect = ({
   catalog,
   id,
   onValueChange,
-  openExtrasTip = false,
   value,
 }: ImageModelSelectProps) => {
   const { t } = useTranslation()
@@ -115,14 +111,8 @@ export const ImageModelSelect = ({
           the underlying model, so users never see Flare vs Sunburst. */}
       {options !== null && (
         <div className="mt-4">
-          <p className="mb-1 flex items-center gap-1.5 text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
-            {t("imageGeneration.extras")}
-            <InfoTip
-              defaultOpen={openExtrasTip}
-              label={t("imageGeneration.extrasTipLabel")}
-            >
-              {t("defaults.image.extrasTip")}
-            </InfoTip>
+          <p className="mb-1 text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
+            {t("imageGeneration.extraSettings")}
           </p>
           {extras.map((extra, index) => (
             <div

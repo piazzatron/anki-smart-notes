@@ -259,22 +259,21 @@
     "image": {
       "cannotFindModel": "Bildekatalogen mangler modell {{model}}",
       "defaultModel": "Standardmodell",
-      "extrasTip": "Start med extras av, og slå dem på hvis et felt trenger mer detalj.",
       "gptImage25": "best all-rounder — sharp text, clean diagrams.",
       "loadingLabel": "Laster inn standard bildeinnstillinger",
       "loadingTitle": "Standard bildeinnstillinger",
+      "modelTipLabel": "Om bildemodellene",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "rike, fotografiske scener.",
       "samplePrompt": "Generer et bilde av en student som studerer hardt med Anki og består testene deres.",
       "saveError": "Kunne ikke lagre bildestandarder",
       "subtitle": "Modellen bildet ditt Smart Fields bruker med mindre et felt fester sitt eget.",
       "title": "Standard bildeinnstillinger",
-      "zImageTurbo": "raskest og billigst.",
-      "modelTipLabel": "Om bildemodellene",
-      "nanoBanana21": "rike, fotografiske scener."
+      "zImageTurbo": "raskest og billigst."
     },
     "layout": {
       "saveChanges": "Lagre endringer",
@@ -334,13 +333,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× kostnad",
-    "extras": "Ekstra",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maksimal kvalitet",
     "maxQualityDescription": "Skarpere og renere, spesielt små etiketter.",
     "richerDetail": "Rikere detaljer",
     "richerDetailDescription": "Mer detaljert, fullere scener. Litt tregere.",
-    "extrasTipLabel": "Om tilleggene"
+    "extraSettings": "Ekstra innstillinger"
   },
   "promptTester": {
     "anotherNoteType": "en annen notetype",

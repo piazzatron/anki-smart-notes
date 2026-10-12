@@ -260,22 +260,21 @@
     "image": {
       "cannotFindModel": "Falta el model {{model}} del catàleg d'imatges",
       "defaultModel": "Model per defecte",
-      "extrasTip": "Comença amb els complements desactivats i activa'ls si un camp necessita més detall.",
       "gptImage25": "millor opció versàtil — text nítid, diagrames nets.",
       "loadingLabel": "S'està carregant la configuració d'imatge predeterminada",
       "loadingTitle": "Configuració d'imatge per defecte",
+      "modelTipLabel": "Sobre els models d'imatge",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "escenes riques i fotogràfiques.",
       "samplePrompt": "Genereu una imatge d'un estudiant estudiant molt amb Anki i aprovant les seves proves.",
       "saveError": "No s'han pogut desar els valors predeterminats de la imatge",
       "subtitle": "El model que utilitzeu la vostra imatge Smart Fields tret que un camp fixi el seu.",
       "title": "Configuració d'imatge per defecte",
-      "zImageTurbo": "més ràpid i barat.",
-      "modelTipLabel": "Sobre els models d'imatge",
-      "nanoBanana21": "escenes riques i fotogràfiques."
+      "zImageTurbo": "més ràpid i barat."
     },
     "layout": {
       "saveChanges": "Desa els canvis",
@@ -336,13 +335,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× cost",
-    "extras": "Extras",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Qualitat màxima",
     "maxQualityDescription": "Més nítid i net, especialment les etiquetes petites.",
     "richerDetail": "Més detall",
     "richerDetailDescription": "Més detallat, escenes més completes. Una mica més lent.",
-    "extrasTipLabel": "Sobre les extres"
+    "extraSettings": "Configuració addicional"
   },
   "promptTester": {
     "anotherNoteType": "un altre tipus de nota",

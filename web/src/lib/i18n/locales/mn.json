@@ -259,22 +259,21 @@
     "image": {
       "cannotFindModel": "Зургийн каталогид {{model}} загвар байхгүй байна",
       "defaultModel": "Өгөгдмөл загвар",
-      "extrasTip": "Нэмэлт функцийг эхэндээ унтраасан байлгаж, талбарт илүү дэлгэрэнгүй мэдээлэл хэрэгтэй болвол асаана уу.",
       "gptImage25": "сайн сонголт — ил текст, цэвэр диаграмм.",
       "loadingLabel": "Өгөгдмөл зургийн тохиргоог ачаалж байна",
       "loadingTitle": "Өгөгдмөл зургийн тохиргоо",
+      "modelTipLabel": "Зургийн загваруудын тухай",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "баян, гэрэл зургийн маягийн дүрс.",
       "samplePrompt": "Anki-аар шаргуу суралцаж, шалгалтаа өгч буй оюутны дүр төрхийг бий болго.",
       "saveError": "Зургийн өгөгдмөл тохиргоог хадгалж чадсангүй",
       "subtitle": "Талбар нь өөрөө бэхлээгүй тохиолдолд таны зургийн Smart Fields ашиглах загвар.",
       "title": "Өгөгдмөл зургийн тохиргоо",
-      "zImageTurbo": "хамгийн хурдан бөгөөд хямд.",
-      "modelTipLabel": "Зургийн загваруудын тухай",
-      "nanoBanana21": "баян, гэрэл зургийн маягийн дүрс."
+      "zImageTurbo": "хамгийн хурдан бөгөөд хямд."
     },
     "layout": {
       "saveChanges": "Өөрчлөлтүүдийг хадгалах",
@@ -334,13 +333,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× зардал",
-    "extras": "Нэмэлт",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Хамгийн дээд чанар",
     "maxQualityDescription": "Илүү хөнгөн байдал, ялангуяа жижиг шошгонуудын хувьд.",
     "richerDetail": "Нийлмэл дэлгэрэнгүй",
     "richerDetailDescription": "Илүү дэлгэрэнгүй, бүтэн сахал. Арай удаан.",
-    "extrasTipLabel": "Нэмэлт зүйлсийн тухай"
+    "extraSettings": "Нэмэлт тохиргоо"
   },
   "promptTester": {
     "anotherNoteType": "өөр тэмдэглэлийн төрөл",

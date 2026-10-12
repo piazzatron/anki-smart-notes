@@ -258,22 +258,21 @@
     "image": {
       "cannotFindModel": "Lo catalòg d'imatges manca lo modèl {{model}}",
       "defaultModel": "Modèl per defaut",
-      "extrasTip": "Començatz amb los extras desactivats, puèi activatz-los se un camp a besoin de mai de detalh.",
       "gptImage25": "lo melhor de tot — tèxt nitid, diagramas nets.",
       "loadingLabel": "En cargament dels paramètres d'imatge per defaut",
       "loadingTitle": "Paramètres d'imatge per defaut",
+      "modelTipLabel": "A prepaus dels modèls d'imatge",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "scènas ricas, fotograficas.",
       "samplePrompt": "Generar una imatge d'un escolans qu'estudia fòrça amb Anki e que passa sos tèsts.",
       "saveError": "Impossible d'enregistrar las valors per defaut de l'imatge",
       "subtitle": "Lo modèl que vòstra imatge Smart Fields utilizatz levat se un camp fixa lo sieu.",
       "title": "Paramètres d'imatge per defaut",
-      "zImageTurbo": "lo mai rapid e lo mai economic.",
-      "modelTipLabel": "A prepaus dels modèls d'imatge",
-      "nanoBanana21": "scènas ricas, fotograficas."
+      "zImageTurbo": "lo mai rapid e lo mai economic."
     },
     "layout": {
       "saveChanges": "Enregistrar las modificacions",
@@ -332,13 +331,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× de còst",
-    "extras": "Extres",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Qualitat maxima",
     "maxQualityDescription": "Pus net e pus clar, especialament per las etiquetas petitas.",
     "richerDetail": "Detall pus ric",
     "richerDetailDescription": "Pus detallat, escènas pus complètas. Un pauc pus lent.",
-    "extrasTipLabel": "A prepaus dels extras"
+    "extraSettings": "Paramètres Addicionals"
   },
   "promptTester": {
     "anotherNoteType": "un autre tipe de nòta",

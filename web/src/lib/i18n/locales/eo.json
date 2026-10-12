@@ -259,22 +259,21 @@
     "image": {
       "cannotFindModel": "Bildkatalogo mankas modelo {{model}}",
       "defaultModel": "Defaŭlta modelo",
-      "extrasTip": "Komenci kun ekstroj malŝaltitaj, poste ŝaltu ilin se kampo bezonas pli da detalo.",
       "gptImage25": "plej bona ĉiucela — akra teksto, puraj diagramoj.",
       "loadingLabel": "Ŝargante defaŭltajn bildajn agordojn",
       "loadingTitle": "Defaŭltaj Bildaj Agordoj",
+      "modelTipLabel": "Pri la bildmodeloj",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "riĉaj, fotografiaj scenoj.",
       "samplePrompt": "Generu bildon de studento, kiu forte studas kun Anki kaj trapasas siajn testojn.",
       "saveError": "Ne eblis konservi bildodefaŭltojn",
       "subtitle": "La modelo kiun via bildo Smart Fields uzas krom se kampo alpinglas sian propran.",
       "title": "Defaŭltaj Bildaj Agordoj",
-      "zImageTurbo": "plej rapida kaj plej malmultekosta.",
-      "modelTipLabel": "Pri la bildmodeloj",
-      "nanoBanana21": "riĉaj, fotografiaj scenoj."
+      "zImageTurbo": "plej rapida kaj plej malmultekosta."
     },
     "layout": {
       "saveChanges": "Konservu ŝanĝojn",
@@ -334,13 +333,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× kosto",
-    "extras": "Aldonaĵoj",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maksimuma kvalito",
     "maxQualityDescription": "Pli akra kaj pura, ĉefe malgrandaj etikedoj.",
     "richerDetail": "Pli riĉa detalo",
     "richerDetailDescription": "Pli detala, plenaj scenoj. Iom pli malrapida.",
-    "extrasTipLabel": "Pri la aldonaĵoj"
+    "extraSettings": "Ekstraj agordoj"
   },
   "promptTester": {
     "anotherNoteType": "alia notspeco",

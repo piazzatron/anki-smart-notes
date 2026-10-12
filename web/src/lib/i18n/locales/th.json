@@ -258,22 +258,21 @@
     "image": {
       "cannotFindModel": "แค็ตตาล็อกรูปภาพไม่มีโมเดล {{model}}",
       "defaultModel": "โมเดลเริ่มต้น",
-      "extrasTip": "เริ่มต้นโดยปิดส่วนเพิ่มเติม จากนั้นเปิดใช้หากต้องการรายละเอียดเพิ่มเติมในฟิลด์",
       "gptImage25": "ตัวเลือกที่ดีที่สุดสำหรับทุกกรณี — ข้อความชัด ไดอะแกรมสะอาด",
       "loadingLabel": "กำลังโหลดการตั้งค่ารูปภาพเริ่มต้น",
       "loadingTitle": "การตั้งค่าภาพเริ่มต้น",
+      "modelTipLabel": "เกี่ยวกับโมเดลสร้างภาพ",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "ฉากที่มีรายละเอียดสมจริงคล้ายภาพถ่าย",
       "samplePrompt": "สร้างภาพลักษณ์นักเรียนที่เรียนหนักด้วย Anki และผ่านการทดสอบ",
       "saveError": "ไม่สามารถบันทึกค่าเริ่มต้นของรูปภาพได้",
       "subtitle": "โมเดลที่อิมเมจของคุณ Smart Fields ใช้ เว้นแต่ว่าฟิลด์จะปักหมุดตัวมันเอง",
       "title": "การตั้งค่าภาพเริ่มต้น",
-      "zImageTurbo": "เร็วที่สุดและถูกที่สุด",
-      "modelTipLabel": "เกี่ยวกับโมเดลสร้างภาพ",
-      "nanoBanana21": "ฉากที่มีรายละเอียดสมจริงคล้ายภาพถ่าย"
+      "zImageTurbo": "เร็วที่สุดและถูกที่สุด"
     },
     "layout": {
       "saveChanges": "บันทึกการเปลี่ยนแปลง",
@@ -332,13 +331,12 @@
   },
   "imageGeneration": {
     "doubleCost": "ราคา 2 เท่า",
-    "extras": "ตัวเลือกเพิ่มเติม",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "คุณภาพสูงสุด",
     "maxQualityDescription": "ชัดเจนและสะอาดยิ่งขึ้น โดยเฉพาะป้ายกำกับขนาดเล็ก",
     "richerDetail": "รายละเอียดที่풍풍ชื่น",
     "richerDetailDescription": "รายละเอียดมากขึ้น ฉากที่สมบูรณ์ยิ่งขึ้น ช้าลงเล็กน้อย",
-    "extrasTipLabel": "เกี่ยวกับส่วนเสริม"
+    "extraSettings": "การตั้งค่าเพิ่มเติม"
   },
   "promptTester": {
     "anotherNoteType": "บันทึกประเภทอื่น",

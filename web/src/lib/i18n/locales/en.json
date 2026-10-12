@@ -249,7 +249,6 @@
     "image": {
       "cannotFindModel": "Image catalog is missing model {{model}}",
       "defaultModel": "Default model",
-      "extrasTip": "Start with extras off, then turn them on if a field needs more detail.",
       "gptImage25": "best all-rounder — sharp text, clean diagrams.",
       "loadingLabel": "Loading Default Image Settings",
       "loadingTitle": "Default Image Settings",
@@ -319,9 +318,8 @@
     }
   },
   "imageGeneration": {
+    "extraSettings": "Extra Settings",
     "doubleCost": "2× cost",
-    "extras": "Extras",
-    "extrasTipLabel": "About the extras",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Max quality",
     "maxQualityDescription": "Sharper and cleaner, especially small labels.",

@@ -259,22 +259,21 @@
     "image": {
       "cannotFindModel": "Beeldkatalogus ontbreek model {{model}}",
       "defaultModel": "Verstek model",
-      "extrasTip": "Begin met ekstras af, en skakel dit aan as 'n veld meer detail nodig het.",
       "gptImage25": "beste alleskunner — skerp teks, skoon diagramme.",
       "loadingLabel": "Laai tans verstekbeeldinstellings",
       "loadingTitle": "Standaard prentinstellings",
+      "modelTipLabel": "Oor die beeldmodelle",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "ryk, fotografiese tonele.",
       "samplePrompt": "Genereer 'n beeld van 'n student wat hard met Anki studeer en hul toetse slaag.",
       "saveError": "Kon nie prentverstekings stoor nie",
       "subtitle": "Die model wat jou beeld Smart Fields gebruik, tensy 'n veld sy eie vaspen.",
       "title": "Standaard prentinstellings",
-      "zImageTurbo": "vinnigste en goedkoopste.",
-      "modelTipLabel": "Oor die beeldmodelle",
-      "nanoBanana21": "ryk, fotografiese tonele."
+      "zImageTurbo": "vinnigste en goedkoopste."
     },
     "layout": {
       "saveChanges": "Stoor veranderinge",
@@ -334,13 +333,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× koste",
-    "extras": "Ekstra's",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maksimum kwaliteit",
     "maxQualityDescription": "Skerper en skoner, veral klein etikette.",
     "richerDetail": "Ryker detail",
     "richerDetailDescription": "Meer gedetailleerd, voller tonele. Effens stadiger.",
-    "extrasTipLabel": "Oor die ekstras"
+    "extraSettings": "Bykomende instellings"
   },
   "promptTester": {
     "anotherNoteType": "'n ander noottipe",

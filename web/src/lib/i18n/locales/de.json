@@ -259,22 +259,21 @@
     "image": {
       "cannotFindModel": "Im Bildkatalog fehlt das Modell {{model}}",
       "defaultModel": "Standardmodell",
-      "extrasTip": "Starten Sie mit deaktivierten Extras, aktivieren Sie diese dann, wenn ein Feld mehr Details benötigt.",
       "gptImage25": "Allrounder — scharfe Texte, saubere Diagramme.",
       "loadingLabel": "Laden der Standardbildeinstellungen",
       "loadingTitle": "Standardbildeinstellungen",
+      "modelTipLabel": "Info zu den Bildmodellen",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "reiche, fotografische Szenen.",
       "samplePrompt": "Erstellen Sie ein Bild eines Studenten, der mit Anki fleißig lernt und seine Prüfungen besteht.",
       "saveError": "Bildstandardeinstellungen konnten nicht gespeichert werden",
       "subtitle": "Das Modell, das Ihr Bild Smart Fields verwendet, es sei denn, ein Feld heftet sein eigenes an.",
       "title": "Standardbildeinstellungen",
-      "zImageTurbo": "am schnellsten und günstigsten.",
-      "modelTipLabel": "Info zu den Bildmodellen",
-      "nanoBanana21": "reiche, fotografische Szenen."
+      "zImageTurbo": "am schnellsten und günstigsten."
     },
     "layout": {
       "saveChanges": "Änderungen speichern",
@@ -334,13 +333,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× Kosten",
-    "extras": "Extras",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maximale Qualität",
     "maxQualityDescription": "Schärfer und sauberer, besonders bei kleinen Beschriftungen.",
     "richerDetail": "Mehr Details",
     "richerDetailDescription": "Detaillierter, vollere Szenen. Etwas langsamer.",
-    "extrasTipLabel": "Info zu den Extras"
+    "extraSettings": "Zusätzliche Einstellungen"
   },
   "promptTester": {
     "anotherNoteType": "ein anderer Notiztyp",

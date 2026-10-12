@@ -259,22 +259,21 @@
     "image": {
       "cannotFindModel": "Λείπει ο κατάλογος εικόνων μοντέλο {{model}}",
       "defaultModel": "Προεπιλεγμένο μοντέλο",
-      "extrasTip": "Ξεκινήστε με τα extras απενεργοποιημένα, και ενεργοποιήστε τα αν ένα πεδίο χρειάζεται περισσότερες λεπτομέρειες.",
       "gptImage25": "καλύτερος σε όλα — οξύ κείμενο, καθαρά διαγράμματα.",
       "loadingLabel": "Φόρτωση προεπιλεγμένων ρυθμίσεων εικόνας",
       "loadingTitle": "Προεπιλεγμένες ρυθμίσεις εικόνας",
+      "modelTipLabel": "Σχετικά με τα μοντέλα εικόνας",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "πλούσιες, φωτογραφικές σκηνές.",
       "samplePrompt": "Δημιουργήστε μια εικόνα ενός μαθητή που μελετά σκληρά με το Anki και περνά τις δοκιμασίες του.",
       "saveError": "Δεν ήταν δυνατή η αποθήκευση των προεπιλογών εικόνας",
       "subtitle": "Το μοντέλο που χρησιμοποιεί η εικόνα σας Smart Fields, εκτός εάν ένα πεδίο καρφιτσώσει το δικό του.",
       "title": "Προεπιλεγμένες ρυθμίσεις εικόνας",
-      "zImageTurbo": "ταχύτερο και φθηνότερο.",
-      "modelTipLabel": "Σχετικά με τα μοντέλα εικόνας",
-      "nanoBanana21": "πλούσιες, φωτογραφικές σκηνές."
+      "zImageTurbo": "ταχύτερο και φθηνότερο."
     },
     "layout": {
       "saveChanges": "Αποθήκευση αλλαγών",
@@ -334,13 +333,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× κόστος",
-    "extras": "Επιπλέον",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Μέγιστη ποιότητα",
     "maxQualityDescription": "Πιο οξεία και καθαρή, ειδικά για μικρές ετικέτες.",
     "richerDetail": "Περισσότερη λεπτομέρεια",
     "richerDetailDescription": "Περισσότερη λεπτομέρεια, πληρέστερες σκηνές. Λίγο πιο αργό.",
-    "extrasTipLabel": "Σχετικά με τα πρόσθετα"
+    "extraSettings": "Επιπλέον ρυθμίσεις"
   },
   "promptTester": {
     "anotherNoteType": "άλλος τύπος νότας",

@@ -259,22 +259,21 @@
     "image": {
       "cannotFindModel": "Kuvaluettelosta puuttuu malli {{model}}",
       "defaultModel": "Oletusmalli",
-      "extrasTip": "Aloita lisäominaisuuksista pois, ota ne sitten käyttöön, jos kenttä tarvitsee lisätietoja.",
       "gptImage25": "paras yleiskäyttöjärjestelmä — terävä teksti, siistit kaaviot.",
       "loadingLabel": "Ladataan oletuskuvaasetuksia",
       "loadingTitle": "Kuvan oletusasetukset",
+      "modelTipLabel": "Tietoa kuvamalleista",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "rikkaat, valokuvamaiset kuvat.",
       "samplePrompt": "Luo kuva opiskelijasta, joka opiskelee ahkerasti Anki:n kanssa ja läpäisee kokeensa.",
       "saveError": "Kuvan oletusasetuksia ei voitu tallentaa",
       "subtitle": "Smart Fields-kuvasi käyttämä malli, ellei kenttä ole nastalla omaa.",
       "title": "Kuvan oletusasetukset",
-      "zImageTurbo": "nopein ja halvin.",
-      "modelTipLabel": "Tietoa kuvamalleista",
-      "nanoBanana21": "rikkaat, valokuvamaiset kuvat."
+      "zImageTurbo": "nopein ja halvin."
     },
     "layout": {
       "saveChanges": "Tallenna muutokset",
@@ -334,13 +333,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× kustannukset",
-    "extras": "Lisäominaisuudet",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maksimaalinen laatu",
     "maxQualityDescription": "Terävämpi ja puhtaampi, erityisesti pienet nimiöt.",
     "richerDetail": "Rikkaampi yksityiskohtaisuus",
     "richerDetailDescription": "Yksityiskohtaisempi, täydempi kohtaukset. Hieman hitaampi.",
-    "extrasTipLabel": "Tietoa lisäominaisuuksista"
+    "extraSettings": "Lisäasetukset"
   },
   "promptTester": {
     "anotherNoteType": "toinen muistiinpanotyyppi",

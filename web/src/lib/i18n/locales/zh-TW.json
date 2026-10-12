@@ -258,22 +258,21 @@
     "image": {
       "cannotFindModel": "影像目錄缺少型號 {{model}}",
       "defaultModel": "預設型號",
-      "extrasTip": "建議先關閉額外選項，如果某個欄位需要更多細節再開啟。",
       "gptImage25": "全能選手 — 銳利的文字、整潔的圖表。",
       "loadingLabel": "載入預設圖像設定",
       "loadingTitle": "預設影像設定",
+      "modelTipLabel": "關於圖像模型",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "豐富、攝影風格的場景。",
       "samplePrompt": "產生學生使用 Anki 努力學習並通過測驗的圖像。",
       "saveError": "無法儲存影像預設值",
       "subtitle": "您的圖像 Smart Fields 使用的模型，除非欄位固定自己的模型。",
       "title": "預設影像設定",
-      "zImageTurbo": "最快且最便宜。",
-      "modelTipLabel": "關於圖像模型",
-      "nanoBanana21": "豐富、攝影風格的場景。"
+      "zImageTurbo": "最快且最便宜。"
     },
     "layout": {
       "saveChanges": "儲存變更",
@@ -332,13 +331,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× 成本",
-    "extras": "額外選項",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "最高品質",
     "maxQualityDescription": "更清晰細緻，特別是小標籤部分。",
     "richerDetail": "更豐富的細節",
     "richerDetailDescription": "更詳細、更飽滿的場景。速度稍慢。",
-    "extrasTipLabel": "關於附加功能"
+    "extraSettings": "額外設定"
   },
   "promptTester": {
     "anotherNoteType": "另一種筆記類型",

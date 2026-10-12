@@ -146,7 +146,6 @@ const LoadedImageDefaultsScreen = ({
             catalog={catalog.image}
             id="default-image-model"
             onValueChange={(settings) => void controls.updateDefault(settings)}
-            openExtrasTip={isFirstVisit}
             value={controls.form.values.model}
           />
         </div>

@@ -262,22 +262,21 @@
     "image": {
       "cannotFindModel": "Tá samhail {{model}} in easnamh ar chatalóg na n-íomhánna",
       "defaultModel": "Múnla réamhshocraithe",
-      "extrasTip": "Tosaigh le breiseanna imithe, ansin cuir ar siúl iad má theastaíonn níos mó sonraí ó réimse.",
       "gptImage25": "an roghnóir is fearr ar fad — téacs geal, léaráidí glan.",
       "loadingLabel": "Socruithe Réamhshocraithe Íomhá á Luchtú",
       "loadingTitle": "Socruithe Réamhshocraithe Íomhá",
+      "modelTipLabel": "Faoi na samhlacha íomhá",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "radharcanna saibhre, fótagrafach.",
       "samplePrompt": "Gin íomhá de dhalta atá ag staidéar go dian le Anki agus ag dul thar a gcuid trialacha.",
       "saveError": "Níorbh fhéidir réamhshocruithe na híomhá a shábháil",
       "subtitle": "Úsáid múnla d’íomhá Smart Fields mura n-úsáideann páirc a chuid féin.",
       "title": "Socruithe Réamhshocraithe Íomhá",
-      "zImageTurbo": "is tapúla agus is saoire.",
-      "modelTipLabel": "Faoi na samhlacha íomhá",
-      "nanoBanana21": "radharcanna saibhre, fótagrafach."
+      "zImageTurbo": "is tapúla agus is saoire."
     },
     "layout": {
       "saveChanges": "Sábháil athruithe",
@@ -340,13 +339,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× costas",
-    "extras": "Breiseanna",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Uachtar ar an gcáilíochta",
     "maxQualityDescription": "Níos géire agus níos geal, go háirithe lipéid bheaga.",
     "richerDetail": "Saibhre sonraí",
     "richerDetailDescription": "Níos mionsonraithe, radhairc níos líofa. Beagáinín níos moille.",
-    "extrasTipLabel": "Faoi na breiseanna"
+    "extraSettings": "Socruithe breise"
   },
   "promptTester": {
     "anotherNoteType": "cineál nóta eile",

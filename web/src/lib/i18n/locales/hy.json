@@ -259,22 +259,21 @@
     "image": {
       "cannotFindModel": "Պատկերների կատալոգում բացակայում է {{model}} մոդելը",
       "defaultModel": "Կանխադրված մոդել",
-      "extrasTip": "Սկսեք լրավճարները անջատված վիճակով, այնուհետև միացրեք դրանք, եթե դաշտին անհրաժեշտ է ավելի շատ մանրամասն:",
       "gptImage25": "լավագույն բազմակողմանի տարբերակ — սուր տեքստ, մաքուր դիագրամներ:",
       "loadingLabel": "Պատկերի կանխադրված կարգավորումների բեռնում",
       "loadingTitle": "Պատկերի կանխադրված կարգավորումներ",
+      "modelTipLabel": "Պատկերի մոդելների մասին",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "հարուստ, ֆոտոռեալիստական տեսարաններ.",
       "samplePrompt": "Ստեղծեք աշակերտի պատկեր, որը շատ է սովորում Anki-ով և հանձնում թեստերը:",
       "saveError": "Չհաջողվեց պահպանել պատկերների կանխադրվածները",
       "subtitle": "Ձեր պատկերի Smart Fields մոդելը, եթե դաշտը չի ամրացնում իր սեփականը:",
       "title": "Պատկերի կանխադրված կարգավորումներ",
-      "zImageTurbo": "ամենաարագ և ամենաէժան:",
-      "modelTipLabel": "Պատկերի մոդելների մասին",
-      "nanoBanana21": "հարուստ, ֆոտոռեալիստական տեսարաններ."
+      "zImageTurbo": "ամենաարագ և ամենաէժան:"
     },
     "layout": {
       "saveChanges": "Պահպանել փոփոխությունները",
@@ -334,13 +333,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× ծախս",
-    "extras": "Extras",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Առավելագույն որակ",
     "maxQualityDescription": "Սուր և մաքուր, հատկապես փոքր պիտակների համար:",
     "richerDetail": "Ավելի մանրամասն",
     "richerDetailDescription": "Ավելի մանրամասն, ամբողջական տեսարաններ: Մի փոքր ավելի դանդաղ:",
-    "extrasTipLabel": "Լրացուցիչ տարրերի մասին"
+    "extraSettings": "Լրացուցիչ կարգավորումներ"
   },
   "promptTester": {
     "anotherNoteType": "մեկ այլ նշումի տեսակ",

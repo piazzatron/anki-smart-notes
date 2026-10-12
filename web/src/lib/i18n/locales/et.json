@@ -259,22 +259,21 @@
     "image": {
       "cannotFindModel": "Piltide kataloogist puudub mudel {{model}}",
       "defaultModel": "Vaikimisi mudel",
-      "extrasTip": "Alustage ekstrastega välja lülitatuna, seejärel lülitage need sisse, kui väli nõuab rohkem detaile.",
       "gptImage25": "parim universaalne valik — terav tekst, puhtad diagrammid.",
       "loadingLabel": "Pildi vaikeseadete laadimine",
       "loadingTitle": "Pildi vaikesätted",
+      "modelTipLabel": "Pildimudelite kohta",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "rikkalikud, fotorealistlikud stseenid.",
       "samplePrompt": "Looge pilt õpilasest, kes õpib kõvasti Anki abil ja sooritab testid.",
       "saveError": "Pildi vaikeseadeid ei saanud salvestada",
       "subtitle": "Mudel, mida teie pilt Smart Fields kasutab, välja arvatud juhul, kui väli kinnitab oma.",
       "title": "Pildi vaikesätted",
-      "zImageTurbo": "kiireim ja odavaim.",
-      "modelTipLabel": "Pildimudelite kohta",
-      "nanoBanana21": "rikkalikud, fotorealistlikud stseenid."
+      "zImageTurbo": "kiireim ja odavaim."
     },
     "layout": {
       "saveChanges": "Salvestage muudatused",
@@ -334,13 +333,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× kulu",
-    "extras": "Täiendused",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maksimaalne kvaliteet",
     "maxQualityDescription": "Teravamad ja puhtamad, eriti väikesed sildid.",
     "richerDetail": "Rohkem detaile",
     "richerDetailDescription": "Üksikasjalikum, täielikumad stseenid. Pisut aeglasem.",
-    "extrasTipLabel": "Lisavõimaluste kohta"
+    "extraSettings": "Täiendavad seaded"
   },
   "promptTester": {
     "anotherNoteType": "teist nooditüüpi",

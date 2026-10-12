@@ -261,22 +261,21 @@
     "image": {
       "cannotFindModel": "W katalogu obrazów brakuje modelu {{model}}",
       "defaultModel": "Domyślny model",
-      "extrasTip": "Zacznij bez dodatków, a następnie włącz je, jeśli pole wymaga więcej szczegółów.",
       "gptImage25": "najlepszy wszechstronnie — ostry tekst, czyste diagramy.",
       "loadingLabel": "Ładowanie domyślnych ustawień obrazu",
       "loadingTitle": "Domyślne ustawienia obrazu",
+      "modelTipLabel": "Informacje o modelach obrazów",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "bogate, fotograficzne sceny.",
       "samplePrompt": "Wygeneruj obraz ucznia, który pilnie uczy się za pomocą Anki i zdaje egzaminy.",
       "saveError": "Nie można zapisać domyślnych ustawień obrazu",
       "subtitle": "Model, którego używa Twój obraz Smart Fields, chyba że pole przypina własne.",
       "title": "Domyślne ustawienia obrazu",
-      "zImageTurbo": "najszybciej i najtaniej.",
-      "modelTipLabel": "Informacje o modelach obrazów",
-      "nanoBanana21": "bogate, fotograficzne sceny."
+      "zImageTurbo": "najszybciej i najtaniej."
     },
     "layout": {
       "saveChanges": "Zapisz zmiany",
@@ -338,13 +337,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× koszt",
-    "extras": "Dodatki",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maksymalna jakość",
     "maxQualityDescription": "Ostrzejsze i czystsze, szczególnie małe etykiety.",
     "richerDetail": "Bogatsze szczegóły",
     "richerDetailDescription": "Bardziej szczegółowe, bogatsze sceny. Nieco wolniejsze.",
-    "extrasTipLabel": "Informacje o dodatkach"
+    "extraSettings": "Dodatkowe ustawienia"
   },
   "promptTester": {
     "anotherNoteType": "inny typ notatki",

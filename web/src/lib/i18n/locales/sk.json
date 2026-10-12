@@ -261,22 +261,21 @@
     "image": {
       "cannotFindModel": "V katalógu obrázkov chýba model {{model}}",
       "defaultModel": "Predvolený model",
-      "extrasTip": "Začnite s vypnutými doplnkami, potom ich zapnite, ak pole potrebuje viac podrobností.",
       "gptImage25": "najlepší všestranný — ostré texty, čisté diagramy.",
       "loadingLabel": "Načítavajú sa predvolené nastavenia obrázka",
       "loadingTitle": "Predvolené nastavenia obrazu",
+      "modelTipLabel": "O modeloch obrázkov",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "bohaté, fotorealistické scény.",
       "samplePrompt": "Vytvorte si obraz študenta, ktorý tvrdo študuje so Anki a zloží svoje testy.",
       "saveError": "Nepodarilo sa uložiť predvolené nastavenia obrázka",
       "subtitle": "Model, ktorý používa váš obrázok Smart Fields, pokiaľ pole nepripne svoje vlastné.",
       "title": "Predvolené nastavenia obrazu",
-      "zImageTurbo": "najrýchlejší a najlacnejší.",
-      "modelTipLabel": "O modeloch obrázkov",
-      "nanoBanana21": "bohaté, fotorealistické scény."
+      "zImageTurbo": "najrýchlejší a najlacnejší."
     },
     "layout": {
       "saveChanges": "Uložiť zmeny",
@@ -338,13 +337,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× cena",
-    "extras": "Doplnky",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maximálna kvalita",
     "maxQualityDescription": "Ostrejšie a čistejšie, najmä malé štítky.",
     "richerDetail": "Bohatší detail",
     "richerDetailDescription": "Podrobnejšie, plnejšie scény. Trochu pomalšie.",
-    "extrasTipLabel": "O doplnkoch"
+    "extraSettings": "Ďalšie nastavenia"
   },
   "promptTester": {
     "anotherNoteType": "iný typ poznámky",

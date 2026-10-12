@@ -259,22 +259,21 @@
     "image": {
       "cannotFindModel": "Irudien katalogoa {{model}} eredua falta da",
       "defaultModel": "Eredu lehenetsia",
-      "extrasTip": "Hasi gehigarriak itzalita, eta aktibatu beharrezkoa bada zehaztasun gehiago behar duen eremu bat.",
       "gptImage25": "ondo orokorra — testu garbia, diagrama garbi eta txukun.",
       "loadingLabel": "Irudiaren ezarpen lehenetsiak kargatzen",
       "loadingTitle": "Irudiaren ezarpen lehenetsiak",
+      "modelTipLabel": "Irudi-ereduei buruz",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "eszena aberats eta argazkiaren antzekoak.",
       "samplePrompt": "Sortu Anki-rekin gogor ikasten eta probak gainditzen dituen ikasle baten irudia.",
       "saveError": "Ezin izan dira gorde irudi lehenetsiak",
       "subtitle": "Zure irudiak Smart Fields erabiltzen duen eredua eremu batek berea jartzen ez badu behintzat.",
       "title": "Irudiaren ezarpen lehenetsiak",
-      "zImageTurbo": "azkarrena eta merkeena.",
-      "modelTipLabel": "Irudi-ereduei buruz",
-      "nanoBanana21": "eszena aberats eta argazkiaren antzekoak."
+      "zImageTurbo": "azkarrena eta merkeena."
     },
     "layout": {
       "saveChanges": "Gorde aldaketak",
@@ -334,13 +333,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× kostua",
-    "extras": "Gehigarriak",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Kalitate maximoa",
     "maxQualityDescription": "Zehatzagoa eta garbiagoa, batez ere etiketa txikietan.",
     "richerDetail": "Xehetasun gehiago",
     "richerDetailDescription": "Xeheago, eszenak beteak. Pixka bat motzagoa.",
-    "extrasTipLabel": "Osagarriei buruz"
+    "extraSettings": "Ezarpen gehigarriak"
   },
   "promptTester": {
     "anotherNoteType": "beste ohar mota bat",

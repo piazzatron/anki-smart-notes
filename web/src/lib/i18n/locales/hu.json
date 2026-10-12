@@ -259,22 +259,21 @@
     "image": {
       "cannotFindModel": "A képkatalógusból hiányzik az {{model}} modell",
       "defaultModel": "Alapértelmezett modell",
-      "extrasTip": "Kezdje a kiegészítéseket kikapcsolva, majd kapcsolja be őket, ha egy mező részletesebb megjelenítésre van szüksége.",
       "gptImage25": "legjobb univerzális — éles szöveg, tiszta diagramok.",
       "loadingLabel": "Az alapértelmezett képbeállítások betöltése",
       "loadingTitle": "Alapértelmezett képbeállítások",
+      "modelTipLabel": "A képmodellekről",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "gazdag, fotórealisztikus jelenetekhez.",
       "samplePrompt": "Készítsen képet egy diákról, aki keményen tanul az Anki-val, és sikeresen teljesíti a teszteket.",
       "saveError": "Nem sikerült menteni a kép alapértelmezett beállításait",
       "subtitle": "Az Smart Fields kép által használt modell, hacsak egy mező nem rögzíti a sajátját.",
       "title": "Alapértelmezett képbeállítások",
-      "zImageTurbo": "leggyorsabb és legolcsóbb.",
-      "modelTipLabel": "A képmodellekről",
-      "nanoBanana21": "gazdag, fotórealisztikus jelenetekhez."
+      "zImageTurbo": "leggyorsabb és legolcsóbb."
     },
     "layout": {
       "saveChanges": "Módosítások mentése",
@@ -334,13 +333,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× költség",
-    "extras": "Kiegészítések",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maximális minőség",
     "maxQualityDescription": "Élesebb és tisztább, különösen a kis feliratok.",
     "richerDetail": "Gazdagabb részletesség",
     "richerDetailDescription": "Részletesebb, teljesebb jelenetek. Kicsit lassabb.",
-    "extrasTipLabel": "A kiegészítőkről"
+    "extraSettings": "További beállítások"
   },
   "promptTester": {
     "anotherNoteType": "egy másik hangjegytípus",

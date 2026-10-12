@@ -263,22 +263,21 @@
     "image": {
       "cannotFindModel": "كتالوج الصور يفتقد الطراز {{model}}",
       "defaultModel": "النموذج الافتراضي",
-      "extrasTip": "ابدأ بإيقاف الإضافات، ثم قم بتفعيلها إذا كان الحقل يحتاج إلى المزيد من التفاصيل.",
       "gptImage25": "الخيار الأمثل — نصوص حادة، رسوم بيانية نظيفة.",
       "loadingLabel": "جارٍ تحميل إعدادات الصورة الافتراضية",
       "loadingTitle": "إعدادات الصورة الافتراضية",
+      "modelTipLabel": "حول نماذج الصور",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "مشاهد غنية وفوتوغرافية.",
       "samplePrompt": "قم بإنشاء صورة لطالب يدرس بجد باستخدام Anki ويجتاز اختباراته.",
       "saveError": "لا يمكن حفظ الإعدادات الافتراضية للصورة",
       "subtitle": "النموذج الذي تستخدمه صورتك Smart Fields ما لم يتم تثبيت حقل خاص به.",
       "title": "إعدادات الصورة الافتراضية",
-      "zImageTurbo": "الأسرع والأرخص.",
-      "modelTipLabel": "حول نماذج الصور",
-      "nanoBanana21": "مشاهد غنية وفوتوغرافية."
+      "zImageTurbo": "الأسرع والأرخص."
     },
     "layout": {
       "saveChanges": "حفظ التغييرات",
@@ -342,13 +341,12 @@
   },
   "imageGeneration": {
     "doubleCost": "تكلفة مضاعفة",
-    "extras": "إضافيات",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "أقصى جودة",
     "maxQualityDescription": "أكثر حدة ووضوحاً، خاصة للنصوص الصغيرة.",
     "richerDetail": "تفاصيل أغنى",
     "richerDetailDescription": "أكثر تفصيلاً وأكمل للمشاهد. أبطأ قليلاً.",
-    "extrasTipLabel": "حول الإضافات"
+    "extraSettings": "إعدادات إضافية"
   },
   "promptTester": {
     "anotherNoteType": "نوع ملاحظة آخر",

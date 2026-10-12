@@ -260,22 +260,21 @@
     "image": {
       "cannotFindModel": "Falta catálogo de imágenes modelo {{model}}",
       "defaultModel": "Modelo predeterminado",
-      "extrasTip": "Comienza con extras desactivados, luego actívalos si un campo necesita más detalle.",
       "gptImage25": "el mejor en general — texto nítido, diagramas limpios.",
       "loadingLabel": "Cargando la configuración de imagen predeterminada",
       "loadingTitle": "Configuración de imagen predeterminada",
+      "modelTipLabel": "Acerca de los modelos de imagen",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "escenas ricas y fotográficas.",
       "samplePrompt": "Genera una imagen de un estudiante estudiando mucho con Anki y aprobando sus exámenes.",
       "saveError": "No se pudieron guardar los valores predeterminados de la imagen",
       "subtitle": "El modelo que utiliza su imagen Smart Fields a menos que un campo fije el suyo.",
       "title": "Configuración de imagen predeterminada",
-      "zImageTurbo": "más rápido y más barato.",
-      "modelTipLabel": "Acerca de los modelos de imagen",
-      "nanoBanana21": "escenas ricas y fotográficas."
+      "zImageTurbo": "más rápido y más barato."
     },
     "layout": {
       "saveChanges": "Guardar cambios",
@@ -336,13 +335,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× costo",
-    "extras": "Extras",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Máxima calidad",
     "maxQualityDescription": "Más nítido y limpio, especialmente etiquetas pequeñas.",
     "richerDetail": "Más detalle",
     "richerDetailDescription": "Más detallado, escenas más completas. Un poco más lento.",
-    "extrasTipLabel": "Acerca de los extras"
+    "extraSettings": "Ajustes adicionales"
   },
   "promptTester": {
     "anotherNoteType": "otro tipo de nota",

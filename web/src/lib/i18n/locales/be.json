@@ -261,22 +261,21 @@
     "image": {
       "cannotFindModel": "У каталогу малюнкаў адсутнічае мадэль {{model}}",
       "defaultModel": "Мадэль па змаўчанні",
-      "extrasTip": "Пачніце з выключэнымі дадатковымі опцыямі, потым уключыце іх, калі поле патрабуе больш дэталей.",
       "gptImage25": "лучшы ўсёаблемны — чёткі тэкст, чыстыя дыяграмы.",
       "loadingLabel": "Загрузка налад выявы па змаўчанні",
       "loadingTitle": "Налады выявы па змаўчанні",
+      "modelTipLabel": "Пра мадэлі малюнкаў",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "насычаныя фатаграфічныя сцэны.",
       "samplePrompt": "Стварыце выяву студэнта, які ўпарта вучыцца з Anki і здае свае тэсты.",
       "saveError": "Немагчыма захаваць значэнні выявы па змаўчанні",
       "subtitle": "Мадэль, якую выкарыстоўвае ваша выява Smart Fields, калі поле не замацоўвае сваё.",
       "title": "Налады выявы па змаўчанні",
-      "zImageTurbo": "самы хуткі і танны.",
-      "modelTipLabel": "Пра мадэлі малюнкаў",
-      "nanoBanana21": "насычаныя фатаграфічныя сцэны."
+      "zImageTurbo": "самы хуткі і танны."
     },
     "layout": {
       "saveChanges": "Захавайце змены",
@@ -338,13 +337,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× коштом",
-    "extras": "Дадатковы",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Максімальная якасць",
     "maxQualityDescription": "Більш рэзкае і чыстае, асабліва маленькія меткі.",
     "richerDetail": "Больш дэталяў",
     "richerDetailDescription": "Больш дэталізаваны, паўнейшыя сцэны. Крыху павольней.",
-    "extrasTipLabel": "Пра дадатковыя параметры"
+    "extraSettings": "Дадатковыя налады"
   },
   "promptTester": {
     "anotherNoteType": "іншы тып нататкі",

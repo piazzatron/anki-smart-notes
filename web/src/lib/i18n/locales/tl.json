@@ -259,22 +259,21 @@
     "image": {
       "cannotFindModel": "Ang katalogo ng larawan ay walang modelong {{model}}",
       "defaultModel": "Default na modelo",
-      "extrasTip": "Magsimula na may extras off, pagkatapos i-turn on kung kailangan ng mas maraming detalye ang isang field.",
       "gptImage25": "best all-rounder — sharp text, clean diagrams.",
       "loadingLabel": "Nilo-load ang Default na Mga Setting ng Larawan",
       "loadingTitle": "Default na Mga Setting ng Larawan",
+      "modelTipLabel": "Tungkol sa mga modelo ng larawan",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "mayayamang eksenang parang litrato.",
       "samplePrompt": "Bumuo ng larawan ng isang mag-aaral na nag-aaral nang mabuti gamit ang Anki at pumasa sa kanilang mga pagsusulit.",
       "saveError": "Hindi ma-save ang mga default na larawan",
       "subtitle": "Ang modelong ginagamit ng iyong larawan na Smart Fields maliban kung ang isang field ay nag-pin ng sarili nitong.",
       "title": "Default na Mga Setting ng Larawan",
-      "zImageTurbo": "pinakamabilis at pinakamura.",
-      "modelTipLabel": "Tungkol sa mga modelo ng larawan",
-      "nanoBanana21": "mayayamang eksenang parang litrato."
+      "zImageTurbo": "pinakamabilis at pinakamura."
     },
     "layout": {
       "saveChanges": "I-save ang mga pagbabago",
@@ -334,13 +333,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× cost",
-    "extras": "Mga Karagdagan",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Max quality",
     "maxQualityDescription": "Mas malinaw at mas malinis, lalo na sa mga maliit na label.",
     "richerDetail": "Mas mayamang detalye",
     "richerDetailDescription": "Mas detalyado, mas puno ng mga eksena. Bahagyang mas mabagal.",
-    "extrasTipLabel": "Tungkol sa mga karagdagan"
+    "extraSettings": "Karagdagang Setting"
   },
   "promptTester": {
     "anotherNoteType": "ibang uri ng tala",

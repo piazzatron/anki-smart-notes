@@ -260,22 +260,21 @@
     "image": {
       "cannotFindModel": "Каталогу слика недостаје модел {{model}}",
       "defaultModel": "Подразумевани модел",
-      "extrasTip": "Почните са искљученим екстрама, затим их укључите ако поље захтева више детаља.",
       "gptImage25": "најбољи универзалец — оштар текст, чисти дијаграми.",
       "loadingLabel": "Учитавање подразумеваних поставки слике",
       "loadingTitle": "Подразумевана подешавања слике",
+      "modelTipLabel": "О моделима слика",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "богате, фотографске сцене.",
       "samplePrompt": "Генеришите слику ученика који вредно учи са Anki и полаже тестове.",
       "saveError": "Није могуће сачувати подразумеване вредности слике",
       "subtitle": "Модел који ваша слика користи Smart Fields осим ако поље не закачи своје.",
       "title": "Подразумевана подешавања слике",
-      "zImageTurbo": "најбржи и најјефтинији.",
-      "modelTipLabel": "О моделима слика",
-      "nanoBanana21": "богате, фотографске сцене."
+      "zImageTurbo": "најбржи и најјефтинији."
     },
     "layout": {
       "saveChanges": "Сачувај промене",
@@ -336,13 +335,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× цена",
-    "extras": "Додаци",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Максимална квалитета",
     "maxQualityDescription": "Оштрије и чишће, посебно мале налепнице.",
     "richerDetail": "Богатији детаљ",
     "richerDetailDescription": "Више детаља, пуније сцене. Мало спорије.",
-    "extrasTipLabel": "О додацима"
+    "extraSettings": "Додатна подешавања"
   },
   "promptTester": {
     "anotherNoteType": "другу врсту нота",

@@ -258,22 +258,21 @@
     "image": {
       "cannotFindModel": "Katalog imej tiada model {{model}}",
       "defaultModel": "Model lalai",
-      "extrasTip": "Mulakan dengan extras dimatikan, kemudian hidupkannya jika medan memerlukan lebih banyak perincian.",
       "gptImage25": "pemenang semua aspek — teks tajam, rajah bersih.",
       "loadingLabel": "Memuatkan Tetapan Imej Lalai",
       "loadingTitle": "Tetapan Imej Lalai",
+      "modelTipLabel": "Tentang model imej",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "adegan yang kaya dan menyerupai fotografi.",
       "samplePrompt": "Hasilkan imej pelajar yang belajar bersungguh-sungguh dengan Anki dan lulus ujian mereka.",
       "saveError": "Tidak dapat menyimpan lalai imej",
       "subtitle": "Model imej anda Smart Fields gunakan melainkan medan menyematnya sendiri.",
       "title": "Tetapan Imej Lalai",
-      "zImageTurbo": "terpantas dan termurah.",
-      "modelTipLabel": "Tentang model imej",
-      "nanoBanana21": "adegan yang kaya dan menyerupai fotografi."
+      "zImageTurbo": "terpantas dan termurah."
     },
     "layout": {
       "saveChanges": "Simpan perubahan",
@@ -332,13 +331,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× kos",
-    "extras": "Tambahan",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Kualiti maksimum",
     "maxQualityDescription": "Lebih tajam dan bersih, terutama label kecil.",
     "richerDetail": "Detail lebih kaya",
     "richerDetailDescription": "Lebih terperinci, pemandangan lebih lengkap. Sedikit lebih perlahan.",
-    "extrasTipLabel": "Tentang tambahan"
+    "extraSettings": "Tetapan Tambahan"
   },
   "promptTester": {
     "anotherNoteType": "jenis nota lain",

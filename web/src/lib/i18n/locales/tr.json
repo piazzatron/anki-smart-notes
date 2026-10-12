@@ -259,22 +259,21 @@
     "image": {
       "cannotFindModel": "Resim kataloğunda {{model}} modeli eksik",
       "defaultModel": "Varsayılan model",
-      "extrasTip": "Ekstraları kapalı başlayın, ardından bir alan daha fazla ayrıntı gerektirirse açın.",
       "gptImage25": "en iyi genel amaçlı — keskin metinler, temiz diyagramlar.",
       "loadingLabel": "Varsayılan Görüntü Ayarlarını Yükleme",
       "loadingTitle": "Varsayılan Görüntü Ayarları",
+      "modelTipLabel": "Görsel modelleri hakkında",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "zengin, fotoğrafik sahneler.",
       "samplePrompt": "Anki ile sıkı çalışan ve sınavlarını geçen bir öğrencinin görüntüsünü oluşturun.",
       "saveError": "Resim varsayılanları kaydedilemedi",
       "subtitle": "Bir alan kendisini sabitlemediği sürece görüntünüz Smart Fields'in kullandığı model.",
       "title": "Varsayılan Görüntü Ayarları",
-      "zImageTurbo": "en hızlı ve en ucuz.",
-      "modelTipLabel": "Görsel modelleri hakkında",
-      "nanoBanana21": "zengin, fotoğrafik sahneler."
+      "zImageTurbo": "en hızlı ve en ucuz."
     },
     "layout": {
       "saveChanges": "Değişiklikleri kaydet",
@@ -334,13 +333,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× maliyet",
-    "extras": "Ekstralar",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maksimum kalite",
     "maxQualityDescription": "Daha keskin ve temiz, özellikle küçük etiketler için.",
     "richerDetail": "Daha zengin detay",
     "richerDetailDescription": "Daha detaylı, tam sahneler. Biraz daha yavaş.",
-    "extrasTipLabel": "Ekstralar hakkında"
+    "extraSettings": "Ek Ayarlar"
   },
   "promptTester": {
     "anotherNoteType": "başka bir not türü",

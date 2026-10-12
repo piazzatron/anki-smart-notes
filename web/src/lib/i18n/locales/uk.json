@@ -261,22 +261,21 @@
     "image": {
       "cannotFindModel": "У каталозі зображень відсутня модель {{model}}",
       "defaultModel": "Модель за замовчуванням",
-      "extrasTip": "Почніть з вимкненими додатками, потім увімкніть їх, якщо поле потребує більше деталей.",
       "gptImage25": "універсальний вибір — чіткий текст, чисті діаграми.",
       "loadingLabel": "Завантаження стандартних параметрів зображення",
       "loadingTitle": "Параметри зображення за замовчуванням",
+      "modelTipLabel": "Про моделі зображень",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "насичені фотографічні сцени.",
       "samplePrompt": "Створіть зображення студента, який старанно навчається за допомогою Anki і здає свої тести.",
       "saveError": "Не вдалося зберегти зображення за замовчуванням",
       "subtitle": "Модель, яку використовує ваше зображення Smart Fields, якщо поле не закріплює власне.",
       "title": "Параметри зображення за замовчуванням",
-      "zImageTurbo": "найшвидший і найдешевший.",
-      "modelTipLabel": "Про моделі зображень",
-      "nanoBanana21": "насичені фотографічні сцени."
+      "zImageTurbo": "найшвидший і найдешевший."
     },
     "layout": {
       "saveChanges": "Зберегти зміни",
@@ -338,13 +337,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× вартість",
-    "extras": "Додатково",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Максимальна якість",
     "maxQualityDescription": "Гостріше та чистіше, особливо дрібні написи.",
     "richerDetail": "Більше деталей",
     "richerDetailDescription": "Детальніше, багатіші сцени. Трохи повільніше.",
-    "extrasTipLabel": "Про додаткові опції"
+    "extraSettings": "Додаткові налаштування"
   },
   "promptTester": {
     "anotherNoteType": "інший тип нотаток",

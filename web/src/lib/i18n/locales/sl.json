@@ -261,22 +261,21 @@
     "image": {
       "cannotFindModel": "V katalogu slik manjka model {{model}}",
       "defaultModel": "Privzeti model",
-      "extrasTip": "Začnite z izklopljenim dodatkami, nato jih vklopite, če polje potrebuje več podrobnosti.",
       "gptImage25": "najboljši splošni model — ostre besedilo, čiste diagrame.",
       "loadingLabel": "Nalaganje privzetih nastavitev slike",
       "loadingTitle": "Privzete nastavitve slike",
+      "modelTipLabel": "O modelih za slike",
       "models": {
         "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo",
-        "nanoBanana21": "Nano Banana 2.1"
+        "nanoBanana21": "Nano Banana 2.1",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "bogati, fotografski prizori.",
       "samplePrompt": "Ustvarite sliko študenta, ki se pridno uči z Anki in opravlja teste.",
       "saveError": "Ni bilo mogoče shraniti privzetih nastavitev slike",
       "subtitle": "Model, ki ga vaša slika uporablja Smart Fields, razen če polje pripne svojega.",
       "title": "Privzete nastavitve slike",
-      "zImageTurbo": "najhitrejši in najcenejši.",
-      "modelTipLabel": "O modelih za slike",
-      "nanoBanana21": "bogati, fotografski prizori."
+      "zImageTurbo": "najhitrejši in najcenejši."
     },
     "layout": {
       "saveChanges": "Shranite spremembe",
@@ -338,13 +337,12 @@
   },
   "imageGeneration": {
     "doubleCost": "2× stroški",
-    "extras": "Dodatki",
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Najvišja kakovost",
     "maxQualityDescription": "Ostrejše in čistejše, še posebej majhne oznake.",
     "richerDetail": "Bogatejši detajli",
     "richerDetailDescription": "Bolj podrobno, polnejše scene. Malo počasnejše.",
-    "extrasTipLabel": "O dodatkih"
+    "extraSettings": "Dodatne nastavitve"
   },
   "promptTester": {
     "anotherNoteType": "drugo vrsto beležke",
