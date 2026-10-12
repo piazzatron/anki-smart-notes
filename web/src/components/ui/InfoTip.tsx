@@ -27,8 +27,8 @@ interface InfoTipProps {
   label: string
 }
 
-/** An ⓘ beside a setting that explains it on hover or focus. Flat fill, no border,
- *  like Pill. */
+/** An ⓘ beside a setting that explains it on hover or focus. Tooltips are always a
+ *  flat blue fill with no border. */
 export const InfoTip = ({
   children,
   defaultOpen = false,
@@ -47,13 +47,13 @@ export const InfoTip = ({
       </TooltipPrimitive.Trigger>
       <TooltipPrimitive.Portal>
         <TooltipPrimitive.Content
-          className="z-[90] max-w-[300px] rounded-lg bg-zinc-800 px-3 py-2 text-[11.5px] leading-[1.5] font-normal tracking-normal text-zinc-200 normal-case shadow-xl shadow-black/40"
+          className="z-[90] max-w-[300px] rounded-lg bg-indigo-deep px-3 py-2 text-[11.5px] leading-[1.5] font-normal tracking-normal text-white normal-case shadow-xl shadow-black/40"
           collisionPadding={12}
           side="right"
           sideOffset={6}
         >
           {children}
-          <TooltipPrimitive.Arrow className="fill-zinc-800" />
+          <TooltipPrimitive.Arrow className="fill-indigo-deep" />
         </TooltipPrimitive.Content>
       </TooltipPrimitive.Portal>
     </TooltipPrimitive.Root>
