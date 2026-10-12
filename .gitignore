@@ -171,6 +171,6 @@ user_files/*
 todo*.md
 
 # Web app
-web/node_modules/
+web/node_modules
 src/web/static/
 .playwright-mcp/
