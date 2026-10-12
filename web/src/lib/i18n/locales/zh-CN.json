@@ -368,12 +368,13 @@
     "selectionAppearsAutomatically": "您的选择会自动出现在此处。",
     "sent": "发送",
     "testing": "测试...",
+    "openRecentImage": "打开图片 {{number}}",
+    "recentImages": "最近生成的图片",
     "testResult": "测试结果",
     "textToSpeak": "文字说话",
     "viewResult": "查看结果",
     "wrongNoteType": "注释类型错误",
-    "openRecentImage": "打开图片 {{number}}",
-    "recentImages": "最近生成的图片"
+    "rerunToSave": "重新运行此测试以将其保存到卡片"
   },
   "subscription": {
     "accessEnds": "访问权限已结束",

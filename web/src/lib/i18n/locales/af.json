@@ -374,12 +374,13 @@
     "selectionAppearsAutomatically": "Jou keuse verskyn outomaties hier.",
     "sent": "Gestuur",
     "testing": "Toets tans …",
+    "openRecentImage": "Maak beeld {{number}} oop",
+    "recentImages": "Onlangs geskep beelde",
     "testResult": "Toetsresultaat",
     "textToSpeak": "Teks om te praat",
     "viewResult": "Bekyk resultaat",
     "wrongNoteType": "Verkeerde nota tipe",
-    "openRecentImage": "Maak beeld {{number}} oop",
-    "recentImages": "Onlangs geskep beelde"
+    "rerunToSave": "Voer hierdie toets weer uit om dit op die kaart te stoor"
   },
   "subscription": {
     "accessEnds": "Toegang eindig",

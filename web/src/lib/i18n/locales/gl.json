@@ -374,12 +374,13 @@
     "selectionAppearsAutomatically": "A túa selección aparece aquí automaticamente.",
     "sent": "Enviado",
     "testing": "Probando…",
+    "openRecentImage": "Abrir imaxe {{number}}",
+    "recentImages": "Imaxes creadas recentemente",
     "testResult": "Resultado da proba",
     "textToSpeak": "Texto para falar",
     "viewResult": "Ver resultado",
     "wrongNoteType": "Tipo de nota incorrecto",
-    "openRecentImage": "Abrir imaxe {{number}}",
-    "recentImages": "Imaxes creadas recentemente"
+    "rerunToSave": "Volve executar esta proba para gardala na tarxeta"
   },
   "subscription": {
     "accessEnds": "O acceso finaliza",

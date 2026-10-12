@@ -386,12 +386,13 @@
     "selectionAppearsAutomatically": "Ваш выбор появится здесь автоматически.",
     "sent": "Отправил",
     "testing": "Тестирование…",
+    "openRecentImage": "Открыть изображение {{number}}",
+    "recentImages": "Недавно созданные изображения",
     "testResult": "Результат теста",
     "textToSpeak": "Текст для разговора",
     "viewResult": "Посмотреть результат",
     "wrongNoteType": "Неправильный тип заметки",
-    "openRecentImage": "Открыть изображение {{number}}",
-    "recentImages": "Недавно созданные изображения"
+    "rerunToSave": "Запустите этот тест повторно, чтобы сохранить его в карточку"
   },
   "subscription": {
     "accessEnds": "Доступ заканчивается",

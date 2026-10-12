@@ -386,12 +386,13 @@
     "selectionAppearsAutomatically": "Ваш выбар з'явіцца тут аўтаматычна.",
     "sent": "Адпраўлена",
     "testing": "Тэставанне...",
+    "openRecentImage": "Адкрыць малюнак {{number}}",
+    "recentImages": "Нядаўна створаныя малюнкі",
     "testResult": "Вынік тэсту",
     "textToSpeak": "Тэкст для размовы",
     "viewResult": "Паглядзець вынік",
     "wrongNoteType": "Няправільны тып нататкі",
-    "openRecentImage": "Адкрыць малюнак {{number}}",
-    "recentImages": "Нядаўна створаныя малюнкі"
+    "rerunToSave": "Запусціце гэты тэст яшчэ раз, каб захаваць яго ў картку"
   },
   "subscription": {
     "accessEnds": "Доступ завершаецца",

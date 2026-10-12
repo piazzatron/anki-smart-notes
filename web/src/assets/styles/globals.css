@@ -603,10 +603,18 @@ textarea,
   user-select: text;
 }
 
-button:focus-visible,
-a:focus-visible {
+/* Focus rings are for keyboard users. Chromium also marks the focus a menu hands
+   back to its trigger after a mouse pick as :focus-visible, so the ring waits for
+   main.tsx to record a keypress. */
+[data-input="keyboard"] button:focus-visible,
+[data-input="keyboard"] a:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--color-indigo) 78%, white);
   outline-offset: 2px;
+}
+
+/* Hide the browser's own ring too until a key is pressed. */
+:root:not([data-input="keyboard"]) :is(button, a):focus-visible {
+  outline: none;
 }
 
 button:not(:disabled),

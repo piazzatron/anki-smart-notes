@@ -374,12 +374,13 @@
     "selectionAppearsAutomatically": "ତୁମର ଚୟନ ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଏଠାରେ ଦେଖାଯାଏ",
     "sent": "ପଠାଯାଇଛି",
     "testing": "ପରୀକ୍ଷା…",
+    "openRecentImage": "ଛବି {{number}} ଖୋଲନ୍ତୁ",
+    "recentImages": "ସମ୍ପ୍ରତି ସୃଷ୍ଟି ହୋଇଥିବା ଛବିଗୁଡ଼ିକ",
     "testResult": "ପରୀକ୍ଷା ଫଳାଫଳ",
     "textToSpeak": "କହିବାକୁ ପାଠ",
     "viewResult": "ଫଳାଫଳ ଦେଖନ୍ତୁ",
     "wrongNoteType": "ଭୁଲ ନୋଟ୍ ପ୍ରକାର",
-    "openRecentImage": "ଛବି {{number}} ଖୋଲନ୍ତୁ",
-    "recentImages": "ସମ୍ପ୍ରତି ସୃଷ୍ଟି ହୋଇଥିବା ଛବିଗୁଡ଼ିକ"
+    "rerunToSave": "ଏହି ପରୀକ୍ଷାକୁ କାର୍ଡରେ ସେଭ୍ କରିବା ପାଇଁ ପୁଣି ଚଲାନ୍ତୁ"
   },
   "subscription": {
     "accessEnds": "ପ୍ରବେଶାଧିକାର ସମାପ୍ତ ହୁଏ",

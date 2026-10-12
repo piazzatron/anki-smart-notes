@@ -38,7 +38,7 @@ export const ErrorBanner = ({
       className={`flex items-start gap-2 rounded-lg border border-red-300/15 bg-red-300/[0.06] px-3 py-2.5 text-xs text-danger ${className}`}
     >
       <AlertCircle aria-hidden className="mt-0.5 size-3.5 shrink-0" />
-      <p className="min-w-0 flex-1">{message}</p>
+      <p className="min-w-0 flex-1 cursor-text select-text">{message}</p>
       <button
         aria-label={t("common.dismissError")}
         className="cursor-pointer"

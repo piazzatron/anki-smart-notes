@@ -374,12 +374,13 @@
     "selectionAppearsAutomatically": "Zure hautaketa hemen automatikoki agertzen da.",
     "sent": "Bidali",
     "testing": "Proba egiten…",
+    "openRecentImage": "Ireki {{number}} irudia",
+    "recentImages": "Duela gutxi sortutako irudiak",
     "testResult": "Testaren emaitza",
     "textToSpeak": "Hitz egiteko testua",
     "viewResult": "Ikusi emaitza",
     "wrongNoteType": "Ohar mota okerra",
-    "openRecentImage": "Ireki {{number}} irudia",
-    "recentImages": "Duela gutxi sortutako irudiak"
+    "rerunToSave": "Exekutatu proba berriro txartelean gordetzeko"
   },
   "subscription": {
     "accessEnds": "Sarbidea amaitu da",

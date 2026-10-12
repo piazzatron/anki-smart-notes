@@ -374,12 +374,13 @@
     "selectionAppearsAutomatically": "Ihre Auswahl erscheint hier automatisch.",
     "sent": "Gesendet",
     "testing": "Testen…",
+    "openRecentImage": "Bild {{number}} öffnen",
+    "recentImages": "Kürzlich erstellte Bilder",
     "testResult": "Testergebnis",
     "textToSpeak": "Text zum Sprechen",
     "viewResult": "Ergebnis ansehen",
     "wrongNoteType": "Falscher Notiztyp",
-    "openRecentImage": "Bild {{number}} öffnen",
-    "recentImages": "Kürzlich erstellte Bilder"
+    "rerunToSave": "Diesen Test erneut ausführen, um ihn auf der Karte zu speichern"
   },
   "subscription": {
     "accessEnds": "Zugriff endet",

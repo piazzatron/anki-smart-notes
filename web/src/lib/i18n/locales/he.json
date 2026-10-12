@@ -380,12 +380,13 @@
     "selectionAppearsAutomatically": "הבחירה שלך מופיעה כאן באופן אוטומטי.",
     "sent": "נשלח",
     "testing": "בּוֹחֵן…",
+    "openRecentImage": "פתח תמונה {{number}}",
+    "recentImages": "תמונות שנוצרו לאחרונה",
     "testResult": "תוצאת הבדיקה",
     "textToSpeak": "טקסט לדבר",
     "viewResult": "צפה בתוצאה",
     "wrongNoteType": "סוג פתק שגוי",
-    "openRecentImage": "פתח תמונה {{number}}",
-    "recentImages": "תמונות שנוצרו לאחרונה"
+    "rerunToSave": "הרץ שוב את הבדיקה הזו כדי לשמור אותה לכרטיס"
   },
   "subscription": {
     "accessEnds": "הגישה מסתיימת",

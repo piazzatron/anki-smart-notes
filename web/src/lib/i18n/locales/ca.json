@@ -380,12 +380,13 @@
     "selectionAppearsAutomatically": "La vostra selecció apareix aquí automàticament.",
     "sent": "Enviat",
     "testing": "S'està provant…",
+    "openRecentImage": "Obre la imatge {{number}}",
+    "recentImages": "Imatges creades recentment",
     "testResult": "Resultat de la prova",
     "textToSpeak": "Text per parlar",
     "viewResult": "Veure resultat",
     "wrongNoteType": "Tipus de nota incorrecte",
-    "openRecentImage": "Obre la imatge {{number}}",
-    "recentImages": "Imatges creades recentment"
+    "rerunToSave": "Torna a executar aquesta prova per desar-la a la targeta"
   },
   "subscription": {
     "accessEnds": "L'accés s'acaba",

@@ -95,6 +95,8 @@ export interface PromptTester {
   hasNoteTypeMismatch: boolean
   // Earlier image results for the picked card this session, newest first.
   imageHistory: TestRun[]
+  // The shown result is an earlier run, which the plugin no longer keeps to save.
+  isEarlierRun: boolean
   isResultOpen: boolean
   isTesting: boolean
   prompt: string
@@ -219,6 +221,7 @@ export const usePromptTester = (args: PromptTesterArgs): PromptTester => {
     fieldType,
     hasNoteTypeMismatch,
     imageHistory: fieldType === "image" ? history : [],
+    isEarlierRun: run !== null && !isNewestRun,
     isResultOpen,
     isTesting: state.isTesting,
     prompt,

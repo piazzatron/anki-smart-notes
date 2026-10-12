@@ -345,6 +345,7 @@
     "notesSelected_one": "{{count}} note selected — narrow it to one.",
     "notesSelected_other": "{{count}} notes selected — narrow it to one.",
     "promptPlaceholder": "Write a test prompt, referencing fields on your card with {{braces}}.",
+    "rerunToSave": "Run this test again to save it to the card",
     "saveToCard": "Save to card",
     "savedTo": "Saved to {{field}}",
     "selectCardWithFields_one": "Please select a card with the field",

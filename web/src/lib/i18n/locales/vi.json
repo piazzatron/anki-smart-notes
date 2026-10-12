@@ -368,12 +368,13 @@
     "selectionAppearsAutomatically": "Lựa chọn của bạn sẽ tự động xuất hiện ở đây.",
     "sent": "Đã gửi",
     "testing": "Đang thử nghiệm…",
+    "openRecentImage": "Mở ảnh {{number}}",
+    "recentImages": "Ảnh đã tạo gần đây",
     "testResult": "Kết quả kiểm tra",
     "textToSpeak": "Nhắn tin để nói",
     "viewResult": "Xem kết quả",
     "wrongNoteType": "Loại ghi chú sai",
-    "openRecentImage": "Mở ảnh {{number}}",
-    "recentImages": "Ảnh đã tạo gần đây"
+    "rerunToSave": "Chạy lại thử nghiệm này để lưu vào thẻ"
   },
   "subscription": {
     "accessEnds": "Quyền truy cập kết thúc",

@@ -81,7 +81,10 @@ export const PromptTestResultModal = ({
           </DialogTitle>
           <DialogDescription className="mt-1.5 flex min-w-0 items-center gap-1.5 text-[11px] text-ink-faint">
             {cardName !== null && (
-              <span className="min-w-0 truncate">{cardName} ·</span>
+              <span className="min-w-0 truncate">
+                {cardName}
+                {provenance !== null && " ·"}
+              </span>
             )}
             {provenance !== null && (
               <>
@@ -128,7 +131,7 @@ export const ResolvedPrompt = ({ note, prompt }: ResolvedPromptProps) => {
   const { parts } = resolvePromptReferences(prompt, note?.fields ?? {})
 
   return (
-    <p className="mb-2 font-mono text-[11px] leading-[1.5] text-ink-muted">
+    <p className="mb-2 cursor-text font-mono text-[11px] leading-[1.5] [overflow-wrap:anywhere] text-ink-muted select-text">
       <span className="font-sans text-[10.5px] text-ink-faint">
         {t("promptTester.sent")} ·{" "}
       </span>

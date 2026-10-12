@@ -21,6 +21,21 @@ const startDataSource = async () => {
   connectToAnki()
 }
 
+// Feeds the keyboard-only focus ring in globals.css.
+const recordInputModality = (modality: "keyboard" | "pointer") => {
+  document.documentElement.dataset.input = modality
+}
+document.addEventListener(
+  "keydown",
+  () => recordInputModality("keyboard"),
+  true,
+)
+document.addEventListener(
+  "pointerdown",
+  () => recordInputModality("pointer"),
+  true,
+)
+
 const startApp = async () => {
   await initializeI18n()
   await startDataSource()

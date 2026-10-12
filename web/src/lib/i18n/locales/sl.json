@@ -386,12 +386,13 @@
     "selectionAppearsAutomatically": "Vaša izbira se samodejno prikaže tukaj.",
     "sent": "Poslano",
     "testing": "Testiranje ...",
+    "openRecentImage": "Odpri sliko {{number}}",
+    "recentImages": "Nedavno ustvarjene slike",
     "testResult": "Rezultat testa",
     "textToSpeak": "Besedilo za govor",
     "viewResult": "Ogled rezultata",
     "wrongNoteType": "Napačna vrsta beležke",
-    "openRecentImage": "Odpri sliko {{number}}",
-    "recentImages": "Nedavno ustvarjene slike"
+    "rerunToSave": "Ponovno zaženite ta preizkus, da ga shranite na kartico"
   },
   "subscription": {
     "accessEnds": "Dostop se konča",

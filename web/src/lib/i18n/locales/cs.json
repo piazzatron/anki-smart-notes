@@ -386,12 +386,13 @@
     "selectionAppearsAutomatically": "Váš výběr se zde objeví automaticky.",
     "sent": "Odesláno",
     "testing": "Testování…",
+    "openRecentImage": "Otevřít obrázek {{number}}",
+    "recentImages": "Naposledy vytvořené obrázky",
     "testResult": "Výsledek testu",
     "textToSpeak": "Text k mluvení",
     "viewResult": "Zobrazit výsledek",
     "wrongNoteType": "Špatný typ poznámky",
-    "openRecentImage": "Otevřít obrázek {{number}}",
-    "recentImages": "Naposledy vytvořené obrázky"
+    "rerunToSave": "Spusťte tento test znovu, aby se uložil na kartu"
   },
   "subscription": {
     "accessEnds": "Přístup končí",

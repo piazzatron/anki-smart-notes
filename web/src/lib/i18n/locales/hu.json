@@ -374,12 +374,13 @@
     "selectionAppearsAutomatically": "Kiválasztása automatikusan megjelenik itt.",
     "sent": "Küldött",
     "testing": "Tesztelés…",
+    "openRecentImage": "{{number}}. kép megnyitása",
+    "recentImages": "Nemrég létrehozott képek",
     "testResult": "Teszt eredménye",
     "textToSpeak": "Szöveg a beszédhez",
     "viewResult": "Eredmény megtekintése",
     "wrongNoteType": "Hibás jegyzettípus",
-    "openRecentImage": "{{number}}. kép megnyitása",
-    "recentImages": "Nemrég létrehozott képek"
+    "rerunToSave": "Futtasd újra a tesztet, hogy elmentsd a kártyára"
   },
   "subscription": {
     "accessEnds": "Hozzáférés vége",

@@ -368,12 +368,13 @@
     "selectionAppearsAutomatically": "Pilihan anda muncul di sini secara automatik.",
     "sent": "Dihantar",
     "testing": "Menguji…",
+    "openRecentImage": "Buka imej {{number}}",
+    "recentImages": "Imej yang baru dibuat",
     "testResult": "Keputusan ujian",
     "textToSpeak": "Teks untuk bercakap",
     "viewResult": "Lihat hasil",
     "wrongNoteType": "Jenis nota yang salah",
-    "openRecentImage": "Buka imej {{number}}",
-    "recentImages": "Imej yang baru dibuat"
+    "rerunToSave": "Jalankan ujian ini semula untuk menyimpannya ke kad"
   },
   "subscription": {
     "accessEnds": "Akses berakhir",

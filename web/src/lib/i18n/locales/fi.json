@@ -374,12 +374,13 @@
     "selectionAppearsAutomatically": "Valintasi näkyy täällä automaattisesti.",
     "sent": "Lähetetty",
     "testing": "Testaus…",
+    "openRecentImage": "Avaa kuva {{number}}",
+    "recentImages": "Äskettäin luodut kuvat",
     "testResult": "Testitulos",
     "textToSpeak": "Teksti puhuttavaksi",
     "viewResult": "Näytä tulos",
     "wrongNoteType": "Väärä muistiinpanotyyppi",
-    "openRecentImage": "Avaa kuva {{number}}",
-    "recentImages": "Äskettäin luodut kuvat"
+    "rerunToSave": "Suorita tämä testi uudelleen tallentaaksesi sen kortille"
   },
   "subscription": {
     "accessEnds": "Pääsy loppuu",

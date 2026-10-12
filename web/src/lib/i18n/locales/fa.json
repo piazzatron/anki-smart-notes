@@ -374,12 +374,13 @@
     "selectionAppearsAutomatically": "انتخاب شما به طور خودکار در اینجا ظاهر می شود.",
     "sent": "ارسال شد",
     "testing": "تست…",
+    "openRecentImage": "باز کردن تصویر {{number}}",
+    "recentImages": "تصاویر ایجادشده اخیر",
     "testResult": "نتیجه آزمایش",
     "textToSpeak": "متن برای صحبت کردن",
     "viewResult": "مشاهده نتیجه",
     "wrongNoteType": "نوع یادداشت اشتباه است",
-    "openRecentImage": "باز کردن تصویر {{number}}",
-    "recentImages": "تصاویر ایجادشده اخیر"
+    "rerunToSave": "این آزمایش را دوباره اجرا کنید تا روی کارت ذخیره شود"
   },
   "subscription": {
     "accessEnds": "دسترسی پایان می‌یابد",

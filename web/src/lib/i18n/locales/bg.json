@@ -374,12 +374,13 @@
     "selectionAppearsAutomatically": "Вашият избор се появява тук автоматично.",
     "sent": "Изпратено",
     "testing": "Тестване...",
+    "openRecentImage": "Отвори изображение {{number}}",
+    "recentImages": "Наскоро създадени изображения",
     "testResult": "Резултат от теста",
     "textToSpeak": "Текст за изговаряне",
     "viewResult": "Вижте резултата",
     "wrongNoteType": "Грешен тип бележка",
-    "openRecentImage": "Отвори изображение {{number}}",
-    "recentImages": "Наскоро създадени изображения"
+    "rerunToSave": "Стартирайте този тест отново, за да го запазите в картата"
   },
   "subscription": {
     "accessEnds": "Достъпът завършва",

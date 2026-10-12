@@ -380,12 +380,13 @@
     "selectionAppearsAutomatically": "Sua seleção aparece aqui automaticamente.",
     "sent": "Enviado",
     "testing": "Testando…",
+    "openRecentImage": "Abrir imagem {{number}}",
+    "recentImages": "Imagens criadas recentemente",
     "testResult": "Resultado do teste",
     "textToSpeak": "Texto para falar",
     "viewResult": "Ver resultado",
     "wrongNoteType": "Tipo de nota errado",
-    "openRecentImage": "Abrir imagem {{number}}",
-    "recentImages": "Imagens criadas recentemente"
+    "rerunToSave": "Execute este teste novamente para o guardar no cartão"
   },
   "subscription": {
     "accessEnds": "Acesso termina",

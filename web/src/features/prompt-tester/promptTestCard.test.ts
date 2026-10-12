@@ -73,6 +73,7 @@ const testerControls = (
   fieldType: "chat",
   hasNoteTypeMismatch: false,
   imageHistory: [],
+  isEarlierRun: false,
   isResultOpen: false,
   isTesting: false,
   prompt: "Translate {{Front}}",

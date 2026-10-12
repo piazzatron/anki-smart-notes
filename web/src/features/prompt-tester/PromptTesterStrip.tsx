@@ -220,7 +220,7 @@ export const PromptTesterStrip = ({
           open={isResultVisible}
           provenance={field.provenance}
           saveAction={
-            saveTarget === null ? null : (
+            saveTarget !== null ? (
               // Keyed by token: a new run mints a new one, and the previous save no
               // longer describes what is shown.
               <SaveResultButton
@@ -230,7 +230,11 @@ export const PromptTesterStrip = ({
                 onError={field.setError}
                 token={saveTarget.token}
               />
-            )
+            ) : saveTargetFieldName !== undefined && field.isEarlierRun ? (
+              <p className="text-[11px] text-ink-faint">
+                {t("promptTester.rerunToSave")}
+              </p>
+            ) : null
           }
           tester={field}
         >

@@ -374,12 +374,13 @@
     "selectionAppearsAutomatically": "Таны сонголт энд автоматаар гарч ирнэ.",
     "sent": "Илгээсэн",
     "testing": "Туршилт хийж байна...",
+    "openRecentImage": "Зураг {{number}}-г нээх",
+    "recentImages": "Саяхан үүсгэсэн зургууд",
     "testResult": "Туршилтын үр дүн",
     "textToSpeak": "Ярих текст",
     "viewResult": "Үр дүнг харах",
     "wrongNoteType": "Буруу тэмдэглэлийн төрөл",
-    "openRecentImage": "Зураг {{number}}-г нээх",
-    "recentImages": "Саяхан үүсгэсэн зургууд"
+    "rerunToSave": "Энэ туршилтыг дахин ажиллуулж картад хадгална уу"
   },
   "subscription": {
     "accessEnds": "Хандалт дуусна",

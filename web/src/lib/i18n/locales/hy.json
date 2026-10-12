@@ -374,12 +374,13 @@
     "selectionAppearsAutomatically": "Ձեր ընտրությունը հայտնվում է այստեղ ինքնաբերաբար:",
     "sent": "Ուղարկված",
     "testing": "Փորձարկում…",
+    "openRecentImage": "Բացել պատկերը {{number}}",
+    "recentImages": "Վերջերս ստեղծված պատկերներ",
     "testResult": "Փորձարկման արդյունք",
     "textToSpeak": "Տեքստ խոսելու համար",
     "viewResult": "Դիտել արդյունքը",
     "wrongNoteType": "Նշման սխալ տեսակ",
-    "openRecentImage": "Բացել պատկերը {{number}}",
-    "recentImages": "Վերջերս ստեղծված պատկերներ"
+    "rerunToSave": "Կրկին գործարկեք այս փորձարկումը՝ այն քարտում պահելու համար"
   },
   "subscription": {
     "accessEnds": "Մուտքը ավարտվում է",

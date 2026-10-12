@@ -374,12 +374,13 @@
     "selectionAppearsAutomatically": "Dit valg vises her automatisk.",
     "sent": "Sendt",
     "testing": "Tester...",
+    "openRecentImage": "Åbn billede {{number}}",
+    "recentImages": "Nyligt oprettede billeder",
     "testResult": "Testresultat",
     "textToSpeak": "Tekst til tale",
     "viewResult": "Se resultat",
     "wrongNoteType": "Forkert notetype",
-    "openRecentImage": "Åbn billede {{number}}",
-    "recentImages": "Nyligt oprettede billeder"
+    "rerunToSave": "Kør denne test igen for at gemme den på kortet"
   },
   "subscription": {
     "accessEnds": "Adgang slutter",

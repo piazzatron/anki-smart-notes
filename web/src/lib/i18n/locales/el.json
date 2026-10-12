@@ -374,12 +374,13 @@
     "selectionAppearsAutomatically": "Η επιλογή σας εμφανίζεται εδώ αυτόματα.",
     "sent": "Στάλθηκε",
     "testing": "Δοκιμή…",
+    "openRecentImage": "Άνοιγμα εικόνας {{number}}",
+    "recentImages": "Πρόσφατα δημιουργημένες εικόνες",
     "testResult": "Αποτέλεσμα δοκιμής",
     "textToSpeak": "Κείμενο για ομιλία",
     "viewResult": "Δείτε το αποτέλεσμα",
     "wrongNoteType": "Λάθος τύπος σημείωσης",
-    "openRecentImage": "Άνοιγμα εικόνας {{number}}",
-    "recentImages": "Πρόσφατα δημιουργημένες εικόνες"
+    "rerunToSave": "Εκτελέστε ξανά αυτή τη δοκιμή για να την αποθηκεύσετε στην κάρτα"
   },
   "subscription": {
     "accessEnds": "Λήξη πρόσβασης",

@@ -380,12 +380,13 @@
     "selectionAppearsAutomatically": "Vaš odabir se automatski pojavljuje ovdje.",
     "sent": "Poslano",
     "testing": "Testiranje…",
+    "openRecentImage": "Otvori sliku {{number}}",
+    "recentImages": "Nedavno stvorene slike",
     "testResult": "Rezultat testa",
     "textToSpeak": "Tekst za govor",
     "viewResult": "Pogledajte rezultat",
     "wrongNoteType": "Pogrešna vrsta bilješke",
-    "openRecentImage": "Otvori sliku {{number}}",
-    "recentImages": "Nedavno stvorene slike"
+    "rerunToSave": "Ponovno pokrenite ovaj test kako biste ga spremili na karticu"
   },
   "subscription": {
     "accessEnds": "Pristup završava",

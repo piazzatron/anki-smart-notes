@@ -392,12 +392,13 @@
     "selectionAppearsAutomatically": "Taispeántar do rogha anseo go huathoibríoch.",
     "sent": "Seolta",
     "testing": "Ag tástáil…",
+    "openRecentImage": "Oscail íomhá {{number}}",
+    "recentImages": "Íomhánna a cruthaíodh le déanaí",
     "testResult": "Toradh tástála",
     "textToSpeak": "Téacs a labhairt",
     "viewResult": "Féach ar an toradh",
     "wrongNoteType": "Cineál nóta mícheart",
-    "openRecentImage": "Oscail íomhá {{number}}",
-    "recentImages": "Íomhánna a cruthaíodh le déanaí"
+    "rerunToSave": "Rith an tástáil seo arís chun í a shábháil ar an gcárta"
   },
   "subscription": {
     "accessEnds": "Críochnaíonn an rochtain",

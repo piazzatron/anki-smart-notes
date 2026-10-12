@@ -374,12 +374,13 @@
     "selectionAppearsAutomatically": "Ditt val visas här automatiskt.",
     "sent": "Skickat",
     "testing": "Testning…",
+    "openRecentImage": "Öppna bild {{number}}",
+    "recentImages": "Nyligen skapade bilder",
     "testResult": "Testresultat",
     "textToSpeak": "Text att tala",
     "viewResult": "Visa resultat",
     "wrongNoteType": "Fel anteckningstyp",
-    "openRecentImage": "Öppna bild {{number}}",
-    "recentImages": "Nyligen skapade bilder"
+    "rerunToSave": "Kör testet igen för att spara det på kortet"
   },
   "subscription": {
     "accessEnds": "Åtkomsten upphör",

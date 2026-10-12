@@ -374,12 +374,13 @@
     "selectionAppearsAutomatically": "Uw selectie verschijnt hier automatisch.",
     "sent": "Verstuurd",
     "testing": "Testen…",
+    "openRecentImage": "Afbeelding {{number}} openen",
+    "recentImages": "Recent gemaakte afbeeldingen",
     "testResult": "Testresultaat",
     "textToSpeak": "Tekst om uit te spreken",
     "viewResult": "Bekijk resultaat",
     "wrongNoteType": "Verkeerd notitietype",
-    "openRecentImage": "Afbeelding {{number}} openen",
-    "recentImages": "Recent gemaakte afbeeldingen"
+    "rerunToSave": "Voer deze test opnieuw uit om hem op de kaart op te slaan"
   },
   "subscription": {
     "accessEnds": "Toegang eindigt",

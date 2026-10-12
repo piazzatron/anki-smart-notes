@@ -368,12 +368,13 @@
     "selectionAppearsAutomatically": "選択した内容がここに自動的に表示されます。",
     "sent": "送信済み",
     "testing": "テスト中…",
+    "openRecentImage": "画像 {{number}} を開く",
+    "recentImages": "最近作成された画像",
     "testResult": "試験結果",
     "textToSpeak": "話すテキスト",
     "viewResult": "結果を見る",
     "wrongNoteType": "ノートの種類が間違っています",
-    "openRecentImage": "画像 {{number}} を開く",
-    "recentImages": "最近作成された画像"
+    "rerunToSave": "保存するには、このテストをもう一度実行してください"
   },
   "subscription": {
     "accessEnds": "アクセス終了",

@@ -368,12 +368,13 @@
     "selectionAppearsAutomatically": "선택 사항이 여기에 자동으로 나타납니다.",
     "sent": "전송된",
     "testing": "테스트 중…",
+    "openRecentImage": "이미지 {{number}} 열기",
+    "recentImages": "최근 생성한 이미지",
     "testResult": "테스트 결과",
     "textToSpeak": "말할 텍스트",
     "viewResult": "결과 보기",
     "wrongNoteType": "잘못된 메모 유형",
-    "openRecentImage": "이미지 {{number}} 열기",
-    "recentImages": "최근 생성한 이미지"
+    "rerunToSave": "이 테스트를 다시 실행하여 카드에 저장하세요"
   },
   "subscription": {
     "accessEnds": "액세스 종료",

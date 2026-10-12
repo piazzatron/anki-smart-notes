@@ -380,12 +380,13 @@
     "selectionAppearsAutomatically": "Votre sélection apparaît ici automatiquement.",
     "sent": "Envoyé",
     "testing": "Essai…",
+    "openRecentImage": "Ouvrir l'image {{number}}",
+    "recentImages": "Images créées récemment",
     "testResult": "Résultat du test",
     "textToSpeak": "Texte pour parler",
     "viewResult": "Afficher le résultat",
     "wrongNoteType": "Mauvais type de note",
-    "openRecentImage": "Ouvrir l'image {{number}}",
-    "recentImages": "Images créées récemment"
+    "rerunToSave": "Relancez ce test pour l'enregistrer dans la carte"
   },
   "subscription": {
     "accessEnds": "L'accès se termine",

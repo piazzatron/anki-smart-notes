@@ -380,12 +380,13 @@
     "selectionAppearsAutomatically": "Selecția dvs. apare aici automat.",
     "sent": "Trimis",
     "testing": "Se testează…",
+    "openRecentImage": "Deschide imaginea {{number}}",
+    "recentImages": "Imagini create recent",
     "testResult": "Rezultatul testului",
     "textToSpeak": "Text pentru a vorbi",
     "viewResult": "Vedeți rezultatul",
     "wrongNoteType": "Tip greșit de notă",
-    "openRecentImage": "Deschide imaginea {{number}}",
-    "recentImages": "Imagini create recent"
+    "rerunToSave": "Rulează din nou acest test pentru a-l salva pe card"
   },
   "subscription": {
     "accessEnds": "Accesul se încheie",

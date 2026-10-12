@@ -398,12 +398,13 @@
     "selectionAppearsAutomatically": "يظهر اختيارك هنا تلقائيًا.",
     "sent": "مرسل",
     "testing": "اختبار…",
+    "openRecentImage": "فتح الصورة {{number}}",
+    "recentImages": "الصور المُنشأة مؤخرًا",
     "testResult": "نتيجة الاختبار",
     "textToSpeak": "النص للتحدث",
     "viewResult": "عرض النتيجة",
     "wrongNoteType": "نوع ملاحظة خاطئ",
-    "openRecentImage": "فتح الصورة {{number}}",
-    "recentImages": "الصور المُنشأة مؤخرًا"
+    "rerunToSave": "أعد تشغيل هذا الاختبار لحفظه في البطاقة"
   },
   "subscription": {
     "accessEnds": "انتهاء الوصول",

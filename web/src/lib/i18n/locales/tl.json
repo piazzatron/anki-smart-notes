@@ -374,12 +374,13 @@
     "selectionAppearsAutomatically": "Awtomatikong lalabas dito ang iyong pinili.",
     "sent": "Ipinadala",
     "testing": "Pagsubok…",
+    "openRecentImage": "Buksan ang larawan {{number}}",
+    "recentImages": "Mga kamakailang nilikhang larawan",
     "testResult": "Resulta ng pagsubok",
     "textToSpeak": "Text para magsalita",
     "viewResult": "Tingnan ang resulta",
     "wrongNoteType": "Maling uri ng tala",
-    "openRecentImage": "Buksan ang larawan {{number}}",
-    "recentImages": "Mga kamakailang nilikhang larawan"
+    "rerunToSave": "Patakbuhin muli ang pagsubok na ito para i-save ito sa card"
   },
   "subscription": {
     "accessEnds": "Nagtatapos ang access",

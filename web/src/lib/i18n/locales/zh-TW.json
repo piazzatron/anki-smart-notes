@@ -368,12 +368,13 @@
     "selectionAppearsAutomatically": "您的選擇會自動出現在此。",
     "sent": "傳送",
     "testing": "測試...",
+    "openRecentImage": "開啟圖片 {{number}}",
+    "recentImages": "最近建立的圖片",
     "testResult": "測試結果",
     "textToSpeak": "文字說話",
     "viewResult": "查看結果",
     "wrongNoteType": "註釋類型錯誤",
-    "openRecentImage": "開啟圖片 {{number}}",
-    "recentImages": "最近建立的圖片"
+    "rerunToSave": "重新執行此測試以將其儲存至卡片"
   },
   "subscription": {
     "accessEnds": "存取權限結束",

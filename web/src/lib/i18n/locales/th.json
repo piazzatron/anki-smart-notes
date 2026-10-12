@@ -368,12 +368,13 @@
     "selectionAppearsAutomatically": "การเลือกของคุณจะปรากฏที่นี่โดยอัตโนมัติ",
     "sent": "ส่งแล้ว",
     "testing": "กำลังทดสอบ...",
+    "openRecentImage": "เปิดรูปภาพ {{number}}",
+    "recentImages": "รูปภาพที่สร้างล่าสุด",
     "testResult": "ผลการทดสอบ",
     "textToSpeak": "ข้อความที่จะพูด",
     "viewResult": "ดูผลลัพธ์",
     "wrongNoteType": "ประเภทบันทึกไม่ถูกต้อง",
-    "openRecentImage": "เปิดรูปภาพ {{number}}",
-    "recentImages": "รูปภาพที่สร้างล่าสุด"
+    "rerunToSave": "รันการทดสอบนี้อีกครั้งเพื่อบันทึกลงการ์ด"
   },
   "subscription": {
     "accessEnds": "การเข้าถึงสิ้นสุด",

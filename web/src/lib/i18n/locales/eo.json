@@ -374,12 +374,13 @@
     "selectionAppearsAutomatically": "Via elekto aperas ĉi tie aŭtomate.",
     "sent": "Sendita",
     "testing": "Testante…",
+    "openRecentImage": "Malfermi bildon {{number}}",
+    "recentImages": "Lastatempe kreitaj bildoj",
     "testResult": "Testrezulto",
     "textToSpeak": "Teksto por paroli",
     "viewResult": "Vidu rezulton",
     "wrongNoteType": "Malĝusta nottipo",
-    "openRecentImage": "Malfermi bildon {{number}}",
-    "recentImages": "Lastatempe kreitaj bildoj"
+    "rerunToSave": "Ripetu ĉi tiun teston por konservi ĝin en la kartoj"
   },
   "subscription": {
     "accessEnds": "Aliro finiĝas",

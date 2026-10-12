@@ -368,12 +368,13 @@
     "selectionAppearsAutomatically": "Vòstra seleccion apareis aicí automaticament.",
     "sent": "Enviat",
     "testing": "Ensages...",
+    "openRecentImage": "Dobrir l'imatge {{number}}",
+    "recentImages": "Imatges creadas recentament",
     "testResult": "Resultat del tèst",
     "textToSpeak": "Tèxte per parlar",
     "viewResult": "Veire lo resultat",
     "wrongNoteType": "Tipe de nòta incorrècte",
-    "openRecentImage": "Dobrir l'imatge {{number}}",
-    "recentImages": "Imatges creadas recentament"
+    "rerunToSave": "Tornatz executar aqueste tèst per lo salvar dins la carta"
   },
   "subscription": {
     "accessEnds": "L'accès s'acabarà",

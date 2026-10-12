@@ -18,7 +18,7 @@
  */
 
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"
-import { forwardRef, useRef } from "react"
+import { forwardRef } from "react"
 
 import type { ComponentPropsWithoutRef, ElementRef } from "react"
 
@@ -28,53 +28,16 @@ export const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger
 export const DropdownMenuContent = forwardRef<
   ElementRef<typeof DropdownMenuPrimitive.Content>,
   ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
->(
-  (
-    {
-      className = "",
-      onCloseAutoFocus,
-      onKeyDown,
-      onPointerDown,
-      onPointerDownOutside,
-      sideOffset = 4,
-      ...props
-    },
-    ref,
-  ) => {
-    // Radix hands focus back to the trigger on close, and Chromium paints that
-    // return as keyboard focus. After a mouse close, skip the return so the ring
-    // only appears for keyboard users.
-    const isPointerClose = useRef(false)
-
-    return (
-      <DropdownMenuPrimitive.Portal>
-        <DropdownMenuPrimitive.Content
-          className={`z-20 min-w-40 rounded-lg border border-white/10 bg-panel-raised p-1 shadow-2xl shadow-black/50 ${className}`}
-          onCloseAutoFocus={(event) => {
-            if (isPointerClose.current) event.preventDefault()
-            isPointerClose.current = false
-            onCloseAutoFocus?.(event)
-          }}
-          onKeyDown={(event) => {
-            isPointerClose.current = false
-            onKeyDown?.(event)
-          }}
-          onPointerDown={(event) => {
-            isPointerClose.current = true
-            onPointerDown?.(event)
-          }}
-          onPointerDownOutside={(event) => {
-            isPointerClose.current = true
-            onPointerDownOutside?.(event)
-          }}
-          ref={ref}
-          sideOffset={sideOffset}
-          {...props}
-        />
-      </DropdownMenuPrimitive.Portal>
-    )
-  },
-)
+>(({ className = "", sideOffset = 4, ...props }, ref) => (
+  <DropdownMenuPrimitive.Portal>
+    <DropdownMenuPrimitive.Content
+      className={`z-20 min-w-40 rounded-lg border border-white/10 bg-panel-raised p-1 shadow-2xl shadow-black/50 ${className}`}
+      ref={ref}
+      sideOffset={sideOffset}
+      {...props}
+    />
+  </DropdownMenuPrimitive.Portal>
+))
 DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName
 
 export const DropdownMenuItem = forwardRef<

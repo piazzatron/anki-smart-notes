@@ -374,12 +374,13 @@
     "selectionAppearsAutomatically": "Seçiminiz burada otomatik olarak görünür.",
     "sent": "Gönderilmiş",
     "testing": "Test…",
+    "openRecentImage": "{{number}} numaralı resmi aç",
+    "recentImages": "Son oluşturulan resimler",
     "testResult": "Test sonucu",
     "textToSpeak": "Konuşmak için metin",
     "viewResult": "Sonucu görüntüle",
     "wrongNoteType": "Yanlış not türü",
-    "openRecentImage": "{{number}} numaralı resmi aç",
-    "recentImages": "Son oluşturulan resimler"
+    "rerunToSave": "Kaydetmek için bu testi yeniden çalıştırın"
   },
   "subscription": {
     "accessEnds": "Erişim sona eriyor",

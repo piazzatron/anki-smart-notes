@@ -386,12 +386,13 @@
     "selectionAppearsAutomatically": "Ваш вибір з’явиться тут автоматично.",
     "sent": "Надіслано",
     "testing": "Тестування…",
+    "openRecentImage": "Відкрити зображення {{number}}",
+    "recentImages": "Нещодавно створені зображення",
     "testResult": "Результат тесту",
     "textToSpeak": "Текст для озвучення",
     "viewResult": "Переглянути результат",
     "wrongNoteType": "Неправильний тип нотатки",
-    "openRecentImage": "Відкрити зображення {{number}}",
-    "recentImages": "Нещодавно створені зображення"
+    "rerunToSave": "Запустіть цей тест знову, щоб зберегти його в картку"
   },
   "subscription": {
     "accessEnds": "Доступ закінчується",

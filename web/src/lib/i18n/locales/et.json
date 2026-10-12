@@ -374,12 +374,13 @@
     "selectionAppearsAutomatically": "Teie valik kuvatakse siin automaatselt.",
     "sent": "Saadetud",
     "testing": "Testimine…",
+    "openRecentImage": "Ava pilt {{number}}",
+    "recentImages": "Hiljuti loodud pildid",
     "testResult": "Testi tulemus",
     "textToSpeak": "Tekst kõnelemiseks",
     "viewResult": "Vaata tulemust",
     "wrongNoteType": "Vale märkme tüüp",
-    "openRecentImage": "Ava pilt {{number}}",
-    "recentImages": "Hiljuti loodud pildid"
+    "rerunToSave": "Käivita see test uuesti, et salvestada see kaardile"
   },
   "subscription": {
     "accessEnds": "Juurdepääs lõpeb",
