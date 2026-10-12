@@ -22,20 +22,14 @@ import type { ReactNode } from "react"
 
 interface InfoTipProps {
   children: ReactNode
-  // Opens on first render, e.g. to introduce a screen; it closes like any tooltip.
-  defaultOpen?: boolean
   label: string
 }
 
 /** An ⓘ beside a setting that explains it on hover or focus. Tooltips are always a
  *  flat blue fill with no border. */
-export const InfoTip = ({
-  children,
-  defaultOpen = false,
-  label,
-}: InfoTipProps) => (
+export const InfoTip = ({ children, label }: InfoTipProps) => (
   <TooltipPrimitive.Provider delayDuration={150}>
-    <TooltipPrimitive.Root defaultOpen={defaultOpen}>
+    <TooltipPrimitive.Root>
       <TooltipPrimitive.Trigger asChild>
         <button
           aria-label={label}

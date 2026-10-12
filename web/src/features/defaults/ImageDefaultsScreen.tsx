@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
@@ -6,7 +5,7 @@ import { InfoTip } from "@/components/ui/InfoTip"
 import { ImageModelSelect } from "@/features/image-generation/ImageModelSelect"
 import { PromptTesterStrip } from "@/features/prompt-tester/PromptTesterStrip"
 import { usePromptTester } from "@/features/prompt-tester/usePromptTester"
-import { saveImageDefaults, saveSettings } from "@/services/commands"
+import { saveImageDefaults } from "@/services/commands"
 import { useAppStore } from "@/store/appStore"
 import type { AppState, Catalog } from "@/types/api"
 
@@ -76,16 +75,6 @@ const LoadedImageDefaultsScreen = ({
     "image",
     t("defaults.image.samplePrompt"),
   )
-  // The model tips open by themselves the first time someone lands here.
-  const [isFirstVisit] = useState(() => !state.settings.didSeeImageModelTips)
-  useEffect(() => {
-    // Read settings from the store, not props: the save republishes state, and a
-    // settings dependency would save again on every republish.
-    const settings = useAppStore.getState().state?.settings
-    if (!isFirstVisit || settings === undefined) return
-    void saveSettings({ ...settings, didSeeImageModelTips: true })
-  }, [isFirstVisit])
-
   const tester = usePromptTester({
     fieldType: "image",
     onPromptChange: setPrompt,
@@ -126,10 +115,7 @@ const LoadedImageDefaultsScreen = ({
             >
               {t("defaults.image.defaultModel")}
             </label>
-            <InfoTip
-              defaultOpen={isFirstVisit}
-              label={t("defaults.image.modelTipLabel")}
-            >
+            <InfoTip label={t("defaults.image.modelTipLabel")}>
               <ul className="space-y-1">
                 {MODEL_TIPS.map((tip) => (
                   <li key={tip.name}>

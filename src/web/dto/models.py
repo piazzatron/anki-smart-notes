@@ -92,7 +92,6 @@ class SettingsDto(TypedDict):
     showWizardCompletion: bool
     didDismissReviewPrompt: bool
     didDismissDiscordPrompt: bool
-    didSeeImageModelTips: bool
 
 
 class ChatSmartFieldSettingsDto(TypedDict):

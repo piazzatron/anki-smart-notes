@@ -19,6 +19,5 @@
   "did_migrate_smart_fields_to_sqlite": false,
   "show_wizard_completion": true,
   "did_dismiss_review_prompt": false,
-  "did_dismiss_discord_prompt": false,
-  "did_see_image_model_tips": false
+  "did_dismiss_discord_prompt": false
 }
