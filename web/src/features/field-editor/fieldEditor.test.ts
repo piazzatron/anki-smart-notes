@@ -169,7 +169,7 @@ describe("field editor helpers", () => {
     draft.prompt = "Picture {{Front}}"
     draft.pinnedSettings.image = {
       provider: "replicate",
-      model: "flux-dev",
+      model: "z-image-turbo",
     }
 
     expect(buildSmartFieldPayload(draft, defaults, existingField)).toEqual({
@@ -181,7 +181,7 @@ describe("field editor helpers", () => {
       settings: {
         promptText: "Picture {{Front}}",
         provider: "replicate",
-        model: "flux-dev",
+        model: "z-image-turbo",
         usesDefaultGenerationSettings: false,
       },
     })

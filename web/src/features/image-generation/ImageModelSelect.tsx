@@ -22,12 +22,11 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
 } from "@/components/ui/Select"
 import { Pill } from "@/components/ui/Pill"
 import { Toggle } from "@/components/ui/Toggle"
 import { useTranslation } from "react-i18next"
-import { modelLabel } from "@/lib/catalog"
+import { modelCostLabel, modelLabel } from "@/lib/catalog"
 import i18next from "@/lib/i18n"
 import type { ImageGenerationSettings, ImageModelCatalog } from "@/types/api"
 import {
@@ -97,16 +96,12 @@ export const ImageModelSelect = ({
         value={options === null ? value : GPT_IMAGE_25}
       >
         <SelectTrigger aria-label={ariaLabel} id={id}>
-          <SelectValue />
+          <ImageModelOption modelId={options === null ? value : GPT_IMAGE_25} />
         </SelectTrigger>
         <SelectContent>
           {imageModelChoices(catalog.models).map((model) => (
             <SelectItem key={`${model.provider}:${model.id}`} value={model.id}>
-              <span className="min-w-0 flex-1 truncate font-semibold text-zinc-100">
-                {model.id === GPT_IMAGE_25
-                  ? t("imageGeneration.gptImage25")
-                  : modelLabel(model.id)}
-              </span>
+              <ImageModelOption modelId={model.id} />
             </SelectItem>
           ))}
         </SelectContent>
@@ -149,5 +144,23 @@ export const ImageModelSelect = ({
         </div>
       )}
     </>
+  )
+}
+
+// The model's name with its cost relative to plain GPT Image 2.5, as the text model
+// picker shows it.
+const ImageModelOption = ({ modelId }: { modelId: string }) => {
+  const { t } = useTranslation()
+  const costLabel = modelCostLabel(modelId)
+
+  return (
+    <span className="flex min-w-0 items-center gap-2">
+      <span className="min-w-0 flex-1 truncate font-semibold text-zinc-100">
+        {modelId === GPT_IMAGE_25
+          ? t("imageGeneration.gptImage25")
+          : modelLabel(modelId)}
+      </span>
+      {costLabel !== undefined && <Pill>{costLabel}</Pill>}
+    </span>
   )
 }

@@ -14,7 +14,7 @@ const MODEL_LABELS: Record<string, string> = {
   "gpt-image-2.5-flare-medium": "GPT Image 2.5",
   "gpt-image-2.5-sunburst-low": "GPT Image 2.5",
   "gpt-image-2.5-sunburst-medium": "GPT Image 2.5",
-  "nano-banana-2": "Nano Banana 2",
+  "nano-banana-2": "Nano Banana 2.1",
   "z-image-turbo": "Z-Image Turbo",
 }
 
@@ -29,6 +29,10 @@ const MODEL_COSTS: Record<string, string> = {
   "gemini-3.1-flash-lite": "1",
   "gemini-3-flash": "2",
   "gemini-3.1-pro": "8",
+  // Images, relative to plain GPT Image 2.5 (~$0.011 billed per image).
+  "gpt-image-2.5": "1",
+  "nano-banana-2": "5",
+  "z-image-turbo": "0.2",
 }
 
 const PROVIDER_LABELS: Record<string, string> = {
