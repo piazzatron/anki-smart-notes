@@ -41,13 +41,19 @@ export const InfoTip = ({ children, label }: InfoTipProps) => (
       </TooltipPrimitive.Trigger>
       <TooltipPrimitive.Portal>
         <TooltipPrimitive.Content
-          className="z-[90] max-w-[300px] rounded-lg bg-indigo-deep px-3 py-2 text-[11.5px] leading-[1.5] font-normal tracking-normal text-white normal-case shadow-xl shadow-black/40"
+          className="z-[90] max-w-[300px] rounded-xl bg-indigo-deep px-4 py-3 text-[11.5px] leading-[1.5] font-normal tracking-normal text-white normal-case shadow-xl shadow-black/40"
           collisionPadding={12}
           side="right"
           sideOffset={6}
         >
           {children}
-          <TooltipPrimitive.Arrow className="fill-indigo-deep" />
+          {/* A wide, round-tipped caret instead of Radix's sharp triangle, to match the
+              app's soft corners. */}
+          <TooltipPrimitive.Arrow asChild height={5.5} width={18}>
+            <svg className="fill-indigo-deep" viewBox="0 0 18 5.5">
+              <path d="M0 0L6.16 4.45Q9 6.5 11.84 4.45L18 0Z" />
+            </svg>
+          </TooltipPrimitive.Arrow>
         </TooltipPrimitive.Content>
       </TooltipPrimitive.Portal>
     </TooltipPrimitive.Root>
