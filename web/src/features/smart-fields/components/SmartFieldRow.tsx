@@ -55,7 +55,7 @@ export const SmartFieldRow = ({
 
   return (
     <div
-      className={`relative grid min-h-11 grid-cols-[22px_120px_minmax(80px,1fr)_132px_28px] items-center gap-[9px] py-2.5 ps-4 pe-[18px] max-[800px]:grid-cols-[22px_minmax(80px,1fr)_minmax(100px,130px)_28px] ${
+      className={`relative grid min-h-11 grid-cols-[28px_120px_minmax(80px,1fr)_132px_28px] items-center gap-[9px] py-2.5 ps-4 pe-[18px] max-[800px]:grid-cols-[28px_minmax(80px,1fr)_minmax(100px,130px)_28px] ${
         field.enabled ? "" : "opacity-40"
       } ${
         hasDivider

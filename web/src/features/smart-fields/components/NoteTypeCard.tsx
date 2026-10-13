@@ -36,7 +36,7 @@ export const NoteTypeCard = ({
 
   return (
     <section className="mb-5">
-      <header className="flex items-center px-1 pt-0.5 pb-2.5">
+      <header className="flex items-center pt-0.5 pb-2.5">
         <h3 className="truncate text-[17px] leading-[1.2] font-extrabold tracking-[-0.018em] text-ink">
           {group.noteType.name}
         </h3>
