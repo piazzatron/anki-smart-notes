@@ -110,7 +110,7 @@ export const SmartFieldsScreen = ({
             {t("smartFields.newSmartField")}
           </Button>
         }
-        icon={<SparklesIcon className="text-pastel-lavender" size={20} />}
+        icon={<SparklesIcon className="text-pastel-butter" size={20} />}
         subtitle={t("smartFields.subtitle")}
         testId="smart-fields-screen"
         title={t("sidebar.nav.smartFields")}
