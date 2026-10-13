@@ -243,11 +243,31 @@ launch-anki-sandbox () {
   wait "$ANKI_LAUNCH_PID"
 }
 
+# When SEED_ADDON_DB=1, replace the add-on's SQLite DB (Smart Fields, prompts) at
+# $1/user_files with a snapshot of the installed prod add-on's DB. Useful for
+# running against real prompts and for testing migrations on real data.
+# sqlite3 .backup takes a consistent snapshot even if prod Anki is running.
+seed-addon-db () {
+  [ "$SEED_ADDON_DB" = "1" ] || return 0
+  local INSTALLED_DB_PATH=~/Library/Application\ Support/Anki2/addons21/1531888719/user_files/smart_notes.sqlite3
+  local TARGET_DB="$1/user_files/smart_notes.sqlite3"
+
+  # Back up the dev DB once; later seeded runs would otherwise back up a prod copy
+  if [ -f "$TARGET_DB" ] && [ ! -f "$TARGET_DB.before-seed" ]; then
+    cp "$TARGET_DB" "$TARGET_DB.before-seed"
+    echo "Backed up existing DB to $TARGET_DB.before-seed"
+  fi
+
+  sqlite3 "$INSTALLED_DB_PATH" ".backup '$TARGET_DB'"
+  echo "Seeded $TARGET_DB from installed prod addon"
+}
+
 # Main profile, live-linked dev source, local backend. The webview loads the
 # Vite dev server in dev builds — start it with `make web`.
 anki-local () {
   clean-links
   link-dev
+  seed-addon-db "$(pwd)"
   launch-anki-main
 }
 
@@ -266,6 +286,7 @@ anki-prod () {
     echo "Warning: $INSTALLED_META not found — skipping meta.json seed"
   fi
   link-dist
+  seed-addon-db "$(pwd)/dist"
   launch-anki-main
 }
 
@@ -274,6 +295,7 @@ anki-prod () {
 sandbox-local () {
   clean-links
   link-dev
+  seed-addon-db "$(pwd)"
   launch-anki-sandbox LOCAL_AUTH_TOKEN
 }
 
@@ -285,6 +307,7 @@ sandbox-prod () {
   build
   rm -rf dist/meta.json
   link-dist
+  seed-addon-db "$(pwd)/dist"
   launch-anki-sandbox PROD_AUTH_TOKEN
 }
 
