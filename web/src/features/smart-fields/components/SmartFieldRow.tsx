@@ -53,11 +53,12 @@ export const SmartFieldRow = ({
     }
   }
 
-  // The edge columns hold the row's side padding (16px before the icon, 18px after
-  // the menu). The prompt sits on a second line under the name.
+  // The edge columns hold the row's side padding: the icon sits as far from the card
+  // edge as from the text (one column gap), and the menu 18px from the right edge.
+  // The prompt sits on a second line under the name.
   return (
     <div
-      className={`relative grid min-h-11 grid-cols-[32px_minmax(0,1fr)_minmax(90px,132px)_46px] items-center gap-x-6 gap-y-0.5 py-2.5 max-[800px]:gap-x-[18px] ${
+      className={`relative grid min-h-11 grid-cols-[40px_minmax(0,1fr)_minmax(90px,132px)_46px] items-center gap-x-6 py-2.5 max-[800px]:grid-cols-[34px_minmax(0,1fr)_minmax(90px,132px)_46px] max-[800px]:gap-x-[18px] ${
         field.enabled ? "" : "opacity-40"
       } ${
         hasDivider
@@ -73,10 +74,10 @@ export const SmartFieldRow = ({
         onClick={() => onEdit(field)}
       />
       <FieldTypeIcon fieldType={field.fieldType} />
-      <span className="pointer-events-none col-start-2 row-start-1 truncate text-[13px] font-medium text-[#e0dfe2]">
+      <span className="pointer-events-none col-start-2 row-start-1 truncate text-[13px] leading-4 font-medium text-[#e0dfe2]">
         {field.targetFieldName}
       </span>
-      <span className="pointer-events-none col-start-2 row-start-2 truncate text-[11px] text-ink-muted">
+      <span className="pointer-events-none col-start-2 row-start-2 truncate text-[11px] leading-[14px] text-ink-muted">
         {smartFieldDescription(field)}
       </span>
       <span className="pointer-events-none col-start-3 row-span-2 row-start-1 min-w-0 justify-self-end text-end">
