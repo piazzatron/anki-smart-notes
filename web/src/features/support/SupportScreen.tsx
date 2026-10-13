@@ -30,7 +30,7 @@ import {
 } from "@/lib/helpChannels"
 import { useAppStore } from "@/store/appStore"
 import type { ReactNode } from "react"
-import { Trans, useTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next"
 
 const REFERENCE_LINKS = [
   {
@@ -161,25 +161,29 @@ export const SupportScreen = () => {
             {t("support.changelog")}
           </a>
         </p>
+        {/* Attribution names the artwork and its licenses, so it stays in English. */}
+        {/* eslint-disable i18next/no-literal-string */}
         <p className="mt-1 text-[11px] text-zinc-600">
-          <Trans
-            components={{
-              license: (
-                <CreditLink href="https://creativecommons.org/licenses/by/4.0/" />
-              ),
-              solar: (
-                <CreditLink href="https://www.figma.com/community/file/1166831539721848736" />
-              ),
-            }}
-            i18nKey="support.iconCredit"
-          />
+          Icons:{" "}
+          <CreditLink href="https://www.figma.com/community/file/1166831539721848736">
+            Solar
+          </CreditLink>{" "}
+          by 480 Design (
+          <CreditLink href="https://creativecommons.org/licenses/by/4.0/">
+            CC BY 4.0
+          </CreditLink>
+          ) ·{" "}
+          <CreditLink href="https://github.com/googlefonts/noto-emoji">
+            Noto Emoji
+          </CreditLink>{" "}
+          by Google (Apache 2.0)
         </p>
+        {/* eslint-enable i18next/no-literal-string */}
       </footer>
     </PageLayout>
   )
 }
 
-// Trans fills in the link text from the translated string.
 const CreditLink = ({
   children,
   href,

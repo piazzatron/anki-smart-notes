@@ -28,7 +28,10 @@ PRs are welcome. This repo uses Python with typechecking, linting, formatting, a
 
 ## 🎨 Credits
 
-The web UI's icons are [Solar](https://www.figma.com/community/file/1166831539721848736) by 480 Design, licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). They are not covered by the GPL.
+The web UI's artwork is not covered by the GPL:
+
+- Icons: [Solar](https://www.figma.com/community/file/1166831539721848736) by 480 Design, licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+- Page-title emoji: [Noto Emoji](https://github.com/googlefonts/noto-emoji) by Google, licensed under Apache 2.0.
 
 ## 📝 Changelog
 

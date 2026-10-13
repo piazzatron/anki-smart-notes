@@ -6,7 +6,7 @@ import { PromptTesterStrip } from "@/features/prompt-tester/PromptTesterStrip"
 import { usePromptTester } from "@/features/prompt-tester/usePromptTester"
 import { providerLabel } from "@/lib/catalog"
 import { PageLayout } from "@/components/shared/PageLayout"
-import { SpeakerEmoji } from "@/components/shared/Emoji"
+import { LoudspeakerEmoji } from "@/components/shared/Emoji"
 import { FemaleIcon, MaleIcon } from "@/components/shared/Icons"
 import { saveTTSDefaults } from "@/services/commands"
 import { useAppStore } from "@/store/appStore"
@@ -44,7 +44,7 @@ export const VoiceDefaultsScreen = ({
     if (voiceCatalog.error === null) {
       return (
         <DefaultsScreenLoading
-          icon={<SpeakerEmoji size={28} />}
+          icon={<LoudspeakerEmoji size={28} />}
           label={t("defaults.voice.loadingLabel")}
           title={t("defaults.voice.loadingTitle")}
         />
@@ -53,7 +53,7 @@ export const VoiceDefaultsScreen = ({
 
     return (
       <PageLayout
-        icon={<SpeakerEmoji size={28} />}
+        icon={<LoudspeakerEmoji size={28} />}
         testId="voice-defaults-screen"
         title={t("defaults.voice.title")}
       >
@@ -114,7 +114,7 @@ const LoadedVoiceDefaultsScreen = ({
     <DefaultsScreenLayout
       accessory={<DefaultUsagePill usage={usage} />}
       contentFillsHeight
-      icon={<SpeakerEmoji size={28} />}
+      icon={<LoudspeakerEmoji size={28} />}
       isDirty={controls.form.isDirty}
       isSaving={controls.form.isSaving}
       onSave={() => void controls.saveChanges()}
