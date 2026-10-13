@@ -142,16 +142,16 @@ const NavButton = ({ activeScreen, item, onNavigate }: NavButtonProps) => {
       aria-current={isActive ? "page" : undefined}
       className={`group flex w-full items-center gap-[10px] rounded-lg px-[10px] py-[5px] text-start text-[14px] font-medium transition-[background-color,color,opacity] duration-150 ease-out ${
         isActive
-          ? "bg-white/[0.09] text-zinc-100 opacity-100"
+          ? "bg-panel-raised text-[#4cf0a8] opacity-100"
           : "text-zinc-300 hover:bg-white/[0.055] hover:text-zinc-100"
       }`}
       onClick={() => onNavigate(item.id)}
     >
-      {/* The selected icon takes the flagship green; the rest sit a step darker than their label. */}
+      {/* The selected item is flagship green; other icons sit a step darker than their label. */}
       <item.icon
         className={
           isActive
-            ? "text-[#4cf0a8]"
+            ? undefined
             : "text-ink-muted transition-colors duration-150 group-hover:text-zinc-300"
         }
         size={18}
