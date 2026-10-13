@@ -43,7 +43,7 @@ export const VoiceDefaultsScreen = ({
     if (voiceCatalog.error === null) {
       return (
         <DefaultsScreenLoading
-          icon={<VolumeIcon className="text-ink-muted" size={20} />}
+          icon={<VolumeIcon className="text-pastel-pink" size={20} />}
           label={t("defaults.voice.loadingLabel")}
           title={t("defaults.voice.loadingTitle")}
         />
@@ -52,7 +52,7 @@ export const VoiceDefaultsScreen = ({
 
     return (
       <PageLayout
-        icon={<VolumeIcon className="text-ink-muted" size={20} />}
+        icon={<VolumeIcon className="text-pastel-pink" size={20} />}
         testId="voice-defaults-screen"
         title={t("defaults.voice.title")}
       >
@@ -113,7 +113,7 @@ const LoadedVoiceDefaultsScreen = ({
     <DefaultsScreenLayout
       accessory={<DefaultUsagePill usage={usage} />}
       contentFillsHeight
-      icon={<VolumeIcon className="text-ink-muted" size={20} />}
+      icon={<VolumeIcon className="text-pastel-pink" size={20} />}
       isDirty={controls.form.isDirty}
       isSaving={controls.form.isSaving}
       onSave={() => void controls.saveChanges()}

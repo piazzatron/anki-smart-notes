@@ -36,7 +36,7 @@ export const TextDefaultsScreen = ({
   if (state === null || catalog === null) {
     return (
       <DefaultsScreenLoading
-        icon={<ChatIcon className="text-ink-muted" size={20} />}
+        icon={<ChatIcon className="text-pastel-sky" size={20} />}
         label={t("defaults.text.loadingLabel")}
         title={t("defaults.text.loadingTitle")}
       />
@@ -86,7 +86,7 @@ export const LoadedTextDefaultsScreen = ({
   return (
     <DefaultsScreenLayout
       accessory={<DefaultUsagePill usage={usage} />}
-      icon={<ChatIcon className="text-ink-muted" size={20} />}
+      icon={<ChatIcon className="text-pastel-sky" size={20} />}
       isDirty={controls.form.isDirty}
       isSaving={controls.form.isSaving}
       onSave={() => void controls.saveChanges()}

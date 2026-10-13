@@ -35,7 +35,7 @@ export const ImageDefaultsScreen = ({
   if (state === null || catalog === null) {
     return (
       <DefaultsScreenLoading
-        icon={<GalleryIcon className="text-ink-muted" size={20} />}
+        icon={<GalleryIcon className="text-pastel-butter" size={20} />}
         label={t("defaults.image.loadingLabel")}
         title={t("defaults.image.loadingTitle")}
       />
@@ -85,7 +85,7 @@ const LoadedImageDefaultsScreen = ({
   return (
     <DefaultsScreenLayout
       accessory={<DefaultUsagePill usage={usage} />}
-      icon={<GalleryIcon className="text-ink-muted" size={20} />}
+      icon={<GalleryIcon className="text-pastel-butter" size={20} />}
       isDirty={controls.form.isDirty}
       isSaving={controls.form.isSaving}
       onSave={() => void controls.saveChanges()}
