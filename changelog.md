@@ -1,6 +1,6 @@
 # v2.26.0
 
-- Add new image models (GPTImage 2.5 and Nano Banana 2.1 / 2.0-Lite) and more generation options / quality settings.
+- Add new image models (GPT Image 2.5 and Nano Banana 2.1 / Nano Banana 2 Lite) and more generation options / quality settings.
 
 # v2.25.0
 
