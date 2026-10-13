@@ -123,9 +123,14 @@ const LoadedImageDefaultsScreen = ({
               <ul className="space-y-1">
                 {MODEL_TIPS.map((tip) => (
                   <li key={tip.name}>
-                    <strong className="font-semibold text-zinc-50">
+                    <a
+                      className="font-semibold text-zinc-50 underline underline-offset-2 hover:text-indigo-100"
+                      href={tip.docsUrl}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
                       {t(tip.name)}
-                    </strong>{" "}
+                    </a>{" "}
                     — {t(tip.description)}
                   </li>
                 ))}
@@ -144,18 +149,22 @@ const LoadedImageDefaultsScreen = ({
   )
 }
 
-// What each model is good at; the picker already shows what each costs.
+// What each model is good at, linked to its docs; the picker already shows what each
+// costs.
 const MODEL_TIPS = [
   {
     name: "defaults.image.models.gptImage25",
     description: "defaults.image.gptImage25",
+    docsUrl: "https://developers.openai.com/api/docs/guides/image-generation",
   },
   {
     name: "imageGeneration.nanoBanana",
     description: "defaults.image.nanoBanana21",
+    docsUrl: "https://ai.google.dev/gemini-api/docs/image-generation",
   },
   {
     name: "defaults.image.models.zImageTurbo",
     description: "defaults.image.zImageTurbo",
+    docsUrl: "https://huggingface.co/Tongyi-MAI/Z-Image-Turbo",
   },
 ] as const
