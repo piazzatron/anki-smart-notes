@@ -26,6 +26,11 @@
 
 - For Smart Notes web UI layout and interaction verification, follow the shared `anki-ui-testing` skill at `../skills/anki-ui-testing/SKILL.md`.
 
+## Web UI Translations
+
+- While iterating, edit only `web/src/lib/i18n/locales/en.json`. Run `bun run translate` (in `web/`) once, right before pushing. It is slow, and strings usually change several times first.
+- `bun run check` (and CI) fails until then: `scripts/checkTranslations.ts` rejects missing or removed keys, broken placeholders, and English that is new or reworded since the last full translate run (tracked in `scripts/translationSources.json`). `translate` re-translates exactly those strings and updates that file. Expect only this check to fail mid-iteration.
+
 # Code Structure
 - This is a Python3 codebase which takes full advantage of strong typing for static analysis.
 - UI specific code lives in `src/ui`

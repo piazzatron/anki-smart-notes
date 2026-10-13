@@ -20,6 +20,12 @@ import {
 } from "../src/lib/i18n/catalogSchema"
 import { LANGUAGES } from "../src/lib/i18n/languages"
 import english from "../src/lib/i18n/locales/en.json"
+import {
+  findStaleEnglishKeys,
+  pluralBase,
+  readTranslationSources,
+  writeTranslationSources,
+} from "./translationSources"
 
 const MODEL = "claude-haiku-5-5"
 const LOCALES_DIRECTORY = new URL("../src/lib/i18n/locales/", import.meta.url)
@@ -132,6 +138,11 @@ const translate = async (
 }
 
 const englishSource = flattenCatalog(english)
+const staleBases = new Set(
+  findStaleEnglishKeys(englishSource, await readTranslationSources()).map(
+    pluralBase,
+  ),
+)
 for (const language of targetLanguages) {
   if (forcedLocale !== null && language.bcp47 !== forcedLocale) continue
 
@@ -140,14 +151,16 @@ for (const language of targetLanguages) {
     forcedLocale === language.bcp47 ? {} : await readCatalog(language.bcp47)
   const preserved = Object.fromEntries(
     Object.keys(source)
-      .filter((key) => key in existing)
+      .filter((key) => key in existing && !staleBases.has(pluralBase(key)))
       .map((key) => [key, existing[key]]),
   )
-  const missing = Object.fromEntries(
+  const toTranslate = Object.fromEntries(
     Object.entries(source).filter(([key]) => !(key in preserved)),
   )
   const translated =
-    Object.keys(missing).length === 0 ? {} : await translate(language, missing)
+    Object.keys(toTranslate).length === 0
+      ? {}
+      : await translate(language, toTranslate)
   const completeCatalog = { ...preserved, ...translated }
   validateTranslations(language.bcp47, source, completeCatalog)
 
@@ -156,6 +169,9 @@ for (const language of targetLanguages) {
     `${JSON.stringify(buildCatalog(completeCatalog), null, 2)}\n`,
   )
   console.log(
-    `${language.bcp47}: translated ${Object.keys(missing).length} strings`,
+    `${language.bcp47}: translated ${Object.keys(toTranslate).length} strings`,
   )
 }
+
+// Only a run over every locale brings them all up to date with this English.
+if (forcedLocale === null) await writeTranslationSources(englishSource)

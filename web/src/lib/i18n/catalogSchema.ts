@@ -14,7 +14,7 @@ export interface Catalog {
 }
 export type FlatCatalog = Record<string, string>
 
-const PLURAL_SUFFIX = /_(zero|one|two|few|many|other)$/
+export const PLURAL_SUFFIX = /_(zero|one|two|few|many|other)$/
 
 export const flattenCatalog = (catalog: Catalog, prefix = ""): FlatCatalog =>
   Object.fromEntries(

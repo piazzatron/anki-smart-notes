@@ -73,9 +73,12 @@ export const PromptTesterStrip = ({
   return (
     <div className="w-full">
       {title !== undefined && (
-        <h2 className="mb-2.5 text-[15px] leading-tight font-semibold text-zinc-100">
-          {title}
-        </h2>
+        <div className="mb-2.5 flex min-h-[22px] items-center gap-4">
+          <h2 className="text-[15px] leading-tight font-semibold text-zinc-100">
+            {title}
+          </h2>
+          <RecentImagePills field={field} />
+        </div>
       )}
 
       {!isResultVisible && field.error !== null && (
@@ -188,31 +191,6 @@ export const PromptTesterStrip = ({
         />
       </div>
 
-      {/* Earlier image results stay a click away, numbered in the order they ran, so
-          settings can be compared without re-running. */}
-      {field.imageHistory.length > 0 && (
-        <div className="mt-3">
-          <p className="mb-1.5 text-[11px] text-ink-muted">
-            {t("promptTester.recentImages")}
-          </p>
-          <div className="flex flex-wrap gap-1.5">
-            {[...field.imageHistory].reverse().map((run, index) => (
-              <button
-                aria-label={t("promptTester.openRecentImage", {
-                  number: index + 1,
-                })}
-                className={`inline-flex h-[22px] min-w-[22px] items-center justify-center rounded-full px-1.5 text-[10.5px] leading-4 font-bold text-zinc-950 tabular-nums transition hover:scale-110 hover:brightness-110 ${RECENT_IMAGE_COLORS[index % RECENT_IMAGE_COLORS.length]}`}
-                key={run.id}
-                onClick={() => field.viewRun(run.id)}
-                type="button"
-              >
-                {index + 1}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
       {showResultModal && (
         // Kept mounted while enabled so the dialog can animate itself out on close.
         <PromptTestResultModal
@@ -241,6 +219,36 @@ export const PromptTesterStrip = ({
           {field.resultNode}
         </PromptTestResultModal>
       )}
+    </div>
+  )
+}
+
+// Earlier image results stay a click away, numbered in the order they ran, so settings
+// can be compared without re-running. Sits beside the tester's heading, wherever that is.
+export const RecentImagePills = ({ field }: { field: PromptTester }) => {
+  const { t } = useTranslation()
+  if (field.imageHistory.length === 0) return null
+
+  return (
+    <div className="flex min-w-0 items-center gap-2">
+      <div className="flex gap-1.5">
+        {[...field.imageHistory].reverse().map((run, index) => (
+          <button
+            aria-label={t("promptTester.openRecentImage", {
+              number: index + 1,
+            })}
+            className={`inline-flex h-[22px] min-w-[22px] items-center justify-center rounded-full px-1.5 text-[10.5px] leading-4 font-bold text-zinc-950 tabular-nums transition hover:scale-110 hover:brightness-110 ${RECENT_IMAGE_COLORS[index % RECENT_IMAGE_COLORS.length]}`}
+            key={run.id}
+            onClick={() => field.viewRun(run.id)}
+            type="button"
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
+      <p className="text-[11px] text-ink-muted">
+        {t("promptTester.recentImages")}
+      </p>
     </div>
   )
 }

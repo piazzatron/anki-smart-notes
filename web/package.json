@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "check": "tsc && eslint . && prettier --check .",
+    "check": "tsc && eslint . && prettier --check . && bun scripts/checkTranslations.ts",
     "format": "eslint . --fix && prettier --write .",
     "test": "bun test",
     "translate": "bun scripts/translate.ts"

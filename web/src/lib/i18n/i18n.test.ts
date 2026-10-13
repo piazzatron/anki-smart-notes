@@ -11,14 +11,7 @@
 
 import { describe, expect, test } from "bun:test"
 
-import english from "./locales/en.json"
-import {
-  flattenCatalog,
-  placeholders,
-  sourceForLocale,
-  type Catalog,
-} from "./catalogSchema"
-import { LANGUAGES } from "./languages"
+import { sourceForLocale } from "./catalogSchema"
 import { getLocaleDirection, matchCatalogLocale } from "./locale"
 
 describe("locale selection", () => {
@@ -50,24 +43,4 @@ describe("locale selection", () => {
     ])
     expect(Object.keys(sourceForLocale(source, "ja"))).toEqual(["days_other"])
   })
-
-  test.each(LANGUAGES.map((language) => [language] as const))(
-    "$nativeName has a complete catalog",
-    async ({ bcp47 }) => {
-      const source =
-        bcp47 === "en"
-          ? flattenCatalog(english)
-          : sourceForLocale(flattenCatalog(english), bcp47)
-      const catalog = flattenCatalog(
-        (await Bun.file(
-          new URL(`./locales/${bcp47}.json`, import.meta.url),
-        ).json()) as Catalog,
-      )
-
-      expect(Object.keys(catalog).sort()).toEqual(Object.keys(source).sort())
-      for (const [key, value] of Object.entries(source)) {
-        expect(placeholders(catalog[key])).toEqual(placeholders(value))
-      }
-    },
-  )
 })

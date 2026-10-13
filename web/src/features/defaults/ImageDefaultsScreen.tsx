@@ -3,7 +3,10 @@ import { useTranslation } from "react-i18next"
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { InfoTip } from "@/components/ui/InfoTip"
 import { ImageModelSelect } from "@/features/image-generation/ImageModelSelect"
-import { PromptTesterStrip } from "@/features/prompt-tester/PromptTesterStrip"
+import {
+  PromptTesterStrip,
+  RecentImagePills,
+} from "@/features/prompt-tester/PromptTesterStrip"
 import { usePromptTester } from "@/features/prompt-tester/usePromptTester"
 import { saveImageDefaults } from "@/services/commands"
 import { useAppStore } from "@/store/appStore"
@@ -95,6 +98,7 @@ const LoadedImageDefaultsScreen = ({
       onSave={() => void controls.saveChanges()}
       subtitle={t("defaults.image.subtitle")}
       tester={<PromptTesterStrip field={tester} />}
+      testerAccessory={<RecentImagePills field={tester} />}
       testId="image-defaults-screen"
       title={t("defaults.image.title")}
     >

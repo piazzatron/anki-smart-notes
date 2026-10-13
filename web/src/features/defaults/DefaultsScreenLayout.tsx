@@ -35,6 +35,7 @@ interface DefaultsScreenLayoutProps {
   onSave: () => void
   subtitle: string
   tester: ReactNode
+  testerAccessory?: ReactNode
   testId: string
   title: string
 }
@@ -49,6 +50,7 @@ export const DefaultsScreenLayout = ({
   onSave,
   subtitle,
   tester,
+  testerAccessory,
   testId,
   title,
 }: DefaultsScreenLayoutProps) => {
@@ -78,9 +80,12 @@ export const DefaultsScreenLayout = ({
     >
       {children}
       <div className={contentFillsHeight ? "mt-auto pt-8" : "mt-8"}>
-        <h2 className="mb-3 text-[17px] leading-tight font-bold text-zinc-100">
-          {t("defaults.layout.tryIt")}
-        </h2>
+        <div className="mb-3 flex min-h-[22px] items-center gap-4">
+          <h2 className="text-[17px] leading-tight font-bold text-zinc-100">
+            {t("defaults.layout.tryIt")}
+          </h2>
+          {testerAccessory}
+        </div>
         <Card className="w-full p-4">{tester}</Card>
       </div>
     </PageLayout>
