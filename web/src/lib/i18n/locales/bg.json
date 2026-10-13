@@ -259,20 +259,20 @@
     "image": {
       "cannotFindModel": "В каталога с изображения липсва модел {{model}}",
       "defaultModel": "Модел по подразбиране",
-      "gptImage25": "най-универсален — остър текст, чисти диаграми.",
       "loadingLabel": "Зареждат се настройките на изображението по подразбиране",
       "loadingTitle": "Настройки на изображението по подразбиране",
-      "modelTipLabel": "Относно моделите за изображения",
       "models": {
-        "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
-      "nanoBanana21": "богати, фотографски сцени.",
       "samplePrompt": "Генерирайте изображение на ученик, който учи упорито с Anki и преминава своите тестове.",
       "saveError": "Неуспешно запазване на изображенията по подразбиране",
       "subtitle": "Моделът, който използва вашето изображение Smart Fields, освен ако някое поле не закачи свое собствено.",
       "title": "Настройки на изображението по подразбиране",
-      "zImageTurbo": "най-бързо и най-евтино."
+      "zImageTurbo": "най-бързо и най-евтино.",
+      "gptImage25": "най-универсалният — ясен текст, чисти диаграми.",
+      "modelTipLabel": "За моделите за изображения",
+      "nanoBanana21": "богати, фотореалистични сцени."
     },
     "layout": {
       "saveChanges": "Запазете промените",
@@ -330,27 +330,6 @@
       "title": "Гласови настройки по подразбиране"
     }
   },
-  "imageGeneration": {
-    "extraSettings": "Допълнителни настройки",
-    "doubleCost": "2× цена",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Максимално качество",
-    "maxQualityDescription": "По-остро и чисто, особено малки етикети.",
-    "richerDetail": "По-богато на детайли",
-    "richerDetailDescription": "По-детайлни, пълноценни сцени. Малко по-бавно.",
-    "extraReasoning": "Допълнително разсъждение",
-    "extraReasoningCost": "~1,5× цена",
-    "extraReasoningDescription": "По-чисти диаграми и по-четим текст. Около 4× по-бавно.",
-    "nanoBanana": "Nano Banana (Google)",
-    "underTheHood": {
-      "gptMaxQuality": "Максимално качество: средно качество вместо ниско",
-      "gptRicherDetail": "По-богати детайли: GPT Image 2.5 Sunburst",
-      "gptStandard": "Стандартен: GPT Image 2.5 Flare с ниско качество",
-      "nanoExtraReasoning": "Допълнително разсъждение: Nano Banana 2.1",
-      "nanoStandard": "Стандартен: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Кои модели се изпълняват"
-  },
   "promptTester": {
     "anotherNoteType": "друг тип бележка",
     "currentlySelectedCard": "Текущо избрана карта",
@@ -363,7 +342,6 @@
     },
     "fieldRunsOnNoteType": "Това поле работи на <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Визуализация на генерирано изображение",
-    "generatedIn": "Генериран в {{seconds}}s",
     "missingFieldsTitle_one": "Липсващо поле",
     "missingFieldsTitle_other": "Липсващи полета",
     "needsFields_one": "Изисква поле {{count}}",
@@ -371,15 +349,12 @@
     "notesSelected_one": "{{count}} избрана бележка — стеснете я до една.",
     "notesSelected_other": "{{count}} избрани бележки — стеснете ги до една.",
     "promptPlaceholder": "Напишете тестова подкана, препращайки към полетата на вашата карта с {{braces}}.",
-    "rerunToSave": "Стартирайте този тест отново, за да го запазите в картата",
     "saveToCard": "Запазване в картата",
     "savedTo": "Запазено в {{field}}",
     "selectCardWithFields_one": "Моля, изберете карта с полето",
     "selectCardWithFields_other": "Моля, изберете карта с полетата",
     "selectFieldToReadAloud": "Изберете поле за четене на глас",
     "selectNewCard": "Изберете нова карта в браузъра",
-    "or": "или",
-    "selectCardInBrowser": "Изберете карта в браузъра, за да тествате",
     "selectRequiredNoteType": "Моля, изберете бележка от тип <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Избрана карта",
     "selectedDeck": "Избрано тесте",
@@ -387,12 +362,16 @@
     "selectionAppearsAutomatically": "Вашият избор се появява тук автоматично.",
     "sent": "Изпратено",
     "testing": "Тестване...",
-    "openRecentImage": "Отвори изображение {{number}}",
-    "recentImages": "Наскоро създадени изображения",
     "testResult": "Резултат от теста",
     "textToSpeak": "Текст за изговаряне",
     "viewResult": "Вижте резултата",
-    "wrongNoteType": "Грешен тип бележка"
+    "wrongNoteType": "Грешен тип бележка",
+    "generatedIn": "Генерирано за {{seconds}} s",
+    "rerunToSave": "Изпълнете този тест отново, за да го запазите в картата",
+    "or": "или",
+    "selectCardInBrowser": "Изберете карта в браузъра, за да тествате",
+    "openRecentImage": "Отвори изображение {{number}}",
+    "recentImages": "Резултати"
   },
   "subscription": {
     "accessEnds": "Достъпът завършва",
@@ -528,5 +507,26 @@
     "thanks": "Благодарим ви, че използвате Smart Notes ✨",
     "title": "Вашият безплатен пробен период приключи",
     "upgradeNow": "Надстройте сега"
+  },
+  "imageGeneration": {
+    "extraReasoning": "Допълнително разсъждение",
+    "extraReasoningCost": "~1,5× цена",
+    "extraReasoningDescription": "По-чисти диаграми и по-четим текст. Около 4× по-бавно.",
+    "extraSettings": "Допълнителни настройки",
+    "doubleCost": "2× цена",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Максимално качество",
+    "maxQualityDescription": "По-ясно и по-чисто, особено малките етикети.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "По-богат детайл",
+    "richerDetailDescription": "По-детайлни, по-пълни сцени. Малко по-бавно.",
+    "underTheHood": {
+      "gptMaxQuality": "Максимално качество: средно качество вместо ниско",
+      "gptRicherDetail": "По-богат детайл: GPT Image 2.5 Sunburst",
+      "gptStandard": "Стандартно: GPT Image 2.5 Flare при ниско качество",
+      "nanoExtraReasoning": "Допълнително разсъждение: Nano Banana 2.1",
+      "nanoStandard": "Стандартно: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Кои модели се изпълняват"
   }
 }

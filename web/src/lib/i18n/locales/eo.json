@@ -259,20 +259,20 @@
     "image": {
       "cannotFindModel": "Bildkatalogo mankas modelo {{model}}",
       "defaultModel": "Defaŭlta modelo",
-      "gptImage25": "plej bona ĉiucela — akra teksto, puraj diagramoj.",
       "loadingLabel": "Ŝargante defaŭltajn bildajn agordojn",
       "loadingTitle": "Defaŭltaj Bildaj Agordoj",
-      "modelTipLabel": "Pri la bildmodeloj",
       "models": {
-        "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
-      "nanoBanana21": "riĉaj, fotografiaj scenoj.",
       "samplePrompt": "Generu bildon de studento, kiu forte studas kun Anki kaj trapasas siajn testojn.",
       "saveError": "Ne eblis konservi bildodefaŭltojn",
       "subtitle": "La modelo kiun via bildo Smart Fields uzas krom se kampo alpinglas sian propran.",
       "title": "Defaŭltaj Bildaj Agordoj",
-      "zImageTurbo": "plej rapida kaj plej malmultekosta."
+      "zImageTurbo": "plej rapida kaj plej malmultekosta.",
+      "gptImage25": "la plej universala — klara teksto, puraj diagramoj.",
+      "modelTipLabel": "Pri la bildmodeloj",
+      "nanoBanana21": "riĉaj, fotografiaj scenoj."
     },
     "layout": {
       "saveChanges": "Konservu ŝanĝojn",
@@ -330,27 +330,6 @@
       "title": "Defaŭltaj Voĉaj Agordoj"
     }
   },
-  "imageGeneration": {
-    "extraSettings": "Ekstraj agordoj",
-    "doubleCost": "2× kosto",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Maksimuma kvalito",
-    "maxQualityDescription": "Pli akra kaj pura, ĉefe malgrandaj etikedoj.",
-    "richerDetail": "Pli riĉa detalo",
-    "richerDetailDescription": "Pli detala, plenaj scenoj. Iom pli malrapida.",
-    "extraReasoning": "Plia rezonado",
-    "extraReasoningCost": "~1,5× kosto",
-    "extraReasoningDescription": "Pli puraj diagramoj kaj pli legebla teksto. Proksimume 4× pli malrapida.",
-    "nanoBanana": "Nano Banana (Google)",
-    "underTheHood": {
-      "gptMaxQuality": "Maksimuma kvalito: meza kvalito anstataŭ malalta",
-      "gptRicherDetail": "Pli riĉa detalo: GPT Image 2.5 Sunburst",
-      "gptStandard": "Norma: GPT Image 2.5 Flare kun malalta kvalito",
-      "nanoExtraReasoning": "Plia rezonado: Nano Banana 2.1",
-      "nanoStandard": "Norma: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Kiuj modeloj funkcias"
-  },
   "promptTester": {
     "anotherNoteType": "alia notspeco",
     "currentlySelectedCard": "Nuntempe elektita karto",
@@ -363,7 +342,6 @@
     },
     "fieldRunsOnNoteType": "Ĉi tiu kampo funkcias sur <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Generita bildo antaŭrigardo",
-    "generatedIn": "Generita en {{seconds}}s",
     "missingFieldsTitle_one": "Mankas kampo",
     "missingFieldsTitle_other": "Mankas kampoj",
     "needsFields_one": "Bezonas {{count}}-kampon",
@@ -371,15 +349,12 @@
     "notesSelected_one": "{{count}} noto elektita - mallarĝu ĝin al unu.",
     "notesSelected_other": "{{count}} notoj elektitaj - mallarĝu ĝin al unu.",
     "promptPlaceholder": "Skribu provon, referencante kampojn sur via karto kun {{braces}}.",
-    "rerunToSave": "Ripetu ĉi tiun teston por konservi ĝin en la kartoj",
     "saveToCard": "Konservu al karto",
     "savedTo": "Konservite al {{field}}",
     "selectCardWithFields_one": "Bonvolu elekti karton kun la kampo",
     "selectCardWithFields_other": "Bonvolu elekti karton kun la kampoj",
     "selectFieldToReadAloud": "Elektu kampon por voĉlegi",
     "selectNewCard": "Elektu novan karton en la retumilo",
-    "or": "aŭ",
-    "selectCardInBrowser": "Elektu karton en la foliumilo por testi",
     "selectRequiredNoteType": "Bonvolu elekti noton de tipo <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Elektita karto",
     "selectedDeck": "Elektita ferdeko",
@@ -387,12 +362,16 @@
     "selectionAppearsAutomatically": "Via elekto aperas ĉi tie aŭtomate.",
     "sent": "Sendita",
     "testing": "Testante…",
-    "openRecentImage": "Malfermi bildon {{number}}",
-    "recentImages": "Lastatempe kreitaj bildoj",
     "testResult": "Testrezulto",
     "textToSpeak": "Teksto por paroli",
     "viewResult": "Vidu rezulton",
-    "wrongNoteType": "Malĝusta nottipo"
+    "wrongNoteType": "Malĝusta nottipo",
+    "generatedIn": "Generita en {{seconds}}s",
+    "rerunToSave": "Rulu ĉi tiun teston denove por konservi ĝin en la karto",
+    "or": "aŭ",
+    "selectCardInBrowser": "Elektu karton en la retrovilo por testi",
+    "openRecentImage": "Malfermi bildon {{number}}",
+    "recentImages": "Rezultoj"
   },
   "subscription": {
     "accessEnds": "Aliro finiĝas",
@@ -528,5 +507,26 @@
     "thanks": "Dankon pro uzi Smart Notes ✨",
     "title": "Via senpaga provo finiĝis",
     "upgradeNow": "Ĝisdatigu nun"
+  },
+  "imageGeneration": {
+    "extraReasoning": "Plia rezonado",
+    "extraReasoningCost": "~1,5× kosto",
+    "extraReasoningDescription": "Pli puraj diagramoj kaj pli legebla teksto. Proksimume 4× pli malrapide.",
+    "extraSettings": "Pliaj agordoj",
+    "doubleCost": "2× kosto",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maksimuma kvalito",
+    "maxQualityDescription": "Pli akra kaj pura, precipe malgrandaj etikedoj.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Pli riĉa detaleco",
+    "richerDetailDescription": "Pli detalaj, plenaj scenoj. Iom pli malrapide.",
+    "underTheHood": {
+      "gptMaxQuality": "Maksimuma kvalito: meza kvalito anstataŭ malalta",
+      "gptRicherDetail": "Pli riĉa detaleco: GPT Image 2.5 Sunburst",
+      "gptStandard": "Norma: GPT Image 2.5 Flare kun malalta kvalito",
+      "nanoExtraReasoning": "Plia rezonado: Nano Banana 2.1",
+      "nanoStandard": "Norma: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Kiuj modeloj ruliĝas"
   }
 }

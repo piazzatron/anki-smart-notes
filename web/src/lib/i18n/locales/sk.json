@@ -261,20 +261,20 @@
     "image": {
       "cannotFindModel": "V katalógu obrázkov chýba model {{model}}",
       "defaultModel": "Predvolený model",
-      "gptImage25": "najlepší všestranný — ostré texty, čisté diagramy.",
       "loadingLabel": "Načítavajú sa predvolené nastavenia obrázka",
       "loadingTitle": "Predvolené nastavenia obrazu",
-      "modelTipLabel": "O modeloch obrázkov",
       "models": {
-        "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
-      "nanoBanana21": "bohaté, fotorealistické scény.",
       "samplePrompt": "Vytvorte si obraz študenta, ktorý tvrdo študuje so Anki a zloží svoje testy.",
       "saveError": "Nepodarilo sa uložiť predvolené nastavenia obrázka",
       "subtitle": "Model, ktorý používa váš obrázok Smart Fields, pokiaľ pole nepripne svoje vlastné.",
       "title": "Predvolené nastavenia obrazu",
-      "zImageTurbo": "najrýchlejší a najlacnejší."
+      "zImageTurbo": "najrýchlejší a najlacnejší.",
+      "gptImage25": "najvšestrannejší — ostrý text, čisté diagramy.",
+      "modelTipLabel": "O modeloch obrázkov",
+      "nanoBanana21": "bohaté fotografické scény."
     },
     "layout": {
       "saveChanges": "Uložiť zmeny",
@@ -334,27 +334,6 @@
       "title": "Predvolené nastavenia hlasu"
     }
   },
-  "imageGeneration": {
-    "extraSettings": "Ďalšie nastavenia",
-    "doubleCost": "2× cena",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Maximálna kvalita",
-    "maxQualityDescription": "Ostrejšie a čistejšie, najmä malé štítky.",
-    "richerDetail": "Bohatší detail",
-    "richerDetailDescription": "Podrobnejšie, plnejšie scény. Trochu pomalšie.",
-    "extraReasoning": "Rozšírené uvažovanie",
-    "extraReasoningCost": "~1,5× náklady",
-    "extraReasoningDescription": "Čistejšie diagramy a čitateľnejší text. Približne 4× pomalšie.",
-    "nanoBanana": "Nano Banana (Google)",
-    "underTheHood": {
-      "gptMaxQuality": "Maximálna kvalita: stredná kvalita namiesto nízkej",
-      "gptRicherDetail": "Bohatší detail: GPT Image 2.5 Sunburst",
-      "gptStandard": "Štandardný: GPT Image 2.5 Flare s nízkou kvalitou",
-      "nanoExtraReasoning": "Rozšírené uvažovanie: Nano Banana 2.1",
-      "nanoStandard": "Štandardný: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Ktoré modely sa spúšťajú"
-  },
   "promptTester": {
     "anotherNoteType": "iný typ poznámky",
     "currentlySelectedCard": "Aktuálne vybratá karta",
@@ -367,7 +346,6 @@
     },
     "fieldRunsOnNoteType": "Toto pole beží na <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Vygenerovaný náhľad obrázka",
-    "generatedIn": "Vygenerované za {{seconds}}s",
     "missingFieldsTitle_one": "Chýbajúce pole",
     "missingFieldsTitle_few": "Chýbajúce polia",
     "missingFieldsTitle_many": "Chýbajúce polia",
@@ -381,7 +359,6 @@
     "notesSelected_many": "Vybraných {{count}} poznámky — zúžte výber na jednu.",
     "notesSelected_other": "Vybraných {{count}} poznámok — zúžte výber na jednu.",
     "promptPlaceholder": "Napíšte testovaciu výzvu s odkazom na polia na vašej karte pomocou {{braces}}.",
-    "rerunToSave": "Znova spustite tento test, aby sa uložil na kartu",
     "saveToCard": "Uložiť na kartu",
     "savedTo": "Uložené do {{field}}",
     "selectCardWithFields_one": "Prosím, vyberte kartu s polom",
@@ -390,8 +367,6 @@
     "selectCardWithFields_other": "Prosím, vyberte kartu s poľami",
     "selectFieldToReadAloud": "Vyberte pole, ktoré chcete čítať nahlas",
     "selectNewCard": "V prehliadači vyberte novú kartu",
-    "or": "alebo",
-    "selectCardInBrowser": "Na testovanie vyberte kartu v prehliadači",
     "selectRequiredNoteType": "Prosím, vyberte poznámku typu <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Vybraná karta",
     "selectedDeck": "Vybraná paluba",
@@ -399,12 +374,16 @@
     "selectionAppearsAutomatically": "Váš výber sa tu zobrazí automaticky.",
     "sent": "Odoslané",
     "testing": "Testuje sa…",
-    "openRecentImage": "Otvoriť obrázok {{number}}",
-    "recentImages": "Nedávno vytvorené obrázky",
     "testResult": "Výsledok testu",
     "textToSpeak": "Text na hovorenie",
     "viewResult": "Zobraziť výsledok",
-    "wrongNoteType": "Nesprávny typ poznámky"
+    "wrongNoteType": "Nesprávny typ poznámky",
+    "generatedIn": "Vygenerované za {{seconds}} s",
+    "rerunToSave": "Spustite tento test znova, aby sa uložil na kartu",
+    "or": "alebo",
+    "selectCardInBrowser": "Na test vyberte kartu v prehliadači",
+    "openRecentImage": "Otvoriť obrázok {{number}}",
+    "recentImages": "Výsledky"
   },
   "subscription": {
     "accessEnds": "Prístup končí",
@@ -548,5 +527,26 @@
     "thanks": "Ďakujeme, že používate Smart Notes ✨",
     "title": "Vaša bezplatná skúšobná verzia sa skončila",
     "upgradeNow": "Inovujte teraz"
+  },
+  "imageGeneration": {
+    "extraReasoning": "Rozšírené uvažovanie",
+    "extraReasoningCost": "~1,5× náklady",
+    "extraReasoningDescription": "Čistejšie diagramy a čitateľnejší text. Asi 4× pomalšie.",
+    "extraSettings": "Ďalšie nastavenia",
+    "doubleCost": "2× náklady",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maximálna kvalita",
+    "maxQualityDescription": "Ostrejšie a čistejšie, najmä malé popisky.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Bohatší detail",
+    "richerDetailDescription": "Podrobnejšie a plnšie scény. O niečo pomalšie.",
+    "underTheHood": {
+      "gptMaxQuality": "Maximálna kvalita: stredná kvalita namiesto nízkej",
+      "gptRicherDetail": "Bohatší detail: GPT Image 2.5 Sunburst",
+      "gptStandard": "Štandardné: GPT Image 2.5 Flare pri nízkej kvalite",
+      "nanoExtraReasoning": "Rozšírené uvažovanie: Nano Banana 2.1",
+      "nanoStandard": "Štandardné: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Ktoré modely sa spúšťajú"
   }
 }

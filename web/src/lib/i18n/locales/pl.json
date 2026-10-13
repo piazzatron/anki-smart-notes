@@ -261,20 +261,20 @@
     "image": {
       "cannotFindModel": "W katalogu obrazów brakuje modelu {{model}}",
       "defaultModel": "Domyślny model",
-      "gptImage25": "najlepszy wszechstronnie — ostry tekst, czyste diagramy.",
       "loadingLabel": "Ładowanie domyślnych ustawień obrazu",
       "loadingTitle": "Domyślne ustawienia obrazu",
-      "modelTipLabel": "Informacje o modelach obrazów",
       "models": {
-        "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
-      "nanoBanana21": "bogate, fotograficzne sceny.",
       "samplePrompt": "Wygeneruj obraz ucznia, który pilnie uczy się za pomocą Anki i zdaje egzaminy.",
       "saveError": "Nie można zapisać domyślnych ustawień obrazu",
       "subtitle": "Model, którego używa Twój obraz Smart Fields, chyba że pole przypina własne.",
       "title": "Domyślne ustawienia obrazu",
-      "zImageTurbo": "najszybciej i najtaniej."
+      "zImageTurbo": "najszybciej i najtaniej.",
+      "gptImage25": "najlepszy uniwersalny — ostry tekst, czyste diagramy.",
+      "modelTipLabel": "O modelach obrazów",
+      "nanoBanana21": "bogate, fotorealistyczne sceny."
     },
     "layout": {
       "saveChanges": "Zapisz zmiany",
@@ -334,27 +334,6 @@
       "title": "Domyślne ustawienia głosu"
     }
   },
-  "imageGeneration": {
-    "extraSettings": "Dodatkowe ustawienia",
-    "doubleCost": "2× koszt",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Maksymalna jakość",
-    "maxQualityDescription": "Ostrzejsze i czystsze, szczególnie małe etykiety.",
-    "richerDetail": "Bogatsze szczegóły",
-    "richerDetailDescription": "Bardziej szczegółowe, bogatsze sceny. Nieco wolniejsze.",
-    "extraReasoning": "Dodatkowe rozumowanie",
-    "extraReasoningCost": "~1,5× koszt",
-    "extraReasoningDescription": "Czystsze diagramy i bardziej czytelny tekst. Około 4× wolniej.",
-    "nanoBanana": "Nano Banana (Google)",
-    "underTheHood": {
-      "gptMaxQuality": "Maksymalna jakość: średnia jakość zamiast niskiej",
-      "gptRicherDetail": "Więcej szczegółów: GPT Image 2.5 Sunburst",
-      "gptStandard": "Standard: GPT Image 2.5 Flare przy niskiej jakości",
-      "nanoExtraReasoning": "Dodatkowe rozumowanie: Nano Banana 2.1",
-      "nanoStandard": "Standard: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Które modele są uruchamiane"
-  },
   "promptTester": {
     "anotherNoteType": "inny typ notatki",
     "currentlySelectedCard": "Aktualnie wybrana karta",
@@ -367,7 +346,6 @@
     },
     "fieldRunsOnNoteType": "To pole działa na <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Wygenerowany podgląd obrazu",
-    "generatedIn": "Wygenerowano w {{seconds}}s",
     "missingFieldsTitle_one": "Brakujące pole",
     "missingFieldsTitle_few": "Brakujące pola",
     "missingFieldsTitle_many": "Brakujące pola",
@@ -381,7 +359,6 @@
     "notesSelected_many": "Wybrano {{count}} notatek — zawęź wybór do jednej.",
     "notesSelected_other": "Wybrano {{count}} notatki — zawęź wybór do jednej.",
     "promptPlaceholder": "Napisz monit testowy, odwołując się do pól na karcie za pomocą {{braces}}.",
-    "rerunToSave": "Uruchom ten test ponownie, aby zapisać go w karcie",
     "saveToCard": "Zapisz na karcie",
     "savedTo": "Zapisano w {{field}}",
     "selectCardWithFields_one": "Wybierz kartę z polem",
@@ -390,8 +367,6 @@
     "selectCardWithFields_other": "Wybierz kartę z polami",
     "selectFieldToReadAloud": "Wybierz pole, aby przeczytać na głos",
     "selectNewCard": "Wybierz nową kartę w przeglądarce",
-    "or": "lub",
-    "selectCardInBrowser": "Wybierz kartę w przeglądarce, aby ją przetestować",
     "selectRequiredNoteType": "Wybierz notatkę typu <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Wybrana karta",
     "selectedDeck": "Wybrana talia",
@@ -399,12 +374,16 @@
     "selectionAppearsAutomatically": "Twój wybór pojawi się tutaj automatycznie.",
     "sent": "Wysłano",
     "testing": "Testowanie…",
-    "openRecentImage": "Otwórz obraz {{number}}",
-    "recentImages": "Ostatnio utworzone obrazy",
     "testResult": "Wynik testu",
     "textToSpeak": "Tekst do mówienia",
     "viewResult": "Zobacz wynik",
-    "wrongNoteType": "Zły typ notatki"
+    "wrongNoteType": "Zły typ notatki",
+    "generatedIn": "Wygenerowano w {{seconds}} s",
+    "rerunToSave": "Uruchom ten test ponownie, aby zapisać go w karcie",
+    "or": "lub",
+    "selectCardInBrowser": "Wybierz kartę w przeglądarce, aby przetestować",
+    "openRecentImage": "Otwórz obraz {{number}}",
+    "recentImages": "Wyniki"
   },
   "subscription": {
     "accessEnds": "Dostęp kończy się",
@@ -548,5 +527,26 @@
     "thanks": "Dziękujemy za korzystanie z Smart Notes ✨",
     "title": "Twój bezpłatny okres próbny dobiegł końca",
     "upgradeNow": "Uaktualnij teraz"
+  },
+  "imageGeneration": {
+    "extraReasoning": "Rozszerzone rozumowanie",
+    "extraReasoningCost": "~1,5× koszt",
+    "extraReasoningDescription": "Czystsze diagramy i bardziej czytelny tekst. Około 4× wolniej.",
+    "extraSettings": "Dodatkowe ustawienia",
+    "doubleCost": "2× koszt",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maksymalna jakość",
+    "maxQualityDescription": "Ostrzejsze i czystsze, zwłaszcza małe etykiety.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Większa szczegółowość",
+    "richerDetailDescription": "Bardziej szczegółowe, pełniejsze sceny. Trochę wolniej.",
+    "underTheHood": {
+      "gptMaxQuality": "Maksymalna jakość: średnia jakość zamiast niskiej",
+      "gptRicherDetail": "Większa szczegółowość: GPT Image 2.5 Sunburst",
+      "gptStandard": "Standardowy: GPT Image 2.5 Flare w niskiej jakości",
+      "nanoExtraReasoning": "Rozszerzone rozumowanie: Nano Banana 2.1",
+      "nanoStandard": "Standardowy: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Uruchamiane modele"
   }
 }

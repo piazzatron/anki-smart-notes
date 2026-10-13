@@ -259,20 +259,20 @@
     "image": {
       "cannotFindModel": "Piltide kataloogist puudub mudel {{model}}",
       "defaultModel": "Vaikimisi mudel",
-      "gptImage25": "parim universaalne valik — terav tekst, puhtad diagrammid.",
       "loadingLabel": "Pildi vaikeseadete laadimine",
       "loadingTitle": "Pildi vaikesätted",
-      "modelTipLabel": "Pildimudelite kohta",
       "models": {
-        "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
-      "nanoBanana21": "rikkalikud, fotorealistlikud stseenid.",
       "samplePrompt": "Looge pilt õpilasest, kes õpib kõvasti Anki abil ja sooritab testid.",
       "saveError": "Pildi vaikeseadeid ei saanud salvestada",
       "subtitle": "Mudel, mida teie pilt Smart Fields kasutab, välja arvatud juhul, kui väli kinnitab oma.",
       "title": "Pildi vaikesätted",
-      "zImageTurbo": "kiireim ja odavaim."
+      "zImageTurbo": "kiireim ja odavaim.",
+      "gptImage25": "parim üldvalik — terav tekst, selged diagrammid.",
+      "modelTipLabel": "Pildimudelite kohta",
+      "nanoBanana21": "rikkalikud, fotorealistlikud stseenid."
     },
     "layout": {
       "saveChanges": "Salvestage muudatused",
@@ -330,27 +330,6 @@
       "title": "Vaikimisi hääleseaded"
     }
   },
-  "imageGeneration": {
-    "extraSettings": "Täiendavad seaded",
-    "doubleCost": "2× kulu",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Maksimaalne kvaliteet",
-    "maxQualityDescription": "Teravamad ja puhtamad, eriti väikesed sildid.",
-    "richerDetail": "Rohkem detaile",
-    "richerDetailDescription": "Üksikasjalikum, täielikumad stseenid. Pisut aeglasem.",
-    "extraReasoning": "Põhjalikum arutlus",
-    "extraReasoningCost": "~1,5× kulu",
-    "extraReasoningDescription": "Puhtamad diagrammid ja loetavam tekst. Umbes 4× aeglasem.",
-    "nanoBanana": "Nano Banana (Google)",
-    "underTheHood": {
-      "gptMaxQuality": "Maksimaalne kvaliteet: keskmine kvaliteet madala asemel",
-      "gptRicherDetail": "Rikkalikum detailsus: GPT Image 2.5 Sunburst",
-      "gptStandard": "Standardne: GPT Image 2.5 Flare madala kvaliteediga",
-      "nanoExtraReasoning": "Põhjalikum arutlus: Nano Banana 2.1",
-      "nanoStandard": "Standardne: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Milliseid mudeleid kasutatakse"
-  },
   "promptTester": {
     "anotherNoteType": "teist nooditüüpi",
     "currentlySelectedCard": "Hetkel valitud kaart",
@@ -363,7 +342,6 @@
     },
     "fieldRunsOnNoteType": "See väli töötab tüübil <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Loodud pildi eelvaade",
-    "generatedIn": "Loodud {{seconds}}s jooksul",
     "missingFieldsTitle_one": "Puuduv väli",
     "missingFieldsTitle_other": "Puuduvad väljad",
     "needsFields_one": "Vajab välja {{count}}",
@@ -371,15 +349,12 @@
     "notesSelected_one": "{{count}} märkus on valitud – kitsendage see ühele.",
     "notesSelected_other": "Valitud {{count}} märkmed – kitsendage see ühele.",
     "promptPlaceholder": "Kirjutage {{braces}}-ga oma kaardi väljadele viidates testiviis.",
-    "rerunToSave": "Käivita see test uuesti, et salvestada see kaardile",
     "saveToCard": "Salvesta kaardile",
     "savedTo": "Salvestatud {{field}}",
     "selectCardWithFields_one": "Palun valige kaart väljaga",
     "selectCardWithFields_other": "Palun valige kaart väljadega",
     "selectFieldToReadAloud": "Valige ettelugemiseks väli",
     "selectNewCard": "Valige brauseris uus kaart",
-    "or": "või",
-    "selectCardInBrowser": "Testimiseks vali brauseris kaart",
     "selectRequiredNoteType": "Palun valige märkus tüübiga <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Valitud kaart",
     "selectedDeck": "Valitud tekk",
@@ -387,12 +362,16 @@
     "selectionAppearsAutomatically": "Teie valik kuvatakse siin automaatselt.",
     "sent": "Saadetud",
     "testing": "Testimine…",
-    "openRecentImage": "Ava pilt {{number}}",
-    "recentImages": "Hiljuti loodud pildid",
     "testResult": "Testi tulemus",
     "textToSpeak": "Tekst kõnelemiseks",
     "viewResult": "Vaata tulemust",
-    "wrongNoteType": "Vale märkme tüüp"
+    "wrongNoteType": "Vale märkme tüüp",
+    "generatedIn": "Genereeritud {{seconds}} s",
+    "rerunToSave": "Käivita see test uuesti, et salvestada see kaardile",
+    "or": "või",
+    "selectCardInBrowser": "Testimiseks vali brauseris kaart",
+    "openRecentImage": "Ava pilt {{number}}",
+    "recentImages": "Tulemused"
   },
   "subscription": {
     "accessEnds": "Juurdepääs lõpeb",
@@ -528,5 +507,26 @@
     "thanks": "Täname, et kasutasite Smart Notes ✨",
     "title": "Teie tasuta prooviperiood on lõppenud",
     "upgradeNow": "Uuendage kohe"
+  },
+  "imageGeneration": {
+    "extraReasoning": "Täiendav arutlus",
+    "extraReasoningCost": "~1,5× kulu",
+    "extraReasoningDescription": "Selgemad diagrammid ja loetavam tekst. Umbes 4× aeglasem.",
+    "extraSettings": "Täpsemad seaded",
+    "doubleCost": "2× kulu",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maksimaalne kvaliteet",
+    "maxQualityDescription": "Teravam ja puhtam, eriti väikesed sildid.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Rikkalikum detail",
+    "richerDetailDescription": "Detailsemad ja täielikumad stseenid. Veidi aeglasem.",
+    "underTheHood": {
+      "gptMaxQuality": "Maksimaalne kvaliteet: keskmine kvaliteet madala asemel",
+      "gptRicherDetail": "Rikkalikum detail: GPT Image 2.5 Sunburst",
+      "gptStandard": "Standard: GPT Image 2.5 Flare madala kvaliteediga",
+      "nanoExtraReasoning": "Täiendav arutlus: Nano Banana 2.1",
+      "nanoStandard": "Standard: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Millised mudelid käivituvad"
   }
 }

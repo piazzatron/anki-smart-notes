@@ -259,20 +259,20 @@
     "image": {
       "cannotFindModel": "ପ୍ରତିଛବି କାଟାଲଗ୍ ମଡେଲ୍ {{model}} ହରାଉଛି",
       "defaultModel": "ଡିଫଲ୍ଟ ମଡେଲ୍",
-      "gptImage25": "ସର୍ବୋତ୍ତମ ସର୍ବାଙ୍ଗୀନ — ତୀକ୍ଷ୍ଣ ପାଠ୍ୟ, ସ୍ଵଚ୍ଛ ଚିତ୍ର।",
       "loadingLabel": "ଡିଫଲ୍ଟ ପ୍ରତିଛବି ସେଟିଂସମୂହ ଲୋଡ୍ କରୁଛି",
       "loadingTitle": "ଡିଫଲ୍ଟ ପ୍ରତିଛବି ସେଟିଂସମୂହ",
-      "modelTipLabel": "ଇମେଜ ମଡେଲ ବିଷୟରେ",
       "models": {
-        "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
-      "nanoBanana21": "ସମୃଦ୍ଧ, ଫଟୋଗ୍ରାଫିକ୍ ଦୃଶ୍ୟ।",
       "samplePrompt": "Anki ସହିତ କଠିନ ଅଧ୍ୟୟନ କରୁଥିବା ଏବଂ ସେମାନଙ୍କ ପରୀକ୍ଷା ପାସ୍ କରୁଥିବା ଛାତ୍ରଙ୍କ ପ୍ରତିଛବି ସୃଷ୍ଟି କରନ୍ତୁ",
       "saveError": "ପ୍ରତିଛବି ଡିଫଲ୍ଟ ସଞ୍ଚୟ କରିପାରିଲା ନାହିଁ",
       "subtitle": "ତୁମର ପ୍ରତିଛବି Smart Fields ବ୍ୟବହାର କରୁଥିବା ମଡେଲ୍ ଯଦି କ a ଣସି କ୍ଷେତ୍ର ଏହାର ପିନ ନଥାଏ",
       "title": "ଡିଫଲ୍ଟ ପ୍ରତିଛବି ସେଟିଂସମୂହ",
-      "zImageTurbo": "ଦ୍ରୁତ ଏବଂ ଶସ୍ତା"
+      "zImageTurbo": "ଦ୍ରୁତ ଏବଂ ଶସ୍ତା",
+      "gptImage25": "ସର୍ବୋତ୍ତମ ସାଧାରଣ ପସନ୍ଦ — ସ୍ପଷ୍ଟ ପାଠ୍ୟ, ପରିଷ୍କାର ଚିତ୍ର।",
+      "modelTipLabel": "ଇମେଜ୍ ମଡେଲ୍ ବିଷୟରେ",
+      "nanoBanana21": "ସମୃଦ୍ଧ, ଫଟୋଗ୍ରାଫିକ୍ ଦୃଶ୍ୟ।"
     },
     "layout": {
       "saveChanges": "ପରିବର୍ତ୍ତନଗୁଡିକ ସଞ୍ଚୟ କରନ୍ତୁ",
@@ -330,27 +330,6 @@
       "title": "ଡିଫଲ୍ଟ ଭଏସ୍ ସେଟିଂସମୂହ"
     }
   },
-  "imageGeneration": {
-    "extraSettings": "ଅତିରିକ୍ତ ସେଟିଂସ୍",
-    "doubleCost": "୨× ଖର୍ଚ୍ଚ",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "ସର୍ବାଧିକ ଗୁଣବତ୍ତା",
-    "maxQualityDescription": "ଅଧିକ ତୀକ୍ଷ୍ଣ ଏବଂ ଶୁଦ୍ଧ, ବିଶେଷତଃ ଛୋଟ ଲେବେଲଗୁଡ଼ିକ ପାଇଁ।",
-    "richerDetail": "ଅଧିକ ସମୃଦ୍ଧ ବିବରଣ",
-    "richerDetailDescription": "ଅଧିକ ବିସ୍ତୃତ, ପୂର୍ଣ୍ଣ ଦୃଶ୍ୟ। ଟିକିଏ ମନ୍ଥର।",
-    "extraReasoning": "ଅତିରିକ୍ତ ଯୁକ୍ତିବିଚାର",
-    "extraReasoningCost": "~1.5× ଖର୍ଚ୍ଚ",
-    "extraReasoningDescription": "ସଫା ଚିତ୍ର ଓ ଅଧିକ ପଢ଼ିବା ଯୋଗ୍ୟ ଲେଖା। ପ୍ରାୟ 4× ଧୀର।",
-    "nanoBanana": "Nano Banana (Google)",
-    "underTheHood": {
-      "gptMaxQuality": "ସର୍ବାଧିକ ଗୁଣବତ୍ତା: କମ୍ ବଦଳରେ ମଧ୍ୟମ ଗୁଣବତ୍ତା",
-      "gptRicherDetail": "ଅଧିକ ବିବରଣୀ: GPT Image 2.5 Sunburst",
-      "gptStandard": "ସାଧାରଣ: କମ୍ ଗୁଣବତ୍ତାରେ GPT Image 2.5 Flare",
-      "nanoExtraReasoning": "ଅତିରିକ୍ତ ଯୁକ୍ତିବିଚାର: Nano Banana 2.1",
-      "nanoStandard": "ସାଧାରଣ: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "କେଉଁ ମଡେଲ ଚାଲେ"
-  },
   "promptTester": {
     "anotherNoteType": "ଅନ୍ୟ ଏକ ନୋଟ୍ ପ୍ରକାର",
     "currentlySelectedCard": "ସମ୍ପ୍ରତି ମନୋନୀତ କାର୍ଡ",
@@ -363,7 +342,6 @@
     },
     "fieldRunsOnNoteType": "ଏହି ଫିଲ୍ଡ <noteTypeName>{{noteType}}</noteTypeName> ରେ ଚାଲିଥାଏ",
     "generatedImagePreview": "ପ୍ରତିଛବି ପୂର୍ବାବଲୋକନ",
-    "generatedIn": "{{seconds}}s ରେ ସୃଷ୍ଟି କରାଯାଇଛି",
     "missingFieldsTitle_one": "ନିଖୋଜ କ୍ଷେତ୍ର",
     "missingFieldsTitle_other": "ନିଖୋଜ କ୍ଷେତ୍ରଗୁଡିକ",
     "needsFields_one": "{{count}} କ୍ଷେତ୍ର ଆବଶ୍ୟକ କରେ",
@@ -371,15 +349,12 @@
     "notesSelected_one": "{{count}} ନୋଟ୍ ମନୋନୀତ - ଏହାକୁ ଗୋଟିଏକୁ ସଂକୀର୍ଣ୍ଣ କର",
     "notesSelected_other": "{{count}} ନୋଟଗୁଡିକ ମନୋନୀତ ହୋଇଛି - ଏହାକୁ ଗୋଟିଏକୁ ସଂକୀର୍ଣ୍ଣ କରନ୍ତୁ",
     "promptPlaceholder": "{{braces}} ସହିତ ଆପଣଙ୍କ କାର୍ଡରେ ଫିଲ୍ଡଗୁଡ଼ିକୁ ରେଫରେନ୍ସ କରି ଏକ ପରୀକ୍ଷା ପ୍ରମ୍ପ୍ଟ ଲେଖନ୍ତୁ",
-    "rerunToSave": "ଏହି ପରୀକ୍ଷାକୁ କାର୍ଡରେ ସେଭ୍ କରିବା ପାଇଁ ପୁଣି ଚଲାନ୍ତୁ",
     "saveToCard": "କାର୍ଡରେ ସେଭ୍ କରନ୍ତୁ",
     "savedTo": "{{field}} ରେ ସଞ୍ଚୟ ହୋଇଛି",
     "selectCardWithFields_one": "ଦୟାକରି ଫିଲ୍ଡ ସହିତ ଏକ କାର୍ଡ ନିର୍ବାଚନ କରନ୍ତୁ",
     "selectCardWithFields_other": "ଦୟାକରି ଫିଲ୍ଡଗୁଡ଼ିକ ସହିତ ଏକ କାର୍ଡ ନିର୍ବାଚନ କରନ୍ତୁ",
     "selectFieldToReadAloud": "ଉଚ୍ଚ ସ୍ୱରରେ ପ read ିବାକୁ ଏକ କ୍ଷେତ୍ର ଚୟନ କରନ୍ତୁ",
     "selectNewCard": "ବ୍ରାଉଜରରେ ଏକ ନୂତନ କାର୍ଡ ବାଛନ୍ତୁ",
-    "or": "ବା",
-    "selectCardInBrowser": "ପରୀକ୍ଷା କରିବା ପାଇଁ ବ୍ରାଉଜରରେ ଏକ କାର୍ଡ ବାଛନ୍ତୁ",
     "selectRequiredNoteType": "ଦୟାକରି <noteTypeName>{{noteType}}</noteTypeName> ପ୍ରକାରର ଏକ ନୋଟ ନିର୍ବାଚନ କରନ୍ତୁ",
     "selectedCard": "ମନୋନୀତ କାର୍ଡ",
     "selectedDeck": "ମନୋନୀତ ଡେକ୍",
@@ -387,12 +362,16 @@
     "selectionAppearsAutomatically": "ତୁମର ଚୟନ ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଏଠାରେ ଦେଖାଯାଏ",
     "sent": "ପଠାଯାଇଛି",
     "testing": "ପରୀକ୍ଷା…",
-    "openRecentImage": "ଛବି {{number}} ଖୋଲନ୍ତୁ",
-    "recentImages": "ସମ୍ପ୍ରତି ସୃଷ୍ଟି ହୋଇଥିବା ଛବିଗୁଡ଼ିକ",
     "testResult": "ପରୀକ୍ଷା ଫଳାଫଳ",
     "textToSpeak": "କହିବାକୁ ପାଠ",
     "viewResult": "ଫଳାଫଳ ଦେଖନ୍ତୁ",
-    "wrongNoteType": "ଭୁଲ ନୋଟ୍ ପ୍ରକାର"
+    "wrongNoteType": "ଭୁଲ ନୋଟ୍ ପ୍ରକାର",
+    "generatedIn": "{{seconds}}ସେକେଣ୍ଡରେ ସୃଷ୍ଟି ହୋଇଛି",
+    "rerunToSave": "କାର୍ଡରେ ସେଭ୍ କରିବାକୁ ଏହି ପରୀକ୍ଷାକୁ ପୁନର୍ବାର ଚଲାନ୍ତୁ",
+    "or": "କିମ୍ବା",
+    "selectCardInBrowser": "ପରୀକ୍ଷା କରିବାକୁ ବ୍ରାଉଜରରେ ଏକ କାର୍ଡ ଚୟନ କରନ୍ତୁ",
+    "openRecentImage": "ଇମେଜ୍ {{number}} ଖୋଲନ୍ତୁ",
+    "recentImages": "ଫଳାଫଳ"
   },
   "subscription": {
     "accessEnds": "ପ୍ରବେଶାଧିକାର ସମାପ୍ତ ହୁଏ",
@@ -528,5 +507,26 @@
     "thanks": "Smart Notes using ବ୍ୟବହାର କରିଥିବାରୁ ଧନ୍ୟବାଦ",
     "title": "ତୁମର ମାଗଣା ପରୀକ୍ଷା ଶେଷ ହୋଇଛି",
     "upgradeNow": "ବର୍ତ୍ତମାନ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ"
+  },
+  "imageGeneration": {
+    "extraReasoning": "ଅତିରିକ୍ତ ଯୁକ୍ତି",
+    "extraReasoningCost": "~1.5× ମୂଲ୍ୟ",
+    "extraReasoningDescription": "ପରିଷ୍କାର ଚିତ୍ର ଏବଂ ଅଧିକ ପଢ଼ିହେବା ଯୋଗ୍ୟ ପାଠ୍ୟ। ପ୍ରାୟ 4× ଧୀର।",
+    "extraSettings": "ଅତିରିକ୍ତ ସେଟିଂସ",
+    "doubleCost": "2× ମୂଲ୍ୟ",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "ସର୍ବାଧିକ ଗୁଣବତ୍ତା",
+    "maxQualityDescription": "ଅଧିକ ସ୍ପଷ୍ଟ ଏବଂ ପରିଷ୍କାର, ବିଶେଷ କରି ଛୋଟ ଲେବଲ୍।",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "ଅଧିକ ସମୃଦ୍ଧ ବିବରଣୀ",
+    "richerDetailDescription": "ଅଧିକ ବିସ୍ତୃତ, ପୂର୍ଣ୍ଣ ଦୃଶ୍ୟ। ଟିକିଏ ଧୀର।",
+    "underTheHood": {
+      "gptMaxQuality": "ସର୍ବାଧିକ ଗୁଣବତ୍ତା: ନିମ୍ନ ବଦଳରେ ମଧ୍ୟମ ଗୁଣବତ୍ତା",
+      "gptRicherDetail": "ଅଧିକ ସମୃଦ୍ଧ ବିବରଣୀ: GPT Image 2.5 Sunburst",
+      "gptStandard": "ମାନକ: ନିମ୍ନ ଗୁଣବତ୍ତାରେ GPT Image 2.5 Flare",
+      "nanoExtraReasoning": "ଅତିରିକ୍ତ ଯୁକ୍ତି: Nano Banana 2.1",
+      "nanoStandard": "ମାନକ: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "କେଉଁ ମଡେଲ୍ ଚାଲିବ"
   }
 }

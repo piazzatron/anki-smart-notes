@@ -261,20 +261,20 @@
     "image": {
       "cannotFindModel": "У каталозі зображень відсутня модель {{model}}",
       "defaultModel": "Модель за замовчуванням",
-      "gptImage25": "універсальний вибір — чіткий текст, чисті діаграми.",
       "loadingLabel": "Завантаження стандартних параметрів зображення",
       "loadingTitle": "Параметри зображення за замовчуванням",
-      "modelTipLabel": "Про моделі зображень",
       "models": {
-        "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
-      "nanoBanana21": "насичені фотографічні сцени.",
       "samplePrompt": "Створіть зображення студента, який старанно навчається за допомогою Anki і здає свої тести.",
       "saveError": "Не вдалося зберегти зображення за замовчуванням",
       "subtitle": "Модель, яку використовує ваше зображення Smart Fields, якщо поле не закріплює власне.",
       "title": "Параметри зображення за замовчуванням",
-      "zImageTurbo": "найшвидший і найдешевший."
+      "zImageTurbo": "найшвидший і найдешевший.",
+      "gptImage25": "найкращий універсальний варіант — чіткий текст, чисті діаграми.",
+      "modelTipLabel": "Про моделі зображень",
+      "nanoBanana21": "насичені фотореалістичні сцени."
     },
     "layout": {
       "saveChanges": "Зберегти зміни",
@@ -334,27 +334,6 @@
       "title": "Налаштування голосу за умовчанням"
     }
   },
-  "imageGeneration": {
-    "extraSettings": "Додаткові налаштування",
-    "doubleCost": "2× вартість",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Максимальна якість",
-    "maxQualityDescription": "Гостріше та чистіше, особливо дрібні написи.",
-    "richerDetail": "Більше деталей",
-    "richerDetailDescription": "Детальніше, багатіші сцени. Трохи повільніше.",
-    "extraReasoning": "Розширене міркування",
-    "extraReasoningCost": "~1,5× вартість",
-    "extraReasoningDescription": "Чистіші діаграми та читабельніший текст. Приблизно у 4 рази повільніше.",
-    "nanoBanana": "Nano Banana (Google)",
-    "underTheHood": {
-      "gptMaxQuality": "Максимальна якість: середня замість низької",
-      "gptRicherDetail": "Більше деталей: GPT Image 2.5 Sunburst",
-      "gptStandard": "Стандартна: GPT Image 2.5 Flare з низькою якістю",
-      "nanoExtraReasoning": "Розширене міркування: Nano Banana 2.1",
-      "nanoStandard": "Стандартна: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Які моделі запускаються"
-  },
   "promptTester": {
     "anotherNoteType": "інший тип нотаток",
     "currentlySelectedCard": "Поточна вибрана карта",
@@ -367,7 +346,6 @@
     },
     "fieldRunsOnNoteType": "Це поле запускається на <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Попередній перегляд створеного зображення",
-    "generatedIn": "Згенеровано за {{seconds}}s",
     "missingFieldsTitle_one": "Відсутнє поле",
     "missingFieldsTitle_few": "Відсутні поля",
     "missingFieldsTitle_many": "Відсутні поля",
@@ -381,7 +359,6 @@
     "notesSelected_many": "Вибрано {{count}} нотаток — звузьте до однієї.",
     "notesSelected_other": "вибрані нотатки {{count}} — звузити їх до однієї.",
     "promptPlaceholder": "Напишіть тестову підказку, посилаючись на поля вашої картки за допомогою {{braces}}.",
-    "rerunToSave": "Запустіть цей тест знову, щоб зберегти його в картку",
     "saveToCard": "Зберегти на картку",
     "savedTo": "Збережено в {{field}}",
     "selectCardWithFields_one": "Будь ласка, виберіть карту з полем",
@@ -390,8 +367,6 @@
     "selectCardWithFields_other": "Будь ласка, виберіть карту з полями",
     "selectFieldToReadAloud": "Виберіть поле для читання вголос",
     "selectNewCard": "Виберіть нову картку в браузері",
-    "or": "або",
-    "selectCardInBrowser": "Виберіть картку в браузері для тестування",
     "selectRequiredNoteType": "Будь ласка, виберіть замітку типу <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Вибрана карта",
     "selectedDeck": "Вибрана колода",
@@ -399,12 +374,16 @@
     "selectionAppearsAutomatically": "Ваш вибір з’явиться тут автоматично.",
     "sent": "Надіслано",
     "testing": "Тестування…",
-    "openRecentImage": "Відкрити зображення {{number}}",
-    "recentImages": "Нещодавно створені зображення",
     "testResult": "Результат тесту",
     "textToSpeak": "Текст для озвучення",
     "viewResult": "Переглянути результат",
-    "wrongNoteType": "Неправильний тип нотатки"
+    "wrongNoteType": "Неправильний тип нотатки",
+    "generatedIn": "Згенеровано за {{seconds}} с",
+    "rerunToSave": "Запустіть цей тест знову, щоб зберегти його в картку",
+    "or": "або",
+    "selectCardInBrowser": "Виберіть картку в браузері для тестування",
+    "openRecentImage": "Відкрити зображення {{number}}",
+    "recentImages": "Результати"
   },
   "subscription": {
     "accessEnds": "Доступ закінчується",
@@ -548,5 +527,26 @@
     "thanks": "Дякуємо за використання Smart Notes ✨",
     "title": "Ваш безкоштовний пробний період закінчився",
     "upgradeNow": "Оновіть зараз"
+  },
+  "imageGeneration": {
+    "extraReasoning": "Розширене міркування",
+    "extraReasoningCost": "~1,5× вартість",
+    "extraReasoningDescription": "Чистіші діаграми та читабельніший текст. Приблизно в 4 рази повільніше.",
+    "extraSettings": "Додаткові налаштування",
+    "doubleCost": "2× вартість",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Максимальна якість",
+    "maxQualityDescription": "Чіткіше й чистіше, особливо дрібні підписи.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Більше деталей",
+    "richerDetailDescription": "Детальніші й повніші сцени. Трохи повільніше.",
+    "underTheHood": {
+      "gptMaxQuality": "Максимальна якість: середня якість замість низької",
+      "gptRicherDetail": "Більше деталей: GPT Image 2.5 Sunburst",
+      "gptStandard": "Стандартна: GPT Image 2.5 Flare з низькою якістю",
+      "nanoExtraReasoning": "Розширене міркування: Nano Banana 2.1",
+      "nanoStandard": "Стандартна: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Які моделі працюють"
   }
 }

@@ -261,20 +261,20 @@
     "image": {
       "cannotFindModel": "У каталогу малюнкаў адсутнічае мадэль {{model}}",
       "defaultModel": "Мадэль па змаўчанні",
-      "gptImage25": "лучшы ўсёаблемны — чёткі тэкст, чыстыя дыяграмы.",
       "loadingLabel": "Загрузка налад выявы па змаўчанні",
       "loadingTitle": "Налады выявы па змаўчанні",
-      "modelTipLabel": "Пра мадэлі малюнкаў",
       "models": {
-        "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
-      "nanoBanana21": "насычаныя фатаграфічныя сцэны.",
       "samplePrompt": "Стварыце выяву студэнта, які ўпарта вучыцца з Anki і здае свае тэсты.",
       "saveError": "Немагчыма захаваць значэнні выявы па змаўчанні",
       "subtitle": "Мадэль, якую выкарыстоўвае ваша выява Smart Fields, калі поле не замацоўвае сваё.",
       "title": "Налады выявы па змаўчанні",
-      "zImageTurbo": "самы хуткі і танны."
+      "zImageTurbo": "самы хуткі і танны.",
+      "gptImage25": "найлепшы ўніверсальны варыянт — выразны тэкст, чыстыя схемы.",
+      "modelTipLabel": "Пра мадэлі малюнкаў",
+      "nanoBanana21": "насычаныя фатаграфічныя сцэны."
     },
     "layout": {
       "saveChanges": "Захавайце змены",
@@ -334,27 +334,6 @@
       "title": "Галасавыя налады па змаўчанні"
     }
   },
-  "imageGeneration": {
-    "extraSettings": "Дадатковыя налады",
-    "doubleCost": "2× коштом",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Максімальная якасць",
-    "maxQualityDescription": "Більш рэзкае і чыстае, асабліва маленькія меткі.",
-    "richerDetail": "Больш дэталяў",
-    "richerDetailDescription": "Больш дэталізаваны, паўнейшыя сцэны. Крыху павольней.",
-    "extraReasoning": "Дадатковае разважанне",
-    "extraReasoningCost": "~1,5× кошт",
-    "extraReasoningDescription": "Больш выразныя схемы і лепш чытэльны тэкст. Прыблізна ў 4× павольней.",
-    "nanoBanana": "Nano Banana (Google)",
-    "underTheHood": {
-      "gptMaxQuality": "Максімальная якасць: сярэдняя замест нізкай",
-      "gptRicherDetail": "Больш дэталяў: GPT Image 2.5 Sunburst",
-      "gptStandard": "Стандартная: GPT Image 2.5 Flare з нізкай якасцю",
-      "nanoExtraReasoning": "Дадатковае разважанне: Nano Banana 2.1",
-      "nanoStandard": "Стандартная: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Якія мадэлі запускаюцца"
-  },
   "promptTester": {
     "anotherNoteType": "іншы тып нататкі",
     "currentlySelectedCard": "Выбраная картка",
@@ -367,7 +346,6 @@
     },
     "fieldRunsOnNoteType": "Гэтае поле працуе на <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Папярэдні прагляд згенераванага малюнка",
-    "generatedIn": "Згенерявана за {{seconds}}s",
     "missingFieldsTitle_one": "Адсутнічае поле",
     "missingFieldsTitle_few": "Адсутныя палі",
     "missingFieldsTitle_many": "Адсутныя палі",
@@ -381,7 +359,6 @@
     "notesSelected_many": "Выбрана {{count}} нататак — звузіце да адной.",
     "notesSelected_other": "Выбраныя нататкі {{count}} — звузіце іх да адной.",
     "promptPlaceholder": "Напішыце тэставае падказку, спасылаючыся на палі на вашай картцы з {{braces}}.",
-    "rerunToSave": "Запусціце гэты тэст яшчэ раз, каб захаваць яго ў картку",
     "saveToCard": "Захаваць на карту",
     "savedTo": "Захавана ў {{field}}",
     "selectCardWithFields_one": "Калі ласка, выберыце карту з полем",
@@ -390,8 +367,6 @@
     "selectCardWithFields_other": "Калі ласка, выберыце карту з пазами",
     "selectFieldToReadAloud": "Выберыце поле для чытання ўслых",
     "selectNewCard": "Абярыце новую карту ў браўзеры",
-    "or": "або",
-    "selectCardInBrowser": "Выберыце картку ў аглядальніку, каб праверыць",
     "selectRequiredNoteType": "Калі ласка, выберыце нотатку тыпу <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Выбраная карта",
     "selectedDeck": "Выбраная калода",
@@ -399,12 +374,16 @@
     "selectionAppearsAutomatically": "Ваш выбар з'явіцца тут аўтаматычна.",
     "sent": "Адпраўлена",
     "testing": "Тэставанне...",
-    "openRecentImage": "Адкрыць малюнак {{number}}",
-    "recentImages": "Нядаўна створаныя малюнкі",
     "testResult": "Вынік тэсту",
     "textToSpeak": "Тэкст для размовы",
     "viewResult": "Паглядзець вынік",
-    "wrongNoteType": "Няправільны тып нататкі"
+    "wrongNoteType": "Няправільны тып нататкі",
+    "generatedIn": "Згенеравана за {{seconds}} с",
+    "rerunToSave": "Запусціце гэты тэст яшчэ раз, каб захаваць яго ў картку",
+    "or": "або",
+    "selectCardInBrowser": "Абярыце картку ў браўзеры для тэставання",
+    "openRecentImage": "Адкрыць малюнак {{number}}",
+    "recentImages": "Вынікі"
   },
   "subscription": {
     "accessEnds": "Доступ завершаецца",
@@ -548,5 +527,26 @@
     "thanks": "Дзякуй за выкарыстанне Smart Notes ✨",
     "title": "Ваш бясплатны пробны перыяд скончыўся",
     "upgradeNow": "Абнавіце зараз"
+  },
+  "imageGeneration": {
+    "extraReasoning": "Пашыраныя разважанні",
+    "extraReasoningCost": "~1,5× кошт",
+    "extraReasoningDescription": "Чысцейшыя схемы і больш разборлівы тэкст. Каля 4× павольней.",
+    "extraSettings": "Дадатковыя налады",
+    "doubleCost": "2× кошт",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Максімальная якасць",
+    "maxQualityDescription": "Выразней і чысцей, асабліва дробныя подпісы.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Больш дэталяў",
+    "richerDetailDescription": "Больш дэталёвыя, насычаныя сцэны. Трохі павольней.",
+    "underTheHood": {
+      "gptMaxQuality": "Максімальная якасць: сярэдняя якасць замест нізкай",
+      "gptRicherDetail": "Больш дэталяў: GPT Image 2.5 Sunburst",
+      "gptStandard": "Стандартны: GPT Image 2.5 Flare з нізкай якасцю",
+      "nanoExtraReasoning": "Пашыраныя разважанні: Nano Banana 2.1",
+      "nanoStandard": "Стандартны: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Якія мадэлі запускаюцца"
   }
 }

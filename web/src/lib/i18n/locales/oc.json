@@ -258,20 +258,20 @@
     "image": {
       "cannotFindModel": "Lo catalòg d'imatges manca lo modèl {{model}}",
       "defaultModel": "Modèl per defaut",
-      "gptImage25": "lo melhor de tot — tèxt nitid, diagramas nets.",
       "loadingLabel": "En cargament dels paramètres d'imatge per defaut",
       "loadingTitle": "Paramètres d'imatge per defaut",
-      "modelTipLabel": "A prepaus dels modèls d'imatge",
       "models": {
-        "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
-      "nanoBanana21": "scènas ricas, fotograficas.",
       "samplePrompt": "Generar una imatge d'un escolans qu'estudia fòrça amb Anki e que passa sos tèsts.",
       "saveError": "Impossible d'enregistrar las valors per defaut de l'imatge",
       "subtitle": "Lo modèl que vòstra imatge Smart Fields utilizatz levat se un camp fixa lo sieu.",
       "title": "Paramètres d'imatge per defaut",
-      "zImageTurbo": "lo mai rapid e lo mai economic."
+      "zImageTurbo": "lo mai rapid e lo mai economic.",
+      "gptImage25": "lo melhor per a tot — tèxte net, esquemas clars.",
+      "modelTipLabel": "A prepaus dels modèls d'imatge",
+      "nanoBanana21": "scènas riches, fotografiques."
     },
     "layout": {
       "saveChanges": "Enregistrar las modificacions",
@@ -328,27 +328,6 @@
       "title": "Paramètres de votz per defaut"
     }
   },
-  "imageGeneration": {
-    "extraSettings": "Paramètres Addicionals",
-    "doubleCost": "2× de còst",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Qualitat maxima",
-    "maxQualityDescription": "Pus net e pus clar, especialament per las etiquetas petitas.",
-    "richerDetail": "Detall pus ric",
-    "richerDetailDescription": "Pus detallat, escènas pus complètas. Un pauc pus lent.",
-    "extraReasoning": "Raonament suplementari",
-    "extraReasoningCost": "~1,5× cost",
-    "extraReasoningDescription": "Esquemas mai clars e tèxte mai lesible. Environ 4× mai lent.",
-    "nanoBanana": "Nano Banana (Google)",
-    "underTheHood": {
-      "gptMaxQuality": "Qualitat maximala: qualitat mejana en lòc de bassa",
-      "gptRicherDetail": "Mai de detalh: GPT Image 2.5 Sunburst",
-      "gptStandard": "Estandard: GPT Image 2.5 Flare en qualitat bassa",
-      "nanoExtraReasoning": "Raonament suplementari: Nano Banana 2.1",
-      "nanoStandard": "Estandard: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Quins modèls se lancen"
-  },
   "promptTester": {
     "anotherNoteType": "un autre tipe de nòta",
     "currentlySelectedCard": "Carta actualament seleccionada",
@@ -361,19 +340,15 @@
     },
     "fieldRunsOnNoteType": "Aqueste champ s'executa sus <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Apercebut d'imatge generat",
-    "generatedIn": "Generat en {{seconds}}s",
     "missingFieldsTitle_other": "Camps mancants",
     "needsFields_other": "Necessita de camps {{count}}",
     "notesSelected_other": "{{count}} nòtas seleccionadas — la restrenh a una.",
     "promptPlaceholder": "Escrivètz una indicacion de tèst, en fasent referéncia als camps sus vòstra carta amb {{braces}}.",
-    "rerunToSave": "Tornatz executar aqueste tèst per lo salvar dins la carta",
     "saveToCard": "Enregistrar sus la carta",
     "savedTo": "Enregistrat a {{field}}",
     "selectCardWithFields_other": "Causisse una carta amb los champs",
     "selectFieldToReadAloud": "Seleccionatz un camp de legir a votz nauta",
     "selectNewCard": "Seleccionatz una carta novèla dins lo navigador",
-    "or": "o",
-    "selectCardInBrowser": "Seleccionatz una carta dins lo navigador per la testar",
     "selectRequiredNoteType": "Causisse una nòta del tipe <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Carta seleccionada",
     "selectedDeck": "Deck seleccionat",
@@ -381,12 +356,16 @@
     "selectionAppearsAutomatically": "Vòstra seleccion apareis aicí automaticament.",
     "sent": "Enviat",
     "testing": "Ensages...",
-    "openRecentImage": "Dobrir l'imatge {{number}}",
-    "recentImages": "Imatges creadas recentament",
     "testResult": "Resultat del tèst",
     "textToSpeak": "Tèxte per parlar",
     "viewResult": "Veire lo resultat",
-    "wrongNoteType": "Tipe de nòta incorrècte"
+    "wrongNoteType": "Tipe de nòta incorrècte",
+    "generatedIn": "Generat en {{seconds}}s",
+    "rerunToSave": "Tornatz lançar aqueste test per lo salvar dins la carta",
+    "or": "o",
+    "selectCardInBrowser": "Seleccionatz una carta dins lo navigador per testar",
+    "openRecentImage": "Dobrir l'imatge {{number}}",
+    "recentImages": "Resultats"
   },
   "subscription": {
     "accessEnds": "L'accès s'acabarà",
@@ -518,5 +497,26 @@
     "thanks": "Mercés d'utilizar Smart Notes ✨",
     "title": "Vòstra espròva gratuita s'es acabada",
     "upgradeNow": "Metètz a jorn ara"
+  },
+  "imageGeneration": {
+    "extraReasoning": "Raisonament suplementari",
+    "extraReasoningCost": "~1,5× còst",
+    "extraReasoningDescription": "Esquemas mai nets e tèxte mai lisible. Environ 4× mai lent.",
+    "extraSettings": "Paramètres Suplementaris",
+    "doubleCost": "2× còst",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Qualitat maxima",
+    "maxQualityDescription": "Mai nets e mai precisas, en particular per las etiquetas pichonas.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Mai de detalh",
+    "richerDetailDescription": "Scènas mai detalhadas e mai completas. Un pauc mai lentas.",
+    "underTheHood": {
+      "gptMaxQuality": "Qualitat maxima: qualitat mejana en lòc de bassa",
+      "gptRicherDetail": "Mai de detalh: GPT Image 2.5 Sunburst",
+      "gptStandard": "Estandard: GPT Image 2.5 Flare en qualitat bassa",
+      "nanoExtraReasoning": "Raisonament suplementari: Nano Banana 2.1",
+      "nanoStandard": "Estandard: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Quals modèls se lançan"
   }
 }

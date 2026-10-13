@@ -259,20 +259,20 @@
     "image": {
       "cannotFindModel": "Պատկերների կատալոգում բացակայում է {{model}} մոդելը",
       "defaultModel": "Կանխադրված մոդել",
-      "gptImage25": "լավագույն բազմակողմանի տարբերակ — սուր տեքստ, մաքուր դիագրամներ:",
       "loadingLabel": "Պատկերի կանխադրված կարգավորումների բեռնում",
       "loadingTitle": "Պատկերի կանխադրված կարգավորումներ",
-      "modelTipLabel": "Պատկերի մոդելների մասին",
       "models": {
-        "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
-      "nanoBanana21": "հարուստ, ֆոտոռեալիստական տեսարաններ.",
       "samplePrompt": "Ստեղծեք աշակերտի պատկեր, որը շատ է սովորում Anki-ով և հանձնում թեստերը:",
       "saveError": "Չհաջողվեց պահպանել պատկերների կանխադրվածները",
       "subtitle": "Ձեր պատկերի Smart Fields մոդելը, եթե դաշտը չի ամրացնում իր սեփականը:",
       "title": "Պատկերի կանխադրված կարգավորումներ",
-      "zImageTurbo": "ամենաարագ և ամենաէժան:"
+      "zImageTurbo": "ամենաարագ և ամենաէժան:",
+      "gptImage25": "լավագույնը բոլոր առումներով՝ սուր տեքստ, մաքուր դիագրամներ։",
+      "modelTipLabel": "Պատկերի մոդելների մասին",
+      "nanoBanana21": "հարուստ, ֆոտոռեալիստական տեսարաններ։"
     },
     "layout": {
       "saveChanges": "Պահպանել փոփոխությունները",
@@ -330,27 +330,6 @@
       "title": "Ձայնի կանխադրված կարգավորումներ"
     }
   },
-  "imageGeneration": {
-    "extraSettings": "Լրացուցիչ կարգավորումներ",
-    "doubleCost": "2× ծախս",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Առավելագույն որակ",
-    "maxQualityDescription": "Սուր և մաքուր, հատկապես փոքր պիտակների համար:",
-    "richerDetail": "Ավելի մանրամասն",
-    "richerDetailDescription": "Ավելի մանրամասն, ամբողջական տեսարաններ: Մի փոքր ավելի դանդաղ:",
-    "extraReasoning": "Լրացուցիչ դատողություն",
-    "extraReasoningCost": "~1.5× ծախս",
-    "extraReasoningDescription": "Ավելի մաքուր դիագրամներ և ավելի ընթեռնելի տեքստ։ Մոտ 4× դանդաղ։",
-    "nanoBanana": "Nano Banana (Google)",
-    "underTheHood": {
-      "gptMaxQuality": "Առավելագույն որակ: միջին որակ՝ ցածրի փոխարեն",
-      "gptRicherDetail": "Ավելի մանրամասն: GPT Image 2.5 Sunburst",
-      "gptStandard": "Ստանդարտ: GPT Image 2.5 Flare ցածր որակով",
-      "nanoExtraReasoning": "Լրացուցիչ դատողություն: Nano Banana 2.1",
-      "nanoStandard": "Ստանդարտ: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Ո՞ր մոդելներն են աշխատում"
-  },
   "promptTester": {
     "anotherNoteType": "մեկ այլ նշումի տեսակ",
     "currentlySelectedCard": "Ներկայումս ընտրված քարտը",
@@ -363,7 +342,6 @@
     },
     "fieldRunsOnNoteType": "Այս դաշտը գործում է <noteTypeName>{{noteType}}</noteTypeName> վրա",
     "generatedImagePreview": "Ստեղծված պատկերի նախադիտում",
-    "generatedIn": "Ստեղծվել է {{seconds}}s-ում",
     "missingFieldsTitle_one": "Բացակայող դաշտ",
     "missingFieldsTitle_other": "Բացակայող դաշտեր",
     "needsFields_one": "Անհրաժեշտ է {{count}} դաշտ",
@@ -371,15 +349,12 @@
     "notesSelected_one": "Ընտրված է {{count}} նշումը. նեղացրեք այն մեկին:",
     "notesSelected_other": "{{count}} նշումներ են ընտրված — նեղացրեք այն մեկին:",
     "promptPlaceholder": "Գրեք թեստային հուշում, հղում կատարելով ձեր քարտի դաշտերին {{braces}}-ով:",
-    "rerunToSave": "Կրկին գործարկեք այս փորձարկումը՝ այն քարտում պահելու համար",
     "saveToCard": "Պահել քարտում",
     "savedTo": "Պահված է {{field}}-ում",
     "selectCardWithFields_one": "Խնդրում ենք ընտրել քարտ այս դաշտով",
     "selectCardWithFields_other": "Խնդրում ենք ընտրել քարտ այս դաշտերով",
     "selectFieldToReadAloud": "Ընտրեք դաշտ՝ բարձրաձայն կարդալու համար",
     "selectNewCard": "Ընտրեք նոր քարտ զննարկիչում",
-    "or": "կամ",
-    "selectCardInBrowser": "Ընտրեք քարտ զննարկիչում՝ փորձարկելու համար",
     "selectRequiredNoteType": "Խնդրում ենք ընտրել <noteTypeName>{{noteType}}</noteTypeName> տիպի նշում",
     "selectedCard": "Ընտրված քարտ",
     "selectedDeck": "Ընտրված տախտակամած",
@@ -387,12 +362,16 @@
     "selectionAppearsAutomatically": "Ձեր ընտրությունը հայտնվում է այստեղ ինքնաբերաբար:",
     "sent": "Ուղարկված",
     "testing": "Փորձարկում…",
-    "openRecentImage": "Բացել պատկերը {{number}}",
-    "recentImages": "Վերջերս ստեղծված պատկերներ",
     "testResult": "Փորձարկման արդյունք",
     "textToSpeak": "Տեքստ խոսելու համար",
     "viewResult": "Դիտել արդյունքը",
-    "wrongNoteType": "Նշման սխալ տեսակ"
+    "wrongNoteType": "Նշման սխալ տեսակ",
+    "generatedIn": "Ստեղծվել է {{seconds}} վրկ-ում",
+    "rerunToSave": "Կրկին գործարկեք այս թեստը՝ քարտում պահելու համար",
+    "or": "կամ",
+    "selectCardInBrowser": "Ընտրեք քարտ բրաուզերում՝ թեստավորելու համար",
+    "openRecentImage": "Բացել պատկերը {{number}}",
+    "recentImages": "Արդյունքներ"
   },
   "subscription": {
     "accessEnds": "Մուտքը ավարտվում է",
@@ -528,5 +507,26 @@
     "thanks": "Շնորհակալություն Smart Notes ✨ օգտագործելու համար",
     "title": "Ձեր անվճար փորձաշրջանն ավարտվել է",
     "upgradeNow": "Թարմացրեք հիմա"
+  },
+  "imageGeneration": {
+    "extraReasoning": "Լրացուցիչ դատողություն",
+    "extraReasoningCost": "~1.5× արժեք",
+    "extraReasoningDescription": "Ավելի մաքուր դիագրամներ և ավելի ընթեռնելի տեքստ։ Մոտ 4× դանդաղ։",
+    "extraSettings": "Լրացուցիչ կարգավորումներ",
+    "doubleCost": "2× արժեք",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Առավելագույն որակ",
+    "maxQualityDescription": "Ավելի սուր և մաքուր, հատկապես փոքր պիտակները։",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Ավելի հարուստ մանրամասներ",
+    "richerDetailDescription": "Ավելի մանրամասն, լիարժեք տեսարաններ։ Մի փոքր դանդաղ։",
+    "underTheHood": {
+      "gptMaxQuality": "Առավելագույն որակ: medium՝ low-ի փոխարեն",
+      "gptRicherDetail": "Ավելի հարուստ մանրամասներ: GPT Image 2.5 Sunburst",
+      "gptStandard": "Ստանդարտ: GPT Image 2.5 Flare ցածր որակով",
+      "nanoExtraReasoning": "Լրացուցիչ դատողություն: Nano Banana 2.1",
+      "nanoStandard": "Ստանդարտ: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Ո՞ր մոդելներն են աշխատում"
   }
 }

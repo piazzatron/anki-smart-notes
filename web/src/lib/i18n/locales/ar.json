@@ -263,20 +263,20 @@
     "image": {
       "cannotFindModel": "كتالوج الصور يفتقد الطراز {{model}}",
       "defaultModel": "النموذج الافتراضي",
-      "gptImage25": "الخيار الأمثل — نصوص حادة، رسوم بيانية نظيفة.",
       "loadingLabel": "جارٍ تحميل إعدادات الصورة الافتراضية",
       "loadingTitle": "إعدادات الصورة الافتراضية",
-      "modelTipLabel": "حول نماذج الصور",
       "models": {
-        "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
-      "nanoBanana21": "مشاهد غنية وفوتوغرافية.",
       "samplePrompt": "قم بإنشاء صورة لطالب يدرس بجد باستخدام Anki ويجتاز اختباراته.",
       "saveError": "لا يمكن حفظ الإعدادات الافتراضية للصورة",
       "subtitle": "النموذج الذي تستخدمه صورتك Smart Fields ما لم يتم تثبيت حقل خاص به.",
       "title": "إعدادات الصورة الافتراضية",
-      "zImageTurbo": "الأسرع والأرخص."
+      "zImageTurbo": "الأسرع والأرخص.",
+      "gptImage25": "الأفضل للاستخدام العام — نصوص واضحة ومخططات نظيفة.",
+      "modelTipLabel": "حول نماذج الصور",
+      "nanoBanana21": "مشاهد غنية بطابع تصويري."
     },
     "layout": {
       "saveChanges": "حفظ التغييرات",
@@ -338,27 +338,6 @@
       "title": "إعدادات الصوت الافتراضية"
     }
   },
-  "imageGeneration": {
-    "extraSettings": "إعدادات إضافية",
-    "doubleCost": "تكلفة مضاعفة",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "أقصى جودة",
-    "maxQualityDescription": "أكثر حدة ووضوحاً، خاصة للنصوص الصغيرة.",
-    "richerDetail": "تفاصيل أغنى",
-    "richerDetailDescription": "أكثر تفصيلاً وأكمل للمشاهد. أبطأ قليلاً.",
-    "extraReasoning": "استدلال إضافي",
-    "extraReasoningCost": "تكلفة ~1.5×",
-    "extraReasoningDescription": "رسوم بيانية أوضح ونص أسهل قراءة. أبطأ بنحو 4×.",
-    "nanoBanana": "Nano Banana (Google)",
-    "underTheHood": {
-      "gptMaxQuality": "أقصى جودة: جودة متوسطة بدلاً من المنخفضة",
-      "gptRicherDetail": "تفاصيل أغنى: GPT Image 2.5 Sunburst",
-      "gptStandard": "قياسي: GPT Image 2.5 Flare بجودة منخفضة",
-      "nanoExtraReasoning": "استدلال إضافي: Nano Banana 2.1",
-      "nanoStandard": "قياسي: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "النماذج المستخدمة"
-  },
   "promptTester": {
     "anotherNoteType": "نوع ملاحظة آخر",
     "currentlySelectedCard": "البطاقة المحددة حاليا",
@@ -371,7 +350,6 @@
     },
     "fieldRunsOnNoteType": "هذا الحقل يعمل على <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "معاينة الصورة التي تم إنشاؤها",
-    "generatedIn": "تم إنشاؤه في {{seconds}}s",
     "missingFieldsTitle_zero": "لا توجد حقول مفقودة",
     "missingFieldsTitle_one": "الحقل مفقود",
     "missingFieldsTitle_two": "حقلان مفقودان",
@@ -391,7 +369,6 @@
     "notesSelected_many": "تم تحديد {{count}} ملاحظة — اختر واحدة.",
     "notesSelected_other": "تم تحديد ملاحظات {{count}} - قم بتضييقها إلى واحدة.",
     "promptPlaceholder": "اكتب موجه اختبار، مع الإشارة إلى الحقول الموجودة على بطاقتك باستخدام {{braces}}.",
-    "rerunToSave": "أعد تشغيل هذا الاختبار لحفظه في البطاقة",
     "saveToCard": "حفظ إلى البطاقة",
     "savedTo": "تم الحفظ في {{field}}",
     "selectCardWithFields_zero": "يرجى تحديد بطاقة تحتوي على الحقول",
@@ -402,8 +379,6 @@
     "selectCardWithFields_other": "يرجى تحديد بطاقة تحتوي على الحقول",
     "selectFieldToReadAloud": "حدد حقلاً للقراءة بصوت عالٍ",
     "selectNewCard": "حدد بطاقة جديدة في المتصفح",
-    "or": "أو",
-    "selectCardInBrowser": "حدد بطاقة في المتصفح للاختبار",
     "selectRequiredNoteType": "يرجى تحديد ملاحظة من نوع <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "البطاقة المختارة",
     "selectedDeck": "سطح السفينة المختارة",
@@ -411,12 +386,16 @@
     "selectionAppearsAutomatically": "يظهر اختيارك هنا تلقائيًا.",
     "sent": "مرسل",
     "testing": "اختبار…",
-    "openRecentImage": "فتح الصورة {{number}}",
-    "recentImages": "الصور المُنشأة مؤخرًا",
     "testResult": "نتيجة الاختبار",
     "textToSpeak": "النص للتحدث",
     "viewResult": "عرض النتيجة",
-    "wrongNoteType": "نوع ملاحظة خاطئ"
+    "wrongNoteType": "نوع ملاحظة خاطئ",
+    "generatedIn": "تم الإنشاء خلال {{seconds}} ثانية",
+    "rerunToSave": "أعد تشغيل هذا الاختبار لحفظه في البطاقة",
+    "or": "أو",
+    "selectCardInBrowser": "حدد بطاقة في المتصفح لاختبارها",
+    "openRecentImage": "فتح الصورة {{number}}",
+    "recentImages": "النتائج"
   },
   "subscription": {
     "accessEnds": "انتهاء الوصول",
@@ -568,5 +547,26 @@
     "thanks": "شكرًا لاستخدامك Smart Notes ✨",
     "title": "انتهت تجربتك المجانية",
     "upgradeNow": "قم بالترقية الآن"
+  },
+  "imageGeneration": {
+    "extraReasoning": "تفكير إضافي",
+    "extraReasoningCost": "~1.5× التكلفة",
+    "extraReasoningDescription": "مخططات أنظف ونص أوضح. أبطأ بنحو 4 مرات.",
+    "extraSettings": "إعدادات إضافية",
+    "doubleCost": "2× التكلفة",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "أعلى جودة",
+    "maxQualityDescription": "أكثر وضوحاً ونظافة، خاصة التسميات الصغيرة.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "تفاصيل أغنى",
+    "richerDetailDescription": "مشاهد أكثر تفصيلاً وامتلاءً. أبطأ قليلاً.",
+    "underTheHood": {
+      "gptMaxQuality": "أعلى جودة: جودة متوسطة بدلاً من منخفضة",
+      "gptRicherDetail": "تفاصيل أغنى: GPT Image 2.5 Sunburst",
+      "gptStandard": "قياسي: GPT Image 2.5 Flare بجودة منخفضة",
+      "nanoExtraReasoning": "تفكير إضافي: Nano Banana 2.1",
+      "nanoStandard": "قياسي: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "النماذج التي تعمل"
   }
 }

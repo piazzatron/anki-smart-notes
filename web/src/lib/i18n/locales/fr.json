@@ -260,20 +260,20 @@
     "image": {
       "cannotFindModel": "Le catalogue d'images ne contient pas le modèle {{model}}.",
       "defaultModel": "Modèle par défaut",
-      "gptImage25": "meilleur équilibre — texte net, diagrammes épurés.",
       "loadingLabel": "Chargement des paramètres d'image par défaut",
       "loadingTitle": "Paramètres d'image par défaut",
-      "modelTipLabel": "À propos des modèles d'image",
       "models": {
-        "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
-      "nanoBanana21": "scènes riches et photographiques.",
       "samplePrompt": "Générez l'image d'un étudiant qui étudie dur avec Anki et réussit ses tests.",
       "saveError": "Impossible d'enregistrer les paramètres par défaut de l'image",
       "subtitle": "Le modèle que votre image Smart Fields utilise à moins qu'un champ n'épingle le sien.",
       "title": "Paramètres d'image par défaut",
-      "zImageTurbo": "le plus rapide et le moins cher."
+      "zImageTurbo": "le plus rapide et le moins cher.",
+      "gptImage25": "le plus polyvalent — texte net, schémas épurés.",
+      "modelTipLabel": "À propos des modèles d'image",
+      "nanoBanana21": "scènes riches, de type photographique."
     },
     "layout": {
       "saveChanges": "Enregistrer les modifications",
@@ -332,27 +332,6 @@
       "title": "Paramètres vocaux par défaut"
     }
   },
-  "imageGeneration": {
-    "extraSettings": "Paramètres supplémentaires",
-    "doubleCost": "2× le coût",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Qualité maximale",
-    "maxQualityDescription": "Plus net et plus propre, surtout pour les petits labels.",
-    "richerDetail": "Détail enrichi",
-    "richerDetailDescription": "Plus détaillé, scènes plus complètes. Un peu plus lent.",
-    "extraReasoning": "Raisonnement étendu",
-    "extraReasoningCost": "~1,5× le coût",
-    "extraReasoningDescription": "Diagrammes plus nets et texte plus lisible. Environ 4× plus lent.",
-    "nanoBanana": "Nano Banana (Google)",
-    "underTheHood": {
-      "gptMaxQuality": "Qualité maximale : qualité moyenne au lieu de faible",
-      "gptRicherDetail": "Détails plus riches : GPT Image 2.5 Sunburst",
-      "gptStandard": "Standard : GPT Image 2.5 Flare en qualité faible",
-      "nanoExtraReasoning": "Raisonnement étendu : Nano Banana 2.1",
-      "nanoStandard": "Standard : Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Modèles utilisés"
-  },
   "promptTester": {
     "anotherNoteType": "un autre type de note",
     "currentlySelectedCard": "Carte actuellement sélectionnée",
@@ -365,7 +344,6 @@
     },
     "fieldRunsOnNoteType": "Ce champ s'exécute sur <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Aperçu de l'image générée",
-    "generatedIn": "Généré en {{seconds}}s",
     "missingFieldsTitle_one": "Champ manquant",
     "missingFieldsTitle_many": "Champs manquants",
     "missingFieldsTitle_other": "Champs manquants",
@@ -376,7 +354,6 @@
     "notesSelected_many": "Notes {{count}} sélectionnées – réduisez-les à une.",
     "notesSelected_other": "Notes {{count}} sélectionnées – réduisez-les à une.",
     "promptPlaceholder": "Écrivez une invite de test en faisant référence aux champs de votre carte avec {{braces}}.",
-    "rerunToSave": "Relancez ce test pour l'enregistrer dans la carte",
     "saveToCard": "Enregistrer sur la carte",
     "savedTo": "Enregistré dans {{field}}",
     "selectCardWithFields_one": "Veuillez sélectionner une carte avec le champ",
@@ -384,8 +361,6 @@
     "selectCardWithFields_other": "Veuillez sélectionner une carte avec les champs",
     "selectFieldToReadAloud": "Sélectionnez un champ à lire à haute voix",
     "selectNewCard": "Sélectionnez une nouvelle carte dans le navigateur",
-    "or": "ou",
-    "selectCardInBrowser": "Sélectionnez une carte dans le navigateur pour la tester",
     "selectRequiredNoteType": "Veuillez sélectionner une note de type <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Carte sélectionnée",
     "selectedDeck": "Pont sélectionné",
@@ -393,12 +368,16 @@
     "selectionAppearsAutomatically": "Votre sélection apparaît ici automatiquement.",
     "sent": "Envoyé",
     "testing": "Essai…",
-    "openRecentImage": "Ouvrir l'image {{number}}",
-    "recentImages": "Images créées récemment",
     "testResult": "Résultat du test",
     "textToSpeak": "Texte pour parler",
     "viewResult": "Afficher le résultat",
-    "wrongNoteType": "Mauvais type de note"
+    "wrongNoteType": "Mauvais type de note",
+    "generatedIn": "Généré en {{seconds}} s",
+    "rerunToSave": "Relancez ce test pour l'enregistrer sur la carte",
+    "or": "ou",
+    "selectCardInBrowser": "Sélectionnez une carte dans le navigateur pour tester",
+    "openRecentImage": "Ouvrir l'image {{number}}",
+    "recentImages": "Résultats"
   },
   "subscription": {
     "accessEnds": "L'accès se termine",
@@ -538,5 +517,26 @@
     "thanks": "Merci d'utiliser Smart Notes ✨",
     "title": "Votre essai gratuit est terminé",
     "upgradeNow": "Mettre à niveau maintenant"
+  },
+  "imageGeneration": {
+    "extraReasoning": "Raisonnement approfondi",
+    "extraReasoningCost": "~1,5× le coût",
+    "extraReasoningDescription": "Schémas plus nets et texte plus lisible. Environ 4× plus lent.",
+    "extraSettings": "Paramètres supplémentaires",
+    "doubleCost": "2× le coût",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Qualité maximale",
+    "maxQualityDescription": "Plus net et plus propre, surtout les petites étiquettes.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Détails enrichis",
+    "richerDetailDescription": "Scènes plus détaillées et plus complètes. Un peu plus lent.",
+    "underTheHood": {
+      "gptMaxQuality": "Qualité maximale : qualité moyenne au lieu de faible",
+      "gptRicherDetail": "Détails enrichis : GPT Image 2.5 Sunburst",
+      "gptStandard": "Standard : GPT Image 2.5 Flare en qualité faible",
+      "nanoExtraReasoning": "Raisonnement approfondi : Nano Banana 2.1",
+      "nanoStandard": "Standard : Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Modèles utilisés"
   }
 }

@@ -259,20 +259,20 @@
     "image": {
       "cannotFindModel": "Зургийн каталогид {{model}} загвар байхгүй байна",
       "defaultModel": "Өгөгдмөл загвар",
-      "gptImage25": "сайн сонголт — ил текст, цэвэр диаграмм.",
       "loadingLabel": "Өгөгдмөл зургийн тохиргоог ачаалж байна",
       "loadingTitle": "Өгөгдмөл зургийн тохиргоо",
-      "modelTipLabel": "Зургийн загваруудын тухай",
       "models": {
-        "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
-      "nanoBanana21": "баян, гэрэл зургийн маягийн дүрс.",
       "samplePrompt": "Anki-аар шаргуу суралцаж, шалгалтаа өгч буй оюутны дүр төрхийг бий болго.",
       "saveError": "Зургийн өгөгдмөл тохиргоог хадгалж чадсангүй",
       "subtitle": "Талбар нь өөрөө бэхлээгүй тохиолдолд таны зургийн Smart Fields ашиглах загвар.",
       "title": "Өгөгдмөл зургийн тохиргоо",
-      "zImageTurbo": "хамгийн хурдан бөгөөд хямд."
+      "zImageTurbo": "хамгийн хурдан бөгөөд хямд.",
+      "gptImage25": "хамгийн тохиромжтой — тод текст, цэвэр диаграм.",
+      "modelTipLabel": "Зургийн загваруудын тухай",
+      "nanoBanana21": "баялаг, гэрэл зургийн шинжтэй дүрслэл."
     },
     "layout": {
       "saveChanges": "Өөрчлөлтүүдийг хадгалах",
@@ -330,27 +330,6 @@
       "title": "Өгөгдмөл дуу хоолойн тохиргоо"
     }
   },
-  "imageGeneration": {
-    "extraSettings": "Нэмэлт тохиргоо",
-    "doubleCost": "2× зардал",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Хамгийн дээд чанар",
-    "maxQualityDescription": "Илүү хөнгөн байдал, ялангуяа жижиг шошгонуудын хувьд.",
-    "richerDetail": "Нийлмэл дэлгэрэнгүй",
-    "richerDetailDescription": "Илүү дэлгэрэнгүй, бүтэн сахал. Арай удаан.",
-    "extraReasoning": "Нэмэлт үндэслэл",
-    "extraReasoningCost": "~1.5× үнэ",
-    "extraReasoningDescription": "Цэвэрхэн диаграмм, илүү ойлгомжтой текст. Ойролцоогоор 4× удаан.",
-    "nanoBanana": "Nano Banana (Google)",
-    "underTheHood": {
-      "gptMaxQuality": "Хамгийн өндөр чанар: бага биш, дунд чанар",
-      "gptRicherDetail": "Илүү дэлгэрэнгүй: GPT Image 2.5 Sunburst",
-      "gptStandard": "Стандарт: бага чанартай GPT Image 2.5 Flare",
-      "nanoExtraReasoning": "Нэмэлт үндэслэл: Nano Banana 2.1",
-      "nanoStandard": "Стандарт: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Аль загварууд ажиллах"
-  },
   "promptTester": {
     "anotherNoteType": "өөр тэмдэглэлийн төрөл",
     "currentlySelectedCard": "Одоогоор сонгосон карт",
@@ -363,7 +342,6 @@
     },
     "fieldRunsOnNoteType": "Энэ талбар <noteTypeName>{{noteType}}</noteTypeName> дээр ажилладаг",
     "generatedImagePreview": "Үүсгэсэн зургийг урьдчилан харах",
-    "generatedIn": "{{seconds}}s-д үүсгэгдсэн",
     "missingFieldsTitle_one": "Талбар алга",
     "missingFieldsTitle_other": "Дутуу талбарууд",
     "needsFields_one": "{{count}} талбар хэрэгтэй",
@@ -371,15 +349,12 @@
     "notesSelected_one": "{{count}} тэмдэглэл сонгосон — нэг болгож нарийсгана.",
     "notesSelected_other": "{{count}} тэмдэглэл сонгосон — нэг болгож нарийсгана.",
     "promptPlaceholder": "Картынхаа талбаруудыг {{braces}}-аар лавлаж, туршилтын сануулга бичнэ үү.",
-    "rerunToSave": "Энэ туршилтыг дахин ажиллуулж картад хадгална уу",
     "saveToCard": "Карт руу хадгалах",
     "savedTo": "{{field}} руу хадгалсан",
     "selectCardWithFields_one": "Уг талбартай карт сонгоно уу",
     "selectCardWithFields_other": "Эдгээр талбартай карт сонгоно уу",
     "selectFieldToReadAloud": "Чанга унших талбарыг сонгоно уу",
     "selectNewCard": "Хөтөч дээр шинэ карт сонгоно уу",
-    "or": "эсвэл",
-    "selectCardInBrowser": "Туршиж үзэх карт сонгоно уу",
     "selectRequiredNoteType": "<noteTypeName>{{noteType}}</noteTypeName> төрлийн тэмдэглэл сонгоно уу",
     "selectedCard": "Сонгосон карт",
     "selectedDeck": "Сонгосон тавцан",
@@ -387,12 +362,16 @@
     "selectionAppearsAutomatically": "Таны сонголт энд автоматаар гарч ирнэ.",
     "sent": "Илгээсэн",
     "testing": "Туршилт хийж байна...",
-    "openRecentImage": "Зураг {{number}}-г нээх",
-    "recentImages": "Саяхан үүсгэсэн зургууд",
     "testResult": "Туршилтын үр дүн",
     "textToSpeak": "Ярих текст",
     "viewResult": "Үр дүнг харах",
-    "wrongNoteType": "Буруу тэмдэглэлийн төрөл"
+    "wrongNoteType": "Буруу тэмдэглэлийн төрөл",
+    "generatedIn": "{{seconds}} секундэд үүсгэсэн",
+    "rerunToSave": "Картад хадгалахын тулд энэ туршилтыг дахин ажиллуулна уу",
+    "or": "эсвэл",
+    "selectCardInBrowser": "Туршихын тулд browser-оос карт сонгоно уу",
+    "openRecentImage": "Зураг {{number}}-г нээх",
+    "recentImages": "Үр дүн"
   },
   "subscription": {
     "accessEnds": "Хандалт дуусна",
@@ -528,5 +507,26 @@
     "thanks": "Smart Notes ✨ ашигласанд баярлалаа",
     "title": "Таны үнэгүй туршилтын хугацаа дууслаа",
     "upgradeNow": "Одоо шинэчил"
+  },
+  "imageGeneration": {
+    "extraReasoning": "Нэмэлт үндэслэл",
+    "extraReasoningCost": "~1.5× зардал",
+    "extraReasoningDescription": "Цэвэр диаграм, илүү уншигдахуйц текст. Ойролцоогоор 4 дахин удаан.",
+    "extraSettings": "Нэмэлт тохиргоо",
+    "doubleCost": "2× зардал",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Хамгийн өндөр чанар",
+    "maxQualityDescription": "Илүү тод, цэвэр, ялангуяа жижиг шошгууд.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Илүү баялаг дэлгэрэнгүй",
+    "richerDetailDescription": "Илүү нарийвчилсан, бүрэн дүрслэл. Бага зэрэг удаан.",
+    "underTheHood": {
+      "gptMaxQuality": "Хамгийн өндөр чанар: бага чанарын оронд дунд чанар",
+      "gptRicherDetail": "Илүү баялаг дэлгэрэнгүй: GPT Image 2.5 Sunburst",
+      "gptStandard": "Стандарт: GPT Image 2.5 Flare, бага чанартай",
+      "nanoExtraReasoning": "Нэмэлт үндэслэл: Nano Banana 2.1",
+      "nanoStandard": "Стандарт: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Аль загварууд ажиллах"
   }
 }

@@ -259,20 +259,20 @@
     "image": {
       "cannotFindModel": "Falta o modelo {{model}} do catálogo de imaxes",
       "defaultModel": "Modelo predeterminado",
-      "gptImage25": "o mellor de todo — texto nítido, diagramas limpios.",
       "loadingLabel": "Cargando a configuración predeterminada da imaxe",
       "loadingTitle": "Configuración predeterminada da imaxe",
-      "modelTipLabel": "Sobre os modelos de imaxe",
       "models": {
-        "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
-      "nanoBanana21": "escenas ricas e fotográficas.",
       "samplePrompt": "Xera unha imaxe dun alumno estudando moito con Anki e superando as súas probas.",
       "saveError": "Non se puideron gardar os valores predeterminados da imaxe",
       "subtitle": "O modelo que usa a túa imaxe Smart Fields a non ser que un campo fixe o seu.",
       "title": "Configuración predeterminada da imaxe",
-      "zImageTurbo": "máis rápido e máis barato."
+      "zImageTurbo": "máis rápido e máis barato.",
+      "gptImage25": "o mellor para todo uso: texto nítido e diagramas limpos.",
+      "modelTipLabel": "Sobre os modelos de imaxe",
+      "nanoBanana21": "escenas ricas e fotográficas."
     },
     "layout": {
       "saveChanges": "Garda os cambios",
@@ -330,27 +330,6 @@
       "title": "Configuración de voz predeterminada"
     }
   },
-  "imageGeneration": {
-    "extraSettings": "Configuración adicional",
-    "doubleCost": "2× custo",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Calidade máxima",
-    "maxQualityDescription": "Máis nítido e limpo, especialmente as etiquetas pequenas.",
-    "richerDetail": "Máis detalle",
-    "richerDetailDescription": "Máis detallado, escenas máis completas. Un pouco máis lento.",
-    "extraReasoning": "Razoamento extra",
-    "extraReasoningCost": "~1,5× o custo",
-    "extraReasoningDescription": "Diagramas máis limpos e texto máis lexible. Uns 4× máis lento.",
-    "nanoBanana": "Nano Banana (Google)",
-    "underTheHood": {
-      "gptMaxQuality": "Calidade máxima: calidade media en lugar de baixa",
-      "gptRicherDetail": "Máis detalle: GPT Image 2.5 Sunburst",
-      "gptStandard": "Estándar: GPT Image 2.5 Flare con calidade baixa",
-      "nanoExtraReasoning": "Razoamento extra: Nano Banana 2.1",
-      "nanoStandard": "Estándar: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Que modelos se usan"
-  },
   "promptTester": {
     "anotherNoteType": "outro tipo de nota",
     "currentlySelectedCard": "Tarxeta seleccionada actualmente",
@@ -363,7 +342,6 @@
     },
     "fieldRunsOnNoteType": "Este campo execútase en <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Vista previa da imaxe xerada",
-    "generatedIn": "Xerado en {{seconds}}s",
     "missingFieldsTitle_one": "Falta campo",
     "missingFieldsTitle_other": "Faltan campos",
     "needsFields_one": "Necesita campo {{count}}",
@@ -371,15 +349,12 @@
     "notesSelected_one": "{{count}} nota seleccionada: restrinxea a unha.",
     "notesSelected_other": "Notas {{count}} seleccionadas: restrinxeo a un.",
     "promptPlaceholder": "Escribe unha solicitude de proba, facendo referencia aos campos da túa tarxeta con {{braces}}.",
-    "rerunToSave": "Volve executar esta proba para gardala na tarxeta",
     "saveToCard": "Gardar na tarxeta",
     "savedTo": "Gardado en {{field}}",
     "selectCardWithFields_one": "Seleccione un cartafol co campo",
     "selectCardWithFields_other": "Seleccione un cartafol cos campos",
     "selectFieldToReadAloud": "Seleccione un campo para ler en voz alta",
     "selectNewCard": "Seleccione unha nova tarxeta no navegador",
-    "or": "ou",
-    "selectCardInBrowser": "Selecciona unha tarxeta no navegador para probar",
     "selectRequiredNoteType": "Seleccione una nota do tipo <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Tarxeta seleccionada",
     "selectedDeck": "Cuberta escollida",
@@ -387,12 +362,16 @@
     "selectionAppearsAutomatically": "A túa selección aparece aquí automaticamente.",
     "sent": "Enviado",
     "testing": "Probando…",
-    "openRecentImage": "Abrir imaxe {{number}}",
-    "recentImages": "Imaxes creadas recentemente",
     "testResult": "Resultado da proba",
     "textToSpeak": "Texto para falar",
     "viewResult": "Ver resultado",
-    "wrongNoteType": "Tipo de nota incorrecto"
+    "wrongNoteType": "Tipo de nota incorrecto",
+    "generatedIn": "Xerado en {{seconds}} s",
+    "rerunToSave": "Executa de novo esta proba para gardala na tarxeta",
+    "or": "ou",
+    "selectCardInBrowser": "Selecciona unha tarxeta no navegador para probar",
+    "openRecentImage": "Abrir imaxe {{number}}",
+    "recentImages": "Resultados"
   },
   "subscription": {
     "accessEnds": "O acceso finaliza",
@@ -528,5 +507,26 @@
     "thanks": "Grazas por usar Smart Notes ✨",
     "title": "A túa proba gratuíta rematou",
     "upgradeNow": "Actualiza agora"
+  },
+  "imageGeneration": {
+    "extraReasoning": "Razoamento extra",
+    "extraReasoningCost": "~1,5× o custo",
+    "extraReasoningDescription": "Diagramas máis limpos e texto máis lexible. Uns 4× máis lento.",
+    "extraSettings": "Axustes Extra",
+    "doubleCost": "2× o custo",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Calidade máxima",
+    "maxQualityDescription": "Máis nítido e limpo, sobre todo nas etiquetas pequenas.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Máis detalle",
+    "richerDetailDescription": "Escenas máis detalladas e completas. Algo máis lento.",
+    "underTheHood": {
+      "gptMaxQuality": "Calidade máxima: calidade media en lugar de baixa",
+      "gptRicherDetail": "Máis detalle: GPT Image 2.5 Sunburst",
+      "gptStandard": "Estándar: GPT Image 2.5 Flare con calidade baixa",
+      "nanoExtraReasoning": "Razoamento extra: Nano Banana 2.1",
+      "nanoStandard": "Estándar: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Que modelos se executan"
   }
 }

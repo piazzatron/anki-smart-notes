@@ -258,20 +258,20 @@
     "image": {
       "cannotFindModel": "Danh mục hình ảnh thiếu mẫu {{model}}",
       "defaultModel": "Mô hình mặc định",
-      "gptImage25": "toàn năng nhất — văn bản sắc nét, biểu đồ sạch sẽ.",
       "loadingLabel": "Đang tải cài đặt hình ảnh mặc định",
       "loadingTitle": "Cài đặt hình ảnh mặc định",
-      "modelTipLabel": "Giới thiệu về các mô hình ảnh",
       "models": {
-        "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
-      "nanoBanana21": "các cảnh giàu chi tiết, mang phong cách nhiếp ảnh.",
       "samplePrompt": "Tạo hình ảnh một học sinh đang học tập chăm chỉ với Anki và vượt qua các bài kiểm tra của họ.",
       "saveError": "Không thể lưu mặc định hình ảnh",
       "subtitle": "Mô hình mà hình ảnh Smart Fields của bạn sử dụng trừ khi một trường ghim trường của chính nó.",
       "title": "Cài đặt hình ảnh mặc định",
-      "zImageTurbo": "nhanh nhất và rẻ nhất."
+      "zImageTurbo": "nhanh nhất và rẻ nhất.",
+      "gptImage25": "tốt nhất cho mọi tác vụ — chữ sắc nét, sơ đồ gọn gàng.",
+      "modelTipLabel": "Về các mô hình tạo ảnh",
+      "nanoBanana21": "cảnh giàu chi tiết, mang phong cách ảnh chụp."
     },
     "layout": {
       "saveChanges": "Lưu thay đổi",
@@ -328,27 +328,6 @@
       "title": "Cài đặt giọng nói mặc định"
     }
   },
-  "imageGeneration": {
-    "extraSettings": "Cài đặt bổ sung",
-    "doubleCost": "Chi phí gấp 2×",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Chất lượng tối đa",
-    "maxQualityDescription": "Rõ nét và sạch hơn, đặc biệt là các nhãn nhỏ.",
-    "richerDetail": "Chi tiết phong phú hơn",
-    "richerDetailDescription": "Chi tiết hơn, cảnh đầy đủ hơn. Chậm hơn một chút.",
-    "extraReasoning": "Suy luận mở rộng",
-    "extraReasoningCost": "Chi phí ~1,5×",
-    "extraReasoningDescription": "Sơ đồ rõ ràng hơn và văn bản dễ đọc hơn. Chậm hơn khoảng 4×.",
-    "nanoBanana": "Nano Banana (Google)",
-    "underTheHood": {
-      "gptMaxQuality": "Chất lượng tối đa: chất lượng trung bình thay vì thấp",
-      "gptRicherDetail": "Chi tiết phong phú hơn: GPT Image 2.5 Sunburst",
-      "gptStandard": "Tiêu chuẩn: GPT Image 2.5 Flare ở chất lượng thấp",
-      "nanoExtraReasoning": "Suy luận mở rộng: Nano Banana 2.1",
-      "nanoStandard": "Tiêu chuẩn: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Mô hình nào sẽ chạy"
-  },
   "promptTester": {
     "anotherNoteType": "loại ghi chú khác",
     "currentlySelectedCard": "Thẻ hiện được chọn",
@@ -361,19 +340,15 @@
     },
     "fieldRunsOnNoteType": "Trường này chạy trên <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Xem trước hình ảnh được tạo",
-    "generatedIn": "Được tạo ra trong {{seconds}}s",
     "missingFieldsTitle_other": "Thiếu trường",
     "needsFields_other": "Cần các trường {{count}}",
     "notesSelected_other": "Các ghi chú {{count}} đã chọn - thu hẹp nó thành một ghi chú.",
     "promptPlaceholder": "Viết lời nhắc kiểm tra, tham chiếu các trường trên thẻ của bạn bằng {{braces}}.",
-    "rerunToSave": "Chạy lại thử nghiệm này để lưu vào thẻ",
     "saveToCard": "Lưu vào thẻ",
     "savedTo": "Đã lưu vào {{field}}",
     "selectCardWithFields_other": "Vui lòng chọn một thẻ có các trường",
     "selectFieldToReadAloud": "Chọn một trường để đọc to",
     "selectNewCard": "Chọn thẻ mới trong trình duyệt",
-    "or": "hoặc",
-    "selectCardInBrowser": "Chọn một thẻ trong trình duyệt để kiểm tra",
     "selectRequiredNoteType": "Vui lòng chọn một ghi chú thuộc loại <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Thẻ đã chọn",
     "selectedDeck": "Bộ bài đã chọn",
@@ -381,12 +356,16 @@
     "selectionAppearsAutomatically": "Lựa chọn của bạn sẽ tự động xuất hiện ở đây.",
     "sent": "Đã gửi",
     "testing": "Đang thử nghiệm…",
-    "openRecentImage": "Mở ảnh {{number}}",
-    "recentImages": "Ảnh đã tạo gần đây",
     "testResult": "Kết quả kiểm tra",
     "textToSpeak": "Nhắn tin để nói",
     "viewResult": "Xem kết quả",
-    "wrongNoteType": "Loại ghi chú sai"
+    "wrongNoteType": "Loại ghi chú sai",
+    "generatedIn": "Đã tạo trong {{seconds}}s",
+    "rerunToSave": "Chạy lại kiểm thử này để lưu vào thẻ",
+    "or": "hoặc",
+    "selectCardInBrowser": "Chọn một thẻ trong trình duyệt để kiểm thử",
+    "openRecentImage": "Mở ảnh {{number}}",
+    "recentImages": "Kết quả"
   },
   "subscription": {
     "accessEnds": "Quyền truy cập kết thúc",
@@ -518,5 +497,26 @@
     "thanks": "Cảm ơn bạn đã sử dụng Smart Notes ✨",
     "title": "Thời gian dùng thử miễn phí của bạn đã kết thúc",
     "upgradeNow": "Nâng cấp ngay bây giờ"
+  },
+  "imageGeneration": {
+    "extraReasoning": "Suy luận thêm",
+    "extraReasoningCost": "~1,5× chi phí",
+    "extraReasoningDescription": "Sơ đồ rõ ràng hơn và chữ dễ đọc hơn. Chậm hơn khoảng 4 lần.",
+    "extraSettings": "Cài đặt thêm",
+    "doubleCost": "2× chi phí",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Chất lượng tối đa",
+    "maxQualityDescription": "Sắc nét và gọn hơn, đặc biệt với nhãn nhỏ.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Chi tiết phong phú",
+    "richerDetailDescription": "Cảnh chi tiết và đầy đặn hơn. Chậm hơn một chút.",
+    "underTheHood": {
+      "gptMaxQuality": "Chất lượng tối đa: chất lượng trung bình thay vì thấp",
+      "gptRicherDetail": "Chi tiết phong phú: GPT Image 2.5 Sunburst",
+      "gptStandard": "Tiêu chuẩn: GPT Image 2.5 Flare ở chất lượng thấp",
+      "nanoExtraReasoning": "Suy luận thêm: Nano Banana 2.1",
+      "nanoStandard": "Tiêu chuẩn: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Mô hình nào được chạy"
   }
 }

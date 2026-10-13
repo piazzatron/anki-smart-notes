@@ -262,20 +262,20 @@
     "image": {
       "cannotFindModel": "Tá samhail {{model}} in easnamh ar chatalóg na n-íomhánna",
       "defaultModel": "Múnla réamhshocraithe",
-      "gptImage25": "an roghnóir is fearr ar fad — téacs geal, léaráidí glan.",
       "loadingLabel": "Socruithe Réamhshocraithe Íomhá á Luchtú",
       "loadingTitle": "Socruithe Réamhshocraithe Íomhá",
-      "modelTipLabel": "Faoi na samhlacha íomhá",
       "models": {
-        "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
-      "nanoBanana21": "radharcanna saibhre, fótagrafach.",
       "samplePrompt": "Gin íomhá de dhalta atá ag staidéar go dian le Anki agus ag dul thar a gcuid trialacha.",
       "saveError": "Níorbh fhéidir réamhshocruithe na híomhá a shábháil",
       "subtitle": "Úsáid múnla d’íomhá Smart Fields mura n-úsáideann páirc a chuid féin.",
       "title": "Socruithe Réamhshocraithe Íomhá",
-      "zImageTurbo": "is tapúla agus is saoire."
+      "zImageTurbo": "is tapúla agus is saoire.",
+      "gptImage25": "an rogha is fearr ar fad — téacs géar, léaráidí glana.",
+      "modelTipLabel": "Faoi na samhlacha íomhá",
+      "nanoBanana21": "radharcanna saibhre, grianghrafadóireachta."
     },
     "layout": {
       "saveChanges": "Sábháil athruithe",
@@ -336,27 +336,6 @@
       "title": "Socruithe Gutha Réamhshocraithe"
     }
   },
-  "imageGeneration": {
-    "extraSettings": "Socruithe breise",
-    "doubleCost": "2× costas",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Uachtar ar an gcáilíochta",
-    "maxQualityDescription": "Níos géire agus níos geal, go háirithe lipéid bheaga.",
-    "richerDetail": "Saibhre sonraí",
-    "richerDetailDescription": "Níos mionsonraithe, radhairc níos líofa. Beagáinín níos moille.",
-    "extraReasoning": "Réasúnaíocht bhreise",
-    "extraReasoningCost": "~1.5× costas",
-    "extraReasoningDescription": "Léaráidí níos glaine agus téacs níos inléite. Thart ar 4× níos moille.",
-    "nanoBanana": "Nano Banana (Google)",
-    "underTheHood": {
-      "gptMaxQuality": "Cáilíocht uasta: cáilíocht mheánach in ionad ísil",
-      "gptRicherDetail": "Mionsonraí níos saibhre: GPT Image 2.5 Sunburst",
-      "gptStandard": "Caighdeánach: GPT Image 2.5 Flare ag cáilíocht ísil",
-      "nanoExtraReasoning": "Réasúnaíocht bhreise: Nano Banana 2.1",
-      "nanoStandard": "Caighdeánach: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Cé na samhlacha a rithfidh"
-  },
   "promptTester": {
     "anotherNoteType": "cineál nóta eile",
     "currentlySelectedCard": "Cárta roghnaithe faoi láthair",
@@ -369,7 +348,6 @@
     },
     "fieldRunsOnNoteType": "Rithíonn an réimse seo ar <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Réamhamharc íomhá ginte",
-    "generatedIn": "Ginte in {{seconds}}s",
     "missingFieldsTitle_one": "páirc ar iarraidh",
     "missingFieldsTitle_two": "Réimsí ar iarraidh",
     "missingFieldsTitle_few": "Réimsí ar iarraidh",
@@ -386,7 +364,6 @@
     "notesSelected_many": "Nótaí {{count}} roghnaithe — caolaigh go ceann amháin é.",
     "notesSelected_other": "Nótaí {{count}} roghnaithe — caolaigh go ceann amháin é.",
     "promptPlaceholder": "Scríobh leid tástála, ag tagairt do réimsí ar do chárta le {{braces}}.",
-    "rerunToSave": "Rith an tástáil seo arís chun í a shábháil ar an gcárta",
     "saveToCard": "Sábháil ar chárta",
     "savedTo": "Sábháilte go {{field}}",
     "selectCardWithFields_one": "Roghnaigh carta le an réimse, le do thoil",
@@ -396,8 +373,6 @@
     "selectCardWithFields_other": "Roghnaigh carta leis na réimsí, le do thoil",
     "selectFieldToReadAloud": "Roghnaigh réimse le léamh os ard",
     "selectNewCard": "Roghnaigh cárta nua sa bhrabhsálaí",
-    "or": "nó",
-    "selectCardInBrowser": "Roghnaigh cárta sa bhrabhsálaí le tástáil",
     "selectRequiredNoteType": "Roghnaigh nóta den chineál <noteTypeName>{{noteType}}</noteTypeName>, le do thoil",
     "selectedCard": "Cárta roghnaithe",
     "selectedDeck": "Deic roghnaithe",
@@ -405,12 +380,16 @@
     "selectionAppearsAutomatically": "Taispeántar do rogha anseo go huathoibríoch.",
     "sent": "Seolta",
     "testing": "Ag tástáil…",
-    "openRecentImage": "Oscail íomhá {{number}}",
-    "recentImages": "Íomhánna a cruthaíodh le déanaí",
     "testResult": "Toradh tástála",
     "textToSpeak": "Téacs a labhairt",
     "viewResult": "Féach ar an toradh",
-    "wrongNoteType": "Cineál nóta mícheart"
+    "wrongNoteType": "Cineál nóta mícheart",
+    "generatedIn": "Ginte in {{seconds}}s",
+    "rerunToSave": "Rith an tástáil seo arís chun í a shábháil sa chárta",
+    "or": "nó",
+    "selectCardInBrowser": "Roghnaigh cárta sa bhrabhsálaí le tástáil",
+    "openRecentImage": "Oscail íomhá {{number}}",
+    "recentImages": "Torthaí"
   },
   "subscription": {
     "accessEnds": "Críochnaíonn an rochtain",
@@ -558,5 +537,26 @@
     "thanks": "Go raibh maith agat as Smart Notes ✨ a úsáid",
     "title": "Tá deireadh le do thriail saor in aisce",
     "upgradeNow": "Uasghrádaigh anois"
+  },
+  "imageGeneration": {
+    "extraReasoning": "Réasúnaíocht bhreise",
+    "extraReasoningCost": "~1.5× costas",
+    "extraReasoningDescription": "Léaráidí glanta agus téacs níos inléite. Thart ar 4× níos moille.",
+    "extraSettings": "Socruithe Breise",
+    "doubleCost": "2× costas",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Cáilíocht uasta",
+    "maxQualityDescription": "Níos géire agus níos glaine, go háirithe lipéid bheaga.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Mionsonraí níos saibhre",
+    "richerDetailDescription": "Radharcanna níos mionsonraithe agus níos iomláine. Beagán níos moille.",
+    "underTheHood": {
+      "gptMaxQuality": "Cáilíocht uasta: cáilíocht mheánach in ionad íseal",
+      "gptRicherDetail": "Mionsonraí níos saibhre: GPT Image 2.5 Sunburst",
+      "gptStandard": "Caighdeánach: GPT Image 2.5 Flare ar cháilíocht íseal",
+      "nanoExtraReasoning": "Réasúnaíocht bhreise: Nano Banana 2.1",
+      "nanoStandard": "Caighdeánach: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Cé na samhlacha a ritheann"
   }
 }

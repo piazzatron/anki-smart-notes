@@ -260,20 +260,20 @@
     "image": {
       "cannotFindModel": "Falta el model {{model}} del catàleg d'imatges",
       "defaultModel": "Model per defecte",
-      "gptImage25": "millor opció versàtil — text nítid, diagrames nets.",
       "loadingLabel": "S'està carregant la configuració d'imatge predeterminada",
       "loadingTitle": "Configuració d'imatge per defecte",
-      "modelTipLabel": "Sobre els models d'imatge",
       "models": {
-        "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
-      "nanoBanana21": "escenes riques i fotogràfiques.",
       "samplePrompt": "Genereu una imatge d'un estudiant estudiant molt amb Anki i aprovant les seves proves.",
       "saveError": "No s'han pogut desar els valors predeterminats de la imatge",
       "subtitle": "El model que utilitzeu la vostra imatge Smart Fields tret que un camp fixi el seu.",
       "title": "Configuració d'imatge per defecte",
-      "zImageTurbo": "més ràpid i barat."
+      "zImageTurbo": "més ràpid i barat.",
+      "gptImage25": "el millor per a tot: text nítid, diagrames nets.",
+      "modelTipLabel": "Sobre els models d'imatge",
+      "nanoBanana21": "escenes riques i fotogràfiques."
     },
     "layout": {
       "saveChanges": "Desa els canvis",
@@ -332,27 +332,6 @@
       "title": "Configuració de veu per defecte"
     }
   },
-  "imageGeneration": {
-    "extraSettings": "Configuració addicional",
-    "doubleCost": "2× cost",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Qualitat màxima",
-    "maxQualityDescription": "Més nítid i net, especialment les etiquetes petites.",
-    "richerDetail": "Més detall",
-    "richerDetailDescription": "Més detallat, escenes més completes. Una mica més lent.",
-    "extraReasoning": "Raonament addicional",
-    "extraReasoningCost": "~1,5× cost",
-    "extraReasoningDescription": "Diagrames més nets i text més llegible. Unes 4× més lent.",
-    "nanoBanana": "Nano Banana (Google)",
-    "underTheHood": {
-      "gptMaxQuality": "Qualitat màxima: qualitat mitjana en lloc de baixa",
-      "gptRicherDetail": "Més detall: GPT Image 2.5 Sunburst",
-      "gptStandard": "Estàndard: GPT Image 2.5 Flare amb qualitat baixa",
-      "nanoExtraReasoning": "Raonament addicional: Nano Banana 2.1",
-      "nanoStandard": "Estàndard: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Quins models s'executen"
-  },
   "promptTester": {
     "anotherNoteType": "un altre tipus de nota",
     "currentlySelectedCard": "Targeta seleccionada actualment",
@@ -365,7 +344,6 @@
     },
     "fieldRunsOnNoteType": "Aquest camp s'executa en <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Vista prèvia de la imatge generada",
-    "generatedIn": "Generat en {{seconds}}s",
     "missingFieldsTitle_one": "Falta camp",
     "missingFieldsTitle_many": "Falten camps",
     "missingFieldsTitle_other": "Falten camps",
@@ -376,7 +354,6 @@
     "notesSelected_many": "Notes {{count}} seleccionades: reduïu-les a un.",
     "notesSelected_other": "Notes {{count}} seleccionades: reduïu-les a un.",
     "promptPlaceholder": "Escriviu una indicació de prova, fent referència als camps de la vostra targeta amb {{braces}}.",
-    "rerunToSave": "Torna a executar aquesta prova per desar-la a la targeta",
     "saveToCard": "Desa a la targeta",
     "savedTo": "Desat a {{field}}",
     "selectCardWithFields_one": "Si us plau, seleccioneu una targeta amb el camp",
@@ -384,8 +361,6 @@
     "selectCardWithFields_other": "Si us plau, seleccioneu una targeta amb els camps",
     "selectFieldToReadAloud": "Seleccioneu un camp per llegir en veu alta",
     "selectNewCard": "Seleccioneu una targeta nova al navegador",
-    "or": "o",
-    "selectCardInBrowser": "Selecciona una targeta al navegador per provar-ho",
     "selectRequiredNoteType": "Si us plau, seleccioneu una nota de tipus <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Targeta seleccionada",
     "selectedDeck": "Baralla seleccionada",
@@ -393,12 +368,16 @@
     "selectionAppearsAutomatically": "La vostra selecció apareix aquí automàticament.",
     "sent": "Enviat",
     "testing": "S'està provant…",
-    "openRecentImage": "Obre la imatge {{number}}",
-    "recentImages": "Imatges creades recentment",
     "testResult": "Resultat de la prova",
     "textToSpeak": "Text per parlar",
     "viewResult": "Veure resultat",
-    "wrongNoteType": "Tipus de nota incorrecte"
+    "wrongNoteType": "Tipus de nota incorrecte",
+    "generatedIn": "Generat en {{seconds}} s",
+    "rerunToSave": "Torna a executar aquesta prova per desar-la a la targeta",
+    "or": "o",
+    "selectCardInBrowser": "Selecciona una targeta al navegador per provar-la",
+    "openRecentImage": "Obre la imatge {{number}}",
+    "recentImages": "Resultats"
   },
   "subscription": {
     "accessEnds": "L'accés s'acaba",
@@ -538,5 +517,26 @@
     "thanks": "Gràcies per utilitzar Smart Notes ✨",
     "title": "La teva prova gratuïta ha finalitzat",
     "upgradeNow": "Actualitza ara"
+  },
+  "imageGeneration": {
+    "extraReasoning": "Raonament addicional",
+    "extraReasoningCost": "~1,5× el cost",
+    "extraReasoningDescription": "Diagrames més nets i text més llegible. Unes 4× més lent.",
+    "extraSettings": "Configuració addicional",
+    "doubleCost": "2× el cost",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Qualitat màxima",
+    "maxQualityDescription": "Més nítid i net, sobretot les etiquetes petites.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Més detall",
+    "richerDetailDescription": "Escenes més detallades i completes. Una mica més lent.",
+    "underTheHood": {
+      "gptMaxQuality": "Qualitat màxima: qualitat mitjana en lloc de baixa",
+      "gptRicherDetail": "Més detall: GPT Image 2.5 Sunburst",
+      "gptStandard": "Estàndard: GPT Image 2.5 Flare amb qualitat baixa",
+      "nanoExtraReasoning": "Raonament addicional: Nano Banana 2.1",
+      "nanoStandard": "Estàndard: Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "Quins models s'executen"
   }
 }

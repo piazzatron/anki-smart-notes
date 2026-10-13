@@ -258,20 +258,20 @@
     "image": {
       "cannotFindModel": "影像目錄缺少型號 {{model}}",
       "defaultModel": "預設型號",
-      "gptImage25": "全能選手 — 銳利的文字、整潔的圖表。",
       "loadingLabel": "載入預設圖像設定",
       "loadingTitle": "預設影像設定",
-      "modelTipLabel": "關於圖像模型",
       "models": {
-        "gptImage25": "GPT Image 2.5",
-        "zImageTurbo": "Z-Image Turbo"
+        "zImageTurbo": "Z-Image Turbo",
+        "gptImage25": "GPT Image 2.5"
       },
-      "nanoBanana21": "豐富、攝影風格的場景。",
       "samplePrompt": "產生學生使用 Anki 努力學習並通過測驗的圖像。",
       "saveError": "無法儲存影像預設值",
       "subtitle": "您的圖像 Smart Fields 使用的模型，除非欄位固定自己的模型。",
       "title": "預設影像設定",
-      "zImageTurbo": "最快且最便宜。"
+      "zImageTurbo": "最快且最便宜。",
+      "gptImage25": "綜合表現最佳，文字銳利，圖表乾淨。",
+      "modelTipLabel": "關於圖片模型",
+      "nanoBanana21": "細節豐富的攝影風場景。"
     },
     "layout": {
       "saveChanges": "儲存變更",
@@ -328,27 +328,6 @@
       "title": "預設語音設定"
     }
   },
-  "imageGeneration": {
-    "extraSettings": "額外設定",
-    "doubleCost": "2× 成本",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "最高品質",
-    "maxQualityDescription": "更清晰細緻，特別是小標籤部分。",
-    "richerDetail": "更豐富的細節",
-    "richerDetailDescription": "更詳細、更飽滿的場景。速度稍慢。",
-    "extraReasoning": "額外推理",
-    "extraReasoningCost": "~1.5× 成本",
-    "extraReasoningDescription": "圖表更清晰,文字更易讀。速度約慢 4 倍。",
-    "nanoBanana": "Nano Banana (Google)",
-    "underTheHood": {
-      "gptMaxQuality": "最高品質:使用中等品質而非低品質",
-      "gptRicherDetail": "細節更豐富:GPT Image 2.5 Sunburst",
-      "gptStandard": "標準:GPT Image 2.5 Flare,低品質",
-      "nanoExtraReasoning": "額外推理:Nano Banana 2.1",
-      "nanoStandard": "標準:Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "執行的模型"
-  },
   "promptTester": {
     "anotherNoteType": "另一種筆記類型",
     "currentlySelectedCard": "目前選擇的卡",
@@ -361,19 +340,15 @@
     },
     "fieldRunsOnNoteType": "此欄位在 <noteTypeName>{{noteType}}</noteTypeName> 上執行",
     "generatedImagePreview": "生成的圖像預覽",
-    "generatedIn": "生成於 {{seconds}}s",
     "missingFieldsTitle_other": "缺失字段",
     "needsFields_other": "需要 {{count}} 字段",
     "notesSelected_other": "選定的 {{count}} 音符 - 將其縮小到一個。",
     "promptPlaceholder": "使用 {{braces}} 撰寫測試提示，引用卡片上的欄位。",
-    "rerunToSave": "重新執行此測試以將其儲存至卡片",
     "saveToCard": "儲存到卡",
     "savedTo": "儲存到 {{field}}",
     "selectCardWithFields_other": "請選擇包含這些欄位的卡牌",
     "selectFieldToReadAloud": "選擇要朗讀的字段",
     "selectNewCard": "在瀏覽器中選擇一張新卡",
-    "or": "或",
-    "selectCardInBrowser": "請在瀏覽器中選取一張卡片以進行測試",
     "selectRequiredNoteType": "請選擇 <noteTypeName>{{noteType}}</noteTypeName> 類型的筆記",
     "selectedCard": "已選卡",
     "selectedDeck": "選定的牌組",
@@ -381,12 +356,16 @@
     "selectionAppearsAutomatically": "您的選擇會自動出現在此。",
     "sent": "傳送",
     "testing": "測試...",
-    "openRecentImage": "開啟圖片 {{number}}",
-    "recentImages": "最近建立的圖片",
     "testResult": "測試結果",
     "textToSpeak": "文字說話",
     "viewResult": "查看結果",
-    "wrongNoteType": "註釋類型錯誤"
+    "wrongNoteType": "註釋類型錯誤",
+    "generatedIn": "已於 {{seconds}} 秒內生成",
+    "rerunToSave": "重新執行此測試，以將結果儲存到卡片",
+    "or": "或",
+    "selectCardInBrowser": "請在瀏覽器中選取卡片以進行測試",
+    "openRecentImage": "開啟圖片 {{number}}",
+    "recentImages": "結果"
   },
   "subscription": {
     "accessEnds": "存取權限結束",
@@ -518,5 +497,26 @@
     "thanks": "感謝您使用 Smart Notes ✨",
     "title": "您的免費試用已結束",
     "upgradeNow": "立即升級"
+  },
+  "imageGeneration": {
+    "extraReasoning": "額外推理",
+    "extraReasoningCost": "約 1.5 倍成本",
+    "extraReasoningDescription": "圖表更乾淨，文字更易讀。速度約慢 4 倍。",
+    "extraSettings": "額外設定",
+    "doubleCost": "2 倍成本",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "最高品質",
+    "maxQualityDescription": "更加銳利清晰，小標籤尤其明顯。",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "更豐富的細節",
+    "richerDetailDescription": "場景細節更多、更完整。速度稍慢。",
+    "underTheHood": {
+      "gptMaxQuality": "最高品質：使用中等品質而非低品質",
+      "gptRicherDetail": "更豐富的細節：GPT Image 2.5 Sunburst",
+      "gptStandard": "標準：低品質的 GPT Image 2.5 Flare",
+      "nanoExtraReasoning": "額外推理：Nano Banana 2.1",
+      "nanoStandard": "標準：Nano Banana 2 Lite"
+    },
+    "underTheHoodLabel": "執行的模型"
   }
 }
