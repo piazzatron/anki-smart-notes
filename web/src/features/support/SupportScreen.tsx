@@ -171,7 +171,6 @@ export const SupportScreen = () => {
               solar: (
                 <CreditLink href="https://www.figma.com/community/file/1166831539721848736" />
               ),
-              streamline: <CreditLink href="https://www.streamlinehq.com" />,
             }}
             i18nKey="support.iconCredit"
           />

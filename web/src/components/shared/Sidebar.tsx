@@ -1,15 +1,15 @@
 import { DiscordMark } from "./DiscordMark"
 import { FeedbackDialog } from "./FeedbackDialog"
 import {
+  CardIcon,
   ChatIcon,
   CogIcon,
   GalleryIcon,
-  HelpChatIcon,
   type IconProps,
+  LifebuoyIcon,
   LightbulbIcon,
   SparklesIcon,
   VolumeIcon,
-  WalletIcon,
 } from "./Icons"
 import { PlanCard } from "./PlanCard"
 import type { ComponentType } from "react"
@@ -43,8 +43,8 @@ const PRIMARY_ITEMS: NavItem[] = [
 ]
 
 const SECONDARY_ITEMS: NavItem[] = [
-  { id: "support", labelKey: "support", icon: HelpChatIcon },
-  { id: "subscription", labelKey: "subscription", icon: WalletIcon },
+  { id: "support", labelKey: "support", icon: LifebuoyIcon },
+  { id: "subscription", labelKey: "subscription", icon: CardIcon },
 ]
 
 export const Sidebar = ({

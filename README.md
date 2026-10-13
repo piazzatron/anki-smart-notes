@@ -28,10 +28,7 @@ PRs are welcome. This repo uses Python with typechecking, linting, formatting, a
 
 ## 🎨 Credits
 
-The web UI's icons are not covered by the GPL. They come from two sets, both licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/):
-
-- [Streamline](https://www.streamlinehq.com) Plump free icons
-- [Solar](https://www.figma.com/community/file/1166831539721848736) by 480 Design
+The web UI's icons are [Solar](https://www.figma.com/community/file/1166831539721848736) by 480 Design, licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). They are not covered by the GPL.
 
 ## 📝 Changelog
 
