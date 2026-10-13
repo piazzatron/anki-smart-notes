@@ -142,8 +142,8 @@ const NavButton = ({ activeScreen, item, onNavigate }: NavButtonProps) => {
       aria-current={isActive ? "page" : undefined}
       className={`group flex w-full items-center gap-[10px] rounded-lg px-[10px] py-[5px] text-start text-[14px] font-medium transition-[background-color,color,opacity] duration-150 ease-out ${
         isActive
-          ? "bg-panel-raised text-zinc-100 opacity-100"
-          : "text-zinc-300 hover:bg-white/[0.055] hover:text-zinc-100"
+          ? "bg-panel-raised text-white opacity-100"
+          : "text-zinc-400 hover:bg-white/[0.055] hover:text-zinc-200"
       }`}
       onClick={() => onNavigate(item.id)}
     >
@@ -151,8 +151,8 @@ const NavButton = ({ activeScreen, item, onNavigate }: NavButtonProps) => {
       <item.icon
         className={
           isActive
-            ? "text-[#4cf0a8]"
-            : "text-ink-muted transition-colors duration-150 group-hover:text-zinc-300"
+            ? "text-[#2ef59c]"
+            : "text-zinc-500 transition-colors duration-150 group-hover:text-zinc-300"
         }
         size={18}
       />
