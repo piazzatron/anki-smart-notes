@@ -22,6 +22,12 @@
 - Use `source .venv/bin/activate && python -m pytest` to run tests.
 - When adding or removing runtime dependencies in `requirements.txt`, also update the vendored dependency list in `scripts/build.sh`; packaged Anki builds only include dependencies copied into `dist/vendor`.
 
+## Changelog Versioning
+
+- `manifest.json`'s `human_version` is the currently shipped version.
+- If the latest `changelog.md` entry is ahead of `human_version`, that version hasn't shipped yet: add to that entry instead of creating a new one.
+- Only start a new changelog version entry once the prior one has been released (`human_version` matches or exceeds it).
+
 ## Web UI Visual Testing
 
 - For Smart Notes web UI layout and interaction verification, follow the shared `anki-ui-testing` skill at `../skills/anki-ui-testing/SKILL.md`.
