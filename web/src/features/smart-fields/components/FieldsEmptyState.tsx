@@ -62,7 +62,7 @@ export const FieldsEmptyState = ({ onCreate }: FieldsEmptyStateProps) => {
         variant="success"
       >
         <SparklesIcon
-          className="absolute start-4 top-1/2 -translate-y-1/2"
+          className="absolute start-[22px] top-1/2 -translate-y-1/2"
           size={18}
         />
         {t("smartFields.newSmartField")}

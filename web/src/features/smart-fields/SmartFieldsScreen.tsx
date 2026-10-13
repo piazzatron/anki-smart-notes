@@ -105,7 +105,7 @@ export const SmartFieldsScreen = ({
             variant="success"
           >
             <SparklesIcon
-              className="absolute start-3.5 top-1/2 -translate-y-1/2"
+              className="absolute start-[18px] top-1/2 -translate-y-1/2"
               size={14}
             />
             {t("smartFields.newSmartField")}
