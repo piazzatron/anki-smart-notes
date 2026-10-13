@@ -1,6 +1,17 @@
 import { DiscordMark } from "./DiscordMark"
 import { FeedbackDialog } from "./FeedbackDialog"
 import { PlanCard } from "./PlanCard"
+import {
+  ChatCircleTextIcon,
+  CreditCardIcon,
+  GearSixIcon,
+  type Icon,
+  ImageIcon,
+  LifebuoyIcon,
+  LightbulbIcon,
+  SparkleIcon,
+  SpeakerHighIcon,
+} from "@phosphor-icons/react"
 import { useTranslation } from "react-i18next"
 
 import type { ScreenId } from "@/lib/boot"
@@ -17,23 +28,58 @@ interface SidebarProps {
 interface NavItem {
   id: ScreenId
   labelKey: string
-  emoji: string
+  icon: Icon
+  tint: string
 }
 
-// Text and Image reuse the app's field-type emoji (💬 / 🎨). Smart Fields uses ✨
-// to echo the "Smart Fields" page title; Voice uses the louder 🔊, which reads
-// better at nav size than the field rows' quieter 🔈.
+// Phosphor Fill icons, each tinted from the pastel palette so the nav keeps the
+// color the emoji used to give it, without per-OS emoji rendering.
 const PRIMARY_ITEMS: NavItem[] = [
-  { id: "fields", labelKey: "smartFields", emoji: "✨" },
-  { id: "defaults-text", labelKey: "text", emoji: "💬" },
-  { id: "defaults-voice", labelKey: "voice", emoji: "🔊" },
-  { id: "defaults-images", labelKey: "image", emoji: "🎨" },
-  { id: "settings", labelKey: "settings", emoji: "⚙️" },
+  {
+    id: "fields",
+    labelKey: "smartFields",
+    icon: SparkleIcon,
+    tint: "text-pastel-lavender",
+  },
+  {
+    id: "defaults-text",
+    labelKey: "text",
+    icon: ChatCircleTextIcon,
+    tint: "text-pastel-sky",
+  },
+  {
+    id: "defaults-voice",
+    labelKey: "voice",
+    icon: SpeakerHighIcon,
+    tint: "text-pastel-pink",
+  },
+  {
+    id: "defaults-images",
+    labelKey: "image",
+    icon: ImageIcon,
+    tint: "text-pastel-butter",
+  },
+  {
+    id: "settings",
+    labelKey: "settings",
+    icon: GearSixIcon,
+    tint: "text-pastel-mint",
+  },
 ]
 
 const SECONDARY_ITEMS: NavItem[] = [
-  { id: "support", labelKey: "support", emoji: "🛟" },
-  { id: "subscription", labelKey: "subscription", emoji: "💳" },
+  {
+    id: "support",
+    labelKey: "support",
+    icon: LifebuoyIcon,
+    tint: "text-pastel-peach",
+  },
+  {
+    id: "subscription",
+    labelKey: "subscription",
+    icon: CreditCardIcon,
+    tint: "text-pastel-sky",
+  },
 ]
 
 export const Sidebar = ({
@@ -97,9 +143,12 @@ export const Sidebar = ({
               className="inline-flex items-center justify-center gap-2 rounded-lg bg-white/[0.06] py-2 text-[12px] font-semibold text-zinc-400 transition hover:bg-white/10 hover:text-zinc-200"
               type="button"
             >
-              <span aria-hidden className="text-sm leading-none">
-                💡
-              </span>
+              <LightbulbIcon
+                aria-hidden
+                className="text-pastel-butter"
+                size={14}
+                weight="fill"
+              />
               {t("sidebar.feedback")}
             </button>
           </FeedbackDialog>
@@ -138,12 +187,12 @@ const NavButton = ({ activeScreen, item, onNavigate }: NavButtonProps) => {
       }`}
       onClick={() => onNavigate(item.id)}
     >
-      <span
+      <item.icon
         aria-hidden
-        className="flex size-[18px] shrink-0 -translate-y-[0.5px] items-center justify-center text-[17px] leading-none"
-      >
-        {item.emoji}
-      </span>
+        className={`shrink-0 ${item.tint}`}
+        size={18}
+        weight="fill"
+      />
       <span className="truncate">{t(`sidebar.nav.${item.labelKey}`)}</span>
     </button>
   )
