@@ -1,17 +1,18 @@
 import { DiscordMark } from "./DiscordMark"
 import { FeedbackDialog } from "./FeedbackDialog"
-import { PlanCard } from "./PlanCard"
 import {
-  ChatCircleTextIcon,
-  CreditCardIcon,
-  GearSixIcon,
-  type Icon,
-  ImageIcon,
-  LifebuoyIcon,
+  ChatIcon,
+  CogIcon,
+  GalleryIcon,
+  HelpChatIcon,
+  type IconProps,
   LightbulbIcon,
-  SparkleIcon,
-  SpeakerHighIcon,
-} from "@phosphor-icons/react"
+  SparklesIcon,
+  VolumeIcon,
+  WalletIcon,
+} from "./Icons"
+import { PlanCard } from "./PlanCard"
+import type { ComponentType } from "react"
 import { useTranslation } from "react-i18next"
 
 import type { ScreenId } from "@/lib/boot"
@@ -28,22 +29,22 @@ interface SidebarProps {
 interface NavItem {
   id: ScreenId
   labelKey: string
-  icon: Icon
+  icon: ComponentType<IconProps>
 }
 
-// Phosphor Fill icons in the label's own color: flat ink rather than emoji,
-// which render differently on every OS.
+// Flat ink icons in the label's own color, instead of emoji, which render
+// differently on every OS.
 const PRIMARY_ITEMS: NavItem[] = [
-  { id: "fields", labelKey: "smartFields", icon: SparkleIcon },
-  { id: "defaults-text", labelKey: "text", icon: ChatCircleTextIcon },
-  { id: "defaults-voice", labelKey: "voice", icon: SpeakerHighIcon },
-  { id: "defaults-images", labelKey: "image", icon: ImageIcon },
-  { id: "settings", labelKey: "settings", icon: GearSixIcon },
+  { id: "fields", labelKey: "smartFields", icon: SparklesIcon },
+  { id: "defaults-text", labelKey: "text", icon: ChatIcon },
+  { id: "defaults-voice", labelKey: "voice", icon: VolumeIcon },
+  { id: "defaults-images", labelKey: "image", icon: GalleryIcon },
+  { id: "settings", labelKey: "settings", icon: CogIcon },
 ]
 
 const SECONDARY_ITEMS: NavItem[] = [
-  { id: "support", labelKey: "support", icon: LifebuoyIcon },
-  { id: "subscription", labelKey: "subscription", icon: CreditCardIcon },
+  { id: "support", labelKey: "support", icon: HelpChatIcon },
+  { id: "subscription", labelKey: "subscription", icon: WalletIcon },
 ]
 
 export const Sidebar = ({
@@ -107,7 +108,7 @@ export const Sidebar = ({
               className="inline-flex items-center justify-center gap-2 rounded-lg bg-white/[0.06] py-2 text-[12px] font-semibold text-zinc-400 transition hover:bg-white/10 hover:text-zinc-200"
               type="button"
             >
-              <LightbulbIcon aria-hidden size={14} weight="fill" />
+              <LightbulbIcon size={14} />
               {t("sidebar.feedback")}
             </button>
           </FeedbackDialog>
@@ -146,7 +147,7 @@ const NavButton = ({ activeScreen, item, onNavigate }: NavButtonProps) => {
       }`}
       onClick={() => onNavigate(item.id)}
     >
-      <item.icon aria-hidden className="shrink-0" size={18} weight="fill" />
+      <item.icon size={18} />
       <span className="truncate">{t(`sidebar.nav.${item.labelKey}`)}</span>
     </button>
   )
