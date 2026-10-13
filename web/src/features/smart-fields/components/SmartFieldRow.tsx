@@ -53,9 +53,11 @@ export const SmartFieldRow = ({
     }
   }
 
+  // The edge columns hold the row's side padding (16px before the icon, 18px after
+  // the menu). Below 800px the prompt moves onto a second line under the name.
   return (
     <div
-      className={`relative col-span-full grid min-h-11 grid-cols-subgrid items-center gap-x-6 py-2.5 supports-[not_(grid-template-columns:subgrid)]:grid-cols-[32px_140px_minmax(0,1fr)_minmax(90px,132px)_46px] max-[800px]:gap-x-[18px] max-[800px]:gap-y-0.5 supports-[not_(grid-template-columns:subgrid)]:max-[800px]:grid-cols-[32px_minmax(0,1fr)_minmax(90px,120px)_46px] ${
+      className={`relative grid min-h-11 grid-cols-[32px_140px_minmax(0,1fr)_minmax(90px,132px)_46px] items-center gap-x-6 py-2.5 max-[800px]:grid-cols-[32px_minmax(0,1fr)_minmax(90px,120px)_46px] max-[800px]:gap-x-[18px] max-[800px]:gap-y-0.5 ${
         field.enabled ? "" : "opacity-40"
       } ${
         hasDivider
