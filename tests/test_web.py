@@ -77,6 +77,7 @@ SETTINGS_DTO: dto.SettingsDto = {
     "showWizardCompletion": True,
     "didDismissReviewPrompt": False,
     "didDismissDiscordPrompt": False,
+    "sidebarWidth": None,
 }
 
 
@@ -372,6 +373,7 @@ def test_build_settings_reads_config(monkeypatch):
         show_wizard_completion=False,
         did_dismiss_review_prompt=True,
         did_dismiss_discord_prompt=True,
+        sidebar_width=280,
     )
     monkeypatch.setattr(dto.builders, "config", config)
 
@@ -387,6 +389,7 @@ def test_build_settings_reads_config(monkeypatch):
         "showWizardCompletion": False,
         "didDismissReviewPrompt": True,
         "didDismissDiscordPrompt": True,
+        "sidebarWidth": 280,
     }
 
 
@@ -616,6 +619,7 @@ def test_parse_settings_round_trips():
     assert parsed.show_wizard_completion is True
     assert parsed.did_dismiss_review_prompt is False
     assert parsed.did_dismiss_discord_prompt is False
+    assert parsed.sidebar_width is None
 
 
 # -- Build/parse round trips. The client round-trips these objects (receives a
@@ -698,6 +702,7 @@ def test_settings_survive_build_parse_round_trip(monkeypatch):
         show_wizard_completion=False,
         did_dismiss_review_prompt=True,
         did_dismiss_discord_prompt=False,
+        sidebar_width=300,
     )
     monkeypatch.setattr(dto.builders, "config", config)
 
@@ -714,6 +719,7 @@ def test_settings_survive_build_parse_round_trip(monkeypatch):
         show_wizard_completion=False,
         did_dismiss_review_prompt=True,
         did_dismiss_discord_prompt=False,
+        sidebar_width=300,
     )
 
 
@@ -737,6 +743,7 @@ def test_save_settings_persists_every_field_and_republishes(monkeypatch):
     assert config.show_wizard_completion is True
     assert config.did_dismiss_review_prompt is False
     assert config.did_dismiss_discord_prompt is False
+    assert config.sidebar_width is None
     assert len(published) == 1
     assert isinstance(published[0], StateInvalidated)
 

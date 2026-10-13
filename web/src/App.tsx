@@ -125,6 +125,7 @@ const App = () => {
           appVersion={state?.appVersion ?? null}
           connection={connection}
           onNavigate={navigateTo}
+          settings={state?.settings ?? null}
         >
           {activeScreen === "fields" ? (
             <SmartFieldsRoute

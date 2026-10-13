@@ -96,6 +96,7 @@ const stateWithAccount = (
     showWizardCompletion: true,
     didDismissReviewPrompt: false,
     didDismissDiscordPrompt: false,
+    sidebarWidth: null,
   },
 })
 

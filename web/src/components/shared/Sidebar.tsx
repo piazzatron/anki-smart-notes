@@ -1,17 +1,27 @@
 import { DiscordMark } from "./DiscordMark"
 import { FeedbackDialog } from "./FeedbackDialog"
 import { PlanCard } from "./PlanCard"
+import { DEFAULT_SIDEBAR_WIDTH, resizeSidebar } from "./sidebarWidth"
+import { useDirection } from "@radix-ui/react-direction"
+import { useRef, useState, type PointerEvent } from "react"
 import { useTranslation } from "react-i18next"
 
 import type { ScreenId } from "@/lib/boot"
 import { DISCORD_URL } from "@/lib/helpChannels"
-import type { AccountState } from "@/types/api"
+import { saveSettings } from "@/services/commands"
+import type { AccountState, Settings } from "@/types/api"
 
 interface SidebarProps {
   account: AccountState
   activeScreen: ScreenId
   appVersion: string | null
+  settings: Settings | null
   onNavigate: (screen: ScreenId) => void
+}
+
+interface ResizeDrag {
+  pointerStartX: number
+  startWidth: number
 }
 
 interface NavItem {
@@ -40,12 +50,68 @@ export const Sidebar = ({
   account,
   activeScreen,
   appVersion,
+  settings,
   onNavigate,
 }: SidebarProps) => {
   const { t } = useTranslation()
+  const direction = useDirection()
+  const asideRef = useRef<HTMLElement>(null)
+  const dragRef = useRef<ResizeDrag | null>(null)
+  const [isResizing, setIsResizing] = useState(false)
+  // The width this view last set. It stays put after a drag so the sidebar
+  // doesn't snap back while the saved width round-trips through the plugin.
+  const [localWidth, setLocalWidth] = useState<number | null>(null)
+  // Without a saved width, the sidebar keeps its responsive CSS width.
+  const width = localWidth ?? settings?.sidebarWidth ?? null
+
+  const persistWidth = (sidebarWidth: number | null) => {
+    if (settings === null || sidebarWidth === settings.sidebarWidth) return
+    void saveSettings({ ...settings, sidebarWidth })
+  }
+
+  const startResize = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.button !== 0 || asideRef.current === null) return
+    event.preventDefault()
+    event.currentTarget.setPointerCapture(event.pointerId)
+    dragRef.current = {
+      pointerStartX: event.clientX,
+      startWidth: asideRef.current.getBoundingClientRect().width,
+    }
+    setIsResizing(true)
+  }
+
+  const widthAt = (event: PointerEvent<HTMLDivElement>, drag: ResizeDrag) =>
+    resizeSidebar(
+      drag.startWidth,
+      event.clientX - drag.pointerStartX,
+      direction,
+    )
+
+  const moveResize = (event: PointerEvent<HTMLDivElement>) => {
+    const drag = dragRef.current
+    if (drag !== null) setLocalWidth(widthAt(event, drag))
+  }
+
+  const endResize = (event: PointerEvent<HTMLDivElement>) => {
+    const drag = dragRef.current
+    if (drag === null) return
+    dragRef.current = null
+    setIsResizing(false)
+    // A plain click on the handle shouldn't pin the current CSS width.
+    if (event.clientX !== drag.pointerStartX) persistWidth(widthAt(event, drag))
+  }
+
+  const resetWidth = () => {
+    setLocalWidth(DEFAULT_SIDEBAR_WIDTH)
+    persistWidth(null)
+  }
 
   return (
-    <aside className="flex min-h-0 w-[236px] shrink-0 flex-col bg-sidebar px-3 pt-4 pb-0 max-[760px]:w-48">
+    <aside
+      className="relative flex min-h-0 w-[236px] max-w-[40vw] shrink-0 flex-col bg-sidebar px-3 pt-4 pb-0 max-[760px]:w-48"
+      ref={asideRef}
+      style={width === null ? undefined : { width }}
+    >
       <div className="mb-3.5 px-[7px] text-[18px] font-bold text-zinc-100">
         {t("common.productName")}
       </div>
@@ -113,6 +179,24 @@ export const Sidebar = ({
             {t("sidebar.version", { version: appVersion })}
           </button>
         )}
+      </div>
+
+      <div
+        aria-hidden
+        className="group absolute inset-y-0 -end-[3px] z-10 w-[7px] cursor-col-resize touch-none"
+        onDoubleClick={resetWidth}
+        onPointerCancel={endResize}
+        onPointerDown={startResize}
+        onPointerMove={moveResize}
+        onPointerUp={endResize}
+      >
+        <div
+          className={`mx-auto h-full w-px transition-colors duration-150 ${
+            isResizing
+              ? "bg-indigo-soft/50"
+              : "bg-transparent group-hover:bg-indigo-soft/25"
+          }`}
+        />
       </div>
     </aside>
   )

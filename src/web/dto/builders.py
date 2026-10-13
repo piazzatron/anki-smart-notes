@@ -149,6 +149,7 @@ def build_settings() -> SettingsDto:
         showWizardCompletion=config.show_wizard_completion,
         didDismissReviewPrompt=config.did_dismiss_review_prompt,
         didDismissDiscordPrompt=config.did_dismiss_discord_prompt,
+        sidebarWidth=config.sidebar_width,
     )
 
 
