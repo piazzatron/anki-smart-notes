@@ -100,6 +100,15 @@ class SaveTestResultRequest:
 
 
 @dataclass(frozen=True)
+class RandomTestCardRequest:
+    """Validated intent to seed the tester with a card the field could run on."""
+
+    note_type_id: int
+    deck_id: DeckId
+    filled_field_names: list[str]
+
+
+@dataclass(frozen=True)
 class ChatSmartFieldSettings:
     prompt_text: str
     provider: ChatProviders

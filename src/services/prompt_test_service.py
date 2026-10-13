@@ -26,11 +26,13 @@ result as a token-guarded artifact that the user can save into a note field.
 """
 
 import base64
+import random
 import secrets
 from dataclasses import dataclass
 from typing import Literal, Optional, Union
 
-from anki.cards import CardId
+from anki.cards import Card, CardId
+from anki.collection import SearchNode
 from anki.decks import DeckId
 from anki.errors import NotFoundError
 from anki.notes import Note
@@ -39,12 +41,14 @@ from aqt.operations.note import update_note
 
 from ..app_state import is_capacity_remaining
 from ..chat_provider import chat_provider
+from ..constants import GLOBAL_DECK_ID
 from ..field_resolver import field_resolver
 from ..image_provider import image_provider
 from ..markdown import convert_markdown_to_html
 from ..media_utils import ext_from_content_type, get_media_path, write_media
 from ..models.smart_fields import (
     ImagePromptTestRequest,
+    RandomTestCardRequest,
     SaveTestResultRequest,
     TextPromptTestRequest,
     TTSPromptTestRequest,
@@ -325,6 +329,36 @@ def save_test_result(request: SaveTestResultRequest) -> None:
     # CollectionOp gives the write an undo entry and refreshes every open Anki
     # window, which the local server has no handle on otherwise.
     update_note(parent=mw, note=note).run_in_background()
+
+
+def pick_random_test_card(request: RandomTestCardRequest) -> Optional[Card]:
+    """A random card of the field's note type to start the tester on. Main thread only.
+
+    Prefers the field's deck and cards whose prompt fields are filled in, so the first
+    test reads real content, and drops those preferences before giving up on a card."""
+    if not mw or not mw.col:
+        raise ValueError("Anki collection is not available")
+
+    col = mw.col
+    note_type = f"mid:{request.note_type_id}"
+    deck = [] if request.deck_id == GLOBAL_DECK_ID else [f"did:{request.deck_id}"]
+    filled = [
+        SearchNode(field=SearchNode.Field(field_name=name, text=".", is_re=True))
+        for name in request.filled_field_names
+    ]
+    searches = dict.fromkeys(
+        [
+            col.build_search_string(note_type, *deck, *filled),
+            col.build_search_string(note_type, *deck),
+            note_type,
+        ]
+    )
+    for search in searches:
+        card_ids = col.find_cards(search)
+        if card_ids:
+            return col.get_card(random.choice(card_ids))
+
+    return None
 
 
 def _render_artifact(artifact: TestArtifact, note: Note, field_name: str) -> str:

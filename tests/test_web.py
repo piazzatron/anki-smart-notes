@@ -1459,3 +1459,60 @@ def test_parse_save_test_result_reads_token_card_and_field():
 
     with pytest.raises(KeyError, match="cardId"):
         dto.parse_save_test_result({"token": "token-1", "fieldName": "Back"})
+
+
+def test_random_test_card_prefers_the_fields_deck_and_filled_prompt_fields(
+    monkeypatch, tmp_path
+):
+    from anki.collection import Collection
+
+    import src.local_server
+    from src.constants import GLOBAL_DECK_ID
+    from src.services import prompt_test_service
+
+    col = Collection(str(tmp_path / "collection.anki2"))
+    try:
+        basic = col.models.by_name("Basic")
+        assert basic is not None
+        field_deck = col.decks.id("Field deck")
+        other_deck = col.decks.id("Other deck")
+        assert field_deck is not None and other_deck is not None
+
+        def add_note(front: str, deck_id: int) -> int:
+            note = col.new_note(basic)
+            note["Front"] = front
+            col.add_note(note, deck_id)
+            return note.cards()[0].id
+
+        add_note("", field_deck)
+        filled_in_deck = add_note("dog", field_deck)
+        filled_elsewhere = add_note("cat", other_deck)
+        monkeypatch.setattr(prompt_test_service, "mw", SimpleNamespace(col=col))
+
+        def pick(deck_id: int, field_names: list[str]) -> dict[str, Any]:
+            return src.local_server._run_random_test_card(
+                {
+                    "noteTypeId": basic["id"],
+                    "deckId": deck_id,
+                    "filledFieldNames": field_names,
+                }
+            )
+
+        for _ in range(5):
+            assert pick(field_deck, ["front"])["note"]["cardId"] == filled_in_deck
+            assert pick(GLOBAL_DECK_ID, ["Front"])["note"]["cardId"] in {
+                filled_in_deck,
+                filled_elsewhere,
+            }
+
+        # Preferences loosen rather than leave the tester without a card.
+        assert pick(field_deck, ["Back"])["note"]["deckId"] == field_deck
+        assert pick(col.decks.id("Empty deck"), ["Front"])["note"] is not None
+
+        cloze = col.models.by_name("Cloze")
+        assert cloze is not None
+        assert src.local_server._run_random_test_card(
+            {"noteTypeId": cloze["id"], "deckId": GLOBAL_DECK_ID, "filledFieldNames": []}
+        ) == {"note": None, "count": 0}
+    finally:
+        col.close()

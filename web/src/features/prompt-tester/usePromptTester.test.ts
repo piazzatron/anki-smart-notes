@@ -26,6 +26,7 @@ Object.defineProperty(globalThis, "window", {
 const {
   getInitialPromptTestSelection,
   getPromptTestSelection,
+  getRandomTestCardArgs,
   selectPromptTestRuns,
 } = await import("./usePromptTester")
 
@@ -166,6 +167,43 @@ describe("usePromptTester", () => {
       getInitialPromptTestSelection({
         prompt: "Translate {{Expression}}",
         selection,
+      }),
+    ).toBeNull()
+  })
+
+  test("starts a field tester on a random card only when no usable card is picked", () => {
+    const noteTypes = [{ fields: ["Front", "Back"], id: 20, name: "Basic" }]
+    const picked = {
+      note: {
+        cardId: 42,
+        deckId: 1,
+        fields: { Front: "Bonjour" },
+        id: 7,
+        noteTypeId: 20,
+      },
+    }
+    const args = {
+      deckId: 1,
+      noteTypes,
+      prompt: "Use {{front}} and {{Missing}}",
+      requiredNoteTypeId: 20,
+    }
+
+    expect(
+      getRandomTestCardArgs({
+        ...args,
+        initialSelection: { count: 0, note: null },
+      }),
+    ).toEqual({ deckId: 1, filledFieldNames: ["Front"], noteTypeId: 20 })
+    expect(
+      getRandomTestCardArgs({ ...args, initialSelection: picked }),
+    ).toBeNull()
+    // Defaults testers aren't bound to a note type, so there is nothing to draw from.
+    expect(
+      getRandomTestCardArgs({
+        initialSelection: null,
+        noteTypes,
+        prompt: "Use {{Front}}",
       }),
     ).toBeNull()
   })

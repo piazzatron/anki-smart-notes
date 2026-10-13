@@ -9,7 +9,9 @@ import type {
   MediaTestResult,
   PromptGenerateArgs,
   PromptGenerateResult,
+  RandomTestCardArgs,
   SaveTestResultPayload,
+  Selection,
   Settings,
   SmartField,
   SmartFieldCreatePayload,
@@ -127,6 +129,10 @@ export const saveTestResultToCard = async (
 ): Promise<void> => {
   await sendCommand("notes.saveTestResult", payload)
 }
+
+export const pickRandomTestCard = async (
+  args: RandomTestCardArgs,
+): Promise<Selection> => sendCommand<Selection>("notes.randomTestCard", args)
 
 export const openAnkiBrowser = async (): Promise<void> => {
   await sendCommand("ui.openBrowser", {} satisfies UiOpenBrowserPayload)

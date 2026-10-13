@@ -230,6 +230,7 @@ export type CommandName =
   | "images.test"
   | "tts.test"
   | "notes.saveTestResult"
+  | "notes.randomTestCard"
   | "settings.save"
   | "prompts.generate"
   | "support.sendFeedback"
@@ -311,6 +312,13 @@ export interface SaveTestResultPayload {
   token: string
   cardId: number
   fieldName: string
+}
+
+export interface RandomTestCardArgs {
+  noteTypeId: number
+  deckId: number
+  // Cards with these fields filled in are preferred.
+  filledFieldNames: string[]
 }
 
 export type UiOpenBrowserPayload = Record<string, never>

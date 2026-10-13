@@ -31,6 +31,7 @@ from ...models.smart_fields import (
     ImageGenerationSettings,
     ImagePromptTestRequest,
     ImageSmartFieldSettings,
+    RandomTestCardRequest,
     SaveTestResultRequest,
     SmartField,
     SmartFieldCreate,
@@ -51,6 +52,7 @@ from .models import (
     ImageSmartFieldSettingsDto,
     PromptGeneratePayload,
     PromptGenerateRequest,
+    RandomTestCardPayload,
     SaveTestResultPayload,
     SettingsDto,
     SmartFieldCreatePayload,
@@ -193,6 +195,15 @@ def parse_save_test_result(payload: dict[str, Any]) -> SaveTestResultRequest:
         token=raw["token"],
         card_id=_card_id(payload),
         field_name=raw["fieldName"],
+    )
+
+
+def parse_random_test_card(payload: dict[str, Any]) -> RandomTestCardRequest:
+    raw = cast(RandomTestCardPayload, payload)
+    return RandomTestCardRequest(
+        note_type_id=raw["noteTypeId"],
+        deck_id=cast(DeckId, raw["deckId"]),
+        filled_field_names=raw["filledFieldNames"],
     )
 
 

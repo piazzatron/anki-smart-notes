@@ -235,6 +235,12 @@ class SaveTestResultPayload(TypedDict):
     fieldName: str
 
 
+class RandomTestCardPayload(TypedDict):
+    noteTypeId: int
+    deckId: int
+    filledFieldNames: list[str]
+
+
 class FeedbackPayload(TypedDict):
     message: str
 
