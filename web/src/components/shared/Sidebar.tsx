@@ -1,21 +1,19 @@
 import { DiscordMark } from "./DiscordMark"
 import { FeedbackDialog } from "./FeedbackDialog"
 import { PlanCard } from "./PlanCard"
-import { DEFAULT_SIDEBAR_WIDTH, resizeSidebar } from "./sidebarWidth"
+import { resizeSidebar } from "./sidebarWidth"
 import { useDirection } from "@radix-ui/react-direction"
 import { useRef, useState, type PointerEvent } from "react"
 import { useTranslation } from "react-i18next"
 
 import type { ScreenId } from "@/lib/boot"
 import { DISCORD_URL } from "@/lib/helpChannels"
-import { saveSettings } from "@/services/commands"
-import type { AccountState, Settings } from "@/types/api"
+import type { AccountState } from "@/types/api"
 
 interface SidebarProps {
   account: AccountState
   activeScreen: ScreenId
   appVersion: string | null
-  settings: Settings | null
   onNavigate: (screen: ScreenId) => void
 }
 
@@ -50,7 +48,6 @@ export const Sidebar = ({
   account,
   activeScreen,
   appVersion,
-  settings,
   onNavigate,
 }: SidebarProps) => {
   const { t } = useTranslation()
@@ -58,16 +55,8 @@ export const Sidebar = ({
   const asideRef = useRef<HTMLElement>(null)
   const dragRef = useRef<ResizeDrag | null>(null)
   const [isResizing, setIsResizing] = useState(false)
-  // The width this view last set. It stays put after a drag so the sidebar
-  // doesn't snap back while the saved width round-trips through the plugin.
-  const [localWidth, setLocalWidth] = useState<number | null>(null)
-  // Without a saved width, the sidebar keeps its responsive CSS width.
-  const width = localWidth ?? settings?.sidebarWidth ?? null
-
-  const persistWidth = (sidebarWidth: number | null) => {
-    if (settings === null || sidebarWidth === settings.sidebarWidth) return
-    void saveSettings({ ...settings, sidebarWidth })
-  }
+  // Until the user drags, the sidebar keeps its responsive CSS width.
+  const [width, setWidth] = useState<number | null>(null)
 
   const startResize = (event: PointerEvent<HTMLDivElement>) => {
     if (event.button !== 0 || asideRef.current === null) return
@@ -80,30 +69,21 @@ export const Sidebar = ({
     setIsResizing(true)
   }
 
-  const widthAt = (event: PointerEvent<HTMLDivElement>, drag: ResizeDrag) =>
-    resizeSidebar(
-      drag.startWidth,
-      event.clientX - drag.pointerStartX,
-      direction,
-    )
-
   const moveResize = (event: PointerEvent<HTMLDivElement>) => {
     const drag = dragRef.current
-    if (drag !== null) setLocalWidth(widthAt(event, drag))
+    if (drag === null) return
+    setWidth(
+      resizeSidebar(
+        drag.startWidth,
+        event.clientX - drag.pointerStartX,
+        direction,
+      ),
+    )
   }
 
-  const endResize = (event: PointerEvent<HTMLDivElement>) => {
-    const drag = dragRef.current
-    if (drag === null) return
+  const endResize = () => {
     dragRef.current = null
     setIsResizing(false)
-    // A plain click on the handle shouldn't pin the current CSS width.
-    if (event.clientX !== drag.pointerStartX) persistWidth(widthAt(event, drag))
-  }
-
-  const resetWidth = () => {
-    setLocalWidth(DEFAULT_SIDEBAR_WIDTH)
-    persistWidth(null)
   }
 
   return (
@@ -184,7 +164,7 @@ export const Sidebar = ({
       <div
         aria-hidden
         className="group absolute inset-y-0 -end-[3px] z-10 w-[7px] cursor-col-resize touch-none"
-        onDoubleClick={resetWidth}
+        onDoubleClick={() => setWidth(null)}
         onPointerCancel={endResize}
         onPointerDown={startResize}
         onPointerMove={moveResize}

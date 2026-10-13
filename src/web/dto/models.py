@@ -92,7 +92,6 @@ class SettingsDto(TypedDict):
     showWizardCompletion: bool
     didDismissReviewPrompt: bool
     didDismissDiscordPrompt: bool
-    sidebarWidth: int | None
 
 
 class ChatSmartFieldSettingsDto(TypedDict):

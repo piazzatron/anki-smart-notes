@@ -149,7 +149,6 @@ def parse_settings(payload: dict[str, Any]) -> Settings:
         show_wizard_completion=raw["showWizardCompletion"],
         did_dismiss_review_prompt=raw["didDismissReviewPrompt"],
         did_dismiss_discord_prompt=raw["didDismissDiscordPrompt"],
-        sidebar_width=raw["sidebarWidth"],
     )
 
 

@@ -1,4 +1,3 @@
-export const DEFAULT_SIDEBAR_WIDTH = 236
 // The plan card and the Discord/Feedback strip stop fitting below this.
 export const MIN_SIDEBAR_WIDTH = 192
 export const MAX_SIDEBAR_WIDTH = 400

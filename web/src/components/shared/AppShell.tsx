@@ -5,14 +5,13 @@ import { Sidebar } from "./Sidebar"
 
 import type { Connection } from "@/store/appStore"
 import type { ScreenId } from "@/lib/boot"
-import type { AccountState, Settings } from "@/types/api"
+import type { AccountState } from "@/types/api"
 
 interface AppShellProps {
   account: AccountState
   activeScreen: ScreenId
   appVersion: string | null
   connection: Connection
-  settings: Settings | null
   children: ReactNode
   onNavigate: (screen: ScreenId) => void
 }
@@ -22,7 +21,6 @@ export const AppShell = ({
   activeScreen,
   appVersion,
   connection,
-  settings,
   children,
   onNavigate,
 }: AppShellProps) => {
@@ -34,7 +32,6 @@ export const AppShell = ({
         account={account}
         activeScreen={activeScreen}
         appVersion={appVersion}
-        settings={settings}
         onNavigate={onNavigate}
       />
       <main className="relative flex min-w-0 flex-1 flex-col overflow-hidden border-s border-white/[0.04] bg-canvas">

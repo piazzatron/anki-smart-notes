@@ -153,7 +153,6 @@ export interface Settings {
   showWizardCompletion: boolean
   didDismissReviewPrompt: boolean
   didDismissDiscordPrompt: boolean
-  sidebarWidth: number | null
 }
 
 export interface FeatureFlags {

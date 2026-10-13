@@ -36,7 +36,6 @@ const SETTINGS: Settings = {
   showWizardCompletion: true,
   didDismissReviewPrompt: false,
   didDismissDiscordPrompt: false,
-  sidebarWidth: null,
 }
 
 test("legacy OpenAI settings require legacy support", () => {

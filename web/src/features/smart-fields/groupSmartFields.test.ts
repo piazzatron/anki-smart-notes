@@ -62,7 +62,6 @@ const stateWith = (smartFields: SmartField[]): AppState => ({
     showWizardCompletion: true,
     didDismissReviewPrompt: false,
     didDismissDiscordPrompt: false,
-    sidebarWidth: null,
   },
 })
 
