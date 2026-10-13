@@ -1,8 +1,6 @@
 # v2.26.0
 
-- Add GPT Image 2.5, with optional Richer detail and Max quality extras.
-- Migrate GPT Image 1.5, GPT Image 2, and Flux Dev to GPT Image 2.5.
-- Nano Banana now defaults to the faster Nano Banana 2 Lite, with an Extra reasoning option that runs Nano Banana 2.1. Existing Nano Banana fields move to Nano Banana 2.1.
+- Add new image models (GPTImage 2.5 and Nano Banana 2.1 / 2.0-Lite) and more generation options / quality settings.
 
 # v2.25.0
 
