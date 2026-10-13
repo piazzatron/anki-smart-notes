@@ -174,7 +174,7 @@ export const Sidebar = ({
           className={`mx-auto h-full w-px transition-colors duration-150 ${
             isResizing
               ? "bg-indigo-soft/50"
-              : "bg-transparent group-hover:bg-indigo-soft/25"
+              : "bg-transparent group-hover:bg-indigo-soft/15"
           }`}
         />
       </div>
