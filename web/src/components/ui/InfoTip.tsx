@@ -49,9 +49,9 @@ export const InfoTip = ({ children, label }: InfoTipProps) => (
           {children}
           {/* A wide, round-tipped caret instead of Radix's sharp triangle, to match the
               app's soft corners. */}
-          <TooltipPrimitive.Arrow asChild height={6} width={16}>
-            <svg className="fill-indigo-deep" viewBox="0 0 16 6">
-              <path d="M0 0L6.46 5.33Q8 6.6 9.54 5.33L16 0Z" />
+          <TooltipPrimitive.Arrow asChild height={5.5} width={18}>
+            <svg className="fill-indigo-deep" viewBox="0 0 18 5.5">
+              <path d="M0 0L6.16 4.45Q9 6.5 11.84 4.45L18 0Z" />
             </svg>
           </TooltipPrimitive.Arrow>
         </TooltipPrimitive.Content>
