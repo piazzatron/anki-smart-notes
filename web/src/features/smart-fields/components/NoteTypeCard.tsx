@@ -57,9 +57,9 @@ export const NoteTypeCard = ({
       {/* Rows run edge to edge so a hovered row highlights like a table row; the card
           clips the corners. Rows share these columns as subgrids, so the name column
           fits the card's longest name and sits one gap from both the icon and the
-          prompt. The edge columns carry the rows' side padding, since subgrid rows
+          prompt. Below 800px the prompt moves under the name. The edge columns carry the rows' side padding, since subgrid rows
           don't widen edge tracks for their own padding. */}
-      <div className="grid grid-cols-[32px_fit-content(200px)_minmax(80px,1fr)_132px_46px] gap-x-6 overflow-hidden rounded-xl bg-white/[0.05] max-[800px]:grid-cols-[32px_minmax(80px,1fr)_minmax(100px,130px)_46px] max-[800px]:gap-x-[18px]">
+      <div className="grid grid-cols-[32px_fit-content(200px)_minmax(0,1fr)_minmax(90px,132px)_46px] gap-x-6 overflow-hidden rounded-xl bg-white/[0.05] max-[800px]:grid-cols-[32px_minmax(0,1fr)_minmax(90px,120px)_46px] max-[800px]:gap-x-[18px]">
         {group.fields.map((field, index) => (
           <SmartFieldRow
             field={field}

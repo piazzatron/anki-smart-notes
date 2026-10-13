@@ -55,7 +55,7 @@ export const SmartFieldRow = ({
 
   return (
     <div
-      className={`relative col-span-full grid min-h-11 grid-cols-subgrid items-center gap-x-6 py-2.5 max-[800px]:gap-x-[18px] ${
+      className={`relative col-span-full grid min-h-11 grid-cols-subgrid items-center gap-x-6 py-2.5 max-[800px]:gap-x-[18px] max-[800px]:gap-y-0.5 ${
         field.enabled ? "" : "opacity-40"
       } ${
         hasDivider
@@ -71,13 +71,13 @@ export const SmartFieldRow = ({
         onClick={() => onEdit(field)}
       />
       <FieldTypeIcon fieldType={field.fieldType} />
-      <span className="pointer-events-none truncate text-[13px] font-medium text-[#e0dfe2]">
+      <span className="pointer-events-none truncate text-[13px] font-medium text-[#e0dfe2] max-[800px]:col-start-2 max-[800px]:row-start-1">
         {field.targetFieldName}
       </span>
-      <span className="pointer-events-none truncate text-[11px] text-ink-muted max-[800px]:hidden">
+      <span className="pointer-events-none truncate text-[11px] text-ink-muted max-[800px]:col-start-2 max-[800px]:row-start-2">
         {smartFieldDescription(field)}
       </span>
-      <span className="pointer-events-none min-w-0 justify-self-end text-end">
+      <span className="pointer-events-none min-w-0 justify-self-end text-end max-[800px]:col-start-3 max-[800px]:row-span-2 max-[800px]:row-start-1">
         <span className="block text-[9px] leading-none font-semibold tracking-[0.055em] text-ink-faint uppercase">
           {t("fieldEditor.modelSettings.model")}
         </span>
@@ -98,7 +98,7 @@ export const SmartFieldRow = ({
             aria-label={t("smartFields.actionsAriaLabel", {
               field: field.targetFieldName,
             })}
-            className="relative z-10 inline-flex size-7 items-center justify-center justify-self-start rounded-md text-ink-faint transition hover:bg-white/[0.07] hover:text-zinc-300 data-[state=open]:bg-white/[0.07] data-[state=open]:text-zinc-300"
+            className="relative z-10 inline-flex size-7 items-center justify-center justify-self-start rounded-md text-ink-faint transition hover:bg-white/[0.07] hover:text-zinc-300 data-[state=open]:bg-white/[0.07] data-[state=open]:text-zinc-300 max-[800px]:col-start-4 max-[800px]:row-span-2 max-[800px]:row-start-1"
             disabled={pending}
           >
             <MoreHorizontal aria-hidden className="size-4" />
