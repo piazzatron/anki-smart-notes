@@ -275,9 +275,9 @@
       "zImageTurbo": "plej rapida kaj plej malmultekosta."
     },
     "layout": {
+      "save": "Konservi",
       "saving": "Konservante…",
-      "tryIt": "Provu ĝin",
-      "save": "Konservi"
+      "tryIt": "Provu ĝin"
     },
     "text": {
       "cannotInheritModel": "Tekstaj defaŭltoj ne povas heredi alian modelon",
@@ -489,7 +489,8 @@
     },
     "github": "GitHub",
     "loading": "Ŝarĝanta Subteno",
-    "title": "Subteno"
+    "title": "Subteno",
+    "iconCredit": "Ikonoj de <streamline>Streamline</streamline> kaj <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "Ĉu jam havas konton?",

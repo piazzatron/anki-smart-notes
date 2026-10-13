@@ -275,9 +275,9 @@
       "zImageTurbo": "azkarrena eta merkeena."
     },
     "layout": {
+      "save": "Gorde",
       "saving": "Gordetzen…",
-      "tryIt": "Probatu",
-      "save": "Gorde"
+      "tryIt": "Probatu"
     },
     "text": {
       "cannotInheritModel": "Testu lehenetsiek ezin dute beste eredu bat heredatu",
@@ -489,7 +489,8 @@
     },
     "github": "GitHub",
     "loading": "Kargatzeko euskarria",
-    "title": "Laguntza"
+    "title": "Laguntza",
+    "iconCredit": "Ikonoak: <streamline>Streamline</streamline> eta <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "Dagoeneko kontu bat duzu?",

@@ -277,9 +277,9 @@
       "zImageTurbo": "najhitrejši in najcenejši."
     },
     "layout": {
+      "save": "Shrani",
       "saving": "Shranjevanje ...",
-      "tryIt": "poskusite",
-      "save": "Shrani"
+      "tryIt": "poskusite"
     },
     "text": {
       "cannotInheritModel": "Privzete besedilne nastavitve ne morejo podedovati drugega modela",
@@ -509,7 +509,8 @@
     },
     "github": "GitHub",
     "loading": "Nalaganje podpore",
-    "title": "Podpora"
+    "title": "Podpora",
+    "iconCredit": "Ikone: <streamline>Streamline</streamline> in <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "Že imate račun?",

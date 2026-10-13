@@ -275,9 +275,9 @@
       "zImageTurbo": "en hızlı ve en ucuz."
     },
     "layout": {
+      "save": "Kaydet",
       "saving": "Kaydediliyor…",
-      "tryIt": "Deneyin",
-      "save": "Kaydet"
+      "tryIt": "Deneyin"
     },
     "text": {
       "cannotInheritModel": "Metin varsayılanları başka bir modeli devralamaz",
@@ -489,7 +489,8 @@
     },
     "github": "GitHub",
     "loading": "Yükleme Desteği",
-    "title": "Destek"
+    "title": "Destek",
+    "iconCredit": "Simgeler: <streamline>Streamline</streamline> ve <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "Zaten bir hesabınız var mı?",

@@ -275,9 +275,9 @@
       "zImageTurbo": "kiireim ja odavaim."
     },
     "layout": {
+      "save": "Salvesta",
       "saving": "Salvestamine…",
-      "tryIt": "Proovi seda",
-      "save": "Salvesta"
+      "tryIt": "Proovi seda"
     },
     "text": {
       "cannotInheritModel": "Teksti vaikeseaded ei saa pärida teist mudelit",
@@ -489,7 +489,8 @@
     },
     "github": "GitHub",
     "loading": "Laadimise tugi",
-    "title": "Toetus"
+    "title": "Toetus",
+    "iconCredit": "Ikoonid: <streamline>Streamline</streamline> ja <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "Kas teil on juba konto?",

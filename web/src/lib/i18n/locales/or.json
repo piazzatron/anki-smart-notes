@@ -275,9 +275,9 @@
       "zImageTurbo": "ଦ୍ରୁତ ଏବଂ ଶସ୍ତା"
     },
     "layout": {
+      "save": "ସଞ୍ଚୟ କରନ୍ତୁ",
       "saving": "ସଞ୍ଚୟ…",
-      "tryIt": "ଏହାକୁ ଚେଷ୍ଟା କରନ୍ତୁ",
-      "save": "ସଞ୍ଚୟ କରନ୍ତୁ"
+      "tryIt": "ଏହାକୁ ଚେଷ୍ଟା କରନ୍ତୁ"
     },
     "text": {
       "cannotInheritModel": "ପାଠ୍ୟ ଡିଫଲ୍ଟ ଅନ୍ୟ ଏକ ମଡେଲକୁ ଉତ୍ତରାଧିକାରୀ କରିପାରିବ ନାହିଁ",
@@ -489,7 +489,8 @@
     },
     "github": "GitHub",
     "loading": "ସମର୍ଥନ ଲୋଡିଙ୍ଗ୍",
-    "title": "ସମର୍ଥନ"
+    "title": "ସମର୍ଥନ",
+    "iconCredit": "ଆଇକନ୍ <streamline>Streamline</streamline> ଏବଂ <solar>480 Design</solar> ଦ୍ୱାରା · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "ପୂର୍ବରୁ ଏକ ଖାତା ଅଛି କି?",

@@ -276,9 +276,9 @@
       "zImageTurbo": "mais rápido e mais barato."
     },
     "layout": {
+      "save": "Salvar",
       "saving": "Salvando…",
-      "tryIt": "Experimente",
-      "save": "Salvar"
+      "tryIt": "Experimente"
     },
     "text": {
       "cannotInheritModel": "Os padrões de texto não podem herdar outro modelo",
@@ -499,7 +499,8 @@
     },
     "github": "GitHub",
     "loading": "Carregando suporte",
-    "title": "Apoiar"
+    "title": "Apoiar",
+    "iconCredit": "Ícones por <streamline>Streamline</streamline> e <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "Já tem uma conta?",

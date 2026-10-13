@@ -19,7 +19,7 @@
 
 // Icon artwork is CC BY 4.0, not GPL: Streamline Plump Solid by Streamline
 // (https://www.streamlinehq.com) and the Solar Bold sparkle by 480 Design.
-// Both require a visible credit wherever these ship.
+// Both are credited in the Support screen footer and the README.
 
 import type { ReactNode } from "react"
 

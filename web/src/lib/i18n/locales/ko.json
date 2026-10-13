@@ -274,9 +274,9 @@
       "zImageTurbo": "가장 빠르고 저렴합니다."
     },
     "layout": {
+      "save": "저장",
       "saving": "절약…",
-      "tryIt": "사용해 보세요",
-      "save": "저장"
+      "tryIt": "사용해 보세요"
     },
     "text": {
       "cannotInheritModel": "텍스트 기본값은 다른 모델을 상속할 수 없습니다.",
@@ -479,7 +479,8 @@
     },
     "github": "GitHub",
     "loading": "로딩 지원",
-    "title": "지원하다"
+    "title": "지원하다",
+    "iconCredit": "아이콘 제작: <streamline>Streamline</streamline> 및 <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "이미 계정이 있나요?",

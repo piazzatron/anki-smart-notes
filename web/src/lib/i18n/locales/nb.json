@@ -275,9 +275,9 @@
       "zImageTurbo": "raskest og billigst."
     },
     "layout": {
+      "save": "Lagre",
       "saving": "Lagrer …",
-      "tryIt": "Prøv det",
-      "save": "Lagre"
+      "tryIt": "Prøv det"
     },
     "text": {
       "cannotInheritModel": "Tekststandarder kan ikke arve en annen modell",
@@ -489,7 +489,8 @@
     },
     "github": "GitHub",
     "loading": "Lastestøtte",
-    "title": "Støtte"
+    "title": "Støtte",
+    "iconCredit": "Ikoner fra <streamline>Streamline</streamline> og <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "Har du allerede en konto?",

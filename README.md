@@ -26,6 +26,13 @@ Enjoying Smart Notes? [Please rate it on AnkiWeb](https://ankiweb.net/shared/inf
 
 PRs are welcome. This repo uses Python with typechecking, linting, formatting, and tests; run `./scripts/build.sh check` before opening a PR.
 
+## 🎨 Credits
+
+The web UI's icons are not covered by the GPL. They come from two sets, both licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/):
+
+- [Streamline](https://www.streamlinehq.com) Plump free icons
+- [Solar](https://www.figma.com/community/file/1166831539721848736) by 480 Design
+
 ## 📝 Changelog
 
 See [changelog.md](changelog.md) for recent changes.

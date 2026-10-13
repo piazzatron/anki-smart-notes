@@ -476,6 +476,7 @@
     "byline": "by Michael Piazza / Rosebud Labs, LLC.",
     "changelog": "Changelog",
     "copyright": "© 2026 · v{{version}} ·",
+    "iconCredit": "Icons by <streamline>Streamline</streamline> and <solar>480 Design</solar> · <license>CC BY 4.0</license>",
     "discord": {
       "description": "The fastest way to get help, request a feature, or report a bug.",
       "join": "Join",

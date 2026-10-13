@@ -274,9 +274,9 @@
       "zImageTurbo": "terpantas dan termurah."
     },
     "layout": {
+      "save": "Simpan",
       "saving": "Menyimpan…",
-      "tryIt": "Cubalah",
-      "save": "Simpan"
+      "tryIt": "Cubalah"
     },
     "text": {
       "cannotInheritModel": "Lalai teks tidak boleh mewarisi model lain",
@@ -479,7 +479,8 @@
     },
     "github": "GitHub",
     "loading": "Memuatkan Sokongan",
-    "title": "Sokongan"
+    "title": "Sokongan",
+    "iconCredit": "Ikon oleh <streamline>Streamline</streamline> dan <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "Sudah mempunyai akaun?",

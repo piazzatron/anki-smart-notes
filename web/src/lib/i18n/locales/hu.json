@@ -275,9 +275,9 @@
       "zImageTurbo": "leggyorsabb és legolcsóbb."
     },
     "layout": {
+      "save": "Mentés",
       "saving": "Megtakarítás…",
-      "tryIt": "Próbáld ki",
-      "save": "Mentés"
+      "tryIt": "Próbáld ki"
     },
     "text": {
       "cannotInheritModel": "A szöveges alapértelmezések nem örökölhetnek másik modellt",
@@ -489,7 +489,8 @@
     },
     "github": "GitHub",
     "loading": "Támogatás betöltése",
-    "title": "Támogatás"
+    "title": "Támogatás",
+    "iconCredit": "Ikonok: <streamline>Streamline</streamline> és <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "Már van fiókja?",

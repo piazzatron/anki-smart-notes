@@ -276,9 +276,9 @@
       "zImageTurbo": "més ràpid i barat."
     },
     "layout": {
+      "save": "Desa",
       "saving": "S'està desant…",
-      "tryIt": "Prova-ho",
-      "save": "Desa"
+      "tryIt": "Prova-ho"
     },
     "text": {
       "cannotInheritModel": "Els valors predeterminats del text no poden heretar un altre model",
@@ -499,7 +499,8 @@
     },
     "github": "GitHub",
     "loading": "Suport de càrrega",
-    "title": "Suport"
+    "title": "Suport",
+    "iconCredit": "Icones de <streamline>Streamline</streamline> i <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "Ja tens un compte?",

@@ -274,9 +274,9 @@
       "zImageTurbo": "lo mai rapid e lo mai economic."
     },
     "layout": {
+      "save": "Enregistrar",
       "saving": "En estalviant…",
-      "tryIt": "Ensajatz-lo",
-      "save": "Enregistrar"
+      "tryIt": "Ensajatz-lo"
     },
     "text": {
       "cannotInheritModel": "Los paramètres de tèxte pòdon pas eiretar un autre modèl",
@@ -479,7 +479,8 @@
     },
     "github": "GitHub",
     "loading": "Supòrt en cargament",
-    "title": "Sosten"
+    "title": "Sosten",
+    "iconCredit": "Icònas de <streamline>Streamline</streamline> e <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "Avètz ja un compte?",

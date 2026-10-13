@@ -275,9 +275,9 @@
       "zImageTurbo": "ամենաարագ և ամենաէժան:"
     },
     "layout": {
+      "save": "Պահպանել",
       "saving": "Պահվում է…",
-      "tryIt": "Փորձեք այն",
-      "save": "Պահպանել"
+      "tryIt": "Փորձեք այն"
     },
     "text": {
       "cannotInheritModel": "Տեքստի կանխադրվածները չեն կարող ժառանգել այլ մոդել",
@@ -489,7 +489,8 @@
     },
     "github": "GitHub",
     "loading": "Աջակցություն բեռնում",
-    "title": "Աջակցություն"
+    "title": "Աջակցություն",
+    "iconCredit": "Պատկերակները՝ <streamline>Streamline</streamline> և <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "Արդեն ունե՞ք հաշիվ:",

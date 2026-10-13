@@ -275,9 +275,9 @@
       "zImageTurbo": "nopein ja halvin."
     },
     "layout": {
+      "save": "Tallenna",
       "saving": "Tallennetaan…",
-      "tryIt": "Kokeile sitä",
-      "save": "Tallenna"
+      "tryIt": "Kokeile sitä"
     },
     "text": {
       "cannotInheritModel": "Tekstin oletusasetukset eivät voi periä toista mallia",
@@ -489,7 +489,8 @@
     },
     "github": "GitHub",
     "loading": "Ladataan tuki",
-    "title": "Tukea"
+    "title": "Tukea",
+    "iconCredit": "Kuvakkeet: <streamline>Streamline</streamline> ja <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "Onko sinulla jo tili?",

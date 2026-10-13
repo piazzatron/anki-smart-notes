@@ -275,9 +275,9 @@
       "zImageTurbo": "pinakamabilis at pinakamura."
     },
     "layout": {
+      "save": "I-save",
       "saving": "Sine-save...",
-      "tryIt": "Subukan ito",
-      "save": "I-save"
+      "tryIt": "Subukan ito"
     },
     "text": {
       "cannotInheritModel": "Ang mga default ng teksto ay hindi maaaring magmana ng isa pang modelo",
@@ -489,7 +489,8 @@
     },
     "github": "GitHub",
     "loading": "Naglo-load ng Suporta",
-    "title": "Suporta"
+    "title": "Suporta",
+    "iconCredit": "Mga icon mula sa <streamline>Streamline</streamline> at <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "Mayroon ka nang account?",

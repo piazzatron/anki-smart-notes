@@ -276,9 +276,9 @@
       "zImageTurbo": "הכי מהיר והכי זול."
     },
     "layout": {
+      "save": "שמור",
       "saving": "חִסָכוֹן…",
-      "tryIt": "נסה את זה",
-      "save": "שמור"
+      "tryIt": "נסה את זה"
     },
     "text": {
       "cannotInheritModel": "ברירת המחדל של טקסט אינה יכולה לרשת דגם אחר",
@@ -499,7 +499,8 @@
     },
     "github": "GitHub",
     "loading": "תמיכה בטעינה",
-    "title": "תְמִיכָה"
+    "title": "תְמִיכָה",
+    "iconCredit": "אייקונים מאת <streamline>Streamline</streamline> ו-<solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "יש לך כבר חשבון?",

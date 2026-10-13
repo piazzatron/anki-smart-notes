@@ -274,9 +274,9 @@
       "zImageTurbo": "nhanh nhất và rẻ nhất."
     },
     "layout": {
+      "save": "Lưu",
       "saving": "Đang lưu…",
-      "tryIt": "Hãy thử nó",
-      "save": "Lưu"
+      "tryIt": "Hãy thử nó"
     },
     "text": {
       "cannotInheritModel": "Mặc định văn bản không thể kế thừa mô hình khác",
@@ -479,7 +479,8 @@
     },
     "github": "GitHub",
     "loading": "Đang tải hỗ trợ",
-    "title": "Ủng hộ"
+    "title": "Ủng hộ",
+    "iconCredit": "Biểu tượng của <streamline>Streamline</streamline> và <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "Đã có tài khoản?",

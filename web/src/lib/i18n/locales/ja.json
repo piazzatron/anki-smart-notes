@@ -274,9 +274,9 @@
       "zImageTurbo": "最速かつ最安。"
     },
     "layout": {
+      "save": "保存",
       "saving": "保存中…",
-      "tryIt": "試してみてください",
-      "save": "保存"
+      "tryIt": "試してみてください"
     },
     "text": {
       "cannotInheritModel": "テキストのデフォルトは別のモデルを継承できません",
@@ -479,7 +479,8 @@
     },
     "github": "GitHub",
     "loading": "ローディングサポート",
-    "title": "サポート"
+    "title": "サポート",
+    "iconCredit": "アイコン提供: <streamline>Streamline</streamline>、<solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "すでにアカウントをお持ちですか?",

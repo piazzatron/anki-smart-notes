@@ -275,9 +275,9 @@
       "zImageTurbo": "سریع ترین و ارزان ترین"
     },
     "layout": {
+      "save": "ذخیره",
       "saving": "در حال ذخیره…",
-      "tryIt": "آن را امتحان کنید",
-      "save": "ذخیره"
+      "tryIt": "آن را امتحان کنید"
     },
     "text": {
       "cannotInheritModel": "پیش فرض های متنی نمی توانند مدل دیگری را به ارث ببرند",
@@ -489,7 +489,8 @@
     },
     "github": "GitHub",
     "loading": "در حال بارگذاری پشتیبانی",
-    "title": "پشتیبانی کنید"
+    "title": "پشتیبانی کنید",
+    "iconCredit": "آیکون‌ها از <streamline>Streamline</streamline> و <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "از قبل حساب کاربری دارید؟",

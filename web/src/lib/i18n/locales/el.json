@@ -275,9 +275,9 @@
       "zImageTurbo": "ταχύτερο και φθηνότερο."
     },
     "layout": {
+      "save": "Αποθήκευση",
       "saving": "Οικονομία…",
-      "tryIt": "Δοκιμάστε το",
-      "save": "Αποθήκευση"
+      "tryIt": "Δοκιμάστε το"
     },
     "text": {
       "cannotInheritModel": "Οι προεπιλογές κειμένου δεν μπορούν να κληρονομήσουν άλλο μοντέλο",
@@ -489,7 +489,8 @@
     },
     "github": "GitHub",
     "loading": "Φόρτωση υποστήριξης",
-    "title": "Υποστήριξη"
+    "title": "Υποστήριξη",
+    "iconCredit": "Εικονίδια από <streamline>Streamline</streamline> και <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "Έχετε ήδη λογαριασμό;",

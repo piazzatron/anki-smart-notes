@@ -274,9 +274,9 @@
       "zImageTurbo": "最快且最便宜。"
     },
     "layout": {
+      "save": "儲存",
       "saving": "保存…",
-      "tryIt": "嘗試一下",
-      "save": "儲存"
+      "tryIt": "嘗試一下"
     },
     "text": {
       "cannotInheritModel": "文字預設值不能繼承另一個模型",
@@ -479,7 +479,8 @@
     },
     "github": "GitHub",
     "loading": "載入支援",
-    "title": "支援"
+    "title": "支援",
+    "iconCredit": "圖示由 <streamline>Streamline</streamline> 與 <solar>480 Design</solar> 提供 · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "已經有帳戶？",

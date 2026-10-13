@@ -276,9 +276,9 @@
       "zImageTurbo": "le plus rapide et le moins cher."
     },
     "layout": {
+      "save": "Enregistrer",
       "saving": "Économie…",
-      "tryIt": "Essayez-le",
-      "save": "Enregistrer"
+      "tryIt": "Essayez-le"
     },
     "text": {
       "cannotInheritModel": "Les valeurs par défaut du texte ne peuvent pas hériter d'un autre modèle",
@@ -499,7 +499,8 @@
     },
     "github": "GitHub",
     "loading": "Prise en charge du chargement",
-    "title": "Soutien"
+    "title": "Soutien",
+    "iconCredit": "Icônes par <streamline>Streamline</streamline> et <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "Vous avez déjà un compte ?",

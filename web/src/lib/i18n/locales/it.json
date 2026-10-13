@@ -276,9 +276,9 @@
       "zImageTurbo": "più veloce ed economico."
     },
     "layout": {
+      "save": "Salva",
       "saving": "Risparmio…",
-      "tryIt": "Provalo",
-      "save": "Salva"
+      "tryIt": "Provalo"
     },
     "text": {
       "cannotInheritModel": "Le impostazioni predefinite del testo non possono ereditare un altro modello",
@@ -499,7 +499,8 @@
     },
     "github": "GitHub",
     "loading": "Caricamento supporto",
-    "title": "Supporto"
+    "title": "Supporto",
+    "iconCredit": "Icone di <streamline>Streamline</streamline> e <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "Hai già un account?",

@@ -274,9 +274,9 @@
       "zImageTurbo": "เร็วที่สุดและถูกที่สุด"
     },
     "layout": {
+      "save": "บันทึก",
       "saving": "ประหยัด…",
-      "tryIt": "ลองมัน",
-      "save": "บันทึก"
+      "tryIt": "ลองมัน"
     },
     "text": {
       "cannotInheritModel": "ค่าเริ่มต้นของข้อความไม่สามารถสืบทอดโมเดลอื่นได้",
@@ -479,7 +479,8 @@
     },
     "github": "GitHub",
     "loading": "กำลังโหลดการสนับสนุน",
-    "title": "สนับสนุน"
+    "title": "สนับสนุน",
+    "iconCredit": "ไอคอนโดย <streamline>Streamline</streamline> และ <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "มีบัญชีอยู่แล้ว?",

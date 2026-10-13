@@ -279,9 +279,9 @@
       "zImageTurbo": "الأسرع والأرخص."
     },
     "layout": {
+      "save": "حفظ",
       "saving": "توفير…",
-      "tryIt": "جربه",
-      "save": "حفظ"
+      "tryIt": "جربه"
     },
     "text": {
       "cannotInheritModel": "لا يمكن أن ترث الإعدادات الافتراضية للنص نموذجًا آخر",
@@ -529,7 +529,8 @@
     },
     "github": "GitHub",
     "loading": "تحميل الدعم",
-    "title": "الدعم"
+    "title": "الدعم",
+    "iconCredit": "الأيقونات من <streamline>Streamline</streamline> و<solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "هل لديك حساب بالفعل؟",

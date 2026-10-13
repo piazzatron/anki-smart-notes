@@ -276,9 +276,9 @@
       "zImageTurbo": "cel mai rapid si mai ieftin."
     },
     "layout": {
+      "save": "Salvează",
       "saving": "Economisire…",
-      "tryIt": "Încearcă",
-      "save": "Salvează"
+      "tryIt": "Încearcă"
     },
     "text": {
       "cannotInheritModel": "Valorile implicite ale textului nu pot moșteni un alt model",
@@ -499,7 +499,8 @@
     },
     "github": "GitHub",
     "loading": "Suport de încărcare",
-    "title": "Sprijin"
+    "title": "Sprijin",
+    "iconCredit": "Pictograme de <streamline>Streamline</streamline> și <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "Aveți deja un cont?",

@@ -275,9 +275,9 @@
       "zImageTurbo": "хамгийн хурдан бөгөөд хямд."
     },
     "layout": {
+      "save": "Хадгалах",
       "saving": "Хадгалж байна...",
-      "tryIt": "Ороод үзээрэй",
-      "save": "Хадгалах"
+      "tryIt": "Ороод үзээрэй"
     },
     "text": {
       "cannotInheritModel": "Текстийн өгөгдмөл нь өөр загварыг өвлөх боломжгүй",
@@ -489,7 +489,8 @@
     },
     "github": "GitHub",
     "loading": "Дэмжлэгийг ачаалж байна",
-    "title": "Дэмжлэг"
+    "title": "Дэмжлэг",
+    "iconCredit": "Дүрсүүд: <streamline>Streamline</streamline> ба <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "Бүртгэлтэй юу?",

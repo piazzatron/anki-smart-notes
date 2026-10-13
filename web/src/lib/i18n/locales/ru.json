@@ -277,9 +277,9 @@
       "zImageTurbo": "самый быстрый и дешевый."
     },
     "layout": {
+      "save": "Сохранить",
       "saving": "Сохранение…",
-      "tryIt": "Попробуйте это",
-      "save": "Сохранить"
+      "tryIt": "Попробуйте это"
     },
     "text": {
       "cannotInheritModel": "Текстовые значения по умолчанию не могут наследовать другую модель",
@@ -509,7 +509,8 @@
     },
     "github": "GitHub",
     "loading": "Поддержка загрузки",
-    "title": "Поддерживать"
+    "title": "Поддерживать",
+    "iconCredit": "Иконки от <streamline>Streamline</streamline> и <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "У вас уже есть аккаунт?",

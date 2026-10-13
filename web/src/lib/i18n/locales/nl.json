@@ -275,9 +275,9 @@
       "zImageTurbo": "snelste en goedkoopste."
     },
     "layout": {
+      "save": "Opslaan",
       "saving": "Besparing…",
-      "tryIt": "Probeer het",
-      "save": "Opslaan"
+      "tryIt": "Probeer het"
     },
     "text": {
       "cannotInheritModel": "Standaardtekstwaarden kunnen geen ander model overnemen",
@@ -489,7 +489,8 @@
     },
     "github": "GitHub",
     "loading": "Ondersteuning voor laden",
-    "title": "Steun"
+    "title": "Steun",
+    "iconCredit": "Iconen van <streamline>Streamline</streamline> en <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "Heeft u al een account?",

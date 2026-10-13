@@ -278,9 +278,9 @@
       "zImageTurbo": "is tapúla agus is saoire."
     },
     "layout": {
+      "save": "Sábháil",
       "saving": "Ag sábháil…",
-      "tryIt": "Bain triail as",
-      "save": "Sábháil"
+      "tryIt": "Bain triail as"
     },
     "text": {
       "cannotInheritModel": "Ní féidir le réamhshocrú téacs a bheith mar oidhreacht ag samhail eile",
@@ -519,7 +519,8 @@
     },
     "github": "GitHub",
     "loading": "Tacaíocht á Luchtú",
-    "title": "Tacaíocht"
+    "title": "Tacaíocht",
+    "iconCredit": "Deilbhíní le <streamline>Streamline</streamline> agus <solar>480 Design</solar> · <license>CC BY 4.0</license>"
   },
   "welcome": {
     "alreadyAccount": "An bhfuil cuntas agat cheana féin?",
