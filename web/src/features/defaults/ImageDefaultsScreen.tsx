@@ -2,7 +2,8 @@ import { useTranslation } from "react-i18next"
 
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { InfoTip } from "@/components/ui/InfoTip"
-import { GalleryIcon } from "@/components/shared/Icons"
+import { PaletteEmoji } from "@/components/shared/Emoji"
+import {} from "@/components/shared/Icons"
 import { ImageModelSelect } from "@/features/image-generation/ImageModelSelect"
 import {
   PromptTesterStrip,
@@ -35,7 +36,7 @@ export const ImageDefaultsScreen = ({
   if (state === null || catalog === null) {
     return (
       <DefaultsScreenLoading
-        icon={<GalleryIcon className="text-pastel-butter" size={20} />}
+        icon={<PaletteEmoji size={28} />}
         label={t("defaults.image.loadingLabel")}
         title={t("defaults.image.loadingTitle")}
       />
@@ -85,7 +86,7 @@ const LoadedImageDefaultsScreen = ({
   return (
     <DefaultsScreenLayout
       accessory={<DefaultUsagePill usage={usage} />}
-      icon={<GalleryIcon className="text-pastel-butter" size={20} />}
+      icon={<PaletteEmoji size={28} />}
       isDirty={controls.form.isDirty}
       isSaving={controls.form.isSaving}
       onSave={() => void controls.saveChanges()}

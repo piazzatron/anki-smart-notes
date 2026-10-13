@@ -19,8 +19,9 @@ import { getDefaultUsage } from "./defaultUsage"
 import { useScratchPrompt } from "./scratchPrompts"
 import { DefaultUsagePill } from "./DefaultUsagePill"
 import { useDefaultsForm } from "./useDefaultsForm"
+import { SpeechBalloonEmoji } from "@/components/shared/Emoji"
 import { WarningIcon } from "@/components/shared/Icons"
-import { ChatIcon } from "@/components/shared/Icons"
+import {} from "@/components/shared/Icons"
 
 interface TextDefaultsScreenProps {
   onDirtyChange?: (isDirty: boolean) => void
@@ -36,7 +37,7 @@ export const TextDefaultsScreen = ({
   if (state === null || catalog === null) {
     return (
       <DefaultsScreenLoading
-        icon={<ChatIcon className="text-pastel-sky" size={20} />}
+        icon={<SpeechBalloonEmoji size={28} />}
         label={t("defaults.text.loadingLabel")}
         title={t("defaults.text.loadingTitle")}
       />
@@ -86,7 +87,7 @@ export const LoadedTextDefaultsScreen = ({
   return (
     <DefaultsScreenLayout
       accessory={<DefaultUsagePill usage={usage} />}
-      icon={<ChatIcon className="text-pastel-sky" size={20} />}
+      icon={<SpeechBalloonEmoji size={28} />}
       isDirty={controls.form.isDirty}
       isSaving={controls.form.isSaving}
       onSave={() => void controls.saveChanges()}

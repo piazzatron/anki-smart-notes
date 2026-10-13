@@ -12,6 +12,7 @@ import { groupSmartFields } from "./groupSmartFields"
 import { PageLayout } from "@/components/shared/PageLayout"
 import { Button } from "@/components/ui/Button"
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
+import { SparklesEmoji } from "@/components/shared/Emoji"
 import { SparklesIcon } from "@/components/shared/Icons"
 import { trackAnalyticsEvent } from "@/services/analytics"
 import {
@@ -110,7 +111,7 @@ export const SmartFieldsScreen = ({
             {t("smartFields.newSmartField")}
           </Button>
         }
-        icon={<SparklesIcon className="text-pastel-butter" size={20} />}
+        icon={<SparklesEmoji size={28} />}
         subtitle={t("smartFields.subtitle")}
         testId="smart-fields-screen"
         title={t("sidebar.nav.smartFields")}
