@@ -46,7 +46,7 @@ export const ReviewPrompt = ({ onComplete }: ReviewPromptProps) => {
         className="relative fill-[#ffe49a] text-[#ffe49a]"
         size={23}
       />
-      <p className="relative min-w-0 flex-1 text-[14.5px] leading-[1.35] font-extrabold tracking-[-0.01em] text-white">
+      <p className="relative min-w-0 flex-1 truncate text-[14.5px] leading-[1.35] font-extrabold tracking-[-0.01em] text-white">
         {t("smartFields.review.title")}
         <span className="ms-2 text-[13px] font-medium text-white/80">
           {" "}
