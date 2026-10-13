@@ -259,20 +259,20 @@
     "image": {
       "cannotFindModel": "Kuvaluettelosta puuttuu malli {{model}}",
       "defaultModel": "Oletusmalli",
+      "gptImage25": "paras monipuolinen valinta – terävä teksti, selkeät kaaviot.",
       "loadingLabel": "Ladataan oletuskuvaasetuksia",
       "loadingTitle": "Kuvan oletusasetukset",
+      "modelTipLabel": "Tietoa kuvamalleista",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "rikkaat, valokuvamaiset kohtaukset.",
       "samplePrompt": "Luo kuva opiskelijasta, joka opiskelee ahkerasti Anki:n kanssa ja läpäisee kokeensa.",
       "saveError": "Kuvan oletusasetuksia ei voitu tallentaa",
       "subtitle": "Smart Fields-kuvasi käyttämä malli, ellei kenttä ole nastalla omaa.",
       "title": "Kuvan oletusasetukset",
-      "zImageTurbo": "nopein ja halvin.",
-      "gptImage25": "paras monipuolinen valinta – terävä teksti, selkeät kaaviot.",
-      "modelTipLabel": "Tietoa kuvamalleista",
-      "nanoBanana21": "rikkaat, valokuvamaiset kohtaukset."
+      "zImageTurbo": "nopein ja halvin."
     },
     "layout": {
       "saveChanges": "Tallenna muutokset",
@@ -330,6 +330,26 @@
       "title": "Äänen oletusasetukset"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Laajempi päättely",
+    "extraReasoningCost": "noin 1,5× kustannus",
+    "extraReasoningDescription": "Selkeämmät kaaviot ja luettavampi teksti. Noin 4× hitaampi.",
+    "extraSettings": "Lisäasetukset",
+    "doubleCost": "2× kustannus",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Enimmäislaatu",
+    "maxQualityDescription": "Terävämpi ja selkeämpi, erityisesti pienet tekstit.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Yksityiskohtaisempi",
+    "richerDetailDescription": "Yksityiskohtaisemmat ja täyteläisemmät kohtaukset. Hieman hitaampi.",
+    "underTheHoodLabel": "Mitä malleja käytetään",
+    "underTheHood": {
+      "gptRicherDetail": "Runsaampi yksityiskohtaisuus käyttää mallia GPT Image 2.5 Sunburst.",
+      "gptStandard": "Vakio käyttää mallia GPT Image 2.5 Flare.",
+      "nanoExtraReasoning": "Lisäpäättely käyttää mallia Nano Banana 2.1.",
+      "nanoStandard": "Vakio käyttää mallia Nano Banana 2 Lite."
+    }
+  },
   "promptTester": {
     "anotherNoteType": "toinen muistiinpanotyyppi",
     "currentlySelectedCard": "Tällä hetkellä valittu kortti",
@@ -342,6 +362,7 @@
     },
     "fieldRunsOnNoteType": "Tämä kenttä toimii muistiinpanotyypissä <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Luotu kuvan esikatselu",
+    "generatedIn": "Luotu {{seconds}} s",
     "missingFieldsTitle_one": "Puuttuva kenttä",
     "missingFieldsTitle_other": "Puuttuvat kentät",
     "needsFields_one": "Tarvitsee {{count}}-kentän",
@@ -349,12 +370,15 @@
     "notesSelected_one": "{{count}} muistiinpano valittu – rajaa se yhteen.",
     "notesSelected_other": "{{count}} muistiinpanot valittu – rajaa se yhteen.",
     "promptPlaceholder": "Kirjoita {{braces}}-kortillesi testikehote, jossa viitataan kenttiin.",
+    "rerunToSave": "Suorita testi uudelleen tallentaaksesi sen kortille",
     "saveToCard": "Tallenna kortille",
     "savedTo": "Tallennettu tiedostoon {{field}}",
     "selectCardWithFields_one": "Valitse kortti, jossa on kenttä",
     "selectCardWithFields_other": "Valitse kortti, jossa on kentät",
     "selectFieldToReadAloud": "Valitse ääneen luettava kenttä",
     "selectNewCard": "Valitse uusi kortti selaimesta",
+    "or": "tai",
+    "selectCardInBrowser": "Valitse kortti selaimessa testataksesi",
     "selectRequiredNoteType": "Valitse muistiinpano tyypistä <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Valittu kortti",
     "selectedDeck": "Valittu kansi",
@@ -362,16 +386,12 @@
     "selectionAppearsAutomatically": "Valintasi näkyy täällä automaattisesti.",
     "sent": "Lähetetty",
     "testing": "Testaus…",
+    "openRecentImage": "Avaa kuva {{number}}",
+    "recentImages": "Tulokset",
     "testResult": "Testitulos",
     "textToSpeak": "Teksti puhuttavaksi",
     "viewResult": "Näytä tulos",
-    "wrongNoteType": "Väärä muistiinpanotyyppi",
-    "generatedIn": "Luotu {{seconds}} s",
-    "rerunToSave": "Suorita testi uudelleen tallentaaksesi sen kortille",
-    "or": "tai",
-    "selectCardInBrowser": "Valitse kortti selaimessa testataksesi",
-    "openRecentImage": "Avaa kuva {{number}}",
-    "recentImages": "Tulokset"
+    "wrongNoteType": "Väärä muistiinpanotyyppi"
   },
   "subscription": {
     "accessEnds": "Pääsy loppuu",
@@ -507,26 +527,5 @@
     "thanks": "Kiitos, että käytät Smart Notes:tä ✨",
     "title": "Ilmainen kokeilujaksosi on päättynyt",
     "upgradeNow": "Päivitä nyt"
-  },
-  "imageGeneration": {
-    "extraReasoning": "Laajempi päättely",
-    "extraReasoningCost": "noin 1,5× kustannus",
-    "extraReasoningDescription": "Selkeämmät kaaviot ja luettavampi teksti. Noin 4× hitaampi.",
-    "extraSettings": "Lisäasetukset",
-    "doubleCost": "2× kustannus",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Enimmäislaatu",
-    "maxQualityDescription": "Terävämpi ja selkeämpi, erityisesti pienet tekstit.",
-    "nanoBanana": "Nano Banana (Google)",
-    "richerDetail": "Yksityiskohtaisempi",
-    "richerDetailDescription": "Yksityiskohtaisemmat ja täyteläisemmät kohtaukset. Hieman hitaampi.",
-    "underTheHood": {
-      "gptMaxQuality": "Enimmäislaatu: keskitason laatu matalan sijaan",
-      "gptRicherDetail": "Yksityiskohtaisempi: GPT Image 2.5 Sunburst",
-      "gptStandard": "Vakio: GPT Image 2.5 Flare matalalla laadulla",
-      "nanoExtraReasoning": "Laajempi päättely: Nano Banana 2.1",
-      "nanoStandard": "Vakio: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Mitä malleja käytetään"
   }
 }

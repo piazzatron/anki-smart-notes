@@ -261,20 +261,20 @@
     "image": {
       "cannotFindModel": "В каталоге изображений отсутствует модель {{model}}",
       "defaultModel": "Модель по умолчанию",
+      "gptImage25": "лучший универсальный вариант: чёткий текст, аккуратные схемы.",
       "loadingLabel": "Загрузка настроек изображения по умолчанию",
       "loadingTitle": "Настройки изображения по умолчанию",
+      "modelTipLabel": "О моделях для изображений",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "насыщенные фотореалистичные сцены.",
       "samplePrompt": "Создайте образ студента, который усердно учится с помощью Anki и сдает тесты.",
       "saveError": "Не удалось сохранить настройки изображения по умолчанию.",
       "subtitle": "Модель вашего изображения, которую использует Smart Fields, если только поле не закреплено самостоятельно.",
       "title": "Настройки изображения по умолчанию",
-      "zImageTurbo": "самый быстрый и дешевый.",
-      "gptImage25": "лучший универсальный вариант: чёткий текст, аккуратные схемы.",
-      "modelTipLabel": "О моделях для изображений",
-      "nanoBanana21": "насыщенные фотореалистичные сцены."
+      "zImageTurbo": "самый быстрый и дешевый."
     },
     "layout": {
       "saveChanges": "Сохранить изменения",
@@ -334,6 +334,26 @@
       "title": "Голосовые настройки по умолчанию"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Расширенные рассуждения",
+    "extraReasoningCost": "~1,5× стоимости",
+    "extraReasoningDescription": "Более чистые схемы и разборчивый текст. Примерно в 4 раза медленнее.",
+    "extraSettings": "Дополнительные настройки",
+    "doubleCost": "2× стоимости",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Максимальное качество",
+    "maxQualityDescription": "Более чёткое и аккуратное изображение, особенно мелкие подписи.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Больше деталей",
+    "richerDetailDescription": "Более детальные и насыщенные сцены. Немного медленнее.",
+    "underTheHoodLabel": "Какие модели работают",
+    "underTheHood": {
+      "gptRicherDetail": "Больше деталей использует GPT Image 2.5 Sunburst.",
+      "gptStandard": "Стандартный использует GPT Image 2.5 Flare.",
+      "nanoExtraReasoning": "Расширенные рассуждения используют Nano Banana 2.1.",
+      "nanoStandard": "Стандартный использует Nano Banana 2 Lite."
+    }
+  },
   "promptTester": {
     "anotherNoteType": "другой тип заметки",
     "currentlySelectedCard": "Текущая выбранная карта",
@@ -346,6 +366,7 @@
     },
     "fieldRunsOnNoteType": "Это поле работает на <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Предварительный просмотр созданного изображения",
+    "generatedIn": "Создано за {{seconds}} с",
     "missingFieldsTitle_one": "Отсутствует поле",
     "missingFieldsTitle_few": "Отсутствующие поля",
     "missingFieldsTitle_many": "Отсутствующие поля",
@@ -359,6 +380,7 @@
     "notesSelected_many": "Выбрано {{count}} заметок — сузьте до одной.",
     "notesSelected_other": "Выбраны заметки {{count}} — сузьте их до одной.",
     "promptPlaceholder": "Напишите тестовое приглашение, ссылаясь на поля на вашей карточке с помощью {{braces}}.",
+    "rerunToSave": "Запустите этот тест снова, чтобы сохранить его в карточку",
     "saveToCard": "Сохранить на карту",
     "savedTo": "Сохранено в {{field}}.",
     "selectCardWithFields_one": "Пожалуйста, выберите карточку с полем",
@@ -367,6 +389,8 @@
     "selectCardWithFields_other": "Пожалуйста, выберите карточку с полями",
     "selectFieldToReadAloud": "Выберите поле для чтения вслух",
     "selectNewCard": "Выберите новую карту в браузере",
+    "or": "или",
+    "selectCardInBrowser": "Выберите карточку в браузере для тестирования",
     "selectRequiredNoteType": "Пожалуйста, выберите заметку типа <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Выбранная карта",
     "selectedDeck": "Выбранная колода",
@@ -374,16 +398,12 @@
     "selectionAppearsAutomatically": "Ваш выбор появится здесь автоматически.",
     "sent": "Отправил",
     "testing": "Тестирование…",
+    "openRecentImage": "Открыть изображение {{number}}",
+    "recentImages": "Результаты",
     "testResult": "Результат теста",
     "textToSpeak": "Текст для разговора",
     "viewResult": "Посмотреть результат",
-    "wrongNoteType": "Неправильный тип заметки",
-    "generatedIn": "Создано за {{seconds}} с",
-    "rerunToSave": "Запустите этот тест снова, чтобы сохранить его в карточку",
-    "or": "или",
-    "selectCardInBrowser": "Выберите карточку в браузере для тестирования",
-    "openRecentImage": "Открыть изображение {{number}}",
-    "recentImages": "Результаты"
+    "wrongNoteType": "Неправильный тип заметки"
   },
   "subscription": {
     "accessEnds": "Доступ заканчивается",
@@ -527,26 +547,5 @@
     "thanks": "Спасибо за использование Smart Notes ✨",
     "title": "Ваша бесплатная пробная версия закончилась",
     "upgradeNow": "Обновите сейчас"
-  },
-  "imageGeneration": {
-    "extraReasoning": "Расширенные рассуждения",
-    "extraReasoningCost": "~1,5× стоимости",
-    "extraReasoningDescription": "Более чистые схемы и разборчивый текст. Примерно в 4 раза медленнее.",
-    "extraSettings": "Дополнительные настройки",
-    "doubleCost": "2× стоимости",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Максимальное качество",
-    "maxQualityDescription": "Более чёткое и аккуратное изображение, особенно мелкие подписи.",
-    "nanoBanana": "Nano Banana (Google)",
-    "richerDetail": "Больше деталей",
-    "richerDetailDescription": "Более детальные и насыщенные сцены. Немного медленнее.",
-    "underTheHood": {
-      "gptMaxQuality": "Максимальное качество: среднее качество вместо низкого",
-      "gptRicherDetail": "Больше деталей: GPT Image 2.5 Sunburst",
-      "gptStandard": "Стандартный: GPT Image 2.5 Flare при низком качестве",
-      "nanoExtraReasoning": "Расширенные рассуждения: Nano Banana 2.1",
-      "nanoStandard": "Стандартный: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Какие модели работают"
   }
 }

@@ -50,7 +50,6 @@ export const IMAGE_MODEL_FAMILIES: readonly ImageModelFamily[] = [
     underTheHood: [
       "imageGeneration.underTheHood.gptStandard",
       "imageGeneration.underTheHood.gptRicherDetail",
-      "imageGeneration.underTheHood.gptMaxQuality",
     ],
   },
   {

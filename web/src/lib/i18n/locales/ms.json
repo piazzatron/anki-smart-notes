@@ -258,20 +258,20 @@
     "image": {
       "cannotFindModel": "Katalog imej tiada model {{model}}",
       "defaultModel": "Model lalai",
+      "gptImage25": "pilihan terbaik untuk semua keperluan — teks tajam, rajah kemas.",
       "loadingLabel": "Memuatkan Tetapan Imej Lalai",
       "loadingTitle": "Tetapan Imej Lalai",
+      "modelTipLabel": "Tentang model imej",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "adegan kaya dan fotografik.",
       "samplePrompt": "Hasilkan imej pelajar yang belajar bersungguh-sungguh dengan Anki dan lulus ujian mereka.",
       "saveError": "Tidak dapat menyimpan lalai imej",
       "subtitle": "Model imej anda Smart Fields gunakan melainkan medan menyematnya sendiri.",
       "title": "Tetapan Imej Lalai",
-      "zImageTurbo": "terpantas dan termurah.",
-      "gptImage25": "pilihan terbaik untuk semua keperluan — teks tajam, rajah kemas.",
-      "modelTipLabel": "Tentang model imej",
-      "nanoBanana21": "adegan kaya dan fotografik."
+      "zImageTurbo": "terpantas dan termurah."
     },
     "layout": {
       "saveChanges": "Simpan perubahan",
@@ -328,6 +328,26 @@
       "title": "Tetapan Suara Lalai"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Penaakulan tambahan",
+    "extraReasoningCost": "~1.5× kos",
+    "extraReasoningDescription": "Rajah lebih kemas dan teks lebih mudah dibaca. Kira-kira 4× lebih perlahan.",
+    "extraSettings": "Tetapan Tambahan",
+    "doubleCost": "2× kos",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Kualiti Maksimum",
+    "maxQualityDescription": "Lebih tajam dan kemas, terutamanya label kecil.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Butiran Lebih Kaya",
+    "richerDetailDescription": "Adegan lebih terperinci dan penuh. Sedikit lebih perlahan.",
+    "underTheHoodLabel": "Model yang dijalankan",
+    "underTheHood": {
+      "gptRicherDetail": "Perincian yang lebih kaya menggunakan GPT Image 2.5 Sunburst.",
+      "gptStandard": "Standard menggunakan GPT Image 2.5 Flare.",
+      "nanoExtraReasoning": "Penaakulan tambahan menggunakan Nano Banana 2.1.",
+      "nanoStandard": "Standard menggunakan Nano Banana 2 Lite."
+    }
+  },
   "promptTester": {
     "anotherNoteType": "jenis nota lain",
     "currentlySelectedCard": "Kad yang dipilih pada masa ini",
@@ -340,15 +360,19 @@
     },
     "fieldRunsOnNoteType": "Medan ini berjalan pada <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Pratonton imej yang dihasilkan",
+    "generatedIn": "Dijana dalam {{seconds}}s",
     "missingFieldsTitle_other": "Medan hilang",
     "needsFields_other": "Memerlukan medan {{count}}",
     "notesSelected_other": "Nota {{count}} dipilih — sempitkannya kepada satu.",
     "promptPlaceholder": "Tulis gesaan ujian, merujuk medan pada kad anda dengan {{braces}}.",
+    "rerunToSave": "Jalankan ujian ini semula untuk menyimpannya ke kad",
     "saveToCard": "Simpan ke kad",
     "savedTo": "Disimpan ke {{field}}",
     "selectCardWithFields_other": "Sila pilih kad dengan medan tersebut",
     "selectFieldToReadAloud": "Pilih medan untuk dibaca dengan lantang",
     "selectNewCard": "Pilih kad baharu dalam penyemak imbas",
+    "or": "atau",
+    "selectCardInBrowser": "Pilih kad dalam pelayar untuk diuji",
     "selectRequiredNoteType": "Sila pilih nota jenis <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Kad yang dipilih",
     "selectedDeck": "Dek terpilih",
@@ -356,16 +380,12 @@
     "selectionAppearsAutomatically": "Pilihan anda muncul di sini secara automatik.",
     "sent": "Dihantar",
     "testing": "Menguji…",
+    "openRecentImage": "Buka imej {{number}}",
+    "recentImages": "Keputusan",
     "testResult": "Keputusan ujian",
     "textToSpeak": "Teks untuk bercakap",
     "viewResult": "Lihat hasil",
-    "wrongNoteType": "Jenis nota yang salah",
-    "generatedIn": "Dijana dalam {{seconds}}s",
-    "rerunToSave": "Jalankan ujian ini semula untuk menyimpannya ke kad",
-    "or": "atau",
-    "selectCardInBrowser": "Pilih kad dalam pelayar untuk diuji",
-    "openRecentImage": "Buka imej {{number}}",
-    "recentImages": "Keputusan"
+    "wrongNoteType": "Jenis nota yang salah"
   },
   "subscription": {
     "accessEnds": "Akses berakhir",
@@ -497,26 +517,5 @@
     "thanks": "Terima kasih kerana menggunakan Smart Notes ✨",
     "title": "Percubaan percuma anda telah tamat",
     "upgradeNow": "Tingkatkan sekarang"
-  },
-  "imageGeneration": {
-    "extraReasoning": "Penaakulan tambahan",
-    "extraReasoningCost": "~1.5× kos",
-    "extraReasoningDescription": "Rajah lebih kemas dan teks lebih mudah dibaca. Kira-kira 4× lebih perlahan.",
-    "extraSettings": "Tetapan Tambahan",
-    "doubleCost": "2× kos",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Kualiti Maksimum",
-    "maxQualityDescription": "Lebih tajam dan kemas, terutamanya label kecil.",
-    "nanoBanana": "Nano Banana (Google)",
-    "richerDetail": "Butiran Lebih Kaya",
-    "richerDetailDescription": "Adegan lebih terperinci dan penuh. Sedikit lebih perlahan.",
-    "underTheHood": {
-      "gptMaxQuality": "Kualiti maksimum: kualiti sederhana, bukan rendah",
-      "gptRicherDetail": "Butiran lebih kaya: GPT Image 2.5 Sunburst",
-      "gptStandard": "Standard: GPT Image 2.5 Flare pada kualiti rendah",
-      "nanoExtraReasoning": "Penaakulan tambahan: Nano Banana 2.1",
-      "nanoStandard": "Standard: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Model yang dijalankan"
   }
 }

@@ -259,20 +259,20 @@
     "image": {
       "cannotFindModel": "Resim kataloğunda {{model}} modeli eksik",
       "defaultModel": "Varsayılan model",
+      "gptImage25": "en iyi genel seçenek — keskin metin, temiz diyagramlar.",
       "loadingLabel": "Varsayılan Görüntü Ayarlarını Yükleme",
       "loadingTitle": "Varsayılan Görüntü Ayarları",
+      "modelTipLabel": "Görüntü modelleri hakkında",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "zengin, fotoğrafik sahneler.",
       "samplePrompt": "Anki ile sıkı çalışan ve sınavlarını geçen bir öğrencinin görüntüsünü oluşturun.",
       "saveError": "Resim varsayılanları kaydedilemedi",
       "subtitle": "Bir alan kendisini sabitlemediği sürece görüntünüz Smart Fields'in kullandığı model.",
       "title": "Varsayılan Görüntü Ayarları",
-      "zImageTurbo": "en hızlı ve en ucuz.",
-      "gptImage25": "en iyi genel seçenek — keskin metin, temiz diyagramlar.",
-      "modelTipLabel": "Görüntü modelleri hakkında",
-      "nanoBanana21": "zengin, fotoğrafik sahneler."
+      "zImageTurbo": "en hızlı ve en ucuz."
     },
     "layout": {
       "saveChanges": "Değişiklikleri kaydet",
@@ -330,6 +330,26 @@
       "title": "Varsayılan Ses Ayarları"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Ek akıl yürütme",
+    "extraReasoningCost": "~1,5× maliyet",
+    "extraReasoningDescription": "Daha temiz diyagramlar ve daha okunabilir metin. Yaklaşık 4× daha yavaş.",
+    "extraSettings": "Ek Ayarlar",
+    "doubleCost": "2× maliyet",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maksimum kalite",
+    "maxQualityDescription": "Özellikle küçük etiketlerde daha keskin ve temiz.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Daha zengin detay",
+    "richerDetailDescription": "Daha ayrıntılı, daha dolu sahneler. Biraz daha yavaş.",
+    "underTheHoodLabel": "Hangi modeller çalışır",
+    "underTheHood": {
+      "gptRicherDetail": "Daha zengin ayrıntı, GPT Image 2.5 Sunburst kullanır.",
+      "gptStandard": "Standart, GPT Image 2.5 Flare kullanır.",
+      "nanoExtraReasoning": "Ek akıl yürütme, Nano Banana 2.1 kullanır.",
+      "nanoStandard": "Standart, Nano Banana 2 Lite kullanır."
+    }
+  },
   "promptTester": {
     "anotherNoteType": "başka bir not türü",
     "currentlySelectedCard": "Şu anda seçili kart",
@@ -342,6 +362,7 @@
     },
     "fieldRunsOnNoteType": "Bu alan <noteTypeName>{{noteType}}</noteTypeName> üzerinde çalışır",
     "generatedImagePreview": "Oluşturulan resim önizlemesi",
+    "generatedIn": "{{seconds}} sn içinde oluşturuldu",
     "missingFieldsTitle_one": "Eksik alan",
     "missingFieldsTitle_other": "Eksik alanlar",
     "needsFields_one": "{{count}} alanına ihtiyaç var",
@@ -349,12 +370,15 @@
     "notesSelected_one": "{{count}} notu seçildi — onu bire daraltın.",
     "notesSelected_other": "Seçilen {{count}} notları — onu bire daraltın.",
     "promptPlaceholder": "{{braces}} ile kartınızdaki alanlara referans veren bir test istemi yazın.",
+    "rerunToSave": "Karta kaydetmek için bu testi yeniden çalıştırın",
     "saveToCard": "Karta kaydet",
     "savedTo": "{{field}}'e kaydedildi",
     "selectCardWithFields_one": "Lütfen alanı içeren bir kart seçin",
     "selectCardWithFields_other": "Lütfen alanları içeren bir kart seçin",
     "selectFieldToReadAloud": "Yüksek sesle okumak için bir alan seçin",
     "selectNewCard": "Tarayıcıda yeni bir kart seçin",
+    "or": "veya",
+    "selectCardInBrowser": "Test etmek için tarayıcıda bir kart seçin",
     "selectRequiredNoteType": "Lütfen <noteTypeName>{{noteType}}</noteTypeName> türünde bir not seçin",
     "selectedCard": "Seçilen kart",
     "selectedDeck": "Seçilen deste",
@@ -362,16 +386,12 @@
     "selectionAppearsAutomatically": "Seçiminiz burada otomatik olarak görünür.",
     "sent": "Gönderilmiş",
     "testing": "Test…",
+    "openRecentImage": "{{number}} numaralı görseli aç",
+    "recentImages": "Sonuçlar",
     "testResult": "Test sonucu",
     "textToSpeak": "Konuşmak için metin",
     "viewResult": "Sonucu görüntüle",
-    "wrongNoteType": "Yanlış not türü",
-    "generatedIn": "{{seconds}} sn içinde oluşturuldu",
-    "rerunToSave": "Karta kaydetmek için bu testi yeniden çalıştırın",
-    "or": "veya",
-    "selectCardInBrowser": "Test etmek için tarayıcıda bir kart seçin",
-    "openRecentImage": "{{number}} numaralı görseli aç",
-    "recentImages": "Sonuçlar"
+    "wrongNoteType": "Yanlış not türü"
   },
   "subscription": {
     "accessEnds": "Erişim sona eriyor",
@@ -507,26 +527,5 @@
     "thanks": "Smart Notes'i kullandığınız için teşekkür ederiz ✨",
     "title": "Ücretsiz deneme süreniz sona erdi",
     "upgradeNow": "Şimdi yükseltin"
-  },
-  "imageGeneration": {
-    "extraReasoning": "Ek akıl yürütme",
-    "extraReasoningCost": "~1,5× maliyet",
-    "extraReasoningDescription": "Daha temiz diyagramlar ve daha okunabilir metin. Yaklaşık 4× daha yavaş.",
-    "extraSettings": "Ek Ayarlar",
-    "doubleCost": "2× maliyet",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Maksimum kalite",
-    "maxQualityDescription": "Özellikle küçük etiketlerde daha keskin ve temiz.",
-    "nanoBanana": "Nano Banana (Google)",
-    "richerDetail": "Daha zengin detay",
-    "richerDetailDescription": "Daha ayrıntılı, daha dolu sahneler. Biraz daha yavaş.",
-    "underTheHood": {
-      "gptMaxQuality": "Maksimum kalite: düşük yerine orta kalite",
-      "gptRicherDetail": "Daha zengin detay: GPT Image 2.5 Sunburst",
-      "gptStandard": "Standart: GPT Image 2.5 Flare, düşük kalitede",
-      "nanoExtraReasoning": "Ek akıl yürütme: Nano Banana 2.1",
-      "nanoStandard": "Standart: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Hangi modeller çalışır"
   }
 }

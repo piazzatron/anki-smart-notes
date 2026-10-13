@@ -259,20 +259,20 @@
     "image": {
       "cannotFindModel": "Ang katalogo ng larawan ay walang modelong {{model}}",
       "defaultModel": "Default na modelo",
+      "gptImage25": "pinakamahusay sa lahat — malinaw na teksto, malinis na diagram.",
       "loadingLabel": "Nilo-load ang Default na Mga Setting ng Larawan",
       "loadingTitle": "Default na Mga Setting ng Larawan",
+      "modelTipLabel": "Tungkol sa mga image model",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "mayayamang eksenang parang litrato.",
       "samplePrompt": "Bumuo ng larawan ng isang mag-aaral na nag-aaral nang mabuti gamit ang Anki at pumasa sa kanilang mga pagsusulit.",
       "saveError": "Hindi ma-save ang mga default na larawan",
       "subtitle": "Ang modelong ginagamit ng iyong larawan na Smart Fields maliban kung ang isang field ay nag-pin ng sarili nitong.",
       "title": "Default na Mga Setting ng Larawan",
-      "zImageTurbo": "pinakamabilis at pinakamura.",
-      "gptImage25": "pinakamahusay sa lahat — malinaw na teksto, malinis na diagram.",
-      "modelTipLabel": "Tungkol sa mga image model",
-      "nanoBanana21": "mayayamang eksenang parang litrato."
+      "zImageTurbo": "pinakamabilis at pinakamura."
     },
     "layout": {
       "saveChanges": "I-save ang mga pagbabago",
@@ -330,6 +330,26 @@
       "title": "Default na Mga Setting ng Boses"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Dagdag na pangangatwiran",
+    "extraReasoningCost": "~1.5× ang gastos",
+    "extraReasoningDescription": "Mas malinis na diagram at mas madaling basahing teksto. Mga 4× na mas mabagal.",
+    "extraSettings": "Dagdag na Setting",
+    "doubleCost": "2× ang gastos",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Pinakamataas na kalidad",
+    "maxQualityDescription": "Mas malinaw at mas malinis, lalo na ang maliliit na label.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Mas masaganang detalye",
+    "richerDetailDescription": "Mas detalyado at mas punô na mga eksena. Medyo mas mabagal.",
+    "underTheHoodLabel": "Aling mga model ang tatakbo",
+    "underTheHood": {
+      "gptRicherDetail": "Ang mas detalyadong larawan ay gumagamit ng GPT Image 2.5 Sunburst.",
+      "gptStandard": "Ang karaniwan ay gumagamit ng GPT Image 2.5 Flare.",
+      "nanoExtraReasoning": "Ang dagdag na reasoning ay gumagamit ng Nano Banana 2.1.",
+      "nanoStandard": "Ang karaniwan ay gumagamit ng Nano Banana 2 Lite."
+    }
+  },
   "promptTester": {
     "anotherNoteType": "ibang uri ng tala",
     "currentlySelectedCard": "Kasalukuyang napiling card",
@@ -342,6 +362,7 @@
     },
     "fieldRunsOnNoteType": "Ang field na ito ay tumatakbo sa <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Nakabuo ng preview ng larawan",
+    "generatedIn": "Nabuo sa loob ng {{seconds}}s",
     "missingFieldsTitle_one": "Nawawalang field",
     "missingFieldsTitle_other": "Mga nawawalang field",
     "needsFields_one": "Kailangan ng {{count}} field",
@@ -349,12 +370,15 @@
     "notesSelected_one": "{{count}} note ang napili — paliitin ito sa isa.",
     "notesSelected_other": "{{count}} na mga tala ang napili — paliitin ito sa isa.",
     "promptPlaceholder": "Sumulat ng test prompt, nagre-refer sa mga field sa iyong card gamit ang {{braces}}.",
+    "rerunToSave": "Patakbuhin muli ang test na ito para i-save ito sa card",
     "saveToCard": "I-save sa card",
     "savedTo": "Na-save sa {{field}}",
     "selectCardWithFields_one": "Pumili ng card na may field",
     "selectCardWithFields_other": "Pumili ng card na may mga field",
     "selectFieldToReadAloud": "Pumili ng field na babasahin nang malakas",
     "selectNewCard": "Pumili ng bagong card sa browser",
+    "or": "o",
+    "selectCardInBrowser": "Pumili ng card sa browser para masubukan",
     "selectRequiredNoteType": "Pumili ng note na may uri <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Napiling card",
     "selectedDeck": "Napiling deck",
@@ -362,16 +386,12 @@
     "selectionAppearsAutomatically": "Awtomatikong lalabas dito ang iyong pinili.",
     "sent": "Ipinadala",
     "testing": "Pagsubok…",
+    "openRecentImage": "Buksan ang larawan {{number}}",
+    "recentImages": "Mga Resulta",
     "testResult": "Resulta ng pagsubok",
     "textToSpeak": "Text para magsalita",
     "viewResult": "Tingnan ang resulta",
-    "wrongNoteType": "Maling uri ng tala",
-    "generatedIn": "Nabuo sa loob ng {{seconds}}s",
-    "rerunToSave": "Patakbuhin muli ang test na ito para i-save ito sa card",
-    "or": "o",
-    "selectCardInBrowser": "Pumili ng card sa browser para masubukan",
-    "openRecentImage": "Buksan ang larawan {{number}}",
-    "recentImages": "Mga Resulta"
+    "wrongNoteType": "Maling uri ng tala"
   },
   "subscription": {
     "accessEnds": "Nagtatapos ang access",
@@ -507,26 +527,5 @@
     "thanks": "Salamat sa paggamit ng Smart Notes ✨",
     "title": "Natapos na ang iyong libreng pagsubok",
     "upgradeNow": "Mag-upgrade ngayon"
-  },
-  "imageGeneration": {
-    "extraReasoning": "Dagdag na pangangatwiran",
-    "extraReasoningCost": "~1.5× ang gastos",
-    "extraReasoningDescription": "Mas malinis na diagram at mas madaling basahing teksto. Mga 4× na mas mabagal.",
-    "extraSettings": "Dagdag na Setting",
-    "doubleCost": "2× ang gastos",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Pinakamataas na kalidad",
-    "maxQualityDescription": "Mas malinaw at mas malinis, lalo na ang maliliit na label.",
-    "nanoBanana": "Nano Banana (Google)",
-    "richerDetail": "Mas masaganang detalye",
-    "richerDetailDescription": "Mas detalyado at mas punô na mga eksena. Medyo mas mabagal.",
-    "underTheHood": {
-      "gptMaxQuality": "Max quality: katamtamang kalidad sa halip na mababa",
-      "gptRicherDetail": "Mas masaganang detalye: GPT Image 2.5 Sunburst",
-      "gptStandard": "Standard: GPT Image 2.5 Flare sa mababang kalidad",
-      "nanoExtraReasoning": "Dagdag na pangangatwiran: Nano Banana 2.1",
-      "nanoStandard": "Standard: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Aling mga model ang tatakbo"
   }
 }

@@ -259,20 +259,20 @@
     "image": {
       "cannotFindModel": "Im Bildkatalog fehlt das Modell {{model}}",
       "defaultModel": "Standardmodell",
+      "gptImage25": "Bester Allrounder – scharfer Text, saubere Diagramme.",
       "loadingLabel": "Laden der Standardbildeinstellungen",
       "loadingTitle": "Standardbildeinstellungen",
+      "modelTipLabel": "Über die Bildmodelle",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "reiche, fotorealistische Szenen.",
       "samplePrompt": "Erstellen Sie ein Bild eines Studenten, der mit Anki fleißig lernt und seine Prüfungen besteht.",
       "saveError": "Bildstandardeinstellungen konnten nicht gespeichert werden",
       "subtitle": "Das Modell, das Ihr Bild Smart Fields verwendet, es sei denn, ein Feld heftet sein eigenes an.",
       "title": "Standardbildeinstellungen",
-      "zImageTurbo": "am schnellsten und günstigsten.",
-      "gptImage25": "Bester Allrounder – scharfer Text, saubere Diagramme.",
-      "modelTipLabel": "Über die Bildmodelle",
-      "nanoBanana21": "reiche, fotorealistische Szenen."
+      "zImageTurbo": "am schnellsten und günstigsten."
     },
     "layout": {
       "saveChanges": "Änderungen speichern",
@@ -330,6 +330,26 @@
       "title": "Standard-Spracheinstellungen"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Zusätzliches Reasoning",
+    "extraReasoningCost": "~1,5× Kosten",
+    "extraReasoningDescription": "Sauberere Diagramme und besser lesbarer Text. Etwa 4× langsamer.",
+    "extraSettings": "Zusätzliche Einstellungen",
+    "doubleCost": "2× Kosten",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maximale Qualität",
+    "maxQualityDescription": "Schärfer und sauberer, besonders bei kleinen Beschriftungen.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Reichere Details",
+    "richerDetailDescription": "Detailliertere, vollere Szenen. Etwas langsamer.",
+    "underTheHoodLabel": "Welche Modelle ausgeführt werden",
+    "underTheHood": {
+      "gptRicherDetail": "Mehr Details verwendet GPT Image 2.5 Sunburst.",
+      "gptStandard": "Standard verwendet GPT Image 2.5 Flare.",
+      "nanoExtraReasoning": "Erweitertes Schlussfolgern verwendet Nano Banana 2.1.",
+      "nanoStandard": "Standard verwendet Nano Banana 2 Lite."
+    }
+  },
   "promptTester": {
     "anotherNoteType": "ein anderer Notiztyp",
     "currentlySelectedCard": "Derzeit ausgewählte Karte",
@@ -342,6 +362,7 @@
     },
     "fieldRunsOnNoteType": "Dieses Feld läuft auf <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Erzeugte Bildvorschau",
+    "generatedIn": "Generiert in {{seconds}} s",
     "missingFieldsTitle_one": "Fehlendes Feld",
     "missingFieldsTitle_other": "Fehlende Felder",
     "needsFields_one": "Benötigt das Feld {{count}}",
@@ -349,12 +370,15 @@
     "notesSelected_one": "{{count}}-Note ausgewählt – auf eine beschränken.",
     "notesSelected_other": "{{count}}-Notizen ausgewählt – auf eine beschränken.",
     "promptPlaceholder": "Schreiben Sie eine Testaufforderung und verweisen Sie dabei auf Felder auf Ihrer Karte mit {{braces}}.",
+    "rerunToSave": "Diesen Test erneut ausführen, um ihn auf der Karte zu speichern",
     "saveToCard": "Auf Karte speichern",
     "savedTo": "Gespeichert unter {{field}}",
     "selectCardWithFields_one": "Bitte wählen Sie eine Karte mit dem Feld",
     "selectCardWithFields_other": "Bitte wählen Sie eine Karte mit den Feldern",
     "selectFieldToReadAloud": "Wählen Sie ein Feld zum Vorlesen aus",
     "selectNewCard": "Wählen Sie im Browser eine neue Karte aus",
+    "or": "oder",
+    "selectCardInBrowser": "Wähle im Browser eine Karte zum Testen aus",
     "selectRequiredNoteType": "Bitte wählen Sie eine Notiz vom Typ <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Ausgewählte Karte",
     "selectedDeck": "Ausgewähltes Deck",
@@ -362,16 +386,12 @@
     "selectionAppearsAutomatically": "Ihre Auswahl erscheint hier automatisch.",
     "sent": "Gesendet",
     "testing": "Testen…",
+    "openRecentImage": "Bild {{number}} öffnen",
+    "recentImages": "Ergebnisse",
     "testResult": "Testergebnis",
     "textToSpeak": "Text zum Sprechen",
     "viewResult": "Ergebnis ansehen",
-    "wrongNoteType": "Falscher Notiztyp",
-    "generatedIn": "Generiert in {{seconds}} s",
-    "rerunToSave": "Diesen Test erneut ausführen, um ihn auf der Karte zu speichern",
-    "or": "oder",
-    "selectCardInBrowser": "Wähle im Browser eine Karte zum Testen aus",
-    "openRecentImage": "Bild {{number}} öffnen",
-    "recentImages": "Ergebnisse"
+    "wrongNoteType": "Falscher Notiztyp"
   },
   "subscription": {
     "accessEnds": "Zugriff endet",
@@ -507,26 +527,5 @@
     "thanks": "Vielen Dank, dass Sie Smart Notes verwenden ✨",
     "title": "Ihre kostenlose Testversion ist beendet",
     "upgradeNow": "Jetzt upgraden"
-  },
-  "imageGeneration": {
-    "extraReasoning": "Zusätzliches Reasoning",
-    "extraReasoningCost": "~1,5× Kosten",
-    "extraReasoningDescription": "Sauberere Diagramme und besser lesbarer Text. Etwa 4× langsamer.",
-    "extraSettings": "Zusätzliche Einstellungen",
-    "doubleCost": "2× Kosten",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Maximale Qualität",
-    "maxQualityDescription": "Schärfer und sauberer, besonders bei kleinen Beschriftungen.",
-    "nanoBanana": "Nano Banana (Google)",
-    "richerDetail": "Reichere Details",
-    "richerDetailDescription": "Detailliertere, vollere Szenen. Etwas langsamer.",
-    "underTheHood": {
-      "gptMaxQuality": "Maximale Qualität: mittlere Qualität statt niedrig",
-      "gptRicherDetail": "Reichere Details: GPT Image 2.5 Sunburst",
-      "gptStandard": "Standard: GPT Image 2.5 Flare mit niedriger Qualität",
-      "nanoExtraReasoning": "Zusätzliches Reasoning: Nano Banana 2.1",
-      "nanoStandard": "Standard: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Welche Modelle ausgeführt werden"
   }
 }

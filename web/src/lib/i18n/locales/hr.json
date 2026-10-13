@@ -260,20 +260,20 @@
     "image": {
       "cannotFindModel": "U katalogu slika nedostaje model {{model}}",
       "defaultModel": "Zadani model",
+      "gptImage25": "najbolji svestrani izbor — oštar tekst, čisti dijagrami.",
       "loadingLabel": "Učitavanje zadanih postavki slike",
       "loadingTitle": "Zadane postavke slike",
+      "modelTipLabel": "O modelima za slike",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "bogate, fotografske scene.",
       "samplePrompt": "Generirajte sliku studenta koji vrijedno uči s Anki i polaže testove.",
       "saveError": "Nije moguće spremiti zadane postavke slike",
       "subtitle": "Model koji vaša slika koristi Smart Fields osim ako polje ne prikvači svoje.",
       "title": "Zadane postavke slike",
-      "zImageTurbo": "najbrže i najjeftinije.",
-      "gptImage25": "najbolji svestrani izbor — oštar tekst, čisti dijagrami.",
-      "modelTipLabel": "O modelima za slike",
-      "nanoBanana21": "bogate, fotografske scene."
+      "zImageTurbo": "najbrže i najjeftinije."
     },
     "layout": {
       "saveChanges": "Spremite promjene",
@@ -332,6 +332,26 @@
       "title": "Zadane postavke glasa"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Dodatno zaključivanje",
+    "extraReasoningCost": "~1,5× trošak",
+    "extraReasoningDescription": "Čišći dijagrami i čitkiji tekst. Otprilike 4× sporije.",
+    "extraSettings": "Dodatne postavke",
+    "doubleCost": "2× trošak",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maksimalna kvaliteta",
+    "maxQualityDescription": "Oštrije i čistije, osobito mali natpisi.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Bogatiji detalji",
+    "richerDetailDescription": "Detaljnije, potpunije scene. Malo sporije.",
+    "underTheHoodLabel": "Koji modeli se pokreću",
+    "underTheHood": {
+      "gptRicherDetail": "Bogatiji detalji koriste GPT Image 2.5 Sunburst.",
+      "gptStandard": "Standardni način koristi GPT Image 2.5 Flare.",
+      "nanoExtraReasoning": "Dodatno zaključivanje koristi Nano Banana 2.1.",
+      "nanoStandard": "Standardni način koristi Nano Banana 2 Lite."
+    }
+  },
   "promptTester": {
     "anotherNoteType": "drugu vrstu bilješke",
     "currentlySelectedCard": "Trenutno odabrana kartica",
@@ -344,6 +364,7 @@
     },
     "fieldRunsOnNoteType": "Ovo polje se izvršava na <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Pregled generirane slike",
+    "generatedIn": "Generirano za {{seconds}} s",
     "missingFieldsTitle_one": "Nedostaje polje",
     "missingFieldsTitle_few": "Nedostaju polja",
     "missingFieldsTitle_other": "Nedostaju polja",
@@ -354,6 +375,7 @@
     "notesSelected_few": "Odabrane bilješke {{count}} — suzite na jednu.",
     "notesSelected_other": "Odabrane bilješke {{count}} — suzite na jednu.",
     "promptPlaceholder": "Napišite prompt za testiranje, referencirajući polja na svojoj kartici s {{braces}}.",
+    "rerunToSave": "Pokrenite ovaj test ponovno da ga spremite na karticu",
     "saveToCard": "Spremi na karticu",
     "savedTo": "Spremljeno u {{field}}",
     "selectCardWithFields_one": "Molimo odaberite karticu s poljem",
@@ -361,6 +383,8 @@
     "selectCardWithFields_other": "Molimo odaberite karticu s poljima",
     "selectFieldToReadAloud": "Odaberite polje za čitanje naglas",
     "selectNewCard": "Odaberite novu karticu u pregledniku",
+    "or": "ili",
+    "selectCardInBrowser": "Odaberite karticu u pregledniku za testiranje",
     "selectRequiredNoteType": "Molimo odaberite bilješku tipa <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Odabrana kartica",
     "selectedDeck": "Odabrani špil",
@@ -368,16 +392,12 @@
     "selectionAppearsAutomatically": "Vaš odabir se automatski pojavljuje ovdje.",
     "sent": "Poslano",
     "testing": "Testiranje…",
+    "openRecentImage": "Otvori sliku {{number}}",
+    "recentImages": "Rezultati",
     "testResult": "Rezultat testa",
     "textToSpeak": "Tekst za govor",
     "viewResult": "Pogledajte rezultat",
-    "wrongNoteType": "Pogrešna vrsta bilješke",
-    "generatedIn": "Generirano za {{seconds}} s",
-    "rerunToSave": "Pokrenite ovaj test ponovno da ga spremite na karticu",
-    "or": "ili",
-    "selectCardInBrowser": "Odaberite karticu u pregledniku za testiranje",
-    "openRecentImage": "Otvori sliku {{number}}",
-    "recentImages": "Rezultati"
+    "wrongNoteType": "Pogrešna vrsta bilješke"
   },
   "subscription": {
     "accessEnds": "Pristup završava",
@@ -517,26 +537,5 @@
     "thanks": "Hvala što koristite Smart Notes ✨",
     "title": "Vaše besplatno probno razdoblje je završilo",
     "upgradeNow": "Nadogradite sada"
-  },
-  "imageGeneration": {
-    "extraReasoning": "Dodatno zaključivanje",
-    "extraReasoningCost": "~1,5× trošak",
-    "extraReasoningDescription": "Čišći dijagrami i čitkiji tekst. Otprilike 4× sporije.",
-    "extraSettings": "Dodatne postavke",
-    "doubleCost": "2× trošak",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Maksimalna kvaliteta",
-    "maxQualityDescription": "Oštrije i čistije, osobito mali natpisi.",
-    "nanoBanana": "Nano Banana (Google)",
-    "richerDetail": "Bogatiji detalji",
-    "richerDetailDescription": "Detaljnije, potpunije scene. Malo sporije.",
-    "underTheHood": {
-      "gptMaxQuality": "Maksimalna kvaliteta: srednja kvaliteta umjesto niske",
-      "gptRicherDetail": "Bogatiji detalji: GPT Image 2.5 Sunburst",
-      "gptStandard": "Standardno: GPT Image 2.5 Flare pri niskoj kvaliteti",
-      "nanoExtraReasoning": "Dodatno zaključivanje: Nano Banana 2.1",
-      "nanoStandard": "Standardno: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Koji modeli se pokreću"
   }
 }

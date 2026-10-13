@@ -260,20 +260,20 @@
     "image": {
       "cannotFindModel": "Falta o modelo {{model}} no catálogo de imagens",
       "defaultModel": "Modelo padrão",
+      "gptImage25": "o melhor para todos os usos: texto nítido, diagramas limpos.",
       "loadingLabel": "Carregando configurações de imagem padrão",
       "loadingTitle": "Configurações de imagem padrão",
+      "modelTipLabel": "Sobre os modelos de imagem",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "cenas ricas e fotográficas.",
       "samplePrompt": "Gere a imagem de um aluno estudando muito com Anki e passando nas provas.",
       "saveError": "Não foi possível salvar os padrões de imagem",
       "subtitle": "O modelo que a sua imagem Smart Fields utiliza, a menos que um campo fixe o seu próprio.",
       "title": "Configurações de imagem padrão",
-      "zImageTurbo": "mais rápido e mais barato.",
-      "gptImage25": "o melhor para todos os usos: texto nítido, diagramas limpos.",
-      "modelTipLabel": "Sobre os modelos de imagem",
-      "nanoBanana21": "cenas ricas e fotográficas."
+      "zImageTurbo": "mais rápido e mais barato."
     },
     "layout": {
       "saveChanges": "Salvar alterações",
@@ -332,6 +332,26 @@
       "title": "Configurações de voz padrão"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Raciocínio extra",
+    "extraReasoningCost": "~1,5× o custo",
+    "extraReasoningDescription": "Diagramas mais limpos e texto mais legível. Cerca de 4× mais lento.",
+    "extraSettings": "Definições Extra",
+    "doubleCost": "2× o custo",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Qualidade máxima",
+    "maxQualityDescription": "Mais nítido e limpo, sobretudo nas legendas pequenas.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Mais detalhe",
+    "richerDetailDescription": "Cenas mais detalhadas e completas. Um pouco mais lento.",
+    "underTheHoodLabel": "Que modelos são executados",
+    "underTheHood": {
+      "gptRicherDetail": "Mais detalhe usa GPT Image 2.5 Sunburst.",
+      "gptStandard": "Standard usa GPT Image 2.5 Flare.",
+      "nanoExtraReasoning": "Extra reasoning usa Nano Banana 2.1.",
+      "nanoStandard": "Standard usa Nano Banana 2 Lite."
+    }
+  },
   "promptTester": {
     "anotherNoteType": "outro tipo de nota",
     "currentlySelectedCard": "Cartão atualmente selecionado",
@@ -344,6 +364,7 @@
     },
     "fieldRunsOnNoteType": "Este campo é executado em <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Visualização da imagem gerada",
+    "generatedIn": "Gerado em {{seconds}} s",
     "missingFieldsTitle_one": "Campo ausente",
     "missingFieldsTitle_many": "Campos em falta",
     "missingFieldsTitle_other": "Campos ausentes",
@@ -354,6 +375,7 @@
     "notesSelected_many": "{{count}} notas selecionadas — reduza a seleção a uma.",
     "notesSelected_other": "Notas {{count}} selecionadas - reduza para uma.",
     "promptPlaceholder": "Escreva um prompt de teste, referenciando os campos do seu cartão com {{braces}}.",
+    "rerunToSave": "Execute este teste novamente para o guardar no cartão",
     "saveToCard": "Salvar no cartão",
     "savedTo": "Salvo em {{field}}",
     "selectCardWithFields_one": "Seleccione um cartão com o campo",
@@ -361,6 +383,8 @@
     "selectCardWithFields_other": "Seleccione um cartão com os campos",
     "selectFieldToReadAloud": "Selecione um campo para ler em voz alta",
     "selectNewCard": "Selecione um novo cartão no navegador",
+    "or": "ou",
+    "selectCardInBrowser": "Selecione um cartão no navegador para testar",
     "selectRequiredNoteType": "Seleccione uma nota do tipo <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Cartão selecionado",
     "selectedDeck": "Baralho selecionado",
@@ -368,16 +392,12 @@
     "selectionAppearsAutomatically": "Sua seleção aparece aqui automaticamente.",
     "sent": "Enviado",
     "testing": "Testando…",
+    "openRecentImage": "Abrir imagem {{number}}",
+    "recentImages": "Resultados",
     "testResult": "Resultado do teste",
     "textToSpeak": "Texto para falar",
     "viewResult": "Ver resultado",
-    "wrongNoteType": "Tipo de nota errado",
-    "generatedIn": "Gerado em {{seconds}} s",
-    "rerunToSave": "Execute este teste novamente para o guardar no cartão",
-    "or": "ou",
-    "selectCardInBrowser": "Selecione um cartão no navegador para testar",
-    "openRecentImage": "Abrir imagem {{number}}",
-    "recentImages": "Resultados"
+    "wrongNoteType": "Tipo de nota errado"
   },
   "subscription": {
     "accessEnds": "Acesso termina",
@@ -517,26 +537,5 @@
     "thanks": "Obrigado por usar Smart Notes ✨",
     "title": "Seu teste gratuito terminou",
     "upgradeNow": "Atualize agora"
-  },
-  "imageGeneration": {
-    "extraReasoning": "Raciocínio extra",
-    "extraReasoningCost": "~1,5× o custo",
-    "extraReasoningDescription": "Diagramas mais limpos e texto mais legível. Cerca de 4× mais lento.",
-    "extraSettings": "Definições Extra",
-    "doubleCost": "2× o custo",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Qualidade máxima",
-    "maxQualityDescription": "Mais nítido e limpo, sobretudo nas legendas pequenas.",
-    "nanoBanana": "Nano Banana (Google)",
-    "richerDetail": "Mais detalhe",
-    "richerDetailDescription": "Cenas mais detalhadas e completas. Um pouco mais lento.",
-    "underTheHood": {
-      "gptMaxQuality": "Qualidade máxima: qualidade média em vez de baixa",
-      "gptRicherDetail": "Mais detalhe: GPT Image 2.5 Sunburst",
-      "gptStandard": "Padrão: GPT Image 2.5 Flare com qualidade baixa",
-      "nanoExtraReasoning": "Raciocínio extra: Nano Banana 2.1",
-      "nanoStandard": "Padrão: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Que modelos são executados"
   }
 }

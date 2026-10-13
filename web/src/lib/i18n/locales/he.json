@@ -260,20 +260,20 @@
     "image": {
       "cannotFindModel": "בקטלוג התמונות חסר דגם {{model}}",
       "defaultModel": "דגם ברירת מחדל",
+      "gptImage25": "הכי מאוזן: טקסט חד, דיאגרמות נקיות.",
       "loadingLabel": "טוען את הגדרות ברירת המחדל של תמונה",
       "loadingTitle": "הגדרות תמונה ברירת מחדל",
+      "modelTipLabel": "על מודלי התמונות",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "סצנות עשירות ופוטוריאליסטיות.",
       "samplePrompt": "צור תמונה של תלמיד לומד קשה עם Anki ועובר את המבחנים שלו.",
       "saveError": "לא ניתן לשמור את ברירת המחדל של התמונה",
       "subtitle": "הדגם שבו משתמשת התמונה שלך Smart Fields, אלא אם כן שדה מצמיד את שלו.",
       "title": "הגדרות תמונה ברירת מחדל",
-      "zImageTurbo": "הכי מהיר והכי זול.",
-      "gptImage25": "הכי מאוזן: טקסט חד, דיאגרמות נקיות.",
-      "modelTipLabel": "על מודלי התמונות",
-      "nanoBanana21": "סצנות עשירות ופוטוריאליסטיות."
+      "zImageTurbo": "הכי מהיר והכי זול."
     },
     "layout": {
       "saveChanges": "שמור שינויים",
@@ -332,6 +332,26 @@
       "title": "הגדרות קול ברירת מחדל"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "הנמקה נוספת",
+    "extraReasoningCost": "כ־1.5× עלות",
+    "extraReasoningDescription": "דיאגרמות נקיות יותר וטקסט קריא יותר. כ־4 פעמים איטי יותר.",
+    "extraSettings": "הגדרות נוספות",
+    "doubleCost": "עלות של 2×",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "איכות מקסימלית",
+    "maxQualityDescription": "חד ונקי יותר, במיוחד תוויות קטנות.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "פירוט עשיר יותר",
+    "richerDetailDescription": "סצנות מפורטות ומלאות יותר. מעט איטי יותר.",
+    "underTheHoodLabel": "אילו מודלים פועלים",
+    "underTheHood": {
+      "gptRicherDetail": "פירוט עשיר יותר משתמש ב-GPT Image 2.5 Sunburst.",
+      "gptStandard": "סטנדרטי משתמש ב-GPT Image 2.5 Flare.",
+      "nanoExtraReasoning": "היגיון נוסף משתמש ב-Nano Banana 2.1.",
+      "nanoStandard": "סטנדרטי משתמש ב-Nano Banana 2 Lite."
+    }
+  },
   "promptTester": {
     "anotherNoteType": "סוג פתק אחר",
     "currentlySelectedCard": "כרטיס שנבחר כעת",
@@ -344,6 +364,7 @@
     },
     "fieldRunsOnNoteType": "שדה זה פועל על <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "תצוגה מקדימה של תמונה שנוצרה",
+    "generatedIn": "נוצר תוך {{seconds}} שניות",
     "missingFieldsTitle_one": "שדה חסר",
     "missingFieldsTitle_two": "שני שדות חסרים",
     "missingFieldsTitle_other": "שדות חסרים",
@@ -354,6 +375,7 @@
     "notesSelected_two": "{{count}} הערות נבחרו - צמצמו אותן לאחת.",
     "notesSelected_other": "הערות {{count}} שנבחרו - צמצמו אותו לאחד.",
     "promptPlaceholder": "כתוב הודעת בדיקה, תוך התייחסות לשדות בכרטיס שלך עם {{braces}}.",
+    "rerunToSave": "הרץ את הבדיקה שוב כדי לשמור אותה בכרטיס",
     "saveToCard": "שמור בכרטיס",
     "savedTo": "נשמר ב-{{field}}",
     "selectCardWithFields_one": "בחר כרטיס עם השדה",
@@ -361,6 +383,8 @@
     "selectCardWithFields_other": "בחר כרטיס עם השדות",
     "selectFieldToReadAloud": "בחר שדה לקריאה בקול רם",
     "selectNewCard": "בחר כרטיס חדש בדפדפן",
+    "or": "או",
+    "selectCardInBrowser": "בחר כרטיס בדפדפן כדי לבדוק",
     "selectRequiredNoteType": "בחר הערה מסוג <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "כרטיס נבחר",
     "selectedDeck": "סיפון נבחר",
@@ -368,16 +392,12 @@
     "selectionAppearsAutomatically": "הבחירה שלך מופיעה כאן באופן אוטומטי.",
     "sent": "נשלח",
     "testing": "בּוֹחֵן…",
+    "openRecentImage": "פתח תמונה {{number}}",
+    "recentImages": "תוצאות",
     "testResult": "תוצאת הבדיקה",
     "textToSpeak": "טקסט לדבר",
     "viewResult": "צפה בתוצאה",
-    "wrongNoteType": "סוג פתק שגוי",
-    "generatedIn": "נוצר תוך {{seconds}} שניות",
-    "rerunToSave": "הרץ את הבדיקה שוב כדי לשמור אותה בכרטיס",
-    "or": "או",
-    "selectCardInBrowser": "בחר כרטיס בדפדפן כדי לבדוק",
-    "openRecentImage": "פתח תמונה {{number}}",
-    "recentImages": "תוצאות"
+    "wrongNoteType": "סוג פתק שגוי"
   },
   "subscription": {
     "accessEnds": "הגישה מסתיימת",
@@ -517,26 +537,5 @@
     "thanks": "תודה על השימוש ב-Smart Notes ✨",
     "title": "תקופת הניסיון בחינם שלך הסתיימה",
     "upgradeNow": "שדרג עכשיו"
-  },
-  "imageGeneration": {
-    "extraReasoning": "הנמקה נוספת",
-    "extraReasoningCost": "כ־1.5× עלות",
-    "extraReasoningDescription": "דיאגרמות נקיות יותר וטקסט קריא יותר. כ־4 פעמים איטי יותר.",
-    "extraSettings": "הגדרות נוספות",
-    "doubleCost": "עלות של 2×",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "איכות מקסימלית",
-    "maxQualityDescription": "חד ונקי יותר, במיוחד תוויות קטנות.",
-    "nanoBanana": "Nano Banana (Google)",
-    "richerDetail": "פירוט עשיר יותר",
-    "richerDetailDescription": "סצנות מפורטות ומלאות יותר. מעט איטי יותר.",
-    "underTheHood": {
-      "gptMaxQuality": "איכות מקסימלית: איכות בינונית במקום נמוכה",
-      "gptRicherDetail": "פירוט עשיר יותר: GPT Image 2.5 Sunburst",
-      "gptStandard": "סטנדרטי: GPT Image 2.5 Flare באיכות נמוכה",
-      "nanoExtraReasoning": "הנמקה נוספת: Nano Banana 2.1",
-      "nanoStandard": "סטנדרטי: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "אילו מודלים פועלים"
   }
 }

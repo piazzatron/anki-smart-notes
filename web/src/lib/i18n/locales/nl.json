@@ -259,20 +259,20 @@
     "image": {
       "cannotFindModel": "Afbeeldingscatalogus ontbreekt model {{model}}",
       "defaultModel": "Standaardmodel",
+      "gptImage25": "de beste allrounder — scherpe tekst, schone diagrammen.",
       "loadingLabel": "Standaard beeldinstellingen laden",
       "loadingTitle": "Standaard beeldinstellingen",
+      "modelTipLabel": "Over de afbeeldingsmodellen",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "rijke, fotografische scènes.",
       "samplePrompt": "Genereer een beeld van een student die hard studeert met Anki en slaagt voor zijn tests.",
       "saveError": "Kan de standaardinstellingen voor afbeeldingen niet opslaan",
       "subtitle": "Het model dat uw afbeelding Smart Fields gebruikt, tenzij een veld zijn eigen veld vastzet.",
       "title": "Standaard beeldinstellingen",
-      "zImageTurbo": "snelste en goedkoopste.",
-      "gptImage25": "de beste allrounder — scherpe tekst, schone diagrammen.",
-      "modelTipLabel": "Over de afbeeldingsmodellen",
-      "nanoBanana21": "rijke, fotografische scènes."
+      "zImageTurbo": "snelste en goedkoopste."
     },
     "layout": {
       "saveChanges": "Wijzigingen opslaan",
@@ -330,6 +330,26 @@
       "title": "Standaard steminstellingen"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Extra redeneren",
+    "extraReasoningCost": "~1,5× kosten",
+    "extraReasoningDescription": "Schonere diagrammen en beter leesbare tekst. Ongeveer 4× langzamer.",
+    "extraSettings": "Extra instellingen",
+    "doubleCost": "2× kosten",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maximale kwaliteit",
+    "maxQualityDescription": "Scherper en schoner, vooral kleine labels.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Meer detail",
+    "richerDetailDescription": "Gedetailleerdere, voller scènes. Iets langzamer.",
+    "underTheHoodLabel": "Welke modellen draaien",
+    "underTheHood": {
+      "gptRicherDetail": "Rijkere details gebruikt GPT Image 2.5 Sunburst.",
+      "gptStandard": "Standaard gebruikt GPT Image 2.5 Flare.",
+      "nanoExtraReasoning": "Extra redenering gebruikt Nano Banana 2.1.",
+      "nanoStandard": "Standaard gebruikt Nano Banana 2 Lite."
+    }
+  },
   "promptTester": {
     "anotherNoteType": "een ander notitietype",
     "currentlySelectedCard": "Momenteel geselecteerde kaart",
@@ -342,6 +362,7 @@
     },
     "fieldRunsOnNoteType": "Dit veld wordt uitgevoerd op <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Gegenereerd afbeeldingsvoorbeeld",
+    "generatedIn": "Gegenereerd in {{seconds}}s",
     "missingFieldsTitle_one": "Ontbrekend veld",
     "missingFieldsTitle_other": "Ontbrekende velden",
     "needsFields_one": "Heeft het veld {{count}} nodig",
@@ -349,12 +370,15 @@
     "notesSelected_one": "{{count}}-noot geselecteerd — beperk deze tot één.",
     "notesSelected_other": "{{count}}-notities geselecteerd: beperk het tot één.",
     "promptPlaceholder": "Schrijf een testprompt en verwijs naar de velden op uw kaart met {{braces}}.",
+    "rerunToSave": "Voer deze test opnieuw uit om deze op de kaart op te slaan",
     "saveToCard": "Opslaan op kaart",
     "savedTo": "Opgeslagen in {{field}}",
     "selectCardWithFields_one": "Selecteer een kaart met het veld",
     "selectCardWithFields_other": "Selecteer een kaart met de velden",
     "selectFieldToReadAloud": "Selecteer een veld om voor te lezen",
     "selectNewCard": "Selecteer een nieuwe kaart in de browser",
+    "or": "of",
+    "selectCardInBrowser": "Selecteer een kaart in de browser om te testen",
     "selectRequiredNoteType": "Selecteer een notitie van het type <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Geselecteerde kaart",
     "selectedDeck": "Geselecteerd dek",
@@ -362,16 +386,12 @@
     "selectionAppearsAutomatically": "Uw selectie verschijnt hier automatisch.",
     "sent": "Verstuurd",
     "testing": "Testen…",
+    "openRecentImage": "Afbeelding {{number}} openen",
+    "recentImages": "Resultaten",
     "testResult": "Testresultaat",
     "textToSpeak": "Tekst om uit te spreken",
     "viewResult": "Bekijk resultaat",
-    "wrongNoteType": "Verkeerd notitietype",
-    "generatedIn": "Gegenereerd in {{seconds}}s",
-    "rerunToSave": "Voer deze test opnieuw uit om deze op de kaart op te slaan",
-    "or": "of",
-    "selectCardInBrowser": "Selecteer een kaart in de browser om te testen",
-    "openRecentImage": "Afbeelding {{number}} openen",
-    "recentImages": "Resultaten"
+    "wrongNoteType": "Verkeerd notitietype"
   },
   "subscription": {
     "accessEnds": "Toegang eindigt",
@@ -507,26 +527,5 @@
     "thanks": "Bedankt dat je Smart Notes gebruikt ✨",
     "title": "Uw gratis proefperiode is afgelopen",
     "upgradeNow": "Upgrade nu"
-  },
-  "imageGeneration": {
-    "extraReasoning": "Extra redeneren",
-    "extraReasoningCost": "~1,5× kosten",
-    "extraReasoningDescription": "Schonere diagrammen en beter leesbare tekst. Ongeveer 4× langzamer.",
-    "extraSettings": "Extra instellingen",
-    "doubleCost": "2× kosten",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Maximale kwaliteit",
-    "maxQualityDescription": "Scherper en schoner, vooral kleine labels.",
-    "nanoBanana": "Nano Banana (Google)",
-    "richerDetail": "Meer detail",
-    "richerDetailDescription": "Gedetailleerdere, voller scènes. Iets langzamer.",
-    "underTheHood": {
-      "gptMaxQuality": "Maximale kwaliteit: gemiddelde kwaliteit in plaats van lage",
-      "gptRicherDetail": "Meer detail: GPT Image 2.5 Sunburst",
-      "gptStandard": "Standaard: GPT Image 2.5 Flare met lage kwaliteit",
-      "nanoExtraReasoning": "Extra redeneren: Nano Banana 2.1",
-      "nanoStandard": "Standaard: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Welke modellen draaien"
   }
 }

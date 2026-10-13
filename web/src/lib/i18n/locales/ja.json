@@ -258,20 +258,20 @@
     "image": {
       "cannotFindModel": "画像カタログにモデル {{model}} がありません",
       "defaultModel": "デフォルトモデル",
+      "gptImage25": "総合力に最も優れたモデル。文字がくっきりし、図表もすっきり仕上がります。",
       "loadingLabel": "デフォルトの画像設定をロードする",
       "loadingTitle": "デフォルトの画像設定",
+      "modelTipLabel": "画像モデルについて",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "写実的で豊かな写真風のシーン向け。",
       "samplePrompt": "Anki で熱心に勉強し、テストに合格する学生のイメージを生成します。",
       "saveError": "画像のデフォルトを保存できませんでした",
       "subtitle": "フィールドが独自に固定していない限り、画像 Smart Fields が使用するモデル。",
       "title": "デフォルトの画像設定",
-      "zImageTurbo": "最速かつ最安。",
-      "gptImage25": "総合力に最も優れたモデル。文字がくっきりし、図表もすっきり仕上がります。",
-      "modelTipLabel": "画像モデルについて",
-      "nanoBanana21": "写実的で豊かな写真風のシーン向け。"
+      "zImageTurbo": "最速かつ最安。"
     },
     "layout": {
       "saveChanges": "変更を保存する",
@@ -328,6 +328,26 @@
       "title": "デフォルトの音声設定"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "追加の推論",
+    "extraReasoningCost": "約1.5倍のコスト",
+    "extraReasoningDescription": "図表がより鮮明になり、文字も読みやすくなります。処理時間は約4倍かかります。",
+    "extraSettings": "追加設定",
+    "doubleCost": "2倍のコスト",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "最高品質",
+    "maxQualityDescription": "より鮮明で整った仕上がりになります。特に小さなラベルで効果的です。",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "より豊かなディテール",
+    "richerDetailDescription": "より詳細で充実したシーンを生成します。やや時間がかかります。",
+    "underTheHoodLabel": "実行されるモデル",
+    "underTheHood": {
+      "gptRicherDetail": "より詳細な表現には GPT Image 2.5 Sunburst を使用します。",
+      "gptStandard": "標準には GPT Image 2.5 Flare を使用します。",
+      "nanoExtraReasoning": "拡張推論には Nano Banana 2.1 を使用します。",
+      "nanoStandard": "標準には Nano Banana 2 Lite を使用します。"
+    }
+  },
   "promptTester": {
     "anotherNoteType": "別のノートタイプ",
     "currentlySelectedCard": "現在選択されているカード",
@@ -340,15 +360,19 @@
     },
     "fieldRunsOnNoteType": "このフィールドは <noteTypeName>{{noteType}}</noteTypeName> で実行されます",
     "generatedImagePreview": "生成された画像のプレビュー",
+    "generatedIn": "{{seconds}}秒で生成",
     "missingFieldsTitle_other": "欠落しているフィールド",
     "needsFields_other": "{{count}} フィールドが必要です",
     "notesSelected_other": "{{count}} ノートが選択されています — 1 つに絞り込みます。",
     "promptPlaceholder": "{{braces}} を使用してカード上のフィールドを参照して、テスト プロンプトを作成します。",
+    "rerunToSave": "このテストをもう一度実行すると、カードに保存されます",
     "saveToCard": "カードに保存",
     "savedTo": "{{field}}に保存されました",
     "selectCardWithFields_other": "フィールドを含むカードを選択してください",
     "selectFieldToReadAloud": "読み上げるフィールドを選択してください",
     "selectNewCard": "ブラウザで新しいカードを選択します",
+    "or": "または",
+    "selectCardInBrowser": "テストするカードをブラウザで選択してください",
     "selectRequiredNoteType": "<noteTypeName>{{noteType}}</noteTypeName> タイプのノートを選択してください",
     "selectedCard": "選択したカード",
     "selectedDeck": "選択したデッキ",
@@ -356,16 +380,12 @@
     "selectionAppearsAutomatically": "選択した内容がここに自動的に表示されます。",
     "sent": "送信済み",
     "testing": "テスト中…",
+    "openRecentImage": "画像 {{number}} を開く",
+    "recentImages": "結果",
     "testResult": "試験結果",
     "textToSpeak": "話すテキスト",
     "viewResult": "結果を見る",
-    "wrongNoteType": "ノートの種類が間違っています",
-    "generatedIn": "{{seconds}}秒で生成",
-    "rerunToSave": "このテストをもう一度実行すると、カードに保存されます",
-    "or": "または",
-    "selectCardInBrowser": "テストするカードをブラウザで選択してください",
-    "openRecentImage": "画像 {{number}} を開く",
-    "recentImages": "結果"
+    "wrongNoteType": "ノートの種類が間違っています"
   },
   "subscription": {
     "accessEnds": "アクセス終了",
@@ -497,26 +517,5 @@
     "thanks": "Smart Notesをご利用いただきありがとうございます✨",
     "title": "無料トライアルは終了しました",
     "upgradeNow": "今すぐアップグレードしてください"
-  },
-  "imageGeneration": {
-    "extraReasoning": "追加の推論",
-    "extraReasoningCost": "約1.5倍のコスト",
-    "extraReasoningDescription": "図表がより鮮明になり、文字も読みやすくなります。処理時間は約4倍かかります。",
-    "extraSettings": "追加設定",
-    "doubleCost": "2倍のコスト",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "最高品質",
-    "maxQualityDescription": "より鮮明で整った仕上がりになります。特に小さなラベルで効果的です。",
-    "nanoBanana": "Nano Banana (Google)",
-    "richerDetail": "より豊かなディテール",
-    "richerDetailDescription": "より詳細で充実したシーンを生成します。やや時間がかかります。",
-    "underTheHood": {
-      "gptMaxQuality": "最高品質: 低品質の代わりに中品質を使用",
-      "gptRicherDetail": "より豊かなディテール: GPT Image 2.5 Sunburst",
-      "gptStandard": "標準: 低品質の GPT Image 2.5 Flare",
-      "nanoExtraReasoning": "追加の推論: Nano Banana 2.1",
-      "nanoStandard": "標準: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "実行されるモデル"
   }
 }

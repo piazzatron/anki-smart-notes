@@ -146,7 +146,11 @@
       "updateWizardSettings": "Could not update wizard settings",
       "writePrompt": "Could not write the prompt"
     },
-    "fieldTypes": { "audio": "Audio", "image": "Image", "text": "Text" },
+    "fieldTypes": {
+      "audio": "Audio",
+      "image": "Image",
+      "text": "Text"
+    },
     "loadingModelCatalog": "Loading model catalog…",
     "modelSettings": {
       "appliesOnlyToField": "Applies to this Smart Field only.",
@@ -225,9 +229,15 @@
       "title": "Your notes are looking a little empty"
     },
     "enable": "Enable",
-    "errors": { "commandFailed": "Smart Field command failed" },
+    "errors": {
+      "commandFailed": "Smart Field command failed"
+    },
     "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
-    "fieldTypes": { "chat": "Text", "image": "Image", "tts": "Audio" },
+    "fieldTypes": {
+      "chat": "Text",
+      "image": "Image",
+      "tts": "Audio"
+    },
     "loadingAriaLabel": "Loading Smart Fields",
     "newSmartField": "New Smart Field",
     "readsAloud": "Reads {{field}} aloud",
@@ -280,7 +290,11 @@
       "modelGuidance": "{{auto}} and {{autoMax}} are the Smart Notes recommended models that balance performance and cost. Choose {{auto}} for standard tasks and upgrade to {{autoMax}} if needed.",
       "pickingModel": "💡 Picking a model",
       "reasoningLevel": "Reasoning level",
-      "reasoningValues": { "high": "High", "low": "Low", "off": "Off" },
+      "reasoningValues": {
+        "high": "High",
+        "low": "Low",
+        "off": "Off"
+      },
       "samplePrompt": "What is a Spaced Repetition System (SRS)?",
       "saveError": "Could not save text defaults",
       "subtitle": "Default settings for text generation. Individual Smart Fields can override these values.",
@@ -329,11 +343,10 @@
     "richerDetail": "Richer detail",
     "richerDetailDescription": "More detailed, fuller scenes. A bit slower.",
     "underTheHood": {
-      "gptMaxQuality": "Max quality: medium quality instead of low",
-      "gptRicherDetail": "Richer detail: GPT Image 2.5 Sunburst",
-      "gptStandard": "Standard: GPT Image 2.5 Flare at low quality",
-      "nanoExtraReasoning": "Extra reasoning: Nano Banana 2.1",
-      "nanoStandard": "Standard: Nano Banana 2 Lite"
+      "gptRicherDetail": "Richer detail uses GPT Image 2.5 Sunburst.",
+      "gptStandard": "Standard uses GPT Image 2.5 Flare.",
+      "nanoExtraReasoning": "Extra reasoning uses Nano Banana 2.1.",
+      "nanoStandard": "Standard uses Nano Banana 2 Lite."
     },
     "underTheHoodLabel": "Which models run"
   },
@@ -393,7 +406,9 @@
     "creditsReset": "Credits reset",
     "daysLeft_one": "Last day",
     "daysLeft_other": "{{count}} days left",
-    "errors": { "logout": "Could not log out" },
+    "errors": {
+      "logout": "Could not log out"
+    },
     "endingSoon": "Ending soon",
     "expired": "Expired",
     "freePlan": "Free plan",
@@ -482,7 +497,9 @@
     "connect": "Connect",
     "connecting": "Connecting…",
     "description": "Add text, speech, and images to individual cards or your entire deck in one click.",
-    "errors": { "code": "Could not connect with that code" },
+    "errors": {
+      "code": "Could not connect with that code"
+    },
     "finishDescription": "Complete sign-in in the browser we opened. This window will update automatically.",
     "finishInBrowser": "Finish up in your browser",
     "haveCode": "Have a code from the website?",

@@ -259,20 +259,20 @@
     "image": {
       "cannotFindModel": "Bildekatalogen mangler modell {{model}}",
       "defaultModel": "Standardmodell",
+      "gptImage25": "best til det meste — skarp tekst, rene diagrammer.",
       "loadingLabel": "Laster inn standard bildeinnstillinger",
       "loadingTitle": "Standard bildeinnstillinger",
+      "modelTipLabel": "Om bildemodellene",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "rike, fotografiske scener.",
       "samplePrompt": "Generer et bilde av en student som studerer hardt med Anki og består testene deres.",
       "saveError": "Kunne ikke lagre bildestandarder",
       "subtitle": "Modellen bildet ditt Smart Fields bruker med mindre et felt fester sitt eget.",
       "title": "Standard bildeinnstillinger",
-      "zImageTurbo": "raskest og billigst.",
-      "gptImage25": "best til det meste — skarp tekst, rene diagrammer.",
-      "modelTipLabel": "Om bildemodellene",
-      "nanoBanana21": "rike, fotografiske scener."
+      "zImageTurbo": "raskest og billigst."
     },
     "layout": {
       "saveChanges": "Lagre endringer",
@@ -330,6 +330,26 @@
       "title": "Standard stemmeinnstillinger"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Ekstra resonnering",
+    "extraReasoningCost": "~1,5× kostnad",
+    "extraReasoningDescription": "Renere diagrammer og mer lesbar tekst. Omtrent 4× tregere.",
+    "extraSettings": "Ekstra Innstillinger",
+    "doubleCost": "2× kostnad",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maks kvalitet",
+    "maxQualityDescription": "Skarpere og renere, særlig små etiketter.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Rikere detaljer",
+    "richerDetailDescription": "Mer detaljerte, fyldigere scener. Litt tregere.",
+    "underTheHoodLabel": "Hvilke modeller som kjører",
+    "underTheHood": {
+      "gptRicherDetail": "Rikere detaljer bruker GPT Image 2.5 Sunburst.",
+      "gptStandard": "Standard bruker GPT Image 2.5 Flare.",
+      "nanoExtraReasoning": "Utvidet resonnering bruker Nano Banana 2.1.",
+      "nanoStandard": "Standard bruker Nano Banana 2 Lite."
+    }
+  },
   "promptTester": {
     "anotherNoteType": "en annen notetype",
     "currentlySelectedCard": "Foreløpig valgt kort",
@@ -342,6 +362,7 @@
     },
     "fieldRunsOnNoteType": "Dette feltet kjører på <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Generert bildeforhåndsvisning",
+    "generatedIn": "Generert på {{seconds}} s",
     "missingFieldsTitle_one": "Manglende felt",
     "missingFieldsTitle_other": "Manglende felt",
     "needsFields_one": "Trenger {{count}}-feltet",
@@ -349,12 +370,15 @@
     "notesSelected_one": "{{count}}-note valgt — avgrens den til én.",
     "notesSelected_other": "{{count}}-noter valgt — begrense den til én.",
     "promptPlaceholder": "Skriv en testmelding, og referer til feltene på kortet ditt med {{braces}}.",
+    "rerunToSave": "Kjør denne testen på nytt for å lagre den på kortet",
     "saveToCard": "Lagre på kort",
     "savedTo": "Lagret i {{field}}",
     "selectCardWithFields_one": "Vennligst velg et kort med feltet",
     "selectCardWithFields_other": "Vennligst velg et kort med feltene",
     "selectFieldToReadAloud": "Velg et felt for å lese høyt",
     "selectNewCard": "Velg et nytt kort i nettleseren",
+    "or": "eller",
+    "selectCardInBrowser": "Velg et kort i browseren for å teste",
     "selectRequiredNoteType": "Vennligst velg et notat av typen <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Valgt kort",
     "selectedDeck": "Valgt dekk",
@@ -362,16 +386,12 @@
     "selectionAppearsAutomatically": "Valget ditt vises her automatisk.",
     "sent": "Sendt",
     "testing": "Tester …",
+    "openRecentImage": "Åpne bilde {{number}}",
+    "recentImages": "Resultater",
     "testResult": "Testresultat",
     "textToSpeak": "Tekst for å snakke",
     "viewResult": "Se resultatet",
-    "wrongNoteType": "Feil notetype",
-    "generatedIn": "Generert på {{seconds}} s",
-    "rerunToSave": "Kjør denne testen på nytt for å lagre den på kortet",
-    "or": "eller",
-    "selectCardInBrowser": "Velg et kort i browseren for å teste",
-    "openRecentImage": "Åpne bilde {{number}}",
-    "recentImages": "Resultater"
+    "wrongNoteType": "Feil notetype"
   },
   "subscription": {
     "accessEnds": "Tilgang slutter",
@@ -507,26 +527,5 @@
     "thanks": "Takk for at du bruker Smart Notes ✨",
     "title": "Din gratis prøveperiode er over",
     "upgradeNow": "Oppgrader nå"
-  },
-  "imageGeneration": {
-    "extraReasoning": "Ekstra resonnering",
-    "extraReasoningCost": "~1,5× kostnad",
-    "extraReasoningDescription": "Renere diagrammer og mer lesbar tekst. Omtrent 4× tregere.",
-    "extraSettings": "Ekstra Innstillinger",
-    "doubleCost": "2× kostnad",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Maks kvalitet",
-    "maxQualityDescription": "Skarpere og renere, særlig små etiketter.",
-    "nanoBanana": "Nano Banana (Google)",
-    "richerDetail": "Rikere detaljer",
-    "richerDetailDescription": "Mer detaljerte, fyldigere scener. Litt tregere.",
-    "underTheHood": {
-      "gptMaxQuality": "Maks kvalitet: middels kvalitet i stedet for lav",
-      "gptRicherDetail": "Rikere detaljer: GPT Image 2.5 Sunburst",
-      "gptStandard": "Standard: GPT Image 2.5 Flare med lav kvalitet",
-      "nanoExtraReasoning": "Ekstra resonnering: Nano Banana 2.1",
-      "nanoStandard": "Standard: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Hvilke modeller som kjører"
   }
 }

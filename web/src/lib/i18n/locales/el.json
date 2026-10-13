@@ -259,20 +259,20 @@
     "image": {
       "cannotFindModel": "Λείπει ο κατάλογος εικόνων μοντέλο {{model}}",
       "defaultModel": "Προεπιλεγμένο μοντέλο",
+      "gptImage25": "καλύτερη επιλογή για κάθε χρήση — καθαρό κείμενο, ευκρινή διαγράμματα.",
       "loadingLabel": "Φόρτωση προεπιλεγμένων ρυθμίσεων εικόνας",
       "loadingTitle": "Προεπιλεγμένες ρυθμίσεις εικόνας",
+      "modelTipLabel": "Σχετικά με τα μοντέλα εικόνας",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "πλούσιες, φωτογραφικές σκηνές.",
       "samplePrompt": "Δημιουργήστε μια εικόνα ενός μαθητή που μελετά σκληρά με το Anki και περνά τις δοκιμασίες του.",
       "saveError": "Δεν ήταν δυνατή η αποθήκευση των προεπιλογών εικόνας",
       "subtitle": "Το μοντέλο που χρησιμοποιεί η εικόνα σας Smart Fields, εκτός εάν ένα πεδίο καρφιτσώσει το δικό του.",
       "title": "Προεπιλεγμένες ρυθμίσεις εικόνας",
-      "zImageTurbo": "ταχύτερο και φθηνότερο.",
-      "gptImage25": "καλύτερη επιλογή για κάθε χρήση — καθαρό κείμενο, ευκρινή διαγράμματα.",
-      "modelTipLabel": "Σχετικά με τα μοντέλα εικόνας",
-      "nanoBanana21": "πλούσιες, φωτογραφικές σκηνές."
+      "zImageTurbo": "ταχύτερο και φθηνότερο."
     },
     "layout": {
       "saveChanges": "Αποθήκευση αλλαγών",
@@ -330,6 +330,26 @@
       "title": "Προεπιλεγμένες ρυθμίσεις φωνής"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Επιπλέον συλλογισμός",
+    "extraReasoningCost": "~1,5× κόστος",
+    "extraReasoningDescription": "Πιο καθαρά διαγράμματα και πιο ευανάγνωστο κείμενο. Περίπου 4× πιο αργό.",
+    "extraSettings": "Επιπλέον Ρυθμίσεις",
+    "doubleCost": "2× κόστος",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Μέγιστη ποιότητα",
+    "maxQualityDescription": "Πιο ευκρινές και καθαρό, ιδιαίτερα στις μικρές ετικέτες.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Περισσότερες λεπτομέρειες",
+    "richerDetailDescription": "Πιο λεπτομερείς, πληρέστερες σκηνές. Λίγο πιο αργό.",
+    "underTheHoodLabel": "Ποια μοντέλα εκτελούνται",
+    "underTheHood": {
+      "gptRicherDetail": "Η πλουσιότερη λεπτομέρεια χρησιμοποιεί το GPT Image 2.5 Sunburst.",
+      "gptStandard": "Η τυπική ρύθμιση χρησιμοποιεί το GPT Image 2.5 Flare.",
+      "nanoExtraReasoning": "Ο επιπλέον συλλογισμός χρησιμοποιεί το Nano Banana 2.1.",
+      "nanoStandard": "Η τυπική ρύθμιση χρησιμοποιεί το Nano Banana 2 Lite."
+    }
+  },
   "promptTester": {
     "anotherNoteType": "άλλος τύπος νότας",
     "currentlySelectedCard": "Επιλεγμένη κάρτα",
@@ -342,6 +362,7 @@
     },
     "fieldRunsOnNoteType": "Αυτό το πεδίο εκτελείται στο <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Δημιουργήθηκε προεπισκόπηση εικόνας",
+    "generatedIn": "Δημιουργήθηκε σε {{seconds}}s",
     "missingFieldsTitle_one": "Λείπει πεδίο",
     "missingFieldsTitle_other": "Λείπουν πεδία",
     "needsFields_one": "Χρειάζεται πεδίο {{count}}",
@@ -349,12 +370,15 @@
     "notesSelected_one": "Επιλέχθηκε η σημείωση {{count}} — περιορίστε τη σε ένα.",
     "notesSelected_other": "{{count}} σημειώσεις επιλεγμένες — περιορίστε το σε ένα.",
     "promptPlaceholder": "Γράψτε μια προτροπή δοκιμής, αναφέροντας πεδία στην κάρτα σας με {{braces}}.",
+    "rerunToSave": "Εκτελέστε ξανά αυτή τη δοκιμή για να την αποθηκεύσετε στην κάρτα",
     "saveToCard": "Αποθήκευση στην κάρτα",
     "savedTo": "Αποθηκεύτηκε στο {{field}}",
     "selectCardWithFields_one": "Παρακαλώ επιλέξτε μια κάρτα με το πεδίο",
     "selectCardWithFields_other": "Παρακαλώ επιλέξτε μια κάρτα με τα πεδία",
     "selectFieldToReadAloud": "Επιλέξτε ένα πεδίο για ανάγνωση δυνατά",
     "selectNewCard": "Επιλέξτε μια νέα κάρτα στο πρόγραμμα περιήγησης",
+    "or": "ή",
+    "selectCardInBrowser": "Επιλέξτε μια κάρτα στο πρόγραμμα περιήγησης για δοκιμή",
     "selectRequiredNoteType": "Παρακαλώ επιλέξτε μια σημείωση τύπου <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Επιλεγμένη κάρτα",
     "selectedDeck": "Επιλεγμένο κατάστρωμα",
@@ -362,16 +386,12 @@
     "selectionAppearsAutomatically": "Η επιλογή σας εμφανίζεται εδώ αυτόματα.",
     "sent": "Στάλθηκε",
     "testing": "Δοκιμή…",
+    "openRecentImage": "Άνοιγμα εικόνας {{number}}",
+    "recentImages": "Αποτελέσματα",
     "testResult": "Αποτέλεσμα δοκιμής",
     "textToSpeak": "Κείμενο για ομιλία",
     "viewResult": "Δείτε το αποτέλεσμα",
-    "wrongNoteType": "Λάθος τύπος σημείωσης",
-    "generatedIn": "Δημιουργήθηκε σε {{seconds}}s",
-    "rerunToSave": "Εκτελέστε ξανά αυτή τη δοκιμή για να την αποθηκεύσετε στην κάρτα",
-    "or": "ή",
-    "selectCardInBrowser": "Επιλέξτε μια κάρτα στο πρόγραμμα περιήγησης για δοκιμή",
-    "openRecentImage": "Άνοιγμα εικόνας {{number}}",
-    "recentImages": "Αποτελέσματα"
+    "wrongNoteType": "Λάθος τύπος σημείωσης"
   },
   "subscription": {
     "accessEnds": "Λήξη πρόσβασης",
@@ -507,26 +527,5 @@
     "thanks": "Ευχαριστούμε που χρησιμοποιείτε το Smart Notes ✨",
     "title": "Η δωρεάν δοκιμή σας έληξε",
     "upgradeNow": "Αναβάθμιση τώρα"
-  },
-  "imageGeneration": {
-    "extraReasoning": "Επιπλέον συλλογισμός",
-    "extraReasoningCost": "~1,5× κόστος",
-    "extraReasoningDescription": "Πιο καθαρά διαγράμματα και πιο ευανάγνωστο κείμενο. Περίπου 4× πιο αργό.",
-    "extraSettings": "Επιπλέον Ρυθμίσεις",
-    "doubleCost": "2× κόστος",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Μέγιστη ποιότητα",
-    "maxQualityDescription": "Πιο ευκρινές και καθαρό, ιδιαίτερα στις μικρές ετικέτες.",
-    "nanoBanana": "Nano Banana (Google)",
-    "richerDetail": "Περισσότερες λεπτομέρειες",
-    "richerDetailDescription": "Πιο λεπτομερείς, πληρέστερες σκηνές. Λίγο πιο αργό.",
-    "underTheHood": {
-      "gptMaxQuality": "Μέγιστη ποιότητα: μεσαία ποιότητα αντί για χαμηλή",
-      "gptRicherDetail": "Περισσότερες λεπτομέρειες: GPT Image 2.5 Sunburst",
-      "gptStandard": "Βασική: GPT Image 2.5 Flare σε χαμηλή ποιότητα",
-      "nanoExtraReasoning": "Επιπλέον συλλογισμός: Nano Banana 2.1",
-      "nanoStandard": "Βασική: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Ποια μοντέλα εκτελούνται"
   }
 }

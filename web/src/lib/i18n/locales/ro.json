@@ -260,20 +260,20 @@
     "image": {
       "cannotFindModel": "În catalogul de imagini lipsește modelul {{model}}",
       "defaultModel": "Model implicit",
+      "gptImage25": "cel mai versatil — text clar, diagrame curate.",
       "loadingLabel": "Se încarcă setările implicite pentru imagine",
       "loadingTitle": "Setări implicite pentru imagine",
+      "modelTipLabel": "Despre modelele de imagini",
       "models": {
-        "zImageTurbo": "Z-Image Turbo",
-        "gptImage25": "GPT Image 2.5"
+        "gptImage25": "GPT Image 2.5",
+        "zImageTurbo": "Z-Image Turbo"
       },
+      "nanoBanana21": "scene bogate, fotografice.",
       "samplePrompt": "Generați o imagine a unui student care studiază din greu cu Anki și își trece testele.",
       "saveError": "Nu s-au putut salva valorile implicite ale imaginii",
       "subtitle": "Modelul pe care îl folosește imaginea dvs. Smart Fields, cu excepția cazului în care un câmp își stabilește propriul.",
       "title": "Setări implicite pentru imagine",
-      "zImageTurbo": "cel mai rapid si mai ieftin.",
-      "gptImage25": "cel mai versatil — text clar, diagrame curate.",
-      "modelTipLabel": "Despre modelele de imagini",
-      "nanoBanana21": "scene bogate, fotografice."
+      "zImageTurbo": "cel mai rapid si mai ieftin."
     },
     "layout": {
       "saveChanges": "Salvați modificările",
@@ -332,6 +332,26 @@
       "title": "Setări implicite de voce"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Raționament extins",
+    "extraReasoningCost": "~1,5× costul",
+    "extraReasoningDescription": "Diagrame mai curate și text mai lizibil. Cu aproximativ 4× mai lent.",
+    "extraSettings": "Setări suplimentare",
+    "doubleCost": "2× cost",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Calitate maximă",
+    "maxQualityDescription": "Mai clar și mai curat, mai ales etichetele mici.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Detalii mai bogate",
+    "richerDetailDescription": "Scene mai detaliate și mai pline. Puțin mai lent.",
+    "underTheHoodLabel": "Ce modele rulează",
+    "underTheHood": {
+      "gptRicherDetail": "Detaliile bogate folosesc GPT Image 2.5 Sunburst.",
+      "gptStandard": "Standard folosește GPT Image 2.5 Flare.",
+      "nanoExtraReasoning": "Raționamentul extins folosește Nano Banana 2.1.",
+      "nanoStandard": "Standard folosește Nano Banana 2 Lite."
+    }
+  },
   "promptTester": {
     "anotherNoteType": "alt tip de notă",
     "currentlySelectedCard": "Card selectat în prezent",
@@ -344,6 +364,7 @@
     },
     "fieldRunsOnNoteType": "Acest câmp se execută pe <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Previzualizare imagine generată",
+    "generatedIn": "Generat în {{seconds}} s",
     "missingFieldsTitle_one": "Câmp lipsește",
     "missingFieldsTitle_few": "Câmpuri lipsă",
     "missingFieldsTitle_other": "Câmpuri lipsă",
@@ -354,6 +375,7 @@
     "notesSelected_few": "{{count}} note selectate — restrângeți selecția la una.",
     "notesSelected_other": "Notele {{count}} selectate — restrângeți-l la unul.",
     "promptPlaceholder": "Scrieți o solicitare de testare, făcând referire la câmpurile de pe cardul dvs. cu {{braces}}.",
+    "rerunToSave": "Rulează din nou acest test pentru a-l salva în card",
     "saveToCard": "Salvați pe card",
     "savedTo": "Salvat în {{field}}",
     "selectCardWithFields_one": "Vă rugăm selectați o carte cu câmpul",
@@ -361,6 +383,8 @@
     "selectCardWithFields_other": "Vă rugăm selectați o carte cu câmpurile",
     "selectFieldToReadAloud": "Selectați un câmp pentru a citi cu voce tare",
     "selectNewCard": "Selectați un card nou în browser",
+    "or": "sau",
+    "selectCardInBrowser": "Selectează un card în browser pentru a testa",
     "selectRequiredNoteType": "Vă rugăm selectați o notă de tip <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Cartea selectată",
     "selectedDeck": "Puntea selectată",
@@ -368,16 +392,12 @@
     "selectionAppearsAutomatically": "Selecția dvs. apare aici automat.",
     "sent": "Trimis",
     "testing": "Se testează…",
+    "openRecentImage": "Deschide imaginea {{number}}",
+    "recentImages": "Rezultate",
     "testResult": "Rezultatul testului",
     "textToSpeak": "Text pentru a vorbi",
     "viewResult": "Vedeți rezultatul",
-    "wrongNoteType": "Tip greșit de notă",
-    "generatedIn": "Generat în {{seconds}} s",
-    "rerunToSave": "Rulează din nou acest test pentru a-l salva în card",
-    "or": "sau",
-    "selectCardInBrowser": "Selectează un card în browser pentru a testa",
-    "openRecentImage": "Deschide imaginea {{number}}",
-    "recentImages": "Rezultate"
+    "wrongNoteType": "Tip greșit de notă"
   },
   "subscription": {
     "accessEnds": "Accesul se încheie",
@@ -517,26 +537,5 @@
     "thanks": "Vă mulțumim că folosiți Smart Notes ✨",
     "title": "Perioada de încercare gratuită s-a încheiat",
     "upgradeNow": "Faceți upgrade acum"
-  },
-  "imageGeneration": {
-    "extraReasoning": "Raționament extins",
-    "extraReasoningCost": "~1,5× costul",
-    "extraReasoningDescription": "Diagrame mai curate și text mai lizibil. Cu aproximativ 4× mai lent.",
-    "extraSettings": "Setări suplimentare",
-    "doubleCost": "2× cost",
-    "gptImage25": "GPT Image 2.5",
-    "maxQuality": "Calitate maximă",
-    "maxQualityDescription": "Mai clar și mai curat, mai ales etichetele mici.",
-    "nanoBanana": "Nano Banana (Google)",
-    "richerDetail": "Detalii mai bogate",
-    "richerDetailDescription": "Scene mai detaliate și mai pline. Puțin mai lent.",
-    "underTheHood": {
-      "gptMaxQuality": "Calitate maximă: calitate medie în loc de scăzută",
-      "gptRicherDetail": "Detalii mai bogate: GPT Image 2.5 Sunburst",
-      "gptStandard": "Standard: GPT Image 2.5 Flare la calitate scăzută",
-      "nanoExtraReasoning": "Raționament extins: Nano Banana 2.1",
-      "nanoStandard": "Standard: Nano Banana 2 Lite"
-    },
-    "underTheHoodLabel": "Ce modele rulează"
   }
 }
