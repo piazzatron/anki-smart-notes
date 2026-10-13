@@ -64,7 +64,7 @@ export const Sidebar = ({
           ))}
         </div>
 
-        <div className="mx-3 mt-[10px] mb-[8px] border-t border-white/[0.06]" />
+        <div className="mx-3 mt-[10px] mb-[8px] border-t border-white/[0.04]" />
         <div className="space-y-px">
           {SECONDARY_ITEMS.map((item) => (
             <NavButton
@@ -134,7 +134,7 @@ const NavButton = ({ activeScreen, item, onNavigate }: NavButtonProps) => {
       className={`flex w-full items-center gap-[10px] rounded-lg px-[10px] py-[5px] text-start text-[14px] font-medium transition-[background-color,color,opacity] duration-150 ease-out ${
         isActive
           ? "bg-[#7882ff]/[0.14] text-indigo-soft opacity-100"
-          : "text-zinc-400 opacity-80 hover:bg-white/[0.055] hover:text-zinc-100 hover:opacity-100"
+          : "text-zinc-300 hover:bg-white/[0.055] hover:text-zinc-100"
       }`}
       onClick={() => onNavigate(item.id)}
     >
