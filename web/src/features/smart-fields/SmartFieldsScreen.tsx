@@ -100,12 +100,12 @@ export const SmartFieldsScreen = ({
       <PageLayout
         actions={
           <Button
-            className="relative h-auto shrink-0 self-center !rounded-lg !border-[#1fd47d]/60 !bg-gradient-to-b !from-[#4cf0a8] !to-[#1fd47d] !px-10 !py-2.5 !text-[13px] !font-extrabold !text-[#06281a] shadow-[inset_0_1px_0_rgba(255,255,255,0.34),0_10px_24px_-8px_rgba(31,212,125,0.55)] hover:!border-[#1fd47d]/60 hover:brightness-105"
+            className="relative h-auto shrink-0 self-center !rounded-lg !border-[#1fd47d]/60 !bg-gradient-to-b !from-[#4cf0a8] !to-[#1fd47d] !py-2.5 !ps-[46px] !pe-[34px] !text-[13px] !font-extrabold !text-[#06281a] shadow-[inset_0_1px_0_rgba(255,255,255,0.34),0_10px_24px_-8px_rgba(31,212,125,0.55)] hover:!border-[#1fd47d]/60 hover:brightness-105"
             onClick={() => openCreateEditor()}
             variant="success"
           >
             <SparklesIcon
-              className="absolute start-[18px] top-1/2 -translate-y-1/2"
+              className="absolute start-6 top-1/2 -translate-y-1/2"
               size={14}
             />
             {t("smartFields.newSmartField")}
