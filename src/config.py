@@ -29,6 +29,7 @@ class Config:
 
     openai_api_key: Optional[str]
     generate_at_review: bool
+    generate_on_add: bool
     times_used: int
     last_seen_version: Optional[str]
     openai_endpoint: Optional[str]

@@ -26,11 +26,15 @@ import logging
 from collections.abc import Callable, Sequence
 from typing import Any, Optional
 
+from anki.collection import Collection
+from anki.decks import DeckId
+from anki.hooks import note_will_be_added
 from anki.notes import Note
 from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
 from aqt.addcards import AddCards
 from aqt.browser.sidebar.item import SidebarItemType
 
+from .add_time_evaluator import AddTimeEvaluator
 from .app_state import app_state
 from .config import config
 from .database.migrations import run_migrations
@@ -62,6 +66,7 @@ from .web_app import (
 )
 
 _review_time_evaluator: Optional[ReviewTimeEvaluator] = None
+_add_time_evaluator: Optional[AddTimeEvaluator] = None
 
 
 def _with_processor(fn: Any):
@@ -286,8 +291,9 @@ def on_main_window(processor: NoteProcessor):
 
     _on_start_actions()
 
-    global _review_time_evaluator
+    global _review_time_evaluator, _add_time_evaluator
     _review_time_evaluator = ReviewTimeEvaluator(processor)
+    _add_time_evaluator = AddTimeEvaluator(processor)
 
     ensure_local_server_started()
 
@@ -397,10 +403,13 @@ def cleanup() -> None:
     close_web_app()
     stop_local_server()
 
-    global _review_time_evaluator
+    global _review_time_evaluator, _add_time_evaluator
     if _review_time_evaluator is not None:
         _review_time_evaluator.stop()
     _review_time_evaluator = None
+    if _add_time_evaluator is not None:
+        _add_time_evaluator.stop()
+    _add_time_evaluator = None
 
     logger.info("Shutting down loggers")
     # Ridiculous hack to fix this sentry logger error:
@@ -455,6 +464,15 @@ def evaluate_review_time_generation() -> None:
 
 
 @with_sentry
+def on_note_will_be_added(_: Collection, note: Note, __: DeckId) -> None:
+    # Fires for every Python-side add (Add dialog, AnkiConnect, other add-ons),
+    # possibly off the main thread. Package imports run in the backend and
+    # don't fire it.
+    if _add_time_evaluator:
+        _add_time_evaluator.on_note_will_be_added(note)
+
+
+@with_sentry
 def setup_hooks(processor: NoteProcessor):
     setup_web_hooks()
     gui_hooks.browser_will_show_context_menu.append(on_browser_context(processor))
@@ -468,6 +486,7 @@ def setup_hooks(processor: NoteProcessor):
     gui_hooks.reviewer_did_answer_card.append(
         lambda *_: evaluate_review_time_generation()
     )
+    note_will_be_added.append(on_note_will_be_added)
     gui_hooks.main_window_did_init.append(on_main_window(processor))
     gui_hooks.profile_did_open.append(on_profile_did_open)
     gui_hooks.profile_will_close.append(cleanup)

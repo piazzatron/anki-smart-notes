@@ -27,6 +27,14 @@ import src.hooks as hooks
 from src.note_proccessor import NoteProcessor
 
 
+@pytest.fixture(autouse=True)
+def fake_note_will_be_added(monkeypatch: pytest.MonkeyPatch) -> list[Any]:
+    # Keep setup_hooks from registering on Anki's real module-level hook.
+    hook: list[Any] = []
+    monkeypatch.setattr(hooks, "note_will_be_added", hook)
+    return hook
+
+
 def test_profile_did_open_restarts_local_server_after_profile_switch(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:

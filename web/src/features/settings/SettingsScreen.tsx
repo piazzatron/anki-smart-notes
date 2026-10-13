@@ -163,6 +163,15 @@ export const LoadedSettingsScreen = ({
             }
           />
           <SettingRow
+            checked={controls.values.generateOnAdd}
+            description={t("settings.generateOnAdd.description")}
+            disabled={controls.isSaving}
+            label={t("settings.generateOnAdd.label")}
+            onChange={(checked) =>
+              void controls.update({ generateOnAdd: checked })
+            }
+          />
+          <SettingRow
             checked={controls.values.regenerateWhenBatching}
             description={t("settings.regenerateWhenBatching.description")}
             disabled={controls.isSaving}

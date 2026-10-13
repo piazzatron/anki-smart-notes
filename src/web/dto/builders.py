@@ -139,6 +139,7 @@ def build_settings() -> SettingsDto:
     """Build the web settings projection from the persisted Anki config."""
     return SettingsDto(
         generateAtReview=config.generate_at_review,
+        generateOnAdd=config.generate_on_add,
         regenerateWhenBatching=config.regenerate_notes_when_batching,
         debug=config.debug,
         language=config.language,

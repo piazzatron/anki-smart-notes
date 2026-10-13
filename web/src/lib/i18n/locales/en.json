@@ -83,6 +83,10 @@
       "description": "Fill in missing smart fields automatically as cards come up in review.",
       "label": "Generate fields during review"
     },
+    "generateOnAdd": {
+      "description": "Fill in missing smart fields in the background when notes are added, including notes from tools like Yomitan that use AnkiConnect.",
+      "label": "Generate fields when notes are added"
+    },
     "language": {
       "description": "Choose the language for Smart Notes, or match Anki's language.",
       "label": "Language",

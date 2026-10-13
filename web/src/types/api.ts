@@ -143,6 +143,7 @@ export interface GenerationDefaults {
 
 export interface Settings {
   generateAtReview: boolean
+  generateOnAdd: boolean
   regenerateWhenBatching: boolean
   debug: boolean
   language: string
