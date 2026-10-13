@@ -142,7 +142,7 @@ const NavButton = ({ activeScreen, item, onNavigate }: NavButtonProps) => {
       aria-current={isActive ? "page" : undefined}
       className={`group flex w-full items-center gap-[10px] rounded-lg px-[10px] py-[5px] text-start text-[14px] font-medium transition-[background-color,color,opacity] duration-150 ease-out ${
         isActive
-          ? "bg-[#7882ff]/[0.14] text-indigo-soft opacity-100"
+          ? "bg-white/[0.09] text-zinc-100 opacity-100"
           : "text-zinc-300 hover:bg-white/[0.055] hover:text-zinc-100"
       }`}
       onClick={() => onNavigate(item.id)}
