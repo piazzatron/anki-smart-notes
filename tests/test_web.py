@@ -1461,7 +1461,7 @@ def test_parse_save_test_result_reads_token_card_and_field():
         dto.parse_save_test_result({"token": "token-1", "fieldName": "Back"})
 
 
-def test_random_test_card_prefers_the_fields_deck_and_filled_prompt_fields(
+def test_random_test_card_stays_in_the_fields_deck_and_prefers_filled_fields(
     monkeypatch, tmp_path
 ):
     from anki.collection import Collection
@@ -1505,14 +1505,21 @@ def test_random_test_card_prefers_the_fields_deck_and_filled_prompt_fields(
                 filled_elsewhere,
             }
 
-        # Preferences loosen rather than leave the tester without a card.
+        # The filled-field preference loosens; the deck never does.
         assert pick(field_deck, ["Back"])["note"]["deckId"] == field_deck
-        assert pick(col.decks.id("Empty deck"), ["Front"])["note"] is not None
+        assert pick(col.decks.id("Empty deck"), ["Front"]) == {
+            "note": None,
+            "count": 0,
+        }
 
         cloze = col.models.by_name("Cloze")
         assert cloze is not None
         assert src.local_server._run_random_test_card(
-            {"noteTypeId": cloze["id"], "deckId": GLOBAL_DECK_ID, "filledFieldNames": []}
+            {
+                "noteTypeId": cloze["id"],
+                "deckId": GLOBAL_DECK_ID,
+                "filledFieldNames": [],
+            }
         ) == {"note": None, "count": 0}
     finally:
         col.close()

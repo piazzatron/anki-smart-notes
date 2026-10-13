@@ -332,10 +332,12 @@ def save_test_result(request: SaveTestResultRequest) -> None:
 
 
 def pick_random_test_card(request: RandomTestCardRequest) -> Optional[Card]:
-    """A random card of the field's note type to start the tester on. Main thread only.
+    """A random card of the field's note type and deck to start the tester on. Main
+    thread only.
 
-    Prefers the field's deck and cards whose prompt fields are filled in, so the first
-    test reads real content, and drops those preferences before giving up on a card."""
+    Prefers cards whose prompt fields are filled in, so the first test reads real
+    content. A deck-scoped field only ever gets a card from its deck: a card the field
+    would never run on is no test of it."""
     if not mw or not mw.col:
         raise ValueError("Anki collection is not available")
 
@@ -346,14 +348,10 @@ def pick_random_test_card(request: RandomTestCardRequest) -> Optional[Card]:
         SearchNode(field=SearchNode.Field(field_name=name, text=".", is_re=True))
         for name in request.filled_field_names
     ]
-    searches = dict.fromkeys(
-        [
-            col.build_search_string(note_type, *deck, *filled),
-            col.build_search_string(note_type, *deck),
-            note_type,
-        ]
-    )
-    for search in searches:
+    for search in (
+        col.build_search_string(note_type, *deck, *filled),
+        col.build_search_string(note_type, *deck),
+    ):
         card_ids = col.find_cards(search)
         if card_ids:
             return col.get_card(random.choice(card_ids))
