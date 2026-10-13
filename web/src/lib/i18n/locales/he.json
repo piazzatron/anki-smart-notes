@@ -346,10 +346,10 @@
     "richerDetailDescription": "סצנות מפורטות ומלאות יותר. מעט איטי יותר.",
     "underTheHoodLabel": "אילו מודלים פועלים",
     "underTheHood": {
-      "gptRicherDetail": "פירוט עשיר יותר משתמש ב-GPT Image 2.5 Sunburst.",
-      "gptStandard": "סטנדרטי משתמש ב-GPT Image 2.5 Flare.",
-      "nanoExtraReasoning": "היגיון נוסף משתמש ב-Nano Banana 2.1.",
-      "nanoStandard": "סטנדרטי משתמש ב-Nano Banana 2 Lite."
+      "gptRicherDetail": "פירוט עשיר יותר משתמש ב-<model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "הגדרה רגילה משתמשת ב-<model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "היגיון מורחב משתמש ב-<model>Nano Banana 2.1</model>.",
+      "nanoStandard": "הגדרה רגילה משתמשת ב-<model>Nano Banana 2 Lite</model>."
     }
   },
   "promptTester": {

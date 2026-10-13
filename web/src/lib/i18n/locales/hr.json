@@ -346,10 +346,10 @@
     "richerDetailDescription": "Detaljnije, potpunije scene. Malo sporije.",
     "underTheHoodLabel": "Koji modeli se pokreću",
     "underTheHood": {
-      "gptRicherDetail": "Bogatiji detalji koriste GPT Image 2.5 Sunburst.",
-      "gptStandard": "Standardni način koristi GPT Image 2.5 Flare.",
-      "nanoExtraReasoning": "Dodatno zaključivanje koristi Nano Banana 2.1.",
-      "nanoStandard": "Standardni način koristi Nano Banana 2 Lite."
+      "gptRicherDetail": "Bogatiji detalji koriste <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Standardni koristi <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Dodatno zaključivanje koristi <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Standardni koristi <model>Nano Banana 2 Lite</model>."
     }
   },
   "promptTester": {

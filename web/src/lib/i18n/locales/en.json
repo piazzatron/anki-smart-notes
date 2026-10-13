@@ -343,10 +343,10 @@
     "richerDetail": "Richer detail",
     "richerDetailDescription": "More detailed, fuller scenes. A bit slower.",
     "underTheHood": {
-      "gptRicherDetail": "Richer detail uses GPT Image 2.5 Sunburst.",
-      "gptStandard": "Standard uses GPT Image 2.5 Flare.",
-      "nanoExtraReasoning": "Extra reasoning uses Nano Banana 2.1.",
-      "nanoStandard": "Standard uses Nano Banana 2 Lite."
+      "gptRicherDetail": "Richer detail uses <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Standard uses <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Extra reasoning uses <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Standard uses <model>Nano Banana 2 Lite</model>."
     },
     "underTheHoodLabel": "Which models run"
   },

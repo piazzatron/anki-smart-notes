@@ -32,8 +32,8 @@ export interface ImageModelFamily {
   label: string
   switches: ImageModelSwitch[]
   variants: Record<string, SwitchStates>
-  // One line per setting for the "which models run" tip.
-  underTheHood: string[]
+  // One line per setting for the "which models run" tip, linking the model it names.
+  underTheHood: { key: string; modelUrl: string }[]
 }
 
 export const IMAGE_MODEL_FAMILIES: readonly ImageModelFamily[] = [
@@ -48,8 +48,16 @@ export const IMAGE_MODEL_FAMILIES: readonly ImageModelFamily[] = [
       "gpt-image-2.5-sunburst-medium": { richerDetail: true, maxQuality: true },
     },
     underTheHood: [
-      "imageGeneration.underTheHood.gptStandard",
-      "imageGeneration.underTheHood.gptRicherDetail",
+      {
+        key: "imageGeneration.underTheHood.gptStandard",
+        modelUrl:
+          "https://developers.openai.com/api/docs/models/gpt-image-2.5-flare",
+      },
+      {
+        key: "imageGeneration.underTheHood.gptRicherDetail",
+        modelUrl:
+          "https://developers.openai.com/api/docs/models/gpt-image-2.5-sunburst",
+      },
     ],
   },
   {
@@ -61,8 +69,16 @@ export const IMAGE_MODEL_FAMILIES: readonly ImageModelFamily[] = [
       "nano-banana-2": { extraReasoning: true },
     },
     underTheHood: [
-      "imageGeneration.underTheHood.nanoStandard",
-      "imageGeneration.underTheHood.nanoExtraReasoning",
+      {
+        key: "imageGeneration.underTheHood.nanoStandard",
+        modelUrl:
+          "https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-lite-image",
+      },
+      {
+        key: "imageGeneration.underTheHood.nanoExtraReasoning",
+        modelUrl:
+          "https://ai.google.dev/gemini-api/docs/models/gemini-nano-banana-2.1",
+      },
     ],
   },
 ]

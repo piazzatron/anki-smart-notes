@@ -352,10 +352,10 @@
     "richerDetailDescription": "مشاهد أكثر تفصيلاً وامتلاءً. أبطأ قليلاً.",
     "underTheHoodLabel": "النماذج التي تعمل",
     "underTheHood": {
-      "gptRicherDetail": "تفاصيل أغنى تستخدم GPT Image 2.5 Sunburst.",
-      "gptStandard": "القياسي يستخدم GPT Image 2.5 Flare.",
-      "nanoExtraReasoning": "استدلال إضافي يستخدم Nano Banana 2.1.",
-      "nanoStandard": "القياسي يستخدم Nano Banana 2 Lite."
+      "gptRicherDetail": "تستخدم التفاصيل الأغنى <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "تستخدم النسخة القياسية <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "يستخدم الاستدلال الإضافي <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "تستخدم النسخة القياسية <model>Nano Banana 2 Lite</model>."
     }
   },
   "promptTester": {

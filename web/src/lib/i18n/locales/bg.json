@@ -344,10 +344,10 @@
     "richerDetailDescription": "По-детайлни, по-пълни сцени. Малко по-бавно.",
     "underTheHoodLabel": "Кои модели се изпълняват",
     "underTheHood": {
-      "gptRicherDetail": "По-богат детайл използва GPT Image 2.5 Sunburst.",
-      "gptStandard": "Стандартно използва GPT Image 2.5 Flare.",
-      "nanoExtraReasoning": "Допълнително разсъждение използва Nano Banana 2.1.",
-      "nanoStandard": "Стандартно използва Nano Banana 2 Lite."
+      "gptRicherDetail": "По-богати детайли използват <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Стандартният режим използва <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Допълнителното разсъждение използва <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Стандартният режим използва <model>Nano Banana 2 Lite</model>."
     }
   },
   "promptTester": {

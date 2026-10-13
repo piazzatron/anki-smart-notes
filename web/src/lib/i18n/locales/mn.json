@@ -344,10 +344,10 @@
     "richerDetailDescription": "Илүү нарийвчилсан, бүрэн дүрслэл. Бага зэрэг удаан.",
     "underTheHoodLabel": "Аль загварууд ажиллах",
     "underTheHood": {
-      "gptRicherDetail": "Илүү дэлгэрэнгүй хувилбар GPT Image 2.5 Sunburst загварыг ашигладаг.",
-      "gptStandard": "Стандарт хувилбар GPT Image 2.5 Flare загварыг ашигладаг.",
-      "nanoExtraReasoning": "Нэмэлт үндэслэл Nano Banana 2.1 загварыг ашигладаг.",
-      "nanoStandard": "Стандарт хувилбар Nano Banana 2 Lite загварыг ашигладаг."
+      "gptRicherDetail": "Илүү дэлгэрэнгүй дүрслэлд <model>GPT Image 2.5 Sunburst</model> ашиглана.",
+      "gptStandard": "Стандарт горимд <model>GPT Image 2.5 Flare</model> ашиглана.",
+      "nanoExtraReasoning": "Нэмэлт үндэслэлтэй горимд <model>Nano Banana 2.1</model> ашиглана.",
+      "nanoStandard": "Стандарт горимд <model>Nano Banana 2 Lite</model> ашиглана."
     }
   },
   "promptTester": {

@@ -350,10 +350,10 @@
     "richerDetailDescription": "Radharcanna níos mionsonraithe agus níos iomláine. Beagán níos moille.",
     "underTheHoodLabel": "Cé na samhlacha a ritheann",
     "underTheHood": {
-      "gptRicherDetail": "Úsáideann mionsonraí níos saibhre GPT Image 2.5 Sunburst.",
-      "gptStandard": "Úsáideann an caighdeán GPT Image 2.5 Flare.",
-      "nanoExtraReasoning": "Úsáideann réasúnaíocht bhreise Nano Banana 2.1.",
-      "nanoStandard": "Úsáideann an caighdeán Nano Banana 2 Lite."
+      "gptRicherDetail": "Le mionsonraí níos saibhre, úsáidtear <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Le caighdeán, úsáidtear <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Le réasúnaíocht bhreise, úsáidtear <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Le caighdeán, úsáidtear <model>Nano Banana 2 Lite</model>."
     }
   },
   "promptTester": {

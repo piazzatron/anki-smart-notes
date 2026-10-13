@@ -344,10 +344,10 @@
     "richerDetailDescription": "Ավելի մանրամասն, լիարժեք տեսարաններ։ Մի փոքր դանդաղ։",
     "underTheHoodLabel": "Ո՞ր մոդելներն են աշխատում",
     "underTheHood": {
-      "gptRicherDetail": "Ավելի մանրամասն արդյունքի համար օգտագործվում է GPT Image 2.5 Sunburst։",
-      "gptStandard": "Ստանդարտ տարբերակում օգտագործվում է GPT Image 2.5 Flare։",
-      "nanoExtraReasoning": "Լրացուցիչ դատողության համար օգտագործվում է Nano Banana 2.1։",
-      "nanoStandard": "Ստանդարտ տարբերակում օգտագործվում է Nano Banana 2 Lite։"
+      "gptRicherDetail": "Ավելի մանրամասն արդյունքի համար օգտագործվում է <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Ստանդարտ տարբերակն օգտագործում է <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Լրացուցիչ դատողության համար օգտագործվում է <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Ստանդարտ տարբերակն օգտագործում է <model>Nano Banana 2 Lite</model>."
     }
   },
   "promptTester": {

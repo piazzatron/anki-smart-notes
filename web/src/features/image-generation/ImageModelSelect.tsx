@@ -26,7 +26,7 @@ import {
 import { InfoTip } from "@/components/ui/InfoTip"
 import { Pill } from "@/components/ui/Pill"
 import { Toggle } from "@/components/ui/Toggle"
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 import { modelCostLabel, modelLabel } from "@/lib/catalog"
 import i18next from "@/lib/i18n"
 import type { ImageGenerationSettings, ImageModelCatalog } from "@/types/api"
@@ -107,8 +107,23 @@ export const ImageModelSelect = ({
             {t("imageGeneration.extraSettings")}
             <InfoTip label={t("imageGeneration.underTheHoodLabel")}>
               <ul className="space-y-1">
-                {family.underTheHood.map((line) => (
-                  <li key={line}>{t(line)}</li>
+                {family.underTheHood.map(({ key, modelUrl }) => (
+                  <li key={key}>
+                    <Trans
+                      components={{
+                        model: (
+                          // Opens in the system browser; the plugin hands off new windows.
+                          <a
+                            className="font-semibold underline underline-offset-2 hover:text-indigo-100"
+                            href={modelUrl}
+                            rel="noreferrer"
+                            target="_blank"
+                          />
+                        ),
+                      }}
+                      i18nKey={key}
+                    />
+                  </li>
                 ))}
               </ul>
             </InfoTip>

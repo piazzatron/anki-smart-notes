@@ -344,10 +344,10 @@
     "richerDetailDescription": "Pli detalaj, plenaj scenoj. Iom pli malrapide.",
     "underTheHoodLabel": "Kiuj modeloj ruliĝas",
     "underTheHood": {
-      "gptRicherDetail": "Pli riĉa detalo uzas GPT Image 2.5 Sunburst.",
-      "gptStandard": "Norma uzas GPT Image 2.5 Flare.",
-      "nanoExtraReasoning": "Plia rezonado uzas Nano Banana 2.1.",
-      "nanoStandard": "Norma uzas Nano Banana 2 Lite."
+      "gptRicherDetail": "Pli riĉa detalo uzas <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Norma uzas <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Plia rezonado uzas <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Norma uzas <model>Nano Banana 2 Lite</model>."
     }
   },
   "promptTester": {

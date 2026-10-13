@@ -346,10 +346,10 @@
     "richerDetailDescription": "Escenes més detallades i completes. Una mica més lent.",
     "underTheHoodLabel": "Quins models s'executen",
     "underTheHood": {
-      "gptRicherDetail": "El detall més ric utilitza GPT Image 2.5 Sunburst.",
-      "gptStandard": "L'estàndard utilitza GPT Image 2.5 Flare.",
-      "nanoExtraReasoning": "El raonament addicional utilitza Nano Banana 2.1.",
-      "nanoStandard": "L'estàndard utilitza Nano Banana 2 Lite."
+      "gptRicherDetail": "El detall més ric utilitza <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "L'estàndard utilitza <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "El raonament addicional utilitza <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "L'estàndard utilitza <model>Nano Banana 2 Lite</model>."
     }
   },
   "promptTester": {

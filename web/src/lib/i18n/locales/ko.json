@@ -342,10 +342,10 @@
     "richerDetailDescription": "더 세밀하고 풍성한 장면. 약간 느림.",
     "underTheHoodLabel": "실행되는 모델",
     "underTheHood": {
-      "gptRicherDetail": "더 풍부한 디테일은 GPT Image 2.5 Sunburst를 사용합니다.",
-      "gptStandard": "표준은 GPT Image 2.5 Flare를 사용합니다.",
-      "nanoExtraReasoning": "추가 추론은 Nano Banana 2.1을 사용합니다.",
-      "nanoStandard": "표준은 Nano Banana 2 Lite를 사용합니다."
+      "gptRicherDetail": "더 풍부한 디테일은 <model>GPT Image 2.5 Sunburst</model>을 사용합니다.",
+      "gptStandard": "표준은 <model>GPT Image 2.5 Flare</model>를 사용합니다.",
+      "nanoExtraReasoning": "추가 추론은 <model>Nano Banana 2.1</model>을 사용합니다.",
+      "nanoStandard": "표준은 <model>Nano Banana 2 Lite</model>를 사용합니다."
     }
   },
   "promptTester": {

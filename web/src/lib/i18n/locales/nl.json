@@ -344,10 +344,10 @@
     "richerDetailDescription": "Gedetailleerdere, voller scènes. Iets langzamer.",
     "underTheHoodLabel": "Welke modellen draaien",
     "underTheHood": {
-      "gptRicherDetail": "Rijkere details gebruikt GPT Image 2.5 Sunburst.",
-      "gptStandard": "Standaard gebruikt GPT Image 2.5 Flare.",
-      "nanoExtraReasoning": "Extra redenering gebruikt Nano Banana 2.1.",
-      "nanoStandard": "Standaard gebruikt Nano Banana 2 Lite."
+      "gptRicherDetail": "Meer detail gebruikt <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Standaard gebruikt <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Extra redenering gebruikt <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Standaard gebruikt <model>Nano Banana 2 Lite</model>."
     }
   },
   "promptTester": {

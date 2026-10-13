@@ -344,10 +344,10 @@
     "richerDetailDescription": "Yksityiskohtaisemmat ja täyteläisemmät kohtaukset. Hieman hitaampi.",
     "underTheHoodLabel": "Mitä malleja käytetään",
     "underTheHood": {
-      "gptRicherDetail": "Runsaampi yksityiskohtaisuus käyttää mallia GPT Image 2.5 Sunburst.",
-      "gptStandard": "Vakio käyttää mallia GPT Image 2.5 Flare.",
-      "nanoExtraReasoning": "Lisäpäättely käyttää mallia Nano Banana 2.1.",
-      "nanoStandard": "Vakio käyttää mallia Nano Banana 2 Lite."
+      "gptRicherDetail": "Tarkempi yksityiskohtaisuus käyttää mallia <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Tavallinen käyttää mallia <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Laajennettu päättely käyttää mallia <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Tavallinen käyttää mallia <model>Nano Banana 2 Lite</model>."
     }
   },
   "promptTester": {

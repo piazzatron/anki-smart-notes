@@ -346,10 +346,10 @@
     "richerDetailDescription": "Scene mai detaliate și mai pline. Puțin mai lent.",
     "underTheHoodLabel": "Ce modele rulează",
     "underTheHood": {
-      "gptRicherDetail": "Detaliile bogate folosesc GPT Image 2.5 Sunburst.",
-      "gptStandard": "Standard folosește GPT Image 2.5 Flare.",
-      "nanoExtraReasoning": "Raționamentul extins folosește Nano Banana 2.1.",
-      "nanoStandard": "Standard folosește Nano Banana 2 Lite."
+      "gptRicherDetail": "Detaliu mai bogat folosește <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Standard folosește <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Raționament extins folosește <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Standard folosește <model>Nano Banana 2 Lite</model>."
     }
   },
   "promptTester": {

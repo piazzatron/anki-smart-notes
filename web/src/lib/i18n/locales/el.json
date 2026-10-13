@@ -344,10 +344,10 @@
     "richerDetailDescription": "Πιο λεπτομερείς, πληρέστερες σκηνές. Λίγο πιο αργό.",
     "underTheHoodLabel": "Ποια μοντέλα εκτελούνται",
     "underTheHood": {
-      "gptRicherDetail": "Η πλουσιότερη λεπτομέρεια χρησιμοποιεί το GPT Image 2.5 Sunburst.",
-      "gptStandard": "Η τυπική ρύθμιση χρησιμοποιεί το GPT Image 2.5 Flare.",
-      "nanoExtraReasoning": "Ο επιπλέον συλλογισμός χρησιμοποιεί το Nano Banana 2.1.",
-      "nanoStandard": "Η τυπική ρύθμιση χρησιμοποιεί το Nano Banana 2 Lite."
+      "gptRicherDetail": "Η πιο λεπτομερής απεικόνιση χρησιμοποιεί <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Η τυπική επιλογή χρησιμοποιεί <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Η εκτενέστερη συλλογιστική χρησιμοποιεί <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Η τυπική επιλογή χρησιμοποιεί <model>Nano Banana 2 Lite</model>."
     }
   },
   "promptTester": {

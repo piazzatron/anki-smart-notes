@@ -342,10 +342,10 @@
     "richerDetailDescription": "Adegan lebih terperinci dan penuh. Sedikit lebih perlahan.",
     "underTheHoodLabel": "Model yang dijalankan",
     "underTheHood": {
-      "gptRicherDetail": "Perincian yang lebih kaya menggunakan GPT Image 2.5 Sunburst.",
-      "gptStandard": "Standard menggunakan GPT Image 2.5 Flare.",
-      "nanoExtraReasoning": "Penaakulan tambahan menggunakan Nano Banana 2.1.",
-      "nanoStandard": "Standard menggunakan Nano Banana 2 Lite."
+      "gptRicherDetail": "Butiran lebih kaya menggunakan <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Standard menggunakan <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Penaakulan tambahan menggunakan <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Standard menggunakan <model>Nano Banana 2 Lite</model>."
     }
   },
   "promptTester": {

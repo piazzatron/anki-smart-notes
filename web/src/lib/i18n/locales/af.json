@@ -344,10 +344,10 @@
     "richerDetailDescription": "Meer gedetailleerde, voller tonele. Iets stadiger.",
     "underTheHoodLabel": "Watter modelle loop",
     "underTheHood": {
-      "gptRicherDetail": "Ryker detail gebruik GPT Image 2.5 Sunburst.",
-      "gptStandard": "Standaard gebruik GPT Image 2.5 Flare.",
-      "nanoExtraReasoning": "Ekstra redenering gebruik Nano Banana 2.1.",
-      "nanoStandard": "Standaard gebruik Nano Banana 2 Lite."
+      "gptRicherDetail": "Ryker detail gebruik <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Standaard gebruik <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Ekstra redenering gebruik <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Standaard gebruik <model>Nano Banana 2 Lite</model>."
     }
   },
   "promptTester": {

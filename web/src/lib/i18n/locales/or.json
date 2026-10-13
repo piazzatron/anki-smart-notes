@@ -344,10 +344,10 @@
     "richerDetailDescription": "ଅଧିକ ବିସ୍ତୃତ, ପୂର୍ଣ୍ଣ ଦୃଶ୍ୟ। ଟିକିଏ ଧୀର।",
     "underTheHoodLabel": "କେଉଁ ମଡେଲ୍ ଚାଲିବ",
     "underTheHood": {
-      "gptRicherDetail": "ଅଧିକ ବିସ୍ତୃତ ବିବରଣୀ GPT Image 2.5 Sunburst ବ୍ୟବହାର କରେ।",
-      "gptStandard": "ମାନକ GPT Image 2.5 Flare ବ୍ୟବହାର କରେ।",
-      "nanoExtraReasoning": "ଅତିରିକ୍ତ ଯୁକ୍ତିତର୍କ Nano Banana 2.1 ବ୍ୟବହାର କରେ।",
-      "nanoStandard": "ମାନକ Nano Banana 2 Lite ବ୍ୟବହାର କରେ।"
+      "gptRicherDetail": "ଅଧିକ ବିସ୍ତୃତ ବିବରଣୀ <model>GPT Image 2.5 Sunburst</model> ବ୍ୟବହାର କରେ।",
+      "gptStandard": "ମାନକ <model>GPT Image 2.5 Flare</model> ବ୍ୟବହାର କରେ।",
+      "nanoExtraReasoning": "ଅତିରିକ୍ତ ଯୁକ୍ତି <model>Nano Banana 2.1</model> ବ୍ୟବହାର କରେ।",
+      "nanoStandard": "ମାନକ <model>Nano Banana 2 Lite</model> ବ୍ୟବହାର କରେ।"
     }
   },
   "promptTester": {

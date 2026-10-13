@@ -342,10 +342,10 @@
     "richerDetailDescription": "ฉากมีรายละเอียดมากขึ้นและเต็มภาพยิ่งขึ้น ช้าลงเล็กน้อย",
     "underTheHoodLabel": "โมเดลที่ทำงาน",
     "underTheHood": {
-      "gptRicherDetail": "รายละเอียดที่ละเอียดกว่าใช้ GPT Image 2.5 Sunburst.",
-      "gptStandard": "มาตรฐานใช้ GPT Image 2.5 Flare.",
-      "nanoExtraReasoning": "การให้เหตุผลเพิ่มเติมใช้ Nano Banana 2.1.",
-      "nanoStandard": "มาตรฐานใช้ Nano Banana 2 Lite."
+      "gptRicherDetail": "รายละเอียดที่สมบูรณ์กว่าใช้ <model>GPT Image 2.5 Sunburst</model>",
+      "gptStandard": "มาตรฐานใช้ <model>GPT Image 2.5 Flare</model>",
+      "nanoExtraReasoning": "การให้เหตุผลเพิ่มเติมใช้ <model>Nano Banana 2.1</model>",
+      "nanoStandard": "มาตรฐานใช้ <model>Nano Banana 2 Lite</model>"
     }
   },
   "promptTester": {

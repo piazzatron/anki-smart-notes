@@ -344,10 +344,10 @@
     "richerDetailDescription": "Mas detalyado at mas punô na mga eksena. Medyo mas mabagal.",
     "underTheHoodLabel": "Aling mga model ang tatakbo",
     "underTheHood": {
-      "gptRicherDetail": "Ang mas detalyadong larawan ay gumagamit ng GPT Image 2.5 Sunburst.",
-      "gptStandard": "Ang karaniwan ay gumagamit ng GPT Image 2.5 Flare.",
-      "nanoExtraReasoning": "Ang dagdag na reasoning ay gumagamit ng Nano Banana 2.1.",
-      "nanoStandard": "Ang karaniwan ay gumagamit ng Nano Banana 2 Lite."
+      "gptRicherDetail": "Ang mas detalyadong opsyon ay gumagamit ng <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Ang standard ay gumagamit ng <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Ang karagdagang reasoning ay gumagamit ng <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Ang standard ay gumagamit ng <model>Nano Banana 2 Lite</model>."
     }
   },
   "promptTester": {

@@ -342,10 +342,10 @@
     "richerDetailDescription": "Cảnh chi tiết và đầy đặn hơn. Chậm hơn một chút.",
     "underTheHoodLabel": "Mô hình nào được chạy",
     "underTheHood": {
-      "gptRicherDetail": "Chi tiết phong phú hơn sử dụng GPT Image 2.5 Sunburst.",
-      "gptStandard": "Tiêu chuẩn sử dụng GPT Image 2.5 Flare.",
-      "nanoExtraReasoning": "Suy luận mở rộng sử dụng Nano Banana 2.1.",
-      "nanoStandard": "Tiêu chuẩn sử dụng Nano Banana 2 Lite."
+      "gptRicherDetail": "Chi tiết phong phú hơn sử dụng <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Tiêu chuẩn sử dụng <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Suy luận mở rộng sử dụng <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Tiêu chuẩn sử dụng <model>Nano Banana 2 Lite</model>."
     }
   },
   "promptTester": {

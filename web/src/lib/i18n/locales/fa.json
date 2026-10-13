@@ -344,10 +344,10 @@
     "richerDetailDescription": "صحنه‌های پرجزئیات‌تر و کامل‌تر. کمی کندتر.",
     "underTheHoodLabel": "کدام مدل‌ها اجرا می‌شوند",
     "underTheHood": {
-      "gptRicherDetail": "جزئیات غنی‌تر از GPT Image 2.5 Sunburst استفاده می‌کند.",
-      "gptStandard": "حالت استاندارد از GPT Image 2.5 Flare استفاده می‌کند.",
-      "nanoExtraReasoning": "استدلال بیشتر از Nano Banana 2.1 استفاده می‌کند.",
-      "nanoStandard": "حالت استاندارد از Nano Banana 2 Lite استفاده می‌کند."
+      "gptRicherDetail": "جزئیات غنی‌تر از <model>GPT Image 2.5 Sunburst</model> استفاده می‌کند.",
+      "gptStandard": "حالت استاندارد از <model>GPT Image 2.5 Flare</model> استفاده می‌کند.",
+      "nanoExtraReasoning": "استدلال بیشتر از <model>Nano Banana 2.1</model> استفاده می‌کند.",
+      "nanoStandard": "حالت استاندارد از <model>Nano Banana 2 Lite</model> استفاده می‌کند."
     }
   },
   "promptTester": {

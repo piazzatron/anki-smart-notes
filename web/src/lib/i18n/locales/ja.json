@@ -342,10 +342,10 @@
     "richerDetailDescription": "より詳細で充実したシーンを生成します。やや時間がかかります。",
     "underTheHoodLabel": "実行されるモデル",
     "underTheHood": {
-      "gptRicherDetail": "より詳細な表現には GPT Image 2.5 Sunburst を使用します。",
-      "gptStandard": "標準には GPT Image 2.5 Flare を使用します。",
-      "nanoExtraReasoning": "拡張推論には Nano Banana 2.1 を使用します。",
-      "nanoStandard": "標準には Nano Banana 2 Lite を使用します。"
+      "gptRicherDetail": "より詳細な描写には<model>GPT Image 2.5 Sunburst</model>を使用します。",
+      "gptStandard": "標準では<model>GPT Image 2.5 Flare</model>を使用します。",
+      "nanoExtraReasoning": "推論を強化する場合は<model>Nano Banana 2.1</model>を使用します。",
+      "nanoStandard": "標準では<model>Nano Banana 2 Lite</model>を使用します。"
     }
   },
   "promptTester": {

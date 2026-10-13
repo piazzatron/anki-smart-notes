@@ -344,10 +344,10 @@
     "richerDetailDescription": "Detailsemad ja täielikumad stseenid. Veidi aeglasem.",
     "underTheHoodLabel": "Millised mudelid käivituvad",
     "underTheHood": {
-      "gptRicherDetail": "Rikkalikum detailsus kasutab mudelit GPT Image 2.5 Sunburst.",
-      "gptStandard": "Standardne kasutab mudelit GPT Image 2.5 Flare.",
-      "nanoExtraReasoning": "Täiendav põhjendamine kasutab mudelit Nano Banana 2.1.",
-      "nanoStandard": "Standardne kasutab mudelit Nano Banana 2 Lite."
+      "gptRicherDetail": "Rikkalikum detail kasutab mudelit <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Standardne kasutab mudelit <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Põhjalikum arutlus kasutab mudelit <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Standardne kasutab mudelit <model>Nano Banana 2 Lite</model>."
     }
   },
   "promptTester": {

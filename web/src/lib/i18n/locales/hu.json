@@ -344,10 +344,10 @@
     "richerDetailDescription": "Részletesebb, teljesebb jelenetek. Kicsit lassabb.",
     "underTheHoodLabel": "Mely modellek futnak",
     "underTheHood": {
-      "gptRicherDetail": "A gazdagabb részletességet a GPT Image 2.5 Sunburst biztosítja.",
-      "gptStandard": "A standard mód a GPT Image 2.5 Flare modellt használja.",
-      "nanoExtraReasoning": "A extra érvelés a Nano Banana 2.1 modellt használja.",
-      "nanoStandard": "A standard mód a Nano Banana 2 Lite modellt használja."
+      "gptRicherDetail": "A részletesebb megjelenítéshez a <model>GPT Image 2.5 Sunburst</model> modell készül.",
+      "gptStandard": "A standard mód a <model>GPT Image 2.5 Flare</model> modellt használja.",
+      "nanoExtraReasoning": "A bővített érvelés a <model>Nano Banana 2.1</model> modellt használja.",
+      "nanoStandard": "A standard mód a <model>Nano Banana 2 Lite</model> modellt használja."
     }
   },
   "promptTester": {

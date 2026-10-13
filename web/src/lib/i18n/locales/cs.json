@@ -348,10 +348,10 @@
     "richerDetailDescription": "Podrobnější, plnější scény. Trochu pomalejší.",
     "underTheHoodLabel": "Které modely se spouštějí",
     "underTheHood": {
-      "gptRicherDetail": "Bohatší detail používá GPT Image 2.5 Sunburst.",
-      "gptStandard": "Standardní verze používá GPT Image 2.5 Flare.",
-      "nanoExtraReasoning": "Rozšířené uvažování používá Nano Banana 2.1.",
-      "nanoStandard": "Standardní verze používá Nano Banana 2 Lite."
+      "gptRicherDetail": "Podrobnější detail používá <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Standardní varianta používá <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Rozšířené uvažování používá <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Standardní varianta používá <model>Nano Banana 2 Lite</model>."
     }
   },
   "promptTester": {
