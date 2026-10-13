@@ -29,7 +29,7 @@ const FieldTypeIconLabel = ({ fieldType }: FieldTypeIconProps) => {
       aria-label={t("smartFields.fieldTypeAriaLabel", {
         fieldType: t(`smartFields.fieldTypes.${fieldType}`),
       })}
-      className="pointer-events-none inline-flex size-[22px] items-center justify-center text-zinc-300"
+      className="pointer-events-none inline-flex size-4 items-center justify-center justify-self-end text-zinc-300"
       role="img"
     >
       <Icon size={16} />

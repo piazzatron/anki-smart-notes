@@ -55,7 +55,7 @@ export const SmartFieldRow = ({
 
   return (
     <div
-      className={`relative grid min-h-11 grid-cols-[28px_120px_minmax(80px,1fr)_132px_28px] items-center gap-[9px] py-2.5 ps-4 pe-[18px] max-[800px]:grid-cols-[28px_minmax(80px,1fr)_minmax(100px,130px)_28px] ${
+      className={`relative col-span-full grid min-h-11 grid-cols-subgrid items-center gap-x-[18px] py-2.5 ${
         field.enabled ? "" : "opacity-40"
       } ${
         hasDivider
@@ -98,7 +98,7 @@ export const SmartFieldRow = ({
             aria-label={t("smartFields.actionsAriaLabel", {
               field: field.targetFieldName,
             })}
-            className="relative z-10 inline-flex size-7 items-center justify-center justify-self-end rounded-md text-ink-faint transition hover:bg-white/[0.07] hover:text-zinc-300 data-[state=open]:bg-white/[0.07] data-[state=open]:text-zinc-300"
+            className="relative z-10 inline-flex size-7 items-center justify-center justify-self-start rounded-md text-ink-faint transition hover:bg-white/[0.07] hover:text-zinc-300 data-[state=open]:bg-white/[0.07] data-[state=open]:text-zinc-300"
             disabled={pending}
           >
             <MoreHorizontal aria-hidden className="size-4" />
