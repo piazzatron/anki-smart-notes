@@ -458,14 +458,11 @@
 
 @keyframes review-star-spin {
   0% {
-    transform: rotate(0deg) scale(1);
-  }
-  6% {
-    transform: rotate(180deg) scale(1.18);
+    transform: rotate(0deg);
   }
   12%,
   100% {
-    transform: rotate(360deg) scale(1);
+    transform: rotate(360deg);
   }
 }
 
