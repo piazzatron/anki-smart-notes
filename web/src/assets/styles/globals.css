@@ -452,6 +452,20 @@
   }
 }
 
+.review-star {
+  animation: review-star-spin 9s ease-in-out 3s infinite;
+}
+
+@keyframes review-star-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  12%,
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes smart-fields-empty-cursor-blink {
   50% {
     opacity: 0;

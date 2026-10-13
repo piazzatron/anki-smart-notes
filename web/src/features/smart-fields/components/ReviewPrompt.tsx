@@ -43,16 +43,17 @@ export const ReviewPrompt = ({ onComplete }: ReviewPromptProps) => {
       <div aria-hidden className="banner-shine" />
       <Star
         aria-hidden
-        className="relative fill-[#ffe49a] text-[#ffe49a]"
+        className="review-star relative shrink-0 fill-[#ffe49a] text-[#ffe49a]"
         size={23}
       />
-      <p className="relative min-w-0 flex-1 truncate text-[14.5px] leading-[1.35] font-extrabold tracking-[-0.01em] text-white">
-        {t("smartFields.review.title")}
-        <span className="ms-2 text-[13px] font-medium text-white/80">
-          {" "}
+      <div className="relative min-w-0 flex-1 text-start">
+        <p className="truncate text-[14.5px] leading-[1.35] font-extrabold tracking-[-0.01em] text-white">
+          {t("smartFields.review.title")}
+        </p>
+        <p className="truncate text-[13px] leading-[1.35] font-medium text-white/80">
           {t("smartFields.review.subtitle")}
-        </span>
-      </p>
+        </p>
+      </div>
       <a
         className="relative z-20 inline-flex shrink-0 items-center rounded-lg bg-[#fff7dc] px-[18px] py-2 text-[12.5px] font-extrabold text-[#7b4807] no-underline transition-transform duration-150 ease-out hover:scale-[1.035]"
         href={ANKIWEB_REVIEW_URL}
