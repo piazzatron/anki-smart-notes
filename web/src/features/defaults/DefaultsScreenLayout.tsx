@@ -63,7 +63,13 @@ export const DefaultsScreenLayout = ({
         <div className="flex min-h-8 items-center gap-3">
           {accessory}
           {isDirty && (
-            <Button disabled={isSaving} onClick={onSave} variant="primary">
+            <Button
+              // Same size as the tester's Test button below.
+              className="h-[54px] px-6 text-[12.5px]"
+              disabled={isSaving}
+              onClick={onSave}
+              variant="primary"
+            >
               {isSaving
                 ? t("defaults.layout.saving")
                 : t("defaults.layout.save")}
