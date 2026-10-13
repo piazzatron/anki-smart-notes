@@ -47,7 +47,13 @@ export const InfoTip = ({ children, label }: InfoTipProps) => (
           sideOffset={6}
         >
           {children}
-          <TooltipPrimitive.Arrow className="fill-indigo-deep" />
+          {/* A low, round-tipped caret instead of Radix's sharp triangle, to match the
+              app's soft corners. */}
+          <TooltipPrimitive.Arrow asChild height={6} width={14}>
+            <svg className="fill-indigo-deep" viewBox="0 0 14 6">
+              <path d="M0 0C3 0 4.6 3.2 5.9 4.9Q7 6.2 8.1 4.9C9.4 3.2 11 0 14 0Z" />
+            </svg>
+          </TooltipPrimitive.Arrow>
         </TooltipPrimitive.Content>
       </TooltipPrimitive.Portal>
     </TooltipPrimitive.Root>
