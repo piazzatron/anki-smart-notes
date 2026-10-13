@@ -29,57 +29,21 @@ interface NavItem {
   id: ScreenId
   labelKey: string
   icon: Icon
-  tint: string
 }
 
-// Phosphor Fill icons, each tinted from the pastel palette so the nav keeps the
-// color the emoji used to give it, without per-OS emoji rendering.
+// Phosphor Fill icons in the label's own color: flat ink rather than emoji,
+// which render differently on every OS.
 const PRIMARY_ITEMS: NavItem[] = [
-  {
-    id: "fields",
-    labelKey: "smartFields",
-    icon: SparkleIcon,
-    tint: "text-pastel-lavender",
-  },
-  {
-    id: "defaults-text",
-    labelKey: "text",
-    icon: ChatCircleTextIcon,
-    tint: "text-pastel-sky",
-  },
-  {
-    id: "defaults-voice",
-    labelKey: "voice",
-    icon: SpeakerHighIcon,
-    tint: "text-pastel-pink",
-  },
-  {
-    id: "defaults-images",
-    labelKey: "image",
-    icon: ImageIcon,
-    tint: "text-pastel-butter",
-  },
-  {
-    id: "settings",
-    labelKey: "settings",
-    icon: GearSixIcon,
-    tint: "text-pastel-mint",
-  },
+  { id: "fields", labelKey: "smartFields", icon: SparkleIcon },
+  { id: "defaults-text", labelKey: "text", icon: ChatCircleTextIcon },
+  { id: "defaults-voice", labelKey: "voice", icon: SpeakerHighIcon },
+  { id: "defaults-images", labelKey: "image", icon: ImageIcon },
+  { id: "settings", labelKey: "settings", icon: GearSixIcon },
 ]
 
 const SECONDARY_ITEMS: NavItem[] = [
-  {
-    id: "support",
-    labelKey: "support",
-    icon: LifebuoyIcon,
-    tint: "text-pastel-peach",
-  },
-  {
-    id: "subscription",
-    labelKey: "subscription",
-    icon: CreditCardIcon,
-    tint: "text-pastel-sky",
-  },
+  { id: "support", labelKey: "support", icon: LifebuoyIcon },
+  { id: "subscription", labelKey: "subscription", icon: CreditCardIcon },
 ]
 
 export const Sidebar = ({
@@ -143,12 +107,7 @@ export const Sidebar = ({
               className="inline-flex items-center justify-center gap-2 rounded-lg bg-white/[0.06] py-2 text-[12px] font-semibold text-zinc-400 transition hover:bg-white/10 hover:text-zinc-200"
               type="button"
             >
-              <LightbulbIcon
-                aria-hidden
-                className="text-pastel-butter"
-                size={14}
-                weight="fill"
-              />
+              <LightbulbIcon aria-hidden size={14} weight="fill" />
               {t("sidebar.feedback")}
             </button>
           </FeedbackDialog>
@@ -187,12 +146,7 @@ const NavButton = ({ activeScreen, item, onNavigate }: NavButtonProps) => {
       }`}
       onClick={() => onNavigate(item.id)}
     >
-      <item.icon
-        aria-hidden
-        className={`shrink-0 ${item.tint}`}
-        size={18}
-        weight="fill"
-      />
+      <item.icon aria-hidden className="shrink-0" size={18} weight="fill" />
       <span className="truncate">{t(`sidebar.nav.${item.labelKey}`)}</span>
     </button>
   )
