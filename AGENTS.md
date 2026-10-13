@@ -25,6 +25,8 @@
 ## Changelog Versioning
 
 - `manifest.json`'s `human_version` is the currently shipped version.
+- Add changelog entries only for significant new user-facing features. Do not add entries for small UI polish, refactors, maintenance, or similar incremental work unless the user explicitly requests it.
+- Before editing `changelog.md`, show the user the exact proposed version heading and bullets and wait for explicit confirmation.
 - If the latest `changelog.md` entry is ahead of `human_version`, that version hasn't shipped yet: add to that entry instead of creating a new one.
 - Only start a new changelog version entry once the prior one has been released (`human_version` matches or exceeds it).
 
