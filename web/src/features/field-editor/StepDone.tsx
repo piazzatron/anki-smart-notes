@@ -21,6 +21,7 @@ import type { CSSProperties } from "react"
 import { useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
 
+import { ConfettiIcon } from "@/components/shared/Icons"
 import { trackAnalyticsEvent } from "@/services/analytics"
 import type { SmartField } from "@/types/api"
 
@@ -154,12 +155,7 @@ export const StepDone = ({
       <div className="text-center">
         <h2 className="text-[27px] leading-[1.1] font-extrabold tracking-[-0.8px] text-[#f6f6f8]">
           {t("fieldEditor.completion.title")}
-          <span
-            aria-hidden
-            className="ms-1.5 inline-block translate-y-[-3px] text-lg font-normal"
-          >
-            🥳
-          </span>
+          <ConfettiIcon className="ms-2 inline-block align-[-2px]" size={24} />
         </h2>
         <p className="mx-auto mt-3 max-w-[430px] text-[13.5px] leading-[1.55] text-[#b4b4be]">
           <strong className="font-semibold text-[#e6e6ea]">

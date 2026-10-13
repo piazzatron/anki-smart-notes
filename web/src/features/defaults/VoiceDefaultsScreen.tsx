@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { type ReactNode, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
@@ -6,6 +6,7 @@ import { PromptTesterStrip } from "@/features/prompt-tester/PromptTesterStrip"
 import { usePromptTester } from "@/features/prompt-tester/usePromptTester"
 import { providerLabel } from "@/lib/catalog"
 import { PageLayout } from "@/components/shared/PageLayout"
+import { FemaleIcon, MaleIcon, VolumeIcon } from "@/components/shared/Icons"
 import { saveTTSDefaults } from "@/services/commands"
 import { useAppStore } from "@/store/appStore"
 import type { AppState, VoiceCatalog } from "@/types/api"
@@ -21,9 +22,10 @@ import { voiceMatchesSettings } from "./voiceDefaults"
 import { useDefaultsForm } from "./useDefaultsForm"
 import { useVoiceCatalog } from "./useVoiceCatalog"
 
-const VOICE_GENDER_SYMBOLS: Record<string, string> = {
-  Female: "♀",
-  Male: "♂",
+const GENDER_ICON_CLASS = "inline-block align-[-2px]"
+const VOICE_GENDER_ICONS: Record<string, ReactNode> = {
+  Female: <FemaleIcon className={GENDER_ICON_CLASS} size={13} />,
+  Male: <MaleIcon className={GENDER_ICON_CLASS} size={13} />,
 }
 
 interface VoiceDefaultsScreenProps {
@@ -41,11 +43,7 @@ export const VoiceDefaultsScreen = ({
     if (voiceCatalog.error === null) {
       return (
         <DefaultsScreenLoading
-          icon={
-            <span aria-hidden className="text-lg leading-none">
-              🔈
-            </span>
-          }
+          icon={<VolumeIcon className="text-ink-muted" size={20} />}
           label={t("defaults.voice.loadingLabel")}
           title={t("defaults.voice.loadingTitle")}
         />
@@ -54,11 +52,7 @@ export const VoiceDefaultsScreen = ({
 
     return (
       <PageLayout
-        icon={
-          <span aria-hidden className="text-lg leading-none">
-            🔈
-          </span>
-        }
+        icon={<VolumeIcon className="text-ink-muted" size={20} />}
         testId="voice-defaults-screen"
         title={t("defaults.voice.title")}
       >
@@ -100,6 +94,10 @@ const LoadedVoiceDefaultsScreen = ({
   const selectedVoice = catalog.voices.find((voice) =>
     voiceMatchesSettings(voice, controls.form.values),
   )
+  const genderIcon = selectedVoice && VOICE_GENDER_ICONS[selectedVoice.gender]
+  const genderLabel =
+    selectedVoice &&
+    t(`defaults.voice.filters.${selectedVoice.gender.toLowerCase()}`)
 
   // The tester reads whichever card field the user picks below.
   const [prompt, setPrompt] = useState("")
@@ -115,11 +113,7 @@ const LoadedVoiceDefaultsScreen = ({
     <DefaultsScreenLayout
       accessory={<DefaultUsagePill usage={usage} />}
       contentFillsHeight
-      icon={
-        <span aria-hidden className="text-lg leading-none">
-          🔈
-        </span>
-      }
+      icon={<VolumeIcon className="text-ink-muted" size={20} />}
       isDirty={controls.form.isDirty}
       isSaving={controls.form.isSaving}
       onSave={() => void controls.saveChanges()}
@@ -156,10 +150,14 @@ const LoadedVoiceDefaultsScreen = ({
                   <>
                     {" "}
                     · {selectedVoice.language} ·{" "}
-                    {VOICE_GENDER_SYMBOLS[selectedVoice.gender] ??
-                      t(
-                        `defaults.voice.filters.${selectedVoice.gender.toLowerCase()}`,
-                      )}{" "}
+                    {genderIcon === undefined ? (
+                      genderLabel
+                    ) : (
+                      <>
+                        {genderIcon}
+                        <span className="sr-only">{genderLabel}</span>
+                      </>
+                    )}{" "}
                     · {selectedVoice.name}
                   </>
                 )}

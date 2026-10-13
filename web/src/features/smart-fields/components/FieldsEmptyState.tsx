@@ -1,4 +1,10 @@
 import { Button } from "@/components/ui/Button"
+import {
+  ChatIcon,
+  GalleryIcon,
+  SparklesIcon,
+  VolumeIcon,
+} from "@/components/shared/Icons"
 import { useTranslation } from "react-i18next"
 
 interface FieldsEmptyStateProps {
@@ -18,13 +24,13 @@ export const FieldsEmptyState = ({ onCreate }: FieldsEmptyStateProps) => {
           {t("smartFields.emptyState.spark")}
         </span>
         <span className="smart-fields-empty-bubble smart-fields-empty-bubble-text">
-          💬
+          <ChatIcon size={20} />
         </span>
         <span className="smart-fields-empty-bubble smart-fields-empty-bubble-audio">
-          🔈
+          <VolumeIcon size={20} />
         </span>
         <span className="smart-fields-empty-bubble smart-fields-empty-bubble-image">
-          🎨
+          <GalleryIcon size={20} />
         </span>
 
         <div className="smart-fields-empty-card">
@@ -37,7 +43,7 @@ export const FieldsEmptyState = ({ onCreate }: FieldsEmptyStateProps) => {
           </div>
           <div className="smart-fields-empty-card-divider" />
           <div className="smart-fields-empty-card-answer">
-            <span className="smart-fields-empty-card-magic">✨</span>
+            <SparklesIcon size={13} />
             <span>{t("smartFields.emptyState.exampleAnswer")}</span>
             <span className="smart-fields-empty-card-cursor" />
           </div>
@@ -55,6 +61,7 @@ export const FieldsEmptyState = ({ onCreate }: FieldsEmptyStateProps) => {
         onClick={onCreate}
         variant="success"
       >
+        <SparklesIcon className="me-2 inline-block align-[-3px]" size={18} />
         {t("smartFields.newSmartField")}
       </Button>
     </div>

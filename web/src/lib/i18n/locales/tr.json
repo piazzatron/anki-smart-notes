@@ -47,7 +47,6 @@
     "signInLower": "Oturum aç",
     "unlimited": "Sınırsız",
     "upgrade": "Yükseltme",
-    "upgradeSparkles": "✨ Yükseltme ✨",
     "multiplierCost": "{{multiplier}}× maliyet",
     "next": "Sonraki",
     "noteType": "Not Türü",
@@ -114,7 +113,6 @@
     "title": "Ayarlar"
   },
   "fieldEditor": {
-    "alreadySmartField": "Zaten bir Smart Field ✨",
     "collisionHint": "zaten bir Smart Field'iniz var — farklı bir alan, deste veya not türü seçin",
     "completion": {
       "descriptionAfter": "notlar onu oluşturduğunuzda doldurulur.",
@@ -190,9 +188,9 @@
     "targetAriaLabel": "Smart Field hedefi",
     "testSmartField": "Smart Field'inizi test edin",
     "titles": {
-      "create": "Yeni Smart Field ✨",
       "duplicate": "Smart Field'i çoğaltın",
-      "edit": "Smart Field'i düzenleyin"
+      "edit": "Smart Field'i düzenleyin",
+      "create": "Yeni Smart Field"
     },
     "validation": {
       "chooseField": "Bir alan seçin",
@@ -205,7 +203,8 @@
     "writePromptForMe": "Benim için istemimi yaz",
     "writePromptForMeHint": "Sade bir İngilizceyle ne istediğinizi söyleyin; istemi aşağıya yazacağız.",
     "writePromptPlaceholder": "\"Doğal İngilizceye çevir...\"",
-    "writing": "Yazıyor…"
+    "writing": "Yazıyor…",
+    "alreadySmartField": "Zaten bir Smart Field"
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}} için eylemler",
@@ -248,8 +247,7 @@
       "subtitle": "Diğer Anki kullanıcılarının bulmasına yardımcı olmak için AnkiWeb hakkında bir inceleme bırakın.",
       "title": "Smart Notes'ten memnun musunuz?"
     },
-    "subtitle": "Notlarınıza otomatik olarak oluşturulan metin, ses ve görüntüleri ekleyin.",
-    "title": "✨Smart Fields"
+    "subtitle": "Notlarınıza otomatik olarak oluşturulan metin, ses ve görüntüleri ekleyin."
   },
   "defaults": {
     "errors": {
@@ -288,7 +286,6 @@
       "loadingLabel": "Varsayılan Metin Ayarlarını Yükleme",
       "loadingTitle": "Metin Oluşturma Ayarları",
       "modelGuidance": "{{auto}} ve {{autoMax}}, performans ve maliyeti dengeleyen Smart Notes tarafından önerilen modellerdir. Standart görevler için {{auto}} seçeneğini seçin ve gerekirse {{autoMax}} sürümüne yükseltin.",
-      "pickingModel": "💡 Bir model seçmek",
       "reasoningLevel": "Muhakeme düzeyi",
       "reasoningValues": {
         "high": "Yüksek",
@@ -301,7 +298,8 @@
       "title": "Metin Oluşturma Ayarları",
       "webSearch": "Web Araması",
       "webSearchDescription": "Metin nesillerinin web'den yeni bilgiler almasına izin verin.",
-      "webSearchWarning": "⚠️ Arama pahalıdır; kredilerinizi izleyin."
+      "pickingModel": "Model seçiliyor",
+      "webSearchWarning": "Arama maliyetlidir; kredilerinizi takip edin."
     },
     "usage": {
       "fields_one": "{{count}} alanı için geçerlidir",
@@ -324,10 +322,10 @@
       "loadingTitle": "Varsayılan Ses Ayarları",
       "noVoices": "Bu filtrelerle eşleşen ses yok.",
       "saveError": "Ses varsayılanları kaydedilemedi",
-      "searchPlaceholder": "🔍 Sesleri arayın…",
       "searchVoices": "Sesleri ara",
       "subtitle": "Bir alan kendine ait olmadığı sürece TTS Smart Fields'inizin kullandığı ses.",
-      "title": "Varsayılan Ses Ayarları"
+      "title": "Varsayılan Ses Ayarları",
+      "searchPlaceholder": "Sesleri ara…"
     }
   },
   "imageGeneration": {
@@ -429,7 +427,7 @@
       "trialNoteLimit": "Deneme notu sınırınıza ulaştınız",
       "upgradeCollection": "Yükseltme — tüm koleksiyonunuz otomatik olarak",
       "upgradeCredits": "Daha fazla kredi için yükseltme yapın",
-      "upgradePaid": "✨ Ücretli sürüme yükseltin"
+      "upgradePaid": "Ücretli plana yükselt"
     },
     "inDays_one": "Bugün",
     "inDays_other": "{{count}} gün içinde",
@@ -476,6 +474,7 @@
     "byline": "Michael Piazza / Rosebud Labs, LLC tarafından.",
     "changelog": "Değişiklik günlüğü",
     "copyright": "© 2026 · v{{version}} ·",
+    "iconCredit": "Solar ikonları: <solar>480 Design</solar> · <license>CC BY 4.0</license>",
     "discord": {
       "description": "Yardım almanın, özellik istemenin veya hata bildirmenin en hızlı yolu.",
       "join": "Katılmak",
@@ -489,8 +488,7 @@
     },
     "github": "GitHub",
     "loading": "Yükleme Desteği",
-    "title": "Destek",
-    "iconCredit": "Solar ikonları: <solar>480 Design</solar> · <license>CC BY 4.0</license>"
+    "title": "Destek"
   },
   "welcome": {
     "alreadyAccount": "Zaten bir hesabınız var mı?",
@@ -504,8 +502,8 @@
     "finishDescription": "Açtığımız tarayıcıda oturum açma işlemini tamamlayın. Bu pencere otomatik olarak güncellenecektir.",
     "finishInBrowser": "Tarayıcınızda işlemi tamamlayın",
     "haveCode": "Web sitesinden kodunuz var mı?",
-    "startTrial": "✨ Ücretsiz Denemeyi Başlatın ✨",
-    "trialDetails": "7 gün boyunca ücretsiz · tüm özellikler · kredi kartı yok"
+    "trialDetails": "7 gün boyunca ücretsiz · tüm özellikler · kredi kartı yok",
+    "startTrial": "Ücretsiz Denemeyi Başlat"
   },
   "trialEnded": {
     "description": "Denemeler 7 gün boyunca veya deneme kredileriniz bitene kadar devam eder.",
@@ -525,8 +523,8 @@
       "leaveReview": "Yorum bırakın",
       "title": "Bir ay ücretsiz Smart Notes edinin"
     },
-    "thanks": "Smart Notes'i kullandığınız için teşekkür ederiz ✨",
     "title": "Ücretsiz deneme süreniz sona erdi",
-    "upgradeNow": "Şimdi yükseltin"
+    "upgradeNow": "Şimdi yükseltin",
+    "thanks": "Smart Notes'u kullandığınız için teşekkürler"
   }
 }

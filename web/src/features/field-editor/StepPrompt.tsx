@@ -29,6 +29,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select"
+import { SparklesIcon } from "@/components/shared/Icons"
 import { PromptTesterStrip } from "@/features/prompt-tester/PromptTesterStrip"
 import {
   usePromptTester,
@@ -105,9 +106,10 @@ export const StepPrompt = ({
                 htmlFor="field-editor-write-prompt"
               >
                 {t("fieldEditor.writePromptForMe")}
-                <span aria-hidden className="ms-1.5">
-                  ✨
-                </span>
+                <SparklesIcon
+                  className="ms-1.5 inline-block align-[-2px]"
+                  size={15}
+                />
               </label>
               <p className="mt-1 text-[12px] leading-[1.45] text-ink-muted">
                 {t("fieldEditor.writePromptForMeHint")}

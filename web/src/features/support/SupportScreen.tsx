@@ -22,6 +22,7 @@ import { DiscordMark } from "@/components/shared/DiscordMark"
 import { FeedbackDialog } from "@/components/shared/FeedbackDialog"
 import { PageLayout } from "@/components/shared/PageLayout"
 import { ScreenSkeleton } from "@/components/shared/ScreenSkeleton"
+import { BugIcon, LetterIcon } from "@/components/shared/Icons"
 import {
   ANKIWEB_REVIEW_URL,
   DISCORD_URL,
@@ -35,7 +36,7 @@ const REFERENCE_LINKS = [
   {
     href: `mailto:${SUPPORT_EMAIL}`,
     labelKey: "support.emailUs",
-    mark: <span className="text-[19px]">✉️</span>,
+    mark: <LetterIcon className="text-zinc-300" size={22} />,
     sub: SUPPORT_EMAIL,
   },
   {
@@ -94,9 +95,7 @@ export const SupportScreen = () => {
       </div>
 
       <div className="mt-[9px] flex items-center gap-[15px] rounded-[13px] bg-white/[0.07] py-4 ps-[19px] pe-4">
-        <span aria-hidden className="shrink-0 text-2xl leading-none">
-          🐛
-        </span>
+        <BugIcon className="text-zinc-300" size={26} />
         <div className="min-w-0 flex-1">
           <h2 className="text-base font-extrabold tracking-[-0.01em] text-zinc-100">
             {t("support.feedback.title")}

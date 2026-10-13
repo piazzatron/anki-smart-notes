@@ -48,7 +48,6 @@
     "signInLower": "Iniciar sesión",
     "unlimited": "Ilimitado",
     "upgrade": "Actualizar",
-    "upgradeSparkles": "✨Actualizar✨",
     "multiplierCost": "{{multiplier}}× costo",
     "next": "Próximo",
     "noteType": "Tipo de nota",
@@ -115,7 +114,6 @@
     "title": "Ajustes"
   },
   "fieldEditor": {
-    "alreadySmartField": "Ya un Smart Field ✨",
     "collisionHint": "ya tiene un Smart Field: elija un campo, mazo o tipo de nota diferente",
     "completion": {
       "descriptionAfter": "Las notas se completan cada vez que las generas.",
@@ -191,9 +189,9 @@
     "targetAriaLabel": "objetivo Smart Field",
     "testSmartField": "Prueba tu Smart Field",
     "titles": {
-      "create": "Nuevo Smart Field ✨",
       "duplicate": "Duplicado Smart Field",
-      "edit": "Editar Smart Field"
+      "edit": "Editar Smart Field",
+      "create": "Nuevo Campo inteligente"
     },
     "validation": {
       "chooseField": "Elige un campo",
@@ -206,7 +204,8 @@
     "writePromptForMe": "Escribe mi mensaje para mí",
     "writePromptForMeHint": "Di lo que quieras en inglés sencillo; escribiremos el mensaje a continuación.",
     "writePromptPlaceholder": "\"Traducir al inglés natural...\"",
-    "writing": "Escribiendo…"
+    "writing": "Escribiendo…",
+    "alreadySmartField": "Ya es un Campo inteligente"
   },
   "smartFields": {
     "actionsAriaLabel": "Acciones para {{field}}",
@@ -249,8 +248,7 @@
       "subtitle": "Deje una reseña sobre AnkiWeb para ayudar a otros usuarios de Anki a encontrarla.",
       "title": "¿Estás disfrutando de Smart Notes?"
     },
-    "subtitle": "Agregue texto, voz e imágenes generados automáticamente a sus notas.",
-    "title": "✨Smart Fields"
+    "subtitle": "Agregue texto, voz e imágenes generados automáticamente a sus notas."
   },
   "defaults": {
     "errors": {
@@ -289,7 +287,6 @@
       "loadingLabel": "Cargando la configuración de texto predeterminada",
       "loadingTitle": "Configuración de generación de texto",
       "modelGuidance": "{{auto}} y {{autoMax}} son los modelos recomendados por Smart Notes que equilibran rendimiento y costo. Elija {{auto}} para tareas estándar y actualice a {{autoMax}} si es necesario.",
-      "pickingModel": "💡 Elegir un modelo",
       "reasoningLevel": "nivel de razonamiento",
       "reasoningValues": {
         "high": "Alto",
@@ -302,7 +299,8 @@
       "title": "Configuración de generación de texto",
       "webSearch": "Búsqueda web",
       "webSearchDescription": "Deje que las generaciones de texto obtengan información nueva de la web.",
-      "webSearchWarning": "⚠️ La búsqueda es cara; controle sus créditos."
+      "pickingModel": "Eligiendo un modelo",
+      "webSearchWarning": "La búsqueda es costosa; supervisa tus créditos."
     },
     "usage": {
       "fields_one": "Se aplica al campo {{count}}",
@@ -326,10 +324,10 @@
       "loadingTitle": "Configuración de voz predeterminada",
       "noVoices": "Ninguna voz coincide con estos filtros.",
       "saveError": "No se pudieron guardar los valores predeterminados de voz",
-      "searchPlaceholder": "🔍 Buscar voces…",
       "searchVoices": "buscar voces",
       "subtitle": "La voz que usa su TTS Smart Fields a menos que un campo fije el suyo.",
-      "title": "Configuración de voz predeterminada"
+      "title": "Configuración de voz predeterminada",
+      "searchPlaceholder": "Buscar voces…"
     }
   },
   "imageGeneration": {
@@ -437,7 +435,7 @@
       "trialNoteLimit": "Has alcanzado tu límite de notas de prueba.",
       "upgradeCollection": "Actualiza: toda tu colección, automáticamente",
       "upgradeCredits": "Actualiza para obtener más créditos",
-      "upgradePaid": "✨ Actualízate a pago"
+      "upgradePaid": "Actualizar a de pago"
     },
     "inDays_one": "Hoy",
     "inDays_many": "En días {{count}}",
@@ -486,6 +484,7 @@
     "byline": "por Michael Piazza/Rosebud Labs, LLC.",
     "changelog": "Registro de cambios",
     "copyright": "© 2026 · v{{version}} ·",
+    "iconCredit": "Iconos Solar de <solar>480 Design</solar> · <license>CC BY 4.0</license>",
     "discord": {
       "description": "La forma más rápida de obtener ayuda, solicitar una función o informar un error.",
       "join": "Unirse",
@@ -499,8 +498,7 @@
     },
     "github": "GitHub",
     "loading": "Soporte de carga",
-    "title": "Apoyo",
-    "iconCredit": "Iconos Solar de <solar>480 Design</solar> · <license>CC BY 4.0</license>"
+    "title": "Apoyo"
   },
   "welcome": {
     "alreadyAccount": "¿Ya tienes una cuenta?",
@@ -514,8 +512,8 @@
     "finishDescription": "Complete el inicio de sesión en el navegador que abrimos. Esta ventana se actualizará automáticamente.",
     "finishInBrowser": "Termina en tu navegador",
     "haveCode": "¿Tienes un código del sitio web?",
-    "startTrial": "✨ Iniciar prueba gratuita ✨",
-    "trialDetails": "Gratis por 7 días · todas las funciones · sin tarjeta de crédito"
+    "trialDetails": "Gratis por 7 días · todas las funciones · sin tarjeta de crédito",
+    "startTrial": "Iniciar prueba gratuita"
   },
   "trialEnded": {
     "description": "Las pruebas duran 7 días o hasta que se agoten los créditos de prueba.",
@@ -535,8 +533,8 @@
       "leaveReview": "Deja una reseña",
       "title": "Consigue un mes gratis de Smart Notes"
     },
-    "thanks": "Gracias por usar Smart Notes ✨",
     "title": "Tu prueba gratuita ha finalizado",
-    "upgradeNow": "Actualiza ahora"
+    "upgradeNow": "Actualiza ahora",
+    "thanks": "Gracias por usar Smart Notes"
   }
 }

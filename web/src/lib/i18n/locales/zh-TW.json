@@ -46,7 +46,6 @@
     "signInLower": "登入",
     "unlimited": "無限",
     "upgrade": "升級",
-    "upgradeSparkles": "✨ 升級 ✨",
     "multiplierCost": "{{multiplier}}×成本",
     "next": "下一個",
     "noteType": "註釋類型",
@@ -113,7 +112,6 @@
     "title": "設定"
   },
   "fieldEditor": {
-    "alreadySmartField": "已經是 Smart Field ✨",
     "collisionHint": "已經有 Smart Field — 選擇不同的欄位、牌組或音符類型",
     "completion": {
       "descriptionAfter": "每當您生成它時，註釋就會被填充。",
@@ -189,9 +187,9 @@
     "targetAriaLabel": "Smart Field 目標",
     "testSmartField": "測試您的 Smart Field",
     "titles": {
-      "create": "新 Smart Field ✨",
       "duplicate": "重複的 Smart Field",
-      "edit": "編輯 Smart Field"
+      "edit": "編輯 Smart Field",
+      "create": "新增 Smart Field"
     },
     "validation": {
       "chooseField": "選擇一個領域",
@@ -204,7 +202,8 @@
     "writePromptForMe": "為我寫下我的提示",
     "writePromptForMeHint": "用簡單的英語說出您想要的內容 - 我們將在下面編寫提示。",
     "writePromptPlaceholder": "“翻譯成自然英文…”",
-    "writing": "寫作…"
+    "writing": "寫作…",
+    "alreadySmartField": "已是 Smart Field"
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}} 的操作",
@@ -247,8 +246,7 @@
       "subtitle": "在 AnkiWeb 上留下評論以幫助其他 Anki 用戶找到它。",
       "title": "喜歡 Smart Notes 嗎？"
     },
-    "subtitle": "將自動生成的文字、語音和圖像添加到您的筆記中。",
-    "title": "✨ Smart Fields"
+    "subtitle": "將自動生成的文字、語音和圖像添加到您的筆記中。"
   },
   "defaults": {
     "errors": {
@@ -287,7 +285,6 @@
       "loadingLabel": "載入預設文字設定",
       "loadingTitle": "文字產生設定",
       "modelGuidance": "{{auto}}和{{autoMax}}是Smart Notes推薦的平衡性能和成本的模型。為標準任務選擇 {{auto}}，並根據需要升級到 {{autoMax}}。",
-      "pickingModel": "💡 挑選模特",
       "reasoningLevel": "推理水平",
       "reasoningValues": {
         "high": "高的",
@@ -300,7 +297,8 @@
       "title": "文字產生設定",
       "webSearch": "網頁搜尋",
       "webSearchDescription": "讓文字生成從網路中獲取新鮮資訊。",
-      "webSearchWarning": "⚠️ 搜尋成本高昂；監控您的信用。"
+      "pickingModel": "正在選擇模型",
+      "webSearchWarning": "搜尋成本較高，請留意您的點數。"
     },
     "usage": {
       "fields_other": "適用於 {{count}} 字段"
@@ -322,10 +320,10 @@
       "loadingTitle": "預設語音設定",
       "noVoices": "沒有聲音符合這些過濾器。",
       "saveError": "無法儲存語音預設值",
-      "searchPlaceholder": "🔍 搜尋聲音...",
       "searchVoices": "搜尋聲音",
       "subtitle": "TTS Smart Fields 使用的語音，除非欄位固定自己的語音。",
-      "title": "預設語音設定"
+      "title": "預設語音設定",
+      "searchPlaceholder": "搜尋語音…"
     }
   },
   "imageGeneration": {
@@ -421,7 +419,7 @@
       "trialNoteLimit": "您已達到試用筆記限制",
       "upgradeCollection": "升級 — 自動升級您的整個收藏",
       "upgradeCredits": "升級以獲得更多積分",
-      "upgradePaid": "✨ 升級付費"
+      "upgradePaid": "升級為付費方案"
     },
     "inDays_other": "在{{count}}天裡",
     "loading": "正在加載訂閱",
@@ -466,6 +464,7 @@
     "byline": "作者：Michael Piazza / Rosebud Labs, LLC。",
     "changelog": "變更日誌",
     "copyright": "© 2026 · v{{version}} ·",
+    "iconCredit": "圖示由 <solar>480 Design</solar> 提供 · <license>CC BY 4.0</license>",
     "discord": {
       "description": "取得協助、請求功能或報告錯誤的最快方式。",
       "join": "加入",
@@ -479,8 +478,7 @@
     },
     "github": "GitHub",
     "loading": "載入支援",
-    "title": "支援",
-    "iconCredit": "圖示由 <solar>480 Design</solar> 提供 · <license>CC BY 4.0</license>"
+    "title": "支援"
   },
   "welcome": {
     "alreadyAccount": "已經有帳戶？",
@@ -494,8 +492,8 @@
     "finishDescription": "在我們開啟的瀏覽器中完成登入。該視窗將自動更新。",
     "finishInBrowser": "在瀏覽器中完成",
     "haveCode": "有網站上的程式碼嗎？",
-    "startTrial": "✨ 開始免費試用 ✨",
-    "trialDetails": "7 天免費 · 所有功能 · 無需信用卡"
+    "trialDetails": "7 天免費 · 所有功能 · 無需信用卡",
+    "startTrial": "開始免費試用"
   },
   "trialEnded": {
     "description": "試用期為 7 天，或直到您的試用積分用完。",
@@ -515,8 +513,8 @@
       "leaveReview": "發表評論",
       "title": "獲得一個月的免費 Smart Notes"
     },
-    "thanks": "感謝您使用 Smart Notes ✨",
     "title": "您的免費試用已結束",
-    "upgradeNow": "立即升級"
+    "upgradeNow": "立即升級",
+    "thanks": "感謝您使用 Smart Notes"
   }
 }

@@ -49,7 +49,6 @@
     "signInLower": "Prijavite se",
     "unlimited": "Neomejeno",
     "upgrade": "Nadgradite",
-    "upgradeSparkles": "✨ Nadgradite ✨",
     "multiplierCost": "{{multiplier}}× stroški",
     "next": "Naprej",
     "noteType": "Vrsta opombe",
@@ -116,7 +115,6 @@
     "title": "nastavitve"
   },
   "fieldEditor": {
-    "alreadySmartField": "Že Smart Field ✨",
     "collisionHint": "že ima Smart Field — izberite drugo polje, sklop ali vrsto zapiska",
     "completion": {
       "descriptionAfter": "notes se izpolni vsakič, ko ga ustvarite.",
@@ -192,9 +190,9 @@
     "targetAriaLabel": "Cilj Smart Field",
     "testSmartField": "Preizkusite svoj Smart Field",
     "titles": {
-      "create": "Novi Smart Field ✨",
       "duplicate": "Dvojnik Smart Field",
-      "edit": "Uredi Smart Field"
+      "edit": "Uredi Smart Field",
+      "create": "Novo Smart Field"
     },
     "validation": {
       "chooseField": "Izberite polje",
@@ -207,7 +205,8 @@
     "writePromptForMe": "Napiši moj poziv namesto mene",
     "writePromptForMeHint": "Povejte, kar želite, v preprosti angleščini - spodaj bomo napisali poziv.",
     "writePromptPlaceholder": "\"Prevedi v naravno angleščino ...\"",
-    "writing": "Pisanje ..."
+    "writing": "Pisanje ...",
+    "alreadySmartField": "Že Smart Field"
   },
   "smartFields": {
     "actionsAriaLabel": "Dejanja za {{field}}",
@@ -250,8 +249,7 @@
       "subtitle": "Pustite mnenje o AnkiWeb, da ga bodo drugi uporabniki Anki lažje našli.",
       "title": "Uživate v Smart Notes?"
     },
-    "subtitle": "Svojim zapiskom dodajte samodejno ustvarjeno besedilo, glas in slike.",
-    "title": "✨ Smart Fields"
+    "subtitle": "Svojim zapiskom dodajte samodejno ustvarjeno besedilo, glas in slike."
   },
   "defaults": {
     "errors": {
@@ -290,7 +288,6 @@
       "loadingLabel": "Nalaganje privzetih nastavitev besedila",
       "loadingTitle": "Nastavitve generiranja besedila",
       "modelGuidance": "{{auto}} in {{autoMax}} sta priporočena modela Smart Notes, ki uravnotežita zmogljivost in stroške. Izberite {{auto}} za standardna opravila in po potrebi nadgradite na {{autoMax}}.",
-      "pickingModel": "💡 Izbira modela",
       "reasoningLevel": "Raven sklepanja",
       "reasoningValues": {
         "high": "visoko",
@@ -303,7 +300,8 @@
       "title": "Nastavitve generiranja besedila",
       "webSearch": "Spletno iskanje",
       "webSearchDescription": "Naj besedilne generacije črpajo sveže informacije iz spleta.",
-      "webSearchWarning": "⚠️ Iskanje je drago; spremljajte svoje kredite."
+      "pickingModel": "Izbira modela",
+      "webSearchWarning": "Iskanje je drago; spremljajte svoje kredite."
     },
     "usage": {
       "fields_one": "Velja za {{count}} polje",
@@ -328,10 +326,10 @@
       "loadingTitle": "Privzete glasovne nastavitve",
       "noVoices": "Noben glas ne ustreza tem filtrom.",
       "saveError": "Glasovnih privzetih nastavitev ni bilo mogoče shraniti",
-      "searchPlaceholder": "🔍 Iskanje glasov ...",
       "searchVoices": "Iskanje glasov",
       "subtitle": "Glas, ki ga uporablja vaš TTS Smart Fields, razen če polje pripne svojega.",
-      "title": "Privzete glasovne nastavitve"
+      "title": "Privzete glasovne nastavitve",
+      "searchPlaceholder": "Iskanje glasov…"
     }
   },
   "imageGeneration": {
@@ -445,7 +443,7 @@
       "trialNoteLimit": "Dosegli ste omejitev poskusnih opomb",
       "upgradeCollection": "Nadgradnja — vaša celotna zbirka, samodejno",
       "upgradeCredits": "Nadgradite za več kreditov",
-      "upgradePaid": "✨ Nadgradite na plačljivo"
+      "upgradePaid": "Nadgradi na plačljivo"
     },
     "inDays_one": "Danes",
     "inDays_two": "Čez {{count}} dni",
@@ -496,6 +494,7 @@
     "byline": "avtor Michael Piazza / Rosebud Labs, LLC.",
     "changelog": "Dnevnik sprememb",
     "copyright": "© 2026 · v{{version}} ·",
+    "iconCredit": "Ikone Solar avtorja <solar>480 Design</solar> · <license>CC BY 4.0</license>",
     "discord": {
       "description": "Najhitrejši način za pomoč, zahtevanje funkcije ali prijavo hrošča.",
       "join": "Pridruži se",
@@ -509,8 +508,7 @@
     },
     "github": "GitHub",
     "loading": "Nalaganje podpore",
-    "title": "Podpora",
-    "iconCredit": "Ikone Solar avtorja <solar>480 Design</solar> · <license>CC BY 4.0</license>"
+    "title": "Podpora"
   },
   "welcome": {
     "alreadyAccount": "Že imate račun?",
@@ -524,8 +522,8 @@
     "finishDescription": "Dokončajte prijavo v brskalnik, ki smo ga odprli. To okno se bo samodejno posodobilo.",
     "finishInBrowser": "Dokončajte v brskalniku",
     "haveCode": "Imate kodo s spletne strani?",
-    "startTrial": "✨ Začnite brezplačni preizkus ✨",
-    "trialDetails": "Brezplačno 7 dni · vse funkcije · brez kreditne kartice"
+    "trialDetails": "Brezplačno 7 dni · vse funkcije · brez kreditne kartice",
+    "startTrial": "Začni brezplačno preizkusno obdobje"
   },
   "trialEnded": {
     "description": "Preizkusi trajajo 7 dni ali dokler vam ne zmanjka dobropisov za preizkus.",
@@ -545,8 +543,8 @@
       "leaveReview": "Pusti oceno",
       "title": "Zagotovite si brezplačen mesec Smart Notes"
     },
-    "thanks": "Hvala, ker uporabljate Smart Notes ✨",
     "title": "Vaše brezplačno preskusno obdobje se je končalo",
-    "upgradeNow": "Nadgradi zdaj"
+    "upgradeNow": "Nadgradi zdaj",
+    "thanks": "Hvala, ker uporabljate Smart Notes"
   }
 }

@@ -46,7 +46,6 @@
     "signInLower": "Log masuk",
     "unlimited": "Tidak terhad",
     "upgrade": "Naik taraf",
-    "upgradeSparkles": "✨ Naik taraf ✨",
     "multiplierCost": "{{multiplier}}× kos",
     "next": "Seterusnya",
     "noteType": "Jenis Nota",
@@ -113,7 +112,6 @@
     "title": "tetapan"
   },
   "fieldEditor": {
-    "alreadySmartField": "Sudah Smart Field ✨",
     "collisionHint": "sudah mempunyai Smart Field — pilih medan, dek atau jenis nota yang berbeza",
     "completion": {
       "descriptionAfter": "nota diisi setiap kali anda menjananya.",
@@ -189,9 +187,9 @@
     "targetAriaLabel": "Sasaran Smart Field",
     "testSmartField": "Uji Smart Field anda",
     "titles": {
-      "create": "Smart Field baharu ✨",
       "duplicate": "Pendua Smart Field",
-      "edit": "Edit Smart Field"
+      "edit": "Edit Smart Field",
+      "create": "Medan Pintar Baharu"
     },
     "validation": {
       "chooseField": "Pilih medan",
@@ -204,7 +202,8 @@
     "writePromptForMe": "Tulis gesaan saya untuk saya",
     "writePromptForMeHint": "Sebut apa yang anda mahu dalam bahasa Inggeris biasa — kami akan menulis gesaan di bawah.",
     "writePromptPlaceholder": "\"Terjemah ke bahasa Inggeris semula jadi…\"",
-    "writing": "Menulis…"
+    "writing": "Menulis…",
+    "alreadySmartField": "Sudah menjadi Medan Pintar"
   },
   "smartFields": {
     "actionsAriaLabel": "Tindakan untuk {{field}}",
@@ -247,8 +246,7 @@
       "subtitle": "Tinggalkan ulasan tentang AnkiWeb untuk membantu pengguna Anki lain menemuinya.",
       "title": "Menikmati Smart Notes?"
     },
-    "subtitle": "Tambahkan teks, suara dan imej yang dijana secara automatik pada nota anda.",
-    "title": "✨ Smart Fields"
+    "subtitle": "Tambahkan teks, suara dan imej yang dijana secara automatik pada nota anda."
   },
   "defaults": {
     "errors": {
@@ -287,7 +285,6 @@
       "loadingLabel": "Memuatkan Tetapan Teks Lalai",
       "loadingTitle": "Tetapan Penjanaan Teks",
       "modelGuidance": "{{auto}} dan {{autoMax}} ialah model disyorkan Smart Notes yang mengimbangi prestasi dan kos. Pilih {{auto}} untuk tugas standard dan naik taraf kepada {{autoMax}} jika perlu.",
-      "pickingModel": "💡 Memilih model",
       "reasoningLevel": "Tahap penaakulan",
       "reasoningValues": {
         "high": "tinggi",
@@ -300,7 +297,8 @@
       "title": "Tetapan Penjanaan Teks",
       "webSearch": "Carian Web",
       "webSearchDescription": "Biarkan generasi teks menarik maklumat baharu daripada web.",
-      "webSearchWarning": "⚠️ Carian mahal; memantau kredit anda."
+      "pickingModel": "Memilih model",
+      "webSearchWarning": "Carian mahal; pantau kredit anda."
     },
     "usage": {
       "fields_other": "Terpakai pada medan {{count}}"
@@ -322,10 +320,10 @@
       "loadingTitle": "Tetapan Suara Lalai",
       "noVoices": "Tiada suara yang sepadan dengan penapis ini.",
       "saveError": "Tidak dapat menyimpan lalai suara",
-      "searchPlaceholder": "🔍 Cari suara…",
       "searchVoices": "Cari suara",
       "subtitle": "Suara yang digunakan oleh TTS Smart Fields anda melainkan medan menyematnya sendiri.",
-      "title": "Tetapan Suara Lalai"
+      "title": "Tetapan Suara Lalai",
+      "searchPlaceholder": "Cari suara…"
     }
   },
   "imageGeneration": {
@@ -421,7 +419,7 @@
       "trialNoteLimit": "Anda telah mencapai had nota percubaan anda",
       "upgradeCollection": "Naik taraf — keseluruhan koleksi anda, secara automatik",
       "upgradeCredits": "Naik taraf untuk lebih banyak kredit",
-      "upgradePaid": "✨ Naik taraf kepada berbayar"
+      "upgradePaid": "Naik taraf ke berbayar"
     },
     "inDays_other": "Dalam {{count}} hari",
     "loading": "Memuatkan Langganan",
@@ -466,6 +464,7 @@
     "byline": "oleh Michael Piazza / Rosebud Labs, LLC.",
     "changelog": "Changelog",
     "copyright": "© 2026 · v{{version}} ·",
+    "iconCredit": "Ikon Solar oleh <solar>480 Design</solar> · <license>CC BY 4.0</license>",
     "discord": {
       "description": "Cara terpantas untuk mendapatkan bantuan, meminta ciri atau melaporkan pepijat.",
       "join": "Sertai",
@@ -479,8 +478,7 @@
     },
     "github": "GitHub",
     "loading": "Memuatkan Sokongan",
-    "title": "Sokongan",
-    "iconCredit": "Ikon Solar oleh <solar>480 Design</solar> · <license>CC BY 4.0</license>"
+    "title": "Sokongan"
   },
   "welcome": {
     "alreadyAccount": "Sudah mempunyai akaun?",
@@ -494,8 +492,8 @@
     "finishDescription": "Log masuk lengkap dalam penyemak imbas yang kami buka. Tetingkap ini akan dikemas kini secara automatik.",
     "finishInBrowser": "Selesaikan dalam penyemak imbas anda",
     "haveCode": "Ada kod dari tapak web?",
-    "startTrial": "✨ Mulakan Percubaan Percuma ✨",
-    "trialDetails": "Percuma selama 7 hari · setiap ciri · tiada kad kredit"
+    "trialDetails": "Percuma selama 7 hari · setiap ciri · tiada kad kredit",
+    "startTrial": "Mula Percubaan Percuma"
   },
   "trialEnded": {
     "description": "Percubaan berjalan 7 hari atau sehingga kredit percubaan anda habis.",
@@ -515,8 +513,8 @@
       "leaveReview": "Tinggalkan ulasan",
       "title": "Dapatkan sebulan percuma sebanyak Smart Notes"
     },
-    "thanks": "Terima kasih kerana menggunakan Smart Notes ✨",
     "title": "Percubaan percuma anda telah tamat",
-    "upgradeNow": "Tingkatkan sekarang"
+    "upgradeNow": "Tingkatkan sekarang",
+    "thanks": "Terima kasih kerana menggunakan Smart Notes"
   }
 }

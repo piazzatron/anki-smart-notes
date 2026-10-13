@@ -18,13 +18,15 @@
  */
 
 import { useTranslation } from "react-i18next"
+import { LightbulbIcon } from "@/components/shared/Icons"
 
 export const TextModelGuidance = () => {
   const { t } = useTranslation()
 
   return (
     <div className="mt-3 rounded-lg border border-indigo/15 bg-indigo/[0.055] p-3.5">
-      <p className="text-xs font-semibold text-zinc-200">
+      <p className="flex items-center gap-1.5 text-xs font-semibold text-zinc-200">
+        <LightbulbIcon className="text-indigo-soft" size={14} />
         {t("defaults.text.pickingModel")}
       </p>
       <p className="mt-2 text-[11px] leading-4 text-ink-muted">

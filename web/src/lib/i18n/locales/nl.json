@@ -47,7 +47,6 @@
     "signInLower": "Log in",
     "unlimited": "Onbeperkt",
     "upgrade": "Upgraden",
-    "upgradeSparkles": "✨ Upgraden ✨",
     "multiplierCost": "{{multiplier}}× kosten",
     "next": "Volgende",
     "noteType": "Notitietype",
@@ -114,7 +113,6 @@
     "title": "Instellingen"
   },
   "fieldEditor": {
-    "alreadySmartField": "Nu al een Smart Field ✨",
     "collisionHint": "heeft al een Smart Field — kies een ander veld, deck of notentype",
     "completion": {
       "descriptionAfter": "notities worden ingevuld wanneer u deze genereert.",
@@ -190,9 +188,9 @@
     "targetAriaLabel": "Smart Field-doelstelling",
     "testSmartField": "Test uw Smart Field",
     "titles": {
-      "create": "Nieuw Smart Field ✨",
       "duplicate": "Dupliceer Smart Field",
-      "edit": "Bewerk Smart Field"
+      "edit": "Bewerk Smart Field",
+      "create": "Nieuw Smart Field"
     },
     "validation": {
       "chooseField": "Kies een veld",
@@ -205,7 +203,8 @@
     "writePromptForMe": "Schrijf mijn prompt voor mij",
     "writePromptForMeHint": "Zeg wat je wilt in gewoon Engels: we zullen de onderstaande prompt schrijven.",
     "writePromptPlaceholder": "\"Vertalen naar natuurlijk Engels...\"",
-    "writing": "Schrijven…"
+    "writing": "Schrijven…",
+    "alreadySmartField": "Is al een Smart Field"
   },
   "smartFields": {
     "actionsAriaLabel": "Acties voor {{field}}",
@@ -248,8 +247,7 @@
       "subtitle": "Laat een recensie achter op AnkiWeb zodat andere Anki-gebruikers deze kunnen vinden.",
       "title": "Genieten van Smart Notes?"
     },
-    "subtitle": "Voeg automatisch gegenereerde tekst, spraak en afbeeldingen toe aan uw notities.",
-    "title": "✨ASmart Fields"
+    "subtitle": "Voeg automatisch gegenereerde tekst, spraak en afbeeldingen toe aan uw notities."
   },
   "defaults": {
     "errors": {
@@ -288,7 +286,6 @@
       "loadingLabel": "Standaard tekstinstellingen laden",
       "loadingTitle": "Instellingen voor het genereren van tekst",
       "modelGuidance": "{{auto}} en {{autoMax}} zijn de door Smart Notes aanbevolen modellen die een balans bieden tussen prestaties en kosten. Kies {{auto}} voor standaardtaken en upgrade indien nodig naar {{autoMax}}.",
-      "pickingModel": "💡 Een model kiezen",
       "reasoningLevel": "Redeneerniveau",
       "reasoningValues": {
         "high": "Hoog",
@@ -301,7 +298,8 @@
       "title": "Instellingen voor het genereren van tekst",
       "webSearch": "Zoeken op internet",
       "webSearchDescription": "Laat tekstgeneraties nieuwe informatie van internet halen.",
-      "webSearchWarning": "⚠️ Zoeken is duur; controleer uw kredieten."
+      "pickingModel": "Model kiezen",
+      "webSearchWarning": "Zoeken is kostbaar; houd je credits in de gaten."
     },
     "usage": {
       "fields_one": "Geldt voor het veld {{count}}",
@@ -324,10 +322,10 @@
       "loadingTitle": "Standaard steminstellingen",
       "noVoices": "Er zijn geen stemmen die overeenkomen met deze filters.",
       "saveError": "Kan stemstandaarden niet opslaan",
-      "searchPlaceholder": "🔍 Zoek stemmen…",
       "searchVoices": "Zoek stemmen",
       "subtitle": "De stem die uw TTS Smart Fields gebruikt, tenzij een veld zijn eigen stem vastzet.",
-      "title": "Standaard steminstellingen"
+      "title": "Standaard steminstellingen",
+      "searchPlaceholder": "Stemmen zoeken…"
     }
   },
   "imageGeneration": {
@@ -429,7 +427,7 @@
       "trialNoteLimit": "U heeft de limiet voor uw proefnotities bereikt",
       "upgradeCollection": "Upgrade — automatisch uw hele collectie",
       "upgradeCredits": "Upgrade voor meer credits",
-      "upgradePaid": "✨ Upgrade naar betaald"
+      "upgradePaid": "Upgraden naar betaald"
     },
     "inDays_one": "Vandaag",
     "inDays_other": "Over {{count}}-dagen",
@@ -476,6 +474,7 @@
     "byline": "door Michael Piazza / Rosebud Labs, LLC.",
     "changelog": "Wijzigingslog",
     "copyright": "© 2026 · v{{version}} ·",
+    "iconCredit": "Solar-iconen door <solar>480 Design</solar> · <license>CC BY 4.0</license>",
     "discord": {
       "description": "De snelste manier om hulp te krijgen, een functie aan te vragen of een bug te melden.",
       "join": "Meedoen",
@@ -489,8 +488,7 @@
     },
     "github": "GitHub",
     "loading": "Ondersteuning voor laden",
-    "title": "Steun",
-    "iconCredit": "Solar-iconen door <solar>480 Design</solar> · <license>CC BY 4.0</license>"
+    "title": "Steun"
   },
   "welcome": {
     "alreadyAccount": "Heeft u al een account?",
@@ -504,8 +502,8 @@
     "finishDescription": "Voltooi de aanmelding in de browser die we hebben geopend. Dit venster wordt automatisch bijgewerkt.",
     "finishInBrowser": "Sluit af in uw browser",
     "haveCode": "Heb je een code van de website?",
-    "startTrial": "✨Start een gratis proefperiode✨",
-    "trialDetails": "7 dagen gratis · elke functie · geen creditcard"
+    "trialDetails": "7 dagen gratis · elke functie · geen creditcard",
+    "startTrial": "Start Gratis Proefperiode"
   },
   "trialEnded": {
     "description": "Proefperiodes duren zeven dagen of totdat uw proeftegoed op is.",
@@ -525,8 +523,8 @@
       "leaveReview": "Laat een recensie achter",
       "title": "Ontvang een gratis maand Smart Notes"
     },
-    "thanks": "Bedankt dat je Smart Notes gebruikt ✨",
     "title": "Uw gratis proefperiode is afgelopen",
-    "upgradeNow": "Upgrade nu"
+    "upgradeNow": "Upgrade nu",
+    "thanks": "Bedankt voor het gebruiken van Smart Notes"
   }
 }

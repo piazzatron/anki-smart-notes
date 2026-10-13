@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next"
 
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { InfoTip } from "@/components/ui/InfoTip"
+import { GalleryIcon } from "@/components/shared/Icons"
 import { ImageModelSelect } from "@/features/image-generation/ImageModelSelect"
 import {
   PromptTesterStrip,
@@ -34,11 +35,7 @@ export const ImageDefaultsScreen = ({
   if (state === null || catalog === null) {
     return (
       <DefaultsScreenLoading
-        icon={
-          <span aria-hidden className="text-lg leading-none">
-            🎨
-          </span>
-        }
+        icon={<GalleryIcon className="text-ink-muted" size={20} />}
         label={t("defaults.image.loadingLabel")}
         title={t("defaults.image.loadingTitle")}
       />
@@ -88,11 +85,7 @@ const LoadedImageDefaultsScreen = ({
   return (
     <DefaultsScreenLayout
       accessory={<DefaultUsagePill usage={usage} />}
-      icon={
-        <span aria-hidden className="text-lg leading-none">
-          🎨
-        </span>
-      }
+      icon={<GalleryIcon className="text-ink-muted" size={20} />}
       isDirty={controls.form.isDirty}
       isSaving={controls.form.isSaving}
       onSave={() => void controls.saveChanges()}

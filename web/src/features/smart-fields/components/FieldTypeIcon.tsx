@@ -1,3 +1,4 @@
+import { ChatIcon, GalleryIcon, VolumeIcon } from "@/components/shared/Icons"
 import type { SmartField } from "@/types/api"
 import { useTranslation } from "react-i18next"
 
@@ -6,9 +7,9 @@ interface FieldTypeIconProps {
 }
 
 const ICONS = {
-  chat: "💬",
-  image: "🎨",
-  tts: "🔈",
+  chat: ChatIcon,
+  image: GalleryIcon,
+  tts: VolumeIcon,
 }
 
 export const FieldTypeIcon = ({ fieldType }: FieldTypeIconProps) => (
@@ -17,16 +18,17 @@ export const FieldTypeIcon = ({ fieldType }: FieldTypeIconProps) => (
 
 const FieldTypeIconLabel = ({ fieldType }: FieldTypeIconProps) => {
   const { t } = useTranslation()
+  const Icon = ICONS[fieldType]
 
   return (
     <span
       aria-label={t("smartFields.fieldTypeAriaLabel", {
         fieldType: t(`smartFields.fieldTypes.${fieldType}`),
       })}
-      className="pointer-events-none inline-flex size-[22px] items-center justify-center text-[15px]"
+      className="pointer-events-none inline-flex size-[22px] items-center justify-center text-ink-muted"
       role="img"
     >
-      {ICONS[fieldType]}
+      <Icon size={16} />
     </span>
   )
 }

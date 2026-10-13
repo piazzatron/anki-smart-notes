@@ -47,7 +47,6 @@
     "signInLower": "ସାଇନ୍ ଇନ୍ କରନ୍ତୁ",
     "unlimited": "ଅସୀମିତ",
     "upgrade": "ନବୀକରଣ",
-    "upgradeSparkles": "✨ ନବୀକରଣ ✨",
     "multiplierCost": "{{multiplier}} × ମୂଲ୍ୟ",
     "next": "ପରବର୍ତ୍ତୀ",
     "noteType": "ଟିପ୍ପଣୀ ପ୍ରକାର",
@@ -114,7 +113,6 @@
     "title": "ସେଟିଂସମୂହ"
   },
   "fieldEditor": {
-    "alreadySmartField": "ପୂର୍ବରୁ ଏକ Smart Field ✨",
     "collisionHint": "ପୂର୍ବରୁ Smart Field ଅଛି - ଏକ ଭିନ୍ନ କ୍ଷେତ୍ର, ଡେକ୍, କିମ୍ବା ନୋଟ୍ ପ୍ରକାର ବାଛ",
     "completion": {
       "descriptionAfter": "ଯେତେବେଳେ ଆପଣ ଏହାକୁ ସୃଷ୍ଟି କରନ୍ତି ନୋଟ୍ଗୁଡ଼ିକ ପୁରଣ କରେ",
@@ -190,9 +188,9 @@
     "targetAriaLabel": "Smart Field ଲକ୍ଷ୍ୟ",
     "testSmartField": "ଆପଣଙ୍କର Smart Field ପରୀକ୍ଷା କରନ୍ତୁ",
     "titles": {
-      "create": "ନୂତନ Smart Field ✨",
       "duplicate": "Smart Field ନକଲ କରନ୍ତୁ",
-      "edit": "Smart Field ସଂପାଦନ କରନ୍ତୁ"
+      "edit": "Smart Field ସଂପାଦନ କରନ୍ତୁ",
+      "create": "ନୂଆ Smart Field"
     },
     "validation": {
       "chooseField": "ଏକ କ୍ଷେତ୍ର ବାଛନ୍ତୁ",
@@ -205,7 +203,8 @@
     "writePromptForMe": "ମୋ ପାଇଁ ମୋର ପ୍ରମ୍ପ୍ଟ ଲେଖ",
     "writePromptForMeHint": "ସାଧା ଇଂରାଜୀରେ ଆପଣ ଯାହା ଚାହାଁନ୍ତି କୁହନ୍ତୁ - ଆମେ ନିମ୍ନରେ ପ୍ରମ୍ପ୍ଟ ଲେଖିବା",
     "writePromptPlaceholder": "\"ପ୍ରାକୃତିକ ଇଂରାଜୀକୁ ଅନୁବାଦ କର ...\"",
-    "writing": "ଲେଖିବା…"
+    "writing": "ଲେଖିବା…",
+    "alreadySmartField": "ଏହା ପୂର୍ବରୁ ଏକ Smart Field"
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}} ପାଇଁ କାର୍ଯ୍ୟ",
@@ -248,8 +247,7 @@
       "subtitle": "ଅନ୍ୟ Anki ବ୍ୟବହାରକାରୀଙ୍କୁ ଏହାକୁ ଖୋଜିବାରେ ସାହାଯ୍ୟ କରିବାକୁ AnkiWeb ଉପରେ ଏକ ସମୀକ୍ଷା ଛାଡିଦିଅ",
       "title": "Smart Notes ଉପଭୋଗ କରୁଛନ୍ତି?"
     },
-    "subtitle": "ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଉତ୍ପାଦିତ ପାଠ୍ୟ, ସ୍ୱର, ଏବଂ ପ୍ରତିଛବିଗୁଡ଼ିକୁ ଆପଣଙ୍କର ନୋଟରେ ଯୋଡନ୍ତୁ",
-    "title": "A Smart Fields"
+    "subtitle": "ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଉତ୍ପାଦିତ ପାଠ୍ୟ, ସ୍ୱର, ଏବଂ ପ୍ରତିଛବିଗୁଡ଼ିକୁ ଆପଣଙ୍କର ନୋଟରେ ଯୋଡନ୍ତୁ"
   },
   "defaults": {
     "errors": {
@@ -288,7 +286,6 @@
       "loadingLabel": "ଡିଫଲ୍ଟ ପାଠ୍ୟ ସେଟିଂସମୂହ ଧାରଣ କରୁଛି",
       "loadingTitle": "ପାଠ୍ୟ ଜେନେରେସନ୍ ସେଟିଂସମୂହ",
       "modelGuidance": "{{auto}} ଏବଂ {{autoMax}} ହେଉଛି Smart Notes ପରାମର୍ଶିତ ମଡେଲ ଯାହା କାର୍ଯ୍ୟଦକ୍ଷତା ଏବଂ ମୂଲ୍ୟକୁ ସନ୍ତୁଳିତ କରେ | ମାନକ କାର୍ଯ୍ୟ ପାଇଁ {{auto}} ବାଛନ୍ତୁ ଏବଂ ଆବଶ୍ୟକ ହେଲେ {{autoMax}} କୁ ନବୀକରଣ କରନ୍ତୁ",
-      "pickingModel": "A ଏକ ମଡେଲ୍ ବାଛିବା",
       "reasoningLevel": "ଯୁକ୍ତି ସ୍ତର",
       "reasoningValues": {
         "high": "ଉଚ୍ଚ",
@@ -301,7 +298,8 @@
       "title": "ପାଠ୍ୟ ଜେନେରେସନ୍ ସେଟିଂସମୂହ",
       "webSearch": "ୱେବ୍ ସନ୍ଧାନ",
       "webSearchDescription": "ପାଠ୍ୟ ପି generations ିକୁ ୱେବରୁ ତାଜା ସୂଚନା ଟାଣିବାକୁ ଦିଅନ୍ତୁ",
-      "webSearchWarning": "⚠️ ସନ୍ଧାନ ମହଙ୍ଗା; ତୁମର କ୍ରେଡିଟ୍ ଉପରେ ନଜର ରଖ"
+      "pickingModel": "ମଡେଲ ବାଛୁଛି",
+      "webSearchWarning": "ସନ୍ଧାନ ମହଙ୍ଗା; ଆପଣଙ୍କ କ୍ରେଡିଟ୍ ଉପରେ ନଜର ରଖନ୍ତୁ।"
     },
     "usage": {
       "fields_one": "{{count}} କ୍ଷେତ୍ରରେ ପ୍ରଯୁଜ୍ୟ",
@@ -324,10 +322,10 @@
       "loadingTitle": "ଡିଫଲ୍ଟ ଭଏସ୍ ସେଟିଂସମୂହ",
       "noVoices": "କ fil ଣସି ସ୍ୱର ଏହି ଫିଲ୍ଟରଗୁଡିକ ସହିତ ମେଳ ଖାଉ ନାହିଁ",
       "saveError": "ଭଏସ୍ ଡିଫଲ୍ଟ ସଞ୍ଚୟ କରିପାରିଲା ନାହିଁ",
-      "searchPlaceholder": "Vo ସନ୍ଧାନ ସ୍ୱର…",
       "searchVoices": "ସ୍ୱର ସନ୍ଧାନ କରନ୍ତୁ",
       "subtitle": "ତୁମର TTS Smart Fields ବ୍ୟବହାର କରୁଥିବା ସ୍ୱର ଯଦି କ a ଣସି କ୍ଷେତ୍ର ନିଜସ୍ୱ ପିନ ନଥାଏ",
-      "title": "ଡିଫଲ୍ଟ ଭଏସ୍ ସେଟିଂସମୂହ"
+      "title": "ଡିଫଲ୍ଟ ଭଏସ୍ ସେଟିଂସମୂହ",
+      "searchPlaceholder": "ସ୍ୱର ଖୋଜନ୍ତୁ…"
     }
   },
   "imageGeneration": {
@@ -429,7 +427,7 @@
       "trialNoteLimit": "ଆପଣ ଆପଣଙ୍କର ପରୀକ୍ଷା ନୋଟ୍ ସୀମାରେ ପହଞ୍ଚିସାରିଛନ୍ତି",
       "upgradeCollection": "ଅପଗ୍ରେଡ୍ - ତୁମର ସମ୍ପୂର୍ଣ୍ଣ ସଂଗ୍ରହ, ସ୍ୱୟଂଚାଳିତ ଭାବରେ",
       "upgradeCredits": "ଅଧିକ କ୍ରେଡିଟ୍ ପାଇଁ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ",
-      "upgradePaid": "Payed ଦେୟକୁ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ"
+      "upgradePaid": "ପେଡ୍ ପ୍ଲାନକୁ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ"
     },
     "inDays_one": "ଆଜି",
     "inDays_other": "{{count}} ଦିନରେ",
@@ -476,6 +474,7 @@
     "byline": "ମାଇକେଲ୍ ପିଆଜା / ରୋଜବୁଡ୍ ଲ୍ୟାବ୍ସ, ଏଲ.ସି.",
     "changelog": "ଚାଙ୍ଗେଲଗ୍",
     "copyright": "© 2026 · v{{version}} ·",
+    "iconCredit": "Solar ଆଇକନ୍ <solar>480 Design</solar> ଦ୍ୱାରା · <license>CC BY 4.0</license>",
     "discord": {
       "description": "ସାହାଯ୍ୟ ପାଇବା, ଏକ ବ feature ଶିଷ୍ଟ୍ୟ ଅନୁରୋଧ କରିବା, କିମ୍ବା ଏକ ତ୍ରୁଟି ରିପୋର୍ଟ କରିବା ପାଇଁ ଦ୍ରୁତତମ ଉପାୟ",
       "join": "ଯୋଗ ଦିଅନ୍ତୁ",
@@ -489,8 +488,7 @@
     },
     "github": "GitHub",
     "loading": "ସମର୍ଥନ ଲୋଡିଙ୍ଗ୍",
-    "title": "ସମର୍ଥନ",
-    "iconCredit": "Solar ଆଇକନ୍ <solar>480 Design</solar> ଦ୍ୱାରା · <license>CC BY 4.0</license>"
+    "title": "ସମର୍ଥନ"
   },
   "welcome": {
     "alreadyAccount": "ପୂର୍ବରୁ ଏକ ଖାତା ଅଛି କି?",
@@ -504,8 +502,8 @@
     "finishDescription": "ଆମେ ଖୋଲିଥିବା ବ୍ରାଉଜରରେ ସମ୍ପୂର୍ଣ୍ଣ ସାଇନ୍-ଇନ୍ | ଏହି ୱିଣ୍ଡୋ ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଅପଡେଟ୍ ହେବ",
     "finishInBrowser": "ତୁମର ବ୍ରାଉଜରରେ ଶେଷ କର",
     "haveCode": "ୱେବସାଇଟରୁ ଏକ କୋଡ୍ ଅଛି କି?",
-    "startTrial": "Free ମାଗଣା ପରୀକ୍ଷା ଆରମ୍ଭ ✨",
-    "trialDetails": "7 ଦିନ ପାଇଁ ମାଗଣା · ପ୍ରତ୍ୟେକ ବ feature ଶିଷ୍ଟ୍ୟ · କ credit ଣସି କ୍ରେଡିଟ୍ କାର୍ଡ ନାହିଁ"
+    "trialDetails": "7 ଦିନ ପାଇଁ ମାଗଣା · ପ୍ରତ୍ୟେକ ବ feature ଶିଷ୍ଟ୍ୟ · କ credit ଣସି କ୍ରେଡିଟ୍ କାର୍ଡ ନାହିଁ",
+    "startTrial": "ମାଗଣା ଟ୍ରାୟାଲ ଆରମ୍ଭ କରନ୍ତୁ"
   },
   "trialEnded": {
     "description": "ପରୀକ୍ଷା 7 ଦିନ ଚାଲିବ କିମ୍ବା ତୁମର ଟ୍ରାଏଲ୍ କ୍ରେଡିଟ୍ ଶେଷ ନହେବା ପର୍ଯ୍ୟନ୍ତ",
@@ -525,8 +523,8 @@
       "leaveReview": "ଏକ ସମୀକ୍ଷା ଛାଡନ୍ତୁ",
       "title": "Smart Notes ର ଏକ ମାଗଣା ମାସ ପାଆନ୍ତୁ"
     },
-    "thanks": "Smart Notes using ବ୍ୟବହାର କରିଥିବାରୁ ଧନ୍ୟବାଦ",
     "title": "ତୁମର ମାଗଣା ପରୀକ୍ଷା ଶେଷ ହୋଇଛି",
-    "upgradeNow": "ବର୍ତ୍ତମାନ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ"
+    "upgradeNow": "ବର୍ତ୍ତମାନ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ",
+    "thanks": "Smart Notes ବ୍ୟବହାର କରିବା ପାଇଁ ଧନ୍ୟବାଦ"
   }
 }

@@ -19,6 +19,8 @@ import { getDefaultUsage } from "./defaultUsage"
 import { useScratchPrompt } from "./scratchPrompts"
 import { DefaultUsagePill } from "./DefaultUsagePill"
 import { useDefaultsForm } from "./useDefaultsForm"
+import { WarningIcon } from "@/components/shared/Icons"
+import { ChatIcon } from "@/components/shared/Icons"
 
 interface TextDefaultsScreenProps {
   onDirtyChange?: (isDirty: boolean) => void
@@ -34,11 +36,7 @@ export const TextDefaultsScreen = ({
   if (state === null || catalog === null) {
     return (
       <DefaultsScreenLoading
-        icon={
-          <span aria-hidden className="text-lg leading-none">
-            💬
-          </span>
-        }
+        icon={<ChatIcon className="text-ink-muted" size={20} />}
         label={t("defaults.text.loadingLabel")}
         title={t("defaults.text.loadingTitle")}
       />
@@ -88,11 +86,7 @@ export const LoadedTextDefaultsScreen = ({
   return (
     <DefaultsScreenLayout
       accessory={<DefaultUsagePill usage={usage} />}
-      icon={
-        <span aria-hidden className="text-lg leading-none">
-          💬
-        </span>
-      }
+      icon={<ChatIcon className="text-ink-muted" size={20} />}
       isDirty={controls.form.isDirty}
       isSaving={controls.form.isSaving}
       onSave={() => void controls.saveChanges()}
@@ -165,7 +159,8 @@ export const LoadedTextDefaultsScreen = ({
                 <p className="mt-1 text-[11px] leading-4 text-ink-muted">
                   {t("defaults.text.webSearchDescription")}
                 </p>
-                <p className="mt-1.5 text-[10.5px] text-amber/80">
+                <p className="mt-1.5 flex items-center gap-1 text-[10.5px] text-amber/80">
+                  <WarningIcon size={12} />
                   {t("defaults.text.webSearchWarning")}
                 </p>
               </div>

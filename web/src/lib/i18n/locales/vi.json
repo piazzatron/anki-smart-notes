@@ -46,7 +46,6 @@
     "signInLower": "Đăng nhập",
     "unlimited": "Không giới hạn",
     "upgrade": "Nâng cấp",
-    "upgradeSparkles": "✨ Nâng cấp ✨",
     "multiplierCost": "chi phí {{multiplier}}×",
     "next": "Kế tiếp",
     "noteType": "Loại ghi chú",
@@ -113,7 +112,6 @@
     "title": "Cài đặt"
   },
   "fieldEditor": {
-    "alreadySmartField": "Đã là Smart Field ✨",
     "collisionHint": "đã có Smart Field - chọn một trường, bộ bài hoặc loại ghi chú khác",
     "completion": {
       "descriptionAfter": "ghi chú sẽ điền vào bất cứ khi nào bạn tạo nó.",
@@ -189,9 +187,9 @@
     "targetAriaLabel": "Mục tiêu Smart Field",
     "testSmartField": "Kiểm tra Smart Field của bạn",
     "titles": {
-      "create": "Smart Field mới ✨",
       "duplicate": "Sao chép Smart Field",
-      "edit": "Chỉnh sửa Smart Field"
+      "edit": "Chỉnh sửa Smart Field",
+      "create": "Smart Field mới"
     },
     "validation": {
       "chooseField": "Chọn một trường",
@@ -204,7 +202,8 @@
     "writePromptForMe": "Viết lời nhắc cho tôi",
     "writePromptForMeHint": "Nói những gì bạn muốn bằng tiếng Anh đơn giản — chúng tôi sẽ viết lời nhắc bên dưới.",
     "writePromptPlaceholder": "\"Dịch sang tiếng Anh tự nhiên...\"",
-    "writing": "Viết…"
+    "writing": "Viết…",
+    "alreadySmartField": "Đã là Smart Field"
   },
   "smartFields": {
     "actionsAriaLabel": "Các hành động dành cho {{field}}",
@@ -247,8 +246,7 @@
       "subtitle": "Để lại đánh giá về AnkiWeb để giúp những người dùng Anki khác tìm thấy nó.",
       "title": "Bạn đang thưởng thức Smart Notes?"
     },
-    "subtitle": "Thêm văn bản, giọng nói và hình ảnh được tạo tự động vào ghi chú của bạn.",
-    "title": "✨ Smart Fields"
+    "subtitle": "Thêm văn bản, giọng nói và hình ảnh được tạo tự động vào ghi chú của bạn."
   },
   "defaults": {
     "errors": {
@@ -287,7 +285,6 @@
       "loadingLabel": "Đang tải cài đặt văn bản mặc định",
       "loadingTitle": "Cài đặt tạo văn bản",
       "modelGuidance": "{{auto}} và {{autoMax}} là các mẫu Smart Notes được đề xuất nhằm cân bằng giữa hiệu suất và chi phí. Chọn {{auto}} cho các tác vụ tiêu chuẩn và nâng cấp lên {{autoMax}} nếu cần.",
-      "pickingModel": "💡 Chọn mẫu",
       "reasoningLevel": "Mức độ lý luận",
       "reasoningValues": {
         "high": "Cao",
@@ -300,7 +297,8 @@
       "title": "Cài đặt tạo văn bản",
       "webSearch": "Tìm kiếm trên web",
       "webSearchDescription": "Hãy để các thế hệ văn bản lấy thông tin mới từ web.",
-      "webSearchWarning": "⚠️ Tìm kiếm tốn kém; theo dõi các khoản tín dụng của bạn."
+      "pickingModel": "Đang chọn mô hình",
+      "webSearchWarning": "Tìm kiếm tốn kém; hãy theo dõi số tín dụng của bạn."
     },
     "usage": {
       "fields_other": "Áp dụng cho các trường {{count}}"
@@ -322,10 +320,10 @@
       "loadingTitle": "Cài đặt giọng nói mặc định",
       "noVoices": "Không có giọng nói nào phù hợp với các bộ lọc này.",
       "saveError": "Không thể lưu mặc định giọng nói",
-      "searchPlaceholder": "🔍 Tìm kiếm giọng nói…",
       "searchVoices": "Tìm kiếm giọng nói",
       "subtitle": "Giọng nói mà TTS Smart Fields của bạn sử dụng trừ khi một trường ghim giọng nói của chính nó.",
-      "title": "Cài đặt giọng nói mặc định"
+      "title": "Cài đặt giọng nói mặc định",
+      "searchPlaceholder": "Tìm kiếm giọng nói…"
     }
   },
   "imageGeneration": {
@@ -421,7 +419,7 @@
       "trialNoteLimit": "Bạn đã đạt đến giới hạn ghi chú dùng thử",
       "upgradeCollection": "Tự động nâng cấp — toàn bộ bộ sưu tập của bạn",
       "upgradeCredits": "Nâng cấp để có thêm tín dụng",
-      "upgradePaid": "✨ Nâng cấp lên trả phí"
+      "upgradePaid": "Nâng cấp lên gói trả phí"
     },
     "inDays_other": "Trong những ngày {{count}}",
     "loading": "Đang tải đăng ký",
@@ -466,6 +464,7 @@
     "byline": "của Michael Piazza / Phòng thí nghiệm Rosebud, LLC.",
     "changelog": "Nhật ký thay đổi",
     "copyright": "© 2026 · v{{version}} ·",
+    "iconCredit": "Biểu tượng Solar của <solar>480 Design</solar> · <license>CC BY 4.0</license>",
     "discord": {
       "description": "Cách nhanh nhất để nhận trợ giúp, yêu cầu tính năng hoặc báo cáo lỗi.",
       "join": "Tham gia",
@@ -479,8 +478,7 @@
     },
     "github": "GitHub",
     "loading": "Đang tải hỗ trợ",
-    "title": "Ủng hộ",
-    "iconCredit": "Biểu tượng Solar của <solar>480 Design</solar> · <license>CC BY 4.0</license>"
+    "title": "Ủng hộ"
   },
   "welcome": {
     "alreadyAccount": "Đã có tài khoản?",
@@ -494,8 +492,8 @@
     "finishDescription": "Hoàn tất đăng nhập vào trình duyệt chúng tôi đã mở. Cửa sổ này sẽ tự động cập nhật.",
     "finishInBrowser": "Kết thúc trong trình duyệt của bạn",
     "haveCode": "Có mã từ trang web?",
-    "startTrial": "✨ Bắt đầu dùng thử miễn phí ✨",
-    "trialDetails": "Miễn phí trong 7 ngày · mọi tính năng · không cần thẻ tín dụng"
+    "trialDetails": "Miễn phí trong 7 ngày · mọi tính năng · không cần thẻ tín dụng",
+    "startTrial": "Bắt đầu dùng thử miễn phí"
   },
   "trialEnded": {
     "description": "Bản dùng thử kéo dài 7 ngày hoặc cho đến khi hết tín dụng dùng thử.",
@@ -515,8 +513,8 @@
       "leaveReview": "Để lại đánh giá",
       "title": "Nhận một tháng miễn phí Smart Notes"
     },
-    "thanks": "Cảm ơn bạn đã sử dụng Smart Notes ✨",
     "title": "Thời gian dùng thử miễn phí của bạn đã kết thúc",
-    "upgradeNow": "Nâng cấp ngay bây giờ"
+    "upgradeNow": "Nâng cấp ngay bây giờ",
+    "thanks": "Cảm ơn bạn đã sử dụng Smart Notes"
   }
 }

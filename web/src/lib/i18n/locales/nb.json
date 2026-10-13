@@ -47,7 +47,6 @@
     "signInLower": "Logg på",
     "unlimited": "Ubegrenset",
     "upgrade": "Oppgrader",
-    "upgradeSparkles": "✨ Oppgrader ✨",
     "multiplierCost": "{{multiplier}}× kostnad",
     "next": "Neste",
     "noteType": "Merknad Type",
@@ -114,7 +113,6 @@
     "title": "Innstillinger"
   },
   "fieldEditor": {
-    "alreadySmartField": "Allerede en Smart Field ✨",
     "collisionHint": "har allerede en Smart Field — velg et annet felt, kortstokk eller notetype",
     "completion": {
       "descriptionAfter": "notater fylles ut når du genererer det.",
@@ -190,9 +188,9 @@
     "targetAriaLabel": "Smart Field mål",
     "testSmartField": "Test din Smart Field",
     "titles": {
-      "create": "Ny Smart Field ✨",
       "duplicate": "Dupliser Smart Field",
-      "edit": "Rediger Smart Field"
+      "edit": "Rediger Smart Field",
+      "create": "Nytt Smart-felt"
     },
     "validation": {
       "chooseField": "Velg et felt",
@@ -205,7 +203,8 @@
     "writePromptForMe": "Skriv forespørselen min for meg",
     "writePromptForMeHint": "Si hva du vil på vanlig engelsk - vi skriver spørsmålet nedenfor.",
     "writePromptPlaceholder": "\"Oversett til naturlig engelsk...\"",
-    "writing": "Skriver …"
+    "writing": "Skriver …",
+    "alreadySmartField": "Allerede et Smart-felt"
   },
   "smartFields": {
     "actionsAriaLabel": "Handlinger for {{field}}",
@@ -248,8 +247,7 @@
       "subtitle": "Legg igjen en anmeldelse på AnkiWeb for å hjelpe andre Anki-brukere med å finne den.",
       "title": "Liker du Smart Notes?"
     },
-    "subtitle": "Legg til automatisk generert tekst, tale og bilder i notatene dine.",
-    "title": "✨ Smart Fields"
+    "subtitle": "Legg til automatisk generert tekst, tale og bilder i notatene dine."
   },
   "defaults": {
     "errors": {
@@ -288,7 +286,6 @@
       "loadingLabel": "Laster inn standard tekstinnstillinger",
       "loadingTitle": "Innstillinger for tekstgenerering",
       "modelGuidance": "{{auto}} og {{autoMax}} er de Smart Notes anbefalte modellene som balanserer ytelse og kostnader. Velg {{auto}} for standardoppgaver og oppgrader til {{autoMax}} om nødvendig.",
-      "pickingModel": "💡 Velge en modell",
       "reasoningLevel": "Resonnementnivå",
       "reasoningValues": {
         "high": "Høy",
@@ -301,7 +298,8 @@
       "title": "Innstillinger for tekstgenerering",
       "webSearch": "Nettsøk",
       "webSearchDescription": "La tekstgenerasjoner hente inn fersk informasjon fra nettet.",
-      "webSearchWarning": "⚠️ Søk er dyrt; overvåke kredittene dine."
+      "pickingModel": "Velger modell",
+      "webSearchWarning": "Søk er kostbart; hold øye med kredittene dine."
     },
     "usage": {
       "fields_one": "Gjelder {{count}}-feltet",
@@ -324,10 +322,10 @@
       "loadingTitle": "Standard stemmeinnstillinger",
       "noVoices": "Ingen stemmer samsvarer med disse filtrene.",
       "saveError": "Kunne ikke lagre stemmestandarder",
-      "searchPlaceholder": "🔍 Søk etter stemmer...",
       "searchVoices": "Søk stemmer",
       "subtitle": "Stemmen din TTS Smart Fields bruker med mindre et felt fester sin egen.",
-      "title": "Standard stemmeinnstillinger"
+      "title": "Standard stemmeinnstillinger",
+      "searchPlaceholder": "Søk etter stemmer…"
     }
   },
   "imageGeneration": {
@@ -429,7 +427,7 @@
       "trialNoteLimit": "Du har nådd grensen for prøvelapper",
       "upgradeCollection": "Oppgrader – hele samlingen din, automatisk",
       "upgradeCredits": "Oppgrader for flere kreditter",
-      "upgradePaid": "✨ Oppgrader til betalt"
+      "upgradePaid": "Oppgrader til betalt"
     },
     "inDays_one": "I dag",
     "inDays_other": "I {{count}} dager",
@@ -476,6 +474,7 @@
     "byline": "av Michael Piazza / Rosebud Labs, LLC.",
     "changelog": "Endringslogg",
     "copyright": "© 2026 · v{{version}} ·",
+    "iconCredit": "Solar-ikoner av <solar>480 Design</solar> · <license>CC BY 4.0</license>",
     "discord": {
       "description": "Den raskeste måten å få hjelp, be om en funksjon eller rapportere en feil.",
       "join": "Bli med",
@@ -489,8 +488,7 @@
     },
     "github": "GitHub",
     "loading": "Lastestøtte",
-    "title": "Støtte",
-    "iconCredit": "Solar-ikoner av <solar>480 Design</solar> · <license>CC BY 4.0</license>"
+    "title": "Støtte"
   },
   "welcome": {
     "alreadyAccount": "Har du allerede en konto?",
@@ -504,8 +502,8 @@
     "finishDescription": "Fullfør påloggingen i nettleseren vi åpnet. Dette vinduet vil oppdateres automatisk.",
     "finishInBrowser": "Fullfør i nettleseren din",
     "haveCode": "Har du en kode fra nettsiden?",
-    "startTrial": "✨ Start gratis prøveversjon ✨",
-    "trialDetails": "Gratis i 7 dager · hver funksjon · ingen kredittkort"
+    "trialDetails": "Gratis i 7 dager · hver funksjon · ingen kredittkort",
+    "startTrial": "Start gratis prøveperiode"
   },
   "trialEnded": {
     "description": "Prøveperioder varer i 7 dager eller til prøvekredittene dine går ut.",
@@ -525,8 +523,8 @@
       "leaveReview": "Legg igjen en anmeldelse",
       "title": "Få en gratis måned med Smart Notes"
     },
-    "thanks": "Takk for at du bruker Smart Notes ✨",
     "title": "Din gratis prøveperiode er over",
-    "upgradeNow": "Oppgrader nå"
+    "upgradeNow": "Oppgrader nå",
+    "thanks": "Takk for at du bruker Smart Notes"
   }
 }

@@ -47,7 +47,6 @@
     "signInLower": "Ensalutu",
     "unlimited": "Senlima",
     "upgrade": "Ĝisdatigu",
-    "upgradeSparkles": "✨ Ĝisdatigu ✨",
     "multiplierCost": "{{multiplier}}× kosto",
     "next": "Poste",
     "noteType": "Noto Tipo",
@@ -114,7 +113,6 @@
     "title": "Agordoj"
   },
   "fieldEditor": {
-    "alreadySmartField": "Jam Smart Field ✨",
     "collisionHint": "jam havas Smart Field — elektu malsaman kampon, ferdekon aŭ noton",
     "completion": {
       "descriptionAfter": "notoj pleniĝas kiam ajn vi generas ĝin.",
@@ -190,9 +188,9 @@
     "targetAriaLabel": "Smart Field celo",
     "testSmartField": "Testu vian Smart Field",
     "titles": {
-      "create": "Nova Smart Field ✨",
       "duplicate": "Duobligi Smart Field",
-      "edit": "Redaktu Smart Field"
+      "edit": "Redaktu Smart Field",
+      "create": "Nova Inteligenta Kampo"
     },
     "validation": {
       "chooseField": "Elektu kampon",
@@ -205,7 +203,8 @@
     "writePromptForMe": "Skribu mian instigon por mi",
     "writePromptForMeHint": "Diru tion, kion vi volas en simpla angla — ni skribos la instigon sube.",
     "writePromptPlaceholder": "\"Traduku al natura angla...\"",
-    "writing": "Skribante…"
+    "writing": "Skribante…",
+    "alreadySmartField": "Jam Inteligenta Kampo"
   },
   "smartFields": {
     "actionsAriaLabel": "Agoj por {{field}}",
@@ -248,8 +247,7 @@
       "subtitle": "Lasu recenzon pri AnkiWeb por helpi aliajn Anki-uzantojn trovi ĝin.",
       "title": "Ĉu vi ĝuas Smart Notes?"
     },
-    "subtitle": "Aldonu aŭtomate generitajn tekstojn, voĉojn kaj bildojn al viaj notoj.",
-    "title": "✨ Smart Fields"
+    "subtitle": "Aldonu aŭtomate generitajn tekstojn, voĉojn kaj bildojn al viaj notoj."
   },
   "defaults": {
     "errors": {
@@ -288,7 +286,6 @@
       "loadingLabel": "Ŝargante defaŭltajn tekstajn agordojn",
       "loadingTitle": "Agordoj de Tekstaj Generacio",
       "modelGuidance": "{{auto}} kaj {{autoMax}} estas la rekomenditaj modeloj de Smart Notes, kiuj ekvilibrigas rendimenton kaj koston. Elektu {{auto}} por normaj taskoj kaj ĝisdatigu al {{autoMax}} se necese.",
-      "pickingModel": "💡 Elektante modelon",
       "reasoningLevel": "Rezona nivelo",
       "reasoningValues": {
         "high": "Alta",
@@ -301,7 +298,8 @@
       "title": "Agordoj de Tekstaj Generacio",
       "webSearch": "TTT-serĉo",
       "webSearchDescription": "Lasu tekstogeneraciojn enigi freŝajn informojn el la reto.",
-      "webSearchWarning": "⚠️ Serĉo estas multekosta; monitoru viajn kreditojn."
+      "pickingModel": "Elektado de modelo",
+      "webSearchWarning": "Serĉado kostas multe; observu viajn kreditojn."
     },
     "usage": {
       "fields_one": "Aplikas al {{count}}-kampo",
@@ -324,10 +322,10 @@
       "loadingTitle": "Defaŭltaj Voĉaj Agordoj",
       "noVoices": "Neniuj voĉoj kongruas kun ĉi tiuj filtriloj.",
       "saveError": "Ne eblis konservi voĉajn defaŭltojn",
-      "searchPlaceholder": "🔍 Serĉu voĉojn...",
       "searchVoices": "Serĉu voĉojn",
       "subtitle": "La voĉo kiun via TTS Smart Fields uzas krom se kampo alpinglas sian propran.",
-      "title": "Defaŭltaj Voĉaj Agordoj"
+      "title": "Defaŭltaj Voĉaj Agordoj",
+      "searchPlaceholder": "Serĉi voĉojn…"
     }
   },
   "imageGeneration": {
@@ -429,7 +427,7 @@
       "trialNoteLimit": "Vi atingis la limon de via provnoto",
       "upgradeCollection": "Altgradigo — via tuta kolekto, aŭtomate",
       "upgradeCredits": "Ĝisdatigu por pli da kreditoj",
-      "upgradePaid": "✨ Ĝisdatigu al pagita"
+      "upgradePaid": "Gradigi al pagata"
     },
     "inDays_one": "Hodiaŭ",
     "inDays_other": "En {{count}} tagoj",
@@ -476,6 +474,7 @@
     "byline": "de Michael Piazza / Rosebud Labs, LLC.",
     "changelog": "Ŝanĝprotokolo",
     "copyright": "© 2026 · v{{version}} ·",
+    "iconCredit": "Solar-piktogramoj far <solar>480 Design</solar> · <license>CC BY 4.0</license>",
     "discord": {
       "description": "La plej rapida maniero por ricevi helpon, peti funkcion aŭ raporti cimon.",
       "join": "Aliĝu",
@@ -489,8 +488,7 @@
     },
     "github": "GitHub",
     "loading": "Ŝarĝanta Subteno",
-    "title": "Subteno",
-    "iconCredit": "Solar-piktogramoj far <solar>480 Design</solar> · <license>CC BY 4.0</license>"
+    "title": "Subteno"
   },
   "welcome": {
     "alreadyAccount": "Ĉu jam havas konton?",
@@ -504,8 +502,8 @@
     "finishDescription": "Kompleta ensaluto en la retumilo, kiun ni malfermis. Ĉi tiu fenestro aŭtomate ĝisdatiĝos.",
     "finishInBrowser": "Finu en via retumilo",
     "haveCode": "Ĉu vi havas kodon de la retejo?",
-    "startTrial": "✨ Komencu Senpagan Provon ✨",
-    "trialDetails": "Senpaga dum 7 tagoj · ĉiu funkcio · neniu kreditkarto"
+    "trialDetails": "Senpaga dum 7 tagoj · ĉiu funkcio · neniu kreditkarto",
+    "startTrial": "Komenci Senpagan Provon"
   },
   "trialEnded": {
     "description": "Provoj daŭros 7 tagojn aŭ ĝis elĉerpiĝos de viaj provaj kreditoj.",
@@ -525,8 +523,8 @@
       "leaveReview": "Lasu recenzon",
       "title": "Akiru senpagan monaton de Smart Notes"
     },
-    "thanks": "Dankon pro uzi Smart Notes ✨",
     "title": "Via senpaga provo finiĝis",
-    "upgradeNow": "Ĝisdatigu nun"
+    "upgradeNow": "Ĝisdatigu nun",
+    "thanks": "Dankon pro uzado de Smart Notes"
   }
 }

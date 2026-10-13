@@ -27,6 +27,7 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/Dialog"
+import { GiftIcon, LetterIcon, SparklesIcon } from "@/components/shared/Icons"
 import { ANKIWEB_REVIEW_URL, SUPPORT_EMAIL } from "@/lib/helpChannels"
 import { openSiteLink, SITE_LINKS } from "@/lib/siteLinks"
 
@@ -60,6 +61,10 @@ export const TrialEndedScreen = ({
         <header className="text-center">
           <p className="mb-2 text-[12.5px] leading-none font-semibold text-[#5fe3b0]">
             {t("trialEnded.thanks")}
+            <SparklesIcon
+              className="ms-1 inline-block align-[-2px]"
+              size={13}
+            />
           </p>
           <h1 className="text-[28px] leading-[1.15] font-extrabold tracking-[-0.5px] text-[#f4f4f6]">
             {t("trialEnded.title")}
@@ -117,9 +122,7 @@ const ReviewOfferBanner = ({ onOpen }: { onOpen: () => void }) => {
         className="review-offer-sheen pointer-events-none absolute inset-y-0 start-0 w-[55%] bg-[linear-gradient(105deg,transparent_30%,rgba(255,255,255,0.3)_50%,transparent_70%)]"
       />
       <div className="relative z-10 flex items-center gap-[13px]">
-        <span aria-hidden className="shrink-0 text-[26px] leading-none">
-          🎁
-        </span>
+        <GiftIcon className="text-white" size={28} />
         <span className="flex min-w-0 flex-1 flex-col gap-[3px]">
           <span className="text-sm leading-[1.2] font-bold text-white">
             {t("trialEnded.reviewOffer.title")}
@@ -153,9 +156,7 @@ const ReviewOfferDialog = ({
     <Dialog onOpenChange={onOpenChange} open={open}>
       <DialogContent className="w-[min(380px,92vw)]">
         <div className="px-[22px] pt-6 pb-[14px] text-center">
-          <div aria-hidden className="text-[30px] leading-none">
-            🎁
-          </div>
+          <GiftIcon className="mx-auto" size={32} />
           <DialogTitle className="mt-3 text-[16.5px] font-bold text-[#f4f4f6]">
             {t("trialEnded.reviewOffer.dialogTitle")}
           </DialogTitle>
@@ -175,9 +176,8 @@ const ReviewOfferDialog = ({
             className="mt-2 inline-flex h-9 w-full items-center justify-center rounded-[9px] bg-white/[0.05] text-[12px] font-semibold text-zinc-300 transition hover:bg-white/[0.08] hover:text-white"
             href={`mailto:${SUPPORT_EMAIL}`}
           >
-            {/* Decorative icon; it has no language-specific meaning. */}
-            {/* eslint-disable-next-line i18next/no-literal-string */}
-            <span aria-hidden>✉️</span> {SUPPORT_EMAIL}
+            <LetterIcon className="me-1.5" size={15} />
+            {SUPPORT_EMAIL}
           </a>
           <button
             className="mt-2.5 w-full bg-transparent p-2 text-[11.5px] text-[#8b8b94] transition hover:text-zinc-300"

@@ -46,7 +46,6 @@
     "signInLower": "로그인",
     "unlimited": "제한 없는",
     "upgrade": "업그레이드",
-    "upgradeSparkles": "✨ 업그레이드 ✨",
     "multiplierCost": "{{multiplier}}× 비용",
     "next": "다음",
     "noteType": "노트 유형",
@@ -113,7 +112,6 @@
     "title": "설정"
   },
   "fieldEditor": {
-    "alreadySmartField": "이미 Smart Field입니다 ✨",
     "collisionHint": "이미 Smart Field가 있습니다 — 다른 필드, 데크 또는 메모 유형을 선택하세요",
     "completion": {
       "descriptionAfter": "메모는 생성할 때마다 채워집니다.",
@@ -189,9 +187,9 @@
     "targetAriaLabel": "Smart Field 대상",
     "testSmartField": "Smart Field 테스트",
     "titles": {
-      "create": "새로운 Smart Field ✨",
       "duplicate": "Smart Field 중복",
-      "edit": "Smart Field 편집"
+      "edit": "Smart Field 편집",
+      "create": "새 Smart Field"
     },
     "validation": {
       "chooseField": "분야를 선택하세요",
@@ -204,7 +202,8 @@
     "writePromptForMe": "메시지를 작성해 주세요.",
     "writePromptForMeHint": "원하는 것을 일반 영어로 말하세요. 아래 프롬프트를 작성해 드리겠습니다.",
     "writePromptPlaceholder": "\"자연스러운 영어로 번역…\"",
-    "writing": "글쓰기…"
+    "writing": "글쓰기…",
+    "alreadySmartField": "이미 Smart Field입니다"
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}}에 대한 작업",
@@ -247,8 +246,7 @@
       "subtitle": "다른 Anki 사용자가 찾을 수 있도록 AnkiWeb에 리뷰를 남겨주세요.",
       "title": "Smart Notes를 즐기시나요?"
     },
-    "subtitle": "자동으로 생성된 텍스트, 음성, 이미지를 노트에 추가하세요.",
-    "title": "✨ Smart Fields"
+    "subtitle": "자동으로 생성된 텍스트, 음성, 이미지를 노트에 추가하세요."
   },
   "defaults": {
     "errors": {
@@ -287,7 +285,6 @@
       "loadingLabel": "기본 텍스트 설정 로드",
       "loadingTitle": "텍스트 생성 설정",
       "modelGuidance": "{{auto}} 및 {{autoMax}}는 성능과 비용의 균형을 맞춘 Smart Notes 권장 모델입니다. 표준 작업의 경우 {{auto}}를 선택하고 필요한 경우 {{autoMax}}로 업그레이드하세요.",
-      "pickingModel": "💡 모델 선택",
       "reasoningLevel": "추론 수준",
       "reasoningValues": {
         "high": "높은",
@@ -300,7 +297,8 @@
       "title": "텍스트 생성 설정",
       "webSearch": "웹 검색",
       "webSearchDescription": "텍스트 세대가 웹에서 새로운 정보를 가져오도록 하세요.",
-      "webSearchWarning": "⚠️ 검색 비용이 많이 듭니다. 귀하의 크레딧을 모니터링하십시오."
+      "pickingModel": "모델 선택 중",
+      "webSearchWarning": "검색은 비용이 많이 듭니다. 크레딧을 확인하세요."
     },
     "usage": {
       "fields_other": "{{count}} 필드에 적용됩니다."
@@ -322,10 +320,10 @@
       "loadingTitle": "기본 음성 설정",
       "noVoices": "이 필터와 일치하는 음성이 없습니다.",
       "saveError": "음성 기본값을 저장할 수 없습니다.",
-      "searchPlaceholder": "🔍 음성 검색…",
       "searchVoices": "음성 검색",
       "subtitle": "필드가 자체적으로 고정되지 않는 한 TTS Smart Fields가 사용하는 음성입니다.",
-      "title": "기본 음성 설정"
+      "title": "기본 음성 설정",
+      "searchPlaceholder": "음성 검색…"
     }
   },
   "imageGeneration": {
@@ -421,7 +419,7 @@
       "trialNoteLimit": "평가판 메모 한도에 도달했습니다.",
       "upgradeCollection": "업그레이드 - 전체 컬렉션을 자동으로",
       "upgradeCredits": "더 많은 크레딧을 받으려면 업그레이드하세요.",
-      "upgradePaid": "✨ 유료로 업그레이드"
+      "upgradePaid": "유료로 업그레이드"
     },
     "inDays_other": "{{count}}일 후",
     "loading": "구독 로드 중",
@@ -466,6 +464,7 @@
     "byline": "작성자: Michael Piazza / Rosebud Labs, LLC.",
     "changelog": "변경 내역",
     "copyright": "© 2026 · v{{version}} ·",
+    "iconCredit": "Solar 아이콘 by <solar>480 Design</solar> · <license>CC BY 4.0</license>",
     "discord": {
       "description": "도움을 받고, 기능을 요청하고, 버그를 보고하는 가장 빠른 방법입니다.",
       "join": "가입하다",
@@ -479,8 +478,7 @@
     },
     "github": "GitHub",
     "loading": "로딩 지원",
-    "title": "지원하다",
-    "iconCredit": "Solar 아이콘 by <solar>480 Design</solar> · <license>CC BY 4.0</license>"
+    "title": "지원하다"
   },
   "welcome": {
     "alreadyAccount": "이미 계정이 있나요?",
@@ -494,8 +492,8 @@
     "finishDescription": "우리가 연 브라우저에서 로그인을 완료하세요. 이 창은 자동으로 업데이트됩니다.",
     "finishInBrowser": "브라우저에서 완료하세요.",
     "haveCode": "웹사이트에서 코드를 받았나요?",
-    "startTrial": "✨ 무료 평가판 시작 ✨",
-    "trialDetails": "7일 동안 무료 · 모든 기능 · 신용카드 없음"
+    "trialDetails": "7일 동안 무료 · 모든 기능 · 신용카드 없음",
+    "startTrial": "무료 체험 시작"
   },
   "trialEnded": {
     "description": "평가판은 7일 동안 또는 평가판 크레딧이 소진될 때까지 실행됩니다.",
@@ -515,8 +513,8 @@
       "leaveReview": "리뷰를 남겨주세요",
       "title": "Smart Notes 1개월 무료 이용"
     },
-    "thanks": "Smart Notes를 사용해 주셔서 감사합니다 ✨",
     "title": "무료 평가판이 종료되었습니다",
-    "upgradeNow": "지금 업그레이드"
+    "upgradeNow": "지금 업그레이드",
+    "thanks": "Smart Notes를 사용해 주셔서 감사합니다"
   }
 }

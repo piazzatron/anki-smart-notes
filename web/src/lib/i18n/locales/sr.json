@@ -48,7 +48,6 @@
     "signInLower": "Пријавите се",
     "unlimited": "Неограничено",
     "upgrade": "Надоградите",
-    "upgradeSparkles": "✨ Надоградите ✨",
     "multiplierCost": "{{multiplier}}× трошак",
     "next": "Следеће",
     "noteType": "Напомена Тип",
@@ -115,7 +114,6 @@
     "title": "Подешавања"
   },
   "fieldEditor": {
-    "alreadySmartField": "Већ паметно поље ✨",
     "collisionHint": "већ има паметно поље — изаберите друго поље, шпил или тип белешке",
     "completion": {
       "descriptionAfter": "белешке се попуњавају кад год их генеришете.",
@@ -191,9 +189,9 @@
     "targetAriaLabel": "Смарт Фиелд таргет",
     "testSmartField": "Тестирајте своје Смарт Фиелд",
     "titles": {
-      "create": "Ново паметно поље ✨",
       "duplicate": "Дупликат паметног поља",
-      "edit": "Уредите паметно поље"
+      "edit": "Уредите паметно поље",
+      "create": "Novo pametno polje"
     },
     "validation": {
       "chooseField": "Изаберите поље",
@@ -206,7 +204,8 @@
     "writePromptForMe": "Напишите мој упит за мене",
     "writePromptForMeHint": "Реците шта желите на обичном енглеском - ми ћемо написати упит испод.",
     "writePromptPlaceholder": "„Преведи на природни енглески…“",
-    "writing": "Писање…"
+    "writing": "Писање…",
+    "alreadySmartField": "Već je Pametno polje"
   },
   "smartFields": {
     "actionsAriaLabel": "Акције за {{field}}",
@@ -249,8 +248,7 @@
       "subtitle": "Оставите рецензију о AnkiWeb да бисте помогли другим корисницима Anki да га пронађу.",
       "title": "Уживате у Smart Notes?"
     },
-    "subtitle": "Додајте аутоматски генерисани текст, глас и слике у своје белешке.",
-    "title": "✨ Smart Fields"
+    "subtitle": "Додајте аутоматски генерисани текст, глас и слике у своје белешке."
   },
   "defaults": {
     "errors": {
@@ -289,7 +287,6 @@
       "loadingLabel": "Учитавање подразумеваних поставки текста",
       "loadingTitle": "Подешавања генерисања текста",
       "modelGuidance": "{{auto}} и {{autoMax}} су модели које препоручује Smart Notes који балансирају перформансе и цену. Изаберите {{auto}} за стандардне задатке и надоградите на {{autoMax}} ако је потребно.",
-      "pickingModel": "💡 Бирање модела",
       "reasoningLevel": "Ниво расуђивања",
       "reasoningValues": {
         "high": "Високо",
@@ -302,7 +299,8 @@
       "title": "Подешавања генерисања текста",
       "webSearch": "Веб Сеарцх",
       "webSearchDescription": "Нека генерације текста извуку свеже информације са веба.",
-      "webSearchWarning": "⚠ Претрага је скупа; пратите своје кредите."
+      "pickingModel": "Biranje modela",
+      "webSearchWarning": "Pretraga je skupa; pratite svoje kredite."
     },
     "usage": {
       "fields_one": "Односи се на поље {{count}}",
@@ -326,10 +324,10 @@
       "loadingTitle": "Подразумевана подешавања гласа",
       "noVoices": "Ниједан глас не одговара овим филтерима.",
       "saveError": "Није могуће сачувати подразумеване гласовне поставке",
-      "searchPlaceholder": "🔍 Претражујте гласове…",
       "searchVoices": "Тражи гласове",
       "subtitle": "Глас који ваш ТТС Smart Fields користи осим ако поље не закачи своје.",
-      "title": "Подразумевана подешавања гласа"
+      "title": "Подразумевана подешавања гласа",
+      "searchPlaceholder": "Pretražite glasove…"
     }
   },
   "imageGeneration": {
@@ -437,7 +435,7 @@
       "trialNoteLimit": "Достигли сте ограничење пробних белешки",
       "upgradeCollection": "Надоградите — целу вашу колекцију, аутоматски",
       "upgradeCredits": "Надоградите за више кредита",
-      "upgradePaid": "✨ Надоградите на плаћено"
+      "upgradePaid": "Nadogradite na plaćeni plan"
     },
     "inDays_one": "данас",
     "inDays_few": "За {{count}} дана",
@@ -486,6 +484,7 @@
     "byline": "од Мицхаел Пиазза / Росебуд Лабс, ЛЛЦ.",
     "changelog": "Цхангелог",
     "copyright": "© 2026 · в{{version}} ·",
+    "iconCredit": "Solar иконице: <solar>480 Design</solar> · <license>CC BY 4.0</license>",
     "discord": {
       "description": "Најбржи начин да добијете помоћ, затражите функцију или пријавите грешку.",
       "join": "Придружите се",
@@ -499,8 +498,7 @@
     },
     "github": "GitHub",
     "loading": "Подршка за учитавање",
-    "title": "Подршка",
-    "iconCredit": "Solar иконице: <solar>480 Design</solar> · <license>CC BY 4.0</license>"
+    "title": "Подршка"
   },
   "welcome": {
     "alreadyAccount": "Већ имате налог?",
@@ -514,8 +512,8 @@
     "finishDescription": "Завршите пријаву у прегледачу који смо отворили. Овај прозор ће се аутоматски ажурирати.",
     "finishInBrowser": "Завршите у свом претраживачу",
     "haveCode": "Имате код са веб локације?",
-    "startTrial": "✨ Започните бесплатну пробну верзију ✨",
-    "trialDetails": "Бесплатно 7 дана · свака функција · без кредитне картице"
+    "trialDetails": "Бесплатно 7 дана · свака функција · без кредитне картице",
+    "startTrial": "Započni besplatno probno razdoblje"
   },
   "trialEnded": {
     "description": "Пробни периоди трају 7 дана или док вам не потроше пробни кредити.",
@@ -535,8 +533,8 @@
       "leaveReview": "Оставите рецензију",
       "title": "Добијте бесплатан месец дана Smart Notes"
     },
-    "thanks": "Хвала што користите Smart Notes ✨",
     "title": "Ваша бесплатна пробна верзија је завршена",
-    "upgradeNow": "Надоградите сада"
+    "upgradeNow": "Надоградите сада",
+    "thanks": "Hvala što koristite Smart Notes"
   }
 }

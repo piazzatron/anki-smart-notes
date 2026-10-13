@@ -50,7 +50,6 @@
     "signInLower": "Sínigh isteach",
     "unlimited": "Gan teorainn",
     "upgrade": "Uasghrádú",
-    "upgradeSparkles": "✨ Uasghrádú ✨",
     "multiplierCost": "{{multiplier}} × costas",
     "next": "Ar aghaidh",
     "noteType": "Cineál Nóta",
@@ -117,7 +116,6 @@
     "title": "Socruithe"
   },
   "fieldEditor": {
-    "alreadySmartField": "Smart Field ✨ cheana féin",
     "collisionHint": "tá Smart Field aige cheana féin — roghnaigh réimse eile, deic nó cineál nóta",
     "completion": {
       "descriptionAfter": "líonann nótaí isteach aon uair a ghineann tú é.",
@@ -193,9 +191,9 @@
     "targetAriaLabel": "Sprioc Smart Field",
     "testSmartField": "Tástáil do Smart Field",
     "titles": {
-      "create": "Smart Field nua ✨",
       "duplicate": "Smart Field a dhúbailt",
-      "edit": "Cuir Smart Field in eagar"
+      "edit": "Cuir Smart Field in eagar",
+      "create": "Réimse Cliste Nua"
     },
     "validation": {
       "chooseField": "Roghnaigh réimse",
@@ -208,7 +206,8 @@
     "writePromptForMe": "Scríobh mo leid dom",
     "writePromptForMeHint": "Abair cad atá uait i mBéarla simplí - scríobhfaimid an leid thíos.",
     "writePromptPlaceholder": "\"Aistrigh go Béarla nádúrtha...\"",
-    "writing": "Ag scríobh…"
+    "writing": "Ag scríobh…",
+    "alreadySmartField": "Réimse Cliste cheana féin"
   },
   "smartFields": {
     "actionsAriaLabel": "Gníomhartha le haghaidh {{field}}",
@@ -251,8 +250,7 @@
       "subtitle": "Fág léirmheas ar AnkiWeb chun cabhrú le húsáideoirí Anki eile é a aimsiú.",
       "title": "Ag baint taitnimh as Smart Notes?"
     },
-    "subtitle": "Cuir téacs, guth agus íomhánna a ghintear go huathoibríoch le do nótaí.",
-    "title": "✨ Smart Fields"
+    "subtitle": "Cuir téacs, guth agus íomhánna a ghintear go huathoibríoch le do nótaí."
   },
   "defaults": {
     "errors": {
@@ -291,7 +289,6 @@
       "loadingLabel": "Socruithe Téacs Réamhshocraithe á Luchtú",
       "loadingTitle": "Socruithe Giniúint Téacs",
       "modelGuidance": "Is iad {{auto}} agus {{autoMax}} na samhlacha molta Smart Notes a chothromaíonn feidhmíocht agus costas. Roghnaigh {{auto}} le haghaidh tascanna caighdeánacha agus uasghrádú go {{autoMax}} más gá.",
-      "pickingModel": "💡 Samhail á phiocadh",
       "reasoningLevel": "Leibhéal réasúnaíochta",
       "reasoningValues": {
         "high": "Ard",
@@ -304,7 +301,8 @@
       "title": "Socruithe Giniúint Téacs",
       "webSearch": "Cuardach Gréasáin",
       "webSearchDescription": "Lig do ghlúine téacs faisnéis úr a tharraingt isteach ón ngréasán.",
-      "webSearchWarning": "⚠️ Tá an cuardach costasach; monatóireacht a dhéanamh ar do chreidmheasanna."
+      "pickingModel": "Ag roghnú samhail",
+      "webSearchWarning": "Tá cuardach daor; monitor do chreidiúintí."
     },
     "usage": {
       "fields_one": "Baineann sé seo le réimse {{count}}",
@@ -330,10 +328,10 @@
       "loadingTitle": "Socruithe Gutha Réamhshocraithe",
       "noVoices": "Ní mheaitseálann guthanna na scagairí seo.",
       "saveError": "Níorbh fhéidir réamhshocruithe gutha a shábháil",
-      "searchPlaceholder": "🔍 Cuardach guthanna…",
       "searchVoices": "Cuardaigh guthanna",
       "subtitle": "An guth a úsáideann do TTS Smart Fields ach amháin má luíonn réimse a chuid féin.",
-      "title": "Socruithe Gutha Réamhshocraithe"
+      "title": "Socruithe Gutha Réamhshocraithe",
+      "searchPlaceholder": "Cuardaigh guthanna…"
     }
   },
   "imageGeneration": {
@@ -453,7 +451,7 @@
       "trialNoteLimit": "Tá teorainn do nótaí trialach sroichte agat",
       "upgradeCollection": "Uasghrádú - do bhailiúchán iomlán, go huathoibríoch",
       "upgradeCredits": "Uasghrádú le haghaidh tuilleadh creidmheasanna",
-      "upgradePaid": "✨ Uasghrádú go dtí íoctha"
+      "upgradePaid": "Uasghrádaigh go híoctha"
     },
     "inDays_one": "Inniu",
     "inDays_two": "I laethanta {{count}}",
@@ -506,6 +504,7 @@
     "byline": "le Michael Piazza / Rosebud Labs, LLC.",
     "changelog": "Loga athrú",
     "copyright": "© 2026 · v{{version}} ·",
+    "iconCredit": "Deilbhíní Solar le <solar>480 Design</solar> · <license>CC BY 4.0</license>",
     "discord": {
       "description": "An bealach is tapúla chun cabhair a fháil, gné a iarraidh, nó fabht a thuairisciú.",
       "join": "Bígí",
@@ -519,8 +518,7 @@
     },
     "github": "GitHub",
     "loading": "Tacaíocht á Luchtú",
-    "title": "Tacaíocht",
-    "iconCredit": "Deilbhíní Solar le <solar>480 Design</solar> · <license>CC BY 4.0</license>"
+    "title": "Tacaíocht"
   },
   "welcome": {
     "alreadyAccount": "An bhfuil cuntas agat cheana féin?",
@@ -534,8 +532,8 @@
     "finishDescription": "Comhlánaigh síniú isteach sa bhrabhsálaí a d'oscail muid. Déanfar an fhuinneog seo a nuashonrú go huathoibríoch.",
     "finishInBrowser": "Críochnaigh suas i do bhrabhsálaí",
     "haveCode": "An bhfuil cód agat ón suíomh Gréasáin?",
-    "startTrial": "✨ Tosaigh Triail Saor in Aisce ✨",
-    "trialDetails": "Saor in aisce ar feadh 7 lá · gach gné · gan cárta creidmheasa"
+    "trialDetails": "Saor in aisce ar feadh 7 lá · gach gné · gan cárta creidmheasa",
+    "startTrial": "Tosaigh Triail Saor in Aisce"
   },
   "trialEnded": {
     "description": "Maireann trialacha 7 lá nó go dtí go n-ídíonn do chreidmheasanna trialach.",
@@ -555,8 +553,8 @@
       "leaveReview": "Fág léirmheas",
       "title": "Faigh mí saor in aisce de Smart Notes"
     },
-    "thanks": "Go raibh maith agat as Smart Notes ✨ a úsáid",
     "title": "Tá deireadh le do thriail saor in aisce",
-    "upgradeNow": "Uasghrádaigh anois"
+    "upgradeNow": "Uasghrádaigh anois",
+    "thanks": "Go raibh maith agat as Smart Notes a úsáid"
   }
 }
