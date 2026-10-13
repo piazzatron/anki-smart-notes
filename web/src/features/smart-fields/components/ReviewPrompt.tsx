@@ -40,6 +40,7 @@ export const ReviewPrompt = ({ onComplete }: ReviewPromptProps) => {
         target="_blank"
       />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(500px_150px_at_8%_-45%,rgba(255,244,206,0.34),transparent_72%)]" />
+      <div aria-hidden className="banner-shine" />
       <Star
         aria-hidden
         className="relative fill-[#ffe49a] text-[#ffe49a]"

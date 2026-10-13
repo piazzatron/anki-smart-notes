@@ -259,16 +259,15 @@
     "image": {
       "cannotFindModel": "Falta o modelo {{model}} do catálogo de imaxes",
       "defaultModel": "Modelo predeterminado",
-      "gptImage15Low": "mellor compensación calidade/velocidade.",
-      "gptImage2": "mesmo custo, máis lento, de maior calidade.",
+      "gptImage25": "o mellor para todo uso: texto nítido e diagramas limpos.",
       "loadingLabel": "Cargando a configuración predeterminada da imaxe",
       "loadingTitle": "Configuración predeterminada da imaxe",
+      "modelTipLabel": "Sobre os modelos de imaxe",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Baixo/Medio)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Escollendo un modelo de imaxe",
+      "nanoBanana21": "escenas ricas e fotográficas.",
       "samplePrompt": "Xera unha imaxe dun alumno estudando moito con Anki e superando as súas probas.",
       "saveError": "Non se puideron gardar os valores predeterminados da imaxe",
       "subtitle": "O modelo que usa a túa imaxe Smart Fields a non ser que un campo fixe o seu.",
@@ -276,9 +275,9 @@
       "zImageTurbo": "máis rápido e máis barato."
     },
     "layout": {
-      "saveChanges": "Garda os cambios",
       "saving": "Gardando…",
-      "tryIt": "Probao"
+      "tryIt": "Probao",
+      "save": "Gardar"
     },
     "text": {
       "cannotInheritModel": "Os valores predeterminados do texto non poden herdar outro modelo",
@@ -331,6 +330,26 @@
       "title": "Configuración de voz predeterminada"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Razoamento extra",
+    "extraReasoningCost": "~1,5× o custo",
+    "extraReasoningDescription": "Diagramas máis limpos e texto máis lexible. Uns 4× máis lento.",
+    "extraSettings": "Axustes Extra",
+    "doubleCost": "2× o custo",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Calidade máxima",
+    "maxQualityDescription": "Máis nítido e limpo, sobre todo nas etiquetas pequenas.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Máis detalle",
+    "richerDetailDescription": "Escenas máis detalladas e completas. Algo máis lento.",
+    "underTheHood": {
+      "gptRicherDetail": "O detalle máis rico usa <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "O estándar usa <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "O razoamento extra usa <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "O estándar usa <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Que modelos se executan"
+  },
   "promptTester": {
     "anotherNoteType": "outro tipo de nota",
     "currentlySelectedCard": "Tarxeta seleccionada actualmente",
@@ -343,20 +362,23 @@
     },
     "fieldRunsOnNoteType": "Este campo execútase en <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Vista previa da imaxe xerada",
+    "generatedIn": "Xerado en {{seconds}} s",
     "missingFieldsTitle_one": "Falta campo",
     "missingFieldsTitle_other": "Faltan campos",
     "needsFields_one": "Necesita campo {{count}}",
     "needsFields_other": "Necesita campos {{count}}",
     "notesSelected_one": "{{count}} nota seleccionada: restrinxea a unha.",
     "notesSelected_other": "Notas {{count}} seleccionadas: restrinxeo a un.",
-    "pickCard": "Escolle unha tarxeta no navegador Anki",
     "promptPlaceholder": "Escribe unha solicitude de proba, facendo referencia aos campos da túa tarxeta con {{braces}}.",
+    "rerunToSave": "Executa de novo esta proba para gardala na tarxeta",
     "saveToCard": "Gardar na tarxeta",
     "savedTo": "Gardado en {{field}}",
     "selectCardWithFields_one": "Seleccione un cartafol co campo",
     "selectCardWithFields_other": "Seleccione un cartafol cos campos",
     "selectFieldToReadAloud": "Seleccione un campo para ler en voz alta",
     "selectNewCard": "Seleccione unha nova tarxeta no navegador",
+    "or": "ou",
+    "selectCardInBrowser": "Selecciona unha tarxeta no navegador para probar",
     "selectRequiredNoteType": "Seleccione una nota do tipo <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Tarxeta seleccionada",
     "selectedDeck": "Cuberta escollida",
@@ -364,6 +386,8 @@
     "selectionAppearsAutomatically": "A túa selección aparece aquí automaticamente.",
     "sent": "Enviado",
     "testing": "Probando…",
+    "openRecentImage": "Abrir imaxe {{number}}",
+    "recentImages": "Resultados",
     "testResult": "Resultado da proba",
     "textToSpeak": "Texto para falar",
     "viewResult": "Ver resultado",
@@ -372,7 +396,6 @@
   "subscription": {
     "accessEnds": "O acceso finaliza",
     "activateAgain": "Activar de novo",
-    "endingSoon": "Remata axiña",
     "checking": "Comprobando a subscrición",
     "creditTypes": {
       "images": "Imaxes",
@@ -386,6 +409,7 @@
     "errors": {
       "logout": "Non se puido pechar sesión"
     },
+    "endingSoon": "Remata axiña",
     "expired": "Caducado",
     "freePlan": "Plan gratuíto",
     "freeTrial": "Proba gratuíta",

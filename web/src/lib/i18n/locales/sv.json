@@ -259,16 +259,15 @@
     "image": {
       "cannotFindModel": "Bildkatalogen saknar modell {{model}}",
       "defaultModel": "Standardmodell",
-      "gptImage15Low": "bästa kvalité / hastighet.",
-      "gptImage2": "samma kostnad, långsammare, högre kvalitet.",
+      "gptImage25": "bäst för allt — skarp text, rena diagram.",
       "loadingLabel": "Laddar standardbildinställningar",
       "loadingTitle": "Standardbildinställningar",
+      "modelTipLabel": "Om bildmodellerna",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Välja en bildmodell",
+      "nanoBanana21": "rika, fotografiska scener.",
       "samplePrompt": "Skapa en bild av en student som studerar hårt med Anki och klarar sina prov.",
       "saveError": "Det gick inte att spara bildens standardinställningar",
       "subtitle": "Modellen som din bild Smart Fields använder om inte ett fält fäster sitt eget.",
@@ -276,9 +275,9 @@
       "zImageTurbo": "snabbast och billigast."
     },
     "layout": {
-      "saveChanges": "Spara ändringar",
       "saving": "Sparande…",
-      "tryIt": "Prova det"
+      "tryIt": "Prova det",
+      "save": "Spara"
     },
     "text": {
       "cannotInheritModel": "Textstandard kan inte ärva en annan modell",
@@ -331,6 +330,26 @@
       "title": "Standardröstinställningar"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Extra resonemang",
+    "extraReasoningCost": "ca 1,5× kostnad",
+    "extraReasoningDescription": "Renare diagram och mer läsbar text. Ca 4× långsammare.",
+    "extraSettings": "Extra inställningar",
+    "doubleCost": "2× kostnad",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maximal kvalitet",
+    "maxQualityDescription": "Skarpare och renare, särskilt små etiketter.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Rikare detaljer",
+    "richerDetailDescription": "Mer detaljerade, fylligare scener. Lite långsammare.",
+    "underTheHood": {
+      "gptRicherDetail": "Mer detaljerad använder <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Standard använder <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Extra resonemang använder <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Standard använder <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Vilka modeller som körs"
+  },
   "promptTester": {
     "anotherNoteType": "en annan nottyp",
     "currentlySelectedCard": "För närvarande valt kort",
@@ -343,20 +362,23 @@
     },
     "fieldRunsOnNoteType": "Det här fältet körs på <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Genererad bildförhandsvisning",
+    "generatedIn": "Genererad på {{seconds}} s",
     "missingFieldsTitle_one": "Saknat fält",
     "missingFieldsTitle_other": "Saknade fält",
     "needsFields_one": "Behöver {{count}}-fält",
     "needsFields_other": "Behöver {{count}}-fält",
     "notesSelected_one": "{{count}} not vald — begränsa den till en.",
     "notesSelected_other": "{{count}} anteckningar valda — begränsa den till en.",
-    "pickCard": "Välj ett kort i webbläsaren Anki",
     "promptPlaceholder": "Skriv en testprompt och hänvisa till fälten på ditt kort med {{braces}}.",
+    "rerunToSave": "Kör testet igen för att spara det på kortet",
     "saveToCard": "Spara till kort",
     "savedTo": "Sparad till {{field}}",
     "selectCardWithFields_one": "Välj ett kort med fältet",
     "selectCardWithFields_other": "Välj ett kort med fälten",
     "selectFieldToReadAloud": "Välj ett fält att läsa upp",
     "selectNewCard": "Välj ett nytt kort i webbläsaren",
+    "or": "eller",
+    "selectCardInBrowser": "Markera ett kort i webbläsaren för att testa",
     "selectRequiredNoteType": "Välj en anteckning av typen <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Valt kort",
     "selectedDeck": "Valt däck",
@@ -364,6 +386,8 @@
     "selectionAppearsAutomatically": "Ditt val visas här automatiskt.",
     "sent": "Skickat",
     "testing": "Testning…",
+    "openRecentImage": "Öppna bild {{number}}",
+    "recentImages": "Resultat",
     "testResult": "Testresultat",
     "textToSpeak": "Text att tala",
     "viewResult": "Visa resultat",
@@ -372,7 +396,6 @@
   "subscription": {
     "accessEnds": "Åtkomsten upphör",
     "activateAgain": "Aktivera igen",
-    "endingSoon": "Slutar snart",
     "checking": "Kontrollerar prenumeration",
     "creditTypes": {
       "images": "Bilder",
@@ -386,6 +409,7 @@
     "errors": {
       "logout": "Kunde inte logga ut"
     },
+    "endingSoon": "Slutar snart",
     "expired": "Utgånget",
     "freePlan": "Gratis plan",
     "freeTrial": "Gratis provperiod",

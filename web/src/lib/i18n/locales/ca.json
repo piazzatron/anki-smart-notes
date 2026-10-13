@@ -260,16 +260,15 @@
     "image": {
       "cannotFindModel": "Falta el model {{model}} del catàleg d'imatges",
       "defaultModel": "Model per defecte",
-      "gptImage15Low": "millor equilibri qualitat/velocitat.",
-      "gptImage2": "mateix cost, més lent, de major qualitat.",
+      "gptImage25": "el millor per a tot: text nítid, diagrames nets.",
       "loadingLabel": "S'està carregant la configuració d'imatge predeterminada",
       "loadingTitle": "Configuració d'imatge per defecte",
+      "modelTipLabel": "Sobre els models d'imatge",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Baix/Mitjà)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Escollint un model d'imatge",
+      "nanoBanana21": "escenes riques i fotogràfiques.",
       "samplePrompt": "Genereu una imatge d'un estudiant estudiant molt amb Anki i aprovant les seves proves.",
       "saveError": "No s'han pogut desar els valors predeterminats de la imatge",
       "subtitle": "El model que utilitzeu la vostra imatge Smart Fields tret que un camp fixi el seu.",
@@ -277,9 +276,9 @@
       "zImageTurbo": "més ràpid i barat."
     },
     "layout": {
-      "saveChanges": "Desa els canvis",
       "saving": "S'està desant…",
-      "tryIt": "Prova-ho"
+      "tryIt": "Prova-ho",
+      "save": "Desa"
     },
     "text": {
       "cannotInheritModel": "Els valors predeterminats del text no poden heretar un altre model",
@@ -333,6 +332,26 @@
       "title": "Configuració de veu per defecte"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Raonament addicional",
+    "extraReasoningCost": "~1,5× el cost",
+    "extraReasoningDescription": "Diagrames més nets i text més llegible. Unes 4× més lent.",
+    "extraSettings": "Configuració addicional",
+    "doubleCost": "2× el cost",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Qualitat màxima",
+    "maxQualityDescription": "Més nítid i net, sobretot les etiquetes petites.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Més detall",
+    "richerDetailDescription": "Escenes més detallades i completes. Una mica més lent.",
+    "underTheHood": {
+      "gptRicherDetail": "El detall més ric utilitza <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "L'estàndard utilitza <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "El raonament addicional utilitza <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "L'estàndard utilitza <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Quins models s'executen"
+  },
   "promptTester": {
     "anotherNoteType": "un altre tipus de nota",
     "currentlySelectedCard": "Targeta seleccionada actualment",
@@ -345,6 +364,7 @@
     },
     "fieldRunsOnNoteType": "Aquest camp s'executa en <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Vista prèvia de la imatge generada",
+    "generatedIn": "Generat en {{seconds}} s",
     "missingFieldsTitle_one": "Falta camp",
     "missingFieldsTitle_many": "Falten camps",
     "missingFieldsTitle_other": "Falten camps",
@@ -354,8 +374,8 @@
     "notesSelected_one": "{{count}} nota seleccionada: reduïu-la a un.",
     "notesSelected_many": "Notes {{count}} seleccionades: reduïu-les a un.",
     "notesSelected_other": "Notes {{count}} seleccionades: reduïu-les a un.",
-    "pickCard": "Trieu una targeta al navegador Anki",
     "promptPlaceholder": "Escriviu una indicació de prova, fent referència als camps de la vostra targeta amb {{braces}}.",
+    "rerunToSave": "Torna a executar aquesta prova per desar-la a la targeta",
     "saveToCard": "Desa a la targeta",
     "savedTo": "Desat a {{field}}",
     "selectCardWithFields_one": "Si us plau, seleccioneu una targeta amb el camp",
@@ -363,6 +383,8 @@
     "selectCardWithFields_other": "Si us plau, seleccioneu una targeta amb els camps",
     "selectFieldToReadAloud": "Seleccioneu un camp per llegir en veu alta",
     "selectNewCard": "Seleccioneu una targeta nova al navegador",
+    "or": "o",
+    "selectCardInBrowser": "Selecciona una targeta al navegador per provar-la",
     "selectRequiredNoteType": "Si us plau, seleccioneu una nota de tipus <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Targeta seleccionada",
     "selectedDeck": "Baralla seleccionada",
@@ -370,6 +392,8 @@
     "selectionAppearsAutomatically": "La vostra selecció apareix aquí automàticament.",
     "sent": "Enviat",
     "testing": "S'està provant…",
+    "openRecentImage": "Obre la imatge {{number}}",
+    "recentImages": "Resultats",
     "testResult": "Resultat de la prova",
     "textToSpeak": "Text per parlar",
     "viewResult": "Veure resultat",
@@ -378,7 +402,6 @@
   "subscription": {
     "accessEnds": "L'accés s'acaba",
     "activateAgain": "Activar novament",
-    "endingSoon": "Finalitza aviat",
     "checking": "Comprovant la subscripció",
     "creditTypes": {
       "images": "Imatges",
@@ -393,6 +416,7 @@
     "errors": {
       "logout": "No s'ha pogut tancar la sessió"
     },
+    "endingSoon": "Finalitza aviat",
     "expired": "Caducada",
     "freePlan": "Pla gratuït",
     "freeTrial": "Prova gratuïta",

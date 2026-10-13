@@ -63,7 +63,7 @@ GENERATION_DEFAULTS = GenerationDefaults(
         web_search_enabled=False,
     ),
     tts=TTSGenerationSettings(provider="openai", model="tts-1", voice_id="alloy"),
-    image=ImageGenerationSettings(provider="replicate", model="flux-dev"),
+    image=ImageGenerationSettings(provider="replicate", model="z-image-turbo"),
 )
 SETTINGS_DTO: dto.SettingsDto = {
     "generateAtReview": True,
@@ -316,7 +316,7 @@ def test_build_state_shape():
             "webSearchEnabled": False,
         },
         "tts": {"provider": "openai", "model": "tts-1", "voiceId": "alloy"},
-        "image": {"provider": "replicate", "model": "flux-dev"},
+        "image": {"provider": "replicate", "model": "z-image-turbo"},
     }
     assert state["smartFields"] == [
         {
@@ -499,7 +499,7 @@ def test_parse_smart_field_create_image():
             "settings": {
                 "promptText": "Illustrate {{Front}}",
                 "provider": "replicate",
-                "model": "flux-dev",
+                "model": "z-image-turbo",
                 "usesDefaultGenerationSettings": False,
             },
         }
@@ -508,7 +508,7 @@ def test_parse_smart_field_create_image():
     assert create.settings == ImageSmartFieldSettings(
         prompt_text="Illustrate {{Front}}",
         provider="replicate",
-        model="flux-dev",
+        model="z-image-turbo",
         uses_default_generation_settings=False,
     )
 
@@ -597,7 +597,7 @@ def test_parse_generation_defaults_round_trips():
                 "webSearchEnabled": False,
             },
             "tts": {"provider": "openai", "model": "tts-1", "voiceId": "alloy"},
-            "image": {"provider": "replicate", "model": "flux-dev"},
+            "image": {"provider": "replicate", "model": "z-image-turbo"},
         }
     )
     assert parsed == GENERATION_DEFAULTS
@@ -665,7 +665,7 @@ def test_parse_settings_round_trips():
             settings=ImageSmartFieldSettings(
                 prompt_text="Illustrate {{Front}}",
                 provider="replicate",
-                model="flux-dev",
+                model="z-image-turbo",
                 uses_default_generation_settings=False,
             ),
         ),

@@ -259,16 +259,15 @@
     "image": {
       "cannotFindModel": "Λείπει ο κατάλογος εικόνων μοντέλο {{model}}",
       "defaultModel": "Προεπιλεγμένο μοντέλο",
-      "gptImage15Low": "καλύτερη ποιότητα/ταχύτητα αντάλλαγμα.",
-      "gptImage2": "ίδιο κόστος, πιο αργό, υψηλότερη ποιότητα.",
+      "gptImage25": "καλύτερη επιλογή για κάθε χρήση — καθαρό κείμενο, ευκρινή διαγράμματα.",
       "loadingLabel": "Φόρτωση προεπιλεγμένων ρυθμίσεων εικόνας",
       "loadingTitle": "Προεπιλεγμένες ρυθμίσεις εικόνας",
+      "modelTipLabel": "Σχετικά με τα μοντέλα εικόνας",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Χαμηλό / Μεσαίο)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Επιλέγοντας ένα μοντέλο εικόνας",
+      "nanoBanana21": "πλούσιες, φωτογραφικές σκηνές.",
       "samplePrompt": "Δημιουργήστε μια εικόνα ενός μαθητή που μελετά σκληρά με το Anki και περνά τις δοκιμασίες του.",
       "saveError": "Δεν ήταν δυνατή η αποθήκευση των προεπιλογών εικόνας",
       "subtitle": "Το μοντέλο που χρησιμοποιεί η εικόνα σας Smart Fields, εκτός εάν ένα πεδίο καρφιτσώσει το δικό του.",
@@ -276,9 +275,9 @@
       "zImageTurbo": "ταχύτερο και φθηνότερο."
     },
     "layout": {
-      "saveChanges": "Αποθήκευση αλλαγών",
       "saving": "Οικονομία…",
-      "tryIt": "Δοκιμάστε το"
+      "tryIt": "Δοκιμάστε το",
+      "save": "Αποθήκευση"
     },
     "text": {
       "cannotInheritModel": "Οι προεπιλογές κειμένου δεν μπορούν να κληρονομήσουν άλλο μοντέλο",
@@ -331,6 +330,26 @@
       "title": "Προεπιλεγμένες ρυθμίσεις φωνής"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Επιπλέον συλλογισμός",
+    "extraReasoningCost": "~1,5× κόστος",
+    "extraReasoningDescription": "Πιο καθαρά διαγράμματα και πιο ευανάγνωστο κείμενο. Περίπου 4× πιο αργό.",
+    "extraSettings": "Επιπλέον Ρυθμίσεις",
+    "doubleCost": "2× κόστος",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Μέγιστη ποιότητα",
+    "maxQualityDescription": "Πιο ευκρινές και καθαρό, ιδιαίτερα στις μικρές ετικέτες.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Περισσότερες λεπτομέρειες",
+    "richerDetailDescription": "Πιο λεπτομερείς, πληρέστερες σκηνές. Λίγο πιο αργό.",
+    "underTheHood": {
+      "gptRicherDetail": "Η πιο λεπτομερής απεικόνιση χρησιμοποιεί <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Η τυπική επιλογή χρησιμοποιεί <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Η εκτενέστερη συλλογιστική χρησιμοποιεί <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Η τυπική επιλογή χρησιμοποιεί <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Ποια μοντέλα εκτελούνται"
+  },
   "promptTester": {
     "anotherNoteType": "άλλος τύπος νότας",
     "currentlySelectedCard": "Επιλεγμένη κάρτα",
@@ -343,20 +362,23 @@
     },
     "fieldRunsOnNoteType": "Αυτό το πεδίο εκτελείται στο <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Δημιουργήθηκε προεπισκόπηση εικόνας",
+    "generatedIn": "Δημιουργήθηκε σε {{seconds}}s",
     "missingFieldsTitle_one": "Λείπει πεδίο",
     "missingFieldsTitle_other": "Λείπουν πεδία",
     "needsFields_one": "Χρειάζεται πεδίο {{count}}",
     "needsFields_other": "Απαιτούνται πεδία {{count}}",
     "notesSelected_one": "Επιλέχθηκε η σημείωση {{count}} — περιορίστε τη σε ένα.",
     "notesSelected_other": "{{count}} σημειώσεις επιλεγμένες — περιορίστε το σε ένα.",
-    "pickCard": "Επιλέξτε μια κάρτα στο πρόγραμμα περιήγησης Anki",
     "promptPlaceholder": "Γράψτε μια προτροπή δοκιμής, αναφέροντας πεδία στην κάρτα σας με {{braces}}.",
+    "rerunToSave": "Εκτελέστε ξανά αυτή τη δοκιμή για να την αποθηκεύσετε στην κάρτα",
     "saveToCard": "Αποθήκευση στην κάρτα",
     "savedTo": "Αποθηκεύτηκε στο {{field}}",
     "selectCardWithFields_one": "Παρακαλώ επιλέξτε μια κάρτα με το πεδίο",
     "selectCardWithFields_other": "Παρακαλώ επιλέξτε μια κάρτα με τα πεδία",
     "selectFieldToReadAloud": "Επιλέξτε ένα πεδίο για ανάγνωση δυνατά",
     "selectNewCard": "Επιλέξτε μια νέα κάρτα στο πρόγραμμα περιήγησης",
+    "or": "ή",
+    "selectCardInBrowser": "Επιλέξτε μια κάρτα στο πρόγραμμα περιήγησης για δοκιμή",
     "selectRequiredNoteType": "Παρακαλώ επιλέξτε μια σημείωση τύπου <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Επιλεγμένη κάρτα",
     "selectedDeck": "Επιλεγμένο κατάστρωμα",
@@ -364,6 +386,8 @@
     "selectionAppearsAutomatically": "Η επιλογή σας εμφανίζεται εδώ αυτόματα.",
     "sent": "Στάλθηκε",
     "testing": "Δοκιμή…",
+    "openRecentImage": "Άνοιγμα εικόνας {{number}}",
+    "recentImages": "Αποτελέσματα",
     "testResult": "Αποτέλεσμα δοκιμής",
     "textToSpeak": "Κείμενο για ομιλία",
     "viewResult": "Δείτε το αποτέλεσμα",
@@ -372,7 +396,6 @@
   "subscription": {
     "accessEnds": "Λήξη πρόσβασης",
     "activateAgain": "Ενεργοποίηση ξανά",
-    "endingSoon": "Λήγει σύντομα",
     "checking": "Έλεγχος συνδρομής",
     "creditTypes": {
       "images": "εικόνες",
@@ -386,6 +409,7 @@
     "errors": {
       "logout": "Δεν ήταν δυνατή η αποσύνδεση"
     },
+    "endingSoon": "Λήγει σύντομα",
     "expired": "Έληξε",
     "freePlan": "Δωρεάν σχέδιο",
     "freeTrial": "Δωρεάν δοκιμή",

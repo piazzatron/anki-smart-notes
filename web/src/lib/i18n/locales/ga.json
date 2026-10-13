@@ -262,16 +262,15 @@
     "image": {
       "cannotFindModel": "Tá samhail {{model}} in easnamh ar chatalóg na n-íomhánna",
       "defaultModel": "Múnla réamhshocraithe",
-      "gptImage15Low": "caighdeán is fearr / trádáil luas.",
-      "gptImage2": "costas céanna, níos moille, ar chaighdeán níos airde.",
+      "gptImage25": "an rogha is fearr ar fad — téacs géar, léaráidí glana.",
       "loadingLabel": "Socruithe Réamhshocraithe Íomhá á Luchtú",
       "loadingTitle": "Socruithe Réamhshocraithe Íomhá",
+      "modelTipLabel": "Faoi na samhlacha íomhá",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Íseal / Meánach)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Samhail íomhá á phiocadh",
+      "nanoBanana21": "radharcanna saibhre, grianghrafadóireachta.",
       "samplePrompt": "Gin íomhá de dhalta atá ag staidéar go dian le Anki agus ag dul thar a gcuid trialacha.",
       "saveError": "Níorbh fhéidir réamhshocruithe na híomhá a shábháil",
       "subtitle": "Úsáid múnla d’íomhá Smart Fields mura n-úsáideann páirc a chuid féin.",
@@ -279,9 +278,9 @@
       "zImageTurbo": "is tapúla agus is saoire."
     },
     "layout": {
-      "saveChanges": "Sábháil athruithe",
       "saving": "Ag sábháil…",
-      "tryIt": "Bain triail as"
+      "tryIt": "Bain triail as",
+      "save": "Sábháil"
     },
     "text": {
       "cannotInheritModel": "Ní féidir le réamhshocrú téacs a bheith mar oidhreacht ag samhail eile",
@@ -337,6 +336,26 @@
       "title": "Socruithe Gutha Réamhshocraithe"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Réasúnaíocht bhreise",
+    "extraReasoningCost": "~1.5× costas",
+    "extraReasoningDescription": "Léaráidí glanta agus téacs níos inléite. Thart ar 4× níos moille.",
+    "extraSettings": "Socruithe Breise",
+    "doubleCost": "2× costas",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Cáilíocht uasta",
+    "maxQualityDescription": "Níos géire agus níos glaine, go háirithe lipéid bheaga.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Mionsonraí níos saibhre",
+    "richerDetailDescription": "Radharcanna níos mionsonraithe agus níos iomláine. Beagán níos moille.",
+    "underTheHood": {
+      "gptRicherDetail": "Le mionsonraí níos saibhre, úsáidtear <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Le caighdeán, úsáidtear <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Le réasúnaíocht bhreise, úsáidtear <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Le caighdeán, úsáidtear <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Cé na samhlacha a ritheann"
+  },
   "promptTester": {
     "anotherNoteType": "cineál nóta eile",
     "currentlySelectedCard": "Cárta roghnaithe faoi láthair",
@@ -349,6 +368,7 @@
     },
     "fieldRunsOnNoteType": "Rithíonn an réimse seo ar <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Réamhamharc íomhá ginte",
+    "generatedIn": "Ginte in {{seconds}}s",
     "missingFieldsTitle_one": "páirc ar iarraidh",
     "missingFieldsTitle_two": "Réimsí ar iarraidh",
     "missingFieldsTitle_few": "Réimsí ar iarraidh",
@@ -364,8 +384,8 @@
     "notesSelected_few": "Nótaí {{count}} roghnaithe — caolaigh go ceann amháin é.",
     "notesSelected_many": "Nótaí {{count}} roghnaithe — caolaigh go ceann amháin é.",
     "notesSelected_other": "Nótaí {{count}} roghnaithe — caolaigh go ceann amháin é.",
-    "pickCard": "Roghnaigh cárta sa Bhrabhsálaí Anki",
     "promptPlaceholder": "Scríobh leid tástála, ag tagairt do réimsí ar do chárta le {{braces}}.",
+    "rerunToSave": "Rith an tástáil seo arís chun í a shábháil sa chárta",
     "saveToCard": "Sábháil ar chárta",
     "savedTo": "Sábháilte go {{field}}",
     "selectCardWithFields_one": "Roghnaigh carta le an réimse, le do thoil",
@@ -375,6 +395,8 @@
     "selectCardWithFields_other": "Roghnaigh carta leis na réimsí, le do thoil",
     "selectFieldToReadAloud": "Roghnaigh réimse le léamh os ard",
     "selectNewCard": "Roghnaigh cárta nua sa bhrabhsálaí",
+    "or": "nó",
+    "selectCardInBrowser": "Roghnaigh cárta sa bhrabhsálaí le tástáil",
     "selectRequiredNoteType": "Roghnaigh nóta den chineál <noteTypeName>{{noteType}}</noteTypeName>, le do thoil",
     "selectedCard": "Cárta roghnaithe",
     "selectedDeck": "Deic roghnaithe",
@@ -382,6 +404,8 @@
     "selectionAppearsAutomatically": "Taispeántar do rogha anseo go huathoibríoch.",
     "sent": "Seolta",
     "testing": "Ag tástáil…",
+    "openRecentImage": "Oscail íomhá {{number}}",
+    "recentImages": "Torthaí",
     "testResult": "Toradh tástála",
     "textToSpeak": "Téacs a labhairt",
     "viewResult": "Féach ar an toradh",
@@ -390,7 +414,6 @@
   "subscription": {
     "accessEnds": "Críochnaíonn an rochtain",
     "activateAgain": "Gníomhachtaigh arís",
-    "endingSoon": "Deireadh a bheith ann go luath",
     "checking": "Síntiús á sheiceáil",
     "creditTypes": {
       "images": "Íomhánna",
@@ -407,6 +430,7 @@
     "errors": {
       "logout": "Níorbh fhéidir logáil amach"
     },
+    "endingSoon": "Deireadh a bheith ann go luath",
     "expired": "Éadúil",
     "freePlan": "Plean saor in aisce,",
     "freeTrial": "Triail saor in aisce",

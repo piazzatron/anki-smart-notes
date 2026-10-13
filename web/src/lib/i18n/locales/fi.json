@@ -259,16 +259,15 @@
     "image": {
       "cannotFindModel": "Kuvaluettelosta puuttuu malli {{model}}",
       "defaultModel": "Oletusmalli",
-      "gptImage15Low": "paras laatu/nopeus kompromissi.",
-      "gptImage2": "sama hinta, hitaampi, korkeampi laatu.",
+      "gptImage25": "paras monipuolinen valinta – terävä teksti, selkeät kaaviot.",
       "loadingLabel": "Ladataan oletuskuvaasetuksia",
       "loadingTitle": "Kuvan oletusasetukset",
+      "modelTipLabel": "Tietoa kuvamalleista",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Kuvamallin valinta",
+      "nanoBanana21": "rikkaat, valokuvamaiset kohtaukset.",
       "samplePrompt": "Luo kuva opiskelijasta, joka opiskelee ahkerasti Anki:n kanssa ja läpäisee kokeensa.",
       "saveError": "Kuvan oletusasetuksia ei voitu tallentaa",
       "subtitle": "Smart Fields-kuvasi käyttämä malli, ellei kenttä ole nastalla omaa.",
@@ -276,9 +275,9 @@
       "zImageTurbo": "nopein ja halvin."
     },
     "layout": {
-      "saveChanges": "Tallenna muutokset",
       "saving": "Tallennetaan…",
-      "tryIt": "Kokeile sitä"
+      "tryIt": "Kokeile sitä",
+      "save": "Tallenna"
     },
     "text": {
       "cannotInheritModel": "Tekstin oletusasetukset eivät voi periä toista mallia",
@@ -331,6 +330,26 @@
       "title": "Äänen oletusasetukset"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Laajempi päättely",
+    "extraReasoningCost": "noin 1,5× kustannus",
+    "extraReasoningDescription": "Selkeämmät kaaviot ja luettavampi teksti. Noin 4× hitaampi.",
+    "extraSettings": "Lisäasetukset",
+    "doubleCost": "2× kustannus",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Enimmäislaatu",
+    "maxQualityDescription": "Terävämpi ja selkeämpi, erityisesti pienet tekstit.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Yksityiskohtaisempi",
+    "richerDetailDescription": "Yksityiskohtaisemmat ja täyteläisemmät kohtaukset. Hieman hitaampi.",
+    "underTheHood": {
+      "gptRicherDetail": "Tarkempi yksityiskohtaisuus käyttää mallia <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Tavallinen käyttää mallia <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Laajennettu päättely käyttää mallia <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Tavallinen käyttää mallia <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Mitä malleja käytetään"
+  },
   "promptTester": {
     "anotherNoteType": "toinen muistiinpanotyyppi",
     "currentlySelectedCard": "Tällä hetkellä valittu kortti",
@@ -343,20 +362,23 @@
     },
     "fieldRunsOnNoteType": "Tämä kenttä toimii muistiinpanotyypissä <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Luotu kuvan esikatselu",
+    "generatedIn": "Luotu {{seconds}} s",
     "missingFieldsTitle_one": "Puuttuva kenttä",
     "missingFieldsTitle_other": "Puuttuvat kentät",
     "needsFields_one": "Tarvitsee {{count}}-kentän",
     "needsFields_other": "Tarvitsee {{count}}-kentät",
     "notesSelected_one": "{{count}} muistiinpano valittu – rajaa se yhteen.",
     "notesSelected_other": "{{count}} muistiinpanot valittu – rajaa se yhteen.",
-    "pickCard": "Valitse kortti Anki-selaimesta",
     "promptPlaceholder": "Kirjoita {{braces}}-kortillesi testikehote, jossa viitataan kenttiin.",
+    "rerunToSave": "Suorita testi uudelleen tallentaaksesi sen kortille",
     "saveToCard": "Tallenna kortille",
     "savedTo": "Tallennettu tiedostoon {{field}}",
     "selectCardWithFields_one": "Valitse kortti, jossa on kenttä",
     "selectCardWithFields_other": "Valitse kortti, jossa on kentät",
     "selectFieldToReadAloud": "Valitse ääneen luettava kenttä",
     "selectNewCard": "Valitse uusi kortti selaimesta",
+    "or": "tai",
+    "selectCardInBrowser": "Valitse kortti selaimessa testataksesi",
     "selectRequiredNoteType": "Valitse muistiinpano tyypistä <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Valittu kortti",
     "selectedDeck": "Valittu kansi",
@@ -364,6 +386,8 @@
     "selectionAppearsAutomatically": "Valintasi näkyy täällä automaattisesti.",
     "sent": "Lähetetty",
     "testing": "Testaus…",
+    "openRecentImage": "Avaa kuva {{number}}",
+    "recentImages": "Tulokset",
     "testResult": "Testitulos",
     "textToSpeak": "Teksti puhuttavaksi",
     "viewResult": "Näytä tulos",
@@ -372,7 +396,6 @@
   "subscription": {
     "accessEnds": "Pääsy loppuu",
     "activateAgain": "Aktivoi uudelleen",
-    "endingSoon": "Päättyy pian",
     "checking": "Tarkistetaan tilausta",
     "creditTypes": {
       "images": "Kuvat",
@@ -386,6 +409,7 @@
     "errors": {
       "logout": "Ei voitu kirjautua ulos"
     },
+    "endingSoon": "Päättyy pian",
     "expired": "Vanhentunyt",
     "freePlan": "Ilmainen suunnitelma",
     "freeTrial": "Ilmainen kokeilu",

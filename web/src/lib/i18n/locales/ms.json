@@ -258,16 +258,15 @@
     "image": {
       "cannotFindModel": "Katalog imej tiada model {{model}}",
       "defaultModel": "Model lalai",
-      "gptImage15Low": "kualiti terbaik / pertukaran kelajuan.",
-      "gptImage2": "kos yang sama, lebih perlahan, kualiti yang lebih tinggi.",
+      "gptImage25": "pilihan terbaik untuk semua keperluan — teks tajam, rajah kemas.",
       "loadingLabel": "Memuatkan Tetapan Imej Lalai",
       "loadingTitle": "Tetapan Imej Lalai",
+      "modelTipLabel": "Tentang model imej",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Rendah / Sederhana)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Memilih model imej",
+      "nanoBanana21": "adegan kaya dan fotografik.",
       "samplePrompt": "Hasilkan imej pelajar yang belajar bersungguh-sungguh dengan Anki dan lulus ujian mereka.",
       "saveError": "Tidak dapat menyimpan lalai imej",
       "subtitle": "Model imej anda Smart Fields gunakan melainkan medan menyematnya sendiri.",
@@ -275,9 +274,9 @@
       "zImageTurbo": "terpantas dan termurah."
     },
     "layout": {
-      "saveChanges": "Simpan perubahan",
       "saving": "Menyimpan…",
-      "tryIt": "Cubalah"
+      "tryIt": "Cubalah",
+      "save": "Simpan"
     },
     "text": {
       "cannotInheritModel": "Lalai teks tidak boleh mewarisi model lain",
@@ -329,6 +328,26 @@
       "title": "Tetapan Suara Lalai"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Penaakulan tambahan",
+    "extraReasoningCost": "~1.5× kos",
+    "extraReasoningDescription": "Rajah lebih kemas dan teks lebih mudah dibaca. Kira-kira 4× lebih perlahan.",
+    "extraSettings": "Tetapan Tambahan",
+    "doubleCost": "2× kos",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Kualiti Maksimum",
+    "maxQualityDescription": "Lebih tajam dan kemas, terutamanya label kecil.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Butiran Lebih Kaya",
+    "richerDetailDescription": "Adegan lebih terperinci dan penuh. Sedikit lebih perlahan.",
+    "underTheHood": {
+      "gptRicherDetail": "Butiran lebih kaya menggunakan <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Standard menggunakan <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Penaakulan tambahan menggunakan <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Standard menggunakan <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Model yang dijalankan"
+  },
   "promptTester": {
     "anotherNoteType": "jenis nota lain",
     "currentlySelectedCard": "Kad yang dipilih pada masa ini",
@@ -341,16 +360,19 @@
     },
     "fieldRunsOnNoteType": "Medan ini berjalan pada <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Pratonton imej yang dihasilkan",
+    "generatedIn": "Dijana dalam {{seconds}}s",
     "missingFieldsTitle_other": "Medan hilang",
     "needsFields_other": "Memerlukan medan {{count}}",
     "notesSelected_other": "Nota {{count}} dipilih — sempitkannya kepada satu.",
-    "pickCard": "Pilih kad dalam Pelayar Anki",
     "promptPlaceholder": "Tulis gesaan ujian, merujuk medan pada kad anda dengan {{braces}}.",
+    "rerunToSave": "Jalankan ujian ini semula untuk menyimpannya ke kad",
     "saveToCard": "Simpan ke kad",
     "savedTo": "Disimpan ke {{field}}",
     "selectCardWithFields_other": "Sila pilih kad dengan medan tersebut",
     "selectFieldToReadAloud": "Pilih medan untuk dibaca dengan lantang",
     "selectNewCard": "Pilih kad baharu dalam penyemak imbas",
+    "or": "atau",
+    "selectCardInBrowser": "Pilih kad dalam pelayar untuk diuji",
     "selectRequiredNoteType": "Sila pilih nota jenis <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Kad yang dipilih",
     "selectedDeck": "Dek terpilih",
@@ -358,6 +380,8 @@
     "selectionAppearsAutomatically": "Pilihan anda muncul di sini secara automatik.",
     "sent": "Dihantar",
     "testing": "Menguji…",
+    "openRecentImage": "Buka imej {{number}}",
+    "recentImages": "Keputusan",
     "testResult": "Keputusan ujian",
     "textToSpeak": "Teks untuk bercakap",
     "viewResult": "Lihat hasil",
@@ -366,7 +390,6 @@
   "subscription": {
     "accessEnds": "Akses berakhir",
     "activateAgain": "Aktifkan Semula",
-    "endingSoon": "Berakhir Segera",
     "checking": "Menyemak langganan",
     "creditTypes": {
       "images": "Imej",
@@ -379,6 +402,7 @@
     "errors": {
       "logout": "Tidak dapat log keluar"
     },
+    "endingSoon": "Berakhir Segera",
     "expired": "Telah tamat tempoh",
     "freePlan": "Pelan percuma",
     "freeTrial": "Percubaan percuma",

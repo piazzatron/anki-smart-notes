@@ -259,16 +259,15 @@
     "image": {
       "cannotFindModel": "Resim kataloğunda {{model}} modeli eksik",
       "defaultModel": "Varsayılan model",
-      "gptImage15Low": "en iyi kalite/hız dengesi.",
-      "gptImage2": "aynı maliyet, daha yavaş, daha yüksek kalite.",
+      "gptImage25": "en iyi genel seçenek — keskin metin, temiz diyagramlar.",
       "loadingLabel": "Varsayılan Görüntü Ayarlarını Yükleme",
       "loadingTitle": "Varsayılan Görüntü Ayarları",
+      "modelTipLabel": "Görüntü modelleri hakkında",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Bir görüntü modeli seçme",
+      "nanoBanana21": "zengin, fotoğrafik sahneler.",
       "samplePrompt": "Anki ile sıkı çalışan ve sınavlarını geçen bir öğrencinin görüntüsünü oluşturun.",
       "saveError": "Resim varsayılanları kaydedilemedi",
       "subtitle": "Bir alan kendisini sabitlemediği sürece görüntünüz Smart Fields'in kullandığı model.",
@@ -276,9 +275,9 @@
       "zImageTurbo": "en hızlı ve en ucuz."
     },
     "layout": {
-      "saveChanges": "Değişiklikleri kaydet",
       "saving": "Kaydediliyor…",
-      "tryIt": "Deneyin"
+      "tryIt": "Deneyin",
+      "save": "Kaydet"
     },
     "text": {
       "cannotInheritModel": "Metin varsayılanları başka bir modeli devralamaz",
@@ -331,6 +330,26 @@
       "title": "Varsayılan Ses Ayarları"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Ek akıl yürütme",
+    "extraReasoningCost": "~1,5× maliyet",
+    "extraReasoningDescription": "Daha temiz diyagramlar ve daha okunabilir metin. Yaklaşık 4× daha yavaş.",
+    "extraSettings": "Ek Ayarlar",
+    "doubleCost": "2× maliyet",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maksimum kalite",
+    "maxQualityDescription": "Özellikle küçük etiketlerde daha keskin ve temiz.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Daha zengin detay",
+    "richerDetailDescription": "Daha ayrıntılı, daha dolu sahneler. Biraz daha yavaş.",
+    "underTheHood": {
+      "gptRicherDetail": "Daha zengin ayrıntı için <model>GPT Image 2.5 Sunburst</model> kullanılır.",
+      "gptStandard": "Standart için <model>GPT Image 2.5 Flare</model> kullanılır.",
+      "nanoExtraReasoning": "Ek akıl yürütme için <model>Nano Banana 2.1</model> kullanılır.",
+      "nanoStandard": "Standart için <model>Nano Banana 2 Lite</model> kullanılır."
+    },
+    "underTheHoodLabel": "Hangi modeller çalışır"
+  },
   "promptTester": {
     "anotherNoteType": "başka bir not türü",
     "currentlySelectedCard": "Şu anda seçili kart",
@@ -343,20 +362,23 @@
     },
     "fieldRunsOnNoteType": "Bu alan <noteTypeName>{{noteType}}</noteTypeName> üzerinde çalışır",
     "generatedImagePreview": "Oluşturulan resim önizlemesi",
+    "generatedIn": "{{seconds}} sn içinde oluşturuldu",
     "missingFieldsTitle_one": "Eksik alan",
     "missingFieldsTitle_other": "Eksik alanlar",
     "needsFields_one": "{{count}} alanına ihtiyaç var",
     "needsFields_other": "{{count}} alanlarına ihtiyaç var",
     "notesSelected_one": "{{count}} notu seçildi — onu bire daraltın.",
     "notesSelected_other": "Seçilen {{count}} notları — onu bire daraltın.",
-    "pickCard": "Anki Tarayıcısında bir kart seçin",
     "promptPlaceholder": "{{braces}} ile kartınızdaki alanlara referans veren bir test istemi yazın.",
+    "rerunToSave": "Karta kaydetmek için bu testi yeniden çalıştırın",
     "saveToCard": "Karta kaydet",
     "savedTo": "{{field}}'e kaydedildi",
     "selectCardWithFields_one": "Lütfen alanı içeren bir kart seçin",
     "selectCardWithFields_other": "Lütfen alanları içeren bir kart seçin",
     "selectFieldToReadAloud": "Yüksek sesle okumak için bir alan seçin",
     "selectNewCard": "Tarayıcıda yeni bir kart seçin",
+    "or": "veya",
+    "selectCardInBrowser": "Test etmek için tarayıcıda bir kart seçin",
     "selectRequiredNoteType": "Lütfen <noteTypeName>{{noteType}}</noteTypeName> türünde bir not seçin",
     "selectedCard": "Seçilen kart",
     "selectedDeck": "Seçilen deste",
@@ -364,6 +386,8 @@
     "selectionAppearsAutomatically": "Seçiminiz burada otomatik olarak görünür.",
     "sent": "Gönderilmiş",
     "testing": "Test…",
+    "openRecentImage": "{{number}} numaralı görseli aç",
+    "recentImages": "Sonuçlar",
     "testResult": "Test sonucu",
     "textToSpeak": "Konuşmak için metin",
     "viewResult": "Sonucu görüntüle",
@@ -372,7 +396,6 @@
   "subscription": {
     "accessEnds": "Erişim sona eriyor",
     "activateAgain": "Yeniden etkinleştir",
-    "endingSoon": "Yakında bitiyor",
     "checking": "Abonelik kontrol ediliyor",
     "creditTypes": {
       "images": "Görseller",
@@ -386,6 +409,7 @@
     "errors": {
       "logout": "Oturum kapatılamadı"
     },
+    "endingSoon": "Yakında bitiyor",
     "expired": "Süresi doldu",
     "freePlan": "Ücretsiz plan",
     "freeTrial": "Ücretsiz deneme",

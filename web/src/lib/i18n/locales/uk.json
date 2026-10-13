@@ -261,16 +261,15 @@
     "image": {
       "cannotFindModel": "У каталозі зображень відсутня модель {{model}}",
       "defaultModel": "Модель за замовчуванням",
-      "gptImage15Low": "найкращий компроміс між якістю та швидкістю.",
-      "gptImage2": "однакова вартість, повільніше, вища якість.",
+      "gptImage25": "найкращий універсальний варіант — чіткий текст, чисті діаграми.",
       "loadingLabel": "Завантаження стандартних параметрів зображення",
       "loadingTitle": "Параметри зображення за замовчуванням",
+      "modelTipLabel": "Про моделі зображень",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (низький / середній)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Вибір моделі іміджу",
+      "nanoBanana21": "насичені фотореалістичні сцени.",
       "samplePrompt": "Створіть зображення студента, який старанно навчається за допомогою Anki і здає свої тести.",
       "saveError": "Не вдалося зберегти зображення за замовчуванням",
       "subtitle": "Модель, яку використовує ваше зображення Smart Fields, якщо поле не закріплює власне.",
@@ -278,9 +277,9 @@
       "zImageTurbo": "найшвидший і найдешевший."
     },
     "layout": {
-      "saveChanges": "Зберегти зміни",
       "saving": "Збереження…",
-      "tryIt": "Спробуйте"
+      "tryIt": "Спробуйте",
+      "save": "Зберегти"
     },
     "text": {
       "cannotInheritModel": "Текстові значення за замовчуванням не можуть успадкувати іншу модель",
@@ -335,6 +334,26 @@
       "title": "Налаштування голосу за умовчанням"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Розширене міркування",
+    "extraReasoningCost": "~1,5× вартість",
+    "extraReasoningDescription": "Чистіші діаграми та читабельніший текст. Приблизно в 4 рази повільніше.",
+    "extraSettings": "Додаткові налаштування",
+    "doubleCost": "2× вартість",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Максимальна якість",
+    "maxQualityDescription": "Чіткіше й чистіше, особливо дрібні підписи.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Більше деталей",
+    "richerDetailDescription": "Детальніші й повніші сцени. Трохи повільніше.",
+    "underTheHood": {
+      "gptRicherDetail": "Детальніша деталізація використовує <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Стандартний режим використовує <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Розширене міркування використовує <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Стандартний режим використовує <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Які моделі працюють"
+  },
   "promptTester": {
     "anotherNoteType": "інший тип нотаток",
     "currentlySelectedCard": "Поточна вибрана карта",
@@ -347,6 +366,7 @@
     },
     "fieldRunsOnNoteType": "Це поле запускається на <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Попередній перегляд створеного зображення",
+    "generatedIn": "Згенеровано за {{seconds}} с",
     "missingFieldsTitle_one": "Відсутнє поле",
     "missingFieldsTitle_few": "Відсутні поля",
     "missingFieldsTitle_many": "Відсутні поля",
@@ -359,8 +379,8 @@
     "notesSelected_few": "Вибрано {{count}} нотатки — звузьте до однієї.",
     "notesSelected_many": "Вибрано {{count}} нотаток — звузьте до однієї.",
     "notesSelected_other": "вибрані нотатки {{count}} — звузити їх до однієї.",
-    "pickCard": "Виберіть картку в браузері Anki",
     "promptPlaceholder": "Напишіть тестову підказку, посилаючись на поля вашої картки за допомогою {{braces}}.",
+    "rerunToSave": "Запустіть цей тест знову, щоб зберегти його в картку",
     "saveToCard": "Зберегти на картку",
     "savedTo": "Збережено в {{field}}",
     "selectCardWithFields_one": "Будь ласка, виберіть карту з полем",
@@ -369,6 +389,8 @@
     "selectCardWithFields_other": "Будь ласка, виберіть карту з полями",
     "selectFieldToReadAloud": "Виберіть поле для читання вголос",
     "selectNewCard": "Виберіть нову картку в браузері",
+    "or": "або",
+    "selectCardInBrowser": "Виберіть картку в браузері для тестування",
     "selectRequiredNoteType": "Будь ласка, виберіть замітку типу <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Вибрана карта",
     "selectedDeck": "Вибрана колода",
@@ -376,6 +398,8 @@
     "selectionAppearsAutomatically": "Ваш вибір з’явиться тут автоматично.",
     "sent": "Надіслано",
     "testing": "Тестування…",
+    "openRecentImage": "Відкрити зображення {{number}}",
+    "recentImages": "Результати",
     "testResult": "Результат тесту",
     "textToSpeak": "Текст для озвучення",
     "viewResult": "Переглянути результат",
@@ -384,7 +408,6 @@
   "subscription": {
     "accessEnds": "Доступ закінчується",
     "activateAgain": "Активувати знову",
-    "endingSoon": "Завершиться незабаром",
     "checking": "Перевірка підписки",
     "creditTypes": {
       "images": "Зображення",
@@ -400,6 +423,7 @@
     "errors": {
       "logout": "Не вдалося вийти"
     },
+    "endingSoon": "Завершиться незабаром",
     "expired": "Закінчилася дія",
     "freePlan": "Безкоштовний план",
     "freeTrial": "Безкоштовна пробна версія",

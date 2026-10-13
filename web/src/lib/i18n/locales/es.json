@@ -260,16 +260,15 @@
     "image": {
       "cannotFindModel": "Falta catálogo de imágenes modelo {{model}}",
       "defaultModel": "Modelo predeterminado",
-      "gptImage15Low": "mejor relación calidad/velocidad.",
-      "gptImage2": "Mismo costo, más lento, mayor calidad.",
+      "gptImage25": "el mejor para todo: texto nítido, diagramas limpios.",
       "loadingLabel": "Cargando la configuración de imagen predeterminada",
       "loadingTitle": "Configuración de imagen predeterminada",
+      "modelTipLabel": "Acerca de los modelos de imagen",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Bajo / Medio)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Elegir un modelo de imagen",
+      "nanoBanana21": "escenas ricas y fotográficas.",
       "samplePrompt": "Genera una imagen de un estudiante estudiando mucho con Anki y aprobando sus exámenes.",
       "saveError": "No se pudieron guardar los valores predeterminados de la imagen",
       "subtitle": "El modelo que utiliza su imagen Smart Fields a menos que un campo fije el suyo.",
@@ -277,9 +276,9 @@
       "zImageTurbo": "más rápido y más barato."
     },
     "layout": {
-      "saveChanges": "Guardar cambios",
       "saving": "Ahorro…",
-      "tryIt": "Pruébalo"
+      "tryIt": "Pruébalo",
+      "save": "Guardar"
     },
     "text": {
       "cannotInheritModel": "Los valores predeterminados de texto no pueden heredar otro modelo",
@@ -333,6 +332,26 @@
       "title": "Configuración de voz predeterminada"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Razonamiento extra",
+    "extraReasoningCost": "~1,5× costo",
+    "extraReasoningDescription": "Diagramas más limpios y texto más legible. Unas 4 veces más lento.",
+    "extraSettings": "Ajustes adicionales",
+    "doubleCost": "2× costo",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Calidad máxima",
+    "maxQualityDescription": "Más nítido y limpio, especialmente las etiquetas pequeñas.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Más detalle",
+    "richerDetailDescription": "Escenas más detalladas y completas. Un poco más lento.",
+    "underTheHood": {
+      "gptRicherDetail": "Más detalle usa <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Estándar usa <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Razonamiento adicional usa <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Estándar usa <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Qué modelos se ejecutan"
+  },
   "promptTester": {
     "anotherNoteType": "otro tipo de nota",
     "currentlySelectedCard": "Tarjeta actualmente seleccionada",
@@ -345,6 +364,7 @@
     },
     "fieldRunsOnNoteType": "Este campo se ejecuta en <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Vista previa de la imagen generada",
+    "generatedIn": "Generado en {{seconds}} s",
     "missingFieldsTitle_one": "Campo faltante",
     "missingFieldsTitle_many": "Campos faltantes",
     "missingFieldsTitle_other": "Campos faltantes",
@@ -354,8 +374,8 @@
     "notesSelected_one": "Nota {{count}} seleccionada: limítela a una.",
     "notesSelected_many": "Notas {{count}} seleccionadas: limítelas a una.",
     "notesSelected_other": "Notas {{count}} seleccionadas: limítelas a una.",
-    "pickCard": "Elija una tarjeta en el navegador Anki",
     "promptPlaceholder": "Escriba un mensaje de prueba, haciendo referencia a los campos de su tarjeta con {{braces}}.",
+    "rerunToSave": "Ejecuta esta prueba de nuevo para guardarla en la tarjeta",
     "saveToCard": "Guardar en tarjeta",
     "savedTo": "Guardado en {{field}}",
     "selectCardWithFields_one": "Por favor, selecciona una tarjeta con el campo",
@@ -363,6 +383,8 @@
     "selectCardWithFields_other": "Por favor, selecciona una tarjeta con los campos",
     "selectFieldToReadAloud": "Seleccione un campo para leer en voz alta",
     "selectNewCard": "Seleccione una nueva tarjeta en el navegador",
+    "or": "o",
+    "selectCardInBrowser": "Selecciona una tarjeta en el explorador para probar",
     "selectRequiredNoteType": "Por favor, selecciona una nota de tipo <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Tarjeta seleccionada",
     "selectedDeck": "Mazo seleccionado",
@@ -370,6 +392,8 @@
     "selectionAppearsAutomatically": "Su selección aparece aquí automáticamente.",
     "sent": "Enviado",
     "testing": "Pruebas…",
+    "openRecentImage": "Abrir imagen {{number}}",
+    "recentImages": "Resultados",
     "testResult": "Resultado de la prueba",
     "textToSpeak": "Texto para hablar",
     "viewResult": "Ver resultado",
@@ -378,7 +402,6 @@
   "subscription": {
     "accessEnds": "El acceso termina",
     "activateAgain": "Activar de nuevo",
-    "endingSoon": "Finaliza pronto",
     "checking": "Comprobando suscripción",
     "creditTypes": {
       "images": "Imágenes",
@@ -393,6 +416,7 @@
     "errors": {
       "logout": "No se pudo cerrar sesión"
     },
+    "endingSoon": "Finaliza pronto",
     "expired": "Expirado",
     "freePlan": "Plan gratuito",
     "freeTrial": "Prueba gratuita",

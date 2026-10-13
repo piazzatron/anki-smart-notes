@@ -258,16 +258,15 @@
     "image": {
       "cannotFindModel": "Lo catalòg d'imatges manca lo modèl {{model}}",
       "defaultModel": "Modèl per defaut",
-      "gptImage15Low": "melhor compromés de qualitat / velocitat.",
-      "gptImage2": "meteis còst, mai lent, qualitat mai nauta.",
+      "gptImage25": "lo melhor per a tot — tèxte net, esquemas clars.",
       "loadingLabel": "En cargament dels paramètres d'imatge per defaut",
       "loadingTitle": "Paramètres d'imatge per defaut",
+      "modelTipLabel": "A prepaus dels modèls d'imatge",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Bas / Mejan)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Causir un modèl d'imatge",
+      "nanoBanana21": "scènas riches, fotografiques.",
       "samplePrompt": "Generar una imatge d'un escolans qu'estudia fòrça amb Anki e que passa sos tèsts.",
       "saveError": "Impossible d'enregistrar las valors per defaut de l'imatge",
       "subtitle": "Lo modèl que vòstra imatge Smart Fields utilizatz levat se un camp fixa lo sieu.",
@@ -275,9 +274,9 @@
       "zImageTurbo": "lo mai rapid e lo mai economic."
     },
     "layout": {
-      "saveChanges": "Enregistrar las modificacions",
       "saving": "En estalviant…",
-      "tryIt": "Ensajatz-lo"
+      "tryIt": "Ensajatz-lo",
+      "save": "Enregistrar"
     },
     "text": {
       "cannotInheritModel": "Los paramètres de tèxte pòdon pas eiretar un autre modèl",
@@ -329,6 +328,26 @@
       "title": "Paramètres de votz per defaut"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Raisonament suplementari",
+    "extraReasoningCost": "~1,5× còst",
+    "extraReasoningDescription": "Esquemas mai nets e tèxte mai lisible. Environ 4× mai lent.",
+    "extraSettings": "Paramètres Suplementaris",
+    "doubleCost": "2× còst",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Qualitat maxima",
+    "maxQualityDescription": "Mai nets e mai precisas, en particular per las etiquetas pichonas.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Mai de detalh",
+    "richerDetailDescription": "Scènas mai detalhadas e mai completas. Un pauc mai lentas.",
+    "underTheHood": {
+      "gptRicherDetail": "Lo detalh mai ric utiliza <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Lo mòde estandard utiliza <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Lo raisonament suplementari utiliza <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Lo mòde estandard utiliza <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Quals modèls se lançan"
+  },
   "promptTester": {
     "anotherNoteType": "un autre tipe de nòta",
     "currentlySelectedCard": "Carta actualament seleccionada",
@@ -341,16 +360,19 @@
     },
     "fieldRunsOnNoteType": "Aqueste champ s'executa sus <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Apercebut d'imatge generat",
+    "generatedIn": "Generat en {{seconds}}s",
     "missingFieldsTitle_other": "Camps mancants",
     "needsFields_other": "Necessita de camps {{count}}",
     "notesSelected_other": "{{count}} nòtas seleccionadas — la restrenh a una.",
-    "pickCard": "Causissètz una carta dins lo navigador Anki",
     "promptPlaceholder": "Escrivètz una indicacion de tèst, en fasent referéncia als camps sus vòstra carta amb {{braces}}.",
+    "rerunToSave": "Tornatz lançar aqueste test per lo salvar dins la carta",
     "saveToCard": "Enregistrar sus la carta",
     "savedTo": "Enregistrat a {{field}}",
     "selectCardWithFields_other": "Causisse una carta amb los champs",
     "selectFieldToReadAloud": "Seleccionatz un camp de legir a votz nauta",
     "selectNewCard": "Seleccionatz una carta novèla dins lo navigador",
+    "or": "o",
+    "selectCardInBrowser": "Seleccionatz una carta dins lo navigador per testar",
     "selectRequiredNoteType": "Causisse una nòta del tipe <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Carta seleccionada",
     "selectedDeck": "Deck seleccionat",
@@ -358,6 +380,8 @@
     "selectionAppearsAutomatically": "Vòstra seleccion apareis aicí automaticament.",
     "sent": "Enviat",
     "testing": "Ensages...",
+    "openRecentImage": "Dobrir l'imatge {{number}}",
+    "recentImages": "Resultats",
     "testResult": "Resultat del tèst",
     "textToSpeak": "Tèxte per parlar",
     "viewResult": "Veire lo resultat",
@@ -366,7 +390,6 @@
   "subscription": {
     "accessEnds": "L'accès s'acabarà",
     "activateAgain": "Reactivar",
-    "endingSoon": "Finís aviat",
     "checking": "Verificacion de l'abonament",
     "creditTypes": {
       "images": "Imatges",
@@ -379,6 +402,7 @@
     "errors": {
       "logout": "Poguèt pas se desconnectar"
     },
+    "endingSoon": "Finís aviat",
     "expired": "Expirat",
     "freePlan": "Plan gratuit",
     "freeTrial": "Espròva gratuita",

@@ -11,9 +11,18 @@
   --color-ink-faint: #686873;
   --color-indigo: #7c8dff;
   --color-indigo-soft: #c7d2ff;
+  --color-indigo-deep: #5b6fe8;
   --color-mint: #4ade80;
   --color-amber: #ffd27a;
   --color-danger: #f3a0a0;
+  /* The app's pastel palette for playful accents. Soft enough to sit on the dark
+     canvas without glaring; pair with dark text. */
+  --color-pastel-sky: #a9d4ff;
+  --color-pastel-pink: #ffb8d5;
+  --color-pastel-mint: #b4ebc9;
+  --color-pastel-butter: #ffe3a3;
+  --color-pastel-lavender: #cfc0ff;
+  --color-pastel-peach: #ffc7a8;
 
   --animate-fade-in: fade-in 0.25s ease-out;
   /* The field editor arriving over, and leaving, the screen behind it. */
@@ -422,6 +431,32 @@
   }
 }
 
+/* An occasional sweep of light across the promo banners: the band crosses in the
+   first ~1.2s of each 7s cycle and waits offscreen the rest of the time. */
+.banner-shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.42) 50%,
+    transparent 62%
+  );
+  transform: translateX(-100%);
+  animation: banner-shine 7s ease-in-out 1.5s infinite;
+}
+
+@keyframes banner-shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  18%,
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 @keyframes smart-fields-empty-cursor-blink {
   50% {
     opacity: 0;
@@ -555,10 +590,32 @@ body,
   overflow: hidden;
 }
 
-button:focus-visible,
-a:focus-visible {
+/* App chrome behaves like a native app: an arrow cursor and no text selection.
+   Fields people type in, and text they may want to copy, opt back in. */
+body {
+  cursor: default;
+  user-select: none;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+textarea,
+[contenteditable="true"] {
+  cursor: text;
+  user-select: text;
+}
+
+/* Focus rings are for keyboard users. Chromium also marks the focus a menu hands
+   back to its trigger after a mouse pick as :focus-visible, so the ring waits for
+   main.tsx to record a keypress. */
+[data-input="keyboard"] button:focus-visible,
+[data-input="keyboard"] a:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--color-indigo) 78%, white);
   outline-offset: 2px;
+}
+
+/* Hide the browser's own ring too until a key is pressed. */
+:root:not([data-input="keyboard"]) :is(button, a):focus-visible {
+  outline: none;
 }
 
 button:not(:disabled),
@@ -585,5 +642,19 @@ button:disabled,
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+/* Every clickable darkens while pressed, so a click always registers visibly. Shared
+   Buttons also shrink a little (Button.tsx); rows and cards only darken, since
+   scaling something full-width reads as a jump. Kept in the base layer so a
+   component can still set its own pressed look. */
+@layer base {
+  :is(
+    button:not(:disabled),
+    a[href],
+    [role="button"]:not([aria-disabled="true"])
+  ):active {
+    filter: brightness(0.82);
   }
 }

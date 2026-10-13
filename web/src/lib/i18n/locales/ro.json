@@ -260,16 +260,15 @@
     "image": {
       "cannotFindModel": "În catalogul de imagini lipsește modelul {{model}}",
       "defaultModel": "Model implicit",
-      "gptImage15Low": "cel mai bun compromis calitate/viteză.",
-      "gptImage2": "același cost, mai lent, calitate superioară.",
+      "gptImage25": "cel mai versatil — text clar, diagrame curate.",
       "loadingLabel": "Se încarcă setările implicite pentru imagine",
       "loadingTitle": "Setări implicite pentru imagine",
+      "modelTipLabel": "Despre modelele de imagini",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Alegerea unui model de imagine",
+      "nanoBanana21": "scene bogate, fotografice.",
       "samplePrompt": "Generați o imagine a unui student care studiază din greu cu Anki și își trece testele.",
       "saveError": "Nu s-au putut salva valorile implicite ale imaginii",
       "subtitle": "Modelul pe care îl folosește imaginea dvs. Smart Fields, cu excepția cazului în care un câmp își stabilește propriul.",
@@ -277,9 +276,9 @@
       "zImageTurbo": "cel mai rapid si mai ieftin."
     },
     "layout": {
-      "saveChanges": "Salvați modificările",
       "saving": "Economisire…",
-      "tryIt": "Încearcă"
+      "tryIt": "Încearcă",
+      "save": "Salvează"
     },
     "text": {
       "cannotInheritModel": "Valorile implicite ale textului nu pot moșteni un alt model",
@@ -333,6 +332,26 @@
       "title": "Setări implicite de voce"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Raționament extins",
+    "extraReasoningCost": "~1,5× costul",
+    "extraReasoningDescription": "Diagrame mai curate și text mai lizibil. Cu aproximativ 4× mai lent.",
+    "extraSettings": "Setări suplimentare",
+    "doubleCost": "2× cost",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Calitate maximă",
+    "maxQualityDescription": "Mai clar și mai curat, mai ales etichetele mici.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Detalii mai bogate",
+    "richerDetailDescription": "Scene mai detaliate și mai pline. Puțin mai lent.",
+    "underTheHood": {
+      "gptRicherDetail": "Detaliu mai bogat folosește <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Standard folosește <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Raționament extins folosește <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Standard folosește <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Ce modele rulează"
+  },
   "promptTester": {
     "anotherNoteType": "alt tip de notă",
     "currentlySelectedCard": "Card selectat în prezent",
@@ -345,6 +364,7 @@
     },
     "fieldRunsOnNoteType": "Acest câmp se execută pe <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Previzualizare imagine generată",
+    "generatedIn": "Generat în {{seconds}} s",
     "missingFieldsTitle_one": "Câmp lipsește",
     "missingFieldsTitle_few": "Câmpuri lipsă",
     "missingFieldsTitle_other": "Câmpuri lipsă",
@@ -354,8 +374,8 @@
     "notesSelected_one": "{{count}} notă selectată — restrângeți-o la una.",
     "notesSelected_few": "{{count}} note selectate — restrângeți selecția la una.",
     "notesSelected_other": "Notele {{count}} selectate — restrângeți-l la unul.",
-    "pickCard": "Alegeți un card în browserul Anki",
     "promptPlaceholder": "Scrieți o solicitare de testare, făcând referire la câmpurile de pe cardul dvs. cu {{braces}}.",
+    "rerunToSave": "Rulează din nou acest test pentru a-l salva în card",
     "saveToCard": "Salvați pe card",
     "savedTo": "Salvat în {{field}}",
     "selectCardWithFields_one": "Vă rugăm selectați o carte cu câmpul",
@@ -363,6 +383,8 @@
     "selectCardWithFields_other": "Vă rugăm selectați o carte cu câmpurile",
     "selectFieldToReadAloud": "Selectați un câmp pentru a citi cu voce tare",
     "selectNewCard": "Selectați un card nou în browser",
+    "or": "sau",
+    "selectCardInBrowser": "Selectează un card în browser pentru a testa",
     "selectRequiredNoteType": "Vă rugăm selectați o notă de tip <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Cartea selectată",
     "selectedDeck": "Puntea selectată",
@@ -370,6 +392,8 @@
     "selectionAppearsAutomatically": "Selecția dvs. apare aici automat.",
     "sent": "Trimis",
     "testing": "Se testează…",
+    "openRecentImage": "Deschide imaginea {{number}}",
+    "recentImages": "Rezultate",
     "testResult": "Rezultatul testului",
     "textToSpeak": "Text pentru a vorbi",
     "viewResult": "Vedeți rezultatul",
@@ -378,7 +402,6 @@
   "subscription": {
     "accessEnds": "Accesul se încheie",
     "activateAgain": "Reactivați",
-    "endingSoon": "Se încheie în curând",
     "checking": "Se verifică abonamentul",
     "creditTypes": {
       "images": "Imagini",
@@ -393,6 +416,7 @@
     "errors": {
       "logout": "Nu s-a putut deconecta"
     },
+    "endingSoon": "Se încheie în curând",
     "expired": "Expirat",
     "freePlan": "Plan gratuit",
     "freeTrial": "Probă gratuită",

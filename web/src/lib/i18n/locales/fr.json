@@ -260,16 +260,15 @@
     "image": {
       "cannotFindModel": "Le catalogue d'images ne contient pas le modèle {{model}}.",
       "defaultModel": "Modèle par défaut",
-      "gptImage15Low": "meilleur compromis qualité/vitesse.",
-      "gptImage2": "même coût, plus lent, meilleure qualité.",
+      "gptImage25": "le plus polyvalent — texte net, schémas épurés.",
       "loadingLabel": "Chargement des paramètres d'image par défaut",
       "loadingTitle": "Paramètres d'image par défaut",
+      "modelTipLabel": "À propos des modèles d'image",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (faible/moyen)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Choisir un modèle d'image",
+      "nanoBanana21": "scènes riches, de type photographique.",
       "samplePrompt": "Générez l'image d'un étudiant qui étudie dur avec Anki et réussit ses tests.",
       "saveError": "Impossible d'enregistrer les paramètres par défaut de l'image",
       "subtitle": "Le modèle que votre image Smart Fields utilise à moins qu'un champ n'épingle le sien.",
@@ -277,9 +276,9 @@
       "zImageTurbo": "le plus rapide et le moins cher."
     },
     "layout": {
-      "saveChanges": "Enregistrer les modifications",
       "saving": "Économie…",
-      "tryIt": "Essayez-le"
+      "tryIt": "Essayez-le",
+      "save": "Enregistrer"
     },
     "text": {
       "cannotInheritModel": "Les valeurs par défaut du texte ne peuvent pas hériter d'un autre modèle",
@@ -333,6 +332,26 @@
       "title": "Paramètres vocaux par défaut"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Raisonnement approfondi",
+    "extraReasoningCost": "~1,5× le coût",
+    "extraReasoningDescription": "Schémas plus nets et texte plus lisible. Environ 4× plus lent.",
+    "extraSettings": "Paramètres supplémentaires",
+    "doubleCost": "2× le coût",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Qualité maximale",
+    "maxQualityDescription": "Plus net et plus propre, surtout les petites étiquettes.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Détails enrichis",
+    "richerDetailDescription": "Scènes plus détaillées et plus complètes. Un peu plus lent.",
+    "underTheHood": {
+      "gptRicherDetail": "Un détail plus riche utilise <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Le mode standard utilise <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Un raisonnement approfondi utilise <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Le mode standard utilise <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Modèles utilisés"
+  },
   "promptTester": {
     "anotherNoteType": "un autre type de note",
     "currentlySelectedCard": "Carte actuellement sélectionnée",
@@ -345,6 +364,7 @@
     },
     "fieldRunsOnNoteType": "Ce champ s'exécute sur <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Aperçu de l'image générée",
+    "generatedIn": "Généré en {{seconds}} s",
     "missingFieldsTitle_one": "Champ manquant",
     "missingFieldsTitle_many": "Champs manquants",
     "missingFieldsTitle_other": "Champs manquants",
@@ -354,8 +374,8 @@
     "notesSelected_one": "Note {{count}} sélectionnée – réduisez-la à une.",
     "notesSelected_many": "Notes {{count}} sélectionnées – réduisez-les à une.",
     "notesSelected_other": "Notes {{count}} sélectionnées – réduisez-les à une.",
-    "pickCard": "Choisissez une carte dans le navigateur Anki",
     "promptPlaceholder": "Écrivez une invite de test en faisant référence aux champs de votre carte avec {{braces}}.",
+    "rerunToSave": "Relancez ce test pour l'enregistrer sur la carte",
     "saveToCard": "Enregistrer sur la carte",
     "savedTo": "Enregistré dans {{field}}",
     "selectCardWithFields_one": "Veuillez sélectionner une carte avec le champ",
@@ -363,6 +383,8 @@
     "selectCardWithFields_other": "Veuillez sélectionner une carte avec les champs",
     "selectFieldToReadAloud": "Sélectionnez un champ à lire à haute voix",
     "selectNewCard": "Sélectionnez une nouvelle carte dans le navigateur",
+    "or": "ou",
+    "selectCardInBrowser": "Sélectionnez une carte dans le navigateur pour tester",
     "selectRequiredNoteType": "Veuillez sélectionner une note de type <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Carte sélectionnée",
     "selectedDeck": "Pont sélectionné",
@@ -370,6 +392,8 @@
     "selectionAppearsAutomatically": "Votre sélection apparaît ici automatiquement.",
     "sent": "Envoyé",
     "testing": "Essai…",
+    "openRecentImage": "Ouvrir l'image {{number}}",
+    "recentImages": "Résultats",
     "testResult": "Résultat du test",
     "textToSpeak": "Texte pour parler",
     "viewResult": "Afficher le résultat",
@@ -378,7 +402,6 @@
   "subscription": {
     "accessEnds": "L'accès se termine",
     "activateAgain": "Réactiver",
-    "endingSoon": "Se termine bientôt",
     "checking": "Vérification de l'abonnement",
     "creditTypes": {
       "images": "Images",
@@ -393,6 +416,7 @@
     "errors": {
       "logout": "Impossible de se déconnecter"
     },
+    "endingSoon": "Se termine bientôt",
     "expired": "Expiré",
     "freePlan": "Forfait gratuit",
     "freeTrial": "Essai gratuit",

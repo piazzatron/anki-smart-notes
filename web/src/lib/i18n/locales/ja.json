@@ -258,16 +258,15 @@
     "image": {
       "cannotFindModel": "画像カタログにモデル {{model}} がありません",
       "defaultModel": "デフォルトモデル",
-      "gptImage15Low": "最高の品質と速度のトレードオフ。",
-      "gptImage2": "同じコスト、より遅い、より高い品質。",
+      "gptImage25": "総合力に最も優れたモデル。文字がくっきりし、図表もすっきり仕上がります。",
       "loadingLabel": "デフォルトの画像設定をロードする",
       "loadingTitle": "デフォルトの画像設定",
+      "modelTipLabel": "画像モデルについて",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 画像モデルの選択",
+      "nanoBanana21": "写実的で豊かな写真風のシーン向け。",
       "samplePrompt": "Anki で熱心に勉強し、テストに合格する学生のイメージを生成します。",
       "saveError": "画像のデフォルトを保存できませんでした",
       "subtitle": "フィールドが独自に固定していない限り、画像 Smart Fields が使用するモデル。",
@@ -275,9 +274,9 @@
       "zImageTurbo": "最速かつ最安。"
     },
     "layout": {
-      "saveChanges": "変更を保存する",
       "saving": "保存中…",
-      "tryIt": "試してみてください"
+      "tryIt": "試してみてください",
+      "save": "保存"
     },
     "text": {
       "cannotInheritModel": "テキストのデフォルトは別のモデルを継承できません",
@@ -329,6 +328,26 @@
       "title": "デフォルトの音声設定"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "追加の推論",
+    "extraReasoningCost": "約1.5倍のコスト",
+    "extraReasoningDescription": "図表がより鮮明になり、文字も読みやすくなります。処理時間は約4倍かかります。",
+    "extraSettings": "追加設定",
+    "doubleCost": "2倍のコスト",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "最高品質",
+    "maxQualityDescription": "より鮮明で整った仕上がりになります。特に小さなラベルで効果的です。",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "より豊かなディテール",
+    "richerDetailDescription": "より詳細で充実したシーンを生成します。やや時間がかかります。",
+    "underTheHood": {
+      "gptRicherDetail": "より詳細な描写には<model>GPT Image 2.5 Sunburst</model>を使用します。",
+      "gptStandard": "標準では<model>GPT Image 2.5 Flare</model>を使用します。",
+      "nanoExtraReasoning": "推論を強化する場合は<model>Nano Banana 2.1</model>を使用します。",
+      "nanoStandard": "標準では<model>Nano Banana 2 Lite</model>を使用します。"
+    },
+    "underTheHoodLabel": "実行されるモデル"
+  },
   "promptTester": {
     "anotherNoteType": "別のノートタイプ",
     "currentlySelectedCard": "現在選択されているカード",
@@ -341,16 +360,19 @@
     },
     "fieldRunsOnNoteType": "このフィールドは <noteTypeName>{{noteType}}</noteTypeName> で実行されます",
     "generatedImagePreview": "生成された画像のプレビュー",
+    "generatedIn": "{{seconds}}秒で生成",
     "missingFieldsTitle_other": "欠落しているフィールド",
     "needsFields_other": "{{count}} フィールドが必要です",
     "notesSelected_other": "{{count}} ノートが選択されています — 1 つに絞り込みます。",
-    "pickCard": "Anki ブラウザでカードを選択します",
     "promptPlaceholder": "{{braces}} を使用してカード上のフィールドを参照して、テスト プロンプトを作成します。",
+    "rerunToSave": "このテストをもう一度実行すると、カードに保存されます",
     "saveToCard": "カードに保存",
     "savedTo": "{{field}}に保存されました",
     "selectCardWithFields_other": "フィールドを含むカードを選択してください",
     "selectFieldToReadAloud": "読み上げるフィールドを選択してください",
     "selectNewCard": "ブラウザで新しいカードを選択します",
+    "or": "または",
+    "selectCardInBrowser": "テストするカードをブラウザで選択してください",
     "selectRequiredNoteType": "<noteTypeName>{{noteType}}</noteTypeName> タイプのノートを選択してください",
     "selectedCard": "選択したカード",
     "selectedDeck": "選択したデッキ",
@@ -358,6 +380,8 @@
     "selectionAppearsAutomatically": "選択した内容がここに自動的に表示されます。",
     "sent": "送信済み",
     "testing": "テスト中…",
+    "openRecentImage": "画像 {{number}} を開く",
+    "recentImages": "結果",
     "testResult": "試験結果",
     "textToSpeak": "話すテキスト",
     "viewResult": "結果を見る",
@@ -366,7 +390,6 @@
   "subscription": {
     "accessEnds": "アクセス終了",
     "activateAgain": "再度有効にする",
-    "endingSoon": "間もなく終了",
     "checking": "定期購入の確認",
     "creditTypes": {
       "images": "画像",
@@ -379,6 +402,7 @@
     "errors": {
       "logout": "ログアウトできませんでした"
     },
+    "endingSoon": "間もなく終了",
     "expired": "期限切れ",
     "freePlan": "無料プラン",
     "freeTrial": "無料トライアル",

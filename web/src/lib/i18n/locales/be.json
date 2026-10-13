@@ -261,16 +261,15 @@
     "image": {
       "cannotFindModel": "У каталогу малюнкаў адсутнічае мадэль {{model}}",
       "defaultModel": "Мадэль па змаўчанні",
-      "gptImage15Low": "найлепшая якасць / хуткасць кампраміс.",
-      "gptImage2": "той жа кошт, больш павольна, больш высокая якасць.",
+      "gptImage25": "найлепшы ўніверсальны варыянт — выразны тэкст, чыстыя схемы.",
       "loadingLabel": "Загрузка налад выявы па змаўчанні",
       "loadingTitle": "Налады выявы па змаўчанні",
+      "modelTipLabel": "Пра мадэлі малюнкаў",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Нізкі / Сярэдні)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Выбар мадэлі іміджу",
+      "nanoBanana21": "насычаныя фатаграфічныя сцэны.",
       "samplePrompt": "Стварыце выяву студэнта, які ўпарта вучыцца з Anki і здае свае тэсты.",
       "saveError": "Немагчыма захаваць значэнні выявы па змаўчанні",
       "subtitle": "Мадэль, якую выкарыстоўвае ваша выява Smart Fields, калі поле не замацоўвае сваё.",
@@ -278,9 +277,9 @@
       "zImageTurbo": "самы хуткі і танны."
     },
     "layout": {
-      "saveChanges": "Захавайце змены",
       "saving": "Захаванне…",
-      "tryIt": "Паспрабуйце"
+      "tryIt": "Паспрабуйце",
+      "save": "Захаваць"
     },
     "text": {
       "cannotInheritModel": "Тэкставыя значэнні па змаўчанні не могуць успадкаваць іншую мадэль",
@@ -335,6 +334,26 @@
       "title": "Галасавыя налады па змаўчанні"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Пашыраныя разважанні",
+    "extraReasoningCost": "~1,5× кошт",
+    "extraReasoningDescription": "Чысцейшыя схемы і больш разборлівы тэкст. Каля 4× павольней.",
+    "extraSettings": "Дадатковыя налады",
+    "doubleCost": "2× кошт",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Максімальная якасць",
+    "maxQualityDescription": "Выразней і чысцей, асабліва дробныя подпісы.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Больш дэталяў",
+    "richerDetailDescription": "Больш дэталёвыя, насычаныя сцэны. Трохі павольней.",
+    "underTheHood": {
+      "gptRicherDetail": "Падрабязная дэталізацыя выкарыстоўвае <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Стандартны рэжым выкарыстоўвае <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Пашыранае разважанне выкарыстоўвае <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Стандартны рэжым выкарыстоўвае <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Якія мадэлі запускаюцца"
+  },
   "promptTester": {
     "anotherNoteType": "іншы тып нататкі",
     "currentlySelectedCard": "Выбраная картка",
@@ -347,6 +366,7 @@
     },
     "fieldRunsOnNoteType": "Гэтае поле працуе на <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Папярэдні прагляд згенераванага малюнка",
+    "generatedIn": "Згенеравана за {{seconds}} с",
     "missingFieldsTitle_one": "Адсутнічае поле",
     "missingFieldsTitle_few": "Адсутныя палі",
     "missingFieldsTitle_many": "Адсутныя палі",
@@ -359,8 +379,8 @@
     "notesSelected_few": "Выбрана {{count}} нататкі — звузіце да адной.",
     "notesSelected_many": "Выбрана {{count}} нататак — звузіце да адной.",
     "notesSelected_other": "Выбраныя нататкі {{count}} — звузіце іх да адной.",
-    "pickCard": "Выберыце картку ў браўзеры Anki",
     "promptPlaceholder": "Напішыце тэставае падказку, спасылаючыся на палі на вашай картцы з {{braces}}.",
+    "rerunToSave": "Запусціце гэты тэст яшчэ раз, каб захаваць яго ў картку",
     "saveToCard": "Захаваць на карту",
     "savedTo": "Захавана ў {{field}}",
     "selectCardWithFields_one": "Калі ласка, выберыце карту з полем",
@@ -369,6 +389,8 @@
     "selectCardWithFields_other": "Калі ласка, выберыце карту з пазами",
     "selectFieldToReadAloud": "Выберыце поле для чытання ўслых",
     "selectNewCard": "Абярыце новую карту ў браўзеры",
+    "or": "або",
+    "selectCardInBrowser": "Абярыце картку ў браўзеры для тэставання",
     "selectRequiredNoteType": "Калі ласка, выберыце нотатку тыпу <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Выбраная карта",
     "selectedDeck": "Выбраная калода",
@@ -376,6 +398,8 @@
     "selectionAppearsAutomatically": "Ваш выбар з'явіцца тут аўтаматычна.",
     "sent": "Адпраўлена",
     "testing": "Тэставанне...",
+    "openRecentImage": "Адкрыць малюнак {{number}}",
+    "recentImages": "Вынікі",
     "testResult": "Вынік тэсту",
     "textToSpeak": "Тэкст для размовы",
     "viewResult": "Паглядзець вынік",
@@ -384,7 +408,6 @@
   "subscription": {
     "accessEnds": "Доступ завершаецца",
     "activateAgain": "Активаваць зноў",
-    "endingSoon": "Завершыцца хутка",
     "checking": "Праверка падпіскі",
     "creditTypes": {
       "images": "Малюнкі",
@@ -400,6 +423,7 @@
     "errors": {
       "logout": "Не атрымалася выйсці"
     },
+    "endingSoon": "Завершыцца хутка",
     "expired": "Срок дзеяння скончыўся",
     "freePlan": "Бясплатны план",
     "freeTrial": "Бясплатная пробная версія",

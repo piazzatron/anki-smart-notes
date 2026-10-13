@@ -10,13 +10,13 @@ const MODEL_LABELS: Record<string, string> = {
   "gemini-3.1-flash-lite": "Gemini 3.1 Flash Lite",
   "gemini-3-flash": "Gemini 3 Flash",
   "gemini-3.1-pro": "Gemini 3.1 Pro",
-  "gpt-image-1.5-low": "GPT Image 1.5 Low",
-  "gpt-image-1.5-medium": "GPT Image 1.5 Medium",
-  "gpt-image-2-low": "GPT Image 2 Low",
-  "gpt-image-2-medium": "GPT Image 2 Medium",
-  "nano-banana-2": "Nano Banana 2",
+  "gpt-image-2.5-flare-low": "GPT Image 2.5",
+  "gpt-image-2.5-flare-medium": "GPT Image 2.5",
+  "gpt-image-2.5-sunburst-low": "GPT Image 2.5",
+  "gpt-image-2.5-sunburst-medium": "GPT Image 2.5",
+  "nano-banana-2-lite": "Nano Banana (Google)",
+  "nano-banana-2": "Nano Banana (Google)",
   "z-image-turbo": "Z-Image Turbo",
-  "flux-dev": "Flux Dev",
 }
 
 const MODEL_COSTS: Record<string, string> = {
@@ -30,6 +30,10 @@ const MODEL_COSTS: Record<string, string> = {
   "gemini-3.1-flash-lite": "1",
   "gemini-3-flash": "2",
   "gemini-3.1-pro": "8",
+  // Images, relative to plain GPT Image 2.5 (~$0.011 billed per image).
+  "gpt-image-2.5": "1",
+  "nano-banana": "4",
+  "z-image-turbo": "0.3",
 }
 
 const PROVIDER_LABELS: Record<string, string> = {

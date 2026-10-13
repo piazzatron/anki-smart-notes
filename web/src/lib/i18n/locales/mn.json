@@ -259,16 +259,15 @@
     "image": {
       "cannotFindModel": "Зургийн каталогид {{model}} загвар байхгүй байна",
       "defaultModel": "Өгөгдмөл загвар",
-      "gptImage15Low": "хамгийн сайн чанар / хурдны солилцоо.",
-      "gptImage2": "ижил өртөгтэй, удаан, өндөр чанартай.",
+      "gptImage25": "хамгийн тохиромжтой — тод текст, цэвэр диаграм.",
       "loadingLabel": "Өгөгдмөл зургийн тохиргоог ачаалж байна",
       "loadingTitle": "Өгөгдмөл зургийн тохиргоо",
+      "modelTipLabel": "Зургийн загваруудын тухай",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Бага / Дунд)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Зургийн загвар сонгох",
+      "nanoBanana21": "баялаг, гэрэл зургийн шинжтэй дүрслэл.",
       "samplePrompt": "Anki-аар шаргуу суралцаж, шалгалтаа өгч буй оюутны дүр төрхийг бий болго.",
       "saveError": "Зургийн өгөгдмөл тохиргоог хадгалж чадсангүй",
       "subtitle": "Талбар нь өөрөө бэхлээгүй тохиолдолд таны зургийн Smart Fields ашиглах загвар.",
@@ -276,9 +275,9 @@
       "zImageTurbo": "хамгийн хурдан бөгөөд хямд."
     },
     "layout": {
-      "saveChanges": "Өөрчлөлтүүдийг хадгалах",
       "saving": "Хадгалж байна...",
-      "tryIt": "Ороод үзээрэй"
+      "tryIt": "Ороод үзээрэй",
+      "save": "Хадгалах"
     },
     "text": {
       "cannotInheritModel": "Текстийн өгөгдмөл нь өөр загварыг өвлөх боломжгүй",
@@ -331,6 +330,26 @@
       "title": "Өгөгдмөл дуу хоолойн тохиргоо"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Нэмэлт үндэслэл",
+    "extraReasoningCost": "~1.5× зардал",
+    "extraReasoningDescription": "Цэвэр диаграм, илүү уншигдахуйц текст. Ойролцоогоор 4 дахин удаан.",
+    "extraSettings": "Нэмэлт тохиргоо",
+    "doubleCost": "2× зардал",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Хамгийн өндөр чанар",
+    "maxQualityDescription": "Илүү тод, цэвэр, ялангуяа жижиг шошгууд.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Илүү баялаг дэлгэрэнгүй",
+    "richerDetailDescription": "Илүү нарийвчилсан, бүрэн дүрслэл. Бага зэрэг удаан.",
+    "underTheHood": {
+      "gptRicherDetail": "Илүү дэлгэрэнгүй дүрслэлд <model>GPT Image 2.5 Sunburst</model> ашиглана.",
+      "gptStandard": "Стандарт горимд <model>GPT Image 2.5 Flare</model> ашиглана.",
+      "nanoExtraReasoning": "Нэмэлт үндэслэлтэй горимд <model>Nano Banana 2.1</model> ашиглана.",
+      "nanoStandard": "Стандарт горимд <model>Nano Banana 2 Lite</model> ашиглана."
+    },
+    "underTheHoodLabel": "Аль загварууд ажиллах"
+  },
   "promptTester": {
     "anotherNoteType": "өөр тэмдэглэлийн төрөл",
     "currentlySelectedCard": "Одоогоор сонгосон карт",
@@ -343,20 +362,23 @@
     },
     "fieldRunsOnNoteType": "Энэ талбар <noteTypeName>{{noteType}}</noteTypeName> дээр ажилладаг",
     "generatedImagePreview": "Үүсгэсэн зургийг урьдчилан харах",
+    "generatedIn": "{{seconds}} секундэд үүсгэсэн",
     "missingFieldsTitle_one": "Талбар алга",
     "missingFieldsTitle_other": "Дутуу талбарууд",
     "needsFields_one": "{{count}} талбар хэрэгтэй",
     "needsFields_other": "{{count}} талбарууд хэрэгтэй",
     "notesSelected_one": "{{count}} тэмдэглэл сонгосон — нэг болгож нарийсгана.",
     "notesSelected_other": "{{count}} тэмдэглэл сонгосон — нэг болгож нарийсгана.",
-    "pickCard": "Anki хөтчөөс карт сонгоно уу",
     "promptPlaceholder": "Картынхаа талбаруудыг {{braces}}-аар лавлаж, туршилтын сануулга бичнэ үү.",
+    "rerunToSave": "Картад хадгалахын тулд энэ туршилтыг дахин ажиллуулна уу",
     "saveToCard": "Карт руу хадгалах",
     "savedTo": "{{field}} руу хадгалсан",
     "selectCardWithFields_one": "Уг талбартай карт сонгоно уу",
     "selectCardWithFields_other": "Эдгээр талбартай карт сонгоно уу",
     "selectFieldToReadAloud": "Чанга унших талбарыг сонгоно уу",
     "selectNewCard": "Хөтөч дээр шинэ карт сонгоно уу",
+    "or": "эсвэл",
+    "selectCardInBrowser": "Туршихын тулд browser-оос карт сонгоно уу",
     "selectRequiredNoteType": "<noteTypeName>{{noteType}}</noteTypeName> төрлийн тэмдэглэл сонгоно уу",
     "selectedCard": "Сонгосон карт",
     "selectedDeck": "Сонгосон тавцан",
@@ -364,6 +386,8 @@
     "selectionAppearsAutomatically": "Таны сонголт энд автоматаар гарч ирнэ.",
     "sent": "Илгээсэн",
     "testing": "Туршилт хийж байна...",
+    "openRecentImage": "Зураг {{number}}-г нээх",
+    "recentImages": "Үр дүн",
     "testResult": "Туршилтын үр дүн",
     "textToSpeak": "Ярих текст",
     "viewResult": "Үр дүнг харах",
@@ -372,7 +396,6 @@
   "subscription": {
     "accessEnds": "Хандалт дуусна",
     "activateAgain": "Дахин идэвхжүүлэх",
-    "endingSoon": "Удалгүй дуусна",
     "checking": "Бүртгэлийг шалгаж байна",
     "creditTypes": {
       "images": "Зураг",
@@ -386,6 +409,7 @@
     "errors": {
       "logout": "Гарч чадсангүй"
     },
+    "endingSoon": "Удалгүй дуусна",
     "expired": "Хүчингүй болсон",
     "freePlan": "Үнэгүй төлөвлөгөө",
     "freeTrial": "Үнэгүй туршилт",

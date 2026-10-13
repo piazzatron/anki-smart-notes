@@ -17,6 +17,7 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { Button } from "@/components/ui/Button"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -140,15 +141,15 @@ export const WelcomeScreen = ({
                   spellCheck={false}
                   value={code}
                 />
-                <button
-                  className="rounded-lg bg-indigo px-4 py-2.5 text-xs font-bold text-white transition hover:bg-[#8a99ff] disabled:opacity-40"
+                <Button
                   disabled={!code.trim() || isSubmittingCode}
                   type="submit"
+                  variant="primary"
                 >
                   {isSubmittingCode
                     ? t("welcome.connecting")
                     : t("welcome.connect")}
-                </button>
+                </Button>
               </div>
               {codeError !== null && (
                 <p className="mt-2 text-[11px] leading-4 text-danger">

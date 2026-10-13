@@ -146,7 +146,11 @@
       "updateWizardSettings": "Could not update wizard settings",
       "writePrompt": "Could not write the prompt"
     },
-    "fieldTypes": { "audio": "Audio", "image": "Image", "text": "Text" },
+    "fieldTypes": {
+      "audio": "Audio",
+      "image": "Image",
+      "text": "Text"
+    },
     "loadingModelCatalog": "Loading model catalog…",
     "modelSettings": {
       "appliesOnlyToField": "Applies to this Smart Field only.",
@@ -225,9 +229,15 @@
       "title": "Your notes are looking a little empty"
     },
     "enable": "Enable",
-    "errors": { "commandFailed": "Smart Field command failed" },
+    "errors": {
+      "commandFailed": "Smart Field command failed"
+    },
     "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
-    "fieldTypes": { "chat": "Text", "image": "Image", "tts": "Audio" },
+    "fieldTypes": {
+      "chat": "Text",
+      "image": "Image",
+      "tts": "Audio"
+    },
     "loadingAriaLabel": "Loading Smart Fields",
     "newSmartField": "New Smart Field",
     "readsAloud": "Reads {{field}} aloud",
@@ -249,16 +259,15 @@
     "image": {
       "cannotFindModel": "Image catalog is missing model {{model}}",
       "defaultModel": "Default model",
-      "gptImage15Low": "best quality / speed tradeoff.",
-      "gptImage2": "same cost, slower, higher quality.",
+      "gptImage25": "best all-rounder — sharp text, clean diagrams.",
       "loadingLabel": "Loading Default Image Settings",
       "loadingTitle": "Default Image Settings",
+      "modelTipLabel": "About the image models",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Picking an image model",
+      "nanoBanana21": "rich, photographic scenes.",
       "samplePrompt": "Generate an image of a student studying hard with Anki and passing their tests.",
       "saveError": "Could not save image defaults",
       "subtitle": "The model your image Smart Fields use unless a field pins its own.",
@@ -266,7 +275,7 @@
       "zImageTurbo": "fastest and cheapest."
     },
     "layout": {
-      "saveChanges": "Save changes",
+      "save": "Save",
       "saving": "Saving…",
       "tryIt": "Try it"
     },
@@ -281,7 +290,11 @@
       "modelGuidance": "{{auto}} and {{autoMax}} are the Smart Notes recommended models that balance performance and cost. Choose {{auto}} for standard tasks and upgrade to {{autoMax}} if needed.",
       "pickingModel": "💡 Picking a model",
       "reasoningLevel": "Reasoning level",
-      "reasoningValues": { "high": "High", "low": "Low", "off": "Off" },
+      "reasoningValues": {
+        "high": "High",
+        "low": "Low",
+        "off": "Off"
+      },
       "samplePrompt": "What is a Spaced Repetition System (SRS)?",
       "saveError": "Could not save text defaults",
       "subtitle": "Default settings for text generation. Individual Smart Fields can override these values.",
@@ -317,6 +330,26 @@
       "title": "Default Voice Settings"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Extra reasoning",
+    "extraReasoningCost": "~1.5× cost",
+    "extraReasoningDescription": "Cleaner diagrams and more readable text. About 4× slower.",
+    "extraSettings": "Extra Settings",
+    "doubleCost": "2× cost",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Max quality",
+    "maxQualityDescription": "Sharper and cleaner, especially small labels.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Richer detail",
+    "richerDetailDescription": "More detailed, fuller scenes. A bit slower.",
+    "underTheHood": {
+      "gptRicherDetail": "Richer detail uses <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Standard uses <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Extra reasoning uses <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Standard uses <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Which models run"
+  },
   "promptTester": {
     "anotherNoteType": "another note type",
     "currentlySelectedCard": "Currently selected card",
@@ -329,20 +362,23 @@
     },
     "fieldRunsOnNoteType": "This field runs on <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Generated image preview",
+    "generatedIn": "Generated in {{seconds}}s",
     "missingFieldsTitle_one": "Missing field",
     "missingFieldsTitle_other": "Missing fields",
     "needsFields_one": "Needs {{count}} field",
     "needsFields_other": "Needs {{count}} fields",
     "notesSelected_one": "{{count}} note selected — narrow it to one.",
     "notesSelected_other": "{{count}} notes selected — narrow it to one.",
-    "pickCard": "Pick a card in the Anki Browser",
     "promptPlaceholder": "Write a test prompt, referencing fields on your card with {{braces}}.",
+    "rerunToSave": "Run this test again to save it to the card",
     "saveToCard": "Save to card",
     "savedTo": "Saved to {{field}}",
     "selectCardWithFields_one": "Please select a card with the field",
     "selectCardWithFields_other": "Please select a card with the fields",
     "selectFieldToReadAloud": "Select a field to read aloud",
     "selectNewCard": "Select a new card in the browser",
+    "or": "or",
+    "selectCardInBrowser": "Select a card in the browser to test",
     "selectRequiredNoteType": "Please select a note of type <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Selected card",
     "selectedDeck": "Selected deck",
@@ -350,6 +386,8 @@
     "selectionAppearsAutomatically": "Your selection appears here automatically.",
     "sent": "Sent",
     "testing": "Testing…",
+    "openRecentImage": "Open image {{number}}",
+    "recentImages": "Results",
     "testResult": "Test result",
     "textToSpeak": "Text to speak",
     "viewResult": "View result",
@@ -368,7 +406,9 @@
     "creditsReset": "Credits reset",
     "daysLeft_one": "Last day",
     "daysLeft_other": "{{count}} days left",
-    "errors": { "logout": "Could not log out" },
+    "errors": {
+      "logout": "Could not log out"
+    },
     "endingSoon": "Ending soon",
     "expired": "Expired",
     "freePlan": "Free plan",
@@ -457,7 +497,9 @@
     "connect": "Connect",
     "connecting": "Connecting…",
     "description": "Add text, speech, and images to individual cards or your entire deck in one click.",
-    "errors": { "code": "Could not connect with that code" },
+    "errors": {
+      "code": "Could not connect with that code"
+    },
     "finishDescription": "Complete sign-in in the browser we opened. This window will update automatically.",
     "finishInBrowser": "Finish up in your browser",
     "haveCode": "Have a code from the website?",

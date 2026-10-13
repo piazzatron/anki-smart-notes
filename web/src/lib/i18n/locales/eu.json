@@ -259,16 +259,15 @@
     "image": {
       "cannotFindModel": "Irudien katalogoa {{model}} eredua falta da",
       "defaultModel": "Eredu lehenetsia",
-      "gptImage15Low": "kalitate/abiadura onena.",
-      "gptImage2": "kostu bera, motelagoa, kalitate handiagoa.",
+      "gptImage25": "oreka onena: testu zorrotza, diagrama garbiak.",
       "loadingLabel": "Irudiaren ezarpen lehenetsiak kargatzen",
       "loadingTitle": "Irudiaren ezarpen lehenetsiak",
+      "modelTipLabel": "Irudi-ereduei buruz",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Baxua/Ertaina)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Irudi eredu bat hautatzea",
+      "nanoBanana21": "eszena aberatsak, argazkiaren antzekoak.",
       "samplePrompt": "Sortu Anki-rekin gogor ikasten eta probak gainditzen dituen ikasle baten irudia.",
       "saveError": "Ezin izan dira gorde irudi lehenetsiak",
       "subtitle": "Zure irudiak Smart Fields erabiltzen duen eredua eremu batek berea jartzen ez badu behintzat.",
@@ -276,9 +275,9 @@
       "zImageTurbo": "azkarrena eta merkeena."
     },
     "layout": {
-      "saveChanges": "Gorde aldaketak",
       "saving": "Gordetzen…",
-      "tryIt": "Probatu"
+      "tryIt": "Probatu",
+      "save": "Gorde"
     },
     "text": {
       "cannotInheritModel": "Testu lehenetsiek ezin dute beste eredu bat heredatu",
@@ -331,6 +330,26 @@
       "title": "Ahotsaren ezarpen lehenetsiak"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Arrazoibide gehigarria",
+    "extraReasoningCost": "~1,5× kostua",
+    "extraReasoningDescription": "Diagrama garbiagoak eta testu irakurgarriagoa. Gutxi gorabehera 4× motelagoa.",
+    "extraSettings": "Ezarpen Gehigarriak",
+    "doubleCost": "2× kostua",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Kalitate maximoa",
+    "maxQualityDescription": "Zorrotzagoa eta garbiagoa, batez ere etiketa txikiak.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Xehetasun aberatsagoa",
+    "richerDetailDescription": "Xehetasun gehiagoko eszena osatuagoak. Apur bat motelagoak.",
+    "underTheHood": {
+      "gptRicherDetail": "Xehetasun aberatsagoak <model>GPT Image 2.5 Sunburst</model> erabiltzen du.",
+      "gptStandard": "Estandarrak <model>GPT Image 2.5 Flare</model> erabiltzen du.",
+      "nanoExtraReasoning": "Arrazoibide gehigarriak <model>Nano Banana 2.1</model> erabiltzen du.",
+      "nanoStandard": "Estandarrak <model>Nano Banana 2 Lite</model> erabiltzen du."
+    },
+    "underTheHoodLabel": "Zein ereduak exekutatzen diren"
+  },
   "promptTester": {
     "anotherNoteType": "beste ohar mota bat",
     "currentlySelectedCard": "Une honetan hautatutako txartela",
@@ -343,20 +362,23 @@
     },
     "fieldRunsOnNoteType": "Eremu hau <noteTypeName>{{noteType}}</noteTypeName> nota-motetan exekutatzen da",
     "generatedImagePreview": "Sortutako irudiaren aurrebista",
+    "generatedIn": "{{seconds}}s-tan sortua",
     "missingFieldsTitle_one": "Eremu falta",
     "missingFieldsTitle_other": "Eremuak falta dira",
     "needsFields_one": "{{count}} eremua behar du",
     "needsFields_other": "{{count}} eremuak behar ditu",
     "notesSelected_one": "{{count}} oharra hautatuta - murriztu bakar batera.",
     "notesSelected_other": "{{count}} oharrak hautatuta - murriztu bakar batera.",
-    "pickCard": "Aukeratu txartel bat Anki arakatzailean",
     "promptPlaceholder": "Idatzi proba-gonbita, zure txarteleko eremuei erreferentzia eginez {{braces}}-rekin.",
+    "rerunToSave": "Exekutatu proba hau berriro txartelean gordetzeko",
     "saveToCard": "Gorde txartelean",
     "savedTo": "{{field}}-n gorde da",
     "selectCardWithFields_one": "Mesedez, hautatu eremuaren duten txartelaren bat",
     "selectCardWithFields_other": "Mesedez, hautatu eremuen duten txartelaren bat",
     "selectFieldToReadAloud": "Hautatu ozen irakurtzeko eremu bat",
     "selectNewCard": "Hautatu txartel berri bat arakatzailean",
+    "or": "edo",
+    "selectCardInBrowser": "Hautatu txartel bat arakatzailean probatzeko",
     "selectRequiredNoteType": "Mesedez, hautatu <noteTypeName>{{noteType}}</noteTypeName> motako nota bat",
     "selectedCard": "Hautatutako txartela",
     "selectedDeck": "Aukeratutako oholtza",
@@ -364,6 +386,8 @@
     "selectionAppearsAutomatically": "Zure hautaketa hemen automatikoki agertzen da.",
     "sent": "Bidali",
     "testing": "Proba egiten…",
+    "openRecentImage": "Ireki {{number}} irudia",
+    "recentImages": "Emaitzak",
     "testResult": "Testaren emaitza",
     "textToSpeak": "Hitz egiteko testua",
     "viewResult": "Ikusi emaitza",
@@ -372,7 +396,6 @@
   "subscription": {
     "accessEnds": "Sarbidea amaitu da",
     "activateAgain": "Berriro aktibatu",
-    "endingSoon": "Laster amaitu",
     "checking": "Harpidetza egiaztatzen",
     "creditTypes": {
       "images": "Irudiak",
@@ -386,6 +409,7 @@
     "errors": {
       "logout": "Ezin izan da saioa amaitu"
     },
+    "endingSoon": "Laster amaitu",
     "expired": "Iraungita",
     "freePlan": "Doako plana",
     "freeTrial": "Doako proba",

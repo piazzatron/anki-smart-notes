@@ -261,16 +261,15 @@
     "image": {
       "cannotFindModel": "W katalogu obrazów brakuje modelu {{model}}",
       "defaultModel": "Domyślny model",
-      "gptImage15Low": "najlepszy kompromis jakość/szybkość.",
-      "gptImage2": "ten sam koszt, wolniejsza i wyższa jakość.",
+      "gptImage25": "najlepszy uniwersalny — ostry tekst, czyste diagramy.",
       "loadingLabel": "Ładowanie domyślnych ustawień obrazu",
       "loadingTitle": "Domyślne ustawienia obrazu",
+      "modelTipLabel": "O modelach obrazów",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Wybór modelu obrazu",
+      "nanoBanana21": "bogate, fotorealistyczne sceny.",
       "samplePrompt": "Wygeneruj obraz ucznia, który pilnie uczy się za pomocą Anki i zdaje egzaminy.",
       "saveError": "Nie można zapisać domyślnych ustawień obrazu",
       "subtitle": "Model, którego używa Twój obraz Smart Fields, chyba że pole przypina własne.",
@@ -278,9 +277,9 @@
       "zImageTurbo": "najszybciej i najtaniej."
     },
     "layout": {
-      "saveChanges": "Zapisz zmiany",
       "saving": "Oszczędność…",
-      "tryIt": "Spróbuj"
+      "tryIt": "Spróbuj",
+      "save": "Zapisz"
     },
     "text": {
       "cannotInheritModel": "Domyślne ustawienia tekstu nie mogą dziedziczyć innego modelu",
@@ -335,6 +334,26 @@
       "title": "Domyślne ustawienia głosu"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Rozszerzone rozumowanie",
+    "extraReasoningCost": "~1,5× koszt",
+    "extraReasoningDescription": "Czystsze diagramy i bardziej czytelny tekst. Około 4× wolniej.",
+    "extraSettings": "Dodatkowe ustawienia",
+    "doubleCost": "2× koszt",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maksymalna jakość",
+    "maxQualityDescription": "Ostrzejsze i czystsze, zwłaszcza małe etykiety.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Większa szczegółowość",
+    "richerDetailDescription": "Bardziej szczegółowe, pełniejsze sceny. Trochę wolniej.",
+    "underTheHood": {
+      "gptRicherDetail": "Bogatszy szczegół korzysta z <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Standardowy korzysta z <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Rozszerzone rozumowanie korzysta z <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Standardowy korzysta z <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Uruchamiane modele"
+  },
   "promptTester": {
     "anotherNoteType": "inny typ notatki",
     "currentlySelectedCard": "Aktualnie wybrana karta",
@@ -347,6 +366,7 @@
     },
     "fieldRunsOnNoteType": "To pole działa na <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Wygenerowany podgląd obrazu",
+    "generatedIn": "Wygenerowano w {{seconds}} s",
     "missingFieldsTitle_one": "Brakujące pole",
     "missingFieldsTitle_few": "Brakujące pola",
     "missingFieldsTitle_many": "Brakujące pola",
@@ -359,8 +379,8 @@
     "notesSelected_few": "Wybrano {{count}} notatki — zawęź wybór do jednej.",
     "notesSelected_many": "Wybrano {{count}} notatek — zawęź wybór do jednej.",
     "notesSelected_other": "Wybrano {{count}} notatki — zawęź wybór do jednej.",
-    "pickCard": "Wybierz kartę w przeglądarce Anki",
     "promptPlaceholder": "Napisz monit testowy, odwołując się do pól na karcie za pomocą {{braces}}.",
+    "rerunToSave": "Uruchom ten test ponownie, aby zapisać go w karcie",
     "saveToCard": "Zapisz na karcie",
     "savedTo": "Zapisano w {{field}}",
     "selectCardWithFields_one": "Wybierz kartę z polem",
@@ -369,6 +389,8 @@
     "selectCardWithFields_other": "Wybierz kartę z polami",
     "selectFieldToReadAloud": "Wybierz pole, aby przeczytać na głos",
     "selectNewCard": "Wybierz nową kartę w przeglądarce",
+    "or": "lub",
+    "selectCardInBrowser": "Wybierz kartę w przeglądarce, aby przetestować",
     "selectRequiredNoteType": "Wybierz notatkę typu <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Wybrana karta",
     "selectedDeck": "Wybrana talia",
@@ -376,6 +398,8 @@
     "selectionAppearsAutomatically": "Twój wybór pojawi się tutaj automatycznie.",
     "sent": "Wysłano",
     "testing": "Testowanie…",
+    "openRecentImage": "Otwórz obraz {{number}}",
+    "recentImages": "Wyniki",
     "testResult": "Wynik testu",
     "textToSpeak": "Tekst do mówienia",
     "viewResult": "Zobacz wynik",
@@ -384,7 +408,6 @@
   "subscription": {
     "accessEnds": "Dostęp kończy się",
     "activateAgain": "Aktywuj ponownie",
-    "endingSoon": "Wkrótce wygasa",
     "checking": "Sprawdzam subskrypcję",
     "creditTypes": {
       "images": "Obrazy",
@@ -400,6 +423,7 @@
     "errors": {
       "logout": "Nie można się wylogować"
     },
+    "endingSoon": "Wkrótce wygasa",
     "expired": "Wygasł",
     "freePlan": "Darmowy plan",
     "freeTrial": "Bezpłatny okres próbny",

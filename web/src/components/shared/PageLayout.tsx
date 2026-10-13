@@ -46,7 +46,7 @@ export const PageLayout = ({
       {/* The header's divider spans the full content area; its row keeps the page's width. */}
       <header className="shrink-0 border-b border-white/[0.04] px-8 pt-7 pb-5">
         <div
-          className={`flex w-full items-start justify-between gap-6 ${className}`}
+          className={`flex w-full items-center justify-between gap-6 ${className}`}
         >
           <div className="min-w-0">
             <div className="flex items-center gap-2">

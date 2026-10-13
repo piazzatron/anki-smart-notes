@@ -261,16 +261,15 @@
     "image": {
       "cannotFindModel": "V katalógu obrázkov chýba model {{model}}",
       "defaultModel": "Predvolený model",
-      "gptImage15Low": "najlepší kompromis medzi kvalitou a rýchlosťou.",
-      "gptImage2": "rovnaké náklady, pomalšie, kvalitnejšie.",
+      "gptImage25": "najvšestrannejší — ostrý text, čisté diagramy.",
       "loadingLabel": "Načítavajú sa predvolené nastavenia obrázka",
       "loadingTitle": "Predvolené nastavenia obrazu",
+      "modelTipLabel": "O modeloch obrázkov",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Výber obrazového modelu",
+      "nanoBanana21": "bohaté fotografické scény.",
       "samplePrompt": "Vytvorte si obraz študenta, ktorý tvrdo študuje so Anki a zloží svoje testy.",
       "saveError": "Nepodarilo sa uložiť predvolené nastavenia obrázka",
       "subtitle": "Model, ktorý používa váš obrázok Smart Fields, pokiaľ pole nepripne svoje vlastné.",
@@ -278,9 +277,9 @@
       "zImageTurbo": "najrýchlejší a najlacnejší."
     },
     "layout": {
-      "saveChanges": "Uložiť zmeny",
       "saving": "Ukladá sa…",
-      "tryIt": "Skúste to"
+      "tryIt": "Skúste to",
+      "save": "Uložiť"
     },
     "text": {
       "cannotInheritModel": "Predvolené nastavenia textu nemôžu zdediť iný model",
@@ -335,6 +334,26 @@
       "title": "Predvolené nastavenia hlasu"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Rozšírené uvažovanie",
+    "extraReasoningCost": "~1,5× náklady",
+    "extraReasoningDescription": "Čistejšie diagramy a čitateľnejší text. Asi 4× pomalšie.",
+    "extraSettings": "Ďalšie nastavenia",
+    "doubleCost": "2× náklady",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maximálna kvalita",
+    "maxQualityDescription": "Ostrejšie a čistejšie, najmä malé popisky.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Bohatší detail",
+    "richerDetailDescription": "Podrobnejšie a plnšie scény. O niečo pomalšie.",
+    "underTheHood": {
+      "gptRicherDetail": "Podrobnejšie detaily používajú <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Štandardné používa <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Rozšírené uvažovanie používa <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Štandardné používa <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Ktoré modely sa spúšťajú"
+  },
   "promptTester": {
     "anotherNoteType": "iný typ poznámky",
     "currentlySelectedCard": "Aktuálne vybratá karta",
@@ -347,6 +366,7 @@
     },
     "fieldRunsOnNoteType": "Toto pole beží na <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Vygenerovaný náhľad obrázka",
+    "generatedIn": "Vygenerované za {{seconds}} s",
     "missingFieldsTitle_one": "Chýbajúce pole",
     "missingFieldsTitle_few": "Chýbajúce polia",
     "missingFieldsTitle_many": "Chýbajúce polia",
@@ -359,8 +379,8 @@
     "notesSelected_few": "Vybrané {{count}} poznámky — zúžte výber na jednu.",
     "notesSelected_many": "Vybraných {{count}} poznámky — zúžte výber na jednu.",
     "notesSelected_other": "Vybraných {{count}} poznámok — zúžte výber na jednu.",
-    "pickCard": "Vyberte kartu v prehliadači Anki",
     "promptPlaceholder": "Napíšte testovaciu výzvu s odkazom na polia na vašej karte pomocou {{braces}}.",
+    "rerunToSave": "Spustite tento test znova, aby sa uložil na kartu",
     "saveToCard": "Uložiť na kartu",
     "savedTo": "Uložené do {{field}}",
     "selectCardWithFields_one": "Prosím, vyberte kartu s polom",
@@ -369,6 +389,8 @@
     "selectCardWithFields_other": "Prosím, vyberte kartu s poľami",
     "selectFieldToReadAloud": "Vyberte pole, ktoré chcete čítať nahlas",
     "selectNewCard": "V prehliadači vyberte novú kartu",
+    "or": "alebo",
+    "selectCardInBrowser": "Na test vyberte kartu v prehliadači",
     "selectRequiredNoteType": "Prosím, vyberte poznámku typu <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Vybraná karta",
     "selectedDeck": "Vybraná paluba",
@@ -376,6 +398,8 @@
     "selectionAppearsAutomatically": "Váš výber sa tu zobrazí automaticky.",
     "sent": "Odoslané",
     "testing": "Testuje sa…",
+    "openRecentImage": "Otvoriť obrázok {{number}}",
+    "recentImages": "Výsledky",
     "testResult": "Výsledok testu",
     "textToSpeak": "Text na hovorenie",
     "viewResult": "Zobraziť výsledok",
@@ -384,7 +408,6 @@
   "subscription": {
     "accessEnds": "Prístup končí",
     "activateAgain": "Znova aktivovať",
-    "endingSoon": "Skončí čoskoro",
     "checking": "Kontrola predplatného",
     "creditTypes": {
       "images": "Obrázky",
@@ -400,6 +423,7 @@
     "errors": {
       "logout": "Nepodarilo sa odhlásiť"
     },
+    "endingSoon": "Skončí čoskoro",
     "expired": "Vypršané",
     "freePlan": "Voľný plán",
     "freeTrial": "Bezplatná skúšobná verzia",

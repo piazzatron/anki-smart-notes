@@ -259,16 +259,15 @@
     "image": {
       "cannotFindModel": "Պատկերների կատալոգում բացակայում է {{model}} մոդելը",
       "defaultModel": "Կանխադրված մոդել",
-      "gptImage15Low": "լավագույն որակի / արագության փոխզիջում:",
-      "gptImage2": "նույն արժեքը, ավելի դանդաղ, ավելի որակյալ:",
+      "gptImage25": "լավագույնը բոլոր առումներով՝ սուր տեքստ, մաքուր դիագրամներ։",
       "loadingLabel": "Պատկերի կանխադրված կարգավորումների բեռնում",
       "loadingTitle": "Պատկերի կանխադրված կարգավորումներ",
+      "modelTipLabel": "Պատկերի մոդելների մասին",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (ցածր / միջին)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Պատկերի մոդելի ընտրություն",
+      "nanoBanana21": "հարուստ, ֆոտոռեալիստական տեսարաններ։",
       "samplePrompt": "Ստեղծեք աշակերտի պատկեր, որը շատ է սովորում Anki-ով և հանձնում թեստերը:",
       "saveError": "Չհաջողվեց պահպանել պատկերների կանխադրվածները",
       "subtitle": "Ձեր պատկերի Smart Fields մոդելը, եթե դաշտը չի ամրացնում իր սեփականը:",
@@ -276,9 +275,9 @@
       "zImageTurbo": "ամենաարագ և ամենաէժան:"
     },
     "layout": {
-      "saveChanges": "Պահպանել փոփոխությունները",
       "saving": "Պահվում է…",
-      "tryIt": "Փորձեք այն"
+      "tryIt": "Փորձեք այն",
+      "save": "Պահպանել"
     },
     "text": {
       "cannotInheritModel": "Տեքստի կանխադրվածները չեն կարող ժառանգել այլ մոդել",
@@ -331,6 +330,26 @@
       "title": "Ձայնի կանխադրված կարգավորումներ"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Լրացուցիչ դատողություն",
+    "extraReasoningCost": "~1.5× արժեք",
+    "extraReasoningDescription": "Ավելի մաքուր դիագրամներ և ավելի ընթեռնելի տեքստ։ Մոտ 4× դանդաղ։",
+    "extraSettings": "Լրացուցիչ կարգավորումներ",
+    "doubleCost": "2× արժեք",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Առավելագույն որակ",
+    "maxQualityDescription": "Ավելի սուր և մաքուր, հատկապես փոքր պիտակները։",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Ավելի հարուստ մանրամասներ",
+    "richerDetailDescription": "Ավելի մանրամասն, լիարժեք տեսարաններ։ Մի փոքր դանդաղ։",
+    "underTheHood": {
+      "gptRicherDetail": "Ավելի մանրամասն արդյունքի համար օգտագործվում է <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Ստանդարտ տարբերակն օգտագործում է <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Լրացուցիչ դատողության համար օգտագործվում է <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Ստանդարտ տարբերակն օգտագործում է <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Ո՞ր մոդելներն են աշխատում"
+  },
   "promptTester": {
     "anotherNoteType": "մեկ այլ նշումի տեսակ",
     "currentlySelectedCard": "Ներկայումս ընտրված քարտը",
@@ -343,20 +362,23 @@
     },
     "fieldRunsOnNoteType": "Այս դաշտը գործում է <noteTypeName>{{noteType}}</noteTypeName> վրա",
     "generatedImagePreview": "Ստեղծված պատկերի նախադիտում",
+    "generatedIn": "Ստեղծվել է {{seconds}} վրկ-ում",
     "missingFieldsTitle_one": "Բացակայող դաշտ",
     "missingFieldsTitle_other": "Բացակայող դաշտեր",
     "needsFields_one": "Անհրաժեշտ է {{count}} դաշտ",
     "needsFields_other": "Անհրաժեշտ են {{count}} դաշտեր",
     "notesSelected_one": "Ընտրված է {{count}} նշումը. նեղացրեք այն մեկին:",
     "notesSelected_other": "{{count}} նշումներ են ընտրված — նեղացրեք այն մեկին:",
-    "pickCard": "Ընտրեք քարտ Anki զննարկիչում",
     "promptPlaceholder": "Գրեք թեստային հուշում, հղում կատարելով ձեր քարտի դաշտերին {{braces}}-ով:",
+    "rerunToSave": "Կրկին գործարկեք այս թեստը՝ քարտում պահելու համար",
     "saveToCard": "Պահել քարտում",
     "savedTo": "Պահված է {{field}}-ում",
     "selectCardWithFields_one": "Խնդրում ենք ընտրել քարտ այս դաշտով",
     "selectCardWithFields_other": "Խնդրում ենք ընտրել քարտ այս դաշտերով",
     "selectFieldToReadAloud": "Ընտրեք դաշտ՝ բարձրաձայն կարդալու համար",
     "selectNewCard": "Ընտրեք նոր քարտ զննարկիչում",
+    "or": "կամ",
+    "selectCardInBrowser": "Ընտրեք քարտ բրաուզերում՝ թեստավորելու համար",
     "selectRequiredNoteType": "Խնդրում ենք ընտրել <noteTypeName>{{noteType}}</noteTypeName> տիպի նշում",
     "selectedCard": "Ընտրված քարտ",
     "selectedDeck": "Ընտրված տախտակամած",
@@ -364,6 +386,8 @@
     "selectionAppearsAutomatically": "Ձեր ընտրությունը հայտնվում է այստեղ ինքնաբերաբար:",
     "sent": "Ուղարկված",
     "testing": "Փորձարկում…",
+    "openRecentImage": "Բացել պատկերը {{number}}",
+    "recentImages": "Արդյունքներ",
     "testResult": "Փորձարկման արդյունք",
     "textToSpeak": "Տեքստ խոսելու համար",
     "viewResult": "Դիտել արդյունքը",
@@ -372,7 +396,6 @@
   "subscription": {
     "accessEnds": "Մուտքը ավարտվում է",
     "activateAgain": "Կրկին ակտիվացնել",
-    "endingSoon": "Շուտով ավարտվելու է",
     "checking": "Ստուգվում է բաժանորդագրությունը",
     "creditTypes": {
       "images": "Պատկերներ",
@@ -386,6 +409,7 @@
     "errors": {
       "logout": "Չհաջողվեց դուրս գալ"
     },
+    "endingSoon": "Շուտով ավարտվելու է",
     "expired": "Ժամկետանց",
     "freePlan": "Անվճար պլան",
     "freeTrial": "Անվճար փորձարկում",

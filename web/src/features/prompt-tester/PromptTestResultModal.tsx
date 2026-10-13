@@ -27,16 +27,17 @@ import {
   DialogTitle,
 } from "@/components/ui/Dialog"
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
+import { Pill } from "@/components/ui/Pill"
 import type { SelectedNote } from "@/types/api"
 
 import { resolvePromptReferences } from "./resolvePromptReferences"
-import type { PromptTester } from "./usePromptTester"
+import type { PromptTester, Provenance } from "./usePromptTester"
 
 interface PromptTestResultModalProps {
   children: ReactNode
   onClose: () => void
   open: boolean
-  provenance: string
+  provenance: Provenance | null
   saveAction?: ReactNode
   tester: PromptTester
 }
@@ -55,15 +56,12 @@ export const PromptTestResultModal = ({
   const firstFieldValue = Object.values(
     tester.selectedNote?.fields ?? {},
   )[0]?.trim()
-  const subtitle =
+  const cardName =
     tester.selectedNote === null
-      ? provenance
-      : [
-          firstFieldValue === undefined || firstFieldValue === ""
-            ? t("promptTester.selectedCard")
-            : firstFieldValue,
-          provenance,
-        ].join(" · ")
+      ? null
+      : firstFieldValue === undefined || firstFieldValue === ""
+        ? t("promptTester.selectedCard")
+        : firstFieldValue
 
   return (
     <Dialog
@@ -72,13 +70,32 @@ export const PromptTestResultModal = ({
       }}
       open={open}
     >
-      <DialogContent className="max-h-[84vh] w-[min(760px,92vw)]">
+      {/* An image result gets a narrower dialog that hugs the picture; text needs the
+          room to read. */}
+      <DialogContent
+        className={`max-h-[84vh] ${tester.fieldType === "image" ? "w-[min(520px,92vw)]" : "w-[min(760px,92vw)]"}`}
+      >
         <header className="shrink-0 border-b border-white/[0.07] py-3.5 ps-5 pe-10">
           <DialogTitle className="text-[13px] font-bold text-ink">
             {t("promptTester.testResult")}
           </DialogTitle>
-          <DialogDescription className="mt-0.5 truncate text-[11px] text-ink-faint">
-            {subtitle}
+          <DialogDescription className="mt-1.5 flex min-w-0 items-center gap-1.5 text-[11px] text-ink-faint">
+            {cardName !== null && (
+              <span className="min-w-0 truncate">
+                {cardName}
+                {provenance !== null && " ·"}
+              </span>
+            )}
+            {provenance !== null && (
+              <>
+                <Pill>{provenance.primary}</Pill>
+                {provenance.extras.map((extra) => (
+                  <Pill key={extra} tone="indigo">
+                    {extra}
+                  </Pill>
+                ))}
+              </>
+            )}
           </DialogDescription>
         </header>
 
@@ -114,7 +131,7 @@ export const ResolvedPrompt = ({ note, prompt }: ResolvedPromptProps) => {
   const { parts } = resolvePromptReferences(prompt, note?.fields ?? {})
 
   return (
-    <p className="mb-2 font-mono text-[11px] leading-[1.5] text-ink-muted">
+    <p className="mb-2 cursor-text font-mono text-[11px] leading-[1.5] [overflow-wrap:anywhere] text-ink-muted select-text">
       <span className="font-sans text-[10.5px] text-ink-faint">
         {t("promptTester.sent")} ·{" "}
       </span>

@@ -259,16 +259,15 @@
     "image": {
       "cannotFindModel": "Bildkatalogo mankas modelo {{model}}",
       "defaultModel": "Defaŭlta modelo",
-      "gptImage15Low": "plej bona kvalito/rapida kompromiso.",
-      "gptImage2": "sama kosto, pli malrapida, pli alta kvalito.",
+      "gptImage25": "la plej universala — klara teksto, puraj diagramoj.",
       "loadingLabel": "Ŝargante defaŭltajn bildajn agordojn",
       "loadingTitle": "Defaŭltaj Bildaj Agordoj",
+      "modelTipLabel": "Pri la bildmodeloj",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Malalta / Meza)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Elektante bildomodelon",
+      "nanoBanana21": "riĉaj, fotografiaj scenoj.",
       "samplePrompt": "Generu bildon de studento, kiu forte studas kun Anki kaj trapasas siajn testojn.",
       "saveError": "Ne eblis konservi bildodefaŭltojn",
       "subtitle": "La modelo kiun via bildo Smart Fields uzas krom se kampo alpinglas sian propran.",
@@ -276,9 +275,9 @@
       "zImageTurbo": "plej rapida kaj plej malmultekosta."
     },
     "layout": {
-      "saveChanges": "Konservu ŝanĝojn",
       "saving": "Konservante…",
-      "tryIt": "Provu ĝin"
+      "tryIt": "Provu ĝin",
+      "save": "Konservi"
     },
     "text": {
       "cannotInheritModel": "Tekstaj defaŭltoj ne povas heredi alian modelon",
@@ -331,6 +330,26 @@
       "title": "Defaŭltaj Voĉaj Agordoj"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Plia rezonado",
+    "extraReasoningCost": "~1,5× kosto",
+    "extraReasoningDescription": "Pli puraj diagramoj kaj pli legebla teksto. Proksimume 4× pli malrapide.",
+    "extraSettings": "Pliaj agordoj",
+    "doubleCost": "2× kosto",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maksimuma kvalito",
+    "maxQualityDescription": "Pli akra kaj pura, precipe malgrandaj etikedoj.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Pli riĉa detaleco",
+    "richerDetailDescription": "Pli detalaj, plenaj scenoj. Iom pli malrapide.",
+    "underTheHood": {
+      "gptRicherDetail": "Pli riĉa detalo uzas <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Norma uzas <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Plia rezonado uzas <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Norma uzas <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Kiuj modeloj ruliĝas"
+  },
   "promptTester": {
     "anotherNoteType": "alia notspeco",
     "currentlySelectedCard": "Nuntempe elektita karto",
@@ -343,20 +362,23 @@
     },
     "fieldRunsOnNoteType": "Ĉi tiu kampo funkcias sur <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Generita bildo antaŭrigardo",
+    "generatedIn": "Generita en {{seconds}}s",
     "missingFieldsTitle_one": "Mankas kampo",
     "missingFieldsTitle_other": "Mankas kampoj",
     "needsFields_one": "Bezonas {{count}}-kampon",
     "needsFields_other": "Bezonas {{count}}-kampojn",
     "notesSelected_one": "{{count}} noto elektita - mallarĝu ĝin al unu.",
     "notesSelected_other": "{{count}} notoj elektitaj - mallarĝu ĝin al unu.",
-    "pickCard": "Elektu karton en la Anki-Retumilo",
     "promptPlaceholder": "Skribu provon, referencante kampojn sur via karto kun {{braces}}.",
+    "rerunToSave": "Rulu ĉi tiun teston denove por konservi ĝin en la karto",
     "saveToCard": "Konservu al karto",
     "savedTo": "Konservite al {{field}}",
     "selectCardWithFields_one": "Bonvolu elekti karton kun la kampo",
     "selectCardWithFields_other": "Bonvolu elekti karton kun la kampoj",
     "selectFieldToReadAloud": "Elektu kampon por voĉlegi",
     "selectNewCard": "Elektu novan karton en la retumilo",
+    "or": "aŭ",
+    "selectCardInBrowser": "Elektu karton en la retrovilo por testi",
     "selectRequiredNoteType": "Bonvolu elekti noton de tipo <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Elektita karto",
     "selectedDeck": "Elektita ferdeko",
@@ -364,6 +386,8 @@
     "selectionAppearsAutomatically": "Via elekto aperas ĉi tie aŭtomate.",
     "sent": "Sendita",
     "testing": "Testante…",
+    "openRecentImage": "Malfermi bildon {{number}}",
+    "recentImages": "Rezultoj",
     "testResult": "Testrezulto",
     "textToSpeak": "Teksto por paroli",
     "viewResult": "Vidu rezulton",
@@ -372,7 +396,6 @@
   "subscription": {
     "accessEnds": "Aliro finiĝas",
     "activateAgain": "Reaktivigi",
-    "endingSoon": "Finiĝas baldaŭ",
     "checking": "Kontrolante abonon",
     "creditTypes": {
       "images": "Bildoj",
@@ -386,6 +409,7 @@
     "errors": {
       "logout": "Ne eblis elsaluti"
     },
+    "endingSoon": "Finiĝas baldaŭ",
     "expired": "Eksvalidiĝis",
     "freePlan": "Senpaga plano",
     "freeTrial": "Senpaga provo",

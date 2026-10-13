@@ -259,16 +259,15 @@
     "image": {
       "cannotFindModel": "Billedkatalog mangler model {{model}}",
       "defaultModel": "Standardmodel",
-      "gptImage15Low": "bedste kvalitet / hastighed afvejning.",
-      "gptImage2": "samme pris, langsommere, højere kvalitet.",
+      "gptImage25": "bedst til alt — skarp tekst, rene diagrammer.",
       "loadingLabel": "Indlæser standard billedindstillinger",
       "loadingTitle": "Standard billedindstillinger",
+      "modelTipLabel": "Om billedmodellerne",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Lav/Middel)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 At vælge en billedmodel",
+      "nanoBanana21": "rige, fotografiske scener.",
       "samplePrompt": "Generer et billede af en studerende, der studerer hårdt med Anki og består deres prøver.",
       "saveError": "Billedstandarder kunne ikke gemmes",
       "subtitle": "Modellen dit billede Smart Fields bruger, medmindre et felt fastgør sit eget.",
@@ -276,9 +275,9 @@
       "zImageTurbo": "hurtigste og billigste."
     },
     "layout": {
-      "saveChanges": "Gem ændringer",
       "saving": "Gemmer...",
-      "tryIt": "Prøv det"
+      "tryIt": "Prøv det",
+      "save": "Gem"
     },
     "text": {
       "cannotInheritModel": "Tekststandarder kan ikke arve en anden model",
@@ -331,6 +330,26 @@
       "title": "Standard stemmeindstillinger"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Ekstra ræsonnement",
+    "extraReasoningCost": "~1,5× omkostning",
+    "extraReasoningDescription": "Renere diagrammer og mere læsbar tekst. Ca. 4× langsommere.",
+    "extraSettings": "Ekstra indstillinger",
+    "doubleCost": "2× omkostning",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maksimal kvalitet",
+    "maxQualityDescription": "Skarpere og renere, især små etiketter.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Rigere detaljer",
+    "richerDetailDescription": "Mere detaljerede, fyldigere scener. Lidt langsommere.",
+    "underTheHood": {
+      "gptRicherDetail": "Mere detaljer bruger <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Standard bruger <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Ekstra ræsonnement bruger <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Standard bruger <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Hvilke modeller der kører"
+  },
   "promptTester": {
     "anotherNoteType": "en anden nodetype",
     "currentlySelectedCard": "Det valgte kort i øjeblikket",
@@ -343,20 +362,23 @@
     },
     "fieldRunsOnNoteType": "Dette felt kører på <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Genereret billedforhåndsvisning",
+    "generatedIn": "Genereret på {{seconds}} s",
     "missingFieldsTitle_one": "Manglende felt",
     "missingFieldsTitle_other": "Manglende felter",
     "needsFields_one": "Kræver {{count}} felt",
     "needsFields_other": "Har brug for {{count}} felter",
     "notesSelected_one": "{{count}} note valgt — indsnæv den til én.",
     "notesSelected_other": "{{count}} noter valgt — indsnæv den til én.",
-    "pickCard": "Vælg et kort i Anki-browseren",
     "promptPlaceholder": "Skriv en testprompt, og referer til felter på dit kort med {{braces}}.",
+    "rerunToSave": "Kør denne test igen for at gemme den på kortet",
     "saveToCard": "Gem på kort",
     "savedTo": "Gemt til {{field}}",
     "selectCardWithFields_one": "Vælg venligst et kort med feltet",
     "selectCardWithFields_other": "Vælg venligst et kort med felterne",
     "selectFieldToReadAloud": "Vælg et felt for at læse højt",
     "selectNewCard": "Vælg et nyt kort i browseren",
+    "or": "eller",
+    "selectCardInBrowser": "Vælg et kort i browseren for at teste",
     "selectRequiredNoteType": "Vælg venligst en note af type <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Valgt kort",
     "selectedDeck": "Udvalgt dæk",
@@ -364,6 +386,8 @@
     "selectionAppearsAutomatically": "Dit valg vises her automatisk.",
     "sent": "Sendt",
     "testing": "Tester...",
+    "openRecentImage": "Åbn billede {{number}}",
+    "recentImages": "Resultater",
     "testResult": "Testresultat",
     "textToSpeak": "Tekst til tale",
     "viewResult": "Se resultat",
@@ -372,7 +396,6 @@
   "subscription": {
     "accessEnds": "Adgang slutter",
     "activateAgain": "Aktivér igen",
-    "endingSoon": "Slutter snart",
     "checking": "Tjek abonnement",
     "creditTypes": {
       "images": "Billeder",
@@ -386,6 +409,7 @@
     "errors": {
       "logout": "Kunne ikke logge ud"
     },
+    "endingSoon": "Slutter snart",
     "expired": "Udløbet",
     "freePlan": "Gratis plan",
     "freeTrial": "Gratis prøveversion",

@@ -258,16 +258,15 @@
     "image": {
       "cannotFindModel": "แค็ตตาล็อกรูปภาพไม่มีโมเดล {{model}}",
       "defaultModel": "โมเดลเริ่มต้น",
-      "gptImage15Low": "การแลกเปลี่ยนคุณภาพ / ความเร็วที่ดีที่สุด",
-      "gptImage2": "ต้นทุนเท่าเดิม ช้ากว่า คุณภาพสูงกว่า",
+      "gptImage25": "ดีที่สุดสำหรับทุกงาน ข้อความคมชัด ไดอะแกรมสะอาด",
       "loadingLabel": "กำลังโหลดการตั้งค่ารูปภาพเริ่มต้น",
       "loadingTitle": "การตั้งค่าภาพเริ่มต้น",
+      "modelTipLabel": "เกี่ยวกับโมเดลสร้างภาพ",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (ต่ำ / ปานกลาง)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 การเลือกโมเดลรูปภาพ",
+      "nanoBanana21": "ฉากสมจริงแบบภาพถ่าย มีรายละเอียดหลากหลาย",
       "samplePrompt": "สร้างภาพลักษณ์นักเรียนที่เรียนหนักด้วย Anki และผ่านการทดสอบ",
       "saveError": "ไม่สามารถบันทึกค่าเริ่มต้นของรูปภาพได้",
       "subtitle": "โมเดลที่อิมเมจของคุณ Smart Fields ใช้ เว้นแต่ว่าฟิลด์จะปักหมุดตัวมันเอง",
@@ -275,9 +274,9 @@
       "zImageTurbo": "เร็วที่สุดและถูกที่สุด"
     },
     "layout": {
-      "saveChanges": "บันทึกการเปลี่ยนแปลง",
       "saving": "ประหยัด…",
-      "tryIt": "ลองมัน"
+      "tryIt": "ลองมัน",
+      "save": "บันทึก"
     },
     "text": {
       "cannotInheritModel": "ค่าเริ่มต้นของข้อความไม่สามารถสืบทอดโมเดลอื่นได้",
@@ -329,6 +328,26 @@
       "title": "การตั้งค่าเสียงเริ่มต้น"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "การให้เหตุผลเพิ่มเติม",
+    "extraReasoningCost": "ค่าใช้จ่ายประมาณ 1.5 เท่า",
+    "extraReasoningDescription": "ไดอะแกรมสะอาดขึ้นและข้อความอ่านง่ายขึ้น ช้ากว่าประมาณ 4 เท่า",
+    "extraSettings": "การตั้งค่าเพิ่มเติม",
+    "doubleCost": "ค่าใช้จ่าย 2 เท่า",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "คุณภาพสูงสุด",
+    "maxQualityDescription": "คมชัดและสะอาดขึ้น โดยเฉพาะป้ายกำกับขนาดเล็ก",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "รายละเอียดเพิ่มขึ้น",
+    "richerDetailDescription": "ฉากมีรายละเอียดมากขึ้นและเต็มภาพยิ่งขึ้น ช้าลงเล็กน้อย",
+    "underTheHood": {
+      "gptRicherDetail": "รายละเอียดที่สมบูรณ์กว่าใช้ <model>GPT Image 2.5 Sunburst</model>",
+      "gptStandard": "มาตรฐานใช้ <model>GPT Image 2.5 Flare</model>",
+      "nanoExtraReasoning": "การให้เหตุผลเพิ่มเติมใช้ <model>Nano Banana 2.1</model>",
+      "nanoStandard": "มาตรฐานใช้ <model>Nano Banana 2 Lite</model>"
+    },
+    "underTheHoodLabel": "โมเดลที่ทำงาน"
+  },
   "promptTester": {
     "anotherNoteType": "บันทึกประเภทอื่น",
     "currentlySelectedCard": "บัตรที่เลือกในปัจจุบัน",
@@ -341,16 +360,19 @@
     },
     "fieldRunsOnNoteType": "ฟิลด์นี้ทำงานบน <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "ตัวอย่างภาพที่สร้างขึ้น",
+    "generatedIn": "สร้างภายใน {{seconds}} วินาที",
     "missingFieldsTitle_other": "ช่องที่ขาดหายไป",
     "needsFields_other": "ต้องการฟิลด์ {{count}}",
     "notesSelected_other": "โน้ต {{count}} ที่เลือก — จำกัดให้เหลือหนึ่งโน้ต",
-    "pickCard": "เลือกการ์ดในเบราว์เซอร์ Anki",
     "promptPlaceholder": "เขียนพรอมต์ทดสอบโดยอ้างอิงฟิลด์บนการ์ดของคุณด้วย {{braces}}",
+    "rerunToSave": "รันการทดสอบนี้อีกครั้งเพื่อบันทึกลงการ์ด",
     "saveToCard": "บันทึกลงในการ์ด",
     "savedTo": "บันทึกไปที่ {{field}} แล้ว",
     "selectCardWithFields_other": "โปรดเลือกการ์ดที่มีฟิลด์เหล่านี้",
     "selectFieldToReadAloud": "เลือกช่องที่จะอ่านออกเสียง",
     "selectNewCard": "เลือกการ์ดใหม่ในเบราว์เซอร์",
+    "or": "หรือ",
+    "selectCardInBrowser": "เลือกการ์ดในเบราว์เซอร์เพื่อทดสอบ",
     "selectRequiredNoteType": "โปรดเลือกบันทึกประเภท <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "บัตรที่เลือก",
     "selectedDeck": "สำรับที่เลือก",
@@ -358,6 +380,8 @@
     "selectionAppearsAutomatically": "การเลือกของคุณจะปรากฏที่นี่โดยอัตโนมัติ",
     "sent": "ส่งแล้ว",
     "testing": "กำลังทดสอบ...",
+    "openRecentImage": "เปิดภาพที่ {{number}}",
+    "recentImages": "ผลลัพธ์",
     "testResult": "ผลการทดสอบ",
     "textToSpeak": "ข้อความที่จะพูด",
     "viewResult": "ดูผลลัพธ์",
@@ -366,7 +390,6 @@
   "subscription": {
     "accessEnds": "การเข้าถึงสิ้นสุด",
     "activateAgain": "เปิดใช้งานอีกครั้ง",
-    "endingSoon": "กำลังจะสิ้นสุด",
     "checking": "กำลังตรวจสอบการสมัครสมาชิก",
     "creditTypes": {
       "images": "รูปภาพ",
@@ -379,6 +402,7 @@
     "errors": {
       "logout": "ไม่สามารถออกจากระบบได้"
     },
+    "endingSoon": "กำลังจะสิ้นสุด",
     "expired": "หมดอายุ",
     "freePlan": "แผนฟรี",
     "freeTrial": "ทดลองใช้ฟรี",

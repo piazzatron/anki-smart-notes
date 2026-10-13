@@ -259,16 +259,15 @@
     "image": {
       "cannotFindModel": "Beeldkatalogus ontbreek model {{model}}",
       "defaultModel": "Verstek model",
-      "gptImage15Low": "beste kwaliteit / spoed afweging.",
-      "gptImage2": "dieselfde koste, stadiger, hoër gehalte.",
+      "gptImage25": "beste allround-keuse — skerp teks, duidelike diagramme.",
       "loadingLabel": "Laai tans verstekbeeldinstellings",
       "loadingTitle": "Standaard prentinstellings",
+      "modelTipLabel": "Oor die beeldmodelle",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Laag / Medium)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Kies 'n beeldmodel",
+      "nanoBanana21": "ryk, fotografiese tonele.",
       "samplePrompt": "Genereer 'n beeld van 'n student wat hard met Anki studeer en hul toetse slaag.",
       "saveError": "Kon nie prentverstekings stoor nie",
       "subtitle": "Die model wat jou beeld Smart Fields gebruik, tensy 'n veld sy eie vaspen.",
@@ -276,9 +275,9 @@
       "zImageTurbo": "vinnigste en goedkoopste."
     },
     "layout": {
-      "saveChanges": "Stoor veranderinge",
       "saving": "Stoor tans …",
-      "tryIt": "Probeer dit"
+      "tryIt": "Probeer dit",
+      "save": "Stoor"
     },
     "text": {
       "cannotInheritModel": "Teks verstek kan nie 'n ander model erf nie",
@@ -331,6 +330,26 @@
       "title": "Versteksteminstellings"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Ekstra redenering",
+    "extraReasoningCost": "~1,5× koste",
+    "extraReasoningDescription": "Skoner diagramme en leesbaarder teks. Ongeveer 4× stadiger.",
+    "extraSettings": "Ekstra instellings",
+    "doubleCost": "2× koste",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maksimum gehalte",
+    "maxQualityDescription": "Skerper en skoner, veral klein etikette.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Ryker detail",
+    "richerDetailDescription": "Meer gedetailleerde, voller tonele. Iets stadiger.",
+    "underTheHood": {
+      "gptRicherDetail": "Ryker detail gebruik <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Standaard gebruik <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Ekstra redenering gebruik <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Standaard gebruik <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Watter modelle loop"
+  },
   "promptTester": {
     "anotherNoteType": "'n ander noottipe",
     "currentlySelectedCard": "Kaart wat tans gekies is",
@@ -343,20 +362,23 @@
     },
     "fieldRunsOnNoteType": "Hierdie veld loop op <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Gegenereerde prentvoorskou",
+    "generatedIn": "Gegenereer in {{seconds}}s",
     "missingFieldsTitle_one": "Ontbrekende veld",
     "missingFieldsTitle_other": "Ontbrekende velde",
     "needsFields_one": "Benodig {{count}} veld",
     "needsFields_other": "Benodig {{count}} velde",
     "notesSelected_one": "{{count}} noot gekies - maak dit tot een beperk.",
     "notesSelected_other": "{{count}} notas gekies - maak dit tot een beperk.",
-    "pickCard": "Kies 'n kaart in die Anki-blaaier",
     "promptPlaceholder": "Skryf 'n toetsaanwysing, met verwysing na velde op jou kaart met {{braces}}.",
+    "rerunToSave": "Voer hierdie toets weer uit om dit op die kaart te stoor",
     "saveToCard": "Stoor op kaart",
     "savedTo": "Gestoor na {{field}}",
     "selectCardWithFields_one": "Kies asseblief 'n kaart met die veld",
     "selectCardWithFields_other": "Kies asseblief 'n kaart met die velde",
     "selectFieldToReadAloud": "Kies 'n veld om hardop te lees",
     "selectNewCard": "Kies 'n nuwe kaart in die blaaier",
+    "or": "of",
+    "selectCardInBrowser": "Kies 'n kaart in die bladeraar om te toets",
     "selectRequiredNoteType": "Kies asseblief 'n noot van tipe <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Geselekteerde kaart",
     "selectedDeck": "Geselekteerde dek",
@@ -364,6 +386,8 @@
     "selectionAppearsAutomatically": "Jou keuse verskyn outomaties hier.",
     "sent": "Gestuur",
     "testing": "Toets tans …",
+    "openRecentImage": "Maak beeld {{number}} oop",
+    "recentImages": "Resultate",
     "testResult": "Toetsresultaat",
     "textToSpeak": "Teks om te praat",
     "viewResult": "Bekyk resultaat",
@@ -372,7 +396,6 @@
   "subscription": {
     "accessEnds": "Toegang eindig",
     "activateAgain": "Aktiveer weer",
-    "endingSoon": "Eindig binnekort",
     "checking": "Gaan tans intekening na",
     "creditTypes": {
       "images": "Beelde",
@@ -386,6 +409,7 @@
     "errors": {
       "logout": "Kon nie uitteken nie"
     },
+    "endingSoon": "Eindig binnekort",
     "expired": "Verstreke",
     "freePlan": "Gratis plan",
     "freeTrial": "Gratis proeflopie",

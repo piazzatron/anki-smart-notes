@@ -260,16 +260,15 @@
     "image": {
       "cannotFindModel": "Каталогу слика недостаје модел {{model}}",
       "defaultModel": "Подразумевани модел",
-      "gptImage15Low": "најбољи однос квалитета/брзине.",
-      "gptImage2": "исти трошак, спорији, квалитетнији.",
+      "gptImage25": "најбољи свестрани избор — оштар текст, чисти дијаграми.",
       "loadingLabel": "Учитавање подразумеваних поставки слике",
       "loadingTitle": "Подразумевана подешавања слике",
+      "modelTipLabel": "О моделима за слике",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (низак/средњи)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Бирање модела слике",
+      "nanoBanana21": "богате, фотографске сцене.",
       "samplePrompt": "Генеришите слику ученика који вредно учи са Anki и полаже тестове.",
       "saveError": "Није могуће сачувати подразумеване вредности слике",
       "subtitle": "Модел који ваша слика користи Smart Fields осим ако поље не закачи своје.",
@@ -277,9 +276,9 @@
       "zImageTurbo": "најбржи и најјефтинији."
     },
     "layout": {
-      "saveChanges": "Сачувај промене",
       "saving": "Чување…",
-      "tryIt": "Пробај"
+      "tryIt": "Пробај",
+      "save": "Сачувај"
     },
     "text": {
       "cannotInheritModel": "Подразумеване вредности текста не могу наследити други модел",
@@ -333,6 +332,26 @@
       "title": "Подразумевана подешавања гласа"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Додатно резоновање",
+    "extraReasoningCost": "~1,5× трошак",
+    "extraReasoningDescription": "Чистији дијаграми и читљивији текст. Око 4× спорије.",
+    "extraSettings": "Додатна подешавања",
+    "doubleCost": "2× трошак",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Максимални квалитет",
+    "maxQualityDescription": "Оштрије и чистије, посебно мале ознаке.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Богатији детаљи",
+    "richerDetailDescription": "Детаљније и пуније сцене. Малo спорије.",
+    "underTheHood": {
+      "gptRicherDetail": "Богатији детаљи користе <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Стандардно користи <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Додатно закључивање користи <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Стандардно користи <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Који модели се покрећу"
+  },
   "promptTester": {
     "anotherNoteType": "другу врсту нота",
     "currentlySelectedCard": "Тренутно изабрана картица",
@@ -345,6 +364,7 @@
     },
     "fieldRunsOnNoteType": "Ово поље се покреће на <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Генерисани преглед слике",
+    "generatedIn": "Генерисано за {{seconds}} с",
     "missingFieldsTitle_one": "Недостаје поље",
     "missingFieldsTitle_few": "Недостајућа поља",
     "missingFieldsTitle_other": "Недостајућа поља",
@@ -354,8 +374,8 @@
     "notesSelected_one": "{{count}} белешка је изабрана — сузите је на једну.",
     "notesSelected_few": "{{count}} белешке су изабране — сузите их на једну.",
     "notesSelected_other": "{{count}} белешке изабране — сузите их на једну.",
-    "pickCard": "Изаберите картицу у прегледачу Anki",
     "promptPlaceholder": "Напишите пробни упит, позивајући се на поља на вашој картици помоћу {{braces}}.",
+    "rerunToSave": "Покрените овај тест поново да бисте га сачували на картици",
     "saveToCard": "Сачувај на картицу",
     "savedTo": "Сачувано у {{field}}",
     "selectCardWithFields_one": "Молимо изаберите картицу са пољем",
@@ -363,6 +383,8 @@
     "selectCardWithFields_other": "Молимо изаберите картицу са пољима",
     "selectFieldToReadAloud": "Изаберите поље за читање наглас",
     "selectNewCard": "Изаберите нову картицу у претраживачу",
+    "or": "или",
+    "selectCardInBrowser": "Изаберите картицу у прегледачу за тестирање",
     "selectRequiredNoteType": "Молимо изаберите белешку типа <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Изабрана картица",
     "selectedDeck": "Изабрани шпил",
@@ -370,6 +392,8 @@
     "selectionAppearsAutomatically": "Ваш избор се аутоматски појављује овде.",
     "sent": "Послано",
     "testing": "Тестирање…",
+    "openRecentImage": "Отвори слику {{number}}",
+    "recentImages": "Резултати",
     "testResult": "Резултат теста",
     "textToSpeak": "Текст за говор",
     "viewResult": "Погледајте резултат",
@@ -378,7 +402,6 @@
   "subscription": {
     "accessEnds": "Приступ се завршава",
     "activateAgain": "Поново активирај",
-    "endingSoon": "Ускоро се завршава",
     "checking": "Провера претплате",
     "creditTypes": {
       "images": "Слике",
@@ -393,6 +416,7 @@
     "errors": {
       "logout": "Није могуће одјавити се"
     },
+    "endingSoon": "Ускоро се завршава",
     "expired": "Истекло",
     "freePlan": "Бесплатан план",
     "freeTrial": "Бесплатна пробна верзија",

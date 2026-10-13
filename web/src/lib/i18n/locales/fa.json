@@ -259,16 +259,15 @@
     "image": {
       "cannotFindModel": "کاتالوگ تصویر موجود نیست مدل {{model}}",
       "defaultModel": "مدل پیش فرض",
-      "gptImage15Low": "بهترین کیفیت / سرعت معاوضه.",
-      "gptImage2": "هزینه مشابه، کندتر، کیفیت بالاتر.",
+      "gptImage25": "بهترین گزینهٔ همه‌کاره — متن واضح، نمودارهای تمیز.",
       "loadingLabel": "در حال بارگیری تنظیمات تصویر پیش فرض",
       "loadingTitle": "تنظیمات تصویر پیش فرض",
+      "modelTipLabel": "درباره مدل‌های تصویر",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (کم / متوسط)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 انتخاب مدل تصویر",
+      "nanoBanana21": "صحنه‌های غنی و عکس‌گونه.",
       "samplePrompt": "تصویری از دانش آموزی ایجاد کنید که به سختی با Anki درس می خواند و تست های خود را می گذراند.",
       "saveError": "پیش فرض های تصویر ذخیره نشد",
       "subtitle": "مدلی که تصویر شما Smart Fields استفاده می‌کند مگر اینکه فیلدی خودش را پین کند.",
@@ -276,9 +275,9 @@
       "zImageTurbo": "سریع ترین و ارزان ترین"
     },
     "layout": {
-      "saveChanges": "ذخیره تغییرات",
       "saving": "در حال ذخیره…",
-      "tryIt": "آن را امتحان کنید"
+      "tryIt": "آن را امتحان کنید",
+      "save": "ذخیره"
     },
     "text": {
       "cannotInheritModel": "پیش فرض های متنی نمی توانند مدل دیگری را به ارث ببرند",
@@ -331,6 +330,26 @@
       "title": "تنظیمات صوتی پیش فرض"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "استدلال بیشتر",
+    "extraReasoningCost": "حدود ۱٫۵× هزینه",
+    "extraReasoningDescription": "نمودارهای تمیزتر و متن خواناتر. حدود ۴× کندتر.",
+    "extraSettings": "تنظیمات بیشتر",
+    "doubleCost": "۲× هزینه",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "حداکثر کیفیت",
+    "maxQualityDescription": "واضح‌تر و تمیزتر، به‌ویژه برای برچسب‌های کوچک.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "جزئیات غنی‌تر",
+    "richerDetailDescription": "صحنه‌های پرجزئیات‌تر و کامل‌تر. کمی کندتر.",
+    "underTheHood": {
+      "gptRicherDetail": "جزئیات غنی‌تر از <model>GPT Image 2.5 Sunburst</model> استفاده می‌کند.",
+      "gptStandard": "حالت استاندارد از <model>GPT Image 2.5 Flare</model> استفاده می‌کند.",
+      "nanoExtraReasoning": "استدلال بیشتر از <model>Nano Banana 2.1</model> استفاده می‌کند.",
+      "nanoStandard": "حالت استاندارد از <model>Nano Banana 2 Lite</model> استفاده می‌کند."
+    },
+    "underTheHoodLabel": "کدام مدل‌ها اجرا می‌شوند"
+  },
   "promptTester": {
     "anotherNoteType": "یک نوع یادداشت دیگر",
     "currentlySelectedCard": "کارت در حال حاضر انتخاب شده است",
@@ -343,20 +362,23 @@
     },
     "fieldRunsOnNoteType": "این فیلد روی <noteTypeName>{{noteType}}</noteTypeName> اجرا می‌شود",
     "generatedImagePreview": "پیش نمایش تصویر ایجاد شده است",
+    "generatedIn": "در {{seconds}} ثانیه تولید شد",
     "missingFieldsTitle_one": "زمینه گم شده",
     "missingFieldsTitle_other": "زمینه های گم شده",
     "needsFields_one": "به فیلد {{count}} نیاز دارد",
     "needsFields_other": "به فیلدهای {{count}} نیاز دارد",
     "notesSelected_one": "یادداشت {{count}} انتخاب شد - آن را به یک محدود کنید.",
     "notesSelected_other": "یادداشت های {{count}} انتخاب شده است - آن را به یک محدود کنید.",
-    "pickCard": "کارتی را در مرورگر Anki انتخاب کنید",
     "promptPlaceholder": "یک خط آزمایشی بنویسید و فیلدهای کارت خود را با {{braces}} ارجاع دهید.",
+    "rerunToSave": "این آزمون را دوباره اجرا کنید تا روی کارت ذخیره شود",
     "saveToCard": "ذخیره در کارت",
     "savedTo": "در {{field}} ذخیره شد",
     "selectCardWithFields_one": "لطفاً کارتی را انتخاب کنید که این فیلد را داشته باشد",
     "selectCardWithFields_other": "لطفاً کارتی را انتخاب کنید که این فیلدها را داشته باشد",
     "selectFieldToReadAloud": "فیلدی را برای خواندن با صدای بلند انتخاب کنید",
     "selectNewCard": "یک کارت جدید در مرورگر انتخاب کنید",
+    "or": "یا",
+    "selectCardInBrowser": "برای آزمایش، یک کارت را در مرورگر انتخاب کنید",
     "selectRequiredNoteType": "لطفاً یادداشتی از نوع <noteTypeName>{{noteType}}</noteTypeName> را انتخاب کنید",
     "selectedCard": "کارت انتخاب شده",
     "selectedDeck": "عرشه انتخاب شده",
@@ -364,6 +386,8 @@
     "selectionAppearsAutomatically": "انتخاب شما به طور خودکار در اینجا ظاهر می شود.",
     "sent": "ارسال شد",
     "testing": "تست…",
+    "openRecentImage": "باز کردن تصویر {{number}}",
+    "recentImages": "نتایج",
     "testResult": "نتیجه آزمایش",
     "textToSpeak": "متن برای صحبت کردن",
     "viewResult": "مشاهده نتیجه",
@@ -372,7 +396,6 @@
   "subscription": {
     "accessEnds": "دسترسی پایان می‌یابد",
     "activateAgain": "فعال کردن دوباره",
-    "endingSoon": "به زودی پایان می یابد",
     "checking": "بررسی اشتراک",
     "creditTypes": {
       "images": "تصاویر",
@@ -386,6 +409,7 @@
     "errors": {
       "logout": "نمی توان از سیستم خارج شد"
     },
+    "endingSoon": "به زودی پایان می یابد",
     "expired": "منقضی شده",
     "freePlan": "طرح رایگان",
     "freeTrial": "آزمایشی رایگان",

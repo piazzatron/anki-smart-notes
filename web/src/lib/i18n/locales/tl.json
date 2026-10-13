@@ -259,16 +259,15 @@
     "image": {
       "cannotFindModel": "Ang katalogo ng larawan ay walang modelong {{model}}",
       "defaultModel": "Default na modelo",
-      "gptImage15Low": "pinakamahusay na kalidad / bilis ng tradeoff.",
-      "gptImage2": "parehong gastos, mas mabagal, mas mataas na kalidad.",
+      "gptImage25": "pinakamahusay sa lahat — malinaw na teksto, malinis na diagram.",
       "loadingLabel": "Nilo-load ang Default na Mga Setting ng Larawan",
       "loadingTitle": "Default na Mga Setting ng Larawan",
+      "modelTipLabel": "Tungkol sa mga image model",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Mababa / Katamtaman)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Pagpili ng modelo ng larawan",
+      "nanoBanana21": "mayayamang eksenang parang litrato.",
       "samplePrompt": "Bumuo ng larawan ng isang mag-aaral na nag-aaral nang mabuti gamit ang Anki at pumasa sa kanilang mga pagsusulit.",
       "saveError": "Hindi ma-save ang mga default na larawan",
       "subtitle": "Ang modelong ginagamit ng iyong larawan na Smart Fields maliban kung ang isang field ay nag-pin ng sarili nitong.",
@@ -276,9 +275,9 @@
       "zImageTurbo": "pinakamabilis at pinakamura."
     },
     "layout": {
-      "saveChanges": "I-save ang mga pagbabago",
       "saving": "Sine-save...",
-      "tryIt": "Subukan ito"
+      "tryIt": "Subukan ito",
+      "save": "I-save"
     },
     "text": {
       "cannotInheritModel": "Ang mga default ng teksto ay hindi maaaring magmana ng isa pang modelo",
@@ -331,6 +330,26 @@
       "title": "Default na Mga Setting ng Boses"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Dagdag na pangangatwiran",
+    "extraReasoningCost": "~1.5× ang gastos",
+    "extraReasoningDescription": "Mas malinis na diagram at mas madaling basahing teksto. Mga 4× na mas mabagal.",
+    "extraSettings": "Dagdag na Setting",
+    "doubleCost": "2× ang gastos",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Pinakamataas na kalidad",
+    "maxQualityDescription": "Mas malinaw at mas malinis, lalo na ang maliliit na label.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Mas masaganang detalye",
+    "richerDetailDescription": "Mas detalyado at mas punô na mga eksena. Medyo mas mabagal.",
+    "underTheHood": {
+      "gptRicherDetail": "Ang mas detalyadong opsyon ay gumagamit ng <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Ang standard ay gumagamit ng <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Ang karagdagang reasoning ay gumagamit ng <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Ang standard ay gumagamit ng <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Aling mga model ang tatakbo"
+  },
   "promptTester": {
     "anotherNoteType": "ibang uri ng tala",
     "currentlySelectedCard": "Kasalukuyang napiling card",
@@ -343,20 +362,23 @@
     },
     "fieldRunsOnNoteType": "Ang field na ito ay tumatakbo sa <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Nakabuo ng preview ng larawan",
+    "generatedIn": "Nabuo sa loob ng {{seconds}}s",
     "missingFieldsTitle_one": "Nawawalang field",
     "missingFieldsTitle_other": "Mga nawawalang field",
     "needsFields_one": "Kailangan ng {{count}} field",
     "needsFields_other": "Nangangailangan ng mga field ng {{count}}",
     "notesSelected_one": "{{count}} note ang napili — paliitin ito sa isa.",
     "notesSelected_other": "{{count}} na mga tala ang napili — paliitin ito sa isa.",
-    "pickCard": "Pumili ng card sa Anki Browser",
     "promptPlaceholder": "Sumulat ng test prompt, nagre-refer sa mga field sa iyong card gamit ang {{braces}}.",
+    "rerunToSave": "Patakbuhin muli ang test na ito para i-save ito sa card",
     "saveToCard": "I-save sa card",
     "savedTo": "Na-save sa {{field}}",
     "selectCardWithFields_one": "Pumili ng card na may field",
     "selectCardWithFields_other": "Pumili ng card na may mga field",
     "selectFieldToReadAloud": "Pumili ng field na babasahin nang malakas",
     "selectNewCard": "Pumili ng bagong card sa browser",
+    "or": "o",
+    "selectCardInBrowser": "Pumili ng card sa browser para masubukan",
     "selectRequiredNoteType": "Pumili ng note na may uri <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Napiling card",
     "selectedDeck": "Napiling deck",
@@ -364,6 +386,8 @@
     "selectionAppearsAutomatically": "Awtomatikong lalabas dito ang iyong pinili.",
     "sent": "Ipinadala",
     "testing": "Pagsubok…",
+    "openRecentImage": "Buksan ang larawan {{number}}",
+    "recentImages": "Mga Resulta",
     "testResult": "Resulta ng pagsubok",
     "textToSpeak": "Text para magsalita",
     "viewResult": "Tingnan ang resulta",
@@ -372,7 +396,6 @@
   "subscription": {
     "accessEnds": "Nagtatapos ang access",
     "activateAgain": "I-activate muli",
-    "endingSoon": "Magtatapos na kaagad",
     "checking": "Sinusuri ang subscription",
     "creditTypes": {
       "images": "Mga imahe",
@@ -386,6 +409,7 @@
     "errors": {
       "logout": "Hindi makapag-log out"
     },
+    "endingSoon": "Magtatapos na kaagad",
     "expired": "Nag-expire na",
     "freePlan": "Libreng plano",
     "freeTrial": "Libreng pagsubok",

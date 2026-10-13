@@ -74,7 +74,7 @@ DEFAULT_TTS_GENERATION_SETTINGS = TTSGenerationSettings(
 )
 DEFAULT_IMAGE_GENERATION_SETTINGS = ImageGenerationSettings(
     provider="openai",
-    model="gpt-image-1.5-low",
+    model="gpt-image-2.5-flare-low",
 )
 SMART_FIELD_TARGET_COLLISION_ERROR = (
     "A Smart Field already exists for that note type, deck, and field"

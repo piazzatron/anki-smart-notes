@@ -35,6 +35,7 @@ interface DefaultsScreenLayoutProps {
   onSave: () => void
   subtitle: string
   tester: ReactNode
+  testerAccessory?: ReactNode
   testId: string
   title: string
 }
@@ -49,6 +50,7 @@ export const DefaultsScreenLayout = ({
   onSave,
   subtitle,
   tester,
+  testerAccessory,
   testId,
   title,
 }: DefaultsScreenLayoutProps) => {
@@ -57,13 +59,20 @@ export const DefaultsScreenLayout = ({
   return (
     <PageLayout
       actions={
-        <div className="flex items-center gap-3">
+        // Keeps the usage pill from shifting when the save button appears.
+        <div className="flex min-h-8 items-center gap-3">
           {accessory}
           {isDirty && (
-            <Button disabled={isSaving} onClick={onSave} variant="primary">
+            <Button
+              // Sized to sit comfortably beside the page title.
+              className="h-10 px-3.5 text-[12.5px]"
+              disabled={isSaving}
+              onClick={onSave}
+              variant="primary"
+            >
               {isSaving
                 ? t("defaults.layout.saving")
-                : t("defaults.layout.saveChanges")}
+                : t("defaults.layout.save")}
             </Button>
           )}
         </div>
@@ -76,9 +85,12 @@ export const DefaultsScreenLayout = ({
     >
       {children}
       <div className={contentFillsHeight ? "mt-auto pt-8" : "mt-8"}>
-        <h2 className="mb-3 text-[17px] leading-tight font-bold text-zinc-100">
-          {t("defaults.layout.tryIt")}
-        </h2>
+        <div className="mb-3 flex min-h-[22px] items-center gap-4">
+          <h2 className="text-[17px] leading-tight font-bold text-zinc-100">
+            {t("defaults.layout.tryIt")}
+          </h2>
+          {testerAccessory}
+        </div>
         <Card className="w-full p-4">{tester}</Card>
       </div>
     </PageLayout>

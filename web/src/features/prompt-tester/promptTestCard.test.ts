@@ -72,11 +72,13 @@ const testerControls = (
   error: null,
   fieldType: "chat",
   hasNoteTypeMismatch: false,
+  imageHistory: [],
+  isEarlierRun: false,
   isResultOpen: false,
   isTesting: false,
   prompt: "Translate {{Front}}",
   promptLabel: "Prompt",
-  provenance: "Auto",
+  provenance: { extras: [], primary: "Auto" },
   requiredNoteTypeId: 10,
   resultNode: null,
   resultToken: null,
@@ -87,6 +89,7 @@ const testerControls = (
   setIsResultOpen: () => undefined,
   setPrompt: () => undefined,
   showResultModal: true,
+  viewRun: () => undefined,
   ...overrides,
 })
 

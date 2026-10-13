@@ -1,9 +1,12 @@
-import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
+import { InfoTip } from "@/components/ui/InfoTip"
 import { ImageModelSelect } from "@/features/image-generation/ImageModelSelect"
-import { PromptTesterStrip } from "@/features/prompt-tester/PromptTesterStrip"
+import {
+  PromptTesterStrip,
+  RecentImagePills,
+} from "@/features/prompt-tester/PromptTesterStrip"
 import { usePromptTester } from "@/features/prompt-tester/usePromptTester"
 import { saveImageDefaults } from "@/services/commands"
 import { useAppStore } from "@/store/appStore"
@@ -14,6 +17,7 @@ import {
   DefaultsScreenLoading,
 } from "./DefaultsScreenLayout"
 import { getDefaultUsage } from "./defaultUsage"
+import { useScratchPrompt } from "./scratchPrompts"
 import { DefaultUsagePill } from "./DefaultUsagePill"
 import { useDefaultsForm } from "./useDefaultsForm"
 
@@ -70,7 +74,10 @@ const LoadedImageDefaultsScreen = ({
   })
   const usage = getDefaultUsage(state.smartFields, "image")
   // The tester owns its own scratch prompt here: nothing else on the page writes one.
-  const [prompt, setPrompt] = useState(() => t("defaults.image.samplePrompt"))
+  const [prompt, setPrompt] = useScratchPrompt(
+    "image",
+    t("defaults.image.samplePrompt"),
+  )
   const tester = usePromptTester({
     fieldType: "image",
     onPromptChange: setPrompt,
@@ -91,6 +98,7 @@ const LoadedImageDefaultsScreen = ({
       onSave={() => void controls.saveChanges()}
       subtitle={t("defaults.image.subtitle")}
       tester={<PromptTesterStrip field={tester} />}
+      testerAccessory={<RecentImagePills field={tester} />}
       testId="image-defaults-screen"
       title={t("defaults.image.title")}
     >
@@ -104,46 +112,59 @@ const LoadedImageDefaultsScreen = ({
 
       <div>
         <div className="w-full max-w-[480px]">
-          <label
-            className="mb-2 block text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase"
-            htmlFor="default-image-model"
-          >
-            {t("defaults.image.defaultModel")}
-          </label>
+          <div className="mb-2 flex items-center gap-1.5">
+            <label
+              className="text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase"
+              htmlFor="default-image-model"
+            >
+              {t("defaults.image.defaultModel")}
+            </label>
+            <InfoTip label={t("defaults.image.modelTipLabel")}>
+              <ul className="space-y-1">
+                {MODEL_TIPS.map((tip) => (
+                  <li key={tip.name}>
+                    <a
+                      className="font-semibold text-zinc-50 underline underline-offset-2 hover:text-indigo-100"
+                      href={tip.docsUrl}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      {t(tip.name)}
+                    </a>{" "}
+                    — {t(tip.description)}
+                  </li>
+                ))}
+              </ul>
+            </InfoTip>
+          </div>
           <ImageModelSelect
             catalog={catalog.image}
             id="default-image-model"
             onValueChange={(settings) => void controls.updateDefault(settings)}
             value={controls.form.values.model}
           />
-
-          <div className="mt-3 rounded-lg border border-indigo/15 bg-indigo/[0.055] p-3.5">
-            <p className="text-xs font-semibold text-zinc-200">
-              {t("defaults.image.pickingModel")}
-            </p>
-            <ul className="mt-2 list-disc space-y-1 ps-5 text-[11px] leading-4 text-ink-muted">
-              <li>
-                <strong className="text-zinc-300">
-                  {t("defaults.image.models.gptImage15Low")}
-                </strong>{" "}
-                — {t("defaults.image.gptImage15Low")}
-              </li>
-              <li>
-                <strong className="text-zinc-300">
-                  {t("defaults.image.models.gptImage2")}
-                </strong>{" "}
-                — {t("defaults.image.gptImage2")}
-              </li>
-              <li>
-                <strong className="text-zinc-300">
-                  {t("defaults.image.models.zImageTurbo")}
-                </strong>{" "}
-                — {t("defaults.image.zImageTurbo")}
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
     </DefaultsScreenLayout>
   )
 }
+
+// What each model is good at, linked to its docs; the picker already shows what each
+// costs.
+const MODEL_TIPS = [
+  {
+    name: "defaults.image.models.gptImage25",
+    description: "defaults.image.gptImage25",
+    docsUrl: "https://developers.openai.com/api/docs/guides/image-generation",
+  },
+  {
+    name: "imageGeneration.nanoBanana",
+    description: "defaults.image.nanoBanana21",
+    docsUrl: "https://ai.google.dev/gemini-api/docs/image-generation",
+  },
+  {
+    name: "defaults.image.models.zImageTurbo",
+    description: "defaults.image.zImageTurbo",
+    docsUrl: "https://huggingface.co/Tongyi-MAI/Z-Image-Turbo",
+  },
+] as const

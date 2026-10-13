@@ -259,16 +259,15 @@
     "image": {
       "cannotFindModel": "ପ୍ରତିଛବି କାଟାଲଗ୍ ମଡେଲ୍ {{model}} ହରାଉଛି",
       "defaultModel": "ଡିଫଲ୍ଟ ମଡେଲ୍",
-      "gptImage15Low": "ସର୍ବୋତ୍ତମ ଗୁଣବତ୍ତା / ଗତି ବାଣିଜ୍ୟ",
-      "gptImage2": "ସମାନ ମୂଲ୍ୟ, ଧୀର, ଉଚ୍ଚ ଗୁଣ",
+      "gptImage25": "ସର୍ବୋତ୍ତମ ସାଧାରଣ ପସନ୍ଦ — ସ୍ପଷ୍ଟ ପାଠ୍ୟ, ପରିଷ୍କାର ଚିତ୍ର।",
       "loadingLabel": "ଡିଫଲ୍ଟ ପ୍ରତିଛବି ସେଟିଂସମୂହ ଲୋଡ୍ କରୁଛି",
       "loadingTitle": "ଡିଫଲ୍ଟ ପ୍ରତିଛବି ସେଟିଂସମୂହ",
+      "modelTipLabel": "ଇମେଜ୍ ମଡେଲ୍ ବିଷୟରେ",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (ନିମ୍ନ / ମଧ୍ୟମ)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "An ଏକ ପ୍ରତିଛବି ମଡେଲ୍ ବାଛିବା",
+      "nanoBanana21": "ସମୃଦ୍ଧ, ଫଟୋଗ୍ରାଫିକ୍ ଦୃଶ୍ୟ।",
       "samplePrompt": "Anki ସହିତ କଠିନ ଅଧ୍ୟୟନ କରୁଥିବା ଏବଂ ସେମାନଙ୍କ ପରୀକ୍ଷା ପାସ୍ କରୁଥିବା ଛାତ୍ରଙ୍କ ପ୍ରତିଛବି ସୃଷ୍ଟି କରନ୍ତୁ",
       "saveError": "ପ୍ରତିଛବି ଡିଫଲ୍ଟ ସଞ୍ଚୟ କରିପାରିଲା ନାହିଁ",
       "subtitle": "ତୁମର ପ୍ରତିଛବି Smart Fields ବ୍ୟବହାର କରୁଥିବା ମଡେଲ୍ ଯଦି କ a ଣସି କ୍ଷେତ୍ର ଏହାର ପିନ ନଥାଏ",
@@ -276,9 +275,9 @@
       "zImageTurbo": "ଦ୍ରୁତ ଏବଂ ଶସ୍ତା"
     },
     "layout": {
-      "saveChanges": "ପରିବର୍ତ୍ତନଗୁଡିକ ସଞ୍ଚୟ କରନ୍ତୁ",
       "saving": "ସଞ୍ଚୟ…",
-      "tryIt": "ଏହାକୁ ଚେଷ୍ଟା କରନ୍ତୁ"
+      "tryIt": "ଏହାକୁ ଚେଷ୍ଟା କରନ୍ତୁ",
+      "save": "ସଞ୍ଚୟ କରନ୍ତୁ"
     },
     "text": {
       "cannotInheritModel": "ପାଠ୍ୟ ଡିଫଲ୍ଟ ଅନ୍ୟ ଏକ ମଡେଲକୁ ଉତ୍ତରାଧିକାରୀ କରିପାରିବ ନାହିଁ",
@@ -331,6 +330,26 @@
       "title": "ଡିଫଲ୍ଟ ଭଏସ୍ ସେଟିଂସମୂହ"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "ଅତିରିକ୍ତ ଯୁକ୍ତି",
+    "extraReasoningCost": "~1.5× ମୂଲ୍ୟ",
+    "extraReasoningDescription": "ପରିଷ୍କାର ଚିତ୍ର ଏବଂ ଅଧିକ ପଢ଼ିହେବା ଯୋଗ୍ୟ ପାଠ୍ୟ। ପ୍ରାୟ 4× ଧୀର।",
+    "extraSettings": "ଅତିରିକ୍ତ ସେଟିଂସ",
+    "doubleCost": "2× ମୂଲ୍ୟ",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "ସର୍ବାଧିକ ଗୁଣବତ୍ତା",
+    "maxQualityDescription": "ଅଧିକ ସ୍ପଷ୍ଟ ଏବଂ ପରିଷ୍କାର, ବିଶେଷ କରି ଛୋଟ ଲେବଲ୍।",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "ଅଧିକ ସମୃଦ୍ଧ ବିବରଣୀ",
+    "richerDetailDescription": "ଅଧିକ ବିସ୍ତୃତ, ପୂର୍ଣ୍ଣ ଦୃଶ୍ୟ। ଟିକିଏ ଧୀର।",
+    "underTheHood": {
+      "gptRicherDetail": "ଅଧିକ ବିସ୍ତୃତ ବିବରଣୀ <model>GPT Image 2.5 Sunburst</model> ବ୍ୟବହାର କରେ।",
+      "gptStandard": "ମାନକ <model>GPT Image 2.5 Flare</model> ବ୍ୟବହାର କରେ।",
+      "nanoExtraReasoning": "ଅତିରିକ୍ତ ଯୁକ୍ତି <model>Nano Banana 2.1</model> ବ୍ୟବହାର କରେ।",
+      "nanoStandard": "ମାନକ <model>Nano Banana 2 Lite</model> ବ୍ୟବହାର କରେ।"
+    },
+    "underTheHoodLabel": "କେଉଁ ମଡେଲ୍ ଚାଲିବ"
+  },
   "promptTester": {
     "anotherNoteType": "ଅନ୍ୟ ଏକ ନୋଟ୍ ପ୍ରକାର",
     "currentlySelectedCard": "ସମ୍ପ୍ରତି ମନୋନୀତ କାର୍ଡ",
@@ -343,20 +362,23 @@
     },
     "fieldRunsOnNoteType": "ଏହି ଫିଲ୍ଡ <noteTypeName>{{noteType}}</noteTypeName> ରେ ଚାଲିଥାଏ",
     "generatedImagePreview": "ପ୍ରତିଛବି ପୂର୍ବାବଲୋକନ",
+    "generatedIn": "{{seconds}}ସେକେଣ୍ଡରେ ସୃଷ୍ଟି ହୋଇଛି",
     "missingFieldsTitle_one": "ନିଖୋଜ କ୍ଷେତ୍ର",
     "missingFieldsTitle_other": "ନିଖୋଜ କ୍ଷେତ୍ରଗୁଡିକ",
     "needsFields_one": "{{count}} କ୍ଷେତ୍ର ଆବଶ୍ୟକ କରେ",
     "needsFields_other": "{{count}} କ୍ଷେତ୍ର ଆବଶ୍ୟକ କରେ",
     "notesSelected_one": "{{count}} ନୋଟ୍ ମନୋନୀତ - ଏହାକୁ ଗୋଟିଏକୁ ସଂକୀର୍ଣ୍ଣ କର",
     "notesSelected_other": "{{count}} ନୋଟଗୁଡିକ ମନୋନୀତ ହୋଇଛି - ଏହାକୁ ଗୋଟିଏକୁ ସଂକୀର୍ଣ୍ଣ କରନ୍ତୁ",
-    "pickCard": "Anki ବ୍ରାଉଜରରେ ଏକ କାର୍ଡ ବାଛନ୍ତୁ",
     "promptPlaceholder": "{{braces}} ସହିତ ଆପଣଙ୍କ କାର୍ଡରେ ଫିଲ୍ଡଗୁଡ଼ିକୁ ରେଫରେନ୍ସ କରି ଏକ ପରୀକ୍ଷା ପ୍ରମ୍ପ୍ଟ ଲେଖନ୍ତୁ",
+    "rerunToSave": "କାର୍ଡରେ ସେଭ୍ କରିବାକୁ ଏହି ପରୀକ୍ଷାକୁ ପୁନର୍ବାର ଚଲାନ୍ତୁ",
     "saveToCard": "କାର୍ଡରେ ସେଭ୍ କରନ୍ତୁ",
     "savedTo": "{{field}} ରେ ସଞ୍ଚୟ ହୋଇଛି",
     "selectCardWithFields_one": "ଦୟାକରି ଫିଲ୍ଡ ସହିତ ଏକ କାର୍ଡ ନିର୍ବାଚନ କରନ୍ତୁ",
     "selectCardWithFields_other": "ଦୟାକରି ଫିଲ୍ଡଗୁଡ଼ିକ ସହିତ ଏକ କାର୍ଡ ନିର୍ବାଚନ କରନ୍ତୁ",
     "selectFieldToReadAloud": "ଉଚ୍ଚ ସ୍ୱରରେ ପ read ିବାକୁ ଏକ କ୍ଷେତ୍ର ଚୟନ କରନ୍ତୁ",
     "selectNewCard": "ବ୍ରାଉଜରରେ ଏକ ନୂତନ କାର୍ଡ ବାଛନ୍ତୁ",
+    "or": "କିମ୍ବା",
+    "selectCardInBrowser": "ପରୀକ୍ଷା କରିବାକୁ ବ୍ରାଉଜରରେ ଏକ କାର୍ଡ ଚୟନ କରନ୍ତୁ",
     "selectRequiredNoteType": "ଦୟାକରି <noteTypeName>{{noteType}}</noteTypeName> ପ୍ରକାରର ଏକ ନୋଟ ନିର୍ବାଚନ କରନ୍ତୁ",
     "selectedCard": "ମନୋନୀତ କାର୍ଡ",
     "selectedDeck": "ମନୋନୀତ ଡେକ୍",
@@ -364,6 +386,8 @@
     "selectionAppearsAutomatically": "ତୁମର ଚୟନ ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଏଠାରେ ଦେଖାଯାଏ",
     "sent": "ପଠାଯାଇଛି",
     "testing": "ପରୀକ୍ଷା…",
+    "openRecentImage": "ଇମେଜ୍ {{number}} ଖୋଲନ୍ତୁ",
+    "recentImages": "ଫଳାଫଳ",
     "testResult": "ପରୀକ୍ଷା ଫଳାଫଳ",
     "textToSpeak": "କହିବାକୁ ପାଠ",
     "viewResult": "ଫଳାଫଳ ଦେଖନ୍ତୁ",
@@ -372,7 +396,6 @@
   "subscription": {
     "accessEnds": "ପ୍ରବେଶାଧିକାର ସମାପ୍ତ ହୁଏ",
     "activateAgain": "ପୁନର୍ବାର ସକ୍ରିୟ କରନ୍ତୁ",
-    "endingSoon": "ଶୀଘ୍ରେ ଶେଷ ହେବ",
     "checking": "ସଦସ୍ୟତା ଯାଞ୍ଚ କରୁଛି",
     "creditTypes": {
       "images": "ପ୍ରତିଛବିଗୁଡିକ",
@@ -386,6 +409,7 @@
     "errors": {
       "logout": "ଲଗ୍ ଆଉଟ୍ ହୋଇପାରିଲା ନାହିଁ"
     },
+    "endingSoon": "ଶୀଘ୍ରେ ଶେଷ ହେବ",
     "expired": "ମେୟାଦ ଶେଷ",
     "freePlan": "ମାଗଣା ଯୋଜନା",
     "freeTrial": "ମାଗଣା ପରୀକ୍ଷା",

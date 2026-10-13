@@ -259,16 +259,15 @@
     "image": {
       "cannotFindModel": "Im Bildkatalog fehlt das Modell {{model}}",
       "defaultModel": "Standardmodell",
-      "gptImage15Low": "bester Kompromiss zwischen Qualität und Geschwindigkeit.",
-      "gptImage2": "gleiche Kosten, langsamer, höhere Qualität.",
+      "gptImage25": "Bester Allrounder – scharfer Text, saubere Diagramme.",
       "loadingLabel": "Laden der Standardbildeinstellungen",
       "loadingTitle": "Standardbildeinstellungen",
+      "modelTipLabel": "Über die Bildmodelle",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Niedrig / Mittel)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Wählen Sie ein Bildmodell aus",
+      "nanoBanana21": "reiche, fotorealistische Szenen.",
       "samplePrompt": "Erstellen Sie ein Bild eines Studenten, der mit Anki fleißig lernt und seine Prüfungen besteht.",
       "saveError": "Bildstandardeinstellungen konnten nicht gespeichert werden",
       "subtitle": "Das Modell, das Ihr Bild Smart Fields verwendet, es sei denn, ein Feld heftet sein eigenes an.",
@@ -276,9 +275,9 @@
       "zImageTurbo": "am schnellsten und günstigsten."
     },
     "layout": {
-      "saveChanges": "Änderungen speichern",
       "saving": "Sparen…",
-      "tryIt": "Probieren Sie es aus"
+      "tryIt": "Probieren Sie es aus",
+      "save": "Speichern"
     },
     "text": {
       "cannotInheritModel": "Textstandards können kein anderes Modell erben",
@@ -331,6 +330,26 @@
       "title": "Standard-Spracheinstellungen"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Zusätzliches Reasoning",
+    "extraReasoningCost": "~1,5× Kosten",
+    "extraReasoningDescription": "Sauberere Diagramme und besser lesbarer Text. Etwa 4× langsamer.",
+    "extraSettings": "Zusätzliche Einstellungen",
+    "doubleCost": "2× Kosten",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Maximale Qualität",
+    "maxQualityDescription": "Schärfer und sauberer, besonders bei kleinen Beschriftungen.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "Reichere Details",
+    "richerDetailDescription": "Detailliertere, vollere Szenen. Etwas langsamer.",
+    "underTheHood": {
+      "gptRicherDetail": "Detailreichere Ausgabe verwendet <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Standard verwendet <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Erweitertes Reasoning verwendet <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Standard verwendet <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Welche Modelle ausgeführt werden"
+  },
   "promptTester": {
     "anotherNoteType": "ein anderer Notiztyp",
     "currentlySelectedCard": "Derzeit ausgewählte Karte",
@@ -343,20 +362,23 @@
     },
     "fieldRunsOnNoteType": "Dieses Feld läuft auf <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Erzeugte Bildvorschau",
+    "generatedIn": "Generiert in {{seconds}} s",
     "missingFieldsTitle_one": "Fehlendes Feld",
     "missingFieldsTitle_other": "Fehlende Felder",
     "needsFields_one": "Benötigt das Feld {{count}}",
     "needsFields_other": "Benötigt {{count}}-Felder",
     "notesSelected_one": "{{count}}-Note ausgewählt – auf eine beschränken.",
     "notesSelected_other": "{{count}}-Notizen ausgewählt – auf eine beschränken.",
-    "pickCard": "Wählen Sie eine Karte im Anki-Browser aus",
     "promptPlaceholder": "Schreiben Sie eine Testaufforderung und verweisen Sie dabei auf Felder auf Ihrer Karte mit {{braces}}.",
+    "rerunToSave": "Diesen Test erneut ausführen, um ihn auf der Karte zu speichern",
     "saveToCard": "Auf Karte speichern",
     "savedTo": "Gespeichert unter {{field}}",
     "selectCardWithFields_one": "Bitte wählen Sie eine Karte mit dem Feld",
     "selectCardWithFields_other": "Bitte wählen Sie eine Karte mit den Feldern",
     "selectFieldToReadAloud": "Wählen Sie ein Feld zum Vorlesen aus",
     "selectNewCard": "Wählen Sie im Browser eine neue Karte aus",
+    "or": "oder",
+    "selectCardInBrowser": "Wähle im Browser eine Karte zum Testen aus",
     "selectRequiredNoteType": "Bitte wählen Sie eine Notiz vom Typ <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Ausgewählte Karte",
     "selectedDeck": "Ausgewähltes Deck",
@@ -364,6 +386,8 @@
     "selectionAppearsAutomatically": "Ihre Auswahl erscheint hier automatisch.",
     "sent": "Gesendet",
     "testing": "Testen…",
+    "openRecentImage": "Bild {{number}} öffnen",
+    "recentImages": "Ergebnisse",
     "testResult": "Testergebnis",
     "textToSpeak": "Text zum Sprechen",
     "viewResult": "Ergebnis ansehen",
@@ -372,7 +396,6 @@
   "subscription": {
     "accessEnds": "Zugriff endet",
     "activateAgain": "Erneut aktivieren",
-    "endingSoon": "Endet bald",
     "checking": "Abonnement prüfen",
     "creditTypes": {
       "images": "Bilder",
@@ -386,6 +409,7 @@
     "errors": {
       "logout": "Konnte mich nicht abmelden"
     },
+    "endingSoon": "Endet bald",
     "expired": "Abgelaufen",
     "freePlan": "Kostenloser Plan",
     "freeTrial": "Kostenlose Testversion",

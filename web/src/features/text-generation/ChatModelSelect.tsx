@@ -26,6 +26,7 @@ import {
   SelectTrigger,
 } from "@/components/ui/Select"
 import { useTranslation } from "react-i18next"
+import { Pill } from "@/components/ui/Pill"
 import { modelCostLabel, modelLabel, providerLabel } from "@/lib/catalog"
 import i18next from "@/lib/i18n"
 import type { CatalogModel, ChatModelCatalog } from "@/types/api"
@@ -86,11 +87,7 @@ const ChatModelOption = ({ model }: { model: CatalogModel }) => {
       >
         {modelLabel(model.id)}
       </span>
-      {costLabel !== undefined && (
-        <span className="shrink-0 rounded bg-white/[0.06] px-2 py-0.5 text-[10px] font-semibold whitespace-nowrap text-zinc-400">
-          {costLabel}
-        </span>
-      )}
+      {costLabel !== undefined && <Pill>{costLabel}</Pill>}
     </span>
   )
 }

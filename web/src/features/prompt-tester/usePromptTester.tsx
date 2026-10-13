@@ -17,8 +17,15 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import i18next from "i18next"
 import { useEffect, useState, type ReactNode } from "react"
 import { useTranslation } from "react-i18next"
+
+import {
+  IMAGE_MODEL_SWITCHES,
+  getImageModelFamily,
+  isSwitchOn,
+} from "@/features/image-generation/imageModelFamilies"
 
 import { modelLabel } from "@/lib/catalog"
 import { errorMessage } from "@/lib/errors"
@@ -44,18 +51,33 @@ import { ResolvedPrompt } from "./PromptTestResultModal"
 
 type TestValue = MediaTestResult | TextPromptTestResult | TTSMediaTestResult
 
-interface TestRun {
+/** What a test ran with: the model or voice, plus any GPT Image 2.5 extras. */
+export interface Provenance {
+  extras: string[]
+  primary: string
+}
+
+export interface TestRun {
   cardId: number | null
+  id: number
   latencyMs: number
   prompt: string
+  // Captured at run time so later settings changes don't relabel the result.
+  provenance: Provenance
   value: TestValue
 }
 
 interface TesterState {
   error: string | null
   isTesting: boolean
-  run: TestRun | null
+  // Newest first, capped at MAX_SESSION_RUNS.
+  runs: TestRun[]
+  // Null shows the newest run.
+  viewedRunId: number | null
 }
+
+// Images run a few MB each as data URLs, so the session keeps only the recent ones.
+const MAX_SESSION_RUNS = 8
 
 export type PromptTesterArgs = {
   // Omitted when something else on the screen edits the prompt, in which case no
@@ -75,11 +97,15 @@ export interface PromptTester {
   error: string | null
   fieldType: PromptTesterArgs["fieldType"]
   hasNoteTypeMismatch: boolean
+  // Earlier image results for the picked card this session, newest first.
+  imageHistory: TestRun[]
+  // The shown result is an earlier run, which the plugin no longer keeps to save.
+  isEarlierRun: boolean
   isResultOpen: boolean
   isTesting: boolean
   prompt: string
   promptLabel: string
-  provenance: string
+  provenance: Provenance | null
   requiredNoteTypeId: number | null
   // What a finished run has to show. Voice has none: it plays instead.
   resultNode: ReactNode
@@ -93,6 +119,7 @@ export interface PromptTester {
   // Null when the caller edits the prompt elsewhere.
   setPrompt: ((prompt: string) => void) | null
   showResultModal: boolean
+  viewRun: (runId: number) => void
 }
 
 // Everything a test needs is here: which endpoint to call, what to say when it fails,
@@ -113,15 +140,22 @@ export const usePromptTester = (args: PromptTesterArgs): PromptTester => {
   const [state, setState] = useState<TesterState>({
     error: null,
     isTesting: false,
-    run: null,
+    runs: [],
+    viewedRunId: null,
   })
   const [isResultOpen, setIsResultOpen] = useState(false)
   // Voice plays its result instead of presenting it, so it has no modal to open.
   const showResultModal = fieldType !== "tts"
 
+  // The voice tester's prompt is one of the picked card's fields, so a new card starts
+  // it fresh. Typed prompts are kept across card picks.
+  const resetsPromptOnCardPick = fieldType === "tts"
+
   useEffect(() => {
-    // A defaults screen mounted after the card was picked should also start fresh.
-    if (inheritedSelection?.note != null) onPromptChange?.("")
+    // A voice screen mounted after the card was picked should also start fresh.
+    if (resetsPromptOnCardPick && inheritedSelection?.note != null) {
+      onPromptChange?.("")
+    }
 
     // The retained SSE value predates this tester. Once the store receives a new
     // selection object, every selection is live user feedback and stays unfiltered.
@@ -129,20 +163,22 @@ export const usePromptTester = (args: PromptTesterArgs): PromptTester => {
       if (store.selection !== previousStore.selection) {
         setSelection(store.selection)
 
-        // Scratch testers should start fresh when the user picks a card.
-        if (store.selection?.note != null) onPromptChange?.("")
+        if (resetsPromptOnCardPick && store.selection?.note != null) {
+          onPromptChange?.("")
+        }
       }
     })
-  }, [inheritedSelection, onPromptChange])
+  }, [inheritedSelection, onPromptChange, resetsPromptOnCardPick])
 
   const { hasNoteTypeMismatch, selectedNote } = getPromptTestSelection(
     selection,
     requiredNoteTypeId,
   )
-  const run = getVisiblePromptTestResult(
-    state.run,
-    selectedNote?.cardId ?? null,
-  )
+  const { history, isNewestRun, run } = selectPromptTestRuns({
+    runs: state.runs,
+    selectedCardId: selectedNote?.cardId ?? null,
+    viewedRunId: state.viewedRunId,
+  })
   const resultValue = run?.value
   const patchState = (updates: Partial<TesterState>) =>
     setState((current) => ({ ...current, ...updates }))
@@ -165,13 +201,16 @@ export const usePromptTester = (args: PromptTesterArgs): PromptTester => {
 
     patchState({ error: null, isTesting: true })
     try {
-      patchState({
-        run: await runTimedTest({
-          args,
-          cardId: selectedNote?.cardId ?? null,
-          prompt,
-        }),
+      const newRun = await runTimedTest({
+        args,
+        cardId: selectedNote?.cardId ?? null,
+        prompt,
       })
+      setState((current) => ({
+        ...current,
+        runs: [newRun, ...current.runs].slice(0, MAX_SESSION_RUNS),
+        viewedRunId: null,
+      }))
       if (showResultModal) setIsResultOpen(true)
     } catch (error) {
       patchState({ error: errorMessage(error, t(FAILURES[fieldType])) })
@@ -185,18 +224,18 @@ export const usePromptTester = (args: PromptTesterArgs): PromptTester => {
     error: state.error,
     fieldType,
     hasNoteTypeMismatch,
+    imageHistory: fieldType === "image" ? history : [],
+    isEarlierRun: run !== null && !isNewestRun,
     isResultOpen,
     isTesting: state.isTesting,
     prompt,
     promptLabel:
       fieldType === "tts" ? t("promptTester.textToSpeak") : t("common.prompt"),
-    provenance:
-      args.fieldType === "tts"
-        ? args.voiceName
-        : modelLabel(args.settings.model),
+    provenance: run?.provenance ?? null,
     requiredNoteTypeId: requiredNoteTypeId ?? null,
     resultNode: renderTestResult({ fieldType, run, selectedNote }),
-    resultToken: resultValue?.resultToken ?? null,
+    // The plugin keeps only the newest result, so an earlier one can't be saved.
+    resultToken: isNewestRun ? (resultValue?.resultToken ?? null) : null,
     runTest,
     selectedNote,
     selection,
@@ -206,15 +245,35 @@ export const usePromptTester = (args: PromptTesterArgs): PromptTester => {
     setIsResultOpen,
     setPrompt: onPromptChange ?? null,
     showResultModal,
+    viewRun: (runId: number) => {
+      patchState({ viewedRunId: runId })
+      setIsResultOpen(true)
+    },
   }
 }
 
-// A result belongs to the card it ran against, so picking another card drops it rather
-// than showing output that describes a card no longer in front of the user.
-export const getVisiblePromptTestResult = <R extends { cardId: number | null }>(
-  run: R | null,
-  selectedCardId: number | null,
-): R | null => (run?.cardId !== selectedCardId ? null : run)
+// A result belongs to the card it ran against, so picking another card hides it rather
+// than showing output that describes a card no longer in front of the user. Only the
+// newest run overall can still be saved: the plugin keeps just that one.
+export const selectPromptTestRuns = <
+  R extends { cardId: number | null; id: number },
+>({
+  runs,
+  selectedCardId,
+  viewedRunId,
+}: {
+  runs: R[]
+  selectedCardId: number | null
+  viewedRunId: number | null
+}): { history: R[]; isNewestRun: boolean; run: R | null } => {
+  const history = runs.filter((run) => run.cardId === selectedCardId)
+  const run =
+    history.find((candidate) => candidate.id === viewedRunId) ??
+    history[0] ??
+    null
+
+  return { history, isNewestRun: run !== null && run === runs[0], run }
+}
 
 export const getPromptTestSelection = (
   selection: Selection | null,
@@ -268,6 +327,8 @@ const FAILURES: Record<PromptTesterArgs["fieldType"], string> = {
   tts: "promptTester.errors.generateAudio",
 }
 
+let nextRunId = 1
+
 // Timing lives out here rather than in the hook body, where reading the clock counts as
 // an impure call.
 const runTimedTest = async (args: {
@@ -275,15 +336,32 @@ const runTimedTest = async (args: {
   cardId: number | null
   prompt: string
 }): Promise<TestRun> => {
+  const provenance = getProvenance(args.args)
   const startedAt = performance.now()
   const value = await runTestForFieldType(args)
 
   return {
     cardId: args.cardId,
+    id: nextRunId++,
     latencyMs: Math.max(1, Math.round(performance.now() - startedAt)),
     prompt: args.prompt,
+    provenance,
     value,
   }
+}
+
+const getProvenance = (args: PromptTesterArgs): Provenance => {
+  if (args.fieldType === "tts") return { extras: [], primary: args.voiceName }
+
+  const { model } = args.settings
+  const family = args.fieldType === "image" ? getImageModelFamily(model) : null
+  const extras =
+    family === null
+      ? []
+      : family.switches
+          .filter((key) => isSwitchOn(family, model, key))
+          .map((key) => i18next.t(IMAGE_MODEL_SWITCHES[key].label))
+  return { extras, primary: modelLabel(model) }
 }
 
 // The card is optional everywhere: the server only needs one when the prompt reads
@@ -325,7 +403,7 @@ const renderTestResult = ({
     return (
       <>
         <ResolvedPrompt note={selectedNote} prompt={run.prompt} />
-        <p className="text-[13px] leading-[1.6] whitespace-pre-wrap text-zinc-100">
+        <p className="cursor-text text-[13px] leading-[1.6] whitespace-pre-wrap text-zinc-100 select-text">
           {run.value.text}
         </p>
       </>
@@ -337,49 +415,43 @@ const renderTestResult = ({
   return (
     <GeneratedImage
       dataUrl={run.value.dataUrl}
-      key={run.value.resultToken}
+      latencyMs={run.latencyMs}
       note={selectedNote}
       prompt={run.prompt}
     />
   )
 }
 
-// Keyed by the run that produced it, so the reported size never describes the image
-// from the previous run.
 const GeneratedImage = ({
   dataUrl,
+  latencyMs,
   note,
   prompt,
 }: {
   dataUrl: string
+  latencyMs: number
   note: SelectedNote | null
   prompt: string
 }) => {
   const { t } = useTranslation()
-  const [dimensions, setDimensions] = useState<{
-    height: number
-    width: number
-  } | null>(null)
 
+  // Shrinks to the image's rendered width, so the prompt above and the timing below
+  // share the picture's edges whatever its size. The width cap is the result dialog's
+  // inner width (padding and border included); a percentage would collapse this
+  // shrink-to-fit wrapper.
   return (
-    <>
+    <div className="mx-auto w-min">
       <ResolvedPrompt note={note} prompt={prompt} />
       <img
         alt={t("promptTester.generatedImagePreview")}
-        className="max-h-[50vh] w-full rounded-lg border border-white/[0.1] bg-black/20 object-contain"
-        onLoad={(event) =>
-          setDimensions({
-            height: event.currentTarget.naturalHeight,
-            width: event.currentTarget.naturalWidth,
-          })
-        }
+        className="block max-h-[56vh] w-auto max-w-[min(478px,calc(92vw-42px))] rounded-lg"
         src={dataUrl}
       />
-      {dimensions !== null && (
-        <p className="mt-2 text-right text-[10.5px] text-ink-faint">
-          {dimensions.width} × {dimensions.height}
-        </p>
-      )}
-    </>
+      <p className="mt-2 text-right text-[10.5px] text-ink-faint">
+        {t("promptTester.generatedIn", {
+          seconds: (latencyMs / 1000).toFixed(1),
+        })}
+      </p>
+    </div>
   )
 }

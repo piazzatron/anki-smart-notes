@@ -258,16 +258,15 @@
     "image": {
       "cannotFindModel": "이미지 카탈로그에 모델 {{model}}이(가) 없습니다.",
       "defaultModel": "기본 모델",
-      "gptImage15Low": "최고의 품질/속도 절충.",
-      "gptImage2": "동일한 비용, 더 느리고 더 높은 품질.",
+      "gptImage25": "만능형 모델 — 선명한 텍스트, 깔끔한 다이어그램.",
       "loadingLabel": "기본 이미지 설정 로드",
       "loadingTitle": "기본 이미지 설정",
+      "modelTipLabel": "이미지 모델 정보",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (Low / Medium)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 이미지 모델 선택",
+      "nanoBanana21": "풍부하고 사진 같은 장면.",
       "samplePrompt": "Anki로 열심히 공부하고 시험에 합격하는 학생의 이미지를 생성합니다.",
       "saveError": "이미지 기본값을 저장할 수 없습니다.",
       "subtitle": "필드가 자체적으로 고정되지 않는 한 이미지 Smart Fields가 사용하는 모델입니다.",
@@ -275,9 +274,9 @@
       "zImageTurbo": "가장 빠르고 저렴합니다."
     },
     "layout": {
-      "saveChanges": "변경사항 저장",
       "saving": "절약…",
-      "tryIt": "사용해 보세요"
+      "tryIt": "사용해 보세요",
+      "save": "저장"
     },
     "text": {
       "cannotInheritModel": "텍스트 기본값은 다른 모델을 상속할 수 없습니다.",
@@ -329,6 +328,26 @@
       "title": "기본 음성 설정"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "추가 추론",
+    "extraReasoningCost": "비용 약 1.5배",
+    "extraReasoningDescription": "더 깔끔한 다이어그램과 더 읽기 쉬운 텍스트. 약 4배 느림.",
+    "extraSettings": "추가 설정",
+    "doubleCost": "비용 2배",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "최고 품질",
+    "maxQualityDescription": "특히 작은 레이블이 더 선명하고 깔끔합니다.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "풍부한 디테일",
+    "richerDetailDescription": "더 세밀하고 풍성한 장면. 약간 느림.",
+    "underTheHood": {
+      "gptRicherDetail": "더 풍부한 디테일은 <model>GPT Image 2.5 Sunburst</model>을 사용합니다.",
+      "gptStandard": "표준은 <model>GPT Image 2.5 Flare</model>를 사용합니다.",
+      "nanoExtraReasoning": "추가 추론은 <model>Nano Banana 2.1</model>을 사용합니다.",
+      "nanoStandard": "표준은 <model>Nano Banana 2 Lite</model>를 사용합니다."
+    },
+    "underTheHoodLabel": "실행되는 모델"
+  },
   "promptTester": {
     "anotherNoteType": "다른 메모 유형",
     "currentlySelectedCard": "현재 선택된 카드",
@@ -341,16 +360,19 @@
     },
     "fieldRunsOnNoteType": "이 필드는 <noteTypeName>{{noteType}}</noteTypeName>에서 실행됩니다",
     "generatedImagePreview": "생성된 이미지 미리보기",
+    "generatedIn": "{{seconds}}초 만에 생성됨",
     "missingFieldsTitle_other": "누락된 필드",
     "needsFields_other": "{{count}} 필드가 필요합니다.",
     "notesSelected_other": "{{count}} 메모가 선택되었습니다. 1개로 범위를 좁힙니다.",
-    "pickCard": "Anki 브라우저에서 카드를 선택하세요",
     "promptPlaceholder": "{{braces}}를 사용하여 카드의 필드를 참조하여 테스트 프롬프트를 작성하세요.",
+    "rerunToSave": "카드에 저장하려면 이 테스트를 다시 실행하세요",
     "saveToCard": "카드에 저장",
     "savedTo": "{{field}}에 저장되었습니다.",
     "selectCardWithFields_other": "필드가 있는 카드를 선택해주세요",
     "selectFieldToReadAloud": "소리내어 읽을 필드를 선택하세요.",
     "selectNewCard": "브라우저에서 새 카드를 선택하세요.",
+    "or": "또는",
+    "selectCardInBrowser": "테스트하려면 브라우저에서 카드를 선택하세요",
     "selectRequiredNoteType": "<noteTypeName>{{noteType}}</noteTypeName> 유형의 노트를 선택해주세요",
     "selectedCard": "선택한 카드",
     "selectedDeck": "선택한 데크",
@@ -358,6 +380,8 @@
     "selectionAppearsAutomatically": "선택 사항이 여기에 자동으로 나타납니다.",
     "sent": "전송된",
     "testing": "테스트 중…",
+    "openRecentImage": "이미지 {{number}} 열기",
+    "recentImages": "결과",
     "testResult": "테스트 결과",
     "textToSpeak": "말할 텍스트",
     "viewResult": "결과 보기",
@@ -366,7 +390,6 @@
   "subscription": {
     "accessEnds": "액세스 종료",
     "activateAgain": "다시 활성화",
-    "endingSoon": "곧 종료",
     "checking": "구독 확인 중",
     "creditTypes": {
       "images": "이미지",
@@ -379,6 +402,7 @@
     "errors": {
       "logout": "로그아웃할 수 없습니다."
     },
+    "endingSoon": "곧 종료",
     "expired": "만료됨",
     "freePlan": "무료 플랜",
     "freeTrial": "무료 평가판",

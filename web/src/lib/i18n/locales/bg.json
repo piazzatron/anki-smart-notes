@@ -259,16 +259,15 @@
     "image": {
       "cannotFindModel": "В каталога с изображения липсва модел {{model}}",
       "defaultModel": "Модел по подразбиране",
-      "gptImage15Low": "най-добър компромис качество/скорост.",
-      "gptImage2": "същата цена, по-бавно, по-високо качество.",
+      "gptImage25": "най-универсалният — ясен текст, чисти диаграми.",
       "loadingLabel": "Зареждат се настройките на изображението по подразбиране",
       "loadingTitle": "Настройки на изображението по подразбиране",
+      "modelTipLabel": "За моделите за изображения",
       "models": {
-        "gptImage15Low": "GPT Image 1.5 Low",
-        "gptImage2": "GPT Image 2 (нисък / среден)",
+        "gptImage25": "GPT Image 2.5",
         "zImageTurbo": "Z-Image Turbo"
       },
-      "pickingModel": "💡 Избор на модел на изображение",
+      "nanoBanana21": "богати, фотореалистични сцени.",
       "samplePrompt": "Генерирайте изображение на ученик, който учи упорито с Anki и преминава своите тестове.",
       "saveError": "Неуспешно запазване на изображенията по подразбиране",
       "subtitle": "Моделът, който използва вашето изображение Smart Fields, освен ако някое поле не закачи свое собствено.",
@@ -276,9 +275,9 @@
       "zImageTurbo": "най-бързо и най-евтино."
     },
     "layout": {
-      "saveChanges": "Запазете промените",
       "saving": "Запазва се...",
-      "tryIt": "Опитайте го"
+      "tryIt": "Опитайте го",
+      "save": "Запази"
     },
     "text": {
       "cannotInheritModel": "Текстовите настройки по подразбиране не могат да наследяват друг модел",
@@ -331,6 +330,26 @@
       "title": "Гласови настройки по подразбиране"
     }
   },
+  "imageGeneration": {
+    "extraReasoning": "Допълнително разсъждение",
+    "extraReasoningCost": "~1,5× цена",
+    "extraReasoningDescription": "По-чисти диаграми и по-четим текст. Около 4× по-бавно.",
+    "extraSettings": "Допълнителни настройки",
+    "doubleCost": "2× цена",
+    "gptImage25": "GPT Image 2.5",
+    "maxQuality": "Максимално качество",
+    "maxQualityDescription": "По-ясно и по-чисто, особено малките етикети.",
+    "nanoBanana": "Nano Banana (Google)",
+    "richerDetail": "По-богат детайл",
+    "richerDetailDescription": "По-детайлни, по-пълни сцени. Малко по-бавно.",
+    "underTheHood": {
+      "gptRicherDetail": "По-богати детайли използват <model>GPT Image 2.5 Sunburst</model>.",
+      "gptStandard": "Стандартният режим използва <model>GPT Image 2.5 Flare</model>.",
+      "nanoExtraReasoning": "Допълнителното разсъждение използва <model>Nano Banana 2.1</model>.",
+      "nanoStandard": "Стандартният режим използва <model>Nano Banana 2 Lite</model>."
+    },
+    "underTheHoodLabel": "Кои модели се изпълняват"
+  },
   "promptTester": {
     "anotherNoteType": "друг тип бележка",
     "currentlySelectedCard": "Текущо избрана карта",
@@ -343,20 +362,23 @@
     },
     "fieldRunsOnNoteType": "Това поле работи на <noteTypeName>{{noteType}}</noteTypeName>",
     "generatedImagePreview": "Визуализация на генерирано изображение",
+    "generatedIn": "Генерирано за {{seconds}} s",
     "missingFieldsTitle_one": "Липсващо поле",
     "missingFieldsTitle_other": "Липсващи полета",
     "needsFields_one": "Изисква поле {{count}}",
     "needsFields_other": "Нужни са полета {{count}}",
     "notesSelected_one": "{{count}} избрана бележка — стеснете я до една.",
     "notesSelected_other": "{{count}} избрани бележки — стеснете ги до една.",
-    "pickCard": "Изберете карта в браузъра Anki",
     "promptPlaceholder": "Напишете тестова подкана, препращайки към полетата на вашата карта с {{braces}}.",
+    "rerunToSave": "Изпълнете този тест отново, за да го запазите в картата",
     "saveToCard": "Запазване в картата",
     "savedTo": "Запазено в {{field}}",
     "selectCardWithFields_one": "Моля, изберете карта с полето",
     "selectCardWithFields_other": "Моля, изберете карта с полетата",
     "selectFieldToReadAloud": "Изберете поле за четене на глас",
     "selectNewCard": "Изберете нова карта в браузъра",
+    "or": "или",
+    "selectCardInBrowser": "Изберете карта в браузъра, за да тествате",
     "selectRequiredNoteType": "Моля, изберете бележка от тип <noteTypeName>{{noteType}}</noteTypeName>",
     "selectedCard": "Избрана карта",
     "selectedDeck": "Избрано тесте",
@@ -364,6 +386,8 @@
     "selectionAppearsAutomatically": "Вашият избор се появява тук автоматично.",
     "sent": "Изпратено",
     "testing": "Тестване...",
+    "openRecentImage": "Отвори изображение {{number}}",
+    "recentImages": "Резултати",
     "testResult": "Резултат от теста",
     "textToSpeak": "Текст за изговаряне",
     "viewResult": "Вижте резултата",
@@ -372,7 +396,6 @@
   "subscription": {
     "accessEnds": "Достъпът завършва",
     "activateAgain": "Активирайте отново",
-    "endingSoon": "Завършва скоро",
     "checking": "Проверка на абонамента",
     "creditTypes": {
       "images": "Изображения",
@@ -386,6 +409,7 @@
     "errors": {
       "logout": "Не можах да изляза"
     },
+    "endingSoon": "Завършва скоро",
     "expired": "Изтекло",
     "freePlan": "Безплатен план",
     "freeTrial": "Безплатна пробна версия",

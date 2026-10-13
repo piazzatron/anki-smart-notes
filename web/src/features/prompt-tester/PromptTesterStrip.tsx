@@ -73,9 +73,12 @@ export const PromptTesterStrip = ({
   return (
     <div className="w-full">
       {title !== undefined && (
-        <h2 className="mb-2.5 text-[15px] leading-tight font-semibold text-zinc-100">
-          {title}
-        </h2>
+        <div className="mb-2.5 flex min-h-[22px] items-center gap-4">
+          <h2 className="text-[15px] leading-tight font-semibold text-zinc-100">
+            {title}
+          </h2>
+          <RecentImagePills field={field} />
+        </div>
       )}
 
       {!isResultVisible && field.error !== null && (
@@ -145,6 +148,12 @@ export const PromptTesterStrip = ({
               fieldNames={Object.keys(field.selectedNote.fields)}
             />
           )}
+          {/* With no card picked, the prompt above runs on its own or against a card. */}
+          {field.selectedNote === null && (
+            <p className="mt-1.5 text-center text-[11px] text-ink-faint">
+              {t("promptTester.or")}
+            </p>
+          )}
         </div>
       )}
 
@@ -152,8 +161,12 @@ export const PromptTesterStrip = ({
         <div className="min-w-0 flex-1">
           <SelectedTestCard
             compact
+            // Image testers reopen results from the numbered row below instead.
             compactAction={
-              showResultModal && hasResult && !isResultVisible ? (
+              showResultModal &&
+              field.fieldType !== "image" &&
+              hasResult &&
+              !isResultVisible ? (
                 <button
                   className="shrink-0 cursor-pointer text-[11px] text-indigo-soft transition hover:text-indigo-soft/80"
                   onClick={() => setIsResultOpen(true)}
@@ -185,7 +198,7 @@ export const PromptTesterStrip = ({
           open={isResultVisible}
           provenance={field.provenance}
           saveAction={
-            saveTarget === null ? null : (
+            saveTarget !== null ? (
               // Keyed by token: a new run mints a new one, and the previous save no
               // longer describes what is shown.
               <SaveResultButton
@@ -195,7 +208,11 @@ export const PromptTesterStrip = ({
                 onError={field.setError}
                 token={saveTarget.token}
               />
-            )
+            ) : saveTargetFieldName !== undefined && field.isEarlierRun ? (
+              <p className="text-[11px] text-ink-faint">
+                {t("promptTester.rerunToSave")}
+              </p>
+            ) : null
           }
           tester={field}
         >
@@ -206,16 +223,53 @@ export const PromptTesterStrip = ({
   )
 }
 
+// Earlier image results stay a click away, numbered in the order they ran, so settings
+// can be compared without re-running. Sits beside the tester's heading, wherever that is.
+export const RecentImagePills = ({ field }: { field: PromptTester }) => {
+  const { t } = useTranslation()
+  if (field.imageHistory.length === 0) return null
+
+  return (
+    <div className="flex min-w-0 items-center gap-2">
+      <div className="flex gap-1.5">
+        {[...field.imageHistory].reverse().map((run, index) => (
+          <button
+            aria-label={t("promptTester.openRecentImage", {
+              number: index + 1,
+            })}
+            className={`inline-flex h-[22px] min-w-[22px] items-center justify-center rounded-full px-1.5 text-[10.5px] leading-4 font-bold text-zinc-950 tabular-nums transition hover:scale-110 hover:brightness-110 ${RECENT_IMAGE_COLORS[index % RECENT_IMAGE_COLORS.length]}`}
+            key={run.id}
+            onClick={() => field.viewRun(run.id)}
+            type="button"
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
+      <p className="text-[11px] text-ink-muted">
+        {t("promptTester.recentImages")}
+      </p>
+    </div>
+  )
+}
+
+// A distinct pastel per recent image, so each reads as its own button.
+const RECENT_IMAGE_COLORS = [
+  "bg-pastel-sky",
+  "bg-pastel-pink",
+  "bg-pastel-mint",
+  "bg-pastel-butter",
+  "bg-pastel-lavender",
+  "bg-pastel-peach",
+]
+
 interface PromptTestButtonProps {
   className?: string
   field: PromptTester
 }
 
-// Runs the field's one tester, wherever the user happens to be standing when they ask.
-export const PromptTestButton = ({
-  className = "",
-  field,
-}: PromptTestButtonProps) => {
+// Runs the field's tester.
+const PromptTestButton = ({ className = "", field }: PromptTestButtonProps) => {
   const { t } = useTranslation()
   const card = usePromptTestCardState(field)
 
