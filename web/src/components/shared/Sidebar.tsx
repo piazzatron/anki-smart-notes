@@ -147,11 +147,11 @@ const NavButton = ({ activeScreen, item, onNavigate }: NavButtonProps) => {
       }`}
       onClick={() => onNavigate(item.id)}
     >
-      {/* Unselected icons sit a step darker than their label. */}
+      {/* The selected icon takes the flagship green; the rest sit a step darker than their label. */}
       <item.icon
         className={
           isActive
-            ? undefined
+            ? "text-[#4cf0a8]"
             : "text-ink-muted transition-colors duration-150 group-hover:text-zinc-300"
         }
         size={18}
