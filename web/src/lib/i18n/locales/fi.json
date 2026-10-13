@@ -275,9 +275,9 @@
       "zImageTurbo": "nopein ja halvin."
     },
     "layout": {
-      "saveChanges": "Tallenna muutokset",
       "saving": "Tallennetaan…",
-      "tryIt": "Kokeile sitä"
+      "tryIt": "Kokeile sitä",
+      "save": "Tallenna"
     },
     "text": {
       "cannotInheritModel": "Tekstin oletusasetukset eivät voi periä toista mallia",
@@ -342,13 +342,13 @@
     "nanoBanana": "Nano Banana (Google)",
     "richerDetail": "Yksityiskohtaisempi",
     "richerDetailDescription": "Yksityiskohtaisemmat ja täyteläisemmät kohtaukset. Hieman hitaampi.",
-    "underTheHoodLabel": "Mitä malleja käytetään",
     "underTheHood": {
       "gptRicherDetail": "Tarkempi yksityiskohtaisuus käyttää mallia <model>GPT Image 2.5 Sunburst</model>.",
       "gptStandard": "Tavallinen käyttää mallia <model>GPT Image 2.5 Flare</model>.",
       "nanoExtraReasoning": "Laajennettu päättely käyttää mallia <model>Nano Banana 2.1</model>.",
       "nanoStandard": "Tavallinen käyttää mallia <model>Nano Banana 2 Lite</model>."
-    }
+    },
+    "underTheHoodLabel": "Mitä malleja käytetään"
   },
   "promptTester": {
     "anotherNoteType": "toinen muistiinpanotyyppi",

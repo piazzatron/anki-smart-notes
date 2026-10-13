@@ -20,7 +20,7 @@ export const Button = ({
   ...props
 }: ButtonProps) => (
   <button
-    className={`inline-flex items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-xs font-semibold transition disabled:cursor-not-allowed disabled:opacity-45 ${VARIANT_CLASSES[variant]} ${className}`}
+    className={`inline-flex items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-xs font-semibold transition enabled:active:scale-[0.96] enabled:active:brightness-[0.82] disabled:cursor-not-allowed disabled:opacity-45 ${VARIANT_CLASSES[variant]} ${className}`}
     {...props}
   >
     {children}

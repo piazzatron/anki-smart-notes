@@ -275,9 +275,9 @@
       "zImageTurbo": "azkarrena eta merkeena."
     },
     "layout": {
-      "saveChanges": "Gorde aldaketak",
       "saving": "Gordetzen…",
-      "tryIt": "Probatu"
+      "tryIt": "Probatu",
+      "save": "Gorde"
     },
     "text": {
       "cannotInheritModel": "Testu lehenetsiek ezin dute beste eredu bat heredatu",
@@ -342,13 +342,13 @@
     "nanoBanana": "Nano Banana (Google)",
     "richerDetail": "Xehetasun aberatsagoa",
     "richerDetailDescription": "Xehetasun gehiagoko eszena osatuagoak. Apur bat motelagoak.",
-    "underTheHoodLabel": "Zein ereduak exekutatzen diren",
     "underTheHood": {
       "gptRicherDetail": "Xehetasun aberatsagoak <model>GPT Image 2.5 Sunburst</model> erabiltzen du.",
       "gptStandard": "Estandarrak <model>GPT Image 2.5 Flare</model> erabiltzen du.",
       "nanoExtraReasoning": "Arrazoibide gehigarriak <model>Nano Banana 2.1</model> erabiltzen du.",
       "nanoStandard": "Estandarrak <model>Nano Banana 2 Lite</model> erabiltzen du."
-    }
+    },
+    "underTheHoodLabel": "Zein ereduak exekutatzen diren"
   },
   "promptTester": {
     "anotherNoteType": "beste ohar mota bat",

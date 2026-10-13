@@ -277,9 +277,9 @@
       "zImageTurbo": "найшвидший і найдешевший."
     },
     "layout": {
-      "saveChanges": "Зберегти зміни",
       "saving": "Збереження…",
-      "tryIt": "Спробуйте"
+      "tryIt": "Спробуйте",
+      "save": "Зберегти"
     },
     "text": {
       "cannotInheritModel": "Текстові значення за замовчуванням не можуть успадкувати іншу модель",
@@ -346,13 +346,13 @@
     "nanoBanana": "Nano Banana (Google)",
     "richerDetail": "Більше деталей",
     "richerDetailDescription": "Детальніші й повніші сцени. Трохи повільніше.",
-    "underTheHoodLabel": "Які моделі працюють",
     "underTheHood": {
       "gptRicherDetail": "Детальніша деталізація використовує <model>GPT Image 2.5 Sunburst</model>.",
       "gptStandard": "Стандартний режим використовує <model>GPT Image 2.5 Flare</model>.",
       "nanoExtraReasoning": "Розширене міркування використовує <model>Nano Banana 2.1</model>.",
       "nanoStandard": "Стандартний режим використовує <model>Nano Banana 2 Lite</model>."
-    }
+    },
+    "underTheHoodLabel": "Які моделі працюють"
   },
   "promptTester": {
     "anotherNoteType": "інший тип нотаток",

@@ -274,9 +274,9 @@
       "zImageTurbo": "最快且最便宜。"
     },
     "layout": {
-      "saveChanges": "儲存變更",
       "saving": "保存…",
-      "tryIt": "嘗試一下"
+      "tryIt": "嘗試一下",
+      "save": "儲存"
     },
     "text": {
       "cannotInheritModel": "文字預設值不能繼承另一個模型",
@@ -340,13 +340,13 @@
     "nanoBanana": "Nano Banana (Google)",
     "richerDetail": "更豐富的細節",
     "richerDetailDescription": "場景細節更多、更完整。速度稍慢。",
-    "underTheHoodLabel": "執行的模型",
     "underTheHood": {
       "gptRicherDetail": "更豐富的細節使用 <model>GPT Image 2.5 Sunburst</model>。",
       "gptStandard": "標準模式使用 <model>GPT Image 2.5 Flare</model>。",
       "nanoExtraReasoning": "額外推理使用 <model>Nano Banana 2.1</model>。",
       "nanoStandard": "標準模式使用 <model>Nano Banana 2 Lite</model>。"
-    }
+    },
+    "underTheHoodLabel": "執行的模型"
   },
   "promptTester": {
     "anotherNoteType": "另一種筆記類型",

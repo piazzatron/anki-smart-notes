@@ -274,9 +274,9 @@
       "zImageTurbo": "lo mai rapid e lo mai economic."
     },
     "layout": {
-      "saveChanges": "Enregistrar las modificacions",
       "saving": "En estalviant…",
-      "tryIt": "Ensajatz-lo"
+      "tryIt": "Ensajatz-lo",
+      "save": "Enregistrar"
     },
     "text": {
       "cannotInheritModel": "Los paramètres de tèxte pòdon pas eiretar un autre modèl",
@@ -340,13 +340,13 @@
     "nanoBanana": "Nano Banana (Google)",
     "richerDetail": "Mai de detalh",
     "richerDetailDescription": "Scènas mai detalhadas e mai completas. Un pauc mai lentas.",
-    "underTheHoodLabel": "Quals modèls se lançan",
     "underTheHood": {
       "gptRicherDetail": "Lo detalh mai ric utiliza <model>GPT Image 2.5 Sunburst</model>.",
       "gptStandard": "Lo mòde estandard utiliza <model>GPT Image 2.5 Flare</model>.",
       "nanoExtraReasoning": "Lo raisonament suplementari utiliza <model>Nano Banana 2.1</model>.",
       "nanoStandard": "Lo mòde estandard utiliza <model>Nano Banana 2 Lite</model>."
-    }
+    },
+    "underTheHoodLabel": "Quals modèls se lançan"
   },
   "promptTester": {
     "anotherNoteType": "un autre tipe de nòta",

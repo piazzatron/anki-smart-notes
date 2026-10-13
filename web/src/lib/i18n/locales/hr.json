@@ -276,9 +276,9 @@
       "zImageTurbo": "najbrže i najjeftinije."
     },
     "layout": {
-      "saveChanges": "Spremite promjene",
       "saving": "Spremanje...",
-      "tryIt": "Probajte"
+      "tryIt": "Probajte",
+      "save": "Spremi"
     },
     "text": {
       "cannotInheritModel": "Zadane tekstualne postavke ne mogu naslijediti drugi model",
@@ -344,13 +344,13 @@
     "nanoBanana": "Nano Banana (Google)",
     "richerDetail": "Bogatiji detalji",
     "richerDetailDescription": "Detaljnije, potpunije scene. Malo sporije.",
-    "underTheHoodLabel": "Koji modeli se pokreću",
     "underTheHood": {
       "gptRicherDetail": "Bogatiji detalji koriste <model>GPT Image 2.5 Sunburst</model>.",
       "gptStandard": "Standardni koristi <model>GPT Image 2.5 Flare</model>.",
       "nanoExtraReasoning": "Dodatno zaključivanje koristi <model>Nano Banana 2.1</model>.",
       "nanoStandard": "Standardni koristi <model>Nano Banana 2 Lite</model>."
-    }
+    },
+    "underTheHoodLabel": "Koji modeli se pokreću"
   },
   "promptTester": {
     "anotherNoteType": "drugu vrstu bilješke",

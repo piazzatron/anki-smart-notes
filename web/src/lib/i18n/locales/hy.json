@@ -275,9 +275,9 @@
       "zImageTurbo": "ամենաարագ և ամենաէժան:"
     },
     "layout": {
-      "saveChanges": "Պահպանել փոփոխությունները",
       "saving": "Պահվում է…",
-      "tryIt": "Փորձեք այն"
+      "tryIt": "Փորձեք այն",
+      "save": "Պահպանել"
     },
     "text": {
       "cannotInheritModel": "Տեքստի կանխադրվածները չեն կարող ժառանգել այլ մոդել",
@@ -342,13 +342,13 @@
     "nanoBanana": "Nano Banana (Google)",
     "richerDetail": "Ավելի հարուստ մանրամասներ",
     "richerDetailDescription": "Ավելի մանրամասն, լիարժեք տեսարաններ։ Մի փոքր դանդաղ։",
-    "underTheHoodLabel": "Ո՞ր մոդելներն են աշխատում",
     "underTheHood": {
       "gptRicherDetail": "Ավելի մանրամասն արդյունքի համար օգտագործվում է <model>GPT Image 2.5 Sunburst</model>.",
       "gptStandard": "Ստանդարտ տարբերակն օգտագործում է <model>GPT Image 2.5 Flare</model>.",
       "nanoExtraReasoning": "Լրացուցիչ դատողության համար օգտագործվում է <model>Nano Banana 2.1</model>.",
       "nanoStandard": "Ստանդարտ տարբերակն օգտագործում է <model>Nano Banana 2 Lite</model>."
-    }
+    },
+    "underTheHoodLabel": "Ո՞ր մոդելներն են աշխատում"
   },
   "promptTester": {
     "anotherNoteType": "մեկ այլ նշումի տեսակ",

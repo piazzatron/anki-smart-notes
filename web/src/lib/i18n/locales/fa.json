@@ -275,9 +275,9 @@
       "zImageTurbo": "سریع ترین و ارزان ترین"
     },
     "layout": {
-      "saveChanges": "ذخیره تغییرات",
       "saving": "در حال ذخیره…",
-      "tryIt": "آن را امتحان کنید"
+      "tryIt": "آن را امتحان کنید",
+      "save": "ذخیره"
     },
     "text": {
       "cannotInheritModel": "پیش فرض های متنی نمی توانند مدل دیگری را به ارث ببرند",
@@ -342,13 +342,13 @@
     "nanoBanana": "Nano Banana (Google)",
     "richerDetail": "جزئیات غنی‌تر",
     "richerDetailDescription": "صحنه‌های پرجزئیات‌تر و کامل‌تر. کمی کندتر.",
-    "underTheHoodLabel": "کدام مدل‌ها اجرا می‌شوند",
     "underTheHood": {
       "gptRicherDetail": "جزئیات غنی‌تر از <model>GPT Image 2.5 Sunburst</model> استفاده می‌کند.",
       "gptStandard": "حالت استاندارد از <model>GPT Image 2.5 Flare</model> استفاده می‌کند.",
       "nanoExtraReasoning": "استدلال بیشتر از <model>Nano Banana 2.1</model> استفاده می‌کند.",
       "nanoStandard": "حالت استاندارد از <model>Nano Banana 2 Lite</model> استفاده می‌کند."
-    }
+    },
+    "underTheHoodLabel": "کدام مدل‌ها اجرا می‌شوند"
   },
   "promptTester": {
     "anotherNoteType": "یک نوع یادداشت دیگر",

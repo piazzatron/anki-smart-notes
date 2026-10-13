@@ -277,9 +277,9 @@
       "zImageTurbo": "nejrychlejší a nejlevnější."
     },
     "layout": {
-      "saveChanges": "Uložte změny",
       "saving": "Ukládání…",
-      "tryIt": "Zkuste to"
+      "tryIt": "Zkuste to",
+      "save": "Uložit"
     },
     "text": {
       "cannotInheritModel": "Výchozí textové hodnoty nemohou zdědit jiný model",
@@ -346,13 +346,13 @@
     "nanoBanana": "Nano Banana (Google)",
     "richerDetail": "Bohatší detail",
     "richerDetailDescription": "Podrobnější, plnější scény. Trochu pomalejší.",
-    "underTheHoodLabel": "Které modely se spouštějí",
     "underTheHood": {
       "gptRicherDetail": "Podrobnější detail používá <model>GPT Image 2.5 Sunburst</model>.",
       "gptStandard": "Standardní varianta používá <model>GPT Image 2.5 Flare</model>.",
       "nanoExtraReasoning": "Rozšířené uvažování používá <model>Nano Banana 2.1</model>.",
       "nanoStandard": "Standardní varianta používá <model>Nano Banana 2 Lite</model>."
-    }
+    },
+    "underTheHoodLabel": "Které modely se spouštějí"
   },
   "promptTester": {
     "anotherNoteType": "jiný typ poznámky",

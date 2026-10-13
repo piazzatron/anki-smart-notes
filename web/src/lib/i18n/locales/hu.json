@@ -275,9 +275,9 @@
       "zImageTurbo": "leggyorsabb és legolcsóbb."
     },
     "layout": {
-      "saveChanges": "Módosítások mentése",
       "saving": "Megtakarítás…",
-      "tryIt": "Próbáld ki"
+      "tryIt": "Próbáld ki",
+      "save": "Mentés"
     },
     "text": {
       "cannotInheritModel": "A szöveges alapértelmezések nem örökölhetnek másik modellt",
@@ -342,13 +342,13 @@
     "nanoBanana": "Nano Banana (Google)",
     "richerDetail": "Gazdagabb részletesség",
     "richerDetailDescription": "Részletesebb, teljesebb jelenetek. Kicsit lassabb.",
-    "underTheHoodLabel": "Mely modellek futnak",
     "underTheHood": {
       "gptRicherDetail": "A részletesebb megjelenítéshez a <model>GPT Image 2.5 Sunburst</model> modell készül.",
       "gptStandard": "A standard mód a <model>GPT Image 2.5 Flare</model> modellt használja.",
       "nanoExtraReasoning": "A bővített érvelés a <model>Nano Banana 2.1</model> modellt használja.",
       "nanoStandard": "A standard mód a <model>Nano Banana 2 Lite</model> modellt használja."
-    }
+    },
+    "underTheHoodLabel": "Mely modellek futnak"
   },
   "promptTester": {
     "anotherNoteType": "egy másik hangjegytípus",

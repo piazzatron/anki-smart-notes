@@ -17,6 +17,7 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { Button } from "@/components/ui/Button"
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -85,8 +86,7 @@ const LoadedSubscriptionScreen = ({ account }: { account: AccountState }) => {
     <PageLayout
       actions={
         !isSignedOut && (
-          <button
-            className="rounded-md border border-white/[0.08] bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-zinc-400 transition hover:bg-white/[0.07] hover:text-zinc-200"
+          <Button
             disabled={isLoggingOut}
             onClick={() => void runLogout()}
             type="button"
@@ -94,7 +94,7 @@ const LoadedSubscriptionScreen = ({ account }: { account: AccountState }) => {
             {isLoggingOut
               ? t("subscription.loggingOut")
               : t("subscription.logOut")}
-          </button>
+          </Button>
         )
       }
       subtitle={
@@ -165,13 +165,13 @@ const SignedOutSubscription = () => {
         <p className="mt-1.5 text-xs text-ink-muted">
           {t("subscription.signedOut.localStorage")}
         </p>
-        <button
-          className="mt-4 rounded-lg bg-white/[0.09] px-5 py-2.5 text-xs font-bold text-zinc-200 transition hover:bg-white/[0.12]"
+        <Button
+          className="mt-4"
           onClick={() => openSiteLink(SITE_LINKS.signIn)}
           type="button"
         >
           {t("common.signIn")}
-        </button>
+        </Button>
       </div>
     </div>
   )

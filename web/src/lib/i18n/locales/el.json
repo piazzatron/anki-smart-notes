@@ -275,9 +275,9 @@
       "zImageTurbo": "ταχύτερο και φθηνότερο."
     },
     "layout": {
-      "saveChanges": "Αποθήκευση αλλαγών",
       "saving": "Οικονομία…",
-      "tryIt": "Δοκιμάστε το"
+      "tryIt": "Δοκιμάστε το",
+      "save": "Αποθήκευση"
     },
     "text": {
       "cannotInheritModel": "Οι προεπιλογές κειμένου δεν μπορούν να κληρονομήσουν άλλο μοντέλο",
@@ -342,13 +342,13 @@
     "nanoBanana": "Nano Banana (Google)",
     "richerDetail": "Περισσότερες λεπτομέρειες",
     "richerDetailDescription": "Πιο λεπτομερείς, πληρέστερες σκηνές. Λίγο πιο αργό.",
-    "underTheHoodLabel": "Ποια μοντέλα εκτελούνται",
     "underTheHood": {
       "gptRicherDetail": "Η πιο λεπτομερής απεικόνιση χρησιμοποιεί <model>GPT Image 2.5 Sunburst</model>.",
       "gptStandard": "Η τυπική επιλογή χρησιμοποιεί <model>GPT Image 2.5 Flare</model>.",
       "nanoExtraReasoning": "Η εκτενέστερη συλλογιστική χρησιμοποιεί <model>Nano Banana 2.1</model>.",
       "nanoStandard": "Η τυπική επιλογή χρησιμοποιεί <model>Nano Banana 2 Lite</model>."
-    }
+    },
+    "underTheHoodLabel": "Ποια μοντέλα εκτελούνται"
   },
   "promptTester": {
     "anotherNoteType": "άλλος τύπος νότας",

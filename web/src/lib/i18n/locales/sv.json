@@ -275,9 +275,9 @@
       "zImageTurbo": "snabbast och billigast."
     },
     "layout": {
-      "saveChanges": "Spara ändringar",
       "saving": "Sparande…",
-      "tryIt": "Prova det"
+      "tryIt": "Prova det",
+      "save": "Spara"
     },
     "text": {
       "cannotInheritModel": "Textstandard kan inte ärva en annan modell",
@@ -342,13 +342,13 @@
     "nanoBanana": "Nano Banana (Google)",
     "richerDetail": "Rikare detaljer",
     "richerDetailDescription": "Mer detaljerade, fylligare scener. Lite långsammare.",
-    "underTheHoodLabel": "Vilka modeller som körs",
     "underTheHood": {
       "gptRicherDetail": "Mer detaljerad använder <model>GPT Image 2.5 Sunburst</model>.",
       "gptStandard": "Standard använder <model>GPT Image 2.5 Flare</model>.",
       "nanoExtraReasoning": "Extra resonemang använder <model>Nano Banana 2.1</model>.",
       "nanoStandard": "Standard använder <model>Nano Banana 2 Lite</model>."
-    }
+    },
+    "underTheHoodLabel": "Vilka modeller som körs"
   },
   "promptTester": {
     "anotherNoteType": "en annan nottyp",

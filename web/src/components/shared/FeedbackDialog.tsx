@@ -17,6 +17,7 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { Button } from "@/components/ui/Button"
 import { useState, type ReactNode } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -89,16 +90,17 @@ export const FeedbackDialog = ({ children }: FeedbackDialogProps) => {
               />
             </div>
             <footer className="flex shrink-0 items-center justify-between gap-3 border-t border-white/[0.07] px-5 py-3.5">
-              <button
-                className="ms-auto rounded-md bg-mint px-4 py-2 text-xs font-semibold text-emerald-950 transition hover:bg-mint/90 disabled:cursor-not-allowed disabled:opacity-45"
+              <Button
+                className="ms-auto"
                 disabled={form.isSubmitDisabled}
                 onClick={() => void form.submit()}
                 type="button"
+                variant="success"
               >
                 {form.state.isSending
                   ? t("common.feedback.sending")
                   : t("common.feedback.send")}
-              </button>
+              </Button>
             </footer>
           </>
         )}

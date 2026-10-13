@@ -275,9 +275,9 @@
       "zImageTurbo": "pinakamabilis at pinakamura."
     },
     "layout": {
-      "saveChanges": "I-save ang mga pagbabago",
       "saving": "Sine-save...",
-      "tryIt": "Subukan ito"
+      "tryIt": "Subukan ito",
+      "save": "I-save"
     },
     "text": {
       "cannotInheritModel": "Ang mga default ng teksto ay hindi maaaring magmana ng isa pang modelo",
@@ -342,13 +342,13 @@
     "nanoBanana": "Nano Banana (Google)",
     "richerDetail": "Mas masaganang detalye",
     "richerDetailDescription": "Mas detalyado at mas punô na mga eksena. Medyo mas mabagal.",
-    "underTheHoodLabel": "Aling mga model ang tatakbo",
     "underTheHood": {
       "gptRicherDetail": "Ang mas detalyadong opsyon ay gumagamit ng <model>GPT Image 2.5 Sunburst</model>.",
       "gptStandard": "Ang standard ay gumagamit ng <model>GPT Image 2.5 Flare</model>.",
       "nanoExtraReasoning": "Ang karagdagang reasoning ay gumagamit ng <model>Nano Banana 2.1</model>.",
       "nanoStandard": "Ang standard ay gumagamit ng <model>Nano Banana 2 Lite</model>."
-    }
+    },
+    "underTheHoodLabel": "Aling mga model ang tatakbo"
   },
   "promptTester": {
     "anotherNoteType": "ibang uri ng tala",

@@ -644,3 +644,17 @@ button:disabled,
     animation-iteration-count: 1 !important;
   }
 }
+
+/* Every clickable darkens while pressed, so a click always registers visibly. Shared
+   Buttons also shrink a little (Button.tsx); rows and cards only darken, since
+   scaling something full-width reads as a jump. Kept in the base layer so a
+   component can still set its own pressed look. */
+@layer base {
+  :is(
+    button:not(:disabled),
+    a[href],
+    [role="button"]:not([aria-disabled="true"])
+  ):active {
+    filter: brightness(0.82);
+  }
+}

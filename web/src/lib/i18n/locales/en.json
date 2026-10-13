@@ -275,7 +275,7 @@
       "zImageTurbo": "fastest and cheapest."
     },
     "layout": {
-      "saveChanges": "Save changes",
+      "save": "Save",
       "saving": "Saving…",
       "tryIt": "Try it"
     },

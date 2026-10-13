@@ -275,9 +275,9 @@
       "zImageTurbo": "en hızlı ve en ucuz."
     },
     "layout": {
-      "saveChanges": "Değişiklikleri kaydet",
       "saving": "Kaydediliyor…",
-      "tryIt": "Deneyin"
+      "tryIt": "Deneyin",
+      "save": "Kaydet"
     },
     "text": {
       "cannotInheritModel": "Metin varsayılanları başka bir modeli devralamaz",
@@ -342,13 +342,13 @@
     "nanoBanana": "Nano Banana (Google)",
     "richerDetail": "Daha zengin detay",
     "richerDetailDescription": "Daha ayrıntılı, daha dolu sahneler. Biraz daha yavaş.",
-    "underTheHoodLabel": "Hangi modeller çalışır",
     "underTheHood": {
       "gptRicherDetail": "Daha zengin ayrıntı için <model>GPT Image 2.5 Sunburst</model> kullanılır.",
       "gptStandard": "Standart için <model>GPT Image 2.5 Flare</model> kullanılır.",
       "nanoExtraReasoning": "Ek akıl yürütme için <model>Nano Banana 2.1</model> kullanılır.",
       "nanoStandard": "Standart için <model>Nano Banana 2 Lite</model> kullanılır."
-    }
+    },
+    "underTheHoodLabel": "Hangi modeller çalışır"
   },
   "promptTester": {
     "anotherNoteType": "başka bir not türü",

@@ -276,9 +276,9 @@
       "zImageTurbo": "mais rápido e mais barato."
     },
     "layout": {
-      "saveChanges": "Salvar alterações",
       "saving": "Salvando…",
-      "tryIt": "Experimente"
+      "tryIt": "Experimente",
+      "save": "Guardar"
     },
     "text": {
       "cannotInheritModel": "Os padrões de texto não podem herdar outro modelo",
@@ -344,13 +344,13 @@
     "nanoBanana": "Nano Banana (Google)",
     "richerDetail": "Mais detalhe",
     "richerDetailDescription": "Cenas mais detalhadas e completas. Um pouco mais lento.",
-    "underTheHoodLabel": "Que modelos são executados",
     "underTheHood": {
       "gptRicherDetail": "Um detalhe mais rico usa o <model>GPT Image 2.5 Sunburst</model>.",
       "gptStandard": "O modo standard usa o <model>GPT Image 2.5 Flare</model>.",
       "nanoExtraReasoning": "O raciocínio extra usa o <model>Nano Banana 2.1</model>.",
       "nanoStandard": "O modo standard usa o <model>Nano Banana 2 Lite</model>."
-    }
+    },
+    "underTheHoodLabel": "Que modelos são executados"
   },
   "promptTester": {
     "anotherNoteType": "outro tipo de nota",

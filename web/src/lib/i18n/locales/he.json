@@ -276,9 +276,9 @@
       "zImageTurbo": "הכי מהיר והכי זול."
     },
     "layout": {
-      "saveChanges": "שמור שינויים",
       "saving": "חִסָכוֹן…",
-      "tryIt": "נסה את זה"
+      "tryIt": "נסה את זה",
+      "save": "שמור"
     },
     "text": {
       "cannotInheritModel": "ברירת המחדל של טקסט אינה יכולה לרשת דגם אחר",
@@ -344,13 +344,13 @@
     "nanoBanana": "Nano Banana (Google)",
     "richerDetail": "פירוט עשיר יותר",
     "richerDetailDescription": "סצנות מפורטות ומלאות יותר. מעט איטי יותר.",
-    "underTheHoodLabel": "אילו מודלים פועלים",
     "underTheHood": {
       "gptRicherDetail": "פירוט עשיר יותר משתמש ב-<model>GPT Image 2.5 Sunburst</model>.",
       "gptStandard": "הגדרה רגילה משתמשת ב-<model>GPT Image 2.5 Flare</model>.",
       "nanoExtraReasoning": "היגיון מורחב משתמש ב-<model>Nano Banana 2.1</model>.",
       "nanoStandard": "הגדרה רגילה משתמשת ב-<model>Nano Banana 2 Lite</model>."
-    }
+    },
+    "underTheHoodLabel": "אילו מודלים פועלים"
   },
   "promptTester": {
     "anotherNoteType": "סוג פתק אחר",

@@ -278,9 +278,9 @@
       "zImageTurbo": "is tapúla agus is saoire."
     },
     "layout": {
-      "saveChanges": "Sábháil athruithe",
       "saving": "Ag sábháil…",
-      "tryIt": "Bain triail as"
+      "tryIt": "Bain triail as",
+      "save": "Sábháil"
     },
     "text": {
       "cannotInheritModel": "Ní féidir le réamhshocrú téacs a bheith mar oidhreacht ag samhail eile",
@@ -348,13 +348,13 @@
     "nanoBanana": "Nano Banana (Google)",
     "richerDetail": "Mionsonraí níos saibhre",
     "richerDetailDescription": "Radharcanna níos mionsonraithe agus níos iomláine. Beagán níos moille.",
-    "underTheHoodLabel": "Cé na samhlacha a ritheann",
     "underTheHood": {
       "gptRicherDetail": "Le mionsonraí níos saibhre, úsáidtear <model>GPT Image 2.5 Sunburst</model>.",
       "gptStandard": "Le caighdeán, úsáidtear <model>GPT Image 2.5 Flare</model>.",
       "nanoExtraReasoning": "Le réasúnaíocht bhreise, úsáidtear <model>Nano Banana 2.1</model>.",
       "nanoStandard": "Le caighdeán, úsáidtear <model>Nano Banana 2 Lite</model>."
-    }
+    },
+    "underTheHoodLabel": "Cé na samhlacha a ritheann"
   },
   "promptTester": {
     "anotherNoteType": "cineál nóta eile",
