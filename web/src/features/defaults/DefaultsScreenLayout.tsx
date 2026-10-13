@@ -64,8 +64,8 @@ export const DefaultsScreenLayout = ({
           {accessory}
           {isDirty && (
             <Button
-              // Same size as the tester's Test button below.
-              className="h-[54px] px-6 text-[12.5px]"
+              // Sized to sit comfortably beside the page title.
+              className="h-10 px-3.5 text-[12.5px]"
               disabled={isSaving}
               onClick={onSave}
               variant="primary"
