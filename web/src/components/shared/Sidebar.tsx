@@ -1,6 +1,9 @@
 import { DiscordMark } from "./DiscordMark"
 import { FeedbackDialog } from "./FeedbackDialog"
 import { PlanCard } from "./PlanCard"
+import { resizeSidebar } from "./sidebarWidth"
+import { useDirection } from "@radix-ui/react-direction"
+import { useRef, useState, type PointerEvent } from "react"
 import { useTranslation } from "react-i18next"
 
 import type { ScreenId } from "@/lib/boot"
@@ -12,6 +15,11 @@ interface SidebarProps {
   activeScreen: ScreenId
   appVersion: string | null
   onNavigate: (screen: ScreenId) => void
+}
+
+interface ResizeDrag {
+  pointerStartX: number
+  startWidth: number
 }
 
 interface NavItem {
@@ -43,9 +51,47 @@ export const Sidebar = ({
   onNavigate,
 }: SidebarProps) => {
   const { t } = useTranslation()
+  const direction = useDirection()
+  const asideRef = useRef<HTMLElement>(null)
+  const dragRef = useRef<ResizeDrag | null>(null)
+  const [isResizing, setIsResizing] = useState(false)
+  // Until the user drags, the sidebar keeps its responsive CSS width.
+  const [width, setWidth] = useState<number | null>(null)
+
+  const startResize = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.button !== 0 || asideRef.current === null) return
+    event.preventDefault()
+    event.currentTarget.setPointerCapture(event.pointerId)
+    dragRef.current = {
+      pointerStartX: event.clientX,
+      startWidth: asideRef.current.getBoundingClientRect().width,
+    }
+    setIsResizing(true)
+  }
+
+  const moveResize = (event: PointerEvent<HTMLDivElement>) => {
+    const drag = dragRef.current
+    if (drag === null) return
+    setWidth(
+      resizeSidebar(
+        drag.startWidth,
+        event.clientX - drag.pointerStartX,
+        direction,
+      ),
+    )
+  }
+
+  const endResize = () => {
+    dragRef.current = null
+    setIsResizing(false)
+  }
 
   return (
-    <aside className="flex min-h-0 w-[236px] shrink-0 flex-col bg-sidebar px-3 pt-4 pb-0 max-[760px]:w-48">
+    <aside
+      className="relative flex min-h-0 w-[236px] max-w-[40vw] shrink-0 flex-col bg-sidebar px-3 pt-4 pb-0 max-[760px]:w-48"
+      ref={asideRef}
+      style={width === null ? undefined : { width }}
+    >
       <div className="mb-3.5 px-[7px] text-[18px] font-bold text-zinc-100">
         {t("common.productName")}
       </div>
@@ -113,6 +159,24 @@ export const Sidebar = ({
             {t("sidebar.version", { version: appVersion })}
           </button>
         )}
+      </div>
+
+      <div
+        aria-hidden
+        className="group absolute inset-y-0 -end-[3px] z-10 w-[7px] cursor-col-resize touch-none"
+        onDoubleClick={() => setWidth(null)}
+        onPointerCancel={endResize}
+        onPointerDown={startResize}
+        onPointerMove={moveResize}
+        onPointerUp={endResize}
+      >
+        <div
+          className={`mx-auto h-full w-px transition-colors duration-150 ${
+            isResizing
+              ? "bg-indigo-soft/50"
+              : "bg-transparent group-hover:bg-indigo-soft/15"
+          }`}
+        />
       </div>
     </aside>
   )
