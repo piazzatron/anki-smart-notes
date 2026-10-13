@@ -48,7 +48,6 @@
     "signInLower": "Prijavite se",
     "unlimited": "Neograničen",
     "upgrade": "Nadogradite",
-    "upgradeSparkles": "✨ Nadogradite ✨",
     "multiplierCost": "{{multiplier}}× trošak",
     "next": "Sljedeći",
     "noteType": "Vrsta bilješke",
@@ -115,7 +114,6 @@
     "title": "postavke"
   },
   "fieldEditor": {
-    "alreadySmartField": "Već Smart Field ✨",
     "collisionHint": "već ima Smart Field — odaberite drugo polje, špil ili vrstu bilješke",
     "completion": {
       "descriptionAfter": "bilješke se popunjavaju kad god ih generirate.",
@@ -191,9 +189,9 @@
     "targetAriaLabel": "Smart Field cilj",
     "testSmartField": "Testirajte svoj Smart Field",
     "titles": {
-      "create": "Novi Smart Field ✨",
       "duplicate": "Duplikat Smart Field",
-      "edit": "Uredi Smart Field"
+      "edit": "Uredi Smart Field",
+      "create": "Novo Smart Field"
     },
     "validation": {
       "chooseField": "Odaberite polje",
@@ -206,7 +204,8 @@
     "writePromptForMe": "Napiši moj upit za mene",
     "writePromptForMeHint": "Recite što želite na jednostavnom engleskom — mi ćemo napisati upit ispod.",
     "writePromptPlaceholder": "\"Prevedi na prirodni engleski...\"",
-    "writing": "Pisanje…"
+    "writing": "Pisanje…",
+    "alreadySmartField": "Već je Smart Field"
   },
   "smartFields": {
     "actionsAriaLabel": "Akcije za {{field}}",
@@ -249,8 +248,7 @@
       "subtitle": "Ostavite recenziju na AnkiWeb kako biste pomogli drugim korisnicima Anki da ga pronađu.",
       "title": "Uživate li u Smart Notes?"
     },
-    "subtitle": "Svojim bilješkama dodajte automatski generirani tekst, glas i slike.",
-    "title": "✨ Smart Fields"
+    "subtitle": "Svojim bilješkama dodajte automatski generirani tekst, glas i slike."
   },
   "defaults": {
     "errors": {
@@ -276,9 +274,9 @@
       "zImageTurbo": "najbrže i najjeftinije."
     },
     "layout": {
+      "save": "Spremi",
       "saving": "Spremanje...",
-      "tryIt": "Probajte",
-      "save": "Spremi"
+      "tryIt": "Probajte"
     },
     "text": {
       "cannotInheritModel": "Zadane tekstualne postavke ne mogu naslijediti drugi model",
@@ -289,7 +287,6 @@
       "loadingLabel": "Učitavanje zadanih postavki teksta",
       "loadingTitle": "Postavke generiranja teksta",
       "modelGuidance": "{{auto}} i {{autoMax}} su Smart Notes preporučeni modeli koji balansiraju performanse i cijenu. Odaberite {{auto}} za standardne zadatke i nadogradite na {{autoMax}} ako je potrebno.",
-      "pickingModel": "💡 Odabir modela",
       "reasoningLevel": "Razina rasuđivanja",
       "reasoningValues": {
         "high": "visoko",
@@ -302,7 +299,8 @@
       "title": "Postavke generiranja teksta",
       "webSearch": "Web pretraživanje",
       "webSearchDescription": "Neka tekstualne generacije crpe svježe informacije s weba.",
-      "webSearchWarning": "⚠️ Pretraga je skupa; pratite svoje kredite."
+      "pickingModel": "Odabir modela",
+      "webSearchWarning": "Pretraga je skupa; pratite svoje kredite."
     },
     "usage": {
       "fields_one": "Primjenjuje se na polje {{count}}",
@@ -326,10 +324,10 @@
       "loadingTitle": "Zadane postavke glasa",
       "noVoices": "Nijedan glas ne odgovara ovim filtrima.",
       "saveError": "Nije moguće spremiti zadane glasovne postavke",
-      "searchPlaceholder": "🔍 Traži glasove...",
       "searchVoices": "Traži glasove",
       "subtitle": "Glas koji koristi vaš TTS Smart Fields osim ako polje ne prikvači svoje.",
-      "title": "Zadane postavke glasa"
+      "title": "Zadane postavke glasa",
+      "searchPlaceholder": "Pretraži glasove…"
     }
   },
   "imageGeneration": {
@@ -437,7 +435,7 @@
       "trialNoteLimit": "Dosegli ste ograničenje probnih bilješki",
       "upgradeCollection": "Nadogradnja — vaša cijela zbirka, automatski",
       "upgradeCredits": "Nadogradite za više kredita",
-      "upgradePaid": "✨ Nadogradite na plaćeno"
+      "upgradePaid": "Nadogradi na plaćeno"
     },
     "inDays_one": "Danas",
     "inDays_few": "Za {{count}} dana",
@@ -513,8 +511,8 @@
     "finishDescription": "Dovršite prijavu u pregledniku koji smo otvorili. Ovaj prozor će se ažurirati automatski.",
     "finishInBrowser": "Završite u pregledniku",
     "haveCode": "Imate kod s web stranice?",
-    "startTrial": "✨ Započni besplatnu probnu verziju ✨",
-    "trialDetails": "Besplatno 7 dana · sve značajke · bez kreditne kartice"
+    "trialDetails": "Besplatno 7 dana · sve značajke · bez kreditne kartice",
+    "startTrial": "Započni besplatno probno razdoblje"
   },
   "trialEnded": {
     "description": "Probna razdoblja traju 7 dana ili dok ne isteknu vaši probni krediti.",
@@ -534,8 +532,8 @@
       "leaveReview": "Ostavite recenziju",
       "title": "Dobijte besplatni mjesec Smart Notes"
     },
-    "thanks": "Hvala što koristite Smart Notes ✨",
     "title": "Vaše besplatno probno razdoblje je završilo",
-    "upgradeNow": "Nadogradite sada"
+    "upgradeNow": "Nadogradite sada",
+    "thanks": "Hvala što koristite Smart Notes"
   }
 }

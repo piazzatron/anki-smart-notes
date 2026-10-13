@@ -47,7 +47,6 @@
     "signInLower": "anmelden",
     "unlimited": "Unbegrenzt",
     "upgrade": "Upgrade",
-    "upgradeSparkles": "✨Upgrade✨",
     "multiplierCost": "{{multiplier}}× Kosten",
     "next": "Nächste",
     "noteType": "Notiztyp",
@@ -114,7 +113,6 @@
     "title": "Einstellungen"
   },
   "fieldEditor": {
-    "alreadySmartField": "Schon ein Smart Field ✨",
     "collisionHint": "hat bereits ein Smart Field – wählen Sie ein anderes Feld, Deck oder einen anderen Notiztyp",
     "completion": {
       "descriptionAfter": "Notizen werden immer dann ausgefüllt, wenn Sie sie generieren.",
@@ -190,9 +188,9 @@
     "targetAriaLabel": "Smart Field-Ziel",
     "testSmartField": "Testen Sie Ihr Smart Field",
     "titles": {
-      "create": "Neu Smart Field ✨",
       "duplicate": "Duplikat Smart Field",
-      "edit": "Bearbeiten Sie Smart Field"
+      "edit": "Bearbeiten Sie Smart Field",
+      "create": "Neues Smart Field"
     },
     "validation": {
       "chooseField": "Wählen Sie ein Feld",
@@ -205,7 +203,8 @@
     "writePromptForMe": "Schreiben Sie mir meine Eingabeaufforderung",
     "writePromptForMeHint": "Sagen Sie in einfachem Englisch, was Sie wollen – wir schreiben die Aufforderung unten.",
     "writePromptPlaceholder": "„In natürliches Englisch übersetzen…“",
-    "writing": "Schreiben…"
+    "writing": "Schreiben…",
+    "alreadySmartField": "Bereits ein Smart Field"
   },
   "smartFields": {
     "actionsAriaLabel": "Aktionen für {{field}}",
@@ -248,8 +247,7 @@
       "subtitle": "Hinterlassen Sie eine Bewertung zu AnkiWeb, um anderen Anki-Benutzern dabei zu helfen, sie zu finden.",
       "title": "Genießen Sie Smart Notes?"
     },
-    "subtitle": "Fügen Sie Ihren Notizen automatisch generierten Text, Sprache und Bilder hinzu.",
-    "title": "✨ Smart Fields"
+    "subtitle": "Fügen Sie Ihren Notizen automatisch generierten Text, Sprache und Bilder hinzu."
   },
   "defaults": {
     "errors": {
@@ -275,9 +273,9 @@
       "zImageTurbo": "am schnellsten und günstigsten."
     },
     "layout": {
+      "save": "Speichern",
       "saving": "Sparen…",
-      "tryIt": "Probieren Sie es aus",
-      "save": "Speichern"
+      "tryIt": "Probieren Sie es aus"
     },
     "text": {
       "cannotInheritModel": "Textstandards können kein anderes Modell erben",
@@ -288,7 +286,6 @@
       "loadingLabel": "Laden der Standardtexteinstellungen",
       "loadingTitle": "Einstellungen für die Textgenerierung",
       "modelGuidance": "{{auto}} und {{autoMax}} sind die von Smart Notes empfohlenen Modelle, die Leistung und Kosten in Einklang bringen. Wählen Sie {{auto}} für Standardaufgaben und aktualisieren Sie bei Bedarf auf {{autoMax}}.",
-      "pickingModel": "💡 Ein Modell auswählen",
       "reasoningLevel": "Argumentationsebene",
       "reasoningValues": {
         "high": "Hoch",
@@ -301,7 +298,8 @@
       "title": "Einstellungen für die Textgenerierung",
       "webSearch": "Websuche",
       "webSearchDescription": "Lassen Sie Textgenerationen neue Informationen aus dem Internet abrufen.",
-      "webSearchWarning": "⚠️ Suche ist teuer; Überwachen Sie Ihre Kredite."
+      "pickingModel": "Modell auswählen",
+      "webSearchWarning": "Suche ist teuer; behalte dein Guthaben im Blick."
     },
     "usage": {
       "fields_one": "Gilt für das Feld {{count}}",
@@ -324,10 +322,10 @@
       "loadingTitle": "Standard-Spracheinstellungen",
       "noVoices": "Keine Stimmen entsprechen diesen Filtern.",
       "saveError": "Sprachstandardeinstellungen konnten nicht gespeichert werden",
-      "searchPlaceholder": "🔍 Stimmen suchen…",
       "searchVoices": "Stimmen suchen",
       "subtitle": "Die Stimme, die Ihr TTS Smart Fields verwendet, es sei denn, ein Feld legt seine eigene fest.",
-      "title": "Standard-Spracheinstellungen"
+      "title": "Standard-Spracheinstellungen",
+      "searchPlaceholder": "Stimmen suchen…"
     }
   },
   "imageGeneration": {
@@ -429,7 +427,7 @@
       "trialNoteLimit": "Sie haben Ihr Testnotizlimit erreicht",
       "upgradeCollection": "Aktualisieren Sie Ihre gesamte Sammlung automatisch",
       "upgradeCredits": "Upgrade für mehr Credits",
-      "upgradePaid": "✨ Upgrade auf kostenpflichtig"
+      "upgradePaid": "Auf Bezahlversion upgraden"
     },
     "inDays_one": "Heute",
     "inDays_other": "In {{count}} Tagen",
@@ -503,8 +501,8 @@
     "finishDescription": "Schließen Sie die Anmeldung in dem von uns geöffneten Browser ab. Dieses Fenster wird automatisch aktualisiert.",
     "finishInBrowser": "Beenden Sie den Vorgang in Ihrem Browser",
     "haveCode": "Haben Sie einen Code von der Website?",
-    "startTrial": "✨ Kostenlose Testversion starten ✨",
-    "trialDetails": "7 Tage lang kostenlos · alle Funktionen · keine Kreditkarte"
+    "trialDetails": "7 Tage lang kostenlos · alle Funktionen · keine Kreditkarte",
+    "startTrial": "Kostenlose Testphase starten"
   },
   "trialEnded": {
     "description": "Die Testversion läuft 7 Tage lang oder bis Ihr Testguthaben aufgebraucht ist.",
@@ -524,8 +522,8 @@
       "leaveReview": "Hinterlassen Sie eine Bewertung",
       "title": "Holen Sie sich einen kostenlosen Monat Smart Notes"
     },
-    "thanks": "Vielen Dank, dass Sie Smart Notes verwenden ✨",
     "title": "Ihre kostenlose Testversion ist beendet",
-    "upgradeNow": "Jetzt upgraden"
+    "upgradeNow": "Jetzt upgraden",
+    "thanks": "Danke, dass du Smart Notes nutzt"
   }
 }

@@ -47,7 +47,6 @@
     "signInLower": "Jelentkezzen be",
     "unlimited": "Korlátlan",
     "upgrade": "Frissítés",
-    "upgradeSparkles": "✨ Frissítés ✨",
     "multiplierCost": "{{multiplier}}× költség",
     "next": "Következő",
     "noteType": "Megjegyzés típusa",
@@ -114,7 +113,6 @@
     "title": "Beállítások elemre"
   },
   "fieldEditor": {
-    "alreadySmartField": "Már egy Smart Field ✨",
     "collisionHint": "már rendelkezik Smart Field-val – válasszon másik mezőt, paklit vagy hangjegytípust",
     "completion": {
       "descriptionAfter": "A jegyzetek mindig kitöltődnek, amikor létrehozza.",
@@ -190,9 +188,9 @@
     "targetAriaLabel": "Smart Field cél",
     "testSmartField": "Tesztelje az Smart Field-ját",
     "titles": {
-      "create": "Új Smart Field ✨",
       "duplicate": "Smart Field másodpéldánya",
-      "edit": "Szerkessze Smart Field"
+      "edit": "Szerkessze Smart Field",
+      "create": "Új Smart Field"
     },
     "validation": {
       "chooseField": "Válasszon egy mezőt",
@@ -205,7 +203,8 @@
     "writePromptForMe": "Írd meg nekem a felszólításomat",
     "writePromptForMeHint": "Mondja ki, amit akar, egyszerű angol nyelven – mi lent írjuk a felszólítást.",
     "writePromptPlaceholder": "\"Fordítsd le természetes angolra...\"",
-    "writing": "Írás…"
+    "writing": "Írás…",
+    "alreadySmartField": "Már Smart Field"
   },
   "smartFields": {
     "actionsAriaLabel": "Műveletek a következőhöz: {{field}}",
@@ -248,8 +247,7 @@
       "subtitle": "Hagyjon értékelést a AnkiWeb-ról, hogy segítsen más Anki felhasználóknak megtalálni.",
       "title": "Élvezed az Smart Notes-t?"
     },
-    "subtitle": "Adjon hozzá automatikusan generált szöveget, hangot és képeket a jegyzeteihez.",
-    "title": "✨ Smart Fields"
+    "subtitle": "Adjon hozzá automatikusan generált szöveget, hangot és képeket a jegyzeteihez."
   },
   "defaults": {
     "errors": {
@@ -275,9 +273,9 @@
       "zImageTurbo": "leggyorsabb és legolcsóbb."
     },
     "layout": {
+      "save": "Mentés",
       "saving": "Megtakarítás…",
-      "tryIt": "Próbáld ki",
-      "save": "Mentés"
+      "tryIt": "Próbáld ki"
     },
     "text": {
       "cannotInheritModel": "A szöveges alapértelmezések nem örökölhetnek másik modellt",
@@ -288,7 +286,6 @@
       "loadingLabel": "Alapértelmezett szövegbeállítások betöltése",
       "loadingTitle": "Szöveggenerálási beállítások",
       "modelGuidance": "Az {{auto}} és az {{autoMax}} az Smart Notes által ajánlott modellek, amelyek egyensúlyban tartják a teljesítményt és a költségeket. A normál feladatokhoz válassza az {{auto}} lehetőséget, és szükség esetén frissítsen {{autoMax}}-ra.",
-      "pickingModel": "💡 Modellválasztás",
       "reasoningLevel": "Érvelési szint",
       "reasoningValues": {
         "high": "Magas",
@@ -301,7 +298,8 @@
       "title": "Szöveggenerálási beállítások",
       "webSearch": "Webes keresés",
       "webSearchDescription": "Hagyja, hogy a szöveges generációk friss információkat szerezzenek be az internetről.",
-      "webSearchWarning": "⚠️ A keresés drága; figyelje a hiteleit."
+      "pickingModel": "Modell kiválasztása",
+      "webSearchWarning": "A keresés költséges; figyeld a kreditjeidet."
     },
     "usage": {
       "fields_one": "Az {{count}} mezőre vonatkozik",
@@ -324,10 +322,10 @@
       "loadingTitle": "Alapértelmezett hangbeállítások",
       "noVoices": "Egyetlen hang sem felel meg ezeknek a szűrőknek.",
       "saveError": "Nem sikerült menteni az alapértelmezett hangbeállításokat",
-      "searchPlaceholder": "🔍 Hangok keresése…",
       "searchVoices": "Hangok keresése",
       "subtitle": "A hang, amelyet a TTS Smart Fields használ, hacsak egy mező nem rögzíti a sajátját.",
-      "title": "Alapértelmezett hangbeállítások"
+      "title": "Alapértelmezett hangbeállítások",
+      "searchPlaceholder": "Hangok keresése…"
     }
   },
   "imageGeneration": {
@@ -429,7 +427,7 @@
       "trialNoteLimit": "Elérte a próbajegyzetek korlátját",
       "upgradeCollection": "Frissítés – a teljes gyűjtemény, automatikusan",
       "upgradeCredits": "Frissítsen több kreditért",
-      "upgradePaid": "✨ Frissítés fizetősre"
+      "upgradePaid": "Váltás fizetős csomagra"
     },
     "inDays_one": "Ma",
     "inDays_other": "{{count}} napokban",
@@ -503,8 +501,8 @@
     "finishDescription": "Fejezze be a bejelentkezést a megnyitott böngészőben. Ez az ablak automatikusan frissül.",
     "finishInBrowser": "Fejezze be a böngészőben",
     "haveCode": "Van kódja a webhelyről?",
-    "startTrial": "✨ Indítsa el az ingyenes próbaverziót ✨",
-    "trialDetails": "7 napig ingyenes · minden funkció · hitelkártya nélkül"
+    "trialDetails": "7 napig ingyenes · minden funkció · hitelkártya nélkül",
+    "startTrial": "Ingyenes próba indítása"
   },
   "trialEnded": {
     "description": "A próbaverziók 7 napig tartanak, vagy amíg el nem fogynak a próbaidőszak.",
@@ -524,8 +522,8 @@
       "leaveReview": "Hagyjon véleményt",
       "title": "Kap egy hónap ingyenes Smart Notes-t"
     },
-    "thanks": "Köszönjük, hogy az Smart Notes-t használja ✨",
     "title": "Az ingyenes próbaidőszak véget ért",
-    "upgradeNow": "Frissítsen most"
+    "upgradeNow": "Frissítsen most",
+    "thanks": "Köszönjük, hogy a Smart Notes-t használod"
   }
 }

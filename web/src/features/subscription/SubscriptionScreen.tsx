@@ -31,6 +31,7 @@ import {
 } from "@/components/shared/planPresentation"
 import { ScreenSkeleton } from "@/components/shared/ScreenSkeleton"
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
+import { SparklesIcon } from "@/components/shared/Icons"
 import { errorMessage } from "@/lib/errors"
 import i18next from "@/lib/i18n"
 import { openSiteLink, SITE_LINKS } from "@/lib/siteLinks"
@@ -182,6 +183,7 @@ interface HeroContent {
   cta: string
   note?: string
   showArrow?: boolean
+  sparkle?: boolean
   tone: "indigo" | "mint"
   url: string
 }
@@ -218,6 +220,7 @@ const getHeroContent = (account: AuthenticatedAccount): HeroContent | null => {
                 count: daysLeft,
               }),
       cta: i18next.t("subscription.hero.upgradePaid"),
+      sparkle: true,
       tone: "mint",
       url: SITE_LINKS.upgrade,
     }
@@ -289,6 +292,7 @@ const PlanHero = ({
   cta,
   note,
   showArrow = true,
+  sparkle = false,
   tone,
   url,
 }: HeroContent) => {
@@ -317,6 +321,9 @@ const PlanHero = ({
         className={`${context === undefined ? "" : "mt-1"} text-[23px] font-extrabold tracking-[-0.4px]`}
         style={{ color: styles.ink }}
       >
+        {sparkle && (
+          <SparklesIcon className="me-2 inline-block align-[-2px]" size={20} />
+        )}
         {cta}
         {showArrow && (
           <>

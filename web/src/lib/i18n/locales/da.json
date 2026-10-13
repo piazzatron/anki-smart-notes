@@ -47,7 +47,6 @@
     "signInLower": "Log ind",
     "unlimited": "Ubegrænset",
     "upgrade": "Opgrader",
-    "upgradeSparkles": "✨ Opgrader ✨",
     "multiplierCost": "{{multiplier}}× pris",
     "next": "Næste",
     "noteType": "Note Type",
@@ -114,7 +113,6 @@
     "title": "Indstillinger"
   },
   "fieldEditor": {
-    "alreadySmartField": "Allerede en Smart Field ✨",
     "collisionHint": "har allerede en Smart Field — vælg et andet felt, kortspil eller nodetype",
     "completion": {
       "descriptionAfter": "noter udfyldes, når du genererer det.",
@@ -190,9 +188,9 @@
     "targetAriaLabel": "Smart Field mål",
     "testSmartField": "Test din Smart Field",
     "titles": {
-      "create": "Ny Smart Field ✨",
       "duplicate": "Dublet Smart Field",
-      "edit": "Rediger Smart Field"
+      "edit": "Rediger Smart Field",
+      "create": "Nyt Smart Field"
     },
     "validation": {
       "chooseField": "Vælg et felt",
@@ -205,7 +203,8 @@
     "writePromptForMe": "Skriv min prompt til mig",
     "writePromptForMeHint": "Sig hvad du vil på almindeligt engelsk - vi skriver prompten nedenfor.",
     "writePromptPlaceholder": "\"Oversæt til naturligt engelsk...\"",
-    "writing": "Skrivning…"
+    "writing": "Skrivning…",
+    "alreadySmartField": "Allerede et Smart Field"
   },
   "smartFields": {
     "actionsAriaLabel": "Handlinger for {{field}}",
@@ -248,8 +247,7 @@
       "subtitle": "Efterlad en anmeldelse af AnkiWeb for at hjælpe andre Anki-brugere med at finde den.",
       "title": "Nyder du Smart Notes?"
     },
-    "subtitle": "Tilføj automatisk genereret tekst, stemme og billeder til dine noter.",
-    "title": "✨ Smart Fields"
+    "subtitle": "Tilføj automatisk genereret tekst, stemme og billeder til dine noter."
   },
   "defaults": {
     "errors": {
@@ -275,9 +273,9 @@
       "zImageTurbo": "hurtigste og billigste."
     },
     "layout": {
+      "save": "Gem",
       "saving": "Gemmer...",
-      "tryIt": "Prøv det",
-      "save": "Gem"
+      "tryIt": "Prøv det"
     },
     "text": {
       "cannotInheritModel": "Tekststandarder kan ikke arve en anden model",
@@ -288,7 +286,6 @@
       "loadingLabel": "Indlæser standardtekstindstillinger",
       "loadingTitle": "Indstillinger for tekstgenerering",
       "modelGuidance": "{{auto}} og {{autoMax}} er de Smart Notes anbefalede modeller, der balancerer ydeevne og omkostninger. Vælg {{auto}} til standardopgaver og opgrader til {{autoMax}}, hvis det er nødvendigt.",
-      "pickingModel": "💡 Valg af model",
       "reasoningLevel": "Begrundelsesniveau",
       "reasoningValues": {
         "high": "Høj",
@@ -301,7 +298,8 @@
       "title": "Indstillinger for tekstgenerering",
       "webSearch": "Websøgning",
       "webSearchDescription": "Lad tekstgenerationer hente frisk information fra nettet.",
-      "webSearchWarning": "⚠️ Søgning er dyrt; overvåge dine kreditter."
+      "pickingModel": "Vælger en model",
+      "webSearchWarning": "Søgning er dyr; hold øje med dine kreditter."
     },
     "usage": {
       "fields_one": "Gælder for {{count}}-feltet",
@@ -324,10 +322,10 @@
       "loadingTitle": "Standard stemmeindstillinger",
       "noVoices": "Ingen stemmer matcher disse filtre.",
       "saveError": "Kunne ikke gemme stemmestandarder",
-      "searchPlaceholder": "🔍 Søg efter stemmer...",
       "searchVoices": "Søg stemmer",
       "subtitle": "Den stemme, din TTS Smart Fields bruger, medmindre et felt fastgør sin egen.",
-      "title": "Standard stemmeindstillinger"
+      "title": "Standard stemmeindstillinger",
+      "searchPlaceholder": "Søg stemmer…"
     }
   },
   "imageGeneration": {
@@ -429,7 +427,7 @@
       "trialNoteLimit": "Du har nået grænsen for din prøvebemærkning",
       "upgradeCollection": "Opgrader - automatisk hele din samling",
       "upgradeCredits": "Opgrader for at få flere kreditter",
-      "upgradePaid": "✨ Opgrader til betalt"
+      "upgradePaid": "Opgrader til betalt"
     },
     "inDays_one": "I dag",
     "inDays_other": "I {{count}} dage",
@@ -503,8 +501,8 @@
     "finishDescription": "Fuldfør login i den browser, vi åbnede. Dette vindue opdateres automatisk.",
     "finishInBrowser": "Afslut i din browser",
     "haveCode": "Har du en kode fra hjemmesiden?",
-    "startTrial": "✨ Start gratis prøveperiode ✨",
-    "trialDetails": "Gratis i 7 dage · hver funktion · intet kreditkort"
+    "trialDetails": "Gratis i 7 dage · hver funktion · intet kreditkort",
+    "startTrial": "Start Gratis Prøveperiode"
   },
   "trialEnded": {
     "description": "Prøveperioder løber 7 dage eller indtil dine prøvekreditter løber ud.",
@@ -524,8 +522,8 @@
       "leaveReview": "Skriv en anmeldelse",
       "title": "Få en gratis måned med Smart Notes"
     },
-    "thanks": "Tak, fordi du bruger Smart Notes ✨",
     "title": "Din gratis prøveperiode er slut",
-    "upgradeNow": "Opgrader nu"
+    "upgradeNow": "Opgrader nu",
+    "thanks": "Tak fordi du bruger Smart Notes"
   }
 }

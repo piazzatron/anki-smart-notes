@@ -24,7 +24,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select"
+import {
+  ChatIcon,
+  GalleryIcon,
+  type IconProps,
+  SparklesIcon,
+  VolumeIcon,
+} from "@/components/shared/Icons"
 import i18next from "i18next"
+import type { ComponentType } from "react"
 import type { AppState } from "@/types/api"
 import { useTranslation } from "react-i18next"
 
@@ -39,13 +47,17 @@ interface StepTargetProps {
 }
 
 const FIELD_TYPES: Array<{
-  emoji: string
+  icon: ComponentType<IconProps>
   labelKey: string
   value: FieldType
 }> = [
-  { emoji: "💬", labelKey: "fieldEditor.fieldTypes.text", value: "chat" },
-  { emoji: "🔈", labelKey: "fieldEditor.fieldTypes.audio", value: "tts" },
-  { emoji: "🖼️", labelKey: "fieldEditor.fieldTypes.image", value: "image" },
+  { icon: ChatIcon, labelKey: "fieldEditor.fieldTypes.text", value: "chat" },
+  { icon: VolumeIcon, labelKey: "fieldEditor.fieldTypes.audio", value: "tts" },
+  {
+    icon: GalleryIcon,
+    labelKey: "fieldEditor.fieldTypes.image",
+    value: "image",
+  },
 ]
 
 export const StepTarget = ({ controls, state }: StepTargetProps) => {
@@ -73,7 +85,7 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
     <div className="mx-auto w-full max-w-[600px]">
       <EditorSection label={t("fieldEditor.sections.whatToGenerate")}>
         <div className="flex gap-1.5" role="radiogroup">
-          {FIELD_TYPES.map(({ emoji, labelKey, value }) => {
+          {FIELD_TYPES.map(({ icon: Icon, labelKey, value }) => {
             const selected = target.fieldType === value
             return (
               <button
@@ -87,12 +99,7 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
                 onClick={() => controls.setTarget({ fieldType: value })}
                 role="radio"
               >
-                <span
-                  aria-hidden
-                  className={`text-[15px] leading-none ${selected ? "" : "opacity-70"}`}
-                >
-                  {emoji}
-                </span>
+                <Icon className={selected ? "" : "opacity-70"} size={16} />
                 {t(labelKey)}
               </button>
             )
@@ -188,6 +195,10 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
                     bound ? (
                       <span className="ms-3 shrink-0 text-[11px] text-zinc-300">
                         {t("fieldEditor.alreadySmartField")}
+                        <SparklesIcon
+                          className="ms-1 inline-block align-[-2px]"
+                          size={12}
+                        />
                       </span>
                     ) : undefined
                   }

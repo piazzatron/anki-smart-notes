@@ -51,7 +51,6 @@
     "signInLower": "تسجيل الدخول",
     "unlimited": "غير محدود",
     "upgrade": "الترقية",
-    "upgradeSparkles": "✨ الترقية ✨",
     "multiplierCost": "{{multiplier}}× التكلفة",
     "next": "التالي",
     "noteType": "نوع الملاحظة",
@@ -118,7 +117,6 @@
     "title": "إعدادات"
   },
   "fieldEditor": {
-    "alreadySmartField": "بالفعل حقل ذكي ✨",
     "collisionHint": "يحتوي بالفعل على حقل ذكي - اختر حقلاً أو مجموعة أو نوع ملاحظة مختلفًا",
     "completion": {
       "descriptionAfter": "يتم ملء الملاحظات كلما قمت بإنشائها.",
@@ -194,9 +192,9 @@
     "targetAriaLabel": "الهدف الميداني الذكي",
     "testSmartField": "اختبر مجالك الذكي",
     "titles": {
-      "create": "المجال الذكي الجديد ✨",
       "duplicate": "تكرار الحقل الذكي",
-      "edit": "تحرير الحقل الذكي"
+      "edit": "تحرير الحقل الذكي",
+      "create": "حقل ذكي جديد"
     },
     "validation": {
       "chooseField": "اختر حقلاً",
@@ -209,7 +207,8 @@
     "writePromptForMe": "اكتب مطالبتي بالنسبة لي",
     "writePromptForMeHint": "قل ما تريد باللغة الإنجليزية البسيطة - سنكتب المطالبة أدناه.",
     "writePromptPlaceholder": "\"الترجمة إلى اللغة الإنجليزية الطبيعية...\"",
-    "writing": "كتابة…"
+    "writing": "كتابة…",
+    "alreadySmartField": "هذا الحقل ذكي بالفعل"
   },
   "smartFields": {
     "actionsAriaLabel": "إجراءات لـ {{field}}",
@@ -252,8 +251,7 @@
       "subtitle": "اترك تعليقًا على AnkiWeb لمساعدة مستخدمي Anki الآخرين في العثور عليه.",
       "title": "تتمتع Smart Notes؟"
     },
-    "subtitle": "أضف النص والصوت والصور التي يتم إنشاؤها تلقائيًا إلى ملاحظاتك.",
-    "title": "✨Smart Fields"
+    "subtitle": "أضف النص والصوت والصور التي يتم إنشاؤها تلقائيًا إلى ملاحظاتك."
   },
   "defaults": {
     "errors": {
@@ -279,9 +277,9 @@
       "zImageTurbo": "الأسرع والأرخص."
     },
     "layout": {
+      "save": "حفظ",
       "saving": "توفير…",
-      "tryIt": "جربه",
-      "save": "حفظ"
+      "tryIt": "جربه"
     },
     "text": {
       "cannotInheritModel": "لا يمكن أن ترث الإعدادات الافتراضية للنص نموذجًا آخر",
@@ -292,7 +290,6 @@
       "loadingLabel": "جارٍ تحميل إعدادات النص الافتراضية",
       "loadingTitle": "إعدادات إنشاء النص",
       "modelGuidance": "يعد {{auto}} و{{autoMax}} من النماذج الموصى بها من قبل Smart Notes والتي تعمل على تحقيق التوازن بين الأداء والتكلفة. اختر {{auto}} للمهام القياسية وقم بالترقية إلى {{autoMax}} إذا لزم الأمر.",
-      "pickingModel": "💡اختيار الموديل",
       "reasoningLevel": "مستوى الاستدلال",
       "reasoningValues": {
         "high": "عالي",
@@ -305,7 +302,8 @@
       "title": "إعدادات إنشاء النص",
       "webSearch": "بحث الويب",
       "webSearchDescription": "اسمح للأجيال النصية بسحب معلومات جديدة من الويب.",
-      "webSearchWarning": "⚠️ البحث مكلف؛ مراقبة الاعتمادات الخاصة بك."
+      "pickingModel": "اختيار نموذج",
+      "webSearchWarning": "البحث مكلف؛ راقب رصيدك."
     },
     "usage": {
       "fields_zero": "ينطبق على {{count}} حقول",
@@ -332,10 +330,10 @@
       "loadingTitle": "إعدادات الصوت الافتراضية",
       "noVoices": "لا توجد أصوات تتطابق مع هذه المرشحات.",
       "saveError": "تعذر حفظ إعدادات الصوت الافتراضية",
-      "searchPlaceholder": "🔍 البحث عن الأصوات...",
       "searchVoices": "أصوات البحث",
       "subtitle": "الصوت الذي تستخدمه TTS Smart Fields ما لم يتم تثبيت حقل خاص به.",
-      "title": "إعدادات الصوت الافتراضية"
+      "title": "إعدادات الصوت الافتراضية",
+      "searchPlaceholder": "ابحث عن الأصوات…"
     }
   },
   "imageGeneration": {
@@ -461,7 +459,7 @@
       "trialNoteLimit": "لقد وصلت إلى الحد الأقصى للملاحظة التجريبية",
       "upgradeCollection": "الترقية - مجموعتك بأكملها تلقائيًا",
       "upgradeCredits": "الترقية للحصول على المزيد من الاعتمادات",
-      "upgradePaid": "✨ الترقية إلى المدفوعة"
+      "upgradePaid": "الترقية إلى الخطة المدفوعة"
     },
     "inDays_zero": "بعد {{count}} أيام",
     "inDays_one": "اليوم",
@@ -543,8 +541,8 @@
     "finishDescription": "أكمل تسجيل الدخول في المتصفح الذي فتحناه. سيتم تحديث هذه النافذة تلقائيًا.",
     "finishInBrowser": "قم بإنهاء الأمر في متصفحك",
     "haveCode": "هل لديك رمز من الموقع؟",
-    "startTrial": "✨ ابدأ النسخة التجريبية المجانية ✨",
-    "trialDetails": "مجانًا لمدة 7 أيام · كل الميزات · بدون بطاقة ائتمان"
+    "trialDetails": "مجانًا لمدة 7 أيام · كل الميزات · بدون بطاقة ائتمان",
+    "startTrial": "ابدأ التجربة المجانية"
   },
   "trialEnded": {
     "description": "تستمر التجارب لمدة 7 أيام أو حتى نفاد الاعتمادات التجريبية الخاصة بك.",
@@ -564,8 +562,8 @@
       "leaveReview": "ترك التعليق",
       "title": "احصل على شهر مجاني من Smart Notes"
     },
-    "thanks": "شكرًا لاستخدامك Smart Notes ✨",
     "title": "انتهت تجربتك المجانية",
-    "upgradeNow": "قم بالترقية الآن"
+    "upgradeNow": "قم بالترقية الآن",
+    "thanks": "شكرًا لاستخدامك Smart Notes"
   }
 }

@@ -47,7 +47,6 @@
     "signInLower": "Sign in",
     "unlimited": "Unlimited",
     "upgrade": "Upgrade",
-    "upgradeSparkles": "✨ Upgrade ✨",
     "multiplierCost": "{{multiplier}}× cost",
     "next": "Next",
     "noteType": "Note Type",
@@ -114,7 +113,7 @@
     "title": "Settings"
   },
   "fieldEditor": {
-    "alreadySmartField": "Already a Smart Field ✨",
+    "alreadySmartField": "Already a Smart Field",
     "collisionHint": "already has a Smart Field — pick a different field, deck, or note type",
     "completion": {
       "descriptionAfter": "notes fills in whenever you generate it.",
@@ -190,7 +189,7 @@
     "targetAriaLabel": "Smart Field target",
     "testSmartField": "Test your Smart Field",
     "titles": {
-      "create": "New Smart Field ✨",
+      "create": "New Smart Field",
       "duplicate": "Duplicate Smart Field",
       "edit": "Edit Smart Field"
     },
@@ -248,8 +247,7 @@
       "subtitle": "Leave a review on AnkiWeb to help other Anki users find it.",
       "title": "Enjoying Smart Notes?"
     },
-    "subtitle": "Add automatically generated text, voice, and images to your notes.",
-    "title": "✨ Smart Fields"
+    "subtitle": "Add automatically generated text, voice, and images to your notes."
   },
   "defaults": {
     "errors": {
@@ -288,7 +286,7 @@
       "loadingLabel": "Loading Default Text Settings",
       "loadingTitle": "Text Generation Settings",
       "modelGuidance": "{{auto}} and {{autoMax}} are the Smart Notes recommended models that balance performance and cost. Choose {{auto}} for standard tasks and upgrade to {{autoMax}} if needed.",
-      "pickingModel": "💡 Picking a model",
+      "pickingModel": "Picking a model",
       "reasoningLevel": "Reasoning level",
       "reasoningValues": {
         "high": "High",
@@ -301,7 +299,7 @@
       "title": "Text Generation Settings",
       "webSearch": "Web Search",
       "webSearchDescription": "Let text generations pull in fresh info from the web.",
-      "webSearchWarning": "⚠️ Search is expensive; monitor your credits."
+      "webSearchWarning": "Search is expensive; monitor your credits."
     },
     "usage": {
       "fields_one": "Applies to {{count}} field",
@@ -324,7 +322,7 @@
       "loadingTitle": "Default Voice Settings",
       "noVoices": "No voices match these filters.",
       "saveError": "Could not save voice defaults",
-      "searchPlaceholder": "🔍 Search voices…",
+      "searchPlaceholder": "Search voices…",
       "searchVoices": "Search voices",
       "subtitle": "The voice your TTS Smart Fields use unless a field pins its own.",
       "title": "Default Voice Settings"
@@ -429,7 +427,7 @@
       "trialNoteLimit": "You've reached your trial note limit",
       "upgradeCollection": "Upgrade — your whole collection, automatically",
       "upgradeCredits": "Upgrade for more credits",
-      "upgradePaid": "✨ Upgrade to paid"
+      "upgradePaid": "Upgrade to paid"
     },
     "inDays_one": "Today",
     "inDays_other": "In {{count}} days",
@@ -503,7 +501,7 @@
     "finishDescription": "Complete sign-in in the browser we opened. This window will update automatically.",
     "finishInBrowser": "Finish up in your browser",
     "haveCode": "Have a code from the website?",
-    "startTrial": "✨ Start Free Trial ✨",
+    "startTrial": "Start Free Trial",
     "trialDetails": "Free for 7 days · every feature · no credit card"
   },
   "trialEnded": {
@@ -524,7 +522,7 @@
       "leaveReview": "Leave a review",
       "title": "Get a free month of Smart Notes"
     },
-    "thanks": "Thanks for using Smart Notes ✨",
+    "thanks": "Thanks for using Smart Notes",
     "title": "Your free trial has ended",
     "upgradeNow": "Upgrade now"
   },

@@ -46,7 +46,6 @@
     "signInLower": "Connectatz-vos",
     "unlimited": "Illimitat",
     "upgrade": "Actualizacion",
-    "upgradeSparkles": "✨ Actualizacion ✨",
     "multiplierCost": "{{multiplier}}× còst",
     "next": "Venent",
     "noteType": "Tipe de nòta",
@@ -113,7 +112,6 @@
     "title": "Paramètres"
   },
   "fieldEditor": {
-    "alreadySmartField": "Ya un Smart Field ✨ .",
     "collisionHint": "a ja un Smart Field — causissètz un tipe de camp, de jòc o de nòta diferent",
     "completion": {
       "descriptionAfter": "las nòtas s'emplenan cada còp que la generatz.",
@@ -189,9 +187,9 @@
     "targetAriaLabel": "Smart Field cibla",
     "testSmartField": "Prueba tu Smart Field",
     "titles": {
-      "create": "Nova Smart Field ✨",
       "duplicate": "Duplicat Smart Field",
-      "edit": "Modificar Smart Field"
+      "edit": "Modificar Smart Field",
+      "create": "Nòu Smart Field"
     },
     "validation": {
       "chooseField": "Causissètz un camp",
@@ -204,7 +202,8 @@
     "writePromptForMe": "Escrivètz mon invitacion per ieu",
     "writePromptForMeHint": "Digatz çò que volètz en anglés simple — escriurem l'invitacion çai-jos.",
     "writePromptPlaceholder": "\"Traduire a l'anglés natural...\"",
-    "writing": "Escritura…"
+    "writing": "Escritura…",
+    "alreadySmartField": "Ja un Smart Field"
   },
   "smartFields": {
     "actionsAriaLabel": "Accions per {{field}}",
@@ -247,8 +246,7 @@
       "subtitle": "Daissa una revista sus AnkiWeb per ajudar d'autres utilizaires d'Anki a la trobar.",
       "title": "Disfrutas de Smart Notes?"
     },
-    "subtitle": "Apondètz de tèxte, de votz e d'imatges generats automaticament a vòstras nòtas.",
-    "title": "✨ Smart Fields"
+    "subtitle": "Apondètz de tèxte, de votz e d'imatges generats automaticament a vòstras nòtas."
   },
   "defaults": {
     "errors": {
@@ -274,9 +272,9 @@
       "zImageTurbo": "lo mai rapid e lo mai economic."
     },
     "layout": {
+      "save": "Enregistrar",
       "saving": "En estalviant…",
-      "tryIt": "Ensajatz-lo",
-      "save": "Enregistrar"
+      "tryIt": "Ensajatz-lo"
     },
     "text": {
       "cannotInheritModel": "Los paramètres de tèxte pòdon pas eiretar un autre modèl",
@@ -287,7 +285,6 @@
       "loadingLabel": "En cargament dels paramètres de tèxte per defaut",
       "loadingTitle": "Paramètres de generacion de tèxte",
       "modelGuidance": "{{auto}} e {{autoMax}} son los modèls recomandats per Smart Notes qu'equilibran lo rendiment e lo còst. Causissètz {{auto}} per las tòcas estandard e metètz a jorn a {{autoMax}} se necessari.",
-      "pickingModel": "💡 Causir un modèl",
       "reasoningLevel": "Nivèl de rasonament",
       "reasoningValues": {
         "high": "Naut",
@@ -300,7 +297,8 @@
       "title": "Paramètres de generacion de tèxte",
       "webSearch": "Recèrca web",
       "webSearchDescription": "Daissar las generacions de tèxte tirar d'informacions novèlas del web.",
-      "webSearchWarning": "⚠️ La recèrca es cara; susvelhar vòstres crèdits."
+      "pickingModel": "Causir un modèl",
+      "webSearchWarning": "La recèrca es cara; seguissètz vòstres crèdits."
     },
     "usage": {
       "fields_other": "S'aplica als camps {{count}}"
@@ -322,10 +320,10 @@
       "loadingTitle": "Paramètres de votz per defaut",
       "noVoices": "Cap de votz correspond pas a aquestes filtres.",
       "saveError": "Impossible d'enregistrar las valors per defaut de la votz",
-      "searchPlaceholder": "🔍 Votz de recèrca...",
       "searchVoices": "Votz de recèrca",
       "subtitle": "La votz que vòstre TTS Smart Fields utiliza levat qu'un camp fixe lo sieu.",
-      "title": "Paramètres de votz per defaut"
+      "title": "Paramètres de votz per defaut",
+      "searchPlaceholder": "Cercar de vòces…"
     }
   },
   "imageGeneration": {
@@ -421,7 +419,7 @@
       "trialNoteLimit": "Avètz atench vòstre limit de nòta d'espròva",
       "upgradeCollection": "Metètz a jorn — vòstra colleccion entièra, automaticament",
       "upgradeCredits": "Mesa a jorn per mai de crèdits",
-      "upgradePaid": "✨ Mesa a jorn a pagat"
+      "upgradePaid": "Passar a la version pagada"
     },
     "inDays_other": "En {{count}} dias",
     "loading": "En cargament de l'abonament",
@@ -493,8 +491,8 @@
     "finishDescription": "Connexion completa dins lo navigador qu'avèm dobèrt. Aquesta fenèstra se metrà a jorn automaticament.",
     "finishInBrowser": "Acabatz dins vòstre navigador",
     "haveCode": "Avètz un còde del sit web?",
-    "startTrial": "✨ Començatz l'espròva gratuita ✨",
-    "trialDetails": "Gratuit pendent 7 jorns · totas las foncionalitats · pas de carta de crèdit"
+    "trialDetails": "Gratuit pendent 7 jorns · totas las foncionalitats · pas de carta de crèdit",
+    "startTrial": "Començar l'ensag gratuit"
   },
   "trialEnded": {
     "description": "Las pròvas duran 7 jorns o fins que vòstres crèdits d'espròva s'agoten.",
@@ -514,8 +512,8 @@
       "leaveReview": "Daissar una revista",
       "title": "Obtenga un mes gratis de Smart Notes"
     },
-    "thanks": "Mercés d'utilizar Smart Notes ✨",
     "title": "Vòstra espròva gratuita s'es acabada",
-    "upgradeNow": "Metètz a jorn ara"
+    "upgradeNow": "Metètz a jorn ara",
+    "thanks": "Mercés d'utilizar Smart Notes"
   }
 }

@@ -48,7 +48,6 @@
     "signInLower": "Registrazione",
     "unlimited": "Illimitato",
     "upgrade": "Aggiorna",
-    "upgradeSparkles": "✨ Aggiorna ✨",
     "multiplierCost": "{{multiplier}}× costo",
     "next": "Prossimo",
     "noteType": "Tipo di nota",
@@ -115,7 +114,6 @@
     "title": "Impostazioni"
   },
   "fieldEditor": {
-    "alreadySmartField": "Già un Smart Field ✨",
     "collisionHint": "ha già un Smart Field: scegli un campo, un mazzo o un tipo di nota diverso",
     "completion": {
       "descriptionAfter": "notes si riempie ogni volta che lo generi.",
@@ -191,9 +189,9 @@
     "targetAriaLabel": "Obiettivo Smart Field",
     "testSmartField": "Metti alla prova il tuo Smart Field",
     "titles": {
-      "create": "Nuovo Smart Field ✨",
       "duplicate": "Duplicato Smart Field",
-      "edit": "Modifica Smart Field"
+      "edit": "Modifica Smart Field",
+      "create": "Nuovo campo Smart"
     },
     "validation": {
       "chooseField": "Scegli un campo",
@@ -206,7 +204,8 @@
     "writePromptForMe": "Scrivi il mio suggerimento per me",
     "writePromptForMeHint": "Dì quello che vuoi in un inglese semplice: scriveremo il messaggio di seguito.",
     "writePromptPlaceholder": "\"Traduci in inglese naturale…\"",
-    "writing": "Scrivere…"
+    "writing": "Scrivere…",
+    "alreadySmartField": "Già un campo Smart"
   },
   "smartFields": {
     "actionsAriaLabel": "Azioni per {{field}}",
@@ -249,8 +248,7 @@
       "subtitle": "Lascia una recensione su AnkiWeb per aiutare altri utenti di Anki a trovarlo.",
       "title": "Ti piace Smart Notes?"
     },
-    "subtitle": "Aggiungi testo, voce e immagini generati automaticamente alle tue note.",
-    "title": "✨Smart Fields"
+    "subtitle": "Aggiungi testo, voce e immagini generati automaticamente alle tue note."
   },
   "defaults": {
     "errors": {
@@ -276,9 +274,9 @@
       "zImageTurbo": "più veloce ed economico."
     },
     "layout": {
+      "save": "Salva",
       "saving": "Risparmio…",
-      "tryIt": "Provalo",
-      "save": "Salva"
+      "tryIt": "Provalo"
     },
     "text": {
       "cannotInheritModel": "Le impostazioni predefinite del testo non possono ereditare un altro modello",
@@ -289,7 +287,6 @@
       "loadingLabel": "Caricamento delle impostazioni di testo predefinite",
       "loadingTitle": "Impostazioni di generazione del testo",
       "modelGuidance": "{{auto}} e {{autoMax}} sono i modelli consigliati Smart Notes che bilanciano prestazioni e costi. Scegli {{auto}} per attività standard e passa a {{autoMax}} se necessario.",
-      "pickingModel": "💡 Scegliere un modello",
       "reasoningLevel": "Livello di ragionamento",
       "reasoningValues": {
         "high": "Alto",
@@ -302,7 +299,8 @@
       "title": "Impostazioni di generazione del testo",
       "webSearch": "Ricerca sul Web",
       "webSearchDescription": "Consenti alle generazioni di testo di acquisire nuove informazioni dal Web.",
-      "webSearchWarning": "⚠️ La ricerca è costosa; monitorare i tuoi crediti"
+      "pickingModel": "Scelta del modello",
+      "webSearchWarning": "La ricerca è costosa; tieni d'occhio i tuoi crediti."
     },
     "usage": {
       "fields_one": "Si applica al campo {{count}}",
@@ -326,10 +324,10 @@
       "loadingTitle": "Impostazioni vocali predefinite",
       "noVoices": "Nessuna voce corrisponde a questi filtri.",
       "saveError": "Impossibile salvare le impostazioni vocali predefinite",
-      "searchPlaceholder": "🔍 Cerca voci...",
       "searchVoices": "Cerca voci",
       "subtitle": "La voce utilizzata dal tuo TTS Smart Fields a meno che un campo non venga bloccato da solo.",
-      "title": "Impostazioni vocali predefinite"
+      "title": "Impostazioni vocali predefinite",
+      "searchPlaceholder": "Cerca voci…"
     }
   },
   "imageGeneration": {
@@ -437,7 +435,7 @@
       "trialNoteLimit": "Hai raggiunto il limite delle note di prova",
       "upgradeCollection": "Aggiorna: tutta la tua raccolta, automaticamente",
       "upgradeCredits": "Esegui l'upgrade per ottenere più crediti",
-      "upgradePaid": "✨ Upgrade a pagamento"
+      "upgradePaid": "Passa a un piano a pagamento"
     },
     "inDays_one": "Oggi",
     "inDays_many": "Tra {{count}} giorni",
@@ -513,8 +511,8 @@
     "finishDescription": "Completa l'accesso nel browser che abbiamo aperto. Questa finestra si aggiornerà automaticamente.",
     "finishInBrowser": "Termina nel tuo browser",
     "haveCode": "Hai un codice dal sito web?",
-    "startTrial": "✨ Inizia la prova gratuita ✨",
-    "trialDetails": "Gratis per 7 giorni · tutte le funzionalità · nessuna carta di credito"
+    "trialDetails": "Gratis per 7 giorni · tutte le funzionalità · nessuna carta di credito",
+    "startTrial": "Inizia la prova gratuita"
   },
   "trialEnded": {
     "description": "Le prove durano 7 giorni o fino all'esaurimento dei crediti di prova.",
@@ -534,8 +532,8 @@
       "leaveReview": "Lascia una recensione",
       "title": "Ottieni un mese gratuito di Smart Notes"
     },
-    "thanks": "Grazie per aver utilizzato Smart Notes ✨",
     "title": "La tua prova gratuita è terminata",
-    "upgradeNow": "Aggiorna ora"
+    "upgradeNow": "Aggiorna ora",
+    "thanks": "Grazie per aver usato Smart Notes"
   }
 }

@@ -47,7 +47,6 @@
     "signInLower": "Logi sisse",
     "unlimited": "Piiramatu",
     "upgrade": "Uuenda",
-    "upgradeSparkles": "✨ Uuenda ✨",
     "multiplierCost": "{{multiplier}}× maksumus",
     "next": "Edasi",
     "noteType": "Märkuse tüüp",
@@ -114,7 +113,6 @@
     "title": "Seaded"
   },
   "fieldEditor": {
-    "alreadySmartField": "Juba Smart Field ✨",
     "collisionHint": "on juba Smart Field – valige mõni muu välja, teki või nooditüüp",
     "completion": {
       "descriptionAfter": "märkmed täidetakse alati, kui selle loote.",
@@ -190,9 +188,9 @@
     "targetAriaLabel": "Smart Field sihtmärk",
     "testSmartField": "Testige oma Smart Field",
     "titles": {
-      "create": "Uus Smart Field ✨",
       "duplicate": "Smart Field duplikaat",
-      "edit": "Redigeeri Smart Field"
+      "edit": "Redigeeri Smart Field",
+      "create": "Uus Smart Field"
     },
     "validation": {
       "chooseField": "Valige väli",
@@ -205,7 +203,8 @@
     "writePromptForMe": "Kirjutage mulle minu viip",
     "writePromptForMeHint": "Öelge, mida soovite, lihtsas inglise keeles – me kirjutame allpool oleva viipa.",
     "writePromptPlaceholder": "\"Tõlgi loomulikku inglise keelde...\"",
-    "writing": "Kirjutamine…"
+    "writing": "Kirjutamine…",
+    "alreadySmartField": "Juba Smart Field"
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}} toimingud",
@@ -248,8 +247,7 @@
       "subtitle": "Jätke AnkiWeb kohta ülevaade, et aidata teistel Anki kasutajatel see leida.",
       "title": "Kas teile meeldib Smart Notes?"
     },
-    "subtitle": "Lisage oma märkmetele automaatselt loodud tekst, hääl ja pildid.",
-    "title": "✨ Smart Fields"
+    "subtitle": "Lisage oma märkmetele automaatselt loodud tekst, hääl ja pildid."
   },
   "defaults": {
     "errors": {
@@ -275,9 +273,9 @@
       "zImageTurbo": "kiireim ja odavaim."
     },
     "layout": {
+      "save": "Salvesta",
       "saving": "Salvestamine…",
-      "tryIt": "Proovi seda",
-      "save": "Salvesta"
+      "tryIt": "Proovi seda"
     },
     "text": {
       "cannotInheritModel": "Teksti vaikeseaded ei saa pärida teist mudelit",
@@ -288,7 +286,6 @@
       "loadingLabel": "Teksti vaikeseadete laadimine",
       "loadingTitle": "Teksti genereerimise sätted",
       "modelGuidance": "{{auto}} ja {{autoMax}} on Smart Notes soovitatavad mudelid, mis tasakaalustavad jõudlust ja kulusid. Valige standardülesannete jaoks {{auto}} ja vajadusel uuendage versioonile {{autoMax}}.",
-      "pickingModel": "💡 Modelli valimine",
       "reasoningLevel": "Arutlusvõime tase",
       "reasoningValues": {
         "high": "Kõrge",
@@ -301,7 +298,8 @@
       "title": "Teksti genereerimise sätted",
       "webSearch": "Veebiotsing",
       "webSearchDescription": "Laske tekstipõlvkondadel veebist värsket teavet hankida.",
-      "webSearchWarning": "⚠️ Otsing on kallis; jälgige oma krediiti."
+      "pickingModel": "Mudeli valimine",
+      "webSearchWarning": "Otsing on kallis; jälgi oma krediite."
     },
     "usage": {
       "fields_one": "Kehtib väljale {{count}}",
@@ -324,10 +322,10 @@
       "loadingTitle": "Vaikimisi hääleseaded",
       "noVoices": "Nendele filtritele ei vasta ükski hääl.",
       "saveError": "Hääle vaikeseadeid ei saanud salvestada",
-      "searchPlaceholder": "🔍 Otsi hääli…",
       "searchVoices": "Otsige hääli",
       "subtitle": "Hääl, mida teie TTS Smart Fields kasutab, välja arvatud juhul, kui väli kinnitab oma.",
-      "title": "Vaikimisi hääleseaded"
+      "title": "Vaikimisi hääleseaded",
+      "searchPlaceholder": "Otsi hääli…"
     }
   },
   "imageGeneration": {
@@ -429,7 +427,7 @@
       "trialNoteLimit": "Olete jõudnud prooviperioodi märkmete limiidini",
       "upgradeCollection": "Uuendage – kogu teie kollektsioon automaatselt",
       "upgradeCredits": "Täiendage rohkem krediiti",
-      "upgradePaid": "✨ Minge üle tasulisele versioonile"
+      "upgradePaid": "Uuenda tasuliseks"
     },
     "inDays_one": "Täna",
     "inDays_other": "{{count}} päevade jooksul",
@@ -503,8 +501,8 @@
     "finishDescription": "Lõpetage sisselogimine meie avatud brauseris. Seda akent värskendatakse automaatselt.",
     "finishInBrowser": "Lõpetage oma brauseris",
     "haveCode": "Kas teil on veebisaidilt kood?",
-    "startTrial": "✨ Alusta tasuta prooviperioodi ✨",
-    "trialDetails": "7 päeva tasuta · kõik funktsioonid · krediitkaarti pole"
+    "trialDetails": "7 päeva tasuta · kõik funktsioonid · krediitkaarti pole",
+    "startTrial": "Alusta tasuta prooviperioodi"
   },
   "trialEnded": {
     "description": "Prooviperioodid kestavad 7 päeva või kuni teie prooviperioodi krediidid otsa saavad.",
@@ -524,8 +522,8 @@
       "leaveReview": "Jäta arvustus",
       "title": "Hankige tasuta kuu aega Smart Notes"
     },
-    "thanks": "Täname, et kasutasite Smart Notes ✨",
     "title": "Teie tasuta prooviperiood on lõppenud",
-    "upgradeNow": "Uuendage kohe"
+    "upgradeNow": "Uuendage kohe",
+    "thanks": "Aitäh, et kasutasid Smart Notes'it"
   }
 }

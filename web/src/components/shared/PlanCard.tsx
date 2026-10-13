@@ -1,4 +1,5 @@
 import { ProgressBar } from "@/components/ui/ProgressBar"
+import { SparklesIcon } from "@/components/shared/Icons"
 import { openSiteLink, SITE_LINKS } from "@/lib/siteLinks"
 import type { AccountState } from "@/types/api"
 import { useTranslation } from "react-i18next"
@@ -218,7 +219,9 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
               })}
       </span>
       <span className={PLAN_ACTION_BUTTON_CLASS}>
-        {t("common.upgradeSparkles")}
+        <SparklesIcon className="me-1.5 inline-block align-[-2px]" size={13} />
+        {t("common.upgrade")}
+        <SparklesIcon className="ms-1.5 inline-block align-[-2px]" size={13} />
       </span>
     </button>
   )
@@ -270,7 +273,19 @@ const OutOfCreditsCard = ({
         </p>
       )}
       <button className={PLAN_ACTION_BUTTON_CLASS} onClick={onOpenSubscription}>
-        {actionLabel ?? t("common.upgradeSparkles")}
+        {actionLabel ?? (
+          <>
+            <SparklesIcon
+              className="me-1.5 inline-block align-[-2px]"
+              size={13}
+            />
+            {t("common.upgrade")}
+            <SparklesIcon
+              className="ms-1.5 inline-block align-[-2px]"
+              size={13}
+            />
+          </>
+        )}
       </button>
     </section>
   )

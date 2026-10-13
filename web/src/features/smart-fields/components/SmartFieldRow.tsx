@@ -53,9 +53,12 @@ export const SmartFieldRow = ({
     }
   }
 
+  // The edge columns hold the row's side padding: the icon sits as far from the card
+  // edge as from the text (one column gap), and the menu 18px from the right edge.
+  // The prompt sits on a second line under the name.
   return (
     <div
-      className={`relative grid min-h-11 grid-cols-[22px_120px_minmax(80px,1fr)_132px_28px] items-center gap-[9px] py-2.5 ps-[26px] pe-[18px] max-[800px]:grid-cols-[22px_minmax(80px,1fr)_minmax(100px,130px)_28px] ${
+      className={`relative grid min-h-11 grid-cols-[40px_minmax(0,1fr)_minmax(90px,132px)_46px] items-center gap-x-6 gap-y-1 py-3 max-[800px]:grid-cols-[34px_minmax(0,1fr)_minmax(90px,132px)_46px] max-[800px]:gap-x-[18px] ${
         field.enabled ? "" : "opacity-40"
       } ${
         hasDivider
@@ -71,13 +74,13 @@ export const SmartFieldRow = ({
         onClick={() => onEdit(field)}
       />
       <FieldTypeIcon fieldType={field.fieldType} />
-      <span className="pointer-events-none truncate text-[13px] font-medium text-[#e0dfe2]">
+      <span className="pointer-events-none col-start-2 row-start-1 truncate text-[13px] leading-4 font-medium text-[#e0dfe2]">
         {field.targetFieldName}
       </span>
-      <span className="pointer-events-none truncate text-[11px] text-ink-muted max-[800px]:hidden">
+      <span className="pointer-events-none col-start-2 row-start-2 truncate text-[11px] leading-[14px] text-ink-muted">
         {smartFieldDescription(field)}
       </span>
-      <span className="pointer-events-none min-w-0 justify-self-end text-end">
+      <span className="pointer-events-none col-start-3 row-span-2 row-start-1 min-w-0 justify-self-end text-end">
         <span className="block text-[9px] leading-none font-semibold tracking-[0.055em] text-ink-faint uppercase">
           {t("fieldEditor.modelSettings.model")}
         </span>
@@ -98,7 +101,7 @@ export const SmartFieldRow = ({
             aria-label={t("smartFields.actionsAriaLabel", {
               field: field.targetFieldName,
             })}
-            className="relative z-10 inline-flex size-7 items-center justify-center justify-self-end rounded-md text-ink-faint transition hover:bg-white/[0.07] hover:text-zinc-300 data-[state=open]:bg-white/[0.07] data-[state=open]:text-zinc-300"
+            className="relative z-10 col-start-4 row-span-2 row-start-1 inline-flex size-7 items-center justify-center justify-self-start rounded-md text-ink-faint transition hover:bg-white/[0.07] hover:text-zinc-300 data-[state=open]:bg-white/[0.07] data-[state=open]:text-zinc-300"
             disabled={pending}
           >
             <MoreHorizontal aria-hidden className="size-4" />

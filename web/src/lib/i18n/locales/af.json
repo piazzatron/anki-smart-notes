@@ -47,7 +47,6 @@
     "signInLower": "Meld aan",
     "unlimited": "Onbeperk",
     "upgrade": "Gradeer op",
-    "upgradeSparkles": "✨ Gradeer op ✨",
     "multiplierCost": "{{multiplier}}× koste",
     "next": "Volgende",
     "noteType": "Nota Tipe",
@@ -114,7 +113,6 @@
     "title": "Instellings"
   },
   "fieldEditor": {
-    "alreadySmartField": "Reeds 'n Smart Field ✨",
     "collisionHint": "het reeds 'n Smart Field - kies 'n ander veld, dek of noottipe",
     "completion": {
       "descriptionAfter": "notas vul in wanneer jy dit genereer.",
@@ -190,9 +188,9 @@
     "targetAriaLabel": "Smart Field teiken",
     "testSmartField": "Toets jou Smart Field",
     "titles": {
-      "create": "Nuwe Smart Field ✨",
       "duplicate": "Duplikaat Smart Field",
-      "edit": "Wysig Smart Field"
+      "edit": "Wysig Smart Field",
+      "create": "Nuwe Slim-veld"
     },
     "validation": {
       "chooseField": "Kies 'n veld",
@@ -205,7 +203,8 @@
     "writePromptForMe": "Skryf my opdrag vir my",
     "writePromptForMeHint": "Sê wat jy wil in gewone Engels - ons sal die opdrag hieronder skryf.",
     "writePromptPlaceholder": "\"Vertaal na natuurlike Engels...\"",
-    "writing": "Skryf tans …"
+    "writing": "Skryf tans …",
+    "alreadySmartField": "Reeds 'n Slim-veld"
   },
   "smartFields": {
     "actionsAriaLabel": "Aksies vir {{field}}",
@@ -248,8 +247,7 @@
       "subtitle": "Skryf 'n resensie oor AnkiWeb om ander Anki-gebruikers te help om dit te vind.",
       "title": "Geniet jy Smart Notes?"
     },
-    "subtitle": "Voeg outomaties gegenereerde teks, stem en beelde by jou notas.",
-    "title": "✨ Smart Fields"
+    "subtitle": "Voeg outomaties gegenereerde teks, stem en beelde by jou notas."
   },
   "defaults": {
     "errors": {
@@ -275,9 +273,9 @@
       "zImageTurbo": "vinnigste en goedkoopste."
     },
     "layout": {
+      "save": "Stoor",
       "saving": "Stoor tans …",
-      "tryIt": "Probeer dit",
-      "save": "Stoor"
+      "tryIt": "Probeer dit"
     },
     "text": {
       "cannotInheritModel": "Teks verstek kan nie 'n ander model erf nie",
@@ -288,7 +286,6 @@
       "loadingLabel": "Laai verstek teksinstellings",
       "loadingTitle": "Teksgenerasie-instellings",
       "modelGuidance": "{{auto}} en {{autoMax}} is die Smart Notes aanbevole modelle wat prestasie en koste balanseer. Kies {{auto}} vir standaard take en gradeer op na {{autoMax}} indien nodig.",
-      "pickingModel": "💡 Kies 'n model",
       "reasoningLevel": "Redeneringsvlak",
       "reasoningValues": {
         "high": "Hoog",
@@ -301,7 +298,8 @@
       "title": "Teksgenerasie-instellings",
       "webSearch": "Websoektog",
       "webSearchDescription": "Laat teksgenerasies vars inligting van die web af intrek.",
-      "webSearchWarning": "⚠️ Soektog is duur; monitor jou krediete."
+      "pickingModel": "Kies 'n model",
+      "webSearchWarning": "Soek is duur; hou jou krediete dop."
     },
     "usage": {
       "fields_one": "Van toepassing op {{count}}-veld",
@@ -324,10 +322,10 @@
       "loadingTitle": "Versteksteminstellings",
       "noVoices": "Geen stemme pas by hierdie filters nie.",
       "saveError": "Kon nie stem verstekke stoor nie",
-      "searchPlaceholder": "🔍 Soek stemme …",
       "searchVoices": "Soek stemme",
       "subtitle": "Die stem wat jou TTS Smart Fields gebruik, tensy 'n veld sy eie vaspen.",
-      "title": "Versteksteminstellings"
+      "title": "Versteksteminstellings",
+      "searchPlaceholder": "Soek stemme…"
     }
   },
   "imageGeneration": {
@@ -429,7 +427,7 @@
       "trialNoteLimit": "Jy het jou proefnootlimiet bereik",
       "upgradeCollection": "Gradeer op - jou hele versameling, outomaties",
       "upgradeCredits": "Gradeer op vir meer krediete",
-      "upgradePaid": "✨ Gradeer op na betaald"
+      "upgradePaid": "Opgradeer na betaal"
     },
     "inDays_one": "Vandag",
     "inDays_other": "In {{count}} dae",
@@ -503,8 +501,8 @@
     "finishDescription": "Voltooi aanmelding in die blaaier wat ons oopgemaak het. Hierdie venster sal outomaties opgedateer word.",
     "finishInBrowser": "Voltooi in jou blaaier",
     "haveCode": "Het jy 'n kode van die webwerf af?",
-    "startTrial": "✨ Begin gratis proeflopie ✨",
-    "trialDetails": "Gratis vir 7 dae · elke kenmerk · geen kredietkaart nie"
+    "trialDetails": "Gratis vir 7 dae · elke kenmerk · geen kredietkaart nie",
+    "startTrial": "Begin gratis proeftydperk"
   },
   "trialEnded": {
     "description": "Proewe duur 7 dae of totdat jou proefkrediete opraak.",
@@ -524,8 +522,8 @@
       "leaveReview": "Laat 'n resensie",
       "title": "Kry 'n gratis maand van Smart Notes"
     },
-    "thanks": "Dankie dat jy Smart Notes gebruik ✨",
     "title": "Jou gratis proeftydperk het geëindig",
-    "upgradeNow": "Gradeer nou op"
+    "upgradeNow": "Gradeer nou op",
+    "thanks": "Dankie dat jy Smart Notes gebruik"
   }
 }

@@ -47,7 +47,6 @@
     "signInLower": "Hasi saioa",
     "unlimited": "Mugagabea",
     "upgrade": "Berritu",
-    "upgradeSparkles": "✨ Berritu ✨",
     "multiplierCost": "{{multiplier}}× kostua",
     "next": "Hurrengoa",
     "noteType": "Ohar mota",
@@ -114,7 +113,6 @@
     "title": "Ezarpenak"
   },
   "fieldEditor": {
-    "alreadySmartField": "Dagoeneko Smart Field bat ✨",
     "collisionHint": "dagoeneko Smart Field bat dauka — aukeratu beste eremu, multzo edo ohar mota bat",
     "completion": {
       "descriptionAfter": "oharrak sortzen dituzun bakoitzean betetzen dira.",
@@ -190,9 +188,9 @@
     "targetAriaLabel": "Smart Field helburua",
     "testSmartField": "Probatu zure Smart Field",
     "titles": {
-      "create": "Smart Field berria ✨",
       "duplicate": "Smart Field bikoiztu",
-      "edit": "Editatu Smart Field"
+      "edit": "Editatu Smart Field",
+      "create": "Smart Field eremu berria"
     },
     "validation": {
       "chooseField": "Aukeratu eremu bat",
@@ -205,7 +203,8 @@
     "writePromptForMe": "Idatzi nire gonbita",
     "writePromptForMeHint": "Esan nahi duzuna ingelesez; behean idatziko dugu gonbita.",
     "writePromptPlaceholder": "\"Itzuli ingeles naturalera...\"",
-    "writing": "Idazten…"
+    "writing": "Idazten…",
+    "alreadySmartField": "Smart Field eremua dagoeneko existitzen da"
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}}ren ekintzak",
@@ -248,8 +247,7 @@
       "subtitle": "Utzi berrikuspena AnkiWeb-ri beste Anki erabiltzaileei aurkitzen laguntzeko.",
       "title": "Smart Notes gozatzen?"
     },
-    "subtitle": "Gehitu automatikoki sortutako testua, ahotsa eta irudiak zure oharretan.",
-    "title": "✨ Smart Fields"
+    "subtitle": "Gehitu automatikoki sortutako testua, ahotsa eta irudiak zure oharretan."
   },
   "defaults": {
     "errors": {
@@ -275,9 +273,9 @@
       "zImageTurbo": "azkarrena eta merkeena."
     },
     "layout": {
+      "save": "Gorde",
       "saving": "Gordetzen…",
-      "tryIt": "Probatu",
-      "save": "Gorde"
+      "tryIt": "Probatu"
     },
     "text": {
       "cannotInheritModel": "Testu lehenetsiek ezin dute beste eredu bat heredatu",
@@ -288,7 +286,6 @@
       "loadingLabel": "Testu ezarpen lehenetsiak kargatzen",
       "loadingTitle": "Testua sortzeko ezarpenak",
       "modelGuidance": "{{auto}} eta {{autoMax}} errendimendua eta kostua orekatzen dituzten Smart Notes gomendatutako modeloak dira. Aukeratu {{auto}} zeregin estandarrak egiteko eta eguneratu {{autoMax}}ra behar izanez gero.",
-      "pickingModel": "💡 Modelo bat hautatzea",
       "reasoningLevel": "Arrazoiketa maila",
       "reasoningValues": {
         "high": "Alta",
@@ -301,7 +298,8 @@
       "title": "Testua sortzeko ezarpenak",
       "webSearch": "Web Bilaketa",
       "webSearchDescription": "Utzi testu-belaunaldiei sareko informazio berria eskuratzen.",
-      "webSearchWarning": "⚠️ Bilaketa garestia da; zure kredituak kontrolatu."
+      "pickingModel": "Modeloa aukeratzen",
+      "webSearchWarning": "Bilaketak garestia da; gainbegiratu zure kredituak."
     },
     "usage": {
       "fields_one": "{{count}} eremuari dagokio",
@@ -324,10 +322,10 @@
       "loadingTitle": "Ahotsaren ezarpen lehenetsiak",
       "noVoices": "Ez dago ahotsik iragazki hauekin.",
       "saveError": "Ezin izan dira gorde ahots lehenetsiak",
-      "searchPlaceholder": "🔍 Bilatu ahotsak…",
       "searchVoices": "Bilatu ahotsak",
       "subtitle": "Zure TTS Smart Fields-k erabiltzen duen ahotsa eremu batek berea jartzen ez badu behintzat.",
-      "title": "Ahotsaren ezarpen lehenetsiak"
+      "title": "Ahotsaren ezarpen lehenetsiak",
+      "searchPlaceholder": "Bilatu ahotsak…"
     }
   },
   "imageGeneration": {
@@ -429,7 +427,7 @@
       "trialNoteLimit": "Proba-oharraren mugara iritsi zara",
       "upgradeCollection": "Berritu — zure bilduma osoa, automatikoki",
       "upgradeCredits": "Berritu kreditu gehiago lortzeko",
-      "upgradePaid": "✨ Berritu ordainpekora"
+      "upgradePaid": "Eguneratu ordaindutako planera"
     },
     "inDays_one": "Gaur",
     "inDays_other": "{{count}} egunetan",
@@ -503,8 +501,8 @@
     "finishDescription": "Osatu saioa ireki dugun arakatzailean. Leiho hau automatikoki eguneratuko da.",
     "finishInBrowser": "Amaitu zure nabigatzailean",
     "haveCode": "Webguneko koderik al duzu?",
-    "startTrial": "✨ Hasi doako proba ✨",
-    "trialDetails": "Doan 7 egunez · Ezaugarri guztiak · Kreditu-txartelik gabe"
+    "trialDetails": "Doan 7 egunez · Ezaugarri guztiak · Kreditu-txartelik gabe",
+    "startTrial": "Hasi Doako Proba"
   },
   "trialEnded": {
     "description": "Probaldiak 7 egun iraungo ditu edo probako kredituak agortu arte.",
@@ -524,8 +522,8 @@
       "leaveReview": "Utzi iritzia",
       "title": "Lortu doan hilabete bat Smart Notes"
     },
-    "thanks": "Eskerrik asko Smart Notes ✨ erabiltzeagatik",
     "title": "Zure doako proba amaitu da",
-    "upgradeNow": "Berritu orain"
+    "upgradeNow": "Berritu orain",
+    "thanks": "Eskerrik asko Smart Notes erabiltzeagatik"
   }
 }

@@ -49,7 +49,6 @@
     "signInLower": "Přihlaste se",
     "unlimited": "Neomezený",
     "upgrade": "Upgrade",
-    "upgradeSparkles": "✨ Upgrade ✨",
     "multiplierCost": "Cena {{multiplier}}×",
     "next": "Další",
     "noteType": "Typ poznámky",
@@ -116,7 +115,6 @@
     "title": "Nastavení"
   },
   "fieldEditor": {
-    "alreadySmartField": "Již Smart Field ✨",
     "collisionHint": "již má Smart Field — vyberte jiné pole, balíček nebo typ noty",
     "completion": {
       "descriptionAfter": "poznámky se vyplní vždy, když je vytvoříte.",
@@ -192,9 +190,9 @@
     "targetAriaLabel": "Cíl Smart Field",
     "testSmartField": "Otestujte svůj Smart Field",
     "titles": {
-      "create": "Nový Smart Field ✨",
       "duplicate": "Duplikát Smart Field",
-      "edit": "Upravit Smart Field"
+      "edit": "Upravit Smart Field",
+      "create": "Nové Chytré pole"
     },
     "validation": {
       "chooseField": "Vyberte pole",
@@ -207,7 +205,8 @@
     "writePromptForMe": "Napište za mě mou výzvu",
     "writePromptForMeHint": "Řekněte, co chcete, v jednoduché angličtině – níže napíšeme výzvu.",
     "writePromptPlaceholder": "„Přeložit do přirozené angličtiny…“",
-    "writing": "Psaní…"
+    "writing": "Psaní…",
+    "alreadySmartField": "Již je Chytré pole"
   },
   "smartFields": {
     "actionsAriaLabel": "Akce pro {{field}}",
@@ -250,8 +249,7 @@
       "subtitle": "Napište recenzi na AnkiWeb a pomozte tak ostatním uživatelům Anki jej najít.",
       "title": "Líbí se vám Smart Notes?"
     },
-    "subtitle": "Přidejte do poznámek automaticky generovaný text, hlas a obrázky.",
-    "title": "✨ Smart Fields"
+    "subtitle": "Přidejte do poznámek automaticky generovaný text, hlas a obrázky."
   },
   "defaults": {
     "errors": {
@@ -277,9 +275,9 @@
       "zImageTurbo": "nejrychlejší a nejlevnější."
     },
     "layout": {
+      "save": "Uložit",
       "saving": "Ukládání…",
-      "tryIt": "Zkuste to",
-      "save": "Uložit"
+      "tryIt": "Zkuste to"
     },
     "text": {
       "cannotInheritModel": "Výchozí textové hodnoty nemohou zdědit jiný model",
@@ -290,7 +288,6 @@
       "loadingLabel": "Načítání výchozího nastavení textu",
       "loadingTitle": "Nastavení generování textu",
       "modelGuidance": "{{auto}} a {{autoMax}} jsou doporučené modely Smart Notes, které vyvažují výkon a cenu. Pro standardní úlohy zvolte {{auto}} a v případě potřeby upgradujte na {{autoMax}}.",
-      "pickingModel": "💡 Výběr modelu",
       "reasoningLevel": "Úroveň uvažování",
       "reasoningValues": {
         "high": "Vysoký",
@@ -303,7 +300,8 @@
       "title": "Nastavení generování textu",
       "webSearch": "Vyhledávání na webu",
       "webSearchDescription": "Nechte generace textů čerpat čerstvé informace z webu.",
-      "webSearchWarning": "⚠️ Vyhledávání je drahé; sledovat své kredity."
+      "pickingModel": "Výběr modelu",
+      "webSearchWarning": "Vyhledávání je nákladné; sledujte své kredity."
     },
     "usage": {
       "fields_one": "Platí pro {{count}} pole",
@@ -328,10 +326,10 @@
       "loadingTitle": "Výchozí nastavení hlasu",
       "noVoices": "Těmto filtrům neodpovídají žádné hlasy.",
       "saveError": "Výchozí nastavení hlasu nelze uložit",
-      "searchPlaceholder": "🔍 Hledat hlasy…",
       "searchVoices": "Hledejte hlasy",
       "subtitle": "Hlas, který váš TTS Smart Fields používá, pokud pole nepřipíná své vlastní.",
-      "title": "Výchozí nastavení hlasu"
+      "title": "Výchozí nastavení hlasu",
+      "searchPlaceholder": "Hledat hlasy…"
     }
   },
   "imageGeneration": {
@@ -445,7 +443,7 @@
       "trialNoteLimit": "Dosáhli jste limitu zkušebních poznámek",
       "upgradeCollection": "Upgradujte – celou vaši sbírku automaticky",
       "upgradeCredits": "Upgradujte a získejte více kreditů",
-      "upgradePaid": "✨ Upgradujte na placené"
+      "upgradePaid": "Přejít na placenou verzi"
     },
     "inDays_one": "Dnes",
     "inDays_few": "Za {{count}} dny",
@@ -523,8 +521,8 @@
     "finishDescription": "Dokončete přihlášení v prohlížeči, který jsme otevřeli. Toto okno se automaticky aktualizuje.",
     "finishInBrowser": "Dokončete ve svém prohlížeči",
     "haveCode": "Máte kód z webu?",
-    "startTrial": "✨ Začněte bezplatnou zkušební verzi ✨",
-    "trialDetails": "Zdarma na 7 dní · všechny funkce · bez kreditní karty"
+    "trialDetails": "Zdarma na 7 dní · všechny funkce · bez kreditní karty",
+    "startTrial": "Spustit bezplatnou zkušební verzi"
   },
   "trialEnded": {
     "description": "Zkušební verze běží 7 dní nebo do vyčerpání zkušebních kreditů.",
@@ -544,8 +542,8 @@
       "leaveReview": "Zanechat recenzi",
       "title": "Získejte měsíc zdarma Smart Notes"
     },
-    "thanks": "Děkujeme, že používáte Smart Notes ✨",
     "title": "Vaše bezplatná zkušební verze skončila",
-    "upgradeNow": "Upgradujte nyní"
+    "upgradeNow": "Upgradujte nyní",
+    "thanks": "Děkujeme, že používáte Smart Notes"
   }
 }

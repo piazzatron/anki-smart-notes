@@ -48,7 +48,6 @@
     "signInLower": "Se connecter",
     "unlimited": "Illimité",
     "upgrade": "Mise à niveau",
-    "upgradeSparkles": "✨ Mise à niveau ✨",
     "multiplierCost": "{{multiplier}}× coût",
     "next": "Suivant",
     "noteType": "Type de note",
@@ -115,7 +114,6 @@
     "title": "Paramètres"
   },
   "fieldEditor": {
-    "alreadySmartField": "Déjà un Smart Field ✨",
     "collisionHint": "a déjà un Smart Field – choisissez un autre champ, jeu ou type de note",
     "completion": {
       "descriptionAfter": "les notes se remplissent chaque fois que vous les générez.",
@@ -191,9 +189,9 @@
     "targetAriaLabel": "Cible Smart Field",
     "testSmartField": "Testez votre Smart Field",
     "titles": {
-      "create": "Nouveau Smart Field ✨",
       "duplicate": "Dupliquer Smart Field",
-      "edit": "Modifier Smart Field"
+      "edit": "Modifier Smart Field",
+      "create": "Nouveau Smart Field"
     },
     "validation": {
       "chooseField": "Choisissez un champ",
@@ -206,7 +204,8 @@
     "writePromptForMe": "Écrivez mon message pour moi",
     "writePromptForMeHint": "Dites ce que vous voulez dans un anglais simple – nous écrirons l’invite ci-dessous.",
     "writePromptPlaceholder": "\"Traduire vers l'anglais naturel…\"",
-    "writing": "En écrivant…"
+    "writing": "En écrivant…",
+    "alreadySmartField": "Déjà un Smart Field"
   },
   "smartFields": {
     "actionsAriaLabel": "Actions pour {{field}}",
@@ -249,8 +248,7 @@
       "subtitle": "Laissez un avis sur AnkiWeb pour aider les autres utilisateurs de Anki à le trouver.",
       "title": "Vous appréciez Smart Notes ?"
     },
-    "subtitle": "Ajoutez du texte, de la voix et des images générés automatiquement à vos notes.",
-    "title": "✨Smart Fields"
+    "subtitle": "Ajoutez du texte, de la voix et des images générés automatiquement à vos notes."
   },
   "defaults": {
     "errors": {
@@ -276,9 +274,9 @@
       "zImageTurbo": "le plus rapide et le moins cher."
     },
     "layout": {
+      "save": "Enregistrer",
       "saving": "Économie…",
-      "tryIt": "Essayez-le",
-      "save": "Enregistrer"
+      "tryIt": "Essayez-le"
     },
     "text": {
       "cannotInheritModel": "Les valeurs par défaut du texte ne peuvent pas hériter d'un autre modèle",
@@ -289,7 +287,6 @@
       "loadingLabel": "Chargement des paramètres de texte par défaut",
       "loadingTitle": "Paramètres de génération de texte",
       "modelGuidance": "{{auto}} et {{autoMax}} sont les modèles recommandés par Smart Notes qui équilibrent performances et coût. Choisissez {{auto}} pour les tâches standard et effectuez une mise à niveau vers {{autoMax}} si nécessaire.",
-      "pickingModel": "💡 Choisir un modèle",
       "reasoningLevel": "Niveau de raisonnement",
       "reasoningValues": {
         "high": "Haut",
@@ -302,7 +299,8 @@
       "title": "Paramètres de génération de texte",
       "webSearch": "Recherche sur le Web",
       "webSearchDescription": "Laissez les générations de texte extraire de nouvelles informations du Web.",
-      "webSearchWarning": "⚠️ La recherche coûte cher ; surveillez vos crédits."
+      "pickingModel": "Choix d'un modèle",
+      "webSearchWarning": "La recherche est coûteuse ; surveillez vos crédits."
     },
     "usage": {
       "fields_one": "S'applique au champ {{count}}",
@@ -326,10 +324,10 @@
       "loadingTitle": "Paramètres vocaux par défaut",
       "noVoices": "Aucune voix ne correspond à ces filtres.",
       "saveError": "Impossible d'enregistrer les paramètres vocaux par défaut",
-      "searchPlaceholder": "🔍 Rechercher des voix…",
       "searchVoices": "Rechercher des voix",
       "subtitle": "La voix que votre TTS Smart Fields utilise à moins qu'un champ n'épingle le sien.",
-      "title": "Paramètres vocaux par défaut"
+      "title": "Paramètres vocaux par défaut",
+      "searchPlaceholder": "Rechercher des voix…"
     }
   },
   "imageGeneration": {
@@ -437,7 +435,7 @@
       "trialNoteLimit": "Vous avez atteint votre limite de notes d'essai",
       "upgradeCollection": "Mise à niveau : toute votre collection, automatiquement",
       "upgradeCredits": "Surclassement pour plus de crédits",
-      "upgradePaid": "✨ Mise à niveau vers payant"
+      "upgradePaid": "Passer à l'offre payante"
     },
     "inDays_one": "Aujourd'hui",
     "inDays_many": "En jours {{count}}",
@@ -513,8 +511,8 @@
     "finishDescription": "Connectez-vous complètement dans le navigateur que nous avons ouvert. Cette fenêtre sera mise à jour automatiquement.",
     "finishInBrowser": "Terminez dans votre navigateur",
     "haveCode": "Vous avez un code du site ?",
-    "startTrial": "✨ Commencez l'essai gratuit ✨",
-    "trialDetails": "Gratuit pendant 7 jours · toutes les fonctionnalités · pas de carte de crédit"
+    "trialDetails": "Gratuit pendant 7 jours · toutes les fonctionnalités · pas de carte de crédit",
+    "startTrial": "Commencer l'essai gratuit"
   },
   "trialEnded": {
     "description": "Les essais durent 7 jours ou jusqu'à épuisement de vos crédits d'essai.",
@@ -534,8 +532,8 @@
       "leaveReview": "Laisser un avis",
       "title": "Obtenez un mois gratuit de Smart Notes"
     },
-    "thanks": "Merci d'utiliser Smart Notes ✨",
     "title": "Votre essai gratuit est terminé",
-    "upgradeNow": "Mettre à niveau maintenant"
+    "upgradeNow": "Mettre à niveau maintenant",
+    "thanks": "Merci d'utiliser Smart Notes"
   }
 }

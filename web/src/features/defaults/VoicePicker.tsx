@@ -28,6 +28,7 @@ import {
   SelectValue,
 } from "@/components/ui/Select"
 import { Pill } from "@/components/ui/Pill"
+import { SearchIcon } from "@/components/shared/Icons"
 import { providerLabel } from "@/lib/catalog"
 import type { TTSGenerationSettings, VoiceCatalog } from "@/types/api"
 
@@ -126,18 +127,24 @@ export const VoicePicker = ({
   )
   const searchAndList = (
     <>
-      <input
-        aria-label={t("defaults.voice.searchVoices")}
-        className={`${layout === "stacked" ? "mt-2" : ""} h-9 w-full rounded-lg border border-white/[0.09] bg-white/[0.035] px-3 text-xs text-zinc-200 transition outline-none placeholder:text-zinc-600 focus:border-indigo/45`}
-        onChange={(event) =>
-          setFilters((current) => ({
-            ...current,
-            search: event.target.value,
-          }))
-        }
-        placeholder={t("defaults.voice.searchPlaceholder")}
-        value={filters.search}
-      />
+      <div className={`relative ${layout === "stacked" ? "mt-2" : ""}`}>
+        <SearchIcon
+          className="pointer-events-none absolute start-3 top-1/2 -translate-y-1/2 text-zinc-600"
+          size={14}
+        />
+        <input
+          aria-label={t("defaults.voice.searchVoices")}
+          className={`h-9 w-full rounded-lg border border-white/[0.09] bg-white/[0.035] ps-8 pe-3 text-xs text-zinc-200 transition outline-none placeholder:text-zinc-600 focus:border-indigo/45`}
+          onChange={(event) =>
+            setFilters((current) => ({
+              ...current,
+              search: event.target.value,
+            }))
+          }
+          placeholder={t("defaults.voice.searchPlaceholder")}
+          value={filters.search}
+        />
+      </div>
 
       <div className="mt-2 flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-white/[0.08] bg-black/10">
         <div

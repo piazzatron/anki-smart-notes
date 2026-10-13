@@ -1,9 +1,20 @@
 import { DiscordMark } from "./DiscordMark"
 import { FeedbackDialog } from "./FeedbackDialog"
+import {
+  CardIcon,
+  ChatIcon,
+  CogIcon,
+  GalleryIcon,
+  type IconProps,
+  LifebuoyIcon,
+  LightbulbIcon,
+  SparklesIcon,
+  VolumeIcon,
+} from "./Icons"
 import { PlanCard } from "./PlanCard"
 import { resizeSidebar } from "./sidebarWidth"
 import { useDirection } from "@radix-ui/react-direction"
-import { useRef, useState, type PointerEvent } from "react"
+import { type ComponentType, useRef, useState, type PointerEvent } from "react"
 import { useTranslation } from "react-i18next"
 
 import type { ScreenId } from "@/lib/boot"
@@ -25,23 +36,22 @@ interface ResizeDrag {
 interface NavItem {
   id: ScreenId
   labelKey: string
-  emoji: string
+  icon: ComponentType<IconProps>
 }
 
-// Text and Image reuse the app's field-type emoji (💬 / 🎨). Smart Fields uses ✨
-// to echo the "Smart Fields" page title; Voice uses the louder 🔊, which reads
-// better at nav size than the field rows' quieter 🔈.
+// Flat ink icons in the label's own color, instead of emoji, which render
+// differently on every OS.
 const PRIMARY_ITEMS: NavItem[] = [
-  { id: "fields", labelKey: "smartFields", emoji: "✨" },
-  { id: "defaults-text", labelKey: "text", emoji: "💬" },
-  { id: "defaults-voice", labelKey: "voice", emoji: "🔊" },
-  { id: "defaults-images", labelKey: "image", emoji: "🎨" },
-  { id: "settings", labelKey: "settings", emoji: "⚙️" },
+  { id: "fields", labelKey: "smartFields", icon: SparklesIcon },
+  { id: "defaults-text", labelKey: "text", icon: ChatIcon },
+  { id: "defaults-voice", labelKey: "voice", icon: VolumeIcon },
+  { id: "defaults-images", labelKey: "image", icon: GalleryIcon },
+  { id: "settings", labelKey: "settings", icon: CogIcon },
 ]
 
 const SECONDARY_ITEMS: NavItem[] = [
-  { id: "support", labelKey: "support", emoji: "🛟" },
-  { id: "subscription", labelKey: "subscription", emoji: "💳" },
+  { id: "support", labelKey: "support", icon: LifebuoyIcon },
+  { id: "subscription", labelKey: "subscription", icon: CardIcon },
 ]
 
 export const Sidebar = ({
@@ -143,9 +153,7 @@ export const Sidebar = ({
               className="inline-flex items-center justify-center gap-2 rounded-lg bg-white/[0.06] py-2 text-[12px] font-semibold text-zinc-400 transition hover:bg-white/10 hover:text-zinc-200"
               type="button"
             >
-              <span aria-hidden className="text-sm leading-none">
-                💡
-              </span>
+              <LightbulbIcon size={14} />
               {t("sidebar.feedback")}
             </button>
           </FeedbackDialog>
@@ -195,19 +203,22 @@ const NavButton = ({ activeScreen, item, onNavigate }: NavButtonProps) => {
   return (
     <button
       aria-current={isActive ? "page" : undefined}
-      className={`flex w-full items-center gap-[10px] rounded-lg px-[10px] py-[5px] text-start text-[14px] font-medium transition-[background-color,color,opacity] duration-150 ease-out ${
+      className={`group flex w-full items-center gap-[10px] rounded-lg px-[10px] py-[5px] text-start text-[14px] font-medium transition-[background-color,color,opacity] duration-150 ease-out ${
         isActive
-          ? "bg-[#7882ff]/[0.14] text-indigo-soft opacity-100"
-          : "text-zinc-300 hover:bg-white/[0.055] hover:text-zinc-100"
+          ? "bg-panel-raised text-white opacity-100"
+          : "text-zinc-400 hover:bg-white/[0.055] hover:text-zinc-200"
       }`}
       onClick={() => onNavigate(item.id)}
     >
-      <span
-        aria-hidden
-        className="flex size-[18px] shrink-0 -translate-y-[0.5px] items-center justify-center text-[17px] leading-none"
-      >
-        {item.emoji}
-      </span>
+      {/* The selected icon is flagship green; the rest sit a step darker than their label. */}
+      <item.icon
+        className={
+          isActive
+            ? "text-[#2ef59c]"
+            : "text-zinc-500 transition-colors duration-150 group-hover:text-zinc-300"
+        }
+        size={18}
+      />
       <span className="truncate">{t(`sidebar.nav.${item.labelKey}`)}</span>
     </button>
   )

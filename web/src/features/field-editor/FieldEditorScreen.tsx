@@ -18,13 +18,20 @@
  */
 
 import { ChevronLeft, ChevronRight, LoaderCircle, X } from "lucide-react"
-import type { ReactNode } from "react"
+import type { ComponentType, ReactNode } from "react"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import { Button } from "@/components/ui/Button"
 import { Dialog, DialogTakeover, DialogTitle } from "@/components/ui/Dialog"
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
+import {
+  ChatIcon,
+  GalleryIcon,
+  type IconProps,
+  SparklesIcon,
+  VolumeIcon,
+} from "@/components/shared/Icons"
 import { useVoiceCatalog } from "@/features/defaults/useVoiceCatalog"
 import { useAppStore } from "@/store/appStore"
 import type { AppState, SmartField } from "@/types/api"
@@ -149,6 +156,12 @@ export const FieldEditorScreen = ({
               <DialogTitle asChild>
                 <h1 className="shrink-0 text-[12.5px] leading-5 font-medium text-ink-muted">
                   {t(TITLES[mode])}
+                  {mode === "create" && (
+                    <SparklesIcon
+                      className="ms-1.5 inline-block align-[-2px]"
+                      size={13}
+                    />
+                  )}
                 </h1>
               </DialogTitle>
               {controls.form.step === 2 && (
@@ -277,10 +290,13 @@ export const FieldEditorScreen = ({
   )
 }
 
-const TYPE_EMOJI: Record<FieldEditorDraft["target"]["fieldType"], string> = {
-  chat: "💬",
-  image: "🖼️",
-  tts: "🔈",
+const TYPE_ICONS: Record<
+  FieldEditorDraft["target"]["fieldType"],
+  ComponentType<IconProps>
+> = {
+  chat: ChatIcon,
+  image: GalleryIcon,
+  tts: VolumeIcon,
 }
 
 // The step-2 header identity, read as a path: the notes this binds to, then the field
@@ -293,6 +309,7 @@ const TargetBreadcrumb = ({
   state: AppState
 }) => {
   const { t } = useTranslation()
+  const TypeIcon = TYPE_ICONS[form.target.fieldType]
   const noteType = state.noteTypes.find(
     (item) => item.id === form.target.noteTypeId,
   )
@@ -322,9 +339,7 @@ const TargetBreadcrumb = ({
         aria-hidden
         className="size-3 shrink-0 text-zinc-600 rtl:rotate-180"
       />
-      <span aria-hidden className="shrink-0 text-[11px] leading-none">
-        {TYPE_EMOJI[form.target.fieldType]}
-      </span>
+      <TypeIcon className="text-ink-muted" size={13} />
       <span className="truncate font-mono text-[11.5px] font-medium text-zinc-300">
         {form.target.targetFieldName}
       </span>

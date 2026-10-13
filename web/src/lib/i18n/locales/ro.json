@@ -48,7 +48,6 @@
     "signInLower": "Conectare",
     "unlimited": "Nelimitat",
     "upgrade": "Upgrade",
-    "upgradeSparkles": "✨ Upgrade ✨",
     "multiplierCost": "{{multiplier}}× cost",
     "next": "Următorul",
     "noteType": "Tip de notă",
@@ -115,7 +114,6 @@
     "title": "Setări"
   },
   "fieldEditor": {
-    "alreadySmartField": "Deja un Smart Field ✨",
     "collisionHint": "are deja un Smart Field — alegeți un alt câmp, pachet sau tip de notă",
     "completion": {
       "descriptionAfter": "notele se completează ori de câte ori le generați.",
@@ -191,9 +189,9 @@
     "targetAriaLabel": "țintă Smart Field",
     "testSmartField": "Testați-vă Smart Field",
     "titles": {
-      "create": "Smart Field nou ✨",
       "duplicate": "Duplicați Smart Field",
-      "edit": "Editați Smart Field"
+      "edit": "Editați Smart Field",
+      "create": "Câmp Smart nou"
     },
     "validation": {
       "chooseField": "Alegeți un câmp",
@@ -206,7 +204,8 @@
     "writePromptForMe": "Scrie-mi solicitarea pentru mine",
     "writePromptForMeHint": "Spuneți ceea ce doriți într-o engleză simplă - vom scrie mesajul de mai jos.",
     "writePromptPlaceholder": "„Traduceți în engleză naturală…”",
-    "writing": "Scris…"
+    "writing": "Scris…",
+    "alreadySmartField": "Deja un câmp Smart"
   },
   "smartFields": {
     "actionsAriaLabel": "Acțiuni pentru {{field}}",
@@ -249,8 +248,7 @@
       "subtitle": "Lăsați o recenzie despre AnkiWeb pentru a ajuta alți utilizatori Anki să o găsească.",
       "title": "Vă bucurați de Smart Notes?"
     },
-    "subtitle": "Adăugați text, voce și imagini generate automat în notele dvs.",
-    "title": "✨ Smart Fields"
+    "subtitle": "Adăugați text, voce și imagini generate automat în notele dvs."
   },
   "defaults": {
     "errors": {
@@ -276,9 +274,9 @@
       "zImageTurbo": "cel mai rapid si mai ieftin."
     },
     "layout": {
+      "save": "Salvează",
       "saving": "Economisire…",
-      "tryIt": "Încearcă",
-      "save": "Salvează"
+      "tryIt": "Încearcă"
     },
     "text": {
       "cannotInheritModel": "Valorile implicite ale textului nu pot moșteni un alt model",
@@ -289,7 +287,6 @@
       "loadingLabel": "Se încarcă setările implicite de text",
       "loadingTitle": "Setări de generare a textului",
       "modelGuidance": "{{auto}} și {{autoMax}} sunt modelele recomandate de Smart Notes care echilibrează performanța și costul. Alegeți {{auto}} pentru sarcini standard și faceți upgrade la {{autoMax}} dacă este necesar.",
-      "pickingModel": "💡 Alegerea unui model",
       "reasoningLevel": "Nivel de raționament",
       "reasoningValues": {
         "high": "Ridicat",
@@ -302,7 +299,8 @@
       "title": "Setări de generare a textului",
       "webSearch": "Căutare pe Web",
       "webSearchDescription": "Permiteți generațiilor de text să obțină informații noi de pe web.",
-      "webSearchWarning": "⚠️ Căutarea este costisitoare; monitorizați-vă creditele."
+      "pickingModel": "Se alege un model",
+      "webSearchWarning": "Căutarea este costisitoare; urmărește-ți creditele."
     },
     "usage": {
       "fields_one": "Se aplică câmpului {{count}}",
@@ -326,10 +324,10 @@
       "loadingTitle": "Setări implicite de voce",
       "noVoices": "Nicio voce nu se potrivește cu aceste filtre.",
       "saveError": "Nu s-au putut salva valorile prestabilite pentru voce",
-      "searchPlaceholder": "🔍 Căutați voci...",
       "searchVoices": "Caută voci",
       "subtitle": "Vocea pe care o folosește TTS Smart Fields, cu excepția cazului în care un câmp își fixează propriul.",
-      "title": "Setări implicite de voce"
+      "title": "Setări implicite de voce",
+      "searchPlaceholder": "Caută voci…"
     }
   },
   "imageGeneration": {
@@ -437,7 +435,7 @@
       "trialNoteLimit": "Ați atins limita pentru nota de încercare",
       "upgradeCollection": "Upgrade — întreaga colecție, automat",
       "upgradeCredits": "Upgrade pentru mai multe credite",
-      "upgradePaid": "✨ Faceți upgrade la plătit"
+      "upgradePaid": "Treci la versiunea plătită"
     },
     "inDays_one": "Astăzi",
     "inDays_few": "Peste {{count}} zile",
@@ -513,8 +511,8 @@
     "finishDescription": "Autentificarea completă în browserul deschis. Această fereastră se va actualiza automat.",
     "finishInBrowser": "Terminați în browser",
     "haveCode": "Ai un cod de pe site?",
-    "startTrial": "✨ Începeți proba gratuită ✨",
-    "trialDetails": "Gratuit timp de 7 zile · fiecare caracteristică · fără card de credit"
+    "trialDetails": "Gratuit timp de 7 zile · fiecare caracteristică · fără card de credit",
+    "startTrial": "Începe perioada de probă gratuită"
   },
   "trialEnded": {
     "description": "Testele durează 7 zile sau până când creditele dvs. de încercare se epuizează.",
@@ -534,8 +532,8 @@
       "leaveReview": "Lasă o recenzie",
       "title": "Primiți o lună gratuită de Smart Notes"
     },
-    "thanks": "Vă mulțumim că folosiți Smart Notes ✨",
     "title": "Perioada de încercare gratuită s-a încheiat",
-    "upgradeNow": "Faceți upgrade acum"
+    "upgradeNow": "Faceți upgrade acum",
+    "thanks": "Îți mulțumim că ai folosit Smart Notes"
   }
 }

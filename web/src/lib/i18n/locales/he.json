@@ -48,7 +48,6 @@
     "signInLower": "היכנס",
     "unlimited": "בִּלתִי מוּגבָּל",
     "upgrade": "שדרוג",
-    "upgradeSparkles": "✨ שדרוג ✨",
     "multiplierCost": "{{multiplier}}× עלות",
     "next": "הַבָּא",
     "noteType": "סוג הערה",
@@ -115,7 +114,6 @@
     "title": "הגדרות"
   },
   "fieldEditor": {
-    "alreadySmartField": "כבר שדה חכם ✨",
     "collisionHint": "כבר יש שדה חכם - בחר שדה, חפיסה או סוג אחר",
     "completion": {
       "descriptionAfter": "הערות מתמלא בכל פעם שאתה יוצר אותו.",
@@ -191,9 +189,9 @@
     "targetAriaLabel": "יעד שדה חכם",
     "testSmartField": "בדוק את השדה החכם שלך",
     "titles": {
-      "create": "שדה חכם חדש ✨",
       "duplicate": "שכפל שדה חכם",
-      "edit": "ערוך שדה חכם"
+      "edit": "ערוך שדה חכם",
+      "create": "שדה חכם חדש"
     },
     "validation": {
       "chooseField": "בחר שדה",
@@ -206,7 +204,8 @@
     "writePromptForMe": "כתוב את ההנחיה שלי עבורי",
     "writePromptForMeHint": "אמור מה שאתה רוצה באנגלית פשוטה - נכתוב את ההנחיה למטה.",
     "writePromptPlaceholder": "\"תרגם לאנגלית טבעית...\"",
-    "writing": "כְּתִיבָה…"
+    "writing": "כְּתִיבָה…",
+    "alreadySmartField": "כבר שדה חכם"
   },
   "smartFields": {
     "actionsAriaLabel": "פעולות עבור {{field}}",
@@ -249,8 +248,7 @@
       "subtitle": "השאירו ביקורת על AnkiWeb כדי לעזור למשתמשים אחרים של Anki למצוא אותו.",
       "title": "נהנה מ-Smart Notes?"
     },
-    "subtitle": "הוסף טקסט, קול ותמונות שנוצרו באופן אוטומטי להערות שלך.",
-    "title": "✨ Smart Fields"
+    "subtitle": "הוסף טקסט, קול ותמונות שנוצרו באופן אוטומטי להערות שלך."
   },
   "defaults": {
     "errors": {
@@ -276,9 +274,9 @@
       "zImageTurbo": "הכי מהיר והכי זול."
     },
     "layout": {
+      "save": "שמור",
       "saving": "חִסָכוֹן…",
-      "tryIt": "נסה את זה",
-      "save": "שמור"
+      "tryIt": "נסה את זה"
     },
     "text": {
       "cannotInheritModel": "ברירת המחדל של טקסט אינה יכולה לרשת דגם אחר",
@@ -289,7 +287,6 @@
       "loadingLabel": "טוען הגדרות טקסט ברירת מחדל",
       "loadingTitle": "הגדרות יצירת טקסט",
       "modelGuidance": "{{auto}} ו-{{autoMax}} הם הדגמים המומלצים של Smart Notes שמאזנים בין ביצועים לעלות. בחר {{auto}} עבור משימות סטנדרטיות ושדרג ל-{{autoMax}} במידת הצורך.",
-      "pickingModel": "💡 בחירת דגם",
       "reasoningLevel": "רמת הנמקה",
       "reasoningValues": {
         "high": "גָבוֹהַ",
@@ -302,7 +299,8 @@
       "title": "הגדרות יצירת טקסט",
       "webSearch": "חיפוש באינטרנט",
       "webSearchDescription": "אפשר לדורות טקסט למשוך מידע חדש מהאינטרנט.",
-      "webSearchWarning": "⚠️ החיפוש יקר; לעקוב אחר הקרדיטים שלך."
+      "pickingModel": "בחירת מודל",
+      "webSearchWarning": "חיפוש עולה ביוקר; עקבו אחר הקרדיטים שלכם."
     },
     "usage": {
       "fields_one": "חל על שדה {{count}}",
@@ -326,10 +324,10 @@
       "loadingTitle": "הגדרות קול ברירת מחדל",
       "noVoices": "אין קולות שתואמים למסננים האלה.",
       "saveError": "לא ניתן לשמור את ברירת המחדל של הקול",
-      "searchPlaceholder": "🔍 חפש קולות...",
       "searchVoices": "חפש קולות",
       "subtitle": "הקול שבו ה-TTS שלך Smart Fields משתמש אלא אם כן שדה מצמיד את שלו.",
-      "title": "הגדרות קול ברירת מחדל"
+      "title": "הגדרות קול ברירת מחדל",
+      "searchPlaceholder": "חיפוש קולות…"
     }
   },
   "imageGeneration": {
@@ -437,7 +435,7 @@
       "trialNoteLimit": "הגעת למגבלת הערות הניסיון שלך",
       "upgradeCollection": "שדרג - כל האוסף שלך, באופן אוטומטי",
       "upgradeCredits": "שדרג לקבלת קרדיטים נוספים",
-      "upgradePaid": "✨ שדרג לתשלום"
+      "upgradePaid": "שדרגו לגרסה בתשלום"
     },
     "inDays_one": "הַיוֹם",
     "inDays_two": "בעוד {{count}} ימים",
@@ -513,8 +511,8 @@
     "finishDescription": "השלם כניסה בדפדפן שפתחנו. חלון זה יתעדכן אוטומטית.",
     "finishInBrowser": "סיים בדפדפן שלך",
     "haveCode": "יש לך קוד מהאתר?",
-    "startTrial": "✨ התחל ניסיון חינם ✨",
-    "trialDetails": "חינם למשך 7 ימים · כל תכונה · ללא כרטיס אשראי"
+    "trialDetails": "חינם למשך 7 ימים · כל תכונה · ללא כרטיס אשראי",
+    "startTrial": "התחילו ניסיון חינם"
   },
   "trialEnded": {
     "description": "תקופת הניסיון נמשכת 7 ימים או עד שנגמר הזיכויים לניסיון.",
@@ -534,8 +532,8 @@
       "leaveReview": "השאירו ביקורת",
       "title": "קבל חודש חינם של Smart Notes"
     },
-    "thanks": "תודה על השימוש ב-Smart Notes ✨",
     "title": "תקופת הניסיון בחינם שלך הסתיימה",
-    "upgradeNow": "שדרג עכשיו"
+    "upgradeNow": "שדרג עכשיו",
+    "thanks": "תודה שהשתמשתם ב-Smart Notes"
   }
 }

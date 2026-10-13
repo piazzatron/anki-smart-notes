@@ -22,6 +22,7 @@ import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import { ConnectionNotice } from "@/components/shared/ConnectionNotice"
+import { SparklesIcon } from "@/components/shared/Icons"
 import { errorMessage } from "@/lib/errors"
 import { openSiteLink, SITE_LINKS } from "@/lib/siteLinks"
 import { exchangeAuthCode } from "@/services/commands"
@@ -190,12 +191,10 @@ export const WelcomeScreen = ({
             <div className="relative mx-auto w-fit">
               <h1 className="welcome-enter text-[38px] leading-none font-extrabold tracking-[-0.037em] text-[#f6f6f8]">
                 {t("common.productName")}
-                <span
-                  aria-hidden
-                  className="ms-1 inline-block translate-y-[-6px] text-[26px] font-normal"
-                >
-                  ✨
-                </span>
+                <SparklesIcon
+                  className="ms-1.5 inline-block translate-y-[-6px]"
+                  size={26}
+                />
               </h1>
             </div>
 
@@ -215,7 +214,15 @@ export const WelcomeScreen = ({
                 onClick={() => openOnboarding(SITE_LINKS.startTrial)}
                 type="button"
               >
+                <SparklesIcon
+                  className="me-2 inline-block align-[-3px]"
+                  size={19}
+                />
                 {t("welcome.startTrial")}
+                <SparklesIcon
+                  className="ms-2 inline-block align-[-3px]"
+                  size={19}
+                />
               </button>
               <p className="mt-[15px] text-xs text-[#b6b6bf]">
                 {t("welcome.trialDetails")}

@@ -46,7 +46,6 @@
     "signInLower": "เข้าสู่ระบบ",
     "unlimited": "ไม่จำกัด",
     "upgrade": "อัพเกรด",
-    "upgradeSparkles": "✨อัพเกรด✨",
     "multiplierCost": "{{multiplier}}× ต้นทุน",
     "next": "ต่อไป",
     "noteType": "ประเภทหมายเหตุ",
@@ -113,7 +112,6 @@
     "title": "การตั้งค่า"
   },
   "fieldEditor": {
-    "alreadySmartField": "Smart Field แล้ว ✨",
     "collisionHint": "มี Smart Field อยู่แล้ว — เลือกฟิลด์ สำรับ หรือประเภทโน้ตอื่น",
     "completion": {
       "descriptionAfter": "บันทึกย่อจะเติมทุกครั้งที่คุณสร้างมันขึ้นมา",
@@ -189,9 +187,9 @@
     "targetAriaLabel": "เป้าหมาย Smart Field",
     "testSmartField": "ทดสอบ Smart Field ของคุณ",
     "titles": {
-      "create": "ใหม่ Smart Field ✨",
       "duplicate": "Smart Field ซ้ำกัน",
-      "edit": "แก้ไข Smart Field"
+      "edit": "แก้ไข Smart Field",
+      "create": "Smart Field ใหม่"
     },
     "validation": {
       "chooseField": "เลือกฟิลด์",
@@ -204,7 +202,8 @@
     "writePromptForMe": "เขียนข้อความแจ้งของฉันให้ฉัน",
     "writePromptForMeHint": "พูดสิ่งที่คุณต้องการเป็นภาษาอังกฤษธรรมดา — เราจะเขียนข้อความแจ้งด้านล่าง",
     "writePromptPlaceholder": "\"แปลเป็นภาษาอังกฤษตามธรรมชาติ…\"",
-    "writing": "การเขียน…"
+    "writing": "การเขียน…",
+    "alreadySmartField": "เป็น Smart Field อยู่แล้ว"
   },
   "smartFields": {
     "actionsAriaLabel": "การดำเนินการสำหรับ {{field}}",
@@ -247,8 +246,7 @@
       "subtitle": "แสดงความคิดเห็นบน AnkiWeb เพื่อช่วยให้ผู้ใช้ Anki รายอื่นค้นพบมัน",
       "title": "เพลิดเพลินกับ Smart Notes ไหม?"
     },
-    "subtitle": "เพิ่มข้อความ เสียง และรูปภาพที่สร้างขึ้นโดยอัตโนมัติลงในบันทึกย่อของคุณ",
-    "title": "✨Smart Fields"
+    "subtitle": "เพิ่มข้อความ เสียง และรูปภาพที่สร้างขึ้นโดยอัตโนมัติลงในบันทึกย่อของคุณ"
   },
   "defaults": {
     "errors": {
@@ -274,9 +272,9 @@
       "zImageTurbo": "เร็วที่สุดและถูกที่สุด"
     },
     "layout": {
+      "save": "บันทึก",
       "saving": "ประหยัด…",
-      "tryIt": "ลองมัน",
-      "save": "บันทึก"
+      "tryIt": "ลองมัน"
     },
     "text": {
       "cannotInheritModel": "ค่าเริ่มต้นของข้อความไม่สามารถสืบทอดโมเดลอื่นได้",
@@ -287,7 +285,6 @@
       "loadingLabel": "กำลังโหลดการตั้งค่าข้อความเริ่มต้น",
       "loadingTitle": "การตั้งค่าการสร้างข้อความ",
       "modelGuidance": "{{auto}} และ {{autoMax}} เป็นรุ่นที่แนะนำโดย Smart Notes ซึ่งสร้างสมดุลระหว่างประสิทธิภาพและราคา เลือก {{auto}} สำหรับงานมาตรฐาน และอัปเกรดเป็น {{autoMax}} หากจำเป็น",
-      "pickingModel": "💡 การเลือกแบบ",
       "reasoningLevel": "ระดับการใช้เหตุผล",
       "reasoningValues": {
         "high": "สูง",
@@ -300,7 +297,8 @@
       "title": "การตั้งค่าการสร้างข้อความ",
       "webSearch": "ค้นหาเว็บ",
       "webSearchDescription": "ให้คนรุ่นข้อความดึงข้อมูลใหม่ๆ จากเว็บ",
-      "webSearchWarning": "⚠️ การค้นหามีราคาแพง ตรวจสอบเครดิตของคุณ"
+      "pickingModel": "กำลังเลือกโมเดล",
+      "webSearchWarning": "การค้นหาใช้ต้นทุนสูง โปรดตรวจสอบเครดิตของคุณ"
     },
     "usage": {
       "fields_other": "นำไปใช้กับฟิลด์ {{count}}"
@@ -322,10 +320,10 @@
       "loadingTitle": "การตั้งค่าเสียงเริ่มต้น",
       "noVoices": "ไม่มีเสียงที่ตรงกับตัวกรองเหล่านี้",
       "saveError": "ไม่สามารถบันทึกค่าเริ่มต้นของเสียงได้",
-      "searchPlaceholder": "🔍 ค้นหาเสียง...",
       "searchVoices": "ค้นหาเสียง",
       "subtitle": "เสียงที่ TTS Smart Fields ของคุณใช้ เว้นแต่ว่าฟิลด์จะปักหมุดเสียงของตัวเอง",
-      "title": "การตั้งค่าเสียงเริ่มต้น"
+      "title": "การตั้งค่าเสียงเริ่มต้น",
+      "searchPlaceholder": "ค้นหาเสียง…"
     }
   },
   "imageGeneration": {
@@ -421,7 +419,7 @@
       "trialNoteLimit": "คุณได้ใช้บันทึกการทดลองถึงขีดจำกัดแล้ว",
       "upgradeCollection": "อัปเกรด — คอลเลกชันทั้งหมดของคุณโดยอัตโนมัติ",
       "upgradeCredits": "อัปเกรดเพื่อรับเครดิตเพิ่มเติม",
-      "upgradePaid": "✨อัปเกรดเป็นแบบชำระเงิน"
+      "upgradePaid": "อัปเกรดเป็นแบบเสียเงิน"
     },
     "inDays_other": "ในอีก {{count}} วัน",
     "loading": "กำลังโหลดการสมัครสมาชิก",
@@ -493,8 +491,8 @@
     "finishDescription": "ลงชื่อเข้าใช้ให้เสร็จสิ้นในเบราว์เซอร์ที่เราเปิด หน้าต่างนี้จะอัปเดตโดยอัตโนมัติ",
     "finishInBrowser": "เสร็จสิ้นในเบราว์เซอร์ของคุณ",
     "haveCode": "มีรหัสจากเว็บไซต์หรือไม่?",
-    "startTrial": "✨ เริ่มทดลองใช้ฟรี ✨",
-    "trialDetails": "ฟรี 7 วัน · ทุกฟีเจอร์ · ไม่มีบัตรเครดิต"
+    "trialDetails": "ฟรี 7 วัน · ทุกฟีเจอร์ · ไม่มีบัตรเครดิต",
+    "startTrial": "เริ่มทดลองใช้ฟรี"
   },
   "trialEnded": {
     "description": "ช่วงทดลองใช้งานใช้เวลา 7 วันหรือจนกว่าเครดิตทดลองใช้จะหมด",
@@ -514,8 +512,8 @@
       "leaveReview": "แสดงความคิดเห็น",
       "title": "รับ Smart Notes ฟรีหนึ่งเดือน"
     },
-    "thanks": "ขอบคุณที่ใช้ Smart Notes ✨",
     "title": "การทดลองใช้ฟรีของคุณสิ้นสุดลงแล้ว",
-    "upgradeNow": "อัพเกรดตอนนี้"
+    "upgradeNow": "อัพเกรดตอนนี้",
+    "thanks": "ขอบคุณที่ใช้ Smart Notes"
   }
 }

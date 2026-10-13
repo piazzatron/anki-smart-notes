@@ -46,7 +46,6 @@
     "signInLower": "サインイン",
     "unlimited": "無制限",
     "upgrade": "アップグレード",
-    "upgradeSparkles": "✨アップグレード✨",
     "multiplierCost": "{{multiplier}}×コスト",
     "next": "次",
     "noteType": "音符の種類",
@@ -113,7 +112,6 @@
     "title": "設定"
   },
   "fieldEditor": {
-    "alreadySmartField": "すでにSmart Fieldです✨",
     "collisionHint": "すでに Smart Field を持っています — 別のフィールド、デッキ、またはノートのタイプを選択してください",
     "completion": {
       "descriptionAfter": "メモを生成するたびにメモが書き込まれます。",
@@ -189,9 +187,9 @@
     "targetAriaLabel": "Smart Field ターゲット",
     "testSmartField": "Smart Field をテストする",
     "titles": {
-      "create": "新しいSmart Field✨",
       "duplicate": "Smart Fieldの複製",
-      "edit": "Smart Fieldを編集する"
+      "edit": "Smart Fieldを編集する",
+      "create": "新しいスマートフィールド"
     },
     "validation": {
       "chooseField": "フィールドを選択してください",
@@ -204,7 +202,8 @@
     "writePromptForMe": "私のプロンプトを書いてください",
     "writePromptForMeHint": "わかりやすい英語で言いたいことを言ってください。以下にプロンプ​​トを書きます。",
     "writePromptPlaceholder": "「自然な英語に翻訳して…」",
-    "writing": "書き込み…"
+    "writing": "書き込み…",
+    "alreadySmartField": "すでにスマートフィールドです"
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}}のアクション",
@@ -247,8 +246,7 @@
       "subtitle": "他の Anki ユーザーが見つけられるように、AnkiWeb にレビューを残してください。",
       "title": "Smart Notes をお楽しみですか?"
     },
-    "subtitle": "自動的に生成されたテキスト、音声、画像をメモに追加します。",
-    "title": "✨Smart Fields"
+    "subtitle": "自動的に生成されたテキスト、音声、画像をメモに追加します。"
   },
   "defaults": {
     "errors": {
@@ -274,9 +272,9 @@
       "zImageTurbo": "最速かつ最安。"
     },
     "layout": {
+      "save": "保存",
       "saving": "保存中…",
-      "tryIt": "試してみてください",
-      "save": "保存"
+      "tryIt": "試してみてください"
     },
     "text": {
       "cannotInheritModel": "テキストのデフォルトは別のモデルを継承できません",
@@ -287,7 +285,6 @@
       "loadingLabel": "デフォルトのテキスト設定をロードする",
       "loadingTitle": "テキスト生成設定",
       "modelGuidance": "{{auto}}と{{autoMax}}は、性能とコストのバランスをとったSmart Notes推奨モデルです。標準タスクには {{auto}} を選択し、必要に応じて {{autoMax}} にアップグレードします。",
-      "pickingModel": "💡 モデルの選択",
       "reasoningLevel": "推理レベル",
       "reasoningValues": {
         "high": "高い",
@@ -300,7 +297,8 @@
       "title": "テキスト生成設定",
       "webSearch": "ウェブ検索",
       "webSearchDescription": "テキスト生成者が Web から最新の情報を取得できるようにします。",
-      "webSearchWarning": "⚠️ 検索には費用がかかります。あなたのクレジットを監視します。"
+      "pickingModel": "モデルを選択中",
+      "webSearchWarning": "検索はコストが高いため、クレジットを確認してください。"
     },
     "usage": {
       "fields_other": "{{count}} フィールドに適用されます"
@@ -322,10 +320,10 @@
       "loadingTitle": "デフォルトの音声設定",
       "noVoices": "これらのフィルターに一致する音声はありません。",
       "saveError": "音声のデフォルトを保存できませんでした",
-      "searchPlaceholder": "🔍 音声を検索…",
       "searchVoices": "音声を検索する",
       "subtitle": "フィールドが独自に固定していない限り、TTS Smart Fields が使用する音声。",
-      "title": "デフォルトの音声設定"
+      "title": "デフォルトの音声設定",
+      "searchPlaceholder": "音声を検索…"
     }
   },
   "imageGeneration": {
@@ -421,7 +419,7 @@
       "trialNoteLimit": "トライアルノートの制限に達しました",
       "upgradeCollection": "アップグレード — コレクション全体を自動的にアップグレード",
       "upgradeCredits": "アップグレードしてクレジットを増やす",
-      "upgradePaid": "✨ 有料にアップグレード"
+      "upgradePaid": "有料プランにアップグレード"
     },
     "inDays_other": "{{count}}の日々で",
     "loading": "サブスクリプションを読み込み中",
@@ -493,8 +491,8 @@
     "finishDescription": "開いたブラウザでサインインを完了します。このウィンドウは自動的に更新されます。",
     "finishInBrowser": "ブラウザで完了する",
     "haveCode": "ウェブサイトからコードをお持ちですか?",
-    "startTrial": "✨無料トライアルを始めましょう✨",
-    "trialDetails": "7 日間無料 · すべての機能 · クレジット カード不要"
+    "trialDetails": "7 日間無料 · すべての機能 · クレジット カード不要",
+    "startTrial": "無料トライアルを開始"
   },
   "trialEnded": {
     "description": "トライアルは 7 日間、またはトライアル クレジットがなくなるまで実行されます。",
@@ -514,8 +512,8 @@
       "leaveReview": "レビューを残す",
       "title": "Smart Notes を 1 か月間無料で入手"
     },
-    "thanks": "Smart Notesをご利用いただきありがとうございます✨",
     "title": "無料トライアルは終了しました",
-    "upgradeNow": "今すぐアップグレードしてください"
+    "upgradeNow": "今すぐアップグレードしてください",
+    "thanks": "Smart Notes をご利用いただきありがとうございました"
   }
 }

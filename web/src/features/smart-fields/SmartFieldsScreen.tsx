@@ -12,6 +12,8 @@ import { groupSmartFields } from "./groupSmartFields"
 import { PageLayout } from "@/components/shared/PageLayout"
 import { Button } from "@/components/ui/Button"
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
+import { SparklesEmoji } from "@/components/shared/Emoji"
+import { SparklesIcon } from "@/components/shared/Icons"
 import { trackAnalyticsEvent } from "@/services/analytics"
 import {
   FieldEditorScreen,
@@ -102,12 +104,17 @@ export const SmartFieldsScreen = ({
             onClick={() => openCreateEditor()}
             variant="success"
           >
+            <SparklesIcon
+              className="me-1.5 inline-block align-[-2px]"
+              size={14}
+            />
             {t("smartFields.newSmartField")}
           </Button>
         }
+        icon={<SparklesEmoji size={28} />}
         subtitle={t("smartFields.subtitle")}
         testId="smart-fields-screen"
-        title={t("smartFields.title")}
+        title={t("sidebar.nav.smartFields")}
       >
         {error !== null && (
           <ErrorBanner

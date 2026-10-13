@@ -48,7 +48,6 @@
     "signInLower": "Inicia sessió",
     "unlimited": "Il·limitat",
     "upgrade": "Actualitza",
-    "upgradeSparkles": "✨ Actualitza ✨",
     "multiplierCost": "{{multiplier}}× cost",
     "next": "A continuació",
     "noteType": "Tipus de nota",
@@ -115,7 +114,6 @@
     "title": "Configuració"
   },
   "fieldEditor": {
-    "alreadySmartField": "Ja ets un Smart Field ✨",
     "collisionHint": "ja té un Smart Field: trieu un camp, una plataforma o un tipus de nota diferent",
     "completion": {
       "descriptionAfter": "notes s'omplen sempre que les genereu.",
@@ -191,9 +189,9 @@
     "targetAriaLabel": "Objectiu Smart Field",
     "testSmartField": "Prova el teu Smart Field",
     "titles": {
-      "create": "Nou Smart Field ✨",
       "duplicate": "Duplicar Smart Field",
-      "edit": "Edita Smart Field"
+      "edit": "Edita Smart Field",
+      "create": "Nou camp intel·ligent"
     },
     "validation": {
       "chooseField": "Trieu un camp",
@@ -206,7 +204,8 @@
     "writePromptForMe": "Escriu el meu missatge per a mi",
     "writePromptForMeHint": "Digues el que vulguis en anglès senzill; escriurem el missatge a continuació.",
     "writePromptPlaceholder": "\"Tradueix a l'anglès natural...\"",
-    "writing": "S'està escrivint…"
+    "writing": "S'està escrivint…",
+    "alreadySmartField": "Ja és un camp intel·ligent"
   },
   "smartFields": {
     "actionsAriaLabel": "Accions per a {{field}}",
@@ -249,8 +248,7 @@
       "subtitle": "Deixa una revisió sobre AnkiWeb per ajudar altres usuaris de Anki a trobar-lo.",
       "title": "Us agrada Smart Notes?"
     },
-    "subtitle": "Afegiu text, veu i imatges generats automàticament a les vostres notes.",
-    "title": "✨ Smart Fields"
+    "subtitle": "Afegiu text, veu i imatges generats automàticament a les vostres notes."
   },
   "defaults": {
     "errors": {
@@ -276,9 +274,9 @@
       "zImageTurbo": "més ràpid i barat."
     },
     "layout": {
+      "save": "Desa",
       "saving": "S'està desant…",
-      "tryIt": "Prova-ho",
-      "save": "Desa"
+      "tryIt": "Prova-ho"
     },
     "text": {
       "cannotInheritModel": "Els valors predeterminats del text no poden heretar un altre model",
@@ -289,7 +287,6 @@
       "loadingLabel": "S'està carregant la configuració de text predeterminada",
       "loadingTitle": "Configuració de generació de text",
       "modelGuidance": "{{auto}} i {{autoMax}} són els models recomanats per Smart Notes que equilibren el rendiment i el cost. Trieu {{auto}} per a tasques estàndard i actualitzeu-lo a {{autoMax}} si cal.",
-      "pickingModel": "💡 Escollint un model",
       "reasoningLevel": "Nivell de raonament",
       "reasoningValues": {
         "high": "Alt",
@@ -302,7 +299,8 @@
       "title": "Configuració de generació de text",
       "webSearch": "Cerca web",
       "webSearchDescription": "Permet que les generacions de text obtinguin informació nova del web.",
-      "webSearchWarning": "⚠️ La cerca és cara; supervisa els teus crèdits."
+      "pickingModel": "Triant un model",
+      "webSearchWarning": "La cerca és costosa; controla els teus crèdits."
     },
     "usage": {
       "fields_one": "S'aplica al camp {{count}}",
@@ -326,10 +324,10 @@
       "loadingTitle": "Configuració de veu per defecte",
       "noVoices": "Cap veu no coincideix amb aquests filtres.",
       "saveError": "No s'han pogut desar els valors predeterminats de veu",
-      "searchPlaceholder": "🔍 Cerca veus...",
       "searchVoices": "Cerca veus",
       "subtitle": "La veu que utilitzeu el vostre TTS Smart Fields tret que un camp fixi el seu.",
-      "title": "Configuració de veu per defecte"
+      "title": "Configuració de veu per defecte",
+      "searchPlaceholder": "Cerca veus…"
     }
   },
   "imageGeneration": {
@@ -437,7 +435,7 @@
       "trialNoteLimit": "Heu assolit el vostre límit de notes de prova",
       "upgradeCollection": "Actualitza: tota la teva col·lecció, automàticament",
       "upgradeCredits": "Actualitza per obtenir més crèdits",
-      "upgradePaid": "✨ Actualitza a de pagament"
+      "upgradePaid": "Actualitza a un pla de pagament"
     },
     "inDays_one": "Avui",
     "inDays_many": "En dies {{count}}",
@@ -513,8 +511,8 @@
     "finishDescription": "Completa la sessió al navegador que hem obert. Aquesta finestra s'actualitzarà automàticament.",
     "finishInBrowser": "Acabeu al vostre navegador",
     "haveCode": "Tens un codi del lloc web?",
-    "startTrial": "✨ Comença la prova gratuïta ✨",
-    "trialDetails": "Gratuït durant 7 dies · totes les funcions · sense targeta de crèdit"
+    "trialDetails": "Gratuït durant 7 dies · totes les funcions · sense targeta de crèdit",
+    "startTrial": "Comença la prova gratuïta"
   },
   "trialEnded": {
     "description": "Les proves s'executen durant 7 dies o fins que s'esgotin els crèdits de prova.",
@@ -534,8 +532,8 @@
       "leaveReview": "Deixa una ressenya",
       "title": "Aconsegueix un mes gratuït d'Smart Notes"
     },
-    "thanks": "Gràcies per utilitzar Smart Notes ✨",
     "title": "La teva prova gratuïta ha finalitzat",
-    "upgradeNow": "Actualitza ara"
+    "upgradeNow": "Actualitza ara",
+    "thanks": "Gràcies per fer servir Smart Notes"
   }
 }

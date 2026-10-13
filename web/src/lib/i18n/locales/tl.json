@@ -47,7 +47,6 @@
     "signInLower": "Mag-sign in",
     "unlimited": "Walang limitasyon",
     "upgrade": "Mag-upgrade",
-    "upgradeSparkles": "✨ Mag-upgrade ✨",
     "multiplierCost": "{{multiplier}}× gastos",
     "next": "Susunod",
     "noteType": "Uri ng Tala",
@@ -114,7 +113,6 @@
     "title": "Mga setting"
   },
   "fieldEditor": {
-    "alreadySmartField": "Isa nang Smart Field ✨",
     "collisionHint": "mayroon nang Smart Field — pumili ng ibang field, deck, o uri ng tala",
     "completion": {
       "descriptionAfter": "mapupuno ang mga tala sa tuwing bubuo ka nito.",
@@ -190,9 +188,9 @@
     "targetAriaLabel": "Smart Field target",
     "testSmartField": "Subukan ang iyong Smart Field",
     "titles": {
-      "create": "Bagong Smart Field ✨",
       "duplicate": "Duplicate na Smart Field",
-      "edit": "I-edit ang Smart Field"
+      "edit": "I-edit ang Smart Field",
+      "create": "Bagong Smart Field"
     },
     "validation": {
       "chooseField": "Pumili ng field",
@@ -205,7 +203,8 @@
     "writePromptForMe": "Isulat ang aking prompt para sa akin",
     "writePromptForMeHint": "Sabihin kung ano ang gusto mo sa simpleng Ingles — isusulat namin ang prompt sa ibaba.",
     "writePromptPlaceholder": "\"Isalin sa natural na Ingles…\"",
-    "writing": "Nagsusulat…"
+    "writing": "Nagsusulat…",
+    "alreadySmartField": "Smart Field na"
   },
   "smartFields": {
     "actionsAriaLabel": "Mga aksyon para sa {{field}}",
@@ -248,8 +247,7 @@
       "subtitle": "Mag-iwan ng review sa AnkiWeb upang matulungan ang ibang mga gumagamit ng Anki na mahanap ito.",
       "title": "Tinatangkilik ang Smart Notes?"
     },
-    "subtitle": "Magdagdag ng awtomatikong nabuong teksto, boses, at mga larawan sa iyong mga tala.",
-    "title": "✨ Smart Fields"
+    "subtitle": "Magdagdag ng awtomatikong nabuong teksto, boses, at mga larawan sa iyong mga tala."
   },
   "defaults": {
     "errors": {
@@ -275,9 +273,9 @@
       "zImageTurbo": "pinakamabilis at pinakamura."
     },
     "layout": {
+      "save": "I-save",
       "saving": "Sine-save...",
-      "tryIt": "Subukan ito",
-      "save": "I-save"
+      "tryIt": "Subukan ito"
     },
     "text": {
       "cannotInheritModel": "Ang mga default ng teksto ay hindi maaaring magmana ng isa pang modelo",
@@ -288,7 +286,6 @@
       "loadingLabel": "Nilo-load ang Default na Mga Setting ng Teksto",
       "loadingTitle": "Mga Setting ng Pagbuo ng Teksto",
       "modelGuidance": "Ang {{auto}} at {{autoMax}} ay ang Smart Notes na inirerekomendang mga modelo na nagbabalanse sa performance at gastos. Piliin ang {{auto}} para sa mga karaniwang gawain at mag-upgrade sa {{autoMax}} kung kinakailangan.",
-      "pickingModel": "💡 Pagpili ng modelo",
       "reasoningLevel": "Antas ng pangangatwiran",
       "reasoningValues": {
         "high": "Mataas",
@@ -301,7 +298,8 @@
       "title": "Mga Setting ng Pagbuo ng Teksto",
       "webSearch": "Paghahanap sa Web",
       "webSearchDescription": "Hayaan ang mga henerasyon ng text na kumuha ng bagong impormasyon mula sa web.",
-      "webSearchWarning": "⚠️ Mahal ang paghahanap; subaybayan ang iyong mga kredito."
+      "pickingModel": "Pumipili ng model",
+      "webSearchWarning": "Magastos ang paghahanap; bantayan ang iyong mga credit."
     },
     "usage": {
       "fields_one": "Nalalapat sa {{count}} field",
@@ -324,10 +322,10 @@
       "loadingTitle": "Default na Mga Setting ng Boses",
       "noVoices": "Walang boses na tumutugma sa mga filter na ito.",
       "saveError": "Hindi ma-save ang mga default ng boses",
-      "searchPlaceholder": "🔍 Maghanap ng mga boses…",
       "searchVoices": "Maghanap ng mga boses",
       "subtitle": "Ang boses na ginagamit ng iyong TTS Smart Fields maliban kung ang isang field ay naka-pin ng sarili nitong.",
-      "title": "Default na Mga Setting ng Boses"
+      "title": "Default na Mga Setting ng Boses",
+      "searchPlaceholder": "Maghanap ng mga boses…"
     }
   },
   "imageGeneration": {
@@ -429,7 +427,7 @@
       "trialNoteLimit": "Naabot mo na ang iyong limitasyon sa tala sa pagsubok",
       "upgradeCollection": "Mag-upgrade — ang iyong buong koleksyon, awtomatiko",
       "upgradeCredits": "Mag-upgrade para sa higit pang mga kredito",
-      "upgradePaid": "✨ Mag-upgrade sa bayad"
+      "upgradePaid": "Mag-upgrade sa bayad na plano"
     },
     "inDays_one": "Ngayong araw",
     "inDays_other": "Sa {{count}} araw",
@@ -503,8 +501,8 @@
     "finishDescription": "Kumpletuhin ang pag-sign in sa browser na aming binuksan. Awtomatikong mag-a-update ang window na ito.",
     "finishInBrowser": "Tapusin sa iyong browser",
     "haveCode": "May code mula sa website?",
-    "startTrial": "✨ Simulan ang Libreng Pagsubok ✨",
-    "trialDetails": "Libre sa loob ng 7 araw · bawat feature · walang credit card"
+    "trialDetails": "Libre sa loob ng 7 araw · bawat feature · walang credit card",
+    "startTrial": "Simulan ang Libreng Trial"
   },
   "trialEnded": {
     "description": "Tumatakbo ang mga pagsubok nang 7 araw o hanggang sa maubos ang iyong mga kredito sa pagsubok.",
@@ -524,8 +522,8 @@
       "leaveReview": "Mag-iwan ng pagsusuri",
       "title": "Kumuha ng libreng buwan ng Smart Notes"
     },
-    "thanks": "Salamat sa paggamit ng Smart Notes ✨",
     "title": "Natapos na ang iyong libreng pagsubok",
-    "upgradeNow": "Mag-upgrade ngayon"
+    "upgradeNow": "Mag-upgrade ngayon",
+    "thanks": "Salamat sa paggamit ng Smart Notes"
   }
 }
