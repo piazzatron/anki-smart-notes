@@ -125,6 +125,43 @@ export const VoicePicker = ({
       />
     </div>
   )
+  const voiceRows =
+    visibleVoices.length === 0 ? (
+      <p className="py-12 text-center text-xs text-ink-faint">
+        {t("defaults.voice.noVoices")}
+      </p>
+    ) : (
+      visibleVoices.map((voice) => {
+        const key = voiceKey(voice)
+        const isSelected = voiceMatchesSettings(voice, value)
+        const selectVoice = () =>
+          onSelect({
+            provider: voice.provider,
+            model: voice.model,
+            voiceId: voice.voiceId,
+          })
+        return (
+          <div
+            className={`group flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 transition ${isSelected ? "bg-indigo/14" : "hover:bg-white/[0.045]"}`}
+            key={key}
+            onClick={selectVoice}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault()
+                selectVoice()
+              }
+            }}
+          >
+            <span className="min-w-0 flex-1 truncate text-xs font-semibold text-zinc-200">
+              {voice.name}
+            </span>
+            <Pill>{providerLabel(voice.provider)}</Pill>
+          </div>
+        )
+      })
+    )
   const searchAndList = (
     <>
       <div className={`relative ${layout === "stacked" ? "mt-2" : ""}`}>
@@ -147,51 +184,24 @@ export const VoicePicker = ({
       </div>
 
       <div className="mt-2 flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-white/[0.08] bg-black/10">
-        <div
-          className={`min-h-48 overflow-y-auto p-1.5 ${listHeight === undefined ? "flex-1" : "flex-none"}`}
-          style={
-            listHeight === undefined && listMaxHeight === undefined
-              ? undefined
-              : { height: listHeight, maxHeight: listMaxHeight }
-          }
-        >
-          {visibleVoices.length === 0 ? (
-            <p className="py-12 text-center text-xs text-ink-faint">
-              {t("defaults.voice.noVoices")}
-            </p>
-          ) : (
-            visibleVoices.map((voice) => {
-              const key = voiceKey(voice)
-              const isSelected = voiceMatchesSettings(voice, value)
-              const selectVoice = () =>
-                onSelect({
-                  provider: voice.provider,
-                  model: voice.model,
-                  voiceId: voice.voiceId,
-                })
-              return (
-                <div
-                  className={`group flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 transition ${isSelected ? "bg-indigo/14" : "hover:bg-white/[0.045]"}`}
-                  key={key}
-                  onClick={selectVoice}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter" || event.key === " ") {
-                      event.preventDefault()
-                      selectVoice()
-                    }
-                  }}
-                >
-                  <span className="min-w-0 flex-1 truncate text-xs font-semibold text-zinc-200">
-                    {voice.name}
-                  </span>
-                  <Pill>{providerLabel(voice.provider)}</Pill>
-                </div>
-              )
-            })
-          )}
-        </div>
+        {listHeight === undefined && listMaxHeight === undefined ? (
+          // The rows are absolutely positioned so they add nothing to the
+          // page's height: the list takes whatever space the layout leaves it
+          // and scrolls itself. As a normal flex child, a long catalog would
+          // stretch every ancestor to its full height and scroll the page.
+          <div className="relative min-h-48 flex-1">
+            <div className="absolute inset-0 overflow-y-auto p-1.5">
+              {voiceRows}
+            </div>
+          </div>
+        ) : (
+          <div
+            className={`min-h-48 overflow-y-auto p-1.5 ${listHeight === undefined ? "flex-1" : "flex-none"}`}
+            style={{ height: listHeight, maxHeight: listMaxHeight }}
+          >
+            {voiceRows}
+          </div>
+        )}
       </div>
     </>
   )
