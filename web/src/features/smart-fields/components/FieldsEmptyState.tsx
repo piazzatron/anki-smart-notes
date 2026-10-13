@@ -57,11 +57,14 @@ export const FieldsEmptyState = ({ onCreate }: FieldsEmptyStateProps) => {
         {t("smartFields.emptyState.description")}
       </p>
       <Button
-        className="smart-fields-empty-cta mt-5 h-auto shrink-0 !rounded-lg !border-[#1fd47d]/60 !bg-gradient-to-b !from-[#4cf0a8] !to-[#1fd47d] !px-8 !py-4 !text-base !font-extrabold !text-[#06281a] hover:!border-[#1fd47d]/60 hover:brightness-105"
+        className="smart-fields-empty-cta relative mt-5 h-auto shrink-0 !rounded-lg !border-[#1fd47d]/60 !bg-gradient-to-b !from-[#4cf0a8] !to-[#1fd47d] !px-12 !py-4 !text-base !font-extrabold !text-[#06281a] hover:!border-[#1fd47d]/60 hover:brightness-105"
         onClick={onCreate}
         variant="success"
       >
-        <SparklesIcon className="me-2 inline-block align-[-3px]" size={18} />
+        <SparklesIcon
+          className="absolute start-4 top-1/2 -translate-y-1/2"
+          size={18}
+        />
         {t("smartFields.newSmartField")}
       </Button>
     </div>
