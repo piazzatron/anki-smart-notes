@@ -58,7 +58,8 @@ export const NoteTypeCard = ({
           clips the corners. Rows share these columns as subgrids, so the name column
           fits the card's longest name and sits one gap from both the icon and the
           prompt. Below 800px the prompt moves under the name. The edge columns carry the rows' side padding, since subgrid rows
-          don't widen edge tracks for their own padding. */}
+          don't widen edge tracks for their own padding. Engines without subgrid (QtWebEngine
+          before 6.7) fall back to fixed columns per row, set on SmartFieldRow. */}
       <div className="grid grid-cols-[32px_fit-content(200px)_minmax(0,1fr)_minmax(90px,132px)_46px] gap-x-6 overflow-hidden rounded-xl bg-white/[0.05] max-[800px]:grid-cols-[32px_minmax(0,1fr)_minmax(90px,120px)_46px] max-[800px]:gap-x-[18px]">
         {group.fields.map((field, index) => (
           <SmartFieldRow

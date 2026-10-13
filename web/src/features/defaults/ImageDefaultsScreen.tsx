@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next"
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { InfoTip } from "@/components/ui/InfoTip"
 import { PaletteEmoji } from "@/components/shared/Emoji"
-import {} from "@/components/shared/Icons"
 import { ImageModelSelect } from "@/features/image-generation/ImageModelSelect"
 import {
   PromptTesterStrip,

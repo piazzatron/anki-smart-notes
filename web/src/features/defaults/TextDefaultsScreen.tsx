@@ -21,7 +21,6 @@ import { DefaultUsagePill } from "./DefaultUsagePill"
 import { useDefaultsForm } from "./useDefaultsForm"
 import { SpeechBalloonEmoji } from "@/components/shared/Emoji"
 import { WarningIcon } from "@/components/shared/Icons"
-import {} from "@/components/shared/Icons"
 
 interface TextDefaultsScreenProps {
   onDirtyChange?: (isDirty: boolean) => void
