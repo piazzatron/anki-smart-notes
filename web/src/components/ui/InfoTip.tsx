@@ -41,7 +41,7 @@ export const InfoTip = ({ children, label }: InfoTipProps) => (
       </TooltipPrimitive.Trigger>
       <TooltipPrimitive.Portal>
         <TooltipPrimitive.Content
-          className="z-[90] max-w-[300px] rounded-xl bg-indigo-deep px-3 py-2 text-[11.5px] leading-[1.5] font-normal tracking-normal text-white normal-case shadow-xl shadow-black/40"
+          className="z-[90] max-w-[300px] rounded-xl bg-indigo-deep px-4 py-3 text-[11.5px] leading-[1.5] font-normal tracking-normal text-white normal-case shadow-xl shadow-black/40"
           collisionPadding={12}
           side="right"
           sideOffset={6}
