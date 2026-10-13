@@ -71,7 +71,7 @@ export const SmartFieldRow = ({
         onClick={() => onEdit(field)}
       />
       <FieldTypeIcon fieldType={field.fieldType} />
-      <span className="pointer-events-none truncate text-[13px] font-medium text-[#cfcfd6]">
+      <span className="pointer-events-none truncate text-[13px] font-medium text-[#e0dfe2]">
         {field.targetFieldName}
       </span>
       <span className="pointer-events-none truncate text-[11px] text-ink-muted max-[800px]:hidden">

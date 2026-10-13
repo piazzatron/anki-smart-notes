@@ -42,9 +42,12 @@ export const PageLayout = ({
   title,
 }: PageLayoutProps) => (
   <section className="flex min-h-0 flex-1 flex-col" data-testid={testId}>
-    <div className="min-h-0 flex-1 overflow-y-auto px-8 py-7">
-      <div className={`flex min-h-full w-full flex-col ${className}`}>
-        <header className="flex shrink-0 items-center justify-between gap-6 border-b border-white/[0.07] pb-5">
+    <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+      {/* The header's divider spans the full content area; its row keeps the page's width. */}
+      <header className="shrink-0 border-b border-white/[0.04] px-8 pt-7 pb-5">
+        <div
+          className={`flex w-full items-center justify-between gap-6 ${className}`}
+        >
           <div className="min-w-0">
             <div className="flex items-center gap-2">
               {icon}
@@ -57,8 +60,12 @@ export const PageLayout = ({
             )}
           </div>
           {actions}
-        </header>
-        <div className="mt-6 flex min-h-0 flex-1 flex-col">{children}</div>
+        </div>
+      </header>
+      <div className="flex flex-1 flex-col px-8 pt-6 pb-7">
+        <div className={`flex w-full flex-1 flex-col ${className}`}>
+          {children}
+        </div>
       </div>
     </div>
   </section>
