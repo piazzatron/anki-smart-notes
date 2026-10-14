@@ -30,6 +30,7 @@ import {
 import { modelLabel } from "@/lib/catalog"
 import { errorMessage } from "@/lib/errors"
 import {
+  pickRandomTestCard,
   testImagePrompt,
   testTextPrompt,
   testTTSPrompt,
@@ -39,6 +40,8 @@ import type {
   ChatGenerationSettings,
   ImageGenerationSettings,
   MediaTestResult,
+  NoteType,
+  RandomTestCardArgs,
   SelectedNote,
   Selection,
   TextPromptTestResult,
@@ -80,6 +83,9 @@ interface TesterState {
 const MAX_SESSION_RUNS = 8
 
 export type PromptTesterArgs = {
+  // The deck the field generates for. With requiredNoteTypeId, the tester starts on a
+  // random card from it when no usable card is picked.
+  deckId?: number
   // Omitted when something else on the screen edits the prompt, in which case no
   // editor is offered here.
   onPromptChange?: (prompt: string) => void
@@ -128,13 +134,23 @@ export interface PromptTester {
 // whether the result modal stands are shared rather than duplicated per Test button.
 export const usePromptTester = (args: PromptTesterArgs): PromptTester => {
   const { t } = useTranslation()
-  const { fieldType, onPromptChange, prompt, requiredNoteTypeId } = args
+  const { deckId, fieldType, onPromptChange, prompt, requiredNoteTypeId } = args
   const [inheritedSelection] = useState(() => useAppStore.getState().selection)
-  const [selection, setSelection] = useState(() =>
+  const [initialSelection] = useState(() =>
     getInitialPromptTestSelection({
       prompt,
       requiredNoteTypeId,
       selection: inheritedSelection,
+    }),
+  )
+  const [selection, setSelection] = useState(initialSelection)
+  const [randomCardArgs] = useState(() =>
+    getRandomTestCardArgs({
+      deckId,
+      initialSelection,
+      noteTypes: useAppStore.getState().state?.noteTypes ?? [],
+      prompt,
+      requiredNoteTypeId,
     }),
   )
   const [state, setState] = useState<TesterState>({
@@ -158,9 +174,15 @@ export const usePromptTester = (args: PromptTesterArgs): PromptTester => {
     }
 
     // The retained SSE value predates this tester. Once the store receives a new
-    // selection object, every selection is live user feedback and stays unfiltered.
+    // selection, every selection is live user feedback and stays unfiltered. The
+    // plugin replays its last selection on every SSE reconnect; a replay repeats
+    // what the store already held, so it is not a pick and must not replace the
+    // random starting card.
     return useAppStore.subscribe((store, previousStore) => {
-      if (store.selection !== previousStore.selection) {
+      if (
+        JSON.stringify(store.selection) !==
+        JSON.stringify(previousStore.selection)
+      ) {
         setSelection(store.selection)
 
         if (resetsPromptOnCardPick && store.selection?.note != null) {
@@ -169,6 +191,25 @@ export const usePromptTester = (args: PromptTesterArgs): PromptTester => {
       }
     })
   }, [inheritedSelection, onPromptChange, resetsPromptOnCardPick])
+
+  // A random card is only a starting point: a card picked in the Browser meanwhile wins.
+  useEffect(() => {
+    if (randomCardArgs === null) return
+
+    let isCurrent = true
+    pickRandomTestCard(randomCardArgs)
+      .then((randomSelection) => {
+        if (!isCurrent || randomSelection.note === null) return
+        setSelection((current) =>
+          current === initialSelection ? randomSelection : current,
+        )
+      })
+      // Best effort: the tester still offers the Browser.
+      .catch(() => undefined)
+    return () => {
+      isCurrent = false
+    }
+  }, [initialSelection, randomCardArgs])
 
   const { hasNoteTypeMismatch, selectedNote } = getPromptTestSelection(
     selection,
@@ -319,6 +360,39 @@ export const getInitialPromptTestSelection = ({
   }
 
   return selection
+}
+
+// With no usable card picked, a field tester starts on a random card of its note type,
+// preferring one whose prompt fields are filled in so the first test reads real content.
+export const getRandomTestCardArgs = ({
+  deckId,
+  initialSelection,
+  noteTypes,
+  prompt,
+  requiredNoteTypeId,
+}: {
+  deckId?: number
+  initialSelection: Selection | null
+  noteTypes: NoteType[]
+  prompt: string
+  requiredNoteTypeId?: number
+}): RandomTestCardArgs | null => {
+  if (initialSelection?.note != null) return null
+  if (requiredNoteTypeId === undefined || deckId === undefined) return null
+
+  const noteType = noteTypes.find((item) => item.id === requiredNoteTypeId)
+  const fields = Object.fromEntries(
+    (noteType?.fields ?? []).map((fieldName) => [fieldName, ""]),
+  )
+
+  return {
+    deckId,
+    filledFieldNames: resolvePromptReferences(
+      prompt,
+      fields,
+    ).referencedFields.map(([fieldName]) => fieldName),
+    noteTypeId: requiredNoteTypeId,
+  }
 }
 
 const FAILURES: Record<PromptTesterArgs["fieldType"], string> = {

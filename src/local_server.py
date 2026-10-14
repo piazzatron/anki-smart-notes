@@ -48,6 +48,7 @@ from .logger import logger
 from .sentry import sentry
 from .services import auth_service, settings_service
 from .services.prompt_test_service import (
+    pick_random_test_card,
     prepare_image_prompt_test,
     prepare_text_prompt_test,
     prepare_tts_prompt_test,
@@ -453,6 +454,13 @@ def _run_save_test_result(payload: dict[str, Any]) -> None:
     save_test_result(dto.parse_save_test_result(payload))
 
 
+def _run_random_test_card(payload: dict[str, Any]) -> dict[str, Any]:
+    card = pick_random_test_card(dto.parse_random_test_card(payload))
+    if card is None:
+        return dto.build_selection_cleared(0)
+    return dto.build_selection_changed(card.note(), card.id, card.did)
+
+
 async def _run_generate_prompt(payload: dict[str, Any]) -> dict[str, str]:
     request = dto.parse_prompt_generate(payload)
     args = await asyncio.get_running_loop().run_in_executor(
@@ -526,6 +534,7 @@ COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
     "images.test": _run_test_image,
     "tts.test": _run_test_tts,
     "notes.saveTestResult": _run_save_test_result,
+    "notes.randomTestCard": _run_random_test_card,
     "support.sendFeedback": _run_send_feedback,
     "account.refresh": _run_refresh_account,
     "auth.exchangeCode": _run_exchange_auth_code,

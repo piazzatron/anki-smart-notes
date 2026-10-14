@@ -223,10 +223,11 @@ const getTesterArgs = ({
   "controls" | "state" | "voiceCatalog"
 >): PromptTesterArgs => {
   const { pinnedSettings, prompt, sourceFieldName, target } = controls.form
-  const requiredNoteTypeId = target.noteTypeId
+  const { deckId, noteTypeId: requiredNoteTypeId } = target
 
   if (target.fieldType === "chat") {
     return {
+      deckId,
       fieldType: "chat",
       prompt,
       requiredNoteTypeId,
@@ -235,6 +236,7 @@ const getTesterArgs = ({
   }
   if (target.fieldType === "image") {
     return {
+      deckId,
       fieldType: "image",
       prompt,
       requiredNoteTypeId,
@@ -244,6 +246,7 @@ const getTesterArgs = ({
 
   const settings = pinnedSettings.tts ?? state.defaults.tts
   return {
+    deckId,
     fieldType: "tts",
     prompt: `{{${sourceFieldName}}}`,
     requiredNoteTypeId,

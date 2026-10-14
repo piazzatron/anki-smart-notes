@@ -528,6 +528,12 @@ export const sendMockCommand: CommandSender = async <Result = void>(
     return undefined as Result
   }
 
+  if (command === "notes.randomTestCard") {
+    return (Object.values(MOCK_SELECTIONS).find(
+      (selection) => selection.note?.noteTypeId === commandPayload.noteTypeId,
+    ) ?? MOCK_SELECTIONS.none) as Result
+  }
+
   if (command === "prompts.generate") {
     await new Promise((resolve) => setTimeout(resolve, 600))
     return {
