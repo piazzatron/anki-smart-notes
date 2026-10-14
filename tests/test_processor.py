@@ -20,6 +20,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import asyncio
+import threading
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
@@ -636,6 +637,7 @@ async def test_process_notes_batch_marks_user_displayable_errors_as_failed(monke
         [1, 2],
         overwrite_fields=False,
         did_map={1: 1, 2: 1},
+        cancel=threading.Event(),
     )
 
     assert updated == []
@@ -800,3 +802,83 @@ async def test_returns_if_updated(note, prompts_map, expected, monkeypatch):
 
     res = await p.process_note(n, deck_id=1, overwrite_fields=False, target_field=None)
     assert res == expected
+
+
+@pytest.mark.asyncio
+async def test_cancelled_batch_does_not_stop_later_background_generation(monkeypatch):
+    import src.note_proccessor
+
+    n = MockNote({"f1": "1", "f2": ""}, note_type=NOTE_TYPE_NAME)
+    processor = setup_data(  # type: ignore
+        monkeypatch=monkeypatch,
+        note=n,
+        prompts_map={"f2": "{{f1}}"},
+        options={},
+        allow_empty_fields=False,
+    )
+    batches_run = []
+
+    class MockCollection:
+        def get_card(self, card_id):
+            card = MockCard(id=card_id, did=1, note=n)
+            card.nid = 1
+            return card
+
+        def update_note(self, note):
+            pass
+
+        def update_notes(self, notes):
+            pass
+
+    class MockProgress:
+        cancel_requested = True
+
+        def start(self, **kwargs):
+            pass
+
+        def finish(self):
+            pass
+
+        def update(self, **kwargs):
+            pass
+
+        def want_cancel(self):
+            return self.cancel_requested
+
+    class MockMw:
+        col = MockCollection()
+        progress = MockProgress()
+
+    async def run_background(op, on_success, on_failure=None, **kwargs):
+        on_success(await op())
+
+    async def process_notes_batch(*args, **kwargs):
+        batches_run.append(args)
+        return [], [], [], False
+
+    mw = MockMw()
+    monkeypatch.setattr(src.note_proccessor, "mw", mw)
+    monkeypatch.setattr(processor, "_assert_valid_app_mode", lambda: True)
+    monkeypatch.setattr(processor, "_process_notes_batch", process_notes_batch)
+    monkeypatch.setattr(src.note_proccessor, "bump_usage_counter", lambda: None)
+    monkeypatch.setattr(src.note_proccessor, "is_capacity_remaining", lambda: True)
+    monkeypatch.setattr(src.note_proccessor, "run_on_main", lambda work: work())
+    monkeypatch.setattr(
+        src.note_proccessor,
+        "run_async_in_background_with_sentry",
+        lambda op, on_success, on_failure=None, **kwargs: asyncio.create_task(
+            run_background(op, on_success, on_failure, **kwargs)
+        ),
+    )
+
+    # The user cancels a browser batch from its progress dialog.
+    processor.process_cards_with_progress([1], on_success=None)
+    await asyncio.sleep(0)
+    assert batches_run == []
+
+    # Later, review-time generation processes a note with no dialog open.
+    mw.progress.cancel_requested = False
+    did_update = await processor.process_note(n, deck_id=1)
+
+    assert did_update
+    assert n["f2"] == p("1")
