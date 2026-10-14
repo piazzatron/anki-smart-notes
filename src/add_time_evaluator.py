@@ -34,8 +34,10 @@ from .utils import run_on_main
 from .utils.notes_utils import is_card_fully_processed
 
 # note_will_be_added fires before the add assigns the note id, so wait for the add
-# to finish before looking the note up.
+# to finish before looking the note up. An add queued behind a busy collection can
+# take longer, so check again a few times before treating it as failed.
 START_DELAY_MS = 1000
+MAX_START_ATTEMPTS = 5
 
 # Maximum number of added notes generating at once. Notes added while this many
 # are generating are skipped and left for review-time or browser batch
@@ -67,13 +69,19 @@ class AddTimeEvaluator:
             return
         run_on_main(lambda: self.schedule_start(note))
 
-    def schedule_start(self, note: Note) -> None:
+    def schedule_start(self, note: Note, attempt: int = 1) -> None:
         if self.is_stopped or not mw:
             return
-        mw.progress.single_shot(START_DELAY_MS, lambda: self.start(note))
+        mw.progress.single_shot(START_DELAY_MS, lambda: self.start(note, attempt))
 
-    def start(self, added_note: Note) -> None:
+    def start(self, added_note: Note, attempt: int = 1) -> None:
         if self.is_stopped or not mw or not mw.col:
+            return
+
+        # A note without an id hasn't finished adding, or the add failed.
+        if not added_note.id:
+            if attempt < MAX_START_ATTEMPTS:
+                self.schedule_start(added_note, attempt + 1)
             return
 
         if not is_capacity_remaining_or_legacy():
@@ -99,10 +107,6 @@ class AddTimeEvaluator:
 
     def get_candidate_card(self, added_note: Note) -> Optional[Card]:
         if not mw or not mw.col:
-            return None
-
-        # A note without an id never made it into the collection (the add failed).
-        if not added_note.id:
             return None
 
         try:

@@ -161,6 +161,25 @@ def test_skips_failed_deleted_and_already_filled_notes(monkeypatch):
     assert env.evaluator.in_flight == 0
 
 
+def test_slow_add_still_generates_and_failed_add_gives_up(monkeypatch):
+    env = setup_add_time_evaluator(monkeypatch)
+    slow = AddedNote(1, did=1)
+    failed = AddedNote(2, did=2)
+    env.evaluator.on_note_will_be_added(slow)
+    env.evaluator.on_note_will_be_added(failed)
+
+    # Neither add has assigned an id when the first check runs.
+    fire_starts(env)
+    slow.finish_add()
+    env.mw.col.notes[slow.id] = slow
+    for _ in range(env.module.MAX_START_ATTEMPTS):
+        fire_starts(env)
+    run_jobs(env)
+
+    assert env.processor.processed_cards == [1]
+    assert env.mw.progress.single_shots == []
+
+
 def test_does_nothing_when_setting_is_off(monkeypatch):
     env = setup_add_time_evaluator(monkeypatch, generate_on_add=False)
     add_notes(env, [AddedNote(1)])

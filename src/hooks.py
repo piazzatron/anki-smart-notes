@@ -291,10 +291,7 @@ def on_main_window(processor: NoteProcessor):
 
     _on_start_actions()
 
-    global _review_time_evaluator, _add_time_evaluator
-    _review_time_evaluator = ReviewTimeEvaluator(processor)
-    _add_time_evaluator = AddTimeEvaluator(processor)
-
+    _start_background_generation(processor)
     ensure_local_server_started()
 
     # Show either the first load window or the changelog once the web app's
@@ -302,9 +299,22 @@ def on_main_window(processor: NoteProcessor):
     _stamp_version_and_show_first_load_window()
 
 
-@with_sentry
-def on_profile_did_open() -> None:
+@_with_processor  # type: ignore
+def on_profile_did_open(processor: NoteProcessor) -> None:
+    # Profile cleanup stops background generation, so a profile switch needs
+    # it started again.
+    _start_background_generation(processor)
     ensure_local_server_started()
+
+
+def _start_background_generation(processor: NoteProcessor) -> None:
+    # Anki usually opens the profile before main_window_did_init, but can open it
+    # after (Windows waits for its webviews), so both hooks call this.
+    global _review_time_evaluator, _add_time_evaluator
+    if _review_time_evaluator is None:
+        _review_time_evaluator = ReviewTimeEvaluator(processor)
+    if _add_time_evaluator is None:
+        _add_time_evaluator = AddTimeEvaluator(processor)
 
 
 @_with_processor  # type: ignore
@@ -488,7 +498,7 @@ def setup_hooks(processor: NoteProcessor):
     )
     note_will_be_added.append(on_note_will_be_added)
     gui_hooks.main_window_did_init.append(on_main_window(processor))
-    gui_hooks.profile_did_open.append(on_profile_did_open)
+    gui_hooks.profile_did_open.append(on_profile_did_open(processor))
     gui_hooks.profile_will_close.append(cleanup)
 
     # These cleanup hooks were added in different Anki versions.
