@@ -17,15 +17,12 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import asyncio
 import traceback
-from collections import deque
 from typing import Any, Optional
 
 from anki.cards import Card
 from anki.notes import Note
 from aqt import mw
-from aqt.utils import tooltip
 
 from .api_client import OutOfCreditsError, UserDisplayableError
 from .app_state import app_state, is_capacity_remaining_or_legacy
@@ -36,101 +33,65 @@ from .sentry import run_async_in_background_with_sentry
 from .utils import run_on_main
 from .utils.notes_utils import is_card_fully_processed
 
-# Delay between an add and the drain that picks it up. Gives the add time to
-# finish (note ids are assigned after note_will_be_added fires) and lets a burst
-# of AnkiConnect adds coalesce into full waves.
-DRAIN_DELAY_MS = 1000
+# note_will_be_added fires before the add assigns the note id, so wait for the add
+# to finish before looking the note up.
+START_DELAY_MS = 1000
 
-# Maximum number of notes processed concurrently in one add-time wave.
-MAX_WAVE_SIZE = 10
-
-# Maximum number of added notes waiting for generation. Notes added beyond this
-# (a bulk add from a script or another add-on) are left for review-time or
-# browser batch generation instead of silently spending credits on all of them.
-MAX_PENDING = 100
+# Maximum number of added notes generating at once. Notes added while this many
+# are generating are skipped and left for review-time or browser batch
+# generation, so a bulk add from a script or another add-on can't launch
+# hundreds of requests.
+MAX_IN_FLIGHT = 10
 
 
 class AddTimeEvaluator:
     """Generates automatic Smart Fields for notes shortly after they are added.
 
     The main use case is notes created outside the Add dialog, such as through
-    AnkiConnect by Yomitan. Added notes queue up and are processed in waves of
-    at most MAX_WAVE_SIZE, one wave at a time.
+    AnkiConnect by Yomitan. Each added note generates in its own background
+    operation, up to MAX_IN_FLIGHT at once.
     """
 
     def __init__(self, processor: NoteProcessor) -> None:
         self.processor = processor
-        # Appended from whichever thread adds the note (the Add dialog adds on a
-        # background thread) and drained on the main thread. deque append and
-        # popleft are thread-safe.
-        self.pending: deque[Note] = deque()
-        self.dropped_count = 0
-        self.drain_scheduled = False
-        self.wave_in_progress = False
+        self.in_flight = 0
         self.is_stopped = False
 
     def stop(self) -> None:
         self.is_stopped = True
-        self.pending.clear()
-        self.dropped_count = 0
-        self.drain_scheduled = False
-        self.wave_in_progress = False
+        self.in_flight = 0
 
     def on_note_will_be_added(self, note: Note) -> None:
+        # Can run off the main thread: the Add dialog adds in a background op.
         if self.is_stopped or not config.generate_on_add:
             return
+        run_on_main(lambda: self.schedule_start(note))
 
-        if len(self.pending) >= MAX_PENDING:
-            self.dropped_count += 1
-        else:
-            # The note has no id yet; the add assigns it to this same object
-            # once the backend call returns.
-            self.pending.append(note)
-
-        run_on_main(self.schedule_drain)
-
-    def schedule_drain(self) -> None:
-        if self.is_stopped or self.drain_scheduled or not mw:
+    def schedule_start(self, note: Note) -> None:
+        if self.is_stopped or not mw:
             return
-        self.drain_scheduled = True
-        mw.progress.single_shot(DRAIN_DELAY_MS, self.drain)
+        mw.progress.single_shot(START_DELAY_MS, lambda: self.start(note))
 
-    def drain(self) -> None:
-        self.drain_scheduled = False
+    def start(self, added_note: Note) -> None:
         if self.is_stopped or not mw or not mw.col:
             return
 
-        if self.dropped_count:
-            logger.info(
-                f"Skipped add-time generation for {self.dropped_count} note(s) beyond the {MAX_PENDING} note limit"
-            )
-            tooltip(
-                f"Smart Notes: too many notes added at once. Skipped generating {self.dropped_count} of them."
-            )
-            self.dropped_count = 0
-
-        # The active wave drains again when it completes.
-        if self.wave_in_progress:
-            return
-
         if not is_capacity_remaining_or_legacy():
-            logger.info("Dropping add-time generation queue: no capacity")
-            self.pending.clear()
             return
 
-        candidates: list[Card] = []
-        while self.pending and len(candidates) < MAX_WAVE_SIZE:
-            note = self.pending.popleft()
-            card = self.get_candidate_card(note)
-            if card:
-                candidates.append(card)
-
-        if not candidates:
+        if self.in_flight >= MAX_IN_FLIGHT:
+            logger.debug(
+                f"Skipping add-time generation for note {added_note.id}: {MAX_IN_FLIGHT} notes already generating"
+            )
             return
 
-        self.wave_in_progress = True
+        card = self.get_candidate_card(added_note)
+        if not card:
+            return
+
+        self.in_flight += 1
         run_async_in_background_with_sentry(
-            lambda: self.run_batch(candidates),
+            lambda: self.run_card_task(card),
             self.on_complete,
             self.on_complete_error,
             use_collection=False,
@@ -147,7 +108,7 @@ class AddTimeEvaluator:
         try:
             note = mw.col.get_note(added_note.id)
         except Exception:
-            # Deleted again before the drain ran.
+            # Deleted again before generation started.
             return None
 
         # Prompts are scoped by deck, so use a real card's deck rather than the
@@ -158,19 +119,6 @@ class AddTimeEvaluator:
 
         card = cards[0]
         return None if is_card_fully_processed(card) else card
-
-    async def run_batch(self, candidates: list[Card]) -> None:
-        if self.is_stopped:
-            return
-
-        logger.info(f"Starting add-time generation wave for {len(candidates)} notes")
-        results = await asyncio.gather(
-            *[self.run_card_task(card) for card in candidates],
-            return_exceptions=True,
-        )
-
-        if any(isinstance(result, OutOfCreditsError) for result in results):
-            raise OutOfCreditsError()
 
     async def run_card_task(self, card: Card) -> None:
         if self.is_stopped:
@@ -197,20 +145,13 @@ class AddTimeEvaluator:
                 )
 
     def on_complete(self, _: Any) -> None:
-        self.wave_in_progress = False
         if self.is_stopped:
             return
-        if self.pending:
-            self.drain()
+        self.in_flight -= 1
 
     def on_complete_error(self, e: Exception) -> None:
-        self.wave_in_progress = False
         if self.is_stopped:
             return
+        self.in_flight -= 1
         if isinstance(e, OutOfCreditsError):
-            logger.info("Out of credits; dropping add-time generation queue")
-            self.pending.clear()
             app_state.update_account_state()
-            return
-        if self.pending:
-            self.drain()

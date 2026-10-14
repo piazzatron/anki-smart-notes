@@ -22,7 +22,6 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 import asyncio
 from types import SimpleNamespace
 
-import pytest
 from fixtures import MockCard, MockConfig, MockNote, MockProcessor
 
 from src.api_client import OutOfCreditsError
@@ -35,6 +34,7 @@ class AddedNote(MockNote):
         super().__init__({"f1": "1"}, note_id=0)
         self.added_id = note_id
         self.card = MockCard(id=note_id, did=did, processed=processed, note=self)
+        self.card.nid = note_id
 
     def finish_add(self) -> None:
         self.id = self.added_id
@@ -67,12 +67,10 @@ def setup_add_time_evaluator(monkeypatch, *, generate_on_add=True):
     mw = SimpleNamespace(col=MockCollection(), progress=MockProgress())
     cfg = MockConfig()
     cfg.generate_on_add = generate_on_add
-    waves: list = []
-    tooltips: list[str] = []
+    jobs: list = []
     monkeypatch.setattr(src.add_time_evaluator, "mw", mw)
     monkeypatch.setattr(src.add_time_evaluator, "config", cfg)
     monkeypatch.setattr(src.add_time_evaluator, "run_on_main", lambda work: work())
-    monkeypatch.setattr(src.add_time_evaluator, "tooltip", tooltips.append)
     monkeypatch.setattr(
         src.add_time_evaluator, "is_capacity_remaining_or_legacy", lambda: True
     )
@@ -82,7 +80,7 @@ def setup_add_time_evaluator(monkeypatch, *, generate_on_add=True):
     monkeypatch.setattr(
         src.add_time_evaluator,
         "run_async_in_background_with_sentry",
-        lambda op, on_success, on_failure, use_collection: waves.append(
+        lambda op, on_success, on_failure, use_collection: jobs.append(
             (op, on_success, on_failure)
         ),
     )
@@ -90,8 +88,7 @@ def setup_add_time_evaluator(monkeypatch, *, generate_on_add=True):
         evaluator=evaluator,
         processor=processor,
         mw=mw,
-        waves=waves,
-        tooltips=tooltips,
+        jobs=jobs,
         module=src.add_time_evaluator,
     )
 
@@ -105,58 +102,44 @@ def add_notes(env, notes: list[AddedNote]) -> None:
         env.mw.col.notes[note.id] = note
 
 
-def fire_drain(env) -> None:
+def fire_starts(env) -> None:
     shots = env.mw.progress.single_shots[:]
     env.mw.progress.single_shots.clear()
     for shot in shots:
         shot()
 
 
-def run_wave(env) -> None:
-    op, on_success, _ = env.waves.pop(0)
-    asyncio.run(op())
-    on_success(None)
+def run_jobs(env) -> None:
+    jobs = env.jobs[:]
+    env.jobs.clear()
+    for op, on_success, on_failure in jobs:
+        try:
+            result = asyncio.run(op())
+        except Exception as e:
+            on_failure(e)
+        else:
+            on_success(result)
 
 
-def test_burst_is_processed_in_waves_one_at_a_time(monkeypatch):
+def test_bulk_add_beyond_limit_is_skipped(monkeypatch):
     env = setup_add_time_evaluator(monkeypatch)
     add_notes(env, [AddedNote(i, did=i) for i in range(1, 26)])
+    fire_starts(env)
 
-    # One drain is scheduled for the whole burst.
-    assert len(env.mw.progress.single_shots) == 1
-    fire_drain(env)
+    assert len(env.jobs) == 10
+    assert env.evaluator.in_flight == 10
 
-    assert len(env.waves) == 1
-    assert env.evaluator.wave_in_progress
+    run_jobs(env)
 
-    # More adds while a wave runs don't start a second concurrent wave.
+    assert env.processor.processed_cards == list(range(1, 11))
+    assert env.evaluator.in_flight == 0
+
+    # Slots free up once generation finishes.
     add_notes(env, [AddedNote(100, did=100)])
-    fire_drain(env)
-    assert len(env.waves) == 1
+    fire_starts(env)
+    run_jobs(env)
 
-    wave_sizes = []
-    while env.waves:
-        before = len(env.processor.processed_cards)
-        run_wave(env)
-        wave_sizes.append(len(env.processor.processed_cards) - before)
-
-    assert wave_sizes == [10, 10, 6]
-    assert sorted(env.processor.processed_cards) == [*range(1, 26), 100]
-    assert not env.evaluator.wave_in_progress
-
-
-def test_bulk_add_beyond_limit_is_skipped_and_reported(monkeypatch):
-    env = setup_add_time_evaluator(monkeypatch)
-    monkeypatch.setattr(env.module, "MAX_PENDING", 5)
-    add_notes(env, [AddedNote(i) for i in range(1, 9)])
-
-    fire_drain(env)
-    while env.waves:
-        run_wave(env)
-
-    assert len(env.processor.processed_cards) == 5
-    assert len(env.tooltips) == 1
-    assert "3" in env.tooltips[0]
+    assert env.processor.processed_cards[-1] == 100
 
 
 def test_skips_failed_deleted_and_already_filled_notes(monkeypatch):
@@ -171,10 +154,11 @@ def test_skips_failed_deleted_and_already_filled_notes(monkeypatch):
         note.finish_add()
     env.mw.col.notes = {3: filled, 4: kept}
 
-    fire_drain(env)
-    run_wave(env)
+    fire_starts(env)
+    run_jobs(env)
 
     assert env.processor.processed_cards == [4]
+    assert env.evaluator.in_flight == 0
 
 
 def test_does_nothing_when_setting_is_off(monkeypatch):
@@ -182,10 +166,27 @@ def test_does_nothing_when_setting_is_off(monkeypatch):
     add_notes(env, [AddedNote(1)])
 
     assert env.mw.progress.single_shots == []
-    assert not env.evaluator.pending
 
 
-def test_out_of_credits_drops_queue_and_refreshes_account(monkeypatch):
+def test_failed_generation_frees_its_slot(monkeypatch):
+    class FailingProcessor(MockProcessor):
+        async def process_note(self, *args, **kwargs) -> bool:
+            raise RuntimeError("provider exploded")
+
+    env = setup_add_time_evaluator(monkeypatch)
+    env.evaluator.processor = FailingProcessor()
+    error_logs = []
+    monkeypatch.setattr(env.module.logger, "error", error_logs.append)
+    add_notes(env, [AddedNote(i) for i in range(1, 4)])
+
+    fire_starts(env)
+    run_jobs(env)
+
+    assert env.evaluator.in_flight == 0
+    assert len(error_logs) == 3
+
+
+def test_out_of_credits_refreshes_account_and_frees_slot(monkeypatch):
     class BrokeProcessor(MockProcessor):
         async def process_note(self, *args, **kwargs) -> bool:
             raise OutOfCreditsError()
@@ -196,28 +197,20 @@ def test_out_of_credits_drops_queue_and_refreshes_account(monkeypatch):
     monkeypatch.setattr(
         env.module.app_state, "update_account_state", lambda: refreshes.append(True)
     )
-    add_notes(env, [AddedNote(i) for i in range(1, 16)])
-    fire_drain(env)
+    add_notes(env, [AddedNote(1)])
 
-    op, _, on_failure = env.waves.pop(0)
-    with pytest.raises(OutOfCreditsError):
-        asyncio.run(op())
-    on_failure(OutOfCreditsError())
+    fire_starts(env)
+    run_jobs(env)
 
-    assert not env.evaluator.pending
-    assert env.waves == []
     assert refreshes == [True]
+    assert env.evaluator.in_flight == 0
 
 
-def test_stop_drops_pending_and_ignores_completion(monkeypatch):
+def test_stop_ignores_scheduled_starts(monkeypatch):
     env = setup_add_time_evaluator(monkeypatch)
-    add_notes(env, [AddedNote(i) for i in range(1, 16)])
-    fire_drain(env)
+    add_notes(env, [AddedNote(1)])
 
     env.evaluator.stop()
-    run_wave(env)
-    add_notes(env, [AddedNote(99)])
-    fire_drain(env)
+    fire_starts(env)
 
-    assert env.processor.processed_cards == []
-    assert env.waves == []
+    assert env.jobs == []
