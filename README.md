@@ -1,7 +1,5 @@
 # Smart Notes ✨
 
-[![CI](https://github.com/piazzatron/anki-smart-notes/actions/workflows/ci.yml/badge.svg)](https://github.com/piazzatron/anki-smart-notes/actions/workflows/ci.yml)
-
 Smart Notes is the Anki AI toolkit that adds AI text, audio, and images to thousands of cards in minutes. Define Smart Fields for your note types, reference existing fields in prompts, and let Smart Notes generate text, text-to-speech audio, and images during review, in the editor, or in bulk from the browser.
 
 ## 📚 Documentation & Installation
