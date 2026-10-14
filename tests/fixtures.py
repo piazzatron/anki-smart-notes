@@ -17,6 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import asyncio
 from copy import deepcopy
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Callable, Optional, cast
@@ -141,6 +142,52 @@ class MockProcessor:
     ) -> bool:
         self.processed_cards.append(deck_id)
         return True
+
+
+class MockProgress:
+    """mw.progress for batch processing. cancel_requested drives want_cancel()."""
+
+    def __init__(self, cancel_requested: bool = False) -> None:
+        self.cancel_requested = cancel_requested
+
+    def start(self, **kwargs: Any) -> None:
+        pass
+
+    def finish(self) -> None:
+        pass
+
+    def update(self, **kwargs: Any) -> None:
+        pass
+
+    def want_cancel(self) -> bool:
+        return self.cancel_requested
+
+
+def run_background_ops_as_tasks(monkeypatch: pytest.MonkeyPatch, module: Any) -> None:
+    """Run a module's run_async_in_background_with_sentry ops as tasks on the
+    test's event loop, routing results and errors to their callbacks."""
+
+    async def run(
+        op: Callable[[], Any],
+        on_success: Callable[[Any], None],
+        on_failure: Optional[Callable[[Exception], None]],
+    ) -> None:
+        try:
+            result = await op()
+        except Exception as exc:
+            if on_failure is None:
+                raise
+            on_failure(exc)
+        else:
+            on_success(result)
+
+    monkeypatch.setattr(
+        module,
+        "run_async_in_background_with_sentry",
+        lambda op, on_success, on_failure=None, **kwargs: asyncio.create_task(
+            run(op, on_success, on_failure)
+        ),
+    )
 
 
 class FakeAddonManager:

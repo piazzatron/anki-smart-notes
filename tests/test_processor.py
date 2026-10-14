@@ -20,6 +20,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import asyncio
+import threading
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
@@ -30,8 +31,11 @@ from fixtures import (
     MockCard,
     MockConfig,
     MockNote,
+    MockProgress,
+    run_background_ops_as_tasks,
 )
 
+import src.note_proccessor
 from src.api_client import OutOfCreditsError, UserDisplayableError
 from src.database.migrations import apply_database_migrations
 
@@ -636,6 +640,7 @@ async def test_process_notes_batch_marks_user_displayable_errors_as_failed(monke
         [1, 2],
         overwrite_fields=False,
         did_map={1: 1, 2: 1},
+        cancel=threading.Event(),
     )
 
     assert updated == []
@@ -673,32 +678,12 @@ async def test_process_cards_with_progress_does_not_show_user_displayable_error(
         def update_notes(self, updated):
             pass
 
-    class MockProgress:
-        def start(self, **kwargs):
-            pass
-
-        def finish(self):
-            pass
-
-        def update(self, **kwargs):
-            pass
-
-        def want_cancel(self):
-            return False
-
     class MockMw:
         col = MockCollection()
         progress = MockProgress()
 
     async def process_notes_batch(*args, **kwargs):
         return [], [notes[1], notes[2]], [], False
-
-    async def run_background(op, on_success, on_failure=None, **kwargs):
-        try:
-            on_success(await op())
-        except Exception as exc:
-            if on_failure:
-                on_failure(exc)
 
     processor = NoteProcessor(  # type: ignore
         field_resolver=None,
@@ -709,13 +694,7 @@ async def test_process_cards_with_progress_does_not_show_user_displayable_error(
     monkeypatch.setattr(src.note_proccessor, "bump_usage_counter", lambda: None)
     monkeypatch.setattr(src.note_proccessor, "is_capacity_remaining", lambda: True)
     monkeypatch.setattr(src.note_proccessor, "run_on_main", lambda work: work())
-    monkeypatch.setattr(
-        src.note_proccessor,
-        "run_async_in_background_with_sentry",
-        lambda op, on_success, on_failure=None, **kwargs: asyncio.create_task(
-            run_background(op, on_success, on_failure, **kwargs)
-        ),
-    )
+    run_background_ops_as_tasks(monkeypatch, src.note_proccessor)
     monkeypatch.setattr(src.note_proccessor, "show_message_box", shown_messages.append)
     monkeypatch.setattr(processor, "_process_notes_batch", process_notes_batch)
 
@@ -800,3 +779,63 @@ async def test_returns_if_updated(note, prompts_map, expected, monkeypatch):
 
     res = await p.process_note(n, deck_id=1, overwrite_fields=False, target_field=None)
     assert res == expected
+
+
+@pytest.mark.asyncio
+async def test_cancelled_batch_does_not_stop_background_generation(monkeypatch):
+    n = MockNote({"f1": "1", "f2": ""}, note_type=NOTE_TYPE_NAME)
+    processor = setup_data(  # type: ignore
+        monkeypatch=monkeypatch,
+        note=n,
+        prompts_map={"f2": "{{f1}}"},
+        options={},
+        allow_empty_fields=False,
+    )
+    batches_run = []
+    batch_results = []
+
+    class MockCollection:
+        def get_card(self, card_id):
+            card = MockCard(id=card_id, did=1, note=n)
+            card.nid = 1
+            return card
+
+        def update_note(self, note):
+            pass
+
+        def update_notes(self, notes):
+            pass
+
+    class MockMw:
+        col = MockCollection()
+        progress = MockProgress(cancel_requested=True)
+
+    async def process_notes_batch(*args, **kwargs):
+        batches_run.append(args)
+        return [], [], [], False
+
+    monkeypatch.setattr(src.note_proccessor, "mw", MockMw())
+    monkeypatch.setattr(processor, "_assert_valid_app_mode", lambda: True)
+    monkeypatch.setattr(processor, "_process_notes_batch", process_notes_batch)
+    monkeypatch.setattr(src.note_proccessor, "bump_usage_counter", lambda: None)
+    monkeypatch.setattr(src.note_proccessor, "is_capacity_remaining", lambda: True)
+    monkeypatch.setattr(src.note_proccessor, "run_on_main", lambda work: work())
+    run_background_ops_as_tasks(monkeypatch, src.note_proccessor)
+
+    # The user cancels a browser batch from its progress dialog.
+    processor.process_cards_with_progress(
+        [1], on_success=lambda *results: batch_results.append(results)
+    )
+    await asyncio.sleep(0)
+
+    assert batch_results == [([], [], [])]
+    assert batches_run == []
+
+    # Review-time generation runs afterwards, and the cancel request is still
+    # pending in Anki's progress state. Background work has no dialog of its
+    # own, so neither the finished batch's cancel nor the pending request
+    # applies to it.
+    did_update = await processor.process_note(n, deck_id=1)
+
+    assert did_update
+    assert n["f2"] == p("1")
