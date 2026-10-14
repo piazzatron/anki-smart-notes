@@ -301,7 +301,7 @@ export const LoadedSettingsScreen = ({
           disabled={controls.isSaving}
           label={
             <Trans
-              components={{ em: <em /> }}
+              components={{ strong: <strong className="font-extrabold" /> }}
               i18nKey="settings.regenerateWhenBatching.label"
             />
           }

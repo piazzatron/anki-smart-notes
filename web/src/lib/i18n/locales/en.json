@@ -105,8 +105,8 @@
     },
     "loading": "Loading Settings",
     "regenerateWhenBatching": {
-      "description": "When processing a group of notes, regenerate every Smart Field, as opposed to only empty ones. This overwrites existing fields.",
-      "label": "Regenerate <em>all</em> Smart Fields during batch processing"
+      "description": "Regenerate every Smart Field, not just empty ones. This overwrites existing fields.",
+      "label": "Regenerate <strong>all</strong> Smart Fields during batch processing"
     },
     "saveError": "Could not save settings",
     "sections": {
