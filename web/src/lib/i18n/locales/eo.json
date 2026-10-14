@@ -79,10 +79,6 @@
       "description": "Vorta registrado por helpi diagnozi problemojn. Inkluzivi ĉi tiujn protokolojn dum arkivado de cimo.",
       "label": "Sencimiga reĝimo"
     },
-    "generateAtReview": {
-      "description": "Plenigu mankantajn inteligentajn kampojn aŭtomate kiam kartoj aperas en revizio.",
-      "label": "Generu kampojn dum revizio"
-    },
     "language": {
       "description": "Elektu la lingvon por Smart Notes, aŭ kongruu kun la lingvo de Anki.",
       "label": "Lingvo",
@@ -100,19 +96,29 @@
       "title": "Uzu mian propran OpenAI-ŝlosilon"
     },
     "loading": "Ŝarĝante Agordojn",
-    "regenerateWhenBatching": {
-      "description": "Kiam vi prilaboras grupon da notoj, regeneru ĉiun inteligentan kampon de nulo anstataŭ nur plenigi malplenajn.",
-      "label": "Regeneru ĉiujn inteligentajn kampojn dum bata prilaborado"
-    },
     "saveError": "Ne eblis konservi agordojn",
     "sections": {
       "advanced": "Altnivela",
       "general": "Generalo",
-      "generation": "Generacio"
+      "generation": "Generacio",
+      "dangerZone": "Danĝera zono"
     },
-    "title": "Agordoj"
+    "title": "Agordoj",
+    "generateAtReview": {
+      "description": "Plenigu mankantajn valorojn en Smart Fields por venontaj kartoj dum la revizio.",
+      "label": "Generi antaŭtempe dum revizio"
+    },
+    "generateOnAdd": {
+      "description": "Generu valorojn en Smart Fields en la fono por ĵus aldonitaj notoj, inkluzive de tiuj el iloj kiel Yomitan kaj AnkiConnect.",
+      "label": "Aŭtomate generi ĵus aldonitajn notojn"
+    },
+    "regenerateWhenBatching": {
+      "description": "Regeneru la valorojn en Smart Fields, ne nur la malplenajn. Tio anstataŭigas ekzistantajn kampojn.",
+      "label": "Regeneri la valorojn de <strong>ĉiuj</strong> Smart Fields dum amasa traktado"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "Jam Inteligenta Kampo",
     "collisionHint": "jam havas Smart Field — elektu malsaman kampon, ferdekon aŭ noton",
     "completion": {
       "descriptionAfter": "notoj pleniĝas kiam ajn vi generas ĝin.",
@@ -188,9 +194,9 @@
     "targetAriaLabel": "Smart Field celo",
     "testSmartField": "Testu vian Smart Field",
     "titles": {
+      "create": "Nova Inteligenta Kampo",
       "duplicate": "Duobligi Smart Field",
-      "edit": "Redaktu Smart Field",
-      "create": "Nova Inteligenta Kampo"
+      "edit": "Redaktu Smart Field"
     },
     "validation": {
       "chooseField": "Elektu kampon",
@@ -203,8 +209,7 @@
     "writePromptForMe": "Skribu mian instigon por mi",
     "writePromptForMeHint": "Diru tion, kion vi volas en simpla angla — ni skribos la instigon sube.",
     "writePromptPlaceholder": "\"Traduku al natura angla...\"",
-    "writing": "Skribante…",
-    "alreadySmartField": "Jam Inteligenta Kampo"
+    "writing": "Skribante…"
   },
   "smartFields": {
     "actionsAriaLabel": "Agoj por {{field}}",
@@ -286,6 +291,7 @@
       "loadingLabel": "Ŝargante defaŭltajn tekstajn agordojn",
       "loadingTitle": "Agordoj de Tekstaj Generacio",
       "modelGuidance": "{{auto}} kaj {{autoMax}} estas la rekomenditaj modeloj de Smart Notes, kiuj ekvilibrigas rendimenton kaj koston. Elektu {{auto}} por normaj taskoj kaj ĝisdatigu al {{autoMax}} se necese.",
+      "pickingModel": "Elektado de modelo",
       "reasoningLevel": "Rezona nivelo",
       "reasoningValues": {
         "high": "Alta",
@@ -298,7 +304,6 @@
       "title": "Agordoj de Tekstaj Generacio",
       "webSearch": "TTT-serĉo",
       "webSearchDescription": "Lasu tekstogeneraciojn enigi freŝajn informojn el la reto.",
-      "pickingModel": "Elektado de modelo",
       "webSearchWarning": "Serĉado kostas multe; observu viajn kreditojn."
     },
     "usage": {
@@ -322,10 +327,10 @@
       "loadingTitle": "Defaŭltaj Voĉaj Agordoj",
       "noVoices": "Neniuj voĉoj kongruas kun ĉi tiuj filtriloj.",
       "saveError": "Ne eblis konservi voĉajn defaŭltojn",
+      "searchPlaceholder": "Serĉi voĉojn…",
       "searchVoices": "Serĉu voĉojn",
       "subtitle": "La voĉo kiun via TTS Smart Fields uzas krom se kampo alpinglas sian propran.",
-      "title": "Defaŭltaj Voĉaj Agordoj",
-      "searchPlaceholder": "Serĉi voĉojn…"
+      "title": "Defaŭltaj Voĉaj Agordoj"
     }
   },
   "imageGeneration": {
@@ -501,8 +506,8 @@
     "finishDescription": "Kompleta ensaluto en la retumilo, kiun ni malfermis. Ĉi tiu fenestro aŭtomate ĝisdatiĝos.",
     "finishInBrowser": "Finu en via retumilo",
     "haveCode": "Ĉu vi havas kodon de la retejo?",
-    "trialDetails": "Senpaga dum 7 tagoj · ĉiu funkcio · neniu kreditkarto",
-    "startTrial": "Komenci Senpagan Provon"
+    "startTrial": "Komenci Senpagan Provon",
+    "trialDetails": "Senpaga dum 7 tagoj · ĉiu funkcio · neniu kreditkarto"
   },
   "trialEnded": {
     "description": "Provoj daŭros 7 tagojn aŭ ĝis elĉerpiĝos de viaj provaj kreditoj.",
@@ -522,8 +527,8 @@
       "leaveReview": "Lasu recenzon",
       "title": "Akiru senpagan monaton de Smart Notes"
     },
+    "thanks": "Dankon pro uzado de Smart Notes",
     "title": "Via senpaga provo finiĝis",
-    "upgradeNow": "Ĝisdatigu nun",
-    "thanks": "Dankon pro uzado de Smart Notes"
+    "upgradeNow": "Ĝisdatigu nun"
   }
 }

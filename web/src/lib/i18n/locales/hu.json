@@ -79,10 +79,6 @@
       "description": "Részletes naplózás a problémák diagnosztizálásához. A hiba bejelentésekor vegye fel ezeket a naplókat.",
       "label": "Hibakeresési mód"
     },
-    "generateAtReview": {
-      "description": "Töltse ki automatikusan a hiányzó intelligens mezőket, amikor a kártyák megjelennek az ellenőrzés során.",
-      "label": "Az ellenőrzés során generáljon mezőket"
-    },
     "language": {
       "description": "Válassza ki az Smart Notes nyelvét, vagy egyeztesse az Anki nyelvével.",
       "label": "Nyelv",
@@ -100,19 +96,29 @@
       "title": "Használja a saját OpenAI kulcsomat"
     },
     "loading": "Beállítások betöltése",
-    "regenerateWhenBatching": {
-      "description": "Egy jegyzetcsoport kötegelt feldolgozásakor minden intelligens mezőt a semmiből állítson elő újra, ahelyett, hogy csak az üreseket töltené ki.",
-      "label": "Kötegelt feldolgozás során generálja újra az összes intelligens mezőt"
-    },
     "saveError": "Nem sikerült menteni a beállításokat",
     "sections": {
       "advanced": "Fejlett",
       "general": "Általános",
-      "generation": "Generáció"
+      "generation": "Generáció",
+      "dangerZone": "Veszélyzóna"
     },
-    "title": "Beállítások elemre"
+    "title": "Beállítások elemre",
+    "generateAtReview": {
+      "description": "Hiányzó Smart Fields mezők kitöltése a következő kártyákhoz tanulás közben.",
+      "label": "Előzetes generálás tanulás közben"
+    },
+    "generateOnAdd": {
+      "description": "Smart Fields mezők generálása a háttérben az újonnan hozzáadott jegyzetekhez, beleértve az olyan eszközöket is, mint a Yomitan és az AnkiConnect.",
+      "label": "Újonnan hozzáadott jegyzetek automatikus generálása"
+    },
+    "regenerateWhenBatching": {
+      "description": "Minden Smart Fields mező újragenerálása, nem csak az üresek. Ez felülírja a meglévő mezőket.",
+      "label": "<strong>Minden</strong> Smart Fields mező újragenerálása kötegelt feldolgozás során"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "Már Smart Field",
     "collisionHint": "már rendelkezik Smart Field-val – válasszon másik mezőt, paklit vagy hangjegytípust",
     "completion": {
       "descriptionAfter": "A jegyzetek mindig kitöltődnek, amikor létrehozza.",
@@ -188,9 +194,9 @@
     "targetAriaLabel": "Smart Field cél",
     "testSmartField": "Tesztelje az Smart Field-ját",
     "titles": {
+      "create": "Új Smart Field",
       "duplicate": "Smart Field másodpéldánya",
-      "edit": "Szerkessze Smart Field",
-      "create": "Új Smart Field"
+      "edit": "Szerkessze Smart Field"
     },
     "validation": {
       "chooseField": "Válasszon egy mezőt",
@@ -203,8 +209,7 @@
     "writePromptForMe": "Írd meg nekem a felszólításomat",
     "writePromptForMeHint": "Mondja ki, amit akar, egyszerű angol nyelven – mi lent írjuk a felszólítást.",
     "writePromptPlaceholder": "\"Fordítsd le természetes angolra...\"",
-    "writing": "Írás…",
-    "alreadySmartField": "Már Smart Field"
+    "writing": "Írás…"
   },
   "smartFields": {
     "actionsAriaLabel": "Műveletek a következőhöz: {{field}}",
@@ -286,6 +291,7 @@
       "loadingLabel": "Alapértelmezett szövegbeállítások betöltése",
       "loadingTitle": "Szöveggenerálási beállítások",
       "modelGuidance": "Az {{auto}} és az {{autoMax}} az Smart Notes által ajánlott modellek, amelyek egyensúlyban tartják a teljesítményt és a költségeket. A normál feladatokhoz válassza az {{auto}} lehetőséget, és szükség esetén frissítsen {{autoMax}}-ra.",
+      "pickingModel": "Modell kiválasztása",
       "reasoningLevel": "Érvelési szint",
       "reasoningValues": {
         "high": "Magas",
@@ -298,7 +304,6 @@
       "title": "Szöveggenerálási beállítások",
       "webSearch": "Webes keresés",
       "webSearchDescription": "Hagyja, hogy a szöveges generációk friss információkat szerezzenek be az internetről.",
-      "pickingModel": "Modell kiválasztása",
       "webSearchWarning": "A keresés költséges; figyeld a kreditjeidet."
     },
     "usage": {
@@ -322,10 +327,10 @@
       "loadingTitle": "Alapértelmezett hangbeállítások",
       "noVoices": "Egyetlen hang sem felel meg ezeknek a szűrőknek.",
       "saveError": "Nem sikerült menteni az alapértelmezett hangbeállításokat",
+      "searchPlaceholder": "Hangok keresése…",
       "searchVoices": "Hangok keresése",
       "subtitle": "A hang, amelyet a TTS Smart Fields használ, hacsak egy mező nem rögzíti a sajátját.",
-      "title": "Alapértelmezett hangbeállítások",
-      "searchPlaceholder": "Hangok keresése…"
+      "title": "Alapértelmezett hangbeállítások"
     }
   },
   "imageGeneration": {
@@ -501,8 +506,8 @@
     "finishDescription": "Fejezze be a bejelentkezést a megnyitott böngészőben. Ez az ablak automatikusan frissül.",
     "finishInBrowser": "Fejezze be a böngészőben",
     "haveCode": "Van kódja a webhelyről?",
-    "trialDetails": "7 napig ingyenes · minden funkció · hitelkártya nélkül",
-    "startTrial": "Ingyenes próba indítása"
+    "startTrial": "Ingyenes próba indítása",
+    "trialDetails": "7 napig ingyenes · minden funkció · hitelkártya nélkül"
   },
   "trialEnded": {
     "description": "A próbaverziók 7 napig tartanak, vagy amíg el nem fogynak a próbaidőszak.",
@@ -522,8 +527,8 @@
       "leaveReview": "Hagyjon véleményt",
       "title": "Kap egy hónap ingyenes Smart Notes-t"
     },
+    "thanks": "Köszönjük, hogy a Smart Notes-t használod",
     "title": "Az ingyenes próbaidőszak véget ért",
-    "upgradeNow": "Frissítsen most",
-    "thanks": "Köszönjük, hogy a Smart Notes-t használod"
+    "upgradeNow": "Frissítsen most"
   }
 }

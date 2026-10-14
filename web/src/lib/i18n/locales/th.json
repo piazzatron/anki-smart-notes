@@ -78,10 +78,6 @@
       "description": "การบันทึกแบบละเอียดเพื่อช่วยวินิจฉัยปัญหา รวมบันทึกเหล่านี้เมื่อแจ้งข้อบกพร่อง",
       "label": "โหมดแก้ไขข้อบกพร่อง"
     },
-    "generateAtReview": {
-      "description": "กรอกข้อมูลในช่องอัจฉริยะที่ขาดหายไปโดยอัตโนมัติเมื่อการ์ดถูกตรวจสอบ",
-      "label": "สร้างฟิลด์ระหว่างการตรวจทาน"
-    },
     "language": {
       "description": "เลือกภาษาสำหรับ Smart Notes หรือตรงกับภาษาของ Anki",
       "label": "ภาษา",
@@ -99,19 +95,29 @@
       "title": "ใช้คีย์ OpenAI ของฉันเอง"
     },
     "loading": "กำลังโหลดการตั้งค่า",
-    "regenerateWhenBatching": {
-      "description": "เมื่อประมวลผลกลุ่มบันทึกย่อเป็นชุด ให้สร้างช่องอัจฉริยะทุกช่องใหม่ตั้งแต่ต้น แทนที่จะเติมเฉพาะช่องว่าง",
-      "label": "สร้างฟิลด์อัจฉริยะทั้งหมดใหม่เมื่อประมวลผลเป็นชุด"
-    },
     "saveError": "ไม่สามารถบันทึกการตั้งค่าได้",
     "sections": {
       "advanced": "ขั้นสูง",
       "general": "ทั่วไป",
-      "generation": "รุ่น"
+      "generation": "รุ่น",
+      "dangerZone": "โซนอันตราย"
     },
-    "title": "การตั้งค่า"
+    "title": "การตั้งค่า",
+    "generateAtReview": {
+      "description": "กรอก Smart Fields ที่ยังว่างสำหรับการ์ดที่กำลังจะมาถึงขณะทบทวน",
+      "label": "สร้างล่วงหน้าระหว่างการทบทวน"
+    },
+    "generateOnAdd": {
+      "description": "สร้าง Smart Fields ในเบื้องหลังสำหรับโน้ตที่เพิ่มใหม่ รวมถึงโน้ตจากเครื่องมืออย่าง Yomitan และ AnkiConnect",
+      "label": "สร้างโน้ตที่เพิ่มใหม่โดยอัตโนมัติ"
+    },
+    "regenerateWhenBatching": {
+      "description": "สร้าง Smart Fields ทุกช่องใหม่ ไม่ใช่เฉพาะช่องที่ว่าง การดำเนินการนี้จะเขียนทับฟิลด์ที่มีอยู่",
+      "label": "สร้าง Smart Fields <strong>ทั้งหมด</strong> ใหม่ระหว่างการประมวลผลเป็นชุด"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "เป็น Smart Field อยู่แล้ว",
     "collisionHint": "มี Smart Field อยู่แล้ว — เลือกฟิลด์ สำรับ หรือประเภทโน้ตอื่น",
     "completion": {
       "descriptionAfter": "บันทึกย่อจะเติมทุกครั้งที่คุณสร้างมันขึ้นมา",
@@ -187,9 +193,9 @@
     "targetAriaLabel": "เป้าหมาย Smart Field",
     "testSmartField": "ทดสอบ Smart Field ของคุณ",
     "titles": {
+      "create": "Smart Field ใหม่",
       "duplicate": "Smart Field ซ้ำกัน",
-      "edit": "แก้ไข Smart Field",
-      "create": "Smart Field ใหม่"
+      "edit": "แก้ไข Smart Field"
     },
     "validation": {
       "chooseField": "เลือกฟิลด์",
@@ -202,8 +208,7 @@
     "writePromptForMe": "เขียนข้อความแจ้งของฉันให้ฉัน",
     "writePromptForMeHint": "พูดสิ่งที่คุณต้องการเป็นภาษาอังกฤษธรรมดา — เราจะเขียนข้อความแจ้งด้านล่าง",
     "writePromptPlaceholder": "\"แปลเป็นภาษาอังกฤษตามธรรมชาติ…\"",
-    "writing": "การเขียน…",
-    "alreadySmartField": "เป็น Smart Field อยู่แล้ว"
+    "writing": "การเขียน…"
   },
   "smartFields": {
     "actionsAriaLabel": "การดำเนินการสำหรับ {{field}}",
@@ -285,6 +290,7 @@
       "loadingLabel": "กำลังโหลดการตั้งค่าข้อความเริ่มต้น",
       "loadingTitle": "การตั้งค่าการสร้างข้อความ",
       "modelGuidance": "{{auto}} และ {{autoMax}} เป็นรุ่นที่แนะนำโดย Smart Notes ซึ่งสร้างสมดุลระหว่างประสิทธิภาพและราคา เลือก {{auto}} สำหรับงานมาตรฐาน และอัปเกรดเป็น {{autoMax}} หากจำเป็น",
+      "pickingModel": "กำลังเลือกโมเดล",
       "reasoningLevel": "ระดับการใช้เหตุผล",
       "reasoningValues": {
         "high": "สูง",
@@ -297,7 +303,6 @@
       "title": "การตั้งค่าการสร้างข้อความ",
       "webSearch": "ค้นหาเว็บ",
       "webSearchDescription": "ให้คนรุ่นข้อความดึงข้อมูลใหม่ๆ จากเว็บ",
-      "pickingModel": "กำลังเลือกโมเดล",
       "webSearchWarning": "การค้นหาใช้ต้นทุนสูง โปรดตรวจสอบเครดิตของคุณ"
     },
     "usage": {
@@ -320,10 +325,10 @@
       "loadingTitle": "การตั้งค่าเสียงเริ่มต้น",
       "noVoices": "ไม่มีเสียงที่ตรงกับตัวกรองเหล่านี้",
       "saveError": "ไม่สามารถบันทึกค่าเริ่มต้นของเสียงได้",
+      "searchPlaceholder": "ค้นหาเสียง…",
       "searchVoices": "ค้นหาเสียง",
       "subtitle": "เสียงที่ TTS Smart Fields ของคุณใช้ เว้นแต่ว่าฟิลด์จะปักหมุดเสียงของตัวเอง",
-      "title": "การตั้งค่าเสียงเริ่มต้น",
-      "searchPlaceholder": "ค้นหาเสียง…"
+      "title": "การตั้งค่าเสียงเริ่มต้น"
     }
   },
   "imageGeneration": {
@@ -491,8 +496,8 @@
     "finishDescription": "ลงชื่อเข้าใช้ให้เสร็จสิ้นในเบราว์เซอร์ที่เราเปิด หน้าต่างนี้จะอัปเดตโดยอัตโนมัติ",
     "finishInBrowser": "เสร็จสิ้นในเบราว์เซอร์ของคุณ",
     "haveCode": "มีรหัสจากเว็บไซต์หรือไม่?",
-    "trialDetails": "ฟรี 7 วัน · ทุกฟีเจอร์ · ไม่มีบัตรเครดิต",
-    "startTrial": "เริ่มทดลองใช้ฟรี"
+    "startTrial": "เริ่มทดลองใช้ฟรี",
+    "trialDetails": "ฟรี 7 วัน · ทุกฟีเจอร์ · ไม่มีบัตรเครดิต"
   },
   "trialEnded": {
     "description": "ช่วงทดลองใช้งานใช้เวลา 7 วันหรือจนกว่าเครดิตทดลองใช้จะหมด",
@@ -512,8 +517,8 @@
       "leaveReview": "แสดงความคิดเห็น",
       "title": "รับ Smart Notes ฟรีหนึ่งเดือน"
     },
+    "thanks": "ขอบคุณที่ใช้ Smart Notes",
     "title": "การทดลองใช้ฟรีของคุณสิ้นสุดลงแล้ว",
-    "upgradeNow": "อัพเกรดตอนนี้",
-    "thanks": "ขอบคุณที่ใช้ Smart Notes"
+    "upgradeNow": "อัพเกรดตอนนี้"
   }
 }

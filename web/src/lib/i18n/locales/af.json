@@ -79,10 +79,6 @@
       "description": "Uitgebreide aantekening om kwessies te help diagnoseer. Sluit hierdie logs in wanneer 'n fout ingedien word.",
       "label": "Ontfoutmodus"
     },
-    "generateAtReview": {
-      "description": "Vul ontbrekende slimvelde outomaties in soos kaarte ter sprake kom.",
-      "label": "Genereer velde tydens hersiening"
-    },
     "language": {
       "description": "Kies die taal vir Smart Notes, of pas by Anki se taal.",
       "label": "Taal",
@@ -100,19 +96,29 @@
       "title": "Gebruik my eie OpenAI sleutel"
     },
     "loading": "Laai instellings",
-    "regenerateWhenBatching": {
-      "description": "Wanneer 'n groep notas in 'n bondel verwerk word, herskep elke slim veld van nuuts af in plaas daarvan om net leës te vul.",
-      "label": "Regenereer alle slim velde tydens bondelverwerking"
-    },
     "saveError": "Kon nie instellings stoor nie",
     "sections": {
       "advanced": "Gevorderd",
       "general": "Algemeen",
-      "generation": "Generasie"
+      "generation": "Generasie",
+      "dangerZone": "Gevaarsone"
     },
-    "title": "Instellings"
+    "title": "Instellings",
+    "generateAtReview": {
+      "description": "Vul ontbrekende Smart Fields in vir komende kaarte terwyl jy hersien.",
+      "label": "Genereer vooraf tydens hersiening"
+    },
+    "generateOnAdd": {
+      "description": "Genereer Smart Fields op die agtergrond vir nuut bygevoegde notas, insluitend vanaf gereedskap soos Yomitan en AnkiConnect.",
+      "label": "Genereer nuut bygevoegde notas outomaties"
+    },
+    "regenerateWhenBatching": {
+      "description": "Genereer elke Smart Field opnuut, nie net leë velde nie. Dit oorskryf bestaande velde.",
+      "label": "Genereer <strong>alle</strong> Smart Fields opnuut tydens groepverwerking"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "Reeds 'n Slim-veld",
     "collisionHint": "het reeds 'n Smart Field - kies 'n ander veld, dek of noottipe",
     "completion": {
       "descriptionAfter": "notas vul in wanneer jy dit genereer.",
@@ -188,9 +194,9 @@
     "targetAriaLabel": "Smart Field teiken",
     "testSmartField": "Toets jou Smart Field",
     "titles": {
+      "create": "Nuwe Slim-veld",
       "duplicate": "Duplikaat Smart Field",
-      "edit": "Wysig Smart Field",
-      "create": "Nuwe Slim-veld"
+      "edit": "Wysig Smart Field"
     },
     "validation": {
       "chooseField": "Kies 'n veld",
@@ -203,8 +209,7 @@
     "writePromptForMe": "Skryf my opdrag vir my",
     "writePromptForMeHint": "Sê wat jy wil in gewone Engels - ons sal die opdrag hieronder skryf.",
     "writePromptPlaceholder": "\"Vertaal na natuurlike Engels...\"",
-    "writing": "Skryf tans …",
-    "alreadySmartField": "Reeds 'n Slim-veld"
+    "writing": "Skryf tans …"
   },
   "smartFields": {
     "actionsAriaLabel": "Aksies vir {{field}}",
@@ -286,6 +291,7 @@
       "loadingLabel": "Laai verstek teksinstellings",
       "loadingTitle": "Teksgenerasie-instellings",
       "modelGuidance": "{{auto}} en {{autoMax}} is die Smart Notes aanbevole modelle wat prestasie en koste balanseer. Kies {{auto}} vir standaard take en gradeer op na {{autoMax}} indien nodig.",
+      "pickingModel": "Kies 'n model",
       "reasoningLevel": "Redeneringsvlak",
       "reasoningValues": {
         "high": "Hoog",
@@ -298,7 +304,6 @@
       "title": "Teksgenerasie-instellings",
       "webSearch": "Websoektog",
       "webSearchDescription": "Laat teksgenerasies vars inligting van die web af intrek.",
-      "pickingModel": "Kies 'n model",
       "webSearchWarning": "Soek is duur; hou jou krediete dop."
     },
     "usage": {
@@ -322,10 +327,10 @@
       "loadingTitle": "Versteksteminstellings",
       "noVoices": "Geen stemme pas by hierdie filters nie.",
       "saveError": "Kon nie stem verstekke stoor nie",
+      "searchPlaceholder": "Soek stemme…",
       "searchVoices": "Soek stemme",
       "subtitle": "Die stem wat jou TTS Smart Fields gebruik, tensy 'n veld sy eie vaspen.",
-      "title": "Versteksteminstellings",
-      "searchPlaceholder": "Soek stemme…"
+      "title": "Versteksteminstellings"
     }
   },
   "imageGeneration": {
@@ -501,8 +506,8 @@
     "finishDescription": "Voltooi aanmelding in die blaaier wat ons oopgemaak het. Hierdie venster sal outomaties opgedateer word.",
     "finishInBrowser": "Voltooi in jou blaaier",
     "haveCode": "Het jy 'n kode van die webwerf af?",
-    "trialDetails": "Gratis vir 7 dae · elke kenmerk · geen kredietkaart nie",
-    "startTrial": "Begin gratis proeftydperk"
+    "startTrial": "Begin gratis proeftydperk",
+    "trialDetails": "Gratis vir 7 dae · elke kenmerk · geen kredietkaart nie"
   },
   "trialEnded": {
     "description": "Proewe duur 7 dae of totdat jou proefkrediete opraak.",
@@ -522,8 +527,8 @@
       "leaveReview": "Laat 'n resensie",
       "title": "Kry 'n gratis maand van Smart Notes"
     },
+    "thanks": "Dankie dat jy Smart Notes gebruik",
     "title": "Jou gratis proeftydperk het geëindig",
-    "upgradeNow": "Gradeer nou op",
-    "thanks": "Dankie dat jy Smart Notes gebruik"
+    "upgradeNow": "Gradeer nou op"
   }
 }

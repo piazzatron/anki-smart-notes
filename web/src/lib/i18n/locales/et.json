@@ -79,10 +79,6 @@
       "description": "Üksikasjalik logimine, mis aitab probleeme diagnoosida. Kaasake need logid vea esitamisel.",
       "label": "Silumisrežiim"
     },
-    "generateAtReview": {
-      "description": "Täitke puuduvad nutikad väljad automaatselt, kui kaardid ülevaatamisel ilmuvad.",
-      "label": "Looge ülevaatuse ajal väljad"
-    },
     "language": {
       "description": "Valige Smart Notes keel või sobitage Anki keel.",
       "label": "Keel",
@@ -100,19 +96,29 @@
       "title": "Kasutage minu enda võtit OpenAI"
     },
     "loading": "Seadete laadimine",
-    "regenerateWhenBatching": {
-      "description": "Märkmete rühma paketttöötlemisel taastage kõik nutikad väljad tühjade väljade täitmise asemel nullist.",
-      "label": "Paketttöötlusel taasgenereerige kõik nutikad väljad"
-    },
     "saveError": "Seadeid ei saanud salvestada",
     "sections": {
       "advanced": "Täpsemalt",
       "general": "Kindral",
-      "generation": "Põlvkond"
+      "generation": "Põlvkond",
+      "dangerZone": "Ohutsoon"
     },
-    "title": "Seaded"
+    "title": "Seaded",
+    "generateAtReview": {
+      "description": "Täida vajalikud Smart Fieldsi väljad tulevaste kaartide jaoks kordamise ajal.",
+      "label": "Genereeri ette kordamise ajal"
+    },
+    "generateOnAdd": {
+      "description": "Genereeri Smart Fieldsi väljad taustal uutele märkmetele, sealhulgas tööriistadest nagu Yomitan ja AnkiConnect.",
+      "label": "Genereeri uued märkmed automaatselt"
+    },
+    "regenerateWhenBatching": {
+      "description": "Genereeri uuesti kõik Smart Fieldsi väljad, mitte ainult tühjad. See kirjutab olemasolevad väljad üle.",
+      "label": "Genereeri partiitöötlemisel uuesti <strong>kõik</strong> Smart Fieldsi väljad"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "Juba Smart Field",
     "collisionHint": "on juba Smart Field – valige mõni muu välja, teki või nooditüüp",
     "completion": {
       "descriptionAfter": "märkmed täidetakse alati, kui selle loote.",
@@ -188,9 +194,9 @@
     "targetAriaLabel": "Smart Field sihtmärk",
     "testSmartField": "Testige oma Smart Field",
     "titles": {
+      "create": "Uus Smart Field",
       "duplicate": "Smart Field duplikaat",
-      "edit": "Redigeeri Smart Field",
-      "create": "Uus Smart Field"
+      "edit": "Redigeeri Smart Field"
     },
     "validation": {
       "chooseField": "Valige väli",
@@ -203,8 +209,7 @@
     "writePromptForMe": "Kirjutage mulle minu viip",
     "writePromptForMeHint": "Öelge, mida soovite, lihtsas inglise keeles – me kirjutame allpool oleva viipa.",
     "writePromptPlaceholder": "\"Tõlgi loomulikku inglise keelde...\"",
-    "writing": "Kirjutamine…",
-    "alreadySmartField": "Juba Smart Field"
+    "writing": "Kirjutamine…"
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}} toimingud",
@@ -286,6 +291,7 @@
       "loadingLabel": "Teksti vaikeseadete laadimine",
       "loadingTitle": "Teksti genereerimise sätted",
       "modelGuidance": "{{auto}} ja {{autoMax}} on Smart Notes soovitatavad mudelid, mis tasakaalustavad jõudlust ja kulusid. Valige standardülesannete jaoks {{auto}} ja vajadusel uuendage versioonile {{autoMax}}.",
+      "pickingModel": "Mudeli valimine",
       "reasoningLevel": "Arutlusvõime tase",
       "reasoningValues": {
         "high": "Kõrge",
@@ -298,7 +304,6 @@
       "title": "Teksti genereerimise sätted",
       "webSearch": "Veebiotsing",
       "webSearchDescription": "Laske tekstipõlvkondadel veebist värsket teavet hankida.",
-      "pickingModel": "Mudeli valimine",
       "webSearchWarning": "Otsing on kallis; jälgi oma krediite."
     },
     "usage": {
@@ -322,10 +327,10 @@
       "loadingTitle": "Vaikimisi hääleseaded",
       "noVoices": "Nendele filtritele ei vasta ükski hääl.",
       "saveError": "Hääle vaikeseadeid ei saanud salvestada",
+      "searchPlaceholder": "Otsi hääli…",
       "searchVoices": "Otsige hääli",
       "subtitle": "Hääl, mida teie TTS Smart Fields kasutab, välja arvatud juhul, kui väli kinnitab oma.",
-      "title": "Vaikimisi hääleseaded",
-      "searchPlaceholder": "Otsi hääli…"
+      "title": "Vaikimisi hääleseaded"
     }
   },
   "imageGeneration": {
@@ -501,8 +506,8 @@
     "finishDescription": "Lõpetage sisselogimine meie avatud brauseris. Seda akent värskendatakse automaatselt.",
     "finishInBrowser": "Lõpetage oma brauseris",
     "haveCode": "Kas teil on veebisaidilt kood?",
-    "trialDetails": "7 päeva tasuta · kõik funktsioonid · krediitkaarti pole",
-    "startTrial": "Alusta tasuta prooviperioodi"
+    "startTrial": "Alusta tasuta prooviperioodi",
+    "trialDetails": "7 päeva tasuta · kõik funktsioonid · krediitkaarti pole"
   },
   "trialEnded": {
     "description": "Prooviperioodid kestavad 7 päeva või kuni teie prooviperioodi krediidid otsa saavad.",
@@ -522,8 +527,8 @@
       "leaveReview": "Jäta arvustus",
       "title": "Hankige tasuta kuu aega Smart Notes"
     },
+    "thanks": "Aitäh, et kasutasid Smart Notes'it",
     "title": "Teie tasuta prooviperiood on lõppenud",
-    "upgradeNow": "Uuendage kohe",
-    "thanks": "Aitäh, et kasutasid Smart Notes'it"
+    "upgradeNow": "Uuendage kohe"
   }
 }

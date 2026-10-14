@@ -78,10 +78,6 @@
       "description": "详细日志记录有助于诊断问题。提交错误时包括这些日志。",
       "label": "调试模式"
     },
-    "generateAtReview": {
-      "description": "当卡片出现在审核中时，自动填写缺失的智能字段。",
-      "label": "审核期间生成字段"
-    },
     "language": {
       "description": "选择 Smart Notes 的语言，或匹配 Anki 的语言。",
       "label": "语言",
@@ -99,19 +95,29 @@
       "title": "使用我自己的 OpenAI 密钥"
     },
     "loading": "加载设置",
-    "regenerateWhenBatching": {
-      "description": "批处理一组笔记时，从头开始重新生成每个智能字段，而不是仅填充空字段。",
-      "label": "批处理时重新生成所有智能字段"
-    },
     "saveError": "无法保存设置",
     "sections": {
       "advanced": "先进的",
       "general": "一般的",
-      "generation": "一代"
+      "generation": "一代",
+      "dangerZone": "危险区域"
     },
-    "title": "设置"
+    "title": "设置",
+    "generateAtReview": {
+      "description": "复习时,为即将出现的卡片补全缺失的 Smart Fields。",
+      "label": "复习时提前生成"
+    },
+    "generateOnAdd": {
+      "description": "在后台为新添加的笔记生成 Smart Fields,包括通过 Yomitan 和 AnkiConnect 等工具添加的笔记。",
+      "label": "自动生成新添加的笔记"
+    },
+    "regenerateWhenBatching": {
+      "description": "重新生成每个 Smart Field,而不仅仅是空字段。这将覆盖现有字段。",
+      "label": "批量处理时重新生成<strong>所有</strong> Smart Fields"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "已是智能字段",
     "collisionHint": "已经有 Smart Field — 选择不同的字段、牌组或音符类型",
     "completion": {
       "descriptionAfter": "每当您生成它时，注释就会被填充。",
@@ -187,9 +193,9 @@
     "targetAriaLabel": "Smart Field 目标",
     "testSmartField": "测试您的 Smart Field",
     "titles": {
+      "create": "新建智能字段",
       "duplicate": "重复的 Smart Field",
-      "edit": "编辑 Smart Field",
-      "create": "新建智能字段"
+      "edit": "编辑 Smart Field"
     },
     "validation": {
       "chooseField": "选择一个领域",
@@ -202,8 +208,7 @@
     "writePromptForMe": "为我写下我的提示",
     "writePromptForMeHint": "用简单的英语说出您想要的内容 - 我们将在下面编写提示。",
     "writePromptPlaceholder": "“翻译成自然英语……”",
-    "writing": "写作…",
-    "alreadySmartField": "已是智能字段"
+    "writing": "写作…"
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}} 的操作",
@@ -285,6 +290,7 @@
       "loadingLabel": "加载默认文本设置",
       "loadingTitle": "文本生成设置",
       "modelGuidance": "{{auto}}和{{autoMax}}是Smart Notes推荐的平衡性能和成本的模型。为标准任务选择 {{auto}}，并根据需要升级到 {{autoMax}}。",
+      "pickingModel": "正在选择模型",
       "reasoningLevel": "推理水平",
       "reasoningValues": {
         "high": "高的",
@@ -297,7 +303,6 @@
       "title": "文本生成设置",
       "webSearch": "网页搜索",
       "webSearchDescription": "让文本生成从网络中获取新鲜信息。",
-      "pickingModel": "正在选择模型",
       "webSearchWarning": "搜索成本较高，请注意您的积分余额。"
     },
     "usage": {
@@ -320,10 +325,10 @@
       "loadingTitle": "默认语音设置",
       "noVoices": "没有声音符合这些过滤器。",
       "saveError": "无法保存语音默认值",
+      "searchPlaceholder": "搜索语音…",
       "searchVoices": "搜索声音",
       "subtitle": "TTS Smart Fields 使用的语音，除非字段固定其自己的语音。",
-      "title": "默认语音设置",
-      "searchPlaceholder": "搜索语音…"
+      "title": "默认语音设置"
     }
   },
   "imageGeneration": {
@@ -491,8 +496,8 @@
     "finishDescription": "在我们打开的浏览器中完成登录。该窗口将自动更新。",
     "finishInBrowser": "在浏览器中完成",
     "haveCode": "有网站上的代码吗？",
-    "trialDetails": "7 天免费 · 所有功能 · 无需信用卡",
-    "startTrial": "开始免费试用"
+    "startTrial": "开始免费试用",
+    "trialDetails": "7 天免费 · 所有功能 · 无需信用卡"
   },
   "trialEnded": {
     "description": "试用期为 7 天，或者直到您的试用积分用完。",
@@ -512,8 +517,8 @@
       "leaveReview": "发表评论",
       "title": "获得一个月的免费 Smart Notes"
     },
+    "thanks": "感谢您使用 Smart Notes",
     "title": "您的免费试用已结束",
-    "upgradeNow": "立即升级",
-    "thanks": "感谢您使用 Smart Notes"
+    "upgradeNow": "立即升级"
   }
 }

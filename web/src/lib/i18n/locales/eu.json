@@ -79,10 +79,6 @@
       "description": "Hitzezko erregistroa arazoak diagnostikatzen laguntzeko. Sartu erregistro hauek akats bat idaztean.",
       "label": "Arazte modua"
     },
-    "generateAtReview": {
-      "description": "Bete automatikoki falta diren eremu adimendunak txartelak berrikusten diren heinean.",
-      "label": "Sortu eremuak berrikuspenean"
-    },
     "language": {
       "description": "Aukeratu Smart Notes-rako hizkuntza edo lotu Anki-ren hizkuntzarekin.",
       "label": "Hizkuntza",
@@ -100,19 +96,29 @@
       "title": "Erabili nire OpenAI gakoa"
     },
     "loading": "Ezarpenak kargatzen",
-    "regenerateWhenBatching": {
-      "description": "Ohar talde bat multzoka prozesatzen duzunean, birsortu eremu adimendun guztiak hutsetik hutsik daudenak bakarrik bete beharrean.",
-      "label": "Sortu eremu adimendun guztiak batch prozesatzen direnean"
-    },
     "saveError": "Ezin izan dira gorde ezarpenak",
     "sections": {
       "advanced": "Aurreratua",
       "general": "Orokorra",
-      "generation": "Belaunaldia"
+      "generation": "Belaunaldia",
+      "dangerZone": "Arrisku-eremua"
     },
-    "title": "Ezarpenak"
+    "title": "Ezarpenak",
+    "generateAtReview": {
+      "description": "Bete hurrengo txartelen falta diren Smart Fields berrikusten ari zaren bitartean.",
+      "label": "Sortu aldez aurretik berrikusketan zehar"
+    },
+    "generateOnAdd": {
+      "description": "Sortu Smart Fields atzeko planoan gehitu berri diren oharrentzat, baita Yomitan eta AnkiConnect bezalako tresnetatik gehitutakoentzat ere.",
+      "label": "Sortu automatikoki gehitu berri diren oharrak"
+    },
+    "regenerateWhenBatching": {
+      "description": "Berrsortu Smart Fields guztiak, ez soilik hutsik daudenak. Honek lehendik dauden eremuak gainidazten ditu.",
+      "label": "Berrsortu Smart Fields <strong>guztiak</strong> multzoka prozesatzean"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "Smart Field eremua dagoeneko existitzen da",
     "collisionHint": "dagoeneko Smart Field bat dauka — aukeratu beste eremu, multzo edo ohar mota bat",
     "completion": {
       "descriptionAfter": "oharrak sortzen dituzun bakoitzean betetzen dira.",
@@ -188,9 +194,9 @@
     "targetAriaLabel": "Smart Field helburua",
     "testSmartField": "Probatu zure Smart Field",
     "titles": {
+      "create": "Smart Field eremu berria",
       "duplicate": "Smart Field bikoiztu",
-      "edit": "Editatu Smart Field",
-      "create": "Smart Field eremu berria"
+      "edit": "Editatu Smart Field"
     },
     "validation": {
       "chooseField": "Aukeratu eremu bat",
@@ -203,8 +209,7 @@
     "writePromptForMe": "Idatzi nire gonbita",
     "writePromptForMeHint": "Esan nahi duzuna ingelesez; behean idatziko dugu gonbita.",
     "writePromptPlaceholder": "\"Itzuli ingeles naturalera...\"",
-    "writing": "Idazten…",
-    "alreadySmartField": "Smart Field eremua dagoeneko existitzen da"
+    "writing": "Idazten…"
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}}ren ekintzak",
@@ -286,6 +291,7 @@
       "loadingLabel": "Testu ezarpen lehenetsiak kargatzen",
       "loadingTitle": "Testua sortzeko ezarpenak",
       "modelGuidance": "{{auto}} eta {{autoMax}} errendimendua eta kostua orekatzen dituzten Smart Notes gomendatutako modeloak dira. Aukeratu {{auto}} zeregin estandarrak egiteko eta eguneratu {{autoMax}}ra behar izanez gero.",
+      "pickingModel": "Modeloa aukeratzen",
       "reasoningLevel": "Arrazoiketa maila",
       "reasoningValues": {
         "high": "Alta",
@@ -298,7 +304,6 @@
       "title": "Testua sortzeko ezarpenak",
       "webSearch": "Web Bilaketa",
       "webSearchDescription": "Utzi testu-belaunaldiei sareko informazio berria eskuratzen.",
-      "pickingModel": "Modeloa aukeratzen",
       "webSearchWarning": "Bilaketak garestia da; gainbegiratu zure kredituak."
     },
     "usage": {
@@ -322,10 +327,10 @@
       "loadingTitle": "Ahotsaren ezarpen lehenetsiak",
       "noVoices": "Ez dago ahotsik iragazki hauekin.",
       "saveError": "Ezin izan dira gorde ahots lehenetsiak",
+      "searchPlaceholder": "Bilatu ahotsak…",
       "searchVoices": "Bilatu ahotsak",
       "subtitle": "Zure TTS Smart Fields-k erabiltzen duen ahotsa eremu batek berea jartzen ez badu behintzat.",
-      "title": "Ahotsaren ezarpen lehenetsiak",
-      "searchPlaceholder": "Bilatu ahotsak…"
+      "title": "Ahotsaren ezarpen lehenetsiak"
     }
   },
   "imageGeneration": {
@@ -501,8 +506,8 @@
     "finishDescription": "Osatu saioa ireki dugun arakatzailean. Leiho hau automatikoki eguneratuko da.",
     "finishInBrowser": "Amaitu zure nabigatzailean",
     "haveCode": "Webguneko koderik al duzu?",
-    "trialDetails": "Doan 7 egunez · Ezaugarri guztiak · Kreditu-txartelik gabe",
-    "startTrial": "Hasi Doako Proba"
+    "startTrial": "Hasi Doako Proba",
+    "trialDetails": "Doan 7 egunez · Ezaugarri guztiak · Kreditu-txartelik gabe"
   },
   "trialEnded": {
     "description": "Probaldiak 7 egun iraungo ditu edo probako kredituak agortu arte.",
@@ -522,8 +527,8 @@
       "leaveReview": "Utzi iritzia",
       "title": "Lortu doan hilabete bat Smart Notes"
     },
+    "thanks": "Eskerrik asko Smart Notes erabiltzeagatik",
     "title": "Zure doako proba amaitu da",
-    "upgradeNow": "Berritu orain",
-    "thanks": "Eskerrik asko Smart Notes erabiltzeagatik"
+    "upgradeNow": "Berritu orain"
   }
 }

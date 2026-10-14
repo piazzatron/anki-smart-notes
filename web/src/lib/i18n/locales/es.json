@@ -80,10 +80,6 @@
       "description": "Registro detallado para ayudar a diagnosticar problemas. Incluya estos registros cuando presente un error.",
       "label": "Modo de depuración"
     },
-    "generateAtReview": {
-      "description": "Complete los campos inteligentes que faltan automáticamente a medida que aparecen las tarjetas en la revisión.",
-      "label": "Generar campos durante la revisión"
-    },
     "language": {
       "description": "Elija el idioma para Smart Notes o haga coincidir el idioma de Anki.",
       "label": "Idioma",
@@ -101,19 +97,29 @@
       "title": "Usar mi propia clave OpenAI"
     },
     "loading": "Cargando configuración",
-    "regenerateWhenBatching": {
-      "description": "Cuando procese por lotes un grupo de notas, regenere cada campo inteligente desde cero en lugar de llenar solo los vacíos.",
-      "label": "Regenerar todos los campos inteligentes al procesar por lotes"
-    },
     "saveError": "No se pudo guardar la configuración",
     "sections": {
       "advanced": "Avanzado",
       "general": "General",
-      "generation": "Generación"
+      "generation": "Generación",
+      "dangerZone": "Zona de peligro"
     },
-    "title": "Ajustes"
+    "title": "Ajustes",
+    "generateAtReview": {
+      "description": "Rellena los Smart Fields que falten en las próximas tarjetas mientras repasas.",
+      "label": "Generar con antelación durante el repaso"
+    },
+    "generateOnAdd": {
+      "description": "Genera Smart Fields en segundo plano para las notas recién añadidas, incluidas las creadas con herramientas como Yomitan y AnkiConnect.",
+      "label": "Generar automáticamente las notas recién añadidas"
+    },
+    "regenerateWhenBatching": {
+      "description": "Regenera todos los Smart Fields, no solo los vacíos. Esto sobrescribe los campos existentes.",
+      "label": "Regenerar <strong>todos</strong> los Smart Fields durante el procesamiento por lotes"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "Ya es un Campo inteligente",
     "collisionHint": "ya tiene un Smart Field: elija un campo, mazo o tipo de nota diferente",
     "completion": {
       "descriptionAfter": "Las notas se completan cada vez que las generas.",
@@ -189,9 +195,9 @@
     "targetAriaLabel": "objetivo Smart Field",
     "testSmartField": "Prueba tu Smart Field",
     "titles": {
+      "create": "Nuevo Campo inteligente",
       "duplicate": "Duplicado Smart Field",
-      "edit": "Editar Smart Field",
-      "create": "Nuevo Campo inteligente"
+      "edit": "Editar Smart Field"
     },
     "validation": {
       "chooseField": "Elige un campo",
@@ -204,8 +210,7 @@
     "writePromptForMe": "Escribe mi mensaje para mí",
     "writePromptForMeHint": "Di lo que quieras en inglés sencillo; escribiremos el mensaje a continuación.",
     "writePromptPlaceholder": "\"Traducir al inglés natural...\"",
-    "writing": "Escribiendo…",
-    "alreadySmartField": "Ya es un Campo inteligente"
+    "writing": "Escribiendo…"
   },
   "smartFields": {
     "actionsAriaLabel": "Acciones para {{field}}",
@@ -287,6 +292,7 @@
       "loadingLabel": "Cargando la configuración de texto predeterminada",
       "loadingTitle": "Configuración de generación de texto",
       "modelGuidance": "{{auto}} y {{autoMax}} son los modelos recomendados por Smart Notes que equilibran rendimiento y costo. Elija {{auto}} para tareas estándar y actualice a {{autoMax}} si es necesario.",
+      "pickingModel": "Eligiendo un modelo",
       "reasoningLevel": "nivel de razonamiento",
       "reasoningValues": {
         "high": "Alto",
@@ -299,7 +305,6 @@
       "title": "Configuración de generación de texto",
       "webSearch": "Búsqueda web",
       "webSearchDescription": "Deje que las generaciones de texto obtengan información nueva de la web.",
-      "pickingModel": "Eligiendo un modelo",
       "webSearchWarning": "La búsqueda es costosa; supervisa tus créditos."
     },
     "usage": {
@@ -324,10 +329,10 @@
       "loadingTitle": "Configuración de voz predeterminada",
       "noVoices": "Ninguna voz coincide con estos filtros.",
       "saveError": "No se pudieron guardar los valores predeterminados de voz",
+      "searchPlaceholder": "Buscar voces…",
       "searchVoices": "buscar voces",
       "subtitle": "La voz que usa su TTS Smart Fields a menos que un campo fije el suyo.",
-      "title": "Configuración de voz predeterminada",
-      "searchPlaceholder": "Buscar voces…"
+      "title": "Configuración de voz predeterminada"
     }
   },
   "imageGeneration": {
@@ -511,8 +516,8 @@
     "finishDescription": "Complete el inicio de sesión en el navegador que abrimos. Esta ventana se actualizará automáticamente.",
     "finishInBrowser": "Termina en tu navegador",
     "haveCode": "¿Tienes un código del sitio web?",
-    "trialDetails": "Gratis por 7 días · todas las funciones · sin tarjeta de crédito",
-    "startTrial": "Iniciar prueba gratuita"
+    "startTrial": "Iniciar prueba gratuita",
+    "trialDetails": "Gratis por 7 días · todas las funciones · sin tarjeta de crédito"
   },
   "trialEnded": {
     "description": "Las pruebas duran 7 días o hasta que se agoten los créditos de prueba.",
@@ -532,8 +537,8 @@
       "leaveReview": "Deja una reseña",
       "title": "Consigue un mes gratis de Smart Notes"
     },
+    "thanks": "Gracias por usar Smart Notes",
     "title": "Tu prueba gratuita ha finalizado",
-    "upgradeNow": "Actualiza ahora",
-    "thanks": "Gracias por usar Smart Notes"
+    "upgradeNow": "Actualiza ahora"
   }
 }

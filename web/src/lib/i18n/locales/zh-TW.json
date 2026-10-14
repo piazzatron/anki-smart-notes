@@ -78,10 +78,6 @@
       "description": "詳細日誌記錄有助於診斷問題。提交錯誤時包括這些日誌。",
       "label": "偵錯模式"
     },
-    "generateAtReview": {
-      "description": "當卡片出現在審核中時，自動填寫缺少的智慧型欄位。",
-      "label": "審核期間產生字段"
-    },
     "language": {
       "description": "選擇 Smart Notes 的語言，或符合 Anki 的語言。",
       "label": "語言",
@@ -99,19 +95,29 @@
       "title": "使用我自己的 OpenAI 金鑰"
     },
     "loading": "載入設定",
-    "regenerateWhenBatching": {
-      "description": "批次處理一組筆記時，從頭開始重新產生每個智慧字段，而不是僅填充空字段。",
-      "label": "批次時重新產生所有智慧字段"
-    },
     "saveError": "無法儲存設定",
     "sections": {
       "advanced": "先進的",
       "general": "一般的",
-      "generation": "世代"
+      "generation": "世代",
+      "dangerZone": "危險區域"
     },
-    "title": "設定"
+    "title": "設定",
+    "generateAtReview": {
+      "description": "在複習時為即將出現的卡片補上缺少的 Smart Fields。",
+      "label": "複習時提前生成"
+    },
+    "generateOnAdd": {
+      "description": "在背景為新加入的筆記生成 Smart Fields，包括透過 Yomitan 和 AnkiConnect 等工具加入的筆記。",
+      "label": "自動生成新加入的筆記"
+    },
+    "regenerateWhenBatching": {
+      "description": "重新生成所有 Smart Fields，而不只是空白的欄位。這會覆寫現有的欄位。",
+      "label": "批次處理時重新生成<strong>所有</strong> Smart Fields"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "已是 Smart Field",
     "collisionHint": "已經有 Smart Field — 選擇不同的欄位、牌組或音符類型",
     "completion": {
       "descriptionAfter": "每當您生成它時，註釋就會被填充。",
@@ -187,9 +193,9 @@
     "targetAriaLabel": "Smart Field 目標",
     "testSmartField": "測試您的 Smart Field",
     "titles": {
+      "create": "新增 Smart Field",
       "duplicate": "重複的 Smart Field",
-      "edit": "編輯 Smart Field",
-      "create": "新增 Smart Field"
+      "edit": "編輯 Smart Field"
     },
     "validation": {
       "chooseField": "選擇一個領域",
@@ -202,8 +208,7 @@
     "writePromptForMe": "為我寫下我的提示",
     "writePromptForMeHint": "用簡單的英語說出您想要的內容 - 我們將在下面編寫提示。",
     "writePromptPlaceholder": "“翻譯成自然英文…”",
-    "writing": "寫作…",
-    "alreadySmartField": "已是 Smart Field"
+    "writing": "寫作…"
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}} 的操作",
@@ -285,6 +290,7 @@
       "loadingLabel": "載入預設文字設定",
       "loadingTitle": "文字產生設定",
       "modelGuidance": "{{auto}}和{{autoMax}}是Smart Notes推薦的平衡性能和成本的模型。為標準任務選擇 {{auto}}，並根據需要升級到 {{autoMax}}。",
+      "pickingModel": "正在選擇模型",
       "reasoningLevel": "推理水平",
       "reasoningValues": {
         "high": "高的",
@@ -297,7 +303,6 @@
       "title": "文字產生設定",
       "webSearch": "網頁搜尋",
       "webSearchDescription": "讓文字生成從網路中獲取新鮮資訊。",
-      "pickingModel": "正在選擇模型",
       "webSearchWarning": "搜尋成本較高，請留意您的點數。"
     },
     "usage": {
@@ -320,10 +325,10 @@
       "loadingTitle": "預設語音設定",
       "noVoices": "沒有聲音符合這些過濾器。",
       "saveError": "無法儲存語音預設值",
+      "searchPlaceholder": "搜尋語音…",
       "searchVoices": "搜尋聲音",
       "subtitle": "TTS Smart Fields 使用的語音，除非欄位固定自己的語音。",
-      "title": "預設語音設定",
-      "searchPlaceholder": "搜尋語音…"
+      "title": "預設語音設定"
     }
   },
   "imageGeneration": {
@@ -491,8 +496,8 @@
     "finishDescription": "在我們開啟的瀏覽器中完成登入。該視窗將自動更新。",
     "finishInBrowser": "在瀏覽器中完成",
     "haveCode": "有網站上的程式碼嗎？",
-    "trialDetails": "7 天免費 · 所有功能 · 無需信用卡",
-    "startTrial": "開始免費試用"
+    "startTrial": "開始免費試用",
+    "trialDetails": "7 天免費 · 所有功能 · 無需信用卡"
   },
   "trialEnded": {
     "description": "試用期為 7 天，或直到您的試用積分用完。",
@@ -512,8 +517,8 @@
       "leaveReview": "發表評論",
       "title": "獲得一個月的免費 Smart Notes"
     },
+    "thanks": "感謝您使用 Smart Notes",
     "title": "您的免費試用已結束",
-    "upgradeNow": "立即升級",
-    "thanks": "感謝您使用 Smart Notes"
+    "upgradeNow": "立即升級"
   }
 }

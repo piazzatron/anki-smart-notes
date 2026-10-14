@@ -79,10 +79,6 @@
       "description": "Monisanainen lokikirjaus ongelmien diagnosoimiseksi. Sisällytä nämä lokit, kun ilmoitat virheestä.",
       "label": "Virheenkorjaustila"
     },
-    "generateAtReview": {
-      "description": "Täytä puuttuvat älykkäät kentät automaattisesti korttien tarkistuksen yhteydessä.",
-      "label": "Luo kenttiä tarkistuksen aikana"
-    },
     "language": {
       "description": "Valitse Smart Notes:n kieli tai vastaa Anki:n kieleen.",
       "label": "Kieli",
@@ -100,19 +96,29 @@
       "title": "Käytä omaa OpenAI-avainta"
     },
     "loading": "Ladataan asetuksia",
-    "regenerateWhenBatching": {
-      "description": "Kun käsittelet erää muistiinpanoryhmää, luo kaikki älykkäät kentät uudelleen tyhjästä sen sijaan, että täytät vain tyhjiä.",
-      "label": "Luo kaikki älykkäät kentät uudelleen eräkäsittelyn aikana"
-    },
     "saveError": "Asetuksia ei voitu tallentaa",
     "sections": {
       "advanced": "Edistynyt",
       "general": "Kenraali",
-      "generation": "Sukupolvi"
+      "generation": "Sukupolvi",
+      "dangerZone": "Vaaravyöhyke"
     },
-    "title": "Asetukset"
+    "title": "Asetukset",
+    "generateAtReview": {
+      "description": "Täydennä puuttuvat Smart Fields -kentät tuleville korteille kertauksen aikana.",
+      "label": "Luo tulevat kortit etukäteen kertauksen aikana"
+    },
+    "generateOnAdd": {
+      "description": "Luo Smart Fields -kentät taustalla uusille muistiinpanoille, myös työkaluilla kuten Yomitan ja AnkiConnect.",
+      "label": "Luo uudet muistiinpanot automaattisesti"
+    },
+    "regenerateWhenBatching": {
+      "description": "Luo uudelleen kaikki Smart Fields -kentät, ei vain tyhjiä. Tämä korvaa olemassa olevat kentät.",
+      "label": "Luo uudelleen <strong>kaikki</strong> Smart Fields -kentät erätyön aikana"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "Jo Smart Field",
     "collisionHint": "sinulla on jo Smart Field – valitse eri kenttä-, dekki- tai nuottityyppi",
     "completion": {
       "descriptionAfter": "muistiinpanot täyttyvät aina, kun luot sen.",
@@ -188,9 +194,9 @@
     "targetAriaLabel": "Smart Field kohde",
     "testSmartField": "Testaa Smart Field",
     "titles": {
+      "create": "Uusi Smart Field",
       "duplicate": "Kopio Smart Field",
-      "edit": "Muokkaa Smart Field",
-      "create": "Uusi Smart Field"
+      "edit": "Muokkaa Smart Field"
     },
     "validation": {
       "chooseField": "Valitse kenttä",
@@ -203,8 +209,7 @@
     "writePromptForMe": "Kirjoita kehotukseni puolestani",
     "writePromptForMeHint": "Sano mitä haluat englanniksi – kirjoitamme kehotteen alle.",
     "writePromptPlaceholder": "\"Käännä luonnolliseksi englanniksi...\"",
-    "writing": "Kirjoittaminen…",
-    "alreadySmartField": "Jo Smart Field"
+    "writing": "Kirjoittaminen…"
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}}:n toiminnot",
@@ -286,6 +291,7 @@
       "loadingLabel": "Ladataan tekstin oletusasetuksia",
       "loadingTitle": "Tekstin luontiasetukset",
       "modelGuidance": "{{auto}} ja {{autoMax}} ovat Smart Notes:n suosittelemia malleja, jotka tasapainottavat suorituskykyä ja kustannuksia. Valitse tavallisille tehtäville {{auto}} ja päivitä {{autoMax}}-versioon tarvittaessa.",
+      "pickingModel": "Mallin valitseminen",
       "reasoningLevel": "Päättelyn taso",
       "reasoningValues": {
         "high": "Korkea",
@@ -298,7 +304,6 @@
       "title": "Tekstin luontiasetukset",
       "webSearch": "Verkkohaku",
       "webSearchDescription": "Anna tekstisukupolvien hakea uutta tietoa verkosta.",
-      "pickingModel": "Mallin valitseminen",
       "webSearchWarning": "Haku on kallista; seuraa krediittejäsi."
     },
     "usage": {
@@ -322,10 +327,10 @@
       "loadingTitle": "Äänen oletusasetukset",
       "noVoices": "Yksikään ääni ei vastaa näitä suodattimia.",
       "saveError": "Äänen oletusasetuksia ei voitu tallentaa",
+      "searchPlaceholder": "Haeääniä…",
       "searchVoices": "Etsi ääniä",
       "subtitle": "Ääni, jota TTS Smart Fields käyttää, ellei kenttä liitä omaansa.",
-      "title": "Äänen oletusasetukset",
-      "searchPlaceholder": "Haeääniä…"
+      "title": "Äänen oletusasetukset"
     }
   },
   "imageGeneration": {
@@ -501,8 +506,8 @@
     "finishDescription": "Suorita kirjautuminen loppuun avaamallamme selaimella. Tämä ikkuna päivittyy automaattisesti.",
     "finishInBrowser": "Viimeistele selaimessasi",
     "haveCode": "Onko sinulla koodi verkkosivustolta?",
-    "trialDetails": "Ilmainen 7 päivää · jokainen ominaisuus · ei luottokorttia",
-    "startTrial": "Aloita ilmainen kokeilu"
+    "startTrial": "Aloita ilmainen kokeilu",
+    "trialDetails": "Ilmainen 7 päivää · jokainen ominaisuus · ei luottokorttia"
   },
   "trialEnded": {
     "description": "Kokeilujaksot kestävät 7 päivää tai kunnes kokeilujaksosi loppuvat.",
@@ -522,8 +527,8 @@
       "leaveReview": "Jätä arvostelu",
       "title": "Hanki ilmainen kuukausi Smart Notes"
     },
+    "thanks": "Kiitos Smart Notesin käytöstä",
     "title": "Ilmainen kokeilujaksosi on päättynyt",
-    "upgradeNow": "Päivitä nyt",
-    "thanks": "Kiitos Smart Notesin käytöstä"
+    "upgradeNow": "Päivitä nyt"
   }
 }

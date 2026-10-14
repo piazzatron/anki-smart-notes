@@ -83,10 +83,6 @@
       "description": "التسجيل المطول للمساعدة في تشخيص المشكلات. قم بتضمين هذه السجلات عند تقديم خطأ.",
       "label": "وضع التصحيح"
     },
-    "generateAtReview": {
-      "description": "املأ الحقول الذكية المفقودة تلقائيًا عند ظهور البطاقات قيد المراجعة.",
-      "label": "إنشاء الحقول أثناء المراجعة"
-    },
     "language": {
       "description": "اختر لغة Smart Notes، أو قم بمطابقة لغة Anki.",
       "label": "لغة",
@@ -104,19 +100,29 @@
       "title": "استخدم مفتاح OpenAI الخاص بي"
     },
     "loading": "تحميل الإعدادات",
-    "regenerateWhenBatching": {
-      "description": "عند معالجة مجموعة من الملاحظات دفعة واحدة، قم بإعادة إنشاء كل حقل ذكي من البداية بدلاً من ملء الحقول الفارغة فقط.",
-      "label": "قم بإعادة إنشاء جميع الحقول الذكية عند معالجة الدُفعات"
-    },
     "saveError": "لا يمكن حفظ الإعدادات",
     "sections": {
       "advanced": "متقدم",
       "general": "عام",
-      "generation": "جيل"
+      "generation": "جيل",
+      "dangerZone": "منطقة الخطر"
     },
-    "title": "إعدادات"
+    "title": "إعدادات",
+    "generateAtReview": {
+      "description": "املأ حقول Smart Fields الناقصة للبطاقات القادمة أثناء المراجعة.",
+      "label": "التوليد مسبقًا أثناء المراجعة"
+    },
+    "generateOnAdd": {
+      "description": "توليد حقول Smart Fields في الخلفية للملاحظات المضافة حديثًا، بما في ذلك الملاحظات الناتجة عن أدوات مثل Yomitan وAnkiConnect.",
+      "label": "توليد الملاحظات المضافة حديثًا تلقائيًا"
+    },
+    "regenerateWhenBatching": {
+      "description": "إعادة توليد كل حقول Smart Fields، وليس الفارغة فقط. سيؤدي هذا إلى الكتابة فوق الحقول الموجودة.",
+      "label": "إعادة توليد <strong>جميع</strong> حقول Smart Fields أثناء المعالجة الدفعية"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "هذا الحقل ذكي بالفعل",
     "collisionHint": "يحتوي بالفعل على حقل ذكي - اختر حقلاً أو مجموعة أو نوع ملاحظة مختلفًا",
     "completion": {
       "descriptionAfter": "يتم ملء الملاحظات كلما قمت بإنشائها.",
@@ -192,9 +198,9 @@
     "targetAriaLabel": "الهدف الميداني الذكي",
     "testSmartField": "اختبر مجالك الذكي",
     "titles": {
+      "create": "حقل ذكي جديد",
       "duplicate": "تكرار الحقل الذكي",
-      "edit": "تحرير الحقل الذكي",
-      "create": "حقل ذكي جديد"
+      "edit": "تحرير الحقل الذكي"
     },
     "validation": {
       "chooseField": "اختر حقلاً",
@@ -207,8 +213,7 @@
     "writePromptForMe": "اكتب مطالبتي بالنسبة لي",
     "writePromptForMeHint": "قل ما تريد باللغة الإنجليزية البسيطة - سنكتب المطالبة أدناه.",
     "writePromptPlaceholder": "\"الترجمة إلى اللغة الإنجليزية الطبيعية...\"",
-    "writing": "كتابة…",
-    "alreadySmartField": "هذا الحقل ذكي بالفعل"
+    "writing": "كتابة…"
   },
   "smartFields": {
     "actionsAriaLabel": "إجراءات لـ {{field}}",
@@ -290,6 +295,7 @@
       "loadingLabel": "جارٍ تحميل إعدادات النص الافتراضية",
       "loadingTitle": "إعدادات إنشاء النص",
       "modelGuidance": "يعد {{auto}} و{{autoMax}} من النماذج الموصى بها من قبل Smart Notes والتي تعمل على تحقيق التوازن بين الأداء والتكلفة. اختر {{auto}} للمهام القياسية وقم بالترقية إلى {{autoMax}} إذا لزم الأمر.",
+      "pickingModel": "اختيار نموذج",
       "reasoningLevel": "مستوى الاستدلال",
       "reasoningValues": {
         "high": "عالي",
@@ -302,7 +308,6 @@
       "title": "إعدادات إنشاء النص",
       "webSearch": "بحث الويب",
       "webSearchDescription": "اسمح للأجيال النصية بسحب معلومات جديدة من الويب.",
-      "pickingModel": "اختيار نموذج",
       "webSearchWarning": "البحث مكلف؛ راقب رصيدك."
     },
     "usage": {
@@ -330,10 +335,10 @@
       "loadingTitle": "إعدادات الصوت الافتراضية",
       "noVoices": "لا توجد أصوات تتطابق مع هذه المرشحات.",
       "saveError": "تعذر حفظ إعدادات الصوت الافتراضية",
+      "searchPlaceholder": "ابحث عن الأصوات…",
       "searchVoices": "أصوات البحث",
       "subtitle": "الصوت الذي تستخدمه TTS Smart Fields ما لم يتم تثبيت حقل خاص به.",
-      "title": "إعدادات الصوت الافتراضية",
-      "searchPlaceholder": "ابحث عن الأصوات…"
+      "title": "إعدادات الصوت الافتراضية"
     }
   },
   "imageGeneration": {
@@ -541,8 +546,8 @@
     "finishDescription": "أكمل تسجيل الدخول في المتصفح الذي فتحناه. سيتم تحديث هذه النافذة تلقائيًا.",
     "finishInBrowser": "قم بإنهاء الأمر في متصفحك",
     "haveCode": "هل لديك رمز من الموقع؟",
-    "trialDetails": "مجانًا لمدة 7 أيام · كل الميزات · بدون بطاقة ائتمان",
-    "startTrial": "ابدأ التجربة المجانية"
+    "startTrial": "ابدأ التجربة المجانية",
+    "trialDetails": "مجانًا لمدة 7 أيام · كل الميزات · بدون بطاقة ائتمان"
   },
   "trialEnded": {
     "description": "تستمر التجارب لمدة 7 أيام أو حتى نفاد الاعتمادات التجريبية الخاصة بك.",
@@ -562,8 +567,8 @@
       "leaveReview": "ترك التعليق",
       "title": "احصل على شهر مجاني من Smart Notes"
     },
+    "thanks": "شكرًا لاستخدامك Smart Notes",
     "title": "انتهت تجربتك المجانية",
-    "upgradeNow": "قم بالترقية الآن",
-    "thanks": "شكرًا لاستخدامك Smart Notes"
+    "upgradeNow": "قم بالترقية الآن"
   }
 }
