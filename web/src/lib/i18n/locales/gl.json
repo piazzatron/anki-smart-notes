@@ -79,6 +79,14 @@
       "description": "Rexistro detallado para axudar a diagnosticar problemas. Inclúe estes rexistros ao arquivar un erro.",
       "label": "Modo de depuración"
     },
+    "generateAtReview": {
+      "description": "Enche os Smart Fields que faltan para as tarxetas seguintes mentres repasas.",
+      "label": "Xerar con antelación durante o repaso"
+    },
+    "generateOnAdd": {
+      "description": "Xerar os Smart Fields en segundo plano para as notas engadidas recentemente, incluídas as das ferramentas como Yomitan e AnkiConnect.",
+      "label": "Xerar automaticamente as notas engadidas recentemente"
+    },
     "language": {
       "description": "Escolle o idioma para Smart Notes ou fai coincidir o idioma de Anki.",
       "label": "Linguaxe",
@@ -96,26 +104,18 @@
       "title": "Use a miña propia chave OpenAI"
     },
     "loading": "Configuración de carga",
-    "saveError": "Non se puido gardar a configuración",
-    "sections": {
-      "advanced": "Avanzado",
-      "general": "Xeral",
-      "generation": "Xeración",
-      "dangerZone": "Zona de perigo"
-    },
-    "title": "Configuración",
-    "generateAtReview": {
-      "description": "Enche os Smart Fields que faltan para as tarxetas seguintes mentres repasas.",
-      "label": "Xerar con antelación durante o repaso"
-    },
-    "generateOnAdd": {
-      "description": "Xerar os Smart Fields en segundo plano para as notas engadidas recentemente, incluídas as das ferramentas como Yomitan e AnkiConnect.",
-      "label": "Xerar automaticamente as notas engadidas recentemente"
-    },
     "regenerateWhenBatching": {
       "description": "Regenerar todos os Smart Fields, non só os baleiros. Isto sobrescribe os campos existentes.",
       "label": "Regenerar <strong>todos</strong> os Smart Fields durante o procesamento por lotes"
-    }
+    },
+    "saveError": "Non se puido gardar a configuración",
+    "sections": {
+      "advanced": "Avanzado",
+      "dangerZone": "Zona de perigo",
+      "general": "Xeral",
+      "generation": "Xeración"
+    },
+    "title": "Configuración"
   },
   "fieldEditor": {
     "alreadySmartField": "Xa é un Campo intelixente",

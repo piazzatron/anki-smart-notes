@@ -80,6 +80,14 @@
       "description": "רישום מפורט כדי לסייע באבחון בעיות. כלול יומנים אלה בעת הגשת באג.",
       "label": "מצב ניפוי באגים"
     },
+    "generateAtReview": {
+      "description": "מלא Smart Fields חסרים עבור הכרטיסים הבאים בזמן החזרה.",
+      "label": "יצירה מראש במהלך חזרה"
+    },
+    "generateOnAdd": {
+      "description": "יצירת Smart Fields ברקע עבור הערות שנוספו לאחרונה, כולל הערות מכלים כמו Yomitan ו-AnkiConnect.",
+      "label": "יצירה אוטומטית של הערות חדשות"
+    },
     "language": {
       "description": "בחר את השפה עבור Smart Notes, או התאם את השפה של Anki.",
       "label": "שָׂפָה",
@@ -97,26 +105,18 @@
       "title": "השתמש במפתח OpenAI שלי"
     },
     "loading": "טוען הגדרות",
-    "saveError": "לא ניתן לשמור הגדרות",
-    "sections": {
-      "advanced": "מִתקַדֵם",
-      "general": "כְּלָלִי",
-      "generation": "דוֹר",
-      "dangerZone": "אזור סכנה"
-    },
-    "title": "הגדרות",
-    "generateAtReview": {
-      "description": "מלא Smart Fields חסרים עבור הכרטיסים הבאים בזמן החזרה.",
-      "label": "יצירה מראש במהלך חזרה"
-    },
-    "generateOnAdd": {
-      "description": "יצירת Smart Fields ברקע עבור הערות שנוספו לאחרונה, כולל הערות מכלים כמו Yomitan ו-AnkiConnect.",
-      "label": "יצירה אוטומטית של הערות חדשות"
-    },
     "regenerateWhenBatching": {
       "description": "יצירה מחדש של כל ה-Smart Fields, ולא רק של השדות הריקים. פעולה זו תדרוס שדות קיימים.",
       "label": "יצירה מחדש של <strong>כל</strong> ה-Smart Fields במהלך עיבוד אצווה"
-    }
+    },
+    "saveError": "לא ניתן לשמור הגדרות",
+    "sections": {
+      "advanced": "מִתקַדֵם",
+      "dangerZone": "אזור סכנה",
+      "general": "כְּלָלִי",
+      "generation": "דוֹר"
+    },
+    "title": "הגדרות"
   },
   "fieldEditor": {
     "alreadySmartField": "כבר שדה חכם",

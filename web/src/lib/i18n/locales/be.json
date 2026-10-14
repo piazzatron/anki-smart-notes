@@ -81,6 +81,14 @@
       "description": "Падрабязная рэгістрацыя, якая дапамагае дыягнаставаць праблемы. Уключыце гэтыя журналы пры падачы паведамлення пра памылку.",
       "label": "Рэжым адладкі"
     },
+    "generateAtReview": {
+      "description": "Запаўняць пустыя Smart Fields для наступных картак падчас паўтарэння.",
+      "label": "Генерыраваць загадзя падчас паўтарэння"
+    },
+    "generateOnAdd": {
+      "description": "Генерыраваць Smart Fields у фоне для новых нататак, у тымліку з такіх інструментаў, як Yomitan і AnkiConnect.",
+      "label": "Аўтаматычна генерыраваць новыя нататкі"
+    },
     "language": {
       "description": "Выберыце мову для Smart Notes або адпавядайце мове Anki.",
       "label": "мова",
@@ -98,26 +106,18 @@
       "title": "Выкарыстоўвайце мой уласны ключ OpenAI"
     },
     "loading": "Загрузка налад",
-    "saveError": "Не ўдалося захаваць налады",
-    "sections": {
-      "advanced": "Пашыраны",
-      "general": "Генерал",
-      "generation": "Пакаленне",
-      "dangerZone": "Зона небяспекі"
-    },
-    "title": "Налады",
-    "generateAtReview": {
-      "description": "Запаўняць пустыя Smart Fields для наступных картак падчас паўтарэння.",
-      "label": "Генерыраваць загадзя падчас паўтарэння"
-    },
-    "generateOnAdd": {
-      "description": "Генерыраваць Smart Fields у фоне для новых нататак, у тымліку з такіх інструментаў, як Yomitan і AnkiConnect.",
-      "label": "Аўтаматычна генерыраваць новыя нататкі"
-    },
     "regenerateWhenBatching": {
       "description": "Перагенерыраваць кожнае Smart Field, а не толькі пустыя. Гэта перазапіша існуючыя палі.",
       "label": "Перагенерыраваць <strong>усе</strong> Smart Fields падчас пакетнай апрацоўкі"
-    }
+    },
+    "saveError": "Не ўдалося захаваць налады",
+    "sections": {
+      "advanced": "Пашыраны",
+      "dangerZone": "Зона небяспекі",
+      "general": "Генерал",
+      "generation": "Пакаленне"
+    },
+    "title": "Налады"
   },
   "fieldEditor": {
     "alreadySmartField": "Ужо Разумнае поле",

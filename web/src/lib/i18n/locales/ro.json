@@ -80,6 +80,14 @@
       "description": "Înregistrare detaliată pentru a ajuta la diagnosticarea problemelor. Includeți aceste jurnale atunci când depuneți o eroare.",
       "label": "Modul de depanare"
     },
+    "generateAtReview": {
+      "description": "Completează câmpurile Smart Fields lipsă pentru cardurile următoare în timp ce înveți.",
+      "label": "Generează din timp în timpul recapitulării"
+    },
+    "generateOnAdd": {
+      "description": "Generează Smart Fields în fundal pentru notițele nou adăugate, inclusiv din instrumente precum Yomitan și AnkiConnect.",
+      "label": "Generează automat notițele nou adăugate"
+    },
     "language": {
       "description": "Alegeți limba pentru Smart Notes sau potriviți limba Anki.",
       "label": "Limbă",
@@ -97,26 +105,18 @@
       "title": "Folosiți propria mea cheie OpenAI"
     },
     "loading": "Setări de încărcare",
-    "saveError": "Nu s-au putut salva setările",
-    "sections": {
-      "advanced": "Avansat",
-      "general": "General",
-      "generation": "Generaţie",
-      "dangerZone": "Zonă periculoasă"
-    },
-    "title": "Setări",
-    "generateAtReview": {
-      "description": "Completează câmpurile Smart Fields lipsă pentru cardurile următoare în timp ce înveți.",
-      "label": "Generează din timp în timpul recapitulării"
-    },
-    "generateOnAdd": {
-      "description": "Generează Smart Fields în fundal pentru notițele nou adăugate, inclusiv din instrumente precum Yomitan și AnkiConnect.",
-      "label": "Generează automat notițele nou adăugate"
-    },
     "regenerateWhenBatching": {
       "description": "Regenerează fiecare Smart Field, nu doar pe cele goale. Acest lucru suprascrie câmpurile existente.",
       "label": "Regenerează <strong>toate</strong> Smart Fields în timpul procesării în lot"
-    }
+    },
+    "saveError": "Nu s-au putut salva setările",
+    "sections": {
+      "advanced": "Avansat",
+      "dangerZone": "Zonă periculoasă",
+      "general": "General",
+      "generation": "Generaţie"
+    },
+    "title": "Setări"
   },
   "fieldEditor": {
     "alreadySmartField": "Deja un câmp Smart",

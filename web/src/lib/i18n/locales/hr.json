@@ -80,6 +80,14 @@
       "description": "Opširno bilježenje za pomoć u dijagnosticiranju problema. Uključite ove zapisnike prilikom prijavljivanja pogreške.",
       "label": "Način otklanjanja pogrešaka"
     },
+    "generateAtReview": {
+      "description": "Popunjava nedostajuća Smart Fields za nadolazeće kartice dok učite.",
+      "label": "Generiraj unaprijed tijekom učenja"
+    },
+    "generateOnAdd": {
+      "description": "Generiraj Smart Fields u pozadini za novo dodane bilješke, uključujući one iz alata poput Yomitan i AnkiConnect.",
+      "label": "Automatski generiraj novo dodane bilješke"
+    },
     "language": {
       "description": "Odaberite jezik za Smart Notes ili odgovarajte jeziku Anki.",
       "label": "Jezik",
@@ -97,26 +105,18 @@
       "title": "Koristi moj vlastiti ključ OpenAI"
     },
     "loading": "Učitavanje postavki",
-    "saveError": "Nije moguće spremiti postavke",
-    "sections": {
-      "advanced": "Napredno",
-      "general": "General",
-      "generation": "Generacija",
-      "dangerZone": "Opasna zona"
-    },
-    "title": "postavke",
-    "generateAtReview": {
-      "description": "Popunjava nedostajuća Smart Fields za nadolazeće kartice dok učite.",
-      "label": "Generiraj unaprijed tijekom učenja"
-    },
-    "generateOnAdd": {
-      "description": "Generiraj Smart Fields u pozadini za novo dodane bilješke, uključujući one iz alata poput Yomitan i AnkiConnect.",
-      "label": "Automatski generiraj novo dodane bilješke"
-    },
     "regenerateWhenBatching": {
       "description": "Ponovno generiraj svako Smart Field, a ne samo prazna polja. Ovo će prepisati postojeća polja.",
       "label": "Ponovno generiraj <strong>sva</strong> Smart Fields tijekom obrade u serijama"
-    }
+    },
+    "saveError": "Nije moguće spremiti postavke",
+    "sections": {
+      "advanced": "Napredno",
+      "dangerZone": "Opasna zona",
+      "general": "General",
+      "generation": "Generacija"
+    },
+    "title": "postavke"
   },
   "fieldEditor": {
     "alreadySmartField": "Već je Smart Field",

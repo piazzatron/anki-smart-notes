@@ -80,6 +80,14 @@
       "description": "Registro detallado para ayudar a diagnosticar problemas. Incluya estos registros cuando presente un error.",
       "label": "Modo de depuración"
     },
+    "generateAtReview": {
+      "description": "Rellena los Smart Fields que falten en las próximas tarjetas mientras repasas.",
+      "label": "Generar con antelación durante el repaso"
+    },
+    "generateOnAdd": {
+      "description": "Genera Smart Fields en segundo plano para las notas recién añadidas, incluidas las creadas con herramientas como Yomitan y AnkiConnect.",
+      "label": "Generar automáticamente las notas recién añadidas"
+    },
     "language": {
       "description": "Elija el idioma para Smart Notes o haga coincidir el idioma de Anki.",
       "label": "Idioma",
@@ -97,26 +105,18 @@
       "title": "Usar mi propia clave OpenAI"
     },
     "loading": "Cargando configuración",
-    "saveError": "No se pudo guardar la configuración",
-    "sections": {
-      "advanced": "Avanzado",
-      "general": "General",
-      "generation": "Generación",
-      "dangerZone": "Zona de peligro"
-    },
-    "title": "Ajustes",
-    "generateAtReview": {
-      "description": "Rellena los Smart Fields que falten en las próximas tarjetas mientras repasas.",
-      "label": "Generar con antelación durante el repaso"
-    },
-    "generateOnAdd": {
-      "description": "Genera Smart Fields en segundo plano para las notas recién añadidas, incluidas las creadas con herramientas como Yomitan y AnkiConnect.",
-      "label": "Generar automáticamente las notas recién añadidas"
-    },
     "regenerateWhenBatching": {
       "description": "Regenera todos los Smart Fields, no solo los vacíos. Esto sobrescribe los campos existentes.",
       "label": "Regenerar <strong>todos</strong> los Smart Fields durante el procesamiento por lotes"
-    }
+    },
+    "saveError": "No se pudo guardar la configuración",
+    "sections": {
+      "advanced": "Avanzado",
+      "dangerZone": "Zona de peligro",
+      "general": "General",
+      "generation": "Generación"
+    },
+    "title": "Ajustes"
   },
   "fieldEditor": {
     "alreadySmartField": "Ya es un Campo inteligente",

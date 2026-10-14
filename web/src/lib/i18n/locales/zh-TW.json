@@ -78,6 +78,14 @@
       "description": "詳細日誌記錄有助於診斷問題。提交錯誤時包括這些日誌。",
       "label": "偵錯模式"
     },
+    "generateAtReview": {
+      "description": "在複習時為即將出現的卡片補上缺少的 Smart Fields。",
+      "label": "複習時提前生成"
+    },
+    "generateOnAdd": {
+      "description": "在背景為新加入的筆記生成 Smart Fields，包括透過 Yomitan 和 AnkiConnect 等工具加入的筆記。",
+      "label": "自動生成新加入的筆記"
+    },
     "language": {
       "description": "選擇 Smart Notes 的語言，或符合 Anki 的語言。",
       "label": "語言",
@@ -95,26 +103,18 @@
       "title": "使用我自己的 OpenAI 金鑰"
     },
     "loading": "載入設定",
-    "saveError": "無法儲存設定",
-    "sections": {
-      "advanced": "先進的",
-      "general": "一般的",
-      "generation": "世代",
-      "dangerZone": "危險區域"
-    },
-    "title": "設定",
-    "generateAtReview": {
-      "description": "在複習時為即將出現的卡片補上缺少的 Smart Fields。",
-      "label": "複習時提前生成"
-    },
-    "generateOnAdd": {
-      "description": "在背景為新加入的筆記生成 Smart Fields，包括透過 Yomitan 和 AnkiConnect 等工具加入的筆記。",
-      "label": "自動生成新加入的筆記"
-    },
     "regenerateWhenBatching": {
       "description": "重新生成所有 Smart Fields，而不只是空白的欄位。這會覆寫現有的欄位。",
       "label": "批次處理時重新生成<strong>所有</strong> Smart Fields"
-    }
+    },
+    "saveError": "無法儲存設定",
+    "sections": {
+      "advanced": "先進的",
+      "dangerZone": "危險區域",
+      "general": "一般的",
+      "generation": "世代"
+    },
+    "title": "設定"
   },
   "fieldEditor": {
     "alreadySmartField": "已是 Smart Field",

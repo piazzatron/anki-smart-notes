@@ -80,6 +80,14 @@
       "description": "Опширно евидентирање ради лакшег дијагностиковања проблема. Укључите ове евиденције када поднесете грешку.",
       "label": "Режим за отклањање грешака"
     },
+    "generateAtReview": {
+      "description": "Попуњава недостајућа Smart Fields поља за наредне картице током понављања.",
+      "label": "Генериши унапред током понављања"
+    },
+    "generateOnAdd": {
+      "description": "Генерише Smart Fields поља у позадини за новододате белешке, укључујући и оне из алата попут Yomitan и AnkiConnect.",
+      "label": "Аутоматски генериши новододате белешке"
+    },
     "language": {
       "description": "Изаберите језик за Smart Notes или ускладите језик Anki.",
       "label": "Језик",
@@ -97,26 +105,18 @@
       "title": "Користи мој сопствени кључ OpenAI"
     },
     "loading": "Учитавање подешавања",
-    "saveError": "Није могуће сачувати подешавања",
-    "sections": {
-      "advanced": "Напредно",
-      "general": "генерал",
-      "generation": "Генератион",
-      "dangerZone": "Опасна зона"
-    },
-    "title": "Подешавања",
-    "generateAtReview": {
-      "description": "Попуњава недостајућа Smart Fields поља за наредне картице током понављања.",
-      "label": "Генериши унапред током понављања"
-    },
-    "generateOnAdd": {
-      "description": "Генерише Smart Fields поља у позадини за новододате белешке, укључујући и оне из алата попут Yomitan и AnkiConnect.",
-      "label": "Аутоматски генериши новододате белешке"
-    },
     "regenerateWhenBatching": {
       "description": "Поново генерише сва Smart Fields поља, а не само празна. Ово преписује постојећа поља.",
       "label": "Поново генериши <strong>сва</strong> Smart Fields поља током серијске обраде"
-    }
+    },
+    "saveError": "Није могуће сачувати подешавања",
+    "sections": {
+      "advanced": "Напредно",
+      "dangerZone": "Опасна зона",
+      "general": "генерал",
+      "generation": "Генератион"
+    },
+    "title": "Подешавања"
   },
   "fieldEditor": {
     "alreadySmartField": "Već je Pametno polje",

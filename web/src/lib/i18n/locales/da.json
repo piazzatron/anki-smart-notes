@@ -79,6 +79,14 @@
       "description": "Udførlig logføring for at hjælpe med at diagnosticere problemer. Inkluder disse logfiler, når du indgiver en fejl.",
       "label": "Fejlretningstilstand"
     },
+    "generateAtReview": {
+      "description": "Udfyld manglende Smart Fields til kommende kort, mens du gennemgår.",
+      "label": "Generer på forhånd under gennemgang"
+    },
+    "generateOnAdd": {
+      "description": "Generer Smart Fields i baggrunden for nyligt tilføjede noter, herunder fra værktøjer som Yomitan og AnkiConnect.",
+      "label": "Generer nyligt tilføjede noter automatisk"
+    },
     "language": {
       "description": "Vælg sproget for Smart Notes, eller match Ankis sprog.",
       "label": "Sprog",
@@ -96,26 +104,18 @@
       "title": "Brug min egen OpenAI nøgle"
     },
     "loading": "Indlæser indstillinger",
-    "saveError": "Indstillingerne kunne ikke gemmes",
-    "sections": {
-      "advanced": "Fremskreden",
-      "general": "Generel",
-      "generation": "Generation",
-      "dangerZone": "Faresone"
-    },
-    "title": "Indstillinger",
-    "generateAtReview": {
-      "description": "Udfyld manglende Smart Fields til kommende kort, mens du gennemgår.",
-      "label": "Generer på forhånd under gennemgang"
-    },
-    "generateOnAdd": {
-      "description": "Generer Smart Fields i baggrunden for nyligt tilføjede noter, herunder fra værktøjer som Yomitan og AnkiConnect.",
-      "label": "Generer nyligt tilføjede noter automatisk"
-    },
     "regenerateWhenBatching": {
       "description": "Generer alle Smart Fields igen, ikke kun tomme. Dette overskriver eksisterende felter.",
       "label": "Generer <strong>alle</strong> Smart Fields igen under batchbehandling"
-    }
+    },
+    "saveError": "Indstillingerne kunne ikke gemmes",
+    "sections": {
+      "advanced": "Fremskreden",
+      "dangerZone": "Faresone",
+      "general": "Generel",
+      "generation": "Generation"
+    },
+    "title": "Indstillinger"
   },
   "fieldEditor": {
     "alreadySmartField": "Allerede et Smart Field",

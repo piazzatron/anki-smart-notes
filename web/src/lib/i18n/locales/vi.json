@@ -78,6 +78,14 @@
       "description": "Ghi nhật ký chi tiết để giúp chẩn đoán sự cố. Bao gồm các nhật ký này khi gửi lỗi.",
       "label": "Chế độ gỡ lỗi"
     },
+    "generateAtReview": {
+      "description": "Điền các Smart Fields còn thiếu cho những thẻ sắp tới trong khi bạn ôn tập.",
+      "label": "Tạo trước trong lúc ôn tập"
+    },
+    "generateOnAdd": {
+      "description": "Tạo Smart Fields ở chế độ nền cho các ghi chú mới thêm, kể cả từ các công cụ như Yomitan và AnkiConnect.",
+      "label": "Tự động tạo cho các ghi chú mới thêm"
+    },
     "language": {
       "description": "Chọn ngôn ngữ cho Smart Notes hoặc khớp với ngôn ngữ của Anki.",
       "label": "Ngôn ngữ",
@@ -95,26 +103,18 @@
       "title": "Sử dụng khóa OpenAI của riêng tôi"
     },
     "loading": "Đang tải cài đặt",
-    "saveError": "Không thể lưu cài đặt",
-    "sections": {
-      "advanced": "Trình độ cao",
-      "general": "Tổng quan",
-      "generation": "Thế hệ",
-      "dangerZone": "Vùng nguy hiểm"
-    },
-    "title": "Cài đặt",
-    "generateAtReview": {
-      "description": "Điền các Smart Fields còn thiếu cho những thẻ sắp tới trong khi bạn ôn tập.",
-      "label": "Tạo trước trong lúc ôn tập"
-    },
-    "generateOnAdd": {
-      "description": "Tạo Smart Fields ở chế độ nền cho các ghi chú mới thêm, kể cả từ các công cụ như Yomitan và AnkiConnect.",
-      "label": "Tự động tạo cho các ghi chú mới thêm"
-    },
     "regenerateWhenBatching": {
       "description": "Tạo lại mọi Smart Field, không chỉ các trường trống. Thao tác này sẽ ghi đè các trường hiện có.",
       "label": "Tạo lại <strong>tất cả</strong> Smart Fields khi xử lý hàng loạt"
-    }
+    },
+    "saveError": "Không thể lưu cài đặt",
+    "sections": {
+      "advanced": "Trình độ cao",
+      "dangerZone": "Vùng nguy hiểm",
+      "general": "Tổng quan",
+      "generation": "Thế hệ"
+    },
+    "title": "Cài đặt"
   },
   "fieldEditor": {
     "alreadySmartField": "Đã là Smart Field",

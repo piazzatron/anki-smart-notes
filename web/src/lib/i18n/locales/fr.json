@@ -80,6 +80,14 @@
       "description": "Journalisation détaillée pour aider à diagnostiquer les problèmes. Incluez ces journaux lors du dépôt d’un bug.",
       "label": "Mode débogage"
     },
+    "generateAtReview": {
+      "description": "Remplir les Smart Fields manquants des cartes à venir pendant vos révisions.",
+      "label": "Générer à l'avance pendant les révisions"
+    },
+    "generateOnAdd": {
+      "description": "Générer les Smart Fields en arrière-plan pour les notes nouvellement ajoutées, y compris depuis des outils comme Yomitan et AnkiConnect.",
+      "label": "Générer automatiquement les notes nouvellement ajoutées"
+    },
     "language": {
       "description": "Choisissez la langue de Smart Notes ou faites correspondre la langue de Anki.",
       "label": "Langue",
@@ -97,26 +105,18 @@
       "title": "Utiliser ma propre clé OpenAI"
     },
     "loading": "Chargement des paramètres",
-    "saveError": "Impossible d'enregistrer les paramètres",
-    "sections": {
-      "advanced": "Avancé",
-      "general": "Général",
-      "generation": "Génération",
-      "dangerZone": "Zone dangereuse"
-    },
-    "title": "Paramètres",
-    "generateAtReview": {
-      "description": "Remplir les Smart Fields manquants des cartes à venir pendant vos révisions.",
-      "label": "Générer à l'avance pendant les révisions"
-    },
-    "generateOnAdd": {
-      "description": "Générer les Smart Fields en arrière-plan pour les notes nouvellement ajoutées, y compris depuis des outils comme Yomitan et AnkiConnect.",
-      "label": "Générer automatiquement les notes nouvellement ajoutées"
-    },
     "regenerateWhenBatching": {
       "description": "Régénérer tous les Smart Fields, pas seulement les vides. Cela écrase les champs existants.",
       "label": "Régénérer <strong>tous</strong> les Smart Fields lors du traitement par lot"
-    }
+    },
+    "saveError": "Impossible d'enregistrer les paramètres",
+    "sections": {
+      "advanced": "Avancé",
+      "dangerZone": "Zone dangereuse",
+      "general": "Général",
+      "generation": "Génération"
+    },
+    "title": "Paramètres"
   },
   "fieldEditor": {
     "alreadySmartField": "Déjà un Smart Field",

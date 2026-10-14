@@ -78,6 +78,14 @@
       "description": "Pengelogan bertele-tele untuk membantu mendiagnosis isu. Sertakan log ini semasa memfailkan pepijat.",
       "label": "Mod nyahpepijat"
     },
+    "generateAtReview": {
+      "description": "Isi Smart Fields yang belum lengkap untuk kad seterusnya semasa anda membuat semakan.",
+      "label": "Jana lebih awal semasa semakan"
+    },
+    "generateOnAdd": {
+      "description": "Jana Smart Fields di latar belakang untuk nota yang baru ditambah, termasuk daripada alat seperti Yomitan dan AnkiConnect.",
+      "label": "Jana nota yang baru ditambah secara automatik"
+    },
     "language": {
       "description": "Pilih bahasa untuk Smart Notes atau padankan bahasa Anki.",
       "label": "Bahasa",
@@ -95,26 +103,18 @@
       "title": "Gunakan kunci OpenAI saya sendiri"
     },
     "loading": "Memuatkan Tetapan",
-    "saveError": "Tidak dapat menyimpan tetapan",
-    "sections": {
-      "advanced": "Maju",
-      "general": "Umum",
-      "generation": "Generasi",
-      "dangerZone": "Zon Bahaya"
-    },
-    "title": "tetapan",
-    "generateAtReview": {
-      "description": "Isi Smart Fields yang belum lengkap untuk kad seterusnya semasa anda membuat semakan.",
-      "label": "Jana lebih awal semasa semakan"
-    },
-    "generateOnAdd": {
-      "description": "Jana Smart Fields di latar belakang untuk nota yang baru ditambah, termasuk daripada alat seperti Yomitan dan AnkiConnect.",
-      "label": "Jana nota yang baru ditambah secara automatik"
-    },
     "regenerateWhenBatching": {
       "description": "Jana semula setiap Smart Field, bukan hanya yang kosong. Ini akan menulis ganti medan sedia ada.",
       "label": "Jana semula <strong>semua</strong> Smart Fields semasa pemprosesan kelompok"
-    }
+    },
+    "saveError": "Tidak dapat menyimpan tetapan",
+    "sections": {
+      "advanced": "Maju",
+      "dangerZone": "Zon Bahaya",
+      "general": "Umum",
+      "generation": "Generasi"
+    },
+    "title": "tetapan"
   },
   "fieldEditor": {
     "alreadySmartField": "Sudah menjadi Medan Pintar",

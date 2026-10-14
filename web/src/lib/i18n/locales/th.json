@@ -78,6 +78,14 @@
       "description": "การบันทึกแบบละเอียดเพื่อช่วยวินิจฉัยปัญหา รวมบันทึกเหล่านี้เมื่อแจ้งข้อบกพร่อง",
       "label": "โหมดแก้ไขข้อบกพร่อง"
     },
+    "generateAtReview": {
+      "description": "กรอก Smart Fields ที่ยังว่างสำหรับการ์ดที่กำลังจะมาถึงขณะทบทวน",
+      "label": "สร้างล่วงหน้าระหว่างการทบทวน"
+    },
+    "generateOnAdd": {
+      "description": "สร้าง Smart Fields ในเบื้องหลังสำหรับโน้ตที่เพิ่มใหม่ รวมถึงโน้ตจากเครื่องมืออย่าง Yomitan และ AnkiConnect",
+      "label": "สร้างโน้ตที่เพิ่มใหม่โดยอัตโนมัติ"
+    },
     "language": {
       "description": "เลือกภาษาสำหรับ Smart Notes หรือตรงกับภาษาของ Anki",
       "label": "ภาษา",
@@ -95,26 +103,18 @@
       "title": "ใช้คีย์ OpenAI ของฉันเอง"
     },
     "loading": "กำลังโหลดการตั้งค่า",
-    "saveError": "ไม่สามารถบันทึกการตั้งค่าได้",
-    "sections": {
-      "advanced": "ขั้นสูง",
-      "general": "ทั่วไป",
-      "generation": "รุ่น",
-      "dangerZone": "โซนอันตราย"
-    },
-    "title": "การตั้งค่า",
-    "generateAtReview": {
-      "description": "กรอก Smart Fields ที่ยังว่างสำหรับการ์ดที่กำลังจะมาถึงขณะทบทวน",
-      "label": "สร้างล่วงหน้าระหว่างการทบทวน"
-    },
-    "generateOnAdd": {
-      "description": "สร้าง Smart Fields ในเบื้องหลังสำหรับโน้ตที่เพิ่มใหม่ รวมถึงโน้ตจากเครื่องมืออย่าง Yomitan และ AnkiConnect",
-      "label": "สร้างโน้ตที่เพิ่มใหม่โดยอัตโนมัติ"
-    },
     "regenerateWhenBatching": {
       "description": "สร้าง Smart Fields ทุกช่องใหม่ ไม่ใช่เฉพาะช่องที่ว่าง การดำเนินการนี้จะเขียนทับฟิลด์ที่มีอยู่",
       "label": "สร้าง Smart Fields <strong>ทั้งหมด</strong> ใหม่ระหว่างการประมวลผลเป็นชุด"
-    }
+    },
+    "saveError": "ไม่สามารถบันทึกการตั้งค่าได้",
+    "sections": {
+      "advanced": "ขั้นสูง",
+      "dangerZone": "โซนอันตราย",
+      "general": "ทั่วไป",
+      "generation": "รุ่น"
+    },
+    "title": "การตั้งค่า"
   },
   "fieldEditor": {
     "alreadySmartField": "เป็น Smart Field อยู่แล้ว",

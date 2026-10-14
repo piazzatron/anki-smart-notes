@@ -79,6 +79,14 @@
       "description": "Vorta registrado por helpi diagnozi problemojn. Inkluzivi ĉi tiujn protokolojn dum arkivado de cimo.",
       "label": "Sencimiga reĝimo"
     },
+    "generateAtReview": {
+      "description": "Plenigu mankantajn valorojn en Smart Fields por venontaj kartoj dum la revizio.",
+      "label": "Generi antaŭtempe dum revizio"
+    },
+    "generateOnAdd": {
+      "description": "Generu valorojn en Smart Fields en la fono por ĵus aldonitaj notoj, inkluzive de tiuj el iloj kiel Yomitan kaj AnkiConnect.",
+      "label": "Aŭtomate generi ĵus aldonitajn notojn"
+    },
     "language": {
       "description": "Elektu la lingvon por Smart Notes, aŭ kongruu kun la lingvo de Anki.",
       "label": "Lingvo",
@@ -96,26 +104,18 @@
       "title": "Uzu mian propran OpenAI-ŝlosilon"
     },
     "loading": "Ŝarĝante Agordojn",
-    "saveError": "Ne eblis konservi agordojn",
-    "sections": {
-      "advanced": "Altnivela",
-      "general": "Generalo",
-      "generation": "Generacio",
-      "dangerZone": "Danĝera zono"
-    },
-    "title": "Agordoj",
-    "generateAtReview": {
-      "description": "Plenigu mankantajn valorojn en Smart Fields por venontaj kartoj dum la revizio.",
-      "label": "Generi antaŭtempe dum revizio"
-    },
-    "generateOnAdd": {
-      "description": "Generu valorojn en Smart Fields en la fono por ĵus aldonitaj notoj, inkluzive de tiuj el iloj kiel Yomitan kaj AnkiConnect.",
-      "label": "Aŭtomate generi ĵus aldonitajn notojn"
-    },
     "regenerateWhenBatching": {
       "description": "Regeneru la valorojn en Smart Fields, ne nur la malplenajn. Tio anstataŭigas ekzistantajn kampojn.",
       "label": "Regeneri la valorojn de <strong>ĉiuj</strong> Smart Fields dum amasa traktado"
-    }
+    },
+    "saveError": "Ne eblis konservi agordojn",
+    "sections": {
+      "advanced": "Altnivela",
+      "dangerZone": "Danĝera zono",
+      "general": "Generalo",
+      "generation": "Generacio"
+    },
+    "title": "Agordoj"
   },
   "fieldEditor": {
     "alreadySmartField": "Jam Inteligenta Kampo",

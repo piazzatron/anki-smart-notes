@@ -79,6 +79,14 @@
       "description": "Асуудлыг оношлоход туслах дэлгэрэнгүй бүртгэл. Алдаа гаргахдаа эдгээр бүртгэлийг оруулаарай.",
       "label": "Дибаг хийх горим"
     },
+    "generateAtReview": {
+      "description": "Таны давтлагын явцад дараагийн карт дахь дутуу Smart Fields-ийг бөглөнө.",
+      "label": "Давтлагын үед урьдчилан үүсгэх"
+    },
+    "generateOnAdd": {
+      "description": "Yomitan, AnkiConnect зэрэг хэрэгслээс нэмсэн шинэ тэмдэглэлд Smart Fields-ийг арын горимд автоматаар үүсгэнэ.",
+      "label": "Шинээр нэмсэн тэмдэгллийг автоматаар үүсгэх"
+    },
     "language": {
       "description": "Smart Notes хэлийг сонгох эсвэл Anki-н хэлийг тааруулна уу.",
       "label": "Хэл",
@@ -96,26 +104,18 @@
       "title": "Миний өөрийн OpenAI түлхүүрийг ашигла"
     },
     "loading": "Тохиргоог ачаалж байна",
-    "saveError": "Тохиргоог хадгалж чадсангүй",
-    "sections": {
-      "advanced": "Дэвшилтэт",
-      "general": "Генерал",
-      "generation": "Үе үе",
-      "dangerZone": "Аюултай бүс"
-    },
-    "title": "Тохиргоо",
-    "generateAtReview": {
-      "description": "Таны давтлагын явцад дараагийн карт дахь дутуу Smart Fields-ийг бөглөнө.",
-      "label": "Давтлагын үед урьдчилан үүсгэх"
-    },
-    "generateOnAdd": {
-      "description": "Yomitan, AnkiConnect зэрэг хэрэгслээс нэмсэн шинэ тэмдэглэлд Smart Fields-ийг арын горимд автоматаар үүсгэнэ.",
-      "label": "Шинээр нэмсэн тэмдэгллийг автоматаар үүсгэх"
-    },
     "regenerateWhenBatching": {
       "description": "Зөвхөн хоосон бус бүх Smart Fields биш, бүх Smart Fields-ийг дахин үүсгэнэ. Энэ нь одоо байгаа талбаруудыг дарж бичнэ.",
       "label": "Багцаар боловсруулах үед <strong>бүх</strong> Smart Fields-ийг дахин үүсгэх"
-    }
+    },
+    "saveError": "Тохиргоог хадгалж чадсангүй",
+    "sections": {
+      "advanced": "Дэвшилтэт",
+      "dangerZone": "Аюултай бүс",
+      "general": "Генерал",
+      "generation": "Үе үе"
+    },
+    "title": "Тохиргоо"
   },
   "fieldEditor": {
     "alreadySmartField": "Аль хэдийн Smart Field",

@@ -79,6 +79,14 @@
       "description": "Utförlig loggning för att diagnostisera problem. Inkludera dessa loggar när du gör en bugg.",
       "label": "Felsökningsläge"
     },
+    "generateAtReview": {
+      "description": "Fyll i saknade Smart Fields för kommande kort när du repeterar.",
+      "label": "Generera i förväg under repetition"
+    },
+    "generateOnAdd": {
+      "description": "Generera Smart Fields i bakgrunden för nytillagda anteckningar, inklusive från verktyg som Yomitan och AnkiConnect.",
+      "label": "Generera nytillagda anteckningar automatiskt"
+    },
     "language": {
       "description": "Välj språk för Smart Notes, eller matcha Anki:s språk.",
       "label": "Språk",
@@ -96,26 +104,18 @@
       "title": "Använd min egen OpenAI-nyckel"
     },
     "loading": "Laddar inställningar",
-    "saveError": "Det gick inte att spara inställningarna",
-    "sections": {
-      "advanced": "Avancerad",
-      "general": "Allmän",
-      "generation": "Generation",
-      "dangerZone": "Farlig zon"
-    },
-    "title": "Inställningar",
-    "generateAtReview": {
-      "description": "Fyll i saknade Smart Fields för kommande kort när du repeterar.",
-      "label": "Generera i förväg under repetition"
-    },
-    "generateOnAdd": {
-      "description": "Generera Smart Fields i bakgrunden för nytillagda anteckningar, inklusive från verktyg som Yomitan och AnkiConnect.",
-      "label": "Generera nytillagda anteckningar automatiskt"
-    },
     "regenerateWhenBatching": {
       "description": "Generera om alla Smart Fields, inte bara tomma. Detta skriver över befintliga fält.",
       "label": "Generera om <strong>alla</strong> Smart Fields under batchbearbetning"
-    }
+    },
+    "saveError": "Det gick inte att spara inställningarna",
+    "sections": {
+      "advanced": "Avancerad",
+      "dangerZone": "Farlig zon",
+      "general": "Allmän",
+      "generation": "Generation"
+    },
+    "title": "Inställningar"
   },
   "fieldEditor": {
     "alreadySmartField": "Är redan ett Smart Field",

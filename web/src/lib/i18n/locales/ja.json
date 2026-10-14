@@ -78,6 +78,14 @@
       "description": "問題の診断に役立つ詳細なログ。バグを報告する際には、これらのログを含めてください。",
       "label": "デバッグモード"
     },
+    "generateAtReview": {
+      "description": "レビュー中に、今後出題されるカードの不足しているSmart Fieldsを埋めます。",
+      "label": "レビュー中に事前に生成する"
+    },
+    "generateOnAdd": {
+      "description": "新しく追加されたノートのSmart Fieldsをバックグラウンドで生成します。Yomitan や AnkiConnect などのツールからの追加も対象になります。",
+      "label": "新しく追加されたノートを自動的に生成する"
+    },
     "language": {
       "description": "Smart Notes の言語を選択するか、Anki の言語に一致させます。",
       "label": "言語",
@@ -95,26 +103,18 @@
       "title": "自分の OpenAI キーを使用する"
     },
     "loading": "設定を読み込む",
-    "saveError": "設定を保存できませんでした",
-    "sections": {
-      "advanced": "高度な",
-      "general": "一般的な",
-      "generation": "世代",
-      "dangerZone": "危険ゾーン"
-    },
-    "title": "設定",
-    "generateAtReview": {
-      "description": "レビュー中に、今後出題されるカードの不足しているSmart Fieldsを埋めます。",
-      "label": "レビュー中に事前に生成する"
-    },
-    "generateOnAdd": {
-      "description": "新しく追加されたノートのSmart Fieldsをバックグラウンドで生成します。Yomitan や AnkiConnect などのツールからの追加も対象になります。",
-      "label": "新しく追加されたノートを自動的に生成する"
-    },
     "regenerateWhenBatching": {
       "description": "空のフィールドだけでなく、すべてのSmart Fieldsを再生成します。既存のフィールドは上書きされます。",
       "label": "バッチ処理中に<strong>すべての</strong>Smart Fieldsを再生成する"
-    }
+    },
+    "saveError": "設定を保存できませんでした",
+    "sections": {
+      "advanced": "高度な",
+      "dangerZone": "危険ゾーン",
+      "general": "一般的な",
+      "generation": "世代"
+    },
+    "title": "設定"
   },
   "fieldEditor": {
     "alreadySmartField": "すでにスマートフィールドです",

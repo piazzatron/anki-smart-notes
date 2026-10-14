@@ -79,6 +79,14 @@
       "description": "Verbose logging para makatulong sa pag-diagnose ng mga isyu. Isama ang mga log na ito kapag nag-file ng bug.",
       "label": "Debug mode"
     },
+    "generateAtReview": {
+      "description": "Punan ang mga nawawalang Smart Fields para sa mga paparating na card habang nagre-review ka.",
+      "label": "Mag-generate nang maaga habang nagre-review"
+    },
+    "generateOnAdd": {
+      "description": "I-generate ang Smart Fields sa background para sa mga bagong idinagdag na note, kasama ang mga galing sa mga tool gaya ng Yomitan at AnkiConnect.",
+      "label": "Awtomatikong i-generate ang mga bagong idinagdag na note"
+    },
     "language": {
       "description": "Piliin ang wika para sa Smart Notes, o itugma ang wika ng Anki.",
       "label": "Wika",
@@ -96,26 +104,18 @@
       "title": "Gamitin ang sarili kong OpenAI key"
     },
     "loading": "Nilo-load ang Mga Setting",
-    "saveError": "Hindi ma-save ang mga setting",
-    "sections": {
-      "advanced": "Advanced",
-      "general": "Heneral",
-      "generation": "henerasyon",
-      "dangerZone": "Danger Zone"
-    },
-    "title": "Mga setting",
-    "generateAtReview": {
-      "description": "Punan ang mga nawawalang Smart Fields para sa mga paparating na card habang nagre-review ka.",
-      "label": "Mag-generate nang maaga habang nagre-review"
-    },
-    "generateOnAdd": {
-      "description": "I-generate ang Smart Fields sa background para sa mga bagong idinagdag na note, kasama ang mga galing sa mga tool gaya ng Yomitan at AnkiConnect.",
-      "label": "Awtomatikong i-generate ang mga bagong idinagdag na note"
-    },
     "regenerateWhenBatching": {
       "description": "I-regenerate ang bawat Smart Field, hindi lang ang mga walang laman. Mapapalitan nito ang mga umiiral nang field.",
       "label": "I-regenerate ang <strong>lahat</strong> ng Smart Fields sa batch processing"
-    }
+    },
+    "saveError": "Hindi ma-save ang mga setting",
+    "sections": {
+      "advanced": "Advanced",
+      "dangerZone": "Danger Zone",
+      "general": "Heneral",
+      "generation": "henerasyon"
+    },
+    "title": "Mga setting"
   },
   "fieldEditor": {
     "alreadySmartField": "Smart Field na",

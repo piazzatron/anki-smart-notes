@@ -78,6 +78,14 @@
       "description": "详细日志记录有助于诊断问题。提交错误时包括这些日志。",
       "label": "调试模式"
     },
+    "generateAtReview": {
+      "description": "复习时,为即将出现的卡片补全缺失的 Smart Fields。",
+      "label": "复习时提前生成"
+    },
+    "generateOnAdd": {
+      "description": "在后台为新添加的笔记生成 Smart Fields,包括通过 Yomitan 和 AnkiConnect 等工具添加的笔记。",
+      "label": "自动生成新添加的笔记"
+    },
     "language": {
       "description": "选择 Smart Notes 的语言，或匹配 Anki 的语言。",
       "label": "语言",
@@ -95,26 +103,18 @@
       "title": "使用我自己的 OpenAI 密钥"
     },
     "loading": "加载设置",
-    "saveError": "无法保存设置",
-    "sections": {
-      "advanced": "先进的",
-      "general": "一般的",
-      "generation": "一代",
-      "dangerZone": "危险区域"
-    },
-    "title": "设置",
-    "generateAtReview": {
-      "description": "复习时,为即将出现的卡片补全缺失的 Smart Fields。",
-      "label": "复习时提前生成"
-    },
-    "generateOnAdd": {
-      "description": "在后台为新添加的笔记生成 Smart Fields,包括通过 Yomitan 和 AnkiConnect 等工具添加的笔记。",
-      "label": "自动生成新添加的笔记"
-    },
     "regenerateWhenBatching": {
       "description": "重新生成每个 Smart Field,而不仅仅是空字段。这将覆盖现有字段。",
       "label": "批量处理时重新生成<strong>所有</strong> Smart Fields"
-    }
+    },
+    "saveError": "无法保存设置",
+    "sections": {
+      "advanced": "先进的",
+      "dangerZone": "危险区域",
+      "general": "一般的",
+      "generation": "一代"
+    },
+    "title": "设置"
   },
   "fieldEditor": {
     "alreadySmartField": "已是智能字段",
