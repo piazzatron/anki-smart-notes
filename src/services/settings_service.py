@@ -32,6 +32,7 @@ from ..event_bus import republish_state
 def save_settings(settings: Settings) -> None:
     """Persist the complete web settings form and refresh connected webviews."""
     config.generate_at_review = settings.generate_at_review
+    config.generate_on_add = settings.generate_on_add
     config.regenerate_notes_when_batching = settings.regenerate_when_batching
     config.debug = settings.debug
     config.language = settings.language
@@ -46,6 +47,7 @@ def save_settings(settings: Settings) -> None:
 @dataclass(frozen=True)
 class Settings:
     generate_at_review: bool
+    generate_on_add: bool
     regenerate_when_batching: bool
     debug: bool
     language: str

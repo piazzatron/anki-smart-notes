@@ -26,6 +26,7 @@ import { LoadedSettingsScreen } from "./SettingsScreen"
 
 const SETTINGS: Settings = {
   generateAtReview: true,
+  generateOnAdd: false,
   regenerateWhenBatching: false,
   debug: false,
   language: "auto",

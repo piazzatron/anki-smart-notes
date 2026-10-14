@@ -82,10 +82,6 @@
       "description": "Logánú briathra chun cabhrú le saincheisteanna a dhiagnóiseadh. Cuir na logaí seo san áireamh agus fabht á chomhdú.",
       "label": "Modh dífhabhtaithe"
     },
-    "generateAtReview": {
-      "description": "Líon isteach réimsí cliste atá in easnamh go huathoibríoch de réir mar a thagann cártaí chun solais.",
-      "label": "Gin réimsí le linn athbhreithnithe"
-    },
     "language": {
       "description": "Roghnaigh an teanga le haghaidh Smart Notes, nó meaitseáil teanga Anki.",
       "label": "Teanga",
@@ -103,19 +99,29 @@
       "title": "Bain úsáid as m'eochair OpenAI féin"
     },
     "loading": "Socruithe á Luchtú",
-    "regenerateWhenBatching": {
-      "description": "Agus grúpa nótaí á bpróiseáil ag baisceanna, athghin gach réimse cliste ón tús seachas líonadh ach cinn fholmha.",
-      "label": "Athghin gach réimse cliste agus próiseáil bhaisc"
-    },
     "saveError": "Níorbh fhéidir na socruithe a shábháil",
     "sections": {
       "advanced": "Casta",
       "general": "Ginearálta",
-      "generation": "Giniúint"
+      "generation": "Giniúint",
+      "dangerZone": "Crios Contúirte"
     },
-    "title": "Socruithe"
+    "title": "Socruithe",
+    "generateAtReview": {
+      "description": "Líon isteach na Smart Fields atá ar iarraidh do na cártaí atá le teacht agus tú ag athbhreithniú.",
+      "label": "Gin roimh ré le linn athbhreithnithe"
+    },
+    "generateOnAdd": {
+      "description": "Gin Smart Fields sa chúlra do nótaí a cuireadh leis le déanaí, lena n-áirítear ó uirlisí ar nós Yomitan agus AnkiConnect.",
+      "label": "Gin nótaí a cuireadh leis le déanaí go huathoibríoch"
+    },
+    "regenerateWhenBatching": {
+      "description": "Athghin gach Smart Field, ní hamháin na cinn atá folamh. Athscríobhtar na réimsí atá ann cheana leis seo.",
+      "label": "Athghin na Smart Fields <strong>go léir</strong> le linn próiseála baisce"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "Réimse Cliste cheana féin",
     "collisionHint": "tá Smart Field aige cheana féin — roghnaigh réimse eile, deic nó cineál nóta",
     "completion": {
       "descriptionAfter": "líonann nótaí isteach aon uair a ghineann tú é.",
@@ -191,9 +197,9 @@
     "targetAriaLabel": "Sprioc Smart Field",
     "testSmartField": "Tástáil do Smart Field",
     "titles": {
+      "create": "Réimse Cliste Nua",
       "duplicate": "Smart Field a dhúbailt",
-      "edit": "Cuir Smart Field in eagar",
-      "create": "Réimse Cliste Nua"
+      "edit": "Cuir Smart Field in eagar"
     },
     "validation": {
       "chooseField": "Roghnaigh réimse",
@@ -206,8 +212,7 @@
     "writePromptForMe": "Scríobh mo leid dom",
     "writePromptForMeHint": "Abair cad atá uait i mBéarla simplí - scríobhfaimid an leid thíos.",
     "writePromptPlaceholder": "\"Aistrigh go Béarla nádúrtha...\"",
-    "writing": "Ag scríobh…",
-    "alreadySmartField": "Réimse Cliste cheana féin"
+    "writing": "Ag scríobh…"
   },
   "smartFields": {
     "actionsAriaLabel": "Gníomhartha le haghaidh {{field}}",
@@ -289,6 +294,7 @@
       "loadingLabel": "Socruithe Téacs Réamhshocraithe á Luchtú",
       "loadingTitle": "Socruithe Giniúint Téacs",
       "modelGuidance": "Is iad {{auto}} agus {{autoMax}} na samhlacha molta Smart Notes a chothromaíonn feidhmíocht agus costas. Roghnaigh {{auto}} le haghaidh tascanna caighdeánacha agus uasghrádú go {{autoMax}} más gá.",
+      "pickingModel": "Ag roghnú samhail",
       "reasoningLevel": "Leibhéal réasúnaíochta",
       "reasoningValues": {
         "high": "Ard",
@@ -301,7 +307,6 @@
       "title": "Socruithe Giniúint Téacs",
       "webSearch": "Cuardach Gréasáin",
       "webSearchDescription": "Lig do ghlúine téacs faisnéis úr a tharraingt isteach ón ngréasán.",
-      "pickingModel": "Ag roghnú samhail",
       "webSearchWarning": "Tá cuardach daor; monitor do chreidiúintí."
     },
     "usage": {
@@ -328,10 +333,10 @@
       "loadingTitle": "Socruithe Gutha Réamhshocraithe",
       "noVoices": "Ní mheaitseálann guthanna na scagairí seo.",
       "saveError": "Níorbh fhéidir réamhshocruithe gutha a shábháil",
+      "searchPlaceholder": "Cuardaigh guthanna…",
       "searchVoices": "Cuardaigh guthanna",
       "subtitle": "An guth a úsáideann do TTS Smart Fields ach amháin má luíonn réimse a chuid féin.",
-      "title": "Socruithe Gutha Réamhshocraithe",
-      "searchPlaceholder": "Cuardaigh guthanna…"
+      "title": "Socruithe Gutha Réamhshocraithe"
     }
   },
   "imageGeneration": {
@@ -531,8 +536,8 @@
     "finishDescription": "Comhlánaigh síniú isteach sa bhrabhsálaí a d'oscail muid. Déanfar an fhuinneog seo a nuashonrú go huathoibríoch.",
     "finishInBrowser": "Críochnaigh suas i do bhrabhsálaí",
     "haveCode": "An bhfuil cód agat ón suíomh Gréasáin?",
-    "trialDetails": "Saor in aisce ar feadh 7 lá · gach gné · gan cárta creidmheasa",
-    "startTrial": "Tosaigh Triail Saor in Aisce"
+    "startTrial": "Tosaigh Triail Saor in Aisce",
+    "trialDetails": "Saor in aisce ar feadh 7 lá · gach gné · gan cárta creidmheasa"
   },
   "trialEnded": {
     "description": "Maireann trialacha 7 lá nó go dtí go n-ídíonn do chreidmheasanna trialach.",
@@ -552,8 +557,8 @@
       "leaveReview": "Fág léirmheas",
       "title": "Faigh mí saor in aisce de Smart Notes"
     },
+    "thanks": "Go raibh maith agat as Smart Notes a úsáid",
     "title": "Tá deireadh le do thriail saor in aisce",
-    "upgradeNow": "Uasghrádaigh anois",
-    "thanks": "Go raibh maith agat as Smart Notes a úsáid"
+    "upgradeNow": "Uasghrádaigh anois"
   }
 }

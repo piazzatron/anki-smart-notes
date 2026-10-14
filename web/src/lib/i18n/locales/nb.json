@@ -79,10 +79,6 @@
       "description": "Utførlig logging for å hjelpe med å diagnostisere problemer. Inkluder disse loggene når du registrerer en feil.",
       "label": "Feilsøkingsmodus"
     },
-    "generateAtReview": {
-      "description": "Fyll ut manglende smartfelt automatisk etter hvert som kort kommer opp under vurdering.",
-      "label": "Generer felt under gjennomgang"
-    },
     "language": {
       "description": "Velg språket for Smart Notes, eller match Ankis språk.",
       "label": "Språk",
@@ -100,19 +96,29 @@
       "title": "Bruk min egen OpenAI-nøkkel"
     },
     "loading": "Laster innstillinger",
-    "regenerateWhenBatching": {
-      "description": "Når du batchbehandler en gruppe notater, må du regenerere hvert smartfelt fra bunnen av i stedet for bare å fylle tomme.",
-      "label": "Regenerer alle smarte felt ved batchbehandling"
-    },
     "saveError": "Kunne ikke lagre innstillingene",
     "sections": {
       "advanced": "Avansert",
       "general": "General",
-      "generation": "Generasjon"
+      "generation": "Generasjon",
+      "dangerZone": "Faresone"
     },
-    "title": "Innstillinger"
+    "title": "Innstillinger",
+    "generateAtReview": {
+      "description": "Fyll inn manglende Smart Fields for kommende kort mens du repeterer.",
+      "label": "Generer på forhånd under repetisjon"
+    },
+    "generateOnAdd": {
+      "description": "Generer Smart Fields i bakgrunnen for nye notater, også fra verktøy som Yomitan og AnkiConnect.",
+      "label": "Generer nye notater automatisk"
+    },
+    "regenerateWhenBatching": {
+      "description": "Generer alle Smart Fields på nytt, ikke bare tomme. Dette overskriver eksisterende felt.",
+      "label": "Generer på nytt <strong>alle</strong> Smart Fields under batchbehandling"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "Allerede et Smart-felt",
     "collisionHint": "har allerede en Smart Field — velg et annet felt, kortstokk eller notetype",
     "completion": {
       "descriptionAfter": "notater fylles ut når du genererer det.",
@@ -188,9 +194,9 @@
     "targetAriaLabel": "Smart Field mål",
     "testSmartField": "Test din Smart Field",
     "titles": {
+      "create": "Nytt Smart-felt",
       "duplicate": "Dupliser Smart Field",
-      "edit": "Rediger Smart Field",
-      "create": "Nytt Smart-felt"
+      "edit": "Rediger Smart Field"
     },
     "validation": {
       "chooseField": "Velg et felt",
@@ -203,8 +209,7 @@
     "writePromptForMe": "Skriv forespørselen min for meg",
     "writePromptForMeHint": "Si hva du vil på vanlig engelsk - vi skriver spørsmålet nedenfor.",
     "writePromptPlaceholder": "\"Oversett til naturlig engelsk...\"",
-    "writing": "Skriver …",
-    "alreadySmartField": "Allerede et Smart-felt"
+    "writing": "Skriver …"
   },
   "smartFields": {
     "actionsAriaLabel": "Handlinger for {{field}}",
@@ -286,6 +291,7 @@
       "loadingLabel": "Laster inn standard tekstinnstillinger",
       "loadingTitle": "Innstillinger for tekstgenerering",
       "modelGuidance": "{{auto}} og {{autoMax}} er de Smart Notes anbefalte modellene som balanserer ytelse og kostnader. Velg {{auto}} for standardoppgaver og oppgrader til {{autoMax}} om nødvendig.",
+      "pickingModel": "Velger modell",
       "reasoningLevel": "Resonnementnivå",
       "reasoningValues": {
         "high": "Høy",
@@ -298,7 +304,6 @@
       "title": "Innstillinger for tekstgenerering",
       "webSearch": "Nettsøk",
       "webSearchDescription": "La tekstgenerasjoner hente inn fersk informasjon fra nettet.",
-      "pickingModel": "Velger modell",
       "webSearchWarning": "Søk er kostbart; hold øye med kredittene dine."
     },
     "usage": {
@@ -322,10 +327,10 @@
       "loadingTitle": "Standard stemmeinnstillinger",
       "noVoices": "Ingen stemmer samsvarer med disse filtrene.",
       "saveError": "Kunne ikke lagre stemmestandarder",
+      "searchPlaceholder": "Søk etter stemmer…",
       "searchVoices": "Søk stemmer",
       "subtitle": "Stemmen din TTS Smart Fields bruker med mindre et felt fester sin egen.",
-      "title": "Standard stemmeinnstillinger",
-      "searchPlaceholder": "Søk etter stemmer…"
+      "title": "Standard stemmeinnstillinger"
     }
   },
   "imageGeneration": {
@@ -501,8 +506,8 @@
     "finishDescription": "Fullfør påloggingen i nettleseren vi åpnet. Dette vinduet vil oppdateres automatisk.",
     "finishInBrowser": "Fullfør i nettleseren din",
     "haveCode": "Har du en kode fra nettsiden?",
-    "trialDetails": "Gratis i 7 dager · hver funksjon · ingen kredittkort",
-    "startTrial": "Start gratis prøveperiode"
+    "startTrial": "Start gratis prøveperiode",
+    "trialDetails": "Gratis i 7 dager · hver funksjon · ingen kredittkort"
   },
   "trialEnded": {
     "description": "Prøveperioder varer i 7 dager eller til prøvekredittene dine går ut.",
@@ -522,8 +527,8 @@
       "leaveReview": "Legg igjen en anmeldelse",
       "title": "Få en gratis måned med Smart Notes"
     },
+    "thanks": "Takk for at du bruker Smart Notes",
     "title": "Din gratis prøveperiode er over",
-    "upgradeNow": "Oppgrader nå",
-    "thanks": "Takk for at du bruker Smart Notes"
+    "upgradeNow": "Oppgrader nå"
   }
 }

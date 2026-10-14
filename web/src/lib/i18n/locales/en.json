@@ -80,8 +80,12 @@
       "label": "Debug mode"
     },
     "generateAtReview": {
-      "description": "Fill in missing smart fields automatically as cards come up in review.",
-      "label": "Generate fields during review"
+      "description": "Fill in missing Smart Fields for upcoming cards while you review.",
+      "label": "Generate ahead of time during review"
+    },
+    "generateOnAdd": {
+      "description": "Generate Smart Fields in the background for newly added notes, including from tools like Yomitan and AnkiConnect.",
+      "label": "Generate newly added notes automatically"
     },
     "language": {
       "description": "Choose the language for Smart Notes, or match Anki's language.",
@@ -101,12 +105,13 @@
     },
     "loading": "Loading Settings",
     "regenerateWhenBatching": {
-      "description": "When batch processing a group of notes, regenerate every smart field from scratch instead of only filling empty ones.",
-      "label": "Regenerate all smart fields when batch processing"
+      "description": "Regenerate every Smart Field, not just empty ones. This overwrites existing fields.",
+      "label": "Regenerate <strong>all</strong> Smart Fields during batch processing"
     },
     "saveError": "Could not save settings",
     "sections": {
       "advanced": "Advanced",
+      "dangerZone": "Danger Zone",
       "general": "General",
       "generation": "Generation"
     },

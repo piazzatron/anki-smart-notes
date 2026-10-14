@@ -78,10 +78,6 @@
       "description": "Enregistrament verbos per ajudar a diagnosticar de problèmas. Inclutz aquestes jornals al moment de depausar un bug.",
       "label": "Mòde de depuracion"
     },
-    "generateAtReview": {
-      "description": "Emplenatz los camps intelligents mancants automaticament a mesura que las cartas venon en revista.",
-      "label": "Generar de camps pendent la revision"
-    },
     "language": {
       "description": "Causissètz la lenga per Smart Notes, o correspondètz a la lenga d'Anki.",
       "label": "Lenga",
@@ -99,19 +95,29 @@
       "title": "Utilizar ma pròpria clau OpenAI"
     },
     "loading": "Paramètres de cargament",
-    "regenerateWhenBatching": {
-      "description": "Quand tractatz per lots un grop de nòtas, regeneratz cada camp intelligent dempuèi lo començament en luòc d'emplenar sonque los vuèges.",
-      "label": "Regenerar totes los camps intelligents al moment del tractament per lots"
-    },
     "saveError": "Impossible de salvar los paramètres",
     "sections": {
       "advanced": "Avançat",
       "general": "General",
-      "generation": "Generacion"
+      "generation": "Generacion",
+      "dangerZone": "Zòna Perilhosa"
     },
-    "title": "Paramètres"
+    "title": "Paramètres",
+    "generateAtReview": {
+      "description": "Emplenar los Smart Fields que manquen per las cartas a venir pendent la revision.",
+      "label": "Generar en avançada pendent la revision"
+    },
+    "generateOnAdd": {
+      "description": "Generar los Smart Fields en rèire-plan per las nòtas apondudas recentament, inclusas las venent de aplicacions coma Yomitan e AnkiConnect.",
+      "label": "Generar automaticament las nòtas apondudas recentament"
+    },
+    "regenerateWhenBatching": {
+      "description": "Regenerar totes los Smart Fields, pas nomai los vuèits. Aquò reescriu los camps existents.",
+      "label": "Regenerar <strong>totes</strong> los Smart Fields pendent lo tractament per lòts"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "Ja un Smart Field",
     "collisionHint": "a ja un Smart Field — causissètz un tipe de camp, de jòc o de nòta diferent",
     "completion": {
       "descriptionAfter": "las nòtas s'emplenan cada còp que la generatz.",
@@ -187,9 +193,9 @@
     "targetAriaLabel": "Smart Field cibla",
     "testSmartField": "Prueba tu Smart Field",
     "titles": {
+      "create": "Nòu Smart Field",
       "duplicate": "Duplicat Smart Field",
-      "edit": "Modificar Smart Field",
-      "create": "Nòu Smart Field"
+      "edit": "Modificar Smart Field"
     },
     "validation": {
       "chooseField": "Causissètz un camp",
@@ -202,8 +208,7 @@
     "writePromptForMe": "Escrivètz mon invitacion per ieu",
     "writePromptForMeHint": "Digatz çò que volètz en anglés simple — escriurem l'invitacion çai-jos.",
     "writePromptPlaceholder": "\"Traduire a l'anglés natural...\"",
-    "writing": "Escritura…",
-    "alreadySmartField": "Ja un Smart Field"
+    "writing": "Escritura…"
   },
   "smartFields": {
     "actionsAriaLabel": "Accions per {{field}}",
@@ -285,6 +290,7 @@
       "loadingLabel": "En cargament dels paramètres de tèxte per defaut",
       "loadingTitle": "Paramètres de generacion de tèxte",
       "modelGuidance": "{{auto}} e {{autoMax}} son los modèls recomandats per Smart Notes qu'equilibran lo rendiment e lo còst. Causissètz {{auto}} per las tòcas estandard e metètz a jorn a {{autoMax}} se necessari.",
+      "pickingModel": "Causir un modèl",
       "reasoningLevel": "Nivèl de rasonament",
       "reasoningValues": {
         "high": "Naut",
@@ -297,7 +303,6 @@
       "title": "Paramètres de generacion de tèxte",
       "webSearch": "Recèrca web",
       "webSearchDescription": "Daissar las generacions de tèxte tirar d'informacions novèlas del web.",
-      "pickingModel": "Causir un modèl",
       "webSearchWarning": "La recèrca es cara; seguissètz vòstres crèdits."
     },
     "usage": {
@@ -320,10 +325,10 @@
       "loadingTitle": "Paramètres de votz per defaut",
       "noVoices": "Cap de votz correspond pas a aquestes filtres.",
       "saveError": "Impossible d'enregistrar las valors per defaut de la votz",
+      "searchPlaceholder": "Cercar de vòces…",
       "searchVoices": "Votz de recèrca",
       "subtitle": "La votz que vòstre TTS Smart Fields utiliza levat qu'un camp fixe lo sieu.",
-      "title": "Paramètres de votz per defaut",
-      "searchPlaceholder": "Cercar de vòces…"
+      "title": "Paramètres de votz per defaut"
     }
   },
   "imageGeneration": {
@@ -491,8 +496,8 @@
     "finishDescription": "Connexion completa dins lo navigador qu'avèm dobèrt. Aquesta fenèstra se metrà a jorn automaticament.",
     "finishInBrowser": "Acabatz dins vòstre navigador",
     "haveCode": "Avètz un còde del sit web?",
-    "trialDetails": "Gratuit pendent 7 jorns · totas las foncionalitats · pas de carta de crèdit",
-    "startTrial": "Començar l'ensag gratuit"
+    "startTrial": "Començar l'ensag gratuit",
+    "trialDetails": "Gratuit pendent 7 jorns · totas las foncionalitats · pas de carta de crèdit"
   },
   "trialEnded": {
     "description": "Las pròvas duran 7 jorns o fins que vòstres crèdits d'espròva s'agoten.",
@@ -512,8 +517,8 @@
       "leaveReview": "Daissar una revista",
       "title": "Obtenga un mes gratis de Smart Notes"
     },
+    "thanks": "Mercés d'utilizar Smart Notes",
     "title": "Vòstra espròva gratuita s'es acabada",
-    "upgradeNow": "Metètz a jorn ara",
-    "thanks": "Mercés d'utilizar Smart Notes"
+    "upgradeNow": "Metètz a jorn ara"
   }
 }

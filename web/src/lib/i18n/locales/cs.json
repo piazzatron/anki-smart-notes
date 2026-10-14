@@ -81,10 +81,6 @@
       "description": "Podrobné protokolování pomáhá diagnostikovat problémy. Při hlášení chyby zahrňte tyto protokoly.",
       "label": "Režim ladění"
     },
-    "generateAtReview": {
-      "description": "Chybějící chytrá pole doplňte automaticky, jakmile se karty objeví v kontrole.",
-      "label": "Během kontroly generujte pole"
-    },
     "language": {
       "description": "Vyberte jazyk pro Smart Notes nebo se shodujte s jazykem Anki.",
       "label": "Jazyk",
@@ -102,19 +98,29 @@
       "title": "Použijte můj vlastní klíč OpenAI"
     },
     "loading": "Načítání nastavení",
-    "regenerateWhenBatching": {
-      "description": "Při dávkovém zpracování skupiny poznámek regenerujte každé inteligentní pole od začátku, místo abyste vyplňovali pouze prázdné.",
-      "label": "Obnovte všechna inteligentní pole při dávkovém zpracování"
-    },
     "saveError": "Nastavení se nepodařilo uložit",
     "sections": {
       "advanced": "Moderní",
       "general": "Generál",
-      "generation": "Generace"
+      "generation": "Generace",
+      "dangerZone": "Nebezpečná zóna"
     },
-    "title": "Nastavení"
+    "title": "Nastavení",
+    "generateAtReview": {
+      "description": "Doplňte chybějící Smart Fields u nadcházejících kartiček během opakování.",
+      "label": "Generovat předem během opakování"
+    },
+    "generateOnAdd": {
+      "description": "Generovat Smart Fields na pozadí u nově přidaných poznámek, včetně poznámek z nástrojů jako Yomitan a AnkiConnect.",
+      "label": "Automaticky generovat nově přidané poznámky"
+    },
+    "regenerateWhenBatching": {
+      "description": "Znovu vygenerovat všechna Smart Fields, nejen prázdná. Tím se přepíšou stávající pole.",
+      "label": "Při dávkovém zpracování znovu vygenerovat <strong>všechna</strong> Smart Fields"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "Již je Chytré pole",
     "collisionHint": "již má Smart Field — vyberte jiné pole, balíček nebo typ noty",
     "completion": {
       "descriptionAfter": "poznámky se vyplní vždy, když je vytvoříte.",
@@ -190,9 +196,9 @@
     "targetAriaLabel": "Cíl Smart Field",
     "testSmartField": "Otestujte svůj Smart Field",
     "titles": {
+      "create": "Nové Chytré pole",
       "duplicate": "Duplikát Smart Field",
-      "edit": "Upravit Smart Field",
-      "create": "Nové Chytré pole"
+      "edit": "Upravit Smart Field"
     },
     "validation": {
       "chooseField": "Vyberte pole",
@@ -205,8 +211,7 @@
     "writePromptForMe": "Napište za mě mou výzvu",
     "writePromptForMeHint": "Řekněte, co chcete, v jednoduché angličtině – níže napíšeme výzvu.",
     "writePromptPlaceholder": "„Přeložit do přirozené angličtiny…“",
-    "writing": "Psaní…",
-    "alreadySmartField": "Již je Chytré pole"
+    "writing": "Psaní…"
   },
   "smartFields": {
     "actionsAriaLabel": "Akce pro {{field}}",
@@ -288,6 +293,7 @@
       "loadingLabel": "Načítání výchozího nastavení textu",
       "loadingTitle": "Nastavení generování textu",
       "modelGuidance": "{{auto}} a {{autoMax}} jsou doporučené modely Smart Notes, které vyvažují výkon a cenu. Pro standardní úlohy zvolte {{auto}} a v případě potřeby upgradujte na {{autoMax}}.",
+      "pickingModel": "Výběr modelu",
       "reasoningLevel": "Úroveň uvažování",
       "reasoningValues": {
         "high": "Vysoký",
@@ -300,7 +306,6 @@
       "title": "Nastavení generování textu",
       "webSearch": "Vyhledávání na webu",
       "webSearchDescription": "Nechte generace textů čerpat čerstvé informace z webu.",
-      "pickingModel": "Výběr modelu",
       "webSearchWarning": "Vyhledávání je nákladné; sledujte své kredity."
     },
     "usage": {
@@ -326,10 +331,10 @@
       "loadingTitle": "Výchozí nastavení hlasu",
       "noVoices": "Těmto filtrům neodpovídají žádné hlasy.",
       "saveError": "Výchozí nastavení hlasu nelze uložit",
+      "searchPlaceholder": "Hledat hlasy…",
       "searchVoices": "Hledejte hlasy",
       "subtitle": "Hlas, který váš TTS Smart Fields používá, pokud pole nepřipíná své vlastní.",
-      "title": "Výchozí nastavení hlasu",
-      "searchPlaceholder": "Hledat hlasy…"
+      "title": "Výchozí nastavení hlasu"
     }
   },
   "imageGeneration": {
@@ -521,8 +526,8 @@
     "finishDescription": "Dokončete přihlášení v prohlížeči, který jsme otevřeli. Toto okno se automaticky aktualizuje.",
     "finishInBrowser": "Dokončete ve svém prohlížeči",
     "haveCode": "Máte kód z webu?",
-    "trialDetails": "Zdarma na 7 dní · všechny funkce · bez kreditní karty",
-    "startTrial": "Spustit bezplatnou zkušební verzi"
+    "startTrial": "Spustit bezplatnou zkušební verzi",
+    "trialDetails": "Zdarma na 7 dní · všechny funkce · bez kreditní karty"
   },
   "trialEnded": {
     "description": "Zkušební verze běží 7 dní nebo do vyčerpání zkušebních kreditů.",
@@ -542,8 +547,8 @@
       "leaveReview": "Zanechat recenzi",
       "title": "Získejte měsíc zdarma Smart Notes"
     },
+    "thanks": "Děkujeme, že používáte Smart Notes",
     "title": "Vaše bezplatná zkušební verze skončila",
-    "upgradeNow": "Upgradujte nyní",
-    "thanks": "Děkujeme, že používáte Smart Notes"
+    "upgradeNow": "Upgradujte nyní"
   }
 }

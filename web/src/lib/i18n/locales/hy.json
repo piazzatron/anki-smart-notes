@@ -79,10 +79,6 @@
       "description": "Խնդիրների ախտորոշումը օգնելու համար մանրամասն գրանցում: Ներառեք այս տեղեկամատյանները սխալ ներկայացնելիս:",
       "label": "Վրիպազերծման ռեժիմ"
     },
-    "generateAtReview": {
-      "description": "Լրացրեք բացակայող խելացի դաշտերը ավտոմատ կերպով, երբ քարտերը հայտնվում են վերանայման ժամանակ:",
-      "label": "Ստեղծեք դաշտեր վերանայման ընթացքում"
-    },
     "language": {
       "description": "Ընտրեք լեզուն Smart Notes-ի համար կամ համապատասխանեք Anki-ի լեզվին:",
       "label": "Լեզու",
@@ -100,19 +96,29 @@
       "title": "Օգտագործեք իմ սեփական OpenAI բանալին"
     },
     "loading": "Կարգավորումների բեռնում",
-    "regenerateWhenBatching": {
-      "description": "Երբ խմբաքանակով մշակում եք մի խումբ նշումներ, զրոյից վերականգնեք յուրաքանչյուր խելացի դաշտ, այլ ոչ միայն լրացնելով դատարկերը:",
-      "label": "Վերականգնեք բոլոր խելացի դաշտերը խմբաքանակի մշակման ժամանակ"
-    },
     "saveError": "Չհաջողվեց պահել կարգավորումները",
     "sections": {
       "advanced": "Ընդլայնված",
       "general": "Գեներալ",
-      "generation": "Սերունդ"
+      "generation": "Սերունդ",
+      "dangerZone": "Վտանգավոր գոտի"
     },
-    "title": "Կարգավորումներ"
+    "title": "Կարգավորումներ",
+    "generateAtReview": {
+      "description": "Լրացնել բացակայող Smart Fields-ները հաջորդ քարտերի համար՝ կրկնության ընթացքում։",
+      "label": "Generate ahead of time during review"
+    },
+    "generateOnAdd": {
+      "description": "Ֆոնային ռեժимում generate անել Smart Fields-ները նոր ավելացված նշումների համար, այդ թվում՝ Yomitan և AnkiConnect նման գործիքներից։",
+      "label": "Generate newly added notes automatically"
+    },
+    "regenerateWhenBatching": {
+      "description": "Regenerate անել բոլոր Smart Fields-ները, ոչ միայն դատարկները։ Սա վերագրում է գոյություն ունեցող դաշտերը։",
+      "label": "Regenerate <strong>all</strong> Smart Fields during batch processing"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "Արդեն Smart Field",
     "collisionHint": "արդեն ունի Smart Field – ընտրեք այլ դաշտ, տախտակամած կամ նշումի տեսակ",
     "completion": {
       "descriptionAfter": "նշումները լրացվում են ամեն անգամ, երբ այն ստեղծում եք:",
@@ -188,9 +194,9 @@
     "targetAriaLabel": "Smart Field թիրախ",
     "testSmartField": "Փորձեք ձեր խելացի դաշտը",
     "titles": {
+      "create": "Նոր Smart Field",
       "duplicate": "Կրկնվող խելացի դաշտ",
-      "edit": "Խմբագրել խելացի դաշտը",
-      "create": "Նոր Smart Field"
+      "edit": "Խմբագրել խելացի դաշտը"
     },
     "validation": {
       "chooseField": "Ընտրեք դաշտ",
@@ -203,8 +209,7 @@
     "writePromptForMe": "Գրեք իմ հուշումը ինձ համար",
     "writePromptForMeHint": "Ասա այն, ինչ ուզում ես պարզ անգլերենով. մենք կգրենք հուշումը ստորև:",
     "writePromptPlaceholder": "«Թարգմանել բնական անգլերեն…»",
-    "writing": "Գրում…",
-    "alreadySmartField": "Արդեն Smart Field"
+    "writing": "Գրում…"
   },
   "smartFields": {
     "actionsAriaLabel": "Գործողություններ {{field}}-ի համար",
@@ -286,6 +291,7 @@
       "loadingLabel": "Տեքստի կանխադրված կարգավորումների բեռնում",
       "loadingTitle": "Տեքստի ստեղծման կարգավորումներ",
       "modelGuidance": "{{auto}}-ը և {{autoMax}}-ը Smart Notes առաջարկվող մոդելներն են, որոնք հավասարակշռում են արդյունավետությունն ու արժեքը: Ընտրեք {{auto}} ստանդարտ առաջադրանքների համար և անհրաժեշտության դեպքում թարմացրեք {{autoMax}}:",
+      "pickingModel": "Մոդելի ընտրում",
       "reasoningLevel": "Պատճառաբանության մակարդակ",
       "reasoningValues": {
         "high": "Բարձր",
@@ -298,7 +304,6 @@
       "title": "Տեքստի ստեղծման կարգավորումներ",
       "webSearch": "Վեբ որոնում",
       "webSearchDescription": "Թույլ տվեք տեքստային սերունդներին թարմ տեղեկություններ ստանալ համացանցից:",
-      "pickingModel": "Մոդելի ընտրում",
       "webSearchWarning": "Որոնումն ընկալելի արժեք չունի; հետևեք ձեր վարկերի մնացորդին։"
     },
     "usage": {
@@ -322,10 +327,10 @@
       "loadingTitle": "Ձայնի կանխադրված կարգավորումներ",
       "noVoices": "Ոչ մի ձայն չի համապատասխանում այս զտիչներին:",
       "saveError": "Չհաջողվեց պահպանել ձայնային կանխադրված կարգավորումները",
+      "searchPlaceholder": "Որոնել ձայներ…",
       "searchVoices": "Որոնել ձայները",
       "subtitle": "Ձայնը, որն օգտագործում է ձեր TTS Smart Fields-ը, եթե դաշտը չի ամրացնում իր սեփականը:",
-      "title": "Ձայնի կանխադրված կարգավորումներ",
-      "searchPlaceholder": "Որոնել ձայներ…"
+      "title": "Ձայնի կանխադրված կարգավորումներ"
     }
   },
   "imageGeneration": {
@@ -501,8 +506,8 @@
     "finishDescription": "Լրացրեք մուտքը մեր բացած բրաուզերում: Այս պատուհանը ինքնաբերաբար կթարմացվի:",
     "finishInBrowser": "Ավարտեք ձեր բրաուզերում",
     "haveCode": "Կոդ ունե՞ք կայքից:",
-    "trialDetails": "Անվճար 7 օր · յուրաքանչյուր հնարավորություն · վարկային քարտ չկա",
-    "startTrial": "Սկսել անվճար փորձաշրջանը"
+    "startTrial": "Սկսել անվճար փորձաշրջանը",
+    "trialDetails": "Անվճար 7 օր · յուրաքանչյուր հնարավորություն · վարկային քարտ չկա"
   },
   "trialEnded": {
     "description": "Փորձարկումները տևում են 7 օր կամ մինչև ձեր փորձնական վարկերը սպառվեն:",
@@ -522,8 +527,8 @@
       "leaveReview": "Թողնել կարծիք",
       "title": "Ստացեք անվճար Smart Notes ամիս"
     },
+    "thanks": "Շնորհակալություն Smart Notes-ը օգտագործելու համար",
     "title": "Ձեր անվճար փորձաշրջանն ավարտվել է",
-    "upgradeNow": "Թարմացրեք հիմա",
-    "thanks": "Շնորհակալություն Smart Notes-ը օգտագործելու համար"
+    "upgradeNow": "Թարմացրեք հիմա"
   }
 }

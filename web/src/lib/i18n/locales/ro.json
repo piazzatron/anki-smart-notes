@@ -80,10 +80,6 @@
       "description": "Înregistrare detaliată pentru a ajuta la diagnosticarea problemelor. Includeți aceste jurnale atunci când depuneți o eroare.",
       "label": "Modul de depanare"
     },
-    "generateAtReview": {
-      "description": "Completați automat câmpurile inteligente care lipsesc pe măsură ce cardurile apar în examinare.",
-      "label": "Generați câmpuri în timpul examinării"
-    },
     "language": {
       "description": "Alegeți limba pentru Smart Notes sau potriviți limba Anki.",
       "label": "Limbă",
@@ -101,19 +97,29 @@
       "title": "Folosiți propria mea cheie OpenAI"
     },
     "loading": "Setări de încărcare",
-    "regenerateWhenBatching": {
-      "description": "Când procesați în lot un grup de note, regenerați fiecare câmp inteligent de la zero, în loc să le completați doar pe cele goale.",
-      "label": "Regenerați toate câmpurile inteligente atunci când procesați în loturi"
-    },
     "saveError": "Nu s-au putut salva setările",
     "sections": {
       "advanced": "Avansat",
       "general": "General",
-      "generation": "Generaţie"
+      "generation": "Generaţie",
+      "dangerZone": "Zonă periculoasă"
     },
-    "title": "Setări"
+    "title": "Setări",
+    "generateAtReview": {
+      "description": "Completează câmpurile Smart Fields lipsă pentru cardurile următoare în timp ce înveți.",
+      "label": "Generează din timp în timpul recapitulării"
+    },
+    "generateOnAdd": {
+      "description": "Generează Smart Fields în fundal pentru notițele nou adăugate, inclusiv din instrumente precum Yomitan și AnkiConnect.",
+      "label": "Generează automat notițele nou adăugate"
+    },
+    "regenerateWhenBatching": {
+      "description": "Regenerează fiecare Smart Field, nu doar pe cele goale. Acest lucru suprascrie câmpurile existente.",
+      "label": "Regenerează <strong>toate</strong> Smart Fields în timpul procesării în lot"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "Deja un câmp Smart",
     "collisionHint": "are deja un Smart Field — alegeți un alt câmp, pachet sau tip de notă",
     "completion": {
       "descriptionAfter": "notele se completează ori de câte ori le generați.",
@@ -189,9 +195,9 @@
     "targetAriaLabel": "țintă Smart Field",
     "testSmartField": "Testați-vă Smart Field",
     "titles": {
+      "create": "Câmp Smart nou",
       "duplicate": "Duplicați Smart Field",
-      "edit": "Editați Smart Field",
-      "create": "Câmp Smart nou"
+      "edit": "Editați Smart Field"
     },
     "validation": {
       "chooseField": "Alegeți un câmp",
@@ -204,8 +210,7 @@
     "writePromptForMe": "Scrie-mi solicitarea pentru mine",
     "writePromptForMeHint": "Spuneți ceea ce doriți într-o engleză simplă - vom scrie mesajul de mai jos.",
     "writePromptPlaceholder": "„Traduceți în engleză naturală…”",
-    "writing": "Scris…",
-    "alreadySmartField": "Deja un câmp Smart"
+    "writing": "Scris…"
   },
   "smartFields": {
     "actionsAriaLabel": "Acțiuni pentru {{field}}",
@@ -287,6 +292,7 @@
       "loadingLabel": "Se încarcă setările implicite de text",
       "loadingTitle": "Setări de generare a textului",
       "modelGuidance": "{{auto}} și {{autoMax}} sunt modelele recomandate de Smart Notes care echilibrează performanța și costul. Alegeți {{auto}} pentru sarcini standard și faceți upgrade la {{autoMax}} dacă este necesar.",
+      "pickingModel": "Se alege un model",
       "reasoningLevel": "Nivel de raționament",
       "reasoningValues": {
         "high": "Ridicat",
@@ -299,7 +305,6 @@
       "title": "Setări de generare a textului",
       "webSearch": "Căutare pe Web",
       "webSearchDescription": "Permiteți generațiilor de text să obțină informații noi de pe web.",
-      "pickingModel": "Se alege un model",
       "webSearchWarning": "Căutarea este costisitoare; urmărește-ți creditele."
     },
     "usage": {
@@ -324,10 +329,10 @@
       "loadingTitle": "Setări implicite de voce",
       "noVoices": "Nicio voce nu se potrivește cu aceste filtre.",
       "saveError": "Nu s-au putut salva valorile prestabilite pentru voce",
+      "searchPlaceholder": "Caută voci…",
       "searchVoices": "Caută voci",
       "subtitle": "Vocea pe care o folosește TTS Smart Fields, cu excepția cazului în care un câmp își fixează propriul.",
-      "title": "Setări implicite de voce",
-      "searchPlaceholder": "Caută voci…"
+      "title": "Setări implicite de voce"
     }
   },
   "imageGeneration": {
@@ -511,8 +516,8 @@
     "finishDescription": "Autentificarea completă în browserul deschis. Această fereastră se va actualiza automat.",
     "finishInBrowser": "Terminați în browser",
     "haveCode": "Ai un cod de pe site?",
-    "trialDetails": "Gratuit timp de 7 zile · fiecare caracteristică · fără card de credit",
-    "startTrial": "Începe perioada de probă gratuită"
+    "startTrial": "Începe perioada de probă gratuită",
+    "trialDetails": "Gratuit timp de 7 zile · fiecare caracteristică · fără card de credit"
   },
   "trialEnded": {
     "description": "Testele durează 7 zile sau până când creditele dvs. de încercare se epuizează.",
@@ -532,8 +537,8 @@
       "leaveReview": "Lasă o recenzie",
       "title": "Primiți o lună gratuită de Smart Notes"
     },
+    "thanks": "Îți mulțumim că ai folosit Smart Notes",
     "title": "Perioada de încercare gratuită s-a încheiat",
-    "upgradeNow": "Faceți upgrade acum",
-    "thanks": "Îți mulțumim că ai folosit Smart Notes"
+    "upgradeNow": "Faceți upgrade acum"
   }
 }

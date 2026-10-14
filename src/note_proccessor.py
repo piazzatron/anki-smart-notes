@@ -59,7 +59,7 @@ OPEN_AI_MODEL_REQ_PER_MIN = 500
 # show_progress) creates its own threading.Event and passes it down to process_note.
 # It is checked between DAG levels of every note the operation processes, and between
 # batches of a multi-card operation. Once set, no new work starts for that operation.
-# Background generation (review-time) passes no event: it has no dialog to cancel,
+# Background generation (review-time, add-time) passes no event: it has no dialog to cancel,
 # and must not be stopped by another operation's cancel.
 #
 # _check_cancel() is the central detection point: it polls mw.progress.want_cancel(),

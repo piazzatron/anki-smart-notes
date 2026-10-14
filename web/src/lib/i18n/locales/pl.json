@@ -81,10 +81,6 @@
       "description": "Szczegółowe rejestrowanie ułatwiające diagnozowanie problemów. Dołącz te dzienniki podczas zgłaszania błędu.",
       "label": "Tryb debugowania"
     },
-    "generateAtReview": {
-      "description": "Automatycznie uzupełniaj brakujące inteligentne pola, gdy karty pojawiają się podczas sprawdzania.",
-      "label": "Generuj pola podczas przeglądu"
-    },
     "language": {
       "description": "Wybierz język dla Smart Notes lub dopasuj język Anki.",
       "label": "Język",
@@ -102,19 +98,29 @@
       "title": "Użyj mojego własnego klucza OpenAI"
     },
     "loading": "Ładowanie ustawień",
-    "regenerateWhenBatching": {
-      "description": "Podczas przetwarzania wsadowego grupy notatek należy zregenerować każde inteligentne pole od zera, zamiast wypełniać tylko puste.",
-      "label": "Zregeneruj wszystkie inteligentne pola podczas przetwarzania wsadowego"
-    },
     "saveError": "Nie udało się zapisać ustawień",
     "sections": {
       "advanced": "Zaawansowany",
       "general": "Ogólny",
-      "generation": "Generacja"
+      "generation": "Generacja",
+      "dangerZone": "Strefa niebezpieczna"
     },
-    "title": "Ustawienia"
+    "title": "Ustawienia",
+    "generateAtReview": {
+      "description": "Uzupełnia brakujące Smart Fields dla nadchodzących kart podczas nauki.",
+      "label": "Generuj z wyprzedzeniem podczas nauki"
+    },
+    "generateOnAdd": {
+      "description": "Generuje Smart Fields w tle dla nowo dodanych notatek, także z narzędzi takich jak Yomitan i AnkiConnect.",
+      "label": "Automatycznie generuj nowo dodane notatki"
+    },
+    "regenerateWhenBatching": {
+      "description": "Regeneruje wszystkie Smart Fields, a nie tylko puste. Spowoduje to nadpisanie istniejących pól.",
+      "label": "Regeneruj <strong>wszystkie</strong> Smart Fields podczas przetwarzania wsadowego"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "Już jest polem Smart Fields",
     "collisionHint": "ma już Smart Field — wybierz inne pole, talię lub typ notatki",
     "completion": {
       "descriptionAfter": "notatki są wypełniane za każdym razem, gdy je generujesz.",
@@ -190,9 +196,9 @@
     "targetAriaLabel": "Cel Smart Field",
     "testSmartField": "Przetestuj swój Smart Field",
     "titles": {
+      "create": "Nowe pole Smart Fields",
       "duplicate": "Duplikat Smart Field",
-      "edit": "Edytuj Smart Field",
-      "create": "Nowe pole Smart Fields"
+      "edit": "Edytuj Smart Field"
     },
     "validation": {
       "chooseField": "Wybierz pole",
@@ -205,8 +211,7 @@
     "writePromptForMe": "Napisz dla mnie monit",
     "writePromptForMeHint": "Powiedz, czego chcesz, prostym angielskim — napiszemy monit poniżej.",
     "writePromptPlaceholder": "„Przetłumacz na naturalny angielski…”",
-    "writing": "Pismo…",
-    "alreadySmartField": "Już jest polem Smart Fields"
+    "writing": "Pismo…"
   },
   "smartFields": {
     "actionsAriaLabel": "Działania dla {{field}}",
@@ -288,6 +293,7 @@
       "loadingLabel": "Ładowanie domyślnych ustawień tekstu",
       "loadingTitle": "Ustawienia generowania tekstu",
       "modelGuidance": "{{auto}} i {{autoMax}} to modele zalecane przez Smart Notes, które równoważą wydajność i koszty. Wybierz {{auto}} do standardowych zadań i w razie potrzeby uaktualnij do {{autoMax}}.",
+      "pickingModel": "Wybieranie modelu",
       "reasoningLevel": "Poziom rozumowania",
       "reasoningValues": {
         "high": "Wysoki",
@@ -300,7 +306,6 @@
       "title": "Ustawienia generowania tekstu",
       "webSearch": "Wyszukiwanie w Internecie",
       "webSearchDescription": "Pozwól pokoleniom tekstowym pobierać świeże informacje z Internetu.",
-      "pickingModel": "Wybieranie modelu",
       "webSearchWarning": "Wyszukiwanie jest kosztowne; pilnuj swoich kredytów."
     },
     "usage": {
@@ -326,10 +331,10 @@
       "loadingTitle": "Domyślne ustawienia głosu",
       "noVoices": "Żaden głos nie pasuje do tych filtrów.",
       "saveError": "Nie można zapisać domyślnych ustawień głosu",
+      "searchPlaceholder": "Szukaj głosów…",
       "searchVoices": "Szukaj głosów",
       "subtitle": "Głos, którego używa Twój TTS Smart Fields, chyba że pole przypina własny.",
-      "title": "Domyślne ustawienia głosu",
-      "searchPlaceholder": "Szukaj głosów…"
+      "title": "Domyślne ustawienia głosu"
     }
   },
   "imageGeneration": {
@@ -521,8 +526,8 @@
     "finishDescription": "Dokończ logowanie w przeglądarce, którą otworzyliśmy. To okno zostanie zaktualizowane automatycznie.",
     "finishInBrowser": "Dokończ w przeglądarce",
     "haveCode": "Masz kod ze strony internetowej?",
-    "trialDetails": "Bezpłatnie przez 7 dni · wszystkie funkcje · brak karty kredytowej",
-    "startTrial": "Rozpocznij bezpłatny okres próbny"
+    "startTrial": "Rozpocznij bezpłatny okres próbny",
+    "trialDetails": "Bezpłatnie przez 7 dni · wszystkie funkcje · brak karty kredytowej"
   },
   "trialEnded": {
     "description": "Okres próbny trwa 7 dni lub do wyczerpania się środków na okres próbny.",
@@ -542,8 +547,8 @@
       "leaveReview": "Zostaw recenzję",
       "title": "Zdobądź darmowy miesiąc Smart Notes"
     },
+    "thanks": "Dziękujemy za korzystanie ze Smart Notes",
     "title": "Twój bezpłatny okres próbny dobiegł końca",
-    "upgradeNow": "Uaktualnij teraz",
-    "thanks": "Dziękujemy za korzystanie ze Smart Notes"
+    "upgradeNow": "Uaktualnij teraz"
   }
 }

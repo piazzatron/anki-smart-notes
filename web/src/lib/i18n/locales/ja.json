@@ -78,10 +78,6 @@
       "description": "問題の診断に役立つ詳細なログ。バグを報告する際には、これらのログを含めてください。",
       "label": "デバッグモード"
     },
-    "generateAtReview": {
-      "description": "カードがレビューに表示されると、不足しているスマート フィールドが自動的に入力されます。",
-      "label": "レビュー中にフィールドを生成する"
-    },
     "language": {
       "description": "Smart Notes の言語を選択するか、Anki の言語に一致させます。",
       "label": "言語",
@@ -99,19 +95,29 @@
       "title": "自分の OpenAI キーを使用する"
     },
     "loading": "設定を読み込む",
-    "regenerateWhenBatching": {
-      "description": "メモのグループをバッチ処理するときは、空のフィールドを埋めるだけでなく、すべてのスマート フィールドを最初から再生成します。",
-      "label": "バッチ処理時にすべてのスマート フィールドを再生成する"
-    },
     "saveError": "設定を保存できませんでした",
     "sections": {
       "advanced": "高度な",
       "general": "一般的な",
-      "generation": "世代"
+      "generation": "世代",
+      "dangerZone": "危険ゾーン"
     },
-    "title": "設定"
+    "title": "設定",
+    "generateAtReview": {
+      "description": "レビュー中に、今後出題されるカードの不足しているSmart Fieldsを埋めます。",
+      "label": "レビュー中に事前に生成する"
+    },
+    "generateOnAdd": {
+      "description": "新しく追加されたノートのSmart Fieldsをバックグラウンドで生成します。Yomitan や AnkiConnect などのツールからの追加も対象になります。",
+      "label": "新しく追加されたノートを自動的に生成する"
+    },
+    "regenerateWhenBatching": {
+      "description": "空のフィールドだけでなく、すべてのSmart Fieldsを再生成します。既存のフィールドは上書きされます。",
+      "label": "バッチ処理中に<strong>すべての</strong>Smart Fieldsを再生成する"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "すでにスマートフィールドです",
     "collisionHint": "すでに Smart Field を持っています — 別のフィールド、デッキ、またはノートのタイプを選択してください",
     "completion": {
       "descriptionAfter": "メモを生成するたびにメモが書き込まれます。",
@@ -187,9 +193,9 @@
     "targetAriaLabel": "Smart Field ターゲット",
     "testSmartField": "Smart Field をテストする",
     "titles": {
+      "create": "新しいスマートフィールド",
       "duplicate": "Smart Fieldの複製",
-      "edit": "Smart Fieldを編集する",
-      "create": "新しいスマートフィールド"
+      "edit": "Smart Fieldを編集する"
     },
     "validation": {
       "chooseField": "フィールドを選択してください",
@@ -202,8 +208,7 @@
     "writePromptForMe": "私のプロンプトを書いてください",
     "writePromptForMeHint": "わかりやすい英語で言いたいことを言ってください。以下にプロンプ​​トを書きます。",
     "writePromptPlaceholder": "「自然な英語に翻訳して…」",
-    "writing": "書き込み…",
-    "alreadySmartField": "すでにスマートフィールドです"
+    "writing": "書き込み…"
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}}のアクション",
@@ -285,6 +290,7 @@
       "loadingLabel": "デフォルトのテキスト設定をロードする",
       "loadingTitle": "テキスト生成設定",
       "modelGuidance": "{{auto}}と{{autoMax}}は、性能とコストのバランスをとったSmart Notes推奨モデルです。標準タスクには {{auto}} を選択し、必要に応じて {{autoMax}} にアップグレードします。",
+      "pickingModel": "モデルを選択中",
       "reasoningLevel": "推理レベル",
       "reasoningValues": {
         "high": "高い",
@@ -297,7 +303,6 @@
       "title": "テキスト生成設定",
       "webSearch": "ウェブ検索",
       "webSearchDescription": "テキスト生成者が Web から最新の情報を取得できるようにします。",
-      "pickingModel": "モデルを選択中",
       "webSearchWarning": "検索はコストが高いため、クレジットを確認してください。"
     },
     "usage": {
@@ -320,10 +325,10 @@
       "loadingTitle": "デフォルトの音声設定",
       "noVoices": "これらのフィルターに一致する音声はありません。",
       "saveError": "音声のデフォルトを保存できませんでした",
+      "searchPlaceholder": "音声を検索…",
       "searchVoices": "音声を検索する",
       "subtitle": "フィールドが独自に固定していない限り、TTS Smart Fields が使用する音声。",
-      "title": "デフォルトの音声設定",
-      "searchPlaceholder": "音声を検索…"
+      "title": "デフォルトの音声設定"
     }
   },
   "imageGeneration": {
@@ -491,8 +496,8 @@
     "finishDescription": "開いたブラウザでサインインを完了します。このウィンドウは自動的に更新されます。",
     "finishInBrowser": "ブラウザで完了する",
     "haveCode": "ウェブサイトからコードをお持ちですか?",
-    "trialDetails": "7 日間無料 · すべての機能 · クレジット カード不要",
-    "startTrial": "無料トライアルを開始"
+    "startTrial": "無料トライアルを開始",
+    "trialDetails": "7 日間無料 · すべての機能 · クレジット カード不要"
   },
   "trialEnded": {
     "description": "トライアルは 7 日間、またはトライアル クレジットがなくなるまで実行されます。",
@@ -512,8 +517,8 @@
       "leaveReview": "レビューを残す",
       "title": "Smart Notes を 1 か月間無料で入手"
     },
+    "thanks": "Smart Notes をご利用いただきありがとうございました",
     "title": "無料トライアルは終了しました",
-    "upgradeNow": "今すぐアップグレードしてください",
-    "thanks": "Smart Notes をご利用いただきありがとうございました"
+    "upgradeNow": "今すぐアップグレードしてください"
   }
 }

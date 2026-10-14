@@ -67,6 +67,7 @@ GENERATION_DEFAULTS = GenerationDefaults(
 )
 SETTINGS_DTO: dto.SettingsDto = {
     "generateAtReview": True,
+    "generateOnAdd": True,
     "regenerateWhenBatching": False,
     "debug": False,
     "language": "auto",
@@ -362,6 +363,7 @@ def test_build_state_excludes_smart_fields_with_missing_anki_references():
 def test_build_settings_reads_config(monkeypatch):
     config = SimpleNamespace(
         generate_at_review=False,
+        generate_on_add=True,
         regenerate_notes_when_batching=True,
         debug=True,
         language="ja",
@@ -377,6 +379,7 @@ def test_build_settings_reads_config(monkeypatch):
 
     assert dto.build_settings() == {
         "generateAtReview": False,
+        "generateOnAdd": True,
         "regenerateWhenBatching": True,
         "debug": True,
         "language": "ja",
@@ -607,6 +610,7 @@ def test_parse_settings_round_trips():
     parsed = dto.parse_settings(SETTINGS_DTO)
 
     assert parsed.generate_at_review is True
+    assert parsed.generate_on_add is True
     assert parsed.regenerate_when_batching is False
     assert parsed.debug is False
     assert parsed.language == "auto"
@@ -688,6 +692,7 @@ def test_generation_defaults_survive_build_parse_round_trip():
 def test_settings_survive_build_parse_round_trip(monkeypatch):
     config = SimpleNamespace(
         generate_at_review=True,
+        generate_on_add=False,
         regenerate_notes_when_batching=False,
         debug=True,
         language="ar",
@@ -705,6 +710,7 @@ def test_settings_survive_build_parse_round_trip(monkeypatch):
 
     assert settings == Settings(
         generate_at_review=True,
+        generate_on_add=False,
         regenerate_when_batching=False,
         debug=True,
         language="ar",
@@ -728,6 +734,7 @@ def test_save_settings_persists_every_field_and_republishes(monkeypatch):
     settings_service.save_settings(dto.parse_settings(SETTINGS_DTO))
 
     assert config.generate_at_review is True
+    assert config.generate_on_add is True
     assert config.regenerate_notes_when_batching is False
     assert config.debug is False
     assert config.language == "auto"

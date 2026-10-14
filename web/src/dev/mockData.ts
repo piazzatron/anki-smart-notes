@@ -158,6 +158,7 @@ const BASE_STATE: AppState = {
   },
   settings: {
     generateAtReview: true,
+    generateOnAdd: true,
     regenerateWhenBatching: false,
     debug: false,
     language: "auto",

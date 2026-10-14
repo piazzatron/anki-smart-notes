@@ -79,10 +79,6 @@
       "description": "Verbose logging para makatulong sa pag-diagnose ng mga isyu. Isama ang mga log na ito kapag nag-file ng bug.",
       "label": "Debug mode"
     },
-    "generateAtReview": {
-      "description": "Awtomatikong punan ang mga nawawalang smart field habang sinusuri ang mga card.",
-      "label": "Bumuo ng mga field sa panahon ng pagsusuri"
-    },
     "language": {
       "description": "Piliin ang wika para sa Smart Notes, o itugma ang wika ng Anki.",
       "label": "Wika",
@@ -100,19 +96,29 @@
       "title": "Gamitin ang sarili kong OpenAI key"
     },
     "loading": "Nilo-load ang Mga Setting",
-    "regenerateWhenBatching": {
-      "description": "Kapag pinoproseso ng batch ang isang pangkat ng mga tala, i-regenerate ang bawat smart field mula sa simula sa halip na punan ang mga walang laman.",
-      "label": "I-regenerate ang lahat ng smart field kapag pinoproseso ang batch"
-    },
     "saveError": "Hindi ma-save ang mga setting",
     "sections": {
       "advanced": "Advanced",
       "general": "Heneral",
-      "generation": "henerasyon"
+      "generation": "henerasyon",
+      "dangerZone": "Danger Zone"
     },
-    "title": "Mga setting"
+    "title": "Mga setting",
+    "generateAtReview": {
+      "description": "Punan ang mga nawawalang Smart Fields para sa mga paparating na card habang nagre-review ka.",
+      "label": "Mag-generate nang maaga habang nagre-review"
+    },
+    "generateOnAdd": {
+      "description": "I-generate ang Smart Fields sa background para sa mga bagong idinagdag na note, kasama ang mga galing sa mga tool gaya ng Yomitan at AnkiConnect.",
+      "label": "Awtomatikong i-generate ang mga bagong idinagdag na note"
+    },
+    "regenerateWhenBatching": {
+      "description": "I-regenerate ang bawat Smart Field, hindi lang ang mga walang laman. Mapapalitan nito ang mga umiiral nang field.",
+      "label": "I-regenerate ang <strong>lahat</strong> ng Smart Fields sa batch processing"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "Smart Field na",
     "collisionHint": "mayroon nang Smart Field — pumili ng ibang field, deck, o uri ng tala",
     "completion": {
       "descriptionAfter": "mapupuno ang mga tala sa tuwing bubuo ka nito.",
@@ -188,9 +194,9 @@
     "targetAriaLabel": "Smart Field target",
     "testSmartField": "Subukan ang iyong Smart Field",
     "titles": {
+      "create": "Bagong Smart Field",
       "duplicate": "Duplicate na Smart Field",
-      "edit": "I-edit ang Smart Field",
-      "create": "Bagong Smart Field"
+      "edit": "I-edit ang Smart Field"
     },
     "validation": {
       "chooseField": "Pumili ng field",
@@ -203,8 +209,7 @@
     "writePromptForMe": "Isulat ang aking prompt para sa akin",
     "writePromptForMeHint": "Sabihin kung ano ang gusto mo sa simpleng Ingles — isusulat namin ang prompt sa ibaba.",
     "writePromptPlaceholder": "\"Isalin sa natural na Ingles…\"",
-    "writing": "Nagsusulat…",
-    "alreadySmartField": "Smart Field na"
+    "writing": "Nagsusulat…"
   },
   "smartFields": {
     "actionsAriaLabel": "Mga aksyon para sa {{field}}",
@@ -286,6 +291,7 @@
       "loadingLabel": "Nilo-load ang Default na Mga Setting ng Teksto",
       "loadingTitle": "Mga Setting ng Pagbuo ng Teksto",
       "modelGuidance": "Ang {{auto}} at {{autoMax}} ay ang Smart Notes na inirerekomendang mga modelo na nagbabalanse sa performance at gastos. Piliin ang {{auto}} para sa mga karaniwang gawain at mag-upgrade sa {{autoMax}} kung kinakailangan.",
+      "pickingModel": "Pumipili ng model",
       "reasoningLevel": "Antas ng pangangatwiran",
       "reasoningValues": {
         "high": "Mataas",
@@ -298,7 +304,6 @@
       "title": "Mga Setting ng Pagbuo ng Teksto",
       "webSearch": "Paghahanap sa Web",
       "webSearchDescription": "Hayaan ang mga henerasyon ng text na kumuha ng bagong impormasyon mula sa web.",
-      "pickingModel": "Pumipili ng model",
       "webSearchWarning": "Magastos ang paghahanap; bantayan ang iyong mga credit."
     },
     "usage": {
@@ -322,10 +327,10 @@
       "loadingTitle": "Default na Mga Setting ng Boses",
       "noVoices": "Walang boses na tumutugma sa mga filter na ito.",
       "saveError": "Hindi ma-save ang mga default ng boses",
+      "searchPlaceholder": "Maghanap ng mga boses…",
       "searchVoices": "Maghanap ng mga boses",
       "subtitle": "Ang boses na ginagamit ng iyong TTS Smart Fields maliban kung ang isang field ay naka-pin ng sarili nitong.",
-      "title": "Default na Mga Setting ng Boses",
-      "searchPlaceholder": "Maghanap ng mga boses…"
+      "title": "Default na Mga Setting ng Boses"
     }
   },
   "imageGeneration": {
@@ -501,8 +506,8 @@
     "finishDescription": "Kumpletuhin ang pag-sign in sa browser na aming binuksan. Awtomatikong mag-a-update ang window na ito.",
     "finishInBrowser": "Tapusin sa iyong browser",
     "haveCode": "May code mula sa website?",
-    "trialDetails": "Libre sa loob ng 7 araw · bawat feature · walang credit card",
-    "startTrial": "Simulan ang Libreng Trial"
+    "startTrial": "Simulan ang Libreng Trial",
+    "trialDetails": "Libre sa loob ng 7 araw · bawat feature · walang credit card"
   },
   "trialEnded": {
     "description": "Tumatakbo ang mga pagsubok nang 7 araw o hanggang sa maubos ang iyong mga kredito sa pagsubok.",
@@ -522,8 +527,8 @@
       "leaveReview": "Mag-iwan ng pagsusuri",
       "title": "Kumuha ng libreng buwan ng Smart Notes"
     },
+    "thanks": "Salamat sa paggamit ng Smart Notes",
     "title": "Natapos na ang iyong libreng pagsubok",
-    "upgradeNow": "Mag-upgrade ngayon",
-    "thanks": "Salamat sa paggamit ng Smart Notes"
+    "upgradeNow": "Mag-upgrade ngayon"
   }
 }

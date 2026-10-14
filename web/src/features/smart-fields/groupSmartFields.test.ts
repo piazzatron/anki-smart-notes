@@ -52,6 +52,7 @@ const stateWith = (smartFields: SmartField[]): AppState => ({
   },
   settings: {
     generateAtReview: false,
+    generateOnAdd: false,
     regenerateWhenBatching: false,
     debug: false,
     language: "auto",

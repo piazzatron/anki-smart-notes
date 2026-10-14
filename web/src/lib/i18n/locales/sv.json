@@ -79,10 +79,6 @@
       "description": "Utförlig loggning för att diagnostisera problem. Inkludera dessa loggar när du gör en bugg.",
       "label": "Felsökningsläge"
     },
-    "generateAtReview": {
-      "description": "Fyll i saknade smarta fält automatiskt när kort kommer upp under granskning.",
-      "label": "Generera fält under granskning"
-    },
     "language": {
       "description": "Välj språk för Smart Notes, eller matcha Anki:s språk.",
       "label": "Språk",
@@ -100,19 +96,29 @@
       "title": "Använd min egen OpenAI-nyckel"
     },
     "loading": "Laddar inställningar",
-    "regenerateWhenBatching": {
-      "description": "När du batchbearbetar en grupp av anteckningar, återskapa alla smarta fält från början istället för att bara fylla tomma.",
-      "label": "Återskapa alla smarta fält vid batchbearbetning"
-    },
     "saveError": "Det gick inte att spara inställningarna",
     "sections": {
       "advanced": "Avancerad",
       "general": "Allmän",
-      "generation": "Generation"
+      "generation": "Generation",
+      "dangerZone": "Farlig zon"
     },
-    "title": "Inställningar"
+    "title": "Inställningar",
+    "generateAtReview": {
+      "description": "Fyll i saknade Smart Fields för kommande kort när du repeterar.",
+      "label": "Generera i förväg under repetition"
+    },
+    "generateOnAdd": {
+      "description": "Generera Smart Fields i bakgrunden för nytillagda anteckningar, inklusive från verktyg som Yomitan och AnkiConnect.",
+      "label": "Generera nytillagda anteckningar automatiskt"
+    },
+    "regenerateWhenBatching": {
+      "description": "Generera om alla Smart Fields, inte bara tomma. Detta skriver över befintliga fält.",
+      "label": "Generera om <strong>alla</strong> Smart Fields under batchbearbetning"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "Är redan ett Smart Field",
     "collisionHint": "har redan en Smart Field — välj ett annat fält, kortlek eller nottyp",
     "completion": {
       "descriptionAfter": "anteckningar fylls i när du genererar det.",
@@ -188,9 +194,9 @@
     "targetAriaLabel": "Smart Field mål",
     "testSmartField": "Testa din Smart Field",
     "titles": {
+      "create": "Nytt Smart Field",
       "duplicate": "Duplicera Smart Field",
-      "edit": "Redigera Smart Field",
-      "create": "Nytt Smart Field"
+      "edit": "Redigera Smart Field"
     },
     "validation": {
       "chooseField": "Välj ett fält",
@@ -203,8 +209,7 @@
     "writePromptForMe": "Skriv min uppmaning åt mig",
     "writePromptForMeHint": "Säg vad du vill på vanlig engelska - vi skriver uppmaningen nedan.",
     "writePromptPlaceholder": "\"Översätt till naturlig engelska...\"",
-    "writing": "Handstil…",
-    "alreadySmartField": "Är redan ett Smart Field"
+    "writing": "Handstil…"
   },
   "smartFields": {
     "actionsAriaLabel": "Åtgärder för {{field}}",
@@ -286,6 +291,7 @@
       "loadingLabel": "Laddar standardtextinställningar",
       "loadingTitle": "Inställningar för textgenerering",
       "modelGuidance": "{{auto}} och {{autoMax}} är de Smart Notes rekommenderade modellerna som balanserar prestanda och kostnad. Välj {{auto}} för standarduppgifter och uppgradera till {{autoMax}} om det behövs.",
+      "pickingModel": "Väljer en modell",
       "reasoningLevel": "Resonemangsnivå",
       "reasoningValues": {
         "high": "Hög",
@@ -298,7 +304,6 @@
       "title": "Inställningar för textgenerering",
       "webSearch": "Webbsökning",
       "webSearchDescription": "Låt textgenerationer hämta färsk information från webben.",
-      "pickingModel": "Väljer en modell",
       "webSearchWarning": "Sökning är dyr; håll koll på dina krediter."
     },
     "usage": {
@@ -322,10 +327,10 @@
       "loadingTitle": "Standardröstinställningar",
       "noVoices": "Inga röster matchar dessa filter.",
       "saveError": "Det gick inte att spara röststandarder",
+      "searchPlaceholder": "Sök röster…",
       "searchVoices": "Sök röster",
       "subtitle": "Rösten som din TTS Smart Fields använder om inte ett fält stiftar sin egen.",
-      "title": "Standardröstinställningar",
-      "searchPlaceholder": "Sök röster…"
+      "title": "Standardröstinställningar"
     }
   },
   "imageGeneration": {
@@ -501,8 +506,8 @@
     "finishDescription": "Slutför inloggningen i webbläsaren vi öppnade. Detta fönster uppdateras automatiskt.",
     "finishInBrowser": "Avsluta i din webbläsare",
     "haveCode": "Har du en kod från hemsidan?",
-    "trialDetails": "Gratis i 7 dagar · varje funktion · inget kreditkort",
-    "startTrial": "Starta gratis provperiod"
+    "startTrial": "Starta gratis provperiod",
+    "trialDetails": "Gratis i 7 dagar · varje funktion · inget kreditkort"
   },
   "trialEnded": {
     "description": "Provperioder pågår i 7 dagar eller tills dina provkrediter tar slut.",
@@ -522,8 +527,8 @@
       "leaveReview": "Lämna en recension",
       "title": "Få en gratis månad med Smart Notes"
     },
+    "thanks": "Tack för att du använder Smart Notes",
     "title": "Din kostnadsfria provperiod har avslutats",
-    "upgradeNow": "Uppgradera nu",
-    "thanks": "Tack för att du använder Smart Notes"
+    "upgradeNow": "Uppgradera nu"
   }
 }

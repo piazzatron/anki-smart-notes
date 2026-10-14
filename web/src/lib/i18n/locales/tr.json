@@ -79,10 +79,6 @@
       "description": "Sorunların teşhis edilmesine yardımcı olacak ayrıntılı günlük kaydı. Bir hata bildirirken bu günlükleri ekleyin.",
       "label": "Hata ayıklama modu"
     },
-    "generateAtReview": {
-      "description": "Kartlar incelemede göründükçe eksik akıllı alanları otomatik olarak doldurun.",
-      "label": "İnceleme sırasında alanlar oluştur"
-    },
     "language": {
       "description": "Smart Notes için dili seçin veya Anki'in diliyle eşleştirin.",
       "label": "Dil",
@@ -100,19 +96,29 @@
       "title": "Kendi OpenAI anahtarımı kullan"
     },
     "loading": "Ayarlar Yükleniyor",
-    "regenerateWhenBatching": {
-      "description": "Bir grup notu toplu olarak işlerken, yalnızca boş olanları doldurmak yerine her akıllı alanı sıfırdan yeniden oluşturun.",
-      "label": "Toplu işleme sırasında tüm akıllı alanları yeniden oluşturun"
-    },
     "saveError": "Ayarlar kaydedilemedi",
     "sections": {
       "advanced": "Gelişmiş",
       "general": "Genel",
-      "generation": "Nesil"
+      "generation": "Nesil",
+      "dangerZone": "Tehlikeli Bölge"
     },
-    "title": "Ayarlar"
+    "title": "Ayarlar",
+    "generateAtReview": {
+      "description": "Gözden geçirme sırasında yaklaşan kartlar için eksik Smart Fields alanlarını doldurun.",
+      "label": "Gözden geçirme sırasında önceden oluştur"
+    },
+    "generateOnAdd": {
+      "description": "Yomitan ve AnkiConnect gibi araçlardan gelenler dahil, yeni eklenen notlar için Smart Fields alanlarını arka planda oluşturun.",
+      "label": "Yeni eklenen notları otomatik olarak oluştur"
+    },
+    "regenerateWhenBatching": {
+      "description": "Yalnızca boş olanları değil, tüm Smart Fields alanlarını yeniden oluşturun. Bu, mevcut alanların üzerine yazar.",
+      "label": "Toplu işlem sırasında <strong>tüm</strong> Smart Fields alanlarını yeniden oluştur"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "Zaten bir Smart Field",
     "collisionHint": "zaten bir Smart Field'iniz var — farklı bir alan, deste veya not türü seçin",
     "completion": {
       "descriptionAfter": "notlar onu oluşturduğunuzda doldurulur.",
@@ -188,9 +194,9 @@
     "targetAriaLabel": "Smart Field hedefi",
     "testSmartField": "Smart Field'inizi test edin",
     "titles": {
+      "create": "Yeni Smart Field",
       "duplicate": "Smart Field'i çoğaltın",
-      "edit": "Smart Field'i düzenleyin",
-      "create": "Yeni Smart Field"
+      "edit": "Smart Field'i düzenleyin"
     },
     "validation": {
       "chooseField": "Bir alan seçin",
@@ -203,8 +209,7 @@
     "writePromptForMe": "Benim için istemimi yaz",
     "writePromptForMeHint": "Sade bir İngilizceyle ne istediğinizi söyleyin; istemi aşağıya yazacağız.",
     "writePromptPlaceholder": "\"Doğal İngilizceye çevir...\"",
-    "writing": "Yazıyor…",
-    "alreadySmartField": "Zaten bir Smart Field"
+    "writing": "Yazıyor…"
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}} için eylemler",
@@ -286,6 +291,7 @@
       "loadingLabel": "Varsayılan Metin Ayarlarını Yükleme",
       "loadingTitle": "Metin Oluşturma Ayarları",
       "modelGuidance": "{{auto}} ve {{autoMax}}, performans ve maliyeti dengeleyen Smart Notes tarafından önerilen modellerdir. Standart görevler için {{auto}} seçeneğini seçin ve gerekirse {{autoMax}} sürümüne yükseltin.",
+      "pickingModel": "Model seçiliyor",
       "reasoningLevel": "Muhakeme düzeyi",
       "reasoningValues": {
         "high": "Yüksek",
@@ -298,7 +304,6 @@
       "title": "Metin Oluşturma Ayarları",
       "webSearch": "Web Araması",
       "webSearchDescription": "Metin nesillerinin web'den yeni bilgiler almasına izin verin.",
-      "pickingModel": "Model seçiliyor",
       "webSearchWarning": "Arama maliyetlidir; kredilerinizi takip edin."
     },
     "usage": {
@@ -322,10 +327,10 @@
       "loadingTitle": "Varsayılan Ses Ayarları",
       "noVoices": "Bu filtrelerle eşleşen ses yok.",
       "saveError": "Ses varsayılanları kaydedilemedi",
+      "searchPlaceholder": "Sesleri ara…",
       "searchVoices": "Sesleri ara",
       "subtitle": "Bir alan kendine ait olmadığı sürece TTS Smart Fields'inizin kullandığı ses.",
-      "title": "Varsayılan Ses Ayarları",
-      "searchPlaceholder": "Sesleri ara…"
+      "title": "Varsayılan Ses Ayarları"
     }
   },
   "imageGeneration": {
@@ -501,8 +506,8 @@
     "finishDescription": "Açtığımız tarayıcıda oturum açma işlemini tamamlayın. Bu pencere otomatik olarak güncellenecektir.",
     "finishInBrowser": "Tarayıcınızda işlemi tamamlayın",
     "haveCode": "Web sitesinden kodunuz var mı?",
-    "trialDetails": "7 gün boyunca ücretsiz · tüm özellikler · kredi kartı yok",
-    "startTrial": "Ücretsiz Denemeyi Başlat"
+    "startTrial": "Ücretsiz Denemeyi Başlat",
+    "trialDetails": "7 gün boyunca ücretsiz · tüm özellikler · kredi kartı yok"
   },
   "trialEnded": {
     "description": "Denemeler 7 gün boyunca veya deneme kredileriniz bitene kadar devam eder.",
@@ -522,8 +527,8 @@
       "leaveReview": "Yorum bırakın",
       "title": "Bir ay ücretsiz Smart Notes edinin"
     },
+    "thanks": "Smart Notes'u kullandığınız için teşekkürler",
     "title": "Ücretsiz deneme süreniz sona erdi",
-    "upgradeNow": "Şimdi yükseltin",
-    "thanks": "Smart Notes'u kullandığınız için teşekkürler"
+    "upgradeNow": "Şimdi yükseltin"
   }
 }

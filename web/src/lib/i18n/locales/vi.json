@@ -78,10 +78,6 @@
       "description": "Ghi nhật ký chi tiết để giúp chẩn đoán sự cố. Bao gồm các nhật ký này khi gửi lỗi.",
       "label": "Chế độ gỡ lỗi"
     },
-    "generateAtReview": {
-      "description": "Tự động điền vào các trường thông minh còn thiếu khi thẻ xuất hiện trong quá trình xem xét.",
-      "label": "Tạo các trường trong quá trình xem xét"
-    },
     "language": {
       "description": "Chọn ngôn ngữ cho Smart Notes hoặc khớp với ngôn ngữ của Anki.",
       "label": "Ngôn ngữ",
@@ -99,19 +95,29 @@
       "title": "Sử dụng khóa OpenAI của riêng tôi"
     },
     "loading": "Đang tải cài đặt",
-    "regenerateWhenBatching": {
-      "description": "Khi xử lý hàng loạt một nhóm ghi chú, hãy tạo lại mọi trường thông minh từ đầu thay vì chỉ điền vào những trường trống.",
-      "label": "Tái tạo tất cả các trường thông minh khi xử lý hàng loạt"
-    },
     "saveError": "Không thể lưu cài đặt",
     "sections": {
       "advanced": "Trình độ cao",
       "general": "Tổng quan",
-      "generation": "Thế hệ"
+      "generation": "Thế hệ",
+      "dangerZone": "Vùng nguy hiểm"
     },
-    "title": "Cài đặt"
+    "title": "Cài đặt",
+    "generateAtReview": {
+      "description": "Điền các Smart Fields còn thiếu cho những thẻ sắp tới trong khi bạn ôn tập.",
+      "label": "Tạo trước trong lúc ôn tập"
+    },
+    "generateOnAdd": {
+      "description": "Tạo Smart Fields ở chế độ nền cho các ghi chú mới thêm, kể cả từ các công cụ như Yomitan và AnkiConnect.",
+      "label": "Tự động tạo cho các ghi chú mới thêm"
+    },
+    "regenerateWhenBatching": {
+      "description": "Tạo lại mọi Smart Field, không chỉ các trường trống. Thao tác này sẽ ghi đè các trường hiện có.",
+      "label": "Tạo lại <strong>tất cả</strong> Smart Fields khi xử lý hàng loạt"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "Đã là Smart Field",
     "collisionHint": "đã có Smart Field - chọn một trường, bộ bài hoặc loại ghi chú khác",
     "completion": {
       "descriptionAfter": "ghi chú sẽ điền vào bất cứ khi nào bạn tạo nó.",
@@ -187,9 +193,9 @@
     "targetAriaLabel": "Mục tiêu Smart Field",
     "testSmartField": "Kiểm tra Smart Field của bạn",
     "titles": {
+      "create": "Smart Field mới",
       "duplicate": "Sao chép Smart Field",
-      "edit": "Chỉnh sửa Smart Field",
-      "create": "Smart Field mới"
+      "edit": "Chỉnh sửa Smart Field"
     },
     "validation": {
       "chooseField": "Chọn một trường",
@@ -202,8 +208,7 @@
     "writePromptForMe": "Viết lời nhắc cho tôi",
     "writePromptForMeHint": "Nói những gì bạn muốn bằng tiếng Anh đơn giản — chúng tôi sẽ viết lời nhắc bên dưới.",
     "writePromptPlaceholder": "\"Dịch sang tiếng Anh tự nhiên...\"",
-    "writing": "Viết…",
-    "alreadySmartField": "Đã là Smart Field"
+    "writing": "Viết…"
   },
   "smartFields": {
     "actionsAriaLabel": "Các hành động dành cho {{field}}",
@@ -285,6 +290,7 @@
       "loadingLabel": "Đang tải cài đặt văn bản mặc định",
       "loadingTitle": "Cài đặt tạo văn bản",
       "modelGuidance": "{{auto}} và {{autoMax}} là các mẫu Smart Notes được đề xuất nhằm cân bằng giữa hiệu suất và chi phí. Chọn {{auto}} cho các tác vụ tiêu chuẩn và nâng cấp lên {{autoMax}} nếu cần.",
+      "pickingModel": "Đang chọn mô hình",
       "reasoningLevel": "Mức độ lý luận",
       "reasoningValues": {
         "high": "Cao",
@@ -297,7 +303,6 @@
       "title": "Cài đặt tạo văn bản",
       "webSearch": "Tìm kiếm trên web",
       "webSearchDescription": "Hãy để các thế hệ văn bản lấy thông tin mới từ web.",
-      "pickingModel": "Đang chọn mô hình",
       "webSearchWarning": "Tìm kiếm tốn kém; hãy theo dõi số tín dụng của bạn."
     },
     "usage": {
@@ -320,10 +325,10 @@
       "loadingTitle": "Cài đặt giọng nói mặc định",
       "noVoices": "Không có giọng nói nào phù hợp với các bộ lọc này.",
       "saveError": "Không thể lưu mặc định giọng nói",
+      "searchPlaceholder": "Tìm kiếm giọng nói…",
       "searchVoices": "Tìm kiếm giọng nói",
       "subtitle": "Giọng nói mà TTS Smart Fields của bạn sử dụng trừ khi một trường ghim giọng nói của chính nó.",
-      "title": "Cài đặt giọng nói mặc định",
-      "searchPlaceholder": "Tìm kiếm giọng nói…"
+      "title": "Cài đặt giọng nói mặc định"
     }
   },
   "imageGeneration": {
@@ -491,8 +496,8 @@
     "finishDescription": "Hoàn tất đăng nhập vào trình duyệt chúng tôi đã mở. Cửa sổ này sẽ tự động cập nhật.",
     "finishInBrowser": "Kết thúc trong trình duyệt của bạn",
     "haveCode": "Có mã từ trang web?",
-    "trialDetails": "Miễn phí trong 7 ngày · mọi tính năng · không cần thẻ tín dụng",
-    "startTrial": "Bắt đầu dùng thử miễn phí"
+    "startTrial": "Bắt đầu dùng thử miễn phí",
+    "trialDetails": "Miễn phí trong 7 ngày · mọi tính năng · không cần thẻ tín dụng"
   },
   "trialEnded": {
     "description": "Bản dùng thử kéo dài 7 ngày hoặc cho đến khi hết tín dụng dùng thử.",
@@ -512,8 +517,8 @@
       "leaveReview": "Để lại đánh giá",
       "title": "Nhận một tháng miễn phí Smart Notes"
     },
+    "thanks": "Cảm ơn bạn đã sử dụng Smart Notes",
     "title": "Thời gian dùng thử miễn phí của bạn đã kết thúc",
-    "upgradeNow": "Nâng cấp ngay bây giờ",
-    "thanks": "Cảm ơn bạn đã sử dụng Smart Notes"
+    "upgradeNow": "Nâng cấp ngay bây giờ"
   }
 }

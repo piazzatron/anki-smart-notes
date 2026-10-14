@@ -27,16 +27,37 @@ import src.hooks as hooks
 from src.note_proccessor import NoteProcessor
 
 
-def test_profile_did_open_restarts_local_server_after_profile_switch(
+@pytest.fixture(autouse=True)
+def fake_note_will_be_added(monkeypatch: pytest.MonkeyPatch) -> list[Any]:
+    # Keep setup_hooks from registering on Anki's real module-level hook.
+    hook: list[Any] = []
+    monkeypatch.setattr(hooks, "note_will_be_added", hook)
+    return hook
+
+
+def test_profile_switch_restarts_local_server_and_background_generation(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     ensure_started = MagicMock()
     monkeypatch.setattr(hooks, "ensure_local_server_started", ensure_started)
+    monkeypatch.setattr(hooks, "close_web_app", MagicMock())
+    monkeypatch.setattr(hooks, "stop_local_server", MagicMock())
+    monkeypatch.setattr(hooks, "_review_time_evaluator", None)
+    monkeypatch.setattr(hooks, "_add_time_evaluator", None)
+    on_profile_did_open = hooks.on_profile_did_open(cast(NoteProcessor, object()))
 
-    hooks.on_profile_did_open()
-    hooks.on_profile_did_open()
+    on_profile_did_open()
+    first_add_time_evaluator = vars(hooks)["_add_time_evaluator"]
+    hooks.cleanup()
+    on_profile_did_open()
 
     assert ensure_started.call_count == 2
+    assert first_add_time_evaluator is not None
+    assert first_add_time_evaluator.is_stopped
+    for name in ("_review_time_evaluator", "_add_time_evaluator"):
+        evaluator = vars(hooks)[name]
+        assert evaluator is not None
+        assert not evaluator.is_stopped
 
 
 def test_profile_cleanup_closes_open_web_app_dialog(

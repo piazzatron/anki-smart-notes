@@ -80,10 +80,6 @@
       "description": "Registre detallat per ajudar a diagnosticar problemes. Incloeu aquests registres quan enregistreu un error.",
       "label": "Mode de depuració"
     },
-    "generateAtReview": {
-      "description": "Empleneu automàticament els camps intel·ligents que falten a mesura que es revisen les targetes.",
-      "label": "Generar camps durant la revisió"
-    },
     "language": {
       "description": "Trieu l'idioma per a Smart Notes o feu coincidir l'idioma d'Anki.",
       "label": "Llengua",
@@ -101,19 +97,29 @@
       "title": "Utilitzeu la meva pròpia clau OpenAI"
     },
     "loading": "S'està carregant la configuració",
-    "regenerateWhenBatching": {
-      "description": "Quan processeu un grup de notes per lots, regenera tots els camps intel·ligents des de zero en lloc d'omplir només els buits.",
-      "label": "Regenera tots els camps intel·ligents durant el processament per lots"
-    },
     "saveError": "No s'ha pogut desar la configuració",
     "sections": {
       "advanced": "Avançat",
       "general": "General",
-      "generation": "Generació"
+      "generation": "Generació",
+      "dangerZone": "Zona de perill"
     },
-    "title": "Configuració"
+    "title": "Configuració",
+    "generateAtReview": {
+      "description": "Omple els Smart Fields que falten per a les targetes properes mentre repasses.",
+      "label": "Genera per avançat durant el repàs"
+    },
+    "generateOnAdd": {
+      "description": "Genera els Smart Fields en segon pla per a les notes afegides recentment, inclosos els de ferramentes com Yomitan i AnkiConnect.",
+      "label": "Genera automàticament les notes afegides recentment"
+    },
+    "regenerateWhenBatching": {
+      "description": "Regenera tots els Smart Fields, no només els buits. Això sobreescriu els camps existents.",
+      "label": "Regenera <strong>tots</strong> els Smart Fields durant el processament per lots"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "Ja és un camp intel·ligent",
     "collisionHint": "ja té un Smart Field: trieu un camp, una plataforma o un tipus de nota diferent",
     "completion": {
       "descriptionAfter": "notes s'omplen sempre que les genereu.",
@@ -189,9 +195,9 @@
     "targetAriaLabel": "Objectiu Smart Field",
     "testSmartField": "Prova el teu Smart Field",
     "titles": {
+      "create": "Nou camp intel·ligent",
       "duplicate": "Duplicar Smart Field",
-      "edit": "Edita Smart Field",
-      "create": "Nou camp intel·ligent"
+      "edit": "Edita Smart Field"
     },
     "validation": {
       "chooseField": "Trieu un camp",
@@ -204,8 +210,7 @@
     "writePromptForMe": "Escriu el meu missatge per a mi",
     "writePromptForMeHint": "Digues el que vulguis en anglès senzill; escriurem el missatge a continuació.",
     "writePromptPlaceholder": "\"Tradueix a l'anglès natural...\"",
-    "writing": "S'està escrivint…",
-    "alreadySmartField": "Ja és un camp intel·ligent"
+    "writing": "S'està escrivint…"
   },
   "smartFields": {
     "actionsAriaLabel": "Accions per a {{field}}",
@@ -287,6 +292,7 @@
       "loadingLabel": "S'està carregant la configuració de text predeterminada",
       "loadingTitle": "Configuració de generació de text",
       "modelGuidance": "{{auto}} i {{autoMax}} són els models recomanats per Smart Notes que equilibren el rendiment i el cost. Trieu {{auto}} per a tasques estàndard i actualitzeu-lo a {{autoMax}} si cal.",
+      "pickingModel": "Triant un model",
       "reasoningLevel": "Nivell de raonament",
       "reasoningValues": {
         "high": "Alt",
@@ -299,7 +305,6 @@
       "title": "Configuració de generació de text",
       "webSearch": "Cerca web",
       "webSearchDescription": "Permet que les generacions de text obtinguin informació nova del web.",
-      "pickingModel": "Triant un model",
       "webSearchWarning": "La cerca és costosa; controla els teus crèdits."
     },
     "usage": {
@@ -324,10 +329,10 @@
       "loadingTitle": "Configuració de veu per defecte",
       "noVoices": "Cap veu no coincideix amb aquests filtres.",
       "saveError": "No s'han pogut desar els valors predeterminats de veu",
+      "searchPlaceholder": "Cerca veus…",
       "searchVoices": "Cerca veus",
       "subtitle": "La veu que utilitzeu el vostre TTS Smart Fields tret que un camp fixi el seu.",
-      "title": "Configuració de veu per defecte",
-      "searchPlaceholder": "Cerca veus…"
+      "title": "Configuració de veu per defecte"
     }
   },
   "imageGeneration": {
@@ -511,8 +516,8 @@
     "finishDescription": "Completa la sessió al navegador que hem obert. Aquesta finestra s'actualitzarà automàticament.",
     "finishInBrowser": "Acabeu al vostre navegador",
     "haveCode": "Tens un codi del lloc web?",
-    "trialDetails": "Gratuït durant 7 dies · totes les funcions · sense targeta de crèdit",
-    "startTrial": "Comença la prova gratuïta"
+    "startTrial": "Comença la prova gratuïta",
+    "trialDetails": "Gratuït durant 7 dies · totes les funcions · sense targeta de crèdit"
   },
   "trialEnded": {
     "description": "Les proves s'executen durant 7 dies o fins que s'esgotin els crèdits de prova.",
@@ -532,8 +537,8 @@
       "leaveReview": "Deixa una ressenya",
       "title": "Aconsegueix un mes gratuït d'Smart Notes"
     },
+    "thanks": "Gràcies per fer servir Smart Notes",
     "title": "La teva prova gratuïta ha finalitzat",
-    "upgradeNow": "Actualitza ara",
-    "thanks": "Gràcies per fer servir Smart Notes"
+    "upgradeNow": "Actualitza ara"
   }
 }

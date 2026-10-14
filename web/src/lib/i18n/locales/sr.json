@@ -80,10 +80,6 @@
       "description": "Опширно евидентирање ради лакшег дијагностиковања проблема. Укључите ове евиденције када поднесете грешку.",
       "label": "Режим за отклањање грешака"
     },
-    "generateAtReview": {
-      "description": "Аутоматски попуните паметна поља која недостају када се картице појаве у прегледу.",
-      "label": "Генеришите поља током прегледа"
-    },
     "language": {
       "description": "Изаберите језик за Smart Notes или ускладите језик Anki.",
       "label": "Језик",
@@ -101,19 +97,29 @@
       "title": "Користи мој сопствени кључ OpenAI"
     },
     "loading": "Учитавање подешавања",
-    "regenerateWhenBatching": {
-      "description": "Када групно обрађујете групу белешки, регенеришите свако паметно поље од почетка уместо да попуњавате само празна.",
-      "label": "Регенеришите сва паметна поља приликом групне обраде"
-    },
     "saveError": "Није могуће сачувати подешавања",
     "sections": {
       "advanced": "Напредно",
       "general": "генерал",
-      "generation": "Генератион"
+      "generation": "Генератион",
+      "dangerZone": "Опасна зона"
     },
-    "title": "Подешавања"
+    "title": "Подешавања",
+    "generateAtReview": {
+      "description": "Попуњава недостајућа Smart Fields поља за наредне картице током понављања.",
+      "label": "Генериши унапред током понављања"
+    },
+    "generateOnAdd": {
+      "description": "Генерише Smart Fields поља у позадини за новододате белешке, укључујући и оне из алата попут Yomitan и AnkiConnect.",
+      "label": "Аутоматски генериши новододате белешке"
+    },
+    "regenerateWhenBatching": {
+      "description": "Поново генерише сва Smart Fields поља, а не само празна. Ово преписује постојећа поља.",
+      "label": "Поново генериши <strong>сва</strong> Smart Fields поља током серијске обраде"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "Već je Pametno polje",
     "collisionHint": "већ има паметно поље — изаберите друго поље, шпил или тип белешке",
     "completion": {
       "descriptionAfter": "белешке се попуњавају кад год их генеришете.",
@@ -189,9 +195,9 @@
     "targetAriaLabel": "Смарт Фиелд таргет",
     "testSmartField": "Тестирајте своје Смарт Фиелд",
     "titles": {
+      "create": "Novo pametno polje",
       "duplicate": "Дупликат паметног поља",
-      "edit": "Уредите паметно поље",
-      "create": "Novo pametno polje"
+      "edit": "Уредите паметно поље"
     },
     "validation": {
       "chooseField": "Изаберите поље",
@@ -204,8 +210,7 @@
     "writePromptForMe": "Напишите мој упит за мене",
     "writePromptForMeHint": "Реците шта желите на обичном енглеском - ми ћемо написати упит испод.",
     "writePromptPlaceholder": "„Преведи на природни енглески…“",
-    "writing": "Писање…",
-    "alreadySmartField": "Već je Pametno polje"
+    "writing": "Писање…"
   },
   "smartFields": {
     "actionsAriaLabel": "Акције за {{field}}",
@@ -287,6 +292,7 @@
       "loadingLabel": "Учитавање подразумеваних поставки текста",
       "loadingTitle": "Подешавања генерисања текста",
       "modelGuidance": "{{auto}} и {{autoMax}} су модели које препоручује Smart Notes који балансирају перформансе и цену. Изаберите {{auto}} за стандардне задатке и надоградите на {{autoMax}} ако је потребно.",
+      "pickingModel": "Biranje modela",
       "reasoningLevel": "Ниво расуђивања",
       "reasoningValues": {
         "high": "Високо",
@@ -299,7 +305,6 @@
       "title": "Подешавања генерисања текста",
       "webSearch": "Веб Сеарцх",
       "webSearchDescription": "Нека генерације текста извуку свеже информације са веба.",
-      "pickingModel": "Biranje modela",
       "webSearchWarning": "Pretraga je skupa; pratite svoje kredite."
     },
     "usage": {
@@ -324,10 +329,10 @@
       "loadingTitle": "Подразумевана подешавања гласа",
       "noVoices": "Ниједан глас не одговара овим филтерима.",
       "saveError": "Није могуће сачувати подразумеване гласовне поставке",
+      "searchPlaceholder": "Pretražite glasove…",
       "searchVoices": "Тражи гласове",
       "subtitle": "Глас који ваш ТТС Smart Fields користи осим ако поље не закачи своје.",
-      "title": "Подразумевана подешавања гласа",
-      "searchPlaceholder": "Pretražite glasove…"
+      "title": "Подразумевана подешавања гласа"
     }
   },
   "imageGeneration": {
@@ -511,8 +516,8 @@
     "finishDescription": "Завршите пријаву у прегледачу који смо отворили. Овај прозор ће се аутоматски ажурирати.",
     "finishInBrowser": "Завршите у свом претраживачу",
     "haveCode": "Имате код са веб локације?",
-    "trialDetails": "Бесплатно 7 дана · свака функција · без кредитне картице",
-    "startTrial": "Započni besplatno probno razdoblje"
+    "startTrial": "Započni besplatno probno razdoblje",
+    "trialDetails": "Бесплатно 7 дана · свака функција · без кредитне картице"
   },
   "trialEnded": {
     "description": "Пробни периоди трају 7 дана или док вам не потроше пробни кредити.",
@@ -532,8 +537,8 @@
       "leaveReview": "Оставите рецензију",
       "title": "Добијте бесплатан месец дана Smart Notes"
     },
+    "thanks": "Hvala što koristite Smart Notes",
     "title": "Ваша бесплатна пробна верзија је завршена",
-    "upgradeNow": "Надоградите сада",
-    "thanks": "Hvala što koristite Smart Notes"
+    "upgradeNow": "Надоградите сада"
   }
 }

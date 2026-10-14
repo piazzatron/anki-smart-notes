@@ -79,10 +79,6 @@
       "description": "ସମସ୍ୟା ନିର୍ଣ୍ଣୟ କରିବାରେ ସାହାଯ୍ୟ କରିବାକୁ ଭର୍ବୋଜ୍ ଲଗିଂ | ଏକ ତ୍ରୁଟି ଦାଖଲ କରିବା ସମୟରେ ଏହି ଲଗଗୁଡ଼ିକୁ ଅନ୍ତର୍ଭୁକ୍ତ କରନ୍ତୁ",
       "label": "ତ୍ରୁଟି ନିବାରଣ ଧାରା"
     },
-    "generateAtReview": {
-      "description": "କାର୍ଡ ସମୀକ୍ଷା ସମୟରେ ଆସିବା ପରେ ସ୍ୱୟଂଚାଳିତ ଭାବରେ ନିଖୋଜ ସ୍ମାର୍ଟ ଫିଲ୍ଡଗୁଡିକ ପୁରଣ କରନ୍ତୁ",
-      "label": "ସମୀକ୍ଷା ସମୟରେ କ୍ଷେତ୍ର ସୃଷ୍ଟି କରନ୍ତୁ"
-    },
     "language": {
       "description": "Smart Notes ପାଇଁ ଭାଷା ବାଛନ୍ତୁ, କିମ୍ବା Anki ର ଭାଷା ସହିତ ମେଳ କରନ୍ତୁ",
       "label": "ଭାଷା",
@@ -100,19 +96,29 @@
       "title": "ମୋର ନିଜର OpenAI କି ବ୍ୟବହାର କରନ୍ତୁ"
     },
     "loading": "ସେଟିଂସମୂହ ଲୋଡିଙ୍ଗ୍",
-    "regenerateWhenBatching": {
-      "description": "ଯେତେବେଳେ ବ୍ୟାଚ୍ ଏକ ନୋଟ୍ ପ୍ରକ୍ରିୟାକରଣ କରେ, କେବଳ ଖାଲି ସ୍ଥାନ ପୂରଣ କରିବା ପରିବର୍ତ୍ତେ ପ୍ରତ୍ୟେକ ସ୍ମାର୍ଟ ଫିଲ୍ଡକୁ ଆରମ୍ଭରୁ ପୁନ ener ନିର୍ମାଣ କରନ୍ତୁ",
-      "label": "ବ୍ୟାଚ୍ ପ୍ରକ୍ରିୟାକରଣ ସମୟରେ ସମସ୍ତ ସ୍ମାର୍ଟ କ୍ଷେତ୍ରଗୁଡିକ ପୁନ ener ନିର୍ମାଣ କରନ୍ତୁ"
-    },
     "saveError": "ସେଟିଂସମୂହ ସଞ୍ଚୟ କରିପାରିଲା ନାହିଁ",
     "sections": {
       "advanced": "ଉନ୍ନତ",
       "general": "ଜେନେରାଲ୍",
-      "generation": "ପି Generation ଼ି"
+      "generation": "ପି Generation ଼ି",
+      "dangerZone": "ବିପଦ ଅଞ୍ଚଳ"
     },
-    "title": "ସେଟିଂସମୂହ"
+    "title": "ସେଟିଂସମୂହ",
+    "generateAtReview": {
+      "description": "ସମୀକ୍ଷା ସମୟରେ ଆସନ୍ତା କାର୍ଡଗୁଡ଼ିକ ପାଇଁ ଅନୁପସ୍ଥିତ Smart Fields ପୂରଣ କରନ୍ତୁ।",
+      "label": "ସମୀକ୍ଷା ସମୟରେ ପୂର୍ବରୁ ଜେନେରେଟ୍ କରନ୍ତୁ"
+    },
+    "generateOnAdd": {
+      "description": "ନୂତନ ଯୋଡ଼ାଯାଇଥିବା ନୋଟ୍ଗୁଡ଼ିକ ପାଇଁ ପୃଷ୍ଠପଟରେ Smart Fields ଜେନେରେଟ୍ କରନ୍ତୁ, Yomitan ଏବଂ AnkiConnect ପରି ଉପକରଣରୁ ଆସୁଥିବା ନୋଟ୍ ସମେତ।",
+      "label": "ନୂତନ ଯୋଡ଼ାଯାଇଥିବା ନୋଟ୍ଗୁଡ଼ିକ ସ୍ୱୟଂଚାଳିତ ଭାବେ ଜେନେରେଟ୍ କରନ୍ତୁ"
+    },
+    "regenerateWhenBatching": {
+      "description": "କେବଳ ଖାଲି ନୁହେଁ, ପ୍ରତ୍ୟେକ Smart Field ପୁନର୍ବାର ଜେନେରେଟ୍ କରନ୍ତୁ। ଏହା ବିଦ୍ୟମାନ ଫିଲ୍ଡଗୁଡ଼ିକୁ ଓଭରରାଇଟ୍ କରିବ।",
+      "label": "ବ୍ୟାଚ୍ ପ୍ରକ୍ରିୟାକରଣ ସମୟରେ <strong>ସମସ୍ତ</strong> Smart Fields ପୁନର୍ବାର ଜେନେରେଟ୍ କରନ୍ତୁ"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "ଏହା ପୂର୍ବରୁ ଏକ Smart Field",
     "collisionHint": "ପୂର୍ବରୁ Smart Field ଅଛି - ଏକ ଭିନ୍ନ କ୍ଷେତ୍ର, ଡେକ୍, କିମ୍ବା ନୋଟ୍ ପ୍ରକାର ବାଛ",
     "completion": {
       "descriptionAfter": "ଯେତେବେଳେ ଆପଣ ଏହାକୁ ସୃଷ୍ଟି କରନ୍ତି ନୋଟ୍ଗୁଡ଼ିକ ପୁରଣ କରେ",
@@ -188,9 +194,9 @@
     "targetAriaLabel": "Smart Field ଲକ୍ଷ୍ୟ",
     "testSmartField": "ଆପଣଙ୍କର Smart Field ପରୀକ୍ଷା କରନ୍ତୁ",
     "titles": {
+      "create": "ନୂଆ Smart Field",
       "duplicate": "Smart Field ନକଲ କରନ୍ତୁ",
-      "edit": "Smart Field ସଂପାଦନ କରନ୍ତୁ",
-      "create": "ନୂଆ Smart Field"
+      "edit": "Smart Field ସଂପାଦନ କରନ୍ତୁ"
     },
     "validation": {
       "chooseField": "ଏକ କ୍ଷେତ୍ର ବାଛନ୍ତୁ",
@@ -203,8 +209,7 @@
     "writePromptForMe": "ମୋ ପାଇଁ ମୋର ପ୍ରମ୍ପ୍ଟ ଲେଖ",
     "writePromptForMeHint": "ସାଧା ଇଂରାଜୀରେ ଆପଣ ଯାହା ଚାହାଁନ୍ତି କୁହନ୍ତୁ - ଆମେ ନିମ୍ନରେ ପ୍ରମ୍ପ୍ଟ ଲେଖିବା",
     "writePromptPlaceholder": "\"ପ୍ରାକୃତିକ ଇଂରାଜୀକୁ ଅନୁବାଦ କର ...\"",
-    "writing": "ଲେଖିବା…",
-    "alreadySmartField": "ଏହା ପୂର୍ବରୁ ଏକ Smart Field"
+    "writing": "ଲେଖିବା…"
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}} ପାଇଁ କାର୍ଯ୍ୟ",
@@ -286,6 +291,7 @@
       "loadingLabel": "ଡିଫଲ୍ଟ ପାଠ୍ୟ ସେଟିଂସମୂହ ଧାରଣ କରୁଛି",
       "loadingTitle": "ପାଠ୍ୟ ଜେନେରେସନ୍ ସେଟିଂସମୂହ",
       "modelGuidance": "{{auto}} ଏବଂ {{autoMax}} ହେଉଛି Smart Notes ପରାମର୍ଶିତ ମଡେଲ ଯାହା କାର୍ଯ୍ୟଦକ୍ଷତା ଏବଂ ମୂଲ୍ୟକୁ ସନ୍ତୁଳିତ କରେ | ମାନକ କାର୍ଯ୍ୟ ପାଇଁ {{auto}} ବାଛନ୍ତୁ ଏବଂ ଆବଶ୍ୟକ ହେଲେ {{autoMax}} କୁ ନବୀକରଣ କରନ୍ତୁ",
+      "pickingModel": "ମଡେଲ ବାଛୁଛି",
       "reasoningLevel": "ଯୁକ୍ତି ସ୍ତର",
       "reasoningValues": {
         "high": "ଉଚ୍ଚ",
@@ -298,7 +304,6 @@
       "title": "ପାଠ୍ୟ ଜେନେରେସନ୍ ସେଟିଂସମୂହ",
       "webSearch": "ୱେବ୍ ସନ୍ଧାନ",
       "webSearchDescription": "ପାଠ୍ୟ ପି generations ିକୁ ୱେବରୁ ତାଜା ସୂଚନା ଟାଣିବାକୁ ଦିଅନ୍ତୁ",
-      "pickingModel": "ମଡେଲ ବାଛୁଛି",
       "webSearchWarning": "ସନ୍ଧାନ ମହଙ୍ଗା; ଆପଣଙ୍କ କ୍ରେଡିଟ୍ ଉପରେ ନଜର ରଖନ୍ତୁ।"
     },
     "usage": {
@@ -322,10 +327,10 @@
       "loadingTitle": "ଡିଫଲ୍ଟ ଭଏସ୍ ସେଟିଂସମୂହ",
       "noVoices": "କ fil ଣସି ସ୍ୱର ଏହି ଫିଲ୍ଟରଗୁଡିକ ସହିତ ମେଳ ଖାଉ ନାହିଁ",
       "saveError": "ଭଏସ୍ ଡିଫଲ୍ଟ ସଞ୍ଚୟ କରିପାରିଲା ନାହିଁ",
+      "searchPlaceholder": "ସ୍ୱର ଖୋଜନ୍ତୁ…",
       "searchVoices": "ସ୍ୱର ସନ୍ଧାନ କରନ୍ତୁ",
       "subtitle": "ତୁମର TTS Smart Fields ବ୍ୟବହାର କରୁଥିବା ସ୍ୱର ଯଦି କ a ଣସି କ୍ଷେତ୍ର ନିଜସ୍ୱ ପିନ ନଥାଏ",
-      "title": "ଡିଫଲ୍ଟ ଭଏସ୍ ସେଟିଂସମୂହ",
-      "searchPlaceholder": "ସ୍ୱର ଖୋଜନ୍ତୁ…"
+      "title": "ଡିଫଲ୍ଟ ଭଏସ୍ ସେଟିଂସମୂହ"
     }
   },
   "imageGeneration": {
@@ -501,8 +506,8 @@
     "finishDescription": "ଆମେ ଖୋଲିଥିବା ବ୍ରାଉଜରରେ ସମ୍ପୂର୍ଣ୍ଣ ସାଇନ୍-ଇନ୍ | ଏହି ୱିଣ୍ଡୋ ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଅପଡେଟ୍ ହେବ",
     "finishInBrowser": "ତୁମର ବ୍ରାଉଜରରେ ଶେଷ କର",
     "haveCode": "ୱେବସାଇଟରୁ ଏକ କୋଡ୍ ଅଛି କି?",
-    "trialDetails": "7 ଦିନ ପାଇଁ ମାଗଣା · ପ୍ରତ୍ୟେକ ବ feature ଶିଷ୍ଟ୍ୟ · କ credit ଣସି କ୍ରେଡିଟ୍ କାର୍ଡ ନାହିଁ",
-    "startTrial": "ମାଗଣା ଟ୍ରାୟାଲ ଆରମ୍ଭ କରନ୍ତୁ"
+    "startTrial": "ମାଗଣା ଟ୍ରାୟାଲ ଆରମ୍ଭ କରନ୍ତୁ",
+    "trialDetails": "7 ଦିନ ପାଇଁ ମାଗଣା · ପ୍ରତ୍ୟେକ ବ feature ଶିଷ୍ଟ୍ୟ · କ credit ଣସି କ୍ରେଡିଟ୍ କାର୍ଡ ନାହିଁ"
   },
   "trialEnded": {
     "description": "ପରୀକ୍ଷା 7 ଦିନ ଚାଲିବ କିମ୍ବା ତୁମର ଟ୍ରାଏଲ୍ କ୍ରେଡିଟ୍ ଶେଷ ନହେବା ପର୍ଯ୍ୟନ୍ତ",
@@ -522,8 +527,8 @@
       "leaveReview": "ଏକ ସମୀକ୍ଷା ଛାଡନ୍ତୁ",
       "title": "Smart Notes ର ଏକ ମାଗଣା ମାସ ପାଆନ୍ତୁ"
     },
+    "thanks": "Smart Notes ବ୍ୟବହାର କରିବା ପାଇଁ ଧନ୍ୟବାଦ",
     "title": "ତୁମର ମାଗଣା ପରୀକ୍ଷା ଶେଷ ହୋଇଛି",
-    "upgradeNow": "ବର୍ତ୍ତମାନ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ",
-    "thanks": "Smart Notes ବ୍ୟବହାର କରିବା ପାଇଁ ଧନ୍ୟବାଦ"
+    "upgradeNow": "ବର୍ତ୍ତମାନ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ"
   }
 }

@@ -86,6 +86,7 @@ const stateWithAccount = (
   },
   settings: {
     generateAtReview: false,
+    generateOnAdd: false,
     regenerateWhenBatching: false,
     debug: false,
     language: "auto",

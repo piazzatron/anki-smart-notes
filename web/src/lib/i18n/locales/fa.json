@@ -79,10 +79,6 @@
       "description": "گزارش دقیق برای کمک به تشخیص مشکلات. این گزارش‌ها را هنگام ثبت یک باگ وارد کنید.",
       "label": "حالت اشکال زدایی"
     },
-    "generateAtReview": {
-      "description": "فیلدهای هوشمند گمشده را به‌طور خودکار پر کنید تا کارت‌ها در بازبینی ظاهر شوند.",
-      "label": "در حین بررسی، فیلدها را ایجاد کنید"
-    },
     "language": {
       "description": "زبان Smart Notes را انتخاب کنید یا با زبان Anki مطابقت دهید.",
       "label": "زبان",
@@ -100,19 +96,29 @@
       "title": "از کلید OpenAI خودم استفاده کنید"
     },
     "loading": "در حال بارگیری تنظیمات",
-    "regenerateWhenBatching": {
-      "description": "هنگام پردازش دسته ای گروهی از یادداشت ها، به جای پر کردن قسمت های خالی، هر فیلد هوشمند را از ابتدا بازسازی کنید.",
-      "label": "در هنگام پردازش دسته ای، همه زمینه های هوشمند را بازسازی کنید"
-    },
     "saveError": "تنظیمات ذخیره نشد",
     "sections": {
       "advanced": "پیشرفته",
       "general": "ژنرال",
-      "generation": "نسل"
+      "generation": "نسل",
+      "dangerZone": "منطقه خطر"
     },
-    "title": "تنظیمات"
+    "title": "تنظیمات",
+    "generateAtReview": {
+      "description": "هنگام مرور، Smart Fields های خالی کارت‌های بعدی را پر می‌کند.",
+      "label": "تولید زودهنگام در حین مرور"
+    },
+    "generateOnAdd": {
+      "description": "Smart Fields را در پس‌زمینه برای یادداشت‌های تازه‌اضافه‌شده تولید می‌کند، از جمله یادداشت‌هایی که از ابزارهایی مانند Yomitan و AnkiConnect اضافه می‌شوند.",
+      "label": "تولید خودکار برای یادداشت‌های تازه‌اضافه‌شده"
+    },
+    "regenerateWhenBatching": {
+      "description": "همه Smart Fields را دوباره تولید می‌کند، نه فقط فیلدهای خالی. این کار فیلدهای موجود را بازنویسی می‌کند.",
+      "label": "تولید مجدد <strong>همه</strong> Smart Fields در پردازش دسته‌ای"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "از قبل یک فیلد هوشمند است",
     "collisionHint": "قبلاً یک Smart Field دارد - یک فیلد، عرشه یا نوع یادداشت متفاوت را انتخاب کنید",
     "completion": {
       "descriptionAfter": "یادداشت ها هر زمان که آن را ایجاد کنید پر می شود.",
@@ -188,9 +194,9 @@
     "targetAriaLabel": "هدف Smart Field",
     "testSmartField": "Smart Field خود را تست کنید",
     "titles": {
+      "create": "فیلد هوشمند جدید",
       "duplicate": "تکراری Smart Field",
-      "edit": "ویرایش Smart Field",
-      "create": "فیلد هوشمند جدید"
+      "edit": "ویرایش Smart Field"
     },
     "validation": {
       "chooseField": "یک رشته را انتخاب کنید",
@@ -203,8 +209,7 @@
     "writePromptForMe": "درخواست من را برای من بنویسید",
     "writePromptForMeHint": "آنچه را که می خواهید به زبان انگلیسی ساده بگویید - ما دستور را در زیر می نویسیم.",
     "writePromptPlaceholder": "«ترجمه به انگلیسی طبیعی…»",
-    "writing": "نوشتن…",
-    "alreadySmartField": "از قبل یک فیلد هوشمند است"
+    "writing": "نوشتن…"
   },
   "smartFields": {
     "actionsAriaLabel": "اقدامات برای {{field}}",
@@ -286,6 +291,7 @@
       "loadingLabel": "بارگیری تنظیمات متن پیش‌فرض",
       "loadingTitle": "تنظیمات تولید متن",
       "modelGuidance": "{{auto}} و {{autoMax}} مدل های توصیه شده Smart Notes هستند که عملکرد و هزینه را متعادل می کنند. {{auto}} را برای کارهای استاندارد انتخاب کنید و در صورت نیاز به {{autoMax}} ارتقا دهید.",
+      "pickingModel": "در حال انتخاب مدل",
       "reasoningLevel": "سطح استدلال",
       "reasoningValues": {
         "high": "بالا",
@@ -298,7 +304,6 @@
       "title": "تنظیمات تولید متن",
       "webSearch": "جستجوی وب",
       "webSearchDescription": "اجازه دهید نسل‌های متنی اطلاعات تازه‌ای را از وب دریافت کنند.",
-      "pickingModel": "در حال انتخاب مدل",
       "webSearchWarning": "جستجو هزینه‌بر است؛ اعتبار خود را زیر نظر داشته باشید."
     },
     "usage": {
@@ -322,10 +327,10 @@
       "loadingTitle": "تنظیمات صوتی پیش فرض",
       "noVoices": "هیچ صدایی با این فیلترها مطابقت ندارد.",
       "saveError": "پیش‌فرض‌های صوتی ذخیره نشد",
+      "searchPlaceholder": "جستجوی صداها…",
       "searchVoices": "جستجوی صداها",
       "subtitle": "صدایی که TTS Smart Fields شما استفاده می کند مگر اینکه فیلدی صدای خودش را پین کند.",
-      "title": "تنظیمات صوتی پیش فرض",
-      "searchPlaceholder": "جستجوی صداها…"
+      "title": "تنظیمات صوتی پیش فرض"
     }
   },
   "imageGeneration": {
@@ -501,8 +506,8 @@
     "finishDescription": "ورود به سیستم را در مرورگری که باز کردیم کامل کنید. این پنجره به طور خودکار به روز می شود.",
     "finishInBrowser": "کار را در مرورگر خود به پایان برسانید",
     "haveCode": "کدی از وب سایت دارید؟",
-    "trialDetails": "رایگان به مدت 7 روز · هر ویژگی · بدون کارت اعتباری",
-    "startTrial": "شروع آزمایشی رایگان"
+    "startTrial": "شروع آزمایشی رایگان",
+    "trialDetails": "رایگان به مدت 7 روز · هر ویژگی · بدون کارت اعتباری"
   },
   "trialEnded": {
     "description": "دوره های آزمایشی 7 روز یا تا زمانی که اعتبار آزمایشی شما تمام شود اجرا می شود.",
@@ -522,8 +527,8 @@
       "leaveReview": "نظر بدهید",
       "title": "یک ماه رایگان Smart Notes دریافت کنید"
     },
+    "thanks": "از اینکه Smart Notes را استفاده کردید سپاسگزاریم",
     "title": "دوره آزمایشی رایگان شما به پایان رسیده است",
-    "upgradeNow": "اکنون ارتقا دهید",
-    "thanks": "از اینکه Smart Notes را استفاده کردید سپاسگزاریم"
+    "upgradeNow": "اکنون ارتقا دهید"
   }
 }

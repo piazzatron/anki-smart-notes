@@ -80,10 +80,6 @@
       "description": "רישום מפורט כדי לסייע באבחון בעיות. כלול יומנים אלה בעת הגשת באג.",
       "label": "מצב ניפוי באגים"
     },
-    "generateAtReview": {
-      "description": "מלא שדות חכמים חסרים באופן אוטומטי כאשר כרטיסים עולים בבדיקה.",
-      "label": "צור שדות במהלך הבדיקה"
-    },
     "language": {
       "description": "בחר את השפה עבור Smart Notes, או התאם את השפה של Anki.",
       "label": "שָׂפָה",
@@ -101,19 +97,29 @@
       "title": "השתמש במפתח OpenAI שלי"
     },
     "loading": "טוען הגדרות",
-    "regenerateWhenBatching": {
-      "description": "בעת עיבוד אצווה של קבוצת הערות, צור מחדש כל שדה חכם מאפס במקום למלא רק שדה ריקים.",
-      "label": "צור מחדש את כל השדות החכמים בעת עיבוד אצווה"
-    },
     "saveError": "לא ניתן לשמור הגדרות",
     "sections": {
       "advanced": "מִתקַדֵם",
       "general": "כְּלָלִי",
-      "generation": "דוֹר"
+      "generation": "דוֹר",
+      "dangerZone": "אזור סכנה"
     },
-    "title": "הגדרות"
+    "title": "הגדרות",
+    "generateAtReview": {
+      "description": "מלא Smart Fields חסרים עבור הכרטיסים הבאים בזמן החזרה.",
+      "label": "יצירה מראש במהלך חזרה"
+    },
+    "generateOnAdd": {
+      "description": "יצירת Smart Fields ברקע עבור הערות שנוספו לאחרונה, כולל הערות מכלים כמו Yomitan ו-AnkiConnect.",
+      "label": "יצירה אוטומטית של הערות חדשות"
+    },
+    "regenerateWhenBatching": {
+      "description": "יצירה מחדש של כל ה-Smart Fields, ולא רק של השדות הריקים. פעולה זו תדרוס שדות קיימים.",
+      "label": "יצירה מחדש של <strong>כל</strong> ה-Smart Fields במהלך עיבוד אצווה"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "כבר שדה חכם",
     "collisionHint": "כבר יש שדה חכם - בחר שדה, חפיסה או סוג אחר",
     "completion": {
       "descriptionAfter": "הערות מתמלא בכל פעם שאתה יוצר אותו.",
@@ -189,9 +195,9 @@
     "targetAriaLabel": "יעד שדה חכם",
     "testSmartField": "בדוק את השדה החכם שלך",
     "titles": {
+      "create": "שדה חכם חדש",
       "duplicate": "שכפל שדה חכם",
-      "edit": "ערוך שדה חכם",
-      "create": "שדה חכם חדש"
+      "edit": "ערוך שדה חכם"
     },
     "validation": {
       "chooseField": "בחר שדה",
@@ -204,8 +210,7 @@
     "writePromptForMe": "כתוב את ההנחיה שלי עבורי",
     "writePromptForMeHint": "אמור מה שאתה רוצה באנגלית פשוטה - נכתוב את ההנחיה למטה.",
     "writePromptPlaceholder": "\"תרגם לאנגלית טבעית...\"",
-    "writing": "כְּתִיבָה…",
-    "alreadySmartField": "כבר שדה חכם"
+    "writing": "כְּתִיבָה…"
   },
   "smartFields": {
     "actionsAriaLabel": "פעולות עבור {{field}}",
@@ -287,6 +292,7 @@
       "loadingLabel": "טוען הגדרות טקסט ברירת מחדל",
       "loadingTitle": "הגדרות יצירת טקסט",
       "modelGuidance": "{{auto}} ו-{{autoMax}} הם הדגמים המומלצים של Smart Notes שמאזנים בין ביצועים לעלות. בחר {{auto}} עבור משימות סטנדרטיות ושדרג ל-{{autoMax}} במידת הצורך.",
+      "pickingModel": "בחירת מודל",
       "reasoningLevel": "רמת הנמקה",
       "reasoningValues": {
         "high": "גָבוֹהַ",
@@ -299,7 +305,6 @@
       "title": "הגדרות יצירת טקסט",
       "webSearch": "חיפוש באינטרנט",
       "webSearchDescription": "אפשר לדורות טקסט למשוך מידע חדש מהאינטרנט.",
-      "pickingModel": "בחירת מודל",
       "webSearchWarning": "חיפוש עולה ביוקר; עקבו אחר הקרדיטים שלכם."
     },
     "usage": {
@@ -324,10 +329,10 @@
       "loadingTitle": "הגדרות קול ברירת מחדל",
       "noVoices": "אין קולות שתואמים למסננים האלה.",
       "saveError": "לא ניתן לשמור את ברירת המחדל של הקול",
+      "searchPlaceholder": "חיפוש קולות…",
       "searchVoices": "חפש קולות",
       "subtitle": "הקול שבו ה-TTS שלך Smart Fields משתמש אלא אם כן שדה מצמיד את שלו.",
-      "title": "הגדרות קול ברירת מחדל",
-      "searchPlaceholder": "חיפוש קולות…"
+      "title": "הגדרות קול ברירת מחדל"
     }
   },
   "imageGeneration": {
@@ -511,8 +516,8 @@
     "finishDescription": "השלם כניסה בדפדפן שפתחנו. חלון זה יתעדכן אוטומטית.",
     "finishInBrowser": "סיים בדפדפן שלך",
     "haveCode": "יש לך קוד מהאתר?",
-    "trialDetails": "חינם למשך 7 ימים · כל תכונה · ללא כרטיס אשראי",
-    "startTrial": "התחילו ניסיון חינם"
+    "startTrial": "התחילו ניסיון חינם",
+    "trialDetails": "חינם למשך 7 ימים · כל תכונה · ללא כרטיס אשראי"
   },
   "trialEnded": {
     "description": "תקופת הניסיון נמשכת 7 ימים או עד שנגמר הזיכויים לניסיון.",
@@ -532,8 +537,8 @@
       "leaveReview": "השאירו ביקורת",
       "title": "קבל חודש חינם של Smart Notes"
     },
+    "thanks": "תודה שהשתמשתם ב-Smart Notes",
     "title": "תקופת הניסיון בחינם שלך הסתיימה",
-    "upgradeNow": "שדרג עכשיו",
-    "thanks": "תודה שהשתמשתם ב-Smart Notes"
+    "upgradeNow": "שדרג עכשיו"
   }
 }

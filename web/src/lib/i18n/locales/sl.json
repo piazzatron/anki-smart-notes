@@ -81,10 +81,6 @@
       "description": "Podrobno beleženje za pomoč pri diagnosticiranju težav. Vključite te dnevnike, ko vložite napako.",
       "label": "Način odpravljanja napak"
     },
-    "generateAtReview": {
-      "description": "Samodejno izpolnite manjkajoča pametna polja, ko se kartice prikažejo v pregledu.",
-      "label": "Ustvarite polja med pregledom"
-    },
     "language": {
       "description": "Izberite jezik za Smart Notes ali se ujemite z jezikom Anki.",
       "label": "Jezik",
@@ -102,19 +98,29 @@
       "title": "Uporabi moj lastni ključ OpenAI"
     },
     "loading": "Nalaganje nastavitev",
-    "regenerateWhenBatching": {
-      "description": "Ko paketno obdelujete skupino zapiskov, ponovno ustvarite vsako pametno polje od začetka, namesto da izpolnite le prazna.",
-      "label": "Ponovno generiraj vsa pametna polja pri paketni obdelavi"
-    },
     "saveError": "Nastavitev ni bilo mogoče shraniti",
     "sections": {
       "advanced": "Napredno",
       "general": "Splošno",
-      "generation": "Generacija"
+      "generation": "Generacija",
+      "dangerZone": "Nevarno območje"
     },
-    "title": "nastavitve"
+    "title": "nastavitve",
+    "generateAtReview": {
+      "description": "Izpolni manjkajoča polja Smart Fields za prihajajoče kartice med ponavljanjem.",
+      "label": "Ustvari vnaprej med ponavljanjem"
+    },
+    "generateOnAdd": {
+      "description": "Ustvari polja Smart Fields v ozadju za novo dodane zapiske, tudi iz orodij, kot sta Yomitan in AnkiConnect.",
+      "label": "Samodejno ustvari novo dodane zapiske"
+    },
+    "regenerateWhenBatching": {
+      "description": "Znova ustvari vsa polja Smart Fields, ne le praznih. To prepiše obstoječa polja.",
+      "label": "Znova ustvari <strong>vsa</strong> polja Smart Fields med paketno obdelavo"
+    }
   },
   "fieldEditor": {
+    "alreadySmartField": "Že Smart Field",
     "collisionHint": "že ima Smart Field — izberite drugo polje, sklop ali vrsto zapiska",
     "completion": {
       "descriptionAfter": "notes se izpolni vsakič, ko ga ustvarite.",
@@ -190,9 +196,9 @@
     "targetAriaLabel": "Cilj Smart Field",
     "testSmartField": "Preizkusite svoj Smart Field",
     "titles": {
+      "create": "Novo Smart Field",
       "duplicate": "Dvojnik Smart Field",
-      "edit": "Uredi Smart Field",
-      "create": "Novo Smart Field"
+      "edit": "Uredi Smart Field"
     },
     "validation": {
       "chooseField": "Izberite polje",
@@ -205,8 +211,7 @@
     "writePromptForMe": "Napiši moj poziv namesto mene",
     "writePromptForMeHint": "Povejte, kar želite, v preprosti angleščini - spodaj bomo napisali poziv.",
     "writePromptPlaceholder": "\"Prevedi v naravno angleščino ...\"",
-    "writing": "Pisanje ...",
-    "alreadySmartField": "Že Smart Field"
+    "writing": "Pisanje ..."
   },
   "smartFields": {
     "actionsAriaLabel": "Dejanja za {{field}}",
@@ -288,6 +293,7 @@
       "loadingLabel": "Nalaganje privzetih nastavitev besedila",
       "loadingTitle": "Nastavitve generiranja besedila",
       "modelGuidance": "{{auto}} in {{autoMax}} sta priporočena modela Smart Notes, ki uravnotežita zmogljivost in stroške. Izberite {{auto}} za standardna opravila in po potrebi nadgradite na {{autoMax}}.",
+      "pickingModel": "Izbira modela",
       "reasoningLevel": "Raven sklepanja",
       "reasoningValues": {
         "high": "visoko",
@@ -300,7 +306,6 @@
       "title": "Nastavitve generiranja besedila",
       "webSearch": "Spletno iskanje",
       "webSearchDescription": "Naj besedilne generacije črpajo sveže informacije iz spleta.",
-      "pickingModel": "Izbira modela",
       "webSearchWarning": "Iskanje je drago; spremljajte svoje kredite."
     },
     "usage": {
@@ -326,10 +331,10 @@
       "loadingTitle": "Privzete glasovne nastavitve",
       "noVoices": "Noben glas ne ustreza tem filtrom.",
       "saveError": "Glasovnih privzetih nastavitev ni bilo mogoče shraniti",
+      "searchPlaceholder": "Iskanje glasov…",
       "searchVoices": "Iskanje glasov",
       "subtitle": "Glas, ki ga uporablja vaš TTS Smart Fields, razen če polje pripne svojega.",
-      "title": "Privzete glasovne nastavitve",
-      "searchPlaceholder": "Iskanje glasov…"
+      "title": "Privzete glasovne nastavitve"
     }
   },
   "imageGeneration": {
@@ -521,8 +526,8 @@
     "finishDescription": "Dokončajte prijavo v brskalnik, ki smo ga odprli. To okno se bo samodejno posodobilo.",
     "finishInBrowser": "Dokončajte v brskalniku",
     "haveCode": "Imate kodo s spletne strani?",
-    "trialDetails": "Brezplačno 7 dni · vse funkcije · brez kreditne kartice",
-    "startTrial": "Začni brezplačno preizkusno obdobje"
+    "startTrial": "Začni brezplačno preizkusno obdobje",
+    "trialDetails": "Brezplačno 7 dni · vse funkcije · brez kreditne kartice"
   },
   "trialEnded": {
     "description": "Preizkusi trajajo 7 dni ali dokler vam ne zmanjka dobropisov za preizkus.",
@@ -542,8 +547,8 @@
       "leaveReview": "Pusti oceno",
       "title": "Zagotovite si brezplačen mesec Smart Notes"
     },
+    "thanks": "Hvala, ker uporabljate Smart Notes",
     "title": "Vaše brezplačno preskusno obdobje se je končalo",
-    "upgradeNow": "Nadgradi zdaj",
-    "thanks": "Hvala, ker uporabljate Smart Notes"
+    "upgradeNow": "Nadgradi zdaj"
   }
 }
