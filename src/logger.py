@@ -44,6 +44,9 @@ def setup_logger() -> None:
     is_debug = bool(config.get("debug"))
     logger.setLevel(logging.DEBUG if is_debug else logging.INFO)
     logger.addHandler(stream_handler)
+    # Anki attaches its own stdout handler to the root logger, so propagating
+    # would print every line twice alongside our stream handler.
+    logger.propagate = False
 
     if not os.getenv("IS_TEST"):
         try:
@@ -75,6 +78,8 @@ def cleanup_logger() -> None:
     for handler in list(logger.handlers):
         logger.removeHandler(handler)
         handler.close()
+    # Without our handlers, fall back to Anki's root logger so nothing is lost.
+    logger.propagate = True
 
 
 logger = logging.getLogger("smart_notes")
