@@ -537,6 +537,75 @@ def test_create_cycle_validation_applies_deck_over_global_merge() -> None:
         )
 
 
+def test_create_global_field_rejects_cycle_with_existing_deck_field() -> None:
+    service = smart_field_service_for_profile()
+    service.create_smart_field(
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=1,
+            target_field_name="Extra",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="{{Back}}",
+                provider="openai",
+                model="gpt-4o-mini",
+                web_search_enabled=False,
+            ),
+        )
+    )
+
+    with pytest.raises(ValueError, match="cannot make a cycle"):
+        service.create_smart_field(
+            SmartFieldCreate(
+                note_type_id=NOTE_TYPE_ID,
+                deck_id=GLOBAL_DECK_ID,
+                target_field_name="Back",
+                enabled=True,
+                settings=ChatSmartFieldSettings(
+                    prompt_text="{{Extra}}",
+                    provider="openai",
+                    model="gpt-4o-mini",
+                    web_search_enabled=False,
+                ),
+            )
+        )
+
+
+def test_create_global_field_allows_reference_shadowed_by_deck_override() -> None:
+    service = smart_field_service_for_profile()
+    for target_field_name, prompt_text in (("Back", "plain"), ("Extra", "{{Back}}")):
+        service.create_smart_field(
+            SmartFieldCreate(
+                note_type_id=NOTE_TYPE_ID,
+                deck_id=1,
+                target_field_name=target_field_name,
+                enabled=True,
+                settings=ChatSmartFieldSettings(
+                    prompt_text=prompt_text,
+                    provider="openai",
+                    model="gpt-4o-mini",
+                    web_search_enabled=False,
+                ),
+            )
+        )
+
+    # Deck 1's own Back wins over the new global Back, so deck 1 has no cycle.
+    service.create_smart_field(
+        SmartFieldCreate(
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=GLOBAL_DECK_ID,
+            target_field_name="Back",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="{{Extra}}",
+                provider="openai",
+                model="gpt-4o-mini",
+                web_search_enabled=False,
+            ),
+        )
+    )
+
+
 def test_create_rejects_tts_source_cycle() -> None:
     service = smart_field_service_for_profile()
     service.create_smart_field(
