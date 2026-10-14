@@ -53,47 +53,33 @@
 
 ## Key Architecture Components
 
+The specs in the top-level repo's `/specs` (start with `note-generation.md` and `web-ui-architecture.md`) describe how these fit together.
+
 ### Entry Point & Flow
-- **`main.py`**: Entry point that creates `NoteProcessor` and calls `setup_hooks()` 
-- **`hooks.py`**: Sets up all Anki UI hooks, menu items, buttons, and context menus. Initializes logging, config, and migrations. Contains the main UI integration logic.
+- **`main.py`**: Entry point that creates `NoteProcessor` and calls `setup_hooks()`.
+- **`hooks.py`**: Anki hooks, menus, editor button, and the startup/profile lifecycle (migrations, local server, background evaluators).
 
-### Core Processing Classes
-- **`NoteProcessor`** (`note_proccessor.py`): Main orchestrator for processing notes/cards. Handles batch processing, single card processing, and manages the DAG execution flow.
-- **`FieldProcessor`** (`field_processor.py`): Handles individual field processing based on type (chat, TTS, image). Routes to appropriate providers and handles response formatting.
-- **`AppStateManager`** (`app_state.py`): Manages subscription state, capacity limits, and app unlock status. Handles transitions between subscription states.
+### Generation
+- **`note_proccessor.py`** (`NoteProcessor`): Generates a note's Smart Fields in dependency order; batch, single-card, and single-field entry points.
+- **`dag.py`** / **`nodes.py`**: The dependency graph between Smart Fields that reference other fields. Cycles are rejected when a Smart Field is saved (`SmartFieldService`); `NoteProcessor` stops rather than spinning if one reaches the database anyway.
+- **`field_resolver.py`**: Generates one field by type (chat, TTS, image) and writes media.
+- **`prompt_fields.py`** / **`prompt_helpers.py`**: `{{field}}` extraction and interpolation.
+- **`review_time_evaluator.py`** / **`add_time_evaluator.py`**: Background generation during review and after notes are added.
+- **`chat_provider.py`**, **`tts_provider.py`**, **`image_provider.py`** → **`api_client.py`**: Calls to the Smart Notes server. **`open_ai_client.py`** is the legacy bring-your-own-key path.
 
-### Field Processing System  
-- **`dag.py`**: Creates Directed Acyclic Graph for field dependencies. Handles topological sorting and cycle detection for smart fields that reference other fields.
-- **`nodes.py`**: `FieldNode` class representing individual fields in the DAG with dependencies, processing state, and metadata.
-- **`prompts.py`**: Prompt interpolation, field extraction from prompts, and prompt management per note type/deck.
+### State, Persistence & Configuration
+- **`services/`**: `smart_field_service.py` (Smart Fields and generation defaults in SQLite), `settings_service.py`, `prompt_test_service.py`, `auth_service.py`.
+- **`database/`**: SQLite connection and migrations (`migrations.py` header explains the order).
+- **`models/`**: Provider/model types (`providers.py`) and Smart Field types (`smart_fields.py`).
+- **`app_state.py`** (`AppStateManager`): Account/subscription state and pure access checks; **`generation_access.py`** opens the web app when generation is blocked.
+- **`config.py`**: Add-on config (`config.json`); **`constants.py`**: limits and static values.
 
-### Data Models & Configuration
-- **`models.py`**: Type definitions for:
-  - Chat/TTS/Image providers and models 
-  - `SmartFieldType` ("chat", "tts", "image")
-  - `FieldExtras` configuration per field
-  - Provider/model mappings
-- **`config.py`**: Global configuration management with persistence
-- **`constants.py`**: Error messages, limits, and static values
-
-### Provider Classes
-- **`chat_provider.py`**: Handles OpenAI, Anthropic, DeepSeek chat completions
-- **`tts_provider.py`**: Text-to-speech via OpenAI, ElevenLabs, Google
-- **`image_provider.py`**: Image generation via Replicate (Flux models)
-- **`open_ai_client.py`**: Legacy OpenAI client for users with API keys
-
-### UI System (`src/ui/`)
-- **Reactive Components**: Base classes for reactive UI widgets that update automatically
-- **`addon_options_dialog.py`**: Main settings dialog
-- **`field_menu.py`**: Context menu for individual fields 
-- **`state_manager.py`**: Generic state management for UI components
-- **Dialog Components**: Various specialized dialogs for prompts, subscriptions, etc.
+### Web UI and Local Server
+- **`web/`** (React app) is served by **`local_server.py`** and shown by **`web_app.py`** / **`ui/web_app_dialog.py`**. **`event_bus.py`** and **`src/web/`** (hook adapters, DTOs) feed it state.
+- **`src/ui/`**: The remaining Qt UI — the editor's right-click menu and custom prompts (`field_menu.py`, `custom_prompt.py` and its option widgets), the sparkle effect, the rate dialog, and the changelog.
 
 ### Utilities
-- **`notes.py`**: Note type utilities, field validation, AI field detection
-- **`decks.py`**: Deck-related utilities and caching
-- **`utils.py`**: General utilities, async helpers, field extraction
-- **`media_utils.py`**: Media file path generation for TTS/images 
+- **`utils/notes_utils.py`**: Note type and field helpers; **`decks.py`**: deck helpers; **`media_utils.py`**: media file naming.
 
 # Creating New Files
 - All new files must have the following license information at the very top.
