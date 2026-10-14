@@ -174,9 +174,15 @@ export const usePromptTester = (args: PromptTesterArgs): PromptTester => {
     }
 
     // The retained SSE value predates this tester. Once the store receives a new
-    // selection object, every selection is live user feedback and stays unfiltered.
+    // selection, every selection is live user feedback and stays unfiltered. The
+    // plugin replays its last selection on every SSE reconnect; a replay repeats
+    // what the store already held, so it is not a pick and must not replace the
+    // random starting card.
     return useAppStore.subscribe((store, previousStore) => {
-      if (store.selection !== previousStore.selection) {
+      if (
+        JSON.stringify(store.selection) !==
+        JSON.stringify(previousStore.selection)
+      ) {
         setSelection(store.selection)
 
         if (resetsPromptOnCardPick && store.selection?.note != null) {
