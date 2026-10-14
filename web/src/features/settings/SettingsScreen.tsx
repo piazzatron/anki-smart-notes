@@ -18,8 +18,8 @@
  */
 
 import { ChevronRight } from "lucide-react"
-import { useState, type KeyboardEvent } from "react"
-import { useTranslation } from "react-i18next"
+import { useId, useState, type KeyboardEvent, type ReactNode } from "react"
+import { Trans, useTranslation } from "react-i18next"
 
 import { PageLayout } from "@/components/shared/PageLayout"
 import { ScreenSkeleton } from "@/components/shared/ScreenSkeleton"
@@ -154,15 +154,6 @@ export const LoadedSettingsScreen = ({
         <SectionLabel>{t("settings.sections.generation")}</SectionLabel>
         <div>
           <SettingRow
-            checked={controls.values.generateAtReview}
-            description={t("settings.generateAtReview.description")}
-            disabled={controls.isSaving}
-            label={t("settings.generateAtReview.label")}
-            onChange={(checked) =>
-              void controls.update({ generateAtReview: checked })
-            }
-          />
-          <SettingRow
             checked={controls.values.generateOnAdd}
             description={t("settings.generateOnAdd.description")}
             disabled={controls.isSaving}
@@ -172,12 +163,12 @@ export const LoadedSettingsScreen = ({
             }
           />
           <SettingRow
-            checked={controls.values.regenerateWhenBatching}
-            description={t("settings.regenerateWhenBatching.description")}
+            checked={controls.values.generateAtReview}
+            description={t("settings.generateAtReview.description")}
             disabled={controls.isSaving}
-            label={t("settings.regenerateWhenBatching.label")}
+            label={t("settings.generateAtReview.label")}
             onChange={(checked) =>
-              void controls.update({ regenerateWhenBatching: checked })
+              void controls.update({ generateAtReview: checked })
             }
           />
         </div>
@@ -300,6 +291,25 @@ export const LoadedSettingsScreen = ({
           )}
         </>
       )}
+      <SectionLabel className="mt-8" danger>
+        {t("settings.sections.dangerZone")}
+      </SectionLabel>
+      <div>
+        <SettingRow
+          checked={controls.values.regenerateWhenBatching}
+          description={t("settings.regenerateWhenBatching.description")}
+          disabled={controls.isSaving}
+          label={
+            <Trans
+              components={{ em: <em /> }}
+              i18nKey="settings.regenerateWhenBatching.label"
+            />
+          }
+          onChange={(checked) =>
+            void controls.update({ regenerateWhenBatching: checked })
+          }
+        />
+      </div>
     </PageLayout>
   )
 }
@@ -308,7 +318,7 @@ interface SettingRowProps {
   checked: boolean
   description: string
   disabled: boolean
-  label: string
+  label: ReactNode
   onChange: (checked: boolean) => void
 }
 
@@ -318,29 +328,42 @@ const SettingRow = ({
   disabled,
   label,
   onChange,
-}: SettingRowProps) => (
-  <div className="flex min-h-[76px] items-center gap-5 border-b border-white/[0.065] py-4">
-    <div className="min-w-0 flex-1">
-      <p className="text-[15px] font-semibold text-zinc-100">{label}</p>
-      <p className="mt-1 text-[13px] leading-5 text-ink-muted">{description}</p>
+}: SettingRowProps) => {
+  // The label can carry markup (emphasis), so name the switch by the rendered
+  // label rather than an aria-label string.
+  const labelId = useId()
+  return (
+    <div className="flex min-h-[76px] items-center gap-5 border-b border-white/[0.065] py-4">
+      <div className="min-w-0 flex-1">
+        <p className="text-[15px] font-semibold text-zinc-100" id={labelId}>
+          {label}
+        </p>
+        <p className="mt-1 text-[13px] leading-5 text-ink-muted">
+          {description}
+        </p>
+      </div>
+      <Toggle
+        aria-labelledby={labelId}
+        checked={checked}
+        disabled={disabled}
+        onCheckedChange={onChange}
+      />
     </div>
-    <Toggle
-      aria-label={label}
-      checked={checked}
-      disabled={disabled}
-      onCheckedChange={onChange}
-    />
-  </div>
-)
+  )
+}
 
 const SectionLabel = ({
   children,
   className = "",
+  danger = false,
 }: {
   children: string
   className?: string
+  danger?: boolean
 }) => (
-  <h2 className={`mb-1 text-[15px] font-semibold text-zinc-400 ${className}`}>
+  <h2
+    className={`mb-1 text-[15px] font-semibold ${danger ? "text-danger" : "text-zinc-400"} ${className}`}
+  >
     {children}
   </h2>
 )

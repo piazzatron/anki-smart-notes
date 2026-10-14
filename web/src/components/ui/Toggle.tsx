@@ -17,8 +17,10 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-interface ToggleProps {
-  "aria-label": string
+type ToggleProps = (
+  | { "aria-label": string; "aria-labelledby"?: never }
+  | { "aria-label"?: never; "aria-labelledby": string }
+) & {
   checked: boolean
   disabled?: boolean
   onCheckedChange: (checked: boolean) => void
@@ -26,6 +28,7 @@ interface ToggleProps {
 
 export const Toggle = ({
   "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
   checked,
   disabled = false,
   onCheckedChange,
@@ -33,6 +36,7 @@ export const Toggle = ({
   <button
     aria-checked={checked}
     aria-label={ariaLabel}
+    aria-labelledby={ariaLabelledBy}
     className={`relative h-5 w-9 shrink-0 rounded-full transition ${
       checked ? "bg-indigo" : "bg-white/10"
     }`}
