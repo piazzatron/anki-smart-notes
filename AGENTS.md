@@ -26,6 +26,7 @@
 
 - Smart Notes supports Anki 2.1.20+ (the range set on the AnkiWeb listing). The maintainer runs Anki 26.09.3.
 - Anki's Python API changes between releases (25.09 replaced `SearchNode.Field.is_re` with `mode`; hooks like `addon_manager_will_install_addon` only exist from 2.1.65). Code that touches Anki APIs must work across the whole supported range: prefer APIs that exist in every version, and guard the ones that don't.
+- `requirements.txt` pins Anki 24.4.1. CI also runs checks and tests on the newest Anki (the version in `.github/workflows/ci.yml`'s matrix); bump it when Anki releases. To reproduce that leg locally, install requirements into a scratch venv, then `pip install "anki==X" "aqt==X" "protobuf>=6,<8"`. Run pyright from a copy without `.venv`, since `pyrightconfig.json` otherwise reads the repo's `.venv`.
 
 ## Changelog Versioning
 

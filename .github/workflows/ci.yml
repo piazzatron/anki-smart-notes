@@ -10,6 +10,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    # requirements.txt pins an older Anki. The second leg re-runs checks and tests on the
+    # newest Anki, whose Python API has dropped or renamed things the pin still has.
+    strategy:
+      fail-fast: false
+      matrix:
+        anki: ['pinned', '26.9.3']
+
+    name: test (anki ${{ matrix.anki }})
+
     steps:
     - uses: actions/checkout@v4
 
@@ -24,6 +33,11 @@ jobs:
         pip install -r requirements.txt
         sudo apt-get update
         sudo apt-get install -y xvfb libgl1-mesa-dev libglib2.0-0 libegl1 libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0
+
+    - name: Install newest Anki
+      if: matrix.anki != 'pinned'
+      # Newer Anki needs protobuf 6+, above the requirements.txt pin.
+      run: pip install "anki==${{ matrix.anki }}" "aqt==${{ matrix.anki }}" "protobuf>=6,<8"
 
     - name: Run code quality checks
       run: ./scripts/build.sh check
