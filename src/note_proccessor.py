@@ -394,6 +394,14 @@ class NoteProcessor:
                 next_batch: list[FieldNode] = [
                     node for node in dag.values() if not node.in_nodes
                 ]
+                if not next_batch:
+                    # Saves reject cycles, but a cycle that reached the database
+                    # some other way must not spin here forever.
+                    logger.error(
+                        f"Smart Field dependency cycle among: {list(dag.keys())}"
+                    )
+                    return did_update
+
                 logger.debug(f"Processing next nodes: {next_batch}")
                 batch_tasks = {
                     node.field: self._process_node(

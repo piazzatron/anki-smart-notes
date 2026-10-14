@@ -839,3 +839,28 @@ async def test_cancelled_batch_does_not_stop_background_generation(monkeypatch):
 
     assert did_update
     assert n["f2"] == p("1")
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("target_field", [None, "f2"])
+async def test_cycle_in_stored_fields_does_not_hang(target_field, monkeypatch):
+    # Saves reject cycles, so simulate one that reached the database another way.
+    from src.services.smart_field_service import smart_field_service
+
+    monkeypatch.setattr(smart_field_service, "_validate_no_cycle", lambda *_: None)
+    n = MockNote({"f1": "1", "f2": "", "f3": "", "f4": ""}, note_type=NOTE_TYPE_NAME)
+    processor = setup_data(  # type: ignore
+        monkeypatch=monkeypatch,
+        note=n,
+        prompts_map={"f2": "{{f3}}", "f3": "{{f2}}", "f4": "{{f1}}"},
+        options={},
+        allow_empty_fields=False,
+    )
+
+    await asyncio.wait_for(
+        processor.process_note(n, deck_id=1, target_field=target_field), timeout=2
+    )
+
+    assert n["f2"] == "" and n["f3"] == ""
+    if target_field is None:
+        assert n["f4"] == p("1")

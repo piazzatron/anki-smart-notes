@@ -115,6 +115,8 @@ def generate_fields_dag(
             explore = target_node.in_nodes.copy()
             while len(explore):
                 cur = explore.pop()
+                if cur.field in trimmed:
+                    continue
                 cur.generate_despite_manual = True
                 trimmed[cur.field] = cur
                 explore.extend(cur.in_nodes.copy())

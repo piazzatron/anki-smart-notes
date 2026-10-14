@@ -473,6 +473,27 @@ class SmartFieldService:
         )
         self._raise_for_cycle(new_effective_fields)
 
+        # A global field is also part of every deck's effective set, so check
+        # each deck that has its own fields for this note type too.
+        if smart_field.deck_id == GLOBAL_DECK_ID:
+            override_deck_ids = {
+                field.deck_id
+                for field in existing_fields
+                if field.note_type_id == smart_field.note_type_id
+                and field.deck_id != GLOBAL_DECK_ID
+                and field.id != replaced_smart_field_id
+            }
+            for deck_id in override_deck_ids:
+                self._raise_for_cycle(
+                    self._get_prospective_effective_fields(
+                        existing_fields,
+                        smart_field.note_type_id,
+                        deck_id,
+                        replaced_smart_field_id,
+                        smart_field,
+                    )
+                )
+
         if (
             replaced_smart_field is None
             or replaced_smart_field.deck_id == GLOBAL_DECK_ID
@@ -513,11 +534,14 @@ class SmartFieldService:
             elif existing_field.deck_id == deck_id:
                 deck_fields[field_key] = existing_field
 
+        if mutation is not None:
+            # A global mutation stays under any deck override of the same field.
+            layer = global_fields if mutation.deck_id == GLOBAL_DECK_ID else deck_fields
+            layer[mutation.target_field_name.lower()] = mutation
+
         effective_fields = dict(global_fields)
         if deck_id != GLOBAL_DECK_ID:
             effective_fields.update(deck_fields)
-        if mutation is not None:
-            effective_fields[mutation.target_field_name.lower()] = mutation
         return effective_fields
 
     def _raise_for_cycle(
