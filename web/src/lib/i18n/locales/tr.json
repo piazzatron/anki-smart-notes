@@ -79,6 +79,14 @@
       "description": "Sorunların teşhis edilmesine yardımcı olacak ayrıntılı günlük kaydı. Bir hata bildirirken bu günlükleri ekleyin.",
       "label": "Hata ayıklama modu"
     },
+    "generateAtReview": {
+      "description": "Gözden geçirme sırasında yaklaşan kartlar için eksik Smart Fields alanlarını doldurun.",
+      "label": "Gözden geçirme sırasında önceden oluştur"
+    },
+    "generateOnAdd": {
+      "description": "Yomitan ve AnkiConnect gibi araçlardan gelenler dahil, yeni eklenen notlar için Smart Fields alanlarını arka planda oluşturun.",
+      "label": "Yeni eklenen notları otomatik olarak oluştur"
+    },
     "language": {
       "description": "Smart Notes için dili seçin veya Anki'in diliyle eşleştirin.",
       "label": "Dil",
@@ -96,26 +104,18 @@
       "title": "Kendi OpenAI anahtarımı kullan"
     },
     "loading": "Ayarlar Yükleniyor",
-    "saveError": "Ayarlar kaydedilemedi",
-    "sections": {
-      "advanced": "Gelişmiş",
-      "general": "Genel",
-      "generation": "Nesil",
-      "dangerZone": "Tehlikeli Bölge"
-    },
-    "title": "Ayarlar",
-    "generateAtReview": {
-      "description": "Gözden geçirme sırasında yaklaşan kartlar için eksik Smart Fields alanlarını doldurun.",
-      "label": "Gözden geçirme sırasında önceden oluştur"
-    },
-    "generateOnAdd": {
-      "description": "Yomitan ve AnkiConnect gibi araçlardan gelenler dahil, yeni eklenen notlar için Smart Fields alanlarını arka planda oluşturun.",
-      "label": "Yeni eklenen notları otomatik olarak oluştur"
-    },
     "regenerateWhenBatching": {
       "description": "Yalnızca boş olanları değil, tüm Smart Fields alanlarını yeniden oluşturun. Bu, mevcut alanların üzerine yazar.",
       "label": "Toplu işlem sırasında <strong>tüm</strong> Smart Fields alanlarını yeniden oluştur"
-    }
+    },
+    "saveError": "Ayarlar kaydedilemedi",
+    "sections": {
+      "advanced": "Gelişmiş",
+      "dangerZone": "Tehlikeli Bölge",
+      "general": "Genel",
+      "generation": "Nesil"
+    },
+    "title": "Ayarlar"
   },
   "fieldEditor": {
     "alreadySmartField": "Zaten bir Smart Field",

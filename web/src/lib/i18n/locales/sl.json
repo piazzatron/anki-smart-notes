@@ -81,6 +81,14 @@
       "description": "Podrobno beleženje za pomoč pri diagnosticiranju težav. Vključite te dnevnike, ko vložite napako.",
       "label": "Način odpravljanja napak"
     },
+    "generateAtReview": {
+      "description": "Izpolni manjkajoča polja Smart Fields za prihajajoče kartice med ponavljanjem.",
+      "label": "Ustvari vnaprej med ponavljanjem"
+    },
+    "generateOnAdd": {
+      "description": "Ustvari polja Smart Fields v ozadju za novo dodane zapiske, tudi iz orodij, kot sta Yomitan in AnkiConnect.",
+      "label": "Samodejno ustvari novo dodane zapiske"
+    },
     "language": {
       "description": "Izberite jezik za Smart Notes ali se ujemite z jezikom Anki.",
       "label": "Jezik",
@@ -98,26 +106,18 @@
       "title": "Uporabi moj lastni ključ OpenAI"
     },
     "loading": "Nalaganje nastavitev",
-    "saveError": "Nastavitev ni bilo mogoče shraniti",
-    "sections": {
-      "advanced": "Napredno",
-      "general": "Splošno",
-      "generation": "Generacija",
-      "dangerZone": "Nevarno območje"
-    },
-    "title": "nastavitve",
-    "generateAtReview": {
-      "description": "Izpolni manjkajoča polja Smart Fields za prihajajoče kartice med ponavljanjem.",
-      "label": "Ustvari vnaprej med ponavljanjem"
-    },
-    "generateOnAdd": {
-      "description": "Ustvari polja Smart Fields v ozadju za novo dodane zapiske, tudi iz orodij, kot sta Yomitan in AnkiConnect.",
-      "label": "Samodejno ustvari novo dodane zapiske"
-    },
     "regenerateWhenBatching": {
       "description": "Znova ustvari vsa polja Smart Fields, ne le praznih. To prepiše obstoječa polja.",
       "label": "Znova ustvari <strong>vsa</strong> polja Smart Fields med paketno obdelavo"
-    }
+    },
+    "saveError": "Nastavitev ni bilo mogoče shraniti",
+    "sections": {
+      "advanced": "Napredno",
+      "dangerZone": "Nevarno območje",
+      "general": "Splošno",
+      "generation": "Generacija"
+    },
+    "title": "nastavitve"
   },
   "fieldEditor": {
     "alreadySmartField": "Že Smart Field",

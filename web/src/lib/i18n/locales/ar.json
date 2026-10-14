@@ -83,6 +83,14 @@
       "description": "التسجيل المطول للمساعدة في تشخيص المشكلات. قم بتضمين هذه السجلات عند تقديم خطأ.",
       "label": "وضع التصحيح"
     },
+    "generateAtReview": {
+      "description": "املأ حقول Smart Fields الناقصة للبطاقات القادمة أثناء المراجعة.",
+      "label": "التوليد مسبقًا أثناء المراجعة"
+    },
+    "generateOnAdd": {
+      "description": "توليد حقول Smart Fields في الخلفية للملاحظات المضافة حديثًا، بما في ذلك الملاحظات الناتجة عن أدوات مثل Yomitan وAnkiConnect.",
+      "label": "توليد الملاحظات المضافة حديثًا تلقائيًا"
+    },
     "language": {
       "description": "اختر لغة Smart Notes، أو قم بمطابقة لغة Anki.",
       "label": "لغة",
@@ -100,26 +108,18 @@
       "title": "استخدم مفتاح OpenAI الخاص بي"
     },
     "loading": "تحميل الإعدادات",
-    "saveError": "لا يمكن حفظ الإعدادات",
-    "sections": {
-      "advanced": "متقدم",
-      "general": "عام",
-      "generation": "جيل",
-      "dangerZone": "منطقة الخطر"
-    },
-    "title": "إعدادات",
-    "generateAtReview": {
-      "description": "املأ حقول Smart Fields الناقصة للبطاقات القادمة أثناء المراجعة.",
-      "label": "التوليد مسبقًا أثناء المراجعة"
-    },
-    "generateOnAdd": {
-      "description": "توليد حقول Smart Fields في الخلفية للملاحظات المضافة حديثًا، بما في ذلك الملاحظات الناتجة عن أدوات مثل Yomitan وAnkiConnect.",
-      "label": "توليد الملاحظات المضافة حديثًا تلقائيًا"
-    },
     "regenerateWhenBatching": {
       "description": "إعادة توليد كل حقول Smart Fields، وليس الفارغة فقط. سيؤدي هذا إلى الكتابة فوق الحقول الموجودة.",
       "label": "إعادة توليد <strong>جميع</strong> حقول Smart Fields أثناء المعالجة الدفعية"
-    }
+    },
+    "saveError": "لا يمكن حفظ الإعدادات",
+    "sections": {
+      "advanced": "متقدم",
+      "dangerZone": "منطقة الخطر",
+      "general": "عام",
+      "generation": "جيل"
+    },
+    "title": "إعدادات"
   },
   "fieldEditor": {
     "alreadySmartField": "هذا الحقل ذكي بالفعل",

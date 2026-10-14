@@ -79,6 +79,14 @@
       "description": "Üksikasjalik logimine, mis aitab probleeme diagnoosida. Kaasake need logid vea esitamisel.",
       "label": "Silumisrežiim"
     },
+    "generateAtReview": {
+      "description": "Täida vajalikud Smart Fieldsi väljad tulevaste kaartide jaoks kordamise ajal.",
+      "label": "Genereeri ette kordamise ajal"
+    },
+    "generateOnAdd": {
+      "description": "Genereeri Smart Fieldsi väljad taustal uutele märkmetele, sealhulgas tööriistadest nagu Yomitan ja AnkiConnect.",
+      "label": "Genereeri uued märkmed automaatselt"
+    },
     "language": {
       "description": "Valige Smart Notes keel või sobitage Anki keel.",
       "label": "Keel",
@@ -96,26 +104,18 @@
       "title": "Kasutage minu enda võtit OpenAI"
     },
     "loading": "Seadete laadimine",
-    "saveError": "Seadeid ei saanud salvestada",
-    "sections": {
-      "advanced": "Täpsemalt",
-      "general": "Kindral",
-      "generation": "Põlvkond",
-      "dangerZone": "Ohutsoon"
-    },
-    "title": "Seaded",
-    "generateAtReview": {
-      "description": "Täida vajalikud Smart Fieldsi väljad tulevaste kaartide jaoks kordamise ajal.",
-      "label": "Genereeri ette kordamise ajal"
-    },
-    "generateOnAdd": {
-      "description": "Genereeri Smart Fieldsi väljad taustal uutele märkmetele, sealhulgas tööriistadest nagu Yomitan ja AnkiConnect.",
-      "label": "Genereeri uued märkmed automaatselt"
-    },
     "regenerateWhenBatching": {
       "description": "Genereeri uuesti kõik Smart Fieldsi väljad, mitte ainult tühjad. See kirjutab olemasolevad väljad üle.",
       "label": "Genereeri partiitöötlemisel uuesti <strong>kõik</strong> Smart Fieldsi väljad"
-    }
+    },
+    "saveError": "Seadeid ei saanud salvestada",
+    "sections": {
+      "advanced": "Täpsemalt",
+      "dangerZone": "Ohutsoon",
+      "general": "Kindral",
+      "generation": "Põlvkond"
+    },
+    "title": "Seaded"
   },
   "fieldEditor": {
     "alreadySmartField": "Juba Smart Field",

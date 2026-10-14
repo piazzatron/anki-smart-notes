@@ -78,6 +78,14 @@
       "description": "문제 진단에 도움이 되는 자세한 로깅. 버그를 신고할 때 이러한 로그를 포함하세요.",
       "label": "디버그 모드"
     },
+    "generateAtReview": {
+      "description": "복습하는 동안 곧 나올 카드의 누락된 Smart Fields를 채웁니다.",
+      "label": "복습 중 미리 생성"
+    },
+    "generateOnAdd": {
+      "description": "Yomitan, AnkiConnect 같은 도구로 추가된 노트를 포함해, 새로 추가된 노트의 Smart Fields를 백그라운드에서 생성합니다.",
+      "label": "새로 추가된 노트 자동 생성"
+    },
     "language": {
       "description": "Smart Notes의 언어를 선택하거나 Anki의 언어와 일치하십시오.",
       "label": "언어",
@@ -95,26 +103,18 @@
       "title": "내 OpenAI 키 사용"
     },
     "loading": "설정 로드 중",
-    "saveError": "설정을 저장할 수 없습니다.",
-    "sections": {
-      "advanced": "고급의",
-      "general": "일반적인",
-      "generation": "세대",
-      "dangerZone": "위험 영역"
-    },
-    "title": "설정",
-    "generateAtReview": {
-      "description": "복습하는 동안 곧 나올 카드의 누락된 Smart Fields를 채웁니다.",
-      "label": "복습 중 미리 생성"
-    },
-    "generateOnAdd": {
-      "description": "Yomitan, AnkiConnect 같은 도구로 추가된 노트를 포함해, 새로 추가된 노트의 Smart Fields를 백그라운드에서 생성합니다.",
-      "label": "새로 추가된 노트 자동 생성"
-    },
     "regenerateWhenBatching": {
       "description": "비어 있는 필드만이 아니라 모든 Smart Fields를 다시 생성합니다. 기존 필드를 덮어씁니다.",
       "label": "일괄 처리 중 <strong>모든</strong> Smart Fields 다시 생성"
-    }
+    },
+    "saveError": "설정을 저장할 수 없습니다.",
+    "sections": {
+      "advanced": "고급의",
+      "dangerZone": "위험 영역",
+      "general": "일반적인",
+      "generation": "세대"
+    },
+    "title": "설정"
   },
   "fieldEditor": {
     "alreadySmartField": "이미 Smart Field입니다",

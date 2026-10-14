@@ -79,6 +79,14 @@
       "description": "Uitgebreide aantekening om kwessies te help diagnoseer. Sluit hierdie logs in wanneer 'n fout ingedien word.",
       "label": "Ontfoutmodus"
     },
+    "generateAtReview": {
+      "description": "Vul ontbrekende Smart Fields in vir komende kaarte terwyl jy hersien.",
+      "label": "Genereer vooraf tydens hersiening"
+    },
+    "generateOnAdd": {
+      "description": "Genereer Smart Fields op die agtergrond vir nuut bygevoegde notas, insluitend vanaf gereedskap soos Yomitan en AnkiConnect.",
+      "label": "Genereer nuut bygevoegde notas outomaties"
+    },
     "language": {
       "description": "Kies die taal vir Smart Notes, of pas by Anki se taal.",
       "label": "Taal",
@@ -96,26 +104,18 @@
       "title": "Gebruik my eie OpenAI sleutel"
     },
     "loading": "Laai instellings",
-    "saveError": "Kon nie instellings stoor nie",
-    "sections": {
-      "advanced": "Gevorderd",
-      "general": "Algemeen",
-      "generation": "Generasie",
-      "dangerZone": "Gevaarsone"
-    },
-    "title": "Instellings",
-    "generateAtReview": {
-      "description": "Vul ontbrekende Smart Fields in vir komende kaarte terwyl jy hersien.",
-      "label": "Genereer vooraf tydens hersiening"
-    },
-    "generateOnAdd": {
-      "description": "Genereer Smart Fields op die agtergrond vir nuut bygevoegde notas, insluitend vanaf gereedskap soos Yomitan en AnkiConnect.",
-      "label": "Genereer nuut bygevoegde notas outomaties"
-    },
     "regenerateWhenBatching": {
       "description": "Genereer elke Smart Field opnuut, nie net leë velde nie. Dit oorskryf bestaande velde.",
       "label": "Genereer <strong>alle</strong> Smart Fields opnuut tydens groepverwerking"
-    }
+    },
+    "saveError": "Kon nie instellings stoor nie",
+    "sections": {
+      "advanced": "Gevorderd",
+      "dangerZone": "Gevaarsone",
+      "general": "Algemeen",
+      "generation": "Generasie"
+    },
+    "title": "Instellings"
   },
   "fieldEditor": {
     "alreadySmartField": "Reeds 'n Slim-veld",

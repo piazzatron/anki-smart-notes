@@ -78,6 +78,14 @@
       "description": "Enregistrament verbos per ajudar a diagnosticar de problèmas. Inclutz aquestes jornals al moment de depausar un bug.",
       "label": "Mòde de depuracion"
     },
+    "generateAtReview": {
+      "description": "Emplenar los Smart Fields que manquen per las cartas a venir pendent la revision.",
+      "label": "Generar en avançada pendent la revision"
+    },
+    "generateOnAdd": {
+      "description": "Generar los Smart Fields en rèire-plan per las nòtas apondudas recentament, inclusas las venent de aplicacions coma Yomitan e AnkiConnect.",
+      "label": "Generar automaticament las nòtas apondudas recentament"
+    },
     "language": {
       "description": "Causissètz la lenga per Smart Notes, o correspondètz a la lenga d'Anki.",
       "label": "Lenga",
@@ -95,26 +103,18 @@
       "title": "Utilizar ma pròpria clau OpenAI"
     },
     "loading": "Paramètres de cargament",
-    "saveError": "Impossible de salvar los paramètres",
-    "sections": {
-      "advanced": "Avançat",
-      "general": "General",
-      "generation": "Generacion",
-      "dangerZone": "Zòna Perilhosa"
-    },
-    "title": "Paramètres",
-    "generateAtReview": {
-      "description": "Emplenar los Smart Fields que manquen per las cartas a venir pendent la revision.",
-      "label": "Generar en avançada pendent la revision"
-    },
-    "generateOnAdd": {
-      "description": "Generar los Smart Fields en rèire-plan per las nòtas apondudas recentament, inclusas las venent de aplicacions coma Yomitan e AnkiConnect.",
-      "label": "Generar automaticament las nòtas apondudas recentament"
-    },
     "regenerateWhenBatching": {
       "description": "Regenerar totes los Smart Fields, pas nomai los vuèits. Aquò reescriu los camps existents.",
       "label": "Regenerar <strong>totes</strong> los Smart Fields pendent lo tractament per lòts"
-    }
+    },
+    "saveError": "Impossible de salvar los paramètres",
+    "sections": {
+      "advanced": "Avançat",
+      "dangerZone": "Zòna Perilhosa",
+      "general": "General",
+      "generation": "Generacion"
+    },
+    "title": "Paramètres"
   },
   "fieldEditor": {
     "alreadySmartField": "Ja un Smart Field",

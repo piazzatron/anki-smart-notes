@@ -80,6 +80,14 @@
       "description": "Registrazione dettagliata per facilitare la diagnosi dei problemi. Includi questi log quando segnali un bug.",
       "label": "Modalità di debug"
     },
+    "generateAtReview": {
+      "description": "Compila gli Smart Fields mancanti per le prossime carte durante la revisione.",
+      "label": "Genera in anticipo durante la revisione"
+    },
+    "generateOnAdd": {
+      "description": "Genera gli Smart Fields in background per le note appena aggiunte, anche da strumenti come Yomitan e AnkiConnect.",
+      "label": "Genera automaticamente le note appena aggiunte"
+    },
     "language": {
       "description": "Scegli la lingua per Smart Notes o abbina la lingua di Anki.",
       "label": "Lingua",
@@ -97,26 +105,18 @@
       "title": "Usa la mia chiave OpenAI"
     },
     "loading": "Caricamento delle impostazioni",
-    "saveError": "Impossibile salvare le impostazioni",
-    "sections": {
-      "advanced": "Avanzato",
-      "general": "Generale",
-      "generation": "Generazione",
-      "dangerZone": "Zona pericolosa"
-    },
-    "title": "Impostazioni",
-    "generateAtReview": {
-      "description": "Compila gli Smart Fields mancanti per le prossime carte durante la revisione.",
-      "label": "Genera in anticipo durante la revisione"
-    },
-    "generateOnAdd": {
-      "description": "Genera gli Smart Fields in background per le note appena aggiunte, anche da strumenti come Yomitan e AnkiConnect.",
-      "label": "Genera automaticamente le note appena aggiunte"
-    },
     "regenerateWhenBatching": {
       "description": "Rigenera tutti gli Smart Fields, non solo quelli vuoti. Sovrascrive i campi esistenti.",
       "label": "Rigenera <strong>tutti</strong> gli Smart Fields durante l'elaborazione in batch"
-    }
+    },
+    "saveError": "Impossibile salvare le impostazioni",
+    "sections": {
+      "advanced": "Avanzato",
+      "dangerZone": "Zona pericolosa",
+      "general": "Generale",
+      "generation": "Generazione"
+    },
+    "title": "Impostazioni"
   },
   "fieldEditor": {
     "alreadySmartField": "Già un campo Smart",

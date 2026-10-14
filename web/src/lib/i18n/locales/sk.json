@@ -81,6 +81,14 @@
       "description": "Podrobné protokolovanie na pomoc pri diagnostike problémov. Pri hlásení chyby zahrňte tieto protokoly.",
       "label": "Režim ladenia"
     },
+    "generateAtReview": {
+      "description": "Vyplní chýbajúce Smart Fields pre nadchádzajúce karty počas opakovania.",
+      "label": "Generovať vopred počas opakovania"
+    },
+    "generateOnAdd": {
+      "description": "Generovať Smart Fields na pozadí pre novo pridané poznámky, vrátane poznámok z nástrojov ako Yomitan a AnkiConnect.",
+      "label": "Automaticky generovať novo pridané poznámky"
+    },
     "language": {
       "description": "Vyberte jazyk pre Smart Notes alebo sa zhodujte s jazykom Anki.",
       "label": "Jazyk",
@@ -98,26 +106,18 @@
       "title": "Použiť môj vlastný kľúč OpenAI"
     },
     "loading": "Načítavajú sa nastavenia",
-    "saveError": "Nastavenia sa nepodarilo uložiť",
-    "sections": {
-      "advanced": "Pokročilé",
-      "general": "generál",
-      "generation": "generácie",
-      "dangerZone": "Nebezpečná zóna"
-    },
-    "title": "Nastavenia",
-    "generateAtReview": {
-      "description": "Vyplní chýbajúce Smart Fields pre nadchádzajúce karty počas opakovania.",
-      "label": "Generovať vopred počas opakovania"
-    },
-    "generateOnAdd": {
-      "description": "Generovať Smart Fields na pozadí pre novo pridané poznámky, vrátane poznámok z nástrojov ako Yomitan a AnkiConnect.",
-      "label": "Automaticky generovať novo pridané poznámky"
-    },
     "regenerateWhenBatching": {
       "description": "Znovu generovať všetky Smart Fields, nie iba prázdne. Týmto sa prepíšu existujúce polia.",
       "label": "Znovu generovať <strong>všetky</strong> Smart Fields počas dávkového spracovania"
-    }
+    },
+    "saveError": "Nastavenia sa nepodarilo uložiť",
+    "sections": {
+      "advanced": "Pokročilé",
+      "dangerZone": "Nebezpečná zóna",
+      "general": "generál",
+      "generation": "generácie"
+    },
+    "title": "Nastavenia"
   },
   "fieldEditor": {
     "alreadySmartField": "Už je Smart Field",

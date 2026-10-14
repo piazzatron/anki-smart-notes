@@ -79,6 +79,14 @@
       "description": "Uitgebreide logboekregistratie om problemen te diagnosticeren. Voeg deze logboeken toe als u een bug indient.",
       "label": "Debug-modus"
     },
+    "generateAtReview": {
+      "description": "Vul ontbrekende Smart Fields in voor aankomende kaarten terwijl je aan het herhalen bent.",
+      "label": "Vooraf genereren tijdens herhalen"
+    },
+    "generateOnAdd": {
+      "description": "Genereer Smart Fields op de achtergrond voor nieuw toegevoegde notities, ook via tools zoals Yomitan en AnkiConnect.",
+      "label": "Nieuw toegevoegde notities automatisch genereren"
+    },
     "language": {
       "description": "Kies de taal voor Smart Notes, of pas de taal van Anki aan.",
       "label": "Taal",
@@ -96,26 +104,18 @@
       "title": "Gebruik mijn eigen OpenAI-sleutel"
     },
     "loading": "Instellingen laden",
-    "saveError": "Kan instellingen niet opslaan",
-    "sections": {
-      "advanced": "Geavanceerd",
-      "general": "Algemeen",
-      "generation": "Generatie",
-      "dangerZone": "Gevarenzone"
-    },
-    "title": "Instellingen",
-    "generateAtReview": {
-      "description": "Vul ontbrekende Smart Fields in voor aankomende kaarten terwijl je aan het herhalen bent.",
-      "label": "Vooraf genereren tijdens herhalen"
-    },
-    "generateOnAdd": {
-      "description": "Genereer Smart Fields op de achtergrond voor nieuw toegevoegde notities, ook via tools zoals Yomitan en AnkiConnect.",
-      "label": "Nieuw toegevoegde notities automatisch genereren"
-    },
     "regenerateWhenBatching": {
       "description": "Genereer elk Smart Field opnieuw, niet alleen lege velden. Dit overschrijft bestaande velden.",
       "label": "<strong>Alle</strong> Smart Fields opnieuw genereren tijdens batchverwerking"
-    }
+    },
+    "saveError": "Kan instellingen niet opslaan",
+    "sections": {
+      "advanced": "Geavanceerd",
+      "dangerZone": "Gevarenzone",
+      "general": "Algemeen",
+      "generation": "Generatie"
+    },
+    "title": "Instellingen"
   },
   "fieldEditor": {
     "alreadySmartField": "Is al een Smart Field",

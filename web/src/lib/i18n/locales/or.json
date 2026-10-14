@@ -79,6 +79,14 @@
       "description": "ସମସ୍ୟା ନିର୍ଣ୍ଣୟ କରିବାରେ ସାହାଯ୍ୟ କରିବାକୁ ଭର୍ବୋଜ୍ ଲଗିଂ | ଏକ ତ୍ରୁଟି ଦାଖଲ କରିବା ସମୟରେ ଏହି ଲଗଗୁଡ଼ିକୁ ଅନ୍ତର୍ଭୁକ୍ତ କରନ୍ତୁ",
       "label": "ତ୍ରୁଟି ନିବାରଣ ଧାରା"
     },
+    "generateAtReview": {
+      "description": "ସମୀକ୍ଷା ସମୟରେ ଆସନ୍ତା କାର୍ଡଗୁଡ଼ିକ ପାଇଁ ଅନୁପସ୍ଥିତ Smart Fields ପୂରଣ କରନ୍ତୁ।",
+      "label": "ସମୀକ୍ଷା ସମୟରେ ପୂର୍ବରୁ ଜେନେରେଟ୍ କରନ୍ତୁ"
+    },
+    "generateOnAdd": {
+      "description": "ନୂତନ ଯୋଡ଼ାଯାଇଥିବା ନୋଟ୍ଗୁଡ଼ିକ ପାଇଁ ପୃଷ୍ଠପଟରେ Smart Fields ଜେନେରେଟ୍ କରନ୍ତୁ, Yomitan ଏବଂ AnkiConnect ପରି ଉପକରଣରୁ ଆସୁଥିବା ନୋଟ୍ ସମେତ।",
+      "label": "ନୂତନ ଯୋଡ଼ାଯାଇଥିବା ନୋଟ୍ଗୁଡ଼ିକ ସ୍ୱୟଂଚାଳିତ ଭାବେ ଜେନେରେଟ୍ କରନ୍ତୁ"
+    },
     "language": {
       "description": "Smart Notes ପାଇଁ ଭାଷା ବାଛନ୍ତୁ, କିମ୍ବା Anki ର ଭାଷା ସହିତ ମେଳ କରନ୍ତୁ",
       "label": "ଭାଷା",
@@ -96,26 +104,18 @@
       "title": "ମୋର ନିଜର OpenAI କି ବ୍ୟବହାର କରନ୍ତୁ"
     },
     "loading": "ସେଟିଂସମୂହ ଲୋଡିଙ୍ଗ୍",
-    "saveError": "ସେଟିଂସମୂହ ସଞ୍ଚୟ କରିପାରିଲା ନାହିଁ",
-    "sections": {
-      "advanced": "ଉନ୍ନତ",
-      "general": "ଜେନେରାଲ୍",
-      "generation": "ପି Generation ଼ି",
-      "dangerZone": "ବିପଦ ଅଞ୍ଚଳ"
-    },
-    "title": "ସେଟିଂସମୂହ",
-    "generateAtReview": {
-      "description": "ସମୀକ୍ଷା ସମୟରେ ଆସନ୍ତା କାର୍ଡଗୁଡ଼ିକ ପାଇଁ ଅନୁପସ୍ଥିତ Smart Fields ପୂରଣ କରନ୍ତୁ।",
-      "label": "ସମୀକ୍ଷା ସମୟରେ ପୂର୍ବରୁ ଜେନେରେଟ୍ କରନ୍ତୁ"
-    },
-    "generateOnAdd": {
-      "description": "ନୂତନ ଯୋଡ଼ାଯାଇଥିବା ନୋଟ୍ଗୁଡ଼ିକ ପାଇଁ ପୃଷ୍ଠପଟରେ Smart Fields ଜେନେରେଟ୍ କରନ୍ତୁ, Yomitan ଏବଂ AnkiConnect ପରି ଉପକରଣରୁ ଆସୁଥିବା ନୋଟ୍ ସମେତ।",
-      "label": "ନୂତନ ଯୋଡ଼ାଯାଇଥିବା ନୋଟ୍ଗୁଡ଼ିକ ସ୍ୱୟଂଚାଳିତ ଭାବେ ଜେନେରେଟ୍ କରନ୍ତୁ"
-    },
     "regenerateWhenBatching": {
       "description": "କେବଳ ଖାଲି ନୁହେଁ, ପ୍ରତ୍ୟେକ Smart Field ପୁନର୍ବାର ଜେନେରେଟ୍ କରନ୍ତୁ। ଏହା ବିଦ୍ୟମାନ ଫିଲ୍ଡଗୁଡ଼ିକୁ ଓଭରରାଇଟ୍ କରିବ।",
       "label": "ବ୍ୟାଚ୍ ପ୍ରକ୍ରିୟାକରଣ ସମୟରେ <strong>ସମସ୍ତ</strong> Smart Fields ପୁନର୍ବାର ଜେନେରେଟ୍ କରନ୍ତୁ"
-    }
+    },
+    "saveError": "ସେଟିଂସମୂହ ସଞ୍ଚୟ କରିପାରିଲା ନାହିଁ",
+    "sections": {
+      "advanced": "ଉନ୍ନତ",
+      "dangerZone": "ବିପଦ ଅଞ୍ଚଳ",
+      "general": "ଜେନେରାଲ୍",
+      "generation": "ପି Generation ଼ି"
+    },
+    "title": "ସେଟିଂସମୂହ"
   },
   "fieldEditor": {
     "alreadySmartField": "ଏହା ପୂର୍ବରୁ ଏକ Smart Field",

@@ -80,6 +80,14 @@
       "description": "Registre detallat per ajudar a diagnosticar problemes. Incloeu aquests registres quan enregistreu un error.",
       "label": "Mode de depuració"
     },
+    "generateAtReview": {
+      "description": "Omple els Smart Fields que falten per a les targetes properes mentre repasses.",
+      "label": "Genera per avançat durant el repàs"
+    },
+    "generateOnAdd": {
+      "description": "Genera els Smart Fields en segon pla per a les notes afegides recentment, inclosos els de ferramentes com Yomitan i AnkiConnect.",
+      "label": "Genera automàticament les notes afegides recentment"
+    },
     "language": {
       "description": "Trieu l'idioma per a Smart Notes o feu coincidir l'idioma d'Anki.",
       "label": "Llengua",
@@ -97,26 +105,18 @@
       "title": "Utilitzeu la meva pròpia clau OpenAI"
     },
     "loading": "S'està carregant la configuració",
-    "saveError": "No s'ha pogut desar la configuració",
-    "sections": {
-      "advanced": "Avançat",
-      "general": "General",
-      "generation": "Generació",
-      "dangerZone": "Zona de perill"
-    },
-    "title": "Configuració",
-    "generateAtReview": {
-      "description": "Omple els Smart Fields que falten per a les targetes properes mentre repasses.",
-      "label": "Genera per avançat durant el repàs"
-    },
-    "generateOnAdd": {
-      "description": "Genera els Smart Fields en segon pla per a les notes afegides recentment, inclosos els de ferramentes com Yomitan i AnkiConnect.",
-      "label": "Genera automàticament les notes afegides recentment"
-    },
     "regenerateWhenBatching": {
       "description": "Regenera tots els Smart Fields, no només els buits. Això sobreescriu els camps existents.",
       "label": "Regenera <strong>tots</strong> els Smart Fields durant el processament per lots"
-    }
+    },
+    "saveError": "No s'ha pogut desar la configuració",
+    "sections": {
+      "advanced": "Avançat",
+      "dangerZone": "Zona de perill",
+      "general": "General",
+      "generation": "Generació"
+    },
+    "title": "Configuració"
   },
   "fieldEditor": {
     "alreadySmartField": "Ja és un camp intel·ligent",

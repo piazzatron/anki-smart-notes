@@ -79,6 +79,14 @@
       "description": "Խնդիրների ախտորոշումը օգնելու համար մանրամասն գրանցում: Ներառեք այս տեղեկամատյանները սխալ ներկայացնելիս:",
       "label": "Վրիպազերծման ռեժիմ"
     },
+    "generateAtReview": {
+      "description": "Լրացնել բացակայող Smart Fields-ները հաջորդ քարտերի համար՝ կրկնության ընթացքում։",
+      "label": "Generate ahead of time during review"
+    },
+    "generateOnAdd": {
+      "description": "Ֆոնային ռեժимում generate անել Smart Fields-ները նոր ավելացված նշումների համար, այդ թվում՝ Yomitan և AnkiConnect նման գործիքներից։",
+      "label": "Generate newly added notes automatically"
+    },
     "language": {
       "description": "Ընտրեք լեզուն Smart Notes-ի համար կամ համապատասխանեք Anki-ի լեզվին:",
       "label": "Լեզու",
@@ -96,26 +104,18 @@
       "title": "Օգտագործեք իմ սեփական OpenAI բանալին"
     },
     "loading": "Կարգավորումների բեռնում",
-    "saveError": "Չհաջողվեց պահել կարգավորումները",
-    "sections": {
-      "advanced": "Ընդլայնված",
-      "general": "Գեներալ",
-      "generation": "Սերունդ",
-      "dangerZone": "Վտանգավոր գոտի"
-    },
-    "title": "Կարգավորումներ",
-    "generateAtReview": {
-      "description": "Լրացնել բացակայող Smart Fields-ները հաջորդ քարտերի համար՝ կրկնության ընթացքում։",
-      "label": "Generate ahead of time during review"
-    },
-    "generateOnAdd": {
-      "description": "Ֆոնային ռեժимում generate անել Smart Fields-ները նոր ավելացված նշումների համար, այդ թվում՝ Yomitan և AnkiConnect նման գործիքներից։",
-      "label": "Generate newly added notes automatically"
-    },
     "regenerateWhenBatching": {
       "description": "Regenerate անել բոլոր Smart Fields-ները, ոչ միայն դատարկները։ Սա վերագրում է գոյություն ունեցող դաշտերը։",
       "label": "Regenerate <strong>all</strong> Smart Fields during batch processing"
-    }
+    },
+    "saveError": "Չհաջողվեց պահել կարգավորումները",
+    "sections": {
+      "advanced": "Ընդլայնված",
+      "dangerZone": "Վտանգավոր գոտի",
+      "general": "Գեներալ",
+      "generation": "Սերունդ"
+    },
+    "title": "Կարգավորումներ"
   },
   "fieldEditor": {
     "alreadySmartField": "Արդեն Smart Field",

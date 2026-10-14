@@ -79,6 +79,14 @@
       "description": "Részletes naplózás a problémák diagnosztizálásához. A hiba bejelentésekor vegye fel ezeket a naplókat.",
       "label": "Hibakeresési mód"
     },
+    "generateAtReview": {
+      "description": "Hiányzó Smart Fields mezők kitöltése a következő kártyákhoz tanulás közben.",
+      "label": "Előzetes generálás tanulás közben"
+    },
+    "generateOnAdd": {
+      "description": "Smart Fields mezők generálása a háttérben az újonnan hozzáadott jegyzetekhez, beleértve az olyan eszközöket is, mint a Yomitan és az AnkiConnect.",
+      "label": "Újonnan hozzáadott jegyzetek automatikus generálása"
+    },
     "language": {
       "description": "Válassza ki az Smart Notes nyelvét, vagy egyeztesse az Anki nyelvével.",
       "label": "Nyelv",
@@ -96,26 +104,18 @@
       "title": "Használja a saját OpenAI kulcsomat"
     },
     "loading": "Beállítások betöltése",
-    "saveError": "Nem sikerült menteni a beállításokat",
-    "sections": {
-      "advanced": "Fejlett",
-      "general": "Általános",
-      "generation": "Generáció",
-      "dangerZone": "Veszélyzóna"
-    },
-    "title": "Beállítások elemre",
-    "generateAtReview": {
-      "description": "Hiányzó Smart Fields mezők kitöltése a következő kártyákhoz tanulás közben.",
-      "label": "Előzetes generálás tanulás közben"
-    },
-    "generateOnAdd": {
-      "description": "Smart Fields mezők generálása a háttérben az újonnan hozzáadott jegyzetekhez, beleértve az olyan eszközöket is, mint a Yomitan és az AnkiConnect.",
-      "label": "Újonnan hozzáadott jegyzetek automatikus generálása"
-    },
     "regenerateWhenBatching": {
       "description": "Minden Smart Fields mező újragenerálása, nem csak az üresek. Ez felülírja a meglévő mezőket.",
       "label": "<strong>Minden</strong> Smart Fields mező újragenerálása kötegelt feldolgozás során"
-    }
+    },
+    "saveError": "Nem sikerült menteni a beállításokat",
+    "sections": {
+      "advanced": "Fejlett",
+      "dangerZone": "Veszélyzóna",
+      "general": "Általános",
+      "generation": "Generáció"
+    },
+    "title": "Beállítások elemre"
   },
   "fieldEditor": {
     "alreadySmartField": "Már Smart Field",

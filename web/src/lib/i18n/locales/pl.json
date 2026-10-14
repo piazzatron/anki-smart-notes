@@ -81,6 +81,14 @@
       "description": "Szczegółowe rejestrowanie ułatwiające diagnozowanie problemów. Dołącz te dzienniki podczas zgłaszania błędu.",
       "label": "Tryb debugowania"
     },
+    "generateAtReview": {
+      "description": "Uzupełnia brakujące Smart Fields dla nadchodzących kart podczas nauki.",
+      "label": "Generuj z wyprzedzeniem podczas nauki"
+    },
+    "generateOnAdd": {
+      "description": "Generuje Smart Fields w tle dla nowo dodanych notatek, także z narzędzi takich jak Yomitan i AnkiConnect.",
+      "label": "Automatycznie generuj nowo dodane notatki"
+    },
     "language": {
       "description": "Wybierz język dla Smart Notes lub dopasuj język Anki.",
       "label": "Język",
@@ -98,26 +106,18 @@
       "title": "Użyj mojego własnego klucza OpenAI"
     },
     "loading": "Ładowanie ustawień",
-    "saveError": "Nie udało się zapisać ustawień",
-    "sections": {
-      "advanced": "Zaawansowany",
-      "general": "Ogólny",
-      "generation": "Generacja",
-      "dangerZone": "Strefa niebezpieczna"
-    },
-    "title": "Ustawienia",
-    "generateAtReview": {
-      "description": "Uzupełnia brakujące Smart Fields dla nadchodzących kart podczas nauki.",
-      "label": "Generuj z wyprzedzeniem podczas nauki"
-    },
-    "generateOnAdd": {
-      "description": "Generuje Smart Fields w tle dla nowo dodanych notatek, także z narzędzi takich jak Yomitan i AnkiConnect.",
-      "label": "Automatycznie generuj nowo dodane notatki"
-    },
     "regenerateWhenBatching": {
       "description": "Regeneruje wszystkie Smart Fields, a nie tylko puste. Spowoduje to nadpisanie istniejących pól.",
       "label": "Regeneruj <strong>wszystkie</strong> Smart Fields podczas przetwarzania wsadowego"
-    }
+    },
+    "saveError": "Nie udało się zapisać ustawień",
+    "sections": {
+      "advanced": "Zaawansowany",
+      "dangerZone": "Strefa niebezpieczna",
+      "general": "Ogólny",
+      "generation": "Generacja"
+    },
+    "title": "Ustawienia"
   },
   "fieldEditor": {
     "alreadySmartField": "Już jest polem Smart Fields",

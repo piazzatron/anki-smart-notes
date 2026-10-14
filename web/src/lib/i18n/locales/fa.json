@@ -79,6 +79,14 @@
       "description": "گزارش دقیق برای کمک به تشخیص مشکلات. این گزارش‌ها را هنگام ثبت یک باگ وارد کنید.",
       "label": "حالت اشکال زدایی"
     },
+    "generateAtReview": {
+      "description": "هنگام مرور، Smart Fields های خالی کارت‌های بعدی را پر می‌کند.",
+      "label": "تولید زودهنگام در حین مرور"
+    },
+    "generateOnAdd": {
+      "description": "Smart Fields را در پس‌زمینه برای یادداشت‌های تازه‌اضافه‌شده تولید می‌کند، از جمله یادداشت‌هایی که از ابزارهایی مانند Yomitan و AnkiConnect اضافه می‌شوند.",
+      "label": "تولید خودکار برای یادداشت‌های تازه‌اضافه‌شده"
+    },
     "language": {
       "description": "زبان Smart Notes را انتخاب کنید یا با زبان Anki مطابقت دهید.",
       "label": "زبان",
@@ -96,26 +104,18 @@
       "title": "از کلید OpenAI خودم استفاده کنید"
     },
     "loading": "در حال بارگیری تنظیمات",
-    "saveError": "تنظیمات ذخیره نشد",
-    "sections": {
-      "advanced": "پیشرفته",
-      "general": "ژنرال",
-      "generation": "نسل",
-      "dangerZone": "منطقه خطر"
-    },
-    "title": "تنظیمات",
-    "generateAtReview": {
-      "description": "هنگام مرور، Smart Fields های خالی کارت‌های بعدی را پر می‌کند.",
-      "label": "تولید زودهنگام در حین مرور"
-    },
-    "generateOnAdd": {
-      "description": "Smart Fields را در پس‌زمینه برای یادداشت‌های تازه‌اضافه‌شده تولید می‌کند، از جمله یادداشت‌هایی که از ابزارهایی مانند Yomitan و AnkiConnect اضافه می‌شوند.",
-      "label": "تولید خودکار برای یادداشت‌های تازه‌اضافه‌شده"
-    },
     "regenerateWhenBatching": {
       "description": "همه Smart Fields را دوباره تولید می‌کند، نه فقط فیلدهای خالی. این کار فیلدهای موجود را بازنویسی می‌کند.",
       "label": "تولید مجدد <strong>همه</strong> Smart Fields در پردازش دسته‌ای"
-    }
+    },
+    "saveError": "تنظیمات ذخیره نشد",
+    "sections": {
+      "advanced": "پیشرفته",
+      "dangerZone": "منطقه خطر",
+      "general": "ژنرال",
+      "generation": "نسل"
+    },
+    "title": "تنظیمات"
   },
   "fieldEditor": {
     "alreadySmartField": "از قبل یک فیلد هوشمند است",

@@ -79,6 +79,14 @@
       "description": "Utførlig logging for å hjelpe med å diagnostisere problemer. Inkluder disse loggene når du registrerer en feil.",
       "label": "Feilsøkingsmodus"
     },
+    "generateAtReview": {
+      "description": "Fyll inn manglende Smart Fields for kommende kort mens du repeterer.",
+      "label": "Generer på forhånd under repetisjon"
+    },
+    "generateOnAdd": {
+      "description": "Generer Smart Fields i bakgrunnen for nye notater, også fra verktøy som Yomitan og AnkiConnect.",
+      "label": "Generer nye notater automatisk"
+    },
     "language": {
       "description": "Velg språket for Smart Notes, eller match Ankis språk.",
       "label": "Språk",
@@ -96,26 +104,18 @@
       "title": "Bruk min egen OpenAI-nøkkel"
     },
     "loading": "Laster innstillinger",
-    "saveError": "Kunne ikke lagre innstillingene",
-    "sections": {
-      "advanced": "Avansert",
-      "general": "General",
-      "generation": "Generasjon",
-      "dangerZone": "Faresone"
-    },
-    "title": "Innstillinger",
-    "generateAtReview": {
-      "description": "Fyll inn manglende Smart Fields for kommende kort mens du repeterer.",
-      "label": "Generer på forhånd under repetisjon"
-    },
-    "generateOnAdd": {
-      "description": "Generer Smart Fields i bakgrunnen for nye notater, også fra verktøy som Yomitan og AnkiConnect.",
-      "label": "Generer nye notater automatisk"
-    },
     "regenerateWhenBatching": {
       "description": "Generer alle Smart Fields på nytt, ikke bare tomme. Dette overskriver eksisterende felt.",
       "label": "Generer på nytt <strong>alle</strong> Smart Fields under batchbehandling"
-    }
+    },
+    "saveError": "Kunne ikke lagre innstillingene",
+    "sections": {
+      "advanced": "Avansert",
+      "dangerZone": "Faresone",
+      "general": "General",
+      "generation": "Generasjon"
+    },
+    "title": "Innstillinger"
   },
   "fieldEditor": {
     "alreadySmartField": "Allerede et Smart-felt",

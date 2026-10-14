@@ -81,6 +81,14 @@
       "description": "Podrobné protokolování pomáhá diagnostikovat problémy. Při hlášení chyby zahrňte tyto protokoly.",
       "label": "Režim ladění"
     },
+    "generateAtReview": {
+      "description": "Doplňte chybějící Smart Fields u nadcházejících kartiček během opakování.",
+      "label": "Generovat předem během opakování"
+    },
+    "generateOnAdd": {
+      "description": "Generovat Smart Fields na pozadí u nově přidaných poznámek, včetně poznámek z nástrojů jako Yomitan a AnkiConnect.",
+      "label": "Automaticky generovat nově přidané poznámky"
+    },
     "language": {
       "description": "Vyberte jazyk pro Smart Notes nebo se shodujte s jazykem Anki.",
       "label": "Jazyk",
@@ -98,26 +106,18 @@
       "title": "Použijte můj vlastní klíč OpenAI"
     },
     "loading": "Načítání nastavení",
-    "saveError": "Nastavení se nepodařilo uložit",
-    "sections": {
-      "advanced": "Moderní",
-      "general": "Generál",
-      "generation": "Generace",
-      "dangerZone": "Nebezpečná zóna"
-    },
-    "title": "Nastavení",
-    "generateAtReview": {
-      "description": "Doplňte chybějící Smart Fields u nadcházejících kartiček během opakování.",
-      "label": "Generovat předem během opakování"
-    },
-    "generateOnAdd": {
-      "description": "Generovat Smart Fields na pozadí u nově přidaných poznámek, včetně poznámek z nástrojů jako Yomitan a AnkiConnect.",
-      "label": "Automaticky generovat nově přidané poznámky"
-    },
     "regenerateWhenBatching": {
       "description": "Znovu vygenerovat všechna Smart Fields, nejen prázdná. Tím se přepíšou stávající pole.",
       "label": "Při dávkovém zpracování znovu vygenerovat <strong>všechna</strong> Smart Fields"
-    }
+    },
+    "saveError": "Nastavení se nepodařilo uložit",
+    "sections": {
+      "advanced": "Moderní",
+      "dangerZone": "Nebezpečná zóna",
+      "general": "Generál",
+      "generation": "Generace"
+    },
+    "title": "Nastavení"
   },
   "fieldEditor": {
     "alreadySmartField": "Již je Chytré pole",

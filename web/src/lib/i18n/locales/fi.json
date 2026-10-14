@@ -79,6 +79,14 @@
       "description": "Monisanainen lokikirjaus ongelmien diagnosoimiseksi. Sisällytä nämä lokit, kun ilmoitat virheestä.",
       "label": "Virheenkorjaustila"
     },
+    "generateAtReview": {
+      "description": "Täydennä puuttuvat Smart Fields -kentät tuleville korteille kertauksen aikana.",
+      "label": "Luo tulevat kortit etukäteen kertauksen aikana"
+    },
+    "generateOnAdd": {
+      "description": "Luo Smart Fields -kentät taustalla uusille muistiinpanoille, myös työkaluilla kuten Yomitan ja AnkiConnect.",
+      "label": "Luo uudet muistiinpanot automaattisesti"
+    },
     "language": {
       "description": "Valitse Smart Notes:n kieli tai vastaa Anki:n kieleen.",
       "label": "Kieli",
@@ -96,26 +104,18 @@
       "title": "Käytä omaa OpenAI-avainta"
     },
     "loading": "Ladataan asetuksia",
-    "saveError": "Asetuksia ei voitu tallentaa",
-    "sections": {
-      "advanced": "Edistynyt",
-      "general": "Kenraali",
-      "generation": "Sukupolvi",
-      "dangerZone": "Vaaravyöhyke"
-    },
-    "title": "Asetukset",
-    "generateAtReview": {
-      "description": "Täydennä puuttuvat Smart Fields -kentät tuleville korteille kertauksen aikana.",
-      "label": "Luo tulevat kortit etukäteen kertauksen aikana"
-    },
-    "generateOnAdd": {
-      "description": "Luo Smart Fields -kentät taustalla uusille muistiinpanoille, myös työkaluilla kuten Yomitan ja AnkiConnect.",
-      "label": "Luo uudet muistiinpanot automaattisesti"
-    },
     "regenerateWhenBatching": {
       "description": "Luo uudelleen kaikki Smart Fields -kentät, ei vain tyhjiä. Tämä korvaa olemassa olevat kentät.",
       "label": "Luo uudelleen <strong>kaikki</strong> Smart Fields -kentät erätyön aikana"
-    }
+    },
+    "saveError": "Asetuksia ei voitu tallentaa",
+    "sections": {
+      "advanced": "Edistynyt",
+      "dangerZone": "Vaaravyöhyke",
+      "general": "Kenraali",
+      "generation": "Sukupolvi"
+    },
+    "title": "Asetukset"
   },
   "fieldEditor": {
     "alreadySmartField": "Jo Smart Field",

@@ -82,6 +82,14 @@
       "description": "Logánú briathra chun cabhrú le saincheisteanna a dhiagnóiseadh. Cuir na logaí seo san áireamh agus fabht á chomhdú.",
       "label": "Modh dífhabhtaithe"
     },
+    "generateAtReview": {
+      "description": "Líon isteach na Smart Fields atá ar iarraidh do na cártaí atá le teacht agus tú ag athbhreithniú.",
+      "label": "Gin roimh ré le linn athbhreithnithe"
+    },
+    "generateOnAdd": {
+      "description": "Gin Smart Fields sa chúlra do nótaí a cuireadh leis le déanaí, lena n-áirítear ó uirlisí ar nós Yomitan agus AnkiConnect.",
+      "label": "Gin nótaí a cuireadh leis le déanaí go huathoibríoch"
+    },
     "language": {
       "description": "Roghnaigh an teanga le haghaidh Smart Notes, nó meaitseáil teanga Anki.",
       "label": "Teanga",
@@ -99,26 +107,18 @@
       "title": "Bain úsáid as m'eochair OpenAI féin"
     },
     "loading": "Socruithe á Luchtú",
-    "saveError": "Níorbh fhéidir na socruithe a shábháil",
-    "sections": {
-      "advanced": "Casta",
-      "general": "Ginearálta",
-      "generation": "Giniúint",
-      "dangerZone": "Crios Contúirte"
-    },
-    "title": "Socruithe",
-    "generateAtReview": {
-      "description": "Líon isteach na Smart Fields atá ar iarraidh do na cártaí atá le teacht agus tú ag athbhreithniú.",
-      "label": "Gin roimh ré le linn athbhreithnithe"
-    },
-    "generateOnAdd": {
-      "description": "Gin Smart Fields sa chúlra do nótaí a cuireadh leis le déanaí, lena n-áirítear ó uirlisí ar nós Yomitan agus AnkiConnect.",
-      "label": "Gin nótaí a cuireadh leis le déanaí go huathoibríoch"
-    },
     "regenerateWhenBatching": {
       "description": "Athghin gach Smart Field, ní hamháin na cinn atá folamh. Athscríobhtar na réimsí atá ann cheana leis seo.",
       "label": "Athghin na Smart Fields <strong>go léir</strong> le linn próiseála baisce"
-    }
+    },
+    "saveError": "Níorbh fhéidir na socruithe a shábháil",
+    "sections": {
+      "advanced": "Casta",
+      "dangerZone": "Crios Contúirte",
+      "general": "Ginearálta",
+      "generation": "Giniúint"
+    },
+    "title": "Socruithe"
   },
   "fieldEditor": {
     "alreadySmartField": "Réimse Cliste cheana féin",

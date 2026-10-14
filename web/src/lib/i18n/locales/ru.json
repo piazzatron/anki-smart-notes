@@ -81,6 +81,14 @@
       "description": "Подробное ведение журнала для диагностики проблем. Включите эти журналы при регистрации ошибки.",
       "label": "Режим отладки"
     },
+    "generateAtReview": {
+      "description": "Заполнять пустые Smart Fields для предстоящих карточек во время повторения.",
+      "label": "Генерировать заранее во время повторения"
+    },
+    "generateOnAdd": {
+      "description": "Генерировать Smart Fields в фоновом режиме для новых заметок, в том числе добавленных через такие инструменты, как Yomitan и AnkiConnect.",
+      "label": "Автоматически генерировать новые заметки"
+    },
     "language": {
       "description": "Выберите язык для Smart Notes или сопоставьте язык Anki.",
       "label": "Язык",
@@ -98,26 +106,18 @@
       "title": "Используйте мой собственный ключ OpenAI"
     },
     "loading": "Загрузка настроек",
-    "saveError": "Не удалось сохранить настройки",
-    "sections": {
-      "advanced": "Передовой",
-      "general": "Общий",
-      "generation": "Поколение",
-      "dangerZone": "Опасная зона"
-    },
-    "title": "Настройки",
-    "generateAtReview": {
-      "description": "Заполнять пустые Smart Fields для предстоящих карточек во время повторения.",
-      "label": "Генерировать заранее во время повторения"
-    },
-    "generateOnAdd": {
-      "description": "Генерировать Smart Fields в фоновом режиме для новых заметок, в том числе добавленных через такие инструменты, как Yomitan и AnkiConnect.",
-      "label": "Автоматически генерировать новые заметки"
-    },
     "regenerateWhenBatching": {
       "description": "Перегенерировать все Smart Fields, а не только пустые. Существующие поля будут перезаписаны.",
       "label": "Перегенерировать <strong>все</strong> Smart Fields при пакетной обработке"
-    }
+    },
+    "saveError": "Не удалось сохранить настройки",
+    "sections": {
+      "advanced": "Передовой",
+      "dangerZone": "Опасная зона",
+      "general": "Общий",
+      "generation": "Поколение"
+    },
+    "title": "Настройки"
   },
   "fieldEditor": {
     "alreadySmartField": "Уже Smart Field",
