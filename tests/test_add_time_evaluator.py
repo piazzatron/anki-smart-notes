@@ -51,7 +51,7 @@ class MockCollection:
         return self.notes[note_id]
 
 
-class MockProgress:
+class MockTimerProgress:
     def __init__(self) -> None:
         self.single_shots: list = []
 
@@ -64,7 +64,7 @@ def setup_add_time_evaluator(monkeypatch, *, generate_on_add=True):
 
     processor = MockProcessor()
     evaluator = src.add_time_evaluator.AddTimeEvaluator(processor)
-    mw = SimpleNamespace(col=MockCollection(), progress=MockProgress())
+    mw = SimpleNamespace(col=MockCollection(), progress=MockTimerProgress())
     cfg = MockConfig()
     cfg.generate_on_add = generate_on_add
     jobs: list = []
