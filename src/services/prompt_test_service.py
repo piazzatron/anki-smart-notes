@@ -343,9 +343,15 @@ def pick_random_test_card(request: RandomTestCardRequest) -> Optional[Card]:
 
     col = mw.col
     note_type = f"mid:{request.note_type_id}"
-    deck = [] if request.deck_id == GLOBAL_DECK_ID else [f"did:{request.deck_id}"]
+    # Anki 24.11 up to 26.09 writes "did:N" as unparenthesized SQL, so terms after it
+    # only apply to filtered-deck cards. Keep the deck term in parentheses.
+    deck = [] if request.deck_id == GLOBAL_DECK_ID else [f"(did:{request.deck_id})"]
+    # A field is filled when it isn't empty ("-Field:"). Building it as a SearchNode lets
+    # Anki escape the field name. The usual non-empty searches don't fit a SearchNode:
+    # SearchNode escapes the wildcards in "_*", and the regex flag is is_re before Anki
+    # 25.09 but mode from 25.09 on.
     filled = [
-        SearchNode(field=SearchNode.Field(field_name=name, text=".", is_re=True))
+        SearchNode(negated=SearchNode(field=SearchNode.Field(field_name=name)))
         for name in request.filled_field_names
     ]
     for search in (

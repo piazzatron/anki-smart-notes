@@ -22,6 +22,11 @@
 - Use `source .venv/bin/activate && python -m pytest` to run tests.
 - When adding or removing runtime dependencies in `requirements.txt`, also update the vendored dependency list in `scripts/build.sh`; packaged Anki builds only include dependencies copied into `dist/vendor`.
 
+## Supported Anki Versions
+
+- Smart Notes supports Anki 2.1.20+ (the range set on the AnkiWeb listing). The maintainer runs Anki 26.09.3.
+- Anki's Python API changes between releases (25.09 replaced `SearchNode.Field.is_re` with `mode`; hooks like `addon_manager_will_install_addon` only exist from 2.1.65). Code that touches Anki APIs must work across the whole supported range: prefer APIs that exist in every version, and guard the ones that don't.
+
 ## Changelog Versioning
 
 - `manifest.json`'s `human_version` is the currently shipped version.
