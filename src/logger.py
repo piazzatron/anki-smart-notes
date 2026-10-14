@@ -44,6 +44,15 @@ def setup_logger() -> None:
     is_debug = bool(config.get("debug"))
     logger.setLevel(logging.DEBUG if is_debug else logging.INFO)
     logger.addHandler(stream_handler)
+    # Anki (aqt/log.py) calls logging.basicConfig at startup, which puts its
+    # own stdout handler on the root logger. Since "smart_notes" is a child of
+    # root, every record we emit would print once via our stream_handler and
+    # again via Anki's root handler. Stop propagation while our handlers are
+    # attached so each line prints once. This only changes where records are
+    # dispatched: our file handler still gets everything, and Sentry's
+    # LoggingIntegration hooks Logger.callHandlers directly, so it still sees
+    # every record too.
+    logger.propagate = False
 
     if not os.getenv("IS_TEST"):
         try:
@@ -75,6 +84,12 @@ def cleanup_logger() -> None:
     for handler in list(logger.handlers):
         logger.removeHandler(handler)
         handler.close()
+    # setup_logger turns propagation off while our handlers are attached.
+    # Turn it back on now that they're gone, so logs emitted after shutdown or
+    # an add-on update cleanup still reach Anki's root stdout handler instead
+    # of being dropped. (Before setup_logger first runs, e.g. Sentry init at
+    # import time, propagation is on by default.)
+    logger.propagate = True
 
 
 logger = logging.getLogger("smart_notes")
