@@ -43,8 +43,11 @@ from .tasks import run_async_in_background
 from .ui.ui_utils import show_message_box
 from .utils import get_version, is_production
 
-# DSNs are public identifiers, not secrets.
-SENTRY_DSN = "https://6fc6fd1120bfa44bdd2a360b9742bfbb@o4507868891119616.ingest.us.sentry.io/4507868896886784"
+# DSNs are public identifiers, not secrets. Events go through the API server,
+# which forwards them to Sentry.
+SENTRY_DSN = (
+    "https://6fc6fd1120bfa44bdd2a360b9742bfbb@api.smart-notes.xyz/m/4507868896886784"
+)
 
 
 def _get_user_id_from_jwt(token: str) -> Optional[str]:
