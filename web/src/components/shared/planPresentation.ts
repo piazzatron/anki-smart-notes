@@ -15,7 +15,7 @@ export interface PlanPresentation {
 }
 
 export interface CreditSegment {
-  key: "text" | "voice" | "images"
+  key: "text" | "chat" | "voice" | "images"
   label: string
   percent: number
   color: string
@@ -105,6 +105,12 @@ export const getCreditSegments = (plan: PlanInfo): CreditSegment[] => {
       label: i18next.t("subscription.creditTypes.text"),
       percent: toPercent(plan.textCreditsUsed),
       color: "#9a9aa4",
+    },
+    {
+      key: "chat",
+      label: i18next.t("sidebar.nav.chat"),
+      percent: toPercent(plan.assistantCreditsUsed),
+      color: "#c084fc",
     },
     {
       key: "images",

@@ -34,6 +34,9 @@ interface BootOptions {
   ankiLocale: string
 }
 
+export const isScreenId = (value: string): value is ScreenId =>
+  SCREEN_IDS.has(value as ScreenId)
+
 const readBootOptions = (): BootOptions => {
   const params = new URLSearchParams(
     typeof window === "undefined" ? "" : window.location.search,
@@ -47,8 +50,8 @@ const readBootOptions = (): BootOptions => {
 
   return {
     screen:
-      requestedScreen !== null && SCREEN_IDS.has(requestedScreen as ScreenId)
-        ? (requestedScreen as ScreenId)
+      requestedScreen !== null && isScreenId(requestedScreen)
+        ? requestedScreen
         : "fields",
     mock: import.meta.env.DEV && params.get("mock") === "1",
     fixture: params.get("fixture") ?? "populated",

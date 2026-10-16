@@ -5,30 +5,21 @@ import {
   loadAssistantHistory,
 } from "@/services/commands"
 import { useAppStore } from "@/store/appStore"
-import type {
-  AssistantMessage,
-  AssistantRecord,
-  AssistantTurnUsage,
-} from "@/types/api"
+import type { AssistantMessage, AssistantRecord } from "@/types/api"
 
 import { buildAssistantContext, runAssistantTurn } from "./assistantLoop"
 
 const HISTORY_PAGE_SIZE = 10
 
-/** Everything the assistant has spent since the window opened. */
-export interface AssistantSessionUsage {
-  inputTokens: number
-  outputTokens: number
-  reasoningTokens: number
-  credits: number
+/** How long a turn spent reasoning, and what it said while doing it. */
+export interface TurnReasoning {
+  text: string
+  seconds: number
 }
 
-const NO_USAGE: AssistantSessionUsage = {
-  inputTokens: 0,
-  outputTokens: 0,
-  reasoningTokens: 0,
-  credits: 0,
-}
+/** Identifies one journaled record, for the maps keyed on them below. */
+export const recordKey = (record: AssistantRecord): string =>
+  `${record.sessionId}-${record.seq}`
 
 export interface AssistantSessionState {
   /** Every record in the scroll, oldest first, across all sessions. */
@@ -37,7 +28,14 @@ export interface AssistantSessionState {
   streamingText: string | null
   /** The reasoning for the step in progress. Shown, never stored. */
   streamingReasoning: string | null
-  usage: AssistantSessionUsage
+  /**
+   * A finished turn's reasoning and cost, keyed by the reply they belong to.
+   * Neither is journaled, so replies loaded from history carry neither.
+   */
+  reasoningByRecord: Record<string, TurnReasoning>
+  creditsByRecord: Record<string, number>
+  /** Credits the assistant has spent since the window opened. */
+  creditsUsed: number
   isRunning: boolean
   error: string | null
   hasMoreHistory: boolean
@@ -66,7 +64,13 @@ export const useAssistantSession = (
   const [streamingReasoning, setStreamingReasoning] = useState<string | null>(
     null,
   )
-  const [usage, setUsage] = useState<AssistantSessionUsage>(NO_USAGE)
+  const [reasoningByRecord, setReasoningByRecord] = useState<
+    Record<string, TurnReasoning>
+  >({})
+  const [creditsByRecord, setCreditsByRecord] = useState<
+    Record<string, number>
+  >({})
+  const [creditsUsed, setCreditsUsed] = useState(0)
   const [isRunning, setIsRunning] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [cursor, setCursor] = useState<number | null>(null)
@@ -168,6 +172,40 @@ export const useAssistantSession = (
           message,
         })
         setRecords((current) => [...current, stored])
+        return stored
+      }
+
+      // A turn's reasoning and cost belong to the reply it produced, but the
+      // journal stores neither, so they are held here and re-pointed at the
+      // turn's latest reply as it lands.
+      let reasoningText = ""
+      let reasoningStartedAt: number | null = null
+      let turnCredits = 0
+      let attachedKey: string | null = null
+
+      const attachTo = (key: string) => {
+        const seconds =
+          reasoningStartedAt === null
+            ? 0
+            : Math.round((Date.now() - reasoningStartedAt) / 1000)
+
+        setReasoningByRecord((current) =>
+          withKeyMoved(
+            current,
+            attachedKey,
+            key,
+            reasoningText.length > 0 ? { text: reasoningText, seconds } : null,
+          ),
+        )
+        setCreditsByRecord((current) =>
+          withKeyMoved(
+            current,
+            attachedKey,
+            key,
+            turnCredits > 0 ? Math.round(turnCredits) : null,
+          ),
+        )
+        attachedKey = key
       }
 
       const run = async () => {
@@ -202,13 +240,23 @@ export const useAssistantSession = (
             state,
             signal: controller.signal,
             onDelta: setStreamingText,
-            onReasoningDelta: setStreamingReasoning,
+            onReasoningDelta: (text) => {
+              reasoningStartedAt ??= Date.now()
+              reasoningText = text
+              setStreamingReasoning(text)
+            },
             onMessage: (message) => {
               setStreamingText(null)
               setStreamingReasoning(null)
-              void journal(message)
+              void journal(message).then((stored) => {
+                if ("role" in message && message.role === "assistant")
+                  attachTo(recordKey(stored))
+              })
             },
-            onUsage: (turn) => setUsage((total) => addUsage(total, turn)),
+            onUsage: (turn) => {
+              turnCredits += turn.credits
+              setCreditsUsed((total) => total + turn.credits)
+            },
           })
         } catch (e) {
           if (!controller.signal.aborted) setError(errorMessage(e))
@@ -238,7 +286,9 @@ export const useAssistantSession = (
     records,
     streamingText,
     streamingReasoning,
-    usage,
+    reasoningByRecord,
+    creditsByRecord,
+    creditsUsed,
     isRunning,
     error,
     hasMoreHistory,
@@ -250,15 +300,18 @@ export const useAssistantSession = (
   }
 }
 
-const addUsage = (
-  total: AssistantSessionUsage,
-  turn: AssistantTurnUsage,
-): AssistantSessionUsage => ({
-  inputTokens: total.inputTokens + turn.inputTokens,
-  outputTokens: total.outputTokens + turn.outputTokens,
-  reasoningTokens: total.reasoningTokens + (turn.reasoningTokens ?? 0),
-  credits: total.credits + turn.credits,
-})
+/** Re-points a turn's value at its newest reply, dropping the older entry. */
+const withKeyMoved = <T>(
+  entries: Record<string, T>,
+  from: string | null,
+  to: string,
+  value: T | null,
+): Record<string, T> => {
+  const next = { ...entries }
+  if (from !== null) delete next[from]
+  if (value !== null) next[to] = value
+  return next
+}
 
 const errorMessage = (error: unknown): string =>
   error instanceof Error ? error.message : String(error)

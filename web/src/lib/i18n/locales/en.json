@@ -147,7 +147,11 @@
       "updateWizardSettings": "Could not update wizard settings",
       "writePrompt": "Could not write the prompt"
     },
-    "fieldTypes": { "audio": "Audio", "image": "Image", "text": "Text" },
+    "fieldTypes": {
+      "audio": "Audio",
+      "image": "Image",
+      "text": "Text"
+    },
     "loadingModelCatalog": "Loading model catalog…",
     "modelSettings": {
       "appliesOnlyToField": "Applies to this Smart Field only.",
@@ -226,9 +230,15 @@
       "title": "Your notes are looking a little empty"
     },
     "enable": "Enable",
-    "errors": { "commandFailed": "Smart Field command failed" },
+    "errors": {
+      "commandFailed": "Smart Field command failed"
+    },
     "fieldTypeAriaLabel": "{{fieldType}} Smart Field",
-    "fieldTypes": { "chat": "Text", "image": "Image", "tts": "Audio" },
+    "fieldTypes": {
+      "chat": "Text",
+      "image": "Image",
+      "tts": "Audio"
+    },
     "loadingAriaLabel": "Loading Smart Fields",
     "newSmartField": "New Smart Field",
     "readsAloud": "Reads {{field}} aloud",
@@ -282,7 +292,11 @@
       "modelGuidance": "{{auto}} and {{autoMax}} are the Smart Notes recommended models that balance performance and cost. Choose {{auto}} for standard tasks and upgrade to {{autoMax}} if needed.",
       "pickingModel": "💡 Picking a model",
       "reasoningLevel": "Reasoning level",
-      "reasoningValues": { "high": "High", "low": "Low", "off": "Off" },
+      "reasoningValues": {
+        "high": "High",
+        "low": "Low",
+        "off": "Off"
+      },
       "samplePrompt": "What is a Spaced Repetition System (SRS)?",
       "saveError": "Could not save text defaults",
       "subtitle": "Default settings for text generation. Individual Smart Fields can override these values.",
@@ -369,7 +383,9 @@
     "creditsReset": "Credits reset",
     "daysLeft_one": "Last day",
     "daysLeft_other": "{{count}} days left",
-    "errors": { "logout": "Could not log out" },
+    "errors": {
+      "logout": "Could not log out"
+    },
     "endingSoon": "Ending soon",
     "expired": "Expired",
     "freePlan": "Free plan",
@@ -458,7 +474,9 @@
     "connect": "Connect",
     "connecting": "Connecting…",
     "description": "Add text, speech, and images to individual cards or your entire deck in one click.",
-    "errors": { "code": "Could not connect with that code" },
+    "errors": {
+      "code": "Could not connect with that code"
+    },
     "finishDescription": "Complete sign-in in the browser we opened. This window will update automatically.",
     "finishInBrowser": "Finish up in your browser",
     "haveCode": "Have a code from the website?",
@@ -488,52 +506,82 @@
     "upgradeNow": "Upgrade now"
   },
   "assistant": {
-    "binding": {
-      "add": "Adding: {{target}}",
-      "edit": "Editing: {{target}}",
-      "none": "No active target",
-      "review": "Reviewing: {{target}}",
+    "chatSettings": "Chat settings",
+    "credits_one": "≈ 1 credit",
+    "credits_other": "≈ {{count}} credits",
+    "editQuickActions": "Edit quick actions",
+    "emptyState": {
+      "create": "Create new cards",
+      "description": "Ask about what you're studying, or put me to work in Anki.",
+      "edit": "Edit your existing cards",
+      "exampleField": "FRONT",
+      "exampleFront": "Mitochondria",
+      "exampleQuestion": "wait, what does this mean again",
+      "explain": "Explain the card you're on",
+      "title": "I'm your Smart Notes tutor."
+    },
+    "header": {
+      "addSubline": "{{noteType}} → {{deck}}",
+      "addTarget": "New card",
+      "adding": "Adding",
+      "currentCard": "Current card",
+      "noneTarget": "No card selected",
+      "reviewing": "Reviewing",
       "untitled": "Untitled note"
     },
-    "empty": "Ask about the active card, change its fields, or create a new note.",
-    "loadEarlier": "Load earlier sessions",
+    "loadEarlierCards": "Load earlier cards",
     "loading": "Loading…",
-    "modelAriaLabel": "Assistant model",
-    "newTarget": "New target",
-    "placeholder": "Ask about or change the active card…",
-    "reasoningAriaLabel": "Assistant reasoning level",
+    "newCard": "New card",
+    "pending": "Thinking…",
+    "placeholder": "Ask about this card…",
+    "reasoningChip": "Reasoning · {{level}}",
+    "reasoningDone": "Reasoning · {{seconds}}s",
+    "reasoningStreaming": "Reasoning…",
     "send": "Send",
-    "sending": "…",
-    "showThinkingAriaLabel": "Show the model's thinking",
     "signIn": "Sign in to Smart Notes to use the assistant.",
-    "thinking": "Thinking",
-    "thinkingPending": "Thinking…",
     "tool": {
-      "createNote": "Created a note in “{{deck}}”",
-      "getField": "Read “{{field}}”",
-      "listDecks": "Listed decks",
-      "listNoteTypes": "Listed note types",
-      "updateField": "Updated “{{field}}”"
+      "createNoteDone": "Created a note in “{{deck}}”",
+      "createNoteRunning": "Creating a note in “{{deck}}”…",
+      "getFieldDone": "Read “{{field}}”",
+      "getFieldRunning": "Reading “{{field}}”…",
+      "listDecksDone": "Listed decks",
+      "listDecksRunning": "Listing decks…",
+      "listNoteTypesDone": "Listed note types",
+      "listNoteTypesRunning": "Listing note types…",
+      "updateFieldDone": "Updated “{{field}}”",
+      "updateFieldRunning": "Updating “{{field}}”…"
     },
-    "usage": "{{input}} in · {{output}} out{{thinking}} · {{credits}} credits · ~${{usd}}",
-    "usageThinking": " · {{count}} thinking"
+    "working": "Working"
   },
   "chatSettings": {
-    "addPrompt": "Add prompt",
+    "addQuickAction": "Add quick action",
     "buttonLabel": "Button label",
-    "emptyPrompts": "No saved prompts yet.",
+    "emptyQuickActions": "No quick actions yet.",
     "invalidPrompt": "Every button needs a label and a prompt.",
+    "loading": "Loading…",
+    "model": "Model",
+    "modelAriaLabel": "Default assistant model",
+    "modelDescription": "Switchable for a single message in the chat window.",
+    "otherSettings": "Other Settings",
     "promptPlaceholder": "What to send when the button is pressed",
     "promptTextAriaLabel": "Prompt text",
-    "remove": "Remove",
-    "responseLanguage": "Response language",
-    "responseLanguageAriaLabel": "Assistant response language",
-    "responseLanguageDescription": "The assistant replies in this language whatever the card is written in.",
+    "quickActions": "Quick Actions",
+    "quickActionsDescription": "One-tap buttons above the message box. Drag to reorder — the first few are the ones that fit without wrapping.",
+    "reasoning": "Reasoning",
+    "reasoningAriaLabel": "Default reasoning level",
+    "reasoningDescription": "Higher reasoning can improve harder answers, but uses more credits.",
+    "removeQuickAction": "Remove quick action",
+    "reorderQuickAction": "Drag to reorder",
+    "replyLanguage": "Reply language",
+    "replyLanguageAriaLabel": "Assistant reply language",
+    "replyLanguageDescription": "The assistant replies in this language whatever the card is written in.",
     "save": "Save changes",
-    "savedPrompts": "Saved prompts",
-    "savedPromptsDescription": "Each one becomes a button above the message box in the chat window.",
     "saving": "Saving…",
-    "subtitle": "Configure the chat assistant",
+    "showCreditUsage": "Show credit usage",
+    "showCreditUsageDescription": "Print the approximate cost under each reply.",
+    "showReasoning": "Show reasoning",
+    "showReasoningDescription": "Watch it work through the answer. Only has something to show when reasoning is on.",
+    "subtitle": "Your study assistant — how it answers, and what it shows you.",
     "title": "Chat"
   }
 }

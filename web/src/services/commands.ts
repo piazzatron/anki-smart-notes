@@ -181,6 +181,10 @@ export const openAnkiBrowser = async (): Promise<void> => {
   await sendCommand("ui.openBrowser", {} satisfies UiOpenBrowserPayload)
 }
 
+export const openChatSettings = async (): Promise<void> => {
+  await sendCommand("ui.openChatSettings", {})
+}
+
 async function sendCommandToAnki<Result = void>(
   command: CommandName,
   payload: object,

@@ -24,6 +24,7 @@ import english from "../src/lib/i18n/locales/en.json"
 const MODEL = "claude-sonnet-4-5-20250929"
 const TRANSLATION_TOOL_NAME = "submit_translations"
 const TRANSLATION_BATCH_SIZE = 10
+const TRANSLATION_CONCURRENCY = 6
 const LOCALES_DIRECTORY = new URL("../src/lib/i18n/locales/", import.meta.url)
 const forceIndex = process.argv.indexOf("--force")
 const forcedLocale = forceIndex === -1 ? null : process.argv[forceIndex + 1]
@@ -207,9 +208,8 @@ const translateInBatches = async (
 }
 
 const englishSource = flattenCatalog(english)
-for (const language of targetLanguages) {
-  if (forcedLocale !== null && language.bcp47 !== forcedLocale) continue
 
+const translateLocale = async (language: (typeof targetLanguages)[number]) => {
   const source = sourceForLocale(englishSource, language.bcp47)
   const existing =
     forcedLocale === language.bcp47 ? {} : await readCatalog(language.bcp47)
@@ -235,4 +235,33 @@ for (const language of targetLanguages) {
   console.log(
     `${language.bcp47}: translated ${Object.keys(missing).length} strings`,
   )
+}
+
+// Locales are independent — each one only reads and writes its own catalog file
+// — so a pool of workers drains a shared queue instead of running every locale
+// end to end. Batches within a locale stay serial to keep each tool call small.
+const pending = targetLanguages.filter(
+  ({ bcp47 }) => forcedLocale === null || bcp47 === forcedLocale,
+)
+const failures: string[] = []
+let nextIndex = 0
+
+await Promise.all(
+  Array.from({ length: TRANSLATION_CONCURRENCY }, async () => {
+    while (nextIndex < pending.length) {
+      const language = pending[nextIndex++]
+      // Each locale has already written its own file by the time a later one
+      // fails, so record the failure and keep draining the queue.
+      try {
+        await translateLocale(language)
+      } catch (error) {
+        failures.push(language.bcp47)
+        console.error(`${language.bcp47}: failed`, error)
+      }
+    }
+  }),
+)
+
+if (failures.length > 0) {
+  throw new Error(`Translation failed for: ${failures.join(", ")}`)
 }

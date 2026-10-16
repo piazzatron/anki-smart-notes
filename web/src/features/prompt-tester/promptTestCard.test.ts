@@ -40,6 +40,7 @@ const ACCOUNT: AccountState = {
     notesLimit: null,
     daysLeft: 20,
     textCreditsUsed: 0,
+    assistantCreditsUsed: 0,
     textCreditsCapacity: 100,
     voiceCreditsUsed: 0,
     voiceCreditsCapacity: 100,

@@ -38,11 +38,13 @@ from .decks import deck_id_to_name_map
 from .event_bus import event_bus
 from .feature_flags import refresh_feature_flags
 from .generation_access import ensure_generation_available
+from .local_server import ensure_local_server_started, stop_local_server
 from .logger import cleanup_logger, logger, setup_logger
 from .note_proccessor import NoteProcessor
 from .review_time_evaluator import ReviewTimeEvaluator
 from .sentry import sentry, with_sentry
 from .tasks import run_async_in_background
+from .ui.app_windows import close_assistant, close_web_app
 from .ui.changelog import ChangeLogDialog, is_new_major_or_minor_version
 from .ui.field_menu import FieldMenu
 from .ui.i18n import native_action_text
@@ -54,14 +56,7 @@ from .utils.notes_utils import (
     is_card_fully_processed,
 )
 from .web.hook_adapters import setup_web_hooks
-from .web_app import (
-    close_assistant,
-    close_web_app,
-    ensure_local_server_started,
-    open_assistant,
-    open_web_app,
-    stop_local_server,
-)
+from .web_app import open_assistant, open_web_app
 
 _review_time_evaluator: Optional[ReviewTimeEvaluator] = None
 

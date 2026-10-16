@@ -1,4 +1,11 @@
-import { lazy, Suspense, useState, type ComponentType } from "react"
+import {
+  lazy,
+  Suspense,
+  useCallback,
+  useEffect,
+  useState,
+  type ComponentType,
+} from "react"
 import { useTranslation } from "react-i18next"
 
 import { AppShell } from "@/components/shared/AppShell"
@@ -96,22 +103,42 @@ const App = () => {
       ? state.featureFlags.reviewFreeMonth
       : null
 
-  const completeNavigation = (screen: ScreenId) => {
+  const completeNavigation = useCallback((screen: ScreenId) => {
     setActiveScreen(screen)
     if (screen !== "fields") {
       setEditorRequest((request) => ({ ...request, editor: undefined }))
     }
-  }
+  }, [])
 
-  const navigateTo = (screen: ScreenId) => {
-    if (screen === activeScreen) return
-    if (hasUnsavedDefaults) {
-      setPendingScreen(screen)
-      return
-    }
+  const navigateTo = useCallback(
+    (screen: ScreenId) => {
+      if (screen === activeScreen) return
+      if (hasUnsavedDefaults) {
+        setPendingScreen(screen)
+        return
+      }
 
-    completeNavigation(screen)
-  }
+      completeNavigation(screen)
+    },
+    [activeScreen, completeNavigation, hasUnsavedDefaults],
+  )
+
+  // The plugin can point an already-open window at a screen — the chat
+  // window's settings buttons do. It navigates like any other request, so the
+  // unsaved-changes guard still gets its say.
+  useEffect(
+    () =>
+      useAppStore.subscribe((store, previous) => {
+        if (
+          store.requestedScreen === null ||
+          store.requestedScreen === previous.requestedScreen
+        )
+          return
+        useAppStore.setState({ requestedScreen: null })
+        navigateTo(store.requestedScreen)
+      }),
+    [navigateTo],
+  )
 
   // Booting straight to the assistant means the separate assistant window,
   // which is only the conversation: no shell, no nav, no takeovers. Reached

@@ -5,6 +5,7 @@ import type {
   AccountState,
   AppState,
   AssistantActiveTarget,
+  AssistantRecord,
   Catalog,
   CommandName,
   PlanInfo,
@@ -17,6 +18,7 @@ import type {
 
 const GLOBAL_DECK_ID = 1
 const MOCK_ACCOUNT_EMAIL = "geniie.dev@gmail.com"
+const MOCK_AUTH_TOKEN = "mock-auth-token"
 
 const HEALTHY_TRIAL_PLAN: PlanInfo = {
   planId: "free",
@@ -25,7 +27,8 @@ const HEALTHY_TRIAL_PLAN: PlanInfo = {
   notesUsed: 12,
   notesLimit: 50,
   daysLeft: 5,
-  textCreditsUsed: 36,
+  textCreditsUsed: 30,
+  assistantCreditsUsed: 6,
   textCreditsCapacity: 100,
   voiceCreditsUsed: 14,
   voiceCreditsCapacity: 100,
@@ -144,7 +147,7 @@ const BASE_STATE: AppState = {
     status: "AUTHENTICATED",
     plan: HEALTHY_TRIAL_PLAN,
     email: MOCK_ACCOUNT_EMAIL,
-    authToken: null,
+    authToken: MOCK_AUTH_TOKEN,
   },
   featureFlags: { reviewFreeMonth: true },
   defaults: {
@@ -177,7 +180,13 @@ const BASE_STATE: AppState = {
       prompt: "Explain this card to me.",
     },
   ],
-  assistantSettings: { responseLanguage: "auto" },
+  assistantSettings: {
+    model: "auto",
+    reasoningLevel: "off",
+    responseLanguage: "auto",
+    showCreditUsage: false,
+    showReasoning: false,
+  },
 }
 
 const withTrialPlan = (updates: Partial<PlanInfo>): PlanInfo => ({
@@ -206,6 +215,7 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
       daysLeft: 2,
       notesUsed: 42,
       textCreditsUsed: 85,
+      assistantCreditsUsed: 0,
       voiceCreditsUsed: 75,
       imageCreditsUsed: 86,
       totalCreditsUsed: 246,
@@ -224,6 +234,7 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
     plan: withTrialPlan({
       notesUsed: 50,
       textCreditsUsed: 100,
+      assistantCreditsUsed: 0,
       voiceCreditsUsed: 100,
       imageCreditsUsed: 100,
       totalCreditsUsed: 300,
@@ -241,6 +252,7 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
       notesLimit: null,
       daysLeft: 8,
       textCreditsUsed: 40,
+      assistantCreditsUsed: 0,
       textCreditsCapacity: 70,
       voiceCreditsUsed: 12,
       voiceCreditsCapacity: 20,
@@ -262,6 +274,7 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
       notesLimit: null,
       daysLeft: 18,
       textCreditsUsed: 70,
+      assistantCreditsUsed: 0,
       textCreditsCapacity: 250,
       voiceCreditsUsed: 3,
       voiceCreditsCapacity: 100,
@@ -284,6 +297,7 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
       notesLimit: null,
       daysLeft: 30,
       textCreditsUsed: 24,
+      assistantCreditsUsed: 0,
       voiceCreditsUsed: 0,
       imageCreditsUsed: 0,
       totalCreditsUsed: 24,
@@ -316,6 +330,7 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
       notesUsed: null,
       notesLimit: null,
       textCreditsUsed: 250,
+      assistantCreditsUsed: 0,
       textCreditsCapacity: 250,
       voiceCreditsUsed: 100,
       voiceCreditsCapacity: 100,
@@ -491,6 +506,38 @@ export const setMockSelection = (selection: string): void => {
   })
 }
 
+/** One card's conversation, so the transcript is visible in mock mode. */
+const MOCK_ASSISTANT_SESSION = "mock-session-1"
+
+const MOCK_ASSISTANT_RECORDS: AssistantRecord[] = [
+  { role: "user", content: "Explain this card" },
+  {
+    type: "function_call",
+    name: "get_field",
+    arguments: JSON.stringify({ fieldName: "Meaning" }),
+    call_id: "call-1",
+  },
+  { type: "function_call_output", call_id: "call-1", output: "fairly" },
+  {
+    role: "assistant",
+    content:
+      '**Mitochondria** are the organelles that produce most of a cell\'s ATP.\n\n- They have their own DNA, inherited maternally.\n- Cells that burn more energy carry more of them.\n\nThe "powerhouse" line is a simplification, but it is the one exams want.',
+  },
+  { role: "user", content: "Give me a mnemonic for it" },
+  {
+    role: "assistant",
+    content:
+      "*Mighty-chondria* — the mighty part of the cell. Say it once out loud and it tends to stick.",
+  },
+].map((message, seq) => ({
+  sessionId: MOCK_ASSISTANT_SESSION,
+  cardId: 4001,
+  deckId: 20,
+  noteTypeId: 1,
+  seq,
+  message: message as AssistantRecord["message"],
+}))
+
 export const sendMockCommand: CommandSender = async <Result = void>(
   command: CommandName,
   payload: object,
@@ -500,6 +547,20 @@ export const sendMockCommand: CommandSender = async <Result = void>(
   const state = useAppStore.getState().state
   if (state === null) return undefined as Result
   const commandPayload = payload as Record<string, unknown>
+
+  if (command === "assistant.history") {
+    return {
+      records: bootOptions.fixture.startsWith("empty")
+        ? []
+        : MOCK_ASSISTANT_RECORDS,
+      nextCursor: null,
+    } as Result
+  }
+
+  if (command === "assistant.append") {
+    const record = commandPayload as unknown as AssistantRecord
+    return { ...record, seq: Date.now() } as Result
+  }
 
   if (command === "assistant.getField") {
     const fieldName = String(commandPayload.fieldName)

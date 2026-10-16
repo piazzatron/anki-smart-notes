@@ -1,9 +1,10 @@
-import { bootOptions } from "@/lib/boot"
+import { bootOptions, isScreenId } from "@/lib/boot"
 import { useAppStore } from "@/store/appStore"
 import type {
   AppState,
   AssistantActiveTargetEvent,
   Catalog,
+  ScreenRequestedEvent,
   Selection,
 } from "@/types/api"
 
@@ -37,6 +38,11 @@ export const connectToAnki = (): (() => void) => {
         activeTarget: (JSON.parse(event.data) as AssistantActiveTargetEvent)
           .target,
       })
+    })
+
+    source.addEventListener("anki.screenRequested", (event) => {
+      const { screen } = JSON.parse(event.data) as ScreenRequestedEvent
+      if (isScreenId(screen)) useAppStore.setState({ requestedScreen: screen })
     })
 
     source.onerror = () => {

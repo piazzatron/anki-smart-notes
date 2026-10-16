@@ -53,6 +53,7 @@ const TEST_PLAN: PlanInfo = {
   notesLimit: 50,
   daysLeft: 7,
   textCreditsUsed: 0,
+  assistantCreditsUsed: 0,
   textCreditsCapacity: 100,
   voiceCreditsUsed: 0,
   voiceCreditsCapacity: 100,
@@ -98,7 +99,13 @@ const stateWithAccount = (
     didDismissDiscordPrompt: false,
   },
   assistantPrompts: [],
-  assistantSettings: { responseLanguage: "auto" },
+  assistantSettings: {
+    model: "auto",
+    reasoningLevel: "off",
+    responseLanguage: "auto",
+    showCreditUsage: false,
+    showReasoning: false,
+  },
 })
 
 const setAuthenticatedState = () => {

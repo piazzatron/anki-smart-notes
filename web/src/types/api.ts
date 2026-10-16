@@ -37,6 +37,7 @@ export interface PlanInfo {
   notesLimit: number | null
   daysLeft: number
   textCreditsUsed: number
+  assistantCreditsUsed: number
   textCreditsCapacity: number
   voiceCreditsUsed: number
   voiceCreditsCapacity: number
@@ -237,6 +238,7 @@ export type CommandName =
   | "support.sendFeedback"
   | "auth.logout"
   | "ui.openBrowser"
+  | "ui.openChatSettings"
   | "assistant.getField"
   | "assistant.updateField"
   | "assistant.addNote"
@@ -349,6 +351,11 @@ export interface AssistantActiveTarget {
   firstFieldValue: string
 }
 
+/** The plugin asking the open main window to show a screen. */
+export interface ScreenRequestedEvent {
+  screen: string
+}
+
 export interface AssistantActiveTargetEvent {
   target: AssistantActiveTarget | null
 }
@@ -432,7 +439,11 @@ export interface AssistantPrompt {
   prompt: string
 }
 
-/** How the assistant behaves. `responseLanguage` is a code, "auto" to match the user. */
+/** The assistant's generation defaults and optional reply details. */
 export interface AssistantSettings {
+  model: string
+  reasoningLevel: string
   responseLanguage: string
+  showCreditUsage: boolean
+  showReasoning: boolean
 }

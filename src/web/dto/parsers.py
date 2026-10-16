@@ -352,7 +352,26 @@ def parse_assistant_settings(payload: dict[str, Any]) -> AssistantSettings:
     language = payload["responseLanguage"]
     if not isinstance(language, str) or not language.strip():
         raise ValueError("responseLanguage is required")
-    return AssistantSettings(response_language=language)
+    model = payload["model"]
+    if not isinstance(model, str) or not model.strip():
+        raise ValueError("model is required")
+    reasoning_level = payload["reasoningLevel"]
+    if not isinstance(reasoning_level, str) or not reasoning_level.strip():
+        raise ValueError("reasoningLevel is required")
+    show_reasoning = payload["showReasoning"]
+    if not isinstance(show_reasoning, bool):
+        raise ValueError("showReasoning must be a boolean")
+    show_credit_usage = payload["showCreditUsage"]
+    if not isinstance(show_credit_usage, bool):
+        raise ValueError("showCreditUsage must be a boolean")
+
+    return AssistantSettings(
+        response_language=language,
+        model=model,
+        reasoning_level=reasoning_level,
+        show_reasoning=show_reasoning,
+        show_credit_usage=show_credit_usage,
+    )
 
 
 def parse_assistant_prompts(payload: dict[str, Any]) -> list[AssistantPrompt]:

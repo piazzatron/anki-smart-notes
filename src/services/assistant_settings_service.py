@@ -37,9 +37,19 @@ class AssistantSettings:
     """How the chat assistant behaves, for one Anki profile."""
 
     response_language: str
+    model: str
+    reasoning_level: str
+    show_reasoning: bool
+    show_credit_usage: bool
 
 
-DEFAULT_ASSISTANT_SETTINGS = AssistantSettings(response_language=AUTO_RESPONSE_LANGUAGE)
+DEFAULT_ASSISTANT_SETTINGS = AssistantSettings(
+    response_language=AUTO_RESPONSE_LANGUAGE,
+    model="auto",
+    reasoning_level="off",
+    show_reasoning=False,
+    show_credit_usage=False,
+)
 
 
 class AssistantSettingsService:
@@ -52,7 +62,12 @@ class AssistantSettingsService:
         with open_database() as conn:
             row = conn.execute(
                 """
-                SELECT response_language
+                SELECT
+                    response_language,
+                    model,
+                    reasoning_level,
+                    show_reasoning,
+                    show_credit_usage
                 FROM assistant_settings
                 WHERE profile_name = ?
                 """,
@@ -63,19 +78,43 @@ class AssistantSettingsService:
         # from the defaults yet.
         if row is None:
             return DEFAULT_ASSISTANT_SETTINGS
-        return AssistantSettings(response_language=row["response_language"])
+        return AssistantSettings(
+            response_language=row["response_language"],
+            model=row["model"],
+            reasoning_level=row["reasoning_level"],
+            show_reasoning=bool(row["show_reasoning"]),
+            show_credit_usage=bool(row["show_credit_usage"]),
+        )
 
     @republish_state
     def save_assistant_settings(self, settings: AssistantSettings) -> None:
         with open_database() as conn:
             conn.execute(
                 """
-                INSERT INTO assistant_settings (profile_name, response_language)
-                VALUES (?, ?)
+                INSERT INTO assistant_settings (
+                    profile_name,
+                    response_language,
+                    model,
+                    reasoning_level,
+                    show_reasoning,
+                    show_credit_usage
+                )
+                VALUES (?, ?, ?, ?, ?, ?)
                 ON CONFLICT(profile_name) DO UPDATE SET
-                    response_language = excluded.response_language
+                    response_language = excluded.response_language,
+                    model = excluded.model,
+                    reasoning_level = excluded.reasoning_level,
+                    show_reasoning = excluded.show_reasoning,
+                    show_credit_usage = excluded.show_credit_usage
                 """,
-                (self._get_profile_name(), settings.response_language),
+                (
+                    self._get_profile_name(),
+                    settings.response_language,
+                    settings.model,
+                    settings.reasoning_level,
+                    settings.show_reasoning,
+                    settings.show_credit_usage,
+                ),
             )
 
 

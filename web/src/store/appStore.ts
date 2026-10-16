@@ -1,5 +1,7 @@
 import { create } from "zustand"
 
+import type { ScreenId } from "@/lib/boot"
+
 import type {
   AppState,
   AssistantActiveTarget,
@@ -15,6 +17,8 @@ interface AppStore {
   catalog: Catalog | null
   selection: Selection | null
   activeTarget: AssistantActiveTarget | null
+  /** A screen the plugin asked for, cleared once the shell has navigated. */
+  requestedScreen: ScreenId | null
 }
 
 export const useAppStore = create<AppStore>(() => ({
@@ -23,4 +27,5 @@ export const useAppStore = create<AppStore>(() => ({
   catalog: null,
   selection: null,
   activeTarget: null,
+  requestedScreen: null,
 }))

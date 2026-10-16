@@ -17,12 +17,14 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from dataclasses import replace
 from pathlib import Path
 
 import pytest
 
 from src.database.migrations import apply_database_migrations
 from src.services.assistant_settings_service import (
+    DEFAULT_ASSISTANT_SETTINGS,
     AssistantSettings,
     AssistantSettingsService,
 )
@@ -48,16 +50,18 @@ def sqlite_database(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     apply_database_migrations()
 
 
-def test_defaults_to_matching_the_user_when_nothing_is_saved() -> None:
+def test_defaults_when_nothing_is_saved() -> None:
     settings = settings_service_for_profile().get_assistant_settings()
 
-    assert settings.response_language == "auto"
+    assert settings == DEFAULT_ASSISTANT_SETTINGS
 
 
 def test_round_trips_a_saved_language() -> None:
     service = settings_service_for_profile()
 
-    service.save_assistant_settings(AssistantSettings(response_language="ja"))
+    service.save_assistant_settings(
+        replace(DEFAULT_ASSISTANT_SETTINGS, response_language="ja")
+    )
 
     assert service.get_assistant_settings().response_language == "ja"
 
@@ -65,17 +69,41 @@ def test_round_trips_a_saved_language() -> None:
 def test_saving_twice_updates_the_profile_row() -> None:
     service = settings_service_for_profile()
 
-    service.save_assistant_settings(AssistantSettings(response_language="ja"))
-    service.save_assistant_settings(AssistantSettings(response_language="pt-BR"))
+    service.save_assistant_settings(
+        replace(DEFAULT_ASSISTANT_SETTINGS, response_language="ja")
+    )
+    service.save_assistant_settings(
+        replace(DEFAULT_ASSISTANT_SETTINGS, response_language="pt-BR")
+    )
 
     assert service.get_assistant_settings().response_language == "pt-BR"
 
 
 def test_settings_are_scoped_to_the_open_profile() -> None:
     settings_service_for_profile("first").save_assistant_settings(
-        AssistantSettings(response_language="ja")
+        replace(DEFAULT_ASSISTANT_SETTINGS, response_language="ja")
     )
 
     other = settings_service_for_profile("second").get_assistant_settings()
 
     assert other.response_language == "auto"
+
+
+def test_round_trips_the_answering_defaults() -> None:
+    service = settings_service_for_profile()
+
+    service.save_assistant_settings(
+        AssistantSettings(
+            response_language="auto",
+            model="gpt-5.1",
+            reasoning_level="high",
+            show_reasoning=True,
+            show_credit_usage=True,
+        )
+    )
+
+    saved = service.get_assistant_settings()
+    assert saved.model == "gpt-5.1"
+    assert saved.reasoning_level == "high"
+    assert saved.show_reasoning is True
+    assert saved.show_credit_usage is True

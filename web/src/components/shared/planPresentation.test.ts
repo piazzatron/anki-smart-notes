@@ -20,6 +20,7 @@ const PLAN: NonNullable<AccountState["plan"]> = {
   notesLimit: 50,
   daysLeft: 5,
   textCreditsUsed: 10,
+  assistantCreditsUsed: 30,
   textCreditsCapacity: 100,
   voiceCreditsUsed: 5,
   voiceCreditsCapacity: 100,
@@ -172,6 +173,7 @@ describe("credit formatting", () => {
   test("segments use the shared total capacity", () => {
     expect(getCreditSegments(PLAN).map((segment) => segment.percent)).toEqual([
       10 / 3,
+      10,
       0,
       5 / 3,
     ])

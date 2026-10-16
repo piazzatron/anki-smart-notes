@@ -64,7 +64,13 @@ const stateWith = (smartFields: SmartField[]): AppState => ({
     didDismissDiscordPrompt: false,
   },
   assistantPrompts: [],
-  assistantSettings: { responseLanguage: "auto" },
+  assistantSettings: {
+    model: "auto",
+    reasoningLevel: "off",
+    responseLanguage: "auto",
+    showCreditUsage: false,
+    showReasoning: false,
+  },
 })
 
 describe("groupSmartFields", () => {

@@ -261,7 +261,11 @@ class PromptGenerateRequest:
 
 
 class AssistantSettingsDto(TypedDict):
+    model: str
+    reasoningLevel: str
     responseLanguage: str
+    showCreditUsage: bool
+    showReasoning: bool
 
 
 class AssistantPromptDto(TypedDict):

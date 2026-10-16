@@ -29,17 +29,19 @@ from pathlib import Path
 from typing import Any, Optional
 
 from aiohttp import web
+from anki import lang
 from aqt import mw
 
 from . import env
 from .api_client import api
 from .app_state import app_state
 from .config import config
-from .constants import SITE_URL_DEV
+from .constants import SITE_URL_DEV, WEB_APP_DEV_URL
 from .decks import deck_id_to_name_map
 from .event_bus import (
     ActiveTargetChanged,
     BrowserSelectionChanged,
+    ScreenRequested,
     StateInvalidated,
     WebEvent,
     event_bus,
@@ -62,6 +64,7 @@ from .services.prompt_test_service import (
     save_test_result,
 )
 from .services.smart_field_service import smart_field_service
+from .ui import app_windows
 from .ui.ui_utils import open_anki_browser
 from .utils import get_version
 from .utils.notes_utils import get_note_types_with_fields
@@ -69,6 +72,72 @@ from .web import dto
 
 LOCAL_SERVER_PORT = 8766
 LOCAL_SERVER_HOST = "127.0.0.1"
+
+_local_server: Optional["LocalServer"] = None
+
+
+def ensure_local_server_started() -> "LocalServer":
+    global _local_server
+
+    # profile_did_open fires before main_window_did_init at startup, so a
+    # server usually exists already. Starting another would fail to bind and
+    # clobber _local_server with a dead instance (whose session token the
+    # webview would then use).
+    if _local_server is None:
+        _local_server = LocalServer()
+        _local_server.start()
+
+    return _local_server
+
+
+def is_local_server_started() -> bool:
+    return _local_server is not None
+
+
+def stop_local_server() -> None:
+    global _local_server
+
+    if _local_server is None:
+        return
+
+    _local_server.stop()
+    _local_server = None
+
+
+def web_app_url(screen: Optional[str] = None) -> str:
+    """The main window's URL, on a named screen when one is asked for."""
+    screen_param = "" if screen is None else f"&screen={screen}"
+
+    # Dev builds always load the Vite dev server for HMR (`make web`); the
+    # bundled static app is only served in packaged builds.
+    if env.environment == "DEV":
+        return (
+            WEB_APP_DEV_URL if screen is None else f"{WEB_APP_DEV_URL}?screen={screen}"
+        )
+
+    requested_locale = (
+        lang.current_lang if config.language == "auto" else config.language
+    )
+    # The web app's matchCatalogLocale owns locale normalization and fallback.
+    return (
+        f"http://{LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}/app"
+        f"?token={ensure_local_server_started().session_token}"
+        f"&locale={requested_locale}"
+        f"&ankiLocale={lang.current_lang}"
+        f"{screen_param}"
+    )
+
+
+def assistant_url() -> str:
+    if env.environment == "DEV":
+        return f"{WEB_APP_DEV_URL}?screen=assistant"
+    return (
+        f"http://{LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}/app"
+        f"?screen=assistant&token={ensure_local_server_started().session_token}"
+    )
+
+
+CHAT_SETTINGS_SCREEN = "chat-settings"
 
 WEB_APP_STATIC_DIR = Path(__file__).parent / "web" / "static"
 
@@ -294,6 +363,12 @@ class LocalServer:
                     payload = json.dumps(active_targets[-1].payload)
                     await response.write(
                         f"event: anki.activeTargetChanged\ndata: {payload}\n\n".encode()
+                    )
+                screens = [e for e in events if isinstance(e, ScreenRequested)]
+                if screens:
+                    payload = json.dumps({"screen": screens[-1].screen})
+                    await response.write(
+                        f"event: anki.screenRequested\ndata: {payload}\n\n".encode()
                     )
                 if any(isinstance(e, StateInvalidated) for e in events):
                     await self._send_state(response)
@@ -561,6 +636,12 @@ def _run_open_browser(payload: dict[str, Any]) -> None:
     open_anki_browser()
 
 
+def _run_open_chat_settings(_: dict[str, Any]) -> None:
+    app_windows.open_web_app_window(
+        web_app_url(CHAT_SETTINGS_SCREEN), CHAT_SETTINGS_SCREEN
+    )
+
+
 # Command names are namespaced like event names (state, anki.*): the protocol
 # is typed messages in both directions over one channel each way.
 COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
@@ -582,6 +663,7 @@ COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
     "auth.exchangeCode": _run_exchange_auth_code,
     "auth.logout": _run_logout,
     "ui.openBrowser": _run_open_browser,
+    "ui.openChatSettings": _run_open_chat_settings,
     "assistant.getField": _run_assistant_get_field,
     "assistant.updateField": _run_assistant_update_field,
     "assistant.addNote": _run_assistant_add_note,

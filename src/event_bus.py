@@ -39,6 +39,14 @@ class BrowserSelectionChanged:
 
 
 @dataclass(frozen=True)
+class ScreenRequested:
+    """Ephemeral event asking the open main window to show a screen. Only the
+    main window listens; the assistant window renders one screen and ignores it."""
+
+    screen: str
+
+
+@dataclass(frozen=True)
 class ActiveTargetChanged:
     """Ephemeral event carrying the note or editor buffer the assistant is
     currently bound to, or a cleared payload when no eligible target is active."""
@@ -50,6 +58,7 @@ WebEvent = Union[
     StateInvalidated,
     BrowserSelectionChanged,
     ActiveTargetChanged,
+    ScreenRequested,
 ]
 
 

@@ -174,7 +174,13 @@ def build_assistant_prompts() -> list[AssistantPromptDto]:
 def build_assistant_settings() -> AssistantSettingsDto:
     """The open profile's assistant settings, in wire form."""
     settings = assistant_settings_service.get_assistant_settings()
-    return AssistantSettingsDto(responseLanguage=settings.response_language)
+    return AssistantSettingsDto(
+        model=settings.model,
+        reasoningLevel=settings.reasoning_level,
+        responseLanguage=settings.response_language,
+        showCreditUsage=settings.show_credit_usage,
+        showReasoning=settings.show_reasoning,
+    )
 
 
 def build_catalog() -> dict[str, Any]:

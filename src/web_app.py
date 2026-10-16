@@ -19,146 +19,37 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 from typing import Optional
 
-from anki import lang
-from aqt import mw
-
-from . import env
 from .app_state import app_state
-from .config import config
-from .constants import WEB_APP_DEV_URL
-from .local_server import LOCAL_SERVER_HOST, LOCAL_SERVER_PORT, LocalServer
-from .logger import logger
+from .local_server import (
+    assistant_url,
+    ensure_local_server_started,
+    is_local_server_started,
+    web_app_url,
+)
 from .sentry import with_sentry
-from .ui.assistant_window import AssistantWindow
+from .ui.app_windows import open_assistant_window, open_web_app_window
 from .ui.ui_utils import show_message_box
-from .ui.web_app_dialog import WebAppDialog
 
-_local_server: Optional[LocalServer] = None
-_web_app_dialog: Optional[WebAppDialog] = None
-_assistant_window: Optional[AssistantWindow] = None
-
-
-def ensure_local_server_started() -> LocalServer:
-    global _local_server
-
-    # profile_did_open fires before main_window_did_init at startup, so a
-    # server usually exists already. Starting another would fail to bind and
-    # clobber _local_server with a dead instance (whose session token the
-    # webview would then use).
-    if _local_server is None:
-        _local_server = LocalServer()
-        _local_server.start()
-
-    return _local_server
+STARTING_UP_MESSAGE = "Smart Notes is still starting up — try again in a moment."
 
 
 @with_sentry
-def open_web_app() -> None:
-    global _web_app_dialog
-
-    if _local_server is None:
-        show_message_box("Smart Notes is still starting up — try again in a moment.")
+def open_web_app(screen: Optional[str] = None) -> None:
+    if not is_local_server_started():
+        show_message_box(STARTING_UP_MESSAGE)
         return
 
-    local_server = ensure_local_server_started()
+    ensure_local_server_started()
     app_state.update_account_state()
-    if _web_app_dialog is not None:
-        _web_app_dialog.raise_()
-        _web_app_dialog.activateWindow()
-        return
-
-    # Dev builds always load the Vite dev server for HMR (`make web`); the
-    # bundled static app is only served in packaged builds.
-    if env.environment == "DEV":
-        url = WEB_APP_DEV_URL
-    else:
-        requested_locale = (
-            lang.current_lang if config.language == "auto" else config.language
-        )
-        # The web app's matchCatalogLocale owns locale normalization and fallback.
-        url = (
-            f"http://{LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}/app"
-            f"?token={local_server.session_token}"
-            f"&locale={requested_locale}"
-            f"&ankiLocale={lang.current_lang}"
-        )
-    dialog = WebAppDialog(url, mw)
-    _web_app_dialog = dialog
-
-    def clear_web_app_dialog(_: object) -> None:
-        global _web_app_dialog
-        if _web_app_dialog is dialog:
-            _web_app_dialog = None
-
-    dialog.finished.connect(clear_web_app_dialog)
-    dialog.show()
+    open_web_app_window(web_app_url(screen), screen)
 
 
 @with_sentry
 def open_assistant() -> None:
-    global _assistant_window
-
-    if _local_server is None:
-        show_message_box("Smart Notes is still starting up — try again in a moment.")
+    if not is_local_server_started():
+        show_message_box(STARTING_UP_MESSAGE)
         return
 
-    local_server = ensure_local_server_started()
+    ensure_local_server_started()
     app_state.update_account_state()
-    if _assistant_window is not None:
-        _assistant_window.raise_()
-        _assistant_window.activateWindow()
-        return
-
-    if env.environment == "DEV":
-        url = f"{WEB_APP_DEV_URL}?screen=assistant"
-    else:
-        url = (
-            f"http://{LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}/app"
-            f"?screen=assistant&token={local_server.session_token}"
-        )
-    window = AssistantWindow(url)
-    _assistant_window = window
-
-    def clear_assistant_window() -> None:
-        global _assistant_window
-        if _assistant_window is window:
-            _assistant_window = None
-
-    window.closed.connect(clear_assistant_window)
-    window.show()
-
-
-def close_assistant() -> None:
-    global _assistant_window
-
-    if _assistant_window is None:
-        return
-
-    logger.info("Closing Smart Notes assistant before profile close")
-    window = _assistant_window
-    _assistant_window = None
-    window.close()
-
-
-def close_web_app() -> None:
-    global _web_app_dialog
-
-    if _web_app_dialog is None:
-        return
-
-    # Close the webview before its Anki profile state becomes stale. Production
-    # sessions also receive a new local API token on the next profile load.
-    logger.info("Closing Smart Notes web app before profile close")
-    dialog = _web_app_dialog
-    _web_app_dialog = None
-    dialog.close()
-
-
-def stop_local_server() -> None:
-    global _local_server
-
-    if _local_server is None:
-        return
-
-    _local_server.stop()
-    _local_server = None
+    open_assistant_window(assistant_url())
