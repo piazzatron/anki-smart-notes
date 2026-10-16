@@ -203,6 +203,7 @@
       "chooseNoteType": "Välj en anteckningstyp",
       "chooseSourceField": "Välj ett källfält",
       "fieldAlreadyHasSmartField": "{{field}} har redan en Smart Field",
+      "mediaInput": "Fältet \"{{field}}\" är redan ett ljud/bild-Smart Field, så det kan inte användas som indata i prompten.",
       "writePrompt": "Skriv en uppmaning"
     },
     "writePrompt": "Skriv uppmaning",

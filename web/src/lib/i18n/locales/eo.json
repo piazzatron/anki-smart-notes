@@ -203,6 +203,7 @@
       "chooseNoteType": "Elektu noton tipon",
       "chooseSourceField": "Elektu fontan kampon",
       "fieldAlreadyHasSmartField": "{{field}} jam havas Smart Field",
+      "mediaInput": "La kampo \"{{field}}\" jam estas aŭdia/bilda Smart Field, do ĝi ne povas esti uzata kiel enigo en la promptо.",
       "writePrompt": "Skribu inviton"
     },
     "writePrompt": "Skribu Prompton",

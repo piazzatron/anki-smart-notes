@@ -206,6 +206,7 @@
       "chooseNoteType": "Roghnaigh cineál nóta",
       "chooseSourceField": "Roghnaigh réimse foinse",
       "fieldAlreadyHasSmartField": "Tá {{field}} Smart Field cheana féin",
+      "mediaInput": "Tá an réimse \"{{field}}\" ina Smart Field fuaime/íomhá cheana féin, agus mar sin ní féidir é a úsáid mar ionchur san leid.",
       "writePrompt": "Scríobh leid"
     },
     "writePrompt": "Scríobh Leid",

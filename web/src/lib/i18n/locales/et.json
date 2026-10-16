@@ -203,6 +203,7 @@
       "chooseNoteType": "Valige märkme tüüp",
       "chooseSourceField": "Valige lähteväli",
       "fieldAlreadyHasSmartField": "{{field}}-l on juba Smart Field",
+      "mediaInput": "Väli „{{field}}” on juba heli- või pildi tüüpi Smart Field, seetõttu ei saa seda kasutada sisendina promptis.",
       "writePrompt": "Kirjutage viip"
     },
     "writePrompt": "Kirjutage käsk",

@@ -203,6 +203,7 @@
       "chooseNoteType": "Choose a note type",
       "chooseSourceField": "Choose a source field",
       "fieldAlreadyHasSmartField": "{{field}} already has a Smart Field",
+      "mediaInput": "The field \"{{field}}\" is already an audio/image Smart Field, so it can't be used as input in the prompt.",
       "writePrompt": "Write a prompt"
     },
     "writePrompt": "Write Prompt",

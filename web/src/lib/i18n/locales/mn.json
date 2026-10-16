@@ -203,6 +203,7 @@
       "chooseNoteType": "Тэмдэглэлийн төрлийг сонгоно уу",
       "chooseSourceField": "Эх сурвалж талбарыг сонгоно уу",
       "fieldAlreadyHasSmartField": "{{field}} аль хэдийн Ухаалаг талбартай болсон",
+      "mediaInput": "\"{{field}}\" талбар нь аль хэдийн дуу/зургийн Smart Field тул промптод оролт болгон ашиглах боломжгүй.",
       "writePrompt": "Сануулга бичнэ үү"
     },
     "writePrompt": "Сануулга бичих",

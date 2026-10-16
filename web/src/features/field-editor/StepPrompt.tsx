@@ -88,13 +88,18 @@ export const StepPrompt = ({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {noteType?.fields
-                  .filter((fieldName) => fieldName !== target.targetFieldName)
-                  .map((fieldName) => (
-                    <SelectItem key={fieldName} value={fieldName}>
-                      {fieldName}
-                    </SelectItem>
-                  ))}
+                {getValidPromptFields({
+                  deckId: target.deckId,
+                  globalDeckId: state.globalDeckId,
+                  ignoreFieldId: controls.form.editingFieldId,
+                  noteType,
+                  smartFields: state.smartFields,
+                  targetFieldName: target.targetFieldName,
+                }).map((fieldName) => (
+                  <SelectItem key={fieldName} value={fieldName}>
+                    {fieldName}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </EditorSection>
@@ -174,6 +179,8 @@ export const StepPrompt = ({
                   <ValidPromptFields
                     fieldNames={getValidPromptFields({
                       deckId: target.deckId,
+                      globalDeckId: state.globalDeckId,
+                      ignoreFieldId: controls.form.editingFieldId,
                       noteType,
                       smartFields: state.smartFields,
                       targetFieldName: target.targetFieldName,

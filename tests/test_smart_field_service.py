@@ -660,6 +660,210 @@ def test_create_rejects_self_reference() -> None:
         )
 
 
+def _chat_field(target: str, prompt: str, deck_id: int = 1) -> SmartFieldCreate:
+    return SmartFieldCreate(
+        note_type_id=NOTE_TYPE_ID,
+        deck_id=deck_id,
+        target_field_name=target,
+        enabled=True,
+        settings=ChatSmartFieldSettings(
+            prompt_text=prompt,
+            provider="openai",
+            model="gpt-4o-mini",
+            web_search_enabled=False,
+        ),
+    )
+
+
+def _tts_field(target: str, source: str, deck_id: int = 1) -> SmartFieldCreate:
+    return SmartFieldCreate(
+        note_type_id=NOTE_TYPE_ID,
+        deck_id=deck_id,
+        target_field_name=target,
+        enabled=True,
+        settings=TTSSmartFieldSettings(
+            source_field_name=source,
+            provider="openai",
+            model="tts-1",
+            voice_id="alloy",
+        ),
+    )
+
+
+def _image_field(target: str, prompt: str, deck_id: int = 1) -> SmartFieldCreate:
+    return SmartFieldCreate(
+        note_type_id=NOTE_TYPE_ID,
+        deck_id=deck_id,
+        target_field_name=target,
+        enabled=True,
+        settings=ImageSmartFieldSettings(
+            prompt_text=prompt,
+            provider="openai",
+            model="gpt-image-1.5-low",
+        ),
+    )
+
+
+@pytest.mark.parametrize(
+    ("existing", "created"),
+    [
+        (_tts_field("Audio", "Front"), _chat_field("Back", "Define {{audio}}")),
+        (
+            _image_field("Picture", "Draw {{Front}}"),
+            _image_field("Back", "{{Picture}}"),
+        ),
+        (_image_field("Picture", "Draw {{Front}}"), _tts_field("Audio", "Picture")),
+        # The new media field is already read by an existing text field.
+        (_chat_field("Back", "Define {{Audio}}"), _tts_field("Audio", "Front")),
+        # A global media field is part of every deck's effective set.
+        (
+            _tts_field("Audio", "Front", deck_id=GLOBAL_DECK_ID),
+            _chat_field("Back", "Define {{Audio}}"),
+        ),
+        # A new global media field reaches deck fields that read it.
+        (
+            _chat_field("Back", "Define {{Audio}}"),
+            _tts_field("Audio", "Front", deck_id=GLOBAL_DECK_ID),
+        ),
+    ],
+)
+def test_create_rejects_media_field_input(
+    existing: SmartFieldCreate, created: SmartFieldCreate
+) -> None:
+    service = smart_field_service_for_profile()
+    service.create_smart_field(existing)
+
+    with pytest.raises(ValueError, match="can't use"):
+        service.create_smart_field(created)
+    assert len(service.get_all_smart_fields()) == 1
+
+
+def test_update_rejects_media_field_input() -> None:
+    service = smart_field_service_for_profile()
+    service.create_smart_field(_tts_field("Audio", "Front"))
+    service.create_smart_field(_chat_field("Back", "Define {{Front}}"))
+    back = next(
+        field
+        for field in service.get_all_smart_fields()
+        if field.target_field_name == "Back"
+    )
+
+    with pytest.raises(ValueError, match="can't use"):
+        service.update_smart_field(
+            SmartField(
+                id=back.id,
+                note_type_id=back.note_type_id,
+                deck_id=back.deck_id,
+                target_field_name=back.target_field_name,
+                enabled=back.enabled,
+                settings=ChatSmartFieldSettings(
+                    prompt_text="Define {{Audio}}",
+                    provider="openai",
+                    model="gpt-4o-mini",
+                    web_search_enabled=False,
+                ),
+            )
+        )
+
+
+def test_create_allows_input_whose_global_media_field_is_overridden_by_text() -> None:
+    service = smart_field_service_for_profile()
+    service.create_smart_field(_tts_field("Audio", "Front", deck_id=GLOBAL_DECK_ID))
+    service.create_smart_field(_chat_field("Audio", "Spell out {{Front}}"))
+
+    service.create_smart_field(_chat_field("Back", "Define {{Audio}}"))
+
+
+def test_existing_media_input_does_not_block_unrelated_saves() -> None:
+    service = smart_field_service_for_profile()
+    # Saved before media inputs were rejected; replace_all skips validation.
+    service.replace_all_smart_fields(
+        [_tts_field("Audio", "Front"), _chat_field("Back", "Define {{Audio}}")]
+    )
+
+    service.create_smart_field(_chat_field("Extra", "Example for {{Front}}"))
+
+
+def _update(service: SmartFieldService, target: str, **changes) -> None:
+    field = next(
+        field
+        for field in service.get_all_smart_fields()
+        if field.target_field_name == target and field.deck_id != GLOBAL_DECK_ID
+    )
+    service.update_smart_field(
+        SmartField(
+            id=field.id,
+            note_type_id=field.note_type_id,
+            deck_id=changes.get("deck_id", field.deck_id),
+            target_field_name=changes.get("target_field_name", target),
+            enabled=field.enabled,
+            settings=field.settings,
+        )
+    )
+
+
+@pytest.mark.parametrize("changes", [{"deck_id": 2}, {"target_field_name": "Spelling"}])
+def test_update_rejects_exposing_a_global_media_field(changes) -> None:
+    service = smart_field_service_for_profile()
+    service.create_smart_field(_tts_field("Audio", "Front", deck_id=GLOBAL_DECK_ID))
+    service.create_smart_field(_chat_field("Audio", "Spell out {{Front}}"))
+    service.create_smart_field(_chat_field("Back", "Define {{Audio}}"))
+
+    # Moving or renaming deck 1's text Audio leaves Back reading the global audio.
+    with pytest.raises(ValueError, match="can't use"):
+        _update(service, "Audio", **changes)
+
+
+def test_global_save_ignores_media_input_in_a_shadowing_deck_field() -> None:
+    service = smart_field_service_for_profile()
+    service.create_smart_field(_chat_field("Back", "{{Front}}", deck_id=GLOBAL_DECK_ID))
+    service.replace_all_smart_fields(
+        [
+            *service.get_all_smart_fields(),
+            _tts_field("Audio", "Front"),
+            _chat_field("Back", "Define {{Audio}}"),
+        ]
+    )
+    global_back = next(
+        field
+        for field in service.get_all_smart_fields()
+        if field.deck_id == GLOBAL_DECK_ID
+    )
+
+    service.update_smart_field(
+        SmartField(
+            id=global_back.id,
+            note_type_id=NOTE_TYPE_ID,
+            deck_id=GLOBAL_DECK_ID,
+            target_field_name="Back",
+            enabled=True,
+            settings=ChatSmartFieldSettings(
+                prompt_text="Translate {{Front}}",
+                provider="openai",
+                model="gpt-4o-mini",
+                web_search_enabled=False,
+            ),
+        )
+    )
+
+
+def test_valid_prompt_fields_exclude_effective_media_fields(monkeypatch) -> None:
+    import src.utils.notes_utils as notes_utils
+
+    service = smart_field_service_for_profile()
+    service.create_smart_field(_tts_field("audio", "Front", deck_id=GLOBAL_DECK_ID))
+    service.create_smart_field(_image_field("Picture", "Draw {{Front}}"))
+    monkeypatch.setattr(notes_utils, "smart_field_service", service)
+    monkeypatch.setattr(
+        notes_utils, "get_fields", lambda _: ["Front", "Audio", "Picture", "Back"]
+    )
+    monkeypatch.setattr(
+        notes_utils, "get_note_type_id_from_name", lambda _: NOTE_TYPE_ID
+    )
+
+    assert notes_utils.get_valid_fields_for_prompt("Basic", 1, "Back") == ["Front"]
+
+
 def test_smart_fields_are_scoped_to_profile() -> None:
     profile_1_service = smart_field_service_for_profile("Profile 1")
     profile_2_service = smart_field_service_for_profile("Profile 2")

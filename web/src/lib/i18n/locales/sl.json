@@ -205,6 +205,7 @@
       "chooseNoteType": "Izberite vrsto opombe",
       "chooseSourceField": "Izberite izvorno polje",
       "fieldAlreadyHasSmartField": "{{field}} že ima Smart Field",
+      "mediaInput": "Polje \"{{field}}\" je že zvočno/slikovno Smart Field, zato ga ni mogoče uporabiti kot vhod v pozivu.",
       "writePrompt": "Napišite poziv"
     },
     "writePrompt": "Napiši poziv",

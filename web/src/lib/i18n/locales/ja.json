@@ -202,6 +202,7 @@
       "chooseNoteType": "メモの種類を選択してください",
       "chooseSourceField": "ソースフィールドを選択してください",
       "fieldAlreadyHasSmartField": "{{field}} にはすでに Smart Field があります",
+      "mediaInput": "フィールド \"{{field}}\" はすでに音声/画像の Smart Field のため、プロンプトの入力として使用できません。",
       "writePrompt": "プロンプトを書く"
     },
     "writePrompt": "プロンプトの書き込み",

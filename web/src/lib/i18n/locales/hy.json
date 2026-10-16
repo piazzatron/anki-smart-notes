@@ -203,6 +203,7 @@
       "chooseNoteType": "Ընտրեք նշումի տեսակը",
       "chooseSourceField": "Ընտրեք աղբյուրի դաշտը",
       "fieldAlreadyHasSmartField": "{{field}}-ն արդեն ունի Smart Field",
+      "mediaInput": "Դաշտը \"{{field}}\" արդեն աուդիո/պատկերի Smart Field է, ուստի այն չի կարող օգտագործվել որպես մուտք հուշման մեջ։",
       "writePrompt": "Գրեք հուշում"
     },
     "writePrompt": "Գրեք հուշում",

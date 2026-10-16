@@ -22,7 +22,8 @@ Persists Smart Field rules and global generation defaults.
 
 Reads and writes per-profile Smart Fields and the default chat, TTS, and image
 generation settings in the SQLite database. Guards against duplicate field
-targets and dependency cycles, and republishes state after each write.
+targets, dependency cycles, and fields that read audio or image Smart Fields,
+and republishes state after each write.
 """
 
 import sqlite3
@@ -330,7 +331,7 @@ class SmartFieldService:
             if collision is not None:
                 raise ValueError(SMART_FIELD_TARGET_COLLISION_ERROR)
 
-            self._validate_no_cycle(smart_field)
+            self._validate_dependencies(smart_field)
 
             try:
                 smart_field_id = self._insert_smart_field(
@@ -349,7 +350,9 @@ class SmartFieldService:
             f"for profile={profile_name}"
         )
         with open_database() as conn:
-            self._validate_no_cycle(smart_field, replaced_smart_field_id=smart_field.id)
+            self._validate_dependencies(
+                smart_field, replaced_smart_field_id=smart_field.id
+            )
             self._update_smart_field(conn, smart_field, profile_name)
 
     @republish_state
@@ -450,7 +453,7 @@ class SmartFieldService:
         self._delete_settings(conn, smart_field.id)
         self._insert_settings(conn, smart_field.id, smart_field.settings)
 
-    def _validate_no_cycle(
+    def _validate_dependencies(
         self,
         smart_field: Union[SmartField, SmartFieldCreate],
         replaced_smart_field_id: Optional[str] = None,
@@ -464,14 +467,13 @@ class SmartFieldService:
         if replaced_smart_field_id and replaced_smart_field is None:
             return
 
-        new_effective_fields = self._get_prospective_effective_fields(
+        self._raise_for_invalid_dependencies(
             existing_fields,
             smart_field.note_type_id,
             smart_field.deck_id,
             replaced_smart_field_id,
             smart_field,
         )
-        self._raise_for_cycle(new_effective_fields)
 
         # A global field is also part of every deck's effective set, so check
         # each deck that has its own fields for this note type too.
@@ -484,14 +486,12 @@ class SmartFieldService:
                 and field.id != replaced_smart_field_id
             }
             for deck_id in override_deck_ids:
-                self._raise_for_cycle(
-                    self._get_prospective_effective_fields(
-                        existing_fields,
-                        smart_field.note_type_id,
-                        deck_id,
-                        replaced_smart_field_id,
-                        smart_field,
-                    )
+                self._raise_for_invalid_dependencies(
+                    existing_fields,
+                    smart_field.note_type_id,
+                    deck_id,
+                    replaced_smart_field_id,
+                    smart_field,
                 )
 
         if (
@@ -504,13 +504,12 @@ class SmartFieldService:
         ):
             return
 
-        old_effective_fields = self._get_prospective_effective_fields(
+        self._raise_for_invalid_dependencies(
             existing_fields,
             replaced_smart_field.note_type_id,
             replaced_smart_field.deck_id,
             replaced_smart_field_id,
         )
-        self._raise_for_cycle(old_effective_fields)
 
     def _get_prospective_effective_fields(
         self,
@@ -544,25 +543,58 @@ class SmartFieldService:
             effective_fields.update(deck_fields)
         return effective_fields
 
-    def _raise_for_cycle(
+    def _raise_for_invalid_dependencies(
         self,
-        effective_fields: dict[str, Union[SmartField, SmartFieldCreate]],
+        existing_fields: list[SmartField],
+        note_type_id: int,
+        deck_id: DeckId,
+        replaced_smart_field_id: Optional[str],
+        mutation: Optional[Union[SmartField, SmartFieldCreate]] = None,
     ) -> None:
-        dependencies: dict[str, list[str]] = {}
-        for target_field, effective_field in effective_fields.items():
-            settings = effective_field.settings
-            if isinstance(settings, TTSSmartFieldSettings):
-                input_fields = [settings.source_field_name.lower()]
-            else:
-                input_fields = get_prompt_fields(settings.prompt_text)
-            dependencies[target_field] = [
+        """Checks one deck's effective fields as they would be after the save."""
+        effective_fields = self._get_prospective_effective_fields(
+            existing_fields, note_type_id, deck_id, replaced_smart_field_id, mutation
+        )
+        dependencies = {
+            target_field: [
                 input_field
-                for input_field in input_fields
+                for input_field in _get_input_fields(effective_field)
                 if input_field in effective_fields
             ]
-
+            for target_field, effective_field in effective_fields.items()
+        }
         if _has_cycle(dependencies):
             raise ValueError(SMART_FIELD_CYCLE_ERROR)
+
+        # Audio and image fields hold [sound:…] and <img> tags, not text another
+        # field can read. Only references this save introduces, or that the saved
+        # field makes itself, are rejected, so one saved before this rule existed
+        # doesn't block unrelated edits.
+        previous_media_inputs = _get_media_inputs(
+            self._get_prospective_effective_fields(
+                existing_fields, note_type_id, deck_id, None
+            )
+        )
+        for target_field, input_field in _get_media_inputs(effective_fields):
+            if (
+                target_field,
+                input_field,
+            ) in previous_media_inputs and effective_fields[
+                target_field
+            ] is not mutation:
+                continue
+            input_smart_field = effective_fields[input_field]
+            media = (
+                "an audio"
+                if isinstance(input_smart_field.settings, TTSSmartFieldSettings)
+                else "an image"
+            )
+            raise ValueError(
+                f"{effective_fields[target_field].target_field_name} can't use "
+                f"{input_smart_field.target_field_name} as an input: "
+                f"{input_smart_field.target_field_name} is filled by {media} "
+                "Smart Field."
+            )
 
     def _insert_smart_field(
         self,
@@ -728,6 +760,28 @@ class SmartFieldService:
 
 def _utc_now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
+
+
+def _get_input_fields(smart_field: Union[SmartField, SmartFieldCreate]) -> list[str]:
+    settings = smart_field.settings
+    if isinstance(settings, TTSSmartFieldSettings):
+        return [settings.source_field_name.lower()]
+    return get_prompt_fields(settings.prompt_text)
+
+
+def _get_media_inputs(
+    effective_fields: dict[str, Union[SmartField, SmartFieldCreate]],
+) -> set[tuple[str, str]]:
+    """(target, input) pairs where a field reads an audio or image Smart Field."""
+    return {
+        (target_field, input_field)
+        for target_field, effective_field in effective_fields.items()
+        for input_field in _get_input_fields(effective_field)
+        if input_field in effective_fields
+        and not isinstance(
+            effective_fields[input_field].settings, ChatSmartFieldSettings
+        )
+    }
 
 
 def _has_cycle(dependencies: dict[str, list[str]]) -> bool:

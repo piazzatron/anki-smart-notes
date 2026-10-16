@@ -203,6 +203,7 @@
       "chooseNoteType": "Válasszon jegyzettípust",
       "chooseSourceField": "Válasszon egy forrásmezőt",
       "fieldAlreadyHasSmartField": "Az {{field}}-nak már van Smart Field-ja",
+      "mediaInput": "A(z) \"{{field}}\" mező már audio/kép Smart Field, ezért nem használható bemenetként a promptban.",
       "writePrompt": "Írjon felszólítást"
     },
     "writePrompt": "Írja fel a promptot",

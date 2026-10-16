@@ -205,6 +205,7 @@
       "chooseNoteType": "Wybierz typ notatki",
       "chooseSourceField": "Wybierz pole źródłowe",
       "fieldAlreadyHasSmartField": "{{field}} ma już Smart Field",
+      "mediaInput": "Pole „{{field}}” jest już polem Smart Field typu audio/obraz, więc nie można go użyć jako danych wejściowych w prompcie.",
       "writePrompt": "Napisz podpowiedź"
     },
     "writePrompt": "Napisz podpowiedź",

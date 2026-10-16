@@ -123,10 +123,14 @@ export const useFieldEditor = ({
       return {
         ...current,
         error: null,
-        sourceFieldName: getFirstSourceField(
+        sourceFieldName: getFirstSourceField({
+          deckId: nextTarget.deckId,
+          globalDeckId: state.globalDeckId,
+          ignoreFieldId: current.editingFieldId,
           noteType,
-          nextTarget.targetFieldName,
-        ),
+          smartFields: state.smartFields,
+          targetFieldName: nextTarget.targetFieldName,
+        }),
         target: nextTarget,
       }
     })
@@ -157,7 +161,11 @@ export const useFieldEditor = ({
   }
 
   const save = async () => {
-    const validationError = validateFieldEditorDraft(form, state.smartFields)
+    const validationError = validateFieldEditorDraft(
+      form,
+      state.smartFields,
+      state.globalDeckId,
+    )
     if (validationError !== null) {
       update({ error: validationError })
       return

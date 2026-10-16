@@ -847,7 +847,7 @@ async def test_cycle_in_stored_fields_does_not_hang(target_field, monkeypatch):
     # Saves reject cycles, so simulate one that reached the database another way.
     from src.services.smart_field_service import smart_field_service
 
-    monkeypatch.setattr(smart_field_service, "_validate_no_cycle", lambda *_: None)
+    monkeypatch.setattr(smart_field_service, "_validate_dependencies", lambda *_: None)
     n = MockNote({"f1": "1", "f2": "", "f3": "", "f4": ""}, note_type=NOTE_TYPE_NAME)
     processor = setup_data(  # type: ignore
         monkeypatch=monkeypatch,

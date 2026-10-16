@@ -203,6 +203,7 @@
       "chooseNoteType": "Aukeratu ohar mota bat",
       "chooseSourceField": "Aukeratu iturri-eremu bat",
       "fieldAlreadyHasSmartField": "{{field}} dagoeneko Smart Field bat dauka",
+      "mediaInput": "«{{field}}» eremua dagoeneko audio/irudi Smart Field bat da, beraz ezin da promptean sarrera gisa erabili.",
       "writePrompt": "Idatzi gonbita"
     },
     "writePrompt": "Idatzi gonbita",

@@ -203,6 +203,7 @@
       "chooseNoteType": "Bir not türü seçin",
       "chooseSourceField": "Bir kaynak alanı seçin",
       "fieldAlreadyHasSmartField": "{{field}}'in zaten bir Smart Field'i var",
+      "mediaInput": "Alan \"{{field}}\" zaten bir ses/görüntü Smart Field olduğu için istemde girdi olarak kullanılamaz.",
       "writePrompt": "Bir istem yaz"
     },
     "writePrompt": "İstem Yaz",

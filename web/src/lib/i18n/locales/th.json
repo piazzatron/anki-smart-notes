@@ -202,6 +202,7 @@
       "chooseNoteType": "เลือกประเภทบันทึก",
       "chooseSourceField": "เลือกฟิลด์แหล่งที่มา",
       "fieldAlreadyHasSmartField": "{{field}} มี Smart Field อยู่แล้ว",
+      "mediaInput": "ฟิลด์ \"{{field}}\" เป็น Smart Field ประเภทเสียง/รูปภาพอยู่แล้ว จึงใช้เป็นอินพุตในพรอมต์ไม่ได้",
       "writePrompt": "เขียนข้อความแจ้ง"
     },
     "writePrompt": "เขียนพร้อมท์",

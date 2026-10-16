@@ -203,6 +203,7 @@
       "chooseNoteType": "ଏକ ନୋଟ୍ ପ୍ରକାର ବାଛନ୍ତୁ",
       "chooseSourceField": "ଏକ ଉତ୍ସ କ୍ଷେତ୍ର ବାଛନ୍ତୁ",
       "fieldAlreadyHasSmartField": "{{field}} ପୂର୍ବରୁ Smart Field ଅଛି",
+      "mediaInput": "ଫିଲ୍ଡ \"{{field}}\" ପୂର୍ବରୁ ଏକ ଅଡିଓ/ଇମେଜ୍ Smart Field, ତେଣୁ ଏହାକୁ ପ୍ରମ୍ପ୍ଟରେ ଇନପୁଟ ଭାବେ ବ୍ୟବହାର କରାଯାଇ ପାରିବ ନାହିଁ।",
       "writePrompt": "ଏକ ପ୍ରମ୍ପ୍ଟ ଲେଖ"
     },
     "writePrompt": "ପ୍ରମ୍ପ୍ଟ ଲେଖନ୍ତୁ",

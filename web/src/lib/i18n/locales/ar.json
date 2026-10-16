@@ -207,6 +207,7 @@
       "chooseNoteType": "اختر نوع الملاحظة",
       "chooseSourceField": "اختر حقل المصدر",
       "fieldAlreadyHasSmartField": "يحتوي {{field}} بالفعل على حقل ذكي",
+      "mediaInput": "الحقل \"{{field}}\" هو بالفعل حقل Smart Field خاص بالصوت أو الصورة، لذا لا يمكن استخدامه كإدخال في الموجه.",
       "writePrompt": "اكتب موجه"
     },
     "writePrompt": "اكتب موجه",

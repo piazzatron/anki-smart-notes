@@ -84,16 +84,70 @@ describe("field editor helpers", () => {
   test("validates prompts and TTS source fields", () => {
     const chatDraft = createFieldEditorDraft(appState, { mode: "create" })
     expect(chatDraft.validPromptFieldsRevealed).toBe(false)
-    expect(validateFieldEditorDraft(chatDraft, [])).toBe("Write a prompt")
+    expect(validateFieldEditorDraft(chatDraft, [], 1)).toBe("Write a prompt")
 
     chatDraft.target.fieldType = "image"
-    expect(validateFieldEditorDraft(chatDraft, [])).toBe("Write a prompt")
+    expect(validateFieldEditorDraft(chatDraft, [], 1)).toBe("Write a prompt")
 
     chatDraft.target.fieldType = "tts"
     chatDraft.sourceFieldName = ""
-    expect(validateFieldEditorDraft(chatDraft, [])).toBe(
+    expect(validateFieldEditorDraft(chatDraft, [], 1)).toBe(
       "Choose a source field",
     )
+  })
+
+  test("rejects inputs filled by voice or image Smart Fields", () => {
+    const audioField: SmartField = {
+      id: "audio",
+      noteTypeId: 10,
+      deckId: 1,
+      targetFieldName: "Audio",
+      fieldType: "tts",
+      enabled: true,
+      settings: {
+        sourceFieldName: "Front",
+        ...defaults.tts,
+        usesDefaultGenerationSettings: true,
+      },
+    }
+    const draft = createFieldEditorDraft(appState, {
+      field: existingField,
+      mode: "edit",
+    })
+
+    draft.prompt = "Define {{audio}}"
+    expect(validateFieldEditorDraft(draft, [audioField], 1)).toContain("Audio")
+
+    draft.target.fieldType = "tts"
+    draft.sourceFieldName = "Audio"
+    expect(validateFieldEditorDraft(draft, [audioField], 1)).toContain("Audio")
+
+    draft.sourceFieldName = "Front"
+    expect(validateFieldEditorDraft(draft, [audioField], 1)).toBeNull()
+  })
+
+  test("lets a retargeted voice field read its former target", () => {
+    const audioField: SmartField = {
+      id: "audio",
+      noteTypeId: 10,
+      deckId: 1,
+      targetFieldName: "Audio",
+      fieldType: "tts",
+      enabled: true,
+      settings: {
+        sourceFieldName: "Front",
+        ...defaults.tts,
+        usesDefaultGenerationSettings: true,
+      },
+    }
+    const draft = createFieldEditorDraft(
+      { ...appState, smartFields: [audioField] },
+      { field: audioField, mode: "edit" },
+    )
+    draft.target.targetFieldName = "Meaning"
+    draft.sourceFieldName = "Audio"
+
+    expect(validateFieldEditorDraft(draft, [audioField], 1)).toBeNull()
   })
 
   test("requires duplicate fields to be retargeted", () => {
@@ -102,7 +156,7 @@ describe("field editor helpers", () => {
       mode: "duplicate",
     })
 
-    expect(validateFieldEditorDraft(draft, [existingField])).toContain(
+    expect(validateFieldEditorDraft(draft, [existingField], 1)).toContain(
       "already has a Smart Field",
     )
   })
@@ -225,6 +279,6 @@ describe("field editor helpers", () => {
 
     expect(draft.step).toBe(1)
     expect(draft.editingFieldId).toBe(existingField.id)
-    expect(validateFieldEditorDraft(draft, [existingField])).toBeNull()
+    expect(validateFieldEditorDraft(draft, [existingField], 1)).toBeNull()
   })
 })

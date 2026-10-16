@@ -204,6 +204,7 @@
       "chooseNoteType": "Alegeți un tip de notă",
       "chooseSourceField": "Alegeți un câmp sursă",
       "fieldAlreadyHasSmartField": "{{field}} are deja un Smart Field",
+      "mediaInput": "Câmpul \"{{field}}\" este deja un Smart Field audio/imagine, deci nu poate fi folosit ca intrare în prompt.",
       "writePrompt": "Scrieți o solicitare"
     },
     "writePrompt": "Scrieți Prompt",

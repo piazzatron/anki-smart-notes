@@ -203,6 +203,7 @@
       "chooseNoteType": "Velg en notattype",
       "chooseSourceField": "Velg et kildefelt",
       "fieldAlreadyHasSmartField": "{{field}} har allerede en Smart Field",
+      "mediaInput": "Feltet \"{{field}}\" er allerede et lyd/bilde Smart Field, så det kan ikke brukes som inndata i prompten.",
       "writePrompt": "Skriv en melding"
     },
     "writePrompt": "Skriv spørsmål",

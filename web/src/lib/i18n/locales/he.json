@@ -204,6 +204,7 @@
       "chooseNoteType": "בחר סוג הערה",
       "chooseSourceField": "בחר שדה מקור",
       "fieldAlreadyHasSmartField": "ל-{{field}} כבר יש שדה חכם",
+      "mediaInput": "השדה \"{{field}}\" הוא כבר Smart Field של שמע/תמונה, ולכן לא ניתן להשתמש בו כקלט בהנחיה.",
       "writePrompt": "כתוב הנחיה"
     },
     "writePrompt": "כתוב הנחיה",

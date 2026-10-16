@@ -204,6 +204,7 @@
       "chooseNoteType": "Escolha um tipo de nota",
       "chooseSourceField": "Escolha um campo de origem",
       "fieldAlreadyHasSmartField": "{{field}} já tem um Smart Field",
+      "mediaInput": "O campo \"{{field}}\" já é um Smart Field de áudio/imagem, por isso não pode ser usado como entrada no prompt.",
       "writePrompt": "Escreva um prompt"
     },
     "writePrompt": "Solicitação de gravação",

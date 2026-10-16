@@ -202,6 +202,7 @@
       "chooseNoteType": "Causissètz un tipe de nòta",
       "chooseSourceField": "Causissètz un camp font",
       "fieldAlreadyHasSmartField": "{{field}} a ja un Smart Field",
+      "mediaInput": "Lo camp \"{{field}}\" es ja un Smart Field audio/imatge, donc pòt pas èsser utilizat coma entrada dins lo prompt.",
       "writePrompt": "Escrivètz una invitacion"
     },
     "writePrompt": "Invitacion d'escritura",

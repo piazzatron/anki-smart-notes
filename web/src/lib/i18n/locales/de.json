@@ -203,6 +203,7 @@
       "chooseNoteType": "Wählen Sie einen Notiztyp",
       "chooseSourceField": "Wählen Sie ein Quellfeld",
       "fieldAlreadyHasSmartField": "{{field}} hat bereits einen Smart Field",
+      "mediaInput": "Das Feld \"{{field}}\" ist bereits ein Audio-/Bild-Smart-Field und kann daher nicht als Eingabe im Prompt verwendet werden.",
       "writePrompt": "Schreiben Sie eine Aufforderung"
     },
     "writePrompt": "Eingabeaufforderung schreiben",

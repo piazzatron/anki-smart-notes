@@ -203,6 +203,7 @@
       "chooseNoteType": "نوع یادداشت را انتخاب کنید",
       "chooseSourceField": "یک فیلد منبع را انتخاب کنید",
       "fieldAlreadyHasSmartField": "{{field}} قبلاً یک Smart Field دارد",
+      "mediaInput": "فیلد «{{field}}» از قبل یک Smart Field صوتی/تصویری است، بنابراین نمی‌توان از آن به‌عنوان ورودی در پرامپت استفاده کرد.",
       "writePrompt": "یک اعلان بنویسید"
     },
     "writePrompt": "Prompt را بنویسید",

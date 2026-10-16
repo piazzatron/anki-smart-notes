@@ -197,18 +197,17 @@ def get_valid_fields_for_prompt(
     deck_id: DeckId,
     selected_note_field: Optional[str] = None,
 ) -> list[str]:
-    """Gets all fields excluding the selected one, if one is selected"""
+    """Gets the fields a prompt can read: every field except the selected one and
+    fields filled by audio or image Smart Fields."""
     fields = get_fields(selected_note_type)
     note_type_id = get_note_type_id_from_name(selected_note_type)
     if note_type_id is None:
         return [field for field in fields if field != selected_note_field]
 
-    non_chat_fields = {
-        smart_field.target_field_name
+    media_fields = {
+        smart_field.target_field_name.lower()
         for smart_field in smart_field_service.get_smart_fields_for_note(
-            note_type_id,
-            deck_id,
-            include_global=False,
+            note_type_id, deck_id
         )
         if not isinstance(smart_field.settings, ChatSmartFieldSettings)
     }
@@ -216,5 +215,5 @@ def get_valid_fields_for_prompt(
     return [
         field
         for field in fields
-        if field != selected_note_field and field not in non_chat_fields
+        if field != selected_note_field and field.lower() not in media_fields
     ]

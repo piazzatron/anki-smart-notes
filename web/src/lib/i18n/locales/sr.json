@@ -204,6 +204,7 @@
       "chooseNoteType": "Изаберите тип белешке",
       "chooseSourceField": "Изаберите изворно поље",
       "fieldAlreadyHasSmartField": "{{field}} већ има Смарт Фиелд",
+      "mediaInput": "Поље „{{field}}” је већ Smart Field типа аудио/слика, па се не може користити као улаз у упиту.",
       "writePrompt": "Напишите упит"
     },
     "writePrompt": "Врите Промпт",

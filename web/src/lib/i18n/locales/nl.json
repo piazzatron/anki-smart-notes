@@ -203,6 +203,7 @@
       "chooseNoteType": "Kies een notitietype",
       "chooseSourceField": "Kies een bronveld",
       "fieldAlreadyHasSmartField": "{{field}} heeft al een Smart Field",
+      "mediaInput": "Het veld \"{{field}}\" is al een audio/afbeelding Smart Field, dus het kan niet als invoer in de prompt worden gebruikt.",
       "writePrompt": "Schrijf een prompt"
     },
     "writePrompt": "Schrijf prompt",

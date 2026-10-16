@@ -205,6 +205,7 @@
       "chooseNoteType": "Vyberte typ poznámky",
       "chooseSourceField": "Vyberte zdrojové pole",
       "fieldAlreadyHasSmartField": "{{field}} již má Smart Field",
+      "mediaInput": "Pole \"{{field}}\" je již Smart Field pro zvuk/obrázek, proto jej nelze použít jako vstup v promptu.",
       "writePrompt": "Napište výzvu"
     },
     "writePrompt": "Napište výzvu",

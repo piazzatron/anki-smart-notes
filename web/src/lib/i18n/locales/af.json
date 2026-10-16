@@ -203,6 +203,7 @@
       "chooseNoteType": "Kies 'n notatipe",
       "chooseSourceField": "Kies 'n bronveld",
       "fieldAlreadyHasSmartField": "{{field}} het reeds 'n Smart Field",
+      "mediaInput": "Die veld \"{{field}}\" is reeds 'n oudio/beeld-Smart Field, dus kan dit nie as invoer in die prompt gebruik word nie.",
       "writePrompt": "Skryf 'n opdrag"
     },
     "writePrompt": "Skryf prompt",

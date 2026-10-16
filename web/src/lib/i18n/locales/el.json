@@ -203,6 +203,7 @@
       "chooseNoteType": "Επιλέξτε έναν τύπο σημείωσης",
       "chooseSourceField": "Επιλέξτε ένα πεδίο πηγής",
       "fieldAlreadyHasSmartField": "Το {{field}} έχει ήδη ένα Smart Field",
+      "mediaInput": "Το πεδίο \"{{field}}\" είναι ήδη ένα Smart Field ήχου/εικόνας, επομένως δεν μπορεί να χρησιμοποιηθεί ως είσοδος στην προτροπή.",
       "writePrompt": "Γράψτε μια προτροπή"
     },
     "writePrompt": "Ερώτηση εγγραφής",

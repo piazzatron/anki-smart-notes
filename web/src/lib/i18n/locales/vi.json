@@ -202,6 +202,7 @@
       "chooseNoteType": "Chọn loại ghi chú",
       "chooseSourceField": "Chọn trường nguồn",
       "fieldAlreadyHasSmartField": "{{field}} đã có Smart Field",
+      "mediaInput": "Trường \"{{field}}\" đã là Smart Field âm thanh/hình ảnh, nên không thể dùng làm đầu vào trong prompt.",
       "writePrompt": "Viết lời nhắc"
     },
     "writePrompt": "Viết lời nhắc",

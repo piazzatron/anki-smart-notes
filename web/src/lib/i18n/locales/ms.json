@@ -202,6 +202,7 @@
       "chooseNoteType": "Pilih jenis nota",
       "chooseSourceField": "Pilih medan sumber",
       "fieldAlreadyHasSmartField": "{{field}} sudah mempunyai Smart Field",
+      "mediaInput": "Medan \"{{field}}\" sudah menjadi Smart Field audio/imej, jadi ia tidak boleh digunakan sebagai input dalam prompt.",
       "writePrompt": "Tulis gesaan"
     },
     "writePrompt": "Tulis Prompt",

@@ -204,6 +204,7 @@
       "chooseNoteType": "Odaberite vrstu bilješke",
       "chooseSourceField": "Odaberite izvorno polje",
       "fieldAlreadyHasSmartField": "{{field}} već ima Smart Field",
+      "mediaInput": "Polje \"{{field}}\" je već Smart Field za zvuk/sliku, pa se ne može koristiti kao ulaz u upitu.",
       "writePrompt": "Napišite upit"
     },
     "writePrompt": "Upit za pisanje",

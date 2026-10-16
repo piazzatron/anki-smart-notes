@@ -17,6 +17,12 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import {
+  getMediaFieldNames,
+  getPromptFieldNames,
+  getValidPromptFields,
+  type ValidPromptFieldsArgs,
+} from "@/lib/promptFields"
 import type {
   AppState,
   ChatGenerationSettings,
@@ -97,7 +103,14 @@ export const createFieldEditorDraft = (
     sourceFieldName:
       field?.fieldType === "tts"
         ? field.settings.sourceFieldName
-        : getFirstSourceField(noteType, targetFieldName),
+        : getFirstSourceField({
+            deckId,
+            globalDeckId: state.globalDeckId,
+            ignoreFieldId: mode === "edit" ? field?.id : null,
+            noteType,
+            smartFields: state.smartFields,
+            targetFieldName,
+          }),
     // Editing starts on step 1 too — the target is as changeable as the prompt.
     step: initialStep ?? 1,
     target: {
@@ -127,13 +140,8 @@ export const getFirstAvailableField = (
   noteType?.fields[0] ??
   ""
 
-export const getFirstSourceField = (
-  noteType: NoteType | undefined,
-  targetFieldName: string,
-): string =>
-  noteType?.fields.find((fieldName) => fieldName !== targetFieldName) ??
-  noteType?.fields[0] ??
-  ""
+export const getFirstSourceField = (args: ValidPromptFieldsArgs): string =>
+  getValidPromptFields(args)[0] ?? ""
 
 export const hasSmartFieldCollision = (
   fields: SmartField[],
@@ -151,6 +159,7 @@ export const hasSmartFieldCollision = (
 export const validateFieldEditorDraft = (
   draft: FieldEditorDraft,
   fields: SmartField[],
+  globalDeckId: number,
 ): string | null => {
   if (draft.target.noteTypeId === 0) {
     return i18next.t("fieldEditor.validation.chooseNoteType")
@@ -168,6 +177,31 @@ export const validateFieldEditorDraft = (
   }
   if (draft.target.fieldType !== "tts" && draft.prompt.trim() === "") {
     return i18next.t("fieldEditor.validation.writePrompt")
+  }
+
+  // Voice and image fields hold [sound:…] and <img> tags, not text to read.
+  const mediaFieldNames = getMediaFieldNames({
+    deckId: draft.target.deckId,
+    globalDeckId,
+    ignoreFieldId: draft.editingFieldId,
+    noteTypeId: draft.target.noteTypeId,
+    smartFields: fields,
+  })
+  const inputFieldNames =
+    draft.target.fieldType === "tts"
+      ? [draft.sourceFieldName]
+      : getPromptFieldNames(draft.prompt)
+  const mediaInput = inputFieldNames
+    .map((fieldName) => fieldName.toLowerCase())
+    .find(
+      (fieldName) =>
+        fieldName !== draft.target.targetFieldName.toLowerCase() &&
+        mediaFieldNames.has(fieldName),
+    )
+  if (mediaInput !== undefined) {
+    return i18next.t("fieldEditor.validation.mediaInput", {
+      field: mediaFieldNames.get(mediaInput),
+    })
   }
 
   return null

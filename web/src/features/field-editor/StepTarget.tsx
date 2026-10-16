@@ -171,7 +171,14 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
             controls.setTarget({ targetFieldName })
             if (targetFieldName === controls.form.sourceFieldName) {
               controls.update({
-                sourceFieldName: getFirstSourceField(noteType, targetFieldName),
+                sourceFieldName: getFirstSourceField({
+                  deckId: target.deckId,
+                  globalDeckId: state.globalDeckId,
+                  ignoreFieldId: controls.form.editingFieldId,
+                  noteType,
+                  smartFields: state.smartFields,
+                  targetFieldName,
+                }),
               })
             }
           }}

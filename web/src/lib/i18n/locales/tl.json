@@ -203,6 +203,7 @@
       "chooseNoteType": "Pumili ng uri ng tala",
       "chooseSourceField": "Pumili ng source field",
       "fieldAlreadyHasSmartField": "Ang {{field}} ay mayroon nang Smart Field",
+      "mediaInput": "Ang field na \"{{field}}\" ay isa nang audio/image Smart Field, kaya hindi ito magagamit bilang input sa prompt.",
       "writePrompt": "Sumulat ng prompt"
     },
     "writePrompt": "Sumulat ng Prompt",

@@ -203,6 +203,7 @@
       "chooseNoteType": "Valitse muistiinpanon tyyppi",
       "chooseSourceField": "Valitse lähdekenttä",
       "fieldAlreadyHasSmartField": "{{field}}:llä on jo Smart Field",
+      "mediaInput": "Kenttä \"{{field}}\" on jo audio/image Smart Field, joten sitä ei voi käyttää syötteenä kehotteessa.",
       "writePrompt": "Kirjoita kehote"
     },
     "writePrompt": "Kirjoita kehote",

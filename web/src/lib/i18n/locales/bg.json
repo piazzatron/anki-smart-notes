@@ -203,6 +203,7 @@
       "chooseNoteType": "Изберете тип бележка",
       "chooseSourceField": "Изберете поле източник",
       "fieldAlreadyHasSmartField": "{{field}} вече има Smart Field",
+      "mediaInput": "Полето „{{field}}“ вече е Smart Field за аудио/изображение, затова не може да се използва като вход в промпта.",
       "writePrompt": "Напишете подкана"
     },
     "writePrompt": "Подкана за писане",

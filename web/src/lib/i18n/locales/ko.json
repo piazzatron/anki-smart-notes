@@ -202,6 +202,7 @@
       "chooseNoteType": "메모 유형을 선택하세요",
       "chooseSourceField": "소스 필드 선택",
       "fieldAlreadyHasSmartField": "{{field}}에는 이미 Smart Field가 있습니다.",
+      "mediaInput": "필드 \"{{field}}\"은(는) 이미 오디오/이미지 Smart Field이므로 프롬프트의 입력으로 사용할 수 없습니다.",
       "writePrompt": "프롬프트 작성"
     },
     "writePrompt": "프롬프트 쓰기",

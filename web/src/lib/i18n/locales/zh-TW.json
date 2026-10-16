@@ -202,6 +202,7 @@
       "chooseNoteType": "選擇筆記類型",
       "chooseSourceField": "選擇來源字段",
       "fieldAlreadyHasSmartField": "{{field}} 已經有 Smart Field",
+      "mediaInput": "欄位「{{field}}」已是音訊/圖片 Smart Field，因此無法在提示詞中作為輸入使用。",
       "writePrompt": "寫一個提示"
     },
     "writePrompt": "寫提示",

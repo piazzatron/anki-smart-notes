@@ -205,6 +205,7 @@
       "chooseNoteType": "Выберыце тып нататкі",
       "chooseSourceField": "Выберыце зыходнае поле",
       "fieldAlreadyHasSmartField": "У {{field}} ужо ёсць Smart Field",
+      "mediaInput": "Поле \"{{field}}\" ужо з'яўляецца Smart Field для аўдыё/выявы, таму яго нельга выкарыстоўваць як уваходныя даныя ў промпце.",
       "writePrompt": "Напішыце падказку"
     },
     "writePrompt": "Напісаць падказку",
