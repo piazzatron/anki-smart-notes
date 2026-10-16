@@ -357,13 +357,6 @@ version () {
   git add manifest.json
   git add changelog.md
   git commit -m "v$VERSION"
-
-  # Create a tag
-  git tag "v$VERSION"
-
-  # Push the commit and the tag
-  git push
-  git push origin "v$VERSION"
 }
 
 
