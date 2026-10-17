@@ -1,34 +1,39 @@
 </br>
 
-# **Generate text, TTS, and images for thousands of cards in one click.**
+# **Add text, speech, and images to individual cards or your entire deck in one click.**
+# Add with Anki extension id `1531888719`. Learn more **<a href="https://smart-notes.xyz?utm_source=ankiweb">on the web</a>** and **<a href='https://discord.gg/kxGaWpkTGr'>Discord</a>**. 
+</br>
 </br>
 
-## Learn more and sign up at **<a href="https://smart-notes.xyz?utm_source=ankiweb">https://smart-notes.xyz</a>** and **<a href='https://discord.gg/kxGaWpkTGr'>Discord</a>**. Anki extension id `1531888719`.
-
+#### 🥳 **NEW:** Smart Notes now supports **<a href="https://voicevox.hiroshiba.jp/">VoiceVox</a>**, the #1 Japanese TTS. 
 </br>
 
+## Turn any existing field into an automatically generating ✨ Smart Field ✨
+<img src="https://smart-notes.xyz/sn_ai_gen_fields.gif" height="600px" />
 
-<img src="https://smart-notes.xyz/example_field.gif" height="350px" />
-<img src="https://smart-notes.xyz/batch.gif" height="350px" />
-<img src="https://smart-notes.xyz/image_gen.gif" height="350px" />
+</br>
+</br>
+
+## Create rich, multimedia cards with text, audio, and images.
 <img src="https://smart-notes.xyz/multiple_fields.gif" height="350px" />
 
-</br>
 </br>
 
 ## 💬 Generate any field in **bulk**.
 
-Define custom prompts and AI generate any field across your _entire deck_ or individual notes. Supports the latest ChatGPT, Claude, and Gemini models.
+<img src="https://smart-notes.xyz/batch.gif" height="350px" />
 
+
+</br>
 </br>
 
 ## 🗣️ Text to Speech (TTS).
 
-Generate 1000+ premium voices in 90+ languages, from Google, Azure, VoiceVox, OpenAI, and ElevenLabs. 
+Generate 1000+ premium voices in 90+ languages, from Google, Azure, VoiceVox, OpenAI, and ElevenLabs. Competative with Awesome/HyperTTS. 
 
 </br>
 
-## 🏞️ Image Generation.
+## 🎨 Image Generation.
 
 Create memorable images to improve retention. Image models from NanoBanana, ChatGPT, and more.
 
@@ -36,11 +41,17 @@ Create memorable images to improve retention. Image models from NanoBanana, Chat
 
 ## ⚙️ Complex Pipelines
 
-Generate an example sentence in one field, translate it another, and generate an example image in the third.
+Generate an example sentence in one field, translate it into another, and generate an example image in the third. 
 
-Smart Notes figures out the fastest order to generate your fields using <a href="https://en.wikipedia.org/wiki/Topological_sorting">topological sorting</a>. You just set them up.
+</br>
 
-### ⚠️ 💳 Smart Notes is paid (with a free trial).
+## 🌎 Global Language Support
+
+The Smart Notes UI fully supports all 48 Anki languages. 
+
+</br>
+
+# ⚠️ 💳 Smart Notes is paid (with a free trial).
 
 <a href="https://www.smart-notes.xyz/prices">Learn more about plans</a> or start your free trial within Anki. **AliPay** 🇨🇳 and **Pix** 🇧🇷 payments are also supported.
 
@@ -53,12 +64,6 @@ Unable to afford Smart Notes due to financial hardship? Get in touch at <a href=
 ### 👉For issues / questions, email <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a> or join on <a href='https://discord.gg/kxGaWpkTGr'>Discord</a>.
 </br>
 
-
-### ⚠️ Requires Anki Qt6 (all recent Anki versions).
-
-</br>
-
-</br>
 
 ####
 
@@ -100,17 +105,15 @@ They can reference other fields, and you can have as many Smart Fields as you li
 
 ### Writing Prompts
 
-Text and image Smart Fields are generated via prompts that you define.
+Smart Fields are just "prompts" that get sent to the AI.
 
-A prompt may reference any other field on the card via `{{double curly braces}}`.
+You to use AI to generate those prompts in natural language, and then edit the Smart Field later.
 
-For example, if you're studying a language and want to generate a mnemonic to aid in memorization, you might write a prompt like this (assuming you have a field called "vocab"):
 
-```
-Create a simple, memorable mmemonic in Japanese for the word {{vocab}}. Reply with only the mmemonic.
-```
 
-Smart Fields can even reference other Smart Fields, allowing you to create complicated pipelines.
+</br>
+
+A prompt may reference any other field on the card via `{{double curly braces}}`. It may even reference other Smart Fields, allowing you to create complicated pipelines.
 
 </br>
 
@@ -167,4 +170,4 @@ Smart Notes is under constant development. See <a href="https://github.com/piazz
 
 _Smart Notes owes a debt of gratitude for inspiration to <a href="https://ankiweb.net/shared/info/1416178071">Intellifiller.</a>_
 
-<img src="https://cloud.umami.is/p/KOsj96vrI" />
+<img src="https://cloud.umami.is/p/KOsj96vrI" height="1px"/>
