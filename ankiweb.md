@@ -42,7 +42,7 @@ Smart Notes figures out the fastest order to generate your fields using <a href=
 
 ### ⚠️ 💳 Smart Notes is paid (with a free trial).
 
-<a href="https://www.smart-notes.xyz/prices">Learn more about plans</a> or start your free trial within Anki. Smart Notes supports **AliPay**. 🇨🇳
+<a href="https://www.smart-notes.xyz/prices">Learn more about plans</a> or start your free trial within Anki. Smart Notes supports **AliPay** 🇨🇳 and **Pix** 🇧🇷.
 
 Unable to afford Smart Notes due to financial hardship? Get in touch at <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a>.
 
