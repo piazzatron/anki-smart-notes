@@ -52,6 +52,7 @@ const TEST_PLAN: PlanInfo = {
   notesUsed: 0,
   notesLimit: 50,
   daysLeft: 7,
+  totalDays: 7,
   textCreditsUsed: 0,
   textCreditsCapacity: 100,
   voiceCreditsUsed: 0,

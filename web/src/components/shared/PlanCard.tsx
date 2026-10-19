@@ -109,7 +109,7 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
         <ProgressBar
           colorClass={meterClass}
           heightClass="h-1"
-          percent={Math.min(100, (daysLeft / 7) * 100)}
+          percent={Math.min(100, (daysLeft / account.plan.totalDays) * 100)}
           trackClass="mt-2.5 bg-white/[0.08]"
         />
         <button

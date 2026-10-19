@@ -44,6 +44,7 @@ class PlanInfo(TypedDict):
     notesUsed: Optional[int]
     notesLimit: Optional[int]
     daysLeft: int
+    totalDays: int
     textCreditsUsed: int
     textCreditsCapacity: int
     voiceCreditsUsed: int

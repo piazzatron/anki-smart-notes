@@ -19,6 +19,7 @@ const PLAN: NonNullable<AccountState["plan"]> = {
   notesUsed: 12,
   notesLimit: 50,
   daysLeft: 5,
+  totalDays: 7,
   textCreditsUsed: 10,
   textCreditsCapacity: 100,
   voiceCreditsUsed: 5,

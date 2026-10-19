@@ -36,6 +36,8 @@ export interface PlanInfo {
   notesUsed: number | null
   notesLimit: number | null
   daysLeft: number
+  /** Length of the current cycle, so the UI can draw how much is left. */
+  totalDays: number
   textCreditsUsed: number
   textCreditsCapacity: number
   voiceCreditsUsed: number

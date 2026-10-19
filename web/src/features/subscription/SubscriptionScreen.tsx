@@ -449,10 +449,12 @@ const getPlanFacts = ({
       ],
       [
         i18next.t("subscription.notes"),
-        i18next.t("subscription.notesUsedValue", {
-          used: plan?.notesUsed ?? 0,
-          limit: plan?.notesLimit ?? 50,
-        }),
+        plan?.notesLimit === null
+          ? i18next.t("common.unlimited")
+          : i18next.t("subscription.notesUsedValue", {
+              used: plan?.notesUsed ?? 0,
+              limit: plan?.notesLimit ?? 50,
+            }),
       ],
     ]
   }
