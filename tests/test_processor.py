@@ -864,3 +864,75 @@ async def test_cycle_in_stored_fields_does_not_hang(target_field, monkeypatch):
     assert n["f2"] == "" and n["f3"] == ""
     if target_field is None:
         assert n["f4"] == p("1")
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("editor_shares_card_note", [True, False])
+async def test_editor_generation_saves_fields_despite_editor_reloads(
+    editor_shares_card_note, monkeypatch
+):
+    import src.hooks
+
+    class SavedNote(MockNote):
+        """A note that load()s from the collection's last saved copy."""
+
+        def load(self):
+            self._data = dict(saved)
+
+    saved = {"f0": "0", "f1": "existing", "f2": ""}
+    n = SavedNote(dict(saved))
+    processor = setup_data(  # type: ignore
+        monkeypatch=monkeypatch,
+        note=n,
+        prompts_map={"f1": "{{f0}}", "f2": "{{f0}}"},
+        options={},
+        allow_empty_fields=False,
+    )
+    card = MockCard(id=1, did=1, note=n)
+    card.nid = n.id
+    main_thread_work = []
+    shown_in_editor = []
+
+    class MockCollection:
+        def update_note(self, note):
+            saved.update(note._data)
+
+    class MockMw:
+        col = MockCollection()
+        progress = MockProgress()
+
+    class FakeEditor:
+        # Anki's editors hold the card's note object, except once the browser's
+        # previewer has swapped the card's cached note for a fresh copy.
+        def __init__(self):
+            self.card = card
+            self.note = n if editor_shares_card_note else SavedNote(dict(saved))
+            self.web = None
+            self.parentWindow = None
+
+        def addButton(self, **kwargs):
+            self.generate = kwargs["func"]
+
+        def loadNote(self):
+            shown_in_editor.append(dict(self.note._data))
+
+    monkeypatch.setattr(src.hooks, "mw", MockMw())
+    monkeypatch.setattr(src.hooks, "ensure_generation_available", lambda: True)
+    monkeypatch.setattr(src.hooks, "is_card_fully_processed", lambda _: False)
+    monkeypatch.setattr(src.note_proccessor, "mw", MockMw())
+    monkeypatch.setattr(processor, "_assert_valid_app_mode", lambda: True)
+    monkeypatch.setattr(src.note_proccessor, "bump_usage_counter", lambda: None)
+    # Main-thread work queued during generation runs after the background op.
+    monkeypatch.setattr(src.note_proccessor, "run_on_main", main_thread_work.append)
+    run_background_ops_as_tasks(monkeypatch, src.note_proccessor)
+
+    editor = FakeEditor()
+    src.hooks.add_editor_top_button(processor)([], editor)
+    editor.generate(editor)
+    await asyncio.gather(*(asyncio.all_tasks() - {asyncio.current_task()}))
+    for work in main_thread_work:
+        work()
+
+    # f1 already had a value, so it passes through; f2 is generated and saved.
+    assert saved == {"f0": "0", "f1": "existing", "f2": p("0")}
+    assert shown_in_editor[-1] == saved

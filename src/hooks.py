@@ -142,10 +142,14 @@ def add_editor_top_button(
 
         set_button_disabled()
 
+        # The processor fills in card.note(). That is usually editor.note, but the
+        # browser's previewer swaps the card's cached note for a fresh copy.
+        generated_note = card.note()
+
         def reload_note() -> None:
-            # Don't reload notes if they don't exist yet
-            if note.id:
-                note.load()
+            # Show the note being generated. Don't note.load() it: that runs before
+            # the queued save and would wipe values not yet written.
+            editor.note = generated_note
             editor.loadNote()
 
             parent = editor.parentWindow

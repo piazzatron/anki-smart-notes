@@ -128,7 +128,9 @@ link-dist () {
 }
 
 find-anki-main-pids () {
-  pgrep -f "sys.argv\\[0\\] = 'Anki'; aqt.run\\(\\)" || true
+  # Launcher-based installs run Anki through Python's `aqt.run()`; Anki 26.09+
+  # runs the app bundle's own binary.
+  pgrep -f "sys.argv\\[0\\] = 'Anki'; aqt.run\\(\\)|Anki\\.app/Contents/MacOS/Anki( |$)" || true
 }
 
 stop-running-anki () {
