@@ -84,8 +84,8 @@
       "label": "Előzetes generálás tanulás közben"
     },
     "generateOnAdd": {
-      "description": "Smart Fields mezők generálása a háttérben az újonnan hozzáadott jegyzetekhez, beleértve az olyan eszközöket is, mint a Yomitan és az AnkiConnect.",
-      "label": "Újonnan hozzáadott jegyzetek automatikus generálása"
+      "description": "Smart Fields generálása a háttérben minden újonnan hozzáadott jegyzethez, beleértve a más bővítmények által hozzáadottakat is.",
+      "label": "Jegyzetek generálása Yomitan / AnkiConnect által hozzáadva"
     },
     "language": {
       "description": "Válassza ki az Smart Notes nyelvét, vagy egyeztesse az Anki nyelvével.",

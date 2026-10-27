@@ -88,8 +88,8 @@
       "label": "التوليد مسبقًا أثناء المراجعة"
     },
     "generateOnAdd": {
-      "description": "توليد حقول Smart Fields في الخلفية للملاحظات المضافة حديثًا، بما في ذلك الملاحظات الناتجة عن أدوات مثل Yomitan وAnkiConnect.",
-      "label": "توليد الملاحظات المضافة حديثًا تلقائيًا"
+      "description": "إنشاء Smart Fields في الخلفية لأي ملاحظة جديدة تُضاف، بما في ذلك الملاحظات المضافة من إضافات أخرى.",
+      "label": "إنشاء الملاحظات المضافة من Yomitan / AnkiConnect"
     },
     "language": {
       "description": "اختر لغة Smart Notes، أو قم بمطابقة لغة Anki.",

@@ -84,8 +84,8 @@
       "label": "Luo tulevat kortit etukäteen kertauksen aikana"
     },
     "generateOnAdd": {
-      "description": "Luo Smart Fields -kentät taustalla uusille muistiinpanoille, myös työkaluilla kuten Yomitan ja AnkiConnect.",
-      "label": "Luo uudet muistiinpanot automaattisesti"
+      "description": "Luo Smart Fieldsit taustalla kaikille uusille lisätyille muistiinpanoille, myös muiden lisäosien kautta lisätyille.",
+      "label": "Luo Yomitan- / AnkiConnect-lisätyt muistiinpanot"
     },
     "language": {
       "description": "Valitse Smart Notes:n kieli tai vastaa Anki:n kieleen.",

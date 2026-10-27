@@ -85,8 +85,8 @@
       "label": "יצירה מראש במהלך חזרה"
     },
     "generateOnAdd": {
-      "description": "יצירת Smart Fields ברקע עבור הערות שנוספו לאחרונה, כולל הערות מכלים כמו Yomitan ו-AnkiConnect.",
-      "label": "יצירה אוטומטית של הערות חדשות"
+      "description": "צור Smart Fields ברקע לכל הערה חדשה שנוספה, כולל הערות מתוספים אחרים.",
+      "label": "צור הערות שנוספו מ-Yomitan / AnkiConnect"
     },
     "language": {
       "description": "בחר את השפה עבור Smart Notes, או התאם את השפה של Anki.",

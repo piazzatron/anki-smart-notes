@@ -85,8 +85,8 @@
       "label": "Generiraj unaprijed tijekom učenja"
     },
     "generateOnAdd": {
-      "description": "Generiraj Smart Fields u pozadini za novo dodane bilješke, uključujući one iz alata poput Yomitan i AnkiConnect.",
-      "label": "Automatski generiraj novo dodane bilješke"
+      "description": "Generiraj Smart Fields u pozadini za svaku novu bilješku, uključujući one iz drugih dodataka.",
+      "label": "Generiraj bilješke dodane putem Yomitan / AnkiConnect"
     },
     "language": {
       "description": "Odaberite jezik za Smart Notes ili odgovarajte jeziku Anki.",

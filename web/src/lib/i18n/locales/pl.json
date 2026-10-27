@@ -86,8 +86,8 @@
       "label": "Generuj z wyprzedzeniem podczas nauki"
     },
     "generateOnAdd": {
-      "description": "Generuje Smart Fields w tle dla nowo dodanych notatek, także z narzędzi takich jak Yomitan i AnkiConnect.",
-      "label": "Automatycznie generuj nowo dodane notatki"
+      "description": "Generuj pola Smart Fields w tle dla każdej nowo dodanej notatki, także z innych dodatków.",
+      "label": "Generuj notatki dodane z Yomitan / AnkiConnect"
     },
     "language": {
       "description": "Wybierz język dla Smart Notes lub dopasuj język Anki.",

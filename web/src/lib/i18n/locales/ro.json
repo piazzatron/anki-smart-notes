@@ -85,8 +85,8 @@
       "label": "Generează din timp în timpul recapitulării"
     },
     "generateOnAdd": {
-      "description": "Generează Smart Fields în fundal pentru notițele nou adăugate, inclusiv din instrumente precum Yomitan și AnkiConnect.",
-      "label": "Generează automat notițele nou adăugate"
+      "description": "Generează Smart Fields în fundal pentru orice notiță nou adăugată, inclusiv din alte add-on-uri.",
+      "label": "Generează notițele adăugate din Yomitan / AnkiConnect"
     },
     "language": {
       "description": "Alegeți limba pentru Smart Notes sau potriviți limba Anki.",

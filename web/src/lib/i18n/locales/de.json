@@ -84,8 +84,8 @@
       "label": "Während der Wiederholung vorab generieren"
     },
     "generateOnAdd": {
-      "description": "Erzeuge Smart Fields im Hintergrund für neu hinzugefügte Notizen, auch über Tools wie Yomitan und AnkiConnect.",
-      "label": "Neu hinzugefügte Notizen automatisch generieren"
+      "description": "Smart Fields im Hintergrund für jede neu hinzugefügte Notiz generieren, auch für Notizen aus anderen Add-ons.",
+      "label": "Notizen aus Yomitan / AnkiConnect generieren"
     },
     "language": {
       "description": "Wählen Sie die Sprache für Smart Notes oder passen Sie sie an die Sprache von Anki an.",

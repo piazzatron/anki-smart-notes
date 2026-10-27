@@ -83,8 +83,8 @@
       "label": "複習時提前生成"
     },
     "generateOnAdd": {
-      "description": "在背景為新加入的筆記生成 Smart Fields，包括透過 Yomitan 和 AnkiConnect 等工具加入的筆記。",
-      "label": "自動生成新加入的筆記"
+      "description": "在背景為任何新增的筆記產生 Smart Fields，包括來自其他附加元件的筆記。",
+      "label": "為從 Yomitan / AnkiConnect 新增的筆記產生內容"
     },
     "language": {
       "description": "選擇 Smart Notes 的語言，或符合 Anki 的語言。",

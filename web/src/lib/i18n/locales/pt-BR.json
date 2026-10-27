@@ -85,8 +85,8 @@
       "label": "Gerar com antecedência durante a revisão"
     },
     "generateOnAdd": {
-      "description": "Gera Smart Fields em segundo plano para notas recém-adicionadas, inclusive por meio de ferramentas como Yomitan e AnkiConnect.",
-      "label": "Gerar automaticamente notas recém-adicionadas"
+      "description": "Gerar Smart Fields em segundo plano para qualquer nota recém-adicionada, inclusive de outros complementos.",
+      "label": "Gerar notas adicionadas pelo Yomitan / AnkiConnect"
     },
     "language": {
       "description": "Escolha o idioma para Smart Notes ou combine o idioma de Anki.",

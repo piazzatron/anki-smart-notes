@@ -83,8 +83,8 @@
       "label": "Generar en avançada pendent la revision"
     },
     "generateOnAdd": {
-      "description": "Generar los Smart Fields en rèire-plan per las nòtas apondudas recentament, inclusas las venent de aplicacions coma Yomitan e AnkiConnect.",
-      "label": "Generar automaticament las nòtas apondudas recentament"
+      "description": "Genera Smart Fields en segond plan per a qualque nòta novèla apondguda, inclosas las venguda d'autres extensions.",
+      "label": "Genera las nòtas apondudas dempuèi Yomitan / AnkiConnect"
     },
     "language": {
       "description": "Causissètz la lenga per Smart Notes, o correspondètz a la lenga d'Anki.",

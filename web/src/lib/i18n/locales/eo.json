@@ -84,8 +84,8 @@
       "label": "Generi antaŭtempe dum revizio"
     },
     "generateOnAdd": {
-      "description": "Generu valorojn en Smart Fields en la fono por ĵus aldonitaj notoj, inkluzive de tiuj el iloj kiel Yomitan kaj AnkiConnect.",
-      "label": "Aŭtomate generi ĵus aldonitajn notojn"
+      "description": "Generu Inteligentajn Kampojn en la fono por ĉiu nove aldonita noto, inkluzive de tiuj el aliaj aldonaĵoj.",
+      "label": "Generi notojn aldonitajn el Yomitan / AnkiConnect"
     },
     "language": {
       "description": "Elektu la lingvon por Smart Notes, aŭ kongruu kun la lingvo de Anki.",

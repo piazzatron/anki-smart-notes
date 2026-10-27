@@ -83,8 +83,8 @@
       "label": "Tạo trước trong lúc ôn tập"
     },
     "generateOnAdd": {
-      "description": "Tạo Smart Fields ở chế độ nền cho các ghi chú mới thêm, kể cả từ các công cụ như Yomitan và AnkiConnect.",
-      "label": "Tự động tạo cho các ghi chú mới thêm"
+      "description": "Tạo Smart Fields ở chế độ nền cho mọi ghi chú mới được thêm, kể cả từ các add-on khác.",
+      "label": "Tạo nội dung cho ghi chú được thêm từ Yomitan / AnkiConnect"
     },
     "language": {
       "description": "Chọn ngôn ngữ cho Smart Notes hoặc khớp với ngôn ngữ của Anki.",

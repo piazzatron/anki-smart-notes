@@ -84,8 +84,8 @@
       "label": "Xerar con antelación durante o repaso"
     },
     "generateOnAdd": {
-      "description": "Xerar os Smart Fields en segundo plano para as notas engadidas recentemente, incluídas as das ferramentas como Yomitan e AnkiConnect.",
-      "label": "Xerar automaticamente as notas engadidas recentemente"
+      "description": "Xera os Smart Fields en segundo plano para calquera nota nova engadida, incluídas as de outros complementos.",
+      "label": "Xerar as notas engadidas desde Yomitan / AnkiConnect"
     },
     "language": {
       "description": "Escolle o idioma para Smart Notes ou fai coincidir o idioma de Anki.",

@@ -85,8 +85,8 @@
       "label": "Générer à l'avance pendant les révisions"
     },
     "generateOnAdd": {
-      "description": "Générer les Smart Fields en arrière-plan pour les notes nouvellement ajoutées, y compris depuis des outils comme Yomitan et AnkiConnect.",
-      "label": "Générer automatiquement les notes nouvellement ajoutées"
+      "description": "Générer les Smart Fields en arrière-plan pour toute nouvelle note ajoutée, y compris depuis d'autres add-ons.",
+      "label": "Générer les notes ajoutées depuis Yomitan / AnkiConnect"
     },
     "language": {
       "description": "Choisissez la langue de Smart Notes ou faites correspondre la langue de Anki.",

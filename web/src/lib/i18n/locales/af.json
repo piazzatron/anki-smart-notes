@@ -84,8 +84,8 @@
       "label": "Genereer vooraf tydens hersiening"
     },
     "generateOnAdd": {
-      "description": "Genereer Smart Fields op die agtergrond vir nuut bygevoegde notas, insluitend vanaf gereedskap soos Yomitan en AnkiConnect.",
-      "label": "Genereer nuut bygevoegde notas outomaties"
+      "description": "Genereer Smart Fields op die agtergrond vir enige nuut bygevoegde notas, insluitend dié van ander add-ons.",
+      "label": "Genereer notas wat vanaf Yomitan / AnkiConnect bygevoeg word"
     },
     "language": {
       "description": "Kies die taal vir Smart Notes, of pas by Anki se taal.",

@@ -84,8 +84,8 @@
       "label": "Mag-generate nang maaga habang nagre-review"
     },
     "generateOnAdd": {
-      "description": "I-generate ang Smart Fields sa background para sa mga bagong idinagdag na note, kasama ang mga galing sa mga tool gaya ng Yomitan at AnkiConnect.",
-      "label": "Awtomatikong i-generate ang mga bagong idinagdag na note"
+      "description": "Bumuo ng Smart Fields sa background para sa anumang bagong idinagdag na note, kasama ang mula sa ibang add-on.",
+      "label": "Bumuo ng mga note na idinagdag mula sa Yomitan / AnkiConnect"
     },
     "language": {
       "description": "Piliin ang wika para sa Smart Notes, o itugma ang wika ng Anki.",

@@ -84,8 +84,8 @@
       "label": "Generera i förväg under repetition"
     },
     "generateOnAdd": {
-      "description": "Generera Smart Fields i bakgrunden för nytillagda anteckningar, inklusive från verktyg som Yomitan och AnkiConnect.",
-      "label": "Generera nytillagda anteckningar automatiskt"
+      "description": "Generera Smart Fields i bakgrunden för alla nytillagda anteckningar, inklusive de från andra tillägg.",
+      "label": "Generera anteckningar tillagda från Yomitan / AnkiConnect"
     },
     "language": {
       "description": "Välj språk för Smart Notes, eller matcha Anki:s språk.",

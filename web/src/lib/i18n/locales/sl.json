@@ -86,8 +86,8 @@
       "label": "Ustvari vnaprej med ponavljanjem"
     },
     "generateOnAdd": {
-      "description": "Ustvari polja Smart Fields v ozadju za novo dodane zapiske, tudi iz orodij, kot sta Yomitan in AnkiConnect.",
-      "label": "Samodejno ustvari novo dodane zapiske"
+      "description": "Ustvari Smart Fields v ozadju za vsako novo dodano beležko, tudi iz drugih dodatkov.",
+      "label": "Ustvari beležke, dodane iz Yomitan / AnkiConnect"
     },
     "language": {
       "description": "Izberite jezik za Smart Notes ali se ujemite z jezikom Anki.",

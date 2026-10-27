@@ -85,8 +85,8 @@
       "label": "Genera per avançat durant el repàs"
     },
     "generateOnAdd": {
-      "description": "Genera els Smart Fields en segon pla per a les notes afegides recentment, inclosos els de ferramentes com Yomitan i AnkiConnect.",
-      "label": "Genera automàticament les notes afegides recentment"
+      "description": "Genera Smart Fields en segon pla per a qualsevol nota nova afegida, inclosa la provinent d'altres complements.",
+      "label": "Genera les notes afegides des de Yomitan / AnkiConnect"
     },
     "language": {
       "description": "Trieu l'idioma per a Smart Notes o feu coincidir l'idioma d'Anki.",

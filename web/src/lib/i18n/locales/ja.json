@@ -83,8 +83,8 @@
       "label": "レビュー中に事前に生成する"
     },
     "generateOnAdd": {
-      "description": "新しく追加されたノートのSmart Fieldsをバックグラウンドで生成します。Yomitan や AnkiConnect などのツールからの追加も対象になります。",
-      "label": "新しく追加されたノートを自動的に生成する"
+      "description": "バックグラウンドで、他のアドオンからのものも含め、新しく追加されたすべてのノートに対してスマートフィールドを生成します。",
+      "label": "Yomitan / AnkiConnect から追加されたノートを生成"
     },
     "language": {
       "description": "Smart Notes の言語を選択するか、Anki の言語に一致させます。",

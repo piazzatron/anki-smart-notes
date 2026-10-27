@@ -83,8 +83,8 @@
       "label": "복습 중 미리 생성"
     },
     "generateOnAdd": {
-      "description": "Yomitan, AnkiConnect 같은 도구로 추가된 노트를 포함해, 새로 추가된 노트의 Smart Fields를 백그라운드에서 생성합니다.",
-      "label": "새로 추가된 노트 자동 생성"
+      "description": "백그라운드에서 새로 추가된 모든 노트(다른 애드온에서 추가된 노트 포함)에 대해 Smart Fields를 생성합니다.",
+      "label": "Yomitan / AnkiConnect에서 추가된 노트 생성"
     },
     "language": {
       "description": "Smart Notes의 언어를 선택하거나 Anki의 언어와 일치하십시오.",

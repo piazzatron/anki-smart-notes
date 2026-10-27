@@ -84,8 +84,8 @@
       "label": "Generer på forhånd under gennemgang"
     },
     "generateOnAdd": {
-      "description": "Generer Smart Fields i baggrunden for nyligt tilføjede noter, herunder fra værktøjer som Yomitan og AnkiConnect.",
-      "label": "Generer nyligt tilføjede noter automatisk"
+      "description": "Generér Smart Fields i baggrunden for alle nyligt tilføjede noter, inklusive dem fra andre add-ons.",
+      "label": "Generér noter tilføjet fra Yomitan / AnkiConnect"
     },
     "language": {
       "description": "Vælg sproget for Smart Notes, eller match Ankis sprog.",

@@ -87,8 +87,8 @@
       "label": "Gin roimh ré le linn athbhreithnithe"
     },
     "generateOnAdd": {
-      "description": "Gin Smart Fields sa chúlra do nótaí a cuireadh leis le déanaí, lena n-áirítear ó uirlisí ar nós Yomitan agus AnkiConnect.",
-      "label": "Gin nótaí a cuireadh leis le déanaí go huathoibríoch"
+      "description": "Gin Smart Fields sa chúlra do gach nóta nuamhoite a chuirtear leis, lena n-áirítear ó bhreiseáin eile.",
+      "label": "Gin nótaí a cuireadh ó Yomitan / AnkiConnect"
     },
     "language": {
       "description": "Roghnaigh an teanga le haghaidh Smart Notes, nó meaitseáil teanga Anki.",

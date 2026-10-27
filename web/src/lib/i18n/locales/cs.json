@@ -86,8 +86,8 @@
       "label": "Generovat předem během opakování"
     },
     "generateOnAdd": {
-      "description": "Generovat Smart Fields na pozadí u nově přidaných poznámek, včetně poznámek z nástrojů jako Yomitan a AnkiConnect.",
-      "label": "Automaticky generovat nově přidané poznámky"
+      "description": "Generovat Smart Fields na pozadí pro každou nově přidanou poznámku, včetně poznámek z jiných doplňků.",
+      "label": "Generovat poznámky přidané z Yomitan / AnkiConnect"
     },
     "language": {
       "description": "Vyberte jazyk pro Smart Notes nebo se shodujte s jazykem Anki.",

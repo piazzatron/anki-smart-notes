@@ -84,8 +84,8 @@
       "label": "Vooraf genereren tijdens herhalen"
     },
     "generateOnAdd": {
-      "description": "Genereer Smart Fields op de achtergrond voor nieuw toegevoegde notities, ook via tools zoals Yomitan en AnkiConnect.",
-      "label": "Nieuw toegevoegde notities automatisch genereren"
+      "description": "Genereer Smart Fields op de achtergrond voor elke nieuw toegevoegde notitie, inclusief notities uit andere add-ons.",
+      "label": "Notities toegevoegd via Yomitan / AnkiConnect genereren"
     },
     "language": {
       "description": "Kies de taal voor Smart Notes, of pas de taal van Anki aan.",

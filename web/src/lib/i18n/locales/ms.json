@@ -83,8 +83,8 @@
       "label": "Jana lebih awal semasa semakan"
     },
     "generateOnAdd": {
-      "description": "Jana Smart Fields di latar belakang untuk nota yang baru ditambah, termasuk daripada alat seperti Yomitan dan AnkiConnect.",
-      "label": "Jana nota yang baru ditambah secara automatik"
+      "description": "Jana Smart Fields di latar belakang untuk mana-mana nota baharu yang ditambah, termasuk daripada add-on lain.",
+      "label": "Jana nota yang ditambah dari Yomitan / AnkiConnect"
     },
     "language": {
       "description": "Pilih bahasa untuk Smart Notes atau padankan bahasa Anki.",

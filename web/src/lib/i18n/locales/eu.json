@@ -84,8 +84,8 @@
       "label": "Sortu aldez aurretik berrikusketan zehar"
     },
     "generateOnAdd": {
-      "description": "Sortu Smart Fields atzeko planoan gehitu berri diren oharrentzat, baita Yomitan eta AnkiConnect bezalako tresnetatik gehitutakoentzat ere.",
-      "label": "Sortu automatikoki gehitu berri diren oharrak"
+      "description": "Sortu Smart Fields atzeko planoan gehitutako edozein ohar berriontzat, beste add-on batzuen bidezkoak barne.",
+      "label": "Sortu Yomitan / AnkiConnect bidez gehitutako oharrak"
     },
     "language": {
       "description": "Aukeratu Smart Notes-rako hizkuntza edo lotu Anki-ren hizkuntzarekin.",

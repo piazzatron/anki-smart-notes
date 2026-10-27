@@ -84,8 +84,8 @@
       "label": "Genereeri ette kordamise ajal"
     },
     "generateOnAdd": {
-      "description": "Genereeri Smart Fieldsi väljad taustal uutele märkmetele, sealhulgas tööriistadest nagu Yomitan ja AnkiConnect.",
-      "label": "Genereeri uued märkmed automaatselt"
+      "description": "Genereeri taustal Smart Fields kõigile lisatud uutele märkmetele, sealhulgas teistest lisanditest pärinevatele.",
+      "label": "Genereeri märkmed, mis on lisatud Yomitan / AnkiConnect kaudu"
     },
     "language": {
       "description": "Valige Smart Notes keel või sobitage Anki keel.",

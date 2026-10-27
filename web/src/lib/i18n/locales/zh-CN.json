@@ -83,8 +83,8 @@
       "label": "复习时提前生成"
     },
     "generateOnAdd": {
-      "description": "在后台为新添加的笔记生成 Smart Fields,包括通过 Yomitan 和 AnkiConnect 等工具添加的笔记。",
-      "label": "自动生成新添加的笔记"
+      "description": "为任何新添加的笔记在后台生成 Smart Fields，包括来自其他插件的笔记。",
+      "label": "为从 Yomitan / AnkiConnect 添加的笔记生成内容"
     },
     "language": {
       "description": "选择 Smart Notes 的语言，或匹配 Anki 的语言。",
