@@ -21,9 +21,11 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import json
 import logging
+import types
 from typing import Any
 from unittest.mock import AsyncMock, MagicMock
 
+import aiohttp
 import pytest
 from aiohttp import web
 from aiohttp.test_utils import TestClient, TestServer
@@ -929,3 +931,40 @@ async def test_open_browser_command_dispatch(monkeypatch):
         assert (await resp.json()) == {"ok": True}
         fake_dto.parse_ui_open_browser.assert_called_once_with({})
         open_anki_browser.assert_called_once_with()
+
+
+@pytest.mark.asyncio
+async def test_bind_failure_reports_who_holds_the_port_on_windows(monkeypatch):
+    netstat = (
+        "  TCP    127.0.0.1:8766         0.0.0.0:0              LISTENING       4321\n"
+        "  TCP    127.0.0.1:53001        127.0.0.1:8766         ESTABLISHED     99\n"
+    )
+    tasklist = '"Anki.exe","4321","Console","1","200,000 K"\r\n'
+
+    async def fail_to_bind(self):
+        raise OSError(10048, "only one usage of each socket address")
+
+    def run(args, **kwargs):
+        return types.SimpleNamespace(
+            stdout=netstat if args[0] == "netstat" else tasklist
+        )
+
+    def refuse_ping(*args, **kwargs):
+        raise aiohttp.ClientConnectionError()
+
+    error_logs = []
+    monkeypatch.setattr(web.TCPSite, "start", fail_to_bind)
+    monkeypatch.setattr(src.local_server.aiohttp, "request", refuse_ping)
+    monkeypatch.setattr(src.local_server.sys, "platform", "win32")
+    monkeypatch.setattr(src.local_server.subprocess, "run", run)
+    monkeypatch.setattr(
+        src.local_server.logger,
+        "error",
+        lambda msg, *args: error_logs.append(msg % args),
+    )
+
+    await _make_server()._start_server()
+
+    assert len(error_logs) == 1
+    assert "LISTENING pid 4321 Anki.exe" in error_logs[0]
+    assert "pid 99" not in error_logs[0]

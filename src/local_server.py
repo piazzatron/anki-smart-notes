@@ -21,13 +21,16 @@ import asyncio
 import concurrent.futures
 import inspect
 import json
+import os
 import secrets
+import subprocess
 import sys
 import threading
 from collections.abc import Callable
 from pathlib import Path
 from typing import Any, Optional
 
+import aiohttp
 from aiohttp import web
 from aqt import mw
 
@@ -150,10 +153,76 @@ class LocalServer:
                 f"Local server started on http://{LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}"
             )
         except OSError as e:
-            # Port already in use (another Anki profile, or something squatting).
-            # That user falls back to the auth code flow — acceptable edge case.
+            # Port already in use, which breaks the web app for this session.
+            # Record who holds it (this process, another Anki, or another
+            # program) so the Sentry event says why. Snapshot owners before
+            # probing, so the probe's own connection isn't in the snapshot.
+            holders: list[str] = []
+            if sys.platform == "win32":
+                try:
+                    no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+                    # All protocols, so IPv6 listeners ([::]:8766) show up too.
+                    netstat = subprocess.run(
+                        ["netstat", "-ano"],
+                        capture_output=True,
+                        text=True,
+                        errors="replace",
+                        timeout=5,
+                        creationflags=no_window,
+                    ).stdout
+                    # TCP rows are: proto, local address, foreign address, state, PID.
+                    # Keep one row per state and PID; a listener can have many
+                    # connections.
+                    rows = {
+                        (parts[3], parts[4])
+                        for parts in (line.split() for line in netstat.splitlines())
+                        if len(parts) == 5
+                        and parts[1].endswith(f":{LOCAL_SERVER_PORT}")
+                    }
+                    images: dict[str, str] = {}
+                    for pid in sorted({pid for _, pid in rows if pid != "0"})[:5]:
+                        tasklist = subprocess.run(
+                            ["tasklist", "/FI", f"PID eq {pid}", "/FO", "CSV", "/NH"],
+                            capture_output=True,
+                            text=True,
+                            errors="replace",
+                            timeout=5,
+                            creationflags=no_window,
+                        ).stdout
+                        # Image basename only: the first CSV column.
+                        if tasklist.startswith('"'):
+                            images[pid] = tasklist.split(",")[0].strip('"')
+                    for state, pid in sorted(rows):
+                        is_self = " (this process)" if pid == str(os.getpid()) else ""
+                        holders.append(
+                            f"{state} pid {pid}{is_self} {images.get(pid, '-')}"
+                        )
+                except Exception as lookup_error:
+                    holders.append(f"lookup failed: {type(lookup_error).__name__}")
+
+            # Our own server answers /ping with {"ok": true}. Report only whether
+            # the reply looks like ours, never another program's response body.
+            try:
+                async with aiohttp.request(
+                    "GET",
+                    f"http://{LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}/ping",
+                    timeout=aiohttp.ClientTimeout(total=2),
+                    allow_redirects=False,
+                ) as response:
+                    body = await response.content.read(64)
+                    looks_like_ours = body.replace(b" ", b"") == b'{"ok":true}'
+                    ping = f"{response.status} {'smart-notes' if looks_like_ours else 'other'}"
+            except Exception as ping_error:
+                ping = type(ping_error).__name__
+
             logger.error(
-                f"Local server failed to bind {LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}: {e}"
+                "Local server failed to bind %s:%s: %s (pid %s; holders: %s; ping: %s)",
+                LOCAL_SERVER_HOST,
+                LOCAL_SERVER_PORT,
+                e,
+                os.getpid(),
+                holders[:10] or "unknown",
+                ping,
             )
 
     def _cors_headers(self, origin: str) -> dict[str, str]:
