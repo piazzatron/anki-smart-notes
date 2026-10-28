@@ -30,7 +30,12 @@ from anki.decks import DeckId
 from anki.notes import Note, NoteId
 from aqt import mw
 
-from .api_client import OutOfCreditsError, ServerError, UserDisplayableError
+from .api_client import (
+    NETWORK_ERRORS,
+    OutOfCreditsError,
+    ServerError,
+    UserDisplayableError,
+)
 from .app_state import has_legacy_openai_access, is_capacity_remaining
 from .config import Config, bump_usage_counter
 from .constants import STANDARD_BATCH_LIMIT
@@ -272,11 +277,12 @@ class NoteProcessor:
             if isinstance(result, OutOfCreditsError):
                 hit_out_of_credits = True
                 failed.append(note)
-            elif isinstance(result, UserDisplayableError):
-                # Keep this below error level so expected per-note failures do not
-                # become Sentry events through the logging integration.
+            elif isinstance(result, (UserDisplayableError, *NETWORK_ERRORS)):
+                # Expected per-note failures (including a user's dropped connection or a
+                # timeout) stay below error level so they don't become Sentry events
+                # through the logging integration. The batch reports them as failed.
                 logger.info(
-                    f"User-displayable error processing note {note_ids[i]}: {result}"
+                    f"Expected error processing note {note_ids[i]}: {type(result).__name__}: {result}"
                 )
                 failed.append(note)
             elif isinstance(result, Exception):
@@ -469,6 +475,13 @@ class NoteProcessor:
 
         if isinstance(e, UserDisplayableError):
             show_message_box(str(e))
+            return
+
+        if isinstance(e, NETWORK_ERRORS):
+            logger.info(f"Network error generating card: {type(e).__name__}: {e}")
+            show_message_box(
+                "Smart Notes couldn't reach its server. Check your internet connection and try again."
+            )
             return
 
         if isinstance(e, ServerError):

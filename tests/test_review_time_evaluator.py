@@ -19,6 +19,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import aiohttp
 import pytest
 from fixtures import MockCard, MockConfig, MockProcessor
 
@@ -441,12 +442,20 @@ async def test_run_batch_updates_state_for_each_card(monkeypatch):
 
 
 @pytest.mark.asyncio
-async def test_run_card_task_logs_user_displayable_errors_without_error_level(
-    monkeypatch,
+@pytest.mark.parametrize(
+    "error",
+    [
+        UserDisplayableError("Try a different provider.", status=400),
+        TimeoutError(),
+        aiohttp.ClientOSError(10054, "connection forcibly closed by remote host"),
+    ],
+)
+async def test_run_card_task_logs_expected_errors_without_error_level(
+    monkeypatch, error
 ):
     class FailingProcessor(MockProcessor):
         async def process_note(self, *args, **kwargs) -> bool:
-            raise UserDisplayableError("Try a different provider.", status=400)
+            raise error
 
     evaluator, _, review_time_evaluator = setup_review_time_evaluator(
         monkeypatch,
@@ -469,7 +478,6 @@ async def test_run_card_task_logs_user_displayable_errors_without_error_level(
     assert evaluator.in_flight == set()
     assert error_logs == []
     assert len(info_logs) == 1
-    assert "User-displayable" in info_logs[0]
     assert len(redraws) == 1
 
 

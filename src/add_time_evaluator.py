@@ -24,7 +24,7 @@ from anki.cards import Card
 from anki.notes import Note
 from aqt import mw
 
-from .api_client import OutOfCreditsError, UserDisplayableError
+from .api_client import NETWORK_ERRORS, OutOfCreditsError, UserDisplayableError
 from .app_state import app_state, is_capacity_remaining_or_legacy
 from .config import config
 from .logger import logger
@@ -139,10 +139,12 @@ class AddTimeEvaluator:
                 logger.info(
                     f"Stopped add-time task for note {card.nid} during profile cleanup"
                 )
-            elif isinstance(e, UserDisplayableError):
+            elif isinstance(e, (UserDisplayableError, *NETWORK_ERRORS)):
                 # Keep this below error level so expected per-note failures do not
                 # become Sentry events through the logging integration.
-                logger.info(f"User-displayable error generating note {card.nid}: {e}")
+                logger.info(
+                    f"Expected error generating note {card.nid}: {type(e).__name__}: {e}"
+                )
             else:
                 logger.error(
                     f"Error generating note {card.nid}: {e}, {''.join(traceback.format_exception(type(e), e, e.__traceback__))}"

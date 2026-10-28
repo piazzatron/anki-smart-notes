@@ -19,7 +19,6 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 # pyright: reportPrivateUsage=false
 
-import asyncio
 import base64
 import json
 import logging
@@ -29,14 +28,13 @@ import traceback
 from collections.abc import Callable, Coroutine
 from typing import Any, Optional
 
-import aiohttp
 import sentry_sdk
 from aqt import mw
 from sentry_sdk.integrations.logging import LoggingIntegration
 from sentry_sdk.session import Session
 
 from . import env
-from .api_client import OutOfCreditsError, UserDisplayableError
+from .api_client import NETWORK_ERRORS, OutOfCreditsError, UserDisplayableError
 from .config import config
 from .logger import logger
 from .tasks import run_async_in_background
@@ -162,16 +160,9 @@ class Sentry:
         async def wrapped(*args: Any, **kwargs: Any):
             try:
                 return await fn(*args, **kwargs)
-            except (
-                UserDisplayableError,
-                OutOfCreditsError,
-                TimeoutError,
-                asyncio.TimeoutError,
-                aiohttp.ClientConnectionError,
-            ):
+            except (UserDisplayableError, OutOfCreditsError, *NETWORK_ERRORS):
                 # Expected failures belong to each operation's failure callback:
                 # user actions can explain them, while passive refreshes stay quiet.
-                # Older Anki runtimes may also use a distinct asyncio.TimeoutError.
                 raise
             except Exception as e:
                 if is_production():

@@ -20,7 +20,6 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 # pyright: reportPrivateUsage=false
 
 import json
-import types
 from uuid import uuid4
 
 import aiohttp
@@ -63,32 +62,25 @@ def test_captured_exceptions_keep_stack_without_local_credentials(
     assert jwt not in json.dumps(event)
 
 
-class _LegacyAsyncioTimeoutError(Exception):
-    pass
-
-
 @pytest.mark.parametrize(
-    ("error", "should_report", "uses_legacy_timeout"),
+    ("error", "should_report"),
     [
-        (RuntimeError("smart-notes async failure"), True, False),
-        (TimeoutError("provider timed out"), False, False),
-        (aiohttp.ClientConnectionError("offline"), False, False),
+        (RuntimeError("smart-notes async failure"), True),
+        (TimeoutError("provider timed out"), False),
+        (aiohttp.ClientConnectionError("offline"), False),
         (
             UserDisplayableError(
                 "This request is too long for Google TTS. Please try a different provider.",
                 status=413,
             ),
             False,
-            False,
         ),
-        (_LegacyAsyncioTimeoutError("feature flags timed out"), False, True),
     ],
     ids=[
         "unexpected",
         "timeout",
         "offline",
         "user-displayable",
-        "legacy-timeout",
     ],
 )
 @pytest.mark.asyncio
@@ -96,18 +88,11 @@ async def test_wrap_async_reraises_and_reports_only_unexpected_errors(
     monkeypatch: pytest.MonkeyPatch,
     error: Exception,
     should_report: bool,
-    uses_legacy_timeout: bool,
 ) -> None:
     captured: list[Exception] = []
     shown: list[Exception] = []
     sentry = object.__new__(Sentry)
 
-    if uses_legacy_timeout:
-        monkeypatch.setattr(
-            sentry_module,
-            "asyncio",
-            types.SimpleNamespace(TimeoutError=_LegacyAsyncioTimeoutError),
-        )
     monkeypatch.setattr(sentry_module, "is_production", lambda: True)
     monkeypatch.setattr(sentry, "capture_exception", lambda e: captured.append(e))
     monkeypatch.setattr(sentry, "_show_error_message", lambda e: shown.append(e))

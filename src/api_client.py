@@ -17,6 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import asyncio
 from typing import Any, Literal, Optional
 
 import aiohttp
@@ -46,6 +47,12 @@ class UserDisplayableError(Exception):
     def __init__(self, message: str, *, status: int) -> None:
         super().__init__(message)
         self.status = status
+
+
+# The user's connection failing or timing out. Expected, so it is shown or counted
+# as a failure but never reported to Sentry. Older Anki runtimes have a distinct
+# asyncio.TimeoutError.
+NETWORK_ERRORS = (TimeoutError, asyncio.TimeoutError, aiohttp.ClientConnectionError)
 
 
 class ServerError(Exception):

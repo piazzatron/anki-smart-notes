@@ -23,6 +23,7 @@ import asyncio
 import threading
 from unittest.mock import AsyncMock, MagicMock
 
+import aiohttp
 import pytest
 from fixtures import (
     DECK_ID,
@@ -44,10 +45,6 @@ def p(str) -> str:
     # Avoid underscores so markdown-to-html conversion (always-on) is a no-op
     # on the simulated chat output.
     return f"p-{str}"
-
-
-async def _raise_user_displayable_error(message: str) -> bool:
-    raise UserDisplayableError(message, status=400)
 
 
 class MockOpenAIClient:
@@ -567,6 +564,27 @@ def test_out_of_credits_refreshes_account_then_opens_blocked_ui(monkeypatch):
     refresh_account.assert_called_once_with()
 
 
+def test_single_card_network_error_shows_message_without_error_log(monkeypatch):
+    import src.note_proccessor
+    from src.note_proccessor import NoteProcessor
+
+    error_logs = []
+    messages = []
+    monkeypatch.setattr(src.note_proccessor.logger, "error", error_logs.append)
+    monkeypatch.setattr(src.note_proccessor, "show_message_box", messages.append)
+    processor = NoteProcessor(  # type: ignore
+        field_resolver=None,
+        config=MockConfig(allow_empty_fields=False),
+    )
+
+    processor._handle_single_card_failure(
+        aiohttp.ClientOSError(10054, "connection forcibly closed by remote host")
+    )
+
+    assert error_logs == []
+    assert len(messages) == 1
+
+
 def test_process_cards_with_progress_noops_during_batch(monkeypatch):
     import src.note_proccessor
     from src.note_proccessor import NoteProcessor
@@ -596,13 +614,24 @@ def test_process_cards_with_progress_noops_during_batch(monkeypatch):
 
 
 @pytest.mark.asyncio
-async def test_process_notes_batch_marks_user_displayable_errors_as_failed(monkeypatch):
+@pytest.mark.parametrize(
+    "error",
+    [
+        UserDisplayableError(
+            "This request is too long for Google TTS. Please try a different provider.",
+            status=400,
+        ),
+        asyncio.TimeoutError(),
+        aiohttp.ClientOSError(10054, "connection forcibly closed by remote host"),
+    ],
+)
+async def test_process_notes_batch_marks_expected_errors_as_failed(monkeypatch, error):
     import src.note_proccessor
     from src.note_proccessor import NoteProcessor
 
-    message = (
-        "This request is too long for Google TTS. Please try a different provider."
-    )
+    async def raise_error(*args, **kwargs):
+        raise error
+
     notes = {
         1: MockNote({"f1": "1"}, note_id=1),
         2: MockNote({"f1": "2"}, note_id=2),
@@ -630,11 +659,7 @@ async def test_process_notes_batch_marks_user_displayable_errors_as_failed(monke
         "get_smart_fields_for_note",
         lambda *args, **kwargs: [object()],
     )
-    monkeypatch.setattr(
-        processor,
-        "process_note",
-        lambda *args, **kwargs: _raise_user_displayable_error(message),
-    )
+    monkeypatch.setattr(processor, "process_note", raise_error)
 
     updated, failed, skipped, out_of_credits = await processor._process_notes_batch(
         [1, 2],
@@ -649,7 +674,6 @@ async def test_process_notes_batch_marks_user_displayable_errors_as_failed(monke
     assert not out_of_credits
     assert error_logs == []
     assert len(info_logs) == 2
-    assert all("User-displayable" in log for log in info_logs)
 
 
 @pytest.mark.asyncio
