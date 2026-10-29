@@ -19,6 +19,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import asyncio
 import types
 
 import aiohttp
@@ -61,3 +62,55 @@ def test_account_refresh_logs_network_failures_below_error(
 
     assert len(error_logs) == (0 if is_expected else 1)
     assert len(info_logs) == (1 if is_expected else 0)
+
+
+def test_retry_failed_refresh_recovers_from_a_failed_startup_refresh(monkeypatch):
+    now = [1000.0]
+    responses = [TimeoutError(), {"plan": {"planType": "paid"}, "email": "a@b.c"}]
+    requests = []
+
+    async def get_user_status():
+        requests.append(now[0])
+        response = responses.pop(0)
+        if isinstance(response, Exception):
+            raise response
+        return response
+
+    # Run the refresh synchronously; only the server call is faked.
+    def run_now(op, on_success, on_failure, **kwargs):
+        try:
+            result = asyncio.run(op())
+        except Exception as e:
+            on_failure(e)
+            return
+        on_success(result)
+
+    monkeypatch.setattr(
+        src.app_state, "config", types.SimpleNamespace(auth_token="token")
+    )
+    monkeypatch.setattr(src.app_state, "run_async_in_background_with_sentry", run_now)
+    monkeypatch.setattr(
+        src.app_state.subscription_provider, "get_user_status", get_user_status
+    )
+    monkeypatch.setattr(
+        src.app_state, "time", types.SimpleNamespace(monotonic=lambda: now[0])
+    )
+    manager = AppStateManager()
+
+    # The startup refresh times out, leaving the account LOADING.
+    manager.update_account_state()
+    assert manager.state["status"] == "LOADING"
+
+    # Generation retries, but not within a minute of the last attempt.
+    manager.retry_failed_refresh()
+    assert len(requests) == 1
+
+    now[0] += src.app_state.REFRESH_RETRY_SECONDS
+    manager.retry_failed_refresh()
+    assert len(requests) == 2
+    assert manager.state["status"] == "AUTHENTICATED"
+
+    # Once the account is confirmed, generation never retries.
+    now[0] += src.app_state.REFRESH_RETRY_SECONDS
+    manager.retry_failed_refresh()
+    assert len(requests) == 2

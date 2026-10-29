@@ -90,6 +90,7 @@ class ReviewTimeEvaluator:
             return
 
         if not is_capacity_remaining_or_legacy():
+            app_state.retry_failed_refresh()
             return
 
         if self.wave_in_progress:

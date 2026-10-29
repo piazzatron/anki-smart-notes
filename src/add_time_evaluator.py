@@ -85,6 +85,7 @@ class AddTimeEvaluator:
             return
 
         if not is_capacity_remaining_or_legacy():
+            app_state.retry_failed_refresh()
             return
 
         if self.in_flight >= MAX_IN_FLIGHT:

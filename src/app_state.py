@@ -17,6 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import time
 from collections.abc import Callable
 from copy import deepcopy
 from typing import Literal, Optional, TypedDict, Union
@@ -68,6 +69,10 @@ def get_plan_conditions(plan: PlanInfo) -> PlanConditions:
     }
 
 
+# How long to wait before retrying an account refresh that left the state LOADING.
+REFRESH_RETRY_SECONDS = 60
+
+
 class AppStateManager:
     _state: StateManager[AppState]
 
@@ -76,6 +81,7 @@ class AppStateManager:
             {"status": "LOADING", "plan": None, "email": None}
         )
         self._state.state_changed.connect(self._publish_web_state)
+        self._last_refresh_at = 0.0
 
     @property
     def state(self) -> AppState:
@@ -91,10 +97,21 @@ class AppStateManager:
             state["status"] == "AUTHENTICATED" and state["plan"]["planType"] == "trial"
         )
 
+    def retry_failed_refresh(self) -> None:
+        """Refresh again when a failed refresh (e.g. starting offline) left the
+        account LOADING, at most once per REFRESH_RETRY_SECONDS. Background
+        generation calls this so it doesn't stay blocked until Smart Notes is opened."""
+        if self._state.s["status"] != "LOADING":
+            return
+        if time.monotonic() - self._last_refresh_at < REFRESH_RETRY_SECONDS:
+            return
+        self.update_account_state()
+
     def update_account_state(
         self,
         on_updated: Optional[Callable[[AppState], None]] = None,
     ) -> None:
+        self._last_refresh_at = time.monotonic()
         if not config.auth_token:
             logger.info("User is not authenticated")
             self._state.update(
