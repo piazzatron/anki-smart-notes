@@ -22,7 +22,25 @@ Enjoying Smart Notes? [Please rate it on AnkiWeb](https://ankiweb.net/shared/inf
 
 ## 🤝 Contributing
 
-PRs are welcome. This repo uses Python with typechecking, linting, formatting, and tests; run `./scripts/build.sh check` before opening a PR.
+PRs are welcome. [ARCHITECTURE.md](ARCHITECTURE.md) explains how the code fits together.
+
+Set up a virtualenv in `.venv` and install `requirements.txt` into it. The web UI in `web/` needs [Bun](https://bun.sh).
+
+| Command | What it does |
+|---|---|
+| `./scripts/build.sh check` | Format check, lint and typecheck. Run it before opening a PR |
+| `./scripts/build.sh fix` | Fix formatting and lint issues |
+| `./scripts/build.sh typecheck` | Typecheck only |
+| `source .venv/bin/activate && python -m pytest` | Python tests |
+| `./scripts/build.sh build` | Build the add-on package, with the web UI bundled |
+| `bun run dev` (in `web/`) | Web UI dev server on `:5173`. Dev builds of the add-on load it from there |
+| `bun run check` / `bun run test` (in `web/`) | Web UI checks and tests |
+
+Packaged builds include only the dependencies `scripts/build.sh` copies into `dist/vendor`. When you add or remove a runtime dependency in `requirements.txt`, update that list too.
+
+### Supported Anki versions
+
+Smart Notes supports Anki 2.1.20 and later, the range set on the AnkiWeb listing. `requirements.txt` pins Anki 24.4.1 for development. CI also runs the checks and tests against the newest Anki, the version in `.github/workflows/ci.yml`'s matrix. To reproduce that locally, install the requirements into a scratch venv, then run `pip install "anki==X" "aqt==X" "protobuf>=6,<8"`. Run pyright from a copy of the folder without `.venv`, since `pyrightconfig.json` otherwise reads `.venv`.
 
 ## 🎨 Credits
 
