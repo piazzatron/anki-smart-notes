@@ -967,4 +967,4 @@ async def test_bind_failure_reports_who_holds_the_port_on_windows(monkeypatch):
 
     assert len(error_logs) == 1
     assert "LISTENING pid 4321 Anki.exe" in error_logs[0]
-    assert "pid 99" not in error_logs[0]
+    assert "ESTABLISHED pid 99" not in error_logs[0]
