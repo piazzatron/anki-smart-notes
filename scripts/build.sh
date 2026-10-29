@@ -163,7 +163,7 @@ launch-anki-with-logs () {
 
   # `open` does not stream app stdout/stderr to this terminal directly. Route
   # those streams into ignored log files, then tail them alongside the Smart
-  # Notes app log so local startup failures still show up in `make ...` output.
+  # Notes app log so local startup failures still show up in `cli/sn up anki --main` output.
   rm -f "$SMART_NOTES_LOG" "$ANKI_STDOUT_LOG" "$ANKI_STDERR_LOG"
   touch "$SMART_NOTES_LOG" "$ANKI_STDOUT_LOG" "$ANKI_STDERR_LOG"
 
@@ -265,7 +265,7 @@ seed-addon-db () {
 }
 
 # Main profile, live-linked dev source, local backend. The webview loads the
-# Vite dev server in dev builds — start it with `make web`.
+# Vite dev server in dev builds — start it with `cli/sn up web`.
 anki-local () {
   clean-links
   link-dev

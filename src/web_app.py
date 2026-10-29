@@ -66,7 +66,7 @@ def open_web_app() -> None:
         _web_app_dialog.activateWindow()
         return
 
-    # Dev builds always load the Vite dev server for HMR (`make web`); the
+    # Dev builds always load the Vite dev server for HMR (`cli/sn up web`); the
     # bundled static app is only served in packaged builds.
     if env.environment == "DEV":
         url = WEB_APP_DEV_URL
