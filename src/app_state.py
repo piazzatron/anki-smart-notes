@@ -23,6 +23,7 @@ from typing import Literal, Optional, TypedDict, Union
 
 import aiohttp
 
+from .api_client import NETWORK_ERRORS
 from .config import config
 from .event_bus import StateInvalidated, event_bus
 from .logger import logger
@@ -104,7 +105,17 @@ class AppStateManager:
             return
 
         def on_failure(exc: Optional[Exception]) -> None:
-            logger.error(f"Got failure getting new status: {exc}")
+            # The user's connection failing or timing out is expected. The
+            # account state stays as it was until something triggers another
+            # refresh, such as opening Smart Notes.
+            if isinstance(exc, NETWORK_ERRORS):
+                logger.info(
+                    f"Network error getting new status: {type(exc).__name__}: {exc}"
+                )
+            else:
+                logger.error(
+                    f"Got failure getting new status: {type(exc).__name__}: {exc}"
+                )
             # Self-heal: a stale/invalid token blocks the signin UI's logout
             # button. Clear it so the user can re-auth without manual steps.
             if isinstance(exc, aiohttp.ClientResponseError) and exc.status == 401:
