@@ -19,7 +19,7 @@
 
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
-import { forwardRef } from "react"
+import { forwardRef, type ReactNode } from "react"
 import { useTranslation } from "react-i18next"
 
 import type { ComponentPropsWithoutRef, ElementRef } from "react"
@@ -86,3 +86,25 @@ DialogTakeover.displayName = "DialogTakeover"
 // differently from a small card, and there is no class merging to settle the argument.
 export const DialogTitle = DialogPrimitive.Title
 export const DialogDescription = DialogPrimitive.Description
+
+/** The title bar of a centered dialog, ruled off from its body. Put a
+ *  `DialogDescription` in `children` when there is one. */
+export const DialogHeader = ({
+  children,
+  title,
+}: {
+  children?: ReactNode
+  title: ReactNode
+}) => (
+  <header className="shrink-0 border-b border-hairline py-3.5 ps-5 pe-10">
+    <DialogTitle className="text-sm font-bold text-ink">{title}</DialogTitle>
+    {children}
+  </header>
+)
+
+/** A centered dialog's action row, ruled off from its body, with its buttons at the end. */
+export const DialogFooter = ({ children }: { children: ReactNode }) => (
+  <footer className="flex shrink-0 items-center justify-end gap-2 border-t border-hairline px-5 py-3">
+    {children}
+  </footer>
+)

@@ -155,7 +155,7 @@ export const SelectedTestCard = ({
       </div>
 
       {referencedFields.length > 0 && (
-        <div className="flex flex-col gap-[5px] border-t border-white/[0.06] px-3 pt-[7px] pb-[9px]">
+        <div className="flex flex-col gap-[5px] border-t border-hairline px-3 pt-[7px] pb-[9px]">
           {referencedFields.map(([fieldName, value]) => (
             <div
               className="flex gap-2.5 text-[12.5px] leading-[1.4]"

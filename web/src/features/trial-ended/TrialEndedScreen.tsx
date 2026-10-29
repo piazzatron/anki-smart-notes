@@ -76,11 +76,11 @@ export const TrialEndedScreen = ({
 
         <section
           aria-label={t("trialEnded.features.ariaLabel")}
-          className="rounded-xl bg-white/[0.03] px-[18px] py-1.5"
+          className="divide-y divide-hairline rounded-xl bg-white/[0.03] px-[18px] py-1.5"
         >
           {KEPT_FEATURES.map(({ icon: Icon, labelKey }) => (
             <div
-              className="flex min-h-[46px] items-center gap-3 border-t border-white/[0.05] first:border-t-0"
+              className="flex min-h-[46px] items-center gap-3"
               key={labelKey}
             >
               <span className="inline-flex size-[30px] shrink-0 items-center justify-center rounded-lg bg-white/[0.04] text-[#c3c3cb]">

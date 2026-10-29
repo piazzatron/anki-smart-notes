@@ -31,6 +31,7 @@ import {
   SparklesIcon,
   VolumeIcon,
 } from "@/components/shared/Icons"
+import { OptionGroup, OptionGroupItem } from "@/components/ui/OptionList"
 import i18next from "i18next"
 import type { ComponentType } from "react"
 import type { AppState } from "@/types/api"
@@ -84,27 +85,30 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
   return (
     <div className="mx-auto w-full max-w-[600px]">
       <EditorSection label={t("fieldEditor.sections.whatToGenerate")}>
-        <div className="flex gap-1.5" role="radiogroup">
-          {FIELD_TYPES.map(({ icon: Icon, labelKey, value }) => {
-            const selected = target.fieldType === value
-            return (
-              <button
-                aria-checked={selected}
-                className={`flex flex-1 items-center justify-center gap-[7px] rounded-md py-[11px] text-[13.5px] font-semibold transition ${
-                  selected
-                    ? "bg-white/[0.1] text-zinc-100"
-                    : "bg-white/[0.04] text-zinc-400 hover:bg-white/[0.06] hover:text-zinc-200"
-                }`}
-                key={value}
-                onClick={() => controls.setTarget({ fieldType: value })}
-                role="radio"
-              >
-                <Icon className={selected ? "" : "opacity-70"} size={16} />
-                {t(labelKey)}
-              </button>
-            )
-          })}
-        </div>
+        <OptionGroup
+          aria-label={t("fieldEditor.sections.whatToGenerate")}
+          className="flex gap-1.5"
+          onValueChange={(fieldType) => {
+            const type = FIELD_TYPES.find((item) => item.value === fieldType)
+            if (type !== undefined)
+              controls.setTarget({ fieldType: type.value })
+          }}
+          value={target.fieldType}
+        >
+          {FIELD_TYPES.map(({ icon: Icon, labelKey, value }) => (
+            <OptionGroupItem
+              className="group flex flex-1 cursor-pointer items-center justify-center gap-[7px] rounded-md py-[11px] text-[13.5px] font-semibold transition data-[state=checked]:bg-white/[0.1] data-[state=checked]:text-zinc-100 data-[state=unchecked]:bg-white/[0.04] data-[state=unchecked]:text-zinc-400 data-[state=unchecked]:hover:bg-white/[0.06] data-[state=unchecked]:hover:text-zinc-200"
+              key={value}
+              value={value}
+            >
+              <Icon
+                className="group-data-[state=unchecked]:opacity-70"
+                size={16}
+              />
+              {t(labelKey)}
+            </OptionGroupItem>
+          ))}
+        </OptionGroup>
       </EditorSection>
 
       <EditorSection

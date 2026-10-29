@@ -27,7 +27,8 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogTitle,
+  DialogFooter,
+  DialogHeader,
   DialogTrigger,
 } from "@/components/ui/Dialog"
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
@@ -58,14 +59,11 @@ export const FeedbackDialog = ({ children }: FeedbackDialogProps) => {
     >
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="w-[min(440px,92vw)]">
-        <header className="shrink-0 border-b border-white/[0.07] py-3.5 ps-5 pe-10">
-          <DialogTitle className="text-sm font-bold text-ink">
-            {t("common.feedback.title")}
-          </DialogTitle>
+        <DialogHeader title={t("common.feedback.title")}>
           <DialogDescription className="sr-only">
             {t("common.feedback.description")}
           </DialogDescription>
-        </header>
+        </DialogHeader>
 
         {form.state.sent ? (
           <p className="px-5 py-5 text-[13px] text-mint">
@@ -89,9 +87,8 @@ export const FeedbackDialog = ({ children }: FeedbackDialogProps) => {
                 value={form.state.message}
               />
             </div>
-            <footer className="flex shrink-0 items-center justify-between gap-3 border-t border-white/[0.07] px-5 py-3.5">
+            <DialogFooter>
               <Button
-                className="ms-auto"
                 disabled={form.isSubmitDisabled}
                 onClick={() => void form.submit()}
                 type="button"
@@ -101,7 +98,7 @@ export const FeedbackDialog = ({ children }: FeedbackDialogProps) => {
                   ? t("common.feedback.sending")
                   : t("common.feedback.send")}
               </Button>
-            </footer>
+            </DialogFooter>
           </>
         )}
       </DialogContent>

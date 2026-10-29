@@ -27,8 +27,10 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogTitle,
+  DialogFooter,
+  DialogHeader,
 } from "@/components/ui/Dialog"
+import { OptionGroup, OptionGroupItem } from "@/components/ui/OptionList"
 import { VoicePicker } from "@/features/defaults/VoicePicker"
 import { voiceMatchesSettings } from "@/features/defaults/voiceDefaults"
 import { ImageModelSelect } from "@/features/image-generation/ImageModelSelect"
@@ -64,7 +66,7 @@ export const ModelSettingsSection = ({
     <>
       <button
         aria-haspopup="dialog"
-        className="-mx-[22px] flex min-h-11 w-[calc(100%+44px)] cursor-pointer items-center gap-3 rounded-xl bg-white/[0.05] px-[22px] py-2 text-start transition hover:bg-white/[0.07]"
+        className="hang flex min-h-11 w-[calc(100%+2*var(--spacing-hang))] cursor-pointer items-center gap-3 rounded-xl bg-white/[0.05] py-2 text-start transition hover:bg-white/[0.07]"
         onClick={() => setIsOpen(true)}
       >
         <span className="min-w-0 flex-1 truncate text-[13px] font-semibold text-zinc-100">
@@ -166,22 +168,19 @@ const SettingsDialog = ({
 }) => (
   <Dialog onOpenChange={onOpenChange} open={open}>
     <DialogContent className="max-h-[80vh] w-[min(520px,92vw)]">
-      <header className="shrink-0 border-b border-white/[0.07] py-3.5 ps-5 pe-10">
-        <DialogTitle className="text-sm font-bold text-ink">
-          {title}
-        </DialogTitle>
+      <DialogHeader title={title}>
         <DialogDescription className="mt-0.5 text-xs text-ink-muted">
           {subtitle}
         </DialogDescription>
-      </header>
+      </DialogHeader>
 
       <div className="min-h-0 flex-1 overflow-y-auto px-5 py-4">{children}</div>
 
-      <footer className="flex shrink-0 items-center justify-end border-t border-white/[0.07] px-5 py-3">
+      <DialogFooter>
         <Button onClick={() => onOpenChange(false)} variant="success">
           {i18next.t("common.done")}
         </Button>
-      </footer>
+      </DialogFooter>
     </DialogContent>
   </Dialog>
 )
@@ -212,18 +211,17 @@ const PinnedOrDefault = ({
   }
 
   return (
-    <div className="grid grid-cols-2 gap-2" role="radiogroup">
+    <OptionGroup
+      aria-label={getModalityName(fieldType)}
+      className="grid grid-cols-2 gap-2"
+      onValueChange={(choice) => setUseDefault(choice === "default")}
+      value={isDefault ? "default" : "custom"}
+    >
       {[true, false].map((useDefault) => (
-        <button
-          aria-checked={isDefault === useDefault}
-          className={`cursor-pointer rounded-md px-3 py-2 text-xs font-semibold transition ${
-            isDefault === useDefault
-              ? "bg-indigo/14 text-indigo-soft"
-              : "bg-white/[0.05] text-zinc-400 hover:bg-white/[0.07] hover:text-zinc-200"
-          }`}
+        <OptionGroupItem
+          className="cursor-pointer rounded-md px-3 py-2 text-xs font-semibold transition data-[state=checked]:bg-indigo/14 data-[state=checked]:text-indigo-soft data-[state=unchecked]:bg-white/[0.05] data-[state=unchecked]:text-zinc-400 data-[state=unchecked]:hover:bg-white/[0.07] data-[state=unchecked]:hover:text-zinc-200"
           key={String(useDefault)}
-          onClick={() => setUseDefault(useDefault)}
-          role="radio"
+          value={useDefault ? "default" : "custom"}
         >
           {useDefault ? (
             <>
@@ -237,9 +235,9 @@ const PinnedOrDefault = ({
           ) : (
             i18next.t("fieldEditor.modelSettings.pickCustom")
           )}
-        </button>
+        </OptionGroupItem>
       ))}
-    </div>
+    </OptionGroup>
   )
 }
 

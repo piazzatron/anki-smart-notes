@@ -17,7 +17,6 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Check } from "lucide-react"
 import { useMemo, useState, type ReactNode } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -28,6 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select"
+import { OptionList, OptionRow } from "@/components/ui/OptionList"
 import { Pill } from "@/components/ui/Pill"
 import { SearchIcon } from "@/components/shared/Icons"
 import { providerLabel } from "@/lib/catalog"
@@ -88,8 +88,11 @@ export const VoicePicker = ({
     [catalog.voices, filters],
   )
   // In columns (the Voice screen) the panels hang past the headings like every other
-  // surface, so their content takes the same 22px inset as the page's other cards.
-  const inset = layout === "columns" ? "px-[22px]" : "px-4"
+  // surface, so their content takes the same hang inset as the page's other cards.
+  const inset = layout === "columns" ? "px-hang" : "px-4"
+  const browseLabel = t("defaults.voice.browseVoices", {
+    count: visibleVoices.length.toLocaleString(i18n.language),
+  })
   const filterControls = (
     <div className={`grid gap-2 ${layout === "stacked" ? "grid-cols-3" : ""}`}>
       <VoiceFilter
@@ -138,53 +141,42 @@ export const VoicePicker = ({
         {t("defaults.voice.noVoices")}
       </p>
     ) : (
-      visibleVoices.map((voice) => {
-        const key = voiceKey(voice)
-        const isSelected = voiceMatchesSettings(voice, value)
-        const selectVoice = () =>
+      <OptionList
+        label={browseLabel}
+        onValueChange={(key) => {
+          const voice = visibleVoices.find((item) => voiceKey(item) === key)
+          if (voice === undefined) return
           onSelect({
             provider: voice.provider,
             model: voice.model,
             voiceId: voice.voiceId,
           })
-        return (
-          <div
-            aria-pressed={isSelected}
-            className={`select-item relative flex cursor-pointer items-center gap-2.5 py-2.5 transition ${isSelected ? "bg-indigo/[0.16]" : "hover:bg-white/[0.04]"} ${inset}`}
-            key={key}
-            onClick={selectVoice}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(event) => {
-              if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault()
-                selectVoice()
-              }
-            }}
-          >
-            <span className="flex size-3.5 shrink-0 items-center justify-center text-indigo-soft">
-              {isSelected && <Check aria-hidden className="size-3.5" />}
-            </span>
-            <span
-              className={`min-w-0 flex-1 truncate text-sm text-ink ${isSelected ? "font-semibold" : "font-medium"}`}
-            >
-              {voice.name}
-            </span>
-            <Pill>{providerLabel(voice.provider)}</Pill>
-          </div>
-        )
-      })
+        }}
+        value={selectedVoice === undefined ? "" : voiceKey(selectedVoice)}
+      >
+        {visibleVoices.map((voice) => (
+          <OptionRow
+            className={`py-2.5 ${inset}`}
+            highlightSelected
+            key={voiceKey(voice)}
+            label={voice.name}
+            trailing={<Pill>{providerLabel(voice.provider)}</Pill>}
+            value={voiceKey(voice)}
+          />
+        ))}
+      </OptionList>
     )
   const searchAndList = (
     <>
+      {/* In columns, the search text clears the 14px icon plus a 10px gap after the inset. */}
       <div className={`relative ${layout === "stacked" ? "mt-2" : ""}`}>
         <SearchIcon
-          className={`pointer-events-none absolute top-1/2 -translate-y-1/2 text-ink-muted ${layout === "columns" ? "start-[22px]" : "start-3.5"}`}
+          className={`pointer-events-none absolute top-1/2 -translate-y-1/2 text-ink-muted ${layout === "columns" ? "start-hang" : "start-3.5"}`}
           size={14}
         />
         <input
           aria-label={t("defaults.voice.searchVoices")}
-          className={`h-10 w-full rounded-xl bg-white/[0.05] pe-3 text-sm ${layout === "columns" ? "ps-[46px]" : "ps-9"} text-ink transition outline-none placeholder:text-zinc-600 focus:bg-white/[0.07]`}
+          className={`h-10 w-full rounded-xl bg-white/[0.05] pe-3 text-sm ${layout === "columns" ? "ps-[calc(var(--spacing-hang)+24px)]" : "ps-9"} text-ink transition outline-none placeholder:text-zinc-600 focus:bg-white/[0.07]`}
           onChange={(event) =>
             setFilters((current) => ({
               ...current,
@@ -222,19 +214,17 @@ export const VoicePicker = ({
   return (
     <>
       {layout === "columns" ? (
-        <div className="-mx-[22px] grid min-h-0 flex-1 grid-cols-[minmax(260px,0.8fr)_minmax(0,1.2fr)] items-stretch gap-6">
+        <div className="-mx-hang grid min-h-0 flex-1 grid-cols-[minmax(260px,0.8fr)_minmax(0,1.2fr)] items-stretch gap-6">
           <div className="flex min-h-0 flex-col">
             {children}
-            <p className="mt-5 mb-2 px-[22px] text-[11px] font-semibold tracking-[0.08em] text-ink-muted uppercase">
+            <p className="mt-5 mb-2 px-hang text-[11px] font-semibold tracking-[0.08em] text-ink-muted uppercase">
               {t("defaults.voice.filterVoices")}
             </p>
             {filterControls}
           </div>
           <div className="flex min-h-0 flex-col">
-            <p className="mb-2 px-[22px] text-[11px] font-semibold tracking-[0.08em] text-ink-muted uppercase">
-              {t("defaults.voice.browseVoices", {
-                count: visibleVoices.length.toLocaleString(i18n.language),
-              })}
+            <p className="mb-2 px-hang text-[11px] font-semibold tracking-[0.08em] text-ink-muted uppercase">
+              {browseLabel}
             </p>
             {searchAndList}
           </div>

@@ -17,6 +17,8 @@ import { useDirection } from "@radix-ui/react-direction"
 import { type ComponentType, useRef, useState, type PointerEvent } from "react"
 import { useTranslation } from "react-i18next"
 
+import { Divider } from "@/components/ui/Divider"
+
 import type { ScreenId } from "@/lib/boot"
 import { DISCORD_URL } from "@/lib/helpChannels"
 import type { AccountState } from "@/types/api"
@@ -138,7 +140,7 @@ export const Sidebar = ({
           ))}
         </div>
 
-        <div className="mx-[10px] my-2 h-px bg-white/[0.08]" />
+        <Divider className="mx-[10px] my-2" />
         <div className="space-y-px">
           {SECONDARY_ITEMS.map((item) => (
             <NavButton

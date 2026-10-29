@@ -44,7 +44,7 @@ export const PageLayout = ({
   <section className="flex min-h-0 flex-1 flex-col" data-testid={testId}>
     <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
       {/* The header's divider spans the full content area; its row keeps the page's width. */}
-      <header className="shrink-0 border-b border-white/[0.04] px-[76px] pt-7 pb-5">
+      <header className="shrink-0 border-b border-hairline px-page pt-7 pb-5">
         <div
           className={`flex w-full items-center justify-between gap-6 ${className}`}
         >
@@ -62,7 +62,7 @@ export const PageLayout = ({
           {actions}
         </div>
       </header>
-      <div className="flex flex-1 flex-col px-[76px] pt-9 pb-8">
+      <div className="flex flex-1 flex-col px-page pt-9 pb-8">
         <div className={`flex w-full flex-1 flex-col ${className}`}>
           {children}
         </div>

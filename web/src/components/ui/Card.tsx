@@ -25,7 +25,7 @@ interface CardProps {
   className?: string
 }
 
-/** The quiet bordered surface shared by content cards across the app. */
+/** The quiet flat surface shared by content cards across the app. */
 export const Card = ({
   as: Component = "div",
   children,

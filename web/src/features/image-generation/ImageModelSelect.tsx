@@ -43,7 +43,7 @@ import {
 interface ImageModelSelectProps {
   ariaLabel?: string
   catalog: ImageModelCatalog
-  /** Surfaces hang past the column's left edge by their own padding (see TextModelPicker). */
+  /** Surfaces hang past the column on both sides by their own padding (see TextModelPicker). */
   hanging?: boolean
   id?: string
   onValueChange: (settings: ImageGenerationSettings) => void
@@ -60,7 +60,7 @@ export const ImageModelSelect = ({
 }: ImageModelSelectProps) => {
   const { t } = useTranslation()
   const family = getImageModelFamily(value)
-  const hang = hanging ? "-mx-[22px] px-[22px]" : ""
+  const hang = hanging ? "hang" : ""
 
   const selectModel = (model: string) => {
     const selected = catalog.models.find((item) => item.id === model)
@@ -91,13 +91,16 @@ export const ImageModelSelect = ({
         }}
         value={family?.id ?? value}
       >
-        <SelectTrigger
-          aria-label={ariaLabel}
-          className={hanging ? "-mx-[22px] w-[calc(100%+44px)] px-[22px]" : ""}
-          id={id}
-        >
-          <ImageModelOption modelId={family?.id ?? value} />
-        </SelectTrigger>
+        {/* The trigger sets its own width and padding, so the overhang goes on a wrapper. */}
+        <div className={hanging ? "-mx-hang" : ""}>
+          <SelectTrigger
+            aria-label={ariaLabel}
+            className={hanging ? "px-hang" : ""}
+            id={id}
+          >
+            <ImageModelOption modelId={family?.id ?? value} />
+          </SelectTrigger>
+        </div>
         <SelectContent>
           {imageModelChoices(catalog.models).map((model) => (
             <SelectItem key={`${model.provider}:${model.id}`} value={model.id}>
@@ -136,14 +139,13 @@ export const ImageModelSelect = ({
               </ul>
             </InfoTip>
           </p>
-          <div className={`rounded-xl bg-white/[0.05] ${hang || "px-4"}`}>
-            {family.switches.map((key, index) => {
+          <div
+            className={`divide-y divide-hairline rounded-xl bg-white/[0.05] ${hang || "px-4"}`}
+          >
+            {family.switches.map((key) => {
               const { cost, description, label } = IMAGE_MODEL_SWITCHES[key]
               return (
-                <div
-                  className={`flex items-center gap-4 py-[18px] ${index > 0 ? "border-t border-white/[0.05]" : ""}`}
-                  key={key}
-                >
+                <div className="flex items-center gap-4 py-[18px]" key={key}>
                   <div className="min-w-0 flex-1">
                     <p className="flex min-h-[22px] items-center gap-2 text-sm font-medium text-ink">
                       {t(label)}

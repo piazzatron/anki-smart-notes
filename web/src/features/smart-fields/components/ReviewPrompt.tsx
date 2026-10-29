@@ -30,7 +30,7 @@ export const ReviewPrompt = ({ onComplete }: ReviewPromptProps) => {
   const { t } = useTranslation()
 
   return (
-    <div className="relative -mx-[22px] mb-5 flex cursor-pointer items-center gap-3 overflow-hidden rounded-[13px] bg-[linear-gradient(100deg,#b4560a_0%,#e0900f_46%,#f7c14a_100%)] py-3.5 ps-[22px] pe-3.5 transition-transform duration-150 ease-out hover:scale-[1.006]">
+    <div className="relative -mx-hang mb-5 flex cursor-pointer items-center gap-3 overflow-hidden rounded-[13px] bg-[linear-gradient(100deg,#b4560a_0%,#e0900f_46%,#f7c14a_100%)] py-3.5 ps-hang pe-3.5 transition-transform duration-150 ease-out hover:scale-[1.006]">
       <a
         aria-label={t("smartFields.review.ariaLabel")}
         className="absolute inset-0 z-10 rounded-[13px]"

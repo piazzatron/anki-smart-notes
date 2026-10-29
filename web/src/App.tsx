@@ -9,6 +9,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogTitle,
 } from "@/components/ui/Dialog"
 import { getInitialEditorRequest } from "@/dev/initialEditor"
@@ -171,7 +172,7 @@ const App = () => {
               {t("common.discardUnsavedChanges.description")}
             </DialogDescription>
           </div>
-          <div className="flex justify-end gap-2 border-t border-white/[0.08] px-5 py-4">
+          <DialogFooter>
             <Button onClick={() => setPendingScreen(null)}>
               {t("common.cancel")}
             </Button>
@@ -187,7 +188,7 @@ const App = () => {
             >
               {t("common.discardChanges")}
             </Button>
-          </div>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </>

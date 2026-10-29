@@ -26,6 +26,15 @@
   --color-pastel-butter: #ffe3a3;
   --color-pastel-lavender: #cfc0ff;
   --color-pastel-peach: #ffc7a8;
+  /* Every divider and region edge: rows in a list, card dividers, header and footer
+     borders. One value, so they read the same everywhere. */
+  --color-hairline: rgb(255 255 255 / 0.07);
+
+  /* Hanging alignment: surfaces reach past the text column by their own padding, so
+     their text lines up with the headings. The page's side padding is the 54px window
+     margin plus that overhang, so changing the overhang keeps the margin. */
+  --spacing-hang: 22px;
+  --spacing-page: calc(54px + var(--spacing-hang));
 
   --animate-fade-in: fade-in 0.25s ease-out;
   /* The Intelligence slider's chosen stop, popping in as the fill reaches it. */
@@ -685,6 +694,13 @@ button:disabled,
   }
 }
 
+/* A surface that hangs: it reaches past the text column on both sides and pads its
+   content back in line with it. */
+@utility hang {
+  margin-inline: calc(var(--spacing-hang) * -1);
+  padding-inline: var(--spacing-hang);
+}
+
 /* Dropdown and list rows (Select.tsx, TextModelPicker.tsx, VoicePicker.tsx): a hairline
    between neighbouring rows, edge to edge, never above the first row of a group. */
 .select-item + .select-item::before {
@@ -693,5 +709,5 @@ button:disabled,
   inset-inline: 0;
   top: 0;
   height: 1px;
-  background: rgb(255 255 255 / 0.05);
+  background: var(--color-hairline);
 }

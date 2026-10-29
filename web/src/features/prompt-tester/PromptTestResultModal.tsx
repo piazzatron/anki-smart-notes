@@ -24,7 +24,8 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogTitle,
+  DialogFooter,
+  DialogHeader,
 } from "@/components/ui/Dialog"
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { Pill } from "@/components/ui/Pill"
@@ -75,10 +76,7 @@ export const PromptTestResultModal = ({
       <DialogContent
         className={`max-h-[84vh] ${tester.fieldType === "image" ? "w-[min(520px,92vw)]" : "w-[min(760px,92vw)]"}`}
       >
-        <header className="shrink-0 border-b border-white/[0.07] py-3.5 ps-5 pe-10">
-          <DialogTitle className="text-sm font-bold text-ink">
-            {t("promptTester.testResult")}
-          </DialogTitle>
+        <DialogHeader title={t("promptTester.testResult")}>
           <DialogDescription className="mt-1.5 flex min-w-0 items-center gap-1.5 text-xs text-ink-muted">
             {cardName !== null && (
               <span className="min-w-0 truncate">
@@ -97,7 +95,7 @@ export const PromptTestResultModal = ({
               </>
             )}
           </DialogDescription>
-        </header>
+        </DialogHeader>
 
         <div className="min-h-0 flex-1 overflow-y-auto px-5 py-4">
           {tester.error !== null && (
@@ -110,11 +108,7 @@ export const PromptTestResultModal = ({
           {children}
         </div>
 
-        {saveAction !== null && (
-          <footer className="flex shrink-0 items-center justify-end border-t border-white/[0.07] px-5 py-3">
-            {saveAction}
-          </footer>
-        )}
+        {saveAction !== null && <DialogFooter>{saveAction}</DialogFooter>}
       </DialogContent>
     </Dialog>
   )

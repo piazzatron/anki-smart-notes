@@ -62,7 +62,7 @@ export const SmartFieldRow = ({
         field.enabled ? "" : "opacity-40"
       } ${
         hasDivider
-          ? "before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-white/[0.05]"
+          ? "before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-hairline"
           : ""
       }`}
     >

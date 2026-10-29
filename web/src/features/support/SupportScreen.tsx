@@ -73,7 +73,7 @@ export const SupportScreen = () => {
       testId="support-screen"
       title={t("support.title")}
     >
-      <div className="relative -mx-[22px] flex items-center gap-[15px] overflow-hidden rounded-[13px] bg-[linear-gradient(100deg,#3C45A5_0%,#5865F2_42%,#9B4DFF_100%)] py-[17px] ps-[22px] pe-4">
+      <div className="relative -mx-hang flex items-center gap-[15px] overflow-hidden rounded-[13px] bg-[linear-gradient(100deg,#3C45A5_0%,#5865F2_42%,#9B4DFF_100%)] py-[17px] ps-hang pe-4">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(460px_140px_at_10%_-40%,rgba(180,200,255,0.3),transparent_72%)]" />
         <DiscordMark className="relative text-white" size={31} />
         <div className="relative min-w-0 flex-1">
@@ -94,7 +94,7 @@ export const SupportScreen = () => {
         </a>
       </div>
 
-      <div className="-mx-[22px] mt-[9px] flex items-center gap-[15px] rounded-[13px] bg-white/[0.05] py-4 ps-[22px] pe-4">
+      <div className="-mx-hang mt-[9px] flex items-center gap-[15px] rounded-[13px] bg-white/[0.05] py-4 ps-hang pe-4">
         <BugIcon className="text-zinc-300" size={26} />
         <div className="min-w-0 flex-1">
           <h2 className="text-base font-extrabold tracking-[-0.01em] text-zinc-100">
@@ -114,10 +114,10 @@ export const SupportScreen = () => {
         </FeedbackDialog>
       </div>
 
-      <div className="-mx-[22px] mt-[9px] grid grid-cols-3 gap-[9px]">
+      <div className="-mx-hang mt-[9px] grid grid-cols-3 gap-[9px]">
         {REFERENCE_LINKS.map((link) => (
           <a
-            className="flex min-w-0 items-center gap-3 rounded-[13px] bg-white/[0.05] px-[22px] py-3.5"
+            className="flex min-w-0 items-center gap-3 rounded-[13px] bg-white/[0.05] px-hang py-3.5"
             href={link.href}
             key={link.labelKey}
             rel="noreferrer"

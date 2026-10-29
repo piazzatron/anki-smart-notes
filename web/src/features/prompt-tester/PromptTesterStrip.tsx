@@ -24,6 +24,7 @@ import { useTranslation } from "react-i18next"
 import { ValidPromptFields } from "@/components/shared/ValidPromptFields"
 import { Button } from "@/components/ui/Button"
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
+import { OptionGroup, OptionGroupItem } from "@/components/ui/OptionList"
 import { errorMessage } from "@/lib/errors"
 import { saveTestResultToCard } from "@/services/commands"
 
@@ -96,31 +97,28 @@ export const PromptTesterStrip = ({
             <p className="mb-1.5 text-xs text-ink-muted">
               {t("promptTester.selectFieldToReadAloud")}
             </p>
-            <div
+            <OptionGroup
               aria-label={t("promptTester.selectFieldToReadAloud")}
               className="flex flex-wrap gap-1.5"
-              role="group"
+              onValueChange={(fieldName) =>
+                field.setPrompt?.(`{{${fieldName}}}`)
+              }
+              value={
+                Object.keys(field.selectedNote.fields).find(
+                  (fieldName) => field.prompt === `{{${fieldName}}}`,
+                ) ?? ""
+              }
             >
-              {Object.keys(field.selectedNote.fields).map((fieldName) => {
-                const isSelected = field.prompt === `{{${fieldName}}}`
-
-                return (
-                  <button
-                    aria-pressed={isSelected}
-                    className={`cursor-pointer rounded-full px-2.5 py-1.5 font-mono text-xs transition ${
-                      isSelected
-                        ? "bg-indigo text-white"
-                        : "bg-zinc-800 text-zinc-300 hover:bg-zinc-700 hover:text-white"
-                    }`}
-                    key={fieldName}
-                    onClick={() => field.setPrompt?.(`{{${fieldName}}}`)}
-                    type="button"
-                  >
-                    {fieldName}
-                  </button>
-                )
-              })}
-            </div>
+              {Object.keys(field.selectedNote.fields).map((fieldName) => (
+                <OptionGroupItem
+                  className="cursor-pointer rounded-full px-2.5 py-1.5 font-mono text-xs transition data-[state=checked]:bg-indigo data-[state=checked]:text-white data-[state=unchecked]:bg-zinc-800 data-[state=unchecked]:text-zinc-300 data-[state=unchecked]:hover:bg-zinc-700 data-[state=unchecked]:hover:text-white"
+                  key={fieldName}
+                  value={fieldName}
+                >
+                  {fieldName}
+                </OptionGroupItem>
+              ))}
+            </OptionGroup>
           </div>
         )}
 

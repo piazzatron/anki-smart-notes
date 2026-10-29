@@ -130,7 +130,7 @@ export const FieldEditorScreen = ({
           </DialogTitle>
         )}
         {controls.form.step !== 3 && (
-          <header className="relative grid min-h-[52px] shrink-0 grid-cols-[1fr_auto_1fr] items-center gap-4 border-b border-white/[0.07] bg-black/10 px-4 py-2">
+          <header className="relative grid min-h-[52px] shrink-0 grid-cols-[1fr_auto_1fr] items-center gap-4 border-b border-hairline bg-black/10 px-4 py-2">
             <div className="flex min-w-0 items-center justify-start">
               {controls.form.step === 1 && (
                 <HeaderIconButton label={t("common.cancel")} onClick={close}>
@@ -168,7 +168,7 @@ export const FieldEditorScreen = ({
                 <>
                   <span
                     aria-hidden
-                    className="h-3.5 w-px shrink-0 bg-white/15"
+                    className="h-3.5 w-px shrink-0 bg-hairline"
                   />
                   <TargetBreadcrumb form={controls.form} state={state} />
                 </>
@@ -266,7 +266,7 @@ export const FieldEditorScreen = ({
         </div>
 
         {controls.form.step === 3 && (
-          <footer className="relative z-10 flex shrink-0 items-center justify-between border-t border-white/[0.07] bg-black/20 px-5 py-2.5">
+          <footer className="relative z-10 flex shrink-0 items-center justify-between border-t border-hairline bg-black/20 px-5 py-2.5">
             <label className="flex cursor-pointer items-center gap-2 text-[13px] text-ink-muted select-none">
               <input
                 checked={hideCompletion}

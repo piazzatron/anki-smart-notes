@@ -31,7 +31,7 @@ export const DiscordPrompt = ({ onDismiss }: DiscordPromptProps) => {
   const { t } = useTranslation()
 
   return (
-    <div className="relative -mx-[22px] mb-5 flex cursor-pointer items-center gap-3 overflow-hidden rounded-[13px] bg-[linear-gradient(100deg,#3C45A5_0%,#5865F2_42%,#9B4DFF_100%)] py-3.5 ps-[22px] pe-3.5 transition-transform duration-150 ease-out hover:scale-[1.006]">
+    <div className="relative -mx-hang mb-5 flex cursor-pointer items-center gap-3 overflow-hidden rounded-[13px] bg-[linear-gradient(100deg,#3C45A5_0%,#5865F2_42%,#9B4DFF_100%)] py-3.5 ps-hang pe-3.5 transition-transform duration-150 ease-out hover:scale-[1.006]">
       <a
         aria-label={t("smartFields.discord.joinAriaLabel")}
         className="absolute inset-0 z-10 rounded-[13px]"

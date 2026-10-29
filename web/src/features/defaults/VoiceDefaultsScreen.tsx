@@ -147,10 +147,10 @@ const LoadedVoiceDefaultsScreen = ({
             onSelect={controls.updateDefault}
             value={controls.form.values}
           >
-            <p className="mb-2 px-[22px] text-[11px] font-semibold tracking-[0.08em] text-ink-muted uppercase">
+            <p className="mb-2 px-hang text-[11px] font-semibold tracking-[0.08em] text-ink-muted uppercase">
               {t("defaults.voice.currentDefault")}
             </p>
-            <div className="flex h-10 items-center gap-2.5 rounded-xl bg-white/[0.05] px-[22px]">
+            <div className="flex h-10 items-center gap-2.5 rounded-xl bg-white/[0.05] px-hang">
               <p className="min-w-0 flex-1 truncate text-sm font-medium whitespace-nowrap text-ink">
                 {providerLabel(controls.form.values.provider)}
                 {selectedVoice === undefined ? (

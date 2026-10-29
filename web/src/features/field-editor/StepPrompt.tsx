@@ -105,7 +105,7 @@ export const StepPrompt = ({
           </EditorSection>
         ) : (
           <>
-            <div className="-mx-[22px] mb-7 rounded-xl bg-indigo/[0.06] px-[22px] py-5">
+            <div className="hang mb-7 rounded-xl bg-indigo/[0.06] py-5">
               <label
                 className="text-[15px] leading-tight font-semibold text-zinc-100"
                 htmlFor="field-editor-write-prompt"
@@ -161,7 +161,7 @@ export const StepPrompt = ({
 
             <EditorSection label={t("common.prompt")}>
               <textarea
-                className="-mx-[22px] max-h-[46vh] min-h-[150px] w-[calc(100%+44px)] resize-y rounded-xl bg-white/[0.05] px-[22px] py-3.5 font-mono text-[13px] leading-[1.55] text-zinc-200 outline-none placeholder:text-zinc-700 focus:bg-white/[0.07]"
+                className="hang max-h-[46vh] min-h-[150px] w-[calc(100%+2*var(--spacing-hang))] resize-y rounded-xl bg-white/[0.05] py-3.5 font-mono text-[13px] leading-[1.55] text-zinc-200 outline-none placeholder:text-zinc-700 focus:bg-white/[0.07]"
                 onChange={(event) =>
                   controls.update({ prompt: event.target.value })
                 }
@@ -206,7 +206,7 @@ export const StepPrompt = ({
         </EditorSection>
       </div>
 
-      <div className="mt-7 border-t border-white/[0.06] pt-6">
+      <div className="mt-7 border-t border-hairline pt-6">
         <PromptTesterStrip
           field={field}
           saveTargetFieldName={

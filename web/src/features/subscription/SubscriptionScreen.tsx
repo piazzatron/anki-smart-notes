@@ -141,7 +141,7 @@ const SubscriptionDetails = ({ account }: { account: AccountState }) => {
   const hero = getHeroContent(account)
 
   return (
-    <div className="-mx-[22px] space-y-2.5">
+    <div className="-mx-hang space-y-2.5">
       {hero !== null && <PlanHero {...hero} />}
       <UsageModule
         daysLeft={plan.daysLeft}
@@ -300,7 +300,7 @@ const PlanHero = ({
 
   return (
     <button
-      className="flex w-full cursor-pointer flex-col items-center justify-center rounded-[14px] border px-[22px] pt-[22px] pb-6 text-center transition-[filter,transform] duration-150 ease-out hover:scale-[1.006] hover:brightness-105"
+      className="flex w-full cursor-pointer flex-col items-center justify-center rounded-[14px] border px-hang pt-[22px] pb-6 text-center transition-[filter,transform] duration-150 ease-out hover:scale-[1.006] hover:brightness-105"
       onClick={() => openSiteLink(url)}
       style={{
         background: styles.background,
@@ -372,7 +372,7 @@ const UsageModule = ({
   }
 
   return (
-    <section className={`${CARD_CLASS} p-[22px]`}>
+    <section className={`${CARD_CLASS} px-hang py-[22px]`}>
       <div className="flex items-baseline justify-between">
         <h2 className="text-[13px] font-semibold tracking-[0.4px] text-zinc-200 uppercase">
           {t("subscription.creditUsage")}
@@ -510,7 +510,7 @@ const PlanFacts = ({ facts }: { facts: Array<[string, string]> }) => (
     style={{ gridTemplateColumns: `repeat(${facts.length}, minmax(0, 1fr))` }}
   >
     {facts.map(([label, value]) => (
-      <div className={`${CARD_CLASS} px-[22px] py-[13px]`} key={label}>
+      <div className={`${CARD_CLASS} px-hang py-[13px]`} key={label}>
         <p className="text-xs text-ink-muted">{label}</p>
         <p className="mt-[3px] truncate text-sm font-bold text-zinc-100">
           {value}
@@ -524,7 +524,7 @@ const ManageRow = ({ topTier }: { topTier: boolean }) => {
   const { t } = useTranslation()
   return (
     <button
-      className={`${CARD_CLASS} flex w-full items-center justify-between gap-4 px-[22px] py-[15px] text-start transition hover:bg-white/[0.07]`}
+      className={`${CARD_CLASS} flex w-full items-center justify-between gap-4 px-hang py-[15px] text-start transition hover:bg-white/[0.07]`}
       onClick={() => openSiteLink(SITE_LINKS.account)}
       type="button"
     >

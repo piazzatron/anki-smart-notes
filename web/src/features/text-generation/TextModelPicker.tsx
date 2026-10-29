@@ -17,19 +17,19 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { useDirection } from "@radix-ui/react-direction"
-import { Check, ChevronDown, ChevronRight } from "lucide-react"
-import {
-  useRef,
-  useState,
-  type CSSProperties,
-  type KeyboardEvent,
-  type ReactNode,
-} from "react"
+import { ChevronDown, ChevronRight } from "lucide-react"
+import { useRef, useState, type CSSProperties, type MouseEvent } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
 import { BoltIcon, WarningIcon } from "@/components/shared/Icons"
+import { Divider } from "@/components/ui/Divider"
 import { InfoTip } from "@/components/ui/InfoTip"
+import {
+  OptionGroup,
+  OptionGroupItem,
+  OptionList,
+  OptionRow,
+} from "@/components/ui/OptionList"
 import { Pill } from "@/components/ui/Pill"
 import { Toggle } from "@/components/ui/Toggle"
 import {
@@ -79,7 +79,7 @@ export const TextModelPicker = ({
   const [advancedOpen, setAdvancedOpen] = useState(
     !isAuto || value.webSearchEnabled,
   )
-  const surface = `rounded-xl bg-white/[0.05] px-[22px] ${hanging ? "-mx-[22px]" : ""}`
+  const surface = `rounded-xl bg-white/[0.05] ${hanging ? "hang" : "px-hang"}`
 
   return (
     <div>
@@ -94,7 +94,7 @@ export const TextModelPicker = ({
           <p className="mt-1 text-xs leading-4 text-ink-muted">
             {t("intelligence.autoDescription")}
           </p>
-          <div className="my-5 h-px bg-white/[0.07]" />
+          <Divider className="my-5" />
           <div className="mb-4 flex items-center gap-1.5">
             <span className="text-[13px] font-semibold text-ink-muted">
               {t("intelligence.label")}
@@ -151,7 +151,7 @@ export const TextModelPicker = ({
         <div className="mt-3 grid gap-3">
           <SpecificModelList
             catalog={catalog}
-            className={hanging ? "-mx-[22px]" : ""}
+            className={hanging ? "-mx-hang" : ""}
             onChange={onChange}
             value={value}
           />
@@ -189,35 +189,22 @@ const IntelligenceSlider = ({
   onChange: (level: IntelligenceLevel) => void
 }) => {
   const { t } = useTranslation()
-  const direction = useDirection()
   const stopRefs = useRef<(HTMLButtonElement | null)[]>([])
   const index = INTELLIGENCE_LEVELS.findIndex((item) => item.id === level)
   const step = 100 / (INTELLIGENCE_LEVELS.length - 1)
 
-  // Arrow keys move along the track as drawn, so left and right swap in RTL. Focus
-  // follows the selection, as in a native radio group.
-  const onKeyDown = (event: KeyboardEvent) => {
-    const forward = direction === "rtl" ? "ArrowLeft" : "ArrowRight"
-    const back = direction === "rtl" ? "ArrowRight" : "ArrowLeft"
-    const delta = { ArrowDown: 1, ArrowUp: -1, [back]: -1, [forward]: 1 }[
-      event.key
-    ]
-    if (delta === undefined) return
-    event.preventDefault()
-    const nextIndex = index + delta
-    const next = INTELLIGENCE_LEVELS[nextIndex]
-    if (next === undefined) return
-    onChange(next.id)
-    stopRefs.current[nextIndex]?.focus()
-  }
-
   return (
-    <div
-      aria-label={t("intelligence.label")}
-      onKeyDown={onKeyDown}
-      role="radiogroup"
-    >
-      <div className="relative mx-[9px] h-1.5 rounded-full bg-white/[0.08]">
+    <div>
+      <OptionGroup
+        aria-label={t("intelligence.label")}
+        className="relative mx-[9px] h-1.5 rounded-full bg-white/[0.08]"
+        loop={false}
+        onValueChange={(id) => {
+          const next = INTELLIGENCE_LEVELS.find((item) => item.id === id)
+          if (next !== undefined) onChange(next.id)
+        }}
+        value={level}
+      >
         <div
           className="absolute inset-0 rounded-full bg-[linear-gradient(90deg,var(--color-pastel-mint),var(--color-pastel-sky)_50%,var(--color-pastel-pink))] transition-[clip-path] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none rtl:-scale-x-100"
           style={{
@@ -226,23 +213,19 @@ const IntelligenceSlider = ({
         />
         <div className="absolute -inset-x-[9px] -top-1.5 flex justify-between">
           {INTELLIGENCE_LEVELS.map((item, itemIndex) => (
-            <button
-              aria-checked={itemIndex === index}
-              aria-label={t(`intelligence.levels.${item.id}`)}
+            <OptionGroupItem
+              aria-label={`${t(`intelligence.levels.${item.id}`)}, ${t("common.multiplierCost", { multiplier: item.cost })}`}
               className={`grid size-[18px] cursor-pointer place-items-center rounded-full transition-transform ${
                 itemIndex === index
                   ? "animate-stop-pop bg-[var(--level)]"
                   : "bg-zinc-800"
               }`}
               key={item.id}
-              onClick={() => onChange(item.id)}
               ref={(element) => {
                 stopRefs.current[itemIndex] = element
               }}
-              role="radio"
               style={{ "--level": LEVEL_COLORS[item.id] } as CSSProperties}
-              tabIndex={itemIndex === index ? 0 : -1}
-              type="button"
+              value={item.id}
             >
               <span
                 className={`rounded-full ${
@@ -251,18 +234,25 @@ const IntelligenceSlider = ({
                     : `size-2 bg-[var(--level)] ${itemIndex < index ? "" : "opacity-50"}`
                 }`}
               />
-            </button>
+            </OptionGroupItem>
           ))}
         </div>
-      </div>
-      <div className="mt-3.5 grid grid-cols-3">
+      </OptionGroup>
+      {/* The labels repeat the stops for the mouse; the stops carry the names for
+          keyboards and screen readers. A click moves focus to the matching stop, so the
+          arrow keys carry on from there. */}
+      <div aria-hidden className="mt-3.5 grid grid-cols-3">
         {INTELLIGENCE_LEVELS.map((item, itemIndex) => (
           <button
             className={`grid cursor-pointer gap-0.5 text-[13px] first:justify-items-start last:justify-items-end [&:nth-child(2)]:justify-items-center ${
               itemIndex === index ? "" : "text-ink-muted"
             }`}
             key={item.id}
-            onClick={() => onChange(item.id)}
+            onClick={() => {
+              onChange(item.id)
+              stopRefs.current[itemIndex]?.focus()
+            }}
+            onMouseDown={(event) => event.preventDefault()}
             style={
               itemIndex === index ? { color: LEVEL_COLORS[item.id] } : undefined
             }
@@ -285,7 +275,8 @@ const IntelligenceSlider = ({
 }
 
 // The other models, in a list that opens in place: provider groups, a row per model with
-// its cost. Picking one closes the list; the card above then shows it.
+// its cost. Clicking one closes the list and the card above shows it; arrow keys move
+// through the rows without closing it, and Enter closes it.
 const SpecificModelList = ({
   catalog,
   className,
@@ -300,17 +291,16 @@ const SpecificModelList = ({
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const isAuto = value.provider === "auto"
-  const choose = (settings: Partial<ChatGenerationSettings>) => {
-    onChange({ ...value, ...settings })
-    setOpen(false)
-  }
   const levels = INTELLIGENCE_LEVELS.map((item) => item.cost)
+  const closeOnPointerClick = (event: MouseEvent) => {
+    if (event.detail > 0) setOpen(false)
+  }
 
   return (
     <div className={`overflow-hidden rounded-xl bg-white/[0.05] ${className}`}>
       <button
         aria-expanded={open}
-        className="flex w-full cursor-pointer items-center gap-2.5 px-[22px] py-[18px] text-start text-sm font-medium text-ink transition hover:bg-white/[0.02]"
+        className="flex w-full cursor-pointer items-center gap-2.5 px-hang py-[18px] text-start text-sm font-medium text-ink transition hover:bg-white/[0.02]"
         onClick={() => setOpen(!open)}
         type="button"
       >
@@ -324,79 +314,69 @@ const SpecificModelList = ({
         />
       </button>
       {open && (
-        <div className="pb-1.5" role="radiogroup">
-          <p className="flex items-center gap-1.5 px-[22px] pb-1.5 text-xs leading-4 text-caution-soft">
+        <OptionList
+          className="pb-1.5"
+          label={t("intelligence.specificModel")}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") setOpen(false)
+          }}
+          onValueChange={(id) => {
+            // The Auto row's value is the catalog's own "auto" entry. Coming back to
+            // Auto starts at Standard, whatever level Auto last had.
+            if (id === "auto") {
+              onChange({ ...value, ...autoSettingsFor("standard") })
+              return
+            }
+            const model = catalog.models.find((item) => item.id === id)
+            if (model !== undefined)
+              onChange({ ...value, model: model.id, provider: model.provider })
+          }}
+          value={isAuto ? "auto" : value.model}
+        >
+          <p className="flex items-center gap-1.5 px-hang pb-1.5 text-xs leading-4 text-caution-soft">
             <WarningIcon size={14} />
             {t("intelligence.specificModelWarning")}
           </p>
-          {!isAuto && (
-            <ModelRow
-              cost={
-                <Pill>
-                  {t("intelligence.autoCostRange", {
-                    max: Math.max(...levels),
-                    min: Math.min(...levels),
-                  })}
-                </Pill>
-              }
-              label={t("intelligence.autoName")}
-              onSelect={() => choose(autoSettingsFor("standard"))}
-              selected={false}
-            />
-          )}
+          <OptionRow
+            className="px-hang py-3"
+            label={t("intelligence.autoName")}
+            onClick={closeOnPointerClick}
+            trailing={
+              <Pill>
+                {t("intelligence.autoCostRange", {
+                  max: Math.max(...levels),
+                  min: Math.min(...levels),
+                })}
+              </Pill>
+            }
+            value="auto"
+          />
           {catalog.providers
             .filter((provider) => provider !== "auto")
             .map((provider) => (
               <div key={provider}>
-                <p className="px-[22px] pt-3 pb-1.5 text-[11px] font-semibold tracking-[0.055em] text-ink-muted uppercase">
+                <p className="px-hang pt-3 pb-1.5 text-[11px] font-semibold tracking-[0.055em] text-ink-muted uppercase">
                   {providerLabel(provider)}
                 </p>
                 {catalog.models
                   .filter((model) => model.provider === provider)
                   .map((model) => (
-                    <ModelRow
-                      cost={<CostPill model={model.id} />}
+                    <OptionRow
+                      className="px-hang py-3"
                       key={model.id}
                       label={modelLabel(model.id)}
-                      onSelect={() =>
-                        choose({ model: model.id, provider: model.provider })
-                      }
-                      selected={!isAuto && value.model === model.id}
+                      onClick={closeOnPointerClick}
+                      trailing={<CostPill model={model.id} />}
+                      value={model.id}
                     />
                   ))}
               </div>
             ))}
-        </div>
+        </OptionList>
       )}
     </div>
   )
 }
-
-const ModelRow = ({
-  cost,
-  label,
-  onSelect,
-  selected,
-}: {
-  cost: ReactNode
-  label: string
-  onSelect: () => void
-  selected: boolean
-}) => (
-  <button
-    aria-checked={selected}
-    className="select-item relative flex w-full cursor-pointer items-center gap-2.5 px-[22px] py-3 text-start text-sm font-medium text-ink transition hover:bg-white/[0.04]"
-    onClick={onSelect}
-    role="radio"
-    type="button"
-  >
-    <span className="flex size-3.5 shrink-0 items-center justify-center text-indigo-soft">
-      {selected && <Check aria-hidden className="size-3.5" />}
-    </span>
-    <span className="min-w-0 flex-1 truncate">{label}</span>
-    {cost}
-  </button>
-)
 
 const CostPill = ({ model }: { model: string }) => {
   const cost = modelCost(model)

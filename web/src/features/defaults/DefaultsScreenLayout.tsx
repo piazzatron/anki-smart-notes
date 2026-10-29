@@ -88,7 +88,7 @@ export const DefaultsScreenLayout = ({
           </h2>
           {testerAccessory}
         </div>
-        <Card className="-mx-[22px] px-[22px] py-5">{tester}</Card>
+        <Card className="hang py-5">{tester}</Card>
       </div>
     </PageLayout>
   )

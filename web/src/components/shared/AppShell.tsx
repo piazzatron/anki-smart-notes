@@ -34,7 +34,7 @@ export const AppShell = ({
         appVersion={appVersion}
         onNavigate={onNavigate}
       />
-      <main className="relative flex min-w-0 flex-1 flex-col overflow-hidden border-s border-white/[0.04] bg-canvas">
+      <main className="relative flex min-w-0 flex-1 flex-col overflow-hidden border-s border-hairline bg-canvas">
         <div
           className="flex min-h-0 flex-1 flex-col"
           inert={isSignedOut ? true : undefined}

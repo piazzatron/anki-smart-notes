@@ -102,7 +102,7 @@ export const LoadedSettingsScreen = ({
 
       <div>
         <SectionHeading>{t("settings.sections.general")}</SectionHeading>
-        <div className="-mx-[22px] flex items-center gap-5 rounded-xl bg-white/[0.05] px-[22px] py-[18px]">
+        <div className="hang flex items-center gap-5 rounded-xl bg-white/[0.05] py-[18px]">
           <div className="min-w-0 flex-1">
             <p className="text-sm font-medium text-ink">
               {t("settings.language.label")}
@@ -153,7 +153,7 @@ export const LoadedSettingsScreen = ({
 
       <div className="mt-10">
         <SectionHeading>{t("settings.sections.generation")}</SectionHeading>
-        <div className="-mx-[22px] divide-y divide-white/[0.06] rounded-xl bg-white/[0.05] px-[22px]">
+        <div className="hang divide-y divide-hairline rounded-xl bg-white/[0.05]">
           <SettingRow
             checked={controls.values.generateOnAdd}
             description={t("settings.generateOnAdd.description")}
@@ -178,7 +178,7 @@ export const LoadedSettingsScreen = ({
       <SectionHeading className="mt-10">
         {t("settings.sections.advanced")}
       </SectionHeading>
-      <div className="-mx-[22px] divide-y divide-white/[0.06] rounded-xl bg-white/[0.05] px-[22px]">
+      <div className="hang divide-y divide-hairline rounded-xl bg-white/[0.05]">
         <SettingRow
           checked={controls.values.debug}
           description={t("settings.debug.description")}
@@ -189,7 +189,7 @@ export const LoadedSettingsScreen = ({
       </div>
 
       {settings.legacyOpenAiEnabled && (
-        <div className="-mx-[22px] mt-3 divide-y divide-white/[0.06] rounded-xl bg-white/[0.05] px-[22px]">
+        <div className="hang mt-3 divide-y divide-hairline rounded-xl bg-white/[0.05]">
           <button
             aria-expanded={legacyOpen}
             className="flex w-full cursor-pointer items-center gap-4 py-[18px] text-start"
@@ -295,7 +295,7 @@ export const LoadedSettingsScreen = ({
       <SectionHeading className="mt-10" danger>
         {t("settings.sections.dangerZone")}
       </SectionHeading>
-      <div className="-mx-[22px] divide-y divide-white/[0.06] rounded-xl bg-white/[0.05] px-[22px]">
+      <div className="hang divide-y divide-hairline rounded-xl bg-white/[0.05]">
         <SettingRow
           checked={controls.values.regenerateWhenBatching}
           description={t("settings.regenerateWhenBatching.description")}
