@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "Barruti guztiak",
     "auto": "Autoa",
-    "autoMax": "Auto MAX",
     "back": "Itzuli",
-    "bestValueCost": "Balio onena, 0,3× kostua",
     "cancel": "Utzi",
     "close": "Itxi",
     "connection": {
@@ -57,6 +55,7 @@
     "validFields": "Baliozko eremuak:"
   },
   "sidebar": {
+    "defaults": "Lehenetsiak",
     "discord": "Discord",
     "feedback": "Iritzia",
     "nav": {
@@ -170,18 +169,12 @@
       "loadingVoices": "Ahotsak kargatzen…",
       "model": "Eredua",
       "pickCustom": "Aukeratu eredu pertsonalizatu bat eremu honetarako",
-      "reasoning": "{{level}} arrazoibidea",
-      "reasoningHint": "Goi mailako arrazoiketak belaunaldi gogorragoak hobe ditzake, baina kreditu gehiago erabiltzen ditu.",
-      "reasoningLevel": "Arrazoiketa maila",
       "sharedByEveryField": "Zure {{modality}} erabiltzen duten Smart Field guztiek partekatzen dute. Aldatu ezazu",
       "textDefault": "testu lehenetsia",
-      "textModel": "Testu eredua",
       "useMy": "Erabili nire {{modality}}",
-      "useWebSearch": "Erabili web bilaketa eremu honetarako",
       "voice": "Ahotsa",
       "voiceDefault": "ahots lehenetsia",
-      "webSearch": "Web bilaketa",
-      "webSearchHint": "Eremu honek sareko informazio berria erabil dezala."
+      "webSearch": "Web bilaketa"
     },
     "save": "Gorde Smart Field",
     "sections": {
@@ -257,15 +250,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "Txat-katalogoa {{model}} eredua falta da",
       "missingImageModel": "Irudien katalogoa {{model}} eredua falta da"
     },
     "image": {
       "cannotFindModel": "Irudien katalogoa {{model}} eredua falta da",
-      "defaultModel": "Eredu lehenetsia",
+      "defaultModel": "Irudi-eredu lehenetsia",
       "gptImage25": "oreka onena: testu zorrotza, diagrama garbiak.",
-      "loadingLabel": "Irudiaren ezarpen lehenetsiak kargatzen",
-      "loadingTitle": "Irudiaren ezarpen lehenetsiak",
+      "loadingLabel": "Irudi sortzeko ezarpenak kargatzen",
+      "loadingTitle": "Irudi sortzeko ezarpenak",
       "modelTipLabel": "Irudi-ereduei buruz",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -274,9 +266,9 @@
       "nanoBanana21": "eszena aberatsak, argazkiaren antzekoak.",
       "samplePrompt": "Sortu Anki-rekin gogor ikasten eta probak gainditzen dituen ikasle baten irudia.",
       "saveError": "Ezin izan dira gorde irudi lehenetsiak",
-      "subtitle": "Zure irudiak Smart Fields erabiltzen duen eredua eremu batek berea jartzen ez badu behintzat.",
-      "title": "Irudiaren ezarpen lehenetsiak",
-      "zImageTurbo": "azkarrena eta merkeena."
+      "title": "Irudi sortzeko ezarpenak",
+      "zImageTurbo": "azkarrena eta merkeena.",
+      "defaultModelTip": "Lehenetsitako eredu hau irudi-motako Smart Fields guztietan erabiltzen da. Aldatzean, lehenetsia erabiltzen duten Smart Field guztiak eguneratzen dira. Smart Field batek bere ereduarekin gainidatzi dezake."
     },
     "layout": {
       "save": "Gorde",
@@ -284,28 +276,14 @@
       "tryIt": "Probatu"
     },
     "text": {
-      "cannotInheritModel": "Testu lehenetsiek ezin dute beste eredu bat heredatu",
       "defaultModel": "Testu-eredu lehenetsia",
-      "defaultReasoningLevel": "Arrazoitze maila lehenetsia",
-      "enableWebSearch": "Gaitu Web Bilaketa",
-      "higherReasoning": "Goi mailako arrazoiketak belaunaldi gogorragoak hobe ditzake, baina kreditu gehiago erabiltzen ditu.",
-      "loadingLabel": "Testu ezarpen lehenetsiak kargatzen",
+      "loadingLabel": "Testu sortzeko ezarpenak kargatzen",
       "loadingTitle": "Testua sortzeko ezarpenak",
-      "modelGuidance": "{{auto}} eta {{autoMax}} errendimendua eta kostua orekatzen dituzten Smart Notes gomendatutako modeloak dira. Aukeratu {{auto}} zeregin estandarrak egiteko eta eguneratu {{autoMax}}ra behar izanez gero.",
-      "pickingModel": "Modeloa aukeratzen",
-      "reasoningLevel": "Arrazoiketa maila",
-      "reasoningValues": {
-        "high": "Alta",
-        "low": "Baxua",
-        "off": "Desaktibatuta"
-      },
       "samplePrompt": "Zer da Espazio Errepikapen Sistema (SRS)?",
       "saveError": "Ezin izan dira gorde testu lehenetsiak",
-      "subtitle": "Testua sortzeko ezarpen lehenetsiak. Smart Fields indibidualak balio hauek gainidatzi ditzake.",
       "title": "Testua sortzeko ezarpenak",
-      "webSearch": "Web Bilaketa",
-      "webSearchDescription": "Utzi testu-belaunaldiei sareko informazio berria eskuratzen.",
-      "webSearchWarning": "Bilaketak garestia da; gainbegiratu zure kredituak."
+      "defaultModelTip": "Lehenetsitako eredu hau Smart Fields guztietan erabiltzen da. Aldatzean, lehenetsia erabiltzen duten Smart Field guztiak eguneratzen dira. Smart Field batek bere ereduarekin gainidatzi dezake.",
+      "defaultModelTipLabel": "Testu-eredu lehenetsiari buruz"
     },
     "usage": {
       "fields_one": "{{count}} eremuari dagokio",
@@ -324,14 +302,16 @@
         "provider": "Hornitzailea"
       },
       "filterVoices": "Iragazi ahotsak",
-      "loadingLabel": "Ahots ezarpen lehenetsiak kargatzen",
-      "loadingTitle": "Ahotsaren ezarpen lehenetsiak",
+      "loadingLabel": "Ahots-ezarpenak kargatzen",
+      "loadingTitle": "Ahots-ezarpenak",
       "noVoices": "Ez dago ahotsik iragazki hauekin.",
       "saveError": "Ezin izan dira gorde ahots lehenetsiak",
       "searchPlaceholder": "Bilatu ahotsak…",
       "searchVoices": "Bilatu ahotsak",
-      "subtitle": "Zure TTS Smart Fields-k erabiltzen duen ahotsa eremu batek berea jartzen ez badu behintzat.",
-      "title": "Ahotsaren ezarpen lehenetsiak"
+      "title": "Ahots-ezarpenak",
+      "defaultVoice": "Ahots lehenetsia",
+      "defaultVoiceTip": "Lehenetsitako ahots hau ahots-motako Smart Fields guztietan erabiltzen da. Aldatzean, lehenetsia erabiltzen duten Smart Field guztiak eguneratzen dira. Smart Field batek bere ahotsarekin gainidatzi dezake.",
+      "defaultVoiceTipLabel": "Ahots lehenetsiari buruz"
     }
   },
   "imageGeneration": {
@@ -531,5 +511,30 @@
     "thanks": "Eskerrik asko Smart Notes erabiltzeagatik",
     "title": "Zure doako proba amaitu da",
     "upgradeNow": "Berritu orain"
+  },
+  "intelligence": {
+    "advancedOptions": "Aukera aurreratuak",
+    "autoCostRange": "{{min}}–{{max}}× kostua",
+    "autoDescription": "Adimenerako eta prezioarerako emaitza onenak lortzen dituzten ereduak, maiz eguneratuak.",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "Auto · {{level}}",
+    "label": "Adimena",
+    "levels": {
+      "high": "Altua",
+      "max": "Maximoa",
+      "standard": "Estandarra"
+    },
+    "specificModel": "Eredu zehatz bat erabili",
+    "specificModelWarning": "Eredu zehatzek normalean Auto baino kostu askoz handiagoa dute.",
+    "tipIntro": "Estandarrarekin hasi, eta emaitzak nahikoa onak ez badira bakarrik igo maila.",
+    "tipLabel": "Adimen-mailei buruz",
+    "veryHighCost": "Oso kostu handia",
+    "webSearch": "Web bilaketa",
+    "webSearchDescription": "Utzi ereduak webetik informazio berria lortzen. Behar ez baduzu, itzali utzi.",
+    "tips": {
+      "high": "<level>Altua</level> gramatika aurreratuagorako da.",
+      "max": "<level>Maximoa</level> Altuak kudeatu ezin dituen material konplexuetarako da.",
+      "standard": "<level>Estandarra</level> itzulpenetarako eta adibide-esaldietarako da onena."
+    }
   }
 }

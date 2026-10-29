@@ -41,7 +41,7 @@ export const SelectedTestCard = ({
     return (
       <>
         <Button
-          className={`w-full gap-2 text-[12px] ${compact ? "h-full" : "py-2.5"}`}
+          className={`w-full gap-2 text-[13px] ${compact ? "h-full" : "py-2.5"}`}
           onClick={() => void openAnkiBrowser()}
         >
           <FileText aria-hidden className="size-3.5 shrink-0" />
@@ -56,7 +56,7 @@ export const SelectedTestCard = ({
   const cannotRun = showNoteTypeMismatch || missingFieldNames.length > 0
   const cardTitle =
     firstFieldValue === undefined || firstFieldValue === "" ? (
-      <span className="text-zinc-600 italic">
+      <span className="text-ink-muted italic">
         {t("promptTester.emptyCard")}
       </span>
     ) : (
@@ -65,11 +65,14 @@ export const SelectedTestCard = ({
 
   if (compact && cannotRun) {
     return (
-      <div className="flex h-[54px] min-w-0 items-center gap-2.5 rounded-lg border border-amber/25 bg-amber/[0.06] px-3">
-        <AlertCircle aria-hidden className="size-3.5 shrink-0 text-amber" />
+      <div className="flex h-[54px] min-w-0 items-center gap-2.5 rounded-lg bg-caution/[0.08] px-3">
+        <AlertCircle
+          aria-hidden
+          className="size-3.5 shrink-0 text-caution-soft"
+        />
         {/* The row keeps its height beside the browser action, so this is one line that
             ellipsizes — what the card is missing leads, where it always survives. */}
-        <p className="min-w-0 flex-1 truncate text-[11.5px] text-ink-muted">
+        <p className="min-w-0 flex-1 truncate text-[12.5px] text-ink-muted">
           {showNoteTypeMismatch ? (
             <Trans
               components={{ noteTypeName: <NoteTypeName /> }}
@@ -94,7 +97,7 @@ export const SelectedTestCard = ({
           )}
         </p>
         <Button
-          className="shrink-0 px-3 py-[5px] text-[11.5px]"
+          className="shrink-0 px-3 py-[5px] text-[12.5px]"
           onClick={() => void openAnkiBrowser()}
         >
           {t("promptTester.selectNewCard")}
@@ -105,23 +108,23 @@ export const SelectedTestCard = ({
 
   if (compact && !cannotRun) {
     return (
-      <div className="flex h-[54px] min-w-0 items-center gap-3 rounded-lg border border-white/10 bg-white/[0.02] px-3">
+      <div className="flex h-[54px] min-w-0 items-center gap-3 rounded-lg bg-white/[0.04] px-3">
         <div className="min-w-0 flex-1">
-          <p className="mb-[3px] text-[10px] font-medium tracking-[0.04em] text-ink-muted uppercase">
+          <p className="mb-[3px] text-[11px] font-medium tracking-[0.04em] text-ink-muted uppercase">
             {t("promptTester.currentlySelectedCard")}
           </p>
           <div className="flex min-w-0 items-baseline gap-2">
-            <p className="min-w-0 shrink truncate font-mono text-[12.5px] text-ink">
+            <p className="min-w-0 shrink truncate font-mono text-[13.5px] text-ink">
               {cardTitle}
             </p>
-            <p className="min-w-0 shrink-[2] truncate text-[11px] text-zinc-500">
+            <p className="min-w-0 shrink-[2] truncate text-xs text-zinc-500">
               · {noteTypeName} · {deckName}
             </p>
             {compactAction}
           </div>
         </div>
         <Button
-          className="shrink-0 px-3 py-[5px] text-[11.5px]"
+          className="shrink-0 px-3 py-[5px] text-[12.5px]"
           onClick={() => void openAnkiBrowser()}
         >
           {t("promptTester.selectNewCard")}
@@ -132,20 +135,22 @@ export const SelectedTestCard = ({
 
   return (
     <div
-      className={`overflow-hidden rounded-lg bg-black/20 ${cannotRun ? "border border-amber/25" : "border border-white/[0.09]"}`}
+      className={`overflow-hidden rounded-lg ${cannotRun ? "bg-caution/[0.06]" : "bg-white/[0.04]"}`}
     >
-      <p className="truncate px-3 pt-[9px] font-mono text-[13px] text-ink">
+      <p className="truncate px-3 pt-[9px] font-mono text-sm text-ink">
         {cardTitle}
       </p>
-      <div className="flex gap-3.5 px-3 pt-1 pb-[9px] text-[11px] text-zinc-400">
-        <span className={showNoteTypeMismatch ? "text-amber" : undefined}>
-          <span className="text-ink-faint">{t("common.noteType")}</span>{" "}
+      <div className="flex gap-3.5 px-3 pt-1 pb-[9px] text-xs text-zinc-400">
+        <span
+          className={showNoteTypeMismatch ? "text-caution-soft" : undefined}
+        >
+          <span className="text-ink-muted">{t("common.noteType")}</span>{" "}
           <span className={showNoteTypeMismatch ? "font-semibold" : undefined}>
             {noteTypeName}
           </span>
         </span>
         <span className="truncate">
-          <span className="text-ink-faint">{t("common.deck")}</span> {deckName}
+          <span className="text-ink-muted">{t("common.deck")}</span> {deckName}
         </span>
       </div>
 
@@ -153,14 +158,14 @@ export const SelectedTestCard = ({
         <div className="flex flex-col gap-[5px] border-t border-white/[0.06] px-3 pt-[7px] pb-[9px]">
           {referencedFields.map(([fieldName, value]) => (
             <div
-              className="flex gap-2.5 text-[11.5px] leading-[1.4]"
+              className="flex gap-2.5 text-[12.5px] leading-[1.4]"
               key={fieldName}
             >
-              <span className="shrink-0 rounded bg-indigo/14 px-[3px] font-mono text-[11px] text-indigo-soft">
+              <span className="shrink-0 rounded bg-indigo/14 px-[3px] font-mono text-xs text-indigo-soft">
                 {fieldName}
               </span>
               {value === "" ? (
-                <span className="text-zinc-600 italic">
+                <span className="text-ink-muted italic">
                   {t("common.empty")}
                 </span>
               ) : (
@@ -212,19 +217,19 @@ const CardProblem = ({
   children: ReactNode
   title: string
 }) => (
-  <div className="flex items-start gap-2.5 border-t border-amber/20 bg-amber/[0.06] px-3 py-2.5">
+  <div className="flex items-start gap-2.5 bg-caution/[0.08] px-3 py-2.5">
     <AlertCircle
       aria-hidden
-      className="mt-[1px] size-3.5 shrink-0 text-amber"
+      className="mt-[1px] size-3.5 shrink-0 text-caution-soft"
     />
     <div className="min-w-0 flex-1">
-      <p className="text-[11.5px] font-semibold text-amber">{title}</p>
-      <p className="mt-1 flex flex-wrap items-baseline gap-x-1.5 gap-y-1 text-[11px] leading-[1.5] text-ink-muted">
+      <p className="text-[12.5px] font-semibold text-caution-soft">{title}</p>
+      <p className="mt-1 flex flex-wrap items-baseline gap-x-1.5 gap-y-1 text-xs leading-[1.5] text-ink-muted">
         {children}
       </p>
     </div>
     <Button
-      className="shrink-0 self-center px-3 py-[5px] text-[11.5px]"
+      className="shrink-0 self-center px-3 py-[5px] text-[12.5px]"
       onClick={() => void openAnkiBrowser()}
     >
       {i18next.t("promptTester.selectNewCard")}
@@ -240,7 +245,7 @@ const emptySlotHint = ({
 }: Pick<SelectedTestCardProps, "requiredNoteTypeName" | "selection">) => {
   if (selection !== null && selection.note === null && selection.count > 1) {
     return (
-      <p className="mt-0.5 text-[11px] leading-[1.5] text-ink-muted">
+      <p className="mt-0.5 text-xs leading-[1.5] text-ink-muted">
         {i18next.t("promptTester.notesSelected", { count: selection.count })}
       </p>
     )
@@ -248,14 +253,14 @@ const emptySlotHint = ({
 
   if (requiredNoteTypeName === undefined) {
     return (
-      <p className="mt-0.5 text-[11px] leading-[1.5] text-ink-muted">
+      <p className="mt-0.5 text-xs leading-[1.5] text-ink-muted">
         {i18next.t("promptTester.selectionAppearsAutomatically")}
       </p>
     )
   }
 
   return (
-    <p className="mt-1 flex flex-wrap items-baseline gap-x-1.5 gap-y-1 text-[11px] leading-[1.5] text-ink-muted">
+    <p className="mt-1 flex flex-wrap items-baseline gap-x-1.5 gap-y-1 text-xs leading-[1.5] text-ink-muted">
       <Trans
         components={{ noteTypeName: <NoteTypeName /> }}
         i18nKey="promptTester.fieldRunsOnNoteType"
@@ -268,14 +273,14 @@ const emptySlotHint = ({
 // Anki note-type names get long and parenthesized ("Japanese (recognition) (japanese
 // support)"), so a name is set apart from the sentence around it and wraps as one unit.
 const NoteTypeName = ({ children }: { children?: ReactNode }) => (
-  <span className="rounded border border-white/10 bg-white/[0.06] px-1.5 py-px font-medium text-ink">
+  <span className="rounded bg-white/[0.08] px-1.5 py-px font-medium text-ink">
     {children}
   </span>
 )
 
 // A field name wears the same chip as the prompt's {{…}} references above it.
 const FieldName = ({ name }: { name: string }) => (
-  <span className="rounded bg-indigo/14 px-[3px] font-mono text-[11px] text-indigo-soft">
+  <span className="rounded bg-indigo/14 px-[3px] font-mono text-xs text-indigo-soft">
     {name}
   </span>
 )

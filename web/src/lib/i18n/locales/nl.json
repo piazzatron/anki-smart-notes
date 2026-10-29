@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "Alle dekken",
     "auto": "Auto",
-    "autoMax": "Auto MAX",
     "back": "Rug",
-    "bestValueCost": "Beste waarde, 0,3× kosten",
     "cancel": "Annuleren",
     "close": "Dichtbij",
     "connection": {
@@ -57,6 +55,7 @@
     "validFields": "Geldige velden:"
   },
   "sidebar": {
+    "defaults": "Standaarden",
     "discord": "Discord",
     "feedback": "Feedback",
     "nav": {
@@ -170,18 +169,12 @@
       "loadingVoices": "Stemmen laden…",
       "model": "Model",
       "pickCustom": "Kies een aangepast model voor dit veld",
-      "reasoning": "{{level}} redenering",
-      "reasoningHint": "Een hogere redenering kan de hardere generaties verbeteren, maar vergt meer credits.",
-      "reasoningLevel": "Redeneerniveau",
       "sharedByEveryField": "Uw {{modality}} wordt gedeeld door elke Smart Field die er gebruik van maakt. Verander het erin",
       "textDefault": "tekst standaard",
-      "textModel": "Tekstmodel",
       "useMy": "Gebruik mijn {{modality}}",
-      "useWebSearch": "Gebruik internetzoeken voor dit veld",
       "voice": "Stem",
       "voiceDefault": "stem standaard",
-      "webSearch": "Zoeken op internet",
-      "webSearchHint": "Laat dit veld nieuwe informatie van internet gebruiken."
+      "webSearch": "Zoeken op internet"
     },
     "save": "Bewaar Smart Field",
     "sections": {
@@ -257,15 +250,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "Chatcatalogus ontbreekt model {{model}}",
       "missingImageModel": "Afbeeldingscatalogus ontbreekt model {{model}}"
     },
     "image": {
       "cannotFindModel": "Afbeeldingscatalogus ontbreekt model {{model}}",
-      "defaultModel": "Standaardmodel",
+      "defaultModel": "Standaardmodel voor afbeeldingen",
       "gptImage25": "de beste allrounder — scherpe tekst, schone diagrammen.",
-      "loadingLabel": "Standaard beeldinstellingen laden",
-      "loadingTitle": "Standaard beeldinstellingen",
+      "loadingLabel": "Instellingen voor afbeeldingsgeneratie laden",
+      "loadingTitle": "Instellingen voor afbeeldingsgeneratie",
       "modelTipLabel": "Over de afbeeldingsmodellen",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -274,9 +266,9 @@
       "nanoBanana21": "rijke, fotografische scènes.",
       "samplePrompt": "Genereer een beeld van een student die hard studeert met Anki en slaagt voor zijn tests.",
       "saveError": "Kan de standaardinstellingen voor afbeeldingen niet opslaan",
-      "subtitle": "Het model dat uw afbeelding Smart Fields gebruikt, tenzij een veld zijn eigen veld vastzet.",
-      "title": "Standaard beeldinstellingen",
-      "zImageTurbo": "snelste en goedkoopste."
+      "title": "Instellingen voor afbeeldingsgeneratie",
+      "zImageTurbo": "snelste en goedkoopste.",
+      "defaultModelTip": "Afbeelding-Smart Fields gebruiken standaard dit model. Als je het wijzigt, wordt elk Smart Field dat het standaardmodel gebruikt bijgewerkt. Elk Smart Field kan dit overschrijven met een eigen model."
     },
     "layout": {
       "save": "Opslaan",
@@ -284,28 +276,14 @@
       "tryIt": "Probeer het"
     },
     "text": {
-      "cannotInheritModel": "Standaardtekstwaarden kunnen geen ander model overnemen",
       "defaultModel": "Standaard tekstmodel",
-      "defaultReasoningLevel": "Standaard redeneerniveau",
-      "enableWebSearch": "Schakel internetzoeken in",
-      "higherReasoning": "Een hogere redenering kan de hardere generaties verbeteren, maar vergt meer credits.",
-      "loadingLabel": "Standaard tekstinstellingen laden",
+      "loadingLabel": "Instellingen voor tekstgeneratie laden",
       "loadingTitle": "Instellingen voor het genereren van tekst",
-      "modelGuidance": "{{auto}} en {{autoMax}} zijn de door Smart Notes aanbevolen modellen die een balans bieden tussen prestaties en kosten. Kies {{auto}} voor standaardtaken en upgrade indien nodig naar {{autoMax}}.",
-      "pickingModel": "Model kiezen",
-      "reasoningLevel": "Redeneerniveau",
-      "reasoningValues": {
-        "high": "Hoog",
-        "low": "Laag",
-        "off": "Uit"
-      },
       "samplePrompt": "Wat is een Spaced Repetition System (SRS)?",
       "saveError": "Kan tekststandaarden niet opslaan",
-      "subtitle": "Standaardinstellingen voor het genereren van tekst. Individuele Smart Fields kan deze waarden overschrijven.",
       "title": "Instellingen voor het genereren van tekst",
-      "webSearch": "Zoeken op internet",
-      "webSearchDescription": "Laat tekstgeneraties nieuwe informatie van internet halen.",
-      "webSearchWarning": "Zoeken is kostbaar; houd je credits in de gaten."
+      "defaultModelTip": "Smart Fields gebruiken standaard dit model. Als je het wijzigt, wordt elk Smart Field dat het standaardmodel gebruikt bijgewerkt. Elk Smart Field kan dit overschrijven met een eigen model.",
+      "defaultModelTipLabel": "Over het standaardmodel voor tekst"
     },
     "usage": {
       "fields_one": "Geldt voor het veld {{count}}",
@@ -324,14 +302,16 @@
         "provider": "Aanbieder"
       },
       "filterVoices": "Stemmen filteren",
-      "loadingLabel": "Standaard steminstellingen laden",
-      "loadingTitle": "Standaard steminstellingen",
+      "loadingLabel": "Stemინstellingen laden",
+      "loadingTitle": "Stem-instellingen",
       "noVoices": "Er zijn geen stemmen die overeenkomen met deze filters.",
       "saveError": "Kan stemstandaarden niet opslaan",
       "searchPlaceholder": "Stemmen zoeken…",
       "searchVoices": "Zoek stemmen",
-      "subtitle": "De stem die uw TTS Smart Fields gebruikt, tenzij een veld zijn eigen stem vastzet.",
-      "title": "Standaard steminstellingen"
+      "title": "Stem-instellingen",
+      "defaultVoice": "Standaardstem",
+      "defaultVoiceTip": "Stem-Smart Fields gebruiken standaard deze stem. Als je deze wijzigt, wordt elk Smart Field dat de standaardstem gebruikt bijgewerkt. Elk Smart Field kan dit overschrijven met een eigen stem.",
+      "defaultVoiceTipLabel": "Over de standaardstem"
     }
   },
   "imageGeneration": {
@@ -531,5 +511,30 @@
     "thanks": "Bedankt voor het gebruiken van Smart Notes",
     "title": "Uw gratis proefperiode is afgelopen",
     "upgradeNow": "Upgrade nu"
+  },
+  "intelligence": {
+    "advancedOptions": "Geavanceerde opties",
+    "autoCostRange": "{{min}}–{{max}}× kosten",
+    "autoDescription": "De modellen met de beste prestaties op het gebied van intelligentie en prijs, regelmatig bijgewerkt.",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "Auto · {{level}}",
+    "label": "Intelligentie",
+    "levels": {
+      "high": "Hoog",
+      "max": "Maximaal",
+      "standard": "Standaard"
+    },
+    "specificModel": "Gebruik een specifiek model",
+    "specificModelWarning": "Specifieke modellen kosten meestal veel meer dan Auto.",
+    "tipIntro": "Begin met Standaard en ga alleen omhoog als de resultaten niet goed genoeg zijn.",
+    "tipLabel": "Over intelligentieniveaus",
+    "veryHighCost": "Zeer hoge kosten",
+    "webSearch": "Webzoeken",
+    "webSearchDescription": "Laat het model actuele informatie van het web ophalen. Laat dit uit tenzij je het echt nodig hebt.",
+    "tips": {
+      "high": "<level>Hoog</level> is bedoeld voor geavanceerdere grammatica.",
+      "max": "<level>Maximaal</level> is bedoeld voor complex materiaal dat Hoog niet aankan.",
+      "standard": "<level>Standaard</level> is het beste voor vertalingen en voorbeeldzinnen."
+    }
   }
 }

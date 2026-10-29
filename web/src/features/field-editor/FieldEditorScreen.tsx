@@ -154,7 +154,7 @@ export const FieldEditorScreen = ({
               {/* Titlebar chrome, not content — it names the window and then gets out of
               the way, so it stays quieter than anything in the body. */}
               <DialogTitle asChild>
-                <h1 className="shrink-0 text-[12.5px] leading-5 font-medium text-ink-muted">
+                <h1 className="shrink-0 text-[13.5px] leading-5 font-medium text-ink-muted">
                   {t(TITLES[mode])}
                   {mode === "create" && (
                     <SparklesIcon
@@ -241,7 +241,7 @@ export const FieldEditorScreen = ({
               />
             </div>
           ) : catalog === null ? (
-            <div className="flex h-full min-h-56 items-center justify-center gap-2 text-xs text-ink-muted">
+            <div className="flex h-full min-h-56 items-center justify-center gap-2 text-[13px] text-ink-muted">
               <LoaderCircle aria-hidden className="size-4 animate-spin" />
               {t("fieldEditor.loadingModelCatalog")}
             </div>
@@ -257,7 +257,7 @@ export const FieldEditorScreen = ({
               </div>
               {controls.form.target.fieldType === "tts" &&
                 voiceCatalog.error !== null && (
-                  <p className="mt-3 text-[11px] text-danger">
+                  <p className="mt-3 text-xs text-danger">
                     {voiceCatalog.error}
                   </p>
                 )}
@@ -267,7 +267,7 @@ export const FieldEditorScreen = ({
 
         {controls.form.step === 3 && (
           <footer className="relative z-10 flex shrink-0 items-center justify-between border-t border-white/[0.07] bg-black/20 px-5 py-2.5">
-            <label className="flex cursor-pointer items-center gap-2 text-xs text-ink-muted select-none">
+            <label className="flex cursor-pointer items-center gap-2 text-[13px] text-ink-muted select-none">
               <input
                 checked={hideCompletion}
                 className="m-0 size-3.5 cursor-pointer accent-indigo"
@@ -320,7 +320,7 @@ const TargetBreadcrumb = ({
   return (
     <nav
       aria-label={t("fieldEditor.targetAriaLabel")}
-      className="flex max-w-full min-w-0 items-center gap-1.5 text-[11.5px]"
+      className="flex max-w-full min-w-0 items-center gap-1.5 text-[12.5px]"
     >
       <span className="max-w-[260px] truncate text-ink-muted">
         {noteType?.name ?? "…"}
@@ -340,7 +340,7 @@ const TargetBreadcrumb = ({
         className="size-3 shrink-0 text-zinc-600 rtl:rotate-180"
       />
       <TypeIcon className="text-ink-muted" size={13} />
-      <span className="truncate font-mono text-[11.5px] font-medium text-zinc-300">
+      <span className="truncate font-mono text-[12.5px] font-medium text-zinc-300">
         {form.target.targetFieldName}
       </span>
     </nav>

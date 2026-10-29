@@ -22,15 +22,16 @@ import type { ReactNode } from "react"
 interface PillProps {
   children: ReactNode
   className?: string
-  tone?: "neutral" | "indigo" | "amber" | "warning"
+  tone?: "neutral" | "indigo" | "sky" | "caution" | "warning"
 }
 
 const TONE_CLASSES = {
   neutral: "bg-white/[0.08] text-zinc-300",
   indigo: "bg-indigo/22 text-indigo-soft",
-  amber: "bg-amber/[0.14] text-amber",
+  sky: "bg-pastel-sky/[0.14] text-pastel-sky",
+  caution: "bg-caution/[0.15] text-caution-soft",
   // Solid, for costs people must not miss.
-  warning: "bg-amber text-zinc-950",
+  warning: "bg-caution text-zinc-950",
 }
 
 /** The small rounded label shared across the app for metadata: decks, costs,
@@ -41,7 +42,7 @@ export const Pill = ({
   tone = "neutral",
 }: PillProps) => (
   <span
-    className={`inline-flex shrink-0 items-center rounded-full px-2.5 py-[3px] text-[10.5px] leading-4 font-semibold whitespace-nowrap ${TONE_CLASSES[tone]} ${className}`}
+    className={`inline-flex shrink-0 items-center rounded-full px-2.5 py-[3px] text-[11.5px] leading-4 font-semibold whitespace-nowrap ${TONE_CLASSES[tone]} ${className}`}
   >
     {children}
   </span>

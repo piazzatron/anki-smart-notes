@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "Semua Dek",
     "auto": "Auto",
-    "autoMax": "Auto MAX",
     "back": "belakang",
-    "bestValueCost": "Nilai Terbaik, 0.3× kos",
     "cancel": "Batal",
     "close": "tutup",
     "connection": {
@@ -56,6 +54,7 @@
     "validFields": "Medan yang sah:"
   },
   "sidebar": {
+    "defaults": "Lalai",
     "discord": "Discord",
     "feedback": "Maklum balas",
     "nav": {
@@ -169,18 +168,12 @@
       "loadingVoices": "Memuatkan suara…",
       "model": "Model",
       "pickCustom": "Pilih model tersuai untuk medan ini",
-      "reasoning": "{{level}} penaakulan",
-      "reasoningHint": "Penaakulan yang lebih tinggi boleh meningkatkan generasi yang lebih sukar, tetapi menggunakan lebih banyak kredit.",
-      "reasoningLevel": "Tahap penaakulan",
       "sharedByEveryField": "{{modality}} anda dikongsi oleh setiap Smart Field yang menggunakannya. Tukar masuk",
       "textDefault": "lalai teks",
-      "textModel": "Model teks",
       "useMy": "Gunakan {{modality}} saya",
-      "useWebSearch": "Gunakan carian web untuk medan ini",
       "voice": "Suara",
       "voiceDefault": "lalai suara",
-      "webSearch": "Carian web",
-      "webSearchHint": "Biarkan medan ini menggunakan maklumat baharu daripada web."
+      "webSearch": "Carian web"
     },
     "save": "Jimat Smart Field",
     "sections": {
@@ -256,15 +249,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "Katalog sembang tiada model {{model}}",
       "missingImageModel": "Katalog imej tiada model {{model}}"
     },
     "image": {
       "cannotFindModel": "Katalog imej tiada model {{model}}",
-      "defaultModel": "Model lalai",
+      "defaultModel": "Model Imej Lalai",
       "gptImage25": "pilihan terbaik untuk semua keperluan — teks tajam, rajah kemas.",
-      "loadingLabel": "Memuatkan Tetapan Imej Lalai",
-      "loadingTitle": "Tetapan Imej Lalai",
+      "loadingLabel": "Memuatkan Tetapan Penjanaan Imej",
+      "loadingTitle": "Tetapan Penjanaan Imej",
       "modelTipLabel": "Tentang model imej",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -273,9 +265,9 @@
       "nanoBanana21": "adegan kaya dan fotografik.",
       "samplePrompt": "Hasilkan imej pelajar yang belajar bersungguh-sungguh dengan Anki dan lulus ujian mereka.",
       "saveError": "Tidak dapat menyimpan lalai imej",
-      "subtitle": "Model imej anda Smart Fields gunakan melainkan medan menyematnya sendiri.",
-      "title": "Tetapan Imej Lalai",
-      "zImageTurbo": "terpantas dan termurah."
+      "title": "Tetapan Penjanaan Imej",
+      "zImageTurbo": "terpantas dan termurah.",
+      "defaultModelTip": "Smart Fields imej menggunakan model ini secara lalai. Menukarnya akan mengemas kini setiap Smart Field yang menggunakan lalai. Mana-mana Smart Field boleh menggantikannya dengan model sendiri."
     },
     "layout": {
       "save": "Simpan",
@@ -283,28 +275,14 @@
       "tryIt": "Cubalah"
     },
     "text": {
-      "cannotInheritModel": "Lalai teks tidak boleh mewarisi model lain",
       "defaultModel": "Model Teks Lalai",
-      "defaultReasoningLevel": "Tahap penaakulan lalai",
-      "enableWebSearch": "Dayakan Carian Web",
-      "higherReasoning": "Penaakulan yang lebih tinggi boleh meningkatkan generasi yang lebih sukar, tetapi menggunakan lebih banyak kredit.",
-      "loadingLabel": "Memuatkan Tetapan Teks Lalai",
+      "loadingLabel": "Memuatkan Tetapan Penjanaan Teks",
       "loadingTitle": "Tetapan Penjanaan Teks",
-      "modelGuidance": "{{auto}} dan {{autoMax}} ialah model disyorkan Smart Notes yang mengimbangi prestasi dan kos. Pilih {{auto}} untuk tugas standard dan naik taraf kepada {{autoMax}} jika perlu.",
-      "pickingModel": "Memilih model",
-      "reasoningLevel": "Tahap penaakulan",
-      "reasoningValues": {
-        "high": "tinggi",
-        "low": "rendah",
-        "off": "Mati"
-      },
       "samplePrompt": "Apakah itu Sistem Ulangan Berjarak (SRS)?",
       "saveError": "Tidak dapat menyimpan lalai teks",
-      "subtitle": "Tetapan lalai untuk penjanaan teks. Smart Fields individu boleh mengatasi nilai ini.",
       "title": "Tetapan Penjanaan Teks",
-      "webSearch": "Carian Web",
-      "webSearchDescription": "Biarkan generasi teks menarik maklumat baharu daripada web.",
-      "webSearchWarning": "Carian mahal; pantau kredit anda."
+      "defaultModelTip": "Smart Fields menggunakan model ini secara lalai. Menukarnya akan mengemas kini setiap Smart Field yang menggunakan lalai. Mana-mana Smart Field boleh menggantikannya dengan model sendiri.",
+      "defaultModelTipLabel": "Mengenai model teks lalai"
     },
     "usage": {
       "fields_other": "Terpakai pada medan {{count}}"
@@ -322,14 +300,16 @@
         "provider": "Pembekal"
       },
       "filterVoices": "Tapis suara",
-      "loadingLabel": "Memuatkan Tetapan Suara Lalai",
-      "loadingTitle": "Tetapan Suara Lalai",
+      "loadingLabel": "Memuatkan Tetapan Suara",
+      "loadingTitle": "Tetapan Suara",
       "noVoices": "Tiada suara yang sepadan dengan penapis ini.",
       "saveError": "Tidak dapat menyimpan lalai suara",
       "searchPlaceholder": "Cari suara…",
       "searchVoices": "Cari suara",
-      "subtitle": "Suara yang digunakan oleh TTS Smart Fields anda melainkan medan menyematnya sendiri.",
-      "title": "Tetapan Suara Lalai"
+      "title": "Tetapan Suara",
+      "defaultVoice": "Suara Lalai",
+      "defaultVoiceTip": "Voice Smart Fields menggunakan suara ini secara lalai. Menukarnya akan mengemas kini setiap Smart Field yang menggunakan lalai. Mana-mana Smart Field boleh menggantikannya dengan suara sendiri.",
+      "defaultVoiceTipLabel": "Mengenai suara lalai"
     }
   },
   "imageGeneration": {
@@ -521,5 +501,30 @@
     "thanks": "Terima kasih kerana menggunakan Smart Notes",
     "title": "Percubaan percuma anda telah tamat",
     "upgradeNow": "Tingkatkan sekarang"
+  },
+  "intelligence": {
+    "advancedOptions": "Pilihan lanjutan",
+    "autoCostRange": "{{min}}–{{max}}× kos",
+    "autoDescription": "Model yang paling baik prestasinya untuk kecerdasan dan harga, dikemas kini secara berkala.",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "Auto · {{level}}",
+    "label": "Kecerdasan",
+    "levels": {
+      "high": "Tinggi",
+      "max": "Maks",
+      "standard": "Standard"
+    },
+    "specificModel": "Gunakan model tertentu",
+    "specificModelWarning": "Model tertentu biasanya jauh lebih mahal daripada Auto.",
+    "tipIntro": "Mulakan dengan Standard, dan naik ke tahap yang lebih tinggi hanya jika hasilnya tidak memuaskan.",
+    "tipLabel": "Mengenai tahap kecerdasan",
+    "veryHighCost": "Kos sangat tinggi",
+    "webSearch": "Carian Web",
+    "webSearchDescription": "Benarkan model mengambil maklumat terkini dari web. Biarkan ini dimatikan melainkan anda benar-benar memerlukannya.",
+    "tips": {
+      "high": "<level>Tinggi</level> untuk tatabahasa yang lebih lanjut.",
+      "max": "<level>Maks</level> untuk bahan yang rumit yang tidak dapat ditangani oleh Tinggi.",
+      "standard": "<level>Standard</level> paling sesuai untuk terjemahan dan ayat contoh."
+    }
   }
 }

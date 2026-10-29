@@ -43,6 +43,8 @@ import {
 interface ImageModelSelectProps {
   ariaLabel?: string
   catalog: ImageModelCatalog
+  /** Surfaces hang past the column's left edge by their own padding (see TextModelPicker). */
+  hanging?: boolean
   id?: string
   onValueChange: (settings: ImageGenerationSettings) => void
   value: string
@@ -51,12 +53,14 @@ interface ImageModelSelectProps {
 export const ImageModelSelect = ({
   ariaLabel,
   catalog,
+  hanging = false,
   id,
   onValueChange,
   value,
 }: ImageModelSelectProps) => {
   const { t } = useTranslation()
   const family = getImageModelFamily(value)
+  const hang = hanging ? "-mx-[22px] px-[22px]" : ""
 
   const selectModel = (model: string) => {
     const selected = catalog.models.find((item) => item.id === model)
@@ -87,7 +91,11 @@ export const ImageModelSelect = ({
         }}
         value={family?.id ?? value}
       >
-        <SelectTrigger aria-label={ariaLabel} id={id}>
+        <SelectTrigger
+          aria-label={ariaLabel}
+          className={hanging ? "-mx-[22px] w-[calc(100%+44px)] px-[22px]" : ""}
+          id={id}
+        >
           <ImageModelOption modelId={family?.id ?? value} />
         </SelectTrigger>
         <SelectContent>
@@ -102,8 +110,8 @@ export const ImageModelSelect = ({
       {/* A family's default is its plain model; switches are opt-in and pick the
           underlying model, which the ⓘ names for anyone curious. */}
       {family !== null && (
-        <div className="mt-4">
-          <p className="mb-1 flex items-center gap-1.5 text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
+        <div className="mt-6">
+          <p className="mb-3 flex items-center gap-1.5 text-[13px] font-semibold text-ink-muted">
             {t("imageGeneration.extraSettings")}
             <InfoTip label={t("imageGeneration.underTheHoodLabel")}>
               <ul className="space-y-1">
@@ -128,32 +136,32 @@ export const ImageModelSelect = ({
               </ul>
             </InfoTip>
           </p>
-          {family.switches.map((key, index) => {
-            const { cost, description, label } = IMAGE_MODEL_SWITCHES[key]
-            return (
-              <div
-                className={`flex items-start gap-4 py-2.5 ${index > 0 ? "border-t border-white/[0.065]" : ""}`}
-                key={key}
-              >
-                <div className="min-w-0 flex-1">
-                  <p className="flex items-center gap-2 text-xs font-semibold text-zinc-200">
-                    {t(label)}
-                    {cost !== null && <Pill tone="warning">{t(cost)}</Pill>}
-                  </p>
-                  <p className="mt-1 text-[11px] leading-4 text-ink-muted">
-                    {t(description)}
-                  </p>
-                </div>
-                <div className="mt-0.5">
+          <div className={`rounded-xl bg-white/[0.05] ${hang || "px-4"}`}>
+            {family.switches.map((key, index) => {
+              const { cost, description, label } = IMAGE_MODEL_SWITCHES[key]
+              return (
+                <div
+                  className={`flex items-center gap-4 py-[18px] ${index > 0 ? "border-t border-white/[0.05]" : ""}`}
+                  key={key}
+                >
+                  <div className="min-w-0 flex-1">
+                    <p className="flex min-h-[22px] items-center gap-2 text-sm font-medium text-ink">
+                      {t(label)}
+                      {cost !== null && <Pill tone="warning">{t(cost)}</Pill>}
+                    </p>
+                    <p className="mt-1.5 text-xs leading-4 text-ink-muted">
+                      {t(description)}
+                    </p>
+                  </div>
                   <Toggle
                     aria-label={t(label)}
                     checked={isSwitchOn(family, value, key)}
                     onCheckedChange={(checked) => setSwitch(key, checked)}
                   />
                 </div>
-              </div>
-            )
-          })}
+              )
+            })}
+          </div>
         </div>
       )}
     </>
@@ -171,7 +179,7 @@ const ImageModelOption = ({ modelId }: { modelId: string }) => {
 
   return (
     <span className="flex min-w-0 items-center gap-2">
-      <span className="min-w-0 flex-1 truncate font-semibold text-zinc-100">
+      <span className="min-w-0 flex-1 truncate font-medium text-ink">
         {family === undefined ? modelLabel(modelId) : t(family.label)}
       </span>
       {costLabel !== undefined && <Pill>{costLabel}</Pill>}

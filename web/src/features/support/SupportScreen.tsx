@@ -73,19 +73,19 @@ export const SupportScreen = () => {
       testId="support-screen"
       title={t("support.title")}
     >
-      <div className="relative flex items-center gap-[15px] overflow-hidden rounded-[13px] bg-[linear-gradient(100deg,#3C45A5_0%,#5865F2_42%,#9B4DFF_100%)] py-[17px] ps-[19px] pe-4">
+      <div className="relative -mx-[22px] flex items-center gap-[15px] overflow-hidden rounded-[13px] bg-[linear-gradient(100deg,#3C45A5_0%,#5865F2_42%,#9B4DFF_100%)] py-[17px] ps-[22px] pe-4">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(460px_140px_at_10%_-40%,rgba(180,200,255,0.3),transparent_72%)]" />
         <DiscordMark className="relative text-white" size={31} />
         <div className="relative min-w-0 flex-1">
           <h2 className="text-base font-extrabold tracking-[-0.01em] text-white">
             {t("support.discord.title")}
           </h2>
-          <p className="mt-[3px] text-[12.5px] text-white/80">
+          <p className="mt-[3px] text-[13.5px] text-white/80">
             {t("support.discord.description")}
           </p>
         </div>
         <a
-          className="relative shrink-0 rounded-lg bg-white px-[22px] py-2.5 text-[13px] font-extrabold text-[#6B3FD4]"
+          className="relative shrink-0 rounded-lg bg-white px-[22px] py-2.5 text-sm font-extrabold text-[#6B3FD4]"
           href={DISCORD_URL}
           rel="noreferrer"
           target="_blank"
@@ -94,19 +94,19 @@ export const SupportScreen = () => {
         </a>
       </div>
 
-      <div className="mt-[9px] flex items-center gap-[15px] rounded-[13px] bg-white/[0.07] py-4 ps-[19px] pe-4">
+      <div className="-mx-[22px] mt-[9px] flex items-center gap-[15px] rounded-[13px] bg-white/[0.05] py-4 ps-[22px] pe-4">
         <BugIcon className="text-zinc-300" size={26} />
         <div className="min-w-0 flex-1">
           <h2 className="text-base font-extrabold tracking-[-0.01em] text-zinc-100">
             {t("support.feedback.title")}
           </h2>
-          <p className="mt-[3px] text-[12.5px] text-zinc-400">
+          <p className="mt-[3px] text-[13.5px] text-zinc-400">
             {t("support.feedback.description")}
           </p>
         </div>
         <FeedbackDialog>
           <button
-            className="shrink-0 rounded-[9px] bg-[#5b6fe8] px-5 py-2.5 text-[13px] font-extrabold text-white"
+            className="shrink-0 rounded-[9px] bg-[#5b6fe8] px-5 py-2.5 text-sm font-extrabold text-white"
             type="button"
           >
             {t("support.feedback.send")}
@@ -114,10 +114,10 @@ export const SupportScreen = () => {
         </FeedbackDialog>
       </div>
 
-      <div className="mt-[9px] grid grid-cols-3 gap-[9px]">
+      <div className="-mx-[22px] mt-[9px] grid grid-cols-3 gap-[9px]">
         {REFERENCE_LINKS.map((link) => (
           <a
-            className="flex min-w-0 items-center gap-3 rounded-[13px] bg-white/[0.05] px-4 py-3.5"
+            className="flex min-w-0 items-center gap-3 rounded-[13px] bg-white/[0.05] px-[22px] py-3.5"
             href={link.href}
             key={link.labelKey}
             rel="noreferrer"
@@ -130,7 +130,7 @@ export const SupportScreen = () => {
               <span className="block text-sm font-bold text-zinc-100">
                 {t(link.labelKey)}
               </span>
-              <span className="mt-0.5 block truncate text-[11.5px] text-zinc-400">
+              <span className="mt-0.5 block truncate text-[12.5px] text-zinc-400">
                 {link.subKey === undefined ? link.sub : t(link.subKey)}
               </span>
             </span>
@@ -139,7 +139,7 @@ export const SupportScreen = () => {
       </div>
 
       <footer className="mt-[18px] px-0.5">
-        <p className="text-xs leading-[1.55] text-zinc-400">
+        <p className="text-[13px] leading-[1.55] text-zinc-400">
           <a
             className="text-zinc-400 hover:text-zinc-200"
             href="https://smart-notes.xyz"
@@ -150,7 +150,7 @@ export const SupportScreen = () => {
           </a>{" "}
           {t("support.byline")}
         </p>
-        <p className="mt-2.5 text-[11px] text-zinc-600">
+        <p className="mt-2.5 text-xs text-ink-muted">
           {t("support.copyright", { version: state.appVersion })}{" "}
           <a
             className="text-zinc-400 hover:text-zinc-200"
@@ -163,7 +163,7 @@ export const SupportScreen = () => {
         </p>
         {/* Attribution names the artwork and its licenses, so it stays in English. */}
         {/* eslint-disable i18next/no-literal-string */}
-        <p className="mt-1 text-[11px] text-zinc-600">
+        <p className="mt-1 text-xs text-ink-muted">
           Icons:{" "}
           <CreditLink href="https://www.figma.com/community/file/1166831539721848736">
             Solar

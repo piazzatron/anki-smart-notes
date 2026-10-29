@@ -32,11 +32,12 @@ import {
 import { VoicePicker } from "@/features/defaults/VoicePicker"
 import { voiceMatchesSettings } from "@/features/defaults/voiceDefaults"
 import { ImageModelSelect } from "@/features/image-generation/ImageModelSelect"
+import { TextModelPicker } from "@/features/text-generation/TextModelPicker"
+import { chatModelLabel } from "@/features/text-generation/intelligence"
 import { modelLabel } from "@/lib/catalog"
 import type { AppState, Catalog, VoiceCatalog } from "@/types/api"
 
 import type { FieldType } from "./fieldEditor"
-import { TextModelSettings } from "./TextModelSettings"
 import type { FieldEditorControls } from "./useFieldEditor"
 
 interface ModelSettingsSectionProps {
@@ -63,14 +64,14 @@ export const ModelSettingsSection = ({
     <>
       <button
         aria-haspopup="dialog"
-        className="flex min-h-11 w-full cursor-pointer items-center gap-3 rounded-md border border-white/[0.09] bg-white/[0.04] px-3 py-2 text-start transition hover:border-white/16"
+        className="-mx-[22px] flex min-h-11 w-[calc(100%+44px)] cursor-pointer items-center gap-3 rounded-xl bg-white/[0.05] px-[22px] py-2 text-start transition hover:bg-white/[0.07]"
         onClick={() => setIsOpen(true)}
       >
-        <span className="min-w-0 flex-1 truncate text-xs font-semibold text-zinc-100">
+        <span className="min-w-0 flex-1 truncate text-[13px] font-semibold text-zinc-100">
           {summary.label}
         </span>
         {summary.detail !== null && (
-          <span className="shrink-0 truncate text-[11px] text-ink-muted">
+          <span className="shrink-0 truncate text-xs text-ink-muted">
             {summary.detail}
           </span>
         )}
@@ -95,7 +96,7 @@ export const ModelSettingsSection = ({
         />
 
         {controls.form.pinnedSettings[fieldType] === null ? (
-          <p className="mt-3 text-[11px] leading-4 text-ink-muted">
+          <p className="mt-3 text-xs leading-4 text-ink-muted">
             {t("fieldEditor.modelSettings.sharedByEveryField", {
               modality: getModalityName(fieldType),
             })}{" "}
@@ -108,7 +109,7 @@ export const ModelSettingsSection = ({
           <div className="mt-4">
             {fieldType === "chat" &&
               controls.form.pinnedSettings.chat !== null && (
-                <TextModelSettings
+                <TextModelPicker
                   catalog={catalog.chat}
                   onChange={controls.setPinnedChat}
                   value={controls.form.pinnedSettings.chat}
@@ -117,7 +118,7 @@ export const ModelSettingsSection = ({
             {fieldType === "image" &&
               controls.form.pinnedSettings.image !== null && (
                 <div>
-                  <span className="mb-2 block text-[10px] font-semibold tracking-[0.06em] text-ink-faint uppercase">
+                  <span className="mb-2 block text-[11px] font-semibold tracking-[0.06em] text-ink-muted uppercase">
                     {t("fieldEditor.modelSettings.model")}
                   </span>
                   <ImageModelSelect
@@ -131,7 +132,7 @@ export const ModelSettingsSection = ({
             {fieldType === "tts" &&
               controls.form.pinnedSettings.tts !== null &&
               (voiceCatalog === null ? (
-                <div className="flex items-center justify-center gap-2 py-8 text-xs text-ink-muted">
+                <div className="flex items-center justify-center gap-2 py-8 text-[13px] text-ink-muted">
                   <LoaderCircle aria-hidden className="size-4 animate-spin" />
                   {t("fieldEditor.modelSettings.loadingVoices")}
                 </div>
@@ -166,10 +167,10 @@ const SettingsDialog = ({
   <Dialog onOpenChange={onOpenChange} open={open}>
     <DialogContent className="max-h-[80vh] w-[min(520px,92vw)]">
       <header className="shrink-0 border-b border-white/[0.07] py-3.5 ps-5 pe-10">
-        <DialogTitle className="text-[13px] font-bold text-ink">
+        <DialogTitle className="text-sm font-bold text-ink">
           {title}
         </DialogTitle>
-        <DialogDescription className="mt-0.5 text-[11px] text-ink-faint">
+        <DialogDescription className="mt-0.5 text-xs text-ink-muted">
           {subtitle}
         </DialogDescription>
       </header>
@@ -215,10 +216,10 @@ const PinnedOrDefault = ({
       {[true, false].map((useDefault) => (
         <button
           aria-checked={isDefault === useDefault}
-          className={`cursor-pointer rounded-md border px-3 py-2 text-[11px] font-semibold transition ${
+          className={`cursor-pointer rounded-md px-3 py-2 text-xs font-semibold transition ${
             isDefault === useDefault
-              ? "border-indigo/40 bg-indigo/12 text-indigo-soft"
-              : "border-white/[0.08] bg-white/[0.025] text-zinc-400 hover:text-zinc-200"
+              ? "bg-indigo/14 text-indigo-soft"
+              : "bg-white/[0.05] text-zinc-400 hover:bg-white/[0.07] hover:text-zinc-200"
           }`}
           key={String(useDefault)}
           onClick={() => setUseDefault(useDefault)}
@@ -229,7 +230,7 @@ const PinnedOrDefault = ({
               {i18next.t("fieldEditor.modelSettings.useMy", {
                 modality: getModalityName(fieldType),
               })}
-              <span className="mt-0.5 block truncate text-[10px] font-medium opacity-75">
+              <span className="mt-0.5 block truncate text-[11px] font-medium opacity-75">
                 {defaultLabel}
               </span>
             </>
@@ -278,11 +279,9 @@ const getDefaultLabel = ({
     )
   }
 
-  return modelLabel(
-    fieldType === "image"
-      ? state.defaults.image.model
-      : state.defaults.chat.model,
-  )
+  return fieldType === "image"
+    ? modelLabel(state.defaults.image.model)
+    : chatModelLabel(state.defaults.chat)
 }
 
 // What the row says when the modal is closed: the model or voice in use, and the
@@ -329,26 +328,17 @@ const getModelSummary = ({
   }
 
   const settings = pinnedSettings.chat ?? state.defaults.chat
-  const extras = [
-    settings.provider === "auto" && settings.reasoningLevel !== "off"
-      ? i18next.t("fieldEditor.modelSettings.reasoning", {
-          level: i18next.t(
-            `defaults.text.reasoningValues.${settings.reasoningLevel}`,
-          ),
-        })
-      : null,
-    settings.webSearchEnabled
-      ? i18next.t("fieldEditor.modelSettings.webSearch")
-      : null,
-  ].filter((extra) => extra !== null)
+  const label = chatModelLabel(settings)
 
   return {
-    detail: extras.length === 0 ? null : extras.join(" · "),
+    detail: settings.webSearchEnabled
+      ? i18next.t("fieldEditor.modelSettings.webSearch")
+      : null,
     label:
       pinnedSettings.chat === null
         ? i18next.t("fieldEditor.modelSettings.defaultWithValue", {
-            value: modelLabel(settings.model),
+            value: label,
           })
-        : modelLabel(settings.model),
+        : label,
   }
 }

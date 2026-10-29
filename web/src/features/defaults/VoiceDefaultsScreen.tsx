@@ -2,6 +2,7 @@ import { type ReactNode, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
+import { SectionHeading } from "@/components/ui/SectionHeading"
 import { PromptTesterStrip } from "@/features/prompt-tester/PromptTesterStrip"
 import { usePromptTester } from "@/features/prompt-tester/usePromptTester"
 import { providerLabel } from "@/lib/catalog"
@@ -57,7 +58,7 @@ export const VoiceDefaultsScreen = ({
         testId="voice-defaults-screen"
         title={t("defaults.voice.title")}
       >
-        <p className="rounded-lg border border-red-300/15 bg-red-300/[0.06] px-4 py-3 text-xs text-danger">
+        <p className="rounded-lg bg-red-300/[0.06] px-4 py-3 text-[13px] text-danger">
           {voiceCatalog.error}
         </p>
       </PageLayout>
@@ -118,7 +119,6 @@ const LoadedVoiceDefaultsScreen = ({
       isDirty={controls.form.isDirty}
       isSaving={controls.form.isSaving}
       onSave={() => void controls.saveChanges()}
-      subtitle={t("defaults.voice.subtitle")}
       tester={<PromptTesterStrip field={tester} />}
       testId="voice-defaults-screen"
       title={t("defaults.voice.title")}
@@ -132,6 +132,14 @@ const LoadedVoiceDefaultsScreen = ({
       )}
 
       <div className="flex min-h-0 flex-1 flex-col">
+        <SectionHeading
+          tip={{
+            content: t("defaults.voice.defaultVoiceTip"),
+            label: t("defaults.voice.defaultVoiceTipLabel"),
+          }}
+        >
+          {t("defaults.voice.defaultVoice")}
+        </SectionHeading>
         <div className="flex min-h-0 w-full flex-1 flex-col">
           <VoicePicker
             catalog={catalog}
@@ -139,11 +147,11 @@ const LoadedVoiceDefaultsScreen = ({
             onSelect={controls.updateDefault}
             value={controls.form.values}
           >
-            <p className="mb-2 text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
+            <p className="mb-2 px-[22px] text-[11px] font-semibold tracking-[0.08em] text-ink-muted uppercase">
               {t("defaults.voice.currentDefault")}
             </p>
-            <div className="flex h-9 items-center gap-2.5 rounded-lg border border-white/[0.09] bg-white/[0.03] px-3">
-              <p className="min-w-0 flex-1 truncate text-[12.5px] font-medium whitespace-nowrap text-zinc-100">
+            <div className="flex h-10 items-center gap-2.5 rounded-xl bg-white/[0.05] px-[22px]">
+              <p className="min-w-0 flex-1 truncate text-sm font-medium whitespace-nowrap text-ink">
                 {providerLabel(controls.form.values.provider)}
                 {selectedVoice === undefined ? (
                   <> · {controls.form.values.voiceId}</>

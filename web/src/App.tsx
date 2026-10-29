@@ -167,7 +167,7 @@ const App = () => {
             <DialogTitle className="text-sm font-bold text-zinc-100">
               {t("common.discardUnsavedChanges.title")}
             </DialogTitle>
-            <DialogDescription className="mt-1.5 text-xs leading-5 text-ink-muted">
+            <DialogDescription className="mt-1.5 text-[13px] leading-5 text-ink-muted">
               {t("common.discardUnsavedChanges.description")}
             </DialogDescription>
           </div>

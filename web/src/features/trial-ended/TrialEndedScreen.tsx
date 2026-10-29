@@ -59,7 +59,7 @@ export const TrialEndedScreen = ({
         )}
 
         <header className="text-center">
-          <p className="mb-2 text-[12.5px] leading-none font-semibold text-[#5fe3b0]">
+          <p className="mb-2 text-[13.5px] leading-none font-semibold text-[#5fe3b0]">
             {t("trialEnded.thanks")}
             <SparklesIcon
               className="ms-1 inline-block align-[-2px]"
@@ -69,7 +69,7 @@ export const TrialEndedScreen = ({
           <h1 className="text-[28px] leading-[1.15] font-extrabold tracking-[-0.5px] text-[#f4f4f6]">
             {t("trialEnded.title")}
           </h1>
-          <p className="mt-[9px] text-[13px] leading-[1.45] text-[#9a9aa4]">
+          <p className="mt-[9px] text-sm leading-[1.45] text-ink-muted">
             {t("trialEnded.description")}
           </p>
         </header>
@@ -86,7 +86,7 @@ export const TrialEndedScreen = ({
               <span className="inline-flex size-[30px] shrink-0 items-center justify-center rounded-lg bg-white/[0.04] text-[#c3c3cb]">
                 <Icon aria-hidden className="size-[17px]" />
               </span>
-              <span className="text-[13px] leading-tight font-medium text-[#e6e6ea]">
+              <span className="text-sm leading-tight font-medium text-[#e6e6ea]">
                 {t(labelKey)}
               </span>
             </div>
@@ -127,12 +127,12 @@ const ReviewOfferBanner = ({ onOpen }: { onOpen: () => void }) => {
           <span className="text-sm leading-[1.2] font-bold text-white">
             {t("trialEnded.reviewOffer.title")}
           </span>
-          <span className="text-xs leading-[1.3] text-white/85">
+          <span className="text-[13px] leading-[1.3] text-white/85">
             {t("trialEnded.reviewOffer.description")}
           </span>
         </span>
         <button
-          className="flex h-[34px] shrink-0 items-center rounded-lg bg-white px-[15px] text-[12.5px] font-bold whitespace-nowrap text-[#4b3fb0] transition-transform duration-150 hover:scale-[1.025]"
+          className="flex h-[34px] shrink-0 items-center rounded-lg bg-white px-[15px] text-[13.5px] font-bold whitespace-nowrap text-[#4b3fb0] transition-transform duration-150 hover:scale-[1.025]"
           onClick={onOpen}
           type="button"
         >
@@ -160,11 +160,11 @@ const ReviewOfferDialog = ({
           <DialogTitle className="mt-3 text-[16.5px] font-bold text-[#f4f4f6]">
             {t("trialEnded.reviewOffer.dialogTitle")}
           </DialogTitle>
-          <DialogDescription className="mt-2 text-[12.5px] leading-[1.5] text-[#9a9aa4]">
+          <DialogDescription className="mt-2 text-[13.5px] leading-[1.5] text-ink-muted">
             {t("trialEnded.reviewOffer.dialogDescription")}
           </DialogDescription>
           <a
-            className="mt-[18px] inline-flex h-[42px] w-full items-center justify-center rounded-[9px] bg-[#5b6fe8] text-[13.5px] font-bold text-white"
+            className="mt-[18px] inline-flex h-[42px] w-full items-center justify-center rounded-[9px] bg-[#5b6fe8] text-[14.5px] font-bold text-white"
             href={ANKIWEB_REVIEW_URL}
             rel="noreferrer"
             target="_blank"
@@ -173,14 +173,14 @@ const ReviewOfferDialog = ({
             <span className="inline-block rtl:rotate-180">→</span>
           </a>
           <a
-            className="mt-2 inline-flex h-9 w-full items-center justify-center rounded-[9px] bg-white/[0.05] text-[12px] font-semibold text-zinc-300 transition hover:bg-white/[0.08] hover:text-white"
+            className="mt-2 inline-flex h-9 w-full items-center justify-center rounded-[9px] bg-white/[0.05] text-[13px] font-semibold text-zinc-300 transition hover:bg-white/[0.08] hover:text-white"
             href={`mailto:${SUPPORT_EMAIL}`}
           >
             <LetterIcon className="me-1.5" size={15} />
             {SUPPORT_EMAIL}
           </a>
           <button
-            className="mt-2.5 w-full bg-transparent p-2 text-[11.5px] text-[#8b8b94] transition hover:text-zinc-300"
+            className="mt-2.5 w-full bg-transparent p-2 text-[12.5px] text-ink-muted transition hover:text-zinc-300"
             onClick={() => onOpenChange(false)}
             type="button"
           >

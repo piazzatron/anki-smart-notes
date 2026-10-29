@@ -105,7 +105,7 @@ export const StepPrompt = ({
           </EditorSection>
         ) : (
           <>
-            <div className="mb-7 rounded-[10px] border border-indigo/30 bg-indigo/[0.06] px-4 py-4">
+            <div className="-mx-[22px] mb-7 rounded-xl bg-indigo/[0.06] px-[22px] py-5">
               <label
                 className="text-[15px] leading-tight font-semibold text-zinc-100"
                 htmlFor="field-editor-write-prompt"
@@ -116,12 +116,12 @@ export const StepPrompt = ({
                   size={15}
                 />
               </label>
-              <p className="mt-1 text-[12px] leading-[1.45] text-ink-muted">
+              <p className="mt-1 text-[13px] leading-[1.45] text-ink-muted">
                 {t("fieldEditor.writePromptForMeHint")}
               </p>
               <div className="mt-3 flex gap-2">
                 <input
-                  className="h-11 min-w-0 flex-1 rounded-md border border-indigo/25 bg-black/[0.28] px-3 text-xs text-zinc-200 outline-none placeholder:text-zinc-600 focus:border-indigo/45"
+                  className="h-11 min-w-0 flex-1 rounded-md bg-black/[0.28] px-3 text-[13px] text-zinc-200 transition outline-none placeholder:text-zinc-600 focus:bg-black/[0.45]"
                   id="field-editor-write-prompt"
                   onChange={(event) =>
                     controls.update({ writePrompt: event.target.value })
@@ -161,7 +161,7 @@ export const StepPrompt = ({
 
             <EditorSection label={t("common.prompt")}>
               <textarea
-                className="max-h-[46vh] min-h-[150px] w-full resize-y rounded-md border border-white/10 bg-white/[0.03] px-3 py-2.5 font-mono text-[12px] leading-[1.55] text-zinc-200 outline-none placeholder:text-zinc-700 focus:border-indigo/45"
+                className="-mx-[22px] max-h-[46vh] min-h-[150px] w-[calc(100%+44px)] resize-y rounded-xl bg-white/[0.05] px-[22px] py-3.5 font-mono text-[13px] leading-[1.55] text-zinc-200 outline-none placeholder:text-zinc-700 focus:bg-white/[0.07]"
                 onChange={(event) =>
                   controls.update({ prompt: event.target.value })
                 }

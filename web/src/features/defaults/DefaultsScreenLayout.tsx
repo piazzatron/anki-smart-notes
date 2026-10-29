@@ -33,7 +33,6 @@ interface DefaultsScreenLayoutProps {
   isDirty: boolean
   isSaving: boolean
   onSave: () => void
-  subtitle: string
   tester: ReactNode
   testerAccessory?: ReactNode
   testId: string
@@ -48,7 +47,6 @@ export const DefaultsScreenLayout = ({
   isDirty,
   isSaving,
   onSave,
-  subtitle,
   tester,
   testerAccessory,
   testId,
@@ -65,7 +63,7 @@ export const DefaultsScreenLayout = ({
           {isDirty && (
             <Button
               // Sized to sit comfortably beside the page title.
-              className="h-10 px-3.5 text-[12.5px]"
+              className="h-10 px-3.5 text-[13.5px]"
               disabled={isSaving}
               onClick={onSave}
               variant="primary"
@@ -79,19 +77,18 @@ export const DefaultsScreenLayout = ({
       }
       className={contentFillsHeight ? "h-full" : undefined}
       icon={icon}
-      subtitle={subtitle}
       testId={testId}
       title={title}
     >
       {children}
-      <div className={contentFillsHeight ? "mt-auto pt-8" : "mt-8"}>
-        <div className="mb-3 flex min-h-[22px] items-center gap-4">
-          <h2 className="text-[17px] leading-tight font-bold text-zinc-100">
+      <div className={contentFillsHeight ? "mt-auto pt-10" : "mt-10"}>
+        <div className="mb-[22px] flex min-h-[22px] items-center gap-4">
+          <h2 className="text-base font-semibold text-ink">
             {t("defaults.layout.tryIt")}
           </h2>
           {testerAccessory}
         </div>
-        <Card className="w-full p-4">{tester}</Card>
+        <Card className="-mx-[22px] px-[22px] py-5">{tester}</Card>
       </div>
     </PageLayout>
   )

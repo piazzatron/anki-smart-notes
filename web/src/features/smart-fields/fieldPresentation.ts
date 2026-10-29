@@ -1,3 +1,4 @@
+import { chatModelLabel } from "@/features/text-generation/intelligence"
 import { modelLabel, providerLabel } from "@/lib/catalog"
 import i18next from "i18next"
 import type { SmartField } from "@/types/api"
@@ -22,5 +23,7 @@ export const smartFieldModelLabel = (field: SmartField): string => {
     return `${providerLabel(field.settings.provider)} · ${voice}`
   }
 
-  return modelLabel(field.settings.model)
+  return field.fieldType === "chat"
+    ? chatModelLabel(field.settings)
+    : modelLabel(field.settings.model)
 }

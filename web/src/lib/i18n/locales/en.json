@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "All Decks",
     "auto": "Auto",
-    "autoMax": "Auto MAX",
     "back": "Back",
-    "bestValueCost": "Best Value, 0.3× cost",
     "cancel": "Cancel",
     "close": "Close",
     "connection": {
@@ -57,6 +55,7 @@
     "validFields": "Valid fields:"
   },
   "sidebar": {
+    "defaults": "Defaults",
     "discord": "Discord",
     "feedback": "Feedback",
     "nav": {
@@ -170,18 +169,12 @@
       "loadingVoices": "Loading voices…",
       "model": "Model",
       "pickCustom": "Pick a custom model for this field",
-      "reasoning": "{{level}} reasoning",
-      "reasoningHint": "Higher reasoning can improve harder generations, but uses more credits.",
-      "reasoningLevel": "Reasoning level",
       "sharedByEveryField": "Your {{modality}} is shared by every Smart Field that uses it. Change it in",
       "textDefault": "text default",
-      "textModel": "Text model",
       "useMy": "Use my {{modality}}",
-      "useWebSearch": "Use web search for this field",
       "voice": "Voice",
       "voiceDefault": "voice default",
-      "webSearch": "Web search",
-      "webSearchHint": "Let this field use fresh information from the web."
+      "webSearch": "Web search"
     },
     "save": "Save Smart Field",
     "sections": {
@@ -257,15 +250,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "Chat catalog is missing model {{model}}",
       "missingImageModel": "Image catalog is missing model {{model}}"
     },
     "image": {
       "cannotFindModel": "Image catalog is missing model {{model}}",
-      "defaultModel": "Default model",
+      "defaultModel": "Default Image Model",
       "gptImage25": "best all-rounder — sharp text, clean diagrams.",
-      "loadingLabel": "Loading Default Image Settings",
-      "loadingTitle": "Default Image Settings",
+      "loadingLabel": "Loading Image Generation Settings",
+      "loadingTitle": "Image Generation Settings",
       "modelTipLabel": "About the image models",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -274,9 +266,9 @@
       "nanoBanana21": "rich, photographic scenes.",
       "samplePrompt": "Generate an image of a student studying hard with Anki and passing their tests.",
       "saveError": "Could not save image defaults",
-      "subtitle": "The model your image Smart Fields use unless a field pins its own.",
-      "title": "Default Image Settings",
-      "zImageTurbo": "fastest and cheapest."
+      "title": "Image Generation Settings",
+      "zImageTurbo": "fastest and cheapest.",
+      "defaultModelTip": "Image Smart Fields use this model by default. Changing it updates every Smart Field that uses the default. Any Smart Field can override it with its own model."
     },
     "layout": {
       "save": "Save",
@@ -284,28 +276,14 @@
       "tryIt": "Try it"
     },
     "text": {
-      "cannotInheritModel": "Text defaults cannot inherit another model",
       "defaultModel": "Default Text Model",
-      "defaultReasoningLevel": "Default reasoning level",
-      "enableWebSearch": "Enable Web Search",
-      "higherReasoning": "Higher reasoning can improve harder generations, but uses more credits.",
-      "loadingLabel": "Loading Default Text Settings",
+      "loadingLabel": "Loading Text Generation Settings",
       "loadingTitle": "Text Generation Settings",
-      "modelGuidance": "{{auto}} and {{autoMax}} are the Smart Notes recommended models that balance performance and cost. Choose {{auto}} for standard tasks and upgrade to {{autoMax}} if needed.",
-      "pickingModel": "Picking a model",
-      "reasoningLevel": "Reasoning level",
-      "reasoningValues": {
-        "high": "High",
-        "low": "Low",
-        "off": "Off"
-      },
       "samplePrompt": "What is a Spaced Repetition System (SRS)?",
       "saveError": "Could not save text defaults",
-      "subtitle": "Default settings for text generation. Individual Smart Fields can override these values.",
       "title": "Text Generation Settings",
-      "webSearch": "Web Search",
-      "webSearchDescription": "Let text generations pull in fresh info from the web.",
-      "webSearchWarning": "Search is expensive; monitor your credits."
+      "defaultModelTip": "Smart Fields use this model by default. Changing it updates every Smart Field that uses the default. Any Smart Field can override it with its own model.",
+      "defaultModelTipLabel": "About the default text model"
     },
     "usage": {
       "fields_one": "Applies to {{count}} field",
@@ -324,14 +302,16 @@
         "provider": "Provider"
       },
       "filterVoices": "Filter voices",
-      "loadingLabel": "Loading Default Voice Settings",
-      "loadingTitle": "Default Voice Settings",
+      "loadingLabel": "Loading Voice Settings",
+      "loadingTitle": "Voice Settings",
       "noVoices": "No voices match these filters.",
       "saveError": "Could not save voice defaults",
       "searchPlaceholder": "Search voices…",
       "searchVoices": "Search voices",
-      "subtitle": "The voice your TTS Smart Fields use unless a field pins its own.",
-      "title": "Default Voice Settings"
+      "title": "Voice Settings",
+      "defaultVoice": "Default Voice",
+      "defaultVoiceTip": "Voice Smart Fields use this voice by default. Changing it updates every Smart Field that uses the default. Any Smart Field can override it with its own voice.",
+      "defaultVoiceTipLabel": "About the default voice"
     }
   },
   "imageGeneration": {
@@ -532,5 +512,30 @@
     "title": "Your free trial has ended",
     "upgradeNow": "Upgrade now"
   },
-  "assistant": {}
+  "assistant": {},
+  "intelligence": {
+    "advancedOptions": "Advanced options",
+    "autoCostRange": "{{min}}–{{max}}× cost",
+    "autoDescription": "The best performing models for intelligence and price, updated regularly.",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "Auto · {{level}}",
+    "label": "Intelligence",
+    "levels": {
+      "high": "High",
+      "max": "Max",
+      "standard": "Standard"
+    },
+    "specificModel": "Use a specific model",
+    "specificModelWarning": "Specific models usually cost much more than Auto.",
+    "tipIntro": "Start with Standard, and only move up if the results aren't good enough.",
+    "tipLabel": "About intelligence levels",
+    "veryHighCost": "Very high cost",
+    "webSearch": "Web Search",
+    "webSearchDescription": "Let the model pull in fresh info from the web. Leave this off unless you really need it.",
+    "tips": {
+      "high": "<level>High</level> is for more advanced grammar.",
+      "max": "<level>Max</level> is for complicated material that High can't handle.",
+      "standard": "<level>Standard</level> is best for translations and example sentences."
+    }
+  }
 }

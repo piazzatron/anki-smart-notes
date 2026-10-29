@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "כל החפיסות",
     "auto": "אוטומטי",
-    "autoMax": "Auto MAX",
     "back": "בְּחֲזָרָה",
-    "bestValueCost": "התמורה הטובה ביותר, 0.3× עלות",
     "cancel": "לְבַטֵל",
     "close": "לִסְגוֹר",
     "connection": {
@@ -58,6 +56,7 @@
     "validFields": "שדות חוקיים:"
   },
   "sidebar": {
+    "defaults": "ברירות מחדל",
     "discord": "Discord",
     "feedback": "מָשׁוֹב",
     "nav": {
@@ -171,18 +170,12 @@
       "loadingVoices": "טוען קולות...",
       "model": "דֶגֶם",
       "pickCustom": "בחר דגם מותאם אישית עבור שדה זה",
-      "reasoning": "נימוק {{level}}",
-      "reasoningHint": "הגיון גבוה יותר יכול לשפר דורות קשים יותר, אבל משתמש ביותר קרדיטים.",
-      "reasoningLevel": "רמת הנמקה",
       "sharedByEveryField": "ה-{{modality}} שלך משותף לכל שדה חכם שמשתמש בו. שנה את זה",
       "textDefault": "ברירת המחדל של טקסט",
-      "textModel": "דגם טקסט",
       "useMy": "השתמש ב-{{modality}} שלי",
-      "useWebSearch": "השתמש בחיפוש אינטרנט עבור שדה זה",
       "voice": "קוֹל",
       "voiceDefault": "ברירת המחדל של קול",
-      "webSearch": "חיפוש באינטרנט",
-      "webSearchHint": "אפשר לשדה זה להשתמש במידע חדש מהאינטרנט."
+      "webSearch": "חיפוש באינטרנט"
     },
     "save": "שמור שדה חכם",
     "sections": {
@@ -258,15 +251,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "בקטלוג הצ'אט חסר דגם {{model}}",
       "missingImageModel": "בקטלוג התמונות חסר דגם {{model}}"
     },
     "image": {
       "cannotFindModel": "בקטלוג התמונות חסר דגם {{model}}",
-      "defaultModel": "דגם ברירת מחדל",
+      "defaultModel": "מודל תמונה ברירת מחדל",
       "gptImage25": "הכי מאוזן: טקסט חד, דיאגרמות נקיות.",
-      "loadingLabel": "טוען את הגדרות ברירת המחדל של תמונה",
-      "loadingTitle": "הגדרות תמונה ברירת מחדל",
+      "loadingLabel": "טוען הגדרות יצירת תמונות",
+      "loadingTitle": "הגדרות יצירת תמונות",
       "modelTipLabel": "על מודלי התמונות",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -275,9 +267,9 @@
       "nanoBanana21": "סצנות עשירות ופוטוריאליסטיות.",
       "samplePrompt": "צור תמונה של תלמיד לומד קשה עם Anki ועובר את המבחנים שלו.",
       "saveError": "לא ניתן לשמור את ברירת המחדל של התמונה",
-      "subtitle": "הדגם שבו משתמשת התמונה שלך Smart Fields, אלא אם כן שדה מצמיד את שלו.",
-      "title": "הגדרות תמונה ברירת מחדל",
-      "zImageTurbo": "הכי מהיר והכי זול."
+      "title": "הגדרות יצירת תמונות",
+      "zImageTurbo": "הכי מהיר והכי זול.",
+      "defaultModelTip": "שדות Smart Fields של תמונות משתמשים במודל הזה כברירת מחדל. שינוי המודל מעדכן כל Smart Field שמשתמש בברירת המחדל. כל Smart Field יכול לעקוף אותו במודל משלו."
     },
     "layout": {
       "save": "שמור",
@@ -285,28 +277,14 @@
       "tryIt": "נסה את זה"
     },
     "text": {
-      "cannotInheritModel": "ברירת המחדל של טקסט אינה יכולה לרשת דגם אחר",
       "defaultModel": "מודל טקסט ברירת מחדל",
-      "defaultReasoningLevel": "רמת הנמקה ברירת מחדל",
-      "enableWebSearch": "אפשר חיפוש באינטרנט",
-      "higherReasoning": "הגיון גבוה יותר יכול לשפר דורות קשים יותר, אבל משתמש ביותר קרדיטים.",
-      "loadingLabel": "טוען הגדרות טקסט ברירת מחדל",
+      "loadingLabel": "טוען הגדרות יצירת טקסט",
       "loadingTitle": "הגדרות יצירת טקסט",
-      "modelGuidance": "{{auto}} ו-{{autoMax}} הם הדגמים המומלצים של Smart Notes שמאזנים בין ביצועים לעלות. בחר {{auto}} עבור משימות סטנדרטיות ושדרג ל-{{autoMax}} במידת הצורך.",
-      "pickingModel": "בחירת מודל",
-      "reasoningLevel": "רמת הנמקה",
-      "reasoningValues": {
-        "high": "גָבוֹהַ",
-        "low": "נָמוּך",
-        "off": "כבוי"
-      },
       "samplePrompt": "מהי מערכת חזרות מרווחת (SRS)?",
       "saveError": "לא ניתן לשמור ברירות מחדל של טקסט",
-      "subtitle": "הגדרות ברירת מחדל ליצירת טקסט. Smart Fields בודד יכול לעקוף ערכים אלה.",
       "title": "הגדרות יצירת טקסט",
-      "webSearch": "חיפוש באינטרנט",
-      "webSearchDescription": "אפשר לדורות טקסט למשוך מידע חדש מהאינטרנט.",
-      "webSearchWarning": "חיפוש עולה ביוקר; עקבו אחר הקרדיטים שלכם."
+      "defaultModelTip": "Smart Fields משתמשים במודל הזה כברירת מחדל. שינוי המודל מעדכן כל Smart Field שמשתמש בברירת המחדל. כל Smart Field יכול לעקוף אותו במודל משלו.",
+      "defaultModelTipLabel": "אודות מודל הטקסט המוגדר כברירת מחדל"
     },
     "usage": {
       "fields_one": "חל על שדה {{count}}",
@@ -326,14 +304,16 @@
         "provider": "ספק"
       },
       "filterVoices": "סינון קולות",
-      "loadingLabel": "טוען הגדרות קול ברירת מחדל",
-      "loadingTitle": "הגדרות קול ברירת מחדל",
+      "loadingLabel": "טוען הגדרות קול",
+      "loadingTitle": "הגדרות קול",
       "noVoices": "אין קולות שתואמים למסננים האלה.",
       "saveError": "לא ניתן לשמור את ברירת המחדל של הקול",
       "searchPlaceholder": "חיפוש קולות…",
       "searchVoices": "חפש קולות",
-      "subtitle": "הקול שבו ה-TTS שלך Smart Fields משתמש אלא אם כן שדה מצמיד את שלו.",
-      "title": "הגדרות קול ברירת מחדל"
+      "title": "הגדרות קול",
+      "defaultVoice": "קול ברירת מחדל",
+      "defaultVoiceTip": "שדות Smart Fields של קול משתמשים בקול הזה כברירת מחדל. שינוי הקול מעדכן כל Smart Field שמשתמש בברירת המחדל. כל Smart Field יכול לעקוף אותו בקול משלו.",
+      "defaultVoiceTipLabel": "אודות קול ברירת המחדל"
     }
   },
   "imageGeneration": {
@@ -541,5 +521,30 @@
     "thanks": "תודה שהשתמשתם ב-Smart Notes",
     "title": "תקופת הניסיון בחינם שלך הסתיימה",
     "upgradeNow": "שדרג עכשיו"
+  },
+  "intelligence": {
+    "advancedOptions": "אפשרויות מתקדמות",
+    "autoCostRange": "עלות של {{min}}–{{max}}×",
+    "autoDescription": "המודלים בעלי הביצועים הטובים ביותר מבחינת אינטליגנציה ומחיר, מתעדכנים באופן קבוע.",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "Auto · {{level}}",
+    "label": "אינטליגנציה",
+    "levels": {
+      "high": "גבוהה",
+      "max": "מקסימלית",
+      "standard": "סטנדרטית"
+    },
+    "specificModel": "שימוש במודל ספציפי",
+    "specificModelWarning": "מודלים ספציפיים בדרך כלל עולים הרבה יותר מ-Auto.",
+    "tipIntro": "התחילו ברמה סטנדרטית, ועברו לרמה גבוהה יותר רק אם התוצאות אינן טובות מספיק.",
+    "tipLabel": "אודות רמות אינטליגנציה",
+    "veryHighCost": "עלות גבוהה מאוד",
+    "webSearch": "חיפוש ברשת",
+    "webSearchDescription": "אפשרו למודל למשוך מידע עדכני מהאינטרנט. השאירו אפשרות זו כבויה אלא אם אתם באמת זקוקים לה.",
+    "tips": {
+      "high": "<level>גבוהה</level> מיועדת לדקדוק מתקדם יותר.",
+      "max": "<level>מקסימלית</level> מיועדת לחומר מורכב שהרמה הגבוהה אינה מסוגלת לטפל בו.",
+      "standard": "<level>סטנדרטית</level> מתאימה במיוחד לתרגומים ולמשפטי דוגמה."
+    }
   }
 }

@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "Ĉiuj Ferdekoj",
     "auto": "Aŭtomate",
-    "autoMax": "Auto MAX",
     "back": "Reen",
-    "bestValueCost": "Plej bona Valoro, 0.3× kosto",
     "cancel": "Nuligi",
     "close": "Fermu",
     "connection": {
@@ -57,6 +55,7 @@
     "validFields": "Validaj kampoj:"
   },
   "sidebar": {
+    "defaults": "Defaŭltoj",
     "discord": "Discord",
     "feedback": "Reago",
     "nav": {
@@ -170,18 +169,12 @@
       "loadingVoices": "Ŝargante voĉojn...",
       "model": "Modelo",
       "pickCustom": "Elektu kutiman modelon por ĉi tiu kampo",
-      "reasoning": "{{level}} rezonado",
-      "reasoningHint": "Pli alta rezonado povas plibonigi pli malfacilajn generaciojn, sed uzas pli da kreditoj.",
-      "reasoningLevel": "Rezona nivelo",
       "sharedByEveryField": "Via {{modality}} estas dividita de ĉiu Smart Field kiu uzas ĝin. Ŝanĝu ĝin",
       "textDefault": "teksto defaŭlte",
-      "textModel": "Teksta modelo",
       "useMy": "Uzu mian {{modality}}",
-      "useWebSearch": "Uzu retserĉon por ĉi tiu kampo",
       "voice": "Voĉo",
       "voiceDefault": "voĉa defaŭlto",
-      "webSearch": "TTT-serĉo",
-      "webSearchHint": "Lasu ĉi tiun kampon uzi freŝajn informojn de la reto."
+      "webSearch": "TTT-serĉo"
     },
     "save": "Konservu Smart Field",
     "sections": {
@@ -257,15 +250,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "Babilkatalogo mankas modelo {{model}}",
       "missingImageModel": "Bildkatalogo mankas modelo {{model}}"
     },
     "image": {
       "cannotFindModel": "Bildkatalogo mankas modelo {{model}}",
-      "defaultModel": "Defaŭlta modelo",
+      "defaultModel": "Defaŭlta bildmodelo",
       "gptImage25": "la plej universala — klara teksto, puraj diagramoj.",
-      "loadingLabel": "Ŝargante defaŭltajn bildajn agordojn",
-      "loadingTitle": "Defaŭltaj Bildaj Agordoj",
+      "loadingLabel": "Ŝargado de agordoj por bildgenerado",
+      "loadingTitle": "Agordoj por bildgenerado",
       "modelTipLabel": "Pri la bildmodeloj",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -274,9 +266,9 @@
       "nanoBanana21": "riĉaj, fotografiaj scenoj.",
       "samplePrompt": "Generu bildon de studento, kiu forte studas kun Anki kaj trapasas siajn testojn.",
       "saveError": "Ne eblis konservi bildodefaŭltojn",
-      "subtitle": "La modelo kiun via bildo Smart Fields uzas krom se kampo alpinglas sian propran.",
-      "title": "Defaŭltaj Bildaj Agordoj",
-      "zImageTurbo": "plej rapida kaj plej malmultekosta."
+      "title": "Agordoj por bildgenerado",
+      "zImageTurbo": "plej rapida kaj plej malmultekosta.",
+      "defaultModelTip": "Bildaj Smart Fields defaŭlte uzas ĉi tiun modelon. Ŝanĝo ĝisdatigas la Smart Fields, kiuj uzas la defaŭltan. Ĉiu Smart Field povas superregi ĝin per sia propra modelo."
     },
     "layout": {
       "save": "Konservi",
@@ -284,28 +276,14 @@
       "tryIt": "Provu ĝin"
     },
     "text": {
-      "cannotInheritModel": "Tekstaj defaŭltoj ne povas heredi alian modelon",
       "defaultModel": "Defaŭlta Teksta Modelo",
-      "defaultReasoningLevel": "Defaŭlta rezonnivelo",
-      "enableWebSearch": "Ebligu Retan Serĉon",
-      "higherReasoning": "Pli alta rezonado povas plibonigi pli malfacilajn generaciojn, sed uzas pli da kreditoj.",
-      "loadingLabel": "Ŝargante defaŭltajn tekstajn agordojn",
+      "loadingLabel": "Ŝargado de agordoj por tekstogenerado",
       "loadingTitle": "Agordoj de Tekstaj Generacio",
-      "modelGuidance": "{{auto}} kaj {{autoMax}} estas la rekomenditaj modeloj de Smart Notes, kiuj ekvilibrigas rendimenton kaj koston. Elektu {{auto}} por normaj taskoj kaj ĝisdatigu al {{autoMax}} se necese.",
-      "pickingModel": "Elektado de modelo",
-      "reasoningLevel": "Rezona nivelo",
-      "reasoningValues": {
-        "high": "Alta",
-        "low": "Malalta",
-        "off": "Malŝaltita"
-      },
       "samplePrompt": "Kio estas Spaca Ripeta Sistemo (SRS)?",
       "saveError": "Ne eblis konservi tekstajn defaŭltojn",
-      "subtitle": "Defaŭltaj agordoj por tekstogenerado. Individua Smart Fields povas superregi ĉi tiujn valorojn.",
       "title": "Agordoj de Tekstaj Generacio",
-      "webSearch": "TTT-serĉo",
-      "webSearchDescription": "Lasu tekstogeneraciojn enigi freŝajn informojn el la reto.",
-      "webSearchWarning": "Serĉado kostas multe; observu viajn kreditojn."
+      "defaultModelTip": "Smart Fields defaŭlte uzas ĉi tiun modelon. Ŝanĝo ĝisdatigas la Smart Fields, kiuj uzas la defaŭltan. Ĉiu Smart Field povas superregi ĝin per sia propra modelo.",
+      "defaultModelTipLabel": "Pri la defaŭlta teksta modelo"
     },
     "usage": {
       "fields_one": "Aplikas al {{count}}-kampo",
@@ -324,14 +302,16 @@
         "provider": "Provizanto"
       },
       "filterVoices": "Filtri la voĉojn",
-      "loadingLabel": "Ŝargante Defaŭltajn Voĉajn Agordojn",
-      "loadingTitle": "Defaŭltaj Voĉaj Agordoj",
+      "loadingLabel": "Ŝargado de voĉagordoj",
+      "loadingTitle": "Voĉagordoj",
       "noVoices": "Neniuj voĉoj kongruas kun ĉi tiuj filtriloj.",
       "saveError": "Ne eblis konservi voĉajn defaŭltojn",
       "searchPlaceholder": "Serĉi voĉojn…",
       "searchVoices": "Serĉu voĉojn",
-      "subtitle": "La voĉo kiun via TTS Smart Fields uzas krom se kampo alpinglas sian propran.",
-      "title": "Defaŭltaj Voĉaj Agordoj"
+      "title": "Voĉagordoj",
+      "defaultVoice": "Defaŭlta voĉo",
+      "defaultVoiceTip": "Voĉaj Smart Fields defaŭlte uzas ĉi tiun voĉon. Ŝanĝo ĝisdatigas la Smart Fields, kiuj uzas la defaŭltan. Ĉiu Smart Field povas superregi ĝin per sia propra voĉo.",
+      "defaultVoiceTipLabel": "Pri la defaŭlta voĉo"
     }
   },
   "imageGeneration": {
@@ -531,5 +511,30 @@
     "thanks": "Dankon pro uzado de Smart Notes",
     "title": "Via senpaga provo finiĝis",
     "upgradeNow": "Ĝisdatigu nun"
+  },
+  "intelligence": {
+    "advancedOptions": "Altnivelaj opcioj",
+    "autoCostRange": "{{min}}–{{max}}× kosto",
+    "autoDescription": "La plej bone rezultantaj modeloj por inteligenteco kaj prezo, regule ĝisdatigitaj.",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "Auto · {{level}}",
+    "label": "Inteligenteco",
+    "levels": {
+      "high": "Alta",
+      "max": "Maksimuma",
+      "standard": "Norma"
+    },
+    "specificModel": "Uzi specifikan modelon",
+    "specificModelWarning": "Specifikaj modeloj kutime kostas multe pli ol Auto.",
+    "tipIntro": "Komencu per Norma, kaj altigu nur se la rezultoj ne sufiĉas.",
+    "tipLabel": "Pri inteligentecaj niveloj",
+    "veryHighCost": "Tre alta kosto",
+    "webSearch": "Retserĉo",
+    "webSearchDescription": "Lasu la modelon alporti freŝajn informojn el la reto. Lasu ĉi tion malŝaltita, krom se vi vere bezonas ĝin.",
+    "tips": {
+      "high": "<level>Alta</level> estas por pli progresinta gramatiko.",
+      "max": "<level>Maksimuma</level> estas por komplikaj materialoj, kiujn Alta ne povas trakti.",
+      "standard": "<level>Norma</level> plej taugas por tradukoj kaj ekzemplaj frazoj."
+    }
   }
 }

@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "Toate punțile",
     "auto": "Auto",
-    "autoMax": "Auto MAX",
     "back": "Spate",
-    "bestValueCost": "Cea mai bună valoare, 0,3× cost",
     "cancel": "Anula",
     "close": "Aproape",
     "connection": {
@@ -58,6 +56,7 @@
     "validFields": "Câmpuri valide:"
   },
   "sidebar": {
+    "defaults": "Implicite",
     "discord": "Discord",
     "feedback": "Feedback",
     "nav": {
@@ -171,18 +170,12 @@
       "loadingVoices": "Se încarcă vocile...",
       "model": "Model",
       "pickCustom": "Alegeți un model personalizat pentru acest câmp",
-      "reasoning": "{{level}} raționament",
-      "reasoningHint": "Raționamentul mai înalt poate îmbunătăți generațiile mai dure, dar utilizează mai multe credite.",
-      "reasoningLevel": "Nivel de raționament",
       "sharedByEveryField": "{{modality}} dvs. este partajat de fiecare Smart Field care îl folosește. Schimbați-l",
       "textDefault": "text implicit",
-      "textModel": "Model text",
       "useMy": "Folosește-mi {{modality}}",
-      "useWebSearch": "Utilizați căutarea pe web pentru acest câmp",
       "voice": "Voce",
       "voiceDefault": "voce implicită",
-      "webSearch": "Căutare pe web",
-      "webSearchHint": "Lăsați acest câmp să folosească informații noi de pe web."
+      "webSearch": "Căutare pe web"
     },
     "save": "Salvați Smart Field",
     "sections": {
@@ -258,15 +251,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "Catalogul de chat lipsește modelul {{model}}",
       "missingImageModel": "În catalogul de imagini lipsește modelul {{model}}"
     },
     "image": {
       "cannotFindModel": "În catalogul de imagini lipsește modelul {{model}}",
-      "defaultModel": "Model implicit",
+      "defaultModel": "Model implicit pentru imagini",
       "gptImage25": "cel mai versatil — text clar, diagrame curate.",
-      "loadingLabel": "Se încarcă setările implicite pentru imagine",
-      "loadingTitle": "Setări implicite pentru imagine",
+      "loadingLabel": "Se încarcă setările pentru generarea de imagini",
+      "loadingTitle": "Setări pentru generarea de imagini",
       "modelTipLabel": "Despre modelele de imagini",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -275,9 +267,9 @@
       "nanoBanana21": "scene bogate, fotografice.",
       "samplePrompt": "Generați o imagine a unui student care studiază din greu cu Anki și își trece testele.",
       "saveError": "Nu s-au putut salva valorile implicite ale imaginii",
-      "subtitle": "Modelul pe care îl folosește imaginea dvs. Smart Fields, cu excepția cazului în care un câmp își stabilește propriul.",
-      "title": "Setări implicite pentru imagine",
-      "zImageTurbo": "cel mai rapid si mai ieftin."
+      "title": "Setări pentru generarea de imagini",
+      "zImageTurbo": "cel mai rapid si mai ieftin.",
+      "defaultModelTip": "Image Smart Fields folosesc implicit acest model. Modificarea lui actualizează toate Smart Fields care folosesc valoarea implicită. Orice Smart Field poate folosi propriul model."
     },
     "layout": {
       "save": "Salvează",
@@ -285,28 +277,14 @@
       "tryIt": "Încearcă"
     },
     "text": {
-      "cannotInheritModel": "Valorile implicite ale textului nu pot moșteni un alt model",
       "defaultModel": "Model text implicit",
-      "defaultReasoningLevel": "Nivel de raționament implicit",
-      "enableWebSearch": "Activați căutarea pe web",
-      "higherReasoning": "Raționamentul mai înalt poate îmbunătăți generațiile mai dure, dar utilizează mai multe credite.",
-      "loadingLabel": "Se încarcă setările implicite de text",
+      "loadingLabel": "Se încarcă setările pentru generarea de text",
       "loadingTitle": "Setări de generare a textului",
-      "modelGuidance": "{{auto}} și {{autoMax}} sunt modelele recomandate de Smart Notes care echilibrează performanța și costul. Alegeți {{auto}} pentru sarcini standard și faceți upgrade la {{autoMax}} dacă este necesar.",
-      "pickingModel": "Se alege un model",
-      "reasoningLevel": "Nivel de raționament",
-      "reasoningValues": {
-        "high": "Ridicat",
-        "low": "Scăzut",
-        "off": "Oprit"
-      },
       "samplePrompt": "Ce este un sistem de repetiție la distanță (SRS)?",
       "saveError": "Nu s-au putut salva valorile implicite ale textului",
-      "subtitle": "Setări implicite pentru generarea de text. Individul Smart Fields poate suprascrie aceste valori.",
       "title": "Setări de generare a textului",
-      "webSearch": "Căutare pe Web",
-      "webSearchDescription": "Permiteți generațiilor de text să obțină informații noi de pe web.",
-      "webSearchWarning": "Căutarea este costisitoare; urmărește-ți creditele."
+      "defaultModelTip": "Smart Fields folosesc implicit acest model. Modificarea lui actualizează toate Smart Fields care folosesc valoarea implicită. Orice Smart Field poate folosi propriul model.",
+      "defaultModelTipLabel": "Despre modelul implicit pentru text"
     },
     "usage": {
       "fields_one": "Se aplică câmpului {{count}}",
@@ -326,14 +304,16 @@
         "provider": "Furnizor"
       },
       "filterVoices": "Filtrați vocile",
-      "loadingLabel": "Se încarcă setările implicite de voce",
-      "loadingTitle": "Setări implicite de voce",
+      "loadingLabel": "Se încarcă setările pentru voce",
+      "loadingTitle": "Setări pentru voce",
       "noVoices": "Nicio voce nu se potrivește cu aceste filtre.",
       "saveError": "Nu s-au putut salva valorile prestabilite pentru voce",
       "searchPlaceholder": "Caută voci…",
       "searchVoices": "Caută voci",
-      "subtitle": "Vocea pe care o folosește TTS Smart Fields, cu excepția cazului în care un câmp își fixează propriul.",
-      "title": "Setări implicite de voce"
+      "title": "Setări pentru voce",
+      "defaultVoice": "Voce implicită",
+      "defaultVoiceTip": "Voice Smart Fields folosesc implicit această voce. Modificarea ei actualizează toate Smart Fields care folosesc valoarea implicită. Orice Smart Field poate folosi propria voce.",
+      "defaultVoiceTipLabel": "Despre vocea implicită"
     }
   },
   "imageGeneration": {
@@ -541,5 +521,30 @@
     "thanks": "Îți mulțumim că ai folosit Smart Notes",
     "title": "Perioada de încercare gratuită s-a încheiat",
     "upgradeNow": "Faceți upgrade acum"
+  },
+  "intelligence": {
+    "advancedOptions": "Opțiuni avansate",
+    "autoCostRange": "Cost de {{min}}–{{max}}×",
+    "autoDescription": "Cele mai performante modele pentru inteligență și preț, actualizate regulat.",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "Auto · {{level}}",
+    "label": "Inteligență",
+    "levels": {
+      "high": "Ridicat",
+      "max": "Maxim",
+      "standard": "Standard"
+    },
+    "specificModel": "Folosește un model specific",
+    "specificModelWarning": "Modelele specifice costă de obicei mult mai mult decât Auto.",
+    "tipIntro": "Începe cu Standard și treci la un nivel superior doar dacă rezultatele nu sunt suficient de bune.",
+    "tipLabel": "Despre nivelurile de inteligență",
+    "veryHighCost": "Cost foarte ridicat",
+    "webSearch": "Căutare pe web",
+    "webSearchDescription": "Lasă modelul să extragă informații actuale de pe web. Lasă această opțiune dezactivată dacă nu ai nevoie cu adevărat de ea.",
+    "tips": {
+      "high": "<level>Ridicat</level> este pentru gramatică mai avansată.",
+      "max": "<level>Maxim</level> este pentru materiale complicate pe care nivelul Ridicat nu le poate gestiona.",
+      "standard": "<level>Standard</level> este cel mai potrivit pentru traduceri și propoziții exemplu."
+    }
   }
 }

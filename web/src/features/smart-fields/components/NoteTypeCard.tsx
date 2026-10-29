@@ -40,7 +40,7 @@ export const NoteTypeCard = ({
         <h3 className="truncate text-[17px] leading-[1.2] font-extrabold tracking-[-0.018em] text-ink">
           {group.noteType.name}
         </h3>
-        <Pill className="ms-2.5" tone={isDeckOverride ? "amber" : "indigo"}>
+        <Pill className="ms-2.5" tone={isDeckOverride ? "sky" : "indigo"}>
           {deckName}
         </Pill>
         <button
@@ -56,7 +56,7 @@ export const NoteTypeCard = ({
 
       {/* Rows run edge to edge so a hovered row highlights like a table row; the card
           clips the corners. */}
-      <div className="overflow-hidden rounded-xl bg-white/[0.05]">
+      <div className="-mx-[22px] overflow-hidden rounded-xl bg-white/[0.05]">
         {group.fields.map((field, index) => (
           <SmartFieldRow
             field={field}

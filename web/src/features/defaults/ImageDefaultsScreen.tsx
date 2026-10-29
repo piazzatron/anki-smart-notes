@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next"
 
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
-import { InfoTip } from "@/components/ui/InfoTip"
+import { SectionHeading } from "@/components/ui/SectionHeading"
 import { PaletteEmoji } from "@/components/shared/Emoji"
 import { ImageModelSelect } from "@/features/image-generation/ImageModelSelect"
 import {
@@ -89,7 +89,6 @@ const LoadedImageDefaultsScreen = ({
       isDirty={controls.form.isDirty}
       isSaving={controls.form.isSaving}
       onSave={() => void controls.saveChanges()}
-      subtitle={t("defaults.image.subtitle")}
       tester={<PromptTesterStrip field={tester} />}
       testerAccessory={<RecentImagePills field={tester} />}
       testId="image-defaults-screen"
@@ -103,40 +102,43 @@ const LoadedImageDefaultsScreen = ({
         />
       )}
 
-      <div>
-        <div className="w-full max-w-[480px]">
-          <div className="mb-2 flex items-center gap-1.5">
-            <label
-              className="text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase"
-              htmlFor="default-image-model"
-            >
-              {t("defaults.image.defaultModel")}
-            </label>
-            <InfoTip label={t("defaults.image.modelTipLabel")}>
-              <ul className="space-y-1">
-                {MODEL_TIPS.map((tip) => (
-                  <li key={tip.name}>
-                    <a
-                      className="font-semibold text-zinc-50 underline underline-offset-2 hover:text-indigo-100"
-                      href={tip.docsUrl}
-                      rel="noreferrer"
-                      target="_blank"
-                    >
-                      {t(tip.name)}
-                    </a>{" "}
-                    — {t(tip.description)}
-                  </li>
-                ))}
-              </ul>
-            </InfoTip>
-          </div>
-          <ImageModelSelect
-            catalog={catalog.image}
-            id="default-image-model"
-            onValueChange={(settings) => void controls.updateDefault(settings)}
-            value={controls.form.values.model}
-          />
-        </div>
+      <div className="max-w-[520px]">
+        <SectionHeading
+          tip={{
+            content: (
+              <>
+                <p>{t("defaults.image.defaultModelTip")}</p>
+                <ul className="mt-2 space-y-1">
+                  {MODEL_TIPS.map((tip) => (
+                    <li key={tip.name}>
+                      <a
+                        className="font-semibold text-zinc-50 underline underline-offset-2 hover:text-indigo-100"
+                        href={tip.docsUrl}
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        {t(tip.name)}
+                      </a>{" "}
+                      — {t(tip.description)}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ),
+            label: t("defaults.image.modelTipLabel"),
+          }}
+        >
+          <label htmlFor="default-image-model">
+            {t("defaults.image.defaultModel")}
+          </label>
+        </SectionHeading>
+        <ImageModelSelect
+          catalog={catalog.image}
+          hanging
+          id="default-image-model"
+          onValueChange={(settings) => void controls.updateDefault(settings)}
+          value={controls.form.values.model}
+        />
       </div>
     </DefaultsScreenLayout>
   )

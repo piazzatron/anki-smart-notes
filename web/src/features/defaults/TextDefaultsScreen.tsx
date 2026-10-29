@@ -1,12 +1,10 @@
 import { useTranslation } from "react-i18next"
 
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
-import { Toggle } from "@/components/ui/Toggle"
+import { SectionHeading } from "@/components/ui/SectionHeading"
 import { PromptTesterStrip } from "@/features/prompt-tester/PromptTesterStrip"
 import { usePromptTester } from "@/features/prompt-tester/usePromptTester"
-import { ChatModelSelect } from "@/features/text-generation/ChatModelSelect"
-import { ReasoningLevelSelect } from "@/features/text-generation/ReasoningLevelSelect"
-import { TextModelGuidance } from "@/features/text-generation/TextModelGuidance"
+import { TextModelPicker } from "@/features/text-generation/TextModelPicker"
 import { saveChatDefaults } from "@/services/commands"
 import { useAppStore } from "@/store/appStore"
 import type { AppState, Catalog } from "@/types/api"
@@ -20,7 +18,6 @@ import { useScratchPrompt } from "./scratchPrompts"
 import { DefaultUsagePill } from "./DefaultUsagePill"
 import { useDefaultsForm } from "./useDefaultsForm"
 import { SpeechBalloonEmoji } from "@/components/shared/Emoji"
-import { WarningIcon } from "@/components/shared/Icons"
 
 interface TextDefaultsScreenProps {
   onDirtyChange?: (isDirty: boolean) => void
@@ -90,7 +87,6 @@ export const LoadedTextDefaultsScreen = ({
       isDirty={controls.form.isDirty}
       isSaving={controls.form.isSaving}
       onSave={() => void controls.saveChanges()}
-      subtitle={t("defaults.text.subtitle")}
       tester={<PromptTesterStrip field={tester} />}
       testId="text-defaults-screen"
       title={t("defaults.text.title")}
@@ -103,81 +99,21 @@ export const LoadedTextDefaultsScreen = ({
         />
       )}
 
-      <div>
-        <div className="grid w-full gap-6 lg:grid-cols-2">
-          <div>
-            <label
-              className="mb-2 block text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase"
-              htmlFor="default-text-model"
-            >
-              {t("defaults.text.defaultModel")}
-            </label>
-            <ChatModelSelect
-              catalog={catalog.chat}
-              id="default-text-model"
-              onValueChange={(model) => {
-                if (model === null) {
-                  throw new Error(t("defaults.text.cannotInheritModel"))
-                }
-                void controls.updateDefault({
-                  model: model.id,
-                  provider: model.provider,
-                })
-              }}
-              value={controls.form.values.model}
-            />
-            <TextModelGuidance />
-          </div>
-
-          <div>
-            {controls.form.values.provider === "auto" && (
-              <label className="block">
-                <span className="mb-2 block text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
-                  {t("defaults.text.reasoningLevel")}
-                </span>
-                <ReasoningLevelSelect
-                  ariaLabel={t("defaults.text.defaultReasoningLevel")}
-                  levels={catalog.chat.reasoningLevels}
-                  onValueChange={(reasoningLevel) =>
-                    void controls.updateDefault({ reasoningLevel })
-                  }
-                  value={controls.form.values.reasoningLevel}
-                />
-                <span className="mt-2 block text-[10.5px] leading-4 text-ink-muted">
-                  {t("defaults.text.higherReasoning")}
-                </span>
-              </label>
-            )}
-
-            <div
-              className={`flex items-start gap-4 ${controls.form.values.provider === "auto" ? "mt-4 border-t border-white/[0.065] pt-4" : ""}`}
-            >
-              <div className="min-w-0 flex-1">
-                <p className="text-xs font-semibold text-zinc-200">
-                  {t("defaults.text.webSearch")}
-                </p>
-                <p className="mt-1 text-[11px] leading-4 text-ink-muted">
-                  {t("defaults.text.webSearchDescription")}
-                </p>
-                <p className="mt-1.5 flex items-center gap-1 text-[10.5px] text-amber/80">
-                  <WarningIcon size={12} />
-                  {t("defaults.text.webSearchWarning")}
-                </p>
-              </div>
-              <div className="mt-0.5">
-                <Toggle
-                  aria-label={t("defaults.text.enableWebSearch")}
-                  checked={controls.form.values.webSearchEnabled}
-                  onCheckedChange={(webSearchEnabled) =>
-                    void controls.updateDefault({
-                      webSearchEnabled,
-                    })
-                  }
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="max-w-[520px]">
+        <SectionHeading
+          tip={{
+            content: t("defaults.text.defaultModelTip"),
+            label: t("defaults.text.defaultModelTipLabel"),
+          }}
+        >
+          {t("defaults.text.defaultModel")}
+        </SectionHeading>
+        <TextModelPicker
+          catalog={catalog.chat}
+          hanging
+          onChange={controls.updateDefault}
+          value={controls.form.values}
+        />
       </div>
     </DefaultsScreenLayout>
   )

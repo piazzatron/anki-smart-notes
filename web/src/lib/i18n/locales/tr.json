@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "Tüm Desteler",
     "auto": "Otomatik",
-    "autoMax": "Auto MAX",
     "back": "Geri",
-    "bestValueCost": "En İyi Değer, 0,3× maliyet",
     "cancel": "İptal etmek",
     "close": "Kapalı",
     "connection": {
@@ -57,6 +55,7 @@
     "validFields": "Geçerli alanlar:"
   },
   "sidebar": {
+    "defaults": "Varsayılanlar",
     "discord": "Discord",
     "feedback": "Geri bildirim",
     "nav": {
@@ -170,18 +169,12 @@
       "loadingVoices": "Sesler yükleniyor…",
       "model": "Modeli",
       "pickCustom": "Bu alan için özel bir model seçin",
-      "reasoning": "{{level}} muhakemesi",
-      "reasoningHint": "Daha yüksek akıl yürütme, daha zorlu nesilleri geliştirebilir, ancak daha fazla kredi kullanır.",
-      "reasoningLevel": "Muhakeme düzeyi",
       "sharedByEveryField": "{{modality}}'iniz, onu kullanan her Smart Field tarafından paylaşılır. Değiştir",
       "textDefault": "metin varsayılanı",
-      "textModel": "Metin modeli",
       "useMy": "{{modality}}'imi kullan",
-      "useWebSearch": "Bu alan için web aramasını kullanın",
       "voice": "Ses",
       "voiceDefault": "ses varsayılanı",
-      "webSearch": "Web araması",
-      "webSearchHint": "Bu alanın web'deki yeni bilgileri kullanmasına izin verin."
+      "webSearch": "Web araması"
     },
     "save": "Smart Field'i kaydedin",
     "sections": {
@@ -257,15 +250,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "Sohbet kataloğunda {{model}} modeli eksik",
       "missingImageModel": "Resim kataloğunda {{model}} modeli eksik"
     },
     "image": {
       "cannotFindModel": "Resim kataloğunda {{model}} modeli eksik",
-      "defaultModel": "Varsayılan model",
+      "defaultModel": "Varsayılan Görsel Modeli",
       "gptImage25": "en iyi genel seçenek — keskin metin, temiz diyagramlar.",
-      "loadingLabel": "Varsayılan Görüntü Ayarlarını Yükleme",
-      "loadingTitle": "Varsayılan Görüntü Ayarları",
+      "loadingLabel": "Görsel Oluşturma Ayarları Yükleniyor",
+      "loadingTitle": "Görsel Oluşturma Ayarları",
       "modelTipLabel": "Görüntü modelleri hakkında",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -274,9 +266,9 @@
       "nanoBanana21": "zengin, fotoğrafik sahneler.",
       "samplePrompt": "Anki ile sıkı çalışan ve sınavlarını geçen bir öğrencinin görüntüsünü oluşturun.",
       "saveError": "Resim varsayılanları kaydedilemedi",
-      "subtitle": "Bir alan kendisini sabitlemediği sürece görüntünüz Smart Fields'in kullandığı model.",
-      "title": "Varsayılan Görüntü Ayarları",
-      "zImageTurbo": "en hızlı ve en ucuz."
+      "title": "Görsel Oluşturma Ayarları",
+      "zImageTurbo": "en hızlı ve en ucuz.",
+      "defaultModelTip": "Görsel Smart Fields varsayılan olarak bu modeli kullanır. Bunu değiştirmek, varsayılanı kullanan her Smart Field'ı günceller. Her Smart Field, kendi modeliyle bunu geçersiz kılabilir."
     },
     "layout": {
       "save": "Kaydet",
@@ -284,28 +276,14 @@
       "tryIt": "Deneyin"
     },
     "text": {
-      "cannotInheritModel": "Metin varsayılanları başka bir modeli devralamaz",
       "defaultModel": "Varsayılan Metin Modeli",
-      "defaultReasoningLevel": "Varsayılan muhakeme düzeyi",
-      "enableWebSearch": "Web Aramasını Etkinleştir",
-      "higherReasoning": "Daha yüksek akıl yürütme, daha zorlu nesilleri geliştirebilir, ancak daha fazla kredi kullanır.",
-      "loadingLabel": "Varsayılan Metin Ayarlarını Yükleme",
+      "loadingLabel": "Metin Oluşturma Ayarları Yükleniyor",
       "loadingTitle": "Metin Oluşturma Ayarları",
-      "modelGuidance": "{{auto}} ve {{autoMax}}, performans ve maliyeti dengeleyen Smart Notes tarafından önerilen modellerdir. Standart görevler için {{auto}} seçeneğini seçin ve gerekirse {{autoMax}} sürümüne yükseltin.",
-      "pickingModel": "Model seçiliyor",
-      "reasoningLevel": "Muhakeme düzeyi",
-      "reasoningValues": {
-        "high": "Yüksek",
-        "low": "Düşük",
-        "off": "Kapalı"
-      },
       "samplePrompt": "Aralıklı Tekrarlama Sistemi (SRS) Nedir?",
       "saveError": "Metin varsayılanları kaydedilemedi",
-      "subtitle": "Metin oluşturma için varsayılan ayarlar. Bireysel Smart Fields bu değerleri geçersiz kılabilir.",
       "title": "Metin Oluşturma Ayarları",
-      "webSearch": "Web Araması",
-      "webSearchDescription": "Metin nesillerinin web'den yeni bilgiler almasına izin verin.",
-      "webSearchWarning": "Arama maliyetlidir; kredilerinizi takip edin."
+      "defaultModelTip": "Smart Fields varsayılan olarak bu modeli kullanır. Bunu değiştirmek, varsayılanı kullanan her Smart Field'ı günceller. Her Smart Field, kendi modeliyle bunu geçersiz kılabilir.",
+      "defaultModelTipLabel": "Varsayılan metin modeli hakkında"
     },
     "usage": {
       "fields_one": "{{count}} alanı için geçerlidir",
@@ -324,14 +302,16 @@
         "provider": "sağlayıcı"
       },
       "filterVoices": "Sesleri filtrele",
-      "loadingLabel": "Varsayılan Ses Ayarlarını Yükleme",
-      "loadingTitle": "Varsayılan Ses Ayarları",
+      "loadingLabel": "Ses Ayarları Yükleniyor",
+      "loadingTitle": "Ses Ayarları",
       "noVoices": "Bu filtrelerle eşleşen ses yok.",
       "saveError": "Ses varsayılanları kaydedilemedi",
       "searchPlaceholder": "Sesleri ara…",
       "searchVoices": "Sesleri ara",
-      "subtitle": "Bir alan kendine ait olmadığı sürece TTS Smart Fields'inizin kullandığı ses.",
-      "title": "Varsayılan Ses Ayarları"
+      "title": "Ses Ayarları",
+      "defaultVoice": "Varsayılan Ses",
+      "defaultVoiceTip": "Ses Smart Fields varsayılan olarak bu sesi kullanır. Bunu değiştirmek, varsayılanı kullanan her Smart Field'ı günceller. Her Smart Field, kendi sesiyle bunu geçersiz kılabilir.",
+      "defaultVoiceTipLabel": "Varsayılan ses hakkında"
     }
   },
   "imageGeneration": {
@@ -531,5 +511,30 @@
     "thanks": "Smart Notes'u kullandığınız için teşekkürler",
     "title": "Ücretsiz deneme süreniz sona erdi",
     "upgradeNow": "Şimdi yükseltin"
+  },
+  "intelligence": {
+    "advancedOptions": "Gelişmiş seçenekler",
+    "autoCostRange": "{{min}}–{{max}}× maliyet",
+    "autoDescription": "Zekâ ve fiyat açısından en iyi performans gösteren modeller, düzenli olarak güncellenir.",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "Auto · {{level}}",
+    "label": "Zekâ",
+    "levels": {
+      "high": "Yüksek",
+      "max": "Maksimum",
+      "standard": "Standart"
+    },
+    "specificModel": "Belirli bir model kullan",
+    "specificModelWarning": "Belirli modeller genellikle Auto'dan çok daha pahalıdır.",
+    "tipIntro": "Standart ile başlayın ve yalnızca sonuçlar yeterince iyi değilse seviyeyi yükseltin.",
+    "tipLabel": "Zekâ seviyeleri hakkında",
+    "veryHighCost": "Çok yüksek maliyet",
+    "webSearch": "Web Araması",
+    "webSearchDescription": "Modelin web'den güncel bilgi çekmesine izin verin. Gerçekten ihtiyacınız yoksa bunu kapalı tutun.",
+    "tips": {
+      "high": "<level>Yüksek</level>, daha gelişmiş dilbilgisi içindir.",
+      "max": "<level>Maksimum</level>, Yüksek seviyenin işleyemediği karmaşık içerikler içindir.",
+      "standard": "<level>Standart</level>, çeviriler ve örnek cümleler için en uygunudur."
+    }
   }
 }

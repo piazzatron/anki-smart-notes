@@ -24,6 +24,7 @@ import { Trans, useTranslation } from "react-i18next"
 import { PageLayout } from "@/components/shared/PageLayout"
 import { ScreenSkeleton } from "@/components/shared/ScreenSkeleton"
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
+import { SectionHeading } from "@/components/ui/SectionHeading"
 import { Toggle } from "@/components/ui/Toggle"
 import {
   Select,
@@ -100,10 +101,10 @@ export const LoadedSettingsScreen = ({
       )}
 
       <div>
-        <SectionLabel>{t("settings.sections.general")}</SectionLabel>
-        <div className="flex min-h-[76px] items-center gap-5 border-b border-white/[0.065] py-4">
+        <SectionHeading>{t("settings.sections.general")}</SectionHeading>
+        <div className="-mx-[22px] flex items-center gap-5 rounded-xl bg-white/[0.05] px-[22px] py-[18px]">
           <div className="min-w-0 flex-1">
-            <p className="text-[15px] font-semibold text-zinc-100">
+            <p className="text-sm font-medium text-ink">
               {t("settings.language.label")}
             </p>
             <p className="mt-1 text-[13px] leading-5 text-ink-muted">
@@ -150,9 +151,9 @@ export const LoadedSettingsScreen = ({
         </div>
       </div>
 
-      <div className="mt-8">
-        <SectionLabel>{t("settings.sections.generation")}</SectionLabel>
-        <div>
+      <div className="mt-10">
+        <SectionHeading>{t("settings.sections.generation")}</SectionHeading>
+        <div className="-mx-[22px] divide-y divide-white/[0.06] rounded-xl bg-white/[0.05] px-[22px]">
           <SettingRow
             checked={controls.values.generateOnAdd}
             description={t("settings.generateOnAdd.description")}
@@ -174,10 +175,10 @@ export const LoadedSettingsScreen = ({
         </div>
       </div>
 
-      <SectionLabel className="mt-8">
+      <SectionHeading className="mt-10">
         {t("settings.sections.advanced")}
-      </SectionLabel>
-      <div>
+      </SectionHeading>
+      <div className="-mx-[22px] divide-y divide-white/[0.06] rounded-xl bg-white/[0.05] px-[22px]">
         <SettingRow
           checked={controls.values.debug}
           description={t("settings.debug.description")}
@@ -188,15 +189,15 @@ export const LoadedSettingsScreen = ({
       </div>
 
       {settings.legacyOpenAiEnabled && (
-        <>
+        <div className="-mx-[22px] mt-3 divide-y divide-white/[0.06] rounded-xl bg-white/[0.05] px-[22px]">
           <button
             aria-expanded={legacyOpen}
-            className="flex w-full items-center gap-4 border-b border-white/[0.065] py-4 text-start"
+            className="flex w-full cursor-pointer items-center gap-4 py-[18px] text-start"
             onClick={() => setLegacyOpen((open) => !open)}
             type="button"
           >
             <div className="min-w-0 flex-1">
-              <p className="text-[15px] font-semibold text-zinc-100">
+              <p className="text-sm font-medium text-ink">
                 {t("settings.legacy.title")}
               </p>
               <p className="mt-1 text-[13px] leading-5 text-ink-muted">
@@ -205,18 +206,18 @@ export const LoadedSettingsScreen = ({
             </div>
             <ChevronRight
               aria-hidden
-              className={`size-5 shrink-0 text-zinc-500 transition-transform ${legacyOpen ? "rotate-90 rtl:-rotate-90" : "rtl:rotate-180"}`}
+              className={`size-4 shrink-0 text-ink-faint transition-transform ${legacyOpen ? "rotate-90 rtl:-rotate-90" : "rtl:rotate-180"}`}
             />
           </button>
 
           {legacyOpen && (
-            <div className="grid grid-cols-2 gap-4 border-b border-white/[0.065] py-5">
+            <div className="grid grid-cols-2 gap-4 py-5">
               <label className="block">
-                <span className="text-xs font-semibold text-zinc-300">
+                <span className="text-[13px] font-semibold text-zinc-300">
                   {t("settings.legacy.apiKey")}
                 </span>
                 <input
-                  className="mt-2 h-10 w-full rounded-lg border border-white/[0.09] bg-white/[0.035] px-3 text-xs text-zinc-200 outline-none focus:border-indigo/45"
+                  className="mt-2 h-10 w-full rounded-lg bg-white/[0.05] px-3 text-[13px] text-zinc-200 outline-none focus:bg-white/[0.07]"
                   defaultValue={controls.values.legacyOpenAiKey ?? ""}
                   onBlur={(event) =>
                     void controls.update({
@@ -226,7 +227,7 @@ export const LoadedSettingsScreen = ({
                   onKeyDown={saveOnEnter}
                   type="password"
                 />
-                <p className="mt-1.5 text-[11px] text-ink-muted">
+                <p className="mt-1.5 text-xs text-ink-muted">
                   {t("settings.legacy.apiKeyRequired")}{" "}
                   <a
                     className="text-indigo-soft hover:underline"
@@ -241,7 +242,7 @@ export const LoadedSettingsScreen = ({
 
               <div>
                 <label
-                  className="block text-xs font-semibold text-zinc-300"
+                  className="block text-[13px] font-semibold text-zinc-300"
                   htmlFor="legacy-openai-model"
                 >
                   {t("settings.legacy.model")}
@@ -269,11 +270,11 @@ export const LoadedSettingsScreen = ({
               </div>
 
               <label className="col-span-2 block">
-                <span className="text-xs font-semibold text-zinc-300">
+                <span className="text-[13px] font-semibold text-zinc-300">
                   {t("settings.legacy.host")}
                 </span>
                 <input
-                  className="mt-2 h-10 w-full rounded-lg border border-white/[0.09] bg-white/[0.035] px-3 text-xs text-zinc-200 outline-none placeholder:text-zinc-600 focus:border-indigo/45"
+                  className="mt-2 h-10 w-full rounded-lg bg-white/[0.05] px-3 text-[13px] text-zinc-200 outline-none placeholder:text-zinc-600 focus:bg-white/[0.07]"
                   defaultValue={controls.values.legacyOpenAiHost ?? ""}
                   onBlur={(event) =>
                     void controls.update({
@@ -283,18 +284,18 @@ export const LoadedSettingsScreen = ({
                   onKeyDown={saveOnEnter}
                   placeholder={t("settings.legacy.hostPlaceholder")}
                 />
-                <p className="mt-1.5 text-[11px] text-ink-muted">
+                <p className="mt-1.5 text-xs text-ink-muted">
                   {t("settings.legacy.hostDescription")}
                 </p>
               </label>
             </div>
           )}
-        </>
+        </div>
       )}
-      <SectionLabel className="mt-8" danger>
+      <SectionHeading className="mt-10" danger>
         {t("settings.sections.dangerZone")}
-      </SectionLabel>
-      <div>
+      </SectionHeading>
+      <div className="-mx-[22px] divide-y divide-white/[0.06] rounded-xl bg-white/[0.05] px-[22px]">
         <SettingRow
           checked={controls.values.regenerateWhenBatching}
           description={t("settings.regenerateWhenBatching.description")}
@@ -333,9 +334,9 @@ const SettingRow = ({
   // label rather than an aria-label string.
   const labelId = useId()
   return (
-    <div className="flex min-h-[76px] items-center gap-5 border-b border-white/[0.065] py-4">
+    <div className="flex items-center gap-5 py-[18px]">
       <div className="min-w-0 flex-1">
-        <p className="text-[15px] font-semibold text-zinc-100" id={labelId}>
+        <p className="text-sm font-medium text-ink" id={labelId}>
           {label}
         </p>
         <p className="mt-1 text-[13px] leading-5 text-ink-muted">
@@ -351,19 +352,3 @@ const SettingRow = ({
     </div>
   )
 }
-
-const SectionLabel = ({
-  children,
-  className = "",
-  danger = false,
-}: {
-  children: string
-  className?: string
-  danger?: boolean
-}) => (
-  <h2
-    className={`mb-1 text-[15px] font-semibold ${danger ? "text-danger" : "text-zinc-400"} ${className}`}
-  >
-    {children}
-  </h2>
-)

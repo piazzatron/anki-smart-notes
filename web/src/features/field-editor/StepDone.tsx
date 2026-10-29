@@ -157,7 +157,7 @@ export const StepDone = ({
           {t("fieldEditor.completion.title")}
           <ConfettiIcon className="ms-2 inline-block align-[-2px]" size={24} />
         </h2>
-        <p className="mx-auto mt-3 max-w-[430px] text-[13.5px] leading-[1.55] text-[#b4b4be]">
+        <p className="mx-auto mt-3 max-w-[430px] text-[14.5px] leading-[1.55] text-[#b4b4be]">
           <strong className="font-semibold text-[#e6e6ea]">
             {targetFieldName}
           </strong>{" "}
@@ -170,7 +170,7 @@ export const StepDone = ({
       </div>
 
       <div className="mt-[34px]">
-        <p className="mb-3.5 text-xs font-semibold text-[#8b8b94]">
+        <p className="mb-3.5 text-[13px] font-semibold text-ink-muted">
           {t("fieldEditor.completion.waysToGenerate")}
         </p>
         <div className="flex flex-col gap-2.5">
@@ -179,7 +179,7 @@ export const StepDone = ({
               className="grid grid-cols-[320px_1fr] items-center gap-[22px]"
               key={method.title}
             >
-              <div className="h-[156px] w-[320px] overflow-hidden rounded-lg border border-white/[0.08] bg-black/30">
+              <div className="h-[156px] w-[320px] overflow-hidden rounded-lg bg-black/30">
                 <img
                   alt={t(method.imageAlt)}
                   className={`size-full object-cover ${method.imagePosition}`}
@@ -187,10 +187,10 @@ export const StepDone = ({
                 />
               </div>
               <div className="min-w-0">
-                <h3 className="text-[13px] font-semibold text-[#f4f4f6]">
+                <h3 className="text-sm font-semibold text-[#f4f4f6]">
                   {t(method.title)}
                 </h3>
-                <p className="mt-[3px] text-[11.5px] leading-[1.5] text-[#8b8b94]">
+                <p className="mt-[3px] text-[12.5px] leading-[1.5] text-ink-muted">
                   {t(method.caption)}
                 </p>
               </div>

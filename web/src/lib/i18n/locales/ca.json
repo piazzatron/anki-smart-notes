@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "Totes les cobertes",
     "auto": "Automàtic",
-    "autoMax": "Auto MAX",
     "back": "Enrere",
-    "bestValueCost": "Millor relació qualitat-preu, 0,3 × cost",
     "cancel": "Cancel·la",
     "close": "Tancar",
     "connection": {
@@ -58,6 +56,7 @@
     "validFields": "Camps vàlids:"
   },
   "sidebar": {
+    "defaults": "Valors predeterminats",
     "discord": "Discord",
     "feedback": "Feedback",
     "nav": {
@@ -171,18 +170,12 @@
       "loadingVoices": "S'estan carregant veus...",
       "model": "Model",
       "pickCustom": "Trieu un model personalitzat per a aquest camp",
-      "reasoning": "{{level}} raonament",
-      "reasoningHint": "Un raonament més alt pot millorar les generacions més dures, però utilitza més crèdits.",
-      "reasoningLevel": "Nivell de raonament",
       "sharedByEveryField": "El vostre {{modality}} és compartit per tots els Smart Field que l'utilitzin. Canvia-ho",
       "textDefault": "text predeterminat",
-      "textModel": "Model de text",
       "useMy": "Utilitzeu el meu {{modality}}",
-      "useWebSearch": "Utilitzeu la cerca web per a aquest camp",
       "voice": "Veu",
       "voiceDefault": "veu per defecte",
-      "webSearch": "Cerca web",
-      "webSearchHint": "Permet que aquest camp utilitzi informació actual del web."
+      "webSearch": "Cerca web"
     },
     "save": "Desa Smart Field",
     "sections": {
@@ -258,15 +251,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "Falta el model {{model}} del catàleg de xat",
       "missingImageModel": "Falta el model {{model}} del catàleg d'imatges"
     },
     "image": {
       "cannotFindModel": "Falta el model {{model}} del catàleg d'imatges",
-      "defaultModel": "Model per defecte",
+      "defaultModel": "Model d'imatges per defecte",
       "gptImage25": "el millor per a tot: text nítid, diagrames nets.",
-      "loadingLabel": "S'està carregant la configuració d'imatge predeterminada",
-      "loadingTitle": "Configuració d'imatge per defecte",
+      "loadingLabel": "S'estan carregant els paràmetres de generació d'imatges",
+      "loadingTitle": "Paràmetres de generació d'imatges",
       "modelTipLabel": "Sobre els models d'imatge",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -275,9 +267,9 @@
       "nanoBanana21": "escenes riques i fotogràfiques.",
       "samplePrompt": "Genereu una imatge d'un estudiant estudiant molt amb Anki i aprovant les seves proves.",
       "saveError": "No s'han pogut desar els valors predeterminats de la imatge",
-      "subtitle": "El model que utilitzeu la vostra imatge Smart Fields tret que un camp fixi el seu.",
-      "title": "Configuració d'imatge per defecte",
-      "zImageTurbo": "més ràpid i barat."
+      "title": "Paràmetres de generació d'imatges",
+      "zImageTurbo": "més ràpid i barat.",
+      "defaultModelTip": "Els Smart Fields d'imatge fan servir aquest model per defecte. Si el canvies, s'actualitza cada Smart Field que utilitza el valor per defecte. Qualsevol Smart Field pot substituir-lo amb el seu propi model."
     },
     "layout": {
       "save": "Desa",
@@ -285,28 +277,14 @@
       "tryIt": "Prova-ho"
     },
     "text": {
-      "cannotInheritModel": "Els valors predeterminats del text no poden heretar un altre model",
       "defaultModel": "Model de text predeterminat",
-      "defaultReasoningLevel": "Nivell de raonament predeterminat",
-      "enableWebSearch": "Activa la cerca web",
-      "higherReasoning": "Un raonament més alt pot millorar les generacions més dures, però utilitza més crèdits.",
-      "loadingLabel": "S'està carregant la configuració de text predeterminada",
+      "loadingLabel": "S'estan carregant els paràmetres de generació de text",
       "loadingTitle": "Configuració de generació de text",
-      "modelGuidance": "{{auto}} i {{autoMax}} són els models recomanats per Smart Notes que equilibren el rendiment i el cost. Trieu {{auto}} per a tasques estàndard i actualitzeu-lo a {{autoMax}} si cal.",
-      "pickingModel": "Triant un model",
-      "reasoningLevel": "Nivell de raonament",
-      "reasoningValues": {
-        "high": "Alt",
-        "low": "Baixa",
-        "off": "Apagat"
-      },
       "samplePrompt": "Què és un sistema de repetició espaciada (SRS)?",
       "saveError": "No s'han pogut desar els valors predeterminats del text",
-      "subtitle": "Configuració per defecte per a la generació de text. Un Smart Fields individual pot substituir aquests valors.",
       "title": "Configuració de generació de text",
-      "webSearch": "Cerca web",
-      "webSearchDescription": "Permet que les generacions de text obtinguin informació nova del web.",
-      "webSearchWarning": "La cerca és costosa; controla els teus crèdits."
+      "defaultModelTip": "Els Smart Fields fan servir aquest model per defecte. Si el canvies, s'actualitza cada Smart Field que utilitza el valor per defecte. Qualsevol Smart Field pot substituir-lo amb el seu propi model.",
+      "defaultModelTipLabel": "Sobre el model de text per defecte"
     },
     "usage": {
       "fields_one": "S'aplica al camp {{count}}",
@@ -326,14 +304,16 @@
         "provider": "Proveïdor"
       },
       "filterVoices": "Filtra les veus",
-      "loadingLabel": "S'està carregant la configuració de veu predeterminada",
-      "loadingTitle": "Configuració de veu per defecte",
+      "loadingLabel": "S'estan carregant els paràmetres de veu",
+      "loadingTitle": "Paràmetres de veu",
       "noVoices": "Cap veu no coincideix amb aquests filtres.",
       "saveError": "No s'han pogut desar els valors predeterminats de veu",
       "searchPlaceholder": "Cerca veus…",
       "searchVoices": "Cerca veus",
-      "subtitle": "La veu que utilitzeu el vostre TTS Smart Fields tret que un camp fixi el seu.",
-      "title": "Configuració de veu per defecte"
+      "title": "Paràmetres de veu",
+      "defaultVoice": "Veu per defecte",
+      "defaultVoiceTip": "Els Smart Fields de veu fan servir aquesta veu per defecte. Si la canvies, s'actualitza cada Smart Field que utilitza el valor per defecte. Qualsevol Smart Field pot substituir-la amb la seva pròpia veu.",
+      "defaultVoiceTipLabel": "Sobre la veu per defecte"
     }
   },
   "imageGeneration": {
@@ -541,5 +521,30 @@
     "thanks": "Gràcies per fer servir Smart Notes",
     "title": "La teva prova gratuïta ha finalitzat",
     "upgradeNow": "Actualitza ara"
+  },
+  "intelligence": {
+    "advancedOptions": "Opcions avançades",
+    "autoCostRange": "Cost {{min}}–{{max}}×",
+    "autoDescription": "Els models amb millor rendiment en intel·ligència i preu, actualitzats regularment.",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "Auto · {{level}}",
+    "label": "Intel·ligència",
+    "levels": {
+      "high": "Alt",
+      "max": "Màxim",
+      "standard": "Estàndard"
+    },
+    "specificModel": "Fes servir un model específic",
+    "specificModelWarning": "Els models específics solen costar molt més que Auto.",
+    "tipIntro": "Comença amb Estàndard i només passa a un nivell superior si els resultats no són prou bons.",
+    "tipLabel": "Sobre els nivells d'intel·ligència",
+    "veryHighCost": "Cost molt alt",
+    "webSearch": "Cerca web",
+    "webSearchDescription": "Deixa que el model obtingui informació actualitzada de la web. Mantén-ho desactivat tret que realment ho necessitis.",
+    "tips": {
+      "high": "<level>Alt</level> és per a gramàtica més avançada.",
+      "max": "<level>Màxim</level> és per a material complicat que Alt no pot gestionar.",
+      "standard": "<level>Estàndard</level> és ideal per a traduccions i frases d'exemple."
+    }
   }
 }

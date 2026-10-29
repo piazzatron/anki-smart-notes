@@ -93,7 +93,7 @@ export const PromptTesterStrip = ({
         field.setPrompt !== null &&
         field.selectedNote !== null && (
           <div className="mb-3">
-            <p className="mb-1.5 text-[11px] text-ink-muted">
+            <p className="mb-1.5 text-xs text-ink-muted">
               {t("promptTester.selectFieldToReadAloud")}
             </p>
             <div
@@ -107,7 +107,7 @@ export const PromptTesterStrip = ({
                 return (
                   <button
                     aria-pressed={isSelected}
-                    className={`cursor-pointer rounded-full px-2.5 py-1.5 font-mono text-[11px] transition ${
+                    className={`cursor-pointer rounded-full px-2.5 py-1.5 font-mono text-xs transition ${
                       isSelected
                         ? "bg-indigo text-white"
                         : "bg-zinc-800 text-zinc-300 hover:bg-zinc-700 hover:text-white"
@@ -128,13 +128,13 @@ export const PromptTesterStrip = ({
       {field.fieldType !== "tts" && field.setPrompt !== null && (
         <div className="mb-3">
           <label
-            className="mb-1.5 block text-[11px] text-ink-muted"
+            className="mb-1.5 block text-xs text-ink-muted"
             htmlFor={promptFieldId}
           >
             {field.promptLabel}
           </label>
           <textarea
-            className="min-h-16 w-full resize-y rounded-md border border-white/10 bg-white/[0.03] px-3 py-2.5 font-mono text-[12px] leading-[1.55] text-zinc-200 transition outline-none placeholder:text-zinc-600 focus:border-indigo/45"
+            className="min-h-16 w-full resize-y rounded-md bg-white/[0.05] px-3 py-2.5 font-mono text-[13px] leading-[1.55] text-zinc-200 transition outline-none placeholder:text-zinc-600 focus:bg-white/[0.07]"
             id={promptFieldId}
             onChange={(event) => field.setPrompt?.(event.target.value)}
             placeholder={t("promptTester.promptPlaceholder", {
@@ -150,7 +150,7 @@ export const PromptTesterStrip = ({
           )}
           {/* With no card picked, the prompt above runs on its own or against a card. */}
           {field.selectedNote === null && (
-            <p className="mt-1.5 text-center text-[11px] text-ink-faint">
+            <p className="mt-1.5 text-center text-xs text-ink-muted">
               {t("promptTester.or")}
             </p>
           )}
@@ -168,7 +168,7 @@ export const PromptTesterStrip = ({
               hasResult &&
               !isResultVisible ? (
                 <button
-                  className="shrink-0 cursor-pointer text-[11px] text-indigo-soft transition hover:text-indigo-soft/80"
+                  className="shrink-0 cursor-pointer text-xs text-indigo-soft transition hover:text-indigo-soft/80"
                   onClick={() => setIsResultOpen(true)}
                 >
                   {t("promptTester.viewResult")}
@@ -186,7 +186,7 @@ export const PromptTesterStrip = ({
           />
         </div>
         <PromptTestButton
-          className="h-[54px] shrink-0 px-4 text-[12.5px]"
+          className="h-[54px] shrink-0 px-4 text-[13.5px]"
           field={field}
         />
       </div>
@@ -209,7 +209,7 @@ export const PromptTesterStrip = ({
                 token={saveTarget.token}
               />
             ) : saveTargetFieldName !== undefined && field.isEarlierRun ? (
-              <p className="text-[11px] text-ink-faint">
+              <p className="text-xs text-ink-muted">
                 {t("promptTester.rerunToSave")}
               </p>
             ) : null
@@ -237,7 +237,7 @@ export const RecentImagePills = ({ field }: { field: PromptTester }) => {
             aria-label={t("promptTester.openRecentImage", {
               number: index + 1,
             })}
-            className={`inline-flex h-[22px] min-w-[22px] items-center justify-center rounded-full px-1.5 text-[10.5px] leading-4 font-bold text-zinc-950 tabular-nums transition hover:scale-110 hover:brightness-110 ${RECENT_IMAGE_COLORS[index % RECENT_IMAGE_COLORS.length]}`}
+            className={`inline-flex h-[22px] min-w-[22px] items-center justify-center rounded-full px-1.5 text-[11.5px] leading-4 font-bold text-zinc-950 tabular-nums transition hover:scale-110 hover:brightness-110 ${RECENT_IMAGE_COLORS[index % RECENT_IMAGE_COLORS.length]}`}
             key={run.id}
             onClick={() => field.viewRun(run.id)}
             type="button"
@@ -246,9 +246,7 @@ export const RecentImagePills = ({ field }: { field: PromptTester }) => {
           </button>
         ))}
       </div>
-      <p className="text-[11px] text-ink-muted">
-        {t("promptTester.recentImages")}
-      </p>
+      <p className="text-xs text-ink-muted">{t("promptTester.recentImages")}</p>
     </div>
   )
 }

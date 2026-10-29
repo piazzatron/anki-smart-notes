@@ -26,7 +26,7 @@ export const PlaceholderScreen = ({ screen }: PlaceholderScreenProps) => {
       title={t(`sidebar.nav.${SCREEN_LABELS[screen]}`)}
     >
       <div className="flex flex-1 items-center justify-center text-center">
-        <p className="mt-1 text-xs text-ink-faint">
+        <p className="mt-1 text-[13px] text-ink-muted">
           {t("common.placeholderScreen")}
         </p>
       </div>

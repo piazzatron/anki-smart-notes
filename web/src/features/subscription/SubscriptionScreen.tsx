@@ -141,7 +141,7 @@ const SubscriptionDetails = ({ account }: { account: AccountState }) => {
   const hero = getHeroContent(account)
 
   return (
-    <div className="w-full space-y-2.5">
+    <div className="-mx-[22px] space-y-2.5">
       {hero !== null && <PlanHero {...hero} />}
       <UsageModule
         daysLeft={plan.daysLeft}
@@ -163,7 +163,7 @@ const SignedOutSubscription = () => {
         <h2 className="text-[19px] font-bold text-zinc-100">
           {t("subscription.signedOut.manage")}
         </h2>
-        <p className="mt-1.5 text-xs text-ink-muted">
+        <p className="mt-1.5 text-[13px] text-ink-muted">
           {t("subscription.signedOut.localStorage")}
         </p>
         <Button
@@ -334,7 +334,7 @@ const PlanHero = ({
       </span>
       {note !== undefined && (
         <span
-          className="mt-2 text-xs font-medium"
+          className="mt-2 text-[13px] font-medium"
           style={{ color: styles.sub }}
         >
           {note}
@@ -372,12 +372,12 @@ const UsageModule = ({
   }
 
   return (
-    <section className={`${CARD_CLASS} p-[18px]`}>
+    <section className={`${CARD_CLASS} p-[22px]`}>
       <div className="flex items-baseline justify-between">
-        <h2 className="text-xs font-semibold tracking-[0.4px] text-zinc-200 uppercase">
+        <h2 className="text-[13px] font-semibold tracking-[0.4px] text-zinc-200 uppercase">
           {t("subscription.creditUsage")}
         </h2>
-        <p className="text-[11px] text-ink-muted">
+        <p className="text-xs text-ink-muted">
           {periodLabel}
           {periodValue !== null && (
             <>
@@ -389,11 +389,11 @@ const UsageModule = ({
       </div>
       <div className="mt-3.5 flex items-end gap-2.5">
         <span
-          className={`text-[34px] leading-none font-bold tracking-[-1px] ${warning ? "text-amber" : "text-zinc-200"}`}
+          className={`text-[34px] leading-none font-bold tracking-[-1px] ${warning ? "text-caution-soft" : "text-zinc-200"}`}
         >
           {pctLabel(usage)}
         </span>
-        <span className="pb-[3px] text-[13px] text-ink-muted">
+        <span className="pb-[3px] text-sm text-ink-muted">
           {period === "trial"
             ? t("subscription.trialCreditsUsed")
             : t("subscription.monthlyCreditsUsed")}
@@ -413,7 +413,7 @@ const UsageModule = ({
       <div className="mt-[11px] flex gap-4">
         {segments.map((segment) => (
           <span
-            className="inline-flex items-center gap-1.5 text-[11.5px] text-ink-muted"
+            className="inline-flex items-center gap-1.5 text-[12.5px] text-ink-muted"
             key={segment.key}
           >
             <span
@@ -510,8 +510,8 @@ const PlanFacts = ({ facts }: { facts: Array<[string, string]> }) => (
     style={{ gridTemplateColumns: `repeat(${facts.length}, minmax(0, 1fr))` }}
   >
     {facts.map(([label, value]) => (
-      <div className={`${CARD_CLASS} px-4 py-[13px]`} key={label}>
-        <p className="text-[11px] text-ink-muted">{label}</p>
+      <div className={`${CARD_CLASS} px-[22px] py-[13px]`} key={label}>
+        <p className="text-xs text-ink-muted">{label}</p>
         <p className="mt-[3px] truncate text-sm font-bold text-zinc-100">
           {value}
         </p>
@@ -524,17 +524,17 @@ const ManageRow = ({ topTier }: { topTier: boolean }) => {
   const { t } = useTranslation()
   return (
     <button
-      className={`${CARD_CLASS} flex w-full items-center justify-between gap-4 px-[18px] py-[15px] text-start transition hover:bg-white/[0.07]`}
+      className={`${CARD_CLASS} flex w-full items-center justify-between gap-4 px-[22px] py-[15px] text-start transition hover:bg-white/[0.07]`}
       onClick={() => openSiteLink(SITE_LINKS.account)}
       type="button"
     >
       <span className="min-w-0">
-        <span className="block text-[13.5px] font-bold text-zinc-100">
+        <span className="block text-[14.5px] font-bold text-zinc-100">
           {topTier
             ? t("subscription.managePlan")
             : t("subscription.manageOrUpgrade")}
         </span>
-        <span className="mt-[3px] block text-[11.5px] text-ink-muted">
+        <span className="mt-[3px] block text-[12.5px] text-ink-muted">
           {t("subscription.manageDescription")}
         </span>
       </span>

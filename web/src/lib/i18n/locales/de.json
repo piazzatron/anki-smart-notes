@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "Alle Decks",
     "auto": "Auto",
-    "autoMax": "Auto MAX",
     "back": "Zurück",
-    "bestValueCost": "Bestes Preis-Leistungs-Verhältnis, 0,3-fache Kosten",
     "cancel": "Stornieren",
     "close": "Schließen",
     "connection": {
@@ -57,6 +55,7 @@
     "validFields": "Gültige Felder:"
   },
   "sidebar": {
+    "defaults": "Standardwerte",
     "discord": "Discord",
     "feedback": "Rückmeldung",
     "nav": {
@@ -170,18 +169,12 @@
       "loadingVoices": "Stimmen werden geladen…",
       "model": "Modell",
       "pickCustom": "Wählen Sie ein benutzerdefiniertes Modell für dieses Feld",
-      "reasoning": "{{level}}-Argumentation",
-      "reasoningHint": "Höheres Denken kann härtere Generationen verbessern, verbraucht aber mehr Credits.",
-      "reasoningLevel": "Argumentationsebene",
       "sharedByEveryField": "Ihr {{modality}} wird von jedem Smart Field geteilt, der es nutzt. Ändere es",
       "textDefault": "Textstandard",
-      "textModel": "Textmodell",
       "useMy": "Benutze mein {{modality}}",
-      "useWebSearch": "Verwenden Sie die Websuche für dieses Feld",
       "voice": "Stimme",
       "voiceDefault": "Sprachstandard",
-      "webSearch": "Websuche",
-      "webSearchHint": "Lassen Sie dieses Feld frische Informationen aus dem Internet nutzen."
+      "webSearch": "Websuche"
     },
     "save": "Speichern Sie Smart Field",
     "sections": {
@@ -257,15 +250,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "Im Chat-Katalog fehlt das Modell {{model}}",
       "missingImageModel": "Im Bildkatalog fehlt das Modell {{model}}"
     },
     "image": {
       "cannotFindModel": "Im Bildkatalog fehlt das Modell {{model}}",
-      "defaultModel": "Standardmodell",
+      "defaultModel": "Standard-Bildmodell",
       "gptImage25": "Bester Allrounder – scharfer Text, saubere Diagramme.",
-      "loadingLabel": "Laden der Standardbildeinstellungen",
-      "loadingTitle": "Standardbildeinstellungen",
+      "loadingLabel": "Bildgenerierungs-Einstellungen werden geladen",
+      "loadingTitle": "Bildgenerierungs-Einstellungen",
       "modelTipLabel": "Über die Bildmodelle",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -274,9 +266,9 @@
       "nanoBanana21": "reiche, fotorealistische Szenen.",
       "samplePrompt": "Erstellen Sie ein Bild eines Studenten, der mit Anki fleißig lernt und seine Prüfungen besteht.",
       "saveError": "Bildstandardeinstellungen konnten nicht gespeichert werden",
-      "subtitle": "Das Modell, das Ihr Bild Smart Fields verwendet, es sei denn, ein Feld heftet sein eigenes an.",
-      "title": "Standardbildeinstellungen",
-      "zImageTurbo": "am schnellsten und günstigsten."
+      "title": "Bildgenerierungs-Einstellungen",
+      "zImageTurbo": "am schnellsten und günstigsten.",
+      "defaultModelTip": "Bild-Smart Fields verwenden standardmäßig dieses Modell. Wenn Sie es ändern, werden alle Smart Fields aktualisiert, die den Standard verwenden. Jedes Smart Field kann es mit einem eigenen Modell überschreiben."
     },
     "layout": {
       "save": "Speichern",
@@ -284,28 +276,14 @@
       "tryIt": "Probieren Sie es aus"
     },
     "text": {
-      "cannotInheritModel": "Textstandards können kein anderes Modell erben",
       "defaultModel": "Standardtextmodell",
-      "defaultReasoningLevel": "Standardbegründungsebene",
-      "enableWebSearch": "Aktivieren Sie die Websuche",
-      "higherReasoning": "Höheres Denken kann härtere Generationen verbessern, verbraucht aber mehr Credits.",
-      "loadingLabel": "Laden der Standardtexteinstellungen",
+      "loadingLabel": "Textgenerierungs-Einstellungen werden geladen",
       "loadingTitle": "Einstellungen für die Textgenerierung",
-      "modelGuidance": "{{auto}} und {{autoMax}} sind die von Smart Notes empfohlenen Modelle, die Leistung und Kosten in Einklang bringen. Wählen Sie {{auto}} für Standardaufgaben und aktualisieren Sie bei Bedarf auf {{autoMax}}.",
-      "pickingModel": "Modell auswählen",
-      "reasoningLevel": "Argumentationsebene",
-      "reasoningValues": {
-        "high": "Hoch",
-        "low": "Niedrig",
-        "off": "Aus"
-      },
       "samplePrompt": "Was ist ein Spaced Repetition System (SRS)?",
       "saveError": "Textvorgaben konnten nicht gespeichert werden",
-      "subtitle": "Standardeinstellungen für die Textgenerierung. Einzelne Smart Fields können diese Werte überschreiben.",
       "title": "Einstellungen für die Textgenerierung",
-      "webSearch": "Websuche",
-      "webSearchDescription": "Lassen Sie Textgenerationen neue Informationen aus dem Internet abrufen.",
-      "webSearchWarning": "Suche ist teuer; behalte dein Guthaben im Blick."
+      "defaultModelTip": "Smart Fields verwenden standardmäßig dieses Modell. Wenn Sie es ändern, werden alle Smart Fields aktualisiert, die den Standard verwenden. Jedes Smart Field kann es mit einem eigenen Modell überschreiben.",
+      "defaultModelTipLabel": "Info zum Standard-Textmodell"
     },
     "usage": {
       "fields_one": "Gilt für das Feld {{count}}",
@@ -324,14 +302,16 @@
         "provider": "Anbieter"
       },
       "filterVoices": "Stimmen filtern",
-      "loadingLabel": "Laden der Standard-Spracheinstellungen",
-      "loadingTitle": "Standard-Spracheinstellungen",
+      "loadingLabel": "Stimmeinstellungen werden geladen",
+      "loadingTitle": "Stimmeinstellungen",
       "noVoices": "Keine Stimmen entsprechen diesen Filtern.",
       "saveError": "Sprachstandardeinstellungen konnten nicht gespeichert werden",
       "searchPlaceholder": "Stimmen suchen…",
       "searchVoices": "Stimmen suchen",
-      "subtitle": "Die Stimme, die Ihr TTS Smart Fields verwendet, es sei denn, ein Feld legt seine eigene fest.",
-      "title": "Standard-Spracheinstellungen"
+      "title": "Stimmeinstellungen",
+      "defaultVoice": "Standardstimme",
+      "defaultVoiceTip": "Stimmen-Smart Fields verwenden standardmäßig diese Stimme. Wenn Sie sie ändern, werden alle Smart Fields aktualisiert, die den Standard verwenden. Jedes Smart Field kann sie mit einer eigenen Stimme überschreiben.",
+      "defaultVoiceTipLabel": "Info zur Standardstimme"
     }
   },
   "imageGeneration": {
@@ -531,5 +511,30 @@
     "thanks": "Danke, dass du Smart Notes nutzt",
     "title": "Ihre kostenlose Testversion ist beendet",
     "upgradeNow": "Jetzt upgraden"
+  },
+  "intelligence": {
+    "advancedOptions": "Erweiterte Optionen",
+    "autoCostRange": "{{min}}–{{max}}× Kosten",
+    "autoDescription": "Die leistungsstärksten Modelle in Bezug auf Intelligenz und Preis, regelmäßig aktualisiert.",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "Auto · {{level}}",
+    "label": "Intelligenz",
+    "levels": {
+      "high": "Hoch",
+      "max": "Max",
+      "standard": "Standard"
+    },
+    "specificModel": "Bestimmtes Modell verwenden",
+    "specificModelWarning": "Bestimmte Modelle kosten in der Regel deutlich mehr als Auto.",
+    "tipIntro": "Beginnen Sie mit Standard und wechseln Sie nur dann zu einer höheren Stufe, wenn die Ergebnisse nicht gut genug sind.",
+    "tipLabel": "Info zu Intelligenzstufen",
+    "veryHighCost": "Sehr hohe Kosten",
+    "webSearch": "Websuche",
+    "webSearchDescription": "Lassen Sie das Modell aktuelle Informationen aus dem Web abrufen. Deaktiviert lassen, sofern Sie es nicht wirklich brauchen.",
+    "tips": {
+      "high": "<level>Hoch</level> ist für anspruchsvollere Grammatik gedacht.",
+      "max": "<level>Max</level> ist für komplexes Material, das High nicht bewältigen kann.",
+      "standard": "<level>Standard</level> eignet sich am besten für Übersetzungen und Beispielsätze."
+    }
   }
 }

@@ -74,18 +74,18 @@ export const SmartFieldRow = ({
         onClick={() => onEdit(field)}
       />
       <FieldTypeIcon fieldType={field.fieldType} />
-      <span className="pointer-events-none col-start-2 row-start-1 truncate text-[13px] leading-4 font-medium text-[#e0dfe2]">
+      <span className="pointer-events-none col-start-2 row-start-1 truncate text-sm leading-4 font-medium text-ink">
         {field.targetFieldName}
       </span>
-      <span className="pointer-events-none col-start-2 row-start-2 truncate text-[11px] leading-[14px] text-ink-muted">
+      <span className="pointer-events-none col-start-2 row-start-2 truncate text-xs leading-[14px] text-ink-muted">
         {smartFieldDescription(field)}
       </span>
       <span className="pointer-events-none col-start-3 row-span-2 row-start-1 min-w-0 justify-self-end text-end">
-        <span className="block text-[9px] leading-none font-semibold tracking-[0.055em] text-ink-faint uppercase">
+        <span className="block text-[11px] leading-none font-semibold tracking-[0.055em] text-ink-muted uppercase">
           {t("fieldEditor.modelSettings.model")}
         </span>
         <span
-          className={`mt-[3px] block truncate text-[11px] ${
+          className={`mt-[3px] block truncate text-xs ${
             field.settings.usesDefaultGenerationSettings
               ? "text-indigo-soft"
               : "text-zinc-400"

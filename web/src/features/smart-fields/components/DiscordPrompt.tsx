@@ -31,7 +31,7 @@ export const DiscordPrompt = ({ onDismiss }: DiscordPromptProps) => {
   const { t } = useTranslation()
 
   return (
-    <div className="relative mb-5 flex cursor-pointer items-center gap-3 overflow-hidden rounded-[13px] bg-[linear-gradient(100deg,#3C45A5_0%,#5865F2_42%,#9B4DFF_100%)] py-3.5 ps-[17px] pe-3.5 transition-transform duration-150 ease-out hover:scale-[1.006]">
+    <div className="relative -mx-[22px] mb-5 flex cursor-pointer items-center gap-3 overflow-hidden rounded-[13px] bg-[linear-gradient(100deg,#3C45A5_0%,#5865F2_42%,#9B4DFF_100%)] py-3.5 ps-[22px] pe-3.5 transition-transform duration-150 ease-out hover:scale-[1.006]">
       <a
         aria-label={t("smartFields.discord.joinAriaLabel")}
         className="absolute inset-0 z-10 rounded-[13px]"
@@ -44,13 +44,13 @@ export const DiscordPrompt = ({ onDismiss }: DiscordPromptProps) => {
       <DiscordMark className="relative text-white" size={23} />
       <p className="relative min-w-0 flex-1 text-[14.5px] leading-[1.35] font-extrabold tracking-[-0.01em] text-white">
         {t("smartFields.discord.title")}
-        <span className="text-[13px] font-medium text-white/80">
+        <span className="text-sm font-medium text-white/80">
           {" "}
           {t("smartFields.discord.subtitle")}
         </span>
       </p>
       <a
-        className="relative z-20 inline-flex shrink-0 items-center rounded-lg bg-white px-[18px] py-2 text-[12.5px] font-extrabold text-[#6B3FD4] no-underline transition-transform duration-150 ease-out hover:scale-[1.035]"
+        className="relative z-20 inline-flex shrink-0 items-center rounded-lg bg-white px-[18px] py-2 text-[13.5px] font-extrabold text-[#6B3FD4] no-underline transition-transform duration-150 ease-out hover:scale-[1.035]"
         href={DISCORD_URL}
         rel="noreferrer"
         target="_blank"

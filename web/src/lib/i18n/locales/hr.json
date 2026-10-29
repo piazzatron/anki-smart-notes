@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "Sve palube",
     "auto": "Auto",
-    "autoMax": "Auto MAX",
     "back": "Nazad",
-    "bestValueCost": "Najbolja vrijednost, 0,3× trošak",
     "cancel": "Otkazati",
     "close": "Zatvoriti",
     "connection": {
@@ -58,6 +56,7 @@
     "validFields": "Važeća polja:"
   },
   "sidebar": {
+    "defaults": "Zadano",
     "discord": "Discord",
     "feedback": "Povratne informacije",
     "nav": {
@@ -171,18 +170,12 @@
       "loadingVoices": "Učitavanje glasova...",
       "model": "Model",
       "pickCustom": "Odaberite prilagođeni model za ovo polje",
-      "reasoning": "{{level}} obrazloženje",
-      "reasoningHint": "Bolje razmišljanje može poboljšati teže generacije, ali koristi više bodova.",
-      "reasoningLevel": "Razina rasuđivanja",
       "sharedByEveryField": "Vaš {{modality}} dijeli svaki Smart Field koji ga koristi. Promijenite ga",
       "textDefault": "tekst zadani",
-      "textModel": "Tekstualni model",
       "useMy": "Koristi moj {{modality}}",
-      "useWebSearch": "Koristite web pretraživanje za ovo polje",
       "voice": "Glas",
       "voiceDefault": "glasovno zadano",
-      "webSearch": "Web pretraživanje",
-      "webSearchHint": "Neka ovo polje koristi svježe informacije s weba."
+      "webSearch": "Web pretraživanje"
     },
     "save": "Spremite Smart Field",
     "sections": {
@@ -258,15 +251,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "Chat katalogu nedostaje model {{model}}",
       "missingImageModel": "U katalogu slika nedostaje model {{model}}"
     },
     "image": {
       "cannotFindModel": "U katalogu slika nedostaje model {{model}}",
-      "defaultModel": "Zadani model",
+      "defaultModel": "Zadani model za slike",
       "gptImage25": "najbolji svestrani izbor — oštar tekst, čisti dijagrami.",
-      "loadingLabel": "Učitavanje zadanih postavki slike",
-      "loadingTitle": "Zadane postavke slike",
+      "loadingLabel": "Učitavanje postavki generiranja slika",
+      "loadingTitle": "Postavke generiranja slika",
       "modelTipLabel": "O modelima za slike",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -275,9 +267,9 @@
       "nanoBanana21": "bogate, fotografske scene.",
       "samplePrompt": "Generirajte sliku studenta koji vrijedno uči s Anki i polaže testove.",
       "saveError": "Nije moguće spremiti zadane postavke slike",
-      "subtitle": "Model koji vaša slika koristi Smart Fields osim ako polje ne prikvači svoje.",
-      "title": "Zadane postavke slike",
-      "zImageTurbo": "najbrže i najjeftinije."
+      "title": "Postavke generiranja slika",
+      "zImageTurbo": "najbrže i najjeftinije.",
+      "defaultModelTip": "Smart Fields za slike prema zadanim postavkama koriste ovaj model. Promjena ažurira sve Smart Fields koje koriste zadani model. Smart Fields mogu zamijeniti zadani model vlastitim."
     },
     "layout": {
       "save": "Spremi",
@@ -285,28 +277,14 @@
       "tryIt": "Probajte"
     },
     "text": {
-      "cannotInheritModel": "Zadane tekstualne postavke ne mogu naslijediti drugi model",
       "defaultModel": "Zadani tekstualni model",
-      "defaultReasoningLevel": "Zadana razina obrazloženja",
-      "enableWebSearch": "Omogući web pretraživanje",
-      "higherReasoning": "Bolje razmišljanje može poboljšati teže generacije, ali koristi više bodova.",
-      "loadingLabel": "Učitavanje zadanih postavki teksta",
+      "loadingLabel": "Učitavanje postavki generiranja teksta",
       "loadingTitle": "Postavke generiranja teksta",
-      "modelGuidance": "{{auto}} i {{autoMax}} su Smart Notes preporučeni modeli koji balansiraju performanse i cijenu. Odaberite {{auto}} za standardne zadatke i nadogradite na {{autoMax}} ako je potrebno.",
-      "pickingModel": "Odabir modela",
-      "reasoningLevel": "Razina rasuđivanja",
-      "reasoningValues": {
-        "high": "visoko",
-        "low": "Niska",
-        "off": "Isključeno"
-      },
       "samplePrompt": "Što je sustav razmaknutog ponavljanja (SRS)?",
       "saveError": "Nije moguće spremiti zadane postavke teksta",
-      "subtitle": "Zadane postavke za generiranje teksta. Pojedinačni Smart Fields može nadjačati ove vrijednosti.",
       "title": "Postavke generiranja teksta",
-      "webSearch": "Web pretraživanje",
-      "webSearchDescription": "Neka tekstualne generacije crpe svježe informacije s weba.",
-      "webSearchWarning": "Pretraga je skupa; pratite svoje kredite."
+      "defaultModelTip": "Smart Fields prema zadanim postavkama koriste ovaj model. Promjena ažurira sve Smart Fields koje koriste zadani model. Smart Fields mogu zamijeniti zadani model vlastitim.",
+      "defaultModelTipLabel": "O zadanom modelu za tekst"
     },
     "usage": {
       "fields_one": "Primjenjuje se na polje {{count}}",
@@ -326,14 +304,16 @@
         "provider": "Davatelj"
       },
       "filterVoices": "Filtrirajte glasove",
-      "loadingLabel": "Učitavanje zadanih glasovnih postavki",
-      "loadingTitle": "Zadane postavke glasa",
+      "loadingLabel": "Učitavanje postavki glasa",
+      "loadingTitle": "Postavke glasa",
       "noVoices": "Nijedan glas ne odgovara ovim filtrima.",
       "saveError": "Nije moguće spremiti zadane glasovne postavke",
       "searchPlaceholder": "Pretraži glasove…",
       "searchVoices": "Traži glasove",
-      "subtitle": "Glas koji koristi vaš TTS Smart Fields osim ako polje ne prikvači svoje.",
-      "title": "Zadane postavke glasa"
+      "title": "Postavke glasa",
+      "defaultVoice": "Zadani glas",
+      "defaultVoiceTip": "Smart Fields za glas prema zadanim postavkama koriste ovaj glas. Promjena ažurira sve Smart Fields koje koriste zadani glas. Smart Fields mogu zamijeniti zadani glas vlastitim.",
+      "defaultVoiceTipLabel": "O zadanom glasu"
     }
   },
   "imageGeneration": {
@@ -541,5 +521,30 @@
     "thanks": "Hvala što koristite Smart Notes",
     "title": "Vaše besplatno probno razdoblje je završilo",
     "upgradeNow": "Nadogradite sada"
+  },
+  "intelligence": {
+    "advancedOptions": "Napredne mogućnosti",
+    "autoCostRange": "{{min}}–{{max}}× trošak",
+    "autoDescription": "Modeli s najboljim rezultatima u pogledu inteligencije i cijene, redovito ažurirani.",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "Auto · {{level}}",
+    "label": "Inteligencija",
+    "levels": {
+      "high": "Visoka",
+      "max": "Maksimalna",
+      "standard": "Standardna"
+    },
+    "specificModel": "Koristi određeni model",
+    "specificModelWarning": "Određeni modeli obično koštaju znatno više od Auto.",
+    "tipIntro": "Počnite sa Standardnom i prijeđite na višu razinu samo ako rezultati nisu dovoljno dobri.",
+    "tipLabel": "O razinama inteligencije",
+    "veryHighCost": "Vrlo visok trošak",
+    "webSearch": "Web pretraživanje",
+    "webSearchDescription": "Neka model dohvaća svježe informacije s weba. Ostavite isključeno osim ako to stvarno trebate.",
+    "tips": {
+      "high": "<level>Visoka</level> služi za napredniju gramatiku.",
+      "max": "<level>Maksimalna</level> služi za složen sadržaj koji razina Visoka ne može obraditi.",
+      "standard": "<level>Standardna</level> najbolja je za prijevode i primjere rečenica."
+    }
   }
 }

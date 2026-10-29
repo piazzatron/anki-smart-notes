@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "Kõik tekid",
     "auto": "Automaatne",
-    "autoMax": "Auto MAX",
     "back": "Tagasi",
-    "bestValueCost": "Parim väärtus, 0,3-kordne maksumus",
     "cancel": "Tühista",
     "close": "Sule",
     "connection": {
@@ -57,6 +55,7 @@
     "validFields": "Kehtivad väljad:"
   },
   "sidebar": {
+    "defaults": "Vaikeseaded",
     "discord": "Discord",
     "feedback": "Tagasiside",
     "nav": {
@@ -170,18 +169,12 @@
       "loadingVoices": "Häälte laadimine…",
       "model": "Mudel",
       "pickCustom": "Valige selle välja jaoks kohandatud mudel",
-      "reasoning": "{{level}} arutluskäik",
-      "reasoningHint": "Kõrgem arutluskäik võib parandada raskemaid põlvkondi, kuid kasutab rohkem krediite.",
-      "reasoningLevel": "Arutlusvõime tase",
       "sharedByEveryField": "Teie {{modality}} jagavad kõik seda kasutavad Smart Field. Muutke see sisse",
       "textDefault": "teksti vaikimisi",
-      "textModel": "Teksti mudel",
       "useMy": "Kasutage minu {{modality}}",
-      "useWebSearch": "Kasutage selle välja jaoks veebiotsingut",
       "voice": "Hääl",
       "voiceDefault": "hääle vaikeseade",
-      "webSearch": "Veebiotsing",
-      "webSearchHint": "Las see väli kasutab värsket teavet veebist."
+      "webSearch": "Veebiotsing"
     },
     "save": "Salvestage Smart Field",
     "sections": {
@@ -257,15 +250,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "Vestluskataloogist puudub mudel {{model}}",
       "missingImageModel": "Piltide kataloogist puudub mudel {{model}}"
     },
     "image": {
       "cannotFindModel": "Piltide kataloogist puudub mudel {{model}}",
-      "defaultModel": "Vaikimisi mudel",
+      "defaultModel": "Vaikimisi pildimudel",
       "gptImage25": "parim üldvalik — terav tekst, selged diagrammid.",
-      "loadingLabel": "Pildi vaikeseadete laadimine",
-      "loadingTitle": "Pildi vaikesätted",
+      "loadingLabel": "Pildiloome seadete laadimine",
+      "loadingTitle": "Pildiloome seaded",
       "modelTipLabel": "Pildimudelite kohta",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -274,9 +266,9 @@
       "nanoBanana21": "rikkalikud, fotorealistlikud stseenid.",
       "samplePrompt": "Looge pilt õpilasest, kes õpib kõvasti Anki abil ja sooritab testid.",
       "saveError": "Pildi vaikeseadeid ei saanud salvestada",
-      "subtitle": "Mudel, mida teie pilt Smart Fields kasutab, välja arvatud juhul, kui väli kinnitab oma.",
-      "title": "Pildi vaikesätted",
-      "zImageTurbo": "kiireim ja odavaim."
+      "title": "Pildiloome seaded",
+      "zImageTurbo": "kiireim ja odavaim.",
+      "defaultModelTip": "Pildi Smart Fields kasutavad vaikimisi seda mudelit. Selle muutmine värskendab kõiki Smart Fields, mis kasutavad vaikeväärtust. Iga Smart Field saab kasutada oma mudelit."
     },
     "layout": {
       "save": "Salvesta",
@@ -284,28 +276,14 @@
       "tryIt": "Proovi seda"
     },
     "text": {
-      "cannotInheritModel": "Teksti vaikeseaded ei saa pärida teist mudelit",
       "defaultModel": "Vaikimisi tekstimudel",
-      "defaultReasoningLevel": "Vaikimisi arutlustase",
-      "enableWebSearch": "Luba veebiotsing",
-      "higherReasoning": "Kõrgem arutluskäik võib parandada raskemaid põlvkondi, kuid kasutab rohkem krediite.",
-      "loadingLabel": "Teksti vaikeseadete laadimine",
+      "loadingLabel": "Tekstiloome seadete laadimine",
       "loadingTitle": "Teksti genereerimise sätted",
-      "modelGuidance": "{{auto}} ja {{autoMax}} on Smart Notes soovitatavad mudelid, mis tasakaalustavad jõudlust ja kulusid. Valige standardülesannete jaoks {{auto}} ja vajadusel uuendage versioonile {{autoMax}}.",
-      "pickingModel": "Mudeli valimine",
-      "reasoningLevel": "Arutlusvõime tase",
-      "reasoningValues": {
-        "high": "Kõrge",
-        "low": "Madal",
-        "off": "Väljas"
-      },
       "samplePrompt": "Mis on intervallide kordussüsteem (SRS)?",
       "saveError": "Teksti vaikeseadeid ei saanud salvestada",
-      "subtitle": "Teksti genereerimise vaikesätted. Individuaalne Smart Fields võib need väärtused alistada.",
       "title": "Teksti genereerimise sätted",
-      "webSearch": "Veebiotsing",
-      "webSearchDescription": "Laske tekstipõlvkondadel veebist värsket teavet hankida.",
-      "webSearchWarning": "Otsing on kallis; jälgi oma krediite."
+      "defaultModelTip": "Smart Fields kasutavad vaikimisi seda mudelit. Selle muutmine värskendab kõiki Smart Fields, mis kasutavad vaikeväärtust. Iga Smart Field saab kasutada oma mudelit.",
+      "defaultModelTipLabel": "Teave vaikimisi tekstimudeli kohta"
     },
     "usage": {
       "fields_one": "Kehtib väljale {{count}}",
@@ -324,14 +302,16 @@
         "provider": "Pakkuja"
       },
       "filterVoices": "Häälte filtreerimine",
-      "loadingLabel": "Vaikimisi hääleseadete laadimine",
-      "loadingTitle": "Vaikimisi hääleseaded",
+      "loadingLabel": "Hääle seadete laadimine",
+      "loadingTitle": "Hääle seaded",
       "noVoices": "Nendele filtritele ei vasta ükski hääl.",
       "saveError": "Hääle vaikeseadeid ei saanud salvestada",
       "searchPlaceholder": "Otsi hääli…",
       "searchVoices": "Otsige hääli",
-      "subtitle": "Hääl, mida teie TTS Smart Fields kasutab, välja arvatud juhul, kui väli kinnitab oma.",
-      "title": "Vaikimisi hääleseaded"
+      "title": "Hääle seaded",
+      "defaultVoice": "Vaikimisi hääl",
+      "defaultVoiceTip": "Häälega Smart Fields kasutavad vaikimisi seda häält. Selle muutmine värskendab kõiki Smart Fields, mis kasutavad vaikeväärtust. Iga Smart Field saab kasutada oma häält.",
+      "defaultVoiceTipLabel": "Teave vaikimisi hääle kohta"
     }
   },
   "imageGeneration": {
@@ -531,5 +511,30 @@
     "thanks": "Aitäh, et kasutasid Smart Notes'it",
     "title": "Teie tasuta prooviperiood on lõppenud",
     "upgradeNow": "Uuendage kohe"
+  },
+  "intelligence": {
+    "advancedOptions": "Täpsemad valikud",
+    "autoCostRange": "{{min}}–{{max}}× kulu",
+    "autoDescription": "Intellekti ja hinna poolest parimad mudelid, mida regulaarselt uuendatakse.",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "Auto · {{level}}",
+    "label": "Nutikus",
+    "levels": {
+      "high": "Kõrge",
+      "max": "Maksimaalne",
+      "standard": "Standardne"
+    },
+    "specificModel": "Kasuta konkreetset mudelit",
+    "specificModelWarning": "Konkreetsed mudelid maksavad tavaliselt palju rohkem kui Auto.",
+    "tipIntro": "Alusta tasemega Standardne ja liigu kõrgemale ainult siis, kui tulemused pole piisavalt head.",
+    "tipLabel": "Teave nutikuse tasemete kohta",
+    "veryHighCost": "Väga kõrge kulu",
+    "webSearch": "Veebiotsing",
+    "webSearchDescription": "Lase mudelil tuua veebist värsket infot. Jäta see välja, kui seda tõesti ei vaja.",
+    "tips": {
+      "high": "<level>Kõrge</level> on mõeldud keerukamale grammatikale.",
+      "max": "<level>Maksimaalne</level> on mõeldud keerulise materjali jaoks, mida Kõrge ei suuda töödelda.",
+      "standard": "<level>Standardne</level> sobib kõige paremini tõlgete ja näitelausete jaoks."
+    }
   }
 }

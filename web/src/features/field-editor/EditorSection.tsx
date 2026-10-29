@@ -42,7 +42,7 @@ export const EditorSection = ({
       {label}
     </h2>
     {description !== undefined && (
-      <p className="mb-2 text-[12px] leading-[1.45] text-ink-muted">
+      <p className="mb-2 text-[13px] leading-[1.45] text-ink-muted">
         {description}
       </p>
     )}

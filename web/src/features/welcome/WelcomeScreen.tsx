@@ -108,14 +108,14 @@ export const WelcomeScreen = ({
               {t("welcome.finishInBrowser")}
             </h1>
             <p
-              className="welcome-enter mx-auto mt-2 max-w-[330px] text-[12.5px] leading-[1.6] text-[#8b8b94]"
+              className="welcome-enter mx-auto mt-2 max-w-[330px] text-[13.5px] leading-[1.6] text-ink-muted"
               style={{ animationDelay: "140ms" }}
             >
               {t("welcome.finishDescription")}
             </p>
 
             <form
-              className="welcome-enter mt-7 rounded-[11px] border border-white/[0.07] bg-black/20 p-4 text-start"
+              className="welcome-enter mt-7 rounded-[11px] bg-black/20 p-4 text-start"
               onSubmit={(event) => {
                 event.preventDefault()
                 void submitCode()
@@ -123,7 +123,7 @@ export const WelcomeScreen = ({
               style={{ animationDelay: "210ms" }}
             >
               <label
-                className="text-[11.5px] font-medium text-[#b4b4be]"
+                className="text-[12.5px] font-medium text-[#b4b4be]"
                 htmlFor="welcome-auth-code"
               >
                 {t("welcome.haveCode")}
@@ -132,7 +132,7 @@ export const WelcomeScreen = ({
                 <input
                   autoCapitalize="characters"
                   autoComplete="off"
-                  className="min-w-0 flex-1 rounded-lg border border-white/[0.08] bg-white/[0.04] px-3 py-2.5 font-mono text-xs tracking-[0.08em] text-zinc-100 transition outline-none focus:border-indigo/55 focus:ring-2 focus:ring-indigo/15"
+                  className="min-w-0 flex-1 rounded-lg bg-white/[0.04] px-3 py-2.5 font-mono text-[13px] tracking-[0.08em] text-zinc-100 transition outline-none focus:ring-2 focus:ring-indigo/15"
                   disabled={isSubmittingCode}
                   id="welcome-auth-code"
                   onChange={(event) =>
@@ -153,7 +153,7 @@ export const WelcomeScreen = ({
                 </Button>
               </div>
               {codeError !== null && (
-                <p className="mt-2 text-[11px] leading-4 text-danger">
+                <p className="mt-2 text-xs leading-4 text-danger">
                   {codeError}
                 </p>
               )}
@@ -224,13 +224,13 @@ export const WelcomeScreen = ({
                   size={19}
                 />
               </button>
-              <p className="mt-[15px] text-xs text-[#b6b6bf]">
+              <p className="mt-[15px] text-[13px] text-[#b6b6bf]">
                 {t("welcome.trialDetails")}
               </p>
             </div>
 
             <p
-              className="welcome-enter mt-7 text-[12.5px] text-[#8b8b94]"
+              className="welcome-enter mt-7 text-[13.5px] text-ink-muted"
               style={{ animationDelay: "240ms" }}
             >
               {t("welcome.alreadyAccount")}{" "}
@@ -248,7 +248,7 @@ export const WelcomeScreen = ({
 
       {appVersion !== null && (
         <p
-          className="welcome-enter absolute start-0 end-0 bottom-3.5 z-10 text-center font-mono text-[10px] text-[#5c5c66]"
+          className="welcome-enter absolute start-0 end-0 bottom-3.5 z-10 text-center font-mono text-[11px] text-zinc-500"
           style={{ animationDelay: "320ms" }}
         >
           {t("common.productVersion", { version: appVersion })}

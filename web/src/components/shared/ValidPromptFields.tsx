@@ -10,11 +10,11 @@ export const ValidPromptFields = ({ fieldNames }: ValidPromptFieldsProps) => {
   if (fieldNames.length === 0) return null
 
   return (
-    <p className="mt-2 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[11px] leading-[1.5] text-ink-muted">
+    <p className="mt-2 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-xs leading-[1.5] text-ink-muted">
       {t("common.validFields")}
       {fieldNames.map((fieldName) => (
         <span
-          className="rounded bg-indigo/14 px-[3px] font-mono text-[11px] text-indigo-soft"
+          className="rounded bg-indigo/14 px-[3px] font-mono text-xs text-indigo-soft"
           key={fieldName}
         >
           {`{{${fieldName}}}`}

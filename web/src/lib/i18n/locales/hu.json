@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "Minden fedélzet",
     "auto": "Auto",
-    "autoMax": "Auto MAX",
     "back": "Vissza",
-    "bestValueCost": "Legjobb érték, 0,3× költség",
     "cancel": "Mégse",
     "close": "Közeli",
     "connection": {
@@ -57,6 +55,7 @@
     "validFields": "Érvényes mezők:"
   },
   "sidebar": {
+    "defaults": "Alapértelmezések",
     "discord": "Discord",
     "feedback": "Visszacsatolás",
     "nav": {
@@ -170,18 +169,12 @@
       "loadingVoices": "Hangok betöltése…",
       "model": "Modell",
       "pickCustom": "Válasszon egyéni modellt ehhez a mezőhöz",
-      "reasoning": "{{level}} érvelés",
-      "reasoningHint": "A magasabb érvelés javíthatja a keményebb generációkat, de több kreditet használ fel.",
-      "reasoningLevel": "Érvelési szint",
       "sharedByEveryField": "Az {{modality}}-ját minden azt használó Smart Field megosztja. Cserélje ki",
       "textDefault": "szöveg alapértelmezett",
-      "textModel": "Szöveges modell",
       "useMy": "Használd az {{modality}}-mat",
-      "useWebSearch": "Ehhez a mezőhöz használja a webes keresést",
       "voice": "Hang",
       "voiceDefault": "hang alapértelmezett",
-      "webSearch": "Webes keresés",
-      "webSearchHint": "Hagyja, hogy ez a mező friss információkat használjon az internetről."
+      "webSearch": "Webes keresés"
     },
     "save": "Mentse el az Smart Field-t",
     "sections": {
@@ -257,15 +250,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "A chat-katalógusból hiányzik az {{model}} modell",
       "missingImageModel": "A képkatalógusból hiányzik az {{model}} modell"
     },
     "image": {
       "cannotFindModel": "A képkatalógusból hiányzik az {{model}} modell",
-      "defaultModel": "Alapértelmezett modell",
+      "defaultModel": "Alapértelmezett képmodell",
       "gptImage25": "legjobb általános választás, éles szöveg, tiszta diagramok.",
-      "loadingLabel": "Az alapértelmezett képbeállítások betöltése",
-      "loadingTitle": "Alapértelmezett képbeállítások",
+      "loadingLabel": "Képgenerálási beállítások betöltése",
+      "loadingTitle": "Képgenerálási beállítások",
       "modelTipLabel": "A képmodellekről",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -274,9 +266,9 @@
       "nanoBanana21": "gazdag, fotószerű jelenetek.",
       "samplePrompt": "Készítsen képet egy diákról, aki keményen tanul az Anki-val, és sikeresen teljesíti a teszteket.",
       "saveError": "Nem sikerült menteni a kép alapértelmezett beállításait",
-      "subtitle": "Az Smart Fields kép által használt modell, hacsak egy mező nem rögzíti a sajátját.",
-      "title": "Alapértelmezett képbeállítások",
-      "zImageTurbo": "leggyorsabb és legolcsóbb."
+      "title": "Képgenerálási beállítások",
+      "zImageTurbo": "leggyorsabb és legolcsóbb.",
+      "defaultModelTip": "A Smart Fields képgenerálásnál alapértelmezés szerint ezt a modellt használják. Ha megváltoztatja, az alapértelmezést használó összes Smart Field azonnal frissül. Bármelyik Smart Field felülírhatja saját modelljével."
     },
     "layout": {
       "save": "Mentés",
@@ -284,28 +276,14 @@
       "tryIt": "Próbáld ki"
     },
     "text": {
-      "cannotInheritModel": "A szöveges alapértelmezések nem örökölhetnek másik modellt",
       "defaultModel": "Alapértelmezett szövegmodell",
-      "defaultReasoningLevel": "Alapértelmezett érvelési szint",
-      "enableWebSearch": "Webes keresés engedélyezése",
-      "higherReasoning": "A magasabb érvelés javíthatja a keményebb generációkat, de több kreditet használ fel.",
-      "loadingLabel": "Alapértelmezett szövegbeállítások betöltése",
+      "loadingLabel": "Szöveggenerálási beállítások betöltése",
       "loadingTitle": "Szöveggenerálási beállítások",
-      "modelGuidance": "Az {{auto}} és az {{autoMax}} az Smart Notes által ajánlott modellek, amelyek egyensúlyban tartják a teljesítményt és a költségeket. A normál feladatokhoz válassza az {{auto}} lehetőséget, és szükség esetén frissítsen {{autoMax}}-ra.",
-      "pickingModel": "Modell kiválasztása",
-      "reasoningLevel": "Érvelési szint",
-      "reasoningValues": {
-        "high": "Magas",
-        "low": "Alacsony",
-        "off": "Le"
-      },
       "samplePrompt": "Mi az a térközös ismétlési rendszer (SRS)?",
       "saveError": "Nem sikerült menteni az alapértelmezett szöveges beállításokat",
-      "subtitle": "A szöveggenerálás alapértelmezett beállításai. Az egyes Smart Fields felülírhatja ezeket az értékeket.",
       "title": "Szöveggenerálási beállítások",
-      "webSearch": "Webes keresés",
-      "webSearchDescription": "Hagyja, hogy a szöveges generációk friss információkat szerezzenek be az internetről.",
-      "webSearchWarning": "A keresés költséges; figyeld a kreditjeidet."
+      "defaultModelTip": "A Smart Fields alapértelmezés szerint ezt a modellt használják. Ha megváltoztatja, az alapértelmezést használó összes Smart Field azonnal frissül. Bármelyik Smart Field felülírhatja saját modelljével.",
+      "defaultModelTipLabel": "Az alapértelmezett szövegmodell"
     },
     "usage": {
       "fields_one": "Az {{count}} mezőre vonatkozik",
@@ -324,14 +302,16 @@
         "provider": "Szolgáltató"
       },
       "filterVoices": "Hangok szűrése",
-      "loadingLabel": "Az alapértelmezett hangbeállítások betöltése",
-      "loadingTitle": "Alapértelmezett hangbeállítások",
+      "loadingLabel": "Hangbeállítások betöltése",
+      "loadingTitle": "Hangbeállítások",
       "noVoices": "Egyetlen hang sem felel meg ezeknek a szűrőknek.",
       "saveError": "Nem sikerült menteni az alapértelmezett hangbeállításokat",
       "searchPlaceholder": "Hangok keresése…",
       "searchVoices": "Hangok keresése",
-      "subtitle": "A hang, amelyet a TTS Smart Fields használ, hacsak egy mező nem rögzíti a sajátját.",
-      "title": "Alapértelmezett hangbeállítások"
+      "title": "Hangbeállítások",
+      "defaultVoice": "Alapértelmezett hang",
+      "defaultVoiceTip": "Hanggenerálásnál a Smart Fields alapértelmezés szerint ezt a hangot használják. Ha megváltoztatja, az alapértelmezést használó összes Smart Field azonnal frissül. Bármelyik Smart Field felülírhatja saját hangjával.",
+      "defaultVoiceTipLabel": "Az alapértelmezett hang"
     }
   },
   "imageGeneration": {
@@ -531,5 +511,30 @@
     "thanks": "Köszönjük, hogy a Smart Notes-t használod",
     "title": "Az ingyenes próbaidőszak véget ért",
     "upgradeNow": "Frissítsen most"
+  },
+  "intelligence": {
+    "advancedOptions": "Speciális beállítások",
+    "autoCostRange": "{{min}}–{{max}}× költség",
+    "autoDescription": "Az intelligencia és az ár tekintetében legjobban teljesítő modellek, rendszeresen frissítve.",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "Auto · {{level}}",
+    "label": "Intelligencia",
+    "levels": {
+      "high": "Magas",
+      "max": "Maximális",
+      "standard": "Standard"
+    },
+    "specificModel": "Konkrét modell használata",
+    "specificModelWarning": "A konkrét modellek általában jóval többe kerülnek, mint az Auto.",
+    "tipIntro": "Kezdje a Standarddal, és csak akkor lépjen feljebb, ha az eredmények nem elég jók.",
+    "tipLabel": "Az intelligenciaszintekről",
+    "veryHighCost": "Nagyon magas költség",
+    "webSearch": "Webes keresés",
+    "webSearchDescription": "Engedje, hogy a modell friss információkat keressen az interneten. Csak akkor kapcsolja be, ha valóban szükséges.",
+    "tips": {
+      "high": "A <level>Magas</level> szint a haladóbb nyelvtanhoz való.",
+      "max": "A <level>Maximális</level> szint a bonyolult anyagokhoz való, amelyeket a Magas nem tud kezelni.",
+      "standard": "A <level>Standard</level> szint a fordításokhoz és példamondatokhoz a legalkalmasabb."
+    }
   }
 }

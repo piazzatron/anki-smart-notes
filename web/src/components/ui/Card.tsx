@@ -31,9 +31,7 @@ export const Card = ({
   children,
   className = "",
 }: CardProps) => (
-  <Component
-    className={`rounded-xl border border-white/[0.03] bg-white/[0.025] ${className}`}
-  >
+  <Component className={`rounded-xl bg-white/[0.05] ${className}`}>
     {children}
   </Component>
 )

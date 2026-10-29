@@ -44,14 +44,14 @@ const MockPanel = ({ onOpenEditor }: MockPanelProps) => {
 
   return (
     <aside className="fixed right-3 bottom-3 z-50 w-48 rounded-lg border border-indigo/25 bg-panel-raised/95 p-2.5 shadow-2xl shadow-black/60">
-      <div className="mb-2 flex items-center gap-1.5 text-[10px] font-semibold tracking-wide text-indigo-soft uppercase">
+      <div className="mb-2 flex items-center gap-1.5 text-[11px] font-semibold tracking-wide text-indigo-soft uppercase">
         <FlaskConical aria-hidden className="size-3.5" />
         Mock state
       </div>
-      <label className="block text-[9px] font-semibold tracking-wide text-ink-faint uppercase">
+      <label className="block text-[11px] font-semibold tracking-wide text-ink-faint uppercase">
         Fixture
         <select
-          className="mt-1 w-full rounded border border-white/[0.08] bg-panel px-2 py-1.5 text-[10px] font-normal tracking-normal text-zinc-300 normal-case outline-none focus:border-indigo/50"
+          className="mt-1 w-full rounded border border-white/[0.08] bg-panel px-2 py-1.5 text-[11px] font-normal tracking-normal text-zinc-300 normal-case outline-none focus:border-indigo/50"
           onChange={(event) => {
             setActiveFixture(event.target.value)
             setMockFixture(event.target.value)
@@ -66,13 +66,13 @@ const MockPanel = ({ onOpenEditor }: MockPanelProps) => {
         </select>
       </label>
       <div className="mt-2 border-t border-white/[0.07] pt-2">
-        <p className="mb-1.5 text-[9px] font-semibold tracking-wide text-ink-faint uppercase">
+        <p className="mb-1.5 text-[11px] font-semibold tracking-wide text-ink-faint uppercase">
           Browser selection
         </p>
         <div className="grid grid-cols-3 gap-1">
           {SELECTIONS.map((selection) => (
             <button
-              className={`rounded px-1 py-1.5 text-[9px] transition ${
+              className={`rounded px-1 py-1.5 text-[11px] transition ${
                 selection.id === activeSelection
                   ? "bg-indigo/20 text-indigo-soft"
                   : "bg-white/[0.035] text-zinc-400 hover:bg-white/[0.065]"
@@ -90,10 +90,10 @@ const MockPanel = ({ onOpenEditor }: MockPanelProps) => {
       </div>
       <div className="mt-2 border-t border-white/[0.07] pt-2">
         <div className="mb-1.5 flex items-center justify-between gap-2">
-          <p className="text-[9px] font-semibold tracking-wide text-ink-faint uppercase">
+          <p className="text-[11px] font-semibold tracking-wide text-ink-faint uppercase">
             Field editor
           </p>
-          <label className="flex items-center gap-1 text-[9px] text-zinc-500">
+          <label className="flex items-center gap-1 text-[11px] text-zinc-500">
             Step
             <select
               className="rounded border border-white/[0.08] bg-panel px-1 py-0.5 text-zinc-300 outline-none focus:border-indigo/50"
@@ -111,7 +111,7 @@ const MockPanel = ({ onOpenEditor }: MockPanelProps) => {
         <div className="grid grid-cols-3 gap-1">
           {(["create", "edit", "duplicate"] as const).map((mode) => (
             <button
-              className="rounded bg-white/[0.035] px-1 py-1.5 text-[9px] text-zinc-400 capitalize transition hover:bg-white/[0.065]"
+              className="rounded bg-white/[0.035] px-1 py-1.5 text-[11px] text-zinc-400 capitalize transition hover:bg-white/[0.065]"
               key={mode}
               onClick={() => onOpenEditor({ mode, step: editorStep })}
             >

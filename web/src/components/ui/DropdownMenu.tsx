@@ -31,7 +31,7 @@ export const DropdownMenuContent = forwardRef<
 >(({ className = "", sideOffset = 4, ...props }, ref) => (
   <DropdownMenuPrimitive.Portal>
     <DropdownMenuPrimitive.Content
-      className={`z-20 min-w-40 rounded-lg border border-white/10 bg-panel-raised p-1 shadow-2xl shadow-black/50 ${className}`}
+      className={`z-20 min-w-40 rounded-xl bg-panel-raised p-1 shadow-2xl shadow-black/50 ${className}`}
       ref={ref}
       sideOffset={sideOffset}
       {...props}
@@ -45,7 +45,7 @@ export const DropdownMenuItem = forwardRef<
   ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item>
 >(({ className = "", ...props }, ref) => (
   <DropdownMenuPrimitive.Item
-    className={`w-full cursor-pointer rounded px-2.5 py-1.5 text-start text-xs text-zinc-300 outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-45 data-[highlighted]:bg-white/[0.07] ${className}`}
+    className={`w-full cursor-pointer rounded-lg px-3 py-2 text-start text-sm text-zinc-200 outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-45 data-[highlighted]:bg-white/[0.07] ${className}`}
     ref={ref}
     {...props}
   />

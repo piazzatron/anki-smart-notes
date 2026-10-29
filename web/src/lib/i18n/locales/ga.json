@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "Gach Deasc",
     "auto": "Auto",
-    "autoMax": "Auto MAX",
     "back": "Ar ais",
-    "bestValueCost": "Luach is Fearr, 0.3 × costas",
     "cancel": "Cealaigh",
     "close": "Dún",
     "connection": {
@@ -60,6 +58,7 @@
     "validFields": "Réimsí bailí:"
   },
   "sidebar": {
+    "defaults": "Réamhshocraithe",
     "discord": "Discord",
     "feedback": "Aiseolas",
     "nav": {
@@ -173,18 +172,12 @@
       "loadingVoices": "Guthanna á lódáil…",
       "model": "Múnla",
       "pickCustom": "Roghnaigh múnla saincheaptha don réimse seo",
-      "reasoning": "réasúnaíocht {{level}}",
-      "reasoningHint": "Is féidir le réasúnaíocht níos airde feabhas a chur ar na glúine níos deacra, ach úsáideann níos mó creidmheasanna.",
-      "reasoningLevel": "Leibhéal réasúnaíochta",
       "sharedByEveryField": "Tá do {{modality}} roinnte ag gach Smart Field a úsáideann é. Athraigh isteach é",
       "textDefault": "réamhshocraithe téacs",
-      "textModel": "Múnla téacs",
       "useMy": "Bain úsáid as mo {{modality}}",
-      "useWebSearch": "Úsáid cuardach gréasáin don réimse seo",
       "voice": "Guth",
       "voiceDefault": "réamhshocraithe guth",
-      "webSearch": "Cuardach Gréasáin",
-      "webSearchHint": "Lig don réimse seo faisnéis úr a úsáid ón ngréasán."
+      "webSearch": "Cuardach Gréasáin"
     },
     "save": "Sábháil Smart Field",
     "sections": {
@@ -260,15 +253,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "Tá múnla {{model}} in easnamh ar chatalóg comhrá",
       "missingImageModel": "Tá samhail {{model}} in easnamh ar chatalóg na n-íomhánna"
     },
     "image": {
       "cannotFindModel": "Tá samhail {{model}} in easnamh ar chatalóg na n-íomhánna",
-      "defaultModel": "Múnla réamhshocraithe",
+      "defaultModel": "Múnla Íomhá Réamhshocraithe",
       "gptImage25": "an rogha is fearr ar fad — téacs géar, léaráidí glana.",
-      "loadingLabel": "Socruithe Réamhshocraithe Íomhá á Luchtú",
-      "loadingTitle": "Socruithe Réamhshocraithe Íomhá",
+      "loadingLabel": "Socruithe Giniúna Íomhá á Lódáil",
+      "loadingTitle": "Socruithe Giniúna Íomhá",
       "modelTipLabel": "Faoi na samhlacha íomhá",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -277,9 +269,9 @@
       "nanoBanana21": "radharcanna saibhre, grianghrafadóireachta.",
       "samplePrompt": "Gin íomhá de dhalta atá ag staidéar go dian le Anki agus ag dul thar a gcuid trialacha.",
       "saveError": "Níorbh fhéidir réamhshocruithe na híomhá a shábháil",
-      "subtitle": "Úsáid múnla d’íomhá Smart Fields mura n-úsáideann páirc a chuid féin.",
-      "title": "Socruithe Réamhshocraithe Íomhá",
-      "zImageTurbo": "is tapúla agus is saoire."
+      "title": "Socruithe Giniúna Íomhá",
+      "zImageTurbo": "is tapúla agus is saoire.",
+      "defaultModelTip": "Úsáideann Image Smart Fields an múnla seo de réir réamhshocraithe. Nuashonraítear gach Smart Field a úsáideann an réamhshocrú nuair a athraíonn tú é. Is féidir le Smart Field ar bith a mhúnla féin a shocrú in ionad an réamhshocraithe."
     },
     "layout": {
       "save": "Sábháil",
@@ -287,28 +279,14 @@
       "tryIt": "Bain triail as"
     },
     "text": {
-      "cannotInheritModel": "Ní féidir le réamhshocrú téacs a bheith mar oidhreacht ag samhail eile",
       "defaultModel": "Múnla Téacs Réamhshocraithe",
-      "defaultReasoningLevel": "Leibhéal réasúnaíochta réamhshocraithe",
-      "enableWebSearch": "Cumasaigh Cuardach Gréasáin",
-      "higherReasoning": "Is féidir le réasúnaíocht níos airde feabhas a chur ar na glúine níos deacra, ach úsáideann níos mó creidmheasanna.",
-      "loadingLabel": "Socruithe Téacs Réamhshocraithe á Luchtú",
+      "loadingLabel": "Socruithe Giniúna Téacs á Lódáil",
       "loadingTitle": "Socruithe Giniúint Téacs",
-      "modelGuidance": "Is iad {{auto}} agus {{autoMax}} na samhlacha molta Smart Notes a chothromaíonn feidhmíocht agus costas. Roghnaigh {{auto}} le haghaidh tascanna caighdeánacha agus uasghrádú go {{autoMax}} más gá.",
-      "pickingModel": "Ag roghnú samhail",
-      "reasoningLevel": "Leibhéal réasúnaíochta",
-      "reasoningValues": {
-        "high": "Ard",
-        "low": "Íseal",
-        "off": "as"
-      },
       "samplePrompt": "Cad is Córas Athrá Spásáilte (SRS) ann?",
       "saveError": "Níorbh fhéidir na réamhshocruithe téacs a shábháil",
-      "subtitle": "Socruithe réamhshocraithe do ghiniúint téacs. Is féidir le Smart Fields aonair na luachanna seo a shárú.",
       "title": "Socruithe Giniúint Téacs",
-      "webSearch": "Cuardach Gréasáin",
-      "webSearchDescription": "Lig do ghlúine téacs faisnéis úr a tharraingt isteach ón ngréasán.",
-      "webSearchWarning": "Tá cuardach daor; monitor do chreidiúintí."
+      "defaultModelTip": "Úsáideann Smart Fields an múnla seo de réir réamhshocraithe. Nuashonraítear gach Smart Field a úsáideann an réamhshocrú nuair a athraíonn tú é. Is féidir le Smart Field ar bith a mhúnla féin a shocrú in ionad an réamhshocraithe.",
+      "defaultModelTipLabel": "Maidir leis an múnla téacs réamhshocraithe"
     },
     "usage": {
       "fields_one": "Baineann sé seo le réimse {{count}}",
@@ -330,14 +308,16 @@
         "provider": "Soláthraí"
       },
       "filterVoices": "Scag guthanna",
-      "loadingLabel": "Socruithe Gutha Réamhshocraithe á Luchtú",
-      "loadingTitle": "Socruithe Gutha Réamhshocraithe",
+      "loadingLabel": "Socruithe Gutha á Lódáil",
+      "loadingTitle": "Socruithe Gutha",
       "noVoices": "Ní mheaitseálann guthanna na scagairí seo.",
       "saveError": "Níorbh fhéidir réamhshocruithe gutha a shábháil",
       "searchPlaceholder": "Cuardaigh guthanna…",
       "searchVoices": "Cuardaigh guthanna",
-      "subtitle": "An guth a úsáideann do TTS Smart Fields ach amháin má luíonn réimse a chuid féin.",
-      "title": "Socruithe Gutha Réamhshocraithe"
+      "title": "Socruithe Gutha",
+      "defaultVoice": "Guth Réamhshocraithe",
+      "defaultVoiceTip": "Úsáideann Voice Smart Fields an guth seo de réir réamhshocraithe. Nuashonraítear gach Smart Field a úsáideann an réamhshocrú nuair a athraíonn tú é. Is féidir le Smart Field ar bith a guth féin a shocrú in ionad an réamhshocraithe.",
+      "defaultVoiceTipLabel": "Maidir leis an nguth réamhshocraithe"
     }
   },
   "imageGeneration": {
@@ -561,5 +541,30 @@
     "thanks": "Go raibh maith agat as Smart Notes a úsáid",
     "title": "Tá deireadh le do thriail saor in aisce",
     "upgradeNow": "Uasghrádaigh anois"
+  },
+  "intelligence": {
+    "advancedOptions": "Roghanna casta",
+    "autoCostRange": "Costas {{min}}–{{max}}×",
+    "autoDescription": "Na múnlaí is fearr ó thaobh intleachta agus praghais, nuashonraithe go rialta.",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "Auto · {{level}}",
+    "label": "Intleacht",
+    "levels": {
+      "high": "Ard",
+      "max": "Uasta",
+      "standard": "Caighdeánach"
+    },
+    "specificModel": "Úsáid múnla ar leith",
+    "specificModelWarning": "Is iondúil go gcosnaíonn múnlaí ar leith i bhfad níos mó ná Auto.",
+    "tipIntro": "Tosaigh le Caighdeánach, agus ná bog suas ach amháin mura bhfuil na torthaí maith go leor.",
+    "tipLabel": "Maidir le leibhéil intleachta",
+    "veryHighCost": "Costas an-ard",
+    "webSearch": "Cuardach Gréasáin",
+    "webSearchDescription": "Lig don mhúnla faisnéis nua a fháil ón ngréasán. Fágtar as seo mura bhfuil sé de dhíth go mór.",
+    "tips": {
+      "high": "Is don ghramadach níos casta atá <level>Ard</level>.",
+      "max": "Is le haghaidh ábhar casta é <level>Max</level> nach bhfuil High in ann a láimhseáil.",
+      "standard": "Is fearr <level>Caighdeánach</level> le haistriúcháin agus abairtí samplacha."
+    }
   }
 }

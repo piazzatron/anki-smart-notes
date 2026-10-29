@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "Totes los ponts",
     "auto": "Auto",
-    "autoMax": "Auto MAX",
     "back": "Arrièr",
-    "bestValueCost": "Lo melhor valor, 0,3× còst",
     "cancel": "Anullar",
     "close": "Barrar",
     "connection": {
@@ -56,6 +54,7 @@
     "validFields": "Camps valids :"
   },
   "sidebar": {
+    "defaults": "Per defaut",
     "discord": "Discord",
     "feedback": "Retorn",
     "nav": {
@@ -169,18 +168,12 @@
       "loadingVoices": "En cargament de votz...",
       "model": "Modèl",
       "pickCustom": "Causissètz un modèl personalizat per aqueste camp",
-      "reasoning": "{{level}} rasonament",
-      "reasoningHint": "Un rasonament mai naut pòt melhorar de generacions mai dificilas, mas utiliza mai de crèdits.",
-      "reasoningLevel": "Nivèl de rasonament",
       "sharedByEveryField": "Vòstre {{modality}} es partejat per cada Smart Field que l'utiliza. Cambiatz-lo en",
       "textDefault": "tèxte per defaut",
-      "textModel": "Modèl de tèxte",
       "useMy": "Utiliza mon {{modality}}",
-      "useWebSearch": "Utilizar la recèrca web per aqueste camp",
       "voice": "Votz",
       "voiceDefault": "votz per defaut",
-      "webSearch": "Recèrca web",
-      "webSearchHint": "Daissatz aqueste camp utilizar d'informacions novèlas del web."
+      "webSearch": "Recèrca web"
     },
     "save": "Salvar Smart Field",
     "sections": {
@@ -256,15 +249,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "Manca lo catalòg de chat lo modèl {{model}}",
       "missingImageModel": "Lo catalòg d'imatges manca lo modèl {{model}}"
     },
     "image": {
       "cannotFindModel": "Lo catalòg d'imatges manca lo modèl {{model}}",
-      "defaultModel": "Modèl per defaut",
+      "defaultModel": "Modèl d'imatge per defaut",
       "gptImage25": "lo melhor per a tot — tèxte net, esquemas clars.",
-      "loadingLabel": "En cargament dels paramètres d'imatge per defaut",
-      "loadingTitle": "Paramètres d'imatge per defaut",
+      "loadingLabel": "Cargament dels paramètres de generacion d'imatges",
+      "loadingTitle": "Paramètres de generacion d'imatges",
       "modelTipLabel": "A prepaus dels modèls d'imatge",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -273,9 +265,9 @@
       "nanoBanana21": "scènas riches, fotografiques.",
       "samplePrompt": "Generar una imatge d'un escolans qu'estudia fòrça amb Anki e que passa sos tèsts.",
       "saveError": "Impossible d'enregistrar las valors per defaut de l'imatge",
-      "subtitle": "Lo modèl que vòstra imatge Smart Fields utilizatz levat se un camp fixa lo sieu.",
-      "title": "Paramètres d'imatge per defaut",
-      "zImageTurbo": "lo mai rapid e lo mai economic."
+      "title": "Paramètres de generacion d'imatges",
+      "zImageTurbo": "lo mai rapid e lo mai economic.",
+      "defaultModelTip": "Los Smart Fields d'imatge utilizan aqueste modèl per defaut. Lo modificar actualiza cada Smart Field que utiliza lo defaut. Qualque Smart Field pot lo remplaçar amb son pròpri modèl."
     },
     "layout": {
       "save": "Enregistrar",
@@ -283,28 +275,14 @@
       "tryIt": "Ensajatz-lo"
     },
     "text": {
-      "cannotInheritModel": "Los paramètres de tèxte pòdon pas eiretar un autre modèl",
       "defaultModel": "Modèl de tèxte per defaut",
-      "defaultReasoningLevel": "Nivèl de rasonament per defaut",
-      "enableWebSearch": "Activar la recèrca web",
-      "higherReasoning": "Un rasonament mai naut pòt melhorar de generacions mai dificilas, mas utiliza mai de crèdits.",
-      "loadingLabel": "En cargament dels paramètres de tèxte per defaut",
+      "loadingLabel": "Cargament dels paramètres de generacion de tèxte",
       "loadingTitle": "Paramètres de generacion de tèxte",
-      "modelGuidance": "{{auto}} e {{autoMax}} son los modèls recomandats per Smart Notes qu'equilibran lo rendiment e lo còst. Causissètz {{auto}} per las tòcas estandard e metètz a jorn a {{autoMax}} se necessari.",
-      "pickingModel": "Causir un modèl",
-      "reasoningLevel": "Nivèl de rasonament",
-      "reasoningValues": {
-        "high": "Naut",
-        "low": "Bas",
-        "off": "Desactivat"
-      },
       "samplePrompt": "Qu es un Sistema de Repeticion Espaciada (SRS)?",
       "saveError": "Impossible d'enregistrar los tèxtes per defaut",
-      "subtitle": "Paramètres per defaut per la generacion de tèxte. Smart Fields individual pòt substituir aquelas valors.",
       "title": "Paramètres de generacion de tèxte",
-      "webSearch": "Recèrca web",
-      "webSearchDescription": "Daissar las generacions de tèxte tirar d'informacions novèlas del web.",
-      "webSearchWarning": "La recèrca es cara; seguissètz vòstres crèdits."
+      "defaultModelTip": "Los Smart Fields utilizan aqueste modèl per defaut. Lo modificar actualiza cada Smart Field que utiliza lo defaut. Qualque Smart Field pot lo remplaçar amb son pròpri modèl.",
+      "defaultModelTipLabel": "A prepaus del modèl de tèxte per defaut"
     },
     "usage": {
       "fields_other": "S'aplica als camps {{count}}"
@@ -322,14 +300,16 @@
         "provider": "Provesidor"
       },
       "filterVoices": "Votz de filtratge",
-      "loadingLabel": "En cargament dels paramètres de votz per defaut",
-      "loadingTitle": "Paramètres de votz per defaut",
+      "loadingLabel": "Cargament dels paramètres de la votz",
+      "loadingTitle": "Paramètres de la votz",
       "noVoices": "Cap de votz correspond pas a aquestes filtres.",
       "saveError": "Impossible d'enregistrar las valors per defaut de la votz",
       "searchPlaceholder": "Cercar de vòces…",
       "searchVoices": "Votz de recèrca",
-      "subtitle": "La votz que vòstre TTS Smart Fields utiliza levat qu'un camp fixe lo sieu.",
-      "title": "Paramètres de votz per defaut"
+      "title": "Paramètres de la votz",
+      "defaultVoice": "Votz per defaut",
+      "defaultVoiceTip": "Los Smart Fields de votz utilizan aquesta votz per defaut. Lo modificar actualiza cada Smart Field que utiliza lo defaut. Qualque Smart Field pot la remplaçar amb sa pròpria votz.",
+      "defaultVoiceTipLabel": "A prepaus de la votz per defaut"
     }
   },
   "imageGeneration": {
@@ -521,5 +501,30 @@
     "thanks": "Mercés d'utilizar Smart Notes",
     "title": "Vòstra espròva gratuita s'es acabada",
     "upgradeNow": "Metètz a jorn ara"
+  },
+  "intelligence": {
+    "advancedOptions": "Opcions avançadas",
+    "autoCostRange": "{{min}}–{{max}}× lo cost",
+    "autoDescription": "Los modèls amb los melhors resultats per l'intelligéncia e lo prèu, mesa a jorn regularament.",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "Auto · {{level}}",
+    "label": "Intelligéncia",
+    "levels": {
+      "high": "Naut",
+      "max": "Maximum",
+      "standard": "Estandard"
+    },
+    "specificModel": "Utilizar un modèl especific",
+    "specificModelWarning": "Los modèls especifics costan generalament plan mai que Auto.",
+    "tipIntro": "Començatz amb Estandard, e pujatz sonque se los resultats son pas pro bons.",
+    "tipLabel": "A prepaus dels nivèls d'intelligéncia",
+    "veryHighCost": "Cost fòrça naut",
+    "webSearch": "Recèrca web",
+    "webSearchDescription": "Deishatz lo modèl recuperar d'informacions recentas sus Internet. Lo laissar desactivat levat se vos n'avètz vertadièrament besoin.",
+    "tips": {
+      "high": "<level>Naut</level> es per una gramatica mai avançada.",
+      "max": "<level>Maximum</level> es per de matèria complicada que Naut pot pas gerir.",
+      "standard": "<level>Estandard</level> es lo melhor per las traduccions e las frasas d'exemple."
+    }
   }
 }

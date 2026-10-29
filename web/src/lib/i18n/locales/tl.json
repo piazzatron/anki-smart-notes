@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "Lahat ng Deck",
     "auto": "Auto",
-    "autoMax": "Auto MAX",
     "back": "Bumalik",
-    "bestValueCost": "Pinakamahusay na Halaga, 0.3x na halaga",
     "cancel": "Kanselahin",
     "close": "Isara",
     "connection": {
@@ -57,6 +55,7 @@
     "validFields": "Mga wastong field:"
   },
   "sidebar": {
+    "defaults": "Mga Default",
     "discord": "Discord",
     "feedback": "Feedback",
     "nav": {
@@ -170,18 +169,12 @@
       "loadingVoices": "Naglo-load ng mga boses…",
       "model": "Modelo",
       "pickCustom": "Pumili ng custom na modelo para sa field na ito",
-      "reasoning": "{{level}} pangangatwiran",
-      "reasoningHint": "Maaaring mapabuti ng mas mataas na pangangatwiran ang mas mahirap na henerasyon, ngunit gumagamit ng mas maraming kredito.",
-      "reasoningLevel": "Antas ng pangangatwiran",
       "sharedByEveryField": "Ang iyong {{modality}} ay ibinabahagi ng bawat Smart Field na gumagamit nito. Palitan ito",
       "textDefault": "default ng teksto",
-      "textModel": "Modelo ng teksto",
       "useMy": "Gamitin ang aking {{modality}}",
-      "useWebSearch": "Gamitin ang paghahanap sa web para sa field na ito",
       "voice": "Boses",
       "voiceDefault": "default ng boses",
-      "webSearch": "Paghahanap sa web",
-      "webSearchHint": "Hayaang gumamit ang field na ito ng sariwang impormasyon mula sa web."
+      "webSearch": "Paghahanap sa web"
     },
     "save": "I-save ang Smart Field",
     "sections": {
@@ -257,15 +250,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "Ang catalog ng chat ay walang modelong {{model}}",
       "missingImageModel": "Ang katalogo ng larawan ay walang modelong {{model}}"
     },
     "image": {
       "cannotFindModel": "Ang katalogo ng larawan ay walang modelong {{model}}",
-      "defaultModel": "Default na modelo",
+      "defaultModel": "Default na Modelo ng Larawan",
       "gptImage25": "pinakamahusay sa lahat — malinaw na teksto, malinis na diagram.",
-      "loadingLabel": "Nilo-load ang Default na Mga Setting ng Larawan",
-      "loadingTitle": "Default na Mga Setting ng Larawan",
+      "loadingLabel": "Naglo-load ng Mga Setting ng Paggawa ng Larawan",
+      "loadingTitle": "Mga Setting ng Paggawa ng Larawan",
       "modelTipLabel": "Tungkol sa mga image model",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -274,9 +266,9 @@
       "nanoBanana21": "mayayamang eksenang parang litrato.",
       "samplePrompt": "Bumuo ng larawan ng isang mag-aaral na nag-aaral nang mabuti gamit ang Anki at pumasa sa kanilang mga pagsusulit.",
       "saveError": "Hindi ma-save ang mga default na larawan",
-      "subtitle": "Ang modelong ginagamit ng iyong larawan na Smart Fields maliban kung ang isang field ay nag-pin ng sarili nitong.",
-      "title": "Default na Mga Setting ng Larawan",
-      "zImageTurbo": "pinakamabilis at pinakamura."
+      "title": "Mga Setting ng Paggawa ng Larawan",
+      "zImageTurbo": "pinakamabilis at pinakamura.",
+      "defaultModelTip": "Ginagamit ng Image Smart Fields ang modelong ito bilang default. Kapag binago ito, maa-update ang bawat Smart Field na gumagamit ng default. Maaaring i-override ng anumang Smart Field ito gamit ang sarili nitong modelo."
     },
     "layout": {
       "save": "I-save",
@@ -284,28 +276,14 @@
       "tryIt": "Subukan ito"
     },
     "text": {
-      "cannotInheritModel": "Ang mga default ng teksto ay hindi maaaring magmana ng isa pang modelo",
       "defaultModel": "Default na Modelo ng Teksto",
-      "defaultReasoningLevel": "Default na antas ng pangangatwiran",
-      "enableWebSearch": "Paganahin ang Paghahanap sa Web",
-      "higherReasoning": "Maaaring mapabuti ng mas mataas na pangangatwiran ang mas mahirap na henerasyon, ngunit gumagamit ng mas maraming kredito.",
-      "loadingLabel": "Nilo-load ang Default na Mga Setting ng Teksto",
+      "loadingLabel": "Naglo-load ng Mga Setting ng Paggawa ng Teksto",
       "loadingTitle": "Mga Setting ng Pagbuo ng Teksto",
-      "modelGuidance": "Ang {{auto}} at {{autoMax}} ay ang Smart Notes na inirerekomendang mga modelo na nagbabalanse sa performance at gastos. Piliin ang {{auto}} para sa mga karaniwang gawain at mag-upgrade sa {{autoMax}} kung kinakailangan.",
-      "pickingModel": "Pumipili ng model",
-      "reasoningLevel": "Antas ng pangangatwiran",
-      "reasoningValues": {
-        "high": "Mataas",
-        "low": "Mababa",
-        "off": "Naka-off"
-      },
       "samplePrompt": "Ano ang Spaced Repetition System (SRS)?",
       "saveError": "Hindi ma-save ang mga default ng text",
-      "subtitle": "Mga default na setting para sa pagbuo ng teksto. Maaaring i-override ng indibidwal na Smart Fields ang mga value na ito.",
       "title": "Mga Setting ng Pagbuo ng Teksto",
-      "webSearch": "Paghahanap sa Web",
-      "webSearchDescription": "Hayaan ang mga henerasyon ng text na kumuha ng bagong impormasyon mula sa web.",
-      "webSearchWarning": "Magastos ang paghahanap; bantayan ang iyong mga credit."
+      "defaultModelTip": "Ginagamit ng Smart Fields ang modelong ito bilang default. Kapag binago ito, maa-update ang bawat Smart Field na gumagamit ng default. Maaaring i-override ng anumang Smart Field ito gamit ang sarili nitong modelo.",
+      "defaultModelTipLabel": "Tungkol sa default na modelo ng teksto"
     },
     "usage": {
       "fields_one": "Nalalapat sa {{count}} field",
@@ -324,14 +302,16 @@
         "provider": "Provider"
       },
       "filterVoices": "Salain ang mga boses",
-      "loadingLabel": "Nilo-load ang Default na Mga Setting ng Boses",
-      "loadingTitle": "Default na Mga Setting ng Boses",
+      "loadingLabel": "Naglo-load ng Mga Setting ng Boses",
+      "loadingTitle": "Mga Setting ng Boses",
       "noVoices": "Walang boses na tumutugma sa mga filter na ito.",
       "saveError": "Hindi ma-save ang mga default ng boses",
       "searchPlaceholder": "Maghanap ng mga boses…",
       "searchVoices": "Maghanap ng mga boses",
-      "subtitle": "Ang boses na ginagamit ng iyong TTS Smart Fields maliban kung ang isang field ay naka-pin ng sarili nitong.",
-      "title": "Default na Mga Setting ng Boses"
+      "title": "Mga Setting ng Boses",
+      "defaultVoice": "Default na Boses",
+      "defaultVoiceTip": "Ginagamit ng Voice Smart Fields ang boses na ito bilang default. Kapag binago ito, maa-update ang bawat Smart Field na gumagamit ng default. Maaaring i-override ng anumang Smart Field ito gamit ang sarili nitong boses.",
+      "defaultVoiceTipLabel": "Tungkol sa default na boses"
     }
   },
   "imageGeneration": {
@@ -531,5 +511,30 @@
     "thanks": "Salamat sa paggamit ng Smart Notes",
     "title": "Natapos na ang iyong libreng pagsubok",
     "upgradeNow": "Mag-upgrade ngayon"
+  },
+  "intelligence": {
+    "advancedOptions": "Mga advanced na opsyon",
+    "autoCostRange": "Gastos na {{min}}–{{max}}×",
+    "autoDescription": "Ang pinakamahusay na modelo para sa talino at presyo, regular na ina-update.",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "Auto · {{level}}",
+    "label": "Talino",
+    "levels": {
+      "high": "Mataas",
+      "max": "Maximum",
+      "standard": "Karaniwan"
+    },
+    "specificModel": "Gumamit ng partikular na modelo",
+    "specificModelWarning": "Karaniwang mas mahal nang malaki ang mga partikular na modelo kaysa sa Auto.",
+    "tipIntro": "Magsimula sa Karaniwan, at lumipat lang sa mas mataas kung hindi sapat ang mga resulta.",
+    "tipLabel": "Tungkol sa mga antas ng talino",
+    "veryHighCost": "Napakataas na gastos",
+    "webSearch": "Paghahanap sa Web",
+    "webSearchDescription": "Hayaan ang modelo na kumuha ng bagong impormasyon mula sa web. Huwag itong i-on maliban kung talagang kailangan mo.",
+    "tips": {
+      "high": "<level>Mataas</level> ay para sa mas advanced na grammar.",
+      "max": "<level>Maximum</level> ay para sa kumplikadong materyal na hindi kayang hawakan ng Mataas.",
+      "standard": "<level>Karaniwan</level> ang pinakamainam para sa mga pagsasalin at halimbawang pangungusap."
+    }
   }
 }

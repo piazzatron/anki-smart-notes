@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "모든 덱",
     "auto": "자동",
-    "autoMax": "Auto MAX",
     "back": "뒤쪽에",
-    "bestValueCost": "최고의 가치, 0.3배 비용",
     "cancel": "취소",
     "close": "닫다",
     "connection": {
@@ -56,6 +54,7 @@
     "validFields": "유효한 필드:"
   },
   "sidebar": {
+    "defaults": "기본값",
     "discord": "Discord",
     "feedback": "피드백",
     "nav": {
@@ -169,18 +168,12 @@
       "loadingVoices": "음성 로드 중…",
       "model": "모델",
       "pickCustom": "이 필드에 대한 맞춤 모델을 선택하세요.",
-      "reasoning": "{{level}} 추론",
-      "reasoningHint": "더 높은 추론은 더 어려운 세대를 향상시킬 수 있지만 더 많은 크레딧을 사용합니다.",
-      "reasoningLevel": "추론 수준",
       "sharedByEveryField": "귀하의 {{modality}}는 이를 사용하는 모든 Smart Field에서 공유됩니다. 그것을 바꾸십시오",
       "textDefault": "텍스트 기본값",
-      "textModel": "텍스트 모델",
       "useMy": "내 {{modality}}를 사용하세요",
-      "useWebSearch": "이 필드에 대해 웹 검색을 사용하십시오.",
       "voice": "목소리",
       "voiceDefault": "음성 기본값",
-      "webSearch": "웹 검색",
-      "webSearchHint": "이 필드에서 웹의 최신 정보를 사용하도록 하세요."
+      "webSearch": "웹 검색"
     },
     "save": "저장하다 Smart Field",
     "sections": {
@@ -256,15 +249,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "채팅 카탈로그에 모델 {{model}}이(가) 없습니다.",
       "missingImageModel": "이미지 카탈로그에 모델 {{model}}이(가) 없습니다."
     },
     "image": {
       "cannotFindModel": "이미지 카탈로그에 모델 {{model}}이(가) 없습니다.",
-      "defaultModel": "기본 모델",
+      "defaultModel": "기본 이미지 모델",
       "gptImage25": "만능형 모델 — 선명한 텍스트, 깔끔한 다이어그램.",
-      "loadingLabel": "기본 이미지 설정 로드",
-      "loadingTitle": "기본 이미지 설정",
+      "loadingLabel": "이미지 생성 설정 불러오는 중",
+      "loadingTitle": "이미지 생성 설정",
       "modelTipLabel": "이미지 모델 정보",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -273,9 +265,9 @@
       "nanoBanana21": "풍부하고 사진 같은 장면.",
       "samplePrompt": "Anki로 열심히 공부하고 시험에 합격하는 학생의 이미지를 생성합니다.",
       "saveError": "이미지 기본값을 저장할 수 없습니다.",
-      "subtitle": "필드가 자체적으로 고정되지 않는 한 이미지 Smart Fields가 사용하는 모델입니다.",
-      "title": "기본 이미지 설정",
-      "zImageTurbo": "가장 빠르고 저렴합니다."
+      "title": "이미지 생성 설정",
+      "zImageTurbo": "가장 빠르고 저렴합니다.",
+      "defaultModelTip": "이미지 Smart Fields는 기본적으로 이 모델을 사용합니다. 모델을 변경하면 기본값을 사용하는 모든 Smart Field가 업데이트됩니다. 각 Smart Field는 자체 모델로 이 설정을 재정의할 수 있습니다."
     },
     "layout": {
       "save": "저장",
@@ -283,28 +275,14 @@
       "tryIt": "사용해 보세요"
     },
     "text": {
-      "cannotInheritModel": "텍스트 기본값은 다른 모델을 상속할 수 없습니다.",
       "defaultModel": "기본 텍스트 모델",
-      "defaultReasoningLevel": "기본 추론 수준",
-      "enableWebSearch": "웹 검색 활성화",
-      "higherReasoning": "더 높은 추론은 더 어려운 세대를 향상시킬 수 있지만 더 많은 크레딧을 사용합니다.",
-      "loadingLabel": "기본 텍스트 설정 로드",
+      "loadingLabel": "텍스트 생성 설정 불러오는 중",
       "loadingTitle": "텍스트 생성 설정",
-      "modelGuidance": "{{auto}} 및 {{autoMax}}는 성능과 비용의 균형을 맞춘 Smart Notes 권장 모델입니다. 표준 작업의 경우 {{auto}}를 선택하고 필요한 경우 {{autoMax}}로 업그레이드하세요.",
-      "pickingModel": "모델 선택 중",
-      "reasoningLevel": "추론 수준",
-      "reasoningValues": {
-        "high": "높은",
-        "low": "낮은",
-        "off": "끄다"
-      },
       "samplePrompt": "간격 반복 시스템(SRS)이란 무엇입니까?",
       "saveError": "텍스트 기본값을 저장할 수 없습니다.",
-      "subtitle": "텍스트 생성을 위한 기본 설정입니다. 개별 Smart Fields는 이러한 값을 재정의할 수 있습니다.",
       "title": "텍스트 생성 설정",
-      "webSearch": "웹 검색",
-      "webSearchDescription": "텍스트 세대가 웹에서 새로운 정보를 가져오도록 하세요.",
-      "webSearchWarning": "검색은 비용이 많이 듭니다. 크레딧을 확인하세요."
+      "defaultModelTip": "Smart Fields는 기본적으로 이 모델을 사용합니다. 모델을 변경하면 기본값을 사용하는 모든 Smart Field가 업데이트됩니다. 각 Smart Field는 자체 모델로 이 설정을 재정의할 수 있습니다.",
+      "defaultModelTipLabel": "기본 텍스트 모델 정보"
     },
     "usage": {
       "fields_other": "{{count}} 필드에 적용됩니다."
@@ -322,14 +300,16 @@
         "provider": "공급자"
       },
       "filterVoices": "음성 필터링",
-      "loadingLabel": "기본 음성 설정 로드 중",
-      "loadingTitle": "기본 음성 설정",
+      "loadingLabel": "음성 설정 불러오는 중",
+      "loadingTitle": "음성 설정",
       "noVoices": "이 필터와 일치하는 음성이 없습니다.",
       "saveError": "음성 기본값을 저장할 수 없습니다.",
       "searchPlaceholder": "음성 검색…",
       "searchVoices": "음성 검색",
-      "subtitle": "필드가 자체적으로 고정되지 않는 한 TTS Smart Fields가 사용하는 음성입니다.",
-      "title": "기본 음성 설정"
+      "title": "음성 설정",
+      "defaultVoice": "기본 음성",
+      "defaultVoiceTip": "음성 Smart Fields는 기본적으로 이 음성을 사용합니다. 음성을 변경하면 기본값을 사용하는 모든 Smart Field가 업데이트됩니다. 각 Smart Field는 자체 음성으로 이 설정을 재정의할 수 있습니다.",
+      "defaultVoiceTipLabel": "기본 음성 정보"
     }
   },
   "imageGeneration": {
@@ -521,5 +501,30 @@
     "thanks": "Smart Notes를 사용해 주셔서 감사합니다",
     "title": "무료 평가판이 종료되었습니다",
     "upgradeNow": "지금 업그레이드"
+  },
+  "intelligence": {
+    "advancedOptions": "고급 옵션",
+    "autoCostRange": "{{min}}–{{max}}× 비용",
+    "autoDescription": "지능과 가격 면에서 가장 성능이 좋은 모델을 정기적으로 업데이트합니다.",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "Auto · {{level}}",
+    "label": "지능",
+    "levels": {
+      "high": "높음",
+      "max": "최대",
+      "standard": "표준"
+    },
+    "specificModel": "특정 모델 사용",
+    "specificModelWarning": "특정 모델은 보통 Auto보다 비용이 훨씬 많이 듭니다.",
+    "tipIntro": "표준으로 시작하고, 결과가 충분하지 않을 때만 높은 단계로 올리세요.",
+    "tipLabel": "지능 단계 정보",
+    "veryHighCost": "매우 높은 비용",
+    "webSearch": "웹 검색",
+    "webSearchDescription": "모델이 웹에서 최신 정보를 가져오도록 합니다. 정말 필요하지 않다면 끄세요.",
+    "tips": {
+      "high": "<level>높음</level>은 더 고급 문법에 적합합니다.",
+      "max": "<level>최대</level>는 높음으로 처리하기 어려운 복잡한 자료에 적합합니다.",
+      "standard": "<level>표준</level>은 번역과 예문에 가장 적합합니다."
+    }
   }
 }

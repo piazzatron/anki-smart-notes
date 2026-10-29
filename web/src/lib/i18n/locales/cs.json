@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "Všechny paluby",
     "auto": "Auto",
-    "autoMax": "Auto MAX",
     "back": "Zadní",
-    "bestValueCost": "Nejlepší hodnota, 0,3× náklady",
     "cancel": "Zrušit",
     "close": "Blízko",
     "connection": {
@@ -59,6 +57,7 @@
     "validFields": "Platná pole:"
   },
   "sidebar": {
+    "defaults": "Výchozí",
     "discord": "Discord",
     "feedback": "Zpětná vazba",
     "nav": {
@@ -172,18 +171,12 @@
       "loadingVoices": "Načítání hlasů…",
       "model": "Model",
       "pickCustom": "Vyberte vlastní model pro toto pole",
-      "reasoning": "Úvaha {{level}}",
-      "reasoningHint": "Vyšší uvažování může zlepšit těžší generace, ale používá více kreditů.",
-      "reasoningLevel": "Úroveň uvažování",
       "sharedByEveryField": "Váš {{modality}} sdílí každý Smart Field, který jej používá. Změňte to",
       "textDefault": "výchozí text",
-      "textModel": "Textový model",
       "useMy": "Použijte můj {{modality}}",
-      "useWebSearch": "Pro toto pole použijte vyhledávání na webu",
       "voice": "Hlas",
       "voiceDefault": "výchozí nastavení hlasu",
-      "webSearch": "vyhledávání na webu",
-      "webSearchHint": "Nechte toto pole používat čerstvé informace z webu."
+      "webSearch": "vyhledávání na webu"
     },
     "save": "Uložit Smart Field",
     "sections": {
@@ -259,15 +252,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "V katalogu chatu chybí model {{model}}",
       "missingImageModel": "V katalogu obrázků chybí model {{model}}"
     },
     "image": {
       "cannotFindModel": "V katalogu obrázků chybí model {{model}}",
-      "defaultModel": "Výchozí model",
+      "defaultModel": "Výchozí model pro obrázky",
       "gptImage25": "nejuniverzálnější volba — ostrý text, čisté diagramy.",
-      "loadingLabel": "Načítání výchozího nastavení obrázku",
-      "loadingTitle": "Výchozí nastavení obrázku",
+      "loadingLabel": "Načítání nastavení generování obrázků",
+      "loadingTitle": "Nastavení generování obrázků",
       "modelTipLabel": "O modelech pro obrázky",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -276,9 +268,9 @@
       "nanoBanana21": "bohaté, fotografické scény.",
       "samplePrompt": "Vytvořte si obrázek studenta, který pilně studuje se Anki a složí své testy.",
       "saveError": "Nepodařilo se uložit výchozí nastavení obrázku",
-      "subtitle": "Model, který váš obrázek používá Smart Fields, pokud pole nepřipíná své vlastní.",
-      "title": "Výchozí nastavení obrázku",
-      "zImageTurbo": "nejrychlejší a nejlevnější."
+      "title": "Nastavení generování obrázků",
+      "zImageTurbo": "nejrychlejší a nejlevnější.",
+      "defaultModelTip": "Smart Fields pro obrázky ve výchozím nastavení používají tento model. Změna se projeví u všech Smart Fields, které používají výchozí hodnotu. Každé Smart Field může použít vlastní model."
     },
     "layout": {
       "save": "Uložit",
@@ -286,28 +278,14 @@
       "tryIt": "Zkuste to"
     },
     "text": {
-      "cannotInheritModel": "Výchozí textové hodnoty nemohou zdědit jiný model",
       "defaultModel": "Výchozí textový model",
-      "defaultReasoningLevel": "Výchozí úroveň uvažování",
-      "enableWebSearch": "Povolit vyhledávání na webu",
-      "higherReasoning": "Vyšší uvažování může zlepšit těžší generace, ale používá více kreditů.",
-      "loadingLabel": "Načítání výchozího nastavení textu",
+      "loadingLabel": "Načítání nastavení generování textu",
       "loadingTitle": "Nastavení generování textu",
-      "modelGuidance": "{{auto}} a {{autoMax}} jsou doporučené modely Smart Notes, které vyvažují výkon a cenu. Pro standardní úlohy zvolte {{auto}} a v případě potřeby upgradujte na {{autoMax}}.",
-      "pickingModel": "Výběr modelu",
-      "reasoningLevel": "Úroveň uvažování",
-      "reasoningValues": {
-        "high": "Vysoký",
-        "low": "Nízký",
-        "off": "Vypnuto"
-      },
       "samplePrompt": "Co je systém s prostorovým opakováním (SRS)?",
       "saveError": "Výchozí text se nepodařilo uložit",
-      "subtitle": "Výchozí nastavení pro generování textu. Jednotlivé Smart Fields mohou tyto hodnoty přepsat.",
       "title": "Nastavení generování textu",
-      "webSearch": "Vyhledávání na webu",
-      "webSearchDescription": "Nechte generace textů čerpat čerstvé informace z webu.",
-      "webSearchWarning": "Vyhledávání je nákladné; sledujte své kredity."
+      "defaultModelTip": "Smart Fields ve výchozím nastavení používají tento model. Změna se projeví u všech Smart Fields, které používají výchozí hodnotu. Každé Smart Field může použít vlastní model.",
+      "defaultModelTipLabel": "O výchozím textovém modelu"
     },
     "usage": {
       "fields_one": "Platí pro {{count}} pole",
@@ -328,14 +306,16 @@
         "provider": "Poskytovatel"
       },
       "filterVoices": "Filtrujte hlasy",
-      "loadingLabel": "Načítání výchozího nastavení hlasu",
-      "loadingTitle": "Výchozí nastavení hlasu",
+      "loadingLabel": "Načítání nastavení hlasu",
+      "loadingTitle": "Nastavení hlasu",
       "noVoices": "Těmto filtrům neodpovídají žádné hlasy.",
       "saveError": "Výchozí nastavení hlasu nelze uložit",
       "searchPlaceholder": "Hledat hlasy…",
       "searchVoices": "Hledejte hlasy",
-      "subtitle": "Hlas, který váš TTS Smart Fields používá, pokud pole nepřipíná své vlastní.",
-      "title": "Výchozí nastavení hlasu"
+      "title": "Nastavení hlasu",
+      "defaultVoice": "Výchozí hlas",
+      "defaultVoiceTip": "Smart Fields pro hlas ve výchozím nastavení používají tento hlas. Změna se projeví u všech Smart Fields, které používají výchozí hodnotu. Každé Smart Field může použít vlastní hlas.",
+      "defaultVoiceTipLabel": "O výchozím hlasu"
     }
   },
   "imageGeneration": {
@@ -551,5 +531,30 @@
     "thanks": "Děkujeme, že používáte Smart Notes",
     "title": "Vaše bezplatná zkušební verze skončila",
     "upgradeNow": "Upgradujte nyní"
+  },
+  "intelligence": {
+    "advancedOptions": "Pokročilé možnosti",
+    "autoCostRange": "{{min}}–{{max}}× náklady",
+    "autoDescription": "Nejlepší modely z hlediska inteligence a ceny, pravidelně aktualizované.",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "Auto · {{level}}",
+    "label": "Inteligence",
+    "levels": {
+      "high": "Vysoká",
+      "max": "Maximální",
+      "standard": "Standardní"
+    },
+    "specificModel": "Použít konkrétní model",
+    "specificModelWarning": "Konkrétní modely obvykle stojí výrazně víc než Auto.",
+    "tipIntro": "Začněte se Standardní úrovní a přejděte výš, jen pokud výsledky nejsou dostatečné.",
+    "tipLabel": "O úrovních inteligence",
+    "veryHighCost": "Velmi vysoké náklady",
+    "webSearch": "Vyhledávání na webu",
+    "webSearchDescription": "Nechte model načítat aktuální informace z webu. Nechte tuto možnost vypnutou, pokud ji opravdu nepotřebujete.",
+    "tips": {
+      "high": "<level>Vysoká</level> je určena pro pokročilejší gramatiku.",
+      "max": "<level>Maximální</level> je určena pro složitý obsah, se kterým si úroveň Vysoká neporadí.",
+      "standard": "<level>Standardní</level> je nejlepší pro překlady a ukázkové věty."
+    }
   }
 }

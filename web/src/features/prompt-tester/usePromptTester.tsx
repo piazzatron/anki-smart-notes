@@ -27,6 +27,7 @@ import {
   isSwitchOn,
 } from "@/features/image-generation/imageModelFamilies"
 
+import { chatModelLabel } from "@/features/text-generation/intelligence"
 import { modelLabel } from "@/lib/catalog"
 import { errorMessage } from "@/lib/errors"
 import {
@@ -435,7 +436,13 @@ const getProvenance = (args: PromptTesterArgs): Provenance => {
       : family.switches
           .filter((key) => isSwitchOn(family, model, key))
           .map((key) => i18next.t(IMAGE_MODEL_SWITCHES[key].label))
-  return { extras, primary: modelLabel(model) }
+  return {
+    extras,
+    primary:
+      args.fieldType === "chat"
+        ? chatModelLabel(args.settings)
+        : modelLabel(model),
+  }
 }
 
 // The card is optional everywhere: the server only needs one when the prompt reads
@@ -477,7 +484,7 @@ const renderTestResult = ({
     return (
       <>
         <ResolvedPrompt note={selectedNote} prompt={run.prompt} />
-        <p className="cursor-text text-[13px] leading-[1.6] whitespace-pre-wrap text-zinc-100 select-text">
+        <p className="cursor-text text-sm leading-[1.6] whitespace-pre-wrap text-zinc-100 select-text">
           {run.value.text}
         </p>
       </>
@@ -521,7 +528,7 @@ const GeneratedImage = ({
         className="block max-h-[56vh] w-auto max-w-[min(478px,calc(92vw-42px))] rounded-lg"
         src={dataUrl}
       />
-      <p className="mt-2 text-right text-[10.5px] text-ink-faint">
+      <p className="mt-2 text-right text-[11.5px] text-ink-muted">
         {t("promptTester.generatedIn", {
           seconds: (latencyMs / 1000).toFixed(1),
         })}

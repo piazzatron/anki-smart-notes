@@ -17,6 +17,7 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { Check } from "lucide-react"
 import { useMemo, useState, type ReactNode } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -86,9 +87,13 @@ export const VoicePicker = ({
     () => filterVoices(catalog.voices, filters),
     [catalog.voices, filters],
   )
+  // In columns (the Voice screen) the panels hang past the headings like every other
+  // surface, so their content takes the same 22px inset as the page's other cards.
+  const inset = layout === "columns" ? "px-[22px]" : "px-4"
   const filterControls = (
     <div className={`grid gap-2 ${layout === "stacked" ? "grid-cols-3" : ""}`}>
       <VoiceFilter
+        className={inset}
         label={t("defaults.voice.filters.language")}
         options={languages}
         renderOption={(language) =>
@@ -100,6 +105,7 @@ export const VoicePicker = ({
         }
       />
       <VoiceFilter
+        className={inset}
         label={t("defaults.voice.filters.gender")}
         options={VOICE_GENDER_OPTIONS}
         renderOption={(gender) => {
@@ -111,6 +117,7 @@ export const VoicePicker = ({
         onChange={(gender) => setFilters((current) => ({ ...current, gender }))}
       />
       <VoiceFilter
+        className={inset}
         label={t("defaults.voice.filters.provider")}
         options={providers}
         renderOption={(provider) =>
@@ -127,7 +134,7 @@ export const VoicePicker = ({
   )
   const voiceRows =
     visibleVoices.length === 0 ? (
-      <p className="py-12 text-center text-xs text-ink-faint">
+      <p className="py-12 text-center text-[13px] text-ink-muted">
         {t("defaults.voice.noVoices")}
       </p>
     ) : (
@@ -142,7 +149,8 @@ export const VoicePicker = ({
           })
         return (
           <div
-            className={`group flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 transition ${isSelected ? "bg-indigo/14" : "hover:bg-white/[0.045]"}`}
+            aria-pressed={isSelected}
+            className={`select-item relative flex cursor-pointer items-center gap-2.5 py-2.5 transition ${isSelected ? "bg-indigo/[0.16]" : "hover:bg-white/[0.04]"} ${inset}`}
             key={key}
             onClick={selectVoice}
             role="button"
@@ -154,7 +162,12 @@ export const VoicePicker = ({
               }
             }}
           >
-            <span className="min-w-0 flex-1 truncate text-xs font-semibold text-zinc-200">
+            <span className="flex size-3.5 shrink-0 items-center justify-center text-indigo-soft">
+              {isSelected && <Check aria-hidden className="size-3.5" />}
+            </span>
+            <span
+              className={`min-w-0 flex-1 truncate text-sm text-ink ${isSelected ? "font-semibold" : "font-medium"}`}
+            >
               {voice.name}
             </span>
             <Pill>{providerLabel(voice.provider)}</Pill>
@@ -166,12 +179,12 @@ export const VoicePicker = ({
     <>
       <div className={`relative ${layout === "stacked" ? "mt-2" : ""}`}>
         <SearchIcon
-          className="pointer-events-none absolute start-3 top-1/2 -translate-y-1/2 text-zinc-600"
+          className={`pointer-events-none absolute top-1/2 -translate-y-1/2 text-ink-muted ${layout === "columns" ? "start-[22px]" : "start-3.5"}`}
           size={14}
         />
         <input
           aria-label={t("defaults.voice.searchVoices")}
-          className={`h-9 w-full rounded-lg border border-white/[0.09] bg-white/[0.035] ps-8 pe-3 text-xs text-zinc-200 transition outline-none placeholder:text-zinc-600 focus:border-indigo/45`}
+          className={`h-10 w-full rounded-xl bg-white/[0.05] pe-3 text-sm ${layout === "columns" ? "ps-[46px]" : "ps-9"} text-ink transition outline-none placeholder:text-zinc-600 focus:bg-white/[0.07]`}
           onChange={(event) =>
             setFilters((current) => ({
               ...current,
@@ -183,20 +196,20 @@ export const VoicePicker = ({
         />
       </div>
 
-      <div className="mt-2 flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-white/[0.08] bg-black/10">
+      <div className="mt-2 flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl bg-white/[0.05]">
         {listHeight === undefined && listMaxHeight === undefined ? (
           // The rows are absolutely positioned so they add nothing to the
           // page's height: the list takes whatever space the layout leaves it
           // and scrolls itself. As a normal flex child, a long catalog would
           // stretch every ancestor to its full height and scroll the page.
           <div className="relative min-h-48 flex-1">
-            <div className="absolute inset-0 overflow-y-auto p-1.5">
+            <div className="absolute inset-0 overflow-y-auto py-1.5">
               {voiceRows}
             </div>
           </div>
         ) : (
           <div
-            className={`min-h-48 overflow-y-auto p-1.5 ${listHeight === undefined ? "flex-1" : "flex-none"}`}
+            className={`min-h-48 overflow-y-auto py-1.5 ${listHeight === undefined ? "flex-1" : "flex-none"}`}
             style={{ height: listHeight, maxHeight: listMaxHeight }}
           >
             {voiceRows}
@@ -209,16 +222,16 @@ export const VoicePicker = ({
   return (
     <>
       {layout === "columns" ? (
-        <div className="grid min-h-0 flex-1 grid-cols-[minmax(260px,0.8fr)_minmax(0,1.2fr)] items-stretch gap-6">
+        <div className="-mx-[22px] grid min-h-0 flex-1 grid-cols-[minmax(260px,0.8fr)_minmax(0,1.2fr)] items-stretch gap-6">
           <div className="flex min-h-0 flex-col">
             {children}
-            <p className="mt-5 mb-2 text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
+            <p className="mt-5 mb-2 px-[22px] text-[11px] font-semibold tracking-[0.08em] text-ink-muted uppercase">
               {t("defaults.voice.filterVoices")}
             </p>
             {filterControls}
           </div>
           <div className="flex min-h-0 flex-col">
-            <p className="mb-2 text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
+            <p className="mb-2 px-[22px] text-[11px] font-semibold tracking-[0.08em] text-ink-muted uppercase">
               {t("defaults.voice.browseVoices", {
                 count: visibleVoices.length.toLocaleString(i18n.language),
               })}
@@ -237,6 +250,7 @@ export const VoicePicker = ({
 }
 
 interface VoiceFilterProps {
+  className: string
   label: string
   onChange: (value: string) => void
   options: string[]
@@ -245,6 +259,7 @@ interface VoiceFilterProps {
 }
 
 const VoiceFilter = ({
+  className,
   label,
   onChange,
   options,
@@ -252,7 +267,10 @@ const VoiceFilter = ({
   value,
 }: VoiceFilterProps) => (
   <Select onValueChange={onChange} value={value}>
-    <SelectTrigger aria-label={label} className="h-9 min-h-9 px-2.5 py-1.5">
+    <SelectTrigger
+      aria-label={label}
+      className={`h-10 min-h-10 py-1.5 ${className}`}
+    >
       <span className="flex min-w-0 items-center gap-1 whitespace-nowrap">
         <span className="shrink-0 text-ink-muted">{label}:</span>
         <span className="truncate">

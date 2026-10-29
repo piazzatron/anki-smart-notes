@@ -90,10 +90,10 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
             return (
               <button
                 aria-checked={selected}
-                className={`flex flex-1 items-center justify-center gap-[7px] rounded-md border py-[11px] text-[12.5px] font-semibold transition ${
+                className={`flex flex-1 items-center justify-center gap-[7px] rounded-md py-[11px] text-[13.5px] font-semibold transition ${
                   selected
-                    ? "border-white/25 bg-white/[0.07] text-zinc-100"
-                    : "border-white/[0.08] bg-white/[0.025] text-zinc-400 hover:border-white/15 hover:text-zinc-200"
+                    ? "bg-white/[0.1] text-zinc-100"
+                    : "bg-white/[0.04] text-zinc-400 hover:bg-white/[0.06] hover:text-zinc-200"
                 }`}
                 key={value}
                 onClick={() => controls.setTarget({ fieldType: value })}
@@ -195,12 +195,12 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
               const bound = fieldIsBound(fieldName)
               return (
                 <SelectItem
-                  className="font-mono text-[13px]"
+                  className="font-mono text-sm"
                   disabled={bound}
                   key={fieldName}
                   suffix={
                     bound ? (
-                      <span className="ms-3 shrink-0 text-[11px] text-zinc-300">
+                      <span className="ms-3 shrink-0 text-xs text-zinc-300">
                         {t("fieldEditor.alreadySmartField")}
                         <SparklesIcon
                           className="ms-1 inline-block align-[-2px]"
@@ -218,7 +218,7 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
           </SelectContent>
         </Select>
         {collision && (
-          <p className="mt-2 text-[11px] leading-4 text-amber/85">
+          <p className="mt-2 text-xs leading-4 text-caution-soft">
             <strong className="font-semibold">{target.targetFieldName}</strong>{" "}
             {t("fieldEditor.collisionHint")}
           </p>
@@ -236,10 +236,10 @@ interface FieldLabelProps {
 
 const FieldLabel = ({ children, label, optional }: FieldLabelProps) => (
   <label className="block">
-    <span className="mb-2 block text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase">
+    <span className="mb-2 block text-[11px] font-semibold tracking-[0.08em] text-ink-muted uppercase">
       {label}
       {optional && (
-        <span className="ms-1 font-normal tracking-normal text-zinc-600 normal-case">
+        <span className="ms-1 font-normal tracking-normal text-ink-muted normal-case">
           {i18next.t("common.optional")}
         </span>
       )}

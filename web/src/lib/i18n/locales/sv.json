@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "Alla däck",
     "auto": "Bil",
-    "autoMax": "Auto MAX",
     "back": "Tillbaka",
-    "bestValueCost": "Bästa värde, 0,3× kostnad",
     "cancel": "Avboka",
     "close": "Nära",
     "connection": {
@@ -57,6 +55,7 @@
     "validFields": "Giltiga fält:"
   },
   "sidebar": {
+    "defaults": "Standardinställningar",
     "discord": "Discord",
     "feedback": "Feed-back",
     "nav": {
@@ -170,18 +169,12 @@
       "loadingVoices": "Läser in röster...",
       "model": "Modell",
       "pickCustom": "Välj en anpassad modell för detta fält",
-      "reasoning": "{{level}} resonemang",
-      "reasoningHint": "Högre resonemang kan förbättra hårdare generationer, men använder fler poäng.",
-      "reasoningLevel": "Resonemangsnivå",
       "sharedByEveryField": "Din {{modality}} delas av alla Smart Field som använder den. Byt in den",
       "textDefault": "text standard",
-      "textModel": "Textmodell",
       "useMy": "Använd min {{modality}}",
-      "useWebSearch": "Använd webbsökning för detta fält",
       "voice": "Röst",
       "voiceDefault": "röst standard",
-      "webSearch": "Webbsökning",
-      "webSearchHint": "Låt det här fältet använda färsk information från webben."
+      "webSearch": "Webbsökning"
     },
     "save": "Spara Smart Field",
     "sections": {
@@ -257,15 +250,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "Chattkatalogen saknar modell {{model}}",
       "missingImageModel": "Bildkatalogen saknar modell {{model}}"
     },
     "image": {
       "cannotFindModel": "Bildkatalogen saknar modell {{model}}",
-      "defaultModel": "Standardmodell",
+      "defaultModel": "Standardbildmodell",
       "gptImage25": "bäst för allt — skarp text, rena diagram.",
-      "loadingLabel": "Laddar standardbildinställningar",
-      "loadingTitle": "Standardbildinställningar",
+      "loadingLabel": "Läser in inställningar för bildgenerering",
+      "loadingTitle": "Inställningar för bildgenerering",
       "modelTipLabel": "Om bildmodellerna",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -274,9 +266,9 @@
       "nanoBanana21": "rika, fotografiska scener.",
       "samplePrompt": "Skapa en bild av en student som studerar hårt med Anki och klarar sina prov.",
       "saveError": "Det gick inte att spara bildens standardinställningar",
-      "subtitle": "Modellen som din bild Smart Fields använder om inte ett fält fäster sitt eget.",
-      "title": "Standardbildinställningar",
-      "zImageTurbo": "snabbast och billigast."
+      "title": "Inställningar för bildgenerering",
+      "zImageTurbo": "snabbast och billigast.",
+      "defaultModelTip": "Smart Fields för bilder använder den här modellen som standard. Om du ändrar den uppdateras alla Smart Fields som använder standardvärdet. Varje Smart Field kan åsidosätta den med en egen modell."
     },
     "layout": {
       "save": "Spara",
@@ -284,28 +276,14 @@
       "tryIt": "Prova det"
     },
     "text": {
-      "cannotInheritModel": "Textstandard kan inte ärva en annan modell",
       "defaultModel": "Standardtextmodell",
-      "defaultReasoningLevel": "Standardresonemangsnivå",
-      "enableWebSearch": "Aktivera webbsökning",
-      "higherReasoning": "Högre resonemang kan förbättra hårdare generationer, men använder fler poäng.",
-      "loadingLabel": "Laddar standardtextinställningar",
+      "loadingLabel": "Läser in inställningar för textgenerering",
       "loadingTitle": "Inställningar för textgenerering",
-      "modelGuidance": "{{auto}} och {{autoMax}} är de Smart Notes rekommenderade modellerna som balanserar prestanda och kostnad. Välj {{auto}} för standarduppgifter och uppgradera till {{autoMax}} om det behövs.",
-      "pickingModel": "Väljer en modell",
-      "reasoningLevel": "Resonemangsnivå",
-      "reasoningValues": {
-        "high": "Hög",
-        "low": "Låg",
-        "off": "Av"
-      },
       "samplePrompt": "Vad är ett mellanrumsupprepningssystem (SRS)?",
       "saveError": "Det gick inte att spara textens standardinställningar",
-      "subtitle": "Standardinställningar för textgenerering. Enskild Smart Fields kan åsidosätta dessa värden.",
       "title": "Inställningar för textgenerering",
-      "webSearch": "Webbsökning",
-      "webSearchDescription": "Låt textgenerationer hämta färsk information från webben.",
-      "webSearchWarning": "Sökning är dyr; håll koll på dina krediter."
+      "defaultModelTip": "Smart Fields använder den här modellen som standard. Om du ändrar den uppdateras alla Smart Fields som använder standardvärdet. Varje Smart Field kan åsidosätta den med en egen modell.",
+      "defaultModelTipLabel": "Om standardmodellen för text"
     },
     "usage": {
       "fields_one": "Gäller {{count}}-fältet",
@@ -324,14 +302,16 @@
         "provider": "Leverantör"
       },
       "filterVoices": "Filtrera röster",
-      "loadingLabel": "Laddar standardröstinställningar",
-      "loadingTitle": "Standardröstinställningar",
+      "loadingLabel": "Läser in röstinställningar",
+      "loadingTitle": "Röstinställningar",
       "noVoices": "Inga röster matchar dessa filter.",
       "saveError": "Det gick inte att spara röststandarder",
       "searchPlaceholder": "Sök röster…",
       "searchVoices": "Sök röster",
-      "subtitle": "Rösten som din TTS Smart Fields använder om inte ett fält stiftar sin egen.",
-      "title": "Standardröstinställningar"
+      "title": "Röstinställningar",
+      "defaultVoice": "Standardröst",
+      "defaultVoiceTip": "Smart Fields för röst använder den här rösten som standard. Om du ändrar den uppdateras alla Smart Fields som använder standardvärdet. Varje Smart Field kan åsidosätta den med en egen röst.",
+      "defaultVoiceTipLabel": "Om standardrösten"
     }
   },
   "imageGeneration": {
@@ -531,5 +511,30 @@
     "thanks": "Tack för att du använder Smart Notes",
     "title": "Din kostnadsfria provperiod har avslutats",
     "upgradeNow": "Uppgradera nu"
+  },
+  "intelligence": {
+    "advancedOptions": "Avancerade alternativ",
+    "autoCostRange": "{{min}}–{{max}}× kostnad",
+    "autoDescription": "De modeller som presterar bäst när det gäller intelligens och pris, uppdateras regelbundet.",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "Auto · {{level}}",
+    "label": "Intelligens",
+    "levels": {
+      "high": "Hög",
+      "max": "Max",
+      "standard": "Standard"
+    },
+    "specificModel": "Använd en specifik modell",
+    "specificModelWarning": "Specifika modeller kostar oftast betydligt mer än Auto.",
+    "tipIntro": "Börja med Standard och gå bara upp en nivå om resultaten inte är tillräckligt bra.",
+    "tipLabel": "Om intelligensnivåer",
+    "veryHighCost": "Mycket hög kostnad",
+    "webSearch": "Webbsökning",
+    "webSearchDescription": "Låt modellen hämta färsk information från webben. Låt det vara avstängt om du inte verkligen behöver det.",
+    "tips": {
+      "high": "<level>Hög</level> är till för mer avancerad grammatik.",
+      "max": "<level>Max</level> är till för komplicerat material som Hög inte klarar av.",
+      "standard": "<level>Standard</level> passar bäst för översättningar och exempelmeningar."
+    }
   }
 }

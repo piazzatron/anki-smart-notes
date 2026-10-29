@@ -76,10 +76,10 @@ export const PromptTestResultModal = ({
         className={`max-h-[84vh] ${tester.fieldType === "image" ? "w-[min(520px,92vw)]" : "w-[min(760px,92vw)]"}`}
       >
         <header className="shrink-0 border-b border-white/[0.07] py-3.5 ps-5 pe-10">
-          <DialogTitle className="text-[13px] font-bold text-ink">
+          <DialogTitle className="text-sm font-bold text-ink">
             {t("promptTester.testResult")}
           </DialogTitle>
-          <DialogDescription className="mt-1.5 flex min-w-0 items-center gap-1.5 text-[11px] text-ink-faint">
+          <DialogDescription className="mt-1.5 flex min-w-0 items-center gap-1.5 text-xs text-ink-muted">
             {cardName !== null && (
               <span className="min-w-0 truncate">
                 {cardName}
@@ -131,8 +131,8 @@ export const ResolvedPrompt = ({ note, prompt }: ResolvedPromptProps) => {
   const { parts } = resolvePromptReferences(prompt, note?.fields ?? {})
 
   return (
-    <p className="mb-2 cursor-text font-mono text-[11px] leading-[1.5] [overflow-wrap:anywhere] text-ink-muted select-text">
-      <span className="font-sans text-[10.5px] text-ink-faint">
+    <p className="mb-2 cursor-text font-mono text-xs leading-[1.5] [overflow-wrap:anywhere] text-ink-muted select-text">
+      <span className="font-sans text-[11.5px] text-ink-muted">
         {t("promptTester.sent")} ·{" "}
       </span>
       {parts.map((part, index) =>

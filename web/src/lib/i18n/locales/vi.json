@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "Tất cả các bộ bài",
     "auto": "Tự động",
-    "autoMax": "Auto MAX",
     "back": "Mặt sau",
-    "bestValueCost": "Giá trị tốt nhất, chi phí 0,3×",
     "cancel": "Hủy bỏ",
     "close": "Đóng",
     "connection": {
@@ -56,6 +54,7 @@
     "validFields": "Các trường hợp lệ:"
   },
   "sidebar": {
+    "defaults": "Mặc định",
     "discord": "Discord",
     "feedback": "Nhận xét",
     "nav": {
@@ -169,18 +168,12 @@
       "loadingVoices": "Đang tải giọng nói…",
       "model": "Người mẫu",
       "pickCustom": "Chọn một mô hình tùy chỉnh cho trường này",
-      "reasoning": "Lý luận {{level}}",
-      "reasoningHint": "Lý luận cao hơn có thể cải thiện các thế hệ khó hơn nhưng sử dụng nhiều tín chỉ hơn.",
-      "reasoningLevel": "Mức độ lý luận",
       "sharedByEveryField": "{{modality}} của bạn được chia sẻ bởi mọi Smart Field sử dụng nó. Thay đổi nó trong",
       "textDefault": "văn bản mặc định",
-      "textModel": "Mẫu văn bản",
       "useMy": "Sử dụng {{modality}} của tôi",
-      "useWebSearch": "Sử dụng tìm kiếm trên web cho trường này",
       "voice": "Tiếng nói",
       "voiceDefault": "mặc định bằng giọng nói",
-      "webSearch": "Tìm kiếm trên web",
-      "webSearchHint": "Hãy để trường này sử dụng thông tin mới từ web."
+      "webSearch": "Tìm kiếm trên web"
     },
     "save": "Lưu Smart Field",
     "sections": {
@@ -256,15 +249,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "Danh mục trò chuyện thiếu mẫu {{model}}",
       "missingImageModel": "Danh mục hình ảnh thiếu mẫu {{model}}"
     },
     "image": {
       "cannotFindModel": "Danh mục hình ảnh thiếu mẫu {{model}}",
-      "defaultModel": "Mô hình mặc định",
+      "defaultModel": "Mô hình tạo ảnh mặc định",
       "gptImage25": "tốt nhất cho mọi tác vụ — chữ sắc nét, sơ đồ gọn gàng.",
-      "loadingLabel": "Đang tải cài đặt hình ảnh mặc định",
-      "loadingTitle": "Cài đặt hình ảnh mặc định",
+      "loadingLabel": "Đang tải cài đặt tạo ảnh",
+      "loadingTitle": "Cài đặt tạo ảnh",
       "modelTipLabel": "Về các mô hình tạo ảnh",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -273,9 +265,9 @@
       "nanoBanana21": "cảnh giàu chi tiết, mang phong cách ảnh chụp.",
       "samplePrompt": "Tạo hình ảnh một học sinh đang học tập chăm chỉ với Anki và vượt qua các bài kiểm tra của họ.",
       "saveError": "Không thể lưu mặc định hình ảnh",
-      "subtitle": "Mô hình mà hình ảnh Smart Fields của bạn sử dụng trừ khi một trường ghim trường của chính nó.",
-      "title": "Cài đặt hình ảnh mặc định",
-      "zImageTurbo": "nhanh nhất và rẻ nhất."
+      "title": "Cài đặt tạo ảnh",
+      "zImageTurbo": "nhanh nhất và rẻ nhất.",
+      "defaultModelTip": "Các Smart Field ảnh mặc định dùng mô hình này. Khi thay đổi, mọi Smart Field đang dùng mặc định sẽ được cập nhật theo. Mỗi Smart Field có thể dùng mô hình riêng để ghi đè."
     },
     "layout": {
       "save": "Lưu",
@@ -283,28 +275,14 @@
       "tryIt": "Hãy thử nó"
     },
     "text": {
-      "cannotInheritModel": "Mặc định văn bản không thể kế thừa mô hình khác",
       "defaultModel": "Mẫu văn bản mặc định",
-      "defaultReasoningLevel": "Mức lý luận mặc định",
-      "enableWebSearch": "Bật tìm kiếm trên web",
-      "higherReasoning": "Lý luận cao hơn có thể cải thiện các thế hệ khó hơn nhưng sử dụng nhiều tín chỉ hơn.",
-      "loadingLabel": "Đang tải cài đặt văn bản mặc định",
+      "loadingLabel": "Đang tải cài đặt tạo văn bản",
       "loadingTitle": "Cài đặt tạo văn bản",
-      "modelGuidance": "{{auto}} và {{autoMax}} là các mẫu Smart Notes được đề xuất nhằm cân bằng giữa hiệu suất và chi phí. Chọn {{auto}} cho các tác vụ tiêu chuẩn và nâng cấp lên {{autoMax}} nếu cần.",
-      "pickingModel": "Đang chọn mô hình",
-      "reasoningLevel": "Mức độ lý luận",
-      "reasoningValues": {
-        "high": "Cao",
-        "low": "Thấp",
-        "off": "Tắt"
-      },
       "samplePrompt": "Hệ thống lặp lại cách nhau (SRS) là gì?",
       "saveError": "Không thể lưu mặc định văn bản",
-      "subtitle": "Cài đặt mặc định để tạo văn bản. Smart Fields riêng lẻ có thể ghi đè các giá trị này.",
       "title": "Cài đặt tạo văn bản",
-      "webSearch": "Tìm kiếm trên web",
-      "webSearchDescription": "Hãy để các thế hệ văn bản lấy thông tin mới từ web.",
-      "webSearchWarning": "Tìm kiếm tốn kém; hãy theo dõi số tín dụng của bạn."
+      "defaultModelTip": "Các Smart Field mặc định dùng mô hình này. Khi thay đổi, mọi Smart Field đang dùng mặc định sẽ được cập nhật theo. Mỗi Smart Field có thể dùng mô hình riêng để ghi đè.",
+      "defaultModelTipLabel": "Về mô hình văn bản mặc định"
     },
     "usage": {
       "fields_other": "Áp dụng cho các trường {{count}}"
@@ -322,14 +300,16 @@
         "provider": "nhà cung cấp"
       },
       "filterVoices": "Lọc giọng nói",
-      "loadingLabel": "Đang tải cài đặt giọng nói mặc định",
-      "loadingTitle": "Cài đặt giọng nói mặc định",
+      "loadingLabel": "Đang tải cài đặt giọng nói",
+      "loadingTitle": "Cài đặt giọng nói",
       "noVoices": "Không có giọng nói nào phù hợp với các bộ lọc này.",
       "saveError": "Không thể lưu mặc định giọng nói",
       "searchPlaceholder": "Tìm kiếm giọng nói…",
       "searchVoices": "Tìm kiếm giọng nói",
-      "subtitle": "Giọng nói mà TTS Smart Fields của bạn sử dụng trừ khi một trường ghim giọng nói của chính nó.",
-      "title": "Cài đặt giọng nói mặc định"
+      "title": "Cài đặt giọng nói",
+      "defaultVoice": "Giọng nói mặc định",
+      "defaultVoiceTip": "Các Smart Field giọng nói mặc định dùng giọng này. Khi thay đổi, mọi Smart Field đang dùng mặc định sẽ được cập nhật theo. Mỗi Smart Field có thể dùng giọng riêng để ghi đè.",
+      "defaultVoiceTipLabel": "Về giọng nói mặc định"
     }
   },
   "imageGeneration": {
@@ -521,5 +501,30 @@
     "thanks": "Cảm ơn bạn đã sử dụng Smart Notes",
     "title": "Thời gian dùng thử miễn phí của bạn đã kết thúc",
     "upgradeNow": "Nâng cấp ngay bây giờ"
+  },
+  "intelligence": {
+    "advancedOptions": "Tùy chọn nâng cao",
+    "autoCostRange": "Chi phí {{min}}–{{max}}×",
+    "autoDescription": "Các mô hình có hiệu suất tốt nhất về trí thông minh và giá, được cập nhật thường xuyên.",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "Auto · {{level}}",
+    "label": "Trí thông minh",
+    "levels": {
+      "high": "Cao",
+      "max": "Tối đa",
+      "standard": "Tiêu chuẩn"
+    },
+    "specificModel": "Dùng một mô hình cụ thể",
+    "specificModelWarning": "Các mô hình cụ thể thường tốn chi phí cao hơn nhiều so với Auto.",
+    "tipIntro": "Bắt đầu với Tiêu chuẩn, và chỉ nâng cấp nếu kết quả chưa đủ tốt.",
+    "tipLabel": "Về các mức trí thông minh",
+    "veryHighCost": "Chi phí rất cao",
+    "webSearch": "Tìm kiếm web",
+    "webSearchDescription": "Cho phép mô hình lấy thông tin mới từ web. Hãy tắt tùy chọn này trừ khi thực sự cần.",
+    "tips": {
+      "high": "<level>Cao</level> dành cho ngữ pháp nâng cao hơn.",
+      "max": "<level>Tối đa</level> dành cho nội dung phức tạp mà mức Cao không xử lý được.",
+      "standard": "<level>Tiêu chuẩn</level> phù hợp nhất cho bản dịch và câu ví dụ."
+    }
   }
 }

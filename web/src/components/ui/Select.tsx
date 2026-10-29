@@ -32,7 +32,7 @@ export const SelectTrigger = forwardRef<
   ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
 >(({ children, className = "", ...props }, ref) => (
   <SelectPrimitive.Trigger
-    className={`flex min-h-11 w-full cursor-pointer items-center gap-2 rounded-lg border border-white/[0.09] bg-white/[0.04] px-3 py-2 text-start text-xs font-medium text-zinc-100 transition outline-none hover:border-white/16 focus-visible:border-indigo/50 focus-visible:ring-2 focus-visible:ring-indigo/25 disabled:cursor-not-allowed disabled:opacity-45 data-[state=open]:border-indigo/50 data-[state=open]:ring-2 data-[state=open]:ring-indigo/25 ${className}`}
+    className={`flex min-h-11 w-full cursor-pointer items-center gap-2 rounded-xl bg-white/[0.05] px-4 py-2 text-start text-sm font-medium text-ink transition outline-none hover:bg-white/[0.07] focus-visible:ring-2 focus-visible:ring-indigo/30 disabled:cursor-not-allowed disabled:opacity-45 data-[state=open]:bg-white/[0.08] ${className}`}
     ref={ref}
     {...props}
   >
@@ -50,13 +50,13 @@ export const SelectContent = forwardRef<
 >(({ children, className = "", position = "popper", ...props }, ref) => (
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
-      className={`z-[80] max-h-[var(--radix-select-content-available-height)] min-w-[var(--radix-select-trigger-width)] origin-[var(--radix-select-content-transform-origin)] overflow-hidden rounded-lg border border-white/10 bg-panel-raised text-zinc-100 shadow-[0_18px_40px_-12px_rgba(0,0,0,0.75)] duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 ${className}`}
+      className={`z-[80] max-h-[var(--radix-select-content-available-height)] min-w-[var(--radix-select-trigger-width)] origin-[var(--radix-select-content-transform-origin)] overflow-hidden rounded-xl bg-panel-raised text-ink shadow-[0_18px_40px_-12px_rgba(0,0,0,0.75)] duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 ${className}`}
       position={position}
       ref={ref}
       sideOffset={6}
       {...props}
     >
-      <SelectPrimitive.Viewport className="p-1">
+      <SelectPrimitive.Viewport className="py-1.5">
         {children}
       </SelectPrimitive.Viewport>
     </SelectPrimitive.Content>
@@ -69,7 +69,7 @@ export const SelectLabel = forwardRef<
   ComponentPropsWithoutRef<typeof SelectPrimitive.Label>
 >(({ className = "", ...props }, ref) => (
   <SelectPrimitive.Label
-    className={`px-2.5 pt-2 pb-1 text-[10px] font-semibold tracking-[0.08em] text-ink-faint uppercase ${className}`}
+    className={`px-4 pt-3 pb-1.5 text-[11px] font-semibold tracking-[0.055em] text-ink-muted uppercase ${className}`}
     ref={ref}
     {...props}
   />
@@ -82,16 +82,18 @@ interface SelectItemProps extends ComponentPropsWithoutRef<
   suffix?: ReactNode
 }
 
+// Rows run edge to edge with a hairline between neighbours (`.select-item` in
+// globals.css), and a check marks the chosen one.
 export const SelectItem = forwardRef<
   ElementRef<typeof SelectPrimitive.Item>,
   SelectItemProps
 >(({ children, className = "", suffix, ...props }, ref) => (
   <SelectPrimitive.Item
-    className={`relative flex min-h-9 w-full cursor-pointer items-center rounded-md py-2 ps-8 pe-2.5 text-xs transition outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-40 data-[highlighted]:bg-white/[0.06] data-[state=checked]:bg-indigo/14 ${className}`}
+    className={`select-item group relative flex min-h-10 w-full cursor-pointer items-center gap-2.5 px-4 py-2.5 text-sm font-medium text-ink transition outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-40 data-[highlighted]:bg-white/[0.06] ${className}`}
     ref={ref}
     {...props}
   >
-    <span className="absolute start-2.5 flex size-3.5 items-center justify-center text-indigo-soft">
+    <span className="flex size-3.5 shrink-0 items-center justify-center text-indigo-soft">
       <SelectPrimitive.ItemIndicator>
         <Check aria-hidden className="size-3.5" />
       </SelectPrimitive.ItemIndicator>

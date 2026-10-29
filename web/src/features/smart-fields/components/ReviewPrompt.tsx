@@ -30,7 +30,7 @@ export const ReviewPrompt = ({ onComplete }: ReviewPromptProps) => {
   const { t } = useTranslation()
 
   return (
-    <div className="relative mb-5 flex cursor-pointer items-center gap-3 overflow-hidden rounded-[13px] bg-[linear-gradient(100deg,#b4560a_0%,#e0900f_46%,#f7c14a_100%)] py-3.5 ps-[17px] pe-3.5 transition-transform duration-150 ease-out hover:scale-[1.006]">
+    <div className="relative -mx-[22px] mb-5 flex cursor-pointer items-center gap-3 overflow-hidden rounded-[13px] bg-[linear-gradient(100deg,#b4560a_0%,#e0900f_46%,#f7c14a_100%)] py-3.5 ps-[22px] pe-3.5 transition-transform duration-150 ease-out hover:scale-[1.006]">
       <a
         aria-label={t("smartFields.review.ariaLabel")}
         className="absolute inset-0 z-10 rounded-[13px]"
@@ -50,12 +50,12 @@ export const ReviewPrompt = ({ onComplete }: ReviewPromptProps) => {
         <p className="truncate text-[14.5px] leading-[1.35] font-extrabold tracking-[-0.01em] text-white">
           {t("smartFields.review.title")}
         </p>
-        <p className="truncate text-[13px] leading-[1.35] font-medium text-white/80">
+        <p className="truncate text-sm leading-[1.35] font-medium text-white/80">
           {t("smartFields.review.subtitle")}
         </p>
       </div>
       <a
-        className="relative z-20 inline-flex shrink-0 items-center rounded-lg bg-[#fff7dc] px-[18px] py-2 text-[12.5px] font-extrabold text-[#7b4807] no-underline transition-transform duration-150 ease-out hover:scale-[1.035]"
+        className="relative z-20 inline-flex shrink-0 items-center rounded-lg bg-[#fff7dc] px-[18px] py-2 text-[13.5px] font-extrabold text-[#7b4807] no-underline transition-transform duration-150 ease-out hover:scale-[1.035]"
         href={ANKIWEB_REVIEW_URL}
         onClick={onComplete}
         rel="noreferrer"

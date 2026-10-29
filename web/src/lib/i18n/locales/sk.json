@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "Všetky paluby",
     "auto": "Auto",
-    "autoMax": "Auto MAX",
     "back": "Späť",
-    "bestValueCost": "Najlepšia hodnota, 0,3× cena",
     "cancel": "Zrušiť",
     "close": "Zavrieť",
     "connection": {
@@ -59,6 +57,7 @@
     "validFields": "Platné polia:"
   },
   "sidebar": {
+    "defaults": "Predvolené",
     "discord": "Discord",
     "feedback": "Spätná väzba",
     "nav": {
@@ -172,18 +171,12 @@
       "loadingVoices": "Načítavajú sa hlasy…",
       "model": "Model",
       "pickCustom": "Vyberte si vlastný model pre toto pole",
-      "reasoning": "Úvaha {{level}}",
-      "reasoningHint": "Vyššie uvažovanie môže zlepšiť ťažšie generácie, ale používa viac kreditov.",
-      "reasoningLevel": "Úroveň uvažovania",
       "sharedByEveryField": "Váš {{modality}} zdieľa každý Smart Field, ktorý ho používa. Zmeňte to",
       "textDefault": "text predvolene",
-      "textModel": "Textový model",
       "useMy": "Použite môj {{modality}}",
-      "useWebSearch": "Pre toto pole použite vyhľadávanie na webe",
       "voice": "Hlas",
       "voiceDefault": "predvolené nastavenie hlasu",
-      "webSearch": "vyhľadávanie na webe",
-      "webSearchHint": "Nechajte toto pole používať čerstvé informácie z webu."
+      "webSearch": "vyhľadávanie na webe"
     },
     "save": "Uložiť Smart Field",
     "sections": {
@@ -259,15 +252,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "V katalógu četov chýba model {{model}}",
       "missingImageModel": "V katalógu obrázkov chýba model {{model}}"
     },
     "image": {
       "cannotFindModel": "V katalógu obrázkov chýba model {{model}}",
-      "defaultModel": "Predvolený model",
+      "defaultModel": "Predvolený model obrázkov",
       "gptImage25": "najvšestrannejší — ostrý text, čisté diagramy.",
-      "loadingLabel": "Načítavajú sa predvolené nastavenia obrázka",
-      "loadingTitle": "Predvolené nastavenia obrazu",
+      "loadingLabel": "Načítavanie nastavení generovania obrázkov",
+      "loadingTitle": "Nastavenia generovania obrázkov",
       "modelTipLabel": "O modeloch obrázkov",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -276,9 +268,9 @@
       "nanoBanana21": "bohaté fotografické scény.",
       "samplePrompt": "Vytvorte si obraz študenta, ktorý tvrdo študuje so Anki a zloží svoje testy.",
       "saveError": "Nepodarilo sa uložiť predvolené nastavenia obrázka",
-      "subtitle": "Model, ktorý používa váš obrázok Smart Fields, pokiaľ pole nepripne svoje vlastné.",
-      "title": "Predvolené nastavenia obrazu",
-      "zImageTurbo": "najrýchlejší a najlacnejší."
+      "title": "Nastavenia generovania obrázkov",
+      "zImageTurbo": "najrýchlejší a najlacnejší.",
+      "defaultModelTip": "Smart Fields pre obrázky používajú tento model predvolene. Zmena aktualizuje všetky Smart Fields, ktoré používajú predvolenú hodnotu. Ktorékoľvek Smart Fields ju môže prepísať vlastným modelom."
     },
     "layout": {
       "save": "Uložiť",
@@ -286,28 +278,14 @@
       "tryIt": "Skúste to"
     },
     "text": {
-      "cannotInheritModel": "Predvolené nastavenia textu nemôžu zdediť iný model",
       "defaultModel": "Predvolený textový model",
-      "defaultReasoningLevel": "Predvolená úroveň uvažovania",
-      "enableWebSearch": "Povoliť vyhľadávanie na webe",
-      "higherReasoning": "Vyššie uvažovanie môže zlepšiť ťažšie generácie, ale používa viac kreditov.",
-      "loadingLabel": "Načítavajú sa predvolené nastavenia textu",
+      "loadingLabel": "Načítavanie nastavení generovania textu",
       "loadingTitle": "Nastavenia generovania textu",
-      "modelGuidance": "{{auto}} a {{autoMax}} sú Smart Notes odporúčané modely, ktoré vyvažujú výkon a cenu. Pre štandardné úlohy zvoľte {{auto}} a v prípade potreby inovujte na {{autoMax}}.",
-      "pickingModel": "Výber modelu",
-      "reasoningLevel": "Úroveň uvažovania",
-      "reasoningValues": {
-        "high": "Vysoká",
-        "low": "Nízka",
-        "off": "Vypnuté"
-      },
       "samplePrompt": "Čo je systém priestorového opakovania (SRS)?",
       "saveError": "Nepodarilo sa uložiť predvolené nastavenia textu",
-      "subtitle": "Predvolené nastavenia pre generovanie textu. Jednotlivé Smart Fields môžu tieto hodnoty prepísať.",
       "title": "Nastavenia generovania textu",
-      "webSearch": "Vyhľadávanie na webe",
-      "webSearchDescription": "Umožnite generáciám textu čerpať čerstvé informácie z webu.",
-      "webSearchWarning": "Vyhľadávanie je nákladné; sledujte svoje kredity."
+      "defaultModelTip": "Smart Fields používajú tento model predvolene. Zmena aktualizuje všetky Smart Fields, ktoré používajú predvolenú hodnotu. Ktorékoľvek Smart Fields ju môže prepísať vlastným modelom.",
+      "defaultModelTipLabel": "O predvolenom textovom modeli"
     },
     "usage": {
       "fields_one": "Platí pre {{count}} pole",
@@ -328,14 +306,16 @@
         "provider": "Poskytovateľ"
       },
       "filterVoices": "Filtrovať hlasy",
-      "loadingLabel": "Načítavajú sa predvolené nastavenia hlasu",
-      "loadingTitle": "Predvolené nastavenia hlasu",
+      "loadingLabel": "Načítavanie nastavení hlasu",
+      "loadingTitle": "Nastavenia hlasu",
       "noVoices": "Týmto filtrom nevyhovujú žiadne hlasy.",
       "saveError": "Predvolené nastavenia hlasu sa nepodarilo uložiť",
       "searchPlaceholder": "Hľadať hlasy…",
       "searchVoices": "Hľadajte hlasy",
-      "subtitle": "Hlas, ktorý používa váš TTS Smart Fields, pokiaľ pole nepripne svoje vlastné.",
-      "title": "Predvolené nastavenia hlasu"
+      "title": "Nastavenia hlasu",
+      "defaultVoice": "Predvolený hlas",
+      "defaultVoiceTip": "Hlasové Smart Fields používajú tento hlas predvolene. Zmena aktualizuje všetky Smart Fields, ktoré používajú predvolenú hodnotu. Ktorékoľvek Smart Fields ju môže prepísať vlastným hlasom.",
+      "defaultVoiceTipLabel": "O predvolenom hlase"
     }
   },
   "imageGeneration": {
@@ -551,5 +531,30 @@
     "thanks": "Ďakujeme, že používate Smart Notes",
     "title": "Vaša bezplatná skúšobná verzia sa skončila",
     "upgradeNow": "Inovujte teraz"
+  },
+  "intelligence": {
+    "advancedOptions": "Rozšírené možnosti",
+    "autoCostRange": "{{min}}–{{max}}× náklady",
+    "autoDescription": "Najvýkonnejšie modely z hľadiska inteligencie a ceny, pravidelne aktualizované.",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "Auto · {{level}}",
+    "label": "Inteligencia",
+    "levels": {
+      "high": "Vysoká",
+      "max": "Maximálna",
+      "standard": "Štandardná"
+    },
+    "specificModel": "Použiť konkrétny model",
+    "specificModelWarning": "Konkrétne modely zvyčajne stoja oveľa viac ako Auto.",
+    "tipIntro": "Začnite so Štandardnou úrovňou a prejdite na vyššiu, iba ak výsledky nie sú dostatočné.",
+    "tipLabel": "O úrovniach inteligencie",
+    "veryHighCost": "Veľmi vysoké náklady",
+    "webSearch": "Vyhľadávanie na webe",
+    "webSearchDescription": "Umožnite modelu načítať aktuálne informácie z webu. Nechajte to vypnuté, pokiaľ to naozaj nepotrebujete.",
+    "tips": {
+      "high": "<level>Vysoká</level> je určená pre pokročilejšiu gramatiku.",
+      "max": "<level>Maximálna</level> je určená pre zložitý materiál, ktorý úroveň Vysoká nezvládne.",
+      "standard": "<level>Štandardná</level> je najlepšia na preklady a príkladové vety."
+    }
   }
 }

@@ -350,11 +350,19 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
 export const MOCK_CATALOG: Catalog = {
   chat: {
     providers: ["auto", "openai", "anthropic", "google"],
+    // Mirrors provider_model_map in src/models/providers.py.
     models: [
       { id: "auto", provider: "auto" },
+      { id: "auto-max", provider: "auto" },
       { id: "gpt-5-mini", provider: "openai" },
+      { id: "gpt-5-chat-latest", provider: "openai" },
+      { id: "gpt-5", provider: "openai" },
+      { id: "claude-haiku-4-5", provider: "anthropic" },
       { id: "claude-sonnet-4-6", provider: "anthropic" },
+      { id: "claude-opus-4-6", provider: "anthropic" },
+      { id: "gemini-3.1-flash-lite", provider: "google" },
       { id: "gemini-3-flash", provider: "google" },
+      { id: "gemini-3.1-pro", provider: "google" },
     ],
     reasoningLevels: ["off", "low", "high"],
   },

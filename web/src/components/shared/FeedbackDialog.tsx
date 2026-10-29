@@ -59,7 +59,7 @@ export const FeedbackDialog = ({ children }: FeedbackDialogProps) => {
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="w-[min(440px,92vw)]">
         <header className="shrink-0 border-b border-white/[0.07] py-3.5 ps-5 pe-10">
-          <DialogTitle className="text-[13px] font-bold text-ink">
+          <DialogTitle className="text-sm font-bold text-ink">
             {t("common.feedback.title")}
           </DialogTitle>
           <DialogDescription className="sr-only">
@@ -68,7 +68,7 @@ export const FeedbackDialog = ({ children }: FeedbackDialogProps) => {
         </header>
 
         {form.state.sent ? (
-          <p className="px-5 py-5 text-xs text-mint">
+          <p className="px-5 py-5 text-[13px] text-mint">
             {t("common.feedback.sent")}
           </p>
         ) : (
@@ -83,7 +83,7 @@ export const FeedbackDialog = ({ children }: FeedbackDialogProps) => {
               )}
               <textarea
                 aria-label={t("common.feedback.label")}
-                className="min-h-[112px] w-full resize-y rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2.5 text-xs leading-[1.5] text-zinc-200 outline-none placeholder:text-zinc-600 focus:border-indigo/45"
+                className="min-h-[112px] w-full resize-y rounded-lg bg-white/[0.05] px-3 py-2.5 text-[13px] leading-[1.5] text-zinc-200 outline-none placeholder:text-zinc-600 focus:bg-white/[0.07]"
                 onChange={(event) => form.setMessage(event.target.value)}
                 placeholder={t("common.feedback.placeholder")}
                 value={form.state.message}

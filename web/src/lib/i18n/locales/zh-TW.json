@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "所有套牌",
     "auto": "汽車",
-    "autoMax": "Auto MAX",
     "back": "後退",
-    "bestValueCost": "最佳價值，0.3×成本",
     "cancel": "取消",
     "close": "關閉",
     "connection": {
@@ -56,6 +54,7 @@
     "validFields": "有效字段："
   },
   "sidebar": {
+    "defaults": "預設值",
     "discord": "Discord",
     "feedback": "回饋",
     "nav": {
@@ -169,18 +168,12 @@
       "loadingVoices": "正在加載聲音...",
       "model": "模型",
       "pickCustom": "為此欄位選擇自訂模型",
-      "reasoning": "{{level}}推理",
-      "reasoningHint": "更高的推理能力可以改善更難的世代，但會使用更多的學分。",
-      "reasoningLevel": "推理水平",
       "sharedByEveryField": "您的 {{modality}} 被每個使用它的 Smart Field 共用。將其更改為",
       "textDefault": "文字預設值",
-      "textModel": "文字模型",
       "useMy": "使用我的 {{modality}}",
-      "useWebSearch": "使用網路搜尋該字段",
       "voice": "嗓音",
       "voiceDefault": "語音預設",
-      "webSearch": "網頁搜尋",
-      "webSearchHint": "讓這個欄位使用來自網路的新鮮資訊。"
+      "webSearch": "網頁搜尋"
     },
     "save": "儲存 Smart Field",
     "sections": {
@@ -256,15 +249,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "聊天目錄缺少型號 {{model}}",
       "missingImageModel": "影像目錄缺少型號 {{model}}"
     },
     "image": {
       "cannotFindModel": "影像目錄缺少型號 {{model}}",
-      "defaultModel": "預設型號",
+      "defaultModel": "預設圖片模型",
       "gptImage25": "綜合表現最佳，文字銳利，圖表乾淨。",
-      "loadingLabel": "載入預設圖像設定",
-      "loadingTitle": "預設影像設定",
+      "loadingLabel": "正在載入圖片生成設定",
+      "loadingTitle": "圖片生成設定",
       "modelTipLabel": "關於圖片模型",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -273,9 +265,9 @@
       "nanoBanana21": "細節豐富的攝影風場景。",
       "samplePrompt": "產生學生使用 Anki 努力學習並通過測驗的圖像。",
       "saveError": "無法儲存影像預設值",
-      "subtitle": "您的圖像 Smart Fields 使用的模型，除非欄位固定自己的模型。",
-      "title": "預設影像設定",
-      "zImageTurbo": "最快且最便宜。"
+      "title": "圖片生成設定",
+      "zImageTurbo": "最快且最便宜。",
+      "defaultModelTip": "圖片 Smart Fields 預設使用此模型。變更後，所有使用預設值的 Smart Field 都會更新。任何 Smart Field 都可以改用自己的模型。"
     },
     "layout": {
       "save": "儲存",
@@ -283,28 +275,14 @@
       "tryIt": "嘗試一下"
     },
     "text": {
-      "cannotInheritModel": "文字預設值不能繼承另一個模型",
       "defaultModel": "預設文字模型",
-      "defaultReasoningLevel": "默認推理級別",
-      "enableWebSearch": "啟用網頁搜尋",
-      "higherReasoning": "更高的推理能力可以改善更難的世代，但會使用更多的學分。",
-      "loadingLabel": "載入預設文字設定",
+      "loadingLabel": "正在載入文字生成設定",
       "loadingTitle": "文字產生設定",
-      "modelGuidance": "{{auto}}和{{autoMax}}是Smart Notes推薦的平衡性能和成本的模型。為標準任務選擇 {{auto}}，並根據需要升級到 {{autoMax}}。",
-      "pickingModel": "正在選擇模型",
-      "reasoningLevel": "推理水平",
-      "reasoningValues": {
-        "high": "高的",
-        "low": "低的",
-        "off": "離開"
-      },
       "samplePrompt": "什麼是間隔重複系統（SRS）？",
       "saveError": "無法儲存文字預設值",
-      "subtitle": "文字產生的預設設定。單一 Smart Fields 可以覆寫這些值。",
       "title": "文字產生設定",
-      "webSearch": "網頁搜尋",
-      "webSearchDescription": "讓文字生成從網路中獲取新鮮資訊。",
-      "webSearchWarning": "搜尋成本較高，請留意您的點數。"
+      "defaultModelTip": "Smart Fields 預設使用此模型。變更後，所有使用預設值的 Smart Field 都會更新。任何 Smart Field 都可以改用自己的模型。",
+      "defaultModelTipLabel": "關於預設文字模型"
     },
     "usage": {
       "fields_other": "適用於 {{count}} 字段"
@@ -322,14 +300,16 @@
         "provider": "提供者"
       },
       "filterVoices": "過濾聲音",
-      "loadingLabel": "載入預設語音設定",
-      "loadingTitle": "預設語音設定",
+      "loadingLabel": "正在載入語音設定",
+      "loadingTitle": "語音設定",
       "noVoices": "沒有聲音符合這些過濾器。",
       "saveError": "無法儲存語音預設值",
       "searchPlaceholder": "搜尋語音…",
       "searchVoices": "搜尋聲音",
-      "subtitle": "TTS Smart Fields 使用的語音，除非欄位固定自己的語音。",
-      "title": "預設語音設定"
+      "title": "語音設定",
+      "defaultVoice": "預設語音",
+      "defaultVoiceTip": "語音 Smart Fields 預設使用此語音。變更後，所有使用預設值的 Smart Field 都會更新。任何 Smart Field 都可以改用自己的語音。",
+      "defaultVoiceTipLabel": "關於預設語音"
     }
   },
   "imageGeneration": {
@@ -521,5 +501,30 @@
     "thanks": "感謝您使用 Smart Notes",
     "title": "您的免費試用已結束",
     "upgradeNow": "立即升級"
+  },
+  "intelligence": {
+    "advancedOptions": "進階選項",
+    "autoCostRange": "{{min}}–{{max}}× 成本",
+    "autoDescription": "在智慧程度與價格之間表現最佳的模型，會定期更新。",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "自動 · {{level}}",
+    "label": "智慧程度",
+    "levels": {
+      "high": "高",
+      "max": "最高",
+      "standard": "標準"
+    },
+    "specificModel": "使用特定模型",
+    "specificModelWarning": "特定模型的費用通常遠高於自動。",
+    "tipIntro": "先從標準開始，只有在結果不夠好時再提高等級。",
+    "tipLabel": "關於智慧程度等級",
+    "veryHighCost": "費用非常高",
+    "webSearch": "網路搜尋",
+    "webSearchDescription": "讓模型從網路擷取最新資訊。除非真的需要，否則請保持關閉。",
+    "tips": {
+      "high": "<level>高</level>適用於較進階的文法。",
+      "max": "<level>最高</level>適用於高等級無法處理的複雜內容。",
+      "standard": "<level>標準</level>最適合翻譯與例句。"
+    }
   }
 }

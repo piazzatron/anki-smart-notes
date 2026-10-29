@@ -2,9 +2,7 @@
   "common": {
     "allDecks": "Kaikki kannet",
     "auto": "Auto",
-    "autoMax": "Auto MAX",
     "back": "Takaisin",
-    "bestValueCost": "Paras hinta-laatusuhde, 0,3× hinta",
     "cancel": "Peruuttaa",
     "close": "Lähellä",
     "connection": {
@@ -57,6 +55,7 @@
     "validFields": "Kelvolliset kentät:"
   },
   "sidebar": {
+    "defaults": "Oletukset",
     "discord": "Discord",
     "feedback": "Palaute",
     "nav": {
@@ -170,18 +169,12 @@
       "loadingVoices": "Ladataan ääniä…",
       "model": "Malli",
       "pickCustom": "Valitse mukautettu malli tälle kentälle",
-      "reasoning": "{{level}} perustelut",
-      "reasoningHint": "Korkeampi päättely voi parantaa kovempia sukupolvia, mutta käyttää enemmän krediittejä.",
-      "reasoningLevel": "Päättelyn taso",
       "sharedByEveryField": "{{modality}} jaetaan kaikkien sitä käyttävien Smart Field-laitteiden kanssa. Vaihda se sisään",
       "textDefault": "teksti oletusarvo",
-      "textModel": "Teksti malli",
       "useMy": "Käytä {{modality}}:täni",
-      "useWebSearch": "Käytä tähän kenttään verkkohakua",
       "voice": "Ääni",
       "voiceDefault": "äänen oletusarvo",
-      "webSearch": "Verkkohaku",
-      "webSearchHint": "Anna tämän kentän käyttää tuoretta tietoa verkosta."
+      "webSearch": "Verkkohaku"
     },
     "save": "Tallenna Smart Field",
     "sections": {
@@ -257,15 +250,14 @@
   },
   "defaults": {
     "errors": {
-      "missingChatModel": "Chat-luettelosta puuttuu malli {{model}}",
       "missingImageModel": "Kuvaluettelosta puuttuu malli {{model}}"
     },
     "image": {
       "cannotFindModel": "Kuvaluettelosta puuttuu malli {{model}}",
-      "defaultModel": "Oletusmalli",
+      "defaultModel": "Oletuskuvamalli",
       "gptImage25": "paras monipuolinen valinta – terävä teksti, selkeät kaaviot.",
-      "loadingLabel": "Ladataan oletuskuvaasetuksia",
-      "loadingTitle": "Kuvan oletusasetukset",
+      "loadingLabel": "Ladataan kuvageneroinnin asetuksia",
+      "loadingTitle": "Kuvageneroinnin asetukset",
       "modelTipLabel": "Tietoa kuvamalleista",
       "models": {
         "gptImage25": "GPT Image 2.5",
@@ -274,9 +266,9 @@
       "nanoBanana21": "rikkaat, valokuvamaiset kohtaukset.",
       "samplePrompt": "Luo kuva opiskelijasta, joka opiskelee ahkerasti Anki:n kanssa ja läpäisee kokeensa.",
       "saveError": "Kuvan oletusasetuksia ei voitu tallentaa",
-      "subtitle": "Smart Fields-kuvasi käyttämä malli, ellei kenttä ole nastalla omaa.",
-      "title": "Kuvan oletusasetukset",
-      "zImageTurbo": "nopein ja halvin."
+      "title": "Kuvageneroinnin asetukset",
+      "zImageTurbo": "nopein ja halvin.",
+      "defaultModelTip": "Kuva-Smart Fields -kentät käyttävät oletusarvoisesti tätä mallia. Mallin muuttaminen päivittää kaikki oletusta käyttävät Smart Fields -kentät. Mikä tahansa Smart Field voi ohittaa oletuksen omalla mallillaan."
     },
     "layout": {
       "save": "Tallenna",
@@ -284,28 +276,14 @@
       "tryIt": "Kokeile sitä"
     },
     "text": {
-      "cannotInheritModel": "Tekstin oletusasetukset eivät voi periä toista mallia",
       "defaultModel": "Oletustekstimalli",
-      "defaultReasoningLevel": "Oletusarvostelutaso",
-      "enableWebSearch": "Ota verkkohaku käyttöön",
-      "higherReasoning": "Korkeampi päättely voi parantaa kovempia sukupolvia, mutta käyttää enemmän krediittejä.",
-      "loadingLabel": "Ladataan tekstin oletusasetuksia",
+      "loadingLabel": "Ladataan tekstigeneroinnin asetuksia",
       "loadingTitle": "Tekstin luontiasetukset",
-      "modelGuidance": "{{auto}} ja {{autoMax}} ovat Smart Notes:n suosittelemia malleja, jotka tasapainottavat suorituskykyä ja kustannuksia. Valitse tavallisille tehtäville {{auto}} ja päivitä {{autoMax}}-versioon tarvittaessa.",
-      "pickingModel": "Mallin valitseminen",
-      "reasoningLevel": "Päättelyn taso",
-      "reasoningValues": {
-        "high": "Korkea",
-        "low": "Matala",
-        "off": "Pois"
-      },
       "samplePrompt": "Mikä on jaksotettu toistojärjestelmä (SRS)?",
       "saveError": "Tekstin oletusasetuksia ei voitu tallentaa",
-      "subtitle": "Tekstin luomisen oletusasetukset. Yksittäinen Smart Fields voi ohittaa nämä arvot.",
       "title": "Tekstin luontiasetukset",
-      "webSearch": "Verkkohaku",
-      "webSearchDescription": "Anna tekstisukupolvien hakea uutta tietoa verkosta.",
-      "webSearchWarning": "Haku on kallista; seuraa krediittejäsi."
+      "defaultModelTip": "Smart Fields -kentät käyttävät oletusarvoisesti tätä mallia. Mallin muuttaminen päivittää kaikki oletusta käyttävät Smart Fields -kentät. Mikä tahansa Smart Field voi ohittaa oletuksen omalla mallillaan.",
+      "defaultModelTipLabel": "Tietoa oletustekstimallista"
     },
     "usage": {
       "fields_one": "Koskee {{count}}-kenttää",
@@ -324,14 +302,16 @@
         "provider": "Palveluntarjoaja"
       },
       "filterVoices": "Suodata äänet",
-      "loadingLabel": "Ladataan oletusääniasetuksia",
-      "loadingTitle": "Äänen oletusasetukset",
+      "loadingLabel": "Ladataan äänen asetuksia",
+      "loadingTitle": "Äänen asetukset",
       "noVoices": "Yksikään ääni ei vastaa näitä suodattimia.",
       "saveError": "Äänen oletusasetuksia ei voitu tallentaa",
       "searchPlaceholder": "Haeääniä…",
       "searchVoices": "Etsi ääniä",
-      "subtitle": "Ääni, jota TTS Smart Fields käyttää, ellei kenttä liitä omaansa.",
-      "title": "Äänen oletusasetukset"
+      "title": "Äänen asetukset",
+      "defaultVoice": "Oletusääni",
+      "defaultVoiceTip": "Ääni-Smart Fields -kentät käyttävät oletusarvoisesti tätä ääntä. Äänen muuttaminen päivittää kaikki oletusta käyttävät Smart Fields -kentät. Mikä tahansa Smart Field voi ohittaa oletuksen omalla äänellään.",
+      "defaultVoiceTipLabel": "Tietoa oletusäänestä"
     }
   },
   "imageGeneration": {
@@ -531,5 +511,30 @@
     "thanks": "Kiitos Smart Notesin käytöstä",
     "title": "Ilmainen kokeilujaksosi on päättynyt",
     "upgradeNow": "Päivitä nyt"
+  },
+  "intelligence": {
+    "advancedOptions": "Lisäasetukset",
+    "autoCostRange": "{{min}}–{{max}}× kustannus",
+    "autoDescription": "Älykkyyden ja hinnan perusteella parhaiten toimivat mallit. Päivitetään säännöllisesti.",
+    "autoName": "Smart Notes Auto",
+    "autoWithLevel": "Automaattinen · {{level}}",
+    "label": "Älykkyys",
+    "levels": {
+      "high": "Korkea",
+      "max": "Maksimi",
+      "standard": "Vakio"
+    },
+    "specificModel": "Käytä tiettyä mallia",
+    "specificModelWarning": "Tietyt mallit maksavat yleensä paljon enemmän kuin Automaattinen.",
+    "tipIntro": "Aloita Vakiolla ja siirry ylemmälle tasolle vain, jos tulokset eivät riitä.",
+    "tipLabel": "Tietoa älykkyystasoista",
+    "veryHighCost": "Erittäin korkea kustannus",
+    "webSearch": "Verkkohaku",
+    "webSearchDescription": "Anna mallin hakea tuoretta tietoa verkosta. Jätä tämä pois päältä, ellei sitä todella tarvita.",
+    "tips": {
+      "high": "<level>Korkea</level> on tarkoitettu edistyneemmälle kieliopille.",
+      "max": "<level>Maksimi</level> on tarkoitettu monimutkaiselle materiaalille, jota Korkea taso ei pysty käsittelemään.",
+      "standard": "<level>Vakio</level> sopii parhaiten käännöksiin ja esimerkkilauseisiin."
+    }
   }
 }
