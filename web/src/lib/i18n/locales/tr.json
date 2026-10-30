@@ -7,7 +7,9 @@
     "close": "Kapalı",
     "connection": {
       "connecting": "Anki'e bağlanılıyor…",
-      "reconnecting": "Anki'e yeniden bağlanılıyor…"
+      "reconnecting": "Anki'e yeniden bağlanılıyor…",
+      "serverUnreachable": "Smart Notes'a bağlanılamıyor. İnternet bağlantınızı kontrol edin.",
+      "tryAgain": "Tekrar dene"
     },
     "days_one": "1 gün",
     "days_other": "{{count}} gün",

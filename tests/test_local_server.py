@@ -297,7 +297,7 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
     monkeypatch.setattr(
         src.local_server,
         "app_state",
-        MagicMock(state=fake_account),
+        MagicMock(state=fake_account, server_unreachable=False),
     )
     monkeypatch.setattr(
         src.local_server,
@@ -327,6 +327,7 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
             smart_fields=fake_smart_fields,
             account=fake_account,
             auth_token="jwt-from-plugin-config",
+            server_unreachable=False,
             feature_flags=src.local_server.flags,
             settings=fake_settings,
             app_version="2.23.9",

@@ -7,7 +7,9 @@
     "close": "tutup",
     "connection": {
       "connecting": "Menyambung ke Anki…",
-      "reconnecting": "Menyambung semula ke Anki…"
+      "reconnecting": "Menyambung semula ke Anki…",
+      "serverUnreachable": "Tidak dapat menyambung ke Smart Notes. Semak sambungan internet anda.",
+      "tryAgain": "Cuba lagi"
     },
     "days_other": "{{count}} hari",
     "deck": "dek",

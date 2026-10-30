@@ -7,7 +7,9 @@
     "close": "Затвори",
     "connection": {
       "connecting": "Повезивање са Anki…",
-      "reconnecting": "Поновно повезивање са Anki…"
+      "reconnecting": "Поновно повезивање са Anki…",
+      "serverUnreachable": "Не могу да се повежем са Smart Notes. Проверите интернет везу.",
+      "tryAgain": "Покушај поново"
     },
     "days_one": "1 дан",
     "days_few": "{{count}} дана",

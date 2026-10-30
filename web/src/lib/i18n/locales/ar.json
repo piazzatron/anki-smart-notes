@@ -7,7 +7,9 @@
     "close": "يغلق",
     "connection": {
       "connecting": "جارٍ الاتصال بـ Anki...",
-      "reconnecting": "جارٍ إعادة الاتصال بـ Anki..."
+      "reconnecting": "جارٍ إعادة الاتصال بـ Anki...",
+      "serverUnreachable": "تعذّر الاتصال بـ Smart Notes. تحقّق من اتصالك بالإنترنت.",
+      "tryAgain": "حاول مرة أخرى"
     },
     "days_zero": "{{count}} أيام",
     "days_one": "يوم واحد",

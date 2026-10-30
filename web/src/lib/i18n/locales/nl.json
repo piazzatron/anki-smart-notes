@@ -7,7 +7,9 @@
     "close": "Dichtbij",
     "connection": {
       "connecting": "Verbinding maken met Anki...",
-      "reconnecting": "Opnieuw verbinding maken met Anki..."
+      "reconnecting": "Opnieuw verbinding maken met Anki...",
+      "serverUnreachable": "Kan geen verbinding maken met Smart Notes. Controleer je internetverbinding.",
+      "tryAgain": "Opnieuw proberen"
     },
     "days_one": "1 dag",
     "days_other": "{{count}} dagen",

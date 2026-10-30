@@ -7,7 +7,9 @@
     "close": "Փակել",
     "connection": {
       "connecting": "Միանում է Anki-ին…",
-      "reconnecting": "Վերամիացում Anki-ին…"
+      "reconnecting": "Վերամիացում Anki-ին…",
+      "serverUnreachable": "Smart Notes հասանելի չէ։ Ստուգեք ձեր ինտերնետ կապը։",
+      "tryAgain": "Փորձել նորից"
     },
     "days_one": "1 օր",
     "days_other": "{{count}} օր",

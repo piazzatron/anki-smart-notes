@@ -82,6 +82,9 @@ class AppStateManager:
         )
         self._state.state_changed.connect(self._publish_web_state)
         self._last_refresh_at = 0.0
+        # Whether the last account refresh couldn't reach the server, which
+        # the web UI shows as a "can't connect" notice.
+        self.server_unreachable = False
 
     @property
     def state(self) -> AppState:
@@ -90,6 +93,13 @@ class AppStateManager:
     def _publish_web_state(self, _state: AppState) -> None:
         """Keep connected webviews current when account state changes."""
         event_bus.publish(StateInvalidated())
+
+    def _set_server_unreachable(self, unreachable: bool) -> None:
+        # A failed attempt publishes even when nothing changed, so a retry
+        # from the UI learns that it finished.
+        if unreachable or self.server_unreachable:
+            self.server_unreachable = unreachable
+            event_bus.publish(StateInvalidated())
 
     def is_free_trial(self) -> bool:
         state = self._state.s
@@ -117,6 +127,7 @@ class AppStateManager:
             self._state.update(
                 {"status": "UNAUTHENTICATED", "plan": None, "email": None}
             )
+            self._set_server_unreachable(False)
             if on_updated is not None:
                 on_updated(self.state)
             return
@@ -125,7 +136,9 @@ class AppStateManager:
             # The user's connection failing or timing out is expected. The
             # account state stays as it was until something triggers another
             # refresh, such as opening Smart Notes.
-            if isinstance(exc, NETWORK_ERRORS):
+            is_network_error = isinstance(exc, NETWORK_ERRORS)
+            self._set_server_unreachable(is_network_error)
+            if is_network_error:
                 logger.info(
                     f"Network error getting new status: {type(exc).__name__}: {exc}"
                 )
@@ -167,6 +180,7 @@ class AppStateManager:
                     "email": email,
                 }
             )
+            self._set_server_unreachable(False)
             if on_updated is not None:
                 on_updated(self.state)
 

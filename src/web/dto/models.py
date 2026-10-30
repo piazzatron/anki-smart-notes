@@ -165,6 +165,7 @@ class StateDto(TypedDict):
     decks: list[DeckDto]
     globalDeckId: DeckId
     account: AccountDto
+    serverUnreachable: bool
     featureFlags: FeatureFlagsDto
     settings: SettingsDto
     appVersion: str

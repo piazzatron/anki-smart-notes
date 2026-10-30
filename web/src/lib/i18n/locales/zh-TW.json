@@ -7,7 +7,9 @@
     "close": "關閉",
     "connection": {
       "connecting": "正在連接到 Anki...",
-      "reconnecting": "正在重新連接到 Anki..."
+      "reconnecting": "正在重新連接到 Anki...",
+      "serverUnreachable": "無法連線至 Smart Notes，請檢查您的網路連線。",
+      "tryAgain": "重試"
     },
     "days_other": "{{count}}天",
     "deck": "甲板",

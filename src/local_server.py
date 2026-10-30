@@ -373,6 +373,7 @@ class LocalServer:
                     smart_fields=smart_field_service.get_all_smart_fields(),
                     account=app_state.state,
                     auth_token=config.auth_token,
+                    server_unreachable=app_state.server_unreachable,
                     feature_flags=flags,
                     settings=dto.build_settings(),
                     app_version=get_version(),

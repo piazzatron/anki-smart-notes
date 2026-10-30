@@ -39,6 +39,7 @@ const stateWith = (smartFields: SmartField[]): AppState => ({
     email: null,
     authToken: null,
   },
+  serverUnreachable: false,
   featureFlags: { reviewFreeMonth: false },
   defaults: {
     chat: {

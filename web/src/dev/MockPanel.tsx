@@ -22,6 +22,7 @@ const FIXTURES = [
   { id: "loading", label: "Loading" },
   { id: "empty", label: "Empty" },
   { id: "reconnecting", label: "Offline" },
+  { id: "server-unreachable", label: "Can't reach server" },
 ]
 
 const SELECTIONS = [

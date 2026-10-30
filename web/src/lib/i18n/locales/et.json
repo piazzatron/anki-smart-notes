@@ -7,7 +7,9 @@
     "close": "Sule",
     "connection": {
       "connecting": "Ühenduse loomine võrguga Anki…",
-      "reconnecting": "Uuesti ühendamine võrguga Anki…"
+      "reconnecting": "Uuesti ühendamine võrguga Anki…",
+      "serverUnreachable": "Ühendust teenusega Smart Notes ei õnnestu luua. Kontrolli oma internetiühendust.",
+      "tryAgain": "Proovi uuesti"
     },
     "days_one": "1 päev",
     "days_other": "{{count}} päevad",

@@ -7,7 +7,9 @@
     "close": "ବନ୍ଦ",
     "connection": {
       "connecting": "Anki ସହିତ ସଂଯୋଗ…",
-      "reconnecting": "Anki ସହିତ ପୁନ on ସଂଯୋଗ…"
+      "reconnecting": "Anki ସହିତ ପୁନ on ସଂଯୋଗ…",
+      "serverUnreachable": "Smart Notes ସହ ସଂଯୋଗ କରିପାରିଲା ନାହିଁ। ଆପଣଙ୍କ ଇଣ୍ଟରନେଟ୍ ସଂଯୋଗ ଯାଞ୍ଚ କରନ୍ତୁ।",
+      "tryAgain": "ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ"
     },
     "days_one": "1 ଦିନ",
     "days_other": "{{count}} ଦିନ",

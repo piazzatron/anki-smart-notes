@@ -7,7 +7,9 @@
     "close": "Fermu",
     "connection": {
       "connecting": "Konektante al Anki...",
-      "reconnecting": "Rekonektante al Anki..."
+      "reconnecting": "Rekonektante al Anki...",
+      "serverUnreachable": "Ne eblas konektiĝi al Smart Notes. Kontrolu vian interretan konekton.",
+      "tryAgain": "Provu denove"
     },
     "days_one": "1 tago",
     "days_other": "{{count}} tagoj",

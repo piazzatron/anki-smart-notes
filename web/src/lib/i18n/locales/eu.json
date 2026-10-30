@@ -7,7 +7,9 @@
     "close": "Itxi",
     "connection": {
       "connecting": "Ankira konektatzen…",
-      "reconnecting": "Anki-ra berriro konektatzen…"
+      "reconnecting": "Anki-ra berriro konektatzen…",
+      "serverUnreachable": "Smart Notes: ezin da konektatu. Egiaztatu internet konexioa.",
+      "tryAgain": "Saiatu berriro"
     },
     "days_one": "1 egun",
     "days_other": "{{count}} egunak",

@@ -7,7 +7,9 @@
     "close": "Tancar",
     "connection": {
       "connecting": "S'està connectant a Anki...",
-      "reconnecting": "S'està tornant a connectar a Anki..."
+      "reconnecting": "S'està tornant a connectar a Anki...",
+      "serverUnreachable": "No es pot connectar amb Smart Notes. Comprova la teva connexió a Internet.",
+      "tryAgain": "Torna-ho a provar"
     },
     "days_one": "1 dia",
     "days_many": "{{count}} dies",

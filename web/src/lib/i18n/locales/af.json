@@ -7,7 +7,9 @@
     "close": "Maak toe",
     "connection": {
       "connecting": "Koppel tans aan Anki …",
-      "reconnecting": "Herkoppel tans aan Anki …"
+      "reconnecting": "Herkoppel tans aan Anki …",
+      "serverUnreachable": "Kan nie aan Smart Notes koppel nie. Kontroleer jou internetverbinding.",
+      "tryAgain": "Probeer weer"
     },
     "days_one": "1 dag",
     "days_other": "{{count}} dae",

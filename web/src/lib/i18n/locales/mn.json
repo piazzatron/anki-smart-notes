@@ -7,7 +7,9 @@
     "close": "Хаах",
     "connection": {
       "connecting": "Anki-д холбогдож байна…",
-      "reconnecting": "Anki-д дахин холбогдож байна…"
+      "reconnecting": "Anki-д дахин холбогдож байна…",
+      "serverUnreachable": "Smart Notes руу холбогдож чадсангүй. Интернет холболтоо шалгана уу.",
+      "tryAgain": "Дахин оролдох"
     },
     "days_one": "1 өдөр",
     "days_other": "{{count}} хоног",

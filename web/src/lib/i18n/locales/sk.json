@@ -7,7 +7,9 @@
     "close": "Zavrieť",
     "connection": {
       "connecting": "Pripája sa k Anki…",
-      "reconnecting": "Opätovné pripojenie k Anki…"
+      "reconnecting": "Opätovné pripojenie k Anki…",
+      "serverUnreachable": "Nepodarilo sa pripojiť k Smart Notes. Skontrolujte svoje internetové pripojenie.",
+      "tryAgain": "Skúsiť znova"
     },
     "days_one": "1 deň",
     "days_few": "{{count}} dni",

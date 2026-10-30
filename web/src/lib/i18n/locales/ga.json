@@ -7,7 +7,9 @@
     "close": "Dún",
     "connection": {
       "connecting": "Ag nascadh le Anki…",
-      "reconnecting": "Ag athcheangal le Anki…"
+      "reconnecting": "Ag athcheangal le Anki…",
+      "serverUnreachable": "Ní féidir ceangal le Smart Notes. Seiceáil do nasc idirlín.",
+      "tryAgain": "Bain triail eile as"
     },
     "days_one": "1 lá",
     "days_two": "laethanta {{count}}",

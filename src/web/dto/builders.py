@@ -71,6 +71,7 @@ def build_state(
     smart_fields: list[SmartField],
     account: AppState,
     auth_token: str | None,
+    server_unreachable: bool,
     feature_flags: FeatureFlags,
     settings: SettingsDto,
     app_version: str,
@@ -105,6 +106,7 @@ def build_state(
             email=account["email"],
             authToken=auth_token,
         ),
+        serverUnreachable=server_unreachable,
         featureFlags=FeatureFlagsDto(
             reviewFreeMonth=feature_flags.review_free_month,
         ),

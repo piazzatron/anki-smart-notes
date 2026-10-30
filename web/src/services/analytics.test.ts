@@ -74,6 +74,7 @@ const stateWithAccount = (
   decks: [],
   globalDeckId: 1,
   account,
+  serverUnreachable: false,
   featureFlags: { reviewFreeMonth: false },
   defaults: {
     chat: {

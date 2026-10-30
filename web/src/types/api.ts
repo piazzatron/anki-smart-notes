@@ -169,6 +169,8 @@ export interface AppState {
   decks: Deck[]
   globalDeckId: number
   account: AccountState
+  /** The last account refresh couldn't reach the Smart Notes server. */
+  serverUnreachable: boolean
   featureFlags: FeatureFlags
   defaults: GenerationDefaults
   settings: Settings

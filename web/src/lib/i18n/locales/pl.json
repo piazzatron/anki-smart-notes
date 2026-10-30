@@ -7,7 +7,9 @@
     "close": "Zamknąć",
     "connection": {
       "connecting": "Łączenie z Anki…",
-      "reconnecting": "Ponowne łączenie z Anki…"
+      "reconnecting": "Ponowne łączenie z Anki…",
+      "serverUnreachable": "Nie można połączyć się ze Smart Notes. Sprawdź połączenie z internetem.",
+      "tryAgain": "Spróbuj ponownie"
     },
     "days_one": "1 dzień",
     "days_few": "{{count}} dni",

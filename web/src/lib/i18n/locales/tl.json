@@ -7,7 +7,9 @@
     "close": "Isara",
     "connection": {
       "connecting": "Kumokonekta sa Anki…",
-      "reconnecting": "Kumokonekta muli sa Anki…"
+      "reconnecting": "Kumokonekta muli sa Anki…",
+      "serverUnreachable": "Hindi makakonekta sa Smart Notes. Suriin ang iyong koneksyon sa internet.",
+      "tryAgain": "Subukan muli"
     },
     "days_one": "1 araw",
     "days_other": "{{count}} araw",

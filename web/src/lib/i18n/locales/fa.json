@@ -7,7 +7,9 @@
     "close": "بستن",
     "connection": {
       "connecting": "در حال اتصال به Anki…",
-      "reconnecting": "در حال اتصال مجدد به Anki…"
+      "reconnecting": "در حال اتصال مجدد به Anki…",
+      "serverUnreachable": "به Smart Notes متصل نمی‌شود. اتصال اینترنت خود را بررسی کنید.",
+      "tryAgain": "تلاش مجدد"
     },
     "days_one": "1 روز",
     "days_other": "روز {{count}}",

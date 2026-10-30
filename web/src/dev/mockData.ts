@@ -146,6 +146,7 @@ const BASE_STATE: AppState = {
     email: MOCK_ACCOUNT_EMAIL,
     authToken: null,
   },
+  serverUnreachable: false,
   featureFlags: { reviewFreeMonth: true },
   defaults: {
     chat: {
@@ -485,6 +486,11 @@ export const setMockFixture = (fixture: string): void => {
   }
   if (fixture in MOCK_ACCOUNT_FIXTURES) {
     state.account = structuredClone(MOCK_ACCOUNT_FIXTURES[fixture])
+  }
+  // A failed startup refresh leaves the account loading.
+  if (fixture === "server-unreachable") {
+    state.account = structuredClone(MOCK_ACCOUNT_FIXTURES.loading)
+    state.serverUnreachable = true
   }
 
   useAppStore.setState({

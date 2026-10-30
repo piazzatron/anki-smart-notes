@@ -7,7 +7,9 @@
     "close": "ปิด",
     "connection": {
       "connecting": "กำลังเชื่อมต่อกับ Anki...",
-      "reconnecting": "กำลังเชื่อมต่อกับ Anki อีกครั้ง..."
+      "reconnecting": "กำลังเชื่อมต่อกับ Anki อีกครั้ง...",
+      "serverUnreachable": "ไม่สามารถเชื่อมต่อกับ Smart Notes กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ต",
+      "tryAgain": "ลองอีกครั้ง"
     },
     "days_other": "{{count}} วัน",
     "deck": "เด็ค",

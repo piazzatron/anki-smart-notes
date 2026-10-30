@@ -7,7 +7,9 @@
     "close": "Κοντά",
     "connection": {
       "connecting": "Σύνδεση στο Anki…",
-      "reconnecting": "Επανασύνδεση στο Anki…"
+      "reconnecting": "Επανασύνδεση στο Anki…",
+      "serverUnreachable": "Δεν είναι δυνατή η σύνδεση με το Smart Notes. Ελέγξτε τη σύνδεσή σας στο internet.",
+      "tryAgain": "Δοκιμάστε ξανά"
     },
     "days_one": "1 ημέρα",
     "days_other": "{{count}} ημέρες",

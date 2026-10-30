@@ -7,7 +7,9 @@
     "close": "Đóng",
     "connection": {
       "connecting": "Đang kết nối với Anki…",
-      "reconnecting": "Đang kết nối lại với Anki…"
+      "reconnecting": "Đang kết nối lại với Anki…",
+      "serverUnreachable": "Không thể kết nối với Smart Notes. Hãy kiểm tra kết nối internet của bạn.",
+      "tryAgain": "Thử lại"
     },
     "days_other": "{{count}} ngày",
     "deck": "Bộ bài",

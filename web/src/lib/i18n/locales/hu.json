@@ -7,7 +7,9 @@
     "close": "Közeli",
     "connection": {
       "connecting": "Csatlakozás az Anki-hoz…",
-      "reconnecting": "Újracsatlakozás az Anki-hoz…"
+      "reconnecting": "Újracsatlakozás az Anki-hoz…",
+      "serverUnreachable": "Nem sikerült csatlakozni a Smart Notes szolgáltatáshoz. Ellenőrizd az internetkapcsolatot.",
+      "tryAgain": "Próbáld újra"
     },
     "days_one": "1 nap",
     "days_other": "{{count}} nap",

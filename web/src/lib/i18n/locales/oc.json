@@ -7,7 +7,9 @@
     "close": "Barrar",
     "connection": {
       "connecting": "Se connectar a Anki...",
-      "reconnecting": "Reconnexion a Anki..."
+      "reconnecting": "Reconnexion a Anki...",
+      "serverUnreachable": "Impossible de se connectar a Smart Notes. Verificatz vòstra connexion a internet.",
+      "tryAgain": "Tornar ensajar"
     },
     "days_other": "{{count}} jorns",
     "deck": "Pont",

@@ -7,7 +7,9 @@
     "close": "닫다",
     "connection": {
       "connecting": "Anki에 연결하는 중…",
-      "reconnecting": "Anki에 다시 연결하는 중…"
+      "reconnecting": "Anki에 다시 연결하는 중…",
+      "serverUnreachable": "Smart Notes에 연결할 수 없습니다. 인터넷 연결을 확인하세요.",
+      "tryAgain": "다시 시도"
     },
     "days_other": "{{count}}일",
     "deck": "갑판",

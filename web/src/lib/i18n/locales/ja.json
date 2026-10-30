@@ -7,7 +7,9 @@
     "close": "近い",
     "connection": {
       "connecting": "Anki に接続中…",
-      "reconnecting": "Anki に再接続中…"
+      "reconnecting": "Anki に再接続中…",
+      "serverUnreachable": "Smart Notesに接続できません。インターネット接続を確認してください。",
+      "tryAgain": "再試行"
     },
     "days_other": "{{count}} 日",
     "deck": "デッキ",

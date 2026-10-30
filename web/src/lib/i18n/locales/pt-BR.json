@@ -7,7 +7,9 @@
     "close": "Fechar",
     "connection": {
       "connecting": "Conectando ao Anki…",
-      "reconnecting": "Reconectando ao Anki…"
+      "reconnecting": "Reconectando ao Anki…",
+      "serverUnreachable": "Não foi possível conectar ao Smart Notes. Verifique sua conexão com a internet.",
+      "tryAgain": "Tentar novamente"
     },
     "days_one": "1 dia",
     "days_many": "{{count}} dias",

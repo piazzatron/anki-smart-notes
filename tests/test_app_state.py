@@ -97,9 +97,11 @@ def test_retry_failed_refresh_recovers_from_a_failed_startup_refresh(monkeypatch
     )
     manager = AppStateManager()
 
-    # The startup refresh times out, leaving the account LOADING.
+    # The startup refresh times out, leaving the account LOADING and the
+    # server marked unreachable.
     manager.update_account_state()
     assert manager.state["status"] == "LOADING"
+    assert manager.server_unreachable
 
     # Generation retries, but not within a minute of the last attempt.
     manager.retry_failed_refresh()
@@ -109,8 +111,35 @@ def test_retry_failed_refresh_recovers_from_a_failed_startup_refresh(monkeypatch
     manager.retry_failed_refresh()
     assert len(requests) == 2
     assert manager.state["status"] == "AUTHENTICATED"
+    assert not manager.server_unreachable
 
     # Once the account is confirmed, generation never retries.
     now[0] += src.app_state.REFRESH_RETRY_SECONDS
     manager.retry_failed_refresh()
     assert len(requests) == 2
+
+
+def test_every_unreachable_refresh_pushes_state(monkeypatch):
+    # The web UI's Try again spins until the next state push, so a refresh
+    # that fails again without changing anything must still push one.
+    events = []
+
+    def fail_refresh(op, on_success, on_failure, **kwargs):
+        on_failure(TimeoutError())
+
+    monkeypatch.setattr(
+        src.app_state, "config", types.SimpleNamespace(auth_token="token")
+    )
+    monkeypatch.setattr(
+        src.app_state, "run_async_in_background_with_sentry", fail_refresh
+    )
+    monkeypatch.setattr(
+        src.app_state, "event_bus", types.SimpleNamespace(publish=events.append)
+    )
+    manager = AppStateManager()
+
+    manager.update_account_state()
+    manager.update_account_state()
+
+    assert manager.server_unreachable
+    assert len(events) == 2

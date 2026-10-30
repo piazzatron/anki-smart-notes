@@ -7,7 +7,9 @@
     "close": "Aproape",
     "connection": {
       "connecting": "Se conectează la Anki...",
-      "reconnecting": "Se reconecta la Anki..."
+      "reconnecting": "Se reconecta la Anki...",
+      "serverUnreachable": "Nu te poți conecta la Smart Notes. Verifică-ți conexiunea la internet.",
+      "tryAgain": "Încearcă din nou"
     },
     "days_one": "1 zi",
     "days_few": "{{count}} zile",

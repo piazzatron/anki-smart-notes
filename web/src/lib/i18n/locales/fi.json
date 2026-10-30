@@ -7,7 +7,9 @@
     "close": "Lähellä",
     "connection": {
       "connecting": "Yhdistetään Anki:ään…",
-      "reconnecting": "Yhdistetään uudelleen Anki:ään…"
+      "reconnecting": "Yhdistetään uudelleen Anki:ään…",
+      "serverUnreachable": "Smart Notesiin ei saada yhteyttä. Tarkista internetyhteytesi.",
+      "tryAgain": "Yritä uudelleen"
     },
     "days_one": "1 päivä",
     "days_other": "{{count}} päivää",

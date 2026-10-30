@@ -7,7 +7,9 @@
     "close": "Blízko",
     "connection": {
       "connecting": "Připojování k Anki…",
-      "reconnecting": "Opětovné připojování k Anki…"
+      "reconnecting": "Opětovné připojování k Anki…",
+      "serverUnreachable": "Nelze se připojit ke Smart Notes. Zkontrolujte připojení k internetu.",
+      "tryAgain": "Zkusit znovu"
     },
     "days_one": "1 den",
     "days_few": "{{count}} dny",
