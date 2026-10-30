@@ -51,11 +51,14 @@ build () {
   # Copy deps
   vendored=(
     "aiohttp"
+    "aiohappyeyeballs"
     "aiosignal"
     "async_timeout"
     "frozenlist"
     "attrs"
     "multidict"
+    "propcache"
+    "typing_extensions.py"
     "yarl"
     "idna"
     "sentry_sdk"

@@ -36,7 +36,7 @@ Set up a virtualenv in `.venv` and install `requirements.txt` into it. The web U
 | `bun run dev` (in `web/`) | Web UI dev server on `:5173`. Dev builds of the add-on load it from there |
 | `bun run check` / `bun run test` (in `web/`) | Web UI checks and tests |
 
-Packaged builds include only the dependencies `scripts/build.sh` copies into `dist/vendor`. When you add or remove a runtime dependency in `requirements.txt`, update that list too.
+Packaged builds include only the dependencies `scripts/build.sh` copies into `dist/vendor`. When you add or remove a runtime dependency in `requirements.txt`, update that list too. Vendored packages run on Anki's own Python, so pin them to versions that still support Python 3.9 (Anki 2.1.50 to 25.02); `uv pip compile --python-version 3.9` resolves such a set.
 
 ### Supported Anki versions
 
