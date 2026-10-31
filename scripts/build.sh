@@ -24,7 +24,9 @@ build () {
   echo "Building web app..."
   (
     cd web
-    [ -d node_modules ] || bun install --frozen-lockfile
+    # A no-op install takes milliseconds, so always run it: deps pulled since the
+    # last build would otherwise be missing.
+    bun install --frozen-lockfile
     bun run build
   )
 
@@ -48,7 +50,9 @@ build () {
   # Nuke any pycache
   rm -rf dist/__pycache__
 
-  # Copy deps
+  # Copy deps, synced from requirements.txt first so new ones are there to copy
+  [ -x .venv/bin/python ] || uv venv -q --python 3.11 .venv
+  uv pip install -q --python .venv/bin/python -r requirements.txt
   vendored=(
     "aiohttp"
     "aiohappyeyeballs"
@@ -277,16 +281,18 @@ anki-local () {
 }
 
 # Main profile, built prod zip, prod backend.
-# Seeds dist/meta.json from the user's installed prod addon (1531888719) so
-# auth/config carries over and we don't have to sign in every run.
+# Seeds dist/meta.json's config from the user's installed prod addon (1531888719)
+# so auth carries over and we don't have to sign in every run. Only the config:
+# the installed name and disabled flag would make this copy indistinguishable from
+# the prod one in Anki's add-on list, and disabled whenever the prod one is.
 anki-prod () {
   clean
   build
   rm -rf dist/meta.json
   local INSTALLED_META=~/Library/Application\ Support/Anki2/addons21/1531888719/meta.json
   if [ -f "$INSTALLED_META" ]; then
-    cp "$INSTALLED_META" dist/meta.json
-    echo "Seeded dist/meta.json from installed prod addon"
+    jq '{config}' "$INSTALLED_META" > dist/meta.json
+    echo "Seeded dist/meta.json config from installed prod addon"
   else
     echo "Warning: $INSTALLED_META not found — skipping meta.json seed"
   fi
