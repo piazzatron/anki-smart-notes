@@ -27,7 +27,7 @@ Smart Notes is a fully typed Python 3 Anki add-on with a React web UI. The add-o
 ## Web UI and the local server
 
 - **`web/`** is the React app (Vite, TypeScript, Tailwind, Zustand). `scripts/build.sh` builds it into `src/web/static/`.
-- **`src/local_server.py`** serves it at `http://127.0.0.1:8766/app`. **`src/web_app.py`** and **`src/ui/web_app_dialog.py`** show it in a Qt webview.
+- **`src/local_server.py`** serves it at `http://127.0.0.1:24766/app`. **`src/web_app.py`** and **`src/ui/web_app_dialog.py`** show it in a Qt webview.
 - Anki owns all state, and the UI is a projection of it. The UI reads state from a single SSE stream (`GET /api/events`) and sends changes as commands (`POST /api/command`). **`src/event_bus.py`** and **`src/web/`** (hook adapters and DTOs) feed that stream.
 - In `web/src/`, `features/` has one folder per screen. `store/appStore.ts` holds the state from the stream, `services/sse.ts` and `services/commands.ts` talk to the local server, `lib/i18n/` holds the translations, and `dev/` holds the mock state that `?mock=1` loads.
 - In development, Vite serves the app on `http://localhost:5173/app/` with hot reload, and dev builds of the add-on point the webview there.

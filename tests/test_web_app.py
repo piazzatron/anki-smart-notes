@@ -45,7 +45,7 @@ def test_local_server_starts_once(monkeypatch: pytest.MonkeyPatch) -> None:
 
 
 def test_open_web_app_refreshes_account(monkeypatch: pytest.MonkeyPatch) -> None:
-    server = SimpleNamespace(session_token="session-token")
+    server = SimpleNamespace(session_token="session-token", port=24766)
     dialog = MagicMock()
     dialog_factory = MagicMock(return_value=dialog)
     account_state = MagicMock()
@@ -74,7 +74,8 @@ def test_open_web_app_refreshes_account(monkeypatch: pytest.MonkeyPatch) -> None
 def test_production_web_app_url_uses_effective_locale(
     monkeypatch: pytest.MonkeyPatch, language: str, expected_locale: str
 ) -> None:
-    server = SimpleNamespace(session_token="session-token")
+    # An OS-picked fallback port: the URL must use whichever port bound.
+    server = SimpleNamespace(session_token="session-token", port=51234)
     dialog_factory = MagicMock(return_value=MagicMock())
     monkeypatch.setattr(web_app, "_local_server", server)
     monkeypatch.setattr(web_app, "_web_app_dialog", None)
@@ -89,14 +90,14 @@ def test_production_web_app_url_uses_effective_locale(
     web_app.open_web_app()
 
     dialog_factory.assert_called_once_with(
-        "http://127.0.0.1:8766/app?token=session-token"
+        "http://127.0.0.1:51234/app?token=session-token"
         f"&locale={expected_locale}&ankiLocale=ja",
         web_app.mw,
     )
 
 
 def test_open_web_app_raises_existing_dialog(monkeypatch: pytest.MonkeyPatch) -> None:
-    server = SimpleNamespace(session_token="session-token")
+    server = SimpleNamespace(session_token="session-token", port=24766)
     dialog = MagicMock()
     dialog_factory = MagicMock()
     monkeypatch.setattr(web_app, "_local_server", server)

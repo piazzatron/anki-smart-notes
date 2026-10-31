@@ -26,7 +26,7 @@ from . import env
 from .app_state import app_state
 from .config import config
 from .constants import WEB_APP_DEV_URL
-from .local_server import LOCAL_SERVER_HOST, LOCAL_SERVER_PORT, LocalServer
+from .local_server import LOCAL_SERVER_HOST, LocalServer
 from .logger import logger
 from .sentry import with_sentry
 from .telemetry import track_event
@@ -60,6 +60,11 @@ def open_web_app() -> None:
         return
 
     local_server = ensure_local_server_started()
+    if local_server.port is None:
+        show_message_box(
+            "Smart Notes couldn't start its local server. Restart Anki and try again."
+        )
+        return
     app_state.update_account_state()
     if _web_app_dialog is not None:
         _web_app_dialog.raise_()
@@ -76,7 +81,7 @@ def open_web_app() -> None:
         )
         # The web app's matchCatalogLocale owns locale normalization and fallback.
         url = (
-            f"http://{LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}/app"
+            f"http://{LOCAL_SERVER_HOST}:{local_server.port}/app"
             f"?token={local_server.session_token}"
             f"&locale={requested_locale}"
             f"&ankiLocale={lang.current_lang}"

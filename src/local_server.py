@@ -66,7 +66,13 @@ from .utils import get_version
 from .utils.notes_utils import get_note_types_with_fields
 from .web import dto
 
-LOCAL_SERVER_PORT = 8766
+# The ports the server tries, in order; the website's sign-in handoff knows
+# both. 8766 was the only port through 2.27.1, but it's AnkiConnect's 8765
+# plus one, the port other add-ons and MCP bridges in the same Anki process
+# reach for. 24766 is unassigned by IANA and sits below both the Linux
+# (32768+) and Windows (49152+) ephemeral ranges, where Windows' Hyper-V and
+# WSL port reservations also land.
+LOCAL_SERVER_PORTS = (24766, 8766)
 LOCAL_SERVER_HOST = "127.0.0.1"
 
 WEB_APP_STATIC_DIR = Path(__file__).parent / "web" / "static"
@@ -101,10 +107,16 @@ class LocalServer:
         self._thread: Optional[threading.Thread] = None
         self._loop: Optional[asyncio.AbstractEventLoop] = None
         self._runner: Optional[web.AppRunner] = None
+        self._bound = threading.Event()
+        # The port actually bound, or None when every port was taken.
+        self.port: Optional[int] = None
 
     def start(self) -> None:
         self._thread = threading.Thread(target=self._run, daemon=True)
         self._thread.start()
+        # The webview URL needs the bound port, so wait for the bind (it
+        # takes milliseconds) before callers can open the window.
+        self._bound.wait(timeout=5)
 
     def stop(self) -> None:
         if self._loop and self._runner:
@@ -118,10 +130,22 @@ class LocalServer:
     def _run(self) -> None:
         self._loop = asyncio.new_event_loop()
         asyncio.set_event_loop(self._loop)
-        self._loop.run_until_complete(self._start_server())
+        try:
+            bind_errors = self._loop.run_until_complete(self._start_server())
+        finally:
+            self._bound.set()
+        if self.port is None:
+            # A task, so the slow diagnostic holds up neither start() nor
+            # stop(). Kept so it isn't collected.
+            self._bind_report = self._loop.create_task(
+                self._report_bind_failure(bind_errors)
+            )
         self._loop.run_forever()
 
-    async def _start_server(self) -> None:
+    async def _start_server(self) -> dict[int, OSError]:
+        """Binds the first free port in LOCAL_SERVER_PORTS.
+
+        Returns the bind error of each port it couldn't take."""
         app = web.Application()
         app.router.add_post("/auth/callback", self._handle_auth_callback)
         app.router.add_options("/auth/callback", self._handle_auth_preflight)
@@ -136,94 +160,106 @@ class LocalServer:
         app.router.add_get("/app/", self._handle_app_index)
         if WEB_APP_STATIC_DIR.exists():
             app.router.add_static("/app", WEB_APP_STATIC_DIR)
-        self._runner = web.AppRunner(app)
-        await self._runner.setup()
-        try:
+        runner = web.AppRunner(app)
+        self._runner = runner
+        await runner.setup()
+
+        bind_errors: dict[int, OSError] = {}
+        for port in LOCAL_SERVER_PORTS:
             # Short shutdown timeout: open SSE streams never finish on their
             # own and would otherwise hold graceful shutdown for 60s while
             # stop() only waits 5.
-            site = web.TCPSite(
-                self._runner,
-                LOCAL_SERVER_HOST,
-                LOCAL_SERVER_PORT,
-                shutdown_timeout=0.5,
-            )
-            await site.start()
-            logger.info(
-                f"Local server started on http://{LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}"
-            )
-        except OSError as e:
-            # Port already in use, which breaks the web app for this session.
-            # Record who holds it (this process, another Anki, or another
-            # program) so the Sentry event says why. Snapshot owners before
-            # probing, so the probe's own connection isn't in the snapshot.
-            holders: list[str] = []
-            if sys.platform == "win32":
-                try:
-                    no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0)
-                    # All protocols, so IPv6 listeners ([::]:8766) show up too.
-                    netstat = subprocess.run(
-                        ["netstat", "-ano"],
+            site = web.TCPSite(runner, LOCAL_SERVER_HOST, port, shutdown_timeout=0.5)
+            try:
+                await site.start()
+            except OSError as e:
+                bind_errors[port] = e
+                continue
+            self.port = port
+            logger.info(f"Local server started on http://{LOCAL_SERVER_HOST}:{port}")
+            break
+        return bind_errors
+
+    async def _report_bind_failure(self, bind_errors: dict[int, OSError]) -> None:
+        # Every port is taken, which breaks the window for this session.
+        # Record who holds each one (this process, another Anki, or another
+        # program) so the Sentry event says why.
+        reports = [
+            f"{port}: {error} ({await self._describe_port_holders(port)})"
+            for port, error in bind_errors.items()
+        ]
+        logger.error(
+            "Local server failed to bind %s on any port (pid %s): %s",
+            LOCAL_SERVER_HOST,
+            os.getpid(),
+            "; ".join(reports),
+        )
+
+    async def _describe_port_holders(self, port: int) -> str:
+        # Snapshot owners before probing, so the probe's own connection isn't
+        # in the snapshot.
+        holders: list[str] = []
+        if sys.platform == "win32":
+            try:
+                no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+                # All protocols, so IPv6 listeners ([::]:port) show up too.
+                netstat = subprocess.run(
+                    ["netstat", "-ano"],
+                    capture_output=True,
+                    text=True,
+                    errors="replace",
+                    timeout=5,
+                    creationflags=no_window,
+                ).stdout
+                # TCP rows are: proto, local address, foreign address, state, PID.
+                # Keep one row per state and PID; a listener can have many
+                # connections.
+                rows = {
+                    (parts[3], parts[4])
+                    for parts in (line.split() for line in netstat.splitlines())
+                    if len(parts) == 5 and parts[1].endswith(f":{port}")
+                }
+                images: dict[str, str] = {}
+                for pid in sorted({pid for _, pid in rows if pid != "0"})[:5]:
+                    tasklist = subprocess.run(
+                        ["tasklist", "/FI", f"PID eq {pid}", "/FO", "CSV", "/NH"],
                         capture_output=True,
                         text=True,
                         errors="replace",
                         timeout=5,
                         creationflags=no_window,
                     ).stdout
-                    # TCP rows are: proto, local address, foreign address, state, PID.
-                    # Keep one row per state and PID; a listener can have many
-                    # connections.
-                    rows = {
-                        (parts[3], parts[4])
-                        for parts in (line.split() for line in netstat.splitlines())
-                        if len(parts) == 5
-                        and parts[1].endswith(f":{LOCAL_SERVER_PORT}")
-                    }
-                    images: dict[str, str] = {}
-                    for pid in sorted({pid for _, pid in rows if pid != "0"})[:5]:
-                        tasklist = subprocess.run(
-                            ["tasklist", "/FI", f"PID eq {pid}", "/FO", "CSV", "/NH"],
-                            capture_output=True,
-                            text=True,
-                            errors="replace",
-                            timeout=5,
-                            creationflags=no_window,
-                        ).stdout
-                        # Image basename only: the first CSV column.
-                        if tasklist.startswith('"'):
-                            images[pid] = tasklist.split(",")[0].strip('"')
-                    for state, pid in sorted(rows):
-                        is_self = " (this process)" if pid == str(os.getpid()) else ""
-                        holders.append(
-                            f"{state} pid {pid}{is_self} {images.get(pid, '-')}"
-                        )
-                except Exception as lookup_error:
-                    holders.append(f"lookup failed: {type(lookup_error).__name__}")
+                    # Image basename only: the first CSV column.
+                    if tasklist.startswith('"'):
+                        images[pid] = tasklist.split(",")[0].strip('"')
+                for state, pid in sorted(rows):
+                    is_self = " (this process)" if pid == str(os.getpid()) else ""
+                    holders.append(f"{state} pid {pid}{is_self} {images.get(pid, '-')}")
+            except Exception as lookup_error:
+                holders.append(f"lookup failed: {type(lookup_error).__name__}")
 
-            # Our own server answers /ping with {"ok": true}. Report only whether
-            # the reply looks like ours, never another program's response body.
-            try:
-                async with aiohttp.request(
-                    "GET",
-                    f"http://{LOCAL_SERVER_HOST}:{LOCAL_SERVER_PORT}/ping",
-                    timeout=aiohttp.ClientTimeout(total=2),
-                    allow_redirects=False,
-                ) as response:
-                    body = await response.content.read(64)
-                    looks_like_ours = body.replace(b" ", b"") == b'{"ok":true}'
-                    ping = f"{response.status} {'smart-notes' if looks_like_ours else 'other'}"
-            except Exception as ping_error:
-                ping = type(ping_error).__name__
+        # Smart Notes answers /ping with {"ok": true} (newer versions add "app").
+        # Report only whether the reply looks like ours, never another
+        # program's response body.
+        try:
+            async with aiohttp.request(
+                "GET",
+                f"http://{LOCAL_SERVER_HOST}:{port}/ping",
+                timeout=aiohttp.ClientTimeout(total=2),
+                allow_redirects=False,
+            ) as response:
+                body = await response.content.read(64)
+                compact = body.replace(b" ", b"")
+                looks_like_ours = (
+                    b'"app":"smart-notes"' in compact or compact == b'{"ok":true}'
+                )
+                ping = (
+                    f"{response.status} {'smart-notes' if looks_like_ours else 'other'}"
+                )
+        except Exception as ping_error:
+            ping = type(ping_error).__name__
 
-            logger.error(
-                "Local server failed to bind %s:%s: %s (pid %s; holders: %s; ping: %s)",
-                LOCAL_SERVER_HOST,
-                LOCAL_SERVER_PORT,
-                e,
-                os.getpid(),
-                holders[:10] or "unknown",
-                ping,
-            )
+        return f"holders: {holders[:10] or 'unknown'}; ping: {ping}"
 
     def _cors_headers(self, origin: str) -> dict[str, str]:
         # Only called once origin is confirmed to be in ALLOWED_ORIGINS.
@@ -282,8 +318,12 @@ class LocalServer:
         # Browser-reachable no-op used to surface the PNA consent prompt on a
         # user gesture before the real JWT post. No origin allowlist — the
         # response carries no sensitive info and no side effect.
+        # "app" lets the site tell this server from another program on the
+        # same port before it posts a sign-in token.
         origin = request.headers.get("Origin", "*")
-        return web.json_response({"ok": True}, headers=self._cors_headers(origin))
+        return web.json_response(
+            {"ok": True, "app": "smart-notes"}, headers=self._cors_headers(origin)
+        )
 
     async def _handle_ping_preflight(self, request: web.Request) -> web.Response:
         origin = request.headers.get("Origin", "*")
@@ -301,8 +341,8 @@ class LocalServer:
         # loopback port identifies the real plugin server while test servers
         # and production builds continue through session authentication.
         if env.environment == "DEV" and request.host in {
-            f"127.0.0.1:{LOCAL_SERVER_PORT}",
-            f"localhost:{LOCAL_SERVER_PORT}",
+            f"127.0.0.1:{self.port}",
+            f"localhost:{self.port}",
         }:
             return None
 

@@ -198,7 +198,8 @@ async def test_loopback_ping_returns_ok():
     async with TestClient(TestServer(_make_app())) as client:
         resp = await client.get("/ping", headers={"Origin": ALLOWED_ORIGIN})
         assert resp.status == 200
-        assert (await resp.json()) == {"ok": True}
+        # The site posts sign-in tokens only to a server that identifies as ours.
+        assert (await resp.json()) == {"ok": True, "app": "smart-notes"}
         assert resp.headers["Access-Control-Allow-Origin"] == ALLOWED_ORIGIN
 
 
@@ -209,7 +210,6 @@ async def test_loopback_ping_open_to_any_origin():
     async with TestClient(TestServer(_make_app())) as client:
         resp = await client.get("/ping", headers={"Origin": "https://evil.com"})
         assert resp.status == 200
-        assert (await resp.json()) == {"ok": True}
 
 
 @pytest.mark.asyncio
@@ -253,7 +253,7 @@ async def test_events_rejects_non_localhost_host_header():
     async with TestClient(TestServer(_make_app(server))) as client:
         resp = await client.get(
             f"/api/events?token={server.session_token}",
-            headers={"Host": "evil.example.com:8766"},
+            headers={"Host": "evil.example.com:24766"},
         )
         assert resp.status == 403
 
@@ -934,27 +934,52 @@ async def test_open_browser_command_dispatch(monkeypatch):
         open_anki_browser.assert_called_once_with()
 
 
-@pytest.mark.asyncio
-async def test_bind_failure_reports_who_holds_the_port_on_windows(monkeypatch):
-    netstat = (
-        "  TCP    127.0.0.1:8766         0.0.0.0:0              LISTENING       4321\n"
-        "  TCP    127.0.0.1:53001        127.0.0.1:8766         ESTABLISHED     99\n"
-    )
-    tasklist = '"Anki.exe","4321","Console","1","200,000 K"\r\n'
+def test_server_falls_back_to_the_next_port_when_the_first_is_taken(monkeypatch):
+    import socket
+    import urllib.request
 
-    async def fail_to_bind(self):
-        raise OSError(10048, "only one usage of each socket address")
+    taken = socket.socket()
+    taken.bind(("127.0.0.1", 0))
+    taken.listen()
+    with socket.socket() as probe:
+        probe.bind(("127.0.0.1", 0))
+        free = probe.getsockname()[1]
+    monkeypatch.setattr(
+        src.local_server, "LOCAL_SERVER_PORTS", (taken.getsockname()[1], free)
+    )
+
+    server = _make_server()
+    server.start()
+    try:
+        assert server.port == free
+        with urllib.request.urlopen(f"http://127.0.0.1:{free}/ping") as resp:
+            assert json.load(resp)["app"] == "smart-notes"
+    finally:
+        server.stop()
+        taken.close()
+
+
+@pytest.mark.asyncio
+async def test_bind_failure_reports_who_holds_each_port_on_windows(monkeypatch):
+    netstat = (
+        "  TCP    127.0.0.1:24766        0.0.0.0:0              LISTENING       4321\n"
+        "  TCP    127.0.0.1:53001        127.0.0.1:24766        ESTABLISHED     99\n"
+        "  TCP    127.0.0.1:8766         0.0.0.0:0              LISTENING       555\n"
+    )
 
     def run(args, **kwargs):
+        if args[0] == "netstat":
+            return types.SimpleNamespace(stdout=netstat)
+        pid = args[2].split()[-1]
+        image = {"4321": "Anki.exe", "555": "node.exe"}[pid]
         return types.SimpleNamespace(
-            stdout=netstat if args[0] == "netstat" else tasklist
+            stdout=f'"{image}","{pid}","Console","1","1 K"\r\n'
         )
 
     def refuse_ping(*args, **kwargs):
         raise aiohttp.ClientConnectionError()
 
     error_logs = []
-    monkeypatch.setattr(web.TCPSite, "start", fail_to_bind)
     monkeypatch.setattr(src.local_server.aiohttp, "request", refuse_ping)
     monkeypatch.setattr(src.local_server.sys, "platform", "win32")
     monkeypatch.setattr(src.local_server.subprocess, "run", run)
@@ -964,8 +989,10 @@ async def test_bind_failure_reports_who_holds_the_port_on_windows(monkeypatch):
         lambda msg, *args: error_logs.append(msg % args),
     )
 
-    await _make_server()._start_server()
+    in_use = OSError(10048, "only one usage of each socket address")
+    await _make_server()._report_bind_failure({24766: in_use, 8766: in_use})
 
     assert len(error_logs) == 1
     assert "LISTENING pid 4321 Anki.exe" in error_logs[0]
+    assert "LISTENING pid 555 node.exe" in error_logs[0]
     assert "ESTABLISHED pid 99" not in error_logs[0]
