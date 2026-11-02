@@ -40,7 +40,7 @@ Packaged builds include only the dependencies `scripts/build.sh` copies into `di
 
 ### Supported Anki versions
 
-Smart Notes supports Anki 2.1.20 and later, the range set on the AnkiWeb listing. `requirements.txt` pins Anki 24.4.1 for development. CI also runs the checks and tests against the newest Anki release. To reproduce that locally, install the requirements into a scratch venv, then run `pip install "anki==X" "aqt==X" "protobuf>=6,<8"`. Run pyright from a copy of the folder without `.venv`, since `pyrightconfig.json` otherwise reads `.venv`.
+Smart Notes supports Anki 2.1.50 and later, Qt6 builds only, since it imports `PyQt6` directly. Keep the AnkiWeb listing's version range to match. `requirements.txt` pins Anki 24.4.1 for development. CI also runs the checks and tests against the newest Anki release. To reproduce that locally, install the requirements into a scratch venv, then run `pip install "anki==X" "aqt==X" "protobuf>=6,<8"`. Run pyright from a copy of the folder without `.venv`, since `pyrightconfig.json` otherwise reads `.venv`.
 
 ## 🎨 Credits
 
