@@ -66,7 +66,7 @@ export const IMAGE_MODEL_FAMILIES: readonly ImageModelFamily[] = [
     switches: ["extraReasoning"],
     variants: {
       "nano-banana-2-lite": {},
-      "nano-banana-2": { extraReasoning: true },
+      "nano-banana-2.1": { extraReasoning: true },
     },
     underTheHood: [
       {

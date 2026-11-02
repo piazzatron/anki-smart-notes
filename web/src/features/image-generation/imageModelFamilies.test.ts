@@ -21,7 +21,7 @@ describe("image model families", () => {
   })
 
   test("all switches off picks the family default", () => {
-    const nanoBanana = getImageModelFamily("nano-banana-2")!
+    const nanoBanana = getImageModelFamily("nano-banana-2.1")!
     expect(familyModel(nanoBanana, {})).toBe("nano-banana-2-lite")
   })
 
@@ -34,7 +34,7 @@ describe("image model families", () => {
       { id: "gpt-image-2.5-flare-low", provider: "openai" },
       { id: "gpt-image-2.5-sunburst-medium", provider: "openai" },
       { id: "nano-banana-2-lite", provider: "google" },
-      { id: "nano-banana-2", provider: "google" },
+      { id: "nano-banana-2.1", provider: "google" },
       { id: "z-image-turbo", provider: "replicate" },
     ])
 

@@ -33,34 +33,34 @@ ChatProviders = Literal["auto", "openai", "anthropic", "google"]
 ChatReasoningLevel = Literal["off", "low", "high", "max"]
 
 OpenAIModels = Literal[
-    "gpt-5",
-    "gpt-5-mini",
-    "gpt-5-chat-latest",
+    "gpt-6.1-sol",
+    "gpt-6-luna",
+    "gpt-6.1-terra",
 ]
 AutoModels = Literal["auto"]
-AnthropicModels = Literal["claude-haiku-4-5", "claude-sonnet-4-6", "claude-opus-4-6"]
-GeminiModels = Literal["gemini-3.1-pro", "gemini-3.1-flash-lite", "gemini-3-flash"]
+AnthropicModels = Literal["claude-haiku-5-5", "claude-sonnet-5-5", "claude-opus-5-5"]
+GeminiModels = Literal["gemini-4-argon", "gemini-3.5-flash-lite", "gemini-3.8-flash"]
 ChatModels = Union[AutoModels, OpenAIModels, AnthropicModels, GeminiModels]
 
 # Order that the models are displayed in the UI.
 auto_chat_models: list[ChatModels] = ["auto"]
 
 openai_chat_models: list[ChatModels] = [
-    "gpt-5-mini",
-    "gpt-5-chat-latest",
-    "gpt-5",
+    "gpt-6-luna",
+    "gpt-6.1-terra",
+    "gpt-6.1-sol",
 ]
 
 anthropic_chat_models: list[ChatModels] = [
-    "claude-haiku-4-5",
-    "claude-sonnet-4-6",
-    "claude-opus-4-6",
+    "claude-haiku-5-5",
+    "claude-sonnet-5-5",
+    "claude-opus-5-5",
 ]
 
 gemini_chat_models: list[ChatModels] = [
-    "gemini-3.1-flash-lite",
-    "gemini-3-flash",
-    "gemini-3.1-pro",
+    "gemini-3.5-flash-lite",
+    "gemini-3.8-flash",
+    "gemini-4-argon",
 ]
 
 provider_model_map: dict[ChatProviders, list[ChatModels]] = {
@@ -117,7 +117,7 @@ ElevenVoices = Literal["male-1", "male-2", "female-1", "female-2"]
 SmartFieldType = Literal["chat", "tts", "image"]
 
 ReplicateImageModels = Literal["z-image-turbo"]
-GoogleImageModels = Literal["nano-banana-2-lite", "nano-banana-2"]
+GoogleImageModels = Literal["nano-banana-2-lite", "nano-banana-2.1"]
 OpenAIImageModels = Literal[
     "gpt-image-2.5-flare-low",
     "gpt-image-2.5-flare-medium",
@@ -135,7 +135,7 @@ openai_image_models: list[ImageModels] = [
     "gpt-image-2.5-sunburst-medium",
 ]
 
-google_image_models: list[ImageModels] = ["nano-banana-2-lite", "nano-banana-2"]
+google_image_models: list[ImageModels] = ["nano-banana-2-lite", "nano-banana-2.1"]
 
 replicate_image_models: list[ImageModels] = ["z-image-turbo"]
 
@@ -153,13 +153,13 @@ all_image_models: list[ImageModels] = [
     "gpt-image-2.5-flare-medium",
     "gpt-image-2.5-sunburst-medium",
     "nano-banana-2-lite",
-    "nano-banana-2",
+    "nano-banana-2.1",
 ]
 
 image_model_to_provider: dict[ImageModels, ImageProviders] = {
     "z-image-turbo": "replicate",
     "nano-banana-2-lite": "google",
-    "nano-banana-2": "google",
+    "nano-banana-2.1": "google",
     "gpt-image-2.5-flare-low": "openai",
     "gpt-image-2.5-flare-medium": "openai",
     "gpt-image-2.5-sunburst-low": "openai",

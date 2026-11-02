@@ -154,7 +154,7 @@ def test_deprecated_chat_models_migrate_to_auto(tmp_path: Path) -> None:
         ("field-0", "auto", "auto"),
         ("field-1", "auto", "auto"),
         ("field-2", "auto", "auto"),
-        ("field-3", "openai", "gpt-5-mini"),
+        ("field-3", "openai", "gpt-6-luna"),
     ]
 
 

@@ -182,6 +182,61 @@ def test_run_migrations_moves_auto_max_to_auto_at_max_reasoning(
     assert (defaults.model, defaults.reasoning_level) == ("auto", "max")
 
 
+def test_run_migrations_moves_remapped_model_names_to_real_names(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    addon_config = {
+        "chat_provider": "anthropic",
+        "chat_model": "claude-haiku-4-5",
+        "image_provider": "google",
+        "image_model": "nano-banana-2",
+        "prompts_map": {
+            "note_types": {
+                "Basic": {
+                    str(DECK_ID): {
+                        "fields": {"Back": "{{Front}}"},
+                        "extras": {
+                            "Back": {
+                                "automatic": True,
+                                "type": "chat",
+                                "use_custom_model": True,
+                                "chat_provider": "google",
+                                "chat_model": "gemini-3-flash",
+                                "chat_reasoning_level": None,
+                                "chat_web_search": False,
+                                "tts_model": None,
+                                "tts_provider": None,
+                                "tts_voice": None,
+                                "image_provider": None,
+                                "image_model": None,
+                            }
+                        },
+                    }
+                }
+            }
+        },
+        "did_migrate_smart_fields_to_sqlite": False,
+    }
+    install_fake_anki(
+        monkeypatch,
+        addon_config,
+        tmp_path,
+        show_message_box=lambda *args: None,
+    )
+    use_temp_sqlite(monkeypatch, tmp_path)
+
+    run_migrations()
+
+    service = SmartFieldService()
+    smart_fields = service.get_smart_fields_for_note(NOTE_TYPE_ID, DECK_ID)
+
+    assert isinstance(smart_fields[0].settings, ChatSmartFieldSettings)
+    assert smart_fields[0].settings.model == "gemini-3.8-flash"
+    assert service.get_chat_defaults().model == "claude-haiku-5-5"
+    assert service.get_image_defaults().model == "nano-banana-2.1"
+
+
 def test_run_migrations_updates_inherited_fields_through_sql_default_row(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,

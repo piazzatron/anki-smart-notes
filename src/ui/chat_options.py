@@ -54,15 +54,15 @@ class ChatOptionsState(TypedDict):
 
 models_map: dict[str, str] = {
     "auto": "Auto (Best Value, 0.3x cost)",
-    "gpt-5-mini": "GPT-5 Mini (1x cost)",
-    "gpt-5-chat-latest": "GPT-5 (No Reasoning, 7x++ cost)",
-    "gpt-5": "GPT-5 (Reasoning, 7x cost)",
-    "claude-haiku-4-5": "Claude Haiku 4.5 (3x cost)",
-    "claude-sonnet-4-6": "Claude Sonnet 4.6 (10x cost)",
-    "claude-opus-4-6": "Claude Opus 4.6 (16x cost)",
-    "gemini-3-flash": "Gemini 3 Flash (2x cost)",
-    "gemini-3.1-flash-lite": "Gemini 3.1 Flash Lite (1x cost)",
-    "gemini-3.1-pro": "Gemini 3.1 Pro (8x cost)",
+    "gpt-6-luna": "GPT-6 Luna (1x cost)",
+    "gpt-6.1-terra": "GPT-6.1 Terra (No Reasoning, 7x++ cost)",
+    "gpt-6.1-sol": "GPT-6.1 Sol (Reasoning, 7x cost)",
+    "claude-haiku-5-5": "Claude Haiku 5.5 (3x cost)",
+    "claude-sonnet-5-5": "Claude Sonnet 5.5 (10x cost)",
+    "claude-opus-5-5": "Claude Opus 5.5 (16x cost)",
+    "gemini-3.8-flash": "Gemini 3.8 Flash (2x cost)",
+    "gemini-3.5-flash-lite": "Gemini 3.5 Flash-Lite (1x cost)",
+    "gemini-4-argon": "Gemini 4 Argon (8x cost)",
 }
 
 providers_map: dict[ChatProviders, str] = {
