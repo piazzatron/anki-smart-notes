@@ -31,6 +31,7 @@ import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { Pill } from "@/components/ui/Pill"
 import type { SelectedNote } from "@/types/api"
 
+import { htmlToText } from "./htmlToText"
 import { resolvePromptReferences } from "./resolvePromptReferences"
 import type { PromptTester, Provenance } from "./usePromptTester"
 
@@ -117,10 +118,15 @@ export const PromptTestResultModal = ({
 interface ResolvedPromptProps {
   note: SelectedNote | null
   prompt: string
+  stripHtml: boolean
 }
 
 /** The prompt as it was actually sent: field references swapped for the card's text. */
-export const ResolvedPrompt = ({ note, prompt }: ResolvedPromptProps) => {
+export const ResolvedPrompt = ({
+  note,
+  prompt,
+  stripHtml,
+}: ResolvedPromptProps) => {
   const { t } = useTranslation()
   const { parts } = resolvePromptReferences(prompt, note?.fields ?? {})
 
@@ -131,8 +137,8 @@ export const ResolvedPrompt = ({ note, prompt }: ResolvedPromptProps) => {
       </span>
       {parts.map((part, index) =>
         part.isReference ? (
-          <span className="text-indigo-soft" key={index}>
-            {part.text}
+          <span className="whitespace-pre-line text-indigo-soft" key={index}>
+            {stripHtml ? htmlToText(part.text) : part.text}
           </span>
         ) : (
           part.text

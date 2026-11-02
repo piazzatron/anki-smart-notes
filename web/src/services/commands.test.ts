@@ -35,6 +35,7 @@ const field: SmartField = {
     reasoningLevel: "off",
     webSearchEnabled: false,
     usesDefaultGenerationSettings: true,
+    stripHtml: true,
   },
 }
 

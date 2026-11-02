@@ -84,6 +84,7 @@ def parse_smart_field_create(payload: dict[str, Any]) -> SmartFieldCreate:
             reasoning_level=chat["reasoningLevel"],
             web_search_enabled=chat["webSearchEnabled"],
             uses_default_generation_settings=chat["usesDefaultGenerationSettings"],
+            strip_html=chat["stripHtml"],
         )
     elif field_type == "tts":
         tts = cast(TTSSmartFieldSettingsDto, raw["settings"])
@@ -101,6 +102,7 @@ def parse_smart_field_create(payload: dict[str, Any]) -> SmartFieldCreate:
             provider=image["provider"],
             model=image["model"],
             uses_default_generation_settings=image["usesDefaultGenerationSettings"],
+            strip_html=image["stripHtml"],
         )
     else:
         raise ValueError(f"Unknown fieldType: {field_type}")
@@ -258,12 +260,15 @@ def parse_chat_generation_settings(payload: dict[str, Any]) -> ChatGenerationSet
         model=raw["model"],
         reasoning_level=raw["reasoningLevel"],
         web_search_enabled=raw["webSearchEnabled"],
+        strip_html=raw["stripHtml"],
     )
 
 
 def parse_image_generation_settings(payload: dict[str, Any]) -> ImageGenerationSettings:
     raw = cast(ImageGenerationSettingsDto, payload)
-    return ImageGenerationSettings(provider=raw["provider"], model=raw["model"])
+    return ImageGenerationSettings(
+        provider=raw["provider"], model=raw["model"], strip_html=raw["stripHtml"]
+    )
 
 
 def parse_tts_generation_settings(payload: dict[str, Any]) -> TTSGenerationSettings:

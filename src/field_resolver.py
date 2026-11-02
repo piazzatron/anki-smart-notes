@@ -135,6 +135,7 @@ class FieldResolver:
                 provider=settings.provider,
                 field_lower=node.field,
                 should_convert_to_html=True,
+                strip_html=settings.strip_html,
                 web_search=settings.web_search_enabled,
                 reasoning_level=settings.reasoning_level,
                 show_error_box=show_error_box,
@@ -158,6 +159,7 @@ class FieldResolver:
                 input_text=input,
                 model=settings.model,
                 provider=settings.provider,
+                strip_html=settings.strip_html,
                 show_error_box=show_error_box,
                 generation_source="card_generation",
             )
@@ -180,13 +182,14 @@ class FieldResolver:
         provider: ChatProviders,
         field_lower: str,
         should_convert_to_html: bool,
+        strip_html: bool,
         generation_source: GenerationSource,
         web_search: bool = False,
         reasoning_level: ChatReasoningLevel = "off",
         show_error_box: bool = True,
         should_embed_images: bool = True,
     ) -> Optional[str]:
-        interpolated_prompt = interpolate_prompt(prompt, note)
+        interpolated_prompt = interpolate_prompt(prompt, note, strip_html)
 
         if not interpolated_prompt:
             return None
@@ -240,7 +243,8 @@ class FieldResolver:
         generation_source: GenerationSource,
         show_error_box: bool = True,
     ) -> Optional[bytes]:
-        interpolated_prompt = interpolate_prompt(input_text, note)
+        # The server strips HTML from TTS input itself, before it bills.
+        interpolated_prompt = interpolate_prompt(input_text, note, strip_html=False)
 
         if not interpolated_prompt:
             return None
@@ -266,6 +270,7 @@ class FieldResolver:
         input_text: str,
         model: ImageModels,
         provider: ImageProviders,
+        strip_html: bool,
         generation_source: GenerationSource,
         show_error_box: bool = True,
     ) -> Optional[ImageResponse]:
@@ -273,7 +278,7 @@ class FieldResolver:
             logger.debug("App at capacity, returning early")
             return None
 
-        interpolated_prompt = interpolate_prompt(input_text, note)
+        interpolated_prompt = interpolate_prompt(input_text, note, strip_html)
 
         if not interpolated_prompt:
             return None

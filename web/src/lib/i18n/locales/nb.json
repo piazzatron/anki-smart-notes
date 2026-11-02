@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Avanserte alternativer",
     "allDecks": "Alle dekk",
     "auto": "Auto",
     "back": "Tilbake",
@@ -158,24 +159,20 @@
     },
     "loadingModelCatalog": "Laster modellkatalog …",
     "modelSettings": {
-      "appliesOnlyToField": "Gjelder kun denne Smart Field.",
-      "defaultWithValue": "Standard ({{value}})",
-      "defaultsImages": "Standarder › Bilder",
-      "defaultsText": "Standarder › Tekst",
-      "defaultsVoice": "Standarder › Stemme",
+      "custom": "Egendefinert",
+      "customDescription": "Dette feltet bruker egne innstillinger.",
+      "default": "Standard",
       "descriptionChat": "Still inn AI som skriver dette feltet. De fleste felt kan forbli på standard.",
       "descriptionImage": "Still inn AI som tegner dette feltet. De fleste felt kan forbli på standard.",
       "descriptionTts": "Still inn stemmen som leser dette feltet. De fleste felt kan forbli på standard.",
-      "imageDefault": "standard bilde",
+      "followingDefault": "Bruker standardinnstillingene dine. Endre noe for å tilpasse.",
       "imageModel": "Bildemodell",
+      "intelligenceLevel": "{{level}} intelligens",
+      "keepsHtml": "Beholder HTML",
       "loadingVoices": "Laster inn stemmer …",
       "model": "Modell",
-      "pickCustom": "Velg en tilpasset modell for dette feltet",
-      "sharedByEveryField": "Din {{modality}} deles av alle Smart Field som bruker den. Bytt den inn",
-      "textDefault": "standard tekst",
-      "useMy": "Bruk min {{modality}}",
+      "settings": "Innstillinger",
       "voice": "Stemme",
-      "voiceDefault": "stemme standard",
       "webSearch": "Nettsøk"
     },
     "save": "Lagre Smart Field",
@@ -256,7 +253,7 @@
     },
     "image": {
       "cannotFindModel": "Bildekatalogen mangler modell {{model}}",
-      "defaultModel": "Standardmodell for bilder",
+      "defaultModel": "Modell",
       "gptImage25": "best til det meste — skarp tekst, rene diagrammer.",
       "loadingLabel": "Laster innstillinger for bildegenerering",
       "loadingTitle": "Innstillinger for bildegenerering",
@@ -278,7 +275,7 @@
       "tryIt": "Prøv det"
     },
     "text": {
-      "defaultModel": "Standard tekstmodell",
+      "defaultModel": "Modell",
       "loadingLabel": "Laster innstillinger for tekstgenerering",
       "loadingTitle": "Innstillinger for tekstgenerering",
       "samplePrompt": "Hva er et avstandsrepetisjonssystem (SRS)?",
@@ -515,7 +512,6 @@
     "upgradeNow": "Oppgrader nå"
   },
   "intelligence": {
-    "advancedOptions": "Avanserte alternativer",
     "autoCostRange": "{{min}}–{{max}}× kostnad",
     "autoDescription": "De best presterende modellene for intelligens og pris, oppdatert jevnlig.",
     "autoName": "Smart Notes Auto",
@@ -537,6 +533,12 @@
       "high": "<level>Høy</level> er for mer avansert grammatikk.",
       "max": "<level>Maks</level> er for komplisert materiale som Høy ikke klarer.",
       "standard": "<level>Standard</level> er best for oversettelser og eksempelsetninger."
-    }
+    },
+    "webSearchTipLabel": "Om websøk"
+  },
+  "stripHtml": {
+    "description": "Felt sendes til prompten som ren tekst, uten formatering og markup. Slå av dette hvis prompten din trenger HTML.",
+    "label": "Entfern HTML fra input",
+    "tipLabel": "Om fjerning av HTML"
   }
 }

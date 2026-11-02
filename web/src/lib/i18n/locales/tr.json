@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Gelişmiş seçenekler",
     "allDecks": "Tüm Desteler",
     "auto": "Otomatik",
     "back": "Geri",
@@ -158,24 +159,20 @@
     },
     "loadingModelCatalog": "Model kataloğu yükleniyor…",
     "modelSettings": {
-      "appliesOnlyToField": "Yalnızca bu Smart Field için geçerlidir.",
-      "defaultWithValue": "Varsayılan ({{value}})",
-      "defaultsImages": "Varsayılanlar › Resimler",
-      "defaultsText": "Varsayılanlar › Metin",
-      "defaultsVoice": "Varsayılanlar › Ses",
+      "custom": "Özel",
+      "customDescription": "Bu alan kendi ayarlarını kullanır.",
+      "default": "Varsayılan",
       "descriptionChat": "Bu alanı yazan yapay zekayı ayarlayın. Çoğu alan varsayılanda kalabilir.",
       "descriptionImage": "Bu alanı çizen yapay zekayı ayarlayın. Çoğu alan varsayılanda kalabilir.",
       "descriptionTts": "Bu alanı okuyan sesi ayarlayın. Çoğu alan varsayılanda kalabilir.",
-      "imageDefault": "görüntü varsayılanı",
+      "followingDefault": "Varsayılan ayarlarınızı kullanır. Özelleştirmek için herhangi bir şeyi değiştirin.",
       "imageModel": "Resim modeli",
+      "intelligenceLevel": "{{level}} zeka",
+      "keepsHtml": "HTML'i korur",
       "loadingVoices": "Sesler yükleniyor…",
       "model": "Modeli",
-      "pickCustom": "Bu alan için özel bir model seçin",
-      "sharedByEveryField": "{{modality}}'iniz, onu kullanan her Smart Field tarafından paylaşılır. Değiştir",
-      "textDefault": "metin varsayılanı",
-      "useMy": "{{modality}}'imi kullan",
+      "settings": "Ayarlar",
       "voice": "Ses",
-      "voiceDefault": "ses varsayılanı",
       "webSearch": "Web araması"
     },
     "save": "Smart Field'i kaydedin",
@@ -256,7 +253,7 @@
     },
     "image": {
       "cannotFindModel": "Resim kataloğunda {{model}} modeli eksik",
-      "defaultModel": "Varsayılan Görsel Modeli",
+      "defaultModel": "Model",
       "gptImage25": "en iyi genel seçenek — keskin metin, temiz diyagramlar.",
       "loadingLabel": "Görsel Oluşturma Ayarları Yükleniyor",
       "loadingTitle": "Görsel Oluşturma Ayarları",
@@ -278,7 +275,7 @@
       "tryIt": "Deneyin"
     },
     "text": {
-      "defaultModel": "Varsayılan Metin Modeli",
+      "defaultModel": "Model",
       "loadingLabel": "Metin Oluşturma Ayarları Yükleniyor",
       "loadingTitle": "Metin Oluşturma Ayarları",
       "samplePrompt": "Aralıklı Tekrarlama Sistemi (SRS) Nedir?",
@@ -515,7 +512,6 @@
     "upgradeNow": "Şimdi yükseltin"
   },
   "intelligence": {
-    "advancedOptions": "Gelişmiş seçenekler",
     "autoCostRange": "{{min}}–{{max}}× maliyet",
     "autoDescription": "Zekâ ve fiyat açısından en iyi performans gösteren modeller, düzenli olarak güncellenir.",
     "autoName": "Smart Notes Auto",
@@ -537,6 +533,12 @@
       "high": "<level>Yüksek</level>, daha gelişmiş dilbilgisi içindir.",
       "max": "<level>Maksimum</level>, Yüksek seviyenin işleyemediği karmaşık içerikler içindir.",
       "standard": "<level>Standart</level>, çeviriler ve örnek cümleler için en uygunudur."
-    }
+    },
+    "webSearchTipLabel": "Web araması hakkında"
+  },
+  "stripHtml": {
+    "description": "Alanlar, biçimlendirme ve işaretleme olmadan düz metin olarak isteme eklenir. İsteminizin HTML'e ihtiyacı varsa bunu kapatın.",
+    "label": "Girdiden HTML'yi kaldır",
+    "tipLabel": "HTML'i kaldırma hakkında"
   }
 }

@@ -61,6 +61,7 @@ class ChatGenerationSettingsDto(TypedDict):
     model: ChatModels
     reasoningLevel: ChatReasoningLevel
     webSearchEnabled: bool
+    stripHtml: bool
 
 
 class TTSGenerationSettingsDto(TypedDict):
@@ -72,6 +73,7 @@ class TTSGenerationSettingsDto(TypedDict):
 class ImageGenerationSettingsDto(TypedDict):
     provider: ImageProviders
     model: ImageModels
+    stripHtml: bool
 
 
 class GenerationDefaultsDto(TypedDict):
@@ -102,6 +104,7 @@ class ChatSmartFieldSettingsDto(TypedDict):
     reasoningLevel: ChatReasoningLevel
     webSearchEnabled: bool
     usesDefaultGenerationSettings: bool
+    stripHtml: bool
 
 
 class TTSSmartFieldSettingsDto(TypedDict):
@@ -117,6 +120,7 @@ class ImageSmartFieldSettingsDto(TypedDict):
     provider: ImageProviders
     model: ImageModels
     usesDefaultGenerationSettings: bool
+    stripHtml: bool
 
 
 class SmartFieldBaseDto(TypedDict):

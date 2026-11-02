@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Geavanceerde opties",
     "allDecks": "Alle dekken",
     "auto": "Auto",
     "back": "Rug",
@@ -158,24 +159,20 @@
     },
     "loadingModelCatalog": "Modelcatalogus laden…",
     "modelSettings": {
-      "appliesOnlyToField": "Geldt alleen voor deze Smart Field.",
-      "defaultWithValue": "Standaard ({{value}})",
-      "defaultsImages": "Standaardinstellingen › Afbeeldingen",
-      "defaultsText": "Standaardinstellingen › Tekst",
-      "defaultsVoice": "Standaardinstellingen › Stem",
+      "custom": "Aangepast",
+      "customDescription": "Dit veld gebruikt eigen instellingen.",
+      "default": "Standaard",
       "descriptionChat": "Stel de AI in die dit veld schrijft. De meeste velden kunnen op de standaardwaarde blijven staan.",
       "descriptionImage": "Stel de AI in die dit veld tekent. De meeste velden kunnen op de standaardwaarde blijven staan.",
       "descriptionTts": "Stel de stem in die dit veld leest. De meeste velden kunnen op de standaardwaarde blijven staan.",
-      "imageDefault": "standaard afbeelding",
+      "followingDefault": "Gebruikt je standaardinstellingen. Wijzig iets om aan te passen.",
       "imageModel": "Beeldmodel",
+      "intelligenceLevel": "{{level}}-intelligentie",
+      "keepsHtml": "Behoudt HTML",
       "loadingVoices": "Stemmen laden…",
       "model": "Model",
-      "pickCustom": "Kies een aangepast model voor dit veld",
-      "sharedByEveryField": "Uw {{modality}} wordt gedeeld door elke Smart Field die er gebruik van maakt. Verander het erin",
-      "textDefault": "tekst standaard",
-      "useMy": "Gebruik mijn {{modality}}",
+      "settings": "Instellingen",
       "voice": "Stem",
-      "voiceDefault": "stem standaard",
       "webSearch": "Zoeken op internet"
     },
     "save": "Bewaar Smart Field",
@@ -256,7 +253,7 @@
     },
     "image": {
       "cannotFindModel": "Afbeeldingscatalogus ontbreekt model {{model}}",
-      "defaultModel": "Standaardmodel voor afbeeldingen",
+      "defaultModel": "Model",
       "gptImage25": "de beste allrounder — scherpe tekst, schone diagrammen.",
       "loadingLabel": "Instellingen voor afbeeldingsgeneratie laden",
       "loadingTitle": "Instellingen voor afbeeldingsgeneratie",
@@ -278,7 +275,7 @@
       "tryIt": "Probeer het"
     },
     "text": {
-      "defaultModel": "Standaard tekstmodel",
+      "defaultModel": "Model",
       "loadingLabel": "Instellingen voor tekstgeneratie laden",
       "loadingTitle": "Instellingen voor het genereren van tekst",
       "samplePrompt": "Wat is een Spaced Repetition System (SRS)?",
@@ -515,7 +512,6 @@
     "upgradeNow": "Upgrade nu"
   },
   "intelligence": {
-    "advancedOptions": "Geavanceerde opties",
     "autoCostRange": "{{min}}–{{max}}× kosten",
     "autoDescription": "De modellen met de beste prestaties op het gebied van intelligentie en prijs, regelmatig bijgewerkt.",
     "autoName": "Smart Notes Auto",
@@ -537,6 +533,12 @@
       "high": "<level>Hoog</level> is bedoeld voor geavanceerdere grammatica.",
       "max": "<level>Maximaal</level> is bedoeld voor complex materiaal dat Hoog niet aankan.",
       "standard": "<level>Standaard</level> is het beste voor vertalingen en voorbeeldzinnen."
-    }
+    },
+    "webSearchTipLabel": "Over webzoeken"
+  },
+  "stripHtml": {
+    "description": "Velden worden als platte tekst in de prompt opgenomen, zonder opmaak en markup. Schakel dit uit als je prompt de HTML nodig heeft.",
+    "label": "HTML uit invoer verwijderen",
+    "tipLabel": "Over het verwijderen van HTML"
   }
 }

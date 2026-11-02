@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "ଉନ୍ନତ ବିକଳ୍ପ",
     "allDecks": "ସମସ୍ତ ଡ଼େକ୍",
     "auto": "ଅଟୋ",
     "back": "ପଛକୁ",
@@ -158,24 +159,20 @@
     },
     "loadingModelCatalog": "ମଡେଲ୍ କାଟାଲଗ୍ ଲୋଡ୍ କରୁଛି…",
     "modelSettings": {
-      "appliesOnlyToField": "କେବଳ ଏହି Smart Field ପାଇଁ ପ୍ରଯୁଜ୍ୟ",
-      "defaultWithValue": "ଡିଫଲ୍ଟ ({{value}})",
-      "defaultsImages": "ଡିଫଲ୍ଟ ›ପ୍ରତିଛବିଗୁଡ଼ିକ",
-      "defaultsText": "ଡିଫଲ୍ଟ ›ପାଠ୍ୟ",
-      "defaultsVoice": "ଡିଫଲ୍ଟ ›ସ୍ୱର",
+      "custom": "କଷ୍ଟମ୍",
+      "customDescription": "ଏହି ଫିଲ୍ଡ ନିଜର ସେଟିଂସ ବ୍ୟବହାର କରେ।",
+      "default": "ଡିଫଲ୍ଟ",
       "descriptionChat": "ଏହି କ୍ଷେତ୍ର ଲେଖୁଥିବା AI ସେଟ୍ କରନ୍ତୁ | ଅଧିକାଂଶ କ୍ଷେତ୍ର ଡିଫଲ୍ଟରେ ରହିପାରିବ",
       "descriptionImage": "ଏହି କ୍ଷେତ୍ରକୁ ଟାଣୁଥିବା AI ସେଟ୍ କରନ୍ତୁ | ଅଧିକାଂଶ କ୍ଷେତ୍ର ଡିଫଲ୍ଟରେ ରହିପାରିବ",
       "descriptionTts": "ଏହି କ୍ଷେତ୍ର ପ read ୁଥିବା ସ୍ୱର ସେଟ୍ କରନ୍ତୁ | ଅଧିକାଂଶ କ୍ଷେତ୍ର ଡିଫଲ୍ଟରେ ରହିପାରିବ",
-      "imageDefault": "ପ୍ରତିଛବି ଡିଫଲ୍ଟ",
+      "followingDefault": "ଆପଣଙ୍କ ଡିଫଲ୍ଟ ସେଟିଂସ ବ୍ୟବହାର କରେ। କଷ୍ଟମାଇଜ କରିବାକୁ ଯେକୌଣସି ବିଷୟ ବଦଳାନ୍ତୁ।",
       "imageModel": "ପ୍ରତିଛବି ମଡେଲ୍",
+      "intelligenceLevel": "{{level}} ବୁଦ୍ଧିମତ୍ତା",
+      "keepsHtml": "HTML ରଖେ",
       "loadingVoices": "ସ୍ୱର ଲୋଡିଂ…",
       "model": "ମଡେଲ୍",
-      "pickCustom": "ଏହି କ୍ଷେତ୍ର ପାଇଁ ଏକ କଷ୍ଟମ୍ ମଡେଲ୍ ବାଛନ୍ତୁ",
-      "sharedByEveryField": "ଆପଣଙ୍କର {{modality}} ପ୍ରତ୍ୟେକ Smart Field ଦ୍ୱାରା ଅଂଶୀଦାର ହୋଇଛି ଯାହା ଏହାକୁ ବ୍ୟବହାର କରେ | ଏହାକୁ ପରିବର୍ତ୍ତନ କରନ୍ତୁ",
-      "textDefault": "ପାଠ୍ୟ ଡିଫଲ୍ଟ",
-      "useMy": "ମୋର {{modality}} ବ୍ୟବହାର କରନ୍ତୁ",
+      "settings": "ସେଟିଂସ",
       "voice": "ସ୍ୱର",
-      "voiceDefault": "ସ୍ୱର ଡିଫଲ୍ଟ",
       "webSearch": "ୱେବ୍ ସନ୍ଧାନ"
     },
     "save": "Smart Field ସଞ୍ଚୟ କରନ୍ତୁ",
@@ -256,7 +253,7 @@
     },
     "image": {
       "cannotFindModel": "ପ୍ରତିଛବି କାଟାଲଗ୍ ମଡେଲ୍ {{model}} ହରାଉଛି",
-      "defaultModel": "ଡିଫଲ୍ଟ ଇମେଜ୍ ମଡେଲ୍",
+      "defaultModel": "ମଡେଲ",
       "gptImage25": "ସର୍ବୋତ୍ତମ ସାଧାରଣ ପସନ୍ଦ — ସ୍ପଷ୍ଟ ପାଠ୍ୟ, ପରିଷ୍କାର ଚିତ୍ର।",
       "loadingLabel": "ଇମେଜ୍ ସୃଷ୍ଟି ସେଟିଂସ୍ ଲୋଡ୍ ହେଉଛି",
       "loadingTitle": "ଇମେଜ୍ ସୃଷ୍ଟି ସେଟିଂସ୍",
@@ -278,7 +275,7 @@
       "tryIt": "ଏହାକୁ ଚେଷ୍ଟା କରନ୍ତୁ"
     },
     "text": {
-      "defaultModel": "ଡିଫଲ୍ଟ ପାଠ୍ୟ ମଡେଲ୍",
+      "defaultModel": "ମଡେଲ",
       "loadingLabel": "ଟେକ୍ସଟ୍ ସୃଷ୍ଟି ସେଟିଂସ୍ ଲୋଡ୍ ହେଉଛି",
       "loadingTitle": "ପାଠ୍ୟ ଜେନେରେସନ୍ ସେଟିଂସମୂହ",
       "samplePrompt": "ଏକ ସ୍ପେସ୍ ପୁନରାବୃତ୍ତି ସିଷ୍ଟମ୍ (SRS) କ’ଣ?",
@@ -515,7 +512,6 @@
     "upgradeNow": "ବର୍ତ୍ତମାନ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ"
   },
   "intelligence": {
-    "advancedOptions": "ଉନ୍ନତ ବିକଳ୍ପ",
     "autoCostRange": "{{min}}–{{max}}× ମୂଲ୍ୟ",
     "autoDescription": "ବୁଦ୍ଧିମତା ଏବଂ ମୂଲ୍ୟ ଦୃଷ୍ଟିରୁ ସର୍ବୋତ୍ତମ କାର୍ଯ୍ୟକାରୀ ମଡେଲ୍‌ଗୁଡ଼ିକ, ନିୟମିତ ଅଦ୍ୟତନ ହୁଏ।",
     "autoName": "Smart Notes Auto",
@@ -537,6 +533,12 @@
       "high": "<level>ଉଚ୍ଚ</level> ଅଧିକ ଉନ୍ନତ ବ୍ୟାକରଣ ପାଇଁ।",
       "max": "<level>ସର୍ବାଧିକ</level> ଉଚ୍ଚ ସ୍ତର ସମାଧାନ କରି ନ ପାରୁଥିବା ଜଟିଳ ବିଷୟ ପାଇଁ।",
       "standard": "<level>ମାନକ</level> ଅନୁବାଦ ଏବଂ ଉଦାହରଣ ବାକ୍ୟ ପାଇଁ ସର୍ବୋତ୍ତମ।"
-    }
+    },
+    "webSearchTipLabel": "ୱେବ ସନ୍ଧାନ ବିଷୟରେ"
+  },
+  "stripHtml": {
+    "description": "ଫିଲ୍ଡଗୁଡ଼ିକ ପ୍ରମ୍ପ୍ଟରେ ସାଧାରଣ ପାଠ୍ୟ ଭାବରେ ଯାଏ, ସେମାନଙ୍କ ଫର୍ମାଟିଂ ଏବଂ ମାର୍କଅପ୍ ବ୍ୟତୀତ। ଯଦି ଆପଣଙ୍କ ପ୍ରମ୍ପ୍ଟକୁ HTML ଆବଶ୍ୟକ ହୁଏ, ଏହାକୁ ବନ୍ଦ କରନ୍ତୁ।",
+    "label": "ଇନପୁଟରୁ HTML ହଟାନ୍ତୁ",
+    "tipLabel": "HTML ହଟାଇବା ବିଷୟରେ"
   }
 }

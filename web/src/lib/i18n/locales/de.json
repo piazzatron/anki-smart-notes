@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Erweiterte Optionen",
     "allDecks": "Alle Decks",
     "auto": "Auto",
     "back": "Zurück",
@@ -158,24 +159,20 @@
     },
     "loadingModelCatalog": "Modellkatalog wird geladen…",
     "modelSettings": {
-      "appliesOnlyToField": "Gilt nur für dieses Smart Field.",
-      "defaultWithValue": "Standard ({{value}})",
-      "defaultsImages": "Standardeinstellungen › Bilder",
-      "defaultsText": "Standardeinstellungen › Text",
-      "defaultsVoice": "Standardeinstellungen › Stimme",
+      "custom": "Benutzerdefiniert",
+      "customDescription": "Dieses Feld verwendet eigene Einstellungen.",
+      "default": "Standard",
       "descriptionChat": "Legen Sie die KI fest, die dieses Feld schreibt. Die meisten Felder können auf dem Standardwert bleiben.",
       "descriptionImage": "Legen Sie die KI fest, die dieses Feld zeichnet. Die meisten Felder können auf dem Standardwert bleiben.",
       "descriptionTts": "Legen Sie die Stimme fest, die dieses Feld liest. Die meisten Felder können auf dem Standardwert bleiben.",
-      "imageDefault": "Bildstandard",
+      "followingDefault": "Verwendet deine Standardeinstellungen. Ändere etwas, um es anzupassen.",
       "imageModel": "Bildmodell",
+      "intelligenceLevel": "{{level}} Intelligenz",
+      "keepsHtml": "Behält HTML bei",
       "loadingVoices": "Stimmen werden geladen…",
       "model": "Modell",
-      "pickCustom": "Wählen Sie ein benutzerdefiniertes Modell für dieses Feld",
-      "sharedByEveryField": "Ihr {{modality}} wird von jedem Smart Field geteilt, der es nutzt. Ändere es",
-      "textDefault": "Textstandard",
-      "useMy": "Benutze mein {{modality}}",
+      "settings": "Einstellungen",
       "voice": "Stimme",
-      "voiceDefault": "Sprachstandard",
       "webSearch": "Websuche"
     },
     "save": "Speichern Sie Smart Field",
@@ -256,7 +253,7 @@
     },
     "image": {
       "cannotFindModel": "Im Bildkatalog fehlt das Modell {{model}}",
-      "defaultModel": "Standard-Bildmodell",
+      "defaultModel": "Modell",
       "gptImage25": "Bester Allrounder – scharfer Text, saubere Diagramme.",
       "loadingLabel": "Bildgenerierungs-Einstellungen werden geladen",
       "loadingTitle": "Bildgenerierungs-Einstellungen",
@@ -278,7 +275,7 @@
       "tryIt": "Probieren Sie es aus"
     },
     "text": {
-      "defaultModel": "Standardtextmodell",
+      "defaultModel": "Modell",
       "loadingLabel": "Textgenerierungs-Einstellungen werden geladen",
       "loadingTitle": "Einstellungen für die Textgenerierung",
       "samplePrompt": "Was ist ein Spaced Repetition System (SRS)?",
@@ -515,7 +512,6 @@
     "upgradeNow": "Jetzt upgraden"
   },
   "intelligence": {
-    "advancedOptions": "Erweiterte Optionen",
     "autoCostRange": "{{min}}–{{max}}× Kosten",
     "autoDescription": "Die leistungsstärksten Modelle in Bezug auf Intelligenz und Preis, regelmäßig aktualisiert.",
     "autoName": "Smart Notes Auto",
@@ -537,6 +533,12 @@
       "high": "<level>Hoch</level> ist für anspruchsvollere Grammatik gedacht.",
       "max": "<level>Max</level> ist für komplexes Material, das High nicht bewältigen kann.",
       "standard": "<level>Standard</level> eignet sich am besten für Übersetzungen und Beispielsätze."
-    }
+    },
+    "webSearchTipLabel": "Info zur Websuche"
+  },
+  "stripHtml": {
+    "description": "Felder werden als Klartext an den Prompt übergeben, ohne Formatierung und Markup. Deaktiviere dies, wenn dein Prompt das HTML benötigt.",
+    "label": "HTML aus der Eingabe entfernen",
+    "tipLabel": "Über das Entfernen von HTML"
   }
 }

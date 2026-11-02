@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "고급 옵션",
     "allDecks": "모든 덱",
     "auto": "자동",
     "back": "뒤쪽에",
@@ -157,24 +158,20 @@
     },
     "loadingModelCatalog": "모델 카탈로그 로드 중…",
     "modelSettings": {
-      "appliesOnlyToField": "이 Smart Field에만 적용됩니다.",
-      "defaultWithValue": "기본값({{value}})",
-      "defaultsImages": "기본값 › 이미지",
-      "defaultsText": "기본값 › 텍스트",
-      "defaultsVoice": "기본값 › 음성",
+      "custom": "사용자 지정",
+      "customDescription": "이 필드는 자체 설정을 사용합니다.",
+      "default": "기본값",
       "descriptionChat": "이 필드를 작성하는 AI를 설정합니다. 대부분의 필드는 기본값을 유지할 수 있습니다.",
       "descriptionImage": "이 필드를 그리는 AI를 설정합니다. 대부분의 필드는 기본값을 유지할 수 있습니다.",
       "descriptionTts": "이 필드를 읽는 음성을 설정합니다. 대부분의 필드는 기본값을 유지할 수 있습니다.",
-      "imageDefault": "이미지 기본값",
+      "followingDefault": "기본 설정을 사용합니다. 무엇이든 변경하면 사용자 지정할 수 있습니다.",
       "imageModel": "이미지 모델",
+      "intelligenceLevel": "{{level}} 지능",
+      "keepsHtml": "HTML 유지",
       "loadingVoices": "음성 로드 중…",
       "model": "모델",
-      "pickCustom": "이 필드에 대한 맞춤 모델을 선택하세요.",
-      "sharedByEveryField": "귀하의 {{modality}}는 이를 사용하는 모든 Smart Field에서 공유됩니다. 그것을 바꾸십시오",
-      "textDefault": "텍스트 기본값",
-      "useMy": "내 {{modality}}를 사용하세요",
+      "settings": "설정",
       "voice": "목소리",
-      "voiceDefault": "음성 기본값",
       "webSearch": "웹 검색"
     },
     "save": "저장하다 Smart Field",
@@ -255,7 +252,7 @@
     },
     "image": {
       "cannotFindModel": "이미지 카탈로그에 모델 {{model}}이(가) 없습니다.",
-      "defaultModel": "기본 이미지 모델",
+      "defaultModel": "모델",
       "gptImage25": "만능형 모델 — 선명한 텍스트, 깔끔한 다이어그램.",
       "loadingLabel": "이미지 생성 설정 불러오는 중",
       "loadingTitle": "이미지 생성 설정",
@@ -277,7 +274,7 @@
       "tryIt": "사용해 보세요"
     },
     "text": {
-      "defaultModel": "기본 텍스트 모델",
+      "defaultModel": "모델",
       "loadingLabel": "텍스트 생성 설정 불러오는 중",
       "loadingTitle": "텍스트 생성 설정",
       "samplePrompt": "간격 반복 시스템(SRS)이란 무엇입니까?",
@@ -505,7 +502,6 @@
     "upgradeNow": "지금 업그레이드"
   },
   "intelligence": {
-    "advancedOptions": "고급 옵션",
     "autoCostRange": "{{min}}–{{max}}× 비용",
     "autoDescription": "지능과 가격 면에서 가장 성능이 좋은 모델을 정기적으로 업데이트합니다.",
     "autoName": "Smart Notes Auto",
@@ -527,6 +523,12 @@
       "high": "<level>높음</level>은 더 고급 문법에 적합합니다.",
       "max": "<level>최대</level>는 높음으로 처리하기 어려운 복잡한 자료에 적합합니다.",
       "standard": "<level>표준</level>은 번역과 예문에 가장 적합합니다."
-    }
+    },
+    "webSearchTipLabel": "웹 검색 정보"
+  },
+  "stripHtml": {
+    "description": "필드는 서식과 마크업 없이 일반 텍스트로 프롬프트에 포함됩니다. 프롬프트에 HTML이 필요하다면 이 옵션을 끄세요.",
+    "label": "입력에서 HTML 제거",
+    "tipLabel": "HTML 제거 정보"
   }
 }

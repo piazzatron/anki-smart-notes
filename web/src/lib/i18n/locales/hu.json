@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Speciális beállítások",
     "allDecks": "Minden fedélzet",
     "auto": "Auto",
     "back": "Vissza",
@@ -158,24 +159,20 @@
     },
     "loadingModelCatalog": "Modellkatalógus betöltése…",
     "modelSettings": {
-      "appliesOnlyToField": "Csak erre az Smart Field-ra vonatkozik.",
-      "defaultWithValue": "Alapértelmezett ({{value}})",
-      "defaultsImages": "Alapértelmezések › Képek",
-      "defaultsText": "Alapértelmezések › Szöveg",
-      "defaultsVoice": "Alapértelmezések › Hang",
+      "custom": "Egyéni",
+      "customDescription": "Ennek a mezőnek saját beállításai vannak.",
+      "default": "Alapértelmezett",
       "descriptionChat": "Állítsa be az AI-t, amely ezt a mezőt írja. A legtöbb mező maradhat az alapértelmezett.",
       "descriptionImage": "Állítsa be az AI-t, amely ezt a mezőt rajzolja. A legtöbb mező maradhat az alapértelmezett.",
       "descriptionTts": "Állítsa be a hangot, amely ezt a mezőt olvassa. A legtöbb mező maradhat az alapértelmezett.",
-      "imageDefault": "kép alapértelmezett",
+      "followingDefault": "Az alapértelmezett beállításokat használja. Módosítson bármit a testreszabáshoz.",
       "imageModel": "Képmodell",
+      "intelligenceLevel": "{{level}} intelligencia",
+      "keepsHtml": "Megtartja a HTML-t",
       "loadingVoices": "Hangok betöltése…",
       "model": "Modell",
-      "pickCustom": "Válasszon egyéni modellt ehhez a mezőhöz",
-      "sharedByEveryField": "Az {{modality}}-ját minden azt használó Smart Field megosztja. Cserélje ki",
-      "textDefault": "szöveg alapértelmezett",
-      "useMy": "Használd az {{modality}}-mat",
+      "settings": "Beállítások",
       "voice": "Hang",
-      "voiceDefault": "hang alapértelmezett",
       "webSearch": "Webes keresés"
     },
     "save": "Mentse el az Smart Field-t",
@@ -256,7 +253,7 @@
     },
     "image": {
       "cannotFindModel": "A képkatalógusból hiányzik az {{model}} modell",
-      "defaultModel": "Alapértelmezett képmodell",
+      "defaultModel": "Modell",
       "gptImage25": "legjobb általános választás, éles szöveg, tiszta diagramok.",
       "loadingLabel": "Képgenerálási beállítások betöltése",
       "loadingTitle": "Képgenerálási beállítások",
@@ -278,7 +275,7 @@
       "tryIt": "Próbáld ki"
     },
     "text": {
-      "defaultModel": "Alapértelmezett szövegmodell",
+      "defaultModel": "Modell",
       "loadingLabel": "Szöveggenerálási beállítások betöltése",
       "loadingTitle": "Szöveggenerálási beállítások",
       "samplePrompt": "Mi az a térközös ismétlési rendszer (SRS)?",
@@ -515,7 +512,6 @@
     "upgradeNow": "Frissítsen most"
   },
   "intelligence": {
-    "advancedOptions": "Speciális beállítások",
     "autoCostRange": "{{min}}–{{max}}× költség",
     "autoDescription": "Az intelligencia és az ár tekintetében legjobban teljesítő modellek, rendszeresen frissítve.",
     "autoName": "Smart Notes Auto",
@@ -537,6 +533,12 @@
       "high": "A <level>Magas</level> szint a haladóbb nyelvtanhoz való.",
       "max": "A <level>Maximális</level> szint a bonyolult anyagokhoz való, amelyeket a Magas nem tud kezelni.",
       "standard": "A <level>Standard</level> szint a fordításokhoz és példamondatokhoz a legalkalmasabb."
-    }
+    },
+    "webSearchTipLabel": "A webes keresésről"
+  },
+  "stripHtml": {
+    "description": "A mezők formázás és jelölés nélkül, egyszerű szövegként kerülnek a promptba. Kapcsolja ki, ha a promptnak szüksége van a HTML-re.",
+    "label": "A bemenetből HTML-címkék eltávolítása",
+    "tipLabel": "A HTML eltávolításáról"
   }
 }

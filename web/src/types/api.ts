@@ -72,6 +72,7 @@ export interface ChatSmartFieldSettings {
   reasoningLevel: string
   webSearchEnabled: boolean
   usesDefaultGenerationSettings: boolean
+  stripHtml: boolean
 }
 
 export interface TTSSmartFieldSettings {
@@ -87,6 +88,7 @@ export interface ImageSmartFieldSettings {
   provider: string
   model: string
   usesDefaultGenerationSettings: boolean
+  stripHtml: boolean
 }
 
 export interface SmartFieldBase {
@@ -124,6 +126,7 @@ export interface ChatGenerationSettings {
   model: string
   reasoningLevel: string
   webSearchEnabled: boolean
+  stripHtml: boolean
 }
 
 export interface TTSGenerationSettings {
@@ -135,6 +138,7 @@ export interface TTSGenerationSettings {
 export interface ImageGenerationSettings {
   provider: string
   model: string
+  stripHtml: boolean
 }
 
 export interface GenerationDefaults {

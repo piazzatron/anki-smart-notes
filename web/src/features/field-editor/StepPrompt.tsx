@@ -195,7 +195,7 @@ export const StepPrompt = ({
         <EditorSection
           className="mt-7"
           description={t(MODEL_SECTION_DESCRIPTIONS[target.fieldType])}
-          label={t("fieldEditor.modelSettings.model")}
+          label={t("fieldEditor.modelSettings.settings")}
         >
           <ModelSettingsSection
             catalog={catalog}

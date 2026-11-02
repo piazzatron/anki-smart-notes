@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Tùy chọn nâng cao",
     "allDecks": "Tất cả các bộ bài",
     "auto": "Tự động",
     "back": "Mặt sau",
@@ -157,24 +158,20 @@
     },
     "loadingModelCatalog": "Đang tải danh mục mô hình…",
     "modelSettings": {
-      "appliesOnlyToField": "Chỉ áp dụng cho Smart Field này.",
-      "defaultWithValue": "Mặc định ({{value}})",
-      "defaultsImages": "Mặc định > Hình ảnh",
-      "defaultsText": "Mặc định > Văn bản",
-      "defaultsVoice": "Mặc định > Giọng nói",
+      "custom": "Tùy chỉnh",
+      "customDescription": "Trường này sử dụng cài đặt riêng.",
+      "default": "Mặc định",
       "descriptionChat": "Đặt AI ghi trường này. Hầu hết các trường có thể giữ nguyên mặc định.",
       "descriptionImage": "Đặt AI vẽ trường này. Hầu hết các trường có thể giữ nguyên mặc định.",
       "descriptionTts": "Đặt giọng nói để đọc trường này. Hầu hết các trường có thể giữ nguyên mặc định.",
-      "imageDefault": "hình ảnh mặc định",
+      "followingDefault": "Sử dụng cài đặt mặc định của bạn. Thay đổi bất kỳ mục nào để tùy chỉnh.",
       "imageModel": "Mô hình hình ảnh",
+      "intelligenceLevel": "Trí tuệ {{level}}",
+      "keepsHtml": "Giữ HTML",
       "loadingVoices": "Đang tải giọng nói…",
       "model": "Người mẫu",
-      "pickCustom": "Chọn một mô hình tùy chỉnh cho trường này",
-      "sharedByEveryField": "{{modality}} của bạn được chia sẻ bởi mọi Smart Field sử dụng nó. Thay đổi nó trong",
-      "textDefault": "văn bản mặc định",
-      "useMy": "Sử dụng {{modality}} của tôi",
+      "settings": "Cài đặt",
       "voice": "Tiếng nói",
-      "voiceDefault": "mặc định bằng giọng nói",
       "webSearch": "Tìm kiếm trên web"
     },
     "save": "Lưu Smart Field",
@@ -255,7 +252,7 @@
     },
     "image": {
       "cannotFindModel": "Danh mục hình ảnh thiếu mẫu {{model}}",
-      "defaultModel": "Mô hình tạo ảnh mặc định",
+      "defaultModel": "Mô hình",
       "gptImage25": "tốt nhất cho mọi tác vụ — chữ sắc nét, sơ đồ gọn gàng.",
       "loadingLabel": "Đang tải cài đặt tạo ảnh",
       "loadingTitle": "Cài đặt tạo ảnh",
@@ -277,7 +274,7 @@
       "tryIt": "Hãy thử nó"
     },
     "text": {
-      "defaultModel": "Mẫu văn bản mặc định",
+      "defaultModel": "Mô hình",
       "loadingLabel": "Đang tải cài đặt tạo văn bản",
       "loadingTitle": "Cài đặt tạo văn bản",
       "samplePrompt": "Hệ thống lặp lại cách nhau (SRS) là gì?",
@@ -505,7 +502,6 @@
     "upgradeNow": "Nâng cấp ngay bây giờ"
   },
   "intelligence": {
-    "advancedOptions": "Tùy chọn nâng cao",
     "autoCostRange": "Chi phí {{min}}–{{max}}×",
     "autoDescription": "Các mô hình có hiệu suất tốt nhất về trí thông minh và giá, được cập nhật thường xuyên.",
     "autoName": "Smart Notes Auto",
@@ -527,6 +523,12 @@
       "high": "<level>Cao</level> dành cho ngữ pháp nâng cao hơn.",
       "max": "<level>Tối đa</level> dành cho nội dung phức tạp mà mức Cao không xử lý được.",
       "standard": "<level>Tiêu chuẩn</level> phù hợp nhất cho bản dịch và câu ví dụ."
-    }
+    },
+    "webSearchTipLabel": "Về tìm kiếm web"
+  },
+  "stripHtml": {
+    "description": "Nội dung trường được đưa vào prompt dưới dạng văn bản thuần, không có định dạng và thẻ đánh dấu. Tắt tùy chọn này nếu prompt của bạn cần HTML.",
+    "label": "Xóa HTML khỏi đầu vào",
+    "tipLabel": "Về việc loại bỏ HTML"
   }
 }

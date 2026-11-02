@@ -61,9 +61,12 @@ GENERATION_DEFAULTS = GenerationDefaults(
         model="gpt-5",
         reasoning_level="off",
         web_search_enabled=False,
+        strip_html=False,
     ),
     tts=TTSGenerationSettings(provider="openai", model="tts-1", voice_id="alloy"),
-    image=ImageGenerationSettings(provider="replicate", model="z-image-turbo"),
+    image=ImageGenerationSettings(
+        provider="replicate", model="z-image-turbo", strip_html=True
+    ),
 )
 SETTINGS_DTO: dto.SettingsDto = {
     "generateAtReview": True,
@@ -317,9 +320,10 @@ def test_build_state_shape():
             "model": "gpt-5",
             "reasoningLevel": "off",
             "webSearchEnabled": False,
+            "stripHtml": False,
         },
         "tts": {"provider": "openai", "model": "tts-1", "voiceId": "alloy"},
-        "image": {"provider": "replicate", "model": "z-image-turbo"},
+        "image": {"provider": "replicate", "model": "z-image-turbo", "stripHtml": True},
     }
     assert state["smartFields"] == [
         {
@@ -336,6 +340,7 @@ def test_build_state_shape():
                 "webSearchEnabled": False,
                 "reasoningLevel": "off",
                 "usesDefaultGenerationSettings": True,
+                "stripHtml": True,
             },
         }
     ]
@@ -449,6 +454,7 @@ def test_parse_smart_field_create_chat():
                 "reasoningLevel": "off",
                 "webSearchEnabled": False,
                 "usesDefaultGenerationSettings": True,
+                "stripHtml": False,
             },
         }
     )
@@ -464,6 +470,7 @@ def test_parse_smart_field_create_chat():
         reasoning_level="off",
         web_search_enabled=False,
         uses_default_generation_settings=True,
+        strip_html=False,
     )
 
 
@@ -508,6 +515,7 @@ def test_parse_smart_field_create_image():
                 "provider": "replicate",
                 "model": "z-image-turbo",
                 "usesDefaultGenerationSettings": False,
+                "stripHtml": True,
             },
         }
     )
@@ -535,6 +543,7 @@ def test_parse_smart_field_create_rejects_missing_setting():
                     "reasoningLevel": "off",
                     "webSearchEnabled": False,
                     "usesDefaultGenerationSettings": True,
+                    "stripHtml": True,
                 },
             }
         )
@@ -555,6 +564,7 @@ def test_parse_smart_field_create_rejects_missing_enabled():
                     "reasoningLevel": "off",
                     "webSearchEnabled": False,
                     "usesDefaultGenerationSettings": True,
+                    "stripHtml": True,
                 },
             }
         )
@@ -602,9 +612,14 @@ def test_parse_generation_defaults_round_trips():
                 "model": "gpt-5",
                 "reasoningLevel": "off",
                 "webSearchEnabled": False,
+                "stripHtml": False,
             },
             "tts": {"provider": "openai", "model": "tts-1", "voiceId": "alloy"},
-            "image": {"provider": "replicate", "model": "z-image-turbo"},
+            "image": {
+                "provider": "replicate",
+                "model": "z-image-turbo",
+                "stripHtml": True,
+            },
         }
     )
     assert parsed == GENERATION_DEFAULTS
@@ -849,6 +864,7 @@ def test_parse_text_prompt_test_validates_card_and_settings():
             "cardId": 99,
             "prompt": "Define {{Front}}",
             "settings": {
+                "stripHtml": False,
                 "provider": "openai",
                 "model": "gpt-5",
                 "reasoningLevel": "high",
@@ -864,6 +880,7 @@ def test_parse_text_prompt_test_validates_card_and_settings():
         model="gpt-5",
         reasoning_level="high",
         web_search_enabled=True,
+        strip_html=False,
     )
 
 
@@ -872,14 +889,18 @@ def test_parse_image_prompt_test_validates_settings():
         {
             "cardId": 99,
             "prompt": "Illustrate {{Front}}",
-            "settings": {"provider": "openai", "model": "gpt-image-1.5-low"},
+            "settings": {
+                "provider": "openai",
+                "model": "gpt-image-1.5-low",
+                "stripHtml": True,
+            },
         }
     )
 
     assert parsed.card_id == 99
     assert parsed.prompt == "Illustrate {{Front}}"
     assert parsed.settings == ImageGenerationSettings(
-        provider="openai", model="gpt-image-1.5-low"
+        provider="openai", model="gpt-image-1.5-low", strip_html=True
     )
 
 
@@ -1032,6 +1053,7 @@ async def test_text_prompt_service_refetches_card_and_runs_without_writing(monke
             "cardId": 99,
             "prompt": "Define {{Front}}",
             "settings": {
+                "stripHtml": True,
                 "provider": "openai",
                 "model": "gpt-5",
                 "reasoningLevel": "off",
@@ -1079,7 +1101,11 @@ async def test_image_prompt_service_returns_data_url_without_writing(monkeypatch
         {
             "cardId": 99,
             "prompt": "Illustrate {{Front}}",
-            "settings": {"provider": "openai", "model": "gpt-image-1.5-low"},
+            "settings": {
+                "provider": "openai",
+                "model": "gpt-image-1.5-low",
+                "stripHtml": True,
+            },
         }
     )
     monkeypatch.setattr(
@@ -1197,6 +1223,7 @@ async def test_text_prompt_service_runs_without_a_card(monkeypatch):
         {
             "prompt": "Write one example sentence.",
             "settings": {
+                "stripHtml": True,
                 "provider": "openai",
                 "model": "gpt-5-mini",
                 "reasoningLevel": "off",
@@ -1232,6 +1259,7 @@ def test_text_prompt_service_requires_a_card_for_field_references():
         {
             "prompt": "Translate {{Front}}",
             "settings": {
+                "stripHtml": True,
                 "provider": "openai",
                 "model": "gpt-5-mini",
                 "reasoningLevel": "off",
@@ -1250,7 +1278,11 @@ def test_image_prompt_service_requires_a_card_for_field_references():
     request = dto.parse_image_prompt_test(
         {
             "prompt": "A scene showing {{Front}}",
-            "settings": {"provider": "openai", "model": "gpt-image-1.5-low"},
+            "settings": {
+                "provider": "openai",
+                "model": "gpt-image-1.5-low",
+                "stripHtml": True,
+            },
         }
     )
 

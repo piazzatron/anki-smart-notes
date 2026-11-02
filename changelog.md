@@ -1,3 +1,7 @@
+# v2.28.0
+
+- Text and image Smart Fields automatically strip HTML by default, saving you credits.
+
 # v2.27.0
 
 - Adds Yomitan support! Notes added via Yomitan, AnkiConnect or other add-ons now generate their Smart Fields automatically. You can turn this off in Settings.

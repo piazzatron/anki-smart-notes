@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Opțiuni avansate",
     "allDecks": "Toate punțile",
     "auto": "Auto",
     "back": "Spate",
@@ -159,24 +160,20 @@
     },
     "loadingModelCatalog": "Se încarcă catalogul de modele...",
     "modelSettings": {
-      "appliesOnlyToField": "Se aplică numai acestui Smart Field.",
-      "defaultWithValue": "Implicit ({{value}})",
-      "defaultsImages": "Implicite › Imagini",
-      "defaultsText": "Setări implicite › Text",
-      "defaultsVoice": "Setări implicite › Voce",
+      "custom": "Personalizat",
+      "customDescription": "Acest câmp folosește propriile setări.",
+      "default": "Implicit",
       "descriptionChat": "Setați AI care scrie acest câmp. Majoritatea câmpurilor pot rămâne implicite.",
       "descriptionImage": "Setați IA care desenează acest câmp. Majoritatea câmpurilor pot rămâne implicite.",
       "descriptionTts": "Setați vocea care citește acest câmp. Majoritatea câmpurilor pot rămâne implicite.",
-      "imageDefault": "imagine implicită",
+      "followingDefault": "Folosește setările implicite. Modifică orice pentru a personaliza.",
       "imageModel": "Model de imagine",
+      "intelligenceLevel": "Inteligență {{level}}",
+      "keepsHtml": "Păstrează HTML",
       "loadingVoices": "Se încarcă vocile...",
       "model": "Model",
-      "pickCustom": "Alegeți un model personalizat pentru acest câmp",
-      "sharedByEveryField": "{{modality}} dvs. este partajat de fiecare Smart Field care îl folosește. Schimbați-l",
-      "textDefault": "text implicit",
-      "useMy": "Folosește-mi {{modality}}",
+      "settings": "Setări",
       "voice": "Voce",
-      "voiceDefault": "voce implicită",
       "webSearch": "Căutare pe web"
     },
     "save": "Salvați Smart Field",
@@ -257,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "În catalogul de imagini lipsește modelul {{model}}",
-      "defaultModel": "Model implicit pentru imagini",
+      "defaultModel": "Model",
       "gptImage25": "cel mai versatil — text clar, diagrame curate.",
       "loadingLabel": "Se încarcă setările pentru generarea de imagini",
       "loadingTitle": "Setări pentru generarea de imagini",
@@ -279,7 +276,7 @@
       "tryIt": "Încearcă"
     },
     "text": {
-      "defaultModel": "Model text implicit",
+      "defaultModel": "Model",
       "loadingLabel": "Se încarcă setările pentru generarea de text",
       "loadingTitle": "Setări de generare a textului",
       "samplePrompt": "Ce este un sistem de repetiție la distanță (SRS)?",
@@ -525,7 +522,6 @@
     "upgradeNow": "Faceți upgrade acum"
   },
   "intelligence": {
-    "advancedOptions": "Opțiuni avansate",
     "autoCostRange": "Cost de {{min}}–{{max}}×",
     "autoDescription": "Cele mai performante modele pentru inteligență și preț, actualizate regulat.",
     "autoName": "Smart Notes Auto",
@@ -547,6 +543,12 @@
       "high": "<level>Ridicat</level> este pentru gramatică mai avansată.",
       "max": "<level>Maxim</level> este pentru materiale complicate pe care nivelul Ridicat nu le poate gestiona.",
       "standard": "<level>Standard</level> este cel mai potrivit pentru traduceri și propoziții exemplu."
-    }
+    },
+    "webSearchTipLabel": "Despre căutarea pe web"
+  },
+  "stripHtml": {
+    "description": "Câmpurile sunt trimise în prompt ca text simplu, fără formatare și marcaje. Dezactivați această opțiune dacă promptul are nevoie de HTML.",
+    "label": "Elimină HTML-ul din intrare",
+    "tipLabel": "Despre eliminarea HTML-ului"
   }
 }

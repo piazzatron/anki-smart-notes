@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Opzioni avanzate",
     "allDecks": "Tutti i mazzi",
     "auto": "Auto",
     "back": "Indietro",
@@ -159,24 +160,20 @@
     },
     "loadingModelCatalog": "Caricamento catalogo modelli...",
     "modelSettings": {
-      "appliesOnlyToField": "Si applica solo a questo Smart Field.",
-      "defaultWithValue": "Predefinito ({{value}})",
-      "defaultsImages": "Predefiniti › Immagini",
-      "defaultsText": "Predefinite › Testo",
-      "defaultsVoice": "Predefinite › Voce",
+      "custom": "Personalizzato",
+      "customDescription": "Questo campo utilizza impostazioni proprie.",
+      "default": "Predefinito",
       "descriptionChat": "Imposta l'IA che scrive questo campo. La maggior parte dei campi può rimanere predefinita.",
       "descriptionImage": "Imposta l'IA che disegna questo campo. La maggior parte dei campi può rimanere predefinita.",
       "descriptionTts": "Imposta la voce che legge questo campo. La maggior parte dei campi può rimanere predefinita.",
-      "imageDefault": "impostazione predefinita dell'immagine",
+      "followingDefault": "Utilizza le impostazioni predefinite. Modifica un valore per personalizzarle.",
       "imageModel": "Modello di immagine",
+      "intelligenceLevel": "{{level}} di intelligenza",
+      "keepsHtml": "Mantiene l'HTML",
       "loadingVoices": "Caricamento voci…",
       "model": "Modello",
-      "pickCustom": "Scegli un modello personalizzato per questo campo",
-      "sharedByEveryField": "Il tuo {{modality}} è condiviso da ogni Smart Field che lo utilizza. Cambialo",
-      "textDefault": "testo predefinito",
-      "useMy": "Usa il mio {{modality}}",
+      "settings": "Impostazioni",
       "voice": "Voce",
-      "voiceDefault": "voce predefinita",
       "webSearch": "Ricerca sul Web"
     },
     "save": "Salva Smart Field",
@@ -257,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "Nel catalogo immagini manca il modello {{model}}",
-      "defaultModel": "Modello immagine predefinito",
+      "defaultModel": "Modello",
       "gptImage25": "il più versatile — testo nitido, diagrammi puliti.",
       "loadingLabel": "Caricamento impostazioni generazione immagini",
       "loadingTitle": "Impostazioni generazione immagini",
@@ -279,7 +276,7 @@
       "tryIt": "Provalo"
     },
     "text": {
-      "defaultModel": "Modello di testo predefinito",
+      "defaultModel": "Modello",
       "loadingLabel": "Caricamento impostazioni generazione testo",
       "loadingTitle": "Impostazioni di generazione del testo",
       "samplePrompt": "Cos’è un sistema di ripetizioni dilazionate (SRS)?",
@@ -525,7 +522,6 @@
     "upgradeNow": "Aggiorna ora"
   },
   "intelligence": {
-    "advancedOptions": "Opzioni avanzate",
     "autoCostRange": "Costo {{min}}–{{max}}×",
     "autoDescription": "I modelli con le migliori prestazioni in termini di intelligenza e prezzo, aggiornati regolarmente.",
     "autoName": "Smart Notes Auto",
@@ -547,6 +543,12 @@
       "high": "<level>Alta</level> è indicata per la grammatica più avanzata.",
       "max": "<level>Massima</level> è indicata per materiale complicato che Alta non riesce a gestire.",
       "standard": "<level>Standard</level> è ideale per traduzioni e frasi d'esempio."
-    }
+    },
+    "webSearchTipLabel": "Info sulla ricerca web"
+  },
+  "stripHtml": {
+    "description": "I campi vengono inseriti nel prompt come testo semplice, senza formattazione e markup. Disattiva questa opzione se il tuo prompt richiede l'HTML.",
+    "label": "Rimuovi HTML dall'input",
+    "tipLabel": "Informazioni sulla rimozione dell'HTML"
   }
 }

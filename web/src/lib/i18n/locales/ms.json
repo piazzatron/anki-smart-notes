@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Pilihan lanjutan",
     "allDecks": "Semua Dek",
     "auto": "Auto",
     "back": "belakang",
@@ -157,24 +158,20 @@
     },
     "loadingModelCatalog": "Memuatkan katalog model…",
     "modelSettings": {
-      "appliesOnlyToField": "Terpakai untuk Smart Field ini sahaja.",
-      "defaultWithValue": "Lalai ({{value}})",
-      "defaultsImages": "Lalai › Imej",
-      "defaultsText": "Lalai › Teks",
-      "defaultsVoice": "Lalai › Suara",
+      "custom": "Tersuai",
+      "customDescription": "Campo ini menggunakan tetapannya sendiri.",
+      "default": "Lalai",
       "descriptionChat": "Tetapkan AI yang menulis medan ini. Kebanyakan medan boleh kekal pada lalai.",
       "descriptionImage": "Tetapkan AI yang melukis medan ini. Kebanyakan medan boleh kekal pada lalai.",
       "descriptionTts": "Tetapkan suara yang membaca medan ini. Kebanyakan medan boleh kekal pada lalai.",
-      "imageDefault": "lalai imej",
+      "followingDefault": "Menggunakan tetapan lalai anda. Ubah apa-apa untuk menyesuaikan.",
       "imageModel": "Model imej",
+      "intelligenceLevel": "Kecerdasan {{level}}",
+      "keepsHtml": "Mengekalkan HTML",
       "loadingVoices": "Memuatkan suara…",
       "model": "Model",
-      "pickCustom": "Pilih model tersuai untuk medan ini",
-      "sharedByEveryField": "{{modality}} anda dikongsi oleh setiap Smart Field yang menggunakannya. Tukar masuk",
-      "textDefault": "lalai teks",
-      "useMy": "Gunakan {{modality}} saya",
+      "settings": "Tetapan",
       "voice": "Suara",
-      "voiceDefault": "lalai suara",
       "webSearch": "Carian web"
     },
     "save": "Jimat Smart Field",
@@ -255,7 +252,7 @@
     },
     "image": {
       "cannotFindModel": "Katalog imej tiada model {{model}}",
-      "defaultModel": "Model Imej Lalai",
+      "defaultModel": "Model",
       "gptImage25": "pilihan terbaik untuk semua keperluan — teks tajam, rajah kemas.",
       "loadingLabel": "Memuatkan Tetapan Penjanaan Imej",
       "loadingTitle": "Tetapan Penjanaan Imej",
@@ -277,7 +274,7 @@
       "tryIt": "Cubalah"
     },
     "text": {
-      "defaultModel": "Model Teks Lalai",
+      "defaultModel": "Model",
       "loadingLabel": "Memuatkan Tetapan Penjanaan Teks",
       "loadingTitle": "Tetapan Penjanaan Teks",
       "samplePrompt": "Apakah itu Sistem Ulangan Berjarak (SRS)?",
@@ -505,7 +502,6 @@
     "upgradeNow": "Tingkatkan sekarang"
   },
   "intelligence": {
-    "advancedOptions": "Pilihan lanjutan",
     "autoCostRange": "{{min}}–{{max}}× kos",
     "autoDescription": "Model yang paling baik prestasinya untuk kecerdasan dan harga, dikemas kini secara berkala.",
     "autoName": "Smart Notes Auto",
@@ -527,6 +523,12 @@
       "high": "<level>Tinggi</level> untuk tatabahasa yang lebih lanjut.",
       "max": "<level>Maks</level> untuk bahan yang rumit yang tidak dapat ditangani oleh Tinggi.",
       "standard": "<level>Standard</level> paling sesuai untuk terjemahan dan ayat contoh."
-    }
+    },
+    "webSearchTipLabel": "Tentang carian web"
+  },
+  "stripHtml": {
+    "description": "Medan dimasukkan ke dalam prompt sebagai teks biasa, tanpa pemformatan dan markup. Matikan pilihan ini jika prompt anda memerlukan HTML.",
+    "label": "Buang HTML daripada input",
+    "tipLabel": "Tentang membuang HTML"
   }
 }

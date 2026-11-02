@@ -39,6 +39,19 @@ export const autoSettingsFor = (level: IntelligenceLevel): AutoSettings => ({
   reasoningLevel: REASONING_LEVEL_FOR[level],
 })
 
+/** Whether two chat settings read the same in the picker: Auto by its intelligence level
+ *  (off and the older low are both Standard), and a specific model by name, ignoring
+ *  the reasoning level only Auto reads. */
+export const chatSettingsMatch = (
+  a: ChatGenerationSettings,
+  b: ChatGenerationSettings,
+): boolean =>
+  a.provider === b.provider &&
+  a.model === b.model &&
+  a.webSearchEnabled === b.webSearchEnabled &&
+  a.stripHtml === b.stripHtml &&
+  (a.provider !== "auto" || intelligenceLevelOf(a) === intelligenceLevelOf(b))
+
 /** A chat model as one short label: "Auto · High" for Auto, the model name otherwise. */
 export const chatModelLabel = (
   settings: Pick<

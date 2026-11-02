@@ -124,6 +124,17 @@ export const createFieldEditorDraft = (
   }
 }
 
+/** A settings change in the field editor: a field whose settings come back to match the
+ *  default follows the default again. Only edits get here, so a pinned field never starts
+ *  following just because the defaults changed to match it. `matches` compares what the
+ *  picker shows, for settings with fields it doesn't (chat's reasoning level). */
+export const pinUnlessDefault = <T extends object>(
+  settings: T,
+  defaults: T,
+  matches: (a: T, b: T) => boolean = (a, b) =>
+    (Object.keys(a) as (keyof T)[]).every((key) => a[key] === b[key]),
+): T | null => (matches(settings, defaults) ? null : settings)
+
 export const getFirstAvailableField = (
   noteType: NoteType | undefined,
   fields: SmartField[],
@@ -276,6 +287,7 @@ const getInitialPinnedSettings = (
         provider: field.settings.provider,
         reasoningLevel: field.settings.reasoningLevel,
         webSearchEnabled: field.settings.webSearchEnabled,
+        stripHtml: field.settings.stripHtml,
       },
     }
   }
@@ -285,6 +297,7 @@ const getInitialPinnedSettings = (
       image: {
         model: field.settings.model,
         provider: field.settings.provider,
+        stripHtml: field.settings.stripHtml,
       },
     }
   }

@@ -83,9 +83,10 @@ const stateWithAccount = (
       model: "auto",
       reasoningLevel: "off",
       webSearchEnabled: false,
+      stripHtml: true,
     },
     tts: { provider: "google", model: "standard", voiceId: "voice" },
-    image: { provider: "openai", model: "gpt-image-1.5-low" },
+    image: { provider: "openai", model: "gpt-image-1.5-low", stripHtml: true },
   },
   settings: {
     generateAtReview: false,

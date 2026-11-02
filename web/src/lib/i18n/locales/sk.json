@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Rozšírené možnosti",
     "allDecks": "Všetky paluby",
     "auto": "Auto",
     "back": "Späť",
@@ -160,24 +161,20 @@
     },
     "loadingModelCatalog": "Načítava sa katalóg modelov…",
     "modelSettings": {
-      "appliesOnlyToField": "Platí len pre tento Smart Field.",
-      "defaultWithValue": "Predvolené ({{value}})",
-      "defaultsImages": "Predvolené › Obrázky",
-      "defaultsText": "Predvolené › Text",
-      "defaultsVoice": "Predvolené › Hlas",
+      "custom": "Vlastný",
+      "customDescription": "Toto pole používa vlastné nastavenia.",
+      "default": "Predvolené",
       "descriptionChat": "Nastavte AI, ktorá zapisuje toto pole. Väčšina polí môže zostať v predvolenom nastavení.",
       "descriptionImage": "Nastavte AI, ktorá vykreslí toto pole. Väčšina polí môže zostať v predvolenom nastavení.",
       "descriptionTts": "Nastavte hlas, ktorý číta toto pole. Väčšina polí môže zostať v predvolenom nastavení.",
-      "imageDefault": "predvolený obrázok",
+      "followingDefault": "Používa vaše predvolené nastavenia. Zmeňte čokoľvek a prispôsobte si ich.",
       "imageModel": "Obrazový model",
+      "intelligenceLevel": "{{level}} inteligencia",
+      "keepsHtml": "Zachováva HTML",
       "loadingVoices": "Načítavajú sa hlasy…",
       "model": "Model",
-      "pickCustom": "Vyberte si vlastný model pre toto pole",
-      "sharedByEveryField": "Váš {{modality}} zdieľa každý Smart Field, ktorý ho používa. Zmeňte to",
-      "textDefault": "text predvolene",
-      "useMy": "Použite môj {{modality}}",
+      "settings": "Nastavenia",
       "voice": "Hlas",
-      "voiceDefault": "predvolené nastavenie hlasu",
       "webSearch": "vyhľadávanie na webe"
     },
     "save": "Uložiť Smart Field",
@@ -258,7 +255,7 @@
     },
     "image": {
       "cannotFindModel": "V katalógu obrázkov chýba model {{model}}",
-      "defaultModel": "Predvolený model obrázkov",
+      "defaultModel": "Model",
       "gptImage25": "najvšestrannejší — ostrý text, čisté diagramy.",
       "loadingLabel": "Načítavanie nastavení generovania obrázkov",
       "loadingTitle": "Nastavenia generovania obrázkov",
@@ -280,7 +277,7 @@
       "tryIt": "Skúste to"
     },
     "text": {
-      "defaultModel": "Predvolený textový model",
+      "defaultModel": "Model",
       "loadingLabel": "Načítavanie nastavení generovania textu",
       "loadingTitle": "Nastavenia generovania textu",
       "samplePrompt": "Čo je systém priestorového opakovania (SRS)?",
@@ -535,7 +532,6 @@
     "upgradeNow": "Inovujte teraz"
   },
   "intelligence": {
-    "advancedOptions": "Rozšírené možnosti",
     "autoCostRange": "{{min}}–{{max}}× náklady",
     "autoDescription": "Najvýkonnejšie modely z hľadiska inteligencie a ceny, pravidelne aktualizované.",
     "autoName": "Smart Notes Auto",
@@ -557,6 +553,12 @@
       "high": "<level>Vysoká</level> je určená pre pokročilejšiu gramatiku.",
       "max": "<level>Maximálna</level> je určená pre zložitý materiál, ktorý úroveň Vysoká nezvládne.",
       "standard": "<level>Štandardná</level> je najlepšia na preklady a príkladové vety."
-    }
+    },
+    "webSearchTipLabel": "O webovom vyhľadávaní"
+  },
+  "stripHtml": {
+    "description": "Polia sa do promptu vložia ako čistý text bez formátovania a značiek. Vypnite, ak váš prompt potrebuje HTML.",
+    "label": "Odstrániť HTML zo vstupu",
+    "tipLabel": "O odstraňovaní HTML"
   }
 }

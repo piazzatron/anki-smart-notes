@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Opções avançadas",
     "allDecks": "Todos os baralhos",
     "auto": "Auto",
     "back": "Voltar",
@@ -159,24 +160,20 @@
     },
     "loadingModelCatalog": "Carregando catálogo de modelos…",
     "modelSettings": {
-      "appliesOnlyToField": "Aplica-se apenas a este Smart Field.",
-      "defaultWithValue": "Padrão ({{value}})",
-      "defaultsImages": "Padrões › Imagens",
-      "defaultsText": "Padrões › Texto",
-      "defaultsVoice": "Padrões › Voz",
+      "custom": "Personalizado",
+      "customDescription": "Este campo usa suas próprias configurações.",
+      "default": "Padrão",
       "descriptionChat": "Defina a IA que escreve este campo. A maioria dos campos pode permanecer no padrão.",
       "descriptionImage": "Defina a IA que desenha este campo. A maioria dos campos pode permanecer no padrão.",
       "descriptionTts": "Defina a voz que lê este campo. A maioria dos campos pode permanecer no padrão.",
-      "imageDefault": "imagem padrão",
+      "followingDefault": "Usa suas configurações padrão. Altere qualquer item para personalizar.",
       "imageModel": "Modelo de imagem",
+      "intelligenceLevel": "Nível de {{level}} de inteligência",
+      "keepsHtml": "Mantém HTML",
       "loadingVoices": "Carregando vozes…",
       "model": "Modelo",
-      "pickCustom": "Escolha um modelo personalizado para este campo",
-      "sharedByEveryField": "Seu {{modality}} é compartilhado por todos os Smart Field que o utilizam. Mude em",
-      "textDefault": "texto padrão",
-      "useMy": "Usar meu {{modality}}",
+      "settings": "Configurações",
       "voice": "Voz",
-      "voiceDefault": "padrão de voz",
       "webSearch": "Pesquisa na web"
     },
     "save": "Salvar Smart Field",
@@ -257,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "Falta o modelo {{model}} no catálogo de imagens",
-      "defaultModel": "Modelo padrão de imagem",
+      "defaultModel": "Modelo",
       "gptImage25": "melhor opção geral — texto nítido, diagramas limpos.",
       "loadingLabel": "Carregando configurações de geração de imagem",
       "loadingTitle": "Configurações de Geração de Imagem",
@@ -279,7 +276,7 @@
       "tryIt": "Experimente"
     },
     "text": {
-      "defaultModel": "Modelo de texto padrão",
+      "defaultModel": "Modelo",
       "loadingLabel": "Carregando configurações de geração de texto",
       "loadingTitle": "Configurações de geração de texto",
       "samplePrompt": "O que é um sistema de repetição espaçada (SRS)?",
@@ -525,7 +522,6 @@
     "upgradeNow": "Atualize agora"
   },
   "intelligence": {
-    "advancedOptions": "Opções avançadas",
     "autoCostRange": "{{min}}–{{max}}× o custo",
     "autoDescription": "Os modelos com melhor desempenho em inteligência e preço, atualizados regularmente.",
     "autoName": "Smart Notes Auto",
@@ -547,6 +543,12 @@
       "high": "<level>Alta</level> é para gramática mais avançada.",
       "max": "<level>Máxima</level> é para material complicado que o nível Alta não consegue processar.",
       "standard": "<level>Padrão</level> é ideal para traduções e frases de exemplo."
-    }
+    },
+    "webSearchTipLabel": "Sobre a pesquisa na web"
+  },
+  "stripHtml": {
+    "description": "Os campos entram no prompt como texto simples, sem formatação e marcação. Desative esta opção se o seu prompt precisar do HTML.",
+    "label": "Remover HTML da entrada",
+    "tipLabel": "Sobre a remoção de HTML"
   }
 }

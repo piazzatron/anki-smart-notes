@@ -78,6 +78,7 @@ describe("getValidPromptFields", () => {
         reasoningLevel: "off",
         webSearchEnabled: false,
         usesDefaultGenerationSettings: true,
+        stripHtml: true,
       },
     }
     const args = {

@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Altnivelaj opcioj",
     "allDecks": "Ĉiuj Ferdekoj",
     "auto": "Aŭtomate",
     "back": "Reen",
@@ -158,24 +159,20 @@
     },
     "loadingModelCatalog": "Ŝargante modelo-katalogon...",
     "modelSettings": {
-      "appliesOnlyToField": "Validas nur por ĉi tiu Smart Field.",
-      "defaultWithValue": "Defaŭlta ({{value}})",
-      "defaultsImages": "Defaŭltoj › Bildoj",
-      "defaultsText": "Defaŭltoj › Teksto",
-      "defaultsVoice": "Defaŭltoj › Voĉo",
+      "custom": "Propra",
+      "customDescription": "Ĉi tiu kampo uzas siajn proprajn agordojn.",
+      "default": "Implicita",
       "descriptionChat": "Agordu la AI, kiu skribas ĉi tiun kampon. Plej multaj kampoj povas resti defaŭltaj.",
       "descriptionImage": "Agordu la AI, kiu desegnas ĉi tiun kampon. Plej multaj kampoj povas resti defaŭltaj.",
       "descriptionTts": "Agordu la voĉon, kiu legas ĉi tiun kampon. Plej multaj kampoj povas resti defaŭltaj.",
-      "imageDefault": "bildo defaŭlte",
+      "followingDefault": "Uzas viajn defaŭltajn agordojn. Ŝanĝu ion por personecigi.",
       "imageModel": "Bilda modelo",
+      "intelligenceLevel": "{{level}} inteligenteco",
+      "keepsHtml": "Konservas HTML",
       "loadingVoices": "Ŝargante voĉojn...",
       "model": "Modelo",
-      "pickCustom": "Elektu kutiman modelon por ĉi tiu kampo",
-      "sharedByEveryField": "Via {{modality}} estas dividita de ĉiu Smart Field kiu uzas ĝin. Ŝanĝu ĝin",
-      "textDefault": "teksto defaŭlte",
-      "useMy": "Uzu mian {{modality}}",
+      "settings": "Agordoj",
       "voice": "Voĉo",
-      "voiceDefault": "voĉa defaŭlto",
       "webSearch": "TTT-serĉo"
     },
     "save": "Konservu Smart Field",
@@ -256,7 +253,7 @@
     },
     "image": {
       "cannotFindModel": "Bildkatalogo mankas modelo {{model}}",
-      "defaultModel": "Defaŭlta bildmodelo",
+      "defaultModel": "Modelo",
       "gptImage25": "la plej universala — klara teksto, puraj diagramoj.",
       "loadingLabel": "Ŝargado de agordoj por bildgenerado",
       "loadingTitle": "Agordoj por bildgenerado",
@@ -278,7 +275,7 @@
       "tryIt": "Provu ĝin"
     },
     "text": {
-      "defaultModel": "Defaŭlta Teksta Modelo",
+      "defaultModel": "Modelo",
       "loadingLabel": "Ŝargado de agordoj por tekstogenerado",
       "loadingTitle": "Agordoj de Tekstaj Generacio",
       "samplePrompt": "Kio estas Spaca Ripeta Sistemo (SRS)?",
@@ -515,7 +512,6 @@
     "upgradeNow": "Ĝisdatigu nun"
   },
   "intelligence": {
-    "advancedOptions": "Altnivelaj opcioj",
     "autoCostRange": "{{min}}–{{max}}× kosto",
     "autoDescription": "La plej bone rezultantaj modeloj por inteligenteco kaj prezo, regule ĝisdatigitaj.",
     "autoName": "Smart Notes Auto",
@@ -537,6 +533,12 @@
       "high": "<level>Alta</level> estas por pli progresinta gramatiko.",
       "max": "<level>Maksimuma</level> estas por komplikaj materialoj, kiujn Alta ne povas trakti.",
       "standard": "<level>Norma</level> plej taugas por tradukoj kaj ekzemplaj frazoj."
-    }
+    },
+    "webSearchTipLabel": "Pri retserĉo"
+  },
+  "stripHtml": {
+    "description": "Kampoj estas enmetitaj en la promptan kiel simpla teksto, sen ilia formatado kaj markado. Malŝaltu ĉi tion, se via prompto bezonas la HTML-on.",
+    "label": "Forigi HTML el enigo",
+    "tipLabel": "Pri forigo de HTML"
   }
 }

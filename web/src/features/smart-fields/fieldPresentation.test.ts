@@ -23,6 +23,7 @@ describe("Smart Field presentation", () => {
         reasoningLevel: "off",
         webSearchEnabled: false,
         usesDefaultGenerationSettings: true,
+        stripHtml: true,
       },
     }
 

@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "高级选项",
     "allDecks": "所有套牌",
     "auto": "汽车",
     "back": "后退",
@@ -157,24 +158,20 @@
     },
     "loadingModelCatalog": "正在加载模型目录...",
     "modelSettings": {
-      "appliesOnlyToField": "仅适用于此 Smart Field。",
-      "defaultWithValue": "默认（{{value}}）",
-      "defaultsImages": "默认设置 › 图像",
-      "defaultsText": "默认值 › 文本",
-      "defaultsVoice": "默认设置 › 语音",
+      "custom": "自定义",
+      "customDescription": "此字段使用自己的设置。",
+      "default": "默认",
       "descriptionChat": "设置写入该字段的AI。大多数字段可以保留默认值。",
       "descriptionImage": "设置绘制该字段的AI。大多数字段可以保留默认值。",
       "descriptionTts": "设置读取该字段的声音。大多数字段可以保留默认值。",
-      "imageDefault": "图像默认值",
+      "followingDefault": "使用您的默认设置。更改任意设置即可自定义。",
       "imageModel": "图像模型",
+      "intelligenceLevel": "{{level}} 智能",
+      "keepsHtml": "保留 HTML",
       "loadingVoices": "正在加载声音...",
       "model": "模型",
-      "pickCustom": "为此字段选择自定义模型",
-      "sharedByEveryField": "您的 {{modality}} 被每个使用它的 Smart Field 共享。将其更改为",
-      "textDefault": "文本默认值",
-      "useMy": "使用我的 {{modality}}",
+      "settings": "设置",
       "voice": "嗓音",
-      "voiceDefault": "语音默认",
       "webSearch": "网页搜索"
     },
     "save": "保存 Smart Field",
@@ -255,7 +252,7 @@
     },
     "image": {
       "cannotFindModel": "图像目录缺少型号 {{model}}",
-      "defaultModel": "默认图片模型",
+      "defaultModel": "模型",
       "gptImage25": "综合表现最佳，文字清晰，图表干净。",
       "loadingLabel": "正在加载图片生成设置",
       "loadingTitle": "图片生成设置",
@@ -277,7 +274,7 @@
       "tryIt": "尝试一下"
     },
     "text": {
-      "defaultModel": "默认文本模型",
+      "defaultModel": "模型",
       "loadingLabel": "正在加载文本生成设置",
       "loadingTitle": "文本生成设置",
       "samplePrompt": "什么是间隔重复系统（SRS）？",
@@ -505,7 +502,6 @@
     "upgradeNow": "立即升级"
   },
   "intelligence": {
-    "advancedOptions": "高级选项",
     "autoCostRange": "{{min}}–{{max}}× 成本",
     "autoDescription": "在智能程度与价格方面表现最佳的模型，定期更新。",
     "autoName": "Smart Notes Auto",
@@ -527,6 +523,12 @@
       "high": "<level>高</level>适用于较高级的语法。",
       "max": "<level>最高</level>适用于“高”等级无法处理的复杂内容。",
       "standard": "<level>标准</level>最适合翻译和例句。"
-    }
+    },
+    "webSearchTipLabel": "关于网页搜索"
+  },
+  "stripHtml": {
+    "description": "字段会以纯文本形式加入提示词，不保留格式和标记。如果提示词需要 HTML，请关闭此选项。",
+    "label": "从输入中去除 HTML",
+    "tipLabel": "关于去除 HTML"
   }
 }

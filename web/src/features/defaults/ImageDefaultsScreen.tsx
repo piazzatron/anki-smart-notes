@@ -1,8 +1,10 @@
 import { useTranslation } from "react-i18next"
 
+import { Disclosure } from "@/components/ui/Disclosure"
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { SectionHeading } from "@/components/ui/SectionHeading"
 import { PaletteEmoji } from "@/components/shared/Emoji"
+import { StripHtmlToggle } from "@/components/shared/StripHtmlToggle"
 import { ImageModelSelect } from "@/features/image-generation/ImageModelSelect"
 import {
   PromptTesterStrip,
@@ -139,6 +141,19 @@ const LoadedImageDefaultsScreen = ({
           onValueChange={(settings) => void controls.updateDefault(settings)}
           value={controls.form.values.model}
         />
+        <Disclosure
+          className="mt-5"
+          defaultOpen={!controls.form.values.stripHtml}
+          label={t("common.advancedOptions")}
+        >
+          <StripHtmlToggle
+            checked={controls.form.values.stripHtml}
+            hanging
+            onCheckedChange={(stripHtml) =>
+              void controls.updateDefault({ stripHtml })
+            }
+          />
+        </Disclosure>
       </div>
     </DefaultsScreenLayout>
   )

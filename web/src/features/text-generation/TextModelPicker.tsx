@@ -17,11 +17,13 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ChevronDown, ChevronRight } from "lucide-react"
+import { ChevronRight } from "lucide-react"
 import { useRef, useState, type CSSProperties, type MouseEvent } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
 import { BoltIcon, WarningIcon } from "@/components/shared/Icons"
+import { StripHtmlToggle } from "@/components/shared/StripHtmlToggle"
+import { Disclosure } from "@/components/ui/Disclosure"
 import { Divider } from "@/components/ui/Divider"
 import { InfoTip } from "@/components/ui/InfoTip"
 import {
@@ -75,10 +77,6 @@ export const TextModelPicker = ({
 }: TextModelPickerProps) => {
   const { t } = useTranslation()
   const isAuto = value.provider === "auto"
-  // Open from the start when something in it is already in use, so nothing is hidden.
-  const [advancedOpen, setAdvancedOpen] = useState(
-    !isAuto || value.webSearchEnabled,
-  )
   const surface = `rounded-xl bg-white/[0.05] ${hanging ? "hang" : "px-hang"}`
 
   return (
@@ -134,47 +132,41 @@ export const TextModelPicker = ({
         </div>
       )}
 
-      <button
-        aria-expanded={advancedOpen}
-        className="mt-5 inline-flex cursor-pointer items-center gap-1 py-1 text-[13px] font-medium text-ink-muted transition hover:text-ink"
-        onClick={() => setAdvancedOpen(!advancedOpen)}
-        type="button"
+      <Disclosure
+        className="mt-5"
+        defaultOpen={!isAuto || value.webSearchEnabled || !value.stripHtml}
+        label={t("common.advancedOptions")}
       >
-        {t("intelligence.advancedOptions")}
-        <ChevronDown
-          aria-hidden
-          className={`size-3.5 transition-transform ${advancedOpen ? "rotate-180" : ""}`}
+        <SpecificModelList
+          catalog={catalog}
+          className={hanging ? "-mx-hang" : ""}
+          onChange={onChange}
+          value={value}
         />
-      </button>
-
-      {advancedOpen && (
-        <div className="mt-3 grid gap-3">
-          <SpecificModelList
-            catalog={catalog}
-            className={hanging ? "-mx-hang" : ""}
-            onChange={onChange}
-            value={value}
-          />
-          <div className={`${surface} flex items-center gap-4 py-[18px]`}>
-            <div className="min-w-0 flex-1">
-              <p className="flex min-h-[22px] items-center gap-2 text-sm font-medium text-ink">
-                {t("intelligence.webSearch")}
-                <Pill tone="warning">{t("intelligence.veryHighCost")}</Pill>
-              </p>
-              <p className="mt-1.5 text-xs leading-4 text-ink-muted">
+        <div className={`${surface} flex items-center gap-4 py-[18px]`}>
+          <div className="min-w-0 flex-1">
+            <p className="flex min-h-[22px] items-center gap-2 text-sm font-medium text-ink">
+              {t("intelligence.webSearch")}
+              <InfoTip label={t("intelligence.webSearchTipLabel")}>
                 {t("intelligence.webSearchDescription")}
-              </p>
-            </div>
-            <Toggle
-              aria-label={t("intelligence.webSearch")}
-              checked={value.webSearchEnabled}
-              onCheckedChange={(webSearchEnabled) =>
-                onChange({ ...value, webSearchEnabled })
-              }
-            />
+              </InfoTip>
+              <Pill tone="warning">{t("intelligence.veryHighCost")}</Pill>
+            </p>
           </div>
+          <Toggle
+            aria-label={t("intelligence.webSearch")}
+            checked={value.webSearchEnabled}
+            onCheckedChange={(webSearchEnabled) =>
+              onChange({ ...value, webSearchEnabled })
+            }
+          />
         </div>
-      )}
+        <StripHtmlToggle
+          checked={value.stripHtml}
+          hanging={hanging}
+          onCheckedChange={(stripHtml) => onChange({ ...value, stripHtml })}
+        />
+      </Disclosure>
     </div>
   )
 }
@@ -249,7 +241,9 @@ const IntelligenceSlider = ({
             }`}
             key={item.id}
             onClick={() => {
-              onChange(item.id)
+              // Re-picking the current level is not a change: in the field editor a
+              // change pins the field off its default.
+              if (itemIndex !== index) onChange(item.id)
               stopRefs.current[itemIndex]?.focus()
             }}
             onMouseDown={(event) => event.preventDefault()}

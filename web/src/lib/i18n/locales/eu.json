@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Aukera aurreratuak",
     "allDecks": "Barruti guztiak",
     "auto": "Autoa",
     "back": "Itzuli",
@@ -158,24 +159,20 @@
     },
     "loadingModelCatalog": "Modeloen katalogoa kargatzen…",
     "modelSettings": {
-      "appliesOnlyToField": "Smart Field honi bakarrik aplikatzen zaio.",
-      "defaultWithValue": "Lehenetsia ({{value}})",
-      "defaultsImages": "Lehenetsiak › Irudiak",
-      "defaultsText": "Lehenetsiak › Testua",
-      "defaultsVoice": "Lehenetsiak › Ahotsa",
+      "custom": "Pertsonalizatua",
+      "customDescription": "Eremu honek bere ezarpenak erabiltzen ditu.",
+      "default": "Lehenetsia",
       "descriptionChat": "Ezarri eremu hau idazten duen AI. Eremu gehienak lehenetsitako moduan gera daitezke.",
       "descriptionImage": "Ezarri eremu hau marrazten duen IA. Eremu gehienak lehenetsitako moduan gera daitezke.",
       "descriptionTts": "Ezarri eremu hau irakurtzen duen ahotsa. Eremu gehienak lehenetsitako moduan gera daitezke.",
-      "imageDefault": "irudi lehenetsia",
+      "followingDefault": "Zure lehenetsitako ezarpenak erabiltzen ditu. Edozer aldatu pertsonalizatzeko.",
       "imageModel": "Irudi eredua",
+      "intelligenceLevel": "{{level}} adimena",
+      "keepsHtml": "HTML mantentzen du",
       "loadingVoices": "Ahotsak kargatzen…",
       "model": "Eredua",
-      "pickCustom": "Aukeratu eredu pertsonalizatu bat eremu honetarako",
-      "sharedByEveryField": "Zure {{modality}} erabiltzen duten Smart Field guztiek partekatzen dute. Aldatu ezazu",
-      "textDefault": "testu lehenetsia",
-      "useMy": "Erabili nire {{modality}}",
+      "settings": "Ezarpenak",
       "voice": "Ahotsa",
-      "voiceDefault": "ahots lehenetsia",
       "webSearch": "Web bilaketa"
     },
     "save": "Gorde Smart Field",
@@ -256,7 +253,7 @@
     },
     "image": {
       "cannotFindModel": "Irudien katalogoa {{model}} eredua falta da",
-      "defaultModel": "Irudi-eredu lehenetsia",
+      "defaultModel": "Modeloa",
       "gptImage25": "oreka onena: testu zorrotza, diagrama garbiak.",
       "loadingLabel": "Irudi sortzeko ezarpenak kargatzen",
       "loadingTitle": "Irudi sortzeko ezarpenak",
@@ -278,7 +275,7 @@
       "tryIt": "Probatu"
     },
     "text": {
-      "defaultModel": "Testu-eredu lehenetsia",
+      "defaultModel": "Modeloa",
       "loadingLabel": "Testu sortzeko ezarpenak kargatzen",
       "loadingTitle": "Testua sortzeko ezarpenak",
       "samplePrompt": "Zer da Espazio Errepikapen Sistema (SRS)?",
@@ -515,7 +512,6 @@
     "upgradeNow": "Berritu orain"
   },
   "intelligence": {
-    "advancedOptions": "Aukera aurreratuak",
     "autoCostRange": "{{min}}–{{max}}× kostua",
     "autoDescription": "Adimenerako eta prezioarerako emaitza onenak lortzen dituzten ereduak, maiz eguneratuak.",
     "autoName": "Smart Notes Auto",
@@ -537,6 +533,12 @@
       "high": "<level>Altua</level> gramatika aurreratuagorako da.",
       "max": "<level>Maximoa</level> Altuak kudeatu ezin dituen material konplexuetarako da.",
       "standard": "<level>Estandarra</level> itzulpenetarako eta adibide-esaldietarako da onena."
-    }
+    },
+    "webSearchTipLabel": "Web bilaketari buruz"
+  },
+  "stripHtml": {
+    "description": "Eremuak testu soil gisa sartzen dira promptean, formatu eta markaturik gabe. Itzali prompt-ak HTML behar badu.",
+    "label": "Sartu testua HTML etiketarik gabe",
+    "tipLabel": "HTML kentzeari buruz"
   }
 }

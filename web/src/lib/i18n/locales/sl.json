@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Napredne možnosti",
     "allDecks": "Vse plošče",
     "auto": "Avto",
     "back": "Nazaj",
@@ -160,24 +161,20 @@
     },
     "loadingModelCatalog": "Nalaganje kataloga modelov …",
     "modelSettings": {
-      "appliesOnlyToField": "Velja samo za ta Smart Field.",
-      "defaultWithValue": "Privzeto ({{value}})",
-      "defaultsImages": "Privzeto › Slike",
-      "defaultsText": "Privzeto › Besedilo",
-      "defaultsVoice": "Privzete nastavitve › Glas",
+      "custom": "Po meri",
+      "customDescription": "Toto pole používa vlastné nastavenia.",
+      "default": "Privzeto",
       "descriptionChat": "Nastavite AI, ki zapisuje to polje. Večina polj lahko ostane privzetih.",
       "descriptionImage": "Nastavite AI, ki nariše to polje. Večina polj lahko ostane privzetih.",
       "descriptionTts": "Nastavite glas, ki bere to polje. Večina polj lahko ostane privzetih.",
-      "imageDefault": "privzeta slika",
+      "followingDefault": "Používa vaše predvolené nastavenia. Ak čokoli zmeníte, bude prispôsobené.",
       "imageModel": "Model slike",
+      "intelligenceLevel": "{{level}} inteligenca",
+      "keepsHtml": "Ohrani HTML",
       "loadingVoices": "Nalaganje glasov …",
       "model": "Model",
-      "pickCustom": "Za to polje izberite model po meri",
-      "sharedByEveryField": "Vaš {{modality}} si deli vsak Smart Field, ki ga uporablja. Spremenite ga",
-      "textDefault": "privzeto besedilo",
-      "useMy": "Uporabite moj {{modality}}",
+      "settings": "Nastavitve",
       "voice": "Glas",
-      "voiceDefault": "glasovno privzeto",
       "webSearch": "Spletno iskanje"
     },
     "save": "Shrani Smart Field",
@@ -258,7 +255,7 @@
     },
     "image": {
       "cannotFindModel": "V katalogu slik manjka model {{model}}",
-      "defaultModel": "Privzeti model za slike",
+      "defaultModel": "Model",
       "gptImage25": "najboljši vsestranski — ostro besedilo, čisti diagrami.",
       "loadingLabel": "Nalaganje nastavitev ustvarjanja slik",
       "loadingTitle": "Nastavitve ustvarjanja slik",
@@ -280,7 +277,7 @@
       "tryIt": "poskusite"
     },
     "text": {
-      "defaultModel": "Privzeti besedilni model",
+      "defaultModel": "Model",
       "loadingLabel": "Nalaganje nastavitev ustvarjanja besedila",
       "loadingTitle": "Nastavitve generiranja besedila",
       "samplePrompt": "Kaj je sistem razmaknjenega ponavljanja (SRS)?",
@@ -535,7 +532,6 @@
     "upgradeNow": "Nadgradi zdaj"
   },
   "intelligence": {
-    "advancedOptions": "Napredne možnosti",
     "autoCostRange": "{{min}}–{{max}}× strošek",
     "autoDescription": "Najbolj zmogljivi modeli glede na inteligentnost in ceno, redno posodobljeni.",
     "autoName": "Smart Notes Auto",
@@ -557,6 +553,12 @@
       "high": "<level>Visoka</level> je za zahtevnejšo slovnico.",
       "max": "<level>Najvišja</level> je za zahtevno gradivo, ki ga visoka raven ne zmore.",
       "standard": "<level>Standardna</level> je najprimernejša za prevode in primere stavkov."
-    }
+    },
+    "webSearchTipLabel": "O spletnem iskanju"
+  },
+  "stripHtml": {
+    "description": "Polja v poziv vstavijo kot navadno besedilo, brez oblikovanja in oznak. Izklopite, če vaš poziv potrebuje HTML.",
+    "label": "Odstrani HTML iz vnosa",
+    "tipLabel": "O odstranjevanju HTML"
   }
 }

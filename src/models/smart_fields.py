@@ -41,6 +41,7 @@ class ChatGenerationSettings:
     model: ChatModels
     reasoning_level: ChatReasoningLevel
     web_search_enabled: bool
+    strip_html: bool
 
 
 @dataclass(frozen=True)
@@ -54,6 +55,7 @@ class TTSGenerationSettings:
 class ImageGenerationSettings:
     provider: ImageProviders
     model: ImageModels
+    strip_html: bool
 
 
 @dataclass(frozen=True)
@@ -116,6 +118,7 @@ class ChatSmartFieldSettings:
     web_search_enabled: bool
     reasoning_level: ChatReasoningLevel = "off"
     uses_default_generation_settings: bool = False
+    strip_html: bool = True
 
 
 @dataclass(frozen=True)
@@ -133,6 +136,7 @@ class ImageSmartFieldSettings:
     provider: ImageProviders
     model: ImageModels
     uses_default_generation_settings: bool = False
+    strip_html: bool = True
 
 
 SmartFieldSettings = Union[

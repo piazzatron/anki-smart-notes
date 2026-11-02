@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "進階選項",
     "allDecks": "所有套牌",
     "auto": "汽車",
     "back": "後退",
@@ -157,24 +158,20 @@
     },
     "loadingModelCatalog": "正在載入模型目錄...",
     "modelSettings": {
-      "appliesOnlyToField": "僅適用於此 Smart Field。",
-      "defaultWithValue": "預設（{{value}}）",
-      "defaultsImages": "預設設定 › 圖像",
-      "defaultsText": "預設值 › 文字",
-      "defaultsVoice": "預設設定 › 語音",
+      "custom": "自訂",
+      "customDescription": "此欄位使用自訂設定。",
+      "default": "預設",
       "descriptionChat": "設定寫入該欄位的AI。大多數欄位可以保留預設值。",
       "descriptionImage": "設定繪製該欄位的AI。大多數欄位可以保留預設值。",
       "descriptionTts": "設定讀取該字段的聲音。大多數欄位可以保留預設值。",
-      "imageDefault": "影像預設值",
+      "followingDefault": "使用預設設定。變更任何項目即可自訂。",
       "imageModel": "影像模型",
+      "intelligenceLevel": "{{level}} 智慧等級",
+      "keepsHtml": "保留 HTML",
       "loadingVoices": "正在加載聲音...",
       "model": "模型",
-      "pickCustom": "為此欄位選擇自訂模型",
-      "sharedByEveryField": "您的 {{modality}} 被每個使用它的 Smart Field 共用。將其更改為",
-      "textDefault": "文字預設值",
-      "useMy": "使用我的 {{modality}}",
+      "settings": "設定",
       "voice": "嗓音",
-      "voiceDefault": "語音預設",
       "webSearch": "網頁搜尋"
     },
     "save": "儲存 Smart Field",
@@ -255,7 +252,7 @@
     },
     "image": {
       "cannotFindModel": "影像目錄缺少型號 {{model}}",
-      "defaultModel": "預設圖片模型",
+      "defaultModel": "模型",
       "gptImage25": "綜合表現最佳，文字銳利，圖表乾淨。",
       "loadingLabel": "正在載入圖片生成設定",
       "loadingTitle": "圖片生成設定",
@@ -277,7 +274,7 @@
       "tryIt": "嘗試一下"
     },
     "text": {
-      "defaultModel": "預設文字模型",
+      "defaultModel": "模型",
       "loadingLabel": "正在載入文字生成設定",
       "loadingTitle": "文字產生設定",
       "samplePrompt": "什麼是間隔重複系統（SRS）？",
@@ -505,7 +502,6 @@
     "upgradeNow": "立即升級"
   },
   "intelligence": {
-    "advancedOptions": "進階選項",
     "autoCostRange": "{{min}}–{{max}}× 成本",
     "autoDescription": "在智慧程度與價格之間表現最佳的模型，會定期更新。",
     "autoName": "Smart Notes Auto",
@@ -527,6 +523,12 @@
       "high": "<level>高</level>適用於較進階的文法。",
       "max": "<level>最高</level>適用於高等級無法處理的複雜內容。",
       "standard": "<level>標準</level>最適合翻譯與例句。"
-    }
+    },
+    "webSearchTipLabel": "關於網頁搜尋"
+  },
+  "stripHtml": {
+    "description": "欄位會以純文字形式加入提示詞，不含格式與標記。如果您的提示詞需要 HTML，請關閉此選項。",
+    "label": "輸入內容去除 HTML",
+    "tipLabel": "關於移除 HTML"
   }
 }

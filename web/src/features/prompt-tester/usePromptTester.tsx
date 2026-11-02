@@ -68,6 +68,7 @@ export interface TestRun {
   prompt: string
   // Captured at run time so later settings changes don't relabel the result.
   provenance: Provenance
+  stripHtml: boolean
   value: TestValue
 }
 
@@ -421,6 +422,8 @@ const runTimedTest = async (args: {
     latencyMs: Math.max(1, Math.round(performance.now() - startedAt)),
     prompt: args.prompt,
     provenance,
+    // Voice input is stripped by the server, but its prompt is never previewed.
+    stripHtml: args.args.fieldType !== "tts" && args.args.settings.stripHtml,
     value,
   }
 }
@@ -483,7 +486,11 @@ const renderTestResult = ({
   if ("text" in run.value) {
     return (
       <>
-        <ResolvedPrompt note={selectedNote} prompt={run.prompt} />
+        <ResolvedPrompt
+          note={selectedNote}
+          prompt={run.prompt}
+          stripHtml={run.stripHtml}
+        />
         <p className="cursor-text text-sm leading-[1.6] whitespace-pre-wrap text-zinc-100 select-text">
           {run.value.text}
         </p>
@@ -499,6 +506,7 @@ const renderTestResult = ({
       latencyMs={run.latencyMs}
       note={selectedNote}
       prompt={run.prompt}
+      stripHtml={run.stripHtml}
     />
   )
 }
@@ -508,11 +516,13 @@ const GeneratedImage = ({
   latencyMs,
   note,
   prompt,
+  stripHtml,
 }: {
   dataUrl: string
   latencyMs: number
   note: SelectedNote | null
   prompt: string
+  stripHtml: boolean
 }) => {
   const { t } = useTranslation()
 
@@ -522,7 +532,7 @@ const GeneratedImage = ({
   // shrink-to-fit wrapper.
   return (
     <div className="mx-auto w-min">
-      <ResolvedPrompt note={note} prompt={prompt} />
+      <ResolvedPrompt note={note} prompt={prompt} stripHtml={stripHtml} />
       <img
         alt={t("promptTester.generatedImagePreview")}
         className="block max-h-[56vh] w-auto max-w-[min(478px,calc(92vw-42px))] rounded-lg"

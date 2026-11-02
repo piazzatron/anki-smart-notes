@@ -26,20 +26,24 @@ import { Button } from "@/components/ui/Button"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
 } from "@/components/ui/Dialog"
-import { OptionGroup, OptionGroupItem } from "@/components/ui/OptionList"
+import { Disclosure } from "@/components/ui/Disclosure"
+import { StripHtmlToggle } from "@/components/shared/StripHtmlToggle"
+import { Pill } from "@/components/ui/Pill"
 import { VoicePicker } from "@/features/defaults/VoicePicker"
 import { voiceMatchesSettings } from "@/features/defaults/voiceDefaults"
 import { ImageModelSelect } from "@/features/image-generation/ImageModelSelect"
 import { TextModelPicker } from "@/features/text-generation/TextModelPicker"
-import { chatModelLabel } from "@/features/text-generation/intelligence"
+import {
+  chatSettingsMatch,
+  intelligenceLevelOf,
+} from "@/features/text-generation/intelligence"
 import { modelLabel } from "@/lib/catalog"
 import type { AppState, Catalog, VoiceCatalog } from "@/types/api"
 
-import type { FieldType } from "./fieldEditor"
+import { pinUnlessDefault } from "./fieldEditor"
 import type { FieldEditorControls } from "./useFieldEditor"
 
 interface ModelSettingsSectionProps {
@@ -60,7 +64,12 @@ export const ModelSettingsSection = ({
   const { t } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
   const { fieldType } = controls.form.target
+  const { pinnedSettings } = controls.form
+  const isCustom = pinnedSettings[fieldType] !== null
   const summary = getModelSummary({ controls, state, voiceCatalog })
+  const imageSettings = pinnedSettings.image ?? state.defaults.image
+  const pinImage = (settings: typeof imageSettings) =>
+    controls.setPinnedImage(pinUnlessDefault(settings, state.defaults.image))
 
   return (
     <>
@@ -69,7 +78,8 @@ export const ModelSettingsSection = ({
         className="hang flex min-h-11 w-[calc(100%+2*var(--spacing-hang))] cursor-pointer items-center gap-3 rounded-xl bg-white/[0.05] py-2 text-start transition hover:bg-white/[0.07]"
         onClick={() => setIsOpen(true)}
       >
-        <span className="min-w-0 flex-1 truncate text-[13px] font-semibold text-zinc-100">
+        <StatusPill isCustom={isCustom} />
+        <span className="min-w-0 flex-1 truncate text-[13px] font-semibold text-ink">
           {summary.label}
         </span>
         {summary.detail !== null && (
@@ -83,71 +93,80 @@ export const ModelSettingsSection = ({
       <SettingsDialog
         onOpenChange={setIsOpen}
         open={isOpen}
-        subtitle={t("fieldEditor.modelSettings.appliesOnlyToField")}
         title={
           fieldType === "tts"
             ? t("fieldEditor.modelSettings.voice")
-            : t("fieldEditor.modelSettings.model")
+            : t("fieldEditor.modelSettings.settings")
         }
       >
-        <PinnedOrDefault
-          controls={controls}
-          defaultLabel={getDefaultLabel({ fieldType, state, voiceCatalog })}
-          fieldType={fieldType}
-          state={state}
-        />
+        <DefaultStatus isCustom={isCustom} />
 
-        {controls.form.pinnedSettings[fieldType] === null ? (
-          <p className="mt-3 text-xs leading-4 text-ink-muted">
-            {t("fieldEditor.modelSettings.sharedByEveryField", {
-              modality: getModalityName(fieldType),
-            })}{" "}
-            <span className="font-semibold text-indigo-soft">
-              {i18next.t(MODALITIES[fieldType].whereKey)}
+        {/* The pickers show what the field generates with now. Changing anything gives
+            the field its own copy, and changing it back to the default follows again. */}
+        <div className="mt-4">
+          {fieldType !== "tts" && (
+            <span className="mb-2 block text-[11px] font-semibold tracking-[0.08em] text-ink-muted uppercase">
+              {t("fieldEditor.modelSettings.model")}
             </span>
-            .
-          </p>
-        ) : (
-          <div className="mt-4">
-            {fieldType === "chat" &&
-              controls.form.pinnedSettings.chat !== null && (
-                <TextModelPicker
-                  catalog={catalog.chat}
-                  onChange={controls.setPinnedChat}
-                  value={controls.form.pinnedSettings.chat}
+          )}
+          {fieldType === "chat" && (
+            <TextModelPicker
+              catalog={catalog.chat}
+              onChange={(settings) =>
+                controls.setPinnedChat(
+                  pinUnlessDefault(
+                    settings,
+                    state.defaults.chat,
+                    chatSettingsMatch,
+                  ),
+                )
+              }
+              value={pinnedSettings.chat ?? state.defaults.chat}
+            />
+          )}
+          {fieldType === "image" && (
+            <>
+              <ImageModelSelect
+                ariaLabel={t("fieldEditor.modelSettings.imageModel")}
+                catalog={catalog.image}
+                onValueChange={(model) =>
+                  pinImage({ ...imageSettings, ...model })
+                }
+                value={imageSettings.model}
+              />
+              <Disclosure
+                className="mt-5"
+                defaultOpen={!imageSettings.stripHtml}
+                label={t("common.advancedOptions")}
+              >
+                <StripHtmlToggle
+                  checked={imageSettings.stripHtml}
+                  onCheckedChange={(stripHtml) =>
+                    pinImage({ ...imageSettings, stripHtml })
+                  }
                 />
-              )}
-            {fieldType === "image" &&
-              controls.form.pinnedSettings.image !== null && (
-                <div>
-                  <span className="mb-2 block text-[11px] font-semibold tracking-[0.06em] text-ink-muted uppercase">
-                    {t("fieldEditor.modelSettings.model")}
-                  </span>
-                  <ImageModelSelect
-                    ariaLabel={t("fieldEditor.modelSettings.imageModel")}
-                    catalog={catalog.image}
-                    onValueChange={controls.setPinnedImage}
-                    value={controls.form.pinnedSettings.image.model}
-                  />
-                </div>
-              )}
-            {fieldType === "tts" &&
-              controls.form.pinnedSettings.tts !== null &&
-              (voiceCatalog === null ? (
-                <div className="flex items-center justify-center gap-2 py-8 text-[13px] text-ink-muted">
-                  <LoaderCircle aria-hidden className="size-4 animate-spin" />
-                  {t("fieldEditor.modelSettings.loadingVoices")}
-                </div>
-              ) : (
-                <VoicePicker
-                  catalog={voiceCatalog}
-                  listMaxHeight={260}
-                  onSelect={controls.setPinnedTTS}
-                  value={controls.form.pinnedSettings.tts}
-                />
-              ))}
-          </div>
-        )}
+              </Disclosure>
+            </>
+          )}
+          {fieldType === "tts" &&
+            (voiceCatalog === null ? (
+              <div className="flex items-center justify-center gap-2 py-8 text-[13px] text-ink-muted">
+                <LoaderCircle aria-hidden className="size-4 animate-spin" />
+                {t("fieldEditor.modelSettings.loadingVoices")}
+              </div>
+            ) : (
+              <VoicePicker
+                catalog={voiceCatalog}
+                listMaxHeight={260}
+                onSelect={(settings) =>
+                  controls.setPinnedTTS(
+                    pinUnlessDefault(settings, state.defaults.tts),
+                  )
+                }
+                value={pinnedSettings.tts ?? state.defaults.tts}
+              />
+            ))}
+        </div>
       </SettingsDialog>
     </>
   )
@@ -157,22 +176,27 @@ const SettingsDialog = ({
   children,
   onOpenChange,
   open,
-  subtitle,
   title,
 }: {
   children: ReactNode
   onOpenChange: (open: boolean) => void
   open: boolean
-  subtitle: string
   title: string
 }) => (
   <Dialog onOpenChange={onOpenChange} open={open}>
-    <DialogContent className="max-h-[80vh] w-[min(520px,92vw)]">
-      <DialogHeader title={title}>
-        <DialogDescription className="mt-0.5 text-xs text-ink-muted">
-          {subtitle}
-        </DialogDescription>
-      </DialogHeader>
+    {/* Title only: the settings below explain themselves. */}
+    <DialogContent
+      aria-describedby={undefined}
+      className="max-h-[80vh] w-[min(520px,92vw)]"
+      // Focus the dialog itself: the text picker opens with an ⓘ first, whose tip
+      // opens on focus.
+      onOpenAutoFocus={(event) => {
+        event.preventDefault()
+        if (event.currentTarget instanceof HTMLElement)
+          event.currentTarget.focus()
+      }}
+    >
+      <DialogHeader title={title} />
 
       <div className="min-h-0 flex-1 overflow-y-auto px-5 py-4">{children}</div>
 
@@ -185,101 +209,31 @@ const SettingsDialog = ({
   </Dialog>
 )
 
-// Where a field's settings come from: the shared default, or this field's own pick.
-// Every field type asks it the same way.
-const PinnedOrDefault = ({
-  controls,
-  defaultLabel,
-  fieldType,
-  state,
-}: {
-  controls: FieldEditorControls
-  defaultLabel: string
-  fieldType: FieldType
-  state: AppState
-}) => {
-  const isDefault = controls.form.pinnedSettings[fieldType] === null
-
-  const setUseDefault = (useDefault: boolean) => {
-    if (fieldType === "chat") {
-      controls.setPinnedChat(useDefault ? null : { ...state.defaults.chat })
-    } else if (fieldType === "image") {
-      controls.setPinnedImage(useDefault ? null : { ...state.defaults.image })
-    } else {
-      controls.setPinnedTTS(useDefault ? null : { ...state.defaults.tts })
-    }
-  }
+// Whether the field follows its default. Leaving it has to be impossible to miss, since
+// the field then stops picking up changes to the default.
+const DefaultStatus = ({ isCustom }: { isCustom: boolean }) => {
+  const { t } = useTranslation()
 
   return (
-    <OptionGroup
-      aria-label={getModalityName(fieldType)}
-      className="grid grid-cols-2 gap-2"
-      onValueChange={(choice) => setUseDefault(choice === "default")}
-      value={isDefault ? "default" : "custom"}
-    >
-      {[true, false].map((useDefault) => (
-        <OptionGroupItem
-          className="cursor-pointer rounded-md px-3 py-2 text-xs font-semibold transition data-[state=checked]:bg-indigo/14 data-[state=checked]:text-indigo-soft data-[state=unchecked]:bg-white/[0.05] data-[state=unchecked]:text-zinc-400 data-[state=unchecked]:hover:bg-white/[0.07] data-[state=unchecked]:hover:text-zinc-200"
-          key={String(useDefault)}
-          value={useDefault ? "default" : "custom"}
-        >
-          {useDefault ? (
-            <>
-              {i18next.t("fieldEditor.modelSettings.useMy", {
-                modality: getModalityName(fieldType),
-              })}
-              <span className="mt-0.5 block truncate text-[11px] font-medium opacity-75">
-                {defaultLabel}
-              </span>
-            </>
-          ) : (
-            i18next.t("fieldEditor.modelSettings.pickCustom")
-          )}
-        </OptionGroupItem>
-      ))}
-    </OptionGroup>
+    <p className="flex items-center gap-2 text-xs leading-4 text-ink-muted">
+      <StatusPill isCustom={isCustom} />
+      {isCustom
+        ? t("fieldEditor.modelSettings.customDescription")
+        : t("fieldEditor.modelSettings.followingDefault")}
+    </p>
   )
 }
 
-const MODALITIES: Record<FieldType, { nameKey: string; whereKey: string }> = {
-  chat: {
-    nameKey: "fieldEditor.modelSettings.textDefault",
-    whereKey: "fieldEditor.modelSettings.defaultsText",
-  },
-  image: {
-    nameKey: "fieldEditor.modelSettings.imageDefault",
-    whereKey: "fieldEditor.modelSettings.defaultsImages",
-  },
-  tts: {
-    nameKey: "fieldEditor.modelSettings.voiceDefault",
-    whereKey: "fieldEditor.modelSettings.defaultsVoice",
-  },
-}
+const StatusPill = ({ isCustom }: { isCustom: boolean }) => {
+  const { t } = useTranslation()
 
-const getModalityName = (fieldType: FieldType): string =>
-  i18next.t(MODALITIES[fieldType].nameKey)
-
-// The value a field inherits when it follows its default.
-const getDefaultLabel = ({
-  fieldType,
-  state,
-  voiceCatalog,
-}: {
-  fieldType: FieldType
-  state: AppState
-  voiceCatalog: VoiceCatalog | null
-}): string => {
-  if (fieldType === "tts") {
-    return (
-      voiceCatalog?.voices.find((voice) =>
-        voiceMatchesSettings(voice, state.defaults.tts),
-      )?.name ?? state.defaults.tts.voiceId
-    )
-  }
-
-  return fieldType === "image"
-    ? modelLabel(state.defaults.image.model)
-    : chatModelLabel(state.defaults.chat)
+  return (
+    <Pill tone={isCustom ? "caution" : "indigo"}>
+      {isCustom
+        ? t("fieldEditor.modelSettings.custom")
+        : t("fieldEditor.modelSettings.default")}
+    </Pill>
+  )
 }
 
 // What the row says when the modal is closed: the model or voice in use, and the
@@ -288,55 +242,49 @@ const getModelSummary = ({
   controls,
   state,
   voiceCatalog,
-}: Omit<ModelSettingsSectionProps, "catalog" | "field">): {
+}: Omit<ModelSettingsSectionProps, "catalog">): {
   detail: string | null
   label: string
 } => {
-  const { pinnedSettings } = controls.form
+  const { pinnedSettings, target } = controls.form
+  const keepsHtml = i18next.t("fieldEditor.modelSettings.keepsHtml")
 
-  if (controls.form.target.fieldType === "image") {
+  if (target.fieldType === "image") {
     const settings = pinnedSettings.image ?? state.defaults.image
-    const label = modelLabel(settings.model)
     return {
-      detail: null,
-      label:
-        pinnedSettings.image === null
-          ? i18next.t("fieldEditor.modelSettings.defaultWithValue", {
-              value: label,
-            })
-          : label,
+      detail: settings.stripHtml ? null : keepsHtml,
+      label: modelLabel(settings.model),
     }
   }
 
-  if (controls.form.target.fieldType === "tts") {
+  if (target.fieldType === "tts") {
     const settings = pinnedSettings.tts ?? state.defaults.tts
-    const label =
-      voiceCatalog?.voices.find((voice) =>
-        voiceMatchesSettings(voice, settings),
-      )?.name ?? settings.voiceId
     return {
       detail: null,
       label:
-        pinnedSettings.tts === null
-          ? i18next.t("fieldEditor.modelSettings.defaultWithValue", {
-              value: label,
-            })
-          : label,
+        voiceCatalog?.voices.find((voice) =>
+          voiceMatchesSettings(voice, settings),
+        )?.name ?? settings.voiceId,
     }
   }
 
+  // Auto reads as its level ("Standard intelligence"); a specific model by its name.
   const settings = pinnedSettings.chat ?? state.defaults.chat
-  const label = chatModelLabel(settings)
-
-  return {
-    detail: settings.webSearchEnabled
+  const details = [
+    settings.webSearchEnabled
       ? i18next.t("fieldEditor.modelSettings.webSearch")
       : null,
+    settings.stripHtml ? null : keepsHtml,
+  ].filter((detail) => detail !== null)
+  return {
+    detail: details.length > 0 ? details.join(" · ") : null,
     label:
-      pinnedSettings.chat === null
-        ? i18next.t("fieldEditor.modelSettings.defaultWithValue", {
-            value: label,
+      settings.provider === "auto"
+        ? i18next.t("fieldEditor.modelSettings.intelligenceLevel", {
+            level: i18next.t(
+              `intelligence.levels.${intelligenceLevelOf(settings)}`,
+            ),
           })
-        : label,
+        : modelLabel(settings.model),
   }
 }

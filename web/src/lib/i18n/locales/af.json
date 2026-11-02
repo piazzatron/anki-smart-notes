@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Gevorderde opsies",
     "allDecks": "Alle dekke",
     "auto": "Outo",
     "back": "Terug",
@@ -158,24 +159,20 @@
     },
     "loadingModelCatalog": "Laai tans modelkatalogus …",
     "modelSettings": {
-      "appliesOnlyToField": "Slegs van toepassing op hierdie Smart Field.",
-      "defaultWithValue": "Verstek ({{value}})",
-      "defaultsImages": "Standaarde › Beelde",
-      "defaultsText": "Verstek › Teks",
-      "defaultsVoice": "Verstekste › Stem",
+      "custom": "Pasgemaak",
+      "customDescription": "Hierdie veld gebruik sy eie instellings.",
+      "default": "Verstek",
       "descriptionChat": "Stel die KI wat hierdie veld skryf. Die meeste velde kan op die verstek bly.",
       "descriptionImage": "Stel die KI wat hierdie veld teken. Die meeste velde kan op die verstek bly.",
       "descriptionTts": "Stel die stem wat hierdie veld lees. Die meeste velde kan op die verstek bly.",
-      "imageDefault": "beeld verstek",
+      "followingDefault": "Gebruik jou standaardinstellings. Verander enigiets om aan te pas.",
       "imageModel": "Beeld model",
+      "intelligenceLevel": "{{level}} intelligensie",
+      "keepsHtml": "Behou HTML",
       "loadingVoices": "Laai tans stemme …",
       "model": "Model",
-      "pickCustom": "Kies 'n pasgemaakte model vir hierdie veld",
-      "sharedByEveryField": "Jou {{modality}} word gedeel deur elke Smart Field wat dit gebruik. Verander dit in",
-      "textDefault": "teks verstek",
-      "useMy": "Gebruik my {{modality}}",
+      "settings": "Instellings",
       "voice": "Stem",
-      "voiceDefault": "stem verstek",
       "webSearch": "Websoektog"
     },
     "save": "Stoor Smart Field",
@@ -256,7 +253,7 @@
     },
     "image": {
       "cannotFindModel": "Beeldkatalogus ontbreek model {{model}}",
-      "defaultModel": "Standaard Beeldmodel",
+      "defaultModel": "Model",
       "gptImage25": "beste allround-keuse — skerp teks, duidelike diagramme.",
       "loadingLabel": "Laai Beeldgenereringinstellings",
       "loadingTitle": "Beeldgenereringinstellings",
@@ -278,7 +275,7 @@
       "tryIt": "Probeer dit"
     },
     "text": {
-      "defaultModel": "Verstek teksmodel",
+      "defaultModel": "Model",
       "loadingLabel": "Laai Teksgenereringinstellings",
       "loadingTitle": "Teksgenerasie-instellings",
       "samplePrompt": "Wat is 'n gespasieerde herhalingstelsel (SRS)?",
@@ -515,7 +512,6 @@
     "upgradeNow": "Gradeer nou op"
   },
   "intelligence": {
-    "advancedOptions": "Gevorderde opsies",
     "autoCostRange": "{{min}}–{{max}}× koste",
     "autoDescription": "Die modelle met die beste prestasie vir intelligensie en prys, wat gereeld opgedateer word.",
     "autoName": "Smart Notes Auto",
@@ -537,6 +533,12 @@
       "high": "<level>Hoog</level> is vir meer gevorderde grammatika.",
       "max": "<level>Maksimum</level> is vir ingewikkelde materiaal wat Hoog nie kan hanteer nie.",
       "standard": "<level>Standaard</level> is die beste vir vertalings en voorbeeldsinne."
-    }
+    },
+    "webSearchTipLabel": "Oor websoektog"
+  },
+  "stripHtml": {
+    "description": "Velde gaan as gewone teks na die prompt, sonder hul formatering en opmaak. Skakel dit af as jou prompt die HTML nodig het.",
+    "label": "Verwyder HTML uit invoer",
+    "tipLabel": "Oor die verwydering van HTML"
   }
 }

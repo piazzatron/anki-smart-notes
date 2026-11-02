@@ -196,6 +196,7 @@ async def test_chat_preview_can_skip_web_search_image_embedding(monkeypatch):
         provider="auto",
         field_lower="smart-notes-test",
         should_convert_to_html=False,
+        strip_html=True,
         should_embed_images=False,
         web_search=True,
         generation_source="prompt_test",

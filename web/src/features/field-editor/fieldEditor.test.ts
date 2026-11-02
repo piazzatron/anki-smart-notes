@@ -19,6 +19,7 @@
 
 import { describe, expect, test } from "bun:test"
 
+import { chatSettingsMatch } from "@/features/text-generation/intelligence"
 import type { AppState, SmartField } from "@/types/api"
 
 import {
@@ -26,6 +27,7 @@ import {
   createFieldEditorDraft,
   getFirstAvailableField,
   hasSmartFieldCollision,
+  pinUnlessDefault,
   validateFieldEditorDraft,
 } from "./fieldEditor"
 
@@ -35,8 +37,9 @@ const defaults: AppState["defaults"] = {
     model: "auto",
     reasoningLevel: "off",
     webSearchEnabled: false,
+    stripHtml: true,
   },
-  image: { provider: "openai", model: "gpt-image-1.5-low" },
+  image: { provider: "openai", model: "gpt-image-1.5-low", stripHtml: true },
   tts: { provider: "google", model: "standard", voiceId: "voice" },
 }
 
@@ -51,6 +54,7 @@ const existingField: SmartField = {
     promptText: "Translate {{Front}}",
     ...defaults.chat,
     usesDefaultGenerationSettings: true,
+    stripHtml: true,
   },
 }
 
@@ -175,8 +179,46 @@ describe("field editor helpers", () => {
         promptText: "Explain {{Front}}",
         ...defaults.chat,
         usesDefaultGenerationSettings: true,
+        stripHtml: true,
       },
     })
+  })
+
+  test("keeps a custom field's HTML stripping choice through an edit", () => {
+    const field: SmartField = {
+      ...existingField,
+      settings: {
+        ...existingField.settings,
+        stripHtml: false,
+        usesDefaultGenerationSettings: false,
+      },
+    }
+    const draft = createFieldEditorDraft(appState, { field, mode: "edit" })
+
+    expect(buildSmartFieldPayload(draft, defaults, field).settings).toEqual(
+      expect.objectContaining({ stripHtml: false }),
+    )
+  })
+
+  test("an edit back to the default's values follows the default again", () => {
+    expect(pinUnlessDefault({ ...defaults.chat }, defaults.chat)).toBeNull()
+
+    const highIntelligence = { ...defaults.chat, reasoningLevel: "high" }
+    expect(pinUnlessDefault(highIntelligence, defaults.chat)).toBe(
+      highIntelligence,
+    )
+  })
+
+  test("chat settings match the default by what the picker shows", () => {
+    // Older Auto defaults store Standard as "low"; the slider writes "off".
+    const olderDefault = { ...defaults.chat, reasoningLevel: "low" }
+    const standard = { ...defaults.chat, reasoningLevel: "off" }
+    expect(
+      pinUnlessDefault(standard, olderDefault, chatSettingsMatch),
+    ).toBeNull()
+
+    const high = { ...defaults.chat, reasoningLevel: "high" }
+    expect(pinUnlessDefault(high, olderDefault, chatSettingsMatch)).toBe(high)
   })
 
   test("starts a new field on the requested existing note type", () => {
@@ -224,6 +266,7 @@ describe("field editor helpers", () => {
     draft.pinnedSettings.image = {
       provider: "replicate",
       model: "z-image-turbo",
+      stripHtml: false,
     }
 
     expect(buildSmartFieldPayload(draft, defaults, existingField)).toEqual({
@@ -237,6 +280,7 @@ describe("field editor helpers", () => {
         provider: "replicate",
         model: "z-image-turbo",
         usesDefaultGenerationSettings: false,
+        stripHtml: false,
       },
     })
   })

@@ -69,6 +69,7 @@ def test_round_trips_typed_smart_fields() -> None:
                 provider="openai",
                 model="gpt-4o-mini",
                 web_search_enabled=True,
+                strip_html=False,
             ),
         ),
     )
@@ -110,12 +111,46 @@ def test_round_trips_typed_smart_fields() -> None:
     assert isinstance(smart_fields["Back"].settings, ChatSmartFieldSettings)
     assert smart_fields["Back"].settings.prompt_text == "{{Front}}"
     assert smart_fields["Back"].settings.web_search_enabled is True
+    assert smart_fields["Back"].settings.strip_html is False
 
     assert isinstance(smart_fields["Audio"].settings, TTSSmartFieldSettings)
     assert smart_fields["Audio"].settings.source_field_name == "Back"
 
     assert isinstance(smart_fields["Image"].settings, ImageSmartFieldSettings)
+    assert smart_fields["Image"].settings.strip_html is True
     assert smart_fields["Image"].enabled is False
+
+
+def test_strip_html_follows_defaults_unless_the_field_pins_its_own() -> None:
+    from dataclasses import replace
+
+    service = smart_field_service_for_profile()
+    for target, uses_defaults in [("Back", True), ("Pinned", False)]:
+        service.create_smart_field(
+            SmartFieldCreate(
+                note_type_id=NOTE_TYPE_ID,
+                deck_id=1,
+                target_field_name=target,
+                enabled=True,
+                settings=ChatSmartFieldSettings(
+                    prompt_text="{{Front}}",
+                    provider="auto",
+                    model="auto",
+                    web_search_enabled=False,
+                    strip_html=True,
+                    uses_default_generation_settings=uses_defaults,
+                ),
+            )
+        )
+
+    service.save_chat_defaults(replace(service.get_chat_defaults(), strip_html=False))
+
+    strip_html = {
+        field.target_field_name: field.settings.strip_html
+        for field in service.get_all_smart_fields()
+        if isinstance(field.settings, ChatSmartFieldSettings)
+    }
+    assert strip_html == {"Back": False, "Pinned": True}
 
 
 def test_get_smart_fields_for_note_applies_global_fallback_with_deck_override() -> None:

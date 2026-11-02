@@ -41,6 +41,7 @@ def test_parse_smart_field_update_includes_existing_id():
                 "reasoningLevel": "off",
                 "webSearchEnabled": False,
                 "usesDefaultGenerationSettings": True,
+                "stripHtml": True,
             },
         }
     )
@@ -67,6 +68,7 @@ def test_parse_smart_field_update_requires_id():
                     "reasoningLevel": "off",
                     "webSearchEnabled": False,
                     "usesDefaultGenerationSettings": True,
+                    "stripHtml": True,
                 },
             }
         )

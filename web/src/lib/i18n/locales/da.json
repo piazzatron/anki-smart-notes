@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Avancerede indstillinger",
     "allDecks": "Alle dæk",
     "auto": "Auto",
     "back": "Tilbage",
@@ -158,24 +159,20 @@
     },
     "loadingModelCatalog": "Indlæser modelkatalog...",
     "modelSettings": {
-      "appliesOnlyToField": "Gælder kun denne Smart Field.",
-      "defaultWithValue": "Standard ({{value}})",
-      "defaultsImages": "Standarder › Billeder",
-      "defaultsText": "Standarder › Tekst",
-      "defaultsVoice": "Standarder › Stemme",
+      "custom": "Brugerdefineret",
+      "customDescription": "Dette felt bruger sine egne indstillinger.",
+      "default": "Standard",
       "descriptionChat": "Indstil den AI, der skriver dette felt. De fleste felter kan forblive på standard.",
       "descriptionImage": "Indstil den AI, der tegner dette felt. De fleste felter kan forblive på standard.",
       "descriptionTts": "Indstil den stemme, der læser dette felt. De fleste felter kan forblive på standard.",
-      "imageDefault": "billedstandard",
+      "followingDefault": "Bruger dine standardindstillinger. Ændr noget for at tilpasse.",
       "imageModel": "Billedmodel",
+      "intelligenceLevel": "{{level}} intelligens",
+      "keepsHtml": "Bevarer HTML",
       "loadingVoices": "Indlæser stemmer...",
       "model": "Model",
-      "pickCustom": "Vælg en tilpasset model til dette felt",
-      "sharedByEveryField": "Din {{modality}} deles af alle Smart Field, der bruger den. Skift det ind",
-      "textDefault": "tekst standard",
-      "useMy": "Brug min {{modality}}",
+      "settings": "Indstillinger",
       "voice": "Stemme",
-      "voiceDefault": "stemme standard",
       "webSearch": "Websøgning"
     },
     "save": "Gem Smart Field",
@@ -256,7 +253,7 @@
     },
     "image": {
       "cannotFindModel": "Billedkatalog mangler model {{model}}",
-      "defaultModel": "Standardmodel for billeder",
+      "defaultModel": "Model",
       "gptImage25": "bedst til alt — skarp tekst, rene diagrammer.",
       "loadingLabel": "Indlæser indstillinger for billedgenerering",
       "loadingTitle": "Indstillinger for billedgenerering",
@@ -278,7 +275,7 @@
       "tryIt": "Prøv det"
     },
     "text": {
-      "defaultModel": "Standard tekstmodel",
+      "defaultModel": "Model",
       "loadingLabel": "Indlæser indstillinger for tekstgenerering",
       "loadingTitle": "Indstillinger for tekstgenerering",
       "samplePrompt": "Hvad er et Spaced Repetition System (SRS)?",
@@ -515,7 +512,6 @@
     "upgradeNow": "Opgrader nu"
   },
   "intelligence": {
-    "advancedOptions": "Avancerede indstillinger",
     "autoCostRange": "{{min}}–{{max}}× omkostning",
     "autoDescription": "De bedst fungerende modeller med hensyn til intelligens og pris, opdateret regelmæssigt.",
     "autoName": "Smart Notes Auto",
@@ -537,6 +533,12 @@
       "high": "<level>Høj</level> er til mere avanceret grammatik.",
       "max": "<level>Maks</level> er til kompliceret materiale, som Høj ikke kan håndtere.",
       "standard": "<level>Standard</level> er bedst til oversættelser og eksempelsætninger."
-    }
+    },
+    "webSearchTipLabel": "Om websøgning"
+  },
+  "stripHtml": {
+    "description": "Felter sendes til prompten som almindelig tekst uden formatering og markup. Slå dette fra, hvis din prompt har brug for HTML.",
+    "label": "Fjern HTML fra input",
+    "tipLabel": "Om fjernelse af HTML"
   }
 }

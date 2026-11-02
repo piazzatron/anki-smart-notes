@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Opcje zaawansowane",
     "allDecks": "Wszystkie pokłady",
     "auto": "Automatyczny",
     "back": "Z powrotem",
@@ -160,24 +161,20 @@
     },
     "loadingModelCatalog": "Ładowanie katalogu modeli…",
     "modelSettings": {
-      "appliesOnlyToField": "Dotyczy tylko tego Smart Field.",
-      "defaultWithValue": "Domyślny ({{value}})",
-      "defaultsImages": "Domyślne › Obrazy",
-      "defaultsText": "Domyślne › Tekst",
-      "defaultsVoice": "Domyślne › Głos",
+      "custom": "Niestandardowe",
+      "customDescription": "To pole używa własnych ustawień.",
+      "default": "Domyślne",
       "descriptionChat": "Ustaw sztuczną inteligencję, która zapisuje to pole. Większość pól może pozostać domyślna.",
       "descriptionImage": "Ustaw sztuczną inteligencję, która rysuje to pole. Większość pól może pozostać domyślna.",
       "descriptionTts": "Ustaw głos czytający to pole. Większość pól może pozostać domyślna.",
-      "imageDefault": "obraz domyślny",
+      "followingDefault": "Używa Twoich domyślnych ustawień. Zmień cokolwiek, aby dostosować.",
       "imageModel": "Model obrazu",
+      "intelligenceLevel": "Poziom inteligencji: {{level}}",
+      "keepsHtml": "Zachowuje HTML",
       "loadingVoices": "Ładowanie głosów…",
       "model": "Model",
-      "pickCustom": "Wybierz niestandardowy model dla tego pola",
-      "sharedByEveryField": "Twój {{modality}} jest współdzielony przez każdego Smart Field, który go używa. Zmień to",
-      "textDefault": "tekst domyślny",
-      "useMy": "Użyj mojego {{modality}}",
+      "settings": "Ustawienia",
       "voice": "Głos",
-      "voiceDefault": "głos domyślny",
       "webSearch": "Wyszukiwanie w Internecie"
     },
     "save": "Zapisz Smart Field",
@@ -258,7 +255,7 @@
     },
     "image": {
       "cannotFindModel": "W katalogu obrazów brakuje modelu {{model}}",
-      "defaultModel": "Domyślny model obrazów",
+      "defaultModel": "Model",
       "gptImage25": "najlepszy uniwersalny — ostry tekst, czyste diagramy.",
       "loadingLabel": "Wczytywanie ustawień generowania obrazów",
       "loadingTitle": "Ustawienia generowania obrazów",
@@ -280,7 +277,7 @@
       "tryIt": "Spróbuj"
     },
     "text": {
-      "defaultModel": "Domyślny model tekstu",
+      "defaultModel": "Model",
       "loadingLabel": "Wczytywanie ustawień generowania tekstu",
       "loadingTitle": "Ustawienia generowania tekstu",
       "samplePrompt": "Co to jest system odstępowych powtórzeń (SRS)?",
@@ -535,7 +532,6 @@
     "upgradeNow": "Uaktualnij teraz"
   },
   "intelligence": {
-    "advancedOptions": "Opcje zaawansowane",
     "autoCostRange": "{{min}}–{{max}}× koszt",
     "autoDescription": "Modele o najlepszych wynikach pod względem inteligencji i ceny, regularnie aktualizowane.",
     "autoName": "Smart Notes Auto",
@@ -557,6 +553,12 @@
       "high": "<level>Wysoki</level> służy do bardziej zaawansowanej gramatyki.",
       "max": "<level>Maksymalny</level> służy do skomplikowanych materiałów, z którymi poziom Wysoki nie radzi sobie.",
       "standard": "<level>Standardowy</level> najlepiej sprawdza się w tłumaczeniach i zdaniach przykładowych."
-    }
+    },
+    "webSearchTipLabel": "Informacje o wyszukiwaniu w sieci"
+  },
+  "stripHtml": {
+    "description": "Pola trafiają do promptu jako zwykły tekst, bez formatowania i znaczników. Wyłącz tę opcję, jeśli prompt wymaga HTML.",
+    "label": "Usuń HTML z danych wejściowych",
+    "tipLabel": "Informacje o usuwaniu HTML"
   }
 }

@@ -86,6 +86,7 @@ LEGACY_DEFAULT_TEXT_GENERATION_SETTINGS = ChatGenerationSettings(
     model="auto",
     reasoning_level="off",
     web_search_enabled=False,
+    strip_html=True,
 )
 LEGACY_DEFAULT_TTS_GENERATION_SETTINGS = TTSGenerationSettings(
     provider="google",
@@ -96,6 +97,7 @@ LEGACY_DEFAULT_TTS_GENERATION_SETTINGS = TTSGenerationSettings(
 LEGACY_DEFAULT_IMAGE_GENERATION_SETTINGS = ImageGenerationSettings(
     provider="openai",
     model=cast(ImageModels, "gpt-image-1.5-low"),
+    strip_html=True,
 )
 
 
@@ -301,6 +303,8 @@ def _migrate_legacy_generation_defaults_config(
                 if addon_config.get("chat_web_search") is not None
                 else LEGACY_DEFAULT_TEXT_GENERATION_SETTINGS.web_search_enabled
             ),
+            # Migration 0007 adds the column and its default; nothing to import.
+            strip_html=True,
         ),
         tts=TTSGenerationSettings(
             provider=cast(
@@ -329,6 +333,7 @@ def _migrate_legacy_generation_defaults_config(
                 addon_config.get("image_model")
                 or LEGACY_DEFAULT_IMAGE_GENERATION_SETTINGS.model,
             ),
+            strip_html=True,
         ),
     )
 

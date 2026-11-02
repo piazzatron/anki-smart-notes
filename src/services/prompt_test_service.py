@@ -194,6 +194,7 @@ async def run_text_prompt_test(context: TextPromptTestContext) -> dict[str, str]
             provider=settings.provider,
             field_lower="smart-notes-test",
             should_convert_to_html=False,
+            strip_html=settings.strip_html,
             should_embed_images=False,
             web_search=settings.web_search_enabled,
             reasoning_level=settings.reasoning_level,
@@ -239,6 +240,7 @@ async def run_image_prompt_test(context: ImagePromptTestContext) -> dict[str, st
             input_text=context.request.prompt,
             model=settings.model,
             provider=settings.provider,
+            strip_html=settings.strip_html,
             show_error_box=False,
             generation_source="prompt_test",
         )

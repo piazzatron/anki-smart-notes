@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Opcions avançadas",
     "allDecks": "Totes los ponts",
     "auto": "Auto",
     "back": "Arrièr",
@@ -157,24 +158,20 @@
     },
     "loadingModelCatalog": "En cargament del catalòg de modèls...",
     "modelSettings": {
-      "appliesOnlyToField": "S'aplica a aqueste Smart Field solament.",
-      "defaultWithValue": "Per defaut ({{value}})",
-      "defaultsImages": "Per defaut › Imatges",
-      "defaultsText": "Per defaut › Tèxte",
-      "defaultsVoice": "Per defaut › Votz",
+      "custom": "Personalizat",
+      "customDescription": "Aquest camp utiliza sos pròpris paramètres.",
+      "default": "Per defaut",
       "descriptionChat": "Definissètz l'IA qu'escriu aqueste camp. La màger part dels camps pòdon demorar per defaut.",
       "descriptionImage": "Definissètz l'IA que dessenha aqueste camp. La màger part dels camps pòdon demorar per defaut.",
       "descriptionTts": "Definir la votz que legís aqueste camp. La màger part dels camps pòdon demorar per defaut.",
-      "imageDefault": "imatge per defaut",
+      "followingDefault": "Utiliza vòstres paramètres per defaut. Modificatz qualque chòsa per personalizar.",
       "imageModel": "Modèl d'imatge",
+      "intelligenceLevel": "{{level}} intelligéncia",
+      "keepsHtml": "Conserva l'HTML",
       "loadingVoices": "En cargament de votz...",
       "model": "Modèl",
-      "pickCustom": "Causissètz un modèl personalizat per aqueste camp",
-      "sharedByEveryField": "Vòstre {{modality}} es partejat per cada Smart Field que l'utiliza. Cambiatz-lo en",
-      "textDefault": "tèxte per defaut",
-      "useMy": "Utiliza mon {{modality}}",
+      "settings": "Paramètres",
       "voice": "Votz",
-      "voiceDefault": "votz per defaut",
       "webSearch": "Recèrca web"
     },
     "save": "Salvar Smart Field",
@@ -255,7 +252,7 @@
     },
     "image": {
       "cannotFindModel": "Lo catalòg d'imatges manca lo modèl {{model}}",
-      "defaultModel": "Modèl d'imatge per defaut",
+      "defaultModel": "Modèl",
       "gptImage25": "lo melhor per a tot — tèxte net, esquemas clars.",
       "loadingLabel": "Cargament dels paramètres de generacion d'imatges",
       "loadingTitle": "Paramètres de generacion d'imatges",
@@ -277,7 +274,7 @@
       "tryIt": "Ensajatz-lo"
     },
     "text": {
-      "defaultModel": "Modèl de tèxte per defaut",
+      "defaultModel": "Modèl",
       "loadingLabel": "Cargament dels paramètres de generacion de tèxte",
       "loadingTitle": "Paramètres de generacion de tèxte",
       "samplePrompt": "Qu es un Sistema de Repeticion Espaciada (SRS)?",
@@ -505,7 +502,6 @@
     "upgradeNow": "Metètz a jorn ara"
   },
   "intelligence": {
-    "advancedOptions": "Opcions avançadas",
     "autoCostRange": "{{min}}–{{max}}× lo cost",
     "autoDescription": "Los modèls amb los melhors resultats per l'intelligéncia e lo prèu, mesa a jorn regularament.",
     "autoName": "Smart Notes Auto",
@@ -527,6 +523,12 @@
       "high": "<level>Naut</level> es per una gramatica mai avançada.",
       "max": "<level>Maximum</level> es per de matèria complicada que Naut pot pas gerir.",
       "standard": "<level>Estandard</level> es lo melhor per las traduccions e las frasas d'exemple."
-    }
+    },
+    "webSearchTipLabel": "A prepaus de la recèrca web"
+  },
+  "stripHtml": {
+    "description": "Los camps van dins del prompt en text brut, sense formatatge ni marcatge. Desactiva aquesta opció si el prompt necessita l'HTML.",
+    "label": "Elimina l'HTML de l'entrada",
+    "tipLabel": "Sobre la supressió de l'HTML"
   }
 }

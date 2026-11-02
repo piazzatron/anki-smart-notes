@@ -46,7 +46,10 @@ interface ImageModelSelectProps {
   /** Surfaces hang past the column on both sides by their own padding (see TextModelPicker). */
   hanging?: boolean
   id?: string
-  onValueChange: (settings: ImageGenerationSettings) => void
+  // Only the model it picks; the caller keeps the rest of its settings.
+  onValueChange: (
+    model: Pick<ImageGenerationSettings, "model" | "provider">,
+  ) => void
   value: string
 }
 
@@ -93,11 +96,7 @@ export const ImageModelSelect = ({
       >
         {/* The trigger sets its own width and padding, so the overhang goes on a wrapper. */}
         <div className={hanging ? "-mx-hang" : ""}>
-          <SelectTrigger
-            aria-label={ariaLabel}
-            className={hanging ? "px-hang" : ""}
-            id={id}
-          >
+          <SelectTrigger aria-label={ariaLabel} className="px-hang" id={id}>
             <ImageModelOption modelId={family?.id ?? value} />
           </SelectTrigger>
         </div>
@@ -140,7 +139,7 @@ export const ImageModelSelect = ({
             </InfoTip>
           </p>
           <div
-            className={`divide-y divide-hairline rounded-xl bg-white/[0.05] ${hang || "px-4"}`}
+            className={`divide-y divide-hairline rounded-xl bg-white/[0.05] ${hang || "px-hang"}`}
           >
             {family.switches.map((key) => {
               const { cost, description, label } = IMAGE_MODEL_SWITCHES[key]

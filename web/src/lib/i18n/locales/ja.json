@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "詳細オプション",
     "allDecks": "すべてのデッキ",
     "auto": "自動",
     "back": "戻る",
@@ -157,24 +158,20 @@
     },
     "loadingModelCatalog": "モデルカタログを読み込み中…",
     "modelSettings": {
-      "appliesOnlyToField": "このSmart Fieldのみに適用されます。",
-      "defaultWithValue": "デフォルト ({{value}})",
-      "defaultsImages": "デフォルト › 画像",
-      "defaultsText": "デフォルト › テキスト",
-      "defaultsVoice": "デフォルト › 音声",
+      "custom": "カスタム",
+      "customDescription": "このフィールドは独自の設定を使用します。",
+      "default": "デフォルト",
       "descriptionChat": "このフィールドを書き込むAIを設定します。ほとんどのフィールドはデフォルトのままで問題ありません。",
       "descriptionImage": "このフィールドを描画するAIを設定します。ほとんどのフィールドはデフォルトのままで問題ありません。",
       "descriptionTts": "このフィールドを読み上げる音声を設定します。ほとんどのフィールドはデフォルトのままで問題ありません。",
-      "imageDefault": "画像のデフォルト",
+      "followingDefault": "既定の設定を使用します。カスタマイズするには、いずれかの項目を変更してください。",
       "imageModel": "画像モデル",
+      "intelligenceLevel": "{{level}} インテリジェンス",
+      "keepsHtml": "HTMLを保持",
       "loadingVoices": "音声を読み込んでいます…",
       "model": "モデル",
-      "pickCustom": "このフィールドのカスタム モデルを選択してください",
-      "sharedByEveryField": "{{modality}} は、それを使用するすべての Smart Field によって共有されます。で変更してください",
-      "textDefault": "テキストのデフォルト",
-      "useMy": "私の{{modality}}を使用してください",
+      "settings": "設定",
       "voice": "声",
-      "voiceDefault": "音声デフォルト",
       "webSearch": "ウェブ検索"
     },
     "save": "Smart Fieldを保存",
@@ -255,7 +252,7 @@
     },
     "image": {
       "cannotFindModel": "画像カタログにモデル {{model}} がありません",
-      "defaultModel": "デフォルトの画像モデル",
+      "defaultModel": "モデル",
       "gptImage25": "総合力に最も優れたモデル。文字がくっきりし、図表もすっきり仕上がります。",
       "loadingLabel": "画像生成設定を読み込み中",
       "loadingTitle": "画像生成設定",
@@ -277,7 +274,7 @@
       "tryIt": "試してみてください"
     },
     "text": {
-      "defaultModel": "デフォルトのテキストモデル",
+      "defaultModel": "モデル",
       "loadingLabel": "テキスト生成設定を読み込み中",
       "loadingTitle": "テキスト生成設定",
       "samplePrompt": "間隔繰り返しシステム(SRS)とは何ですか?",
@@ -505,7 +502,6 @@
     "upgradeNow": "今すぐアップグレードしてください"
   },
   "intelligence": {
-    "advancedOptions": "詳細オプション",
     "autoCostRange": "コスト{{min}}〜{{max}}倍",
     "autoDescription": "知能と価格のバランスが最も優れたモデルを、定期的に更新して提供します。",
     "autoName": "Smart Notes Auto",
@@ -527,6 +523,12 @@
       "high": "<level>高</level>は、より高度な文法向けです。",
       "max": "<level>Max</level>は、Highでは対応できない複雑な内容向けです。",
       "standard": "<level>標準</level>は、翻訳と例文に最適です。"
-    }
+    },
+    "webSearchTipLabel": "Web 検索について"
+  },
+  "stripHtml": {
+    "description": "フィールドは書式やマークアップを除いたプレーンテキストとしてプロンプトに入ります。プロンプトでHTMLが必要な場合はオフにしてください。",
+    "label": "入力からHTMLを削除",
+    "tipLabel": "HTMLの削除について"
   }
 }

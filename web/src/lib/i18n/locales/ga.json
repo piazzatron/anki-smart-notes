@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Roghanna casta",
     "allDecks": "Gach Deasc",
     "auto": "Auto",
     "back": "Ar ais",
@@ -161,24 +162,20 @@
     },
     "loadingModelCatalog": "Catalóg samhlacha á lódáil…",
     "modelSettings": {
-      "appliesOnlyToField": "Ní bhaineann sé seo ach leis an Smart Field seo.",
-      "defaultWithValue": "Réamhshocrú ({{value}})",
-      "defaultsImages": "Réamhshocrú › Íomhánna",
-      "defaultsText": "Réamhshocrú › Téacs",
-      "defaultsVoice": "Réamhshocruithe › Guth",
+      "custom": "Saincheaptha",
+      "customDescription": "Ní úsáideann an réimse seo a shocruithe féin.",
+      "default": "Réamhshocrú",
       "descriptionChat": "Socraigh an AI a scríobhann an réimse seo. Is féidir le formhór na réimsí fanacht ar an réamhshocrú.",
       "descriptionImage": "Socraigh an AI a tharraingíonn an réimse seo. Is féidir le formhór na réimsí fanacht ar an réamhshocrú.",
       "descriptionTts": "Socraigh an guth a léann an réimse seo. Is féidir le formhór na réimsí fanacht ar an réamhshocrú.",
-      "imageDefault": "réamhshocraithe íomhá",
+      "followingDefault": "Úsáideann sé do shocruithe réamhshocraithe. Athraigh rud ar bith chun saincheapadh a dhéanamh.",
       "imageModel": "Múnla íomhá",
+      "intelligenceLevel": "intleacht {{level}}",
+      "keepsHtml": "Coinníonn HTML",
       "loadingVoices": "Guthanna á lódáil…",
       "model": "Múnla",
-      "pickCustom": "Roghnaigh múnla saincheaptha don réimse seo",
-      "sharedByEveryField": "Tá do {{modality}} roinnte ag gach Smart Field a úsáideann é. Athraigh isteach é",
-      "textDefault": "réamhshocraithe téacs",
-      "useMy": "Bain úsáid as mo {{modality}}",
+      "settings": "Socruithe",
       "voice": "Guth",
-      "voiceDefault": "réamhshocraithe guth",
       "webSearch": "Cuardach Gréasáin"
     },
     "save": "Sábháil Smart Field",
@@ -259,7 +256,7 @@
     },
     "image": {
       "cannotFindModel": "Tá samhail {{model}} in easnamh ar chatalóg na n-íomhánna",
-      "defaultModel": "Múnla Íomhá Réamhshocraithe",
+      "defaultModel": "Samhail",
       "gptImage25": "an rogha is fearr ar fad — téacs géar, léaráidí glana.",
       "loadingLabel": "Socruithe Giniúna Íomhá á Lódáil",
       "loadingTitle": "Socruithe Giniúna Íomhá",
@@ -281,7 +278,7 @@
       "tryIt": "Bain triail as"
     },
     "text": {
-      "defaultModel": "Múnla Téacs Réamhshocraithe",
+      "defaultModel": "Samhail",
       "loadingLabel": "Socruithe Giniúna Téacs á Lódáil",
       "loadingTitle": "Socruithe Giniúint Téacs",
       "samplePrompt": "Cad is Córas Athrá Spásáilte (SRS) ann?",
@@ -545,7 +542,6 @@
     "upgradeNow": "Uasghrádaigh anois"
   },
   "intelligence": {
-    "advancedOptions": "Roghanna casta",
     "autoCostRange": "Costas {{min}}–{{max}}×",
     "autoDescription": "Na múnlaí is fearr ó thaobh intleachta agus praghais, nuashonraithe go rialta.",
     "autoName": "Smart Notes Auto",
@@ -567,6 +563,12 @@
       "high": "Is don ghramadach níos casta atá <level>Ard</level>.",
       "max": "Is le haghaidh ábhar casta é <level>Max</level> nach bhfuil High in ann a láimhseáil.",
       "standard": "Is fearr <level>Caighdeánach</level> le haistriúcháin agus abairtí samplacha."
-    }
+    },
+    "webSearchTipLabel": "Maidir le cuardach gréasáin"
+  },
+  "stripHtml": {
+    "description": "Cuirtear réimsí isteach sa leid mar théacs simplí, gan a bhformáid ná a marcáil. Cas as seo mura bhfuil an HTML ag teastáil ón leid.",
+    "label": "Bain HTML as an ionchur",
+    "tipLabel": "Maidir le HTML a bhaint"
   }
 }

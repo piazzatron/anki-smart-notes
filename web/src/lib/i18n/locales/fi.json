@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Lisäasetukset",
     "allDecks": "Kaikki kannet",
     "auto": "Auto",
     "back": "Takaisin",
@@ -158,24 +159,20 @@
     },
     "loadingModelCatalog": "Ladataan malliluetteloa…",
     "modelSettings": {
-      "appliesOnlyToField": "Koskee vain tätä Smart Field.",
-      "defaultWithValue": "Oletus ({{value}})",
-      "defaultsImages": "Oletusasetukset › Kuvat",
-      "defaultsText": "Oletusasetukset › Teksti",
-      "defaultsVoice": "Oletusasetukset › Voice",
+      "custom": "Mukautettu",
+      "customDescription": "Tämä kenttä käyttää omia asetuksiaan.",
+      "default": "Oletus",
       "descriptionChat": "Aseta tekoäly, joka kirjoittaa tämän kentän. Useimmat kentät voivat pysyä oletusasetuksissa.",
       "descriptionImage": "Aseta tekoäly, joka piirtää tämän kentän. Useimmat kentät voivat pysyä oletusasetuksissa.",
       "descriptionTts": "Aseta ääni, joka lukee tämän kentän. Useimmat kentät voivat pysyä oletusasetuksissa.",
-      "imageDefault": "kuvan oletusarvo",
+      "followingDefault": "Käyttää oletusasetuksiasi. Muuta mitä tahansa räätälöidäksesi.",
       "imageModel": "Kuvan malli",
+      "intelligenceLevel": "{{level}} älykkyys",
+      "keepsHtml": "Säilyttää HTML:n",
       "loadingVoices": "Ladataan ääniä…",
       "model": "Malli",
-      "pickCustom": "Valitse mukautettu malli tälle kentälle",
-      "sharedByEveryField": "{{modality}} jaetaan kaikkien sitä käyttävien Smart Field-laitteiden kanssa. Vaihda se sisään",
-      "textDefault": "teksti oletusarvo",
-      "useMy": "Käytä {{modality}}:täni",
+      "settings": "Asetukset",
       "voice": "Ääni",
-      "voiceDefault": "äänen oletusarvo",
       "webSearch": "Verkkohaku"
     },
     "save": "Tallenna Smart Field",
@@ -256,7 +253,7 @@
     },
     "image": {
       "cannotFindModel": "Kuvaluettelosta puuttuu malli {{model}}",
-      "defaultModel": "Oletuskuvamalli",
+      "defaultModel": "Malli",
       "gptImage25": "paras monipuolinen valinta – terävä teksti, selkeät kaaviot.",
       "loadingLabel": "Ladataan kuvageneroinnin asetuksia",
       "loadingTitle": "Kuvageneroinnin asetukset",
@@ -278,7 +275,7 @@
       "tryIt": "Kokeile sitä"
     },
     "text": {
-      "defaultModel": "Oletustekstimalli",
+      "defaultModel": "Malli",
       "loadingLabel": "Ladataan tekstigeneroinnin asetuksia",
       "loadingTitle": "Tekstin luontiasetukset",
       "samplePrompt": "Mikä on jaksotettu toistojärjestelmä (SRS)?",
@@ -515,7 +512,6 @@
     "upgradeNow": "Päivitä nyt"
   },
   "intelligence": {
-    "advancedOptions": "Lisäasetukset",
     "autoCostRange": "{{min}}–{{max}}× kustannus",
     "autoDescription": "Älykkyyden ja hinnan perusteella parhaiten toimivat mallit. Päivitetään säännöllisesti.",
     "autoName": "Smart Notes Auto",
@@ -537,6 +533,12 @@
       "high": "<level>Korkea</level> on tarkoitettu edistyneemmälle kieliopille.",
       "max": "<level>Maksimi</level> on tarkoitettu monimutkaiselle materiaalille, jota Korkea taso ei pysty käsittelemään.",
       "standard": "<level>Vakio</level> sopii parhaiten käännöksiin ja esimerkkilauseisiin."
-    }
+    },
+    "webSearchTipLabel": "Tietoa verkkohaulusta"
+  },
+  "stripHtml": {
+    "description": "Kentät lisätään kehotteeseen pelkkänä tekstinä ilman muotoilua ja merkintöjä. Poista tämä käytöstä, jos kehotteesi tarvitsee HTML-koodin.",
+    "label": "Poista HTML syötteestä",
+    "tipLabel": "Tietoa HTML-koodin poistamisesta"
   }
 }

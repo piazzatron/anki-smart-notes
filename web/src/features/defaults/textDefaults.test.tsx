@@ -40,6 +40,7 @@ const textField = (
     reasoningLevel: "off",
     webSearchEnabled: false,
     usesDefaultGenerationSettings,
+    stripHtml: true,
   },
 })
 

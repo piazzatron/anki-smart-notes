@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Opcions avançades",
     "allDecks": "Totes les cobertes",
     "auto": "Automàtic",
     "back": "Enrere",
@@ -159,24 +160,20 @@
     },
     "loadingModelCatalog": "S'està carregant el catàleg de models...",
     "modelSettings": {
-      "appliesOnlyToField": "S'aplica només a aquest Smart Field.",
-      "defaultWithValue": "Per defecte ({{value}})",
-      "defaultsImages": "Per defecte › Imatges",
-      "defaultsText": "Per defecte › Text",
-      "defaultsVoice": "Per defecte › Veu",
+      "custom": "Personalitzat",
+      "customDescription": "Aquest camp utilitza la seva pròpia configuració.",
+      "default": "Predeterminat",
       "descriptionChat": "Estableix l'IA que escriu aquest camp. La majoria dels camps poden mantenir-se per defecte.",
       "descriptionImage": "Estableix l'IA que dibuixa aquest camp. La majoria dels camps poden mantenir-se per defecte.",
       "descriptionTts": "Estableix la veu que llegeix aquest camp. La majoria dels camps poden mantenir-se per defecte.",
-      "imageDefault": "imatge per defecte",
+      "followingDefault": "Utilitza la teva configuració predeterminada. Canvia qualsevol cosa per personalitzar-la.",
       "imageModel": "Model d'imatge",
+      "intelligenceLevel": "{{level}} d'intel·ligència",
+      "keepsHtml": "Conserva l'HTML",
       "loadingVoices": "S'estan carregant veus...",
       "model": "Model",
-      "pickCustom": "Trieu un model personalitzat per a aquest camp",
-      "sharedByEveryField": "El vostre {{modality}} és compartit per tots els Smart Field que l'utilitzin. Canvia-ho",
-      "textDefault": "text predeterminat",
-      "useMy": "Utilitzeu el meu {{modality}}",
+      "settings": "Configuració",
       "voice": "Veu",
-      "voiceDefault": "veu per defecte",
       "webSearch": "Cerca web"
     },
     "save": "Desa Smart Field",
@@ -257,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "Falta el model {{model}} del catàleg d'imatges",
-      "defaultModel": "Model d'imatges per defecte",
+      "defaultModel": "Model",
       "gptImage25": "el millor per a tot: text nítid, diagrames nets.",
       "loadingLabel": "S'estan carregant els paràmetres de generació d'imatges",
       "loadingTitle": "Paràmetres de generació d'imatges",
@@ -279,7 +276,7 @@
       "tryIt": "Prova-ho"
     },
     "text": {
-      "defaultModel": "Model de text predeterminat",
+      "defaultModel": "Model",
       "loadingLabel": "S'estan carregant els paràmetres de generació de text",
       "loadingTitle": "Configuració de generació de text",
       "samplePrompt": "Què és un sistema de repetició espaciada (SRS)?",
@@ -525,7 +522,6 @@
     "upgradeNow": "Actualitza ara"
   },
   "intelligence": {
-    "advancedOptions": "Opcions avançades",
     "autoCostRange": "Cost {{min}}–{{max}}×",
     "autoDescription": "Els models amb millor rendiment en intel·ligència i preu, actualitzats regularment.",
     "autoName": "Smart Notes Auto",
@@ -547,6 +543,12 @@
       "high": "<level>Alt</level> és per a gramàtica més avançada.",
       "max": "<level>Màxim</level> és per a material complicat que Alt no pot gestionar.",
       "standard": "<level>Estàndard</level> és ideal per a traduccions i frases d'exemple."
-    }
+    },
+    "webSearchTipLabel": "Sobre la cerca web"
+  },
+  "stripHtml": {
+    "description": "Els camps s'afegeixen al prompt com a text pla, sense el format ni el marcatge. Desactiva-ho si el prompt necessita l'HTML.",
+    "label": "Elimina l'HTML de l'entrada",
+    "tipLabel": "Sobre l'eliminació de l'HTML"
   }
 }

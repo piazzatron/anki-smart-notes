@@ -52,6 +52,7 @@ const POPULATED_FIELDS: SmartField[] = [
       reasoningLevel: "off",
       webSearchEnabled: false,
       usesDefaultGenerationSettings: true,
+      stripHtml: true,
     },
   },
   {
@@ -69,6 +70,7 @@ const POPULATED_FIELDS: SmartField[] = [
       reasoningLevel: "off",
       webSearchEnabled: false,
       usesDefaultGenerationSettings: true,
+      stripHtml: true,
     },
   },
   {
@@ -83,6 +85,7 @@ const POPULATED_FIELDS: SmartField[] = [
       provider: "openai",
       model: "gpt-image-2.5-flare-low",
       usesDefaultGenerationSettings: false,
+      stripHtml: true,
     },
   },
   {
@@ -155,9 +158,14 @@ const BASE_STATE: AppState = {
       model: "auto",
       reasoningLevel: "off",
       webSearchEnabled: false,
+      stripHtml: true,
     },
     tts: { provider: "google", model: "standard", voiceId: "en-US-Casual-K" },
-    image: { provider: "openai", model: "gpt-image-2.5-flare-low" },
+    image: {
+      provider: "openai",
+      model: "gpt-image-2.5-flare-low",
+      stripHtml: true,
+    },
   },
   settings: {
     generateAtReview: true,

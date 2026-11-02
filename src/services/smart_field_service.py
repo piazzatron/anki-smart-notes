@@ -67,6 +67,7 @@ DEFAULT_TEXT_GENERATION_SETTINGS = ChatGenerationSettings(
     model="auto",
     reasoning_level="off",
     web_search_enabled=False,
+    strip_html=True,
 )
 DEFAULT_TTS_GENERATION_SETTINGS = TTSGenerationSettings(
     provider="google",
@@ -76,6 +77,7 @@ DEFAULT_TTS_GENERATION_SETTINGS = TTSGenerationSettings(
 DEFAULT_IMAGE_GENERATION_SETTINGS = ImageGenerationSettings(
     provider="openai",
     model="gpt-image-2.5-flare-low",
+    strip_html=True,
 )
 SMART_FIELD_TARGET_COLLISION_ERROR = (
     "A Smart Field already exists for that note type, deck, and field"
@@ -100,7 +102,7 @@ class SmartFieldService:
         with open_database() as conn:
             row = conn.execute(
                 """
-                SELECT provider, model, reasoning_level, web_search_enabled
+                SELECT provider, model, reasoning_level, web_search_enabled, strip_html
                 FROM default_text_generation_settings
                 WHERE id = 1
                 """
@@ -115,20 +117,23 @@ class SmartFieldService:
             conn.execute(
                 """
                 INSERT INTO default_text_generation_settings (
-                    id, provider, model, reasoning_level, web_search_enabled
+                    id, provider, model, reasoning_level, web_search_enabled,
+                    strip_html
                 )
-                VALUES (1, ?, ?, ?, ?)
+                VALUES (1, ?, ?, ?, ?, ?)
                 ON CONFLICT(id) DO UPDATE SET
                     provider = excluded.provider,
                     model = excluded.model,
                     reasoning_level = excluded.reasoning_level,
-                    web_search_enabled = excluded.web_search_enabled
+                    web_search_enabled = excluded.web_search_enabled,
+                    strip_html = excluded.strip_html
                 """,
                 (
                     settings.provider,
                     settings.model,
                     settings.reasoning_level,
                     int(settings.web_search_enabled),
+                    int(settings.strip_html),
                 ),
             )
 
@@ -166,7 +171,7 @@ class SmartFieldService:
         with open_database() as conn:
             row = conn.execute(
                 """
-                SELECT provider, model
+                SELECT provider, model, strip_html
                 FROM default_image_generation_settings
                 WHERE id = 1
                 """
@@ -181,14 +186,15 @@ class SmartFieldService:
             conn.execute(
                 """
                 INSERT INTO default_image_generation_settings (
-                    id, provider, model
+                    id, provider, model, strip_html
                 )
-                VALUES (1, ?, ?)
+                VALUES (1, ?, ?, ?)
                 ON CONFLICT(id) DO UPDATE SET
                     provider = excluded.provider,
-                    model = excluded.model
+                    model = excluded.model,
+                    strip_html = excluded.strip_html
                 """,
-                (settings.provider, settings.model),
+                (settings.provider, settings.model, int(settings.strip_html)),
             )
 
     @republish_state
@@ -201,7 +207,7 @@ class SmartFieldService:
         with open_database() as conn:
             chat_row = conn.execute(
                 """
-                SELECT provider, model, reasoning_level, web_search_enabled
+                SELECT provider, model, reasoning_level, web_search_enabled, strip_html
                 FROM default_text_generation_settings
                 WHERE id = 1
                 """
@@ -215,7 +221,7 @@ class SmartFieldService:
             ).fetchone()
             image_row = conn.execute(
                 """
-                SELECT provider, model
+                SELECT provider, model, strip_html
                 FROM default_image_generation_settings
                 WHERE id = 1
                 """
@@ -280,6 +286,7 @@ class SmartFieldService:
                     COALESCE(chat.model, text_defaults.model) AS chat_model,
                     COALESCE(chat.reasoning_level, text_defaults.reasoning_level) AS chat_reasoning_level,
                     COALESCE(chat.web_search_enabled, text_defaults.web_search_enabled) AS chat_web_search,
+                    COALESCE(chat.strip_html, text_defaults.strip_html) AS chat_strip_html,
                     tts.source_field_name AS tts_source_field,
                     tts.uses_default_generation_settings AS tts_uses_default,
                     COALESCE(tts.provider, tts_defaults.provider) AS tts_provider,
@@ -288,7 +295,8 @@ class SmartFieldService:
                     image.prompt_text AS image_prompt,
                     image.uses_default_generation_settings AS image_uses_default,
                     COALESCE(image.provider, image_defaults.provider) AS image_provider,
-                    COALESCE(image.model, image_defaults.model) AS image_model
+                    COALESCE(image.model, image_defaults.model) AS image_model,
+                    COALESCE(image.strip_html, image_defaults.strip_html) AS image_strip_html
                 FROM smart_fields sf
                 LEFT JOIN text_smart_field_settings chat ON chat.smart_field_id = sf.id
                 LEFT JOIN tts_smart_field_settings tts ON tts.smart_field_id = sf.id
@@ -637,6 +645,7 @@ class SmartFieldService:
                 reasoning_level=cast(ChatReasoningLevel, row["chat_reasoning_level"]),
                 web_search_enabled=bool(row["chat_web_search"]),
                 uses_default_generation_settings=bool(row["chat_uses_default"]),
+                strip_html=bool(row["chat_strip_html"]),
             )
         elif field_type == "tts":
             settings = TTSSmartFieldSettings(
@@ -652,6 +661,7 @@ class SmartFieldService:
                 provider=cast(ImageProviders, row["image_provider"]),
                 model=cast(ImageModels, row["image_model"]),
                 uses_default_generation_settings=bool(row["image_uses_default"]),
+                strip_html=bool(row["image_strip_html"]),
             )
 
         return SmartField(
@@ -688,9 +698,9 @@ class SmartFieldService:
                 """
                 INSERT INTO text_smart_field_settings (
                     smart_field_id, prompt_text, uses_default_generation_settings,
-                    provider, model, reasoning_level, web_search_enabled
+                    provider, model, reasoning_level, web_search_enabled, strip_html
                 )
-                VALUES (?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     smart_field_id,
@@ -708,6 +718,9 @@ class SmartFieldService:
                     None
                     if settings.uses_default_generation_settings
                     else int(settings.web_search_enabled),
+                    None
+                    if settings.uses_default_generation_settings
+                    else int(settings.strip_html),
                 ),
             )
             return
@@ -742,9 +755,9 @@ class SmartFieldService:
             """
             INSERT INTO image_smart_field_settings (
                 smart_field_id, prompt_text, uses_default_generation_settings,
-                provider, model
+                provider, model, strip_html
             )
-            VALUES (?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?)
             """,
             (
                 smart_field_id,
@@ -754,6 +767,9 @@ class SmartFieldService:
                 if settings.uses_default_generation_settings
                 else settings.provider,
                 None if settings.uses_default_generation_settings else settings.model,
+                None
+                if settings.uses_default_generation_settings
+                else int(settings.strip_html),
             ),
         )
 
@@ -810,6 +826,7 @@ def _chat_generation_settings_from_row(row: sqlite3.Row) -> ChatGenerationSettin
         model=cast(ChatModels, row["model"]),
         reasoning_level=cast(ChatReasoningLevel, row["reasoning_level"]),
         web_search_enabled=bool(row["web_search_enabled"]),
+        strip_html=bool(row["strip_html"]),
     )
 
 
@@ -825,6 +842,7 @@ def _image_generation_settings_from_row(row: sqlite3.Row) -> ImageGenerationSett
     return ImageGenerationSettings(
         provider=cast(ImageProviders, row["provider"]),
         model=cast(ImageModels, row["model"]),
+        strip_html=bool(row["strip_html"]),
     )
 
 

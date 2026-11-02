@@ -272,6 +272,7 @@ class CustomTextPrompt(CustomPrompt):
                 model=self._chat_options.state.s["chat_model"],
                 provider=self._chat_options.state.s["chat_provider"],
                 should_convert_to_html=True,
+                strip_html=True,
                 web_search=self._chat_options.state.s["chat_web_search"],
                 reasoning_level=self._chat_options.state.s["chat_reasoning_level"],
                 generation_source="custom_field",
@@ -330,6 +331,7 @@ class CustomImagePrompt(CustomPrompt):
                 input_text=prompt,
                 model=self.image_options.state.s["image_model"],
                 provider=self.image_options.state.s["image_provider"],
+                strip_html=True,
                 generation_source="custom_field",
             )
 

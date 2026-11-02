@@ -110,4 +110,33 @@ def test_interpolate_prompt(prompt, note_data, allow_empty, expected, monkeypatc
 
     from src.prompt_helpers import interpolate_prompt
 
-    assert interpolate_prompt(prompt, MockNote(note_data)) == expected
+    assert interpolate_prompt(prompt, MockNote(note_data), strip_html=False) == expected
+
+
+YOMITAN_GLOSSARY = (
+    '<div class="yomitan-glossary"><span><span data-sc-code="v5g">'
+    '<style>.x { color: red }</style><img src="v5g.svg"></span>'
+    '<div><ul data-sc-content="glossary"><li>to hurry</li><li>to rush</li></ul>'
+    "</div></span></div>"
+)
+
+
+@pytest.mark.parametrize(
+    "field, strip_html, expected",
+    [
+        (YOMITAN_GLOSSARY, True, "Meaning: to hurry\nto rush"),
+        (YOMITAN_GLOSSARY, False, f"Meaning: {YOMITAN_GLOSSARY}"),
+        ("Tom&nbsp;&amp; Jerry<br>cat &lt;3", True, "Meaning: Tom & Jerry\ncat <3"),
+        # A field with nothing but markup is empty once stripped.
+        ('<img src="dog.jpg">', True, None),
+    ],
+)
+def test_interpolate_prompt_strips_field_html(field, strip_html, expected, monkeypatch):
+    import src.prompt_helpers
+
+    monkeypatch.setattr(src.prompt_helpers, "config", MockConfig())
+
+    from src.prompt_helpers import interpolate_prompt
+
+    note = MockNote({"Meaning": field})
+    assert interpolate_prompt("Meaning: {{Meaning}}", note, strip_html) == expected

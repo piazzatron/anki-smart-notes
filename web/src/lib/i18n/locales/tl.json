@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Mga advanced na opsyon",
     "allDecks": "Lahat ng Deck",
     "auto": "Auto",
     "back": "Bumalik",
@@ -158,24 +159,20 @@
     },
     "loadingModelCatalog": "Nilo-load ang katalogo ng modelo...",
     "modelSettings": {
-      "appliesOnlyToField": "Nalalapat lamang sa Smart Field na ito.",
-      "defaultWithValue": "Default ({{value}})",
-      "defaultsImages": "Mga Default › Mga Larawan",
-      "defaultsText": "Mga Default › Teksto",
-      "defaultsVoice": "Mga Default › Boses",
+      "custom": "Custom",
+      "customDescription": "Gumagamit ang field na ito ng sarili nitong mga setting.",
+      "default": "Default",
       "descriptionChat": "Itakda ang AI na nagsusulat ng field na ito. Karamihan sa mga field ay maaaring manatili sa default.",
       "descriptionImage": "Itakda ang AI na kumukuha ng field na ito. Karamihan sa mga field ay maaaring manatili sa default.",
       "descriptionTts": "Itakda ang boses na nagbabasa ng field na ito. Karamihan sa mga field ay maaaring manatili sa default.",
-      "imageDefault": "default na larawan",
+      "followingDefault": "Gumagamit ng iyong mga default na setting. Baguhin ang alinman para i-customize.",
       "imageModel": "Modelo ng larawan",
+      "intelligenceLevel": "Antas ng {{level}} intelligence",
+      "keepsHtml": "Pinananatili ang HTML",
       "loadingVoices": "Naglo-load ng mga boses…",
       "model": "Modelo",
-      "pickCustom": "Pumili ng custom na modelo para sa field na ito",
-      "sharedByEveryField": "Ang iyong {{modality}} ay ibinabahagi ng bawat Smart Field na gumagamit nito. Palitan ito",
-      "textDefault": "default ng teksto",
-      "useMy": "Gamitin ang aking {{modality}}",
+      "settings": "Mga setting",
       "voice": "Boses",
-      "voiceDefault": "default ng boses",
       "webSearch": "Paghahanap sa web"
     },
     "save": "I-save ang Smart Field",
@@ -256,7 +253,7 @@
     },
     "image": {
       "cannotFindModel": "Ang katalogo ng larawan ay walang modelong {{model}}",
-      "defaultModel": "Default na Modelo ng Larawan",
+      "defaultModel": "Modelo",
       "gptImage25": "pinakamahusay sa lahat — malinaw na teksto, malinis na diagram.",
       "loadingLabel": "Naglo-load ng Mga Setting ng Paggawa ng Larawan",
       "loadingTitle": "Mga Setting ng Paggawa ng Larawan",
@@ -278,7 +275,7 @@
       "tryIt": "Subukan ito"
     },
     "text": {
-      "defaultModel": "Default na Modelo ng Teksto",
+      "defaultModel": "Modelo",
       "loadingLabel": "Naglo-load ng Mga Setting ng Paggawa ng Teksto",
       "loadingTitle": "Mga Setting ng Pagbuo ng Teksto",
       "samplePrompt": "Ano ang Spaced Repetition System (SRS)?",
@@ -515,7 +512,6 @@
     "upgradeNow": "Mag-upgrade ngayon"
   },
   "intelligence": {
-    "advancedOptions": "Mga advanced na opsyon",
     "autoCostRange": "Gastos na {{min}}–{{max}}×",
     "autoDescription": "Ang pinakamahusay na modelo para sa talino at presyo, regular na ina-update.",
     "autoName": "Smart Notes Auto",
@@ -537,6 +533,12 @@
       "high": "<level>Mataas</level> ay para sa mas advanced na grammar.",
       "max": "<level>Maximum</level> ay para sa kumplikadong materyal na hindi kayang hawakan ng Mataas.",
       "standard": "<level>Karaniwan</level> ang pinakamainam para sa mga pagsasalin at halimbawang pangungusap."
-    }
+    },
+    "webSearchTipLabel": "Tungkol sa web search"
+  },
+  "stripHtml": {
+    "description": "Ang mga field ay ipinapasok sa prompt bilang plain text, nang walang formatting at markup. I-off ito kung kailangan ng iyong prompt ang HTML.",
+    "label": "Alisin ang HTML sa input",
+    "tipLabel": "Tungkol sa pag-alis ng HTML"
   }
 }

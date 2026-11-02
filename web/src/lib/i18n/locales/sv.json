@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Avancerade alternativ",
     "allDecks": "Alla däck",
     "auto": "Bil",
     "back": "Tillbaka",
@@ -158,24 +159,20 @@
     },
     "loadingModelCatalog": "Laddar modellkatalog...",
     "modelSettings": {
-      "appliesOnlyToField": "Gäller endast denna Smart Field.",
-      "defaultWithValue": "Standard ({{value}})",
-      "defaultsImages": "Standardvärden › Bilder",
-      "defaultsText": "Standarder › Text",
-      "defaultsVoice": "Standardvärden › Röst",
+      "custom": "Anpassad",
+      "customDescription": "Dieses Feld verwendet eigene Einstellungen.",
+      "default": "Standard",
       "descriptionChat": "Ställ in AI som skriver detta fält. De flesta fält kan stanna på standardinställningen.",
       "descriptionImage": "Ställ in AI som ritar detta fält. De flesta fält kan stanna på standardinställningen.",
       "descriptionTts": "Ställ in rösten som läser detta fält. De flesta fält kan stanna på standardinställningen.",
-      "imageDefault": "bild standard",
+      "followingDefault": "Verwendet deine Standardeinstellungen. Ändere etwas, um sie anzupassen.",
       "imageModel": "Bildmodell",
+      "intelligenceLevel": "{{level}}-intelligens",
+      "keepsHtml": "Behåller HTML",
       "loadingVoices": "Läser in röster...",
       "model": "Modell",
-      "pickCustom": "Välj en anpassad modell för detta fält",
-      "sharedByEveryField": "Din {{modality}} delas av alla Smart Field som använder den. Byt in den",
-      "textDefault": "text standard",
-      "useMy": "Använd min {{modality}}",
+      "settings": "Inställningar",
       "voice": "Röst",
-      "voiceDefault": "röst standard",
       "webSearch": "Webbsökning"
     },
     "save": "Spara Smart Field",
@@ -256,7 +253,7 @@
     },
     "image": {
       "cannotFindModel": "Bildkatalogen saknar modell {{model}}",
-      "defaultModel": "Standardbildmodell",
+      "defaultModel": "Modell",
       "gptImage25": "bäst för allt — skarp text, rena diagram.",
       "loadingLabel": "Läser in inställningar för bildgenerering",
       "loadingTitle": "Inställningar för bildgenerering",
@@ -278,7 +275,7 @@
       "tryIt": "Prova det"
     },
     "text": {
-      "defaultModel": "Standardtextmodell",
+      "defaultModel": "Modell",
       "loadingLabel": "Läser in inställningar för textgenerering",
       "loadingTitle": "Inställningar för textgenerering",
       "samplePrompt": "Vad är ett mellanrumsupprepningssystem (SRS)?",
@@ -515,7 +512,6 @@
     "upgradeNow": "Uppgradera nu"
   },
   "intelligence": {
-    "advancedOptions": "Avancerade alternativ",
     "autoCostRange": "{{min}}–{{max}}× kostnad",
     "autoDescription": "De modeller som presterar bäst när det gäller intelligens och pris, uppdateras regelbundet.",
     "autoName": "Smart Notes Auto",
@@ -537,6 +533,12 @@
       "high": "<level>Hög</level> är till för mer avancerad grammatik.",
       "max": "<level>Max</level> är till för komplicerat material som Hög inte klarar av.",
       "standard": "<level>Standard</level> passar bäst för översättningar och exempelmeningar."
-    }
+    },
+    "webSearchTipLabel": "Om webbsökning"
+  },
+  "stripHtml": {
+    "description": "Fält skickas till prompten som vanlig text, utan formatering och markup. Stäng av det om din prompt behöver HTML.",
+    "label": "Ta bort HTML från indata",
+    "tipLabel": "Om borttagning av HTML"
   }
 }

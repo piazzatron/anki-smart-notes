@@ -126,6 +126,7 @@ def build_generation_defaults(defaults: GenerationDefaults) -> GenerationDefault
             model=defaults.chat.model,
             reasoningLevel=defaults.chat.reasoning_level,
             webSearchEnabled=defaults.chat.web_search_enabled,
+            stripHtml=defaults.chat.strip_html,
         ),
         tts=TTSGenerationSettingsDto(
             provider=defaults.tts.provider,
@@ -135,6 +136,7 @@ def build_generation_defaults(defaults: GenerationDefaults) -> GenerationDefault
         image=ImageGenerationSettingsDto(
             provider=defaults.image.provider,
             model=defaults.image.model,
+            stripHtml=defaults.image.strip_html,
         ),
     )
 
@@ -235,6 +237,7 @@ def _smart_field_dto(field: SmartField) -> SmartFieldDto:
                 reasoningLevel=settings.reasoning_level,
                 webSearchEnabled=settings.web_search_enabled,
                 usesDefaultGenerationSettings=settings.uses_default_generation_settings,
+                stripHtml=settings.strip_html,
             ),
         )
     if isinstance(settings, TTSSmartFieldSettings):
@@ -265,5 +268,6 @@ def _smart_field_dto(field: SmartField) -> SmartFieldDto:
             provider=settings.provider,
             model=settings.model,
             usesDefaultGenerationSettings=settings.uses_default_generation_settings,
+            stripHtml=settings.strip_html,
         ),
     )

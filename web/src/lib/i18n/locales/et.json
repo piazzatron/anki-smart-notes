@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "Täpsemad valikud",
     "allDecks": "Kõik tekid",
     "auto": "Automaatne",
     "back": "Tagasi",
@@ -158,24 +159,20 @@
     },
     "loadingModelCatalog": "Mudelikataloogi laadimine…",
     "modelSettings": {
-      "appliesOnlyToField": "Kehtib ainult selle Smart Field puhul.",
-      "defaultWithValue": "Vaikimisi ({{value}})",
-      "defaultsImages": "Vaikimisi › Pildid",
-      "defaultsText": "Vaikeseaded › Tekst",
-      "defaultsVoice": "Vaikeseaded › Hääl",
+      "custom": "Kohandatud",
+      "customDescription": "Sellel väljal on oma seaded.",
+      "default": "Vaikimisi",
       "descriptionChat": "Määrake AI, mis selle välja kirjutab. Enamik välju võib jääda vaikeväärtustele.",
       "descriptionImage": "Määrake AI, mis selle välja joonistab. Enamik välju võib jääda vaikeväärtustele.",
       "descriptionTts": "Määrake hääl, mis seda välja loeb. Enamik välju võib jääda vaikeväärtustele.",
-      "imageDefault": "pildi vaikeseade",
+      "followingDefault": "Kasutab sinu vaikeseadeid. Muuda midagi kohandamiseks.",
       "imageModel": "Pildi mudel",
+      "intelligenceLevel": "{{level}} intellekt",
+      "keepsHtml": "Säilitab HTML-i",
       "loadingVoices": "Häälte laadimine…",
       "model": "Mudel",
-      "pickCustom": "Valige selle välja jaoks kohandatud mudel",
-      "sharedByEveryField": "Teie {{modality}} jagavad kõik seda kasutavad Smart Field. Muutke see sisse",
-      "textDefault": "teksti vaikimisi",
-      "useMy": "Kasutage minu {{modality}}",
+      "settings": "Seaded",
       "voice": "Hääl",
-      "voiceDefault": "hääle vaikeseade",
       "webSearch": "Veebiotsing"
     },
     "save": "Salvestage Smart Field",
@@ -256,7 +253,7 @@
     },
     "image": {
       "cannotFindModel": "Piltide kataloogist puudub mudel {{model}}",
-      "defaultModel": "Vaikimisi pildimudel",
+      "defaultModel": "Mudel",
       "gptImage25": "parim üldvalik — terav tekst, selged diagrammid.",
       "loadingLabel": "Pildiloome seadete laadimine",
       "loadingTitle": "Pildiloome seaded",
@@ -278,7 +275,7 @@
       "tryIt": "Proovi seda"
     },
     "text": {
-      "defaultModel": "Vaikimisi tekstimudel",
+      "defaultModel": "Mudel",
       "loadingLabel": "Tekstiloome seadete laadimine",
       "loadingTitle": "Teksti genereerimise sätted",
       "samplePrompt": "Mis on intervallide kordussüsteem (SRS)?",
@@ -515,7 +512,6 @@
     "upgradeNow": "Uuendage kohe"
   },
   "intelligence": {
-    "advancedOptions": "Täpsemad valikud",
     "autoCostRange": "{{min}}–{{max}}× kulu",
     "autoDescription": "Intellekti ja hinna poolest parimad mudelid, mida regulaarselt uuendatakse.",
     "autoName": "Smart Notes Auto",
@@ -537,6 +533,12 @@
       "high": "<level>Kõrge</level> on mõeldud keerukamale grammatikale.",
       "max": "<level>Maksimaalne</level> on mõeldud keerulise materjali jaoks, mida Kõrge ei suuda töödelda.",
       "standard": "<level>Standardne</level> sobib kõige paremini tõlgete ja näitelausete jaoks."
-    }
+    },
+    "webSearchTipLabel": "Veebiotsingust"
+  },
+  "stripHtml": {
+    "description": "Väljad lisatakse päringusse lihtteksti, ilma vormingu ja märgendusteta. Lülita see välja, kui päring vajab HTML-i.",
+    "label": "Eemalda sisendist HTML",
+    "tipLabel": "HTML-i eemaldamisest"
   }
 }

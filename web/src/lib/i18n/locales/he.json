@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "אפשרויות מתקדמות",
     "allDecks": "כל החפיסות",
     "auto": "אוטומטי",
     "back": "בְּחֲזָרָה",
@@ -159,24 +160,20 @@
     },
     "loadingModelCatalog": "טוען קטלוג דגמים...",
     "modelSettings": {
-      "appliesOnlyToField": "חל על שדה חכם זה בלבד.",
-      "defaultWithValue": "ברירת מחדל ({{value}})",
-      "defaultsImages": "ברירות מחדל › תמונות",
-      "defaultsText": "ברירות מחדל › טקסט",
-      "defaultsVoice": "ברירות מחדל › קול",
+      "custom": "מותאם אישית",
+      "customDescription": "שדה זה משתמש בהגדרות משלו.",
+      "default": "ברירת מחדל",
       "descriptionChat": "הגדר את ה-AI שכותב את השדה הזה. רוב השדות יכולים להישאר על ברירת המחדל.",
       "descriptionImage": "הגדר את ה-AI שמצייר את השדה הזה. רוב השדות יכולים להישאר על ברירת המחדל.",
       "descriptionTts": "הגדר את הקול שקורא את השדה הזה. רוב השדות יכולים להישאר על ברירת המחדל.",
-      "imageDefault": "ברירת המחדל של תמונה",
+      "followingDefault": "משתמש בהגדרות ברירת המחדל שלך. שנה כל הגדרה כדי להתאים אישית.",
       "imageModel": "דגם תמונה",
+      "intelligenceLevel": "רמת אינטליגנציה {{level}}",
+      "keepsHtml": "שומר HTML",
       "loadingVoices": "טוען קולות...",
       "model": "דֶגֶם",
-      "pickCustom": "בחר דגם מותאם אישית עבור שדה זה",
-      "sharedByEveryField": "ה-{{modality}} שלך משותף לכל שדה חכם שמשתמש בו. שנה את זה",
-      "textDefault": "ברירת המחדל של טקסט",
-      "useMy": "השתמש ב-{{modality}} שלי",
+      "settings": "הגדרות",
       "voice": "קוֹל",
-      "voiceDefault": "ברירת המחדל של קול",
       "webSearch": "חיפוש באינטרנט"
     },
     "save": "שמור שדה חכם",
@@ -257,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "בקטלוג התמונות חסר דגם {{model}}",
-      "defaultModel": "מודל תמונה ברירת מחדל",
+      "defaultModel": "מודל",
       "gptImage25": "הכי מאוזן: טקסט חד, דיאגרמות נקיות.",
       "loadingLabel": "טוען הגדרות יצירת תמונות",
       "loadingTitle": "הגדרות יצירת תמונות",
@@ -279,7 +276,7 @@
       "tryIt": "נסה את זה"
     },
     "text": {
-      "defaultModel": "מודל טקסט ברירת מחדל",
+      "defaultModel": "מודל",
       "loadingLabel": "טוען הגדרות יצירת טקסט",
       "loadingTitle": "הגדרות יצירת טקסט",
       "samplePrompt": "מהי מערכת חזרות מרווחת (SRS)?",
@@ -525,7 +522,6 @@
     "upgradeNow": "שדרג עכשיו"
   },
   "intelligence": {
-    "advancedOptions": "אפשרויות מתקדמות",
     "autoCostRange": "עלות של {{min}}–{{max}}×",
     "autoDescription": "המודלים בעלי הביצועים הטובים ביותר מבחינת אינטליגנציה ומחיר, מתעדכנים באופן קבוע.",
     "autoName": "Smart Notes Auto",
@@ -547,6 +543,12 @@
       "high": "<level>גבוהה</level> מיועדת לדקדוק מתקדם יותר.",
       "max": "<level>מקסימלית</level> מיועדת לחומר מורכב שהרמה הגבוהה אינה מסוגלת לטפל בו.",
       "standard": "<level>סטנדרטית</level> מתאימה במיוחד לתרגומים ולמשפטי דוגמה."
-    }
+    },
+    "webSearchTipLabel": "אודות חיפוש ברשת"
+  },
+  "stripHtml": {
+    "description": "השדות נשלחים לפרומפט כטקסט פשוט, ללא העיצוב והסימון שלהם. כבו אפשרות זו אם הפרומפט שלכם זקוק ל-HTML.",
+    "label": "הסר HTML מהקלט",
+    "tipLabel": "אודות הסרת HTML"
   }
 }

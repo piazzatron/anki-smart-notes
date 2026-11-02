@@ -1,5 +1,6 @@
 {
   "common": {
+    "advancedOptions": "گزینه‌های پیشرفته",
     "allDecks": "همه عرشه ها",
     "auto": "خودکار",
     "back": "برگشت",
@@ -158,24 +159,20 @@
     },
     "loadingModelCatalog": "در حال بارگیری کاتالوگ مدل…",
     "modelSettings": {
-      "appliesOnlyToField": "فقط برای این Smart Field اعمال می شود.",
-      "defaultWithValue": "پیش‌فرض ({{value}})",
-      "defaultsImages": "پیش فرض ها › تصاویر",
-      "defaultsText": "پیش فرض ها › متن",
-      "defaultsVoice": "پیش فرض ها › صدا",
+      "custom": "سفارشی",
+      "customDescription": "این فیلد از تنظیمات خاص خود استفاده می‌کند.",
+      "default": "پیش‌فرض",
       "descriptionChat": "هوش مصنوعی را تنظیم کنید که این فیلد را بنویسد. اکثر فیلدها می توانند روی حالت پیش فرض باقی بمانند.",
       "descriptionImage": "هوش مصنوعی را تنظیم کنید که این فیلد را ترسیم کند. اکثر فیلدها می توانند روی حالت پیش فرض باقی بمانند.",
       "descriptionTts": "صدایی را تنظیم کنید که این قسمت را بخواند. اکثر فیلدها می توانند روی حالت پیش فرض باقی بمانند.",
-      "imageDefault": "تصویر پیش فرض",
+      "followingDefault": "از تنظیمات پیش‌فرض شما استفاده می‌کند. برای سفارشی‌سازی، هر چیزی را تغییر دهید.",
       "imageModel": "مدل تصویر",
+      "intelligenceLevel": "هوش {{level}}",
+      "keepsHtml": "HTML را حفظ می‌کند",
       "loadingVoices": "در حال بارگیری صداها…",
       "model": "مدل",
-      "pickCustom": "یک مدل سفارشی برای این زمینه انتخاب کنید",
-      "sharedByEveryField": "{{modality}} شما توسط هر Smart Field که از آن استفاده می کند به اشتراک گذاشته می شود. آن را تغییر دهید",
-      "textDefault": "متن پیش فرض",
-      "useMy": "از {{modality}} من استفاده کنید",
+      "settings": "تنظیمات",
       "voice": "صدا",
-      "voiceDefault": "صدای پیش فرض",
       "webSearch": "جستجوی وب"
     },
     "save": "Smart Field را ذخیره کنید",
@@ -256,7 +253,7 @@
     },
     "image": {
       "cannotFindModel": "کاتالوگ تصویر موجود نیست مدل {{model}}",
-      "defaultModel": "مدل پیش‌فرض تصویر",
+      "defaultModel": "مدل",
       "gptImage25": "بهترین گزینهٔ همه‌کاره — متن واضح، نمودارهای تمیز.",
       "loadingLabel": "در حال بارگذاری تنظیمات تولید تصویر",
       "loadingTitle": "تنظیمات تولید تصویر",
@@ -278,7 +275,7 @@
       "tryIt": "آن را امتحان کنید"
     },
     "text": {
-      "defaultModel": "مدل متن پیش‌فرض",
+      "defaultModel": "مدل",
       "loadingLabel": "در حال بارگذاری تنظیمات تولید متن",
       "loadingTitle": "تنظیمات تولید متن",
       "samplePrompt": "سیستم تکرار فاصله ای (SRS) چیست؟",
@@ -515,7 +512,6 @@
     "upgradeNow": "اکنون ارتقا دهید"
   },
   "intelligence": {
-    "advancedOptions": "گزینه‌های پیشرفته",
     "autoCostRange": "{{min}}–{{max}}× هزینه",
     "autoDescription": "بهترین مدل‌ها از نظر هوش و قیمت، به‌طور منظم به‌روزرسانی می‌شوند.",
     "autoName": "Smart Notes Auto",
@@ -537,6 +533,12 @@
       "high": "<level>بالا</level> برای دستور زبان پیشرفته‌تر است.",
       "max": "<level>حداکثر</level> برای مطالب پیچیده‌ای است که سطح بالا از پس آن برنمی‌آید.",
       "standard": "<level>استاندارد</level> بهترین گزینه برای ترجمه‌ها و جمله‌های نمونه است."
-    }
+    },
+    "webSearchTipLabel": "درباره جستجوی وب"
+  },
+  "stripHtml": {
+    "description": "فیلدها بدون قالب‌بندی و نشانه‌گذاری HTML، به‌صورت متن ساده وارد پرامپت می‌شوند. اگر پرامپت شما به HTML نیاز دارد، این گزینه را خاموش کنید.",
+    "label": "حذف HTML از ورودی",
+    "tipLabel": "درباره حذف HTML"
   }
 }
