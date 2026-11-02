@@ -8,7 +8,7 @@ Read @README.md and @ARCHITECTURE.md before working here: they cover what the ad
 # Anki Version Compatibility
 
 - Anki's Python API changes between releases (25.09 replaced `SearchNode.Field.is_re` with `mode`; hooks like `addon_manager_will_install_addon` only exist from 2.1.65). Code that touches Anki APIs must work across the whole supported range (see the README): prefer APIs that exist in every version, and guard the ones that don't.
-- The maintainer runs Anki 26.09.3. When Anki releases, bump the newest-Anki version in `.github/workflows/ci.yml`'s matrix.
+- The maintainer runs Anki 26.09.3. When Anki releases, bump the newest-Anki version in the monorepo's `.github/workflows/plugin-ci.yml` matrix.
 
 # Web UI Translations
 
