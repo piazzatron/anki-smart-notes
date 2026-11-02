@@ -18,7 +18,7 @@
  */
 
 import { Image, Layers3, Play, Sparkles, type LucideIcon } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import {
@@ -30,6 +30,7 @@ import {
 import { GiftIcon, LetterIcon, SparklesIcon } from "@/components/shared/Icons"
 import { ANKIWEB_REVIEW_URL, SUPPORT_EMAIL } from "@/lib/helpChannels"
 import { openSiteLink, SITE_LINKS } from "@/lib/siteLinks"
+import { trackAnalyticsEvent } from "@/services/analytics"
 
 const KEPT_FEATURES: Array<{ icon: LucideIcon; labelKey: string }> = [
   { icon: Layers3, labelKey: "trialEnded.features.batch" },
@@ -48,6 +49,10 @@ export const TrialEndedScreen = ({
   const { t } = useTranslation()
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false)
 
+  useEffect(() => {
+    void trackAnalyticsEvent({ event: "trial_ended_shown" })
+  }, [])
+
   return (
     <main
       className="flex h-full w-full items-center justify-center overflow-y-auto bg-canvas px-[54px] py-7 text-ink"
@@ -55,7 +60,12 @@ export const TrialEndedScreen = ({
     >
       <div className="my-auto flex w-full max-w-[560px] flex-col gap-[18px]">
         {reviewFreeMonthEnabled && (
-          <ReviewOfferBanner onOpen={() => setReviewDialogOpen(true)} />
+          <ReviewOfferBanner
+            onOpen={() => {
+              void trackAnalyticsEvent({ event: "clicked_trial_ended_review" })
+              setReviewDialogOpen(true)
+            }}
+          />
         )}
 
         <header className="text-center">
@@ -95,7 +105,10 @@ export const TrialEndedScreen = ({
 
         <button
           className="flex h-[46px] w-full items-center justify-center rounded-[10px] bg-[#1fd47d] text-[14.5px] font-bold tracking-[-0.1px] text-[#06281a] transition-[filter,transform] duration-150 hover:scale-[1.006] hover:brightness-105"
-          onClick={() => openSiteLink(SITE_LINKS.upgrade)}
+          onClick={() => {
+            void trackAnalyticsEvent({ event: "clicked_trial_ended_upgrade" })
+            openSiteLink(SITE_LINKS.upgrade)
+          }}
           type="button"
         >
           {t("trialEnded.upgradeNow")}

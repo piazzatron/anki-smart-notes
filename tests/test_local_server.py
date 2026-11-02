@@ -331,6 +331,7 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
             feature_flags=src.local_server.flags,
             settings=fake_settings,
             app_version="2.23.9",
+            install_id="test-install-id",
         )
 
         event = await _read_sse_event(resp)

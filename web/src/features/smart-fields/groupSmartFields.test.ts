@@ -23,6 +23,7 @@ const field = (id: string, noteTypeId: number, deckId: number): SmartField => ({
 
 const stateWith = (smartFields: SmartField[]): AppState => ({
   appVersion: "test",
+  installId: "test",
   smartFields,
   noteTypes: [
     { id: 10, name: "Japanese", fields: ["Reading"] },

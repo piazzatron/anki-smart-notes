@@ -17,6 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import uuid
 from typing import Any, Optional
 
 from aqt import addons, mw
@@ -39,6 +40,7 @@ class Config:
     debug: bool
     language: str
     auth_token: Optional[str]
+    install_id: Optional[str]
     legacy_support: Optional[bool]
     show_wizard_completion: bool
     did_dismiss_review_prompt: bool
@@ -92,6 +94,15 @@ class Config:
 
 
 config = Config()
+
+
+def get_install_id() -> str:
+    """A random ID for this Anki install, created on first use and kept for the
+    install's lifetime. The server sends it to Amplitude as the device ID, which
+    ties a signed-out install's events to the account it later signs in to."""
+    if not config.install_id:
+        config.install_id = str(uuid.uuid4())
+    return config.install_id
 
 
 def bump_usage_counter() -> None:

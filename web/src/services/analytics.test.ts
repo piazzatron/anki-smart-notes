@@ -69,6 +69,7 @@ const stateWithAccount = (
   appVersion = "2.24.0",
 ): AppState => ({
   appVersion,
+  installId: "install-id",
   smartFields: [],
   noteTypes: [],
   decks: [],
@@ -140,6 +141,7 @@ describe("trackAnalyticsEvent", () => {
         new Headers({
           Authorization: "Bearer current-plugin-jwt",
           "Content-Type": "application/json",
+          "x-sn-install-id": "install-id",
           "x-sn-plugin-version": "2.24.7",
           "x-sn-source": "anki-plugin",
         }),
@@ -158,7 +160,7 @@ describe("trackAnalyticsEvent", () => {
     expect(fetchMock).not.toHaveBeenCalled()
   })
 
-  test("does nothing when the user is signed out", async () => {
+  test("sends signed-out events with only the install ID", async () => {
     useAppStore.setState({
       state: stateWithAccount({
         status: "UNAUTHENTICATED",
@@ -167,12 +169,18 @@ describe("trackAnalyticsEvent", () => {
         authToken: null,
       }),
     })
-    const fetchMock = mock(async () => new Response(null, { status: 204 }))
-    global.fetch = fetchMock as unknown as typeof fetch
+    const requests: RequestInit[] = []
+    global.fetch = mock(async (_url: string, init: RequestInit) => {
+      requests.push(init)
+      return new Response(null, { status: 204 })
+    }) as unknown as typeof fetch
 
-    await trackAnalyticsEvent(EVENTS[0])
+    await trackAnalyticsEvent({ event: "clicked_start_trial" })
 
-    expect(fetchMock).not.toHaveBeenCalled()
+    expect(requests).toHaveLength(1)
+    const headers = new Headers(requests[0].headers)
+    expect(headers.get("x-sn-install-id")).toBe("install-id")
+    expect(headers.has("Authorization")).toBe(false)
   })
 
   test("does not reject when the backend rejects an event", async () => {

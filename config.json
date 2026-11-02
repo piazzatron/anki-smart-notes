@@ -12,6 +12,7 @@
   "debug": false,
   "language": "auto",
   "auth_token": null,
+  "install_id": null,
   "legacy_support": null,
   "legacy_openai_model": "gpt-5-chat-latest",
   "did_show_chained_error_dialog": false,

@@ -25,6 +25,7 @@ import { ConnectionNotice } from "@/components/shared/ConnectionNotice"
 import { SparklesIcon } from "@/components/shared/Icons"
 import { errorMessage } from "@/lib/errors"
 import { openSiteLink, SITE_LINKS } from "@/lib/siteLinks"
+import { trackAnalyticsEvent } from "@/services/analytics"
 import { exchangeAuthCode } from "@/services/commands"
 import type { Connection } from "@/store/appStore"
 
@@ -68,8 +69,12 @@ export const WelcomeScreen = ({
   const [isSubmittingCode, setIsSubmittingCode] = useState(false)
   const [isWaitingForBrowser, setIsWaitingForBrowser] = useState(false)
 
-  const openOnboarding = (url: string) => {
+  const openOnboarding = (
+    url: string,
+    event: "clicked_start_trial" | "clicked_sign_in",
+  ) => {
     setIsWaitingForBrowser(true)
+    void trackAnalyticsEvent({ event })
     openSiteLink(url)
   }
 
@@ -211,7 +216,9 @@ export const WelcomeScreen = ({
             >
               <button
                 className="w-full rounded-[14px] border border-[#1fd47d]/60 bg-gradient-to-b from-[#4cf0a8] to-[#1fd47d] px-5 py-[19px] text-[17px] font-extrabold tracking-[0.1px] text-[#06281a] shadow-[inset_0_1px_0_rgba(255,255,255,0.36),0_16px_36px_-10px_rgba(31,212,125,0.66)] transition-[filter,transform] duration-150 hover:scale-[1.01] hover:brightness-105"
-                onClick={() => openOnboarding(SITE_LINKS.startTrial)}
+                onClick={() =>
+                  openOnboarding(SITE_LINKS.startTrial, "clicked_start_trial")
+                }
                 type="button"
               >
                 <SparklesIcon
@@ -236,7 +243,9 @@ export const WelcomeScreen = ({
               {t("welcome.alreadyAccount")}{" "}
               <button
                 className="font-medium text-[#a5b4ff] transition-colors hover:text-white"
-                onClick={() => openOnboarding(SITE_LINKS.signIn)}
+                onClick={() =>
+                  openOnboarding(SITE_LINKS.signIn, "clicked_sign_in")
+                }
                 type="button"
               >
                 {t("common.signInLower")}

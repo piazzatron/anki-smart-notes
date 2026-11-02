@@ -21,6 +21,11 @@ import { useAppStore } from "@/store/appStore"
 import type { SmartField } from "@/types/api"
 
 export type AnalyticsEvent =
+  | { event: "clicked_start_trial" }
+  | { event: "clicked_sign_in" }
+  | { event: "trial_ended_shown" }
+  | { event: "clicked_trial_ended_upgrade" }
+  | { event: "clicked_trial_ended_review" }
   | { event: "clicked_add_smart_field" }
   | {
       event: "smart_field_saved"
@@ -35,14 +40,16 @@ export const trackAnalyticsEvent = async (
   event: AnalyticsEvent,
 ): Promise<void> => {
   const state = useAppStore.getState().state
-  if (state === null || state.account.authToken === null) return
+  if (state === null) return
+  const { authToken } = state.account
 
   try {
     const response = await fetch(`${SERVER_URL}/api/events`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${state.account.authToken}`,
+        ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
         "Content-Type": "application/json",
+        "x-sn-install-id": state.installId,
         "x-sn-plugin-version": state.appVersion,
         "x-sn-source": "anki-plugin",
       },

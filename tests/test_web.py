@@ -299,6 +299,7 @@ def test_build_state_shape():
         feature_flags=SimpleNamespace(review_free_month=True),
         settings=SETTINGS_DTO,
         app_version="2.23.9",
+        install_id="install-id",
     )
 
     assert state["noteTypes"] == [
@@ -357,6 +358,7 @@ def test_build_state_excludes_smart_fields_with_missing_anki_references():
         feature_flags=SimpleNamespace(review_free_month=False),
         settings=SETTINGS_DTO,
         app_version="2.23.9",
+        install_id="install-id",
     )
 
     assert [field["id"] for field in state["smartFields"]] == ["sf-1"]

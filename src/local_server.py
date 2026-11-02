@@ -37,7 +37,7 @@ from aqt import mw
 from . import env
 from .api_client import UserDisplayableError, api
 from .app_state import app_state
-from .config import config
+from .config import config, get_install_id
 from .constants import SITE_URL_DEV
 from .decks import deck_id_to_name_map
 from .event_bus import (
@@ -417,6 +417,7 @@ class LocalServer:
                     feature_flags=flags,
                     settings=dto.build_settings(),
                     app_version=get_version(),
+                    install_id=get_install_id(),
                 )
             ),
         )

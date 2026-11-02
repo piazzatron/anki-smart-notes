@@ -169,6 +169,7 @@ class StateDto(TypedDict):
     featureFlags: FeatureFlagsDto
     settings: SettingsDto
     appVersion: str
+    installId: str
     defaults: GenerationDefaultsDto
 
 

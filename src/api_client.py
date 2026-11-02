@@ -23,7 +23,7 @@ from typing import Any, Literal, Optional
 import aiohttp
 from aiohttp import ClientResponse
 
-from .config import config
+from .config import config, get_install_id
 from .constants import get_server_url
 from .logger import logger
 from .utils import get_version
@@ -76,12 +76,13 @@ class APIClient:
         timeout_sec: Optional[int] = None,
         note_id: Optional[int] = None,
         method: Literal["GET", "POST"] = "POST",
+        allow_signed_out: bool = False,
     ) -> ClientResponse:
         if args is None:
             args = {}
         endpoint = f"{get_server_url()}/api/{path}"
         jwt = config.auth_token
-        if not jwt:
+        if not jwt and not allow_signed_out:
             logger.error("APIClient: unexpectedly no JWT")
             raise Exception("User is not authenticated! Please sign up or log in")
 
@@ -93,11 +94,13 @@ class APIClient:
             timeout = aiohttp.ClientTimeout(total=10)
 
         headers = {
-            "Authorization": f"Bearer {jwt}",
             "Content-Type": "application/json",
+            "x-sn-install-id": get_install_id(),
             "x-sn-plugin-version": get_version(),
             "x-sn-source": "anki-plugin",
         }
+        if jwt:
+            headers["Authorization"] = f"Bearer {jwt}"
 
         if note_id is not None:
             headers["Note-ID"] = f"{note_id}"

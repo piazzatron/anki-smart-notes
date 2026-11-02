@@ -119,6 +119,7 @@ const POPULATED_FIELDS: SmartField[] = [
 
 const BASE_STATE: AppState = {
   appVersion: "1.5.0-dev",
+  installId: "00000000-0000-4000-8000-000000000000",
   smartFields: POPULATED_FIELDS,
   noteTypes: [
     {

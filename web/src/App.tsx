@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState, type ComponentType } from "react"
+import { lazy, Suspense, useEffect, useState, type ComponentType } from "react"
 import { useTranslation } from "react-i18next"
 
 import { AppShell } from "@/components/shared/AppShell"
@@ -24,6 +24,7 @@ import { SupportScreen } from "@/features/support/SupportScreen"
 import { TrialEndedScreen } from "@/features/trial-ended/TrialEndedScreen"
 import { WelcomeScreen } from "@/features/welcome/WelcomeScreen"
 import { bootOptions, type ScreenId } from "@/lib/boot"
+import { syncAmplitudeIdentity } from "@/services/amplitude"
 import { useAppStore } from "@/store/appStore"
 import type { AccountState } from "@/types/api"
 
@@ -92,6 +93,12 @@ const App = () => {
     shouldShowTrialEndedTakeover(state.account, state.settings)
       ? state.featureFlags.reviewFreeMonth
       : null
+
+  const installId = state?.installId
+  const email = state?.account.email ?? null
+  useEffect(() => {
+    if (installId) syncAmplitudeIdentity({ installId, email })
+  }, [installId, email])
 
   const completeNavigation = (screen: ScreenId) => {
     setActiveScreen(screen)

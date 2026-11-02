@@ -81,23 +81,27 @@ class FakeSession:
 
 
 @pytest.mark.asyncio
+@pytest.mark.parametrize("auth_token", ["test-token", None])
 async def test_api_requests_include_plugin_version(
-    monkeypatch: pytest.MonkeyPatch,
+    monkeypatch: pytest.MonkeyPatch, auth_token: Optional[str]
 ) -> None:
     fake_session = FakeSession()
     monkeypatch.setattr(api_client.aiohttp, "ClientSession", lambda: fake_session)
     monkeypatch.setattr(
-        api_client, "config", type("Config", (), {"auth_token": "test-token"})()
+        api_client, "config", type("Config", (), {"auth_token": auth_token})()
     )
     monkeypatch.setattr(api_client, "get_server_url", lambda: "https://server.test")
     monkeypatch.setattr(api_client, "get_version", lambda: "1.2.3")
 
-    await api_client.APIClient().get_api_response("events", {"event": "test_event"})
+    await api_client.APIClient().get_api_response(
+        "events", {"event": "test_event"}, allow_signed_out=True
+    )
 
     assert fake_session.calls[0]["endpoint"] == "https://server.test/api/events"
     assert fake_session.calls[0]["headers"] == {
-        "Authorization": "Bearer test-token",
+        **({"Authorization": "Bearer test-token"} if auth_token else {}),
         "Content-Type": "application/json",
+        "x-sn-install-id": "test-install-id",
         "x-sn-plugin-version": "1.2.3",
         "x-sn-source": "anki-plugin",
     }

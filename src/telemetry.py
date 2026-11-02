@@ -20,24 +20,23 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 from typing import Any, Optional
 
 from .api_client import api
-from .config import config
 from .logger import logger
 from .tasks import run_async_in_background
 
 
 def track_event(event: str, properties: Optional[dict[str, Any]] = None) -> None:
     """
-    Fire-and-forget client-side telemetry.
+    Fire-and-forget client-side telemetry. Signed-out installs send it too,
+    identified by their install ID.
     """
-    if not config.auth_token:
-        return
-
     body: dict[str, Any] = {"event": event}
     if properties is not None:
         body["properties"] = properties
 
     async def send() -> None:
-        await api.get_api_response(path="events", args=body, method="POST")
+        await api.get_api_response(
+            path="events", args=body, method="POST", allow_signed_out=True
+        )
 
     run_async_in_background(
         send,

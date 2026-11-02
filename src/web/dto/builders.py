@@ -75,6 +75,7 @@ def build_state(
     feature_flags: FeatureFlags,
     settings: SettingsDto,
     app_version: str,
+    install_id: str,
 ) -> StateDto:
     """The full `state` event payload. Whole-state push: every state event
     carries everything, so consumers replace their model wholesale."""
@@ -112,6 +113,7 @@ def build_state(
         ),
         settings=settings,
         appVersion=app_version,
+        installId=install_id,
         defaults=build_generation_defaults(defaults),
     )
 

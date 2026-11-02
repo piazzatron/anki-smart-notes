@@ -31,3 +31,13 @@ def current_profile_name(monkeypatch: pytest.MonkeyPatch) -> None:
     import src.utils
 
     monkeypatch.setattr(src.utils, "get_current_profile_name", lambda: "__test__")
+
+
+@pytest.fixture(autouse=True)
+def install_id(monkeypatch: pytest.MonkeyPatch) -> None:
+    # The real one reads and writes Anki's add-on config.
+    import src.api_client
+    import src.local_server
+
+    for module in (src.api_client, src.local_server):
+        monkeypatch.setattr(module, "get_install_id", lambda: "test-install-id")

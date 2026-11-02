@@ -36,7 +36,7 @@ from aqt.browser.sidebar.item import SidebarItemType
 
 from .add_time_evaluator import AddTimeEvaluator
 from .app_state import app_state
-from .config import config
+from .config import config, get_install_id
 from .database.migrations import run_migrations
 from .decks import deck_id_to_name_map
 from .event_bus import event_bus
@@ -47,6 +47,7 @@ from .note_proccessor import NoteProcessor
 from .review_time_evaluator import ReviewTimeEvaluator
 from .sentry import sentry, with_sentry
 from .tasks import run_async_in_background
+from .telemetry import track_event
 from .ui.changelog import ChangeLogDialog, is_new_major_or_minor_version
 from .ui.field_menu import FieldMenu
 from .ui.i18n import native_action_text
@@ -242,6 +243,9 @@ def on_browser_context(processor: NoteProcessor, browser: browser.Browser, menu:
 
 
 def _on_start_actions() -> None:
+    # Create the install ID on the main thread before any request needs it:
+    # background requests creating it at once would each write a different one.
+    get_install_id()
     refresh_feature_flags()
 
     app_state.update_account_state()
@@ -268,6 +272,7 @@ def _stamp_version_and_show_first_load_window() -> None:
             return
 
         if not prior_version:
+            track_event("plugin_installed")
             open_web_app()
             return
 

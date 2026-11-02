@@ -164,6 +164,8 @@ export interface FeatureFlags {
 
 export interface AppState {
   appVersion: string
+  /** This Anki install's random ID, sent as the Amplitude device ID on every event and replay. */
+  installId: string
   smartFields: SmartField[]
   noteTypes: NoteType[]
   decks: Deck[]
