@@ -273,6 +273,10 @@ def _stamp_version_and_show_first_load_window() -> None:
 
         if is_new_major_or_minor_version(current_version, prior_version):
             ChangeLogDialog(prior_version).exec()
+    except PermissionError as e:
+        # The add-on folder isn't writable for this OS user (e.g. a shared Anki
+        # folder owned by another account), so Anki can't save our config.
+        logger.warning(f"Couldn't save the last seen version: {e}")
     except Exception as e:
         logger.error(f"Error checking for updates: {e}")
 

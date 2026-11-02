@@ -209,3 +209,25 @@ def _fake_gui_hooks(**addon_hooks: list[Any]) -> SimpleNamespace:
         profile_will_close=[],
         **addon_hooks,
     )
+
+
+def test_version_stamp_without_write_access_logs_below_error(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    class ReadOnlyConfig:
+        last_seen_version = "2.27.0"
+
+        def __setattr__(self, name: str, value: object) -> None:
+            raise PermissionError(13, "Permission denied", "meta.json")
+
+    error_logs: list[str] = []
+    warning_logs: list[str] = []
+    monkeypatch.setattr(hooks, "config", ReadOnlyConfig())
+    monkeypatch.setattr(hooks, "get_version", lambda: "2.27.1")
+    monkeypatch.setattr(hooks.logger, "error", error_logs.append)
+    monkeypatch.setattr(hooks.logger, "warning", warning_logs.append)
+
+    vars(hooks)["_stamp_version_and_show_first_load_window"]()
+
+    assert error_logs == []
+    assert len(warning_logs) == 1
