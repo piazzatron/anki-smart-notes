@@ -20,21 +20,21 @@ const MODEL_LABELS: Record<string, string> = {
 }
 
 const MODEL_COSTS: Record<string, number> = {
-  // Text, relative to Auto at Standard: the "Cost vs Auto Standard" column of the
-  // pricing sheet (pricing/text.csv), rounded.
-  "gpt-6-luna": 0.6,
-  "gpt-6.1-terra": 6,
-  "gpt-6.1-sol": 14,
-  "claude-haiku-5-5": 1,
-  "claude-sonnet-5-5": 21,
-  "claude-opus-5-5": 40,
-  "gemini-3.5-flash-lite": 2,
-  "gemini-3.8-flash": 8,
-  "gemini-4-argon": 30,
-  // Images, relative to plain GPT Image 2.5 (~$0.011 billed per image).
+  // Text, relative to Auto at Standard: the "× Auto" column of specs/pricing.md,
+  // rounded per the ui-design skill.
+  "gpt-6-luna": 0.5,
+  "gpt-6.1-terra": 4,
+  "gpt-6.1-sol": 15,
+  "claude-haiku-5-5": 0.5,
+  "claude-sonnet-5-5": 20,
+  "claude-opus-5-5": 30,
+  "gemini-3.5-flash-lite": 1,
+  "gemini-3.8-flash": 5,
+  "gemini-4-argon": 15,
+  // Images, relative to plain GPT Image 2.5 (~$0.011 billed per image, specs/pricing.md).
   "gpt-image-2.5": 1,
   "nano-banana": 4,
-  "z-image-turbo": 0.3,
+  "z-image-turbo": 0.25,
 }
 
 const PROVIDER_LABELS: Record<string, string> = {

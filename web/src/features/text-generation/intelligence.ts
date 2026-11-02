@@ -5,12 +5,12 @@ import type { ChatGenerationSettings } from "@/types/api"
 
 export type IntelligenceLevel = "standard" | "high" | "max"
 
-/** Auto's levels, cheapest first. Cost is relative to Standard, from the pricing sheet's
- *  "Cost vs Auto Standard" column (pricing/text.csv), rounded. */
+/** Auto's levels, cheapest first. Cost is relative to Standard, from the "× Auto" column
+ *  of specs/pricing.md, rounded per the ui-design skill. */
 export const INTELLIGENCE_LEVELS: { cost: number; id: IntelligenceLevel }[] = [
   { cost: 1, id: "standard" },
-  { cost: 3, id: "high" },
-  { cost: 12, id: "max" },
+  { cost: 2, id: "high" },
+  { cost: 8, id: "max" },
 ]
 
 type AutoSettings = Pick<
