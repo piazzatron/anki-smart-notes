@@ -28,20 +28,22 @@ class GenerationExtra(TypedDict):
 
 TTSProviders = Literal["openai", "elevenLabs", "google", "azure", "voicevox"]
 ChatProviders = Literal["auto", "openai", "anthropic", "google"]
-ChatReasoningLevel = Literal["off", "low", "high"]
+# Only Auto reads the reasoning level: off (or the older low) is Standard, high is
+# High, and max is Max.
+ChatReasoningLevel = Literal["off", "low", "high", "max"]
 
 OpenAIModels = Literal[
     "gpt-5",
     "gpt-5-mini",
     "gpt-5-chat-latest",
 ]
-AutoModels = Literal["auto", "auto-max"]
+AutoModels = Literal["auto"]
 AnthropicModels = Literal["claude-haiku-4-5", "claude-sonnet-4-6", "claude-opus-4-6"]
 GeminiModels = Literal["gemini-3.1-pro", "gemini-3.1-flash-lite", "gemini-3-flash"]
 ChatModels = Union[AutoModels, OpenAIModels, AnthropicModels, GeminiModels]
 
 # Order that the models are displayed in the UI.
-auto_chat_models: list[ChatModels] = ["auto", "auto-max"]
+auto_chat_models: list[ChatModels] = ["auto"]
 
 openai_chat_models: list[ChatModels] = [
     "gpt-5-mini",

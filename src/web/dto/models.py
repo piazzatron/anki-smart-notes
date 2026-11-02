@@ -37,7 +37,7 @@ if TYPE_CHECKING:
     from ...subscription_provider import PlanInfo
     from ...voice_catalog import VoiceGender, VoicePriceTier
 
-CHAT_REASONING_LEVELS: list[ChatReasoningLevel] = ["off", "low", "high"]
+CHAT_REASONING_LEVELS: list[ChatReasoningLevel] = ["off", "low", "high", "max"]
 
 
 # -- Outbound wire types (domain -> JSON). The client consumes these as

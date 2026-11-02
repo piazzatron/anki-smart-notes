@@ -14,11 +14,6 @@ describe("Auto intelligence levels", () => {
   })
 
   test("saved settings from before the levels land on the level the server runs", () => {
-    expect(intelligenceLevelOf({ model: "auto", reasoningLevel: "low" })).toBe(
-      "standard",
-    )
-    expect(
-      intelligenceLevelOf({ model: "auto-max", reasoningLevel: "high" }),
-    ).toBe("max")
+    expect(intelligenceLevelOf({ reasoningLevel: "low" })).toBe("standard")
   })
 })

@@ -49,7 +49,7 @@ const PROVIDER_LABELS: Record<string, string> = {
 }
 
 export const modelLabel = (model: string): string => {
-  if (model === "auto" || model === "auto-max") return i18next.t("common.auto")
+  if (model === "auto") return i18next.t("common.auto")
   return MODEL_LABELS[model] ?? model
 }
 

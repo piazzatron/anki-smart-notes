@@ -54,7 +54,6 @@ class ChatOptionsState(TypedDict):
 
 models_map: dict[str, str] = {
     "auto": "Auto (Best Value, 0.3x cost)",
-    "auto-max": "Auto MAX (4x cost)",
     "gpt-5-mini": "GPT-5 Mini (1x cost)",
     "gpt-5-chat-latest": "GPT-5 (No Reasoning, 7x++ cost)",
     "gpt-5": "GPT-5 (Reasoning, 7x cost)",
@@ -88,9 +87,11 @@ model_to_provider: dict[ChatModels, ChatProviders] = {
     for model in models
 }
 
-reasoning_levels: list[ChatReasoningLevel] = ["off", "low", "high"]
-REASONING_LEVEL_TO_SLIDER_VALUE = {
-    level: index for index, level in enumerate(reasoning_levels)
+# Auto's Standard, High and Max levels. Older saved Auto settings at low are Standard.
+reasoning_levels: list[ChatReasoningLevel] = ["off", "high", "max"]
+REASONING_LEVEL_TO_SLIDER_VALUE: dict[ChatReasoningLevel, int] = {
+    "low": 0,
+    **{level: index for index, level in enumerate(reasoning_levels)},
 }
 CHAT_MODEL_CONTROL_WIDTH = 320
 
@@ -134,11 +135,11 @@ class ChatOptions(QWidget):
         reasoning_labels = QHBoxLayout()
         reasoning_labels.setContentsMargins(0, 0, 0, 0)
         reasoning_labels.setSpacing(0)
-        for label in ("Off", "Low", "High"):
+        for label in ("Standard", "High", "Max"):
             level_label = QLabel(label)
             level_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
             reasoning_labels.addWidget(level_label)
-            if label != "High":
+            if label != "Max":
                 reasoning_labels.addStretch()
 
         reasoning_scale = QWidget()
@@ -156,7 +157,7 @@ class ChatOptions(QWidget):
         reasoning_layout.setSpacing(4)
         reasoning_layout.addWidget(reasoning_scale)
         reasoning_help = QLabel(
-            "⚠️ Higher reasoning levels can improve harder generations but use more credits."
+            "⚠️ Higher levels can improve harder generations but use more credits."
         )
         reasoning_help.setFont(font_small)
         reasoning_help.setWordWrap(False)
@@ -173,7 +174,7 @@ class ChatOptions(QWidget):
         )
         chat_box.setLayout(chat_form)
         chat_form.addRow("Model", chat_model_container)
-        self.reasoning_row_label = QLabel("Reasoning")
+        self.reasoning_row_label = QLabel("Intelligence")
         chat_form.addRow(self.reasoning_row_label, self.reasoning_container)
         self.update_reasoning_visibility()
         self.chat_model_combo.currentIndexChanged.connect(self.on_model_changed)

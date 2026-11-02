@@ -125,6 +125,63 @@ def test_run_migrations_evolves_imported_legacy_config_to_current_schema(
     assert "chat_model" not in fake_mw.addonManager.written_config
 
 
+def test_run_migrations_moves_auto_max_to_auto_at_max_reasoning(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    addon_config = {
+        "chat_provider": "auto",
+        "chat_model": "auto-max",
+        "chat_reasoning_level": "low",
+        "chat_web_search": False,
+        "prompts_map": {
+            "note_types": {
+                "Basic": {
+                    str(DECK_ID): {
+                        "fields": {"Back": "{{Front}}"},
+                        "extras": {
+                            "Back": {
+                                "automatic": True,
+                                "type": "chat",
+                                "use_custom_model": True,
+                                "chat_provider": "auto",
+                                "chat_model": "auto-max",
+                                "chat_reasoning_level": "high",
+                                "chat_web_search": False,
+                                "tts_model": None,
+                                "tts_provider": None,
+                                "tts_voice": None,
+                                "image_provider": None,
+                                "image_model": None,
+                            }
+                        },
+                    }
+                }
+            }
+        },
+        "did_migrate_smart_fields_to_sqlite": False,
+    }
+    install_fake_anki(
+        monkeypatch,
+        addon_config,
+        tmp_path,
+        show_message_box=lambda *args: None,
+    )
+    use_temp_sqlite(monkeypatch, tmp_path)
+
+    run_migrations()
+
+    service = SmartFieldService()
+    smart_fields = service.get_smart_fields_for_note(NOTE_TYPE_ID, DECK_ID)
+    defaults = service.get_chat_defaults()
+
+    assert len(smart_fields) == 1
+    assert isinstance(smart_fields[0].settings, ChatSmartFieldSettings)
+    assert smart_fields[0].settings.model == "auto"
+    assert smart_fields[0].settings.reasoning_level == "max"
+    assert (defaults.model, defaults.reasoning_level) == ("auto", "max")
+
+
 def test_run_migrations_updates_inherited_fields_through_sql_default_row(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,

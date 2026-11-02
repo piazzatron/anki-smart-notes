@@ -18,20 +18,25 @@ type AutoSettings = Pick<
   "model" | "provider" | "reasoningLevel"
 >
 
-// The server reads Auto's level from the names it already knows: `auto` at reasoning
-// off or low is Standard, `auto` at high is High, and `auto-max` at any level is Max
-// (`autoModelsMap` in server/src/models/models.ts).
+// Auto's level is its reasoning level: off (or the older low) is Standard, high is
+// High, and max is Max (`autoModelsMap` in server/src/models/models.ts).
+const REASONING_LEVEL_FOR: Record<IntelligenceLevel, string> = {
+  standard: "off",
+  high: "high",
+  max: "max",
+}
+
 export const intelligenceLevelOf = (
-  settings: Pick<ChatGenerationSettings, "model" | "reasoningLevel">,
+  settings: Pick<ChatGenerationSettings, "reasoningLevel">,
 ): IntelligenceLevel => {
-  if (settings.model === "auto-max") return "max"
+  if (settings.reasoningLevel === "max") return "max"
   return settings.reasoningLevel === "high" ? "high" : "standard"
 }
 
 export const autoSettingsFor = (level: IntelligenceLevel): AutoSettings => ({
-  model: level === "max" ? "auto-max" : "auto",
+  model: "auto",
   provider: "auto",
-  reasoningLevel: level === "high" ? "high" : "off",
+  reasoningLevel: REASONING_LEVEL_FOR[level],
 })
 
 /** A chat model as one short label: "Auto · High" for Auto, the model name otherwise. */
