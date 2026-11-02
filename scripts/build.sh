@@ -59,6 +59,7 @@ build () {
     "aiosignal"
     "async_timeout"
     "frozenlist"
+    "attr"
     "attrs"
     "multidict"
     "propcache"
@@ -372,7 +373,7 @@ version () {
 
 
 if [ "$1" == "build" ]; then
-  clean
+  # build replaces dist/ itself; clean would also unlink dev profiles and drop meta.json
   build
 elif [ "$1" == "clean" ]; then
   clean
