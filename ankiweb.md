@@ -17,7 +17,7 @@ Turn any field into a Smart Field by describing what you want in plain language 
 
 Smart Fields can feed into other Smart Fields, allowing you to read aloud a field you just generated, or turn it into a memorable illustration. No matter how complex your setup, Smart Notes figures out the right order to generate your fields.
 
-You can also write prompts by hand to get the exact result you need by referencing any other field on the card with `{{double curly braces}}`. Learn more in the <a href="https://docs.smart-notes.xyz/advanced/writing-prompts">docs</a>.
+You can also write prompts by hand to get the exact result you need by referencing any other field on the card with `{{double curly braces}}`. Learn more at <a href="https://smart-notes.xyz?utm_source=ankiweb">smart-notes.xyz</a>.
 
 <img src="https://smart-notes.xyz/ankiweb_create_field.gif" />
 <br> <br>
