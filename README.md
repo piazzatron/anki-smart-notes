@@ -1,8 +1,10 @@
 # Smart Notes ✨
 
-<img src="https://smart-notes.xyz/ankiweb_header.gif" alt="Smart Notes filling in a Japanese card and a med-school card with AI text, audio and images" />
+<img src="https://smart-notes.xyz/github_header.gif" alt="Smart Notes filling in a Japanese card and a med-school card with AI text, audio and images" />
 
 **Fill any field on your cards with AI text, audio and images.**
+
+Smart Notes is an add-on for [Anki](https://apps.ankiweb.net), the spaced-repetition flashcard app. It turns any field on your note types into a Smart Field: describe what you want in plain language, like "a natural example sentence using this word", and Smart Notes fills it in with AI-generated text, text-to-speech audio or an image. Smart Fields can feed into each other, so one field's sentence can be read aloud or illustrated in the next.
 
 Enhance your cards automatically in the background, generate individual fields by hand, or process your deck of 10,000 notes in a single click.
 
