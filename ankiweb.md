@@ -1,10 +1,11 @@
 <img src="https://smart-notes.xyz/ankiweb_header.gif" />
+<br> <br>
 
-**Fill any field on your cards with AI text, audio and images.**
+#### **Fill any field on your cards with AI text, audio and images.**
 
 Enhance your cards automatically in the background, generate individual fields by hand, or process your deck of 10,000 notes in a single click.
 
-Hello! I'm a software engineer by trade and a Japanese language student, and I've used Smart Notes nearly every day for three years to add example sentences, native audio, and vivid images to all of my cards.
+Hello! I'm a software engineer by trade and a Japanese language student, and I started Smart Notes over three years ago and still use it everyday.
 
 Install with code `1531888719`. Learn more at <a href="https://smart-notes.xyz?utm_source=ankiweb">smart-notes.xyz</a> and on <a href="https://discord.gg/kxGaWpkTGr">Discord</a>.
 
@@ -18,7 +19,8 @@ Smart Fields can feed into other Smart Fields, allowing you to read aloud a fiel
 
 You can also write prompts by hand to get the exact result you need by referencing any other field on the card with `{{double curly braces}}`. Learn more in the <a href="https://docs.smart-notes.xyz/advanced/writing-prompts">docs</a>.
 
-<img src="https://smart-notes.xyz/sn_ai_gen_fields.gif" />
+<img src="https://smart-notes.xyz/ankiweb_create_field.gif" />
+<br> <br>
 
 ### Generating Fields
 
@@ -34,7 +36,8 @@ Smart Notes can generate your Smart Fields automatically, or you can handle it y
 
 **One-off:** you can right-click any field and generate it, even if you haven't made a Smart Field for it.
 
-<img src="https://smart-notes.xyz/batch.gif" />
+<img src="https://smart-notes.xyz/ankiweb_generating_fields.gif" />
+<br> <br>
 
 ### Models
 
@@ -51,7 +54,7 @@ You can also have Smart Notes search the web to fill out your fields when it nee
 
 **Text to speech:**
 
-A growing catalog of 1,000+ voices in 80+ languages. Smart Notes is intended as a drop-in replacement for HyperTTS/AwesomeTTS that also generates your audio automatically, including for decks you already have.
+A growing catalog of 1,000+ voices in 80+ languages. Smart Notes is intended as a drop-in replacement for HyperTTS/AwesomeTTS.
 
 - **<a href="https://voicevox.hiroshiba.jp/">VOICEVOX</a>:** the #1 Japanese TTS, built in. Free and unlimited on every plan, with nothing to install.
 - **<a href="https://elevenlabs.io/v3">ElevenLabs</a>**, including v3
@@ -68,5 +71,7 @@ A growing catalog of 1,000+ voices in 80+ languages. Smart Notes is intended as 
 **Support:** if Smart Notes helps you, please leave a review - it helps others find it and I also love hearing from people!
 
 I’ve worked my hardest to make Smart Notes as beautiful and intuitive to use as possible. If you find a bug, email <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a> or reach me on <a href="https://discord.gg/kxGaWpkTGr">Discord</a>.
+
+<a href="https://discord.gg/kxGaWpkTGr"><img src="https://smart-notes.xyz/ankiweb_link_discord.png" width="180" /></a> <a href="https://github.com/piazzatron/anki-smart-notes"><img src="https://smart-notes.xyz/ankiweb_link_github.png" width="180" /></a> <a href="mailto:support@smart-notes.xyz"><img src="https://smart-notes.xyz/ankiweb_link_email.png" width="180" /></a> <a href="https://smart-notes.xyz?utm_source=ankiweb"><img src="https://smart-notes.xyz/ankiweb_link_website.png" width="180" /></a>
 
 <img src="https://cloud.umami.is/p/KOsj96vrI" height="1px"/>
