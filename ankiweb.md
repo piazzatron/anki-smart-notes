@@ -1,173 +1,72 @@
-</br>
+<img src="https://smart-notes.xyz/ankiweb_header.gif" />
 
-# **Add text, speech, and images to individual cards or your entire deck in one click.**
-# Add with Anki extension id `1531888719`. Learn more **<a href="https://smart-notes.xyz?utm_source=ankiweb">on the web</a>** and **<a href='https://discord.gg/kxGaWpkTGr'>Discord</a>**. 
-</br>
-</br>
+**Fill any field on your cards with AI text, audio and images.**
 
-#### 🥳 **NEW:** Smart Notes now supports **<a href="https://voicevox.hiroshiba.jp/">VoiceVox</a>**, the #1 Japanese TTS. 
-</br>
+Enhance your cards automatically in the background, generate individual fields by hand, or process your deck of 10,000 notes in a single click.
 
-## Turn any existing field into an automatically generating ✨ Smart Field ✨
-<img src="https://smart-notes.xyz/sn_ai_gen_fields.gif" height="600px" />
+Hello! I'm a software engineer by trade and a Japanese language student, and I've used Smart Notes nearly every day for three years to add example sentences, native audio, and vivid images to all of my cards.
 
-</br>
-</br>
+Install with code `1531888719`. Learn more at <a href="https://smart-notes.xyz?utm_source=ankiweb">smart-notes.xyz</a> and on <a href="https://discord.gg/kxGaWpkTGr">Discord</a>.
 
-## Create rich, multimedia cards with text, audio, and images.
-<img src="https://smart-notes.xyz/multiple_fields.gif" height="350px" />
+**Smart Notes is paid, with a free trial.** <a href="https://smart-notes.xyz/prices?utm_source=ankiweb">See plans</a>. If you can’t afford Smart Notes due to financial hardship, please get in touch at <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a>.
 
-</br>
+### How it works
 
-## 💬 Generate any field in **bulk**.
+Turn any field into a Smart Field by describing what you want in plain language - "a natural example sentence using this word and definition" - and Smart Notes will figure out how to generate that field for you.
 
-<img src="https://smart-notes.xyz/batch.gif" height="350px" />
+Smart Fields can feed into other Smart Fields, allowing you to read aloud a field you just generated, or turn it into a memorable illustration. No matter how complex your setup, Smart Notes figures out the right order to generate your fields.
 
+You can also write prompts by hand to get the exact result you need by referencing any other field on the card with `{{double curly braces}}`. Learn more in the <a href="https://docs.smart-notes.xyz/advanced/writing-prompts">docs</a>.
 
-</br>
-</br>
+<img src="https://smart-notes.xyz/sn_ai_gen_fields.gif" />
 
-## 🗣️ Text to Speech (TTS).
+### Generating Fields
 
-Generate 1000+ premium voices in 90+ languages, from Google, Azure, VoiceVox, OpenAI, and ElevenLabs. Competative with Awesome/HyperTTS. 
+Smart Notes can generate your Smart Fields automatically, or you can handle it yourself.
 
-</br>
+**Adding cards from Yomitan or AnkiConnect:** Smart Notes fills out your notes in the background, without overwriting anything that's already there. You can turn this off or on.
 
-## 🎨 Image Generation.
+**While you review:** Smart Notes quietly generates any missing fields on your upcoming cards in the background. You can also turn this off or on.
 
-Create memorable images to improve retention. Image models from NanoBanana, ChatGPT, and more.
+**In the editor:** the ✨ button, or `ctrl+shift+g` / `cmd+shift+g`, for one field or the whole note.
 
-</br>
+**In bulk:** select thousands of notes in the Browser, or right-click a deck in its sidebar, to generate all your cards while you take a coffee break.
 
-## ⚙️ Complex Pipelines
+**One-off:** you can right-click any field and generate it, even if you haven't made a Smart Field for it.
 
-Generate an example sentence in one field, translate it into another, and generate an example image in the third. 
-
-</br>
-
-## 🌎 Global Language Support
-
-The Smart Notes UI fully supports all 48 Anki languages. 
-
-</br>
-
-# ⚠️ 💳 Smart Notes is paid (with a free trial).
-
-<a href="https://www.smart-notes.xyz/prices">Learn more about plans</a> or start your free trial within Anki. **AliPay** 🇨🇳 and **Pix** 🇧🇷 payments are also supported.
-
-Unable to afford Smart Notes due to financial hardship? Get in touch at <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a>.
-
-*(I'm a solo dev & passionate Anki user, not some faceless company - your support allows me to continue developing Smart Notes for years to come)*
-
-</br>
-
-### 👉For issues / questions, email <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a> or join on <a href='https://discord.gg/kxGaWpkTGr'>Discord</a>.
-</br>
-
-
-####
-
-
-
-
-
-</br>
-
-</br>
-
-# **Demo**
-
-The fastest way to learn Smart Notes is to see it in action!
-
-<a href="https://youtu.be/XCBPQHxwomg">Smart Notes Video Demo / Tutorial</a>
-</br>
-</br>
-
-# **Usage**
-
-Please watch the <a href="https://youtu.be/XCBPQHxwomg">demo video</a>, it covers everything :)
-</br>
-
-### Creating Smart Fields
-
-Smart Fields are AI generated fields, associated with a particular note type (and optionally deck). You define the prompts, Smart Notes generates your fields.
-
-Add text, image, or TTS smart fields via `Tools > Smart Notes`.
-
-<img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/generate_prompt.gif" />
-
-</br>
-</br>
-
-They can reference other fields, and you can have as many Smart Fields as you like.
-
-</br>
-
-### Writing Prompts
-
-Smart Fields are just "prompts" that get sent to the AI.
-
-You to use AI to generate those prompts in natural language, and then edit the Smart Field later.
-
-
-
-</br>
-
-A prompt may reference any other field on the card via `{{double curly braces}}`. It may even reference other Smart Fields, allowing you to create complicated pipelines.
-
-</br>
-
-### Generating Notes
-
-After setting up your Smart Fields, you can generate your notes in many different ways. Please watch the <a href="https://youtu.be/XCBPQHxwomg">demo video</a>.
-
-1. In the editor, for individual fields or the entire note.
-   > To generate all smart fields on a note, press `ctrl+shift+g` (on Mac: `cmd+shift+g`) or click the ✨ button in the editor
-
-<img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/editor_button.png?raw=true" height="200px" />
-
-2. In bulk in the browser.
-
-<img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/batch.png?raw=true" height="250px" />
-
-3. Per field
-
-<img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/per_field.png?raw=true" height="300px" />
-
-4. At review time, in the background (_you can turn this off in Advanced settings_)
-
- <img src="https://piazzatron.github.io/anki-smart-notes/resources/screenshots/sparkle.gif?raw=true" />
-
-_A sparkle emoji will briefly show (we love sparkle)._
-
-</br>
+<img src="https://smart-notes.xyz/batch.gif" />
 
 ### Models
 
-You can set text, image, and TTS generation models for the entire plugin. You can also opt to allow individual Smart Fields to set their own Smart Field, overriding the default.
+Smart Notes adds new models as soon as they are released so you’re always up to date: see the <a href="https://github.com/piazzatron/anki-smart-notes/blob/main/changelog.md">changelog</a>.
 
-</br>
+**Text models:**
 
-# Help and Support
+- **Auto:** you pick an intelligence level and Smart Notes picks the best model, updated behind the scenes regularly.
+- **OpenAI:** GPT-6.1 Sol, GPT-6.1 Terra, GPT-6 Luna
+- **Anthropic:** Claude Opus 5.5, Claude Sonnet 5.5, Claude Haiku 5.5
+- **Google:** Gemini 4 Argon, Gemini 3.8 Flash, Gemini 3.5 Flash-Lite
 
-Found a bug or want to request a feature? File an <a href="https://github.com/piazzatron/anki-smart-notes/issues"> issue on Github</a> or email <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a>
+You can also have Smart Notes search the web to fill out your fields when it needs more information.
 
-Enjoying this addon? <a href="https://ankiweb.net/shared/info/1531888719">Please rate it to help others find it.👍</a>
+**Text to speech:**
 
-</br>
+A growing catalog of 1,000+ voices in 80+ languages. Smart Notes is intended as a drop-in replacement for HyperTTS/AwesomeTTS that also generates your audio automatically, including for decks you already have.
 
-# Prices
+- **<a href="https://voicevox.hiroshiba.jp/">VOICEVOX</a>:** the #1 Japanese TTS, built in. Free and unlimited on every plan, with nothing to install.
+- **<a href="https://elevenlabs.io/v3">ElevenLabs</a>**, including v3
+- **<a href="https://cloud.google.com/text-to-speech">Google</a>**, **<a href="https://azure.microsoft.com/en-us/products/ai-services/text-to-speech">Azure</a>** and **<a href="https://platform.openai.com/docs/guides/text-to-speech">OpenAI</a>**
 
-<a href="https://smart-notes.xyz/prices/">Learn More about Smart Notes Plans.</a>
+**Images:**
 
-</br>
+- **OpenAI:** GPT Image 2.5
+- **Google:** Nano Banana 2.1, Nano Banana 2 Lite
+- **Z-Image Turbo:** fast and affordable
 
-# Changelog
+**Compatibility:** Anki 2.1.50 to the latest release (Qt6) on Windows, macOS and Linux. The UI is available in all 48 Anki languages.
 
-Smart Notes is under constant development. See <a href="https://github.com/piazzatron/anki-smart-notes/blob/main/changelog.md">Changelog.md</a> for the latest changes.
+**Support:** if Smart Notes helps you, please leave a review - it helps others find it and I also love hearing from people!
 
-</br>
-
-_Smart Notes owes a debt of gratitude for inspiration to <a href="https://ankiweb.net/shared/info/1416178071">Intellifiller.</a>_
+I’ve worked my hardest to make Smart Notes as beautiful and intuitive to use as possible. If you find a bug, email <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a> or reach me on <a href="https://discord.gg/kxGaWpkTGr">Discord</a>.
 
 <img src="https://cloud.umami.is/p/KOsj96vrI" height="1px"/>
