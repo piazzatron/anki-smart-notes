@@ -25,7 +25,7 @@ from anki.notes import Note
 from aqt import mw
 
 from .api_client import NETWORK_ERRORS, OutOfCreditsError, UserDisplayableError
-from .app_state import app_state, is_capacity_remaining_or_legacy
+from .app_state import app_state, can_generate_in_background
 from .config import config
 from .logger import logger
 from .note_proccessor import NoteProcessor
@@ -84,7 +84,7 @@ class AddTimeEvaluator:
                 self.schedule_start(added_note, attempt + 1)
             return
 
-        if not is_capacity_remaining_or_legacy():
+        if not can_generate_in_background():
             app_state.retry_failed_refresh()
             return
 

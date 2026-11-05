@@ -3,6 +3,7 @@ import type { CommandSender } from "@/services/commands"
 import { useAppStore } from "@/store/appStore"
 import type {
   AccountState,
+  FreePlanReason,
   AppState,
   Catalog,
   CommandName,
@@ -24,6 +25,9 @@ const HEALTHY_TRIAL_PLAN: PlanInfo = {
   planName: "Free Trial",
   notesUsed: 12,
   notesLimit: 50,
+  dailyNotesUsed: null,
+  dailyNotesLimit: null,
+  freePlanReason: null,
   daysLeft: 5,
   totalDays: 7,
   textCreditsUsed: 36,
@@ -181,6 +185,7 @@ const BASE_STATE: AppState = {
     showWizardCompletion: true,
     didDismissReviewPrompt: false,
     didDismissDiscordPrompt: false,
+    didSeeFreePlanWelcome: true,
   },
 }
 
@@ -188,6 +193,29 @@ const withTrialPlan = (updates: Partial<PlanInfo>): PlanInfo => ({
   ...HEALTHY_TRIAL_PLAN,
   ...updates,
 })
+
+const withFreePlan = (updates: Partial<PlanInfo>): PlanInfo =>
+  withTrialPlan({
+    planId: "free_mini_1",
+    planType: "free",
+    planName: "Free",
+    notesUsed: null,
+    notesLimit: null,
+    dailyNotesUsed: 0,
+    dailyNotesLimit: 20,
+    freePlanReason: "trialExpired",
+    daysLeft: 21,
+    totalDays: 30,
+    textCreditsUsed: 300,
+    textCreditsCapacity: 916,
+    voiceCreditsUsed: 0,
+    voiceCreditsCapacity: 916,
+    imageCreditsUsed: 0,
+    imageCreditsCapacity: 916,
+    totalCreditsUsed: 300,
+    totalCreditsCapacity: 2750,
+    ...updates,
+  })
 
 export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
   "signed-out-empty": {
@@ -272,6 +300,18 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
       totalCreditsUsed: 62,
       totalCreditsCapacity: 100,
     }),
+  },
+  "free-daily": {
+    status: "AUTHENTICATED",
+    authToken: null,
+    email: MOCK_ACCOUNT_EMAIL,
+    plan: withFreePlan({ dailyNotesUsed: 7 }),
+  },
+  "free-daily-capped": {
+    status: "AUTHENTICATED",
+    authToken: null,
+    email: MOCK_ACCOUNT_EMAIL,
+    plan: withFreePlan({ dailyNotesUsed: 20 }),
   },
   paid: {
     status: "AUTHENTICATED",
@@ -487,6 +527,13 @@ const MOCK_SELECTIONS: Record<string, Selection> = {
   multiple: { note: null, count: 3 },
 }
 
+const FREE_STARTED_FIXTURES: Record<string, FreePlanReason> = {
+  "free-started": "trialExpired",
+  "free-started-notes": "trialNotes",
+  "free-started-credits": "trialCredits",
+  "free-started-access": "accessEnded",
+}
+
 export const setMockFixture = (fixture: string): void => {
   const state = structuredClone(BASE_STATE)
 
@@ -495,6 +542,34 @@ export const setMockFixture = (fixture: string): void => {
   }
   if (fixture in MOCK_ACCOUNT_FIXTURES) {
     state.account = structuredClone(MOCK_ACCOUNT_FIXTURES[fixture])
+  }
+  // The first open after a user drops to the free plan, for each reason.
+  const freeStartedReason = FREE_STARTED_FIXTURES[fixture]
+  if (freeStartedReason !== undefined) {
+    state.account = {
+      ...structuredClone(MOCK_ACCOUNT_FIXTURES["free-daily"]),
+      plan: withFreePlan({ freePlanReason: freeStartedReason }),
+    } as AccountState
+    state.settings.didSeeFreePlanWelcome = false
+  }
+  if (
+    state.account.status === "AUTHENTICATED" &&
+    state.account.plan.planType === "free"
+  ) {
+    // One text field pinned to settings the free plan doesn't include.
+    state.smartFields = state.smartFields.map((field) =>
+      field.id === "meaning" && field.fieldType === "chat"
+        ? {
+            ...field,
+            settings: {
+              ...field.settings,
+              reasoningLevel: "high",
+              webSearchEnabled: true,
+              usesDefaultGenerationSettings: false,
+            },
+          }
+        : field,
+    )
   }
   // A failed startup refresh leaves the account loading.
   if (fixture === "server-unreachable") {

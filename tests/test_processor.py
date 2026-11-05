@@ -21,6 +21,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import asyncio
 import threading
+from typing import Any
 from unittest.mock import AsyncMock, MagicMock
 
 import aiohttp
@@ -29,6 +30,7 @@ from fixtures import (
     DECK_ID,
     NOTE_TYPE_ID,
     NOTE_TYPE_NAME,
+    MockAppState,
     MockCard,
     MockConfig,
     MockNote,
@@ -65,32 +67,6 @@ class MockChatClient:
         reasoning_level: str = "off",
     ) -> str:
         return p(prompt)
-
-
-class MockAppState:
-    """Mock app state that simulates an unlocked app with unlimited capacity"""
-
-    state = {
-        "status": "AUTHENTICATED",
-        "email": "person@example.com",
-        "plan": {
-            "planId": "medium1",
-            "planType": "medium",
-            "planName": "Standard",
-            "notesUsed": 0,
-            "notesLimit": 1000,
-            "daysLeft": 30,
-            "textCreditsUsed": 0,
-            "textCreditsCapacity": 1000,
-            "voiceCreditsUsed": 0,
-            "voiceCreditsCapacity": 1000,
-            "imageCreditsUsed": 0,
-            "imageCreditsCapacity": 1000,
-            "totalCreditsUsed": 0,
-            "totalCreditsCapacity": 3000,
-            "subscriptionStatus": "active",
-        },
-    }
 
 
 @pytest.fixture(autouse=True)
@@ -168,6 +144,54 @@ def setup_data(monkeypatch, note, prompts_map, options, allow_empty_fields):
     monkeypatch.setattr(src.field_resolver, "config", c, raising=False)
 
     return p
+
+
+@pytest.mark.asyncio
+async def test_unsaved_notes_send_one_note_id_per_note(monkeypatch):
+    import src.field_resolver
+    import src.prompt_helpers
+    from src.field_resolver import FieldResolver
+
+    sent_note_ids: list[str] = []
+
+    class RecordingChatClient(MockChatClient):
+        async def async_get_chat_response(self, prompt: str, **kwargs: Any) -> str:
+            sent_note_ids.append(kwargs["note_id"])
+            return p(prompt)
+
+    chat = RecordingChatClient()
+    resolver = FieldResolver(
+        openai_provider=MockOpenAIClient(),
+        chat_provider=chat,
+        tts_provider=chat,
+        image_provider=chat,
+    )  # type: ignore
+    monkeypatch.setattr(src.prompt_helpers, "config", MockConfig())
+    monkeypatch.setattr(src.field_resolver, "is_capacity_remaining", lambda: True)
+
+    unsaved, other_unsaved = (MockNote({"Front": "dog"}, note_id=0) for _ in range(2))
+    for note in (
+        unsaved,
+        unsaved,
+        other_unsaved,
+        MockNote({"Front": "dog"}, note_id=7),
+    ):
+        await resolver.get_chat_response(
+            note=note,  # type: ignore
+            deck_id=DECK_ID,
+            prompt="Define {{Front}}",
+            model="auto",
+            provider="auto",
+            field_lower="back",
+            should_convert_to_html=False,
+            strip_html=True,
+            generation_source="card_generation",
+        )
+
+    first, again, other, saved = sent_note_ids
+    assert first == again
+    assert other not in (first, "0")
+    assert saved == "7"
 
 
 @pytest.mark.asyncio
@@ -563,6 +587,31 @@ def test_out_of_credits_refreshes_account_then_opens_blocked_ui(monkeypatch):
     processor._handle_single_card_failure(OutOfCreditsError())
 
     refresh_account.assert_called_once_with()
+
+
+def test_daily_card_limit_opens_upgrade_sheet_instead_of_message(monkeypatch):
+    import src.generation_access
+    import src.note_proccessor
+    from src.api_client import DailyCardLimitError
+    from src.note_proccessor import NoteProcessor
+
+    opened = []
+    messages = []
+    monkeypatch.setattr(
+        src.generation_access, "open_web_app", lambda **kwargs: opened.append(kwargs)
+    )
+    monkeypatch.setattr(src.note_proccessor, "show_message_box", messages.append)
+    processor = NoteProcessor(  # type: ignore
+        field_resolver=None,
+        config=MockConfig(allow_empty_fields=False),
+    )
+
+    processor._handle_single_card_failure(
+        DailyCardLimitError("You've generated 20 cards today.", status=429)
+    )
+
+    assert opened == [{"upgrade_feature": "dailyLimit"}]
+    assert messages == []
 
 
 def test_single_card_network_error_shows_message_without_error_log(monkeypatch):
@@ -961,3 +1010,144 @@ async def test_editor_generation_saves_fields_despite_editor_reloads(
     # f1 already had a value, so it passes through; f2 is generated and saved.
     assert saved == {"f0": "0", "f1": "existing", "f2": p("0")}
     assert shown_in_editor[-1] == saved
+
+
+class RecordingProviders:
+    """Fake chat, voice and image providers that record each request."""
+
+    def __init__(self) -> None:
+        self.chat: list[dict[str, Any]] = []
+        self.tts: list[dict[str, Any]] = []
+        self.image: list[dict[str, Any]] = []
+
+    async def async_get_chat_response(self, prompt: str, **kwargs: Any) -> str:
+        self.chat.append(kwargs)
+        return p(prompt)
+
+    async def async_get_tts_response(self, **kwargs: Any) -> bytes:
+        self.tts.append(kwargs)
+        return b"audio"
+
+    async def async_get_image_response(self, **kwargs: Any) -> dict[str, Any]:
+        self.image.append(kwargs)
+        return {"data": b"image", "content_type": "image/png"}
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("plan_type", ["medium", "free"])
+async def test_free_plan_falls_back_to_auto_and_skips_media(monkeypatch, plan_type):
+    import src.app_state
+    import src.dag
+    import src.field_resolver
+    import src.prompt_helpers
+    from src.field_resolver import FieldResolver
+    from src.models.smart_fields import (
+        ChatSmartFieldSettings,
+        ImageSmartFieldSettings,
+        SmartFieldCreate,
+        TTSSmartFieldSettings,
+    )
+    from src.note_proccessor import NoteProcessor
+    from src.services.smart_field_service import smart_field_service
+
+    for target, settings in {
+        "Back": ChatSmartFieldSettings(
+            prompt_text="Define {{Front}}",
+            provider="openai",
+            model="gpt-5-mini",
+            reasoning_level="high",
+            web_search_enabled=True,
+        ),
+        "Audio": TTSSmartFieldSettings(
+            source_field_name="Front",
+            provider="openai",
+            model="tts-1",
+            voice_id="alloy",
+        ),
+        "Picture": ImageSmartFieldSettings(
+            prompt_text="Draw {{Front}}", provider="replicate", model="flux-dev"
+        ),
+    }.items():
+        smart_field_service.create_smart_field(
+            SmartFieldCreate(
+                note_type_id=NOTE_TYPE_ID,
+                deck_id=DECK_ID,
+                target_field_name=target,
+                enabled=True,
+                settings=settings,
+            )
+        )
+    note = MockNote({"Front": "dog", "Back": "", "Audio": "", "Picture": ""})
+    providers = RecordingProviders()
+    media = MagicMock()
+    media.write_data.side_effect = lambda name, data: name
+    config = MockConfig()
+    monkeypatch.setattr(src.dag, "get_fields", lambda _: note.fields())
+    monkeypatch.setattr(src.app_state, "config", config)
+    monkeypatch.setattr(src.app_state, "app_state", MockAppState(plan_type))
+    monkeypatch.setattr(src.prompt_helpers, "config", config)
+    monkeypatch.setattr(src.field_resolver, "mw", MagicMock(col=MagicMock(media=media)))
+    monkeypatch.setattr(
+        src.field_resolver,
+        "download_and_embed_images",
+        AsyncMock(side_effect=lambda resp, *args, **kwargs: resp),
+    )
+    resolver = FieldResolver(
+        openai_provider=MockOpenAIClient(),
+        chat_provider=providers,
+        tts_provider=providers,
+        image_provider=providers,
+    )  # type: ignore
+
+    await NoteProcessor(field_resolver=resolver, config=config).process_note(
+        note, deck_id=DECK_ID
+    )
+
+    (chat,) = providers.chat
+    sent = (
+        chat["provider"],
+        chat["model"],
+        chat["reasoning_level"],
+        chat["web_search"],
+    )
+    assert note["Back"] == p("Define dog")
+    if plan_type == "free":
+        assert sent == ("auto", "auto", "off", False)
+        assert (providers.tts, providers.image) == ([], [])
+        assert (note["Audio"], note["Picture"]) == ("", "")
+    else:
+        assert sent == ("openai", "gpt-5-mini", "high", True)
+        assert (len(providers.tts), len(providers.image)) == (1, 1)
+        assert note["Audio"] and note["Picture"]
+
+
+def test_free_plan_batch_opens_upgrade_sheet_instead_of_generating(monkeypatch):
+    import src.app_state
+    import src.generation_access
+    import src.note_proccessor
+    from src.note_proccessor import NoteProcessor
+
+    opened = []
+    background_ops = []
+    monkeypatch.setattr(src.app_state, "app_state", MockAppState("free"))
+    monkeypatch.setattr(
+        src.generation_access,
+        "open_web_app",
+        lambda **kwargs: opened.append(kwargs),
+    )
+    monkeypatch.setattr(src.note_proccessor, "mw", MagicMock())
+    monkeypatch.setattr(
+        src.note_proccessor,
+        "run_async_in_background_with_sentry",
+        lambda *args, **kwargs: background_ops.append(args),
+    )
+    processor = NoteProcessor(  # type: ignore
+        field_resolver=None,
+        config=MockConfig(allow_empty_fields=False),
+    )
+
+    processor.process_cards_with_progress([1, 2], on_success=None)
+
+    assert opened == [{"upgrade_feature": "batch"}]
+    assert background_ops == []
+    assert not processor.batch_in_progress

@@ -18,12 +18,14 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 from typing import Optional, Union, cast
+from uuid import uuid4
+from weakref import WeakKeyDictionary
 
 from anki.decks import DeckId
 from anki.notes import Note
 from aqt import mw
 
-from .app_state import has_legacy_openai_access, is_capacity_remaining
+from .app_state import has_legacy_openai_access, is_capacity_remaining, is_free_plan
 from .chat_provider import ChatProvider, chat_provider
 from .image_provider import ImageProvider, ImageResponse, image_provider
 from .image_utils import download_and_embed_images
@@ -77,6 +79,12 @@ class FieldResolver:
         input = node.input
         field_type: SmartFieldType = node.smart_field.field_type
         settings = node.smart_field.settings
+
+        # The free plan has no voice or image generation. Skip those fields
+        # quietly rather than fail every note that has one.
+        if field_type in ("tts", "image") and is_free_plan():
+            logger.debug(f"Skipping {field_type} field {node.field} on the free plan")
+            return None
 
         if field_type == "tts":
             if not isinstance(settings, TTSSmartFieldSettings):
@@ -196,12 +204,17 @@ class FieldResolver:
 
         resp: Optional[str] = None
 
+        # The free plan includes Auto at Standard only. Send that instead of
+        # failing, and leave the saved settings for when the user upgrades.
+        if is_free_plan():
+            provider, model, reasoning_level, web_search = "auto", "auto", "off", False
+
         if is_capacity_remaining():
             resp = await self.chat_provider.async_get_chat_response(
                 interpolated_prompt,
                 model=model,
                 provider=provider,
-                note_id=note.id,
+                note_id=_server_note_id(note),
                 web_search=web_search,
                 reasoning_level=reasoning_level,
                 generation_source=generation_source,
@@ -260,7 +273,7 @@ class FieldResolver:
             model=model,
             provider=provider,
             voice=voice,
-            note_id=note.id,
+            note_id=_server_note_id(note),
             generation_source=generation_source,
         )
 
@@ -287,9 +300,21 @@ class FieldResolver:
             prompt=interpolated_prompt,
             model=model,
             provider=provider,
-            note_id=note.id,
+            note_id=_server_note_id(note),
             generation_source=generation_source,
         )
+
+
+# Notes in the Add dialog aren't saved yet and all have id 0. Each gets its own
+# ID, shared by its fields, so the server counts it as one note toward daily
+# and trial note limits.
+_unsaved_note_ids: "WeakKeyDictionary[Note, str]" = WeakKeyDictionary()
+
+
+def _server_note_id(note: Note) -> str:
+    if note.id:
+        return str(note.id)
+    return _unsaved_note_ids.setdefault(note, str(uuid4()))
 
 
 field_resolver = FieldResolver(

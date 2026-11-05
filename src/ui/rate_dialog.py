@@ -29,7 +29,7 @@ from aqt import (
 )
 from aqt.utils import openLink
 
-from ..app_state import app_state
+from ..app_state import app_state, is_free_plan
 from ..feature_flags import flags
 from ..logger import logger
 from ..review_claim import ANKIWEB_REVIEW_URL, ReviewClaimState, send_review_claim
@@ -47,9 +47,11 @@ class RateDialog(QDialog):
 
     def __init__(self) -> None:
         super().__init__()
-        # The free-month offer is a trial-conversion incentive; paid users see
-        # the standard review message.
-        free_month = flags.review_free_month and app_state.is_free_trial()
+        # The free month is for users who haven't paid: trials and the free
+        # plan. Paid users see the standard review message.
+        free_month = flags.review_free_month and (
+            app_state.is_free_trial() or is_free_plan()
+        )
         font = QFont()
         font.setBold(True)
         self.text = QLabel(FREE_MONTH_MSG if free_month else STANDARD_MSG)

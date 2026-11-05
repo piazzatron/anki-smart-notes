@@ -245,7 +245,8 @@
       "subtitle": "Leave a review on AnkiWeb to help other Anki users find it.",
       "title": "Enjoying Smart Notes?"
     },
-    "subtitle": "Add automatically generated text, voice, and images to your notes."
+    "subtitle": "Add automatically generated text, voice, and images to your notes.",
+    "lockedAriaLabel": "{{field}}, locked on the Free plan"
   },
   "defaults": {
     "errors": {
@@ -451,7 +452,18 @@
     "trialEnds": "Trial ends",
     "trialNoteLimitReached": "Trial note limit reached",
     "upgradeToKeepGenerating": "Upgrade to keep generating.",
-    "usage": "Usage"
+    "usage": "Usage",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} today",
+      "resetsAt": "Notes reset at {{time}}",
+      "upgradeToPaid": "Upgrade to paid",
+      "creditsUsed": "Credits used",
+      "notesTodayLabel": "Notes today",
+      "notesUsedToday": "notes used today",
+      "moduleResetsAt": "Resets at {{time}}",
+      "rowTitle": "Free plan",
+      "rowDescription": "Upgrade for unlimited notes, voice, images, batch and every model."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -509,7 +521,8 @@
       "leftReview": "I left a review",
       "title": "Get a free month of Smart Notes",
       "unavailable": "Thanks for the review! This account has already had its free month.",
-      "writeReview": "Write a review"
+      "writeReview": "Write a review",
+      "buttonLabel": "Get a free month for a review"
     },
     "thanks": "Thanks for using Smart Notes",
     "title": "Your free trial has ended",
@@ -545,5 +558,100 @@
     "description": "Fields go into the prompt as plain text, without their formatting and markup. Turn this off if your prompt needs the HTML.",
     "label": "Strip HTML from input",
     "tipLabel": "About stripping HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "See plans",
+    "features": {
+      "intelligence": {
+        "title": "High and Max intelligence",
+        "description": "Turn Auto up for harder prompts, like grammar explanations or clinical detail.",
+        "cta": "Upgrade to unlock High and Max"
+      },
+      "models": {
+        "title": "Every model",
+        "description": "Pick a specific model from OpenAI, Anthropic or Google instead of Auto.",
+        "cta": "Upgrade to unlock all models"
+      },
+      "webSearch": {
+        "title": "Web search",
+        "description": "Let text fields look things up on the web as they generate.",
+        "cta": "Upgrade to unlock web search"
+      },
+      "voice": {
+        "title": "Voice fields",
+        "description": "Generate audio for your cards with natural voices.",
+        "cta": "Upgrade to unlock voice"
+      },
+      "images": {
+        "title": "Image fields",
+        "description": "Generate an image for every card.",
+        "cta": "Upgrade to unlock images"
+      },
+      "generateOnAdd": {
+        "title": "Generate as notes are added",
+        "description": "Fill Smart Fields for notes from Yomitan, AnkiConnect and other add-ons.",
+        "cta": "Upgrade to unlock Yomitan"
+      },
+      "generateAtReview": {
+        "title": "Generate during review",
+        "description": "Fill missing Smart Fields on upcoming cards while you review.",
+        "cta": "Upgrade to unlock review"
+      },
+      "dailyLimit": {
+        "title": "You're out of free notes for today",
+        "description": "Free includes {{count}} notes a day. Paid plans have no limit.",
+        "cta": "Upgrade for unlimited notes"
+      },
+      "batch": {
+        "title": "Batch processing",
+        "description": "Generate Smart Fields for every selected note at once.",
+        "cta": "Upgrade to unlock batch"
+      }
+    },
+    "notices": {
+      "voice": "Voice fields come with every paid plan.",
+      "images": "Image fields come with every paid plan."
+    },
+    "moreNotesAt": "More at {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Your free trial has ended",
+      "trialNotes": "You've used all your trial notes",
+      "trialCredits": "You've used all your trial credits",
+      "accessEnded": "Your plan has ended"
+    },
+    "title": "Upgrade to keep everything",
+    "description": "You've moved to the Free plan. Here's what changes.",
+    "losses": {
+      "notes": "Unlimited notes",
+      "batch": "Batch processing",
+      "review": "Generate during review",
+      "added": "Generate from Yomitan / AnkiConnect",
+      "audio": "Audio",
+      "images": "Images",
+      "models": "Custom text models",
+      "webSearch": "Web search"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} a day",
+      "oneAtATime": "One at a time",
+      "none": "None",
+      "autoStandardOnly": "Auto Standard only",
+      "fieldsStop_one": "{{count}} field stops",
+      "fieldsStop_other": "{{count}} fields stop",
+      "fieldsToStandard_one": "{{count}} field moves",
+      "fieldsToStandard_other": "{{count}} fields move",
+      "fieldsWithoutSearch_one": "{{count}} field loses it",
+      "fieldsWithoutSearch_other": "{{count}} fields lose it"
+    },
+    "upgrade": "Upgrade now",
+    "continue": "Continue on Free",
+    "nowLabel": {
+      "trial": "Your trial",
+      "plan": "Your plan"
+    },
+    "freeLabel": "Free plan",
+    "pricing": "Plans start at $4.99 a month"
   }
 }

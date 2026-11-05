@@ -26,6 +26,8 @@ interface BootOptions {
   editor: "create" | "edit" | "duplicate" | null
   editorStep: 1 | 2 | 3 | null
   token: string
+  /** Mock mode only: open the upgrade sheet for this feature on load. */
+  upgradeSheet: string | null
   locale: string
   ankiLocale: string
 }
@@ -68,6 +70,7 @@ const readBootOptions = (): BootOptions => {
         ? requestedEditorStep
         : null,
     token: params.get("token") ?? "",
+    upgradeSheet: params.get("sheet"),
     locale:
       params.get("locale") ?? (import.meta.env.DEV ? browserLocale : "en"),
     ankiLocale:

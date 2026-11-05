@@ -85,27 +85,36 @@ async def test_rejects_internal_plan_identifiers(
 
 
 @pytest.mark.asyncio
-async def test_accepts_freemium_plan_type(monkeypatch: pytest.MonkeyPatch) -> None:
-    freemium_plan = {
+@pytest.mark.parametrize(
+    "plan_type, free_plan_reason",
+    [("freemium", None), ("free", "trialNotes")],
+)
+async def test_accepts_free_plan_types(
+    monkeypatch: pytest.MonkeyPatch, plan_type: str, free_plan_reason: Any
+) -> None:
+    free_plan = {
         **PLAN,
         "planId": "free_mini_1",
-        "planType": "freemium",
+        "planType": plan_type,
         "planName": "Free",
         "notesUsed": None,
         "notesLimit": None,
+        "dailyNotesUsed": 3,
+        "dailyNotesLimit": 20,
+        "freePlanReason": free_plan_reason,
     }
     monkeypatch.setattr(
         "src.subscription_provider.api.get_api_response",
         AsyncMock(
             return_value=FakeResponse(
-                {"plan": freemium_plan, "email": "person@example.com"}
+                {"plan": free_plan, "email": "person@example.com"}
             )
         ),
     )
 
     status = await UserInfoProvider().get_user_status()
 
-    assert status["plan"]["planType"] == "freemium"
+    assert status["plan"] == free_plan
 
 
 @pytest.mark.asyncio

@@ -130,6 +130,49 @@ class MockCard:
         return self._note
 
 
+PLAN_DETAILS = {
+    "trial": ("free", "Free Trial"),
+    "free": ("free_mini_1", "Free"),
+    "medium": ("medium1", "Standard"),
+}
+
+
+class MockAppState:
+    """A signed-in account with room to generate, on the given public plan type."""
+
+    def __init__(self, plan_type: str = "medium") -> None:
+        plan_id, plan_name = PLAN_DETAILS[plan_type]
+        self.state = {
+            "status": "AUTHENTICATED",
+            "email": "person@example.com",
+            "plan": {
+                "planId": plan_id,
+                "planType": plan_type,
+                "planName": plan_name,
+                "notesUsed": 0,
+                "notesLimit": 1000,
+                "dailyNotesUsed": 0 if plan_type == "free" else None,
+                "dailyNotesLimit": 20 if plan_type == "free" else None,
+                "freePlanReason": "trialExpired" if plan_type == "free" else None,
+                "daysLeft": 30,
+                "totalDays": 30,
+                "textCreditsUsed": 0,
+                "textCreditsCapacity": 1000,
+                "voiceCreditsUsed": 0,
+                "voiceCreditsCapacity": 1000,
+                "imageCreditsUsed": 0,
+                "imageCreditsCapacity": 1000,
+                "totalCreditsUsed": 0,
+                "totalCreditsCapacity": 3000,
+                "subscriptionStatus": "active" if plan_type == "medium" else None,
+            },
+        }
+        self.refresh_retries = 0
+
+    def retry_failed_refresh(self) -> None:
+        self.refresh_retries += 1
+
+
 class MockProcessor:
     def __init__(self) -> None:
         self.processed_cards: list[int] = []

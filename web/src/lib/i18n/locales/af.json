@@ -245,7 +245,8 @@
       "subtitle": "Skryf 'n resensie oor AnkiWeb om ander Anki-gebruikers te help om dit te vind.",
       "title": "Geniet jy Smart Notes?"
     },
-    "subtitle": "Voeg outomaties gegenereerde teks, stem en beelde by jou notas."
+    "subtitle": "Voeg outomaties gegenereerde teks, stem en beelde by jou notas.",
+    "lockedAriaLabel": "{{field}}, gesluit op die Gratis-plan"
   },
   "defaults": {
     "errors": {
@@ -451,7 +452,18 @@
     "trialEnds": "Verhoor eindig",
     "trialNoteLimitReached": "Proefnootlimiet bereik",
     "upgradeToKeepGenerating": "Gradeer op om aan te hou genereer.",
-    "usage": "Gebruik"
+    "usage": "Gebruik",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} vandag",
+      "resetsAt": "Notas herstel om {{time}}",
+      "upgradeToPaid": "Opgradeer na betaalde plan",
+      "creditsUsed": "Gebruikte krediete",
+      "notesTodayLabel": "Notas vandag",
+      "notesUsedToday": "notas vandag gebruik",
+      "moduleResetsAt": "Herstel om {{time}}",
+      "rowTitle": "Gratis-plan",
+      "rowDescription": "Opgradeer vir onbeperkte notas, stem, beelde, groepverwerking en elke model."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -509,7 +521,8 @@
       "leftReview": "Ek het 'n resensie gelaat",
       "title": "Kry 'n gratis maand van Smart Notes",
       "unavailable": "Dankie vir die resensie! Hierdie rekening het reeds sy gratis maand gehad.",
-      "writeReview": "Skryf 'n resensie"
+      "writeReview": "Skryf 'n resensie",
+      "buttonLabel": "Kry 'n gratis maand vir 'n resensie"
     },
     "thanks": "Dankie dat jy Smart Notes gebruik",
     "title": "Jou gratis proeftydperk het geëindig",
@@ -544,5 +557,100 @@
     "description": "Velde gaan as gewone teks na die prompt, sonder hul formatering en opmaak. Skakel dit af as jou prompt die HTML nodig het.",
     "label": "Verwyder HTML uit invoer",
     "tipLabel": "Oor die verwydering van HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "Sien planne",
+    "features": {
+      "intelligence": {
+        "title": "High- en Max-intelligensie",
+        "description": "Skuif Auto hoër vir moeiliker aanwysings, soos grammatikaverduidelikings of kliniese detail.",
+        "cta": "Opgradeer om High en Max te ontsluit"
+      },
+      "models": {
+        "title": "Elke model",
+        "description": "Kies 'n spesifieke model van OpenAI, Anthropic of Google in plaas van Auto.",
+        "cta": "Opgradeer om alle modelle te ontsluit"
+      },
+      "webSearch": {
+        "title": "Websoektog",
+        "description": "Laat teksvelde toe om op die web op te soek terwyl hulle genereer.",
+        "cta": "Opgradeer om websoektog te ontsluit"
+      },
+      "voice": {
+        "title": "Stemvelde",
+        "description": "Genereer oudio vir jou kaarte met natuurlike stemme.",
+        "cta": "Opgradeer om stem te ontsluit"
+      },
+      "images": {
+        "title": "Beeldvelde",
+        "description": "Genereer 'n beeld vir elke kaart.",
+        "cta": "Opgradeer om beelde te ontsluit"
+      },
+      "generateOnAdd": {
+        "title": "Genereer soos notas bygevoeg word",
+        "description": "Vul Smart Fields vir notas van Yomitan, AnkiConnect en ander byvoegings in.",
+        "cta": "Opgradeer om Yomitan te ontsluit"
+      },
+      "generateAtReview": {
+        "title": "Genereer tydens hersiening",
+        "description": "Vul ontbrekende Smart Fields op komende kaarte in terwyl jy hersien.",
+        "cta": "Opgradeer om hersiening te ontsluit"
+      },
+      "dailyLimit": {
+        "title": "Jy het jou gratis notas vir vandag opgebruik",
+        "description": "Gratis sluit {{count}} notas per dag in. Betaalde planne het geen limiet nie.",
+        "cta": "Opgradeer vir onbeperkte notas"
+      },
+      "batch": {
+        "title": "Groepverwerking",
+        "description": "Genereer Smart Fields vir elke gekose nota gelyktydig.",
+        "cta": "Opgradeer om groepverwerking te ontsluit"
+      }
+    },
+    "notices": {
+      "voice": "Stemvelde kom met elke betaalde plan.",
+      "images": "Beeldvelde kom met elke betaalde plan."
+    },
+    "moreNotesAt": "Meer om {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Jou gratis proeftydperk het geëindig",
+      "trialNotes": "Jy het al jou proefnotas gebruik",
+      "trialCredits": "Jy het al jou proefkrediete gebruik",
+      "accessEnded": "Jou plan het geëindig"
+    },
+    "title": "Opgradeer om alles te behou",
+    "description": "Jy het na die Gratis-plan oorgeskakel. Hier is wat verander.",
+    "losses": {
+      "notes": "Onbeperkte notas",
+      "batch": "Groepverwerking",
+      "review": "Genereer tydens hersiening",
+      "added": "Genereer vanaf Yomitan / AnkiConnect",
+      "audio": "Oudio",
+      "images": "Beelde",
+      "models": "Pasgemaakte teksmodelle",
+      "webSearch": "Websoektog"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} per dag",
+      "oneAtATime": "Een op 'n slag",
+      "none": "Geen",
+      "autoStandardOnly": "Slegs Auto Standard",
+      "fieldsStop_one": "{{count}} veld stop",
+      "fieldsStop_other": "{{count}} velde stop",
+      "fieldsToStandard_one": "{{count}} veld skuif",
+      "fieldsToStandard_other": "{{count}} velde skuif",
+      "fieldsWithoutSearch_one": "{{count}} veld verloor dit",
+      "fieldsWithoutSearch_other": "{{count}} velde verloor dit"
+    },
+    "upgrade": "Opgradeer nou",
+    "continue": "Gaan voort op Gratis",
+    "nowLabel": {
+      "trial": "Jou proef",
+      "plan": "Jou plan"
+    },
+    "freeLabel": "Gratis-plan",
+    "pricing": "Planne begin by $4.99 per maand"
   }
 }

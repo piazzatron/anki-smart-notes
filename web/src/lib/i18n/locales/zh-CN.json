@@ -244,7 +244,8 @@
       "subtitle": "在 AnkiWeb 上留下评论以帮助其他 Anki 用户找到它。",
       "title": "喜欢 Smart Notes 吗？"
     },
-    "subtitle": "将自动生成的文本、语音和图像添加到您的笔记中。"
+    "subtitle": "将自动生成的文本、语音和图像添加到您的笔记中。",
+    "lockedAriaLabel": "{{field}}，在免费版中已锁定"
   },
   "defaults": {
     "errors": {
@@ -441,7 +442,18 @@
     "trialEnds": "审判结束",
     "trialNoteLimitReached": "已达到试用笔记限制",
     "upgradeToKeepGenerating": "升级以继续生成。",
-    "usage": "用法"
+    "usage": "用法",
+    "free": {
+      "notesToday": "今日 {{used}}/{{limit}}",
+      "resetsAt": "笔记将于 {{time}} 重置",
+      "upgradeToPaid": "升级为付费版",
+      "creditsUsed": "已用积分",
+      "notesTodayLabel": "今日笔记",
+      "notesUsedToday": "今日已使用的笔记",
+      "moduleResetsAt": "将于 {{time}} 重置",
+      "rowTitle": "免费版",
+      "rowDescription": "升级后可无限生成笔记，并使用语音、图像、批处理和所有模型。"
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -499,7 +511,8 @@
       "leftReview": "我已留下评价",
       "title": "获得一个月的免费 Smart Notes",
       "unavailable": "感谢您的评价！此账户已领取过免费的一个月。",
-      "writeReview": "撰写评价"
+      "writeReview": "撰写评价",
+      "buttonLabel": "撰写评价，获得一个月免费使用"
     },
     "thanks": "感谢您使用 Smart Notes",
     "title": "您的免费试用已结束",
@@ -534,5 +547,97 @@
     "description": "字段会以纯文本形式加入提示词，不保留格式和标记。如果提示词需要 HTML，请关闭此选项。",
     "label": "从输入中去除 HTML",
     "tipLabel": "关于去除 HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "查看套餐",
+    "features": {
+      "intelligence": {
+        "title": "High 和 Max 智能级别",
+        "description": "处理较难的提示（如语法解释或临床细节）时，可将 Auto 调高。",
+        "cta": "升级以解锁 High 和 Max"
+      },
+      "models": {
+        "title": "所有模型",
+        "description": "从 OpenAI、Anthropic 或 Google 中选择特定模型，而不是使用 Auto。",
+        "cta": "升级以解锁所有模型"
+      },
+      "webSearch": {
+        "title": "网页搜索",
+        "description": "让文本字段在生成内容时联网查询信息。",
+        "cta": "升级以解锁网页搜索"
+      },
+      "voice": {
+        "title": "语音字段",
+        "description": "使用自然语音为卡片生成音频。",
+        "cta": "升级以解锁语音"
+      },
+      "images": {
+        "title": "图像字段",
+        "description": "为每张卡片生成一张图像。",
+        "cta": "升级以解锁图像"
+      },
+      "generateOnAdd": {
+        "title": "添加笔记时生成",
+        "description": "为来自 Yomitan、AnkiConnect 及其他插件的笔记填充 Smart Fields。",
+        "cta": "升级以解锁 Yomitan"
+      },
+      "generateAtReview": {
+        "title": "复习时生成",
+        "description": "复习时为即将出现的卡片补全缺失的 Smart Fields。",
+        "cta": "升级以解锁复习生成"
+      },
+      "dailyLimit": {
+        "title": "今日免费笔记已用完",
+        "description": "免费版每天包含 {{count}} 条笔记。付费套餐不限量。",
+        "cta": "升级以无限生成笔记"
+      },
+      "batch": {
+        "title": "批处理",
+        "description": "一次为所选的所有笔记生成 Smart Fields。",
+        "cta": "升级以解锁批处理"
+      }
+    },
+    "notices": {
+      "voice": "所有付费套餐均包含语音字段。",
+      "images": "所有付费套餐均包含图像字段。"
+    },
+    "moreNotesAt": "{{time}} 可生成更多"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "您的免费试用已结束",
+      "trialNotes": "您已用完所有试用笔记",
+      "trialCredits": "您已用完所有试用积分",
+      "accessEnded": "您的套餐已结束"
+    },
+    "title": "升级以保留全部功能",
+    "description": "您已切换至免费版。以下是变化内容。",
+    "losses": {
+      "notes": "无限笔记",
+      "batch": "批处理",
+      "review": "复习时生成",
+      "added": "通过 Yomitan / AnkiConnect 生成",
+      "audio": "音频",
+      "images": "图像",
+      "models": "自定义文本模型",
+      "webSearch": "网页搜索"
+    },
+    "freeValues": {
+      "dailyNotes": "每天 {{count}} 条",
+      "oneAtATime": "一次一条",
+      "none": "无",
+      "autoStandardOnly": "仅限 Auto Standard",
+      "fieldsStop_other": "{{count}} 个字段将停止",
+      "fieldsToStandard_other": "{{count}} 个字段将改用 Auto Standard",
+      "fieldsWithoutSearch_other": "{{count}} 个字段将失去此功能"
+    },
+    "upgrade": "立即升级",
+    "continue": "继续使用免费版",
+    "nowLabel": {
+      "trial": "您的试用",
+      "plan": "您的套餐"
+    },
+    "freeLabel": "免费版",
+    "pricing": "套餐每月起价 $4.99"
   }
 }

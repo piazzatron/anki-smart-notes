@@ -246,7 +246,8 @@
       "subtitle": "Laissez un avis sur AnkiWeb pour aider les autres utilisateurs de Anki à le trouver.",
       "title": "Vous appréciez Smart Notes ?"
     },
-    "subtitle": "Ajoutez du texte, de la voix et des images générés automatiquement à vos notes."
+    "subtitle": "Ajoutez du texte, de la voix et des images générés automatiquement à vos notes.",
+    "lockedAriaLabel": "{{field}}, verrouillé sur le forfait gratuit"
   },
   "defaults": {
     "errors": {
@@ -461,7 +462,18 @@
     "trialEnds": "Fin du procès",
     "trialNoteLimitReached": "Limite de notes d'essai atteinte",
     "upgradeToKeepGenerating": "Mettez à niveau pour continuer à générer.",
-    "usage": "Usage"
+    "usage": "Usage",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} aujourd'hui",
+      "resetsAt": "Les notes se réinitialisent à {{time}}",
+      "upgradeToPaid": "Passer à une offre payante",
+      "creditsUsed": "Crédits utilisés",
+      "notesTodayLabel": "Notes aujourd'hui",
+      "notesUsedToday": "notes utilisées aujourd'hui",
+      "moduleResetsAt": "Réinitialisation à {{time}}",
+      "rowTitle": "Forfait gratuit",
+      "rowDescription": "Passez à une offre payante pour des notes illimitées, la voix, les images, le traitement par lots et tous les modèles."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -519,7 +531,8 @@
       "leftReview": "J'ai laissé un avis",
       "title": "Obtenez un mois gratuit de Smart Notes",
       "unavailable": "Merci pour votre avis ! Ce compte a déjà bénéficié de son mois gratuit.",
-      "writeReview": "Rédiger un avis"
+      "writeReview": "Rédiger un avis",
+      "buttonLabel": "Obtenez un mois gratuit en laissant un avis"
     },
     "thanks": "Merci d'utiliser Smart Notes",
     "title": "Votre essai gratuit est terminé",
@@ -554,5 +567,103 @@
     "description": "Les champs sont insérés dans le prompt sous forme de texte brut, sans leur mise en forme ni leur balisage. Désactivez cette option si votre prompt a besoin du HTML.",
     "label": "Supprimer le HTML de l'entrée",
     "tipLabel": "À propos de la suppression du HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "Voir les offres",
+    "features": {
+      "intelligence": {
+        "title": "Intelligence High et Max",
+        "description": "Augmentez le niveau d'Auto pour les requêtes plus difficiles, comme les explications grammaticales ou les détails cliniques.",
+        "cta": "Passez à une offre payante pour débloquer High et Max"
+      },
+      "models": {
+        "title": "Tous les modèles",
+        "description": "Choisissez un modèle précis parmi OpenAI, Anthropic ou Google au lieu d'Auto.",
+        "cta": "Passez à une offre payante pour débloquer tous les modèles"
+      },
+      "webSearch": {
+        "title": "Recherche web",
+        "description": "Permettez aux champs texte de rechercher des informations sur le web pendant leur génération.",
+        "cta": "Passez à une offre payante pour débloquer la recherche web"
+      },
+      "voice": {
+        "title": "Champs vocaux",
+        "description": "Générez de l'audio pour vos cartes avec des voix naturelles.",
+        "cta": "Passez à une offre payante pour débloquer la voix"
+      },
+      "images": {
+        "title": "Champs images",
+        "description": "Générez une image pour chaque carte.",
+        "cta": "Passez à une offre payante pour débloquer les images"
+      },
+      "generateOnAdd": {
+        "title": "Générer à l'ajout des notes",
+        "description": "Remplissez les Smart Fields des notes ajoutées depuis Yomitan, AnkiConnect et d'autres extensions.",
+        "cta": "Passez à une offre payante pour débloquer Yomitan"
+      },
+      "generateAtReview": {
+        "title": "Générer pendant la révision",
+        "description": "Remplissez les Smart Fields manquants des cartes à venir pendant vos révisions.",
+        "cta": "Passez à une offre payante pour débloquer la révision"
+      },
+      "dailyLimit": {
+        "title": "Vous avez épuisé vos notes gratuites pour aujourd'hui",
+        "description": "Le forfait gratuit inclut {{count}} notes par jour. Les offres payantes n'ont aucune limite.",
+        "cta": "Passez à une offre payante pour des notes illimitées"
+      },
+      "batch": {
+        "title": "Traitement par lots",
+        "description": "Générez les Smart Fields de toutes les notes sélectionnées en une fois.",
+        "cta": "Passez à une offre payante pour débloquer le traitement par lots"
+      }
+    },
+    "notices": {
+      "voice": "Les champs vocaux sont inclus dans toutes les offres payantes.",
+      "images": "Les champs images sont inclus dans toutes les offres payantes."
+    },
+    "moreNotesAt": "Plus de notes à {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Votre essai gratuit est terminé",
+      "trialNotes": "Vous avez utilisé toutes vos notes d'essai",
+      "trialCredits": "Vous avez utilisé tous vos crédits d'essai",
+      "accessEnded": "Votre forfait est terminé"
+    },
+    "title": "Passez à une offre payante pour tout conserver",
+    "description": "Vous êtes passé au forfait gratuit. Voici ce qui change.",
+    "losses": {
+      "notes": "Notes illimitées",
+      "batch": "Traitement par lots",
+      "review": "Générer pendant la révision",
+      "added": "Générer depuis Yomitan / AnkiConnect",
+      "audio": "Audio",
+      "images": "Images",
+      "models": "Modèles de texte personnalisés",
+      "webSearch": "Recherche web"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} par jour",
+      "oneAtATime": "Une à la fois",
+      "none": "Aucun",
+      "autoStandardOnly": "Auto Standard uniquement",
+      "fieldsStop_one": "{{count}} champ s'arrête",
+      "fieldsStop_many": "{{count}} champs s'arrêtent",
+      "fieldsStop_other": "{{count}} champs s'arrêtent",
+      "fieldsToStandard_one": "{{count}} champ passe",
+      "fieldsToStandard_many": "{{count}} champs passent",
+      "fieldsToStandard_other": "{{count}} champs passent",
+      "fieldsWithoutSearch_one": "{{count}} champ le perd",
+      "fieldsWithoutSearch_many": "{{count}} champs le perdent",
+      "fieldsWithoutSearch_other": "{{count}} champs le perdent"
+    },
+    "upgrade": "Passer à une offre payante",
+    "continue": "Continuer avec le forfait gratuit",
+    "nowLabel": {
+      "trial": "Votre essai",
+      "plan": "Votre forfait"
+    },
+    "freeLabel": "Forfait gratuit",
+    "pricing": "Les offres commencent à 4,99 $ par mois"
   }
 }

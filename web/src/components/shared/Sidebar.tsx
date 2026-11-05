@@ -12,6 +12,7 @@ import {
   VolumeIcon,
 } from "./Icons"
 import { PlanCard } from "./PlanCard"
+import { UpgradeLockIcon, useIsFreePlan } from "./UpgradeSheet"
 import { resizeSidebar } from "./sidebarWidth"
 import { useDirection } from "@radix-ui/react-direction"
 import { type ComponentType, useRef, useState, type PointerEvent } from "react"
@@ -219,6 +220,10 @@ interface NavButtonProps {
 const NavButton = ({ activeScreen, item, onNavigate }: NavButtonProps) => {
   const { t } = useTranslation()
   const isActive = item.id === activeScreen
+  // Voice and image fields are paid features on the free plan.
+  const locked =
+    useIsFreePlan() &&
+    (item.id === "defaults-voice" || item.id === "defaults-images")
 
   return (
     <button
@@ -241,6 +246,7 @@ const NavButton = ({ activeScreen, item, onNavigate }: NavButtonProps) => {
         size={16}
       />
       <span className="truncate">{t(`sidebar.nav.${item.labelKey}`)}</span>
+      {locked && <UpgradeLockIcon className="ms-auto text-ink-faint" />}
     </button>
   )
 }

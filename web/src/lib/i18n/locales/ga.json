@@ -248,7 +248,8 @@
       "subtitle": "Fág léirmheas ar AnkiWeb chun cabhrú le húsáideoirí Anki eile é a aimsiú.",
       "title": "Ag baint taitnimh as Smart Notes?"
     },
-    "subtitle": "Cuir téacs, guth agus íomhánna a ghintear go huathoibríoch le do nótaí."
+    "subtitle": "Cuir téacs, guth agus íomhánna a ghintear go huathoibríoch le do nótaí.",
+    "lockedAriaLabel": "{{field}}, glasáilte ar an bplean Saor"
   },
   "defaults": {
     "errors": {
@@ -481,7 +482,18 @@
     "trialEnds": "Críochnaíonn an triail",
     "trialNoteLimitReached": "Baineadh amach teorainn na nótaí trialach",
     "upgradeToKeepGenerating": "Uasghrádú chun leanúint ar aghaidh ag giniúint.",
-    "usage": "Úsáid"
+    "usage": "Úsáid",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} inniu",
+      "resetsAt": "Athshocraítear nótaí ag {{time}}",
+      "upgradeToPaid": "Uasghrádaigh go híoctha",
+      "creditsUsed": "Creidiúintí úsáidte",
+      "notesTodayLabel": "Nótaí inniu",
+      "notesUsedToday": "nótaí úsáidte inniu",
+      "moduleResetsAt": "Athshocraítear ag {{time}}",
+      "rowTitle": "Plean Saor",
+      "rowDescription": "Uasghrádaigh chun nótaí, guth, íomhánna, baisc agus gach samhail gan teorainn a fháil."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -539,7 +551,8 @@
       "leftReview": "Scríobh mé athbhreithniú",
       "title": "Faigh mí saor in aisce de Smart Notes",
       "unavailable": "Go raibh maith agat as an athbhreithniú! Tá a mhí saor in aisce tugtha don chuntas seo cheana féin.",
-      "writeReview": "Scríobh athbhreithniú"
+      "writeReview": "Scríobh athbhreithniú",
+      "buttonLabel": "Faigh mí saor in aisce ar athbhreithniú"
     },
     "thanks": "Go raibh maith agat as Smart Notes a úsáid",
     "title": "Tá deireadh le do thriail saor in aisce",
@@ -574,5 +587,109 @@
     "description": "Cuirtear réimsí isteach sa leid mar théacs simplí, gan a bhformáid ná a marcáil. Cas as seo mura bhfuil an HTML ag teastáil ón leid.",
     "label": "Bain HTML as an ionchur",
     "tipLabel": "Maidir le HTML a bhaint"
+  },
+  "upgradeSheet": {
+    "seePlans": "Féach ar phleananna",
+    "features": {
+      "intelligence": {
+        "title": "Intleacht ard agus uasta",
+        "description": "Cuir Auto in airde le haghaidh leideanna níos deacra, mar mhíniúcháin ghramadaí nó mionsonraí cliniciúla.",
+        "cta": "Uasghrádaigh chun Ard agus Uasta a dhíghlasáil"
+      },
+      "models": {
+        "title": "Gach samhail",
+        "description": "Roghnaigh samhail ar leith ó OpenAI, Anthropic nó Google in ionad Auto.",
+        "cta": "Uasghrádaigh chun gach samhail a dhíghlasáil"
+      },
+      "webSearch": {
+        "title": "Cuardach gréasáin",
+        "description": "Lig do réimsí téacs cuardach a dhéanamh ar an ngréasán agus iad á nginiúint.",
+        "cta": "Uasghrádaigh chun cuardach gréasáin a dhíghlasáil"
+      },
+      "voice": {
+        "title": "Réimsí guth",
+        "description": "Gin fuaim do do chártaí le guthanna nádúrtha.",
+        "cta": "Uasghrádaigh chun guth a dhíghlasáil"
+      },
+      "images": {
+        "title": "Réimsí íomhá",
+        "description": "Gin íomhá do gach cárta.",
+        "cta": "Uasghrádaigh chun íomhánna a dhíghlasáil"
+      },
+      "generateOnAdd": {
+        "title": "Gin de réir mar a chuirtear nótaí leis",
+        "description": "Líon Smart Fields do nótaí ó Yomitan, AnkiConnect agus breiseáin eile.",
+        "cta": "Uasghrádaigh chun Yomitan a dhíghlasáil"
+      },
+      "generateAtReview": {
+        "title": "Gin le linn athbhreithnithe",
+        "description": "Líon Smart Fields atá ar iarraidh ar chártaí atá le teacht agus tú ag athbhreithniú.",
+        "cta": "Uasghrádaigh chun athbhreithniú a dhíghlasáil"
+      },
+      "dailyLimit": {
+        "title": "Tá do nótaí saor in aisce don lá inniu caite",
+        "description": "Tá {{count}} nóta in aghaidh an lae san áireamh sa Saor. Níl teorainn ag pleananna íoctha.",
+        "cta": "Uasghrádaigh chun nótaí gan teorainn a fháil"
+      },
+      "batch": {
+        "title": "Próiseáil baiste",
+        "description": "Gin Smart Fields do gach nóta roghnaithe ag an am céanna.",
+        "cta": "Uasghrádaigh chun baisc a dhíghlasáil"
+      }
+    },
+    "notices": {
+      "voice": "Tagann réimsí guth le gach plean íoctha.",
+      "images": "Tagann réimsí íomhá le gach plean íoctha."
+    },
+    "moreNotesAt": "Tuilleadh nótaí ag {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Tá do thriail saor in aisce thart",
+      "trialNotes": "D'úsáid tú do nótaí triail go léir",
+      "trialCredits": "D'úsáid tú do chreidiúintí triail go léir",
+      "accessEnded": "Tá do phlean thart"
+    },
+    "title": "Uasghrádaigh chun gach rud a choinneáil",
+    "description": "Bhog tú go dtí an plean Saor. Seo na hathruithe.",
+    "losses": {
+      "notes": "Nótaí gan teorainn",
+      "batch": "Próiseáil baiste",
+      "review": "Gin le linn athbhreithnithe",
+      "added": "Gin ó Yomitan / AnkiConnect",
+      "audio": "Fuaim",
+      "images": "Íomhánna",
+      "models": "Samhlacha téacs saincheaptha",
+      "webSearch": "Cuardach gréasáin"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} in aghaidh an lae",
+      "oneAtATime": "Ceann amháin ag an am",
+      "none": "Faic",
+      "autoStandardOnly": "Auto Standard amháin",
+      "fieldsStop_one": "Stopfaidh {{count}} réimse",
+      "fieldsStop_two": "Stopfaidh {{count}} réimse",
+      "fieldsStop_few": "Stopfaidh {{count}} réimse",
+      "fieldsStop_many": "Stopfaidh {{count}} réimse",
+      "fieldsStop_other": "Stopfaidh {{count}} réimse",
+      "fieldsToStandard_one": "Bogfaidh {{count}} réimse",
+      "fieldsToStandard_two": "Bogfaidh {{count}} réimse",
+      "fieldsToStandard_few": "Bogfaidh {{count}} réimse",
+      "fieldsToStandard_many": "Bogfaidh {{count}} réimse",
+      "fieldsToStandard_other": "Bogfaidh {{count}} réimse",
+      "fieldsWithoutSearch_one": "Caillfidh {{count}} réimse an cuardach",
+      "fieldsWithoutSearch_two": "Caillfidh {{count}} réimse an cuardach",
+      "fieldsWithoutSearch_few": "Caillfidh {{count}} réimse an cuardach",
+      "fieldsWithoutSearch_many": "Caillfidh {{count}} réimse an cuardach",
+      "fieldsWithoutSearch_other": "Caillfidh {{count}} réimse an cuardach"
+    },
+    "upgrade": "Uasghrádaigh anois",
+    "continue": "Lean ar aghaidh ar an bplean Saor",
+    "nowLabel": {
+      "trial": "Do thriail",
+      "plan": "Do phlean"
+    },
+    "freeLabel": "Plean Saor",
+    "pricing": "Tosaíonn pleananna ar $4.99 in aghaidh na míosa"
   }
 }

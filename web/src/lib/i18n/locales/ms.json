@@ -244,7 +244,8 @@
       "subtitle": "Tinggalkan ulasan tentang AnkiWeb untuk membantu pengguna Anki lain menemuinya.",
       "title": "Menikmati Smart Notes?"
     },
-    "subtitle": "Tambahkan teks, suara dan imej yang dijana secara automatik pada nota anda."
+    "subtitle": "Tambahkan teks, suara dan imej yang dijana secara automatik pada nota anda.",
+    "lockedAriaLabel": "{{field}}, dikunci pada pelan Percuma"
   },
   "defaults": {
     "errors": {
@@ -441,7 +442,18 @@
     "trialEnds": "Percubaan berakhir",
     "trialNoteLimitReached": "Had nota percubaan dicapai",
     "upgradeToKeepGenerating": "Tingkatkan untuk terus menjana.",
-    "usage": "Penggunaan"
+    "usage": "Penggunaan",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} hari ini",
+      "resetsAt": "Nota ditetapkan semula pada {{time}}",
+      "upgradeToPaid": "Naik taraf kepada berbayar",
+      "creditsUsed": "Kredit digunakan",
+      "notesTodayLabel": "Nota hari ini",
+      "notesUsedToday": "nota digunakan hari ini",
+      "moduleResetsAt": "Ditetapkan semula pada {{time}}",
+      "rowTitle": "Pelan Percuma",
+      "rowDescription": "Naik taraf untuk nota tanpa had, suara, imej, kelompok dan setiap model."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -499,7 +511,8 @@
       "leftReview": "Saya telah menulis ulasan",
       "title": "Dapatkan sebulan percuma sebanyak Smart Notes",
       "unavailable": "Terima kasih atas ulasan anda! Akaun ini telah pun menerima percubaan percuma sebulan.",
-      "writeReview": "Tulis ulasan"
+      "writeReview": "Tulis ulasan",
+      "buttonLabel": "Dapatkan sebulan percuma untuk ulasan"
     },
     "thanks": "Terima kasih kerana menggunakan Smart Notes",
     "title": "Percubaan percuma anda telah tamat",
@@ -534,5 +547,97 @@
     "description": "Medan dimasukkan ke dalam prompt sebagai teks biasa, tanpa pemformatan dan markup. Matikan pilihan ini jika prompt anda memerlukan HTML.",
     "label": "Buang HTML daripada input",
     "tipLabel": "Tentang membuang HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "Lihat pelan",
+    "features": {
+      "intelligence": {
+        "title": "Kecerdasan High dan Max",
+        "description": "Tingkatkan Auto untuk gesaan yang lebih sukar, seperti penerangan tatabahasa atau butiran klinikal.",
+        "cta": "Naik taraf untuk buka High dan Max"
+      },
+      "models": {
+        "title": "Setiap model",
+        "description": "Pilih model tertentu daripada OpenAI, Anthropic atau Google dan bukannya Auto.",
+        "cta": "Naik taraf untuk buka semua model"
+      },
+      "webSearch": {
+        "title": "Carian web",
+        "description": "Benarkan medan teks mencari maklumat di web semasa ia dijana.",
+        "cta": "Naik taraf untuk buka carian web"
+      },
+      "voice": {
+        "title": "Medan suara",
+        "description": "Jana audio untuk kad anda dengan suara semula jadi.",
+        "cta": "Naik taraf untuk buka suara"
+      },
+      "images": {
+        "title": "Medan imej",
+        "description": "Jana imej untuk setiap kad.",
+        "cta": "Naik taraf untuk buka imej"
+      },
+      "generateOnAdd": {
+        "title": "Jana semasa nota ditambah",
+        "description": "Isi Smart Fields untuk nota daripada Yomitan, AnkiConnect dan add-on lain.",
+        "cta": "Naik taraf untuk buka Yomitan"
+      },
+      "generateAtReview": {
+        "title": "Jana semasa semakan",
+        "description": "Isi Smart Fields yang hilang pada kad akan datang semasa anda membuat semakan.",
+        "cta": "Naik taraf untuk buka semakan"
+      },
+      "dailyLimit": {
+        "title": "Nota percuma anda sudah habis untuk hari ini",
+        "description": "Pelan Percuma termasuk {{count}} nota sehari. Pelan berbayar tiada had.",
+        "cta": "Naik taraf untuk nota tanpa had"
+      },
+      "batch": {
+        "title": "Pemprosesan kelompok",
+        "description": "Jana Smart Fields untuk setiap nota yang dipilih sekaligus.",
+        "cta": "Naik taraf untuk buka kelompok"
+      }
+    },
+    "notices": {
+      "voice": "Medan suara disertakan dengan setiap pelan berbayar.",
+      "images": "Medan imej disertakan dengan setiap pelan berbayar."
+    },
+    "moreNotesAt": "Lagi pada {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Percubaan percuma anda telah tamat",
+      "trialNotes": "Anda telah menggunakan semua nota percubaan anda",
+      "trialCredits": "Anda telah menggunakan semua kredit percubaan anda",
+      "accessEnded": "Pelan anda telah tamat"
+    },
+    "title": "Naik taraf untuk kekalkan semuanya",
+    "description": "Anda telah beralih ke pelan Percuma. Inilah yang berubah.",
+    "losses": {
+      "notes": "Nota tanpa had",
+      "batch": "Pemprosesan kelompok",
+      "review": "Jana semasa semakan",
+      "added": "Jana daripada Yomitan / AnkiConnect",
+      "audio": "Audio",
+      "images": "Imej",
+      "models": "Model teks tersuai",
+      "webSearch": "Carian web"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} sehari",
+      "oneAtATime": "Satu demi satu",
+      "none": "Tiada",
+      "autoStandardOnly": "Auto Standard sahaja",
+      "fieldsStop_other": "{{count}} medan berhenti",
+      "fieldsToStandard_other": "{{count}} medan beralih",
+      "fieldsWithoutSearch_other": "{{count}} medan kehilangan ciri ini"
+    },
+    "upgrade": "Naik taraf sekarang",
+    "continue": "Teruskan dengan Percuma",
+    "nowLabel": {
+      "trial": "Percubaan anda",
+      "plan": "Pelan anda"
+    },
+    "freeLabel": "Pelan Percuma",
+    "pricing": "Pelan bermula pada $4.99 sebulan"
   }
 }

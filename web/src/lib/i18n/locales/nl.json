@@ -245,7 +245,8 @@
       "subtitle": "Laat een recensie achter op AnkiWeb zodat andere Anki-gebruikers deze kunnen vinden.",
       "title": "Genieten van Smart Notes?"
     },
-    "subtitle": "Voeg automatisch gegenereerde tekst, spraak en afbeeldingen toe aan uw notities."
+    "subtitle": "Voeg automatisch gegenereerde tekst, spraak en afbeeldingen toe aan uw notities.",
+    "lockedAriaLabel": "{{field}}, vergrendeld in het gratis abonnement"
   },
   "defaults": {
     "errors": {
@@ -451,7 +452,18 @@
     "trialEnds": "Proef eindigt",
     "trialNoteLimitReached": "Limiet voor proefnotities bereikt",
     "upgradeToKeepGenerating": "Upgrade om te blijven genereren.",
-    "usage": "Gebruik"
+    "usage": "Gebruik",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} vandaag",
+      "resetsAt": "Notities worden gereset om {{time}}",
+      "upgradeToPaid": "Upgraden naar betaald",
+      "creditsUsed": "Gebruikte credits",
+      "notesTodayLabel": "Notities vandaag",
+      "notesUsedToday": "notities vandaag gebruikt",
+      "moduleResetsAt": "Reset om {{time}}",
+      "rowTitle": "Gratis abonnement",
+      "rowDescription": "Upgrade voor onbeperkte notities, spraak, afbeeldingen, batch en alle modellen."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -509,7 +521,8 @@
       "leftReview": "Ik heb een review achtergelaten",
       "title": "Ontvang een gratis maand Smart Notes",
       "unavailable": "Bedankt voor je review! Dit account heeft de gratis maand al gehad.",
-      "writeReview": "Schrijf een review"
+      "writeReview": "Schrijf een review",
+      "buttonLabel": "Krijg een gratis maand voor een review"
     },
     "thanks": "Bedankt voor het gebruiken van Smart Notes",
     "title": "Uw gratis proefperiode is afgelopen",
@@ -544,5 +557,100 @@
     "description": "Velden worden als platte tekst in de prompt opgenomen, zonder opmaak en markup. Schakel dit uit als je prompt de HTML nodig heeft.",
     "label": "HTML uit invoer verwijderen",
     "tipLabel": "Over het verwijderen van HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "Bekijk abonnementen",
+    "features": {
+      "intelligence": {
+        "title": "High en Max intelligentie",
+        "description": "Zet Auto hoger voor moeilijkere prompts, zoals grammaticauitleg of klinische details.",
+        "cta": "Upgraden om High en Max te ontgrendelen"
+      },
+      "models": {
+        "title": "Alle modellen",
+        "description": "Kies een specifiek model van OpenAI, Anthropic of Google in plaats van Auto.",
+        "cta": "Upgraden om alle modellen te ontgrendelen"
+      },
+      "webSearch": {
+        "title": "Webzoeken",
+        "description": "Laat tekstvelden tijdens het genereren op het web zoeken.",
+        "cta": "Upgraden om webzoeken te ontgrendelen"
+      },
+      "voice": {
+        "title": "Spraakvelden",
+        "description": "Genereer audio voor je kaarten met natuurlijke stemmen.",
+        "cta": "Upgraden om spraak te ontgrendelen"
+      },
+      "images": {
+        "title": "Afbeeldingsvelden",
+        "description": "Genereer een afbeelding voor elke kaart.",
+        "cta": "Upgraden om afbeeldingen te ontgrendelen"
+      },
+      "generateOnAdd": {
+        "title": "Genereren terwijl notities worden toegevoegd",
+        "description": "Vul Smart Fields voor notities uit Yomitan, AnkiConnect en andere add-ons.",
+        "cta": "Upgraden om Yomitan te ontgrendelen"
+      },
+      "generateAtReview": {
+        "title": "Genereren tijdens herhaling",
+        "description": "Vul ontbrekende Smart Fields op aankomende kaarten terwijl je herhaalt.",
+        "cta": "Upgraden om herhaling te ontgrendelen"
+      },
+      "dailyLimit": {
+        "title": "Je gratis notities voor vandaag zijn op",
+        "description": "Het gratis abonnement bevat {{count}} notities per dag. Betaalde abonnementen hebben geen limiet.",
+        "cta": "Upgraden voor onbeperkte notities"
+      },
+      "batch": {
+        "title": "Batchverwerking",
+        "description": "Genereer Smart Fields voor alle geselecteerde notities tegelijk.",
+        "cta": "Upgraden om batch te ontgrendelen"
+      }
+    },
+    "notices": {
+      "voice": "Spraakvelden zijn inbegrepen bij elk betaald abonnement.",
+      "images": "Afbeeldingsvelden zijn inbegrepen bij elk betaald abonnement."
+    },
+    "moreNotesAt": "Meer om {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Je gratis proefperiode is afgelopen",
+      "trialNotes": "Je hebt al je proefnotities gebruikt",
+      "trialCredits": "Je hebt al je proefcredits gebruikt",
+      "accessEnded": "Je abonnement is afgelopen"
+    },
+    "title": "Upgraden om alles te behouden",
+    "description": "Je bent overgestapt naar het gratis abonnement. Dit verandert er.",
+    "losses": {
+      "notes": "Onbeperkte notities",
+      "batch": "Batchverwerking",
+      "review": "Genereren tijdens herhaling",
+      "added": "Genereren vanuit Yomitan / AnkiConnect",
+      "audio": "Audio",
+      "images": "Afbeeldingen",
+      "models": "Aangepaste tekstmodellen",
+      "webSearch": "Webzoeken"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} per dag",
+      "oneAtATime": "Één tegelijk",
+      "none": "Geen",
+      "autoStandardOnly": "Alleen Auto Standard",
+      "fieldsStop_one": "{{count}} veld stopt",
+      "fieldsStop_other": "{{count}} velden stoppen",
+      "fieldsToStandard_one": "{{count}} veld verplaatst",
+      "fieldsToStandard_other": "{{count}} velden verplaatsen",
+      "fieldsWithoutSearch_one": "{{count}} veld verliest het",
+      "fieldsWithoutSearch_other": "{{count}} velden verliezen het"
+    },
+    "upgrade": "Nu upgraden",
+    "continue": "Doorgaan met gratis",
+    "nowLabel": {
+      "trial": "Je proefperiode",
+      "plan": "Je abonnement"
+    },
+    "freeLabel": "Gratis abonnement",
+    "pricing": "Abonnementen beginnen bij $4,99 per maand"
   }
 }

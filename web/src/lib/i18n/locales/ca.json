@@ -246,7 +246,8 @@
       "subtitle": "Deixa una revisió sobre AnkiWeb per ajudar altres usuaris de Anki a trobar-lo.",
       "title": "Us agrada Smart Notes?"
     },
-    "subtitle": "Afegiu text, veu i imatges generats automàticament a les vostres notes."
+    "subtitle": "Afegiu text, veu i imatges generats automàticament a les vostres notes.",
+    "lockedAriaLabel": "{{field}}, bloquejat al pla gratuït"
   },
   "defaults": {
     "errors": {
@@ -461,7 +462,18 @@
     "trialEnds": "Acaba el judici",
     "trialNoteLimitReached": "S'ha arribat al límit de notes de prova",
     "upgradeToKeepGenerating": "Actualitza per seguir generant.",
-    "usage": "Ús"
+    "usage": "Ús",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} avui",
+      "resetsAt": "Les notes es reinicien a les {{time}}",
+      "upgradeToPaid": "Actualitza a un pla de pagament",
+      "creditsUsed": "Crèdits utilitzats",
+      "notesTodayLabel": "Notes d'avui",
+      "notesUsedToday": "notes utilitzades avui",
+      "moduleResetsAt": "Es reinicia a les {{time}}",
+      "rowTitle": "Pla gratuït",
+      "rowDescription": "Actualitza per tenir notes il·limitades, veu, imatges, processament per lots i tots els models."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -519,7 +531,8 @@
       "leftReview": "He deixat una ressenya",
       "title": "Aconsegueix un mes gratuït d'Smart Notes",
       "unavailable": "Gràcies per la ressenya! Aquest compte ja ha gaudit del seu mes gratuït.",
-      "writeReview": "Escriu una ressenya"
+      "writeReview": "Escriu una ressenya",
+      "buttonLabel": "Obtén un mes gratuït per una ressenya"
     },
     "thanks": "Gràcies per fer servir Smart Notes",
     "title": "La teva prova gratuïta ha finalitzat",
@@ -554,5 +567,103 @@
     "description": "Els camps s'afegeixen al prompt com a text pla, sense el format ni el marcatge. Desactiva-ho si el prompt necessita l'HTML.",
     "label": "Elimina l'HTML de l'entrada",
     "tipLabel": "Sobre l'eliminació de l'HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "Consulta els plans",
+    "features": {
+      "intelligence": {
+        "title": "Intel·ligència alta i màxima",
+        "description": "Activa Auto per a indicacions més difícils, com explicacions de gramàtica o detall clínic.",
+        "cta": "Actualitza per desbloquejar Alta i Màxima"
+      },
+      "models": {
+        "title": "Tots els models",
+        "description": "Tria un model concret d'OpenAI, Anthropic o Google en lloc d'Auto.",
+        "cta": "Actualitza per desbloquejar tots els models"
+      },
+      "webSearch": {
+        "title": "Cerca web",
+        "description": "Permet que els camps de text cerquin informació a la web mentre es generen.",
+        "cta": "Actualitza per desbloquejar la cerca web"
+      },
+      "voice": {
+        "title": "Camps de veu",
+        "description": "Genera àudio per a les teves targetes amb veus naturals.",
+        "cta": "Actualitza per desbloquejar la veu"
+      },
+      "images": {
+        "title": "Camps d'imatge",
+        "description": "Genera una imatge per a cada targeta.",
+        "cta": "Actualitza per desbloquejar les imatges"
+      },
+      "generateOnAdd": {
+        "title": "Genera en afegir notes",
+        "description": "Omple els Smart Fields de les notes des de Yomitan, AnkiConnect i altres complements.",
+        "cta": "Actualitza per desbloquejar Yomitan"
+      },
+      "generateAtReview": {
+        "title": "Genera durant la revisió",
+        "description": "Omple els Smart Fields que falten a les targetes properes mentre repasses.",
+        "cta": "Actualitza per desbloquejar la revisió"
+      },
+      "dailyLimit": {
+        "title": "Ja no tens notes gratuïtes per avui",
+        "description": "El pla gratuït inclou {{count}} notes al dia. Els plans de pagament no tenen límit.",
+        "cta": "Actualitza per tenir notes il·limitades"
+      },
+      "batch": {
+        "title": "Processament per lots",
+        "description": "Genera Smart Fields per a totes les notes seleccionades alhora.",
+        "cta": "Actualitza per desbloquejar els lots"
+      }
+    },
+    "notices": {
+      "voice": "Els camps de veu estan inclosos en tots els plans de pagament.",
+      "images": "Els camps d'imatge estan inclosos en tots els plans de pagament."
+    },
+    "moreNotesAt": "Més a les {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "La teva prova gratuïta ha finalitzat",
+      "trialNotes": "Has utilitzat totes les notes de la prova",
+      "trialCredits": "Has utilitzat tots els crèdits de la prova",
+      "accessEnded": "El teu pla ha finalitzat"
+    },
+    "title": "Actualitza per conservar-ho tot",
+    "description": "Has passat al pla gratuït. Aquests són els canvis.",
+    "losses": {
+      "notes": "Notes il·limitades",
+      "batch": "Processament per lots",
+      "review": "Genera durant la revisió",
+      "added": "Genera des de Yomitan / AnkiConnect",
+      "audio": "Àudio",
+      "images": "Imatges",
+      "models": "Models de text personalitzats",
+      "webSearch": "Cerca web"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} al dia",
+      "oneAtATime": "Una alhora",
+      "none": "Cap",
+      "autoStandardOnly": "Només Auto Standard",
+      "fieldsStop_one": "{{count}} camp s'atura",
+      "fieldsStop_many": "{{count}} camps s'aturen",
+      "fieldsStop_other": "{{count}} camps s'aturen",
+      "fieldsToStandard_one": "{{count}} camp es mou",
+      "fieldsToStandard_many": "{{count}} camps es mouen",
+      "fieldsToStandard_other": "{{count}} camps es mouen",
+      "fieldsWithoutSearch_one": "{{count}} camp la perd",
+      "fieldsWithoutSearch_many": "{{count}} camps la perden",
+      "fieldsWithoutSearch_other": "{{count}} camps la perden"
+    },
+    "upgrade": "Actualitza ara",
+    "continue": "Continua al pla gratuït",
+    "nowLabel": {
+      "trial": "La teva prova",
+      "plan": "El teu pla"
+    },
+    "freeLabel": "Pla gratuït",
+    "pricing": "Els plans comencen a 4,99 $ al mes"
   }
 }

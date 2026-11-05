@@ -247,7 +247,8 @@
       "subtitle": "Napište recenzi na AnkiWeb a pomozte tak ostatním uživatelům Anki jej najít.",
       "title": "Líbí se vám Smart Notes?"
     },
-    "subtitle": "Přidejte do poznámek automaticky generovaný text, hlas a obrázky."
+    "subtitle": "Přidejte do poznámek automaticky generovaný text, hlas a obrázky.",
+    "lockedAriaLabel": "{{field}}, uzamčeno v bezplatném plánu"
   },
   "defaults": {
     "errors": {
@@ -471,7 +472,18 @@
     "trialEnds": "Soud končí",
     "trialNoteLimitReached": "Byl dosažen limit zkušebních poznámek",
     "upgradeToKeepGenerating": "Chcete-li pokračovat ve generování, upgradujte.",
-    "usage": "Používání"
+    "usage": "Používání",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} dnes",
+      "resetsAt": "Poznámky se obnoví v {{time}}",
+      "upgradeToPaid": "Přejít na placený plán",
+      "creditsUsed": "Využité kredity",
+      "notesTodayLabel": "Poznámky dnes",
+      "notesUsedToday": "poznámky využité dnes",
+      "moduleResetsAt": "Obnoví se v {{time}}",
+      "rowTitle": "Bezplatný plán",
+      "rowDescription": "Přejděte na plán pro neomezené poznámky, hlas, obrázky, dávky a všechny modely."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -529,7 +541,8 @@
       "leftReview": "Recenzi už mám napsanou",
       "title": "Získejte měsíc zdarma Smart Notes",
       "unavailable": "Děkujeme za recenzi! Tento účet už měl svůj bezplatný měsíc.",
-      "writeReview": "Napsat recenzi"
+      "writeReview": "Napsat recenzi",
+      "buttonLabel": "Získejte měsíc zdarma za recenzi"
     },
     "thanks": "Děkujeme, že používáte Smart Notes",
     "title": "Vaše bezplatná zkušební verze skončila",
@@ -564,5 +577,106 @@
     "description": "Pole se do promptu vkládají jako prostý text bez formátování a značek. Vypněte to, pokud váš prompt potřebuje HTML.",
     "label": "Odstranit HTML ze vstupu",
     "tipLabel": "O odstraňování HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "Zobrazit plány",
+    "features": {
+      "intelligence": {
+        "title": "Inteligence High a Max",
+        "description": "Pro složitější zadání, jako jsou gramatická vysvětlení nebo klinické detaily, zvolte vyšší úroveň než Auto.",
+        "cta": "Přejděte na plán pro High a Max"
+      },
+      "models": {
+        "title": "Všechny modely",
+        "description": "Vyberte konkrétní model od OpenAI, Anthropic nebo Google místo Auto.",
+        "cta": "Přejděte na plán pro všechny modely"
+      },
+      "webSearch": {
+        "title": "Webové vyhledávání",
+        "description": "Nechte textová pole vyhledávat informace na webu během generování.",
+        "cta": "Přejděte na plán pro webové vyhledávání"
+      },
+      "voice": {
+        "title": "Hlasová pole",
+        "description": "Generujte audio pro své kartičky s přirozenými hlasy.",
+        "cta": "Přejděte na plán pro hlas"
+      },
+      "images": {
+        "title": "Obrazová pole",
+        "description": "Vygenerujte obrázek pro každou kartu.",
+        "cta": "Přejděte na plán pro obrázky"
+      },
+      "generateOnAdd": {
+        "title": "Generování při přidávání poznámek",
+        "description": "Vyplňujte Smart Fields u poznámek z Yomitanu, AnkiConnect a dalších doplňků.",
+        "cta": "Přejděte na plán pro Yomitan"
+      },
+      "generateAtReview": {
+        "title": "Generování během opakování",
+        "description": "Doplňte chybějící Smart Fields u nadcházejících karet při opakování.",
+        "cta": "Přejděte na plán pro opakování"
+      },
+      "dailyLimit": {
+        "title": "Došly vám bezplatné poznámky na dnes",
+        "description": "Bezplatný plán zahrnuje {{count}} poznámek denně. Placené plány nemají limit.",
+        "cta": "Přejděte na neomezené poznámky"
+      },
+      "batch": {
+        "title": "Dávkové zpracování",
+        "description": "Generujte Smart Fields pro všechny vybrané poznámky najednou.",
+        "cta": "Přejděte na plán pro dávky"
+      }
+    },
+    "notices": {
+      "voice": "Hlasová pole jsou součástí každého placeného plánu.",
+      "images": "Obrazová pole jsou součástí každého placeného plánu."
+    },
+    "moreNotesAt": "Další v {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Vaše bezplatná zkušební verze skončila",
+      "trialNotes": "Vyčerpali jste všechny poznámky ze zkušební verze",
+      "trialCredits": "Vyčerpali jste všechny kredity ze zkušební verze",
+      "accessEnded": "Váš plán skončil"
+    },
+    "title": "Přejděte na plán a zachovejte vše",
+    "description": "Přešli jste na Bezplatný plán. Zde je, co se změní.",
+    "losses": {
+      "notes": "Neomezené poznámky",
+      "batch": "Dávkové zpracování",
+      "review": "Generování během opakování",
+      "added": "Generování z Yomitanu / AnkiConnect",
+      "audio": "Audio",
+      "images": "Obrázky",
+      "models": "Vlastní textové modely",
+      "webSearch": "Webové vyhledávání"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} za den",
+      "oneAtATime": "Jedna po druhé",
+      "none": "Žádné",
+      "autoStandardOnly": "Pouze Auto Standard",
+      "fieldsStop_one": "{{count}} pole se zastaví",
+      "fieldsStop_few": "{{count}} pole se zastaví",
+      "fieldsStop_many": "{{count}} polí se zastaví",
+      "fieldsStop_other": "{{count}} pole se zastaví",
+      "fieldsToStandard_one": "{{count}} pole přejde na Standard",
+      "fieldsToStandard_few": "{{count}} pole přejdou na Standard",
+      "fieldsToStandard_many": "{{count}} polí přejde na Standard",
+      "fieldsToStandard_other": "{{count}} pole přejdou na Standard",
+      "fieldsWithoutSearch_one": "{{count}} pole přijde o webové vyhledávání",
+      "fieldsWithoutSearch_few": "{{count}} pole přijdou o webové vyhledávání",
+      "fieldsWithoutSearch_many": "{{count}} polí přijde o webové vyhledávání",
+      "fieldsWithoutSearch_other": "{{count}} pole přijdou o webové vyhledávání"
+    },
+    "upgrade": "Přejít na plán",
+    "continue": "Pokračovat v Bezplatném plánu",
+    "nowLabel": {
+      "trial": "Vaše zkušební verze",
+      "plan": "Váš plán"
+    },
+    "freeLabel": "Bezplatný plán",
+    "pricing": "Plány začínají na 4,99 $ měsíčně"
   }
 }

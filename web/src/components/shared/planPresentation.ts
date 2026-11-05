@@ -2,7 +2,7 @@ import type { AccountState, PlanInfo, Settings } from "@/types/api"
 import i18next from "i18next"
 
 export type PlanVariant =
-  "loading" | "signed-out" | "trial" | "free-usage" | "paid"
+  "loading" | "signed-out" | "trial" | "free" | "free-usage" | "paid"
 
 export interface PlanPresentation {
   variant: PlanVariant
@@ -77,6 +77,9 @@ export const getPlanPresentation = (
   const conditions = getPlanConditions(account.plan)
   if (account.plan.planType === "trial") {
     return trialPresentation(account.plan, conditions)
+  }
+  if (account.plan.planType === "free") {
+    return { ...presentation("free"), planName: account.plan.planName }
   }
   return paidOrFreePresentation(account.plan, conditions)
 }
@@ -165,4 +168,13 @@ const paidOrFreePresentation = (
     notesUsed: plan.notesUsed,
     notesLimit: plan.notesLimit,
   }
+}
+
+/** When the free plan's daily notes come back, in the user's own clock: limits
+ *  reset at midnight UTC, which is a different hour wherever they are. */
+export const dailyResetTime = (): string => {
+  const now = new Date()
+  return new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1),
+  ).toLocaleTimeString(i18next.language, { hour: "numeric", minute: "2-digit" })
 }

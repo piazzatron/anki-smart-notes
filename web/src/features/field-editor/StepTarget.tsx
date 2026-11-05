@@ -31,6 +31,11 @@ import {
   SparklesIcon,
   VolumeIcon,
 } from "@/components/shared/Icons"
+import {
+  openUpgradeSheet,
+  UpgradeLockIcon,
+  useIsFreePlan,
+} from "@/components/shared/UpgradeSheet"
 import { OptionGroup, OptionGroupItem } from "@/components/ui/OptionList"
 import i18next from "i18next"
 import type { ComponentType } from "react"
@@ -63,6 +68,7 @@ const FIELD_TYPES: Array<{
 
 export const StepTarget = ({ controls, state }: StepTargetProps) => {
   const { t } = useTranslation()
+  const isFree = useIsFreePlan()
   const { target } = controls.form
   const noteType = state.noteTypes.find((item) => item.id === target.noteTypeId)
   const collision = hasSmartFieldCollision(
@@ -90,8 +96,13 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
           className="flex gap-1.5"
           onValueChange={(fieldType) => {
             const type = FIELD_TYPES.find((item) => item.value === fieldType)
-            if (type !== undefined)
-              controls.setTarget({ fieldType: type.value })
+            if (type === undefined) return
+            // The free plan is text only: voice and image open the upgrade sheet.
+            if (isFree && type.value !== "chat") {
+              openUpgradeSheet(type.value === "tts" ? "voice" : "images")
+              return
+            }
+            controls.setTarget({ fieldType: type.value })
           }}
           value={target.fieldType}
         >
@@ -102,10 +113,19 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
               value={value}
             >
               <Icon
-                className="group-data-[state=unchecked]:opacity-70"
+                className={
+                  isFree && value !== "chat"
+                    ? "opacity-40"
+                    : "group-data-[state=unchecked]:opacity-70"
+                }
                 size={16}
               />
-              {t(labelKey)}
+              <span
+                className={`inline-flex items-center gap-[7px] ${isFree && value !== "chat" ? "opacity-40" : ""}`}
+              >
+                {t(labelKey)}
+                {isFree && value !== "chat" && <UpgradeLockIcon />}
+              </span>
             </OptionGroupItem>
           ))}
         </OptionGroup>

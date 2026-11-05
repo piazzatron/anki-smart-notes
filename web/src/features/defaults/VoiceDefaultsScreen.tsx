@@ -1,6 +1,8 @@
 import { type ReactNode, useState } from "react"
 import { useTranslation } from "react-i18next"
 
+import { useIsFreePlan } from "@/components/shared/UpgradeSheet"
+
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { SectionHeading } from "@/components/ui/SectionHeading"
 import { PromptTesterStrip } from "@/features/prompt-tester/PromptTesterStrip"
@@ -86,6 +88,7 @@ const LoadedVoiceDefaultsScreen = ({
   state,
 }: LoadedVoiceDefaultsScreenProps) => {
   const { t } = useTranslation()
+  const isFree = useIsFreePlan()
   const controls = useDefaultsForm({
     fallbackError: t("defaults.voice.saveError"),
     onDirtyChange,
@@ -113,6 +116,7 @@ const LoadedVoiceDefaultsScreen = ({
 
   return (
     <DefaultsScreenLayout
+      upgradeFeature={isFree ? "voice" : undefined}
       accessory={<DefaultUsagePill usage={usage} />}
       contentFillsHeight
       icon={<LoudspeakerEmoji size={28} />}

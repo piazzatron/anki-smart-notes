@@ -95,6 +95,7 @@ class SettingsDto(TypedDict):
     showWizardCompletion: bool
     didDismissReviewPrompt: bool
     didDismissDiscordPrompt: bool
+    didSeeFreePlanWelcome: bool
 
 
 class ChatSmartFieldSettingsDto(TypedDict):

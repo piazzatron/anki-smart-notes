@@ -32,7 +32,7 @@ class TTSProvider:
         provider: TTSProviders,
         voice: str,
         generation_source: GenerationSource,
-        note_id: Optional[int] = None,
+        note_id: Optional[str] = None,
     ) -> bytes:
         args: dict[str, Any] = {
             "provider": provider,

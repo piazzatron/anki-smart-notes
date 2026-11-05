@@ -24,9 +24,16 @@
 
 export type LegacyPlanId =
   "free" | "free_mini_1" | "small1" | "medium1" | "large1"
-export type PlanType = "trial" | "freemium" | "small" | "medium" | "large"
+// `free` is the plan users drop to after their trial, with a daily note cap.
+// `freemium` is the older, hand-granted Free Mini and financial assistance plans.
+export type PlanType =
+  "trial" | "free" | "freemium" | "small" | "medium" | "large"
 export type PlanName = "Free Trial" | "Free" | "Lite" | "Standard" | "Pro"
 export type SubscriptionStatus = "active" | "canceling" | "expired"
+/** Why a user on the free plan got there: how their trial ended, or their paid
+ *  plan or other access ending. */
+export type FreePlanReason =
+  "trialExpired" | "trialNotes" | "trialCredits" | "accessEnded"
 
 export interface PlanInfo {
   /** @deprecated Use planType. Retained for compatibility with older clients. */
@@ -35,6 +42,11 @@ export interface PlanInfo {
   planName: PlanName
   notesUsed: number | null
   notesLimit: number | null
+  /** Notes generated today (UTC) on a plan with a daily cap; null on other plans. */
+  dailyNotesUsed: number | null
+  dailyNotesLimit: number | null
+  /** Set on the free plan only. */
+  freePlanReason: FreePlanReason | null
   daysLeft: number
   /** Length of the current cycle, so the UI can draw how much is left. */
   totalDays: number
@@ -160,6 +172,7 @@ export interface Settings {
   showWizardCompletion: boolean
   didDismissReviewPrompt: boolean
   didDismissDiscordPrompt: boolean
+  didSeeFreePlanWelcome: boolean
 }
 
 export interface FeatureFlags {

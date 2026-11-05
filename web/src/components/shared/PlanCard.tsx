@@ -1,12 +1,13 @@
 import { ProgressBar } from "@/components/ui/ProgressBar"
 import { SparklesIcon } from "@/components/shared/Icons"
 import { openSiteLink, SITE_LINKS } from "@/lib/siteLinks"
-import type { AccountState } from "@/types/api"
+import type { AccountState, PlanInfo } from "@/types/api"
 import { useTranslation } from "react-i18next"
 
 import {
   getPaidPlanCardState,
   getPlanConditions,
+  dailyResetTime,
   getPlanPresentation,
   pctLabel,
 } from "./planPresentation"
@@ -53,7 +54,7 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
             {t("subscription.signedOut.title")}
           </p>
         </div>
-        <p className="mt-1.5 text-[11.5px] leading-[1.45] text-zinc-400">
+        <p className="mt-1.5 text-xs leading-[1.45] text-zinc-400">
           {t("subscription.signedOut.paused")}
         </p>
         <button
@@ -120,6 +121,10 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
         </button>
       </section>
     )
+  }
+
+  if (presentation.variant === "free") {
+    return <FreePlanCard plan={account.plan} />
   }
 
   if (presentation.variant === "paid") {
@@ -209,7 +214,7 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
         percent={usage}
         trackClass="mt-1.5 bg-white/[0.08]"
       />
-      <span className="mt-2 block text-[11.5px] leading-[1.45] text-ink-muted">
+      <span className="mt-2 block text-xs leading-[1.45] text-ink-muted">
         {out
           ? t("subscription.pausedUntilReset")
           : warning
@@ -268,9 +273,7 @@ const OutOfCreditsCard = ({
         />
       )}
       {note !== undefined && (
-        <p className="mt-2 text-[11.5px] leading-[1.45] text-ink-muted">
-          {note}
-        </p>
+        <p className="mt-2 text-xs leading-[1.45] text-ink-muted">{note}</p>
       )}
       <button className={PLAN_ACTION_BUTTON_CLASS} onClick={onOpenSubscription}>
         {actionLabel ?? (
@@ -286,6 +289,52 @@ const OutOfCreditsCard = ({
             />
           </>
         )}
+      </button>
+    </section>
+  )
+}
+
+// The free plan's card: today's notes against the daily limit, and the way to
+// a paid plan as the loudest thing in the sidebar.
+const FreePlanCard = ({ plan }: { plan: PlanInfo }) => {
+  const { t } = useTranslation()
+  const used = plan.dailyNotesUsed ?? 0
+  const limit = plan.dailyNotesLimit ?? 0
+  const out = used >= limit
+  const low = !out && used >= limit * 0.8
+  const resetTime = dailyResetTime()
+
+  return (
+    <section
+      className="rounded-[11px] bg-white/[0.05] p-3"
+      data-testid="plan-card"
+    >
+      <div className="flex items-center justify-between">
+        <span className="text-[13px] font-semibold text-ink-muted">
+          {t("subscription.freePlan")}
+        </span>
+        <span
+          className={`text-[12.5px] font-bold tabular-nums ${out ? "text-danger" : low ? "text-caution-soft" : "text-ink"}`}
+        >
+          {t("subscription.free.notesToday", { used, limit })}
+        </span>
+      </div>
+      <ProgressBar
+        colorClass={out ? "bg-danger" : low ? "bg-caution" : "bg-mint"}
+        heightClass="h-1"
+        percent={limit > 0 ? Math.min(100, (used / limit) * 100) : 0}
+        trackClass="mt-2.5 bg-white/[0.08]"
+      />
+      <p className="mt-2 text-xs leading-[1.45] text-ink-muted">
+        {t("subscription.free.resetsAt", { time: resetTime })}
+      </p>
+      <button
+        className={PLAN_ACTION_BUTTON_CLASS}
+        onClick={() => openSiteLink(SITE_LINKS.upgrade)}
+      >
+        <SparklesIcon className="me-1.5 inline-block align-[-2px]" size={13} />
+        {t("subscription.free.upgradeToPaid")}
+        <SparklesIcon className="ms-1.5 inline-block align-[-2px]" size={13} />
       </button>
     </section>
   )

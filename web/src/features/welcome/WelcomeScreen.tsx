@@ -18,11 +18,13 @@
  */
 
 import { Button } from "@/components/ui/Button"
+import { GlowButton } from "@/components/ui/GlowButton"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import { ConnectionNotice } from "@/components/shared/ConnectionNotice"
 import { SparklesIcon } from "@/components/shared/Icons"
+import { SparkleField } from "@/components/shared/SparkleField"
 import { errorMessage } from "@/lib/errors"
 import { openSiteLink, SITE_LINKS } from "@/lib/siteLinks"
 import { trackAnalyticsEvent } from "@/services/analytics"
@@ -166,32 +168,10 @@ export const WelcomeScreen = ({
           </div>
         ) : (
           <div className="relative w-full max-w-[380px]">
-            <div
-              aria-hidden
-              className="pointer-events-none absolute start-1/2 top-1/2 -z-10 h-[430px] w-[560px] -translate-x-1/2 -translate-y-1/2"
-            >
-              {WELCOME_SPARKLES.map((sparkle) => (
-                <span
-                  className="welcome-sparkle"
-                  key={`${sparkle.left}-${sparkle.top}`}
-                  style={
-                    {
-                      "--welcome-sparkle-delay": sparkle.delay,
-                      "--welcome-sparkle-duration": sparkle.duration,
-                      fontSize: sparkle.size,
-                      left: sparkle.left,
-                      top: sparkle.top,
-                    } as React.CSSProperties
-                  }
-                >
-                  {/* Decorative glyph; it has no language-specific meaning. */}
-                  {/* eslint-disable-next-line i18next/no-literal-string */}
-                  <span className="welcome-sparkle-glyph" aria-hidden>
-                    ✦
-                  </span>
-                </span>
-              ))}
-            </div>
+            <SparkleField
+              className="start-1/2 top-1/2 -z-10 h-[430px] w-[560px] -translate-x-1/2 -translate-y-1/2 rtl:translate-x-1/2"
+              sparkles={WELCOME_SPARKLES}
+            />
 
             <div className="relative mx-auto w-fit">
               <h1 className="welcome-enter text-[38px] leading-none font-extrabold tracking-[-0.037em] text-[#f6f6f8]">
@@ -214,23 +194,13 @@ export const WelcomeScreen = ({
               className="welcome-enter mx-auto mt-8 w-full max-w-[356px]"
               style={{ animationDelay: "160ms" }}
             >
-              <button
-                className="w-full rounded-[14px] border border-[#1fd47d]/60 bg-gradient-to-b from-[#4cf0a8] to-[#1fd47d] px-5 py-[19px] text-[17px] font-extrabold tracking-[0.1px] text-[#06281a] shadow-[inset_0_1px_0_rgba(255,255,255,0.36),0_16px_36px_-10px_rgba(31,212,125,0.66)] transition-[filter,transform] duration-150 hover:scale-[1.01] hover:brightness-105"
+              <GlowButton
                 onClick={() =>
                   openOnboarding(SITE_LINKS.startTrial, "clicked_start_trial")
                 }
-                type="button"
               >
-                <SparklesIcon
-                  className="me-2 inline-block align-[-3px]"
-                  size={19}
-                />
                 {t("welcome.startTrial")}
-                <SparklesIcon
-                  className="ms-2 inline-block align-[-3px]"
-                  size={19}
-                />
-              </button>
+              </GlowButton>
               <p className="mt-[15px] text-[13px] text-[#b6b6bf]">
                 {t("welcome.trialDetails")}
               </p>

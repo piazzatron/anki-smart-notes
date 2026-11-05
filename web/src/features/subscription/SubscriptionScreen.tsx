@@ -23,12 +23,14 @@ import { useTranslation } from "react-i18next"
 
 import { PageLayout } from "@/components/shared/PageLayout"
 import {
+  dailyResetTime,
   getCreditSegments,
   getCreditUsagePercent,
   getPlanConditions,
   getPlanPresentation,
   pctLabel,
 } from "@/components/shared/planPresentation"
+import { ProgressBar } from "@/components/ui/ProgressBar"
 import { ScreenSkeleton } from "@/components/shared/ScreenSkeleton"
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { SparklesIcon } from "@/components/shared/Icons"
@@ -139,6 +141,26 @@ const SubscriptionDetails = ({ account }: { account: AccountState }) => {
   const isFree = presentation.variant === "free-usage"
   const isPaid = presentation.variant === "paid"
   const hero = getHeroContent(account)
+
+  // The free plan's limit that bites is notes per day, so it leads; credits are
+  // a monthly backstop and drop to the facts row.
+  if (presentation.variant === "free") {
+    return (
+      <div className="-mx-hang space-y-2.5">
+        <FreePlanRow />
+        <DailyNotesModule plan={plan} />
+        <PlanFacts
+          facts={[
+            [i18next.t("subscription.free.creditsUsed"), pctLabel(usage)],
+            [
+              i18next.t("subscription.creditsReset"),
+              i18next.t("subscription.inDays", { count: plan.daysLeft }),
+            ],
+          ]}
+        />
+      </div>
+    )
+  }
 
   return (
     <div className="-mx-hang space-y-2.5">
@@ -424,6 +446,66 @@ const UsageModule = ({
           </span>
         ))}
       </div>
+    </section>
+  )
+}
+
+const FreePlanRow = () => {
+  const { t } = useTranslation()
+  return (
+    <section className={`${CARD_CLASS} flex items-center gap-4 px-hang py-4`}>
+      <div className="min-w-0 flex-1">
+        <h2 className="text-sm font-semibold text-ink">
+          {t("subscription.free.rowTitle")}
+        </h2>
+        <p className="mt-0.5 truncate text-xs text-ink-muted">
+          {t("subscription.free.rowDescription")}
+        </p>
+      </div>
+      <Button
+        className="shrink-0"
+        onClick={() => openSiteLink(SITE_LINKS.upgrade)}
+        variant="success"
+      >
+        {t("common.upgrade")}
+      </Button>
+    </section>
+  )
+}
+
+const DailyNotesModule = ({ plan }: { plan: PlanInfo }) => {
+  const { t } = useTranslation()
+  const used = plan.dailyNotesUsed ?? 0
+  const limit = plan.dailyNotesLimit ?? 0
+  const out = used >= limit
+  const low = !out && used >= limit * 0.8
+
+  return (
+    <section className={`${CARD_CLASS} px-hang py-[22px]`}>
+      <div className="flex items-baseline justify-between">
+        <h2 className="text-[13px] font-semibold tracking-[0.4px] text-zinc-200 uppercase">
+          {t("subscription.free.notesTodayLabel")}
+        </h2>
+        <p className="text-xs text-ink-muted">
+          {t("subscription.free.moduleResetsAt", { time: dailyResetTime() })}
+        </p>
+      </div>
+      <div className="mt-3.5 flex items-end gap-2.5">
+        <span
+          className={`text-[34px] leading-none font-bold tracking-[-1px] tabular-nums ${out ? "text-danger" : low ? "text-caution-soft" : "text-zinc-200"}`}
+        >
+          {used}/{limit}
+        </span>
+        <span className="pb-[3px] text-sm text-ink-muted">
+          {t("subscription.free.notesUsedToday")}
+        </span>
+      </div>
+      <ProgressBar
+        colorClass={out ? "bg-danger" : low ? "bg-caution" : "bg-mint"}
+        heightClass="h-2.5"
+        percent={limit > 0 ? Math.min(100, (used / limit) * 100) : 0}
+        trackClass="mt-3 bg-white/[0.06]"
+      />
     </section>
   )
 }

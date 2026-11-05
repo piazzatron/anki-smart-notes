@@ -1,3 +1,7 @@
+import {
+  openUpgradeSheet,
+  type UpgradeFeature,
+} from "@/components/shared/UpgradeSheet"
 import { bootOptions } from "@/lib/boot"
 import { useAppStore } from "@/store/appStore"
 import type { AppState, Catalog, Selection } from "@/types/api"
@@ -25,6 +29,11 @@ export const connectToAnki = (): (() => void) => {
 
     source.addEventListener("anki.browserSelectionChanged", (event) => {
       useAppStore.setState({ selection: JSON.parse(event.data) as Selection })
+    })
+
+    source.addEventListener("ui.upgradeRequested", (event) => {
+      const { feature } = JSON.parse(event.data) as { feature: UpgradeFeature }
+      openUpgradeSheet(feature)
     })
 
     source.onerror = () => {

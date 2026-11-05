@@ -246,7 +246,8 @@
       "subtitle": "Ostavite recenziju na AnkiWeb kako biste pomogli drugim korisnicima Anki da ga pronađu.",
       "title": "Uživate li u Smart Notes?"
     },
-    "subtitle": "Svojim bilješkama dodajte automatski generirani tekst, glas i slike."
+    "subtitle": "Svojim bilješkama dodajte automatski generirani tekst, glas i slike.",
+    "lockedAriaLabel": "{{field}}, zaključano u Besplatnom planu"
   },
   "defaults": {
     "errors": {
@@ -461,7 +462,18 @@
     "trialEnds": "Ispitivanje završava",
     "trialNoteLimitReached": "Dosegnuto je ograničenje probnih bilješki",
     "upgradeToKeepGenerating": "Nadogradite kako biste nastavili generirati.",
-    "usage": "Korištenje"
+    "usage": "Korištenje",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} danas",
+      "resetsAt": "Bilješke se resetiraju u {{time}}",
+      "upgradeToPaid": "Nadogradi na plaćeni plan",
+      "creditsUsed": "Iskorišteni krediti",
+      "notesTodayLabel": "Bilješke danas",
+      "notesUsedToday": "iskorištenih bilješki danas",
+      "moduleResetsAt": "Resetira se u {{time}}",
+      "rowTitle": "Besplatni plan",
+      "rowDescription": "Nadogradite za neograničene bilješke, glas, slike, grupnu obradu i svaki model."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -519,7 +531,8 @@
       "leftReview": "Ostavio/la sam recenziju",
       "title": "Dobijte besplatni mjesec Smart Notes",
       "unavailable": "Hvala na recenziji! Ovaj račun je već iskoristio besplatni mjesec.",
-      "writeReview": "Napiši recenziju"
+      "writeReview": "Napiši recenziju",
+      "buttonLabel": "Dobij besplatan mjesec za recenziju"
     },
     "thanks": "Hvala što koristite Smart Notes",
     "title": "Vaše besplatno probno razdoblje je završilo",
@@ -554,5 +567,103 @@
     "description": "Polja se u upit šalju kao običan tekst, bez oblikovanja i oznaka. Isključite ovu opciju ako vaš upit treba HTML.",
     "label": "Ukloni HTML iz unosa",
     "tipLabel": "O uklanjanju HTML-a"
+  },
+  "upgradeSheet": {
+    "seePlans": "Pogledaj planove",
+    "features": {
+      "intelligence": {
+        "title": "High i Max inteligencija",
+        "description": "Uključite Auto za zahtjevnije upite, poput objašnjenja gramatike ili kliničkih detalja.",
+        "cta": "Nadogradi za otključavanje High i Max"
+      },
+      "models": {
+        "title": "Svi modeli",
+        "description": "Odaberite određeni model iz OpenAI, Anthropic ili Google umjesto Auto.",
+        "cta": "Nadogradi za otključavanje svih modela"
+      },
+      "webSearch": {
+        "title": "Web pretraga",
+        "description": "Neka tekstualna polja pretražuju web tijekom generiranja.",
+        "cta": "Nadogradi za otključavanje web pretrage"
+      },
+      "voice": {
+        "title": "Glasovna polja",
+        "description": "Generirajte zvuk za svoje kartice prirodnim glasovima.",
+        "cta": "Nadogradi za otključavanje glasa"
+      },
+      "images": {
+        "title": "Polja za slike",
+        "description": "Generirajte sliku za svaku karticu.",
+        "cta": "Nadogradi za otključavanje slika"
+      },
+      "generateOnAdd": {
+        "title": "Generiranje pri dodavanju bilješki",
+        "description": "Popunite Smart Fields za bilješke iz Yomitan, AnkiConnect i drugih dodataka.",
+        "cta": "Nadogradi za otključavanje Yomitan"
+      },
+      "generateAtReview": {
+        "title": "Generiranje tijekom ponavljanja",
+        "description": "Popunite nedostajuća Smart Fields na predstojećim karticama tijekom ponavljanja.",
+        "cta": "Nadogradi za otključavanje ponavljanja"
+      },
+      "dailyLimit": {
+        "title": "Ponestalo vam je besplatnih bilješki za danas",
+        "description": "Besplatni plan uključuje {{count}} bilješki dnevno. Plaćeni planovi nemaju ograničenja.",
+        "cta": "Nadogradi za neograničene bilješke"
+      },
+      "batch": {
+        "title": "Grupna obrada",
+        "description": "Generirajte Smart Fields za sve odabrane bilješke odjednom.",
+        "cta": "Nadogradi za otključavanje grupne obrade"
+      }
+    },
+    "notices": {
+      "voice": "Glasovna polja dolaze uz svaki plaćeni plan.",
+      "images": "Polja za slike dolaze uz svaki plaćeni plan."
+    },
+    "moreNotesAt": "Više u {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Vaše besplatno probno razdoblje je završilo",
+      "trialNotes": "Iskoristili ste sve bilješke probnog razdoblja",
+      "trialCredits": "Iskoristili ste sve kredite probnog razdoblja",
+      "accessEnded": "Vaš plan je završio"
+    },
+    "title": "Nadogradite da zadržite sve",
+    "description": "Prešli ste na Besplatni plan. Evo što se mijenja.",
+    "losses": {
+      "notes": "Neograničene bilješke",
+      "batch": "Grupna obrada",
+      "review": "Generiranje tijekom ponavljanja",
+      "added": "Generiranje iz Yomitan / AnkiConnect",
+      "audio": "Zvuk",
+      "images": "Slike",
+      "models": "Prilagođeni tekstualni modeli",
+      "webSearch": "Web pretraga"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} dnevno",
+      "oneAtATime": "Jedno po jedno",
+      "none": "Nijedno",
+      "autoStandardOnly": "Samo Auto Standard",
+      "fieldsStop_one": "{{count}} polje prestaje",
+      "fieldsStop_few": "{{count}} polja prestaju",
+      "fieldsStop_other": "{{count}} polja prestaje",
+      "fieldsToStandard_one": "{{count}} polje prelazi",
+      "fieldsToStandard_few": "{{count}} polja prelaze",
+      "fieldsToStandard_other": "{{count}} polja prelazi",
+      "fieldsWithoutSearch_one": "{{count}} polje gubi to",
+      "fieldsWithoutSearch_few": "{{count}} polja gube to",
+      "fieldsWithoutSearch_other": "{{count}} polja gube to"
+    },
+    "upgrade": "Nadogradi sada",
+    "continue": "Nastavi s Besplatnim",
+    "nowLabel": {
+      "trial": "Vaše probno razdoblje",
+      "plan": "Vaš plan"
+    },
+    "freeLabel": "Besplatni plan",
+    "pricing": "Planovi počinju od 4,99 $ mjesečno"
   }
 }

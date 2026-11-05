@@ -15,6 +15,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/DropdownMenu"
+import {
+  openUpgradeSheet,
+  UpgradeLockIcon,
+  useIsFreePlan,
+} from "@/components/shared/UpgradeSheet"
+import {
+  chatModelLabel,
+  freePlanChatSettings,
+  isPaidOnlyChatSettings,
+} from "@/features/text-generation/intelligence"
 import { errorMessage } from "@/lib/errors"
 import type { SmartField } from "@/types/api"
 
@@ -38,6 +48,19 @@ export const SmartFieldRow = ({
   onError,
 }: SmartFieldRowProps) => {
   const { t } = useTranslation()
+  // The free plan is text only: its voice and image fields stay listed, greyed
+  // out with a lock, and open the upgrade sheet instead of the editor.
+  const isFree = useIsFreePlan()
+  const locked = isFree && field.fieldType !== "chat"
+  // A text field pinned to settings Free doesn't include runs as Auto Standard
+  // until the user upgrades; its own settings stay saved.
+  const paused =
+    isFree &&
+    field.fieldType === "chat" &&
+    !field.settings.usesDefaultGenerationSettings &&
+    isPaidOnlyChatSettings(field.settings)
+  const openUpgrade = () =>
+    openUpgradeSheet(field.fieldType === "tts" ? "voice" : "images")
   const [menuOpen, setMenuOpen] = useState(false)
   const [pending, setPending] = useState(false)
 
@@ -59,7 +82,7 @@ export const SmartFieldRow = ({
   return (
     <div
       className={`relative grid min-h-11 grid-cols-[40px_minmax(0,1fr)_minmax(90px,132px)_46px] items-center gap-x-6 gap-y-1 py-3 max-[800px]:grid-cols-[34px_minmax(0,1fr)_minmax(90px,132px)_46px] max-[800px]:gap-x-[18px] ${
-        field.enabled ? "" : "opacity-40"
+        !field.enabled || locked ? "opacity-40" : ""
       } ${
         hasDivider
           ? "before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-hairline"
@@ -67,15 +90,17 @@ export const SmartFieldRow = ({
       }`}
     >
       <button
-        aria-label={t("smartFields.editAriaLabel", {
-          field: field.targetFieldName,
-        })}
+        aria-label={t(
+          locked ? "smartFields.lockedAriaLabel" : "smartFields.editAriaLabel",
+          { field: field.targetFieldName },
+        )}
         className="absolute inset-0 transition hover:bg-white/[0.05] focus-visible:-outline-offset-2"
-        onClick={() => onEdit(field)}
+        onClick={() => (locked ? openUpgrade() : onEdit(field))}
       />
       <FieldTypeIcon fieldType={field.fieldType} />
-      <span className="pointer-events-none col-start-2 row-start-1 truncate text-sm leading-4 font-medium text-ink">
-        {field.targetFieldName}
+      <span className="pointer-events-none col-start-2 row-start-1 flex min-w-0 items-center gap-1.5 text-sm leading-4 font-medium text-ink">
+        <span className="truncate">{field.targetFieldName}</span>
+        {locked && <UpgradeLockIcon />}
       </span>
       <span className="pointer-events-none col-start-2 row-start-2 truncate text-xs leading-[14px] text-ink-muted">
         {smartFieldDescription(field)}
@@ -91,7 +116,9 @@ export const SmartFieldRow = ({
               : "text-zinc-400"
           }`}
         >
-          {smartFieldModelLabel(field)}
+          {paused
+            ? chatModelLabel(freePlanChatSettings(field.settings))
+            : smartFieldModelLabel(field)}
         </span>
       </span>
 
@@ -108,10 +135,14 @@ export const SmartFieldRow = ({
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onSelect={() => onEdit(field)}>
+          <DropdownMenuItem
+            onSelect={() => (locked ? openUpgrade() : onEdit(field))}
+          >
             {t("common.edit")}
           </DropdownMenuItem>
-          <DropdownMenuItem onSelect={() => onDuplicate(field)}>
+          <DropdownMenuItem
+            onSelect={() => (locked ? openUpgrade() : onDuplicate(field))}
+          >
             {t("common.duplicate")}
           </DropdownMenuItem>
           <DropdownMenuSeparator />

@@ -245,7 +245,8 @@
       "subtitle": "Hinterlassen Sie eine Bewertung zu AnkiWeb, um anderen Anki-Benutzern dabei zu helfen, sie zu finden.",
       "title": "Genießen Sie Smart Notes?"
     },
-    "subtitle": "Fügen Sie Ihren Notizen automatisch generierten Text, Sprache und Bilder hinzu."
+    "subtitle": "Fügen Sie Ihren Notizen automatisch generierten Text, Sprache und Bilder hinzu.",
+    "lockedAriaLabel": "{{field}}, im kostenlosen Tarif gesperrt"
   },
   "defaults": {
     "errors": {
@@ -451,7 +452,18 @@
     "trialEnds": "Der Prozess endet",
     "trialNoteLimitReached": "Das Limit für Testnotizen wurde erreicht",
     "upgradeToKeepGenerating": "Aktualisieren Sie, um weiterhin zu generieren.",
-    "usage": "Verwendung"
+    "usage": "Verwendung",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} heute",
+      "resetsAt": "Notizen werden um {{time}} zurückgesetzt",
+      "upgradeToPaid": "Auf bezahlten Tarif upgraden",
+      "creditsUsed": "Verbrauchte Credits",
+      "notesTodayLabel": "Notizen heute",
+      "notesUsedToday": "heute verwendete Notizen",
+      "moduleResetsAt": "Wird um {{time}} zurückgesetzt",
+      "rowTitle": "Kostenloser Tarif",
+      "rowDescription": "Upgrade für unbegrenzte Notizen, Sprache, Bilder, Batch-Verarbeitung und alle Modelle."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -509,7 +521,8 @@
       "leftReview": "Ich habe eine Bewertung hinterlassen",
       "title": "Holen Sie sich einen kostenlosen Monat Smart Notes",
       "unavailable": "Danke für Ihre Bewertung! Dieses Konto hat seinen kostenlosen Monat bereits erhalten.",
-      "writeReview": "Bewertung schreiben"
+      "writeReview": "Bewertung schreiben",
+      "buttonLabel": "Einen Monat gratis für eine Bewertung erhalten"
     },
     "thanks": "Danke, dass du Smart Notes nutzt",
     "title": "Ihre kostenlose Testversion ist beendet",
@@ -544,5 +557,100 @@
     "description": "Felder werden als Klartext an den Prompt übergeben, ohne Formatierung und Markup. Deaktiviere dies, wenn dein Prompt das HTML benötigt.",
     "label": "HTML aus der Eingabe entfernen",
     "tipLabel": "Über das Entfernen von HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "Tarife ansehen",
+    "features": {
+      "intelligence": {
+        "title": "High- und Max-Intelligenz",
+        "description": "Setze Auto für schwierigere Prompts höher, z. B. für Grammatikerklärungen oder klinische Details.",
+        "cta": "Upgraden, um High und Max freizuschalten"
+      },
+      "models": {
+        "title": "Alle Modelle",
+        "description": "Wähle statt Auto ein bestimmtes Modell von OpenAI, Anthropic oder Google.",
+        "cta": "Upgraden, um alle Modelle freizuschalten"
+      },
+      "webSearch": {
+        "title": "Websuche",
+        "description": "Lass Textfelder beim Generieren Informationen im Web nachschlagen.",
+        "cta": "Upgraden, um Websuche freizuschalten"
+      },
+      "voice": {
+        "title": "Sprachfelder",
+        "description": "Erzeuge Audio für deine Karten mit natürlichen Stimmen.",
+        "cta": "Upgraden, um Sprache freizuschalten"
+      },
+      "images": {
+        "title": "Bildfelder",
+        "description": "Erzeuge für jede Karte ein Bild.",
+        "cta": "Upgraden, um Bilder freizuschalten"
+      },
+      "generateOnAdd": {
+        "title": "Beim Hinzufügen von Notizen generieren",
+        "description": "Fülle Smart Fields für Notizen aus Yomitan, AnkiConnect und anderen Add-ons aus.",
+        "cta": "Upgraden, um Yomitan freizuschalten"
+      },
+      "generateAtReview": {
+        "title": "Beim Wiederholen generieren",
+        "description": "Fülle fehlende Smart Fields bei anstehenden Karten während der Wiederholung aus.",
+        "cta": "Upgraden, um Wiederholen freizuschalten"
+      },
+      "dailyLimit": {
+        "title": "Du hast heute keine kostenlosen Notizen mehr",
+        "description": "Der kostenlose Tarif umfasst {{count}} Notizen pro Tag. Bezahlte Tarife haben kein Limit.",
+        "cta": "Upgraden für unbegrenzte Notizen"
+      },
+      "batch": {
+        "title": "Batch-Verarbeitung",
+        "description": "Erzeuge Smart Fields für alle ausgewählten Notizen auf einmal.",
+        "cta": "Upgraden, um Batch-Verarbeitung freizuschalten"
+      }
+    },
+    "notices": {
+      "voice": "Sprachfelder sind in jedem bezahlten Tarif enthalten.",
+      "images": "Bildfelder sind in jedem bezahlten Tarif enthalten."
+    },
+    "moreNotesAt": "Weitere ab {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Deine kostenlose Testphase ist abgelaufen",
+      "trialNotes": "Du hast alle Testnotizen verbraucht",
+      "trialCredits": "Du hast alle Testcredits verbraucht",
+      "accessEnded": "Dein Tarif ist beendet"
+    },
+    "title": "Upgraden, um alles zu behalten",
+    "description": "Du wechselst in den kostenlosen Tarif. Hier siehst du, was sich ändert.",
+    "losses": {
+      "notes": "Unbegrenzte Notizen",
+      "batch": "Batch-Verarbeitung",
+      "review": "Beim Wiederholen generieren",
+      "added": "Generieren über Yomitan / AnkiConnect",
+      "audio": "Audio",
+      "images": "Bilder",
+      "models": "Benutzerdefinierte Textmodelle",
+      "webSearch": "Websuche"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} pro Tag",
+      "oneAtATime": "Eine nach der anderen",
+      "none": "Keine",
+      "autoStandardOnly": "Nur Auto Standard",
+      "fieldsStop_one": "{{count}} Feld stoppt",
+      "fieldsStop_other": "{{count}} Felder stoppen",
+      "fieldsToStandard_one": "{{count}} Feld wechselt",
+      "fieldsToStandard_other": "{{count}} Felder wechseln",
+      "fieldsWithoutSearch_one": "{{count}} Feld verliert es",
+      "fieldsWithoutSearch_other": "{{count}} Felder verlieren es"
+    },
+    "upgrade": "Jetzt upgraden",
+    "continue": "Im kostenlosen Tarif fortfahren",
+    "nowLabel": {
+      "trial": "Deine Testphase",
+      "plan": "Dein Tarif"
+    },
+    "freeLabel": "Kostenloser Tarif",
+    "pricing": "Tarife ab 4,99 $ pro Monat"
   }
 }

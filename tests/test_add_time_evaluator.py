@@ -22,7 +22,8 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 import asyncio
 from types import SimpleNamespace
 
-from fixtures import MockCard, MockConfig, MockNote, MockProcessor
+import pytest
+from fixtures import MockAppState, MockCard, MockConfig, MockNote, MockProcessor
 
 from src.api_client import OutOfCreditsError
 
@@ -72,7 +73,7 @@ def setup_add_time_evaluator(monkeypatch, *, generate_on_add=True):
     monkeypatch.setattr(src.add_time_evaluator, "config", cfg)
     monkeypatch.setattr(src.add_time_evaluator, "run_on_main", lambda work: work())
     monkeypatch.setattr(
-        src.add_time_evaluator, "is_capacity_remaining_or_legacy", lambda: True
+        src.add_time_evaluator, "can_generate_in_background", lambda: True
     )
     monkeypatch.setattr(
         src.add_time_evaluator, "is_card_fully_processed", lambda card: card.processed
@@ -185,6 +186,28 @@ def test_does_nothing_when_setting_is_off(monkeypatch):
     add_notes(env, [AddedNote(1)])
 
     assert env.mw.progress.single_shots == []
+
+
+@pytest.mark.parametrize(
+    ("plan_type", "generates"), [("medium", True), ("free", False)]
+)
+def test_free_plan_does_not_generate_added_notes(monkeypatch, plan_type, generates):
+    import src.app_state
+
+    env = setup_add_time_evaluator(monkeypatch)
+    account = MockAppState(plan_type)
+    monkeypatch.setattr(src.app_state, "app_state", account)
+    monkeypatch.setattr(env.module, "app_state", account)
+    monkeypatch.setattr(
+        env.module,
+        "can_generate_in_background",
+        src.app_state.can_generate_in_background,
+    )
+    add_notes(env, [AddedNote(1)])
+    fire_starts(env)
+    run_jobs(env)
+
+    assert bool(env.processor.processed_cards) is generates
 
 
 def test_failed_generation_frees_its_slot(monkeypatch):

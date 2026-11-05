@@ -246,7 +246,8 @@
       "subtitle": "Lăsați o recenzie despre AnkiWeb pentru a ajuta alți utilizatori Anki să o găsească.",
       "title": "Vă bucurați de Smart Notes?"
     },
-    "subtitle": "Adăugați text, voce și imagini generate automat în notele dvs."
+    "subtitle": "Adăugați text, voce și imagini generate automat în notele dvs.",
+    "lockedAriaLabel": "{{field}}, blocat în planul Free"
   },
   "defaults": {
     "errors": {
@@ -461,7 +462,18 @@
     "trialEnds": "Procesul se termină",
     "trialNoteLimitReached": "Limita notei de încercare a fost atinsă",
     "upgradeToKeepGenerating": "Faceți upgrade pentru a continua să generați.",
-    "usage": "Utilizare"
+    "usage": "Utilizare",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} astăzi",
+      "resetsAt": "Notele se resetează la {{time}}",
+      "upgradeToPaid": "Treci la un plan plătit",
+      "creditsUsed": "Credite utilizate",
+      "notesTodayLabel": "Note astăzi",
+      "notesUsedToday": "note utilizate astăzi",
+      "moduleResetsAt": "Se resetează la {{time}}",
+      "rowTitle": "Planul Free",
+      "rowDescription": "Treci la un plan plătit pentru note nelimitate, voce, imagini, procesare în lot și toate modelele."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -519,7 +531,8 @@
       "leftReview": "Am lăsat o recenzie",
       "title": "Primiți o lună gratuită de Smart Notes",
       "unavailable": "Mulțumim pentru recenzie! Acest cont și-a folosit deja luna gratuită.",
-      "writeReview": "Scrieți o recenzie"
+      "writeReview": "Scrieți o recenzie",
+      "buttonLabel": "Primește o lună gratuită pentru o recenzie"
     },
     "thanks": "Îți mulțumim că ai folosit Smart Notes",
     "title": "Perioada de încercare gratuită s-a încheiat",
@@ -554,5 +567,103 @@
     "description": "Câmpurile sunt trimise în prompt ca text simplu, fără formatare și marcaje. Dezactivați această opțiune dacă promptul are nevoie de HTML.",
     "label": "Elimină HTML-ul din intrare",
     "tipLabel": "Despre eliminarea HTML-ului"
+  },
+  "upgradeSheet": {
+    "seePlans": "Vezi planurile",
+    "features": {
+      "intelligence": {
+        "title": "Inteligență High și Max",
+        "description": "Ridică nivelul Auto pentru prompturi mai dificile, precum explicații gramaticale sau detalii clinice.",
+        "cta": "Treci la un plan plătit pentru a debloca High și Max"
+      },
+      "models": {
+        "title": "Toate modelele",
+        "description": "Alege un model specific de la OpenAI, Anthropic sau Google, în loc de Auto.",
+        "cta": "Treci la un plan plătit pentru a debloca toate modelele"
+      },
+      "webSearch": {
+        "title": "Căutare pe web",
+        "description": "Permite câmpurilor de text să caute informații pe web în timpul generării.",
+        "cta": "Treci la un plan plătit pentru a debloca căutarea pe web"
+      },
+      "voice": {
+        "title": "Câmpuri de voce",
+        "description": "Generează audio pentru cardurile tale, cu voci naturale.",
+        "cta": "Treci la un plan plătit pentru a debloca vocea"
+      },
+      "images": {
+        "title": "Câmpuri de imagine",
+        "description": "Generează o imagine pentru fiecare card.",
+        "cta": "Treci la un plan plătit pentru a debloca imaginile"
+      },
+      "generateOnAdd": {
+        "title": "Generează la adăugarea notelor",
+        "description": "Completează Smart Fields pentru notele adăugate din Yomitan, AnkiConnect și alte add-on-uri.",
+        "cta": "Treci la un plan plătit pentru a debloca Yomitan"
+      },
+      "generateAtReview": {
+        "title": "Generează în timpul recapitulării",
+        "description": "Completează Smart Fields lipsă pentru cardurile viitoare, în timp ce recapitulezi.",
+        "cta": "Treci la un plan plătit pentru a debloca recapitularea"
+      },
+      "dailyLimit": {
+        "title": "Ai epuizat notele gratuite pentru azi",
+        "description": "Planul Free include {{count}} note pe zi. Planurile plătite nu au limită.",
+        "cta": "Treci la un plan plătit pentru note nelimitate"
+      },
+      "batch": {
+        "title": "Procesare în lot",
+        "description": "Generează Smart Fields pentru toate notele selectate, deodată.",
+        "cta": "Treci la un plan plătit pentru a debloca procesarea în lot"
+      }
+    },
+    "notices": {
+      "voice": "Câmpurile de voce sunt incluse în orice plan plătit.",
+      "images": "Câmpurile de imagine sunt incluse în orice plan plătit."
+    },
+    "moreNotesAt": "Mai multe la {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Perioada ta de probă s-a încheiat",
+      "trialNotes": "Ai folosit toate notele din perioada de probă",
+      "trialCredits": "Ai folosit toate creditele din perioada de probă",
+      "accessEnded": "Planul tău s-a încheiat"
+    },
+    "title": "Treci la un plan plătit ca să păstrezi totul",
+    "description": "Ai trecut la planul Free. Iată ce se schimbă.",
+    "losses": {
+      "notes": "Note nelimitate",
+      "batch": "Procesare în lot",
+      "review": "Generare în timpul recapitulării",
+      "added": "Generare din Yomitan / AnkiConnect",
+      "audio": "Audio",
+      "images": "Imagini",
+      "models": "Modele de text personalizate",
+      "webSearch": "Căutare pe web"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} pe zi",
+      "oneAtATime": "Unul câte unul",
+      "none": "Niciunul",
+      "autoStandardOnly": "Doar Auto Standard",
+      "fieldsStop_one": "{{count}} câmp se oprește",
+      "fieldsStop_few": "{{count}} câmpuri se opresc",
+      "fieldsStop_other": "{{count}} de câmpuri se opresc",
+      "fieldsToStandard_one": "{{count}} câmp trece la Standard",
+      "fieldsToStandard_few": "{{count}} câmpuri trec la Standard",
+      "fieldsToStandard_other": "{{count}} de câmpuri trec la Standard",
+      "fieldsWithoutSearch_one": "{{count}} câmp pierde această funcție",
+      "fieldsWithoutSearch_few": "{{count}} câmpuri pierd această funcție",
+      "fieldsWithoutSearch_other": "{{count}} de câmpuri pierd această funcție"
+    },
+    "upgrade": "Treci acum la un plan plătit",
+    "continue": "Continuă pe Free",
+    "nowLabel": {
+      "trial": "Perioada ta de probă",
+      "plan": "Planul tău"
+    },
+    "freeLabel": "Planul Free",
+    "pricing": "Planurile încep de la $4,99 pe lună"
   }
 }

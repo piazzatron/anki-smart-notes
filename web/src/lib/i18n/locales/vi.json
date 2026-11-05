@@ -244,7 +244,8 @@
       "subtitle": "Để lại đánh giá về AnkiWeb để giúp những người dùng Anki khác tìm thấy nó.",
       "title": "Bạn đang thưởng thức Smart Notes?"
     },
-    "subtitle": "Thêm văn bản, giọng nói và hình ảnh được tạo tự động vào ghi chú của bạn."
+    "subtitle": "Thêm văn bản, giọng nói và hình ảnh được tạo tự động vào ghi chú của bạn.",
+    "lockedAriaLabel": "{{field}}, đã khóa trên gói Miễn phí"
   },
   "defaults": {
     "errors": {
@@ -441,7 +442,18 @@
     "trialEnds": "Hết thời gian dùng thử",
     "trialNoteLimitReached": "Đã đạt đến giới hạn ghi chú dùng thử",
     "upgradeToKeepGenerating": "Nâng cấp để tiếp tục tạo ra.",
-    "usage": "Cách sử dụng"
+    "usage": "Cách sử dụng",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} hôm nay",
+      "resetsAt": "Ghi chú được đặt lại lúc {{time}}",
+      "upgradeToPaid": "Nâng cấp lên gói trả phí",
+      "creditsUsed": "Tín dụng đã dùng",
+      "notesTodayLabel": "Ghi chú hôm nay",
+      "notesUsedToday": "ghi chú đã dùng hôm nay",
+      "moduleResetsAt": "Đặt lại lúc {{time}}",
+      "rowTitle": "Gói Miễn phí",
+      "rowDescription": "Nâng cấp để có ghi chú không giới hạn, giọng nói, hình ảnh, xử lý hàng loạt và mọi mô hình."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -499,7 +511,8 @@
       "leftReview": "Tôi đã để lại đánh giá",
       "title": "Nhận một tháng miễn phí Smart Notes",
       "unavailable": "Cảm ơn bạn đã đánh giá! Tài khoản này đã nhận tháng dùng thử miễn phí.",
-      "writeReview": "Viết đánh giá"
+      "writeReview": "Viết đánh giá",
+      "buttonLabel": "Nhận 1 tháng miễn phí khi đánh giá"
     },
     "thanks": "Cảm ơn bạn đã sử dụng Smart Notes",
     "title": "Thời gian dùng thử miễn phí của bạn đã kết thúc",
@@ -534,5 +547,97 @@
     "description": "Nội dung trường được đưa vào prompt dưới dạng văn bản thuần, không có định dạng và thẻ đánh dấu. Tắt tùy chọn này nếu prompt của bạn cần HTML.",
     "label": "Xóa HTML khỏi đầu vào",
     "tipLabel": "Về việc loại bỏ HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "Xem các gói",
+    "features": {
+      "intelligence": {
+        "title": "Mức trí tuệ High và Max",
+        "description": "Chuyển Auto lên mức cao hơn cho các câu lệnh khó hơn, như giải thích ngữ pháp hoặc chi tiết lâm sàng.",
+        "cta": "Nâng cấp để mở khóa High và Max"
+      },
+      "models": {
+        "title": "Mọi mô hình",
+        "description": "Chọn một mô hình cụ thể từ OpenAI, Anthropic hoặc Google thay vì Auto.",
+        "cta": "Nâng cấp để mở khóa tất cả mô hình"
+      },
+      "webSearch": {
+        "title": "Tìm kiếm web",
+        "description": "Cho phép các trường văn bản tra cứu thông tin trên web khi đang tạo nội dung.",
+        "cta": "Nâng cấp để mở khóa tìm kiếm web"
+      },
+      "voice": {
+        "title": "Trường giọng nói",
+        "description": "Tạo âm thanh cho thẻ của bạn với giọng nói tự nhiên.",
+        "cta": "Nâng cấp để mở khóa giọng nói"
+      },
+      "images": {
+        "title": "Trường hình ảnh",
+        "description": "Tạo một hình ảnh cho mỗi thẻ.",
+        "cta": "Nâng cấp để mở khóa hình ảnh"
+      },
+      "generateOnAdd": {
+        "title": "Tạo khi thêm ghi chú",
+        "description": "Điền Smart Fields cho ghi chú từ Yomitan, AnkiConnect và các add-on khác.",
+        "cta": "Nâng cấp để mở khóa Yomitan"
+      },
+      "generateAtReview": {
+        "title": "Tạo trong khi ôn tập",
+        "description": "Điền các Smart Fields còn thiếu trên thẻ sắp tới khi bạn ôn tập.",
+        "cta": "Nâng cấp để mở khóa ôn tập"
+      },
+      "dailyLimit": {
+        "title": "Bạn đã hết ghi chú miễn phí trong hôm nay",
+        "description": "Gói Miễn phí bao gồm {{count}} ghi chú mỗi ngày. Các gói trả phí không giới hạn.",
+        "cta": "Nâng cấp để có ghi chú không giới hạn"
+      },
+      "batch": {
+        "title": "Xử lý hàng loạt",
+        "description": "Tạo Smart Fields cho mọi ghi chú được chọn cùng lúc.",
+        "cta": "Nâng cấp để mở khóa xử lý hàng loạt"
+      }
+    },
+    "notices": {
+      "voice": "Trường giọng nói có trong mọi gói trả phí.",
+      "images": "Trường hình ảnh có trong mọi gói trả phí."
+    },
+    "moreNotesAt": "Thêm ghi chú lúc {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Thời gian dùng thử của bạn đã kết thúc",
+      "trialNotes": "Bạn đã dùng hết ghi chú dùng thử",
+      "trialCredits": "Bạn đã dùng hết tín dụng dùng thử",
+      "accessEnded": "Gói của bạn đã kết thúc"
+    },
+    "title": "Nâng cấp để giữ mọi thứ",
+    "description": "Bạn đã chuyển sang gói Miễn phí. Đây là những thay đổi.",
+    "losses": {
+      "notes": "Ghi chú không giới hạn",
+      "batch": "Xử lý hàng loạt",
+      "review": "Tạo trong khi ôn tập",
+      "added": "Tạo từ Yomitan / AnkiConnect",
+      "audio": "Âm thanh",
+      "images": "Hình ảnh",
+      "models": "Mô hình văn bản tùy chỉnh",
+      "webSearch": "Tìm kiếm web"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} mỗi ngày",
+      "oneAtATime": "Một lần một",
+      "none": "Không có",
+      "autoStandardOnly": "Chỉ Auto Standard",
+      "fieldsStop_other": "{{count}} trường sẽ dừng",
+      "fieldsToStandard_other": "{{count}} trường sẽ chuyển",
+      "fieldsWithoutSearch_other": "{{count}} trường sẽ mất"
+    },
+    "upgrade": "Nâng cấp ngay",
+    "continue": "Tiếp tục với gói Miễn phí",
+    "nowLabel": {
+      "trial": "Bản dùng thử của bạn",
+      "plan": "Gói của bạn"
+    },
+    "freeLabel": "Gói Miễn phí",
+    "pricing": "Các gói bắt đầu từ $4.99 mỗi tháng"
   }
 }

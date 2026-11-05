@@ -244,7 +244,8 @@
       "subtitle": "在 AnkiWeb 上留下評論以幫助其他 Anki 用戶找到它。",
       "title": "喜歡 Smart Notes 嗎？"
     },
-    "subtitle": "將自動生成的文字、語音和圖像添加到您的筆記中。"
+    "subtitle": "將自動生成的文字、語音和圖像添加到您的筆記中。",
+    "lockedAriaLabel": "{{field}}，在免費方案中已鎖定"
   },
   "defaults": {
     "errors": {
@@ -441,7 +442,18 @@
     "trialEnds": "審判結束",
     "trialNoteLimitReached": "已達到試用筆記限制",
     "upgradeToKeepGenerating": "升級以繼續生成。",
-    "usage": "用法"
+    "usage": "用法",
+    "free": {
+      "notesToday": "今日 {{used}}/{{limit}}",
+      "resetsAt": "筆記將於 {{time}} 重設",
+      "upgradeToPaid": "升級為付費方案",
+      "creditsUsed": "已用點數",
+      "notesTodayLabel": "今日筆記",
+      "notesUsedToday": "今日已用筆記數",
+      "moduleResetsAt": "{{time}} 重設",
+      "rowTitle": "免費方案",
+      "rowDescription": "升級即可無限使用筆記、語音、圖片、批次處理及所有模型。"
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -499,7 +511,8 @@
       "leftReview": "我已留下評價",
       "title": "獲得一個月的免費 Smart Notes",
       "unavailable": "感謝你的評論！這個帳號已經領取過免費的一個月。",
-      "writeReview": "撰寫評價"
+      "writeReview": "撰寫評價",
+      "buttonLabel": "撰寫評論即可免費獲得一個月"
     },
     "thanks": "感謝您使用 Smart Notes",
     "title": "您的免費試用已結束",
@@ -534,5 +547,97 @@
     "description": "欄位會以純文字形式加入提示詞，不含格式與標記。如果您的提示詞需要 HTML，請關閉此選項。",
     "label": "輸入內容去除 HTML",
     "tipLabel": "關於移除 HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "查看方案",
+    "features": {
+      "intelligence": {
+        "title": "High 與 Max 智慧模式",
+        "description": "提高 Auto 的智慧等級，以處理較複雜的提示，例如文法解說或臨床細節。",
+        "cta": "升級以解鎖 High 與 Max"
+      },
+      "models": {
+        "title": "所有模型",
+        "description": "從 OpenAI、Anthropic 或 Google 中挑選特定模型，而非使用 Auto。",
+        "cta": "升級以解鎖所有模型"
+      },
+      "webSearch": {
+        "title": "網路搜尋",
+        "description": "讓文字欄位在生成時可於網路上查詢資料。",
+        "cta": "升級以解鎖網路搜尋"
+      },
+      "voice": {
+        "title": "語音欄位",
+        "description": "以自然的語音為卡片生成音訊。",
+        "cta": "升級以解鎖語音"
+      },
+      "images": {
+        "title": "圖片欄位",
+        "description": "為每張卡片生成一張圖片。",
+        "cta": "升級以解鎖圖片"
+      },
+      "generateOnAdd": {
+        "title": "新增筆記時生成",
+        "description": "為來自 Yomitan、AnkiConnect 及其他附加元件的筆記填入 Smart Fields。",
+        "cta": "升級以解鎖 Yomitan"
+      },
+      "generateAtReview": {
+        "title": "複習時生成",
+        "description": "複習時為即將出現的卡片補齊缺少的 Smart Fields。",
+        "cta": "升級以解鎖複習功能"
+      },
+      "dailyLimit": {
+        "title": "今日免費筆記已用完",
+        "description": "免費方案每天包含 {{count}} 則筆記。付費方案無使用上限。",
+        "cta": "升級以無限使用筆記"
+      },
+      "batch": {
+        "title": "批次處理",
+        "description": "一次為所有選取的筆記生成 Smart Fields。",
+        "cta": "升級以解鎖批次處理"
+      }
+    },
+    "notices": {
+      "voice": "所有付費方案皆包含語音欄位。",
+      "images": "所有付費方案皆包含圖片欄位。"
+    },
+    "moreNotesAt": "{{time}} 後可再生成更多"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "您的免費試用已結束",
+      "trialNotes": "您已用完所有試用筆記",
+      "trialCredits": "您已用完所有試用點數",
+      "accessEnded": "您的方案已結束"
+    },
+    "title": "升級以保留所有功能",
+    "description": "您已切換至免費方案。以下是變更內容。",
+    "losses": {
+      "notes": "無限筆記",
+      "batch": "批次處理",
+      "review": "複習時生成",
+      "added": "透過 Yomitan / AnkiConnect 生成",
+      "audio": "音訊",
+      "images": "圖片",
+      "models": "自訂文字模型",
+      "webSearch": "網路搜尋"
+    },
+    "freeValues": {
+      "dailyNotes": "每天 {{count}} 則",
+      "oneAtATime": "一次一則",
+      "none": "無",
+      "autoStandardOnly": "僅限 Auto Standard",
+      "fieldsStop_other": "{{count}} 個欄位停止",
+      "fieldsToStandard_other": "{{count}} 個欄位移至 Standard",
+      "fieldsWithoutSearch_other": "{{count}} 個欄位失去此功能"
+    },
+    "upgrade": "立即升級",
+    "continue": "繼續使用免費方案",
+    "nowLabel": {
+      "trial": "您的試用",
+      "plan": "您的方案"
+    },
+    "freeLabel": "免費方案",
+    "pricing": "方案起價為每月 $4.99"
   }
 }

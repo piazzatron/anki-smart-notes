@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next"
 import { AppShell } from "@/components/shared/AppShell"
 import { shouldShowTrialEndedTakeover } from "@/components/shared/planPresentation"
 import { PlaceholderScreen } from "@/components/shared/PlaceholderScreen"
+import { UpgradeSheet } from "@/components/shared/UpgradeSheet"
 import { Button } from "@/components/ui/Button"
 import {
   Dialog,
@@ -21,10 +22,13 @@ import { SmartFieldsScreen } from "@/features/smart-fields/SmartFieldsScreen"
 import { SettingsScreen } from "@/features/settings/SettingsScreen"
 import { SubscriptionScreen } from "@/features/subscription/SubscriptionScreen"
 import { SupportScreen } from "@/features/support/SupportScreen"
+import { FreePlanStartedScreen } from "@/features/trial-ended/FreePlanStartedScreen"
+import { getFreePlanImpact } from "@/features/trial-ended/freePlanImpact"
 import { TrialEndedScreen } from "@/features/trial-ended/TrialEndedScreen"
 import { WelcomeScreen } from "@/features/welcome/WelcomeScreen"
 import { bootOptions, type ScreenId } from "@/lib/boot"
 import { syncAmplitudeIdentity } from "@/services/amplitude"
+import { saveSettings } from "@/services/commands"
 import { useAppStore } from "@/store/appStore"
 import type { AccountState } from "@/types/api"
 
@@ -88,10 +92,14 @@ const App = () => {
   const showWelcome =
     state?.account.status === "UNAUTHENTICATED" &&
     state.smartFields.length === 0
-  const trialEndedReviewOffer =
+  const showTrialEnded =
     state !== null &&
     shouldShowTrialEndedTakeover(state.account, state.settings)
-      ? state.featureFlags.reviewFreeMonth
+  const freePlanStarted =
+    state?.account.status === "AUTHENTICATED" &&
+    state.account.plan.planType === "free" &&
+    !state.settings.didSeeFreePlanWelcome
+      ? state.account.plan
       : null
 
   const installId = state?.installId
@@ -124,8 +132,20 @@ const App = () => {
           appVersion={state?.appVersion ?? null}
           connection={connection}
         />
-      ) : trialEndedReviewOffer !== null ? (
-        <TrialEndedScreen reviewFreeMonthEnabled={trialEndedReviewOffer} />
+      ) : showTrialEnded ? (
+        <TrialEndedScreen />
+      ) : freePlanStarted !== null && state !== null ? (
+        <FreePlanStartedScreen
+          dailyNotesLimit={freePlanStarted.dailyNotesLimit!}
+          impact={getFreePlanImpact(state.smartFields, state.defaults.chat)}
+          onContinue={() =>
+            void saveSettings({
+              ...state.settings,
+              didSeeFreePlanWelcome: true,
+            })
+          }
+          reason={freePlanStarted.freePlanReason!}
+        />
       ) : (
         <AppShell
           account={state?.account ?? LOADING_ACCOUNT}
@@ -151,6 +171,7 @@ const App = () => {
           )}
         </AppShell>
       )}
+      <UpgradeSheet />
       {MockPanel !== null && bootOptions.mock && (
         <Suspense fallback={null}>
           <MockPanel

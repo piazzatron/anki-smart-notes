@@ -26,6 +26,7 @@ from . import env
 from .app_state import app_state
 from .config import config
 from .constants import WEB_APP_DEV_URL
+from .event_bus import UpgradeRequested, event_bus
 from .local_server import LOCAL_SERVER_HOST, LocalServer
 from .logger import logger
 from .sentry import with_sentry
@@ -52,7 +53,9 @@ def ensure_local_server_started() -> LocalServer:
 
 
 @with_sentry
-def open_web_app() -> None:
+def open_web_app(*, upgrade_feature: Optional[str] = None) -> None:
+    """Open or raise the Smart Notes window, optionally on the upgrade sheet for
+    a feature the account's plan doesn't include."""
     global _web_app_dialog
 
     if _local_server is None:
@@ -69,7 +72,12 @@ def open_web_app() -> None:
     if _web_app_dialog is not None:
         _web_app_dialog.raise_()
         _web_app_dialog.activateWindow()
+        if upgrade_feature is not None:
+            event_bus.publish(UpgradeRequested(upgrade_feature))
         return
+
+    if upgrade_feature is not None:
+        event_bus.publish_to_next_subscriber(UpgradeRequested(upgrade_feature))
 
     # Dev builds always load the Vite dev server for HMR (`cli/sn up web`); the
     # bundled static app is only served in packaged builds.

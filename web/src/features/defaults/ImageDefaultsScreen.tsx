@@ -1,5 +1,7 @@
 import { useTranslation } from "react-i18next"
 
+import { useIsFreePlan } from "@/components/shared/UpgradeSheet"
+
 import { Disclosure } from "@/components/ui/Disclosure"
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { SectionHeading } from "@/components/ui/SectionHeading"
@@ -65,6 +67,7 @@ const LoadedImageDefaultsScreen = ({
   state,
 }: LoadedImageDefaultsScreenProps) => {
   const { t } = useTranslation()
+  const isFree = useIsFreePlan()
   const controls = useDefaultsForm({
     fallbackError: t("defaults.image.saveError"),
     onDirtyChange,
@@ -86,6 +89,7 @@ const LoadedImageDefaultsScreen = ({
 
   return (
     <DefaultsScreenLayout
+      upgradeFeature={isFree ? "images" : undefined}
       accessory={<DefaultUsagePill usage={usage} />}
       icon={<PaletteEmoji size={28} />}
       isDirty={controls.form.isDirty}

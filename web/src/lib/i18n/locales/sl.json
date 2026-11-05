@@ -247,7 +247,8 @@
       "subtitle": "Pustite mnenje o AnkiWeb, da ga bodo drugi uporabniki Anki lažje našli.",
       "title": "Uživate v Smart Notes?"
     },
-    "subtitle": "Svojim zapiskom dodajte samodejno ustvarjeno besedilo, glas in slike."
+    "subtitle": "Svojim zapiskom dodajte samodejno ustvarjeno besedilo, glas in slike.",
+    "lockedAriaLabel": "{{field}}, zaklenjeno v brezplačnem načrtu"
   },
   "defaults": {
     "errors": {
@@ -471,7 +472,18 @@
     "trialEnds": "Preizkus se konča",
     "trialNoteLimitReached": "Dosežena omejitev poskusnih opomb",
     "upgradeToKeepGenerating": "Nadgradite, da še naprej ustvarjate.",
-    "usage": "Uporaba"
+    "usage": "Uporaba",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} danes",
+      "resetsAt": "Zapisi se ponastavijo ob {{time}}",
+      "upgradeToPaid": "Nadgradi na plačljivi načrt",
+      "creditsUsed": "Porabljeni krediti",
+      "notesTodayLabel": "Zapisi danes",
+      "notesUsedToday": "danes uporabljenih zapisov",
+      "moduleResetsAt": "Ponastavi se ob {{time}}",
+      "rowTitle": "Brezplačni načrt",
+      "rowDescription": "Nadgradite za neomejeno število zapisov, glas, slike, paketno obdelavo in vse modele."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -529,7 +541,8 @@
       "leftReview": "Napisal/a sem oceno",
       "title": "Zagotovite si brezplačen mesec Smart Notes",
       "unavailable": "Hvala za oceno! Za ta račun je brezplačni mesec že bil uporabljen.",
-      "writeReview": "Napiši oceno"
+      "writeReview": "Napiši oceno",
+      "buttonLabel": "Za recenzijo prejmite brezplačen mesec"
     },
     "thanks": "Hvala, ker uporabljate Smart Notes",
     "title": "Vaše brezplačno preskusno obdobje se je končalo",
@@ -564,5 +577,106 @@
     "description": "Polja v poziv vstavijo kot navadno besedilo, brez oblikovanja in oznak. Izklopite, če vaš poziv potrebuje HTML.",
     "label": "Odstrani HTML iz vnosa",
     "tipLabel": "O odstranjevanju HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "Oglejte si načrte",
+    "features": {
+      "intelligence": {
+        "title": "Visoka in najvišja inteligenca",
+        "description": "Za zahtevnejše poizvedbe, na primer razlage slovnice ali klinične podrobnosti, povečajte Auto.",
+        "cta": "Nadgradite za odklep visoke in najvišje"
+      },
+      "models": {
+        "title": "Vsi modeli",
+        "description": "Izberite določen model pri OpenAI, Anthropic ali Google namesto Auto.",
+        "cta": "Nadgradite za odklep vseh modelov"
+      },
+      "webSearch": {
+        "title": "Spletno iskanje",
+        "description": "Naj besedilna polja med generiranjem iščejo podatke na spletu.",
+        "cta": "Nadgradite za odklep spletnega iskanja"
+      },
+      "voice": {
+        "title": "Glasovna polja",
+        "description": "Ustvarite zvok za svoje kartice z naravnimi glasovi.",
+        "cta": "Nadgradite za odklep glasu"
+      },
+      "images": {
+        "title": "Polja s slikami",
+        "description": "Ustvarite sliko za vsako kartico.",
+        "cta": "Nadgradite za odklep slik"
+      },
+      "generateOnAdd": {
+        "title": "Ustvarjanje ob dodajanju zapisov",
+        "description": "Izpolnite Smart Fields za zapise iz Yomitan, AnkiConnect in drugih dodatkov.",
+        "cta": "Nadgradite za odklep Yomitan"
+      },
+      "generateAtReview": {
+        "title": "Ustvarjanje med ponavljanjem",
+        "description": "Izpolnite manjkajoča Smart Fields na prihajajočih karticah med ponavljanjem.",
+        "cta": "Nadgradite za odklep ponavljanja"
+      },
+      "dailyLimit": {
+        "title": "Brezplačni zapisi za danes so porabljeni",
+        "description": "Brezplačni načrt vključuje {{count}} zapisov na dan. Plačljivi načrti nimajo omejitev.",
+        "cta": "Nadgradite za neomejeno število zapisov"
+      },
+      "batch": {
+        "title": "Paketna obdelava",
+        "description": "Ustvarite Smart Fields za vse izbrane zapise naenkrat.",
+        "cta": "Nadgradite za odklep paketne obdelave"
+      }
+    },
+    "notices": {
+      "voice": "Glasovna polja so vključena v vsak plačljivi načrt.",
+      "images": "Polja s slikami so vključena v vsak plačljivi načrt."
+    },
+    "moreNotesAt": "Več ob {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Vaše brezplačno preizkusno obdobje se je končalo",
+      "trialNotes": "Porabili ste vse zapise preizkusnega obdobja",
+      "trialCredits": "Porabili ste vse kredite preizkusnega obdobja",
+      "accessEnded": "Vaš načrt se je končal"
+    },
+    "title": "Nadgradite, da obdržite vse",
+    "description": "Preklopili ste na brezplačni načrt. Tukaj so spremembe.",
+    "losses": {
+      "notes": "Neomejeno število zapisov",
+      "batch": "Paketna obdelava",
+      "review": "Ustvarjanje med ponavljanjem",
+      "added": "Ustvarjanje iz Yomitan / AnkiConnect",
+      "audio": "Zvok",
+      "images": "Slike",
+      "models": "Prilagojeni besedilni modeli",
+      "webSearch": "Spletno iskanje"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} na dan",
+      "oneAtATime": "Eno naenkrat",
+      "none": "Brez",
+      "autoStandardOnly": "Samo Auto Standard",
+      "fieldsStop_one": "{{count}} polje se ustavi",
+      "fieldsStop_two": "{{count}} polji se ustavita",
+      "fieldsStop_few": "{{count}} polja se ustavijo",
+      "fieldsStop_other": "{{count}} polj se ustavi",
+      "fieldsToStandard_one": "{{count}} polje preide na Auto Standard",
+      "fieldsToStandard_two": "{{count}} polji preideta na Auto Standard",
+      "fieldsToStandard_few": "{{count}} polja preidejo na Auto Standard",
+      "fieldsToStandard_other": "{{count}} polj preide na Auto Standard",
+      "fieldsWithoutSearch_one": "{{count}} polje izgubi spletno iskanje",
+      "fieldsWithoutSearch_two": "{{count}} polji izgubita spletno iskanje",
+      "fieldsWithoutSearch_few": "{{count}} polja izgubijo spletno iskanje",
+      "fieldsWithoutSearch_other": "{{count}} polj izgubi spletno iskanje"
+    },
+    "upgrade": "Nadgradi zdaj",
+    "continue": "Nadaljuj z brezplačnim načrtom",
+    "nowLabel": {
+      "trial": "Vaše preizkusno obdobje",
+      "plan": "Vaš načrt"
+    },
+    "freeLabel": "Brezplačni načrt",
+    "pricing": "Načrti se začnejo pri 4,99 $ na mesec"
   }
 }

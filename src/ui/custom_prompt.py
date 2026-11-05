@@ -39,8 +39,9 @@ from aqt import (
     QWidget,
 )
 
-from ..api_client import UserDisplayableError
+from ..api_client import DailyCardLimitError, UserDisplayableError
 from ..field_resolver import field_resolver
+from ..generation_access import open_daily_limit_upgrade_ui
 from ..image_provider import ImageResponse
 from ..logger import logger
 from ..media_utils import ext_from_content_type, get_media_path, write_media
@@ -257,11 +258,15 @@ class CustomTextPrompt(CustomPrompt):
             self._update_ui_states()
 
         def on_error(error: Exception):
+            self._loading = False
+            self._update_ui_states()
+            if isinstance(error, DailyCardLimitError):
+                open_daily_limit_upgrade_ui()
+                return
+
             msg = f"Error generating text: {error}"
             logger.error(msg)
             show_message_box(msg)
-            self._loading = False
-            self._update_ui_states()
 
         async def generate_text():
             return await field_resolver.get_chat_response(

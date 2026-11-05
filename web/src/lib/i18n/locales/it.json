@@ -246,7 +246,8 @@
       "subtitle": "Lascia una recensione su AnkiWeb per aiutare altri utenti di Anki a trovarlo.",
       "title": "Ti piace Smart Notes?"
     },
-    "subtitle": "Aggiungi testo, voce e immagini generati automaticamente alle tue note."
+    "subtitle": "Aggiungi testo, voce e immagini generati automaticamente alle tue note.",
+    "lockedAriaLabel": "{{field}}, bloccato nel piano Free"
   },
   "defaults": {
     "errors": {
@@ -461,7 +462,18 @@
     "trialEnds": "La prova termina",
     "trialNoteLimitReached": "Limite note di prova raggiunto",
     "upgradeToKeepGenerating": "Aggiorna per continuare a generare.",
-    "usage": "Utilizzo"
+    "usage": "Utilizzo",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} oggi",
+      "resetsAt": "Le note si azzerano alle {{time}}",
+      "upgradeToPaid": "Passa a un piano a pagamento",
+      "creditsUsed": "Crediti utilizzati",
+      "notesTodayLabel": "Note oggi",
+      "notesUsedToday": "note utilizzate oggi",
+      "moduleResetsAt": "Si azzera alle {{time}}",
+      "rowTitle": "Piano Free",
+      "rowDescription": "Passa a un piano superiore per note illimitate, voce, immagini, batch e tutti i modelli."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -519,7 +531,8 @@
       "leftReview": "Ho lasciato una recensione",
       "title": "Ottieni un mese gratuito di Smart Notes",
       "unavailable": "Grazie per la recensione! Questo account ha già usufruito del mese gratuito.",
-      "writeReview": "Scrivi una recensione"
+      "writeReview": "Scrivi una recensione",
+      "buttonLabel": "Ottieni un mese gratuito in cambio di una recensione"
     },
     "thanks": "Grazie per aver usato Smart Notes",
     "title": "La tua prova gratuita è terminata",
@@ -554,5 +567,103 @@
     "description": "I campi vengono inseriti nel prompt come testo semplice, senza formattazione e markup. Disattiva questa opzione se il tuo prompt richiede l'HTML.",
     "label": "Rimuovi HTML dall'input",
     "tipLabel": "Informazioni sulla rimozione dell'HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "Vedi i piani",
+    "features": {
+      "intelligence": {
+        "title": "Intelligenza High e Max",
+        "description": "Alza Auto per prompt più complessi, come spiegazioni grammaticali o dettagli clinici.",
+        "cta": "Passa a un piano per sbloccare High e Max"
+      },
+      "models": {
+        "title": "Tutti i modelli",
+        "description": "Scegli un modello specifico tra OpenAI, Anthropic o Google invece di Auto.",
+        "cta": "Passa a un piano per sbloccare tutti i modelli"
+      },
+      "webSearch": {
+        "title": "Ricerca web",
+        "description": "Consenti ai campi di testo di cercare informazioni sul web durante la generazione.",
+        "cta": "Passa a un piano per sbloccare la ricerca web"
+      },
+      "voice": {
+        "title": "Campi vocali",
+        "description": "Genera audio per le tue schede con voci naturali.",
+        "cta": "Passa a un piano per sbloccare la voce"
+      },
+      "images": {
+        "title": "Campi immagine",
+        "description": "Genera un'immagine per ogni scheda.",
+        "cta": "Passa a un piano per sbloccare le immagini"
+      },
+      "generateOnAdd": {
+        "title": "Genera mentre le note vengono aggiunte",
+        "description": "Compila Smart Fields per le note aggiunte da Yomitan, AnkiConnect e altri add-on.",
+        "cta": "Passa a un piano per sbloccare Yomitan"
+      },
+      "generateAtReview": {
+        "title": "Genera durante il ripasso",
+        "description": "Compila Smart Fields mancanti sulle schede in arrivo mentre ripassi.",
+        "cta": "Passa a un piano per sbloccare il ripasso"
+      },
+      "dailyLimit": {
+        "title": "Hai esaurito le note gratuite di oggi",
+        "description": "Il piano Free include {{count}} note al giorno. I piani a pagamento non hanno limiti.",
+        "cta": "Passa a un piano per note illimitate"
+      },
+      "batch": {
+        "title": "Elaborazione batch",
+        "description": "Genera Smart Fields per tutte le note selezionate in una volta sola.",
+        "cta": "Passa a un piano per sbloccare il batch"
+      }
+    },
+    "notices": {
+      "voice": "I campi vocali sono inclusi in ogni piano a pagamento.",
+      "images": "I campi immagine sono inclusi in ogni piano a pagamento."
+    },
+    "moreNotesAt": "Altre alle {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "La tua prova gratuita è terminata",
+      "trialNotes": "Hai usato tutte le note della prova",
+      "trialCredits": "Hai usato tutti i crediti della prova",
+      "accessEnded": "Il tuo piano è terminato"
+    },
+    "title": "Passa a un piano per mantenere tutto",
+    "description": "Sei passato al piano Free. Ecco cosa cambia.",
+    "losses": {
+      "notes": "Note illimitate",
+      "batch": "Elaborazione batch",
+      "review": "Generazione durante il ripasso",
+      "added": "Genera da Yomitan / AnkiConnect",
+      "audio": "Audio",
+      "images": "Immagini",
+      "models": "Modelli di testo personalizzati",
+      "webSearch": "Ricerca web"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} al giorno",
+      "oneAtATime": "Uno alla volta",
+      "none": "Nessuno",
+      "autoStandardOnly": "Solo Auto Standard",
+      "fieldsStop_one": "{{count}} campo si ferma",
+      "fieldsStop_many": "{{count}} campi si fermano",
+      "fieldsStop_other": "{{count}} campi si fermano",
+      "fieldsToStandard_one": "{{count}} campo passa",
+      "fieldsToStandard_many": "{{count}} campi passano",
+      "fieldsToStandard_other": "{{count}} campi passano",
+      "fieldsWithoutSearch_one": "{{count}} campo perde questa funzione",
+      "fieldsWithoutSearch_many": "{{count}} campi perdono questa funzione",
+      "fieldsWithoutSearch_other": "{{count}} campi perdono questa funzione"
+    },
+    "upgrade": "Passa ora a un piano",
+    "continue": "Continua con Free",
+    "nowLabel": {
+      "trial": "La tua prova",
+      "plan": "Il tuo piano"
+    },
+    "freeLabel": "Piano Free",
+    "pricing": "I piani partono da 4,99 $ al mese"
   }
 }

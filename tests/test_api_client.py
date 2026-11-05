@@ -195,6 +195,36 @@ async def test_api_client_raises_user_displayable_message_for_server_error_field
 
 
 @pytest.mark.asyncio
+@pytest.mark.parametrize(
+    ("body", "is_daily_limit"),
+    [
+        (
+            {"error": "You've generated 20 cards today.", "code": "daily_card_limit"},
+            True,
+        ),
+        ({"error": "RATE_LIMITED"}, False),
+    ],
+)
+async def test_api_client_tells_the_daily_card_limit_apart_from_other_429s(
+    monkeypatch: pytest.MonkeyPatch, body: dict[str, object], is_daily_limit: bool
+) -> None:
+    fake_session = FakeSession()
+    fake_session.response_status = 429
+    fake_session.response_json = body
+    monkeypatch.setattr(api_client.aiohttp, "ClientSession", lambda: fake_session)
+    monkeypatch.setattr(
+        api_client, "config", type("Config", (), {"auth_token": "test-token"})()
+    )
+    monkeypatch.setattr(api_client, "get_server_url", lambda: "https://server.test")
+    monkeypatch.setattr(api_client, "get_version", lambda: "1.2.3")
+
+    with pytest.raises(api_client.UserDisplayableError) as raised:
+        await api_client.APIClient().get_api_response("chat", {"message": "hello"})
+
+    assert isinstance(raised.value, api_client.DailyCardLimitError) is is_daily_limit
+
+
+@pytest.mark.asyncio
 async def test_api_client_raises_http_error_for_server_failure_with_message(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:

@@ -42,6 +42,7 @@ def save_settings(settings: Settings) -> None:
     config.show_wizard_completion = settings.show_wizard_completion
     config.did_dismiss_review_prompt = settings.did_dismiss_review_prompt
     config.did_dismiss_discord_prompt = settings.did_dismiss_discord_prompt
+    config.did_see_free_plan_welcome = settings.did_see_free_plan_welcome
 
 
 @dataclass(frozen=True)
@@ -57,3 +58,4 @@ class Settings:
     show_wizard_completion: bool
     did_dismiss_review_prompt: bool
     did_dismiss_discord_prompt: bool
+    did_see_free_plan_welcome: bool

@@ -21,7 +21,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import aiohttp
 import pytest
-from fixtures import MockCard, MockConfig, MockProcessor
+from fixtures import MockAppState, MockCard, MockConfig, MockProcessor
 
 from src.api_client import UserDisplayableError
 
@@ -81,7 +81,7 @@ def setup_review_time_evaluator(monkeypatch, current=None, queued=None, state="r
     monkeypatch.setattr(src.review_time_evaluator, "config", MockConfig())
     monkeypatch.setattr(
         src.review_time_evaluator,
-        "is_capacity_remaining_or_legacy",
+        "can_generate_in_background",
         lambda: True,
     )
     monkeypatch.setattr(
@@ -268,6 +268,35 @@ def test_tick_processes_initial_wave_from_overview(monkeypatch):
     assert len(started_batches) == 1
     assert evaluator.in_flight == {1}
     assert evaluator.wave_in_progress
+
+
+@pytest.mark.parametrize(
+    ("plan_type", "generates"), [("medium", True), ("free", False)]
+)
+def test_free_plan_does_not_generate_during_review(monkeypatch, plan_type, generates):
+    import src.app_state
+
+    started_batches = []
+    evaluator, _, review_time_evaluator = setup_review_time_evaluator(
+        monkeypatch, current=MockCard(id=1), queued=[]
+    )
+    account = MockAppState(plan_type)
+    monkeypatch.setattr(src.app_state, "app_state", account)
+    monkeypatch.setattr(review_time_evaluator, "app_state", account)
+    monkeypatch.setattr(
+        review_time_evaluator,
+        "can_generate_in_background",
+        src.app_state.can_generate_in_background,
+    )
+    monkeypatch.setattr(
+        review_time_evaluator,
+        "run_async_in_background_with_sentry",
+        lambda *args, **kwargs: started_batches.append(args),
+    )
+
+    evaluator.tick()
+
+    assert bool(started_batches) is generates
 
 
 def test_tick_ignores_non_review_states(monkeypatch):

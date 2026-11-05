@@ -246,7 +246,8 @@
       "subtitle": "השאירו ביקורת על AnkiWeb כדי לעזור למשתמשים אחרים של Anki למצוא אותו.",
       "title": "נהנה מ-Smart Notes?"
     },
-    "subtitle": "הוסף טקסט, קול ותמונות שנוצרו באופן אוטומטי להערות שלך."
+    "subtitle": "הוסף טקסט, קול ותמונות שנוצרו באופן אוטומטי להערות שלך.",
+    "lockedAriaLabel": "{{field}}, נעול בתוכנית החינמית"
   },
   "defaults": {
     "errors": {
@@ -461,7 +462,18 @@
     "trialEnds": "המשפט מסתיים",
     "trialNoteLimitReached": "הגעת למגבלת הערות ניסיון",
     "upgradeToKeepGenerating": "שדרג כדי להמשיך לייצר.",
-    "usage": "נוֹהָג"
+    "usage": "נוֹהָג",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} היום",
+      "resetsAt": "הפתקים מתאפסים בשעה {{time}}",
+      "upgradeToPaid": "שדרג לתוכנית בתשלום",
+      "creditsUsed": "קרדיטים שנוצלו",
+      "notesTodayLabel": "פתקים היום",
+      "notesUsedToday": "פתקים שנוצלו היום",
+      "moduleResetsAt": "מתאפס בשעה {{time}}",
+      "rowTitle": "תוכנית חינמית",
+      "rowDescription": "שדרג לפתקים ללא הגבלה, קול, תמונות, עיבוד אצווה ולכל המודלים."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -519,7 +531,8 @@
       "leftReview": "השארתי ביקורת",
       "title": "קבל חודש חינם של Smart Notes",
       "unavailable": "תודה על הביקורת! לחשבון הזה כבר ניתן חודש חינם.",
-      "writeReview": "כתבו ביקורת"
+      "writeReview": "כתבו ביקורת",
+      "buttonLabel": "קבל חודש בחינם תמורת ביקורת"
     },
     "thanks": "תודה שהשתמשתם ב-Smart Notes",
     "title": "תקופת הניסיון בחינם שלך הסתיימה",
@@ -554,5 +567,103 @@
     "description": "השדות נשלחים לפרומפט כטקסט פשוט, ללא העיצוב והסימון שלהם. כבו אפשרות זו אם הפרומפט שלכם זקוק ל-HTML.",
     "label": "הסר HTML מהקלט",
     "tipLabel": "אודות הסרת HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "צפה בתוכניות",
+    "features": {
+      "intelligence": {
+        "title": "אינטליגנציה High ו-Max",
+        "description": "העלה את Auto לשאלות קשות יותר, כמו הסברי דקדוק או פירוט קליני.",
+        "cta": "שדרג כדי לפתוח את High ו-Max"
+      },
+      "models": {
+        "title": "כל המודלים",
+        "description": "בחר מודל ספציפי מ-OpenAI, Anthropic או Google במקום Auto.",
+        "cta": "שדרג כדי לפתוח את כל המודלים"
+      },
+      "webSearch": {
+        "title": "חיפוש באינטרנט",
+        "description": "אפשר לשדות טקסט לחפש מידע באינטרנט בזמן היצירה.",
+        "cta": "שדרג כדי לפתוח חיפוש באינטרנט"
+      },
+      "voice": {
+        "title": "שדות קול",
+        "description": "צור אודיו לכרטיסים שלך עם קולות טבעיים.",
+        "cta": "שדרג כדי לפתוח קול"
+      },
+      "images": {
+        "title": "שדות תמונה",
+        "description": "צור תמונה לכל כרטיס.",
+        "cta": "שדרג כדי לפתוח תמונות"
+      },
+      "generateOnAdd": {
+        "title": "יצירה בעת הוספת פתקים",
+        "description": "מלא Smart Fields לפתקים מ-Yomitan, AnkiConnect ותוספים אחרים.",
+        "cta": "שדרג כדי לפתוח את Yomitan"
+      },
+      "generateAtReview": {
+        "title": "יצירה במהלך חזרה",
+        "description": "מלא Smart Fields חסרים בכרטיסים הקרובים בזמן החזרה.",
+        "cta": "שדרג כדי לפתוח חזרה"
+      },
+      "dailyLimit": {
+        "title": "נגמרו הפתקים החינמיים להיום",
+        "description": "התוכנית החינמית כוללת {{count}} פתקים ביום. בתוכניות בתשלום אין הגבלה.",
+        "cta": "שדרג לפתקים ללא הגבלה"
+      },
+      "batch": {
+        "title": "עיבוד אצווה",
+        "description": "צור Smart Fields לכל הפתקים שנבחרו בבת אחת.",
+        "cta": "שדרג כדי לפתוח אצווה"
+      }
+    },
+    "notices": {
+      "voice": "שדות קול מגיעים עם כל תוכנית בתשלום.",
+      "images": "שדות תמונה מגיעים עם כל תוכנית בתשלום."
+    },
+    "moreNotesAt": "עוד פתקים בשעה {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "תקופת הניסיון החינמית שלך הסתיימה",
+      "trialNotes": "השתמשת בכל פתקי הניסיון שלך",
+      "trialCredits": "השתמשת בכל קרדיטי הניסיון שלך",
+      "accessEnded": "התוכנית שלך הסתיימה"
+    },
+    "title": "שדרג כדי לשמור על הכול",
+    "description": "עברת לתוכנית החינמית. הנה מה שמשתנה.",
+    "losses": {
+      "notes": "פתקים ללא הגבלה",
+      "batch": "עיבוד אצווה",
+      "review": "יצירה במהלך חזרה",
+      "added": "יצירה מ-Yomitan / AnkiConnect",
+      "audio": "אודיו",
+      "images": "תמונות",
+      "models": "מודלים טקסטואליים מותאמים אישית",
+      "webSearch": "חיפוש באינטרנט"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} ביום",
+      "oneAtATime": "אחד בכל פעם",
+      "none": "אין",
+      "autoStandardOnly": "Auto Standard בלבד",
+      "fieldsStop_one": "{{count}} שדה נעצר",
+      "fieldsStop_two": "{{count}} שדות נעצרים",
+      "fieldsStop_other": "{{count}} שדות נעצרים",
+      "fieldsToStandard_one": "{{count}} שדה עובר",
+      "fieldsToStandard_two": "{{count}} שדות עוברים",
+      "fieldsToStandard_other": "{{count}} שדות עוברים",
+      "fieldsWithoutSearch_one": "{{count}} שדה מאבד את החיפוש",
+      "fieldsWithoutSearch_two": "{{count}} שדות מאבדים את החיפוש",
+      "fieldsWithoutSearch_other": "{{count}} שדות מאבדים את החיפוש"
+    },
+    "upgrade": "שדרג עכשיו",
+    "continue": "המשך בתוכנית החינמית",
+    "nowLabel": {
+      "trial": "תקופת הניסיון שלך",
+      "plan": "התוכנית שלך"
+    },
+    "freeLabel": "תוכנית חינמית",
+    "pricing": "תוכניות מתחילות ב-$4.99 לחודש"
   }
 }

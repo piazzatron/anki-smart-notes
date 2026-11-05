@@ -22,6 +22,10 @@ import type { ReactNode } from "react"
 import { useTranslation } from "react-i18next"
 
 import { PageLayout } from "@/components/shared/PageLayout"
+import {
+  openUpgradeSheet,
+  type UpgradeFeature,
+} from "@/components/shared/UpgradeSheet"
 import { Button } from "@/components/ui/Button"
 import { Card } from "@/components/ui/Card"
 
@@ -37,6 +41,8 @@ interface DefaultsScreenLayoutProps {
   testerAccessory?: ReactNode
   testId: string
   title: string
+  /** Set on the free plan when this screen's field type is a paid feature. */
+  upgradeFeature?: Extract<UpgradeFeature, "voice" | "images">
 }
 
 export const DefaultsScreenLayout = ({
@@ -51,14 +57,16 @@ export const DefaultsScreenLayout = ({
   testerAccessory,
   testId,
   title,
+  upgradeFeature,
 }: DefaultsScreenLayoutProps) => {
   const { t } = useTranslation()
 
   return (
     <PageLayout
       actions={
-        // Keeps the usage pill from shifting when the save button appears.
-        <div className="flex min-h-8 items-center gap-3">
+        // A fixed height the save button overhangs (centered), so neither the header
+        // nor the title moves when it appears.
+        <div className="flex h-8 items-center gap-3">
           {accessory}
           {isDirty && (
             <Button
@@ -80,6 +88,19 @@ export const DefaultsScreenLayout = ({
       testId={testId}
       title={title}
     >
+      {upgradeFeature !== undefined && (
+        <div className="hang mb-8 flex items-center gap-4 rounded-xl bg-indigo/[0.16] py-3.5">
+          <p className="min-w-0 flex-1 text-sm font-medium text-indigo-soft">
+            {t(`upgradeSheet.notices.${upgradeFeature}`)}
+          </p>
+          <Button
+            onClick={() => openUpgradeSheet(upgradeFeature)}
+            variant="primary"
+          >
+            {t("upgradeSheet.seePlans")}
+          </Button>
+        </div>
+      )}
       {children}
       <div className={contentFillsHeight ? "mt-auto pt-10" : "mt-10"}>
         <div className="mb-[22px] flex min-h-[22px] items-center gap-4">

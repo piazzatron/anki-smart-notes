@@ -244,7 +244,8 @@
       "subtitle": "他の Anki ユーザーが見つけられるように、AnkiWeb にレビューを残してください。",
       "title": "Smart Notes をお楽しみですか?"
     },
-    "subtitle": "自動的に生成されたテキスト、音声、画像をメモに追加します。"
+    "subtitle": "自動的に生成されたテキスト、音声、画像をメモに追加します。",
+    "lockedAriaLabel": "{{field}}、フリープランではロック中"
   },
   "defaults": {
     "errors": {
@@ -441,7 +442,18 @@
     "trialEnds": "トライアル終了",
     "trialNoteLimitReached": "トライアルノートの制限に達しました",
     "upgradeToKeepGenerating": "アップグレードして生成し続けます。",
-    "usage": "使用法"
+    "usage": "使用法",
+    "free": {
+      "notesToday": "今日 {{used}}/{{limit}}",
+      "resetsAt": "ノートは{{time}}にリセットされます",
+      "upgradeToPaid": "有料プランにアップグレード",
+      "creditsUsed": "使用済みクレジット",
+      "notesTodayLabel": "今日のノート",
+      "notesUsedToday": "今日使用したノート",
+      "moduleResetsAt": "{{time}}にリセット",
+      "rowTitle": "フリープラン",
+      "rowDescription": "アップグレードすると、ノート数無制限、音声、画像、バッチ処理、すべてのモデルが利用できます。"
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -499,7 +511,8 @@
       "leftReview": "レビューを書きました",
       "title": "Smart Notes を 1 か月間無料で入手",
       "unavailable": "レビューをありがとうございます！このアカウントは無料期間をすでにご利用済みです。",
-      "writeReview": "レビューを書く"
+      "writeReview": "レビューを書く",
+      "buttonLabel": "レビューで1か月無料を獲得"
     },
     "thanks": "Smart Notes をご利用いただきありがとうございました",
     "title": "無料トライアルは終了しました",
@@ -534,5 +547,97 @@
     "description": "フィールドは書式やマークアップを除いたプレーンテキストとしてプロンプトに入ります。プロンプトでHTMLが必要な場合はオフにしてください。",
     "label": "入力からHTMLを削除",
     "tipLabel": "HTMLの削除について"
+  },
+  "upgradeSheet": {
+    "seePlans": "プランを見る",
+    "features": {
+      "intelligence": {
+        "title": "High と Max のインテリジェンス",
+        "description": "Auto の設定を上げると、文法の解説や臨床的な詳細など、難しいプロンプトに対応できます。",
+        "cta": "アップグレードして High と Max を解放"
+      },
+      "models": {
+        "title": "すべてのモデル",
+        "description": "Auto の代わりに、OpenAI、Anthropic、Google の特定のモデルを選択できます。",
+        "cta": "アップグレードしてすべてのモデルを解放"
+      },
+      "webSearch": {
+        "title": "Web検索",
+        "description": "テキストフィールドが生成中にWeb上の情報を検索できるようにします。",
+        "cta": "アップグレードして Web検索 を解放"
+      },
+      "voice": {
+        "title": "音声フィールド",
+        "description": "自然な音声でカードの音声を生成します。",
+        "cta": "アップグレードして音声を解放"
+      },
+      "images": {
+        "title": "画像フィールド",
+        "description": "すべてのカードに画像を生成します。",
+        "cta": "アップグレードして画像を解放"
+      },
+      "generateOnAdd": {
+        "title": "ノート追加時に生成",
+        "description": "Yomitan、AnkiConnect、その他のアドオンから追加されたノートの Smart Fields を入力します。",
+        "cta": "アップグレードして Yomitan を解放"
+      },
+      "generateAtReview": {
+        "title": "復習中に生成",
+        "description": "復習中に、今後のカードの未入力の Smart Fields を入力します。",
+        "cta": "アップグレードして復習を解放"
+      },
+      "dailyLimit": {
+        "title": "今日の無料ノートを使い切りました",
+        "description": "無料プランでは1日{{count}}件のノートが利用できます。有料プランには上限がありません。",
+        "cta": "アップグレードしてノートを無制限に"
+      },
+      "batch": {
+        "title": "バッチ処理",
+        "description": "選択したすべてのノートの Smart Fields をまとめて生成します。",
+        "cta": "アップグレードしてバッチ処理を解放"
+      }
+    },
+    "notices": {
+      "voice": "音声フィールドは、すべての有料プランに含まれています。",
+      "images": "画像フィールドは、すべての有料プランに含まれています。"
+    },
+    "moreNotesAt": "{{time}}にさらに利用可能"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "無料トライアルが終了しました",
+      "trialNotes": "トライアルのノートをすべて使い切りました",
+      "trialCredits": "トライアルのクレジットをすべて使い切りました",
+      "accessEnded": "プランが終了しました"
+    },
+    "title": "すべてを維持するにはアップグレード",
+    "description": "フリープランに移行しました。変更点は以下のとおりです。",
+    "losses": {
+      "notes": "ノート数無制限",
+      "batch": "バッチ処理",
+      "review": "復習中の生成",
+      "added": "Yomitan / AnkiConnect からの生成",
+      "audio": "音声",
+      "images": "画像",
+      "models": "カスタムテキストモデル",
+      "webSearch": "Web検索"
+    },
+    "freeValues": {
+      "dailyNotes": "1日{{count}}件",
+      "oneAtATime": "1件ずつ",
+      "none": "なし",
+      "autoStandardOnly": "Auto Standard のみ",
+      "fieldsStop_other": "{{count}} 個のフィールドが停止",
+      "fieldsToStandard_other": "{{count}} 個のフィールドが移行",
+      "fieldsWithoutSearch_other": "{{count}} 個のフィールドで Web検索 なし"
+    },
+    "upgrade": "今すぐアップグレード",
+    "continue": "フリープランで続行",
+    "nowLabel": {
+      "trial": "現在のトライアル",
+      "plan": "現在のプラン"
+    },
+    "freeLabel": "フリープラン",
+    "pricing": "プランは月額 $4.99 から"
   }
 }

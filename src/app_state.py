@@ -204,6 +204,13 @@ def is_capacity_remaining() -> bool:
     )
 
 
+def is_free_plan() -> bool:
+    """The free plan includes text on Auto at Standard only, generated one note
+    at a time from the editor."""
+    state = app_state.state
+    return state["status"] == "AUTHENTICATED" and state["plan"]["planType"] == "free"
+
+
 def has_legacy_openai_access() -> bool:
     return config.legacy_support is True and bool(config.openai_api_key)
 
@@ -214,3 +221,8 @@ def is_app_legacy() -> bool:
 
 def is_capacity_remaining_or_legacy() -> bool:
     return is_capacity_remaining() or has_legacy_openai_access()
+
+
+def can_generate_in_background() -> bool:
+    """Add-time and review-time generation, which the free plan doesn't include."""
+    return is_capacity_remaining_or_legacy() and not is_free_plan()

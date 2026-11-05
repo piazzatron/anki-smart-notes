@@ -23,6 +23,12 @@ import { Trans, useTranslation } from "react-i18next"
 
 import { PageLayout } from "@/components/shared/PageLayout"
 import { ScreenSkeleton } from "@/components/shared/ScreenSkeleton"
+import {
+  openUpgradeSheet,
+  UpgradeLock,
+  useIsFreePlan,
+  type UpgradeFeature,
+} from "@/components/shared/UpgradeSheet"
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { SectionHeading } from "@/components/ui/SectionHeading"
 import { Toggle } from "@/components/ui/Toggle"
@@ -79,6 +85,7 @@ export const LoadedSettingsScreen = ({
   settings,
 }: LoadedSettingsScreenProps) => {
   const { t } = useTranslation()
+  const isFree = useIsFreePlan()
   const controls = useSettings(settings)
   const [legacyOpen, setLegacyOpen] = useState(false)
   const saveOnEnter = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -162,6 +169,7 @@ export const LoadedSettingsScreen = ({
             onChange={(checked) =>
               void controls.update({ generateOnAdd: checked })
             }
+            upgradeFeature={isFree ? "generateOnAdd" : undefined}
           />
           <SettingRow
             checked={controls.values.generateAtReview}
@@ -171,6 +179,7 @@ export const LoadedSettingsScreen = ({
             onChange={(checked) =>
               void controls.update({ generateAtReview: checked })
             }
+            upgradeFeature={isFree ? "generateAtReview" : undefined}
           />
         </div>
       </div>
@@ -321,6 +330,9 @@ interface SettingRowProps {
   disabled: boolean
   label: ReactNode
   onChange: (checked: boolean) => void
+  /** Set on the free plan, where the setting is a paid feature: the toggle
+   *  gives way to a lock that opens the upgrade sheet. */
+  upgradeFeature?: UpgradeFeature
 }
 
 const SettingRow = ({
@@ -329,13 +341,23 @@ const SettingRow = ({
   disabled,
   label,
   onChange,
+  upgradeFeature,
 }: SettingRowProps) => {
   // The label can carry markup (emphasis), so name the switch by the rendered
   // label rather than an aria-label string.
   const labelId = useId()
   return (
-    <div className="flex items-center gap-5 py-[18px]">
-      <div className="min-w-0 flex-1">
+    <div
+      className={`flex items-center gap-5 py-[18px] ${upgradeFeature === undefined ? "" : "cursor-pointer"}`}
+      onClick={
+        upgradeFeature === undefined
+          ? undefined
+          : () => openUpgradeSheet(upgradeFeature)
+      }
+    >
+      <div
+        className={`min-w-0 flex-1 ${upgradeFeature === undefined ? "" : "opacity-40"}`}
+      >
         <p className="text-sm font-medium text-ink" id={labelId}>
           {label}
         </p>
@@ -343,12 +365,16 @@ const SettingRow = ({
           {description}
         </p>
       </div>
-      <Toggle
-        aria-labelledby={labelId}
-        checked={checked}
-        disabled={disabled}
-        onCheckedChange={onChange}
-      />
+      {upgradeFeature === undefined ? (
+        <Toggle
+          aria-labelledby={labelId}
+          checked={checked}
+          disabled={disabled}
+          onCheckedChange={onChange}
+        />
+      ) : (
+        <UpgradeLock feature={upgradeFeature} />
+      )}
     </div>
   )
 }

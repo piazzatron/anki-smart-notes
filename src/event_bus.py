@@ -38,7 +38,15 @@ class BrowserSelectionChanged:
     payload: dict[str, Any]
 
 
-WebEvent = Union[StateInvalidated, BrowserSelectionChanged]
+@dataclass(frozen=True)
+class UpgradeRequested:
+    """Ephemeral: open the web UI's upgrade sheet for a feature the account's
+    plan doesn't include (`UpgradeFeature` in the web app)."""
+
+    feature: str
+
+
+WebEvent = Union[StateInvalidated, BrowserSelectionChanged, UpgradeRequested]
 
 
 class EventBus:
@@ -52,6 +60,7 @@ class EventBus:
             tuple[asyncio.AbstractEventLoop, asyncio.Queue[WebEvent]]
         ] = []
         self._latest_browser_selection: Optional[BrowserSelectionChanged] = None
+        self._for_next_subscriber: list[WebEvent] = []
 
     def subscribe(
         self, loop: asyncio.AbstractEventLoop, queue: asyncio.Queue[WebEvent]
@@ -62,6 +71,9 @@ class EventBus:
                 loop.call_soon_threadsafe(
                     queue.put_nowait, self._latest_browser_selection
                 )
+            for event in self._for_next_subscriber:
+                loop.call_soon_threadsafe(queue.put_nowait, event)
+            self._for_next_subscriber = []
 
     def unsubscribe(self, queue: asyncio.Queue[WebEvent]) -> None:
         with self._lock:
@@ -76,6 +88,12 @@ class EventBus:
             subscribers = list(self._subscribers)
         for loop, queue in subscribers:
             loop.call_soon_threadsafe(queue.put_nowait, event)
+
+    def publish_to_next_subscriber(self, event: WebEvent) -> None:
+        """Hold an event for the next connection only, such as a webview that's
+        opening: connections from before it may belong to closed windows."""
+        with self._lock:
+            self._for_next_subscriber.append(event)
 
     def clear_browser_selection(self) -> None:
         with self._lock:

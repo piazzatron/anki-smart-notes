@@ -244,7 +244,8 @@
       "subtitle": "다른 Anki 사용자가 찾을 수 있도록 AnkiWeb에 리뷰를 남겨주세요.",
       "title": "Smart Notes를 즐기시나요?"
     },
-    "subtitle": "자동으로 생성된 텍스트, 음성, 이미지를 노트에 추가하세요."
+    "subtitle": "자동으로 생성된 텍스트, 음성, 이미지를 노트에 추가하세요.",
+    "lockedAriaLabel": "{{field}}, 무료 플랜에서 잠김"
   },
   "defaults": {
     "errors": {
@@ -441,7 +442,18 @@
     "trialEnds": "평가판 종료",
     "trialNoteLimitReached": "평가판 메모 한도에 도달했습니다.",
     "upgradeToKeepGenerating": "계속 생성하려면 업그레이드하세요.",
-    "usage": "용법"
+    "usage": "용법",
+    "free": {
+      "notesToday": "오늘 {{used}}/{{limit}}",
+      "resetsAt": "노트는 {{time}}에 초기화됩니다",
+      "upgradeToPaid": "유료 플랜으로 업그레이드",
+      "creditsUsed": "사용한 크레딧",
+      "notesTodayLabel": "오늘의 노트",
+      "notesUsedToday": "오늘 사용한 노트",
+      "moduleResetsAt": "{{time}}에 초기화",
+      "rowTitle": "무료 플랜",
+      "rowDescription": "업그레이드하면 노트, 음성, 이미지, 일괄 처리와 모든 모델을 제한 없이 사용할 수 있습니다."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -499,7 +511,8 @@
       "leftReview": "리뷰를 작성했습니다",
       "title": "Smart Notes 1개월 무료 이용",
       "unavailable": "리뷰 감사합니다! 이 계정은 이미 무료 한 달 혜택을 받았습니다.",
-      "writeReview": "리뷰 작성하기"
+      "writeReview": "리뷰 작성하기",
+      "buttonLabel": "리뷰 작성하고 한 달 무료 받기"
     },
     "thanks": "Smart Notes를 사용해 주셔서 감사합니다",
     "title": "무료 평가판이 종료되었습니다",
@@ -534,5 +547,97 @@
     "description": "필드는 서식과 마크업 없이 일반 텍스트로 프롬프트에 포함됩니다. 프롬프트에 HTML이 필요하다면 이 옵션을 끄세요.",
     "label": "입력에서 HTML 제거",
     "tipLabel": "HTML 제거 정보"
+  },
+  "upgradeSheet": {
+    "seePlans": "요금제 보기",
+    "features": {
+      "intelligence": {
+        "title": "High 및 Max 지능",
+        "description": "문법 설명이나 임상 세부 정보처럼 더 어려운 프롬프트에는 Auto 수준을 높여 사용하세요.",
+        "cta": "High와 Max를 사용하려면 업그레이드"
+      },
+      "models": {
+        "title": "모든 모델",
+        "description": "Auto 대신 OpenAI, Anthropic 또는 Google의 특정 모델을 선택하세요.",
+        "cta": "모든 모델을 사용하려면 업그레이드"
+      },
+      "webSearch": {
+        "title": "웹 검색",
+        "description": "텍스트 필드가 생성되는 동안 웹에서 정보를 찾아볼 수 있습니다.",
+        "cta": "웹 검색을 사용하려면 업그레이드"
+      },
+      "voice": {
+        "title": "음성 필드",
+        "description": "자연스러운 음성으로 카드의 오디오를 생성하세요.",
+        "cta": "음성을 사용하려면 업그레이드"
+      },
+      "images": {
+        "title": "이미지 필드",
+        "description": "모든 카드에 이미지를 생성하세요.",
+        "cta": "이미지를 사용하려면 업그레이드"
+      },
+      "generateOnAdd": {
+        "title": "노트 추가 시 생성",
+        "description": "Yomitan, AnkiConnect 및 기타 애드온에서 추가된 노트의 Smart Fields를 채웁니다.",
+        "cta": "Yomitan을 사용하려면 업그레이드"
+      },
+      "generateAtReview": {
+        "title": "복습 중 생성",
+        "description": "복습하는 동안 예정된 카드의 누락된 Smart Fields를 채웁니다.",
+        "cta": "복습 기능을 사용하려면 업그레이드"
+      },
+      "dailyLimit": {
+        "title": "오늘의 무료 노트를 모두 사용했습니다",
+        "description": "무료 플랜에서는 하루 {{count}}개의 노트를 사용할 수 있습니다. 유료 플랜에는 제한이 없습니다.",
+        "cta": "노트 무제한 사용을 위해 업그레이드"
+      },
+      "batch": {
+        "title": "일괄 처리",
+        "description": "선택한 모든 노트의 Smart Fields를 한 번에 생성하세요.",
+        "cta": "일괄 처리를 사용하려면 업그레이드"
+      }
+    },
+    "notices": {
+      "voice": "음성 필드는 모든 유료 플랜에 포함됩니다.",
+      "images": "이미지 필드는 모든 유료 플랜에 포함됩니다."
+    },
+    "moreNotesAt": "{{time}}에 더 많은 노트를 사용할 수 있습니다"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "무료 체험이 종료되었습니다",
+      "trialNotes": "체험 노트를 모두 사용했습니다",
+      "trialCredits": "체험 크레딧을 모두 사용했습니다",
+      "accessEnded": "플랜이 종료되었습니다"
+    },
+    "title": "모든 기능을 유지하려면 업그레이드하세요",
+    "description": "무료 플랜으로 전환되었습니다. 변경 사항은 다음과 같습니다.",
+    "losses": {
+      "notes": "노트 무제한",
+      "batch": "일괄 처리",
+      "review": "복습 중 생성",
+      "added": "Yomitan / AnkiConnect에서 생성",
+      "audio": "오디오",
+      "images": "이미지",
+      "models": "사용자 지정 텍스트 모델",
+      "webSearch": "웹 검색"
+    },
+    "freeValues": {
+      "dailyNotes": "하루 {{count}}개",
+      "oneAtATime": "한 번에 하나씩",
+      "none": "없음",
+      "autoStandardOnly": "Auto Standard만",
+      "fieldsStop_other": "{{count}}개 필드 중지",
+      "fieldsToStandard_other": "{{count}}개 필드 이동",
+      "fieldsWithoutSearch_other": "{{count}}개 필드에서 제외"
+    },
+    "upgrade": "지금 업그레이드",
+    "continue": "무료 플랜으로 계속",
+    "nowLabel": {
+      "trial": "현재 체험",
+      "plan": "현재 플랜"
+    },
+    "freeLabel": "무료 플랜",
+    "pricing": "요금제는 월 $4.99부터 시작합니다"
   }
 }

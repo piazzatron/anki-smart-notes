@@ -244,7 +244,8 @@
       "subtitle": "Daissa una revista sus AnkiWeb per ajudar d'autres utilizaires d'Anki a la trobar.",
       "title": "Disfrutas de Smart Notes?"
     },
-    "subtitle": "Apondètz de tèxte, de votz e d'imatges generats automaticament a vòstras nòtas."
+    "subtitle": "Apondètz de tèxte, de votz e d'imatges generats automaticament a vòstras nòtas.",
+    "lockedAriaLabel": "{{field}}, blocat sul plan gratuit"
   },
   "defaults": {
     "errors": {
@@ -441,7 +442,18 @@
     "trialEnds": "Lo jutjament s'acaba",
     "trialNoteLimitReached": "Lo limit de nòta d'espròva atench",
     "upgradeToKeepGenerating": "Mesa a jorn per contunhar de generar.",
-    "usage": "Utilizacion"
+    "usage": "Utilizacion",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} uèi",
+      "resetsAt": "Las notas se remeton a zero a {{time}}",
+      "upgradeToPaid": "Passar a un plan pagat",
+      "creditsUsed": "Crèdits utilizats",
+      "notesTodayLabel": "Notas uèi",
+      "notesUsedToday": "notas utilizadas uèi",
+      "moduleResetsAt": "Se remet a zero a {{time}}",
+      "rowTitle": "Plan gratuit",
+      "rowDescription": "Passatz a un plan pagat per las notas illimitadas, la vòz, las imatges, lo tractament per lòts e tots los modèls."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -499,7 +511,8 @@
       "leftReview": "I ai laissat un ressenti",
       "title": "Obtenga un mes gratis de Smart Notes",
       "unavailable": "Mercés per la ressenha! Aqueste compte a ja benefician de son mes gratuit.",
-      "writeReview": "Escriure un ressenti"
+      "writeReview": "Escriure un ressenti",
+      "buttonLabel": "Obtenètz un mes gratuit per una ressenha"
     },
     "thanks": "Mercés d'utilizar Smart Notes",
     "title": "Vòstra espròva gratuita s'es acabada",
@@ -534,5 +547,97 @@
     "description": "Los camps van dins del prompt en text brut, sense formatatge ni marcatge. Desactiva aquesta opció si el prompt necessita l'HTML.",
     "label": "Elimina l'HTML de l'entrada",
     "tipLabel": "Sobre la supressió de l'HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "Veire los plans",
+    "features": {
+      "intelligence": {
+        "title": "High e Max intelligence",
+        "description": "Augmentatz Auto per las demandas mai doras, coma las explicacions de gramatica o los detalhs clinics.",
+        "cta": "Passatz a un plan per desbloquejar High e Max"
+      },
+      "models": {
+        "title": "Totes los modèls",
+        "description": "Causissètz un modèl precís d'OpenAI, Anthropic o Google en lòc d'Auto.",
+        "cta": "Passatz a un plan per desbloquejar totes los modèls"
+      },
+      "webSearch": {
+        "title": "Recèrca sul web",
+        "description": "Permetètz als camps de tèxte de consultar lo web pendent la generacion.",
+        "cta": "Passatz a un plan per desbloquejar la recèrca sul web"
+      },
+      "voice": {
+        "title": "Camps vocals",
+        "description": "Generatz d'àudio per las vòstras cartas amb de vòcs naturalas.",
+        "cta": "Passatz a un plan per desbloquejar la vòz"
+      },
+      "images": {
+        "title": "Camps d'imatge",
+        "description": "Generatz una imatge per cada carta.",
+        "cta": "Passatz a un plan per desbloquejar las imatges"
+      },
+      "generateOnAdd": {
+        "title": "Generar al moment de l'apondon de notas",
+        "description": "Emplenar los Smart Fields per las notas venent de Yomitan, AnkiConnect e d'autres extensions.",
+        "cta": "Passatz a un plan per desbloquejar Yomitan"
+      },
+      "generateAtReview": {
+        "title": "Generar pendent la revision",
+        "description": "Emplenar los Smart Fields que manquen sus las cartas a venir pendent la revision.",
+        "cta": "Passatz a un plan per desbloquejar la revision"
+      },
+      "dailyLimit": {
+        "title": "Son acabadas las notas gratuitas d'uèi",
+        "description": "Lo plan gratuit inclutz {{count}} notas per jorn. Los plans pagats son sens limit.",
+        "cta": "Passatz per las notas illimitadas"
+      },
+      "batch": {
+        "title": "Tractament per lòts",
+        "description": "Generar los Smart Fields per cada nòta seleccionada d'un còp.",
+        "cta": "Passatz a un plan per desbloquejar lo tractament per lòts"
+      }
+    },
+    "notices": {
+      "voice": "Los camps vocals son incluses dins cada plan pagat.",
+      "images": "Los camps d'imatge son incluses dins cada plan pagat."
+    },
+    "moreNotesAt": "Mai de notas a {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Vòstra version d'essai a finit",
+      "trialNotes": "Avètz utilizat totas vòstras notas d'essai",
+      "trialCredits": "Avètz utilizat tots vòstres crèdits d'essai",
+      "accessEnded": "Vòstre plan a finit"
+    },
+    "title": "Passatz a un plan per tot gardar",
+    "description": "Sètz passat al plan gratuit. Vaquí çò que cambia.",
+    "losses": {
+      "notes": "Notas illimitadas",
+      "batch": "Tractament per lòts",
+      "review": "Generar pendent la revision",
+      "added": "Generar amb Yomitan / AnkiConnect",
+      "audio": "Àudio",
+      "images": "Imatges",
+      "models": "Modèls de tèxte personalizats",
+      "webSearch": "Recèrca sul web"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} per jorn",
+      "oneAtATime": "Un a la fes",
+      "none": "Cap",
+      "autoStandardOnly": "Auto Standard solament",
+      "fieldsStop_other": "{{count}} camps s'arrèstan",
+      "fieldsToStandard_other": "{{count}} camps passan",
+      "fieldsWithoutSearch_other": "{{count}} camps ne perdon"
+    },
+    "upgrade": "Passar ara",
+    "continue": "Continuar amb lo plan gratuit",
+    "nowLabel": {
+      "trial": "Vòstra version d'essai",
+      "plan": "Vòstre plan"
+    },
+    "freeLabel": "Plan gratuit",
+    "pricing": "Los plans comencen a 4,99 $ al mes"
   }
 }

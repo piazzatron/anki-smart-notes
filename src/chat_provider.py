@@ -31,7 +31,7 @@ class ChatProvider:
         prompt: str,
         model: ChatModels,
         provider: ChatProviders,
-        note_id: Optional[int],
+        note_id: Optional[str],
         generation_source: GenerationSource,
         web_search: bool = False,
         reasoning_level: ChatReasoningLevel = "off",

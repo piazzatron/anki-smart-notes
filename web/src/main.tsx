@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client"
 // boundary, and a hot update reaching it would re-run startApp and mount a second app
 // over the first instead of reloading the page.
 import { AppRoot } from "./AppRoot"
+import type { UpgradeFeature } from "@/components/shared/UpgradeSheet"
 import "@/assets/styles/globals.css"
 import { bootOptions } from "@/lib/boot"
 import { initializeI18n } from "@/lib/i18n"
@@ -15,6 +16,11 @@ const startDataSource = async () => {
     const { sendMockCommand, setMockFixture } = await import("@/dev/mockData")
     setCommandSender(sendMockCommand)
     setMockFixture(bootOptions.fixture)
+    if (bootOptions.upgradeSheet !== null) {
+      const { openUpgradeSheet } =
+        await import("@/components/shared/UpgradeSheet")
+      openUpgradeSheet(bootOptions.upgradeSheet as UpgradeFeature)
+    }
     return
   }
 

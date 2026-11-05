@@ -245,7 +245,8 @@
       "subtitle": "Diğer Anki kullanıcılarının bulmasına yardımcı olmak için AnkiWeb hakkında bir inceleme bırakın.",
       "title": "Smart Notes'ten memnun musunuz?"
     },
-    "subtitle": "Notlarınıza otomatik olarak oluşturulan metin, ses ve görüntüleri ekleyin."
+    "subtitle": "Notlarınıza otomatik olarak oluşturulan metin, ses ve görüntüleri ekleyin.",
+    "lockedAriaLabel": "{{field}}, Ücretsiz planda kilitli"
   },
   "defaults": {
     "errors": {
@@ -451,7 +452,18 @@
     "trialEnds": "Deneme sona eriyor",
     "trialNoteLimitReached": "Deneme notu sınırına ulaşıldı",
     "upgradeToKeepGenerating": "Üretmeye devam etmek için yükseltin.",
-    "usage": "Kullanım"
+    "usage": "Kullanım",
+    "free": {
+      "notesToday": "Bugün {{used}}/{{limit}}",
+      "resetsAt": "Notlar {{time}} itibarıyla sıfırlanır",
+      "upgradeToPaid": "Ücretli plana geç",
+      "creditsUsed": "Kullanılan krediler",
+      "notesTodayLabel": "Bugünkü notlar",
+      "notesUsedToday": "bugün kullanılan not",
+      "moduleResetsAt": "{{time}} itibarıyla sıfırlanır",
+      "rowTitle": "Ücretsiz plan",
+      "rowDescription": "Sınırsız not, ses, görsel, toplu işlem ve tüm modeller için yükseltin."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -509,7 +521,8 @@
       "leftReview": "Yorum bıraktım",
       "title": "Bir ay ücretsiz Smart Notes edinin",
       "unavailable": "Değerlendirmeniz için teşekkürler! Bu hesap ücretsiz ayını zaten kullandı.",
-      "writeReview": "Yorum yaz"
+      "writeReview": "Yorum yaz",
+      "buttonLabel": "İnceleme yaparak bir ay ücretsiz kazanın"
     },
     "thanks": "Smart Notes'u kullandığınız için teşekkürler",
     "title": "Ücretsiz deneme süreniz sona erdi",
@@ -544,5 +557,100 @@
     "description": "Alanlar, biçimlendirme ve işaretleme olmadan düz metin olarak isteme eklenir. İsteminizin HTML'e ihtiyacı varsa bunu kapatın.",
     "label": "Girdiden HTML'yi kaldır",
     "tipLabel": "HTML'i kaldırma hakkında"
+  },
+  "upgradeSheet": {
+    "seePlans": "Planları gör",
+    "features": {
+      "intelligence": {
+        "title": "High ve Max zekâ",
+        "description": "Dilbilgisi açıklamaları veya klinik ayrıntı gibi daha zor istemler için Auto düzeyini yükseltin.",
+        "cta": "High ve Max'i açmak için yükselt"
+      },
+      "models": {
+        "title": "Tüm modeller",
+        "description": "Auto yerine OpenAI, Anthropic veya Google'dan belirli bir model seçin.",
+        "cta": "Tüm modelleri açmak için yükselt"
+      },
+      "webSearch": {
+        "title": "Web araması",
+        "description": "Metin alanlarının içerik üretirken web'de arama yapmasına izin verin.",
+        "cta": "Web aramasını açmak için yükselt"
+      },
+      "voice": {
+        "title": "Ses alanları",
+        "description": "Kartlarınız için doğal seslerle ses üretin.",
+        "cta": "Sesi açmak için yükselt"
+      },
+      "images": {
+        "title": "Görsel alanları",
+        "description": "Her kart için bir görsel üretin.",
+        "cta": "Görselleri açmak için yükselt"
+      },
+      "generateOnAdd": {
+        "title": "Notlar eklendikçe üret",
+        "description": "Yomitan, AnkiConnect ve diğer eklentilerden eklenen notlar için Smart Fields alanlarını doldurun.",
+        "cta": "Yomitan desteğini açmak için yükselt"
+      },
+      "generateAtReview": {
+        "title": "İnceleme sırasında üret",
+        "description": "İnceleme yaparken yaklaşan kartlardaki eksik Smart Fields alanlarını doldurun.",
+        "cta": "İncelemeyi açmak için yükselt"
+      },
+      "dailyLimit": {
+        "title": "Bugünkü ücretsiz notlarınız bitti",
+        "description": "Ücretsiz plan günde {{count}} not içerir. Ücretli planlarda limit yoktur.",
+        "cta": "Sınırsız not için yükselt"
+      },
+      "batch": {
+        "title": "Toplu işleme",
+        "description": "Seçilen her not için aynı anda Smart Fields oluşturun.",
+        "cta": "Toplu işlemi açmak için yükselt"
+      }
+    },
+    "notices": {
+      "voice": "Ses alanları her ücretli planla birlikte gelir.",
+      "images": "Görsel alanları her ücretli planla birlikte gelir."
+    },
+    "moreNotesAt": "{{time}} itibarıyla daha fazla not"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Ücretsiz deneme süreniz sona erdi",
+      "trialNotes": "Deneme notlarınızın tamamını kullandınız",
+      "trialCredits": "Deneme kredilerinizin tamamını kullandınız",
+      "accessEnded": "Planınızın süresi doldu"
+    },
+    "title": "Her şeyi korumak için yükseltin",
+    "description": "Ücretsiz plana geçtiniz. Neler değiştiğine bakın.",
+    "losses": {
+      "notes": "Sınırsız not",
+      "batch": "Toplu işleme",
+      "review": "İnceleme sırasında üretim",
+      "added": "Yomitan / AnkiConnect üzerinden üretim",
+      "audio": "Ses",
+      "images": "Görseller",
+      "models": "Özel metin modelleri",
+      "webSearch": "Web araması"
+    },
+    "freeValues": {
+      "dailyNotes": "Günde {{count}}",
+      "oneAtATime": "Tek tek",
+      "none": "Yok",
+      "autoStandardOnly": "Yalnızca Auto Standard",
+      "fieldsStop_one": "{{count}} alan durur",
+      "fieldsStop_other": "{{count}} alan durur",
+      "fieldsToStandard_one": "{{count}} alan taşınır",
+      "fieldsToStandard_other": "{{count}} alan taşınır",
+      "fieldsWithoutSearch_one": "{{count}} alan bunu kaybeder",
+      "fieldsWithoutSearch_other": "{{count}} alan bunu kaybeder"
+    },
+    "upgrade": "Şimdi yükselt",
+    "continue": "Ücretsiz planda devam et",
+    "nowLabel": {
+      "trial": "Deneme süreniz",
+      "plan": "Planınız"
+    },
+    "freeLabel": "Ücretsiz plan",
+    "pricing": "Planlar ayda $4,99'dan başlar"
   }
 }

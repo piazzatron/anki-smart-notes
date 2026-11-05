@@ -51,6 +51,9 @@ const TEST_PLAN: PlanInfo = {
   planName: "Free Trial",
   notesUsed: 0,
   notesLimit: 50,
+  dailyNotesUsed: null,
+  dailyNotesLimit: null,
+  freePlanReason: null,
   daysLeft: 7,
   totalDays: 7,
   textCreditsUsed: 0,
@@ -101,6 +104,7 @@ const stateWithAccount = (
     showWizardCompletion: true,
     didDismissReviewPrompt: false,
     didDismissDiscordPrompt: false,
+    didSeeFreePlanWelcome: true,
   },
 })
 

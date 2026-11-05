@@ -245,7 +245,8 @@
       "subtitle": "Lämna en recension om AnkiWeb för att hjälpa andra Anki-användare att hitta den.",
       "title": "Gillar du Smart Notes?"
     },
-    "subtitle": "Lägg till automatiskt genererad text, röst och bilder till dina anteckningar."
+    "subtitle": "Lägg till automatiskt genererad text, röst och bilder till dina anteckningar.",
+    "lockedAriaLabel": "{{field}}, låst i gratisplanen"
   },
   "defaults": {
     "errors": {
@@ -451,7 +452,18 @@
     "trialEnds": "Rättegången avslutas",
     "trialNoteLimitReached": "Gränsen för provanteckningar har nåtts",
     "upgradeToKeepGenerating": "Uppgradera för att fortsätta generera.",
-    "usage": "Användande"
+    "usage": "Användande",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} idag",
+      "resetsAt": "Anteckningarna återställs kl. {{time}}",
+      "upgradeToPaid": "Uppgradera till betald",
+      "creditsUsed": "Använda krediter",
+      "notesTodayLabel": "Anteckningar idag",
+      "notesUsedToday": "anteckningar använda idag",
+      "moduleResetsAt": "Återställs kl. {{time}}",
+      "rowTitle": "Gratisplan",
+      "rowDescription": "Uppgradera för obegränsade anteckningar, röst, bilder, batch och alla modeller."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -509,7 +521,8 @@
       "leftReview": "Jag har lämnat en recension",
       "title": "Få en gratis månad med Smart Notes",
       "unavailable": "Tack för recensionen! Det här kontot har redan fått sin gratismånad.",
-      "writeReview": "Skriv en recension"
+      "writeReview": "Skriv en recension",
+      "buttonLabel": "Få en gratis månad för en recension"
     },
     "thanks": "Tack för att du använder Smart Notes",
     "title": "Din kostnadsfria provperiod har avslutats",
@@ -544,5 +557,100 @@
     "description": "Fält skickas till prompten som vanlig text, utan formatering och markup. Stäng av det om din prompt behöver HTML.",
     "label": "Ta bort HTML från indata",
     "tipLabel": "Om borttagning av HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "Se planer",
+    "features": {
+      "intelligence": {
+        "title": "Hög och Max-intelligens",
+        "description": "Ställ Auto på högre för svårare prompter, som grammatikförklaringar eller kliniska detaljer.",
+        "cta": "Uppgradera för att låsa upp Hög och Max"
+      },
+      "models": {
+        "title": "Alla modeller",
+        "description": "Välj en specifik modell från OpenAI, Anthropic eller Google i stället för Auto.",
+        "cta": "Uppgradera för att låsa upp alla modeller"
+      },
+      "webSearch": {
+        "title": "Webbsökning",
+        "description": "Låt textfält slå upp saker på webben medan de genereras.",
+        "cta": "Uppgradera för att låsa upp webbsökning"
+      },
+      "voice": {
+        "title": "Röstfält",
+        "description": "Generera ljud för dina kort med naturliga röster.",
+        "cta": "Uppgradera för att låsa upp röst"
+      },
+      "images": {
+        "title": "Bildfält",
+        "description": "Generera en bild för varje kort.",
+        "cta": "Uppgradera för att låsa upp bilder"
+      },
+      "generateOnAdd": {
+        "title": "Generera när anteckningar läggs till",
+        "description": "Fyll i Smart Fields för anteckningar från Yomitan, AnkiConnect och andra tillägg.",
+        "cta": "Uppgradera för att låsa upp Yomitan"
+      },
+      "generateAtReview": {
+        "title": "Generera under repetition",
+        "description": "Fyll i saknade Smart Fields på kommande kort när du repeterar.",
+        "cta": "Uppgradera för att låsa upp repetition"
+      },
+      "dailyLimit": {
+        "title": "Du har slut på gratis anteckningar för idag",
+        "description": "Gratisplanen inkluderar {{count}} anteckningar per dag. Betalda planer har ingen gräns.",
+        "cta": "Uppgradera för obegränsade anteckningar"
+      },
+      "batch": {
+        "title": "Batchbearbetning",
+        "description": "Generera Smart Fields för alla valda anteckningar på en gång.",
+        "cta": "Uppgradera för att låsa upp batch"
+      }
+    },
+    "notices": {
+      "voice": "Röstfält ingår i alla betalda planer.",
+      "images": "Bildfält ingår i alla betalda planer."
+    },
+    "moreNotesAt": "Fler kl. {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Din provperiod har gått ut",
+      "trialNotes": "Du har använt alla dina provanteckningar",
+      "trialCredits": "Du har använt alla dina provkrediter",
+      "accessEnded": "Din plan har avslutats"
+    },
+    "title": "Uppgradera för att behålla allt",
+    "description": "Du har bytt till gratisplanen. Här är vad som ändras.",
+    "losses": {
+      "notes": "Obegränsade anteckningar",
+      "batch": "Batchbearbetning",
+      "review": "Generera under repetition",
+      "added": "Generera från Yomitan / AnkiConnect",
+      "audio": "Ljud",
+      "images": "Bilder",
+      "models": "Anpassade textmodeller",
+      "webSearch": "Webbsökning"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} per dag",
+      "oneAtATime": "En i taget",
+      "none": "Ingen",
+      "autoStandardOnly": "Endast Auto Standard",
+      "fieldsStop_one": "{{count}} fält slutar",
+      "fieldsStop_other": "{{count}} fält slutar",
+      "fieldsToStandard_one": "{{count}} fält flyttas",
+      "fieldsToStandard_other": "{{count}} fält flyttas",
+      "fieldsWithoutSearch_one": "{{count}} fält förlorar den",
+      "fieldsWithoutSearch_other": "{{count}} fält förlorar den"
+    },
+    "upgrade": "Uppgradera nu",
+    "continue": "Fortsätt på gratisplanen",
+    "nowLabel": {
+      "trial": "Din provperiod",
+      "plan": "Din plan"
+    },
+    "freeLabel": "Gratisplan",
+    "pricing": "Planer börjar på 4,99 USD i månaden"
   }
 }

@@ -245,7 +245,8 @@
       "subtitle": "Mag-iwan ng review sa AnkiWeb upang matulungan ang ibang mga gumagamit ng Anki na mahanap ito.",
       "title": "Tinatangkilik ang Smart Notes?"
     },
-    "subtitle": "Magdagdag ng awtomatikong nabuong teksto, boses, at mga larawan sa iyong mga tala."
+    "subtitle": "Magdagdag ng awtomatikong nabuong teksto, boses, at mga larawan sa iyong mga tala.",
+    "lockedAriaLabel": "{{field}}, naka-lock sa Libreng plano"
   },
   "defaults": {
     "errors": {
@@ -451,7 +452,18 @@
     "trialEnds": "Natapos ang pagsubok",
     "trialNoteLimitReached": "Naabot na ang limitasyon sa tala ng pagsubok",
     "upgradeToKeepGenerating": "Mag-upgrade para patuloy na makabuo.",
-    "usage": "Paggamit"
+    "usage": "Paggamit",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} ngayong araw",
+      "resetsAt": "Mare-reset ang mga note sa {{time}}",
+      "upgradeToPaid": "Mag-upgrade sa bayad na plano",
+      "creditsUsed": "Nagamit na credits",
+      "notesTodayLabel": "Mga note ngayon",
+      "notesUsedToday": "mga note na nagamit ngayong araw",
+      "moduleResetsAt": "Mare-reset sa {{time}}",
+      "rowTitle": "Libreng plano",
+      "rowDescription": "Mag-upgrade para sa walang limitasyong note, voice, larawan, batch, at lahat ng modelo."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -509,7 +521,8 @@
       "leftReview": "Nag-iwan ako ng review",
       "title": "Kumuha ng libreng buwan ng Smart Notes",
       "unavailable": "Salamat sa iyong review! Nagamit na ng account na ito ang libreng buwan nito.",
-      "writeReview": "Sumulat ng review"
+      "writeReview": "Sumulat ng review",
+      "buttonLabel": "Makakuha ng libreng isang buwan kapalit ng review"
     },
     "thanks": "Salamat sa paggamit ng Smart Notes",
     "title": "Natapos na ang iyong libreng pagsubok",
@@ -544,5 +557,100 @@
     "description": "Ang mga field ay ipinapasok sa prompt bilang plain text, nang walang formatting at markup. I-off ito kung kailangan ng iyong prompt ang HTML.",
     "label": "Alisin ang HTML sa input",
     "tipLabel": "Tungkol sa pag-alis ng HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "Tingnan ang mga plano",
+    "features": {
+      "intelligence": {
+        "title": "High at Max na intelligence",
+        "description": "Itaas ang Auto para sa mas mahihirap na prompt, gaya ng paliwanag sa grammar o detalyadong impormasyong klinikal.",
+        "cta": "Mag-upgrade para i-unlock ang High at Max"
+      },
+      "models": {
+        "title": "Lahat ng modelo",
+        "description": "Pumili ng partikular na modelo mula sa OpenAI, Anthropic o Google sa halip na Auto.",
+        "cta": "Mag-upgrade para i-unlock ang lahat ng modelo"
+      },
+      "webSearch": {
+        "title": "Web search",
+        "description": "Hayaang maghanap ng impormasyon sa web ang mga text field habang nagge-generate.",
+        "cta": "Mag-upgrade para i-unlock ang web search"
+      },
+      "voice": {
+        "title": "Voice fields",
+        "description": "Gumawa ng audio para sa mga card mo gamit ang natural na boses.",
+        "cta": "Mag-upgrade para i-unlock ang voice"
+      },
+      "images": {
+        "title": "Image fields",
+        "description": "Gumawa ng larawan para sa bawat card.",
+        "cta": "Mag-upgrade para i-unlock ang mga larawan"
+      },
+      "generateOnAdd": {
+        "title": "Mag-generate habang dinadagdag ang mga note",
+        "description": "Punan ang Smart Fields para sa mga note mula sa Yomitan, AnkiConnect, at iba pang add-on.",
+        "cta": "Mag-upgrade para i-unlock ang Yomitan"
+      },
+      "generateAtReview": {
+        "title": "Mag-generate habang nagre-review",
+        "description": "Punan ang mga nawawalang Smart Fields sa mga paparating na card habang nagre-review ka.",
+        "cta": "Mag-upgrade para i-unlock ang review"
+      },
+      "dailyLimit": {
+        "title": "Ubos na ang libreng note mo para ngayong araw",
+        "description": "Kasama sa Libreng plano ang {{count}} note kada araw. Walang limitasyon ang mga bayad na plano.",
+        "cta": "Mag-upgrade para sa walang limitasyong note"
+      },
+      "batch": {
+        "title": "Batch processing",
+        "description": "Mag-generate ng Smart Fields para sa lahat ng napiling note nang sabay-sabay.",
+        "cta": "Mag-upgrade para i-unlock ang batch"
+      }
+    },
+    "notices": {
+      "voice": "Kasama ang voice fields sa bawat bayad na plano.",
+      "images": "Kasama ang image fields sa bawat bayad na plano."
+    },
+    "moreNotesAt": "Higit pa sa {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Natapos na ang libreng trial mo",
+      "trialNotes": "Nagamit mo na ang lahat ng trial note mo",
+      "trialCredits": "Nagamit mo na ang lahat ng trial credits mo",
+      "accessEnded": "Natapos na ang plano mo"
+    },
+    "title": "Mag-upgrade para mapanatili ang lahat",
+    "description": "Lumipat ka na sa Libreng plano. Narito ang mga magbabago.",
+    "losses": {
+      "notes": "Walang limitasyong note",
+      "batch": "Batch processing",
+      "review": "Mag-generate habang nagre-review",
+      "added": "Mag-generate mula sa Yomitan / AnkiConnect",
+      "audio": "Audio",
+      "images": "Mga larawan",
+      "models": "Custom na text model",
+      "webSearch": "Web search"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} kada araw",
+      "oneAtATime": "Isa-isa",
+      "none": "Wala",
+      "autoStandardOnly": "Auto Standard lang",
+      "fieldsStop_one": "{{count}} field ang titigil",
+      "fieldsStop_other": "{{count}} field ang titigil",
+      "fieldsToStandard_one": "{{count}} field ang lilipat",
+      "fieldsToStandard_other": "{{count}} field ang lilipat",
+      "fieldsWithoutSearch_one": "{{count}} field ang mawawalan nito",
+      "fieldsWithoutSearch_other": "{{count}} field ang mawawalan nito"
+    },
+    "upgrade": "Mag-upgrade ngayon",
+    "continue": "Magpatuloy sa Libreng plano",
+    "nowLabel": {
+      "trial": "Ang trial mo",
+      "plan": "Ang plano mo"
+    },
+    "freeLabel": "Libreng plano",
+    "pricing": "Nagsisimula ang mga plano sa $4.99 kada buwan"
   }
 }

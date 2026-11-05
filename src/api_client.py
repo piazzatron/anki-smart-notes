@@ -49,6 +49,14 @@ class UserDisplayableError(Exception):
         self.status = status
 
 
+class DailyCardLimitError(UserDisplayableError):
+    """A free-plan user generated today's maximum notes. User-triggered
+    generation shows the upgrade sheet for it instead of the message."""
+
+
+# The `code` the server puts on its 429 for the daily note cap.
+DAILY_CARD_LIMIT_CODE = "daily_card_limit"
+
 # The user's connection failing or timing out. Expected, so it is shown or counted
 # as a failure but never reported to Sentry. Older Anki runtimes have a distinct
 # asyncio.TimeoutError.
@@ -74,7 +82,7 @@ class APIClient:
         path: str,
         args: Optional[dict[str, Any]] = None,
         timeout_sec: Optional[int] = None,
-        note_id: Optional[int] = None,
+        note_id: Optional[str] = None,
         method: Literal["GET", "POST"] = "POST",
         allow_signed_out: bool = False,
     ) -> ClientResponse:
@@ -103,7 +111,7 @@ class APIClient:
             headers["Authorization"] = f"Bearer {jwt}"
 
         if note_id is not None:
-            headers["Note-ID"] = f"{note_id}"
+            headers["Note-ID"] = note_id
 
         async with (
             aiohttp.ClientSession() as session,
@@ -133,6 +141,8 @@ class APIClient:
                 if isinstance(json, dict):
                     message = json.get("message") or json.get("error")
                     if isinstance(message, str):
+                        if json.get("code") == DAILY_CARD_LIMIT_CODE:
+                            raise DailyCardLimitError(message, status=response.status)
                         raise UserDisplayableError(message, status=response.status)
 
                     if response.status == 400:

@@ -245,7 +245,8 @@
       "subtitle": "Deixa un comentario sobre AnkiWeb para axudar a outros usuarios de Anki a atopalo.",
       "title": "Gústache Smart Notes?"
     },
-    "subtitle": "Engade texto, voz e imaxes xerados automaticamente ás túas notas."
+    "subtitle": "Engade texto, voz e imaxes xerados automaticamente ás túas notas.",
+    "lockedAriaLabel": "{{field}}, bloqueado no plan gratuíto"
   },
   "defaults": {
     "errors": {
@@ -451,7 +452,18 @@
     "trialEnds": "Remata o xuízo",
     "trialNoteLimitReached": "Alcanzouse o límite de notas de proba",
     "upgradeToKeepGenerating": "Actualiza para seguir xerando.",
-    "usage": "Uso"
+    "usage": "Uso",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} hoxe",
+      "resetsAt": "As notas reinícianse ás {{time}}",
+      "upgradeToPaid": "Actualizar a un plan de pago",
+      "creditsUsed": "Créditos usados",
+      "notesTodayLabel": "Notas hoxe",
+      "notesUsedToday": "notas usadas hoxe",
+      "moduleResetsAt": "Reinicia ás {{time}}",
+      "rowTitle": "Plan gratuíto",
+      "rowDescription": "Actualiza para ter notas ilimitadas, voz, imaxes, lotes e todos os modelos."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -509,7 +521,8 @@
       "leftReview": "Deixei unha avaliación",
       "title": "Obtén un mes gratuíto de Smart Notes",
       "unavailable": "Grazas pola túa avaliación! Esta conta xa recibiu o seu mes gratuíto.",
-      "writeReview": "Escribir unha avaliación"
+      "writeReview": "Escribir unha avaliación",
+      "buttonLabel": "Obtén un mes gratis por unha avaliación"
     },
     "thanks": "Grazas por usar Smart Notes",
     "title": "A túa proba gratuíta rematou",
@@ -544,5 +557,100 @@
     "description": "Os campos entran no prompt como texto simple, sen o seu formato nin marcado. Desactiva esta opción se o prompt necesita o HTML.",
     "label": "Eliminar o HTML da entrada",
     "tipLabel": "Sobre a eliminación do HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "Ver os planos",
+    "features": {
+      "intelligence": {
+        "title": "Intelixencia High e Max",
+        "description": "Sube Auto para prompts máis difíciles, como explicacións gramaticais ou detalle clínico.",
+        "cta": "Actualiza para desbloquear High e Max"
+      },
+      "models": {
+        "title": "Todos os modelos",
+        "description": "Escolle un modelo específico de OpenAI, Anthropic ou Google en lugar de Auto.",
+        "cta": "Actualiza para desbloquear todos os modelos"
+      },
+      "webSearch": {
+        "title": "Busca na web",
+        "description": "Deixa que os campos de texto busquen información na web mentres se xeran.",
+        "cta": "Actualiza para desbloquear a busca na web"
+      },
+      "voice": {
+        "title": "Campos de voz",
+        "description": "Xera audio para as tarxetas con voces naturais.",
+        "cta": "Actualiza para desbloquear a voz"
+      },
+      "images": {
+        "title": "Campos de imaxe",
+        "description": "Xera unha imaxe para cada tarxeta.",
+        "cta": "Actualiza para desbloquear as imaxes"
+      },
+      "generateOnAdd": {
+        "title": "Xerar ao engadir notas",
+        "description": "Completa os Smart Fields das notas de Yomitan, AnkiConnect e outros complementos.",
+        "cta": "Actualiza para desbloquear Yomitan"
+      },
+      "generateAtReview": {
+        "title": "Xerar durante a revisión",
+        "description": "Completa os Smart Fields que faltan nas tarxetas próximas mentres repasas.",
+        "cta": "Actualiza para desbloquear a revisión"
+      },
+      "dailyLimit": {
+        "title": "Esgotaches as notas gratuítas de hoxe",
+        "description": "O plan gratuíto inclúe {{count}} notas ao día. Os plans de pago non teñen límite.",
+        "cta": "Actualiza para ter notas ilimitadas"
+      },
+      "batch": {
+        "title": "Procesamento por lotes",
+        "description": "Xera Smart Fields para todas as notas seleccionadas dunha vez.",
+        "cta": "Actualiza para desbloquear os lotes"
+      }
+    },
+    "notices": {
+      "voice": "Os campos de voz están incluídos en todos os plans de pago.",
+      "images": "Os campos de imaxe están incluídos en todos os plans de pago."
+    },
+    "moreNotesAt": "Máis ás {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Rematou a túa proba gratuíta",
+      "trialNotes": "Usaches todas as notas da proba",
+      "trialCredits": "Usaches todos os créditos da proba",
+      "accessEnded": "Rematou o teu plan"
+    },
+    "title": "Actualiza para conservar todo",
+    "description": "Pasaches ao plan gratuíto. Isto é o que cambia.",
+    "losses": {
+      "notes": "Notas ilimitadas",
+      "batch": "Procesamento por lotes",
+      "review": "Xerar durante a revisión",
+      "added": "Xerar desde Yomitan / AnkiConnect",
+      "audio": "Audio",
+      "images": "Imaxes",
+      "models": "Modelos de texto personalizados",
+      "webSearch": "Busca na web"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} ao día",
+      "oneAtATime": "Unha por vez",
+      "none": "Ningún",
+      "autoStandardOnly": "Só Auto Standard",
+      "fieldsStop_one": "{{count}} campo para",
+      "fieldsStop_other": "{{count}} campos param",
+      "fieldsToStandard_one": "{{count}} campo cambia",
+      "fieldsToStandard_other": "{{count}} campos cambian",
+      "fieldsWithoutSearch_one": "{{count}} campo perde a busca",
+      "fieldsWithoutSearch_other": "{{count}} campos perden a busca"
+    },
+    "upgrade": "Actualiza agora",
+    "continue": "Continuar co plan gratuíto",
+    "nowLabel": {
+      "trial": "A túa proba",
+      "plan": "O teu plan"
+    },
+    "freeLabel": "Plan gratuíto",
+    "pricing": "Os plans comezan en 4,99 $ ao mes"
   }
 }

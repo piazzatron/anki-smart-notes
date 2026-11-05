@@ -246,7 +246,8 @@
       "subtitle": "Deje una reseña sobre AnkiWeb para ayudar a otros usuarios de Anki a encontrarla.",
       "title": "¿Estás disfrutando de Smart Notes?"
     },
-    "subtitle": "Agregue texto, voz e imágenes generados automáticamente a sus notas."
+    "subtitle": "Agregue texto, voz e imágenes generados automáticamente a sus notas.",
+    "lockedAriaLabel": "{{field}}, bloqueado en el plan gratuito"
   },
   "defaults": {
     "errors": {
@@ -461,7 +462,18 @@
     "trialEnds": "Finaliza el juicio",
     "trialNoteLimitReached": "Se alcanzó el límite de notas de prueba",
     "upgradeToKeepGenerating": "Actualiza para seguir generando.",
-    "usage": "Uso"
+    "usage": "Uso",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} hoy",
+      "resetsAt": "Las notas se reinician a las {{time}}",
+      "upgradeToPaid": "Mejorar a plan de pago",
+      "creditsUsed": "Créditos usados",
+      "notesTodayLabel": "Notas hoy",
+      "notesUsedToday": "notas usadas hoy",
+      "moduleResetsAt": "Se reinicia a las {{time}}",
+      "rowTitle": "Plan gratuito",
+      "rowDescription": "Mejora para tener notas ilimitadas, voz, imágenes, lotes y todos los modelos."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -519,7 +531,8 @@
       "leftReview": "Ya dejé una reseña",
       "title": "Consigue un mes gratis de Smart Notes",
       "unavailable": "¡Gracias por tu reseña! Esta cuenta ya ha tenido su mes gratis.",
-      "writeReview": "Escribir una reseña"
+      "writeReview": "Escribir una reseña",
+      "buttonLabel": "Obtén un mes gratis por una reseña"
     },
     "thanks": "Gracias por usar Smart Notes",
     "title": "Tu prueba gratuita ha finalizado",
@@ -554,5 +567,103 @@
     "description": "Los campos se incluyen en el prompt como texto sin formato, sin su formato ni marcado. Desactiva esta opción si tu prompt necesita el HTML.",
     "label": "Eliminar HTML de la entrada",
     "tipLabel": "Acerca de eliminar HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "Ver planes",
+    "features": {
+      "intelligence": {
+        "title": "Inteligencia High y Max",
+        "description": "Cambia Auto a un nivel superior para prompts más difíciles, como explicaciones gramaticales o detalles clínicos.",
+        "cta": "Mejora para desbloquear High y Max"
+      },
+      "models": {
+        "title": "Todos los modelos",
+        "description": "Elige un modelo específico de OpenAI, Anthropic o Google en lugar de Auto.",
+        "cta": "Mejora para desbloquear todos los modelos"
+      },
+      "webSearch": {
+        "title": "Búsqueda web",
+        "description": "Permite que los campos de texto busquen información en la web mientras se generan.",
+        "cta": "Mejora para desbloquear la búsqueda web"
+      },
+      "voice": {
+        "title": "Campos de voz",
+        "description": "Genera audio para tus tarjetas con voces naturales.",
+        "cta": "Mejora para desbloquear la voz"
+      },
+      "images": {
+        "title": "Campos de imagen",
+        "description": "Genera una imagen para cada tarjeta.",
+        "cta": "Mejora para desbloquear las imágenes"
+      },
+      "generateOnAdd": {
+        "title": "Genera al añadir notas",
+        "description": "Rellena Smart Fields para notas de Yomitan, AnkiConnect y otros complementos.",
+        "cta": "Mejora para desbloquear Yomitan"
+      },
+      "generateAtReview": {
+        "title": "Genera durante la revisión",
+        "description": "Rellena los Smart Fields que falten en las tarjetas próximas mientras repasas.",
+        "cta": "Mejora para desbloquear la revisión"
+      },
+      "dailyLimit": {
+        "title": "Se te acabaron las notas gratuitas de hoy",
+        "description": "El plan gratuito incluye {{count}} notas al día. Los planes de pago no tienen límite.",
+        "cta": "Mejora para tener notas ilimitadas"
+      },
+      "batch": {
+        "title": "Procesamiento por lotes",
+        "description": "Genera Smart Fields para todas las notas seleccionadas a la vez.",
+        "cta": "Mejora para desbloquear los lotes"
+      }
+    },
+    "notices": {
+      "voice": "Los campos de voz vienen incluidos en todos los planes de pago.",
+      "images": "Los campos de imagen vienen incluidos en todos los planes de pago."
+    },
+    "moreNotesAt": "Más a las {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Tu prueba gratuita ha terminado",
+      "trialNotes": "Has usado todas las notas de tu prueba",
+      "trialCredits": "Has usado todos los créditos de tu prueba",
+      "accessEnded": "Tu plan ha terminado"
+    },
+    "title": "Mejora para conservar todo",
+    "description": "Has pasado al plan gratuito. Esto es lo que cambia.",
+    "losses": {
+      "notes": "Notas ilimitadas",
+      "batch": "Procesamiento por lotes",
+      "review": "Genera durante la revisión",
+      "added": "Genera desde Yomitan / AnkiConnect",
+      "audio": "Audio",
+      "images": "Imágenes",
+      "models": "Modelos de texto personalizados",
+      "webSearch": "Búsqueda web"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} al día",
+      "oneAtATime": "Uno a la vez",
+      "none": "Ninguno",
+      "autoStandardOnly": "Solo Auto Standard",
+      "fieldsStop_one": "{{count}} campo se detiene",
+      "fieldsStop_many": "{{count}} campos se detienen",
+      "fieldsStop_other": "{{count}} campos se detienen",
+      "fieldsToStandard_one": "{{count}} campo se mueve",
+      "fieldsToStandard_many": "{{count}} campos se mueven",
+      "fieldsToStandard_other": "{{count}} campos se mueven",
+      "fieldsWithoutSearch_one": "{{count}} campo pierde esta función",
+      "fieldsWithoutSearch_many": "{{count}} campos pierden esta función",
+      "fieldsWithoutSearch_other": "{{count}} campos pierden esta función"
+    },
+    "upgrade": "Mejorar ahora",
+    "continue": "Continuar en el plan gratuito",
+    "nowLabel": {
+      "trial": "Tu prueba",
+      "plan": "Tu plan"
+    },
+    "freeLabel": "Plan gratuito",
+    "pricing": "Los planes empiezan en 4,99 $ al mes"
   }
 }

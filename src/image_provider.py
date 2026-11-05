@@ -35,7 +35,7 @@ class ImageProvider:
         prompt: str,
         model: ImageModels,
         provider: ImageProviders,
-        note_id: Optional[int],
+        note_id: Optional[str],
         generation_source: GenerationSource,
     ) -> ImageResponse:
         args: dict[str, Any] = {

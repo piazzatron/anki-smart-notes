@@ -245,7 +245,8 @@
       "subtitle": "Jätke AnkiWeb kohta ülevaade, et aidata teistel Anki kasutajatel see leida.",
       "title": "Kas teile meeldib Smart Notes?"
     },
-    "subtitle": "Lisage oma märkmetele automaatselt loodud tekst, hääl ja pildid."
+    "subtitle": "Lisage oma märkmetele automaatselt loodud tekst, hääl ja pildid.",
+    "lockedAriaLabel": "{{field}}, lukustatud tasuta paketis"
   },
   "defaults": {
     "errors": {
@@ -451,7 +452,18 @@
     "trialEnds": "Kohtuprotsess lõppeb",
     "trialNoteLimitReached": "Proovimärkmete limiit on täis",
     "upgradeToKeepGenerating": "Loomise jätkamiseks uuendage.",
-    "usage": "Kasutamine"
+    "usage": "Kasutamine",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} täna",
+      "resetsAt": "Märkmed lähtestuvad kell {{time}}",
+      "upgradeToPaid": "Uuenda tasuliseks",
+      "creditsUsed": "Kasutatud krediidid",
+      "notesTodayLabel": "Märkmed täna",
+      "notesUsedToday": "täna kasutatud märkmed",
+      "moduleResetsAt": "Lähtestub kell {{time}}",
+      "rowTitle": "Tasuta pakett",
+      "rowDescription": "Uuenda, et saada piiramatu arv märkmeid, hääl, pildid, partiitöötlus ja kõik mudelid."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -509,7 +521,8 @@
       "leftReview": "Jätsin arvustuse",
       "title": "Hankige tasuta kuu aega Smart Notes",
       "unavailable": "Aitäh arvustuse eest! Sellel kontol on tasuta kuu juba kasutatud.",
-      "writeReview": "Kirjuta arvustus"
+      "writeReview": "Kirjuta arvustus",
+      "buttonLabel": "Saa arvustuse eest üks kuu tasuta"
     },
     "thanks": "Aitäh, et kasutasid Smart Notes'it",
     "title": "Teie tasuta prooviperiood on lõppenud",
@@ -544,5 +557,100 @@
     "description": "Väljad lisatakse päringusse lihtteksti, ilma vormingu ja märgendusteta. Lülita see välja, kui päring vajab HTML-i.",
     "label": "Eemalda sisendist HTML",
     "tipLabel": "HTML-i eemaldamisest"
+  },
+  "upgradeSheet": {
+    "seePlans": "Vaata pakette",
+    "features": {
+      "intelligence": {
+        "title": "Kõrge ja maksimaalne intelligentsus",
+        "description": "Keerukamate päringute jaoks, nagu grammatikaselgitused või kliiniline detailsus, lülita Auto kõrgemale.",
+        "cta": "Uuenda, et avada Kõrge ja Maksimaalne"
+      },
+      "models": {
+        "title": "Kõik mudelid",
+        "description": "Vali OpenAI, Anthropic või Google konkreetne mudel Auto asemel.",
+        "cta": "Uuenda, et avada kõik mudelid"
+      },
+      "webSearch": {
+        "title": "Veebiotsing",
+        "description": "Lase tekstiväljadel genereerimise ajal veebist infot otsida.",
+        "cta": "Uuenda, et avada veebiotsing"
+      },
+      "voice": {
+        "title": "Häälväljad",
+        "description": "Genereeri oma kaartidele heli loomulike häältega.",
+        "cta": "Uuenda, et avada hääl"
+      },
+      "images": {
+        "title": "Pildiväljad",
+        "description": "Genereeri pilt igale kaardile.",
+        "cta": "Uuenda, et avada pildid"
+      },
+      "generateOnAdd": {
+        "title": "Genereeri märkmete lisamisel",
+        "description": "Täida märkmete Smart Fields Yomitanist, AnkiConnectist ja teistest lisanditest.",
+        "cta": "Uuenda, et avada Yomitan"
+      },
+      "generateAtReview": {
+        "title": "Genereeri kordamise ajal",
+        "description": "Täida eelseisvatel kaartidel puuduvad Smart Fields kordamise ajal.",
+        "cta": "Uuenda, et avada kordamine"
+      },
+      "dailyLimit": {
+        "title": "Tasuta märkmed on tänaseks otsas",
+        "description": "Tasuta paketis on {{count}} märkmet päevas. Tasulistel pakettidel piirangut pole.",
+        "cta": "Uuenda, et saada piiramatu arv märkmeid"
+      },
+      "batch": {
+        "title": "Partiitöötlus",
+        "description": "Genereeri kõigile valitud märkmetele korraga Smart Fields.",
+        "cta": "Uuenda, et avada partiitöötlus"
+      }
+    },
+    "notices": {
+      "voice": "Häälväljad on kõigis tasulistes pakettides.",
+      "images": "Pildiväljad on kõigis tasulistes pakettides."
+    },
+    "moreNotesAt": "Rohkem kell {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Teie prooviperiood on lõppenud",
+      "trialNotes": "Kõik teie proovimärkmed on kasutatud",
+      "trialCredits": "Kõik teie proovikrediidid on kasutatud",
+      "accessEnded": "Teie pakett on lõppenud"
+    },
+    "title": "Uuenda, et kõik alles jääks",
+    "description": "Olete üle läinud tasuta paketile. Vaata, mis muutub.",
+    "losses": {
+      "notes": "Piiramatu arv märkmeid",
+      "batch": "Partiitöötlus",
+      "review": "Genereerimine kordamise ajal",
+      "added": "Genereerimine Yomitanist / AnkiConnectist",
+      "audio": "Heli",
+      "images": "Pildid",
+      "models": "Kohandatud tekstimudelid",
+      "webSearch": "Veebiotsing"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} päevas",
+      "oneAtATime": "Üks korraga",
+      "none": "Puudub",
+      "autoStandardOnly": "Ainult Auto Standard",
+      "fieldsStop_one": "{{count}} väli peatub",
+      "fieldsStop_other": "{{count}} välja peatuvad",
+      "fieldsToStandard_one": "{{count}} väli liigub",
+      "fieldsToStandard_other": "{{count}} välja liiguvad",
+      "fieldsWithoutSearch_one": "{{count}} väli kaotab selle",
+      "fieldsWithoutSearch_other": "{{count}} välja kaotavad selle"
+    },
+    "upgrade": "Uuenda kohe",
+    "continue": "Jätka tasuta paketiga",
+    "nowLabel": {
+      "trial": "Teie prooviperiood",
+      "plan": "Teie pakett"
+    },
+    "freeLabel": "Tasuta pakett",
+    "pricing": "Paketid algavad 4,99 $ kuus"
   }
 }

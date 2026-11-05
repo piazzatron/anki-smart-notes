@@ -23,7 +23,10 @@ from typing import Optional
 from anki.cards import Card
 from aqt import QAction, QMenu, browser, editor, mw
 
-from ..generation_access import ensure_generation_available
+from ..generation_access import (
+    ensure_generation_available,
+    ensure_paid_feature_available,
+)
 from ..note_proccessor import NoteProcessor
 from .custom_prompt import CustomImagePrompt, CustomTextPrompt, CustomTTSPrompt
 from .i18n import native_action_text
@@ -150,7 +153,9 @@ class FieldMenu:
         ).exec()
 
     def _on_custom_image(self, _: bool) -> None:
-        if not ensure_generation_available():
+        if not ensure_generation_available() or not ensure_paid_feature_available(
+            "images"
+        ):
             return
 
         # This should be called with exec instead of show, but
@@ -165,7 +170,9 @@ class FieldMenu:
         ).show()
 
     def _on_custom_tts(self, _: bool) -> None:
-        if not ensure_generation_available():
+        if not ensure_generation_available() or not ensure_paid_feature_available(
+            "voice"
+        ):
             return
 
         CustomTTSPrompt(

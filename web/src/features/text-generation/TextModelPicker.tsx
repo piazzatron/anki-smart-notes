@@ -23,6 +23,12 @@ import { Trans, useTranslation } from "react-i18next"
 
 import { BoltIcon, WarningIcon } from "@/components/shared/Icons"
 import { StripHtmlToggle } from "@/components/shared/StripHtmlToggle"
+import {
+  openUpgradeSheet,
+  UpgradeLock,
+  UpgradeLockIcon,
+  useIsFreePlan,
+} from "@/components/shared/UpgradeSheet"
 import { Disclosure } from "@/components/ui/Disclosure"
 import { Divider } from "@/components/ui/Divider"
 import { InfoTip } from "@/components/ui/InfoTip"
@@ -45,6 +51,8 @@ import type { ChatGenerationSettings, ChatModelCatalog } from "@/types/api"
 import {
   INTELLIGENCE_LEVELS,
   autoSettingsFor,
+  freePlanChatSettings,
+  isPaidOnlyChatSettings,
   intelligenceLevelOf,
   type IntelligenceLevel,
 } from "./intelligence"
@@ -76,7 +84,14 @@ export const TextModelPicker = ({
   value,
 }: TextModelPickerProps) => {
   const { t } = useTranslation()
-  const isAuto = value.provider === "auto"
+  const isFree = useIsFreePlan()
+  // On the free plan, paid-only settings are paused rather than changed: show what
+  // runs (Auto Standard, no web search) while the saved value stays as it is.
+  const shown =
+    isFree && isPaidOnlyChatSettings(value)
+      ? freePlanChatSettings(value)
+      : value
+  const isAuto = shown.provider === "auto"
   const surface = `rounded-xl bg-white/[0.05] ${hanging ? "hang" : "px-hang"}`
 
   return (
@@ -112,7 +127,8 @@ export const TextModelPicker = ({
             </InfoTip>
           </div>
           <IntelligenceSlider
-            level={intelligenceLevelOf(value)}
+            level={intelligenceLevelOf(shown)}
+            lockedAboveStandard={isFree}
             onChange={(level) =>
               onChange({ ...value, ...autoSettingsFor(level) })
             }
@@ -122,29 +138,33 @@ export const TextModelPicker = ({
         <div className={`${surface} py-5`}>
           <div className="flex items-center gap-2">
             <span className="min-w-0 flex-1 truncate text-[14.5px] font-bold text-ink">
-              {modelLabel(value.model)}
+              {modelLabel(shown.model)}
             </span>
-            <CostPill model={value.model} />
+            <CostPill model={shown.model} />
           </div>
           <p className="mt-1 text-xs leading-4 text-ink-muted">
-            {providerLabel(value.provider)}
+            {providerLabel(shown.provider)}
           </p>
         </div>
       )}
 
       <Disclosure
         className="mt-5"
-        defaultOpen={!isAuto || value.webSearchEnabled || !value.stripHtml}
+        defaultOpen={!isAuto || shown.webSearchEnabled || !shown.stripHtml}
         label={t("common.advancedOptions")}
       >
         <SpecificModelList
           catalog={catalog}
           className={hanging ? "-mx-hang" : ""}
+          locked={isFree}
           onChange={onChange}
-          value={value}
+          value={shown}
         />
-        <div className={`${surface} flex items-center gap-4 py-[18px]`}>
-          <div className="min-w-0 flex-1">
+        <div
+          className={`${surface} flex items-center gap-4 py-[18px] ${isFree ? "cursor-pointer" : ""}`}
+          onClick={isFree ? () => openUpgradeSheet("webSearch") : undefined}
+        >
+          <div className={`min-w-0 flex-1 ${isFree ? "opacity-40" : ""}`}>
             <p className="flex min-h-[22px] items-center gap-2 text-sm font-medium text-ink">
               {t("intelligence.webSearch")}
               <InfoTip label={t("intelligence.webSearchTipLabel")}>
@@ -153,13 +173,17 @@ export const TextModelPicker = ({
               <Pill tone="warning">{t("intelligence.veryHighCost")}</Pill>
             </p>
           </div>
-          <Toggle
-            aria-label={t("intelligence.webSearch")}
-            checked={value.webSearchEnabled}
-            onCheckedChange={(webSearchEnabled) =>
-              onChange({ ...value, webSearchEnabled })
-            }
-          />
+          {isFree ? (
+            <UpgradeLock feature="webSearch" />
+          ) : (
+            <Toggle
+              aria-label={t("intelligence.webSearch")}
+              checked={value.webSearchEnabled}
+              onCheckedChange={(webSearchEnabled) =>
+                onChange({ ...value, webSearchEnabled })
+              }
+            />
+          )}
         </div>
         <StripHtmlToggle
           checked={value.stripHtml}
@@ -175,12 +199,16 @@ export const TextModelPicker = ({
 // clipping one full-width gradient, so each level keeps its color as it fills.
 const IntelligenceSlider = ({
   level,
+  lockedAboveStandard,
   onChange,
 }: {
   level: IntelligenceLevel
+  lockedAboveStandard: boolean
   onChange: (level: IntelligenceLevel) => void
 }) => {
   const { t } = useTranslation()
+  const isLocked = (id: IntelligenceLevel) =>
+    lockedAboveStandard && id !== "standard"
   const stopRefs = useRef<(HTMLButtonElement | null)[]>([])
   const index = INTELLIGENCE_LEVELS.findIndex((item) => item.id === level)
   const step = 100 / (INTELLIGENCE_LEVELS.length - 1)
@@ -193,7 +221,12 @@ const IntelligenceSlider = ({
         loop={false}
         onValueChange={(id) => {
           const next = INTELLIGENCE_LEVELS.find((item) => item.id === id)
-          if (next !== undefined) onChange(next.id)
+          if (next === undefined) return
+          if (isLocked(next.id)) {
+            openUpgradeSheet("intelligence")
+            return
+          }
+          onChange(next.id)
         }}
         value={level}
       >
@@ -211,7 +244,7 @@ const IntelligenceSlider = ({
                 itemIndex === index
                   ? "animate-stop-pop bg-[var(--level)]"
                   : "bg-zinc-800"
-              }`}
+              } ${isLocked(item.id) ? "opacity-40" : ""}`}
               key={item.id}
               ref={(element) => {
                 stopRefs.current[itemIndex] = element
@@ -238,9 +271,13 @@ const IntelligenceSlider = ({
           <button
             className={`grid cursor-pointer gap-0.5 text-[13px] first:justify-items-start last:justify-items-end [&:nth-child(2)]:justify-items-center ${
               itemIndex === index ? "" : "text-ink-muted"
-            }`}
+            } ${isLocked(item.id) ? "opacity-40" : ""}`}
             key={item.id}
             onClick={() => {
+              if (isLocked(item.id)) {
+                openUpgradeSheet("intelligence")
+                return
+              }
               // Re-picking the current level is not a change: in the field editor a
               // change pins the field off its default.
               if (itemIndex !== index) onChange(item.id)
@@ -253,7 +290,8 @@ const IntelligenceSlider = ({
             tabIndex={-1}
             type="button"
           >
-            <span className="font-semibold">
+            <span className="flex items-center gap-1 font-semibold">
+              {isLocked(item.id) && <UpgradeLockIcon />}
               {t(`intelligence.levels.${item.id}`)}
             </span>
             <span
@@ -274,11 +312,13 @@ const IntelligenceSlider = ({
 const SpecificModelList = ({
   catalog,
   className,
+  locked,
   onChange,
   value,
 }: {
   catalog: ChatModelCatalog
   className: string
+  locked: boolean
   onChange: (settings: ChatGenerationSettings) => void
   value: ChatGenerationSettings
 }) => {
@@ -295,17 +335,23 @@ const SpecificModelList = ({
       <button
         aria-expanded={open}
         className="flex w-full cursor-pointer items-center gap-2.5 px-hang py-[18px] text-start text-sm font-medium text-ink transition hover:bg-white/[0.02]"
-        onClick={() => setOpen(!open)}
+        onClick={() => (locked ? openUpgradeSheet("models") : setOpen(!open))}
         type="button"
       >
-        <span className="shrink-0">{t("intelligence.specificModel")}</span>
+        <span className={`shrink-0 ${locked ? "opacity-40" : ""}`}>
+          {t("intelligence.specificModel")}
+        </span>
         <span className="min-w-0 flex-1 truncate text-end font-normal text-ink-muted">
           {isAuto ? "" : modelLabel(value.model)}
         </span>
-        <ChevronRight
-          aria-hidden
-          className={`size-3.5 shrink-0 text-ink-faint transition-transform rtl:rotate-180 ${open ? "rotate-90 rtl:rotate-90" : ""}`}
-        />
+        {locked ? (
+          <UpgradeLockIcon className="text-ink-muted" />
+        ) : (
+          <ChevronRight
+            aria-hidden
+            className={`size-3.5 shrink-0 text-ink-faint transition-transform rtl:rotate-180 ${open ? "rotate-90 rtl:rotate-90" : ""}`}
+          />
+        )}
       </button>
       {open && (
         <OptionList

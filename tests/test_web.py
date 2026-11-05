@@ -34,6 +34,7 @@ from src.event_bus import (
     BrowserSelectionChanged,
     EventBus,
     StateInvalidated,
+    UpgradeRequested,
     event_bus,
     republish_state,
 )
@@ -81,6 +82,7 @@ SETTINGS_DTO: dto.SettingsDto = {
     "showWizardCompletion": True,
     "didDismissReviewPrompt": False,
     "didDismissDiscordPrompt": False,
+    "didSeeFreePlanWelcome": False,
 }
 
 
@@ -162,6 +164,26 @@ async def test_event_bus_can_clear_replayed_browser_selection():
     await asyncio.sleep(0)
 
     assert queue.empty()
+
+
+@pytest.mark.asyncio
+async def test_event_bus_holds_an_event_for_the_next_subscriber_only():
+    bus = EventBus()
+    loop = asyncio.get_running_loop()
+    # A connection from before the window opened, e.g. a closed webview.
+    earlier: asyncio.Queue = asyncio.Queue()
+    bus.subscribe(loop, earlier)
+    upgrade = UpgradeRequested("batch")
+    bus.publish_to_next_subscriber(upgrade)
+    opening: asyncio.Queue = asyncio.Queue()
+    later: asyncio.Queue = asyncio.Queue()
+
+    bus.subscribe(loop, opening)
+    bus.subscribe(loop, later)
+    await asyncio.sleep(0)
+
+    assert await asyncio.wait_for(opening.get(), timeout=2) == upgrade
+    assert earlier.empty() and later.empty()
 
 
 def test_account_state_change_invalidates_web_state(monkeypatch):
@@ -383,6 +405,7 @@ def test_build_settings_reads_config(monkeypatch):
         show_wizard_completion=False,
         did_dismiss_review_prompt=True,
         did_dismiss_discord_prompt=True,
+        did_see_free_plan_welcome=True,
     )
     monkeypatch.setattr(dto.builders, "config", config)
 
@@ -399,6 +422,7 @@ def test_build_settings_reads_config(monkeypatch):
         "showWizardCompletion": False,
         "didDismissReviewPrompt": True,
         "didDismissDiscordPrompt": True,
+        "didSeeFreePlanWelcome": True,
     }
 
 
@@ -639,6 +663,7 @@ def test_parse_settings_round_trips():
     assert parsed.show_wizard_completion is True
     assert parsed.did_dismiss_review_prompt is False
     assert parsed.did_dismiss_discord_prompt is False
+    assert parsed.did_see_free_plan_welcome is False
 
 
 # -- Build/parse round trips. The client round-trips these objects (receives a
@@ -722,6 +747,7 @@ def test_settings_survive_build_parse_round_trip(monkeypatch):
         show_wizard_completion=False,
         did_dismiss_review_prompt=True,
         did_dismiss_discord_prompt=False,
+        did_see_free_plan_welcome=True,
     )
     monkeypatch.setattr(dto.builders, "config", config)
 
@@ -739,6 +765,7 @@ def test_settings_survive_build_parse_round_trip(monkeypatch):
         show_wizard_completion=False,
         did_dismiss_review_prompt=True,
         did_dismiss_discord_prompt=False,
+        did_see_free_plan_welcome=True,
     )
 
 
@@ -763,6 +790,7 @@ def test_save_settings_persists_every_field_and_republishes(monkeypatch):
     assert config.show_wizard_completion is True
     assert config.did_dismiss_review_prompt is False
     assert config.did_dismiss_discord_prompt is False
+    assert config.did_see_free_plan_welcome is False
     assert len(published) == 1
     assert isinstance(published[0], StateInvalidated)
 

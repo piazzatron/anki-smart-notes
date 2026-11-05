@@ -245,7 +245,8 @@
       "subtitle": "Efterlad en anmeldelse af AnkiWeb for at hjælpe andre Anki-brugere med at finde den.",
       "title": "Nyder du Smart Notes?"
     },
-    "subtitle": "Tilføj automatisk genereret tekst, stemme og billeder til dine noter."
+    "subtitle": "Tilføj automatisk genereret tekst, stemme og billeder til dine noter.",
+    "lockedAriaLabel": "{{field}}, låst på gratisplanen"
   },
   "defaults": {
     "errors": {
@@ -451,7 +452,18 @@
     "trialEnds": "Retssagen slutter",
     "trialNoteLimitReached": "Prøvens notegrænse nået",
     "upgradeToKeepGenerating": "Opgrader for at fortsætte med at generere.",
-    "usage": "Brug"
+    "usage": "Brug",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} i dag",
+      "resetsAt": "Noter nulstilles kl. {{time}}",
+      "upgradeToPaid": "Opgrader til betalt",
+      "creditsUsed": "Brugte kreditter",
+      "notesTodayLabel": "Noter i dag",
+      "notesUsedToday": "noter brugt i dag",
+      "moduleResetsAt": "Nulstilles kl. {{time}}",
+      "rowTitle": "Gratisplan",
+      "rowDescription": "Opgrader for ubegrænsede noter, stemme, billeder, batch og alle modeller."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -509,7 +521,8 @@
       "leftReview": "Jeg har skrevet en anmeldelse",
       "title": "Få en gratis måned med Smart Notes",
       "unavailable": "Tak for anmeldelsen! Denne konto har allerede fået sin gratis måned.",
-      "writeReview": "Skriv en anmeldelse"
+      "writeReview": "Skriv en anmeldelse",
+      "buttonLabel": "Få en gratis måned for en anmeldelse"
     },
     "thanks": "Tak fordi du bruger Smart Notes",
     "title": "Din gratis prøveperiode er slut",
@@ -544,5 +557,100 @@
     "description": "Felter sendes til prompten som almindelig tekst uden formatering og markup. Slå dette fra, hvis din prompt har brug for HTML.",
     "label": "Fjern HTML fra input",
     "tipLabel": "Om fjernelse af HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "Se planer",
+    "features": {
+      "intelligence": {
+        "title": "Høj og Maks intelligens",
+        "description": "Skru Auto op til sværere prompts, f.eks. grammatiske forklaringer eller kliniske detaljer.",
+        "cta": "Opgrader for at låse High og Max op"
+      },
+      "models": {
+        "title": "Alle modeller",
+        "description": "Vælg en bestemt model fra OpenAI, Anthropic eller Google i stedet for Auto.",
+        "cta": "Opgrader for at låse alle modeller op"
+      },
+      "webSearch": {
+        "title": "Websøgning",
+        "description": "Lad tekstfelter slå ting op på nettet, mens de genereres.",
+        "cta": "Opgrader for at låse websøgning op"
+      },
+      "voice": {
+        "title": "Stemmefelter",
+        "description": "Generer lyd til dine kort med naturlige stemmer.",
+        "cta": "Opgrader for at låse stemme op"
+      },
+      "images": {
+        "title": "Billedfelter",
+        "description": "Generer et billede til hvert kort.",
+        "cta": "Opgrader for at låse billeder op"
+      },
+      "generateOnAdd": {
+        "title": "Generer, mens noter tilføjes",
+        "description": "Udfyld Smart Fields for noter fra Yomitan, AnkiConnect og andre add-ons.",
+        "cta": "Opgrader for at låse Yomitan op"
+      },
+      "generateAtReview": {
+        "title": "Generer under repetition",
+        "description": "Udfyld manglende Smart Fields på kommende kort, mens du repeterer.",
+        "cta": "Opgrader for at låse repetition op"
+      },
+      "dailyLimit": {
+        "title": "Du har brugt dine gratis noter for i dag",
+        "description": "Gratis inkluderer {{count}} noter om dagen. Betalte planer har ingen grænse.",
+        "cta": "Opgrader for ubegrænsede noter"
+      },
+      "batch": {
+        "title": "Batchbehandling",
+        "description": "Generer Smart Fields for alle valgte noter på én gang.",
+        "cta": "Opgrader for at låse batch op"
+      }
+    },
+    "notices": {
+      "voice": "Stemmefelter følger med alle betalte planer.",
+      "images": "Billedfelter følger med alle betalte planer."
+    },
+    "moreNotesAt": "Flere kl. {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Din gratis prøveperiode er udløbet",
+      "trialNotes": "Du har brugt alle dine prøvenoter",
+      "trialCredits": "Du har brugt alle dine prøvekreditter",
+      "accessEnded": "Din plan er udløbet"
+    },
+    "title": "Opgrader for at beholde alt",
+    "description": "Du er skiftet til gratisplanen. Her er hvad der ændrer sig.",
+    "losses": {
+      "notes": "Ubegrænsede noter",
+      "batch": "Batchbehandling",
+      "review": "Generer under repetition",
+      "added": "Generer fra Yomitan / AnkiConnect",
+      "audio": "Lyd",
+      "images": "Billeder",
+      "models": "Tilpassede tekstmodeller",
+      "webSearch": "Websøgning"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} om dagen",
+      "oneAtATime": "Én ad gangen",
+      "none": "Ingen",
+      "autoStandardOnly": "Kun Auto Standard",
+      "fieldsStop_one": "{{count}} felt stopper",
+      "fieldsStop_other": "{{count}} felter stopper",
+      "fieldsToStandard_one": "{{count}} felt flyttes",
+      "fieldsToStandard_other": "{{count}} felter flyttes",
+      "fieldsWithoutSearch_one": "{{count}} felt mister den",
+      "fieldsWithoutSearch_other": "{{count}} felter mister den"
+    },
+    "upgrade": "Opgrader nu",
+    "continue": "Fortsæt på gratis",
+    "nowLabel": {
+      "trial": "Din prøveperiode",
+      "plan": "Din plan"
+    },
+    "freeLabel": "Gratisplan",
+    "pricing": "Planer starter ved $4.99 om måneden"
   }
 }

@@ -245,7 +245,8 @@
       "subtitle": "Hagyjon értékelést a AnkiWeb-ról, hogy segítsen más Anki felhasználóknak megtalálni.",
       "title": "Élvezed az Smart Notes-t?"
     },
-    "subtitle": "Adjon hozzá automatikusan generált szöveget, hangot és képeket a jegyzeteihez."
+    "subtitle": "Adjon hozzá automatikusan generált szöveget, hangot és képeket a jegyzeteihez.",
+    "lockedAriaLabel": "{{field}}, zárolva az ingyenes csomagon"
   },
   "defaults": {
     "errors": {
@@ -451,7 +452,18 @@
     "trialEnds": "A tárgyalás véget ér",
     "trialNoteLimitReached": "Elérte a próbajegyzetek korlátját",
     "upgradeToKeepGenerating": "Frissítsen a generálás folytatásához.",
-    "usage": "Használat"
+    "usage": "Használat",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} ma",
+      "resetsAt": "A jegyzetek nullázódnak ekkor: {{time}}",
+      "upgradeToPaid": "Frissítés fizetős csomagra",
+      "creditsUsed": "Felhasznált kreditek",
+      "notesTodayLabel": "Mai jegyzetek",
+      "notesUsedToday": "ma felhasznált jegyzet",
+      "moduleResetsAt": "Visszaáll ekkor: {{time}}",
+      "rowTitle": "Ingyenes csomag",
+      "rowDescription": "Frissíts korlátlan jegyzetekért, hangért, képekért, kötegelt feldolgozásért és minden modellért."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -509,7 +521,8 @@
       "leftReview": "Írtam értékelést",
       "title": "Kap egy hónap ingyenes Smart Notes-t",
       "unavailable": "Köszönjük az értékelést! Ez a fiók már kapott ingyenes hónapot.",
-      "writeReview": "Értékelés írása"
+      "writeReview": "Értékelés írása",
+      "buttonLabel": "Ingyenes hónap egy értékelésért"
     },
     "thanks": "Köszönjük, hogy a Smart Notes-t használod",
     "title": "Az ingyenes próbaidőszak véget ért",
@@ -544,5 +557,100 @@
     "description": "A mezők formázás és jelölés nélkül, egyszerű szövegként kerülnek a promptba. Kapcsolja ki, ha a promptnak szüksége van a HTML-re.",
     "label": "A bemenetből HTML-címkék eltávolítása",
     "tipLabel": "A HTML eltávolításáról"
+  },
+  "upgradeSheet": {
+    "seePlans": "Csomagok megtekintése",
+    "features": {
+      "intelligence": {
+        "title": "High és Max intelligencia",
+        "description": "Állítsd magasabbra az Auto-t összetettebb kérésekhez, például nyelvtani magyarázatokhoz vagy klinikai részletekhez.",
+        "cta": "Frissítés a High és Max feloldásához"
+      },
+      "models": {
+        "title": "Minden modell",
+        "description": "Válassz konkrét modellt az OpenAI, az Anthropic vagy a Google közül Auto helyett.",
+        "cta": "Frissítés minden modell feloldásához"
+      },
+      "webSearch": {
+        "title": "Webes keresés",
+        "description": "A szövegmezők generálás közben utánanézhetnek információknak a weben.",
+        "cta": "Frissítés a webes keresés feloldásához"
+      },
+      "voice": {
+        "title": "Hangmezők",
+        "description": "Hangfelvétel generálása a kártyákhoz természetes hangokkal.",
+        "cta": "Frissítés a hang feloldásához"
+      },
+      "images": {
+        "title": "Képmezők",
+        "description": "Kép generálása minden kártyához.",
+        "cta": "Frissítés a képek feloldásához"
+      },
+      "generateOnAdd": {
+        "title": "Generálás jegyzetek hozzáadásakor",
+        "description": "Smart Fields kitöltése a Yomitanből, az AnkiConnectből és más bővítményekből érkező jegyzetekhez.",
+        "cta": "Frissítés a Yomitan feloldásához"
+      },
+      "generateAtReview": {
+        "title": "Generálás ismétlés közben",
+        "description": "Hiányzó Smart Fields kitöltése a következő kártyákon ismétlés közben.",
+        "cta": "Frissítés az ismétlés feloldásához"
+      },
+      "dailyLimit": {
+        "title": "Elfogytak az ingyenes jegyzeteid mára",
+        "description": "Az ingyenes csomag napi {{count}} jegyzetet tartalmaz. A fizetős csomagoknak nincs korlátjuk.",
+        "cta": "Frissítés korlátlan jegyzetekért"
+      },
+      "batch": {
+        "title": "Kötegelt feldolgozás",
+        "description": "Smart Fields generálása a kijelölt jegyzetekhez egyszerre.",
+        "cta": "Frissítés a kötegelt feldolgozás feloldásához"
+      }
+    },
+    "notices": {
+      "voice": "A hangmezők minden fizetős csomagban benne vannak.",
+      "images": "A képmezők minden fizetős csomagban benne vannak."
+    },
+    "moreNotesAt": "Több: {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Az ingyenes próbaidőszakod véget ért",
+      "trialNotes": "Felhasználtad az összes próbajegyzetedet",
+      "trialCredits": "Felhasználtad az összes próbakreditedet",
+      "accessEnded": "A csomagod lejárt"
+    },
+    "title": "Frissíts, hogy mindent megtarthass",
+    "description": "Átléptél az ingyenes csomagra. Íme, mi változik.",
+    "losses": {
+      "notes": "Korlátlan jegyzetek",
+      "batch": "Kötegelt feldolgozás",
+      "review": "Generálás ismétlés közben",
+      "added": "Generálás a Yomitanből / AnkiConnectből",
+      "audio": "Hang",
+      "images": "Képek",
+      "models": "Egyéni szövegmodellek",
+      "webSearch": "Webes keresés"
+    },
+    "freeValues": {
+      "dailyNotes": "napi {{count}}",
+      "oneAtATime": "Egyszerre egy",
+      "none": "Nincs",
+      "autoStandardOnly": "Csak Auto Standard",
+      "fieldsStop_one": "{{count}} mező leáll",
+      "fieldsStop_other": "{{count}} mező leáll",
+      "fieldsToStandard_one": "{{count}} mező átkerül",
+      "fieldsToStandard_other": "{{count}} mező átkerül",
+      "fieldsWithoutSearch_one": "{{count}} mezőből megszűnik",
+      "fieldsWithoutSearch_other": "{{count}} mezőből megszűnik"
+    },
+    "upgrade": "Frissítés most",
+    "continue": "Folytatás az ingyenes csomagon",
+    "nowLabel": {
+      "trial": "A próbaidőszakod",
+      "plan": "A csomagod"
+    },
+    "freeLabel": "Ingyenes csomag",
+    "pricing": "A csomagok havi 4,99 $-tól kezdődnek"
   }
 }

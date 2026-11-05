@@ -66,3 +66,29 @@ export const chatModelLabel = (
         ),
       })
     : modelLabel(settings.model)
+
+/** Text settings the free plan pauses: any model or level but Auto Standard, or
+ *  web search. They stay saved and come back on a paid plan. */
+export const isPaidOnlyChatSettings = (
+  settings: Pick<
+    ChatGenerationSettings,
+    "model" | "reasoningLevel" | "webSearchEnabled"
+  >,
+) =>
+  settings.model !== "auto" ||
+  intelligenceLevelOf(settings) !== "standard" ||
+  settings.webSearchEnabled
+
+/** What paused text settings run as on the free plan: Auto Standard, no search. */
+export const freePlanChatSettings = <Settings extends AutoSettingsInput>(
+  settings: Settings,
+): Settings => ({
+  ...settings,
+  ...autoSettingsFor("standard"),
+  webSearchEnabled: false,
+})
+
+type AutoSettingsInput = Pick<
+  ChatGenerationSettings,
+  "model" | "provider" | "reasoningLevel" | "webSearchEnabled"
+>

@@ -43,6 +43,7 @@ from .decks import deck_id_to_name_map
 from .event_bus import (
     BrowserSelectionChanged,
     StateInvalidated,
+    UpgradeRequested,
     WebEvent,
     event_bus,
 )
@@ -395,6 +396,12 @@ class LocalServer:
                     )
                 if any(isinstance(e, StateInvalidated) for e in events):
                     await self._send_state(response)
+                upgrades = [e for e in events if isinstance(e, UpgradeRequested)]
+                if upgrades:
+                    payload = json.dumps({"feature": upgrades[-1].feature})
+                    await response.write(
+                        f"event: ui.upgradeRequested\ndata: {payload}\n\n".encode()
+                    )
         except (ConnectionResetError, ConnectionError):
             pass  # Client disconnected
         finally:

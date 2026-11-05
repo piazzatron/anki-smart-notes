@@ -245,7 +245,8 @@
       "subtitle": "Legg igjen en anmeldelse på AnkiWeb for å hjelpe andre Anki-brukere med å finne den.",
       "title": "Liker du Smart Notes?"
     },
-    "subtitle": "Legg til automatisk generert tekst, tale og bilder i notatene dine."
+    "subtitle": "Legg til automatisk generert tekst, tale og bilder i notatene dine.",
+    "lockedAriaLabel": "{{field}}, låst på gratisplanen"
   },
   "defaults": {
     "errors": {
@@ -451,7 +452,18 @@
     "trialEnds": "Rettssaken avsluttes",
     "trialNoteLimitReached": "Grensen for prøvenotat er nådd",
     "upgradeToKeepGenerating": "Oppgrader for å fortsette å generere.",
-    "usage": "Bruk"
+    "usage": "Bruk",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} i dag",
+      "resetsAt": "Notater tilbakestilles kl. {{time}}",
+      "upgradeToPaid": "Oppgrader til betalt",
+      "creditsUsed": "Brukte kreditter",
+      "notesTodayLabel": "Notater i dag",
+      "notesUsedToday": "notater brukt i dag",
+      "moduleResetsAt": "Tilbakestilles kl. {{time}}",
+      "rowTitle": "Gratisplan",
+      "rowDescription": "Oppgrader for ubegrensede notater, tale, bilder, batch og alle modeller."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -509,7 +521,8 @@
       "leftReview": "Jeg har skrevet en anmeldelse",
       "title": "Få en gratis måned med Smart Notes",
       "unavailable": "Takk for anmeldelsen! Denne kontoen har allerede fått sin gratismåned.",
-      "writeReview": "Skriv en anmeldelse"
+      "writeReview": "Skriv en anmeldelse",
+      "buttonLabel": "Få en gratis måned for en anmeldelse"
     },
     "thanks": "Takk for at du bruker Smart Notes",
     "title": "Din gratis prøveperiode er over",
@@ -544,5 +557,100 @@
     "description": "Felt sendes til prompten som ren tekst, uten formatering og markup. Slå av dette hvis prompten din trenger HTML.",
     "label": "Entfern HTML fra input",
     "tipLabel": "Om fjerning av HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "Se planer",
+    "features": {
+      "intelligence": {
+        "title": "High og Max-intelligens",
+        "description": "Sett Auto høyere for vanskeligere forespørsler, som grammatikkforklaringer eller klinisk detaljnivå.",
+        "cta": "Oppgrader for å låse opp High og Max"
+      },
+      "models": {
+        "title": "Alle modeller",
+        "description": "Velg en bestemt modell fra OpenAI, Anthropic eller Google i stedet for Auto.",
+        "cta": "Oppgrader for å låse opp alle modeller"
+      },
+      "webSearch": {
+        "title": "Websøk",
+        "description": "La tekstfelt slå opp informasjon på nettet mens de genereres.",
+        "cta": "Oppgrader for å låse opp websøk"
+      },
+      "voice": {
+        "title": "Stemmefelt",
+        "description": "Generer lyd for kortene dine med naturlige stemmer.",
+        "cta": "Oppgrader for å låse opp stemme"
+      },
+      "images": {
+        "title": "Bildefelt",
+        "description": "Generer et bilde for hvert kort.",
+        "cta": "Oppgrader for å låse opp bilder"
+      },
+      "generateOnAdd": {
+        "title": "Generer når notater legges til",
+        "description": "Fyll ut Smart Fields for notater fra Yomitan, AnkiConnect og andre tillegg.",
+        "cta": "Oppgrader for å låse opp Yomitan"
+      },
+      "generateAtReview": {
+        "title": "Generer under repetisjon",
+        "description": "Fyll ut manglende Smart Fields på kommende kort mens du repeterer.",
+        "cta": "Oppgrader for å låse opp repetisjon"
+      },
+      "dailyLimit": {
+        "title": "Du har brukt opp gratisnotatene for i dag",
+        "description": "Gratisplanen inkluderer {{count}} notater per dag. Betalte planer har ingen grense.",
+        "cta": "Oppgrader for ubegrensede notater"
+      },
+      "batch": {
+        "title": "Batchbehandling",
+        "description": "Generer Smart Fields for alle valgte notater samtidig.",
+        "cta": "Oppgrader for å låse opp batch"
+      }
+    },
+    "notices": {
+      "voice": "Stemmefelt følger med alle betalte planer.",
+      "images": "Bildefelt følger med alle betalte planer."
+    },
+    "moreNotesAt": "Flere notater kl. {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Prøveperioden din er over",
+      "trialNotes": "Du har brukt alle prøvenotatene dine",
+      "trialCredits": "Du har brukt alle prøvekreditene dine",
+      "accessEnded": "Planen din er avsluttet"
+    },
+    "title": "Oppgrader for å beholde alt",
+    "description": "Du har gått over til gratisplanen. Her er hva som endres.",
+    "losses": {
+      "notes": "Ubegrensede notater",
+      "batch": "Batchbehandling",
+      "review": "Generer under repetisjon",
+      "added": "Generer fra Yomitan / AnkiConnect",
+      "audio": "Lyd",
+      "images": "Bilder",
+      "models": "Egendefinerte tekstmodeller",
+      "webSearch": "Websøk"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} per dag",
+      "oneAtATime": "Ett om gangen",
+      "none": "Ingen",
+      "autoStandardOnly": "Kun Auto Standard",
+      "fieldsStop_one": "{{count}} felt stopper",
+      "fieldsStop_other": "{{count}} felt stopper",
+      "fieldsToStandard_one": "{{count}} felt flyttes",
+      "fieldsToStandard_other": "{{count}} felt flyttes",
+      "fieldsWithoutSearch_one": "{{count}} felt mister den",
+      "fieldsWithoutSearch_other": "{{count}} felt mister den"
+    },
+    "upgrade": "Oppgrader nå",
+    "continue": "Fortsett på gratis",
+    "nowLabel": {
+      "trial": "Prøveperioden din",
+      "plan": "Planen din"
+    },
+    "freeLabel": "Gratisplan",
+    "pricing": "Planer starter på $4,99 per måned"
   }
 }

@@ -245,7 +245,8 @@
       "subtitle": "Jätä arvostelu tuotteesta AnkiWeb ja auta muita Anki käyttäjiä löytämään se.",
       "title": "Pidätkö Smart Notes:stä?"
     },
-    "subtitle": "Lisää muistiinpanoihisi automaattisesti luotua tekstiä, ääntä ja kuvia."
+    "subtitle": "Lisää muistiinpanoihisi automaattisesti luotua tekstiä, ääntä ja kuvia.",
+    "lockedAriaLabel": "{{field}}, lukittu Ilmaisessa tilauksessa"
   },
   "defaults": {
     "errors": {
@@ -451,7 +452,18 @@
     "trialEnds": "Oikeudenkäynti päättyy",
     "trialNoteLimitReached": "Kokeilumuistiinpanojen raja saavutettu",
     "upgradeToKeepGenerating": "Päivitä jatkaaksesi luomista.",
-    "usage": "Käyttö"
+    "usage": "Käyttö",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} tänään",
+      "resetsAt": "Muistiinpanot nollautuvat kello {{time}}",
+      "upgradeToPaid": "Päivitä maksulliseksi",
+      "creditsUsed": "Käytetyt krediitit",
+      "notesTodayLabel": "Muistiinpanot tänään",
+      "notesUsedToday": "muistiinpanoa käytetty tänään",
+      "moduleResetsAt": "Nollautuu kello {{time}}",
+      "rowTitle": "Ilmainen tilaus",
+      "rowDescription": "Päivitä saadaksesi rajattomasti muistiinpanoja, äänen, kuvat, erätilan ja kaikki mallit."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -509,7 +521,8 @@
       "leftReview": "Jätin arvostelun",
       "title": "Hanki ilmainen kuukausi Smart Notes",
       "unavailable": "Kiitos arvostelusta! Tällä tilillä on jo ollut ilmainen kuukausi.",
-      "writeReview": "Kirjoita arvostelu"
+      "writeReview": "Kirjoita arvostelu",
+      "buttonLabel": "Hanki yksi kuukausi ilmaiseksi arvostelusta"
     },
     "thanks": "Kiitos Smart Notesin käytöstä",
     "title": "Ilmainen kokeilujaksosi on päättynyt",
@@ -544,5 +557,100 @@
     "description": "Kentät lisätään kehotteeseen pelkkänä tekstinä ilman muotoilua ja merkintöjä. Poista tämä käytöstä, jos kehotteesi tarvitsee HTML-koodin.",
     "label": "Poista HTML syötteestä",
     "tipLabel": "Tietoa HTML-koodin poistamisesta"
+  },
+  "upgradeSheet": {
+    "seePlans": "Katso tilaukset",
+    "features": {
+      "intelligence": {
+        "title": "High- ja Max-älykkyys",
+        "description": "Nosta Auto-tasoa vaikeammissa kehotteissa, kuten kielioppiselityksissä tai kliinisissä yksityiskohdissa.",
+        "cta": "Päivitä avataksesi High- ja Max-tasot"
+      },
+      "models": {
+        "title": "Kaikki mallit",
+        "description": "Valitse tietty malli palveluista OpenAI, Anthropic tai Google Auton sijaan.",
+        "cta": "Päivitä avataksesi kaikki mallit"
+      },
+      "webSearch": {
+        "title": "Verkkohaku",
+        "description": "Anna tekstikenttien hakea tietoa verkosta, kun ne luodaan.",
+        "cta": "Päivitä avataksesi verkkohaun"
+      },
+      "voice": {
+        "title": "Äänikentät",
+        "description": "Luo kortteillesi äänet luonnollisilla äänillä.",
+        "cta": "Päivitä avataksesi äänen"
+      },
+      "images": {
+        "title": "Kuvakentät",
+        "description": "Luo kuva jokaiselle kortille.",
+        "cta": "Päivitä avataksesi kuvat"
+      },
+      "generateOnAdd": {
+        "title": "Luo lisättäessä muistiinpanoja",
+        "description": "Täytä Smart Fields -kentät muistiinpanoille, jotka lisätään lisäosista kuten Yomitan, AnkiConnect ja muut.",
+        "cta": "Päivitä, jotta Yomitan toimii"
+      },
+      "generateAtReview": {
+        "title": "Luo kertauksen aikana",
+        "description": "Täytä puuttuvat Smart Fields -kentät tuleville korteille kertaaessasi.",
+        "cta": "Päivitä avataksesi kertauksen"
+      },
+      "dailyLimit": {
+        "title": "Ilmaiset muistiinpanot ovat loppuneet tältä päivältä",
+        "description": "Ilmainen tilaus sisältää {{count}} muistiinpanoa päivässä. Maksullisissa tilauksissa ei ole rajaa.",
+        "cta": "Päivitä saadaksesi rajattomasti muistiinpanoja"
+      },
+      "batch": {
+        "title": "Eräkäsittely",
+        "description": "Luo Smart Fields -kentät kaikille valituille muistiinpanoille kerralla.",
+        "cta": "Päivitä avataksesi erätilan"
+      }
+    },
+    "notices": {
+      "voice": "Äänikentät kuuluvat jokaiseen maksulliseen tilaukseen.",
+      "images": "Kuvakentät kuuluvat jokaiseen maksulliseen tilaukseen."
+    },
+    "moreNotesAt": "Lisää kello {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Ilmainen kokeilujaksosi on päättynyt",
+      "trialNotes": "Olet käyttänyt kaikki kokeilumuistiinpanosi",
+      "trialCredits": "Olet käyttänyt kaikki kokeilukrediittisi",
+      "accessEnded": "Tilauksesi on päättynyt"
+    },
+    "title": "Päivitä säilyttääksesi kaiken",
+    "description": "Olet siirtynyt Ilmaiseen tilaukseen. Tässä ovat muutokset.",
+    "losses": {
+      "notes": "Rajattomat muistiinpanot",
+      "batch": "Eräkäsittely",
+      "review": "Luo kertauksen aikana",
+      "added": "Luonti lisäyksessä: Yomitan / AnkiConnect",
+      "audio": "Ääni",
+      "images": "Kuvat",
+      "models": "Mukautetut tekstimallit",
+      "webSearch": "Verkkohaku"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} päivässä",
+      "oneAtATime": "Yksi kerrallaan",
+      "none": "Ei mitään",
+      "autoStandardOnly": "Vain Auto Standard",
+      "fieldsStop_one": "{{count}} kenttä lakkaa",
+      "fieldsStop_other": "{{count}} kenttää lakkaa",
+      "fieldsToStandard_one": "{{count}} kenttä siirtyy",
+      "fieldsToStandard_other": "{{count}} kenttää siirtyy",
+      "fieldsWithoutSearch_one": "{{count}} kenttä menettää sen",
+      "fieldsWithoutSearch_other": "{{count}} kenttää menettää sen"
+    },
+    "upgrade": "Päivitä nyt",
+    "continue": "Jatka ilmaisella",
+    "nowLabel": {
+      "trial": "Kokeilujaksosi",
+      "plan": "Tilauksesi"
+    },
+    "freeLabel": "Ilmainen tilaus",
+    "pricing": "Tilaukset alkavat 4,99 $ kuukaudessa"
   }
 }

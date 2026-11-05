@@ -245,7 +245,8 @@
       "subtitle": "Lasu recenzon pri AnkiWeb por helpi aliajn Anki-uzantojn trovi ĝin.",
       "title": "Ĉu vi ĝuas Smart Notes?"
     },
-    "subtitle": "Aldonu aŭtomate generitajn tekstojn, voĉojn kaj bildojn al viaj notoj."
+    "subtitle": "Aldonu aŭtomate generitajn tekstojn, voĉojn kaj bildojn al viaj notoj.",
+    "lockedAriaLabel": "{{field}}, ŝlosita en la Senpaga plano"
   },
   "defaults": {
     "errors": {
@@ -451,7 +452,18 @@
     "trialEnds": "Provo finiĝas",
     "trialNoteLimitReached": "Provonoto limo atingita",
     "upgradeToKeepGenerating": "Ĝisdatigu por daŭre generi.",
-    "usage": "Uzado"
+    "usage": "Uzado",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} hodiaŭ",
+      "resetsAt": "Notoj reagordiĝas je {{time}}",
+      "upgradeToPaid": "Plibonigi al pagata",
+      "creditsUsed": "Uzitaj kreditoj",
+      "notesTodayLabel": "Notoj hodiaŭ",
+      "notesUsedToday": "notoj uzitaj hodiaŭ",
+      "moduleResetsAt": "Reagordiĝas je {{time}}",
+      "rowTitle": "Senpaga plano",
+      "rowDescription": "Plibonigu por senlimaj notoj, voĉo, bildoj, grupa prilaborado kaj ĉiuj modeloj."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -509,7 +521,8 @@
       "leftReview": "Mi lasis recenzon",
       "title": "Akiru senpagan monaton de Smart Notes",
       "unavailable": "Dankon pro la recenzo! Ĉi tiu konto jam ricevis sian senkostan monaton.",
-      "writeReview": "Skribi recenzon"
+      "writeReview": "Skribi recenzon",
+      "buttonLabel": "Akiru senpagan monaton pro recenzo"
     },
     "thanks": "Dankon pro uzado de Smart Notes",
     "title": "Via senpaga provo finiĝis",
@@ -544,5 +557,100 @@
     "description": "Kampoj estas enmetitaj en la promptan kiel simpla teksto, sen ilia formatado kaj markado. Malŝaltu ĉi tion, se via prompto bezonas la HTML-on.",
     "label": "Forigi HTML el enigo",
     "tipLabel": "Pri forigo de HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "Vidi planojn",
+    "features": {
+      "intelligence": {
+        "title": "High kaj Max inteligenteco",
+        "description": "Altigu Auto por pli malfacilaj petoj, kiel gramatikaj klarigoj aŭ klinikaj detaloj.",
+        "cta": "Plibonigu por malŝlosi High kaj Max"
+      },
+      "models": {
+        "title": "Ĉiu modelo",
+        "description": "Elektu specifan modelon el OpenAI, Anthropic aŭ Google anstataŭ Auto.",
+        "cta": "Plibonigu por malŝlosi ĉiujn modelojn"
+      },
+      "webSearch": {
+        "title": "Reta serĉado",
+        "description": "Lasu tekstajn kampojn serĉi informojn en la reto dum ili generiĝas.",
+        "cta": "Plibonigu por malŝlosi retan serĉadon"
+      },
+      "voice": {
+        "title": "Voĉaj kampoj",
+        "description": "Generu sonon por viaj kartoj per naturaj voĉoj.",
+        "cta": "Plibonigu por malŝlosi voĉon"
+      },
+      "images": {
+        "title": "Bildaj kampoj",
+        "description": "Generu bildon por ĉiu karto.",
+        "cta": "Plibonigu por malŝlosi bildojn"
+      },
+      "generateOnAdd": {
+        "title": "Generi dum aldono de notoj",
+        "description": "Plenigu Smart Fields por notoj el Yomitan, AnkiConnect kaj aliaj aldonaĵoj.",
+        "cta": "Plibonigu por malŝlosi Yomitan"
+      },
+      "generateAtReview": {
+        "title": "Generi dum ripetado",
+        "description": "Plenigu mankantajn Smart Fields en venontaj kartoj dum vi ripetas.",
+        "cta": "Plibonigu por malŝlosi ripetadon"
+      },
+      "dailyLimit": {
+        "title": "Viaj senpagaj notoj por hodiaŭ elĉerpiĝis",
+        "description": "Senpaga plano inkluzivas {{count}} notojn tage. Pagataj planoj havas neniun limon.",
+        "cta": "Plibonigu por senlimaj notoj"
+      },
+      "batch": {
+        "title": "Grupa prilaborado",
+        "description": "Generu Smart Fields por ĉiuj elektitaj notoj samtempe.",
+        "cta": "Plibonigu por malŝlosi grupan prilaboradon"
+      }
+    },
+    "notices": {
+      "voice": "Voĉaj kampoj estas inkluzivitaj en ĉiu pagata plano.",
+      "images": "Bildaj kampoj estas inkluzivitaj en ĉiu pagata plano."
+    },
+    "moreNotesAt": "Pli da notoj je {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Via senpaga provo finiĝis",
+      "trialNotes": "Vi uzis ĉiujn viajn provajn notojn",
+      "trialCredits": "Vi uzis ĉiujn viajn provajn kreditojn",
+      "accessEnded": "Via plano finiĝis"
+    },
+    "title": "Plibonigu por konservi ĉion",
+    "description": "Vi transiris al la Senpaga plano. Jen kio ŝanĝiĝas.",
+    "losses": {
+      "notes": "Senlimaj notoj",
+      "batch": "Grupa prilaborado",
+      "review": "Generi dum ripetado",
+      "added": "Generi per Yomitan / AnkiConnect",
+      "audio": "Sono",
+      "images": "Bildoj",
+      "models": "Propraj tekstaj modeloj",
+      "webSearch": "Reta serĉado"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} tage",
+      "oneAtATime": "Unu post alia",
+      "none": "Nenio",
+      "autoStandardOnly": "Nur Auto Standard",
+      "fieldsStop_one": "{{count}} kampo ĉesas",
+      "fieldsStop_other": "{{count}} kampoj ĉesas",
+      "fieldsToStandard_one": "{{count}} kampo moviĝas",
+      "fieldsToStandard_other": "{{count}} kampoj moviĝas",
+      "fieldsWithoutSearch_one": "{{count}} kampo perdas ĝin",
+      "fieldsWithoutSearch_other": "{{count}} kampoj perdas ĝin"
+    },
+    "upgrade": "Plibonigu nun",
+    "continue": "Daŭrigi per la Senpaga plano",
+    "nowLabel": {
+      "trial": "Via provo",
+      "plan": "Via plano"
+    },
+    "freeLabel": "Senpaga plano",
+    "pricing": "Planoj komenciĝas je $4.99 monate"
   }
 }

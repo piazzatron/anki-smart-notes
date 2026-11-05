@@ -245,7 +245,8 @@
       "subtitle": "Utzi berrikuspena AnkiWeb-ri beste Anki erabiltzaileei aurkitzen laguntzeko.",
       "title": "Smart Notes gozatzen?"
     },
-    "subtitle": "Gehitu automatikoki sortutako testua, ahotsa eta irudiak zure oharretan."
+    "subtitle": "Gehitu automatikoki sortutako testua, ahotsa eta irudiak zure oharretan.",
+    "lockedAriaLabel": "{{field}}, blokeatuta Doako planean"
   },
   "defaults": {
     "errors": {
@@ -451,7 +452,18 @@
     "trialEnds": "Epaiketa amaitzen da",
     "trialNoteLimitReached": "Proba-oharraren mugara iritsi da",
     "upgradeToKeepGenerating": "Berritu sortzen jarraitzeko.",
-    "usage": "Erabilera"
+    "usage": "Erabilera",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} gaur",
+      "resetsAt": "Oharrak berrezartzen dira: {{time}}",
+      "upgradeToPaid": "Eguneratu ordaindutako planera",
+      "creditsUsed": "Erabilitako kredituak",
+      "notesTodayLabel": "Gaurko oharrak",
+      "notesUsedToday": "gaur erabilitako ohar",
+      "moduleResetsAt": "Berrezartzen da: {{time}}",
+      "rowTitle": "Doako plana",
+      "rowDescription": "Eguneratu oharrik mugarik gabe, ahotsa, irudiak, multzoka prozesatzea eta eredu guztiak izateko."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -509,7 +521,8 @@
       "leftReview": "Berrikuspena utzi dut",
       "title": "Lortu doan hilabete bat Smart Notes",
       "unavailable": "Eskerrik asko berrikuspena egiteagatik! Kontu honek dagoeneko izan du bere doako hilabetea.",
-      "writeReview": "Idatzi berrikuspena"
+      "writeReview": "Idatzi berrikuspena",
+      "buttonLabel": "Hilabete doan bat jaso berrikuspen egiteagatik"
     },
     "thanks": "Eskerrik asko Smart Notes erabiltzeagatik",
     "title": "Zure doako proba amaitu da",
@@ -544,5 +557,100 @@
     "description": "Eremuak testu soil gisa sartzen dira promptean, formatu eta markaturik gabe. Itzali prompt-ak HTML behar badu.",
     "label": "Sartu testua HTML etiketarik gabe",
     "tipLabel": "HTML kentzeari buruz"
+  },
+  "upgradeSheet": {
+    "seePlans": "Ikusi planak",
+    "features": {
+      "intelligence": {
+        "title": "High eta Max adimena",
+        "description": "Igo Auto maila galdera zailagoetarako, adibidez gramatika azalpenetarako edo xehetasun klinikoetarako.",
+        "cta": "Eguneratu High eta Max desblokeatzeko"
+      },
+      "models": {
+        "title": "Eredu guztiak",
+        "description": "Aukeratu eredu zehatz bat OpenAI, Anthropic edo Google-tik Auto-ren ordez.",
+        "cta": "Eguneratu eredu guztiak desblokeatzeko"
+      },
+      "webSearch": {
+        "title": "Web bilaketa",
+        "description": "Utzi testu eremuek webean bilatzen sortzen diren bitartean.",
+        "cta": "Eguneratu web bilaketa desblokeatzeko"
+      },
+      "voice": {
+        "title": "Ahots eremuak",
+        "description": "Sortu audioa zure txartelentzat ahots naturalekin.",
+        "cta": "Eguneratu ahotsa desblokeatzeko"
+      },
+      "images": {
+        "title": "Irudi eremuak",
+        "description": "Sortu irudi bat txartel bakoitzerako.",
+        "cta": "Eguneratu irudiak desblokeatzeko"
+      },
+      "generateOnAdd": {
+        "title": "Sortu oharrak gehitzen diren heinean",
+        "description": "Bete Smart Fields oharrak Yomitan, AnkiConnect eta beste gehigarri batzuetatik.",
+        "cta": "Eguneratu Yomitan desblokeatzeko"
+      },
+      "generateAtReview": {
+        "title": "Sortu errepasoan",
+        "description": "Bete falta diren Smart Fields hurrengo txarteletan errepasatzen duzun bitartean.",
+        "cta": "Eguneratu errepasoa desblokeatzeko"
+      },
+      "dailyLimit": {
+        "title": "Gaurko doako oharrak agortu dituzu",
+        "description": "Doakoak egunean {{count}} ohar ditu. Ordaindutako planek ez dute mugarik.",
+        "cta": "Eguneratu oharrik mugarik gabe izateko"
+      },
+      "batch": {
+        "title": "Multzoka prozesatzea",
+        "description": "Sortu Smart Fields hautatutako ohar guztientzat aldi berean.",
+        "cta": "Eguneratu multzoka desblokeatzeko"
+      }
+    },
+    "notices": {
+      "voice": "Ahots eremuak plan ordaindu guztietan daude.",
+      "images": "Irudi eremuak plan ordaindu guztietan daude."
+    },
+    "moreNotesAt": "Gehiago: {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Zure proba doakoa amaitu da",
+      "trialNotes": "Proba-oharrak guztiz erabili dituzu",
+      "trialCredits": "Proba-kredituak guztiz erabili dituzu",
+      "accessEnded": "Zure plana amaitu da"
+    },
+    "title": "Eguneratu dena mantentzeko",
+    "description": "Doako planera pasa zara. Hauek aldatzen dira.",
+    "losses": {
+      "notes": "Oharrak mugarik gabe",
+      "batch": "Multzoka prozesatzea",
+      "review": "Sortu errepasoan",
+      "added": "Sortu Yomitan / AnkiConnect bidez",
+      "audio": "Audioa",
+      "images": "Irudiak",
+      "models": "Testu eredu pertsonalizatuak",
+      "webSearch": "Web bilaketa"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} egunean",
+      "oneAtATime": "Bat aldi bakoitzean",
+      "none": "Batere ez",
+      "autoStandardOnly": "Auto Standard bakarrik",
+      "fieldsStop_one": "{{count}} eremuk geldiarazten du",
+      "fieldsStop_other": "{{count}} eremuk geldiarazten dute",
+      "fieldsToStandard_one": "{{count}} eremua mugitzen da",
+      "fieldsToStandard_other": "{{count}} eremu mugitzen dira",
+      "fieldsWithoutSearch_one": "{{count}} eremuk galtzen du",
+      "fieldsWithoutSearch_other": "{{count}} eremuk galtzen dute"
+    },
+    "upgrade": "Eguneratu orain",
+    "continue": "Jarraitu doako planean",
+    "nowLabel": {
+      "trial": "Zure proba",
+      "plan": "Zure plana"
+    },
+    "freeLabel": "Doako plana",
+    "pricing": "Planak hilean 4,99 $-tik hasten dira"
   }
 }

@@ -247,7 +247,8 @@
       "subtitle": "Zostaw recenzję na temat AnkiWeb, aby pomóc innym użytkownikom Anki ją znaleźć.",
       "title": "Podoba Ci się Smart Notes?"
     },
-    "subtitle": "Dodaj automatycznie wygenerowany tekst, głos i obrazy do swoich notatek."
+    "subtitle": "Dodaj automatycznie wygenerowany tekst, głos i obrazy do swoich notatek.",
+    "lockedAriaLabel": "{{field}}, zablokowane w planie darmowym"
   },
   "defaults": {
     "errors": {
@@ -471,7 +472,18 @@
     "trialEnds": "Okres próbny się kończy",
     "trialNoteLimitReached": "Osiągnięto limit notatek próbnych",
     "upgradeToKeepGenerating": "Uaktualnij, aby kontynuować generowanie.",
-    "usage": "Stosowanie"
+    "usage": "Stosowanie",
+    "free": {
+      "notesToday": "{{used}}/{{limit}} dziś",
+      "resetsAt": "Notatki resetują się o {{time}}",
+      "upgradeToPaid": "Przejdź na płatny plan",
+      "creditsUsed": "Wykorzystane kredyty",
+      "notesTodayLabel": "Notatki dzisiaj",
+      "notesUsedToday": "wykorzystanych notatek dzisiaj",
+      "moduleResetsAt": "Resetuje się o {{time}}",
+      "rowTitle": "Plan darmowy",
+      "rowDescription": "Przejdź na wyższy plan, aby mieć nieograniczone notatki, głos, obrazy, przetwarzanie wsadowe i wszystkie modele."
+    }
   },
   "support": {
     "ankiWeb": "AnkiWeb",
@@ -529,7 +541,8 @@
       "leftReview": "Zostawiłem recenzję",
       "title": "Zdobądź darmowy miesiąc Smart Notes",
       "unavailable": "Dziękujemy za recenzję! To konto już wykorzystało swój darmowy miesiąc.",
-      "writeReview": "Napisz recenzję"
+      "writeReview": "Napisz recenzję",
+      "buttonLabel": "Otrzymaj darmowy miesiąc za recenzję"
     },
     "thanks": "Dziękujemy za korzystanie ze Smart Notes",
     "title": "Twój bezpłatny okres próbny dobiegł końca",
@@ -564,5 +577,106 @@
     "description": "Pola trafiają do promptu jako zwykły tekst, bez formatowania i znaczników. Wyłącz tę opcję, jeśli prompt wymaga HTML.",
     "label": "Usuń HTML z danych wejściowych",
     "tipLabel": "Informacje o usuwaniu HTML"
+  },
+  "upgradeSheet": {
+    "seePlans": "Zobacz plany",
+    "features": {
+      "intelligence": {
+        "title": "Poziomy High i Max",
+        "description": "Ustaw Auto na wyższy poziom przy trudniejszych poleceniach, np. wyjaśnieniach gramatyki lub szczegółach klinicznych.",
+        "cta": "Przejdź na płatny plan, aby odblokować High i Max"
+      },
+      "models": {
+        "title": "Wszystkie modele",
+        "description": "Wybierz konkretny model od OpenAI, Anthropic lub Google zamiast Auto.",
+        "cta": "Przejdź na płatny plan, aby odblokować wszystkie modele"
+      },
+      "webSearch": {
+        "title": "Wyszukiwanie w sieci",
+        "description": "Pozwól polom tekstowym wyszukiwać informacje w sieci podczas generowania.",
+        "cta": "Przejdź na płatny plan, aby odblokować wyszukiwanie w sieci"
+      },
+      "voice": {
+        "title": "Pola głosowe",
+        "description": "Generuj audio do fiszek z naturalnie brzmiącymi głosami.",
+        "cta": "Przejdź na płatny plan, aby odblokować głos"
+      },
+      "images": {
+        "title": "Pola obrazów",
+        "description": "Generuj obraz dla każdej fiszki.",
+        "cta": "Przejdź na płatny plan, aby odblokować obrazy"
+      },
+      "generateOnAdd": {
+        "title": "Generowanie podczas dodawania notatek",
+        "description": "Wypełniaj Smart Fields w notatkach dodawanych z Yomitan, AnkiConnect i innych dodatków.",
+        "cta": "Przejdź na płatny plan, aby odblokować Yomitan"
+      },
+      "generateAtReview": {
+        "title": "Generowanie podczas powtórek",
+        "description": "Wypełniaj brakujące Smart Fields w nadchodzących kartach podczas nauki.",
+        "cta": "Przejdź na płatny plan, aby odblokować powtórki"
+      },
+      "dailyLimit": {
+        "title": "Wykorzystałeś darmowe notatki na dziś",
+        "description": "Plan darmowy obejmuje {{count}} notatek dziennie. Płatne plany nie mają limitu.",
+        "cta": "Przejdź na plan z nieograniczoną liczbą notatek"
+      },
+      "batch": {
+        "title": "Przetwarzanie wsadowe",
+        "description": "Generuj Smart Fields dla wszystkich zaznaczonych notatek naraz.",
+        "cta": "Przejdź na płatny plan, aby odblokować przetwarzanie wsadowe"
+      }
+    },
+    "notices": {
+      "voice": "Pola głosowe są dostępne w każdym płatnym planie.",
+      "images": "Pola obrazów są dostępne w każdym płatnym planie."
+    },
+    "moreNotesAt": "Więcej o {{time}}"
+  },
+  "freePlanStarted": {
+    "reasons": {
+      "trialExpired": "Twój darmowy okres próbny się zakończył",
+      "trialNotes": "Wykorzystałeś wszystkie notatki z okresu próbnego",
+      "trialCredits": "Wykorzystałeś wszystkie kredyty z okresu próbnego",
+      "accessEnded": "Twój plan się zakończył"
+    },
+    "title": "Przejdź na płatny plan, aby zachować wszystko",
+    "description": "Przeszedłeś na plan darmowy. Oto, co się zmienia.",
+    "losses": {
+      "notes": "Nieograniczone notatki",
+      "batch": "Przetwarzanie wsadowe",
+      "review": "Generowanie podczas powtórek",
+      "added": "Generowanie z Yomitan / AnkiConnect",
+      "audio": "Audio",
+      "images": "Obrazy",
+      "models": "Niestandardowe modele tekstowe",
+      "webSearch": "Wyszukiwanie w sieci"
+    },
+    "freeValues": {
+      "dailyNotes": "{{count}} dziennie",
+      "oneAtATime": "Jedna naraz",
+      "none": "Brak",
+      "autoStandardOnly": "Tylko Auto Standard",
+      "fieldsStop_one": "{{count}} pole przestaje działać",
+      "fieldsStop_few": "{{count}} pola przestają działać",
+      "fieldsStop_many": "{{count}} pól przestaje działać",
+      "fieldsStop_other": "{{count}} pola przestaje działać",
+      "fieldsToStandard_one": "{{count}} pole przechodzi na Standard",
+      "fieldsToStandard_few": "{{count}} pola przechodzą na Standard",
+      "fieldsToStandard_many": "{{count}} pól przechodzi na Standard",
+      "fieldsToStandard_other": "{{count}} pola przechodzi na Standard",
+      "fieldsWithoutSearch_one": "{{count}} pole traci tę funkcję",
+      "fieldsWithoutSearch_few": "{{count}} pola tracą tę funkcję",
+      "fieldsWithoutSearch_many": "{{count}} pól traci tę funkcję",
+      "fieldsWithoutSearch_other": "{{count}} pola traci tę funkcję"
+    },
+    "upgrade": "Przejdź teraz",
+    "continue": "Kontynuuj na planie darmowym",
+    "nowLabel": {
+      "trial": "Twój okres próbny",
+      "plan": "Twój plan"
+    },
+    "freeLabel": "Plan darmowy",
+    "pricing": "Plany zaczynają się od 4,99 $ miesięcznie"
   }
 }

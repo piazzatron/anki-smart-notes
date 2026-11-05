@@ -22,12 +22,16 @@ from typing import Any, Literal, Optional, TypedDict, cast
 from .api_client import api
 
 LegacyPlanId = Literal["free", "free_mini_1", "small1", "medium1", "large1"]
-PlanType = Literal["trial", "freemium", "small", "medium", "large"]
+# `free` is the plan users drop to when their trial or other access ends, with a
+# daily note cap. `freemium` is the older, hand-granted Free plans.
+PlanType = Literal["trial", "free", "freemium", "small", "medium", "large"]
 PlanName = Literal["Free Trial", "Free", "Lite", "Standard", "Pro"]
 SubscriptionStatus = Literal["active", "canceling", "expired"]
+FreePlanReason = Literal["trialExpired", "trialNotes", "trialCredits", "accessEnded"]
 
 PUBLIC_PLAN_DETAILS: dict[PlanType, tuple[LegacyPlanId, PlanName]] = {
     "trial": ("free", "Free Trial"),
+    "free": ("free_mini_1", "Free"),
     "freemium": ("free_mini_1", "Free"),
     "small": ("small1", "Lite"),
     "medium": ("medium1", "Standard"),
@@ -43,6 +47,11 @@ class PlanInfo(TypedDict):
     planName: PlanName
     notesUsed: Optional[int]
     notesLimit: Optional[int]
+    # Notes generated today (UTC) on a plan with a daily cap, else None.
+    dailyNotesUsed: Optional[int]
+    dailyNotesLimit: Optional[int]
+    # Why the user moved to the free plan; None on other plans.
+    freePlanReason: Optional[FreePlanReason]
     daysLeft: int
     totalDays: int
     textCreditsUsed: int

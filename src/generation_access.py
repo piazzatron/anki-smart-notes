@@ -17,7 +17,12 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from .app_state import AppState, app_state, is_capacity_remaining_or_legacy
+from .app_state import (
+    AppState,
+    app_state,
+    is_capacity_remaining_or_legacy,
+    is_free_plan,
+)
 from .web_app import open_web_app
 
 
@@ -28,6 +33,22 @@ def ensure_generation_available() -> bool:
 
     open_generation_blocked_ui()
     return False
+
+
+def ensure_paid_feature_available(feature: str) -> bool:
+    """On the free plan, a paid feature (batch, or a voice or image custom prompt)
+    opens the upgrade sheet for it instead of running."""
+    if not is_free_plan():
+        return True
+
+    open_web_app(upgrade_feature=feature)
+    return False
+
+
+def open_daily_limit_upgrade_ui() -> None:
+    """A free user reached today's note cap. Opening Smart Notes refreshes the
+    account, so the UI shows the new count under the upgrade sheet."""
+    open_web_app(upgrade_feature="dailyLimit")
 
 
 def open_generation_blocked_ui() -> None:

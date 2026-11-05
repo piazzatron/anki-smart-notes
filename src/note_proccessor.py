@@ -32,6 +32,7 @@ from aqt import mw
 
 from .api_client import (
     NETWORK_ERRORS,
+    DailyCardLimitError,
     OutOfCreditsError,
     ServerError,
     UserDisplayableError,
@@ -43,6 +44,8 @@ from .dag import generate_fields_dag
 from .field_resolver import FieldResolver
 from .generation_access import (
     ensure_generation_available,
+    ensure_paid_feature_available,
+    open_daily_limit_upgrade_ui,
     open_generation_blocked_ui,
     refresh_account_after_generation_rejected,
 )
@@ -97,6 +100,9 @@ class NoteProcessor:
 
         if self.batch_in_progress:
             logger.info("A batch is already in progress.")
+            return
+
+        if not ensure_paid_feature_available("batch"):
             return
 
         bump_usage_counter()
@@ -471,6 +477,10 @@ class NoteProcessor:
 
         if isinstance(e, OutOfCreditsError):
             refresh_account_after_generation_rejected()
+            return
+
+        if isinstance(e, DailyCardLimitError):
+            open_daily_limit_upgrade_ui()
             return
 
         if isinstance(e, UserDisplayableError):
