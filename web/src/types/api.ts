@@ -246,6 +246,8 @@ export type CommandName =
   | "prompts.generate"
   | "support.sendFeedback"
   | "auth.logout"
+  | "reviewClaim.get"
+  | "reviewClaim.send"
   | "ui.openBrowser"
 
 export type SmartFieldCreatePayload =
@@ -294,6 +296,19 @@ export interface PromptGenerateResult {
 
 export interface FeedbackSendPayload {
   message: string
+}
+
+// The free-month review offer, from the server: "available" shows the offer,
+// "claimed" the thanks note, "unavailable" nothing.
+export type ReviewClaimState = "available" | "claimed" | "unavailable"
+
+// "write" is the "Write a review" click, "claim" the "I left a review" click.
+export interface ReviewClaimSendPayload {
+  step: "write" | "claim"
+}
+
+export interface ReviewClaimResult {
+  state: ReviewClaimState
 }
 
 export interface ImagePromptTestArgs {

@@ -490,12 +490,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "免費月份優惠",
+      "claimError": "出了點問題，請再試一次。",
+      "claimed": "謝謝！您的免費一個月方案應會在幾分鐘內開通。",
       "description": "留下快速的 AnkiWeb 評論，即可享受一個月的優惠。",
-      "dialogDescription": "請對 AnkiWeb 進行快速評論，然後給我們發送電子郵件 — 我們將在您的帳戶中添加一個月免費的 Smart Notes。",
+      "dialogDescription": "請先在 AnkiWeb 撰寫一則簡短評價，再回來告訴我們。我們會為您的帳號加贈一個月的 Smart Notes 免費方案。",
       "dialogTitle": "獲得免費月份",
-      "leaveAnkiWebReview": "對 AnkiWeb 發表評論",
       "leaveReview": "發表評論",
-      "title": "獲得一個月的免費 Smart Notes"
+      "leftReview": "我已留下評價",
+      "title": "獲得一個月的免費 Smart Notes",
+      "unavailable": "感謝你的評論！這個帳號已經領取過免費的一個月。",
+      "writeReview": "撰寫評價"
     },
     "thanks": "感謝您使用 Smart Notes",
     "title": "您的免費試用已結束",

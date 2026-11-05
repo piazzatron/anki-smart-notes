@@ -510,12 +510,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "Besplatna mjesečna ponuda",
+      "claimError": "Nešto je pošlo po zlu. Pokušajte ponovno.",
+      "claimed": "Hvala! Vaš besplatni mjesec trebao bi biti odobren za nekoliko minuta.",
       "description": "Ostavite kratku recenziju AnkiWeb, dobit ćete mjesec dana besplatno.",
-      "dialogDescription": "Ostavite kratku recenziju na AnkiWeb, a zatim nam pošaljite e-poštu — dodat ćemo besplatni mjesec Smart Notes na vaš račun.",
+      "dialogDescription": "Napišite kratku recenziju na stranici AnkiWeb, zatim se vratite i javite nam. Na vaš račun dodat ćemo besplatan mjesec za Smart Notes.",
       "dialogTitle": "Dobijte besplatni mjesec",
-      "leaveAnkiWebReview": "Ostavite recenziju na AnkiWeb",
       "leaveReview": "Ostavite recenziju",
-      "title": "Dobijte besplatni mjesec Smart Notes"
+      "leftReview": "Ostavio/la sam recenziju",
+      "title": "Dobijte besplatni mjesec Smart Notes",
+      "unavailable": "Hvala na recenziji! Ovaj račun je već iskoristio besplatni mjesec.",
+      "writeReview": "Napiši recenziju"
     },
     "thanks": "Hvala što koristite Smart Notes",
     "title": "Vaše besplatno probno razdoblje je završilo",

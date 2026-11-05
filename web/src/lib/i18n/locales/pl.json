@@ -520,12 +520,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "Oferta na bezpłatny miesiąc",
+      "claimError": "Coś poszło nie tak. Spróbuj ponownie.",
+      "claimed": "Dziękujemy! Twój darmowy miesiąc powinien zostać przyznany w ciągu kilku minut.",
       "description": "Zostaw szybką recenzję AnkiWeb i zyskaj miesiąc za nas.",
-      "dialogDescription": "Zostaw krótką recenzję AnkiWeb, a następnie napisz do nas e-mail — dodamy darmowy miesiąc Smart Notes do Twojego konta.",
+      "dialogDescription": "Napisz krótką recenzję na AnkiWeb, a następnie wróć i daj nam znać. Dodamy darmowy miesiąc Smart Notes do Twojego konta.",
       "dialogTitle": "Skorzystaj z darmowego miesiąca",
-      "leaveAnkiWebReview": "Zostaw recenzję na temat AnkiWeb",
       "leaveReview": "Zostaw recenzję",
-      "title": "Zdobądź darmowy miesiąc Smart Notes"
+      "leftReview": "Zostawiłem recenzję",
+      "title": "Zdobądź darmowy miesiąc Smart Notes",
+      "unavailable": "Dziękujemy za recenzję! To konto już wykorzystało swój darmowy miesiąc.",
+      "writeReview": "Napisz recenzję"
     },
     "thanks": "Dziękujemy za korzystanie ze Smart Notes",
     "title": "Twój bezpłatny okres próbny dobiegł końca",

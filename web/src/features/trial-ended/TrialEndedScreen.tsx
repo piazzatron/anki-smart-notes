@@ -17,7 +17,14 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Image, Layers3, Play, Sparkles, type LucideIcon } from "lucide-react"
+import {
+  ArrowRight,
+  Image,
+  Layers3,
+  Play,
+  Sparkles,
+  type LucideIcon,
+} from "lucide-react"
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -27,10 +34,13 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/Dialog"
-import { GiftIcon, LetterIcon, SparklesIcon } from "@/components/shared/Icons"
-import { ANKIWEB_REVIEW_URL, SUPPORT_EMAIL } from "@/lib/helpChannels"
+import { Button } from "@/components/ui/Button"
+import { GiftIcon, SparklesIcon } from "@/components/shared/Icons"
+import { ANKIWEB_WRITE_REVIEW_URL } from "@/lib/helpChannels"
 import { openSiteLink, SITE_LINKS } from "@/lib/siteLinks"
 import { trackAnalyticsEvent } from "@/services/analytics"
+import { getReviewClaimState, sendReviewClaim } from "@/services/commands"
+import type { ReviewClaimState } from "@/types/api"
 
 const KEPT_FEATURES: Array<{ icon: LucideIcon; labelKey: string }> = [
   { icon: Layers3, labelKey: "trialEnded.features.batch" },
@@ -48,10 +58,17 @@ export const TrialEndedScreen = ({
 }: TrialEndedScreenProps) => {
   const { t } = useTranslation()
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false)
+  const [claimState, setClaimState] = useState<ReviewClaimState | null>(null)
 
   useEffect(() => {
     void trackAnalyticsEvent({ event: "trial_ended_shown" })
   }, [])
+
+  // The offer shows until the server says this user can't get the free month.
+  useEffect(() => {
+    if (!reviewFreeMonthEnabled) return
+    getReviewClaimState().then(setClaimState, () => undefined)
+  }, [reviewFreeMonthEnabled])
 
   return (
     <main
@@ -59,7 +76,7 @@ export const TrialEndedScreen = ({
       data-testid="trial-ended-screen"
     >
       <div className="my-auto flex w-full max-w-[560px] flex-col gap-[18px]">
-        {reviewFreeMonthEnabled && (
+        {reviewFreeMonthEnabled && claimState !== "unavailable" && (
           <ReviewOfferBanner
             onOpen={() => {
               void trackAnalyticsEvent({ event: "clicked_trial_ended_review" })
@@ -116,6 +133,8 @@ export const TrialEndedScreen = ({
       </div>
 
       <ReviewOfferDialog
+        claimState={claimState}
+        onClaimed={setClaimState}
         onOpenChange={setReviewDialogOpen}
         open={reviewDialogOpen}
       />
@@ -149,8 +168,8 @@ const ReviewOfferBanner = ({ onOpen }: { onOpen: () => void }) => {
           onClick={onOpen}
           type="button"
         >
-          {t("trialEnded.reviewOffer.leaveReview")}{" "}
-          <span className="inline-block rtl:rotate-180">→</span>
+          {t("trialEnded.reviewOffer.leaveReview")}
+          <ArrowRight aria-hidden className="ms-1 size-4 rtl:rotate-180" />
         </button>
       </div>
     </section>
@@ -158,46 +177,98 @@ const ReviewOfferBanner = ({ onOpen }: { onOpen: () => void }) => {
 }
 
 const ReviewOfferDialog = ({
+  claimState,
+  onClaimed,
   onOpenChange,
   open,
 }: {
+  claimState: ReviewClaimState | null
+  onClaimed: (state: ReviewClaimState) => void
   onOpenChange: (open: boolean) => void
   open: boolean
 }) => {
   const { t } = useTranslation()
+  const [claiming, setClaiming] = useState(false)
+  const [claimFailed, setClaimFailed] = useState(false)
+  // After a claim, or when the server says this user can't get the month,
+  // the steps give way to a note.
+  const done = claimState === "claimed" || claimState === "unavailable"
+
+  // A failed claim's error shouldn't greet the user when they come back.
+  const changeOpen = (next: boolean) => {
+    if (!next) setClaimFailed(false)
+    onOpenChange(next)
+  }
+
+  const writeReview = () => {
+    void trackAnalyticsEvent({ event: "clicked_write_review" })
+    openSiteLink(ANKIWEB_WRITE_REVIEW_URL)
+    // The server takes AnkiWeb's review count now, as the baseline the user's
+    // review will raise.
+    sendReviewClaim("write").then(onClaimed, () => undefined)
+  }
+
+  const claimReview = async () => {
+    void trackAnalyticsEvent({ event: "clicked_left_review" })
+    setClaiming(true)
+    setClaimFailed(false)
+    try {
+      onClaimed(await sendReviewClaim("claim"))
+    } catch {
+      setClaimFailed(true)
+    } finally {
+      setClaiming(false)
+    }
+  }
+
   return (
-    <Dialog onOpenChange={onOpenChange} open={open}>
+    <Dialog onOpenChange={changeOpen} open={open}>
       <DialogContent className="w-[min(380px,92vw)]">
         <div className="px-[22px] pt-6 pb-[14px] text-center">
           <GiftIcon className="mx-auto" size={32} />
-          <DialogTitle className="mt-3 text-[16.5px] font-bold text-[#f4f4f6]">
+          <DialogTitle className="mt-3 text-[16.5px] font-bold text-ink">
             {t("trialEnded.reviewOffer.dialogTitle")}
           </DialogTitle>
-          <DialogDescription className="mt-2 text-[13.5px] leading-[1.5] text-ink-muted">
-            {t("trialEnded.reviewOffer.dialogDescription")}
+          <DialogDescription
+            aria-live="polite"
+            className="mt-2 text-[13.5px] leading-[1.5] text-ink-muted"
+          >
+            {claimState === "claimed"
+              ? t("trialEnded.reviewOffer.claimed")
+              : claimState === "unavailable"
+                ? t("trialEnded.reviewOffer.unavailable")
+                : t("trialEnded.reviewOffer.dialogDescription")}
           </DialogDescription>
-          <a
-            className="mt-[18px] inline-flex h-[42px] w-full items-center justify-center rounded-[9px] bg-[#5b6fe8] text-[14.5px] font-bold text-white"
-            href={ANKIWEB_REVIEW_URL}
-            rel="noreferrer"
-            target="_blank"
-          >
-            {t("trialEnded.reviewOffer.leaveAnkiWebReview")}{" "}
-            <span className="inline-block rtl:rotate-180">→</span>
-          </a>
-          <a
-            className="mt-2 inline-flex h-9 w-full items-center justify-center rounded-[9px] bg-white/[0.05] text-[13px] font-semibold text-zinc-300 transition hover:bg-white/[0.08] hover:text-white"
-            href={`mailto:${SUPPORT_EMAIL}`}
-          >
-            <LetterIcon className="me-1.5" size={15} />
-            {SUPPORT_EMAIL}
-          </a>
+          {!done && (
+            <>
+              <Button
+                className="mt-[18px] h-[42px] w-full text-[14.5px]"
+                onClick={writeReview}
+                variant="primary"
+              >
+                {t("trialEnded.reviewOffer.writeReview")}
+                <ArrowRight aria-hidden className="size-4 rtl:rotate-180" />
+              </Button>
+              <Button
+                className="mt-2 h-9 w-full"
+                disabled={claiming}
+                onClick={() => void claimReview()}
+              >
+                {t("trialEnded.reviewOffer.leftReview")}
+              </Button>
+              {claimFailed && (
+                <p className="mt-2 text-xs text-danger" role="alert">
+                  {t("trialEnded.reviewOffer.claimError")}
+                </p>
+              )}
+            </>
+          )}
           <button
             className="mt-2.5 w-full bg-transparent p-2 text-[12.5px] text-ink-muted transition hover:text-zinc-300"
-            onClick={() => onOpenChange(false)}
+            onClick={() => changeOpen(false)}
             type="button"
           >
-            {t("common.notNow")}
+            {done ? t("common.close") : t("common.notNow")}
           </button>
         </div>
       </DialogContent>

@@ -500,12 +500,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "Senpaga monata oferto",
+      "claimError": "Io misfunkciis. Bonvolu provi denove.",
+      "claimed": "Dankon! Via senpaga monato estos aldonita post kelkaj minutoj.",
       "description": "Lasu rapidan revizion de AnkiWeb, ricevu monaton ĉe ni.",
-      "dialogDescription": "Lasu rapidan recenzon pri AnkiWeb, tiam retpoŝtu al ni — ni aldonos senpagan monaton de Smart Notes al via konto.",
+      "dialogDescription": "Skribu rapidan recenzon en AnkiWeb, poste revenu kaj informu nin. Ni aldonos senpagan monaton de Smart Notes al via konto.",
       "dialogTitle": "Akiru vian senpagan monaton",
-      "leaveAnkiWebReview": "Lasu recenzon pri AnkiWeb",
       "leaveReview": "Lasu recenzon",
-      "title": "Akiru senpagan monaton de Smart Notes"
+      "leftReview": "Mi lasis recenzon",
+      "title": "Akiru senpagan monaton de Smart Notes",
+      "unavailable": "Dankon pro la recenzo! Ĉi tiu konto jam ricevis sian senkostan monaton.",
+      "writeReview": "Skribi recenzon"
     },
     "thanks": "Dankon pro uzado de Smart Notes",
     "title": "Via senpaga provo finiĝis",

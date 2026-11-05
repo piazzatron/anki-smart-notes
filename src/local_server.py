@@ -48,6 +48,7 @@ from .event_bus import (
 )
 from .feature_flags import flags
 from .logger import logger
+from .review_claim import get_review_claim_state, send_review_claim
 from .sentry import sentry
 from .services import auth_service, settings_service
 from .services.prompt_test_service import (
@@ -624,6 +625,15 @@ def _run_refresh_account(payload: dict[str, Any]) -> None:
     auth_service.refresh_account()
 
 
+async def _run_get_review_claim(payload: dict[str, Any]) -> dict[str, str]:
+    return {"state": await get_review_claim_state()}
+
+
+async def _run_send_review_claim(payload: dict[str, Any]) -> dict[str, str]:
+    step = dto.parse_review_claim_step(payload)
+    return {"state": await send_review_claim(step)}
+
+
 def _run_open_browser(payload: dict[str, Any]) -> None:
     dto.parse_ui_open_browser(payload)
     open_anki_browser()
@@ -650,6 +660,8 @@ COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
     "account.refresh": _run_refresh_account,
     "auth.exchangeCode": _run_exchange_auth_code,
     "auth.logout": _run_logout,
+    "reviewClaim.get": _run_get_review_claim,
+    "reviewClaim.send": _run_send_review_claim,
     "ui.openBrowser": _run_open_browser,
 }
 

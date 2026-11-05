@@ -490,12 +490,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "한 달 무료 혜택",
+      "claimError": "문제가 발생했습니다. 다시 시도해 주세요.",
+      "claimed": "감사합니다! 무료 1개월 이용권이 몇 분 안에 지급될 예정입니다.",
       "description": "간단한 AnkiWeb 리뷰를 남겨주시고 한 달간 무료로 이용해보세요.",
-      "dialogDescription": "AnkiWeb에 대한 간단한 리뷰를 남기고 이메일을 보내주시면 귀하의 계정에 Smart Notes 1개월 무료 이용권을 추가해 드립니다.",
+      "dialogDescription": "AnkiWeb에 간단한 리뷰를 작성한 후 돌아와서 알려 주세요. 계정에 Smart Notes 무료 1개월 이용권을 추가해 드리겠습니다.",
       "dialogTitle": "한 달 무료로 이용하세요",
-      "leaveAnkiWebReview": "AnkiWeb에 리뷰를 남겨주세요",
       "leaveReview": "리뷰를 남겨주세요",
-      "title": "Smart Notes 1개월 무료 이용"
+      "leftReview": "리뷰를 작성했습니다",
+      "title": "Smart Notes 1개월 무료 이용",
+      "unavailable": "리뷰 감사합니다! 이 계정은 이미 무료 한 달 혜택을 받았습니다.",
+      "writeReview": "리뷰 작성하기"
     },
     "thanks": "Smart Notes를 사용해 주셔서 감사합니다",
     "title": "무료 평가판이 종료되었습니다",

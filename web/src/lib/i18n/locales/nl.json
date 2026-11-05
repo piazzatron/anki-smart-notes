@@ -500,12 +500,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "Gratis maandaanbieding",
+      "claimError": "Er is iets misgegaan. Probeer het opnieuw.",
+      "claimed": "Bedankt! Je gratis maand wordt over enkele minuten toegekend.",
       "description": "Laat een snelle AnkiWeb-recensie achter en ontvang een maand korting.",
-      "dialogDescription": "Laat een korte recensie achter op AnkiWeb en stuur ons een e-mail. We voegen dan een gratis maand Smart Notes toe aan uw account.",
+      "dialogDescription": "Schrijf een korte review op AnkiWeb en kom daarna terug om ons te laten weten dat je dat hebt gedaan. We voegen een gratis maand Smart Notes toe aan je account.",
       "dialogTitle": "Ontvang uw gratis maand",
-      "leaveAnkiWebReview": "Laat een recensie achter op AnkiWeb",
       "leaveReview": "Laat een recensie achter",
-      "title": "Ontvang een gratis maand Smart Notes"
+      "leftReview": "Ik heb een review achtergelaten",
+      "title": "Ontvang een gratis maand Smart Notes",
+      "unavailable": "Bedankt voor je review! Dit account heeft de gratis maand al gehad.",
+      "writeReview": "Schrijf een review"
     },
     "thanks": "Bedankt voor het gebruiken van Smart Notes",
     "title": "Uw gratis proefperiode is afgelopen",

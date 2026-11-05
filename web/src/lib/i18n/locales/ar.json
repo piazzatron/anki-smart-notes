@@ -540,12 +540,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "عرض شهر مجاني",
+      "claimError": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+      "claimed": "شكرًا! ينبغي أن يُضاف شهرك المجاني خلال بضع دقائق.",
       "description": "اترك مراجعة سريعة لـ AnkiWeb، واحصل على شهر مجانًا.",
-      "dialogDescription": "اترك مراجعة سريعة على AnkiWeb، ثم راسلنا عبر البريد الإلكتروني — سنضيف شهرًا مجانيًا من Smart Notes إلى حسابك.",
+      "dialogDescription": "اكتب مراجعة سريعة على AnkiWeb، ثم عُد وأخبرنا بذلك. وسنضيف شهرًا مجانيًا من Smart Notes إلى حسابك.",
       "dialogTitle": "احصل على شهرك المجاني",
-      "leaveAnkiWebReview": "ترك التعليق على AnkiWeb",
       "leaveReview": "ترك التعليق",
-      "title": "احصل على شهر مجاني من Smart Notes"
+      "leftReview": "لقد تركتُ مراجعة",
+      "title": "احصل على شهر مجاني من Smart Notes",
+      "unavailable": "شكرًا على تقييمك! لقد حصل هذا الحساب بالفعل على شهره المجاني.",
+      "writeReview": "اكتب مراجعة"
     },
     "thanks": "شكرًا لاستخدامك Smart Notes",
     "title": "انتهت تجربتك المجانية",

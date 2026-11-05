@@ -500,12 +500,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "Oferta mensual gratuíta",
+      "claimError": "Algo saíu mal. Téntao de novo.",
+      "claimed": "Grazas! O teu mes gratuíto debería estar concedido en uns minutos.",
       "description": "Deixa unha revisión rápida de AnkiWeb, obtén un mes connosco.",
-      "dialogDescription": "Deixe unha revisión rápida sobre AnkiWeb e, a continuación, envíenos un correo electrónico: engadiremos un mes gratuíto de Smart Notes á súa conta.",
+      "dialogDescription": "Escribe unha breve avaliación en AnkiWeb e despois volve e díxenolo. Engadiremos un mes gratuíto de Smart Notes á túa conta.",
       "dialogTitle": "Obtén o teu mes gratuíto",
-      "leaveAnkiWebReview": "Deixa un comentario sobre AnkiWeb",
       "leaveReview": "Deixa un comentario",
-      "title": "Obtén un mes gratuíto de Smart Notes"
+      "leftReview": "Deixei unha avaliación",
+      "title": "Obtén un mes gratuíto de Smart Notes",
+      "unavailable": "Grazas pola túa avaliación! Esta conta xa recibiu o seu mes gratuíto.",
+      "writeReview": "Escribir unha avaliación"
     },
     "thanks": "Grazas por usar Smart Notes",
     "title": "A túa proba gratuíta rematou",

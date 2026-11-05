@@ -500,12 +500,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "Ingyenes havi ajánlat",
+      "claimError": "Valami hiba történt. Kérjük, próbálja újra.",
+      "claimed": "Köszönjük! Az ingyenes hónap néhány percen belül jóváíródik.",
       "description": "Írjon egy gyors AnkiWeb-értékelést, és egy hónapot mi állunk rendelkezésére.",
-      "dialogDescription": "Hagyjon rövid áttekintést az AnkiWeb-ról, majd írjon nekünk e-mailt – egy hónapnyi ingyenes Smart Notes-t adunk fiókjához.",
+      "dialogDescription": "Írjon rövid értékelést az AnkiWeb oldalon, majd térjen vissza, és szóljon nekünk. Egy ingyenes hónapot jóváírunk a Smart Notes fiókjában.",
       "dialogTitle": "Szerezze meg ingyenes hónapját",
-      "leaveAnkiWebReview": "Írjon véleményt az AnkiWeb-ról",
       "leaveReview": "Hagyjon véleményt",
-      "title": "Kap egy hónap ingyenes Smart Notes-t"
+      "leftReview": "Írtam értékelést",
+      "title": "Kap egy hónap ingyenes Smart Notes-t",
+      "unavailable": "Köszönjük az értékelést! Ez a fiók már kapott ingyenes hónapot.",
+      "writeReview": "Értékelés írása"
     },
     "thanks": "Köszönjük, hogy a Smart Notes-t használod",
     "title": "Az ingyenes próbaidőszak véget ért",

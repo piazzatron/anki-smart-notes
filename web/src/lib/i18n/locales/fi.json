@@ -500,12 +500,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "Ilmainen kuukauden tarjous",
+      "claimError": "Jotain meni pieleen. Yritä uudelleen.",
+      "claimed": "Kiitos! Ilmaisen kuukautesi pitäisi tulla käyttöön muutaman minuutin kuluessa.",
       "description": "Jätä nopea AnkiWeb-arvostelu, niin saat kuukauden maksutta.",
-      "dialogDescription": "Jätä nopea arvio AnkiWeb:stä ja lähetä meille sähköpostia – lisäämme tilillesi ilmaisen kuukauden Smart Notes.",
+      "dialogDescription": "Kirjoita nopea AnkiWeb-arvostelu, palaa sitten kertomaan siitä meille. Lisäämme Smart Notes -tilillesi ilmaisen kuukauden.",
       "dialogTitle": "Hanki ilmainen kuukausi",
-      "leaveAnkiWebReview": "Kirjoita arvostelu AnkiWeb:stä",
       "leaveReview": "Jätä arvostelu",
-      "title": "Hanki ilmainen kuukausi Smart Notes"
+      "leftReview": "Jätin arvostelun",
+      "title": "Hanki ilmainen kuukausi Smart Notes",
+      "unavailable": "Kiitos arvostelusta! Tällä tilillä on jo ollut ilmainen kuukausi.",
+      "writeReview": "Kirjoita arvostelu"
     },
     "thanks": "Kiitos Smart Notesin käytöstä",
     "title": "Ilmainen kokeilujaksosi on päättynyt",

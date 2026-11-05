@@ -9,6 +9,9 @@ import type {
   MediaTestResult,
   PromptGenerateArgs,
   PromptGenerateResult,
+  ReviewClaimResult,
+  ReviewClaimSendPayload,
+  ReviewClaimState,
   RandomTestCardArgs,
   SaveTestResultPayload,
   Selection,
@@ -95,6 +98,18 @@ export const sendFeedback = async (
 ): Promise<void> => {
   await sendCommand("support.sendFeedback", payload)
 }
+
+export const getReviewClaimState = async (): Promise<ReviewClaimState> =>
+  (await sendCommand<ReviewClaimResult>("reviewClaim.get", {})).state
+
+export const sendReviewClaim = async (
+  step: ReviewClaimSendPayload["step"],
+): Promise<ReviewClaimState> =>
+  (
+    await sendCommand<ReviewClaimResult>("reviewClaim.send", {
+      step,
+    } satisfies ReviewClaimSendPayload)
+  ).state
 
 export const logout = async (): Promise<void> => {
   await sendCommand("auth.logout", {})

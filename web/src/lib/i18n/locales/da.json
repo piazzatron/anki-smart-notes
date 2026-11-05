@@ -500,12 +500,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "Gratis måneds tilbud",
+      "claimError": "Noget gik galt. Prøv venligst igen.",
+      "claimed": "Tak! Din gratis måned bliver tilføjet om få minutter.",
       "description": "Efterlad en hurtig AnkiWeb anmeldelse, få en måned gratis.",
-      "dialogDescription": "Skriv en hurtig anmeldelse af AnkiWeb, og send os en e-mail - vi tilføjer en gratis måned med Smart Notes til din konto.",
+      "dialogDescription": "Skriv en kort anmeldelse på AnkiWeb, og kom derefter tilbage og fortæl os det. Vi tilføjer en gratis måned af Smart Notes til din konto.",
       "dialogTitle": "Få din gratis måned",
-      "leaveAnkiWebReview": "Skriv en anmeldelse om AnkiWeb",
       "leaveReview": "Skriv en anmeldelse",
-      "title": "Få en gratis måned med Smart Notes"
+      "leftReview": "Jeg har skrevet en anmeldelse",
+      "title": "Få en gratis måned med Smart Notes",
+      "unavailable": "Tak for anmeldelsen! Denne konto har allerede fået sin gratis måned.",
+      "writeReview": "Skriv en anmeldelse"
     },
     "thanks": "Tak fordi du bruger Smart Notes",
     "title": "Din gratis prøveperiode er slut",

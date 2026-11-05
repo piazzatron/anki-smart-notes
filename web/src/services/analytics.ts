@@ -26,6 +26,8 @@ export type AnalyticsEvent =
   | { event: "trial_ended_shown" }
   | { event: "clicked_trial_ended_upgrade" }
   | { event: "clicked_trial_ended_review" }
+  | { event: "clicked_write_review" }
+  | { event: "clicked_left_review" }
   | { event: "clicked_add_smart_field" }
   | {
       event: "smart_field_saved"

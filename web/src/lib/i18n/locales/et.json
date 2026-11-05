@@ -500,12 +500,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "Tasuta kuu pakkumine",
+      "claimError": "Midagi läks valesti. Palun proovi uuesti.",
+      "claimed": "Aitäh! Tasuta kuu peaks su kontole mõne minuti pärast lisatud olema.",
       "description": "Jätke kiire AnkiWeb ülevaade ja kuu aega meie kulul.",
-      "dialogDescription": "Jätke AnkiWeb kohta kiire ülevaade ja seejärel saatke meile e-kiri – lisame teie kontole tasuta kuu aja Smart Notes.",
+      "dialogDescription": "Kirjuta AnkiWebis lühike arvustus ja tule siis tagasi ning anna meile sellest teada. Lisame su kontole tasuta kuu Smart Notes.",
       "dialogTitle": "Hankige oma tasuta kuu",
-      "leaveAnkiWebReview": "Jäta arvustus saidile AnkiWeb",
       "leaveReview": "Jäta arvustus",
-      "title": "Hankige tasuta kuu aega Smart Notes"
+      "leftReview": "Jätsin arvustuse",
+      "title": "Hankige tasuta kuu aega Smart Notes",
+      "unavailable": "Aitäh arvustuse eest! Sellel kontol on tasuta kuu juba kasutatud.",
+      "writeReview": "Kirjuta arvustus"
     },
     "thanks": "Aitäh, et kasutasid Smart Notes'it",
     "title": "Teie tasuta prooviperiood on lõppenud",

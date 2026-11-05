@@ -500,12 +500,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "Free month offer",
+      "claimError": "Something went wrong. Please try again.",
+      "claimed": "Thanks! Your free month should be granted in a few minutes.",
       "description": "Leave a quick AnkiWeb review, get a month on us.",
-      "dialogDescription": "Leave a quick review on AnkiWeb, then email us — we'll add a free month of Smart Notes to your account.",
+      "dialogDescription": "Write a quick review on AnkiWeb, then come back and let us know. We'll add a free month of Smart Notes to your account.",
       "dialogTitle": "Get your free month",
-      "leaveAnkiWebReview": "Leave a review on AnkiWeb",
       "leaveReview": "Leave a review",
-      "title": "Get a free month of Smart Notes"
+      "leftReview": "I left a review",
+      "title": "Get a free month of Smart Notes",
+      "unavailable": "Thanks for the review! This account has already had its free month.",
+      "writeReview": "Write a review"
     },
     "thanks": "Thanks for using Smart Notes",
     "title": "Your free trial has ended",

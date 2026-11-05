@@ -490,12 +490,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "Ofèrta mensuala gratuita",
+      "claimError": "Quicòm a fracassat. Tornatz ensajar.",
+      "claimed": "Mercés! Vòstre mes gratuit deuriá èsser acordat d'aicí unas minutas.",
       "description": "Daissatz una critica rapida AnkiWeb, prenètz un mes sus nosautres.",
-      "dialogDescription": "Daissatz una revista rapida sus AnkiWeb, puèi nos mandatz un corrièl — apondrem un mes gratuit d'Smart Notes a vòstre compte.",
+      "dialogDescription": "Escrivètz un ressenti rapid sus AnkiWeb, puèi tornatz nos o dire. Ajustarem un mes gratuit de Smart Notes a vòstre compte.",
       "dialogTitle": "Obtenètz vòstre mes gratuit",
-      "leaveAnkiWebReview": "Daissar una critica sus AnkiWeb",
       "leaveReview": "Daissar una revista",
-      "title": "Obtenga un mes gratis de Smart Notes"
+      "leftReview": "I ai laissat un ressenti",
+      "title": "Obtenga un mes gratis de Smart Notes",
+      "unavailable": "Mercés per la ressenha! Aqueste compte a ja benefician de son mes gratuit.",
+      "writeReview": "Escriure un ressenti"
     },
     "thanks": "Mercés d'utilizar Smart Notes",
     "title": "Vòstra espròva gratuita s'es acabada",

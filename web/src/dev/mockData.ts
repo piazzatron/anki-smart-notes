@@ -7,6 +7,7 @@ import type {
   Catalog,
   CommandName,
   PlanInfo,
+  ReviewClaimState,
   Selection,
   SmartField,
   SmartFieldCreatePayload,
@@ -521,6 +522,8 @@ export const setMockSelection = (selection: string): void => {
   })
 }
 
+let mockReviewClaimState: ReviewClaimState = "available"
+
 export const sendMockCommand: CommandSender = async <Result = void>(
   command: CommandName,
   payload: object,
@@ -597,6 +600,16 @@ export const sendMockCommand: CommandSender = async <Result = void>(
   }
 
   if (command === "support.sendFeedback") return undefined as Result
+
+  if (command === "reviewClaim.get") {
+    return { state: mockReviewClaimState } as Result
+  }
+
+  if (command === "reviewClaim.send") {
+    await new Promise((resolve) => setTimeout(resolve, 500))
+    if (commandPayload.step === "claim") mockReviewClaimState = "claimed"
+    return { state: mockReviewClaimState } as Result
+  }
 
   if (command === "account.refresh") return undefined as Result
 

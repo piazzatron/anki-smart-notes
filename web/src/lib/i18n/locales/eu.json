@@ -500,12 +500,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "Doako hilabeteko eskaintza",
+      "claimError": "Zerbait okerra gertatu da. Saiatu berriro, mesedez.",
+      "claimed": "Eskerrik asko! Zure hilabete doana minutu batzuk barru emango zaizu.",
       "description": "Utzi AnkiWeb berrikuspen azkar bat, irabazi hilabete bat.",
-      "dialogDescription": "Utzi berrikuspen bizkor bat AnkiWeb-ri eta, gero, igor iezaguzu posta elektronikoz — Smart Notes doan hilabete bat gehituko dugu zure kontuan.",
+      "dialogDescription": "Idatzi berrikuspen labur bat AnkiWeb-en, gero itzuli eta esan iezaguzu. Zure kontuan Smart Notes-en hilabete doan bat gehituko dugu.",
       "dialogTitle": "Eskuratu doako hilabetea",
-      "leaveAnkiWebReview": "Utzi iritzia AnkiWeb-en",
       "leaveReview": "Utzi iritzia",
-      "title": "Lortu doan hilabete bat Smart Notes"
+      "leftReview": "Berrikuspena utzi dut",
+      "title": "Lortu doan hilabete bat Smart Notes",
+      "unavailable": "Eskerrik asko berrikuspena egiteagatik! Kontu honek dagoeneko izan du bere doako hilabetea.",
+      "writeReview": "Idatzi berrikuspena"
     },
     "thanks": "Eskerrik asko Smart Notes erabiltzeagatik",
     "title": "Zure doako proba amaitu da",

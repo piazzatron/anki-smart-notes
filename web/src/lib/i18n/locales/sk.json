@@ -520,12 +520,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "Ponuka na mesiac zadarmo",
+      "claimError": "Niečo sa pokazilo. Skúste to prosím znova.",
+      "claimed": "Ďakujeme! Váš bezplatný mesiac by mal byť pridelený počas niekoľkých minút.",
       "description": "Zanechajte rýchlu recenziu AnkiWeb a získajte mesiac zdarma.",
-      "dialogDescription": "Zanechajte rýchlu recenziu na AnkiWeb a potom nám pošlite e-mail – na váš účet pridáme bezplatný mesiac Smart Notes.",
+      "dialogDescription": "Napíšte krátku recenziu na webe AnkiWeb a potom sa vráťte a dajte nám vedieť. Na váš účet pridáme bezplatný mesiac predplatného Smart Notes.",
       "dialogTitle": "Získajte svoj bezplatný mesiac",
-      "leaveAnkiWebReview": "Napíšte recenziu na AnkiWeb",
       "leaveReview": "Napíšte recenziu",
-      "title": "Získajte mesiac zadarmo Smart Notes"
+      "leftReview": "Recenziu som napísal(a)",
+      "title": "Získajte mesiac zadarmo Smart Notes",
+      "unavailable": "Ďakujeme za recenziu! Tento účet už využil svoj bezplatný mesiac.",
+      "writeReview": "Napísať recenziu"
     },
     "thanks": "Ďakujeme, že používate Smart Notes",
     "title": "Vaša bezplatná skúšobná verzia sa skončila",

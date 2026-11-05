@@ -500,12 +500,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "Libreng buwanang alok",
+      "claimError": "May nangyaring mali. Pakisubukan muli.",
+      "claimed": "Salamat! Dapat maibigay ang libreng buwan mo sa loob ng ilang minuto.",
       "description": "Mag-iwan ng isang mabilis na AnkiWeb na pagsusuri, makakuha ng isang buwan sa amin.",
-      "dialogDescription": "Mag-iwan ng mabilis na pagsusuri sa AnkiWeb, pagkatapos ay mag-email sa amin — magdaragdag kami ng libreng buwan ng Smart Notes sa iyong account.",
+      "dialogDescription": "Sumulat ng maikling review sa AnkiWeb, pagkatapos ay bumalik at ipaalam sa amin. Magdadagdag kami ng libreng buwan ng Smart Notes sa account mo.",
       "dialogTitle": "Kunin ang iyong libreng buwan",
-      "leaveAnkiWebReview": "Mag-iwan ng review sa AnkiWeb",
       "leaveReview": "Mag-iwan ng pagsusuri",
-      "title": "Kumuha ng libreng buwan ng Smart Notes"
+      "leftReview": "Nag-iwan ako ng review",
+      "title": "Kumuha ng libreng buwan ng Smart Notes",
+      "unavailable": "Salamat sa iyong review! Nagamit na ng account na ito ang libreng buwan nito.",
+      "writeReview": "Sumulat ng review"
     },
     "thanks": "Salamat sa paggamit ng Smart Notes",
     "title": "Natapos na ang iyong libreng pagsubok",

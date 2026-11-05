@@ -510,12 +510,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "oferta de mes gratis",
+      "claimError": "Algo salió mal. Por favor, inténtalo de nuevo.",
+      "claimed": "¡Gracias! Tu mes gratis debería estar disponible en unos minutos.",
       "description": "Deje una reseña rápida AnkiWeb y obtenga un mes gratis.",
-      "dialogDescription": "Deje una reseña rápida sobre AnkiWeb y luego envíenos un correo electrónico; agregaremos un mes gratis de Smart Notes a su cuenta.",
+      "dialogDescription": "Escribe una reseña breve en AnkiWeb y luego vuelve para avisarnos. Añadiremos un mes gratis de Smart Notes a tu cuenta.",
       "dialogTitle": "Consigue tu mes gratis",
-      "leaveAnkiWebReview": "Deja una reseña en AnkiWeb",
       "leaveReview": "Deja una reseña",
-      "title": "Consigue un mes gratis de Smart Notes"
+      "leftReview": "Ya dejé una reseña",
+      "title": "Consigue un mes gratis de Smart Notes",
+      "unavailable": "¡Gracias por tu reseña! Esta cuenta ya ha tenido su mes gratis.",
+      "writeReview": "Escribir una reseña"
     },
     "thanks": "Gracias por usar Smart Notes",
     "title": "Tu prueba gratuita ha finalizado",

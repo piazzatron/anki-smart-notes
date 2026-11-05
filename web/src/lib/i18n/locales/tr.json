@@ -500,12 +500,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "Ücretsiz ay teklifi",
+      "claimError": "Bir sorun oluştu. Lütfen tekrar deneyin.",
+      "claimed": "Teşekkürler! Ücretsiz ayınız birkaç dakika içinde tanımlanmalı.",
       "description": "Hızlı bir AnkiWeb incelemesi bırakın, bir ay bizden kazanın.",
-      "dialogDescription": "AnkiWeb hakkında hızlı bir inceleme bırakın, ardından bize e-posta gönderin; hesabınıza bir aylık ücretsiz Smart Notes ekleyeceğiz.",
+      "dialogDescription": "AnkiWeb'de kısa bir yorum yazın, ardından geri dönüp bize bildirin. Hesabınıza bir aylık ücretsiz Smart Notes ekleyeceğiz.",
       "dialogTitle": "Ücretsiz ayınızı alın",
-      "leaveAnkiWebReview": "AnkiWeb hakkında yorum bırakın",
       "leaveReview": "Yorum bırakın",
-      "title": "Bir ay ücretsiz Smart Notes edinin"
+      "leftReview": "Yorum bıraktım",
+      "title": "Bir ay ücretsiz Smart Notes edinin",
+      "unavailable": "Değerlendirmeniz için teşekkürler! Bu hesap ücretsiz ayını zaten kullandı.",
+      "writeReview": "Yorum yaz"
     },
     "thanks": "Smart Notes'u kullandığınız için teşekkürler",
     "title": "Ücretsiz deneme süreniz sona erdi",

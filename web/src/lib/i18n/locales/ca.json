@@ -510,12 +510,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "Oferta mensual gratuïta",
+      "claimError": "Alguna cosa ha fallat. Torna-ho a provar.",
+      "claimed": "Gràcies! El teu mes gratuït hauria d'estar activat d'aquí a uns minuts.",
       "description": "Deixa una revisió ràpida de AnkiWeb, gaudeix d'un mes.",
-      "dialogDescription": "Feu una revisió ràpida sobre AnkiWeb i, a continuació, envieu-nos un correu electrònic: afegirem un mes gratuït d'Smart Notes al vostre compte.",
+      "dialogDescription": "Escriu una ressenya ràpida a AnkiWeb i després torna a casa i fes-nos-ho saber. Afegirem un mes gratuït de Smart Notes al teu compte.",
       "dialogTitle": "Aconsegueix el teu mes gratuït",
-      "leaveAnkiWebReview": "Deixa una ressenya sobre AnkiWeb",
       "leaveReview": "Deixa una ressenya",
-      "title": "Aconsegueix un mes gratuït d'Smart Notes"
+      "leftReview": "He deixat una ressenya",
+      "title": "Aconsegueix un mes gratuït d'Smart Notes",
+      "unavailable": "Gràcies per la ressenya! Aquest compte ja ha gaudit del seu mes gratuït.",
+      "writeReview": "Escriu una ressenya"
     },
     "thanks": "Gràcies per fer servir Smart Notes",
     "title": "La teva prova gratuïta ha finalitzat",

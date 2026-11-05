@@ -510,12 +510,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "Oferta lunara gratuita",
+      "claimError": "A apărut o eroare. Te rugăm să încerci din nou.",
+      "claimed": "Mulțumim! Luna gratuită ar trebui acordată în câteva minute.",
       "description": "Lăsați o recenzie rapidă AnkiWeb, primiți o lună gratuit.",
-      "dialogDescription": "Lăsați o recenzie rapidă despre AnkiWeb, apoi trimiteți-ne un e-mail — vom adăuga o lună gratuită de Smart Notes în contul dvs.",
+      "dialogDescription": "Scrieți o recenzie rapidă pe AnkiWeb, apoi reveniți și spuneți-ne. Vom adăuga o lună gratuită de Smart Notes în contul dvs.",
       "dialogTitle": "Obțineți luna gratuită",
-      "leaveAnkiWebReview": "Lasă o recenzie pentru AnkiWeb",
       "leaveReview": "Lasă o recenzie",
-      "title": "Primiți o lună gratuită de Smart Notes"
+      "leftReview": "Am lăsat o recenzie",
+      "title": "Primiți o lună gratuită de Smart Notes",
+      "unavailable": "Mulțumim pentru recenzie! Acest cont și-a folosit deja luna gratuită.",
+      "writeReview": "Scrieți o recenzie"
     },
     "thanks": "Îți mulțumim că ai folosit Smart Notes",
     "title": "Perioada de încercare gratuită s-a încheiat",

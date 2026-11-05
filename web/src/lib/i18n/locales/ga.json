@@ -530,12 +530,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "Tairiscint na míosa saor in aisce,",
+      "claimError": "Tharla earráid. Déan iarracht arís, le do thoil.",
+      "claimed": "Go raibh maith agat! Ba cheart go gcuirfí do mhí saor in aisce ar fáil i gceann cúpla nóiméad.",
       "description": "Fág athbhreithniú tapa AnkiWeb, faigh mí uainn.",
-      "dialogDescription": "Fág léirmheas tapa ar AnkiWeb, ansin seol ríomhphost chugainn - cuirfimid mí saor in aisce de Smart Notes le do chuntas.",
+      "dialogDescription": "Scríobh athbhreithniú gearr ar AnkiWeb, ansin tar ar ais agus cuir in iúl dúinn. Cuirfimid mí saor in aisce de Smart Notes le do chuntas.",
       "dialogTitle": "Faigh do mhí saor in aisce",
-      "leaveAnkiWebReview": "Fág léirmheas ar AnkiWeb",
       "leaveReview": "Fág léirmheas",
-      "title": "Faigh mí saor in aisce de Smart Notes"
+      "leftReview": "Scríobh mé athbhreithniú",
+      "title": "Faigh mí saor in aisce de Smart Notes",
+      "unavailable": "Go raibh maith agat as an athbhreithniú! Tá a mhí saor in aisce tugtha don chuntas seo cheana féin.",
+      "writeReview": "Scríobh athbhreithniú"
     },
     "thanks": "Go raibh maith agat as Smart Notes a úsáid",
     "title": "Tá deireadh le do thriail saor in aisce",

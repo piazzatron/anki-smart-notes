@@ -19,4 +19,7 @@
 
 export const DISCORD_URL = "https://discord.gg/kxGaWpkTGr"
 export const ANKIWEB_REVIEW_URL = "https://ankiweb.net/shared/info/1531888719"
+// AnkiWeb's rating form, for the free-month offer's "Write a review" step
+export const ANKIWEB_WRITE_REVIEW_URL =
+  "https://ankiweb.net/shared/review/1531888719"
 export const SUPPORT_EMAIL = "support@smart-notes.xyz"

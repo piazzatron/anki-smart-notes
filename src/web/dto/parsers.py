@@ -19,7 +19,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 from __future__ import annotations
 
-from typing import Any, cast
+from typing import TYPE_CHECKING, Any, cast
 
 from anki.cards import CardId
 from anki.decks import DeckId
@@ -53,6 +53,7 @@ from .models import (
     PromptGeneratePayload,
     PromptGenerateRequest,
     RandomTestCardPayload,
+    ReviewClaimSendPayload,
     SaveTestResultPayload,
     SettingsDto,
     SmartFieldCreatePayload,
@@ -63,6 +64,9 @@ from .models import (
     TTSPromptTestPayload,
     TTSSmartFieldSettingsDto,
 )
+
+if TYPE_CHECKING:
+    from ...review_claim import ReviewClaimStep
 
 # The command endpoints sit behind the local server's session-token boundary, so
 # every payload comes from our own webview. We cast each raw dict to its wire
@@ -236,6 +240,13 @@ def parse_auth_exchange_code(payload: dict[str, Any]) -> str:
     if not code:
         raise ValueError("Please enter a code.")
     return code
+
+
+def parse_review_claim_step(payload: dict[str, Any]) -> ReviewClaimStep:
+    step = cast(ReviewClaimSendPayload, payload)["step"]
+    if step not in ("write", "claim"):
+        raise ValueError(f"Unknown review claim step: {step}")
+    return step
 
 
 def parse_auth_logout(payload: object) -> None:

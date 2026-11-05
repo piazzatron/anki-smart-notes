@@ -490,12 +490,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "Tawaran bulan percuma",
+      "claimError": "Ada yang tidak kena. Sila cuba lagi.",
+      "claimed": "Terima kasih! Bulan percuma anda sepatutnya diberikan dalam beberapa minit.",
       "description": "Tinggalkan ulasan AnkiWeb pantas, dapatkan sebulan percuma.",
-      "dialogDescription": "Tinggalkan ulasan pantas tentang AnkiWeb, kemudian e-mel kepada kami — kami akan menambah sebulan percuma Smart Notes ke akaun anda.",
+      "dialogDescription": "Tulis ulasan ringkas di AnkiWeb, kemudian kembali dan beritahu kami. Kami akan menambah sebulan percuma Smart Notes ke akaun anda.",
       "dialogTitle": "Dapatkan bulan percuma anda",
-      "leaveAnkiWebReview": "Tinggalkan ulasan tentang AnkiWeb",
       "leaveReview": "Tinggalkan ulasan",
-      "title": "Dapatkan sebulan percuma sebanyak Smart Notes"
+      "leftReview": "Saya telah menulis ulasan",
+      "title": "Dapatkan sebulan percuma sebanyak Smart Notes",
+      "unavailable": "Terima kasih atas ulasan anda! Akaun ini telah pun menerima percubaan percuma sebulan.",
+      "writeReview": "Tulis ulasan"
     },
     "thanks": "Terima kasih kerana menggunakan Smart Notes",
     "title": "Percubaan percuma anda telah tamat",

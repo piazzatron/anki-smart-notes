@@ -490,12 +490,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "Ưu đãi tháng miễn phí",
+      "claimError": "Đã xảy ra lỗi. Vui lòng thử lại.",
+      "claimed": "Cảm ơn bạn! Tháng dùng miễn phí của bạn sẽ được cấp trong vài phút tới.",
       "description": "Để lại bài đánh giá nhanh về AnkiWeb, nhận miễn phí một tháng.",
-      "dialogDescription": "Để lại đánh giá nhanh về AnkiWeb, sau đó gửi email cho chúng tôi — chúng tôi sẽ thêm một tháng Smart Notes miễn phí vào tài khoản của bạn.",
+      "dialogDescription": "Viết một đánh giá ngắn trên AnkiWeb, sau đó quay lại và cho chúng tôi biết. Chúng tôi sẽ thêm một tháng dùng miễn phí Smart Notes vào tài khoản của bạn.",
       "dialogTitle": "Nhận tháng miễn phí của bạn",
-      "leaveAnkiWebReview": "Để lại đánh giá về AnkiWeb",
       "leaveReview": "Để lại đánh giá",
-      "title": "Nhận một tháng miễn phí Smart Notes"
+      "leftReview": "Tôi đã để lại đánh giá",
+      "title": "Nhận một tháng miễn phí Smart Notes",
+      "unavailable": "Cảm ơn bạn đã đánh giá! Tài khoản này đã nhận tháng dùng thử miễn phí.",
+      "writeReview": "Viết đánh giá"
     },
     "thanks": "Cảm ơn bạn đã sử dụng Smart Notes",
     "title": "Thời gian dùng thử miễn phí của bạn đã kết thúc",

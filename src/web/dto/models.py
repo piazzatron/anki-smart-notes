@@ -256,6 +256,10 @@ class AuthExchangeCodePayload(TypedDict):
     code: str
 
 
+class ReviewClaimSendPayload(TypedDict):
+    step: str
+
+
 @dataclass(frozen=True)
 class PromptGenerateRequest:
     note_type_id: int

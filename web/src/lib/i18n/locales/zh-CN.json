@@ -490,12 +490,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "免费月份优惠",
+      "claimError": "出现了一些问题，请重试。",
+      "claimed": "谢谢！您的免费月应在几分钟内发放。",
       "description": "留下快速的 AnkiWeb 评论，即可享受一个月的优惠。",
-      "dialogDescription": "请对 AnkiWeb 进行快速评论，然后给我们发送电子邮件 — 我们将在您的帐户中添加一个月免费的 Smart Notes。",
+      "dialogDescription": "请在 AnkiWeb 上写一条简短的评价，然后回来告诉我们。我们会为您的账户添加一个月的 Smart Notes 免费使用时长。",
       "dialogTitle": "获得免费月份",
-      "leaveAnkiWebReview": "对 AnkiWeb 发表评论",
       "leaveReview": "发表评论",
-      "title": "获得一个月的免费 Smart Notes"
+      "leftReview": "我已留下评价",
+      "title": "获得一个月的免费 Smart Notes",
+      "unavailable": "感谢您的评价！此账户已领取过免费的一个月。",
+      "writeReview": "撰写评价"
     },
     "thanks": "感谢您使用 Smart Notes",
     "title": "您的免费试用已结束",

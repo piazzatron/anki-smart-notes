@@ -17,13 +17,29 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from aqt import QDialog, QDialogButtonBox, QFont, QLabel, Qt, QVBoxLayout
+from aqt import (
+    QDialog,
+    QDialogButtonBox,
+    QFont,
+    QHBoxLayout,
+    QLabel,
+    QPushButton,
+    Qt,
+    QVBoxLayout,
+)
+from aqt.utils import openLink
 
 from ..app_state import app_state
 from ..feature_flags import flags
+from ..logger import logger
+from ..review_claim import ANKIWEB_REVIEW_URL, ReviewClaimState, send_review_claim
+from ..tasks import run_async_in_background
+from ..telemetry import track_event
 
 STANDARD_MSG = "You've used Smart Notes 20 times! 🥳<br><br>If you're finding it useful and can spare a minute of your time, consider leaving a review on <a href='https://ankiweb.net/shared/info/1531888719'>AnkiWeb</a> to help other people find it."
-FREE_MONTH_MSG = "You've used Smart Notes 20 times! 🥳<br><br> Enjoying the plugin? Leave a review on <a href='https://ankiweb.net/shared/info/1531888719'>AnkiWeb</a> and email <a href='mailto:support@smart-notes.xyz'>support@smart-notes.xyz</a> for a free month of the Lite plan, on us 🥂"
+FREE_MONTH_MSG = "You've used Smart Notes 20 times! 🥳<br><br>Enjoying the plugin? Leave a review on AnkiWeb and get a free month of the Lite plan, on us 🥂"
+CLAIMED_MSG = "Thanks! Your free month should be granted in a few minutes."
+UNAVAILABLE_MSG = "Thanks for the review! This account has already had its free month."
 
 
 class RateDialog(QDialog):
@@ -33,23 +49,57 @@ class RateDialog(QDialog):
         super().__init__()
         # The free-month offer is a trial-conversion incentive; paid users see
         # the standard review message.
-        msg = (
-            FREE_MONTH_MSG
-            if flags.review_free_month and app_state.is_free_trial()
-            else STANDARD_MSG
-        )
+        free_month = flags.review_free_month and app_state.is_free_trial()
         font = QFont()
         font.setBold(True)
-        text = QLabel(msg)
-        text.setWordWrap(True)
-        text.setFont(font)
-        text.setTextFormat(Qt.TextFormat.RichText)
-        text.setOpenExternalLinks(True)
+        self.text = QLabel(FREE_MONTH_MSG if free_month else STANDARD_MSG)
+        self.text.setWordWrap(True)
+        self.text.setFont(font)
+        self.text.setTextFormat(Qt.TextFormat.RichText)
+        self.text.setOpenExternalLinks(True)
         layout = QVBoxLayout()
-        layout.addWidget(text)
+        layout.addWidget(self.text)
+
+        # The same two steps as the web UI's offer: the server takes the review
+        # count at the first click and grants the month once it rises.
+        if free_month:
+            self.write_button = QPushButton("Write a review")
+            self.write_button.clicked.connect(self._write_review)
+            self.claim_button = QPushButton("I left a review")
+            self.claim_button.clicked.connect(self._claim)
+            steps = QHBoxLayout()
+            steps.addWidget(self.write_button)
+            steps.addWidget(self.claim_button)
+            layout.addLayout(steps)
 
         self.setLayout(layout)
         buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok)
         buttons.accepted.connect(self.accept)
         layout.addWidget(buttons)
         self.setMinimumWidth(400)
+
+    def _write_review(self) -> None:
+        openLink(ANKIWEB_REVIEW_URL)
+        track_event("clicked_write_review")
+        run_async_in_background(
+            lambda: send_review_claim("write"),
+            on_failure=lambda e: logger.info(f"Review claim write step failed: {e}"),
+        )
+
+    def _claim(self) -> None:
+        track_event("clicked_left_review")
+        self.claim_button.setEnabled(False)
+        run_async_in_background(
+            lambda: send_review_claim("claim"),
+            on_success=self._on_claimed,
+            on_failure=self._on_claim_failed,
+        )
+
+    def _on_claimed(self, state: ReviewClaimState) -> None:
+        self.text.setText(CLAIMED_MSG if state != "unavailable" else UNAVAILABLE_MSG)
+        self.write_button.hide()
+        self.claim_button.hide()
+
+    def _on_claim_failed(self, e: Exception) -> None:
+        logger.info(f"Review claim failed: {e}")
+        self.claim_button.setEnabled(True)

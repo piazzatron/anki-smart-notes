@@ -510,12 +510,16 @@
     },
     "reviewOffer": {
       "ariaLabel": "מבצע חודש חינם",
+      "claimError": "משהו השתבש. נסה שוב.",
+      "claimed": "תודה! החודש החינם שלכם אמור להתווסף בעוד מספר דקות.",
       "description": "השאירו סקירה מהירה של AnkiWeb, קבלו חודש עלינו.",
-      "dialogDescription": "השאירו סקירה מהירה על AnkiWeb, ואז שלח לנו דוא\"ל - נוסיף חודש חינם של Smart Notes לחשבון שלך.",
+      "dialogDescription": "כתבו ביקורת קצרה ב-AnkiWeb, ולאחר מכן חזרו ועדכנו אותנו. נוסיף חודש חינם של Smart Notes לחשבון שלכם.",
       "dialogTitle": "קבל את החודש בחינם",
-      "leaveAnkiWebReview": "השאירו ביקורת על AnkiWeb",
       "leaveReview": "השאירו ביקורת",
-      "title": "קבל חודש חינם של Smart Notes"
+      "leftReview": "השארתי ביקורת",
+      "title": "קבל חודש חינם של Smart Notes",
+      "unavailable": "תודה על הביקורת! לחשבון הזה כבר ניתן חודש חינם.",
+      "writeReview": "כתבו ביקורת"
     },
     "thanks": "תודה שהשתמשתם ב-Smart Notes",
     "title": "תקופת הניסיון בחינם שלך הסתיימה",
