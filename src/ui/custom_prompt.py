@@ -40,12 +40,14 @@ from aqt import (
 )
 
 from ..api_client import DailyCardLimitError, UserDisplayableError
+from ..app_state import is_capacity_remaining
 from ..field_resolver import field_resolver
 from ..generation_access import open_daily_limit_upgrade_ui
 from ..image_provider import ImageResponse
 from ..logger import logger
 from ..media_utils import ext_from_content_type, get_media_path, write_media
 from ..models.smart_fields import TTSSmartFieldSettings
+from ..prompt_helpers import interpolate_prompt
 from ..sentry import run_async_in_background_with_sentry
 from ..services.smart_field_service import smart_field_service
 from ..tts_utils import play_audio
@@ -420,7 +422,16 @@ class CustomTTSPrompt(CustomPrompt):
             self._update_ui_states()
 
             if not audio:
-                logger.error("Custom prompt: no audio returned")
+                # get_tts_response returns nothing when the prompt's fields are
+                # empty or the account can't generate, so tell the user which.
+                if not interpolate_prompt(prompt, self._note, strip_html=False):
+                    msg = "Couldn't generate audio: a field this prompt uses is empty."
+                elif not is_capacity_remaining():
+                    msg = "Couldn't generate audio: generation is unavailable for this account (out of credits, plan expired, or signed out)."
+                else:
+                    msg = "Couldn't generate audio: no audio was returned. Try again."
+                logger.info(f"Custom TTS prompt returned no audio: {msg}")
+                show_message_box(msg)
                 return
 
             play_audio(audio)
