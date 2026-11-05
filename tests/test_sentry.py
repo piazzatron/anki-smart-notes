@@ -68,6 +68,7 @@ def test_captured_exceptions_keep_stack_without_local_credentials(
         (RuntimeError("smart-notes async failure"), True),
         (TimeoutError("provider timed out"), False),
         (aiohttp.ClientConnectionError("offline"), False),
+        (aiohttp.ClientPayloadError("Response payload is not completed"), False),
         (
             UserDisplayableError(
                 "This request is too long for Google TTS. Please try a different provider.",
@@ -80,6 +81,7 @@ def test_captured_exceptions_keep_stack_without_local_credentials(
         "unexpected",
         "timeout",
         "offline",
+        "truncated-body",
         "user-displayable",
     ],
 )

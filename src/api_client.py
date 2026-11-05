@@ -57,10 +57,16 @@ class DailyCardLimitError(UserDisplayableError):
 # The `code` the server puts on its 429 for the daily note cap.
 DAILY_CARD_LIMIT_CODE = "daily_card_limit"
 
-# The user's connection failing or timing out. Expected, so it is shown or counted
-# as a failure but never reported to Sentry. Older Anki runtimes have a distinct
+# The user's connection failing, timing out, or cutting off a response body
+# mid-download (ClientPayloadError). Expected, so it is shown or counted as a
+# failure but never reported to Sentry. Older Anki runtimes have a distinct
 # asyncio.TimeoutError.
-NETWORK_ERRORS = (TimeoutError, asyncio.TimeoutError, aiohttp.ClientConnectionError)
+NETWORK_ERRORS = (
+    TimeoutError,
+    asyncio.TimeoutError,
+    aiohttp.ClientConnectionError,
+    aiohttp.ClientPayloadError,
+)
 
 
 class ServerError(Exception):
