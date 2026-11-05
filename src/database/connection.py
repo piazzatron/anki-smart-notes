@@ -23,8 +23,12 @@ from contextlib import contextmanager
 from pathlib import Path
 from typing import Optional
 
+from anki.buildinfo import version
+from aqt import mw
 from yoyo.backends.core.sqlite3 import SQLiteBackend
 from yoyo.connections import default_migration_table, parse_uri
+
+from ..logger import logger
 
 DATABASE_FILENAME = "smart_notes.sqlite3"
 USER_FILES_DIR = "user_files"
@@ -40,8 +44,28 @@ def open_database(database_path: Optional[str] = None) -> Iterator[sqlite3.Conne
     try:
         with conn:
             yield conn
+    except sqlite3.OperationalError as e:
+        if "no such table" in str(e):
+            _log_missing_schema(resolved_database_path)
+        raise
     finally:
         conn.close()
+
+
+def _log_missing_schema(database_path: str) -> None:
+    # Says why a database has no schema when a query finds none (ANK-434):
+    # migrations skipped, or run against a different file.
+    # Imported here to avoid an import cycle.
+    from .. import hooks
+    from . import migrations
+
+    profile_count = len(mw.pm.profiles()) if mw else None
+    logger.error(
+        f"Smart fields DB: missing schema in {database_path}: "
+        f"main_window_did_init ran={hooks.did_run_main_window_did_init}, "
+        f"run_migrations ran={migrations.did_run_migrations}, "
+        f"anki={version}, profiles={profile_count}"
+    )
 
 
 def get_database_path() -> str:

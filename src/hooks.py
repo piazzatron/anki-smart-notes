@@ -68,6 +68,9 @@ from .web_app import (
 
 _review_time_evaluator: Optional[ReviewTimeEvaluator] = None
 _add_time_evaluator: Optional[AddTimeEvaluator] = None
+_did_start = False
+# Read by the missing-schema diagnostic in database/connection.py.
+did_run_main_window_did_init = False
 
 
 def _with_processor(fn: Any):
@@ -288,8 +291,39 @@ def _stamp_version_and_show_first_load_window() -> None:
 
 @_with_processor  # type: ignore
 def on_main_window(processor: NoteProcessor):
-    if not mw:
+    global did_run_main_window_did_init
+    did_run_main_window_did_init = True
+    _start_once()
+
+    _start_background_generation(processor)
+    ensure_local_server_started()
+
+    # Show either the first load window or the changelog once the web app's
+    # local server is ready.
+    _stamp_version_and_show_first_load_window()
+
+
+@_with_processor  # type: ignore
+def on_profile_did_open(processor: NoteProcessor) -> None:
+    _start_once()
+
+    # Profile cleanup stops background generation, so a profile switch needs
+    # it started again.
+    _start_background_generation(processor)
+    ensure_local_server_started()
+
+
+def _start_once() -> None:
+    """Runs Smart Notes' one-time startup from whichever startup hook fires first.
+
+    Anki stops running a hook's handlers at the first one that raises, and
+    skips main_window_did_init entirely if a profile_did_open handler raises,
+    so another add-on's error can keep either hook from reaching us.
+    """
+    global _did_start
+    if _did_start or not mw:
         return
+    _did_start = True
 
     # Setup logger as first thing
     setup_logger()
@@ -303,21 +337,6 @@ def on_main_window(processor: NoteProcessor):
     mw.addonManager.setConfigAction(__name__, open_web_app)
 
     _on_start_actions()
-
-    _start_background_generation(processor)
-    ensure_local_server_started()
-
-    # Show either the first load window or the changelog once the web app's
-    # local server is ready.
-    _stamp_version_and_show_first_load_window()
-
-
-@_with_processor  # type: ignore
-def on_profile_did_open(processor: NoteProcessor) -> None:
-    # Profile cleanup stops background generation, so a profile switch needs
-    # it started again.
-    _start_background_generation(processor)
-    ensure_local_server_started()
 
 
 def _start_background_generation(processor: NoteProcessor) -> None:
