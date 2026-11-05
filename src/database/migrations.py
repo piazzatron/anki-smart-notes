@@ -95,17 +95,12 @@ from ..telemetry import track_event
 from . import connection
 from .legacy_config_migration import migrate_legacy_config_to_database
 
-# Read by the missing-schema diagnostic in connection.py.
-did_run_migrations = False
-
 
 def run_migrations() -> None:
-    global did_run_migrations
     apply_database_bootstrap_migrations()
     _recover_legacy_import_pending_unprofiled_schema()
     migrate_legacy_config_to_database()
     apply_database_migrations()
-    did_run_migrations = True
 
 
 def _recover_legacy_import_pending_unprofiled_schema() -> None:

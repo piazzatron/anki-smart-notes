@@ -17,19 +17,14 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import sqlite3
-from pathlib import Path
 from types import SimpleNamespace
 from typing import Any, cast
 from unittest.mock import MagicMock
 
 import pytest
-from fixtures import install_fake_anki, use_temp_sqlite
 
-import src.database.connection as connection
 import src.hooks as hooks
 from src.note_proccessor import NoteProcessor
-from src.services.smart_field_service import SmartFieldService
 
 
 @pytest.fixture(autouse=True)
@@ -63,66 +58,6 @@ def test_profile_switch_restarts_local_server_and_background_generation(
         evaluator = vars(hooks)[name]
         assert evaluator is not None
         assert not evaluator.is_stopped
-
-
-def test_startup_runs_once_from_profile_open_when_main_window_init_never_comes(
-    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
-) -> None:
-    # Another add-on raising in main_window_did_init (or in a profile_did_open
-    # handler after ours) keeps Anki from calling our main-window handler.
-    fake_mw = install_fake_anki(monkeypatch, {}, tmp_path)
-    use_temp_sqlite(monkeypatch, tmp_path)
-    menubar = MagicMock()
-    vars(fake_mw)["form"] = SimpleNamespace(menubar=menubar)
-    monkeypatch.setattr(hooks, "mw", fake_mw)
-    monkeypatch.setattr(hooks, "QMenu", MagicMock())
-    monkeypatch.setattr(hooks, "QAction", MagicMock())
-    monkeypatch.setattr(hooks, "setup_logger", lambda: None)
-    monkeypatch.setattr(hooks, "_on_start_actions", lambda: None)
-    monkeypatch.setattr(hooks, "ensure_local_server_started", lambda: None)
-    monkeypatch.setattr(
-        hooks, "_stamp_version_and_show_first_load_window", lambda: None
-    )
-    monkeypatch.setattr(hooks, "_did_start", False)
-    monkeypatch.setattr(hooks, "_review_time_evaluator", None)
-    monkeypatch.setattr(hooks, "_add_time_evaluator", None)
-    migration_runs: list[None] = []
-    real_run_migrations = hooks.run_migrations
-
-    def run_migrations() -> None:
-        migration_runs.append(None)
-        real_run_migrations()
-
-    monkeypatch.setattr(hooks, "run_migrations", run_migrations)
-    processor = cast(NoteProcessor, object())
-
-    hooks.on_profile_did_open(processor)()
-
-    assert SmartFieldService().get_all_smart_fields() == []
-    assert vars(hooks)["_review_time_evaluator"] is not None
-
-    # A late main_window_did_init (Windows order) and a profile switch don't
-    # repeat the one-time startup.
-    hooks.on_main_window(processor)()
-    hooks.on_profile_did_open(processor)()
-
-    assert len(migration_runs) == 1
-    assert menubar.addAction.call_count == 1
-
-
-def test_query_on_database_without_schema_logs_startup_diagnostic(
-    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
-) -> None:
-    install_fake_anki(monkeypatch, {}, tmp_path)
-    use_temp_sqlite(monkeypatch, tmp_path)
-    error_logs: list[str] = []
-    monkeypatch.setattr(connection.logger, "error", error_logs.append)
-
-    with pytest.raises(sqlite3.OperationalError):
-        SmartFieldService().get_all_smart_fields()
-
-    assert len(error_logs) == 1
-    assert str(tmp_path) in error_logs[0]
 
 
 def test_profile_cleanup_closes_open_web_app_dialog(

@@ -244,9 +244,6 @@ class FakeAddonManager:
     def writeConfig(self, addon_name: str, addon_config: dict[str, Any]) -> None:
         self.written_config = deepcopy(addon_config)
 
-    def setConfigAction(self, addon_name: str, action: Callable[[], None]) -> None:
-        pass
-
 
 class FakeConfig:
     def __init__(self, addon_config: dict[str, Any]) -> None:
