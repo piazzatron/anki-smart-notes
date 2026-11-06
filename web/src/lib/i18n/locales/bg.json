@@ -181,6 +181,8 @@
       "keepsHtml": "Запазва HTML",
       "loadingVoices": "Гласовете се зареждат...",
       "model": "Модел",
+      "setAsDefault": "Задай като по подразбиране",
+      "setAsDefaultError": "Не можа да се зададе по подразбиране",
       "settings": "Настройки",
       "testVoice": "Тестов глас",
       "voice": "глас",

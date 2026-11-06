@@ -180,6 +180,8 @@
       "keepsHtml": "保留 HTML",
       "loadingVoices": "正在加载声音...",
       "model": "模型",
+      "setAsDefault": "设为默认",
+      "setAsDefaultError": "无法设置为默认",
       "settings": "设置",
       "testVoice": "测试语音",
       "voice": "嗓音",

@@ -181,6 +181,8 @@
       "keepsHtml": "HTML mantentzen du",
       "loadingVoices": "Ahotsak kargatzen…",
       "model": "Eredua",
+      "setAsDefault": "Ezarri lehenetsi gisa",
+      "setAsDefaultError": "Ezin izan da lehenetsia ezarri",
       "settings": "Ezarpenak",
       "testVoice": "Ahotsa probatu",
       "voice": "Ahotsa",

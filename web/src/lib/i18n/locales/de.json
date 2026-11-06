@@ -181,6 +181,8 @@
       "keepsHtml": "Behält HTML bei",
       "loadingVoices": "Stimmen werden geladen…",
       "model": "Modell",
+      "setAsDefault": "Als Standard festlegen",
+      "setAsDefaultError": "Standard konnte nicht festgelegt werden",
       "settings": "Einstellungen",
       "testVoice": "Stimme testen",
       "voice": "Stimme",

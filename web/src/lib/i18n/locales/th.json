@@ -180,6 +180,8 @@
       "keepsHtml": "คงรูปแบบ HTML ไว้",
       "loadingVoices": "กำลังโหลดเสียง...",
       "model": "แบบอย่าง",
+      "setAsDefault": "ตั้งเป็นค่าเริ่มต้น",
+      "setAsDefaultError": "ไม่สามารถตั้งค่าเริ่มต้นได้",
       "settings": "การตั้งค่า",
       "testVoice": "ทดสอบเสียง",
       "voice": "เสียง",

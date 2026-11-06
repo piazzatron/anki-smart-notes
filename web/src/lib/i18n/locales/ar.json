@@ -185,6 +185,8 @@
       "keepsHtml": "يحافظ على HTML",
       "loadingVoices": "جارٍ تحميل الأصوات...",
       "model": "نموذج",
+      "setAsDefault": "تعيين كافتراضي",
+      "setAsDefaultError": "تعذّر تعيين الإعداد الافتراضي",
       "settings": "الإعدادات",
       "testVoice": "اختبار الصوت",
       "voice": "صوت",

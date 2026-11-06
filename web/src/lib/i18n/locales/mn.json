@@ -181,6 +181,8 @@
       "keepsHtml": "HTML-г хадгалдаг",
       "loadingVoices": "Дуу хоолойг ачаалж байна...",
       "model": "Загвар",
+      "setAsDefault": "Анхдагчаар тохируулах",
+      "setAsDefaultError": "Анхдагчаар тохируулж чадсангүй",
       "settings": "Тохиргоо",
       "testVoice": "Дууг турших",
       "voice": "Дуу хоолой",

@@ -135,6 +135,8 @@
   "fieldEditor.modelSettings.keepsHtml": "3f8828d5fcbc",
   "fieldEditor.modelSettings.loadingVoices": "cb5620abfd32",
   "fieldEditor.modelSettings.model": "5e2c614c23f0",
+  "fieldEditor.modelSettings.setAsDefault": "d09b4dd6265a",
+  "fieldEditor.modelSettings.setAsDefaultError": "e67324c90da4",
   "fieldEditor.modelSettings.settings": "74a883a037bc",
   "fieldEditor.modelSettings.testVoice": "36d83c8ad610",
   "fieldEditor.modelSettings.voice": "87bf2bc08589",

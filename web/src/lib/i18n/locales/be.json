@@ -183,6 +183,8 @@
       "keepsHtml": "Захоўвае HTML",
       "loadingVoices": "Загрузка галасоў...",
       "model": "мадэль",
+      "setAsDefault": "Усталяваць па змаўчанні",
+      "setAsDefaultError": "Не ўдалося ўсталяваць па змаўчанні",
       "settings": "Налады",
       "testVoice": "Тэставы голас",
       "voice": "Голас",

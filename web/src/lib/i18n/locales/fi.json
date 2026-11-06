@@ -181,6 +181,8 @@
       "keepsHtml": "Säilyttää HTML:n",
       "loadingVoices": "Ladataan ääniä…",
       "model": "Malli",
+      "setAsDefault": "Aseta oletukseksi",
+      "setAsDefaultError": "Oletuksen asettaminen ei onnistunut",
       "settings": "Asetukset",
       "testVoice": "Testaa ääni",
       "voice": "Ääni",

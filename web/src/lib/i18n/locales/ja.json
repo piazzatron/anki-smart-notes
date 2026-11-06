@@ -180,6 +180,8 @@
       "keepsHtml": "HTMLを保持",
       "loadingVoices": "音声を読み込んでいます…",
       "model": "モデル",
+      "setAsDefault": "デフォルトに設定",
+      "setAsDefaultError": "デフォルトを設定できませんでした",
       "settings": "設定",
       "testVoice": "テスト音声",
       "voice": "声",

@@ -181,6 +181,8 @@
       "keepsHtml": "Konservas HTML",
       "loadingVoices": "Ŝargante voĉojn...",
       "model": "Modelo",
+      "setAsDefault": "Agordi kiel implicitan",
+      "setAsDefaultError": "Ne eblis agordi la implicitan",
       "settings": "Agordoj",
       "testVoice": "Provi voĉon",
       "voice": "Voĉo",

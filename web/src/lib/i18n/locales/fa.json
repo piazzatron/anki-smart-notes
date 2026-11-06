@@ -181,6 +181,8 @@
       "keepsHtml": "HTML را حفظ می‌کند",
       "loadingVoices": "در حال بارگیری صداها…",
       "model": "مدل",
+      "setAsDefault": "تنظیم به‌عنوان پیش‌فرض",
+      "setAsDefaultError": "تنظیم پیش‌فرض ممکن نبود",
       "settings": "تنظیمات",
       "testVoice": "آزمایش صدا",
       "voice": "صدا",

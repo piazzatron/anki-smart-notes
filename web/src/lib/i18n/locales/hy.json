@@ -181,6 +181,8 @@
       "keepsHtml": "Պահպանում է HTML-ը",
       "loadingVoices": "Ձայների բեռնում…",
       "model": "Մոդել",
+      "setAsDefault": "Սահմանել որպես լռելյայն",
+      "setAsDefaultError": "Չհաջողվեց սահմանել լռելյայնը",
       "settings": "Կարգավորումներ",
       "testVoice": "Փորձել ձայնը",
       "voice": "Ձայն",

@@ -181,6 +181,8 @@
       "keepsHtml": "HTML ରଖେ",
       "loadingVoices": "ସ୍ୱର ଲୋଡିଂ…",
       "model": "ମଡେଲ୍",
+      "setAsDefault": "ଡିଫଲ୍ଟ ଭାବରେ ସେଟ କରନ୍ତୁ",
+      "setAsDefaultError": "ଡିଫଲ୍ଟ ସେଟ କରାଯାଇପାରିଲା ନାହିଁ",
       "settings": "ସେଟିଂସ",
       "testVoice": "ସ୍ୱର ପରୀକ୍ଷା",
       "voice": "ସ୍ୱର",

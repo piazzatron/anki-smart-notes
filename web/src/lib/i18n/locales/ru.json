@@ -183,6 +183,8 @@
       "keepsHtml": "Сохраняет HTML",
       "loadingVoices": "Загрузка голосов…",
       "model": "Модель",
+      "setAsDefault": "Установить по умолчанию",
+      "setAsDefaultError": "Не удалось установить значение по умолчанию",
       "settings": "Настройки",
       "testVoice": "Тест голоса",
       "voice": "Голос",

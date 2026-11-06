@@ -182,6 +182,8 @@
       "keepsHtml": "Mantém HTML",
       "loadingVoices": "Carregando vozes…",
       "model": "Modelo",
+      "setAsDefault": "Definir como padrão",
+      "setAsDefaultError": "Não foi possível definir o padrão",
       "settings": "Configurações",
       "testVoice": "Testar voz",
       "voice": "Voz",

@@ -182,6 +182,8 @@
       "keepsHtml": "Conserva l'HTML",
       "loadingVoices": "S'estan carregant veus...",
       "model": "Model",
+      "setAsDefault": "Define com a predeterminat",
+      "setAsDefaultError": "No s'ha pogut definir com a predeterminat",
       "settings": "Configuració",
       "testVoice": "Prova de veu",
       "voice": "Veu",

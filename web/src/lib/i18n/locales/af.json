@@ -181,6 +181,8 @@
       "keepsHtml": "Behou HTML",
       "loadingVoices": "Laai tans stemme …",
       "model": "Model",
+      "setAsDefault": "Stel as standaard",
+      "setAsDefaultError": "Kon nie die standaard instel nie",
       "settings": "Instellings",
       "testVoice": "Toets stem",
       "voice": "Stem",

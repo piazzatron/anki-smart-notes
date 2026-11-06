@@ -181,6 +181,8 @@
       "keepsHtml": "HTML'i korur",
       "loadingVoices": "Sesler yükleniyor…",
       "model": "Modeli",
+      "setAsDefault": "Varsayılan olarak ayarla",
+      "setAsDefaultError": "Varsayılan ayarlanamadı",
       "settings": "Ayarlar",
       "testVoice": "Ses testi",
       "voice": "Ses",

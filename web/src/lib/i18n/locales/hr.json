@@ -182,6 +182,8 @@
       "keepsHtml": "Zadržava HTML",
       "loadingVoices": "Učitavanje glasova...",
       "model": "Model",
+      "setAsDefault": "Postavi kao zadano",
+      "setAsDefaultError": "Nije moguće postaviti zadano",
       "settings": "Postavke",
       "testVoice": "Testiraj glas",
       "voice": "Glas",

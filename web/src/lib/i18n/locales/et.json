@@ -181,6 +181,8 @@
       "keepsHtml": "Säilitab HTML-i",
       "loadingVoices": "Häälte laadimine…",
       "model": "Mudel",
+      "setAsDefault": "Määra vaikimisi",
+      "setAsDefaultError": "Vaikimisi seadistamine ebaõnnestus",
       "settings": "Seaded",
       "testVoice": "Testi hääl",
       "voice": "Hääl",

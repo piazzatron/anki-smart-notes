@@ -182,6 +182,8 @@
       "keepsHtml": "Păstrează HTML",
       "loadingVoices": "Se încarcă vocile...",
       "model": "Model",
+      "setAsDefault": "Setează ca implicit",
+      "setAsDefaultError": "Nu s-a putut seta valoarea implicită",
       "settings": "Setări",
       "testVoice": "Testează vocea",
       "voice": "Voce",

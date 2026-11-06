@@ -183,6 +183,8 @@
       "keepsHtml": "Ohrani HTML",
       "loadingVoices": "Nalaganje glasov …",
       "model": "Model",
+      "setAsDefault": "Nastavi kot privzeto",
+      "setAsDefaultError": "Privzete nastavitve ni bilo mogoče nastaviti",
       "settings": "Nastavitve",
       "testVoice": "Preizkusi glas",
       "voice": "Glas",

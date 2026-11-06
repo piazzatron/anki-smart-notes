@@ -181,6 +181,8 @@
       "keepsHtml": "Διατηρεί το HTML",
       "loadingVoices": "Φόρτωση φωνών…",
       "model": "Μοντέλο",
+      "setAsDefault": "Ορισμός ως προεπιλογή",
+      "setAsDefaultError": "Δεν ήταν δυνατός ο ορισμός της προεπιλογής",
       "settings": "Ρυθμίσεις",
       "testVoice": "Δοκιμή φωνής",
       "voice": "Φωνή",

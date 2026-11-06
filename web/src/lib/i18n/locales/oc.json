@@ -180,6 +180,8 @@
       "keepsHtml": "Conserva l'HTML",
       "loadingVoices": "En cargament de votz...",
       "model": "Modèl",
+      "setAsDefault": "Defini per defecte",
+      "setAsDefaultError": "Non se pòt definir per defecte",
       "settings": "Paramètres",
       "testVoice": "Testar la votz",
       "voice": "Votz",

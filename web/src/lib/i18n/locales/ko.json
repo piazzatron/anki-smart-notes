@@ -180,6 +180,8 @@
       "keepsHtml": "HTML 유지",
       "loadingVoices": "음성 로드 중…",
       "model": "모델",
+      "setAsDefault": "기본값으로 설정",
+      "setAsDefaultError": "기본값을 설정할 수 없습니다",
       "settings": "설정",
       "testVoice": "음성 테스트",
       "voice": "목소리",

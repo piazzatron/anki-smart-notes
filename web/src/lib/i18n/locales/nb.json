@@ -181,6 +181,8 @@
       "keepsHtml": "Beholder HTML",
       "loadingVoices": "Laster inn stemmer …",
       "model": "Modell",
+      "setAsDefault": "Angi som standard",
+      "setAsDefaultError": "Kunne ikke angi standarden",
       "settings": "Innstillinger",
       "testVoice": "Teststemme",
       "voice": "Stemme",

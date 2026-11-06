@@ -182,6 +182,8 @@
       "keepsHtml": "Mantiene l'HTML",
       "loadingVoices": "Caricamento voci…",
       "model": "Modello",
+      "setAsDefault": "Imposta come predefinito",
+      "setAsDefaultError": "Impossibile impostare il valore predefinito",
       "settings": "Impostazioni",
       "testVoice": "Prova voce",
       "voice": "Voce",

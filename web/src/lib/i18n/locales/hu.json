@@ -181,6 +181,8 @@
       "keepsHtml": "Megtartja a HTML-t",
       "loadingVoices": "Hangok betöltése…",
       "model": "Modell",
+      "setAsDefault": "Beállítás alapértelmezettként",
+      "setAsDefaultError": "Nem sikerült beállítani az alapértelmezettet",
       "settings": "Beállítások",
       "testVoice": "Teszthang",
       "voice": "Hang",

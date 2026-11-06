@@ -184,6 +184,8 @@
       "keepsHtml": "Coinníonn HTML",
       "loadingVoices": "Guthanna á lódáil…",
       "model": "Múnla",
+      "setAsDefault": "Socraigh mar réamhshocrú",
+      "setAsDefaultError": "Níorbh fhéidir an réamhshocrú a shocrú",
       "settings": "Socruithe",
       "testVoice": "Triail guthán",
       "voice": "Guth",

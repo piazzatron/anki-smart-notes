@@ -181,6 +181,8 @@
       "keepsHtml": "Keeps HTML",
       "loadingVoices": "Loading voices…",
       "model": "Model",
+      "setAsDefault": "Set as default",
+      "setAsDefaultError": "Could not set the default",
       "settings": "Settings",
       "testVoice": "Test voice",
       "voice": "Voice",

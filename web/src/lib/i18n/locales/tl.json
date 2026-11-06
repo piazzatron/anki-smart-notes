@@ -181,6 +181,8 @@
       "keepsHtml": "Pinananatili ang HTML",
       "loadingVoices": "Naglo-load ng mga boses…",
       "model": "Modelo",
+      "setAsDefault": "Itakda bilang default",
+      "setAsDefaultError": "Hindi maitakda ang default",
       "settings": "Mga setting",
       "testVoice": "Subukan ang boses",
       "voice": "Boses",

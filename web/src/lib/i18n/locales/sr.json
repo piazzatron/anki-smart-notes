@@ -182,6 +182,8 @@
       "keepsHtml": "Задржава HTML",
       "loadingVoices": "Учитавање гласова…",
       "model": "Модел",
+      "setAsDefault": "Постави као подразумевано",
+      "setAsDefaultError": "Није могуће поставити подразумевано",
       "settings": "Подешавања",
       "testVoice": "Тестирај глас",
       "voice": "Глас",

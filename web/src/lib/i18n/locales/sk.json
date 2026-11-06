@@ -183,6 +183,8 @@
       "keepsHtml": "Zachováva HTML",
       "loadingVoices": "Načítavajú sa hlasy…",
       "model": "Model",
+      "setAsDefault": "Nastaviť ako predvolené",
+      "setAsDefaultError": "Nepodarilo sa nastaviť predvolené",
       "settings": "Nastavenia",
       "testVoice": "Otestovať hlas",
       "voice": "Hlas",

@@ -180,6 +180,8 @@
       "keepsHtml": "Mengekalkan HTML",
       "loadingVoices": "Memuatkan suara…",
       "model": "Model",
+      "setAsDefault": "Tetapkan sebagai lalai",
+      "setAsDefaultError": "Tidak dapat menetapkan lalai",
       "settings": "Tetapan",
       "testVoice": "Uji suara",
       "voice": "Suara",

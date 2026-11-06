@@ -183,6 +183,8 @@
       "keepsHtml": "Zachowuje HTML",
       "loadingVoices": "Ładowanie głosów…",
       "model": "Model",
+      "setAsDefault": "Ustaw jako domyślny",
+      "setAsDefaultError": "Nie udało się ustawić domyślnego",
       "settings": "Ustawienia",
       "testVoice": "Przetestuj głos",
       "voice": "Głos",

@@ -19,7 +19,7 @@
 
 import { LoaderCircle, Play, Settings2 } from "lucide-react"
 import i18next from "i18next"
-import { useEffect, useState, type ReactNode } from "react"
+import { useState, type ReactNode } from "react"
 import { useTranslation } from "react-i18next"
 
 import { Button } from "@/components/ui/Button"
@@ -36,7 +36,6 @@ import { FieldLabel } from "@/components/ui/FieldLabel"
 import { VoicePicker } from "@/features/defaults/VoicePicker"
 import {
   allowedVoicesOf,
-  previewTextForLanguage,
   shownVoice,
   voiceMatchesSettings,
 } from "@/features/defaults/voiceDefaults"
@@ -46,14 +45,15 @@ import {
   chatSettingsMatch,
   intelligenceLevelOf,
 } from "@/features/text-generation/intelligence"
+import { usePromptTestCardState } from "@/features/prompt-tester/promptTestCard"
+import type { PromptTester } from "@/features/prompt-tester/usePromptTester"
 import { modelLabel } from "@/lib/catalog"
-import { testTTSPrompt } from "@/services/commands"
-import type {
-  AppState,
-  Catalog,
-  TTSGenerationSettings,
-  VoiceCatalog,
-} from "@/types/api"
+import {
+  saveChatDefaults,
+  saveImageDefaults,
+  saveTTSDefaults,
+} from "@/services/commands"
+import type { AppState, Catalog, VoiceCatalog } from "@/types/api"
 
 import { pinUnlessDefault } from "./fieldEditor"
 import type { FieldEditorControls } from "./useFieldEditor"
@@ -62,6 +62,8 @@ interface ModelSettingsSectionProps {
   catalog: Catalog
   controls: FieldEditorControls
   state: AppState
+  /** The step's tester, which the voice modal runs from its own button. */
+  tester: PromptTester
   voiceCatalog: VoiceCatalog | null
 }
 
@@ -71,6 +73,7 @@ export const ModelSettingsSection = ({
   catalog,
   controls,
   state,
+  tester,
   voiceCatalog,
 }: ModelSettingsSectionProps) => {
   const { t } = useTranslation()
@@ -80,11 +83,6 @@ export const ModelSettingsSection = ({
   const isCustom = pinnedSettings[fieldType] !== null
   const summary = getModelSummary({ controls, state, voiceCatalog })
   const imageSettings = pinnedSettings.image ?? state.defaults.image
-  const ttsSettings = shownVoice(
-    pinnedSettings.tts ?? state.defaults.tts,
-    voiceCatalog?.voices ?? [],
-    allowedVoicesOf(state),
-  )
   const pinImage = (settings: typeof imageSettings) =>
     controls.setPinnedImage(pinUnlessDefault(settings, state.defaults.image))
 
@@ -108,19 +106,8 @@ export const ModelSettingsSection = ({
       </button>
 
       <SettingsDialog
-        footerStart={
-          fieldType === "tts" &&
-          voiceCatalog !== null && (
-            <VoiceSampleButton
-              language={
-                voiceCatalog.voices.find((voice) =>
-                  voiceMatchesSettings(voice, ttsSettings),
-                )?.language ?? "All"
-              }
-              settings={ttsSettings}
-            />
-          )
-        }
+        footerStart={fieldType === "tts" && <VoiceTestButton tester={tester} />}
+        footerEnd={isCustom && <SetAsDefaultButton controls={controls} />}
         onOpenChange={setIsOpen}
         open={isOpen}
         // The voice list needs room for names, their language and the provider.
@@ -206,6 +193,7 @@ export const ModelSettingsSection = ({
 
 const SettingsDialog = ({
   children,
+  footerEnd,
   footerStart,
   onOpenChange,
   open,
@@ -213,6 +201,7 @@ const SettingsDialog = ({
   wide = false,
 }: {
   children: ReactNode
+  footerEnd?: ReactNode
   footerStart?: ReactNode
   onOpenChange: (open: boolean) => void
   open: boolean
@@ -238,6 +227,7 @@ const SettingsDialog = ({
 
       <DialogFooter>
         {footerStart}
+        {footerEnd}
         <Button onClick={() => onOpenChange(false)} variant="success">
           {i18next.t("common.done")}
         </Button>
@@ -246,51 +236,80 @@ const SettingsDialog = ({
   </Dialog>
 )
 
-// Reads a sample sentence in the chosen voice, so a voice can be heard before it's kept.
-const VoiceSampleButton = ({
-  language,
-  settings,
+// Makes this field's own settings the default for its type. The field then follows the
+// default again, along with every field that already did.
+const SetAsDefaultButton = ({
+  controls,
 }: {
-  language: string
-  settings: TTSGenerationSettings
+  controls: FieldEditorControls
 }) => {
   const { t } = useTranslation()
-  const [audio, setAudio] = useState<HTMLAudioElement | null>(null)
-  const [status, setStatus] = useState<"error" | "idle" | "loading">("idle")
-  // Closing the dialog cuts the sample off.
-  useEffect(() => () => audio?.pause(), [audio])
+  const [status, setStatus] = useState<"error" | "idle" | "saving">("idle")
+  const { pinnedSettings, target } = controls.form
 
-  const play = async () => {
-    audio?.pause()
-    setStatus("loading")
+  const setAsDefault = async () => {
+    setStatus("saving")
     try {
-      const { dataUrl } = await testTTSPrompt({
-        settings,
-        text: previewTextForLanguage(language),
-      })
-      const sample = new Audio(dataUrl)
-      setAudio(sample)
+      if (target.fieldType === "chat" && pinnedSettings.chat !== null) {
+        await saveChatDefaults(pinnedSettings.chat)
+        controls.setPinnedChat(null)
+      } else if (
+        target.fieldType === "image" &&
+        pinnedSettings.image !== null
+      ) {
+        await saveImageDefaults(pinnedSettings.image)
+        controls.setPinnedImage(null)
+      } else if (target.fieldType === "tts" && pinnedSettings.tts !== null) {
+        await saveTTSDefaults(pinnedSettings.tts)
+        controls.setPinnedTTS(null)
+      }
       setStatus("idle")
-      void sample.play()
     } catch {
       setStatus("error")
     }
   }
 
   return (
-    <div className="me-auto flex items-center gap-2">
-      <Button disabled={status === "loading"} onClick={() => void play()}>
-        {status === "loading" ? (
+    <>
+      {status === "error" && (
+        <span className="text-xs text-danger">
+          {t("fieldEditor.modelSettings.setAsDefaultError")}
+        </span>
+      )}
+      <Button
+        disabled={status === "saving"}
+        onClick={() => void setAsDefault()}
+      >
+        {t("fieldEditor.modelSettings.setAsDefault")}
+      </Button>
+    </>
+  )
+}
+
+// Runs the page's tester (the selected card, read in the voice chosen here) without
+// leaving the modal. The result plays as soon as it arrives.
+const VoiceTestButton = ({ tester }: { tester: PromptTester }) => {
+  const { t } = useTranslation()
+  const card = usePromptTestCardState(tester)
+
+  return (
+    <div className="me-auto flex min-w-0 items-center gap-2">
+      <Button disabled={card.runDisabled} onClick={() => void tester.runTest()}>
+        {tester.isTesting ? (
           <LoaderCircle aria-hidden className="size-3.5 animate-spin" />
         ) : (
           <Play aria-hidden className="size-3.5" />
         )}
         {t("fieldEditor.modelSettings.testVoice")}
       </Button>
-      {status === "error" && (
-        <span className="text-xs text-ink-muted">
-          {t("promptTester.errors.generateAudio")}
-        </span>
+      {tester.error !== null ? (
+        <span className="truncate text-xs text-danger">{tester.error}</span>
+      ) : (
+        tester.selectedNote === null && (
+          <span className="truncate text-xs text-ink-muted">
+            {t("promptTester.selectCardInBrowser")}
+          </span>
+        )
       )}
     </div>
   )
@@ -329,7 +348,7 @@ const getModelSummary = ({
   controls,
   state,
   voiceCatalog,
-}: Omit<ModelSettingsSectionProps, "catalog">): {
+}: Omit<ModelSettingsSectionProps, "catalog" | "tester">): {
   detail: string | null
   label: string
 } => {

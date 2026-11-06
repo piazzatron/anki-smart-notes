@@ -181,6 +181,8 @@
       "keepsHtml": "Bevarer HTML",
       "loadingVoices": "Indlæser stemmer...",
       "model": "Model",
+      "setAsDefault": "Angiv som standard",
+      "setAsDefaultError": "Standarden kunne ikke angives",
       "settings": "Indstillinger",
       "testVoice": "Teststemme",
       "voice": "Stemme",

@@ -107,12 +107,17 @@ export const VoicePicker = ({
       ...voices.filter((voice) => !isVoiceAllowed(voice, allowedVoices)),
     ]
   }, [catalog.voices, filters, allowedVoices])
-  // The list starts on every voice, so it opens scrolled to the chosen one.
+  // The list starts on every voice, so it opens scrolled to the chosen one. Only the
+  // list scrolls: scrollIntoView would also scroll a dialog the picker sits in.
   const listRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
-    listRef.current
-      ?.querySelector('[data-state="checked"]')
-      ?.scrollIntoView({ block: "center" })
+    const list = listRef.current
+    const row = list?.querySelector<HTMLElement>('[data-state="checked"]')
+    if (list == null || row == null) return
+    list.scrollTop +=
+      row.getBoundingClientRect().top -
+      list.getBoundingClientRect().top -
+      (list.clientHeight - row.offsetHeight) / 2
   }, [])
   // In columns (the Voice screen) the panels hang past the headings like every other
   // surface, so their content takes the same hang inset as the page's other cards.

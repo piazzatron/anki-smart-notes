@@ -182,6 +182,8 @@
       "keepsHtml": "שומר HTML",
       "loadingVoices": "טוען קולות...",
       "model": "דֶגֶם",
+      "setAsDefault": "הגדר כברירת מחדל",
+      "setAsDefaultError": "לא ניתן להגדיר את ברירת המחדל",
       "settings": "הגדרות",
       "testVoice": "בדיקת קול",
       "voice": "קוֹל",

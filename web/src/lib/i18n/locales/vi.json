@@ -180,6 +180,8 @@
       "keepsHtml": "Giữ HTML",
       "loadingVoices": "Đang tải giọng nói…",
       "model": "Người mẫu",
+      "setAsDefault": "Đặt làm mặc định",
+      "setAsDefaultError": "Không thể đặt làm mặc định",
       "settings": "Cài đặt",
       "testVoice": "Thử giọng nói",
       "voice": "Tiếng nói",

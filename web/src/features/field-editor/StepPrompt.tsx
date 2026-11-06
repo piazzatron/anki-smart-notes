@@ -355,6 +355,7 @@ export const StepPrompt = ({
           catalog={catalog}
           controls={controls}
           state={state}
+          tester={field}
           voiceCatalog={voiceCatalog}
         />
       </EditorSection>

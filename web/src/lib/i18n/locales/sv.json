@@ -181,6 +181,8 @@
       "keepsHtml": "Behåller HTML",
       "loadingVoices": "Läser in röster...",
       "model": "Modell",
+      "setAsDefault": "Ange som standard",
+      "setAsDefaultError": "Kunde inte ange standarden",
       "settings": "Inställningar",
       "testVoice": "Testa röst",
       "voice": "Röst",
