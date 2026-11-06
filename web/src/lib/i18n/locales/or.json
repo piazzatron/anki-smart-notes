@@ -237,7 +237,6 @@
       "exampleAnswer": "ନମସ୍କାର",
       "exampleField": "FRONT",
       "examplePrompt": "bonjour",
-      "spark": "✦",
       "title": "ତୁମର ନୋଟ୍ ଟିକେ ଖାଲି ଦେଖାଯାଉଛି"
     },
     "enable": "ସକ୍ଷମ କରନ୍ତୁ",
@@ -271,7 +270,6 @@
       "missingImageModel": "ପ୍ରତିଛବି କାଟାଲଗ୍ ମଡେଲ୍ {{model}} ହରାଉଛି"
     },
     "image": {
-      "cannotFindModel": "ପ୍ରତିଛବି କାଟାଲଗ୍ ମଡେଲ୍ {{model}} ହରାଉଛି",
       "defaultModel": "ଡିଫଲ୍ଟ ମଡେଲ",
       "gptImage25": "ସର୍ବୋତ୍ତମ ସାଧାରଣ ପସନ୍ଦ — ସ୍ପଷ୍ଟ ପାଠ୍ୟ, ପରିଷ୍କାର ଚିତ୍ର।",
       "loadingLabel": "ଇମେଜ୍ ସୃଷ୍ଟି ସେଟିଂସ୍ ଲୋଡ୍ ହେଉଛି",
@@ -412,7 +410,6 @@
     "errors": {
       "logout": "ଲଗ୍ ଆଉଟ୍ ହୋଇପାରିଲା ନାହିଁ"
     },
-    "endingSoon": "ଶୀଘ୍ରେ ଶେଷ ହେବ",
     "expired": "ମେୟାଦ ଶେଷ",
     "freePlan": "ମାଗଣା ଯୋଜନା",
     "freeTrial": "ମାଗଣା ପରୀକ୍ଷା",

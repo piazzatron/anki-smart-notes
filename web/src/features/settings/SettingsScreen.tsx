@@ -89,7 +89,7 @@ export const LoadedSettingsScreen = ({
   const controls = useSettings(settings)
   const [legacyOpen, setLegacyOpen] = useState(false)
   const saveOnEnter = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key !== "Enter") return
+    if (event.key !== "Enter" || event.nativeEvent.isComposing) return
     event.currentTarget.blur()
   }
 
@@ -344,6 +344,7 @@ const SettingRow = ({
   // label rather than an aria-label string.
   const labelId = useId()
   return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- a mouse shortcut on a locked row; its UpgradeLock button is the keyboard path
     <div
       className={`flex items-center gap-5 py-[18px] ${upgradeFeature === undefined ? "" : "cursor-pointer"}`}
       onClick={

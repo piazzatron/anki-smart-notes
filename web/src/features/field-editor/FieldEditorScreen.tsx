@@ -117,7 +117,7 @@ export const FieldEditorScreen = ({
       <DialogTakeover
         // No subtitle to point at, and a save in flight is not interruptible.
         aria-describedby={undefined}
-        className="z-[60] bg-[#0d0d11]"
+        className="z-[60] bg-canvas"
         data-testid="field-editor"
         onEscapeKeyDown={(event) => {
           if (controls.form.isSaving) event.preventDefault()
@@ -195,6 +195,7 @@ export const FieldEditorScreen = ({
                   onClick={() => controls.setStep(2)}
                 >
                   {t("common.next")}{" "}
+                  {/* eslint-disable-next-line local/no-symbol-text -- a Lucide ChevronRight would change the Next button's look */}
                   <span className="inline-block rtl:rotate-180">›</span>
                 </Button>
               )}

@@ -237,7 +237,6 @@
       "exampleAnswer": "Hallo",
       "exampleField": "FRONT",
       "examplePrompt": "Bonjour",
-      "spark": "✦",
       "title": "Ihre Notizen sehen etwas leer aus"
     },
     "enable": "Aktivieren",
@@ -271,7 +270,6 @@
       "missingImageModel": "Im Bildkatalog fehlt das Modell {{model}}"
     },
     "image": {
-      "cannotFindModel": "Im Bildkatalog fehlt das Modell {{model}}",
       "defaultModel": "Standardmodell",
       "gptImage25": "Bester Allrounder – scharfer Text, saubere Diagramme.",
       "loadingLabel": "Bildgenerierungs-Einstellungen werden geladen",
@@ -412,7 +410,6 @@
     "errors": {
       "logout": "Konnte mich nicht abmelden"
     },
-    "endingSoon": "Endet bald",
     "expired": "Abgelaufen",
     "freePlan": "Kostenloser Plan",
     "freeTrial": "Kostenlose Testversion",

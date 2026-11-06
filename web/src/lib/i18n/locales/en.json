@@ -237,7 +237,6 @@
       "exampleAnswer": "Hello",
       "exampleField": "FRONT",
       "examplePrompt": "bonjour",
-      "spark": "✦",
       "title": "Your notes are looking a little empty"
     },
     "enable": "Enable",
@@ -271,7 +270,6 @@
       "missingImageModel": "Image catalog is missing model {{model}}"
     },
     "image": {
-      "cannotFindModel": "Image catalog is missing model {{model}}",
       "defaultModel": "Default model",
       "gptImage25": "best all-rounder — sharp text, clean diagrams.",
       "loadingLabel": "Loading Image Generation Settings",
@@ -412,7 +410,6 @@
     "errors": {
       "logout": "Could not log out"
     },
-    "endingSoon": "Ending soon",
     "expired": "Expired",
     "freePlan": "Free plan",
     "freeTrial": "Free trial",

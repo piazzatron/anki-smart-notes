@@ -237,7 +237,6 @@
       "exampleAnswer": "Tere",
       "exampleField": "ESINE",
       "examplePrompt": "bonjour",
-      "spark": "✦",
       "title": "Teie märkmed tunduvad pisut tühjad"
     },
     "enable": "Luba",
@@ -271,7 +270,6 @@
       "missingImageModel": "Piltide kataloogist puudub mudel {{model}}"
     },
     "image": {
-      "cannotFindModel": "Piltide kataloogist puudub mudel {{model}}",
       "defaultModel": "Vaikemudel",
       "gptImage25": "parim üldvalik — terav tekst, selged diagrammid.",
       "loadingLabel": "Pildiloome seadete laadimine",
@@ -412,7 +410,6 @@
     "errors": {
       "logout": "Ei saanud välja logida"
     },
-    "endingSoon": "Lõpeb peagi",
     "expired": "Aegunud",
     "freePlan": "Tasuta plaan",
     "freeTrial": "Tasuta prooviperiood",

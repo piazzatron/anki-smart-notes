@@ -237,7 +237,6 @@
       "exampleAnswer": "Hej",
       "exampleField": "FRÄMRE",
       "examplePrompt": "bonjour",
-      "spark": "✦",
       "title": "Dina anteckningar ser lite tomma ut"
     },
     "enable": "Aktivera",
@@ -271,7 +270,6 @@
       "missingImageModel": "Bildkatalogen saknar modell {{model}}"
     },
     "image": {
-      "cannotFindModel": "Bildkatalogen saknar modell {{model}}",
       "defaultModel": "Standardmodell",
       "gptImage25": "bäst för allt — skarp text, rena diagram.",
       "loadingLabel": "Läser in inställningar för bildgenerering",
@@ -412,7 +410,6 @@
     "errors": {
       "logout": "Kunde inte logga ut"
     },
-    "endingSoon": "Slutar snart",
     "expired": "Utgånget",
     "freePlan": "Gratis plan",
     "freeTrial": "Gratis provperiod",

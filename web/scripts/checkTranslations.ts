@@ -23,7 +23,8 @@ import {
 } from "./translationSources"
 
 // Fails when any locale is missing a string, has one English no longer has, breaks a
-// placeholder, or was translated from English that has since changed.
+// placeholder, or was translated from English that has since changed, and when English
+// has a string no code reads.
 const english = flattenCatalog(englishCatalog)
 const problems: string[] = []
 
@@ -63,9 +64,40 @@ for (const { bcp47 } of LANGUAGES) {
   }
 }
 
+// English keys no source file reads. A key counts as read when its quoted name appears
+// in src/, or when it starts with the static head of a template key like
+// `upgradeSheet.features.${feature}.title`. Plural forms (`_one`, `_other`) count as
+// their base key.
+const sources = await Promise.all(
+  [
+    ...new Bun.Glob("src/**/*.{ts,tsx}").scanSync(
+      new URL("..", import.meta.url).pathname,
+    ),
+  ].map((path) => Bun.file(new URL(`../${path}`, import.meta.url)).text()),
+)
+const sourceText = sources.join("\n")
+const dynamicPrefixes = [
+  ...sourceText.matchAll(/`([A-Za-z][\w]*(?:\.[\w]+)*\.)\$\{/g),
+].map(([, prefix]) => prefix)
+const unusedKeys = Object.keys(english).filter((key) => {
+  const base = key.replace(/_(zero|one|two|few|many|other)$/, "")
+  return (
+    !new RegExp(`["'\`]${base.replaceAll(".", "\\.")}["'\`]`).test(
+      sourceText,
+    ) && !dynamicPrefixes.some((prefix) => base.startsWith(prefix))
+  )
+})
+if (unusedKeys.length > 0) {
+  problems.push(
+    `en.json has keys no source file reads; remove them: ${unusedKeys.join(", ")}`,
+  )
+}
+
 if (problems.length > 0) {
   for (const problem of problems) console.error(problem)
-  console.error("\nRun `bun run translate` to fix.")
+  // translate fixes the locales; an unused key is removed from en.json by hand.
+  if (unusedKeys.length < problems.length)
+    console.error("\nRun `bun run translate` to fix.")
   process.exit(1)
 }
 console.log("Translations are complete and current.")

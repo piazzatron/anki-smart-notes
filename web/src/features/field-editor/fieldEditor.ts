@@ -45,7 +45,7 @@ export interface FieldTargetDraft {
   targetFieldName: string
 }
 
-export interface PinnedGenerationSettings {
+interface PinnedGenerationSettings {
   chat: ChatGenerationSettings | null
   image: ImageGenerationSettings | null
   tts: TTSGenerationSettings | null

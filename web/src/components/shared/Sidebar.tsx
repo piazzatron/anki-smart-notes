@@ -238,7 +238,7 @@ const NavButton = ({ activeScreen, item, onNavigate }: NavButtonProps) => {
       <item.icon
         className={
           isActive
-            ? "text-[#2ef59c]"
+            ? "text-mint"
             : "text-zinc-400 transition-colors duration-150 group-hover:text-zinc-200"
         }
         size={16}

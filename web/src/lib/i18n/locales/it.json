@@ -238,7 +238,6 @@
       "exampleAnswer": "Ciao",
       "exampleField": "DAVANTI",
       "examplePrompt": "buongiorno",
-      "spark": "✦",
       "title": "I tuoi appunti sembrano un po' vuoti"
     },
     "enable": "Abilitare",
@@ -272,7 +271,6 @@
       "missingImageModel": "Nel catalogo immagini manca il modello {{model}}"
     },
     "image": {
-      "cannotFindModel": "Nel catalogo immagini manca il modello {{model}}",
       "defaultModel": "Modello predefinito",
       "gptImage25": "il più versatile — testo nitido, diagrammi puliti.",
       "loadingLabel": "Caricamento impostazioni generazione immagini",
@@ -419,7 +417,6 @@
     "errors": {
       "logout": "Impossibile disconnettersi"
     },
-    "endingSoon": "Termina presto",
     "expired": "Scaduto",
     "freePlan": "Piano gratuito",
     "freeTrial": "Prova gratuita",

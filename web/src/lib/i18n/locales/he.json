@@ -238,7 +238,6 @@
       "exampleAnswer": "שלום",
       "exampleField": "חֲזִית",
       "examplePrompt": "בונז'ור",
-      "spark": "✦",
       "title": "ההערות שלך נראות ריקות מעט"
     },
     "enable": "לְאַפשֵׁר",
@@ -272,7 +271,6 @@
       "missingImageModel": "בקטלוג התמונות חסר דגם {{model}}"
     },
     "image": {
-      "cannotFindModel": "בקטלוג התמונות חסר דגם {{model}}",
       "defaultModel": "מודל ברירת מחדל",
       "gptImage25": "הכי מאוזן: טקסט חד, דיאגרמות נקיות.",
       "loadingLabel": "טוען הגדרות יצירת תמונות",
@@ -419,7 +417,6 @@
     "errors": {
       "logout": "לא ניתן היה להתנתק"
     },
-    "endingSoon": "תסתיים בקרוב",
     "expired": "פג",
     "freePlan": "תוכנית חינם",
     "freeTrial": "ניסיון חינם",

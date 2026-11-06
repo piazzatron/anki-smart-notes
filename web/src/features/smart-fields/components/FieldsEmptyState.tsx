@@ -17,12 +17,14 @@ export const FieldsEmptyState = ({ onCreate }: FieldsEmptyStateProps) => {
   return (
     <div className="smart-fields-empty">
       <div aria-hidden className="smart-fields-empty-illustration">
+        {/* eslint-disable i18next/no-literal-string, local/no-symbol-text -- decorative art, the same glyph as SparkleField */}
         <span className="smart-fields-empty-spark smart-fields-empty-spark-one">
-          {t("smartFields.emptyState.spark")}
+          ✦
         </span>
         <span className="smart-fields-empty-spark smart-fields-empty-spark-two">
-          {t("smartFields.emptyState.spark")}
+          ✦
         </span>
+        {/* eslint-enable i18next/no-literal-string, local/no-symbol-text */}
         <span className="smart-fields-empty-bubble smart-fields-empty-bubble-text">
           <ChatIcon size={20} />
         </span>
@@ -62,7 +64,7 @@ export const FieldsEmptyState = ({ onCreate }: FieldsEmptyStateProps) => {
         variant="mint"
       >
         <SparklesIcon
-          className="absolute start-[22px] top-1/2 -translate-y-1/2"
+          className="absolute start-hang top-1/2 -translate-y-1/2"
           size={18}
         />
         {t("smartFields.newSmartField")}

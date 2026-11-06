@@ -237,7 +237,6 @@
       "exampleAnswer": "Hallo",
       "exampleField": "VOORKANT",
       "examplePrompt": "bonjour",
-      "spark": "✦",
       "title": "Je aantekeningen zien er een beetje leeg uit"
     },
     "enable": "Inschakelen",
@@ -271,7 +270,6 @@
       "missingImageModel": "Afbeeldingscatalogus ontbreekt model {{model}}"
     },
     "image": {
-      "cannotFindModel": "Afbeeldingscatalogus ontbreekt model {{model}}",
       "defaultModel": "Standaardmodel",
       "gptImage25": "de beste allrounder — scherpe tekst, schone diagrammen.",
       "loadingLabel": "Instellingen voor afbeeldingsgeneratie laden",
@@ -412,7 +410,6 @@
     "errors": {
       "logout": "Kon niet uitloggen"
     },
-    "endingSoon": "Eindigt binnenkort",
     "expired": "Verlopen",
     "freePlan": "Gratis abonnement",
     "freeTrial": "Gratis proefperiode",

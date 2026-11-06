@@ -236,7 +236,6 @@
       "exampleAnswer": "你好",
       "exampleField": "正面",
       "examplePrompt": "你好",
-      "spark": "✦",
       "title": "你的筆記看起來有點空"
     },
     "enable": "使能夠",
@@ -270,7 +269,6 @@
       "missingImageModel": "影像目錄缺少型號 {{model}}"
     },
     "image": {
-      "cannotFindModel": "影像目錄缺少型號 {{model}}",
       "defaultModel": "預設模型",
       "gptImage25": "綜合表現最佳，文字銳利，圖表乾淨。",
       "loadingLabel": "正在載入圖片生成設定",
@@ -405,7 +403,6 @@
     "errors": {
       "logout": "無法註銷"
     },
-    "endingSoon": "即將結束",
     "expired": "已過期",
     "freePlan": "免費規劃",
     "freeTrial": "免費試用",

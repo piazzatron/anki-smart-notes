@@ -160,6 +160,7 @@ export const TextModelPicker = ({
           onChange={onChange}
           value={shown}
         />
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- a mouse shortcut on a locked row; its UpgradeLock button is the keyboard path */}
         <div
           className={`${surface} flex items-center gap-4 py-[18px] ${isFree ? "cursor-pointer" : ""}`}
           onClick={isFree ? () => openUpgradeSheet("webSearch") : undefined}
@@ -358,7 +359,8 @@ const SpecificModelList = ({
           className="pb-1.5"
           label={t("intelligence.specificModel")}
           onKeyDown={(event) => {
-            if (event.key === "Enter") setOpen(false)
+            if (event.key === "Enter" && !event.nativeEvent.isComposing)
+              setOpen(false)
           }}
           onValueChange={(id) => {
             // The Auto row's value is the catalog's own "auto" entry. Coming back to

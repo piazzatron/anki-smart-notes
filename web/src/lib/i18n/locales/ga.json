@@ -240,7 +240,6 @@
       "exampleAnswer": "Dia duit",
       "exampleField": "TOSAIGH",
       "examplePrompt": "bonjour",
-      "spark": "✦",
       "title": "Tá do chuid nótaí ag breathnú beagán folamh"
     },
     "enable": "Cumasaigh",
@@ -274,7 +273,6 @@
       "missingImageModel": "Tá samhail {{model}} in easnamh ar chatalóg na n-íomhánna"
     },
     "image": {
-      "cannotFindModel": "Tá samhail {{model}} in easnamh ar chatalóg na n-íomhánna",
       "defaultModel": "Múnla réamhshocraithe",
       "gptImage25": "an rogha is fearr ar fad — téacs géar, léaráidí glana.",
       "loadingLabel": "Socruithe Giniúna Íomhá á Lódáil",
@@ -433,7 +431,6 @@
     "errors": {
       "logout": "Níorbh fhéidir logáil amach"
     },
-    "endingSoon": "Deireadh a bheith ann go luath",
     "expired": "Éadúil",
     "freePlan": "Plean saor in aisce,",
     "freeTrial": "Triail saor in aisce",

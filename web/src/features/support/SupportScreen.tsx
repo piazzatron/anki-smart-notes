@@ -73,7 +73,10 @@ export const SupportScreen = () => {
       testId="support-screen"
       title={t("support.title")}
     >
-      <div className="relative -mx-hang flex items-center gap-[15px] overflow-hidden rounded-[13px] bg-[linear-gradient(100deg,#3C45A5_0%,#5865F2_42%,#9B4DFF_100%)] py-[17px] ps-hang pe-4">
+      <div
+        // eslint-disable-next-line local/no-hex-color -- Discord's brand gradient
+        className="relative -mx-hang flex items-center gap-[15px] overflow-hidden rounded-[13px] bg-[linear-gradient(100deg,#3C45A5_0%,#5865F2_42%,#9B4DFF_100%)] py-[17px] ps-hang pe-4"
+      >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(460px_140px_at_10%_-40%,rgba(180,200,255,0.3),transparent_72%)]" />
         <DiscordMark className="relative text-white" size={31} />
         <div className="relative min-w-0 flex-1">
@@ -85,6 +88,7 @@ export const SupportScreen = () => {
           </p>
         </div>
         <a
+          // eslint-disable-next-line local/no-hex-color -- Discord's brand purple, on its banner's button
           className="relative banner-button bg-white text-[#6B3FD4]"
           href={DISCORD_URL}
           rel="noreferrer"
@@ -161,8 +165,7 @@ export const SupportScreen = () => {
             {t("support.changelog")}
           </a>
         </p>
-        {/* Attribution names the artwork and its licenses, so it stays in English. */}
-        {/* eslint-disable i18next/no-literal-string */}
+        {/* eslint-disable i18next/no-literal-string -- attribution names the artwork and its licenses, so it stays in English */}
         <p className="mt-1 text-xs text-ink-muted">
           Icons:{" "}
           <CreditLink href="https://www.figma.com/community/file/1166831539721848736">

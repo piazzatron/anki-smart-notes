@@ -237,7 +237,6 @@
       "exampleAnswer": "Saluton",
       "exampleField": "FRONTO",
       "examplePrompt": "bonjour",
-      "spark": "✦",
       "title": "Viaj notoj aspektas iom malplenaj"
     },
     "enable": "Ebligu",
@@ -271,7 +270,6 @@
       "missingImageModel": "Bildkatalogo mankas modelo {{model}}"
     },
     "image": {
-      "cannotFindModel": "Bildkatalogo mankas modelo {{model}}",
       "defaultModel": "Defaŭlta modelo",
       "gptImage25": "la plej universala — klara teksto, puraj diagramoj.",
       "loadingLabel": "Ŝargado de agordoj por bildgenerado",
@@ -412,7 +410,6 @@
     "errors": {
       "logout": "Ne eblis elsaluti"
     },
-    "endingSoon": "Finiĝas baldaŭ",
     "expired": "Eksvalidiĝis",
     "freePlan": "Senpaga plano",
     "freeTrial": "Senpaga provo",

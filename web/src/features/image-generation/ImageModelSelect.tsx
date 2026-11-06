@@ -123,6 +123,7 @@ export const ImageModelSelect = ({
                       components={{
                         model: (
                           // Opens in the system browser; the plugin hands off new windows.
+                          // eslint-disable-next-line jsx-a11y/anchor-has-content -- Trans fills in the model name as the link text
                           <a
                             className="font-semibold underline underline-offset-2 hover:text-indigo-100"
                             href={modelUrl}

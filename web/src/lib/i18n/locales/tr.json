@@ -237,7 +237,6 @@
       "exampleAnswer": "Merhaba",
       "exampleField": "ÖN",
       "examplePrompt": "iyi eğlenceler",
-      "spark": "✦",
       "title": "Notlarınız biraz boş görünüyor"
     },
     "enable": "Olanak vermek",
@@ -271,7 +270,6 @@
       "missingImageModel": "Resim kataloğunda {{model}} modeli eksik"
     },
     "image": {
-      "cannotFindModel": "Resim kataloğunda {{model}} modeli eksik",
       "defaultModel": "Varsayılan model",
       "gptImage25": "en iyi genel seçenek — keskin metin, temiz diyagramlar.",
       "loadingLabel": "Görsel Oluşturma Ayarları Yükleniyor",
@@ -412,7 +410,6 @@
     "errors": {
       "logout": "Oturum kapatılamadı"
     },
-    "endingSoon": "Yakında bitiyor",
     "expired": "Süresi doldu",
     "freePlan": "Ücretsiz plan",
     "freeTrial": "Ücretsiz deneme",

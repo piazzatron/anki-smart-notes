@@ -276,6 +276,7 @@ const ColumnLabel = ({
   className: string
 }) => (
   <span
+    // eslint-disable-next-line better-tailwindcss/no-restricted-classes -- an 11px all-caps eyebrow on a full-window moment; 12px sentence case would change its look
     className={`text-[11px] font-bold tracking-[0.08em] whitespace-nowrap uppercase ${className}`}
   >
     {children}

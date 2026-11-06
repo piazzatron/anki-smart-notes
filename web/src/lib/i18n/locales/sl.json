@@ -239,7 +239,6 @@
       "exampleAnswer": "zdravo",
       "exampleField": "SPREDAJ",
       "examplePrompt": "bonjour",
-      "spark": "✦",
       "title": "Vaše beležke so videti malo prazne"
     },
     "enable": "Omogoči",
@@ -273,7 +272,6 @@
       "missingImageModel": "V katalogu slik manjka model {{model}}"
     },
     "image": {
-      "cannotFindModel": "V katalogu slik manjka model {{model}}",
       "defaultModel": "Privzeti model",
       "gptImage25": "najboljši vsestranski — ostro besedilo, čisti diagrami.",
       "loadingLabel": "Nalaganje nastavitev ustvarjanja slik",
@@ -426,7 +424,6 @@
     "errors": {
       "logout": "Ni bilo mogoče odjaviti"
     },
-    "endingSoon": "Kmalu se konča",
     "expired": "Poteklo",
     "freePlan": "Brezplačni načrt",
     "freeTrial": "Brezplačna preizkusna različica",

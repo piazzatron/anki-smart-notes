@@ -50,6 +50,7 @@ export const SubscriptionScreen = () => {
   const state = useAppStore((store) => store.state)
 
   useEffect(() => {
+    // eslint-disable-next-line local/no-command-in-effect -- fires each time the Account screen opens, so the usage shown is current; no model call
     void refreshAccount()
   }, [])
 
@@ -294,11 +295,13 @@ const getHeroContent = (account: AuthenticatedAccount): HeroContent | null => {
 const HERO_STYLES = {
   indigo: {
     fill: "border border-indigo/60 bg-gradient-to-b from-indigo to-indigo-deep shadow-[inset_0_1px_0_rgba(255,255,255,0.28),0_8px_18px_-14px_rgba(91,111,232,0.35)]",
+    // eslint-disable-next-line local/no-hex-color -- text on the indigo hero, its banner's own color
     ink: "#fff",
     sub: "rgba(255,255,255,0.85)",
   },
   mint: {
     fill: "mint-cta border shadow-[inset_0_1px_0_rgba(255,255,255,0.36),0_8px_18px_-14px_rgba(31,212,125,0.35)]",
+    // eslint-disable-next-line local/no-hex-color -- dark text on the mint hero, its banner's own color
     ink: "#06281a",
     sub: "rgba(6,40,26,0.72)",
   },
@@ -615,6 +618,7 @@ const ManageRow = ({ topTier }: { topTier: boolean }) => {
         </span>
       </span>
       <span className="shrink-0 text-[17px] text-ink-muted rtl:rotate-180">
+        {/* eslint-disable-next-line local/no-symbol-text -- a Lucide ArrowRight would change this row's look */}
         →
       </span>
     </button>

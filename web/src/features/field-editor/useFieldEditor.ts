@@ -114,6 +114,7 @@ export const useFieldEditor = ({
     let isCurrent = true
     const done = (suggestion: string) =>
       isCurrent && setSuggested({ key: suggestionKey, suggestion })
+    // eslint-disable-next-line local/no-command-in-effect -- prefetch: a paid model call each time the editor's target (note type, deck, field, type) changes, even if the prompt step is never opened
     suggestPrompt({ deckId, fieldType, noteTypeId, targetFieldName })
       .then((result) => done(result.suggestion))
       .catch(() => done(""))

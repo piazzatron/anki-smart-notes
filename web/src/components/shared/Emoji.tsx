@@ -17,6 +17,8 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
+/* eslint-disable local/no-hex-color -- Noto emoji artwork: its colors are the artwork, not UI */
+
 // Page-title emoji: Noto Emoji by Google, licensed Apache 2.0. They ship as SVG so
 // every OS shows the same art, and keep their own colors instead of currentColor.
 

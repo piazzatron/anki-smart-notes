@@ -236,7 +236,6 @@
       "exampleAnswer": "こんにちは",
       "exampleField": "フロント",
       "examplePrompt": "ボンジュール",
-      "spark": "✦",
       "title": "メモが少し空っぽになっています"
     },
     "enable": "有効にする",
@@ -270,7 +269,6 @@
       "missingImageModel": "画像カタログにモデル {{model}} がありません"
     },
     "image": {
-      "cannotFindModel": "画像カタログにモデル {{model}} がありません",
       "defaultModel": "デフォルトモデル",
       "gptImage25": "総合力に最も優れたモデル。文字がくっきりし、図表もすっきり仕上がります。",
       "loadingLabel": "画像生成設定を読み込み中",
@@ -405,7 +403,6 @@
     "errors": {
       "logout": "ログアウトできませんでした"
     },
-    "endingSoon": "間もなく終了",
     "expired": "期限切れ",
     "freePlan": "無料プラン",
     "freeTrial": "無料トライアル",

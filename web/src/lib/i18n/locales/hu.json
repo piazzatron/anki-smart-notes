@@ -237,7 +237,6 @@
       "exampleAnswer": "Helló",
       "exampleField": "ELÜLSŐ",
       "examplePrompt": "bonjour",
-      "spark": "✦",
       "title": "A jegyzetei kissé üresnek tűnnek"
     },
     "enable": "Engedélyezés",
@@ -271,7 +270,6 @@
       "missingImageModel": "A képkatalógusból hiányzik az {{model}} modell"
     },
     "image": {
-      "cannotFindModel": "A képkatalógusból hiányzik az {{model}} modell",
       "defaultModel": "Alapértelmezett modell",
       "gptImage25": "legjobb általános választás, éles szöveg, tiszta diagramok.",
       "loadingLabel": "Képgenerálási beállítások betöltése",
@@ -412,7 +410,6 @@
     "errors": {
       "logout": "Nem sikerült kijelentkezni"
     },
-    "endingSoon": "Hamarosan lejár",
     "expired": "Lejárt",
     "freePlan": "Ingyenes terv",
     "freeTrial": "Ingyenes próbaverzió",

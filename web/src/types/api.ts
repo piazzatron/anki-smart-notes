@@ -22,14 +22,12 @@
 // and every `POST /api/command` payload. Mirrors `src/web/dto.py` on the Python
 // side. Presentation and app types do not belong here.
 
-export type LegacyPlanId =
-  "free" | "free_mini_1" | "small1" | "medium1" | "large1"
+type LegacyPlanId = "free" | "free_mini_1" | "small1" | "medium1" | "large1"
 // `free` is the plan users drop to after their trial, with a daily note cap.
 // `freemium` is the older, hand-granted Free Mini and financial assistance plans.
-export type PlanType =
-  "trial" | "free" | "freemium" | "small" | "medium" | "large"
-export type PlanName = "Free Trial" | "Free" | "Lite" | "Standard" | "Pro"
-export type SubscriptionStatus = "active" | "canceling" | "expired"
+type PlanType = "trial" | "free" | "freemium" | "small" | "medium" | "large"
+type PlanName = "Free Trial" | "Free" | "Lite" | "Standard" | "Pro"
+type SubscriptionStatus = "active" | "canceling" | "expired"
 /** Why a user on the free plan got there: how their trial ended, or their paid
  *  plan or other access ending. */
 export type FreePlanReason =
@@ -97,7 +95,7 @@ export interface ChatSmartFieldSettings {
   stripHtml: boolean
 }
 
-export interface TTSSmartFieldSettings {
+interface TTSSmartFieldSettings {
   sourceFieldName: string
   provider: string
   model: string
@@ -105,7 +103,7 @@ export interface TTSSmartFieldSettings {
   usesDefaultGenerationSettings: boolean
 }
 
-export interface ImageSmartFieldSettings {
+interface ImageSmartFieldSettings {
   promptText: string
   provider: string
   model: string
@@ -113,7 +111,7 @@ export interface ImageSmartFieldSettings {
   stripHtml: boolean
 }
 
-export interface SmartFieldBase {
+interface SmartFieldBase {
   id: string
   noteTypeId: number
   deckId: number
@@ -186,7 +184,7 @@ export interface Settings {
   didSeeGeneratedPromptTip: boolean
 }
 
-export interface FeatureFlags {
+interface FeatureFlags {
   reviewFreeMonth: boolean
 }
 
@@ -291,8 +289,6 @@ export interface SmartFieldDeletePayload {
 export interface AuthExchangeCodePayload {
   code: string
 }
-
-export type GenerationDefaultsSavePayload = GenerationDefaults
 
 export type ChatDefaultsSavePayload = ChatGenerationSettings
 export type ImageDefaultsSavePayload = ImageGenerationSettings

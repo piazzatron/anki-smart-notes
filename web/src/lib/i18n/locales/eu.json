@@ -237,7 +237,6 @@
       "exampleAnswer": "Kaixo",
       "exampleField": "AURRERA",
       "examplePrompt": "bonjour",
-      "spark": "✦",
       "title": "Zure oharrak apur bat hutsik daude"
     },
     "enable": "Gaitu",
@@ -271,7 +270,6 @@
       "missingImageModel": "Irudien katalogoa {{model}} eredua falta da"
     },
     "image": {
-      "cannotFindModel": "Irudien katalogoa {{model}} eredua falta da",
       "defaultModel": "Eredu lehenetsia",
       "gptImage25": "oreka onena: testu zorrotza, diagrama garbiak.",
       "loadingLabel": "Irudi sortzeko ezarpenak kargatzen",
@@ -412,7 +410,6 @@
     "errors": {
       "logout": "Ezin izan da saioa amaitu"
     },
-    "endingSoon": "Laster amaitu",
     "expired": "Iraungita",
     "freePlan": "Doako plana",
     "freeTrial": "Doako proba",

@@ -236,7 +236,6 @@
       "exampleAnswer": "Xin chào",
       "exampleField": "ĐẰNG TRƯỚC",
       "examplePrompt": "xin chào",
-      "spark": "✦",
       "title": "Ghi chú của bạn có vẻ hơi trống rỗng"
     },
     "enable": "Cho phép",
@@ -270,7 +269,6 @@
       "missingImageModel": "Danh mục hình ảnh thiếu mẫu {{model}}"
     },
     "image": {
-      "cannotFindModel": "Danh mục hình ảnh thiếu mẫu {{model}}",
       "defaultModel": "Mô hình mặc định",
       "gptImage25": "tốt nhất cho mọi tác vụ — chữ sắc nét, sơ đồ gọn gàng.",
       "loadingLabel": "Đang tải cài đặt tạo ảnh",
@@ -405,7 +403,6 @@
     "errors": {
       "logout": "Không thể đăng xuất"
     },
-    "endingSoon": "Sắp kết thúc",
     "expired": "Hết hạn",
     "freePlan": "Gói miễn phí",
     "freeTrial": "Dùng thử miễn phí",

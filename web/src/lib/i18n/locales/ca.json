@@ -238,7 +238,6 @@
       "exampleAnswer": "hola",
       "exampleField": "FRONT",
       "examplePrompt": "bonjour",
-      "spark": "✦",
       "title": "Les teves notes semblen una mica buides"
     },
     "enable": "Activa",
@@ -272,7 +271,6 @@
       "missingImageModel": "Falta el model {{model}} del catàleg d'imatges"
     },
     "image": {
-      "cannotFindModel": "Falta el model {{model}} del catàleg d'imatges",
       "defaultModel": "Model per defecte",
       "gptImage25": "el millor per a tot: text nítid, diagrames nets.",
       "loadingLabel": "S'estan carregant els paràmetres de generació d'imatges",
@@ -419,7 +417,6 @@
     "errors": {
       "logout": "No s'ha pogut tancar la sessió"
     },
-    "endingSoon": "Finalitza aviat",
     "expired": "Caducada",
     "freePlan": "Pla gratuït",
     "freeTrial": "Prova gratuïta",

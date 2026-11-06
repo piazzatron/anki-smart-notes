@@ -238,7 +238,6 @@
       "exampleAnswer": "Olá",
       "exampleField": "FRENTE",
       "examplePrompt": "bom dia",
-      "spark": "✦",
       "title": "Suas anotações parecem um pouco vazias"
     },
     "enable": "Habilitar",
@@ -272,7 +271,6 @@
       "missingImageModel": "Falta o modelo {{model}} no catálogo de imagens"
     },
     "image": {
-      "cannotFindModel": "Falta o modelo {{model}} no catálogo de imagens",
       "defaultModel": "Modelo padrão",
       "gptImage25": "melhor opção geral — texto nítido, diagramas limpos.",
       "loadingLabel": "Carregando configurações de geração de imagem",
@@ -419,7 +417,6 @@
     "errors": {
       "logout": "Não foi possível sair"
     },
-    "endingSoon": "Termina em breve",
     "expired": "Expirado",
     "freePlan": "Plano grátis",
     "freeTrial": "Teste grátis",

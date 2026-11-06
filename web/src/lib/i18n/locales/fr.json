@@ -238,7 +238,6 @@
       "exampleAnswer": "Bonjour",
       "exampleField": "DEVANT",
       "examplePrompt": "bonjour",
-      "spark": "✦",
       "title": "Vos notes semblent un peu vides"
     },
     "enable": "Activer",
@@ -272,7 +271,6 @@
       "missingImageModel": "Le catalogue d'images ne contient pas le modèle {{model}}."
     },
     "image": {
-      "cannotFindModel": "Le catalogue d'images ne contient pas le modèle {{model}}.",
       "defaultModel": "Modèle par défaut",
       "gptImage25": "le plus polyvalent — texte net, schémas épurés.",
       "loadingLabel": "Chargement des paramètres de génération d'images",
@@ -419,7 +417,6 @@
     "errors": {
       "logout": "Impossible de se déconnecter"
     },
-    "endingSoon": "Se termine bientôt",
     "expired": "Expiré",
     "freePlan": "Forfait gratuit",
     "freeTrial": "Essai gratuit",

@@ -62,6 +62,7 @@ export const useReviewOffer = ({ onDone }: { onDone?: () => void } = {}) => {
 
   useEffect(() => {
     if (!enabled) return
+    // eslint-disable-next-line local/no-command-in-effect -- fires once per mount while the review offer flag is on, to decide whether to show it; no model call
     getReviewClaimState()
       .then(setClaimState, () => setClaimState(lastClaimState ?? null))
       .finally(() => setLoading(false))
@@ -165,6 +166,7 @@ const ReviewOfferBanner = ({ onOpen }: { onOpen: () => void }) => {
           </span>
         </span>
         <button
+          // eslint-disable-next-line local/no-hex-color -- the banner's own CTA color
           className="flex h-10 shrink-0 items-center rounded-[10px] bg-white px-[18px] text-[14px] font-extrabold whitespace-nowrap text-[#4b3fb0] transition-transform duration-150 hover:scale-[1.025]"
           onClick={onOpen}
           type="button"
@@ -225,7 +227,7 @@ const ReviewOfferDialog = ({
   return (
     <Dialog onOpenChange={changeOpen} open={open}>
       <DialogContent className="w-[min(380px,92vw)]">
-        <div className="px-[22px] pt-6 pb-[14px] text-center">
+        <div className="px-hang pt-6 pb-[14px] text-center">
           <GiftIcon className="mx-auto" size={32} />
           <DialogTitle className="mt-3 text-[16.5px] font-bold text-ink">
             {t("trialEnded.reviewOffer.dialogTitle")}

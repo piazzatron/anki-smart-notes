@@ -236,7 +236,6 @@
       "exampleAnswer": "你好",
       "exampleField": "正面",
       "examplePrompt": "你好",
-      "spark": "✦",
       "title": "你的笔记看起来有点空"
     },
     "enable": "使能够",
@@ -270,7 +269,6 @@
       "missingImageModel": "图像目录缺少型号 {{model}}"
     },
     "image": {
-      "cannotFindModel": "图像目录缺少型号 {{model}}",
       "defaultModel": "默认模型",
       "gptImage25": "综合表现最佳，文字清晰，图表干净。",
       "loadingLabel": "正在加载图片生成设置",
@@ -405,7 +403,6 @@
     "errors": {
       "logout": "无法注销"
     },
-    "endingSoon": "即将结束",
     "expired": "已过期",
     "freePlan": "免费计划",
     "freeTrial": "免费试用",

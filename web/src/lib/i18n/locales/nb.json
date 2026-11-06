@@ -237,7 +237,6 @@
       "exampleAnswer": "Hallo",
       "exampleField": "FRONT",
       "examplePrompt": "bonjour",
-      "spark": "✦",
       "title": "Notatene dine ser litt tomme ut"
     },
     "enable": "Aktiver",
@@ -271,7 +270,6 @@
       "missingImageModel": "Bildekatalogen mangler modell {{model}}"
     },
     "image": {
-      "cannotFindModel": "Bildekatalogen mangler modell {{model}}",
       "defaultModel": "Standardmodell",
       "gptImage25": "best til det meste — skarp tekst, rene diagrammer.",
       "loadingLabel": "Laster innstillinger for bildegenerering",
@@ -412,7 +410,6 @@
     "errors": {
       "logout": "Kunne ikke logge ut"
     },
-    "endingSoon": "Slutter snart",
     "expired": "Utløpt",
     "freePlan": "Gratis plan",
     "freeTrial": "Gratis prøveversjon",

@@ -14,7 +14,7 @@ Read @README.md and @ARCHITECTURE.md before working here: they cover what the ad
 
 - While iterating, edit only `web/src/lib/i18n/locales/en.json`. Run `bun run translate` (in `web/`) once, right before pushing, since strings usually change several times first.
 - `translate` runs `claude -p` on your Claude Code login (no API key), 8 locales at a time, and takes about a minute. A string whose reply breaks a `{{placeholder}}` or markup tag is retried with a stronger model. Strings that still fail are left out of their locale, listed at the end, and the run exits non-zero; run it again to retry just those.
-- `bun run check` (and CI) fails until then: `scripts/checkTranslations.ts` rejects missing or removed keys, broken placeholders, and English that is new or reworded since the last full translate run (tracked in `scripts/translationSources.json`). `translate` re-translates exactly those strings and updates that file. Expect only this check to fail mid-iteration.
+- `bun run check` (and CI) fails until then: `scripts/checkTranslations.ts` rejects missing or removed keys, `en.json` keys no code reads (a template key like `` t(`plans.${id}.name`) `` counts for every key under its prefix), broken placeholders, and English that is new or reworded since the last full translate run (tracked in `scripts/translationSources.json`). `translate` re-translates exactly those strings and updates that file. Expect only this check to fail mid-iteration.
 
 # Creating New Files
 - Every new file starts with the GPL license header: copy lines 1–18 of [`__init__.py`](__init__.py).

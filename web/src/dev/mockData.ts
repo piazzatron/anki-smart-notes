@@ -223,7 +223,7 @@ const withFreePlan = (updates: Partial<PlanInfo>): PlanInfo =>
     ...updates,
   })
 
-export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
+const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
   "signed-out-empty": {
     status: "UNAUTHENTICATED",
     plan: null,
@@ -404,7 +404,7 @@ export const MOCK_ACCOUNT_FIXTURES: Record<string, AccountState> = {
   loading: { status: "LOADING", plan: null, email: null, authToken: null },
 }
 
-export const MOCK_CATALOG: Catalog = {
+const MOCK_CATALOG: Catalog = {
   chat: {
     providers: ["auto", "openai", "anthropic", "google"],
     // Mirrors provider_model_map in src/models/providers.py.

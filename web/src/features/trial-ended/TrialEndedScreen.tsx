@@ -49,14 +49,14 @@ export const TrialEndedScreen = () => {
         <ReviewOffer />
 
         <header className="text-center">
-          <p className="mb-2 text-[13.5px] leading-none font-semibold text-[#5fe3b0]">
+          <p className="mb-2 text-[13.5px] leading-none font-semibold text-mint">
             {t("trialEnded.thanks")}
             <SparklesIcon
               className="ms-1 inline-block align-[-2px]"
               size={13}
             />
           </p>
-          <h1 className="text-[28px] leading-[1.15] font-bold tracking-[-0.02em] text-[#f4f4f6]">
+          <h1 className="text-[28px] leading-[1.15] font-bold tracking-[-0.02em] text-ink">
             {t("trialEnded.title")}
           </h1>
           <p className="mt-[9px] text-sm leading-[1.45] text-ink-muted">
@@ -73,10 +73,10 @@ export const TrialEndedScreen = () => {
               className="flex min-h-[46px] items-center gap-3"
               key={labelKey}
             >
-              <span className="inline-flex size-[30px] shrink-0 items-center justify-center rounded-lg bg-white/[0.04] text-[#c3c3cb]">
+              <span className="inline-flex size-[30px] shrink-0 items-center justify-center rounded-lg bg-white/[0.04] text-ink-muted">
                 <Icon aria-hidden className="size-[17px]" />
               </span>
-              <span className="text-sm leading-tight font-medium text-[#e6e6ea]">
+              <span className="text-sm leading-tight font-medium text-ink">
                 {t(labelKey)}
               </span>
             </div>
@@ -84,6 +84,7 @@ export const TrialEndedScreen = () => {
         </section>
 
         <button
+          // eslint-disable-next-line local/no-hex-color -- full-window moment: off-palette color with no token
           className="flex h-[46px] w-full items-center justify-center rounded-[10px] bg-[#1fd47d] text-[14.5px] font-bold tracking-[-0.1px] text-[#06281a] transition-[filter,transform] duration-150 hover:scale-[1.006] hover:brightness-105"
           onClick={() => {
             void trackAnalyticsEvent({ event: "clicked_trial_ended_upgrade" })

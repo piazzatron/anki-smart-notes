@@ -237,7 +237,6 @@
       "exampleAnswer": "Hei",
       "exampleField": "ETU",
       "examplePrompt": "bonjour",
-      "spark": "✦",
       "title": "Muistiinpanosi näyttävät hieman tyhjiltä"
     },
     "enable": "Ota käyttöön",
@@ -271,7 +270,6 @@
       "missingImageModel": "Kuvaluettelosta puuttuu malli {{model}}"
     },
     "image": {
-      "cannotFindModel": "Kuvaluettelosta puuttuu malli {{model}}",
       "defaultModel": "Oletusmalli",
       "gptImage25": "paras monipuolinen valinta – terävä teksti, selkeät kaaviot.",
       "loadingLabel": "Ladataan kuvageneroinnin asetuksia",
@@ -412,7 +410,6 @@
     "errors": {
       "logout": "Ei voitu kirjautua ulos"
     },
-    "endingSoon": "Päättyy pian",
     "expired": "Vanhentunyt",
     "freePlan": "Ilmainen suunnitelma",
     "freeTrial": "Ilmainen kokeilu",

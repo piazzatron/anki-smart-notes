@@ -55,7 +55,7 @@ interface LoadedTextDefaultsScreenProps {
   state: AppState
 }
 
-export const LoadedTextDefaultsScreen = ({
+const LoadedTextDefaultsScreen = ({
   catalog,
   onDirtyChange,
   state,

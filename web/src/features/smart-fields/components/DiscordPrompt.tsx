@@ -31,7 +31,10 @@ export const DiscordPrompt = ({ onDismiss }: DiscordPromptProps) => {
   const { t } = useTranslation()
 
   return (
-    <div className="relative -mx-hang mb-5 flex cursor-pointer items-center gap-3 overflow-hidden rounded-[13px] bg-[linear-gradient(100deg,#3C45A5_0%,#5865F2_42%,#9B4DFF_100%)] py-3.5 ps-hang pe-3.5 transition-transform duration-150 ease-out hover:scale-[1.006]">
+    <div
+      // eslint-disable-next-line local/no-hex-color -- Discord's brand gradient
+      className="relative -mx-hang mb-5 flex cursor-pointer items-center gap-3 overflow-hidden rounded-[13px] bg-[linear-gradient(100deg,#3C45A5_0%,#5865F2_42%,#9B4DFF_100%)] py-3.5 ps-hang pe-3.5 transition-transform duration-150 ease-out hover:scale-[1.006]"
+    >
       <a
         aria-label={t("smartFields.discord.joinAriaLabel")}
         className="absolute inset-0 z-10 rounded-[13px]"
@@ -50,6 +53,7 @@ export const DiscordPrompt = ({ onDismiss }: DiscordPromptProps) => {
         </span>
       </p>
       <a
+        // eslint-disable-next-line local/no-hex-color -- Discord's brand purple, on its banner's button
         className="relative z-20 inline-flex banner-button items-center bg-white text-[#6B3FD4] no-underline transition-transform duration-150 ease-out hover:scale-[1.035]"
         href={DISCORD_URL}
         rel="noreferrer"

@@ -239,7 +239,6 @@
       "exampleAnswer": "Cześć",
       "exampleField": "PRZÓD",
       "examplePrompt": "bonjour",
-      "spark": "✦",
       "title": "Twoje notatki wyglądają na trochę puste"
     },
     "enable": "Włączać",
@@ -273,7 +272,6 @@
       "missingImageModel": "W katalogu obrazów brakuje modelu {{model}}"
     },
     "image": {
-      "cannotFindModel": "W katalogu obrazów brakuje modelu {{model}}",
       "defaultModel": "Model domyślny",
       "gptImage25": "najlepszy uniwersalny — ostry tekst, czyste diagramy.",
       "loadingLabel": "Wczytywanie ustawień generowania obrazów",
@@ -426,7 +424,6 @@
     "errors": {
       "logout": "Nie można się wylogować"
     },
-    "endingSoon": "Wkrótce wygasa",
     "expired": "Wygasł",
     "freePlan": "Darmowy plan",
     "freeTrial": "Bezpłatny okres próbny",

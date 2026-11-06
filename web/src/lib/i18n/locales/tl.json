@@ -237,7 +237,6 @@
       "exampleAnswer": "Hello",
       "exampleField": "HARAP",
       "examplePrompt": "bonjour",
-      "spark": "✦",
       "title": "Medyo walang laman ang iyong mga tala"
     },
     "enable": "Paganahin",
@@ -271,7 +270,6 @@
       "missingImageModel": "Ang katalogo ng larawan ay walang modelong {{model}}"
     },
     "image": {
-      "cannotFindModel": "Ang katalogo ng larawan ay walang modelong {{model}}",
       "defaultModel": "Default model",
       "gptImage25": "pinakamahusay sa lahat — malinaw na teksto, malinis na diagram.",
       "loadingLabel": "Naglo-load ng Mga Setting ng Paggawa ng Larawan",
@@ -412,7 +410,6 @@
     "errors": {
       "logout": "Hindi makapag-log out"
     },
-    "endingSoon": "Magtatapos na kaagad",
     "expired": "Nag-expire na",
     "freePlan": "Libreng plano",
     "freeTrial": "Libreng pagsubok",

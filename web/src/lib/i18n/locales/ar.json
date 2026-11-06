@@ -241,7 +241,6 @@
       "exampleAnswer": "مرحبًا",
       "exampleField": "أمام",
       "examplePrompt": "صباح الخير",
-      "spark": "✦",
       "title": "ملاحظاتك تبدو فارغة بعض الشيء"
     },
     "enable": "يُمكَِن",
@@ -275,7 +274,6 @@
       "missingImageModel": "كتالوج الصور يفتقد الطراز {{model}}"
     },
     "image": {
-      "cannotFindModel": "كتالوج الصور يفتقد الطراز {{model}}",
       "defaultModel": "النموذج الافتراضي",
       "gptImage25": "الأفضل للاستخدام العام — نصوص واضحة ومخططات نظيفة.",
       "loadingLabel": "جارٍ تحميل إعدادات إنشاء الصور",
@@ -440,7 +438,6 @@
     "errors": {
       "logout": "لا يمكن تسجيل الخروج"
     },
-    "endingSoon": "سينتهي قريبا",
     "expired": "منتهية الصلاحية",
     "freePlan": "خطة مجانية",
     "freeTrial": "تجربة مجانية",

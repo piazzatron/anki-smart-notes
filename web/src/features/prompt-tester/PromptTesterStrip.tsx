@@ -281,7 +281,7 @@ interface SaveResultButtonProps {
 
 // Writes the shown result into the card the test ran against. The plugin keeps only the
 // newest test artifact, so a save can come back expired — that reads as a run error.
-export const SaveResultButton = ({
+const SaveResultButton = ({
   cardId,
   fieldName,
   onError,

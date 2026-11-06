@@ -1,7 +1,7 @@
 import type { AccountState, PlanInfo, Settings } from "@/types/api"
 import i18next from "i18next"
 
-export type PlanVariant =
+type PlanVariant =
   "loading" | "signed-out" | "trial" | "free" | "free-usage" | "paid"
 
 export interface PlanPresentation {
@@ -107,19 +107,19 @@ export const getCreditSegments = (plan: PlanInfo): CreditSegment[] => {
       key: "text",
       label: i18next.t("subscription.creditTypes.text"),
       percent: toPercent(plan.textCreditsUsed),
-      color: "#9a9aa4",
+      color: "var(--color-ink-muted)",
     },
     {
       key: "images",
       label: i18next.t("subscription.creditTypes.images"),
       percent: toPercent(plan.imageCreditsUsed),
-      color: "#7c8dff",
+      color: "var(--color-indigo)",
     },
     {
       key: "voice",
       label: i18next.t("subscription.creditTypes.voice"),
       percent: toPercent(plan.voiceCreditsUsed),
-      color: "#5fe3b0",
+      color: "var(--color-mint)",
     },
   ]
 }

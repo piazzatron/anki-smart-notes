@@ -236,7 +236,6 @@
       "exampleAnswer": "안녕하세요",
       "exampleField": "앞쪽",
       "examplePrompt": "봉쥬르",
-      "spark": "✦",
       "title": "메모가 조금 비어 있는 것 같습니다."
     },
     "enable": "할 수 있게 하다",
@@ -270,7 +269,6 @@
       "missingImageModel": "이미지 카탈로그에 모델 {{model}}이(가) 없습니다."
     },
     "image": {
-      "cannotFindModel": "이미지 카탈로그에 모델 {{model}}이(가) 없습니다.",
       "defaultModel": "기본 모델",
       "gptImage25": "만능형 모델 — 선명한 텍스트, 깔끔한 다이어그램.",
       "loadingLabel": "이미지 생성 설정 불러오는 중",
@@ -405,7 +403,6 @@
     "errors": {
       "logout": "로그아웃할 수 없습니다."
     },
-    "endingSoon": "곧 종료",
     "expired": "만료됨",
     "freePlan": "무료 플랜",
     "freeTrial": "무료 평가판",

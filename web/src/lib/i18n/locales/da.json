@@ -237,7 +237,6 @@
       "exampleAnswer": "Hej",
       "exampleField": "FRONT",
       "examplePrompt": "bonjour",
-      "spark": "✦",
       "title": "Dine noter ser lidt tomme ud"
     },
     "enable": "Aktiver",
@@ -271,7 +270,6 @@
       "missingImageModel": "Billedkatalog mangler model {{model}}"
     },
     "image": {
-      "cannotFindModel": "Billedkatalog mangler model {{model}}",
       "defaultModel": "Standardmodel",
       "gptImage25": "bedst til alt — skarp tekst, rene diagrammer.",
       "loadingLabel": "Indlæser indstillinger for billedgenerering",
@@ -412,7 +410,6 @@
     "errors": {
       "logout": "Kunne ikke logge ud"
     },
-    "endingSoon": "Slutter snart",
     "expired": "Udløbet",
     "freePlan": "Gratis plan",
     "freeTrial": "Gratis prøveversion",

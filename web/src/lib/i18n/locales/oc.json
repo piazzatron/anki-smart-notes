@@ -236,7 +236,6 @@
       "exampleAnswer": "Adieu",
       "exampleField": "DAVANT",
       "examplePrompt": "bonjour",
-      "spark": "✦",
       "title": "Vòstras nòtas semblan un pauc voidas"
     },
     "enable": "Activar",
@@ -270,7 +269,6 @@
       "missingImageModel": "Lo catalòg d'imatges manca lo modèl {{model}}"
     },
     "image": {
-      "cannotFindModel": "Lo catalòg d'imatges manca lo modèl {{model}}",
       "defaultModel": "Modèl per defaut",
       "gptImage25": "lo melhor per a tot — tèxte net, esquemas clars.",
       "loadingLabel": "Cargament dels paramètres de generacion d'imatges",
@@ -405,7 +403,6 @@
     "errors": {
       "logout": "Poguèt pas se desconnectar"
     },
-    "endingSoon": "Finís aviat",
     "expired": "Expirat",
     "freePlan": "Plan gratuit",
     "freeTrial": "Espròva gratuita",

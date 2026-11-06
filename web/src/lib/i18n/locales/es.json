@@ -238,7 +238,6 @@
       "exampleAnswer": "Hola",
       "exampleField": "FRENTE",
       "examplePrompt": "buen día",
-      "spark": "✦",
       "title": "Tus notas se ven un poco vacías"
     },
     "enable": "Permitir",
@@ -272,7 +271,6 @@
       "missingImageModel": "Falta catálogo de imágenes modelo {{model}}"
     },
     "image": {
-      "cannotFindModel": "Falta catálogo de imágenes modelo {{model}}",
       "defaultModel": "Modelo predeterminado",
       "gptImage25": "el mejor para todo: texto nítido, diagramas limpios.",
       "loadingLabel": "Cargando configuración de generación de imágenes",
@@ -419,7 +417,6 @@
     "errors": {
       "logout": "No se pudo cerrar sesión"
     },
-    "endingSoon": "Finaliza pronto",
     "expired": "Expirado",
     "freePlan": "Plan gratuito",
     "freeTrial": "Prueba gratuita",

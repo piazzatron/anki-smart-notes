@@ -237,7 +237,6 @@
       "exampleAnswer": "Ola",
       "exampleField": "FRONTE",
       "examplePrompt": "bo día",
-      "spark": "✦",
       "title": "As túas notas están un pouco baleiras"
     },
     "enable": "Activar",
@@ -271,7 +270,6 @@
       "missingImageModel": "Falta o modelo {{model}} do catálogo de imaxes"
     },
     "image": {
-      "cannotFindModel": "Falta o modelo {{model}} do catálogo de imaxes",
       "defaultModel": "Modelo predeterminado",
       "gptImage25": "o mellor para todo uso: texto nítido e diagramas limpos.",
       "loadingLabel": "Cargando a Configuración de Xeración de Imaxes",
@@ -412,7 +410,6 @@
     "errors": {
       "logout": "Non se puido pechar sesión"
     },
-    "endingSoon": "Remata axiña",
     "expired": "Caducado",
     "freePlan": "Plan gratuíto",
     "freeTrial": "Proba gratuíta",

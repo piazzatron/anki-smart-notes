@@ -238,7 +238,6 @@
       "exampleAnswer": "Buna ziua",
       "exampleField": "FAŢĂ",
       "examplePrompt": "buna ziua",
-      "spark": "✦",
       "title": "Notele tale par puțin goale"
     },
     "enable": "Permite",
@@ -272,7 +271,6 @@
       "missingImageModel": "În catalogul de imagini lipsește modelul {{model}}"
     },
     "image": {
-      "cannotFindModel": "În catalogul de imagini lipsește modelul {{model}}",
       "defaultModel": "Model implicit",
       "gptImage25": "cel mai versatil — text clar, diagrame curate.",
       "loadingLabel": "Se încarcă setările pentru generarea de imagini",
@@ -419,7 +417,6 @@
     "errors": {
       "logout": "Nu s-a putut deconecta"
     },
-    "endingSoon": "Se încheie în curând",
     "expired": "Expirat",
     "freePlan": "Plan gratuit",
     "freeTrial": "Probă gratuită",

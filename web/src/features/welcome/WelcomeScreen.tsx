@@ -109,7 +109,7 @@ export const WelcomeScreen = ({
               <div className="mx-auto size-[46px] animate-spin rounded-full border-[2.5px] border-indigo/15 border-t-indigo" />
             </div>
             <h1
-              className="welcome-enter mt-[22px] text-lg font-semibold tracking-[-0.2px] text-[#f4f4f6]"
+              className="welcome-enter mt-[22px] text-lg font-semibold tracking-[-0.2px] text-ink"
               style={{ animationDelay: "70ms" }}
             >
               {t("welcome.finishInBrowser")}
@@ -130,7 +130,7 @@ export const WelcomeScreen = ({
               style={{ animationDelay: "210ms" }}
             >
               <label
-                className="text-[12.5px] font-medium text-[#b4b4be]"
+                className="text-[12.5px] font-medium text-ink-muted"
                 htmlFor="welcome-auth-code"
               >
                 {t("welcome.haveCode")}
@@ -174,7 +174,7 @@ export const WelcomeScreen = ({
             />
 
             <div className="relative mx-auto w-fit">
-              <h1 className="welcome-enter text-[38px] leading-none font-extrabold tracking-[-0.037em] text-[#f6f6f8]">
+              <h1 className="welcome-enter text-[38px] leading-none font-extrabold tracking-[-0.037em] text-ink">
                 {t("common.productName")}
                 <SparklesIcon
                   className="ms-1.5 inline-block translate-y-[-6px]"
@@ -184,7 +184,7 @@ export const WelcomeScreen = ({
             </div>
 
             <p
-              className="welcome-enter mt-[13px] text-[14.5px] leading-[1.55] font-semibold text-[#eaeaef]"
+              className="welcome-enter mt-[13px] text-[14.5px] leading-[1.55] font-semibold text-ink"
               style={{ animationDelay: "80ms" }}
             >
               {t("welcome.description")}
@@ -201,7 +201,7 @@ export const WelcomeScreen = ({
               >
                 {t("welcome.startTrial")}
               </GlowButton>
-              <p className="mt-[15px] text-[13px] text-[#b6b6bf]">
+              <p className="mt-[15px] text-[13px] text-ink-muted">
                 {t("welcome.trialDetails")}
               </p>
             </div>
@@ -212,7 +212,7 @@ export const WelcomeScreen = ({
             >
               {t("welcome.alreadyAccount")}{" "}
               <button
-                className="font-medium text-[#a5b4ff] transition-colors hover:text-white"
+                className="font-medium text-indigo-soft transition-colors hover:text-white"
                 onClick={() =>
                   openOnboarding(SITE_LINKS.signIn, "clicked_sign_in")
                 }
@@ -227,6 +227,7 @@ export const WelcomeScreen = ({
 
       {appVersion !== null && (
         <p
+          // eslint-disable-next-line better-tailwindcss/no-restricted-classes -- the version footnote is 11px; 12px would change its look
           className="welcome-enter absolute start-0 end-0 bottom-3.5 z-10 text-center font-mono text-[11px] text-zinc-500"
           style={{ animationDelay: "320ms" }}
         >

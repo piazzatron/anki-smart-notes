@@ -75,22 +75,22 @@ type ConfettiStyle = CSSProperties & {
 }
 
 const CONFETTI_PIECES = [
-  [-320, -40, -390, 630, 210, 780, "#7c8dff", 0.01, 2.35],
-  [-290, 40, -355, 680, -190, -720, "#4ade80", 0.04, 2.5],
-  [-250, 110, -310, 700, 250, 840, "#ffd27a", 0.02, 2.4],
-  [-220, -55, -270, 620, -220, -760, "#f58fb0", 0.07, 2.55],
-  [-180, 155, -215, 720, 190, 700, "#5eead4", 0, 2.3],
-  [-140, 70, -165, 660, -240, -800, "#a78bfa", 0.05, 2.45],
-  [-95, -65, -115, 610, 220, 760, "#ffd27a", 0.03, 2.6],
-  [-45, 180, -55, 730, -180, -680, "#4ade80", 0.08, 2.25],
-  [40, -70, 50, 600, 240, 820, "#f58fb0", 0.02, 2.55],
-  [80, 170, 100, 720, -210, -740, "#7c8dff", 0.06, 2.3],
-  [130, 70, 160, 650, 190, 720, "#5eead4", 0, 2.45],
-  [175, -55, 215, 610, -230, -800, "#ffd27a", 0.04, 2.6],
-  [220, 140, 270, 700, 220, 780, "#a78bfa", 0.07, 2.35],
-  [260, 45, 320, 660, -190, -720, "#4ade80", 0.02, 2.5],
-  [300, -35, 370, 620, 250, 840, "#f58fb0", 0.05, 2.4],
-  [330, 100, 405, 690, -220, -760, "#7c8dff", 0.01, 2.55],
+  [-320, -40, -390, 630, 210, 780, "var(--color-indigo)", 0.01, 2.35],
+  [-290, 40, -355, 680, -190, -720, "var(--color-mint)", 0.04, 2.5],
+  [-250, 110, -310, 700, 250, 840, "var(--color-pastel-butter)", 0.02, 2.4],
+  [-220, -55, -270, 620, -220, -760, "var(--color-pastel-pink)", 0.07, 2.55],
+  [-180, 155, -215, 720, 190, 700, "var(--color-pastel-sky)", 0, 2.3],
+  [-140, 70, -165, 660, -240, -800, "var(--color-pastel-lavender)", 0.05, 2.45],
+  [-95, -65, -115, 610, 220, 760, "var(--color-pastel-butter)", 0.03, 2.6],
+  [-45, 180, -55, 730, -180, -680, "var(--color-mint)", 0.08, 2.25],
+  [40, -70, 50, 600, 240, 820, "var(--color-pastel-pink)", 0.02, 2.55],
+  [80, 170, 100, 720, -210, -740, "var(--color-indigo)", 0.06, 2.3],
+  [130, 70, 160, 650, 190, 720, "var(--color-pastel-sky)", 0, 2.45],
+  [175, -55, 215, 610, -230, -800, "var(--color-pastel-butter)", 0.04, 2.6],
+  [220, 140, 270, 700, 220, 780, "var(--color-pastel-lavender)", 0.07, 2.35],
+  [260, 45, 320, 660, -190, -720, "var(--color-mint)", 0.02, 2.5],
+  [300, -35, 370, 620, 250, 840, "var(--color-pastel-pink)", 0.05, 2.4],
+  [330, 100, 405, 690, -220, -760, "var(--color-indigo)", 0.01, 2.55],
 ] as const
 
 export const CompletionConfetti = () => (
@@ -153,18 +153,14 @@ export const StepDone = ({
         trackCreation={trackCreation}
       />
       <div className="text-center">
-        <h2 className="text-[27px] leading-[1.1] font-extrabold tracking-[-0.8px] text-[#f6f6f8]">
+        <h2 className="text-[27px] leading-[1.1] font-extrabold tracking-[-0.8px] text-ink">
           {t("fieldEditor.completion.title")}
           <ConfettiIcon className="ms-2 inline-block align-[-2px]" size={24} />
         </h2>
-        <p className="mx-auto mt-3 max-w-[430px] text-[14.5px] leading-[1.55] text-[#b4b4be]">
-          <strong className="font-semibold text-[#e6e6ea]">
-            {targetFieldName}
-          </strong>{" "}
+        <p className="mx-auto mt-3 max-w-[430px] text-[14.5px] leading-[1.55] text-ink-muted">
+          <strong className="font-semibold text-ink">{targetFieldName}</strong>{" "}
           {t("fieldEditor.completion.descriptionBefore")}{" "}
-          <strong className="font-semibold text-[#e6e6ea]">
-            {noteTypeName}
-          </strong>{" "}
+          <strong className="font-semibold text-ink">{noteTypeName}</strong>{" "}
           {t("fieldEditor.completion.descriptionAfter")}
         </p>
       </div>
@@ -187,7 +183,7 @@ export const StepDone = ({
                 />
               </div>
               <div className="min-w-0">
-                <h3 className="text-sm font-semibold text-[#f4f4f6]">
+                <h3 className="text-sm font-semibold text-ink">
                   {t(method.title)}
                 </h3>
                 <p className="mt-[3px] text-[12.5px] leading-[1.5] text-ink-muted">

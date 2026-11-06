@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "check": "tsc && eslint . && prettier --check . && bun scripts/checkTranslations.ts",
+    "check": "tsc && eslint . && prettier --check . && knip && bun scripts/checkTranslations.ts",
     "format": "eslint . --fix && prettier --write .",
     "test": "bun test",
     "translate": "bun scripts/translate.ts"
@@ -36,10 +36,13 @@
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.39.0",
+    "eslint-plugin-better-tailwindcss": "^4.10.0",
     "eslint-plugin-i18next": "^6.1.5",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",
     "globals": "^17.13.0",
+    "knip": "^6.44.1",
     "prettier": "^3.9.10",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.3",

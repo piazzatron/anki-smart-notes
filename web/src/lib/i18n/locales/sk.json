@@ -239,7 +239,6 @@
       "exampleAnswer": "Dobrý deň",
       "exampleField": "PREDNÁ",
       "examplePrompt": "bonjour",
-      "spark": "✦",
       "title": "Vaše poznámky vyzerajú trochu prázdne"
     },
     "enable": "Povoliť",
@@ -273,7 +272,6 @@
       "missingImageModel": "V katalógu obrázkov chýba model {{model}}"
     },
     "image": {
-      "cannotFindModel": "V katalógu obrázkov chýba model {{model}}",
       "defaultModel": "Predvolený model",
       "gptImage25": "najvšestrannejší — ostrý text, čisté diagramy.",
       "loadingLabel": "Načítavanie nastavení generovania obrázkov",
@@ -426,7 +424,6 @@
     "errors": {
       "logout": "Nepodarilo sa odhlásiť"
     },
-    "endingSoon": "Skončí čoskoro",
     "expired": "Vypršané",
     "freePlan": "Voľný plán",
     "freeTrial": "Bezplatná skúšobná verzia",

@@ -237,7 +237,6 @@
       "exampleAnswer": "Hallo",
       "exampleField": "VOOR",
       "examplePrompt": "bonjour",
-      "spark": "✦",
       "title": "Jou notas lyk 'n bietjie leeg"
     },
     "enable": "Aktiveer",
@@ -271,7 +270,6 @@
       "missingImageModel": "Beeldkatalogus ontbreek model {{model}}"
     },
     "image": {
-      "cannotFindModel": "Beeldkatalogus ontbreek model {{model}}",
       "defaultModel": "Standaardmodel",
       "gptImage25": "beste allround-keuse — skerp teks, duidelike diagramme.",
       "loadingLabel": "Laai Beeldgenereringinstellings",
@@ -412,7 +410,6 @@
     "errors": {
       "logout": "Kon nie uitteken nie"
     },
-    "endingSoon": "Eindig binnekort",
     "expired": "Verstreke",
     "freePlan": "Gratis plan",
     "freeTrial": "Gratis proeflopie",

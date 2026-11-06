@@ -199,6 +199,7 @@ export const VoicePicker = ({
                 if (locked && event.detail !== 0) openUpgradeSheet("voice")
               }}
               onKeyDown={(event) => {
+                if (event.nativeEvent.isComposing) return
                 if (locked && (event.key === "Enter" || event.key === " ")) {
                   openUpgradeSheet("voice")
                 }

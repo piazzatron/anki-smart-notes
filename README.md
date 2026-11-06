@@ -39,7 +39,7 @@ Set up a virtualenv in `.venv` and install `requirements.txt` into it. The web U
 | `source .venv/bin/activate && python -m pytest` | Python tests |
 | `./scripts/build.sh build` | Build the add-on package, with the web UI bundled |
 | `bun run dev` (in `web/`) | Web UI dev server on `:5173`. Dev builds of the add-on load it from there |
-| `bun run check` / `bun run test` (in `web/`) | Web UI checks and tests |
+| `bun run check` / `bun run test` (in `web/`) | Web UI checks (types, ESLint with the design and accessibility rules in `web/lint/`, Prettier, knip, translations) and tests |
 
 Packaged builds include only the dependencies `scripts/build.sh` copies into `dist/vendor`. When you add or remove a runtime dependency in `requirements.txt`, update that list too. Vendored packages run on Anki's own Python, so pin them to versions that still support Python 3.9 (Anki 2.1.50 to 25.02); `uv pip compile --python-version 3.9` resolves such a set.
 

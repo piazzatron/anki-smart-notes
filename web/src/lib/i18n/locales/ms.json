@@ -236,7 +236,6 @@
       "exampleAnswer": "Hello",
       "exampleField": "DEPAN",
       "examplePrompt": "bonjour",
-      "spark": "✦",
       "title": "Nota anda kelihatan kosong sedikit"
     },
     "enable": "Dayakan",
@@ -270,7 +269,6 @@
       "missingImageModel": "Katalog imej tiada model {{model}}"
     },
     "image": {
-      "cannotFindModel": "Katalog imej tiada model {{model}}",
       "defaultModel": "Model lalai",
       "gptImage25": "pilihan terbaik untuk semua keperluan — teks tajam, rajah kemas.",
       "loadingLabel": "Memuatkan Tetapan Penjanaan Imej",
@@ -405,7 +403,6 @@
     "errors": {
       "logout": "Tidak dapat log keluar"
     },
-    "endingSoon": "Berakhir Segera",
     "expired": "Telah tamat tempoh",
     "freePlan": "Pelan percuma",
     "freeTrial": "Percubaan percuma",

@@ -51,8 +51,7 @@ export const SparkleField = ({
           } as CSSProperties
         }
       >
-        {/* Decorative glyph; it has no language-specific meaning. */}
-        {/* eslint-disable-next-line i18next/no-literal-string */}
+        {/* eslint-disable-next-line i18next/no-literal-string, local/no-symbol-text -- the sparkle itself: a decorative glyph with no language-specific meaning */}
         <span className="welcome-sparkle-glyph">✦</span>
       </span>
     ))}

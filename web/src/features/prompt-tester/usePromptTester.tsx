@@ -61,7 +61,7 @@ export interface Provenance {
   primary: string
 }
 
-export interface TestRun {
+interface TestRun {
   cardId: number | null
   id: number
   latencyMs: number
@@ -199,6 +199,7 @@ export const usePromptTester = (args: PromptTesterArgs): PromptTester => {
     if (randomCardArgs === null) return
 
     let isCurrent = true
+    // eslint-disable-next-line local/no-command-in-effect -- fires when the tester asks for a starting card (randomCardArgs set); a local collection read, no model call
     pickRandomTestCard(randomCardArgs)
       .then((randomSelection) => {
         if (!isCurrent || randomSelection.note === null) return
@@ -538,7 +539,7 @@ const GeneratedImage = ({
         className="block max-h-[56vh] w-auto max-w-[min(478px,calc(92vw-42px))] rounded-lg"
         src={dataUrl}
       />
-      <p className="mt-2 text-right text-[11.5px] text-ink-muted">
+      <p className="mt-2 text-end text-[11.5px] text-ink-muted">
         {t("promptTester.generatedIn", {
           seconds: (latencyMs / 1000).toFixed(1),
         })}

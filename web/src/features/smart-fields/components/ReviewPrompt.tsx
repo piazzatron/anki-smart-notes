@@ -82,6 +82,7 @@ const ReviewBanner = ({
 
   return (
     <div
+      // eslint-disable-next-line local/no-hex-color -- the review banner's gold gradient has no token
       className={`relative -mx-hang mb-5 flex cursor-pointer items-center gap-3 overflow-hidden rounded-[13px] py-3.5 ps-hang pe-3.5 transition-transform duration-150 ease-out hover:scale-[1.006] ${offer ? "review-offer-fill shadow-[0_14px_32px_-14px_rgba(124,92,246,0.85)]" : "bg-[linear-gradient(100deg,#b4560a_0%,#e0900f_46%,#f7c14a_100%)]"}`}
     >
       <Action
@@ -107,7 +108,7 @@ const ReviewBanner = ({
           <div aria-hidden className="banner-shine" />
           <Star
             aria-hidden
-            className="review-star relative shrink-0 fill-[#ffe49a] text-[#ffe49a]"
+            className="review-star relative shrink-0 fill-pastel-butter text-pastel-butter"
             size={23}
           />
         </>
@@ -125,6 +126,7 @@ const ReviewBanner = ({
         </p>
       </div>
       <Action
+        // eslint-disable-next-line local/no-hex-color -- a button on a colored banner takes its banner's own colors (ui-design skill)
         className={`relative z-20 inline-flex banner-button items-center no-underline transition-transform duration-150 ease-out hover:scale-[1.035] ${offer ? "bg-white font-semibold text-[#4b3fb0]" : "bg-[#fff7dc] text-[#7b4807]"}`}
         type={offer ? "button" : undefined}
         {...action}

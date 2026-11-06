@@ -24,7 +24,6 @@ import { forwardRef } from "react"
 import type { ComponentPropsWithoutRef, ElementRef, ReactNode } from "react"
 
 export const Select = SelectPrimitive.Root
-export const SelectGroup = SelectPrimitive.Group
 export const SelectValue = SelectPrimitive.Value
 
 export const SelectTrigger = forwardRef<
@@ -63,18 +62,6 @@ export const SelectContent = forwardRef<
   </SelectPrimitive.Portal>
 ))
 SelectContent.displayName = SelectPrimitive.Content.displayName
-
-export const SelectLabel = forwardRef<
-  ElementRef<typeof SelectPrimitive.Label>,
-  ComponentPropsWithoutRef<typeof SelectPrimitive.Label>
->(({ className = "", ...props }, ref) => (
-  <SelectPrimitive.Label
-    className={`px-4 pt-3 pb-1.5 text-xs font-medium text-ink-muted ${className}`}
-    ref={ref}
-    {...props}
-  />
-))
-SelectLabel.displayName = SelectPrimitive.Label.displayName
 
 interface SelectItemProps extends ComponentPropsWithoutRef<
   typeof SelectPrimitive.Item
