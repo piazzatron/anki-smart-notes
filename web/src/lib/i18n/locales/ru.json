@@ -184,6 +184,7 @@
       "loadingVoices": "Загрузка голосов…",
       "model": "Модель",
       "settings": "Настройки",
+      "testVoice": "Тест голоса",
       "voice": "Голос",
       "webSearch": "Веб-поиск"
     },

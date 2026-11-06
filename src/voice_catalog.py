@@ -188,23 +188,20 @@ def _get_google_voices() -> list[TTSVoice]:
             "gender": voice["gender"],
             "voice_id": voice["name"],
             "model": voice["type"].lower(),
-            "name": (
-                f"{voice['language'].capitalize()} - "
-                f"{voice['gender'].capitalize()}{_google_voice_label(voice)}"
-            ),
+            "name": _google_voice_name(voice),
             "price_tier": price_tiers[voice["type"]],
         }
         for voice in raw_voices
     ]
 
 
-def _google_voice_label(voice: GoogleVoice) -> str:
-    # A locale has one Standard voice per gender but several Chirp 3 HD ones, so
-    # those lead with the speaker, which pickers then show before truncating:
-    # " Achernar (Chirp 3 HD)".
+def _google_voice_name(voice: GoogleVoice) -> str:
+    # Pickers show the language and gender beside the name, so the name only
+    # tells a locale's voices apart: one Standard voice per gender, several
+    # named Chirp 3 HD ones.
     if voice["type"] == "Standard":
-        return " (Standard)"
-    return f" {voice['name'].split('-')[-1]} (Chirp 3 HD)"
+        return f"{voice['gender'].capitalize()} (Standard)"
+    return f"{voice['name'].split('-')[-1]} (Chirp 3 HD)"
 
 
 def _get_eleven_voices() -> list[TTSVoice]:

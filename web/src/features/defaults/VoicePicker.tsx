@@ -17,7 +17,7 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { useMemo, useState, type ReactNode } from "react"
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react"
 import { useTranslation } from "react-i18next"
 
 import {
@@ -77,7 +77,7 @@ export const VoicePicker = ({
   )
   const [filters, setFilters] = useState({
     gender: "All",
-    language: selectedVoice?.language ?? "All",
+    language: "All",
     provider: "All",
     search: "",
   })
@@ -107,6 +107,13 @@ export const VoicePicker = ({
       ...voices.filter((voice) => !isVoiceAllowed(voice, allowedVoices)),
     ]
   }, [catalog.voices, filters, allowedVoices])
+  // The list starts on every voice, so it opens scrolled to the chosen one.
+  const listRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    listRef.current
+      ?.querySelector('[data-state="checked"]')
+      ?.scrollIntoView({ block: "center" })
+  }, [])
   // In columns (the Voice screen) the panels hang past the headings like every other
   // surface, so their content takes the same hang inset as the page's other cards.
   const inset = layout === "columns" ? "px-hang" : "px-4"
@@ -114,7 +121,9 @@ export const VoicePicker = ({
     count: visibleVoices.length.toLocaleString(i18n.language),
   })
   const filterControls = (
-    <div className={`grid gap-2 ${layout === "stacked" ? "grid-cols-3" : ""}`}>
+    <div
+      className={`grid gap-2 ${layout === "stacked" ? "grid-cols-[2fr_1fr_1fr]" : ""}`}
+    >
       <VoiceFilter
         className={inset}
         label={t("defaults.voice.filters.language")}
@@ -179,14 +188,25 @@ export const VoicePicker = ({
       >
         {visibleVoices.map((voice) => {
           const locked = !isVoiceAllowed(voice, allowedVoices)
+          const details = [
+            voice.language === "All" ? null : voice.language,
+            voice.gender === "All"
+              ? null
+              : t(`defaults.voice.filters.${voice.gender.toLowerCase()}`),
+          ].filter((detail) => detail !== null)
           return (
             <OptionRow
-              className={`py-2.5 ${inset}`}
+              className={`py-2 ${inset}`}
               highlightSelected
               key={voiceKey(voice)}
               label={
                 <span className={locked ? "opacity-40" : ""}>
                   {voice.name}
+                  {details.length > 0 && (
+                    <span className="block truncate text-xs font-normal text-ink-muted">
+                      {details.join(" · ")}
+                    </span>
+                  )}
                   {locked && (
                     <span className="sr-only">
                       {" "}
@@ -250,12 +270,16 @@ export const VoicePicker = ({
           // and scrolls itself. As a normal flex child, a long catalog would
           // stretch every ancestor to its full height and scroll the page.
           <div className="relative min-h-48 flex-1">
-            <div className="absolute inset-0 overflow-y-auto py-1.5">
+            <div
+              className="absolute inset-0 overflow-y-auto py-1.5"
+              ref={listRef}
+            >
               {voiceRows}
             </div>
           </div>
         ) : (
           <div
+            ref={listRef}
             className={`min-h-48 overflow-y-auto py-1.5 ${listHeight === undefined ? "flex-1" : "flex-none"}`}
             style={{ height: listHeight, maxHeight: listMaxHeight }}
           >

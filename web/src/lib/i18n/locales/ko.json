@@ -181,6 +181,7 @@
       "loadingVoices": "음성 로드 중…",
       "model": "모델",
       "settings": "설정",
+      "testVoice": "음성 테스트",
       "voice": "목소리",
       "webSearch": "웹 검색"
     },

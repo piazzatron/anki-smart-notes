@@ -183,6 +183,7 @@
       "loadingVoices": "S'estan carregant veus...",
       "model": "Model",
       "settings": "Configuració",
+      "testVoice": "Prova de veu",
       "voice": "Veu",
       "webSearch": "Cerca web"
     },

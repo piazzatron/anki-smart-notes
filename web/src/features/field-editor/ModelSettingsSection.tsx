@@ -17,9 +17,9 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { LoaderCircle, Settings2 } from "lucide-react"
+import { LoaderCircle, Play, Settings2 } from "lucide-react"
 import i18next from "i18next"
-import { useState, type ReactNode } from "react"
+import { useEffect, useState, type ReactNode } from "react"
 import { useTranslation } from "react-i18next"
 
 import { Button } from "@/components/ui/Button"
@@ -36,6 +36,7 @@ import { FieldLabel } from "@/components/ui/FieldLabel"
 import { VoicePicker } from "@/features/defaults/VoicePicker"
 import {
   allowedVoicesOf,
+  previewTextForLanguage,
   shownVoice,
   voiceMatchesSettings,
 } from "@/features/defaults/voiceDefaults"
@@ -46,7 +47,13 @@ import {
   intelligenceLevelOf,
 } from "@/features/text-generation/intelligence"
 import { modelLabel } from "@/lib/catalog"
-import type { AppState, Catalog, VoiceCatalog } from "@/types/api"
+import { testTTSPrompt } from "@/services/commands"
+import type {
+  AppState,
+  Catalog,
+  TTSGenerationSettings,
+  VoiceCatalog,
+} from "@/types/api"
 
 import { pinUnlessDefault } from "./fieldEditor"
 import type { FieldEditorControls } from "./useFieldEditor"
@@ -73,6 +80,11 @@ export const ModelSettingsSection = ({
   const isCustom = pinnedSettings[fieldType] !== null
   const summary = getModelSummary({ controls, state, voiceCatalog })
   const imageSettings = pinnedSettings.image ?? state.defaults.image
+  const ttsSettings = shownVoice(
+    pinnedSettings.tts ?? state.defaults.tts,
+    voiceCatalog?.voices ?? [],
+    allowedVoicesOf(state),
+  )
   const pinImage = (settings: typeof imageSettings) =>
     controls.setPinnedImage(pinUnlessDefault(settings, state.defaults.image))
 
@@ -96,8 +108,23 @@ export const ModelSettingsSection = ({
       </button>
 
       <SettingsDialog
+        footerStart={
+          fieldType === "tts" &&
+          voiceCatalog !== null && (
+            <VoiceSampleButton
+              language={
+                voiceCatalog.voices.find((voice) =>
+                  voiceMatchesSettings(voice, ttsSettings),
+                )?.language ?? "All"
+              }
+              settings={ttsSettings}
+            />
+          )
+        }
         onOpenChange={setIsOpen}
         open={isOpen}
+        // The voice list needs room for names, their language and the provider.
+        wide={fieldType === "tts"}
         title={
           fieldType === "tts"
             ? t("fieldEditor.modelSettings.voice")
@@ -162,7 +189,7 @@ export const ModelSettingsSection = ({
             ) : (
               <VoicePicker
                 catalog={voiceCatalog}
-                listMaxHeight={260}
+                listMaxHeight={360}
                 onSelect={(settings) =>
                   controls.setPinnedTTS(
                     pinUnlessDefault(settings, state.defaults.tts),
@@ -179,20 +206,24 @@ export const ModelSettingsSection = ({
 
 const SettingsDialog = ({
   children,
+  footerStart,
   onOpenChange,
   open,
   title,
+  wide = false,
 }: {
   children: ReactNode
+  footerStart?: ReactNode
   onOpenChange: (open: boolean) => void
   open: boolean
   title: string
+  wide?: boolean
 }) => (
   <Dialog onOpenChange={onOpenChange} open={open}>
     {/* Title only: the settings below explain themselves. */}
     <DialogContent
       aria-describedby={undefined}
-      className="max-h-[80vh] w-[min(520px,92vw)]"
+      className={`max-h-[80vh] ${wide ? "w-[min(720px,92vw)]" : "w-[min(520px,92vw)]"}`}
       // Focus the dialog itself: the text picker opens with an ⓘ first, whose tip
       // opens on focus.
       onOpenAutoFocus={(event) => {
@@ -206,6 +237,7 @@ const SettingsDialog = ({
       <div className="min-h-0 flex-1 overflow-y-auto px-5 py-4">{children}</div>
 
       <DialogFooter>
+        {footerStart}
         <Button onClick={() => onOpenChange(false)} variant="success">
           {i18next.t("common.done")}
         </Button>
@@ -213,6 +245,56 @@ const SettingsDialog = ({
     </DialogContent>
   </Dialog>
 )
+
+// Reads a sample sentence in the chosen voice, so a voice can be heard before it's kept.
+const VoiceSampleButton = ({
+  language,
+  settings,
+}: {
+  language: string
+  settings: TTSGenerationSettings
+}) => {
+  const { t } = useTranslation()
+  const [audio, setAudio] = useState<HTMLAudioElement | null>(null)
+  const [status, setStatus] = useState<"error" | "idle" | "loading">("idle")
+  // Closing the dialog cuts the sample off.
+  useEffect(() => () => audio?.pause(), [audio])
+
+  const play = async () => {
+    audio?.pause()
+    setStatus("loading")
+    try {
+      const { dataUrl } = await testTTSPrompt({
+        settings,
+        text: previewTextForLanguage(language),
+      })
+      const sample = new Audio(dataUrl)
+      setAudio(sample)
+      setStatus("idle")
+      void sample.play()
+    } catch {
+      setStatus("error")
+    }
+  }
+
+  return (
+    <div className="me-auto flex items-center gap-2">
+      <Button disabled={status === "loading"} onClick={() => void play()}>
+        {status === "loading" ? (
+          <LoaderCircle aria-hidden className="size-3.5 animate-spin" />
+        ) : (
+          <Play aria-hidden className="size-3.5" />
+        )}
+        {t("fieldEditor.modelSettings.testVoice")}
+      </Button>
+      {status === "error" && (
+        <span className="text-xs text-ink-muted">
+          {t("promptTester.errors.generateAudio")}
+        </span>
+      )}
+    </div>
+  )
+}
 
 // Whether the field follows its default. Leaving it has to be impossible to miss, since
 // the field then stops picking up changes to the default.
@@ -268,12 +350,14 @@ const getModelSummary = ({
       voiceCatalog?.voices ?? [],
       allowedVoicesOf(state),
     )
+    const voice = voiceCatalog?.voices.find((item) =>
+      voiceMatchesSettings(item, settings),
+    )
+    // Voice names leave out their language, so the row adds it.
     return {
-      detail: null,
-      label:
-        voiceCatalog?.voices.find((voice) =>
-          voiceMatchesSettings(voice, settings),
-        )?.name ?? settings.voiceId,
+      detail:
+        voice === undefined || voice.language === "All" ? null : voice.language,
+      label: voice?.name ?? settings.voiceId,
     }
   }
 

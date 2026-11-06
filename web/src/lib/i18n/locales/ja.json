@@ -181,6 +181,7 @@
       "loadingVoices": "音声を読み込んでいます…",
       "model": "モデル",
       "settings": "設定",
+      "testVoice": "テスト音声",
       "voice": "声",
       "webSearch": "ウェブ検索"
     },

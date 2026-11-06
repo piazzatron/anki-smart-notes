@@ -182,6 +182,7 @@
       "loadingVoices": "Laster inn stemmer …",
       "model": "Modell",
       "settings": "Innstillinger",
+      "testVoice": "Teststemme",
       "voice": "Stemme",
       "webSearch": "Nettsøk"
     },
