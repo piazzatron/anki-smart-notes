@@ -18,6 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import os
+from pathlib import Path
 
 import pytest
 
@@ -41,3 +42,13 @@ def install_id(monkeypatch: pytest.MonkeyPatch) -> None:
 
     for module in (src.api_client, src.local_server):
         monkeypatch.setattr(module, "get_install_id", lambda: "test-install-id")
+
+
+@pytest.fixture(scope="session")
+def migrated_database(tmp_path_factory: pytest.TempPathFactory) -> Path:
+    """A fully migrated smart notes database, built once per session for tests to copy."""
+    from src.database.migrations import apply_database_migrations
+
+    path = tmp_path_factory.mktemp("template") / "smart_notes.sqlite3"
+    apply_database_migrations(str(path))
+    return path

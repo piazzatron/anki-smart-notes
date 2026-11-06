@@ -20,6 +20,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import asyncio
+import shutil
 import threading
 from typing import Any
 from unittest.mock import AsyncMock, MagicMock
@@ -41,7 +42,6 @@ from fixtures import (
 
 import src.note_proccessor
 from src.api_client import OutOfCreditsError, UserDisplayableError
-from src.database.migrations import apply_database_migrations
 
 
 def p(str) -> str:
@@ -71,7 +71,7 @@ class MockChatClient:
 
 
 @pytest.fixture(autouse=True)
-def sqlite_database(tmp_path, monkeypatch):
+def sqlite_database(tmp_path, monkeypatch, migrated_database):
     import src.database.connection
     from src.services.smart_field_service import smart_field_service
 
@@ -81,7 +81,7 @@ def sqlite_database(tmp_path, monkeypatch):
         lambda: str(tmp_path / "smart_notes.sqlite3"),
     )
     monkeypatch.setattr(smart_field_service, "_get_profile_name", lambda: "__test__")
-    apply_database_migrations()
+    shutil.copy(migrated_database, tmp_path / "smart_notes.sqlite3")
 
 
 def seed_smart_fields(prompts_map, options):

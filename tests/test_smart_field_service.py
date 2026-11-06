@@ -19,11 +19,12 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import shutil
+
 import pytest
 
 from src.constants import GLOBAL_DECK_ID
 from src.database import open_database
-from src.database.migrations import apply_database_migrations
 from src.models.smart_fields import (
     ChatSmartFieldSettings,
     ImageSmartFieldSettings,
@@ -44,7 +45,7 @@ def smart_field_service_for_profile(
 
 
 @pytest.fixture(autouse=True)
-def sqlite_database(tmp_path, monkeypatch):
+def sqlite_database(tmp_path, monkeypatch, migrated_database):
     import src.database.connection
 
     monkeypatch.setattr(
@@ -52,7 +53,7 @@ def sqlite_database(tmp_path, monkeypatch):
         "get_database_path",
         lambda: str(tmp_path / "smart_notes.sqlite3"),
     )
-    apply_database_migrations()
+    shutil.copy(migrated_database, tmp_path / "smart_notes.sqlite3")
 
 
 def test_round_trips_typed_smart_fields() -> None:
