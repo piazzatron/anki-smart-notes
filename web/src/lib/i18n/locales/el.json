@@ -578,7 +578,7 @@
       },
       "voice": {
         "title": "Κάθε φωνή",
-        "description": "Χρησιμοποιήστε οποιαδήποτε φωνή από τους παρόχους Google, Azure, OpenAI, ElevenLabs και VOICEVOX, όχι μόνο τη Google Standard.",
+        "description": "Χρησιμοποιήστε οποιαδήποτε φωνή από Google, Azure, OpenAI, ElevenLabs και Voicevox, και όχι μόνο την Google Standard.",
         "cta": "Αναβαθμίστε για να ξεκλειδώσετε κάθε φωνή"
       },
       "images": {

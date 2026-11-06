@@ -568,7 +568,7 @@
       },
       "voice": {
         "title": "全部语音",
-        "description": "可使用 Google、Azure、OpenAI、ElevenLabs 和 VOICEVOX 的任意语音，而不仅限于 Google Standard。",
+        "description": "可使用 Google、Azure、OpenAI、ElevenLabs 和 Voicevox 的任意语音，而不仅限于 Google Standard。",
         "cta": "升级以解锁全部语音"
       },
       "images": {

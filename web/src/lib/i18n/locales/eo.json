@@ -578,7 +578,7 @@
       },
       "voice": {
         "title": "Ĉiuj voĉoj",
-        "description": "Uzu ajnan voĉon de Google, Azure, OpenAI, ElevenLabs kaj VOICEVOX, ne nur Google Standard.",
+        "description": "Uzu ajnan voĉon el Google, Azure, OpenAI, ElevenLabs kaj Voicevox, ne nur Google Standard.",
         "cta": "Plibonigu por malŝlosi ĉiujn voĉojn"
       },
       "images": {

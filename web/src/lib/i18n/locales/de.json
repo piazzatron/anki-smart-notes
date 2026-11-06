@@ -578,7 +578,7 @@
       },
       "voice": {
         "title": "Alle Stimmen",
-        "description": "Jede Stimme von Google, Azure, OpenAI, ElevenLabs und VOICEVOX verwenden, nicht nur Google Standard.",
+        "description": "Verwende jede Stimme von Google, Azure, OpenAI, ElevenLabs und Voicevox, nicht nur Google Standard.",
         "cta": "Upgrade für alle Stimmen freischalten"
       },
       "images": {

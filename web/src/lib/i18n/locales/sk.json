@@ -598,7 +598,7 @@
       },
       "voice": {
         "title": "Všetky hlasy",
-        "description": "Používajte ľubovoľný hlas od Google, Azure, OpenAI, ElevenLabs a VOICEVOX, nielen štandardné hlasy Google.",
+        "description": "Použite akýkoľvek hlas od Google, Azure, OpenAI, ElevenLabs a Voicevox, nielen Google Standard.",
         "cta": "Prejdite na vyšší plán a odomknite všetky hlasy"
       },
       "images": {

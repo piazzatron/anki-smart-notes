@@ -578,7 +578,7 @@
       },
       "voice": {
         "title": "Всеки глас",
-        "description": "Използвайте всеки глас от Google, Azure, OpenAI, ElevenLabs и VOICEVOX, а не само стандартните гласове на Google.",
+        "description": "Използвайте всеки глас от Google, Azure, OpenAI, ElevenLabs и Voicevox, а не само Google Standard.",
         "cta": "Надградете, за да отключите всеки глас"
       },
       "images": {

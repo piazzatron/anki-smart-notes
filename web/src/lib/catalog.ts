@@ -43,7 +43,7 @@ const PROVIDER_LABELS: Record<string, string> = {
   google: "Google",
   elevenLabs: "ElevenLabs",
   azure: "Azure",
-  voicevox: "VOICEVOX",
+  voicevox: "Voicevox",
 }
 
 export const modelLabel = (model: string): string => {

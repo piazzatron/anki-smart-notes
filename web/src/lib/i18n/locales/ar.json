@@ -618,7 +618,7 @@
       },
       "voice": {
         "title": "كل الأصوات",
-        "description": "استخدم أي صوت من Google أو Azure أو OpenAI أو ElevenLabs أو VOICEVOX، وليس Google Standard فقط.",
+        "description": "استخدم أي صوت من Google وAzure وOpenAI وElevenLabs وVoicevox، وليس Google Standard فقط.",
         "cta": "قم بالترقية لفتح كل الأصوات"
       },
       "images": {

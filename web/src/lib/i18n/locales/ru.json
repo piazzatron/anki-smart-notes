@@ -598,7 +598,7 @@
       },
       "voice": {
         "title": "Все голоса",
-        "description": "Используйте любой голос от Google, Azure, OpenAI, ElevenLabs и VOICEVOX, а не только Google Standard.",
+        "description": "Используйте любой голос от Google, Azure, OpenAI, ElevenLabs и Voicevox, а не только Google Standard.",
         "cta": "Обновите подписку, чтобы открыть все голоса"
       },
       "images": {

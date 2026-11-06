@@ -568,7 +568,7 @@
       },
       "voice": {
         "title": "所有語音",
-        "description": "可使用 Google、Azure、OpenAI、ElevenLabs 和 VOICEVOX 的任何語音，不只限於 Google Standard。",
+        "description": "使用 Google、Azure、OpenAI、ElevenLabs 和 Voicevox 的任何語音，不限於 Google Standard。",
         "cta": "升級以解鎖所有語音"
       },
       "images": {

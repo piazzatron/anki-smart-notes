@@ -578,7 +578,7 @@
       },
       "voice": {
         "title": "Alle stemmer",
-        "description": "Brug alle stemmer fra Google, Azure, OpenAI, ElevenLabs og VOICEVOX, ikke kun Google Standard.",
+        "description": "Brug enhver stemme fra Google, Azure, OpenAI, ElevenLabs og Voicevox, ikke kun Google Standard.",
         "cta": "Opgrader for at låse alle stemmer op"
       },
       "images": {

@@ -578,7 +578,7 @@
       },
       "voice": {
         "title": "Alla röster",
-        "description": "Använd vilken röst som helst från Google, Azure, OpenAI, ElevenLabs och VOICEVOX, inte bara Google Standard.",
+        "description": "Använd vilken röst som helst från Google, Azure, OpenAI, ElevenLabs och Voicevox, inte bara Google Standard.",
         "cta": "Uppgradera för att låsa upp alla röster"
       },
       "images": {

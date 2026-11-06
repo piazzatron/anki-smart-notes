@@ -588,7 +588,7 @@
       },
       "voice": {
         "title": "Toate vocile",
-        "description": "Folosiți orice voce de la Google, Azure, OpenAI, ElevenLabs și VOICEVOX, nu doar Google Standard.",
+        "description": "Folosește orice voce de la Google, Azure, OpenAI, ElevenLabs și Voicevox, nu doar Google Standard.",
         "cta": "Treceți la un plan superior pentru a debloca toate vocile"
       },
       "images": {

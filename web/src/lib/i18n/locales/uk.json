@@ -598,7 +598,7 @@
       },
       "voice": {
         "title": "Усі голоси",
-        "description": "Використовуйте будь-який голос від Google, Azure, OpenAI, ElevenLabs і VOICEVOX, а не лише Google Standard.",
+        "description": "Використовуйте будь-який голос від Google, Azure, OpenAI, ElevenLabs і Voicevox, а не лише Google Standard.",
         "cta": "Оновіть план, щоб отримати доступ до всіх голосів"
       },
       "images": {

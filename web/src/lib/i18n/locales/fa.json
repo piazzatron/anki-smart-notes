@@ -578,7 +578,7 @@
       },
       "voice": {
         "title": "همه صداها",
-        "description": "از هر صدایی از Google، Azure، OpenAI، ElevenLabs و VOICEVOX استفاده کنید، نه فقط Google Standard.",
+        "description": "از هر صدایی از Google، Azure، OpenAI، ElevenLabs و Voicevox استفاده کنید، نه فقط Google Standard.",
         "cta": "برای باز کردن همه صداها ارتقا دهید"
       },
       "images": {

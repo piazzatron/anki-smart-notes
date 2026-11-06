@@ -588,7 +588,7 @@
       },
       "voice": {
         "title": "כל הקולות",
-        "description": "השתמשו בכל קול מ-Google, Azure, OpenAI, ElevenLabs ו-VOICEVOX, ולא רק בקולות Google Standard.",
+        "description": "השתמשו בכל קול מ-Google, Azure, OpenAI, ElevenLabs ו-Voicevox, ולא רק ב-Google Standard.",
         "cta": "שדרגו כדי לפתוח את כל הקולות"
       },
       "images": {

@@ -578,7 +578,7 @@
       },
       "voice": {
         "title": "Ahots guztiak",
-        "description": "Erabili Google, Azure, OpenAI, ElevenLabs eta VOICEVOX-eko edozein ahots, Google Standard bakarrik ez.",
+        "description": "Erabili Google, Azure, OpenAI, ElevenLabs eta Voicevox-eko edozein ahots, ez soilik Google Standard.",
         "cta": "Eguneratu ahots guztiak desblokeatzeko"
       },
       "images": {

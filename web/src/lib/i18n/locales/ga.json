@@ -608,7 +608,7 @@
       },
       "voice": {
         "title": "Gach guth",
-        "description": "Úsáid aon guth ó Google, Azure, OpenAI, ElevenLabs agus VOICEVOX, ní hamháin Google Standard.",
+        "description": "Úsáid aon ghuth ó Google, Azure, OpenAI, ElevenLabs agus Voicevox, ní hamháin Google Standard.",
         "cta": "Uasghrádaigh chun gach guth a dhíghlasáil"
       },
       "images": {

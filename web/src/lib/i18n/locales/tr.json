@@ -578,7 +578,7 @@
       },
       "voice": {
         "title": "Tüm sesler",
-        "description": "Yalnızca Google Standard değil, Google, Azure, OpenAI, ElevenLabs ve VOICEVOX'tan herhangi bir sesi kullanın.",
+        "description": "Google, Azure, OpenAI, ElevenLabs ve Voicevox seslerinden herhangi birini kullanın; yalnızca Google Standard ile sınırlı kalmayın.",
         "cta": "Tüm sesleri açmak için yükseltin"
       },
       "images": {

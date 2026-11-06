@@ -578,7 +578,7 @@
       },
       "voice": {
         "title": "Բոլոր ձայները",
-        "description": "Օգտագործեք ցանկացած ձայն Google, Azure, OpenAI, ElevenLabs և VOICEVOX-ից, ոչ միայն Standard ձայները Google-ից։",
+        "description": "Ցանկացած ձայն կարող եք օգտագործել Google, Azure, OpenAI, ElevenLabs և Voicevox ծառայություններից, ոչ միայն Google Standard ձայները։",
         "cta": "Թարմացրեք՝ բոլոր ձայները բացելու համար"
       },
       "images": {

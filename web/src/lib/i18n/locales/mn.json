@@ -578,7 +578,7 @@
       },
       "voice": {
         "title": "Бүх дуу",
-        "description": "Google Standard-аас гадна Google, Azure, OpenAI, ElevenLabs болон VOICEVOX-ийн аль ч дууг ашиглана уу.",
+        "description": "Google, Azure, OpenAI, ElevenLabs болон Voicevox-ийн аль ч дуу хоолойг ашиглаарай, зөвхөн Google Standard-аас биш.",
         "cta": "Бүх дууг нээхийн тулд шинэчлэх"
       },
       "images": {

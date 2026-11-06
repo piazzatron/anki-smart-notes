@@ -568,7 +568,7 @@
       },
       "voice": {
         "title": "เสียงทุกแบบ",
-        "description": "ใช้เสียงจาก Google, Azure, OpenAI, ElevenLabs และ VOICEVOX ได้ทั้งหมด ไม่จำกัดแค่ Google Standard",
+        "description": "ใช้เสียงใดก็ได้จาก Google, Azure, OpenAI, ElevenLabs และ Voicevox ไม่จำกัดเฉพาะ Google Standard",
         "cta": "อัปเกรดเพื่อปลดล็อกเสียงทุกแบบ"
       },
       "images": {

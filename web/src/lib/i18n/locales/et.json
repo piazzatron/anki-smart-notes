@@ -578,7 +578,7 @@
       },
       "voice": {
         "title": "Kõik hääled",
-        "description": "Kasuta häälte valikut Google, Azure, OpenAI, ElevenLabs ja VOICEVOX, mitte ainult Google Standard.",
+        "description": "Kasuta mis tahes häält teenustest Google, Azure, OpenAI, ElevenLabs ja Voicevox, mitte ainult Google Standard.",
         "cta": "Uuenda, et avada kõik hääled"
       },
       "images": {

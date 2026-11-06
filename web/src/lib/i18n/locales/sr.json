@@ -588,7 +588,7 @@
       },
       "voice": {
         "title": "Сви гласови",
-        "description": "Користите било који глас из услуга Google, Azure, OpenAI, ElevenLabs и VOICEVOX, а не само Google Standard.",
+        "description": "Користите било који глас из Google, Azure, OpenAI, ElevenLabs и Voicevox, а не само Google Standard.",
         "cta": "Надоградите да бисте откључали све гласове"
       },
       "images": {

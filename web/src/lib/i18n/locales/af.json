@@ -578,7 +578,7 @@
       },
       "voice": {
         "title": "Elke stem",
-        "description": "Gebruik enige stem van Google, Azure, OpenAI, ElevenLabs en VOICEVOX, nie net Google Standard nie.",
+        "description": "Gebruik enige stem van Google, Azure, OpenAI, ElevenLabs en Voicevox, nie net Google Standard nie.",
         "cta": "Opgradeer om elke stem te ontsluit"
       },
       "images": {

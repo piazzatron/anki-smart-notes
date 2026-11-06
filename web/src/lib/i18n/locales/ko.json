@@ -568,7 +568,7 @@
       },
       "voice": {
         "title": "모든 음성",
-        "description": "Google Standard뿐만 아니라 Google, Azure, OpenAI, ElevenLabs, VOICEVOX의 모든 음성을 사용하세요.",
+        "description": "Google Standard에만 국한되지 않고, Google, Azure, OpenAI, ElevenLabs, Voicevox의 모든 음성을 사용하세요.",
         "cta": "업그레이드하여 모든 음성 잠금 해제"
       },
       "images": {

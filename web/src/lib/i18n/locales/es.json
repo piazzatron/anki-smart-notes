@@ -588,7 +588,7 @@
       },
       "voice": {
         "title": "Todas las voces",
-        "description": "Usa cualquier voz de Google, Azure, OpenAI, ElevenLabs y VOICEVOX, no solo las voces estándar de Google.",
+        "description": "Usa cualquier voz de Google, Azure, OpenAI, ElevenLabs y Voicevox, no solo Google Standard.",
         "cta": "Mejora tu plan para desbloquear todas las voces"
       },
       "images": {

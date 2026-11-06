@@ -568,7 +568,7 @@
       },
       "voice": {
         "title": "Mọi giọng nói",
-        "description": "Dùng bất kỳ giọng nói nào từ Google, Azure, OpenAI, ElevenLabs và VOICEVOX, không chỉ Google Standard.",
+        "description": "Sử dụng bất kỳ giọng nói nào từ Google, Azure, OpenAI, ElevenLabs và Voicevox, không chỉ Google Standard.",
         "cta": "Nâng cấp để mở khóa mọi giọng nói"
       },
       "images": {

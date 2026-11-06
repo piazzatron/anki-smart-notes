@@ -578,7 +578,7 @@
       },
       "voice": {
         "title": "Lahat ng voice",
-        "description": "Gamitin ang kahit anong voice mula sa Google, Azure, OpenAI, ElevenLabs, at VOICEVOX, hindi lang ang Google Standard.",
+        "description": "Gamitin ang alinmang boses mula sa Google, Azure, OpenAI, ElevenLabs, at Voicevox, hindi lang ang Google Standard.",
         "cta": "Mag-upgrade para i-unlock ang lahat ng voice"
       },
       "images": {

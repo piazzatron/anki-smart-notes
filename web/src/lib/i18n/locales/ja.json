@@ -568,7 +568,7 @@
       },
       "voice": {
         "title": "すべての音声",
-        "description": "Google Standard だけでなく、Google、Azure、OpenAI、ElevenLabs、VOICEVOX のすべての音声を使用できます。",
+        "description": "Google、Azure、OpenAI、ElevenLabs、Voicevox のあらゆる音声を使用できます。Google Standard だけに限りません。",
         "cta": "アップグレードしてすべての音声を利用"
       },
       "images": {

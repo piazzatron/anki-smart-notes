@@ -568,7 +568,7 @@
       },
       "voice": {
         "title": "Semua suara",
-        "description": "Gunakan mana-mana suara daripada Google, Azure, OpenAI, ElevenLabs dan VOICEVOX, bukan hanya Google Standard.",
+        "description": "Gunakan mana-mana suara daripada Google, Azure, OpenAI, ElevenLabs dan Voicevox, bukan hanya Google Standard.",
         "cta": "Naik taraf untuk buka semua suara"
       },
       "images": {

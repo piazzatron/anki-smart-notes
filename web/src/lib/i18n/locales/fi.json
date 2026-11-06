@@ -578,7 +578,7 @@
       },
       "voice": {
         "title": "Kaikki äänet",
-        "description": "Käytä mitä tahansa ääntä palveluista Google, Azure, OpenAI, ElevenLabs ja VOICEVOX, ei vain Google Standard -ääniä.",
+        "description": "Käytä mitä tahansa ääntä palveluilta Google, Azure, OpenAI, ElevenLabs ja Voicevox, ei vain Google Standard -ääniä.",
         "cta": "Päivitä ja avaa kaikki äänet"
       },
       "images": {

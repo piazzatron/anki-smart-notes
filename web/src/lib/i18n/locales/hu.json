@@ -578,7 +578,7 @@
       },
       "voice": {
         "title": "Minden hang",
-        "description": "Használj bármilyen hangot a Google, Azure, OpenAI, ElevenLabs és VOICEVOX szolgáltatóktól, nem csak a Google Standard hangokat.",
+        "description": "Használhatod a Google, Azure, OpenAI, ElevenLabs és Voicevox bármelyik hangját, nem csak a Google Standard hangokat.",
         "cta": "Frissíts minden hang feloldásához"
       },
       "images": {
