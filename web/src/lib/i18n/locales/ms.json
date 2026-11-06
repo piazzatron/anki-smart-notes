@@ -144,6 +144,17 @@
       "waysToGenerate": "Beberapa cara untuk menjananya:"
     },
     "created": "Smart Field dicipta",
+    "describe": {
+      "exampleChat": "Tulis {{target}} untuk {{source}}",
+      "exampleImage": "Lukis gambar {{source}}",
+      "generate": "Jana",
+      "generating": "Sedang menjana…",
+      "hint": "Terangkan dalam satu ayat. Anda boleh menyebut medan lain mengikut nama.",
+      "regenerate": "Jana semula",
+      "tabToUse": "<kbd>Tab</kbd> untuk menjana ini",
+      "title": "Apakah yang sepatutnya dilakukan oleh medan ini?",
+      "writeYourself": "Atau tulis gesaan sendiri"
+    },
     "dontShowAgain": "Jangan tunjukkan ini lagi",
     "errors": {
       "save": "Tidak dapat menyimpan Smart Field",
@@ -173,6 +184,14 @@
       "voice": "Suara",
       "webSearch": "Carian web"
     },
+    "promptPanel": {
+      "description": "Apa yang AI terima untuk setiap nota. <code>{{example}}</code> digantikan dengan teks nota itu dalam medan.",
+      "fieldsOnNote": "Medan dalam nota ini:",
+      "gotIt": "Faham",
+      "insertField": "Sisipkan {{field}}",
+      "tip": "Kami telah menulis gesaan untuk anda. Buka untuk melihat atau menukar dengan tepat apa yang diminta daripada AI.",
+      "writeYourself": "Tulis sendiri"
+    },
     "save": "Jimat Smart Field",
     "sections": {
       "onWhichNotes": "Pada nota yang mana?",
@@ -183,6 +202,7 @@
     "sourceField": "Medan sumber",
     "targetAriaLabel": "Sasaran Smart Field",
     "testSmartField": "Uji Smart Field anda",
+    "testerHint": "Cuba pada kad yang dipilih dalam Browser",
     "titles": {
       "create": "Medan Pintar Baharu",
       "duplicate": "Pendua Smart Field",
@@ -195,12 +215,7 @@
       "fieldAlreadyHasSmartField": "{{field}} sudah mempunyai Smart Field",
       "mediaInput": "Medan \"{{field}}\" sudah menjadi Smart Field audio/imej, jadi ia tidak boleh digunakan sebagai input dalam prompt.",
       "writePrompt": "Tulis gesaan"
-    },
-    "writePrompt": "Tulis Prompt",
-    "writePromptForMe": "Tulis gesaan saya untuk saya",
-    "writePromptForMeHint": "Sebut apa yang anda mahu dalam bahasa Inggeris biasa — kami akan menulis gesaan di bawah.",
-    "writePromptPlaceholder": "\"Terjemah ke bahasa Inggeris semula jadi…\"",
-    "writing": "Menulis…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Tindakan untuk {{field}}",

@@ -145,6 +145,17 @@
       "waysToGenerate": "A few ways to generate it:"
     },
     "created": "Smart Field created",
+    "describe": {
+      "exampleChat": "Write the {{target}} for {{source}}",
+      "exampleImage": "Draw a picture of {{source}}",
+      "generate": "Generate",
+      "generating": "Generating…",
+      "hint": "Describe it in a sentence. You can mention other fields by name.",
+      "regenerate": "Regenerate",
+      "tabToUse": "<kbd>Tab</kbd> to generate this",
+      "title": "What should this field do?",
+      "writeYourself": "Or write the prompt yourself"
+    },
     "dontShowAgain": "Don’t show this again",
     "errors": {
       "save": "Could not save Smart Field",
@@ -174,6 +185,14 @@
       "voice": "Voice",
       "webSearch": "Web search"
     },
+    "promptPanel": {
+      "description": "What the AI gets for each note. <code>{{example}}</code> is replaced with that note’s text in the field.",
+      "fieldsOnNote": "Fields on this note:",
+      "gotIt": "Got it",
+      "insertField": "Insert {{field}}",
+      "tip": "We wrote the prompt for you. Open it to see or change exactly what the AI is asked.",
+      "writeYourself": "Write it yourself"
+    },
     "save": "Save Smart Field",
     "sections": {
       "onWhichNotes": "On which notes?",
@@ -184,6 +203,7 @@
     "sourceField": "Source field",
     "targetAriaLabel": "Smart Field target",
     "testSmartField": "Test your Smart Field",
+    "testerHint": "Try it on the card selected in the Browser",
     "titles": {
       "create": "New Smart Field",
       "duplicate": "Duplicate Smart Field",
@@ -196,12 +216,7 @@
       "fieldAlreadyHasSmartField": "{{field}} already has a Smart Field",
       "mediaInput": "The field \"{{field}}\" is already an audio/image Smart Field, so it can't be used as input in the prompt.",
       "writePrompt": "Write a prompt"
-    },
-    "writePrompt": "Write Prompt",
-    "writePromptForMe": "Write my prompt for me",
-    "writePromptForMeHint": "Say what you want in plain English — we’ll write the prompt below.",
-    "writePromptPlaceholder": "\"Translate to natural English…\"",
-    "writing": "Writing…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Actions for {{field}}",

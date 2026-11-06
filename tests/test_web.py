@@ -83,6 +83,7 @@ SETTINGS_DTO: dto.SettingsDto = {
     "didDismissReviewPrompt": False,
     "didDismissDiscordPrompt": False,
     "didSeeFreePlanWelcome": False,
+    "didSeeGeneratedPromptTip": False,
 }
 
 
@@ -406,6 +407,7 @@ def test_build_settings_reads_config(monkeypatch):
         did_dismiss_review_prompt=True,
         did_dismiss_discord_prompt=True,
         did_see_free_plan_welcome=True,
+        did_see_generated_prompt_tip=True,
     )
     monkeypatch.setattr(dto.builders, "config", config)
 
@@ -423,6 +425,7 @@ def test_build_settings_reads_config(monkeypatch):
         "didDismissReviewPrompt": True,
         "didDismissDiscordPrompt": True,
         "didSeeFreePlanWelcome": True,
+        "didSeeGeneratedPromptTip": True,
     }
 
 
@@ -748,6 +751,7 @@ def test_settings_survive_build_parse_round_trip(monkeypatch):
         did_dismiss_review_prompt=True,
         did_dismiss_discord_prompt=False,
         did_see_free_plan_welcome=True,
+        did_see_generated_prompt_tip=True,
     )
     monkeypatch.setattr(dto.builders, "config", config)
 
@@ -766,6 +770,7 @@ def test_settings_survive_build_parse_round_trip(monkeypatch):
         did_dismiss_review_prompt=True,
         did_dismiss_discord_prompt=False,
         did_see_free_plan_welcome=True,
+        did_see_generated_prompt_tip=True,
     )
 
 
@@ -791,6 +796,7 @@ def test_save_settings_persists_every_field_and_republishes(monkeypatch):
     assert config.did_dismiss_review_prompt is False
     assert config.did_dismiss_discord_prompt is False
     assert config.did_see_free_plan_welcome is False
+    assert config.did_see_generated_prompt_tip is False
     assert len(published) == 1
     assert isinstance(published[0], StateInvalidated)
 

@@ -146,6 +146,17 @@
       "waysToGenerate": "Algunes maneres de generar-lo:"
     },
     "created": "Smart Field creat",
+    "describe": {
+      "exampleChat": "Escriu {{target}} per a {{source}}",
+      "exampleImage": "Dibuixa una imatge de {{source}}",
+      "generate": "Genera",
+      "generating": "S'està generant…",
+      "hint": "Descriu-ho en una frase. Pots esmentar altres camps pel seu nom.",
+      "regenerate": "Torna a generar",
+      "tabToUse": "<kbd>Tab</kbd> per generar-ho",
+      "title": "Què ha de fer aquest camp?",
+      "writeYourself": "O escriu tu mateix la instrucció"
+    },
     "dontShowAgain": "No tornis a mostrar això",
     "errors": {
       "save": "No s'ha pogut desar Smart Field",
@@ -175,6 +186,14 @@
       "voice": "Veu",
       "webSearch": "Cerca web"
     },
+    "promptPanel": {
+      "description": "El que rep la IA per a cada nota. <code>{{example}}</code> se substitueix pel text de la nota en aquest camp.",
+      "fieldsOnNote": "Camps d'aquesta nota:",
+      "gotIt": "Entès",
+      "insertField": "Insereix {{field}}",
+      "tip": "Hem escrit la instrucció per a tu. Obre-la per veure o canviar exactament què se li demana a la IA.",
+      "writeYourself": "Escriu-la tu mateix"
+    },
     "save": "Desa Smart Field",
     "sections": {
       "onWhichNotes": "En quines notes?",
@@ -185,6 +204,7 @@
     "sourceField": "Camp d'origen",
     "targetAriaLabel": "Objectiu Smart Field",
     "testSmartField": "Prova el teu Smart Field",
+    "testerHint": "Prova-ho amb la targeta seleccionada al Navegador",
     "titles": {
       "create": "Nou camp intel·ligent",
       "duplicate": "Duplicar Smart Field",
@@ -197,12 +217,7 @@
       "fieldAlreadyHasSmartField": "{{field}} ja té un Smart Field",
       "mediaInput": "El camp \"{{field}}\" ja és un Smart Field d'àudio/imatge, de manera que no es pot utilitzar com a entrada en el prompt.",
       "writePrompt": "Escriu una indicació"
-    },
-    "writePrompt": "Escriu el missatge",
-    "writePromptForMe": "Escriu el meu missatge per a mi",
-    "writePromptForMeHint": "Digues el que vulguis en anglès senzill; escriurem el missatge a continuació.",
-    "writePromptPlaceholder": "\"Tradueix a l'anglès natural...\"",
-    "writing": "S'està escrivint…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Accions per a {{field}}",

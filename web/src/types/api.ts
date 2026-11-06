@@ -183,6 +183,7 @@ export interface Settings {
   didDismissReviewPrompt: boolean
   didDismissDiscordPrompt: boolean
   didSeeFreePlanWelcome: boolean
+  didSeeGeneratedPromptTip: boolean
 }
 
 export interface FeatureFlags {
@@ -267,6 +268,7 @@ export type CommandName =
   | "notes.randomTestCard"
   | "settings.save"
   | "prompts.generate"
+  | "prompts.suggest"
   | "support.sendFeedback"
   | "auth.logout"
   | "reviewClaim.get"
@@ -315,6 +317,12 @@ export interface PromptGenerateArgs {
 
 export interface PromptGenerateResult {
   prompt: string
+}
+
+// An example of what the field could do, for the field editor's describe box. Empty
+// when signed out.
+export interface PromptSuggestResult {
+  suggestion: string
 }
 
 export interface FeedbackSendPayload {

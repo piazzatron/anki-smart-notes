@@ -157,6 +157,7 @@ def build_settings() -> SettingsDto:
         didDismissReviewPrompt=config.did_dismiss_review_prompt,
         didDismissDiscordPrompt=config.did_dismiss_discord_prompt,
         didSeeFreePlanWelcome=config.did_see_free_plan_welcome,
+        didSeeGeneratedPromptTip=config.did_see_generated_prompt_tip,
     )
 
 

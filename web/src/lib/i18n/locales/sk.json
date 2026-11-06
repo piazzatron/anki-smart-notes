@@ -147,6 +147,17 @@
       "waysToGenerate": "Niekoľko spôsobov, ako ho vygenerovať:"
     },
     "created": "Smart Field vytvorený",
+    "describe": {
+      "exampleChat": "Napíšte {{target}} pre {{source}}",
+      "exampleImage": "Nakreslite obrázok: {{source}}",
+      "generate": "Generovať",
+      "generating": "Generuje sa…",
+      "hint": "Opíšte to jednou vetou. Ostatné polia môžete spomenúť podľa názvu.",
+      "regenerate": "Vygenerovať znova",
+      "tabToUse": "<kbd>Tab</kbd> na vygenerovanie tohto",
+      "title": "Čo má toto pole robiť?",
+      "writeYourself": "Alebo napíšte výzvu sami"
+    },
     "dontShowAgain": "Toto už nezobrazovať",
     "errors": {
       "save": "Smart Field sa nepodarilo uložiť",
@@ -176,6 +187,14 @@
       "voice": "Hlas",
       "webSearch": "vyhľadávanie na webe"
     },
+    "promptPanel": {
+      "description": "Čo AI dostane pre každú poznámku. <code>{{example}}</code> sa nahradí textom poľa v danej poznámke.",
+      "fieldsOnNote": "Polia v tejto poznámke:",
+      "gotIt": "Rozumiem",
+      "insertField": "Vložiť {{field}}",
+      "tip": "Výzvu sme pre vás pripravili. Otvorte ju, ak chcete vidieť alebo zmeniť presne to, čo sa AI pýta.",
+      "writeYourself": "Napíšte ju sami"
+    },
     "save": "Uložiť Smart Field",
     "sections": {
       "onWhichNotes": "Na ktorých notách?",
@@ -186,6 +205,7 @@
     "sourceField": "Zdrojové pole",
     "targetAriaLabel": "Cieľ Smart Field",
     "testSmartField": "Otestujte svoj Smart Field",
+    "testerHint": "Vyskúšajte na karte vybranej v Prehliadači",
     "titles": {
       "create": "Nové Smart Field",
       "duplicate": "Duplikát Smart Field",
@@ -198,12 +218,7 @@
       "fieldAlreadyHasSmartField": "{{field}} už má Smart Field",
       "mediaInput": "Pole \"{{field}}\" je už Smart Field typu audio/obrázok, takže ho nemožno použiť ako vstup vo výzve.",
       "writePrompt": "Napíšte výzvu"
-    },
-    "writePrompt": "Napíšte výzvu",
-    "writePromptForMe": "Napíšte moju výzvu za mňa",
-    "writePromptForMeHint": "Povedzte, čo chcete, jednoduchou angličtinou – výzvu napíšeme nižšie.",
-    "writePromptPlaceholder": "\"Preložiť do prirodzenej angličtiny...\"",
-    "writing": "Píše sa…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Akcie pre {{field}}",

@@ -144,6 +144,17 @@
       "waysToGenerate": "สองสามวิธีในการสร้างมัน:"
     },
     "created": "สร้าง Smart Field แล้ว",
+    "describe": {
+      "exampleChat": "เขียน {{target}} สำหรับ {{source}}",
+      "exampleImage": "วาดภาพของ {{source}}",
+      "generate": "สร้าง",
+      "generating": "กำลังสร้าง…",
+      "hint": "อธิบายเป็นประโยคเดียว คุณสามารถอ้างถึงฟิลด์อื่นด้วยชื่อได้",
+      "regenerate": "สร้างใหม่",
+      "tabToUse": "กด <kbd>Tab</kbd> เพื่อสร้างข้อความนี้",
+      "title": "ฟิลด์นี้ควรทำอะไร",
+      "writeYourself": "หรือเขียนพรอมต์เอง"
+    },
     "dontShowAgain": "อย่าแสดงสิ่งนี้อีก",
     "errors": {
       "save": "ไม่สามารถบันทึก Smart Field ได้",
@@ -173,6 +184,14 @@
       "voice": "เสียง",
       "webSearch": "ค้นหาเว็บ"
     },
+    "promptPanel": {
+      "description": "สิ่งที่ AI ได้รับสำหรับแต่ละโน้ต <code>{{example}}</code> จะถูกแทนที่ด้วยข้อความของโน้ตในฟิลด์นั้น",
+      "fieldsOnNote": "ฟิลด์ในโน้ตนี้:",
+      "gotIt": "เข้าใจแล้ว",
+      "insertField": "แทรก {{field}}",
+      "tip": "เราเขียนพรอมต์ให้คุณแล้ว เปิดดูเพื่อดูหรือแก้ไขคำสั่งที่ AI ได้รับอย่างแม่นยำ",
+      "writeYourself": "เขียนเอง"
+    },
     "save": "บันทึก Smart Field",
     "sections": {
       "onWhichNotes": "บันทึกใดบ้าง?",
@@ -183,6 +202,7 @@
     "sourceField": "ฟิลด์แหล่งที่มา",
     "targetAriaLabel": "เป้าหมาย Smart Field",
     "testSmartField": "ทดสอบ Smart Field ของคุณ",
+    "testerHint": "ลองใช้กับการ์ดที่เลือกในเบราว์เซอร์",
     "titles": {
       "create": "Smart Field ใหม่",
       "duplicate": "Smart Field ซ้ำกัน",
@@ -195,12 +215,7 @@
       "fieldAlreadyHasSmartField": "{{field}} มี Smart Field อยู่แล้ว",
       "mediaInput": "ฟิลด์ \"{{field}}\" เป็น Smart Field ประเภทเสียง/รูปภาพอยู่แล้ว จึงใช้เป็นอินพุตในพรอมต์ไม่ได้",
       "writePrompt": "เขียนข้อความแจ้ง"
-    },
-    "writePrompt": "เขียนพร้อมท์",
-    "writePromptForMe": "เขียนข้อความแจ้งของฉันให้ฉัน",
-    "writePromptForMeHint": "พูดสิ่งที่คุณต้องการเป็นภาษาอังกฤษธรรมดา — เราจะเขียนข้อความแจ้งด้านล่าง",
-    "writePromptPlaceholder": "\"แปลเป็นภาษาอังกฤษตามธรรมชาติ…\"",
-    "writing": "การเขียน…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "การดำเนินการสำหรับ {{field}}",

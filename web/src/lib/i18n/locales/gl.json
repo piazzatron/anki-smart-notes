@@ -145,6 +145,17 @@
       "waysToGenerate": "Algunhas formas de xeralo:"
     },
     "created": "Smart Field creado",
+    "describe": {
+      "exampleChat": "Escribe o {{target}} para {{source}}",
+      "exampleImage": "Debuxa unha imaxe de {{source}}",
+      "generate": "Xerar",
+      "generating": "Xerando…",
+      "hint": "Descríbao nunha frase. Pode mencionar outros campos polo nome.",
+      "regenerate": "Xerar de novo",
+      "tabToUse": "<kbd>Tab</kbd> para xerar isto",
+      "title": "Que debe facer este campo?",
+      "writeYourself": "Ou escriba vostede o prompt"
+    },
     "dontShowAgain": "Non mostrar isto de novo",
     "errors": {
       "save": "Non se puido gardar Smart Field",
@@ -174,6 +185,14 @@
       "voice": "Voz",
       "webSearch": "Busca na web"
     },
+    "promptPanel": {
+      "description": "O que recibe a IA para cada nota. <code>{{example}}</code> substitúese polo texto desa nota no campo.",
+      "fieldsOnNote": "Campos desta nota:",
+      "gotIt": "Entendido",
+      "insertField": "Inserir {{field}}",
+      "tip": "Escribimos o prompt por vostede. Ábrao para ver ou cambiar exactamente o que se lle pide á IA.",
+      "writeYourself": "Escribilo vostede"
+    },
     "save": "Gardar Smart Field",
     "sections": {
       "onWhichNotes": "En que notas?",
@@ -184,6 +203,7 @@
     "sourceField": "Campo de orixe",
     "targetAriaLabel": "Obxectivo Smart Field",
     "testSmartField": "Proba o teu Smart Field",
+    "testerHint": "Probe co cartón seleccionado no Navegador",
     "titles": {
       "create": "Novo Campo intelixente",
       "duplicate": "Duplicar Smart Field",
@@ -196,12 +216,7 @@
       "fieldAlreadyHasSmartField": "{{field}} xa ten un Smart Field",
       "mediaInput": "O campo \"{{field}}\" xa é un Smart Field de audio/imaxe, polo que non se pode usar como entrada no prompt.",
       "writePrompt": "Escribe un aviso"
-    },
-    "writePrompt": "Aviso de escritura",
-    "writePromptForMe": "Escribe o meu aviso para min",
-    "writePromptForMeHint": "Di o que queiras en inglés sinxelo; escribiremos a solicitude a continuación.",
-    "writePromptPlaceholder": "\"Traducir ao inglés natural...\"",
-    "writing": "Escribindo…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Accións para {{field}}",

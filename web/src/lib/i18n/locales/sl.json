@@ -147,6 +147,17 @@
       "waysToGenerate": "Nekaj ​​načinov za ustvarjanje:"
     },
     "created": "Smart Field ustvarjen",
+    "describe": {
+      "exampleChat": "Napišite {{target}} za {{source}}",
+      "exampleImage": "Narišite sliko: {{source}}",
+      "generate": "Ustvari",
+      "generating": "Ustvarjanje…",
+      "hint": "Opišite v enem stavku. Druga polja lahko omenite po imenu.",
+      "regenerate": "Ustvari znova",
+      "tabToUse": "<kbd>Tab</kbd> za ustvarjanje tega",
+      "title": "Kaj naj to polje počne?",
+      "writeYourself": "Ali napišite poziv sami"
+    },
     "dontShowAgain": "Ne pokaži več tega",
     "errors": {
       "save": "Smart Field ni bilo mogoče shraniti",
@@ -176,6 +187,14 @@
       "voice": "Glas",
       "webSearch": "Spletno iskanje"
     },
+    "promptPanel": {
+      "description": "Kaj AI prejme za vsako beležko. <code>{{example}}</code> se nadomesti z besedilom beležke v tem polju.",
+      "fieldsOnNote": "Polja v tej beležki:",
+      "gotIt": "Razumem",
+      "insertField": "Vstavi {{field}}",
+      "tip": "Poziv smo napisali za vas. Odprite ga, če želite videti ali spremeniti, kaj natančno AI prejme.",
+      "writeYourself": "Napišite sami"
+    },
     "save": "Shrani Smart Field",
     "sections": {
       "onWhichNotes": "Na katere note?",
@@ -186,6 +205,7 @@
     "sourceField": "Izvorno polje",
     "targetAriaLabel": "Cilj Smart Field",
     "testSmartField": "Preizkusite svoj Smart Field",
+    "testerHint": "Preizkusite na kartici, izbrani v oknu Browser",
     "titles": {
       "create": "Novo Smart Field",
       "duplicate": "Dvojnik Smart Field",
@@ -198,12 +218,7 @@
       "fieldAlreadyHasSmartField": "{{field}} že ima Smart Field",
       "mediaInput": "Polje \"{{field}}\" je že zvočno/slikovno Smart Field, zato ga ni mogoče uporabiti kot vhod v pozivu.",
       "writePrompt": "Napišite poziv"
-    },
-    "writePrompt": "Napiši poziv",
-    "writePromptForMe": "Napiši moj poziv namesto mene",
-    "writePromptForMeHint": "Povejte, kar želite, v preprosti angleščini - spodaj bomo napisali poziv.",
-    "writePromptPlaceholder": "\"Prevedi v naravno angleščino ...\"",
-    "writing": "Pisanje ..."
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Dejanja za {{field}}",

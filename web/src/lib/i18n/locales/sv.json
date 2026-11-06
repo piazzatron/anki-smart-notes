@@ -145,6 +145,17 @@
       "waysToGenerate": "Några sätt att generera det:"
     },
     "created": "Smart Field skapad",
+    "describe": {
+      "exampleChat": "Skriv {{target}} för {{source}}",
+      "exampleImage": "Rita en bild av {{source}}",
+      "generate": "Generera",
+      "generating": "Genererar…",
+      "hint": "Beskriv det i en mening. Du kan nämna andra fält med namn.",
+      "regenerate": "Generera om",
+      "tabToUse": "<kbd>Tab</kbd> för att generera detta",
+      "title": "Vad ska det här fältet göra?",
+      "writeYourself": "Eller skriv prompten själv"
+    },
     "dontShowAgain": "Visa inte detta igen",
     "errors": {
       "save": "Det gick inte att spara Smart Field",
@@ -174,6 +185,14 @@
       "voice": "Röst",
       "webSearch": "Webbsökning"
     },
+    "promptPanel": {
+      "description": "Vad AI:n får för varje notering. <code>{{example}}</code> ersätts med den noteringens text i fältet.",
+      "fieldsOnNote": "Fält på den här noteringen:",
+      "gotIt": "Förstått",
+      "insertField": "Infoga {{field}}",
+      "tip": "Vi har skrivit prompten åt dig. Öppna den för att se eller ändra exakt vad AI:n ombeds göra.",
+      "writeYourself": "Skriv den själv"
+    },
     "save": "Spara Smart Field",
     "sections": {
       "onWhichNotes": "På vilka lappar?",
@@ -184,6 +203,7 @@
     "sourceField": "Källa fält",
     "targetAriaLabel": "Smart Field mål",
     "testSmartField": "Testa din Smart Field",
+    "testerHint": "Prova på kortet som är markerat i webbläsaren",
     "titles": {
       "create": "Nytt Smart Field",
       "duplicate": "Duplicera Smart Field",
@@ -196,12 +216,7 @@
       "fieldAlreadyHasSmartField": "{{field}} har redan en Smart Field",
       "mediaInput": "Fältet \"{{field}}\" är redan ett ljud/bild-Smart Field, så det kan inte användas som indata i prompten.",
       "writePrompt": "Skriv en uppmaning"
-    },
-    "writePrompt": "Skriv uppmaning",
-    "writePromptForMe": "Skriv min uppmaning åt mig",
-    "writePromptForMeHint": "Säg vad du vill på vanlig engelska - vi skriver uppmaningen nedan.",
-    "writePromptPlaceholder": "\"Översätt till naturlig engelska...\"",
-    "writing": "Handstil…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Åtgärder för {{field}}",

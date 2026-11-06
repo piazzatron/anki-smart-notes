@@ -68,6 +68,7 @@ const stateWith = (smartFields: SmartField[]): AppState => ({
     didDismissReviewPrompt: false,
     didDismissDiscordPrompt: false,
     didSeeFreePlanWelcome: true,
+    didSeeGeneratedPromptTip: true,
   },
 })
 

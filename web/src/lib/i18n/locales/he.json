@@ -146,6 +146,17 @@
       "waysToGenerate": "כמה דרכים ליצור אותו:"
     },
     "created": "שדה חכם נוצר",
+    "describe": {
+      "exampleChat": "כתוב את {{target}} עבור {{source}}",
+      "exampleImage": "צייר תמונה של {{source}}",
+      "generate": "צור",
+      "generating": "יוצר…",
+      "hint": "תארו זאת במשפט אחד. אפשר לציין שדות אחרים בשמם.",
+      "regenerate": "צור מחדש",
+      "tabToUse": "הקש <kbd>Tab</kbd> כדי ליצור את זה",
+      "title": "מה השדה הזה צריך לעשות?",
+      "writeYourself": "או כתבו את ההנחיה בעצמכם"
+    },
     "dontShowAgain": "אל תראה את זה שוב",
     "errors": {
       "save": "לא ניתן לשמור את Smart Field",
@@ -175,6 +186,14 @@
       "voice": "קוֹל",
       "webSearch": "חיפוש באינטרנט"
     },
+    "promptPanel": {
+      "description": "מה ה-AI מקבל עבור כל פתק. <code>{{example}}</code> מוחלף בטקסט של אותו פתק בשדה.",
+      "fieldsOnNote": "שדות בפתק זה:",
+      "gotIt": "הבנתי",
+      "insertField": "הוסף {{field}}",
+      "tip": "כתבנו את ההנחיה בשבילכם. פתחו אותה כדי לראות או לשנות בדיוק מה מבקשים מה-AI.",
+      "writeYourself": "כתבו אותה בעצמכם"
+    },
     "save": "שמור שדה חכם",
     "sections": {
       "onWhichNotes": "באילו פתקים?",
@@ -185,6 +204,7 @@
     "sourceField": "שדה מקור",
     "targetAriaLabel": "יעד שדה חכם",
     "testSmartField": "בדוק את השדה החכם שלך",
+    "testerHint": "נסו על הכרטיס שנבחר בדפדפן",
     "titles": {
       "create": "שדה חכם חדש",
       "duplicate": "שכפל שדה חכם",
@@ -197,12 +217,7 @@
       "fieldAlreadyHasSmartField": "ל-{{field}} כבר יש שדה חכם",
       "mediaInput": "השדה \"{{field}}\" הוא כבר Smart Field של שמע/תמונה, ולכן לא ניתן להשתמש בו כקלט בהנחיה.",
       "writePrompt": "כתוב הנחיה"
-    },
-    "writePrompt": "כתוב הנחיה",
-    "writePromptForMe": "כתוב את ההנחיה שלי עבורי",
-    "writePromptForMeHint": "אמור מה שאתה רוצה באנגלית פשוטה - נכתוב את ההנחיה למטה.",
-    "writePromptPlaceholder": "\"תרגם לאנגלית טבעית...\"",
-    "writing": "כְּתִיבָה…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "פעולות עבור {{field}}",

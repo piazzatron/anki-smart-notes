@@ -105,6 +105,7 @@ const stateWithAccount = (
     didDismissReviewPrompt: false,
     didDismissDiscordPrompt: false,
     didSeeFreePlanWelcome: true,
+    didSeeGeneratedPromptTip: true,
   },
 })
 

@@ -145,6 +145,17 @@
       "waysToGenerate": "ଏହାକୁ ସୃଷ୍ଟି କରିବାର କିଛି ଉପାୟ:"
     },
     "created": "Smart Field ସୃଷ୍ଟି ହୋଇଛି",
+    "describe": {
+      "exampleChat": "{{source}} ପାଇଁ {{target}} ଲେଖନ୍ତୁ",
+      "exampleImage": "{{source}}ର ଏକ ଚିତ୍ର ଆଙ୍କନ୍ତୁ",
+      "generate": "ସୃଷ୍ଟି କରନ୍ତୁ",
+      "generating": "ସୃଷ୍ଟି ହେଉଛି…",
+      "hint": "ଗୋଟିଏ ବାକ୍ୟରେ ଏହାକୁ ବର୍ଣ୍ଣନା କରନ୍ତୁ। ଆପଣ ନାମ ଦେଇ ଅନ୍ୟ ଫିଲ୍ଡ ମଧ୍ୟ ଉଲ୍ଲେଖ କରିପାରିବେ।",
+      "regenerate": "ପୁନର୍ବାର ସୃଷ୍ଟି କରନ୍ତୁ",
+      "tabToUse": "ଏହା ତିଆରି କରିବା ପାଇଁ <kbd>Tab</kbd> ଦବାନ୍ତୁ",
+      "title": "ଏହି ଫିଲ୍ଡ କ'ଣ କରିବା ଉଚିତ?",
+      "writeYourself": "ଅଥବା ନିଜେ ପ୍ରମ୍ପ୍ଟ ଲେଖନ୍ତୁ"
+    },
     "dontShowAgain": "ଏହାକୁ ଆଉ ଦେଖାନ୍ତୁ ନାହିଁ",
     "errors": {
       "save": "Smart Field ସଞ୍ଚୟ କରିପାରିଲା ନାହିଁ",
@@ -174,6 +185,14 @@
       "voice": "ସ୍ୱର",
       "webSearch": "ୱେବ୍ ସନ୍ଧାନ"
     },
+    "promptPanel": {
+      "description": "ପ୍ରତ୍ୟେକ ନୋଟ୍ ପାଇଁ AI କ'ଣ ପାଏ। <code>{{example}}</code> ଫିଲ୍ଡରେ ସେହି ନୋଟ୍‌ର ଟେକ୍ସଟ୍ ଦ୍ୱାରା ବଦଳାଯାଏ।",
+      "fieldsOnNote": "ଏହି ନୋଟ୍‌ରେ ଥିବା ଫିଲ୍ଡ:",
+      "gotIt": "ବୁଝିଗଲି",
+      "insertField": "{{field}} ସନ୍ନିବେଶ କରନ୍ତୁ",
+      "tip": "ଆମେ ଆପଣଙ୍କ ପାଇଁ ପ୍ରମ୍ପ୍ଟ ଲେଖିଛୁ। AI କୁ ଠିକ୍ କ'ଣ ପଚରାଯାଉଛି ଦେଖିବାକୁ କିମ୍ବା ବଦଳାଇବାକୁ ଏହାକୁ ଖୋଲନ୍ତୁ।",
+      "writeYourself": "ନିଜେ ଲେଖନ୍ତୁ"
+    },
     "save": "Smart Field ସଞ୍ଚୟ କରନ୍ତୁ",
     "sections": {
       "onWhichNotes": "କେଉଁ ନୋଟ୍ ଉପରେ?",
@@ -184,6 +203,7 @@
     "sourceField": "ଉତ୍ସ କ୍ଷେତ୍ର",
     "targetAriaLabel": "Smart Field ଲକ୍ଷ୍ୟ",
     "testSmartField": "ଆପଣଙ୍କର Smart Field ପରୀକ୍ଷା କରନ୍ତୁ",
+    "testerHint": "ବ୍ରାଉଜରରେ ଚୟନ କରାଯାଇଥିବା କାର୍ଡ ଉପରେ ଏହାକୁ ପରୀକ୍ଷା କରନ୍ତୁ",
     "titles": {
       "create": "ନୂଆ Smart Field",
       "duplicate": "Smart Field ନକଲ କରନ୍ତୁ",
@@ -196,12 +216,7 @@
       "fieldAlreadyHasSmartField": "{{field}} ପୂର୍ବରୁ Smart Field ଅଛି",
       "mediaInput": "ଫିଲ୍ଡ \"{{field}}\" ପୂର୍ବରୁ ଏକ ଅଡିଓ/ଇମେଜ୍ Smart Field, ତେଣୁ ଏହାକୁ ପ୍ରମ୍ପ୍ଟରେ ଇନପୁଟ ଭାବେ ବ୍ୟବହାର କରାଯାଇ ପାରିବ ନାହିଁ।",
       "writePrompt": "ଏକ ପ୍ରମ୍ପ୍ଟ ଲେଖ"
-    },
-    "writePrompt": "ପ୍ରମ୍ପ୍ଟ ଲେଖନ୍ତୁ",
-    "writePromptForMe": "ମୋ ପାଇଁ ମୋର ପ୍ରମ୍ପ୍ଟ ଲେଖ",
-    "writePromptForMeHint": "ସାଧା ଇଂରାଜୀରେ ଆପଣ ଯାହା ଚାହାଁନ୍ତି କୁହନ୍ତୁ - ଆମେ ନିମ୍ନରେ ପ୍ରମ୍ପ୍ଟ ଲେଖିବା",
-    "writePromptPlaceholder": "\"ପ୍ରାକୃତିକ ଇଂରାଜୀକୁ ଅନୁବାଦ କର ...\"",
-    "writing": "ଲେଖିବା…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}} ପାଇଁ କାର୍ଯ୍ୟ",

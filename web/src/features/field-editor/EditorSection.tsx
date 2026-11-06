@@ -20,8 +20,6 @@
 import type { ReactNode } from "react"
 
 interface EditorSectionProps {
-  // Sits beside the heading, like the tester's recent image results.
-  accessory?: ReactNode
   children: ReactNode
   className?: string
   // A line under the heading, for a section whose purpose isn't self-evident.
@@ -32,21 +30,17 @@ interface EditorSectionProps {
 /** One headed block of the field editor. Both wizard steps use it, so they read at the
  * same scale — the small labels stay for settings nested inside a section. */
 export const EditorSection = ({
-  accessory,
   children,
   className = "",
   description,
   label,
 }: EditorSectionProps) => (
   <section className={className}>
-    <div
-      className={`flex items-center gap-4 ${accessory === undefined ? "" : "min-h-[22px]"} ${description === undefined ? "mb-3" : "mb-1"}`}
+    <h2
+      className={`text-[16px] leading-tight font-semibold text-ink ${description === undefined ? "mb-3" : "mb-1"}`}
     >
-      <h2 className="text-[16px] leading-tight font-semibold text-ink">
-        {label}
-      </h2>
-      {accessory}
-    </div>
+      {label}
+    </h2>
     {description !== undefined && (
       <p className="mb-3 text-[13px] leading-[1.45] text-ink-muted">
         {description}

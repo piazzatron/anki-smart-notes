@@ -145,6 +145,17 @@
       "waysToGenerate": "Այն ստեղծելու մի քանի եղանակ."
     },
     "created": "Ստեղծվել է Smart Field",
+    "describe": {
+      "exampleChat": "Գրիր {{target}}-ը {{source}}-ի համար",
+      "exampleImage": "Նկարիր {{source}}-ի նկար",
+      "generate": "Ստեղծել",
+      "generating": "Ստեղծվում է…",
+      "hint": "Նկարագրեք մեկ նախադասությամբ։ Կարող եք նշել այլ դաշտեր՝ անունով։",
+      "regenerate": "Նորից ստեղծել",
+      "tabToUse": "Ստեղծելու համար սեղմեք <kbd>Tab</kbd>",
+      "title": "Ի՞նչ պետք է անի այս դաշտը",
+      "writeYourself": "Կամ գրեք հուշումը ինքներդ"
+    },
     "dontShowAgain": "Այլևս մի ցուցադրեք սա",
     "errors": {
       "save": "Չհաջողվեց պահել Smart Field-ը",
@@ -174,6 +185,14 @@
       "voice": "Ձայն",
       "webSearch": "Վեբ որոնում"
     },
+    "promptPanel": {
+      "description": "Ի՞նչ է AI-ը ստանում յուրաքանչյուր նշման համար։ <code>{{example}}</code>-ը փոխարինվում է դաշտում գտնվող այդ նշման տեքստով։",
+      "fieldsOnNote": "Այս նշման դաշտերը:",
+      "gotIt": "Հասկացա",
+      "insertField": "Տեղադրել {{field}}",
+      "tip": "Հուշումը մենք ձեզ համար գրել ենք։ Բացեք այն՝ տեսնելու կամ փոխելու, թե ճիշտ ինչ է AI-ից պահանջվում։",
+      "writeYourself": "Գրեք ինքներդ"
+    },
     "save": "Պահպանեք խելացի դաշտը",
     "sections": {
       "onWhichNotes": "Ո՞ր նշումների վրա:",
@@ -184,6 +203,7 @@
     "sourceField": "Աղբյուրի դաշտ",
     "targetAriaLabel": "Smart Field թիրախ",
     "testSmartField": "Փորձեք ձեր խելացի դաշտը",
+    "testerHint": "Փորձեք Browser-ում ընտրված քարտի վրա",
     "titles": {
       "create": "Նոր Smart Field",
       "duplicate": "Կրկնվող խելացի դաշտ",
@@ -196,12 +216,7 @@
       "fieldAlreadyHasSmartField": "{{field}}-ն արդեն ունի Smart Field",
       "mediaInput": "Դաշտը \"{{field}}\" արդեն աուդիո/պատկերի Smart Field է, ուստի այն չի կարող օգտագործվել որպես մուտք հուշման մեջ։",
       "writePrompt": "Գրեք հուշում"
-    },
-    "writePrompt": "Գրեք հուշում",
-    "writePromptForMe": "Գրեք իմ հուշումը ինձ համար",
-    "writePromptForMeHint": "Ասա այն, ինչ ուզում ես պարզ անգլերենով. մենք կգրենք հուշումը ստորև:",
-    "writePromptPlaceholder": "«Թարգմանել բնական անգլերեն…»",
-    "writing": "Գրում…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Գործողություններ {{field}}-ի համար",

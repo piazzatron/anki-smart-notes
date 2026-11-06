@@ -146,6 +146,17 @@
       "waysToGenerate": "Algunas formas de generarlo:"
     },
     "created": "Smart Field creado",
+    "describe": {
+      "exampleChat": "Escribe el {{target}} para {{source}}",
+      "exampleImage": "Dibuja una imagen de {{source}}",
+      "generate": "Generar",
+      "generating": "Generando…",
+      "hint": "Descríbelo en una frase. Puedes mencionar otros campos por su nombre.",
+      "regenerate": "Regenerar",
+      "tabToUse": "<kbd>Tab</kbd> para generar esto",
+      "title": "¿Qué debe hacer este campo?",
+      "writeYourself": "O escribe tú el prompt"
+    },
     "dontShowAgain": "No vuelvas a mostrar esto",
     "errors": {
       "save": "No se pudo guardar Smart Field",
@@ -175,6 +186,14 @@
       "voice": "Voz",
       "webSearch": "búsqueda web"
     },
+    "promptPanel": {
+      "description": "Lo que recibe la IA para cada nota. <code>{{example}}</code> se reemplaza por el texto de ese campo en la nota.",
+      "fieldsOnNote": "Campos de esta nota:",
+      "gotIt": "Entendido",
+      "insertField": "Insertar {{field}}",
+      "tip": "Escribimos el prompt por ti. Ábrelo para ver o cambiar exactamente lo que se le pide a la IA.",
+      "writeYourself": "Escríbelo tú"
+    },
     "save": "Guardar Smart Field",
     "sections": {
       "onWhichNotes": "¿Sobre qué notas?",
@@ -185,6 +204,7 @@
     "sourceField": "Campo fuente",
     "targetAriaLabel": "objetivo Smart Field",
     "testSmartField": "Prueba tu Smart Field",
+    "testerHint": "Pruébalo en la tarjeta seleccionada en el Explorador",
     "titles": {
       "create": "Nuevo Campo inteligente",
       "duplicate": "Duplicado Smart Field",
@@ -197,12 +217,7 @@
       "fieldAlreadyHasSmartField": "{{field}} ya tiene un Smart Field",
       "mediaInput": "El campo \"{{field}}\" ya es un Smart Field de audio/imagen, por lo que no se puede usar como entrada en el prompt.",
       "writePrompt": "Escribe un mensaje"
-    },
-    "writePrompt": "Escribir mensaje",
-    "writePromptForMe": "Escribe mi mensaje para mí",
-    "writePromptForMeHint": "Di lo que quieras en inglés sencillo; escribiremos el mensaje a continuación.",
-    "writePromptPlaceholder": "\"Traducir al inglés natural...\"",
-    "writing": "Escribiendo…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Acciones para {{field}}",

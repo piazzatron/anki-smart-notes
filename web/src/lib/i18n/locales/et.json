@@ -145,6 +145,17 @@
       "waysToGenerate": "Mõned viisid selle loomiseks:"
     },
     "created": "Smart Field loodud",
+    "describe": {
+      "exampleChat": "Kirjuta {{source}} jaoks {{target}}",
+      "exampleImage": "Joonista {{source}} pilt",
+      "generate": "Genereeri",
+      "generating": "Genereerin…",
+      "hint": "Kirjelda ühe lausega. Teisi välju võid nimetada nime järgi.",
+      "regenerate": "Genereeri uuesti",
+      "tabToUse": "<kbd>Tab</kbd> selle genereerimiseks",
+      "title": "Mida see väli peaks tegema?",
+      "writeYourself": "Või kirjuta käsk ise"
+    },
     "dontShowAgain": "Ära seda enam näita",
     "errors": {
       "save": "Smart Field ei saanud salvestada",
@@ -174,6 +185,14 @@
       "voice": "Hääl",
       "webSearch": "Veebiotsing"
     },
+    "promptPanel": {
+      "description": "Mida tehisintellekt iga märkme kohta saab. <code>{{example}}</code> asendatakse selle märkme väljal oleva tekstiga.",
+      "fieldsOnNote": "Selle märkme väljad:",
+      "gotIt": "Selge",
+      "insertField": "Lisa {{field}}",
+      "tip": "Käsu kirjutasime sinu eest. Ava see, et näha või muuta täpselt, mida tehisintellektilt küsitakse.",
+      "writeYourself": "Kirjuta ise"
+    },
     "save": "Salvestage Smart Field",
     "sections": {
       "onWhichNotes": "Millistel nootidel?",
@@ -184,6 +203,7 @@
     "sourceField": "Allika väli",
     "targetAriaLabel": "Smart Field sihtmärk",
     "testSmartField": "Testige oma Smart Field",
+    "testerHint": "Proovi seda sirvijas valitud kaardil",
     "titles": {
       "create": "Uus Smart Field",
       "duplicate": "Smart Field duplikaat",
@@ -196,12 +216,7 @@
       "fieldAlreadyHasSmartField": "{{field}}-l on juba Smart Field",
       "mediaInput": "Väli „{{field}}” on juba heli- või pildi tüüpi Smart Field, seetõttu ei saa seda kasutada sisendina promptis.",
       "writePrompt": "Kirjutage viip"
-    },
-    "writePrompt": "Kirjutage käsk",
-    "writePromptForMe": "Kirjutage mulle minu viip",
-    "writePromptForMeHint": "Öelge, mida soovite, lihtsas inglise keeles – me kirjutame allpool oleva viipa.",
-    "writePromptPlaceholder": "\"Tõlgi loomulikku inglise keelde...\"",
-    "writing": "Kirjutamine…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}} toimingud",

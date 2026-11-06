@@ -145,6 +145,17 @@
       "waysToGenerate": "'n Paar maniere om dit te genereer:"
     },
     "created": "Smart Field geskep",
+    "describe": {
+      "exampleChat": "Skryf die {{target}} vir {{source}}",
+      "exampleImage": "Teken 'n prent van {{source}}",
+      "generate": "Genereer",
+      "generating": "Genereer tans…",
+      "hint": "Beskryf dit in een sin. Jy kan ander velde by naam noem.",
+      "regenerate": "Genereer weer",
+      "tabToUse": "<kbd>Tab</kbd> om dit te genereer",
+      "title": "Wat moet hierdie veld doen?",
+      "writeYourself": "Of skryf die opdrag self"
+    },
     "dontShowAgain": "Moenie dit weer wys nie",
     "errors": {
       "save": "Kon nie Smart Field stoor nie",
@@ -174,6 +185,14 @@
       "voice": "Stem",
       "webSearch": "Websoektog"
     },
+    "promptPanel": {
+      "description": "Wat die KI vir elke notitie kry. <code>{{example}}</code> word vervang met daardie notitie se teks in die veld.",
+      "fieldsOnNote": "Velde op hierdie notitie:",
+      "gotIt": "Verstaan",
+      "insertField": "Voeg {{field}} in",
+      "tip": "Ons het die opdrag vir jou geskryf. Maak dit oop om presies te sien of verander wat die KI gevra word.",
+      "writeYourself": "Skryf dit self"
+    },
     "save": "Stoor Smart Field",
     "sections": {
       "onWhichNotes": "Op watter note?",
@@ -184,6 +203,7 @@
     "sourceField": "Bron veld",
     "targetAriaLabel": "Smart Field teiken",
     "testSmartField": "Toets jou Smart Field",
+    "testerHint": "Probeer dit op die kaart wat in die Bladeraar gekies is",
     "titles": {
       "create": "Nuwe Slim-veld",
       "duplicate": "Duplikaat Smart Field",
@@ -196,12 +216,7 @@
       "fieldAlreadyHasSmartField": "{{field}} het reeds 'n Smart Field",
       "mediaInput": "Die veld \"{{field}}\" is reeds 'n oudio/beeld-Smart Field, dus kan dit nie as invoer in die prompt gebruik word nie.",
       "writePrompt": "Skryf 'n opdrag"
-    },
-    "writePrompt": "Skryf prompt",
-    "writePromptForMe": "Skryf my opdrag vir my",
-    "writePromptForMeHint": "Sê wat jy wil in gewone Engels - ons sal die opdrag hieronder skryf.",
-    "writePromptPlaceholder": "\"Vertaal na natuurlike Engels...\"",
-    "writing": "Skryf tans …"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Aksies vir {{field}}",

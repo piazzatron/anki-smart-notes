@@ -145,6 +145,17 @@
       "waysToGenerate": "Et par måder at generere det på:"
     },
     "created": "Smart Field oprettet",
+    "describe": {
+      "exampleChat": "Skriv {{target}} for {{source}}",
+      "exampleImage": "Tegn et billede af {{source}}",
+      "generate": "Generér",
+      "generating": "Genererer…",
+      "hint": "Beskriv det i én sætning. Du kan nævne andre felter ved navn.",
+      "regenerate": "Generér igen",
+      "tabToUse": "<kbd>Tab</kbd> for at generere dette",
+      "title": "Hvad skal dette felt gøre?",
+      "writeYourself": "Eller skriv prompten selv"
+    },
     "dontShowAgain": "Vis ikke dette igen",
     "errors": {
       "save": "Kunne ikke gemme Smart Field",
@@ -174,6 +185,14 @@
       "voice": "Stemme",
       "webSearch": "Websøgning"
     },
+    "promptPanel": {
+      "description": "Det AI får for hver note. <code>{{example}}</code> erstattes med notens tekst i feltet.",
+      "fieldsOnNote": "Felter på denne note:",
+      "gotIt": "Forstået",
+      "insertField": "Indsæt {{field}}",
+      "tip": "Vi har skrevet prompten til dig. Åbn den for at se eller ændre præcis, hvad AI'en bliver bedt om.",
+      "writeYourself": "Skriv den selv"
+    },
     "save": "Gem Smart Field",
     "sections": {
       "onWhichNotes": "På hvilke sedler?",
@@ -184,6 +203,7 @@
     "sourceField": "Kilde felt",
     "targetAriaLabel": "Smart Field mål",
     "testSmartField": "Test din Smart Field",
+    "testerHint": "Prøv den på kortet, der er valgt i Browser",
     "titles": {
       "create": "Nyt Smart Field",
       "duplicate": "Dublet Smart Field",
@@ -196,12 +216,7 @@
       "fieldAlreadyHasSmartField": "{{field}} har allerede en Smart Field",
       "mediaInput": "Feltet \"{{field}}\" er allerede et lyd/billede-Smart Field, så det kan ikke bruges som input i prompten.",
       "writePrompt": "Skriv en prompt"
-    },
-    "writePrompt": "Skriv prompt",
-    "writePromptForMe": "Skriv min prompt til mig",
-    "writePromptForMeHint": "Sig hvad du vil på almindeligt engelsk - vi skriver prompten nedenfor.",
-    "writePromptPlaceholder": "\"Oversæt til naturligt engelsk...\"",
-    "writing": "Skrivning…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Handlinger for {{field}}",

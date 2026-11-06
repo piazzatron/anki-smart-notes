@@ -147,6 +147,17 @@
       "waysToGenerate": "Kilka sposobów jego wygenerowania:"
     },
     "created": "Utworzono Smart Field",
+    "describe": {
+      "exampleChat": "Napisz {{target}} dla {{source}}",
+      "exampleImage": "Narysuj obraz przedstawiający {{source}}",
+      "generate": "Generuj",
+      "generating": "Generowanie…",
+      "hint": "Opisz to jednym zdaniem. Możesz wspomnieć inne pola po nazwie.",
+      "regenerate": "Generuj ponownie",
+      "tabToUse": "<kbd>Tab</kbd>, aby wygenerować",
+      "title": "Co ma robić to pole?",
+      "writeYourself": "Lub napisz prompt samodzielnie"
+    },
     "dontShowAgain": "Nie pokazuj tego więcej",
     "errors": {
       "save": "Nie można zapisać Smart Field",
@@ -176,6 +187,14 @@
       "voice": "Głos",
       "webSearch": "Wyszukiwanie w Internecie"
     },
+    "promptPanel": {
+      "description": "Co AI otrzymuje dla każdej notatki. <code>{{example}}</code> zostaje zastąpione tekstem z tego pola w notatce.",
+      "fieldsOnNote": "Pola w tej notatce:",
+      "gotIt": "Rozumiem",
+      "insertField": "Wstaw {{field}}",
+      "tip": "Prompt napisaliśmy za Ciebie. Otwórz go, aby zobaczyć lub zmienić dokładnie to, o co AI jest pytane.",
+      "writeYourself": "Napisz samodzielnie"
+    },
     "save": "Zapisz Smart Field",
     "sections": {
       "onWhichNotes": "Na jakich nutach?",
@@ -186,6 +205,7 @@
     "sourceField": "Pole źródłowe",
     "targetAriaLabel": "Cel Smart Field",
     "testSmartField": "Przetestuj swój Smart Field",
+    "testerHint": "Wypróbuj na karcie zaznaczonej w Przeglądarce",
     "titles": {
       "create": "Nowe pole Smart Fields",
       "duplicate": "Duplikat Smart Field",
@@ -198,12 +218,7 @@
       "fieldAlreadyHasSmartField": "{{field}} ma już Smart Field",
       "mediaInput": "Pole „{{field}}” jest już polem Smart Field typu audio/obraz, więc nie można go użyć jako danych wejściowych w prompcie.",
       "writePrompt": "Napisz podpowiedź"
-    },
-    "writePrompt": "Napisz podpowiedź",
-    "writePromptForMe": "Napisz dla mnie monit",
-    "writePromptForMeHint": "Powiedz, czego chcesz, prostym angielskim — napiszemy monit poniżej.",
-    "writePromptPlaceholder": "„Przetłumacz na naturalny angielski…”",
-    "writing": "Pismo…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Działania dla {{field}}",

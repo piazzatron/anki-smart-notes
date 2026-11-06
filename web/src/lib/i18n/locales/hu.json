@@ -145,6 +145,17 @@
       "waysToGenerate": "Néhány módszer a létrehozására:"
     },
     "created": "Smart Field létrehozva",
+    "describe": {
+      "exampleChat": "Írd meg a(z) {{source}} {{target}}ját",
+      "exampleImage": "Rajzolj képet erről: {{source}}",
+      "generate": "Generálás",
+      "generating": "Generálás…",
+      "hint": "Írd le egy mondatban. Más mezőkre a nevükkel is hivatkozhatsz.",
+      "regenerate": "Újragenerálás",
+      "tabToUse": "<kbd>Tab</kbd> a generáláshoz",
+      "title": "Mit tegyen ez a mező?",
+      "writeYourself": "Vagy írd meg magad a promptot"
+    },
     "dontShowAgain": "Ne jelenítse meg ezt újra",
     "errors": {
       "save": "Nem sikerült menteni az Smart Field fájlt",
@@ -174,6 +185,14 @@
       "voice": "Hang",
       "webSearch": "Webes keresés"
     },
+    "promptPanel": {
+      "description": "Amit az MI minden jegyzethez kap. A <code>{{example}}</code> helyére az adott jegyzet mezőjének szövege kerül.",
+      "fieldsOnNote": "Mezők ezen a jegyzeten:",
+      "gotIt": "Értem",
+      "insertField": "{{field}} beszúrása",
+      "tip": "A promptot helyetted mi írtuk meg. Nyisd meg, hogy lásd vagy módosítsd, pontosan mit kér az MI.",
+      "writeYourself": "Írd meg magad"
+    },
     "save": "Mentse el az Smart Field-t",
     "sections": {
       "onWhichNotes": "Melyik jegyzeteken?",
@@ -184,6 +203,7 @@
     "sourceField": "Forrás mező",
     "targetAriaLabel": "Smart Field cél",
     "testSmartField": "Tesztelje az Smart Field-ját",
+    "testerHint": "Próbáld ki a Böngészőben kiválasztott kártyán",
     "titles": {
       "create": "Új Smart Field",
       "duplicate": "Smart Field másodpéldánya",
@@ -196,12 +216,7 @@
       "fieldAlreadyHasSmartField": "Az {{field}}-nak már van Smart Field-ja",
       "mediaInput": "A(z) \"{{field}}\" mező már audio/kép Smart Field, ezért nem használható bemenetként a promptban.",
       "writePrompt": "Írjon felszólítást"
-    },
-    "writePrompt": "Írja fel a promptot",
-    "writePromptForMe": "Írd meg nekem a felszólításomat",
-    "writePromptForMeHint": "Mondja ki, amit akar, egyszerű angol nyelven – mi lent írjuk a felszólítást.",
-    "writePromptPlaceholder": "\"Fordítsd le természetes angolra...\"",
-    "writing": "Írás…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Műveletek a következőhöz: {{field}}",

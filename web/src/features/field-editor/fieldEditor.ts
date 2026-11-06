@@ -64,7 +64,6 @@ export interface FieldEditorDraft {
   sourceFieldName: string
   step: FieldEditorStep
   target: FieldTargetDraft
-  validPromptFieldsRevealed: boolean
   writePrompt: string
 }
 
@@ -119,7 +118,6 @@ export const createFieldEditorDraft = (
       noteTypeId: noteType?.id ?? 0,
       targetFieldName,
     },
-    validPromptFieldsRevealed: false,
     writePrompt: "",
   }
 }

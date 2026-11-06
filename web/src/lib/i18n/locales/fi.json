@@ -145,6 +145,17 @@
       "waysToGenerate": "Muutama tapa luoda se:"
     },
     "created": "Smart Field luotu",
+    "describe": {
+      "exampleChat": "Kirjoita {{target}} kohteelle {{source}}",
+      "exampleImage": "Piirrä kuva kohteesta {{source}}",
+      "generate": "Luo",
+      "generating": "Luodaan…",
+      "hint": "Kuvaile se yhdellä lauseella. Voit mainita muita kenttiä nimeltä.",
+      "regenerate": "Luo uudelleen",
+      "tabToUse": "<kbd>Tab</kbd> generoi tämän",
+      "title": "Mitä tämän kentän pitäisi tehdä?",
+      "writeYourself": "Tai kirjoita kehote itse"
+    },
     "dontShowAgain": "Älä näytä tätä uudelleen",
     "errors": {
       "save": "Smart Field:n tallentaminen epäonnistui",
@@ -174,6 +185,14 @@
       "voice": "Ääni",
       "webSearch": "Verkkohaku"
     },
+    "promptPanel": {
+      "description": "Mitä tekoäly saa jokaisesta muistiinpanosta. <code>{{example}}</code> korvataan tämän muistiinpanon kentän tekstillä.",
+      "fieldsOnNote": "Tämän muistiinpanon kentät:",
+      "gotIt": "Selvä",
+      "insertField": "Lisää {{field}}",
+      "tip": "Kirjoitimme kehotteen puolestasi. Avaa se nähdäksesi tai muuttaaksesi tarkasti, mitä tekoälyltä pyydetään.",
+      "writeYourself": "Kirjoita itse"
+    },
     "save": "Tallenna Smart Field",
     "sections": {
       "onWhichNotes": "Millä muistiinpanoilla?",
@@ -184,6 +203,7 @@
     "sourceField": "Lähdekenttä",
     "targetAriaLabel": "Smart Field kohde",
     "testSmartField": "Testaa Smart Field",
+    "testerHint": "Kokeile valitulla kortilla Browser-näkymässä",
     "titles": {
       "create": "Uusi Smart Field",
       "duplicate": "Kopio Smart Field",
@@ -196,12 +216,7 @@
       "fieldAlreadyHasSmartField": "{{field}}:llä on jo Smart Field",
       "mediaInput": "Kenttä \"{{field}}\" on jo audio/image Smart Field, joten sitä ei voi käyttää syötteenä kehotteessa.",
       "writePrompt": "Kirjoita kehote"
-    },
-    "writePrompt": "Kirjoita kehote",
-    "writePromptForMe": "Kirjoita kehotukseni puolestani",
-    "writePromptForMeHint": "Sano mitä haluat englanniksi – kirjoitamme kehotteen alle.",
-    "writePromptPlaceholder": "\"Käännä luonnolliseksi englanniksi...\"",
-    "writing": "Kirjoittaminen…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}}:n toiminnot",

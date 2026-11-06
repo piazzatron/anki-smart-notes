@@ -145,6 +145,17 @@
       "waysToGenerate": "Kelkaj manieroj generi ĝin:"
     },
     "created": "Smart Field kreita",
+    "describe": {
+      "exampleChat": "Skribu la {{target}} por {{source}}",
+      "exampleImage": "Desegnu bildon de {{source}}",
+      "generate": "Generi",
+      "generating": "Generante…",
+      "hint": "Priskribu ĝin per unu frazo. Vi povas mencii aliajn kampojn laŭ nomo.",
+      "regenerate": "Regeneri",
+      "tabToUse": "<kbd>Tab</kbd> por generi ĉi tion",
+      "title": "Kion ĉi tiu kampo devas fari?",
+      "writeYourself": "Aŭ skribu la peton mem"
+    },
     "dontShowAgain": "Ne montru ĉi tion denove",
     "errors": {
       "save": "Ne eblis konservi Smart Field",
@@ -174,6 +185,14 @@
       "voice": "Voĉo",
       "webSearch": "TTT-serĉo"
     },
+    "promptPanel": {
+      "description": "Kion la AI ricevas por ĉiu noto. <code>{{example}}</code> estas anstataŭigita per la teksto de tiu noto en la kampo.",
+      "fieldsOnNote": "Kampoj en ĉi tiu noto:",
+      "gotIt": "Komprenite",
+      "insertField": "Enmetu {{field}}",
+      "tip": "Ni verkis la peton por vi. Malfermu ĝin por vidi aŭ ŝanĝi precize, kion la AI estas petata fari.",
+      "writeYourself": "Skribu ĝin mem"
+    },
     "save": "Konservu Smart Field",
     "sections": {
       "onWhichNotes": "Sur kiuj notoj?",
@@ -184,6 +203,7 @@
     "sourceField": "Fonta kampo",
     "targetAriaLabel": "Smart Field celo",
     "testSmartField": "Testu vian Smart Field",
+    "testerHint": "Provu ĝin sur la karto elektita en la Foliumilo",
     "titles": {
       "create": "Nova Inteligenta Kampo",
       "duplicate": "Duobligi Smart Field",
@@ -196,12 +216,7 @@
       "fieldAlreadyHasSmartField": "{{field}} jam havas Smart Field",
       "mediaInput": "La kampo \"{{field}}\" jam estas aŭdia/bilda Smart Field, do ĝi ne povas esti uzata kiel enigo en la promptо.",
       "writePrompt": "Skribu inviton"
-    },
-    "writePrompt": "Skribu Prompton",
-    "writePromptForMe": "Skribu mian instigon por mi",
-    "writePromptForMeHint": "Diru tion, kion vi volas en simpla angla — ni skribos la instigon sube.",
-    "writePromptPlaceholder": "\"Traduku al natura angla...\"",
-    "writing": "Skribante…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Agoj por {{field}}",

@@ -159,6 +159,7 @@ def parse_settings(payload: dict[str, Any]) -> Settings:
         did_dismiss_review_prompt=raw["didDismissReviewPrompt"],
         did_dismiss_discord_prompt=raw["didDismissDiscordPrompt"],
         did_see_free_plan_welcome=raw["didSeeFreePlanWelcome"],
+        did_see_generated_prompt_tip=raw["didSeeGeneratedPromptTip"],
     )
 
 
@@ -227,6 +228,11 @@ def parse_prompt_generate(payload: dict[str, Any]) -> PromptGenerateRequest:
         field_type=field_type,
         generation_prompt=raw["generationPrompt"],
     )
+
+
+def parse_prompt_suggest(payload: dict[str, Any]) -> PromptGenerateRequest:
+    """The same target as prompt generation, with no description yet."""
+    return parse_prompt_generate({**payload, "generationPrompt": ""})
 
 
 def parse_feedback_message(payload: dict[str, Any]) -> str:

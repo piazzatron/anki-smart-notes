@@ -145,6 +145,17 @@
       "waysToGenerate": "Ein paar Möglichkeiten, es zu generieren:"
     },
     "created": "Smart Field erstellt",
+    "describe": {
+      "exampleChat": "Schreibe die {{target}} für {{source}}",
+      "exampleImage": "Zeichne ein Bild von {{source}}",
+      "generate": "Generieren",
+      "generating": "Wird generiert…",
+      "hint": "Beschreiben Sie es in einem Satz. Sie können andere Felder namentlich erwähnen.",
+      "regenerate": "Neu generieren",
+      "tabToUse": "<kbd>Tab</kbd> drücken, um dies zu generieren",
+      "title": "Was soll dieses Feld tun?",
+      "writeYourself": "Oder schreiben Sie den Prompt selbst"
+    },
     "dontShowAgain": "Zeigen Sie dies nicht noch einmal",
     "errors": {
       "save": "Smart Field konnte nicht gespeichert werden",
@@ -174,6 +185,14 @@
       "voice": "Stimme",
       "webSearch": "Websuche"
     },
+    "promptPanel": {
+      "description": "Was die KI für jede Notiz erhält. <code>{{example}}</code> wird durch den Text dieser Notiz im Feld ersetzt.",
+      "fieldsOnNote": "Felder in dieser Notiz:",
+      "gotIt": "Verstanden",
+      "insertField": "{{field}} einfügen",
+      "tip": "Wir haben den Prompt für Sie geschrieben. Öffnen Sie ihn, um genau zu sehen oder zu ändern, was die KI gefragt wird.",
+      "writeYourself": "Selbst schreiben"
+    },
     "save": "Speichern Sie Smart Field",
     "sections": {
       "onWhichNotes": "Auf welchen Noten?",
@@ -184,6 +203,7 @@
     "sourceField": "Quellfeld",
     "targetAriaLabel": "Smart Field-Ziel",
     "testSmartField": "Testen Sie Ihr Smart Field",
+    "testerHint": "Mit der im Browser ausgewählten Karte testen",
     "titles": {
       "create": "Neues Smart Field",
       "duplicate": "Duplikat Smart Field",
@@ -196,12 +216,7 @@
       "fieldAlreadyHasSmartField": "{{field}} hat bereits einen Smart Field",
       "mediaInput": "Das Feld \"{{field}}\" ist bereits ein Audio-/Bild-Smart-Field und kann daher nicht als Eingabe im Prompt verwendet werden.",
       "writePrompt": "Schreiben Sie eine Aufforderung"
-    },
-    "writePrompt": "Eingabeaufforderung schreiben",
-    "writePromptForMe": "Schreiben Sie mir meine Eingabeaufforderung",
-    "writePromptForMeHint": "Sagen Sie in einfachem Englisch, was Sie wollen – wir schreiben die Aufforderung unten.",
-    "writePromptPlaceholder": "„In natürliches Englisch übersetzen…“",
-    "writing": "Schreiben…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Aktionen für {{field}}",

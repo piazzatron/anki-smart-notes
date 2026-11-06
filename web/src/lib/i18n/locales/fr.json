@@ -146,6 +146,17 @@
       "waysToGenerate": "Quelques façons de le générer :"
     },
     "created": "Smart Field créé",
+    "describe": {
+      "exampleChat": "Écrivez le {{target}} pour {{source}}",
+      "exampleImage": "Dessinez une image de {{source}}",
+      "generate": "Générer",
+      "generating": "Génération en cours…",
+      "hint": "Décrivez-le en une phrase. Vous pouvez mentionner d’autres champs par leur nom.",
+      "regenerate": "Régénérer",
+      "tabToUse": "<kbd>Tab</kbd> pour générer ceci",
+      "title": "Que doit faire ce champ ?",
+      "writeYourself": "Ou rédigez le prompt vous-même"
+    },
     "dontShowAgain": "Ne montre plus ça",
     "errors": {
       "save": "Impossible d'enregistrer Smart Field",
@@ -175,6 +186,14 @@
       "voice": "Voix",
       "webSearch": "Recherche sur le Web"
     },
+    "promptPanel": {
+      "description": "Ce que l’IA reçoit pour chaque note. <code>{{example}}</code> est remplacé par le texte de cette note dans le champ.",
+      "fieldsOnNote": "Champs de cette note :",
+      "gotIt": "Compris",
+      "insertField": "Insérer {{field}}",
+      "tip": "Nous avons rédigé le prompt pour vous. Ouvrez-le pour voir ou modifier exactement ce que l’IA doit faire.",
+      "writeYourself": "Rédigez-le vous-même"
+    },
     "save": "Enregistrer Smart Field",
     "sections": {
       "onWhichNotes": "Sur quelles notes ?",
@@ -185,6 +204,7 @@
     "sourceField": "Champ source",
     "targetAriaLabel": "Cible Smart Field",
     "testSmartField": "Testez votre Smart Field",
+    "testerHint": "Essayer sur la carte sélectionnée dans le Navigateur",
     "titles": {
       "create": "Nouveau Smart Field",
       "duplicate": "Dupliquer Smart Field",
@@ -197,12 +217,7 @@
       "fieldAlreadyHasSmartField": "{{field}} a déjà un Smart Field",
       "mediaInput": "Le champ « {{field}} » est déjà un Smart Field audio/image, il ne peut donc pas être utilisé comme entrée dans le prompt.",
       "writePrompt": "Écrivez une invite"
-    },
-    "writePrompt": "Écrire une invite",
-    "writePromptForMe": "Écrivez mon message pour moi",
-    "writePromptForMeHint": "Dites ce que vous voulez dans un anglais simple – nous écrirons l’invite ci-dessous.",
-    "writePromptPlaceholder": "\"Traduire vers l'anglais naturel…\"",
-    "writing": "En écrivant…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Actions pour {{field}}",

@@ -145,6 +145,17 @@
       "waysToGenerate": "Sortzeko modu batzuk:"
     },
     "created": "Smart Field sortu da",
+    "describe": {
+      "exampleChat": "Idatzi {{source}}-(r)en {{target}}",
+      "exampleImage": "Marraztu {{source}}-(r)en irudi bat",
+      "generate": "Sortu",
+      "generating": "Sortzen…",
+      "hint": "Deskribatu esaldi batean. Beste eremuak izenez aipatu ditzakezu.",
+      "regenerate": "Berriz sortu",
+      "tabToUse": "<kbd>Tab</kbd> sakatu hau sortzeko",
+      "title": "Zer egin behar du eremu honek?",
+      "writeYourself": "Edo idatzi prompta zeuk"
+    },
     "dontShowAgain": "Ez erakutsi hau berriro",
     "errors": {
       "save": "Ezin izan da Smart Field gorde",
@@ -174,6 +185,14 @@
       "voice": "Ahotsa",
       "webSearch": "Web bilaketa"
     },
+    "promptPanel": {
+      "description": "AIak nota bakoitzeko jasotzen duena. <code>{{example}}</code> eremuko notaren testuarekin ordezkatzen da.",
+      "fieldsOnNote": "Nota honetako eremuak:",
+      "gotIt": "Ulertuta",
+      "insertField": "Txertatu {{field}}",
+      "tip": "Prompta guretzat idatzi dugu. Ireki AIari zer eskatzen zaion zehazki ikusteko edo aldatzeko.",
+      "writeYourself": "Idatzi zeuk"
+    },
     "save": "Gorde Smart Field",
     "sections": {
       "onWhichNotes": "Zein notetan?",
@@ -184,6 +203,7 @@
     "sourceField": "Iturburu-eremua",
     "targetAriaLabel": "Smart Field helburua",
     "testSmartField": "Probatu zure Smart Field",
+    "testerHint": "Probatu Browser-en hautatutako txartelean",
     "titles": {
       "create": "Smart Field eremu berria",
       "duplicate": "Smart Field bikoiztu",
@@ -196,12 +216,7 @@
       "fieldAlreadyHasSmartField": "{{field}} dagoeneko Smart Field bat dauka",
       "mediaInput": "«{{field}}» eremua dagoeneko audio/irudi Smart Field bat da, beraz ezin da promptean sarrera gisa erabili.",
       "writePrompt": "Idatzi gonbita"
-    },
-    "writePrompt": "Idatzi gonbita",
-    "writePromptForMe": "Idatzi nire gonbita",
-    "writePromptForMeHint": "Esan nahi duzuna ingelesez; behean idatziko dugu gonbita.",
-    "writePromptPlaceholder": "\"Itzuli ingeles naturalera...\"",
-    "writing": "Idazten…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}}ren ekintzak",

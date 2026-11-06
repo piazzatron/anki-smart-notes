@@ -17,7 +17,13 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ChevronLeft, ChevronRight, LoaderCircle, X } from "lucide-react"
+import {
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  LoaderCircle,
+  X,
+} from "lucide-react"
 import type { ComponentType, ReactNode } from "react"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -58,6 +64,9 @@ interface FieldEditorScreenProps extends FieldEditorRequest {
   onClose: () => void
   state: AppState
 }
+
+// The prompt step's column. The pinned footer shares it, so Save lines up with the panels.
+const PROMPT_STEP_WIDTH = "max-w-[820px]"
 
 // Creating one is the magic moment, so only that title carries the sparkle.
 const TITLES: Record<FieldEditorMode, string> = {
@@ -123,7 +132,8 @@ export const FieldEditorScreen = ({
 
         {/* One header contract for every step, shaped like a native titlebar and kept to a
           single row: dismiss or back as one icon button leading, title and target
-          breadcrumb centered, sign-off trailing. */}
+          breadcrumb centered, step 1's Next trailing. Step 2 signs off from its pinned
+          footer instead. */}
         {controls.form.step === 3 && (
           <DialogTitle className="sr-only">
             {t("fieldEditor.created")}
@@ -188,24 +198,6 @@ export const FieldEditorScreen = ({
                   <span className="inline-block rtl:rotate-180">›</span>
                 </Button>
               )}
-              {controls.form.step === 2 && (
-                <Button
-                  className="px-5"
-                  disabled={stepTwoInvalid || catalog === null}
-                  variant="success"
-                  onClick={() => void controls.save()}
-                >
-                  {controls.form.isSaving && (
-                    <LoaderCircle
-                      aria-hidden
-                      className="size-3.5 animate-spin"
-                    />
-                  )}
-                  {controls.form.isSaving
-                    ? t("common.saving")
-                    : t("fieldEditor.save")}
-                </Button>
-              )}
             </div>
           </header>
         )}
@@ -246,7 +238,7 @@ export const FieldEditorScreen = ({
               {t("fieldEditor.loadingModelCatalog")}
             </div>
           ) : (
-            <div className="mx-auto w-full max-w-[820px]">
+            <div className={`mx-auto w-full ${PROMPT_STEP_WIDTH}`}>
               <div className="min-h-0">
                 <StepPrompt
                   catalog={catalog}
@@ -264,6 +256,33 @@ export const FieldEditorScreen = ({
             </div>
           )}
         </div>
+
+        {/* Pinned, so the one way to finish is always in reach however long the prompt
+          or the tester's result runs. */}
+        {controls.form.step === 2 && (
+          <footer className="flex shrink-0 justify-end border-t border-hairline bg-black/10 px-6 py-2.5">
+            <div
+              className={`mx-auto flex w-full ${PROMPT_STEP_WIDTH} justify-end`}
+            >
+              <Button
+                className="-me-hang px-4 font-bold"
+                disabled={stepTwoInvalid || catalog === null}
+                onClick={() => void controls.save()}
+                variant="mint"
+              >
+                {controls.form.isSaving ? (
+                  <LoaderCircle aria-hidden className="size-3.5 animate-spin" />
+                ) : (
+                  <SparklesIcon size={15} />
+                )}
+                {controls.form.isSaving
+                  ? t("common.saving")
+                  : t("fieldEditor.save")}
+                <ArrowRight aria-hidden className="size-3.5 rtl:rotate-180" />
+              </Button>
+            </div>
+          </footer>
+        )}
 
         {controls.form.step === 3 && (
           <footer className="relative z-10 flex shrink-0 items-center justify-between border-t border-hairline bg-black/20 px-5 py-2.5">

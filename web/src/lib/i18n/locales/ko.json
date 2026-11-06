@@ -144,6 +144,17 @@
       "waysToGenerate": "이를 생성하는 몇 가지 방법:"
     },
     "created": "Smart Field가 생성되었습니다.",
+    "describe": {
+      "exampleChat": "{{source}}에 대한 {{target}} 작성",
+      "exampleImage": "{{source}} 그림 그리기",
+      "generate": "생성",
+      "generating": "생성 중…",
+      "hint": "한 문장으로 설명하세요. 다른 필드는 이름으로 언급할 수 있습니다.",
+      "regenerate": "다시 생성",
+      "tabToUse": "<kbd>Tab</kbd>을 눌러 생성",
+      "title": "이 필드는 무엇을 해야 하나요?",
+      "writeYourself": "또는 프롬프트를 직접 작성하세요"
+    },
     "dontShowAgain": "다시 표시하지 않음",
     "errors": {
       "save": "Smart Field를 저장할 수 없습니다.",
@@ -173,6 +184,14 @@
       "voice": "목소리",
       "webSearch": "웹 검색"
     },
+    "promptPanel": {
+      "description": "AI가 각 노트마다 받는 내용입니다. <code>{{example}}</code>는 해당 노트의 필드 텍스트로 대체됩니다.",
+      "fieldsOnNote": "이 노트의 필드:",
+      "gotIt": "확인",
+      "insertField": "{{field}} 삽입",
+      "tip": "프롬프트를 대신 작성해 두었습니다. 열어서 AI에게 정확히 무엇을 요청하는지 확인하거나 변경할 수 있습니다.",
+      "writeYourself": "직접 작성"
+    },
     "save": "저장하다 Smart Field",
     "sections": {
       "onWhichNotes": "어떤 음표에?",
@@ -183,6 +202,7 @@
     "sourceField": "소스 필드",
     "targetAriaLabel": "Smart Field 대상",
     "testSmartField": "Smart Field 테스트",
+    "testerHint": "브라우저에서 선택한 카드로 테스트해 보세요",
     "titles": {
       "create": "새 Smart Field",
       "duplicate": "Smart Field 중복",
@@ -195,12 +215,7 @@
       "fieldAlreadyHasSmartField": "{{field}}에는 이미 Smart Field가 있습니다.",
       "mediaInput": "필드 \"{{field}}\"은(는) 이미 오디오/이미지 Smart Field이므로 프롬프트의 입력으로 사용할 수 없습니다.",
       "writePrompt": "프롬프트 작성"
-    },
-    "writePrompt": "프롬프트 쓰기",
-    "writePromptForMe": "메시지를 작성해 주세요.",
-    "writePromptForMeHint": "원하는 것을 일반 영어로 말하세요. 아래 프롬프트를 작성해 드리겠습니다.",
-    "writePromptPlaceholder": "\"자연스러운 영어로 번역…\"",
-    "writing": "글쓰기…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}}에 대한 작업",

@@ -145,6 +145,17 @@
       "waysToGenerate": "Ilang paraan upang mabuo ito:"
     },
     "created": "Nagawa ang Smart Field",
+    "describe": {
+      "exampleChat": "Isulat ang {{target}} para sa {{source}}",
+      "exampleImage": "Gumuhit ng larawan ng {{source}}",
+      "generate": "Gumawa",
+      "generating": "Ginagawa…",
+      "hint": "Ilarawan ito sa isang pangungusap. Maaari mong banggitin ang ibang field sa pangalan.",
+      "regenerate": "Gumawa muli",
+      "tabToUse": "I-pindot ang <kbd>Tab</kbd> para mabuo ito",
+      "title": "Ano ang dapat gawin ng field na ito?",
+      "writeYourself": "O isulat mismo ang prompt"
+    },
     "dontShowAgain": "Huwag mo nang ipakita ito muli",
     "errors": {
       "save": "Hindi ma-save ang Smart Field",
@@ -174,6 +185,14 @@
       "voice": "Boses",
       "webSearch": "Paghahanap sa web"
     },
+    "promptPanel": {
+      "description": "Ang natatanggap ng AI para sa bawat note. Ang <code>{{example}}</code> ay papalitan ng teksto ng note na iyon sa field.",
+      "fieldsOnNote": "Mga field sa note na ito:",
+      "gotIt": "Sige, naintindihan",
+      "insertField": "Ipasok ang {{field}}",
+      "tip": "Isinulat na namin ang prompt para sa iyo. Buksan ito para makita o baguhin ang eksaktong hinihiling sa AI.",
+      "writeYourself": "Isulat mo mismo"
+    },
     "save": "I-save ang Smart Field",
     "sections": {
       "onWhichNotes": "Sa aling mga tala?",
@@ -184,6 +203,7 @@
     "sourceField": "Field ng pinagmulan",
     "targetAriaLabel": "Smart Field target",
     "testSmartField": "Subukan ang iyong Smart Field",
+    "testerHint": "Subukan ito sa card na napili sa Browser",
     "titles": {
       "create": "Bagong Smart Field",
       "duplicate": "Duplicate na Smart Field",
@@ -196,12 +216,7 @@
       "fieldAlreadyHasSmartField": "Ang {{field}} ay mayroon nang Smart Field",
       "mediaInput": "Ang field na \"{{field}}\" ay isa nang audio/image Smart Field, kaya hindi ito magagamit bilang input sa prompt.",
       "writePrompt": "Sumulat ng prompt"
-    },
-    "writePrompt": "Sumulat ng Prompt",
-    "writePromptForMe": "Isulat ang aking prompt para sa akin",
-    "writePromptForMeHint": "Sabihin kung ano ang gusto mo sa simpleng Ingles — isusulat namin ang prompt sa ibaba.",
-    "writePromptPlaceholder": "\"Isalin sa natural na Ingles…\"",
-    "writing": "Nagsusulat…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Mga aksyon para sa {{field}}",

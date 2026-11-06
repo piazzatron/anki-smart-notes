@@ -144,6 +144,17 @@
       "waysToGenerate": "Qualques biaisses de lo generar :"
     },
     "created": "Smart Field creat",
+    "describe": {
+      "exampleChat": "Escriure lo {{target}} per {{source}}",
+      "exampleImage": "Dessenhar una imatge de {{source}}",
+      "generate": "Generar",
+      "generating": "Generant…",
+      "hint": "Descrivètz-lo en una frasa. Podètz mencionar los autres camps pel nom.",
+      "regenerate": "Tornar generar",
+      "tabToUse": "<kbd>Tab</kbd> per generar aquò",
+      "title": "Qué deu far aqueste camp?",
+      "writeYourself": "O escrivètz vos-mesme la consigna"
+    },
     "dontShowAgain": "Tornatz pas mostrar aquò",
     "errors": {
       "save": "Poguèt pas salvar Smart Field",
@@ -173,6 +184,14 @@
       "voice": "Votz",
       "webSearch": "Recèrca web"
     },
+    "promptPanel": {
+      "description": "Çò que l’IA recebe per cada nòta. <code>{{example}}</code> es remplaçat pel tèxte de la nòta dins lo camp.",
+      "fieldsOnNote": "Camps d’aquesta nòta:",
+      "gotIt": "Ai compres",
+      "insertField": "Insereix {{field}}",
+      "tip": "Avèm escrit la consigna per vos. Duberta-la per veire o modificar exactament çò que se demanda a l’IA.",
+      "writeYourself": "Escrivètz-la vos-mesme"
+    },
     "save": "Salvar Smart Field",
     "sections": {
       "onWhichNotes": "Sus quinas nòtas?",
@@ -183,6 +202,7 @@
     "sourceField": "Camp font",
     "targetAriaLabel": "Smart Field cibla",
     "testSmartField": "Prueba tu Smart Field",
+    "testerHint": "Ensajatz-lo sus la carta seleccionada dins lo Navigador",
     "titles": {
       "create": "Nòu Smart Field",
       "duplicate": "Duplicat Smart Field",
@@ -195,12 +215,7 @@
       "fieldAlreadyHasSmartField": "{{field}} a ja un Smart Field",
       "mediaInput": "Lo camp \"{{field}}\" es ja un Smart Field audio/imatge, donc pòt pas èsser utilizat coma entrada dins lo prompt.",
       "writePrompt": "Escrivètz una invitacion"
-    },
-    "writePrompt": "Invitacion d'escritura",
-    "writePromptForMe": "Escrivètz mon invitacion per ieu",
-    "writePromptForMeHint": "Digatz çò que volètz en anglés simple — escriurem l'invitacion çai-jos.",
-    "writePromptPlaceholder": "\"Traduire a l'anglés natural...\"",
-    "writing": "Escritura…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Accions per {{field}}",

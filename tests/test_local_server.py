@@ -654,6 +654,54 @@ async def test_prompt_generate_preserves_api_errors_and_reports_only_server_fail
 
 
 @pytest.mark.asyncio
+async def test_prompt_suggest_sends_a_sample_note_and_no_description(monkeypatch):
+    import src.local_server
+
+    monkeypatch.setattr(src.local_server, "config", MagicMock(auth_token="signed-in"))
+    monkeypatch.setattr(
+        src.local_server,
+        "get_note_types_with_fields",
+        lambda: [(123, "Japanese Vocab", ["Word", "Meaning"])],
+    )
+    monkeypatch.setattr(src.local_server, "deck_id_to_name_map", lambda: {1: "Default"})
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+    note = MagicMock()
+    note.items.return_value = [("Word", "食べる" * 300), ("Meaning", "")]
+    monkeypatch.setattr(
+        src.local_server,
+        "mw",
+        MagicMock(col=MagicMock(find_notes=lambda _: [7], get_note=lambda _: note)),
+    )
+    response = MagicMock(json=AsyncMock(return_value={"suggestion": "Translate Word"}))
+    get_api_response = AsyncMock(return_value=response)
+    monkeypatch.setattr(
+        src.local_server, "api", MagicMock(get_api_response=get_api_response)
+    )
+
+    server = _make_server()
+    async with TestClient(TestServer(_make_app(server))) as client:
+        resp = await client.post(
+            "/api/command",
+            json=_command_request(
+                "prompts.suggest",
+                {
+                    "noteTypeId": 123,
+                    "deckId": 1,
+                    "targetFieldName": "Meaning",
+                    "fieldType": "chat",
+                },
+            ),
+            headers={"X-Session-Token": server.session_token},
+        )
+        assert (await resp.json())["result"] == {"suggestion": "Translate Word"}
+
+    args = get_api_response.call_args.kwargs["args"]
+    assert "generation_prompt" not in args
+    assert args["target_field"] == "Meaning"
+    assert args["sample_note"] == {"Word": ("食べる" * 300)[:500], "Meaning": ""}
+
+
+@pytest.mark.asyncio
 async def test_send_feedback_command_posts_plugin_context(monkeypatch):
     import src.local_server
 

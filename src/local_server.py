@@ -597,6 +597,26 @@ async def _run_generate_prompt(payload: dict[str, Any]) -> dict[str, str]:
     return {"prompt": body["prompt"]}
 
 
+async def _run_suggest_prompt(payload: dict[str, Any]) -> dict[str, str]:
+    request = dto.parse_prompt_suggest(payload)
+    # Signed out, the field editor keeps its built-in example.
+    if not config.auth_token:
+        return {"suggestion": ""}
+    args = await asyncio.get_running_loop().run_in_executor(
+        None,
+        lambda: _run_on_main_sync(lambda: _prepare_prompt_suggest_args(request)),
+    )
+    response = await api.get_api_response(
+        path="prompt/suggest",
+        args=args,
+        timeout_sec=30,
+    )
+    body = await response.json()
+    if not isinstance(body, dict) or not isinstance(body.get("suggestion"), str):
+        raise RuntimeError("Prompt suggestion returned an invalid response")
+    return {"suggestion": body["suggestion"]}
+
+
 async def _run_send_feedback(payload: dict[str, Any]) -> None:
     message = dto.parse_feedback_message(payload)
     args = await asyncio.get_running_loop().run_in_executor(
@@ -658,6 +678,7 @@ COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
     "defaults.tts.save": _run_save_tts_defaults,
     "settings.save": _run_save_settings,
     "prompts.generate": _run_generate_prompt,
+    "prompts.suggest": _run_suggest_prompt,
     "prompts.test": _run_test_prompt,
     "images.test": _run_test_image,
     "tts.test": _run_test_tts,
@@ -700,6 +721,24 @@ def _prepare_prompt_generate_args(
         "fields": fields,
         "generation_prompt": request.generation_prompt,
     }
+
+
+def _prepare_prompt_suggest_args(
+    request: dto.PromptGenerateRequest,
+) -> dict[str, Any]:
+    args = _prepare_prompt_generate_args(request)
+    del args["generation_prompt"]
+
+    # One note's values tell the server what language or subject the deck is about.
+    if mw and mw.col:
+        note_ids = mw.col.find_notes(f"mid:{request.note_type_id}")
+        if note_ids:
+            note = mw.col.get_note(note_ids[0])
+            # The server takes at most 50 fields of 500 characters.
+            args["sample_note"] = {
+                name: value[:500] for name, value in list(note.items())[:50]
+            }
+    return args
 
 
 def _prepare_feedback_args(message: str) -> dict[str, str]:

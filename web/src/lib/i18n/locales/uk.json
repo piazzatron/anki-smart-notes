@@ -147,6 +147,17 @@
       "waysToGenerate": "Кілька способів його створення:"
     },
     "created": "Розумне поле створено",
+    "describe": {
+      "exampleChat": "Напишіть {{target}} для {{source}}",
+      "exampleImage": "Намалюйте зображення: {{source}}",
+      "generate": "Згенерувати",
+      "generating": "Генерація…",
+      "hint": "Опишіть одним реченням. Можна згадувати інші поля за назвою.",
+      "regenerate": "Згенерувати знову",
+      "tabToUse": "<kbd>Tab</kbd>, щоб згенерувати це",
+      "title": "Що має робити це поле?",
+      "writeYourself": "Або напишіть промпт самостійно"
+    },
     "dontShowAgain": "Не показувати це знову",
     "errors": {
       "save": "Не вдалося зберегти Smart Field",
@@ -176,6 +187,14 @@
       "voice": "Голос",
       "webSearch": "Пошук в Інтернеті"
     },
+    "promptPanel": {
+      "description": "Що ШІ отримує для кожної нотатки. <code>{{example}}</code> замінюється текстом цього поля в нотатці.",
+      "fieldsOnNote": "Поля в цій нотатці:",
+      "gotIt": "Зрозуміло",
+      "insertField": "Вставити {{field}}",
+      "tip": "Промпт ми склали за вас. Відкрийте його, щоб побачити або змінити, що саме запитується у ШІ.",
+      "writeYourself": "Написати самостійно"
+    },
     "save": "Зберегти Smart Field",
     "sections": {
       "onWhichNotes": "На яких нотах?",
@@ -186,6 +205,7 @@
     "sourceField": "Поле джерела",
     "targetAriaLabel": "Ціль Smart Field",
     "testSmartField": "Перевірте своє Smart Field",
+    "testerHint": "Спробуйте на картці, вибраній у Browser",
     "titles": {
       "create": "Нове Smart Field",
       "duplicate": "Дублювати смарт-поле",
@@ -198,12 +218,7 @@
       "fieldAlreadyHasSmartField": "{{field}} вже має Smart Field",
       "mediaInput": "Поле \"{{field}}\" уже є Smart Field для аудіо або зображень, тому його не можна використати як вхідні дані в промпті.",
       "writePrompt": "Напишіть підказку"
-    },
-    "writePrompt": "Написати підказку",
-    "writePromptForMe": "Напишіть мою підказку для мене",
-    "writePromptForMeHint": "Скажіть, що хочете, простою англійською — ми напишемо підказку нижче.",
-    "writePromptPlaceholder": "«Перекласти на натуральну англійську…»",
-    "writing": "Написання…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Дії для {{field}}",

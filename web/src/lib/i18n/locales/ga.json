@@ -148,6 +148,17 @@
       "waysToGenerate": "Cúpla bealach chun é a ghiniúint:"
     },
     "created": "Smart Field cruthaithe",
+    "describe": {
+      "exampleChat": "Scríobh an {{target}} do {{source}}",
+      "exampleImage": "Tarraing pictiúr de {{source}}",
+      "generate": "Gin",
+      "generating": "Ag gin…",
+      "hint": "Déan cur síos air in abairt amháin. Is féidir leat tagairt a dhéanamh do réimsí eile de réir ainm.",
+      "regenerate": "Atghin",
+      "tabToUse": "Brúigh <kbd>Tab</kbd> chun seo a ghiniúint",
+      "title": "Cad ba cheart don réimse seo a dhéanamh?",
+      "writeYourself": "Nó scríobh an leid féin"
+    },
     "dontShowAgain": "Ná taispeáin seo arís",
     "errors": {
       "save": "Níorbh fhéidir Smart Field a shábháil",
@@ -177,6 +188,14 @@
       "voice": "Guth",
       "webSearch": "Cuardach Gréasáin"
     },
+    "promptPanel": {
+      "description": "An rud a fhaigheann an AI le haghaidh gach nóta. Cuirfear <code>{{example}}</code> in ionad téacs an nóta sa réimse sin.",
+      "fieldsOnNote": "Réimsí ar an nóta seo:",
+      "gotIt": "Tuigim",
+      "insertField": "Cuir {{field}} isteach",
+      "tip": "Scríobh muid an leid duit. Oscail é chun a fheiceáil nó chun an rud a iarrtar ar an AI a athrú go beacht.",
+      "writeYourself": "Scríobh é féin"
+    },
     "save": "Sábháil Smart Field",
     "sections": {
       "onWhichNotes": "Cad iad na nótaí?",
@@ -187,6 +206,7 @@
     "sourceField": "Réimse foinse",
     "targetAriaLabel": "Sprioc Smart Field",
     "testSmartField": "Tástáil do Smart Field",
+    "testerHint": "Triail é ar an gcárta atá roghnaithe sa Bhrabhsálaí",
     "titles": {
       "create": "Réimse Cliste Nua",
       "duplicate": "Smart Field a dhúbailt",
@@ -199,12 +219,7 @@
       "fieldAlreadyHasSmartField": "Tá {{field}} Smart Field cheana féin",
       "mediaInput": "Tá an réimse \"{{field}}\" ina Smart Field fuaime/íomhá cheana féin, agus mar sin ní féidir é a úsáid mar ionchur san leid.",
       "writePrompt": "Scríobh leid"
-    },
-    "writePrompt": "Scríobh Leid",
-    "writePromptForMe": "Scríobh mo leid dom",
-    "writePromptForMeHint": "Abair cad atá uait i mBéarla simplí - scríobhfaimid an leid thíos.",
-    "writePromptPlaceholder": "\"Aistrigh go Béarla nádúrtha...\"",
-    "writing": "Ag scríobh…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Gníomhartha le haghaidh {{field}}",

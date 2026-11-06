@@ -145,6 +145,17 @@
       "waysToGenerate": "Няколко начина да го генерирате:"
     },
     "created": "Създадено интелигентно поле",
+    "describe": {
+      "exampleChat": "Напишете {{target}} за {{source}}",
+      "exampleImage": "Нарисувайте картина на {{source}}",
+      "generate": "Генерирай",
+      "generating": "Генериране…",
+      "hint": "Опишете го с едно изречение. Можете да споменавате други полета по име.",
+      "regenerate": "Генерирай отново",
+      "tabToUse": "<kbd>Tab</kbd>, за да генерирате това",
+      "title": "Какво трябва да прави това поле?",
+      "writeYourself": "Или напишете подканата сами"
+    },
     "dontShowAgain": "Не показвайте това отново",
     "errors": {
       "save": "Не можа да се запази Smart Field",
@@ -174,6 +185,14 @@
       "voice": "глас",
       "webSearch": "Търсене в мрежата"
     },
+    "promptPanel": {
+      "description": "Какво получава AI за всяка бележка. <code>{{example}}</code> се заменя с текста на тази бележка в полето.",
+      "fieldsOnNote": "Полета в тази бележка:",
+      "gotIt": "Разбрах",
+      "insertField": "Вмъкни {{field}}",
+      "tip": "Подканата е написана от нас. Отворете я, за да видите или промените точно какво се пита AI.",
+      "writeYourself": "Напишете сами"
+    },
     "save": "Запазете интелигентно поле",
     "sections": {
       "onWhichNotes": "На кои бележки?",
@@ -184,6 +203,7 @@
     "sourceField": "Поле източник",
     "targetAriaLabel": "Цел на интелигентното поле",
     "testSmartField": "Тествайте вашето Smart Field",
+    "testerHint": "Опитайте с картата, избрана в Браузър",
     "titles": {
       "create": "Нов Smart Field",
       "duplicate": "Дублиране на интелигентно поле",
@@ -196,12 +216,7 @@
       "fieldAlreadyHasSmartField": "{{field}} вече има Smart Field",
       "mediaInput": "Полето „{{field}}“ вече е Smart Field за аудио/изображение, затова не може да се използва като вход в промпта.",
       "writePrompt": "Напишете подкана"
-    },
-    "writePrompt": "Подкана за писане",
-    "writePromptForMe": "Напиши моята подкана вместо мен",
-    "writePromptForMeHint": "Кажете каквото искате на обикновен английски – ние ще напишем подканата по-долу.",
-    "writePromptPlaceholder": "„Превод на естествен английски…“",
-    "writing": "Писане..."
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Действия за {{field}}",

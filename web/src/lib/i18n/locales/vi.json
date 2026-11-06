@@ -144,6 +144,17 @@
       "waysToGenerate": "Một số cách để tạo ra nó:"
     },
     "created": "Smart Field đã tạo",
+    "describe": {
+      "exampleChat": "Viết {{target}} cho {{source}}",
+      "exampleImage": "Vẽ một bức tranh về {{source}}",
+      "generate": "Tạo",
+      "generating": "Đang tạo…",
+      "hint": "Mô tả bằng một câu. Bạn có thể nhắc đến các trường khác theo tên.",
+      "regenerate": "Tạo lại",
+      "tabToUse": "<kbd>Tab</kbd> để tạo nội dung này",
+      "title": "Trường này nên làm gì?",
+      "writeYourself": "Hoặc tự viết lời nhắc"
+    },
     "dontShowAgain": "Đừng hiển thị lại thông tin này",
     "errors": {
       "save": "Không thể lưu Smart Field",
@@ -173,6 +184,14 @@
       "voice": "Tiếng nói",
       "webSearch": "Tìm kiếm trên web"
     },
+    "promptPanel": {
+      "description": "Nội dung AI nhận được cho mỗi ghi chú. <code>{{example}}</code> sẽ được thay bằng nội dung của trường trong ghi chú đó.",
+      "fieldsOnNote": "Các trường trong ghi chú này:",
+      "gotIt": "Đã hiểu",
+      "insertField": "Chèn {{field}}",
+      "tip": "Chúng tôi đã viết lời nhắc cho bạn. Mở ra để xem hoặc thay đổi chính xác những gì AI được yêu cầu.",
+      "writeYourself": "Tự viết"
+    },
     "save": "Lưu Smart Field",
     "sections": {
       "onWhichNotes": "Trên những ghi chú nào?",
@@ -183,6 +202,7 @@
     "sourceField": "Trường nguồn",
     "targetAriaLabel": "Mục tiêu Smart Field",
     "testSmartField": "Kiểm tra Smart Field của bạn",
+    "testerHint": "Thử trên thẻ được chọn trong Trình duyệt",
     "titles": {
       "create": "Smart Field mới",
       "duplicate": "Sao chép Smart Field",
@@ -195,12 +215,7 @@
       "fieldAlreadyHasSmartField": "{{field}} đã có Smart Field",
       "mediaInput": "Trường \"{{field}}\" đã là Smart Field âm thanh/hình ảnh, nên không thể dùng làm đầu vào trong prompt.",
       "writePrompt": "Viết lời nhắc"
-    },
-    "writePrompt": "Viết lời nhắc",
-    "writePromptForMe": "Viết lời nhắc cho tôi",
-    "writePromptForMeHint": "Nói những gì bạn muốn bằng tiếng Anh đơn giản — chúng tôi sẽ viết lời nhắc bên dưới.",
-    "writePromptPlaceholder": "\"Dịch sang tiếng Anh tự nhiên...\"",
-    "writing": "Viết…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Các hành động dành cho {{field}}",

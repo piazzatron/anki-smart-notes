@@ -146,6 +146,17 @@
       "waysToGenerate": "Неколико начина да га генеришете:"
     },
     "created": "Паметно поље је креирано",
+    "describe": {
+      "exampleChat": "Напишите {{target}} за {{source}}",
+      "exampleImage": "Нацртајте слику: {{source}}",
+      "generate": "Генериши",
+      "generating": "Генерише се…",
+      "hint": "Опишите у једној реченици. Можете навести друга поља по имену.",
+      "regenerate": "Генериши поново",
+      "tabToUse": "Притисните <kbd>Tab</kbd> за генерисање",
+      "title": "Шта треба да ради ово поље?",
+      "writeYourself": "Или сами напишите упит"
+    },
     "dontShowAgain": "Не приказуј ово поново",
     "errors": {
       "save": "Није могуће сачувати Смарт Фиелд",
@@ -175,6 +186,14 @@
       "voice": "Глас",
       "webSearch": "Веб претрага"
     },
+    "promptPanel": {
+      "description": "Шта AI добија за сваку белешку. <code>{{example}}</code> се замењује текстом те белешке у пољу.",
+      "fieldsOnNote": "Поља у овој белешци:",
+      "gotIt": "Разумем",
+      "insertField": "Уметни {{field}}",
+      "tip": "Упит смо за вас написали. Отворите га да видите или измените тачно оно што се тражи од AI-ја.",
+      "writeYourself": "Напишите сами"
+    },
     "save": "Сачувај паметно поље",
     "sections": {
       "onWhichNotes": "На којим нотама?",
@@ -185,6 +204,7 @@
     "sourceField": "Изворно поље",
     "targetAriaLabel": "Смарт Фиелд таргет",
     "testSmartField": "Тестирајте своје Смарт Фиелд",
+    "testerHint": "Испробајте на картици изабраној у прозору Browser",
     "titles": {
       "create": "Novo pametno polje",
       "duplicate": "Дупликат паметног поља",
@@ -197,12 +217,7 @@
       "fieldAlreadyHasSmartField": "{{field}} већ има Смарт Фиелд",
       "mediaInput": "Поље „{{field}}” је већ Smart Field типа аудио/слика, па се не може користити као улаз у упиту.",
       "writePrompt": "Напишите упит"
-    },
-    "writePrompt": "Врите Промпт",
-    "writePromptForMe": "Напишите мој упит за мене",
-    "writePromptForMeHint": "Реците шта желите на обичном енглеском - ми ћемо написати упит испод.",
-    "writePromptPlaceholder": "„Преведи на природни енглески…“",
-    "writing": "Писање…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Акције за {{field}}",

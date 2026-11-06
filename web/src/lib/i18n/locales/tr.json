@@ -145,6 +145,17 @@
       "waysToGenerate": "Bunu oluşturmanın birkaç yolu:"
     },
     "created": "Smart Field oluşturuldu",
+    "describe": {
+      "exampleChat": "{{source}} için {{target}} yaz",
+      "exampleImage": "{{source}} resmini çiz",
+      "generate": "Oluştur",
+      "generating": "Oluşturuluyor…",
+      "hint": "Bir cümleyle açıklayın. Diğer alanlara adlarıyla değinebilirsiniz.",
+      "regenerate": "Yeniden oluştur",
+      "tabToUse": "Oluşturmak için <kbd>Tab</kbd>",
+      "title": "Bu alan ne yapmalı?",
+      "writeYourself": "Ya da istemi kendiniz yazın"
+    },
     "dontShowAgain": "Bunu bir daha gösterme",
     "errors": {
       "save": "Smart Field kaydedilemedi",
@@ -174,6 +185,14 @@
       "voice": "Ses",
       "webSearch": "Web araması"
     },
+    "promptPanel": {
+      "description": "Yapay zekânın her not için aldığı içerik. <code>{{example}}</code>, alandaki o notun metniyle değiştirilir.",
+      "fieldsOnNote": "Bu nottaki alanlar:",
+      "gotIt": "Anladım",
+      "insertField": "{{field}} ekle",
+      "tip": "İstemi sizin için yazdık. Yapay zekâya tam olarak ne sorulduğunu görmek veya değiştirmek için açın.",
+      "writeYourself": "Kendiniz yazın"
+    },
     "save": "Smart Field'i kaydedin",
     "sections": {
       "onWhichNotes": "Hangi notalarda?",
@@ -184,6 +203,7 @@
     "sourceField": "Kaynak alanı",
     "targetAriaLabel": "Smart Field hedefi",
     "testSmartField": "Smart Field'inizi test edin",
+    "testerHint": "Tarayıcıda seçili karttan deneyin",
     "titles": {
       "create": "Yeni Smart Field",
       "duplicate": "Smart Field'i çoğaltın",
@@ -196,12 +216,7 @@
       "fieldAlreadyHasSmartField": "{{field}}'in zaten bir Smart Field'i var",
       "mediaInput": "Alan \"{{field}}\" zaten bir ses/görüntü Smart Field olduğu için istemde girdi olarak kullanılamaz.",
       "writePrompt": "Bir istem yaz"
-    },
-    "writePrompt": "İstem Yaz",
-    "writePromptForMe": "Benim için istemimi yaz",
-    "writePromptForMeHint": "Sade bir İngilizceyle ne istediğinizi söyleyin; istemi aşağıya yazacağız.",
-    "writePromptPlaceholder": "\"Doğal İngilizceye çevir...\"",
-    "writing": "Yazıyor…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}} için eylemler",

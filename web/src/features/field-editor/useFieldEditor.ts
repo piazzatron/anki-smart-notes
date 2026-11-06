@@ -62,7 +62,10 @@ interface UseFieldEditorArgs {
 export interface FieldEditorControls {
   dismissError: () => void
   form: FieldEditorDraft
-  generateDraftPrompt: () => Promise<void>
+  // Resolves true when a prompt was written. `description` stands in for the typed one,
+  // for when it was set in the same event and the form hasn't caught up.
+  generateDraftPrompt: (description?: string) => Promise<boolean>
+  markPromptTipSeen: () => Promise<void>
   save: () => Promise<void>
   setPinnedChat: (settings: ChatGenerationSettings | null) => void
   setPinnedImage: (settings: ImageGenerationSettings | null) => void
@@ -136,9 +139,9 @@ export const useFieldEditor = ({
     })
   }
 
-  const generateDraftPrompt = async () => {
-    if (form.target.fieldType === "tts" || form.writePrompt.trim() === "") {
-      return
+  const generateDraftPrompt = async (description = form.writePrompt) => {
+    if (form.target.fieldType === "tts" || description.trim() === "") {
+      return false
     }
 
     update({ error: null, isGenerating: true })
@@ -148,13 +151,15 @@ export const useFieldEditor = ({
         deckId: form.target.deckId,
         targetFieldName: form.target.targetFieldName,
         fieldType: form.target.fieldType,
-        generationPrompt: form.writePrompt,
+        generationPrompt: description,
       })
       update({ prompt: result.prompt })
+      return true
     } catch (error) {
       update({
         error: errorMessage(error, t("fieldEditor.errors.writePrompt")),
       })
+      return false
     } finally {
       update({ isGenerating: false })
     }
@@ -201,6 +206,14 @@ export const useFieldEditor = ({
     }
   }
 
+  const markPromptTipSeen = async () => {
+    try {
+      await saveSettings({ ...state.settings, didSeeGeneratedPromptTip: true })
+    } catch {
+      // Harmless: the tip just shows once more next time.
+    }
+  }
+
   const setWizardCompletionHidden = async () => {
     try {
       await saveSettings({ ...state.settings, showWizardCompletion: false })
@@ -218,6 +231,7 @@ export const useFieldEditor = ({
     dismissError: () => update({ error: null }),
     form,
     generateDraftPrompt,
+    markPromptTipSeen,
     save,
     setPinnedChat: (settings) => setPinned("chat", settings),
     setPinnedImage: (settings) => setPinned("image", settings),

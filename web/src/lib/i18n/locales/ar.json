@@ -149,6 +149,17 @@
       "waysToGenerate": "عدة طرق لإنشائها:"
     },
     "created": "تم إنشاء الحقل الذكي",
+    "describe": {
+      "exampleChat": "اكتب {{target}} لـ {{source}}",
+      "exampleImage": "ارسم صورة لـ {{source}}",
+      "generate": "إنشاء",
+      "generating": "جارٍ الإنشاء…",
+      "hint": "صِفه في جملة واحدة. يمكنك الإشارة إلى حقول أخرى بالاسم.",
+      "regenerate": "إعادة الإنشاء",
+      "tabToUse": "اضغط <kbd>Tab</kbd> لإنشاء هذا",
+      "title": "ماذا يجب أن يفعل هذا الحقل؟",
+      "writeYourself": "أو اكتب الموجّه بنفسك"
+    },
     "dontShowAgain": "لا تظهر هذا مرة أخرى",
     "errors": {
       "save": "لا يمكن حفظ الحقل الذكي",
@@ -178,6 +189,14 @@
       "voice": "صوت",
       "webSearch": "البحث على شبكة الإنترنت"
     },
+    "promptPanel": {
+      "description": "ما يتلقاه الذكاء الاصطناعي لكل ملاحظة. يُستبدل <code>{{example}}</code> بنص الحقل في تلك الملاحظة.",
+      "fieldsOnNote": "الحقول في هذه الملاحظة:",
+      "gotIt": "فهمت",
+      "insertField": "إدراج {{field}}",
+      "tip": "كتبنا الموجّه نيابةً عنك. افتحه لترى أو تغيّر بالضبط ما يُطلب من الذكاء الاصطناعي.",
+      "writeYourself": "اكتبه بنفسك"
+    },
     "save": "حفظ الحقل الذكي",
     "sections": {
       "onWhichNotes": "على أي ملاحظات؟",
@@ -188,6 +207,7 @@
     "sourceField": "حقل المصدر",
     "targetAriaLabel": "الهدف الميداني الذكي",
     "testSmartField": "اختبر مجالك الذكي",
+    "testerHint": "جرّبه على البطاقة المحددة في المتصفح",
     "titles": {
       "create": "حقل ذكي جديد",
       "duplicate": "تكرار الحقل الذكي",
@@ -200,12 +220,7 @@
       "fieldAlreadyHasSmartField": "يحتوي {{field}} بالفعل على حقل ذكي",
       "mediaInput": "الحقل \"{{field}}\" هو بالفعل حقل Smart Field خاص بالصوت أو الصورة، لذا لا يمكن استخدامه كإدخال في الموجه.",
       "writePrompt": "اكتب موجه"
-    },
-    "writePrompt": "اكتب موجه",
-    "writePromptForMe": "اكتب مطالبتي بالنسبة لي",
-    "writePromptForMeHint": "قل ما تريد باللغة الإنجليزية البسيطة - سنكتب المطالبة أدناه.",
-    "writePromptPlaceholder": "\"الترجمة إلى اللغة الإنجليزية الطبيعية...\"",
-    "writing": "كتابة…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "إجراءات لـ {{field}}",

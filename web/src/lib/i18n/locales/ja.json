@@ -144,6 +144,17 @@
       "waysToGenerate": "生成するにはいくつかの方法があります:"
     },
     "created": "Smart Field が作成されました",
+    "describe": {
+      "exampleChat": "{{source}}の{{target}}を書く",
+      "exampleImage": "{{source}}の絵を描く",
+      "generate": "生成",
+      "generating": "生成中…",
+      "hint": "1文で説明してください。他のフィールドは名前を指定して参照できます。",
+      "regenerate": "再生成",
+      "tabToUse": "<kbd>Tab</kbd> を押して生成",
+      "title": "このフィールドは何をすればよいですか?",
+      "writeYourself": "または自分でプロンプトを書く"
+    },
     "dontShowAgain": "これを二度と表示しないでください",
     "errors": {
       "save": "Smart Fieldを保存できませんでした",
@@ -173,6 +184,14 @@
       "voice": "声",
       "webSearch": "ウェブ検索"
     },
+    "promptPanel": {
+      "description": "各ノートについて AI に渡される内容です。<code>{{example}}</code> は、そのノートのフィールドのテキストに置き換えられます。",
+      "fieldsOnNote": "このノートのフィールド:",
+      "gotIt": "わかりました",
+      "insertField": "{{field}} を挿入",
+      "tip": "プロンプトは自動で作成されています。開くと、AI に何を依頼するのかを確認・変更できます。",
+      "writeYourself": "自分で書く"
+    },
     "save": "Smart Fieldを保存",
     "sections": {
       "onWhichNotes": "どのノートに書かれていますか？",
@@ -183,6 +202,7 @@
     "sourceField": "ソースフィールド",
     "targetAriaLabel": "Smart Field ターゲット",
     "testSmartField": "Smart Field をテストする",
+    "testerHint": "ブラウザーで選択したカードで試す",
     "titles": {
       "create": "新しいスマートフィールド",
       "duplicate": "Smart Fieldの複製",
@@ -195,12 +215,7 @@
       "fieldAlreadyHasSmartField": "{{field}} にはすでに Smart Field があります",
       "mediaInput": "フィールド \"{{field}}\" はすでに音声/画像の Smart Field のため、プロンプトの入力として使用できません。",
       "writePrompt": "プロンプトを書く"
-    },
-    "writePrompt": "プロンプトの書き込み",
-    "writePromptForMe": "私のプロンプトを書いてください",
-    "writePromptForMeHint": "わかりやすい英語で言いたいことを言ってください。以下にプロンプ​​トを書きます。",
-    "writePromptPlaceholder": "「自然な英語に翻訳して…」",
-    "writing": "書き込み…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}}のアクション",

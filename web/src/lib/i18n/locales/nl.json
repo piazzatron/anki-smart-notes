@@ -145,6 +145,17 @@
       "waysToGenerate": "Een paar manieren om het te genereren:"
     },
     "created": "Smart Field gemaakt",
+    "describe": {
+      "exampleChat": "Schrijf de {{target}} voor {{source}}",
+      "exampleImage": "Teken een afbeelding van {{source}}",
+      "generate": "Genereren",
+      "generating": "Genereren…",
+      "hint": "Beschrijf het in één zin. Je kunt andere velden bij naam noemen.",
+      "regenerate": "Opnieuw genereren",
+      "tabToUse": "<kbd>Tab</kbd> om dit te genereren",
+      "title": "Wat moet dit veld doen?",
+      "writeYourself": "Of schrijf de prompt zelf"
+    },
     "dontShowAgain": "Laat dit niet nog een keer zien",
     "errors": {
       "save": "Kan Smart Field niet opslaan",
@@ -174,6 +185,14 @@
       "voice": "Stem",
       "webSearch": "Zoeken op internet"
     },
+    "promptPanel": {
+      "description": "Wat de AI voor elke notitie krijgt. <code>{{example}}</code> wordt vervangen door de tekst van die notitie in het veld.",
+      "fieldsOnNote": "Velden in deze notitie:",
+      "gotIt": "Begrepen",
+      "insertField": "{{field}} invoegen",
+      "tip": "We hebben de prompt voor je geschreven. Open hem om precies te zien of te wijzigen wat de AI gevraagd wordt.",
+      "writeYourself": "Schrijf het zelf"
+    },
     "save": "Bewaar Smart Field",
     "sections": {
       "onWhichNotes": "Op welke noten?",
@@ -184,6 +203,7 @@
     "sourceField": "Bronveld",
     "targetAriaLabel": "Smart Field-doelstelling",
     "testSmartField": "Test uw Smart Field",
+    "testerHint": "Probeer het uit op de kaart die in de Browser is geselecteerd",
     "titles": {
       "create": "Nieuw Smart Field",
       "duplicate": "Dupliceer Smart Field",
@@ -196,12 +216,7 @@
       "fieldAlreadyHasSmartField": "{{field}} heeft al een Smart Field",
       "mediaInput": "Het veld \"{{field}}\" is al een audio/afbeelding Smart Field, dus het kan niet als invoer in de prompt worden gebruikt.",
       "writePrompt": "Schrijf een prompt"
-    },
-    "writePrompt": "Schrijf prompt",
-    "writePromptForMe": "Schrijf mijn prompt voor mij",
-    "writePromptForMeHint": "Zeg wat je wilt in gewoon Engels: we zullen de onderstaande prompt schrijven.",
-    "writePromptPlaceholder": "\"Vertalen naar natuurlijk Engels...\"",
-    "writing": "Schrijven…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Acties voor {{field}}",

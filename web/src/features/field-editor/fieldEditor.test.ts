@@ -87,7 +87,6 @@ describe("field editor helpers", () => {
 
   test("validates prompts and TTS source fields", () => {
     const chatDraft = createFieldEditorDraft(appState, { mode: "create" })
-    expect(chatDraft.validPromptFieldsRevealed).toBe(false)
     expect(validateFieldEditorDraft(chatDraft, [], 1)).toBe("Write a prompt")
 
     chatDraft.target.fieldType = "image"

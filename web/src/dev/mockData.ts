@@ -187,6 +187,7 @@ const BASE_STATE: AppState = {
     didDismissReviewPrompt: false,
     didDismissDiscordPrompt: false,
     didSeeFreePlanWelcome: true,
+    didSeeGeneratedPromptTip: false,
   },
 }
 
@@ -714,6 +715,16 @@ export const sendMockCommand: CommandSender = async <Result = void>(
     return (Object.values(MOCK_SELECTIONS).find(
       (selection) => selection.note?.noteTypeId === commandPayload.noteTypeId,
     ) ?? MOCK_SELECTIONS.none) as Result
+  }
+
+  if (command === "prompts.suggest") {
+    await new Promise((resolve) => setTimeout(resolve, 600))
+    return {
+      suggestion:
+        commandPayload.fieldType === "image"
+          ? "Draw a simple scene that shows Expression"
+          : "Translate Expression into natural English",
+    } as Result
   }
 
   if (command === "prompts.generate") {

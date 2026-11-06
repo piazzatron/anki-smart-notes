@@ -9,6 +9,7 @@ import type {
   MediaTestResult,
   PromptGenerateArgs,
   PromptGenerateResult,
+  PromptSuggestResult,
   ReviewClaimResult,
   ReviewClaimSendPayload,
   ReviewClaimState,
@@ -92,6 +93,11 @@ export const generatePrompt = async (
   args: PromptGenerateArgs,
 ): Promise<PromptGenerateResult> =>
   sendCommand<PromptGenerateResult>("prompts.generate", args)
+
+export const suggestPrompt = async (
+  args: Omit<PromptGenerateArgs, "generationPrompt">,
+): Promise<PromptSuggestResult> =>
+  sendCommand<PromptSuggestResult>("prompts.suggest", args)
 
 export const sendFeedback = async (
   payload: FeedbackSendPayload,

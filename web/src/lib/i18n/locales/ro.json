@@ -146,6 +146,17 @@
       "waysToGenerate": "Câteva moduri de a-l genera:"
     },
     "created": "Smart Field creat",
+    "describe": {
+      "exampleChat": "Scrie {{target}} pentru {{source}}",
+      "exampleImage": "Desenează o imagine cu {{source}}",
+      "generate": "Generează",
+      "generating": "Se generează…",
+      "hint": "Descrie-l într-o propoziție. Poți menționa și alte câmpuri după nume.",
+      "regenerate": "Regenerează",
+      "tabToUse": "Apasă <kbd>Tab</kbd> pentru a genera acest conținut",
+      "title": "Ce ar trebui să facă acest câmp?",
+      "writeYourself": "Sau scrie promptul singur"
+    },
     "dontShowAgain": "Nu mai arăta asta",
     "errors": {
       "save": "Nu s-a putut salva Smart Field",
@@ -175,6 +186,14 @@
       "voice": "Voce",
       "webSearch": "Căutare pe web"
     },
+    "promptPanel": {
+      "description": "Ce primește AI-ul pentru fiecare notiță. <code>{{example}}</code> este înlocuit cu textul notiței din câmp.",
+      "fieldsOnNote": "Câmpuri din această notiță:",
+      "gotIt": "Am înțeles",
+      "insertField": "Inserează {{field}}",
+      "tip": "Am scris promptul pentru tine. Deschide-l ca să vezi sau să modifici exact ce i se cere AI-ului.",
+      "writeYourself": "Scrie-l singur"
+    },
     "save": "Salvați Smart Field",
     "sections": {
       "onWhichNotes": "Pe ce note?",
@@ -185,6 +204,7 @@
     "sourceField": "Câmp sursă",
     "targetAriaLabel": "țintă Smart Field",
     "testSmartField": "Testați-vă Smart Field",
+    "testerHint": "Încearcă-l pe cardul selectat în Browser",
     "titles": {
       "create": "Câmp Smart nou",
       "duplicate": "Duplicați Smart Field",
@@ -197,12 +217,7 @@
       "fieldAlreadyHasSmartField": "{{field}} are deja un Smart Field",
       "mediaInput": "Câmpul \"{{field}}\" este deja un Smart Field audio/imagine, deci nu poate fi folosit ca intrare în prompt.",
       "writePrompt": "Scrieți o solicitare"
-    },
-    "writePrompt": "Scrieți Prompt",
-    "writePromptForMe": "Scrie-mi solicitarea pentru mine",
-    "writePromptForMeHint": "Spuneți ceea ce doriți într-o engleză simplă - vom scrie mesajul de mai jos.",
-    "writePromptPlaceholder": "„Traduceți în engleză naturală…”",
-    "writing": "Scris…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "Acțiuni pentru {{field}}",

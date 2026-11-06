@@ -144,6 +144,17 @@
       "waysToGenerate": "生成它的几种方法："
     },
     "created": "Smart Field 创建",
+    "describe": {
+      "exampleChat": "为 {{source}} 编写 {{target}}",
+      "exampleImage": "绘制 {{source}} 的图片",
+      "generate": "生成",
+      "generating": "正在生成…",
+      "hint": "用一句话描述。你可以按名称提及其他字段。",
+      "regenerate": "重新生成",
+      "tabToUse": "按 <kbd>Tab</kbd> 生成此内容",
+      "title": "这个字段应该做什么？",
+      "writeYourself": "或自行编写提示词"
+    },
     "dontShowAgain": "不要再显示此内容",
     "errors": {
       "save": "无法保存 Smart Field",
@@ -173,6 +184,14 @@
       "voice": "嗓音",
       "webSearch": "网页搜索"
     },
+    "promptPanel": {
+      "description": "AI 为每张笔记获取的内容。<code>{{example}}</code> 会被替换为该笔记在此字段中的文本。",
+      "fieldsOnNote": "此笔记中的字段：",
+      "gotIt": "知道了",
+      "insertField": "插入 {{field}}",
+      "tip": "我们已为你编写了提示词。打开它即可查看或修改 AI 被要求执行的具体内容。",
+      "writeYourself": "自行编写"
+    },
     "save": "保存 Smart Field",
     "sections": {
       "onWhichNotes": "在哪些笔记上？",
@@ -183,6 +202,7 @@
     "sourceField": "源字段",
     "targetAriaLabel": "Smart Field 目标",
     "testSmartField": "测试您的 Smart Field",
+    "testerHint": "在浏览器中选中的卡片上试用",
     "titles": {
       "create": "新建智能字段",
       "duplicate": "重复的 Smart Field",
@@ -195,12 +215,7 @@
       "fieldAlreadyHasSmartField": "{{field}} 已经有 Smart Field",
       "mediaInput": "字段 \"{{field}}\" 已是音频/图片 Smart Field，因此无法用作提示词中的输入。",
       "writePrompt": "写一个提示"
-    },
-    "writePrompt": "写提示",
-    "writePromptForMe": "为我写下我的提示",
-    "writePromptForMeHint": "用简单的英语说出您想要的内容 - 我们将在下面编写提示。",
-    "writePromptPlaceholder": "“翻译成自然英语……”",
-    "writing": "写作…"
+    }
   },
   "smartFields": {
     "actionsAriaLabel": "{{field}} 的操作",

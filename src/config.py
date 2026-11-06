@@ -46,6 +46,7 @@ class Config:
     did_dismiss_review_prompt: bool
     did_dismiss_discord_prompt: bool
     did_see_free_plan_welcome: bool
+    did_see_generated_prompt_tip: bool
 
     # Dialogs / Migrations
     did_show_chained_error_dialog: bool
