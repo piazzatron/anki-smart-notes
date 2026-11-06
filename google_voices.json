@@ -287,6 +287,13 @@
     "type": "Standard"
   },
   {
+    "gender": "Male",
+    "languageCode": "de-DE",
+    "language": "German",
+    "name": "de-DE-Standard-H",
+    "type": "Standard"
+  },
+  {
     "gender": "Female",
     "languageCode": "de-DE",
     "language": "German",
@@ -525,6 +532,13 @@
     "type": "Standard"
   },
   {
+    "gender": "Male",
+    "languageCode": "es-ES",
+    "language": "Spanish (Spain)",
+    "name": "es-ES-Standard-E",
+    "type": "Standard"
+  },
+  {
     "gender": "Female",
     "languageCode": "es-ES",
     "language": "Spanish (Spain)",
@@ -725,6 +739,13 @@
     "languageCode": "fr-FR",
     "language": "French (France)",
     "name": "fr-FR-Standard-F",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "fr-FR",
+    "language": "French (France)",
+    "name": "fr-FR-Standard-G",
     "type": "Standard"
   },
   {
