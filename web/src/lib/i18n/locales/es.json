@@ -469,8 +469,6 @@
     "usage": "Uso",
     "free": {
       "notesToday": "{{used}}/{{limit}} hoy",
-      "resetsAt": "Las notas se reinician a las {{time}}",
-      "upgradeToPaid": "Mejorar a plan de pago",
       "creditsUsed": "Créditos usados",
       "notesTodayLabel": "Notas hoy",
       "notesUsedToday": "notas usadas hoy",
@@ -535,8 +533,7 @@
       "leftReview": "Ya dejé una reseña",
       "title": "Consigue un mes gratis de Smart Notes",
       "unavailable": "¡Gracias por tu reseña! Esta cuenta ya ha tenido su mes gratis.",
-      "writeReview": "Escribir una reseña",
-      "buttonLabel": "Obtén un mes gratis por una reseña"
+      "writeReview": "Escribir una reseña"
     },
     "thanks": "Gracias por usar Smart Notes",
     "title": "Tu prueba gratuita ha finalizado",
@@ -671,7 +668,6 @@
       "trial": "Tu prueba",
       "plan": "Tu plan"
     },
-    "freeLabel": "Plan gratuito",
-    "pricing": "Los planes empiezan en 4,99 $ al mes"
+    "freeLabel": "Plan gratuito"
   }
 }

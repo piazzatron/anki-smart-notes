@@ -469,8 +469,6 @@
     "usage": "Utilizare",
     "free": {
       "notesToday": "{{used}}/{{limit}} astăzi",
-      "resetsAt": "Notele se resetează la {{time}}",
-      "upgradeToPaid": "Treci la un plan plătit",
       "creditsUsed": "Credite utilizate",
       "notesTodayLabel": "Note astăzi",
       "notesUsedToday": "note utilizate astăzi",
@@ -535,8 +533,7 @@
       "leftReview": "Am lăsat o recenzie",
       "title": "Primiți o lună gratuită de Smart Notes",
       "unavailable": "Mulțumim pentru recenzie! Acest cont și-a folosit deja luna gratuită.",
-      "writeReview": "Scrieți o recenzie",
-      "buttonLabel": "Primește o lună gratuită pentru o recenzie"
+      "writeReview": "Scrieți o recenzie"
     },
     "thanks": "Îți mulțumim că ai folosit Smart Notes",
     "title": "Perioada de încercare gratuită s-a încheiat",
@@ -671,7 +668,6 @@
       "trial": "Perioada ta de probă",
       "plan": "Planul tău"
     },
-    "freeLabel": "Planul Free",
-    "pricing": "Planurile încep de la $4,99 pe lună"
+    "freeLabel": "Planul Free"
   }
 }

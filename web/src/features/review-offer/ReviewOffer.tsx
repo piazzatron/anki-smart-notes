@@ -94,14 +94,14 @@ export const useReviewOffer = ({ onDone }: { onDone?: () => void } = {}) => {
 /** The free month on the trial-ended and free plan screens. Renders nothing
  *  while the `review_free_month` flag is off, and hides the call to action once
  *  the server says this account can't get the month. A `banner` leads the
- *  trial-ended screen; a `button` sits under the free plan screen's upgrade
- *  button as the second way to keep everything. */
+ *  trial-ended screen; a `flush` banner runs edge to edge across the top of the
+ *  free plan screen, centered on its content column. */
 export const ReviewOffer = ({
   className = "",
   variant = "banner",
 }: {
   className?: string
-  variant?: "banner" | "button"
+  variant?: "banner" | "flush"
 }) => {
   const { enabled, claimState, open, dialog } = useReviewOffer()
 
@@ -117,11 +117,7 @@ export const ReviewOffer = ({
     <>
       {claimState !== "unavailable" && (
         <div className={className}>
-          {variant === "banner" ? (
-            <ReviewOfferBanner onOpen={openDialog} />
-          ) : (
-            <ReviewOfferButton onOpen={openDialog} />
-          )}
+          <ReviewOfferBanner flush={variant === "flush"} onOpen={openDialog} />
         </div>
       )}
       {dialog}
@@ -129,33 +125,23 @@ export const ReviewOffer = ({
   )
 }
 
-// The banner's purple, as a button the width of the upgrade button above it.
-const ReviewOfferButton = ({ onOpen }: { onOpen: () => void }) => {
-  const { t } = useTranslation()
-  return (
-    <button
-      className="relative flex h-[50px] w-full items-center justify-center gap-2.5 overflow-hidden rounded-[14px] review-offer-fill text-[16px] font-extrabold text-white shadow-[0_16px_36px_-12px_rgba(124,92,246,0.7)] transition-[filter,transform] duration-150 hover:scale-[1.01] hover:brightness-105"
-      onClick={onOpen}
-      type="button"
-    >
-      <span aria-hidden className="review-offer-sheen" />
-      <GiftIcon className="relative text-white" size={22} />
-      <span className="relative">
-        {t("trialEnded.reviewOffer.buttonLabel")}
-      </span>
-    </button>
-  )
-}
-
-const ReviewOfferBanner = ({ onOpen }: { onOpen: () => void }) => {
+const ReviewOfferBanner = ({
+  flush,
+  onOpen,
+}: {
+  flush: boolean
+  onOpen: () => void
+}) => {
   const { t } = useTranslation()
   return (
     <section
       aria-label={t("trialEnded.reviewOffer.ariaLabel")}
-      className="relative overflow-hidden rounded-xl review-offer-fill px-5 py-[18px] shadow-[0_18px_40px_-14px_rgba(124,92,246,0.85)]"
+      className={`relative overflow-hidden review-offer-fill py-[18px] ${flush ? "px-[54px]" : "rounded-xl px-5 shadow-[0_18px_40px_-14px_rgba(124,92,246,0.85)]"}`}
     >
       <span aria-hidden className="review-offer-sheen" />
-      <div className="relative z-10 flex items-center gap-4">
+      <div
+        className={`relative z-10 flex items-center gap-4 ${flush ? "mx-auto max-w-[680px]" : ""}`}
+      >
         <GiftIcon className="text-white" size={36} />
         <span className="flex min-w-0 flex-1 flex-col gap-1">
           <span className="text-[17px] leading-[1.2] font-extrabold tracking-[-0.2px] text-white">

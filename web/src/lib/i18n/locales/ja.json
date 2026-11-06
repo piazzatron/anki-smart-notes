@@ -449,8 +449,6 @@
     "usage": "使用法",
     "free": {
       "notesToday": "今日 {{used}}/{{limit}}",
-      "resetsAt": "ノートは{{time}}にリセットされます",
-      "upgradeToPaid": "有料プランにアップグレード",
       "creditsUsed": "使用済みクレジット",
       "notesTodayLabel": "今日のノート",
       "notesUsedToday": "今日使用したノート",
@@ -515,8 +513,7 @@
       "leftReview": "レビューを書きました",
       "title": "Smart Notes を 1 か月間無料で入手",
       "unavailable": "レビューをありがとうございます！このアカウントは無料期間をすでにご利用済みです。",
-      "writeReview": "レビューを書く",
-      "buttonLabel": "レビューで1か月無料を獲得"
+      "writeReview": "レビューを書く"
     },
     "thanks": "Smart Notes をご利用いただきありがとうございました",
     "title": "無料トライアルは終了しました",
@@ -643,7 +640,6 @@
       "trial": "現在のトライアル",
       "plan": "現在のプラン"
     },
-    "freeLabel": "フリープラン",
-    "pricing": "プランは月額 $4.99 から"
+    "freeLabel": "フリープラン"
   }
 }

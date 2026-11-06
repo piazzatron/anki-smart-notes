@@ -489,8 +489,6 @@
     "usage": "Úsáid",
     "free": {
       "notesToday": "{{used}}/{{limit}} inniu",
-      "resetsAt": "Athshocraítear nótaí ag {{time}}",
-      "upgradeToPaid": "Uasghrádaigh go híoctha",
       "creditsUsed": "Creidiúintí úsáidte",
       "notesTodayLabel": "Nótaí inniu",
       "notesUsedToday": "nótaí úsáidte inniu",
@@ -555,8 +553,7 @@
       "leftReview": "Scríobh mé athbhreithniú",
       "title": "Faigh mí saor in aisce de Smart Notes",
       "unavailable": "Go raibh maith agat as an athbhreithniú! Tá a mhí saor in aisce tugtha don chuntas seo cheana féin.",
-      "writeReview": "Scríobh athbhreithniú",
-      "buttonLabel": "Faigh mí saor in aisce ar athbhreithniú"
+      "writeReview": "Scríobh athbhreithniú"
     },
     "thanks": "Go raibh maith agat as Smart Notes a úsáid",
     "title": "Tá deireadh le do thriail saor in aisce",
@@ -699,7 +696,6 @@
       "trial": "Do thriail",
       "plan": "Do phlean"
     },
-    "freeLabel": "Plean Saor",
-    "pricing": "Tosaíonn pleananna ar $4.99 in aghaidh na míosa"
+    "freeLabel": "Plean Saor"
   }
 }

@@ -459,8 +459,6 @@
     "usage": "Használat",
     "free": {
       "notesToday": "{{used}}/{{limit}} ma",
-      "resetsAt": "A jegyzetek nullázódnak ekkor: {{time}}",
-      "upgradeToPaid": "Frissítés fizetős csomagra",
       "creditsUsed": "Felhasznált kreditek",
       "notesTodayLabel": "Mai jegyzetek",
       "notesUsedToday": "ma felhasznált jegyzet",
@@ -525,8 +523,7 @@
       "leftReview": "Írtam értékelést",
       "title": "Kap egy hónap ingyenes Smart Notes-t",
       "unavailable": "Köszönjük az értékelést! Ez a fiók már kapott ingyenes hónapot.",
-      "writeReview": "Értékelés írása",
-      "buttonLabel": "Ingyenes hónap egy értékelésért"
+      "writeReview": "Értékelés írása"
     },
     "thanks": "Köszönjük, hogy a Smart Notes-t használod",
     "title": "Az ingyenes próbaidőszak véget ért",
@@ -657,7 +654,6 @@
       "trial": "A próbaidőszakod",
       "plan": "A csomagod"
     },
-    "freeLabel": "Ingyenes csomag",
-    "pricing": "A csomagok havi 4,99 $-tól kezdődnek"
+    "freeLabel": "Ingyenes csomag"
   }
 }

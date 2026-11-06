@@ -449,8 +449,6 @@
     "usage": "用法",
     "free": {
       "notesToday": "今日 {{used}}/{{limit}}",
-      "resetsAt": "笔记将于 {{time}} 重置",
-      "upgradeToPaid": "升级为付费版",
       "creditsUsed": "已用积分",
       "notesTodayLabel": "今日笔记",
       "notesUsedToday": "今日已使用的笔记",
@@ -515,8 +513,7 @@
       "leftReview": "我已留下评价",
       "title": "获得一个月的免费 Smart Notes",
       "unavailable": "感谢您的评价！此账户已领取过免费的一个月。",
-      "writeReview": "撰写评价",
-      "buttonLabel": "撰写评价，获得一个月免费使用"
+      "writeReview": "撰写评价"
     },
     "thanks": "感谢您使用 Smart Notes",
     "title": "您的免费试用已结束",
@@ -643,7 +640,6 @@
       "trial": "您的试用",
       "plan": "您的套餐"
     },
-    "freeLabel": "免费版",
-    "pricing": "套餐每月起价 $4.99"
+    "freeLabel": "免费版"
   }
 }

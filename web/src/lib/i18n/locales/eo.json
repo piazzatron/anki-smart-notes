@@ -459,8 +459,6 @@
     "usage": "Uzado",
     "free": {
       "notesToday": "{{used}}/{{limit}} hodiaŭ",
-      "resetsAt": "Notoj reagordiĝas je {{time}}",
-      "upgradeToPaid": "Plibonigi al pagata",
       "creditsUsed": "Uzitaj kreditoj",
       "notesTodayLabel": "Notoj hodiaŭ",
       "notesUsedToday": "notoj uzitaj hodiaŭ",
@@ -525,8 +523,7 @@
       "leftReview": "Mi lasis recenzon",
       "title": "Akiru senpagan monaton de Smart Notes",
       "unavailable": "Dankon pro la recenzo! Ĉi tiu konto jam ricevis sian senkostan monaton.",
-      "writeReview": "Skribi recenzon",
-      "buttonLabel": "Akiru senpagan monaton pro recenzo"
+      "writeReview": "Skribi recenzon"
     },
     "thanks": "Dankon pro uzado de Smart Notes",
     "title": "Via senpaga provo finiĝis",
@@ -657,7 +654,6 @@
       "trial": "Via provo",
       "plan": "Via plano"
     },
-    "freeLabel": "Senpaga plano",
-    "pricing": "Planoj komenciĝas je $4.99 monate"
+    "freeLabel": "Senpaga plano"
   }
 }

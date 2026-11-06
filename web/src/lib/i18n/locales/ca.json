@@ -469,8 +469,6 @@
     "usage": "Ús",
     "free": {
       "notesToday": "{{used}}/{{limit}} avui",
-      "resetsAt": "Les notes es reinicien a les {{time}}",
-      "upgradeToPaid": "Actualitza a un pla de pagament",
       "creditsUsed": "Crèdits utilitzats",
       "notesTodayLabel": "Notes d'avui",
       "notesUsedToday": "notes utilitzades avui",
@@ -535,8 +533,7 @@
       "leftReview": "He deixat una ressenya",
       "title": "Aconsegueix un mes gratuït d'Smart Notes",
       "unavailable": "Gràcies per la ressenya! Aquest compte ja ha gaudit del seu mes gratuït.",
-      "writeReview": "Escriu una ressenya",
-      "buttonLabel": "Obtén un mes gratuït per una ressenya"
+      "writeReview": "Escriu una ressenya"
     },
     "thanks": "Gràcies per fer servir Smart Notes",
     "title": "La teva prova gratuïta ha finalitzat",
@@ -671,7 +668,6 @@
       "trial": "La teva prova",
       "plan": "El teu pla"
     },
-    "freeLabel": "Pla gratuït",
-    "pricing": "Els plans comencen a 4,99 $ al mes"
+    "freeLabel": "Pla gratuït"
   }
 }

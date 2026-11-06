@@ -469,8 +469,6 @@
     "usage": "Korištenje",
     "free": {
       "notesToday": "{{used}}/{{limit}} danas",
-      "resetsAt": "Bilješke se resetiraju u {{time}}",
-      "upgradeToPaid": "Nadogradi na plaćeni plan",
       "creditsUsed": "Iskorišteni krediti",
       "notesTodayLabel": "Bilješke danas",
       "notesUsedToday": "iskorištenih bilješki danas",
@@ -535,8 +533,7 @@
       "leftReview": "Ostavio/la sam recenziju",
       "title": "Dobijte besplatni mjesec Smart Notes",
       "unavailable": "Hvala na recenziji! Ovaj račun je već iskoristio besplatni mjesec.",
-      "writeReview": "Napiši recenziju",
-      "buttonLabel": "Dobij besplatan mjesec za recenziju"
+      "writeReview": "Napiši recenziju"
     },
     "thanks": "Hvala što koristite Smart Notes",
     "title": "Vaše besplatno probno razdoblje je završilo",
@@ -671,7 +668,6 @@
       "trial": "Vaše probno razdoblje",
       "plan": "Vaš plan"
     },
-    "freeLabel": "Besplatni plan",
-    "pricing": "Planovi počinju od 4,99 $ mjesečno"
+    "freeLabel": "Besplatni plan"
   }
 }

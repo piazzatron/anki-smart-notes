@@ -459,8 +459,6 @@
     "usage": "Användande",
     "free": {
       "notesToday": "{{used}}/{{limit}} idag",
-      "resetsAt": "Anteckningarna återställs kl. {{time}}",
-      "upgradeToPaid": "Uppgradera till betald",
       "creditsUsed": "Använda krediter",
       "notesTodayLabel": "Anteckningar idag",
       "notesUsedToday": "anteckningar använda idag",
@@ -525,8 +523,7 @@
       "leftReview": "Jag har lämnat en recension",
       "title": "Få en gratis månad med Smart Notes",
       "unavailable": "Tack för recensionen! Det här kontot har redan fått sin gratismånad.",
-      "writeReview": "Skriv en recension",
-      "buttonLabel": "Få en gratis månad för en recension"
+      "writeReview": "Skriv en recension"
     },
     "thanks": "Tack för att du använder Smart Notes",
     "title": "Din kostnadsfria provperiod har avslutats",
@@ -657,7 +654,6 @@
       "trial": "Din provperiod",
       "plan": "Din plan"
     },
-    "freeLabel": "Gratisplan",
-    "pricing": "Planer börjar på 4,99 USD i månaden"
+    "freeLabel": "Gratisplan"
   }
 }

@@ -479,8 +479,6 @@
     "usage": "Uporaba",
     "free": {
       "notesToday": "{{used}}/{{limit}} danes",
-      "resetsAt": "Zapisi se ponastavijo ob {{time}}",
-      "upgradeToPaid": "Nadgradi na plačljivi načrt",
       "creditsUsed": "Porabljeni krediti",
       "notesTodayLabel": "Zapisi danes",
       "notesUsedToday": "danes uporabljenih zapisov",
@@ -545,8 +543,7 @@
       "leftReview": "Napisal/a sem oceno",
       "title": "Zagotovite si brezplačen mesec Smart Notes",
       "unavailable": "Hvala za oceno! Za ta račun je brezplačni mesec že bil uporabljen.",
-      "writeReview": "Napiši oceno",
-      "buttonLabel": "Za recenzijo prejmite brezplačen mesec"
+      "writeReview": "Napiši oceno"
     },
     "thanks": "Hvala, ker uporabljate Smart Notes",
     "title": "Vaše brezplačno preskusno obdobje se je končalo",
@@ -685,7 +682,6 @@
       "trial": "Vaše preizkusno obdobje",
       "plan": "Vaš načrt"
     },
-    "freeLabel": "Brezplačni načrt",
-    "pricing": "Načrti se začnejo pri 4,99 $ na mesec"
+    "freeLabel": "Brezplačni načrt"
   }
 }

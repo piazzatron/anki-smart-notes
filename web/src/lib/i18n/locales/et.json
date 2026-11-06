@@ -459,8 +459,6 @@
     "usage": "Kasutamine",
     "free": {
       "notesToday": "{{used}}/{{limit}} täna",
-      "resetsAt": "Märkmed lähtestuvad kell {{time}}",
-      "upgradeToPaid": "Uuenda tasuliseks",
       "creditsUsed": "Kasutatud krediidid",
       "notesTodayLabel": "Märkmed täna",
       "notesUsedToday": "täna kasutatud märkmed",
@@ -525,8 +523,7 @@
       "leftReview": "Jätsin arvustuse",
       "title": "Hankige tasuta kuu aega Smart Notes",
       "unavailable": "Aitäh arvustuse eest! Sellel kontol on tasuta kuu juba kasutatud.",
-      "writeReview": "Kirjuta arvustus",
-      "buttonLabel": "Saa arvustuse eest üks kuu tasuta"
+      "writeReview": "Kirjuta arvustus"
     },
     "thanks": "Aitäh, et kasutasid Smart Notes'it",
     "title": "Teie tasuta prooviperiood on lõppenud",
@@ -657,7 +654,6 @@
       "trial": "Teie prooviperiood",
       "plan": "Teie pakett"
     },
-    "freeLabel": "Tasuta pakett",
-    "pricing": "Paketid algavad 4,99 $ kuus"
+    "freeLabel": "Tasuta pakett"
   }
 }

@@ -156,9 +156,11 @@ export const FreePlanStartedScreen = ({
 
   return (
     <main
-      className="relative isolate flex h-full w-full overflow-y-auto bg-canvas px-[54px] py-8 text-ink"
+      className="relative isolate flex h-full w-full flex-col overflow-y-auto bg-canvas text-ink"
       data-testid="free-plan-started-screen"
     >
+      {/* The free month leads, edge to edge, above the ambient light. */}
+      <ReviewOffer className="relative z-20 shrink-0" variant="flush" />
       {/* The welcome screen's ambient light, gathered under the way back. */}
       <div
         aria-hidden
@@ -169,7 +171,7 @@ export const FreePlanStartedScreen = ({
         }}
       />
       <SparkleField className="inset-0" sparkles={SPARKLES} />
-      <div className="relative z-10 m-auto flex w-full max-w-[680px] flex-col items-center">
+      <div className="relative z-10 m-auto flex w-full max-w-[788px] flex-col items-center px-[54px] py-8">
         <p
           className="welcome-enter text-[13.5px] font-semibold text-ink-muted"
           style={enterDelay(0)}
@@ -247,10 +249,6 @@ export const FreePlanStartedScreen = ({
           <GlowButton onClick={() => openSiteLink(SITE_LINKS.upgrade)}>
             {t("freePlanStarted.upgrade")}
           </GlowButton>
-          <p className="mt-2.5 text-[13px] text-ink-muted">
-            {t("freePlanStarted.pricing")}
-          </p>
-          <ReviewOffer className="mt-4 w-full" variant="button" />
           <button
             className="mt-5 cursor-pointer px-3 py-1 text-[13px] text-ink-muted underline-offset-4 transition hover:text-ink hover:underline"
             onClick={onContinue}

@@ -479,8 +479,6 @@
     "usage": "Používání",
     "free": {
       "notesToday": "{{used}}/{{limit}} dnes",
-      "resetsAt": "Poznámky se obnoví v {{time}}",
-      "upgradeToPaid": "Přejít na placený plán",
       "creditsUsed": "Využité kredity",
       "notesTodayLabel": "Poznámky dnes",
       "notesUsedToday": "poznámky využité dnes",
@@ -545,8 +543,7 @@
       "leftReview": "Recenzi už mám napsanou",
       "title": "Získejte měsíc zdarma Smart Notes",
       "unavailable": "Děkujeme za recenzi! Tento účet už měl svůj bezplatný měsíc.",
-      "writeReview": "Napsat recenzi",
-      "buttonLabel": "Získejte měsíc zdarma za recenzi"
+      "writeReview": "Napsat recenzi"
     },
     "thanks": "Děkujeme, že používáte Smart Notes",
     "title": "Vaše bezplatná zkušební verze skončila",
@@ -685,7 +682,6 @@
       "trial": "Vaše zkušební verze",
       "plan": "Váš plán"
     },
-    "freeLabel": "Bezplatný plán",
-    "pricing": "Plány začínají na 4,99 $ měsíčně"
+    "freeLabel": "Bezplatný plán"
   }
 }

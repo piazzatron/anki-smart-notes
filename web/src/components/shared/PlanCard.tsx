@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next"
 import {
   getPaidPlanCardState,
   getPlanConditions,
-  dailyResetTime,
   getPlanPresentation,
   pctLabel,
 } from "./planPresentation"
@@ -302,7 +301,6 @@ const FreePlanCard = ({ plan }: { plan: PlanInfo }) => {
   const limit = plan.dailyNotesLimit ?? 0
   const out = used >= limit
   const low = !out && used >= limit * 0.8
-  const resetTime = dailyResetTime()
 
   return (
     <section
@@ -325,15 +323,12 @@ const FreePlanCard = ({ plan }: { plan: PlanInfo }) => {
         percent={limit > 0 ? Math.min(100, (used / limit) * 100) : 0}
         trackClass="mt-2.5 bg-white/[0.08]"
       />
-      <p className="mt-2 text-xs leading-[1.45] text-ink-muted">
-        {t("subscription.free.resetsAt", { time: resetTime })}
-      </p>
       <button
         className={PLAN_ACTION_BUTTON_CLASS}
         onClick={() => openSiteLink(SITE_LINKS.upgrade)}
       >
         <SparklesIcon className="me-1.5 inline-block align-[-2px]" size={13} />
-        {t("subscription.free.upgradeToPaid")}
+        {t("common.upgrade")}
         <SparklesIcon className="ms-1.5 inline-block align-[-2px]" size={13} />
       </button>
     </section>

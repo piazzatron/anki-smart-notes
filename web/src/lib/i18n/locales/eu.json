@@ -459,8 +459,6 @@
     "usage": "Erabilera",
     "free": {
       "notesToday": "{{used}}/{{limit}} gaur",
-      "resetsAt": "Oharrak berrezartzen dira: {{time}}",
-      "upgradeToPaid": "Eguneratu ordaindutako planera",
       "creditsUsed": "Erabilitako kredituak",
       "notesTodayLabel": "Gaurko oharrak",
       "notesUsedToday": "gaur erabilitako ohar",
@@ -525,8 +523,7 @@
       "leftReview": "Berrikuspena utzi dut",
       "title": "Lortu doan hilabete bat Smart Notes",
       "unavailable": "Eskerrik asko berrikuspena egiteagatik! Kontu honek dagoeneko izan du bere doako hilabetea.",
-      "writeReview": "Idatzi berrikuspena",
-      "buttonLabel": "Hilabete doan bat jaso berrikuspen egiteagatik"
+      "writeReview": "Idatzi berrikuspena"
     },
     "thanks": "Eskerrik asko Smart Notes erabiltzeagatik",
     "title": "Zure doako proba amaitu da",
@@ -657,7 +654,6 @@
       "trial": "Zure proba",
       "plan": "Zure plana"
     },
-    "freeLabel": "Doako plana",
-    "pricing": "Planak hilean 4,99 $-tik hasten dira"
+    "freeLabel": "Doako plana"
   }
 }

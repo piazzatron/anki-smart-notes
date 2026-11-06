@@ -469,8 +469,6 @@
     "usage": "נוֹהָג",
     "free": {
       "notesToday": "{{used}}/{{limit}} היום",
-      "resetsAt": "הפתקים מתאפסים בשעה {{time}}",
-      "upgradeToPaid": "שדרג לתוכנית בתשלום",
       "creditsUsed": "קרדיטים שנוצלו",
       "notesTodayLabel": "פתקים היום",
       "notesUsedToday": "פתקים שנוצלו היום",
@@ -535,8 +533,7 @@
       "leftReview": "השארתי ביקורת",
       "title": "קבל חודש חינם של Smart Notes",
       "unavailable": "תודה על הביקורת! לחשבון הזה כבר ניתן חודש חינם.",
-      "writeReview": "כתבו ביקורת",
-      "buttonLabel": "קבל חודש בחינם תמורת ביקורת"
+      "writeReview": "כתבו ביקורת"
     },
     "thanks": "תודה שהשתמשתם ב-Smart Notes",
     "title": "תקופת הניסיון בחינם שלך הסתיימה",
@@ -671,7 +668,6 @@
       "trial": "תקופת הניסיון שלך",
       "plan": "התוכנית שלך"
     },
-    "freeLabel": "תוכנית חינמית",
-    "pricing": "תוכניות מתחילות ב-$4.99 לחודש"
+    "freeLabel": "תוכנית חינמית"
   }
 }

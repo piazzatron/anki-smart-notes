@@ -104,6 +104,10 @@ def open_web_app(*, upgrade_feature: Optional[str] = None) -> None:
 
     dialog.finished.connect(clear_web_app_dialog)
     dialog.show()
+    # Parented to the main window, it would otherwise open behind the Add or
+    # Browser window that triggered it.
+    dialog.raise_()
+    dialog.activateWindow()
     track_event("smart_notes_window_opened")
 
 

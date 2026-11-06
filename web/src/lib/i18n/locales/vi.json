@@ -449,8 +449,6 @@
     "usage": "Cách sử dụng",
     "free": {
       "notesToday": "{{used}}/{{limit}} hôm nay",
-      "resetsAt": "Ghi chú được đặt lại lúc {{time}}",
-      "upgradeToPaid": "Nâng cấp lên gói trả phí",
       "creditsUsed": "Tín dụng đã dùng",
       "notesTodayLabel": "Ghi chú hôm nay",
       "notesUsedToday": "ghi chú đã dùng hôm nay",
@@ -515,8 +513,7 @@
       "leftReview": "Tôi đã để lại đánh giá",
       "title": "Nhận một tháng miễn phí Smart Notes",
       "unavailable": "Cảm ơn bạn đã đánh giá! Tài khoản này đã nhận tháng dùng thử miễn phí.",
-      "writeReview": "Viết đánh giá",
-      "buttonLabel": "Nhận 1 tháng miễn phí khi đánh giá"
+      "writeReview": "Viết đánh giá"
     },
     "thanks": "Cảm ơn bạn đã sử dụng Smart Notes",
     "title": "Thời gian dùng thử miễn phí của bạn đã kết thúc",
@@ -643,7 +640,6 @@
       "trial": "Bản dùng thử của bạn",
       "plan": "Gói của bạn"
     },
-    "freeLabel": "Gói Miễn phí",
-    "pricing": "Các gói bắt đầu từ $4.99 mỗi tháng"
+    "freeLabel": "Gói Miễn phí"
   }
 }

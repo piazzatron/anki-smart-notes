@@ -449,8 +449,6 @@
     "usage": "Utilizacion",
     "free": {
       "notesToday": "{{used}}/{{limit}} uèi",
-      "resetsAt": "Las notas se remeton a zero a {{time}}",
-      "upgradeToPaid": "Passar a un plan pagat",
       "creditsUsed": "Crèdits utilizats",
       "notesTodayLabel": "Notas uèi",
       "notesUsedToday": "notas utilizadas uèi",
@@ -515,8 +513,7 @@
       "leftReview": "I ai laissat un ressenti",
       "title": "Obtenga un mes gratis de Smart Notes",
       "unavailable": "Mercés per la ressenha! Aqueste compte a ja benefician de son mes gratuit.",
-      "writeReview": "Escriure un ressenti",
-      "buttonLabel": "Obtenètz un mes gratuit per una ressenha"
+      "writeReview": "Escriure un ressenti"
     },
     "thanks": "Mercés d'utilizar Smart Notes",
     "title": "Vòstra espròva gratuita s'es acabada",
@@ -643,7 +640,6 @@
       "trial": "Vòstra version d'essai",
       "plan": "Vòstre plan"
     },
-    "freeLabel": "Plan gratuit",
-    "pricing": "Los plans comencen a 4,99 $ al mes"
+    "freeLabel": "Plan gratuit"
   }
 }

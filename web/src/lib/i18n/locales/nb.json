@@ -459,8 +459,6 @@
     "usage": "Bruk",
     "free": {
       "notesToday": "{{used}}/{{limit}} i dag",
-      "resetsAt": "Notater tilbakestilles kl. {{time}}",
-      "upgradeToPaid": "Oppgrader til betalt",
       "creditsUsed": "Brukte kreditter",
       "notesTodayLabel": "Notater i dag",
       "notesUsedToday": "notater brukt i dag",
@@ -525,8 +523,7 @@
       "leftReview": "Jeg har skrevet en anmeldelse",
       "title": "Få en gratis måned med Smart Notes",
       "unavailable": "Takk for anmeldelsen! Denne kontoen har allerede fått sin gratismåned.",
-      "writeReview": "Skriv en anmeldelse",
-      "buttonLabel": "Få en gratis måned for en anmeldelse"
+      "writeReview": "Skriv en anmeldelse"
     },
     "thanks": "Takk for at du bruker Smart Notes",
     "title": "Din gratis prøveperiode er over",
@@ -657,7 +654,6 @@
       "trial": "Prøveperioden din",
       "plan": "Planen din"
     },
-    "freeLabel": "Gratisplan",
-    "pricing": "Planer starter på $4,99 per måned"
+    "freeLabel": "Gratisplan"
   }
 }

@@ -459,8 +459,6 @@
     "usage": "Usage",
     "free": {
       "notesToday": "{{used}}/{{limit}} today",
-      "resetsAt": "Notes reset at {{time}}",
-      "upgradeToPaid": "Upgrade to paid",
       "creditsUsed": "Credits used",
       "notesTodayLabel": "Notes today",
       "notesUsedToday": "notes used today",
@@ -525,8 +523,7 @@
       "leftReview": "I left a review",
       "title": "Get a free month of Smart Notes",
       "unavailable": "Thanks for the review! This account has already had its free month.",
-      "writeReview": "Write a review",
-      "buttonLabel": "Get a free month for a review"
+      "writeReview": "Write a review"
     },
     "thanks": "Thanks for using Smart Notes",
     "title": "Your free trial has ended",
@@ -658,7 +655,6 @@
       "trial": "Your trial",
       "plan": "Your plan"
     },
-    "freeLabel": "Free plan",
-    "pricing": "Plans start at $4.99 a month"
+    "freeLabel": "Free plan"
   }
 }

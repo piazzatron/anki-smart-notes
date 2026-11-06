@@ -459,8 +459,6 @@
     "usage": "Käyttö",
     "free": {
       "notesToday": "{{used}}/{{limit}} tänään",
-      "resetsAt": "Muistiinpanot nollautuvat kello {{time}}",
-      "upgradeToPaid": "Päivitä maksulliseksi",
       "creditsUsed": "Käytetyt krediitit",
       "notesTodayLabel": "Muistiinpanot tänään",
       "notesUsedToday": "muistiinpanoa käytetty tänään",
@@ -525,8 +523,7 @@
       "leftReview": "Jätin arvostelun",
       "title": "Hanki ilmainen kuukausi Smart Notes",
       "unavailable": "Kiitos arvostelusta! Tällä tilillä on jo ollut ilmainen kuukausi.",
-      "writeReview": "Kirjoita arvostelu",
-      "buttonLabel": "Hanki yksi kuukausi ilmaiseksi arvostelusta"
+      "writeReview": "Kirjoita arvostelu"
     },
     "thanks": "Kiitos Smart Notesin käytöstä",
     "title": "Ilmainen kokeilujaksosi on päättynyt",
@@ -657,7 +654,6 @@
       "trial": "Kokeilujaksosi",
       "plan": "Tilauksesi"
     },
-    "freeLabel": "Ilmainen tilaus",
-    "pricing": "Tilaukset alkavat 4,99 $ kuukaudessa"
+    "freeLabel": "Ilmainen tilaus"
   }
 }

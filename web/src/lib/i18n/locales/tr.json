@@ -459,8 +459,6 @@
     "usage": "Kullanım",
     "free": {
       "notesToday": "Bugün {{used}}/{{limit}}",
-      "resetsAt": "Notlar {{time}} itibarıyla sıfırlanır",
-      "upgradeToPaid": "Ücretli plana geç",
       "creditsUsed": "Kullanılan krediler",
       "notesTodayLabel": "Bugünkü notlar",
       "notesUsedToday": "bugün kullanılan not",
@@ -525,8 +523,7 @@
       "leftReview": "Yorum bıraktım",
       "title": "Bir ay ücretsiz Smart Notes edinin",
       "unavailable": "Değerlendirmeniz için teşekkürler! Bu hesap ücretsiz ayını zaten kullandı.",
-      "writeReview": "Yorum yaz",
-      "buttonLabel": "İnceleme yaparak bir ay ücretsiz kazanın"
+      "writeReview": "Yorum yaz"
     },
     "thanks": "Smart Notes'u kullandığınız için teşekkürler",
     "title": "Ücretsiz deneme süreniz sona erdi",
@@ -657,7 +654,6 @@
       "trial": "Deneme süreniz",
       "plan": "Planınız"
     },
-    "freeLabel": "Ücretsiz plan",
-    "pricing": "Planlar ayda $4,99'dan başlar"
+    "freeLabel": "Ücretsiz plan"
   }
 }

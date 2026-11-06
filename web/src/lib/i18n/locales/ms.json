@@ -449,8 +449,6 @@
     "usage": "Penggunaan",
     "free": {
       "notesToday": "{{used}}/{{limit}} hari ini",
-      "resetsAt": "Nota ditetapkan semula pada {{time}}",
-      "upgradeToPaid": "Naik taraf kepada berbayar",
       "creditsUsed": "Kredit digunakan",
       "notesTodayLabel": "Nota hari ini",
       "notesUsedToday": "nota digunakan hari ini",
@@ -515,8 +513,7 @@
       "leftReview": "Saya telah menulis ulasan",
       "title": "Dapatkan sebulan percuma sebanyak Smart Notes",
       "unavailable": "Terima kasih atas ulasan anda! Akaun ini telah pun menerima percubaan percuma sebulan.",
-      "writeReview": "Tulis ulasan",
-      "buttonLabel": "Dapatkan sebulan percuma untuk ulasan"
+      "writeReview": "Tulis ulasan"
     },
     "thanks": "Terima kasih kerana menggunakan Smart Notes",
     "title": "Percubaan percuma anda telah tamat",
@@ -643,7 +640,6 @@
       "trial": "Percubaan anda",
       "plan": "Pelan anda"
     },
-    "freeLabel": "Pelan Percuma",
-    "pricing": "Pelan bermula pada $4.99 sebulan"
+    "freeLabel": "Pelan Percuma"
   }
 }

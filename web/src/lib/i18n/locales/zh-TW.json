@@ -449,8 +449,6 @@
     "usage": "用法",
     "free": {
       "notesToday": "今日 {{used}}/{{limit}}",
-      "resetsAt": "筆記將於 {{time}} 重設",
-      "upgradeToPaid": "升級為付費方案",
       "creditsUsed": "已用點數",
       "notesTodayLabel": "今日筆記",
       "notesUsedToday": "今日已用筆記數",
@@ -515,8 +513,7 @@
       "leftReview": "我已留下評價",
       "title": "獲得一個月的免費 Smart Notes",
       "unavailable": "感謝你的評論！這個帳號已經領取過免費的一個月。",
-      "writeReview": "撰寫評價",
-      "buttonLabel": "撰寫評論即可免費獲得一個月"
+      "writeReview": "撰寫評價"
     },
     "thanks": "感謝您使用 Smart Notes",
     "title": "您的免費試用已結束",
@@ -643,7 +640,6 @@
       "trial": "您的試用",
       "plan": "您的方案"
     },
-    "freeLabel": "免費方案",
-    "pricing": "方案起價為每月 $4.99"
+    "freeLabel": "免費方案"
   }
 }

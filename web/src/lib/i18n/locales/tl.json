@@ -459,8 +459,6 @@
     "usage": "Paggamit",
     "free": {
       "notesToday": "{{used}}/{{limit}} ngayong araw",
-      "resetsAt": "Mare-reset ang mga note sa {{time}}",
-      "upgradeToPaid": "Mag-upgrade sa bayad na plano",
       "creditsUsed": "Nagamit na credits",
       "notesTodayLabel": "Mga note ngayon",
       "notesUsedToday": "mga note na nagamit ngayong araw",
@@ -525,8 +523,7 @@
       "leftReview": "Nag-iwan ako ng review",
       "title": "Kumuha ng libreng buwan ng Smart Notes",
       "unavailable": "Salamat sa iyong review! Nagamit na ng account na ito ang libreng buwan nito.",
-      "writeReview": "Sumulat ng review",
-      "buttonLabel": "Makakuha ng libreng isang buwan kapalit ng review"
+      "writeReview": "Sumulat ng review"
     },
     "thanks": "Salamat sa paggamit ng Smart Notes",
     "title": "Natapos na ang iyong libreng pagsubok",
@@ -657,7 +654,6 @@
       "trial": "Ang trial mo",
       "plan": "Ang plano mo"
     },
-    "freeLabel": "Libreng plano",
-    "pricing": "Nagsisimula ang mga plano sa $4.99 kada buwan"
+    "freeLabel": "Libreng plano"
   }
 }

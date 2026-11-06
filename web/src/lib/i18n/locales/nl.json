@@ -459,8 +459,6 @@
     "usage": "Gebruik",
     "free": {
       "notesToday": "{{used}}/{{limit}} vandaag",
-      "resetsAt": "Notities worden gereset om {{time}}",
-      "upgradeToPaid": "Upgraden naar betaald",
       "creditsUsed": "Gebruikte credits",
       "notesTodayLabel": "Notities vandaag",
       "notesUsedToday": "notities vandaag gebruikt",
@@ -525,8 +523,7 @@
       "leftReview": "Ik heb een review achtergelaten",
       "title": "Ontvang een gratis maand Smart Notes",
       "unavailable": "Bedankt voor je review! Dit account heeft de gratis maand al gehad.",
-      "writeReview": "Schrijf een review",
-      "buttonLabel": "Krijg een gratis maand voor een review"
+      "writeReview": "Schrijf een review"
     },
     "thanks": "Bedankt voor het gebruiken van Smart Notes",
     "title": "Uw gratis proefperiode is afgelopen",
@@ -657,7 +654,6 @@
       "trial": "Je proefperiode",
       "plan": "Je abonnement"
     },
-    "freeLabel": "Gratis abonnement",
-    "pricing": "Abonnementen beginnen bij $4,99 per maand"
+    "freeLabel": "Gratis abonnement"
   }
 }

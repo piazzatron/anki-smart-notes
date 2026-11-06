@@ -449,8 +449,6 @@
     "usage": "용법",
     "free": {
       "notesToday": "오늘 {{used}}/{{limit}}",
-      "resetsAt": "노트는 {{time}}에 초기화됩니다",
-      "upgradeToPaid": "유료 플랜으로 업그레이드",
       "creditsUsed": "사용한 크레딧",
       "notesTodayLabel": "오늘의 노트",
       "notesUsedToday": "오늘 사용한 노트",
@@ -515,8 +513,7 @@
       "leftReview": "리뷰를 작성했습니다",
       "title": "Smart Notes 1개월 무료 이용",
       "unavailable": "리뷰 감사합니다! 이 계정은 이미 무료 한 달 혜택을 받았습니다.",
-      "writeReview": "리뷰 작성하기",
-      "buttonLabel": "리뷰 작성하고 한 달 무료 받기"
+      "writeReview": "리뷰 작성하기"
     },
     "thanks": "Smart Notes를 사용해 주셔서 감사합니다",
     "title": "무료 평가판이 종료되었습니다",
@@ -643,7 +640,6 @@
       "trial": "현재 체험",
       "plan": "현재 플랜"
     },
-    "freeLabel": "무료 플랜",
-    "pricing": "요금제는 월 $4.99부터 시작합니다"
+    "freeLabel": "무료 플랜"
   }
 }
