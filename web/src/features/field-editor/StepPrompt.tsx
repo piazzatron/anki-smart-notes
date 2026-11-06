@@ -46,7 +46,6 @@ import {
   voiceMatchesSettings,
 } from "@/features/defaults/voiceDefaults"
 import { getValidPromptFields } from "@/lib/promptFields"
-import { suggestPrompt } from "@/services/commands"
 import type { AppState, Catalog, VoiceCatalog } from "@/types/api"
 
 import { EditorPanel } from "./EditorPanel"
@@ -146,23 +145,8 @@ export const StepPrompt = ({
     })
   }
 
-  // An AI guess at what this field is for, from the note type, its fields and a sample
-  // note. Null until it loads. Asked for only once the describe panel is open, since it
-  // costs us a model call. Tab accepts it.
-  const [suggestion, setSuggestion] = useState<string | null>(null)
-  const { deckId, fieldType, noteTypeId, targetFieldName } = target
-  const needsSuggestion =
-    fieldType !== "tts" && isDescribeOpen && suggestion === null
-  useEffect(() => {
-    if (!needsSuggestion) return
-    let isCurrent = true
-    suggestPrompt({ deckId, fieldType, noteTypeId, targetFieldName })
-      .then((result) => isCurrent && setSuggestion(result.suggestion))
-      .catch(() => isCurrent && setSuggestion(""))
-    return () => {
-      isCurrent = false
-    }
-  }, [deckId, fieldType, needsSuggestion, noteTypeId, targetFieldName])
+  const { fieldType, targetFieldName } = target
+  const { suggestion } = controls
 
   // Without a suggestion (signed out, or it failed), a template built from the same
   // fields stands in.
@@ -260,6 +244,13 @@ export const StepPrompt = ({
                     i18nKey="fieldEditor.describe.tabToUse"
                   />
                 </p>
+              )}
+              {/* Where the example and its Tab hint will land, while the guess loads. */}
+              {controls.form.writePrompt === "" && suggestion === null && (
+                <LoaderCircle
+                  aria-hidden
+                  className="pointer-events-none absolute start-3 top-3 size-4 animate-spin text-ink-faint"
+                />
               )}
             </div>
             <div className="mt-2.5 flex items-center justify-between gap-3">

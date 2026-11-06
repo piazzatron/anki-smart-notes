@@ -17,7 +17,7 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import { errorMessage } from "@/lib/errors"
@@ -26,6 +26,7 @@ import {
   createSmartField,
   generatePrompt,
   saveSettings,
+  suggestPrompt,
   updateSmartField,
 } from "@/services/commands"
 import type {
@@ -73,6 +74,9 @@ export interface FieldEditorControls {
   setStep: (step: FieldEditorStep) => void
   setTarget: (updates: Partial<FieldTargetDraft>) => void
   setWizardCompletionHidden: () => Promise<void>
+  // An AI guess at what the field is for, as an example for the describe box. Null
+  // while it loads.
+  suggestion: string | null
   update: (updates: Partial<FieldEditorDraft>) => void
 }
 
@@ -93,6 +97,38 @@ export const useFieldEditor = ({
       mode,
     }),
   )
+
+  // Asked for as soon as the target is set, not when the prompt step opens, so it's
+  // usually ready by the time the user gets there. Each answer is kept with the target
+  // it was for, so a stale one never shows.
+  const [suggested, setSuggested] = useState<{
+    key: string
+    suggestion: string
+  } | null>(null)
+  const { deckId, fieldType, noteTypeId, targetFieldName } = form.target
+  const suggestionKey = `${noteTypeId}/${deckId}/${targetFieldName}/${fieldType}`
+  const needsSuggestion =
+    fieldType !== "tts" && suggested?.key !== suggestionKey
+  useEffect(() => {
+    if (!needsSuggestion) return
+    let isCurrent = true
+    const done = (suggestion: string) =>
+      isCurrent && setSuggested({ key: suggestionKey, suggestion })
+    suggestPrompt({ deckId, fieldType, noteTypeId, targetFieldName })
+      .then((result) => done(result.suggestion))
+      .catch(() => done(""))
+    return () => {
+      isCurrent = false
+    }
+  }, [
+    deckId,
+    fieldType,
+    needsSuggestion,
+    noteTypeId,
+    suggestionKey,
+    targetFieldName,
+  ])
+
   const update = (updates: Partial<FieldEditorDraft>) =>
     setForm((current) => ({ ...current, ...updates }))
   const setPinned = (
@@ -239,6 +275,7 @@ export const useFieldEditor = ({
     setStep: (step) => update({ step }),
     setTarget: changeTarget,
     setWizardCompletionHidden,
+    suggestion: suggested?.key === suggestionKey ? suggested.suggestion : null,
     update,
   }
 }

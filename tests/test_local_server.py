@@ -658,7 +658,9 @@ async def test_prompt_generate_preserves_api_errors_and_reports_only_server_fail
 async def test_prompt_suggest_sends_a_sample_note_and_no_description(monkeypatch):
     import src.local_server
 
-    monkeypatch.setattr(src.local_server, "config", MagicMock(auth_token="signed-in"))
+    monkeypatch.setattr(
+        src.local_server, "config", MagicMock(auth_token="signed-in", language="de_DE")
+    )
     monkeypatch.setattr(
         src.local_server,
         "get_note_types_with_fields",
@@ -700,6 +702,7 @@ async def test_prompt_suggest_sends_a_sample_note_and_no_description(monkeypatch
     assert "generation_prompt" not in args
     assert args["target_field"] == "Meaning"
     assert args["sample_note"] == {"Word": ("食べる" * 300)[:500], "Meaning": ""}
+    assert args["language"] == "de_DE"
 
 
 @pytest.mark.asyncio

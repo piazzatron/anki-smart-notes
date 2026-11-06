@@ -32,6 +32,7 @@ from typing import Any, Optional
 
 import aiohttp
 from aiohttp import web
+from anki import lang
 from aqt import mw
 
 from . import env
@@ -729,6 +730,10 @@ def _prepare_prompt_suggest_args(
 ) -> dict[str, Any]:
     args = _prepare_prompt_generate_args(request)
     del args["generation_prompt"]
+    # The suggestion is shown in the UI, so it's written in the UI's language.
+    args["language"] = (
+        lang.current_lang if config.language == "auto" else config.language
+    )
 
     # One note's values tell the server what language or subject the deck is about.
     if mw and mw.col:
