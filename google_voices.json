@@ -66,7 +66,7 @@
     "gender": "Female",
     "languageCode": "bg-BG",
     "language": "Bulgarian",
-    "name": "bg-BG-Standard-A",
+    "name": "bg-BG-Standard-B",
     "type": "Standard"
   },
   {
@@ -143,7 +143,7 @@
     "gender": "Female",
     "languageCode": "ca-ES",
     "language": "Catalan",
-    "name": "ca-ES-Standard-A",
+    "name": "ca-ES-Standard-B",
     "type": "Standard"
   },
   {
@@ -206,7 +206,7 @@
     "gender": "Female",
     "languageCode": "cs-CZ",
     "language": "Czech",
-    "name": "cs-CZ-Standard-A",
+    "name": "cs-CZ-Standard-B",
     "type": "Standard"
   },
   {
@@ -241,14 +241,14 @@
     "gender": "Female",
     "languageCode": "da-DK",
     "language": "Danish",
-    "name": "da-DK-Standard-A",
+    "name": "da-DK-Standard-F",
     "type": "Standard"
   },
   {
     "gender": "Male",
     "languageCode": "da-DK",
     "language": "Danish",
-    "name": "da-DK-Standard-C",
+    "name": "da-DK-Standard-G",
     "type": "Standard"
   },
   {
@@ -283,7 +283,7 @@
     "gender": "Female",
     "languageCode": "de-DE",
     "language": "German",
-    "name": "de-DE-Standard-A",
+    "name": "de-DE-Standard-G",
     "type": "Standard"
   },
   {
@@ -318,7 +318,7 @@
     "gender": "Female",
     "languageCode": "el-GR",
     "language": "Greek",
-    "name": "el-GR-Standard-A",
+    "name": "el-GR-Standard-B",
     "type": "Standard"
   },
   {
@@ -521,7 +521,7 @@
     "gender": "Female",
     "languageCode": "es-ES",
     "language": "Spanish (Spain)",
-    "name": "es-ES-Standard-A",
+    "name": "es-ES-Standard-F",
     "type": "Standard"
   },
   {
@@ -626,14 +626,14 @@
     "gender": "Female",
     "languageCode": "eu-ES",
     "language": "Basque",
-    "name": "eu-ES-Standard-A",
+    "name": "eu-ES-Standard-B",
     "type": "Standard"
   },
   {
     "gender": "Female",
     "languageCode": "fi-FI",
     "language": "Finnish",
-    "name": "fi-FI-Standard-A",
+    "name": "fi-FI-Standard-B",
     "type": "Standard"
   },
   {
@@ -724,7 +724,7 @@
     "gender": "Female",
     "languageCode": "fr-FR",
     "language": "French (France)",
-    "name": "fr-FR-Standard-A",
+    "name": "fr-FR-Standard-F",
     "type": "Standard"
   },
   {
@@ -759,7 +759,7 @@
     "gender": "Female",
     "languageCode": "gl-ES",
     "language": "Galician",
-    "name": "gl-ES-Standard-A",
+    "name": "gl-ES-Standard-B",
     "type": "Standard"
   },
   {
@@ -920,7 +920,7 @@
     "gender": "Female",
     "languageCode": "hu-HU",
     "language": "Hungarian",
-    "name": "hu-HU-Standard-A",
+    "name": "hu-HU-Standard-B",
     "type": "Standard"
   },
   {
@@ -997,21 +997,21 @@
     "gender": "Female",
     "languageCode": "is-IS",
     "language": "Icelandic",
-    "name": "is-IS-Standard-A",
+    "name": "is-IS-Standard-B",
     "type": "Standard"
   },
   {
     "gender": "Female",
     "languageCode": "it-IT",
     "language": "Italian",
-    "name": "it-IT-Standard-A",
+    "name": "it-IT-Standard-E",
     "type": "Standard"
   },
   {
     "gender": "Male",
     "languageCode": "it-IT",
     "language": "Italian",
-    "name": "it-IT-Standard-C",
+    "name": "it-IT-Standard-F",
     "type": "Standard"
   },
   {
@@ -1172,7 +1172,7 @@
     "gender": "Male",
     "languageCode": "lt-LT",
     "language": "Lithuanian",
-    "name": "lt-LT-Standard-A",
+    "name": "lt-LT-Standard-B",
     "type": "Standard"
   },
   {
@@ -1207,7 +1207,7 @@
     "gender": "Male",
     "languageCode": "lv-LV",
     "language": "Latvian",
-    "name": "lv-LV-Standard-A",
+    "name": "lv-LV-Standard-B",
     "type": "Standard"
   },
   {
@@ -1340,14 +1340,14 @@
     "gender": "Female",
     "languageCode": "nb-NO",
     "language": "Norwegian",
-    "name": "nb-NO-Standard-A",
+    "name": "nb-NO-Standard-F",
     "type": "Standard"
   },
   {
     "gender": "Male",
     "languageCode": "nb-NO",
     "language": "Norwegian",
-    "name": "nb-NO-Standard-B",
+    "name": "nb-NO-Standard-G",
     "type": "Standard"
   },
   {
@@ -1382,14 +1382,14 @@
     "gender": "Female",
     "languageCode": "nl-BE",
     "language": "Dutch (Belgium)",
-    "name": "nl-BE-Standard-A",
+    "name": "nl-BE-Standard-C",
     "type": "Standard"
   },
   {
     "gender": "Male",
     "languageCode": "nl-BE",
     "language": "Dutch (Belgium)",
-    "name": "nl-BE-Standard-B",
+    "name": "nl-BE-Standard-D",
     "type": "Standard"
   },
   {
@@ -1424,14 +1424,14 @@
     "gender": "Female",
     "languageCode": "nl-NL",
     "language": "Dutch (Netherlands)",
-    "name": "nl-NL-Standard-A",
+    "name": "nl-NL-Standard-F",
     "type": "Standard"
   },
   {
     "gender": "Male",
     "languageCode": "nl-NL",
     "language": "Dutch (Netherlands)",
-    "name": "nl-NL-Standard-B",
+    "name": "nl-NL-Standard-G",
     "type": "Standard"
   },
   {
@@ -1508,14 +1508,14 @@
     "gender": "Female",
     "languageCode": "pl-PL",
     "language": "Polish",
-    "name": "pl-PL-Standard-A",
+    "name": "pl-PL-Standard-F",
     "type": "Standard"
   },
   {
     "gender": "Male",
     "languageCode": "pl-PL",
     "language": "Polish",
-    "name": "pl-PL-Standard-B",
+    "name": "pl-PL-Standard-G",
     "type": "Standard"
   },
   {
@@ -1592,21 +1592,21 @@
     "gender": "Female",
     "languageCode": "pt-PT",
     "language": "Portuguese (Portugal)",
-    "name": "pt-PT-Standard-A",
+    "name": "pt-PT-Standard-E",
     "type": "Standard"
   },
   {
     "gender": "Male",
     "languageCode": "pt-PT",
     "language": "Portuguese (Portugal)",
-    "name": "pt-PT-Standard-B",
+    "name": "pt-PT-Standard-F",
     "type": "Standard"
   },
   {
     "gender": "Female",
     "languageCode": "ro-RO",
     "language": "Romanian",
-    "name": "ro-RO-Standard-A",
+    "name": "ro-RO-Standard-B",
     "type": "Standard"
   },
   {
@@ -1655,21 +1655,14 @@
     "gender": "Female",
     "languageCode": "ru-RU",
     "language": "Russian",
-    "name": "ru-RU-Chirp3-HD-Achernar",
+    "name": "ru-RU-Chirp3-HD-Aoede",
     "type": "Chirp"
   },
   {
     "gender": "Female",
     "languageCode": "ru-RU",
     "language": "Russian",
-    "name": "ru-RU-Chirp3-HD-Aoede",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "ru-RU",
-    "language": "Russian",
-    "name": "ru-RU-Chirp3-HD-Achird",
+    "name": "ru-RU-Chirp3-HD-Kore",
     "type": "Chirp"
   },
   {
@@ -1680,10 +1673,17 @@
     "type": "Chirp"
   },
   {
+    "gender": "Male",
+    "languageCode": "ru-RU",
+    "language": "Russian",
+    "name": "ru-RU-Chirp3-HD-Fenrir",
+    "type": "Chirp"
+  },
+  {
     "gender": "Female",
     "languageCode": "sk-SK",
     "language": "Slovak",
-    "name": "sk-SK-Standard-A",
+    "name": "sk-SK-Standard-B",
     "type": "Standard"
   },
   {
@@ -1746,7 +1746,7 @@
     "gender": "Female",
     "languageCode": "sr-RS",
     "language": "Serbian",
-    "name": "sr-RS-Standard-A",
+    "name": "sr-RS-Standard-B",
     "type": "Standard"
   },
   {
@@ -2012,7 +2012,7 @@
     "gender": "Female",
     "languageCode": "uk-UA",
     "language": "Ukrainian",
-    "name": "uk-UA-Standard-A",
+    "name": "uk-UA-Standard-B",
     "type": "Standard"
   },
   {
