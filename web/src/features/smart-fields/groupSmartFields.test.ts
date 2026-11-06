@@ -43,6 +43,7 @@ const stateWith = (smartFields: SmartField[]): AppState => ({
   },
   serverUnreachable: false,
   featureFlags: { reviewFreeMonth: false },
+  reviewOfferUnlocked: false,
   defaults: {
     chat: {
       provider: "auto",

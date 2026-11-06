@@ -258,6 +258,9 @@
       "ariaLabel": "Donnez votre avis sur Smart Notes sur AnkiWeb",
       "button": "AnkiWeb",
       "dismissAriaLabel": "Rejeter l'invitation à avis",
+      "offerAriaLabel": "Obtenez un mois gratuit en laissant un avis sur AnkiWeb",
+      "offerButton": "Obtenir un mois gratuit",
+      "offerSubtitle": "Obtenez un mois gratuit de notre part en laissant un avis sur AnkiWeb",
       "subtitle": "Laissez un avis sur AnkiWeb pour aider les autres utilisateurs de Anki à le trouver.",
       "title": "Vous appréciez Smart Notes ?"
     },

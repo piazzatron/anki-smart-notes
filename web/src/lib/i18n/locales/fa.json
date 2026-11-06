@@ -257,6 +257,9 @@
       "ariaLabel": "Smart Notes را در AnkiWeb مرور کنید",
       "button": "AnkiWeb",
       "dismissAriaLabel": "رد کردن دعوت برای بازبینی",
+      "offerAriaLabel": "برای یک نظر در AnkiWeb، یک ماه رایگان دریافت کنید",
+      "offerButton": "یک ماه رایگان دریافت کنید",
+      "offerSubtitle": "با ثبت نظر در AnkiWeb، یک ماه رایگان از ما دریافت کنید",
       "subtitle": "برای کمک به دیگر کاربران Anki در یافتن آن، نظری را در مورد AnkiWeb ارسال کنید.",
       "title": "از Smart Notes لذت می برید؟"
     },

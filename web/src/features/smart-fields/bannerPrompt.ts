@@ -1,3 +1,5 @@
+import type { ReviewClaimState } from "@/types/api"
+
 export type BannerPrompt = "review" | "discord" | null
 
 export interface BannerPromptState {
@@ -32,4 +34,30 @@ export const selectBannerPrompt = (state: BannerPromptState): BannerPrompt => {
   }
 
   return null
+}
+
+export type ReviewBannerKind = "offer" | "plain" | null
+
+export interface ReviewBannerState {
+  reviewFreeMonth: boolean
+  offerUnlocked: boolean
+  claimLoading: boolean
+  claimState: ReviewClaimState | null
+}
+
+/**
+ * Chooses what the review banner shows. While the `review_free_month` flag is
+ * on, it waits for the user's first generation and for the server's answer,
+ * then offers the free month to anyone who can still get it (or has a claim
+ * pending). Everyone else, including when the server can't be reached, gets
+ * the plain review ask.
+ */
+export const selectReviewBanner = (
+  state: ReviewBannerState,
+): ReviewBannerKind => {
+  if (!state.reviewFreeMonth) return "plain"
+  if (!state.offerUnlocked || state.claimLoading) return null
+  return state.claimState === "available" || state.claimState === "claimed"
+    ? "offer"
+    : "plain"
 }

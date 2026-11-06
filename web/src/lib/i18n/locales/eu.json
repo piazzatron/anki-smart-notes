@@ -257,6 +257,9 @@
       "ariaLabel": "Berrikusi Smart Notes AnkiWeb-n",
       "button": "AnkiWeb",
       "dismissAriaLabel": "Baztertu berrikusteko gonbidapena",
+      "offerAriaLabel": "Lortu hilabete doan bat AnkiWeb-en iritzia emateagatik",
+      "offerButton": "Lortu hilabete doan bat",
+      "offerSubtitle": "Jaso iruzkin bat AnkiWeb-en eta hilabete doan bat lortu.",
       "subtitle": "Utzi berrikuspena AnkiWeb-ri beste Anki erabiltzaileei aurkitzen laguntzeko.",
       "title": "Smart Notes gozatzen?"
     },

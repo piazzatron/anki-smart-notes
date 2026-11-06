@@ -36,12 +36,65 @@ import { getReviewClaimState, sendReviewClaim } from "@/services/commands"
 import { useAppStore } from "@/store/appStore"
 import type { ReviewClaimState } from "@/types/api"
 
-/** The free month for an AnkiWeb review: the call to action, the dialog it opens,
- *  and its analytics, in one place. Renders nothing while the `review_free_month`
- *  flag is off, and hides the call to action once the server says this account
- *  can't get the month. A `banner` leads the trial-ended screen; a `button` sits
- *  under the free plan screen's upgrade button as the second way to keep
- *  everything. */
+// The server's last answer this session, so a screen that remounts shows the
+// offer at once while it asks again. `undefined` until the first request settles.
+let lastClaimState: ReviewClaimState | null | undefined
+
+/** The free month for an AnkiWeb review, for a call to action to open: whether
+ *  the `review_free_month` flag is on, the server's answer on whether this
+ *  account can get the month (`null` until it arrives, and after a failed
+ *  request), `loading` until the session's first request settles (it stays
+ *  `true` while the flag is off), and the dialog that claims it. `onDone` runs
+ *  when the dialog closes after a claim, or after the server says this account
+ *  can't get the month. */
+export const useReviewOffer = ({ onDone }: { onDone?: () => void } = {}) => {
+  const enabled = useAppStore(
+    (store) => store.state?.featureFlags.reviewFreeMonth ?? false,
+  )
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const [claimState, setClaimStateValue] = useState(lastClaimState ?? null)
+  const [loading, setLoading] = useState(lastClaimState === undefined)
+
+  const setClaimState = (state: ReviewClaimState | null) => {
+    lastClaimState = state
+    setClaimStateValue(state)
+  }
+
+  useEffect(() => {
+    if (!enabled) return
+    getReviewClaimState()
+      .then(setClaimState, () => setClaimState(lastClaimState ?? null))
+      .finally(() => setLoading(false))
+  }, [enabled])
+
+  const changeOpen = (open: boolean) => {
+    setDialogOpen(open)
+    if (!open && (claimState === "claimed" || claimState === "unavailable")) {
+      onDone?.()
+    }
+  }
+
+  return {
+    enabled,
+    claimState,
+    loading,
+    open: () => setDialogOpen(true),
+    dialog: (
+      <ReviewOfferDialog
+        claimState={claimState}
+        onClaimed={setClaimState}
+        onOpenChange={changeOpen}
+        open={dialogOpen}
+      />
+    ),
+  }
+}
+
+/** The free month on the trial-ended and free plan screens. Renders nothing
+ *  while the `review_free_month` flag is off, and hides the call to action once
+ *  the server says this account can't get the month. A `banner` leads the
+ *  trial-ended screen; a `button` sits under the free plan screen's upgrade
+ *  button as the second way to keep everything. */
 export const ReviewOffer = ({
   className = "",
   variant = "banner",
@@ -49,42 +102,28 @@ export const ReviewOffer = ({
   className?: string
   variant?: "banner" | "button"
 }) => {
-  const enabled = useAppStore(
-    (store) => store.state?.featureFlags.reviewFreeMonth ?? false,
-  )
-  const [dialogOpen, setDialogOpen] = useState(false)
-  const [claimState, setClaimState] = useState<ReviewClaimState | null>(null)
-
-  // The offer shows until the server says this user can't get the free month.
-  useEffect(() => {
-    if (!enabled) return
-    getReviewClaimState().then(setClaimState, () => undefined)
-  }, [enabled])
+  const { enabled, claimState, open, dialog } = useReviewOffer()
 
   if (!enabled) return null
 
-  const open = () => {
+  const openDialog = () => {
     void trackAnalyticsEvent({ event: "clicked_trial_ended_review" })
-    setDialogOpen(true)
+    open()
   }
 
+  // The offer shows until the server says this user can't get the free month.
   return (
     <>
       {claimState !== "unavailable" && (
         <div className={className}>
           {variant === "banner" ? (
-            <ReviewOfferBanner onOpen={open} />
+            <ReviewOfferBanner onOpen={openDialog} />
           ) : (
-            <ReviewOfferButton onOpen={open} />
+            <ReviewOfferButton onOpen={openDialog} />
           )}
         </div>
       )}
-      <ReviewOfferDialog
-        claimState={claimState}
-        onClaimed={setClaimState}
-        onOpenChange={setDialogOpen}
-        open={dialogOpen}
-      />
+      {dialog}
     </>
   )
 }
@@ -94,14 +133,11 @@ const ReviewOfferButton = ({ onOpen }: { onOpen: () => void }) => {
   const { t } = useTranslation()
   return (
     <button
-      className="relative flex h-[50px] w-full items-center justify-center gap-2.5 overflow-hidden rounded-[14px] bg-[linear-gradient(100deg,#5b6fe8_0%,#8b5cf6_52%,#6d8bff_100%)] text-[16px] font-extrabold text-white shadow-[0_16px_36px_-12px_rgba(124,92,246,0.7)] transition-[filter,transform] duration-150 hover:scale-[1.01] hover:brightness-105"
+      className="relative flex h-[50px] w-full items-center justify-center gap-2.5 overflow-hidden rounded-[14px] review-offer-fill text-[16px] font-extrabold text-white shadow-[0_16px_36px_-12px_rgba(124,92,246,0.7)] transition-[filter,transform] duration-150 hover:scale-[1.01] hover:brightness-105"
       onClick={onOpen}
       type="button"
     >
-      <span
-        aria-hidden
-        className="review-offer-sheen pointer-events-none absolute inset-y-0 start-0 w-[55%] bg-[linear-gradient(105deg,transparent_30%,rgba(255,255,255,0.3)_50%,transparent_70%)]"
-      />
+      <span aria-hidden className="review-offer-sheen" />
       <GiftIcon className="relative text-white" size={22} />
       <span className="relative">
         {t("trialEnded.reviewOffer.buttonLabel")}
@@ -115,12 +151,9 @@ const ReviewOfferBanner = ({ onOpen }: { onOpen: () => void }) => {
   return (
     <section
       aria-label={t("trialEnded.reviewOffer.ariaLabel")}
-      className="relative overflow-hidden rounded-xl bg-[linear-gradient(100deg,#5b6fe8_0%,#8b5cf6_52%,#6d8bff_100%)] px-5 py-[18px] shadow-[0_18px_40px_-14px_rgba(124,92,246,0.85)]"
+      className="relative overflow-hidden rounded-xl review-offer-fill px-5 py-[18px] shadow-[0_18px_40px_-14px_rgba(124,92,246,0.85)]"
     >
-      <span
-        aria-hidden
-        className="review-offer-sheen pointer-events-none absolute inset-y-0 start-0 w-[55%] bg-[linear-gradient(105deg,transparent_30%,rgba(255,255,255,0.3)_50%,transparent_70%)]"
-      />
+      <span aria-hidden className="review-offer-sheen" />
       <div className="relative z-10 flex items-center gap-4">
         <GiftIcon className="text-white" size={36} />
         <span className="flex min-w-0 flex-1 flex-col gap-1">

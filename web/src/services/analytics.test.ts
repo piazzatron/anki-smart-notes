@@ -80,6 +80,7 @@ const stateWithAccount = (
   account,
   serverUnreachable: false,
   featureFlags: { reviewFreeMonth: false },
+  reviewOfferUnlocked: false,
   defaults: {
     chat: {
       provider: "auto",

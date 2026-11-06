@@ -256,6 +256,9 @@
       "ariaLabel": "在 AnkiWeb 上評論 Smart Notes",
       "button": "AnkiWeb",
       "dismissAriaLabel": "駁回審核邀請",
+      "offerAriaLabel": "在 AnkiWeb 留下評論即可免費獲得一個月",
+      "offerButton": "免費獲得一個月",
+      "offerSubtitle": "在 AnkiWeb 留下評價，即可免費獲得一個月使用期",
       "subtitle": "在 AnkiWeb 上留下評論以幫助其他 Anki 用戶找到它。",
       "title": "喜歡 Smart Notes 嗎？"
     },

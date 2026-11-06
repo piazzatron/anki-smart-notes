@@ -257,6 +257,9 @@
       "ariaLabel": "Suriin ang Smart Notes sa AnkiWeb",
       "button": "AnkiWeb",
       "dismissAriaLabel": "I-dismiss ang imbitasyon sa pagsusuri",
+      "offerAriaLabel": "Kumuha ng libreng isang buwan para sa review sa AnkiWeb",
+      "offerButton": "Kumuha ng libreng buwan",
+      "offerSubtitle": "Makakuha ng libreng isang buwan kapag nag-iwan ka ng review sa AnkiWeb",
       "subtitle": "Mag-iwan ng review sa AnkiWeb upang matulungan ang ibang mga gumagamit ng Anki na mahanap ito.",
       "title": "Tinatangkilik ang Smart Notes?"
     },

@@ -260,6 +260,9 @@
       "ariaLabel": "Déan athbhreithniú ar Smart Notes ar AnkiWeb",
       "button": "AnkiWeb",
       "dismissAriaLabel": "Ruaig an cuireadh athbhreithnithe",
+      "offerAriaLabel": "Faigh mí saor in aisce as athbhreithniú ar AnkiWeb",
+      "offerButton": "Faigh mí saor in aisce",
+      "offerSubtitle": "Faigh mí saor in aisce uainn nuair a scríobhann tú athbhreithniú ar AnkiWeb",
       "subtitle": "Fág léirmheas ar AnkiWeb chun cabhrú le húsáideoirí Anki eile é a aimsiú.",
       "title": "Ag baint taitnimh as Smart Notes?"
     },

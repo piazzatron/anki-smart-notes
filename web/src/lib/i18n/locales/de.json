@@ -257,6 +257,9 @@
       "ariaLabel": "Rezension Smart Notes auf AnkiWeb",
       "button": "AnkiWeb",
       "dismissAriaLabel": "Bewertungseinladung ablehnen",
+      "offerAriaLabel": "Einen Monat gratis für eine Bewertung auf AnkiWeb erhalten",
+      "offerButton": "Einen Monat gratis erhalten",
+      "offerSubtitle": "Erhalte einen Monat kostenlos von uns, wenn du eine Bewertung auf AnkiWeb hinterlässt",
       "subtitle": "Hinterlassen Sie eine Bewertung zu AnkiWeb, um anderen Anki-Benutzern dabei zu helfen, sie zu finden.",
       "title": "Genießen Sie Smart Notes?"
     },

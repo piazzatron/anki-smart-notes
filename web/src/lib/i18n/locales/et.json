@@ -257,6 +257,9 @@
       "ariaLabel": "Vaadake üle Smart Notes saidil AnkiWeb",
       "button": "AnkiWeb",
       "dismissAriaLabel": "Loobu ülevaatamise kutsest",
+      "offerAriaLabel": "Saa AnkiWebi arvustuse eest tasuta kuu",
+      "offerButton": "Saa tasuta kuu",
+      "offerSubtitle": "Jätke AnkiWeb arvustus ja saate meie poolt ühe tasuta kuu",
       "subtitle": "Jätke AnkiWeb kohta ülevaade, et aidata teistel Anki kasutajatel see leida.",
       "title": "Kas teile meeldib Smart Notes?"
     },

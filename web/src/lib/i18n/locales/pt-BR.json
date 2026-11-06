@@ -258,6 +258,9 @@
       "ariaLabel": "Revise Smart Notes em AnkiWeb",
       "button": "AnkiWeb",
       "dismissAriaLabel": "Dispensar convite de revisão",
+      "offerAriaLabel": "Ganhe um mês grátis por uma avaliação no AnkiWeb",
+      "offerButton": "Ganhe um mês grátis",
+      "offerSubtitle": "Ganhe um mês grátis ao deixar uma avaliação no AnkiWeb",
       "subtitle": "Deixe um comentário no AnkiWeb para ajudar outros usuários do Anki a encontrá-lo.",
       "title": "Gostou do Smart Notes?"
     },

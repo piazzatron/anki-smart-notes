@@ -510,7 +510,20 @@
   }
 }
 
+/* The light sweeping across the free-month offer. Its motion is physical, so it starts
+   at the physical left in RTL too. */
 .review-offer-sheen {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 55%;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgb(255 255 255 / 0.3) 50%,
+    transparent 70%
+  );
   animation: review-offer-sheen 3.8s ease-in-out infinite;
 }
 
@@ -715,6 +728,17 @@ button:disabled,
   &:hover {
     filter: brightness(1.05);
   }
+}
+
+/* The free-month offer's purple fill: the trial-ended banner and button, and the Smart
+   Fields review banner's offer. Shape and glow stay with each use. */
+@utility review-offer-fill {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-indigo-deep) 0%,
+    #8b5cf6 52%,
+    #6d8bff 100%
+  );
 }
 
 @utility hang {

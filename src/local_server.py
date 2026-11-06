@@ -423,6 +423,7 @@ class LocalServer:
                     auth_token=config.auth_token,
                     server_unreachable=app_state.server_unreachable,
                     feature_flags=flags,
+                    times_used=config.times_used,
                     settings=dto.build_settings(),
                     app_version=get_version(),
                     install_id=get_install_id(),

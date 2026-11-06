@@ -258,6 +258,9 @@
       "ariaLabel": "Прегледајте Smart Notes на AnkiWeb",
       "button": "AnkiWeb",
       "dismissAriaLabel": "Одбаците позивницу за преглед",
+      "offerAriaLabel": "Добијте месец бесплатно за рецензију на сајту AnkiWeb",
+      "offerButton": "Добијте месец бесплатно",
+      "offerSubtitle": "Добијте месец бесплатно када оставите рецензију на сајту AnkiWeb",
       "subtitle": "Оставите рецензију о AnkiWeb да бисте помогли другим корисницима Anki да га пронађу.",
       "title": "Уживате у Smart Notes?"
     },

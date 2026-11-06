@@ -257,6 +257,9 @@
       "ariaLabel": "AnkiWeb ଉପରେ Smart Notes ସମୀକ୍ଷା କରନ୍ତୁ",
       "button": "AnkiWeb",
       "dismissAriaLabel": "ନିମନ୍ତ୍ରଣକୁ ପ୍ରତ୍ୟାଖ୍ୟାନ କରନ୍ତୁ",
+      "offerAriaLabel": "AnkiWeb ସମୀକ୍ଷା ପାଇଁ ଏକ ମାଗଣା ମାସ ପାଆନ୍ତୁ",
+      "offerButton": "ଏକ ମାଗଣା ମାସ ପାଆନ୍ତୁ",
+      "offerSubtitle": "ଯେତେବେଳେ ଆପଣ AnkiWeb ରେ ଏକ ସମୀକ୍ଷା ଦିଅନ୍ତି, ଆମ ତରଫରୁ ଏକ ମାଗଣା ମାସ ପାଆନ୍ତୁ",
       "subtitle": "ଅନ୍ୟ Anki ବ୍ୟବହାରକାରୀଙ୍କୁ ଏହାକୁ ଖୋଜିବାରେ ସାହାଯ୍ୟ କରିବାକୁ AnkiWeb ଉପରେ ଏକ ସମୀକ୍ଷା ଛାଡିଦିଅ",
       "title": "Smart Notes ଉପଭୋଗ କରୁଛନ୍ତି?"
     },

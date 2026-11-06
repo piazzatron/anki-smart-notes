@@ -261,6 +261,9 @@
       "ariaLabel": "مراجعة Smart Notes على AnkiWeb",
       "button": "AnkiWeb",
       "dismissAriaLabel": "رفض دعوة المراجعة",
+      "offerAriaLabel": "احصل على شهر مجاني مقابل مراجعة على AnkiWeb",
+      "offerButton": "احصل على شهر مجاني",
+      "offerSubtitle": "احصل على شهر مجاني منا عند كتابة مراجعة على AnkiWeb",
       "subtitle": "اترك تعليقًا على AnkiWeb لمساعدة مستخدمي Anki الآخرين في العثور عليه.",
       "title": "تتمتع Smart Notes؟"
     },

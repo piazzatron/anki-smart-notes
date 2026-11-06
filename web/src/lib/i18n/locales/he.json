@@ -258,6 +258,9 @@
       "ariaLabel": "סקור את Smart Notes ב-AnkiWeb",
       "button": "AnkiWeb",
       "dismissAriaLabel": "דחה את ההזמנה לביקורת",
+      "offerAriaLabel": "קבלו חודש חינם על ביקורת ב-AnkiWeb",
+      "offerButton": "קבלו חודש חינם",
+      "offerSubtitle": "קבל חודש בחינם כשתשאיר ביקורת ב-AnkiWeb",
       "subtitle": "השאירו ביקורת על AnkiWeb כדי לעזור למשתמשים אחרים של Anki למצוא אותו.",
       "title": "נהנה מ-Smart Notes?"
     },

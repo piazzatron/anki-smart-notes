@@ -257,6 +257,9 @@
       "ariaLabel": "Beoordeel Smart Notes op AnkiWeb",
       "button": "AnkiWeb",
       "dismissAriaLabel": "Beoordelingsuitnodiging afwijzen",
+      "offerAriaLabel": "Krijg een gratis maand voor een AnkiWeb-recensie",
+      "offerButton": "Krijg een gratis maand",
+      "offerSubtitle": "Ontvang een gratis maand van ons wanneer je een recensie achterlaat op AnkiWeb",
       "subtitle": "Laat een recensie achter op AnkiWeb zodat andere Anki-gebruikers deze kunnen vinden.",
       "title": "Genieten van Smart Notes?"
     },

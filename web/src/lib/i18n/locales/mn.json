@@ -257,6 +257,9 @@
       "ariaLabel": "Smart Notes-г AnkiWeb дээр хянана",
       "button": "AnkiWeb",
       "dismissAriaLabel": "Хяналтын урилгыг хэрэгсэхгүй болгох",
+      "offerAriaLabel": "AnkiWeb-д үnэлгээ үлдээгээд нэг сарын үнэгүй эрх авах",
+      "offerButton": "Нэг сарын үнэгүй эрх авах",
+      "offerSubtitle": "AnkiWeb дээр сэтгэгдэл үлдээвэл бид танд нэг сарыг үнэгүй санал болгоно",
       "subtitle": "Бусад Anki хэрэглэгчдэд үүнийг олоход нь туслахын тулд AnkiWeb дээр сэтгэгдэл үлдээнэ үү.",
       "title": "Smart Notes таалагдаж байна уу?"
     },

@@ -259,6 +259,9 @@
       "ariaLabel": "Агляд Smart Notes на AnkiWeb",
       "button": "AnkiWeb",
       "dismissAriaLabel": "Адхіліць запрашэнне на агляд",
+      "offerAriaLabel": "Атрымайце бясплатны месяц за водгук на AnkiWeb",
+      "offerButton": "Атрымаць бясплатны месяц",
+      "offerSubtitle": "Атрымайце месяц бясплатна, калі пакінеце водгук на AnkiWeb",
       "subtitle": "Пакіньце водгук на AnkiWeb, каб дапамагчы іншым карыстальнікам Anki знайсці яго.",
       "title": "Вам падабаецца Smart Notes?"
     },

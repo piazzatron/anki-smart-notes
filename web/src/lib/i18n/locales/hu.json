@@ -257,6 +257,9 @@
       "ariaLabel": "Tekintse át az Smart Notes-t az AnkiWeb-n",
       "button": "AnkiWeb",
       "dismissAriaLabel": "Ellenőrzési meghívó elvetése",
+      "offerAriaLabel": "Ingyenes hónap egy AnkiWeb-értékelésért",
+      "offerButton": "Ingyenes hónap",
+      "offerSubtitle": "Kapj egy ingyenes hónapot, ha értékelést írsz az AnkiWeben",
       "subtitle": "Hagyjon értékelést a AnkiWeb-ról, hogy segítsen más Anki felhasználóknak megtalálni.",
       "title": "Élvezed az Smart Notes-t?"
     },

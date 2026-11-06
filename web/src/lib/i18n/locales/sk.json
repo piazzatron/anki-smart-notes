@@ -259,6 +259,9 @@
       "ariaLabel": "Recenzia Smart Notes na AnkiWeb",
       "button": "AnkiWeb",
       "dismissAriaLabel": "Odmietnuť pozvánku na kontrolu",
+      "offerAriaLabel": "Získajte mesiac zadarmo za recenziu na AnkiWeb",
+      "offerButton": "Získajte mesiac zadarmo",
+      "offerSubtitle": "Získajte bezplatný mesiac, keď zanecháte recenziu na stránke AnkiWeb",
       "subtitle": "Napíšte recenziu na AnkiWeb, aby ste pomohli ostatným používateľom Anki nájsť ho.",
       "title": "Páči sa vám Smart Notes?"
     },

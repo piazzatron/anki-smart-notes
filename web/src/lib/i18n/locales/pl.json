@@ -259,6 +259,9 @@
       "ariaLabel": "Przejrzyj Smart Notes na AnkiWeb",
       "button": "AnkiWeb",
       "dismissAriaLabel": "Odrzuć zaproszenie do recenzji",
+      "offerAriaLabel": "Odbierz darmowy miesiąc za recenzję na AnkiWeb",
+      "offerButton": "Odbierz darmowy miesiąc",
+      "offerSubtitle": "Otrzymaj darmowy miesiąc, gdy zostawisz recenzję na AnkiWeb",
       "subtitle": "Zostaw recenzję na temat AnkiWeb, aby pomóc innym użytkownikom Anki ją znaleźć.",
       "title": "Podoba Ci się Smart Notes?"
     },

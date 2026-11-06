@@ -257,6 +257,9 @@
       "ariaLabel": "Review Smart Notes on AnkiWeb",
       "button": "AnkiWeb",
       "dismissAriaLabel": "Dismiss review invitation",
+      "offerAriaLabel": "Get a free month for an AnkiWeb review",
+      "offerButton": "Get a free month",
+      "offerSubtitle": "Get a free month on us when you leave a review on AnkiWeb",
       "subtitle": "Leave a review on AnkiWeb to help other Anki users find it.",
       "title": "Enjoying Smart Notes?"
     },

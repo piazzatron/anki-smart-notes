@@ -256,6 +256,9 @@
       "ariaLabel": "AnkiWeb에서 Smart Notes 검토",
       "button": "AnkiWeb",
       "dismissAriaLabel": "검토 초대 닫기",
+      "offerAriaLabel": "AnkiWeb 리뷰를 남기고 한 달 무료 이용권 받기",
+      "offerButton": "한 달 무료 받기",
+      "offerSubtitle": "AnkiWeb에 리뷰를 남기시면 한 달을 무료로 제공해 드립니다",
       "subtitle": "다른 Anki 사용자가 찾을 수 있도록 AnkiWeb에 리뷰를 남겨주세요.",
       "title": "Smart Notes를 즐기시나요?"
     },

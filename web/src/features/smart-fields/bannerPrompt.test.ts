@@ -1,6 +1,12 @@
 import { describe, expect, test } from "bun:test"
 
-import { selectBannerPrompt, type BannerPromptState } from "./bannerPrompt"
+import {
+  selectBannerPrompt,
+  selectReviewBanner,
+  type BannerPromptState,
+  type ReviewBannerKind,
+  type ReviewBannerState,
+} from "./bannerPrompt"
 
 const base: BannerPromptState = {
   hasState: true,
@@ -46,5 +52,50 @@ describe("selectBannerPrompt", () => {
 
   test("shows nothing before app state has loaded", () => {
     expect(selectBannerPrompt({ ...base, hasState: false })).toBeNull()
+  })
+})
+
+describe("selectReviewBanner", () => {
+  const offerBase: ReviewBannerState = {
+    reviewFreeMonth: true,
+    offerUnlocked: true,
+    claimLoading: false,
+    claimState: "available",
+  }
+
+  test.each<[string, Partial<ReviewBannerState>, ReviewBannerKind]>([
+    ["offers the month to a user who can claim it", {}, "offer"],
+    [
+      "keeps offering it while a claim is pending",
+      { claimState: "claimed" },
+      "offer",
+    ],
+    [
+      "asks for a plain review when the flag is off",
+      { reviewFreeMonth: false },
+      "plain",
+    ],
+    [
+      "asks for a plain review when the server refuses the month",
+      { claimState: "unavailable" },
+      "plain",
+    ],
+    [
+      "asks for a plain review when the claim state couldn't load",
+      { claimState: null },
+      "plain",
+    ],
+    [
+      "shows nothing before the first generation",
+      { offerUnlocked: false },
+      null,
+    ],
+    [
+      "shows nothing while the claim state loads",
+      { claimLoading: true, claimState: null },
+      null,
+    ],
+  ])("%s", (_, overrides, expected) => {
+    expect(selectReviewBanner({ ...offerBase, ...overrides })).toBe(expected)
   })
 })

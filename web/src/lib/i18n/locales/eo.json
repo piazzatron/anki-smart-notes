@@ -257,6 +257,9 @@
       "ariaLabel": "Revizu Smart Notes sur AnkiWeb",
       "button": "AnkiWeb",
       "dismissAriaLabel": "Forĵeti revizian inviton",
+      "offerAriaLabel": "Ricevu senpagan monaton pro recenzo en AnkiWeb",
+      "offerButton": "Ricevu senpagan monaton",
+      "offerSubtitle": "Ricevu senpagan monaton kiam vi skribas recenzon en AnkiWeb",
       "subtitle": "Lasu recenzon pri AnkiWeb por helpi aliajn Anki-uzantojn trovi ĝin.",
       "title": "Ĉu vi ĝuas Smart Notes?"
     },

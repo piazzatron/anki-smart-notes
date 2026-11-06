@@ -258,6 +258,9 @@
       "ariaLabel": "Examinați Smart Notes pe AnkiWeb",
       "button": "AnkiWeb",
       "dismissAriaLabel": "Respinge invitația de revizuire",
+      "offerAriaLabel": "Obține o lună gratuită pentru o recenzie pe AnkiWeb",
+      "offerButton": "Obține o lună gratuită",
+      "offerSubtitle": "Primești o lună gratuită când lași o recenzie pe AnkiWeb",
       "subtitle": "Lăsați o recenzie despre AnkiWeb pentru a ajuta alți utilizatori Anki să o găsească.",
       "title": "Vă bucurați de Smart Notes?"
     },

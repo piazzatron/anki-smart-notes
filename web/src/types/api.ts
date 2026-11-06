@@ -202,6 +202,8 @@ export interface AppState {
   /** The last account refresh couldn't reach the Smart Notes server. */
   serverUnreachable: boolean
   featureFlags: FeatureFlags
+  /** The user has generated enough for the review banner to offer the free month. */
+  reviewOfferUnlocked: boolean
   defaults: GenerationDefaults
   settings: Settings
 }

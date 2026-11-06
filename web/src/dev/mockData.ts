@@ -158,6 +158,7 @@ const BASE_STATE: AppState = {
   },
   serverUnreachable: false,
   featureFlags: { reviewFreeMonth: true },
+  reviewOfferUnlocked: true,
   defaults: {
     chat: {
       provider: "auto",
@@ -750,7 +751,16 @@ export const sendMockCommand: CommandSender = async <Result = void>(
   if (command === "support.sendFeedback") return undefined as Result
 
   if (command === "reviewClaim.get") {
-    return { state: mockReviewClaimState } as Result
+    // Like the server, paid users can't get the free month.
+    const planType =
+      state.account.status === "AUTHENTICATED"
+        ? state.account.plan.planType
+        : null
+    const paid =
+      planType === "small" || planType === "medium" || planType === "large"
+    return {
+      state: paid ? "unavailable" : mockReviewClaimState,
+    } as Result
   }
 
   if (command === "reviewClaim.send") {

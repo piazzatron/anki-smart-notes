@@ -57,6 +57,8 @@ def get_current_profile_name() -> str:
 
 
 USES_BEFORE_RATE_DIALOG = 20
+# Generations before the Smart Fields review banner offers the free month.
+GENERATIONS_BEFORE_REVIEW_OFFER = 1
 
 
 def get_file_path(file: str) -> str:

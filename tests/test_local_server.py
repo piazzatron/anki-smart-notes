@@ -302,7 +302,7 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
     monkeypatch.setattr(
         src.local_server,
         "config",
-        MagicMock(auth_token="jwt-from-plugin-config"),
+        MagicMock(auth_token="jwt-from-plugin-config", times_used=3),
     )
     monkeypatch.setattr(dto, "build_state", build_state)
     monkeypatch.setattr(dto, "build_settings", lambda: fake_settings)
@@ -329,6 +329,7 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
             auth_token="jwt-from-plugin-config",
             server_unreachable=False,
             feature_flags=src.local_server.flags,
+            times_used=3,
             settings=fake_settings,
             app_version="2.23.9",
             install_id="test-install-id",

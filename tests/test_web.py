@@ -323,6 +323,7 @@ def test_build_state_shape():
         auth_token="jwt-for-analytics",
         server_unreachable=False,
         feature_flags=SimpleNamespace(review_free_month=True),
+        times_used=1,
         settings=SETTINGS_DTO,
         app_version="2.23.9",
         install_id="install-id",
@@ -335,6 +336,7 @@ def test_build_state_shape():
     assert state["globalDeckId"] == dto.GLOBAL_DECK_ID
     assert state["account"] == {**account, "authToken": "jwt-for-analytics"}
     assert state["featureFlags"] == {"reviewFreeMonth": True}
+    assert state["reviewOfferUnlocked"] is True
     assert state["settings"] == SETTINGS_DTO
     assert state["appVersion"] == "2.23.9"
     assert state["defaults"] == {
@@ -384,6 +386,7 @@ def test_build_state_excludes_smart_fields_with_missing_anki_references():
         auth_token=None,
         server_unreachable=False,
         feature_flags=SimpleNamespace(review_free_month=False),
+        times_used=0,
         settings=SETTINGS_DTO,
         app_version="2.23.9",
         install_id="install-id",

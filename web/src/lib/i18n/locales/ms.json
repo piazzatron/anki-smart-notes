@@ -256,6 +256,9 @@
       "ariaLabel": "Semak Smart Notes pada AnkiWeb",
       "button": "AnkiWeb",
       "dismissAriaLabel": "Tolak jemputan semakan",
+      "offerAriaLabel": "Dapatkan satu bulan percuma untuk ulasan AnkiWeb",
+      "offerButton": "Dapatkan satu bulan percuma",
+      "offerSubtitle": "Dapatkan percuma sebulan daripada kami apabila anda menulis ulasan di AnkiWeb",
       "subtitle": "Tinggalkan ulasan tentang AnkiWeb untuk membantu pengguna Anki lain menemuinya.",
       "title": "Menikmati Smart Notes?"
     },

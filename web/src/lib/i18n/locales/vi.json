@@ -256,6 +256,9 @@
       "ariaLabel": "Đánh giá Smart Notes trên AnkiWeb",
       "button": "AnkiWeb",
       "dismissAriaLabel": "Loại bỏ lời mời đánh giá",
+      "offerAriaLabel": "Nhận một tháng miễn phí khi đánh giá trên AnkiWeb",
+      "offerButton": "Nhận một tháng miễn phí",
+      "offerSubtitle": "Nhận miễn phí một tháng khi bạn để lại đánh giá trên AnkiWeb",
       "subtitle": "Để lại đánh giá về AnkiWeb để giúp những người dùng Anki khác tìm thấy nó.",
       "title": "Bạn đang thưởng thức Smart Notes?"
     },

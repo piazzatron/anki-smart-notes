@@ -257,6 +257,9 @@
       "ariaLabel": "Tarkista Smart Notes AnkiWeb:ssä",
       "button": "AnkiWeb",
       "dismissAriaLabel": "Hylkää tarkistuskutsu",
+      "offerAriaLabel": "Hanki ilmainen kuukausi AnkiWeb-arvostelusta",
+      "offerButton": "Hanki ilmainen kuukausi",
+      "offerSubtitle": "Saat kuukauden ilmaiseksi meiltä, kun jätät arvostelun (AnkiWeb)",
       "subtitle": "Jätä arvostelu tuotteesta AnkiWeb ja auta muita Anki käyttäjiä löytämään se.",
       "title": "Pidätkö Smart Notes:stä?"
     },

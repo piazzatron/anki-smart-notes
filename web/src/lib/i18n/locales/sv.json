@@ -257,6 +257,9 @@
       "ariaLabel": "Granska Smart Notes på AnkiWeb",
       "button": "AnkiWeb",
       "dismissAriaLabel": "Avvisa recensionsinbjudan",
+      "offerAriaLabel": "Få en gratis månad för en recension på AnkiWeb",
+      "offerButton": "Få en gratis månad",
+      "offerSubtitle": "Få en gratis månad av oss när du lämnar en recension på AnkiWeb",
       "subtitle": "Lämna en recension om AnkiWeb för att hjälpa andra Anki-användare att hitta den.",
       "title": "Gillar du Smart Notes?"
     },

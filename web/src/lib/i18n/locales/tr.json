@@ -257,6 +257,9 @@
       "ariaLabel": "AnkiWeb'te Smart Notes'i inceleyin",
       "button": "AnkiWeb",
       "dismissAriaLabel": "İnceleme davetini reddet",
+      "offerAriaLabel": "AnkiWeb incelemesi için bir ay ücretsiz kazan",
+      "offerButton": "Bir ay ücretsiz kazan",
+      "offerSubtitle": "AnkiWeb'de bir inceleme bırakarak bir ay ücretsiz kazanın",
       "subtitle": "Diğer Anki kullanıcılarının bulmasına yardımcı olmak için AnkiWeb hakkında bir inceleme bırakın.",
       "title": "Smart Notes'ten memnun musunuz?"
     },

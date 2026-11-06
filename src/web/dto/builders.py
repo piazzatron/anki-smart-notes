@@ -30,6 +30,7 @@ from ...models.smart_fields import (
     SmartField,
     TTSSmartFieldSettings,
 )
+from ...utils import GENERATIONS_BEFORE_REVIEW_OFFER
 from ...voice_catalog import get_voice_catalog
 from .models import (
     CHAT_REASONING_LEVELS,
@@ -73,6 +74,7 @@ def build_state(
     auth_token: str | None,
     server_unreachable: bool,
     feature_flags: FeatureFlags,
+    times_used: int,
     settings: SettingsDto,
     app_version: str,
     install_id: str,
@@ -111,6 +113,7 @@ def build_state(
         featureFlags=FeatureFlagsDto(
             reviewFreeMonth=feature_flags.review_free_month,
         ),
+        reviewOfferUnlocked=times_used >= GENERATIONS_BEFORE_REVIEW_OFFER,
         settings=settings,
         appVersion=app_version,
         installId=install_id,

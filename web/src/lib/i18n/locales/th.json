@@ -256,6 +256,9 @@
       "ariaLabel": "ตรวจสอบ Smart Notes บน AnkiWeb",
       "button": "AnkiWeb",
       "dismissAriaLabel": "ปิดคำเชิญให้ตรวจสอบ",
+      "offerAriaLabel": "รับหนึ่งเดือนฟรีเมื่อรีวิวบน AnkiWeb",
+      "offerButton": "รับหนึ่งเดือนฟรี",
+      "offerSubtitle": "ทิ้งรีวิวบน AnkiWeb แล้วรับฟรีหนึ่งเดือนจากเรา",
       "subtitle": "แสดงความคิดเห็นบน AnkiWeb เพื่อช่วยให้ผู้ใช้ Anki รายอื่นค้นพบมัน",
       "title": "เพลิดเพลินกับ Smart Notes ไหม?"
     },

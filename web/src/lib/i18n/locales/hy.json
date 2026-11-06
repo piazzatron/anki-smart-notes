@@ -257,6 +257,9 @@
       "ariaLabel": "Վերանայեք Smart Notes AnkiWeb-ում",
       "button": "AnkiWeb",
       "dismissAriaLabel": "Մերժել վերանայման հրավերը",
+      "offerAriaLabel": "Ստացեք մեկ ամիս անվճար՝ AnkiWeb-ում կարծիք թողնելու համար",
+      "offerButton": "Ստանալ մեկ ամիս անվճար",
+      "offerSubtitle": "Ստացեք մեկ ամիս անվճար՝ AnkiWeb-ում umsագրություն թողնելու դեպքում",
       "subtitle": "Թողեք ակնարկ AnkiWeb-ի վերաբերյալ, որպեսզի օգնեք մյուս Anki օգտվողներին գտնել այն:",
       "title": "Վայելու՞մ եք Smart Notes:"
     },

@@ -173,6 +173,7 @@ class StateDto(TypedDict):
     account: AccountDto
     serverUnreachable: bool
     featureFlags: FeatureFlagsDto
+    reviewOfferUnlocked: bool
     settings: SettingsDto
     appVersion: str
     installId: str
