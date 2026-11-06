@@ -85,7 +85,7 @@ export const SupportScreen = () => {
           </p>
         </div>
         <a
-          className="relative shrink-0 rounded-lg bg-white px-[18px] py-2 text-[13px] font-medium text-[#6B3FD4]"
+          className="relative banner-button bg-white text-[#6B3FD4]"
           href={DISCORD_URL}
           rel="noreferrer"
           target="_blank"
@@ -106,7 +106,7 @@ export const SupportScreen = () => {
         </div>
         <FeedbackDialog>
           <button
-            className="shrink-0 rounded-lg bg-indigo-deep px-[18px] py-2 text-[13px] font-medium text-white"
+            className="banner-button bg-indigo-deep text-white"
             type="button"
           >
             {t("support.feedback.send")}

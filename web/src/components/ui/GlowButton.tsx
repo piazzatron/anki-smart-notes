@@ -29,7 +29,7 @@ export const GlowButton = ({
   ...props
 }: ButtonHTMLAttributes<HTMLButtonElement>) => (
   <button
-    className={`w-full rounded-[14px] border border-[#1fd47d]/60 bg-gradient-to-b from-[#4cf0a8] to-[#1fd47d] px-5 py-[19px] text-[17px] font-extrabold tracking-[0.1px] text-[#06281a] shadow-[inset_0_1px_0_rgba(255,255,255,0.36),0_16px_36px_-10px_rgba(31,212,125,0.66)] transition-[filter,transform] duration-150 hover:scale-[1.01] hover:brightness-105 ${className}`}
+    className={`w-full rounded-[14px] border mint-cta px-5 py-[19px] text-[17px] font-extrabold tracking-[0.1px] shadow-[inset_0_1px_0_rgba(255,255,255,0.36),0_16px_36px_-10px_rgba(31,212,125,0.66)] transition-[filter,transform] duration-150 hover:scale-[1.01] ${className}`}
     type="button"
     {...props}
   >

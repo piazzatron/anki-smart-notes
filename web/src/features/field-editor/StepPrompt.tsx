@@ -31,7 +31,10 @@ import {
   SelectValue,
 } from "@/components/ui/Select"
 import { SparklesIcon } from "@/components/shared/Icons"
-import { PromptTesterStrip } from "@/features/prompt-tester/PromptTesterStrip"
+import {
+  PromptTesterStrip,
+  RecentImagePills,
+} from "@/features/prompt-tester/PromptTesterStrip"
 import {
   usePromptTester,
   type PromptTesterArgs,
@@ -207,15 +210,20 @@ export const StepPrompt = ({
         </EditorSection>
       </div>
 
-      <Card className="hang mt-7 py-5">
-        <PromptTesterStrip
-          field={field}
-          saveTargetFieldName={
-            target.fieldType === "tts" ? undefined : target.targetFieldName
-          }
-          title={t("fieldEditor.testSmartField")}
-        />
-      </Card>
+      <EditorSection
+        accessory={<RecentImagePills field={field} />}
+        className="mt-7"
+        label={t("fieldEditor.testSmartField")}
+      >
+        <Card className="hang py-5">
+          <PromptTesterStrip
+            field={field}
+            saveTargetFieldName={
+              target.fieldType === "tts" ? undefined : target.targetFieldName
+            }
+          />
+        </Card>
+      </EditorSection>
     </div>
   )
 }

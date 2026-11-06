@@ -5,6 +5,7 @@ import { useIsFreePlan } from "@/components/shared/UpgradeSheet"
 
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { Card } from "@/components/ui/Card"
+import { FieldLabel } from "@/components/ui/FieldLabel"
 import { SectionHeading } from "@/components/ui/SectionHeading"
 import { PromptTesterStrip } from "@/features/prompt-tester/PromptTesterStrip"
 import { usePromptTester } from "@/features/prompt-tester/usePromptTester"
@@ -152,9 +153,9 @@ const LoadedVoiceDefaultsScreen = ({
             onSelect={controls.updateDefault}
             value={controls.form.values}
           >
-            <p className="mb-2 px-hang text-xs font-medium text-ink-muted">
+            <FieldLabel className="px-hang">
               {t("defaults.voice.currentDefault")}
-            </p>
+            </FieldLabel>
             <Card className="px-hang py-2.5">
               <p className="truncate text-sm font-medium text-ink">
                 {selectedVoice?.name ?? controls.form.values.voiceId}

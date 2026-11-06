@@ -293,18 +293,12 @@ const getHeroContent = (account: AuthenticatedAccount): HeroContent | null => {
 
 const HERO_STYLES = {
   indigo: {
-    background: "linear-gradient(180deg, #7c8dff, #5b6fe8)",
-    borderColor: "rgba(124,141,255,0.6)",
-    boxShadow:
-      "inset 0 1px 0 rgba(255,255,255,0.28), 0 8px 18px -14px rgba(91,111,232,0.35)",
+    fill: "border border-indigo/60 bg-gradient-to-b from-indigo to-indigo-deep shadow-[inset_0_1px_0_rgba(255,255,255,0.28),0_8px_18px_-14px_rgba(91,111,232,0.35)]",
     ink: "#fff",
     sub: "rgba(255,255,255,0.85)",
   },
   mint: {
-    background: "linear-gradient(180deg, #4cf0a8, #1fd47d)",
-    borderColor: "rgba(31,212,125,0.6)",
-    boxShadow:
-      "inset 0 1px 0 rgba(255,255,255,0.36), 0 8px 18px -14px rgba(31,212,125,0.35)",
+    fill: "mint-cta border shadow-[inset_0_1px_0_rgba(255,255,255,0.36),0_8px_18px_-14px_rgba(31,212,125,0.35)]",
     ink: "#06281a",
     sub: "rgba(6,40,26,0.72)",
   },
@@ -323,13 +317,8 @@ const PlanHero = ({
 
   return (
     <button
-      className="flex w-full cursor-pointer flex-col items-center justify-center rounded-[14px] border px-hang pt-[22px] pb-6 text-center transition-[filter,transform] duration-150 ease-out hover:scale-[1.006] hover:brightness-105"
+      className={`flex w-full cursor-pointer flex-col items-center justify-center rounded-[14px] px-hang pt-[22px] pb-6 text-center transition-[filter,transform] duration-150 ease-out hover:scale-[1.006] hover:brightness-105 ${styles.fill}`}
       onClick={() => openSiteLink(url)}
-      style={{
-        background: styles.background,
-        borderColor: styles.borderColor,
-        boxShadow: styles.boxShadow,
-      }}
       type="button"
     >
       {context !== undefined && (

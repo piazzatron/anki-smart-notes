@@ -36,8 +36,8 @@ import {
   UpgradeLockIcon,
   useIsFreePlan,
 } from "@/components/shared/UpgradeSheet"
+import { FieldLabel } from "@/components/ui/FieldLabel"
 import { OptionGroup, OptionGroupItem } from "@/components/ui/OptionList"
-import i18next from "i18next"
 import type { ComponentType } from "react"
 import type { AppState } from "@/types/api"
 import { useTranslation } from "react-i18next"
@@ -136,7 +136,7 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
         label={t("fieldEditor.sections.onWhichNotes")}
       >
         <div className="grid grid-cols-[1.6fr_1fr] gap-3">
-          <FieldLabel label={t("common.noteType")}>
+          <LabeledControl label={t("common.noteType")}>
             <Select
               onValueChange={(value) =>
                 controls.setTarget({ noteTypeId: Number(value) })
@@ -154,9 +154,9 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
                 ))}
               </SelectContent>
             </Select>
-          </FieldLabel>
+          </LabeledControl>
 
-          <FieldLabel label={t("common.deck")} optional>
+          <LabeledControl label={t("common.deck")} optional>
             <Select
               onValueChange={(value) =>
                 controls.setTarget({ deckId: Number(value) })
@@ -176,7 +176,7 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
                 ))}
               </SelectContent>
             </Select>
-          </FieldLabel>
+          </LabeledControl>
         </div>
       </EditorSection>
 
@@ -246,20 +246,17 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
   )
 }
 
-interface FieldLabelProps {
+interface LabeledControlProps {
   children: React.ReactNode
   label: string
   optional?: boolean
 }
 
-const FieldLabel = ({ children, label, optional }: FieldLabelProps) => (
+const LabeledControl = ({ children, label, optional }: LabeledControlProps) => (
   <label className="block">
-    <span className="mb-2 block text-xs font-medium text-ink-muted">
+    <FieldLabel as="span" optional={optional}>
       {label}
-      {optional && (
-        <span className="ms-1 font-normal">{i18next.t("common.optional")}</span>
-      )}
-    </span>
+    </FieldLabel>
     {children}
   </label>
 )

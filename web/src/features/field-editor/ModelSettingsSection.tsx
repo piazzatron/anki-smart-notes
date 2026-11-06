@@ -32,6 +32,7 @@ import {
 import { Disclosure } from "@/components/ui/Disclosure"
 import { StripHtmlToggle } from "@/components/shared/StripHtmlToggle"
 import { Pill } from "@/components/ui/Pill"
+import { FieldLabel } from "@/components/ui/FieldLabel"
 import { VoicePicker } from "@/features/defaults/VoicePicker"
 import { voiceMatchesSettings } from "@/features/defaults/voiceDefaults"
 import { ImageModelSelect } from "@/features/image-generation/ImageModelSelect"
@@ -105,9 +106,9 @@ export const ModelSettingsSection = ({
             the field its own copy, and changing it back to the default follows again. */}
         <div className="mt-4">
           {fieldType !== "tts" && (
-            <span className="mb-2 block text-xs font-medium text-ink-muted">
+            <FieldLabel as="span">
               {t("fieldEditor.modelSettings.model")}
-            </span>
+            </FieldLabel>
           )}
           {fieldType === "chat" && (
             <TextModelPicker

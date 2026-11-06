@@ -40,16 +40,14 @@ interface PromptTesterStripProps {
   field: PromptTester
   // Only a tester bound to a Smart Field can write its result back to the card.
   saveTargetFieldName?: string
-  title?: string
 }
 
-// The one tester: a titled zone with the card to run against and an always-present Test
+// The one tester: the card to run against and an always-present Test
 // button, plus the prompt itself where nothing else on the screen owns it. Text and image
 // results open in a modal; voice results play without presenting another surface.
 export const PromptTesterStrip = ({
   field,
   saveTargetFieldName,
-  title,
 }: PromptTesterStripProps) => {
   const { t } = useTranslation()
   const promptFieldId = useId()
@@ -73,15 +71,6 @@ export const PromptTesterStrip = ({
 
   return (
     <div className="w-full">
-      {title !== undefined && (
-        <div className="mb-2.5 flex min-h-[22px] items-center gap-4">
-          <h2 className="text-[15px] leading-tight font-semibold text-zinc-100">
-            {title}
-          </h2>
-          <RecentImagePills field={field} />
-        </div>
-      )}
-
       {!isResultVisible && field.error !== null && (
         <ErrorBanner
           className="mb-3"

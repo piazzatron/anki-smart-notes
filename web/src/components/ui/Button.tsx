@@ -2,7 +2,7 @@ import type { ButtonHTMLAttributes, ReactNode } from "react"
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
-  variant?: "primary" | "quiet" | "danger" | "success"
+  variant?: "primary" | "quiet" | "danger" | "success" | "mint"
 }
 
 // Flat fills only: variants differ by color, never by an outline.
@@ -11,6 +11,8 @@ const VARIANT_CLASSES = {
   success: "bg-mint text-emerald-950 hover:bg-mint/90",
   quiet: "bg-white/[0.07] text-zinc-200 hover:bg-white/[0.11]",
   danger: "bg-red-300/[0.12] text-danger hover:bg-red-300/[0.18]",
+  // The call to action for trial and success moments; callers add the size and glow.
+  mint: "mint-cta",
 }
 
 export const Button = ({

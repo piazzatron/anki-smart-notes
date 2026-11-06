@@ -108,7 +108,7 @@ export const Sidebar = ({
       ref={asideRef}
       style={width === null ? undefined : { width }}
     >
-      <div className="mb-3 px-[10px] text-[15px] font-semibold tracking-[-0.01em] text-ink">
+      <div className="mb-3 px-nav text-[15px] font-semibold tracking-[-0.01em] text-ink">
         {t("common.productName")}
       </div>
       <nav
@@ -127,7 +127,7 @@ export const Sidebar = ({
         </div>
 
         {/* A group label like Linear's sidebar sections: sentence case, quieter than the items. */}
-        <div className="mt-[13px] mb-1 px-[10px] text-[13px] leading-5 font-medium text-ink-muted">
+        <div className="mt-[13px] mb-1 px-nav text-[13px] leading-5 font-medium text-ink-muted">
           {t("sidebar.defaults")}
         </div>
         <div className="space-y-px">
@@ -141,7 +141,7 @@ export const Sidebar = ({
           ))}
         </div>
 
-        <Divider className="mx-[10px] my-2" />
+        <Divider className="mx-nav my-2" />
         <div className="space-y-px">
           {SECONDARY_ITEMS.map((item) => (
             <NavButton
@@ -229,7 +229,7 @@ const NavButton = ({ activeScreen, item, onNavigate }: NavButtonProps) => {
     <button
       aria-current={isActive ? "page" : undefined}
       // Sized like Linear's sidebar: 13px labels, 16px icons, 28px rows.
-      className={`group flex h-7 w-full items-center gap-2 rounded-lg px-[10px] text-start text-[13px] font-medium transition-[background-color,color,opacity] duration-150 ease-out ${
+      className={`group flex h-7 w-full items-center gap-2 rounded-lg px-nav text-start text-[13px] font-medium transition-[background-color,color,opacity] duration-150 ease-out ${
         isActive
           ? "bg-panel-raised text-white opacity-100"
           : "text-zinc-300 hover:bg-white/[0.055] hover:text-zinc-100"

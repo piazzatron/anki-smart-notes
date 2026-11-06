@@ -55,7 +55,7 @@ export const ReviewPrompt = ({ onComplete }: ReviewPromptProps) => {
         </p>
       </div>
       <a
-        className="relative z-20 inline-flex shrink-0 items-center rounded-lg bg-[#fff7dc] px-[18px] py-2 text-[13px] font-medium text-[#7b4807] no-underline transition-transform duration-150 ease-out hover:scale-[1.035]"
+        className="relative z-20 inline-flex banner-button items-center bg-[#fff7dc] text-[#7b4807] no-underline transition-transform duration-150 ease-out hover:scale-[1.035]"
         href={ANKIWEB_REVIEW_URL}
         onClick={onComplete}
         rel="noreferrer"

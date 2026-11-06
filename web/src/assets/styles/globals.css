@@ -35,6 +35,8 @@
      margin plus that overhang, so changing the overhang keeps the margin. */
   --spacing-hang: 22px;
   --spacing-page: calc(54px + var(--spacing-hang));
+  /* The sidebar's inset: its wordmark, group labels, items and plan row line up on it. */
+  --spacing-nav: 10px;
 
   --animate-fade-in: fade-in 0.25s ease-out;
   /* The Intelligence slider's chosen stop, popping in as the fill reaches it. */
@@ -696,6 +698,25 @@ button:disabled,
 
 /* A surface that hangs: it reaches past the text column on both sides and pads its
    content back in line with it. */
+/* A button on a colored banner (Discord, AnkiWeb review, Support): each banner sets
+   its own fill and text color. */
+@utility banner-button {
+  @apply shrink-0 rounded-lg px-[18px] py-2 text-[13px] font-medium;
+}
+
+/* The mint call to action's fill, border color and ink. Size, weight, glow and whether
+   it has a border stay with each use: Button's mint variant, GlowButton, the sidebar
+   plan card and the Account screen's upgrade hero. */
+@utility mint-cta {
+  border-color: rgb(31 212 125 / 0.6);
+  background-image: linear-gradient(to bottom in oklab, #4cf0a8, #1fd47d);
+  color: #06281a;
+
+  &:hover {
+    filter: brightness(1.05);
+  }
+}
+
 @utility hang {
   margin-inline: calc(var(--spacing-hang) * -1);
   padding-inline: var(--spacing-hang);

@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/Select"
 import { OptionList, OptionRow } from "@/components/ui/OptionList"
 import { Pill } from "@/components/ui/Pill"
+import { FieldLabel } from "@/components/ui/FieldLabel"
 import { SearchIcon } from "@/components/shared/Icons"
 import { providerLabel } from "@/lib/catalog"
 import type { TTSGenerationSettings, VoiceCatalog } from "@/types/api"
@@ -217,15 +218,13 @@ export const VoicePicker = ({
         <div className="-mx-hang grid min-h-0 flex-1 grid-cols-[minmax(260px,0.8fr)_minmax(0,1.2fr)] items-stretch gap-6">
           <div className="flex min-h-0 flex-col">
             {children}
-            <p className="mt-5 mb-2 px-hang text-xs font-medium text-ink-muted">
+            <FieldLabel className="mt-5 px-hang">
               {t("defaults.voice.filterVoices")}
-            </p>
+            </FieldLabel>
             {filterControls}
           </div>
           <div className="flex min-h-0 flex-col">
-            <p className="mb-2 px-hang text-xs font-medium text-ink-muted">
-              {browseLabel}
-            </p>
+            <FieldLabel className="px-hang">{browseLabel}</FieldLabel>
             {searchAndList}
           </div>
         </div>
