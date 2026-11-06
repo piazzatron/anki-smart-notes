@@ -5,8 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node_modules/@typescript/native/bin/tsc && vite build",
-    "check": "node_modules/@typescript/native/bin/tsc && eslint . && prettier --check . && bun scripts/checkTranslations.ts",
+    "build": "bun run tsc && vite build",
+    "tsc": "node_modules/@typescript/native/bin/tsc",
+    "lint": "eslint .",
+    "format:check": "prettier --check .",
+    "translations:check": "bun scripts/checkTranslations.ts",
+    "check": "bun run tsc && bun run lint && bun run format:check && bun run translations:check",
     "format": "eslint . --fix && prettier --write .",
     "test": "bun test",
     "translate": "bun scripts/translate.ts"
