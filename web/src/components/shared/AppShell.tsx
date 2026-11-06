@@ -24,7 +24,10 @@ export const AppShell = ({
   children,
   onNavigate,
 }: AppShellProps) => {
-  const isSignedOut = account.status === "UNAUTHENTICATED"
+  // Signed-out users can still sign in from Account and Usage, so only the
+  // other screens are blocked.
+  const isBlocked =
+    account.status === "UNAUTHENTICATED" && activeScreen !== "subscription"
 
   return (
     <div className="flex h-full min-h-0 w-full bg-sidebar text-ink">
@@ -37,12 +40,12 @@ export const AppShell = ({
       <main className="relative flex min-w-0 flex-1 flex-col overflow-hidden border-s border-hairline bg-canvas">
         <div
           className="flex min-h-0 flex-1 flex-col"
-          inert={isSignedOut ? true : undefined}
+          inert={isBlocked ? true : undefined}
         >
           <ConnectionNotice connection={connection} />
           {children}
         </div>
-        {isSignedOut && (
+        {isBlocked && (
           <div
             aria-hidden
             className="absolute inset-0 z-20 cursor-default bg-black/45"

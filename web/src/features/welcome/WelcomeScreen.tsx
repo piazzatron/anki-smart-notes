@@ -17,18 +17,16 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Button } from "@/components/ui/Button"
 import { GlowButton } from "@/components/ui/GlowButton"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
+import { AuthCodeForm } from "@/components/shared/AuthCodeForm"
 import { ConnectionNotice } from "@/components/shared/ConnectionNotice"
 import { SparklesIcon } from "@/components/shared/Icons"
 import { SparkleField } from "@/components/shared/SparkleField"
-import { errorMessage } from "@/lib/errors"
 import { openSiteLink, SITE_LINKS } from "@/lib/siteLinks"
 import { trackAnalyticsEvent } from "@/services/analytics"
-import { exchangeAuthCode } from "@/services/commands"
 import type { Connection } from "@/store/appStore"
 
 interface WelcomeScreenProps {
@@ -66,9 +64,6 @@ export const WelcomeScreen = ({
   connection,
 }: WelcomeScreenProps) => {
   const { t } = useTranslation()
-  const [code, setCode] = useState("")
-  const [codeError, setCodeError] = useState<string | null>(null)
-  const [isSubmittingCode, setIsSubmittingCode] = useState(false)
   const [isWaitingForBrowser, setIsWaitingForBrowser] = useState(false)
 
   const openOnboarding = (
@@ -78,17 +73,6 @@ export const WelcomeScreen = ({
     setIsWaitingForBrowser(true)
     void trackAnalyticsEvent({ event })
     openSiteLink(url)
-  }
-
-  const submitCode = async () => {
-    setCodeError(null)
-    setIsSubmittingCode(true)
-    try {
-      await exchangeAuthCode(code)
-    } catch (error) {
-      setCodeError(errorMessage(error, t("welcome.errors.code")))
-      setIsSubmittingCode(false)
-    }
   }
 
   return (
@@ -121,50 +105,10 @@ export const WelcomeScreen = ({
               {t("welcome.finishDescription")}
             </p>
 
-            <form
-              className="welcome-enter mt-7 rounded-[11px] bg-black/20 p-4 text-start"
-              onSubmit={(event) => {
-                event.preventDefault()
-                void submitCode()
-              }}
+            <AuthCodeForm
+              className="welcome-enter mt-7"
               style={{ animationDelay: "210ms" }}
-            >
-              <label
-                className="text-[12.5px] font-medium text-ink-muted"
-                htmlFor="welcome-auth-code"
-              >
-                {t("welcome.haveCode")}
-              </label>
-              <div className="mt-2 flex gap-2">
-                <input
-                  autoCapitalize="characters"
-                  autoComplete="off"
-                  className="min-w-0 flex-1 rounded-lg bg-white/[0.04] px-3 py-2.5 font-mono text-[13px] tracking-[0.08em] text-zinc-100 transition outline-none focus:ring-2 focus:ring-indigo/15"
-                  disabled={isSubmittingCode}
-                  id="welcome-auth-code"
-                  onChange={(event) =>
-                    setCode(event.target.value.toUpperCase())
-                  }
-                  placeholder={t("welcome.codePlaceholder")}
-                  spellCheck={false}
-                  value={code}
-                />
-                <Button
-                  disabled={!code.trim() || isSubmittingCode}
-                  type="submit"
-                  variant="primary"
-                >
-                  {isSubmittingCode
-                    ? t("welcome.connecting")
-                    : t("welcome.connect")}
-                </Button>
-              </div>
-              {codeError !== null && (
-                <p className="mt-2 text-xs leading-4 text-danger">
-                  {codeError}
-                </p>
-              )}
-            </form>
+            />
           </div>
         ) : (
           <div className="relative w-full max-w-[380px]">

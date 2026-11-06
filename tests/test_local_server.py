@@ -48,6 +48,7 @@ def _make_app(server=None):
     app.router.add_options("/auth/callback", server._handle_auth_preflight)
     app.router.add_get("/ping", server._handle_loopback_ping)
     app.router.add_options("/ping", server._handle_ping_preflight)
+    app.router.add_get("/connect.gif", server._handle_connect_gif)
     app.router.add_get("/api/events", server._handle_events)
     app.router.add_post("/api/command", server._handle_command)
     app.router.add_get("/app/voice-catalog.json", server._handle_voice_catalog)
@@ -826,6 +827,64 @@ async def test_exchange_auth_code_command_stores_token_and_refreshes_state(monke
         assert fake_config.auth_token == "abc.def.ghi"
         fake_sentry.set_user.assert_called_once_with()
         fake_app_state.update_account_state.assert_called_once_with()
+
+
+def _patch_connect_gif_deps(monkeypatch, *, auth_token, exchange):
+    import src.local_server
+
+    fake_config = MagicMock(auth_token=auth_token)
+    monkeypatch.setattr(src.local_server.auth_service, "exchange_auth_code", exchange)
+    monkeypatch.setattr(src.local_server, "config", fake_config)
+    monkeypatch.setattr(src.local_server, "sentry", None)
+    monkeypatch.setattr(src.local_server, "app_state", MagicMock())
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+    return fake_config
+
+
+@pytest.mark.asyncio
+async def test_connect_gif_signs_in_a_signed_out_addon(monkeypatch):
+    exchange = AsyncMock(return_value="abc.def.ghi")
+    fake_config = _patch_connect_gif_deps(
+        monkeypatch, auth_token=None, exchange=exchange
+    )
+
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.get("/connect.gif?code=abc123")
+
+        assert resp.status == 200
+        assert resp.content_type == "image/gif"
+        assert (await resp.read()).startswith(b"GIF89a")
+        exchange.assert_awaited_once_with("ABC123")
+        assert fake_config.auth_token == "abc.def.ghi"
+
+
+@pytest.mark.asyncio
+async def test_connect_gif_never_switches_a_signed_in_addon(monkeypatch):
+    exchange = AsyncMock(return_value="attacker.jwt")
+    fake_config = _patch_connect_gif_deps(
+        monkeypatch, auth_token="user.jwt", exchange=exchange
+    )
+
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.get("/connect.gif?code=ABC123")
+
+        assert resp.status == 409
+        exchange.assert_not_awaited()
+        assert fake_config.auth_token == "user.jwt"
+
+
+@pytest.mark.asyncio
+async def test_connect_gif_fails_the_image_when_the_code_is_rejected(monkeypatch):
+    exchange = AsyncMock(side_effect=ValueError("That code is invalid"))
+    fake_config = _patch_connect_gif_deps(
+        monkeypatch, auth_token=None, exchange=exchange
+    )
+
+    async with TestClient(TestServer(_make_app())) as client:
+        resp = await client.get("/connect.gif?code=ABC123")
+
+        assert resp.status == 400
+        assert fake_config.auth_token is None
 
 
 @pytest.mark.asyncio

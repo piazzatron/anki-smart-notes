@@ -80,6 +80,14 @@ LOCAL_SERVER_HOST = "127.0.0.1"
 
 WEB_APP_STATIC_DIR = Path(__file__).parent / "web" / "static"
 
+# The 1×1 transparent GIF /connect.gif answers with, so the site's <img> fires
+# onload.
+CONNECT_PIXEL_GIF = (
+    b"GIF89a\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\x00\x00\x00"
+    b"!\xf9\x04\x01\x00\x00\x00\x00,\x00\x00\x00\x00\x01\x00\x01\x00"
+    b"\x00\x02\x02D\x01\x00;"
+)
+
 ALLOWED_ORIGINS = {
     "https://smart-notes.xyz",
     "https://www.smart-notes.xyz",
@@ -156,6 +164,7 @@ class LocalServer:
         app.router.add_options("/subscription/refresh", self._handle_auth_preflight)
         app.router.add_get("/ping", self._handle_loopback_ping)
         app.router.add_options("/ping", self._handle_ping_preflight)
+        app.router.add_get("/connect.gif", self._handle_connect_gif)
         app.router.add_get("/api/events", self._handle_events)
         app.router.add_post("/api/command", self._handle_command)
         app.router.add_get("/app/voice-catalog.json", self._handle_voice_catalog)
@@ -331,6 +340,31 @@ class LocalServer:
     async def _handle_ping_preflight(self, request: web.Request) -> web.Response:
         origin = request.headers.get("Origin", "*")
         return web.Response(status=204, headers=self._cors_headers(origin))
+
+    async def _handle_connect_gif(self, request: web.Request) -> web.Response:
+        # The site's handoff for browsers that block fetch() from its HTTPS
+        # pages to loopback but allow images (Safari 18.4+). An image request
+        # carries no Origin, so any page can send one: accepting it only while
+        # signed out means one can't switch the add-on to another account.
+        loop = asyncio.get_running_loop()
+        signed_in = await loop.run_in_executor(
+            None, lambda: _run_on_main_sync(lambda: bool(config.auth_token))
+        )
+        if signed_in:
+            logger.info("Rejected /connect.gif: already signed in")
+            return web.Response(status=409)
+        try:
+            code = dto.parse_auth_exchange_code({"code": request.query.get("code", "")})
+            await _redeem_auth_code(code)
+        except Exception as error:
+            logger.info(f"/connect.gif couldn't redeem the code: {error}")
+            return web.Response(status=400)
+        logger.info("Signed in through /connect.gif")
+        return web.Response(
+            body=CONNECT_PIXEL_GIF,
+            content_type="image/gif",
+            headers={"Cache-Control": "no-store"},
+        )
 
     def _check_api_auth(self, request: web.Request) -> Optional[web.Response]:
         # Hostname check defeats DNS rebinding: a malicious page can point its
@@ -634,7 +668,12 @@ def _run_logout(payload: dict[str, Any]) -> None:
 
 
 async def _run_exchange_auth_code(payload: dict[str, Any]) -> None:
-    jwt = await auth_service.exchange_auth_code(dto.parse_auth_exchange_code(payload))
+    await _redeem_auth_code(dto.parse_auth_exchange_code(payload))
+
+
+async def _redeem_auth_code(code: str) -> None:
+    """Trades a browser-issued code for a token and signs the add-on in."""
+    jwt = await auth_service.exchange_auth_code(code)
 
     # Authentication state belongs to Anki's main thread even though the code
     # exchange itself is an ordinary async network request.

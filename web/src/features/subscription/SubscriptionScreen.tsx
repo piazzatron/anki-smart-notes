@@ -22,6 +22,7 @@ import { ArrowRight } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
+import { AuthCodeForm } from "@/components/shared/AuthCodeForm"
 import { PageLayout } from "@/components/shared/PageLayout"
 import {
   dailyResetTime,
@@ -197,6 +198,7 @@ const SignedOutSubscription = () => {
         >
           {t("common.signIn")}
         </Button>
+        <AuthCodeForm className="mx-auto mt-8 w-full max-w-[360px]" />
       </div>
     </div>
   )
