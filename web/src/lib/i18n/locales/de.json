@@ -38,6 +38,7 @@
       "sent": "Feedback gesendet. Wir werden uns bald bei Ihnen melden.",
       "title": "Feedback senden"
     },
+    "gotIt": "Verstanden",
     "notNow": "Nicht jetzt",
     "other": "Andere",
     "placeholderScreen": "Dieser Bildschirm ist der nächste im Neuaufbau.",
@@ -122,15 +123,15 @@
     "alreadySmartField": "Bereits ein Smart Field",
     "collisionHint": "hat bereits ein Smart Field – wählen Sie ein anderes Feld, Deck oder einen anderen Notiztyp",
     "describe": {
-      "exampleChat": "Schreibe die {{target}} für {{source}}",
-      "exampleImage": "Zeichne ein Bild von {{source}}",
-      "generate": "Generieren",
-      "generating": "Wird generiert…",
-      "hint": "Beschreiben Sie es in einem Satz. Sie können andere Felder namentlich erwähnen.",
-      "regenerate": "Neu generieren",
-      "tabToUse": "<kbd>Tab</kbd> drücken, um dies zu generieren",
-      "title": "Was soll dieses Feld tun?",
-      "writeYourself": "Oder schreiben Sie den Prompt selbst"
+      "exampleChat": "Zum Beispiel: eine einzeilige Definition von {{source}}",
+      "exampleImage": "Zum Beispiel: eine einfache Zeichnung von {{source}}",
+      "exampleNoFields": "Zum Beispiel: eine einzeilige Definition des Wortes",
+      "fieldsHint": "Felder, die du erwähnen kannst:",
+      "guessTip": "Unsere beste Vermutung anhand der Felder Ihrer Notiz. Bearbeiten Sie sie nach Belieben.",
+      "modeDescribe": "Beschreiben",
+      "modeWrite": "Selbst schreiben",
+      "title": "Was sollen wir in <code>{{field}}</code> generieren?",
+      "writing": "Prompt wird geschrieben"
     },
     "errors": {
       "save": "Smart Field konnte nicht gespeichert werden",
@@ -165,10 +166,7 @@
     "promptPanel": {
       "description": "Was die KI für jede Notiz erhält. <code>{{example}}</code> wird durch den Text dieser Notiz im Feld ersetzt.",
       "fieldsOnNote": "Felder in dieser Notiz:",
-      "gotIt": "Verstanden",
-      "insertField": "{{field}} einfügen",
-      "tip": "Wir haben den Prompt für Sie geschrieben. Öffnen Sie ihn, um genau zu sehen oder zu ändern, was die KI gefragt wird.",
-      "writeYourself": "Selbst schreiben"
+      "insertField": "{{field}} einfügen"
     },
     "save": "Speichern Sie Smart Field",
     "sections": {
@@ -180,7 +178,6 @@
     "sourceField": "Quellfeld",
     "targetAriaLabel": "Smart Field-Ziel",
     "testSmartField": "Testen Sie Ihr Smart Field",
-    "testerHint": "Mit der im Browser ausgewählten Karte testen",
     "titles": {
       "create": "Neues Smart Field",
       "duplicate": "Duplikat Smart Field",

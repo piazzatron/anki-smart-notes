@@ -38,6 +38,7 @@
       "sent": "Visszajelzés elküldve. Hamarosan felvesszük a kapcsolatot.",
       "title": "Visszajelzés küldése"
     },
+    "gotIt": "Értem",
     "notNow": "Most nem",
     "other": "Más",
     "placeholderScreen": "Ez a képernyő a következő az átépítésben.",
@@ -122,15 +123,15 @@
     "alreadySmartField": "Már Smart Field",
     "collisionHint": "már rendelkezik Smart Field-val – válasszon másik mezőt, paklit vagy hangjegytípust",
     "describe": {
-      "exampleChat": "Írd meg a(z) {{source}} {{target}}ját",
-      "exampleImage": "Rajzolj képet erről: {{source}}",
-      "generate": "Generálás",
-      "generating": "Generálás…",
-      "hint": "Írd le egy mondatban. Más mezőkre a nevükkel is hivatkozhatsz.",
-      "regenerate": "Újragenerálás",
-      "tabToUse": "<kbd>Tab</kbd> a generáláshoz",
-      "title": "Mit tegyen ez a mező?",
-      "writeYourself": "Vagy írd meg magad a promptot"
+      "exampleChat": "Például: a(z) {{source}} egysoros meghatározása",
+      "exampleImage": "Például: a(z) {{source}} egyszerű rajza",
+      "exampleNoFields": "Például: a szó egysoros meghatározása",
+      "fieldsHint": "Megemlíthető mezők:",
+      "guessTip": "A jegyzet mezői alapján a legjobb tippünk. Szabadon szerkesztheted.",
+      "modeDescribe": "Leírás megadása",
+      "modeWrite": "Saját magam írom",
+      "title": "Mit generáljunk a(z) <code>{{field}}</code> mezőbe?",
+      "writing": "A prompt írása"
     },
     "errors": {
       "save": "Nem sikerült menteni az Smart Field fájlt",
@@ -165,10 +166,7 @@
     "promptPanel": {
       "description": "Amit az MI minden jegyzethez kap. A <code>{{example}}</code> helyére az adott jegyzet mezőjének szövege kerül.",
       "fieldsOnNote": "Mezők ezen a jegyzeten:",
-      "gotIt": "Értem",
-      "insertField": "{{field}} beszúrása",
-      "tip": "A promptot helyetted mi írtuk meg. Nyisd meg, hogy lásd vagy módosítsd, pontosan mit kér az MI.",
-      "writeYourself": "Írd meg magad"
+      "insertField": "{{field}} beszúrása"
     },
     "save": "Mentse el az Smart Field-t",
     "sections": {
@@ -180,7 +178,6 @@
     "sourceField": "Forrás mező",
     "targetAriaLabel": "Smart Field cél",
     "testSmartField": "Tesztelje az Smart Field-ját",
-    "testerHint": "Próbáld ki a Böngészőben kiválasztott kártyán",
     "titles": {
       "create": "Új Smart Field",
       "duplicate": "Smart Field másodpéldánya",

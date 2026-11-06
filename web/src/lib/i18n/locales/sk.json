@@ -40,6 +40,7 @@
       "sent": "Spätná väzba bola odoslaná. Čoskoro sa vám ozveme.",
       "title": "Odoslať spätnú väzbu"
     },
+    "gotIt": "Rozumiem",
     "notNow": "Teraz nie",
     "other": "Iné",
     "placeholderScreen": "Táto obrazovka je ďalšou v prestavbe.",
@@ -124,15 +125,15 @@
     "alreadySmartField": "Už je Smart Field",
     "collisionHint": "už má Smart Field — vyberte iné pole, balíček alebo typ noty",
     "describe": {
-      "exampleChat": "Napíšte {{target}} pre {{source}}",
-      "exampleImage": "Nakreslite obrázok: {{source}}",
-      "generate": "Generovať",
-      "generating": "Generuje sa…",
-      "hint": "Opíšte to jednou vetou. Ostatné polia môžete spomenúť podľa názvu.",
-      "regenerate": "Vygenerovať znova",
-      "tabToUse": "<kbd>Tab</kbd> na vygenerovanie tohto",
-      "title": "Čo má toto pole robiť?",
-      "writeYourself": "Alebo napíšte výzvu sami"
+      "exampleChat": "Napríklad: jednoriadková definícia pojmu {{source}}",
+      "exampleImage": "Napríklad: jednoduchá kresba pojmu {{source}}",
+      "exampleNoFields": "Napríklad: jednoriadková definícia slova",
+      "fieldsHint": "Polia, ktoré môžete spomenúť:",
+      "guessTip": "Náš najlepší odhad na základe polí vašej poznámky. Upravte ho podľa potreby.",
+      "modeDescribe": "Opíšte to",
+      "modeWrite": "Napíšem to sám",
+      "title": "Čo máme vygenerovať v poli <code>{{field}}</code>?",
+      "writing": "Zapisujem výzvu"
     },
     "errors": {
       "save": "Smart Field sa nepodarilo uložiť",
@@ -167,10 +168,7 @@
     "promptPanel": {
       "description": "Čo AI dostane pre každú poznámku. <code>{{example}}</code> sa nahradí textom poľa v danej poznámke.",
       "fieldsOnNote": "Polia v tejto poznámke:",
-      "gotIt": "Rozumiem",
-      "insertField": "Vložiť {{field}}",
-      "tip": "Výzvu sme pre vás pripravili. Otvorte ju, ak chcete vidieť alebo zmeniť presne to, čo sa AI pýta.",
-      "writeYourself": "Napíšte ju sami"
+      "insertField": "Vložiť {{field}}"
     },
     "save": "Uložiť Smart Field",
     "sections": {
@@ -182,7 +180,6 @@
     "sourceField": "Zdrojové pole",
     "targetAriaLabel": "Cieľ Smart Field",
     "testSmartField": "Otestujte svoj Smart Field",
-    "testerHint": "Vyskúšajte na karte vybranej v Prehliadači",
     "titles": {
       "create": "Nové Smart Field",
       "duplicate": "Duplikát Smart Field",

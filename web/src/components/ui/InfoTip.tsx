@@ -19,6 +19,7 @@
 import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 import { Info } from "lucide-react"
 import type { ReactNode, SVGProps } from "react"
+import { useTranslation } from "react-i18next"
 
 interface InfoTipProps {
   children: ReactNode
@@ -28,6 +29,11 @@ interface InfoTipProps {
 /** The flat blue surface every tooltip uses, here and in the field editor's tip. */
 export const TOOLTIP_SURFACE =
   "rounded-xl bg-indigo-deep px-4 py-3 text-[12.5px] leading-[1.5] font-normal tracking-normal text-white normal-case shadow-xl shadow-black/40"
+
+/** How every tooltip comes and goes: a quick fade and zoom from the side it opens on,
+ *  like the dropdowns. */
+const TOOLTIP_MOTION_CLASSES =
+  "origin-[var(--radix-tooltip-content-transform-origin)] animate-in fade-in-0 zoom-in-95 duration-150 data-[side=bottom]:slide-in-from-top-1 data-[side=left]:slide-in-from-right-1 data-[side=right]:slide-in-from-left-1 data-[side=top]:slide-in-from-bottom-1 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95"
 
 /** A wide, round-tipped caret instead of Radix's sharp triangle, to match the app's
  *  soft corners. Points down; rotate it to point elsewhere. */
@@ -61,7 +67,7 @@ export const InfoTip = ({ children, label }: InfoTipProps) => (
       </TooltipPrimitive.Trigger>
       <TooltipPrimitive.Portal>
         <TooltipPrimitive.Content
-          className={`z-[90] max-w-[300px] ${TOOLTIP_SURFACE}`}
+          className={`z-[90] max-w-[300px] ${TOOLTIP_SURFACE} ${TOOLTIP_MOTION_CLASSES}`}
           collisionPadding={12}
           side="right"
           sideOffset={6}
@@ -75,3 +81,56 @@ export const InfoTip = ({ children, label }: InfoTipProps) => (
     </TooltipPrimitive.Root>
   </TooltipPrimitive.Provider>
 )
+
+interface GuideTipProps {
+  // The element the tip points at.
+  children: ReactNode
+  message: string
+  onDismiss: () => void
+  open: boolean
+}
+
+/** A tip the app shows by itself, pointing at something until the user dismisses it:
+ *  with Got it, Escape, or a click anywhere outside it. Hovering doesn't open or close
+ *  it, so it ignores Radix's own open changes. */
+export const GuideTip = ({
+  children,
+  message,
+  onDismiss,
+  open,
+}: GuideTipProps) => {
+  const { t } = useTranslation()
+
+  return (
+    <TooltipPrimitive.Provider>
+      <TooltipPrimitive.Root open={open}>
+        <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
+        <TooltipPrimitive.Portal>
+          <TooltipPrimitive.Content
+            // Radix copies the content into a hidden live region; the label keeps the
+            // button out of that copy.
+            aria-label={message}
+            className={`z-[90] flex max-w-[560px] items-center gap-3 ${TOOLTIP_SURFACE} ${TOOLTIP_MOTION_CLASSES}`}
+            collisionPadding={12}
+            onEscapeKeyDown={onDismiss}
+            onPointerDownOutside={onDismiss}
+            side="bottom"
+            sideOffset={8}
+          >
+            {message}
+            <button
+              className="shrink-0 cursor-pointer rounded-md bg-white/20 px-2.5 py-1 text-xs font-medium transition hover:bg-white/30"
+              onClick={onDismiss}
+              type="button"
+            >
+              {t("common.gotIt")}
+            </button>
+            <TooltipPrimitive.Arrow asChild height={5.5} width={18}>
+              <TooltipCaret />
+            </TooltipPrimitive.Arrow>
+          </TooltipPrimitive.Content>
+        </TooltipPrimitive.Portal>
+      </TooltipPrimitive.Root>
+    </TooltipPrimitive.Provider>
+  )
+}

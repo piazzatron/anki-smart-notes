@@ -39,6 +39,7 @@
       "sent": "Feedback trimis. Vom lua legătura în curând.",
       "title": "Trimite feedback"
     },
+    "gotIt": "Am înțeles",
     "notNow": "Nu acum",
     "other": "Alte",
     "placeholderScreen": "Acest ecran este următorul în reconstrucție.",
@@ -123,15 +124,15 @@
     "alreadySmartField": "Deja un câmp Smart",
     "collisionHint": "are deja un Smart Field — alegeți un alt câmp, pachet sau tip de notă",
     "describe": {
-      "exampleChat": "Scrie {{target}} pentru {{source}}",
-      "exampleImage": "Desenează o imagine cu {{source}}",
-      "generate": "Generează",
-      "generating": "Se generează…",
-      "hint": "Descrie-l într-o propoziție. Poți menționa și alte câmpuri după nume.",
-      "regenerate": "Regenerează",
-      "tabToUse": "Apasă <kbd>Tab</kbd> pentru a genera acest conținut",
-      "title": "Ce ar trebui să facă acest câmp?",
-      "writeYourself": "Sau scrie promptul singur"
+      "exampleChat": "De exemplu: o definiție dintr-o linie pentru {{source}}",
+      "exampleImage": "De exemplu: un desen simplu cu {{source}}",
+      "exampleNoFields": "De exemplu: o definiție dintr-o linie a cuvântului",
+      "fieldsHint": "Câmpurile pe care le poți menționa:",
+      "guessTip": "Cea mai bună estimare din câmpurile notiței tale. Editeaz-o cum dorești.",
+      "modeDescribe": "Descrie-l",
+      "modeWrite": "Scriu eu",
+      "title": "Ce ar trebui să generăm în <code>{{field}}</code>?",
+      "writing": "Scrierea promptului"
     },
     "errors": {
       "save": "Nu s-a putut salva Smart Field",
@@ -166,10 +167,7 @@
     "promptPanel": {
       "description": "Ce primește AI-ul pentru fiecare notiță. <code>{{example}}</code> este înlocuit cu textul notiței din câmp.",
       "fieldsOnNote": "Câmpuri din această notiță:",
-      "gotIt": "Am înțeles",
-      "insertField": "Inserează {{field}}",
-      "tip": "Am scris promptul pentru tine. Deschide-l ca să vezi sau să modifici exact ce i se cere AI-ului.",
-      "writeYourself": "Scrie-l singur"
+      "insertField": "Inserează {{field}}"
     },
     "save": "Salvați Smart Field",
     "sections": {
@@ -181,7 +179,6 @@
     "sourceField": "Câmp sursă",
     "targetAriaLabel": "țintă Smart Field",
     "testSmartField": "Testați-vă Smart Field",
-    "testerHint": "Încearcă-l pe cardul selectat în Browser",
     "titles": {
       "create": "Câmp Smart nou",
       "duplicate": "Duplicați Smart Field",

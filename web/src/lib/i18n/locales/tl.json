@@ -38,6 +38,7 @@
       "sent": "Ipinadala ang feedback. Malapit na tayong makipag-ugnayan.",
       "title": "Magpadala ng feedback"
     },
+    "gotIt": "Sige, naintindihan",
     "notNow": "Hindi ngayon",
     "other": "Iba pa",
     "placeholderScreen": "Ang screen na ito ay susunod sa muling pagtatayo.",
@@ -122,15 +123,15 @@
     "alreadySmartField": "Smart Field na",
     "collisionHint": "mayroon nang Smart Field — pumili ng ibang field, deck, o uri ng tala",
     "describe": {
-      "exampleChat": "Isulat ang {{target}} para sa {{source}}",
-      "exampleImage": "Gumuhit ng larawan ng {{source}}",
-      "generate": "Gumawa",
-      "generating": "Ginagawa…",
-      "hint": "Ilarawan ito sa isang pangungusap. Maaari mong banggitin ang ibang field sa pangalan.",
-      "regenerate": "Gumawa muli",
-      "tabToUse": "I-pindot ang <kbd>Tab</kbd> para mabuo ito",
-      "title": "Ano ang dapat gawin ng field na ito?",
-      "writeYourself": "O isulat mismo ang prompt"
+      "exampleChat": "Halimbawa: isang kahulugan sa isang linya ng {{source}}",
+      "exampleImage": "Halimbawa: isang simpleng guhit ng {{source}}",
+      "exampleNoFields": "Halimbawa: isang kahulugan sa isang linya ng salita",
+      "fieldsHint": "Mga field na maaari mong banggitin:",
+      "guessTip": "Ang pinakamagandang hula namin mula sa mga field ng iyong note. I-edit ito ayon sa gusto mo.",
+      "modeDescribe": "Ilarawan ito",
+      "modeWrite": "Ako mismo ang magsusulat",
+      "title": "Ano ang dapat naming i-generate sa <code>{{field}}</code>?",
+      "writing": "Isinulat ang prompt"
     },
     "errors": {
       "save": "Hindi ma-save ang Smart Field",
@@ -165,10 +166,7 @@
     "promptPanel": {
       "description": "Ang natatanggap ng AI para sa bawat note. Ang <code>{{example}}</code> ay papalitan ng teksto ng note na iyon sa field.",
       "fieldsOnNote": "Mga field sa note na ito:",
-      "gotIt": "Sige, naintindihan",
-      "insertField": "Ipasok ang {{field}}",
-      "tip": "Isinulat na namin ang prompt para sa iyo. Buksan ito para makita o baguhin ang eksaktong hinihiling sa AI.",
-      "writeYourself": "Isulat mo mismo"
+      "insertField": "Ipasok ang {{field}}"
     },
     "save": "I-save ang Smart Field",
     "sections": {
@@ -180,7 +178,6 @@
     "sourceField": "Field ng pinagmulan",
     "targetAriaLabel": "Smart Field target",
     "testSmartField": "Subukan ang iyong Smart Field",
-    "testerHint": "Subukan ito sa card na napili sa Browser",
     "titles": {
       "create": "Bagong Smart Field",
       "duplicate": "Duplicate na Smart Field",

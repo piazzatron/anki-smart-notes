@@ -38,6 +38,7 @@
       "sent": "Feedback sent. We'll be in touch soon.",
       "title": "Send feedback"
     },
+    "gotIt": "Got it",
     "notNow": "Not now",
     "other": "Other",
     "placeholderScreen": "This screen is next in the rebuild.",
@@ -122,15 +123,15 @@
     "alreadySmartField": "Already a Smart Field",
     "collisionHint": "already has a Smart Field — pick a different field, deck, or note type",
     "describe": {
-      "exampleChat": "Write the {{target}} for {{source}}",
-      "exampleImage": "Draw a picture of {{source}}",
-      "generate": "Generate",
-      "generating": "Generating…",
-      "hint": "Describe it in a sentence. You can mention other fields by name.",
-      "regenerate": "Regenerate",
-      "tabToUse": "<kbd>Tab</kbd> to generate this",
-      "title": "What should this field do?",
-      "writeYourself": "Or write the prompt yourself"
+      "exampleChat": "For example: a one-line definition of {{source}}",
+      "exampleImage": "For example: a simple drawing of {{source}}",
+      "exampleNoFields": "For example: a one-line definition of the word",
+      "fieldsHint": "Fields you can mention:",
+      "guessTip": "Our best guess from your note's fields. Edit it however you like.",
+      "modeDescribe": "Describe it",
+      "modeWrite": "Write it myself",
+      "title": "What should we generate in <code>{{field}}</code>?",
+      "writing": "Writing the prompt"
     },
     "errors": {
       "save": "Could not save Smart Field",
@@ -165,10 +166,7 @@
     "promptPanel": {
       "description": "What the AI gets for each note. <code>{{example}}</code> is replaced with that note’s text in the field.",
       "fieldsOnNote": "Fields on this note:",
-      "gotIt": "Got it",
-      "insertField": "Insert {{field}}",
-      "tip": "We wrote the prompt for you. Open it to see or change exactly what the AI is asked.",
-      "writeYourself": "Write it yourself"
+      "insertField": "Insert {{field}}"
     },
     "save": "Save Smart Field",
     "sections": {
@@ -180,7 +178,6 @@
     "sourceField": "Source field",
     "targetAriaLabel": "Smart Field target",
     "testSmartField": "Test your Smart Field",
-    "testerHint": "Try it on the card selected in the Browser",
     "titles": {
       "create": "New Smart Field",
       "duplicate": "Duplicate Smart Field",

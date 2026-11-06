@@ -40,6 +40,7 @@
       "sent": "Відгук надіслано. Ми зв'яжемося найближчим часом.",
       "title": "Надіслати відгук"
     },
+    "gotIt": "Зрозуміло",
     "notNow": "Не зараз",
     "other": "інше",
     "placeholderScreen": "Цей екран є наступним у перебудові.",
@@ -124,15 +125,15 @@
     "alreadySmartField": "Уже є Smart Field",
     "collisionHint": "вже має розумне поле — виберіть інше поле, колоду або тип нотатки",
     "describe": {
-      "exampleChat": "Напишіть {{target}} для {{source}}",
-      "exampleImage": "Намалюйте зображення: {{source}}",
-      "generate": "Згенерувати",
-      "generating": "Генерація…",
-      "hint": "Опишіть одним реченням. Можна згадувати інші поля за назвою.",
-      "regenerate": "Згенерувати знову",
-      "tabToUse": "<kbd>Tab</kbd>, щоб згенерувати це",
-      "title": "Що має робити це поле?",
-      "writeYourself": "Або напишіть промпт самостійно"
+      "exampleChat": "Наприклад: одне речення з визначенням {{source}}",
+      "exampleImage": "Наприклад: простий малюнок {{source}}",
+      "exampleNoFields": "Наприклад: одне речення з визначенням слова",
+      "fieldsHint": "Поля, які можна згадати:",
+      "guessTip": "Наш найімовірніший варіант на основі полів вашої нотатки. Змініть його за потреби.",
+      "modeDescribe": "Опишіть це",
+      "modeWrite": "Напишу сам",
+      "title": "Що згенерувати в <code>{{field}}</code>?",
+      "writing": "Написання промпту"
     },
     "errors": {
       "save": "Не вдалося зберегти Smart Field",
@@ -167,10 +168,7 @@
     "promptPanel": {
       "description": "Що ШІ отримує для кожної нотатки. <code>{{example}}</code> замінюється текстом цього поля в нотатці.",
       "fieldsOnNote": "Поля в цій нотатці:",
-      "gotIt": "Зрозуміло",
-      "insertField": "Вставити {{field}}",
-      "tip": "Промпт ми склали за вас. Відкрийте його, щоб побачити або змінити, що саме запитується у ШІ.",
-      "writeYourself": "Написати самостійно"
+      "insertField": "Вставити {{field}}"
     },
     "save": "Зберегти Smart Field",
     "sections": {
@@ -182,7 +180,6 @@
     "sourceField": "Поле джерела",
     "targetAriaLabel": "Ціль Smart Field",
     "testSmartField": "Перевірте своє Smart Field",
-    "testerHint": "Спробуйте на картці, вибраній у Browser",
     "titles": {
       "create": "Нове Smart Field",
       "duplicate": "Дублювати смарт-поле",

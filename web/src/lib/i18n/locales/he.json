@@ -39,6 +39,7 @@
       "sent": "נשלח משוב. נהיה בקשר בקרוב.",
       "title": "שלח משוב"
     },
+    "gotIt": "הבנתי",
     "notNow": "לא עכשיו",
     "other": "אַחֵר",
     "placeholderScreen": "מסך זה הוא הבא בבנייה מחדש.",
@@ -123,15 +124,15 @@
     "alreadySmartField": "כבר שדה חכם",
     "collisionHint": "כבר יש שדה חכם - בחר שדה, חפיסה או סוג אחר",
     "describe": {
-      "exampleChat": "כתוב את {{target}} עבור {{source}}",
-      "exampleImage": "צייר תמונה של {{source}}",
-      "generate": "צור",
-      "generating": "יוצר…",
-      "hint": "תארו זאת במשפט אחד. אפשר לציין שדות אחרים בשמם.",
-      "regenerate": "צור מחדש",
-      "tabToUse": "הקש <kbd>Tab</kbd> כדי ליצור את זה",
-      "title": "מה השדה הזה צריך לעשות?",
-      "writeYourself": "או כתבו את ההנחיה בעצמכם"
+      "exampleChat": "לדוגמה: הגדרה של משפט אחד ל-{{source}}",
+      "exampleImage": "לדוגמה: ציור פשוט של {{source}}",
+      "exampleNoFields": "לדוגמה: הגדרה של משפט אחד למילה",
+      "fieldsHint": "שדות שניתן לציין:",
+      "guessTip": "ההצעה הטובה ביותר שלנו על סמך השדות בפתק שלך. ערוך אותה כרצונך.",
+      "modeDescribe": "תאר את זה",
+      "modeWrite": "אכתוב בעצמי",
+      "title": "מה ליצור ב-<code>{{field}}</code>?",
+      "writing": "כותב את הפרומפט"
     },
     "errors": {
       "save": "לא ניתן לשמור את Smart Field",
@@ -166,10 +167,7 @@
     "promptPanel": {
       "description": "מה ה-AI מקבל עבור כל פתק. <code>{{example}}</code> מוחלף בטקסט של אותו פתק בשדה.",
       "fieldsOnNote": "שדות בפתק זה:",
-      "gotIt": "הבנתי",
-      "insertField": "הוסף {{field}}",
-      "tip": "כתבנו את ההנחיה בשבילכם. פתחו אותה כדי לראות או לשנות בדיוק מה מבקשים מה-AI.",
-      "writeYourself": "כתבו אותה בעצמכם"
+      "insertField": "הוסף {{field}}"
     },
     "save": "שמור שדה חכם",
     "sections": {
@@ -181,7 +179,6 @@
     "sourceField": "שדה מקור",
     "targetAriaLabel": "יעד שדה חכם",
     "testSmartField": "בדוק את השדה החכם שלך",
-    "testerHint": "נסו על הכרטיס שנבחר בדפדפן",
     "titles": {
       "create": "שדה חכם חדש",
       "duplicate": "שכפל שדה חכם",

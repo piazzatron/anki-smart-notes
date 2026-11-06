@@ -39,6 +39,7 @@
       "sent": "Comentaris enviats. Ens posarem en contacte aviat.",
       "title": "Envieu comentaris"
     },
+    "gotIt": "Entès",
     "notNow": "Ara no",
     "other": "Altres",
     "placeholderScreen": "Aquesta pantalla és la següent a la reconstrucció.",
@@ -123,15 +124,15 @@
     "alreadySmartField": "Ja és un camp intel·ligent",
     "collisionHint": "ja té un Smart Field: trieu un camp, una plataforma o un tipus de nota diferent",
     "describe": {
-      "exampleChat": "Escriu {{target}} per a {{source}}",
-      "exampleImage": "Dibuixa una imatge de {{source}}",
-      "generate": "Genera",
-      "generating": "S'està generant…",
-      "hint": "Descriu-ho en una frase. Pots esmentar altres camps pel seu nom.",
-      "regenerate": "Torna a generar",
-      "tabToUse": "<kbd>Tab</kbd> per generar-ho",
-      "title": "Què ha de fer aquest camp?",
-      "writeYourself": "O escriu tu mateix la instrucció"
+      "exampleChat": "Per exemple: una definició d'una línia de {{source}}",
+      "exampleImage": "Per exemple: un dibuix senzill de {{source}}",
+      "exampleNoFields": "Per exemple: una definició d'una línia de la paraula",
+      "fieldsHint": "Camps que pots esmentar:",
+      "guessTip": "La nostra millor suposició a partir dels camps de la teva nota. Edita-la com vulguis.",
+      "modeDescribe": "Descriu-ho",
+      "modeWrite": "Ho escric jo mateix",
+      "title": "Què hem de generar a <code>{{field}}</code>?",
+      "writing": "Escriptura del prompt"
     },
     "errors": {
       "save": "No s'ha pogut desar Smart Field",
@@ -166,10 +167,7 @@
     "promptPanel": {
       "description": "El que rep la IA per a cada nota. <code>{{example}}</code> se substitueix pel text de la nota en aquest camp.",
       "fieldsOnNote": "Camps d'aquesta nota:",
-      "gotIt": "Entès",
-      "insertField": "Insereix {{field}}",
-      "tip": "Hem escrit la instrucció per a tu. Obre-la per veure o canviar exactament què se li demana a la IA.",
-      "writeYourself": "Escriu-la tu mateix"
+      "insertField": "Insereix {{field}}"
     },
     "save": "Desa Smart Field",
     "sections": {
@@ -181,7 +179,6 @@
     "sourceField": "Camp d'origen",
     "targetAriaLabel": "Objectiu Smart Field",
     "testSmartField": "Prova el teu Smart Field",
-    "testerHint": "Prova-ho amb la targeta seleccionada al Navegador",
     "titles": {
       "create": "Nou camp intel·ligent",
       "duplicate": "Duplicar Smart Field",

@@ -37,6 +37,7 @@
       "sent": "反馈已发送。我们很快就会联系。",
       "title": "发送反馈"
     },
+    "gotIt": "知道了",
     "notNow": "现在不要",
     "other": "其他",
     "placeholderScreen": "此屏幕是重建过程中的下一个屏幕。",
@@ -121,15 +122,15 @@
     "alreadySmartField": "已是智能字段",
     "collisionHint": "已经有 Smart Field — 选择不同的字段、牌组或音符类型",
     "describe": {
-      "exampleChat": "为 {{source}} 编写 {{target}}",
-      "exampleImage": "绘制 {{source}} 的图片",
-      "generate": "生成",
-      "generating": "正在生成…",
-      "hint": "用一句话描述。你可以按名称提及其他字段。",
-      "regenerate": "重新生成",
-      "tabToUse": "按 <kbd>Tab</kbd> 生成此内容",
-      "title": "这个字段应该做什么？",
-      "writeYourself": "或自行编写提示词"
+      "exampleChat": "例如：{{source}} 的一句话定义",
+      "exampleImage": "例如：{{source}} 的简单绘图",
+      "exampleNoFields": "例如：该单词的一句话定义",
+      "fieldsHint": "可提及的字段：",
+      "guessTip": "根据笔记字段得出的最佳猜测。您可以随意修改。",
+      "modeDescribe": "描述需求",
+      "modeWrite": "自行编写",
+      "title": "要在 <code>{{field}}</code> 中生成什么内容？",
+      "writing": "正在编写提示词"
     },
     "errors": {
       "save": "无法保存 Smart Field",
@@ -164,10 +165,7 @@
     "promptPanel": {
       "description": "AI 为每张笔记获取的内容。<code>{{example}}</code> 会被替换为该笔记在此字段中的文本。",
       "fieldsOnNote": "此笔记中的字段：",
-      "gotIt": "知道了",
-      "insertField": "插入 {{field}}",
-      "tip": "我们已为你编写了提示词。打开它即可查看或修改 AI 被要求执行的具体内容。",
-      "writeYourself": "自行编写"
+      "insertField": "插入 {{field}}"
     },
     "save": "保存 Smart Field",
     "sections": {
@@ -179,7 +177,6 @@
     "sourceField": "源字段",
     "targetAriaLabel": "Smart Field 目标",
     "testSmartField": "测试您的 Smart Field",
-    "testerHint": "在浏览器中选中的卡片上试用",
     "titles": {
       "create": "新建智能字段",
       "duplicate": "重复的 Smart Field",

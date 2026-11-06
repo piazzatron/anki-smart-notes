@@ -38,6 +38,7 @@
       "sent": "Iritzia bidali da. Laster jarriko gara harremanetan.",
       "title": "Bidali iritzia"
     },
+    "gotIt": "Ulertuta",
     "notNow": "Orain ez",
     "other": "Bestela",
     "placeholderScreen": "Pantaila hau berreraikitzean hurrengoa da.",
@@ -122,15 +123,15 @@
     "alreadySmartField": "Smart Field eremua dagoeneko existitzen da",
     "collisionHint": "dagoeneko Smart Field bat dauka — aukeratu beste eremu, multzo edo ohar mota bat",
     "describe": {
-      "exampleChat": "Idatzi {{source}}-(r)en {{target}}",
-      "exampleImage": "Marraztu {{source}}-(r)en irudi bat",
-      "generate": "Sortu",
-      "generating": "Sortzen…",
-      "hint": "Deskribatu esaldi batean. Beste eremuak izenez aipatu ditzakezu.",
-      "regenerate": "Berriz sortu",
-      "tabToUse": "<kbd>Tab</kbd> sakatu hau sortzeko",
-      "title": "Zer egin behar du eremu honek?",
-      "writeYourself": "Edo idatzi prompta zeuk"
+      "exampleChat": "Adibidez: {{source}}-ren definizio labur bat",
+      "exampleImage": "Adibidez: {{source}}-ren marrazki sinple bat",
+      "exampleNoFields": "Adibidez: hitz baten definizio labur bat",
+      "fieldsHint": "Aipa dezakezun eremuak:",
+      "guessTip": "Zure oharraren eremuetan oinarritutako gure ahalik onena. Editatu nahi duzun moduan.",
+      "modeDescribe": "Deskribatu",
+      "modeWrite": "Neuk idatzi",
+      "title": "Zer sortu behar dugu <code>{{field}}</code> eremuan?",
+      "writing": "Promptak idazten"
     },
     "errors": {
       "save": "Ezin izan da Smart Field gorde",
@@ -165,10 +166,7 @@
     "promptPanel": {
       "description": "AIak nota bakoitzeko jasotzen duena. <code>{{example}}</code> eremuko notaren testuarekin ordezkatzen da.",
       "fieldsOnNote": "Nota honetako eremuak:",
-      "gotIt": "Ulertuta",
-      "insertField": "Txertatu {{field}}",
-      "tip": "Prompta guretzat idatzi dugu. Ireki AIari zer eskatzen zaion zehazki ikusteko edo aldatzeko.",
-      "writeYourself": "Idatzi zeuk"
+      "insertField": "Txertatu {{field}}"
     },
     "save": "Gorde Smart Field",
     "sections": {
@@ -180,7 +178,6 @@
     "sourceField": "Iturburu-eremua",
     "targetAriaLabel": "Smart Field helburua",
     "testSmartField": "Probatu zure Smart Field",
-    "testerHint": "Probatu Browser-en hautatutako txartelean",
     "titles": {
       "create": "Smart Field eremu berria",
       "duplicate": "Smart Field bikoiztu",

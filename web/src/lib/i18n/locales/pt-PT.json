@@ -39,6 +39,7 @@
       "sent": "Feedback enviado. Entraremos em contato em breve.",
       "title": "Enviar comentários"
     },
+    "gotIt": "Entendi",
     "notNow": "Agora não",
     "other": "Outro",
     "placeholderScreen": "Esta tela é a próxima na reconstrução.",
@@ -123,15 +124,15 @@
     "alreadySmartField": "Já é um Smart Field",
     "collisionHint": "já tem um Smart Field — escolha um campo, um baralho ou um tipo de nota diferente",
     "describe": {
-      "exampleChat": "Escreva o {{target}} para {{source}}",
-      "exampleImage": "Desenhe uma imagem de {{source}}",
-      "generate": "Gerar",
-      "generating": "A gerar…",
-      "hint": "Descreva numa frase. Pode mencionar outros campos pelo nome.",
-      "regenerate": "Gerar novamente",
-      "tabToUse": "<kbd>Tab</kbd> para gerar isto",
-      "title": "O que deve fazer este campo?",
-      "writeYourself": "Ou escreva o prompt você mesmo"
+      "exampleChat": "Por exemplo: uma definição de uma linha de {{source}}",
+      "exampleImage": "Por exemplo: um desenho simples de {{source}}",
+      "exampleNoFields": "Por exemplo: uma definição de uma linha da palavra",
+      "fieldsHint": "Campos que pode mencionar:",
+      "guessTip": "A nossa melhor estimativa com base nos campos da sua nota. Edite-a como preferir.",
+      "modeDescribe": "Descrever",
+      "modeWrite": "Escrever eu próprio",
+      "title": "O que devemos gerar em <code>{{field}}</code>?",
+      "writing": "A escrever o prompt"
     },
     "errors": {
       "save": "Não foi possível guardar Smart Field",
@@ -166,10 +167,7 @@
     "promptPanel": {
       "description": "O que a IA recebe para cada nota. <code>{{example}}</code> é substituído pelo texto dessa nota no campo.",
       "fieldsOnNote": "Campos nesta nota:",
-      "gotIt": "Entendi",
-      "insertField": "Inserir {{field}}",
-      "tip": "Escrevemos o prompt por si. Abra-o para ver ou alterar exatamente o que é pedido à IA.",
-      "writeYourself": "Escrever você mesmo"
+      "insertField": "Inserir {{field}}"
     },
     "save": "Guardar Smart Field",
     "sections": {
@@ -181,7 +179,6 @@
     "sourceField": "Campo de origem",
     "targetAriaLabel": "Alvo Smart Field",
     "testSmartField": "Teste o seu Smart Field",
-    "testerHint": "Experimente no cartão selecionado no Navegador",
     "titles": {
       "create": "Novo Smart Field",
       "duplicate": "Duplicar Smart Field",

@@ -27,7 +27,9 @@ import {
   createFieldEditorDraft,
   getFirstAvailableField,
   hasSmartFieldCollision,
+  needsPromptWrite,
   pinUnlessDefault,
+  resetPromptOnRetarget,
   validateFieldEditorDraft,
 } from "./fieldEditor"
 
@@ -323,5 +325,90 @@ describe("field editor helpers", () => {
     expect(draft.step).toBe(1)
     expect(draft.editingFieldId).toBe(existingField.id)
     expect(validateFieldEditorDraft(draft, [existingField], 1)).toBeNull()
+  })
+})
+
+// Test and Save write the prompt first exactly when this says so, and Save is enabled on
+// it, so a wrong answer either saves a stale prompt or bills an extra write.
+describe("needsPromptWrite", () => {
+  test.each([
+    ["describe", "Translate it", null, true],
+    ["describe", "Translate it", "Translate it", false],
+    ["describe", "Translate it again", "Translate it", true],
+    ["describe", "   ", null, false],
+    ["write", "Translate it", null, false],
+  ] as const)(
+    "%s mode, description %p written from %p: %p",
+    (promptMode, writePrompt, generatedFrom, expected) => {
+      const draft = {
+        ...createFieldEditorDraft(appState, { mode: "create" }),
+        generatedFrom,
+        promptMode,
+        writePrompt,
+      }
+      expect(needsPromptWrite(draft)).toBe(expected)
+    },
+  )
+
+  test("never for a voice field, which has no prompt", () => {
+    const draft = createFieldEditorDraft(appState, { mode: "create" })
+    expect(
+      needsPromptWrite({
+        ...draft,
+        target: { ...draft.target, fieldType: "tts" },
+        writePrompt: "Read it",
+      }),
+    ).toBe(false)
+  })
+})
+
+describe("resetPromptOnRetarget", () => {
+  const described = {
+    ...createFieldEditorDraft(appState, { mode: "create" }),
+    generatedFrom: "Translate Front",
+    prompt: "Translate {{Front}}.",
+    promptMode: "write" as const,
+    writePrompt: "Translate Front",
+  }
+  const otherField = {
+    ...described,
+    target: { ...described.target, targetFieldName: "Audio" },
+  }
+
+  test("a new field starts its description and prompt over", () => {
+    expect(
+      resetPromptOnRetarget({
+        current: described,
+        mode: "create",
+        next: otherField,
+      }),
+    ).toEqual({
+      ...otherField,
+      generatedFrom: null,
+      prompt: "",
+      promptMode: "describe",
+      writePrompt: "",
+    })
+  })
+
+  test("editing keeps the field's own prompt", () => {
+    const next = resetPromptOnRetarget({
+      current: described,
+      mode: "edit",
+      next: otherField,
+    })
+    expect(next.prompt).toBe("Translate {{Front}}.")
+    expect(next.promptMode).toBe("write")
+    expect(next.writePrompt).toBe("")
+  })
+
+  test("leaves the draft alone when the target didn't change", () => {
+    expect(
+      resetPromptOnRetarget({
+        current: described,
+        mode: "create",
+        next: described,
+      }),
+    ).toBe(described)
   })
 })

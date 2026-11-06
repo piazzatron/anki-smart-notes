@@ -37,6 +37,7 @@
       "sent": "ส่งคำติชมแล้ว เราจะติดต่อกลับเร็วๆ นี้",
       "title": "ส่งคำติชม"
     },
+    "gotIt": "เข้าใจแล้ว",
     "notNow": "ไม่ใช่ตอนนี้",
     "other": "อื่น",
     "placeholderScreen": "หน้าจอนี้อยู่ถัดไปในการสร้างใหม่",
@@ -121,15 +122,15 @@
     "alreadySmartField": "เป็น Smart Field อยู่แล้ว",
     "collisionHint": "มี Smart Field อยู่แล้ว — เลือกฟิลด์ สำรับ หรือประเภทโน้ตอื่น",
     "describe": {
-      "exampleChat": "เขียน {{target}} สำหรับ {{source}}",
-      "exampleImage": "วาดภาพของ {{source}}",
-      "generate": "สร้าง",
-      "generating": "กำลังสร้าง…",
-      "hint": "อธิบายเป็นประโยคเดียว คุณสามารถอ้างถึงฟิลด์อื่นด้วยชื่อได้",
-      "regenerate": "สร้างใหม่",
-      "tabToUse": "กด <kbd>Tab</kbd> เพื่อสร้างข้อความนี้",
-      "title": "ฟิลด์นี้ควรทำอะไร",
-      "writeYourself": "หรือเขียนพรอมต์เอง"
+      "exampleChat": "ตัวอย่าง: คำนิยามหนึ่งบรรทัดของ {{source}}",
+      "exampleImage": "ตัวอย่าง: ภาพร่างง่ายๆ ของ {{source}}",
+      "exampleNoFields": "ตัวอย่าง: คำนิยามหนึ่งบรรทัดของคำว่า",
+      "fieldsHint": "ฟิลด์ที่คุณสามารถระบุได้:",
+      "guessTip": "ข้อเสนอที่ดีที่สุดของเราจากฟิลด์ในโน้ตของคุณ แก้ไขได้ตามต้องการ",
+      "modeDescribe": "อธิบายสิ่งที่ต้องการ",
+      "modeWrite": "เขียนเอง",
+      "title": "ควรสร้างอะไรใน <code>{{field}}</code>?",
+      "writing": "กำลังเขียนพรอมต์"
     },
     "errors": {
       "save": "ไม่สามารถบันทึก Smart Field ได้",
@@ -164,10 +165,7 @@
     "promptPanel": {
       "description": "สิ่งที่ AI ได้รับสำหรับแต่ละโน้ต <code>{{example}}</code> จะถูกแทนที่ด้วยข้อความของโน้ตในฟิลด์นั้น",
       "fieldsOnNote": "ฟิลด์ในโน้ตนี้:",
-      "gotIt": "เข้าใจแล้ว",
-      "insertField": "แทรก {{field}}",
-      "tip": "เราเขียนพรอมต์ให้คุณแล้ว เปิดดูเพื่อดูหรือแก้ไขคำสั่งที่ AI ได้รับอย่างแม่นยำ",
-      "writeYourself": "เขียนเอง"
+      "insertField": "แทรก {{field}}"
     },
     "save": "บันทึก Smart Field",
     "sections": {
@@ -179,7 +177,6 @@
     "sourceField": "ฟิลด์แหล่งที่มา",
     "targetAriaLabel": "เป้าหมาย Smart Field",
     "testSmartField": "ทดสอบ Smart Field ของคุณ",
-    "testerHint": "ลองใช้กับการ์ดที่เลือกในเบราว์เซอร์",
     "titles": {
       "create": "Smart Field ใหม่",
       "duplicate": "Smart Field ซ้ำกัน",

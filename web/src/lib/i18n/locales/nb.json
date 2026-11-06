@@ -38,6 +38,7 @@
       "sent": "Tilbakemelding sendt. Vi tar snart kontakt.",
       "title": "Send tilbakemelding"
     },
+    "gotIt": "Forstått",
     "notNow": "Ikke nå",
     "other": "Annen",
     "placeholderScreen": "Denne skjermen er neste i ombyggingen.",
@@ -122,15 +123,15 @@
     "alreadySmartField": "Allerede et Smart-felt",
     "collisionHint": "har allerede en Smart Field — velg et annet felt, kortstokk eller notetype",
     "describe": {
-      "exampleChat": "Skriv {{target}} for {{source}}",
-      "exampleImage": "Tegn et bilde av {{source}}",
-      "generate": "Generer",
-      "generating": "Genererer…",
-      "hint": "Beskriv det i én setning. Du kan nevne andre felt med navn.",
-      "regenerate": "Generer på nytt",
-      "tabToUse": "<kbd>Tab</kbd> for å generere dette",
-      "title": "Hva skal dette feltet gjøre?",
-      "writeYourself": "Eller skriv ledeteksten selv"
+      "exampleChat": "For eksempel: en definisjon på én linje av {{source}}",
+      "exampleImage": "For eksempel: en enkel tegning av {{source}}",
+      "exampleNoFields": "For eksempel: en definisjon på én linje av ordet",
+      "fieldsHint": "Felt du kan nevne:",
+      "guessTip": "Vårt beste gjett basert på feltene i notatet ditt. Rediger det slik du vil.",
+      "modeDescribe": "Beskriv det",
+      "modeWrite": "Skriv det selv",
+      "title": "Hva skal vi generere i <code>{{field}}</code>?",
+      "writing": "Skriver prompten"
     },
     "errors": {
       "save": "Kunne ikke lagre Smart Field",
@@ -165,10 +166,7 @@
     "promptPanel": {
       "description": "Hva AI-en får for hvert notat. <code>{{example}}</code> erstattes med teksten i feltet for det notatet.",
       "fieldsOnNote": "Felt på dette notatet:",
-      "gotIt": "Forstått",
-      "insertField": "Sett inn {{field}}",
-      "tip": "Vi har skrevet ledeteksten for deg. Åpne den for å se eller endre nøyaktig hva AI-en blir bedt om.",
-      "writeYourself": "Skriv den selv"
+      "insertField": "Sett inn {{field}}"
     },
     "save": "Lagre Smart Field",
     "sections": {
@@ -180,7 +178,6 @@
     "sourceField": "Kildefelt",
     "targetAriaLabel": "Smart Field mål",
     "testSmartField": "Test din Smart Field",
-    "testerHint": "Prøv på kortet som er valgt i Browser",
     "titles": {
       "create": "Nytt Smart-felt",
       "duplicate": "Dupliser Smart Field",

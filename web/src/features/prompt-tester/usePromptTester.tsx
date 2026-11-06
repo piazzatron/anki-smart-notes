@@ -91,6 +91,9 @@ export type PromptTesterArgs = {
   // Omitted when something else on the screen edits the prompt, in which case no
   // editor is offered here.
   onPromptChange?: (prompt: string) => void
+  // Settles the prompt right before a run, e.g. writing it from a description. Null
+  // cancels the run.
+  preparePrompt?: () => Promise<string | null>
   prompt: string
   requiredNoteTypeId?: number
 } & (
@@ -245,10 +248,12 @@ export const usePromptTester = (args: PromptTesterArgs): PromptTester => {
 
     patchState({ error: null, isTesting: true })
     try {
+      const runPrompt = args.preparePrompt ? await args.preparePrompt() : prompt
+      if (runPrompt === null) return
       const newRun = await runTimedTest({
         args,
         cardId: selectedNote?.cardId ?? null,
-        prompt,
+        prompt: runPrompt,
       })
       setState((current) => ({
         ...current,

@@ -37,6 +37,7 @@
       "sent": "反饋已發送。我們很快就會聯絡。",
       "title": "傳送回饋"
     },
+    "gotIt": "知道了",
     "notNow": "現在不要",
     "other": "其他",
     "placeholderScreen": "此畫面是重建過程中的下一個畫面。",
@@ -121,15 +122,15 @@
     "alreadySmartField": "已是 Smart Field",
     "collisionHint": "已經有 Smart Field — 選擇不同的欄位、牌組或音符類型",
     "describe": {
-      "exampleChat": "為 {{source}} 撰寫{{target}}",
-      "exampleImage": "繪製 {{source}} 的圖片",
-      "generate": "產生",
-      "generating": "產生中…",
-      "hint": "用一句話描述。你可以直接寫出其他欄位的名稱。",
-      "regenerate": "重新產生",
-      "tabToUse": "按下 <kbd>Tab</kbd> 產生內容",
-      "title": "這個欄位要做什麼？",
-      "writeYourself": "或自行撰寫提示詞"
+      "exampleChat": "例如：{{source}} 的一句話定義",
+      "exampleImage": "例如：{{source}} 的簡單示意圖",
+      "exampleNoFields": "例如：該單字的一句話定義",
+      "fieldsHint": "你可以提及的欄位：",
+      "guessTip": "根據筆記欄位推測的最佳結果。你可以隨意編輯。",
+      "modeDescribe": "用文字描述",
+      "modeWrite": "自己撰寫",
+      "title": "要在 <code>{{field}}</code> 中產生什麼內容？",
+      "writing": "撰寫提示詞"
     },
     "errors": {
       "save": "無法儲存 Smart Field",
@@ -164,10 +165,7 @@
     "promptPanel": {
       "description": "AI 為每張筆記接收的內容。<code>{{example}}</code> 會被替換為該筆記在此欄位中的文字。",
       "fieldsOnNote": "此筆記的欄位：",
-      "gotIt": "知道了",
-      "insertField": "插入 {{field}}",
-      "tip": "我們已為你撰寫提示詞。開啟即可查看或修改 AI 實際收到的指令。",
-      "writeYourself": "自行撰寫"
+      "insertField": "插入 {{field}}"
     },
     "save": "儲存 Smart Field",
     "sections": {
@@ -179,7 +177,6 @@
     "sourceField": "來源字段",
     "targetAriaLabel": "Smart Field 目標",
     "testSmartField": "測試您的 Smart Field",
-    "testerHint": "在瀏覽器中選取的卡片上試用",
     "titles": {
       "create": "新增 Smart Field",
       "duplicate": "重複的 Smart Field",

@@ -56,16 +56,50 @@ export interface FieldEditorDraft {
   // Null while creating or duplicating, where every binding is somebody else's.
   editingFieldId: string | null
   error: string | null
+  // The description the current prompt was written from, so Save knows whether the
+  // prompt still matches what's described.
+  generatedFrom: string | null
   isGenerating: boolean
   isSaving: boolean
   mode: FieldEditorMode
   pinnedSettings: PinnedGenerationSettings
   prompt: string
+  // Whether the user describes the field and we write the prompt, or writes it.
+  promptMode: "describe" | "write"
   sourceFieldName: string
   step: FieldEditorStep
   target: FieldTargetDraft
   writePrompt: string
 }
+
+/** Whether the description changed since the prompt was last written from it, so the
+ *  prompt has to be written again before it's tested or saved. */
+export const needsPromptWrite = (draft: FieldEditorDraft): boolean =>
+  draft.target.fieldType !== "tts" &&
+  draft.promptMode === "describe" &&
+  draft.writePrompt.trim() !== "" &&
+  draft.writePrompt !== draft.generatedFrom
+
+/** A new target is a new field to describe, so what was described and written for the
+ *  old one doesn't carry over. Editing keeps the field's own prompt. */
+export const resetPromptOnRetarget = ({
+  current,
+  mode,
+  next,
+}: {
+  current: FieldEditorDraft
+  mode: FieldEditorMode
+  next: FieldEditorDraft
+}): FieldEditorDraft =>
+  JSON.stringify(current.target) === JSON.stringify(next.target)
+    ? next
+    : {
+        ...next,
+        generatedFrom: null,
+        prompt: mode === "edit" ? next.prompt : "",
+        promptMode: mode === "edit" ? next.promptMode : "describe",
+        writePrompt: "",
+      }
 
 interface CreateFieldEditorDraftArgs {
   field?: SmartField
@@ -91,6 +125,7 @@ export const createFieldEditorDraft = (
   return {
     editingFieldId: mode === "edit" ? (field?.id ?? null) : null,
     error: null,
+    generatedFrom: null,
     isGenerating: false,
     isSaving: false,
     mode,
@@ -99,6 +134,11 @@ export const createFieldEditorDraft = (
       field?.fieldType === "chat" || field?.fieldType === "image"
         ? field.settings.promptText
         : "",
+    // A field that has a prompt opens on it.
+    promptMode:
+      field?.fieldType === "chat" || field?.fieldType === "image"
+        ? "write"
+        : "describe",
     sourceFieldName:
       field?.fieldType === "tts"
         ? field.settings.sourceFieldName

@@ -37,6 +37,7 @@
       "sent": "Retroaccion mandada. Serem en contacte lèu.",
       "title": "Mandar un comentari"
     },
+    "gotIt": "Ai compres",
     "notNow": "pas ara",
     "other": "Autre",
     "placeholderScreen": "Aqueste ecran es lo seguent dins la reconstruccion.",
@@ -121,15 +122,15 @@
     "alreadySmartField": "Ja un Smart Field",
     "collisionHint": "a ja un Smart Field — causissètz un tipe de camp, de jòc o de nòta diferent",
     "describe": {
-      "exampleChat": "Escriure lo {{target}} per {{source}}",
-      "exampleImage": "Dessenhar una imatge de {{source}}",
-      "generate": "Generar",
-      "generating": "Generant…",
-      "hint": "Descrivètz-lo en una frasa. Podètz mencionar los autres camps pel nom.",
-      "regenerate": "Tornar generar",
-      "tabToUse": "<kbd>Tab</kbd> per generar aquò",
-      "title": "Qué deu far aqueste camp?",
-      "writeYourself": "O escrivètz vos-mesme la consigna"
+      "exampleChat": "Per exemple : una definicion d'una linha de {{source}}",
+      "exampleImage": "Per exemple : un dessenh simple de {{source}}",
+      "exampleNoFields": "Per exemple : una definicion d'una linha del mot",
+      "fieldsHint": "Camps que podètz mencionar :",
+      "guessTip": "Nòstra millor estimacion a partir dels camps de la nòta. Modificatz-la coma vulhatz.",
+      "modeDescribe": "Descriure-lo",
+      "modeWrite": "L'escriure yo-mesme",
+      "title": "Qué devèm generar dins <code>{{field}}</code> ?",
+      "writing": "Escrivent la consigna"
     },
     "errors": {
       "save": "Poguèt pas salvar Smart Field",
@@ -164,10 +165,7 @@
     "promptPanel": {
       "description": "Çò que l’IA recebe per cada nòta. <code>{{example}}</code> es remplaçat pel tèxte de la nòta dins lo camp.",
       "fieldsOnNote": "Camps d’aquesta nòta:",
-      "gotIt": "Ai compres",
-      "insertField": "Insereix {{field}}",
-      "tip": "Avèm escrit la consigna per vos. Duberta-la per veire o modificar exactament çò que se demanda a l’IA.",
-      "writeYourself": "Escrivètz-la vos-mesme"
+      "insertField": "Insereix {{field}}"
     },
     "save": "Salvar Smart Field",
     "sections": {
@@ -179,7 +177,6 @@
     "sourceField": "Camp font",
     "targetAriaLabel": "Smart Field cibla",
     "testSmartField": "Prueba tu Smart Field",
-    "testerHint": "Ensajatz-lo sus la carta seleccionada dins lo Navigador",
     "titles": {
       "create": "Nòu Smart Field",
       "duplicate": "Duplicat Smart Field",

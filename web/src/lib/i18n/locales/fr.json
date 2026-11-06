@@ -39,6 +39,7 @@
       "sent": "Commentaires envoyés. Nous vous contacterons bientôt.",
       "title": "Envoyer des commentaires"
     },
+    "gotIt": "Compris",
     "notNow": "Pas maintenant",
     "other": "Autre",
     "placeholderScreen": "Cet écran est le prochain dans la reconstruction.",
@@ -123,15 +124,15 @@
     "alreadySmartField": "Déjà un Smart Field",
     "collisionHint": "a déjà un Smart Field – choisissez un autre champ, jeu ou type de note",
     "describe": {
-      "exampleChat": "Écrivez le {{target}} pour {{source}}",
-      "exampleImage": "Dessinez une image de {{source}}",
-      "generate": "Générer",
-      "generating": "Génération en cours…",
-      "hint": "Décrivez-le en une phrase. Vous pouvez mentionner d’autres champs par leur nom.",
-      "regenerate": "Régénérer",
-      "tabToUse": "<kbd>Tab</kbd> pour générer ceci",
-      "title": "Que doit faire ce champ ?",
-      "writeYourself": "Ou rédigez le prompt vous-même"
+      "exampleChat": "Par exemple : une définition d'une ligne de {{source}}",
+      "exampleImage": "Par exemple : un dessin simple de {{source}}",
+      "exampleNoFields": "Par exemple : une définition d'une ligne du mot",
+      "fieldsHint": "Champs que vous pouvez mentionner :",
+      "guessTip": "Notre meilleure estimation à partir des champs de votre note. Modifiez-la comme vous le souhaitez.",
+      "modeDescribe": "Décrire",
+      "modeWrite": "Rédiger moi-même",
+      "title": "Que devons-nous générer dans <code>{{field}}</code> ?",
+      "writing": "Rédaction de l'invite"
     },
     "errors": {
       "save": "Impossible d'enregistrer Smart Field",
@@ -166,10 +167,7 @@
     "promptPanel": {
       "description": "Ce que l’IA reçoit pour chaque note. <code>{{example}}</code> est remplacé par le texte de cette note dans le champ.",
       "fieldsOnNote": "Champs de cette note :",
-      "gotIt": "Compris",
-      "insertField": "Insérer {{field}}",
-      "tip": "Nous avons rédigé le prompt pour vous. Ouvrez-le pour voir ou modifier exactement ce que l’IA doit faire.",
-      "writeYourself": "Rédigez-le vous-même"
+      "insertField": "Insérer {{field}}"
     },
     "save": "Enregistrer Smart Field",
     "sections": {
@@ -181,7 +179,6 @@
     "sourceField": "Champ source",
     "targetAriaLabel": "Cible Smart Field",
     "testSmartField": "Testez votre Smart Field",
-    "testerHint": "Essayer sur la carte sélectionnée dans le Navigateur",
     "titles": {
       "create": "Nouveau Smart Field",
       "duplicate": "Dupliquer Smart Field",

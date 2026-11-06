@@ -39,6 +39,7 @@
       "sent": "Feedback inviato. Ci metteremo in contatto presto.",
       "title": "Invia feedback"
     },
+    "gotIt": "Ho capito",
     "notNow": "Non adesso",
     "other": "Altro",
     "placeholderScreen": "Questa schermata è la prossima nella ricostruzione.",
@@ -123,15 +124,15 @@
     "alreadySmartField": "Già un campo Smart",
     "collisionHint": "ha già un Smart Field: scegli un campo, un mazzo o un tipo di nota diverso",
     "describe": {
-      "exampleChat": "Scrivi {{target}} per {{source}}",
-      "exampleImage": "Disegna un'immagine di {{source}}",
-      "generate": "Genera",
-      "generating": "Generazione in corso…",
-      "hint": "Descrivilo in una frase. Puoi citare altri campi per nome.",
-      "regenerate": "Rigenera",
-      "tabToUse": "Premi <kbd>Tab</kbd> per generare questo",
-      "title": "Cosa dovrebbe fare questo campo?",
-      "writeYourself": "Oppure scrivi tu il prompt"
+      "exampleChat": "Ad esempio: una definizione in una riga di {{source}}",
+      "exampleImage": "Ad esempio: un disegno semplice di {{source}}",
+      "exampleNoFields": "Ad esempio: una definizione in una riga della parola",
+      "fieldsHint": "Campi che puoi menzionare:",
+      "guessTip": "La nostra stima migliore dai campi della tua nota. Modificala come preferisci.",
+      "modeDescribe": "Descrivilo",
+      "modeWrite": "Scrivilo io stesso",
+      "title": "Cosa dovremmo generare in <code>{{field}}</code>?",
+      "writing": "Scrittura del prompt"
     },
     "errors": {
       "save": "Impossibile salvare Smart Field",
@@ -166,10 +167,7 @@
     "promptPanel": {
       "description": "Ciò che l'IA riceve per ogni nota. <code>{{example}}</code> viene sostituito con il testo di quella nota nel campo.",
       "fieldsOnNote": "Campi in questa nota:",
-      "gotIt": "Ho capito",
-      "insertField": "Inserisci {{field}}",
-      "tip": "Abbiamo scritto il prompt per te. Aprilo per vedere o modificare esattamente cosa viene chiesto all'IA.",
-      "writeYourself": "Scrivilo tu"
+      "insertField": "Inserisci {{field}}"
     },
     "save": "Salva Smart Field",
     "sections": {
@@ -181,7 +179,6 @@
     "sourceField": "Campo di origine",
     "targetAriaLabel": "Obiettivo Smart Field",
     "testSmartField": "Metti alla prova il tuo Smart Field",
-    "testerHint": "Provalo sulla scheda selezionata nel Browser",
     "titles": {
       "create": "Nuovo campo Smart",
       "duplicate": "Duplicato Smart Field",

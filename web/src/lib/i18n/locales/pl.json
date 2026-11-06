@@ -40,6 +40,7 @@
       "sent": "Opinia została wysłana. Wkrótce się skontaktujemy.",
       "title": "Wyślij opinię"
     },
+    "gotIt": "Rozumiem",
     "notNow": "Nie teraz",
     "other": "Inny",
     "placeholderScreen": "Ten ekran będzie następny w przebudowie.",
@@ -124,15 +125,15 @@
     "alreadySmartField": "Już jest polem Smart Fields",
     "collisionHint": "ma już Smart Field — wybierz inne pole, talię lub typ notatki",
     "describe": {
-      "exampleChat": "Napisz {{target}} dla {{source}}",
-      "exampleImage": "Narysuj obraz przedstawiający {{source}}",
-      "generate": "Generuj",
-      "generating": "Generowanie…",
-      "hint": "Opisz to jednym zdaniem. Możesz wspomnieć inne pola po nazwie.",
-      "regenerate": "Generuj ponownie",
-      "tabToUse": "<kbd>Tab</kbd>, aby wygenerować",
-      "title": "Co ma robić to pole?",
-      "writeYourself": "Lub napisz prompt samodzielnie"
+      "exampleChat": "Na przykład: jednozdaniowa definicja {{source}}",
+      "exampleImage": "Na przykład: prosty rysunek przedstawiający {{source}}",
+      "exampleNoFields": "Na przykład: jednozdaniowa definicja słowa",
+      "fieldsHint": "Pola, o których możesz wspomnieć:",
+      "guessTip": "Nasze najlepsze przypuszczenie na podstawie pól notatki. Edytuj je dowolnie.",
+      "modeDescribe": "Opisz to",
+      "modeWrite": "Napiszę samodzielnie",
+      "title": "Co wygenerować w <code>{{field}}</code>?",
+      "writing": "Tworzenie promptu"
     },
     "errors": {
       "save": "Nie można zapisać Smart Field",
@@ -167,10 +168,7 @@
     "promptPanel": {
       "description": "Co AI otrzymuje dla każdej notatki. <code>{{example}}</code> zostaje zastąpione tekstem z tego pola w notatce.",
       "fieldsOnNote": "Pola w tej notatce:",
-      "gotIt": "Rozumiem",
-      "insertField": "Wstaw {{field}}",
-      "tip": "Prompt napisaliśmy za Ciebie. Otwórz go, aby zobaczyć lub zmienić dokładnie to, o co AI jest pytane.",
-      "writeYourself": "Napisz samodzielnie"
+      "insertField": "Wstaw {{field}}"
     },
     "save": "Zapisz Smart Field",
     "sections": {
@@ -182,7 +180,6 @@
     "sourceField": "Pole źródłowe",
     "targetAriaLabel": "Cel Smart Field",
     "testSmartField": "Przetestuj swój Smart Field",
-    "testerHint": "Wypróbuj na karcie zaznaczonej w Przeglądarce",
     "titles": {
       "create": "Nowe pole Smart Fields",
       "duplicate": "Duplikat Smart Field",

@@ -41,6 +41,7 @@
       "sent": "Aiseolas seolta. Beidh muid i dteagmháil go luath.",
       "title": "Seol aiseolas"
     },
+    "gotIt": "Tuigim",
     "notNow": "Ní anois",
     "other": "Eile",
     "placeholderScreen": "Is é an scáileán seo chugainn san atógáil.",
@@ -125,15 +126,15 @@
     "alreadySmartField": "Réimse Cliste cheana féin",
     "collisionHint": "tá Smart Field aige cheana féin — roghnaigh réimse eile, deic nó cineál nóta",
     "describe": {
-      "exampleChat": "Scríobh an {{target}} do {{source}}",
-      "exampleImage": "Tarraing pictiúr de {{source}}",
-      "generate": "Gin",
-      "generating": "Ag gin…",
-      "hint": "Déan cur síos air in abairt amháin. Is féidir leat tagairt a dhéanamh do réimsí eile de réir ainm.",
-      "regenerate": "Atghin",
-      "tabToUse": "Brúigh <kbd>Tab</kbd> chun seo a ghiniúint",
-      "title": "Cad ba cheart don réimse seo a dhéanamh?",
-      "writeYourself": "Nó scríobh an leid féin"
+      "exampleChat": "Mar shampla: sainmhíniú aon-líne ar {{source}}",
+      "exampleImage": "Mar shampla: líníocht simplí de {{source}}",
+      "exampleNoFields": "Mar shampla: sainmhíniú aon-líne ar an bhfocal",
+      "fieldsHint": "Réimsí ar féidir leat tagairt a dhéanamh dóibh:",
+      "guessTip": "Ár mbarrthuairim is fearr ó réimsí do nóta. Cuir in eagar é mar is mian leat.",
+      "modeDescribe": "Cuir síos air",
+      "modeWrite": "Scríobh é mé féin",
+      "title": "Cad ba chóir dúinn a ghiniúint in <code>{{field}}</code>?",
+      "writing": "Ag scríobh an leid"
     },
     "errors": {
       "save": "Níorbh fhéidir Smart Field a shábháil",
@@ -168,10 +169,7 @@
     "promptPanel": {
       "description": "An rud a fhaigheann an AI le haghaidh gach nóta. Cuirfear <code>{{example}}</code> in ionad téacs an nóta sa réimse sin.",
       "fieldsOnNote": "Réimsí ar an nóta seo:",
-      "gotIt": "Tuigim",
-      "insertField": "Cuir {{field}} isteach",
-      "tip": "Scríobh muid an leid duit. Oscail é chun a fheiceáil nó chun an rud a iarrtar ar an AI a athrú go beacht.",
-      "writeYourself": "Scríobh é féin"
+      "insertField": "Cuir {{field}} isteach"
     },
     "save": "Sábháil Smart Field",
     "sections": {
@@ -183,7 +181,6 @@
     "sourceField": "Réimse foinse",
     "targetAriaLabel": "Sprioc Smart Field",
     "testSmartField": "Tástáil do Smart Field",
-    "testerHint": "Triail é ar an gcárta atá roghnaithe sa Bhrabhsálaí",
     "titles": {
       "create": "Réimse Cliste Nua",
       "duplicate": "Smart Field a dhúbailt",

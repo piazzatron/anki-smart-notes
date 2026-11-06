@@ -689,8 +689,12 @@ export const sendMockCommand: CommandSender = async <Result = void>(
   }
 
   if (command === "prompts.test") {
+    await new Promise((resolve) => setTimeout(resolve, 900))
+    const prompt = String(commandPayload.prompt ?? "")
     return {
-      text: "To eat — the act of consuming food, as in りんごを食べる (to eat an apple).",
+      text: prompt.startsWith("Translate")
+        ? "To eat — the act of consuming food, as in りんごを食べる (to eat an apple)."
+        : `(Mock result for: ${prompt.slice(0, 80)})`,
       resultToken: `mock-token-${Date.now()}`,
     } as Result
   }
@@ -724,11 +728,17 @@ export const sendMockCommand: CommandSender = async <Result = void>(
 
   if (command === "prompts.suggest") {
     await new Promise((resolve) => setTimeout(resolve, 600))
+    // ?suggest=none plays a guess that came back empty.
+    if (new URLSearchParams(window.location.search).get("suggest") === "none") {
+      return { suggestion: "" } as Result
+    }
     return {
       suggestion:
         commandPayload.fieldType === "image"
           ? "Draw a simple scene that shows Expression"
-          : "Translate Expression into natural English",
+          : commandPayload.targetFieldName === "Expression"
+            ? "Translate Expression into natural English"
+            : `Write the ${String(commandPayload.targetFieldName)} for Expression`,
     } as Result
   }
 
@@ -738,7 +748,9 @@ export const sendMockCommand: CommandSender = async <Result = void>(
       prompt:
         commandPayload.fieldType === "image"
           ? "A vivid, memorable scene illustrating {{Expression}}. No text or labels."
-          : "Translate {{Expression}} into natural English. Return only the translation.",
+          : String(commandPayload.generationPrompt).startsWith("Translate")
+            ? "Translate {{Expression}} into natural English. Return only the translation."
+            : `${String(commandPayload.generationPrompt)}, for {{Expression}}. Return only the answer.`,
     } as Result
   }
 

@@ -38,6 +38,7 @@
       "sent": "بازخورد ارسال شد. به زودی در تماس خواهیم بود.",
       "title": "ارسال بازخورد"
     },
+    "gotIt": "متوجه شدم",
     "notNow": "الان نه",
     "other": "دیگر",
     "placeholderScreen": "این صفحه نمایش بعدی در بازسازی است.",
@@ -122,15 +123,15 @@
     "alreadySmartField": "از قبل یک فیلد هوشمند است",
     "collisionHint": "قبلاً یک Smart Field دارد - یک فیلد، عرشه یا نوع یادداشت متفاوت را انتخاب کنید",
     "describe": {
-      "exampleChat": "{{target}} را برای {{source}} بنویس",
-      "exampleImage": "تصویری از {{source}} بکش",
-      "generate": "تولید",
-      "generating": "در حال تولید…",
-      "hint": "در یک جمله توضیح دهید. می‌توانید به فیلدهای دیگر با نامشان اشاره کنید.",
-      "regenerate": "تولید دوباره",
-      "tabToUse": "<kbd>Tab</kbd> را برای تولید این بزنید",
-      "title": "این فیلد باید چه کاری انجام دهد؟",
-      "writeYourself": "یا خودتان پرامپت را بنویسید"
+      "exampleChat": "مثال: تعریف یک‌خطی از {{source}}",
+      "exampleImage": "مثال: یک طرح ساده از {{source}}",
+      "exampleNoFields": "مثال: تعریف یک‌خطی از این کلمه",
+      "fieldsHint": "فیلدهایی که می‌توانید ذکر کنید:",
+      "guessTip": "بهترین حدس ما بر اساس فیلدهای یادداشت شما. هر طور که می‌خواهید ویرایش کنید.",
+      "modeDescribe": "توصیف کنید",
+      "modeWrite": "خودم می‌نویسم",
+      "title": "چه چیزی را در <code>{{field}}</code> تولید کنیم؟",
+      "writing": "در حال نوشتن پرامپت"
     },
     "errors": {
       "save": "Smart Field ذخیره نشد",
@@ -165,10 +166,7 @@
     "promptPanel": {
       "description": "چیزی که هوش مصنوعی برای هر یادداشت دریافت می‌کند. <code>{{example}}</code> با متن همان یادداشت در این فیلد جایگزین می‌شود.",
       "fieldsOnNote": "فیلدهای این یادداشت:",
-      "gotIt": "متوجه شدم",
-      "insertField": "درج {{field}}",
-      "tip": "ما پرامپت را برای شما نوشته‌ایم. آن را باز کنید تا دقیقاً ببینید یا تغییر دهید که از هوش مصنوعی چه خواسته می‌شود.",
-      "writeYourself": "خودتان بنویسید"
+      "insertField": "درج {{field}}"
     },
     "save": "Smart Field را ذخیره کنید",
     "sections": {
@@ -180,7 +178,6 @@
     "sourceField": "فیلد منبع",
     "targetAriaLabel": "هدف Smart Field",
     "testSmartField": "Smart Field خود را تست کنید",
-    "testerHint": "امتحان روی کارتی که در Browser انتخاب شده است",
     "titles": {
       "create": "فیلد هوشمند جدید",
       "duplicate": "تکراری Smart Field",

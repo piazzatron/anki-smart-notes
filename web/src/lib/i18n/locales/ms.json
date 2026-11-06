@@ -37,6 +37,7 @@
       "sent": "Maklum balas dihantar. Kami akan berhubung tidak lama lagi.",
       "title": "Hantar maklum balas"
     },
+    "gotIt": "Faham",
     "notNow": "bukan sekarang",
     "other": "Lain-lain",
     "placeholderScreen": "Skrin ini seterusnya dalam pembinaan semula.",
@@ -121,15 +122,15 @@
     "alreadySmartField": "Sudah menjadi Medan Pintar",
     "collisionHint": "sudah mempunyai Smart Field — pilih medan, dek atau jenis nota yang berbeza",
     "describe": {
-      "exampleChat": "Tulis {{target}} untuk {{source}}",
-      "exampleImage": "Lukis gambar {{source}}",
-      "generate": "Jana",
-      "generating": "Sedang menjana…",
-      "hint": "Terangkan dalam satu ayat. Anda boleh menyebut medan lain mengikut nama.",
-      "regenerate": "Jana semula",
-      "tabToUse": "<kbd>Tab</kbd> untuk menjana ini",
-      "title": "Apakah yang sepatutnya dilakukan oleh medan ini?",
-      "writeYourself": "Atau tulis gesaan sendiri"
+      "exampleChat": "Contoh: definisi satu baris bagi {{source}}",
+      "exampleImage": "Contoh: lukisan ringkas bagi {{source}}",
+      "exampleNoFields": "Contoh: definisi satu baris bagi perkataan tersebut",
+      "fieldsHint": "Medan yang boleh anda sebutkan:",
+      "guessTip": "Anggaran terbaik kami daripada medan nota anda. Sunting mengikut kehendak anda.",
+      "modeDescribe": "Huraikan",
+      "modeWrite": "Tulis sendiri",
+      "title": "Apakah yang perlu kami jana dalam <code>{{field}}</code>?",
+      "writing": "Menulis prompt"
     },
     "errors": {
       "save": "Tidak dapat menyimpan Smart Field",
@@ -164,10 +165,7 @@
     "promptPanel": {
       "description": "Apa yang AI terima untuk setiap nota. <code>{{example}}</code> digantikan dengan teks nota itu dalam medan.",
       "fieldsOnNote": "Medan dalam nota ini:",
-      "gotIt": "Faham",
-      "insertField": "Sisipkan {{field}}",
-      "tip": "Kami telah menulis gesaan untuk anda. Buka untuk melihat atau menukar dengan tepat apa yang diminta daripada AI.",
-      "writeYourself": "Tulis sendiri"
+      "insertField": "Sisipkan {{field}}"
     },
     "save": "Jimat Smart Field",
     "sections": {
@@ -179,7 +177,6 @@
     "sourceField": "Medan sumber",
     "targetAriaLabel": "Sasaran Smart Field",
     "testSmartField": "Uji Smart Field anda",
-    "testerHint": "Cuba pada kad yang dipilih dalam Browser",
     "titles": {
       "create": "Medan Pintar Baharu",
       "duplicate": "Pendua Smart Field",

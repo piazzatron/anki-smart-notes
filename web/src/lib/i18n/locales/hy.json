@@ -38,6 +38,7 @@
       "sent": "Հետադարձ կապ ուղարկվեց: Մենք շուտով կապի մեջ կլինենք:",
       "title": "Ուղարկել կարծիք"
     },
+    "gotIt": "Հասկացա",
     "notNow": "Ոչ հիմա",
     "other": "Այլ",
     "placeholderScreen": "Այս էկրանը վերակառուցման հաջորդն է:",
@@ -122,15 +123,15 @@
     "alreadySmartField": "Արդեն Smart Field",
     "collisionHint": "արդեն ունի Smart Field – ընտրեք այլ դաշտ, տախտակամած կամ նշումի տեսակ",
     "describe": {
-      "exampleChat": "Գրիր {{target}}-ը {{source}}-ի համար",
-      "exampleImage": "Նկարիր {{source}}-ի նկար",
-      "generate": "Ստեղծել",
-      "generating": "Ստեղծվում է…",
-      "hint": "Նկարագրեք մեկ նախադասությամբ։ Կարող եք նշել այլ դաշտեր՝ անունով։",
-      "regenerate": "Նորից ստեղծել",
-      "tabToUse": "Ստեղծելու համար սեղմեք <kbd>Tab</kbd>",
-      "title": "Ի՞նչ պետք է անի այս դաշտը",
-      "writeYourself": "Կամ գրեք հուշումը ինքներդ"
+      "exampleChat": "Օրինակ՝ {{source}}-ի մեկ տողով սահմանում",
+      "exampleImage": "Օրինակ՝ {{source}}-ի պարզ նկար",
+      "exampleNoFields": "Օրինակ՝ բառի մեկ տողով սահմանում",
+      "fieldsHint": "Դաշտեր, որոնք կարող եք նշել:",
+      "guessTip": "Մեր լավագույն ենթադրությունը՝ ձեր նշման դաշտերից։ Խմբագրեք այն ինչպես ցանկանում եք։",
+      "modeDescribe": "Նկարագրել այն",
+      "modeWrite": "Գրել ինքս",
+      "title": "Ի՞նչ ստեղծենք <code>{{field}}</code> դաշտում։",
+      "writing": "Գրվում է հուշումը"
     },
     "errors": {
       "save": "Չհաջողվեց պահել Smart Field-ը",
@@ -165,10 +166,7 @@
     "promptPanel": {
       "description": "Ի՞նչ է AI-ը ստանում յուրաքանչյուր նշման համար։ <code>{{example}}</code>-ը փոխարինվում է դաշտում գտնվող այդ նշման տեքստով։",
       "fieldsOnNote": "Այս նշման դաշտերը:",
-      "gotIt": "Հասկացա",
-      "insertField": "Տեղադրել {{field}}",
-      "tip": "Հուշումը մենք ձեզ համար գրել ենք։ Բացեք այն՝ տեսնելու կամ փոխելու, թե ճիշտ ինչ է AI-ից պահանջվում։",
-      "writeYourself": "Գրեք ինքներդ"
+      "insertField": "Տեղադրել {{field}}"
     },
     "save": "Պահպանեք խելացի դաշտը",
     "sections": {
@@ -180,7 +178,6 @@
     "sourceField": "Աղբյուրի դաշտ",
     "targetAriaLabel": "Smart Field թիրախ",
     "testSmartField": "Փորձեք ձեր խելացի դաշտը",
-    "testerHint": "Փորձեք Browser-ում ընտրված քարտի վրա",
     "titles": {
       "create": "Նոր Smart Field",
       "duplicate": "Կրկնվող խելացի դաշտ",

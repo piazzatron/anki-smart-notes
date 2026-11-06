@@ -38,6 +38,7 @@
       "sent": "Palaute lähetetty. Otamme pian yhteyttä.",
       "title": "Lähetä palautetta"
     },
+    "gotIt": "Selvä",
     "notNow": "Ei nyt",
     "other": "Muut",
     "placeholderScreen": "Tämä näyttö on seuraavaksi uudistuksessa.",
@@ -122,15 +123,15 @@
     "alreadySmartField": "Jo Smart Field",
     "collisionHint": "sinulla on jo Smart Field – valitse eri kenttä-, dekki- tai nuottityyppi",
     "describe": {
-      "exampleChat": "Kirjoita {{target}} kohteelle {{source}}",
-      "exampleImage": "Piirrä kuva kohteesta {{source}}",
-      "generate": "Luo",
-      "generating": "Luodaan…",
-      "hint": "Kuvaile se yhdellä lauseella. Voit mainita muita kenttiä nimeltä.",
-      "regenerate": "Luo uudelleen",
-      "tabToUse": "<kbd>Tab</kbd> generoi tämän",
-      "title": "Mitä tämän kentän pitäisi tehdä?",
-      "writeYourself": "Tai kirjoita kehote itse"
+      "exampleChat": "Esimerkiksi: yhden rivin määritelmä kohteelle {{source}}",
+      "exampleImage": "Esimerkiksi: yksinkertainen piirros kohteesta {{source}}",
+      "exampleNoFields": "Esimerkiksi: yhden rivin määritelmä sanalle",
+      "fieldsHint": "Kentät, joihin voit viitata:",
+      "guessTip": "Paras arvauksemme muistiinpanosi kentistä. Muokkaa sitä vapaasti.",
+      "modeDescribe": "Kuvaile se",
+      "modeWrite": "Kirjoita itse",
+      "title": "Mitä kenttään <code>{{field}}</code> tulisi luoda?",
+      "writing": "Kirjoitetaan kehotetta"
     },
     "errors": {
       "save": "Smart Field:n tallentaminen epäonnistui",
@@ -165,10 +166,7 @@
     "promptPanel": {
       "description": "Mitä tekoäly saa jokaisesta muistiinpanosta. <code>{{example}}</code> korvataan tämän muistiinpanon kentän tekstillä.",
       "fieldsOnNote": "Tämän muistiinpanon kentät:",
-      "gotIt": "Selvä",
-      "insertField": "Lisää {{field}}",
-      "tip": "Kirjoitimme kehotteen puolestasi. Avaa se nähdäksesi tai muuttaaksesi tarkasti, mitä tekoälyltä pyydetään.",
-      "writeYourself": "Kirjoita itse"
+      "insertField": "Lisää {{field}}"
     },
     "save": "Tallenna Smart Field",
     "sections": {
@@ -180,7 +178,6 @@
     "sourceField": "Lähdekenttä",
     "targetAriaLabel": "Smart Field kohde",
     "testSmartField": "Testaa Smart Field",
-    "testerHint": "Kokeile valitulla kortilla Browser-näkymässä",
     "titles": {
       "create": "Uusi Smart Field",
       "duplicate": "Kopio Smart Field",

@@ -7,13 +7,17 @@ interface ValidPromptFieldsProps {
   label?: string
   // Makes each reference a button that inserts it into the prompt.
   onInsert?: (reference: string) => void
+  // Bare field names, for plain-English descriptions rather than prompts.
+  plain?: boolean
 }
 
-/** The {{Field}} references a prompt may use, listed under the box it is written in. */
+/** The fields a prompt or description may use, listed under the box it is written in:
+ *  as {{Field}} references for a prompt, or bare names for a description. */
 export const ValidPromptFields = ({
   fieldNames,
   label,
   onInsert,
+  plain = false,
 }: ValidPromptFieldsProps) => {
   const { t } = useTranslation()
   if (fieldNames.length === 0) return null
@@ -22,7 +26,7 @@ export const ValidPromptFields = ({
     <p className="mt-2 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-xs leading-[1.5] text-ink-muted">
       {label ?? t("common.validFields")}
       {fieldNames.map((fieldName) => {
-        const reference = `{{${fieldName}}}`
+        const reference = plain ? fieldName : `{{${fieldName}}}`
         return onInsert === undefined ? (
           <span className={CHIP} key={fieldName}>
             {reference}

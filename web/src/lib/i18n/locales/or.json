@@ -38,6 +38,7 @@
       "sent": "ମତାମତ ପଠାଯାଇଛି | ଆମେ ଶୀଘ୍ର ଯୋଗାଯୋଗ କରିବୁ",
       "title": "ମତାମତ ପଠାନ୍ତୁ"
     },
+    "gotIt": "ବୁଝିଗଲି",
     "notNow": "ବର୍ତ୍ତମାନ ନୁହେଁ",
     "other": "ଅନ୍ୟମାନେ",
     "placeholderScreen": "ଏହି ପରଦା ପୁନ build ନିର୍ମାଣରେ ଅଛି",
@@ -122,15 +123,15 @@
     "alreadySmartField": "ଏହା ପୂର୍ବରୁ ଏକ Smart Field",
     "collisionHint": "ପୂର୍ବରୁ Smart Field ଅଛି - ଏକ ଭିନ୍ନ କ୍ଷେତ୍ର, ଡେକ୍, କିମ୍ବା ନୋଟ୍ ପ୍ରକାର ବାଛ",
     "describe": {
-      "exampleChat": "{{source}} ପାଇଁ {{target}} ଲେଖନ୍ତୁ",
-      "exampleImage": "{{source}}ର ଏକ ଚିତ୍ର ଆଙ୍କନ୍ତୁ",
-      "generate": "ସୃଷ୍ଟି କରନ୍ତୁ",
-      "generating": "ସୃଷ୍ଟି ହେଉଛି…",
-      "hint": "ଗୋଟିଏ ବାକ୍ୟରେ ଏହାକୁ ବର୍ଣ୍ଣନା କରନ୍ତୁ। ଆପଣ ନାମ ଦେଇ ଅନ୍ୟ ଫିଲ୍ଡ ମଧ୍ୟ ଉଲ୍ଲେଖ କରିପାରିବେ।",
-      "regenerate": "ପୁନର୍ବାର ସୃଷ୍ଟି କରନ୍ତୁ",
-      "tabToUse": "ଏହା ତିଆରି କରିବା ପାଇଁ <kbd>Tab</kbd> ଦବାନ୍ତୁ",
-      "title": "ଏହି ଫିଲ୍ଡ କ'ଣ କରିବା ଉଚିତ?",
-      "writeYourself": "ଅଥବା ନିଜେ ପ୍ରମ୍ପ୍ଟ ଲେଖନ୍ତୁ"
+      "exampleChat": "ଉଦାହରଣ: {{source}} ର ଏକ-ଲାଇନ୍ ସଂଜ୍ଞା",
+      "exampleImage": "ଉଦାହରଣ: {{source}} ର ଏକ ସରଳ ଚିତ୍ର",
+      "exampleNoFields": "ଉଦାହରଣ: ଏହି ଶବ୍ଦର ଏକ-ଲାଇନ୍ ସଂଜ୍ଞା",
+      "fieldsHint": "ଆପଣ ଉଲ୍ଲେଖ କରିପାରିବେ ଫିଲ୍ଡଗୁଡ଼ିକ:",
+      "guessTip": "ଆପଣଙ୍କ ନୋଟ୍‌ର ଫିଲ୍ଡ ଅନୁସାରେ ଆମର ସର୍ବୋତ୍ତମ ଅନୁମାନ। ଆପଣ ଏହାକୁ ନିଜ ଇଚ୍ଛାନୁସାରେ ସଂଶୋଧନ କରିପାରିବେ।",
+      "modeDescribe": "ଏହାକୁ ବର୍ଣ୍ଣନା କରନ୍ତୁ",
+      "modeWrite": "ମୁଁ ନିଜେ ଲେଖିବି",
+      "title": "<code>{{field}}</code> ରେ କ'ଣ ସୃଷ୍ଟି କରିବା ଉଚିତ?",
+      "writing": "ପ୍ରମ୍ପ୍ଟ ଲେଖାଯାଉଛି"
     },
     "errors": {
       "save": "Smart Field ସଞ୍ଚୟ କରିପାରିଲା ନାହିଁ",
@@ -165,10 +166,7 @@
     "promptPanel": {
       "description": "ପ୍ରତ୍ୟେକ ନୋଟ୍ ପାଇଁ AI କ'ଣ ପାଏ। <code>{{example}}</code> ଫିଲ୍ଡରେ ସେହି ନୋଟ୍‌ର ଟେକ୍ସଟ୍ ଦ୍ୱାରା ବଦଳାଯାଏ।",
       "fieldsOnNote": "ଏହି ନୋଟ୍‌ରେ ଥିବା ଫିଲ୍ଡ:",
-      "gotIt": "ବୁଝିଗଲି",
-      "insertField": "{{field}} ସନ୍ନିବେଶ କରନ୍ତୁ",
-      "tip": "ଆମେ ଆପଣଙ୍କ ପାଇଁ ପ୍ରମ୍ପ୍ଟ ଲେଖିଛୁ। AI କୁ ଠିକ୍ କ'ଣ ପଚରାଯାଉଛି ଦେଖିବାକୁ କିମ୍ବା ବଦଳାଇବାକୁ ଏହାକୁ ଖୋଲନ୍ତୁ।",
-      "writeYourself": "ନିଜେ ଲେଖନ୍ତୁ"
+      "insertField": "{{field}} ସନ୍ନିବେଶ କରନ୍ତୁ"
     },
     "save": "Smart Field ସଞ୍ଚୟ କରନ୍ତୁ",
     "sections": {
@@ -180,7 +178,6 @@
     "sourceField": "ଉତ୍ସ କ୍ଷେତ୍ର",
     "targetAriaLabel": "Smart Field ଲକ୍ଷ୍ୟ",
     "testSmartField": "ଆପଣଙ୍କର Smart Field ପରୀକ୍ଷା କରନ୍ତୁ",
-    "testerHint": "ବ୍ରାଉଜରରେ ଚୟନ କରାଯାଇଥିବା କାର୍ଡ ଉପରେ ଏହାକୁ ପରୀକ୍ଷା କରନ୍ତୁ",
     "titles": {
       "create": "ନୂଆ Smart Field",
       "duplicate": "Smart Field ନକଲ କରନ୍ତୁ",

@@ -38,6 +38,7 @@
       "sent": "Terugvoer gestuur. Ons sal binnekort kontak maak.",
       "title": "Stuur terugvoer"
     },
+    "gotIt": "Verstaan",
     "notNow": "Nie nou nie",
     "other": "Ander",
     "placeholderScreen": "Hierdie skerm is volgende in die herbou.",
@@ -122,15 +123,15 @@
     "alreadySmartField": "Reeds 'n Slim-veld",
     "collisionHint": "het reeds 'n Smart Field - kies 'n ander veld, dek of noottipe",
     "describe": {
-      "exampleChat": "Skryf die {{target}} vir {{source}}",
-      "exampleImage": "Teken 'n prent van {{source}}",
-      "generate": "Genereer",
-      "generating": "Genereer tans…",
-      "hint": "Beskryf dit in een sin. Jy kan ander velde by naam noem.",
-      "regenerate": "Genereer weer",
-      "tabToUse": "<kbd>Tab</kbd> om dit te genereer",
-      "title": "Wat moet hierdie veld doen?",
-      "writeYourself": "Of skryf die opdrag self"
+      "exampleChat": "Byvoorbeeld: 'n eenreël-definisie van {{source}}",
+      "exampleImage": "Byvoorbeeld: 'n eenvoudige tekening van {{source}}",
+      "exampleNoFields": "Byvoorbeeld: 'n eenreël-definisie van die woord",
+      "fieldsHint": "Velde wat jy kan noem:",
+      "guessTip": "Ons beste raming uit die velde van jou notas. Wysig dit soos jy wil.",
+      "modeDescribe": "Beskryf dit",
+      "modeWrite": "Skryf dit self",
+      "title": "Wat moet ons in <code>{{field}}</code> genereer?",
+      "writing": "Skryf die prompt"
     },
     "errors": {
       "save": "Kon nie Smart Field stoor nie",
@@ -165,10 +166,7 @@
     "promptPanel": {
       "description": "Wat die KI vir elke notitie kry. <code>{{example}}</code> word vervang met daardie notitie se teks in die veld.",
       "fieldsOnNote": "Velde op hierdie notitie:",
-      "gotIt": "Verstaan",
-      "insertField": "Voeg {{field}} in",
-      "tip": "Ons het die opdrag vir jou geskryf. Maak dit oop om presies te sien of verander wat die KI gevra word.",
-      "writeYourself": "Skryf dit self"
+      "insertField": "Voeg {{field}} in"
     },
     "save": "Stoor Smart Field",
     "sections": {
@@ -180,7 +178,6 @@
     "sourceField": "Bron veld",
     "targetAriaLabel": "Smart Field teiken",
     "testSmartField": "Toets jou Smart Field",
-    "testerHint": "Probeer dit op die kaart wat in die Bladeraar gekies is",
     "titles": {
       "create": "Nuwe Slim-veld",
       "duplicate": "Duplikaat Smart Field",

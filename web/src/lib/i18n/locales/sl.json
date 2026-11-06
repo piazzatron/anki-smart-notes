@@ -40,6 +40,7 @@
       "sent": "Povratne informacije so poslane. Kmalu se oglasimo.",
       "title": "Pošlji povratne informacije"
     },
+    "gotIt": "Razumem",
     "notNow": "Ne zdaj",
     "other": "drugo",
     "placeholderScreen": "Ta zaslon je naslednji pri obnovi.",
@@ -124,15 +125,15 @@
     "alreadySmartField": "Že Smart Field",
     "collisionHint": "že ima Smart Field — izberite drugo polje, sklop ali vrsto zapiska",
     "describe": {
-      "exampleChat": "Napišite {{target}} za {{source}}",
-      "exampleImage": "Narišite sliko: {{source}}",
-      "generate": "Ustvari",
-      "generating": "Ustvarjanje…",
-      "hint": "Opišite v enem stavku. Druga polja lahko omenite po imenu.",
-      "regenerate": "Ustvari znova",
-      "tabToUse": "<kbd>Tab</kbd> za ustvarjanje tega",
-      "title": "Kaj naj to polje počne?",
-      "writeYourself": "Ali napišite poziv sami"
+      "exampleChat": "Na primer: kratka definicija za {{source}}",
+      "exampleImage": "Na primer: preprosta risba za {{source}}",
+      "exampleNoFields": "Na primer: kratka definicija besede",
+      "fieldsHint": "Polja, ki jih lahko omenite:",
+      "guessTip": "Naš najboljši predlog na podlagi polj vaše beležke. Uredite ga, kot želite.",
+      "modeDescribe": "Opiši ga",
+      "modeWrite": "Napišem sam",
+      "title": "Kaj naj ustvarimo v <code>{{field}}</code>?",
+      "writing": "Pripravljanje poziva"
     },
     "errors": {
       "save": "Smart Field ni bilo mogoče shraniti",
@@ -167,10 +168,7 @@
     "promptPanel": {
       "description": "Kaj AI prejme za vsako beležko. <code>{{example}}</code> se nadomesti z besedilom beležke v tem polju.",
       "fieldsOnNote": "Polja v tej beležki:",
-      "gotIt": "Razumem",
-      "insertField": "Vstavi {{field}}",
-      "tip": "Poziv smo napisali za vas. Odprite ga, če želite videti ali spremeniti, kaj natančno AI prejme.",
-      "writeYourself": "Napišite sami"
+      "insertField": "Vstavi {{field}}"
     },
     "save": "Shrani Smart Field",
     "sections": {
@@ -182,7 +180,6 @@
     "sourceField": "Izvorno polje",
     "targetAriaLabel": "Cilj Smart Field",
     "testSmartField": "Preizkusite svoj Smart Field",
-    "testerHint": "Preizkusite na kartici, izbrani v oknu Browser",
     "titles": {
       "create": "Novo Smart Field",
       "duplicate": "Dvojnik Smart Field",

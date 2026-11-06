@@ -38,6 +38,7 @@
       "sent": "Tagasiside saadetud. Võtame varsti ühendust.",
       "title": "Saatke tagasisidet"
     },
+    "gotIt": "Selge",
     "notNow": "Mitte praegu",
     "other": "muud",
     "placeholderScreen": "See ekraan on ümberehituses järgmine.",
@@ -122,15 +123,15 @@
     "alreadySmartField": "Juba Smart Field",
     "collisionHint": "on juba Smart Field – valige mõni muu välja, teki või nooditüüp",
     "describe": {
-      "exampleChat": "Kirjuta {{source}} jaoks {{target}}",
-      "exampleImage": "Joonista {{source}} pilt",
-      "generate": "Genereeri",
-      "generating": "Genereerin…",
-      "hint": "Kirjelda ühe lausega. Teisi välju võid nimetada nime järgi.",
-      "regenerate": "Genereeri uuesti",
-      "tabToUse": "<kbd>Tab</kbd> selle genereerimiseks",
-      "title": "Mida see väli peaks tegema?",
-      "writeYourself": "Või kirjuta käsk ise"
+      "exampleChat": "Näiteks: {{source}} üherealine definitsioon",
+      "exampleImage": "Näiteks: {{source}} lihtne joonistus",
+      "exampleNoFields": "Näiteks: sõna üherealine definitsioon",
+      "fieldsHint": "Väljad, mida saab mainida:",
+      "guessTip": "Meie parim oletus sinu märkme väljade põhjal. Muuda seda vabalt.",
+      "modeDescribe": "Kirjelda",
+      "modeWrite": "Kirjuta ise",
+      "title": "Mida peaks <code>{{field}}</code> genereerima?",
+      "writing": "Vihje kirjutamine"
     },
     "errors": {
       "save": "Smart Field ei saanud salvestada",
@@ -165,10 +166,7 @@
     "promptPanel": {
       "description": "Mida tehisintellekt iga märkme kohta saab. <code>{{example}}</code> asendatakse selle märkme väljal oleva tekstiga.",
       "fieldsOnNote": "Selle märkme väljad:",
-      "gotIt": "Selge",
-      "insertField": "Lisa {{field}}",
-      "tip": "Käsu kirjutasime sinu eest. Ava see, et näha või muuta täpselt, mida tehisintellektilt küsitakse.",
-      "writeYourself": "Kirjuta ise"
+      "insertField": "Lisa {{field}}"
     },
     "save": "Salvestage Smart Field",
     "sections": {
@@ -180,7 +178,6 @@
     "sourceField": "Allika väli",
     "targetAriaLabel": "Smart Field sihtmärk",
     "testSmartField": "Testige oma Smart Field",
-    "testerHint": "Proovi seda sirvijas valitud kaardil",
     "titles": {
       "create": "Uus Smart Field",
       "duplicate": "Smart Field duplikaat",

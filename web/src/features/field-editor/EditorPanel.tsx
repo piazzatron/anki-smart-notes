@@ -20,39 +20,31 @@
 import { ChevronDown } from "lucide-react"
 import { useId, type ReactNode } from "react"
 
+import { CARD_TITLE_CLASSES } from "./EditorSection"
+
 interface EditorPanelProps {
-  // Sits after the subtitle, like the tester's recent image results.
+  // Sits after the title, like the tester's recent image results.
   accessory?: ReactNode
   children: ReactNode
   icon: ReactNode
   isOpen: boolean
   onToggle: () => void
-  subtitle?: string
-  // Lets a control inside the panel point at the subtitle with aria-describedby.
-  subtitleId?: string
   title: string
-  tone?: "indigo" | "neutral"
 }
 
-/** A hung surface in the field editor that folds down to its header row. The parent
- *  owns whether it's open, since opening one panel can fold another. */
+/** A hung surface in the field editor that folds down to its header row. */
 export const EditorPanel = ({
   accessory,
   children,
   icon,
   isOpen,
   onToggle,
-  subtitle,
-  subtitleId,
   title,
-  tone = "neutral",
 }: EditorPanelProps) => {
   const bodyId = useId()
 
   return (
-    <section
-      className={`hang overflow-hidden rounded-xl ${tone === "indigo" ? "bg-indigo/[0.07]" : "bg-white/[0.05]"}`}
-    >
+    <section className="hang overflow-hidden rounded-xl bg-white/[0.05]">
       {/* The accessory holds its own buttons, so it sits beside the toggle, not in it. */}
       <div className="flex items-center gap-2.5">
         <h2 className="min-w-0 flex-1">
@@ -65,17 +57,7 @@ export const EditorPanel = ({
           >
             {icon}
             <span className="min-w-0 flex-1">
-              <span className="block text-[16px] leading-tight font-semibold text-ink">
-                {title}
-              </span>
-              {subtitle !== undefined && (
-                <span
-                  className="mt-0.5 block truncate text-xs text-ink-muted"
-                  id={subtitleId}
-                >
-                  {subtitle}
-                </span>
-              )}
+              <span className={`block ${CARD_TITLE_CLASSES}`}>{title}</span>
             </span>
           </button>
         </h2>

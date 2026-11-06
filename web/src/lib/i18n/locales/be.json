@@ -40,6 +40,7 @@
       "sent": "Водгук адпраўлены. Хутка звяжамся.",
       "title": "Адправіць водгук"
     },
+    "gotIt": "Зразумела",
     "notNow": "Не цяпер",
     "other": "Іншае",
     "placeholderScreen": "Гэты экран з'яўляецца наступным у перабудове.",
@@ -124,15 +125,15 @@
     "alreadySmartField": "Ужо Разумнае поле",
     "collisionHint": "ужо мае Smart Field — абярыце іншае поле, калоду або тып нататкі",
     "describe": {
-      "exampleChat": "Напішыце {{target}} для {{source}}",
-      "exampleImage": "Намалюйце малюнак: {{source}}",
-      "generate": "Стварыць",
-      "generating": "Стварэнне…",
-      "hint": "Апішыце ў адным сказе. Можна згадаць іншыя палі па назве.",
-      "regenerate": "Стварыць паўторна",
-      "tabToUse": "<kbd>Tab</kbd>, каб згенераваць гэта",
-      "title": "Што павінна рабіць гэта поле?",
-      "writeYourself": "Або напішыце запыт самастойна"
+      "exampleChat": "Для прыкладу: адradкавае азначэнне {{source}}",
+      "exampleImage": "Для прыкладу: просты малюнак {{source}}",
+      "exampleNoFields": "Для прыкладу: аднарадковае азначэнне слова",
+      "fieldsHint": "Палі, якія можна згадаць:",
+      "guessTip": "Наша найлепшае здагадка па палях вашай нататкі. Рэдагуйце яе як заўгодна.",
+      "modeDescribe": "Апісаць",
+      "modeWrite": "Напісаць самастойна",
+      "title": "Што трэба згенераваць у <code>{{field}}</code>?",
+      "writing": "Запіс падказкі"
     },
     "errors": {
       "save": "Не ўдалося захаваць Smart Field",
@@ -167,10 +168,7 @@
     "promptPanel": {
       "description": "Што AI атрымлівае для кожнай нататкі. <code>{{example}}</code> замяняецца тэкстам гэтай нататкі ў полі.",
       "fieldsOnNote": "Палі ў гэтай нататцы:",
-      "gotIt": "Зразумела",
-      "insertField": "Уставіць {{field}}",
-      "tip": "Мы напісалі запыт за вас. Адкрыйце яго, каб паглядзець або змяніць, што менавіта запытваецца ў AI.",
-      "writeYourself": "Напішыце самі"
+      "insertField": "Уставіць {{field}}"
     },
     "save": "Захаваць Smart Field",
     "sections": {
@@ -182,7 +180,6 @@
     "sourceField": "Зыходнае поле",
     "targetAriaLabel": "Smart Field мэта",
     "testSmartField": "Праверце свой Smart Field",
-    "testerHint": "Паспрабуйце на картцы, выбранай у Аглядальніку",
     "titles": {
       "create": "Новае Разумнае поле",
       "duplicate": "Дублікат Smart Field",

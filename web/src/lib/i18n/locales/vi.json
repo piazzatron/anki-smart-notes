@@ -37,6 +37,7 @@
       "sent": "Đã gửi phản hồi. Chúng tôi sẽ liên lạc sớm.",
       "title": "Gửi phản hồi"
     },
+    "gotIt": "Đã hiểu",
     "notNow": "Không phải bây giờ",
     "other": "Khác",
     "placeholderScreen": "Màn hình này là màn hình tiếp theo trong quá trình xây dựng lại.",
@@ -121,15 +122,15 @@
     "alreadySmartField": "Đã là Smart Field",
     "collisionHint": "đã có Smart Field - chọn một trường, bộ bài hoặc loại ghi chú khác",
     "describe": {
-      "exampleChat": "Viết {{target}} cho {{source}}",
-      "exampleImage": "Vẽ một bức tranh về {{source}}",
-      "generate": "Tạo",
-      "generating": "Đang tạo…",
-      "hint": "Mô tả bằng một câu. Bạn có thể nhắc đến các trường khác theo tên.",
-      "regenerate": "Tạo lại",
-      "tabToUse": "<kbd>Tab</kbd> để tạo nội dung này",
-      "title": "Trường này nên làm gì?",
-      "writeYourself": "Hoặc tự viết lời nhắc"
+      "exampleChat": "Ví dụ: một định nghĩa một dòng cho {{source}}",
+      "exampleImage": "Ví dụ: một hình vẽ đơn giản về {{source}}",
+      "exampleNoFields": "Ví dụ: một định nghĩa một dòng cho từ này",
+      "fieldsHint": "Các trường bạn có thể đề cập:",
+      "guessTip": "Gợi ý tốt nhất của chúng tôi dựa trên các trường trong ghi chú của bạn. Bạn có thể chỉnh sửa tùy ý.",
+      "modeDescribe": "Mô tả nội dung",
+      "modeWrite": "Tự viết",
+      "title": "Chúng ta nên tạo gì trong <code>{{field}}</code>?",
+      "writing": "Đang viết lời nhắc"
     },
     "errors": {
       "save": "Không thể lưu Smart Field",
@@ -164,10 +165,7 @@
     "promptPanel": {
       "description": "Nội dung AI nhận được cho mỗi ghi chú. <code>{{example}}</code> sẽ được thay bằng nội dung của trường trong ghi chú đó.",
       "fieldsOnNote": "Các trường trong ghi chú này:",
-      "gotIt": "Đã hiểu",
-      "insertField": "Chèn {{field}}",
-      "tip": "Chúng tôi đã viết lời nhắc cho bạn. Mở ra để xem hoặc thay đổi chính xác những gì AI được yêu cầu.",
-      "writeYourself": "Tự viết"
+      "insertField": "Chèn {{field}}"
     },
     "save": "Lưu Smart Field",
     "sections": {
@@ -179,7 +177,6 @@
     "sourceField": "Trường nguồn",
     "targetAriaLabel": "Mục tiêu Smart Field",
     "testSmartField": "Kiểm tra Smart Field của bạn",
-    "testerHint": "Thử trên thẻ được chọn trong Trình duyệt",
     "titles": {
       "create": "Smart Field mới",
       "duplicate": "Sao chép Smart Field",

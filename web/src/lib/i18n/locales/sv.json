@@ -38,6 +38,7 @@
       "sent": "Feedback har skickats. Vi hör av oss snart.",
       "title": "Skicka feedback"
     },
+    "gotIt": "Förstått",
     "notNow": "Inte nu",
     "other": "Andra",
     "placeholderScreen": "Den här skärmen är nästa i ombyggnaden.",
@@ -122,15 +123,15 @@
     "alreadySmartField": "Är redan ett Smart Field",
     "collisionHint": "har redan en Smart Field — välj ett annat fält, kortlek eller nottyp",
     "describe": {
-      "exampleChat": "Skriv {{target}} för {{source}}",
-      "exampleImage": "Rita en bild av {{source}}",
-      "generate": "Generera",
-      "generating": "Genererar…",
-      "hint": "Beskriv det i en mening. Du kan nämna andra fält med namn.",
-      "regenerate": "Generera om",
-      "tabToUse": "<kbd>Tab</kbd> för att generera detta",
-      "title": "Vad ska det här fältet göra?",
-      "writeYourself": "Eller skriv prompten själv"
+      "exampleChat": "Till exempel: en definition på en rad av {{source}}",
+      "exampleImage": "Till exempel: en enkel teckning av {{source}}",
+      "exampleNoFields": "Till exempel: en definition på en rad av ordet",
+      "fieldsHint": "Fält du kan nämna:",
+      "guessTip": "Vår bästa gissning utifrån fälten i din anteckning. Redigera den hur du vill.",
+      "modeDescribe": "Beskriv det",
+      "modeWrite": "Skriv det själv",
+      "title": "Vad ska vi generera i <code>{{field}}</code>?",
+      "writing": "Skriver prompten"
     },
     "errors": {
       "save": "Det gick inte att spara Smart Field",
@@ -165,10 +166,7 @@
     "promptPanel": {
       "description": "Vad AI:n får för varje notering. <code>{{example}}</code> ersätts med den noteringens text i fältet.",
       "fieldsOnNote": "Fält på den här noteringen:",
-      "gotIt": "Förstått",
-      "insertField": "Infoga {{field}}",
-      "tip": "Vi har skrivit prompten åt dig. Öppna den för att se eller ändra exakt vad AI:n ombeds göra.",
-      "writeYourself": "Skriv den själv"
+      "insertField": "Infoga {{field}}"
     },
     "save": "Spara Smart Field",
     "sections": {
@@ -180,7 +178,6 @@
     "sourceField": "Källa fält",
     "targetAriaLabel": "Smart Field mål",
     "testSmartField": "Testa din Smart Field",
-    "testerHint": "Prova på kortet som är markerat i webbläsaren",
     "titles": {
       "create": "Nytt Smart Field",
       "duplicate": "Duplicera Smart Field",

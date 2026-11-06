@@ -38,6 +38,7 @@
       "sent": "Reago sendita. Ni baldaŭ kontaktos.",
       "title": "Sendu komentojn"
     },
+    "gotIt": "Komprenite",
     "notNow": "Ne nun",
     "other": "Aliaj",
     "placeholderScreen": "Ĉi tiu ekrano estas la sekva en la rekonstruo.",
@@ -122,15 +123,15 @@
     "alreadySmartField": "Jam Inteligenta Kampo",
     "collisionHint": "jam havas Smart Field — elektu malsaman kampon, ferdekon aŭ noton",
     "describe": {
-      "exampleChat": "Skribu la {{target}} por {{source}}",
-      "exampleImage": "Desegnu bildon de {{source}}",
-      "generate": "Generi",
-      "generating": "Generante…",
-      "hint": "Priskribu ĝin per unu frazo. Vi povas mencii aliajn kampojn laŭ nomo.",
-      "regenerate": "Regeneri",
-      "tabToUse": "<kbd>Tab</kbd> por generi ĉi tion",
-      "title": "Kion ĉi tiu kampo devas fari?",
-      "writeYourself": "Aŭ skribu la peton mem"
+      "exampleChat": "Ekzemple: unulinia difino de {{source}}",
+      "exampleImage": "Ekzemple: simpla desegnaĵo de {{source}}",
+      "exampleNoFields": "Ekzemple: unulinia difino de la vorto",
+      "fieldsHint": "Kampoj, kiujn vi povas mencii:",
+      "guessTip": "Nia plej bona supozo el la kampoj de via noto. Redaktu ĝin laŭvole.",
+      "modeDescribe": "Priskribu ĝin",
+      "modeWrite": "Mi skribos ĝin mem",
+      "title": "Kion ni generu en <code>{{field}}</code>?",
+      "writing": "Verkado de la instrukcio"
     },
     "errors": {
       "save": "Ne eblis konservi Smart Field",
@@ -165,10 +166,7 @@
     "promptPanel": {
       "description": "Kion la AI ricevas por ĉiu noto. <code>{{example}}</code> estas anstataŭigita per la teksto de tiu noto en la kampo.",
       "fieldsOnNote": "Kampoj en ĉi tiu noto:",
-      "gotIt": "Komprenite",
-      "insertField": "Enmetu {{field}}",
-      "tip": "Ni verkis la peton por vi. Malfermu ĝin por vidi aŭ ŝanĝi precize, kion la AI estas petata fari.",
-      "writeYourself": "Skribu ĝin mem"
+      "insertField": "Enmetu {{field}}"
     },
     "save": "Konservu Smart Field",
     "sections": {
@@ -180,7 +178,6 @@
     "sourceField": "Fonta kampo",
     "targetAriaLabel": "Smart Field celo",
     "testSmartField": "Testu vian Smart Field",
-    "testerHint": "Provu ĝin sur la karto elektita en la Foliumilo",
     "titles": {
       "create": "Nova Inteligenta Kampo",
       "duplicate": "Duobligi Smart Field",

@@ -37,6 +37,7 @@
       "sent": "フィードバックが送信されました。すぐにご連絡させていただきます。",
       "title": "フィードバックを送信する"
     },
+    "gotIt": "わかりました",
     "notNow": "今じゃない",
     "other": "他の",
     "placeholderScreen": "この画面は再構築の次の画面です。",
@@ -121,15 +122,15 @@
     "alreadySmartField": "すでにスマートフィールドです",
     "collisionHint": "すでに Smart Field を持っています — 別のフィールド、デッキ、またはノートのタイプを選択してください",
     "describe": {
-      "exampleChat": "{{source}}の{{target}}を書く",
-      "exampleImage": "{{source}}の絵を描く",
-      "generate": "生成",
-      "generating": "生成中…",
-      "hint": "1文で説明してください。他のフィールドは名前を指定して参照できます。",
-      "regenerate": "再生成",
-      "tabToUse": "<kbd>Tab</kbd> を押して生成",
-      "title": "このフィールドは何をすればよいですか?",
-      "writeYourself": "または自分でプロンプトを書く"
+      "exampleChat": "例: {{source}} の一行定義",
+      "exampleImage": "例: {{source}} の簡単な図",
+      "exampleNoFields": "例: この単語の一行定義",
+      "fieldsHint": "言及できるフィールド:",
+      "guessTip": "ノートのフィールドから推測した最適な結果です。自由に編集できます。",
+      "modeDescribe": "説明する",
+      "modeWrite": "自分で書く",
+      "title": "<code>{{field}}</code> に何を生成しますか？",
+      "writing": "プロンプトを作成中"
     },
     "errors": {
       "save": "Smart Fieldを保存できませんでした",
@@ -164,10 +165,7 @@
     "promptPanel": {
       "description": "各ノートについて AI に渡される内容です。<code>{{example}}</code> は、そのノートのフィールドのテキストに置き換えられます。",
       "fieldsOnNote": "このノートのフィールド:",
-      "gotIt": "わかりました",
-      "insertField": "{{field}} を挿入",
-      "tip": "プロンプトは自動で作成されています。開くと、AI に何を依頼するのかを確認・変更できます。",
-      "writeYourself": "自分で書く"
+      "insertField": "{{field}} を挿入"
     },
     "save": "Smart Fieldを保存",
     "sections": {
@@ -179,7 +177,6 @@
     "sourceField": "ソースフィールド",
     "targetAriaLabel": "Smart Field ターゲット",
     "testSmartField": "Smart Field をテストする",
-    "testerHint": "ブラウザーで選択したカードで試す",
     "titles": {
       "create": "新しいスマートフィールド",
       "duplicate": "Smart Fieldの複製",

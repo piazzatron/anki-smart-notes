@@ -37,6 +37,7 @@
       "sent": "피드백이 전송되었습니다. 곧 연락드리겠습니다.",
       "title": "피드백 보내기"
     },
+    "gotIt": "확인",
     "notNow": "지금은 아님",
     "other": "다른",
     "placeholderScreen": "이 화면은 재구축의 다음 화면입니다.",
@@ -121,15 +122,15 @@
     "alreadySmartField": "이미 Smart Field입니다",
     "collisionHint": "이미 Smart Field가 있습니다 — 다른 필드, 데크 또는 메모 유형을 선택하세요",
     "describe": {
-      "exampleChat": "{{source}}에 대한 {{target}} 작성",
-      "exampleImage": "{{source}} 그림 그리기",
-      "generate": "생성",
-      "generating": "생성 중…",
-      "hint": "한 문장으로 설명하세요. 다른 필드는 이름으로 언급할 수 있습니다.",
-      "regenerate": "다시 생성",
-      "tabToUse": "<kbd>Tab</kbd>을 눌러 생성",
-      "title": "이 필드는 무엇을 해야 하나요?",
-      "writeYourself": "또는 프롬프트를 직접 작성하세요"
+      "exampleChat": "예: {{source}}의 한 줄 정의",
+      "exampleImage": "예: {{source}}의 간단한 그림",
+      "exampleNoFields": "예: 이 단어의 한 줄 정의",
+      "fieldsHint": "언급할 수 있는 필드:",
+      "guessTip": "노트의 필드를 바탕으로 한 최선의 추측입니다. 자유롭게 수정하세요.",
+      "modeDescribe": "설명하기",
+      "modeWrite": "직접 작성하기",
+      "title": "<code>{{field}}</code>에 무엇을 생성할까요?",
+      "writing": "프롬프트 작성 중"
     },
     "errors": {
       "save": "Smart Field를 저장할 수 없습니다.",
@@ -164,10 +165,7 @@
     "promptPanel": {
       "description": "AI가 각 노트마다 받는 내용입니다. <code>{{example}}</code>는 해당 노트의 필드 텍스트로 대체됩니다.",
       "fieldsOnNote": "이 노트의 필드:",
-      "gotIt": "확인",
-      "insertField": "{{field}} 삽입",
-      "tip": "프롬프트를 대신 작성해 두었습니다. 열어서 AI에게 정확히 무엇을 요청하는지 확인하거나 변경할 수 있습니다.",
-      "writeYourself": "직접 작성"
+      "insertField": "{{field}} 삽입"
     },
     "save": "저장하다 Smart Field",
     "sections": {
@@ -179,7 +177,6 @@
     "sourceField": "소스 필드",
     "targetAriaLabel": "Smart Field 대상",
     "testSmartField": "Smart Field 테스트",
-    "testerHint": "브라우저에서 선택한 카드로 테스트해 보세요",
     "titles": {
       "create": "새 Smart Field",
       "duplicate": "Smart Field 중복",

@@ -17,7 +17,7 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import { errorMessage } from "@/lib/errors"
@@ -43,6 +43,8 @@ import {
   createFieldEditorDraft,
   getFirstAvailableField,
   getFirstSourceField,
+  needsPromptWrite,
+  resetPromptOnRetarget,
   validateFieldEditorDraft,
 } from "./fieldEditor"
 import type {
@@ -62,16 +64,21 @@ interface UseFieldEditorArgs {
 }
 
 export interface FieldEditorControls {
+  // Sets the description and writes its prompt once the user pauses typing.
+  describe: (description: string) => void
   dismissError: () => void
   form: FieldEditorDraft
-  // Resolves true when a prompt was written. `description` stands in for the typed one,
-  // for when it was set in the same event and the form hasn't caught up.
-  generateDraftPrompt: (description?: string) => Promise<boolean>
+  // Resolves to the written prompt, or null when none was. `description` stands in for
+  // the typed one, for when it was set in the same event and the form hasn't caught up.
+  generateDraftPrompt: (description?: string) => Promise<string | null>
   markPromptTipSeen: () => Promise<void>
+  // The prompt to run or save: written first if the description changed since.
+  preparePrompt: () => Promise<string | null>
   save: () => Promise<void>
   setPinnedChat: (settings: ChatGenerationSettings | null) => void
   setPinnedImage: (settings: ImageGenerationSettings | null) => void
   setPinnedTTS: (settings: TTSGenerationSettings | null) => void
+  setPromptMode: (mode: FieldEditorDraft["promptMode"]) => void
   setStep: (step: FieldEditorStep) => void
   setTarget: (updates: Partial<FieldTargetDraft>) => void
   // An AI guess at what the field is for, as an example for the describe box. Null
@@ -145,40 +152,57 @@ export const useFieldEditor = ({
       pinnedSettings: { ...current.pinnedSettings, [key]: settings },
     }))
 
-  const changeTarget = (updates: Partial<FieldTargetDraft>) => {
-    setForm((current) => {
-      const nextTarget = { ...current.target, ...updates }
-      if (updates.noteTypeId === undefined) {
-        return { ...current, error: null, target: nextTarget }
-      }
+  // The pause-in-typing write. Anything that writes the prompt sooner cancels it.
+  const pendingWrite = useRef<ReturnType<typeof setTimeout>>(undefined)
+  useEffect(() => () => clearTimeout(pendingWrite.current), [])
 
-      const noteType = state.noteTypes.find(
-        (item) => item.id === updates.noteTypeId,
-      )
-      nextTarget.targetFieldName = getFirstAvailableField(
+  const changeTarget = (updates: Partial<FieldTargetDraft>) => {
+    clearTimeout(pendingWrite.current)
+    setForm((current) =>
+      resetPromptOnRetarget({
+        current,
+        mode,
+        next: retarget(current, updates),
+      }),
+    )
+  }
+
+  const retarget = (
+    current: FieldEditorDraft,
+    updates: Partial<FieldTargetDraft>,
+  ): FieldEditorDraft => {
+    const nextTarget = { ...current.target, ...updates }
+    if (updates.noteTypeId === undefined) {
+      return { ...current, error: null, target: nextTarget }
+    }
+
+    const noteType = state.noteTypes.find(
+      (item) => item.id === updates.noteTypeId,
+    )
+    nextTarget.targetFieldName = getFirstAvailableField(
+      noteType,
+      state.smartFields,
+      nextTarget.deckId,
+    )
+    return {
+      ...current,
+      error: null,
+      sourceFieldName: getFirstSourceField({
+        deckId: nextTarget.deckId,
+        globalDeckId: state.globalDeckId,
+        ignoreFieldId: current.editingFieldId,
         noteType,
-        state.smartFields,
-        nextTarget.deckId,
-      )
-      return {
-        ...current,
-        error: null,
-        sourceFieldName: getFirstSourceField({
-          deckId: nextTarget.deckId,
-          globalDeckId: state.globalDeckId,
-          ignoreFieldId: current.editingFieldId,
-          noteType,
-          smartFields: state.smartFields,
-          targetFieldName: nextTarget.targetFieldName,
-        }),
-        target: nextTarget,
-      }
-    })
+        smartFields: state.smartFields,
+        targetFieldName: nextTarget.targetFieldName,
+      }),
+      target: nextTarget,
+    }
   }
 
   const generateDraftPrompt = async (description = form.writePrompt) => {
+    clearTimeout(pendingWrite.current)
     if (form.target.fieldType === "tts" || description.trim() === "") {
-      return false
+      return null
     }
 
     update({ error: null, isGenerating: true })
@@ -190,32 +214,51 @@ export const useFieldEditor = ({
         fieldType: form.target.fieldType,
         generationPrompt: description,
       })
-      update({ prompt: result.prompt })
-      return true
+      // Applied only if the description is still the one it was written from: a write
+      // that lands after newer typing, or after a switch to writing the prompt by hand,
+      // would overwrite newer text.
+      setForm((current) =>
+        current.promptMode === "describe" && current.writePrompt === description
+          ? { ...current, generatedFrom: description, prompt: result.prompt }
+          : current,
+      )
+      return result.prompt
     } catch (error) {
       update({
         error: errorMessage(error, t("fieldEditor.errors.writePrompt")),
       })
-      return false
+      return null
     } finally {
       update({ isGenerating: false })
     }
   }
 
+  const preparePrompt = () =>
+    needsPromptWrite(form)
+      ? generateDraftPrompt()
+      : Promise.resolve(form.prompt)
+
   const save = async () => {
+    update({ error: null, isSaving: true })
+    const prompt = await preparePrompt()
+    if (prompt === null) {
+      update({ isSaving: false })
+      return
+    }
+    const draft = { ...form, prompt }
+
     const validationError = validateFieldEditorDraft(
-      form,
+      draft,
       state.smartFields,
       state.globalDeckId,
     )
     if (validationError !== null) {
-      update({ error: validationError })
+      update({ error: validationError, isSaving: false })
       return
     }
 
-    update({ error: null, isSaving: true })
     try {
-      const payload = buildSmartFieldPayload(form, state.defaults, field)
+      const payload = buildSmartFieldPayload(draft, state.defaults, field)
       if (mode === "edit") {
         if (field === undefined) {
           throw new Error("Cannot update a Smart Field without its id")
@@ -251,14 +294,28 @@ export const useFieldEditor = ({
   }
 
   return {
+    describe: (description) => {
+      update({ writePrompt: description })
+      clearTimeout(pendingWrite.current)
+      if (description.trim() === "") return
+      pendingWrite.current = setTimeout(
+        () => void generateDraftPrompt(description),
+        1500,
+      )
+    },
     dismissError: () => update({ error: null }),
     form,
     generateDraftPrompt,
     markPromptTipSeen,
+    preparePrompt,
     save,
     setPinnedChat: (settings) => setPinned("chat", settings),
     setPinnedImage: (settings) => setPinned("image", settings),
     setPinnedTTS: (settings) => setPinned("tts", settings),
+    setPromptMode: (promptMode) => {
+      clearTimeout(pendingWrite.current)
+      update({ promptMode })
+    },
     setStep: (step) => update({ step }),
     setTarget: changeTarget,
     suggestion: suggested?.key === suggestionKey ? suggested.suggestion : null,

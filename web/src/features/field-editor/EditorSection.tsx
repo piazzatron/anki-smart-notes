@@ -27,6 +27,10 @@ interface EditorSectionProps {
   label: string
 }
 
+// The field editor's 16px block and card titles.
+export const CARD_TITLE_CLASSES =
+  "text-[16px] leading-tight font-semibold text-ink"
+
 /** One headed block of the field editor. Both wizard steps use it, so they read at the
  * same scale — the small labels stay for settings nested inside a section. */
 export const EditorSection = ({
@@ -37,7 +41,7 @@ export const EditorSection = ({
 }: EditorSectionProps) => (
   <section className={className}>
     <h2
-      className={`text-[16px] leading-tight font-semibold text-ink ${description === undefined ? "mb-3" : "mb-1"}`}
+      className={`${CARD_TITLE_CLASSES} ${description === undefined ? "mb-3" : "mb-1"}`}
     >
       {label}
     </h2>

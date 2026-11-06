@@ -38,6 +38,7 @@
       "sent": "Geri bildirim gönderildi. Yakında iletişime geçeceğiz.",
       "title": "Geri bildirim gönder"
     },
+    "gotIt": "Anladım",
     "notNow": "Şimdi değil",
     "other": "Diğer",
     "placeholderScreen": "Bu ekran yeniden oluşturmanın bir sonraki ekranıdır.",
@@ -122,15 +123,15 @@
     "alreadySmartField": "Zaten bir Smart Field",
     "collisionHint": "zaten bir Smart Field'iniz var — farklı bir alan, deste veya not türü seçin",
     "describe": {
-      "exampleChat": "{{source}} için {{target}} yaz",
-      "exampleImage": "{{source}} resmini çiz",
-      "generate": "Oluştur",
-      "generating": "Oluşturuluyor…",
-      "hint": "Bir cümleyle açıklayın. Diğer alanlara adlarıyla değinebilirsiniz.",
-      "regenerate": "Yeniden oluştur",
-      "tabToUse": "Oluşturmak için <kbd>Tab</kbd>",
-      "title": "Bu alan ne yapmalı?",
-      "writeYourself": "Ya da istemi kendiniz yazın"
+      "exampleChat": "Örneğin: {{source}} için tek satırlık bir tanım",
+      "exampleImage": "Örneğin: {{source}} için basit bir çizim",
+      "exampleNoFields": "Örneğin: şu kelimenin tek satırlık tanımı",
+      "fieldsHint": "Bahsedebileceğiniz alanlar:",
+      "guessTip": "Notunuzun alanlarından yaptığımız en iyi tahmin. İstediğiniz gibi düzenleyebilirsiniz.",
+      "modeDescribe": "Tarif et",
+      "modeWrite": "Kendim yazayım",
+      "title": "<code>{{field}}</code> alanında neyi üretelim?",
+      "writing": "İstem yazılıyor"
     },
     "errors": {
       "save": "Smart Field kaydedilemedi",
@@ -165,10 +166,7 @@
     "promptPanel": {
       "description": "Yapay zekânın her not için aldığı içerik. <code>{{example}}</code>, alandaki o notun metniyle değiştirilir.",
       "fieldsOnNote": "Bu nottaki alanlar:",
-      "gotIt": "Anladım",
-      "insertField": "{{field}} ekle",
-      "tip": "İstemi sizin için yazdık. Yapay zekâya tam olarak ne sorulduğunu görmek veya değiştirmek için açın.",
-      "writeYourself": "Kendiniz yazın"
+      "insertField": "{{field}} ekle"
     },
     "save": "Smart Field'i kaydedin",
     "sections": {
@@ -180,7 +178,6 @@
     "sourceField": "Kaynak alanı",
     "targetAriaLabel": "Smart Field hedefi",
     "testSmartField": "Smart Field'inizi test edin",
-    "testerHint": "Tarayıcıda seçili karttan deneyin",
     "titles": {
       "create": "Yeni Smart Field",
       "duplicate": "Smart Field'i çoğaltın",

@@ -42,7 +42,7 @@ import { useVoiceCatalog } from "@/features/defaults/useVoiceCatalog"
 import { useAppStore } from "@/store/appStore"
 import type { AppState, SmartField } from "@/types/api"
 
-import { hasSmartFieldCollision } from "./fieldEditor"
+import { hasSmartFieldCollision, needsPromptWrite } from "./fieldEditor"
 import type {
   FieldEditorDraft,
   FieldEditorMode,
@@ -104,7 +104,7 @@ export const FieldEditorScreen = ({
     controls.form.isSaving ||
     (controls.form.target.fieldType === "tts"
       ? controls.form.sourceFieldName.trim() === ""
-      : controls.form.prompt.trim() === "")
+      : controls.form.prompt.trim() === "" && !needsPromptWrite(controls.form))
 
   return (
     <Dialog onOpenChange={setIsOpen} open={isOpen}>
@@ -124,8 +124,7 @@ export const FieldEditorScreen = ({
       >
         {/* One header contract for every step, shaped like a native titlebar and kept to a
           single row: dismiss or back as one icon button leading, title and target
-          breadcrumb centered, step 1's Next trailing. Step 2 signs off from its pinned
-          footer instead. */}
+          breadcrumb centered. Each step's way forward sits under its content. */}
         <header className="relative grid min-h-[52px] shrink-0 grid-cols-[1fr_auto_1fr] items-center gap-4 border-b border-hairline bg-black/10 px-4 py-2">
           <div className="flex min-w-0 items-center justify-start">
             {controls.form.step === 1 && (
@@ -168,21 +167,7 @@ export const FieldEditorScreen = ({
             )}
           </div>
 
-          <div className="flex justify-end">
-            {controls.form.step === 1 && (
-              <Button
-                className="px-5"
-                disabled={
-                  collision || controls.form.target.targetFieldName === ""
-                }
-                onClick={() => controls.setStep(2)}
-              >
-                {t("common.next")}{" "}
-                {/* eslint-disable-next-line local/no-symbol-text -- a Lucide ChevronRight would change the Next button's look */}
-                <span className="inline-block rtl:rotate-180">›</span>
-              </Button>
-            )}
-          </div>
+          <div />
         </header>
 
         {controls.form.error !== null && (
@@ -201,6 +186,19 @@ export const FieldEditorScreen = ({
           {controls.form.step === 1 ? (
             <div className="mx-auto w-full max-w-[600px] pt-16">
               <StepTarget controls={controls} state={state} />
+              <div className="mt-8 flex justify-end">
+                <Button
+                  className={FORWARD_BUTTON_CLASSES}
+                  disabled={
+                    collision || controls.form.target.targetFieldName === ""
+                  }
+                  onClick={() => controls.setStep(2)}
+                  variant="primary"
+                >
+                  {t("common.next")}
+                  <ArrowRight aria-hidden className="size-4 rtl:rotate-180" />
+                </Button>
+              </div>
             </div>
           ) : catalog === null ? (
             <div className="flex h-full min-h-56 items-center justify-center gap-2 text-[13px] text-ink-muted">
@@ -223,40 +221,34 @@ export const FieldEditorScreen = ({
                     {voiceCatalog.error}
                   </p>
                 )}
+              <div className="mt-8 flex justify-end">
+                <Button
+                  className={`-me-hang font-bold ${FORWARD_BUTTON_CLASSES}`}
+                  disabled={stepTwoInvalid || catalog === null}
+                  onClick={() => void controls.save()}
+                  variant="mint"
+                >
+                  {controls.form.isSaving ? (
+                    <LoaderCircle aria-hidden className="size-4 animate-spin" />
+                  ) : (
+                    <SparklesIcon size={16} />
+                  )}
+                  {controls.form.isSaving
+                    ? t("common.saving")
+                    : t("fieldEditor.save")}
+                  <ArrowRight aria-hidden className="size-4 rtl:rotate-180" />
+                </Button>
+              </div>
             </div>
           )}
         </div>
-
-        {/* Pinned, so the one way to finish is always in reach however long the prompt
-          or the tester's result runs. */}
-        {controls.form.step === 2 && (
-          <footer className="flex shrink-0 justify-end border-t border-hairline bg-black/10 px-6 py-2.5">
-            <div
-              className={`mx-auto flex w-full ${PROMPT_STEP_WIDTH} justify-end`}
-            >
-              <Button
-                className="-me-hang px-4 font-bold"
-                disabled={stepTwoInvalid || catalog === null}
-                onClick={() => void controls.save()}
-                variant="mint"
-              >
-                {controls.form.isSaving ? (
-                  <LoaderCircle aria-hidden className="size-3.5 animate-spin" />
-                ) : (
-                  <SparklesIcon size={15} />
-                )}
-                {controls.form.isSaving
-                  ? t("common.saving")
-                  : t("fieldEditor.save")}
-                <ArrowRight aria-hidden className="size-3.5 rtl:rotate-180" />
-              </Button>
-            </div>
-          </footer>
-        )}
       </DialogTakeover>
     </Dialog>
   )
 }
+
+// Next and Save, the one way forward from each step: a step up from the 36px controls.
+const FORWARD_BUTTON_CLASSES = "h-10 px-5 text-[14px]"
 
 const TYPE_ICONS: Record<
   FieldEditorDraft["target"]["fieldType"],
