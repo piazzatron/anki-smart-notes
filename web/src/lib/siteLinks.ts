@@ -31,10 +31,14 @@ export const SITE_LINKS = {
   upgrade: `${SITE_URL}/upgrade/sign-in?utm_source=plugin`,
 } as const
 
-/** Opens a site page in the browser, carrying the install ID so the site's Amplitude session joins this install's. */
-export const openSiteLink = (url: string): void => {
-  const installId = useAppStore.getState().state?.installId
+/** A site link carrying the install ID, so the site's Amplitude session joins this install's. */
+export const withInstallId = (url: string, installId: string | undefined) => {
   const link = new URL(url)
   if (installId) link.searchParams.set("install_id", installId)
-  window.open(link.toString(), "_blank", "noopener,noreferrer")
+  return link.toString()
+}
+
+export const openSiteLink = (url: string): void => {
+  const installId = useAppStore.getState().state?.installId
+  window.open(withInstallId(url, installId), "_blank", "noopener,noreferrer")
 }
