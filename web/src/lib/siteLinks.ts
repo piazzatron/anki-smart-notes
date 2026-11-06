@@ -17,6 +17,8 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { useAppStore } from "@/store/appStore"
+
 const SITE_URL = import.meta.env.DEV
   ? "http://localhost:3001"
   : "https://smart-notes.xyz"
@@ -29,6 +31,10 @@ export const SITE_LINKS = {
   upgrade: `${SITE_URL}/upgrade/sign-in?utm_source=plugin`,
 } as const
 
+/** Opens a site page in the browser, carrying the install ID so the site's Amplitude session joins this install's. */
 export const openSiteLink = (url: string): void => {
-  window.open(url, "_blank", "noopener,noreferrer")
+  const installId = useAppStore.getState().state?.installId
+  const link = new URL(url)
+  if (installId) link.searchParams.set("install_id", installId)
+  window.open(link.toString(), "_blank", "noopener,noreferrer")
 }
