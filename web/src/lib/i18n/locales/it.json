@@ -16,7 +16,6 @@
     "days_many": "{{count}} giorni",
     "days_other": "{{count}} giorni",
     "deck": "Ponte",
-    "default": "Predefinito",
     "delete": "Eliminare",
     "done": "Fatto",
     "duplicate": "Duplicato",
@@ -210,6 +209,7 @@
     "addToNoteType": "Aggiungi Smart Field a {{noteType}}",
     "disable": "Disabilita",
     "deleting": "Eliminazione…",
+    "followsDefault": "<model>{{model}}</model> (Predefinito)",
     "discord": {
       "dismissAriaLabel": "Ignora l'invito Discord",
       "join": "Giuntura",
@@ -255,7 +255,7 @@
     },
     "image": {
       "cannotFindModel": "Nel catalogo immagini manca il modello {{model}}",
-      "defaultModel": "Modello",
+      "defaultModel": "Modello predefinito",
       "gptImage25": "il più versatile — testo nitido, diagrammi puliti.",
       "loadingLabel": "Caricamento impostazioni generazione immagini",
       "loadingTitle": "Impostazioni generazione immagini",
@@ -277,7 +277,7 @@
       "tryIt": "Provalo"
     },
     "text": {
-      "defaultModel": "Modello",
+      "defaultModel": "Modello predefinito",
       "loadingLabel": "Caricamento impostazioni generazione testo",
       "loadingTitle": "Impostazioni di generazione del testo",
       "samplePrompt": "Cos’è un sistema di ripetizioni dilazionate (SRS)?",
@@ -392,7 +392,7 @@
       "text": "Testo",
       "voice": "Voce"
     },
-    "creditUsage": "Utilizzo del credito",
+    "creditUsage": "Utilizzo crediti",
     "creditsReset": "Reimpostazione dei crediti",
     "daysLeft_one": "Ultimo giorno",
     "daysLeft_many": "{{count}} giorni rimasti",

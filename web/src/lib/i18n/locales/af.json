@@ -15,7 +15,6 @@
     "days_one": "1 dag",
     "days_other": "{{count}} dae",
     "deck": "Dek",
-    "default": "Verstek",
     "delete": "Vee uit",
     "done": "Klaar",
     "duplicate": "Duplikaat",
@@ -209,6 +208,7 @@
     "addToNoteType": "Voeg Smart Field by {{noteType}}",
     "disable": "Deaktiveer",
     "deleting": "Vee tans uit …",
+    "followsDefault": "<model>{{model}}</model> (Standaard)",
     "discord": {
       "dismissAriaLabel": "Verwerp Discord-uitnodiging",
       "join": "Sluit aan",
@@ -254,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "Beeldkatalogus ontbreek model {{model}}",
-      "defaultModel": "Model",
+      "defaultModel": "Standaardmodel",
       "gptImage25": "beste allround-keuse — skerp teks, duidelike diagramme.",
       "loadingLabel": "Laai Beeldgenereringinstellings",
       "loadingTitle": "Beeldgenereringinstellings",
@@ -276,7 +276,7 @@
       "tryIt": "Probeer dit"
     },
     "text": {
-      "defaultModel": "Model",
+      "defaultModel": "Standaardmodel",
       "loadingLabel": "Laai Teksgenereringinstellings",
       "loadingTitle": "Teksgenerasie-instellings",
       "samplePrompt": "Wat is 'n gespasieerde herhalingstelsel (SRS)?",

@@ -47,7 +47,7 @@ export const ReviewPrompt = ({ onComplete }: ReviewPromptProps) => {
         size={23}
       />
       <div className="relative min-w-0 flex-1 text-start">
-        <p className="truncate text-[14.5px] leading-[1.35] font-extrabold tracking-[-0.01em] text-white">
+        <p className="truncate text-[14px] leading-[1.35] font-semibold text-white">
           {t("smartFields.review.title")}
         </p>
         <p className="truncate text-sm leading-[1.35] font-medium text-white/80">
@@ -55,7 +55,7 @@ export const ReviewPrompt = ({ onComplete }: ReviewPromptProps) => {
         </p>
       </div>
       <a
-        className="relative z-20 inline-flex shrink-0 items-center rounded-lg bg-[#fff7dc] px-[18px] py-2 text-[13.5px] font-extrabold text-[#7b4807] no-underline transition-transform duration-150 ease-out hover:scale-[1.035]"
+        className="relative z-20 inline-flex shrink-0 items-center rounded-lg bg-[#fff7dc] px-[18px] py-2 text-[13px] font-medium text-[#7b4807] no-underline transition-transform duration-150 ease-out hover:scale-[1.035]"
         href={ANKIWEB_REVIEW_URL}
         onClick={onComplete}
         rel="noreferrer"

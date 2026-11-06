@@ -15,7 +15,6 @@
     "days_one": "1 päivä",
     "days_other": "{{count}} päivää",
     "deck": "Kansi",
-    "default": "Oletus",
     "delete": "Poistaa",
     "done": "Tehty",
     "duplicate": "Kopioi",
@@ -209,6 +208,7 @@
     "addToNoteType": "Lisää Smart Field kohtaan {{noteType}}",
     "disable": "Poista käytöstä",
     "deleting": "Poistetaan…",
+    "followsDefault": "<model>{{model}}</model> (Oletus)",
     "discord": {
       "dismissAriaLabel": "Hylkää Discord-kutsu",
       "join": "Liity",
@@ -254,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "Kuvaluettelosta puuttuu malli {{model}}",
-      "defaultModel": "Malli",
+      "defaultModel": "Oletusmalli",
       "gptImage25": "paras monipuolinen valinta – terävä teksti, selkeät kaaviot.",
       "loadingLabel": "Ladataan kuvageneroinnin asetuksia",
       "loadingTitle": "Kuvageneroinnin asetukset",
@@ -276,7 +276,7 @@
       "tryIt": "Kokeile sitä"
     },
     "text": {
-      "defaultModel": "Malli",
+      "defaultModel": "Oletusmalli",
       "loadingLabel": "Ladataan tekstigeneroinnin asetuksia",
       "loadingTitle": "Tekstin luontiasetukset",
       "samplePrompt": "Mikä on jaksotettu toistojärjestelmä (SRS)?",
@@ -386,7 +386,7 @@
       "text": "Teksti",
       "voice": "Ääni"
     },
-    "creditUsage": "Luoton käyttö",
+    "creditUsage": "Krediittien käyttö",
     "creditsReset": "Krediitit nollattu",
     "daysLeft_one": "Viimeinen päivä",
     "daysLeft_other": "{{count}} päivää jäljellä",

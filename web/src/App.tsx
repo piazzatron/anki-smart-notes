@@ -193,7 +193,7 @@ const App = () => {
       >
         <DialogContent className="w-[min(420px,92vw)]">
           <div className="px-5 pe-12 pt-5 pb-4">
-            <DialogTitle className="text-sm font-bold text-zinc-100">
+            <DialogTitle className="text-sm font-semibold text-ink">
               {t("common.discardUnsavedChanges.title")}
             </DialogTitle>
             <DialogDescription className="mt-1.5 text-[13px] leading-5 text-ink-muted">

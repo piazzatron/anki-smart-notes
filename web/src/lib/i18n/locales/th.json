@@ -14,7 +14,6 @@
     },
     "days_other": "{{count}} วัน",
     "deck": "เด็ค",
-    "default": "ค่าเริ่มต้น",
     "delete": "ลบ",
     "done": "เสร็จแล้ว",
     "duplicate": "ทำซ้ำ",
@@ -208,6 +207,7 @@
     "addToNoteType": "เพิ่ม Smart Field ไปที่ {{noteType}}",
     "disable": "ปิดการใช้งาน",
     "deleting": "กำลังลบ...",
+    "followsDefault": "<model>{{model}}</model> (ค่าเริ่มต้น)",
     "discord": {
       "dismissAriaLabel": "ปิดคำเชิญ Discord",
       "join": "เข้าร่วม",
@@ -253,7 +253,7 @@
     },
     "image": {
       "cannotFindModel": "แค็ตตาล็อกรูปภาพไม่มีโมเดล {{model}}",
-      "defaultModel": "โมเดล",
+      "defaultModel": "โมเดลเริ่มต้น",
       "gptImage25": "ดีที่สุดสำหรับทุกงาน ข้อความคมชัด ไดอะแกรมสะอาด",
       "loadingLabel": "กำลังโหลดการตั้งค่าการสร้างภาพ",
       "loadingTitle": "การตั้งค่าการสร้างภาพ",
@@ -275,7 +275,7 @@
       "tryIt": "ลองมัน"
     },
     "text": {
-      "defaultModel": "โมเดล",
+      "defaultModel": "โมเดลเริ่มต้น",
       "loadingLabel": "กำลังโหลดการตั้งค่าการสร้างข้อความ",
       "loadingTitle": "การตั้งค่าการสร้างข้อความ",
       "samplePrompt": "ระบบการเว้นระยะการทำซ้ำ (SRS) คืออะไร?",

@@ -16,7 +16,6 @@
     "days_few": "{{count}} zile",
     "days_other": "{{count}} zile",
     "deck": "Punte",
-    "default": "Implicit",
     "delete": "Şterge",
     "done": "Făcut",
     "duplicate": "Duplicat",
@@ -210,6 +209,7 @@
     "addToNoteType": "Adăugați Smart Field la {{noteType}}",
     "disable": "Dezactivați",
     "deleting": "Se șterge…",
+    "followsDefault": "<model>{{model}}</model> (implicit)",
     "discord": {
       "dismissAriaLabel": "Respinge invitația Discord",
       "join": "Alăturați-vă",
@@ -255,7 +255,7 @@
     },
     "image": {
       "cannotFindModel": "În catalogul de imagini lipsește modelul {{model}}",
-      "defaultModel": "Model",
+      "defaultModel": "Model implicit",
       "gptImage25": "cel mai versatil — text clar, diagrame curate.",
       "loadingLabel": "Se încarcă setările pentru generarea de imagini",
       "loadingTitle": "Setări pentru generarea de imagini",
@@ -277,7 +277,7 @@
       "tryIt": "Încearcă"
     },
     "text": {
-      "defaultModel": "Model",
+      "defaultModel": "Model implicit",
       "loadingLabel": "Se încarcă setările pentru generarea de text",
       "loadingTitle": "Setări de generare a textului",
       "samplePrompt": "Ce este un sistem de repetiție la distanță (SRS)?",
@@ -392,7 +392,7 @@
       "text": "Text",
       "voice": "Voce"
     },
-    "creditUsage": "Utilizarea creditului",
+    "creditUsage": "Utilizare credite",
     "creditsReset": "Creditele resetate",
     "daysLeft_one": "Ultima zi",
     "daysLeft_few": "Au rămas {{count}} zile",

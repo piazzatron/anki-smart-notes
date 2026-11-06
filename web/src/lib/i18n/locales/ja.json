@@ -14,7 +14,6 @@
     },
     "days_other": "{{count}} 日",
     "deck": "デッキ",
-    "default": "デフォルト",
     "delete": "消去",
     "done": "終わり",
     "duplicate": "重複",
@@ -208,6 +207,7 @@
     "addToNoteType": "Smart Fieldを{{noteType}}に追加",
     "disable": "無効にする",
     "deleting": "削除中…",
+    "followsDefault": "<model>{{model}}</model> (デフォルト)",
     "discord": {
       "dismissAriaLabel": "Discord への招待を拒否する",
       "join": "参加する",
@@ -253,7 +253,7 @@
     },
     "image": {
       "cannotFindModel": "画像カタログにモデル {{model}} がありません",
-      "defaultModel": "モデル",
+      "defaultModel": "デフォルトモデル",
       "gptImage25": "総合力に最も優れたモデル。文字がくっきりし、図表もすっきり仕上がります。",
       "loadingLabel": "画像生成設定を読み込み中",
       "loadingTitle": "画像生成設定",
@@ -275,7 +275,7 @@
       "tryIt": "試してみてください"
     },
     "text": {
-      "defaultModel": "モデル",
+      "defaultModel": "デフォルトモデル",
       "loadingLabel": "テキスト生成設定を読み込み中",
       "loadingTitle": "テキスト生成設定",
       "samplePrompt": "間隔繰り返しシステム(SRS)とは何ですか?",
@@ -380,7 +380,7 @@
       "text": "文章",
       "voice": "声"
     },
-    "creditUsage": "クレジットの使用状況",
+    "creditUsage": "クレジット使用量",
     "creditsReset": "クレジットのリセット",
     "daysLeft_other": "{{count}} 残り日",
     "errors": {

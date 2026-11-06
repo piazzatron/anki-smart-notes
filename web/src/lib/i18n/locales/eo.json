@@ -15,7 +15,6 @@
     "days_one": "1 tago",
     "days_other": "{{count}} tagoj",
     "deck": "Ferdeko",
-    "default": "Defaŭlte",
     "delete": "Forigi",
     "done": "Farita",
     "duplicate": "Duobligi",
@@ -209,6 +208,7 @@
     "addToNoteType": "Aldonu Smart Field al {{noteType}}",
     "disable": "Malebligu",
     "deleting": "Forigante…",
+    "followsDefault": "<model>{{model}}</model> (Defaŭlta)",
     "discord": {
       "dismissAriaLabel": "Forĵeti Discord-inviton",
       "join": "Aliĝu",
@@ -254,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "Bildkatalogo mankas modelo {{model}}",
-      "defaultModel": "Modelo",
+      "defaultModel": "Defaŭlta modelo",
       "gptImage25": "la plej universala — klara teksto, puraj diagramoj.",
       "loadingLabel": "Ŝargado de agordoj por bildgenerado",
       "loadingTitle": "Agordoj por bildgenerado",
@@ -276,7 +276,7 @@
       "tryIt": "Provu ĝin"
     },
     "text": {
-      "defaultModel": "Modelo",
+      "defaultModel": "Defaŭlta modelo",
       "loadingLabel": "Ŝargado de agordoj por tekstogenerado",
       "loadingTitle": "Agordoj de Tekstaj Generacio",
       "samplePrompt": "Kio estas Spaca Ripeta Sistemo (SRS)?",
@@ -386,7 +386,7 @@
       "text": "Teksto",
       "voice": "Voĉo"
     },
-    "creditUsage": "Kredita Uzado",
+    "creditUsage": "Kredituzo",
     "creditsReset": "Kreditaĵoj rekomencigitaj",
     "daysLeft_one": "Lasta tago",
     "daysLeft_other": "{{count}} tagoj restas",

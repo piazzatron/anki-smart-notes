@@ -15,7 +15,6 @@
     "days_one": "1 dag",
     "days_other": "{{count}} dager",
     "deck": "Dekk",
-    "default": "Misligholde",
     "delete": "Slett",
     "done": "Ferdig",
     "duplicate": "Kopiere",
@@ -209,6 +208,7 @@
     "addToNoteType": "Legg til Smart Field til {{noteType}}",
     "disable": "Deaktiver",
     "deleting": "Sletter …",
+    "followsDefault": "<model>{{model}}</model> (Standard)",
     "discord": {
       "dismissAriaLabel": "Avvis Discord-invitasjonen",
       "join": "Bli med",
@@ -254,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "Bildekatalogen mangler modell {{model}}",
-      "defaultModel": "Modell",
+      "defaultModel": "Standardmodell",
       "gptImage25": "best til det meste — skarp tekst, rene diagrammer.",
       "loadingLabel": "Laster innstillinger for bildegenerering",
       "loadingTitle": "Innstillinger for bildegenerering",
@@ -276,7 +276,7 @@
       "tryIt": "Prøv det"
     },
     "text": {
-      "defaultModel": "Modell",
+      "defaultModel": "Standardmodell",
       "loadingLabel": "Laster innstillinger for tekstgenerering",
       "loadingTitle": "Innstillinger for tekstgenerering",
       "samplePrompt": "Hva er et avstandsrepetisjonssystem (SRS)?",

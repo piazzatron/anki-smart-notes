@@ -77,7 +77,7 @@ export const SupportScreen = () => {
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(460px_140px_at_10%_-40%,rgba(180,200,255,0.3),transparent_72%)]" />
         <DiscordMark className="relative text-white" size={31} />
         <div className="relative min-w-0 flex-1">
-          <h2 className="text-base font-extrabold tracking-[-0.01em] text-white">
+          <h2 className="text-[15px] font-semibold text-white">
             {t("support.discord.title")}
           </h2>
           <p className="mt-[3px] text-[13.5px] text-white/80">
@@ -85,7 +85,7 @@ export const SupportScreen = () => {
           </p>
         </div>
         <a
-          className="relative shrink-0 rounded-lg bg-white px-[22px] py-2.5 text-sm font-extrabold text-[#6B3FD4]"
+          className="relative shrink-0 rounded-lg bg-white px-[18px] py-2 text-[13px] font-medium text-[#6B3FD4]"
           href={DISCORD_URL}
           rel="noreferrer"
           target="_blank"
@@ -97,7 +97,7 @@ export const SupportScreen = () => {
       <div className="-mx-hang mt-[9px] flex items-center gap-[15px] rounded-[13px] bg-white/[0.05] py-4 ps-hang pe-4">
         <BugIcon className="text-zinc-300" size={26} />
         <div className="min-w-0 flex-1">
-          <h2 className="text-base font-extrabold tracking-[-0.01em] text-zinc-100">
+          <h2 className="text-[15px] font-semibold text-ink">
             {t("support.feedback.title")}
           </h2>
           <p className="mt-[3px] text-[13.5px] text-zinc-400">
@@ -106,7 +106,7 @@ export const SupportScreen = () => {
         </div>
         <FeedbackDialog>
           <button
-            className="shrink-0 rounded-[9px] bg-[#5b6fe8] px-5 py-2.5 text-sm font-extrabold text-white"
+            className="shrink-0 rounded-lg bg-indigo-deep px-[18px] py-2 text-[13px] font-medium text-white"
             type="button"
           >
             {t("support.feedback.send")}
@@ -127,7 +127,7 @@ export const SupportScreen = () => {
               {link.mark}
             </span>
             <span className="min-w-0">
-              <span className="block text-sm font-bold text-zinc-100">
+              <span className="block text-sm font-medium text-ink">
                 {t(link.labelKey)}
               </span>
               <span className="mt-0.5 block truncate text-[12.5px] text-zinc-400">

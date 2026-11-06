@@ -15,7 +15,6 @@
     "days_one": "1 ден",
     "days_other": "{{count}} дни",
     "deck": "Палуба",
-    "default": "По подразбиране",
     "delete": "Изтриване",
     "done": "Готово",
     "duplicate": "Дубликат",
@@ -209,6 +208,7 @@
     "addToNoteType": "Добавете Smart Field към {{noteType}}",
     "disable": "Деактивиране",
     "deleting": "Изтриване...",
+    "followsDefault": "<model>{{model}}</model> (По подразбиране)",
     "discord": {
       "dismissAriaLabel": "Отхвърлете поканата за Discord",
       "join": "Присъединете се",
@@ -254,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "В каталога с изображения липсва модел {{model}}",
-      "defaultModel": "Модел",
+      "defaultModel": "Модел по подразбиране",
       "gptImage25": "най-универсалният — ясен текст, чисти диаграми.",
       "loadingLabel": "Зареждане на настройките за генериране на изображения",
       "loadingTitle": "Настройки за генериране на изображения",
@@ -276,7 +276,7 @@
       "tryIt": "Опитайте го"
     },
     "text": {
-      "defaultModel": "Модел",
+      "defaultModel": "Модел по подразбиране",
       "loadingLabel": "Зареждане на настройките за генериране на текст",
       "loadingTitle": "Настройки за генериране на текст",
       "samplePrompt": "Какво е система за повторение с интервали (SRS)?",
@@ -386,7 +386,7 @@
       "text": "Текст",
       "voice": "глас"
     },
-    "creditUsage": "Използване на кредит",
+    "creditUsage": "Използване на кредити",
     "creditsReset": "Нулиране на кредити",
     "daysLeft_one": "Последен ден",
     "daysLeft_other": "остават {{count}} дни",

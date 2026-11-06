@@ -42,7 +42,7 @@ export const DiscordPrompt = ({ onDismiss }: DiscordPromptProps) => {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(460px_140px_at_10%_-40%,rgba(180,200,255,0.3),transparent_72%)]" />
       <div aria-hidden className="banner-shine" />
       <DiscordMark className="relative text-white" size={23} />
-      <p className="relative min-w-0 flex-1 text-[14.5px] leading-[1.35] font-extrabold tracking-[-0.01em] text-white">
+      <p className="relative min-w-0 flex-1 text-[14px] leading-[1.35] font-semibold text-white">
         {t("smartFields.discord.title")}
         <span className="text-sm font-medium text-white/80">
           {" "}
@@ -50,7 +50,7 @@ export const DiscordPrompt = ({ onDismiss }: DiscordPromptProps) => {
         </span>
       </p>
       <a
-        className="relative z-20 inline-flex shrink-0 items-center rounded-lg bg-white px-[18px] py-2 text-[13.5px] font-extrabold text-[#6B3FD4] no-underline transition-transform duration-150 ease-out hover:scale-[1.035]"
+        className="relative z-20 inline-flex shrink-0 items-center rounded-lg bg-white px-[18px] py-2 text-[13px] font-medium text-[#6B3FD4] no-underline transition-transform duration-150 ease-out hover:scale-[1.035]"
         href={DISCORD_URL}
         rel="noreferrer"
         target="_blank"

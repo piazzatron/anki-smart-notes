@@ -18,9 +18,9 @@ interface PlanCardProps {
 }
 
 const PLAN_ACTION_BUTTON_CLASS =
-  "mt-3 block w-full rounded-lg border border-[#1fd47d]/60 bg-gradient-to-b from-[#4cf0a8] to-[#1fd47d] px-2 py-2.5 text-center text-[13px] font-extrabold text-[#06281a] shadow-[inset_0_1px_rgba(255,255,255,0.34),0_10px_22px_-8px_rgba(31,212,125,0.55)] transition hover:brightness-105"
+  "mt-3 block w-full rounded-lg border border-[#1fd47d]/60 bg-gradient-to-b from-[#4cf0a8] to-[#1fd47d] px-2 py-2.5 text-center text-[13px] font-semibold text-[#06281a] shadow-[inset_0_1px_rgba(255,255,255,0.34),0_10px_22px_-8px_rgba(31,212,125,0.55)] transition hover:brightness-105"
 const TRIAL_ACTION_BUTTON_CLASS =
-  "mt-3 block w-full rounded-lg bg-indigo/80 px-2 py-2.5 text-center text-[13px] font-extrabold text-white shadow-[inset_0_1px_rgba(255,255,255,0.24),0_10px_22px_-8px_rgba(124,141,255,0.42)] transition hover:bg-indigo/90"
+  "mt-3 block w-full rounded-lg bg-indigo/80 px-2 py-2 text-center text-[13px] font-medium text-white transition hover:bg-indigo/90"
 
 export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
   const { t } = useTranslation()
@@ -50,7 +50,7 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
             aria-hidden
             className="size-1.5 rounded-full bg-caution shadow-[0_0_8px_rgba(255,155,94,0.65)]"
           />
-          <p className="text-sm font-bold tracking-[-0.1px] text-zinc-100">
+          <p className="text-sm font-semibold text-ink">
             {t("subscription.signedOut.title")}
           </p>
         </div>
@@ -100,10 +100,10 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
         data-testid="plan-card"
       >
         <div className="flex items-center justify-between">
-          <span className="text-[11px] font-bold tracking-[0.06em] text-ink-muted uppercase">
+          <span className="text-xs font-medium text-ink-muted">
             {t("subscription.freeTrial")}
           </span>
-          <span className={`text-[12.5px] font-bold ${accentClass}`}>
+          <span className={`text-xs font-semibold ${accentClass}`}>
             {t("subscription.daysLeft", { count: daysLeft })}
           </span>
         </div>
@@ -165,7 +165,7 @@ export const PlanCard = ({ account, onOpenSubscription }: PlanCardProps) => {
 
     return (
       <button
-        className="block w-full px-0.5 py-1 text-start"
+        className="block w-full px-[10px] py-1 text-start"
         data-testid="plan-card"
         onClick={onOpenSubscription}
       >

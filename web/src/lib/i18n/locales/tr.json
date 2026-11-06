@@ -15,7 +15,6 @@
     "days_one": "1 gün",
     "days_other": "{{count}} gün",
     "deck": "Güverte",
-    "default": "Varsayılan",
     "delete": "Silmek",
     "done": "Tamamlamak",
     "duplicate": "Kopyalamak",
@@ -209,6 +208,7 @@
     "addToNoteType": "Smart Field'i {{noteType}}'e ekleyin",
     "disable": "Devre dışı bırakmak",
     "deleting": "Siliniyor…",
+    "followsDefault": "<model>{{model}}</model> (Varsayılan)",
     "discord": {
       "dismissAriaLabel": "Discord davetini reddet",
       "join": "Katılmak",
@@ -254,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "Resim kataloğunda {{model}} modeli eksik",
-      "defaultModel": "Model",
+      "defaultModel": "Varsayılan model",
       "gptImage25": "en iyi genel seçenek — keskin metin, temiz diyagramlar.",
       "loadingLabel": "Görsel Oluşturma Ayarları Yükleniyor",
       "loadingTitle": "Görsel Oluşturma Ayarları",
@@ -276,7 +276,7 @@
       "tryIt": "Deneyin"
     },
     "text": {
-      "defaultModel": "Model",
+      "defaultModel": "Varsayılan model",
       "loadingLabel": "Metin Oluşturma Ayarları Yükleniyor",
       "loadingTitle": "Metin Oluşturma Ayarları",
       "samplePrompt": "Aralıklı Tekrarlama Sistemi (SRS) Nedir?",
@@ -309,7 +309,7 @@
       "searchPlaceholder": "Sesleri ara…",
       "searchVoices": "Sesleri ara",
       "title": "Ses Ayarları",
-      "defaultVoice": "Varsayılan Ses",
+      "defaultVoice": "Varsayılan ses",
       "defaultVoiceTip": "Ses Smart Fields varsayılan olarak bu sesi kullanır. Bunu değiştirmek, varsayılanı kullanan her Smart Field'ı günceller. Her Smart Field, kendi sesiyle bunu geçersiz kılabilir.",
       "defaultVoiceTipLabel": "Varsayılan ses hakkında"
     }
@@ -386,7 +386,7 @@
       "text": "Metin",
       "voice": "Ses"
     },
-    "creditUsage": "Kredi Kullanımı",
+    "creditUsage": "Kredi kullanımı",
     "creditsReset": "Krediler sıfırlandı",
     "daysLeft_one": "Son gün",
     "daysLeft_other": "{{count}} gün kaldı",

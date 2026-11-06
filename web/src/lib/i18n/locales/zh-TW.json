@@ -14,7 +14,6 @@
     },
     "days_other": "{{count}}天",
     "deck": "甲板",
-    "default": "預設",
     "delete": "刪除",
     "done": "完畢",
     "duplicate": "複製",
@@ -208,6 +207,7 @@
     "addToNoteType": "將 Smart Field 加入 {{noteType}}",
     "disable": "停用",
     "deleting": "正在刪除...",
+    "followsDefault": "<model>{{model}}</model> (預設)",
     "discord": {
       "dismissAriaLabel": "拒絕 Discord 邀請",
       "join": "加入",
@@ -253,7 +253,7 @@
     },
     "image": {
       "cannotFindModel": "影像目錄缺少型號 {{model}}",
-      "defaultModel": "模型",
+      "defaultModel": "預設模型",
       "gptImage25": "綜合表現最佳，文字銳利，圖表乾淨。",
       "loadingLabel": "正在載入圖片生成設定",
       "loadingTitle": "圖片生成設定",
@@ -275,7 +275,7 @@
       "tryIt": "嘗試一下"
     },
     "text": {
-      "defaultModel": "模型",
+      "defaultModel": "預設模型",
       "loadingLabel": "正在載入文字生成設定",
       "loadingTitle": "文字產生設定",
       "samplePrompt": "什麼是間隔重複系統（SRS）？",
@@ -380,7 +380,7 @@
       "text": "文字",
       "voice": "嗓音"
     },
-    "creditUsage": "信用使用",
+    "creditUsage": "點數用量",
     "creditsReset": "積分重置",
     "daysLeft_other": "{{count}} 剩餘天數",
     "errors": {

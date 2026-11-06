@@ -16,7 +16,6 @@
     "days_many": "{{count}} dies",
     "days_other": "{{count}} dies",
     "deck": "coberta",
-    "default": "Per defecte",
     "delete": "Suprimeix",
     "done": "Fet",
     "duplicate": "Duplicat",
@@ -210,6 +209,7 @@
     "addToNoteType": "Afegeix Smart Field a {{noteType}}",
     "disable": "Desactivar",
     "deleting": "S'està suprimint…",
+    "followsDefault": "<model>{{model}}</model> (Per defecte)",
     "discord": {
       "dismissAriaLabel": "Ignora la invitació Discord",
       "join": "Uneix-te",
@@ -255,7 +255,7 @@
     },
     "image": {
       "cannotFindModel": "Falta el model {{model}} del catàleg d'imatges",
-      "defaultModel": "Model",
+      "defaultModel": "Model per defecte",
       "gptImage25": "el millor per a tot: text nítid, diagrames nets.",
       "loadingLabel": "S'estan carregant els paràmetres de generació d'imatges",
       "loadingTitle": "Paràmetres de generació d'imatges",
@@ -277,7 +277,7 @@
       "tryIt": "Prova-ho"
     },
     "text": {
-      "defaultModel": "Model",
+      "defaultModel": "Model per defecte",
       "loadingLabel": "S'estan carregant els paràmetres de generació de text",
       "loadingTitle": "Configuració de generació de text",
       "samplePrompt": "Què és un sistema de repetició espaciada (SRS)?",
@@ -392,7 +392,7 @@
       "text": "Text",
       "voice": "Veu"
     },
-    "creditUsage": "Ús de crèdit",
+    "creditUsage": "Ús de crèdits",
     "creditsReset": "Restabliment de crèdits",
     "daysLeft_one": "Últim dia",
     "daysLeft_many": "Queden {{count}} dies",

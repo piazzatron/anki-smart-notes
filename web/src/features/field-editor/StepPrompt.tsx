@@ -22,6 +22,7 @@ import { useTranslation } from "react-i18next"
 
 import { ValidPromptFields } from "@/components/shared/ValidPromptFields"
 import { Button } from "@/components/ui/Button"
+import { Card } from "@/components/ui/Card"
 import {
   Select,
   SelectContent,
@@ -121,7 +122,7 @@ export const StepPrompt = ({
               </p>
               <div className="mt-3 flex gap-2">
                 <input
-                  className="h-11 min-w-0 flex-1 rounded-md bg-black/[0.28] px-3 text-[13px] text-zinc-200 transition outline-none placeholder:text-zinc-600 focus:bg-black/[0.45]"
+                  className="h-9 min-w-0 flex-1 rounded-lg bg-white/[0.06] px-3 text-[13px] text-ink transition outline-none placeholder:text-ink-faint focus:bg-white/[0.09]"
                   id="field-editor-write-prompt"
                   onChange={(event) =>
                     controls.update({ writePrompt: event.target.value })
@@ -136,7 +137,7 @@ export const StepPrompt = ({
                   value={controls.form.writePrompt}
                 />
                 <Button
-                  className="h-11 shrink-0 px-4"
+                  className="h-9 shrink-0 px-4"
                   disabled={
                     controls.form.writePrompt.trim() === "" ||
                     controls.form.isGenerating
@@ -206,7 +207,7 @@ export const StepPrompt = ({
         </EditorSection>
       </div>
 
-      <div className="mt-7 border-t border-hairline pt-6">
+      <Card className="hang mt-7 py-5">
         <PromptTesterStrip
           field={field}
           saveTargetFieldName={
@@ -214,7 +215,7 @@ export const StepPrompt = ({
           }
           title={t("fieldEditor.testSmartField")}
         />
-      </div>
+      </Card>
     </div>
   )
 }

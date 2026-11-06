@@ -17,7 +17,6 @@
     "days_many": "{{count}} dne",
     "days_other": "{{count}} dnů",
     "deck": "Paluba",
-    "default": "Výchozí",
     "delete": "Vymazat",
     "done": "Hotovo",
     "duplicate": "Duplikát",
@@ -211,6 +210,7 @@
     "addToNoteType": "Přidejte Smart Field k {{noteType}}",
     "disable": "Zakázat",
     "deleting": "Mazání…",
+    "followsDefault": "<model>{{model}}</model> (výchozí)",
     "discord": {
       "dismissAriaLabel": "Odmítněte pozvánku Discord",
       "join": "Připojte se",
@@ -256,7 +256,7 @@
     },
     "image": {
       "cannotFindModel": "V katalogu obrázků chybí model {{model}}",
-      "defaultModel": "Model",
+      "defaultModel": "Výchozí model",
       "gptImage25": "nejuniverzálnější volba — ostrý text, čisté diagramy.",
       "loadingLabel": "Načítání nastavení generování obrázků",
       "loadingTitle": "Nastavení generování obrázků",
@@ -278,7 +278,7 @@
       "tryIt": "Zkuste to"
     },
     "text": {
-      "defaultModel": "Model",
+      "defaultModel": "Výchozí model",
       "loadingLabel": "Načítání nastavení generování textu",
       "loadingTitle": "Nastavení generování textu",
       "samplePrompt": "Co je systém s prostorovým opakováním (SRS)?",
@@ -398,7 +398,7 @@
       "text": "Text",
       "voice": "Hlas"
     },
-    "creditUsage": "Využití kreditu",
+    "creditUsage": "Využití kreditů",
     "creditsReset": "Kredity byly resetovány",
     "daysLeft_one": "Poslední den",
     "daysLeft_few": "Zbývají {{count}} dny",

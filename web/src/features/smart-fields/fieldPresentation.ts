@@ -1,4 +1,8 @@
-import { chatModelLabel } from "@/features/text-generation/intelligence"
+import {
+  chatModelLabel,
+  freePlanChatSettings,
+  isPaidOnlyChatSettings,
+} from "@/features/text-generation/intelligence"
 import { modelLabel, providerLabel } from "@/lib/catalog"
 import i18next from "i18next"
 import type { SmartField } from "@/types/api"
@@ -13,17 +17,21 @@ export const smartFieldDescription = (field: SmartField): string => {
   return field.settings.promptText
 }
 
-export const smartFieldModelLabel = (field: SmartField): string => {
-  if (field.settings.usesDefaultGenerationSettings) {
-    return i18next.t("common.default")
-  }
-
+/** The model or voice a field runs with. On the free plan, paid-only text settings
+ *  run as Auto Standard. A field that follows the defaults carries them as its own
+ *  settings, so this names the default too. */
+export const smartFieldModelLabel = (
+  field: SmartField,
+  isFree: boolean,
+): string => {
   if (field.fieldType === "tts") {
-    const voice = field.settings.voiceId
-    return `${providerLabel(field.settings.provider)} · ${voice}`
+    return `${providerLabel(field.settings.provider)} · ${field.settings.voiceId}`
   }
+  if (field.fieldType === "image") return modelLabel(field.settings.model)
 
-  return field.fieldType === "chat"
-    ? chatModelLabel(field.settings)
-    : modelLabel(field.settings.model)
+  return chatModelLabel(
+    isFree && isPaidOnlyChatSettings(field.settings)
+      ? freePlanChatSettings(field.settings)
+      : field.settings,
+  )
 }

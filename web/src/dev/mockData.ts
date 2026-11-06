@@ -489,6 +489,23 @@ export const MOCK_VOICE_CATALOG: VoiceCatalog = {
   ],
 }
 
+// The plugin reads a following field's settings from the defaults, so saving the
+// defaults changes every field that follows them.
+const followDefaults = (
+  fields: SmartField[],
+  fieldType: SmartField["fieldType"],
+  defaults: unknown,
+): SmartField[] =>
+  fields.map((field) =>
+    field.fieldType === fieldType &&
+    field.settings.usesDefaultGenerationSettings
+      ? ({
+          ...field,
+          settings: { ...field.settings, ...(defaults as object) },
+        } as SmartField)
+      : field,
+  )
+
 const MOCK_IMAGE_DATA_URL =
   "data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='960' height='640' viewBox='0 0 960 640'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%232b3149'/%3E%3Cstop offset='1' stop-color='%23121825'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='960' height='640' fill='url(%23g)'/%3E%3Ccircle cx='720' cy='190' r='100' fill='%238bd3a8' opacity='.78'/%3E%3Cpath d='M120 500 Q330 220 500 500 T900 500' fill='none' stroke='%239ba8ff' stroke-width='28' stroke-linecap='round'/%3E%3Ctext x='70' y='105' fill='%23f4f4f5' font-family='sans-serif' font-size='42' font-weight='700'%3EA memorable scene for 食べる%3C/text%3E%3C/svg%3E"
 
@@ -711,6 +728,7 @@ export const sendMockCommand: CommandSender = async <Result = void>(
           ...state.defaults,
           chat: commandPayload as unknown as AppState["defaults"]["chat"],
         },
+        smartFields: followDefaults(state.smartFields, "chat", commandPayload),
       },
     })
     return undefined as Result
@@ -724,6 +742,7 @@ export const sendMockCommand: CommandSender = async <Result = void>(
           ...state.defaults,
           image: commandPayload as unknown as AppState["defaults"]["image"],
         },
+        smartFields: followDefaults(state.smartFields, "image", commandPayload),
       },
     })
     return undefined as Result
@@ -737,6 +756,7 @@ export const sendMockCommand: CommandSender = async <Result = void>(
           ...state.defaults,
           tts: commandPayload as unknown as AppState["defaults"]["tts"],
         },
+        smartFields: followDefaults(state.smartFields, "tts", commandPayload),
       },
     })
     return undefined as Result

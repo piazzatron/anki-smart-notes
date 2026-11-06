@@ -15,7 +15,6 @@
     "days_one": "1 dag",
     "days_other": "{{count}} dagar",
     "deck": "Däck",
-    "default": "Standard",
     "delete": "Radera",
     "done": "Gjort",
     "duplicate": "Duplicera",
@@ -209,6 +208,7 @@
     "addToNoteType": "Lägg till Smart Field till {{noteType}}",
     "disable": "Inaktivera",
     "deleting": "Tar bort...",
+    "followsDefault": "<model>{{model}}</model> (Standard)",
     "discord": {
       "dismissAriaLabel": "Avvisa Discord-inbjudan",
       "join": "Ansluta sig till",
@@ -254,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "Bildkatalogen saknar modell {{model}}",
-      "defaultModel": "Modell",
+      "defaultModel": "Standardmodell",
       "gptImage25": "bäst för allt — skarp text, rena diagram.",
       "loadingLabel": "Läser in inställningar för bildgenerering",
       "loadingTitle": "Inställningar för bildgenerering",
@@ -276,7 +276,7 @@
       "tryIt": "Prova det"
     },
     "text": {
-      "defaultModel": "Modell",
+      "defaultModel": "Standardmodell",
       "loadingLabel": "Läser in inställningar för textgenerering",
       "loadingTitle": "Inställningar för textgenerering",
       "samplePrompt": "Vad är ett mellanrumsupprepningssystem (SRS)?",

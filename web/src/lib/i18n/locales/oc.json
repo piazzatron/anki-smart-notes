@@ -14,7 +14,6 @@
     },
     "days_other": "{{count}} jorns",
     "deck": "Pont",
-    "default": "Defaut",
     "delete": "Escafar",
     "done": "Fach",
     "duplicate": "Duplicat",
@@ -208,6 +207,7 @@
     "addToNoteType": "Ajustar Smart Field a {{noteType}}",
     "disable": "Desactivar",
     "deleting": "Suprimir...",
+    "followsDefault": "<model>{{model}}</model> (per defecte)",
     "discord": {
       "dismissAriaLabel": "Rechazar la invitacion Discord",
       "join": "Rejónher",
@@ -253,7 +253,7 @@
     },
     "image": {
       "cannotFindModel": "Lo catalòg d'imatges manca lo modèl {{model}}",
-      "defaultModel": "Modèl",
+      "defaultModel": "Modèl per defaut",
       "gptImage25": "lo melhor per a tot — tèxte net, esquemas clars.",
       "loadingLabel": "Cargament dels paramètres de generacion d'imatges",
       "loadingTitle": "Paramètres de generacion d'imatges",
@@ -275,7 +275,7 @@
       "tryIt": "Ensajatz-lo"
     },
     "text": {
-      "defaultModel": "Modèl",
+      "defaultModel": "Modèl per defaut",
       "loadingLabel": "Cargament dels paramètres de generacion de tèxte",
       "loadingTitle": "Paramètres de generacion de tèxte",
       "samplePrompt": "Qu es un Sistema de Repeticion Espaciada (SRS)?",
@@ -380,7 +380,7 @@
       "text": "Tèxt",
       "voice": "Votz"
     },
-    "creditUsage": "Utilizacion del crèdit",
+    "creditUsage": "Consumicion de crèdits",
     "creditsReset": "Reïnicializar los crèdits",
     "daysLeft_other": "{{count}} quedan dias",
     "errors": {

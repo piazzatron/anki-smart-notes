@@ -20,7 +20,7 @@
 import type { ReactNode } from "react"
 
 export const PageTitle = ({ children }: { children: ReactNode }) => (
-  <h1 className="min-w-0 truncate text-[26px] leading-tight font-semibold tracking-[-0.025em] text-white">
+  <h1 className="min-w-0 truncate text-[24px] leading-tight font-semibold tracking-[-0.02em] text-ink">
     {children}
   </h1>
 )

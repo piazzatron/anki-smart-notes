@@ -15,7 +15,6 @@
     "days_one": "1 día",
     "days_other": "{{count}} días",
     "deck": "Cuberta",
-    "default": "Por defecto",
     "delete": "Eliminar",
     "done": "Feito",
     "duplicate": "Duplicar",
@@ -209,6 +208,7 @@
     "addToNoteType": "Engade Smart Field a {{noteType}}",
     "disable": "Desactivar",
     "deleting": "Eliminando…",
+    "followsDefault": "<model>{{model}}</model> (predeterminado)",
     "discord": {
       "dismissAriaLabel": "Rexeitar a invitación Discord",
       "join": "Únete",
@@ -254,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "Falta o modelo {{model}} do catálogo de imaxes",
-      "defaultModel": "Modelo",
+      "defaultModel": "Modelo predeterminado",
       "gptImage25": "o mellor para todo uso: texto nítido e diagramas limpos.",
       "loadingLabel": "Cargando a Configuración de Xeración de Imaxes",
       "loadingTitle": "Configuración de Xeración de Imaxes",
@@ -276,7 +276,7 @@
       "tryIt": "Probao"
     },
     "text": {
-      "defaultModel": "Modelo",
+      "defaultModel": "Modelo predeterminado",
       "loadingLabel": "Cargando a Configuración de Xeración de Texto",
       "loadingTitle": "Configuración de xeración de texto",
       "samplePrompt": "Que é un sistema de repetición espaciada (SRS)?",
@@ -309,7 +309,7 @@
       "searchPlaceholder": "Buscar voces…",
       "searchVoices": "Busca voces",
       "title": "Configuración de Voz",
-      "defaultVoice": "Voz Predeterminada",
+      "defaultVoice": "Voz predeterminada",
       "defaultVoiceTip": "Os Smart Fields de voz usan esta voz por defecto. Ao cambiala, actualízanse todos os Smart Fields que usan a predeterminada. Calquera Smart Field pode substituíla pola súa propia voz.",
       "defaultVoiceTipLabel": "Acerca da voz predeterminada"
     }
@@ -386,7 +386,7 @@
       "text": "Texto",
       "voice": "Voz"
     },
-    "creditUsage": "Uso de crédito",
+    "creditUsage": "Uso de créditos",
     "creditsReset": "Restablecemento de créditos",
     "daysLeft_one": "Último día",
     "daysLeft_other": "Quedan {{count}} días",

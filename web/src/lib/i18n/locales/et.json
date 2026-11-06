@@ -15,7 +15,6 @@
     "days_one": "1 päev",
     "days_other": "{{count}} päevad",
     "deck": "Tekk",
-    "default": "Vaikimisi",
     "delete": "Kustuta",
     "done": "Valmis",
     "duplicate": "Duplikaat",
@@ -209,6 +208,7 @@
     "addToNoteType": "Lisage Smart Field {{noteType}}-le",
     "disable": "Keela",
     "deleting": "Kustutamine…",
+    "followsDefault": "<model>{{model}}</model> (vaikimisi)",
     "discord": {
       "dismissAriaLabel": "Loobu Discord kutsest",
       "join": "Liitu",
@@ -254,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "Piltide kataloogist puudub mudel {{model}}",
-      "defaultModel": "Mudel",
+      "defaultModel": "Vaikemudel",
       "gptImage25": "parim üldvalik — terav tekst, selged diagrammid.",
       "loadingLabel": "Pildiloome seadete laadimine",
       "loadingTitle": "Pildiloome seaded",
@@ -276,7 +276,7 @@
       "tryIt": "Proovi seda"
     },
     "text": {
-      "defaultModel": "Mudel",
+      "defaultModel": "Vaikemudel",
       "loadingLabel": "Tekstiloome seadete laadimine",
       "loadingTitle": "Teksti genereerimise sätted",
       "samplePrompt": "Mis on intervallide kordussüsteem (SRS)?",
@@ -309,7 +309,7 @@
       "searchPlaceholder": "Otsi hääli…",
       "searchVoices": "Otsige hääli",
       "title": "Hääle seaded",
-      "defaultVoice": "Vaikimisi hääl",
+      "defaultVoice": "Vaikehääl",
       "defaultVoiceTip": "Häälega Smart Fields kasutavad vaikimisi seda häält. Selle muutmine värskendab kõiki Smart Fields, mis kasutavad vaikeväärtust. Iga Smart Field saab kasutada oma häält.",
       "defaultVoiceTipLabel": "Teave vaikimisi hääle kohta"
     }
@@ -386,7 +386,7 @@
       "text": "Tekst",
       "voice": "Hääl"
     },
-    "creditUsage": "Krediidikasutus",
+    "creditUsage": "Krediitide kasutus",
     "creditsReset": "Krediidid lähtestatakse",
     "daysLeft_one": "Viimane päev",
     "daysLeft_other": "{{count}} päeva jäänud",

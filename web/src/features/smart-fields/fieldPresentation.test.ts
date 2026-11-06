@@ -1,34 +1,44 @@
 import { describe, expect, test } from "bun:test"
 
-import type { SmartField } from "@/types/api"
+import type { ChatSmartFieldSettings, SmartField } from "@/types/api"
 
 import {
   smartFieldDescription,
   smartFieldModelLabel,
 } from "./fieldPresentation"
 
-describe("Smart Field presentation", () => {
-  test("shows Default when the field follows generation defaults", () => {
-    const field: SmartField = {
-      id: "reading",
-      noteTypeId: 1,
-      deckId: 1,
-      targetFieldName: "Reading",
-      fieldType: "chat",
-      enabled: true,
-      settings: {
-        promptText: "Generate {{Front}}",
-        provider: "auto",
-        model: "auto",
-        reasoningLevel: "off",
-        webSearchEnabled: false,
-        usesDefaultGenerationSettings: true,
-        stripHtml: true,
-      },
-    }
+const chatField = (settings: Partial<ChatSmartFieldSettings>): SmartField => ({
+  id: "reading",
+  noteTypeId: 1,
+  deckId: 1,
+  targetFieldName: "Reading",
+  fieldType: "chat",
+  enabled: true,
+  settings: {
+    promptText: "Generate {{Front}}",
+    provider: "auto",
+    model: "auto",
+    reasoningLevel: "off",
+    webSearchEnabled: false,
+    usesDefaultGenerationSettings: false,
+    stripHtml: true,
+    ...settings,
+  },
+})
 
-    expect(smartFieldModelLabel(field)).toBe("Default")
-    expect(smartFieldDescription(field)).toBe("Generate {{Front}}")
+describe("Smart Field presentation", () => {
+  test("on the free plan, paid-only text settings show as Auto Standard, followed or pinned", () => {
+    const autoStandard = smartFieldModelLabel(chatField({}), false)
+
+    for (const usesDefaultGenerationSettings of [true, false]) {
+      const field = chatField({
+        provider: "anthropic",
+        model: "claude-sonnet-4-5",
+        usesDefaultGenerationSettings,
+      })
+      expect(smartFieldModelLabel(field, true)).toBe(autoStandard)
+      expect(smartFieldModelLabel(field, false)).not.toBe(autoStandard)
+    }
   })
 
   test("describes TTS using its source field", () => {
@@ -49,6 +59,6 @@ describe("Smart Field presentation", () => {
     }
 
     expect(smartFieldDescription(field)).toBe("Reads {{Front}} aloud")
-    expect(smartFieldModelLabel(field)).toBe("Google · en-US-Casual-K")
+    expect(smartFieldModelLabel(field, false)).toBe("Google · en-US-Casual-K")
   })
 })

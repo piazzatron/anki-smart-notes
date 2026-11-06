@@ -18,6 +18,7 @@
  */
 
 import { Button } from "@/components/ui/Button"
+import { ArrowRight } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -163,7 +164,7 @@ const SubscriptionDetails = ({ account }: { account: AccountState }) => {
   }
 
   return (
-    <div className="-mx-hang space-y-2.5">
+    <div className="-mx-hang space-y-3">
       {hero !== null && <PlanHero {...hero} />}
       <UsageModule
         daysLeft={plan.daysLeft}
@@ -182,7 +183,7 @@ const SignedOutSubscription = () => {
   return (
     <div className="flex min-h-full items-center justify-center p-6 text-center">
       <div>
-        <h2 className="text-[19px] font-bold text-zinc-100">
+        <h2 className="text-[19px] font-semibold text-ink">
           {t("subscription.signedOut.manage")}
         </h2>
         <p className="mt-1.5 text-[13px] text-ink-muted">
@@ -340,7 +341,7 @@ const PlanHero = ({
         </span>
       )}
       <span
-        className={`${context === undefined ? "" : "mt-1"} text-[23px] font-extrabold tracking-[-0.4px]`}
+        className={`${context === undefined ? "" : "mt-1"} text-[20px] font-bold tracking-[-0.02em]`}
         style={{ color: styles.ink }}
       >
         {sparkle && (
@@ -350,7 +351,11 @@ const PlanHero = ({
         {showArrow && (
           <>
             {" "}
-            <span className="inline-block font-bold rtl:rotate-180">→</span>
+            <ArrowRight
+              aria-hidden
+              className="inline-block size-5 align-[-3px] rtl:rotate-180"
+              strokeWidth={2.75}
+            />
           </>
         )}
       </span>
@@ -396,7 +401,7 @@ const UsageModule = ({
   return (
     <section className={`${CARD_CLASS} px-hang py-[22px]`}>
       <div className="flex items-baseline justify-between">
-        <h2 className="text-[13px] font-semibold tracking-[0.4px] text-zinc-200 uppercase">
+        <h2 className="text-[13px] font-semibold text-ink">
           {t("subscription.creditUsage")}
         </h2>
         <p className="text-xs text-ink-muted">
@@ -483,7 +488,7 @@ const DailyNotesModule = ({ plan }: { plan: PlanInfo }) => {
   return (
     <section className={`${CARD_CLASS} px-hang py-[22px]`}>
       <div className="flex items-baseline justify-between">
-        <h2 className="text-[13px] font-semibold tracking-[0.4px] text-zinc-200 uppercase">
+        <h2 className="text-[13px] font-semibold text-ink">
           {t("subscription.free.notesTodayLabel")}
         </h2>
         <p className="text-xs text-ink-muted">
@@ -588,13 +593,13 @@ const getPlanFacts = ({
 
 const PlanFacts = ({ facts }: { facts: Array<[string, string]> }) => (
   <div
-    className="grid gap-2.5"
+    className="grid gap-3"
     style={{ gridTemplateColumns: `repeat(${facts.length}, minmax(0, 1fr))` }}
   >
     {facts.map(([label, value]) => (
       <div className={`${CARD_CLASS} px-hang py-[13px]`} key={label}>
         <p className="text-xs text-ink-muted">{label}</p>
-        <p className="mt-[3px] truncate text-sm font-bold text-zinc-100">
+        <p className="mt-[3px] truncate text-sm font-semibold text-ink">
           {value}
         </p>
       </div>
@@ -611,7 +616,7 @@ const ManageRow = ({ topTier }: { topTier: boolean }) => {
       type="button"
     >
       <span className="min-w-0">
-        <span className="block text-[14.5px] font-bold text-zinc-100">
+        <span className="block text-[14px] font-semibold text-ink">
           {topTier
             ? t("subscription.managePlan")
             : t("subscription.manageOrUpgrade")}

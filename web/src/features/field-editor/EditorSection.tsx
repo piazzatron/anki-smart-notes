@@ -28,7 +28,7 @@ interface EditorSectionProps {
 }
 
 /** One headed block of the field editor. Both wizard steps use it, so they read at the
- * same scale — the small uppercase labels stay for settings nested inside a section. */
+ * same scale — the small labels stay for settings nested inside a section. */
 export const EditorSection = ({
   children,
   className = "",
@@ -37,12 +37,12 @@ export const EditorSection = ({
 }: EditorSectionProps) => (
   <section className={className}>
     <h2
-      className={`text-[16px] leading-tight font-semibold text-zinc-100 ${description === undefined ? "mb-2" : "mb-1"}`}
+      className={`text-[16px] leading-tight font-semibold text-ink ${description === undefined ? "mb-3" : "mb-1"}`}
     >
       {label}
     </h2>
     {description !== undefined && (
-      <p className="mb-2 text-[13px] leading-[1.45] text-ink-muted">
+      <p className="mb-3 text-[13px] leading-[1.45] text-ink-muted">
         {description}
       </p>
     )}

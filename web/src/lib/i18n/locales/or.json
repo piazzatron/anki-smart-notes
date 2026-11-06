@@ -15,7 +15,6 @@
     "days_one": "1 ଦିନ",
     "days_other": "{{count}} ଦିନ",
     "deck": "ଡ଼େକ୍",
-    "default": "ଡିଫଲ୍ଟ",
     "delete": "ବିଲୋପ କରନ୍ତୁ",
     "done": "ସମାପ୍ତ",
     "duplicate": "ନକଲ",
@@ -209,6 +208,7 @@
     "addToNoteType": "Smart Field କୁ {{noteType}} ରେ ଯୋଡନ୍ତୁ",
     "disable": "ଅକ୍ଷମ କରନ୍ତୁ",
     "deleting": "ବିଲୋପ…",
+    "followsDefault": "<model>{{model}}</model> (ଡିଫଲ୍ଟ)",
     "discord": {
       "dismissAriaLabel": "Discord ନିମନ୍ତ୍ରଣକୁ ବରଖାସ୍ତ କରନ୍ତୁ",
       "join": "ଯୋଗ ଦିଅନ୍ତୁ",
@@ -254,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "ପ୍ରତିଛବି କାଟାଲଗ୍ ମଡେଲ୍ {{model}} ହରାଉଛି",
-      "defaultModel": "ମଡେଲ",
+      "defaultModel": "ଡିଫଲ୍ଟ ମଡେଲ",
       "gptImage25": "ସର୍ବୋତ୍ତମ ସାଧାରଣ ପସନ୍ଦ — ସ୍ପଷ୍ଟ ପାଠ୍ୟ, ପରିଷ୍କାର ଚିତ୍ର।",
       "loadingLabel": "ଇମେଜ୍ ସୃଷ୍ଟି ସେଟିଂସ୍ ଲୋଡ୍ ହେଉଛି",
       "loadingTitle": "ଇମେଜ୍ ସୃଷ୍ଟି ସେଟିଂସ୍",
@@ -276,7 +276,7 @@
       "tryIt": "ଏହାକୁ ଚେଷ୍ଟା କରନ୍ତୁ"
     },
     "text": {
-      "defaultModel": "ମଡେଲ",
+      "defaultModel": "ଡିଫଲ୍ଟ ମଡେଲ",
       "loadingLabel": "ଟେକ୍ସଟ୍ ସୃଷ୍ଟି ସେଟିଂସ୍ ଲୋଡ୍ ହେଉଛି",
       "loadingTitle": "ପାଠ୍ୟ ଜେନେରେସନ୍ ସେଟିଂସମୂହ",
       "samplePrompt": "ଏକ ସ୍ପେସ୍ ପୁନରାବୃତ୍ତି ସିଷ୍ଟମ୍ (SRS) କ’ଣ?",
@@ -309,7 +309,7 @@
       "searchPlaceholder": "ସ୍ୱର ଖୋଜନ୍ତୁ…",
       "searchVoices": "ସ୍ୱର ସନ୍ଧାନ କରନ୍ତୁ",
       "title": "ଭଏସ୍ ସେଟିଂସ୍",
-      "defaultVoice": "ଡିଫଲ୍ଟ ଭଏସ୍",
+      "defaultVoice": "ଡିଫଲ୍ଟ ସ୍ୱର",
       "defaultVoiceTip": "Voice Smart Fields ଡିଫଲ୍ଟ ଭାବରେ ଏହି ଭଏସ୍ ବ୍ୟବହାର କରେ। ଏହାକୁ ବଦଳାଇଲେ ଡିଫଲ୍ଟ ବ୍ୟବହାର କରୁଥିବା ପ୍ରତ୍ୟେକ Smart Field ଅଦ୍ୟତନ ହେବ। ଯେକୌଣସି Smart Field ନିଜର ଭଏସ୍ ସହିତ ଏହାକୁ ଓଭରରାଇଡ୍ କରିପାରିବ।",
       "defaultVoiceTipLabel": "ଡିଫଲ୍ଟ ଭଏସ୍ ବିଷୟରେ"
     }

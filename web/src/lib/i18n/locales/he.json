@@ -16,7 +16,6 @@
     "days_two": "{{count}} ימים",
     "days_other": "{{count}} ימים",
     "deck": "סִיפּוּן",
-    "default": "בְּרִירַת מֶחדָל",
     "delete": "לִמְחוֹק",
     "done": "נַעֲשָׂה",
     "duplicate": "לְשַׁכְפֵּל",
@@ -210,6 +209,7 @@
     "addToNoteType": "הוסף Smart Field ל-{{noteType}}",
     "disable": "השבת",
     "deleting": "מוחק...",
+    "followsDefault": "<model>{{model}}</model> (ברירת מחדל)",
     "discord": {
       "dismissAriaLabel": "דחה את ההזמנה של Discord",
       "join": "לְהִצְטַרֵף",
@@ -255,7 +255,7 @@
     },
     "image": {
       "cannotFindModel": "בקטלוג התמונות חסר דגם {{model}}",
-      "defaultModel": "מודל",
+      "defaultModel": "מודל ברירת מחדל",
       "gptImage25": "הכי מאוזן: טקסט חד, דיאגרמות נקיות.",
       "loadingLabel": "טוען הגדרות יצירת תמונות",
       "loadingTitle": "הגדרות יצירת תמונות",
@@ -277,7 +277,7 @@
       "tryIt": "נסה את זה"
     },
     "text": {
-      "defaultModel": "מודל",
+      "defaultModel": "מודל ברירת מחדל",
       "loadingLabel": "טוען הגדרות יצירת טקסט",
       "loadingTitle": "הגדרות יצירת טקסט",
       "samplePrompt": "מהי מערכת חזרות מרווחת (SRS)?",
@@ -392,7 +392,7 @@
       "text": "טֶקסט",
       "voice": "קוֹל"
     },
-    "creditUsage": "שימוש באשראי",
+    "creditUsage": "שימוש בקרדיטים",
     "creditsReset": "זיכויים מאופסים",
     "daysLeft_one": "יום אחרון",
     "daysLeft_two": "נותרו {{count}} ימים",

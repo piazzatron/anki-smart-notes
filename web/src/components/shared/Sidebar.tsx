@@ -108,7 +108,7 @@ export const Sidebar = ({
       ref={asideRef}
       style={width === null ? undefined : { width }}
     >
-      <div className="mb-3.5 px-[7px] text-[18px] font-bold text-zinc-100">
+      <div className="mb-3 px-[10px] text-[15px] font-semibold tracking-[-0.01em] text-ink">
         {t("common.productName")}
       </div>
       <nav
@@ -161,7 +161,7 @@ export const Sidebar = ({
         />
         <div className="relative grid grid-cols-2 gap-1.5">
           <a
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-white/[0.06] py-2 text-[13px] font-semibold text-zinc-400 transition hover:bg-white/10 hover:text-zinc-200"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-white/[0.06] py-[7px] text-[13px] font-medium text-ink-muted transition hover:bg-white/10 hover:text-zinc-200"
             href={DISCORD_URL}
             rel="noreferrer"
             target="_blank"
@@ -171,7 +171,7 @@ export const Sidebar = ({
           </a>
           <FeedbackDialog>
             <button
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-white/[0.06] py-2 text-[13px] font-semibold text-zinc-400 transition hover:bg-white/10 hover:text-zinc-200"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-white/[0.06] py-[7px] text-[13px] font-medium text-ink-muted transition hover:bg-white/10 hover:text-zinc-200"
               type="button"
             >
               <LightbulbIcon size={14} />
@@ -182,7 +182,7 @@ export const Sidebar = ({
 
         {appVersion !== null && (
           <button
-            className="block w-full pb-2 text-center font-mono text-xs text-ink-muted hover:text-zinc-400"
+            className="block w-full pb-2.5 text-center text-xs text-ink-muted hover:text-ink"
             onClick={() => onNavigate("support")}
           >
             {t("sidebar.version", { version: appVersion })}

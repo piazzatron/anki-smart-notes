@@ -110,7 +110,7 @@ export const SelectedTestCard = ({
     return (
       <div className="flex h-[54px] min-w-0 items-center gap-3 rounded-lg bg-white/[0.04] px-3">
         <div className="min-w-0 flex-1">
-          <p className="mb-[3px] text-[11px] font-medium tracking-[0.04em] text-ink-muted uppercase">
+          <p className="mb-[3px] text-xs font-medium text-ink-muted">
             {t("promptTester.currentlySelectedCard")}
           </p>
           <div className="flex min-w-0 items-baseline gap-2">

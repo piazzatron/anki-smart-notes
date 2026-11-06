@@ -19,7 +19,6 @@
     "days_many": "{{count}} يومًا",
     "days_other": "أيام {{count}}",
     "deck": "ظهر السفينة",
-    "default": "تقصير",
     "delete": "يمسح",
     "done": "منتهي",
     "duplicate": "ينسخ",
@@ -213,6 +212,7 @@
     "addToNoteType": "أضف الحقل الذكي إلى {{noteType}}",
     "disable": "إبطال",
     "deleting": "جارٍ الحذف...",
+    "followsDefault": "<model>{{model}}</model> (افتراضي)",
     "discord": {
       "dismissAriaLabel": "رفض دعوة Discord",
       "join": "ينضم",
@@ -258,7 +258,7 @@
     },
     "image": {
       "cannotFindModel": "كتالوج الصور يفتقد الطراز {{model}}",
-      "defaultModel": "النموذج",
+      "defaultModel": "النموذج الافتراضي",
       "gptImage25": "الأفضل للاستخدام العام — نصوص واضحة ومخططات نظيفة.",
       "loadingLabel": "جارٍ تحميل إعدادات إنشاء الصور",
       "loadingTitle": "إعدادات إنشاء الصور",
@@ -280,7 +280,7 @@
       "tryIt": "جربه"
     },
     "text": {
-      "defaultModel": "النموذج",
+      "defaultModel": "النموذج الافتراضي",
       "loadingLabel": "جارٍ تحميل إعدادات إنشاء النصوص",
       "loadingTitle": "إعدادات إنشاء النص",
       "samplePrompt": "ما هو نظام التكرار المتباعد (SRS)؟",
@@ -410,7 +410,7 @@
       "text": "نص",
       "voice": "صوت"
     },
-    "creditUsage": "استخدام الائتمان",
+    "creditUsage": "استخدام الرصيد",
     "creditsReset": "إعادة تعيين الاعتمادات",
     "daysLeft_zero": "يتبقى {{count}} أيام",
     "daysLeft_one": "اليوم الأخير",

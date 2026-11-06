@@ -14,7 +14,6 @@
     },
     "days_other": "{{count}} hari",
     "deck": "dek",
-    "default": "Lalai",
     "delete": "Padam",
     "done": "Selesai",
     "duplicate": "Pendua",
@@ -208,6 +207,7 @@
     "addToNoteType": "Tambahkan Smart Field kepada {{noteType}}",
     "disable": "Lumpuhkan",
     "deleting": "Memadamkan…",
+    "followsDefault": "<model>{{model}}</model> (Default)",
     "discord": {
       "dismissAriaLabel": "Tolak jemputan Discord",
       "join": "Sertai",
@@ -253,7 +253,7 @@
     },
     "image": {
       "cannotFindModel": "Katalog imej tiada model {{model}}",
-      "defaultModel": "Model",
+      "defaultModel": "Model lalai",
       "gptImage25": "pilihan terbaik untuk semua keperluan — teks tajam, rajah kemas.",
       "loadingLabel": "Memuatkan Tetapan Penjanaan Imej",
       "loadingTitle": "Tetapan Penjanaan Imej",
@@ -275,7 +275,7 @@
       "tryIt": "Cubalah"
     },
     "text": {
-      "defaultModel": "Model",
+      "defaultModel": "Model lalai",
       "loadingLabel": "Memuatkan Tetapan Penjanaan Teks",
       "loadingTitle": "Tetapan Penjanaan Teks",
       "samplePrompt": "Apakah itu Sistem Ulangan Berjarak (SRS)?",
@@ -307,7 +307,7 @@
       "searchPlaceholder": "Cari suara…",
       "searchVoices": "Cari suara",
       "title": "Tetapan Suara",
-      "defaultVoice": "Suara Lalai",
+      "defaultVoice": "Suara lalai",
       "defaultVoiceTip": "Voice Smart Fields menggunakan suara ini secara lalai. Menukarnya akan mengemas kini setiap Smart Field yang menggunakan lalai. Mana-mana Smart Field boleh menggantikannya dengan suara sendiri.",
       "defaultVoiceTipLabel": "Mengenai suara lalai"
     }
@@ -380,7 +380,7 @@
       "text": "Teks",
       "voice": "Suara"
     },
-    "creditUsage": "Penggunaan Kredit",
+    "creditUsage": "Penggunaan kredit",
     "creditsReset": "Kredit ditetapkan semula",
     "daysLeft_other": "{{count}} hari lagi",
     "errors": {

@@ -108,7 +108,7 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
         >
           {FIELD_TYPES.map(({ icon: Icon, labelKey, value }) => (
             <OptionGroupItem
-              className="group flex flex-1 cursor-pointer items-center justify-center gap-[7px] rounded-md py-[11px] text-[13.5px] font-semibold transition data-[state=checked]:bg-white/[0.1] data-[state=checked]:text-zinc-100 data-[state=unchecked]:bg-white/[0.04] data-[state=unchecked]:text-zinc-400 data-[state=unchecked]:hover:bg-white/[0.06] data-[state=unchecked]:hover:text-zinc-200"
+              className="group flex flex-1 cursor-pointer items-center justify-center gap-[7px] rounded-lg py-[10px] text-[13px] font-medium transition data-[state=checked]:bg-white/[0.1] data-[state=checked]:text-zinc-100 data-[state=unchecked]:bg-white/[0.04] data-[state=unchecked]:text-zinc-400 data-[state=unchecked]:hover:bg-white/[0.06] data-[state=unchecked]:hover:text-zinc-200"
               key={value}
               value={value}
             >
@@ -143,10 +143,7 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
               }
               value={String(target.noteTypeId)}
             >
-              <SelectTrigger
-                aria-label={t("common.noteType")}
-                className="min-h-9 py-1.5"
-              >
+              <SelectTrigger aria-label={t("common.noteType")}>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -166,10 +163,7 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
               }
               value={String(target.deckId)}
             >
-              <SelectTrigger
-                aria-label={t("common.deck")}
-                className="min-h-9 py-1.5"
-              >
+              <SelectTrigger aria-label={t("common.deck")}>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -210,7 +204,7 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
         >
           <SelectTrigger
             aria-label={t("common.field")}
-            className="py-[11px] font-mono text-sm font-semibold"
+            className="font-mono text-sm"
           >
             <SelectValue />
           </SelectTrigger>
@@ -260,12 +254,10 @@ interface FieldLabelProps {
 
 const FieldLabel = ({ children, label, optional }: FieldLabelProps) => (
   <label className="block">
-    <span className="mb-2 block text-[11px] font-semibold tracking-[0.08em] text-ink-muted uppercase">
+    <span className="mb-2 block text-xs font-medium text-ink-muted">
       {label}
       {optional && (
-        <span className="ms-1 font-normal tracking-normal text-ink-muted normal-case">
-          {i18next.t("common.optional")}
-        </span>
+        <span className="ms-1 font-normal">{i18next.t("common.optional")}</span>
       )}
     </span>
     {children}

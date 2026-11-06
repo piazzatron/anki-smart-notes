@@ -17,7 +17,6 @@
     "days_many": "{{count}} днів",
     "days_other": "{{count}} днів",
     "deck": "колода",
-    "default": "За замовчуванням",
     "delete": "Видалити",
     "done": "Готово",
     "duplicate": "дублікат",
@@ -211,6 +210,7 @@
     "addToNoteType": "Додайте Smart Field до {{noteType}}",
     "disable": "Вимкнути",
     "deleting": "Видалення…",
+    "followsDefault": "<model>{{model}}</model> (За замовчуванням)",
     "discord": {
       "dismissAriaLabel": "Відхилити запрошення Discord",
       "join": "Приєднуйтесь",
@@ -256,7 +256,7 @@
     },
     "image": {
       "cannotFindModel": "У каталозі зображень відсутня модель {{model}}",
-      "defaultModel": "Модель",
+      "defaultModel": "Модель за замовчуванням",
       "gptImage25": "найкращий універсальний варіант — чіткий текст, чисті діаграми.",
       "loadingLabel": "Завантаження налаштувань генерації зображень",
       "loadingTitle": "Налаштування генерації зображень",
@@ -278,7 +278,7 @@
       "tryIt": "Спробуйте"
     },
     "text": {
-      "defaultModel": "Модель",
+      "defaultModel": "Модель за замовчуванням",
       "loadingLabel": "Завантаження налаштувань генерації тексту",
       "loadingTitle": "Налаштування генерації тексту",
       "samplePrompt": "Що таке система інтервального повторення (SRS)?",
@@ -313,7 +313,7 @@
       "searchPlaceholder": "Пошук голосів…",
       "searchVoices": "Пошук голосів",
       "title": "Налаштування голосу",
-      "defaultVoice": "Типовий голос",
+      "defaultVoice": "Голос за замовчуванням",
       "defaultVoiceTip": "Smart Fields для голосу використовують цей голос за замовчуванням. Його зміна оновлює всі Smart Fields, які використовують типовий голос. Будь-які Smart Fields можуть замінити його власним голосом.",
       "defaultVoiceTipLabel": "Про типовий голос"
     }
@@ -398,7 +398,7 @@
       "text": "текст",
       "voice": "Голос"
     },
-    "creditUsage": "Використання кредиту",
+    "creditUsage": "Використання кредитів",
     "creditsReset": "Скидання кредитів",
     "daysLeft_one": "Останній день",
     "daysLeft_few": "залишилося {{count}} дні",

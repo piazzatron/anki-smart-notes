@@ -15,7 +15,6 @@
     "days_one": "1 روز",
     "days_other": "روز {{count}}",
     "deck": "عرشه",
-    "default": "پیش فرض",
     "delete": "حذف کنید",
     "done": "انجام شد",
     "duplicate": "تکراری",
@@ -209,6 +208,7 @@
     "addToNoteType": "Smart Field را به {{noteType}} اضافه کنید",
     "disable": "غیر فعال کردن",
     "deleting": "در حال حذف…",
+    "followsDefault": "<model>{{model}}</model> (پیش‌فرض)",
     "discord": {
       "dismissAriaLabel": "دعوت Discord را رد کنید",
       "join": "بپیوندید",
@@ -254,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "کاتالوگ تصویر موجود نیست مدل {{model}}",
-      "defaultModel": "مدل",
+      "defaultModel": "مدل پیش‌فرض",
       "gptImage25": "بهترین گزینهٔ همه‌کاره — متن واضح، نمودارهای تمیز.",
       "loadingLabel": "در حال بارگذاری تنظیمات تولید تصویر",
       "loadingTitle": "تنظیمات تولید تصویر",
@@ -276,7 +276,7 @@
       "tryIt": "آن را امتحان کنید"
     },
     "text": {
-      "defaultModel": "مدل",
+      "defaultModel": "مدل پیش‌فرض",
       "loadingLabel": "در حال بارگذاری تنظیمات تولید متن",
       "loadingTitle": "تنظیمات تولید متن",
       "samplePrompt": "سیستم تکرار فاصله ای (SRS) چیست؟",
@@ -386,7 +386,7 @@
       "text": "متن",
       "voice": "صدا"
     },
-    "creditUsage": "استفاده از اعتبار",
+    "creditUsage": "میزان استفاده از اعتبار",
     "creditsReset": "اعتبارات بازنشانی می شود",
     "daysLeft_one": "روز گذشته",
     "daysLeft_other": "{{count}} روز باقی مانده است",

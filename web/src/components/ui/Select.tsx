@@ -32,7 +32,7 @@ export const SelectTrigger = forwardRef<
   ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
 >(({ children, className = "", ...props }, ref) => (
   <SelectPrimitive.Trigger
-    className={`flex min-h-11 w-full cursor-pointer items-center gap-2 rounded-xl bg-white/[0.05] px-4 py-2 text-start text-sm font-medium text-ink transition outline-none hover:bg-white/[0.07] focus-visible:ring-2 focus-visible:ring-indigo/30 disabled:cursor-not-allowed disabled:opacity-45 data-[state=open]:bg-white/[0.08] ${className}`}
+    className={`flex min-h-9 w-full cursor-pointer items-center gap-2 rounded-lg bg-white/[0.05] px-3.5 py-1.5 text-start text-sm font-medium text-ink transition outline-none hover:bg-white/[0.07] focus-visible:ring-2 focus-visible:ring-indigo/30 disabled:cursor-not-allowed disabled:opacity-45 data-[state=open]:bg-white/[0.08] ${className}`}
     ref={ref}
     {...props}
   >
@@ -69,7 +69,7 @@ export const SelectLabel = forwardRef<
   ComponentPropsWithoutRef<typeof SelectPrimitive.Label>
 >(({ className = "", ...props }, ref) => (
   <SelectPrimitive.Label
-    className={`px-4 pt-3 pb-1.5 text-[11px] font-semibold tracking-[0.055em] text-ink-muted uppercase ${className}`}
+    className={`px-4 pt-3 pb-1.5 text-xs font-medium text-ink-muted ${className}`}
     ref={ref}
     {...props}
   />

@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next"
 import { useIsFreePlan } from "@/components/shared/UpgradeSheet"
 
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
+import { Card } from "@/components/ui/Card"
 import { SectionHeading } from "@/components/ui/SectionHeading"
 import { PromptTesterStrip } from "@/features/prompt-tester/PromptTesterStrip"
 import { usePromptTester } from "@/features/prompt-tester/usePromptTester"
@@ -151,15 +152,16 @@ const LoadedVoiceDefaultsScreen = ({
             onSelect={controls.updateDefault}
             value={controls.form.values}
           >
-            <p className="mb-2 px-hang text-[11px] font-semibold tracking-[0.08em] text-ink-muted uppercase">
+            <p className="mb-2 px-hang text-xs font-medium text-ink-muted">
               {t("defaults.voice.currentDefault")}
             </p>
-            <div className="flex h-10 items-center gap-2.5 rounded-xl bg-white/[0.05] px-hang">
-              <p className="min-w-0 flex-1 truncate text-sm font-medium whitespace-nowrap text-ink">
+            <Card className="px-hang py-2.5">
+              <p className="truncate text-sm font-medium text-ink">
+                {selectedVoice?.name ?? controls.form.values.voiceId}
+              </p>
+              <p className="mt-0.5 truncate text-xs text-ink-muted">
                 {providerLabel(controls.form.values.provider)}
-                {selectedVoice === undefined ? (
-                  <> · {controls.form.values.voiceId}</>
-                ) : (
+                {selectedVoice !== undefined && (
                   <>
                     {" "}
                     · {selectedVoice.language} ·{" "}
@@ -170,12 +172,11 @@ const LoadedVoiceDefaultsScreen = ({
                         {genderIcon}
                         <span className="sr-only">{genderLabel}</span>
                       </>
-                    )}{" "}
-                    · {selectedVoice.name}
+                    )}
                   </>
                 )}
               </p>
-            </div>
+            </Card>
           </VoicePicker>
         </div>
       </div>

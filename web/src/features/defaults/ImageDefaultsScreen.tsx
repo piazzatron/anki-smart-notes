@@ -108,7 +108,7 @@ const LoadedImageDefaultsScreen = ({
         />
       )}
 
-      <div className="max-w-[520px]">
+      <div>
         <SectionHeading
           tip={{
             content: (

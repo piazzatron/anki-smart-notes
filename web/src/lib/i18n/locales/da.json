@@ -15,7 +15,6 @@
     "days_one": "1 dag",
     "days_other": "{{count}} dage",
     "deck": "Dæk",
-    "default": "Misligholdelse",
     "delete": "Slet",
     "done": "Færdig",
     "duplicate": "Duplikere",
@@ -209,6 +208,7 @@
     "addToNoteType": "Tilføj Smart Field til {{noteType}}",
     "disable": "Deaktiver",
     "deleting": "Sletter...",
+    "followsDefault": "<model>{{model}}</model> (Standard)",
     "discord": {
       "dismissAriaLabel": "Afvis Discord invitation",
       "join": "Deltag",
@@ -254,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "Billedkatalog mangler model {{model}}",
-      "defaultModel": "Model",
+      "defaultModel": "Standardmodel",
       "gptImage25": "bedst til alt — skarp tekst, rene diagrammer.",
       "loadingLabel": "Indlæser indstillinger for billedgenerering",
       "loadingTitle": "Indstillinger for billedgenerering",
@@ -276,7 +276,7 @@
       "tryIt": "Prøv det"
     },
     "text": {
-      "defaultModel": "Model",
+      "defaultModel": "Standardmodel",
       "loadingLabel": "Indlæser indstillinger for tekstgenerering",
       "loadingTitle": "Indstillinger for tekstgenerering",
       "samplePrompt": "Hvad er et Spaced Repetition System (SRS)?",
@@ -386,7 +386,7 @@
       "text": "Tekst",
       "voice": "Stemme"
     },
-    "creditUsage": "Kreditforbrug",
+    "creditUsage": "Forbrug af kredit",
     "creditsReset": "Credits nulstillet",
     "daysLeft_one": "Sidste dag",
     "daysLeft_other": "{{count}} dage tilbage",

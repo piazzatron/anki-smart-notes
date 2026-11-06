@@ -18,7 +18,6 @@
     "days_many": "laethanta {{count}}",
     "days_other": "laethanta {{count}}",
     "deck": "Deic",
-    "default": "Réamhshocrú",
     "delete": "Scrios",
     "done": "Déanta",
     "duplicate": "Dúblach",
@@ -212,6 +211,7 @@
     "addToNoteType": "Cuir Smart Field le {{noteType}}",
     "disable": "Díchumasaigh",
     "deleting": "Ag scriosadh…",
+    "followsDefault": "<model>{{model}}</model> (Réamhshocrú)",
     "discord": {
       "dismissAriaLabel": "Ruaig cuireadh Discord",
       "join": "Bígí",
@@ -257,7 +257,7 @@
     },
     "image": {
       "cannotFindModel": "Tá samhail {{model}} in easnamh ar chatalóg na n-íomhánna",
-      "defaultModel": "Samhail",
+      "defaultModel": "Múnla réamhshocraithe",
       "gptImage25": "an rogha is fearr ar fad — téacs géar, léaráidí glana.",
       "loadingLabel": "Socruithe Giniúna Íomhá á Lódáil",
       "loadingTitle": "Socruithe Giniúna Íomhá",
@@ -279,7 +279,7 @@
       "tryIt": "Bain triail as"
     },
     "text": {
-      "defaultModel": "Samhail",
+      "defaultModel": "Múnla réamhshocraithe",
       "loadingLabel": "Socruithe Giniúna Téacs á Lódáil",
       "loadingTitle": "Socruithe Giniúint Téacs",
       "samplePrompt": "Cad is Córas Athrá Spásáilte (SRS) ann?",
@@ -315,7 +315,7 @@
       "searchPlaceholder": "Cuardaigh guthanna…",
       "searchVoices": "Cuardaigh guthanna",
       "title": "Socruithe Gutha",
-      "defaultVoice": "Guth Réamhshocraithe",
+      "defaultVoice": "Guth réamhshocraithe",
       "defaultVoiceTip": "Úsáideann Voice Smart Fields an guth seo de réir réamhshocraithe. Nuashonraítear gach Smart Field a úsáideann an réamhshocrú nuair a athraíonn tú é. Is féidir le Smart Field ar bith a guth féin a shocrú in ionad an réamhshocraithe.",
       "defaultVoiceTipLabel": "Maidir leis an nguth réamhshocraithe"
     }
@@ -404,7 +404,7 @@
       "text": "Téacs",
       "voice": "Guth"
     },
-    "creditUsage": "Úsáid Creidmheasa",
+    "creditUsage": "Úsáid creidmheasa",
     "creditsReset": "Creidmheasanna a athshocrú",
     "daysLeft_one": "Lá deiridh",
     "daysLeft_two": "{{count}} laethanta fágtha",

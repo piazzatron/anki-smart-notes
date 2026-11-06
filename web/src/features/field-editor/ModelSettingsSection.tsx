@@ -105,7 +105,7 @@ export const ModelSettingsSection = ({
             the field its own copy, and changing it back to the default follows again. */}
         <div className="mt-4">
           {fieldType !== "tts" && (
-            <span className="mb-2 block text-[11px] font-semibold tracking-[0.08em] text-ink-muted uppercase">
+            <span className="mb-2 block text-xs font-medium text-ink-muted">
               {t("fieldEditor.modelSettings.model")}
             </span>
           )}

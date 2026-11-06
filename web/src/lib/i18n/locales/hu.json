@@ -15,7 +15,6 @@
     "days_one": "1 nap",
     "days_other": "{{count}} nap",
     "deck": "Fedélzet",
-    "default": "Alapértelmezett",
     "delete": "Töröl",
     "done": "Kész",
     "duplicate": "Másolat",
@@ -209,6 +208,7 @@
     "addToNoteType": "Adja hozzá az Smart Field-t az {{noteType}}-hoz",
     "disable": "Letiltás",
     "deleting": "Törlés…",
+    "followsDefault": "<model>{{model}}</model> (alapértelmezett)",
     "discord": {
       "dismissAriaLabel": "Az Discord meghívó elvetése",
       "join": "Csatlakozik",
@@ -254,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "A képkatalógusból hiányzik az {{model}} modell",
-      "defaultModel": "Modell",
+      "defaultModel": "Alapértelmezett modell",
       "gptImage25": "legjobb általános választás, éles szöveg, tiszta diagramok.",
       "loadingLabel": "Képgenerálási beállítások betöltése",
       "loadingTitle": "Képgenerálási beállítások",
@@ -276,7 +276,7 @@
       "tryIt": "Próbáld ki"
     },
     "text": {
-      "defaultModel": "Modell",
+      "defaultModel": "Alapértelmezett modell",
       "loadingLabel": "Szöveggenerálási beállítások betöltése",
       "loadingTitle": "Szöveggenerálási beállítások",
       "samplePrompt": "Mi az a térközös ismétlési rendszer (SRS)?",
@@ -386,7 +386,7 @@
       "text": "Szöveg",
       "voice": "Hang"
     },
-    "creditUsage": "Hitelhasználat",
+    "creditUsage": "Kreditfelhasználás",
     "creditsReset": "A kreditek visszaállítása",
     "daysLeft_one": "Utolsó nap",
     "daysLeft_other": "{{count}} nap van hátra",

@@ -15,7 +15,6 @@
     "days_one": "1 dag",
     "days_other": "{{count}} dagen",
     "deck": "Dek",
-    "default": "Standaard",
     "delete": "Verwijderen",
     "done": "Klaar",
     "duplicate": "Duplicaat",
@@ -209,6 +208,7 @@
     "addToNoteType": "Voeg Smart Field toe aan {{noteType}}",
     "disable": "Uitzetten",
     "deleting": "Verwijderen…",
+    "followsDefault": "<model>{{model}}</model> (Standaard)",
     "discord": {
       "dismissAriaLabel": "Discord-uitnodiging afwijzen",
       "join": "Meedoen",
@@ -254,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "Afbeeldingscatalogus ontbreekt model {{model}}",
-      "defaultModel": "Model",
+      "defaultModel": "Standaardmodel",
       "gptImage25": "de beste allrounder — scherpe tekst, schone diagrammen.",
       "loadingLabel": "Instellingen voor afbeeldingsgeneratie laden",
       "loadingTitle": "Instellingen voor afbeeldingsgeneratie",
@@ -276,7 +276,7 @@
       "tryIt": "Probeer het"
     },
     "text": {
-      "defaultModel": "Model",
+      "defaultModel": "Standaardmodel",
       "loadingLabel": "Instellingen voor tekstgeneratie laden",
       "loadingTitle": "Instellingen voor het genereren van tekst",
       "samplePrompt": "Wat is een Spaced Repetition System (SRS)?",
@@ -386,7 +386,7 @@
       "text": "Tekst",
       "voice": "Stem"
     },
-    "creditUsage": "Kredietgebruik",
+    "creditUsage": "Creditgebruik",
     "creditsReset": "Tegoeden gereset",
     "daysLeft_one": "Laatste dag",
     "daysLeft_other": "{{count}} dagen resterend",

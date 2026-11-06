@@ -16,7 +16,6 @@
     "days_many": "{{count}} días",
     "days_other": "{{count}} días",
     "deck": "Cubierta",
-    "default": "Por defecto",
     "delete": "Borrar",
     "done": "Hecho",
     "duplicate": "Duplicado",
@@ -210,6 +209,7 @@
     "addToNoteType": "Añadir Smart Field a {{noteType}}",
     "disable": "Desactivar",
     "deleting": "Eliminando…",
+    "followsDefault": "<model>{{model}}</model> (Predeterminado)",
     "discord": {
       "dismissAriaLabel": "Descartar invitación Discord",
       "join": "Unirse",
@@ -255,7 +255,7 @@
     },
     "image": {
       "cannotFindModel": "Falta catálogo de imágenes modelo {{model}}",
-      "defaultModel": "Modelo",
+      "defaultModel": "Modelo predeterminado",
       "gptImage25": "el mejor para todo: texto nítido, diagramas limpios.",
       "loadingLabel": "Cargando configuración de generación de imágenes",
       "loadingTitle": "Configuración de generación de imágenes",
@@ -277,7 +277,7 @@
       "tryIt": "Pruébalo"
     },
     "text": {
-      "defaultModel": "Modelo",
+      "defaultModel": "Modelo predeterminado",
       "loadingLabel": "Cargando configuración de generación de texto",
       "loadingTitle": "Configuración de generación de texto",
       "samplePrompt": "¿Qué es un sistema de repetición espaciada (SRS)?",
@@ -392,7 +392,7 @@
       "text": "Texto",
       "voice": "Voz"
     },
-    "creditUsage": "Uso de crédito",
+    "creditUsage": "Uso de créditos",
     "creditsReset": "Restablecimiento de créditos",
     "daysLeft_one": "Día último",
     "daysLeft_many": "{{count}} quedan días",

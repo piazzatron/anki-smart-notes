@@ -56,7 +56,7 @@ export const TrialEndedScreen = () => {
               size={13}
             />
           </p>
-          <h1 className="text-[28px] leading-[1.15] font-extrabold tracking-[-0.5px] text-[#f4f4f6]">
+          <h1 className="text-[28px] leading-[1.15] font-bold tracking-[-0.02em] text-[#f4f4f6]">
             {t("trialEnded.title")}
           </h1>
           <p className="mt-[9px] text-sm leading-[1.45] text-ink-muted">

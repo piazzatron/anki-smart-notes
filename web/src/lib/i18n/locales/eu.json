@@ -15,7 +15,6 @@
     "days_one": "1 egun",
     "days_other": "{{count}} egunak",
     "deck": "Oholtza",
-    "default": "Lehenetsia",
     "delete": "Ezabatu",
     "done": "Eginda",
     "duplicate": "Bikoiztu",
@@ -209,6 +208,7 @@
     "addToNoteType": "Gehitu Smart Field {{noteType}}-ra",
     "disable": "Desgaitu",
     "deleting": "Ezabatzen…",
+    "followsDefault": "<model>{{model}}</model> (Lehenetsia)",
     "discord": {
       "dismissAriaLabel": "Baztertu Discord gonbidapena",
       "join": "Sartu",
@@ -254,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "Irudien katalogoa {{model}} eredua falta da",
-      "defaultModel": "Modeloa",
+      "defaultModel": "Eredu lehenetsia",
       "gptImage25": "oreka onena: testu zorrotza, diagrama garbiak.",
       "loadingLabel": "Irudi sortzeko ezarpenak kargatzen",
       "loadingTitle": "Irudi sortzeko ezarpenak",
@@ -276,7 +276,7 @@
       "tryIt": "Probatu"
     },
     "text": {
-      "defaultModel": "Modeloa",
+      "defaultModel": "Eredu lehenetsia",
       "loadingLabel": "Testu sortzeko ezarpenak kargatzen",
       "loadingTitle": "Testua sortzeko ezarpenak",
       "samplePrompt": "Zer da Espazio Errepikapen Sistema (SRS)?",
@@ -386,7 +386,7 @@
       "text": "Testua",
       "voice": "Ahotsa"
     },
-    "creditUsage": "Kreditu erabilera",
+    "creditUsage": "Kredituen erabilera",
     "creditsReset": "Kredituak berrezarri",
     "daysLeft_one": "Azken eguna",
     "daysLeft_other": "{{count}} egun falta dira",

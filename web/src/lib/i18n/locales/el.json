@@ -15,7 +15,6 @@
     "days_one": "1 ημέρα",
     "days_other": "{{count}} ημέρες",
     "deck": "Κατάστρωμα",
-    "default": "Αθέτηση",
     "delete": "Διαγράφω",
     "done": "Γινώμενος",
     "duplicate": "Αντίγραφο",
@@ -209,6 +208,7 @@
     "addToNoteType": "Προσθήκη Smart Field στο {{noteType}}",
     "disable": "Καθιστώ ανίκανο",
     "deleting": "Διαγραφή…",
+    "followsDefault": "<model>{{model}}</model> (Προεπιλογή)",
     "discord": {
       "dismissAriaLabel": "Παράβλεψη πρόσκλησης Discord",
       "join": "Ενώνω",
@@ -254,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "Λείπει ο κατάλογος εικόνων μοντέλο {{model}}",
-      "defaultModel": "Μοντέλο",
+      "defaultModel": "Προεπιλεγμένο μοντέλο",
       "gptImage25": "καλύτερη επιλογή για κάθε χρήση — καθαρό κείμενο, ευκρινή διαγράμματα.",
       "loadingLabel": "Φόρτωση ρυθμίσεων δημιουργίας εικόνας",
       "loadingTitle": "Ρυθμίσεις δημιουργίας εικόνας",
@@ -276,7 +276,7 @@
       "tryIt": "Δοκιμάστε το"
     },
     "text": {
-      "defaultModel": "Μοντέλο",
+      "defaultModel": "Προεπιλεγμένο μοντέλο",
       "loadingLabel": "Φόρτωση ρυθμίσεων δημιουργίας κειμένου",
       "loadingTitle": "Ρυθμίσεις δημιουργίας κειμένου",
       "samplePrompt": "Τι είναι ένα Spaced Repetition System (SRS);",
@@ -386,7 +386,7 @@
       "text": "Κείμενο",
       "voice": "Φωνή"
     },
-    "creditUsage": "Πιστωτική χρήση",
+    "creditUsage": "Χρήση πιστώσεων",
     "creditsReset": "Επαναφορά πιστώσεων",
     "daysLeft_one": "Τελευταία μέρα",
     "daysLeft_other": "{{count}} απομένουν μέρες",

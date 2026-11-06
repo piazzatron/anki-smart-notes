@@ -17,7 +17,6 @@
     "days_few": "{{count}} dnevi",
     "days_other": "{{count}} dni",
     "deck": "Krov",
-    "default": "Privzeto",
     "delete": "Izbriši",
     "done": "Končano",
     "duplicate": "Dvojnik",
@@ -211,6 +210,7 @@
     "addToNoteType": "Dodaj Smart Field v {{noteType}}",
     "disable": "Onemogoči",
     "deleting": "Brisanje …",
+    "followsDefault": "<model>{{model}}</model> (privzeto)",
     "discord": {
       "dismissAriaLabel": "Opusti povabilo Discord",
       "join": "Pridruži se",
@@ -256,7 +256,7 @@
     },
     "image": {
       "cannotFindModel": "V katalogu slik manjka model {{model}}",
-      "defaultModel": "Model",
+      "defaultModel": "Privzeti model",
       "gptImage25": "najboljši vsestranski — ostro besedilo, čisti diagrami.",
       "loadingLabel": "Nalaganje nastavitev ustvarjanja slik",
       "loadingTitle": "Nastavitve ustvarjanja slik",
@@ -278,7 +278,7 @@
       "tryIt": "poskusite"
     },
     "text": {
-      "defaultModel": "Model",
+      "defaultModel": "Privzeti model",
       "loadingLabel": "Nalaganje nastavitev ustvarjanja besedila",
       "loadingTitle": "Nastavitve generiranja besedila",
       "samplePrompt": "Kaj je sistem razmaknjenega ponavljanja (SRS)?",
@@ -398,7 +398,7 @@
       "text": "Besedilo",
       "voice": "Glas"
     },
-    "creditUsage": "Poraba kredita",
+    "creditUsage": "Poraba kreditov",
     "creditsReset": "Ponastavitev kreditov",
     "daysLeft_one": "Zadnji dan",
     "daysLeft_two": "Še {{count}} dneva",

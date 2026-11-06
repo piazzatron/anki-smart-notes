@@ -17,7 +17,6 @@
     "days_many": "{{count}} дней",
     "days_other": "{{count}} дней",
     "deck": "Палуба",
-    "default": "По умолчанию",
     "delete": "Удалить",
     "done": "Сделанный",
     "duplicate": "Дублировать",
@@ -211,6 +210,7 @@
     "addToNoteType": "Добавьте смарт-поле в {{noteType}}",
     "disable": "Запрещать",
     "deleting": "Удаление…",
+    "followsDefault": "<model>{{model}}</model> (По умолчанию)",
     "discord": {
       "dismissAriaLabel": "Отклонить приглашение Discord",
       "join": "Присоединиться",
@@ -256,7 +256,7 @@
     },
     "image": {
       "cannotFindModel": "В каталоге изображений отсутствует модель {{model}}",
-      "defaultModel": "Модель",
+      "defaultModel": "Модель по умолчанию",
       "gptImage25": "лучший универсальный вариант: чёткий текст, аккуратные схемы.",
       "loadingLabel": "Загрузка настроек генерации изображений",
       "loadingTitle": "Настройки генерации изображений",
@@ -278,7 +278,7 @@
       "tryIt": "Попробуйте это"
     },
     "text": {
-      "defaultModel": "Модель",
+      "defaultModel": "Модель по умолчанию",
       "loadingLabel": "Загрузка настроек генерации текста",
       "loadingTitle": "Настройки генерации текста",
       "samplePrompt": "Что такое система интервальных повторений (SRS)?",
@@ -398,7 +398,7 @@
       "text": "Текст",
       "voice": "Голос"
     },
-    "creditUsage": "Использование кредита",
+    "creditUsage": "Использование кредитов",
     "creditsReset": "Кредиты сброшены",
     "daysLeft_one": "Последний день",
     "daysLeft_few": "осталось {{count}} дня",

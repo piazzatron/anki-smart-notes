@@ -15,7 +15,6 @@
     "days_one": "1 Tag",
     "days_other": "{{count}} Tage",
     "deck": "Deck",
-    "default": "Standard",
     "delete": "Löschen",
     "done": "Erledigt",
     "duplicate": "Duplikat",
@@ -209,6 +208,7 @@
     "addToNoteType": "Fügen Sie Smart Field zu {{noteType}} hinzu",
     "disable": "Deaktivieren",
     "deleting": "Löschen…",
+    "followsDefault": "<model>{{model}}</model> (Standard)",
     "discord": {
       "dismissAriaLabel": "Discord-Einladung ablehnen",
       "join": "Verbinden",
@@ -254,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "Im Bildkatalog fehlt das Modell {{model}}",
-      "defaultModel": "Modell",
+      "defaultModel": "Standardmodell",
       "gptImage25": "Bester Allrounder – scharfer Text, saubere Diagramme.",
       "loadingLabel": "Bildgenerierungs-Einstellungen werden geladen",
       "loadingTitle": "Bildgenerierungs-Einstellungen",
@@ -276,7 +276,7 @@
       "tryIt": "Probieren Sie es aus"
     },
     "text": {
-      "defaultModel": "Modell",
+      "defaultModel": "Standardmodell",
       "loadingLabel": "Textgenerierungs-Einstellungen werden geladen",
       "loadingTitle": "Einstellungen für die Textgenerierung",
       "samplePrompt": "Was ist ein Spaced Repetition System (SRS)?",
@@ -386,7 +386,7 @@
       "text": "Text",
       "voice": "Stimme"
     },
-    "creditUsage": "Kreditverwendung",
+    "creditUsage": "Credit-Nutzung",
     "creditsReset": "Credits zurückgesetzt",
     "daysLeft_one": "Letzter Tag",
     "daysLeft_other": "{{count}} verbleibende Tage",

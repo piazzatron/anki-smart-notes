@@ -15,7 +15,6 @@
     "days_one": "1 araw",
     "days_other": "{{count}} araw",
     "deck": "Deck",
-    "default": "Default",
     "delete": "Tanggalin",
     "done": "Tapos na",
     "duplicate": "Duplicate",
@@ -209,6 +208,7 @@
     "addToNoteType": "Magdagdag ng Smart Field sa {{noteType}}",
     "disable": "Huwag paganahin",
     "deleting": "Tinatanggal…",
+    "followsDefault": "<model>{{model}}</model> (Mặc định)",
     "discord": {
       "dismissAriaLabel": "I-dismiss ang Discord na imbitasyon",
       "join": "Sumali",
@@ -254,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "Ang katalogo ng larawan ay walang modelong {{model}}",
-      "defaultModel": "Modelo",
+      "defaultModel": "Default model",
       "gptImage25": "pinakamahusay sa lahat — malinaw na teksto, malinis na diagram.",
       "loadingLabel": "Naglo-load ng Mga Setting ng Paggawa ng Larawan",
       "loadingTitle": "Mga Setting ng Paggawa ng Larawan",
@@ -276,7 +276,7 @@
       "tryIt": "Subukan ito"
     },
     "text": {
-      "defaultModel": "Modelo",
+      "defaultModel": "Default model",
       "loadingLabel": "Naglo-load ng Mga Setting ng Paggawa ng Teksto",
       "loadingTitle": "Mga Setting ng Pagbuo ng Teksto",
       "samplePrompt": "Ano ang Spaced Repetition System (SRS)?",
@@ -309,7 +309,7 @@
       "searchPlaceholder": "Maghanap ng mga boses…",
       "searchVoices": "Maghanap ng mga boses",
       "title": "Mga Setting ng Boses",
-      "defaultVoice": "Default na Boses",
+      "defaultVoice": "Default voice",
       "defaultVoiceTip": "Ginagamit ng Voice Smart Fields ang boses na ito bilang default. Kapag binago ito, maa-update ang bawat Smart Field na gumagamit ng default. Maaaring i-override ng anumang Smart Field ito gamit ang sarili nitong boses.",
       "defaultVoiceTipLabel": "Tungkol sa default na boses"
     }
@@ -386,7 +386,7 @@
       "text": "Text",
       "voice": "Boses"
     },
-    "creditUsage": "Paggamit ng Credit",
+    "creditUsage": "Paggamit ng credit",
     "creditsReset": "I-reset ang mga kredito",
     "daysLeft_one": "Huling araw",
     "daysLeft_other": "{{count}} araw ang natitira",

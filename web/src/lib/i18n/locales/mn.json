@@ -15,7 +15,6 @@
     "days_one": "1 өдөр",
     "days_other": "{{count}} хоног",
     "deck": "Тавцан",
-    "default": "Өгөгдмөл",
     "delete": "Устгах",
     "done": "Дууслаа",
     "duplicate": "Давхардсан",
@@ -209,6 +208,7 @@
     "addToNoteType": "{{noteType}}-д Smart Field нэмнэ үү",
     "disable": "Идэвхгүй болгох",
     "deleting": "Устгаж байна...",
+    "followsDefault": "<model>{{model}}</model> (Өгөгдмөл)",
     "discord": {
       "dismissAriaLabel": "Discord урилгыг хэрэгсэхгүй болгох",
       "join": "Нэгдэх",
@@ -254,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "Зургийн каталогид {{model}} загвар байхгүй байна",
-      "defaultModel": "Загвар",
+      "defaultModel": "Үндсэн загвар",
       "gptImage25": "хамгийн тохиромжтой — тод текст, цэвэр диаграм.",
       "loadingLabel": "Зураг үүсгэх тохиргоог ачаалж байна",
       "loadingTitle": "Зураг үүсгэх тохиргоо",
@@ -276,7 +276,7 @@
       "tryIt": "Ороод үзээрэй"
     },
     "text": {
-      "defaultModel": "Загвар",
+      "defaultModel": "Үндсэн загвар",
       "loadingLabel": "Текст үүсгэх тохиргоог ачаалж байна",
       "loadingTitle": "Текст үүсгэх тохиргоо",
       "samplePrompt": "Зайтай давталтын систем (SRS) гэж юу вэ?",
@@ -309,7 +309,7 @@
       "searchPlaceholder": "Дуу хоолой хайх…",
       "searchVoices": "Дуу хоолойг хайх",
       "title": "Дуун тохиргоо",
-      "defaultVoice": "Үндсэн дуу",
+      "defaultVoice": "Үндсэн дуу хоолой",
       "defaultVoiceTip": "Дууны Smart Fields нь анхдагчаар энэ дууг ашигладаг. Үүнийг өөрчилвөл анхдагчийг ашигладаг Smart Field бүр шинэчлэгдэнэ. Аль ч Smart Field нь өөрийн дуутай солих боломжтой.",
       "defaultVoiceTipLabel": "Үндсэн дуугийн тухай"
     }
@@ -386,7 +386,7 @@
       "text": "Текст",
       "voice": "Дуу хоолой"
     },
-    "creditUsage": "Зээлийн ашиглалт",
+    "creditUsage": "Кредитийн ашиглалт",
     "creditsReset": "Зээлийг шинэчилсэн",
     "daysLeft_one": "Сүүлийн өдөр",
     "daysLeft_other": "{{count}} хоног үлдлээ",

@@ -99,7 +99,7 @@ export const LoadedTextDefaultsScreen = ({
         />
       )}
 
-      <div className="max-w-[520px]">
+      <div>
         <SectionHeading
           tip={{
             content: t("defaults.text.defaultModelTip"),

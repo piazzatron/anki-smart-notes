@@ -226,7 +226,7 @@ export const LoadedSettingsScreen = ({
                   {t("settings.legacy.apiKey")}
                 </span>
                 <input
-                  className="mt-2 h-10 w-full rounded-lg bg-white/[0.05] px-3 text-[13px] text-zinc-200 outline-none focus:bg-white/[0.07]"
+                  className="mt-2 h-9 w-full rounded-lg bg-white/[0.05] px-3 text-[13px] text-zinc-200 outline-none focus:bg-white/[0.07]"
                   defaultValue={controls.values.legacyOpenAiKey ?? ""}
                   onBlur={(event) =>
                     void controls.update({
@@ -262,10 +262,7 @@ export const LoadedSettingsScreen = ({
                   }
                   value={controls.values.legacyOpenAiModel}
                 >
-                  <SelectTrigger
-                    className="mt-2 min-h-10"
-                    id="legacy-openai-model"
-                  >
+                  <SelectTrigger className="mt-2" id="legacy-openai-model">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -283,7 +280,7 @@ export const LoadedSettingsScreen = ({
                   {t("settings.legacy.host")}
                 </span>
                 <input
-                  className="mt-2 h-10 w-full rounded-lg bg-white/[0.05] px-3 text-[13px] text-zinc-200 outline-none placeholder:text-zinc-600 focus:bg-white/[0.07]"
+                  className="mt-2 h-9 w-full rounded-lg bg-white/[0.05] px-3 text-[13px] text-zinc-200 outline-none placeholder:text-ink-faint focus:bg-white/[0.07]"
                   defaultValue={controls.values.legacyOpenAiHost ?? ""}
                   onBlur={(event) =>
                     void controls.update({
@@ -311,7 +308,7 @@ export const LoadedSettingsScreen = ({
           disabled={controls.isSaving}
           label={
             <Trans
-              components={{ strong: <strong className="font-extrabold" /> }}
+              components={{ strong: <strong className="font-bold" /> }}
               i18nKey="settings.regenerateWhenBatching.label"
             />
           }

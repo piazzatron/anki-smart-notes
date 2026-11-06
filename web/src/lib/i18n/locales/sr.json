@@ -16,7 +16,6 @@
     "days_few": "{{count}} дана",
     "days_other": "{{count}} дана",
     "deck": "Палуба",
-    "default": "Подразумевано",
     "delete": "Избриши",
     "done": "Готово",
     "duplicate": "Дупликат",
@@ -210,6 +209,7 @@
     "addToNoteType": "Додајте паметно поље у {{noteType}}",
     "disable": "Онемогући",
     "deleting": "Брисање…",
+    "followsDefault": "<model>{{model}}</model> (Подразумевано)",
     "discord": {
       "dismissAriaLabel": "Одбаци позивницу за Discord",
       "join": "Придружите се",
@@ -255,7 +255,7 @@
     },
     "image": {
       "cannotFindModel": "Каталогу слика недостаје модел {{model}}",
-      "defaultModel": "Модел",
+      "defaultModel": "Подразумевани модел",
       "gptImage25": "најбољи свестрани избор — оштар текст, чисти дијаграми.",
       "loadingLabel": "Учитавање подешавања генерисања слика",
       "loadingTitle": "Подешавања генерисања слика",
@@ -277,7 +277,7 @@
       "tryIt": "Пробај"
     },
     "text": {
-      "defaultModel": "Модел",
+      "defaultModel": "Подразумевани модел",
       "loadingLabel": "Учитавање подешавања генерисања текста",
       "loadingTitle": "Подешавања генерисања текста",
       "samplePrompt": "Шта је систем размакнутог понављања (SRS)?",
@@ -392,7 +392,7 @@
       "text": "Текст",
       "voice": "Глас"
     },
-    "creditUsage": "Употреба кредита",
+    "creditUsage": "Потрошња кредита",
     "creditsReset": "Ресетовање кредита",
     "daysLeft_one": "Последњи дан",
     "daysLeft_few": "Остало је {{count}} дана",

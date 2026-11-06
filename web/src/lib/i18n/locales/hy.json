@@ -15,7 +15,6 @@
     "days_one": "1 օր",
     "days_other": "{{count}} օր",
     "deck": "Տախտակամած",
-    "default": "Կանխադրված",
     "delete": "Ջնջել",
     "done": "Կատարված է",
     "duplicate": "Կրկնօրինակեք",
@@ -209,6 +208,7 @@
     "addToNoteType": "Ավելացնել Smart Field {{noteType}}-ին",
     "disable": "Անջատել",
     "deleting": "Ջնջվում է…",
+    "followsDefault": "<model>{{model}}</model> (Լռելյայն)",
     "discord": {
       "dismissAriaLabel": "Մերժել Discord հրավերը",
       "join": "Միանալ",
@@ -254,7 +254,7 @@
     },
     "image": {
       "cannotFindModel": "Պատկերների կատալոգում բացակայում է {{model}} մոդելը",
-      "defaultModel": "Մոդել",
+      "defaultModel": "Լռելյայն մոդել",
       "gptImage25": "լավագույնը բոլոր առումներով՝ սուր տեքստ, մաքուր դիագրամներ։",
       "loadingLabel": "Բեռնվում են պատկերի ստեղծման կարգավորումները",
       "loadingTitle": "Պատկերի ստեղծման կարգավորումներ",
@@ -276,7 +276,7 @@
       "tryIt": "Փորձեք այն"
     },
     "text": {
-      "defaultModel": "Մոդել",
+      "defaultModel": "Լռելյայն մոդել",
       "loadingLabel": "Բեռնվում են տեքստի ստեղծման կարգավորումները",
       "loadingTitle": "Տեքստի ստեղծման կարգավորումներ",
       "samplePrompt": "Ի՞նչ է Spaced Repetition System (SRS):",
@@ -386,7 +386,7 @@
       "text": "Տեքստ",
       "voice": "Ձայն"
     },
-    "creditUsage": "Վարկի օգտագործում",
+    "creditUsage": "Վարկերի օգտագործում",
     "creditsReset": "Վարկերի վերակայում",
     "daysLeft_one": "Վերջին օրը",
     "daysLeft_other": "{{count}} մնացին օրեր",

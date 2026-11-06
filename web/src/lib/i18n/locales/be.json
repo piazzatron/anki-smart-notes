@@ -17,7 +17,6 @@
     "days_many": "{{count}} дзён",
     "days_other": "{{count}} дзён",
     "deck": "Калода",
-    "default": "Па змаўчанні",
     "delete": "Выдаліць",
     "done": "Гатова",
     "duplicate": "Дублікат",
@@ -211,6 +210,7 @@
     "addToNoteType": "Дадайце Smart Field да {{noteType}}",
     "disable": "Адключыць",
     "deleting": "Выдаленне…",
+    "followsDefault": "<model>{{model}}</model> (Па змаўчанні)",
     "discord": {
       "dismissAriaLabel": "Адхіліць запрашэнне Discord",
       "join": "Далучайцеся",
@@ -256,7 +256,7 @@
     },
     "image": {
       "cannotFindModel": "У каталогу малюнкаў адсутнічае мадэль {{model}}",
-      "defaultModel": "Мадэль",
+      "defaultModel": "Стандартная мадэль",
       "gptImage25": "найлепшы ўніверсальны варыянт — выразны тэкст, чыстыя схемы.",
       "loadingLabel": "Загрузка Налад Генерацыі Малюнкаў",
       "loadingTitle": "Налады Генерацыі Малюнкаў",
@@ -278,7 +278,7 @@
       "tryIt": "Паспрабуйце"
     },
     "text": {
-      "defaultModel": "Мадэль",
+      "defaultModel": "Стандартная мадэль",
       "loadingLabel": "Загрузка Налад Генерацыі Тэксту",
       "loadingTitle": "Налады генерацыі тэксту",
       "samplePrompt": "Што такое сістэма разнесенага паўтарэння (SRS)?",
@@ -313,7 +313,7 @@
       "searchPlaceholder": "Пошук галасоў…",
       "searchVoices": "Пошук галасоў",
       "title": "Налады Голасу",
-      "defaultVoice": "Голас па Змаўчанні",
+      "defaultVoice": "Стандартны голас",
       "defaultVoiceTip": "Smart Fields для голасу выкарыстоўваюць гэты голас па змаўчанні. Змена яго абнаўляе ўсе Smart Fields, якія выкарыстоўваюць значэнне па змаўчанні. Любое Smart Field можа перавызначыць яго сваім уласным голасам.",
       "defaultVoiceTipLabel": "Пра голас па змаўчанні"
     }
@@ -398,7 +398,7 @@
       "text": "Тэкст",
       "voice": "Голас"
     },
-    "creditUsage": "Выкарыстанне крэдыту",
+    "creditUsage": "Выкарыстанне крэдытаў",
     "creditsReset": "Скід крэдытаў",
     "daysLeft_one": "Апошні дзень",
     "daysLeft_few": "Засталося {{count}} дні",

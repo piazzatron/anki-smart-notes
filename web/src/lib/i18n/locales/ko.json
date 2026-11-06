@@ -14,7 +14,6 @@
     },
     "days_other": "{{count}}일",
     "deck": "갑판",
-    "default": "기본",
     "delete": "삭제",
     "done": "완료",
     "duplicate": "복제하다",
@@ -208,6 +207,7 @@
     "addToNoteType": "{{noteType}}에 Smart Field 추가",
     "disable": "장애를 입히다",
     "deleting": "삭제 중…",
+    "followsDefault": "<model>{{model}}</model> (기본값)",
     "discord": {
       "dismissAriaLabel": "Discord 초대 닫기",
       "join": "가입하다",
@@ -253,7 +253,7 @@
     },
     "image": {
       "cannotFindModel": "이미지 카탈로그에 모델 {{model}}이(가) 없습니다.",
-      "defaultModel": "모델",
+      "defaultModel": "기본 모델",
       "gptImage25": "만능형 모델 — 선명한 텍스트, 깔끔한 다이어그램.",
       "loadingLabel": "이미지 생성 설정 불러오는 중",
       "loadingTitle": "이미지 생성 설정",
@@ -275,7 +275,7 @@
       "tryIt": "사용해 보세요"
     },
     "text": {
-      "defaultModel": "모델",
+      "defaultModel": "기본 모델",
       "loadingLabel": "텍스트 생성 설정 불러오는 중",
       "loadingTitle": "텍스트 생성 설정",
       "samplePrompt": "간격 반복 시스템(SRS)이란 무엇입니까?",
@@ -380,7 +380,7 @@
       "text": "텍스트",
       "voice": "목소리"
     },
-    "creditUsage": "크레딧 사용",
+    "creditUsage": "크레딧 사용량",
     "creditsReset": "크레딧 재설정",
     "daysLeft_other": "{{count}}일 남음",
     "errors": {

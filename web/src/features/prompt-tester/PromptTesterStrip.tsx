@@ -155,8 +155,8 @@ export const PromptTesterStrip = ({
         </div>
       )}
 
-      <div className="flex h-[54px] items-stretch gap-3">
-        <div className="min-w-0 flex-1">
+      <div className="flex h-[54px] items-center gap-3">
+        <div className="min-w-0 flex-1 self-stretch">
           <SelectedTestCard
             compact
             // Image testers reopen results from the numbered row below instead.
@@ -183,10 +183,7 @@ export const PromptTesterStrip = ({
             showNoteTypeMismatch={field.hasNoteTypeMismatch}
           />
         </div>
-        <PromptTestButton
-          className="h-[54px] shrink-0 px-4 text-[13.5px]"
-          field={field}
-        />
+        <PromptTestButton className="h-9 shrink-0 px-4" field={field} />
       </div>
 
       {showResultModal && (

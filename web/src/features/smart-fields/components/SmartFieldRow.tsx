@@ -1,6 +1,6 @@
 import { MoreHorizontal } from "lucide-react"
 import { useState } from "react"
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 
 import { FieldTypeIcon } from "./FieldTypeIcon"
 
@@ -20,11 +20,6 @@ import {
   UpgradeLockIcon,
   useIsFreePlan,
 } from "@/components/shared/UpgradeSheet"
-import {
-  chatModelLabel,
-  freePlanChatSettings,
-  isPaidOnlyChatSettings,
-} from "@/features/text-generation/intelligence"
 import { errorMessage } from "@/lib/errors"
 import type { SmartField } from "@/types/api"
 
@@ -52,13 +47,7 @@ export const SmartFieldRow = ({
   // out with a lock, and open the upgrade sheet instead of the editor.
   const isFree = useIsFreePlan()
   const locked = isFree && field.fieldType !== "chat"
-  // A text field pinned to settings Free doesn't include runs as Auto Standard
-  // until the user upgrades; its own settings stay saved.
-  const paused =
-    isFree &&
-    field.fieldType === "chat" &&
-    !field.settings.usesDefaultGenerationSettings &&
-    isPaidOnlyChatSettings(field.settings)
+  const model = smartFieldModelLabel(field, isFree)
   const openUpgrade = () =>
     openUpgradeSheet(field.fieldType === "tts" ? "voice" : "images")
   const [menuOpen, setMenuOpen] = useState(false)
@@ -81,7 +70,7 @@ export const SmartFieldRow = ({
   // The prompt sits on a second line under the name.
   return (
     <div
-      className={`relative grid min-h-11 grid-cols-[40px_minmax(0,1fr)_minmax(90px,132px)_46px] items-center gap-x-6 gap-y-1 py-3 max-[800px]:grid-cols-[34px_minmax(0,1fr)_minmax(90px,132px)_46px] max-[800px]:gap-x-[18px] ${
+      className={`relative grid min-h-11 grid-cols-[40px_minmax(0,1fr)_minmax(90px,180px)_46px] items-center gap-x-6 gap-y-1 py-3 max-[800px]:grid-cols-[34px_minmax(0,1fr)_minmax(90px,180px)_46px] max-[800px]:gap-x-[18px] ${
         !field.enabled || locked ? "opacity-40" : ""
       } ${
         hasDivider
@@ -105,21 +94,23 @@ export const SmartFieldRow = ({
       <span className="pointer-events-none col-start-2 row-start-2 truncate text-xs leading-[14px] text-ink-muted">
         {smartFieldDescription(field)}
       </span>
-      <span className="pointer-events-none col-start-3 row-span-2 row-start-1 min-w-0 justify-self-end text-end">
-        <span className="block text-[11px] leading-none font-semibold tracking-[0.055em] text-ink-muted uppercase">
-          {t("fieldEditor.modelSettings.model")}
-        </span>
-        <span
-          className={`mt-[3px] block truncate text-xs ${
-            field.settings.usesDefaultGenerationSettings
-              ? "text-indigo-soft"
-              : "text-zinc-400"
-          }`}
-        >
-          {paused
-            ? chatModelLabel(freePlanChatSettings(field.settings))
-            : smartFieldModelLabel(field)}
-        </span>
+      {/* The model name truncates; the default marker after it never does. */}
+      <span
+        className={`pointer-events-none col-start-3 row-span-2 row-start-1 flex min-w-0 justify-end text-xs whitespace-pre ${
+          field.settings.usesDefaultGenerationSettings
+            ? "text-indigo-soft"
+            : "text-ink-muted"
+        }`}
+      >
+        {field.settings.usesDefaultGenerationSettings ? (
+          <Trans
+            components={{ model: <span className="truncate" /> }}
+            i18nKey="smartFields.followsDefault"
+            values={{ model }}
+          />
+        ) : (
+          <span className="truncate">{model}</span>
+        )}
       </span>
 
       <DropdownMenu onOpenChange={setMenuOpen} open={menuOpen}>

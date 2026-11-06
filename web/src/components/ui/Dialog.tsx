@@ -97,7 +97,9 @@ export const DialogHeader = ({
   title: ReactNode
 }) => (
   <header className="shrink-0 border-b border-hairline py-3.5 ps-5 pe-10">
-    <DialogTitle className="text-sm font-bold text-ink">{title}</DialogTitle>
+    <DialogTitle className="text-sm font-semibold text-ink">
+      {title}
+    </DialogTitle>
     {children}
   </header>
 )

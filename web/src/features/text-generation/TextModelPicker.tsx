@@ -100,7 +100,7 @@ export const TextModelPicker = ({
         <div className={`${surface} pt-6 pb-[26px]`}>
           <div className="flex items-center gap-2">
             <BoltIcon className="text-pastel-lavender" size={16} />
-            <span className="text-[14.5px] font-bold text-ink">
+            <span className="text-[14px] font-semibold text-ink">
               {t("intelligence.autoName")}
             </span>
           </div>
@@ -118,7 +118,7 @@ export const TextModelPicker = ({
                 {INTELLIGENCE_LEVELS.map(({ id }) => (
                   <li key={id}>
                     <Trans
-                      components={{ level: <b className="font-bold" /> }}
+                      components={{ level: <b className="font-semibold" /> }}
                       i18nKey={`intelligence.tips.${id}`}
                     />
                   </li>
@@ -137,7 +137,7 @@ export const TextModelPicker = ({
       ) : (
         <div className={`${surface} py-5`}>
           <div className="flex items-center gap-2">
-            <span className="min-w-0 flex-1 truncate text-[14.5px] font-bold text-ink">
+            <span className="min-w-0 flex-1 truncate text-[14px] font-semibold text-ink">
               {modelLabel(shown.model)}
             </span>
             <CostPill model={shown.model} />
@@ -395,7 +395,7 @@ const SpecificModelList = ({
             .filter((provider) => provider !== "auto")
             .map((provider) => (
               <div key={provider}>
-                <p className="px-hang pt-3 pb-1.5 text-[11px] font-semibold tracking-[0.055em] text-ink-muted uppercase">
+                <p className="px-hang pt-3 pb-1.5 text-xs font-medium text-ink-muted">
                   {providerLabel(provider)}
                 </p>
                 {catalog.models

@@ -176,7 +176,7 @@ export const VoicePicker = ({
         />
         <input
           aria-label={t("defaults.voice.searchVoices")}
-          className={`h-10 w-full rounded-xl bg-white/[0.05] pe-3 text-sm ${layout === "columns" ? "ps-[calc(var(--spacing-hang)+24px)]" : "ps-9"} text-ink transition outline-none placeholder:text-zinc-600 focus:bg-white/[0.07]`}
+          className={`h-9 w-full rounded-lg bg-white/[0.05] pe-3 text-sm ${layout === "columns" ? "ps-[calc(var(--spacing-hang)+24px)]" : "ps-9"} text-ink transition outline-none placeholder:text-ink-faint focus:bg-white/[0.07]`}
           onChange={(event) =>
             setFilters((current) => ({
               ...current,
@@ -217,13 +217,13 @@ export const VoicePicker = ({
         <div className="-mx-hang grid min-h-0 flex-1 grid-cols-[minmax(260px,0.8fr)_minmax(0,1.2fr)] items-stretch gap-6">
           <div className="flex min-h-0 flex-col">
             {children}
-            <p className="mt-5 mb-2 px-hang text-[11px] font-semibold tracking-[0.08em] text-ink-muted uppercase">
+            <p className="mt-5 mb-2 px-hang text-xs font-medium text-ink-muted">
               {t("defaults.voice.filterVoices")}
             </p>
             {filterControls}
           </div>
           <div className="flex min-h-0 flex-col">
-            <p className="mb-2 px-hang text-[11px] font-semibold tracking-[0.08em] text-ink-muted uppercase">
+            <p className="mb-2 px-hang text-xs font-medium text-ink-muted">
               {browseLabel}
             </p>
             {searchAndList}
@@ -257,10 +257,7 @@ const VoiceFilter = ({
   value,
 }: VoiceFilterProps) => (
   <Select onValueChange={onChange} value={value}>
-    <SelectTrigger
-      aria-label={label}
-      className={`h-10 min-h-10 py-1.5 ${className}`}
-    >
+    <SelectTrigger aria-label={label} className={className}>
       <span className="flex min-w-0 items-center gap-1 whitespace-nowrap">
         <span className="shrink-0 text-ink-muted">{label}:</span>
         <span className="truncate">

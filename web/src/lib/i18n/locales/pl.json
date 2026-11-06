@@ -17,7 +17,6 @@
     "days_many": "{{count}} dni",
     "days_other": "{{count}} dnia",
     "deck": "Pokład",
-    "default": "Domyślny",
     "delete": "Usuwać",
     "done": "Zrobione",
     "duplicate": "Duplikat",
@@ -211,6 +210,7 @@
     "addToNoteType": "Dodaj Smart Field do {{noteType}}",
     "disable": "Wyłączyć",
     "deleting": "Usuwanie…",
+    "followsDefault": "<model>{{model}}</model> (domyślny)",
     "discord": {
       "dismissAriaLabel": "Odrzuć zaproszenie Discord",
       "join": "Dołączyć",
@@ -256,7 +256,7 @@
     },
     "image": {
       "cannotFindModel": "W katalogu obrazów brakuje modelu {{model}}",
-      "defaultModel": "Model",
+      "defaultModel": "Model domyślny",
       "gptImage25": "najlepszy uniwersalny — ostry tekst, czyste diagramy.",
       "loadingLabel": "Wczytywanie ustawień generowania obrazów",
       "loadingTitle": "Ustawienia generowania obrazów",
@@ -278,7 +278,7 @@
       "tryIt": "Spróbuj"
     },
     "text": {
-      "defaultModel": "Model",
+      "defaultModel": "Model domyślny",
       "loadingLabel": "Wczytywanie ustawień generowania tekstu",
       "loadingTitle": "Ustawienia generowania tekstu",
       "samplePrompt": "Co to jest system odstępowych powtórzeń (SRS)?",
@@ -313,7 +313,7 @@
       "searchPlaceholder": "Szukaj głosów…",
       "searchVoices": "Szukaj głosów",
       "title": "Ustawienia głosu",
-      "defaultVoice": "Domyślny głos",
+      "defaultVoice": "Głos domyślny",
       "defaultVoiceTip": "Smart Fields głosowe domyślnie używają tego głosu. Zmiana głosu zaktualizuje wszystkie Smart Fields korzystające z wartości domyślnej. Każde Smart Field może nadpisać go własnym głosem.",
       "defaultVoiceTipLabel": "Informacje o domyślnym głosie"
     }
@@ -398,7 +398,7 @@
       "text": "Tekst",
       "voice": "Głos"
     },
-    "creditUsage": "Wykorzystanie kredytu",
+    "creditUsage": "Wykorzystanie kredytów",
     "creditsReset": "Kredyty zresetowane",
     "daysLeft_one": "Ostatni dzień",
     "daysLeft_few": "Pozostały {{count}} dni",

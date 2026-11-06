@@ -14,7 +14,6 @@
     },
     "days_other": "{{count}} ngày",
     "deck": "Bộ bài",
-    "default": "Mặc định",
     "delete": "Xóa bỏ",
     "done": "Xong",
     "duplicate": "Nhân bản",
@@ -208,6 +207,7 @@
     "addToNoteType": "Thêm Smart Field vào {{noteType}}",
     "disable": "Vô hiệu hóa",
     "deleting": "Đang xóa…",
+    "followsDefault": "<model>{{model}}</model> (Mặc định)",
     "discord": {
       "dismissAriaLabel": "Loại bỏ lời mời Discord",
       "join": "Tham gia",
@@ -253,7 +253,7 @@
     },
     "image": {
       "cannotFindModel": "Danh mục hình ảnh thiếu mẫu {{model}}",
-      "defaultModel": "Mô hình",
+      "defaultModel": "Mô hình mặc định",
       "gptImage25": "tốt nhất cho mọi tác vụ — chữ sắc nét, sơ đồ gọn gàng.",
       "loadingLabel": "Đang tải cài đặt tạo ảnh",
       "loadingTitle": "Cài đặt tạo ảnh",
@@ -275,7 +275,7 @@
       "tryIt": "Hãy thử nó"
     },
     "text": {
-      "defaultModel": "Mô hình",
+      "defaultModel": "Mô hình mặc định",
       "loadingLabel": "Đang tải cài đặt tạo văn bản",
       "loadingTitle": "Cài đặt tạo văn bản",
       "samplePrompt": "Hệ thống lặp lại cách nhau (SRS) là gì?",
@@ -380,7 +380,7 @@
       "text": "Chữ",
       "voice": "Tiếng nói"
     },
-    "creditUsage": "Sử dụng tín dụng",
+    "creditUsage": "Mức sử dụng tín dụng",
     "creditsReset": "Đặt lại tín dụng",
     "daysLeft_other": "{{count}} ngày còn lại",
     "errors": {
