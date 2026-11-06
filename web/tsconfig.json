@@ -11,9 +11,8 @@
     "noEmit": true,
     "skipLibCheck": true,
     "isolatedModules": true,
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
     "types": ["bun"]
   },
