@@ -135,6 +135,25 @@ PLAN_DETAILS = {
     "free": ("free_mini_1", "Free"),
     "medium": ("medium1", "Standard"),
 }
+# What the server sends as the free plan's voices.
+FREE_PLAN_VOICES = [
+    {"provider": "google", "model": "standard", "voiceIdIncludes": "-Standard-"}
+]
+
+
+def sample_voice(
+    provider: str, model: str, voice_id: str, language: str, gender: str
+) -> dict[str, str]:
+    """A voice catalog entry. Tests load the bundled catalogs empty."""
+    return {
+        "provider": provider,
+        "voice_id": voice_id,
+        "model": model,
+        "name": voice_id,
+        "gender": gender,
+        "language": language,
+        "price_tier": "standard",
+    }
 
 
 class MockAppState:
@@ -154,6 +173,7 @@ class MockAppState:
                 "dailyNotesUsed": 0 if plan_type == "free" else None,
                 "dailyNotesLimit": 20 if plan_type == "free" else None,
                 "freePlanReason": "trialExpired" if plan_type == "free" else None,
+                "allowedVoices": FREE_PLAN_VOICES if plan_type == "free" else None,
                 "daysLeft": 30,
                 "totalDays": 30,
                 "textCreditsUsed": 0,

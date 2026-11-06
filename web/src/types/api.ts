@@ -34,6 +34,13 @@ export type SubscriptionStatus = "active" | "canceling" | "expired"
  *  plan or other access ending. */
 export type FreePlanReason =
   "trialExpired" | "trialNotes" | "trialCredits" | "accessEnded"
+/** Voices a plan allows: one provider's model, limited to the voices whose ID
+ *  contains `voiceIdIncludes` ("" allows all of them). */
+export interface VoiceRule {
+  provider: string
+  model: string
+  voiceIdIncludes: string
+}
 
 export interface PlanInfo {
   /** @deprecated Use planType. Retained for compatibility with older clients. */
@@ -47,6 +54,9 @@ export interface PlanInfo {
   dailyNotesLimit: number | null
   /** Set on the free plan only. */
   freePlanReason: FreePlanReason | null
+  /** The voices the plan allows; null when it allows every voice. Servers
+   *  before the free plan's voices leave it out. */
+  allowedVoices?: VoiceRule[] | null
   daysLeft: number
   /** Length of the current cycle, so the UI can draw how much is left. */
   totalDays: number

@@ -40,6 +40,15 @@ PUBLIC_PLAN_DETAILS: dict[PlanType, tuple[LegacyPlanId, PlanName]] = {
 PAID_PLAN_TYPES: set[PlanType] = {"small", "medium", "large"}
 
 
+class VoiceRule(TypedDict):
+    """Voices a plan allows: one provider's model, limited to the voices whose ID
+    contains `voiceIdIncludes` ("" allows all of them)."""
+
+    provider: str
+    model: str
+    voiceIdIncludes: str
+
+
 class PlanInfo(TypedDict):
     # Deprecated server field retained for compatibility with older clients.
     planId: LegacyPlanId
@@ -52,6 +61,8 @@ class PlanInfo(TypedDict):
     dailyNotesLimit: Optional[int]
     # Why the user moved to the free plan; None on other plans.
     freePlanReason: Optional[FreePlanReason]
+    # The voices the plan allows; None when it allows every voice.
+    allowedVoices: Optional[list[VoiceRule]]
     daysLeft: int
     totalDays: int
     textCreditsUsed: int

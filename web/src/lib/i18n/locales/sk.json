@@ -315,7 +315,8 @@
       "title": "Nastavenia hlasu",
       "defaultVoice": "Predvolený hlas",
       "defaultVoiceTip": "Hlasové Smart Fields používajú tento hlas predvolene. Zmena aktualizuje všetky Smart Fields, ktoré používajú predvolenú hodnotu. Ktorékoľvek Smart Fields ju môže prepísať vlastným hlasom.",
-      "defaultVoiceTipLabel": "O predvolenom hlase"
+      "defaultVoiceTipLabel": "O predvolenom hlase",
+      "free": "Zdarma"
     }
   },
   "imageGeneration": {
@@ -482,7 +483,7 @@
       "notesUsedToday": "dnes použitých poznámok",
       "moduleResetsAt": "Obnoví sa o {{time}}",
       "rowTitle": "Bezplatný plán",
-      "rowDescription": "Prejdite na platený plán pre neobmedzené poznámky, hlas, obrázky, dávkové spracovanie a všetky modely."
+      "rowDescription": "Prejdite na vyšší plán pre neobmedzené poznámky, obrázky, dávky a všetky modely a hlasy."
     }
   },
   "support": {
@@ -597,9 +598,9 @@
         "cta": "Prejsť na platený plán a odomknúť vyhľadávanie na webe"
       },
       "voice": {
-        "title": "Hlasové polia",
-        "description": "Generujte zvuk pre svoje karty s prirodzenými hlasmi.",
-        "cta": "Prejsť na platený plán a odomknúť hlas"
+        "title": "Všetky hlasy",
+        "description": "Používajte ľubovoľný hlas od Google, Azure, OpenAI, ElevenLabs a VOICEVOX, nielen štandardné hlasy Google.",
+        "cta": "Prejdite na vyšší plán a odomknite všetky hlasy"
       },
       "images": {
         "title": "Obrazové polia",
@@ -628,7 +629,7 @@
       }
     },
     "notices": {
-      "voice": "Hlasové polia sú súčasťou každého plateného plánu.",
+      "voice": "Plán Zdarma obsahuje hlasy označené ako Zdarma. Platené plány obsahujú všetky hlasy.",
       "images": "Obrazové polia sú súčasťou každého plateného plánu."
     },
     "moreNotesAt": "Ďalšie o {{time}}"
@@ -657,6 +658,11 @@
       "oneAtATime": "Jedna naraz",
       "none": "Žiadne",
       "autoStandardOnly": "Iba Auto Standard",
+      "standardVoices": "Štandardné hlasy",
+      "fieldsChange_one": "{{count}} zmena poľa",
+      "fieldsChange_few": "{{count}} zmeny polí",
+      "fieldsChange_many": "{{count}} zmien polí",
+      "fieldsChange_other": "{{count}} zmien polí",
       "fieldsStop_one": "{{count}} pole sa zastaví",
       "fieldsStop_few": "{{count}} polia sa zastavia",
       "fieldsStop_many": "{{count}} polí sa zastaví",

@@ -309,7 +309,8 @@
       "title": "語音設定",
       "defaultVoice": "預設語音",
       "defaultVoiceTip": "語音 Smart Fields 預設使用此語音。變更後，所有使用預設值的 Smart Field 都會更新。任何 Smart Field 都可以改用自己的語音。",
-      "defaultVoiceTipLabel": "關於預設語音"
+      "defaultVoiceTipLabel": "關於預設語音",
+      "free": "免費"
     }
   },
   "imageGeneration": {
@@ -452,7 +453,7 @@
       "notesUsedToday": "今日已用筆記數",
       "moduleResetsAt": "{{time}} 重設",
       "rowTitle": "免費方案",
-      "rowDescription": "升級即可無限使用筆記、語音、圖片、批次處理及所有模型。"
+      "rowDescription": "升級後即可無限使用筆記、圖片、批次處理，以及所有模型與語音。"
     }
   },
   "support": {
@@ -567,9 +568,9 @@
         "cta": "升級以解鎖網路搜尋"
       },
       "voice": {
-        "title": "語音欄位",
-        "description": "以自然的語音為卡片生成音訊。",
-        "cta": "升級以解鎖語音"
+        "title": "所有語音",
+        "description": "可使用 Google、Azure、OpenAI、ElevenLabs 和 VOICEVOX 的任何語音，不只限於 Google Standard。",
+        "cta": "升級以解鎖所有語音"
       },
       "images": {
         "title": "圖片欄位",
@@ -598,7 +599,7 @@
       }
     },
     "notices": {
-      "voice": "所有付費方案皆包含語音欄位。",
+      "voice": "免費方案包含標示為免費的語音。付費方案包含所有語音。",
       "images": "所有付費方案皆包含圖片欄位。"
     },
     "moreNotesAt": "{{time}} 後可再生成更多"
@@ -627,6 +628,8 @@
       "oneAtATime": "一次一則",
       "none": "無",
       "autoStandardOnly": "僅限 Auto Standard",
+      "standardVoices": "標準語音",
+      "fieldsChange_other": "{{count}} 個欄位會變更",
       "fieldsStop_other": "{{count}} 個欄位停止",
       "fieldsToStandard_other": "{{count}} 個欄位移至 Standard",
       "fieldsWithoutSearch_other": "{{count}} 個欄位失去此功能"

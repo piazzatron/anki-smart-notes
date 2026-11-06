@@ -313,7 +313,8 @@
       "title": "Configurações de Voz",
       "defaultVoice": "Voz padrão",
       "defaultVoiceTip": "Smart Fields de voz usam esta voz por padrão. Alterá-la atualiza todos os Smart Fields que usam o padrão. Qualquer Smart Field pode substituí-la pela própria voz.",
-      "defaultVoiceTipLabel": "Sobre a voz padrão"
+      "defaultVoiceTipLabel": "Sobre a voz padrão",
+      "free": "Free"
     }
   },
   "imageGeneration": {
@@ -472,7 +473,7 @@
       "notesUsedToday": "notas usadas hoje",
       "moduleResetsAt": "Redefine às {{time}}",
       "rowTitle": "Plano Free",
-      "rowDescription": "Faça upgrade para notas ilimitadas, voz, imagens, processamento em lote e todos os modelos."
+      "rowDescription": "Faça upgrade para ter notas, imagens, lote e todos os modelos e vozes sem limite."
     }
   },
   "support": {
@@ -587,9 +588,9 @@
         "cta": "Faça upgrade para desbloquear a pesquisa na web"
       },
       "voice": {
-        "title": "Campos de voz",
-        "description": "Gere áudio para seus cards com vozes naturais.",
-        "cta": "Faça upgrade para desbloquear voz"
+        "title": "Todas as vozes",
+        "description": "Use qualquer voz do Google, Azure, OpenAI, ElevenLabs e VOICEVOX, não apenas o Google Standard.",
+        "cta": "Faça upgrade para desbloquear todas as vozes"
       },
       "images": {
         "title": "Campos de imagem",
@@ -618,7 +619,7 @@
       }
     },
     "notices": {
-      "voice": "Campos de voz vêm com todos os planos pagos.",
+      "voice": "O plano Free inclui as vozes marcadas como Free. Os planos pagos incluem todas as vozes.",
       "images": "Campos de imagem vêm com todos os planos pagos."
     },
     "moreNotesAt": "Mais às {{time}}"
@@ -647,6 +648,10 @@
       "oneAtATime": "Um por vez",
       "none": "Nenhum",
       "autoStandardOnly": "Somente Auto Standard",
+      "standardVoices": "Vozes padrão",
+      "fieldsChange_one": "{{count}} alteração em campo",
+      "fieldsChange_many": "{{count}} alterações em campos",
+      "fieldsChange_other": "{{count}} alterações em campos",
       "fieldsStop_one": "{{count}} campo para",
       "fieldsStop_many": "{{count}} campos param",
       "fieldsStop_other": "{{count}} campos param",

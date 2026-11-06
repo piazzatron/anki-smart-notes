@@ -41,7 +41,8 @@ interface DefaultsScreenLayoutProps {
   testerAccessory?: ReactNode
   testId: string
   title: string
-  /** Set on the free plan when this screen's field type is a paid feature. */
+  /** Set on the free plan when this screen's field type is a paid feature, or
+   *  only partly included (voices). */
   upgradeFeature?: Extract<UpgradeFeature, "voice" | "images">
 }
 

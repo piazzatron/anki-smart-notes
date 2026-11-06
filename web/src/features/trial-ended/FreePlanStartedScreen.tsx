@@ -93,6 +93,20 @@ export const FreePlanStartedScreen = ({
     count > 0
       ? t("freePlanStarted.freeValues.fieldsStop", { count })
       : undefined
+  const fieldsMove = (count: number) =>
+    count > 0
+      ? t("freePlanStarted.freeValues.fieldsToStandard", { count })
+      : undefined
+  // Voice fields on a voice Free doesn't include move to a Standard voice in
+  // their language, or stop when there's none.
+  const voiceNote =
+    impact.voiceStops === 0
+      ? fieldsMove(impact.voiceFallbacks)
+      : impact.voiceFallbacks === 0
+        ? fieldsStop(impact.voiceStops)
+        : t("freePlanStarted.freeValues.fieldsChange", {
+            count: impact.voiceFallbacks + impact.voiceStops,
+          })
   const losses: Loss[] = [
     {
       icon: SparklesIcon,
@@ -104,8 +118,8 @@ export const FreePlanStartedScreen = ({
     {
       icon: VolumeIcon,
       key: "audio",
-      free: none,
-      yours: fieldsStop(impact.voiceFields),
+      free: t("freePlanStarted.freeValues.standardVoices"),
+      yours: voiceNote,
     },
     {
       icon: GalleryIcon,
@@ -124,12 +138,7 @@ export const FreePlanStartedScreen = ({
       icon: BoltIcon,
       key: "models",
       free: t("freePlanStarted.freeValues.autoStandardOnly"),
-      yours:
-        impact.modelFallbacks > 0
-          ? t("freePlanStarted.freeValues.fieldsToStandard", {
-              count: impact.modelFallbacks,
-            })
-          : undefined,
+      yours: fieldsMove(impact.modelFallbacks),
     },
     {
       icon: SearchIcon,

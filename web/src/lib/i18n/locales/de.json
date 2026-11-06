@@ -311,7 +311,8 @@
       "title": "Stimmeinstellungen",
       "defaultVoice": "Standardstimme",
       "defaultVoiceTip": "Stimmen-Smart Fields verwenden standardmäßig diese Stimme. Wenn Sie sie ändern, werden alle Smart Fields aktualisiert, die den Standard verwenden. Jedes Smart Field kann sie mit einer eigenen Stimme überschreiben.",
-      "defaultVoiceTipLabel": "Info zur Standardstimme"
+      "defaultVoiceTipLabel": "Info zur Standardstimme",
+      "free": "Kostenlos"
     }
   },
   "imageGeneration": {
@@ -462,7 +463,7 @@
       "notesUsedToday": "heute verwendete Notizen",
       "moduleResetsAt": "Wird um {{time}} zurückgesetzt",
       "rowTitle": "Kostenloser Tarif",
-      "rowDescription": "Upgrade für unbegrenzte Notizen, Sprache, Bilder, Batch-Verarbeitung und alle Modelle."
+      "rowDescription": "Upgrade für unbegrenzte Notizen, Bilder, Batch und alle Modelle und Stimmen."
     }
   },
   "support": {
@@ -577,9 +578,9 @@
         "cta": "Upgraden, um Websuche freizuschalten"
       },
       "voice": {
-        "title": "Sprachfelder",
-        "description": "Erzeuge Audio für deine Karten mit natürlichen Stimmen.",
-        "cta": "Upgraden, um Sprache freizuschalten"
+        "title": "Alle Stimmen",
+        "description": "Jede Stimme von Google, Azure, OpenAI, ElevenLabs und VOICEVOX verwenden, nicht nur Google Standard.",
+        "cta": "Upgrade für alle Stimmen freischalten"
       },
       "images": {
         "title": "Bildfelder",
@@ -608,7 +609,7 @@
       }
     },
     "notices": {
-      "voice": "Sprachfelder sind in jedem bezahlten Tarif enthalten.",
+      "voice": "Kostenlos umfasst die als Kostenlos markierten Stimmen. Bezahlte Tarife umfassen alle Stimmen.",
       "images": "Bildfelder sind in jedem bezahlten Tarif enthalten."
     },
     "moreNotesAt": "Weitere ab {{time}}"
@@ -637,6 +638,9 @@
       "oneAtATime": "Eine nach der anderen",
       "none": "Keine",
       "autoStandardOnly": "Nur Auto Standard",
+      "standardVoices": "Standardstimmen",
+      "fieldsChange_one": "{{count}} Feld ändert sich",
+      "fieldsChange_other": "{{count}} Felder ändern sich",
       "fieldsStop_one": "{{count}} Feld stoppt",
       "fieldsStop_other": "{{count}} Felder stoppen",
       "fieldsToStandard_one": "{{count}} Feld wechselt",

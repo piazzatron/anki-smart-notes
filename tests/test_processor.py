@@ -36,6 +36,7 @@ from fixtures import (
     MockNote,
     MockProgress,
     run_background_ops_as_tasks,
+    sample_voice,
 )
 
 import src.note_proccessor
@@ -1035,7 +1036,7 @@ class RecordingProviders:
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("plan_type", ["medium", "free"])
-async def test_free_plan_falls_back_to_auto_and_skips_media(monkeypatch, plan_type):
+async def test_free_plan_falls_back_to_auto_and_free_voices(monkeypatch, plan_type):
     import src.app_state
     import src.dag
     import src.field_resolver
@@ -1064,6 +1065,12 @@ async def test_free_plan_falls_back_to_auto_and_skips_media(monkeypatch, plan_ty
             model="tts-1",
             voice_id="alloy",
         ),
+        "Reading": TTSSmartFieldSettings(
+            source_field_name="Front",
+            provider="google",
+            model="neural",
+            voice_id="ja-JP-Neural2-C",
+        ),
         "Picture": ImageSmartFieldSettings(
             prompt_text="Draw {{Front}}", provider="replicate", model="flux-dev"
         ),
@@ -1077,7 +1084,9 @@ async def test_free_plan_falls_back_to_auto_and_skips_media(monkeypatch, plan_ty
                 settings=settings,
             )
         )
-    note = MockNote({"Front": "dog", "Back": "", "Audio": "", "Picture": ""})
+    note = MockNote(
+        {"Front": "dog", "Back": "", "Audio": "", "Reading": "", "Picture": ""}
+    )
     providers = RecordingProviders()
     media = MagicMock()
     media.write_data.side_effect = lambda name, data: name
@@ -1087,6 +1096,15 @@ async def test_free_plan_falls_back_to_auto_and_skips_media(monkeypatch, plan_ty
     monkeypatch.setattr(src.app_state, "app_state", MockAppState(plan_type))
     monkeypatch.setattr(src.prompt_helpers, "config", config)
     monkeypatch.setattr(src.field_resolver, "mw", MagicMock(col=MagicMock(media=media)))
+    monkeypatch.setattr(
+        src.field_resolver,
+        "get_voice_catalog",
+        lambda: [
+            sample_voice("openai", "tts-1", "alloy", "All", "Female"),
+            sample_voice("google", "neural", "ja-JP-Neural2-C", "Japanese", "Male"),
+            sample_voice("google", "standard", "ja-JP-Standard-C", "Japanese", "Male"),
+        ],
+    )
     monkeypatch.setattr(
         src.field_resolver,
         "download_and_embed_images",
@@ -1110,14 +1128,22 @@ async def test_free_plan_falls_back_to_auto_and_skips_media(monkeypatch, plan_ty
         chat["reasoning_level"],
         chat["web_search"],
     )
+    voices = {(tts["provider"], tts["model"], tts["voice"]) for tts in providers.tts}
     assert note["Back"] == p("Define dog")
+    assert note["Reading"]
     if plan_type == "free":
+        # The multilingual OpenAI voice has no free voice in its language.
         assert sent == ("auto", "auto", "off", False)
-        assert (providers.tts, providers.image) == ([], [])
+        assert voices == {("google", "standard", "ja-JP-Standard-C")}
+        assert providers.image == []
         assert (note["Audio"], note["Picture"]) == ("", "")
     else:
         assert sent == ("openai", "gpt-5-mini", "high", True)
-        assert (len(providers.tts), len(providers.image)) == (1, 1)
+        assert voices == {
+            ("openai", "tts-1", "alloy"),
+            ("google", "neural", "ja-JP-Neural2-C"),
+        }
+        assert len(providers.image) == 1
         assert note["Audio"] and note["Picture"]
 
 

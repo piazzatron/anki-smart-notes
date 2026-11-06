@@ -311,7 +311,8 @@
       "title": "Äänen asetukset",
       "defaultVoice": "Oletusääni",
       "defaultVoiceTip": "Ääni-Smart Fields -kentät käyttävät oletusarvoisesti tätä ääntä. Äänen muuttaminen päivittää kaikki oletusta käyttävät Smart Fields -kentät. Mikä tahansa Smart Field voi ohittaa oletuksen omalla äänellään.",
-      "defaultVoiceTipLabel": "Tietoa oletusäänestä"
+      "defaultVoiceTipLabel": "Tietoa oletusäänestä",
+      "free": "Ilmainen"
     }
   },
   "imageGeneration": {
@@ -462,7 +463,7 @@
       "notesUsedToday": "muistiinpanoa käytetty tänään",
       "moduleResetsAt": "Nollautuu kello {{time}}",
       "rowTitle": "Ilmainen tilaus",
-      "rowDescription": "Päivitä saadaksesi rajattomasti muistiinpanoja, äänen, kuvat, erätilan ja kaikki mallit."
+      "rowDescription": "Päivitä, niin saat rajattomasti muistiinpanoja, kuvia ja erätoimintoja sekä kaikki mallit ja äänet."
     }
   },
   "support": {
@@ -577,9 +578,9 @@
         "cta": "Päivitä avataksesi verkkohaun"
       },
       "voice": {
-        "title": "Äänikentät",
-        "description": "Luo kortteillesi äänet luonnollisilla äänillä.",
-        "cta": "Päivitä avataksesi äänen"
+        "title": "Kaikki äänet",
+        "description": "Käytä mitä tahansa ääntä palveluista Google, Azure, OpenAI, ElevenLabs ja VOICEVOX, ei vain Google Standard -ääniä.",
+        "cta": "Päivitä ja avaa kaikki äänet"
       },
       "images": {
         "title": "Kuvakentät",
@@ -608,7 +609,7 @@
       }
     },
     "notices": {
-      "voice": "Äänikentät kuuluvat jokaiseen maksulliseen tilaukseen.",
+      "voice": "Ilmainen-tasossa on Ilmainen-merkityt äänet. Maksulliset tasot sisältävät kaikki äänet.",
       "images": "Kuvakentät kuuluvat jokaiseen maksulliseen tilaukseen."
     },
     "moreNotesAt": "Lisää kello {{time}}"
@@ -637,6 +638,9 @@
       "oneAtATime": "Yksi kerrallaan",
       "none": "Ei mitään",
       "autoStandardOnly": "Vain Auto Standard",
+      "standardVoices": "Standardiäänet",
+      "fieldsChange_one": "{{count}} kentän muutos",
+      "fieldsChange_other": "{{count}} kenttää muuttuu",
       "fieldsStop_one": "{{count}} kenttä lakkaa",
       "fieldsStop_other": "{{count}} kenttää lakkaa",
       "fieldsToStandard_one": "{{count}} kenttä siirtyy",

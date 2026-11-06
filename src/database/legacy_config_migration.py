@@ -88,6 +88,7 @@ LEGACY_DEFAULT_TEXT_GENERATION_SETTINGS = ChatGenerationSettings(
     web_search_enabled=False,
     strip_html=True,
 )
+# The pre-SQLite default, imported as-is; migration 0009 moves it to a Standard voice.
 LEGACY_DEFAULT_TTS_GENERATION_SETTINGS = TTSGenerationSettings(
     provider="google",
     model="standard",

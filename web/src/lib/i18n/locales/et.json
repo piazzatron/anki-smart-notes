@@ -311,7 +311,8 @@
       "title": "Hääle seaded",
       "defaultVoice": "Vaikehääl",
       "defaultVoiceTip": "Häälega Smart Fields kasutavad vaikimisi seda häält. Selle muutmine värskendab kõiki Smart Fields, mis kasutavad vaikeväärtust. Iga Smart Field saab kasutada oma häält.",
-      "defaultVoiceTipLabel": "Teave vaikimisi hääle kohta"
+      "defaultVoiceTipLabel": "Teave vaikimisi hääle kohta",
+      "free": "Tasuta"
     }
   },
   "imageGeneration": {
@@ -462,7 +463,7 @@
       "notesUsedToday": "täna kasutatud märkmed",
       "moduleResetsAt": "Lähtestub kell {{time}}",
       "rowTitle": "Tasuta pakett",
-      "rowDescription": "Uuenda, et saada piiramatu arv märkmeid, hääl, pildid, partiitöötlus ja kõik mudelid."
+      "rowDescription": "Uuenda, et kasutada piiramatult märkmeid, pilte, partiitöötlust ning kõiki mudeleid ja hääli."
     }
   },
   "support": {
@@ -577,9 +578,9 @@
         "cta": "Uuenda, et avada veebiotsing"
       },
       "voice": {
-        "title": "Häälväljad",
-        "description": "Genereeri oma kaartidele heli loomulike häältega.",
-        "cta": "Uuenda, et avada hääl"
+        "title": "Kõik hääled",
+        "description": "Kasuta häälte valikut Google, Azure, OpenAI, ElevenLabs ja VOICEVOX, mitte ainult Google Standard.",
+        "cta": "Uuenda, et avada kõik hääled"
       },
       "images": {
         "title": "Pildiväljad",
@@ -608,7 +609,7 @@
       }
     },
     "notices": {
-      "voice": "Häälväljad on kõigis tasulistes pakettides.",
+      "voice": "Tasuta paketis on saadaval tasuta märgitud hääled. Tasulistes pakettides on saadaval kõik hääled.",
       "images": "Pildiväljad on kõigis tasulistes pakettides."
     },
     "moreNotesAt": "Rohkem kell {{time}}"
@@ -637,6 +638,9 @@
       "oneAtATime": "Üks korraga",
       "none": "Puudub",
       "autoStandardOnly": "Ainult Auto Standard",
+      "standardVoices": "Standardhääled",
+      "fieldsChange_one": "{{count}} välja muutust",
+      "fieldsChange_other": "{{count}} välja muutub",
       "fieldsStop_one": "{{count}} väli peatub",
       "fieldsStop_other": "{{count}} välja peatuvad",
       "fieldsToStandard_one": "{{count}} väli liigub",

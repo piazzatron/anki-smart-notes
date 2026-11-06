@@ -309,7 +309,8 @@
       "title": "语音设置",
       "defaultVoice": "默认语音",
       "defaultVoiceTip": "语音类 Smart Fields 默认使用此语音。更改后，所有使用默认设置的 Smart Fields 都会随之更新。任何 Smart Field 都可以使用自己的语音覆盖此设置。",
-      "defaultVoiceTipLabel": "关于默认语音"
+      "defaultVoiceTipLabel": "关于默认语音",
+      "free": "免费"
     }
   },
   "imageGeneration": {
@@ -452,7 +453,7 @@
       "notesUsedToday": "今日已使用的笔记",
       "moduleResetsAt": "将于 {{time}} 重置",
       "rowTitle": "免费版",
-      "rowDescription": "升级后可无限生成笔记，并使用语音、图像、批处理和所有模型。"
+      "rowDescription": "升级以无限制使用笔记、图片、批量处理以及所有模型和语音。"
     }
   },
   "support": {
@@ -567,9 +568,9 @@
         "cta": "升级以解锁网页搜索"
       },
       "voice": {
-        "title": "语音字段",
-        "description": "使用自然语音为卡片生成音频。",
-        "cta": "升级以解锁语音"
+        "title": "全部语音",
+        "description": "可使用 Google、Azure、OpenAI、ElevenLabs 和 VOICEVOX 的任意语音，而不仅限于 Google Standard。",
+        "cta": "升级以解锁全部语音"
       },
       "images": {
         "title": "图像字段",
@@ -598,7 +599,7 @@
       }
     },
     "notices": {
-      "voice": "所有付费套餐均包含语音字段。",
+      "voice": "免费版包含标有“免费”的语音。付费方案包含全部语音。",
       "images": "所有付费套餐均包含图像字段。"
     },
     "moreNotesAt": "{{time}} 可生成更多"
@@ -627,6 +628,8 @@
       "oneAtATime": "一次一条",
       "none": "无",
       "autoStandardOnly": "仅限 Auto Standard",
+      "standardVoices": "标准语音",
+      "fieldsChange_other": "{{count}} 个字段会发生变化",
       "fieldsStop_other": "{{count}} 个字段将停止",
       "fieldsToStandard_other": "{{count}} 个字段将改用 Auto Standard",
       "fieldsWithoutSearch_other": "{{count}} 个字段将失去此功能"

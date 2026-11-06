@@ -311,7 +311,8 @@
       "title": "Ses Ayarları",
       "defaultVoice": "Varsayılan ses",
       "defaultVoiceTip": "Ses Smart Fields varsayılan olarak bu sesi kullanır. Bunu değiştirmek, varsayılanı kullanan her Smart Field'ı günceller. Her Smart Field, kendi sesiyle bunu geçersiz kılabilir.",
-      "defaultVoiceTipLabel": "Varsayılan ses hakkında"
+      "defaultVoiceTipLabel": "Varsayılan ses hakkında",
+      "free": "Ücretsiz"
     }
   },
   "imageGeneration": {
@@ -462,7 +463,7 @@
       "notesUsedToday": "bugün kullanılan not",
       "moduleResetsAt": "{{time}} itibarıyla sıfırlanır",
       "rowTitle": "Ücretsiz plan",
-      "rowDescription": "Sınırsız not, ses, görsel, toplu işlem ve tüm modeller için yükseltin."
+      "rowDescription": "Sınırsız not, görsel, toplu işlem ve tüm modeller ile sesler için yükseltin."
     }
   },
   "support": {
@@ -577,9 +578,9 @@
         "cta": "Web aramasını açmak için yükselt"
       },
       "voice": {
-        "title": "Ses alanları",
-        "description": "Kartlarınız için doğal seslerle ses üretin.",
-        "cta": "Sesi açmak için yükselt"
+        "title": "Tüm sesler",
+        "description": "Yalnızca Google Standard değil, Google, Azure, OpenAI, ElevenLabs ve VOICEVOX'tan herhangi bir sesi kullanın.",
+        "cta": "Tüm sesleri açmak için yükseltin"
       },
       "images": {
         "title": "Görsel alanları",
@@ -608,7 +609,7 @@
       }
     },
     "notices": {
-      "voice": "Ses alanları her ücretli planla birlikte gelir.",
+      "voice": "Ücretsiz plan, Ücretsiz olarak işaretlenmiş sesleri içerir. Ücretli planlar tüm sesleri içerir.",
       "images": "Görsel alanları her ücretli planla birlikte gelir."
     },
     "moreNotesAt": "{{time}} itibarıyla daha fazla not"
@@ -637,6 +638,9 @@
       "oneAtATime": "Tek tek",
       "none": "Yok",
       "autoStandardOnly": "Yalnızca Auto Standard",
+      "standardVoices": "Standart sesler",
+      "fieldsChange_one": "{{count}} alan değişikliği",
+      "fieldsChange_other": "{{count}} alan değişir",
       "fieldsStop_one": "{{count}} alan durur",
       "fieldsStop_other": "{{count}} alan durur",
       "fieldsToStandard_one": "{{count}} alan taşınır",

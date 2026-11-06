@@ -170,9 +170,7 @@ class FieldMenu:
         ).show()
 
     def _on_custom_tts(self, _: bool) -> None:
-        if not ensure_generation_available() or not ensure_paid_feature_available(
-            "voice"
-        ):
+        if not ensure_generation_available():
             return
 
         CustomTTSPrompt(

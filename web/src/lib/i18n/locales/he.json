@@ -313,7 +313,8 @@
       "title": "הגדרות קול",
       "defaultVoice": "קול ברירת מחדל",
       "defaultVoiceTip": "שדות Smart Fields של קול משתמשים בקול הזה כברירת מחדל. שינוי הקול מעדכן כל Smart Field שמשתמש בברירת המחדל. כל Smart Field יכול לעקוף אותו בקול משלו.",
-      "defaultVoiceTipLabel": "אודות קול ברירת המחדל"
+      "defaultVoiceTipLabel": "אודות קול ברירת המחדל",
+      "free": "חינם"
     }
   },
   "imageGeneration": {
@@ -472,7 +473,7 @@
       "notesUsedToday": "פתקים שנוצלו היום",
       "moduleResetsAt": "מתאפס בשעה {{time}}",
       "rowTitle": "תוכנית חינמית",
-      "rowDescription": "שדרג לפתקים ללא הגבלה, קול, תמונות, עיבוד אצווה ולכל המודלים."
+      "rowDescription": "שדרגו לקבלת הערות, תמונות, עיבוד אצווה וכל המודלים והקולות ללא הגבלה."
     }
   },
   "support": {
@@ -587,9 +588,9 @@
         "cta": "שדרג כדי לפתוח חיפוש באינטרנט"
       },
       "voice": {
-        "title": "שדות קול",
-        "description": "צור אודיו לכרטיסים שלך עם קולות טבעיים.",
-        "cta": "שדרג כדי לפתוח קול"
+        "title": "כל הקולות",
+        "description": "השתמשו בכל קול מ-Google, Azure, OpenAI, ElevenLabs ו-VOICEVOX, ולא רק בקולות Google Standard.",
+        "cta": "שדרגו כדי לפתוח את כל הקולות"
       },
       "images": {
         "title": "שדות תמונה",
@@ -618,7 +619,7 @@
       }
     },
     "notices": {
-      "voice": "שדות קול מגיעים עם כל תוכנית בתשלום.",
+      "voice": "התוכנית החינמית כוללת את הקולות שמסומנים כחינמיים. תוכניות בתשלום כוללות את כל הקולות.",
       "images": "שדות תמונה מגיעים עם כל תוכנית בתשלום."
     },
     "moreNotesAt": "עוד פתקים בשעה {{time}}"
@@ -647,6 +648,10 @@
       "oneAtATime": "אחד בכל פעם",
       "none": "אין",
       "autoStandardOnly": "Auto Standard בלבד",
+      "standardVoices": "קולות סטנדרטיים",
+      "fieldsChange_one": "שינוי של שדה {{count}}",
+      "fieldsChange_two": "שינוי של {{count}} שדות",
+      "fieldsChange_other": "שינוי של {{count}} שדות",
       "fieldsStop_one": "{{count}} שדה נעצר",
       "fieldsStop_two": "{{count}} שדות נעצרים",
       "fieldsStop_other": "{{count}} שדות נעצרים",

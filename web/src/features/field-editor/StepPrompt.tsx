@@ -39,7 +39,11 @@ import {
   usePromptTester,
   type PromptTesterArgs,
 } from "@/features/prompt-tester/usePromptTester"
-import { voiceMatchesSettings } from "@/features/defaults/voiceDefaults"
+import {
+  allowedVoicesOf,
+  shownVoice,
+  voiceMatchesSettings,
+} from "@/features/defaults/voiceDefaults"
 import { getValidPromptFields } from "@/lib/promptFields"
 import type { AppState, Catalog, VoiceCatalog } from "@/types/api"
 
@@ -260,7 +264,12 @@ const getTesterArgs = ({
     }
   }
 
-  const settings = pinnedSettings.tts ?? state.defaults.tts
+  // Test with the voice the field reads with on this plan.
+  const settings = shownVoice(
+    pinnedSettings.tts ?? state.defaults.tts,
+    voiceCatalog?.voices ?? [],
+    allowedVoicesOf(state),
+  )
   return {
     deckId,
     fieldType: "tts",

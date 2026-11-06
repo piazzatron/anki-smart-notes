@@ -311,7 +311,8 @@
       "title": "ଭଏସ୍ ସେଟିଂସ୍",
       "defaultVoice": "ଡିଫଲ୍ଟ ସ୍ୱର",
       "defaultVoiceTip": "Voice Smart Fields ଡିଫଲ୍ଟ ଭାବରେ ଏହି ଭଏସ୍ ବ୍ୟବହାର କରେ। ଏହାକୁ ବଦଳାଇଲେ ଡିଫଲ୍ଟ ବ୍ୟବହାର କରୁଥିବା ପ୍ରତ୍ୟେକ Smart Field ଅଦ୍ୟତନ ହେବ। ଯେକୌଣସି Smart Field ନିଜର ଭଏସ୍ ସହିତ ଏହାକୁ ଓଭରରାଇଡ୍ କରିପାରିବ।",
-      "defaultVoiceTipLabel": "ଡିଫଲ୍ଟ ଭଏସ୍ ବିଷୟରେ"
+      "defaultVoiceTipLabel": "ଡିଫଲ୍ଟ ଭଏସ୍ ବିଷୟରେ",
+      "free": "ମାଗଣା"
     }
   },
   "imageGeneration": {
@@ -462,7 +463,7 @@
       "notesUsedToday": "ଆଜି ବ୍ୟବହୃତ ନୋଟ୍",
       "moduleResetsAt": "{{time}} ରେ ରିସେଟ୍ ହେବ",
       "rowTitle": "ଫ୍ରି ପ୍ଲାନ୍",
-      "rowDescription": "ଅସୀମିତ ନୋଟ୍, ଭଏସ୍, ଛବି, ବ୍ୟାଚ୍ ଏବଂ ସମସ୍ତ ମଡେଲ ପାଇଁ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ।"
+      "rowDescription": "ଅସୀମିତ ନୋଟ, ଛବି, ବ୍ୟାଚ୍ ଏବଂ ସମସ୍ତ ମଡେଲ ଓ ସ୍ୱର ପାଇଁ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ।"
     }
   },
   "support": {
@@ -577,9 +578,9 @@
         "cta": "ୱେବ୍ ସର୍ଚ୍ଚ ଅନଲକ୍ କରିବାକୁ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ"
       },
       "voice": {
-        "title": "ଭଏସ୍ ଫିଲ୍ଡ",
-        "description": "ସ୍ୱାଭାବିକ ସ୍ୱରରେ ଆପଣଙ୍କ କାର୍ଡ ପାଇଁ ଅଡିଓ ଜେନେରେଟ୍ କରନ୍ତୁ।",
-        "cta": "ଭଏସ୍ ଅନଲକ୍ କରିବାକୁ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ"
+        "title": "ସମସ୍ତ ସ୍ୱର",
+        "description": "Google, Azure, OpenAI, ElevenLabs ଏବଂ VOICEVOX ରୁ ଯେକୌଣସି ସ୍ୱର ବ୍ୟବହାର କରନ୍ତୁ, କେବଳ Google Standard ନୁହେଁ।",
+        "cta": "ସମସ୍ତ ସ୍ୱର ଅନଲକ୍ କରିବାକୁ ଅପଗ୍ରେଡ୍ କରନ୍ତୁ"
       },
       "images": {
         "title": "ଛବି ଫିଲ୍ଡ",
@@ -608,7 +609,7 @@
       }
     },
     "notices": {
-      "voice": "ସବୁ ପେଡ୍ ପ୍ଲାନ୍ ସହିତ ଭଏସ୍ ଫିଲ୍ଡ ମିଳେ।",
+      "voice": "ମାଗଣା ପ୍ଲାନରେ ‘ମାଗଣା’ ଚିହ୍ନିତ ସ୍ୱରଗୁଡ଼ିକ ଅନ୍ତର୍ଭୁକ୍ତ। ପେଡ୍ ପ୍ଲାନରେ ସମସ୍ତ ସ୍ୱର ଅନ୍ତର୍ଭୁକ୍ତ।",
       "images": "ସବୁ ପେଡ୍ ପ୍ଲାନ୍ ସହିତ ଛବି ଫିଲ୍ଡ ମିଳେ।"
     },
     "moreNotesAt": "{{time}} ରେ ଆହୁରି ନୋଟ୍"
@@ -637,6 +638,9 @@
       "oneAtATime": "ଏକ ସମୟରେ ଗୋଟିଏ",
       "none": "କିଛି ନାହିଁ",
       "autoStandardOnly": "କେବଳ Auto Standard",
+      "standardVoices": "ସ୍ଟାଣ୍ଡାର୍ଡ ସ୍ୱର",
+      "fieldsChange_one": "{{count}} ଫିଲ୍ଡ ପରିବର୍ତ୍ତନ",
+      "fieldsChange_other": "{{count}} ଫିଲ୍ଡ ପରିବର୍ତ୍ତନ",
       "fieldsStop_one": "{{count}} ଫିଲ୍ଡ ବନ୍ଦ ହେବ",
       "fieldsStop_other": "{{count}} ଫିଲ୍ଡ ବନ୍ଦ ହେବ",
       "fieldsToStandard_one": "{{count}} ଫିଲ୍ଡ Standard କୁ ଯିବ",

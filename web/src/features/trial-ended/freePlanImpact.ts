@@ -17,11 +17,19 @@
  * along with Smart Notes. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import type { ChatGenerationSettings, SmartField } from "@/types/api"
+import { planVoice } from "@/features/defaults/voiceDefaults"
+import type {
+  GenerationDefaults,
+  SmartField,
+  VoiceCatalogItem,
+  VoiceRule,
+} from "@/types/api"
 
 export interface FreePlanImpact {
-  /** Voice fields, which stop generating. */
-  voiceFields: number
+  /** Voice fields with no free voice in their language, which stop generating. */
+  voiceStops: number
+  /** Voice fields on a voice Free doesn't include, which read with a free one. */
+  voiceFallbacks: number
   /** Image fields, which stop generating. */
   imageFields: number
   /** Text fields on a model or level above Auto Standard, which fall back to it. */
@@ -30,25 +38,48 @@ export interface FreePlanImpact {
   webSearchFallbacks: number
 }
 
-/** What the free plan changes about the user's own enabled Smart Fields. A text
- *  field that follows the defaults is judged by the defaults. */
-export const getFreePlanImpact = (
-  smartFields: SmartField[],
-  chatDefaults: ChatGenerationSettings,
-): FreePlanImpact => {
+interface FreePlanImpactArgs {
+  smartFields: SmartField[]
+  defaults: Pick<GenerationDefaults, "chat" | "tts">
+  /** The voices the free plan allows, from the server. */
+  allowedVoices: VoiceRule[] | null
+  /** The voice catalog, or null while it loads, when voice fields count as
+   *  unchanged. */
+  voices: VoiceCatalogItem[] | null
+}
+
+/** What the free plan changes about the user's own enabled Smart Fields. A field
+ *  that follows the defaults is judged by the defaults. */
+export const getFreePlanImpact = ({
+  smartFields,
+  defaults,
+  allowedVoices,
+  voices,
+}: FreePlanImpactArgs): FreePlanImpact => {
   const enabled = smartFields.filter((field) => field.enabled)
   const chatSettings = enabled.flatMap((field) =>
     field.fieldType !== "chat"
       ? []
       : [
           field.settings.usesDefaultGenerationSettings
-            ? chatDefaults
+            ? defaults.chat
             : field.settings,
         ],
   )
+  const voiceChanges = enabled.flatMap((field) => {
+    if (field.fieldType !== "tts" || voices === null) return []
+    const saved = field.settings.usesDefaultGenerationSettings
+      ? defaults.tts
+      : field.settings
+    const voice = planVoice(saved, voices, allowedVoices)
+    if (voice === null) return ["stops"]
+    return voice === saved ? [] : ["fallsBack"]
+  })
 
   return {
-    voiceFields: enabled.filter((field) => field.fieldType === "tts").length,
+    voiceStops: voiceChanges.filter((change) => change === "stops").length,
+    voiceFallbacks: voiceChanges.filter((change) => change === "fallsBack")
+      .length,
     imageFields: enabled.filter((field) => field.fieldType === "image").length,
     modelFallbacks: chatSettings.filter(
       (settings) =>

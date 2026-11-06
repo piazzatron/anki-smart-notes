@@ -97,9 +97,9 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
           onValueChange={(fieldType) => {
             const type = FIELD_TYPES.find((item) => item.value === fieldType)
             if (type === undefined) return
-            // The free plan is text only: voice and image open the upgrade sheet.
-            if (isFree && type.value !== "chat") {
-              openUpgradeSheet(type.value === "tts" ? "voice" : "images")
+            // The free plan has no images: that opens the upgrade sheet.
+            if (isFree && type.value === "image") {
+              openUpgradeSheet("images")
               return
             }
             controls.setTarget({ fieldType: type.value })
@@ -114,17 +114,17 @@ export const StepTarget = ({ controls, state }: StepTargetProps) => {
             >
               <Icon
                 className={
-                  isFree && value !== "chat"
+                  isFree && value === "image"
                     ? "opacity-40"
                     : "group-data-[state=unchecked]:opacity-70"
                 }
                 size={16}
               />
               <span
-                className={`inline-flex items-center gap-[7px] ${isFree && value !== "chat" ? "opacity-40" : ""}`}
+                className={`inline-flex items-center gap-[7px] ${isFree && value === "image" ? "opacity-40" : ""}`}
               >
                 {t(labelKey)}
-                {isFree && value !== "chat" && <UpgradeLockIcon />}
+                {isFree && value === "image" && <UpgradeLockIcon />}
               </span>
             </OptionGroupItem>
           ))}

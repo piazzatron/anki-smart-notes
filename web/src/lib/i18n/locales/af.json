@@ -311,7 +311,8 @@
       "title": "Steminstellings",
       "defaultVoice": "Standaardstem",
       "defaultVoiceTip": "Stem-Smart Fields gebruik standaard hierdie stem. As jy dit verander, word elke Smart Field wat die standaard gebruik, bygewerk. Enige Smart Field kan dit met sy eie stem oorskryf.",
-      "defaultVoiceTipLabel": "Oor die standaardstem"
+      "defaultVoiceTipLabel": "Oor die standaardstem",
+      "free": "Gratis"
     }
   },
   "imageGeneration": {
@@ -462,7 +463,7 @@
       "notesUsedToday": "notas vandag gebruik",
       "moduleResetsAt": "Herstel om {{time}}",
       "rowTitle": "Gratis-plan",
-      "rowDescription": "Opgradeer vir onbeperkte notas, stem, beelde, groepverwerking en elke model."
+      "rowDescription": "Opgradeer vir onbeperkte notas, beelde, lotverwerking en elke model en stem."
     }
   },
   "support": {
@@ -577,9 +578,9 @@
         "cta": "Opgradeer om websoektog te ontsluit"
       },
       "voice": {
-        "title": "Stemvelde",
-        "description": "Genereer oudio vir jou kaarte met natuurlike stemme.",
-        "cta": "Opgradeer om stem te ontsluit"
+        "title": "Elke stem",
+        "description": "Gebruik enige stem van Google, Azure, OpenAI, ElevenLabs en VOICEVOX, nie net Google Standard nie.",
+        "cta": "Opgradeer om elke stem te ontsluit"
       },
       "images": {
         "title": "Beeldvelde",
@@ -608,7 +609,7 @@
       }
     },
     "notices": {
-      "voice": "Stemvelde kom met elke betaalde plan.",
+      "voice": "Gratis sluit die stemme in wat as Gratis gemerk is. Betaalde planne sluit elke stem in.",
       "images": "Beeldvelde kom met elke betaalde plan."
     },
     "moreNotesAt": "Meer om {{time}}"
@@ -637,6 +638,9 @@
       "oneAtATime": "Een op 'n slag",
       "none": "Geen",
       "autoStandardOnly": "Slegs Auto Standard",
+      "standardVoices": "Standaardstemme",
+      "fieldsChange_one": "{{count}} veldverandering",
+      "fieldsChange_other": "{{count}} velde verander",
       "fieldsStop_one": "{{count}} veld stop",
       "fieldsStop_other": "{{count}} velde stop",
       "fieldsToStandard_one": "{{count}} veld skuif",

@@ -40,13 +40,13 @@ from aqt import (
 )
 
 from ..api_client import DailyCardLimitError, UserDisplayableError
-from ..app_state import is_capacity_remaining
+from ..app_state import allowed_voices, is_capacity_remaining
 from ..field_resolver import field_resolver
 from ..generation_access import open_daily_limit_upgrade_ui
 from ..image_provider import ImageResponse
 from ..logger import logger
 from ..media_utils import ext_from_content_type, get_media_path, write_media
-from ..models.smart_fields import TTSSmartFieldSettings
+from ..models.smart_fields import TTSGenerationSettings, TTSSmartFieldSettings
 from ..prompt_helpers import interpolate_prompt
 from ..sentry import run_async_in_background_with_sentry
 from ..services.smart_field_service import smart_field_service
@@ -56,6 +56,8 @@ from ..utils.notes_utils import (
     get_note_type_id,
     get_valid_fields_for_prompt,
 )
+from ..voice_catalog import is_voice_allowed
+from ..web_app import open_web_app
 from .chat_options import ChatOptions
 from .image_displayer import ImageDisplayer
 from .image_options import ImageOptions
@@ -229,6 +231,15 @@ class CustomPrompt(QDialog):
         ):
             QDialog.reject(self)
 
+    def _close_for_upgrade(self, open_upgrade: Callable[[], None]) -> None:
+        """The dialog is modal, so an upgrade sheet opens only once it has closed.
+        The user can keep an unsaved result by cancelling the close."""
+        self._loading = False
+        self._update_ui_states()
+        self.reject()
+        if not self.isVisible():
+            open_upgrade()
+
     def _on_generate(self) -> None:
         self._loading = True
         self._update_ui_states()
@@ -263,7 +274,7 @@ class CustomTextPrompt(CustomPrompt):
             self._loading = False
             self._update_ui_states()
             if isinstance(error, DailyCardLimitError):
-                open_daily_limit_upgrade_ui()
+                self._close_for_upgrade(open_daily_limit_upgrade_ui)
                 return
 
             msg = f"Error generating text: {error}"
@@ -404,14 +415,25 @@ class CustomTTSPrompt(CustomPrompt):
 
     def on_generate(self) -> None:
         prompt = self._prompt_window.toPlainText()
+        voice = TTSGenerationSettings(
+            provider=self.tts_options.state.s["tts_provider"],
+            model=self.tts_options.state.s["tts_model"],
+            voice_id=self.tts_options.state.s["tts_voice"],
+        )
+
+        # A voice the plan doesn't include (on the free plan, anything but a
+        # Google Standard voice) opens the upgrade sheet instead.
+        if not is_voice_allowed(voice, allowed_voices()):
+            self._close_for_upgrade(lambda: open_web_app(upgrade_feature="voice"))
+            return
 
         async def get_tts_response():
             return await field_resolver.get_tts_response(
                 note=self._note,
                 input_text=prompt,
-                model=self.tts_options.state.s["tts_model"],
-                provider=self.tts_options.state.s["tts_provider"],
-                voice=self.tts_options.state.s["tts_voice"],
+                model=voice.model,
+                provider=voice.provider,
+                voice=voice.voice_id,
                 generation_source="custom_field",
             )
 
@@ -439,6 +461,8 @@ class CustomTTSPrompt(CustomPrompt):
         def on_failure(error: Exception):
             self._loading = False
             self._update_ui_states()
+            if isinstance(error, DailyCardLimitError):
+                self._close_for_upgrade(open_daily_limit_upgrade_ui)
 
         run_async_in_background_with_sentry(
             get_tts_response, on_success=on_success, on_failure=on_failure

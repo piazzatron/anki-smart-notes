@@ -311,7 +311,8 @@
       "title": "Voĉagordoj",
       "defaultVoice": "Defaŭlta voĉo",
       "defaultVoiceTip": "Voĉaj Smart Fields defaŭlte uzas ĉi tiun voĉon. Ŝanĝo ĝisdatigas la Smart Fields, kiuj uzas la defaŭltan. Ĉiu Smart Field povas superregi ĝin per sia propra voĉo.",
-      "defaultVoiceTipLabel": "Pri la defaŭlta voĉo"
+      "defaultVoiceTipLabel": "Pri la defaŭlta voĉo",
+      "free": "Senpaga"
     }
   },
   "imageGeneration": {
@@ -462,7 +463,7 @@
       "notesUsedToday": "notoj uzitaj hodiaŭ",
       "moduleResetsAt": "Reagordiĝas je {{time}}",
       "rowTitle": "Senpaga plano",
-      "rowDescription": "Plibonigu por senlimaj notoj, voĉo, bildoj, grupa prilaborado kaj ĉiuj modeloj."
+      "rowDescription": "Plibonigu por senlimaj notoj, bildoj, grupa prilaborado, kaj ĉiuj modeloj kaj voĉoj."
     }
   },
   "support": {
@@ -577,9 +578,9 @@
         "cta": "Plibonigu por malŝlosi retan serĉadon"
       },
       "voice": {
-        "title": "Voĉaj kampoj",
-        "description": "Generu sonon por viaj kartoj per naturaj voĉoj.",
-        "cta": "Plibonigu por malŝlosi voĉon"
+        "title": "Ĉiuj voĉoj",
+        "description": "Uzu ajnan voĉon de Google, Azure, OpenAI, ElevenLabs kaj VOICEVOX, ne nur Google Standard.",
+        "cta": "Plibonigu por malŝlosi ĉiujn voĉojn"
       },
       "images": {
         "title": "Bildaj kampoj",
@@ -608,7 +609,7 @@
       }
     },
     "notices": {
-      "voice": "Voĉaj kampoj estas inkluzivitaj en ĉiu pagata plano.",
+      "voice": "Senpaga inkluzivas la voĉojn markitajn kiel Senpaga. Pagitaj planoj inkluzivas ĉiujn voĉojn.",
       "images": "Bildaj kampoj estas inkluzivitaj en ĉiu pagata plano."
     },
     "moreNotesAt": "Pli da notoj je {{time}}"
@@ -637,6 +638,9 @@
       "oneAtATime": "Unu post alia",
       "none": "Nenio",
       "autoStandardOnly": "Nur Auto Standard",
+      "standardVoices": "Normaj voĉoj",
+      "fieldsChange_one": "{{count}} kampo ŝanĝiĝas",
+      "fieldsChange_other": "{{count}} kampoj ŝanĝiĝas",
       "fieldsStop_one": "{{count}} kampo ĉesas",
       "fieldsStop_other": "{{count}} kampoj ĉesas",
       "fieldsToStandard_one": "{{count}} kampo moviĝas",

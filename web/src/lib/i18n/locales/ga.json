@@ -317,7 +317,8 @@
       "title": "Socruithe Gutha",
       "defaultVoice": "Guth réamhshocraithe",
       "defaultVoiceTip": "Úsáideann Voice Smart Fields an guth seo de réir réamhshocraithe. Nuashonraítear gach Smart Field a úsáideann an réamhshocrú nuair a athraíonn tú é. Is féidir le Smart Field ar bith a guth féin a shocrú in ionad an réamhshocraithe.",
-      "defaultVoiceTipLabel": "Maidir leis an nguth réamhshocraithe"
+      "defaultVoiceTipLabel": "Maidir leis an nguth réamhshocraithe",
+      "free": "Free"
     }
   },
   "imageGeneration": {
@@ -492,7 +493,7 @@
       "notesUsedToday": "nótaí úsáidte inniu",
       "moduleResetsAt": "Athshocraítear ag {{time}}",
       "rowTitle": "Plean Saor",
-      "rowDescription": "Uasghrádaigh chun nótaí, guth, íomhánna, baisc agus gach samhail gan teorainn a fháil."
+      "rowDescription": "Uasghrádaigh chun nótaí, íomhánna, baisc, agus gach samhail agus guth a fháil gan teorainn."
     }
   },
   "support": {
@@ -607,9 +608,9 @@
         "cta": "Uasghrádaigh chun cuardach gréasáin a dhíghlasáil"
       },
       "voice": {
-        "title": "Réimsí guth",
-        "description": "Gin fuaim do do chártaí le guthanna nádúrtha.",
-        "cta": "Uasghrádaigh chun guth a dhíghlasáil"
+        "title": "Gach guth",
+        "description": "Úsáid aon guth ó Google, Azure, OpenAI, ElevenLabs agus VOICEVOX, ní hamháin Google Standard.",
+        "cta": "Uasghrádaigh chun gach guth a dhíghlasáil"
       },
       "images": {
         "title": "Réimsí íomhá",
@@ -638,7 +639,7 @@
       }
     },
     "notices": {
-      "voice": "Tagann réimsí guth le gach plean íoctha.",
+      "voice": "Cuimsíonn Free na guthanna a bhfuil marc Free orthu. Cuimsíonn pleananna íocaíochta gach guth.",
       "images": "Tagann réimsí íomhá le gach plean íoctha."
     },
     "moreNotesAt": "Tuilleadh nótaí ag {{time}}"
@@ -667,6 +668,12 @@
       "oneAtATime": "Ceann amháin ag an am",
       "none": "Faic",
       "autoStandardOnly": "Auto Standard amháin",
+      "standardVoices": "Gutha caighdeánacha",
+      "fieldsChange_one": "{{count}} réimse ag athrú",
+      "fieldsChange_two": "{{count}} réimse ag athrú",
+      "fieldsChange_few": "{{count}} réimse ag athrú",
+      "fieldsChange_many": "{{count}} réimse ag athrú",
+      "fieldsChange_other": "{{count}} réimse ag athrú",
       "fieldsStop_one": "Stopfaidh {{count}} réimse",
       "fieldsStop_two": "Stopfaidh {{count}} réimse",
       "fieldsStop_few": "Stopfaidh {{count}} réimse",

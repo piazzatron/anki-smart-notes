@@ -309,7 +309,8 @@
       "title": "Paramètres de la votz",
       "defaultVoice": "Votz per defaut",
       "defaultVoiceTip": "Los Smart Fields de votz utilizan aquesta votz per defaut. Lo modificar actualiza cada Smart Field que utiliza lo defaut. Qualque Smart Field pot la remplaçar amb sa pròpria votz.",
-      "defaultVoiceTipLabel": "A prepaus de la votz per defaut"
+      "defaultVoiceTipLabel": "A prepaus de la votz per defaut",
+      "free": "Gratuit"
     }
   },
   "imageGeneration": {
@@ -452,7 +453,7 @@
       "notesUsedToday": "notas utilizadas uèi",
       "moduleResetsAt": "Se remet a zero a {{time}}",
       "rowTitle": "Plan gratuit",
-      "rowDescription": "Passatz a un plan pagat per las notas illimitadas, la vòz, las imatges, lo tractament per lòts e tots los modèls."
+      "rowDescription": "Passa a un plan pagat per notas, imatges, lòts e totes los modèls e votz sens limit."
     }
   },
   "support": {
@@ -567,9 +568,9 @@
         "cta": "Passatz a un plan per desbloquejar la recèrca sul web"
       },
       "voice": {
-        "title": "Camps vocals",
-        "description": "Generatz d'àudio per las vòstras cartas amb de vòcs naturalas.",
-        "cta": "Passatz a un plan per desbloquejar la vòz"
+        "title": "Totas las votz",
+        "description": "Utilizatz qualque votz de Google, Azure, OpenAI, ElevenLabs e VOICEVOX, pas pas solament Google Standard.",
+        "cta": "Passa a un plan pagat per desbloquejar totas las votz"
       },
       "images": {
         "title": "Camps d'imatge",
@@ -598,7 +599,7 @@
       }
     },
     "notices": {
-      "voice": "Los camps vocals son incluses dins cada plan pagat.",
+      "voice": "Lo plan Gratuit inclutz las votz marcadas Gratuit. Los plans pagats inclutz totas las votz.",
       "images": "Los camps d'imatge son incluses dins cada plan pagat."
     },
     "moreNotesAt": "Mai de notas a {{time}}"
@@ -627,6 +628,8 @@
       "oneAtATime": "Un a la fes",
       "none": "Cap",
       "autoStandardOnly": "Auto Standard solament",
+      "standardVoices": "Votz estandard",
+      "fieldsChange_other": "{{count}} camps càmbian",
       "fieldsStop_other": "{{count}} camps s'arrèstan",
       "fieldsToStandard_other": "{{count}} camps passan",
       "fieldsWithoutSearch_other": "{{count}} camps ne perdon"

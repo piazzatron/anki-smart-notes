@@ -311,7 +311,8 @@
       "title": "Ahots-ezarpenak",
       "defaultVoice": "Ahots lehenetsia",
       "defaultVoiceTip": "Lehenetsitako ahots hau ahots-motako Smart Fields guztietan erabiltzen da. Aldatzean, lehenetsia erabiltzen duten Smart Field guztiak eguneratzen dira. Smart Field batek bere ahotsarekin gainidatzi dezake.",
-      "defaultVoiceTipLabel": "Ahots lehenetsiari buruz"
+      "defaultVoiceTipLabel": "Ahots lehenetsiari buruz",
+      "free": "Doan"
     }
   },
   "imageGeneration": {
@@ -462,7 +463,7 @@
       "notesUsedToday": "gaur erabilitako ohar",
       "moduleResetsAt": "Berrezartzen da: {{time}}",
       "rowTitle": "Doako plana",
-      "rowDescription": "Eguneratu oharrik mugarik gabe, ahotsa, irudiak, multzoka prozesatzea eta eredu guztiak izateko."
+      "rowDescription": "Eguneratu mugarik gabeko nota, irudi, lote, eta eredu eta ahots guztietarako."
     }
   },
   "support": {
@@ -577,9 +578,9 @@
         "cta": "Eguneratu web bilaketa desblokeatzeko"
       },
       "voice": {
-        "title": "Ahots eremuak",
-        "description": "Sortu audioa zure txartelentzat ahots naturalekin.",
-        "cta": "Eguneratu ahotsa desblokeatzeko"
+        "title": "Ahots guztiak",
+        "description": "Erabili Google, Azure, OpenAI, ElevenLabs eta VOICEVOX-eko edozein ahots, Google Standard bakarrik ez.",
+        "cta": "Eguneratu ahots guztiak desblokeatzeko"
       },
       "images": {
         "title": "Irudi eremuak",
@@ -608,7 +609,7 @@
       }
     },
     "notices": {
-      "voice": "Ahots eremuak plan ordaindu guztietan daude.",
+      "voice": "Doan planak 'Doan' markatutako ahotsak barne hartzen ditu. Ordainpeko planek ahots guztiak barne hartzen dituzte.",
       "images": "Irudi eremuak plan ordaindu guztietan daude."
     },
     "moreNotesAt": "Gehiago: {{time}}"
@@ -637,6 +638,9 @@
       "oneAtATime": "Bat aldi bakoitzean",
       "none": "Batere ez",
       "autoStandardOnly": "Auto Standard bakarrik",
+      "standardVoices": "Ahots estandarrak",
+      "fieldsChange_one": "{{count}} eremu aldatzen da",
+      "fieldsChange_other": "{{count}} eremu aldatzen dira",
       "fieldsStop_one": "{{count}} eremuk geldiarazten du",
       "fieldsStop_other": "{{count}} eremuk geldiarazten dute",
       "fieldsToStandard_one": "{{count}} eremua mugitzen da",

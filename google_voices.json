@@ -10,20 +10,6 @@
     "gender": "Female",
     "languageCode": "am-ET",
     "language": "Amharic",
-    "name": "am-ET-Wavenet-A",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "am-ET",
-    "language": "Amharic",
-    "name": "am-ET-Wavenet-B",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "am-ET",
-    "language": "Amharic",
     "name": "am-ET-Standard-A",
     "type": "Standard"
   },
@@ -33,20 +19,6 @@
     "language": "Amharic",
     "name": "am-ET-Standard-B",
     "type": "Standard"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "ar-XA",
-    "language": "Arabic",
-    "name": "ar-XA-Wavenet-A",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "ar-XA",
-    "language": "Arabic",
-    "name": "ar-XA-Wavenet-B",
-    "type": "Wavenet"
   },
   {
     "gender": "Female",
@@ -64,6 +36,34 @@
   },
   {
     "gender": "Female",
+    "languageCode": "ar-XA",
+    "language": "Arabic",
+    "name": "ar-XA-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ar-XA",
+    "language": "Arabic",
+    "name": "ar-XA-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ar-XA",
+    "language": "Arabic",
+    "name": "ar-XA-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ar-XA",
+    "language": "Arabic",
+    "name": "ar-XA-Chirp3-HD-Charon",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
     "languageCode": "bg-BG",
     "language": "Bulgarian",
     "name": "bg-BG-Standard-A",
@@ -71,17 +71,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "bn-IN",
-    "language": "Bengali",
-    "name": "bn-IN-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "bg-BG",
+    "language": "Bulgarian",
+    "name": "bg-BG-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "bg-BG",
+    "language": "Bulgarian",
+    "name": "bg-BG-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "bn-IN",
-    "language": "Bengali",
-    "name": "bn-IN-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "bg-BG",
+    "language": "Bulgarian",
+    "name": "bg-BG-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "bg-BG",
+    "language": "Bulgarian",
+    "name": "bg-BG-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -99,24 +113,38 @@
   },
   {
     "gender": "Female",
+    "languageCode": "bn-IN",
+    "language": "Bengali",
+    "name": "bn-IN-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "bn-IN",
+    "language": "Bengali",
+    "name": "bn-IN-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "bn-IN",
+    "language": "Bengali",
+    "name": "bn-IN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "bn-IN",
+    "language": "Bengali",
+    "name": "bn-IN-Chirp3-HD-Charon",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
     "languageCode": "ca-ES",
     "language": "Catalan",
     "name": "ca-ES-Standard-A",
     "type": "Standard"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "cmn-CN",
-    "language": "Chinese (Mandarin)",
-    "name": "cmn-CN-Wavenet-A",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "cmn-CN",
-    "language": "Chinese (Mandarin)",
-    "name": "cmn-CN-Wavenet-B",
-    "type": "Wavenet"
   },
   {
     "gender": "Female",
@@ -134,17 +162,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "cmn-TW",
-    "language": "Taiwanese (Mandarin)",
-    "name": "cmn-TW-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "cmn-CN",
+    "language": "Chinese (Mandarin)",
+    "name": "cmn-CN-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "cmn-CN",
+    "language": "Chinese (Mandarin)",
+    "name": "cmn-CN-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "cmn-TW",
-    "language": "Taiwanese (Mandarin)",
-    "name": "cmn-TW-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "cmn-CN",
+    "language": "Chinese (Mandarin)",
+    "name": "cmn-CN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "cmn-CN",
+    "language": "Chinese (Mandarin)",
+    "name": "cmn-CN-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -164,36 +206,36 @@
     "gender": "Female",
     "languageCode": "cs-CZ",
     "language": "Czech",
-    "name": "cs-CZ-Wavenet-A",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "cs-CZ",
-    "language": "Czech",
     "name": "cs-CZ-Standard-A",
     "type": "Standard"
   },
   {
     "gender": "Female",
-    "languageCode": "da-DK",
-    "language": "Danish",
-    "name": "da-DK-Wavenet-A",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "da-DK",
-    "language": "Danish",
-    "name": "da-DK-Wavenet-C",
-    "type": "Wavenet"
+    "languageCode": "cs-CZ",
+    "language": "Czech",
+    "name": "cs-CZ-Chirp3-HD-Achernar",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
-    "languageCode": "da-DK",
-    "language": "Danish",
-    "name": "da-DK-Neural2-D",
-    "type": "Neural"
+    "languageCode": "cs-CZ",
+    "language": "Czech",
+    "name": "cs-CZ-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "cs-CZ",
+    "language": "Czech",
+    "name": "cs-CZ-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "cs-CZ",
+    "language": "Czech",
+    "name": "cs-CZ-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -211,38 +253,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "de-DE",
-    "language": "German",
-    "name": "de-DE-Wavenet-A",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "de-DE",
-    "language": "German",
-    "name": "de-DE-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "da-DK",
+    "language": "Danish",
+    "name": "da-DK-Chirp3-HD-Achernar",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
-    "languageCode": "de-DE",
-    "language": "German",
-    "name": "de-DE-Neural2-A",
-    "type": "Neural"
+    "languageCode": "da-DK",
+    "language": "Danish",
+    "name": "da-DK-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "de-DE",
-    "language": "German",
-    "name": "de-DE-Neural2-B",
-    "type": "Neural"
+    "languageCode": "da-DK",
+    "language": "Danish",
+    "name": "da-DK-Chirp3-HD-Achird",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "de-DE",
-    "language": "German",
-    "name": "de-DE-Polyglot-1",
-    "type": "Standard"
+    "languageCode": "da-DK",
+    "language": "Danish",
+    "name": "da-DK-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -253,10 +288,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "el-GR",
-    "language": "Greek",
-    "name": "el-GR-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "de-DE",
+    "language": "German",
+    "name": "de-DE-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "de-DE",
+    "language": "German",
+    "name": "de-DE-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "de-DE",
+    "language": "German",
+    "name": "de-DE-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "de-DE",
+    "language": "German",
+    "name": "de-DE-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -267,115 +323,115 @@
   },
   {
     "gender": "Female",
-    "languageCode": "en-AU",
-    "language": "English (Australia)",
-    "name": "en-AU-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "el-GR",
+    "language": "Greek",
+    "name": "el-GR-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "el-GR",
+    "language": "Greek",
+    "name": "el-GR-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "en-AU",
-    "language": "English (Australia)",
-    "name": "en-AU-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "el-GR",
+    "language": "Greek",
+    "name": "el-GR-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "el-GR",
+    "language": "Greek",
+    "name": "el-GR-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
     "languageCode": "en-AU",
     "language": "English (Australia)",
-    "name": "en-AU-Neural2-A",
-    "type": "Neural"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "en-AU",
-    "language": "English (Australia)",
-    "name": "en-AU-Neural2-B",
-    "type": "Neural"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "en-AU",
-    "language": "English (Australia)",
-    "name": "en-AU-News-E",
+    "name": "en-AU-Standard-A",
     "type": "Standard"
   },
   {
     "gender": "Male",
     "languageCode": "en-AU",
     "language": "English (Australia)",
-    "name": "en-AU-News-G",
+    "name": "en-AU-Standard-B",
+    "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "en-AU",
+    "language": "English (Australia)",
+    "name": "en-AU-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "en-AU",
+    "language": "English (Australia)",
+    "name": "en-AU-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "en-AU",
+    "language": "English (Australia)",
+    "name": "en-AU-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "en-AU",
+    "language": "English (Australia)",
+    "name": "en-AU-Chirp3-HD-Charon",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "en-GB",
+    "language": "English (United Kingdom)",
+    "name": "en-GB-Standard-A",
+    "type": "Standard"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "en-GB",
+    "language": "English (United Kingdom)",
+    "name": "en-GB-Standard-B",
     "type": "Standard"
   },
   {
     "gender": "Female",
     "languageCode": "en-GB",
     "language": "English (United Kingdom)",
-    "name": "en-GB-Wavenet-A",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "en-GB",
-    "language": "English (United Kingdom)",
-    "name": "en-GB-Wavenet-B",
-    "type": "Wavenet"
+    "name": "en-GB-Chirp3-HD-Achernar",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
     "languageCode": "en-GB",
     "language": "English (United Kingdom)",
-    "name": "en-GB-Neural2-A",
-    "type": "Neural"
+    "name": "en-GB-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
     "languageCode": "en-GB",
     "language": "English (United Kingdom)",
-    "name": "en-GB-Neural2-B",
-    "type": "Neural"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "en-GB",
-    "language": "English (United Kingdom)",
-    "name": "en-GB-News-G",
-    "type": "Standard"
+    "name": "en-GB-Chirp3-HD-Achird",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
     "languageCode": "en-GB",
     "language": "English (United Kingdom)",
-    "name": "en-GB-News-J",
-    "type": "Standard"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "en-IN",
-    "language": "English (India)",
-    "name": "en-IN-Wavenet-A",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "en-IN",
-    "language": "English (India)",
-    "name": "en-IN-Wavenet-B",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "en-IN",
-    "language": "English (India)",
-    "name": "en-IN-Neural2-A",
-    "type": "Neural"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "en-IN",
-    "language": "English (India)",
-    "name": "en-IN-Neural2-B",
-    "type": "Neural"
+    "name": "en-GB-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -392,81 +448,74 @@
     "type": "Standard"
   },
   {
+    "gender": "Female",
+    "languageCode": "en-IN",
+    "language": "English (India)",
+    "name": "en-IN-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "en-IN",
+    "language": "English (India)",
+    "name": "en-IN-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
     "gender": "Male",
-    "languageCode": "en-US",
-    "language": "English (United States)",
-    "name": "en-US-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "en-IN",
+    "language": "English (India)",
+    "name": "en-IN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "en-IN",
+    "language": "English (India)",
+    "name": "en-IN-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
     "languageCode": "en-US",
     "language": "English (United States)",
-    "name": "en-US-Wavenet-C",
-    "type": "Wavenet"
+    "name": "en-US-Standard-C",
+    "type": "Standard"
   },
   {
     "gender": "Male",
     "languageCode": "en-US",
     "language": "English (United States)",
-    "name": "en-US-Neural2-A",
-    "type": "Neural"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "en-US",
-    "language": "English (United States)",
-    "name": "en-US-Neural2-C",
-    "type": "Neural"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "en-US",
-    "language": "English (United States)",
-    "name": "en-US-Casual-K",
+    "name": "en-US-Standard-A",
     "type": "Standard"
   },
   {
     "gender": "Female",
     "languageCode": "en-US",
     "language": "English (United States)",
-    "name": "en-US-Journey-F",
-    "type": "Standard"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "es-ES",
-    "language": "Spanish (Spain)",
-    "name": "es-ES-Wavenet-B",
-    "type": "Wavenet"
+    "name": "en-US-Chirp3-HD-Achernar",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
-    "languageCode": "es-ES",
-    "language": "Spanish (Spain)",
-    "name": "es-ES-Wavenet-C",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "es-ES",
-    "language": "Spanish (Spain)",
-    "name": "es-ES-Neural2-A",
-    "type": "Neural"
+    "languageCode": "en-US",
+    "language": "English (United States)",
+    "name": "en-US-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "es-ES",
-    "language": "Spanish (Spain)",
-    "name": "es-ES-Neural2-B",
-    "type": "Neural"
+    "languageCode": "en-US",
+    "language": "English (United States)",
+    "name": "en-US-Chirp3-HD-Achird",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "es-ES",
-    "language": "Spanish (Spain)",
-    "name": "es-ES-Polyglot-1",
-    "type": "Standard"
+    "languageCode": "en-US",
+    "language": "English (United States)",
+    "name": "en-US-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -477,45 +526,101 @@
   },
   {
     "gender": "Female",
-    "languageCode": "es-US",
-    "language": "Spanish (United States)",
-    "name": "es-US-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "es-ES",
+    "language": "Spanish (Spain)",
+    "name": "es-ES-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "es-ES",
+    "language": "Spanish (Spain)",
+    "name": "es-ES-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "es-US",
-    "language": "Spanish (United States)",
-    "name": "es-US-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "es-ES",
+    "language": "Spanish (Spain)",
+    "name": "es-ES-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "es-ES",
+    "language": "Spanish (Spain)",
+    "name": "es-ES-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
     "languageCode": "es-US",
     "language": "Spanish (United States)",
-    "name": "es-US-Neural2-A",
-    "type": "Neural"
+    "name": "es-US-Standard-A",
+    "type": "Standard"
   },
   {
     "gender": "Male",
     "languageCode": "es-US",
     "language": "Spanish (United States)",
-    "name": "es-US-Neural2-B",
-    "type": "Neural"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "es-US",
-    "language": "Spanish (United States)",
-    "name": "es-US-News-D",
+    "name": "es-US-Standard-B",
     "type": "Standard"
   },
   {
     "gender": "Female",
     "languageCode": "es-US",
     "language": "Spanish (United States)",
-    "name": "es-US-News-F",
-    "type": "Standard"
+    "name": "es-US-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "es-US",
+    "language": "Spanish (United States)",
+    "name": "es-US-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "es-US",
+    "language": "Spanish (United States)",
+    "name": "es-US-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "es-US",
+    "language": "Spanish (United States)",
+    "name": "es-US-Chirp3-HD-Charon",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "et-EE",
+    "language": "Estonian",
+    "name": "et-EE-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "et-EE",
+    "language": "Estonian",
+    "name": "et-EE-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "et-EE",
+    "language": "Estonian",
+    "name": "et-EE-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "et-EE",
+    "language": "Estonian",
+    "name": "et-EE-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -528,43 +633,36 @@
     "gender": "Female",
     "languageCode": "fi-FI",
     "language": "Finnish",
-    "name": "fi-FI-Wavenet-A",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "fi-FI",
-    "language": "Finnish",
     "name": "fi-FI-Standard-A",
     "type": "Standard"
   },
   {
     "gender": "Female",
-    "languageCode": "fil-PH",
-    "language": "Filipino",
-    "name": "fil-PH-Wavenet-A",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "fil-PH",
-    "language": "Filipino",
-    "name": "fil-PH-Wavenet-C",
-    "type": "Wavenet"
+    "languageCode": "fi-FI",
+    "language": "Finnish",
+    "name": "fi-FI-Chirp3-HD-Achernar",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
-    "languageCode": "fil-PH",
-    "language": "Filipino",
-    "name": "fil-ph-Neural2-A",
-    "type": "Neural"
+    "languageCode": "fi-FI",
+    "language": "Finnish",
+    "name": "fi-FI-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "fil-PH",
-    "language": "Filipino",
-    "name": "fil-ph-Neural2-D",
-    "type": "Neural"
+    "languageCode": "fi-FI",
+    "language": "Finnish",
+    "name": "fi-FI-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "fi-FI",
+    "language": "Finnish",
+    "name": "fi-FI-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -584,34 +682,6 @@
     "gender": "Female",
     "languageCode": "fr-CA",
     "language": "French (Canada)",
-    "name": "fr-CA-Wavenet-A",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "fr-CA",
-    "language": "French (Canada)",
-    "name": "fr-CA-Wavenet-B",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "fr-CA",
-    "language": "French (Canada)",
-    "name": "fr-CA-Neural2-A",
-    "type": "Neural"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "fr-CA",
-    "language": "French (Canada)",
-    "name": "fr-CA-Neural2-B",
-    "type": "Neural"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "fr-CA",
-    "language": "French (Canada)",
     "name": "fr-CA-Standard-A",
     "type": "Standard"
   },
@@ -624,38 +694,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "fr-FR",
-    "language": "French (France)",
-    "name": "fr-FR-Wavenet-A",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "fr-FR",
-    "language": "French (France)",
-    "name": "fr-FR-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "fr-CA",
+    "language": "French (Canada)",
+    "name": "fr-CA-Chirp3-HD-Achernar",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
-    "languageCode": "fr-FR",
-    "language": "French (France)",
-    "name": "fr-FR-Neural2-A",
-    "type": "Neural"
+    "languageCode": "fr-CA",
+    "language": "French (Canada)",
+    "name": "fr-CA-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "fr-FR",
-    "language": "French (France)",
-    "name": "fr-FR-Neural2-B",
-    "type": "Neural"
+    "languageCode": "fr-CA",
+    "language": "French (Canada)",
+    "name": "fr-CA-Chirp3-HD-Achird",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "fr-FR",
-    "language": "French (France)",
-    "name": "fr-FR-Polyglot-1",
-    "type": "Standard"
+    "languageCode": "fr-CA",
+    "language": "French (Canada)",
+    "name": "fr-CA-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -666,24 +729,38 @@
   },
   {
     "gender": "Female",
+    "languageCode": "fr-FR",
+    "language": "French (France)",
+    "name": "fr-FR-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "fr-FR",
+    "language": "French (France)",
+    "name": "fr-FR-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "fr-FR",
+    "language": "French (France)",
+    "name": "fr-FR-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "fr-FR",
+    "language": "French (France)",
+    "name": "fr-FR-Chirp3-HD-Charon",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
     "languageCode": "gl-ES",
     "language": "Galician",
     "name": "gl-ES-Standard-A",
     "type": "Standard"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "gu-IN",
-    "language": "Gujarati",
-    "name": "gu-IN-Wavenet-A",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "gu-IN",
-    "language": "Gujarati",
-    "name": "gu-IN-Wavenet-B",
-    "type": "Wavenet"
   },
   {
     "gender": "Female",
@@ -701,17 +778,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "he-IL",
-    "language": "Hebrew",
-    "name": "he-IL-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "gu-IN",
+    "language": "Gujarati",
+    "name": "gu-IN-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "gu-IN",
+    "language": "Gujarati",
+    "name": "gu-IN-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "he-IL",
-    "language": "Hebrew",
-    "name": "he-IL-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "gu-IN",
+    "language": "Gujarati",
+    "name": "gu-IN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "gu-IN",
+    "language": "Gujarati",
+    "name": "gu-IN-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -729,31 +820,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "hi-IN",
-    "language": "Hindi",
-    "name": "hi-IN-Wavenet-A",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "hi-IN",
-    "language": "Hindi",
-    "name": "hi-IN-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "he-IL",
+    "language": "Hebrew",
+    "name": "he-IL-Chirp3-HD-Achernar",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
-    "languageCode": "hi-IN",
-    "language": "Hindi",
-    "name": "hi-IN-Neural2-A",
-    "type": "Neural"
+    "languageCode": "he-IL",
+    "language": "Hebrew",
+    "name": "he-IL-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "hi-IN",
-    "language": "Hindi",
-    "name": "hi-IN-Neural2-B",
-    "type": "Neural"
+    "languageCode": "he-IL",
+    "language": "Hebrew",
+    "name": "he-IL-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "he-IL",
+    "language": "Hebrew",
+    "name": "he-IL-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -771,10 +862,59 @@
   },
   {
     "gender": "Female",
-    "languageCode": "hu-HU",
-    "language": "Hungarian",
-    "name": "hu-HU-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "hi-IN",
+    "language": "Hindi",
+    "name": "hi-IN-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "hi-IN",
+    "language": "Hindi",
+    "name": "hi-IN-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "hi-IN",
+    "language": "Hindi",
+    "name": "hi-IN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "hi-IN",
+    "language": "Hindi",
+    "name": "hi-IN-Chirp3-HD-Charon",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "hr-HR",
+    "language": "Croatian",
+    "name": "hr-HR-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "hr-HR",
+    "language": "Croatian",
+    "name": "hr-HR-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "hr-HR",
+    "language": "Croatian",
+    "name": "hr-HR-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "hr-HR",
+    "language": "Croatian",
+    "name": "hr-HR-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -785,17 +925,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "id-ID",
-    "language": "Indonesian",
-    "name": "id-ID-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "hu-HU",
+    "language": "Hungarian",
+    "name": "hu-HU-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "hu-HU",
+    "language": "Hungarian",
+    "name": "hu-HU-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "id-ID",
-    "language": "Indonesian",
-    "name": "id-ID-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "hu-HU",
+    "language": "Hungarian",
+    "name": "hu-HU-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "hu-HU",
+    "language": "Hungarian",
+    "name": "hu-HU-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -813,38 +967,38 @@
   },
   {
     "gender": "Female",
+    "languageCode": "id-ID",
+    "language": "Indonesian",
+    "name": "id-ID-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "id-ID",
+    "language": "Indonesian",
+    "name": "id-ID-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "id-ID",
+    "language": "Indonesian",
+    "name": "id-ID-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "id-ID",
+    "language": "Indonesian",
+    "name": "id-ID-Chirp3-HD-Charon",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
     "languageCode": "is-IS",
     "language": "Icelandic",
     "name": "is-IS-Standard-A",
     "type": "Standard"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "it-IT",
-    "language": "Italian",
-    "name": "it-IT-Wavenet-A",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "it-IT",
-    "language": "Italian",
-    "name": "it-IT-Wavenet-C",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "it-IT",
-    "language": "Italian",
-    "name": "it-IT-Neural2-A",
-    "type": "Neural"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "it-IT",
-    "language": "Italian",
-    "name": "it-IT-Neural2-C",
-    "type": "Neural"
   },
   {
     "gender": "Female",
@@ -862,31 +1016,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "ja-JP",
-    "language": "Japanese",
-    "name": "ja-JP-Wavenet-A",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "ja-JP",
-    "language": "Japanese",
-    "name": "ja-JP-Wavenet-C",
-    "type": "Wavenet"
+    "languageCode": "it-IT",
+    "language": "Italian",
+    "name": "it-IT-Chirp3-HD-Achernar",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
-    "languageCode": "ja-JP",
-    "language": "Japanese",
-    "name": "ja-JP-Neural2-B",
-    "type": "Neural"
+    "languageCode": "it-IT",
+    "language": "Italian",
+    "name": "it-IT-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "ja-JP",
-    "language": "Japanese",
-    "name": "ja-JP-Neural2-C",
-    "type": "Neural"
+    "languageCode": "it-IT",
+    "language": "Italian",
+    "name": "it-IT-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "it-IT",
+    "language": "Italian",
+    "name": "it-IT-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -904,17 +1058,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "kn-IN",
-    "language": "Kannada",
-    "name": "kn-IN-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "ja-JP",
+    "language": "Japanese",
+    "name": "ja-JP-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ja-JP",
+    "language": "Japanese",
+    "name": "ja-JP-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "kn-IN",
-    "language": "Kannada",
-    "name": "kn-IN-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "ja-JP",
+    "language": "Japanese",
+    "name": "ja-JP-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ja-JP",
+    "language": "Japanese",
+    "name": "ja-JP-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -932,31 +1100,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "ko-KR",
-    "language": "Korean",
-    "name": "ko-KR-Wavenet-A",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "ko-KR",
-    "language": "Korean",
-    "name": "ko-KR-Wavenet-C",
-    "type": "Wavenet"
+    "languageCode": "kn-IN",
+    "language": "Kannada",
+    "name": "kn-IN-Chirp3-HD-Achernar",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
-    "languageCode": "ko-KR",
-    "language": "Korean",
-    "name": "ko-KR-Neural2-A",
-    "type": "Neural"
+    "languageCode": "kn-IN",
+    "language": "Kannada",
+    "name": "kn-IN-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "ko-KR",
-    "language": "Korean",
-    "name": "ko-KR-Neural2-C",
-    "type": "Neural"
+    "languageCode": "kn-IN",
+    "language": "Kannada",
+    "name": "kn-IN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "kn-IN",
+    "language": "Kannada",
+    "name": "kn-IN-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -973,11 +1141,67 @@
     "type": "Standard"
   },
   {
+    "gender": "Female",
+    "languageCode": "ko-KR",
+    "language": "Korean",
+    "name": "ko-KR-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ko-KR",
+    "language": "Korean",
+    "name": "ko-KR-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ko-KR",
+    "language": "Korean",
+    "name": "ko-KR-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ko-KR",
+    "language": "Korean",
+    "name": "ko-KR-Chirp3-HD-Charon",
+    "type": "Chirp"
+  },
+  {
     "gender": "Male",
     "languageCode": "lt-LT",
     "language": "Lithuanian",
     "name": "lt-LT-Standard-A",
     "type": "Standard"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "lt-LT",
+    "language": "Lithuanian",
+    "name": "lt-LT-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "lt-LT",
+    "language": "Lithuanian",
+    "name": "lt-LT-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "lt-LT",
+    "language": "Lithuanian",
+    "name": "lt-LT-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "lt-LT",
+    "language": "Lithuanian",
+    "name": "lt-LT-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
@@ -988,17 +1212,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "ml-IN",
-    "language": "Malayalam",
-    "name": "ml-IN-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "lv-LV",
+    "language": "Latvian",
+    "name": "lv-LV-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "lv-LV",
+    "language": "Latvian",
+    "name": "lv-LV-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "ml-IN",
-    "language": "Malayalam",
-    "name": "ml-IN-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "lv-LV",
+    "language": "Latvian",
+    "name": "lv-LV-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "lv-LV",
+    "language": "Latvian",
+    "name": "lv-LV-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -1016,17 +1254,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "mr-IN",
-    "language": "Marathi",
-    "name": "mr-IN-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "ml-IN",
+    "language": "Malayalam",
+    "name": "ml-IN-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ml-IN",
+    "language": "Malayalam",
+    "name": "ml-IN-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "mr-IN",
-    "language": "Marathi",
-    "name": "mr-IN-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "ml-IN",
+    "language": "Malayalam",
+    "name": "ml-IN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ml-IN",
+    "language": "Malayalam",
+    "name": "ml-IN-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -1044,17 +1296,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "ms-MY",
-    "language": "Malay",
-    "name": "ms-MY-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "mr-IN",
+    "language": "Marathi",
+    "name": "mr-IN-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "mr-IN",
+    "language": "Marathi",
+    "name": "mr-IN-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "ms-MY",
-    "language": "Malay",
-    "name": "ms-MY-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "mr-IN",
+    "language": "Marathi",
+    "name": "mr-IN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "mr-IN",
+    "language": "Marathi",
+    "name": "mr-IN-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -1074,20 +1340,6 @@
     "gender": "Female",
     "languageCode": "nb-NO",
     "language": "Norwegian",
-    "name": "nb-NO-Wavenet-A",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "nb-NO",
-    "language": "Norwegian",
-    "name": "nb-NO-Wavenet-B",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "nb-NO",
-    "language": "Norwegian",
     "name": "nb-NO-Standard-A",
     "type": "Standard"
   },
@@ -1100,17 +1352,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "nl-BE",
-    "language": "Dutch (Belgium)",
-    "name": "nl-BE-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "nb-NO",
+    "language": "Norwegian",
+    "name": "nb-NO-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "nb-NO",
+    "language": "Norwegian",
+    "name": "nb-NO-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "nl-BE",
-    "language": "Dutch (Belgium)",
-    "name": "nl-BE-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "nb-NO",
+    "language": "Norwegian",
+    "name": "nb-NO-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "nb-NO",
+    "language": "Norwegian",
+    "name": "nb-NO-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -1128,17 +1394,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "nl-NL",
-    "language": "Dutch (Netherlands)",
-    "name": "nl-NL-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "nl-BE",
+    "language": "Dutch (Belgium)",
+    "name": "nl-BE-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "nl-BE",
+    "language": "Dutch (Belgium)",
+    "name": "nl-BE-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "nl-NL",
-    "language": "Dutch (Netherlands)",
-    "name": "nl-NL-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "nl-BE",
+    "language": "Dutch (Belgium)",
+    "name": "nl-BE-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "nl-BE",
+    "language": "Dutch (Belgium)",
+    "name": "nl-BE-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -1156,17 +1436,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "pa-IN",
-    "language": "Punjabi",
-    "name": "pa-IN-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "nl-NL",
+    "language": "Dutch (Netherlands)",
+    "name": "nl-NL-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "nl-NL",
+    "language": "Dutch (Netherlands)",
+    "name": "nl-NL-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "pa-IN",
-    "language": "Punjabi",
-    "name": "pa-IN-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "nl-NL",
+    "language": "Dutch (Netherlands)",
+    "name": "nl-NL-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "nl-NL",
+    "language": "Dutch (Netherlands)",
+    "name": "nl-NL-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -1184,17 +1478,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "pl-PL",
-    "language": "Polish",
-    "name": "pl-PL-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "pa-IN",
+    "language": "Punjabi",
+    "name": "pa-IN-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "pa-IN",
+    "language": "Punjabi",
+    "name": "pa-IN-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "pl-PL",
-    "language": "Polish",
-    "name": "pl-PL-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "pa-IN",
+    "language": "Punjabi",
+    "name": "pa-IN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "pa-IN",
+    "language": "Punjabi",
+    "name": "pa-IN-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -1212,31 +1520,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "pt-BR",
-    "language": "Portuguese (Brazil)",
-    "name": "pt-BR-Wavenet-A",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "pt-BR",
-    "language": "Portuguese (Brazil)",
-    "name": "pt-BR-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "pl-PL",
+    "language": "Polish",
+    "name": "pl-PL-Chirp3-HD-Achernar",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
-    "languageCode": "pt-BR",
-    "language": "Portuguese (Brazil)",
-    "name": "pt-BR-Neural2-A",
-    "type": "Neural"
+    "languageCode": "pl-PL",
+    "language": "Polish",
+    "name": "pl-PL-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "pt-BR",
-    "language": "Portuguese (Brazil)",
-    "name": "pt-BR-Neural2-B",
-    "type": "Neural"
+    "languageCode": "pl-PL",
+    "language": "Polish",
+    "name": "pl-PL-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "pl-PL",
+    "language": "Polish",
+    "name": "pl-PL-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -1254,17 +1562,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "pt-PT",
-    "language": "Portuguese (Portugal)",
-    "name": "pt-PT-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "name": "pt-BR-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "name": "pt-BR-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "pt-PT",
-    "language": "Portuguese (Portugal)",
-    "name": "pt-PT-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "name": "pt-BR-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "pt-BR",
+    "language": "Portuguese (Brazil)",
+    "name": "pt-BR-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -1284,29 +1606,36 @@
     "gender": "Female",
     "languageCode": "ro-RO",
     "language": "Romanian",
-    "name": "ro-RO-Wavenet-A",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "ro-RO",
-    "language": "Romanian",
     "name": "ro-RO-Standard-A",
     "type": "Standard"
   },
   {
     "gender": "Female",
-    "languageCode": "ru-RU",
-    "language": "Russian",
-    "name": "ru-RU-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "ro-RO",
+    "language": "Romanian",
+    "name": "ro-RO-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ro-RO",
+    "language": "Romanian",
+    "name": "ro-RO-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "ru-RU",
-    "language": "Russian",
-    "name": "ru-RU-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "ro-RO",
+    "language": "Romanian",
+    "name": "ro-RO-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ro-RO",
+    "language": "Romanian",
+    "name": "ro-RO-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -1324,10 +1653,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "sk-SK",
-    "language": "Slovak",
-    "name": "sk-SK-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "ru-RU",
+    "language": "Russian",
+    "name": "ru-RU-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ru-RU",
+    "language": "Russian",
+    "name": "ru-RU-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ru-RU",
+    "language": "Russian",
+    "name": "ru-RU-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ru-RU",
+    "language": "Russian",
+    "name": "ru-RU-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -1338,6 +1688,62 @@
   },
   {
     "gender": "Female",
+    "languageCode": "sk-SK",
+    "language": "Slovak",
+    "name": "sk-SK-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "sk-SK",
+    "language": "Slovak",
+    "name": "sk-SK-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "sk-SK",
+    "language": "Slovak",
+    "name": "sk-SK-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "sk-SK",
+    "language": "Slovak",
+    "name": "sk-SK-Chirp3-HD-Charon",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "sl-SI",
+    "language": "Slovenian",
+    "name": "sl-SI-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "sl-SI",
+    "language": "Slovenian",
+    "name": "sl-SI-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "sl-SI",
+    "language": "Slovenian",
+    "name": "sl-SI-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "sl-SI",
+    "language": "Slovenian",
+    "name": "sl-SI-Chirp3-HD-Charon",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
     "languageCode": "sr-RS",
     "language": "Serbian",
     "name": "sr-RS-Standard-A",
@@ -1345,17 +1751,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "sv-SE",
-    "language": "Swedish",
-    "name": "sv-SE-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "sr-RS",
+    "language": "Serbian",
+    "name": "sr-RS-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "sr-RS",
+    "language": "Serbian",
+    "name": "sr-RS-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "sv-SE",
-    "language": "Swedish",
-    "name": "sv-SE-Wavenet-C",
-    "type": "Wavenet"
+    "languageCode": "sr-RS",
+    "language": "Serbian",
+    "name": "sr-RS-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "sr-RS",
+    "language": "Serbian",
+    "name": "sr-RS-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -1373,17 +1793,59 @@
   },
   {
     "gender": "Female",
-    "languageCode": "ta-IN",
-    "language": "Tamil",
-    "name": "ta-IN-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "sv-SE",
+    "language": "Swedish",
+    "name": "sv-SE-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "sv-SE",
+    "language": "Swedish",
+    "name": "sv-SE-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "ta-IN",
-    "language": "Tamil",
-    "name": "ta-IN-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "sv-SE",
+    "language": "Swedish",
+    "name": "sv-SE-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "sv-SE",
+    "language": "Swedish",
+    "name": "sv-SE-Chirp3-HD-Charon",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "sw-KE",
+    "language": "Swahili",
+    "name": "sw-KE-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "sw-KE",
+    "language": "Swahili",
+    "name": "sw-KE-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "sw-KE",
+    "language": "Swahili",
+    "name": "sw-KE-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "sw-KE",
+    "language": "Swahili",
+    "name": "sw-KE-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -1401,6 +1863,34 @@
   },
   {
     "gender": "Female",
+    "languageCode": "ta-IN",
+    "language": "Tamil",
+    "name": "ta-IN-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "ta-IN",
+    "language": "Tamil",
+    "name": "ta-IN-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ta-IN",
+    "language": "Tamil",
+    "name": "ta-IN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ta-IN",
+    "language": "Tamil",
+    "name": "ta-IN-Chirp3-HD-Charon",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
     "languageCode": "te-IN",
     "language": "Telugu",
     "name": "te-IN-Standard-A",
@@ -1415,10 +1905,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "th-TH",
-    "language": "Thai",
-    "name": "th-TH-Neural2-C",
-    "type": "Neural"
+    "languageCode": "te-IN",
+    "language": "Telugu",
+    "name": "te-IN-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "te-IN",
+    "language": "Telugu",
+    "name": "te-IN-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "te-IN",
+    "language": "Telugu",
+    "name": "te-IN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "te-IN",
+    "language": "Telugu",
+    "name": "te-IN-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -1429,17 +1940,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "tr-TR",
-    "language": "Turkish",
-    "name": "tr-TR-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "th-TH",
+    "language": "Thai",
+    "name": "th-TH-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "th-TH",
+    "language": "Thai",
+    "name": "th-TH-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "tr-TR",
-    "language": "Turkish",
-    "name": "tr-TR-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "th-TH",
+    "language": "Thai",
+    "name": "th-TH-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "th-TH",
+    "language": "Thai",
+    "name": "th-TH-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -1457,10 +1982,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "uk-UA",
-    "language": "Ukrainian",
-    "name": "uk-UA-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "tr-TR",
+    "language": "Turkish",
+    "name": "tr-TR-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "tr-TR",
+    "language": "Turkish",
+    "name": "tr-TR-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "tr-TR",
+    "language": "Turkish",
+    "name": "tr-TR-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "tr-TR",
+    "language": "Turkish",
+    "name": "tr-TR-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -1471,17 +2017,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "ur-IN",
-    "language": "Urdu",
-    "name": "ur-IN-Wavenet-A",
-    "type": "Wavenet"
+    "languageCode": "uk-UA",
+    "language": "Ukrainian",
+    "name": "uk-UA-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "uk-UA",
+    "language": "Ukrainian",
+    "name": "uk-UA-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "ur-IN",
-    "language": "Urdu",
-    "name": "ur-IN-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "uk-UA",
+    "language": "Ukrainian",
+    "name": "uk-UA-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "uk-UA",
+    "language": "Ukrainian",
+    "name": "uk-UA-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -1499,31 +2059,31 @@
   },
   {
     "gender": "Female",
-    "languageCode": "vi-VN",
-    "language": "Vietnamese",
-    "name": "vi-VN-Wavenet-A",
-    "type": "Wavenet"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "vi-VN",
-    "language": "Vietnamese",
-    "name": "vi-VN-Wavenet-B",
-    "type": "Wavenet"
+    "languageCode": "ur-IN",
+    "language": "Urdu",
+    "name": "ur-IN-Chirp3-HD-Achernar",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
-    "languageCode": "vi-VN",
-    "language": "Vietnamese",
-    "name": "vi-VN-Neural2-A",
-    "type": "Neural"
+    "languageCode": "ur-IN",
+    "language": "Urdu",
+    "name": "ur-IN-Chirp3-HD-Aoede",
+    "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "vi-VN",
-    "language": "Vietnamese",
-    "name": "vi-VN-Neural2-D",
-    "type": "Neural"
+    "languageCode": "ur-IN",
+    "language": "Urdu",
+    "name": "ur-IN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "ur-IN",
+    "language": "Urdu",
+    "name": "ur-IN-Chirp3-HD-Charon",
+    "type": "Chirp"
   },
   {
     "gender": "Female",
@@ -1541,6 +2101,34 @@
   },
   {
     "gender": "Female",
+    "languageCode": "vi-VN",
+    "language": "Vietnamese",
+    "name": "vi-VN-Chirp3-HD-Achernar",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
+    "languageCode": "vi-VN",
+    "language": "Vietnamese",
+    "name": "vi-VN-Chirp3-HD-Aoede",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "vi-VN",
+    "language": "Vietnamese",
+    "name": "vi-VN-Chirp3-HD-Achird",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Male",
+    "languageCode": "vi-VN",
+    "language": "Vietnamese",
+    "name": "vi-VN-Chirp3-HD-Charon",
+    "type": "Chirp"
+  },
+  {
+    "gender": "Female",
     "languageCode": "yue-HK",
     "language": "Chinese (Cantonese)",
     "name": "yue-HK-Standard-A",
@@ -1555,520 +2143,30 @@
   },
   {
     "gender": "Female",
-    "languageCode": "ar-XA",
-    "language": "Arabic",
-    "name": "ar-XA-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "ar-XA",
-    "language": "Arabic",
-    "name": "ar-XA-Chirp3-HD-Achird",
+    "languageCode": "yue-HK",
+    "language": "Chinese (Cantonese)",
+    "name": "yue-HK-Chirp3-HD-Achernar",
     "type": "Chirp"
   },
   {
     "gender": "Female",
-    "languageCode": "bn-IN",
-    "language": "Bengali",
-    "name": "bn-IN-Chirp3-HD-Achernar",
+    "languageCode": "yue-HK",
+    "language": "Chinese (Cantonese)",
+    "name": "yue-HK-Chirp3-HD-Aoede",
     "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "bn-IN",
-    "language": "Bengali",
-    "name": "bn-IN-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "cmn-CN",
-    "language": "Chinese (Mandarin)",
-    "name": "cmn-CN-Chirp3-HD-Achernar",
+    "languageCode": "yue-HK",
+    "language": "Chinese (Cantonese)",
+    "name": "yue-HK-Chirp3-HD-Achird",
     "type": "Chirp"
   },
   {
     "gender": "Male",
-    "languageCode": "cmn-CN",
-    "language": "Chinese (Mandarin)",
-    "name": "cmn-CN-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "da-DK",
-    "language": "Danish",
-    "name": "da-DK-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "da-DK",
-    "language": "Danish",
-    "name": "da-DK-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "de-DE",
-    "language": "German",
-    "name": "de-DE-Chirp-HD-D",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "de-DE",
-    "language": "German",
-    "name": "de-DE-Chirp-HD-F",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "en-AU",
-    "language": "English (Australia)",
-    "name": "en-AU-Chirp-HD-D",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "en-AU",
-    "language": "English (Australia)",
-    "name": "en-AU-Chirp-HD-F",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "en-GB",
-    "language": "English (United Kingdom)",
-    "name": "en-GB-Chirp-HD-D",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "en-GB",
-    "language": "English (United Kingdom)",
-    "name": "en-GB-Chirp-HD-F",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "en-IN",
-    "language": "English (India)",
-    "name": "en-IN-Chirp-HD-D",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "en-IN",
-    "language": "English (India)",
-    "name": "en-IN-Chirp-HD-F",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "es-ES",
-    "language": "Spanish (Spain)",
-    "name": "es-ES-Chirp-HD-D",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "es-ES",
-    "language": "Spanish (Spain)",
-    "name": "es-ES-Chirp-HD-F",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "es-US",
-    "language": "Spanish (United States)",
-    "name": "es-US-Chirp-HD-D",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "es-US",
-    "language": "Spanish (United States)",
-    "name": "es-US-Chirp-HD-F",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "fi-FI",
-    "language": "Finnish",
-    "name": "fi-FI-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "fi-FI",
-    "language": "Finnish",
-    "name": "fi-FI-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "fr-CA",
-    "language": "French (Canada)",
-    "name": "fr-CA-Chirp-HD-D",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "fr-CA",
-    "language": "French (Canada)",
-    "name": "fr-CA-Chirp-HD-F",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "fr-FR",
-    "language": "French (France)",
-    "name": "fr-FR-Chirp-HD-D",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "fr-FR",
-    "language": "French (France)",
-    "name": "fr-FR-Chirp-HD-F",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "gu-IN",
-    "language": "Gujarati",
-    "name": "gu-IN-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "gu-IN",
-    "language": "Gujarati",
-    "name": "gu-IN-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "hi-IN",
-    "language": "Hindi",
-    "name": "hi-IN-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "hi-IN",
-    "language": "Hindi",
-    "name": "hi-IN-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "id-ID",
-    "language": "Indonesian",
-    "name": "id-ID-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "id-ID",
-    "language": "Indonesian",
-    "name": "id-ID-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "it-IT",
-    "language": "Italian",
-    "name": "it-IT-Chirp-HD-D",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "it-IT",
-    "language": "Italian",
-    "name": "it-IT-Chirp-HD-F",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "ja-JP",
-    "language": "Japanese",
-    "name": "ja-JP-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "ja-JP",
-    "language": "Japanese",
-    "name": "ja-JP-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "kn-IN",
-    "language": "Kannada",
-    "name": "kn-IN-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "kn-IN",
-    "language": "Kannada",
-    "name": "kn-IN-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "ko-KR",
-    "language": "Korean",
-    "name": "ko-KR-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "ko-KR",
-    "language": "Korean",
-    "name": "ko-KR-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "ml-IN",
-    "language": "Malayalam",
-    "name": "ml-IN-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "ml-IN",
-    "language": "Malayalam",
-    "name": "ml-IN-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "mr-IN",
-    "language": "Marathi",
-    "name": "mr-IN-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "mr-IN",
-    "language": "Marathi",
-    "name": "mr-IN-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "nb-NO",
-    "language": "Norwegian",
-    "name": "nb-NO-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "nb-NO",
-    "language": "Norwegian",
-    "name": "nb-NO-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "nl-BE",
-    "language": "Dutch (Belgium)",
-    "name": "nl-BE-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "nl-BE",
-    "language": "Dutch (Belgium)",
-    "name": "nl-BE-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "nl-NL",
-    "language": "Dutch (Netherlands)",
-    "name": "nl-NL-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "nl-NL",
-    "language": "Dutch (Netherlands)",
-    "name": "nl-NL-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "pl-PL",
-    "language": "Polish",
-    "name": "pl-PL-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "pl-PL",
-    "language": "Polish",
-    "name": "pl-PL-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "pt-BR",
-    "language": "Portuguese (Brazil)",
-    "name": "pt-BR-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "pt-BR",
-    "language": "Portuguese (Brazil)",
-    "name": "pt-BR-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "ru-RU",
-    "language": "Russian",
-    "name": "ru-RU-Chirp3-HD-Aoede",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "ru-RU",
-    "language": "Russian",
-    "name": "ru-RU-Chirp3-HD-Charon",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "sv-SE",
-    "language": "Swedish",
-    "name": "sv-SE-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "sv-SE",
-    "language": "Swedish",
-    "name": "sv-SE-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "sw-KE",
-    "language": "Swahili",
-    "name": "sw-KE-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "sw-KE",
-    "language": "Swahili",
-    "name": "sw-KE-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "ta-IN",
-    "language": "Tamil",
-    "name": "ta-IN-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "ta-IN",
-    "language": "Tamil",
-    "name": "ta-IN-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "te-IN",
-    "language": "Telugu",
-    "name": "te-IN-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "te-IN",
-    "language": "Telugu",
-    "name": "te-IN-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "th-TH",
-    "language": "Thai",
-    "name": "th-TH-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "th-TH",
-    "language": "Thai",
-    "name": "th-TH-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "tr-TR",
-    "language": "Turkish",
-    "name": "tr-TR-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "tr-TR",
-    "language": "Turkish",
-    "name": "tr-TR-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "uk-UA",
-    "language": "Ukrainian",
-    "name": "uk-UA-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "uk-UA",
-    "language": "Ukrainian",
-    "name": "uk-UA-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "ur-IN",
-    "language": "Urdu",
-    "name": "ur-IN-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "ur-IN",
-    "language": "Urdu",
-    "name": "ur-IN-Chirp3-HD-Achird",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Female",
-    "languageCode": "vi-VN",
-    "language": "Vietnamese",
-    "name": "vi-VN-Chirp3-HD-Achernar",
-    "type": "Chirp"
-  },
-  {
-    "gender": "Male",
-    "languageCode": "vi-VN",
-    "language": "Vietnamese",
-    "name": "vi-VN-Chirp3-HD-Achird",
+    "languageCode": "yue-HK",
+    "language": "Chinese (Cantonese)",
+    "name": "yue-HK-Chirp3-HD-Charon",
     "type": "Chirp"
   }
 ]

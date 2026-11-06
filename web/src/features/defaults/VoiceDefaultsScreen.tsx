@@ -1,8 +1,6 @@
 import { type ReactNode, useState } from "react"
 import { useTranslation } from "react-i18next"
 
-import { useIsFreePlan } from "@/components/shared/UpgradeSheet"
-
 import { ErrorBanner } from "@/components/ui/ErrorBanner"
 import { Card } from "@/components/ui/Card"
 import { FieldLabel } from "@/components/ui/FieldLabel"
@@ -24,9 +22,9 @@ import {
 import { DefaultUsagePill } from "./DefaultUsagePill"
 import { VoicePicker } from "./VoicePicker"
 import { getDefaultUsage } from "./defaultUsage"
-import { voiceMatchesSettings } from "./voiceDefaults"
+import { shownVoice, voiceMatchesSettings } from "./voiceDefaults"
 import { useDefaultsForm } from "./useDefaultsForm"
-import { useVoiceCatalog } from "./useVoiceCatalog"
+import { useAllowedVoices, useVoiceCatalog } from "./useVoiceCatalog"
 
 const GENDER_ICON_CLASS = "inline-block align-[-2px]"
 const VOICE_GENDER_ICONS: Record<string, ReactNode> = {
@@ -90,7 +88,7 @@ const LoadedVoiceDefaultsScreen = ({
   state,
 }: LoadedVoiceDefaultsScreenProps) => {
   const { t } = useTranslation()
-  const isFree = useIsFreePlan()
+  const allowedVoices = useAllowedVoices()
   const controls = useDefaultsForm({
     fallbackError: t("defaults.voice.saveError"),
     onDirtyChange,
@@ -98,8 +96,10 @@ const LoadedVoiceDefaultsScreen = ({
     serverDefaults: state.defaults.tts,
   })
   const usage = getDefaultUsage(state.smartFields, "tts")
+  // What the default reads with on this plan (`shownVoice` in voiceDefaults.ts).
+  const shown = shownVoice(controls.form.values, catalog.voices, allowedVoices)
   const selectedVoice = catalog.voices.find((voice) =>
-    voiceMatchesSettings(voice, controls.form.values),
+    voiceMatchesSettings(voice, shown),
   )
   const genderIcon = selectedVoice && VOICE_GENDER_ICONS[selectedVoice.gender]
   const genderLabel =
@@ -112,13 +112,13 @@ const LoadedVoiceDefaultsScreen = ({
     fieldType: "tts",
     onPromptChange: setPrompt,
     prompt,
-    settings: controls.form.values,
-    voiceName: selectedVoice?.name ?? controls.form.values.voiceId,
+    settings: shown,
+    voiceName: selectedVoice?.name ?? shown.voiceId,
   })
 
   return (
     <DefaultsScreenLayout
-      upgradeFeature={isFree ? "voice" : undefined}
+      upgradeFeature={allowedVoices === null ? undefined : "voice"}
       accessory={<DefaultUsagePill usage={usage} />}
       contentFillsHeight
       icon={<LoudspeakerEmoji size={28} />}
@@ -158,10 +158,10 @@ const LoadedVoiceDefaultsScreen = ({
             </FieldLabel>
             <Card className="px-hang py-2.5">
               <p className="truncate text-sm font-medium text-ink">
-                {selectedVoice?.name ?? controls.form.values.voiceId}
+                {selectedVoice?.name ?? shown.voiceId}
               </p>
               <p className="mt-0.5 truncate text-xs text-ink-muted">
-                {providerLabel(controls.form.values.provider)}
+                {providerLabel(shown.provider)}
                 {selectedVoice !== undefined && (
                   <>
                     {" "}

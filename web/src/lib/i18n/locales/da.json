@@ -311,7 +311,8 @@
       "title": "Stemmeindstillinger",
       "defaultVoice": "Standardstemme",
       "defaultVoiceTip": "Stemme-Smart Fields bruger som standard denne stemme. Når den ændres, opdateres alle Smart Fields, der bruger standarden. Ethvert Smart Field kan tilsidesætte den med sin egen stemme.",
-      "defaultVoiceTipLabel": "Om standardstemmen"
+      "defaultVoiceTipLabel": "Om standardstemmen",
+      "free": "Gratis"
     }
   },
   "imageGeneration": {
@@ -462,7 +463,7 @@
       "notesUsedToday": "noter brugt i dag",
       "moduleResetsAt": "Nulstilles kl. {{time}}",
       "rowTitle": "Gratisplan",
-      "rowDescription": "Opgrader for ubegrænsede noter, stemme, billeder, batch og alle modeller."
+      "rowDescription": "Opgrader for ubegrænsede noter, billeder, batch og alle modeller og stemmer."
     }
   },
   "support": {
@@ -577,9 +578,9 @@
         "cta": "Opgrader for at låse websøgning op"
       },
       "voice": {
-        "title": "Stemmefelter",
-        "description": "Generer lyd til dine kort med naturlige stemmer.",
-        "cta": "Opgrader for at låse stemme op"
+        "title": "Alle stemmer",
+        "description": "Brug alle stemmer fra Google, Azure, OpenAI, ElevenLabs og VOICEVOX, ikke kun Google Standard.",
+        "cta": "Opgrader for at låse alle stemmer op"
       },
       "images": {
         "title": "Billedfelter",
@@ -608,7 +609,7 @@
       }
     },
     "notices": {
-      "voice": "Stemmefelter følger med alle betalte planer.",
+      "voice": "Gratis inkluderer stemmerne markeret Gratis. Betalte abonnementer inkluderer alle stemmer.",
       "images": "Billedfelter følger med alle betalte planer."
     },
     "moreNotesAt": "Flere kl. {{time}}"
@@ -637,6 +638,9 @@
       "oneAtATime": "Én ad gangen",
       "none": "Ingen",
       "autoStandardOnly": "Kun Auto Standard",
+      "standardVoices": "Standardstemmer",
+      "fieldsChange_one": "{{count}} feltændring",
+      "fieldsChange_other": "{{count}} felter ændres",
       "fieldsStop_one": "{{count}} felt stopper",
       "fieldsStop_other": "{{count}} felter stopper",
       "fieldsToStandard_one": "{{count}} felt flyttes",

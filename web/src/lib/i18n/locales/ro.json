@@ -313,7 +313,8 @@
       "title": "Setări pentru voce",
       "defaultVoice": "Voce implicită",
       "defaultVoiceTip": "Voice Smart Fields folosesc implicit această voce. Modificarea ei actualizează toate Smart Fields care folosesc valoarea implicită. Orice Smart Field poate folosi propria voce.",
-      "defaultVoiceTipLabel": "Despre vocea implicită"
+      "defaultVoiceTipLabel": "Despre vocea implicită",
+      "free": "Gratuit"
     }
   },
   "imageGeneration": {
@@ -472,7 +473,7 @@
       "notesUsedToday": "note utilizate astăzi",
       "moduleResetsAt": "Se resetează la {{time}}",
       "rowTitle": "Planul Free",
-      "rowDescription": "Treci la un plan plătit pentru note nelimitate, voce, imagini, procesare în lot și toate modelele."
+      "rowDescription": "Treceți la un plan superior pentru notițe, imagini și procesare în lot nelimitate, precum și pentru toate modelele și vocile."
     }
   },
   "support": {
@@ -587,9 +588,9 @@
         "cta": "Treci la un plan plătit pentru a debloca căutarea pe web"
       },
       "voice": {
-        "title": "Câmpuri de voce",
-        "description": "Generează audio pentru cardurile tale, cu voci naturale.",
-        "cta": "Treci la un plan plătit pentru a debloca vocea"
+        "title": "Toate vocile",
+        "description": "Folosiți orice voce de la Google, Azure, OpenAI, ElevenLabs și VOICEVOX, nu doar Google Standard.",
+        "cta": "Treceți la un plan superior pentru a debloca toate vocile"
       },
       "images": {
         "title": "Câmpuri de imagine",
@@ -618,7 +619,7 @@
       }
     },
     "notices": {
-      "voice": "Câmpurile de voce sunt incluse în orice plan plătit.",
+      "voice": "Planul Gratuit include vocile marcate cu Gratuit. Planurile plătite includ toate vocile.",
       "images": "Câmpurile de imagine sunt incluse în orice plan plătit."
     },
     "moreNotesAt": "Mai multe la {{time}}"
@@ -647,6 +648,10 @@
       "oneAtATime": "Unul câte unul",
       "none": "Niciunul",
       "autoStandardOnly": "Doar Auto Standard",
+      "standardVoices": "Voci standard",
+      "fieldsChange_one": "{{count}} câmp se modifică",
+      "fieldsChange_few": "{{count}} câmpuri se modifică",
+      "fieldsChange_other": "{{count}} de câmpuri se modifică",
       "fieldsStop_one": "{{count}} câmp se oprește",
       "fieldsStop_few": "{{count}} câmpuri se opresc",
       "fieldsStop_other": "{{count}} de câmpuri se opresc",

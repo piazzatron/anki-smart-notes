@@ -311,7 +311,8 @@
       "title": "Stem-instellingen",
       "defaultVoice": "Standaardstem",
       "defaultVoiceTip": "Stem-Smart Fields gebruiken standaard deze stem. Als je deze wijzigt, wordt elk Smart Field dat de standaardstem gebruikt bijgewerkt. Elk Smart Field kan dit overschrijven met een eigen stem.",
-      "defaultVoiceTipLabel": "Over de standaardstem"
+      "defaultVoiceTipLabel": "Over de standaardstem",
+      "free": "Gratis"
     }
   },
   "imageGeneration": {
@@ -462,7 +463,7 @@
       "notesUsedToday": "notities vandaag gebruikt",
       "moduleResetsAt": "Reset om {{time}}",
       "rowTitle": "Gratis abonnement",
-      "rowDescription": "Upgrade voor onbeperkte notities, spraak, afbeeldingen, batch en alle modellen."
+      "rowDescription": "Upgrade voor onbeperkte notities, afbeeldingen, batchverwerking en alle modellen en stemmen."
     }
   },
   "support": {
@@ -577,9 +578,9 @@
         "cta": "Upgraden om webzoeken te ontgrendelen"
       },
       "voice": {
-        "title": "Spraakvelden",
-        "description": "Genereer audio voor je kaarten met natuurlijke stemmen.",
-        "cta": "Upgraden om spraak te ontgrendelen"
+        "title": "Alle stemmen",
+        "description": "Gebruik elke stem van Google, Azure, OpenAI, ElevenLabs en VOICEVOX, niet alleen Google Standard.",
+        "cta": "Upgrade om alle stemmen te ontgrendelen"
       },
       "images": {
         "title": "Afbeeldingsvelden",
@@ -608,7 +609,7 @@
       }
     },
     "notices": {
-      "voice": "Spraakvelden zijn inbegrepen bij elk betaald abonnement.",
+      "voice": "Gratis bevat de stemmen met het label Gratis. Betaalde abonnementen bevatten alle stemmen.",
       "images": "Afbeeldingsvelden zijn inbegrepen bij elk betaald abonnement."
     },
     "moreNotesAt": "Meer om {{time}}"
@@ -637,6 +638,9 @@
       "oneAtATime": "Één tegelijk",
       "none": "Geen",
       "autoStandardOnly": "Alleen Auto Standard",
+      "standardVoices": "Standaardstemmen",
+      "fieldsChange_one": "{{count}} veldwijziging",
+      "fieldsChange_other": "{{count}} velden wijzigen",
       "fieldsStop_one": "{{count}} veld stopt",
       "fieldsStop_other": "{{count}} velden stoppen",
       "fieldsToStandard_one": "{{count}} veld verplaatst",

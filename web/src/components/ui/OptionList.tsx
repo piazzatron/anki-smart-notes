@@ -66,6 +66,7 @@ interface OptionRowProps {
   /** Arrow keys choose by clicking the row for you, so a click with `event.detail` of 0
    *  came from the keyboard. */
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void
+  onKeyDown?: (event: KeyboardEvent<HTMLButtonElement>) => void
   /** Shown at the row's end, like a cost or provider pill. */
   trailing?: ReactNode
   value: string
@@ -78,12 +79,14 @@ export const OptionRow = ({
   highlightSelected = false,
   label,
   onClick,
+  onKeyDown,
   trailing,
   value,
 }: OptionRowProps) => (
   <RadioGroupPrimitive.Item
     className={`group select-item relative flex w-full cursor-pointer items-center gap-2.5 text-start text-sm font-medium text-ink transition outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-indigo data-[state=unchecked]:hover:bg-white/[0.05] ${highlightSelected ? "data-[state=checked]:bg-indigo/[0.16]" : ""} ${className}`}
     onClick={onClick}
+    onKeyDown={onKeyDown}
     value={value}
   >
     <span className="flex size-3.5 shrink-0 items-center justify-center text-indigo-soft">

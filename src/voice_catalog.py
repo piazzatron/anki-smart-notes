@@ -19,12 +19,18 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import json
 from functools import cache
-from typing import Literal, TypedDict, cast
+from typing import TYPE_CHECKING, Literal, Optional, TypedDict, cast
 
-from .models import TTSProviders
+from .models import TTSModels, TTSProviders
+from .models.smart_fields import TTSGenerationSettings
 from .utils import load_file
 
+if TYPE_CHECKING:
+    from .subscription_provider import VoiceRule
+
 ALL_LANGUAGES: Literal["All"] = "All"
+# A free voice reads in this language when the field's own language has none.
+FALLBACK_LANGUAGE = "English (United States)"
 
 VoiceGender = Literal["Male", "Female", "All"]
 VoicePriceTier = Literal["free", "low", "standard", "high", "ultra-high"]
@@ -45,7 +51,7 @@ class GoogleVoice(TypedDict):
     languageCode: str
     language: str
     name: str
-    type: Literal["Standard", "Wavenet", "Neural", "Chirp"]
+    type: Literal["Standard", "Chirp"]
 
 
 class ElevenVoice(TypedDict):
@@ -86,6 +92,59 @@ def get_voice_catalog() -> list[TTSVoice]:
     ]
 
 
+def is_voice_allowed(
+    voice: TTSGenerationSettings, rules: Optional[list["VoiceRule"]]
+) -> bool:
+    """Whether a plan with these voice rules can use a voice. None allows every
+    voice."""
+    return rules is None or any(
+        rule["provider"] == voice.provider
+        and rule["model"] == voice.model
+        and rule["voiceIdIncludes"] in voice.voice_id
+        for rule in rules
+    )
+
+
+def plan_voice(
+    voice: TTSGenerationSettings,
+    rules: Optional[list["VoiceRule"]],
+    catalog: list[TTSVoice],
+) -> Optional[TTSGenerationSettings]:
+    """The voice a plan with these rules generates with: this one when it's
+    allowed, else an allowed voice in its language, or in US English when its
+    language has none (OpenAI's voices have no single language), of its gender
+    when there is one. None when the plan allows neither."""
+    if is_voice_allowed(voice, rules):
+        return voice
+
+    current = next((entry for entry in catalog if settings_of(entry) == voice), None)
+    allowed = [
+        entry for entry in catalog if is_voice_allowed(settings_of(entry), rules)
+    ]
+    language = current["language"] if current else None
+    candidates = [entry for entry in allowed if entry["language"] == language] or [
+        entry for entry in allowed if entry["language"] == FALLBACK_LANGUAGE
+    ]
+    match = next(
+        (
+            entry
+            for entry in candidates
+            if current and entry["gender"] == current["gender"]
+        ),
+        next(iter(candidates), None),
+    )
+    return None if match is None else settings_of(match)
+
+
+def settings_of(voice: TTSVoice) -> TTSGenerationSettings:
+    """The settings that generate with a catalog voice."""
+    return TTSGenerationSettings(
+        provider=voice["provider"],
+        model=cast(TTSModels, voice["model"]),
+        voice_id=voice["voice_id"],
+    )
+
+
 def _get_openai_voices() -> list[TTSVoice]:
     voice_defs = [
         ("alloy", "Female"),
@@ -121,12 +180,7 @@ def _get_google_voices() -> list[TTSVoice]:
     raw_voices: list[GoogleVoice] = json.loads(
         load_file("google_voices.json", test_override="[]")
     )
-    price_tiers: dict[str, VoicePriceTier] = {
-        "Standard": "low",
-        "Wavenet": "standard",
-        "Neural": "standard",
-        "Chirp": "standard",
-    }
+    price_tiers: dict[str, VoicePriceTier] = {"Standard": "low", "Chirp": "standard"}
     return [
         {
             "provider": "google",
@@ -136,12 +190,21 @@ def _get_google_voices() -> list[TTSVoice]:
             "model": voice["type"].lower(),
             "name": (
                 f"{voice['language'].capitalize()} - "
-                f"{voice['gender'].capitalize()} ({voice['type']})"
+                f"{voice['gender'].capitalize()}{_google_voice_label(voice)}"
             ),
             "price_tier": price_tiers[voice["type"]],
         }
         for voice in raw_voices
     ]
+
+
+def _google_voice_label(voice: GoogleVoice) -> str:
+    # A locale has one Standard voice per gender but several Chirp 3 HD ones, so
+    # those lead with the speaker, which pickers then show before truncating:
+    # " Achernar (Chirp 3 HD)".
+    if voice["type"] == "Standard":
+        return " (Standard)"
+    return f" {voice['name'].split('-')[-1]} (Chirp 3 HD)"
 
 
 def _get_eleven_voices() -> list[TTSVoice]:

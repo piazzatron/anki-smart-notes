@@ -311,7 +311,8 @@
       "title": "Mga Setting ng Boses",
       "defaultVoice": "Default voice",
       "defaultVoiceTip": "Ginagamit ng Voice Smart Fields ang boses na ito bilang default. Kapag binago ito, maa-update ang bawat Smart Field na gumagamit ng default. Maaaring i-override ng anumang Smart Field ito gamit ang sarili nitong boses.",
-      "defaultVoiceTipLabel": "Tungkol sa default na boses"
+      "defaultVoiceTipLabel": "Tungkol sa default na boses",
+      "free": "Free"
     }
   },
   "imageGeneration": {
@@ -462,7 +463,7 @@
       "notesUsedToday": "mga note na nagamit ngayong araw",
       "moduleResetsAt": "Mare-reset sa {{time}}",
       "rowTitle": "Libreng plano",
-      "rowDescription": "Mag-upgrade para sa walang limitasyong note, voice, larawan, batch, at lahat ng modelo."
+      "rowDescription": "Mag-upgrade para sa unlimited na notes, images, batch, at bawat model at voice."
     }
   },
   "support": {
@@ -577,9 +578,9 @@
         "cta": "Mag-upgrade para i-unlock ang web search"
       },
       "voice": {
-        "title": "Voice fields",
-        "description": "Gumawa ng audio para sa mga card mo gamit ang natural na boses.",
-        "cta": "Mag-upgrade para i-unlock ang voice"
+        "title": "Lahat ng voice",
+        "description": "Gamitin ang kahit anong voice mula sa Google, Azure, OpenAI, ElevenLabs, at VOICEVOX, hindi lang ang Google Standard.",
+        "cta": "Mag-upgrade para i-unlock ang lahat ng voice"
       },
       "images": {
         "title": "Image fields",
@@ -608,7 +609,7 @@
       }
     },
     "notices": {
-      "voice": "Kasama ang voice fields sa bawat bayad na plano.",
+      "voice": "Kasama sa Free ang mga voice na may markang Free. Kasama sa mga bayad na plan ang lahat ng voice.",
       "images": "Kasama ang image fields sa bawat bayad na plano."
     },
     "moreNotesAt": "Higit pa sa {{time}}"
@@ -637,6 +638,9 @@
       "oneAtATime": "Isa-isa",
       "none": "Wala",
       "autoStandardOnly": "Auto Standard lang",
+      "standardVoices": "Standard voices",
+      "fieldsChange_one": "{{count}} pagbabago sa field",
+      "fieldsChange_other": "{{count}} na field ang nagbabago",
       "fieldsStop_one": "{{count}} field ang titigil",
       "fieldsStop_other": "{{count}} field ang titigil",
       "fieldsToStandard_one": "{{count}} field ang lilipat",

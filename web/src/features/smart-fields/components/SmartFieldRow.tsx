@@ -20,7 +20,13 @@ import {
   UpgradeLockIcon,
   useIsFreePlan,
 } from "@/components/shared/UpgradeSheet"
+import {
+  useAllowedVoices,
+  useVoiceCatalog,
+} from "@/features/defaults/useVoiceCatalog"
+import { planVoice } from "@/features/defaults/voiceDefaults"
 import { errorMessage } from "@/lib/errors"
+import { useAppStore } from "@/store/appStore"
 import type { SmartField } from "@/types/api"
 
 interface SmartFieldRowProps {
@@ -43,13 +49,34 @@ export const SmartFieldRow = ({
   onError,
 }: SmartFieldRowProps) => {
   const { t } = useTranslation()
-  // The free plan is text only: its voice and image fields stay listed, greyed
-  // out with a lock, and open the upgrade sheet instead of the editor.
+  // The free plan has no images: image fields stay listed, greyed out with a
+  // lock, and open the upgrade sheet instead of the editor.
   const isFree = useIsFreePlan()
-  const locked = isFree && field.fieldType !== "chat"
-  const model = smartFieldModelLabel(field, isFree)
-  const openUpgrade = () =>
-    openUpgradeSheet(field.fieldType === "tts" ? "voice" : "images")
+  const locked = isFree && field.fieldType === "image"
+  const openUpgrade = () => openUpgradeSheet("images")
+  // A voice field shows the voice it reads with on this plan
+  // (`planVoice` in voiceDefaults.ts).
+  const allowedVoices = useAllowedVoices()
+  const voices = useVoiceCatalog().catalog?.voices
+  const ttsDefaults = useAppStore((store) => store.state?.defaults.tts)
+  const planVoiceSettings =
+    field.fieldType === "tts" &&
+    voices !== undefined &&
+    ttsDefaults !== undefined
+      ? planVoice(
+          field.settings.usesDefaultGenerationSettings
+            ? ttsDefaults
+            : field.settings,
+          voices,
+          allowedVoices,
+        )
+      : null
+  const model = smartFieldModelLabel(
+    field.fieldType === "tts" && planVoiceSettings
+      ? { ...field, settings: { ...field.settings, ...planVoiceSettings } }
+      : field,
+    isFree,
+  )
   const [menuOpen, setMenuOpen] = useState(false)
   const [pending, setPending] = useState(false)
 

@@ -311,7 +311,8 @@
       "title": "Configuración de Voz",
       "defaultVoice": "Voz predeterminada",
       "defaultVoiceTip": "Os Smart Fields de voz usan esta voz por defecto. Ao cambiala, actualízanse todos os Smart Fields que usan a predeterminada. Calquera Smart Field pode substituíla pola súa propia voz.",
-      "defaultVoiceTipLabel": "Acerca da voz predeterminada"
+      "defaultVoiceTipLabel": "Acerca da voz predeterminada",
+      "free": "Gratuíto"
     }
   },
   "imageGeneration": {
@@ -462,7 +463,7 @@
       "notesUsedToday": "notas usadas hoxe",
       "moduleResetsAt": "Reinicia ás {{time}}",
       "rowTitle": "Plan gratuíto",
-      "rowDescription": "Actualiza para ter notas ilimitadas, voz, imaxes, lotes e todos os modelos."
+      "rowDescription": "Mellora para ter notas, imaxes, lotes e todos os modelos e voces sen límite."
     }
   },
   "support": {
@@ -577,9 +578,9 @@
         "cta": "Actualiza para desbloquear a busca na web"
       },
       "voice": {
-        "title": "Campos de voz",
-        "description": "Xera audio para as tarxetas con voces naturais.",
-        "cta": "Actualiza para desbloquear a voz"
+        "title": "Todas as voces",
+        "description": "Usa calquera voz de Google, Azure, OpenAI, ElevenLabs e VOICEVOX, non só Google Standard.",
+        "cta": "Mellora para desbloquear todas as voces"
       },
       "images": {
         "title": "Campos de imaxe",
@@ -608,7 +609,7 @@
       }
     },
     "notices": {
-      "voice": "Os campos de voz están incluídos en todos os plans de pago.",
+      "voice": "O plan Gratuíto inclúe as voces marcadas como Gratuítas. Os plans de pago inclúen todas as voces.",
       "images": "Os campos de imaxe están incluídos en todos os plans de pago."
     },
     "moreNotesAt": "Máis ás {{time}}"
@@ -637,6 +638,9 @@
       "oneAtATime": "Unha por vez",
       "none": "Ningún",
       "autoStandardOnly": "Só Auto Standard",
+      "standardVoices": "Voces estándar",
+      "fieldsChange_one": "{{count}} campo cambia",
+      "fieldsChange_other": "{{count}} campos cambian",
       "fieldsStop_one": "{{count}} campo para",
       "fieldsStop_other": "{{count}} campos param",
       "fieldsToStandard_one": "{{count}} campo cambia",

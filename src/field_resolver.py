@@ -25,7 +25,12 @@ from anki.decks import DeckId
 from anki.notes import Note
 from aqt import mw
 
-from .app_state import has_legacy_openai_access, is_capacity_remaining, is_free_plan
+from .app_state import (
+    allowed_voices,
+    has_legacy_openai_access,
+    is_capacity_remaining,
+    is_free_plan,
+)
 from .chat_provider import ChatProvider, chat_provider
 from .image_provider import ImageProvider, ImageResponse, image_provider
 from .image_utils import download_and_embed_images
@@ -48,6 +53,7 @@ from .models import (
 from .models.smart_fields import (
     ChatSmartFieldSettings,
     ImageSmartFieldSettings,
+    TTSGenerationSettings,
     TTSSmartFieldSettings,
 )
 from .nodes import FieldNode
@@ -55,6 +61,7 @@ from .open_ai_client import OpenAIClient, openai_provider
 from .prompt_helpers import interpolate_prompt
 from .tts_provider import TTSProvider, tts_provider
 from .utils.notes_utils import get_chained_ai_fields, get_note_type
+from .voice_catalog import get_voice_catalog, plan_voice
 
 
 class FieldResolver:
@@ -80,10 +87,10 @@ class FieldResolver:
         field_type: SmartFieldType = node.smart_field.field_type
         settings = node.smart_field.settings
 
-        # The free plan has no voice or image generation. Skip those fields
-        # quietly rather than fail every note that has one.
-        if field_type in ("tts", "image") and is_free_plan():
-            logger.debug(f"Skipping {field_type} field {node.field} on the free plan")
+        # The free plan has no image generation. Skip those fields quietly
+        # rather than fail every note that has one.
+        if field_type == "image" and is_free_plan():
+            logger.debug(f"Skipping image field {node.field} on the free plan")
             return None
 
         if field_type == "tts":
@@ -92,6 +99,22 @@ class FieldResolver:
 
             if not is_capacity_remaining():
                 logger.debug("Skipping TTS field for locked app")
+                return None
+
+            # A plan that limits voices (the free plan) reads the field with an
+            # allowed voice in its language instead, leaving the saved voice for
+            # when the user upgrades. With none in that language, skip quietly.
+            voice = plan_voice(
+                TTSGenerationSettings(
+                    provider=settings.provider,
+                    model=settings.model,
+                    voice_id=settings.voice_id,
+                ),
+                allowed_voices(),
+                get_voice_catalog(),
+            )
+            if voice is None:
+                logger.debug(f"Skipping TTS field {node.field}: voice not on plan")
                 return None
 
             if not mw or not mw.col:
@@ -115,9 +138,9 @@ class FieldResolver:
             tts_response = await self.get_tts_response(
                 note=note,
                 input_text=source_value,
-                model=settings.model,
-                voice=cast(Union[OpenAIVoices, ElevenVoices], settings.voice_id),
-                provider=settings.provider,
+                model=voice.model,
+                voice=cast(Union[OpenAIVoices, ElevenVoices], voice.voice_id),
+                provider=voice.provider,
                 show_error_box=show_error_box,
                 generation_source="card_generation",
             )
@@ -125,7 +148,7 @@ class FieldResolver:
             if not tts_response:
                 return None
 
-            audio_ext = "wav" if settings.provider == "voicevox" else "mp3"
+            audio_ext = "wav" if voice.provider == "voicevox" else "mp3"
             file_name = get_media_path(note, node.field, audio_ext)
             path = media.write_data(file_name, tts_response)
 

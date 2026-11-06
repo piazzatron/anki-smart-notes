@@ -3,7 +3,15 @@ import { useTranslation } from "react-i18next"
 
 import { errorMessage } from "@/lib/errors"
 import { getVoiceCatalog } from "@/services/voiceCatalog"
+import { useAppStore } from "@/store/appStore"
 import type { VoiceCatalog } from "@/types/api"
+
+import { allowedVoicesOf } from "./voiceDefaults"
+
+/** The voices the signed-in plan allows, or null when it allows every voice. On
+ *  the free plan, the others are shown locked. */
+export const useAllowedVoices = () =>
+  useAppStore((store) => allowedVoicesOf(store.state))
 
 export const useVoiceCatalog = () => {
   const { t } = useTranslation()

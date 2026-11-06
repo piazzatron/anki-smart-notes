@@ -220,10 +220,8 @@ interface NavButtonProps {
 const NavButton = ({ activeScreen, item, onNavigate }: NavButtonProps) => {
   const { t } = useTranslation()
   const isActive = item.id === activeScreen
-  // Voice and image fields are paid features on the free plan.
-  const locked =
-    useIsFreePlan() &&
-    (item.id === "defaults-voice" || item.id === "defaults-images")
+  // Image fields are a paid feature on the free plan.
+  const locked = useIsFreePlan() && item.id === "defaults-images"
 
   return (
     <button

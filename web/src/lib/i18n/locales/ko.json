@@ -309,7 +309,8 @@
       "title": "음성 설정",
       "defaultVoice": "기본 음성",
       "defaultVoiceTip": "음성 Smart Fields는 기본적으로 이 음성을 사용합니다. 음성을 변경하면 기본값을 사용하는 모든 Smart Field가 업데이트됩니다. 각 Smart Field는 자체 음성으로 이 설정을 재정의할 수 있습니다.",
-      "defaultVoiceTipLabel": "기본 음성 정보"
+      "defaultVoiceTipLabel": "기본 음성 정보",
+      "free": "무료"
     }
   },
   "imageGeneration": {
@@ -452,7 +453,7 @@
       "notesUsedToday": "오늘 사용한 노트",
       "moduleResetsAt": "{{time}}에 초기화",
       "rowTitle": "무료 플랜",
-      "rowDescription": "업그레이드하면 노트, 음성, 이미지, 일괄 처리와 모든 모델을 제한 없이 사용할 수 있습니다."
+      "rowDescription": "업그레이드하면 노트, 이미지, 일괄 처리와 모든 모델 및 음성을 무제한으로 사용할 수 있습니다."
     }
   },
   "support": {
@@ -567,9 +568,9 @@
         "cta": "웹 검색을 사용하려면 업그레이드"
       },
       "voice": {
-        "title": "음성 필드",
-        "description": "자연스러운 음성으로 카드의 오디오를 생성하세요.",
-        "cta": "음성을 사용하려면 업그레이드"
+        "title": "모든 음성",
+        "description": "Google Standard뿐만 아니라 Google, Azure, OpenAI, ElevenLabs, VOICEVOX의 모든 음성을 사용하세요.",
+        "cta": "업그레이드하여 모든 음성 잠금 해제"
       },
       "images": {
         "title": "이미지 필드",
@@ -598,7 +599,7 @@
       }
     },
     "notices": {
-      "voice": "음성 필드는 모든 유료 플랜에 포함됩니다.",
+      "voice": "무료 플랜에는 무료 표시된 음성이 포함됩니다. 유료 플랜에는 모든 음성이 포함됩니다.",
       "images": "이미지 필드는 모든 유료 플랜에 포함됩니다."
     },
     "moreNotesAt": "{{time}}에 더 많은 노트를 사용할 수 있습니다"
@@ -627,6 +628,8 @@
       "oneAtATime": "한 번에 하나씩",
       "none": "없음",
       "autoStandardOnly": "Auto Standard만",
+      "standardVoices": "표준 음성",
+      "fieldsChange_other": "필드 {{count}}개 변경",
       "fieldsStop_other": "{{count}}개 필드 중지",
       "fieldsToStandard_other": "{{count}}개 필드 이동",
       "fieldsWithoutSearch_other": "{{count}}개 필드에서 제외"

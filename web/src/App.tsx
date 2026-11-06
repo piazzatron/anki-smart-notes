@@ -16,6 +16,8 @@ import {
 import { getInitialEditorRequest } from "@/dev/initialEditor"
 import { ImageDefaultsScreen } from "@/features/defaults/ImageDefaultsScreen"
 import { TextDefaultsScreen } from "@/features/defaults/TextDefaultsScreen"
+import { useVoiceCatalog } from "@/features/defaults/useVoiceCatalog"
+import { allowedVoicesOf } from "@/features/defaults/voiceDefaults"
 import { VoiceDefaultsScreen } from "@/features/defaults/VoiceDefaultsScreen"
 import type { FieldEditorRequest } from "@/features/field-editor/FieldEditorScreen"
 import { SmartFieldsScreen } from "@/features/smart-fields/SmartFieldsScreen"
@@ -86,6 +88,7 @@ const App = () => {
   }))
   const connection = useAppStore((store) => store.connection)
   const state = useAppStore((store) => store.state)
+  const voiceCatalog = useVoiceCatalog().catalog
   const ActiveScreen = SCREENS[activeScreen]
   const ActiveDefaultsScreen = DEFAULT_SCREENS[activeScreen]
   const screenKey = `${activeScreen}-${editorRequest.id}`
@@ -137,7 +140,12 @@ const App = () => {
       ) : freePlanStarted !== null && state !== null ? (
         <FreePlanStartedScreen
           dailyNotesLimit={freePlanStarted.dailyNotesLimit!}
-          impact={getFreePlanImpact(state.smartFields, state.defaults.chat)}
+          impact={getFreePlanImpact({
+            smartFields: state.smartFields,
+            defaults: state.defaults,
+            allowedVoices: allowedVoicesOf(state),
+            voices: voiceCatalog?.voices ?? null,
+          })}
           onContinue={() =>
             void saveSettings({
               ...state.settings,

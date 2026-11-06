@@ -319,7 +319,8 @@
       "title": "إعدادات الصوت",
       "defaultVoice": "الصوت الافتراضي",
       "defaultVoiceTip": "تستخدم حقول Smart Fields الصوتية هذا الصوت افتراضيًا. يؤدي تغييره إلى تحديث جميع حقول Smart Fields التي تستخدم الإعداد الافتراضي. ويمكن لأي حقل Smart Field تجاوزه بصوت خاص به.",
-      "defaultVoiceTipLabel": "حول الصوت الافتراضي"
+      "defaultVoiceTipLabel": "حول الصوت الافتراضي",
+      "free": "مجاني"
     }
   },
   "imageGeneration": {
@@ -502,7 +503,7 @@
       "notesUsedToday": "ملاحظات مستخدمة اليوم",
       "moduleResetsAt": "تتم إعادة التعيين في {{time}}",
       "rowTitle": "الخطة المجانية",
-      "rowDescription": "قم بالترقية للحصول على ملاحظات غير محدودة، والصوت، والصور، والمعالجة الدفعية، وكل النماذج."
+      "rowDescription": "قم بالترقية للحصول على ملاحظات وصور ودفعات غير محدودة، وجميع النماذج والأصوات."
     }
   },
   "support": {
@@ -617,9 +618,9 @@
         "cta": "قم بالترقية لفتح البحث على الويب"
       },
       "voice": {
-        "title": "حقول الصوت",
-        "description": "أنشئ ملفات صوتية لبطاقاتك بأصوات طبيعية.",
-        "cta": "قم بالترقية لفتح الصوت"
+        "title": "كل الأصوات",
+        "description": "استخدم أي صوت من Google أو Azure أو OpenAI أو ElevenLabs أو VOICEVOX، وليس Google Standard فقط.",
+        "cta": "قم بالترقية لفتح كل الأصوات"
       },
       "images": {
         "title": "حقول الصور",
@@ -648,7 +649,7 @@
       }
     },
     "notices": {
-      "voice": "حقول الصوت متاحة في كل الخطط المدفوعة.",
+      "voice": "تتضمن الخطة المجانية الأصوات المميزة بعلامة مجاني. وتتضمن الخطط المدفوعة جميع الأصوات.",
       "images": "حقول الصور متاحة في كل الخطط المدفوعة."
     },
     "moreNotesAt": "المزيد في {{time}}"
@@ -677,6 +678,13 @@
       "oneAtATime": "واحدة في كل مرة",
       "none": "لا شيء",
       "autoStandardOnly": "Auto Standard فقط",
+      "standardVoices": "الأصوات القياسية",
+      "fieldsChange_zero": "{{count}} حقل يتغير",
+      "fieldsChange_one": "{{count}} حقل يتغير",
+      "fieldsChange_two": "{{count}} حقلان يتغيران",
+      "fieldsChange_few": "{{count}} حقول تتغير",
+      "fieldsChange_many": "{{count}} حقلاً يتغير",
+      "fieldsChange_other": "{{count}} حقل يتغير",
       "fieldsStop_zero": "{{count}} حقول تتوقف",
       "fieldsStop_one": "{{count}} حقل يتوقف",
       "fieldsStop_two": "{{count}} حقلان يتوقفان",

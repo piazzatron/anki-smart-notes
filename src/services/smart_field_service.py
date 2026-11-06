@@ -72,7 +72,7 @@ DEFAULT_TEXT_GENERATION_SETTINGS = ChatGenerationSettings(
 DEFAULT_TTS_GENERATION_SETTINGS = TTSGenerationSettings(
     provider="google",
     model="standard",
-    voice_id="en-US-Casual-K",
+    voice_id="en-US-Standard-A",
 )
 DEFAULT_IMAGE_GENERATION_SETTINGS = ImageGenerationSettings(
     provider="openai",

@@ -29,7 +29,7 @@ from src.database.migrations import (
     apply_database_bootstrap_migrations,
     run_migrations,
 )
-from src.models.smart_fields import ChatSmartFieldSettings
+from src.models.smart_fields import ChatSmartFieldSettings, TTSSmartFieldSettings
 from src.services.smart_field_service import SmartFieldService
 
 
@@ -464,3 +464,55 @@ def replace_smart_fields_with_old_unprofiled_bootstrap_schema(
             );
             """
         )
+
+
+def test_run_migrations_moves_retired_google_voices_to_current_ones(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    addon_config = {
+        "tts_provider": "google",
+        "tts_model": "standard",
+        "tts_voice": "en-US-Casual-K",
+        "prompts_map": {
+            "note_types": {
+                "Basic": {
+                    str(DECK_ID): {
+                        "fields": {"Audio": "{{Front}}"},
+                        "extras": {
+                            "Audio": {
+                                "automatic": True,
+                                "type": "tts",
+                                "use_custom_model": True,
+                                "tts_provider": "google",
+                                "tts_model": "neural",
+                                "tts_voice": "en-US-Neural2-A",
+                                "tts_source_field": "Front",
+                            }
+                        },
+                    }
+                }
+            }
+        },
+        "did_migrate_smart_fields_to_sqlite": False,
+    }
+    install_fake_anki(
+        monkeypatch,
+        addon_config,
+        tmp_path,
+        show_message_box=lambda *args: None,
+    )
+    use_temp_sqlite(monkeypatch, tmp_path)
+
+    run_migrations()
+
+    service = SmartFieldService()
+    [field] = service.get_smart_fields_for_note(NOTE_TYPE_ID, DECK_ID)
+
+    assert isinstance(field.settings, TTSSmartFieldSettings)
+    assert (field.settings.model, field.settings.voice_id) == (
+        "chirp",
+        "en-US-Chirp3-HD-Achird",
+    )
+    defaults = service.get_tts_defaults()
+    assert (defaults.model, defaults.voice_id) == ("standard", "en-US-Standard-A")

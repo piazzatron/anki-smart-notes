@@ -311,7 +311,8 @@
       "title": "Voice Settings",
       "defaultVoice": "Default voice",
       "defaultVoiceTip": "Voice Smart Fields use this voice by default. Changing it updates every Smart Field that uses the default. Any Smart Field can override it with its own voice.",
-      "defaultVoiceTipLabel": "About the default voice"
+      "defaultVoiceTipLabel": "About the default voice",
+      "free": "Free"
     }
   },
   "imageGeneration": {
@@ -462,7 +463,7 @@
       "notesUsedToday": "notes used today",
       "moduleResetsAt": "Resets at {{time}}",
       "rowTitle": "Free plan",
-      "rowDescription": "Upgrade for unlimited notes, voice, images, batch and every model."
+      "rowDescription": "Upgrade for unlimited notes, images, batch, and every model and voice."
     }
   },
   "support": {
@@ -578,9 +579,9 @@
         "cta": "Upgrade to unlock web search"
       },
       "voice": {
-        "title": "Voice fields",
-        "description": "Generate audio for your cards with natural voices.",
-        "cta": "Upgrade to unlock voice"
+        "title": "Every voice",
+        "description": "Use any voice from Google, Azure, OpenAI, ElevenLabs and VOICEVOX, not just Google Standard.",
+        "cta": "Upgrade to unlock every voice"
       },
       "images": {
         "title": "Image fields",
@@ -609,7 +610,7 @@
       }
     },
     "notices": {
-      "voice": "Voice fields come with every paid plan.",
+      "voice": "Free includes the voices marked Free. Paid plans include every voice.",
       "images": "Image fields come with every paid plan."
     },
     "moreNotesAt": "More at {{time}}"
@@ -638,6 +639,9 @@
       "oneAtATime": "One at a time",
       "none": "None",
       "autoStandardOnly": "Auto Standard only",
+      "standardVoices": "Standard voices",
+      "fieldsChange_one": "{{count}} field changes",
+      "fieldsChange_other": "{{count}} fields change",
       "fieldsStop_one": "{{count}} field stops",
       "fieldsStop_other": "{{count}} fields stop",
       "fieldsToStandard_one": "{{count}} field moves",

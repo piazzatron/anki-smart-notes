@@ -309,7 +309,8 @@
       "title": "音声設定",
       "defaultVoice": "デフォルトの音声",
       "defaultVoiceTip": "音声のSmart Fieldsは、デフォルトでこの音声を使用します。変更すると、デフォルトを使用しているすべてのSmart Fieldに反映されます。各Smart Fieldは、独自の音声で上書きできます。",
-      "defaultVoiceTipLabel": "デフォルトの音声について"
+      "defaultVoiceTipLabel": "デフォルトの音声について",
+      "free": "無料"
     }
   },
   "imageGeneration": {
@@ -452,7 +453,7 @@
       "notesUsedToday": "今日使用したノート",
       "moduleResetsAt": "{{time}}にリセット",
       "rowTitle": "フリープラン",
-      "rowDescription": "アップグレードすると、ノート数無制限、音声、画像、バッチ処理、すべてのモデルが利用できます。"
+      "rowDescription": "無制限のノート、画像、バッチ処理、すべてのモデルと音声を利用するには、アップグレードしてください。"
     }
   },
   "support": {
@@ -567,9 +568,9 @@
         "cta": "アップグレードして Web検索 を解放"
       },
       "voice": {
-        "title": "音声フィールド",
-        "description": "自然な音声でカードの音声を生成します。",
-        "cta": "アップグレードして音声を解放"
+        "title": "すべての音声",
+        "description": "Google Standard だけでなく、Google、Azure、OpenAI、ElevenLabs、VOICEVOX のすべての音声を使用できます。",
+        "cta": "アップグレードしてすべての音声を利用"
       },
       "images": {
         "title": "画像フィールド",
@@ -598,7 +599,7 @@
       }
     },
     "notices": {
-      "voice": "音声フィールドは、すべての有料プランに含まれています。",
+      "voice": "無料プランでは「無料」と表示された音声を利用できます。有料プランではすべての音声を利用できます。",
       "images": "画像フィールドは、すべての有料プランに含まれています。"
     },
     "moreNotesAt": "{{time}}にさらに利用可能"
@@ -627,6 +628,8 @@
       "oneAtATime": "1件ずつ",
       "none": "なし",
       "autoStandardOnly": "Auto Standard のみ",
+      "standardVoices": "標準の音声",
+      "fieldsChange_other": "{{count}} 個のフィールドが変更されます",
       "fieldsStop_other": "{{count}} 個のフィールドが停止",
       "fieldsToStandard_other": "{{count}} 個のフィールドが移行",
       "fieldsWithoutSearch_other": "{{count}} 個のフィールドで Web検索 なし"

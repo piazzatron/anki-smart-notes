@@ -311,7 +311,8 @@
       "title": "Hangbeállítások",
       "defaultVoice": "Alapértelmezett hang",
       "defaultVoiceTip": "Hanggenerálásnál a Smart Fields alapértelmezés szerint ezt a hangot használják. Ha megváltoztatja, az alapértelmezést használó összes Smart Field azonnal frissül. Bármelyik Smart Field felülírhatja saját hangjával.",
-      "defaultVoiceTipLabel": "Az alapértelmezett hang"
+      "defaultVoiceTipLabel": "Az alapértelmezett hang",
+      "free": "Ingyenes"
     }
   },
   "imageGeneration": {
@@ -462,7 +463,7 @@
       "notesUsedToday": "ma felhasznált jegyzet",
       "moduleResetsAt": "Visszaáll ekkor: {{time}}",
       "rowTitle": "Ingyenes csomag",
-      "rowDescription": "Frissíts korlátlan jegyzetekért, hangért, képekért, kötegelt feldolgozásért és minden modellért."
+      "rowDescription": "Frissíts korlátlan jegyzetekhez, képekhez, kötegelt feldolgozáshoz, valamint minden modellhez és hanghoz."
     }
   },
   "support": {
@@ -577,9 +578,9 @@
         "cta": "Frissítés a webes keresés feloldásához"
       },
       "voice": {
-        "title": "Hangmezők",
-        "description": "Hangfelvétel generálása a kártyákhoz természetes hangokkal.",
-        "cta": "Frissítés a hang feloldásához"
+        "title": "Minden hang",
+        "description": "Használj bármilyen hangot a Google, Azure, OpenAI, ElevenLabs és VOICEVOX szolgáltatóktól, nem csak a Google Standard hangokat.",
+        "cta": "Frissíts minden hang feloldásához"
       },
       "images": {
         "title": "Képmezők",
@@ -608,7 +609,7 @@
       }
     },
     "notices": {
-      "voice": "A hangmezők minden fizetős csomagban benne vannak.",
+      "voice": "Az Ingyenes csomag tartalmazza az Ingyenesnek jelölt hangokat. A fizetős csomagok minden hangot tartalmaznak.",
       "images": "A képmezők minden fizetős csomagban benne vannak."
     },
     "moreNotesAt": "Több: {{time}}"
@@ -637,6 +638,9 @@
       "oneAtATime": "Egyszerre egy",
       "none": "Nincs",
       "autoStandardOnly": "Csak Auto Standard",
+      "standardVoices": "Standard hangok",
+      "fieldsChange_one": "{{count}} mezőváltozás",
+      "fieldsChange_other": "{{count}} mezőváltozás",
       "fieldsStop_one": "{{count}} mező leáll",
       "fieldsStop_other": "{{count}} mező leáll",
       "fieldsToStandard_one": "{{count}} mező átkerül",

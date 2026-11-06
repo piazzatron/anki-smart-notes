@@ -31,10 +31,21 @@ import { OptionList, OptionRow } from "@/components/ui/OptionList"
 import { Pill } from "@/components/ui/Pill"
 import { FieldLabel } from "@/components/ui/FieldLabel"
 import { SearchIcon } from "@/components/shared/Icons"
+import {
+  openUpgradeSheet,
+  UpgradeLockIcon,
+} from "@/components/shared/UpgradeSheet"
 import { providerLabel } from "@/lib/catalog"
 import type { TTSGenerationSettings, VoiceCatalog } from "@/types/api"
 
-import { filterVoices, voiceKey, voiceMatchesSettings } from "./voiceDefaults"
+import { useAllowedVoices } from "./useVoiceCatalog"
+import {
+  filterVoices,
+  isVoiceAllowed,
+  shownVoice,
+  voiceKey,
+  voiceMatchesSettings,
+} from "./voiceDefaults"
 
 const VOICE_GENDER_OPTIONS = ["All", "Female", "Male"]
 interface VoicePickerProps {
@@ -57,8 +68,12 @@ export const VoicePicker = ({
   value,
 }: VoicePickerProps) => {
   const { i18n, t } = useTranslation()
+  // On a plan that limits voices, the others are locked, and a saved voice it
+  // doesn't include shows the free voice that stands in for it.
+  const allowedVoices = useAllowedVoices()
+  const shown = shownVoice(value, catalog.voices, allowedVoices)
   const selectedVoice = catalog.voices.find((voice) =>
-    voiceMatchesSettings(voice, value),
+    voiceMatchesSettings(voice, shown),
   )
   const [filters, setFilters] = useState({
     gender: "All",
@@ -84,10 +99,14 @@ export const VoicePicker = ({
     () => ["All", ...new Set(catalog.voices.map((voice) => voice.provider))],
     [catalog.voices],
   )
-  const visibleVoices = useMemo(
-    () => filterVoices(catalog.voices, filters),
-    [catalog.voices, filters],
-  )
+  // A plan that limits voices lists the ones it includes first.
+  const visibleVoices = useMemo(() => {
+    const voices = filterVoices(catalog.voices, filters)
+    return [
+      ...voices.filter((voice) => isVoiceAllowed(voice, allowedVoices)),
+      ...voices.filter((voice) => !isVoiceAllowed(voice, allowedVoices)),
+    ]
+  }, [catalog.voices, filters, allowedVoices])
   // In columns (the Voice screen) the panels hang past the headings like every other
   // surface, so their content takes the same hang inset as the page's other cards.
   const inset = layout === "columns" ? "px-hang" : "px-4"
@@ -146,7 +165,10 @@ export const VoicePicker = ({
         label={browseLabel}
         onValueChange={(key) => {
           const voice = visibleVoices.find((item) => voiceKey(item) === key)
-          if (voice === undefined) return
+          // Arrow keys choose the row they land on, so a locked voice does nothing
+          // here; its own click and key handlers open the upgrade sheet.
+          if (voice === undefined || !isVoiceAllowed(voice, allowedVoices))
+            return
           onSelect({
             provider: voice.provider,
             model: voice.model,
@@ -155,16 +177,47 @@ export const VoicePicker = ({
         }}
         value={selectedVoice === undefined ? "" : voiceKey(selectedVoice)}
       >
-        {visibleVoices.map((voice) => (
-          <OptionRow
-            className={`py-2.5 ${inset}`}
-            highlightSelected
-            key={voiceKey(voice)}
-            label={voice.name}
-            trailing={<Pill>{providerLabel(voice.provider)}</Pill>}
-            value={voiceKey(voice)}
-          />
-        ))}
+        {visibleVoices.map((voice) => {
+          const locked = !isVoiceAllowed(voice, allowedVoices)
+          return (
+            <OptionRow
+              className={`py-2.5 ${inset}`}
+              highlightSelected
+              key={voiceKey(voice)}
+              label={
+                <span className={locked ? "opacity-40" : ""}>
+                  {voice.name}
+                  {locked && (
+                    <span className="sr-only">
+                      {" "}
+                      {t("upgradeSheet.features.voice.cta")}
+                    </span>
+                  )}
+                </span>
+              }
+              onClick={(event) => {
+                if (locked && event.detail !== 0) openUpgradeSheet("voice")
+              }}
+              onKeyDown={(event) => {
+                if (locked && (event.key === "Enter" || event.key === " ")) {
+                  openUpgradeSheet("voice")
+                }
+              }}
+              trailing={
+                <>
+                  {allowedVoices !== null && !locked && (
+                    <Pill tone="mint">{t("defaults.voice.free")}</Pill>
+                  )}
+                  <Pill className={locked ? "opacity-40" : ""}>
+                    {providerLabel(voice.provider)}
+                  </Pill>
+                  {locked && <UpgradeLockIcon className="text-ink-muted" />}
+                </>
+              }
+              value={voiceKey(voice)}
+            />
+          )
+        })}
       </OptionList>
     )
   const searchAndList = (

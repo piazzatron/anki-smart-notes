@@ -311,7 +311,8 @@
       "title": "Röstinställningar",
       "defaultVoice": "Standardröst",
       "defaultVoiceTip": "Smart Fields för röst använder den här rösten som standard. Om du ändrar den uppdateras alla Smart Fields som använder standardvärdet. Varje Smart Field kan åsidosätta den med en egen röst.",
-      "defaultVoiceTipLabel": "Om standardrösten"
+      "defaultVoiceTipLabel": "Om standardrösten",
+      "free": "Gratis"
     }
   },
   "imageGeneration": {
@@ -462,7 +463,7 @@
       "notesUsedToday": "anteckningar använda idag",
       "moduleResetsAt": "Återställs kl. {{time}}",
       "rowTitle": "Gratisplan",
-      "rowDescription": "Uppgradera för obegränsade anteckningar, röst, bilder, batch och alla modeller."
+      "rowDescription": "Uppgradera för obegränsade anteckningar, bilder, batchkörning och alla modeller och röster."
     }
   },
   "support": {
@@ -577,9 +578,9 @@
         "cta": "Uppgradera för att låsa upp webbsökning"
       },
       "voice": {
-        "title": "Röstfält",
-        "description": "Generera ljud för dina kort med naturliga röster.",
-        "cta": "Uppgradera för att låsa upp röst"
+        "title": "Alla röster",
+        "description": "Använd vilken röst som helst från Google, Azure, OpenAI, ElevenLabs och VOICEVOX, inte bara Google Standard.",
+        "cta": "Uppgradera för att låsa upp alla röster"
       },
       "images": {
         "title": "Bildfält",
@@ -608,7 +609,7 @@
       }
     },
     "notices": {
-      "voice": "Röstfält ingår i alla betalda planer.",
+      "voice": "Gratisplanen inkluderar röster märkta Gratis. Betalda planer inkluderar alla röster.",
       "images": "Bildfält ingår i alla betalda planer."
     },
     "moreNotesAt": "Fler kl. {{time}}"
@@ -637,6 +638,9 @@
       "oneAtATime": "En i taget",
       "none": "Ingen",
       "autoStandardOnly": "Endast Auto Standard",
+      "standardVoices": "Standardröster",
+      "fieldsChange_one": "{{count}} fältändring",
+      "fieldsChange_other": "{{count}} fältändringar",
       "fieldsStop_one": "{{count}} fält slutar",
       "fieldsStop_other": "{{count}} fält slutar",
       "fieldsToStandard_one": "{{count}} fält flyttas",

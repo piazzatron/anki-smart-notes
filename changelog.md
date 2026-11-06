@@ -4,6 +4,7 @@
 - Upgraded all text models: GPT-6.1 Sol, Terra, Luna. Claude Opus, Sonnet, Haiku 5.5. Gemini 4 Argon, Gemini 3.8 Flash and Gemini 3.5 Flash-Lite.
 - Text and image Smart Fields automatically strip HTML by default, saving you credits.
 - Support for free plan with fixed per day text generation.
+- Refreshed Google voices: Chirp 3 HD voices in 53 languages and Standard voices for every language Google has one for. Fields on retired Google voices move to a current voice in the same language.
 - UI/UX Improvements + Bug Fixes
 
 # v2.27.0

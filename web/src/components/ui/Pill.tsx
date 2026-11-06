@@ -22,13 +22,15 @@ import type { ReactNode } from "react"
 interface PillProps {
   children: ReactNode
   className?: string
-  tone?: "neutral" | "indigo" | "sky" | "caution" | "warning"
+  tone?: "neutral" | "indigo" | "sky" | "mint" | "caution" | "warning"
 }
 
 const TONE_CLASSES = {
   neutral: "bg-white/[0.08] text-zinc-300",
   indigo: "bg-indigo/22 text-indigo-soft",
   sky: "bg-pastel-sky/[0.14] text-pastel-sky",
+  // What the free plan includes, like its voices.
+  mint: "bg-pastel-mint/[0.14] text-pastel-mint",
   caution: "bg-caution/[0.15] text-caution-soft",
   // Solid, for costs people must not miss.
   warning: "bg-caution text-zinc-950",

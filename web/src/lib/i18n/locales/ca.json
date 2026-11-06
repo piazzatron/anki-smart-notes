@@ -313,7 +313,8 @@
       "title": "Paràmetres de veu",
       "defaultVoice": "Veu per defecte",
       "defaultVoiceTip": "Els Smart Fields de veu fan servir aquesta veu per defecte. Si la canvies, s'actualitza cada Smart Field que utilitza el valor per defecte. Qualsevol Smart Field pot substituir-la amb la seva pròpia veu.",
-      "defaultVoiceTipLabel": "Sobre la veu per defecte"
+      "defaultVoiceTipLabel": "Sobre la veu per defecte",
+      "free": "Gratuït"
     }
   },
   "imageGeneration": {
@@ -472,7 +473,7 @@
       "notesUsedToday": "notes utilitzades avui",
       "moduleResetsAt": "Es reinicia a les {{time}}",
       "rowTitle": "Pla gratuït",
-      "rowDescription": "Actualitza per tenir notes il·limitades, veu, imatges, processament per lots i tots els models."
+      "rowDescription": "Actualitza per obtenir notes, imatges, lots i tots els models i veus sense límits."
     }
   },
   "support": {
@@ -587,9 +588,9 @@
         "cta": "Actualitza per desbloquejar la cerca web"
       },
       "voice": {
-        "title": "Camps de veu",
-        "description": "Genera àudio per a les teves targetes amb veus naturals.",
-        "cta": "Actualitza per desbloquejar la veu"
+        "title": "Totes les veus",
+        "description": "Fes servir qualsevol veu de Google, Azure, OpenAI, ElevenLabs i VOICEVOX, no només de Google Standard.",
+        "cta": "Actualitza per desbloquejar totes les veus"
       },
       "images": {
         "title": "Camps d'imatge",
@@ -618,7 +619,7 @@
       }
     },
     "notices": {
-      "voice": "Els camps de veu estan inclosos en tots els plans de pagament.",
+      "voice": "El pla gratuït inclou les veus marcades com a Gratuït. Els plans de pagament inclouen totes les veus.",
       "images": "Els camps d'imatge estan inclosos en tots els plans de pagament."
     },
     "moreNotesAt": "Més a les {{time}}"
@@ -647,6 +648,10 @@
       "oneAtATime": "Una alhora",
       "none": "Cap",
       "autoStandardOnly": "Només Auto Standard",
+      "standardVoices": "Veus estàndard",
+      "fieldsChange_one": "{{count}} canvi de camp",
+      "fieldsChange_many": "{{count}} camps canvien",
+      "fieldsChange_other": "{{count}} camps canvien",
       "fieldsStop_one": "{{count}} camp s'atura",
       "fieldsStop_many": "{{count}} camps s'aturen",
       "fieldsStop_other": "{{count}} camps s'aturen",

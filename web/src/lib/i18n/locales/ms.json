@@ -309,7 +309,8 @@
       "title": "Tetapan Suara",
       "defaultVoice": "Suara lalai",
       "defaultVoiceTip": "Voice Smart Fields menggunakan suara ini secara lalai. Menukarnya akan mengemas kini setiap Smart Field yang menggunakan lalai. Mana-mana Smart Field boleh menggantikannya dengan suara sendiri.",
-      "defaultVoiceTipLabel": "Mengenai suara lalai"
+      "defaultVoiceTipLabel": "Mengenai suara lalai",
+      "free": "Percuma"
     }
   },
   "imageGeneration": {
@@ -452,7 +453,7 @@
       "notesUsedToday": "nota digunakan hari ini",
       "moduleResetsAt": "Ditetapkan semula pada {{time}}",
       "rowTitle": "Pelan Percuma",
-      "rowDescription": "Naik taraf untuk nota tanpa had, suara, imej, kelompok dan setiap model."
+      "rowDescription": "Naik taraf untuk nota, imej, kelompok, serta semua model dan suara tanpa had."
     }
   },
   "support": {
@@ -567,9 +568,9 @@
         "cta": "Naik taraf untuk buka carian web"
       },
       "voice": {
-        "title": "Medan suara",
-        "description": "Jana audio untuk kad anda dengan suara semula jadi.",
-        "cta": "Naik taraf untuk buka suara"
+        "title": "Semua suara",
+        "description": "Gunakan mana-mana suara daripada Google, Azure, OpenAI, ElevenLabs dan VOICEVOX, bukan hanya Google Standard.",
+        "cta": "Naik taraf untuk buka semua suara"
       },
       "images": {
         "title": "Medan imej",
@@ -598,7 +599,7 @@
       }
     },
     "notices": {
-      "voice": "Medan suara disertakan dengan setiap pelan berbayar.",
+      "voice": "Pelan Percuma termasuk suara yang ditandai Percuma. Pelan berbayar termasuk semua suara.",
       "images": "Medan imej disertakan dengan setiap pelan berbayar."
     },
     "moreNotesAt": "Lagi pada {{time}}"
@@ -627,6 +628,8 @@
       "oneAtATime": "Satu demi satu",
       "none": "Tiada",
       "autoStandardOnly": "Auto Standard sahaja",
+      "standardVoices": "Suara standard",
+      "fieldsChange_other": "{{count}} medan berubah",
       "fieldsStop_other": "{{count}} medan berhenti",
       "fieldsToStandard_other": "{{count}} medan beralih",
       "fieldsWithoutSearch_other": "{{count}} medan kehilangan ciri ini"

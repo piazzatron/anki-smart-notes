@@ -309,7 +309,8 @@
       "title": "Cài đặt giọng nói",
       "defaultVoice": "Giọng nói mặc định",
       "defaultVoiceTip": "Các Smart Field giọng nói mặc định dùng giọng này. Khi thay đổi, mọi Smart Field đang dùng mặc định sẽ được cập nhật theo. Mỗi Smart Field có thể dùng giọng riêng để ghi đè.",
-      "defaultVoiceTipLabel": "Về giọng nói mặc định"
+      "defaultVoiceTipLabel": "Về giọng nói mặc định",
+      "free": "Miễn phí"
     }
   },
   "imageGeneration": {
@@ -452,7 +453,7 @@
       "notesUsedToday": "ghi chú đã dùng hôm nay",
       "moduleResetsAt": "Đặt lại lúc {{time}}",
       "rowTitle": "Gói Miễn phí",
-      "rowDescription": "Nâng cấp để có ghi chú không giới hạn, giọng nói, hình ảnh, xử lý hàng loạt và mọi mô hình."
+      "rowDescription": "Nâng cấp để có ghi chú, hình ảnh, xử lý hàng loạt và mọi mô hình cùng giọng nói không giới hạn."
     }
   },
   "support": {
@@ -567,9 +568,9 @@
         "cta": "Nâng cấp để mở khóa tìm kiếm web"
       },
       "voice": {
-        "title": "Trường giọng nói",
-        "description": "Tạo âm thanh cho thẻ của bạn với giọng nói tự nhiên.",
-        "cta": "Nâng cấp để mở khóa giọng nói"
+        "title": "Mọi giọng nói",
+        "description": "Dùng bất kỳ giọng nói nào từ Google, Azure, OpenAI, ElevenLabs và VOICEVOX, không chỉ Google Standard.",
+        "cta": "Nâng cấp để mở khóa mọi giọng nói"
       },
       "images": {
         "title": "Trường hình ảnh",
@@ -598,7 +599,7 @@
       }
     },
     "notices": {
-      "voice": "Trường giọng nói có trong mọi gói trả phí.",
+      "voice": "Gói Miễn phí bao gồm các giọng nói được đánh dấu Miễn phí. Các gói trả phí bao gồm mọi giọng nói.",
       "images": "Trường hình ảnh có trong mọi gói trả phí."
     },
     "moreNotesAt": "Thêm ghi chú lúc {{time}}"
@@ -627,6 +628,8 @@
       "oneAtATime": "Một lần một",
       "none": "Không có",
       "autoStandardOnly": "Chỉ Auto Standard",
+      "standardVoices": "Giọng nói chuẩn",
+      "fieldsChange_other": "{{count}} trường thay đổi",
       "fieldsStop_other": "{{count}} trường sẽ dừng",
       "fieldsToStandard_other": "{{count}} trường sẽ chuyển",
       "fieldsWithoutSearch_other": "{{count}} trường sẽ mất"

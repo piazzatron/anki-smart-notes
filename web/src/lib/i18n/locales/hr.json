@@ -313,7 +313,8 @@
       "title": "Postavke glasa",
       "defaultVoice": "Zadani glas",
       "defaultVoiceTip": "Smart Fields za glas prema zadanim postavkama koriste ovaj glas. Promjena ažurira sve Smart Fields koje koriste zadani glas. Smart Fields mogu zamijeniti zadani glas vlastitim.",
-      "defaultVoiceTipLabel": "O zadanom glasu"
+      "defaultVoiceTipLabel": "O zadanom glasu",
+      "free": "Besplatno"
     }
   },
   "imageGeneration": {
@@ -472,7 +473,7 @@
       "notesUsedToday": "iskorištenih bilješki danas",
       "moduleResetsAt": "Resetira se u {{time}}",
       "rowTitle": "Besplatni plan",
-      "rowDescription": "Nadogradite za neograničene bilješke, glas, slike, grupnu obradu i svaki model."
+      "rowDescription": "Nadogradite za neograničene bilješke, slike, serijsku obradu i sve modele i glasove."
     }
   },
   "support": {
@@ -587,9 +588,9 @@
         "cta": "Nadogradi za otključavanje web pretrage"
       },
       "voice": {
-        "title": "Glasovna polja",
-        "description": "Generirajte zvuk za svoje kartice prirodnim glasovima.",
-        "cta": "Nadogradi za otključavanje glasa"
+        "title": "Svi glasovi",
+        "description": "Koristite bilo koji glas iz usluga Google, Azure, OpenAI, ElevenLabs i VOICEVOX, a ne samo Google Standard.",
+        "cta": "Nadogradite za otključavanje svih glasova"
       },
       "images": {
         "title": "Polja za slike",
@@ -618,7 +619,7 @@
       }
     },
     "notices": {
-      "voice": "Glasovna polja dolaze uz svaki plaćeni plan.",
+      "voice": "Besplatni paket uključuje glasove označene kao Besplatno. Plaćeni paketi uključuju sve glasove.",
       "images": "Polja za slike dolaze uz svaki plaćeni plan."
     },
     "moreNotesAt": "Više u {{time}}"
@@ -647,6 +648,10 @@
       "oneAtATime": "Jedno po jedno",
       "none": "Nijedno",
       "autoStandardOnly": "Samo Auto Standard",
+      "standardVoices": "Standardni glasovi",
+      "fieldsChange_one": "{{count}} promjena polja",
+      "fieldsChange_few": "{{count}} promjene polja",
+      "fieldsChange_other": "{{count}} promjena polja",
       "fieldsStop_one": "{{count}} polje prestaje",
       "fieldsStop_few": "{{count}} polja prestaju",
       "fieldsStop_other": "{{count}} polja prestaje",

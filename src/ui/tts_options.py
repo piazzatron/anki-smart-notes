@@ -38,6 +38,7 @@ from aqt import (
     QWidget,
 )
 
+from ..app_state import allowed_voices
 from ..config import config
 from ..logger import logger
 from ..models import (
@@ -51,7 +52,14 @@ from ..sentry import run_async_in_background_with_sentry
 from ..services.smart_field_service import smart_field_service
 from ..tts_provider import TTSProvider
 from ..tts_utils import play_audio
-from ..voice_catalog import ALL_LANGUAGES as ALL, TTSVoice as TTSMeta, get_voice_catalog
+from ..voice_catalog import (
+    ALL_LANGUAGES as ALL,
+    TTSVoice as TTSMeta,
+    get_voice_catalog,
+    is_voice_allowed,
+    plan_voice,
+    settings_of,
+)
 from .reactive_combo_box import ReactiveComboBox
 from .reactive_edit_text import ReactiveEditText
 from .reactive_line_edit import ReactiveLineEdit
@@ -119,7 +127,16 @@ providers: list[AllTTSProviders] = [
 
 def _format_voice(voice: TTSMeta) -> str:
     language_display = "Multilingual" if voice["language"] == ALL else voice["language"]
-    return f"{voice['provider'].capitalize()} - {language_display} - {voice['gender'].capitalize()} - {voice['name']} ({price_tier_copy[voice['price_tier']]})"
+    return f"{voice['provider'].capitalize()} - {language_display} - {voice['gender'].capitalize()} - {voice['name']} ({_price_label(voice)})"
+
+
+def _price_label(voice: TTSMeta) -> str:
+    # A plan that limits voices (the free plan) labels the ones it includes, since
+    # a price tier like VoiceVox's "Free" would mislead there.
+    rules = allowed_voices()
+    if rules is None:
+        return price_tier_copy[voice["price_tier"]]
+    return "Free" if is_voice_allowed(settings_of(voice), rules) else "Paid plans"
 
 
 voice_search_cache: dict[tuple[str, str, str], list[str]] = {
@@ -481,6 +498,8 @@ class TTSOptions(QWidget):
         self, tts_options: Optional[OverrideableTTSOptionsDict]
     ) -> TTSState:
         defaults = smart_field_service.get_tts_defaults()
+        # On a plan that limits voices, start on the voice it would generate with.
+        defaults = plan_voice(defaults, allowed_voices(), voices) or defaults
         initial_tts_options = tts_options or cast(OverrideableTTSOptionsDict, {})
         ret = {
             "providers": providers,

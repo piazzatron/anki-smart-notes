@@ -21,10 +21,11 @@ from collections.abc import Awaitable, Callable
 from typing import Any
 
 import pytest
+from fixtures import MockAppState
 
 from src.api_client import UserDisplayableError
 from src.ui import custom_prompt
-from src.ui.custom_prompt import CustomImagePrompt
+from src.ui.custom_prompt import CustomImagePrompt, CustomTTSPrompt
 
 
 def test_custom_image_prompt_shows_user_displayable_errors_directly(
@@ -79,3 +80,70 @@ def test_custom_image_prompt_shows_user_displayable_errors_directly(
     ]
     assert prompt._loading is False
     assert ui_updates == 1
+
+
+@pytest.mark.parametrize(
+    ("plan_type", "provider", "model", "voice_id", "user_closes", "outcome"),
+    [
+        ("free", "google", "standard", "ja-JP-Standard-A", True, "generates"),
+        ("free", "google", "neural", "ja-JP-Neural2-B", True, "upgrades"),
+        ("free", "voicevox", "voicevox", "3", True, "upgrades"),
+        # Cancelling "Close and lose results?" keeps the dialog, usable, and no sheet.
+        ("free", "google", "neural", "ja-JP-Neural2-B", False, "stays"),
+        ("medium", "voicevox", "voicevox", "3", True, "generates"),
+    ],
+)
+def test_custom_tts_offers_upgrade_for_voices_the_plan_lacks(
+    monkeypatch: pytest.MonkeyPatch,
+    plan_type: str,
+    provider: str,
+    model: str,
+    voice_id: str,
+    user_closes: bool,
+    outcome: str,
+) -> None:
+    import src.app_state
+
+    started: list[Any] = []
+    opened: list[dict[str, Any]] = []
+    closed: list[bool] = []
+
+    class FakePromptWindow:
+        def toPlainText(self) -> str:
+            return "{{Front}}"
+
+    class FakeState:
+        s = {"tts_provider": provider, "tts_model": model, "tts_voice": voice_id}
+
+    class FakeTTSOptions:
+        state = FakeState()
+
+    prompt: Any = CustomTTSPrompt.__new__(CustomTTSPrompt)
+    prompt._prompt_window = FakePromptWindow()
+    prompt._note = object()
+    prompt._loading = True
+    prompt.tts_options = FakeTTSOptions()
+    prompt._update_ui_states = lambda: None
+    prompt.reject = lambda: closed.append(user_closes)
+    prompt.isVisible = lambda: not any(closed)
+
+    monkeypatch.setattr(src.app_state, "app_state", MockAppState(plan_type))
+    monkeypatch.setattr(
+        custom_prompt,
+        "run_async_in_background_with_sentry",
+        lambda *args, **kwargs: started.append(args),
+    )
+    monkeypatch.setattr(
+        custom_prompt, "open_web_app", lambda **kwargs: opened.append(kwargs)
+    )
+
+    CustomTTSPrompt.on_generate(prompt)
+
+    if outcome == "generates":
+        assert (len(started), opened) == (1, [])
+    else:
+        assert started == []
+        assert prompt._loading is False
+        assert opened == (
+            [{"upgrade_feature": "voice"}] if outcome == "upgrades" else []
+        )

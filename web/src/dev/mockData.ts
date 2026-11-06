@@ -28,6 +28,7 @@ const HEALTHY_TRIAL_PLAN: PlanInfo = {
   dailyNotesUsed: null,
   dailyNotesLimit: null,
   freePlanReason: null,
+  allowedVoices: null,
   daysLeft: 5,
   totalDays: 7,
   textCreditsUsed: 36,
@@ -104,7 +105,7 @@ const POPULATED_FIELDS: SmartField[] = [
       sourceFieldName: "Front",
       provider: "google",
       model: "standard",
-      voiceId: "en-US-Casual-K",
+      voiceId: "en-US-Standard-A",
       usesDefaultGenerationSettings: true,
     },
   },
@@ -165,7 +166,7 @@ const BASE_STATE: AppState = {
       webSearchEnabled: false,
       stripHtml: true,
     },
-    tts: { provider: "google", model: "standard", voiceId: "en-US-Casual-K" },
+    tts: { provider: "google", model: "standard", voiceId: "en-US-Standard-A" },
     image: {
       provider: "openai",
       model: "gpt-image-2.5-flare-low",
@@ -204,6 +205,9 @@ const withFreePlan = (updates: Partial<PlanInfo>): PlanInfo =>
     dailyNotesUsed: 0,
     dailyNotesLimit: 20,
     freePlanReason: "trialExpired",
+    allowedVoices: [
+      { provider: "google", model: "standard", voiceIdIncludes: "-Standard-" },
+    ],
     daysLeft: 21,
     totalDays: 30,
     textCreditsUsed: 300,
@@ -434,7 +438,16 @@ export const MOCK_VOICE_CATALOG: VoiceCatalog = {
   voices: [
     {
       provider: "google",
-      voiceId: "en-US-Casual-K",
+      voiceId: "en-US-Standard-C",
+      model: "standard",
+      name: "English (United States) - Female (Standard)",
+      gender: "Female",
+      language: "English (United States)",
+      priceTier: "low",
+    },
+    {
+      provider: "google",
+      voiceId: "en-US-Standard-A",
       model: "standard",
       name: "English (United States) - Male (Standard)",
       gender: "Male",
@@ -443,12 +456,30 @@ export const MOCK_VOICE_CATALOG: VoiceCatalog = {
     },
     {
       provider: "google",
-      voiceId: "ja-JP-Neural2-B",
-      model: "neural",
-      name: "Japanese - Female (Neural)",
+      voiceId: "ja-JP-Chirp3-HD-Achernar",
+      model: "chirp",
+      name: "Japanese - Female Achernar (Chirp 3 HD)",
       gender: "Female",
       language: "Japanese",
       priceTier: "standard",
+    },
+    {
+      provider: "google",
+      voiceId: "ja-JP-Standard-A",
+      model: "standard",
+      name: "Japanese - Female (Standard)",
+      gender: "Female",
+      language: "Japanese",
+      priceTier: "low",
+    },
+    {
+      provider: "google",
+      voiceId: "ja-JP-Standard-C",
+      model: "standard",
+      name: "Japanese - Male (Standard)",
+      gender: "Male",
+      language: "Japanese",
+      priceTier: "low",
     },
     {
       provider: "openai",
@@ -573,20 +604,34 @@ export const setMockFixture = (fixture: string): void => {
     state.account.status === "AUTHENTICATED" &&
     state.account.plan.planType === "free"
   ) {
-    // One text field pinned to settings the free plan doesn't include.
-    state.smartFields = state.smartFields.map((field) =>
-      field.id === "meaning" && field.fieldType === "chat"
-        ? {
-            ...field,
-            settings: {
-              ...field.settings,
-              reasoningLevel: "high",
-              webSearchEnabled: true,
-              usesDefaultGenerationSettings: false,
-            },
-          }
-        : field,
-    )
+    // One text field pinned to settings the free plan doesn't include, and a
+    // voice field on a voice it doesn't include but can stand in for.
+    state.smartFields = state.smartFields.map((field) => {
+      if (field.id === "meaning" && field.fieldType === "chat") {
+        return {
+          ...field,
+          settings: {
+            ...field.settings,
+            reasoningLevel: "high",
+            webSearchEnabled: true,
+            usesDefaultGenerationSettings: false,
+          },
+        }
+      }
+      if (field.id === "audio-off" && field.fieldType === "tts") {
+        return {
+          ...field,
+          enabled: true,
+          settings: {
+            ...field.settings,
+            model: "chirp",
+            voiceId: "ja-JP-Chirp3-HD-Achernar",
+            usesDefaultGenerationSettings: false,
+          },
+        }
+      }
+      return field
+    })
   }
   // A failed startup refresh leaves the account loading.
   if (fixture === "server-unreachable") {

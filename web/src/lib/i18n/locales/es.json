@@ -313,7 +313,8 @@
       "title": "Configuración de voz",
       "defaultVoice": "Voz predeterminada",
       "defaultVoiceTip": "Los Smart Fields de voz usan esta voz de forma predeterminada. Si la cambias, se actualizan todos los Smart Fields que usan el valor predeterminado. Cualquier Smart Field puede reemplazarla con su propia voz.",
-      "defaultVoiceTipLabel": "Acerca de la voz predeterminada"
+      "defaultVoiceTipLabel": "Acerca de la voz predeterminada",
+      "free": "Gratis"
     }
   },
   "imageGeneration": {
@@ -472,7 +473,7 @@
       "notesUsedToday": "notas usadas hoy",
       "moduleResetsAt": "Se reinicia a las {{time}}",
       "rowTitle": "Plan gratuito",
-      "rowDescription": "Mejora para tener notas ilimitadas, voz, imágenes, lotes y todos los modelos."
+      "rowDescription": "Mejora tu plan para notas, imágenes y lotes sin límite, además de todos los modelos y voces."
     }
   },
   "support": {
@@ -587,9 +588,9 @@
         "cta": "Mejora para desbloquear la búsqueda web"
       },
       "voice": {
-        "title": "Campos de voz",
-        "description": "Genera audio para tus tarjetas con voces naturales.",
-        "cta": "Mejora para desbloquear la voz"
+        "title": "Todas las voces",
+        "description": "Usa cualquier voz de Google, Azure, OpenAI, ElevenLabs y VOICEVOX, no solo las voces estándar de Google.",
+        "cta": "Mejora tu plan para desbloquear todas las voces"
       },
       "images": {
         "title": "Campos de imagen",
@@ -618,7 +619,7 @@
       }
     },
     "notices": {
-      "voice": "Los campos de voz vienen incluidos en todos los planes de pago.",
+      "voice": "El plan Gratis incluye las voces marcadas como Gratis. Los planes de pago incluyen todas las voces.",
       "images": "Los campos de imagen vienen incluidos en todos los planes de pago."
     },
     "moreNotesAt": "Más a las {{time}}"
@@ -647,6 +648,10 @@
       "oneAtATime": "Uno a la vez",
       "none": "Ninguno",
       "autoStandardOnly": "Solo Auto Standard",
+      "standardVoices": "Voces estándar",
+      "fieldsChange_one": "{{count}} cambios de campo",
+      "fieldsChange_many": "{{count}} campos cambian",
+      "fieldsChange_other": "{{count}} campos cambian",
       "fieldsStop_one": "{{count}} campo se detiene",
       "fieldsStop_many": "{{count}} campos se detienen",
       "fieldsStop_other": "{{count}} campos se detienen",

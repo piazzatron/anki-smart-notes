@@ -1,4 +1,9 @@
-import type { TTSGenerationSettings, VoiceCatalogItem } from "@/types/api"
+import type {
+  AppState,
+  TTSGenerationSettings,
+  VoiceCatalogItem,
+  VoiceRule,
+} from "@/types/api"
 
 const DEFAULT_PREVIEW_TEXT =
   "This is a preview of your selected Smart Notes voice."
@@ -20,6 +25,68 @@ export const voiceMatchesSettings = (
   voice.provider === settings.provider &&
   voice.model === settings.model &&
   voice.voiceId === settings.voiceId
+
+/** The voices the signed-in plan allows, from the server, or null when it
+ *  allows every voice. */
+export const allowedVoicesOf = (state: AppState | null): VoiceRule[] | null =>
+  state?.account.status === "AUTHENTICATED"
+    ? (state.account.plan.allowedVoices ?? null)
+    : null
+
+/** Whether a plan with these voice rules can use a voice; null allows every
+ *  voice. Mirrors the server's check. */
+export const isVoiceAllowed = (
+  voice: TTSGenerationSettings,
+  rules: VoiceRule[] | null,
+): boolean =>
+  rules === null ||
+  rules.some(
+    (rule) =>
+      rule.provider === voice.provider &&
+      rule.model === voice.model &&
+      voice.voiceId.includes(rule.voiceIdIncludes),
+  )
+
+/** A free voice reads in this language when the field's own language has none. */
+const FALLBACK_LANGUAGE = "English (United States)"
+
+/** The voice a plan with these rules generates with: this one when it's
+ *  allowed, else an allowed voice in its language, or in US English when its
+ *  language has none (OpenAI's voices have no single language), of its gender
+ *  when there is one. Null when the plan allows neither. The plugin picks the
+ *  same way (`plan_voice` in `voice_catalog.py`). */
+export const planVoice = (
+  settings: TTSGenerationSettings,
+  voices: VoiceCatalogItem[],
+  rules: VoiceRule[] | null,
+): TTSGenerationSettings | null => {
+  if (isVoiceAllowed(settings, rules)) return settings
+
+  const current = voices.find((voice) => voiceMatchesSettings(voice, settings))
+  const allowed = voices.filter((voice) => isVoiceAllowed(voice, rules))
+  const inLanguage = allowed.filter(
+    (voice) => voice.language === current?.language,
+  )
+  const candidates =
+    inLanguage.length > 0
+      ? inLanguage
+      : allowed.filter((voice) => voice.language === FALLBACK_LANGUAGE)
+  const match =
+    candidates.find((voice) => voice.gender === current?.gender) ??
+    candidates[0]
+  return match === undefined
+    ? null
+    : { provider: match.provider, model: match.model, voiceId: match.voiceId }
+}
+
+/** What a picker shows for saved voice settings: the voice they read with on a
+ *  plan with these rules, or the saved voice when there's none to stand in. The
+ *  saved voice stays as it is for when the user upgrades. */
+export const shownVoice = (
+  settings: TTSGenerationSettings,
+  voices: VoiceCatalogItem[],
+  rules: VoiceRule[] | null,
+): TTSGenerationSettings => planVoice(settings, voices, rules) ?? settings
 
 export const filterVoices = (
   voices: VoiceCatalogItem[],

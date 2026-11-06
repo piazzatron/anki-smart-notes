@@ -313,7 +313,8 @@
       "title": "Paramètres de voix",
       "defaultVoice": "Voix par défaut",
       "defaultVoiceTip": "Les Smart Fields de voix utilisent cette voix par défaut. La modifier met à jour chaque Smart Field qui utilise la valeur par défaut. Tout Smart Field peut la remplacer par sa propre voix.",
-      "defaultVoiceTipLabel": "À propos de la voix par défaut"
+      "defaultVoiceTipLabel": "À propos de la voix par défaut",
+      "free": "Gratuit"
     }
   },
   "imageGeneration": {
@@ -472,7 +473,7 @@
       "notesUsedToday": "notes utilisées aujourd'hui",
       "moduleResetsAt": "Réinitialisation à {{time}}",
       "rowTitle": "Forfait gratuit",
-      "rowDescription": "Passez à une offre payante pour des notes illimitées, la voix, les images, le traitement par lots et tous les modèles."
+      "rowDescription": "Passez à la version supérieure pour profiter de notes, d'images, de traitements par lot, de modèles et de voix illimités."
     }
   },
   "support": {
@@ -587,9 +588,9 @@
         "cta": "Passez à une offre payante pour débloquer la recherche web"
       },
       "voice": {
-        "title": "Champs vocaux",
-        "description": "Générez de l'audio pour vos cartes avec des voix naturelles.",
-        "cta": "Passez à une offre payante pour débloquer la voix"
+        "title": "Toutes les voix",
+        "description": "Utilisez n'importe quelle voix de Google, Azure, OpenAI, ElevenLabs et VOICEVOX, et pas seulement Google Standard.",
+        "cta": "Passez à la version supérieure pour débloquer toutes les voix"
       },
       "images": {
         "title": "Champs images",
@@ -618,7 +619,7 @@
       }
     },
     "notices": {
-      "voice": "Les champs vocaux sont inclus dans toutes les offres payantes.",
+      "voice": "Gratuit inclut les voix marquées Gratuit. Les offres payantes incluent toutes les voix.",
       "images": "Les champs images sont inclus dans toutes les offres payantes."
     },
     "moreNotesAt": "Plus de notes à {{time}}"
@@ -647,6 +648,10 @@
       "oneAtATime": "Une à la fois",
       "none": "Aucun",
       "autoStandardOnly": "Auto Standard uniquement",
+      "standardVoices": "Voix standard",
+      "fieldsChange_one": "{{count}} modification de champ",
+      "fieldsChange_many": "{{count}} modifications de champs",
+      "fieldsChange_other": "{{count}} modifications de champs",
       "fieldsStop_one": "{{count}} champ s'arrête",
       "fieldsStop_many": "{{count}} champs s'arrêtent",
       "fieldsStop_other": "{{count}} champs s'arrêtent",

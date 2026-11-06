@@ -315,7 +315,8 @@
       "title": "Ustawienia głosu",
       "defaultVoice": "Głos domyślny",
       "defaultVoiceTip": "Smart Fields głosowe domyślnie używają tego głosu. Zmiana głosu zaktualizuje wszystkie Smart Fields korzystające z wartości domyślnej. Każde Smart Field może nadpisać go własnym głosem.",
-      "defaultVoiceTipLabel": "Informacje o domyślnym głosie"
+      "defaultVoiceTipLabel": "Informacje o domyślnym głosie",
+      "free": "Darmowy"
     }
   },
   "imageGeneration": {
@@ -482,7 +483,7 @@
       "notesUsedToday": "wykorzystanych notatek dzisiaj",
       "moduleResetsAt": "Resetuje się o {{time}}",
       "rowTitle": "Plan darmowy",
-      "rowDescription": "Przejdź na wyższy plan, aby mieć nieograniczone notatki, głos, obrazy, przetwarzanie wsadowe i wszystkie modele."
+      "rowDescription": "Przejdź na wyższy plan, aby bez ograniczeń korzystać z notatek, obrazów, trybu wsadowego oraz wszystkich modeli i głosów."
     }
   },
   "support": {
@@ -597,9 +598,9 @@
         "cta": "Przejdź na płatny plan, aby odblokować wyszukiwanie w sieci"
       },
       "voice": {
-        "title": "Pola głosowe",
-        "description": "Generuj audio do fiszek z naturalnie brzmiącymi głosami.",
-        "cta": "Przejdź na płatny plan, aby odblokować głos"
+        "title": "Wszystkie głosy",
+        "description": "Używaj dowolnego głosu od Google, Azure, OpenAI, ElevenLabs i VOICEVOX, a nie tylko Google Standard.",
+        "cta": "Przejdź na wyższy plan, aby odblokować wszystkie głosy"
       },
       "images": {
         "title": "Pola obrazów",
@@ -628,7 +629,7 @@
       }
     },
     "notices": {
-      "voice": "Pola głosowe są dostępne w każdym płatnym planie.",
+      "voice": "Plan darmowy obejmuje głosy oznaczone jako Darmowy. Plany płatne obejmują wszystkie głosy.",
       "images": "Pola obrazów są dostępne w każdym płatnym planie."
     },
     "moreNotesAt": "Więcej o {{time}}"
@@ -657,6 +658,11 @@
       "oneAtATime": "Jedna naraz",
       "none": "Brak",
       "autoStandardOnly": "Tylko Auto Standard",
+      "standardVoices": "Standardowe głosy",
+      "fieldsChange_one": "{{count}} zmiana w polu",
+      "fieldsChange_few": "{{count}} zmiany w polach",
+      "fieldsChange_many": "{{count}} zmian w polach",
+      "fieldsChange_other": "{{count}} zmian w polach",
       "fieldsStop_one": "{{count}} pole przestaje działać",
       "fieldsStop_few": "{{count}} pola przestają działać",
       "fieldsStop_many": "{{count}} pól przestaje działać",

@@ -36,8 +36,8 @@ def ensure_generation_available() -> bool:
 
 
 def ensure_paid_feature_available(feature: str) -> bool:
-    """On the free plan, a paid feature (batch, or a voice or image custom prompt)
-    opens the upgrade sheet for it instead of running."""
+    """On the free plan, a paid feature (batch, or an image custom prompt) opens
+    the upgrade sheet for it instead of running."""
     if not is_free_plan():
         return True
 

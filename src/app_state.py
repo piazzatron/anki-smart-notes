@@ -32,6 +32,7 @@ from .sentry import run_async_in_background_with_sentry
 from .subscription_provider import (
     PlanInfo,
     UserStatus,
+    VoiceRule,
     subscription_provider,
 )
 from .ui.state_manager import StateManager
@@ -205,10 +206,19 @@ def is_capacity_remaining() -> bool:
 
 
 def is_free_plan() -> bool:
-    """The free plan includes text on Auto at Standard only, generated one note
-    at a time from the editor."""
+    """The free plan includes text on Auto at Standard and the voices
+    `allowed_voices` lists, generated one note at a time from the editor."""
     state = app_state.state
     return state["status"] == "AUTHENTICATED" and state["plan"]["planType"] == "free"
+
+
+def allowed_voices() -> Optional[list[VoiceRule]]:
+    """The voices the server says the plan allows, or None when it allows every
+    voice."""
+    state = app_state.state
+    if state["status"] != "AUTHENTICATED":
+        return None
+    return state["plan"].get("allowedVoices")
 
 
 def has_legacy_openai_access() -> bool:

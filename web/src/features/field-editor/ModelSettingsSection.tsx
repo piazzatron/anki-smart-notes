@@ -34,7 +34,11 @@ import { StripHtmlToggle } from "@/components/shared/StripHtmlToggle"
 import { Pill } from "@/components/ui/Pill"
 import { FieldLabel } from "@/components/ui/FieldLabel"
 import { VoicePicker } from "@/features/defaults/VoicePicker"
-import { voiceMatchesSettings } from "@/features/defaults/voiceDefaults"
+import {
+  allowedVoicesOf,
+  shownVoice,
+  voiceMatchesSettings,
+} from "@/features/defaults/voiceDefaults"
 import { ImageModelSelect } from "@/features/image-generation/ImageModelSelect"
 import { TextModelPicker } from "@/features/text-generation/TextModelPicker"
 import {
@@ -259,7 +263,11 @@ const getModelSummary = ({
   }
 
   if (target.fieldType === "tts") {
-    const settings = pinnedSettings.tts ?? state.defaults.tts
+    const settings = shownVoice(
+      pinnedSettings.tts ?? state.defaults.tts,
+      voiceCatalog?.voices ?? [],
+      allowedVoicesOf(state),
+    )
     return {
       detail: null,
       label:

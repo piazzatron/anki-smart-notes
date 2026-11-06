@@ -313,7 +313,8 @@
       "title": "Definições de Voz",
       "defaultVoice": "Voz predefinida",
       "defaultVoiceTip": "Os Smart Fields de voz usam esta voz por predefinição. Ao alterá-la, todos os Smart Fields que usam a predefinição são atualizados. Qualquer Smart Field pode substituí-la pela sua própria voz.",
-      "defaultVoiceTipLabel": "Sobre a voz predefinida"
+      "defaultVoiceTipLabel": "Sobre a voz predefinida",
+      "free": "Free"
     }
   },
   "imageGeneration": {
@@ -472,7 +473,7 @@
       "notesUsedToday": "notas utilizadas hoje",
       "moduleResetsAt": "Repõe-se às {{time}}",
       "rowTitle": "Plano gratuito",
-      "rowDescription": "Atualize para ter notas ilimitadas, voz, imagens, processamento em lote e todos os modelos."
+      "rowDescription": "Atualize para notas, imagens, lote e todos os modelos e vozes sem limites."
     }
   },
   "support": {
@@ -587,9 +588,9 @@
         "cta": "Atualize para desbloquear a pesquisa na web"
       },
       "voice": {
-        "title": "Campos de voz",
-        "description": "Gere áudio para os seus cartões com vozes naturais.",
-        "cta": "Atualize para desbloquear a voz"
+        "title": "Todas as vozes",
+        "description": "Use qualquer voz da Google, Azure, OpenAI, ElevenLabs e VOICEVOX, não apenas a Google Standard.",
+        "cta": "Atualize para desbloquear todas as vozes"
       },
       "images": {
         "title": "Campos de imagem",
@@ -618,7 +619,7 @@
       }
     },
     "notices": {
-      "voice": "Os campos de voz estão incluídos em todos os planos pagos.",
+      "voice": "O plano Free inclui as vozes marcadas como Free. Os planos pagos incluem todas as vozes.",
       "images": "Os campos de imagem estão incluídos em todos os planos pagos."
     },
     "moreNotesAt": "Mais às {{time}}"
@@ -647,6 +648,10 @@
       "oneAtATime": "Uma de cada vez",
       "none": "Nenhum",
       "autoStandardOnly": "Apenas Auto Standard",
+      "standardVoices": "Vozes padrão",
+      "fieldsChange_one": "{{count}} alteração de campo",
+      "fieldsChange_many": "{{count}} alterações de campos",
+      "fieldsChange_other": "{{count}} alterações de campos",
       "fieldsStop_one": "{{count}} campo pára",
       "fieldsStop_many": "{{count}} campos param",
       "fieldsStop_other": "{{count}} campos param",
