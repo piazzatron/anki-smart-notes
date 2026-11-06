@@ -120,30 +120,6 @@
   "fieldEditor": {
     "alreadySmartField": "Đã là Smart Field",
     "collisionHint": "đã có Smart Field - chọn một trường, bộ bài hoặc loại ghi chú khác",
-    "completion": {
-      "descriptionAfter": "ghi chú sẽ điền vào bất cứ khi nào bạn tạo nó.",
-      "descriptionBefore": "TRÊN",
-      "methods": {
-        "bulk": {
-          "caption": "Chọn ghi chú hoặc bộ bài → nhấp chuột phải → ✨ Tạo Smart Fields.",
-          "imageAlt": "Menu ngữ cảnh của Trình duyệt Anki với Tạo Smart Fields được tô sáng",
-          "title": "Hàng loạt, từ Trình duyệt"
-        },
-        "card": {
-          "caption": "Nhấp vào nút ✨ trên thanh công cụ soạn thảo hoặc nhập ⌘⇧G.",
-          "imageAlt": "Thanh công cụ soạn thảo Anki với nút Smart Notes được tô sáng",
-          "title": "Mỗi lần một thẻ"
-        },
-        "field": {
-          "caption": "Nhấp chuột phải vào bất kỳ trường nào → Tạo Smart Field.",
-          "imageAlt": "Menu ngữ cảnh của trường Anki với Tạo Smart Field được tô sáng",
-          "title": "Một trường duy nhất"
-        }
-      },
-      "title": "Smart Field của bạn đang hoạt động",
-      "waysToGenerate": "Một số cách để tạo ra nó:"
-    },
-    "created": "Smart Field đã tạo",
     "describe": {
       "exampleChat": "Viết {{target}} cho {{source}}",
       "exampleImage": "Vẽ một bức tranh về {{source}}",
@@ -155,10 +131,8 @@
       "title": "Trường này nên làm gì?",
       "writeYourself": "Hoặc tự viết lời nhắc"
     },
-    "dontShowAgain": "Đừng hiển thị lại thông tin này",
     "errors": {
       "save": "Không thể lưu Smart Field",
-      "updateWizardSettings": "Không thể cập nhật cài đặt trình hướng dẫn",
       "writePrompt": "Không thể viết lời nhắc"
     },
     "fieldTypes": {
@@ -250,6 +224,20 @@
       "chat": "Chữ",
       "image": "Hình ảnh",
       "tts": "Âm thanh"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Bỏ qua hướng dẫn",
+      "methods": {
+        "batch": {
+          "imageAlt": "Menu ngữ cảnh của Trình duyệt Anki với Tạo Smart Fields được tô sáng",
+          "title": "Tạo một loạt"
+        },
+        "single": {
+          "imageAlt": "Thanh công cụ soạn thảo Anki với nút Smart Notes được tô sáng",
+          "title": "Tạo một ghi chú"
+        }
+      },
+      "title": "Cách tạo Smart Field mới của bạn"
     },
     "loadingAriaLabel": "Đang tải Smart Fields",
     "newSmartField": "Smart Field mới",

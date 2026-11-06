@@ -120,30 +120,6 @@
   "fieldEditor": {
     "alreadySmartField": "이미 Smart Field입니다",
     "collisionHint": "이미 Smart Field가 있습니다 — 다른 필드, 데크 또는 메모 유형을 선택하세요",
-    "completion": {
-      "descriptionAfter": "메모는 생성할 때마다 채워집니다.",
-      "descriptionBefore": "~에",
-      "methods": {
-        "bulk": {
-          "caption": "노트 또는 데크 선택 → 마우스 오른쪽 버튼 클릭 → ✨ Smart Fields 생성.",
-          "imageAlt": "Anki Smart Fields 생성이 강조 표시된 브라우저 컨텍스트 메뉴",
-          "title": "브라우저에서 대량으로"
-        },
-        "card": {
-          "caption": "편집기 도구 모음에서 ✨ 버튼을 클릭하거나 ⌘⇧G를 입력하세요.",
-          "imageAlt": "Smart Notes 버튼이 강조 표시된 Anki 편집기 도구 모음",
-          "title": "한 번에 하나의 카드"
-        },
-        "field": {
-          "caption": "필드를 마우스 오른쪽 버튼으로 클릭하고 → Smart Field를 생성합니다.",
-          "imageAlt": "Smart Field 생성이 강조 표시된 Anki 필드 상황에 맞는 메뉴",
-          "title": "단일 필드"
-        }
-      },
-      "title": "귀하의 Smart Field가 활성화되었습니다",
-      "waysToGenerate": "이를 생성하는 몇 가지 방법:"
-    },
-    "created": "Smart Field가 생성되었습니다.",
     "describe": {
       "exampleChat": "{{source}}에 대한 {{target}} 작성",
       "exampleImage": "{{source}} 그림 그리기",
@@ -155,10 +131,8 @@
       "title": "이 필드는 무엇을 해야 하나요?",
       "writeYourself": "또는 프롬프트를 직접 작성하세요"
     },
-    "dontShowAgain": "다시 표시하지 않음",
     "errors": {
       "save": "Smart Field를 저장할 수 없습니다.",
-      "updateWizardSettings": "마법사 설정을 업데이트할 수 없습니다.",
       "writePrompt": "프롬프트를 작성할 수 없습니다."
     },
     "fieldTypes": {
@@ -250,6 +224,20 @@
       "chat": "텍스트",
       "image": "영상",
       "tts": "오디오"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "사용 방법 가이드 닫기",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki Smart Fields 생성이 강조 표시된 브라우저 컨텍스트 메뉴",
+          "title": "일괄 생성"
+        },
+        "single": {
+          "imageAlt": "Smart Notes 버튼이 강조 표시된 Anki 편집기 도구 모음",
+          "title": "단일 노트 생성"
+        }
+      },
+      "title": "새 Smart Field를 생성하는 방법"
     },
     "loadingAriaLabel": "Smart Fields 로드 중",
     "newSmartField": "새로운 Smart Field",

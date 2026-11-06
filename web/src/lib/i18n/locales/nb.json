@@ -121,30 +121,6 @@
   "fieldEditor": {
     "alreadySmartField": "Allerede et Smart-felt",
     "collisionHint": "har allerede en Smart Field — velg et annet felt, kortstokk eller notetype",
-    "completion": {
-      "descriptionAfter": "notater fylles ut når du genererer det.",
-      "descriptionBefore": "på",
-      "methods": {
-        "bulk": {
-          "caption": "Velg notater eller kortstokk → høyreklikk → ✨ Generer Smart Fields.",
-          "imageAlt": "Anki Nettleser kontekstmeny med Generer Smart Fields uthevet",
-          "title": "I bulk, fra nettleseren"
-        },
-        "card": {
-          "caption": "Klikk på ✨-knappen i redigeringsverktøylinjen eller skriv inn ⌘⇧G.",
-          "imageAlt": "Anki-redigeringsverktøylinje med Smart Notes-knappen uthevet",
-          "title": "Ett kort om gangen"
-        },
-        "field": {
-          "caption": "Høyreklikk et felt → Generer Smart Field.",
-          "imageAlt": "Anki-felts kontekstmeny med Generer Smart Field uthevet",
-          "title": "Et enkelt felt"
-        }
-      },
-      "title": "Din Smart Field sender direkte",
-      "waysToGenerate": "Noen måter å generere det på:"
-    },
-    "created": "Smart Field opprettet",
     "describe": {
       "exampleChat": "Skriv {{target}} for {{source}}",
       "exampleImage": "Tegn et bilde av {{source}}",
@@ -156,10 +132,8 @@
       "title": "Hva skal dette feltet gjøre?",
       "writeYourself": "Eller skriv ledeteksten selv"
     },
-    "dontShowAgain": "Ikke vis dette igjen",
     "errors": {
       "save": "Kunne ikke lagre Smart Field",
-      "updateWizardSettings": "Kunne ikke oppdatere veiviserinnstillingene",
       "writePrompt": "Kunne ikke skrive ledeteksten"
     },
     "fieldTypes": {
@@ -251,6 +225,20 @@
       "chat": "Tekst",
       "image": "Bilde",
       "tts": "Lyd"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Lukk veiledningen",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki Nettleser kontekstmeny med Generer Smart Fields uthevet",
+          "title": "Generer en batch"
+        },
+        "single": {
+          "imageAlt": "Anki-redigeringsverktøylinje med Smart Notes-knappen uthevet",
+          "title": "Generer ett enkelt notat"
+        }
+      },
+      "title": "Slik genererer du et nytt Smart Field"
     },
     "loadingAriaLabel": "Laster inn Smart Fields",
     "newSmartField": "Ny Smart Field",

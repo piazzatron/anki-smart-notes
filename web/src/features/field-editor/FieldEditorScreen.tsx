@@ -48,7 +48,6 @@ import type {
   FieldEditorMode,
   FieldEditorStep,
 } from "./fieldEditor"
-import { CompletionConfetti, StepDone } from "./StepDone"
 import { StepPrompt } from "./StepPrompt"
 import { StepTarget } from "./StepTarget"
 import { useFieldEditor } from "./useFieldEditor"
@@ -96,7 +95,6 @@ export const FieldEditorScreen = ({
     onClose: close,
     state,
   })
-  const [hideCompletion, setHideCompletion] = useState(false)
   const collision = hasSmartFieldCollision(
     state.smartFields,
     controls.form.target,
@@ -107,10 +105,6 @@ export const FieldEditorScreen = ({
     (controls.form.target.fieldType === "tts"
       ? controls.form.sourceFieldName.trim() === ""
       : controls.form.prompt.trim() === "")
-  const targetNoteTypeName =
-    state.noteTypes.find(
-      (noteType) => noteType.id === controls.form.target.noteTypeId,
-    )?.name ?? ""
 
   return (
     <Dialog onOpenChange={setIsOpen} open={isOpen}>
@@ -128,80 +122,68 @@ export const FieldEditorScreen = ({
           if (!isOpen && event.target === event.currentTarget) onClose()
         }}
       >
-        {controls.form.step === 3 && <CompletionConfetti />}
-
         {/* One header contract for every step, shaped like a native titlebar and kept to a
           single row: dismiss or back as one icon button leading, title and target
           breadcrumb centered, step 1's Next trailing. Step 2 signs off from its pinned
           footer instead. */}
-        {controls.form.step === 3 && (
-          <DialogTitle className="sr-only">
-            {t("fieldEditor.created")}
-          </DialogTitle>
-        )}
-        {controls.form.step !== 3 && (
-          <header className="relative grid min-h-[52px] shrink-0 grid-cols-[1fr_auto_1fr] items-center gap-4 border-b border-hairline bg-black/10 px-4 py-2">
-            <div className="flex min-w-0 items-center justify-start">
-              {controls.form.step === 1 && (
-                <HeaderIconButton label={t("common.cancel")} onClick={close}>
-                  <X aria-hidden className="size-[18px]" />
-                </HeaderIconButton>
-              )}
-              {controls.form.step === 2 && (
-                <HeaderIconButton
-                  label={t("common.back")}
-                  onClick={() => controls.setStep(1)}
-                >
-                  <ChevronLeft
-                    aria-hidden
-                    className="size-[18px] rtl:rotate-180"
-                  />
-                </HeaderIconButton>
-              )}
-            </div>
+        <header className="relative grid min-h-[52px] shrink-0 grid-cols-[1fr_auto_1fr] items-center gap-4 border-b border-hairline bg-black/10 px-4 py-2">
+          <div className="flex min-w-0 items-center justify-start">
+            {controls.form.step === 1 && (
+              <HeaderIconButton label={t("common.cancel")} onClick={close}>
+                <X aria-hidden className="size-[18px]" />
+              </HeaderIconButton>
+            )}
+            {controls.form.step === 2 && (
+              <HeaderIconButton
+                label={t("common.back")}
+                onClick={() => controls.setStep(1)}
+              >
+                <ChevronLeft
+                  aria-hidden
+                  className="size-[18px] rtl:rotate-180"
+                />
+              </HeaderIconButton>
+            )}
+          </div>
 
-            <div className="flex min-w-0 items-center justify-center gap-2.5">
-              {/* Titlebar chrome, not content — it names the window and then gets out of
+          <div className="flex min-w-0 items-center justify-center gap-2.5">
+            {/* Titlebar chrome, not content — it names the window and then gets out of
               the way, so it stays quieter than anything in the body. */}
-              <DialogTitle asChild>
-                <h1 className="shrink-0 text-[13.5px] leading-5 font-medium text-ink-muted">
-                  {t(TITLES[mode])}
-                  {mode === "create" && (
-                    <SparklesIcon
-                      className="ms-1.5 inline-block align-[-2px]"
-                      size={13}
-                    />
-                  )}
-                </h1>
-              </DialogTitle>
-              {controls.form.step === 2 && (
-                <>
-                  <span
-                    aria-hidden
-                    className="h-3.5 w-px shrink-0 bg-hairline"
+            <DialogTitle asChild>
+              <h1 className="shrink-0 text-[13.5px] leading-5 font-medium text-ink-muted">
+                {t(TITLES[mode])}
+                {mode === "create" && (
+                  <SparklesIcon
+                    className="ms-1.5 inline-block align-[-2px]"
+                    size={13}
                   />
-                  <TargetBreadcrumb form={controls.form} state={state} />
-                </>
-              )}
-            </div>
+                )}
+              </h1>
+            </DialogTitle>
+            {controls.form.step === 2 && (
+              <>
+                <span aria-hidden className="h-3.5 w-px shrink-0 bg-hairline" />
+                <TargetBreadcrumb form={controls.form} state={state} />
+              </>
+            )}
+          </div>
 
-            <div className="flex justify-end">
-              {controls.form.step === 1 && (
-                <Button
-                  className="px-5"
-                  disabled={
-                    collision || controls.form.target.targetFieldName === ""
-                  }
-                  onClick={() => controls.setStep(2)}
-                >
-                  {t("common.next")}{" "}
-                  {/* eslint-disable-next-line local/no-symbol-text -- a Lucide ChevronRight would change the Next button's look */}
-                  <span className="inline-block rtl:rotate-180">›</span>
-                </Button>
-              )}
-            </div>
-          </header>
-        )}
+          <div className="flex justify-end">
+            {controls.form.step === 1 && (
+              <Button
+                className="px-5"
+                disabled={
+                  collision || controls.form.target.targetFieldName === ""
+                }
+                onClick={() => controls.setStep(2)}
+              >
+                {t("common.next")}{" "}
+                {/* eslint-disable-next-line local/no-symbol-text -- a Lucide ChevronRight would change the Next button's look */}
+                <span className="inline-block rtl:rotate-180">›</span>
+              </Button>
+            )}
+          </div>
+        </header>
 
         {controls.form.error !== null && (
           <ErrorBanner
@@ -212,26 +194,13 @@ export const FieldEditorScreen = ({
         )}
 
         <div
-          className={`relative min-h-0 flex-1 ${
-            controls.form.step === 1
-              ? "overflow-y-auto px-6 py-8"
-              : controls.form.step === 2
-                ? "overflow-y-auto px-6 py-6"
-                : "overflow-y-auto px-6 py-8"
+          className={`relative min-h-0 flex-1 overflow-y-auto px-6 ${
+            controls.form.step === 1 ? "py-8" : "py-6"
           }`}
         >
           {controls.form.step === 1 ? (
             <div className="mx-auto w-full max-w-[600px] pt-16">
               <StepTarget controls={controls} state={state} />
-            </div>
-          ) : controls.form.step === 3 ? (
-            <div className="relative z-10 mx-auto w-full max-w-[800px] pt-[18px]">
-              <StepDone
-                fieldType={controls.form.target.fieldType}
-                noteTypeName={targetNoteTypeName}
-                targetFieldName={controls.form.target.targetFieldName}
-                trackCreation={mode === "create"}
-              />
             </div>
           ) : catalog === null ? (
             <div className="flex h-full min-h-56 items-center justify-center gap-2 text-[13px] text-ink-muted">
@@ -282,27 +251,6 @@ export const FieldEditorScreen = ({
                 <ArrowRight aria-hidden className="size-3.5 rtl:rotate-180" />
               </Button>
             </div>
-          </footer>
-        )}
-
-        {controls.form.step === 3 && (
-          <footer className="relative z-10 flex shrink-0 items-center justify-between border-t border-hairline bg-black/20 px-5 py-2.5">
-            <label className="flex cursor-pointer items-center gap-2 text-[13px] text-ink-muted select-none">
-              <input
-                checked={hideCompletion}
-                className="m-0 size-3.5 cursor-pointer accent-indigo"
-                onChange={(event) => {
-                  setHideCompletion(event.target.checked)
-                  if (event.target.checked)
-                    void controls.setWizardCompletionHidden()
-                }}
-                type="checkbox"
-              />
-              {t("fieldEditor.dontShowAgain")}
-            </label>
-            <Button className="px-5" variant="success" onClick={close}>
-              {t("common.done")}
-            </Button>
           </footer>
         )}
       </DialogTakeover>

@@ -24,7 +24,7 @@ interface BootOptions {
   selection: string
   tryState: "empty" | "picked" | "result" | null
   editor: "create" | "edit" | "duplicate" | null
-  editorStep: 1 | 2 | 3 | null
+  editorStep: 1 | 2 | null
   token: string
   /** Mock mode only: open the upgrade sheet for this feature on load. */
   upgradeSheet: string | null
@@ -64,9 +64,7 @@ const readBootOptions = (): BootOptions => {
         ? requestedEditor
         : null,
     editorStep:
-      requestedEditorStep === 1 ||
-      requestedEditorStep === 2 ||
-      requestedEditorStep === 3
+      requestedEditorStep === 1 || requestedEditorStep === 2
         ? requestedEditorStep
         : null,
     token: params.get("token") ?? "",

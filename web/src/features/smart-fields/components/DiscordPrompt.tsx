@@ -20,6 +20,7 @@
 import { X } from "lucide-react"
 import { useTranslation } from "react-i18next"
 
+import { IconButton } from "@/components/ui/IconButton"
 import { DiscordMark } from "@/components/shared/DiscordMark"
 import { DISCORD_URL } from "@/lib/helpChannels"
 
@@ -61,14 +62,13 @@ export const DiscordPrompt = ({ onDismiss }: DiscordPromptProps) => {
       >
         {t("smartFields.discord.join")}
       </a>
-      <button
+      <IconButton
         aria-label={t("smartFields.discord.dismissAriaLabel")}
-        className="relative z-20 inline-flex size-6 shrink-0 items-center justify-center rounded-md text-white/60 transition hover:bg-white/10 hover:text-white"
         onClick={onDismiss}
-        type="button"
+        tone="banner"
       >
         <X aria-hidden className="size-3.5" />
-      </button>
+      </IconButton>
     </div>
   )
 }

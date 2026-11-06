@@ -120,30 +120,6 @@
   "fieldEditor": {
     "alreadySmartField": "すでにスマートフィールドです",
     "collisionHint": "すでに Smart Field を持っています — 別のフィールド、デッキ、またはノートのタイプを選択してください",
-    "completion": {
-      "descriptionAfter": "メモを生成するたびにメモが書き込まれます。",
-      "descriptionBefore": "の上",
-      "methods": {
-        "bulk": {
-          "caption": "ノートまたはデッキを選択→右クリック→✨Smart Fieldsを生成します。",
-          "imageAlt": "「Smart Fields の生成」が強調表示された Anki ブラウザーのコンテキスト メニュー",
-          "title": "ブラウザから一括で"
-        },
-        "card": {
-          "caption": "エディターのツールバーの ✨ ボタンをクリックするか、「⌘⇧G」と入力します。",
-          "imageAlt": "Smart Notes ボタンが強調表示された Anki エディター ツールバー",
-          "title": "一度に 1 枚のカード"
-        },
-        "field": {
-          "caption": "任意のフィールドを右クリック→「Smart Field を生成」します。",
-          "imageAlt": "「Smart Field の生成」が強調表示された Anki フィールドのコンテキスト メニュー",
-          "title": "単一のフィールド"
-        }
-      },
-      "title": "あなたのSmart Fieldはライブです",
-      "waysToGenerate": "生成するにはいくつかの方法があります:"
-    },
-    "created": "Smart Field が作成されました",
     "describe": {
       "exampleChat": "{{source}}の{{target}}を書く",
       "exampleImage": "{{source}}の絵を描く",
@@ -155,10 +131,8 @@
       "title": "このフィールドは何をすればよいですか?",
       "writeYourself": "または自分でプロンプトを書く"
     },
-    "dontShowAgain": "これを二度と表示しないでください",
     "errors": {
       "save": "Smart Fieldを保存できませんでした",
-      "updateWizardSettings": "ウィザード設定を更新できませんでした",
       "writePrompt": "プロンプトを書き込めませんでした"
     },
     "fieldTypes": {
@@ -250,6 +224,20 @@
       "chat": "文章",
       "image": "画像",
       "tts": "オーディオ"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "ハウツーガイドを閉じる",
+      "methods": {
+        "batch": {
+          "imageAlt": "「Smart Fields の生成」が強調表示された Anki ブラウザーのコンテキスト メニュー",
+          "title": "一括生成"
+        },
+        "single": {
+          "imageAlt": "Smart Notes ボタンが強調表示された Anki エディター ツールバー",
+          "title": "単一のノートを生成"
+        }
+      },
+      "title": "新しいSmart Fieldの生成方法"
     },
     "loadingAriaLabel": "Smart Fieldsをロード中",
     "newSmartField": "新型Smart Field",

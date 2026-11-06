@@ -121,30 +121,6 @@
   "fieldEditor": {
     "alreadySmartField": "Jam Inteligenta Kampo",
     "collisionHint": "jam havas Smart Field — elektu malsaman kampon, ferdekon aŭ noton",
-    "completion": {
-      "descriptionAfter": "notoj pleniĝas kiam ajn vi generas ĝin.",
-      "descriptionBefore": "on",
-      "methods": {
-        "bulk": {
-          "caption": "Elektu notojn aŭ ferdekon → dekstre alklaku → ✨ Generu Smart Fields.",
-          "imageAlt": "Anki Retumila kunteksta menuo kun Genera Smart Fields emfazita",
-          "title": "En amaso, de la Retumilo"
-        },
-        "card": {
-          "caption": "Alklaku la butonon ✨ en la ilobreto de la redaktilo aŭ tajpu ⌘⇧G.",
-          "imageAlt": "Anki-redaktila ilobreto kun la Smart Notes-butono emfazita",
-          "title": "Unu karto samtempe"
-        },
-        "field": {
-          "caption": "Dekstre alklaku iun ajn kampon → Generu Smart Field.",
-          "imageAlt": "Anki-kampa kunteksta menuo kun Generu Smart Field elstarigita",
-          "title": "Ununura kampo"
-        }
-      },
-      "title": "Via Smart Field estas viva",
-      "waysToGenerate": "Kelkaj manieroj generi ĝin:"
-    },
-    "created": "Smart Field kreita",
     "describe": {
       "exampleChat": "Skribu la {{target}} por {{source}}",
       "exampleImage": "Desegnu bildon de {{source}}",
@@ -156,10 +132,8 @@
       "title": "Kion ĉi tiu kampo devas fari?",
       "writeYourself": "Aŭ skribu la peton mem"
     },
-    "dontShowAgain": "Ne montru ĉi tion denove",
     "errors": {
       "save": "Ne eblis konservi Smart Field",
-      "updateWizardSettings": "Ne eblis ĝisdatigi agordojn de la asistanto",
       "writePrompt": "Ne eblis skribi la promptilon"
     },
     "fieldTypes": {
@@ -251,6 +225,20 @@
       "chat": "Teksto",
       "image": "Bildo",
       "tts": "Aŭdio"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Fermi gvidilon pri uzo",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki Retumila kunteksta menuo kun Genera Smart Fields emfazita",
+          "title": "Generi grupon"
+        },
+        "single": {
+          "imageAlt": "Anki-redaktila ilobreto kun la Smart Notes-butono emfazita",
+          "title": "Generi unu noton"
+        }
+      },
+      "title": "Kiel generi per la nova Smart Field"
     },
     "loadingAriaLabel": "Ŝarĝante Smart Fields",
     "newSmartField": "Nova Smart Field",

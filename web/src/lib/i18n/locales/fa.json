@@ -121,30 +121,6 @@
   "fieldEditor": {
     "alreadySmartField": "از قبل یک فیلد هوشمند است",
     "collisionHint": "قبلاً یک Smart Field دارد - یک فیلد، عرشه یا نوع یادداشت متفاوت را انتخاب کنید",
-    "completion": {
-      "descriptionAfter": "یادداشت ها هر زمان که آن را ایجاد کنید پر می شود.",
-      "descriptionBefore": "در",
-      "methods": {
-        "bulk": {
-          "caption": "یادداشت ها یا عرشه را انتخاب کنید → کلیک راست کنید → ✨ ایجاد Smart Fields.",
-          "imageAlt": "منوی زمینه مرورگر Anki با مشخص شده Generate Smart Fields",
-          "title": "به صورت عمده، از مرورگر"
-        },
-        "card": {
-          "caption": "روی دکمه ✨ در نوار ابزار ویرایشگر کلیک کنید یا ⌘⇧G را تایپ کنید.",
-          "imageAlt": "نوار ابزار ویرایشگر Anki با دکمه Smart Notes برجسته شده است",
-          "title": "یک کارت در یک زمان"
-        },
-        "field": {
-          "caption": "روی هر فیلدی کلیک راست کنید → Generate Smart Field.",
-          "imageAlt": "منوی زمینه فیلد Anki با مشخص شده Generate Smart Field",
-          "title": "یک میدان واحد"
-        }
-      },
-      "title": "Smart Field شما فعال است",
-      "waysToGenerate": "چند راه برای تولید آن:"
-    },
-    "created": "Smart Field ایجاد شد",
     "describe": {
       "exampleChat": "{{target}} را برای {{source}} بنویس",
       "exampleImage": "تصویری از {{source}} بکش",
@@ -156,10 +132,8 @@
       "title": "این فیلد باید چه کاری انجام دهد؟",
       "writeYourself": "یا خودتان پرامپت را بنویسید"
     },
-    "dontShowAgain": "این را دیگر نشان نده",
     "errors": {
       "save": "Smart Field ذخیره نشد",
-      "updateWizardSettings": "تنظیمات جادوگر به‌روزرسانی نشد",
       "writePrompt": "نمی توان دستور را نوشت"
     },
     "fieldTypes": {
@@ -251,6 +225,20 @@
       "chat": "متن",
       "image": "تصویر",
       "tts": "صوتی"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "بستن راهنمای آموزشی",
+      "methods": {
+        "batch": {
+          "imageAlt": "منوی زمینه مرورگر Anki با مشخص شده Generate Smart Fields",
+          "title": "تولید دسته‌ای"
+        },
+        "single": {
+          "imageAlt": "نوار ابزار ویرایشگر Anki با دکمه Smart Notes برجسته شده است",
+          "title": "تولید یک یادداشت"
+        }
+      },
+      "title": "نحوه تولید Smart Field جدید شما"
     },
     "loadingAriaLabel": "در حال بارگیری Smart Fields",
     "newSmartField": "Smart Field جدید",

@@ -120,30 +120,6 @@
   "fieldEditor": {
     "alreadySmartField": "已是智能字段",
     "collisionHint": "已经有 Smart Field — 选择不同的字段、牌组或音符类型",
-    "completion": {
-      "descriptionAfter": "每当您生成它时，注释就会被填充。",
-      "descriptionBefore": "在",
-      "methods": {
-        "bulk": {
-          "caption": "选择笔记或甲板→右键单击→✨生成Smart Fields。",
-          "imageAlt": "Anki 浏览器上下文菜单，突出显示“生成 Smart Fields”",
-          "title": "批量从浏览器"
-        },
-        "card": {
-          "caption": "单击编辑器工具栏中的 ✨ 按钮或输入 ⌘⇧G。",
-          "imageAlt": "Anki 编辑器工具栏，突出显示 Smart Notes 按钮",
-          "title": "一次一张卡"
-        },
-        "field": {
-          "caption": "右键单击任意字段 → 生成 Smart Field。",
-          "imageAlt": "Anki 字段上下文菜单，突出显示“生成 Smart Field”",
-          "title": "单个字段"
-        }
-      },
-      "title": "您的 Smart Field 已上线",
-      "waysToGenerate": "生成它的几种方法："
-    },
-    "created": "Smart Field 创建",
     "describe": {
       "exampleChat": "为 {{source}} 编写 {{target}}",
       "exampleImage": "绘制 {{source}} 的图片",
@@ -155,10 +131,8 @@
       "title": "这个字段应该做什么？",
       "writeYourself": "或自行编写提示词"
     },
-    "dontShowAgain": "不要再显示此内容",
     "errors": {
       "save": "无法保存 Smart Field",
-      "updateWizardSettings": "无法更新向导设置",
       "writePrompt": "无法写入提示"
     },
     "fieldTypes": {
@@ -250,6 +224,20 @@
       "chat": "文本",
       "image": "图像",
       "tts": "声音的"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "关闭操作指南",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki 浏览器上下文菜单，突出显示“生成 Smart Fields”",
+          "title": "批量生成"
+        },
+        "single": {
+          "imageAlt": "Anki 编辑器工具栏，突出显示 Smart Notes 按钮",
+          "title": "生成单条笔记"
+        }
+      },
+      "title": "如何生成新的 Smart Field"
     },
     "loadingAriaLabel": "正在加载Smart Fields",
     "newSmartField": "新Smart Field",

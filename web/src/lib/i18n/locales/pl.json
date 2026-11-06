@@ -123,30 +123,6 @@
   "fieldEditor": {
     "alreadySmartField": "Już jest polem Smart Fields",
     "collisionHint": "ma już Smart Field — wybierz inne pole, talię lub typ notatki",
-    "completion": {
-      "descriptionAfter": "notatki są wypełniane za każdym razem, gdy je generujesz.",
-      "descriptionBefore": "NA",
-      "methods": {
-        "bulk": {
-          "caption": "Wybierz notatki lub talię → kliknij prawym przyciskiem myszy → ✨ Wygeneruj Smart Fields.",
-          "imageAlt": "Anki Menu kontekstowe przeglądarki z podświetloną opcją Generuj Smart Fields",
-          "title": "Zbiorczo, z przeglądarki"
-        },
-        "card": {
-          "caption": "Kliknij przycisk ✨ na pasku narzędzi edytora lub wpisz ⌘⇧G.",
-          "imageAlt": "Pasek narzędzi edytora Anki z podświetlonym przyciskiem Smart Notes",
-          "title": "Jedna karta na raz"
-        },
-        "field": {
-          "caption": "Kliknij prawym przyciskiem myszy dowolne pole → Wygeneruj Smart Field.",
-          "imageAlt": "Menu kontekstowe pola Anki z podświetloną opcją Generuj Smart Field",
-          "title": "Jedno pole"
-        }
-      },
-      "title": "Twój Smart Field jest aktywny",
-      "waysToGenerate": "Kilka sposobów jego wygenerowania:"
-    },
-    "created": "Utworzono Smart Field",
     "describe": {
       "exampleChat": "Napisz {{target}} dla {{source}}",
       "exampleImage": "Narysuj obraz przedstawiający {{source}}",
@@ -158,10 +134,8 @@
       "title": "Co ma robić to pole?",
       "writeYourself": "Lub napisz prompt samodzielnie"
     },
-    "dontShowAgain": "Nie pokazuj tego więcej",
     "errors": {
       "save": "Nie można zapisać Smart Field",
-      "updateWizardSettings": "Nie można zaktualizować ustawień kreatora",
       "writePrompt": "Nie można zapisać monitu"
     },
     "fieldTypes": {
@@ -253,6 +227,20 @@
       "chat": "Tekst",
       "image": "Obraz",
       "tts": "Audio"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Zamknij przewodnik",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki Menu kontekstowe przeglądarki z podświetloną opcją Generuj Smart Fields",
+          "title": "Wygeneruj wsad"
+        },
+        "single": {
+          "imageAlt": "Pasek narzędzi edytora Anki z podświetlonym przyciskiem Smart Notes",
+          "title": "Wygeneruj pojedynczą notatkę"
+        }
+      },
+      "title": "Jak wygenerować nowe Smart Field"
     },
     "loadingAriaLabel": "Ładowanie Smart Fields",
     "newSmartField": "Nowy Smart Field",

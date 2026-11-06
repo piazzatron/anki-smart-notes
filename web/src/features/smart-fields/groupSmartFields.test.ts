@@ -65,7 +65,6 @@ const stateWith = (smartFields: SmartField[]): AppState => ({
     legacyOpenAiKey: null,
     legacyOpenAiModel: "gpt-5-mini",
     legacyOpenAiHost: null,
-    showWizardCompletion: true,
     didDismissReviewPrompt: false,
     didDismissDiscordPrompt: false,
     didSeeFreePlanWelcome: true,

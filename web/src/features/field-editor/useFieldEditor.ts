@@ -21,6 +21,7 @@ import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import { errorMessage } from "@/lib/errors"
+import { useAppStore } from "@/store/appStore"
 import { trackAnalyticsEvent } from "@/services/analytics"
 import {
   createSmartField,
@@ -73,7 +74,6 @@ export interface FieldEditorControls {
   setPinnedTTS: (settings: TTSGenerationSettings | null) => void
   setStep: (step: FieldEditorStep) => void
   setTarget: (updates: Partial<FieldTargetDraft>) => void
-  setWizardCompletionHidden: () => Promise<void>
   // An AI guess at what the field is for, as an example for the describe box. Null
   // while it loads.
   suggestion: string | null
@@ -229,12 +229,11 @@ export const useFieldEditor = ({
             properties: { field_type: form.target.fieldType },
           })
         }
+        if (state.smartFields.length === 0) {
+          useAppStore.setState({ firstFieldGuide: "new" })
+        }
       }
-      if (mode === "edit" || !state.settings.showWizardCompletion) {
-        onClose()
-        return
-      }
-      update({ isSaving: false, step: 3 })
+      onClose()
     } catch (error) {
       update({
         error: errorMessage(error, t("fieldEditor.errors.save")),
@@ -251,19 +250,6 @@ export const useFieldEditor = ({
     }
   }
 
-  const setWizardCompletionHidden = async () => {
-    try {
-      await saveSettings({ ...state.settings, showWizardCompletion: false })
-    } catch (error) {
-      update({
-        error: errorMessage(
-          error,
-          t("fieldEditor.errors.updateWizardSettings"),
-        ),
-      })
-    }
-  }
-
   return {
     dismissError: () => update({ error: null }),
     form,
@@ -275,7 +261,6 @@ export const useFieldEditor = ({
     setPinnedTTS: (settings) => setPinned("tts", settings),
     setStep: (step) => update({ step }),
     setTarget: changeTarget,
-    setWizardCompletionHidden,
     suggestion: suggested?.key === suggestionKey ? suggested.suggestion : null,
     update,
   }

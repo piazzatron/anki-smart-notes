@@ -122,30 +122,6 @@
   "fieldEditor": {
     "alreadySmartField": "Ya es un Campo inteligente",
     "collisionHint": "ya tiene un Smart Field: elija un campo, mazo o tipo de nota diferente",
-    "completion": {
-      "descriptionAfter": "Las notas se completan cada vez que las generas.",
-      "descriptionBefore": "en",
-      "methods": {
-        "bulk": {
-          "caption": "Seleccione notas o mazo → haga clic derecho → ✨ Generar Smart Fields.",
-          "imageAlt": "Anki Menú contextual del navegador con Generar Smart Fields resaltado",
-          "title": "De forma masiva, desde el Navegador"
-        },
-        "card": {
-          "caption": "Haga clic en el botón ✨ en la barra de herramientas del editor o escriba ⌘⇧G.",
-          "imageAlt": "Barra de herramientas del editor Anki con el botón Smart Notes resaltado",
-          "title": "Una tarjeta a la vez"
-        },
-        "field": {
-          "caption": "Haga clic derecho en cualquier campo → Generar Smart Field.",
-          "imageAlt": "Menú contextual del campo Anki con Generar Smart Field resaltado",
-          "title": "un solo campo"
-        }
-      },
-      "title": "Tu Smart Field está activo",
-      "waysToGenerate": "Algunas formas de generarlo:"
-    },
-    "created": "Smart Field creado",
     "describe": {
       "exampleChat": "Escribe el {{target}} para {{source}}",
       "exampleImage": "Dibuja una imagen de {{source}}",
@@ -157,10 +133,8 @@
       "title": "¿Qué debe hacer este campo?",
       "writeYourself": "O escribe tú el prompt"
     },
-    "dontShowAgain": "No vuelvas a mostrar esto",
     "errors": {
       "save": "No se pudo guardar Smart Field",
-      "updateWizardSettings": "No se pudo actualizar la configuración del asistente",
       "writePrompt": "No se pudo escribir el mensaje"
     },
     "fieldTypes": {
@@ -252,6 +226,20 @@
       "chat": "Texto",
       "image": "Imagen",
       "tts": "Audio"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Cerrar la guía de instrucciones",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki Menú contextual del navegador con Generar Smart Fields resaltado",
+          "title": "Generar un lote"
+        },
+        "single": {
+          "imageAlt": "Barra de herramientas del editor Anki con el botón Smart Notes resaltado",
+          "title": "Generar una nota individual"
+        }
+      },
+      "title": "Cómo generar tu nuevo Smart Field"
     },
     "loadingAriaLabel": "Cargando Smart Fields",
     "newSmartField": "Nuevo Smart Field",

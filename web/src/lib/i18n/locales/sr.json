@@ -122,30 +122,6 @@
   "fieldEditor": {
     "alreadySmartField": "Već je Pametno polje",
     "collisionHint": "већ има паметно поље — изаберите друго поље, шпил или тип белешке",
-    "completion": {
-      "descriptionAfter": "белешке се попуњавају кад год их генеришете.",
-      "descriptionBefore": "на",
-      "methods": {
-        "bulk": {
-          "caption": "Изаберите белешке или шпил → кликните десним тастером миша → ✨ Генериши Smart Fields.",
-          "imageAlt": "Anki Контекстни мени претраживача са означеним Генерисај Smart Fields",
-          "title": "На велико, из претраживача"
-        },
-        "card": {
-          "caption": "Кликните на дугме ✨ на траци са алаткама уређивача или унесите ⌘⇧G.",
-          "imageAlt": "трака са алаткама уређивача Anki са истакнутим дугметом Smart Notes",
-          "title": "Једна по једна карта"
-        },
-        "field": {
-          "caption": "Кликните десним тастером миша на било које поље → Генериши паметно поље.",
-          "imageAlt": "Контекстни мени поља Anki са истакнутим Генерисај паметно поље",
-          "title": "Једно поље"
-        }
-      },
-      "title": "Ваше Смарт Фиелд је уживо",
-      "waysToGenerate": "Неколико начина да га генеришете:"
-    },
-    "created": "Паметно поље је креирано",
     "describe": {
       "exampleChat": "Напишите {{target}} за {{source}}",
       "exampleImage": "Нацртајте слику: {{source}}",
@@ -157,10 +133,8 @@
       "title": "Шта треба да ради ово поље?",
       "writeYourself": "Или сами напишите упит"
     },
-    "dontShowAgain": "Не приказуј ово поново",
     "errors": {
       "save": "Није могуће сачувати Смарт Фиелд",
-      "updateWizardSettings": "Није могуће ажурирати подешавања чаробњака",
       "writePrompt": "Није могуће написати упит"
     },
     "fieldTypes": {
@@ -252,6 +226,20 @@
       "chat": "Текст",
       "image": "Слика",
       "tts": "Аудио"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Одбаци водич са упутствима",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki Контекстни мени претраживача са означеним Генерисај Smart Fields",
+          "title": "Генериши групу"
+        },
+        "single": {
+          "imageAlt": "трака са алаткама уређивача Anki са истакнутим дугметом Smart Notes",
+          "title": "Генериши једну белешку"
+        }
+      },
+      "title": "Како да генеришете ново Smart Field"
     },
     "loadingAriaLabel": "Учитавање Smart Fields",
     "newSmartField": "Ново паметно поље",

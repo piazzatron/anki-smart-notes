@@ -121,30 +121,6 @@
   "fieldEditor": {
     "alreadySmartField": "Вече е Smart Field",
     "collisionHint": "вече има Smart Field — изберете различно поле, тесте или тип бележка",
-    "completion": {
-      "descriptionAfter": "бележки се попълва всеки път, когато го генерирате.",
-      "descriptionBefore": "на",
-      "methods": {
-        "bulk": {
-          "caption": "Изберете бележки или колода → щракнете с десния бутон → ✨ Генериране на Smart Fields.",
-          "imageAlt": "Anki Контекстно меню на браузъра с подчертано Генериране на Smart Fields",
-          "title": "На едро, от браузъра"
-        },
-        "card": {
-          "caption": "Щракнете върху бутона ✨ в лентата с инструменти на редактора или напишете ⌘⇧G.",
-          "imageAlt": "лента с инструменти на редактора Anki с подчертан бутон Smart Notes",
-          "title": "Една карта наведнъж"
-        },
-        "field": {
-          "caption": "Щракнете с десния бутон върху всяко поле → Генериране на интелигентно поле.",
-          "imageAlt": "Контекстно меню на поле Anki с маркирано Генериране на интелигентно поле",
-          "title": "Едно поле"
-        }
-      },
-      "title": "Вашето Smart Field е на живо",
-      "waysToGenerate": "Няколко начина да го генерирате:"
-    },
-    "created": "Създадено интелигентно поле",
     "describe": {
       "exampleChat": "Напишете {{target}} за {{source}}",
       "exampleImage": "Нарисувайте картина на {{source}}",
@@ -156,10 +132,8 @@
       "title": "Какво трябва да прави това поле?",
       "writeYourself": "Или напишете подканата сами"
     },
-    "dontShowAgain": "Не показвайте това отново",
     "errors": {
       "save": "Не можа да се запази Smart Field",
-      "updateWizardSettings": "Настройките на съветника не можаха да се актуализират",
       "writePrompt": "Подканата не можа да бъде написана"
     },
     "fieldTypes": {
@@ -251,6 +225,20 @@
       "chat": "Текст",
       "image": "Изображение",
       "tts": "аудио"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Затваряне на ръководството",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki Контекстно меню на браузъра с подчертано Генериране на Smart Fields",
+          "title": "Генериране на партида"
+        },
+        "single": {
+          "imageAlt": "лента с инструменти на редактора Anki с подчертан бутон Smart Notes",
+          "title": "Генериране на една бележка"
+        }
+      },
+      "title": "Как да генерирате вашето ново Smart Field"
     },
     "loadingAriaLabel": "Зарежда се Smart Fields",
     "newSmartField": "Ново интелигентно поле",

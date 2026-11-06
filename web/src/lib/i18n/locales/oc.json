@@ -120,30 +120,6 @@
   "fieldEditor": {
     "alreadySmartField": "Ja un Smart Field",
     "collisionHint": "a ja un Smart Field — causissètz un tipe de camp, de jòc o de nòta diferent",
-    "completion": {
-      "descriptionAfter": "las nòtas s'emplenan cada còp que la generatz.",
-      "descriptionBefore": "sus",
-      "methods": {
-        "bulk": {
-          "caption": "Seleccionatz de nòtas o de deck → clic drech → ✨ Generar Smart Fields.",
-          "imageAlt": "Menú de contèxte del navigador Anki amb Generar Smart Fields en evidéncia",
-          "title": "En gros, dempuèi lo Navigador"
-        },
-        "card": {
-          "caption": "Clicatz sul boton ✨ dins la barra d'aisinas de l'editor o picatz ⌘⇧G.",
-          "imageAlt": "Barra d'aisinas de l'editor Anki amb lo boton Smart Notes en evidéncia",
-          "title": "Una carta a la volta"
-        },
-        "field": {
-          "caption": "Clicatz amb lo boton drech sus quin camp que siá → Generar Smart Field.",
-          "imageAlt": "Menú de contèxte de camp Anki amb Generar Smart Field en evidéncia",
-          "title": "Un sol camp"
-        }
-      },
-      "title": "Tu Smart Field es en vivo",
-      "waysToGenerate": "Qualques biaisses de lo generar :"
-    },
-    "created": "Smart Field creat",
     "describe": {
       "exampleChat": "Escriure lo {{target}} per {{source}}",
       "exampleImage": "Dessenhar una imatge de {{source}}",
@@ -155,10 +131,8 @@
       "title": "Qué deu far aqueste camp?",
       "writeYourself": "O escrivètz vos-mesme la consigna"
     },
-    "dontShowAgain": "Tornatz pas mostrar aquò",
     "errors": {
       "save": "Poguèt pas salvar Smart Field",
-      "updateWizardSettings": "Impossible de metre a jorn los paramètres de l'assistent",
       "writePrompt": "Poguèt pas escriure l'invitacion"
     },
     "fieldTypes": {
@@ -250,6 +224,20 @@
       "chat": "Tèxt",
       "image": "Imatge",
       "tts": "Audio"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Regison la guida",
+      "methods": {
+        "batch": {
+          "imageAlt": "Menú de contèxte del navigador Anki amb Generar Smart Fields en evidéncia",
+          "title": "Generar un lot"
+        },
+        "single": {
+          "imageAlt": "Barra d'aisinas de l'editor Anki amb lo boton Smart Notes en evidéncia",
+          "title": "Generar una sola nòta"
+        }
+      },
+      "title": "Cossí generar vòstre novèl Smart Field"
     },
     "loadingAriaLabel": "En cargament Smart Fields",
     "newSmartField": "Nova Smart Field",

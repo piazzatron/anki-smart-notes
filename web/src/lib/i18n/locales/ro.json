@@ -122,30 +122,6 @@
   "fieldEditor": {
     "alreadySmartField": "Deja un câmp Smart",
     "collisionHint": "are deja un Smart Field — alegeți un alt câmp, pachet sau tip de notă",
-    "completion": {
-      "descriptionAfter": "notele se completează ori de câte ori le generați.",
-      "descriptionBefore": "pe",
-      "methods": {
-        "bulk": {
-          "caption": "Selectați note sau pachet → faceți clic dreapta → ✨ Generați Smart Fields.",
-          "imageAlt": "Anki Meniul contextual al browserului cu Generare Smart Fields evidențiat",
-          "title": "În vrac, din Browser"
-        },
-        "card": {
-          "caption": "Faceți clic pe butonul ✨ din bara de instrumente a editorului sau tastați ⌘⇧G.",
-          "imageAlt": "Bara de instrumente a editorului Anki cu butonul Smart Notes evidențiat",
-          "title": "O carte la un moment dat"
-        },
-        "field": {
-          "caption": "Faceți clic dreapta pe orice câmp → Generați Smart Field.",
-          "imageAlt": "Meniul contextual al câmpului Anki cu Generare Smart Field evidențiat",
-          "title": "Un singur câmp"
-        }
-      },
-      "title": "Smart Field dvs. este live",
-      "waysToGenerate": "Câteva moduri de a-l genera:"
-    },
-    "created": "Smart Field creat",
     "describe": {
       "exampleChat": "Scrie {{target}} pentru {{source}}",
       "exampleImage": "Desenează o imagine cu {{source}}",
@@ -157,10 +133,8 @@
       "title": "Ce ar trebui să facă acest câmp?",
       "writeYourself": "Sau scrie promptul singur"
     },
-    "dontShowAgain": "Nu mai arăta asta",
     "errors": {
       "save": "Nu s-a putut salva Smart Field",
-      "updateWizardSettings": "Nu s-au putut actualiza setările expertului",
       "writePrompt": "Nu s-a putut scrie promptul"
     },
     "fieldTypes": {
@@ -252,6 +226,20 @@
       "chat": "Text",
       "image": "Imagine",
       "tts": "Audio"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Închide ghidul practic",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki Meniul contextual al browserului cu Generare Smart Fields evidențiat",
+          "title": "Generează un lot"
+        },
+        "single": {
+          "imageAlt": "Bara de instrumente a editorului Anki cu butonul Smart Notes evidențiat",
+          "title": "Generează o singură notiță"
+        }
+      },
+      "title": "Cum să generezi noul tău Smart Field"
     },
     "loadingAriaLabel": "Se încarcă Smart Fields",
     "newSmartField": "Smart Field nou",

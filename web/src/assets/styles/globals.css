@@ -527,8 +527,25 @@
   animation: review-offer-sheen 3.8s ease-in-out infinite;
 }
 
-/* A one-shot celebration behind the field-editor completion screen. */
-@keyframes completion-confetti-burst {
+/* The first-field guide's title and steps spring up into place, one after another. */
+@keyframes guide-pop {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.86);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.guide-pop {
+  opacity: 0;
+  animation: guide-pop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* A one-shot celebration behind the first-field guide's title. */
+@keyframes confetti-burst {
   0% {
     opacity: 0;
     transform: translate3d(0, 0, 0) scale(0.25) rotate(0deg);
@@ -550,7 +567,7 @@
   }
 }
 
-@keyframes completion-confetti-flash {
+@keyframes confetti-flash {
   0% {
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.15);
@@ -564,17 +581,17 @@
   }
 }
 
-.completion-confetti {
+.confetti {
   position: absolute;
-  inset: 0;
+  inset: -64px -40px 0;
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
 }
 
-.completion-confetti::after {
+.confetti::after {
   position: absolute;
-  top: 68px;
+  top: 80px;
   left: 50%;
   width: 96px;
   height: 96px;
@@ -586,12 +603,12 @@
     transparent 70%
   );
   content: "";
-  animation: completion-confetti-flash 0.55s ease-out both;
+  animation: confetti-flash 0.55s ease-out both;
 }
 
-.completion-confetti-piece {
+.confetti-piece {
   position: absolute;
-  top: 68px;
+  top: 80px;
   left: 50%;
   width: 7px;
   height: 12px;
@@ -600,17 +617,17 @@
   box-shadow: 0 0 10px
     color-mix(in srgb, var(--confetti-color) 35%, transparent);
   opacity: 0;
-  animation: completion-confetti-burst var(--confetti-duration) linear
+  animation: confetti-burst var(--confetti-duration) linear
     var(--confetti-delay) both;
 }
 
-.completion-confetti-piece:nth-child(3n + 2) {
+.confetti-piece:nth-child(3n + 2) {
   width: 8px;
   height: 8px;
   border-radius: 50%;
 }
 
-.completion-confetti-piece:nth-child(4n) {
+.confetti-piece:nth-child(4n) {
   width: 11px;
   height: 4px;
   border-radius: 999px;

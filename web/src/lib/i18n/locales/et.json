@@ -121,30 +121,6 @@
   "fieldEditor": {
     "alreadySmartField": "Juba Smart Field",
     "collisionHint": "on juba Smart Field – valige mõni muu välja, teki või nooditüüp",
-    "completion": {
-      "descriptionAfter": "märkmed täidetakse alati, kui selle loote.",
-      "descriptionBefore": "sisse",
-      "methods": {
-        "bulk": {
-          "caption": "Valige noodid või teki → paremklõps → ✨ Genereeri Smart Fields.",
-          "imageAlt": "Anki Brauseri kontekstimenüü, kus on esile tõstetud Smart Fields loomine",
-          "title": "Hulgi, brauserist"
-        },
-        "card": {
-          "caption": "Klõpsake redaktori tööriistaribal nuppu ✨ või tippige ⌘⇧G.",
-          "imageAlt": "Anki redaktori tööriistariba, kus on esile tõstetud nupp Smart Notes",
-          "title": "Üks kaart korraga"
-        },
-        "field": {
-          "caption": "Paremklõpsake mis tahes välja → Genereeri Smart Field.",
-          "imageAlt": "Anki välja kontekstimenüü, kus on esile tõstetud Smart Field loomine",
-          "title": "Üks väli"
-        }
-      },
-      "title": "Teie Smart Field on otse-eetris",
-      "waysToGenerate": "Mõned viisid selle loomiseks:"
-    },
-    "created": "Smart Field loodud",
     "describe": {
       "exampleChat": "Kirjuta {{source}} jaoks {{target}}",
       "exampleImage": "Joonista {{source}} pilt",
@@ -156,10 +132,8 @@
       "title": "Mida see väli peaks tegema?",
       "writeYourself": "Või kirjuta käsk ise"
     },
-    "dontShowAgain": "Ära seda enam näita",
     "errors": {
       "save": "Smart Field ei saanud salvestada",
-      "updateWizardSettings": "Nõustaja seadeid ei saanud värskendada",
       "writePrompt": "Viipa ei saanud kirjutada"
     },
     "fieldTypes": {
@@ -251,6 +225,20 @@
       "chat": "Tekst",
       "image": "Pilt",
       "tts": "Heli"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Sulge kasutusjuhend",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki Brauseri kontekstimenüü, kus on esile tõstetud Smart Fields loomine",
+          "title": "Genereeri partii"
+        },
+        "single": {
+          "imageAlt": "Anki redaktori tööriistariba, kus on esile tõstetud nupp Smart Notes",
+          "title": "Genereeri üksik märkus"
+        }
+      },
+      "title": "Kuidas genereerida uus Smart Field"
     },
     "loadingAriaLabel": "Laadimine Smart Fields",
     "newSmartField": "Uus Smart Field",

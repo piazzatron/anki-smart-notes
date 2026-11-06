@@ -121,30 +121,6 @@
   "fieldEditor": {
     "alreadySmartField": "Արդեն Smart Field",
     "collisionHint": "արդեն ունի Smart Field – ընտրեք այլ դաշտ, տախտակամած կամ նշումի տեսակ",
-    "completion": {
-      "descriptionAfter": "նշումները լրացվում են ամեն անգամ, երբ այն ստեղծում եք:",
-      "descriptionBefore": "վրա",
-      "methods": {
-        "bulk": {
-          "caption": "Ընտրեք նշումներ կամ տախտակամած → աջ սեղմեք → ✨ Ստեղծեք Smart Fields:",
-          "imageAlt": "Anki Զննարկչի համատեքստային ընտրացանկ՝ ընդգծված Generate Smart Fields",
-          "title": "Մեծաքանակ՝ դիտարկիչից"
-        },
-        "card": {
-          "caption": "Սեղմեք ✨ կոճակը խմբագրիչի գործիքագոտում կամ մուտքագրեք ⌘⇧G:",
-          "imageAlt": "Anki խմբագրիչի գործիքագոտին՝ ընդգծված Smart Notes կոճակով",
-          "title": "Մի անգամ մեկ քարտ"
-        },
-        "field": {
-          "caption": "Աջ սեղմեք ցանկացած դաշտ → Ստեղծեք խելացի դաշտ:",
-          "imageAlt": "Anki դաշտի համատեքստային ընտրացանկ՝ ընդգծված Generate Smart Field",
-          "title": "Մեկ դաշտ"
-        }
-      },
-      "title": "Ձեր Smart Field-ը ուղիղ եթերում է",
-      "waysToGenerate": "Այն ստեղծելու մի քանի եղանակ."
-    },
-    "created": "Ստեղծվել է Smart Field",
     "describe": {
       "exampleChat": "Գրիր {{target}}-ը {{source}}-ի համար",
       "exampleImage": "Նկարիր {{source}}-ի նկար",
@@ -156,10 +132,8 @@
       "title": "Ի՞նչ պետք է անի այս դաշտը",
       "writeYourself": "Կամ գրեք հուշումը ինքներդ"
     },
-    "dontShowAgain": "Այլևս մի ցուցադրեք սա",
     "errors": {
       "save": "Չհաջողվեց պահել Smart Field-ը",
-      "updateWizardSettings": "Չհաջողվեց թարմացնել հրաշագործի կարգավորումները",
       "writePrompt": "Չհաջողվեց գրել հուշումը"
     },
     "fieldTypes": {
@@ -251,6 +225,20 @@
       "chat": "Տեքստ",
       "image": "Պատկեր",
       "tts": "Աուդիո"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Փակել ուղեցույցը",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki Զննարկչի համատեքստային ընտրացանկ՝ ընդգծված Generate Smart Fields",
+          "title": "Ստեղծել խմբաքանակ"
+        },
+        "single": {
+          "imageAlt": "Anki խմբագրիչի գործիքագոտին՝ ընդգծված Smart Notes կոճակով",
+          "title": "Ստեղծել մեկ նշում"
+        }
+      },
+      "title": "Ինչպես ստեղծել նոր Smart Field"
     },
     "loadingAriaLabel": "Բեռնվում է Smart Fields",
     "newSmartField": "Նոր խելացի դաշտ",

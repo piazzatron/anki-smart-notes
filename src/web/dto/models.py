@@ -92,7 +92,6 @@ class SettingsDto(TypedDict):
     legacyOpenAiKey: str | None
     legacyOpenAiModel: str
     legacyOpenAiHost: str | None
-    showWizardCompletion: bool
     didDismissReviewPrompt: bool
     didDismissDiscordPrompt: bool
     didSeeFreePlanWelcome: bool

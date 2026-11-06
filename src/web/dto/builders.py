@@ -156,7 +156,6 @@ def build_settings() -> SettingsDto:
         legacyOpenAiKey=config.openai_api_key,
         legacyOpenAiModel=config.legacy_openai_model,
         legacyOpenAiHost=config.openai_endpoint,
-        showWizardCompletion=config.show_wizard_completion,
         didDismissReviewPrompt=config.did_dismiss_review_prompt,
         didDismissDiscordPrompt=config.did_dismiss_discord_prompt,
         didSeeFreePlanWelcome=config.did_see_free_plan_welcome,

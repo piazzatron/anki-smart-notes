@@ -121,30 +121,6 @@
   "fieldEditor": {
     "alreadySmartField": "Already a Smart Field",
     "collisionHint": "already has a Smart Field — pick a different field, deck, or note type",
-    "completion": {
-      "descriptionAfter": "notes fills in whenever you generate it.",
-      "descriptionBefore": "on",
-      "methods": {
-        "bulk": {
-          "caption": "Select notes or deck → right-click → ✨ Generate Smart Fields.",
-          "imageAlt": "Anki Browser context menu with Generate Smart Fields highlighted",
-          "title": "In bulk, from the Browser"
-        },
-        "card": {
-          "caption": "Click the ✨ button in the editor toolbar or type ⌘⇧G.",
-          "imageAlt": "Anki editor toolbar with the Smart Notes button highlighted",
-          "title": "One card at a time"
-        },
-        "field": {
-          "caption": "Right-click any field → Generate Smart Field.",
-          "imageAlt": "Anki field context menu with Generate Smart Field highlighted",
-          "title": "A single field"
-        }
-      },
-      "title": "Your Smart Field is live",
-      "waysToGenerate": "A few ways to generate it:"
-    },
-    "created": "Smart Field created",
     "describe": {
       "exampleChat": "Write the {{target}} for {{source}}",
       "exampleImage": "Draw a picture of {{source}}",
@@ -156,10 +132,8 @@
       "title": "What should this field do?",
       "writeYourself": "Or write the prompt yourself"
     },
-    "dontShowAgain": "Don’t show this again",
     "errors": {
       "save": "Could not save Smart Field",
-      "updateWizardSettings": "Could not update wizard settings",
       "writePrompt": "Could not write the prompt"
     },
     "fieldTypes": {
@@ -251,6 +225,20 @@
       "chat": "Text",
       "image": "Image",
       "tts": "Audio"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Dismiss how-to guide",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki Browser context menu with Generate Smart Fields highlighted",
+          "title": "Generate a batch"
+        },
+        "single": {
+          "imageAlt": "Anki editor toolbar with the Smart Notes button highlighted",
+          "title": "Generate a single note"
+        }
+      },
+      "title": "How to generate your new Smart Field"
     },
     "loadingAriaLabel": "Loading Smart Fields",
     "newSmartField": "New Smart Field",

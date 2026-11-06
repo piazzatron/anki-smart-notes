@@ -124,30 +124,6 @@
   "fieldEditor": {
     "alreadySmartField": "Réimse Cliste cheana féin",
     "collisionHint": "tá Smart Field aige cheana féin — roghnaigh réimse eile, deic nó cineál nóta",
-    "completion": {
-      "descriptionAfter": "líonann nótaí isteach aon uair a ghineann tú é.",
-      "descriptionBefore": "ar",
-      "methods": {
-        "bulk": {
-          "caption": "Roghnaigh nótaí nó deic → deaschliceáil → ✨ Gin Smart Fields.",
-          "imageAlt": "Roghchlár comhthéacs Brabhsálaí Anki le Gin Smart Fields aibhsithe",
-          "title": "Ar an mórchóir, ón mBrabhsálaí"
-        },
-        "card": {
-          "caption": "Cliceáil an cnaipe ✨ sa bharra uirlisí eagarthóireachta nó clóscríobh ⌘⇧G.",
-          "imageAlt": "Barra uirlisí eagarthóireachta Anki leis an gcnaipe Smart Notes aibhsithe",
-          "title": "Cárta amháin ag an am"
-        },
-        "field": {
-          "caption": "Deaschliceáil ar aon réimse → Gin Smart Field.",
-          "imageAlt": "Roghchlár comhthéacs réimse Anki le Gin Smart Field aibhsithe",
-          "title": "Réimse amháin"
-        }
-      },
-      "title": "Tá do Smart Field ag craoladh beo",
-      "waysToGenerate": "Cúpla bealach chun é a ghiniúint:"
-    },
-    "created": "Smart Field cruthaithe",
     "describe": {
       "exampleChat": "Scríobh an {{target}} do {{source}}",
       "exampleImage": "Tarraing pictiúr de {{source}}",
@@ -159,10 +135,8 @@
       "title": "Cad ba cheart don réimse seo a dhéanamh?",
       "writeYourself": "Nó scríobh an leid féin"
     },
-    "dontShowAgain": "Ná taispeáin seo arís",
     "errors": {
       "save": "Níorbh fhéidir Smart Field a shábháil",
-      "updateWizardSettings": "Níorbh fhéidir socruithe an draoi a nuashonrú",
       "writePrompt": "Níorbh fhéidir an leid a scríobh"
     },
     "fieldTypes": {
@@ -254,6 +228,20 @@
       "chat": "Téacs",
       "image": "Íomhá",
       "tts": "Fuaime"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Cuir an treoir seo as",
+      "methods": {
+        "batch": {
+          "imageAlt": "Roghchlár comhthéacs Brabhsálaí Anki le Gin Smart Fields aibhsithe",
+          "title": "Gin baisc"
+        },
+        "single": {
+          "imageAlt": "Barra uirlisí eagarthóireachta Anki leis an gcnaipe Smart Notes aibhsithe",
+          "title": "Gin nóta aonair"
+        }
+      },
+      "title": "Conas do Smart Field nua a ghiniúint"
     },
     "loadingAriaLabel": "Smart Fields á lódáil",
     "newSmartField": "Smart Field nua",

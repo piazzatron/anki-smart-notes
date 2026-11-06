@@ -35,7 +35,7 @@ import type {
 import i18next from "i18next"
 
 export type FieldEditorMode = "create" | "edit" | "duplicate"
-export type FieldEditorStep = 1 | 2 | 3
+export type FieldEditorStep = 1 | 2
 export type FieldType = SmartField["fieldType"]
 
 export interface FieldTargetDraft {

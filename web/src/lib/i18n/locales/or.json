@@ -121,30 +121,6 @@
   "fieldEditor": {
     "alreadySmartField": "ଏହା ପୂର୍ବରୁ ଏକ Smart Field",
     "collisionHint": "ପୂର୍ବରୁ Smart Field ଅଛି - ଏକ ଭିନ୍ନ କ୍ଷେତ୍ର, ଡେକ୍, କିମ୍ବା ନୋଟ୍ ପ୍ରକାର ବାଛ",
-    "completion": {
-      "descriptionAfter": "ଯେତେବେଳେ ଆପଣ ଏହାକୁ ସୃଷ୍ଟି କରନ୍ତି ନୋଟ୍ଗୁଡ଼ିକ ପୁରଣ କରେ",
-      "descriptionBefore": "ଉପରେ",
-      "methods": {
-        "bulk": {
-          "caption": "ନୋଟ୍ କିମ୍ବା ଡେକ୍ → ଡାହାଣ କ୍ଲିକ୍ → A Smart Fields ସୃଷ୍ଟି କରନ୍ତୁ",
-          "imageAlt": "Smart Fields ସୃଷ୍ଟି ସହିତ Anki ବ୍ରାଉଜର୍ ପ୍ରସଙ୍ଗ ମେନୁ ହାଇଲାଇଟ୍ ହୋଇଛି",
-          "title": "ବହୁଳ ଭାବରେ, ବ୍ରାଉଜରରୁ"
-        },
-        "card": {
-          "caption": "ଏଡିଟର୍ ଟୁଲ୍ ବାର୍ ରେ ✨ ବଟନ୍ କ୍ଲିକ୍ କରନ୍ତୁ କିମ୍ବା ⌘⇧G ଟାଇପ୍ କରନ୍ତୁ",
-          "imageAlt": "Smart Notes ବଟନ୍ ସହିତ Anki ଏଡିଟର୍ ଟୁଲ୍ ବାର୍ ହାଇଲାଇଟ୍ ହୋଇଛି",
-          "title": "ଗୋଟିଏ ଥରରେ ଗୋଟିଏ କାର୍ଡ"
-        },
-        "field": {
-          "caption": "ଯେକ any ଣସି କ୍ଷେତ୍ର ଉପରେ ଡାହାଣ କ୍ଲିକ୍ କରନ୍ତୁ A Smart Field ସୃଷ୍ଟି କରନ୍ତୁ",
-          "imageAlt": "Smart Field ସୃଷ୍ଟି ସହିତ Anki କ୍ଷେତ୍ର ପ୍ରସଙ୍ଗ ତାଲିକା ଆଲୋକିତ",
-          "title": "ଗୋଟିଏ କ୍ଷେତ୍ର"
-        }
-      },
-      "title": "ଆପଣଙ୍କର Smart Field ଲାଇଭ୍ ଅଟେ",
-      "waysToGenerate": "ଏହାକୁ ସୃଷ୍ଟି କରିବାର କିଛି ଉପାୟ:"
-    },
-    "created": "Smart Field ସୃଷ୍ଟି ହୋଇଛି",
     "describe": {
       "exampleChat": "{{source}} ପାଇଁ {{target}} ଲେଖନ୍ତୁ",
       "exampleImage": "{{source}}ର ଏକ ଚିତ୍ର ଆଙ୍କନ୍ତୁ",
@@ -156,10 +132,8 @@
       "title": "ଏହି ଫିଲ୍ଡ କ'ଣ କରିବା ଉଚିତ?",
       "writeYourself": "ଅଥବା ନିଜେ ପ୍ରମ୍ପ୍ଟ ଲେଖନ୍ତୁ"
     },
-    "dontShowAgain": "ଏହାକୁ ଆଉ ଦେଖାନ୍ତୁ ନାହିଁ",
     "errors": {
       "save": "Smart Field ସଞ୍ଚୟ କରିପାରିଲା ନାହିଁ",
-      "updateWizardSettings": "ୱିଜାର୍ଡ ସେଟିଂସମୂହ ଅଦ୍ୟତନ କରିପାରିଲା ନାହିଁ",
       "writePrompt": "ପ୍ରମ୍ପ୍ଟ ଲେଖି ପାରିଲା ନାହିଁ"
     },
     "fieldTypes": {
@@ -251,6 +225,20 @@
       "chat": "ପାଠ",
       "image": "ପ୍ରତିଛବି",
       "tts": "ଅଡିଓ"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "ବ୍ୟବହାର ନିର୍ଦ୍ଦେଶିକା ବନ୍ଦ କରନ୍ତୁ",
+      "methods": {
+        "batch": {
+          "imageAlt": "Smart Fields ସୃଷ୍ଟି ସହିତ Anki ବ୍ରାଉଜର୍ ପ୍ରସଙ୍ଗ ମେନୁ ହାଇଲାଇଟ୍ ହୋଇଛି",
+          "title": "ଏକ ବ୍ୟାଚ୍ ସୃଷ୍ଟି କରନ୍ତୁ"
+        },
+        "single": {
+          "imageAlt": "Smart Notes ବଟନ୍ ସହିତ Anki ଏଡିଟର୍ ଟୁଲ୍ ବାର୍ ହାଇଲାଇଟ୍ ହୋଇଛି",
+          "title": "ଏକ ଏକକ ନୋଟ୍ ସୃଷ୍ଟି କରନ୍ତୁ"
+        }
+      },
+      "title": "ଆପଣଙ୍କ ନୂଆ Smart Field କିପରି ସୃଷ୍ଟି କରିବେ"
     },
     "loadingAriaLabel": "Smart Fields ଲୋଡ୍ କରୁଛି",
     "newSmartField": "ନୂତନ Smart Field",

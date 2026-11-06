@@ -121,30 +121,6 @@
   "fieldEditor": {
     "alreadySmartField": "Bereits ein Smart Field",
     "collisionHint": "hat bereits ein Smart Field – wählen Sie ein anderes Feld, Deck oder einen anderen Notiztyp",
-    "completion": {
-      "descriptionAfter": "Notizen werden immer dann ausgefüllt, wenn Sie sie generieren.",
-      "descriptionBefore": "An",
-      "methods": {
-        "bulk": {
-          "caption": "Notizen oder Stapel auswählen → Rechtsklick → ✨ Smart Fields generieren.",
-          "imageAlt": "Anki Browser-Kontextmenü mit hervorgehobener Option „Smart Fields generieren“.",
-          "title": "In großen Mengen über den Browser"
-        },
-        "card": {
-          "caption": "Klicken Sie auf die Schaltfläche ✨ in der Editor-Symbolleiste oder geben Sie ⌘⇧G ein.",
-          "imageAlt": "Symbolleiste des Anki-Editors mit hervorgehobener Schaltfläche Smart Notes",
-          "title": "Eine Karte nach der anderen"
-        },
-        "field": {
-          "caption": "Klicken Sie mit der rechten Maustaste auf ein beliebiges Feld → Smart Field generieren.",
-          "imageAlt": "Kontextmenü des Feldes Anki mit hervorgehobener Option „Smart Field generieren“.",
-          "title": "Ein einzelnes Feld"
-        }
-      },
-      "title": "Ihr Smart Field ist live",
-      "waysToGenerate": "Ein paar Möglichkeiten, es zu generieren:"
-    },
-    "created": "Smart Field erstellt",
     "describe": {
       "exampleChat": "Schreibe die {{target}} für {{source}}",
       "exampleImage": "Zeichne ein Bild von {{source}}",
@@ -156,10 +132,8 @@
       "title": "Was soll dieses Feld tun?",
       "writeYourself": "Oder schreiben Sie den Prompt selbst"
     },
-    "dontShowAgain": "Zeigen Sie dies nicht noch einmal",
     "errors": {
       "save": "Smart Field konnte nicht gespeichert werden",
-      "updateWizardSettings": "Die Assistenteneinstellungen konnten nicht aktualisiert werden",
       "writePrompt": "Die Eingabeaufforderung konnte nicht geschrieben werden"
     },
     "fieldTypes": {
@@ -251,6 +225,20 @@
       "chat": "Text",
       "image": "Bild",
       "tts": "Audio"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Anleitung schließen",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki Browser-Kontextmenü mit hervorgehobener Option „Smart Fields generieren“.",
+          "title": "Stapel generieren"
+        },
+        "single": {
+          "imageAlt": "Symbolleiste des Anki-Editors mit hervorgehobener Schaltfläche Smart Notes",
+          "title": "Einzelne Notiz generieren"
+        }
+      },
+      "title": "So generieren Sie Ihr neues Smart Field"
     },
     "loadingAriaLabel": "Smart Fields wird geladen",
     "newSmartField": "Neu Smart Field",

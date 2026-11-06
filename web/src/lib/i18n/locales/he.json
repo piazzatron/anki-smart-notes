@@ -122,30 +122,6 @@
   "fieldEditor": {
     "alreadySmartField": "כבר שדה חכם",
     "collisionHint": "כבר יש שדה חכם - בחר שדה, חפיסה או סוג אחר",
-    "completion": {
-      "descriptionAfter": "הערות מתמלא בכל פעם שאתה יוצר אותו.",
-      "descriptionBefore": "עַל",
-      "methods": {
-        "bulk": {
-          "caption": "בחר הערות או חפיסה → לחץ לחיצה ימנית → ✨ צור Smart Fields.",
-          "imageAlt": "Anki תפריט ההקשר של הדפדפן עם יצירת Smart Fields מודגש",
-          "title": "בכמויות גדולות, מהדפדפן"
-        },
-        "card": {
-          "caption": "לחץ על הלחצן ✨ בסרגל הכלים של העורך או הקלד ⌘⇧G.",
-          "imageAlt": "סרגל הכלים של עורך Anki עם הלחצן Smart Notes מסומן",
-          "title": "כרטיס אחד בכל פעם"
-        },
-        "field": {
-          "caption": "לחץ לחיצה ימנית על שדה כלשהו ← צור שדה חכם.",
-          "imageAlt": "תפריט ההקשר של שדה Anki עם יצירת שדה חכם מודגש",
-          "title": "שדה בודד"
-        }
-      },
-      "title": "השדה החכם שלך פעיל",
-      "waysToGenerate": "כמה דרכים ליצור אותו:"
-    },
-    "created": "שדה חכם נוצר",
     "describe": {
       "exampleChat": "כתוב את {{target}} עבור {{source}}",
       "exampleImage": "צייר תמונה של {{source}}",
@@ -157,10 +133,8 @@
       "title": "מה השדה הזה צריך לעשות?",
       "writeYourself": "או כתבו את ההנחיה בעצמכם"
     },
-    "dontShowAgain": "אל תראה את זה שוב",
     "errors": {
       "save": "לא ניתן לשמור את Smart Field",
-      "updateWizardSettings": "לא ניתן היה לעדכן את הגדרות האשף",
       "writePrompt": "לא ניתן היה לכתוב את ההנחיה"
     },
     "fieldTypes": {
@@ -252,6 +226,20 @@
       "chat": "טֶקסט",
       "image": "תְמוּנָה",
       "tts": "שֶׁמַע"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "סגור מדריך שימוש",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki תפריט ההקשר של הדפדפן עם יצירת Smart Fields מודגש",
+          "title": "יצירת אצווה"
+        },
+        "single": {
+          "imageAlt": "סרגל הכלים של עורך Anki עם הלחצן Smart Notes מסומן",
+          "title": "יצירת פתק בודד"
+        }
+      },
+      "title": "איך ליצור Smart Field חדש"
     },
     "loadingAriaLabel": "טוען Smart Fields",
     "newSmartField": "שדה חכם חדש",

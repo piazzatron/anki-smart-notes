@@ -121,30 +121,6 @@
   "fieldEditor": {
     "alreadySmartField": "Smart Field eremua dagoeneko existitzen da",
     "collisionHint": "dagoeneko Smart Field bat dauka — aukeratu beste eremu, multzo edo ohar mota bat",
-    "completion": {
-      "descriptionAfter": "oharrak sortzen dituzun bakoitzean betetzen dira.",
-      "descriptionBefore": "on",
-      "methods": {
-        "bulk": {
-          "caption": "Hautatu oharrak edo sorta → egin klik eskuineko botoiarekin → ✨ Sortu Smart Fields.",
-          "imageAlt": "Anki Arakatzailearen testuinguru-menua Sortu Smart Fields nabarmenduta",
-          "title": "Mailan, Arakatzailetik"
-        },
-        "card": {
-          "caption": "Egin klik editorearen tresna-barrako ✨ botoian edo idatzi ⌘⇧G.",
-          "imageAlt": "Anki editorearen tresna-barra Smart Notes botoia nabarmenduta",
-          "title": "Txartel bat aldi berean"
-        },
-        "field": {
-          "caption": "Egin klik eskuineko botoiarekin edozein eremu → Sortu Smart Field.",
-          "imageAlt": "Anki eremuko testuinguru-menua Sortu Smart Field nabarmenduta",
-          "title": "Eremu bakarra"
-        }
-      },
-      "title": "Zure Smart Field zuzenean dago",
-      "waysToGenerate": "Sortzeko modu batzuk:"
-    },
-    "created": "Smart Field sortu da",
     "describe": {
       "exampleChat": "Idatzi {{source}}-(r)en {{target}}",
       "exampleImage": "Marraztu {{source}}-(r)en irudi bat",
@@ -156,10 +132,8 @@
       "title": "Zer egin behar du eremu honek?",
       "writeYourself": "Edo idatzi prompta zeuk"
     },
-    "dontShowAgain": "Ez erakutsi hau berriro",
     "errors": {
       "save": "Ezin izan da Smart Field gorde",
-      "updateWizardSettings": "Ezin izan dira morroiaren ezarpenak eguneratu",
       "writePrompt": "Ezin izan da gonbita idatzi"
     },
     "fieldTypes": {
@@ -251,6 +225,20 @@
       "chat": "Testua",
       "image": "Irudia",
       "tts": "Audioa"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Itxi gidaliburua",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki Arakatzailearen testuinguru-menua Sortu Smart Fields nabarmenduta",
+          "title": "Sortu multzo bat"
+        },
+        "single": {
+          "imageAlt": "Anki editorearen tresna-barra Smart Notes botoia nabarmenduta",
+          "title": "Sortu ohar bakar bat"
+        }
+      },
+      "title": "Nola sortu zure Smart Field berria"
     },
     "loadingAriaLabel": "Smart Fields kargatzen",
     "newSmartField": "Smart Field berria",

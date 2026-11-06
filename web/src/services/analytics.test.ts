@@ -39,10 +39,7 @@ const EVENTS: AnalyticsEvent[] = [
     event: "smart_field_saved",
     properties: { field_type: "chat" },
   },
-  {
-    event: "smart_field_completion_shown",
-    properties: { field_type: "tts" },
-  },
+  { event: "clicked_add_smart_field" },
 ]
 
 const TEST_PLAN: PlanInfo = {
@@ -102,7 +99,6 @@ const stateWithAccount = (
     legacyOpenAiKey: null,
     legacyOpenAiModel: "gpt-5-mini",
     legacyOpenAiHost: null,
-    showWizardCompletion: true,
     didDismissReviewPrompt: false,
     didDismissDiscordPrompt: false,
     didSeeFreePlanWelcome: true,
@@ -125,12 +121,9 @@ const setAuthenticatedState = () => {
 }
 
 describe("trackAnalyticsEvent", () => {
-  test.each([
-    ["smart_field_saved", EVENTS[0]],
-    ["smart_field_completion_shown", EVENTS[1]],
-  ])(
-    "posts %s to the authenticated Smart Notes event endpoint",
-    async (_name, event) => {
+  test.each(EVENTS)(
+    "posts $event to the authenticated Smart Notes event endpoint",
+    async (event) => {
       setAuthenticatedState()
       const requests: Array<{ init: RequestInit; url: string }> = []
       global.fetch = mock(async (url: string, init: RequestInit) => {

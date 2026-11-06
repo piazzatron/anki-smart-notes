@@ -120,30 +120,6 @@
   "fieldEditor": {
     "alreadySmartField": "Sudah menjadi Medan Pintar",
     "collisionHint": "sudah mempunyai Smart Field — pilih medan, dek atau jenis nota yang berbeza",
-    "completion": {
-      "descriptionAfter": "nota diisi setiap kali anda menjananya.",
-      "descriptionBefore": "pada",
-      "methods": {
-        "bulk": {
-          "caption": "Pilih nota atau dek → klik kanan → ✨ Jana Smart Fields.",
-          "imageAlt": "Menu konteks Pelayar Anki dengan Generate Smart Fields diserlahkan",
-          "title": "Secara pukal, daripada Pelayar"
-        },
-        "card": {
-          "caption": "Klik butang ✨ dalam bar alat editor atau taip ⌘⇧G.",
-          "imageAlt": "Bar alat editor Anki dengan butang Smart Notes diserlahkan",
-          "title": "Satu kad pada satu masa"
-        },
-        "field": {
-          "caption": "Klik kanan mana-mana medan → Jana Smart Field.",
-          "imageAlt": "Menu konteks medan Anki dengan Generate Smart Field diserlahkan",
-          "title": "Satu bidang"
-        }
-      },
-      "title": "Smart Field anda bersiaran langsung",
-      "waysToGenerate": "Beberapa cara untuk menjananya:"
-    },
-    "created": "Smart Field dicipta",
     "describe": {
       "exampleChat": "Tulis {{target}} untuk {{source}}",
       "exampleImage": "Lukis gambar {{source}}",
@@ -155,10 +131,8 @@
       "title": "Apakah yang sepatutnya dilakukan oleh medan ini?",
       "writeYourself": "Atau tulis gesaan sendiri"
     },
-    "dontShowAgain": "Jangan tunjukkan ini lagi",
     "errors": {
       "save": "Tidak dapat menyimpan Smart Field",
-      "updateWizardSettings": "Tidak dapat mengemas kini tetapan wizard",
       "writePrompt": "Tidak dapat menulis gesaan"
     },
     "fieldTypes": {
@@ -250,6 +224,20 @@
       "chat": "Teks",
       "image": "Imej",
       "tts": "Audio"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Tutup panduan cara guna",
+      "methods": {
+        "batch": {
+          "imageAlt": "Menu konteks Pelayar Anki dengan Generate Smart Fields diserlahkan",
+          "title": "Jana satu kelompok"
+        },
+        "single": {
+          "imageAlt": "Bar alat editor Anki dengan butang Smart Notes diserlahkan",
+          "title": "Jana satu nota tunggal"
+        }
+      },
+      "title": "Cara menjana Smart Field baharu anda"
     },
     "loadingAriaLabel": "Memuatkan Smart Fields",
     "newSmartField": "Smart Field baharu",

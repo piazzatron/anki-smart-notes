@@ -121,30 +121,6 @@
   "fieldEditor": {
     "alreadySmartField": "Reeds 'n Slim-veld",
     "collisionHint": "het reeds 'n Smart Field - kies 'n ander veld, dek of noottipe",
-    "completion": {
-      "descriptionAfter": "notas vul in wanneer jy dit genereer.",
-      "descriptionBefore": "aan",
-      "methods": {
-        "bulk": {
-          "caption": "Kies notas of dek → regskliek → ✨ Genereer Smart Fields.",
-          "imageAlt": "Anki Blaaier konteks kieslys met Genereer Smart Fields uitgelig",
-          "title": "In grootmaat, vanaf die blaaier"
-        },
-        "card": {
-          "caption": "Klik die ✨-knoppie in die redigeernutsbalk of tik ⌘⇧G.",
-          "imageAlt": "Anki redigeerdernutsbalk met die Smart Notes-knoppie uitgelig",
-          "title": "Een kaart op 'n slag"
-        },
-        "field": {
-          "caption": "Regskliek op enige veld → Genereer Smart Field.",
-          "imageAlt": "Anki veld konteks kieslys met Genereer Smart Field uitgelig",
-          "title": "Een veld"
-        }
-      },
-      "title": "Jou Smart Field is regstreeks",
-      "waysToGenerate": "'n Paar maniere om dit te genereer:"
-    },
-    "created": "Smart Field geskep",
     "describe": {
       "exampleChat": "Skryf die {{target}} vir {{source}}",
       "exampleImage": "Teken 'n prent van {{source}}",
@@ -156,10 +132,8 @@
       "title": "Wat moet hierdie veld doen?",
       "writeYourself": "Of skryf die opdrag self"
     },
-    "dontShowAgain": "Moenie dit weer wys nie",
     "errors": {
       "save": "Kon nie Smart Field stoor nie",
-      "updateWizardSettings": "Kon nie towenaarinstellings opdateer nie",
       "writePrompt": "Kon nie die versoek skryf nie"
     },
     "fieldTypes": {
@@ -251,6 +225,20 @@
       "chat": "Teks",
       "image": "Beeld",
       "tts": "Oudio"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Sluit die how-to-gids",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki Blaaier konteks kieslys met Genereer Smart Fields uitgelig",
+          "title": "Genereer 'n bondel"
+        },
+        "single": {
+          "imageAlt": "Anki redigeerdernutsbalk met die Smart Notes-knoppie uitgelig",
+          "title": "Genereer 'n enkele notas"
+        }
+      },
+      "title": "Hoe om jou nuwe Smart Field te genereer"
     },
     "loadingAriaLabel": "Laai tans Smart Fields",
     "newSmartField": "Nuwe Smart Field",

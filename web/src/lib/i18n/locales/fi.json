@@ -121,30 +121,6 @@
   "fieldEditor": {
     "alreadySmartField": "Jo Smart Field",
     "collisionHint": "sinulla on jo Smart Field – valitse eri kenttä-, dekki- tai nuottityyppi",
-    "completion": {
-      "descriptionAfter": "muistiinpanot täyttyvät aina, kun luot sen.",
-      "descriptionBefore": "päällä",
-      "methods": {
-        "bulk": {
-          "caption": "Valitse nuotit tai dekki → napsauta hiiren kakkospainikkeella → ✨ Luo Smart Fields.",
-          "imageAlt": "Anki Selaimen kontekstivalikko, jossa Luo Smart Fields on korostettuna",
-          "title": "Irtotavarana selaimesta"
-        },
-        "card": {
-          "caption": "Napsauta ✨-painiketta editorin työkalupalkissa tai kirjoita ⌘⇧G.",
-          "imageAlt": "Anki-editorin työkalupalkki, jossa Smart Notes-painike on korostettuna",
-          "title": "Kortti kerrallaan"
-        },
-        "field": {
-          "caption": "Napsauta hiiren kakkospainikkeella mitä tahansa kenttää → Luo Smart Field.",
-          "imageAlt": "Anki-kentän kontekstivalikko, jossa Generate Smart Field on korostettuna",
-          "title": "Yksi kenttä"
-        }
-      },
-      "title": "Smart Field on live-tilassa",
-      "waysToGenerate": "Muutama tapa luoda se:"
-    },
-    "created": "Smart Field luotu",
     "describe": {
       "exampleChat": "Kirjoita {{target}} kohteelle {{source}}",
       "exampleImage": "Piirrä kuva kohteesta {{source}}",
@@ -156,10 +132,8 @@
       "title": "Mitä tämän kentän pitäisi tehdä?",
       "writeYourself": "Tai kirjoita kehote itse"
     },
-    "dontShowAgain": "Älä näytä tätä uudelleen",
     "errors": {
       "save": "Smart Field:n tallentaminen epäonnistui",
-      "updateWizardSettings": "Ohjatun toiminnon asetuksia ei voitu päivittää",
       "writePrompt": "Kehotteen kirjoittaminen ei onnistunut"
     },
     "fieldTypes": {
@@ -251,6 +225,20 @@
       "chat": "Teksti",
       "image": "Kuva",
       "tts": "Audio"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Sulje ohjeopas",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki Selaimen kontekstivalikko, jossa Luo Smart Fields on korostettuna",
+          "title": "Luo erä"
+        },
+        "single": {
+          "imageAlt": "Anki-editorin työkalupalkki, jossa Smart Notes-painike on korostettuna",
+          "title": "Luo yksi muistiinpano"
+        }
+      },
+      "title": "Näin luot uuden Smart Fieldin"
     },
     "loadingAriaLabel": "Ladataan Smart Fields",
     "newSmartField": "Uusi Smart Field",

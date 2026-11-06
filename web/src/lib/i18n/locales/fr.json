@@ -122,30 +122,6 @@
   "fieldEditor": {
     "alreadySmartField": "Déjà un Smart Field",
     "collisionHint": "a déjà un Smart Field – choisissez un autre champ, jeu ou type de note",
-    "completion": {
-      "descriptionAfter": "les notes se remplissent chaque fois que vous les générez.",
-      "descriptionBefore": "sur",
-      "methods": {
-        "bulk": {
-          "caption": "Sélectionnez des notes ou un deck → clic droit → ✨ Générer Smart Fields.",
-          "imageAlt": "Menu contextuel du navigateur Anki avec Générer Smart Fields en surbrillance",
-          "title": "En masse, depuis le navigateur"
-        },
-        "card": {
-          "caption": "Cliquez sur le bouton ✨ dans la barre d'outils de l'éditeur ou tapez ⌘⇧G.",
-          "imageAlt": "Barre d'outils de l'éditeur Anki avec le bouton Smart Notes en surbrillance",
-          "title": "Une carte à la fois"
-        },
-        "field": {
-          "caption": "Cliquez avec le bouton droit sur n’importe quel champ → Générer Smart Field.",
-          "imageAlt": "Menu contextuel du champ Anki avec Générer Smart Field en surbrillance",
-          "title": "Un seul champ"
-        }
-      },
-      "title": "Votre Smart Field est en ligne",
-      "waysToGenerate": "Quelques façons de le générer :"
-    },
-    "created": "Smart Field créé",
     "describe": {
       "exampleChat": "Écrivez le {{target}} pour {{source}}",
       "exampleImage": "Dessinez une image de {{source}}",
@@ -157,10 +133,8 @@
       "title": "Que doit faire ce champ ?",
       "writeYourself": "Ou rédigez le prompt vous-même"
     },
-    "dontShowAgain": "Ne montre plus ça",
     "errors": {
       "save": "Impossible d'enregistrer Smart Field",
-      "updateWizardSettings": "Impossible de mettre à jour les paramètres de l'assistant",
       "writePrompt": "Impossible d'écrire l'invite"
     },
     "fieldTypes": {
@@ -252,6 +226,20 @@
       "chat": "Texte",
       "image": "Image",
       "tts": "Audio"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Fermer le guide pratique",
+      "methods": {
+        "batch": {
+          "imageAlt": "Menu contextuel du navigateur Anki avec Générer Smart Fields en surbrillance",
+          "title": "Générer un lot"
+        },
+        "single": {
+          "imageAlt": "Barre d'outils de l'éditeur Anki avec le bouton Smart Notes en surbrillance",
+          "title": "Générer une seule note"
+        }
+      },
+      "title": "Comment générer votre nouveau Smart Field"
     },
     "loadingAriaLabel": "Chargement de Smart Fields",
     "newSmartField": "Nouveau Smart Field",

@@ -123,30 +123,6 @@
   "fieldEditor": {
     "alreadySmartField": "Už je Smart Field",
     "collisionHint": "už má Smart Field — vyberte iné pole, balíček alebo typ noty",
-    "completion": {
-      "descriptionAfter": "poznámky sa vyplnia vždy, keď ich vygenerujete.",
-      "descriptionBefore": "na",
-      "methods": {
-        "bulk": {
-          "caption": "Vyberte noty alebo balíček → kliknite pravým tlačidlom myši → ✨ Generovať Smart Fields.",
-          "imageAlt": "Anki Kontextová ponuka prehliadača so zvýraznenou možnosťou Generovať Smart Fields",
-          "title": "Hromadne z prehliadača"
-        },
-        "card": {
-          "caption": "Kliknite na tlačidlo ✨ na paneli nástrojov editora alebo napíšte ⌘⇧G.",
-          "imageAlt": "Panel nástrojov editora Anki so zvýrazneným tlačidlom Smart Notes",
-          "title": "Jedna karta naraz"
-        },
-        "field": {
-          "caption": "Kliknite pravým tlačidlom myši na ľubovoľné pole → Generovať Smart Field.",
-          "imageAlt": "Kontextová ponuka poľa Anki so zvýraznenou možnosťou Generovať Smart Field",
-          "title": "Jedno pole"
-        }
-      },
-      "title": "Váš Smart Field je aktívny",
-      "waysToGenerate": "Niekoľko spôsobov, ako ho vygenerovať:"
-    },
-    "created": "Smart Field vytvorený",
     "describe": {
       "exampleChat": "Napíšte {{target}} pre {{source}}",
       "exampleImage": "Nakreslite obrázok: {{source}}",
@@ -158,10 +134,8 @@
       "title": "Čo má toto pole robiť?",
       "writeYourself": "Alebo napíšte výzvu sami"
     },
-    "dontShowAgain": "Toto už nezobrazovať",
     "errors": {
       "save": "Smart Field sa nepodarilo uložiť",
-      "updateWizardSettings": "Nepodarilo sa aktualizovať nastavenia sprievodcu",
       "writePrompt": "Nepodarilo sa napísať výzvu"
     },
     "fieldTypes": {
@@ -253,6 +227,20 @@
       "chat": "Text",
       "image": "Obrázok",
       "tts": "Zvuk"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Zavrieť návod",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki Kontextová ponuka prehliadača so zvýraznenou možnosťou Generovať Smart Fields",
+          "title": "Vygenerovať dávku"
+        },
+        "single": {
+          "imageAlt": "Panel nástrojov editora Anki so zvýrazneným tlačidlom Smart Notes",
+          "title": "Vygenerovať jednu poznámku"
+        }
+      },
+      "title": "Ako vygenerovať Smart Field"
     },
     "loadingAriaLabel": "Načítava sa Smart Fields",
     "newSmartField": "Nový Smart Field",

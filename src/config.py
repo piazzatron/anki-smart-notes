@@ -42,7 +42,6 @@ class Config:
     auth_token: Optional[str]
     install_id: Optional[str]
     legacy_support: Optional[bool]
-    show_wizard_completion: bool
     did_dismiss_review_prompt: bool
     did_dismiss_discord_prompt: bool
     did_see_free_plan_welcome: bool

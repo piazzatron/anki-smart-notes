@@ -122,30 +122,6 @@
   "fieldEditor": {
     "alreadySmartField": "Već je Smart Field",
     "collisionHint": "već ima Smart Field — odaberite drugo polje, špil ili vrstu bilješke",
-    "completion": {
-      "descriptionAfter": "bilješke se popunjavaju kad god ih generirate.",
-      "descriptionBefore": "na",
-      "methods": {
-        "bulk": {
-          "caption": "Odaberite note ili špil → desni klik → ✨ Generiraj Smart Fields.",
-          "imageAlt": "Anki Kontekstni izbornik preglednika s istaknutim Generate Smart Fields",
-          "title": "Skupno, iz preglednika"
-        },
-        "card": {
-          "caption": "Kliknite gumb ✨ na alatnoj traci uređivača ili upišite ⌘⇧G.",
-          "imageAlt": "Alatna traka uređivača Anki s istaknutim gumbom Smart Notes",
-          "title": "Jedna po jedna karta"
-        },
-        "field": {
-          "caption": "Desnom tipkom miša kliknite bilo koje polje → Generiraj Smart Field.",
-          "imageAlt": "Kontekstni izbornik polja Anki s istaknutim Generate Smart Field",
-          "title": "Jedno polje"
-        }
-      },
-      "title": "Vaš Smart Field je uživo",
-      "waysToGenerate": "Nekoliko načina za generiranje:"
-    },
-    "created": "Smart Field stvoreno",
     "describe": {
       "exampleChat": "Napiši {{target}} za {{source}}",
       "exampleImage": "Nacrtaj ilustraciju: {{source}}",
@@ -157,10 +133,8 @@
       "title": "Što bi ovo polje trebalo raditi?",
       "writeYourself": "Ili sam napiši upit"
     },
-    "dontShowAgain": "Ne prikazuj ovo više",
     "errors": {
       "save": "Nije moguće spremiti Smart Field",
-      "updateWizardSettings": "Nije moguće ažurirati postavke čarobnjaka",
       "writePrompt": "Nije moguće napisati upit"
     },
     "fieldTypes": {
@@ -252,6 +226,20 @@
       "chat": "Tekst",
       "image": "Slika",
       "tts": "Audio"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Odbaci upute",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki Kontekstni izbornik preglednika s istaknutim Generate Smart Fields",
+          "title": "Generiraj seriju"
+        },
+        "single": {
+          "imageAlt": "Alatna traka uređivača Anki s istaknutim gumbom Smart Notes",
+          "title": "Generiraj jednu bilješku"
+        }
+      },
+      "title": "Kako generirati svoj Smart Field"
     },
     "loadingAriaLabel": "Učitavanje Smart Fields",
     "newSmartField": "Novi Smart Field",

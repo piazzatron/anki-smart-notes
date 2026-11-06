@@ -33,10 +33,6 @@ export type AnalyticsEvent =
       event: "smart_field_saved"
       properties: { field_type: SmartField["fieldType"] }
     }
-  | {
-      event: "smart_field_completion_shown"
-      properties: { field_type: SmartField["fieldType"] }
-    }
 
 export const trackAnalyticsEvent = async (
   event: AnalyticsEvent,

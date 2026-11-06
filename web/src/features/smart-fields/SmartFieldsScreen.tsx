@@ -5,6 +5,7 @@ import { selectBannerPrompt } from "./bannerPrompt"
 import { DeckGroup } from "./components/DeckGroup"
 import { DiscordPrompt } from "./components/DiscordPrompt"
 import { FieldsEmptyState } from "./components/FieldsEmptyState"
+import { FirstFieldGuide } from "./components/FirstFieldGuide"
 import { FieldsSkeleton } from "./components/FieldsSkeleton"
 import { ReviewPrompt } from "./components/ReviewPrompt"
 import { groupSmartFields } from "./groupSmartFields"
@@ -24,6 +25,7 @@ import {
   saveSettings,
   setSmartFieldEnabled,
 } from "@/services/commands"
+import { useAppStore } from "@/store/appStore"
 import type { AppState, SmartField } from "@/types/api"
 
 export interface SmartFieldsScreenProps {
@@ -43,6 +45,9 @@ export const SmartFieldsScreen = ({
   const [initialEditorDismissed, setInitialEditorDismissed] = useState(false)
   const [reviewPromptHidden, setReviewPromptHidden] = useState(false)
   const [discordPromptHidden, setDiscordPromptHidden] = useState(false)
+  const showFirstFieldGuide = useAppStore(
+    (store) => store.firstFieldGuide !== null,
+  )
   const groups = useMemo(
     () => (state === null ? [] : groupSmartFields(state)),
     [state],
@@ -151,6 +156,13 @@ export const SmartFieldsScreen = ({
                 onToggleEnabled={toggleEnabled}
               />
             ))}
+            {showFirstFieldGuide && (
+              <FirstFieldGuide
+                onDismiss={() =>
+                  useAppStore.setState({ firstFieldGuide: null })
+                }
+              />
+            )}
           </div>
         )}
       </PageLayout>

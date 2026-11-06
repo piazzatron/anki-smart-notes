@@ -121,30 +121,6 @@
   "fieldEditor": {
     "alreadySmartField": "Allerede et Smart Field",
     "collisionHint": "har allerede en Smart Field — vælg et andet felt, kortspil eller nodetype",
-    "completion": {
-      "descriptionAfter": "noter udfyldes, når du genererer det.",
-      "descriptionBefore": "på",
-      "methods": {
-        "bulk": {
-          "caption": "Vælg noter eller dæk → højreklik → ✨ Generer Smart Fields.",
-          "imageAlt": "Anki Browser-kontekstmenu med Generer Smart Fields fremhævet",
-          "title": "I bulk, fra browseren"
-        },
-        "card": {
-          "caption": "Klik på knappen ✨ i redigeringsværktøjslinjen, eller skriv ⌘⇧G.",
-          "imageAlt": "Anki editor værktøjslinje med Smart Notes knappen fremhævet",
-          "title": "Et kort ad gangen"
-        },
-        "field": {
-          "caption": "Højreklik på et hvilket som helst felt → Generer Smart Field.",
-          "imageAlt": "Anki feltkontekstmenu med Generer Smart Field fremhævet",
-          "title": "Et enkelt felt"
-        }
-      },
-      "title": "Din Smart Field er live",
-      "waysToGenerate": "Et par måder at generere det på:"
-    },
-    "created": "Smart Field oprettet",
     "describe": {
       "exampleChat": "Skriv {{target}} for {{source}}",
       "exampleImage": "Tegn et billede af {{source}}",
@@ -156,10 +132,8 @@
       "title": "Hvad skal dette felt gøre?",
       "writeYourself": "Eller skriv prompten selv"
     },
-    "dontShowAgain": "Vis ikke dette igen",
     "errors": {
       "save": "Kunne ikke gemme Smart Field",
-      "updateWizardSettings": "Kunne ikke opdatere guidens indstillinger",
       "writePrompt": "Kunne ikke skrive prompten"
     },
     "fieldTypes": {
@@ -251,6 +225,20 @@
       "chat": "Tekst",
       "image": "Billede",
       "tts": "Lyd"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Skjul vejledningen",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki Browser-kontekstmenu med Generer Smart Fields fremhævet",
+          "title": "Generer en batch"
+        },
+        "single": {
+          "imageAlt": "Anki editor værktøjslinje med Smart Notes knappen fremhævet",
+          "title": "Generer en enkelt note"
+        }
+      },
+      "title": "Sådan genererer du dit nye Smart Field"
     },
     "loadingAriaLabel": "Indlæser Smart Fields",
     "newSmartField": "Ny Smart Field",

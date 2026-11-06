@@ -22,6 +22,7 @@ import { useTranslation } from "react-i18next"
 
 import { selectReviewBanner } from "../bannerPrompt"
 
+import { IconButton } from "@/components/ui/IconButton"
 import { GiftIcon } from "@/components/shared/Icons"
 import { useReviewOffer } from "@/features/review-offer/ReviewOffer"
 import { ANKIWEB_REVIEW_URL } from "@/lib/helpChannels"
@@ -137,14 +138,13 @@ const ReviewBanner = ({
             : "smartFields.review.button",
         )}
       </Action>
-      <button
+      <IconButton
         aria-label={t("smartFields.review.dismissAriaLabel")}
-        className="relative z-20 inline-flex size-6 shrink-0 items-center justify-center rounded-md text-white/60 transition hover:bg-white/10 hover:text-white"
         onClick={onComplete}
-        type="button"
+        tone="banner"
       >
         <X aria-hidden className="size-3.5" />
-      </button>
+      </IconButton>
     </div>
   )
 }

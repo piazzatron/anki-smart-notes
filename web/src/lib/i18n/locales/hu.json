@@ -121,30 +121,6 @@
   "fieldEditor": {
     "alreadySmartField": "Már Smart Field",
     "collisionHint": "már rendelkezik Smart Field-val – válasszon másik mezőt, paklit vagy hangjegytípust",
-    "completion": {
-      "descriptionAfter": "A jegyzetek mindig kitöltődnek, amikor létrehozza.",
-      "descriptionBefore": "-on",
-      "methods": {
-        "bulk": {
-          "caption": "Válassza ki a hangjegyeket vagy a paklit → kattintson a jobb gombbal → ✨ Smart Fields generálása.",
-          "imageAlt": "Anki Böngésző helyi menüje az Smart Fields létrehozása kiemelve",
-          "title": "Tömegesen, a böngészőből"
-        },
-        "card": {
-          "caption": "Kattintson a ✨ gombra a szerkesztő eszköztárában, vagy írja be a ⌘⇧G parancsot.",
-          "imageAlt": "Anki szerkesztő eszköztár az Smart Notes gombbal",
-          "title": "Egyszerre egy kártya"
-        },
-        "field": {
-          "caption": "Kattintson a jobb gombbal bármelyik mezőre → Smart Field létrehozása.",
-          "imageAlt": "Anki mező helyi menüje az Smart Field létrehozása kiemelve",
-          "title": "Egyetlen mező"
-        }
-      },
-      "title": "Smart Field élő adásban van",
-      "waysToGenerate": "Néhány módszer a létrehozására:"
-    },
-    "created": "Smart Field létrehozva",
     "describe": {
       "exampleChat": "Írd meg a(z) {{source}} {{target}}ját",
       "exampleImage": "Rajzolj képet erről: {{source}}",
@@ -156,10 +132,8 @@
       "title": "Mit tegyen ez a mező?",
       "writeYourself": "Vagy írd meg magad a promptot"
     },
-    "dontShowAgain": "Ne jelenítse meg ezt újra",
     "errors": {
       "save": "Nem sikerült menteni az Smart Field fájlt",
-      "updateWizardSettings": "Nem sikerült frissíteni a varázsló beállításait",
       "writePrompt": "Nem sikerült megírni a felszólítást"
     },
     "fieldTypes": {
@@ -251,6 +225,20 @@
       "chat": "Szöveg",
       "image": "Kép",
       "tts": "Hang"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Útmutató bezárása",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki Böngésző helyi menüje az Smart Fields létrehozása kiemelve",
+          "title": "Köteg generálása"
+        },
+        "single": {
+          "imageAlt": "Anki szerkesztő eszköztár az Smart Notes gombbal",
+          "title": "Egyetlen jegyzet generálása"
+        }
+      },
+      "title": "Az új Smart Field generálásának módja"
     },
     "loadingAriaLabel": "Smart Fields betöltése",
     "newSmartField": "Új Smart Field",

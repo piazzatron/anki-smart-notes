@@ -1,6 +1,7 @@
 import { Plus } from "lucide-react"
 import { useTranslation } from "react-i18next"
 
+import { IconButton } from "@/components/ui/IconButton"
 import { Pill } from "@/components/ui/Pill"
 
 import { SmartFieldRow } from "./SmartFieldRow"
@@ -43,15 +44,15 @@ export const NoteTypeCard = ({
         <Pill className="ms-2.5" tone={isDeckOverride ? "sky" : "indigo"}>
           {deckName}
         </Pill>
-        <button
+        <IconButton
           aria-label={t("smartFields.addToNoteType", {
             noteType: group.noteType.name,
           })}
-          className="ms-1.5 inline-flex size-6 items-center justify-center rounded-md text-zinc-500 transition hover:bg-white/[0.05] hover:text-zinc-300"
+          className="ms-1.5"
           onClick={() => onCreate(group.noteType.id)}
         >
           <Plus aria-hidden className="size-3.5" />
-        </button>
+        </IconButton>
       </header>
 
       {/* Rows run edge to edge so a hovered row highlights like a table row; the card

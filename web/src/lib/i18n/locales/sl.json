@@ -123,30 +123,6 @@
   "fieldEditor": {
     "alreadySmartField": "Že Smart Field",
     "collisionHint": "že ima Smart Field — izberite drugo polje, sklop ali vrsto zapiska",
-    "completion": {
-      "descriptionAfter": "notes se izpolni vsakič, ko ga ustvarite.",
-      "descriptionBefore": "na",
-      "methods": {
-        "bulk": {
-          "caption": "Izberite zapiske ali sklop → desni klik → ✨ Ustvari Smart Fields.",
-          "imageAlt": "Anki Kontekstni meni brskalnika z označenim Generate Smart Fields",
-          "title": "V velikem obsegu, iz brskalnika"
-        },
-        "card": {
-          "caption": "Kliknite gumb ✨ v orodni vrstici urejevalnika ali vnesite ⌘⇧G.",
-          "imageAlt": "Orodna vrstica urejevalnika Anki z označenim gumbom Smart Notes",
-          "title": "Ena karta naenkrat"
-        },
-        "field": {
-          "caption": "Z desno miškino tipko kliknite poljubno polje → Ustvari Smart Field.",
-          "imageAlt": "Kontekstni meni polja Anki z označenim Generate Smart Field",
-          "title": "Eno polje"
-        }
-      },
-      "title": "Vaš Smart Field je v živo",
-      "waysToGenerate": "Nekaj ​​načinov za ustvarjanje:"
-    },
-    "created": "Smart Field ustvarjen",
     "describe": {
       "exampleChat": "Napišite {{target}} za {{source}}",
       "exampleImage": "Narišite sliko: {{source}}",
@@ -158,10 +134,8 @@
       "title": "Kaj naj to polje počne?",
       "writeYourself": "Ali napišite poziv sami"
     },
-    "dontShowAgain": "Ne pokaži več tega",
     "errors": {
       "save": "Smart Field ni bilo mogoče shraniti",
-      "updateWizardSettings": "Ni bilo mogoče posodobiti nastavitev čarovnika",
       "writePrompt": "Ni bilo mogoče napisati poziva"
     },
     "fieldTypes": {
@@ -253,6 +227,20 @@
       "chat": "Besedilo",
       "image": "Slika",
       "tts": "Avdio"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Zapri vodnik",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki Kontekstni meni brskalnika z označenim Generate Smart Fields",
+          "title": "Ustvari paket"
+        },
+        "single": {
+          "imageAlt": "Orodna vrstica urejevalnika Anki z označenim gumbom Smart Notes",
+          "title": "Ustvari eno beležko"
+        }
+      },
+      "title": "Kako ustvariti novo polje Smart Fields"
     },
     "loadingAriaLabel": "Nalaganje Smart Fields",
     "newSmartField": "Novi Smart Field",

@@ -121,30 +121,6 @@
   "fieldEditor": {
     "alreadySmartField": "Zaten bir Smart Field",
     "collisionHint": "zaten bir Smart Field'iniz var — farklı bir alan, deste veya not türü seçin",
-    "completion": {
-      "descriptionAfter": "notlar onu oluşturduğunuzda doldurulur.",
-      "descriptionBefore": "Açık",
-      "methods": {
-        "bulk": {
-          "caption": "Notaları veya desteyi seçin → sağ tıklayın → ✨ Smart Fields oluşturun.",
-          "imageAlt": "Smart Fields Oluştur vurgulanmış Anki Tarayıcı içerik menüsü",
-          "title": "Tarayıcıdan toplu olarak"
-        },
-        "card": {
-          "caption": "Düzenleyici araç çubuğundaki ✨ düğmesine tıklayın veya ⌘⇧G yazın.",
-          "imageAlt": "Smart Notes düğmesinin vurgulandığı Anki düzenleyici araç çubuğu",
-          "title": "Bir seferde bir kart"
-        },
-        "field": {
-          "caption": "Herhangi bir alana sağ tıklayın → Smart Field Oluştur.",
-          "imageAlt": "Smart Field Oluştur vurgulanmış Anki alan içerik menüsü",
-          "title": "Tek bir alan"
-        }
-      },
-      "title": "Smart Field'iniz yayında",
-      "waysToGenerate": "Bunu oluşturmanın birkaç yolu:"
-    },
-    "created": "Smart Field oluşturuldu",
     "describe": {
       "exampleChat": "{{source}} için {{target}} yaz",
       "exampleImage": "{{source}} resmini çiz",
@@ -156,10 +132,8 @@
       "title": "Bu alan ne yapmalı?",
       "writeYourself": "Ya da istemi kendiniz yazın"
     },
-    "dontShowAgain": "Bunu bir daha gösterme",
     "errors": {
       "save": "Smart Field kaydedilemedi",
-      "updateWizardSettings": "Sihirbaz ayarları güncellenemedi",
       "writePrompt": "İstemi yazılamadı"
     },
     "fieldTypes": {
@@ -251,6 +225,20 @@
       "chat": "Metin",
       "image": "Resim",
       "tts": "Ses"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Kılavuzu kapat",
+      "methods": {
+        "batch": {
+          "imageAlt": "Smart Fields Oluştur vurgulanmış Anki Tarayıcı içerik menüsü",
+          "title": "Toplu oluştur"
+        },
+        "single": {
+          "imageAlt": "Smart Notes düğmesinin vurgulandığı Anki düzenleyici araç çubuğu",
+          "title": "Tek bir not oluştur"
+        }
+      },
+      "title": "Yeni Smart Field'ınızı nasıl oluşturacağınız"
     },
     "loadingAriaLabel": "Smart Fields yükleniyor",
     "newSmartField": "Yeni Smart Field",

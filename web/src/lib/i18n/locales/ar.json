@@ -125,30 +125,6 @@
   "fieldEditor": {
     "alreadySmartField": "هذا الحقل ذكي بالفعل",
     "collisionHint": "يحتوي بالفعل على حقل ذكي - اختر حقلاً أو مجموعة أو نوع ملاحظة مختلفًا",
-    "completion": {
-      "descriptionAfter": "يتم ملء الملاحظات كلما قمت بإنشائها.",
-      "descriptionBefore": "على",
-      "methods": {
-        "bulk": {
-          "caption": "حدد الملاحظات أو المجموعة → انقر بزر الماوس الأيمن → ✨ قم بإنشاء Smart Fields.",
-          "imageAlt": "قائمة سياق المتصفح Anki مع تمييز إنشاء Smart Fields",
-          "title": "بكميات كبيرة، من المتصفح"
-        },
-        "card": {
-          "caption": "انقر فوق الزر ✨ في شريط أدوات المحرر أو اكتب ⌘⇧G.",
-          "imageAlt": "شريط أدوات محرر Anki مع تمييز الزر Smart Notes",
-          "title": "بطاقة واحدة في كل مرة"
-        },
-        "field": {
-          "caption": "انقر بزر الماوس الأيمن على أي حقل → إنشاء حقل ذكي.",
-          "imageAlt": "قائمة سياق الحقل Anki مع تمييز \"إنشاء حقل ذكي\".",
-          "title": "حقل واحد"
-        }
-      },
-      "title": "حقلك الذكي مباشر",
-      "waysToGenerate": "عدة طرق لإنشائها:"
-    },
-    "created": "تم إنشاء الحقل الذكي",
     "describe": {
       "exampleChat": "اكتب {{target}} لـ {{source}}",
       "exampleImage": "ارسم صورة لـ {{source}}",
@@ -160,10 +136,8 @@
       "title": "ماذا يجب أن يفعل هذا الحقل؟",
       "writeYourself": "أو اكتب الموجّه بنفسك"
     },
-    "dontShowAgain": "لا تظهر هذا مرة أخرى",
     "errors": {
       "save": "لا يمكن حفظ الحقل الذكي",
-      "updateWizardSettings": "لا يمكن تحديث إعدادات المعالج",
       "writePrompt": "لا يمكن كتابة المطالبة"
     },
     "fieldTypes": {
@@ -255,6 +229,20 @@
       "chat": "نص",
       "image": "صورة",
       "tts": "صوتي"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "إغلاق دليل الإرشادات",
+      "methods": {
+        "batch": {
+          "imageAlt": "قائمة سياق المتصفح Anki مع تمييز إنشاء Smart Fields",
+          "title": "إنشاء دفعة"
+        },
+        "single": {
+          "imageAlt": "شريط أدوات محرر Anki مع تمييز الزر Smart Notes",
+          "title": "إنشاء ملاحظة واحدة"
+        }
+      },
+      "title": "كيفية إنشاء Smart Field الجديد"
     },
     "loadingAriaLabel": "جاري تحميل Smart Fields",
     "newSmartField": "المجال الذكي الجديد",

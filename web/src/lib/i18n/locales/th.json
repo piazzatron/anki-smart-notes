@@ -120,30 +120,6 @@
   "fieldEditor": {
     "alreadySmartField": "เป็น Smart Field อยู่แล้ว",
     "collisionHint": "มี Smart Field อยู่แล้ว — เลือกฟิลด์ สำรับ หรือประเภทโน้ตอื่น",
-    "completion": {
-      "descriptionAfter": "บันทึกย่อจะเติมทุกครั้งที่คุณสร้างมันขึ้นมา",
-      "descriptionBefore": "บน",
-      "methods": {
-        "bulk": {
-          "caption": "เลือกโน้ตหรือเด็ค → คลิกขวา → ✨ สร้าง Smart Fields",
-          "imageAlt": "เมนูบริบทของเบราว์เซอร์ Anki ที่ไฮไลต์สร้าง Smart Fields",
-          "title": "เป็นกลุ่มจากเบราว์เซอร์"
-        },
-        "card": {
-          "caption": "คลิกปุ่ม ✨ ในแถบเครื่องมือแก้ไขหรือพิมพ์ ⌘⇧G",
-          "imageAlt": "แถบเครื่องมือตัวแก้ไข Anki ที่ไฮไลต์ปุ่ม Smart Notes",
-          "title": "ครั้งละหนึ่งบัตร"
-        },
-        "field": {
-          "caption": "คลิกขวาที่ช่องใดก็ได้ → สร้าง Smart Field",
-          "imageAlt": "เมนูบริบทของช่อง Anki ที่ไฮไลต์สร้าง Smart Field",
-          "title": "สนามเดียว"
-        }
-      },
-      "title": "Smart Field ของคุณเผยแพร่แล้ว",
-      "waysToGenerate": "สองสามวิธีในการสร้างมัน:"
-    },
-    "created": "สร้าง Smart Field แล้ว",
     "describe": {
       "exampleChat": "เขียน {{target}} สำหรับ {{source}}",
       "exampleImage": "วาดภาพของ {{source}}",
@@ -155,10 +131,8 @@
       "title": "ฟิลด์นี้ควรทำอะไร",
       "writeYourself": "หรือเขียนพรอมต์เอง"
     },
-    "dontShowAgain": "อย่าแสดงสิ่งนี้อีก",
     "errors": {
       "save": "ไม่สามารถบันทึก Smart Field ได้",
-      "updateWizardSettings": "ไม่สามารถอัปเดตการตั้งค่าวิซาร์ดได้",
       "writePrompt": "ไม่สามารถเขียนข้อความแจ้งได้"
     },
     "fieldTypes": {
@@ -250,6 +224,20 @@
       "chat": "ข้อความ",
       "image": "ภาพ",
       "tts": "เสียง"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "ปิดคู่มือการใช้งาน",
+      "methods": {
+        "batch": {
+          "imageAlt": "เมนูบริบทของเบราว์เซอร์ Anki ที่ไฮไลต์สร้าง Smart Fields",
+          "title": "สร้างเป็นชุด"
+        },
+        "single": {
+          "imageAlt": "แถบเครื่องมือตัวแก้ไข Anki ที่ไฮไลต์ปุ่ม Smart Notes",
+          "title": "สร้างโน้ตเดียว"
+        }
+      },
+      "title": "วิธีสร้าง Smart Field ใหม่ของคุณ"
     },
     "loadingAriaLabel": "กำลังโหลด Smart Fields",
     "newSmartField": "ใหม่ Smart Field",

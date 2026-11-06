@@ -121,30 +121,6 @@
   "fieldEditor": {
     "alreadySmartField": "Is al een Smart Field",
     "collisionHint": "heeft al een Smart Field — kies een ander veld, deck of notentype",
-    "completion": {
-      "descriptionAfter": "notities worden ingevuld wanneer u deze genereert.",
-      "descriptionBefore": "op",
-      "methods": {
-        "bulk": {
-          "caption": "Selecteer noten of kaartspel → klik met de rechtermuisknop → ✨ Genereer Smart Fields.",
-          "imageAlt": "Anki Browsercontextmenu met Smart Fields genereren gemarkeerd",
-          "title": "In bulk, vanuit de browser"
-        },
-        "card": {
-          "caption": "Klik op de knop ✨ in de editorwerkbalk of typ ⌘⇧G.",
-          "imageAlt": "Anki-editorwerkbalk met de knop Smart Notes gemarkeerd",
-          "title": "Eén kaart tegelijk"
-        },
-        "field": {
-          "caption": "Klik met de rechtermuisknop op een willekeurig veld → Genereer Smart Field.",
-          "imageAlt": "Contextmenu van veld Anki met Genereer Smart Field gemarkeerd",
-          "title": "Eén enkel veld"
-        }
-      },
-      "title": "Je Smart Field is live",
-      "waysToGenerate": "Een paar manieren om het te genereren:"
-    },
-    "created": "Smart Field gemaakt",
     "describe": {
       "exampleChat": "Schrijf de {{target}} voor {{source}}",
       "exampleImage": "Teken een afbeelding van {{source}}",
@@ -156,10 +132,8 @@
       "title": "Wat moet dit veld doen?",
       "writeYourself": "Of schrijf de prompt zelf"
     },
-    "dontShowAgain": "Laat dit niet nog een keer zien",
     "errors": {
       "save": "Kan Smart Field niet opslaan",
-      "updateWizardSettings": "Kan de wizardinstellingen niet bijwerken",
       "writePrompt": "Kan de prompt niet schrijven"
     },
     "fieldTypes": {
@@ -251,6 +225,20 @@
       "chat": "Tekst",
       "image": "Afbeelding",
       "tts": "Audio"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Handleiding sluiten",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki Browsercontextmenu met Smart Fields genereren gemarkeerd",
+          "title": "Een batch genereren"
+        },
+        "single": {
+          "imageAlt": "Anki-editorwerkbalk met de knop Smart Notes gemarkeerd",
+          "title": "Eén notitie genereren"
+        }
+      },
+      "title": "Zo genereer je je nieuwe Smart Field"
     },
     "loadingAriaLabel": "Smart Fields laden",
     "newSmartField": "Nieuw Smart Field",

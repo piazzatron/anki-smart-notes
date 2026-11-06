@@ -27,6 +27,7 @@ const FIXTURES = [
   { id: "signed-out", label: "Signed out" },
   { id: "loading", label: "Loading" },
   { id: "empty", label: "Empty" },
+  { id: "first-field", label: "First Smart Field" },
   { id: "reconnecting", label: "Offline" },
   { id: "server-unreachable", label: "Can't reach server" },
 ]
@@ -45,7 +46,7 @@ interface MockPanelProps {
 const MockPanel = ({ onOpenEditor }: MockPanelProps) => {
   const [activeFixture, setActiveFixture] = useState(bootOptions.fixture)
   const [activeSelection, setActiveSelection] = useState(bootOptions.selection)
-  const [editorStep, setEditorStep] = useState<1 | 2 | 3>(
+  const [editorStep, setEditorStep] = useState<1 | 2>(
     bootOptions.editorStep ?? 1,
   )
 
@@ -105,13 +106,12 @@ const MockPanel = ({ onOpenEditor }: MockPanelProps) => {
             <select
               className="rounded border border-white/[0.08] bg-panel px-1 py-0.5 text-zinc-300 outline-none focus:border-indigo/50"
               onChange={(event) =>
-                setEditorStep(Number(event.target.value) as 1 | 2 | 3)
+                setEditorStep(Number(event.target.value) as 1 | 2)
               }
               value={editorStep}
             >
               <option value={1}>1</option>
               <option value={2}>2</option>
-              <option value={3}>3</option>
             </select>
           </label>
         </div>

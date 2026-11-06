@@ -120,30 +120,6 @@
   "fieldEditor": {
     "alreadySmartField": "已是 Smart Field",
     "collisionHint": "已經有 Smart Field — 選擇不同的欄位、牌組或音符類型",
-    "completion": {
-      "descriptionAfter": "每當您生成它時，註釋就會被填充。",
-      "descriptionBefore": "在",
-      "methods": {
-        "bulk": {
-          "caption": "選擇筆記或甲板→右鍵→✨產生Smart Fields。",
-          "imageAlt": "Anki 瀏覽器上下文選單，反白顯示“產生 Smart Fields”",
-          "title": "批量從瀏覽器"
-        },
-        "card": {
-          "caption": "點選編輯器工具列中的 ✨ 按鈕或輸入 ⌘⇧G。",
-          "imageAlt": "Anki 編輯器工具列，反白 Smart Notes 按鈕",
-          "title": "一次一張卡"
-        },
-        "field": {
-          "caption": "右鍵點選任意欄位 → 產生 Smart Field。",
-          "imageAlt": "Anki 欄位上下文選單，反白顯示“產生 Smart Field”",
-          "title": "單一字段"
-        }
-      },
-      "title": "您的 Smart Field 已上線",
-      "waysToGenerate": "產生它的幾種方法："
-    },
-    "created": "Smart Field 創建",
     "describe": {
       "exampleChat": "為 {{source}} 撰寫{{target}}",
       "exampleImage": "繪製 {{source}} 的圖片",
@@ -155,10 +131,8 @@
       "title": "這個欄位要做什麼？",
       "writeYourself": "或自行撰寫提示詞"
     },
-    "dontShowAgain": "不要再顯示此內容",
     "errors": {
       "save": "無法儲存 Smart Field",
-      "updateWizardSettings": "無法更新嚮導設定",
       "writePrompt": "無法寫入提示"
     },
     "fieldTypes": {
@@ -250,6 +224,20 @@
       "chat": "文字",
       "image": "影像",
       "tts": "聲音的"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "關閉操作說明",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki 瀏覽器上下文選單，反白顯示“產生 Smart Fields”",
+          "title": "批次產生"
+        },
+        "single": {
+          "imageAlt": "Anki 編輯器工具列，反白 Smart Notes 按鈕",
+          "title": "產生單一筆記"
+        }
+      },
+      "title": "如何產生你的新 Smart Field"
     },
     "loadingAriaLabel": "正在加載Smart Fields",
     "newSmartField": "新Smart Field",

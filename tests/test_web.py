@@ -79,7 +79,6 @@ SETTINGS_DTO: dto.SettingsDto = {
     "legacyOpenAiKey": None,
     "legacyOpenAiModel": "gpt-5",
     "legacyOpenAiHost": None,
-    "showWizardCompletion": True,
     "didDismissReviewPrompt": False,
     "didDismissDiscordPrompt": False,
     "didSeeFreePlanWelcome": False,
@@ -406,7 +405,6 @@ def test_build_settings_reads_config(monkeypatch):
         openai_api_key="sk-test",
         legacy_openai_model="gpt-5-mini",
         openai_endpoint="https://example.com",
-        show_wizard_completion=False,
         did_dismiss_review_prompt=True,
         did_dismiss_discord_prompt=True,
         did_see_free_plan_welcome=True,
@@ -424,7 +422,6 @@ def test_build_settings_reads_config(monkeypatch):
         "legacyOpenAiKey": "sk-test",
         "legacyOpenAiModel": "gpt-5-mini",
         "legacyOpenAiHost": "https://example.com",
-        "showWizardCompletion": False,
         "didDismissReviewPrompt": True,
         "didDismissDiscordPrompt": True,
         "didSeeFreePlanWelcome": True,
@@ -666,7 +663,6 @@ def test_parse_settings_round_trips():
     assert parsed.legacy_openai_key is None
     assert parsed.legacy_openai_model == "gpt-5"
     assert parsed.legacy_openai_host is None
-    assert parsed.show_wizard_completion is True
     assert parsed.did_dismiss_review_prompt is False
     assert parsed.did_dismiss_discord_prompt is False
     assert parsed.did_see_free_plan_welcome is False
@@ -750,7 +746,6 @@ def test_settings_survive_build_parse_round_trip(monkeypatch):
         openai_api_key="sk-test",
         legacy_openai_model="gpt-5-mini",
         openai_endpoint="https://example.com",
-        show_wizard_completion=False,
         did_dismiss_review_prompt=True,
         did_dismiss_discord_prompt=False,
         did_see_free_plan_welcome=True,
@@ -769,7 +764,6 @@ def test_settings_survive_build_parse_round_trip(monkeypatch):
         legacy_openai_key="sk-test",
         legacy_openai_model="gpt-5-mini",
         legacy_openai_host="https://example.com",
-        show_wizard_completion=False,
         did_dismiss_review_prompt=True,
         did_dismiss_discord_prompt=False,
         did_see_free_plan_welcome=True,
@@ -795,7 +789,6 @@ def test_save_settings_persists_every_field_and_republishes(monkeypatch):
     assert config.openai_api_key is None
     assert config.legacy_openai_model == "gpt-5"
     assert config.openai_endpoint is None
-    assert config.show_wizard_completion is True
     assert config.did_dismiss_review_prompt is False
     assert config.did_dismiss_discord_prompt is False
     assert config.did_see_free_plan_welcome is False

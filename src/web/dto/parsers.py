@@ -155,7 +155,6 @@ def parse_settings(payload: dict[str, Any]) -> Settings:
         legacy_openai_key=raw["legacyOpenAiKey"],
         legacy_openai_model=raw["legacyOpenAiModel"],
         legacy_openai_host=raw["legacyOpenAiHost"],
-        show_wizard_completion=raw["showWizardCompletion"],
         did_dismiss_review_prompt=raw["didDismissReviewPrompt"],
         did_dismiss_discord_prompt=raw["didDismissDiscordPrompt"],
         did_see_free_plan_welcome=raw["didSeeFreePlanWelcome"],

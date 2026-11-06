@@ -184,7 +184,6 @@ const BASE_STATE: AppState = {
     legacyOpenAiKey: null,
     legacyOpenAiModel: "gpt-5-mini",
     legacyOpenAiHost: null,
-    showWizardCompletion: true,
     didDismissReviewPrompt: false,
     didDismissDiscordPrompt: false,
     didSeeFreePlanWelcome: true,
@@ -590,6 +589,10 @@ export const setMockFixture = (fixture: string): void => {
   if (fixture === "empty" || fixture === "signed-out-empty") {
     state.smartFields = []
   }
+  // Just after the user saved their first Smart Field.
+  if (fixture === "first-field") {
+    state.smartFields = state.smartFields.slice(0, 1)
+  }
   if (fixture in MOCK_ACCOUNT_FIXTURES) {
     state.account = structuredClone(MOCK_ACCOUNT_FIXTURES[fixture])
   }
@@ -652,6 +655,7 @@ export const setMockFixture = (fixture: string): void => {
           : (MOCK_SELECTIONS[bootOptions.selection] ??
             MOCK_SELECTIONS.selected),
     connection: fixture === "reconnecting" ? "reconnecting" : "connected",
+    firstFieldGuide: fixture === "first-field" ? "new" : null,
   })
 }
 

@@ -9,6 +9,10 @@ interface AppStore {
   state: AppState | null
   catalog: Catalog | null
   selection: Selection | null
+  // The guide to generating a Smart Field, shown for the rest of the window session
+  // in which the user saved one when they had none: "new" until it has celebrated
+  // once, then "seen".
+  firstFieldGuide: "new" | "seen" | null
 }
 
 export const useAppStore = create<AppStore>(() => ({
@@ -16,4 +20,5 @@ export const useAppStore = create<AppStore>(() => ({
   state: null,
   catalog: null,
   selection: null,
+  firstFieldGuide: null,
 }))

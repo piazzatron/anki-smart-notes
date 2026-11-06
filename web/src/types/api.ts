@@ -177,7 +177,6 @@ export interface Settings {
   legacyOpenAiKey: string | null
   legacyOpenAiModel: string
   legacyOpenAiHost: string | null
-  showWizardCompletion: boolean
   didDismissReviewPrompt: boolean
   didDismissDiscordPrompt: boolean
   didSeeFreePlanWelcome: boolean

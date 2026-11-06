@@ -123,30 +123,6 @@
   "fieldEditor": {
     "alreadySmartField": "Ужо Разумнае поле",
     "collisionHint": "ужо мае Smart Field — абярыце іншае поле, калоду або тып нататкі",
-    "completion": {
-      "descriptionAfter": "нататкі запаўняюцца кожны раз, калі вы іх ствараеце.",
-      "descriptionBefore": "на",
-      "methods": {
-        "bulk": {
-          "caption": "Выберыце ноты або калоду → пстрыкніце правай кнопкай мышы → ✨ Стварыце Smart Fields.",
-          "imageAlt": "Anki Кантэкстнае меню браўзера з вылучаным Generate Smart Fields",
-          "title": "Масам, з браўзера"
-        },
-        "card": {
-          "caption": "Націсніце кнопку ✨ на панэлі інструментаў рэдактара або ўвядзіце ⌘⇧G.",
-          "imageAlt": "Панэль інструментаў рэдактара Anki з вылучанай кнопкай Smart Notes",
-          "title": "Адна карта за раз"
-        },
-        "field": {
-          "caption": "Пстрыкніце правай кнопкай мышы любое поле → Стварыць Smart Field.",
-          "imageAlt": "Кантэкстнае меню поля Anki з вылучаным пунктам Generate Smart Field",
-          "title": "Адзінае поле"
-        }
-      },
-      "title": "Ваш Smart Field жывы",
-      "waysToGenerate": "Некалькі спосабаў яго стварэння:"
-    },
-    "created": "Smart Field створаны",
     "describe": {
       "exampleChat": "Напішыце {{target}} для {{source}}",
       "exampleImage": "Намалюйце малюнак: {{source}}",
@@ -158,10 +134,8 @@
       "title": "Што павінна рабіць гэта поле?",
       "writeYourself": "Або напішыце запыт самастойна"
     },
-    "dontShowAgain": "Не паказваць гэта зноў",
     "errors": {
       "save": "Не ўдалося захаваць Smart Field",
-      "updateWizardSettings": "Не атрымалася абнавіць налады майстра",
       "writePrompt": "Не атрымалася напісаць падказку"
     },
     "fieldTypes": {
@@ -253,6 +227,20 @@
       "chat": "Тэкст",
       "image": "Малюнак",
       "tts": "Аўдыё"
+    },
+    "firstFieldGuide": {
+      "dismissAriaLabel": "Адхіліць дапаможнае кіраўніцтва",
+      "methods": {
+        "batch": {
+          "imageAlt": "Anki Кантэкстнае меню браўзера з вылучаным Generate Smart Fields",
+          "title": "Згенераваць пакет"
+        },
+        "single": {
+          "imageAlt": "Панэль інструментаў рэдактара Anki з вылучанай кнопкай Smart Notes",
+          "title": "Згенераваць адну нататку"
+        }
+      },
+      "title": "Як згенераваць новае Smart Field"
     },
     "loadingAriaLabel": "Загрузка Smart Fields",
     "newSmartField": "Новы Smart Field",
