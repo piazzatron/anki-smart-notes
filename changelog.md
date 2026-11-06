@@ -1,6 +1,10 @@
 # v2.28.0
 
+- New smarter & cheaper Auto model with intelligence levels: Standard, High and Max.
+- Upgraded all text models: GPT-6.1 Sol, Terra, Luna. Claude Opus, Sonnet, Haiku 5.5. Gemini 4 Argon, Gemini 3.8 Flash and Gemini 3.5 Flash-Lite.
 - Text and image Smart Fields automatically strip HTML by default, saving you credits.
+- Support for free plan with fixed per day text generation.
+- UI/UX Improvements + Bug Fixes
 
 # v2.27.0
 
