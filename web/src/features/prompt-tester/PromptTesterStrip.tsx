@@ -190,6 +190,7 @@ export const PromptTesterStrip = ({
                 fieldName={saveTarget.fieldName}
                 key={saveTarget.token}
                 onError={field.setError}
+                onSaved={() => setIsResultOpen(false)}
                 token={saveTarget.token}
               />
             ) : saveTargetFieldName !== undefined && field.isEarlierRun ? (
@@ -276,6 +277,7 @@ interface SaveResultButtonProps {
   cardId: number
   fieldName: string
   onError: (error: string) => void
+  onSaved: () => void
   token: string
 }
 
@@ -285,6 +287,7 @@ const SaveResultButton = ({
   cardId,
   fieldName,
   onError,
+  onSaved,
   token,
 }: SaveResultButtonProps) => {
   const { t } = useTranslation()
@@ -295,6 +298,7 @@ const SaveResultButton = ({
     try {
       await saveTestResultToCard({ cardId, fieldName, token })
       setStatus("saved")
+      onSaved()
     } catch (error) {
       setStatus("idle")
       onError(errorMessage(error, t("promptTester.errors.saveResult")))

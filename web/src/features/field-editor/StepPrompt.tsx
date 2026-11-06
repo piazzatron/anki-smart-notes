@@ -165,7 +165,7 @@ export const StepPrompt = ({
     controls.form.writePrompt.trim() !== "" && !controls.form.isGenerating
 
   return (
-    <div className="grid gap-3">
+    <div className="grid grid-cols-1 gap-3">
       {target.fieldType === "tts" ? (
         <EditorSection label={t("fieldEditor.sections.whichFieldToSpeak")}>
           <Select
