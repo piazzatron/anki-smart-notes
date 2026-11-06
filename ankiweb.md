@@ -9,17 +9,17 @@ Hello! I'm a software engineer by trade and a Japanese language student, and I s
 
 Install with code `1531888719`. Learn more at <a href="https://smart-notes.xyz?utm_source=ankiweb">smart-notes.xyz</a> and on <a href="https://discord.gg/kxGaWpkTGr">Discord</a>.
 
-**Smart Notes is paid, with a free trial.** <a href="https://smart-notes.xyz/prices?utm_source=ankiweb">See plans</a>. If you can’t afford Smart Notes due to financial hardship, please get in touch at <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a>.
+**Smart Notes is paid, with a free trial + free tier.** <a href="https://smart-notes.xyz/prices?utm_source=ankiweb">See plans</a>. If you can’t afford Smart Notes due to financial hardship, please email <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a>.
 
 ### **Why Smart Notes**
 
 Smart Notes is way more than a ChatGPT wrapper. Here's how it's different:
 
-- 🔉**Huge TTS library:**  1,000+ voices in 80+ languages from Google, Azure, OpenAI, ElevenLabs and VoiceVox, and more. 
+- 🔉 **Huge TTS library:**  1,000+ voices in 80+ languages from Google, Azure, OpenAI, ElevenLabs and VoiceVox, and more. 
 - 👨‍🎓 **Free tier:** free AI text (20 notes a day) and free TTS with Google Standard voices.
 - 🇯🇵 **Yomitan and AnkiConnect:** cards you add from outside of Anki get their Smart Fields filled in automatically a second later.
-- ⛓️ **Chained fields:** create complex setups that generate text, audio and images from one another, and Smart Notes works out the order.
-- 😌 **Simple to use:**  No fiddling with MCP settings, writing complex prompts and scripts - Smart Notes figures it all out for you so you can spend more time studying.
+- ⛓️ **Chained fields:** create complex setups that generate text, audio and images from one another.
+- 😌 **Simple to use:**  Smart Notes has an intuitive UI and requires no fiddling with MCP settings, API keys, or writing complex prompts and scripts.
 - 👨‍💻 **Stable**: Created by a professional software engineer, not vibe-coded :). New features are added all the time. 
 
 ### How it works
@@ -35,11 +35,7 @@ You can also write prompts by hand to get the exact result you need by referenci
 
 ### Generating Fields
 
-Smart Notes can generate your Smart Fields automatically, or you can handle it yourself.
-
-**Adding cards from Yomitan or AnkiConnect:** Smart Notes fills out your notes in the background, without overwriting anything that's already there. You can turn this off or on.
-
-**While you review:** Smart Notes quietly generates any missing fields on your upcoming cards in the background. You can also turn this off or on.
+You can generate your Smart Fields yourself, or let Smart Notes do it automatically.
 
 **In the editor:** the ✨ button, or `ctrl+shift+g` / `cmd+shift+g`, for one field or the whole note.
 
@@ -47,12 +43,16 @@ Smart Notes can generate your Smart Fields automatically, or you can handle it y
 
 **One-off:** you can right-click any field and generate it, even if you haven't made a Smart Field for it.
 
+**Adding cards from Yomitan or AnkiConnect:** Smart Notes fills out your notes in the background, without overwriting anything that's already there. You can turn this off or on.
+
+**While you review:** Smart Notes quietly generates any missing fields on your upcoming cards in the background. You can also turn this off or on.
+
 <img src="https://smart-notes.xyz/ankiweb_generating_fields.gif" />
 <br> <br>
 
 ### Models
 
-Smart Notes adds new models as soon as they are released so you’re always up to date: see the <a href="https://github.com/piazzatron/anki-smart-notes/blob/main/changelog.md">changelog</a>.
+Smart Notes adds new models as soon as they are released so you’re always up to date.
 
 **Text models:**
 
@@ -67,7 +67,7 @@ You can also have Smart Notes search the web to fill out your fields when it nee
 
 A growing catalog of 1,000+ voices in 80+ languages. Smart Notes is intended as a drop-in replacement for HyperTTS/AwesomeTTS.
 
-- **<a href="https://voicevox.hiroshiba.jp/">VOICEVOX</a>:** the #1 Japanese TTS, built in. Free and unlimited on every plan, with nothing to install.
+- **<a href="https://voicevox.hiroshiba.jp/">VOICEVOX</a>:** the #1 Japanese TTS, built in.
 - **<a href="https://elevenlabs.io/v3">ElevenLabs</a>**, including v3
 - **<a href="https://cloud.google.com/text-to-speech">Google</a>**, **<a href="https://azure.microsoft.com/en-us/products/ai-services/text-to-speech">Azure</a>** and **<a href="https://platform.openai.com/docs/guides/text-to-speech">OpenAI</a>**
 
@@ -81,7 +81,11 @@ A growing catalog of 1,000+ voices in 80+ languages. Smart Notes is intended as 
 
 **Support:** if Smart Notes helps you, please leave a review - it helps others find it and I also love hearing from people!
 
-I’ve worked my hardest to make Smart Notes as beautiful and intuitive to use as possible. If you find a bug, email <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a> or reach me on <a href="https://discord.gg/kxGaWpkTGr">Discord</a>.
+If you find a bug, email <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a> or reach me on <a href="https://discord.gg/kxGaWpkTGr">Discord</a>.
+
+### Changelog
+
+Every release is listed in the <a href="https://github.com/piazzatron/anki-smart-notes/blob/main/changelog.md">changelog</a>.
 
 <a href="https://discord.gg/kxGaWpkTGr"><img src="https://smart-notes.xyz/ankiweb_link_discord.png" width="180" /></a> <a href="https://github.com/piazzatron/anki-smart-notes"><img src="https://smart-notes.xyz/ankiweb_link_github.png" width="180" /></a> <a href="mailto:support@smart-notes.xyz"><img src="https://smart-notes.xyz/ankiweb_link_email.png" width="180" /></a> <a href="https://smart-notes.xyz?utm_source=ankiweb"><img src="https://smart-notes.xyz/ankiweb_link_website.png" width="180" /></a>
 
