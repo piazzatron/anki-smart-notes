@@ -11,6 +11,17 @@ Install with code `1531888719`. Learn more at <a href="https://smart-notes.xyz?u
 
 **Smart Notes is paid, with a free trial.** <a href="https://smart-notes.xyz/prices?utm_source=ankiweb">See plans</a>. If you can’t afford Smart Notes due to financial hardship, please get in touch at <a href="mailto:support@smart-notes.xyz">support@smart-notes.xyz</a>.
 
+### **Why Smart Notes**
+
+Smart Notes is way more than a ChatGPT wrapper. Here's how it's different:
+
+- 🔉**Huge TTS library:**  1,000+ voices in 80+ languages from Google, Azure, OpenAI, ElevenLabs and VoiceVox, and more. 
+- 👨‍🎓 **Free tier:** free AI text (20 notes a day) and free TTS with Google Standard voices.
+- 🇯🇵 **Yomitan and AnkiConnect:** cards you add from outside of Anki get their Smart Fields filled in automatically a second later.
+- ⛓️ **Chained fields:** create complex setups that generate text, audio and images from one another, and Smart Notes works out the order.
+- 😌 **Simple to use:**  No fiddling with MCP settings, writing complex prompts and scripts - Smart Notes figures it all out for you so you can spend more time studying.
+- 👨‍💻 **Stable**: Created by a professional software engineer, not vibe-coded :). New features are added all the time. 
+
 ### How it works
 
 Turn any field into a Smart Field by describing what you want in plain language - "a natural example sentence using this word and definition" - and Smart Notes will figure out how to generate that field for you.
