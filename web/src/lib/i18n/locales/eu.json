@@ -197,7 +197,6 @@
     "addToNoteType": "Gehitu Smart Field {{noteType}}-ra",
     "disable": "Desgaitu",
     "deleting": "Ezabatzen…",
-    "followsDefault": "<model>{{model}}</model> (Lehenetsia)",
     "discord": {
       "dismissAriaLabel": "Baztertu Discord gonbidapena",
       "join": "Sartu",
@@ -328,7 +327,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Kalitate maximoa",
     "maxQualityDescription": "Zorrotzagoa eta garbiagoa, batez ere etiketa txikiak.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "Xehetasun aberatsagoa",
     "richerDetailDescription": "Xehetasun gehiagoko eszena osatuagoak. Apur bat motelagoak.",
     "underTheHood": {

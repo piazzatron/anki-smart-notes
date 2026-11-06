@@ -198,7 +198,6 @@
     "addToNoteType": "Dodajte Smart Field u {{noteType}}",
     "disable": "Onemogući",
     "deleting": "Brisanje...",
-    "followsDefault": "<model>{{model}}</model> (Zadano)",
     "discord": {
       "dismissAriaLabel": "Odbaci pozivnicu Discord",
       "join": "Pridruži se",
@@ -330,7 +329,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maksimalna kvaliteta",
     "maxQualityDescription": "Oštrije i čistije, osobito mali natpisi.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "Bogatiji detalji",
     "richerDetailDescription": "Detaljnije, potpunije scene. Malo sporije.",
     "underTheHood": {

@@ -150,7 +150,6 @@
   "smartFields.addToNoteType": "f100a51e68ea",
   "smartFields.disable": "b7e3e4aa4257",
   "smartFields.deleting": "43b5894c3e4e",
-  "smartFields.followsDefault": "f35934c2f422",
   "smartFields.discord.dismissAriaLabel": "60354682caf8",
   "smartFields.discord.join": "fd30fe681b4b",
   "smartFields.discord.joinAriaLabel": "340a13405662",
@@ -243,7 +242,7 @@
   "imageGeneration.gptImage25": "8f047f2eb551",
   "imageGeneration.maxQuality": "635594b0bdf8",
   "imageGeneration.maxQualityDescription": "522be8df9cb2",
-  "imageGeneration.nanoBanana": "fef6ea287be6",
+  "imageGeneration.nanoBanana": "e626775c5e16",
   "imageGeneration.richerDetail": "f8e97d9a90d5",
   "imageGeneration.richerDetailDescription": "54b2fd557188",
   "imageGeneration.underTheHood.gptRicherDetail": "e0fad3539135",
@@ -357,8 +356,6 @@
   "subscription.upgradeToKeepGenerating": "8cdb726c9686",
   "subscription.usage": "8d59829c1e15",
   "subscription.free.notesToday": "7a5c8b0de9e4",
-  "subscription.free.resetsAt": "44b8abdffcd6",
-  "subscription.free.upgradeToPaid": "9ed71d9513d7",
   "subscription.free.creditsUsed": "901547101305",
   "subscription.free.notesTodayLabel": "7b76307afc37",
   "subscription.free.notesUsedToday": "a87206ae9565",
@@ -408,7 +405,6 @@
   "trialEnded.reviewOffer.title": "45a72229e2f4",
   "trialEnded.reviewOffer.unavailable": "cbbc065b8407",
   "trialEnded.reviewOffer.writeReview": "136286bc5a89",
-  "trialEnded.reviewOffer.buttonLabel": "3e9c78fa6740",
   "trialEnded.thanks": "94350ae6fd3e",
   "trialEnded.title": "4f51624849ac",
   "trialEnded.upgradeNow": "2c414ee58a7e",
@@ -496,6 +492,5 @@
   "freePlanStarted.continue": "73a7da68c3bf",
   "freePlanStarted.nowLabel.trial": "430e90c7626b",
   "freePlanStarted.nowLabel.plan": "d9ab76c650a6",
-  "freePlanStarted.freeLabel": "899e2f1f2abf",
-  "freePlanStarted.pricing": "6d204c63c02a"
+  "freePlanStarted.freeLabel": "899e2f1f2abf"
 }

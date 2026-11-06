@@ -198,7 +198,6 @@
     "addToNoteType": "Додајте паметно поље у {{noteType}}",
     "disable": "Онемогући",
     "deleting": "Брисање…",
-    "followsDefault": "<model>{{model}}</model> (Подразумевано)",
     "discord": {
       "dismissAriaLabel": "Одбаци позивницу за Discord",
       "join": "Придружите се",
@@ -330,7 +329,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Максимални квалитет",
     "maxQualityDescription": "Оштрије и чистије, посебно мале ознаке.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "Богатији детаљи",
     "richerDetailDescription": "Детаљније и пуније сцене. Малo спорије.",
     "underTheHood": {

@@ -197,7 +197,6 @@
     "addToNoteType": "Ավելացնել Smart Field {{noteType}}-ին",
     "disable": "Անջատել",
     "deleting": "Ջնջվում է…",
-    "followsDefault": "<model>{{model}}</model> (Լռելյայն)",
     "discord": {
       "dismissAriaLabel": "Մերժել Discord հրավերը",
       "join": "Միանալ",
@@ -328,7 +327,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Առավելագույն որակ",
     "maxQualityDescription": "Ավելի սուր և մաքուր, հատկապես փոքր պիտակները։",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "Ավելի հարուստ մանրամասներ",
     "richerDetailDescription": "Ավելի մանրամասն, լիարժեք տեսարաններ։ Մի փոքր դանդաղ։",
     "underTheHood": {

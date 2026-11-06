@@ -197,7 +197,6 @@
     "addToNoteType": "Smart Field କୁ {{noteType}} ରେ ଯୋଡନ୍ତୁ",
     "disable": "ଅକ୍ଷମ କରନ୍ତୁ",
     "deleting": "ବିଲୋପ…",
-    "followsDefault": "<model>{{model}}</model> (ଡିଫଲ୍ଟ)",
     "discord": {
       "dismissAriaLabel": "Discord ନିମନ୍ତ୍ରଣକୁ ବରଖାସ୍ତ କରନ୍ତୁ",
       "join": "ଯୋଗ ଦିଅନ୍ତୁ",
@@ -328,7 +327,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "ସର୍ବାଧିକ ଗୁଣବତ୍ତା",
     "maxQualityDescription": "ଅଧିକ ସ୍ପଷ୍ଟ ଏବଂ ପରିଷ୍କାର, ବିଶେଷ କରି ଛୋଟ ଲେବଲ୍।",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "ଅଧିକ ସମୃଦ୍ଧ ବିବରଣୀ",
     "richerDetailDescription": "ଅଧିକ ବିସ୍ତୃତ, ପୂର୍ଣ୍ଣ ଦୃଶ୍ୟ। ଟିକିଏ ଧୀର।",
     "underTheHood": {

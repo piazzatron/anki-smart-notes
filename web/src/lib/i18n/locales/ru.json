@@ -199,7 +199,6 @@
     "addToNoteType": "Добавьте смарт-поле в {{noteType}}",
     "disable": "Запрещать",
     "deleting": "Удаление…",
-    "followsDefault": "<model>{{model}}</model> (По умолчанию)",
     "discord": {
       "dismissAriaLabel": "Отклонить приглашение Discord",
       "join": "Присоединиться",
@@ -332,7 +331,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Максимальное качество",
     "maxQualityDescription": "Более чёткое и аккуратное изображение, особенно мелкие подписи.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "Больше деталей",
     "richerDetailDescription": "Более детальные и насыщенные сцены. Немного медленнее.",
     "underTheHood": {

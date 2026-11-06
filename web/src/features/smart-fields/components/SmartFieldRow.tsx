@@ -1,6 +1,6 @@
 import { MoreHorizontal } from "lucide-react"
 import { useState } from "react"
-import { Trans, useTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next"
 
 import { FieldTypeIcon } from "./FieldTypeIcon"
 
@@ -76,6 +76,7 @@ export const SmartFieldRow = ({
       ? { ...field, settings: { ...field.settings, ...planVoiceSettings } }
       : field,
     isFree,
+    voices,
   )
   const [menuOpen, setMenuOpen] = useState(false)
   const [pending, setPending] = useState(false)
@@ -121,23 +122,14 @@ export const SmartFieldRow = ({
       <span className="pointer-events-none col-start-2 row-start-2 truncate text-xs leading-[14px] text-ink-muted">
         {smartFieldDescription(field)}
       </span>
-      {/* The model name truncates; the default marker after it never does. */}
       <span
-        className={`pointer-events-none col-start-3 row-span-2 row-start-1 flex min-w-0 justify-end text-xs whitespace-pre ${
+        className={`pointer-events-none col-start-3 row-span-2 row-start-1 truncate text-end text-xs ${
           field.settings.usesDefaultGenerationSettings
             ? "text-indigo-soft"
             : "text-ink-muted"
         }`}
       >
-        {field.settings.usesDefaultGenerationSettings ? (
-          <Trans
-            components={{ model: <span className="truncate" /> }}
-            i18nKey="smartFields.followsDefault"
-            values={{ model }}
-          />
-        ) : (
-          <span className="truncate">{model}</span>
-        )}
+        {model}
       </span>
 
       <DropdownMenu onOpenChange={setMenuOpen} open={menuOpen}>

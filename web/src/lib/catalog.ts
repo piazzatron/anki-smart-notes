@@ -14,8 +14,8 @@ const MODEL_LABELS: Record<string, string> = {
   "gpt-image-2.5-flare-medium": "GPT Image 2.5",
   "gpt-image-2.5-sunburst-low": "GPT Image 2.5",
   "gpt-image-2.5-sunburst-medium": "GPT Image 2.5",
-  "nano-banana-2-lite": "Nano Banana (Google)",
-  "nano-banana-2.1": "Nano Banana (Google)",
+  "nano-banana-2-lite": "Nano Banana",
+  "nano-banana-2.1": "Nano Banana",
   "z-image-turbo": "Z-Image Turbo",
 }
 

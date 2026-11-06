@@ -199,7 +199,6 @@
     "addToNoteType": "Дадайце Smart Field да {{noteType}}",
     "disable": "Адключыць",
     "deleting": "Выдаленне…",
-    "followsDefault": "<model>{{model}}</model> (Па змаўчанні)",
     "discord": {
       "dismissAriaLabel": "Адхіліць запрашэнне Discord",
       "join": "Далучайцеся",
@@ -332,7 +331,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Максімальная якасць",
     "maxQualityDescription": "Выразней і чысцей, асабліва дробныя подпісы.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "Больш дэталяў",
     "richerDetailDescription": "Больш дэталёвыя, насычаныя сцэны. Трохі павольней.",
     "underTheHood": {

@@ -197,7 +197,6 @@
     "addToNoteType": "Adja hozzá az Smart Field-t az {{noteType}}-hoz",
     "disable": "Letiltás",
     "deleting": "Törlés…",
-    "followsDefault": "<model>{{model}}</model> (alapértelmezett)",
     "discord": {
       "dismissAriaLabel": "Az Discord meghívó elvetése",
       "join": "Csatlakozik",
@@ -328,7 +327,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maximális minőség",
     "maxQualityDescription": "Élesebb és tisztább, különösen a kis feliratok.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "Gazdagabb részletesség",
     "richerDetailDescription": "Részletesebb, teljesebb jelenetek. Kicsit lassabb.",
     "underTheHood": {

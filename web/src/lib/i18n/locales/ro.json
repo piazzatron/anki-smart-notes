@@ -198,7 +198,6 @@
     "addToNoteType": "Adăugați Smart Field la {{noteType}}",
     "disable": "Dezactivați",
     "deleting": "Se șterge…",
-    "followsDefault": "<model>{{model}}</model> (implicit)",
     "discord": {
       "dismissAriaLabel": "Respinge invitația Discord",
       "join": "Alăturați-vă",
@@ -330,7 +329,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Calitate maximă",
     "maxQualityDescription": "Mai clar și mai curat, mai ales etichetele mici.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "Detalii mai bogate",
     "richerDetailDescription": "Scene mai detaliate și mai pline. Puțin mai lent.",
     "underTheHood": {

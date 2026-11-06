@@ -197,7 +197,6 @@
     "addToNoteType": "Προσθήκη Smart Field στο {{noteType}}",
     "disable": "Καθιστώ ανίκανο",
     "deleting": "Διαγραφή…",
-    "followsDefault": "<model>{{model}}</model> (Προεπιλογή)",
     "discord": {
       "dismissAriaLabel": "Παράβλεψη πρόσκλησης Discord",
       "join": "Ενώνω",
@@ -328,7 +327,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Μέγιστη ποιότητα",
     "maxQualityDescription": "Πιο ευκρινές και καθαρό, ιδιαίτερα στις μικρές ετικέτες.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "Περισσότερες λεπτομέρειες",
     "richerDetailDescription": "Πιο λεπτομερείς, πληρέστερες σκηνές. Λίγο πιο αργό.",
     "underTheHood": {

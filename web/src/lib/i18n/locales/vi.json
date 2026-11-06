@@ -196,7 +196,6 @@
     "addToNoteType": "Thêm Smart Field vào {{noteType}}",
     "disable": "Vô hiệu hóa",
     "deleting": "Đang xóa…",
-    "followsDefault": "<model>{{model}}</model> (Mặc định)",
     "discord": {
       "dismissAriaLabel": "Loại bỏ lời mời Discord",
       "join": "Tham gia",
@@ -326,7 +325,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Chất lượng tối đa",
     "maxQualityDescription": "Sắc nét và gọn hơn, đặc biệt với nhãn nhỏ.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "Chi tiết phong phú",
     "richerDetailDescription": "Cảnh chi tiết và đầy đặn hơn. Chậm hơn một chút.",
     "underTheHood": {

@@ -197,7 +197,6 @@
     "addToNoteType": "Lisage Smart Field {{noteType}}-le",
     "disable": "Keela",
     "deleting": "Kustutamine…",
-    "followsDefault": "<model>{{model}}</model> (vaikimisi)",
     "discord": {
       "dismissAriaLabel": "Loobu Discord kutsest",
       "join": "Liitu",
@@ -328,7 +327,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maksimaalne kvaliteet",
     "maxQualityDescription": "Teravam ja puhtam, eriti väikesed sildid.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "Rikkalikum detail",
     "richerDetailDescription": "Detailsemad ja täielikumad stseenid. Veidi aeglasem.",
     "underTheHood": {

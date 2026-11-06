@@ -197,7 +197,6 @@
     "addToNoteType": "Lisää Smart Field kohtaan {{noteType}}",
     "disable": "Poista käytöstä",
     "deleting": "Poistetaan…",
-    "followsDefault": "<model>{{model}}</model> (Oletus)",
     "discord": {
       "dismissAriaLabel": "Hylkää Discord-kutsu",
       "join": "Liity",
@@ -328,7 +327,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Enimmäislaatu",
     "maxQualityDescription": "Terävämpi ja selkeämpi, erityisesti pienet tekstit.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "Yksityiskohtaisempi",
     "richerDetailDescription": "Yksityiskohtaisemmat ja täyteläisemmät kohtaukset. Hieman hitaampi.",
     "underTheHood": {

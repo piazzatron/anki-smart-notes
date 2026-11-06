@@ -197,7 +197,6 @@
     "addToNoteType": "Smart Field را به {{noteType}} اضافه کنید",
     "disable": "غیر فعال کردن",
     "deleting": "در حال حذف…",
-    "followsDefault": "<model>{{model}}</model> (پیش‌فرض)",
     "discord": {
       "dismissAriaLabel": "دعوت Discord را رد کنید",
       "join": "بپیوندید",
@@ -328,7 +327,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "حداکثر کیفیت",
     "maxQualityDescription": "واضح‌تر و تمیزتر، به‌ویژه برای برچسب‌های کوچک.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "نانو بانانا",
     "richerDetail": "جزئیات غنی‌تر",
     "richerDetailDescription": "صحنه‌های پرجزئیات‌تر و کامل‌تر. کمی کندتر.",
     "underTheHood": {

@@ -197,7 +197,6 @@
     "addToNoteType": "Voeg Smart Field by {{noteType}}",
     "disable": "Deaktiveer",
     "deleting": "Vee tans uit …",
-    "followsDefault": "<model>{{model}}</model> (Standaard)",
     "discord": {
       "dismissAriaLabel": "Verwerp Discord-uitnodiging",
       "join": "Sluit aan",
@@ -328,7 +327,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maksimum gehalte",
     "maxQualityDescription": "Skerper en skoner, veral klein etikette.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "Ryker detail",
     "richerDetailDescription": "Meer gedetailleerde, voller tonele. Iets stadiger.",
     "underTheHood": {

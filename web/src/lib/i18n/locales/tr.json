@@ -197,7 +197,6 @@
     "addToNoteType": "Smart Field'i {{noteType}}'e ekleyin",
     "disable": "Devre dışı bırakmak",
     "deleting": "Siliniyor…",
-    "followsDefault": "<model>{{model}}</model> (Varsayılan)",
     "discord": {
       "dismissAriaLabel": "Discord davetini reddet",
       "join": "Katılmak",
@@ -328,7 +327,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maksimum kalite",
     "maxQualityDescription": "Özellikle küçük etiketlerde daha keskin ve temiz.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "Daha zengin detay",
     "richerDetailDescription": "Daha ayrıntılı, daha dolu sahneler. Biraz daha yavaş.",
     "underTheHood": {

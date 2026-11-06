@@ -197,7 +197,6 @@
     "addToNoteType": "Magdagdag ng Smart Field sa {{noteType}}",
     "disable": "Huwag paganahin",
     "deleting": "Tinatanggal…",
-    "followsDefault": "<model>{{model}}</model> (Mặc định)",
     "discord": {
       "dismissAriaLabel": "I-dismiss ang Discord na imbitasyon",
       "join": "Sumali",
@@ -328,7 +327,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Pinakamataas na kalidad",
     "maxQualityDescription": "Mas malinaw at mas malinis, lalo na ang maliliit na label.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "Mas masaganang detalye",
     "richerDetailDescription": "Mas detalyado at mas punô na mga eksena. Medyo mas mabagal.",
     "underTheHood": {

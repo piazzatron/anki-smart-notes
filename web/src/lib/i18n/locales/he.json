@@ -198,7 +198,6 @@
     "addToNoteType": "הוסף Smart Field ל-{{noteType}}",
     "disable": "השבת",
     "deleting": "מוחק...",
-    "followsDefault": "<model>{{model}}</model> (ברירת מחדל)",
     "discord": {
       "dismissAriaLabel": "דחה את ההזמנה של Discord",
       "join": "לְהִצְטַרֵף",
@@ -330,7 +329,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "איכות מקסימלית",
     "maxQualityDescription": "חד ונקי יותר, במיוחד תוויות קטנות.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "פירוט עשיר יותר",
     "richerDetailDescription": "סצנות מפורטות ומלאות יותר. מעט איטי יותר.",
     "underTheHood": {

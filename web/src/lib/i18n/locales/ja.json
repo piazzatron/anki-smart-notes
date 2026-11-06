@@ -196,7 +196,6 @@
     "addToNoteType": "Smart Fieldを{{noteType}}に追加",
     "disable": "無効にする",
     "deleting": "削除中…",
-    "followsDefault": "<model>{{model}}</model> (デフォルト)",
     "discord": {
       "dismissAriaLabel": "Discord への招待を拒否する",
       "join": "参加する",
@@ -326,7 +325,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "最高品質",
     "maxQualityDescription": "より鮮明で整った仕上がりになります。特に小さなラベルで効果的です。",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "より豊かなディテール",
     "richerDetailDescription": "より詳細で充実したシーンを生成します。やや時間がかかります。",
     "underTheHood": {

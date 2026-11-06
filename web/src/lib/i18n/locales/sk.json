@@ -199,7 +199,6 @@
     "addToNoteType": "Pridajte Smart Field k {{noteType}}",
     "disable": "Zakázať",
     "deleting": "Odstraňuje sa…",
-    "followsDefault": "<model>{{model}}</model> (Predvolený)",
     "discord": {
       "dismissAriaLabel": "Odmietnuť pozvánku Discord",
       "join": "Pripojte sa",
@@ -332,7 +331,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maximálna kvalita",
     "maxQualityDescription": "Ostrejšie a čistejšie, najmä malé popisky.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "Bohatší detail",
     "richerDetailDescription": "Podrobnejšie a plnšie scény. O niečo pomalšie.",
     "underTheHood": {

@@ -197,7 +197,6 @@
     "addToNoteType": "Добавете Smart Field към {{noteType}}",
     "disable": "Деактивиране",
     "deleting": "Изтриване...",
-    "followsDefault": "<model>{{model}}</model> (По подразбиране)",
     "discord": {
       "dismissAriaLabel": "Отхвърлете поканата за Discord",
       "join": "Присъединете се",
@@ -328,7 +327,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Максимално качество",
     "maxQualityDescription": "По-ясно и по-чисто, особено малките етикети.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "По-богат детайл",
     "richerDetailDescription": "По-детайлни, по-пълни сцени. Малко по-бавно.",
     "underTheHood": {

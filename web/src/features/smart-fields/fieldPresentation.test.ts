@@ -59,6 +59,18 @@ describe("Smart Field presentation", () => {
     }
 
     expect(smartFieldDescription(field)).toBe("Reads {{Front}} aloud")
-    expect(smartFieldModelLabel(field, false)).toBe("Google · en-US-Casual-K")
+    expect(
+      smartFieldModelLabel(field, false, [
+        {
+          provider: "google",
+          model: "standard",
+          voiceId: "en-US-Casual-K",
+          name: "Casual K (Standard)",
+          language: "English (United States)",
+          gender: "Male",
+          priceTier: "free",
+        },
+      ]),
+    ).toBe("Google · Casual K (Standard)")
   })
 })

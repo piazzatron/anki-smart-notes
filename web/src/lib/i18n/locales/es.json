@@ -198,7 +198,6 @@
     "addToNoteType": "Añadir Smart Field a {{noteType}}",
     "disable": "Desactivar",
     "deleting": "Eliminando…",
-    "followsDefault": "<model>{{model}}</model> (Predeterminado)",
     "discord": {
       "dismissAriaLabel": "Descartar invitación Discord",
       "join": "Unirse",
@@ -330,7 +329,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Calidad máxima",
     "maxQualityDescription": "Más nítido y limpio, especialmente las etiquetas pequeñas.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "Más detalle",
     "richerDetailDescription": "Escenas más detalladas y completas. Un poco más lento.",
     "underTheHood": {

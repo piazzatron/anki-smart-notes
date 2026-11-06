@@ -197,7 +197,6 @@
     "addToNoteType": "Legg til Smart Field til {{noteType}}",
     "disable": "Deaktiver",
     "deleting": "Sletter …",
-    "followsDefault": "<model>{{model}}</model> (Standard)",
     "discord": {
       "dismissAriaLabel": "Avvis Discord-invitasjonen",
       "join": "Bli med",
@@ -328,7 +327,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Maks kvalitet",
     "maxQualityDescription": "Skarpere og renere, særlig små etiketter.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "Rikere detaljer",
     "richerDetailDescription": "Mer detaljerte, fyldigere scener. Litt tregere.",
     "underTheHood": {

@@ -197,7 +197,6 @@
     "addToNoteType": "{{noteType}}-д Smart Field нэмнэ үү",
     "disable": "Идэвхгүй болгох",
     "deleting": "Устгаж байна...",
-    "followsDefault": "<model>{{model}}</model> (Өгөгдмөл)",
     "discord": {
       "dismissAriaLabel": "Discord урилгыг хэрэгсэхгүй болгох",
       "join": "Нэгдэх",
@@ -328,7 +327,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Хамгийн өндөр чанар",
     "maxQualityDescription": "Илүү тод, цэвэр, ялангуяа жижиг шошгууд.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "Илүү баялаг дэлгэрэнгүй",
     "richerDetailDescription": "Илүү нарийвчилсан, бүрэн дүрслэл. Бага зэрэг удаан.",
     "underTheHood": {

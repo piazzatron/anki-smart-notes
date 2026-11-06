@@ -200,7 +200,6 @@
     "addToNoteType": "Cuir Smart Field le {{noteType}}",
     "disable": "Díchumasaigh",
     "deleting": "Ag scriosadh…",
-    "followsDefault": "<model>{{model}}</model> (Réamhshocrú)",
     "discord": {
       "dismissAriaLabel": "Ruaig cuireadh Discord",
       "join": "Bígí",
@@ -334,7 +333,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Cáilíocht uasta",
     "maxQualityDescription": "Níos géire agus níos glaine, go háirithe lipéid bheaga.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "Mionsonraí níos saibhre",
     "richerDetailDescription": "Radharcanna níos mionsonraithe agus níos iomláine. Beagán níos moille.",
     "underTheHood": {

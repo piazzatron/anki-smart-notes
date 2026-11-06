@@ -196,7 +196,6 @@
     "addToNoteType": "将 Smart Field 添加到 {{noteType}}",
     "disable": "禁用",
     "deleting": "正在删除...",
-    "followsDefault": "<model>{{model}}</model> (默认)",
     "discord": {
       "dismissAriaLabel": "拒绝 Discord 邀请",
       "join": "加入",
@@ -326,7 +325,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "最高质量",
     "maxQualityDescription": "更锐利、更干净，尤其是小字标注。",
-    "nanoBanana": "Nano Banana（Google）",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "更丰富的细节",
     "richerDetailDescription": "场景更细致、内容更完整。速度略慢。",
     "underTheHood": {

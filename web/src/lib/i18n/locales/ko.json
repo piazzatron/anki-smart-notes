@@ -196,7 +196,6 @@
     "addToNoteType": "{{noteType}}에 Smart Field 추가",
     "disable": "장애를 입히다",
     "deleting": "삭제 중…",
-    "followsDefault": "<model>{{model}}</model> (기본값)",
     "discord": {
       "dismissAriaLabel": "Discord 초대 닫기",
       "join": "가입하다",
@@ -326,7 +325,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "최고 품질",
     "maxQualityDescription": "특히 작은 레이블이 더 선명하고 깔끔합니다.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "나노 바나나",
     "richerDetail": "풍부한 디테일",
     "richerDetailDescription": "더 세밀하고 풍성한 장면. 약간 느림.",
     "underTheHood": {

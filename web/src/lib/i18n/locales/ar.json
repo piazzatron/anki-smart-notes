@@ -201,7 +201,6 @@
     "addToNoteType": "أضف الحقل الذكي إلى {{noteType}}",
     "disable": "إبطال",
     "deleting": "جارٍ الحذف...",
-    "followsDefault": "<model>{{model}}</model> (افتراضي)",
     "discord": {
       "dismissAriaLabel": "رفض دعوة Discord",
       "join": "ينضم",
@@ -336,7 +335,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "أعلى جودة",
     "maxQualityDescription": "أكثر وضوحاً ونظافة، خاصة التسميات الصغيرة.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "تفاصيل أغنى",
     "richerDetailDescription": "مشاهد أكثر تفصيلاً وامتلاءً. أبطأ قليلاً.",
     "underTheHood": {

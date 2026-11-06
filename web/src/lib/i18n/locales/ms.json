@@ -196,7 +196,6 @@
     "addToNoteType": "Tambahkan Smart Field kepada {{noteType}}",
     "disable": "Lumpuhkan",
     "deleting": "Memadamkan…",
-    "followsDefault": "<model>{{model}}</model> (Default)",
     "discord": {
       "dismissAriaLabel": "Tolak jemputan Discord",
       "join": "Sertai",
@@ -326,7 +325,7 @@
     "gptImage25": "GPT Image 2.5",
     "maxQuality": "Kualiti Maksimum",
     "maxQualityDescription": "Lebih tajam dan kemas, terutamanya label kecil.",
-    "nanoBanana": "Nano Banana (Google)",
+    "nanoBanana": "Nano Banana",
     "richerDetail": "Butiran Lebih Kaya",
     "richerDetailDescription": "Adegan lebih terperinci dan penuh. Sedikit lebih perlahan.",
     "underTheHood": {
