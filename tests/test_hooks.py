@@ -177,6 +177,36 @@ def test_setup_hooks_registers_available_addon_cleanup_hooks(
     ]
 
 
+def test_addon_files_change_stands_smart_notes_down_until_restart(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls: list[str] = []
+    monkeypatch.setattr(
+        hooks, "ensure_local_server_started", lambda: calls.append("server_start")
+    )
+    monkeypatch.setattr(hooks, "stop_local_server", lambda: calls.append("server_stop"))
+    monkeypatch.setattr(hooks, "cleanup_logger", lambda: calls.append("logger_cleanup"))
+    monkeypatch.setattr(hooks.logger, "info", lambda _: None)
+    monkeypatch.setattr(hooks, "_addon_files_changing", False)
+    monkeypatch.setattr(hooks, "_review_time_evaluator", None)
+    monkeypatch.setattr(hooks, "_add_time_evaluator", None)
+    processor = cast(NoteProcessor, object())
+    on_profile_did_open = hooks.on_profile_did_open(processor)
+    on_editor_context = hooks.on_editor_context(processor)
+    on_profile_did_open()
+
+    vars(hooks)["_cleanup_before_addon_files_change"]()
+    calls.clear()
+
+    # An editor without `.editor` would raise if the hook body ran.
+    on_editor_context(SimpleNamespace(), MagicMock())
+    on_profile_did_open()
+
+    assert calls == []
+    for name in ("_review_time_evaluator", "_add_time_evaluator"):
+        assert vars(hooks)[name].is_stopped
+
+
 def test_cleanup_before_addon_files_change_releases_non_ui_resources(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -188,6 +218,7 @@ def test_cleanup_before_addon_files_change_releases_non_ui_resources(
     )
     monkeypatch.setattr(hooks.logger, "info", lambda _: None)
     monkeypatch.setattr(hooks, "cleanup_logger", lambda: calls.append("logger_cleanup"))
+    monkeypatch.setattr(hooks, "_addon_files_changing", False)
 
     vars(hooks)["_cleanup_before_addon_files_change"]()
 

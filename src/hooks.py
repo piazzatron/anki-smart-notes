@@ -69,6 +69,11 @@ from .web_app import (
 _review_time_evaluator: Optional[ReviewTimeEvaluator] = None
 _add_time_evaluator: Optional[AddTimeEvaluator] = None
 
+# Set once Anki starts replacing or deleting this add-on's files. This code stays
+# loaded until Anki restarts, but the database and web files can vanish under it,
+# so hook entry points stand down until then.
+_addon_files_changing = False
+
 
 def _with_processor(fn: Any):
     # Too annoying to type this thing
@@ -77,6 +82,8 @@ def _with_processor(fn: Any):
     def wrapper(processor: NoteProcessor):
         @with_sentry
         def inner(*args: Any, **kwargs: Any):
+            if _addon_files_changing:
+                return None
             return fn(processor, *args, **kwargs)
 
         return inner
@@ -90,7 +97,8 @@ def add_editor_top_button(
 ):
     @with_sentry
     def fn(editor: editor.Editor):
-        if not mw:
+        # The button outlives the hook call that added it.
+        if not mw or _addon_files_changing:
             return
 
         if not ensure_generation_available():
@@ -467,7 +475,16 @@ def _cleanup_before_addon_files_change() -> None:
     # add-on folder can block user_files backup or package deletion, leaving a
     # partial install. This hook runs on Anki's installer thread, so keep it to
     # non-UI resources instead of calling full profile-close cleanup.
+    global _addon_files_changing
+    _addon_files_changing = True
     logger.info("Preparing Smart Notes for add-on file replacement")
+
+    # stop() only sets flags and clears a set, so it's safe off the main thread.
+    logger.info("Stopping Smart Notes background generation")
+    if _review_time_evaluator is not None:
+        _review_time_evaluator.stop()
+    if _add_time_evaluator is not None:
+        _add_time_evaluator.stop()
 
     logger.info("Stopping Smart Notes local server before add-on file replacement")
     stop_local_server()
