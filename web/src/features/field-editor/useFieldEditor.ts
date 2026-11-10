@@ -44,6 +44,7 @@ import {
   getFirstAvailableField,
   getFirstSourceField,
   needsPromptWrite,
+  promptModePreferenceAfterSave,
   resetPromptOnRetarget,
   validateFieldEditorDraft,
 } from "./fieldEditor"
@@ -163,6 +164,7 @@ export const useFieldEditor = ({
         current,
         mode,
         next: retarget(current, updates),
+        prefersWritingPrompts: state.settings.prefersWritingPrompts,
       }),
     )
   }
@@ -273,8 +275,20 @@ export const useFieldEditor = ({
           })
         }
         if (state.smartFields.length === 0) {
-          useAppStore.setState({ firstFieldGuide: "new" })
+          useAppStore.setState({ firstFieldGuide: true })
         }
+      }
+      // The next new field opens in the mode this one was saved with
+      const preference = promptModePreferenceAfterSave({
+        draft,
+        mode,
+        prefersWritingPrompts: state.settings.prefersWritingPrompts,
+      })
+      if (preference !== null) {
+        void saveSettings({
+          ...state.settings,
+          prefersWritingPrompts: preference,
+        }).catch(() => undefined)
       }
       onClose()
     } catch (error) {

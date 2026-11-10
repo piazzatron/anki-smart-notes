@@ -223,18 +223,19 @@
       "tts": "Аудио"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Зааврыг хаах",
       "methods": {
         "batch": {
+          "how": "<browser>Anki Browser</browser> дотор хулганы баруун товчийг дараад <strong>Smart Fields үүсгэх</strong> командыг сонгоно уу",
           "imageAlt": "Anki Үүсгэх Smart Fields-г тодруулсан хөтчийн контекст цэс",
           "title": "Багцаар үүсгэх"
         },
         "single": {
+          "how": "<browser>Anki Browser</browser> дотор <sparkle/> гялбаа товчийг дарна уу",
           "imageAlt": "Smart Notes товчийг тодруулсан Anki засварлагч хэрэгслийн самбар",
           "title": "Нэг тэмдэглэл үүсгэх"
         }
       },
-      "title": "Smart Fields: шинэ талбар хэрхэн үүсгэх вэ"
+      "title": "Тэмдэглэл Үүсгэх Арга"
     },
     "loadingAriaLabel": "Smart Fields ачаалж байна",
     "newSmartField": "Шинэ ухаалаг талбай",

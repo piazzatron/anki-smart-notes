@@ -224,18 +224,19 @@
       "tts": "Audio"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Cerrar la guía de instrucciones",
       "methods": {
         "batch": {
+          "how": "En el <browser>Explorador de Anki</browser>, haz clic derecho y elige <strong>Generar Smart Fields</strong>",
           "imageAlt": "Anki Menú contextual del navegador con Generar Smart Fields resaltado",
           "title": "Generar un lote"
         },
         "single": {
+          "how": "En el <browser>Explorador de Anki</browser>, haz clic en el botón de brillo <sparkle/>",
           "imageAlt": "Barra de herramientas del editor Anki con el botón Smart Notes resaltado",
           "title": "Generar una nota individual"
         }
       },
-      "title": "Cómo generar tu nuevo Smart Field"
+      "title": "Cómo Generar Notas"
     },
     "loadingAriaLabel": "Cargando Smart Fields",
     "newSmartField": "Nuevo Smart Field",

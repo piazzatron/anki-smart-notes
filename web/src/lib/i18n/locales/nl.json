@@ -223,18 +223,19 @@
       "tts": "Audio"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Handleiding sluiten",
       "methods": {
         "batch": {
+          "how": "In de <browser>Anki Browser</browser>, klik met de rechtermuisknop en kies <strong>Smart Fields genereren</strong>",
           "imageAlt": "Anki Browsercontextmenu met Smart Fields genereren gemarkeerd",
           "title": "Een batch genereren"
         },
         "single": {
+          "how": "Klik in de <browser>Anki Browser</browser> op de sparkle-knop <sparkle/>",
           "imageAlt": "Anki-editorwerkbalk met de knop Smart Notes gemarkeerd",
           "title": "Eén notitie genereren"
         }
       },
-      "title": "Zo genereer je je nieuwe Smart Field"
+      "title": "Notities genereren"
     },
     "loadingAriaLabel": "Smart Fields laden",
     "newSmartField": "Nieuw Smart Field",

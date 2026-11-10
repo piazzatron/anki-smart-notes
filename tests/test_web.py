@@ -83,6 +83,7 @@ SETTINGS_DTO: dto.SettingsDto = {
     "didDismissDiscordPrompt": False,
     "didSeeFreePlanWelcome": False,
     "didSeeGeneratedPromptTip": False,
+    "prefersWritingPrompts": False,
 }
 
 
@@ -409,10 +410,11 @@ def test_build_settings_reads_config(monkeypatch):
         did_dismiss_discord_prompt=True,
         did_see_free_plan_welcome=True,
         did_see_generated_prompt_tip=True,
+        prefers_writing_prompts=True,
     )
     monkeypatch.setattr(dto.builders, "config", config)
 
-    assert dto.build_settings() == {
+    assert dto.build_settings([]) == {
         "generateAtReview": False,
         "generateOnAdd": True,
         "regenerateWhenBatching": True,
@@ -426,7 +428,36 @@ def test_build_settings_reads_config(monkeypatch):
         "didDismissDiscordPrompt": True,
         "didSeeFreePlanWelcome": True,
         "didSeeGeneratedPromptTip": True,
+        "prefersWritingPrompts": True,
     }
+
+
+@pytest.mark.parametrize(
+    ("smart_fields", "expected"),
+    [([], False), ([_chat_smart_field()], True)],
+    ids=["new user", "has a text field"],
+)
+def test_build_settings_seeds_the_prompt_mode_once(monkeypatch, smart_fields, expected):
+    config = SimpleNamespace(
+        generate_at_review=False,
+        generate_on_add=True,
+        regenerate_notes_when_batching=True,
+        debug=False,
+        language="auto",
+        legacy_support=False,
+        openai_api_key=None,
+        legacy_openai_model="gpt-5",
+        openai_endpoint=None,
+        did_dismiss_review_prompt=False,
+        did_dismiss_discord_prompt=False,
+        did_see_free_plan_welcome=False,
+        did_see_generated_prompt_tip=False,
+        prefers_writing_prompts=None,
+    )
+    monkeypatch.setattr(dto.builders, "config", config)
+
+    assert dto.build_settings(smart_fields)["prefersWritingPrompts"] is expected
+    assert config.prefers_writing_prompts is expected
 
 
 def test_build_catalog_shape():
@@ -750,10 +781,11 @@ def test_settings_survive_build_parse_round_trip(monkeypatch):
         did_dismiss_discord_prompt=False,
         did_see_free_plan_welcome=True,
         did_see_generated_prompt_tip=True,
+        prefers_writing_prompts=True,
     )
     monkeypatch.setattr(dto.builders, "config", config)
 
-    settings = dto.parse_settings(cast("dict[str, Any]", dto.build_settings()))
+    settings = dto.parse_settings(cast("dict[str, Any]", dto.build_settings([])))
 
     assert settings == Settings(
         generate_at_review=True,
@@ -768,6 +800,7 @@ def test_settings_survive_build_parse_round_trip(monkeypatch):
         did_dismiss_discord_prompt=False,
         did_see_free_plan_welcome=True,
         did_see_generated_prompt_tip=True,
+        prefers_writing_prompts=True,
     )
 
 
@@ -793,6 +826,7 @@ def test_save_settings_persists_every_field_and_republishes(monkeypatch):
     assert config.did_dismiss_discord_prompt is False
     assert config.did_see_free_plan_welcome is False
     assert config.did_see_generated_prompt_tip is False
+    assert config.prefers_writing_prompts is False
     assert len(published) == 1
     assert isinstance(published[0], StateInvalidated)
 

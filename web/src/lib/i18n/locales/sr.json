@@ -224,18 +224,19 @@
       "tts": "Аудио"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Одбаци водич са упутствима",
       "methods": {
         "batch": {
+          "how": "У прегледачу <browser>Anki Browser</browser> кликните десним тастером миша и изаберите <strong>Генериши Smart Fields</strong>",
           "imageAlt": "Anki Контекстни мени претраживача са означеним Генерисај Smart Fields",
           "title": "Генериши групу"
         },
         "single": {
+          "how": "У прегледачу <browser>Anki Browser</browser> кликните на дугме са искрицом <sparkle/>",
           "imageAlt": "трака са алаткама уређивача Anki са истакнутим дугметом Smart Notes",
           "title": "Генериши једну белешку"
         }
       },
-      "title": "Како да генеришете ново Smart Field"
+      "title": "Како генерисати белешке"
     },
     "loadingAriaLabel": "Учитавање Smart Fields",
     "newSmartField": "Ново паметно поље",

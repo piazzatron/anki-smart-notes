@@ -227,18 +227,19 @@
       "tts": "صوتي"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "إغلاق دليل الإرشادات",
       "methods": {
         "batch": {
+          "how": "في <browser>متصفح Anki</browser>، انقر بزر الفأرة الأيمن واختر <strong>إنشاء Smart Fields</strong>",
           "imageAlt": "قائمة سياق المتصفح Anki مع تمييز إنشاء Smart Fields",
           "title": "إنشاء دفعة"
         },
         "single": {
+          "how": "في <browser>متصفح Anki</browser>، انقر على زر البريق <sparkle/>",
           "imageAlt": "شريط أدوات محرر Anki مع تمييز الزر Smart Notes",
           "title": "إنشاء ملاحظة واحدة"
         }
       },
-      "title": "كيفية إنشاء Smart Field الجديد"
+      "title": "كيفية إنشاء الملاحظات"
     },
     "loadingAriaLabel": "جاري تحميل Smart Fields",
     "newSmartField": "المجال الذكي الجديد",

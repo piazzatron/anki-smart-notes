@@ -181,6 +181,8 @@ export interface Settings {
   didDismissDiscordPrompt: boolean
   didSeeFreePlanWelcome: boolean
   didSeeGeneratedPromptTip: boolean
+  // New text and image fields open in the prompt mode the user last saved with
+  prefersWritingPrompts: boolean
 }
 
 interface FeatureFlags {

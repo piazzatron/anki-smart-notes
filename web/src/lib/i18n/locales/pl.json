@@ -225,18 +225,19 @@
       "tts": "Audio"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Zamknij przewodnik",
       "methods": {
         "batch": {
+          "how": "W <browser>Anki Browser</browser> kliknij prawym przyciskiem myszy i wybierz <strong>Generuj Smart Fields</strong>",
           "imageAlt": "Anki Menu kontekstowe przeglądarki z podświetloną opcją Generuj Smart Fields",
           "title": "Wygeneruj wsad"
         },
         "single": {
+          "how": "W <browser>Anki Browser</browser> kliknij przycisk z iskierką <sparkle/>",
           "imageAlt": "Pasek narzędzi edytora Anki z podświetlonym przyciskiem Smart Notes",
           "title": "Wygeneruj pojedynczą notatkę"
         }
       },
-      "title": "Jak wygenerować nowe Smart Field"
+      "title": "Jak Generować Notatki"
     },
     "loadingAriaLabel": "Ładowanie Smart Fields",
     "newSmartField": "Nowy Smart Field",

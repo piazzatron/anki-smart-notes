@@ -223,18 +223,19 @@
       "tts": "Hang"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Útmutató bezárása",
       "methods": {
         "batch": {
+          "how": "Az <browser>Anki Browser</browser> ablakban kattintson jobb gombbal, és válassza a <strong>Smart Fields generálása</strong> lehetőséget",
           "imageAlt": "Anki Böngésző helyi menüje az Smart Fields létrehozása kiemelve",
           "title": "Köteg generálása"
         },
         "single": {
+          "how": "Az <browser>Anki Browser</browser> ablakban kattintson a szikra gombra <sparkle/>",
           "imageAlt": "Anki szerkesztő eszköztár az Smart Notes gombbal",
           "title": "Egyetlen jegyzet generálása"
         }
       },
-      "title": "Az új Smart Field generálásának módja"
+      "title": "Hogyan generáljunk jegyzeteket"
     },
     "loadingAriaLabel": "Smart Fields betöltése",
     "newSmartField": "Új Smart Field",

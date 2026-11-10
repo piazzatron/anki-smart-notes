@@ -225,18 +225,19 @@
       "tts": "Zvuk"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Zavrieť návod",
       "methods": {
         "batch": {
+          "how": "V <browser>Anki Browser</browser> kliknite pravým tlačidlom a vyberte <strong>Generovať Smart Fields</strong>",
           "imageAlt": "Anki Kontextová ponuka prehliadača so zvýraznenou možnosťou Generovať Smart Fields",
           "title": "Vygenerovať dávku"
         },
         "single": {
+          "how": "V <browser>Anki Browser</browser> kliknite na tlačidlo s iskrou <sparkle/>",
           "imageAlt": "Panel nástrojov editora Anki so zvýrazneným tlačidlom Smart Notes",
           "title": "Vygenerovať jednu poznámku"
         }
       },
-      "title": "Ako vygenerovať Smart Field"
+      "title": "Ako Generovať Poznámky"
     },
     "loadingAriaLabel": "Načítava sa Smart Fields",
     "newSmartField": "Nový Smart Field",

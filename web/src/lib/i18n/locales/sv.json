@@ -223,18 +223,19 @@
       "tts": "Audio"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Stäng hjälpguiden",
       "methods": {
         "batch": {
+          "how": "I <browser>Anki-webbläsaren</browser>, högerklicka och välj <strong>Generera Smart Fields</strong>",
           "imageAlt": "Anki Webbläsarens sammanhangsmeny med Generera Smart Fields markerad",
           "title": "Generera en batch"
         },
         "single": {
+          "how": "I <browser>Anki-webbläsaren</browser>, klicka på gnistknappen <sparkle/>",
           "imageAlt": "Anki editor verktygsfält med Smart Notes knappen markerad",
           "title": "Generera en enskild anteckning"
         }
       },
-      "title": "Så genererar du ditt nya Smart Field"
+      "title": "Så här genererar du anteckningar"
     },
     "loadingAriaLabel": "Laddar Smart Fields",
     "newSmartField": "Ny Smart Field",

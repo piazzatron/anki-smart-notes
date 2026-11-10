@@ -222,18 +222,19 @@
       "tts": "オーディオ"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "ハウツーガイドを閉じる",
       "methods": {
         "batch": {
+          "how": "<browser>Anki Browser</browser>で右クリックし、<strong>Smart Fieldsを生成</strong>を選択します",
           "imageAlt": "「Smart Fields の生成」が強調表示された Anki ブラウザーのコンテキスト メニュー",
           "title": "一括生成"
         },
         "single": {
+          "how": "<browser>Anki Browser</browser>で、きらめきボタン<sparkle/>をクリックします",
           "imageAlt": "Smart Notes ボタンが強調表示された Anki エディター ツールバー",
           "title": "単一のノートを生成"
         }
       },
-      "title": "新しいSmart Fieldの生成方法"
+      "title": "ノートの生成方法"
     },
     "loadingAriaLabel": "Smart Fieldsをロード中",
     "newSmartField": "新型Smart Field",

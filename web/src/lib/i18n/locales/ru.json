@@ -225,18 +225,19 @@
       "tts": "Аудио"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Закрыть руководство",
       "methods": {
         "batch": {
+          "how": "В окне <browser>Anki Browser</browser> щёлкните правой кнопкой мыши и выберите <strong>Создать Smart Fields</strong>",
           "imageAlt": "Anki Контекстное меню браузера с выделенным пунктом «Создать Smart Fields»",
           "title": "Сгенерировать пакет"
         },
         "single": {
+          "how": "В окне <browser>Anki Browser</browser> нажмите кнопку со значком искры <sparkle/>",
           "imageAlt": "Панель инструментов редактора Anki с выделенной кнопкой Smart Notes",
           "title": "Сгенерировать одну заметку"
         }
       },
-      "title": "Как сгенерировать содержимое Smart Field"
+      "title": "Как Сгенерировать Заметки"
     },
     "loadingAriaLabel": "Загрузка Smart Fields",
     "newSmartField": "Новое умное поле",

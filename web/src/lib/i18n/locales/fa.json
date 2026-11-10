@@ -223,18 +223,19 @@
       "tts": "صوتی"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "بستن راهنمای آموزشی",
       "methods": {
         "batch": {
+          "how": "در <browser>Anki Browser</browser>، با کلیک راست، گزینه <strong>ایجاد Smart Fields</strong> را انتخاب کنید",
           "imageAlt": "منوی زمینه مرورگر Anki با مشخص شده Generate Smart Fields",
           "title": "تولید دسته‌ای"
         },
         "single": {
+          "how": "در <browser>Anki Browser</browser>، روی دکمه جرقه <sparkle/> کلیک کنید",
           "imageAlt": "نوار ابزار ویرایشگر Anki با دکمه Smart Notes برجسته شده است",
           "title": "تولید یک یادداشت"
         }
       },
-      "title": "نحوه تولید Smart Field جدید شما"
+      "title": "نحوه تولید یادداشت‌ها"
     },
     "loadingAriaLabel": "در حال بارگیری Smart Fields",
     "newSmartField": "Smart Field جدید",

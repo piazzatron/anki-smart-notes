@@ -223,18 +223,19 @@
       "tts": "Audio"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "I-dismiss ang gabay sa paggamit",
       "methods": {
         "batch": {
+          "how": "Sa <browser>Anki Browser</browser>, i-right click at piliin ang <strong>Bumuo ng Smart Fields</strong>",
           "imageAlt": "Anki Browser context menu na may naka-highlight na Bumuo ng Smart Fields",
           "title": "Bumuo ng batch"
         },
         "single": {
+          "how": "Sa <browser>Anki Browser</browser>, i-click ang sparkle button <sparkle/>",
           "imageAlt": "Anki editor toolbar na may naka-highlight na Smart Notes button",
           "title": "Bumuo ng isang note"
         }
       },
-      "title": "Paano bumuo ng iyong bagong Smart Field"
+      "title": "Paano Bumuo ng mga Note"
     },
     "loadingAriaLabel": "Nilo-load ang Smart Fields",
     "newSmartField": "Bagong Smart Field",

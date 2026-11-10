@@ -43,6 +43,7 @@ def save_settings(settings: Settings) -> None:
     config.did_dismiss_discord_prompt = settings.did_dismiss_discord_prompt
     config.did_see_free_plan_welcome = settings.did_see_free_plan_welcome
     config.did_see_generated_prompt_tip = settings.did_see_generated_prompt_tip
+    config.prefers_writing_prompts = settings.prefers_writing_prompts
 
 
 @dataclass(frozen=True)
@@ -59,3 +60,4 @@ class Settings:
     did_dismiss_discord_prompt: bool
     did_see_free_plan_welcome: bool
     did_see_generated_prompt_tip: bool
+    prefers_writing_prompts: bool

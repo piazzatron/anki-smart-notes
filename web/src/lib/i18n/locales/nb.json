@@ -223,18 +223,19 @@
       "tts": "Lyd"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Lukk veiledningen",
       "methods": {
         "batch": {
+          "how": "I <browser>Anki Browser</browser>, høyreklikk og velg <strong>Generer Smart Fields</strong>",
           "imageAlt": "Anki Nettleser kontekstmeny med Generer Smart Fields uthevet",
           "title": "Generer en batch"
         },
         "single": {
+          "how": "I <browser>Anki Browser</browser>, klikk gnist-knappen <sparkle/>",
           "imageAlt": "Anki-redigeringsverktøylinje med Smart Notes-knappen uthevet",
           "title": "Generer ett enkelt notat"
         }
       },
-      "title": "Slik genererer du et nytt Smart Field"
+      "title": "Slik genererer du notater"
     },
     "loadingAriaLabel": "Laster inn Smart Fields",
     "newSmartField": "Ny Smart Field",

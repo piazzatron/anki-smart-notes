@@ -45,9 +45,7 @@ export const SmartFieldsScreen = ({
   const [initialEditorDismissed, setInitialEditorDismissed] = useState(false)
   const [reviewPromptHidden, setReviewPromptHidden] = useState(false)
   const [discordPromptHidden, setDiscordPromptHidden] = useState(false)
-  const showFirstFieldGuide = useAppStore(
-    (store) => store.firstFieldGuide !== null,
-  )
+  const showFirstFieldGuide = useAppStore((store) => store.firstFieldGuide)
   const groups = useMemo(
     () => (state === null ? [] : groupSmartFields(state)),
     [state],
@@ -156,16 +154,14 @@ export const SmartFieldsScreen = ({
                 onToggleEnabled={toggleEnabled}
               />
             ))}
-            {showFirstFieldGuide && (
-              <FirstFieldGuide
-                onDismiss={() =>
-                  useAppStore.setState({ firstFieldGuide: null })
-                }
-              />
-            )}
           </div>
         )}
       </PageLayout>
+      {showFirstFieldGuide && (
+        <FirstFieldGuide
+          onClose={() => useAppStore.setState({ firstFieldGuide: false })}
+        />
+      )}
       {state !== null && activeEditor !== null && (
         <FieldEditorScreen
           {...activeEditor}

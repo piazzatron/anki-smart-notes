@@ -223,18 +223,19 @@
       "tts": "Audio"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Sulje ohjeopas",
       "methods": {
         "batch": {
+          "how": "<browser>Anki Browser</browser>-selaimessa napsauta hiiren oikealla painikkeella ja valitse <strong>Luo Smart Fields</strong>",
           "imageAlt": "Anki Selaimen kontekstivalikko, jossa Luo Smart Fields on korostettuna",
           "title": "Luo erä"
         },
         "single": {
+          "how": "<browser>Anki Browser</browser>-selaimessa napsauta kipinäpainiketta <sparkle/>",
           "imageAlt": "Anki-editorin työkalupalkki, jossa Smart Notes-painike on korostettuna",
           "title": "Luo yksi muistiinpano"
         }
       },
-      "title": "Näin luot uuden Smart Fieldin"
+      "title": "Muistiinpanojen luominen"
     },
     "loadingAriaLabel": "Ladataan Smart Fields",
     "newSmartField": "Uusi Smart Field",

@@ -144,8 +144,15 @@ def build_generation_defaults(defaults: GenerationDefaults) -> GenerationDefault
     )
 
 
-def build_settings() -> SettingsDto:
+def build_settings(smart_fields: list[SmartField]) -> SettingsDto:
     """Build the web settings projection from the persisted Anki config."""
+    # New text and image fields open in the prompt mode the user last saved with.
+    # Before any save, someone who already has such fields wrote their prompts by
+    # hand (Describe it came later); a new user starts on Describe it.
+    if config.prefers_writing_prompts is None:
+        config.prefers_writing_prompts = any(
+            field.field_type in ("chat", "image") for field in smart_fields
+        )
     return SettingsDto(
         generateAtReview=config.generate_at_review,
         generateOnAdd=config.generate_on_add,
@@ -160,6 +167,7 @@ def build_settings() -> SettingsDto:
         didDismissDiscordPrompt=config.did_dismiss_discord_prompt,
         didSeeFreePlanWelcome=config.did_see_free_plan_welcome,
         didSeeGeneratedPromptTip=config.did_see_generated_prompt_tip,
+        prefersWritingPrompts=config.prefers_writing_prompts,
     )
 
 

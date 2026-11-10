@@ -444,26 +444,27 @@ class LocalServer:
         return response
 
     async def _send_state(self, response: web.StreamResponse) -> None:
+        def build() -> dto.StateDto:
+            smart_fields = smart_field_service.get_all_smart_fields()
+            return dto.build_state(
+                defaults=smart_field_service.get_generation_defaults(),
+                note_types=get_note_types_with_fields(),
+                decks=deck_id_to_name_map(),
+                smart_fields=smart_fields,
+                account=app_state.state,
+                auth_token=config.auth_token,
+                server_unreachable=app_state.server_unreachable,
+                feature_flags=flags,
+                times_used=config.times_used,
+                settings=dto.build_settings(smart_fields),
+                app_version=get_version(),
+                install_id=get_install_id(),
+            )
+
         # Gather one coherent domain snapshot on Anki's main thread; the
         # executor hop keeps the wait from blocking this event loop.
         state = await asyncio.get_running_loop().run_in_executor(
-            None,
-            lambda: _run_on_main_sync(
-                lambda: dto.build_state(
-                    defaults=smart_field_service.get_generation_defaults(),
-                    note_types=get_note_types_with_fields(),
-                    decks=deck_id_to_name_map(),
-                    smart_fields=smart_field_service.get_all_smart_fields(),
-                    account=app_state.state,
-                    auth_token=config.auth_token,
-                    server_unreachable=app_state.server_unreachable,
-                    feature_flags=flags,
-                    times_used=config.times_used,
-                    settings=dto.build_settings(),
-                    app_version=get_version(),
-                    install_id=get_install_id(),
-                )
-            ),
+            None, lambda: _run_on_main_sync(build)
         )
         await response.write(f"event: state\ndata: {json.dumps(state)}\n\n".encode())
 

@@ -49,10 +49,9 @@ export const syncAmplitudeIdentity = ({
   amplitude.add(
     sessionReplayPlugin({
       sampleRate: 1,
-      // Replays show what users write (prompts, field names, note content) so
-      // we can see where they get stuck. data-amp-unmask on <body> (index.html)
-      // holds even if the project's dashboard sets a stricter level; "light"
-      // still masks password inputs, and the auth code box carries data-amp-mask
+      // data-amp-unmask on <body> (index.html) takes precedence over the
+      // project's remote privacy level. Password inputs and the auth code box
+      // stay masked
       privacyConfig: {
         defaultMaskLevel: "light",
         blockSelector: ["img", "audio", "video"],

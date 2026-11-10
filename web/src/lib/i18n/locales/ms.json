@@ -222,18 +222,19 @@
       "tts": "Audio"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Tutup panduan cara guna",
       "methods": {
         "batch": {
+          "how": "Dalam <browser>Anki Browser</browser>, klik kanan dan pilih <strong>Jana Smart Fields</strong>",
           "imageAlt": "Menu konteks Pelayar Anki dengan Generate Smart Fields diserlahkan",
           "title": "Jana satu kelompok"
         },
         "single": {
+          "how": "Dalam <browser>Anki Browser</browser>, klik butang berkilau <sparkle/>",
           "imageAlt": "Bar alat editor Anki dengan butang Smart Notes diserlahkan",
           "title": "Jana satu nota tunggal"
         }
       },
-      "title": "Cara menjana Smart Field baharu anda"
+      "title": "Cara Menjana Nota"
     },
     "loadingAriaLabel": "Memuatkan Smart Fields",
     "newSmartField": "Smart Field baharu",

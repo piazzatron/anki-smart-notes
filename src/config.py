@@ -46,6 +46,9 @@ class Config:
     did_dismiss_discord_prompt: bool
     did_see_free_plan_welcome: bool
     did_see_generated_prompt_tip: bool
+    # The prompt mode new text and image fields open in: the one last saved with.
+    # None until set (see build_settings).
+    prefers_writing_prompts: Optional[bool]
 
     # Dialogs / Migrations
     did_show_chained_error_dialog: bool

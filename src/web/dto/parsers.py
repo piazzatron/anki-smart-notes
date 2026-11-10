@@ -159,6 +159,7 @@ def parse_settings(payload: dict[str, Any]) -> Settings:
         did_dismiss_discord_prompt=raw["didDismissDiscordPrompt"],
         did_see_free_plan_welcome=raw["didSeeFreePlanWelcome"],
         did_see_generated_prompt_tip=raw["didSeeGeneratedPromptTip"],
+        prefers_writing_prompts=raw["prefersWritingPrompts"],
     )
 
 

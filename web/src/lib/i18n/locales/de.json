@@ -223,18 +223,19 @@
       "tts": "Audio"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Anleitung schließen",
       "methods": {
         "batch": {
+          "how": "Im <browser>Anki-Browser</browser> mit der rechten Maustaste klicken und <strong>Smart Fields generieren</strong> wählen",
           "imageAlt": "Anki Browser-Kontextmenü mit hervorgehobener Option „Smart Fields generieren“.",
           "title": "Stapel generieren"
         },
         "single": {
+          "how": "Im <browser>Anki-Browser</browser> auf die Funken-Schaltfläche <sparkle/> klicken",
           "imageAlt": "Symbolleiste des Anki-Editors mit hervorgehobener Schaltfläche Smart Notes",
           "title": "Einzelne Notiz generieren"
         }
       },
-      "title": "So generieren Sie Ihr neues Smart Field"
+      "title": "So generierst du Notizen"
     },
     "loadingAriaLabel": "Smart Fields wird geladen",
     "newSmartField": "Neu Smart Field",

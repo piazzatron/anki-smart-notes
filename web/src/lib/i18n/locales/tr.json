@@ -223,18 +223,19 @@
       "tts": "Ses"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Kılavuzu kapat",
       "methods": {
         "batch": {
+          "how": "<browser>Anki Tarayıcısı</browser> içinde sağ tıklayıp <strong>Smart Fields oluştur</strong> seçeneğini seçin",
           "imageAlt": "Smart Fields Oluştur vurgulanmış Anki Tarayıcı içerik menüsü",
           "title": "Toplu oluştur"
         },
         "single": {
+          "how": "<browser>Anki Tarayıcısı</browser> içinde parıltı düğmesine <sparkle/> tıklayın",
           "imageAlt": "Smart Notes düğmesinin vurgulandığı Anki düzenleyici araç çubuğu",
           "title": "Tek bir not oluştur"
         }
       },
-      "title": "Yeni Smart Field'ınızı nasıl oluşturacağınız"
+      "title": "Notlar Nasıl Oluşturulur"
     },
     "loadingAriaLabel": "Smart Fields yükleniyor",
     "newSmartField": "Yeni Smart Field",

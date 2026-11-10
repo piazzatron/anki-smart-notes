@@ -223,18 +223,19 @@
       "tts": "Oudio"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Sluit die how-to-gids",
       "methods": {
         "batch": {
+          "how": "In die <browser>Anki Browser</browser>, regsklik en kies <strong>Genereer Smart Fields</strong>",
           "imageAlt": "Anki Blaaier konteks kieslys met Genereer Smart Fields uitgelig",
           "title": "Genereer 'n bondel"
         },
         "single": {
+          "how": "In die <browser>Anki Browser</browser>, klik die flikkerknoppie <sparkle/>",
           "imageAlt": "Anki redigeerdernutsbalk met die Smart Notes-knoppie uitgelig",
           "title": "Genereer 'n enkele notas"
         }
       },
-      "title": "Hoe om jou nuwe Smart Field te genereer"
+      "title": "Hoe om notas te genereer"
     },
     "loadingAriaLabel": "Laai tans Smart Fields",
     "newSmartField": "Nuwe Smart Field",

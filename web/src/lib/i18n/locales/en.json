@@ -223,18 +223,19 @@
       "tts": "Audio"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Dismiss how-to guide",
       "methods": {
         "batch": {
+          "how": "In the <browser>Anki Browser</browser>, right click and choose <strong>Generate Smart Fields</strong>",
           "imageAlt": "Anki Browser context menu with Generate Smart Fields highlighted",
           "title": "Generate a batch"
         },
         "single": {
+          "how": "In the <browser>Anki Browser</browser>, click the sparkle button <sparkle/>",
           "imageAlt": "Anki editor toolbar with the Smart Notes button highlighted",
           "title": "Generate a single note"
         }
       },
-      "title": "How to generate your new Smart Field"
+      "title": "How to Generate Notes"
     },
     "loadingAriaLabel": "Loading Smart Fields",
     "newSmartField": "New Smart Field",

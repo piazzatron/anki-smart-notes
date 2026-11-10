@@ -28,6 +28,7 @@ import {
   getFirstAvailableField,
   hasSmartFieldCollision,
   needsPromptWrite,
+  promptModePreferenceAfterSave,
   pinUnlessDefault,
   resetPromptOnRetarget,
   validateFieldEditorDraft,
@@ -64,6 +65,7 @@ const appState = {
   noteTypes: [{ id: 10, name: "Basic", fields: ["Front", "Meaning", "Audio"] }],
   smartFields: [existingField],
   globalDeckId: 1,
+  settings: { prefersWritingPrompts: false },
 } as AppState
 
 describe("field editor helpers", () => {
@@ -381,6 +383,7 @@ describe("resetPromptOnRetarget", () => {
         current: described,
         mode: "create",
         next: otherField,
+        prefersWritingPrompts: false,
       }),
     ).toEqual({
       ...otherField,
@@ -396,6 +399,7 @@ describe("resetPromptOnRetarget", () => {
       current: described,
       mode: "edit",
       next: otherField,
+      prefersWritingPrompts: false,
     })
     expect(next.prompt).toBe("Translate {{Front}}.")
     expect(next.promptMode).toBe("write")
@@ -408,7 +412,60 @@ describe("resetPromptOnRetarget", () => {
         current: described,
         mode: "create",
         next: described,
+        prefersWritingPrompts: false,
       }),
     ).toBe(described)
   })
+
+  test("a new field starts in the mode the user last saved with", () => {
+    expect(
+      resetPromptOnRetarget({
+        current: described,
+        mode: "create",
+        next: otherField,
+        prefersWritingPrompts: true,
+      }).promptMode,
+    ).toBe("write")
+  })
+})
+
+describe("promptModePreferenceAfterSave", () => {
+  const draft = createFieldEditorDraft(appState, { mode: "create" })
+
+  test.each([
+    ["create", "write", false, true],
+    ["create", "describe", true, false],
+    ["create", "write", true, null],
+    ["edit", "write", false, null],
+    ["duplicate", "write", false, null],
+  ] as const)(
+    "%s saved in %s mode, preferring write %p: %p",
+    (mode, promptMode, prefersWritingPrompts, expected) => {
+      expect(
+        promptModePreferenceAfterSave({
+          draft: { ...draft, promptMode },
+          mode,
+          prefersWritingPrompts,
+        }),
+      ).toBe(expected)
+    },
+  )
+})
+
+describe("a new field's prompt mode", () => {
+  test.each([
+    [false, "describe"],
+    [true, "write"],
+  ] as const)(
+    "with prefersWritingPrompts %p, opens in %p",
+    (prefersWritingPrompts, expected) => {
+      const state = {
+        ...appState,
+        settings: { ...appState.settings, prefersWritingPrompts },
+      }
+      expect(createFieldEditorDraft(state, { mode: "create" }).promptMode).toBe(
+        expected,
+      )
+    },
+  )
 })

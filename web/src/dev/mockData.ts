@@ -188,6 +188,7 @@ const BASE_STATE: AppState = {
     didDismissDiscordPrompt: false,
     didSeeFreePlanWelcome: true,
     didSeeGeneratedPromptTip: false,
+    prefersWritingPrompts: false,
   },
 }
 
@@ -655,7 +656,7 @@ export const setMockFixture = (fixture: string): void => {
           : (MOCK_SELECTIONS[bootOptions.selection] ??
             MOCK_SELECTIONS.selected),
     connection: fixture === "reconnecting" ? "reconnecting" : "connected",
-    firstFieldGuide: fixture === "first-field" ? "new" : null,
+    firstFieldGuide: fixture === "first-field",
   })
 }
 

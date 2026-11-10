@@ -38,6 +38,7 @@ const SETTINGS: Settings = {
   didDismissDiscordPrompt: false,
   didSeeFreePlanWelcome: true,
   didSeeGeneratedPromptTip: true,
+  prefersWritingPrompts: false,
 }
 
 test("legacy OpenAI settings require legacy support", () => {

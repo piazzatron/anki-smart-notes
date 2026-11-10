@@ -223,18 +223,19 @@
       "tts": "Aŭdio"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Fermi gvidilon pri uzo",
       "methods": {
         "batch": {
+          "how": "En la <browser>Anki-Foliumilo</browser>, dekstre klaku kaj elektu <strong>Generi Smart Fields</strong>",
           "imageAlt": "Anki Retumila kunteksta menuo kun Genera Smart Fields emfazita",
           "title": "Generi grupon"
         },
         "single": {
+          "how": "En la <browser>Anki-Foliumilo</browser>, alklaku la stelsimbolan butonon <sparkle/>",
           "imageAlt": "Anki-redaktila ilobreto kun la Smart Notes-butono emfazita",
           "title": "Generi unu noton"
         }
       },
-      "title": "Kiel generi per la nova Smart Field"
+      "title": "Kiel Generi Notojn"
     },
     "loadingAriaLabel": "Ŝarĝante Smart Fields",
     "newSmartField": "Nova Smart Field",

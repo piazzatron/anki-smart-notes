@@ -222,18 +222,19 @@
       "tts": "声音的"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "关闭操作指南",
       "methods": {
         "batch": {
+          "how": "在<browser>Anki 浏览器</browser>中，右键单击并选择<strong>生成 Smart Fields</strong>",
           "imageAlt": "Anki 浏览器上下文菜单，突出显示“生成 Smart Fields”",
           "title": "批量生成"
         },
         "single": {
+          "how": "在<browser>Anki 浏览器</browser>中，点击闪光按钮<sparkle/>",
           "imageAlt": "Anki 编辑器工具栏，突出显示 Smart Notes 按钮",
           "title": "生成单条笔记"
         }
       },
-      "title": "如何生成新的 Smart Field"
+      "title": "如何生成笔记"
     },
     "loadingAriaLabel": "正在加载Smart Fields",
     "newSmartField": "新Smart Field",

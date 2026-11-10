@@ -103,6 +103,7 @@ const stateWithAccount = (
     didDismissDiscordPrompt: false,
     didSeeFreePlanWelcome: true,
     didSeeGeneratedPromptTip: true,
+    prefersWritingPrompts: false,
   },
 })
 

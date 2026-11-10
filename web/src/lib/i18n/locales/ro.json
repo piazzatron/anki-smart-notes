@@ -224,18 +224,19 @@
       "tts": "Audio"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Închide ghidul practic",
       "methods": {
         "batch": {
+          "how": "În <browser>Anki Browser</browser>, faceți clic dreapta și alegeți <strong>Generează Smart Fields</strong>",
           "imageAlt": "Anki Meniul contextual al browserului cu Generare Smart Fields evidențiat",
           "title": "Generează un lot"
         },
         "single": {
+          "how": "În <browser>Anki Browser</browser>, faceți clic pe butonul cu scânteie <sparkle/>",
           "imageAlt": "Bara de instrumente a editorului Anki cu butonul Smart Notes evidențiat",
           "title": "Generează o singură notiță"
         }
       },
-      "title": "Cum să generezi noul tău Smart Field"
+      "title": "Cum să generați notițe"
     },
     "loadingAriaLabel": "Se încarcă Smart Fields",
     "newSmartField": "Smart Field nou",

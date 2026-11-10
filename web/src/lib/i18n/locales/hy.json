@@ -223,18 +223,19 @@
       "tts": "Աուդիո"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Փակել ուղեցույցը",
       "methods": {
         "batch": {
+          "how": "<browser>Anki Browser</browser>-ում աջ սեղմեք և ընտրեք <strong>Ստեղծել Smart Fields</strong>",
           "imageAlt": "Anki Զննարկչի համատեքստային ընտրացանկ՝ ընդգծված Generate Smart Fields",
           "title": "Ստեղծել խմբաքանակ"
         },
         "single": {
+          "how": "<browser>Anki Browser</browser>-ում սեղմեք փայլատակող կոճակը <sparkle/>",
           "imageAlt": "Anki խմբագրիչի գործիքագոտին՝ ընդգծված Smart Notes կոճակով",
           "title": "Ստեղծել մեկ նշում"
         }
       },
-      "title": "Ինչպես ստեղծել նոր Smart Field"
+      "title": "Ինչպես ստեղծել նոթեր"
     },
     "loadingAriaLabel": "Բեռնվում է Smart Fields",
     "newSmartField": "Նոր խելացի դաշտ",

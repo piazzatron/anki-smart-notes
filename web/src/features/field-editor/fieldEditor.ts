@@ -80,16 +80,34 @@ export const needsPromptWrite = (draft: FieldEditorDraft): boolean =>
   draft.writePrompt.trim() !== "" &&
   draft.writePrompt !== draft.generatedFrom
 
-/** A new target is a new field to describe, so what was described and written for the
- *  old one doesn't carry over. Editing keeps the field's own prompt. */
+/** The prompt mode to remember after a save, or null to leave it: only a new text or
+ *  image field records it, since an existing one always opens on its prompt. */
+export const promptModePreferenceAfterSave = ({
+  draft,
+  mode,
+  prefersWritingPrompts,
+}: {
+  draft: FieldEditorDraft
+  mode: FieldEditorMode
+  prefersWritingPrompts: boolean
+}): boolean | null => {
+  if (mode !== "create" || draft.target.fieldType === "tts") return null
+  const wrote = draft.promptMode === "write"
+  return wrote === prefersWritingPrompts ? null : wrote
+}
+
+/** A new target is a new field, so what was described and written for the old one
+ *  doesn't carry over. Editing keeps the field's own prompt. */
 export const resetPromptOnRetarget = ({
   current,
   mode,
   next,
+  prefersWritingPrompts,
 }: {
   current: FieldEditorDraft
   mode: FieldEditorMode
   next: FieldEditorDraft
+  prefersWritingPrompts: boolean
 }): FieldEditorDraft =>
   JSON.stringify(current.target) === JSON.stringify(next.target)
     ? next
@@ -97,7 +115,12 @@ export const resetPromptOnRetarget = ({
         ...next,
         generatedFrom: null,
         prompt: mode === "edit" ? next.prompt : "",
-        promptMode: mode === "edit" ? next.promptMode : "describe",
+        promptMode:
+          mode === "edit"
+            ? next.promptMode
+            : prefersWritingPrompts
+              ? "write"
+              : "describe",
         writePrompt: "",
       }
 
@@ -134,9 +157,11 @@ export const createFieldEditorDraft = (
       field?.fieldType === "chat" || field?.fieldType === "image"
         ? field.settings.promptText
         : "",
-    // A field that has a prompt opens on it.
+    // A field that has a prompt opens on it; a new one opens in the mode last saved with.
     promptMode:
-      field?.fieldType === "chat" || field?.fieldType === "image"
+      field?.fieldType === "chat" ||
+      field?.fieldType === "image" ||
+      state.settings.prefersWritingPrompts
         ? "write"
         : "describe",
     sourceFieldName:

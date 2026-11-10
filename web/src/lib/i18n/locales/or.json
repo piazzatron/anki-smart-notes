@@ -223,18 +223,19 @@
       "tts": "ଅଡିଓ"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "ବ୍ୟବହାର ନିର୍ଦ୍ଦେଶିକା ବନ୍ଦ କରନ୍ତୁ",
       "methods": {
         "batch": {
+          "how": "<browser>Anki Browser</browser>ରେ ଡାହାଣ କ୍ଲିକ୍ କରି <strong>Smart Fields ସୃଷ୍ଟି କରନ୍ତୁ</strong> ବାଛନ୍ତୁ",
           "imageAlt": "Smart Fields ସୃଷ୍ଟି ସହିତ Anki ବ୍ରାଉଜର୍ ପ୍ରସଙ୍ଗ ମେନୁ ହାଇଲାଇଟ୍ ହୋଇଛି",
           "title": "ଏକ ବ୍ୟାଚ୍ ସୃଷ୍ଟି କରନ୍ତୁ"
         },
         "single": {
+          "how": "<browser>Anki Browser</browser>ରେ ଚମକ ବଟନ୍ <sparkle/> କ୍ଲିକ୍ କରନ୍ତୁ",
           "imageAlt": "Smart Notes ବଟନ୍ ସହିତ Anki ଏଡିଟର୍ ଟୁଲ୍ ବାର୍ ହାଇଲାଇଟ୍ ହୋଇଛି",
           "title": "ଏକ ଏକକ ନୋଟ୍ ସୃଷ୍ଟି କରନ୍ତୁ"
         }
       },
-      "title": "ଆପଣଙ୍କ ନୂଆ Smart Field କିପରି ସୃଷ୍ଟି କରିବେ"
+      "title": "ନୋଟ୍ ତିଆରି କରିବାର ଉପାୟ"
     },
     "loadingAriaLabel": "Smart Fields ଲୋଡ୍ କରୁଛି",
     "newSmartField": "ନୂତନ Smart Field",

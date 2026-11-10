@@ -224,18 +224,19 @@
       "tts": "שֶׁמַע"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "סגור מדריך שימוש",
       "methods": {
         "batch": {
+          "how": "בדפדפן של <browser>Anki Browser</browser>, לחץ לחיצה ימנית ובחר <strong>יצירת Smart Fields</strong>",
           "imageAlt": "Anki תפריט ההקשר של הדפדפן עם יצירת Smart Fields מודגש",
           "title": "יצירת אצווה"
         },
         "single": {
+          "how": "בדפדפן של <browser>Anki Browser</browser>, לחץ על כפתור הנצנוץ <sparkle/>",
           "imageAlt": "סרגל הכלים של עורך Anki עם הלחצן Smart Notes מסומן",
           "title": "יצירת פתק בודד"
         }
       },
-      "title": "איך ליצור Smart Field חדש"
+      "title": "איך ליצור הערות"
     },
     "loadingAriaLabel": "טוען Smart Fields",
     "newSmartField": "שדה חכם חדש",

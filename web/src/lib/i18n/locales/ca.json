@@ -224,18 +224,19 @@
       "tts": "Àudio"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Descarta la guia pas a pas",
       "methods": {
         "batch": {
+          "how": "Al <browser>Navegador d'Anki</browser>, feu clic dret i trieu <strong>Genera Smart Fields</strong>",
           "imageAlt": "Anki Menú contextual del navegador amb Genera Smart Fields ressaltat",
           "title": "Genera un lot"
         },
         "single": {
+          "how": "Al <browser>Navegador d'Anki</browser>, feu clic al botó de guspira <sparkle/>",
           "imageAlt": "Barra d'eines de l'editor Anki amb el botó Smart Notes ressaltat",
           "title": "Genera una nota individual"
         }
       },
-      "title": "Com generar el teu nou Smart Field"
+      "title": "Com generar notes"
     },
     "loadingAriaLabel": "S'està carregant Smart Fields",
     "newSmartField": "Nou Smart Field",

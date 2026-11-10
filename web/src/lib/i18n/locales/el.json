@@ -223,18 +223,19 @@
       "tts": "Ήχος"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Απόρριψη οδηγού χρήσης",
       "methods": {
         "batch": {
+          "how": "Στο <browser>Anki Browser</browser>, κάντε δεξί κλικ και επιλέξτε <strong>Δημιουργία Smart Fields</strong>",
           "imageAlt": "Anki Μενού περιβάλλοντος προγράμματος περιήγησης με επισημασμένο το Δημιουργία Smart Fields",
           "title": "Δημιουργία παρτίδας"
         },
         "single": {
+          "how": "Στο <browser>Anki Browser</browser>, κάντε κλικ στο κουμπί με το αστέρι <sparkle/>",
           "imageAlt": "γραμμή εργαλείων επεξεργασίας Anki με τονισμένο το κουμπί Smart Notes",
           "title": "Δημιουργία μίας σημείωσης"
         }
       },
-      "title": "Πώς να δημιουργήσετε το νέο σας Smart Field"
+      "title": "Πώς να δημιουργήσετε σημειώσεις"
     },
     "loadingAriaLabel": "Φόρτωση Smart Fields",
     "newSmartField": "Νέο Έξυπνο Πεδίο",

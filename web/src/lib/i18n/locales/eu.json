@@ -223,18 +223,19 @@
       "tts": "Audioa"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Itxi gidaliburua",
       "methods": {
         "batch": {
+          "how": "<browser>Anki Browser</browser>-en, egin klik eskuineko botoiarekin eta aukeratu <strong>Sortu Smart Fields</strong>",
           "imageAlt": "Anki Arakatzailearen testuinguru-menua Sortu Smart Fields nabarmenduta",
           "title": "Sortu multzo bat"
         },
         "single": {
+          "how": "<browser>Anki Browser</browser>-en, egin klik <sparkle/> txintxa botoian",
           "imageAlt": "Anki editorearen tresna-barra Smart Notes botoia nabarmenduta",
           "title": "Sortu ohar bakar bat"
         }
       },
-      "title": "Nola sortu zure Smart Field berria"
+      "title": "Nola sortu oharrak"
     },
     "loadingAriaLabel": "Smart Fields kargatzen",
     "newSmartField": "Smart Field berria",

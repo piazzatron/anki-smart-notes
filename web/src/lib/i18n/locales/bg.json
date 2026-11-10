@@ -223,18 +223,19 @@
       "tts": "аудио"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Затваряне на ръководството",
       "methods": {
         "batch": {
+          "how": "В <browser>Anki Browser</browser> щракнете с десния бутон и изберете <strong>Генериране на Smart Fields</strong>",
           "imageAlt": "Anki Контекстно меню на браузъра с подчертано Генериране на Smart Fields",
           "title": "Генериране на партида"
         },
         "single": {
+          "how": "В <browser>Anki Browser</browser> щракнете върху бутона със звездичка <sparkle/>",
           "imageAlt": "лента с инструменти на редактора Anki с подчертан бутон Smart Notes",
           "title": "Генериране на една бележка"
         }
       },
-      "title": "Как да генерирате вашето ново Smart Field"
+      "title": "Как да генерирате бележки"
     },
     "loadingAriaLabel": "Зарежда се Smart Fields",
     "newSmartField": "Ново интелигентно поле",

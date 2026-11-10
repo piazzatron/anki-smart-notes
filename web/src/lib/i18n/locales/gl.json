@@ -223,18 +223,19 @@
       "tts": "Audio"
     },
     "firstFieldGuide": {
-      "dismissAriaLabel": "Pechar a guía de uso",
       "methods": {
         "batch": {
+          "how": "Na <browser>Anki Browser</browser>, fai clic co botón dereito e escolle <strong>Xerar Smart Fields</strong>",
           "imageAlt": "Anki Menú contextual do navegador con Xerar Smart Fields resaltado",
           "title": "Xerar un lote"
         },
         "single": {
+          "how": "Na <browser>Anki Browser</browser>, fai clic no botón de chispa <sparkle/>",
           "imageAlt": "Barra de ferramentas do editor Anki co botón Smart Notes resaltado",
           "title": "Xerar unha nota individual"
         }
       },
-      "title": "Como xerar o teu novo Smart Field"
+      "title": "Como xerar notas"
     },
     "loadingAriaLabel": "Cargando Smart Fields",
     "newSmartField": "Novo Smart Field",
