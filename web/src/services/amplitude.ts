@@ -49,13 +49,12 @@ export const syncAmplitudeIdentity = ({
   amplitude.add(
     sessionReplayPlugin({
       sampleRate: 1,
-      // Text masking also comes from data-amp-mask on <body> (index.html),
-      // which no mask level set in Amplitude's dashboard can override
+      // Replays show what users write (prompts, field names, note content) so
+      // we can see where they get stuck. data-amp-unmask on <body> (index.html)
+      // holds even if the project's dashboard sets a stricter level; "light"
+      // still masks password inputs, and the auth code box carries data-amp-mask
       privacyConfig: {
-        defaultMaskLevel: "conservative",
-        // Attributes are only masked when listed. aria-labels and radio values
-        // carry field and note type names.
-        maskAttributes: ["aria-label", "title", "value", "placeholder", "alt"],
+        defaultMaskLevel: "light",
         blockSelector: ["img", "audio", "video"],
       },
     }),

@@ -67,6 +67,8 @@ export const AuthCodeForm = ({ className = "", style }: AuthCodeFormProps) => {
         <input
           autoCapitalize="characters"
           autoComplete="off"
+          // A sign-in credential: keep it out of session replays
+          data-amp-mask
           className="min-w-0 flex-1 rounded-lg bg-white/[0.04] px-3 py-2.5 font-mono text-[13px] tracking-[0.08em] text-zinc-100 transition outline-none focus:ring-2 focus:ring-indigo/15"
           disabled={isSubmittingCode}
           id="auth-code"
