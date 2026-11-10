@@ -226,12 +226,12 @@
       "methods": {
         "batch": {
           "how": "در <browser>Anki Browser</browser>، با کلیک راست، گزینه <strong>ایجاد Smart Fields</strong> را انتخاب کنید",
-          "imageAlt": "منوی زمینه مرورگر Anki با مشخص شده Generate Smart Fields",
+          "imageAlt": "یادداشت‌های انتخاب‌شده در Anki Browser، سپس انتخاب «Generate Smart Fields» از منوی کلیک راست",
           "title": "تولید دسته‌ای"
         },
         "single": {
           "how": "در <browser>Anki Browser</browser>، روی دکمه جرقه <sparkle/> کلیک کنید",
-          "imageAlt": "نوار ابزار ویرایشگر Anki با دکمه Smart Notes برجسته شده است",
+          "imageAlt": "نشانگر ماوس روی دکمه Smart Notes در نوار ابزار ویرایشگر Anki کلیک می‌کند",
           "title": "تولید یک یادداشت"
         }
       },

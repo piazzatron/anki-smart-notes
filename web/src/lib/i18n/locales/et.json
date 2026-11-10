@@ -226,12 +226,12 @@
       "methods": {
         "batch": {
           "how": "<browser>Anki Browser</browser> aknas paremklõpsake ja valige <strong>Genereeri Smart Fields</strong>",
-          "imageAlt": "Anki Brauseri kontekstimenüü, kus on esile tõstetud Smart Fields loomine",
+          "imageAlt": "Märkmed on valitud rakenduses Anki Browser ning paremklõpsumenüüst on valitud käsk Genereeri Smart Fields",
           "title": "Genereeri partii"
         },
         "single": {
           "how": "<browser>Anki Browser</browser> aknas klõpsake sädelevat nuppu <sparkle/>",
-          "imageAlt": "Anki redaktori tööriistariba, kus on esile tõstetud nupp Smart Notes",
+          "imageAlt": "Kursor klõpsab Anki redaktori tööriistaribal nuppu Smart Notes",
           "title": "Genereeri üksik märkus"
         }
       },

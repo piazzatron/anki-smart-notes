@@ -228,12 +228,12 @@
       "methods": {
         "batch": {
           "how": "W <browser>Anki Browser</browser> kliknij prawym przyciskiem myszy i wybierz <strong>Generuj Smart Fields</strong>",
-          "imageAlt": "Anki Menu kontekstowe przeglądarki z podświetloną opcją Generuj Smart Fields",
+          "imageAlt": "Notatki zaznaczone w Przeglądarce Anki, a następnie opcja Generuj Smart Fields wybrana z menu kontekstowego",
           "title": "Wygeneruj wsad"
         },
         "single": {
           "how": "W <browser>Anki Browser</browser> kliknij przycisk z iskierką <sparkle/>",
-          "imageAlt": "Pasek narzędzi edytora Anki z podświetlonym przyciskiem Smart Notes",
+          "imageAlt": "Kursor klika przycisk Smart Notes na pasku narzędzi edytora Anki",
           "title": "Wygeneruj pojedynczą notatkę"
         }
       },

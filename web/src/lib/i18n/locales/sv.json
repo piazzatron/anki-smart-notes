@@ -226,12 +226,12 @@
       "methods": {
         "batch": {
           "how": "I <browser>Anki-webbläsaren</browser>, högerklicka och välj <strong>Generera Smart Fields</strong>",
-          "imageAlt": "Anki Webbläsarens sammanhangsmeny med Generera Smart Fields markerad",
+          "imageAlt": "Anteckningar markerade i Anki Browser, sedan väljs Generate Smart Fields i högerklicksmenyn",
           "title": "Generera en batch"
         },
         "single": {
           "how": "I <browser>Anki-webbläsaren</browser>, klicka på gnistknappen <sparkle/>",
-          "imageAlt": "Anki editor verktygsfält med Smart Notes knappen markerad",
+          "imageAlt": "I redigeraren i Anki klickar markören på knappen Smart Notes i verktygsfältet",
           "title": "Generera en enskild anteckning"
         }
       },

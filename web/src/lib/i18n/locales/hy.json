@@ -226,12 +226,12 @@
       "methods": {
         "batch": {
           "how": "<browser>Anki Browser</browser>-ում աջ սեղմեք և ընտրեք <strong>Ստեղծել Smart Fields</strong>",
-          "imageAlt": "Anki Զննարկչի համատեքստային ընտրացանկ՝ ընդգծված Generate Smart Fields",
+          "imageAlt": "Anki Browser-ում ընտրված նշումները, ապա աջ սեղմման ընտրացանկից ընտրված Generate Smart Fields",
           "title": "Ստեղծել խմբաքանակ"
         },
         "single": {
           "how": "<browser>Anki Browser</browser>-ում սեղմեք փայլատակող կոճակը <sparkle/>",
-          "imageAlt": "Anki խմբագրիչի գործիքագոտին՝ ընդգծված Smart Notes կոճակով",
+          "imageAlt": "Նշիչը սեղմում է Anki խմբագրիչի գործիքագոտու Smart Notes կոճակը",
           "title": "Ստեղծել մեկ նշում"
         }
       },

@@ -227,12 +227,12 @@
       "methods": {
         "batch": {
           "how": "Nel <browser>Anki Browser</browser>, fai clic destro e scegli <strong>Genera Smart Fields</strong>",
-          "imageAlt": "Anki Menu contestuale del browser con Genera Smart Fields evidenziato",
+          "imageAlt": "Note selezionate nel Browser di Anki, quindi Genera Smart Fields scelto dal menu del tasto destro",
           "title": "Genera un batch"
         },
         "single": {
           "how": "Nel <browser>Anki Browser</browser>, fai clic sul pulsante scintilla <sparkle/>",
-          "imageAlt": "Barra degli strumenti dell'editor Anki con il pulsante Smart Notes evidenziato",
+          "imageAlt": "Il cursore clicca il pulsante Smart Notes nella barra degli strumenti dell'editor di Anki",
           "title": "Genera una singola nota"
         }
       },

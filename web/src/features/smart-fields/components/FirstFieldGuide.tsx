@@ -30,7 +30,8 @@ import { Confetti } from "./Confetti"
 import generateBatchClip from "../assets/generate-batch.webp"
 import generateSingleClip from "../assets/generate-single.webp"
 
-// Clips rendered from `media/` (the HowTo-* compositions), each with a little tilt.
+// Screen recordings of the dev Anki on a Mac (the `sn-demo` notes), cropped to the clicks,
+// as 480×360 animated WebPs at 15 fps, each shown with a little tilt.
 const OPTIONS = [
   { key: "single", clip: generateSingleClip, tilt: "-rotate-2" },
   { key: "batch", clip: generateBatchClip, tilt: "rotate-[1.5deg]" },
@@ -62,7 +63,7 @@ export const FirstFieldGuide = ({ onClose }: FirstFieldGuideProps) => {
     <Dialog onOpenChange={(open) => !open && onClose()} open>
       <DialogContent
         aria-describedby={undefined}
-        className="w-[min(620px,92vw)] px-hang pt-10 pb-6"
+        className="w-[min(760px,92vw)] px-hang pt-10 pb-6"
         // Start on Got it, not on the Browser link in the first instruction
         onOpenAutoFocus={(event) => {
           event.preventDefault()
@@ -86,7 +87,7 @@ export const FirstFieldGuide = ({ onClose }: FirstFieldGuideProps) => {
 
         {/* Titles, instructions and clips sit on shared rows, so the clips line up when
             a translated title or instruction wraps. */}
-        <ul className="relative mx-auto mt-8 grid w-fit grid-cols-[repeat(2,240px)] grid-rows-[auto_auto_auto] gap-x-8">
+        <ul className="relative mx-auto mt-8 grid w-full max-w-[672px] grid-cols-2 grid-rows-[auto_auto_auto] gap-x-8">
           {OPTIONS.map(({ key, clip, tilt }, index) => (
             <li
               className="guide-pop row-span-3 grid grid-rows-subgrid justify-items-center text-center"
@@ -118,7 +119,7 @@ export const FirstFieldGuide = ({ onClose }: FirstFieldGuideProps) => {
               </p>
               <img
                 alt={t(`smartFields.firstFieldGuide.methods.${key}.imageAlt`)}
-                className={`mt-4 aspect-square w-[180px] rounded-xl shadow-[0_14px_30px_-12px_rgba(0,0,0,0.7)] transition-transform duration-200 hover:scale-[1.04] hover:rotate-0 ${tilt}`}
+                className={`mt-4 aspect-[4/3] w-full rounded-xl shadow-[0_14px_30px_-12px_rgba(0,0,0,0.7)] transition-transform duration-200 hover:scale-[1.04] hover:rotate-0 ${tilt}`}
                 src={clip}
               />
             </li>

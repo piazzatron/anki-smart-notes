@@ -226,12 +226,12 @@
       "methods": {
         "batch": {
           "how": "Na <browser>Anki Browser</browser>, fai clic co botón dereito e escolle <strong>Xerar Smart Fields</strong>",
-          "imageAlt": "Anki Menú contextual do navegador con Xerar Smart Fields resaltado",
+          "imageAlt": "Notas seleccionadas no navegador de Anki, e logo Generate Smart Fields elixido no menú do botón dereito",
           "title": "Xerar un lote"
         },
         "single": {
           "how": "Na <browser>Anki Browser</browser>, fai clic no botón de chispa <sparkle/>",
-          "imageAlt": "Barra de ferramentas do editor Anki co botón Smart Notes resaltado",
+          "imageAlt": "O cursor fai clic no botón Smart Notes da barra de ferramentas do editor de Anki",
           "title": "Xerar unha nota individual"
         }
       },

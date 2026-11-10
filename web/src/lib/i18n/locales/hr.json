@@ -227,12 +227,12 @@
       "methods": {
         "batch": {
           "how": "U <browser>Anki Browser</browser>, desnim klikom odaberite <strong>Generiraj Smart Fields</strong>",
-          "imageAlt": "Anki Kontekstni izbornik preglednika s istaknutim Generate Smart Fields",
+          "imageAlt": "Bilješke odabrane u Anki Browseru, zatim Generate Smart Fields odabrano iz izbornika desnog klika",
           "title": "Generiraj seriju"
         },
         "single": {
           "how": "U <browser>Anki Browser</browser>, kliknite gumb sa zvjezdicom <sparkle/>",
-          "imageAlt": "Alatna traka uređivača Anki s istaknutim gumbom Smart Notes",
+          "imageAlt": "Kursor klikne gumb Smart Notes na alatnoj traci Anki uređivača",
           "title": "Generiraj jednu bilješku"
         }
       },

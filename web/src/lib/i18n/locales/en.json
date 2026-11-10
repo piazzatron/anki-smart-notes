@@ -226,12 +226,12 @@
       "methods": {
         "batch": {
           "how": "In the <browser>Anki Browser</browser>, right click and choose <strong>Generate Smart Fields</strong>",
-          "imageAlt": "Anki Browser context menu with Generate Smart Fields highlighted",
+          "imageAlt": "Notes selected in the Anki Browser, then Generate Smart Fields chosen from the right-click menu",
           "title": "Generate a batch"
         },
         "single": {
           "how": "In the <browser>Anki Browser</browser>, click the sparkle button <sparkle/>",
-          "imageAlt": "Anki editor toolbar with the Smart Notes button highlighted",
+          "imageAlt": "The cursor clicks the Smart Notes button in the Anki editor toolbar",
           "title": "Generate a single note"
         }
       },

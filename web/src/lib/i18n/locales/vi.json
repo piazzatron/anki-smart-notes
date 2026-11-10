@@ -225,12 +225,12 @@
       "methods": {
         "batch": {
           "how": "Trong <browser>Anki Browser</browser>, nhấp chuột phải và chọn <strong>Tạo Smart Fields</strong>",
-          "imageAlt": "Menu ngữ cảnh của Trình duyệt Anki với Tạo Smart Fields được tô sáng",
+          "imageAlt": "Các ghi chú được chọn trong Anki Browser, sau đó chọn Generate Smart Fields từ menu chuột phải",
           "title": "Tạo một loạt"
         },
         "single": {
           "how": "Trong <browser>Anki Browser</browser>, nhấp vào nút lấp lánh <sparkle/>",
-          "imageAlt": "Thanh công cụ soạn thảo Anki với nút Smart Notes được tô sáng",
+          "imageAlt": "Con trỏ nhấp vào nút Smart Notes trên thanh công cụ của trình soạn thảo Anki",
           "title": "Tạo một ghi chú"
         }
       },

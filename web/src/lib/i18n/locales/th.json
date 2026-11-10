@@ -225,12 +225,12 @@
       "methods": {
         "batch": {
           "how": "ใน <browser>Anki Browser</browser> คลิกขวาแล้วเลือก <strong>สร้าง Smart Fields</strong>",
-          "imageAlt": "เมนูบริบทของเบราว์เซอร์ Anki ที่ไฮไลต์สร้าง Smart Fields",
+          "imageAlt": "โน้ตที่เลือกใน Anki Browser แล้วเลือก Generate Smart Fields จากเมนูคลิกขวา",
           "title": "สร้างเป็นชุด"
         },
         "single": {
           "how": "ใน <browser>Anki Browser</browser> คลิกปุ่มรูปประกาย <sparkle/>",
-          "imageAlt": "แถบเครื่องมือตัวแก้ไข Anki ที่ไฮไลต์ปุ่ม Smart Notes",
+          "imageAlt": "เคอร์เซอร์คลิกที่ปุ่ม Smart Notes ในแถบเครื่องมือของ Anki editor",
           "title": "สร้างโน้ตเดียว"
         }
       },

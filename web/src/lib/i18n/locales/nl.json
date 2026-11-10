@@ -226,12 +226,12 @@
       "methods": {
         "batch": {
           "how": "In de <browser>Anki Browser</browser>, klik met de rechtermuisknop en kies <strong>Smart Fields genereren</strong>",
-          "imageAlt": "Anki Browsercontextmenu met Smart Fields genereren gemarkeerd",
+          "imageAlt": "Notities geselecteerd in de Anki-browser, daarna Smart Fields genereren gekozen in het contextmenu met de rechtermuisknop",
           "title": "Een batch genereren"
         },
         "single": {
           "how": "Klik in de <browser>Anki Browser</browser> op de sparkle-knop <sparkle/>",
-          "imageAlt": "Anki-editorwerkbalk met de knop Smart Notes gemarkeerd",
+          "imageAlt": "De cursor klikt op de Smart Notes-knop in de werkbalk van de Anki-editor",
           "title": "Eén notitie genereren"
         }
       },

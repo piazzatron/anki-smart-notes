@@ -227,12 +227,12 @@
       "methods": {
         "batch": {
           "how": "Al <browser>Navegador d'Anki</browser>, feu clic dret i trieu <strong>Genera Smart Fields</strong>",
-          "imageAlt": "Anki Menú contextual del navegador amb Genera Smart Fields ressaltat",
+          "imageAlt": "Notes seleccionades al Navegador d'Anki i, després, Generar Smart Fields triat des del menú del clic dret",
           "title": "Genera un lot"
         },
         "single": {
           "how": "Al <browser>Navegador d'Anki</browser>, feu clic al botó de guspira <sparkle/>",
-          "imageAlt": "Barra d'eines de l'editor Anki amb el botó Smart Notes ressaltat",
+          "imageAlt": "El cursor fa clic al botó de Smart Notes de la barra d'eines de l'editor d'Anki",
           "title": "Genera una nota individual"
         }
       },

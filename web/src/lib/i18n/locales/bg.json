@@ -226,12 +226,12 @@
       "methods": {
         "batch": {
           "how": "В <browser>Anki Browser</browser> щракнете с десния бутон и изберете <strong>Генериране на Smart Fields</strong>",
-          "imageAlt": "Anki Контекстно меню на браузъра с подчертано Генериране на Smart Fields",
+          "imageAlt": "Избрани бележки в Anki Browser, след това Generate Smart Fields от контекстното меню",
           "title": "Генериране на партида"
         },
         "single": {
           "how": "В <browser>Anki Browser</browser> щракнете върху бутона със звездичка <sparkle/>",
-          "imageAlt": "лента с инструменти на редактора Anki с подчертан бутон Smart Notes",
+          "imageAlt": "Курсорът натиска бутона Smart Notes в лентата с инструменти на редактора на Anki",
           "title": "Генериране на една бележка"
         }
       },

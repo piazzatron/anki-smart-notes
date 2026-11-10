@@ -226,12 +226,12 @@
       "methods": {
         "batch": {
           "how": "<browser>Anki Browser</browser> дотор хулганы баруун товчийг дараад <strong>Smart Fields үүсгэх</strong> командыг сонгоно уу",
-          "imageAlt": "Anki Үүсгэх Smart Fields-г тодруулсан хөтчийн контекст цэс",
+          "imageAlt": "Anki Browser-т сонгосон тэмдэглэлүүд, дараа нь баруун товчны цэсээс сонгосон Generate Smart Fields",
           "title": "Багцаар үүсгэх"
         },
         "single": {
           "how": "<browser>Anki Browser</browser> дотор <sparkle/> гялбаа товчийг дарна уу",
-          "imageAlt": "Smart Notes товчийг тодруулсан Anki засварлагч хэрэгслийн самбар",
+          "imageAlt": "Курсор Anki засварлагчийн хэрэгслийн мөрөн дээрх Smart Notes товчийг дарж байна",
           "title": "Нэг тэмдэглэл үүсгэх"
         }
       },

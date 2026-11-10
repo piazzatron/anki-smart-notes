@@ -226,12 +226,12 @@
       "methods": {
         "batch": {
           "how": "<browser>Anki Browser</browser>ରେ ଡାହାଣ କ୍ଲିକ୍ କରି <strong>Smart Fields ସୃଷ୍ଟି କରନ୍ତୁ</strong> ବାଛନ୍ତୁ",
-          "imageAlt": "Smart Fields ସୃଷ୍ଟି ସହିତ Anki ବ୍ରାଉଜର୍ ପ୍ରସଙ୍ଗ ମେନୁ ହାଇଲାଇଟ୍ ହୋଇଛି",
+          "imageAlt": "Anki ବ୍ରାଉଜରରେ ଚୟନ କରାଯାଇଥିବା ନୋଟ୍‌ଗୁଡ଼ିକ, ପରେ ରାଇଟ୍-କ୍ଲିକ୍ ମେନୁରୁ Generate Smart Fields ବାଛିବା",
           "title": "ଏକ ବ୍ୟାଚ୍ ସୃଷ୍ଟି କରନ୍ତୁ"
         },
         "single": {
           "how": "<browser>Anki Browser</browser>ରେ ଚମକ ବଟନ୍ <sparkle/> କ୍ଲିକ୍ କରନ୍ତୁ",
-          "imageAlt": "Smart Notes ବଟନ୍ ସହିତ Anki ଏଡିଟର୍ ଟୁଲ୍ ବାର୍ ହାଇଲାଇଟ୍ ହୋଇଛି",
+          "imageAlt": "କର୍ସର Anki ଏଡିଟର ଟୁଲବାରରେ ଥିବା Smart Notes ବଟନ୍ ଉପରେ କ୍ଲିକ୍ କରେ",
           "title": "ଏକ ଏକକ ନୋଟ୍ ସୃଷ୍ଟି କରନ୍ତୁ"
         }
       },

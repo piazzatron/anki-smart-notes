@@ -228,12 +228,12 @@
       "methods": {
         "batch": {
           "how": "У <browser>Anki Browser</browser> пстрыкніце правой кнопкай мышы і абярыце <strong>Стварыць Smart Fields</strong>",
-          "imageAlt": "Anki Кантэкстнае меню браўзера з вылучаным Generate Smart Fields",
+          "imageAlt": "Нататкі, выбраныя ў Anki Browser, потым Generate Smart Fields, выбраны ў кантэкстным меню па праву клавішы мышы",
           "title": "Згенераваць пакет"
         },
         "single": {
           "how": "У <browser>Anki Browser</browser> націсніце кнопку з іконкай іскры <sparkle/>",
-          "imageAlt": "Панэль інструментаў рэдактара Anki з вылучанай кнопкай Smart Notes",
+          "imageAlt": "Курсор націскае кнопку Smart Notes на панэлі інструментаў рэдактара Anki",
           "title": "Згенераваць адну нататку"
         }
       },

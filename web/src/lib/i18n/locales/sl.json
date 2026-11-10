@@ -228,12 +228,12 @@
       "methods": {
         "batch": {
           "how": "V <browser>Anki Browser</browser> z desnim klikom izberite <strong>Ustvari Smart Fields</strong>",
-          "imageAlt": "Anki Kontekstni meni brskalnika z označenim Generate Smart Fields",
+          "imageAlt": "Beležke, izbrane v brskalniku Anki, nato Generiraj Smart Fields iz kontekstnega menija z desnim klikom",
           "title": "Ustvari paket"
         },
         "single": {
           "how": "V <browser>Anki Browser</browser> kliknite gumb z iskrico <sparkle/>",
-          "imageAlt": "Orodna vrstica urejevalnika Anki z označenim gumbom Smart Notes",
+          "imageAlt": "Kazalec klikne gumb Smart Notes na orodni vrstici urejevalnika Anki",
           "title": "Ustvari eno beležko"
         }
       },

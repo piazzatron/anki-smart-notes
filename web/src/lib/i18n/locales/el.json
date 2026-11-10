@@ -226,12 +226,12 @@
       "methods": {
         "batch": {
           "how": "Στο <browser>Anki Browser</browser>, κάντε δεξί κλικ και επιλέξτε <strong>Δημιουργία Smart Fields</strong>",
-          "imageAlt": "Anki Μενού περιβάλλοντος προγράμματος περιήγησης με επισημασμένο το Δημιουργία Smart Fields",
+          "imageAlt": "Οι σημειώσεις που επιλέχθηκαν στο Anki Browser, και έπειτα το Generate Smart Fields από το μενού δεξί κλικ",
           "title": "Δημιουργία παρτίδας"
         },
         "single": {
           "how": "Στο <browser>Anki Browser</browser>, κάντε κλικ στο κουμπί με το αστέρι <sparkle/>",
-          "imageAlt": "γραμμή εργαλείων επεξεργασίας Anki με τονισμένο το κουμπί Smart Notes",
+          "imageAlt": "Ο δείκτης κάνει κλικ στο κουμπί Smart Notes στη γραμμή εργαλείων του επεξεργαστή Anki",
           "title": "Δημιουργία μίας σημείωσης"
         }
       },

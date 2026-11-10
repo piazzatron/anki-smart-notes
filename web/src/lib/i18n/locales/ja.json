@@ -225,12 +225,12 @@
       "methods": {
         "batch": {
           "how": "<browser>Anki Browser</browser>で右クリックし、<strong>Smart Fieldsを生成</strong>を選択します",
-          "imageAlt": "「Smart Fields の生成」が強調表示された Anki ブラウザーのコンテキスト メニュー",
+          "imageAlt": "Anki Browserで選択したノートを、右クリックメニューから Generate Smart Fields を選択",
           "title": "一括生成"
         },
         "single": {
           "how": "<browser>Anki Browser</browser>で、きらめきボタン<sparkle/>をクリックします",
-          "imageAlt": "Smart Notes ボタンが強調表示された Anki エディター ツールバー",
+          "imageAlt": "カーソルで Anki エディタのツールバーにある Smart Notes ボタンをクリック",
           "title": "単一のノートを生成"
         }
       },

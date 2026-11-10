@@ -226,12 +226,12 @@
       "methods": {
         "batch": {
           "how": "Az <browser>Anki Browser</browser> ablakban kattintson jobb gombbal, és válassza a <strong>Smart Fields generálása</strong> lehetőséget",
-          "imageAlt": "Anki Böngésző helyi menüje az Smart Fields létrehozása kiemelve",
+          "imageAlt": "Az Anki böngészőben kijelölt jegyzetek, majd a jobb klikkes menüből kiválasztott Generate Smart Fields",
           "title": "Köteg generálása"
         },
         "single": {
           "how": "Az <browser>Anki Browser</browser> ablakban kattintson a szikra gombra <sparkle/>",
-          "imageAlt": "Anki szerkesztő eszköztár az Smart Notes gombbal",
+          "imageAlt": "A kurzor az Anki szerkesztő eszköztárában lévő Smart Notes gombra kattint",
           "title": "Egyetlen jegyzet generálása"
         }
       },

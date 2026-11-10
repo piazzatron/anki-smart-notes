@@ -227,12 +227,12 @@
       "methods": {
         "batch": {
           "how": "בדפדפן של <browser>Anki Browser</browser>, לחץ לחיצה ימנית ובחר <strong>יצירת Smart Fields</strong>",
-          "imageAlt": "Anki תפריט ההקשר של הדפדפן עם יצירת Smart Fields מודגש",
+          "imageAlt": "הערות שנבחרו ב-Anki Browser, ולאחר מכן נבחר Generate Smart Fields מתפריט הלחיצה הימנית",
           "title": "יצירת אצווה"
         },
         "single": {
           "how": "בדפדפן של <browser>Anki Browser</browser>, לחץ על כפתור הנצנוץ <sparkle/>",
-          "imageAlt": "סרגל הכלים של עורך Anki עם הלחצן Smart Notes מסומן",
+          "imageAlt": "הסמן לוחץ על לחצן Smart Notes בסרגל הכלים של עורך Anki",
           "title": "יצירת פתק בודד"
         }
       },

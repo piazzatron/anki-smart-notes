@@ -226,12 +226,12 @@
       "methods": {
         "batch": {
           "how": "In die <browser>Anki Browser</browser>, regsklik en kies <strong>Genereer Smart Fields</strong>",
-          "imageAlt": "Anki Blaaier konteks kieslys met Genereer Smart Fields uitgelig",
+          "imageAlt": "Notas gekies in die Anki-bladeerder, dan Genereer Smart Fields gekies uit die regsklikkieslys",
           "title": "Genereer 'n bondel"
         },
         "single": {
           "how": "In die <browser>Anki Browser</browser>, klik die flikkerknoppie <sparkle/>",
-          "imageAlt": "Anki redigeerdernutsbalk met die Smart Notes-knoppie uitgelig",
+          "imageAlt": "Die wyser klik op die Smart Notes-knoppie in die Anki-redigeerder se nutsbalk",
           "title": "Genereer 'n enkele notas"
         }
       },

@@ -225,12 +225,12 @@
       "methods": {
         "batch": {
           "how": "Dalam <browser>Anki Browser</browser>, klik kanan dan pilih <strong>Jana Smart Fields</strong>",
-          "imageAlt": "Menu konteks Pelayar Anki dengan Generate Smart Fields diserlahkan",
+          "imageAlt": "Nota yang dipilih dalam Anki Browser, kemudian Generate Smart Fields dipilih daripada menu klik kanan",
           "title": "Jana satu kelompok"
         },
         "single": {
           "how": "Dalam <browser>Anki Browser</browser>, klik butang berkilau <sparkle/>",
-          "imageAlt": "Bar alat editor Anki dengan butang Smart Notes diserlahkan",
+          "imageAlt": "Kursor mengklik butang Smart Notes dalam bar alat editor Anki",
           "title": "Jana satu nota tunggal"
         }
       },

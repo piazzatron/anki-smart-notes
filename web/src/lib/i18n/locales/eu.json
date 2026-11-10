@@ -226,12 +226,12 @@
       "methods": {
         "batch": {
           "how": "<browser>Anki Browser</browser>-en, egin klik eskuineko botoiarekin eta aukeratu <strong>Sortu Smart Fields</strong>",
-          "imageAlt": "Anki Arakatzailearen testuinguru-menua Sortu Smart Fields nabarmenduta",
+          "imageAlt": "Anki Browser-en hautatutako oharrak, eta eskuineko klik menuan aukeratutako Generate Smart Fields",
           "title": "Sortu multzo bat"
         },
         "single": {
           "how": "<browser>Anki Browser</browser>-en, egin klik <sparkle/> txintxa botoian",
-          "imageAlt": "Anki editorearen tresna-barra Smart Notes botoia nabarmenduta",
+          "imageAlt": "Kurtsorea Anki editorearen tresna-barran dagoen Smart Notes botoiaren gainean klik egiten du",
           "title": "Sortu ohar bakar bat"
         }
       },

@@ -226,12 +226,12 @@
       "methods": {
         "batch": {
           "how": "I <browser>Anki Browser</browser>, høyreklikk og velg <strong>Generer Smart Fields</strong>",
-          "imageAlt": "Anki Nettleser kontekstmeny med Generer Smart Fields uthevet",
+          "imageAlt": "Notater valgt i Anki Browser, deretter Generer Smart Fields fra høyreklikkmenyen",
           "title": "Generer en batch"
         },
         "single": {
           "how": "I <browser>Anki Browser</browser>, klikk gnist-knappen <sparkle/>",
-          "imageAlt": "Anki-redigeringsverktøylinje med Smart Notes-knappen uthevet",
+          "imageAlt": "Markøren klikker på knappen Smart Notes i verktøylinjen i editoren i Anki",
           "title": "Generer ett enkelt notat"
         }
       },

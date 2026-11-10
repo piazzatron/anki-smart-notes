@@ -226,12 +226,12 @@
       "methods": {
         "batch": {
           "how": "Sa <browser>Anki Browser</browser>, i-right click at piliin ang <strong>Bumuo ng Smart Fields</strong>",
-          "imageAlt": "Anki Browser context menu na may naka-highlight na Bumuo ng Smart Fields",
+          "imageAlt": "Mga note na napili sa Anki Browser, pagkatapos piliin ang Generate Smart Fields mula sa right-click menu",
           "title": "Bumuo ng batch"
         },
         "single": {
           "how": "Sa <browser>Anki Browser</browser>, i-click ang sparkle button <sparkle/>",
-          "imageAlt": "Anki editor toolbar na may naka-highlight na Smart Notes button",
+          "imageAlt": "Ini-click ng cursor ang Smart Notes button sa toolbar ng Anki editor",
           "title": "Bumuo ng isang note"
         }
       },

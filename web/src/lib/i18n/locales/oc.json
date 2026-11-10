@@ -225,12 +225,12 @@
       "methods": {
         "batch": {
           "how": "Dins lo <browser>Navigator Anki</browser>, faites un clic dreit e causissètz <strong>Generar Smart Fields</strong>",
-          "imageAlt": "Menú de contèxte del navigador Anki amb Generar Smart Fields en evidéncia",
+          "imageAlt": "Nòtas seleccionadas dins lo navegador Anki, puis l'opcion Generar Smart Fields del menú clic dreit",
           "title": "Generar un lot"
         },
         "single": {
           "how": "Dins lo <browser>Navigator Anki</browser>, clicatz lo boton d'estincèla <sparkle/>",
-          "imageAlt": "Barra d'aisinas de l'editor Anki amb lo boton Smart Notes en evidéncia",
+          "imageAlt": "Lo cursor clica sul boton Smart Notes dins la barra d'aisinas de l'editor Anki",
           "title": "Generar una sola nòta"
         }
       },

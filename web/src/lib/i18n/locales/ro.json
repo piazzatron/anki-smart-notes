@@ -227,12 +227,12 @@
       "methods": {
         "batch": {
           "how": "În <browser>Anki Browser</browser>, faceți clic dreapta și alegeți <strong>Generează Smart Fields</strong>",
-          "imageAlt": "Anki Meniul contextual al browserului cu Generare Smart Fields evidențiat",
+          "imageAlt": "Notițele selectate în Anki Browser, apoi Generează Smart Fields ales din meniul contextual (clic dreapta)",
           "title": "Generează un lot"
         },
         "single": {
           "how": "În <browser>Anki Browser</browser>, faceți clic pe butonul cu scânteie <sparkle/>",
-          "imageAlt": "Bara de instrumente a editorului Anki cu butonul Smart Notes evidențiat",
+          "imageAlt": "Cursorul apasă pe butonul Smart Notes din bara de instrumente a editorului Anki",
           "title": "Generează o singură notiță"
         }
       },

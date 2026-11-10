@@ -226,12 +226,12 @@
       "methods": {
         "batch": {
           "how": "<browser>Anki Browser</browser>-selaimessa napsauta hiiren oikealla painikkeella ja valitse <strong>Luo Smart Fields</strong>",
-          "imageAlt": "Anki Selaimen kontekstivalikko, jossa Luo Smart Fields on korostettuna",
+          "imageAlt": "Anki Browser -ikkunassa valitut muistiinpanot ja hiiren oikean painikkeen valikosta valittu Generate Smart Fields",
           "title": "Luo erä"
         },
         "single": {
           "how": "<browser>Anki Browser</browser>-selaimessa napsauta kipinäpainiketta <sparkle/>",
-          "imageAlt": "Anki-editorin työkalupalkki, jossa Smart Notes-painike on korostettuna",
+          "imageAlt": "Kursori napsauttaa Smart Notes -painiketta Anki editor -työkalurivillä",
           "title": "Luo yksi muistiinpano"
         }
       },

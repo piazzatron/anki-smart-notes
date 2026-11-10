@@ -228,12 +228,12 @@
       "methods": {
         "batch": {
           "how": "V <browser>Anki Browser</browser> kliknite pravým tlačidlom a vyberte <strong>Generovať Smart Fields</strong>",
-          "imageAlt": "Anki Kontextová ponuka prehliadača so zvýraznenou možnosťou Generovať Smart Fields",
+          "imageAlt": "Vybrané poznámky v prehliadači Anki, potom možnosť Generate Smart Fields z kontextovej ponuky",
           "title": "Vygenerovať dávku"
         },
         "single": {
           "how": "V <browser>Anki Browser</browser> kliknite na tlačidlo s iskrou <sparkle/>",
-          "imageAlt": "Panel nástrojov editora Anki so zvýrazneným tlačidlom Smart Notes",
+          "imageAlt": "Kurzor klikne na tlačidlo Smart Notes na paneli nástrojov editora Anki",
           "title": "Vygenerovať jednu poznámku"
         }
       },

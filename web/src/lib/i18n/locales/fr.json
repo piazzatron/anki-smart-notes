@@ -227,12 +227,12 @@
       "methods": {
         "batch": {
           "how": "Dans le <browser>Navigateur Anki</browser>, faites un clic droit et choisissez <strong>Générer Smart Fields</strong>",
-          "imageAlt": "Menu contextuel du navigateur Anki avec Générer Smart Fields en surbrillance",
+          "imageAlt": "Notes sélectionnées dans le navigateur d'Anki, puis Générer des Smart Fields choisi dans le menu contextuel",
           "title": "Générer un lot"
         },
         "single": {
           "how": "Dans le <browser>Navigateur Anki</browser>, cliquez sur le bouton étincelle <sparkle/>",
-          "imageAlt": "Barre d'outils de l'éditeur Anki avec le bouton Smart Notes en surbrillance",
+          "imageAlt": "Le curseur clique sur le bouton Smart Notes dans la barre d'outils de l'éditeur d'Anki",
           "title": "Générer une seule note"
         }
       },

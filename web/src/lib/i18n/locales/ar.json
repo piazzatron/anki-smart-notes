@@ -230,12 +230,12 @@
       "methods": {
         "batch": {
           "how": "في <browser>متصفح Anki</browser>، انقر بزر الفأرة الأيمن واختر <strong>إنشاء Smart Fields</strong>",
-          "imageAlt": "قائمة سياق المتصفح Anki مع تمييز إنشاء Smart Fields",
+          "imageAlt": "الملاحظات المحددة في Anki Browser، ثم اختيار Generate Smart Fields من قائمة النقر بالزر الأيمن",
           "title": "إنشاء دفعة"
         },
         "single": {
           "how": "في <browser>متصفح Anki</browser>، انقر على زر البريق <sparkle/>",
-          "imageAlt": "شريط أدوات محرر Anki مع تمييز الزر Smart Notes",
+          "imageAlt": "ينقر المؤشر على زر Smart Notes في شريط أدوات محرر Anki",
           "title": "إنشاء ملاحظة واحدة"
         }
       },

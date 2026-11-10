@@ -227,12 +227,12 @@
       "methods": {
         "batch": {
           "how": "У прегледачу <browser>Anki Browser</browser> кликните десним тастером миша и изаберите <strong>Генериши Smart Fields</strong>",
-          "imageAlt": "Anki Контекстни мени претраживача са означеним Генерисај Smart Fields",
+          "imageAlt": "Белешке изабране у прегледачу Anki Browser, затим Генериши Smart Fields из контекстног менија",
           "title": "Генериши групу"
         },
         "single": {
           "how": "У прегледачу <browser>Anki Browser</browser> кликните на дугме са искрицом <sparkle/>",
-          "imageAlt": "трака са алаткама уређивача Anki са истакнутим дугметом Smart Notes",
+          "imageAlt": "Курсор кликће на дугме Smart Notes у алатној траци Anki уређивача",
           "title": "Генериши једну белешку"
         }
       },

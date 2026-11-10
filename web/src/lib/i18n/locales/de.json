@@ -226,12 +226,12 @@
       "methods": {
         "batch": {
           "how": "Im <browser>Anki-Browser</browser> mit der rechten Maustaste klicken und <strong>Smart Fields generieren</strong> wählen",
-          "imageAlt": "Anki Browser-Kontextmenü mit hervorgehobener Option „Smart Fields generieren“.",
+          "imageAlt": "Im Anki Browser ausgewählte Notizen, dann „Generate Smart Fields“ im Rechtsklickmenü gewählt",
           "title": "Stapel generieren"
         },
         "single": {
           "how": "Im <browser>Anki-Browser</browser> auf die Funken-Schaltfläche <sparkle/> klicken",
-          "imageAlt": "Symbolleiste des Anki-Editors mit hervorgehobener Schaltfläche Smart Notes",
+          "imageAlt": "Der Cursor klickt auf den Button Smart Notes in der Werkzeugleiste des Editors in Anki",
           "title": "Einzelne Notiz generieren"
         }
       },

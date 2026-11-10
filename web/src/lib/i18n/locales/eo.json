@@ -226,12 +226,12 @@
       "methods": {
         "batch": {
           "how": "En la <browser>Anki-Foliumilo</browser>, dekstre klaku kaj elektu <strong>Generi Smart Fields</strong>",
-          "imageAlt": "Anki Retumila kunteksta menuo kun Genera Smart Fields emfazita",
+          "imageAlt": "Notoj elektitaj en la Anki Browser, poste Generate Smart Fields elektita el la dekstre-klaka menuo",
           "title": "Generi grupon"
         },
         "single": {
           "how": "En la <browser>Anki-Foliumilo</browser>, alklaku la stelsimbolan butonon <sparkle/>",
-          "imageAlt": "Anki-redaktila ilobreto kun la Smart Notes-butono emfazita",
+          "imageAlt": "La kursoro klakas la Smart Notes-butonon en la ilobreto de la Anki-redaktilo",
           "title": "Generi unu noton"
         }
       },

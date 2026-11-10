@@ -226,12 +226,12 @@
       "methods": {
         "batch": {
           "how": "<browser>Anki Tarayıcısı</browser> içinde sağ tıklayıp <strong>Smart Fields oluştur</strong> seçeneğini seçin",
-          "imageAlt": "Smart Fields Oluştur vurgulanmış Anki Tarayıcı içerik menüsü",
+          "imageAlt": "Anki Tarayıcı'da seçilen notlar, ardından sağ tıklama menüsünden Akıllı Alanları Oluştur seçildi",
           "title": "Toplu oluştur"
         },
         "single": {
           "how": "<browser>Anki Tarayıcısı</browser> içinde parıltı düğmesine <sparkle/> tıklayın",
-          "imageAlt": "Smart Notes düğmesinin vurgulandığı Anki düzenleyici araç çubuğu",
+          "imageAlt": "İmleç, Anki düzenleyici araç çubuğundaki Smart Notes düğmesine tıklıyor",
           "title": "Tek bir not oluştur"
         }
       },

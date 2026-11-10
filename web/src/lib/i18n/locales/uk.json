@@ -228,12 +228,12 @@
       "methods": {
         "batch": {
           "how": "В <browser>Anki Browser</browser> клацніть правою кнопкою миші та виберіть <strong>Згенерувати Smart Fields</strong>",
-          "imageAlt": "Anki Контекстне меню браузера з виділеним пунктом Generate Smart Fields",
+          "imageAlt": "Нотатки, вибрані в браузері Anki, потім пункт «Згенерувати Smart Fields» у контекстному меню",
           "title": "Згенерувати пакет"
         },
         "single": {
           "how": "В <browser>Anki Browser</browser> натисніть кнопку з іскринкою <sparkle/>",
-          "imageAlt": "панель інструментів редактора Anki із виділеною кнопкою Smart Notes",
+          "imageAlt": "Курсор натискає кнопку Smart Notes на панелі інструментів редактора Anki",
           "title": "Згенерувати одну нотатку"
         }
       },

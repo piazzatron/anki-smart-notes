@@ -229,12 +229,12 @@
       "methods": {
         "batch": {
           "how": "Sa <browser>Anki Browser</browser>, cliceáil ar dheis agus roghnaigh <strong>Gin Smart Fields</strong>",
-          "imageAlt": "Roghchlár comhthéacs Brabhsálaí Anki le Gin Smart Fields aibhsithe",
+          "imageAlt": "Nótaí roghnaithe sa Bhrabhsálaí Anki, ansin Gin Smart Fields roghnaithe ón roghchlár cliceáil ar dheis",
           "title": "Gin baisc"
         },
         "single": {
           "how": "Sa <browser>Anki Browser</browser>, cliceáil ar an gcnaipe spréacha <sparkle/>",
-          "imageAlt": "Barra uirlisí eagarthóireachta Anki leis an gcnaipe Smart Notes aibhsithe",
+          "imageAlt": "Cliceálann an cúrsóir ar chnaipe Smart Notes i mbarra uirlisí eagarthóra Anki",
           "title": "Gin nóta aonair"
         }
       },

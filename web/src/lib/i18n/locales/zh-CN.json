@@ -225,12 +225,12 @@
       "methods": {
         "batch": {
           "how": "在<browser>Anki 浏览器</browser>中，右键单击并选择<strong>生成 Smart Fields</strong>",
-          "imageAlt": "Anki 浏览器上下文菜单，突出显示“生成 Smart Fields”",
+          "imageAlt": "在 Anki 浏览器中选中笔记，然后从右键菜单中选择“生成 Smart Fields”",
           "title": "批量生成"
         },
         "single": {
           "how": "在<browser>Anki 浏览器</browser>中，点击闪光按钮<sparkle/>",
-          "imageAlt": "Anki 编辑器工具栏，突出显示 Smart Notes 按钮",
+          "imageAlt": "光标点击 Anki 编辑器工具栏中的 Smart Notes 按钮",
           "title": "生成单条笔记"
         }
       },
