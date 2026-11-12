@@ -51,10 +51,13 @@ def test_native_action_text_matches_anki_locale(
     )
 
 
+# The web UI lives beside plugin/ in the private monorepo, not in the public repo.
+WEB_LOCALES = Path(__file__).parents[2] / "web" / "src" / "lib" / "i18n" / "locales"
+
+
+@pytest.mark.skipif(not WEB_LOCALES.exists(), reason="the web UI isn't in this repo")
 def test_native_action_catalogs_match_web_locales() -> None:
-    locale_directory = (
-        Path(__file__).parents[1] / "web" / "src" / "lib" / "i18n" / "locales"
-    )
+    locale_directory = WEB_LOCALES
     web_locales = {path.stem for path in locale_directory.glob("*.json")}
 
     assert set(NATIVE_ACTION_TRANSLATIONS) == web_locales

@@ -170,7 +170,6 @@ user_files/*
 
 todo*.md
 
-# Web app
-web/node_modules
+# The web UI, built from the monorepo's web/ by scripts/build.sh
 src/web/static/
 .playwright-mcp/

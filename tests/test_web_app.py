@@ -17,11 +17,14 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+# pyright: reportPrivateUsage=false
+
 from types import SimpleNamespace
 from unittest.mock import ANY, MagicMock
 
 import pytest
 
+import src.ui.web_app_dialog as web_app_dialog
 import src.web_app as web_app
 
 
@@ -121,3 +124,18 @@ def test_close_web_app_closes_dialog(monkeypatch: pytest.MonkeyPatch) -> None:
     web_app.close_web_app()
 
     dialog.close.assert_called_once_with()
+
+
+def test_web_ui_errors_reach_sentry_without_the_session_token(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    errors: list[str] = []
+    monkeypatch.setattr(web_app_dialog.logger, "error", errors.append)
+    levels = web_app_dialog.QWebEnginePage.JavaScriptConsoleMessageLevel
+    page_url = "http://127.0.0.1:24766/app?token=secret-token&locale=en"
+
+    log = web_app_dialog._SmartNotesWebPage.javaScriptConsoleMessage
+    log(MagicMock(), levels.WarningMessageLevel, "a warning", 1, page_url)
+    log(MagicMock(), levels.ErrorMessageLevel, "Uncaught TypeError: x", 3, page_url)
+
+    assert errors == ["Web UI error: Uncaught TypeError: x (/app:3)"]

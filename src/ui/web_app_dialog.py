@@ -30,6 +30,8 @@ from aqt.qt import (
 )
 from aqt.utils import openLink
 
+from ..logger import logger
+
 PREFERRED_DIALOG_WIDTH = 1100
 PREFERRED_DIALOG_HEIGHT = 800
 MAX_SCREEN_USAGE_RATIO = 0.9
@@ -98,6 +100,21 @@ class _SmartNotesWebPage(QWebEnginePage):
             return False
 
         return super().acceptNavigationRequest(url, type, isMainFrame)
+
+    def javaScriptConsoleMessage(
+        self,
+        level: QWebEnginePage.JavaScriptConsoleMessageLevel,
+        message: Optional[str],
+        lineNumber: int,
+        sourceID: Optional[str],
+    ) -> None:
+        # The web UI has no Sentry of its own, so its uncaught errors and
+        # console.error calls reach Sentry through the add-on's error logging.
+        # Only the path: the page URL carries the local session token.
+        if level == QWebEnginePage.JavaScriptConsoleMessageLevel.ErrorMessageLevel:
+            logger.error(
+                f"Web UI error: {message} ({QUrl(sourceID or '').path()}:{lineNumber})"
+            )
 
     def _is_app_url(self, url: QUrl) -> bool:
         return (

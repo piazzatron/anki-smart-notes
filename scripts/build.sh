@@ -21,9 +21,15 @@ set -e
 
 
 build () {
+  # The web UI's source is private: it lives in web/ beside plugin/ in the
+  # Smart Notes monorepo, so this public repo can't build it on its own.
+  if [ ! -d ../web ]; then
+    echo "The Smart Notes web UI isn't in this repo, so the add-on can't be built from it alone." >&2
+    exit 1
+  fi
   echo "Building web app..."
   (
-    cd web
+    cd ../web
     # A no-op install takes milliseconds, so always run it: deps pulled since the
     # last build would otherwise be missing.
     bun install --frozen-lockfile
@@ -38,7 +44,7 @@ build () {
   cp manifest.json dist/
   cp config.json dist/
   cp -r src dist/
-  cp license dist/
+  cp LICENSE dist/
   cp changelog.md dist/
   # Anki preserves this directory across add-on upgrades, so the package should
   # include the directory scaffold. Copy only committed scaffold files here:

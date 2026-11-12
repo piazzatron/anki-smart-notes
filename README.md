@@ -25,11 +25,11 @@ Enjoying Smart Notes? [Please rate it on AnkiWeb](https://ankiweb.net/shared/inf
 
 ## Contributing
 
-This repository is the GPL-licensed Anki add-on, distributed under GPL v3 (see [LICENSE](LICENSE)). It integrates with Anki's Qt UI, stores Smart Field configuration locally, and talks to the Smart Notes backend for generation, subscription state and usage tracking. The backend and the marketing site are private and not distributed under the GPL.
+This repository is the GPL-licensed Anki add-on, distributed under GPL v3 (see [LICENSE](LICENSE)). It integrates with Anki's Qt UI, stores Smart Field configuration locally, and talks to the Smart Notes backend for generation, subscription state and usage tracking. The backend, the marketing site and the add-on's web UI are private and not distributed under the GPL; the add-on ships the web UI minified.
 
 PRs are welcome. [ARCHITECTURE.md](ARCHITECTURE.md) explains how the code fits together.
 
-Set up a virtualenv in `.venv` and install `requirements.txt` into it. The web UI in `web/` needs [Bun](https://bun.sh).
+Set up a virtualenv in `.venv` and install `requirements.txt` into it. The add-on's web UI is not open source, so this repo has the Python add-on only.
 
 | Command | What it does |
 |---|---|
@@ -37,9 +37,7 @@ Set up a virtualenv in `.venv` and install `requirements.txt` into it. The web U
 | `./scripts/build.sh fix` | Fix formatting and lint issues |
 | `./scripts/build.sh typecheck` | Typecheck only |
 | `source .venv/bin/activate && python -m pytest` | Python tests |
-| `./scripts/build.sh build` | Build the add-on package, with the web UI bundled |
-| `bun run dev` (in `web/`) | Web UI dev server on `:5173`. Dev builds of the add-on load it from there |
-| `bun run check` / `bun run test` (in `web/`) | Web UI checks (types, ESLint with the design and accessibility rules in `web/lint/`, Prettier, knip, translations) and tests |
+| `./scripts/build.sh build` | Build the add-on package, with the web UI minified and bundled (needs the private web UI source) |
 
 Packaged builds include only the dependencies `scripts/build.sh` copies into `dist/vendor`. When you add or remove a runtime dependency in `requirements.txt`, update that list too. Vendored packages run on Anki's own Python, so pin them to versions that still support Python 3.9 (Anki 2.1.50 to 25.02); `uv pip compile --python-version 3.9` resolves such a set.
 
@@ -49,7 +47,7 @@ Smart Notes supports Anki 2.1.50 and later, Qt6 builds only, since it imports `P
 
 ## Credits
 
-The web UI's artwork is not covered by the GPL:
+The web UI uses this artwork:
 
 - Icons: [Solar](https://www.figma.com/community/file/1166831539721848736) by 480 Design, licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 - Page-title emoji: [Noto Emoji](https://github.com/googlefonts/noto-emoji) by Google, licensed under Apache 2.0.
