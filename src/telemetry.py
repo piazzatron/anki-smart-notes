@@ -17,8 +17,10 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import os
 from typing import Any, Optional
 
+from . import env
 from .api_client import api
 from .logger import logger
 from .tasks import run_async_in_background
@@ -29,6 +31,11 @@ def track_event(event: str, properties: Optional[dict[str, Any]] = None) -> None
     Fire-and-forget client-side telemetry. Signed-out installs send it too,
     identified by their install ID.
     """
+    # Agents in Claude Code cloud sessions run production builds too; their installs
+    # and clicks would count as real users
+    if env.environment == "PROD" and os.environ.get("CLAUDE_CODE_REMOTE") == "true":
+        return
+
     body: dict[str, Any] = {"event": event}
     if properties is not None:
         body["properties"] = properties
