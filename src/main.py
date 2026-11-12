@@ -20,9 +20,13 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 from .config import config
 from .field_resolver import field_resolver
 from .hooks import setup_hooks
+from .logger import setup_logger
 from .note_proccessor import NoteProcessor
 
 
 def main() -> None:
+    # Before any hook runs: Anki can open the profile, which starts the local
+    # server, before the main window exists, and the log file is opened fresh.
+    setup_logger()
     processor = NoteProcessor(field_resolver=field_resolver, config=config)
     setup_hooks(processor)

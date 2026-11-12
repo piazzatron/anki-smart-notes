@@ -19,6 +19,13 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
 
+# On Windows the local server runs on a selector event loop, which has no native
+# sendfile, so aiohttp's static files go through asyncio's sendfile fallback. On
+# Python 3.12+ that fallback can overwrite bytes still queued for a slow reader,
+# so the webview gets a corrupted UI bundle and the window stays black. aiohttp
+# reads this when it's imported, so it has to be set before any import of it.
+os.environ.setdefault("AIOHTTP_NOSENDFILE", "1")
+
 
 def _init_addon():
     def update_path() -> None:

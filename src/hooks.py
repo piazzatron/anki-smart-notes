@@ -42,7 +42,7 @@ from .decks import deck_id_to_name_map
 from .event_bus import event_bus
 from .feature_flags import refresh_feature_flags
 from .generation_access import ensure_generation_available
-from .logger import cleanup_logger, logger, setup_logger
+from .logger import cleanup_logger, logger
 from .note_proccessor import NoteProcessor
 from .review_time_evaluator import ReviewTimeEvaluator
 from .sentry import sentry, with_sentry
@@ -299,8 +299,6 @@ def on_main_window(processor: NoteProcessor):
     if not mw:
         return
 
-    # Setup logger as first thing
-    setup_logger()
     run_migrations()
 
     smart_notes_menu = QMenu("Smart Notes", mw)
