@@ -113,6 +113,35 @@ def test_interpolate_prompt(prompt, note_data, allow_empty, expected, monkeypatc
     assert interpolate_prompt(prompt, MockNote(note_data), strip_html=False) == expected
 
 
+@pytest.mark.parametrize(
+    "prompt, note_data, allow_empty, expected",
+    [
+        # Named as the note names them, once each.
+        ("{{back}} and {{BACK}}", {"Front": "x", "Back": ""}, False, ["Back"]),
+        ("{{Front}} {{Back}}", {"Front": "", "Back": "y"}, False, ["Front"]),
+        ("{{Front}} {{Back}}", {"Front": "", "Back": "y"}, True, []),
+        ("{{Front}} {{Back}}", {"Front": "", "Back": ""}, True, ["Front", "Back"]),
+        # Only an image is no text once stripped.
+        ("{{Back}}", {"Front": "x", "Back": '<img src="a.png">'}, False, ["Back"]),
+        ("{{Missing}}", {"Front": "x"}, False, ["missing"]),
+        ("No fields", {"Front": ""}, False, []),
+    ],
+)
+def test_get_empty_prompt_fields(prompt, note_data, allow_empty, expected, monkeypatch):
+    import src.prompt_helpers
+
+    monkeypatch.setattr(
+        src.prompt_helpers, "config", MockConfig(allow_empty_fields=allow_empty)
+    )
+
+    from src.prompt_helpers import get_empty_prompt_fields
+
+    assert (
+        get_empty_prompt_fields(prompt, MockNote(note_data), strip_html=True)
+        == expected
+    )
+
+
 YOMITAN_GLOSSARY = (
     '<div class="yomitan-glossary"><span><span data-sc-code="v5g">'
     '<style>.x { color: red }</style><img src="v5g.svg"></span>'

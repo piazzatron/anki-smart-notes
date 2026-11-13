@@ -54,6 +54,7 @@ from ..models.smart_fields import (
     TTSPromptTestRequest,
 )
 from ..prompt_fields import get_prompt_fields
+from ..prompt_helpers import get_empty_prompt_fields
 from ..tts_provider import tts_provider
 
 EXPIRED_TEST_RESULT_MESSAGE = "This result has expired — run the test again"
@@ -133,8 +134,10 @@ def prepare_text_prompt_test(request: TextPromptTestRequest) -> TextPromptTestCo
     except NotFoundError as error:
         raise ValueError("The selected card no longer exists") from error
 
+    note = card.note()
+    _reject_empty_fields(request.prompt, note, request.settings.strip_html)
     return TextPromptTestContext(
-        note=card.note(),
+        note=note,
         deck_id=card.did,
         request=request,
     )
@@ -147,9 +150,9 @@ def prepare_image_prompt_test(
         _reject_field_references_without_card(request.prompt)
         return ImagePromptTestContext(note=None, request=request)
 
-    return ImagePromptTestContext(
-        note=_get_selected_card_note(request.card_id), request=request
-    )
+    note = _get_selected_card_note(request.card_id)
+    _reject_empty_fields(request.prompt, note, request.settings.strip_html)
+    return ImagePromptTestContext(note=note, request=request)
 
 
 def prepare_tts_prompt_test(request: TTSPromptTestRequest) -> TTSPromptTestContext:
@@ -157,15 +160,31 @@ def prepare_tts_prompt_test(request: TTSPromptTestRequest) -> TTSPromptTestConte
         _reject_field_references_without_card(request.text)
         return TTSPromptTestContext(note=None, request=request)
 
-    return TTSPromptTestContext(
-        note=_get_selected_card_note(request.card_id), request=request
-    )
+    note = _get_selected_card_note(request.card_id)
+    # Voice reads its field as written: it's stripped on the server, not here.
+    _reject_empty_fields(request.text, note, strip_html=False)
+    return TTSPromptTestContext(note=note, request=request)
 
 
 def _reject_field_references_without_card(prompt: str) -> None:
     """A prompt that reads fields needs a card to read them from."""
     if get_prompt_fields(prompt):
         raise ValueError("Select a card to use field references in this test")
+
+
+def _reject_empty_fields(prompt: str, note: Note, strip_html: bool) -> None:
+    """Generation skips a note whose prompt fields are empty, so say which ones rather
+    than come back with nothing."""
+    empty = get_empty_prompt_fields(prompt, note, strip_html)
+    if len(empty) == 1:
+        raise ValueError(
+            f"{empty[0]} is empty on this card. Pick a card where it's filled in."
+        )
+    if empty:
+        names = ", ".join(empty[:-1]) + f" and {empty[-1]}"
+        raise ValueError(
+            f"{names} are empty on this card. Pick a card where they're filled in."
+        )
 
 
 async def run_text_prompt_test(context: TextPromptTestContext) -> dict[str, str]:

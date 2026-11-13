@@ -47,6 +47,22 @@ def html_to_text(value: str) -> str:
     return "\n".join(line for line in lines if line)
 
 
+def get_empty_prompt_fields(prompt: str, note: Note, strip_html: bool) -> list[str]:
+    """The fields the prompt reads that are empty on this note, named as the note names
+    them, when they stop it from running. allow_empty_fields lets some be empty, never
+    all of them. Empty means no text once stripped, when strip_html is on."""
+    fields = get_prompt_fields(prompt)
+    values = _get_prompt_field_values(fields, note, strip_html)
+    if all(values) or (any(values) and config.allow_empty_fields):
+        return []
+
+    names = {name.lower(): name for name in note.keys()}  # noqa: SIM118
+    empty = [
+        names.get(field, field) for field, value in zip(fields, values) if not value
+    ]
+    return list(dict.fromkeys(empty))
+
+
 def interpolate_prompt(prompt: str, note: Note, strip_html: bool) -> Optional[str]:
     """Interpolates a prompt. Returns none if required source fields are empty.
     With strip_html, field values go in as plain text (`html_to_text`)."""
@@ -54,20 +70,20 @@ def interpolate_prompt(prompt: str, note: Note, strip_html: bool) -> Optional[st
     if not fields:
         return prompt
 
-    all_note_fields = to_lowercase_dict(note)  # type: ignore[arg-type]
-    if strip_html:
-        all_note_fields = {
-            name: html_to_text(value) for name, value in all_note_fields.items()
-        }
+    if get_empty_prompt_fields(prompt, note, strip_html):
+        logger.debug("Prompt has empty fields")
+        return None
 
     # Lowercase field references inside {{}} while preserving cloze deletions.
     prompt = re.sub(FIELD_PATTERN, lambda x: "{{" + x.group(1).lower() + "}}", prompt)
+    for field, value in zip(fields, _get_prompt_field_values(fields, note, strip_html)):
+        prompt = prompt.replace("{{" + field + "}}", value)
+    return prompt
 
+
+def _get_prompt_field_values(
+    fields: list[str], note: Note, strip_html: bool
+) -> list[str]:
+    all_note_fields = to_lowercase_dict(note)  # type: ignore[arg-type]
     values = [all_note_fields.get(field, "") for field in fields]
-    if any(values) and (config.allow_empty_fields or all(values)):
-        for field, value in zip(fields, values):
-            prompt = prompt.replace("{{" + field + "}}", value)
-        return prompt
-
-    logger.debug("Prompt has empty fields")
-    return None
+    return [html_to_text(value) for value in values] if strip_html else values
