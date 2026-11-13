@@ -57,7 +57,7 @@ build () {
   rm -rf dist/__pycache__
 
   # Copy deps, synced from requirements.txt first so new ones are there to copy
-  [ -x .venv/bin/python ] || uv venv -q --python 3.11 .venv
+  [ -x .venv/bin/python3.13 ] || uv venv -q --clear --python 3.13 .venv
   uv pip install -q --python .venv/bin/python -r requirements.txt
   vendored=(
     "aiohttp"
@@ -85,8 +85,12 @@ build () {
 
   # copy them in a loop
   for dep in "${vendored[@]}"; do
-    cp -r ".venv/lib/python3.11/site-packages/$dep" dist/vendor/
+    cp -r ".venv/lib/python3.13/site-packages/$dep" dist/vendor/
   done
+  # Ship only the pure-Python code paths, which these packages fall back to when their
+  # compiled extension doesn't load. An extension built here loads only on this
+  # machine's OS, CPU and Python, so it would change behavior for just those users.
+  find dist/vendor \( -name '*.so' -o -name '*.pyd' \) -delete
 
   # Voices
   cp -r eleven_voices.json dist/

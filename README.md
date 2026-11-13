@@ -29,7 +29,7 @@ This repository is the GPL-licensed Anki add-on, distributed under GPL v3 (see [
 
 PRs are welcome. [ARCHITECTURE.md](ARCHITECTURE.md) explains how the code fits together.
 
-Set up a virtualenv in `.venv` and install `requirements.txt` into it. The add-on's web UI is not open source, so this repo has the Python add-on only.
+Set up a Python 3.13 virtualenv in `.venv` (`uv venv --python 3.13 .venv`), the Python that Anki 25.06 and later bundle, and install `requirements.txt` into it. The add-on's web UI is not open source, so this repo has the Python add-on only.
 
 | Command | What it does |
 |---|---|
@@ -39,7 +39,7 @@ Set up a virtualenv in `.venv` and install `requirements.txt` into it. The add-o
 | `source .venv/bin/activate && python -m pytest` | Python tests |
 | `./scripts/build.sh build` | Build the add-on package, with the web UI minified and bundled (needs the private web UI source) |
 
-Packaged builds include only the dependencies `scripts/build.sh` copies into `dist/vendor`. When you add or remove a runtime dependency in `requirements.txt`, update that list too. Vendored packages run on Anki's own Python, so pin them to versions that still support Python 3.9 (Anki 2.1.50 to 25.02); `uv pip compile --python-version 3.9` resolves such a set.
+Packaged builds include only the dependencies `scripts/build.sh` copies into `dist/vendor`. When you add or remove a runtime dependency in `requirements.txt`, update that list too. Vendored packages run on Anki's own Python, so pin them to versions that still support Python 3.9 (Anki 2.1.50 to 25.02); `uv pip compile --python-version 3.9` resolves such a set. The build drops their compiled extensions, so every Anki runs their pure-Python code.
 
 ### Supported Anki versions
 
