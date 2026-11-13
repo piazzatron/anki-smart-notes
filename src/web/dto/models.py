@@ -263,6 +263,23 @@ class ReviewClaimSendPayload(TypedDict):
     step: str
 
 
+class BrowserFieldDto(TypedDict):
+    noteTypeId: int
+    deckId: int
+    fieldName: str
+
+
+class UiOpenBrowserPayload(TypedDict, total=False):
+    field: BrowserFieldDto
+
+
+@dataclass(frozen=True)
+class BrowserFieldTarget:
+    note_type_id: int
+    deck_id: int
+    field_name: str
+
+
 @dataclass(frozen=True)
 class PromptGenerateRequest:
     note_type_id: int

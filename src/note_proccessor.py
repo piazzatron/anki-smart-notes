@@ -55,7 +55,7 @@ from .sentry import run_async_in_background_with_sentry
 from .services.smart_field_service import smart_field_service
 from .ui.ui_utils import show_message_box
 from .utils import run_on_main
-from .utils.notes_utils import get_note_type_id
+from .utils.notes_utils import get_note_type_id, note_decks
 
 # OPEN_AI rate limits
 OPEN_AI_MODEL_REQ_PER_MIN = 500
@@ -106,13 +106,8 @@ class NoteProcessor:
             return
 
         bump_usage_counter()
-        cards = [mw.col.get_card(card_in) for card_in in card_ids]
-
-        # If a card appears multiple times in the same deck, process it just a single time
-        cards = list({card.nid: card for card in cards}.values())
-
-        note_ids = [card.nid for card in cards]
-        did_map = {card.nid: card.did for card in cards}
+        did_map = note_decks(card_ids)
+        note_ids = list(did_map)
 
         if not self._assert_valid_app_mode():
             return

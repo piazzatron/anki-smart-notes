@@ -18,6 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import asyncio
+import re
 from copy import deepcopy
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Callable, Optional, cast
@@ -299,6 +300,25 @@ class FakeModels:
         if note_type not in self.note_types:
             return None
         return {"name": note_type, "id": self.note_types[note_type]}
+
+
+class FakeAnkiDb:
+    """The collection's SQL for the cards and notes tables, as code that reads
+    them directly queries it: rows come back in table order, not query order."""
+
+    def __init__(
+        self,
+        *,
+        cards: Optional[list[tuple[int, int, int]]] = None,
+        notes: Optional[list[tuple[int, int, str]]] = None,
+    ) -> None:
+        # (card id, note id, deck id) and (note id, note type id, "\x1f"-joined fields)
+        self.tables = {"cards": cards or [], "notes": notes or []}
+
+    def all(self, sql: str) -> list[tuple[Any, ...]]:
+        table = re.search(r"from (\w+)", sql).group(1)  # type: ignore
+        ids = {int(i) for i in re.findall(r"\d+", sql.split(" in ", 1)[1])}
+        return [row for row in self.tables[table] if row[0] in ids]
 
 
 class FakeCollection:

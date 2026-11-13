@@ -65,7 +65,7 @@ from .services.prompt_test_service import (
     save_test_result,
 )
 from .services.smart_field_service import smart_field_service
-from .ui.ui_utils import open_anki_browser
+from .ui.ui_utils import open_anki_browser, open_browser_on_field
 from .utils import get_version
 from .utils.notes_utils import get_note_types_with_fields
 from .web import dto
@@ -736,8 +736,11 @@ async def _run_send_review_claim(payload: dict[str, Any]) -> dict[str, str]:
 
 
 def _run_open_browser(payload: dict[str, Any]) -> None:
-    dto.parse_ui_open_browser(payload)
-    open_anki_browser()
+    target = dto.parse_ui_open_browser(payload)
+    if target is None:
+        open_anki_browser()
+    else:
+        open_browser_on_field(target.note_type_id, target.deck_id, target.field_name)
 
 
 # Command names are namespaced like event names (state, anki.*): the protocol

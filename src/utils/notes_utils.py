@@ -17,11 +17,13 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from collections.abc import Sequence
 from typing import Optional
 
 from anki.cards import Card
 from anki.decks import DeckId
-from anki.notes import Note
+from anki.notes import Note, NoteId
+from anki.utils import ids2str
 from aqt import mw
 
 from ..constants import GLOBAL_DECK_ID
@@ -49,6 +51,23 @@ def get_note_type_id(note: Note) -> int:
     if not t:
         raise Exception("Note type not found")
     return int(t["id"])
+
+
+def note_decks(card_ids: Sequence[int]) -> dict[NoteId, DeckId]:
+    """Each note among the cards, in order of first appearance, with the deck its
+    Smart Fields resolve by: the deck of its last card in `card_ids`. A note with
+    several selected cards is generated once."""
+    if not mw or not mw.col or not mw.col.db:
+        return {}
+    rows = mw.col.db.all(
+        f"select id, nid, did from cards where id in {ids2str(card_ids)}"
+    )
+    note_deck_by_card = {card_id: (nid, did) for card_id, nid, did in rows}
+    return dict(
+        note_deck_by_card[card_id]
+        for card_id in card_ids
+        if card_id in note_deck_by_card
+    )
 
 
 def get_note_type_id_from_name(note_type: str) -> Optional[int]:

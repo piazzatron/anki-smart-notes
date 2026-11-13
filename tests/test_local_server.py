@@ -1029,6 +1029,7 @@ async def test_open_browser_command_dispatch(monkeypatch):
     import src.local_server
 
     _, fake_dto = _patch_command_route_deps(monkeypatch)
+    fake_dto.parse_ui_open_browser.return_value = None
     open_anki_browser = MagicMock()
     monkeypatch.setattr(src.local_server, "open_anki_browser", open_anki_browser)
 

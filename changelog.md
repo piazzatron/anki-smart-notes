@@ -1,3 +1,7 @@
+# v2.29.0
+
+- Improved UX for generating cards in the Browser.
+
 # v2.28.0
 
 - New smarter & cheaper Auto model with intelligence levels: Standard, High and Max.

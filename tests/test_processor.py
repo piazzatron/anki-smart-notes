@@ -31,6 +31,7 @@ from fixtures import (
     DECK_ID,
     NOTE_TYPE_ID,
     NOTE_TYPE_NAME,
+    FakeAnkiDb,
     MockAppState,
     MockCard,
     MockConfig,
@@ -41,6 +42,7 @@ from fixtures import (
 )
 
 import src.note_proccessor
+import src.utils.notes_utils
 from src.api_client import OutOfCreditsError, UserDisplayableError
 
 
@@ -738,17 +740,10 @@ async def test_process_cards_with_progress_does_not_show_user_displayable_error(
         1: MockNote({"f1": "1"}, note_id=1),
         2: MockNote({"f1": "2"}, note_id=2),
     }
-    cards = {
-        1: MockCard(id=1, did=1, note=notes[1]),
-        2: MockCard(id=2, did=1, note=notes[2]),
-    }
-    cards[1].nid = 1
-    cards[2].nid = 2
     shown_messages = []
 
     class MockCollection:
-        def get_card(self, card_id):
-            return cards[card_id]
+        db = FakeAnkiDb(cards=[(1, 1, 1), (2, 2, 1)])
 
         def update_notes(self, updated):
             pass
@@ -765,6 +760,7 @@ async def test_process_cards_with_progress_does_not_show_user_displayable_error(
         config=MockConfig(allow_empty_fields=False),
     )
     monkeypatch.setattr(src.note_proccessor, "mw", MockMw())
+    monkeypatch.setattr(src.utils.notes_utils, "mw", MockMw())
     monkeypatch.setattr(processor, "_assert_valid_app_mode", lambda: True)
     monkeypatch.setattr(src.note_proccessor, "bump_usage_counter", lambda: None)
     monkeypatch.setattr(src.note_proccessor, "is_capacity_remaining", lambda: True)
@@ -870,10 +866,7 @@ async def test_cancelled_batch_does_not_stop_background_generation(monkeypatch):
     batch_results = []
 
     class MockCollection:
-        def get_card(self, card_id):
-            card = MockCard(id=card_id, did=1, note=n)
-            card.nid = 1
-            return card
+        db = FakeAnkiDb(cards=[(1, 1, 1)])
 
         def update_note(self, note):
             pass
@@ -890,6 +883,7 @@ async def test_cancelled_batch_does_not_stop_background_generation(monkeypatch):
         return [], [], [], False
 
     monkeypatch.setattr(src.note_proccessor, "mw", MockMw())
+    monkeypatch.setattr(src.utils.notes_utils, "mw", MockMw())
     monkeypatch.setattr(processor, "_assert_valid_app_mode", lambda: True)
     monkeypatch.setattr(processor, "_process_notes_batch", process_notes_batch)
     monkeypatch.setattr(src.note_proccessor, "bump_usage_counter", lambda: None)
@@ -985,15 +979,14 @@ async def test_editor_generation_saves_fields_despite_editor_reloads(
             self.web = None
             self.parentWindow = None
 
-        def addButton(self, **kwargs):
-            self.generate = kwargs["func"]
+        def call_after_note_saved(self, callback, keepFocus=False):
+            callback()
 
         def loadNote(self):
             shown_in_editor.append(dict(self.note._data))
 
     monkeypatch.setattr(src.hooks, "mw", MockMw())
     monkeypatch.setattr(src.hooks, "ensure_generation_available", lambda: True)
-    monkeypatch.setattr(src.hooks, "is_card_fully_processed", lambda _: False)
     monkeypatch.setattr(src.note_proccessor, "mw", MockMw())
     monkeypatch.setattr(processor, "_assert_valid_app_mode", lambda: True)
     monkeypatch.setattr(src.note_proccessor, "bump_usage_counter", lambda: None)
@@ -1002,8 +995,12 @@ async def test_editor_generation_saves_fields_despite_editor_reloads(
     run_background_ops_as_tasks(monkeypatch, src.note_proccessor)
 
     editor = FakeEditor()
-    src.hooks.add_editor_top_button(processor)([], editor)
-    editor.generate(editor)
+    shortcuts = []
+    src.hooks.on_editor_did_init_shortcuts(processor)(shortcuts, editor)
+    # Ctrl+Shift+Return, and the old Ctrl+Shift+G for people used to it.
+    assert [keys for keys, *_ in shortcuts] == ["Ctrl+Shift+Return", "Ctrl+Shift+G"]
+    generate_empty_fields = shortcuts[0][1]
+    generate_empty_fields()
     await asyncio.gather(*(asyncio.all_tasks() - {asyncio.current_task()}))
     for work in main_thread_work:
         work()

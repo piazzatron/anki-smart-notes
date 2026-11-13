@@ -26,13 +26,14 @@ import logging
 from collections.abc import Callable, Sequence
 from typing import Any, Optional
 
+from anki.cards import Card
 from anki.collection import Collection
 from anki.decks import DeckId
 from anki.hooks import note_will_be_added
 from anki.notes import Note
 from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
-from aqt.addcards import AddCards
 from aqt.browser.sidebar.item import SidebarItemType
+from aqt.qt import QKeySequence, QShortcut
 
 from .add_time_evaluator import AddTimeEvaluator
 from .app_state import app_state
@@ -50,14 +51,30 @@ from .tasks import run_async_in_background
 from .telemetry import track_event
 from .ui.changelog import ChangeLogDialog, is_new_major_or_minor_version
 from .ui.field_menu import FieldMenu
+from .ui.generate_affordances import (
+    EDITOR_CHANGED_COMMAND,
+    GENERATE_FIELD_COMMAND,
+    GENERATE_SHORTCUT,
+    LEGACY_GENERATE_SHORTCUT,
+    add_dialog_banner,
+    add_generate_banner,
+    editor_busy,
+    editor_card,
+    generate_from_banner,
+    is_editor,
+    on_add_cards_did_change_deck,
+    on_operation_did_execute as on_banner_operation_did_execute,
+    refresh_banner,
+    refresh_editor,
+    schedule_editor_refresh,
+    set_editor_busy,
+    show_generated_note,
+    with_editor_card,
+)
 from .ui.i18n import native_action_text
 from .ui.ui_utils import show_message_box
 from .utils import get_version
-from .utils.notes_utils import (
-    get_field_from_index,
-    is_ai_field,
-    is_card_fully_processed,
-)
+from .utils.notes_utils import get_field_from_index, is_ai_field
 from .web.hook_adapters import setup_web_hooks
 from .web_app import (
     close_web_app,
@@ -92,113 +109,127 @@ def _with_processor(fn: Any):
 
 
 @_with_processor  # type: ignore
-def add_editor_top_button(
-    processor: NoteProcessor, buttons: list[str], e: editor.Editor
-):
+def on_editor_did_init_shortcuts(
+    processor: NoteProcessor, cuts: list[tuple[Any, ...]], e: editor.Editor
+) -> None:
+    # The Browser has its own shortcut (on_browser_will_show): two for the same
+    # keys in one window would be ambiguous, and Qt would fire neither.
+    if isinstance(e.parentWindow, browser.Browser):  # type: ignore
+        return
+    # The third element keeps it working while no field is focused.
+    for keys in (GENERATE_SHORTCUT, LEGACY_GENERATE_SHORTCUT):
+        cuts.append((keys, lambda: _generate_editor_note(processor, e), True))
+
+
+@_with_processor  # type: ignore
+def on_editor_did_init(processor: NoteProcessor, e: editor.Editor) -> None:
+    add_dialog_banner(
+        e,
+        lambda overwrite_fields: _generate_editor_note(processor, e, overwrite_fields),
+    )
+
+
+def _generate_editor_note(
+    processor: NoteProcessor, e: editor.Editor, overwrite_fields: bool = False
+) -> None:
+    """Fills the editor note's empty Smart Fields, or regenerates them all."""
+    if editor_busy(e):
+        return
+    set_editor_busy(e, True)
+
     @with_sentry
-    def fn(editor: editor.Editor):
-        # The button outlives the hook call that added it.
-        if not mw or _addon_files_changing:
+    def generate(card: Card) -> None:
+        # The shortcut outlives the hook call that added it.
+        if not mw or _addon_files_changing or not ensure_generation_available():
+            set_editor_busy(e, False)
             return
 
-        if not ensure_generation_available():
-            return
+        # The processor fills in card.note(), then the editor shows it.
+        note = card.note()
+        original_fields = [note[name] for name in note.keys()]  # noqa: SIM118
 
-        card = editor.card
-        note = editor.note
+        def on_success(did_change: bool) -> None:
+            if did_change:
+                show_generated_note(e, note, original_fields)
+            set_editor_busy(e, False)
 
-        if note is None:
-            logger.error("Unexpectedly found no note")
-            return
-
-        # New notes don't have cards yet, fetch into the deck_chooser to get the deckId
-        if card is None:
-            deck_id: Optional[int] = None
-            parent = editor.parentWindow
-            # Parent should always be AddCards if there's no card
-            if isinstance(parent, AddCards):
-                deck_id = parent.deck_chooser.selected_deck_id
-                logger.debug(f"Setting deck_id to {deck_id}")
-            card = note.ephemeral_card()
-            if deck_id:
-                card.did = deck_id
-
-        # Imperatively set the button styling and disabled state 🤦‍♂️
-        # y u do dis, anki
-
-        def set_button_disabled() -> None:
-            if not e or not e.web:
-                return
-            e.web.eval("""
-                    (() => {
-                        const button = document.querySelector("#generate_smart_fields")
-                        button.disabled = true
-                        button.style.opacity = 0.25
-                    })()
-                """)
-
-        def set_button_enabled() -> None:
-            if not e or not e.web:
-                return
-
-            e.web.eval("""
-                    (() => {
-                        const button = document.querySelector("#generate_smart_fields")
-                        button.disabled = false
-                        button.style.opacity = 1.0
-                    })()
-                """)
-
-        set_button_disabled()
-
-        # The processor fills in card.note(). That is usually editor.note, but the
-        # browser's previewer swaps the card's cached note for a fresh copy.
-        generated_note = card.note()
-
-        def reload_note() -> None:
-            # Show the note being generated. Don't note.load() it: that runs before
-            # the queued save and would wipe values not yet written.
-            editor.note = generated_note
-            editor.loadNote()
-
-            parent = editor.parentWindow
-            if isinstance(parent, browser.Browser) and getattr(  # type: ignore
-                parent, "_previewer", None
-            ):  # type: ignore
-                parent._previewer.render_card()  # type: ignore
-
-        def on_success(did_change: bool):
-            set_button_enabled()
-
-            if not did_change:
-                return
-
-            reload_note()
-
-        def on_field() -> None:
-            reload_note()
-
-        is_fully_processed = is_card_fully_processed(card)
         processor.process_card(
             card,
-            overwrite_fields=is_fully_processed,
+            overwrite_fields=overwrite_fields,
             on_success=on_success,
-            on_failure=lambda _: set_button_enabled(),
-            on_field_update=on_field,
+            on_failure=lambda _: set_editor_busy(e, False),
+            on_field_update=lambda: show_generated_note(e, note, original_fields),
             show_progress=False,
         )
 
-    button = e.addButton(
-        cmd="Generate Smart Fields",
-        label="✨",
-        func=fn,
-        icon=None,
-        tip=f"Ctrl+Shift+G: {native_action_text('generate_smart_fields')}",
-        id="generate_smart_fields",
-        keys="Ctrl+Shift+G",
-    )
+    e.call_after_note_saved(lambda: with_editor_card(e, generate), keepFocus=True)
 
-    buttons.append(button)
+
+def on_webview_did_receive_js_message(
+    processor: NoteProcessor,
+) -> Callable[[tuple[bool, Any], str, Any], tuple[bool, Any]]:
+    """Handles clicks on an editor field's Generate button, and refreshes the
+    editor's buttons as its fields change."""
+
+    def handle(
+        handled: tuple[bool, Any], message: str, context: Any
+    ) -> tuple[bool, Any]:
+        if _addon_files_changing:
+            return handled
+        command, _, field_index = message.partition(":")
+        if command == GENERATE_FIELD_COMMAND:
+            _generate_editor_field(processor, context, int(field_index))
+            return (True, None)
+        # Both editors report typing and leaving a field with key and blur; the
+        # experimental editor reports a loaded note with editorState, and its
+        # Add dialog's note type and deck changes through our own command.
+        refreshing = ("key", "blur", "editorState", EDITOR_CHANGED_COMMAND)
+        if command in refreshing and is_editor(context):
+            schedule_editor_refresh(context)
+        return handled
+
+    return handle
+
+
+def _generate_editor_field(
+    processor: NoteProcessor, e: editor.Editor, field_index: int
+) -> None:
+    """Generates one field like the field's right-click Generate Smart Field: it
+    always regenerates, and its inputs fill only if empty."""
+
+    if editor_busy(e):
+        return
+    set_editor_busy(e, True)
+
+    @with_sentry
+    def generate(card: Card) -> None:
+        note = card.note()
+        field_names = note.keys()
+        if (
+            not mw
+            or _addon_files_changing
+            or field_index >= len(field_names)
+            or not ensure_generation_available()
+        ):
+            set_editor_busy(e, False)
+            return
+
+        original_fields = [note[name] for name in note.keys()]  # noqa: SIM118
+
+        def on_success() -> None:
+            show_generated_note(e, note, original_fields)
+            set_editor_busy(e, False)
+
+        processor.process_card(
+            card,
+            overwrite_fields=False,
+            target_field=field_names[field_index],
+            on_success=lambda _: on_success(),
+            on_failure=lambda _: set_editor_busy(e, False),
+            show_progress=True,
+        )
+
+    e.call_after_note_saved(lambda: with_editor_card(e, generate), keepFocus=True)
 
 
 def _make_on_batch_success(
@@ -227,6 +258,34 @@ def _make_on_batch_success(
             )
 
     return wrapped_on_batch_success
+
+
+@_with_processor  # type: ignore
+def on_browser_will_show(processor: NoteProcessor, b: browser.Browser) -> None:  # type: ignore
+    @with_sentry
+    def generate(overwrite_fields: bool) -> None:
+        # The banner's buttons are explicit, so they ignore
+        # regenerate_notes_when_batching.
+        if _addon_files_changing or not ensure_generation_available():
+            return
+        processor.process_cards_with_progress(
+            b.selected_cards(),
+            on_success=_make_on_batch_success(b),
+            overwrite_fields=overwrite_fields,
+        )
+
+    add_generate_banner(b, generate)
+
+    @with_sentry
+    def on_shortcut() -> None:
+        # One note in the editor generates as in any editor, which saves its
+        # edits first and isn't a batch; otherwise it's the banner's button.
+        if getattr(b, "singleCard", False) and b.editor:
+            _generate_editor_note(processor, b.editor)
+        else:
+            generate_from_banner(b)
+
+    QShortcut(QKeySequence(GENERATE_SHORTCUT), b, activated=on_shortcut)  # type: ignore
 
 
 @_with_processor  # type: ignore
@@ -341,27 +400,7 @@ def on_editor_context(
     processor: NoteProcessor, editor_web_view: editor.EditorWebView, menu: QMenu
 ):
     editor = editor_web_view.editor
-    card = editor.card
-    note = editor.note
-
-    # Add flow cards don't exist. Make ephemeral.
-    if card is None and note is not None:
-        deck_id = None
-        parent = editor.parentWindow
-
-        # When adding a new card the parent window is AddCards – grab the
-        # selected deck so that prompts are fetched for the correct deck.
-        if isinstance(parent, AddCards):
-            deck_id = parent.deck_chooser.selected_deck_id
-            logger.debug(
-                f"on_editor_context: generated ephemeral card with deck_id {deck_id}"
-            )
-
-        card = note.ephemeral_card()
-        if deck_id:
-            card.did = deck_id
-
-    # If we still do not have a card (or a note) there is nothing we can do.
+    card = editor_card(editor)
     if card is None:
         return
 
@@ -515,8 +554,19 @@ def setup_hooks(processor: NoteProcessor):
     setup_web_hooks()
     gui_hooks.browser_will_show_context_menu.append(on_browser_context(processor))
     gui_hooks.browser_sidebar_will_show_context_menu.append(add_deck_option(processor))
-    gui_hooks.editor_did_init_buttons.append(add_editor_top_button(processor))
+    gui_hooks.editor_did_init_shortcuts.append(on_editor_did_init_shortcuts(processor))
     gui_hooks.editor_will_show_context_menu.append(on_editor_context(processor))
+    gui_hooks.webview_did_receive_js_message.append(
+        on_webview_did_receive_js_message(processor)
+    )
+    gui_hooks.browser_will_show.append(on_browser_will_show(processor))
+    gui_hooks.browser_did_change_row.append(refresh_banner)
+    gui_hooks.operation_did_execute.append(on_banner_operation_did_execute)
+    gui_hooks.editor_did_load_note.append(refresh_editor)
+    gui_hooks.editor_did_init.append(on_editor_did_init(processor))
+    # Not in every supported Anki.
+    if hasattr(gui_hooks, "add_cards_did_change_deck"):
+        gui_hooks.add_cards_did_change_deck.append(on_add_cards_did_change_deck)
     gui_hooks.overview_did_refresh.append(lambda _: evaluate_review_time_generation())
     gui_hooks.reviewer_did_show_question.append(
         lambda _: evaluate_review_time_generation()

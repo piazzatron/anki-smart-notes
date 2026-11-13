@@ -44,6 +44,7 @@ from ...models.smart_fields import (
 from ...services.settings_service import Settings
 from .models import (
     AuthExchangeCodePayload,
+    BrowserFieldTarget,
     ChatGenerationSettingsDto,
     ChatSmartFieldSettingsDto,
     FeedbackPayload,
@@ -63,6 +64,7 @@ from .models import (
     TTSGenerationSettingsDto,
     TTSPromptTestPayload,
     TTSSmartFieldSettingsDto,
+    UiOpenBrowserPayload,
 )
 
 if TYPE_CHECKING:
@@ -266,9 +268,19 @@ def parse_account_refresh(payload: object) -> None:
         raise ValueError("account.refresh payload must be an empty object")
 
 
-def parse_ui_open_browser(payload: object) -> None:
-    if not isinstance(payload, dict) or payload:
-        raise ValueError("ui.openBrowser payload must be an empty object")
+def parse_ui_open_browser(payload: object) -> BrowserFieldTarget | None:
+    """An empty payload opens the Browser as it is; `field` opens it on that Smart
+    Field's notes."""
+    if not isinstance(payload, dict):
+        raise ValueError("ui.openBrowser payload must be an object")
+    field = cast(UiOpenBrowserPayload, payload).get("field")
+    if field is None:
+        return None
+    return BrowserFieldTarget(
+        note_type_id=int(field["noteTypeId"]),
+        deck_id=int(field["deckId"]),
+        field_name=str(field["fieldName"]),
+    )
 
 
 def parse_chat_generation_settings(payload: dict[str, Any]) -> ChatGenerationSettings:
