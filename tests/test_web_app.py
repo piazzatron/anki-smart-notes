@@ -26,6 +26,7 @@ import pytest
 
 import src.ui.web_app_dialog as web_app_dialog
 import src.web_app as web_app
+from src.local_server import WindowLoad
 
 
 def test_local_server_starts_once(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -48,7 +49,9 @@ def test_local_server_starts_once(monkeypatch: pytest.MonkeyPatch) -> None:
 
 
 def test_open_web_app_refreshes_account(monkeypatch: pytest.MonkeyPatch) -> None:
-    server = SimpleNamespace(session_token="session-token", port=24766)
+    server = SimpleNamespace(
+        session_token="session-token", port=24766, watch_window_load=WindowLoad
+    )
     dialog = MagicMock()
     dialog_factory = MagicMock(return_value=dialog)
     account_state = MagicMock()
@@ -60,6 +63,7 @@ def test_open_web_app_refreshes_account(monkeypatch: pytest.MonkeyPatch) -> None
     monkeypatch.setattr(web_app.env, "environment", "DEV")
     tracked_events: list[str] = []
     monkeypatch.setattr(web_app, "track_event", tracked_events.append)
+    monkeypatch.setattr(web_app, "QTimer", MagicMock())
 
     web_app.open_web_app()
 
@@ -78,7 +82,9 @@ def test_production_web_app_url_uses_effective_locale(
     monkeypatch: pytest.MonkeyPatch, language: str, expected_locale: str
 ) -> None:
     # An OS-picked fallback port: the URL must use whichever port bound.
-    server = SimpleNamespace(session_token="session-token", port=51234)
+    server = SimpleNamespace(
+        session_token="session-token", port=51234, watch_window_load=WindowLoad
+    )
     dialog_factory = MagicMock(return_value=MagicMock())
     monkeypatch.setattr(web_app, "_local_server", server)
     monkeypatch.setattr(web_app, "_web_app_dialog", None)
@@ -89,6 +95,7 @@ def test_production_web_app_url_uses_effective_locale(
     monkeypatch.setattr(web_app, "config", SimpleNamespace(language=language))
     monkeypatch.setattr(web_app.lang, "current_lang", "ja")
     monkeypatch.setattr(web_app, "track_event", MagicMock())
+    monkeypatch.setattr(web_app, "QTimer", MagicMock())
 
     web_app.open_web_app()
 
@@ -139,3 +146,39 @@ def test_web_ui_errors_reach_sentry_without_the_session_token(
     log(MagicMock(), levels.ErrorMessageLevel, "Uncaught TypeError: x", 3, page_url)
 
     assert errors == ["Web UI error: Uncaught TypeError: x (/app:3)"]
+
+
+@pytest.mark.parametrize(
+    ("connected", "still_open", "reported"),
+    [(False, True, True), (True, True, False), (False, False, False)],
+)
+def test_window_that_never_connects_is_reported_once_while_open(
+    monkeypatch: pytest.MonkeyPatch, connected: bool, still_open: bool, reported: bool
+) -> None:
+    load = WindowLoad(app_requests=["/app/assets/index.js 200"], connected=connected)
+    server = SimpleNamespace(
+        session_token="session-token", port=24766, watch_window_load=lambda: load
+    )
+    errors: list[tuple[object, ...]] = []
+    monkeypatch.setattr(web_app, "_local_server", server)
+    monkeypatch.setattr(web_app, "_web_app_dialog", None)
+    monkeypatch.setattr(web_app, "ensure_local_server_started", lambda: server)
+    monkeypatch.setattr(web_app, "app_state", MagicMock())
+    monkeypatch.setattr(web_app, "WebAppDialog", MagicMock(return_value=MagicMock()))
+    monkeypatch.setattr(web_app.env, "environment", "DEV")
+    monkeypatch.setattr(web_app, "track_event", MagicMock())
+    monkeypatch.setattr(web_app, "supportText", lambda: "Anki 26.09.3")
+    monkeypatch.setattr(web_app, "QWebEngineProfile", MagicMock())
+    qtimer = MagicMock()
+    monkeypatch.setattr(web_app, "QTimer", qtimer)
+    monkeypatch.setattr(web_app.logger, "error", lambda *args: errors.append(args))
+
+    web_app.open_web_app()
+    if not still_open:
+        web_app.close_web_app()
+    _, check = qtimer.singleShot.call_args.args
+    check()
+
+    assert len(errors) == (1 if reported else 0)
+    if reported:
+        assert "/app/assets/index.js 200" in str(errors[0])

@@ -27,6 +27,7 @@ import subprocess
 import sys
 import threading
 from collections.abc import Callable
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Optional
 
@@ -110,6 +111,15 @@ def _run_on_main_sync(fn: Any) -> Any:
     return future.result(timeout=30)
 
 
+@dataclass
+class WindowLoad:
+    """What the server saw while one Smart Notes window loaded: each `/app`
+    request with its status, until the page opened its event stream."""
+
+    app_requests: list[str] = field(default_factory=list)
+    connected: bool = False
+
+
 class LocalServer:
     def __init__(self) -> None:
         # Production webviews use a per-profile capability token. Dev builds
@@ -121,6 +131,12 @@ class LocalServer:
         self._bound = threading.Event()
         # The port actually bound, or None when every port was taken.
         self.port: Optional[int] = None
+        self._window_load: Optional[WindowLoad] = None
+
+    def watch_window_load(self) -> WindowLoad:
+        """Start recording a newly opened window's page load."""
+        self._window_load = WindowLoad()
+        return self._window_load
 
     def start(self) -> None:
         self._thread = threading.Thread(target=self._run, daemon=True)
@@ -153,11 +169,9 @@ class LocalServer:
             )
         self._loop.run_forever()
 
-    async def _start_server(self) -> dict[int, OSError]:
-        """Binds the first free port in LOCAL_SERVER_PORTS.
-
-        Returns the bind error of each port it couldn't take."""
+    def _build_app(self) -> web.Application:
         app = web.Application()
+        app.on_response_prepare.append(self._note_app_response)
         app.router.add_post("/auth/callback", self._handle_auth_callback)
         app.router.add_options("/auth/callback", self._handle_auth_preflight)
         app.router.add_post("/subscription/refresh", self._handle_subscription_refresh)
@@ -172,7 +186,13 @@ class LocalServer:
         app.router.add_get("/app/", self._handle_app_index)
         if WEB_APP_STATIC_DIR.exists():
             app.router.add_static("/app", WEB_APP_STATIC_DIR)
-        runner = web.AppRunner(app)
+        return app
+
+    async def _start_server(self) -> dict[int, OSError]:
+        """Binds the first free port in LOCAL_SERVER_PORTS.
+
+        Returns the bind error of each port it couldn't take."""
+        runner = web.AppRunner(self._build_app())
         self._runner = runner
         await runner.setup()
 
@@ -272,6 +292,16 @@ class LocalServer:
             ping = type(ping_error).__name__
 
         return f"holders: {holders[:10] or 'unknown'}; ping: {ping}"
+
+    async def _note_app_response(
+        self, request: web.Request, response: web.StreamResponse
+    ) -> None:
+        # A response signal, not a middleware: static files settle their
+        # status (404, 304) only as they're sent. Only the path: the index
+        # URL's query carries the session token.
+        load = self._window_load
+        if load and not load.connected and request.path.startswith("/app"):
+            load.app_requests.append(f"{request.path} {response.status}")
 
     def _cors_headers(self, origin: str) -> dict[str, str]:
         # Only called once origin is confirmed to be in ALLOWED_ORIGINS.
@@ -404,6 +434,8 @@ class LocalServer:
             }
         )
         await response.prepare(request)
+        if self._window_load:
+            self._window_load.connected = True
 
         queue: asyncio.Queue[WebEvent] = asyncio.Queue()
         event_bus.subscribe(asyncio.get_running_loop(), queue)

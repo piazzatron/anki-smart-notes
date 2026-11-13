@@ -21,13 +21,15 @@ from typing import Optional
 
 from anki import lang
 from aqt import mw
+from aqt.qt import QTimer, QWebEngineProfile
+from aqt.utils import supportText
 
 from . import env
 from .app_state import app_state
 from .config import config
 from .constants import WEB_APP_DEV_URL
 from .event_bus import UpgradeRequested, event_bus
-from .local_server import LOCAL_SERVER_HOST, LocalServer
+from .local_server import LOCAL_SERVER_HOST, LocalServer, WindowLoad
 from .logger import logger
 from .sentry import with_sentry
 from .telemetry import track_event
@@ -36,6 +38,9 @@ from .ui.web_app_dialog import WebAppDialog
 
 _local_server: Optional[LocalServer] = None
 _web_app_dialog: Optional[WebAppDialog] = None
+
+# Long enough for a slow machine to load the bundle and open the event stream.
+WINDOW_LOAD_TIMEOUT_MS = 15_000
 
 
 def ensure_local_server_started() -> LocalServer:
@@ -94,6 +99,7 @@ def open_web_app(*, upgrade_feature: Optional[str] = None) -> None:
             f"&locale={requested_locale}"
             f"&ankiLocale={lang.current_lang}"
         )
+    window_load = local_server.watch_window_load()
     dialog = WebAppDialog(url, mw)
     _web_app_dialog = dialog
 
@@ -109,6 +115,26 @@ def open_web_app(*, upgrade_feature: Optional[str] = None) -> None:
     dialog.raise_()
     dialog.activateWindow()
     track_event("smart_notes_window_opened")
+    QTimer.singleShot(
+        WINDOW_LOAD_TIMEOUT_MS,
+        lambda: _report_if_never_loaded(dialog, window_load),
+    )
+
+
+def _report_if_never_loaded(dialog: WebAppDialog, window_load: WindowLoad) -> None:
+    # A window that never opens its event stream shows nothing, whether its
+    # bundle was corrupted, blocked or hung, and may throw no JS error. Report
+    # it once, while it's still open, with what the server served it.
+    if _web_app_dialog is not dialog or window_load.connected:
+        return
+
+    profile = QWebEngineProfile.defaultProfile()
+    logger.error(
+        "Smart Notes window never loaded: %s; WebEngine: %s; app requests: %s",
+        " ".join(supportText().split()),
+        profile.httpUserAgent() if profile else "unknown",
+        window_load.app_requests or "none",
+    )
 
 
 def close_web_app() -> None:

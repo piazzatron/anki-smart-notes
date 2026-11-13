@@ -1108,3 +1108,44 @@ async def test_bind_failure_reports_who_holds_each_port_on_windows(monkeypatch):
     assert "LISTENING pid 4321 Anki.exe" in error_logs[0]
     assert "LISTENING pid 555 node.exe" in error_logs[0]
     assert "ESTABLISHED pid 99" not in error_logs[0]
+
+
+# -- Window load recording --
+
+
+@pytest.mark.asyncio
+async def test_window_load_records_app_requests_until_the_event_stream_opens(
+    monkeypatch, tmp_path
+):
+    import src.local_server
+
+    (tmp_path / "index.html").write_text("<html></html>")
+    (tmp_path / "assets").mkdir()
+    (tmp_path / "assets" / "index.js").write_text("console.log(1)")
+    monkeypatch.setattr(src.local_server, "WEB_APP_STATIC_DIR", tmp_path)
+    server = _make_server()
+
+    async def no_snapshot(response):
+        pass
+
+    monkeypatch.setattr(server, "_send_state", no_snapshot)
+    monkeypatch.setattr(server, "_send_catalog", no_snapshot)
+    load = server.watch_window_load()
+
+    async with TestClient(TestServer(server._build_app())) as client:
+        await client.get(f"/app?token={server.session_token}")
+        await client.get("/app/assets/index.js")
+        await client.get("/app/assets/missing.js")
+        assert not load.connected
+
+        events = await client.get(f"/api/events?token={server.session_token}")
+        assert events.status == 200
+        events.close()
+        await client.get("/app/assets/index.js")
+
+    assert load.connected
+    assert load.app_requests == [
+        "/app 200",
+        "/app/assets/index.js 200",
+        "/app/assets/missing.js 404",
+    ]
