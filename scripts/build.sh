@@ -30,9 +30,7 @@ build () {
   echo "Building web app..."
   (
     cd ../web
-    # A no-op install takes milliseconds, so always run it: deps pulled since the
-    # last build would otherwise be missing.
-    bun install --frozen-lockfile
+    ../scripts/install-deps web
     bun run build
   )
 
@@ -57,8 +55,7 @@ build () {
   rm -rf dist/__pycache__
 
   # Copy deps, synced from requirements.txt first so new ones are there to copy
-  [ -x .venv/bin/python3.13 ] || uv venv -q --clear --python 3.13 .venv
-  uv pip install -q --python .venv/bin/python -r requirements.txt
+  ../scripts/install-deps plugin
   vendored=(
     "aiohttp"
     "aiohappyeyeballs"
@@ -122,6 +119,8 @@ clean () {
 }
 
 link-dev () {
+  # The live-linked dev source loads its deps from .venv (see __init__.py)
+  ../scripts/install-deps plugin
   mkdir -p ~/development/anki-storage/addons21
   # Link for Mac Local Dev
   ln -s "$(pwd)" ~/Library/Application\ Support/Anki2/addons21/smart-notes
