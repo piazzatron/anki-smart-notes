@@ -1194,6 +1194,9 @@ async def test_image_prompt_service_returns_data_url_without_writing(monkeypatch
     )
 
     assert result["dataUrl"] == "data:image/png;base64,aW1hZ2U="
+    # The fields as the run read them, for the test result's Sent line: the web UI's
+    # copy of the card can predate edits made since it was selected.
+    assert result["fields"] == {"Front": "dog"}
     artifact = prompt_test_service._last_test_artifact
     assert result["resultToken"] == artifact.token
     assert (artifact.kind, artifact.data, artifact.card_id) == ("image", b"image", 99)
@@ -1313,7 +1316,7 @@ async def test_text_prompt_service_runs_without_a_card(monkeypatch):
     )
 
     # No card means nothing to save the result into, so no token is minted.
-    assert result == {"text": "An example."}
+    assert result == {"text": "An example.", "fields": {}}
 
 
 def test_text_prompt_service_requires_a_card_for_field_references():

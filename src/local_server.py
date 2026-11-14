@@ -611,7 +611,7 @@ def _run_save_settings(payload: dict[str, Any]) -> None:
     settings_service.save_settings(dto.parse_settings(payload))
 
 
-async def _run_test_prompt(payload: dict[str, Any]) -> dict[str, str]:
+async def _run_test_prompt(payload: dict[str, Any]) -> dict[str, Any]:
     request = dto.parse_text_prompt_test(payload)
     context = await asyncio.get_running_loop().run_in_executor(
         None,
@@ -620,7 +620,7 @@ async def _run_test_prompt(payload: dict[str, Any]) -> dict[str, str]:
     return await run_text_prompt_test(context)
 
 
-async def _run_test_image(payload: dict[str, Any]) -> dict[str, str]:
+async def _run_test_image(payload: dict[str, Any]) -> dict[str, Any]:
     request = dto.parse_image_prompt_test(payload)
     context = await asyncio.get_running_loop().run_in_executor(
         None,

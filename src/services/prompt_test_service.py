@@ -29,7 +29,7 @@ import base64
 import random
 import secrets
 from dataclasses import dataclass
-from typing import Literal, Optional, Union
+from typing import Any, Literal, Optional, Union
 
 from anki.cards import Card, CardId
 from anki.collection import SearchNode
@@ -187,7 +187,7 @@ def _reject_empty_fields(prompt: str, note: Note, strip_html: bool) -> None:
         )
 
 
-async def run_text_prompt_test(context: TextPromptTestContext) -> dict[str, str]:
+async def run_text_prompt_test(context: TextPromptTestContext) -> dict[str, Any]:
     """Generate a text preview without writing anything back to the card."""
     if not is_capacity_remaining():
         raise ValueError("Generation is unavailable for this account")
@@ -224,7 +224,7 @@ async def run_text_prompt_test(context: TextPromptTestContext) -> dict[str, str]
         raise ValueError("No response received")
 
     # A cardless run has no card to write back to, so it mints no savable artifact.
-    result = {"text": text}
+    result = {"text": text, "fields": _tested_fields(context.note)}
     if context.request.card_id is None:
         return result
 
@@ -238,7 +238,7 @@ async def run_text_prompt_test(context: TextPromptTestContext) -> dict[str, str]
     return {**result, "resultToken": token}
 
 
-async def run_image_prompt_test(context: ImagePromptTestContext) -> dict[str, str]:
+async def run_image_prompt_test(context: ImagePromptTestContext) -> dict[str, Any]:
     """Generate an image preview without adding media or changing the card."""
     if not is_capacity_remaining():
         raise ValueError("Generation is unavailable for this account")
@@ -267,7 +267,10 @@ async def run_image_prompt_test(context: ImagePromptTestContext) -> dict[str, st
         raise ValueError("No response received")
 
     # A cardless run has no card to write back to, so it mints no savable artifact.
-    result = {"dataUrl": _data_url(response["data"], response["content_type"])}
+    result = {
+        "dataUrl": _data_url(response["data"], response["content_type"]),
+        "fields": _tested_fields(context.note),
+    }
     if context.request.card_id is None:
         return result
 
@@ -408,6 +411,12 @@ def _remember_test_artifact(artifact: TestArtifact) -> str:
     global _last_test_artifact
     _last_test_artifact = artifact
     return artifact.token
+
+
+def _tested_fields(note: Optional[Note]) -> dict[str, str]:
+    """The fields the run read, so the web UI shows the prompt as sent rather than from
+    its own copy of the card, which can predate edits made since it was selected."""
+    return {} if note is None else {name: note[name] for name in note.keys()}  # noqa: SIM118
 
 
 def _new_result_token() -> str:
