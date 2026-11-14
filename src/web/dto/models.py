@@ -85,7 +85,6 @@ class GenerationDefaultsDto(TypedDict):
 class SettingsDto(TypedDict):
     generateAtReview: bool
     generateOnAdd: bool
-    regenerateWhenBatching: bool
     debug: bool
     language: str
     legacyOpenAiEnabled: bool

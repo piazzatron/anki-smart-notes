@@ -22,6 +22,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 import asyncio
 import shutil
 import threading
+from types import SimpleNamespace
 from typing import Any
 from unittest.mock import AsyncMock, MagicMock
 
@@ -1235,3 +1236,51 @@ def test_free_plan_batch_opens_upgrade_sheet_instead_of_generating(monkeypatch):
     assert opened == [{"upgrade_feature": "batch"}]
     assert background_ops == []
     assert not processor.batch_in_progress
+
+
+@pytest.mark.parametrize(
+    ("note", "prompts_map", "options", "expected"),
+    [
+        # The same graph as the cascade case above: f2's regeneration reaches
+        # f3 and f4, but not manual f6, f7 behind it, or f5 and f8 beside it.
+        (
+            {f"f{i}": "old" for i in range(1, 9)},
+            {
+                "f2": "{{f1}}",
+                "f3": "{{f2}} {{f8}}",
+                "f4": "{{f3}}",
+                "f5": "{{f1}}",
+                "f6": "{{f2}}",
+                "f7": "{{f6}}",
+                "f8": "{{f1}}",
+            },
+            {"target_field": "f2", "f6": {"manual": True}},
+            {"f2", "f3", "f4"},
+        ),
+        # Generating an empty field doesn't cascade, so only it reads Generating.
+        (
+            {"f1": "1", "f2": "", "f3": "old"},
+            {"f2": "{{f1}}", "f3": "{{f2}}"},
+            {"target_field": "f2"},
+            {"f2"},
+        ),
+    ],
+)
+def test_field_button_shows_generating_on_the_fields_it_regenerates(
+    monkeypatch, note, prompts_map, options, expected
+):
+    from src.ui.generate_affordances import fields_regenerated_with
+
+    n = MockNote(note, note_type=NOTE_TYPE_NAME)
+    setup_data(  # type: ignore
+        monkeypatch=monkeypatch,
+        note=n,
+        prompts_map=prompts_map,
+        options=options,
+        allow_empty_fields=False,
+    )
+    card = SimpleNamespace(note=lambda: n, did=1)
+
+    names = n.keys()
+    working = fields_regenerated_with(card, options["target_field"])  # type: ignore
+    assert {names[i] for i in working} == expected

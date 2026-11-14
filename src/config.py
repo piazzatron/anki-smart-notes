@@ -34,7 +34,6 @@ class Config:
     times_used: int
     last_seen_version: Optional[str]
     openai_endpoint: Optional[str]
-    regenerate_notes_when_batching: bool
     allow_empty_fields: bool
     last_message_id: int
     debug: bool

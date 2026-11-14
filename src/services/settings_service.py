@@ -33,7 +33,6 @@ def save_settings(settings: Settings) -> None:
     """Persist the complete web settings form and refresh connected webviews."""
     config.generate_at_review = settings.generate_at_review
     config.generate_on_add = settings.generate_on_add
-    config.regenerate_notes_when_batching = settings.regenerate_when_batching
     config.debug = settings.debug
     config.language = settings.language
     config.openai_api_key = settings.legacy_openai_key
@@ -50,7 +49,6 @@ def save_settings(settings: Settings) -> None:
 class Settings:
     generate_at_review: bool
     generate_on_add: bool
-    regenerate_when_batching: bool
     debug: bool
     language: str
     legacy_openai_key: str | None

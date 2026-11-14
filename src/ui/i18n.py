@@ -24,16 +24,14 @@ from anki import lang
 from .native_action_translations import NATIVE_ACTION_TRANSLATIONS
 
 NativeActionKey = Literal[
-    "open_smart_notes",
     "generate_smart_fields",
     "generate_smart_field",
     "custom_text",
     "custom_tts",
     "custom_image",
     "generate_empty_fields",
-    "regenerate_all",
-    "notes_selected_one",
-    "notes_selected_other",
+    "regenerate_all_fields",
+    "notes_selected",
     "generate",
     "regenerate",
     "generate_empty_fields_tip",
@@ -45,6 +43,7 @@ NativeActionKey = Literal[
     "field_inputs_empty_tip",
     "regenerate_field_tip",
     "generate_now",
+    "generating",
     "generates_on_add",
     "fill_note_tip",
     "regenerate_note_tip",

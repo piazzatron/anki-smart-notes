@@ -229,6 +229,7 @@ def test_cleanup_before_addon_files_change_releases_non_ui_resources(
 def _fake_gui_hooks(**addon_hooks: list[Any]) -> SimpleNamespace:
     return SimpleNamespace(
         browser_will_show_context_menu=[],
+        browser_menus_did_init=[],
         browser_sidebar_will_show_context_menu=[],
         editor_did_init_shortcuts=[],
         editor_will_show_context_menu=[],

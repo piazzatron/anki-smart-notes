@@ -156,7 +156,6 @@ def build_settings(smart_fields: list[SmartField]) -> SettingsDto:
     return SettingsDto(
         generateAtReview=config.generate_at_review,
         generateOnAdd=config.generate_on_add,
-        regenerateWhenBatching=config.regenerate_notes_when_batching,
         debug=config.debug,
         language=config.language,
         legacyOpenAiEnabled=config.legacy_support is True,

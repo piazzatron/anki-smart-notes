@@ -31,9 +31,10 @@ from anki.collection import Collection
 from anki.decks import DeckId
 from anki.hooks import note_will_be_added
 from anki.notes import Note
+from anki.utils import is_mac
 from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
 from aqt.browser.sidebar.item import SidebarItemType
-from aqt.qt import QKeySequence, QShortcut
+from aqt.qt import QKeySequence, QMenuBar, QShortcut
 
 from .add_time_evaluator import AddTimeEvaluator
 from .app_state import app_state
@@ -60,6 +61,7 @@ from .ui.generate_affordances import (
     add_generate_banner,
     editor_busy,
     editor_card,
+    fields_regenerated_with,
     generate_from_banner,
     is_editor,
     on_add_cards_did_change_deck,
@@ -135,7 +137,7 @@ def _generate_editor_note(
     """Fills the editor note's empty Smart Fields, or regenerates them all."""
     if editor_busy(e):
         return
-    set_editor_busy(e, True)
+    set_editor_busy(e, True, "all" if overwrite_fields else "empty")
 
     @with_sentry
     def generate(card: Card) -> None:
@@ -200,7 +202,7 @@ def _generate_editor_field(
 
     if editor_busy(e):
         return
-    set_editor_busy(e, True)
+    set_editor_busy(e, True, frozenset({field_index}))
 
     @with_sentry
     def generate(card: Card) -> None:
@@ -216,6 +218,10 @@ def _generate_editor_field(
             return
 
         original_fields = [note[name] for name in note.keys()]  # noqa: SIM118
+        # Its dependents read Generating too, when they're regenerated with it.
+        set_editor_busy(
+            e, True, fields_regenerated_with(card, field_names[field_index])
+        )
 
         # Also on failure: fields generated before a later one failed are kept.
         def on_done() -> None:
@@ -266,8 +272,6 @@ def _make_on_batch_success(
 def on_browser_will_show(processor: NoteProcessor, b: browser.Browser) -> None:  # type: ignore
     @with_sentry
     def generate(overwrite_fields: bool) -> None:
-        # The banner's buttons are explicit, so they ignore
-        # regenerate_notes_when_batching.
         if _addon_files_changing or not ensure_generation_available():
             return
         processor.process_cards_with_progress(
@@ -307,7 +311,7 @@ def on_browser_context(processor: NoteProcessor, browser: browser.Browser, menu:
         processor.process_cards_with_progress(
             cards,
             on_success=_make_on_batch_success(browser),
-            overwrite_fields=config.regenerate_notes_when_batching,
+            overwrite_fields=False,
         )
 
     item.triggered.connect(wrapped)
@@ -364,11 +368,13 @@ def on_main_window(processor: NoteProcessor):
 
     run_migrations()
 
-    smart_notes_menu = QMenu("Smart Notes", mw)
-    options_action = QAction(native_action_text("open_smart_notes"), mw)
-    options_action.triggered.connect(lambda _: open_web_app())
-    smart_notes_menu.addAction(options_action)
-    mw.form.menubar.addAction(smart_notes_menu.menuAction())
+    mw.form.menubar.addMenu(_smart_notes_menu(mw))
+    # On macOS the menu bar belongs to the focused window. Windows without one of
+    # their own, like the Add and Edit dialogs, show this parentless one.
+    if is_mac:
+        global _mac_default_menubar
+        _mac_default_menubar = QMenuBar(None)
+        _mac_default_menubar.addMenu(_smart_notes_menu(_mac_default_menubar))
     mw.addonManager.setConfigAction(__name__, open_web_app)
 
     _on_start_actions()
@@ -379,6 +385,24 @@ def on_main_window(processor: NoteProcessor):
     # Show either the first load window or the changelog once the web app's
     # local server is ready.
     _stamp_version_and_show_first_load_window()
+
+
+_mac_default_menubar: Optional[QMenuBar] = None
+
+
+def _smart_notes_menu(parent: Any) -> QMenu:
+    menu = QMenu("Smart Notes", parent)
+    action = QAction("Smart Notes", parent)
+    action.triggered.connect(lambda _: open_web_app())
+    menu.addAction(action)
+    return menu
+
+
+def on_browser_menus_did_init(b: browser.Browser) -> None:  # type: ignore
+    """Gives the Browser the Smart Notes menu too: on macOS the menu bar belongs
+    to the focused window, so the main window's menu is gone while the Browser
+    is in front."""
+    b.form.menubar.addMenu(_smart_notes_menu(b))
 
 
 @_with_processor  # type: ignore
@@ -463,7 +487,7 @@ def add_deck_option(
         processor.process_cards_with_progress(
             cards,
             on_success=_make_on_batch_success(tree_view.browser),
-            overwrite_fields=config.regenerate_notes_when_batching,
+            overwrite_fields=False,
         )
 
     item.triggered.connect(wrapped)
@@ -557,6 +581,7 @@ def on_note_will_be_added(_: Collection, note: Note, __: DeckId) -> None:
 def setup_hooks(processor: NoteProcessor):
     setup_web_hooks()
     gui_hooks.browser_will_show_context_menu.append(on_browser_context(processor))
+    gui_hooks.browser_menus_did_init.append(on_browser_menus_did_init)
     gui_hooks.browser_sidebar_will_show_context_menu.append(add_deck_option(processor))
     gui_hooks.editor_did_init_shortcuts.append(on_editor_did_init_shortcuts(processor))
     gui_hooks.editor_will_show_context_menu.append(on_editor_context(processor))

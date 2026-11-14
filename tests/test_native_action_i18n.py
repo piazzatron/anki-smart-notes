@@ -46,8 +46,8 @@ def test_native_action_text_matches_anki_locale(
     monkeypatch.setattr(native_i18n.lang, "current_lang", requested_locale)
 
     assert (
-        native_i18n.native_action_text("open_smart_notes")
-        == NATIVE_ACTION_TRANSLATIONS[expected_catalog]["open_smart_notes"]
+        native_i18n.native_action_text("generate_smart_fields")
+        == NATIVE_ACTION_TRANSLATIONS[expected_catalog]["generate_smart_fields"]
     )
 
 
@@ -70,12 +70,10 @@ def test_native_action_catalogs_are_complete_and_preserve_product_terms() -> Non
     for catalog in NATIVE_ACTION_TRANSLATIONS.values():
         assert set(catalog) == english_keys
         assert all(catalog.values())
-        assert "Smart Notes" in catalog["open_smart_notes"]
         assert "Smart Fields" in catalog["generate_smart_fields"]
         assert "Smart Field" in catalog["generate_smart_field"]
         assert "TTS" in catalog["custom_tts"]
-        assert "{count}" in catalog["notes_selected_one"]
-        assert "{count}" in catalog["notes_selected_other"]
+        assert "{count}" in catalog["notes_selected"]
         assert "{shortcut}" in catalog["generate_empty_fields_tip"]
         assert "{shortcut}" in catalog["fill_note_tip"]
         assert "{field}" in catalog["generate_field_tip"]

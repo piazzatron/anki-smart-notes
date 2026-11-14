@@ -151,7 +151,6 @@ def parse_settings(payload: dict[str, Any]) -> Settings:
     return Settings(
         generate_at_review=raw["generateAtReview"],
         generate_on_add=raw["generateOnAdd"],
-        regenerate_when_batching=raw["regenerateWhenBatching"],
         debug=raw["debug"],
         language=raw["language"],
         legacy_openai_key=raw["legacyOpenAiKey"],

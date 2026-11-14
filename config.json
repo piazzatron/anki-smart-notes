@@ -6,7 +6,6 @@
   "generate_at_review": true,
   "generate_on_add": true,
   "last_seen_version": null,
-  "regenerate_notes_when_batching": false,
   "allow_empty_fields": true,
   "last_message_id": 0,
   "debug": false,

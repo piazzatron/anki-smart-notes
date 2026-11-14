@@ -274,3 +274,26 @@ def test_generation_into_the_experimental_add_dialog_respects_the_page(
     names, values = json.loads(f"[{js.removeprefix('setFields(').removesuffix(');')}]")
     assert names == ["Front", "Back", "Extra"]
     assert values == expected
+
+
+def test_editor_script_fills_in_without_a_stray_percent_sign() -> None:
+    # The script is filled in with %, so a bare % in its CSS breaks every editor.
+    from src.ui.generate_affordances import (
+        _EDITOR_CUES_JS,  # pyright: ignore[reportPrivateUsage]
+    )
+
+    assert '"fields": []' in _EDITOR_CUES_JS % json.dumps({"fields": []})
+
+
+def test_one_note_counts_the_fields_each_button_fills() -> None:
+    from src.ui.generate_affordances import note_actions
+
+    add_smart_field("back")
+    add_smart_field("Audio")
+    add_smart_field("Extra", enabled=False)
+    values = {"front": "word", "back": "", "audio": "x", "extra": ""}
+
+    actions = note_actions(values, smart_fields())
+
+    # Back can fill; Back and Audio regenerate; disabled Extra counts for neither.
+    assert (actions.generate_count, actions.regenerate_count) == (1, 2)

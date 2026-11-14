@@ -33,6 +33,9 @@ def open_anki_browser() -> None:
 def open_browser_on_field(note_type_id: int, deck_id: int, field_name: str) -> None:
     """Opens the Browser on a Smart Field's notes and selects one where the field is
     empty, so the generate banner is right there. Falls back to the first note."""
+    # Imported here: generate_affordances depends on this module.
+    from .generate_affordances import pulse_editor
+
     if not mw or not mw.col:
         return
     col = mw.col
@@ -53,6 +56,9 @@ def open_browser_on_field(note_type_id: int, deck_id: int, field_name: str) -> N
     cards = empty_cards or col.find_cards(search)
 
     browser = dialogs.open("Browser", mw)
+    if cards:
+        # The editor pulses the field's controls once the note loads.
+        pulse_editor(browser.editor, field_name)
     browser.search_for(search)
     if cards:
         browser.table.select_single_card(cards[0])
