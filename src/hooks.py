@@ -281,7 +281,9 @@ def on_browser_will_show(processor: NoteProcessor, b: browser.Browser) -> None: 
         # One note in the editor generates as in any editor, which saves its
         # edits first and isn't a batch; otherwise it's the banner's button.
         if getattr(b, "singleCard", False) and b.editor:
-            _generate_editor_note(processor, b.editor)
+            # On Anki 26.9 this can be the experimental editor (NewEditor), which
+            # the editor helpers handle as they do in its Add and Edit dialogs.
+            _generate_editor_note(processor, b.editor)  # pyright: ignore[reportArgumentType]
         else:
             generate_from_banner(b)
 
