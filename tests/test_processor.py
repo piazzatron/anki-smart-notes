@@ -507,7 +507,8 @@ Example: ("basic", {"f1": "1", "f2": ""}, {"f2": "{{f1}}"}, {"f2": "p_1"}, {})
             {
                 "f2": p("1"),
                 "f3": p(p("1")),
-                "f4": "old",
+                # Regenerating the filled target regenerates its dependents.
+                "f4": p(p(p("1"))),
                 "f5": "old",
                 "f6": "old",
             },
@@ -543,6 +544,66 @@ Example: ("basic", {"f1": "1", "f2": ""}, {"f2": "{{f1}}"}, {"f2": "p_1"}, {})
             {
                 "f2": {"manual": True},
             },
+        ),
+        # ------ Regenerating a filled target cascades ------
+        # f1 -> f2 -> f3 -> f4      f8 -> f3      f1 -> f5
+        #       T  -> f6 -> f7
+        #             M
+        (
+            "regenerating a filled target regenerates its dependents",
+            {
+                "f1": "1",
+                "f2": "old",
+                "f3": "old",
+                "f4": "old",
+                "f5": "old",
+                "f6": "old",
+                "f7": "old",
+                "f8": "x",
+            },
+            {
+                "f2": "{{f1}}",
+                "f3": "{{f2}} {{f8}}",
+                "f4": "{{f3}}",
+                "f5": "{{f1}}",
+                "f6": "{{f2}}",
+                "f7": "{{f6}}",
+                "f8": "{{f1}}",
+            },
+            {
+                "f2": p("1"),
+                "f3": p(p("1") + " x"),
+                "f4": p(p(p("1") + " x")),
+                "f5": "old",
+                "f6": "old",
+                "f7": "old",
+                "f8": "x",
+            },
+            {"target_field": "f2", "f6": {"manual": True}},
+        ),
+        # Generating an empty target leaves its dependents alone.
+        (
+            "generating an empty target doesn't cascade",
+            {"f1": "1", "f2": "", "f3": "old", "f4": ""},
+            {"f2": "{{f1}}", "f3": "{{f2}}", "f4": "{{f2}}"},
+            {"f2": p("1"), "f3": "old", "f4": ""},
+            {"target_field": "f2"},
+        ),
+        # A target that doesn't change leaves its dependents alone, even empty ones.
+        (
+            "unchanged target doesn't cascade",
+            {"f1": "", "f2": "old", "f3": "old", "f4": ""},
+            {"f2": "{{f1}}", "f3": "{{f2}}", "f4": "{{f2}}"},
+            {"f2": "old", "f3": "old", "f4": ""},
+            {"target_field": "f2"},
+        ),
+        # Filling empty fields never overwrites a dependent.
+        (
+            "filling an empty input doesn't cascade",
+            {"f1": "1", "f2": "", "f3": "old"},
+            {"f2": "{{f1}}", "f3": "{{f2}}"},
+            {"f2": p("1"), "f3": "old"},
+            {},
         ),
         # LEFT OFF:
         # Overwrite! I think this is the last real one?

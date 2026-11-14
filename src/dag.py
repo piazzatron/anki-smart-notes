@@ -103,8 +103,8 @@ def generate_fields_dag(
                     this_node.in_nodes.append(depends_on)
                     depends_on.out_nodes.append(this_node)
 
-        # If there's a target field, trim
-        # the dag to only the input of the target field
+        # If there's a target field, trim the dag to the target, its inputs,
+        # and, when it's being regenerated, the fields that depend on it
         if target_field:
             if target_field.lower() not in dag:
                 return {}
@@ -120,6 +120,23 @@ def generate_fields_dag(
                 cur.generate_despite_manual = True
                 trimmed[cur.field] = cur
                 explore.extend(cur.in_nodes.copy())
+
+            # Add post, only for a filled target: generating an empty one is a
+            # first fill, which never overwrites other fields
+            if target_node.existing_value:
+                explore = target_node.out_nodes.copy()
+                while len(explore):
+                    cur = explore.pop()
+                    if cur.field in trimmed:
+                        continue
+                    cur.regenerate_on_input_update = True
+                    trimmed[cur.field] = cur
+                    explore.extend(cur.out_nodes.copy())
+
+                # A dependent can also read Smart Fields outside the run, which
+                # keep their values and must not hold it back
+                for node in trimmed.values():
+                    node.in_nodes = [n for n in node.in_nodes if n.field in trimmed]
 
             logger.debug("Generated target fields dag")
             logger.debug(trimmed)

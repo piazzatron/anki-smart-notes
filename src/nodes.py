@@ -42,12 +42,15 @@ class FieldNode:
     smart_field: SmartField
     is_target: bool = False
     generate_despite_manual: bool = False  # Used if it's pre a target field
+    # Downstream of a regenerated target: regenerates once an input changed.
+    regenerate_on_input_update: bool = False
+    input_updated: bool = False
     did_update: bool = False
 
     abort = False
 
     def __str__(self):
-        return f"Node(field={self.field}, in_nodes={[n.field for n in self.in_nodes]}, out_nodes={[n.field for n in self.out_nodes]}, manual={self.manual}, overwrite={self.overwrite}, generate_despite_manual={self.generate_despite_manual}, is_target={self.is_target}, did_update={self.did_update}"
+        return f"Node(field={self.field}, in_nodes={[n.field for n in self.in_nodes]}, out_nodes={[n.field for n in self.out_nodes]}, manual={self.manual}, overwrite={self.overwrite}, generate_despite_manual={self.generate_despite_manual}, is_target={self.is_target}, regenerate_on_input_update={self.regenerate_on_input_update}, did_update={self.did_update}"
 
     __repr__ = __str__
 

@@ -195,7 +195,8 @@ def _generate_editor_field(
     processor: NoteProcessor, e: editor.Editor, field_index: int
 ) -> None:
     """Generates one field like the field's right-click Generate Smart Field: it
-    always regenerates, and its inputs fill only if empty."""
+    always regenerates, its inputs fill only if empty, and regenerating a filled
+    field also regenerates the fields that depend on it."""
 
     if editor_busy(e):
         return
@@ -216,7 +217,8 @@ def _generate_editor_field(
 
         original_fields = [note[name] for name in note.keys()]  # noqa: SIM118
 
-        def on_success() -> None:
+        # Also on failure: fields generated before a later one failed are kept.
+        def on_done() -> None:
             show_generated_note(e, note, original_fields)
             set_editor_busy(e, False)
 
@@ -224,8 +226,8 @@ def _generate_editor_field(
             card,
             overwrite_fields=False,
             target_field=field_names[field_index],
-            on_success=lambda _: on_success(),
-            on_failure=lambda _: set_editor_busy(e, False),
+            on_success=lambda _: on_done(),
+            on_failure=lambda _: on_done(),
             show_progress=True,
         )
 

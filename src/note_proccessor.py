@@ -448,6 +448,8 @@ class NoteProcessor:
 
                     for out_node in node.out_nodes:
                         out_node.in_nodes.remove(node)
+                        if node.did_update:
+                            out_node.input_updated = True
 
                     if note.id and node.did_update:
                         run_on_main(
@@ -575,8 +577,13 @@ class NoteProcessor:
             logger.debug(f"Skipping field {node.field}")
             return None
 
+        # A dependent of a regenerated target only regenerates once one of its
+        # inputs changed, and then even if it's filled
+        if node.regenerate_on_input_update:
+            if not node.input_updated:
+                return value
         # Skip it if there's a value and we don't want to overwrite
-        if value and not (node.is_target or node.overwrite):
+        elif value and not (node.is_target or node.overwrite):
             return value
 
         new_value = await self.field_resolver.resolve(
