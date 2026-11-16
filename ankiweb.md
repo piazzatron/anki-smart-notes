@@ -89,4 +89,4 @@ Every release is listed in the <a href="https://github.com/piazzatron/anki-smart
 
 <a href="https://discord.gg/kxGaWpkTGr"><img src="https://smart-notes.xyz/ankiweb_link_discord.png" width="180" /></a> <a href="https://github.com/piazzatron/anki-smart-notes"><img src="https://smart-notes.xyz/ankiweb_link_github.png" width="180" /></a> <a href="mailto:support@smart-notes.xyz"><img src="https://smart-notes.xyz/ankiweb_link_email.png" width="180" /></a> <a href="https://smart-notes.xyz?utm_source=ankiweb"><img src="https://smart-notes.xyz/ankiweb_link_website.png" width="180" /></a>
 
-<img src="https://cloud.umami.is/p/KOsj96vrI" height="1px"/>
+<img src="https://smart-notes.xyz/s/i/KOsj96vrI" height="1px"/>
