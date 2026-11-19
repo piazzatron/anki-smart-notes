@@ -31,10 +31,12 @@ def open_anki_browser() -> None:
 
 
 def open_browser_on_field(note_type_id: int, deck_id: int, field_name: str) -> None:
-    """Opens the Browser on a Smart Field's notes and selects one where the field is
-    empty, so the generate banner is right there. Falls back to the first note."""
+    """Opens the Browser on a Smart Field's notes and selects one where generation
+    can fill the field, so the generate banner is right there and enabled. Falls
+    back to a note with the field empty, then to the first note."""
     # Imported here: generate_affordances depends on this module.
-    from .generate_affordances import pulse_editor
+    from ..services.smart_field_service import smart_field_service
+    from .generate_affordances import fillable_card, pulse_editor, smart_field_inputs
 
     if not mw or not mw.col:
         return
@@ -50,10 +52,35 @@ def open_browser_on_field(note_type_id: int, deck_id: int, field_name: str) -> N
     if deck:
         nodes.append(SearchNode(deck=deck["name"]))
     search = col.build_search_string(*nodes)
-    # `Field:` matches an empty field; * and _ are wildcards in field names.
-    escaped = re.sub(r'([\\*_"])', r"\\\1", field_name)
-    empty_cards = col.find_cards(f'{search} "{escaped}:"')
-    cards = empty_cards or col.find_cards(search)
+
+    # `Field:` matches an empty field and `Field:_*` a filled one; * and _ are
+    # wildcards in field names.
+    def escape(name: str) -> str:
+        return re.sub(r'([\\*_"])', r"\\\1", name)
+
+    empty_search = f'{search} "{escape(field_name)}:"'
+    smart_field = next(
+        (
+            f
+            for f in smart_field_service.get_smart_fields_for_note(
+                note_type_id, DeckId(deck_id)
+            )
+            if f.target_field_name.lower() == field_name.lower()
+        ),
+        None,
+    )
+    inputs = smart_field_inputs(smart_field) if smart_field else []
+    empty_cards = col.find_cards(empty_search)
+
+    # Narrow to cards with a filled input, then confirm by the banner's own rule
+    # (markup alone is empty to it). Then check empty cards, for an input that
+    # another Smart Field fills first.
+    filled_inputs = " or ".join(f'"{escape(name)}:_*"' for name in inputs)
+    with_input = col.find_cards(f"{empty_search} ({filled_inputs})") if inputs else []
+    card = fillable_card(with_input, field_name) or fillable_card(
+        empty_cards, field_name
+    )
+    cards = [card] if card else empty_cards or col.find_cards(search)
 
     browser = dialogs.open("Browser", mw)
     if cards:

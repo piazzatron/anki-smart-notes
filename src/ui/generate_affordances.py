@@ -80,6 +80,8 @@ LEGACY_GENERATE_SHORTCUT = "Ctrl+Shift+G"
 
 # Notes read per query when sizing up a selection.
 _NOTES_PER_QUERY = 1000
+# Bounds the notes Open Browser reads to find a card to fill: decks can be huge.
+_CARDS_TO_CHECK = 50
 
 
 def _shortcut_label() -> str:
@@ -87,7 +89,7 @@ def _shortcut_label() -> str:
     return "⌘⇧↩" if sys.platform == "darwin" else "Ctrl+Shift+Enter"
 
 
-def _inputs(smart_field: SmartField) -> list[str]:
+def smart_field_inputs(smart_field: SmartField) -> list[str]:
     """The lowercase fields a Smart Field reads."""
     settings = smart_field.settings
     if isinstance(settings, TTSSmartFieldSettings):
@@ -104,7 +106,7 @@ def fillable_smart_fields(
     field names to values; `include_manual` counts disabled Smart Fields, which
     generate only when targeted or feeding the target."""
     empty = {
-        name: _inputs(smart_field)
+        name: smart_field_inputs(smart_field)
         for smart_field in smart_fields
         if (name := smart_field.target_field_name.lower()) in values
         and not values[name]
@@ -220,6 +222,59 @@ def selection_actions(card_ids: Sequence[int]) -> SelectionActions:
     return SelectionActions(
         len(decks), has_smart_fields, has_empty, can_generate, can_regenerate
     )
+
+
+def fillable_card(card_ids: Sequence[int], field_name: str) -> Optional[int]:
+    """The first of the cards (checking at most `_CARDS_TO_CHECK`) on which the
+    editor can generate `field_name`, with Smart Fields resolved by the card's
+    deck as the editor does. An enabled field must be one the banner's Generate
+    fills; a disabled one, one its own field button fills."""
+    if not mw or not mw.col or not mw.col.db:
+        return None
+    col, db = mw.col, mw.col.db
+    target = field_name.lower()
+
+    # Read raw fields rather than loading each Note.
+    checked = list(card_ids[:_CARDS_TO_CHECK])
+    cards = {
+        card_id: (note_id, deck_id)
+        for card_id, note_id, deck_id in db.all(
+            f"select id, nid, did from cards where id in {ids2str(checked)}"
+        )
+    }
+    notes = {
+        note_id: (note_type_id, fields)
+        for note_id, note_type_id, fields in db.all(
+            "select id, mid, flds from notes where id in "
+            + ids2str({note_id for note_id, _ in cards.values()})
+        )
+    }
+
+    smart_fields_by_type_and_deck: dict[tuple[int, int], list[SmartField]] = {}
+    for card_id in checked:
+        note_id, deck_id = cards[card_id]
+        note_type_id, fields = notes[note_id]
+        key = (note_type_id, deck_id)
+        if key not in smart_fields_by_type_and_deck:
+            smart_fields_by_type_and_deck[key] = (
+                smart_field_service.get_smart_fields_for_note(
+                    note_type_id, deck_id, include_global=True
+                )
+            )
+        smart_fields = smart_fields_by_type_and_deck[key]
+        smart_field = next(
+            (f for f in smart_fields if f.target_field_name.lower() == target), None
+        )
+        note_type = col.models.get(note_type_id)
+        if not smart_field or not note_type:
+            continue
+        names = [field["name"].lower() for field in note_type["flds"]]
+        values = dict(zip(names, fields.split("\x1f")))
+        if target in fillable_smart_fields(
+            values, smart_fields, include_manual=not smart_field.enabled
+        ):
+            return card_id
+    return None
 
 
 # Material Design "creation" (sparkles), the icon set Anki's editor uses.

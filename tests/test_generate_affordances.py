@@ -297,3 +297,81 @@ def test_one_note_counts_the_fields_each_button_fills() -> None:
 
     # Back can fill; Back and Audio regenerate; disabled Extra counts for neither.
     assert (actions.generate_count, actions.regenerate_count) == (1, 2)
+
+
+@pytest.mark.parametrize(
+    ("target", "back_prompt", "fields_by_card", "expected"),
+    [
+        # Back reads Front: the first card has no Front, the second only markup.
+        ("Back", None, [["", "", ""], ["<br>", "", ""], ["word", "", ""]], 3),
+        # Already-filled cards aren't picked.
+        ("Back", None, [["word", "x", ""], ["word", "", ""]], 2),
+        # The voice reads Back, which generation fills first from Front.
+        ("Audio", None, [["", "", ""], ["word", "", ""]], 2),
+        # A prompt that reads no field fills anywhere.
+        ("Back", "A random word", [["", "x", ""], ["", "", ""]], 2),
+        # Nothing to fill from.
+        ("Back", None, [["", "", ""]], None),
+    ],
+)
+def test_fillable_card_is_one_whose_field_can_generate(
+    monkeypatch: pytest.MonkeyPatch,
+    target: str,
+    back_prompt: Optional[str],
+    fields_by_card: list[list[str]],
+    expected: Optional[int],
+) -> None:
+    from src.ui.generate_affordances import fillable_card
+
+    add_smart_field("Back", prompt=back_prompt or "Define {{Front}}")
+    add_voice_field("Audio", "back")
+    card_ids = list(range(1, len(fields_by_card) + 1))
+    install_collection(
+        monkeypatch,
+        cards=[(i, 10 + i, 1) for i in card_ids],
+        notes=[
+            (10 + i, NOTE_TYPE_ID, "\x1f".join(fields))
+            for i, fields in zip(card_ids, fields_by_card)
+        ],
+    )
+
+    assert fillable_card(card_ids, target) == expected
+
+
+@pytest.mark.parametrize(
+    ("back_enabled", "expected"),
+    [
+        # The banner's Generate skips a disabled Back, so the voice has no input.
+        (False, None),
+        (True, 1),
+    ],
+)
+def test_fillable_card_for_an_enabled_field_follows_the_banner(
+    monkeypatch: pytest.MonkeyPatch, back_enabled: bool, expected: Optional[int]
+) -> None:
+    from src.ui.generate_affordances import fillable_card
+
+    add_smart_field("Back", enabled=back_enabled)
+    add_voice_field("Audio", "back")
+    install_collection(
+        monkeypatch,
+        cards=[(1, 10, 1)],
+        notes=[(10, NOTE_TYPE_ID, "word\x1f\x1f")],
+    )
+
+    assert fillable_card([1], "Audio") == expected
+
+
+def test_fillable_card_resolves_smart_fields_by_the_card_deck(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from src.ui.generate_affordances import fillable_card
+
+    add_smart_field("Back", deck_id=OTHER_DECK)
+    install_collection(
+        monkeypatch,
+        cards=[(1, 10, 1), (2, 20, OTHER_DECK)],
+        notes=[(10, NOTE_TYPE_ID, "word\x1f\x1f"), (20, NOTE_TYPE_ID, "word\x1f\x1f")],
+    )
+
+    assert fillable_card([1, 2], "Back") == 2
