@@ -1,6 +1,7 @@
 # v2.29.0
 
 - Improved UX for generating cards in the Browser.
+- Bug fix: fix Test voice sometimes failing with error "text must be a non-empty string".
 
 # v2.28.0
 
