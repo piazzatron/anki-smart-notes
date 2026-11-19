@@ -51,11 +51,11 @@ from aqt.qt import (
     Qt,
     QTimer,
     QVariantAnimation,
+    QWidget,
     sip,
 )
 from aqt.theme import theme_manager
 
-from ..config import config
 from ..dag import generate_fields_dag
 from ..logger import logger
 from ..models.smart_fields import SmartField, TTSSmartFieldSettings
@@ -334,10 +334,6 @@ def _banner_style() -> str:
         QFrame#{_BANNER_NAME} QPushButton#primary:disabled {{
             color: {disabled_fg}; background: {disabled_bg}; border: 1px solid transparent;
         }}
-        QFrame#{_BANNER_NAME} QPushButton[working="true"]:disabled,
-        QFrame#{_BANNER_NAME} QPushButton#primary[working="true"]:disabled {{
-            color: {fg}; background: {button}; border: 1px solid {border};
-        }}
     """
 
 
@@ -347,17 +343,14 @@ _REFRESH_VIEW_BOX = "2 2 20 20"
 _REFRESH_PATH = "M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"
 
 
-def _action_icons(path: str, view_box: str = "0 0 24 24") -> tuple[QIcon, QIcon]:
-    """A button's icon: yellow while it's clickable and grey when disabled, plus
-    the one it shows while generating, yellow though the button is disabled."""
+def _action_icon(path: str, view_box: str = "0 0 24 24") -> QIcon:
+    """A button's icon: yellow while it's clickable and grey when disabled."""
     yellow = _sparkle_color()
     # macOS doesn't grey a coloured icon on a disabled button itself.
     grey = "#8a8a8e" if theme_manager.night_mode else "#a1a1a6"
     icon = QIcon(_icon_pixmap(path, 14, yellow, view_box))
     icon.addPixmap(_icon_pixmap(path, 14, grey, view_box), QIcon.Mode.Disabled)
-    working = QIcon(_icon_pixmap(path, 14, yellow, view_box))
-    working.addPixmap(_icon_pixmap(path, 14, yellow, view_box), QIcon.Mode.Disabled)
-    return icon, working
+    return icon
 
 
 # Icons are drawn at this many times their size and marked as such, so they stay
@@ -438,25 +431,19 @@ def make_generate_banner(
 
     generate = QPushButton(f" {generate_label}")
     generate.setObjectName("primary")
-    icon, working_icon = _action_icons(_SPARKLE_PATH)
-    generate.setIcon(icon)
-    generate.setProperty("normal_icon", icon)
-    generate.setProperty("working_icon", working_icon)
+    generate.setIcon(_action_icon(_SPARKLE_PATH))
     generate.setIconSize(QSize(14, 14))
     generate.setFixedHeight(_BUTTON_HEIGHT)
     generate.clicked.connect(lambda: on_generate(False))
-    layout.addWidget(generate)
+    layout.addWidget(_cursor_holder(generate))
 
     regenerate = QPushButton(f" {regenerate_label}")
     regenerate.setObjectName("secondary")
-    icon, working_icon = _action_icons(_REFRESH_PATH, _REFRESH_VIEW_BOX)
-    regenerate.setIcon(icon)
-    regenerate.setProperty("normal_icon", icon)
-    regenerate.setProperty("working_icon", working_icon)
+    regenerate.setIcon(_action_icon(_REFRESH_PATH, _REFRESH_VIEW_BOX))
     regenerate.setIconSize(QSize(14, 14))
     regenerate.setFixedHeight(_BUTTON_HEIGHT)
     regenerate.clicked.connect(lambda: on_generate(True))
-    layout.addWidget(regenerate)
+    layout.addWidget(_cursor_holder(regenerate))
 
     # The buttons come first; the text, secondary, takes the rest of the row,
     # right-aligned.
@@ -468,13 +455,29 @@ def make_generate_banner(
     return banner
 
 
+def _cursor_holder(button: QPushButton) -> QWidget:
+    """Wraps a banner button in a widget that shows its cursor while it's
+    disabled: Qt never shows a disabled widget's own cursor."""
+    holder = QWidget()
+    layout = QHBoxLayout(holder)
+    layout.setContentsMargins(0, 0, 0, 0)
+    layout.addWidget(button)
+    button.setCursor(Qt.CursorShape.PointingHandCursor)
+    return holder
+
+
 def _set_button_enabled(button: QPushButton, enabled: bool) -> None:
-    """Enables or disables a banner button, with the cursor saying which, as on
-    the web app's buttons."""
+    """Enables or disables a banner button, with the cursor saying which, like
+    Anki's own buttons: the not-allowed cursor while it's disabled."""
     button.setEnabled(enabled)
-    button.setCursor(
-        Qt.CursorShape.PointingHandCursor if enabled else Qt.CursorShape.ForbiddenCursor
-    )
+    # A disabled button lets the mouse through to its holder, whose cursor and
+    # tooltip then show, from the next mouse move even if it's already there.
+    button.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents, not enabled)
+    holder = button.parentWidget()
+    if holder:
+        holder.setCursor(
+            Qt.CursorShape.ArrowCursor if enabled else Qt.CursorShape.ForbiddenCursor
+        )
 
 
 def update_generate_banner(
@@ -499,7 +502,7 @@ def update_generate_banner(
         tip = native_action_text("inputs_empty_tip")
     else:
         tip = native_action_text("all_filled_tip")
-    generate.setToolTip(tip)
+    _set_tooltip(generate, tip)
 
     regenerate = banner.findChild(QPushButton, "secondary")
     _set_button_enabled(regenerate, actions.can_regenerate)
@@ -509,7 +512,7 @@ def update_generate_banner(
         tip = native_action_text(
             "regenerate_note_tip" if one_note else "regenerate_all_tip"
         )
-    regenerate.setToolTip(tip)
+    _set_tooltip(regenerate, tip)
 
     # For one note the labels count the fields each fills: "(3)", none for 0.
     # A running generation's animated label is left alone.
@@ -525,6 +528,13 @@ def update_generate_banner(
             )
             button.setText(f"{text} ({count})" if count else text)
     banner.show()
+
+
+def _set_tooltip(button: QPushButton, tip: str) -> None:
+    """Sets a banner button's tooltip on its holder, so it shows while the
+    button lets the mouse through."""
+    holder = button.parentWidget()
+    (holder or button).setToolTip(tip)
 
 
 def _fix_width(button: QPushButton, texts: list[str]) -> None:
@@ -618,8 +628,6 @@ _EDITOR_CUES_JS = """
         box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.18);
       }
       button.sn-gen:disabled { opacity: 0.45; cursor: not-allowed; }
-      /* Generating: full strength, with dots that count up while it runs. */
-      button.sn-gen.sn-working:disabled { opacity: 1; cursor: progress; }
       /* Draws the eye when the first-field guide opens the Browser here. */
       button.sn-gen.sn-pulse { animation: sn-pulse 1s ease-in-out 3; }
       @keyframes sn-pulse {
@@ -637,7 +645,7 @@ _EDITOR_CUES_JS = """
       /* Action icons are yellow, like the ✨ emoji, while they're clickable. */
       button.sn-gen svg { width: 14px; height: 14px; fill: #f59e0b; }
       .night-mode button.sn-gen svg { fill: #fbbf24; }
-      button.sn-gen:disabled:not(.sn-working) svg { fill: var(--fg-subtle); }
+      button.sn-gen:disabled svg { fill: var(--fg-subtle); }
     `;
     document.head.appendChild(style);
   }
@@ -662,7 +670,6 @@ _EDITOR_CUES_JS = """
       button.title = field.title;
       button.disabled = !field.enabled || field.working;
       const icon = field.empty ? SPARKLE_ICON : REFRESH_ICON;
-      if (field.working) button.classList.add("sn-working");
       // Redraws restart the pulse where it was, so it plays through once.
       if (field.pulse !== null) {
         button.classList.add("sn-pulse");
@@ -977,8 +984,8 @@ def _banner_buttons(banner: QFrame) -> tuple[QPushButton, QPushButton]:
 
 
 def _show_banner_working(banner: QFrame, working: Working) -> None:
-    """While a generation runs, disables both buttons (the working one keeps its
-    colours through its `working` property), after the banner's usual update."""
+    """While a generation runs, disables both buttons, after the banner's usual
+    update. The working one's `working` property keeps its Generating label."""
     generate, regenerate = _banner_buttons(banner)
     for button, is_working in (
         (generate, working == "empty"),
@@ -986,17 +993,7 @@ def _show_banner_working(banner: QFrame, working: Working) -> None:
     ):
         if working is not None:
             _set_button_enabled(button, False)
-        if is_working:
-            button.setCursor(Qt.CursorShape.BusyCursor)
-        if button.property("working") != is_working:
-            button.setProperty("working", is_working)
-            # A changed property only restyles once the style is reapplied.
-            style = button.style()
-            if style:
-                style.unpolish(button)
-                style.polish(button)
-        # Its icon stays yellow while it works, though it's disabled then.
-        button.setIcon(button.property("working_icon" if is_working else "normal_icon"))
+        button.setProperty("working", is_working)
 
 
 def _animate_banner(banner: QFrame, working: Working) -> None:
@@ -1210,13 +1207,8 @@ def _draw_editor(
     if banner and banner_pulse:
         _pulse_banner(banner)
     if banner:
-        summary = (
-            native_action_text("generates_on_add")
-            if isinstance(e.parentWindow, _add_dialogs()) and config.generate_on_add
-            else ""
-        )
         actions = note_actions(values_by_name, smart_fields)
-        update_generate_banner(banner, summary, actions, one_note=True)
+        update_generate_banner(banner, "", actions, one_note=True)
         _show_banner_working(banner, working)
 
 

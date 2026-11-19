@@ -44,7 +44,6 @@ NativeActionKey = Literal[
     "regenerate_field_tip",
     "generate_now",
     "generating",
-    "generates_on_add",
     "fill_note_tip",
     "regenerate_note_tip",
 ]
