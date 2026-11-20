@@ -83,6 +83,10 @@ class ServerError(Exception):
 
 
 class APIClient:
+    # The open Smart Notes window's Amplitude session ID, sent with every request
+    # while the window is open so the events they cause land in its session.
+    amplitude_session_id: Optional[int] = None
+
     async def get_api_response(
         self,
         path: str,
@@ -113,6 +117,8 @@ class APIClient:
             "x-sn-plugin-version": get_version(),
             "x-sn-source": "anki-plugin",
         }
+        if self.amplitude_session_id is not None:
+            headers["x-sn-session-id"] = str(self.amplitude_session_id)
         if jwt:
             headers["Authorization"] = f"Bearer {jwt}"
 

@@ -282,6 +282,16 @@ def parse_ui_open_browser(payload: object) -> BrowserFieldTarget | None:
     )
 
 
+def parse_ui_window_opened(payload: object) -> int | None:
+    """The window's Amplitude session ID, or None where Amplitude doesn't run."""
+    if not isinstance(payload, dict):
+        raise ValueError("ui.windowOpened payload must be an object")
+    session_id = cast(dict[str, object], payload).get("amplitudeSessionId")
+    if session_id is not None and type(session_id) is not int:
+        raise ValueError("ui.windowOpened amplitudeSessionId must be an integer")
+    return session_id
+
+
 def parse_chat_generation_settings(payload: dict[str, Any]) -> ChatGenerationSettings:
     raw = cast(ChatGenerationSettingsDto, payload)
     return ChatGenerationSettings(

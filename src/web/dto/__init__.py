@@ -62,6 +62,7 @@ from .parsers import (
     parse_tts_generation_settings,
     parse_tts_prompt_test,
     parse_ui_open_browser,
+    parse_ui_window_opened,
 )
 
 __all__ = [
@@ -100,4 +101,5 @@ __all__ = [
     "parse_tts_generation_settings",
     "parse_tts_prompt_test",
     "parse_ui_open_browser",
+    "parse_ui_window_opened",
 ]

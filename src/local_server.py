@@ -65,6 +65,7 @@ from .services.prompt_test_service import (
     save_test_result,
 )
 from .services.smart_field_service import smart_field_service
+from .telemetry import track_event
 from .ui.ui_utils import open_anki_browser, open_browser_on_field
 from .utils import get_version
 from .utils.notes_utils import get_note_types_with_fields
@@ -743,6 +744,13 @@ def _run_open_browser(payload: dict[str, Any]) -> None:
         open_browser_on_field(target.note_type_id, target.deck_id, target.field_name)
 
 
+def _run_window_opened(payload: dict[str, Any]) -> None:
+    # Reported once the window has loaded, so the event and every request after
+    # it carry the window's Amplitude session
+    api.amplitude_session_id = dto.parse_ui_window_opened(payload)
+    track_event("smart_notes_window_opened")
+
+
 # Command names are namespaced like event names (state, anki.*): the protocol
 # is typed messages in both directions over one channel each way.
 COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
@@ -768,6 +776,7 @@ COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
     "reviewClaim.get": _run_get_review_claim,
     "reviewClaim.send": _run_send_review_claim,
     "ui.openBrowser": _run_open_browser,
+    "ui.windowOpened": _run_window_opened,
 }
 
 

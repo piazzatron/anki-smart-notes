@@ -61,8 +61,6 @@ def test_open_web_app_refreshes_account(monkeypatch: pytest.MonkeyPatch) -> None
     monkeypatch.setattr(web_app, "app_state", account_state)
     monkeypatch.setattr(web_app, "WebAppDialog", dialog_factory)
     monkeypatch.setattr(web_app.env, "environment", "DEV")
-    tracked_events: list[str] = []
-    monkeypatch.setattr(web_app, "track_event", tracked_events.append)
     monkeypatch.setattr(web_app, "QTimer", MagicMock())
 
     web_app.open_web_app()
@@ -71,7 +69,6 @@ def test_open_web_app_refreshes_account(monkeypatch: pytest.MonkeyPatch) -> None
     dialog_factory.assert_called_once_with(web_app.WEB_APP_DEV_URL, web_app.mw)
     dialog.finished.connect.assert_called_once_with(ANY)
     dialog.show.assert_called_once_with()
-    assert tracked_events == ["smart_notes_window_opened"]
 
 
 @pytest.mark.parametrize(
@@ -94,7 +91,6 @@ def test_production_web_app_url_uses_effective_locale(
     monkeypatch.setattr(web_app.env, "environment", "PROD")
     monkeypatch.setattr(web_app, "config", SimpleNamespace(language=language))
     monkeypatch.setattr(web_app.lang, "current_lang", "ja")
-    monkeypatch.setattr(web_app, "track_event", MagicMock())
     monkeypatch.setattr(web_app, "QTimer", MagicMock())
 
     web_app.open_web_app()
@@ -166,7 +162,6 @@ def test_window_that_never_connects_is_reported_once_while_open(
     monkeypatch.setattr(web_app, "app_state", MagicMock())
     monkeypatch.setattr(web_app, "WebAppDialog", MagicMock(return_value=MagicMock()))
     monkeypatch.setattr(web_app.env, "environment", "DEV")
-    monkeypatch.setattr(web_app, "track_event", MagicMock())
     monkeypatch.setattr(web_app, "supportText", lambda: "Anki 26.09.3")
     monkeypatch.setattr(web_app, "QWebEngineProfile", MagicMock())
     qtimer = MagicMock()

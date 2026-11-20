@@ -25,6 +25,7 @@ from aqt.qt import QTimer, QWebEngineProfile
 from aqt.utils import supportText
 
 from . import env
+from .api_client import api
 from .app_state import app_state
 from .config import config
 from .constants import WEB_APP_DEV_URL
@@ -32,7 +33,6 @@ from .event_bus import UpgradeRequested, event_bus
 from .local_server import LOCAL_SERVER_HOST, LocalServer, WindowLoad
 from .logger import logger
 from .sentry import with_sentry
-from .telemetry import track_event
 from .ui.ui_utils import show_message_box
 from .ui.web_app_dialog import WebAppDialog
 
@@ -105,6 +105,9 @@ def open_web_app(*, upgrade_feature: Optional[str] = None) -> None:
 
     def clear_web_app_dialog(_: object) -> None:
         global _web_app_dialog
+        # Cleared even when close_web_app already let go of the dialog: no
+        # other window has reported a session by the time this one finishes.
+        api.amplitude_session_id = None
         if _web_app_dialog is dialog:
             _web_app_dialog = None
 
@@ -114,7 +117,6 @@ def open_web_app(*, upgrade_feature: Optional[str] = None) -> None:
     # Browser window that triggered it.
     dialog.raise_()
     dialog.activateWindow()
-    track_event("smart_notes_window_opened")
     QTimer.singleShot(
         WINDOW_LOAD_TIMEOUT_MS,
         lambda: _report_if_never_loaded(dialog, window_load),

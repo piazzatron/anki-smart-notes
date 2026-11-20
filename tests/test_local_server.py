@@ -1150,3 +1150,41 @@ async def test_window_load_records_app_requests_until_the_event_stream_opens(
         "/app/assets/index.js 200",
         "/app/assets/missing.js 404",
     ]
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    ("session_id", "status", "expected_session_id", "expected_events"),
+    [
+        (1795014265969, 200, 1795014265969, ["smart_notes_window_opened"]),
+        (None, 200, None, ["smart_notes_window_opened"]),
+        ("1795014265969", 400, None, []),
+    ],
+)
+async def test_window_opened_command_attaches_the_window_session(
+    monkeypatch: pytest.MonkeyPatch,
+    session_id: object,
+    status: int,
+    expected_session_id: int | None,
+    expected_events: list[str],
+) -> None:
+    import src.local_server
+
+    monkeypatch.setattr(src.api_client.api, "amplitude_session_id", None)
+    monkeypatch.setattr(src.local_server, "_run_on_main_sync", lambda fn: fn())
+    tracked_events: list[str] = []
+    monkeypatch.setattr(src.local_server, "track_event", tracked_events.append)
+
+    server = _make_server()
+    async with TestClient(TestServer(_make_app(server))) as client:
+        resp = await client.post(
+            "/api/command",
+            json=_command_request(
+                "ui.windowOpened", {"amplitudeSessionId": session_id}
+            ),
+            headers={"X-Session-Token": server.session_token},
+        )
+
+    assert resp.status == status
+    assert src.api_client.api.amplitude_session_id == expected_session_id
+    assert tracked_events == expected_events
