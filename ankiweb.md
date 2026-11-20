@@ -37,9 +37,9 @@ You can also write prompts by hand to get the exact result you need by referenci
 
 You can generate your Smart Fields yourself, or let Smart Notes do it automatically.
 
-**In the editor:** the ✨ button, or `ctrl+shift+g` / `cmd+shift+g`, for one field or the whole note.
+**In the editor:** click Generate beside any Smart Field, or Generate empty fields above your fields (`ctrl+shift+enter` / `cmd+shift+enter`) to fill the whole note.
 
-**In bulk:** select thousands of notes in the Browser, or right-click a deck in its sidebar, to generate all your cards while you take a coffee break.
+**In bulk:** select thousands of notes in the Browser and click Generate empty fields, or right-click a deck in its sidebar, to generate all your cards while you take a coffee break.
 
 **One-off:** you can right-click any field and generate it, even if you haven't made a Smart Field for it.
 
