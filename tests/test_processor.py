@@ -1049,6 +1049,7 @@ async def test_editor_generation_saves_fields_despite_editor_reloads(
 
     monkeypatch.setattr(src.hooks, "mw", MockMw())
     monkeypatch.setattr(src.hooks, "ensure_generation_available", lambda: True)
+    monkeypatch.setattr(src.hooks, "track_click", lambda _: None)
     monkeypatch.setattr(src.note_proccessor, "mw", MockMw())
     monkeypatch.setattr(processor, "_assert_valid_app_mode", lambda: True)
     monkeypatch.setattr(src.note_proccessor, "bump_usage_counter", lambda: None)

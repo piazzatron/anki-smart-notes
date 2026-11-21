@@ -45,7 +45,16 @@ def track_event(event: str, properties: Optional[dict[str, Any]] = None) -> None
             path="events", args=body, method="POST", allow_signed_out=True
         )
 
+    # Off the collection worker, so a slow request never holds up the generation
+    # a click starts
     run_async_in_background(
         send,
         on_failure=lambda e: logger.debug(f"telemetry: {event} failed: {e}"),
+        use_collection=False,
     )
+
+
+def track_click(target: str) -> None:
+    """Sends qt_click for a Qt button, menu item or shortcut, named like the web UI's
+    data-amp-track-name (`browser.generate`)."""
+    track_event("qt_click", {"target": target})

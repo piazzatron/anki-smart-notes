@@ -28,6 +28,7 @@ from ..generation_access import (
     ensure_paid_feature_available,
 )
 from ..note_proccessor import NoteProcessor
+from ..telemetry import track_click
 from .custom_prompt import CustomImagePrompt, CustomTextPrompt, CustomTTSPrompt
 from .i18n import native_action_text
 
@@ -77,6 +78,7 @@ class FieldMenu:
         )
 
         def wrapped() -> None:
+            track_click("field_menu.generate")
             if not ensure_generation_available():
                 return
 
@@ -112,6 +114,12 @@ class FieldMenu:
         text_item.triggered.connect(self._on_custom_text)
         tts_item.triggered.connect(self._on_custom_tts)
         image_item.triggered.connect(self._on_custom_image)
+        for item, target in [
+            (text_item, "field_menu.custom_text"),
+            (tts_item, "field_menu.custom_tts"),
+            (image_item, "field_menu.custom_image"),
+        ]:
+            item.triggered.connect(lambda _, target=target: track_click(target))
 
         self.menu.addAction(text_item)
         self.menu.addAction(tts_item)

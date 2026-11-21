@@ -49,7 +49,7 @@ from .note_proccessor import NoteProcessor
 from .review_time_evaluator import ReviewTimeEvaluator
 from .sentry import sentry, with_sentry
 from .tasks import run_async_in_background
-from .telemetry import track_event
+from .telemetry import track_click, track_event
 from .ui.changelog import ChangeLogDialog, is_new_major_or_minor_version
 from .ui.field_menu import FieldMenu
 from .ui.generate_affordances import (
@@ -135,6 +135,7 @@ def _generate_editor_note(
     processor: NoteProcessor, e: editor.Editor, overwrite_fields: bool = False
 ) -> None:
     """Fills the editor note's empty Smart Fields, or regenerates them all."""
+    track_click("editor.regenerate" if overwrite_fields else "editor.generate")
     if editor_busy(e):
         return
     set_editor_busy(e, True, "all" if overwrite_fields else "empty")
@@ -200,6 +201,7 @@ def _generate_editor_field(
     always regenerates, its inputs fill only if empty, and regenerating a filled
     field also regenerates the fields that depend on it."""
 
+    track_click("editor.generate_field")
     if editor_busy(e):
         return
     set_editor_busy(e, True, frozenset({field_index}))
@@ -272,6 +274,7 @@ def _make_on_batch_success(
 def on_browser_will_show(processor: NoteProcessor, b: browser.Browser) -> None:  # type: ignore
     @with_sentry
     def generate(overwrite_fields: bool) -> None:
+        track_click("browser.regenerate" if overwrite_fields else "browser.generate")
         if _addon_files_changing or not ensure_generation_available():
             return
         processor.process_cards_with_progress(
@@ -305,6 +308,7 @@ def on_browser_context(processor: NoteProcessor, browser: browser.Browser, menu:
     cards = browser.selected_cards()
 
     def wrapped():
+        track_click("browser.context_generate")
         if not ensure_generation_available():
             return
 
@@ -368,14 +372,19 @@ def on_main_window(processor: NoteProcessor):
 
     run_migrations()
 
-    mw.form.menubar.addMenu(_smart_notes_menu(mw))
+    mw.form.menubar.addMenu(_smart_notes_menu(mw, "main"))
     # On macOS the menu bar belongs to the focused window. Windows without one of
     # their own, like the Add and Edit dialogs, show this parentless one.
     if is_mac:
         global _mac_default_menubar
         _mac_default_menubar = QMenuBar(None)
-        _mac_default_menubar.addMenu(_smart_notes_menu(_mac_default_menubar))
-    mw.addonManager.setConfigAction(__name__, open_web_app)
+        _mac_default_menubar.addMenu(_smart_notes_menu(_mac_default_menubar, "dialog"))
+
+    def open_from_addons() -> None:
+        track_click("addons.config")
+        open_web_app()
+
+    mw.addonManager.setConfigAction(__name__, open_from_addons)
 
     _on_start_actions()
 
@@ -390,10 +399,16 @@ def on_main_window(processor: NoteProcessor):
 _mac_default_menubar: Optional[QMenuBar] = None
 
 
-def _smart_notes_menu(parent: Any) -> QMenu:
+def _smart_notes_menu(parent: Any, window: str) -> QMenu:
+    """The menu bar's Smart Notes menu. `window` names the menu bar in analytics."""
     menu = QMenu("Smart Notes", parent)
     action = QAction("Smart Notes", parent)
-    action.triggered.connect(lambda _: open_web_app())
+
+    def open_from_menu() -> None:
+        track_click(f"menu.smart_notes.{window}")
+        open_web_app()
+
+    action.triggered.connect(lambda _: open_from_menu())
     menu.addAction(action)
     return menu
 
@@ -402,7 +417,7 @@ def on_browser_menus_did_init(b: browser.Browser) -> None:  # type: ignore
     """Gives the Browser the Smart Notes menu too: on macOS the menu bar belongs
     to the focused window, so the main window's menu is gone while the Browser
     is in front."""
-    b.form.menubar.addMenu(_smart_notes_menu(b))
+    b.form.menubar.addMenu(_smart_notes_menu(b, "browser"))
 
 
 @_with_processor  # type: ignore
@@ -482,6 +497,7 @@ def add_deck_option(
     menu.addAction(item)
 
     def wrapped():
+        track_click("browser.sidebar_generate")
         if not ensure_generation_available():
             return
         processor.process_cards_with_progress(
