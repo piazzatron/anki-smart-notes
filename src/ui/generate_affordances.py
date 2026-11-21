@@ -401,20 +401,95 @@ class _ElidedLabel(QLabel):
         )
 
 
+class _GenerateBanner(QFrame):
+    """The banner's frame. As it narrows, its buttons first take their short
+    labels, then sit one above the other, so a narrow pane never clips a label."""
+
+    def minimumSizeHint(self) -> QSize:  # noqa: N802
+        # One short button wide: `_arrange_banner` handles anything wider.
+        hint = super().minimumSizeHint()
+        layout = self.layout()
+        if (
+            not isinstance(layout, QBoxLayout)
+            or layout.direction() == QBoxLayout.Direction.TopToBottom
+        ):
+            return hint
+        buttons = _banner_buttons(self)
+        return QSize(
+            hint.width()
+            - sum(button.minimumWidth() for button in buttons)
+            - 2 * layout.spacing()
+            + max(_label_widths(self, "short")),
+            hint.height(),
+        )
+
+    def resizeEvent(self, a0: Any) -> None:  # noqa: N802
+        super().resizeEvent(a0)
+        _arrange_banner(self)
+
+
+def _label_widths(banner: QFrame, size: str) -> list[int]:
+    """The width each banner button needs for its widest "full" or "short"
+    label, as `update_generate_banner` measured it."""
+    return [button.property(f"{size}_width") or 0 for button in _banner_buttons(banner)]
+
+
+def _arrange_banner(banner: QFrame) -> None:
+    """Fits the banner's buttons to its width: full labels side by side, then
+    short labels side by side, then short labels stacked."""
+    layout = banner.layout()
+    if not isinstance(layout, QBoxLayout):
+        return
+    # From the frame's own width: the layout's is unset until its next pass.
+    margins = layout.contentsMargins()
+    room = (
+        banner.contentsRect().width()
+        - margins.left()
+        - margins.right()
+        - 2 * layout.spacing()
+    )
+    size = "full" if room >= sum(_label_widths(banner, "full")) else "short"
+    widths = _label_widths(banner, size)
+    stacked = room < sum(widths)
+    banner.setProperty("label_size", size)
+
+    layout.setDirection(
+        QBoxLayout.Direction.TopToBottom
+        if stacked
+        else QBoxLayout.Direction.LeftToRight
+    )
+    for button, width in zip(_banner_buttons(banner), widths):
+        # Stacked buttons share a width, so their edges line up.
+        button.setFixedWidth(max(widths) if stacked else width)
+        # A running generation's animated label is left alone.
+        text = button.property(f"{size}_text")
+        if text and not button.property("working"):
+            button.setText(text)
+    # The text has no room beside stacked buttons.
+    banner.findChild(_ElidedLabel, "summary").setVisible(not stacked)
+    banner.updateGeometry()
+
+
 def make_generate_banner(
     on_generate: Callable[[bool], None],
     *,
     generate_label: str,
+    generate_short_label: str,
 ) -> QFrame:
     """A hidden banner with a generate-empty-fields button labelled
-    `generate_label` and Regenerate all fields. `on_generate(overwrite_fields)` runs a
+    `generate_label` (`generate_short_label` when it's narrow) and Regenerate
+    all fields. `on_generate(overwrite_fields)` runs a
     button's generation; fill it in with `update_generate_banner`."""
-    banner = QFrame()
+    banner = _GenerateBanner()
     banner.setObjectName(_BANNER_NAME)
     regenerate_label = native_action_text("regenerate_all_fields")
     banner.setProperty("generate_label", generate_label)
     banner.setProperty("regenerate_label", regenerate_label)
+    banner.setProperty("generate_short_label", generate_short_label)
+    banner.setProperty("regenerate_short_label", native_action_text("regenerate_all"))
     banner.setStyleSheet(_banner_style())
+    # Only as tall as its buttons, stacked or not.
+    banner.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
     # The soft shadow of Anki's deck list card; stylesheets can't draw one.
     shadow = QGraphicsDropShadowEffect(banner)
     # Faint in dark mode, where a dark shadow on a dark window reads as a halo.
@@ -435,7 +510,7 @@ def make_generate_banner(
     generate.setIconSize(QSize(14, 14))
     generate.setFixedHeight(_BUTTON_HEIGHT)
     generate.clicked.connect(lambda: on_generate(False))
-    layout.addWidget(_cursor_holder(generate))
+    layout.addWidget(_cursor_holder(generate), 0, Qt.AlignmentFlag.AlignLeft)
 
     regenerate = QPushButton(f" {regenerate_label}")
     regenerate.setObjectName("secondary")
@@ -443,7 +518,7 @@ def make_generate_banner(
     regenerate.setIconSize(QSize(14, 14))
     regenerate.setFixedHeight(_BUTTON_HEIGHT)
     regenerate.clicked.connect(lambda: on_generate(True))
-    layout.addWidget(_cursor_holder(regenerate))
+    layout.addWidget(_cursor_holder(regenerate), 0, Qt.AlignmentFlag.AlignLeft)
 
     # The buttons come first; the text, secondary, takes the rest of the row,
     # right-aligned.
@@ -515,18 +590,19 @@ def update_generate_banner(
     _set_tooltip(regenerate, tip)
 
     # For one note the labels count the fields each fills: "(3)", none for 0.
-    # A running generation's animated label is left alone.
-    for button, label_key, count in (
-        (generate, "generate_label", actions.generate_count),
-        (regenerate, "regenerate_label", actions.regenerate_count),
+    generating = f" {native_action_text('generating')}..."
+    for button, name, count in (
+        (generate, "generate", actions.generate_count),
+        (regenerate, "regenerate", actions.regenerate_count),
     ):
-        if not button.property("working"):
-            text = f" {banner.property(label_key)}"
-            _fix_width(
-                button,
-                [text, f"{text} ({count})", f" {native_action_text('generating')}..."],
+        for size, label_key in (("full", "label"), ("short", "short_label")):
+            text = f" {banner.property(f'{name}_{label_key}')}"
+            counted = f"{text} ({count})"
+            button.setProperty(f"{size}_text", counted if count else text)
+            button.setProperty(
+                f"{size}_width", _widest(button, [text, counted, generating])
             )
-            button.setText(f"{text} ({count})" if count else text)
+    _arrange_banner(banner)
     banner.show()
 
 
@@ -537,22 +613,24 @@ def _set_tooltip(button: QPushButton, tip: str) -> None:
     (holder or button).setToolTip(tip)
 
 
-def _fix_width(button: QPushButton, texts: list[str]) -> None:
-    """Fixes the button at the width of its widest label, with the text
-    left-aligned, so clicking it (Generating, then a new count) never moves it."""
+def _widest(button: QPushButton, texts: list[str]) -> int:
+    """The width the button needs for its widest label. The banner fixes it at
+    that, so clicking it (Generating, then a new count) never moves it."""
     current = button.text()
     widths = []
     for text in texts:
         button.setText(text)
         widths.append(button.sizeHint().width())
     button.setText(current)
-    button.setFixedWidth(max(widths))
+    return max(widths)
 
 
 def add_generate_banner(b: Browser, on_generate: Callable[[bool], None]) -> None:
     """Adds the generate banner above the Browser's table and editor."""
     banner = make_generate_banner(
-        on_generate, generate_label=native_action_text("generate_empty_fields")
+        on_generate,
+        generate_label=native_action_text("generate_empty_fields"),
+        generate_short_label=native_action_text("generate_empty"),
     )
     b.form.verticalLayout_3.insertWidget(0, banner)
     refresh_banner(b)
@@ -1003,11 +1081,8 @@ def _animate_banner(banner: QFrame, working: Working) -> None:
     if timer:
         timer.stop()
     generate, regenerate = _banner_buttons(banner)
-    for button, label in (
-        (generate, f" {banner.property('generate_label')}"),
-        (regenerate, f" {banner.property('regenerate_label')}"),
-    ):
-        button.setText(label)
+    for button in (generate, regenerate):
+        button.setText(button.property(f"{banner.property('label_size')}_text"))
         button.setStyleSheet("")
     _show_banner_working(banner, working)
     if working not in ("empty", "all"):
@@ -1045,15 +1120,17 @@ def add_dialog_banner(e: editor.Editor, on_generate: Callable[[bool], None]) -> 
         if cls
     )
     if isinstance(parent, _add_dialogs()):
-        label = native_action_text("generate_now")
+        label = short_label = native_action_text("generate_now")
     elif isinstance(parent, (*edit_dialogs, Browser)):
         label = native_action_text("generate_empty_fields")
+        short_label = native_action_text("generate_empty")
     else:
         return
 
     banner = make_generate_banner(
         on_generate,
         generate_label=label,
+        generate_short_label=short_label,
     )
     if isinstance(parent, Browser):
         # The editor sits in a nested row of the pane, so go to the pane's top.

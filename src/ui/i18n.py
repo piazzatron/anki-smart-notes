@@ -31,6 +31,8 @@ NativeActionKey = Literal[
     "custom_image",
     "generate_empty_fields",
     "regenerate_all_fields",
+    "generate_empty",
+    "regenerate_all",
     "notes_selected",
     "generate",
     "regenerate",
