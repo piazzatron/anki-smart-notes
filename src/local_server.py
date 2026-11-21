@@ -397,6 +397,15 @@ class LocalServer:
             headers={"Cache-Control": "no-store"},
         )
 
+    def _is_dev_request(self, request: web.Request) -> bool:
+        # Dev builds are driven directly from Vite in a browser. The fixed
+        # loopback port identifies the real plugin server while test servers
+        # and production builds continue through session authentication.
+        return env.environment == "DEV" and request.host in {
+            f"127.0.0.1:{self.port}",
+            f"localhost:{self.port}",
+        }
+
     def _check_api_auth(self, request: web.Request) -> Optional[web.Response]:
         # Hostname check defeats DNS rebinding: a malicious page can point its
         # own hostname at 127.0.0.1, but the browser still sends that hostname
@@ -405,13 +414,7 @@ class LocalServer:
         if hostname not in ("127.0.0.1", "localhost"):
             return web.Response(status=403)
 
-        # Dev builds are driven directly from Vite in a browser. The fixed
-        # loopback port identifies the real plugin server while test servers
-        # and production builds continue through session authentication.
-        if env.environment == "DEV" and request.host in {
-            f"127.0.0.1:{self.port}",
-            f"localhost:{self.port}",
-        }:
+        if self._is_dev_request(request):
             return None
 
         # Query param because EventSource can't set headers; header for the
@@ -519,14 +522,19 @@ class LocalServer:
             return web.json_response({"ok": False, "error": "invalid_json"}, status=400)
 
         command = body.get("command")
-        handler = COMMAND_HANDLERS.get(command)
+        handlers = (
+            {**COMMAND_HANDLERS, **_dev_command_handlers()}
+            if self._is_dev_request(request)
+            else COMMAND_HANDLERS
+        )
+        handler = handlers.get(command)
         if handler is None:
             # List valid commands so agents/tooling self-correct in one trip.
             return web.json_response(
                 {
                     "ok": False,
                     "error": f"Unknown command: {command}. "
-                    f"Valid commands: {', '.join(sorted(COMMAND_HANDLERS))}",
+                    f"Valid commands: {', '.join(sorted(handlers))}",
                 },
                 status=400,
             )
@@ -778,6 +786,16 @@ COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
     "ui.openBrowser": _run_open_browser,
     "ui.windowOpened": _run_window_opened,
 }
+
+
+def _dev_command_handlers() -> dict[str, Callable[[dict[str, Any]], Any]]:
+    """Commands that drive Anki's native UI for scripted checks, served only
+    on tokenless dev requests. The release build leaves the module out."""
+    if env.environment != "DEV":
+        return {}
+    from .dev_commands import DEV_COMMAND_HANDLERS
+
+    return DEV_COMMAND_HANDLERS
 
 
 def _prepare_prompt_generate_args(

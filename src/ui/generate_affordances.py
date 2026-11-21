@@ -66,6 +66,9 @@ from ..utils.notes_utils import note_decks
 from .i18n import native_action_text
 
 _BANNER_NAME = "smartNotesGenerateBanner"
+# Stable names for the banner's buttons, which `cli/sn qt click` finds them by.
+_GENERATE_NAME = "smartNotesGenerate"
+_REGENERATE_NAME = "smartNotesRegenerate"
 
 # The pycmd a field's Generate button sends, followed by ":<field index>".
 GENERATE_FIELD_COMMAND = "smartNotesGenerateField"
@@ -331,7 +334,7 @@ def _banner_style() -> str:
         QFrame#{_BANNER_NAME} QPushButton:hover {{ background: {hover}; }}
         QFrame#{_BANNER_NAME} QPushButton:pressed {{ background: {pressed}; }}
         QFrame#{_BANNER_NAME} QPushButton:disabled,
-        QFrame#{_BANNER_NAME} QPushButton#primary:disabled {{
+        QFrame#{_BANNER_NAME} QPushButton#{_GENERATE_NAME}:disabled {{
             color: {disabled_fg}; background: {disabled_bg}; border: 1px solid transparent;
         }}
     """
@@ -505,7 +508,7 @@ def make_generate_banner(
     layout.setSpacing(8)
 
     generate = QPushButton(f" {generate_label}")
-    generate.setObjectName("primary")
+    generate.setObjectName(_GENERATE_NAME)
     generate.setIcon(_action_icon(_SPARKLE_PATH))
     generate.setIconSize(QSize(14, 14))
     generate.setFixedHeight(_BUTTON_HEIGHT)
@@ -513,7 +516,7 @@ def make_generate_banner(
     layout.addWidget(_cursor_holder(generate), 0, Qt.AlignmentFlag.AlignLeft)
 
     regenerate = QPushButton(f" {regenerate_label}")
-    regenerate.setObjectName("secondary")
+    regenerate.setObjectName(_REGENERATE_NAME)
     regenerate.setIcon(_action_icon(_REFRESH_PATH, _REFRESH_VIEW_BOX))
     regenerate.setIconSize(QSize(14, 14))
     regenerate.setFixedHeight(_BUTTON_HEIGHT)
@@ -567,7 +570,7 @@ def update_generate_banner(
 
     banner.findChild(_ElidedLabel, "summary").set_full_text(summary)
 
-    generate = banner.findChild(QPushButton, "primary")
+    generate = banner.findChild(QPushButton, _GENERATE_NAME)
     _set_button_enabled(generate, actions.can_generate)
     if actions.can_generate:
         tip = native_action_text(
@@ -579,7 +582,7 @@ def update_generate_banner(
         tip = native_action_text("all_filled_tip")
     _set_tooltip(generate, tip)
 
-    regenerate = banner.findChild(QPushButton, "secondary")
+    regenerate = banner.findChild(QPushButton, _REGENERATE_NAME)
     _set_button_enabled(regenerate, actions.can_regenerate)
     if not actions.can_regenerate:
         tip = native_action_text("nothing_to_regenerate_tip")
@@ -656,7 +659,7 @@ def generate_from_banner(b: Browser) -> bool:
     """Clicks the Browser banner's Generate empty fields, if it's showing and
     enabled. Returns whether it did."""
     banner: Optional[QFrame] = b.findChild(QFrame, _BANNER_NAME)
-    generate = banner.findChild(QPushButton, "primary") if banner else None
+    generate = banner.findChild(QPushButton, _GENERATE_NAME) if banner else None
     if not banner or not banner.isVisible() or not generate or not generate.isEnabled():
         return False
     generate.click()
@@ -1056,8 +1059,8 @@ def _pulse_banner(banner: QFrame) -> None:
 
 def _banner_buttons(banner: QFrame) -> tuple[QPushButton, QPushButton]:
     return (
-        banner.findChild(QPushButton, "primary"),
-        banner.findChild(QPushButton, "secondary"),
+        banner.findChild(QPushButton, _GENERATE_NAME),
+        banner.findChild(QPushButton, _REGENERATE_NAME),
     )
 
 

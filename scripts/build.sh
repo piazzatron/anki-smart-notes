@@ -50,6 +50,8 @@ build () {
   mkdir -p dist/user_files
   cp user_files/README.txt dist/user_files/
   echo "environment = \"PROD\"" > dist/src/env.py
+  # Development-only commands that drive Anki's native UI (see local_server.py).
+  rm dist/src/dev_commands.py
 
   # Nuke any pycache
   rm -rf dist/__pycache__
