@@ -21,13 +21,14 @@ import json
 import shutil
 from pathlib import Path
 from types import SimpleNamespace
-from typing import Any, Optional
+from typing import Any, Optional, cast
 
 import pytest
 from fixtures import NOTE_TYPE_ID, FakeAnkiDb, use_temp_sqlite
 
 import src.ui.generate_affordances
 import src.utils.notes_utils
+from src import addon_files
 from src.models.smart_fields import (
     ChatSmartFieldSettings,
     SmartField,
@@ -38,6 +39,8 @@ from src.services.smart_field_service import smart_field_service
 from src.ui.generate_affordances import (
     SelectionActions,
     fillable_smart_fields,
+    refresh_banner,
+    refresh_editor,
     selection_actions,
 )
 from src.utils.notes_utils import note_decks
@@ -190,6 +193,38 @@ def test_selection_offers_what_batch_generation_would_do(
     )
 
     assert selection_actions([1]) == expected
+
+
+def test_banners_stand_down_once_the_addon_files_start_changing(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    """An add-on update moves the database's folder away while Anki swaps the
+    files, so the editor and Browser banners mustn't read it once that starts."""
+    add_smart_field("Back")
+    install_collection(
+        monkeypatch, cards=[(1, 10, 1)], notes=[(10, NOTE_TYPE_ID, "hola\x1f\x1f")]
+    )
+    use_temp_sqlite(monkeypatch, tmp_path / "moved-away")
+    monkeypatch.setattr(addon_files, "changing", True)
+    scripts: list[str] = []
+    note = SimpleNamespace(
+        mid=NOTE_TYPE_ID,
+        keys=lambda: ["Front", "Back", "Audio"],
+        fields=["hola", "", ""],
+    )
+    editor = SimpleNamespace(
+        web=SimpleNamespace(eval=scripts.append),
+        note=note,
+        card=SimpleNamespace(did=1),
+        parentWindow=None,
+    )
+    browser = SimpleNamespace(findChild=lambda *_: object(), selected_cards=lambda: [1])
+
+    # A note loading in the editor, and the Browser's selection changing.
+    refresh_editor(cast(Any, editor))
+    refresh_banner(cast(Any, browser))
+
+    assert scripts == []
 
 
 def test_only_disabled_smart_fields_hide_the_banner(

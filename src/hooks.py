@@ -36,6 +36,7 @@ from aqt import QAction, QMenu, browser, editor, gui_hooks, mw
 from aqt.browser.sidebar.item import SidebarItemType
 from aqt.qt import QKeySequence, QMenuBar, QShortcut
 
+from . import addon_files
 from .add_time_evaluator import AddTimeEvaluator
 from .app_state import app_state
 from .config import config, get_install_id
@@ -88,11 +89,6 @@ from .web_app import (
 _review_time_evaluator: Optional[ReviewTimeEvaluator] = None
 _add_time_evaluator: Optional[AddTimeEvaluator] = None
 
-# Set once Anki starts replacing or deleting this add-on's files. This code stays
-# loaded until Anki restarts, but the database and web files can vanish under it,
-# so hook entry points stand down until then.
-_addon_files_changing = False
-
 
 def _with_processor(fn: Any):
     # Too annoying to type this thing
@@ -101,7 +97,7 @@ def _with_processor(fn: Any):
     def wrapper(processor: NoteProcessor):
         @with_sentry
         def inner(*args: Any, **kwargs: Any):
-            if _addon_files_changing:
+            if addon_files.changing:
                 return None
             return fn(processor, *args, **kwargs)
 
@@ -143,7 +139,7 @@ def _generate_editor_note(
     @with_sentry
     def generate(card: Card) -> None:
         # The shortcut outlives the hook call that added it.
-        if not mw or _addon_files_changing or not ensure_generation_available():
+        if not mw or addon_files.changing or not ensure_generation_available():
             set_editor_busy(e, False)
             return
 
@@ -177,7 +173,7 @@ def on_webview_did_receive_js_message(
     def handle(
         handled: tuple[bool, Any], message: str, context: Any
     ) -> tuple[bool, Any]:
-        if _addon_files_changing:
+        if addon_files.changing:
             return handled
         command, _, field_index = message.partition(":")
         if command == GENERATE_FIELD_COMMAND:
@@ -212,7 +208,7 @@ def _generate_editor_field(
         field_names = note.keys()
         if (
             not mw
-            or _addon_files_changing
+            or addon_files.changing
             or field_index >= len(field_names)
             or not ensure_generation_available()
         ):
@@ -275,7 +271,7 @@ def on_browser_will_show(processor: NoteProcessor, b: browser.Browser) -> None: 
     @with_sentry
     def generate(overwrite_fields: bool) -> None:
         track_click("browser.regenerate" if overwrite_fields else "browser.generate")
-        if _addon_files_changing or not ensure_generation_available():
+        if addon_files.changing or not ensure_generation_available():
             return
         processor.process_cards_with_progress(
             b.selected_cards(),
@@ -556,8 +552,7 @@ def _cleanup_before_addon_files_change() -> None:
     # add-on folder can block user_files backup or package deletion, leaving a
     # partial install. This hook runs on Anki's installer thread, so keep it to
     # non-UI resources instead of calling full profile-close cleanup.
-    global _addon_files_changing
-    _addon_files_changing = True
+    addon_files.changing = True
     logger.info("Preparing Smart Notes for add-on file replacement")
 
     # stop() only sets flags and clears a set, so it's safe off the main thread.

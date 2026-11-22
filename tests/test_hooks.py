@@ -187,7 +187,7 @@ def test_addon_files_change_stands_smart_notes_down_until_restart(
     monkeypatch.setattr(hooks, "stop_local_server", lambda: calls.append("server_stop"))
     monkeypatch.setattr(hooks, "cleanup_logger", lambda: calls.append("logger_cleanup"))
     monkeypatch.setattr(hooks.logger, "info", lambda _: None)
-    monkeypatch.setattr(hooks, "_addon_files_changing", False)
+    monkeypatch.setattr(hooks.addon_files, "changing", False)
     monkeypatch.setattr(hooks, "_review_time_evaluator", None)
     monkeypatch.setattr(hooks, "_add_time_evaluator", None)
     processor = cast(NoteProcessor, object())
@@ -218,7 +218,7 @@ def test_cleanup_before_addon_files_change_releases_non_ui_resources(
     )
     monkeypatch.setattr(hooks.logger, "info", lambda _: None)
     monkeypatch.setattr(hooks, "cleanup_logger", lambda: calls.append("logger_cleanup"))
-    monkeypatch.setattr(hooks, "_addon_files_changing", False)
+    monkeypatch.setattr(hooks.addon_files, "changing", False)
 
     vars(hooks)["_cleanup_before_addon_files_change"]()
 

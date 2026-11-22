@@ -56,6 +56,7 @@ from aqt.qt import (
 )
 from aqt.theme import theme_manager
 
+from .. import addon_files
 from ..dag import generate_fields_dag
 from ..logger import logger
 from ..models.smart_fields import SmartField, TTSSmartFieldSettings
@@ -643,7 +644,11 @@ def refresh_banner(b: Browser) -> None:
     """Updates the Browser's banner for its selection."""
     banner: Optional[QFrame] = b.findChild(QFrame, _BANNER_NAME)
     # An edit saved as the Browser closes lands after its table is torn down.
-    if not banner or getattr(b, "_closeEventHasCleanedUp", False):
+    if (
+        not banner
+        or getattr(b, "_closeEventHasCleanedUp", False)
+        or addon_files.changing
+    ):
         return
 
     actions = selection_actions(b.selected_cards())
@@ -1168,7 +1173,7 @@ def schedule_editor_refresh(e: editor.Editor) -> None:
 def refresh_editor(e: editor.Editor) -> None:
     """Redraws the editor's field buttons and its dialog's banner for the note
     as the editor shows it, unsaved edits included."""
-    if not e.web or not mw or not mw.col:
+    if not e.web or not mw or not mw.col or addon_files.changing:
         return
 
     if _is_new_add(e):
