@@ -1,0 +1,226 @@
+<!doctype html>
+<!--
+Copyright (C) 2024 Michael Piazza
+
+This file is part of Smart Notes.
+
+Smart Notes is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Smart Notes is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
+
+What the Smart Notes window shows until the add-on has downloaded its web app
+(src/web_loader.py). It reloads itself once the app is there.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Smart Notes</title>
+    <link rel="icon" href="data:," />
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        color: #f4f4f6;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+        overflow: hidden;
+        user-select: none;
+      }
+      body {
+        display: grid;
+        place-items: center;
+        background: radial-gradient(circle at 50% 44%, rgb(74 222 128 / 0.1), transparent 40%), #100f12;
+        transition: opacity 0.35s ease-in;
+      }
+      body.leaving {
+        opacity: 0;
+      }
+      main {
+        display: grid;
+        justify-items: center;
+        text-align: center;
+        animation: enter 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+
+      /* The sparkle mascot (media/src/parts.tsx): it hops while the app downloads. */
+      .buddy {
+        width: 96px;
+        height: 96px;
+        overflow: visible;
+        filter: drop-shadow(0 0 14px rgb(31 212 125 / 0.7));
+        transform-origin: 50% 100%;
+        animation: hop 1.1s cubic-bezier(0.33, 0, 0.3, 1) infinite;
+      }
+      .buddy .eye {
+        transform-box: fill-box;
+        transform-origin: center;
+        animation: blink 3.6s infinite;
+      }
+      .shadow {
+        width: 46px;
+        height: 7px;
+        margin-top: 6px;
+        border-radius: 50%;
+        background: rgb(31 212 125 / 0.22);
+        animation: shadow 1.1s cubic-bezier(0.33, 0, 0.3, 1) infinite;
+      }
+      .sad,
+      .failed .happy {
+        display: none;
+      }
+      .failed .sad {
+        display: inline;
+      }
+      .failed .buddy,
+      .failed .shadow {
+        animation: none;
+      }
+      .failed .buddy {
+        filter: drop-shadow(0 0 10px rgb(31 212 125 / 0.35)) saturate(0.6);
+      }
+      .leaving .buddy {
+        animation: cheer 0.35s ease-out both;
+      }
+
+      h1 {
+        margin: 22px 0 0;
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+      p {
+        margin: 8px 0 0;
+        font-size: 13px;
+        color: #a1a1aa;
+      }
+      button {
+        margin-top: 18px;
+        padding: 8px 18px;
+        border: 0;
+        border-radius: 8px;
+        background: #4ade80;
+        color: #0b1f12;
+        font: inherit;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .failed .waiting,
+      .error {
+        display: none;
+      }
+      .failed .error {
+        display: grid;
+        justify-items: center;
+      }
+      .sparkles {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+      }
+      .sparkles span {
+        position: absolute;
+        color: #4ade80;
+        opacity: 0;
+        animation: twinkle 2.4s ease-in-out infinite alternate;
+      }
+      @keyframes hop {
+        0%, 100% { transform: translateY(0) scale(1.06, 0.94); }
+        12% { transform: translateY(0) scale(0.96, 1.04); }
+        45% { transform: translateY(-22px) scale(1, 1); }
+        80% { transform: translateY(0) scale(0.98, 1.02); }
+      }
+      @keyframes shadow {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        45% { transform: scale(0.6); opacity: 0.5; }
+      }
+      @keyframes blink {
+        0%, 94%, 100% { transform: scaleY(1); }
+        97% { transform: scaleY(0.12); }
+      }
+      @keyframes cheer {
+        to { transform: translateY(-14px) scale(1.12); }
+      }
+      @keyframes twinkle {
+        from { opacity: 0.15; transform: scale(0.8); }
+        to { opacity: 0.9; transform: scale(1.1); }
+      }
+      @keyframes enter {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: none; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation: none !important; transition: none !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sparkles" aria-hidden="true">
+      <span style="left: 29%; top: 27%; font-size: 9px">✦</span>
+      <span style="left: 47%; top: 20%; font-size: 7px; animation-delay: 0.8s">✦</span>
+      <span style="left: 68%; top: 31%; font-size: 11px; animation-delay: 0.4s">✦</span>
+      <span style="left: 25%; top: 62%; font-size: 7px; animation-delay: 1.3s">✦</span>
+      <span style="left: 71%; top: 64%; font-size: 9px; animation-delay: 1.7s">✦</span>
+      <span style="left: 58%; top: 76%; font-size: 6px; animation-delay: 0.2s">✦</span>
+    </div>
+    <main>
+      <svg class="buddy" viewBox="0 0 100 100" aria-hidden="true">
+        <defs>
+          <linearGradient id="buddy" x1="0.2" y1="0" x2="0.8" y2="1">
+            <stop offset="0" stop-color="#7dffb8" />
+            <stop offset="1" stop-color="#1fd47d" />
+          </linearGradient>
+        </defs>
+        <path d="M50 0 C58 30 70 42 100 50 C70 58 58 70 50 100 C42 70 30 58 0 50 C30 42 42 30 50 0Z" fill="url(#buddy)" />
+        <g class="eye">
+          <ellipse cx="42" cy="47" rx="4" ry="5.2" fill="#fff" />
+          <circle cx="42.8" cy="47.6" r="2.4" fill="#0b0c12" />
+        </g>
+        <g class="eye">
+          <ellipse cx="58" cy="47" rx="4" ry="5.2" fill="#fff" />
+          <circle cx="58.8" cy="47.6" r="2.4" fill="#0b0c12" />
+        </g>
+        <circle cx="36" cy="56" r="3.2" fill="#ff7eb6" opacity="0.55" />
+        <circle cx="64" cy="56" r="3.2" fill="#ff7eb6" opacity="0.55" />
+        <path class="happy" d="M45 56 Q50 61 55 56" stroke="#0b0c12" stroke-width="2.2" fill="none" stroke-linecap="round" />
+        <path class="sad" d="M45 59 Q50 55 55 59" stroke="#0b0c12" stroke-width="2.2" fill="none" stroke-linecap="round" />
+      </svg>
+      <div class="shadow" aria-hidden="true"></div>
+      <h1>Smart Notes</h1>
+      <p class="waiting">Getting everything ready…</p>
+      <div class="error">
+        <p>Couldn't load Smart Notes. Check your internet connection.</p>
+        <button id="retry">Try again</button>
+      </div>
+    </main>
+    <script>
+      const poll = async () => {
+        try {
+          const status = await (await fetch("/loading/status")).json()
+          if (status.ready) {
+            // The app's canvas is this background, so fading out then reloading reads
+            // as one hand-over rather than a flash.
+            document.body.classList.add("leaving")
+            return setTimeout(() => location.reload(), 350)
+          }
+          document.body.classList.toggle("failed", status.failed)
+        } catch {}
+        setTimeout(poll, 500)
+      }
+      document.getElementById("retry").onclick = () => {
+        document.body.classList.remove("failed")
+        fetch("/loading/retry", { method: "POST" })
+      }
+      poll()
+    </script>
+  </body>
+</html>

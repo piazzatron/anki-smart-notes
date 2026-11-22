@@ -607,6 +607,39 @@ def refresh_flags(payload: dict[str, Any]) -> dict[str, Any]:
     return {}
 
 
+async def check_web(payload: dict[str, Any]) -> dict[str, Any]:
+    """Checks our server for the web build now, as Anki's startup does."""
+    from .web_loader import web_loader
+
+    await asyncio.get_running_loop().run_in_executor(None, web_loader.check)
+    return {"target": web_loader.target, "failed": web_loader.failed}
+
+
+def select_web(payload: dict[str, Any]) -> dict[str, Any]:
+    """Picks the web build to serve, as opening the window does."""
+    from .web_loader import web_loader
+
+    web_loader.select_for_window()
+    return {"serving": web_loader.serving_build}
+
+
+def set_web_window(payload: dict[str, Any]) -> dict[str, Any]:
+    """Makes the Smart Notes window load downloaded builds from the local server
+    (served) or Vite, until Anki restarts."""
+    from .web_loader import web_loader
+
+    web_loader.served_in_dev = bool(payload["served"])
+    return {"served": web_loader.served_in_dev}
+
+
+def reset_web(payload: dict[str, Any]) -> dict[str, Any]:
+    """Forgets every downloaded web build, as on a fresh install."""
+    from .web_loader import web_loader
+
+    web_loader.reset()
+    return {}
+
+
 def _own_event(
     handler: Callable[[dict[str, Any]], Any],
 ) -> Callable[[dict[str, Any]], Any]:
@@ -641,6 +674,10 @@ _HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
     "dev.editor.menu": open_field_menu,
     "dev.auth.signIn": sign_in,
     "dev.flags.refresh": refresh_flags,
+    "dev.web.check": check_web,
+    "dev.web.select": select_web,
+    "dev.web.reset": reset_web,
+    "dev.web.window": set_web_window,
 }
 
 DEV_COMMAND_HANDLERS = {name: _own_event(h) for name, h in _HANDLERS.items()}

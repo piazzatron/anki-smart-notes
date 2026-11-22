@@ -28,7 +28,6 @@ import sys
 import threading
 from collections.abc import Callable
 from dataclasses import dataclass, field
-from pathlib import Path
 from typing import Any, Optional
 
 import aiohttp
@@ -71,6 +70,7 @@ from .ui.ui_utils import open_anki_browser, open_browser_on_field
 from .utils import get_version
 from .utils.notes_utils import get_note_types_with_fields
 from .web import dto
+from .web_loader import LOADING_PAGE, web_loader
 
 # The ports the server tries, in order; the website's sign-in handoff knows
 # both. 8766 was the only port through 2.27.1, but it's AnkiConnect's 8765
@@ -80,8 +80,6 @@ from .web import dto
 # WSL port reservations also land.
 LOCAL_SERVER_PORTS = (24766, 8766)
 LOCAL_SERVER_HOST = "127.0.0.1"
-
-WEB_APP_STATIC_DIR = Path(__file__).parent / "web" / "static"
 
 # The 1×1 transparent GIF /connect.gif answers with, so the site's <img> fires
 # onload.
@@ -186,8 +184,9 @@ class LocalServer:
         app.router.add_get("/app/voice-catalog.json", self._handle_voice_catalog)
         app.router.add_get("/app", self._handle_app_index)
         app.router.add_get("/app/", self._handle_app_index)
-        if WEB_APP_STATIC_DIR.exists():
-            app.router.add_static("/app", WEB_APP_STATIC_DIR)
+        app.router.add_get("/app/{path:.+}", self._handle_app_file)
+        app.router.add_get("/loading/status", self._handle_loading_status)
+        app.router.add_post("/loading/retry", self._handle_loading_retry)
         return app
 
     async def _start_server(self) -> dict[int, OSError]:
@@ -441,6 +440,7 @@ class LocalServer:
         await response.prepare(request)
         if self._window_load:
             self._window_load.connected = True
+        web_loader.loading_finished("loaded")
 
         queue: asyncio.Queue[WebEvent] = asyncio.Queue()
         event_bus.subscribe(asyncio.get_running_loop(), queue)
@@ -567,13 +567,35 @@ class LocalServer:
         return web.json_response(response)
 
     async def _handle_app_index(self, request: web.Request) -> web.StreamResponse:
-        index = WEB_APP_STATIC_DIR / "index.html"
-        if not index.exists():
-            return web.Response(
-                status=404,
-                text="Smart Notes web app is not built. Run `bun run build` in web/.",
-            )
-        return web.FileResponse(index)
+        if web_loader.serving_dir is None:
+            web_loader.loading_shown()
+        # Never cached: a stale index.html would name another build's chunks.
+        return web.FileResponse(
+            web_loader.serving_dir / "index.html"
+            if web_loader.serving_dir
+            else LOADING_PAGE,
+            headers={"Cache-Control": "no-cache"},
+        )
+
+    async def _handle_app_file(self, request: web.Request) -> web.StreamResponse:
+        if web_loader.serving_dir is None:
+            return web.Response(status=404)
+        root = web_loader.serving_dir.resolve()
+        file = (root / request.match_info["path"]).resolve()
+        if not file.is_relative_to(root) or not file.is_file():
+            return web.Response(status=404)
+        return web.FileResponse(file)
+
+    # The loading page polls this until there's a build to load.
+    async def _handle_loading_status(self, request: web.Request) -> web.Response:
+        return web.json_response(
+            {"ready": web_loader.serving_dir is not None, "failed": web_loader.failed}
+        )
+
+    async def _handle_loading_retry(self, request: web.Request) -> web.Response:
+        web_loader.loading_retries += 1
+        threading.Thread(target=web_loader.check, daemon=True).start()
+        return web.Response()
 
     async def _handle_voice_catalog(self, request: web.Request) -> web.Response:
         return web.json_response(dto.build_voice_catalog())
@@ -731,6 +753,16 @@ async def _redeem_auth_code(code: str) -> None:
     )
 
 
+async def _run_update_web(payload: dict[str, Any]) -> dict[str, bool]:
+    # Account and Usage's Check for updates, in two calls: one checks and
+    # downloads, then the page asks to switch only if Account is still showing,
+    # since it reloads into the new build and would drop a draft elsewhere.
+    if payload.get("apply"):
+        return {"updated": web_loader.apply_update()}
+    await asyncio.get_running_loop().run_in_executor(None, web_loader.check)
+    return {"ready": web_loader.update_ready(), "failed": web_loader.failed}
+
+
 def _run_refresh_account(payload: dict[str, Any]) -> None:
     dto.parse_account_refresh(payload)
     auth_service.refresh_account()
@@ -786,6 +818,7 @@ COMMAND_HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
     "reviewClaim.send": _run_send_review_claim,
     "ui.openBrowser": _run_open_browser,
     "ui.windowOpened": _run_window_opened,
+    "web.update": _run_update_web,
 }
 
 

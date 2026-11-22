@@ -35,6 +35,7 @@ from .logger import logger
 from .sentry import with_sentry
 from .ui.ui_utils import show_message_box
 from .ui.web_app_dialog import WebAppDialog
+from .web_loader import web_loader
 
 _local_server: Optional[LocalServer] = None
 _web_app_dialog: Optional[WebAppDialog] = None
@@ -84,9 +85,10 @@ def open_web_app(*, upgrade_feature: Optional[str] = None) -> None:
     if upgrade_feature is not None:
         event_bus.publish_to_next_subscriber(UpgradeRequested(upgrade_feature))
 
-    # Dev builds always load the Vite dev server for HMR (`cli/sn up web`); the
-    # bundled static app is only served in packaged builds.
-    if env.environment == "DEV":
+    web_loader.select_for_window()
+    # Dev builds load the Vite dev server for HMR (`cli/sn up web`), unless told to
+    # load downloaded builds like a release (`cli/sn webbuild window served`).
+    if env.environment == "DEV" and not web_loader.served_in_dev:
         url = WEB_APP_DEV_URL
     else:
         requested_locale = (
@@ -108,6 +110,7 @@ def open_web_app(*, upgrade_feature: Optional[str] = None) -> None:
         # Cleared even when close_web_app already let go of the dialog: no
         # other window has reported a session by the time this one finishes.
         api.amplitude_session_id = None
+        web_loader.loading_finished("closed")
         if _web_app_dialog is dialog:
             _web_app_dialog = None
 
@@ -127,7 +130,13 @@ def _report_if_never_loaded(dialog: WebAppDialog, window_load: WindowLoad) -> No
     # A window that never opens its event stream shows nothing, whether its
     # bundle was corrupted, blocked or hung, and may throw no JS error. Report
     # it once, while it's still open, with what the server served it.
-    if _web_app_dialog is not dialog or window_load.connected:
+    # A window still on the loading page is waiting for its download, whose
+    # failure is reported on its own.
+    if (
+        _web_app_dialog is not dialog
+        or window_load.connected
+        or web_loader.loading_since is not None
+    ):
         return
 
     profile = QWebEngineProfile.defaultProfile()

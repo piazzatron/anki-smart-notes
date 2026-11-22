@@ -1124,7 +1124,7 @@ async def test_window_load_records_app_requests_until_the_event_stream_opens(
     (tmp_path / "index.html").write_text("<html></html>")
     (tmp_path / "assets").mkdir()
     (tmp_path / "assets" / "index.js").write_text("console.log(1)")
-    monkeypatch.setattr(src.local_server, "WEB_APP_STATIC_DIR", tmp_path)
+    monkeypatch.setattr(src.local_server.web_loader, "serving_dir", tmp_path)
     server = _make_server()
 
     async def no_snapshot(response):

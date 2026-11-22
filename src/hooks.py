@@ -85,6 +85,7 @@ from .web_app import (
     open_web_app,
     stop_local_server,
 )
+from .web_loader import web_loader
 
 _review_time_evaluator: Optional[ReviewTimeEvaluator] = None
 _add_time_evaluator: Optional[AddTimeEvaluator] = None
@@ -329,6 +330,7 @@ def _on_start_actions() -> None:
     # background requests creating it at once would each write a different one.
     get_install_id()
     refresh_feature_flags()
+    web_loader.start()
 
     app_state.update_account_state()
     if sentry:

@@ -27,6 +27,7 @@ from .config import config, get_install_id
 from .constants import get_server_url
 from .logger import logger
 from .utils import get_version
+from .web_loader import web_loader
 
 
 class OutOfCreditsError(Exception):
@@ -117,6 +118,8 @@ class APIClient:
             "x-sn-plugin-version": get_version(),
             "x-sn-source": "anki-plugin",
         }
+        if web_loader.serving_build is not None:
+            headers["x-sn-web-version"] = str(web_loader.serving_build)
         if self.amplitude_session_id is not None:
             headers["x-sn-session-id"] = str(self.amplitude_session_id)
         if jwt:

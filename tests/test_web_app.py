@@ -29,6 +29,14 @@ import src.web_app as web_app
 from src.local_server import WindowLoad
 
 
+@pytest.fixture(autouse=True)
+def no_web_loader(monkeypatch: pytest.MonkeyPatch) -> None:
+    # Choosing a build reads user_files and checks our server for a new one.
+    monkeypatch.setattr(
+        web_app, "web_loader", MagicMock(loading_since=None, served_in_dev=False)
+    )
+
+
 def test_local_server_starts_once(monkeypatch: pytest.MonkeyPatch) -> None:
     calls: list[str] = []
 
@@ -145,11 +153,21 @@ def test_web_ui_errors_reach_sentry_without_the_session_token(
 
 
 @pytest.mark.parametrize(
-    ("connected", "still_open", "reported"),
-    [(False, True, True), (True, True, False), (False, False, False)],
+    ("connected", "still_open", "loading_page", "reported"),
+    [
+        (False, True, False, True),
+        (True, True, False, False),
+        (False, False, False, False),
+        # Waiting for its first download, whose failure is reported on its own
+        (False, True, True, False),
+    ],
 )
 def test_window_that_never_connects_is_reported_once_while_open(
-    monkeypatch: pytest.MonkeyPatch, connected: bool, still_open: bool, reported: bool
+    monkeypatch: pytest.MonkeyPatch,
+    connected: bool,
+    still_open: bool,
+    loading_page: bool,
+    reported: bool,
 ) -> None:
     load = WindowLoad(app_requests=["/app/assets/index.js 200"], connected=connected)
     server = SimpleNamespace(
@@ -167,6 +185,11 @@ def test_window_that_never_connects_is_reported_once_while_open(
     qtimer = MagicMock()
     monkeypatch.setattr(web_app, "QTimer", qtimer)
     monkeypatch.setattr(web_app.logger, "error", lambda *args: errors.append(args))
+    monkeypatch.setattr(
+        web_app,
+        "web_loader",
+        MagicMock(loading_since=1.0 if loading_page else None, served_in_dev=False),
+    )
 
     web_app.open_web_app()
     if not still_open:
