@@ -27,6 +27,7 @@ from uuid import uuid4
 
 import aiohttp
 import pytest
+import sentry_sdk
 
 import src.sentry as sentry_module
 from src.api_client import UserDisplayableError
@@ -242,7 +243,9 @@ def test_sentry_starts_only_with_its_own_sentry_sdk(
 ) -> None:
     # Another add-on can import its own, older sentry_sdk before ours. Smart Notes
     # must then run without Sentry and log where that copy came from.
-    plugin_root = Path(__file__).resolve().parent.parent
+    # Our own copy is whichever sentry_sdk is installed (plugin/.venv locally, the
+    # runner's site-packages in CI), so its folder stands in for the add-on's.
+    addon_dir = Path(sentry_sdk.__file__ or "").resolve().parents[1]
     other_copy = tmp_path / "addons21" / "old-addon" / "lib" / "sentry_sdk"
     if not own_copy:
         old_sdk = ModuleType("sentry_sdk")
@@ -252,7 +255,7 @@ def test_sentry_starts_only_with_its_own_sentry_sdk(
     monkeypatch.delenv("IS_TEST")
     monkeypatch.setattr(sentry_module, "get_version", lambda: "test")
     monkeypatch.setattr(
-        sentry_module, "get_file_path", lambda file: str(plugin_root / file)
+        sentry_module, "get_file_path", lambda file: str(addon_dir / file)
     )
 
     sentry = sentry_module._init_sentry()
