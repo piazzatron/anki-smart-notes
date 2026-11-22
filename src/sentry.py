@@ -26,12 +26,9 @@ import os
 import sys
 import traceback
 from collections.abc import Callable, Coroutine
-from typing import Any, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
-import sentry_sdk
 from aqt import mw
-from sentry_sdk.integrations.logging import LoggingIntegration
-from sentry_sdk.session import Session
 
 from . import env
 from .api_client import NETWORK_ERRORS, OutOfCreditsError, UserDisplayableError
@@ -39,7 +36,10 @@ from .config import config
 from .logger import logger
 from .tasks import run_async_in_background
 from .ui.ui_utils import show_message_box
-from .utils import get_version, is_production
+from .utils import get_file_path, get_version, is_production
+
+if TYPE_CHECKING:
+    from sentry_sdk.session import Session
 
 # DSNs are public identifiers, not secrets. Events go through the API server,
 # which forwards them to Sentry.
@@ -67,6 +67,9 @@ class Sentry:
     def __init__(self, dsn: str, release: str, env: str) -> None:
         logger.info("Initializing sentry...")
         logger.info(f"release: {release}, env: {env}")
+
+        import sentry_sdk
+        from sentry_sdk.integrations.logging import LoggingIntegration
 
         def before_send(event: Any, _: dict[str, Any]) -> Optional[Any]:
             if not _should_send_event(event):
@@ -190,7 +193,7 @@ class Sentry:
 
         return wrapped
 
-    def _get_session(self) -> Optional[Session]:
+    def _get_session(self) -> Optional["Session"]:
         _, scope = self.hub._stack[-1]
         return scope._session
 
@@ -224,6 +227,18 @@ def _init_sentry() -> Optional[Sentry]:
         release = get_version()
         if not release:
             logger.error("Sentry: no release")
+            return None
+
+        # Our bundled packages come last on sys.path, so another add-on that
+        # bundles its own sentry_sdk can get it imported instead of ours, in a
+        # version without the API we use. Smart Notes then runs without Sentry.
+        import sentry_sdk
+
+        sentry_sdk_path = os.path.realpath(sentry_sdk.__file__ or "")
+        if not sentry_sdk_path.startswith(os.path.realpath(get_file_path(""))):
+            logger.error(
+                f"Sentry: disabled, another add-on's sentry_sdk was loaded: {sentry_sdk_path}"
+            )
             return None
 
         sentry = Sentry(SENTRY_DSN, release, env.environment)

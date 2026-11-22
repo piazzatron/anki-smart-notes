@@ -20,6 +20,9 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 # pyright: reportPrivateUsage=false
 
 import json
+import sys
+from pathlib import Path
+from types import ModuleType
 from uuid import uuid4
 
 import aiohttp
@@ -228,3 +231,31 @@ def test_should_send_event_keeps_loggerless_smart_notes_exception_by_value(
             },
         }
     )
+
+
+@pytest.mark.parametrize("own_copy", [True, False])
+def test_sentry_starts_only_with_its_own_sentry_sdk(
+    monkeypatch: pytest.MonkeyPatch,
+    caplog: pytest.LogCaptureFixture,
+    tmp_path: Path,
+    own_copy: bool,
+) -> None:
+    # Another add-on can import its own, older sentry_sdk before ours. Smart Notes
+    # must then run without Sentry and log where that copy came from.
+    plugin_root = Path(__file__).resolve().parent.parent
+    other_copy = tmp_path / "addons21" / "old-addon" / "lib" / "sentry_sdk"
+    if not own_copy:
+        old_sdk = ModuleType("sentry_sdk")
+        old_sdk.__file__ = str(other_copy / "__init__.py")
+        old_sdk.__path__ = [str(other_copy)]
+        monkeypatch.setitem(sys.modules, "sentry_sdk", old_sdk)
+    monkeypatch.delenv("IS_TEST")
+    monkeypatch.setattr(sentry_module, "get_version", lambda: "test")
+    monkeypatch.setattr(
+        sentry_module, "get_file_path", lambda file: str(plugin_root / file)
+    )
+
+    sentry = sentry_module._init_sentry()
+
+    assert (sentry is not None) == own_copy
+    assert (str(other_copy) in caplog.text) == (not own_copy)

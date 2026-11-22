@@ -87,8 +87,8 @@ def cleanup_logger() -> None:
     # setup_logger turns propagation off while our handlers are attached.
     # Turn it back on now that they're gone, so logs emitted after shutdown or
     # an add-on update cleanup still reach Anki's root stdout handler instead
-    # of being dropped. (Before setup_logger first runs, e.g. Sentry init at
-    # import time, propagation is on by default.)
+    # of being dropped. (Before setup_logger first runs, propagation is on by
+    # default.)
     logger.propagate = True
 
 

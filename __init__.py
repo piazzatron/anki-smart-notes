@@ -50,10 +50,14 @@ def _init_addon():
 
     from dotenv import load_dotenv
 
-    from .src.logger import logger
+    from .src.logger import logger, setup_logger
     from .src.utils import get_file_path
 
     load_dotenv(dotenv_path=get_file_path(".env"))
+
+    # Before the add-on's modules are imported, so what they log while importing
+    # (Sentry's setup, for one) reaches smart-notes.log.
+    setup_logger()
 
     def setup_platform_specific_functionality() -> None:
         import asyncio
