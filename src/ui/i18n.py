@@ -48,6 +48,7 @@ NativeActionKey = Literal[
     "generating",
     "fill_note_tip",
     "regenerate_note_tip",
+    "batch_cancelled",
 ]
 
 _LOCALE_BY_LOWERCASE = {locale.lower(): locale for locale in NATIVE_ACTION_TRANSLATIONS}

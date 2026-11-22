@@ -17,6 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import threading
 import uuid
 from typing import Any, Optional
 
@@ -24,14 +25,21 @@ from aqt import addons, mw
 
 from .utils import USES_BEFORE_RATE_DIALOG
 
+# Anki rewrites the whole config file on each write, and a read that lands mid-write
+# gets the add-on's defaults (signed out, no install ID). Holding this around every
+# read and write keeps them from overlapping.
+_config_file_lock = threading.Lock()
+
 
 class Config:
-    """Fancy config class that uses the Anki addon manager to store config values."""
+    """Fancy config class that uses the Anki addon manager to store config values.
+    Writes happen on Anki's main thread: one made from background work is queued there."""
 
     openai_api_key: Optional[str]
     generate_at_review: bool
     generate_on_add: bool
-    times_used: int
+    # Superseded by the usage_counts table; read once per profile to carry it over.
+    times_used: Optional[int]
     last_seen_version: Optional[str]
     openai_endpoint: Optional[str]
     allow_empty_fields: bool
@@ -63,7 +71,8 @@ class Config:
         if not mw:
             raise Exception("Error: mw not found")
 
-        config = mw.addonManager.getConfig(__name__)
+        with _config_file_lock:
+            config = mw.addonManager.getConfig(__name__)
         if not config:
             return None
         return config.get(key)
@@ -72,12 +81,17 @@ class Config:
         if not mw:
             raise Exception("Error: mw not found")
 
-        old_config = mw.addonManager.getConfig(__name__)
-        if not old_config:
-            raise Exception("Error: no config found")
+        if threading.current_thread() is not threading.main_thread():
+            mw.taskman.run_on_main(lambda: setattr(self, name, value))
+            return
 
-        old_config[name] = value
-        mw.addonManager.writeConfig(__name__, old_config)
+        with _config_file_lock:
+            old_config = mw.addonManager.getConfig(__name__)
+            if not old_config:
+                raise Exception("Error: no config found")
+
+            old_config[name] = value
+            mw.addonManager.writeConfig(__name__, old_config)
 
     def restore_defaults(self) -> None:
         defaults = self._defaults()
@@ -110,10 +124,10 @@ def get_install_id() -> str:
 
 def bump_usage_counter() -> None:
     from .app_state import app_state
+    from .services.usage_service import bump_times_used
 
-    config.times_used += 1
     if (
-        config.times_used > USES_BEFORE_RATE_DIALOG
+        bump_times_used() > USES_BEFORE_RATE_DIALOG
         and not config.did_show_rate_dialog
         and app_state.state["status"] == "AUTHENTICATED"
     ):

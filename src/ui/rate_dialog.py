@@ -47,6 +47,7 @@ class RateDialog(QDialog):
 
     def __init__(self) -> None:
         super().__init__()
+        self.setObjectName("smartNotesRateDialog")
         # The free month is for users who haven't paid: trials and the free
         # plan. Paid users see the standard review message.
         free_month = flags.review_free_month and (

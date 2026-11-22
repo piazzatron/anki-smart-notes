@@ -22,6 +22,7 @@ import contextlib
 import threading
 import traceback
 from collections.abc import Callable, Sequence
+from dataclasses import dataclass
 from typing import Optional
 
 import aiohttp
@@ -48,11 +49,13 @@ from .generation_access import (
     open_daily_limit_upgrade_ui,
     open_generation_blocked_ui,
     refresh_account_after_generation_rejected,
+    refresh_account_if_trial_ended,
 )
 from .logger import logger
 from .nodes import FieldNode
 from .sentry import run_async_in_background_with_sentry
 from .services.smart_field_service import smart_field_service
+from .ui.i18n import native_action_text
 from .ui.ui_utils import show_message_box
 from .utils import run_on_main
 from .utils.notes_utils import get_note_type_id, note_decks
@@ -81,6 +84,30 @@ OPEN_AI_MODEL_REQ_PER_MIN = 500
 # mid-request.
 
 
+@dataclass
+class BatchResult:
+    """How a Browser batch ended: its notes by outcome, and whether it was cancelled."""
+
+    updated: list[Note]
+    failed: list[Note]
+    skipped: list[Note]
+    total: int
+    cancelled: bool
+
+
+def _save_generated_field(note: Note) -> None:
+    """Saves a generated field as its own undo step. Anki folds an update of a note into
+    the undo step before it when that was an update of the same note, so each save goes
+    under a named step of its own."""
+    if not mw or not mw.col:
+        return
+    undo_entry = mw.col.add_custom_undo_entry(
+        native_action_text("generate_smart_field")
+    )
+    mw.col.update_note(note)
+    mw.col.merge_undo_entries(undo_entry)
+
+
 class NoteProcessor:
     def __init__(self, field_resolver: FieldResolver, config: Config):
         self.field_resolver = field_resolver
@@ -90,7 +117,7 @@ class NoteProcessor:
     def process_cards_with_progress(
         self,
         card_ids: Sequence[CardId],
-        on_success: Optional[Callable[[list[Note], list[Note], list[Note]], None]],
+        on_success: Optional[Callable[[BatchResult], None]],
         overwrite_fields: bool = False,
     ) -> None:
         """Processes notes in the background with a progress bar, batching into a single undo op"""
@@ -123,8 +150,17 @@ class NoteProcessor:
             if not mw or not mw.col:
                 return
             mw.col.update_notes(updated)
+            refresh_account_if_trial_ended(open_screen=True)
             if on_success:
-                on_success(updated, failed, skipped)
+                on_success(
+                    BatchResult(
+                        updated=updated,
+                        failed=failed,
+                        skipped=skipped,
+                        total=len(note_ids),
+                        cancelled=cancel.is_set(),
+                    )
+                )
 
         def on_failure(e: Exception) -> None:
             self.batch_in_progress = False
@@ -324,6 +360,7 @@ class NoteProcessor:
 
         def wrapped_on_success(updated: bool) -> None:
             on_success(updated)
+            refresh_account_if_trial_ended(open_screen=True)
 
         def wrapped_failure(e: Exception) -> None:
             self._handle_single_card_failure(e)
@@ -452,11 +489,7 @@ class NoteProcessor:
                             out_node.input_updated = True
 
                     if note.id and node.did_update:
-                        run_on_main(
-                            lambda note=note: (
-                                mw.col.update_note(note) if mw and mw.col else None
-                            )
-                        )
+                        run_on_main(lambda note=note: _save_generated_field(note))
                         did_update = True
 
                     dag.pop(field)
@@ -481,7 +514,11 @@ class NoteProcessor:
             return
 
         if isinstance(e, UserDisplayableError):
-            show_message_box(str(e))
+            # A paid model refused because the trial just ended opens the free
+            # plan's first screen instead of the server's message.
+            refresh_account_if_trial_ended(
+                open_screen=True, otherwise=lambda: show_message_box(str(e))
+            )
             return
 
         if isinstance(e, NETWORK_ERRORS):

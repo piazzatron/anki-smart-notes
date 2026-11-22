@@ -43,6 +43,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Generating",
         "fill_note_tip": "Fill this note's empty Smart Fields ({shortcut})",
         "regenerate_note_tip": "Regenerate every Smart Field, replacing what's there",
+        "batch_cancelled": "Cancelled. {filled} of {total} notes were filled.",
     },
     "af": {
         "generate_smart_fields": "Genereer Smart Fields",
@@ -69,6 +70,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Genereer tans",
         "fill_note_tip": "Vul hierdie nota se leë Smart Fields ({shortcut})",
         "regenerate_note_tip": "Hergenereer elke Smart Field en vervang wat daar is",
+        "batch_cancelled": "Gekanselleer. {filled} van {total} notas is gevul.",
     },
     "ms": {
         "generate_smart_fields": "Jana Smart Fields",
@@ -95,6 +97,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Menjana",
         "fill_note_tip": "Isi Smart Fields kosong nota ini ({shortcut})",
         "regenerate_note_tip": "Jana semula setiap Smart Field, menggantikan kandungan sedia ada",
+        "batch_cancelled": "Dibatalkan. {filled} daripada {total} nota telah diisi.",
     },
     "ca": {
         "generate_smart_fields": "Genera Smart Fields",
@@ -121,6 +124,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Generant",
         "fill_note_tip": "Omple els Smart Fields buits d'aquesta nota ({shortcut})",
         "regenerate_note_tip": "Regenera tots els Smart Fields i substitueix el que hi ha",
+        "batch_cancelled": "Cancel·lat. S'han omplert {filled} de {total} notes.",
     },
     "da": {
         "generate_smart_fields": "Generér Smart Fields",
@@ -147,6 +151,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Genererer",
         "fill_note_tip": "Udfyld denne notes tomme Smart Fields ({shortcut})",
         "regenerate_note_tip": "Generér alle Smart Fields igen og erstat det eksisterende indhold",
+        "batch_cancelled": "Annulleret. {filled} af {total} noter blev udfyldt.",
     },
     "de": {
         "generate_smart_fields": "Smart Fields generieren",
@@ -173,6 +178,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Wird generiert",
         "fill_note_tip": "Leere Smart Fields dieser Notiz füllen ({shortcut})",
         "regenerate_note_tip": "Alle Smart Fields neu generieren und den Inhalt ersetzen",
+        "batch_cancelled": "Abgebrochen. {filled} von {total} Notizen wurden ausgefüllt.",
     },
     "et": {
         "generate_smart_fields": "Genereeri Smart Fields",
@@ -199,6 +205,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Genereerin",
         "fill_note_tip": "Täida selle märkme tühjad Smart Fields ({shortcut})",
         "regenerate_note_tip": "Genereeri kõik Smart Fields uuesti, asendades olemasoleva",
+        "batch_cancelled": "Tühistatud. Täideti {filled} märkust {total}-st.",
     },
     "es": {
         "generate_smart_fields": "Generar Smart Fields",
@@ -225,6 +232,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Generando",
         "fill_note_tip": "Rellenar los Smart Fields vacíos de esta nota ({shortcut})",
         "regenerate_note_tip": "Regenerar todos los Smart Fields y reemplazar lo que hay",
+        "batch_cancelled": "Cancelado. Se rellenaron {filled} de {total} notas.",
     },
     "eo": {
         "generate_smart_fields": "Generi Smart Fields",
@@ -251,6 +259,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Generante",
         "fill_note_tip": "Plenigi la malplenajn Smart Fields de ĉi tiu noto ({shortcut})",
         "regenerate_note_tip": "Regeneri ĉiujn Smart Fields, anstataŭigante la enhavon",
+        "batch_cancelled": "Nuligita. {filled} el {total} notoj estis plenigitaj.",
     },
     "eu": {
         "generate_smart_fields": "Sortu Smart Fields",
@@ -277,6 +286,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Sortzen",
         "fill_note_tip": "Bete ohar honen Smart Fields hutsak ({shortcut})",
         "regenerate_note_tip": "Birsortu Smart Field guztiak, dagoena ordezkatuz",
+        "batch_cancelled": "Bertan behera utzita. {total} oharretatik {filled} bete dira.",
     },
     "fr": {
         "generate_smart_fields": "Générer Smart Fields",
@@ -303,6 +313,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Génération",
         "fill_note_tip": "Remplir les Smart Fields vides de cette note ({shortcut})",
         "regenerate_note_tip": "Régénérer tous les Smart Fields en remplaçant leur contenu",
+        "batch_cancelled": "Annulé. {filled} notes sur {total} ont été remplies.",
     },
     "gl": {
         "generate_smart_fields": "Xerar Smart Fields",
@@ -329,6 +340,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Xerando",
         "fill_note_tip": "Encher os Smart Fields baleiros desta nota ({shortcut})",
         "regenerate_note_tip": "Rexerar todos os Smart Fields substituíndo o que hai",
+        "batch_cancelled": "Cancelado. Encheronse {filled} de {total} notas.",
     },
     "hr": {
         "generate_smart_fields": "Generiraj Smart Fields",
@@ -355,6 +367,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Generiranje",
         "fill_note_tip": "Ispuni prazna Smart Fields ove bilješke ({shortcut})",
         "regenerate_note_tip": "Ponovno generiraj sva Smart Fields i zamijeni postojeće",
+        "batch_cancelled": "Otkazano. Popunjeno je {filled} od {total} bilješki.",
     },
     "it": {
         "generate_smart_fields": "Genera Smart Fields",
@@ -381,6 +394,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Generazione",
         "fill_note_tip": "Compila gli Smart Fields vuoti di questa nota ({shortcut})",
         "regenerate_note_tip": "Rigenera tutti gli Smart Fields sostituendo il contenuto",
+        "batch_cancelled": "Annullato. Sono state compilate {filled} note su {total}.",
     },
     "oc": {
         "generate_smart_fields": "Generar Smart Fields",
@@ -407,6 +421,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Generacion",
         "fill_note_tip": "Emplenar los Smart Fields voids d'aquesta nòta ({shortcut})",
         "regenerate_note_tip": "Regenerar totes los Smart Fields en remplaçant lo contengut",
+        "batch_cancelled": "Anullat. {filled} nòtas sus {total} son estadas emplenadas.",
     },
     "hu": {
         "generate_smart_fields": "Smart Fields generálása",
@@ -433,6 +448,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Generálás",
         "fill_note_tip": "A jegyzet üres Smart Fields mezőinek kitöltése ({shortcut})",
         "regenerate_note_tip": "Az összes Smart Field újragenerálása a tartalom cseréjével",
+        "batch_cancelled": "Megszakítva. {total} jegyzetből {filled} lett kitöltve.",
     },
     "nl": {
         "generate_smart_fields": "Smart Fields genereren",
@@ -459,6 +475,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Genereren",
         "fill_note_tip": "Lege Smart Fields van deze notitie vullen ({shortcut})",
         "regenerate_note_tip": "Alle Smart Fields opnieuw genereren en de inhoud vervangen",
+        "batch_cancelled": "Geannuleerd. {filled} van {total} notities zijn ingevuld.",
     },
     "nb": {
         "generate_smart_fields": "Generer Smart Fields",
@@ -485,6 +502,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Genererer",
         "fill_note_tip": "Fyll dette notatets tomme Smart Fields ({shortcut})",
         "regenerate_note_tip": "Generer alle Smart Fields på nytt og erstatt innholdet",
+        "batch_cancelled": "Avbrutt. {filled} av {total} notater ble fylt ut.",
     },
     "pl": {
         "generate_smart_fields": "Generuj Smart Fields",
@@ -511,6 +529,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Generowanie",
         "fill_note_tip": "Wypełnij puste Smart Fields tej notatki ({shortcut})",
         "regenerate_note_tip": "Regeneruj wszystkie Smart Fields, zastępując zawartość",
+        "batch_cancelled": "Anulowano. Wypełniono {filled} z {total} notatek.",
     },
     "pt-BR": {
         "generate_smart_fields": "Gerar Smart Fields",
@@ -537,6 +556,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Gerando",
         "fill_note_tip": "Preencher os Smart Fields vazios desta nota ({shortcut})",
         "regenerate_note_tip": "Regenerar todos os Smart Fields, substituindo o conteúdo",
+        "batch_cancelled": "Cancelado. {filled} de {total} notas foram preenchidas.",
     },
     "pt-PT": {
         "generate_smart_fields": "Gerar Smart Fields",
@@ -563,6 +583,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "A gerar",
         "fill_note_tip": "Preencher os Smart Fields vazios desta nota ({shortcut})",
         "regenerate_note_tip": "Regenerar todos os Smart Fields, substituindo o conteúdo",
+        "batch_cancelled": "Cancelado. Foram preenchidas {filled} de {total} notas.",
     },
     "ro": {
         "generate_smart_fields": "Generează Smart Fields",
@@ -589,6 +610,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Se generează",
         "fill_note_tip": "Completează Smart Fields goale ale acestei note ({shortcut})",
         "regenerate_note_tip": "Regenerează toate Smart Fields, înlocuind conținutul",
+        "batch_cancelled": "Anulat. Au fost completate {filled} din {total} note.",
     },
     "sk": {
         "generate_smart_fields": "Generovať Smart Fields",
@@ -615,6 +637,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Generuje sa",
         "fill_note_tip": "Vyplniť prázdne Smart Fields tejto poznámky ({shortcut})",
         "regenerate_note_tip": "Znova vygenerovať všetky Smart Fields a nahradiť obsah",
+        "batch_cancelled": "Zrušené. Vyplnených bolo {filled} z {total} poznámok.",
     },
     "sl": {
         "generate_smart_fields": "Ustvari Smart Fields",
@@ -641,6 +664,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Ustvarjanje",
         "fill_note_tip": "Izpolni prazna Smart Fields tega zapiska ({shortcut})",
         "regenerate_note_tip": "Znova ustvari vsa Smart Fields in zamenjaj vsebino",
+        "batch_cancelled": "Preklicano. Izpolnjenih je bilo {filled} od {total} zapiskov.",
     },
     "fi": {
         "generate_smart_fields": "Luo Smart Fields",
@@ -667,6 +691,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Luodaan",
         "fill_note_tip": "Täytä tämän muistiinpanon tyhjät Smart Fields ({shortcut})",
         "regenerate_note_tip": "Luo kaikki Smart Fields uudelleen ja korvaa sisältö",
+        "batch_cancelled": "Peruutettu. {filled}/{total} muistiinpanoa täytettiin.",
     },
     "sv": {
         "generate_smart_fields": "Generera Smart Fields",
@@ -693,6 +718,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Genererar",
         "fill_note_tip": "Fyll den här anteckningens tomma Smart Fields ({shortcut})",
         "regenerate_note_tip": "Generera om alla Smart Fields och ersätt innehållet",
+        "batch_cancelled": "Avbrutet. {filled} av {total} anteckningar fylldes i.",
     },
     "vi": {
         "generate_smart_fields": "Tạo Smart Fields",
@@ -719,6 +745,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Đang tạo",
         "fill_note_tip": "Điền các Smart Fields trống của ghi chú này ({shortcut})",
         "regenerate_note_tip": "Tạo lại mọi Smart Field, thay thế nội dung hiện có",
+        "batch_cancelled": "Đã hủy. Đã điền {filled} trên {total} ghi chú.",
     },
     "tr": {
         "generate_smart_fields": "Smart Fields oluştur",
@@ -745,6 +772,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Oluşturuluyor",
         "fill_note_tip": "Bu notun boş Smart Fields alanlarını doldur ({shortcut})",
         "regenerate_note_tip": "Tüm Smart Fields alanlarını yeniden oluştur, mevcut içeriği değiştir",
+        "batch_cancelled": "İptal edildi. {total} nottan {filled} tanesi dolduruldu.",
     },
     "zh-CN": {
         "generate_smart_fields": "生成 Smart Fields",
@@ -771,6 +799,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "正在生成",
         "fill_note_tip": "填充此笔记中空白的 Smart Fields（{shortcut}）",
         "regenerate_note_tip": "重新生成所有 Smart Fields，替换现有内容",
+        "batch_cancelled": "已取消。已填写 {total} 条笔记中的 {filled} 条。",
     },
     "ja": {
         "generate_smart_fields": "Smart Fieldsを生成",
@@ -797,6 +826,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "生成中",
         "fill_note_tip": "このノートの空の Smart Fields を埋める（{shortcut}）",
         "regenerate_note_tip": "すべての Smart Fields を再生成し、既存の内容を置き換えます",
+        "batch_cancelled": "キャンセルしました。{total} 件中 {filled} 件のノートを入力しました。",
     },
     "zh-TW": {
         "generate_smart_fields": "產生 Smart Fields",
@@ -823,6 +853,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "正在產生",
         "fill_note_tip": "填入此筆記空白的 Smart Fields（{shortcut}）",
         "regenerate_note_tip": "重新產生所有 Smart Fields，取代現有內容",
+        "batch_cancelled": "已取消。已填寫 {total} 則筆記中的 {filled} 則。",
     },
     "ko": {
         "generate_smart_fields": "Smart Fields 생성",
@@ -849,6 +880,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "생성 중",
         "fill_note_tip": "이 노트의 빈 Smart Fields 채우기 ({shortcut})",
         "regenerate_note_tip": "모든 Smart Fields를 다시 생성해 기존 내용을 바꿉니다",
+        "batch_cancelled": "취소되었습니다. 노트 {total}개 중 {filled}개를 채웠습니다.",
     },
     "cs": {
         "generate_smart_fields": "Generovat Smart Fields",
@@ -875,6 +907,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Generuje se",
         "fill_note_tip": "Vyplnit prázdná Smart Fields této poznámky ({shortcut})",
         "regenerate_note_tip": "Znovu vygenerovat všechna Smart Fields a nahradit obsah",
+        "batch_cancelled": "Zrušeno. Vyplněno bylo {filled} z {total} poznámek.",
     },
     "el": {
         "generate_smart_fields": "Δημιουργία Smart Fields",
@@ -901,6 +934,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Δημιουργία",
         "fill_note_tip": "Συμπλήρωση των κενών Smart Fields αυτής της σημείωσης ({shortcut})",
         "regenerate_note_tip": "Αναδημιουργία όλων των Smart Fields, με αντικατάσταση του περιεχομένου",
+        "batch_cancelled": "Ακυρώθηκε. Συμπληρώθηκαν {filled} από {total} σημειώσεις.",
     },
     "bg": {
         "generate_smart_fields": "Генериране на Smart Fields",
@@ -927,6 +961,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Генериране",
         "fill_note_tip": "Попълване на празните Smart Fields в тази бележка ({shortcut})",
         "regenerate_note_tip": "Повторно генериране на всички Smart Fields със замяна на съдържанието",
+        "batch_cancelled": "Отменено. Попълнени са {filled} от {total} бележки.",
     },
     "mn": {
         "generate_smart_fields": "Smart Fields үүсгэх",
@@ -953,6 +988,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Үүсгэж байна",
         "fill_note_tip": "Энэ тэмдэглэлийн хоосон Smart Fields-ийг бөглөх ({shortcut})",
         "regenerate_note_tip": "Бүх Smart Fields-ийг дахин үүсгэж, одоогийн агуулгыг солих",
+        "batch_cancelled": "Цуцлагдлаа. {total} тэмдэглэлээс {filled}-г бөглөсөн.",
     },
     "ru": {
         "generate_smart_fields": "Создать Smart Fields",
@@ -979,6 +1015,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Создание",
         "fill_note_tip": "Заполнить пустые Smart Fields этой заметки ({shortcut})",
         "regenerate_note_tip": "Перегенерировать все Smart Fields, заменив содержимое",
+        "batch_cancelled": "Отменено. Заполнено заметок: {filled} из {total}.",
     },
     "sr": {
         "generate_smart_fields": "Генериши Smart Fields",
@@ -1005,6 +1042,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Генерисање",
         "fill_note_tip": "Попуни празна Smart Fields ове белешке ({shortcut})",
         "regenerate_note_tip": "Поново генериши сва Smart Fields и замени садржај",
+        "batch_cancelled": "Отказано. Попуњено је {filled} од {total} белешки.",
     },
     "uk": {
         "generate_smart_fields": "Згенерувати Smart Fields",
@@ -1031,6 +1069,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Генерування",
         "fill_note_tip": "Заповнити порожні Smart Fields цієї нотатки ({shortcut})",
         "regenerate_note_tip": "Перегенерувати всі Smart Fields, замінивши вміст",
+        "batch_cancelled": "Скасовано. Заповнено нотаток: {filled} з {total}.",
     },
     "hy": {
         "generate_smart_fields": "Ստեղծել Smart Fields",
@@ -1057,6 +1096,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Ստեղծվում է",
         "fill_note_tip": "Լրացնել այս նշման դատարկ Smart Fields-ը ({shortcut})",
         "regenerate_note_tip": "Վերաստեղծել բոլոր Smart Fields-ը՝ փոխարինելով առկա բովանդակությունը",
+        "batch_cancelled": "Չեղարկվեց։ Լրացվեց {total} նշումից {filled}-ը։",
     },
     "he": {
         "generate_smart_fields": "יצירת Smart Fields",
@@ -1083,6 +1123,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "יוצר",
         "fill_note_tip": "מילוי ה-Smart Fields הריקים בפתק הזה ({shortcut})",
         "regenerate_note_tip": "יצירה מחדש של כל ה-Smart Fields, במקום התוכן הקיים",
+        "batch_cancelled": "בוטל. מולאו {filled} מתוך {total} פתקים.",
     },
     "ar": {
         "generate_smart_fields": "إنشاء Smart Fields",
@@ -1109,6 +1150,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "جارٍ الإنشاء",
         "fill_note_tip": "ملء حقول Smart Fields الفارغة في هذه الملاحظة ({shortcut})",
         "regenerate_note_tip": "إعادة توليد جميع حقول Smart Fields واستبدال المحتوى الحالي",
+        "batch_cancelled": "تم الإلغاء. تم ملء {filled} من أصل {total} ملاحظة.",
     },
     "fa": {
         "generate_smart_fields": "ایجاد Smart Fields",
@@ -1135,6 +1177,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "در حال ایجاد",
         "fill_note_tip": "پر کردن Smart Fields خالی این یادداشت ({shortcut})",
         "regenerate_note_tip": "ایجاد دوباره همه Smart Fields و جایگزینی محتوای فعلی",
+        "batch_cancelled": "لغو شد. {filled} از {total} یادداشت پر شد.",
     },
     "th": {
         "generate_smart_fields": "สร้าง Smart Fields",
@@ -1161,6 +1204,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "กำลังสร้าง",
         "fill_note_tip": "เติม Smart Fields ที่ว่างในโน้ตนี้ ({shortcut})",
         "regenerate_note_tip": "สร้าง Smart Fields ทั้งหมดใหม่ โดยแทนที่เนื้อหาเดิม",
+        "batch_cancelled": "ยกเลิกแล้ว เติมโน้ตแล้ว {filled} จาก {total} รายการ",
     },
     "ga": {
         "generate_smart_fields": "Gin Smart Fields",
@@ -1187,6 +1231,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Á ghiniúint",
         "fill_note_tip": "Líon na Smart Fields folmha sa nóta seo ({shortcut})",
         "regenerate_note_tip": "Athghin gach Smart Field, in áit an ábhair atá ann",
+        "batch_cancelled": "Cealaithe. Líonadh {filled} as {total} nóta.",
     },
     "be": {
         "generate_smart_fields": "Стварыць Smart Fields",
@@ -1213,6 +1258,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Стварэнне",
         "fill_note_tip": "Запоўніць пустыя Smart Fields гэтай нататкі ({shortcut})",
         "regenerate_note_tip": "Перагенераваць усе Smart Fields, замяніўшы змесціва",
+        "batch_cancelled": "Скасавана. Запоўнена нататак: {filled} з {total}.",
     },
     "or": {
         "generate_smart_fields": "Smart Fields ସୃଷ୍ଟି କରନ୍ତୁ",
@@ -1239,6 +1285,7 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "ସୃଷ୍ଟି ହେଉଛି",
         "fill_note_tip": "ଏହି ନୋଟ୍‌ର ଖାଲି Smart Fields ପୂରଣ କରନ୍ତୁ ({shortcut})",
         "regenerate_note_tip": "ସମସ୍ତ Smart Fields ପୁଣି ସୃଷ୍ଟି କରି ବର୍ତ୍ତମାନର ବିଷୟବସ୍ତୁ ବଦଳାନ୍ତୁ",
+        "batch_cancelled": "ବାତିଲ ହେଲା। {total}ଟି ନୋଟ୍ ମଧ୍ୟରୁ {filled}ଟି ପୂରଣ ହେଲା।",
     },
     "tl": {
         "generate_smart_fields": "Bumuo ng Smart Fields",
@@ -1265,5 +1312,6 @@ NATIVE_ACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "generating": "Bumubuo",
         "fill_note_tip": "Punan ang mga bakanteng Smart Fields ng note na ito ({shortcut})",
         "regenerate_note_tip": "Buuin muli ang lahat ng Smart Field, papalitan ang laman",
+        "batch_cancelled": "Kinansela. {filled} sa {total} na note ang napunan.",
     },
 }

@@ -28,6 +28,7 @@ from aqt import mw
 from .api_client import NETWORK_ERRORS, OutOfCreditsError, UserDisplayableError
 from .app_state import app_state, can_generate_in_background
 from .config import config
+from .generation_access import refresh_account_if_trial_ended
 from .logger import logger
 from .note_proccessor import NoteProcessor
 from .sentry import run_async_in_background_with_sentry
@@ -257,6 +258,7 @@ class ReviewTimeEvaluator:
         self.wave_in_progress = False
         if self.is_stopped:
             return
+        refresh_account_if_trial_ended(open_screen=False)
         self.process_pending_tick()
 
     def on_complete_error(self, e: Exception) -> None:

@@ -593,11 +593,16 @@ def update_generate_banner(
         )
     _set_tooltip(regenerate, tip)
 
-    # For one note the labels count the fields each fills: "(3)", none for 0.
+    # For one note the labels count the fields each fills: "(3)", none for 0 or
+    # for a disabled button, which fills nothing.
     generating = f" {native_action_text('generating')}..."
     for button, name, count in (
-        (generate, "generate", actions.generate_count),
-        (regenerate, "regenerate", actions.regenerate_count),
+        (generate, "generate", actions.generate_count if actions.can_generate else 0),
+        (
+            regenerate,
+            "regenerate",
+            actions.regenerate_count if actions.can_regenerate else 0,
+        ),
     ):
         for size, label_key in (("full", "label"), ("short", "short_label")):
             text = f" {banner.property(f'{name}_{label_key}')}"

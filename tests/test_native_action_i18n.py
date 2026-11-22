@@ -78,3 +78,5 @@ def test_native_action_catalogs_are_complete_and_preserve_product_terms() -> Non
         assert "{shortcut}" in catalog["fill_note_tip"]
         assert "{field}" in catalog["generate_field_tip"]
         assert "{field}" in catalog["regenerate_field_tip"]
+        assert "{filled}" in catalog["batch_cancelled"]
+        assert "{total}" in catalog["batch_cancelled"]

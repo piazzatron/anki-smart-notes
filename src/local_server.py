@@ -65,6 +65,7 @@ from .services.prompt_test_service import (
     save_test_result,
 )
 from .services.smart_field_service import smart_field_service
+from .services.usage_service import get_times_used
 from .telemetry import track_event
 from .ui.ui_utils import open_anki_browser, open_browser_on_field
 from .utils import get_version
@@ -491,7 +492,7 @@ class LocalServer:
                 auth_token=config.auth_token,
                 server_unreachable=app_state.server_unreachable,
                 feature_flags=flags,
-                times_used=config.times_used,
+                times_used=get_times_used(),
                 settings=dto.build_settings(smart_fields),
                 app_version=get_version(),
                 install_id=get_install_id(),

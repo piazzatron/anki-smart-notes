@@ -46,7 +46,7 @@ from .event_bus import event_bus
 from .feature_flags import refresh_feature_flags
 from .generation_access import ensure_generation_available
 from .logger import cleanup_logger, logger
-from .note_proccessor import NoteProcessor
+from .note_proccessor import BatchResult, NoteProcessor
 from .review_time_evaluator import ReviewTimeEvaluator
 from .sentry import sentry, with_sentry
 from .tasks import run_async_in_background
@@ -240,16 +240,23 @@ def _generate_editor_field(
 
 def _make_on_batch_success(
     browser: browser.Browser,  # type: ignore
-) -> Callable[[list[Note], list[Note], list[Note]], None]:
-    def wrapped_on_batch_success(
-        updated: list[Note], errors: list[Note], skipped: list[Note]
-    ):
+) -> Callable[[BatchResult], None]:
+    def wrapped_on_batch_success(result: BatchResult):
         browser.on_all_or_selected_rows_changed()
+        updated, errors, skipped = result.updated, result.failed, result.skipped
 
         def pluralize(word: str, count: int) -> str:
             return f"{count} {word}{'s' if count != 1 else ''}"
 
-        if not len(updated) and len(errors):
+        # A cancelled batch's unfinished notes aren't skipped or failed, so it
+        # reports only how far it got.
+        if result.cancelled:
+            show_message_box(
+                native_action_text("batch_cancelled").format(
+                    filled=len(updated), total=result.total
+                )
+            )
+        elif not len(updated) and len(errors):
             show_message_box("All notes failed. Try again soon.")
         elif len(errors) or len(skipped):
             parts = [f"Processed {pluralize('note', len(updated))} successfully"]
@@ -399,6 +406,8 @@ def _smart_notes_menu(parent: Any, window: str) -> QMenu:
     """The menu bar's Smart Notes menu. `window` names the menu bar in analytics."""
     menu = QMenu("Smart Notes", parent)
     action = QAction("Smart Notes", parent)
+    # Named so scripted checks (`cli/sn qt click smartNotesOpen`) can open the window.
+    action.setObjectName("smartNotesOpen")
 
     def open_from_menu() -> None:
         track_click(f"menu.smart_notes.{window}")

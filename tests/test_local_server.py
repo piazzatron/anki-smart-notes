@@ -303,8 +303,9 @@ async def test_events_sends_state_on_connect_then_forwards_events(monkeypatch):
     monkeypatch.setattr(
         src.local_server,
         "config",
-        MagicMock(auth_token="jwt-from-plugin-config", times_used=3),
+        MagicMock(auth_token="jwt-from-plugin-config"),
     )
+    monkeypatch.setattr(src.local_server, "get_times_used", lambda: 3)
     monkeypatch.setattr(dto, "build_state", build_state)
     monkeypatch.setattr(dto, "build_settings", lambda _smart_fields: fake_settings)
     monkeypatch.setattr(dto, "build_catalog", lambda: fake_catalog)

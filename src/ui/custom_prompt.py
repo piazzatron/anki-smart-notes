@@ -20,7 +20,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 # Note to future self / contributors:
 # these classes are fairly brittle & tightly coupled, and deviate a good bit from
 # existing patterns in the codebase (making heavy use of inheritance, using StateManager in an adhoc-way, etc)
-
+import html
 from collections.abc import Callable
 from typing import Optional, TypedDict
 
@@ -207,6 +207,13 @@ class CustomPrompt(QDialog):
 
         self.setLayout(container)
         self.setup_ui()
+        # Qt opens a window at no more than two thirds of the screen's height,
+        # which squashed the settings rows, so open it at the size it asks for.
+        screen = self.screen()
+        size = self.sizeHint()
+        self.resize(
+            size.boundedTo(screen.availableGeometry().size()) if screen else size
+        )
 
     def _render_custom_model(self) -> QWidget:
         container = QGroupBox("⚙️ Custom Settings")
@@ -256,6 +263,9 @@ class CustomPrompt(QDialog):
 class CustomTextPrompt(CustomPrompt):
     _response_edit: QTextEdit
     _chat_options: ChatOptions
+    # The response as generated, and the text the box showed for it.
+    _response: str = ""
+    _response_shown: str = ""
 
     def render_response_box(self) -> QWidget:
         self._response_edit = QTextEdit()
@@ -268,6 +278,8 @@ class CustomTextPrompt(CustomPrompt):
         def on_success(text: str):
             self._loading = False
             self._response_edit.setText(text)
+            self._response = text
+            self._response_shown = self._response_edit.toPlainText()
             self._update_ui_states()
 
         def on_error(error: Exception):
@@ -306,7 +318,12 @@ class CustomTextPrompt(CustomPrompt):
         return bool(self._response_edit.toPlainText())
 
     def render_to_text(self) -> Optional[str]:
-        return self._response_edit.toHtml()
+        # The box holds the response as a whole Qt rich text document, so save the
+        # response itself, or the user's text if they edited it.
+        shown = self._response_edit.toPlainText()
+        if shown == self._response_shown:
+            return self._response
+        return html.escape(shown).replace("\n", "<br>")
 
     def update_ui_states(self) -> None:
         self._response_edit.setReadOnly(self._loading)
@@ -480,7 +497,7 @@ class CustomTTSPrompt(CustomPrompt):
             return None
         file_name = get_media_path(self._note, self._field_upper, "mp3")
         path = write_media(file_name, self.audio)
-        return f"[sound: {path}]"
+        return f"[sound:{path}]"
 
     def update_ui_states(self) -> None:
         self.play_button.setEnabled(not self._loading and self.has_output())

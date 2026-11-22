@@ -45,6 +45,7 @@ from fixtures import (
 import src.note_proccessor
 import src.utils.notes_utils
 from src.api_client import OutOfCreditsError, UserDisplayableError
+from src.note_proccessor import BatchResult
 
 
 def p(str) -> str:
@@ -842,6 +843,12 @@ async def test_process_note_updates_collection_on_main_thread(monkeypatch):
     import src.note_proccessor
 
     class MockCollection:
+        def add_custom_undo_entry(self, name):
+            return 1
+
+        def merge_undo_entries(self, target):
+            pass
+
         def __init__(self):
             self.updated_notes = []
 
@@ -928,6 +935,12 @@ async def test_cancelled_batch_does_not_stop_background_generation(monkeypatch):
     batch_results = []
 
     class MockCollection:
+        def add_custom_undo_entry(self, name):
+            return 1
+
+        def merge_undo_entries(self, target):
+            pass
+
         db = FakeAnkiDb(cards=[(1, 1, 1)])
 
         def update_note(self, note):
@@ -954,12 +967,12 @@ async def test_cancelled_batch_does_not_stop_background_generation(monkeypatch):
     run_background_ops_as_tasks(monkeypatch, src.note_proccessor)
 
     # The user cancels a browser batch from its progress dialog.
-    processor.process_cards_with_progress(
-        [1], on_success=lambda *results: batch_results.append(results)
-    )
+    processor.process_cards_with_progress([1], on_success=batch_results.append)
     await asyncio.sleep(0)
 
-    assert batch_results == [([], [], [])]
+    assert batch_results == [
+        BatchResult(updated=[], failed=[], skipped=[], total=1, cancelled=True)
+    ]
     assert batches_run == []
 
     # Review-time generation runs afterwards, and the cancel request is still
@@ -1025,6 +1038,12 @@ async def test_editor_generation_saves_fields_despite_editor_reloads(
     shown_in_editor = []
 
     class MockCollection:
+        def add_custom_undo_entry(self, name):
+            return 1
+
+        def merge_undo_entries(self, target):
+            pass
+
         def update_note(self, note):
             saved.update(note._data)
 
