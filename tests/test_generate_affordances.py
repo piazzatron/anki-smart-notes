@@ -18,6 +18,7 @@ along with Smart Notes.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import json
+import re
 import shutil
 from pathlib import Path
 from types import SimpleNamespace
@@ -265,18 +266,21 @@ def test_multi_card_note_counts_once_and_uses_the_generation_deck(
 
 
 @pytest.mark.parametrize(
-    ("page_fields", "expected"),
+    ("page_id", "page_fields", "expected"),
     [
         # The user typed into Extra while Back was generating: both are kept.
-        (["word", "", "typed"], ["word", "generated", "typed"]),
+        (None, ["word", "", "typed"], ["word", "generated", "typed"]),
         # The user wrote their own Back meanwhile: theirs wins.
-        (["word", "mine", ""], ["word", "mine", ""]),
+        (None, ["word", "mine", ""], ["word", "mine", ""]),
         # The note was added and the page moved on to a blank one: nothing written.
-        (["", "", ""], None),
+        (None, ["", "", ""], None),
+        # The page shows another note (a Browser editor moved on): nothing written.
+        ("99", ["word", "", ""], None),
     ],
 )
-def test_generation_into_the_experimental_add_dialog_respects_the_page(
+def test_generation_into_the_experimental_editor_respects_the_page(
     monkeypatch: pytest.MonkeyPatch,
+    page_id: Optional[str],
     page_fields: list[str],
     expected: Optional[list[str]],
 ) -> None:
@@ -292,21 +296,23 @@ def test_generation_into_the_experimental_add_dialog_respects_the_page(
 
     class FakeWeb:
         def evalWithCallback(self, _: str, callback: Any) -> None:  # noqa: N802
-            callback({"mid": str(NOTE_TYPE_ID), "fields": page_fields})
+            callback({"id": page_id, "mid": str(NOTE_TYPE_ID), "fields": page_fields})
 
         def eval(self, js: str) -> None:
             written.append(js)
 
-    page_editor = SimpleNamespace(addMode=True, web=FakeWeb())
-    note = MockNote({"Front": "word", "Back": "generated", "Extra": ""})
+    page_editor = SimpleNamespace(addMode=True, web=FakeWeb(), parentWindow=None)
+    # Unsaved, as in the Add dialog.
+    note = MockNote({"Front": "word", "Back": "generated", "Extra": ""}, note_id=0)
 
     show_generated_note(page_editor, note, ["word", "", ""])  # type: ignore
 
+    writes = [js for js in written if "setFields(" in js]
     if expected is None:
-        assert written == []
+        assert writes == []
         return
-    [js] = written
-    names, values = json.loads(f"[{js.removeprefix('setFields(').removesuffix(');')}]")
+    [js] = writes
+    names, values, _, _ = json.loads(re.search(r"= (\[.*\]);", js)[1])  # type: ignore
     assert names == ["Front", "Back", "Extra"]
     assert values == expected
 

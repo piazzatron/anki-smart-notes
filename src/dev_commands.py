@@ -287,6 +287,13 @@ async def eval_in_editor(payload: dict[str, Any]) -> dict[str, Any]:
     return {"result": result}
 
 
+def editor_kind(payload: dict[str, Any]) -> dict[str, Any]:
+    """Which of Anki's editors the window titled `window` shows: "experimental"
+    (the Svelte editor, NewEditor) or "classic"."""
+    e = _editor(payload["window"])
+    return {"kind": "experimental" if type(e).__name__ == "NewEditor" else "classic"}
+
+
 _FOCUS_FIELD_JS = """
 document.querySelector('.field-container[data-index="%d"] .rich-text-editable')
   .shadowRoot.querySelector("anki-editable").focus()
@@ -466,13 +473,21 @@ def type_text(payload: dict[str, Any]) -> dict[str, Any]:
     return {"typed": payload["text"], "into": type(target).__name__}
 
 
-def send_keys(payload: dict[str, Any]) -> dict[str, Any]:
+async def send_keys(payload: dict[str, Any]) -> dict[str, Any]:
     """Presses the window shortcut `keys` (e.g. "Ctrl+Shift+Return") in the one
     visible window whose title contains `window`, through Qt's shortcut
-    handling as a real key press goes."""
-    window = _one_window(payload["window"])
+    handling as a real key press goes. Qt gives a key press to the active
+    window's shortcuts, and activating a window takes a moment, so it waits for
+    the window to be active first, as it is when a user types in it."""
+    window = await _on_main(lambda done: done(_one_window(payload["window"])))
     combo = QKeySequence(payload["keys"])[0]
-    window.activateWindow()
+    await _on_main(lambda done: done(window.activateWindow()))
+    for _ in range(100):
+        if await _on_main(lambda done: done(QApplication.activeWindow() is window)):
+            break
+        await asyncio.sleep(0.05)
+    else:
+        raise ValueError(f"{window.windowTitle()} never became the active window")
     # Qt must not go on reporting the modifiers held afterwards: Anki opens the
     # next Browser on its experimental editor while Shift looks held. So the keys
     # go to the window rather than a focused editor web view, which hands them
@@ -499,7 +514,8 @@ def send_keys(payload: dict[str, Any]) -> dict[str, Any]:
         for key in held:
             release(target, key, Qt.KeyboardModifier.NoModifier)
 
-    QTimer.singleShot(0, press)
+    # Deferred, so a shortcut that opens a modal dialog doesn't block the reply.
+    await _on_main(lambda done: done(QTimer.singleShot(0, press)))
     return {"pressed": payload["keys"], "window": window.windowTitle()}
 
 
@@ -670,6 +686,7 @@ _HANDLERS: dict[str, Callable[[dict[str, Any]], Any]] = {
     "dev.qt.menu.notes": open_notes_menu,
     "dev.qt.menu.sidebar": open_sidebar_menu,
     "dev.editor.eval": eval_in_editor,
+    "dev.editor.kind": editor_kind,
     "dev.editor.focus": focus_field,
     "dev.editor.menu": open_field_menu,
     "dev.auth.signIn": sign_in,

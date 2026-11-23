@@ -73,6 +73,9 @@ _REGENERATE_NAME = "smartNotesRegenerate"
 
 # The pycmd a field's Generate button sends, followed by ":<field index>".
 GENERATE_FIELD_COMMAND = "smartNotesGenerateField"
+# The pycmd an item Smart Notes adds to the experimental editor's in-page
+# right-click menu sends: "<command>:<item>:<field index>".
+FIELD_MENU_COMMAND = "smartNotesFieldMenu"
 
 # Free in the Browser and both editors, and it pairs with Anki's Ctrl+Enter (Add).
 # Ctrl+Shift+G is Anki's Grade Now in the Browser and Ctrl+Alt+G its Create
@@ -891,11 +894,32 @@ def with_editor_card(e: editor.Editor, on_card: Callable[[Card], None]) -> None:
     e.web.evalWithCallback(_READ_ADD_PAGE_JS % EDITOR_CHANGED_COMMAND, on_page)
 
 
-def _write_back_to_add_page(
+# Sets the experimental editor's fields. The page doesn't redraw the field the
+# cursor is in, and saves what that field shows when the cursor leaves it. So
+# when that field gets a new value, take the cursor out first and put it back
+# after. Any other field the cursor is in keeps what the user is typing, which
+# the page's copy of the note may not have caught up with yet. Then it asks for
+# the buttons to be redrawn, once the page holds the new values.
+_SET_PAGE_FIELDS_JS = """
+(() => {
+  const [names, values, changed, command] = %s;
+  const field = document.activeElement?.closest?.(".field-container");
+  const refocus = field && changed.includes(Number(field.dataset.index));
+  if (refocus) document.activeElement.blur();
+  setFields(names, values);
+  if (refocus) focusField(Number(field.dataset.index));
+  pycmd(command);
+})();
+"""
+
+
+def _write_back_to_page(
     e: editor.Editor, note: Note, original_fields: list[str]
 ) -> None:
-    """Puts generated values into the experimental Add dialog's page, keeping
-    whatever the user typed meanwhile in the fields generation didn't touch."""
+    """Puts generated values into the experimental editor's page, if it's still
+    on that note, keeping whatever the user typed meanwhile in the fields
+    generation didn't touch. The page saves what it shows to the collection,
+    and would otherwise write its old values back over the results."""
     generated: dict[int, str] = {
         index: value
         for index, (value, original) in enumerate(
@@ -907,7 +931,8 @@ def _write_back_to_add_page(
     def on_info(info: Optional[dict[str, Any]]) -> None:
         if not info or not e.web or not mw or not mw.col:
             return
-        if int(info["mid"]) != note.mid:
+        # The Add dialog's unsaved note has no id yet.
+        if int(info["mid"]) != note.mid or int(info["id"] or 0) != note.id:
             return
         current: list[str] = info["fields"]
         # A filled field that generation didn't write has changed: the user
@@ -925,7 +950,11 @@ def _write_back_to_add_page(
         ]
         # The page takes media references escaped, as Anki's own loadNote does.
         escaped = [mw.col.media.escape_media_filenames(v) for v in values]
-        e.web.eval(f"setFields({json.dumps(note.keys())}, {json.dumps(escaped)});")
+        changed = [i for i, value in enumerate(values) if value != current[i]]
+        e.web.eval(
+            _SET_PAGE_FIELDS_JS
+            % json.dumps([note.keys(), escaped, changed, EDITOR_CHANGED_COMMAND])
+        )
 
     if generated and e.web:
         e.web.evalWithCallback(
@@ -940,10 +969,9 @@ def show_generated_note(
     """Shows a generated note in the editor if it's still on that note, and
     redraws the Browser's preview and banner. `original_fields` are the note's
     values before generation."""
-    if _is_new_add(e):
-        _write_back_to_add_page(e, note, original_fields)
-        return
-    if hasattr(e, "note"):
+    if not hasattr(e, "note"):
+        _write_back_to_page(e, note, original_fields)
+    else:
         shown = e.note
         if shown is None or not (shown is note or (note.id and shown.id == note.id)):
             return
@@ -952,11 +980,6 @@ def show_generated_note(
         # browser's previewer swaps the card's cached note for a fresh copy.
         e.note = note
         e.loadNote()
-    else:
-        if not e.web or getattr(e, "nid", None) != note.id:
-            return
-        # Reloads from the collection and fires editor_did_load_note.
-        e.set_note(note)
 
     parent = e.parentWindow
     if isinstance(parent, Browser):
@@ -1175,11 +1198,59 @@ def schedule_editor_refresh(e: editor.Editor) -> None:
     timer.start()
 
 
+# Adds Smart Notes' items to the experimental editor's right-click menu, which
+# Anki draws in the page rather than as a Qt menu, so no menu hook reaches it.
+# A field with a Smart Notes button is a Smart Field and also gets Generate.
+_FIELD_MENU_JS = """
+(() => {
+  if (window.smartNotesFieldMenu) return;
+  window.smartNotesFieldMenu = true;
+  const { command, generate, custom } = %s;
+  let field = null;
+  // Capture runs before Anki's own handler opens its menu.
+  document.addEventListener("contextmenu", (event) => {
+    field = event.composedPath().find((n) => n.classList?.contains("field-container")) ?? null;
+  }, true);
+  new MutationObserver(() => {
+    const menu = document.querySelector(".context-menu");
+    const template = menu?.querySelector(".context-menu-item");
+    if (!field || !template) return;
+    const index = field.dataset.index;
+    const items = [...(field.querySelector("button.sn-gen") ? [["generate", generate]] : []), ...custom];
+    field = null;
+    items.forEach(([item, label], i) => {
+      const row = template.cloneNode(false);
+      row.textContent = label;
+      if (i === 0) row.style.borderTop = "1px solid var(--border)";
+      row.addEventListener("click", () => {
+        pycmd(`${command}:${item}:${index}`);
+        // Anki closes its menu on a click outside it.
+        document.body.click();
+      });
+      menu.appendChild(row);
+    });
+  }).observe(document.body, { childList: true, subtree: true });
+})();
+"""
+
+
 def refresh_editor(e: editor.Editor) -> None:
     """Redraws the editor's field buttons and its dialog's banner for the note
     as the editor shows it, unsaved edits included."""
     if not e.web or not mw or not mw.col or addon_files.changing:
         return
+
+    if not hasattr(e, "note"):
+        menu = {
+            "command": FIELD_MENU_COMMAND,
+            "generate": f"✨ {native_action_text('generate_smart_field')}",
+            "custom": [
+                ["custom_text", f"💬 {native_action_text('custom_text')}"],
+                ["custom_tts", f"📣 {native_action_text('custom_tts')}"],
+                ["custom_image", f"🖼️ {native_action_text('custom_image')}"],
+            ],
+        }
+        e.web.eval(_FIELD_MENU_JS % json.dumps(menu))
 
     if _is_new_add(e):
         with_editor_card(

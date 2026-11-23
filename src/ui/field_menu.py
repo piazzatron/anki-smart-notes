@@ -30,30 +30,34 @@ from ..generation_access import (
 from ..note_proccessor import NoteProcessor
 from ..telemetry import track_click
 from .custom_prompt import CustomImagePrompt, CustomTextPrompt, CustomTTSPrompt
+from .generate_affordances import show_generated_note
 from .i18n import native_action_text
 
 
 class FieldMenu:
-    """Constructs and attaches context menu for an editor field."""
+    """Constructs and attaches context menu for an editor field. Without a
+    menu, it only runs the custom prompts (`run_custom`), for the experimental
+    editor's own in-page menu."""
 
     def __init__(
         self,
         *,
         editor_instance: editor.Editor,
-        menu: QMenu,
+        menu: Optional[QMenu],
         processor: NoteProcessor,
         card: Card,
         field_upper: str,
         is_smart_field: bool,
     ) -> None:
         self.editor = editor_instance
-        self.menu = menu
         self.processor = processor
         self.card = card
         self.field_upper = field_upper
         self.is_smart_field = is_smart_field
 
-        self._build_menu()
+        if menu:
+            self.menu = menu
+            self._build_menu()
 
     # ---------------------------------------------------------------------
     # Menu construction helpers
@@ -133,19 +137,15 @@ class FieldMenu:
                 return
 
             note = self.card.note()
+            original_fields = [note[name] for name in note.keys()]  # noqa: SIM118
             note[self.field_upper] = res
 
             # Persist only if already in collection
             if note.id:
                 mw.col.update_note(note)  # type: ignore
 
-            self.editor.loadNote()
-
-            parent = self.editor.parentWindow
-            if isinstance(parent, browser.Browser) and getattr(  # type: ignore
-                parent, "_previewer", None
-            ):  # type: ignore
-                parent._previewer.render_card()  # type: ignore
+            # Shows it in either editor, and redraws the Browser's preview.
+            show_generated_note(self.editor, note, original_fields)
 
         return _on_success
 
@@ -187,3 +187,13 @@ class FieldMenu:
             field_upper=self.field_upper,
             on_success=self._make_custom_field_success(),
         ).exec()
+
+    def run_custom(self, kind: str) -> None:
+        """Opens the custom prompt `kind` ("custom_text", "custom_tts" or
+        "custom_image") for the field, as its menu item does."""
+        track_click(f"field_menu.{kind}")
+        {
+            "custom_text": self._on_custom_text,
+            "custom_tts": self._on_custom_tts,
+            "custom_image": self._on_custom_image,
+        }[kind](False)

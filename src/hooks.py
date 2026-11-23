@@ -23,11 +23,12 @@ Setup the hooks for the Anki plugin
 
 
 import logging
+import time
 from collections.abc import Callable, Sequence
 from typing import Any, Optional
 
 from anki.cards import Card
-from anki.collection import Collection
+from anki.collection import Collection, OpChanges
 from anki.decks import DeckId
 from anki.hooks import note_will_be_added
 from anki.notes import Note
@@ -55,6 +56,7 @@ from .ui.changelog import ChangeLogDialog, is_new_major_or_minor_version
 from .ui.field_menu import FieldMenu
 from .ui.generate_affordances import (
     EDITOR_CHANGED_COMMAND,
+    FIELD_MENU_COMMAND,
     GENERATE_FIELD_COMMAND,
     GENERATE_SHORTCUT,
     LEGACY_GENERATE_SHORTCUT,
@@ -168,8 +170,9 @@ def _generate_editor_note(
 def on_webview_did_receive_js_message(
     processor: NoteProcessor,
 ) -> Callable[[tuple[bool, Any], str, Any], tuple[bool, Any]]:
-    """Handles clicks on an editor field's Generate button, and refreshes the
-    editor's buttons as its fields change."""
+    """Handles clicks on an editor field's Generate button and on the items
+    Smart Notes adds to the experimental editor's right-click menu, and
+    refreshes the editor's buttons as its fields change."""
 
     def handle(
         handled: tuple[bool, Any], message: str, context: Any
@@ -178,7 +181,12 @@ def on_webview_did_receive_js_message(
             return handled
         command, _, field_index = message.partition(":")
         if command == GENERATE_FIELD_COMMAND:
+            track_click("editor.generate_field")
             _generate_editor_field(processor, context, int(field_index))
+            return (True, None)
+        if command == FIELD_MENU_COMMAND and is_editor(context):
+            item, _, index = field_index.partition(":")
+            _run_field_menu_item(processor, context, item, int(index))
             return (True, None)
         # Both editors report typing and leaving a field with key and blur; the
         # experimental editor reports a loaded note with editorState, and its
@@ -191,6 +199,33 @@ def on_webview_did_receive_js_message(
     return handle
 
 
+def _run_field_menu_item(
+    processor: NoteProcessor, e: editor.Editor, item: str, field_index: int
+) -> None:
+    """Runs an item of the experimental editor's in-page right-click menu on the
+    field at `field_index`, as the classic editor's field menu does."""
+    if item == "generate":
+        track_click("field_menu.generate")
+        _generate_editor_field(processor, e, field_index)
+        return
+
+    # The custom prompts start from the note as the editor shows it now.
+    def run(card: Card) -> None:
+        field = get_field_from_index(card.note(), field_index)
+        if not field:
+            return
+        FieldMenu(
+            editor_instance=e,
+            menu=None,
+            processor=processor,
+            card=card,
+            field_upper=field,
+            is_smart_field=False,
+        ).run_custom(item)
+
+    e.call_after_note_saved(lambda: with_editor_card(e, run), keepFocus=True)
+
+
 def _generate_editor_field(
     processor: NoteProcessor, e: editor.Editor, field_index: int
 ) -> None:
@@ -198,7 +233,6 @@ def _generate_editor_field(
     always regenerates, its inputs fill only if empty, and regenerating a filled
     field also regenerates the fields that depend on it."""
 
-    track_click("editor.generate_field")
     if editor_busy(e):
         return
     set_editor_busy(e, True, frozenset({field_index}))
@@ -600,6 +634,26 @@ def on_note_will_be_added(_: Collection, note: Note, __: DeckId) -> None:
 
 
 @with_sentry
+def on_operation_did_execute(changes: OpChanges, handler: Optional[object]) -> None:
+    # Anki 26.9's experimental Add dialog adds notes from its page, which skips
+    # note_will_be_added: Python only hears of the add as an operation run for
+    # the dialog, without the note's id. Note ids are creation times, so the
+    # note it just added is the newest, and was created moments ago.
+    if (
+        type(handler).__name__ != "NewAddCards"
+        or not changes.note_text
+        or not _add_time_evaluator
+        or not mw
+        or not mw.col
+        or not mw.col.db
+    ):
+        return
+    nid = mw.col.db.scalar("select max(id) from notes")
+    if nid and nid > (time.time() - 10) * 1000:
+        _add_time_evaluator.on_note_will_be_added(mw.col.get_note(nid))
+
+
+@with_sentry
 def setup_hooks(processor: NoteProcessor):
     setup_web_hooks()
     gui_hooks.browser_will_show_context_menu.append(on_browser_context(processor))
@@ -613,6 +667,7 @@ def setup_hooks(processor: NoteProcessor):
     gui_hooks.browser_will_show.append(on_browser_will_show(processor))
     gui_hooks.browser_did_change_row.append(refresh_banner)
     gui_hooks.operation_did_execute.append(on_banner_operation_did_execute)
+    gui_hooks.operation_did_execute.append(on_operation_did_execute)
     gui_hooks.editor_did_load_note.append(refresh_editor)
     gui_hooks.editor_did_init.append(on_editor_did_init(processor))
     # Not in every supported Anki.
